@@ -16,7 +16,7 @@ export FTN11="none"
 export FTN12="none"
 export FTN13="none"
 export FTN14="none"
-export FTN15="none"
+export FTN15=$1.out15
 export FTN16="none"
 export FTN17="none"
 export FTN18="none"
@@ -27,6 +27,7 @@ export FTN22="none"
 export FTN23="none"
 export DBMEM="14000000"
 export OCMEM="14000000"
+export PROJ="."
 
 set > /tmp/set.txt
 export DIRCTY="${TMPDIR:-/tmp}"

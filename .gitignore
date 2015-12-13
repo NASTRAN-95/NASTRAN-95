@@ -8,17 +8,20 @@
 *.log
 *.out
 *.out11
+*.out15
 *.nptp
 *.plt
 *.plt1
 *.plt2
 *.pnh
-*.nid.sof1
-*.nid.sof2
+*.sof1
+*.sof2
 *.15
 *.16
 *.76
 fort.6
+fort.4
+none
 
 # http://www.gnu.org/software/automake
 Makefile

@@ -34,4 +34,4 @@ TEST_EXTENSIONS = .inp
 INP_LOG_COMPILER = ./testrunner.sh
 
 clean-local:
-	-rm -f *.out *.in12 *.out11 *.nptp *.plt *.plt1 *.plt2 *.pnh *.log *.inp.sof1 *.inp.sof2 *.15 *.16 *.76
+	-rm -f *.out *.in12 *.out11 *.out15 *.nptp *.plt *.plt1 *.plt2 *.pnh *.log *.inp.sof1 *.inp.sof2 *.15 *.16 *.76

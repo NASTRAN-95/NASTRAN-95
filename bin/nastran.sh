@@ -40,7 +40,7 @@ export IN12=$progname.in12
 export LOGNM=$progname.log
 export SOF1=$progname.sof1
 export SOF2=$progname.sof2
-
+export PROJ="."
 # RUN NASTRAN
 
 $nasthome/mds/nastran
