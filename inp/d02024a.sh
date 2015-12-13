@@ -1,3 +1,3 @@
 #!/bin/bash
 export SOF1=windmill.sof
-./testrunner.sh d02024a.nid
+./testrunner.sh d02024a.inp
