@@ -19,7 +19,7 @@ fi
 
 # ENV VARIABLES
 
-export RFDIR=/usr/share/nastran/rf
+export RFDIR=$nasthome/rf
 export DIRCTY="${TMPDIR:-/tmp}"
 
 export FT05=$1
@@ -55,7 +55,7 @@ export OCMEM="14000000"
 export PROJ="."
 # RUN NASTRAN
 
-/usr/lib/nastran/nast-run
-#gdb /usr/lib/nastran/nast-run
+$nasthome/mds/nastran
+#gdb $nasthome/mds/nastran
 
 
