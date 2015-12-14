@@ -4,9 +4,9 @@ Priority: optional
 Maintainer: Luca Dall'Olio <luca.dallolio@gmail.com>
 Standards-Version: 3.9.5
 Build-Depends: debhelper (>= 9), dh-exec, quilt, gfortran
-Vcs-Git: https://github.com/ldallolio/NASTRAN.git -b feature/legacy-build
-Vcs-Browser: https://github.com/ldallolio/NASTRAN/tree/feature/legacy-build
-Homepage: https://github.com/nasa/NASTRAN
+Vcs-Git: https://github.com/ldallolio/NASTRAN-95.git
+Vcs-Browser: https://github.com/ldallolio/NASTRAN-95
+Homepage: https://github.com/nasa/NASTRAN-95
 
 Package: nastran
 Depends: ${shlibs:Depends}, ${misc:Depends}
