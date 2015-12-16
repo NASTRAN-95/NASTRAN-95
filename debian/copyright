@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: NASTRAN
-Upstream-Contact: Luca Dall'Olio <luca.dallolio@gmail.com>
+Upstream-Contact: NASA <github@lists.nasa.gov>
 Source: https://github.com/nasa/NASTRAN-95
 Copyright: Copyright (C) 2001, 2007 United States Government as represented by the Administrator of the National Aeronautics and Space Administration. All Rights Reserved. 
 License: NASA-1.3
