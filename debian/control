@@ -2,7 +2,7 @@ Source: nastran
 Section: non-free/science
 Priority: optional
 Maintainer: Luca Dall'Olio <luca.dallolio@gmail.com>
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Build-Depends: debhelper (>= 9), dh-exec, quilt, gfortran
 Vcs-Git: https://github.com/ldallolio/NASTRAN-95.git
 Vcs-Browser: https://github.com/ldallolio/NASTRAN-95
