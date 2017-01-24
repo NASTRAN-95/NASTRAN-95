@@ -30,8 +30,7 @@ F77=gfortran
 AR=ar
 FLAGS+=-g -fno-range-check -fno-automatic -std=legacy -Iinclude -Llib -Jobj
 ################################################################################
-#all:       jobs nastran nasthelp nastplot chkfil ff
-all:       jobs nastran
+all:       jobs nastran nasthelp nastplot chkfil ff
 nastran:   obj bin libnas nasinfo bin/nastran.x
 nasinfo:   NASINFO
 libnas:    lib libnasmis libnasmds libnasbd lib/libnas.a
