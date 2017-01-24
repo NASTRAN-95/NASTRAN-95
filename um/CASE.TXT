@@ -3530,4 +3530,3 @@ Remarks
 
 1. Unlike other Case Control cards, which are free field, the comment card
    must have the $ in column 1.
-

@@ -13669,4 +13669,3 @@ REFERENCES
 7. Adamczyk, J. J., and Goldstein, M. E., "Unsteady Flow in a Supersonic
    Cascade with Subsonic Leading-Edge Locus," AlAA Journal, Vol. 16, No. 12,
    December 1978, pp. 1248-1254.
-

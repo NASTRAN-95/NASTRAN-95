@@ -2364,4 +2364,3 @@ Remarks
 5. Imbedded blanks within the individual elements of this card are not
    allowed. An unrecognizable command causes the program to automatically
    assume a PHASE2 solution.
-
