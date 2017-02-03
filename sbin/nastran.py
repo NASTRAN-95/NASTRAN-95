@@ -118,6 +118,8 @@ def main(args):
     FTN15  = args.FTN15
   if len(args.FTN16) > 0:
     FTN16  = args.FTN16
+  if len(args.SOF1) > 0:
+    SOF1  = args.SOF1
 
 
   # Argument list for arguments to be tagged onto the
@@ -212,6 +214,12 @@ def set_parser(parser):
                       type=str,
                       default='',
                       help='override FTN16')
+
+  parser.add_argument('-sof1', '--SOF1',
+                      metavar='SOF1',
+                      type=str,
+                      default='',
+                      help='override SOF1')
 
   parser.add_argument('-o', '--output-dir',
                       metavar='OUTFILESPEC',
