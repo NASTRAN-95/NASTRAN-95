@@ -280,6 +280,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = bd mis mds man inp test
+OPT_OPTS = $(FFLAGS)
 all: all-recursive
 
 .SUFFIXES:
@@ -734,6 +735,7 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+export OPT_OPTS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

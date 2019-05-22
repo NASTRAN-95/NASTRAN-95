@@ -1,5 +1,7 @@
 # what flags you want to pass to the Fortran compiler & linker
-FFLAGS = -g -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+OPT_OPTS ?= unknown
+AM_FFLAGS = $(OPT_OPTS)
+FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
@@ -249,6 +251,6 @@ cpystr.f  feerdd.f  ihexsd.f  mtrplt.f	rcovui.f   stqme2.f   yrcard.f \
 crdrd2.f  feer.f    ihexs.f   mtrxi.f	rcovuo.f   strap1.f   zeroc.f \
 crdrd.f   ferfbs.f  ihexss.f  mtrxin.f	rcovva.f   strap2.f   zj.f \
 create.f  ferltd.f  incore.f  mtrxo.f	rdmodx.f   strax1.f \
-criggp.f  ferlts.f  incro.f   mxcid.f	re2al.f    strax2.f
+criggp.f  ferlts.f  incro.f   mxcid.f	re2al.f    strax2.f   anullsub.f
 
 libnastran_a_LIBADD = ../bd/libnastbd.a

@@ -663,7 +663,7 @@ am_libnastran_a_OBJECTS = a42a8.$(OBJEXT) crspld.$(OBJEXT) \
 	ferltd.$(OBJEXT) incore.$(OBJEXT) mtrxo.$(OBJEXT) \
 	rdmodx.$(OBJEXT) strax1.$(OBJEXT) criggp.$(OBJEXT) \
 	ferlts.$(OBJEXT) incro.$(OBJEXT) mxcid.$(OBJEXT) \
-	re2al.$(OBJEXT) strax2.$(OBJEXT)
+	re2al.$(OBJEXT) strax2.$(OBJEXT) anullsub.$(OBJEXT)
 libnastran_a_OBJECTS = $(am_libnastran_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -732,9 +732,7 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
 F77 = @F77@
-
-# what flags you want to pass to the Fortran compiler & linker
-FFLAGS = -g -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -801,6 +799,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_FFLAGS = $(OPT_OPTS)
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
@@ -1050,7 +1049,7 @@ cpystr.f  feerdd.f  ihexsd.f  mtrplt.f	rcovui.f   stqme2.f   yrcard.f \
 crdrd2.f  feer.f    ihexs.f   mtrxi.f	rcovuo.f   strap1.f   zeroc.f \
 crdrd.f   ferfbs.f  ihexss.f  mtrxin.f	rcovva.f   strap2.f   zj.f \
 create.f  ferltd.f  incore.f  mtrxo.f	rdmodx.f   strax1.f \
-criggp.f  ferlts.f  incro.f   mxcid.f	re2al.f    strax2.f
+criggp.f  ferlts.f  incro.f   mxcid.f	re2al.f    strax2.f   anullsub.f
 
 libnastran_a_LIBADD = ../bd/libnastbd.a
 all: all-am
@@ -1307,6 +1306,9 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+
+# what flags you want to pass to the Fortran compiler & linker
+OPT_OPTS ?= unknown
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

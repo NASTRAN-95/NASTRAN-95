@@ -156,6 +156,7 @@ C
   608 CONTINUE
       I = I + 1
   610 IWRD = IWRD + 2
+      call anullsub(IWRD)
       MODE = MODE - 1
       IF (I .LT. 3) GO TO 606
 C

@@ -39,8 +39,10 @@ C
 C     SET NOGO FLAG IF NCODE IS POSITIVE
 C
       IF (NCODE .GT. 0 .AND. NOGO .LT. 1) NOGO = 1
+      if ( NCODE .NE. 49 ) then
       I      = IX(1)
       J      = JX(1)
+      endif
       KDHCOD = 0
       ICODE  = IABS(NCODE)
 C

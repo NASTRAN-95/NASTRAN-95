@@ -186,9 +186,7 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
 F77 = @F77@
-
-# what flags you want to pass to the Fortran compiler & linker
-FFLAGS = -g -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -255,6 +253,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_FFLAGS = $(OPT_OPTS)
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
@@ -519,6 +518,9 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+
+# what flags you want to pass to the Fortran compiler & linker#
+OPT_OPTS ?= unknown
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
