@@ -42,84 +42,58 @@ import os.path
 import uuid
 
 def main(args):
-  sdir = '/tmp'
   workdir = os.path.abspath(os.curdir)
   nastran_home=os.path.abspath(os.path.dirname(sys.argv[0]) + '/..')
   nastran_x = '{0}/bin/nastran.x'.format(nastran_home)
+  rstr = str(uuid.uuid4()).split('-')[0]
 
   bname = ''
   if os.path.isfile(args.input):
     bname = os.path.splitext(os.path.split(args.input)[1])[0]
   if len(bname) < 1: raise ValueError('Valid input file not provided.')
 
-  DIRCTY  = '{0}/{1}'  .format(sdir,str(uuid.uuid4()).split('-')[0])
-  RFDIR   = '{0}/rf'   .format(nastran_home)
-
-  NPTPNM  = '{0}.nptp' .format(bname)
-  PLTNM   = '{0}.plt'  .format(bname)
-  DICTNM  = '{0}.dict' .format(bname)
-  PUNCHNM = '{0}.pch'  .format(bname)
-  OPTPNM  = '{0}.opt'  .format(bname)
-  LOGNM   = '{0}.f04'  .format(bname)
-  F06     = '{0}.f06'  .format(bname)
-
-  IN12    = '{0}.in12' .format(bname)
-  OUT11   = '{0}.out11'.format(bname)
-
-  FTN11   = '{0}.f11'  .format(bname)
-  FTN12   = '{0}.f12'  .format(bname)
-  FTN13   = '{0}.f13'  .format(bname)
-  FTN14   = '{0}.f14'  .format(bname)
-  FTN15   = '{0}.f15'  .format(bname)
-  FTN16   = '{0}.f16'  .format(bname)
-  FTN17   = '{0}.f17'  .format(bname)
-  FTN18   = '{0}.f18'  .format(bname)
-  FTN19   = '{0}.f19'  .format(bname)
-  FTN20   = '{0}.f20'  .format(bname)
-  FTN21   = '{0}.f21'  .format(bname)
-  FTN22   = '{0}.f22'  .format(bname)
-  FTN23   = '{0}.f23'  .format(bname)
-
-  SOF1    = '{0}.sof1' .format(bname)
-  SOF2    = '{0}.sof2' .format(bname)
-  
   if len(args.output_dir) > 0:
-    NPTPNM  = '{0}/{1}'.format(args.output_dir, NPTPNM )
-    PLTNM   = '{0}/{1}'.format(args.output_dir, PLTNM  )
-    DICTNM  = '{0}/{1}'.format(args.output_dir, DICTNM )
-    PUNCHNM = '{0}/{1}'.format(args.output_dir, PUNCHNM)
-    OPTPNM  = '{0}/{1}'.format(args.output_dir, OPTPNM )
-    LOGNM   = '{0}/{1}'.format(args.output_dir, LOGNM  )
-    F06     = '{0}/{1}'.format(args.output_dir, F06    )
+    outputdir = os.path.abspath(args.output_dir)
+  else:
+    outputdir = workdir
 
-    IN12    = '{0}/{1}'.format(args.output_dir, IN12   )
-    OUT11   = '{0}/{1}'.format(args.output_dir, OUT11  )
+  tmpdir = os.environ.get('TEMP')
+  if tmpdir is None: tmpdir = os.environ.get('TMP')
+  if tmpdir is None: tmpdir = workdir
+  DIRCTY  = os.path.join(tmpdir,rstr)
+  RFDIR   = os.path.join(nastran_home,'rf')
+  NPTPNM  = os.path.join(outputdir, '{0}.nptp' .format(bname))
+  PLTNM   = os.path.join(outputdir, '{0}.plt'  .format(bname))
+  DICTNM  = os.path.join(outputdir, '{0}.dict' .format(bname))
+  PUNCHNM = os.path.join(outputdir, '{0}.pch'  .format(bname))
+  OPTPNM  = os.path.join(outputdir, '{0}.opt'  .format(bname))
+  LOGNM   = os.path.join(outputdir, '{0}.f04'  .format(bname))
+  F06     = os.path.join(outputdir, '{0}.f06'  .format(bname))
+                                                              
+  IN12    = os.path.join(outputdir, '{0}.in12' .format(bname))
+  OUT11   = os.path.join(outputdir, '{0}.out11'.format(bname))
+                                                              
+  FTN11   = os.path.join(outputdir, '{0}.f11'  .format(bname))
+  FTN12   = os.path.join(outputdir, '{0}.f12'  .format(bname))
+  FTN13   = os.path.join(outputdir, '{0}.f13'  .format(bname))
+  FTN14   = os.path.join(outputdir, '{0}.f14'  .format(bname))
+  FTN15   = os.path.join(outputdir, '{0}.f15'  .format(bname))
+  FTN16   = os.path.join(outputdir, '{0}.f16'  .format(bname))
+  FTN17   = os.path.join(outputdir, '{0}.f17'  .format(bname))
+  FTN18   = os.path.join(outputdir, '{0}.f18'  .format(bname))
+  FTN19   = os.path.join(outputdir, '{0}.f19'  .format(bname))
+  FTN20   = os.path.join(outputdir, '{0}.f20'  .format(bname))
+  FTN21   = os.path.join(outputdir, '{0}.f21'  .format(bname))
+  FTN22   = os.path.join(outputdir, '{0}.f22'  .format(bname))
+  FTN23   = os.path.join(outputdir, '{0}.f23'  .format(bname))
+                                                              
+  SOF1    = os.path.join(outputdir, '{0}.sof1' .format(bname))
+  SOF2    = os.path.join(outputdir, '{0}.sof2' .format(bname))
 
-    FTN11   = '{0}/{1}'.format(args.output_dir, FTN11  )
-    FTN12   = '{0}/{1}'.format(args.output_dir, FTN12  )
-    FTN13   = '{0}/{1}'.format(args.output_dir, FTN13  )
-    FTN14   = '{0}/{1}'.format(args.output_dir, FTN14  )
-    FTN15   = '{0}/{1}'.format(args.output_dir, FTN15  )
-    FTN16   = '{0}/{1}'.format(args.output_dir, FTN16  )
-    FTN17   = '{0}/{1}'.format(args.output_dir, FTN17  )
-    FTN18   = '{0}/{1}'.format(args.output_dir, FTN18  )
-    FTN19   = '{0}/{1}'.format(args.output_dir, FTN19  )
-    FTN20   = '{0}/{1}'.format(args.output_dir, FTN20  )
-    FTN21   = '{0}/{1}'.format(args.output_dir, FTN21  )
-    FTN22   = '{0}/{1}'.format(args.output_dir, FTN22  )
-    FTN23   = '{0}/{1}'.format(args.output_dir, FTN23  )
-
-    SOF1    = '{0}/{1}'.format(args.output_dir, SOF1   )
-    SOF2    = '{0}/{1}'.format(args.output_dir, SOF2   )
-
-  if len(args.OPTPNM) > 0:
-    OPTPNM  = args.OPTPNM
-  if len(args.FTN15) > 0:
-    FTN15  = args.FTN15
-  if len(args.FTN16) > 0:
-    FTN16  = args.FTN16
-  if len(args.SOF1) > 0:
-    SOF1  = args.SOF1
+  if len(args.OPTPNM) > 0: OPTPNM = args.OPTPNM
+  if len(args.FTN15)  > 0: FTN15  = args.FTN15
+  if len(args.FTN16)  > 0: FTN16  = args.FTN16
+  if len(args.SOF1)   > 0: SOF1   = args.SOF1
 
 
   # Argument list for arguments to be tagged onto the
@@ -130,60 +104,117 @@ def main(args):
   # of the qsub command.
   qargs = []
   
-  # Build job script
-  jobscr = ''
+  jobscr = []
+  if os.name == 'nt':
+    jobscr.append('@ECHO OFF\n')
+    jobscr.append('SETLOCAL\n')
+    jobscr.append('set DIRCTY={0}\n'.format(DIRCTY))
+    jobscr.append('set RFDIR={0}\n'.format(RFDIR))
+
+    jobscr.append('set NPTPNM={0}\n'.format(NPTPNM))
+    jobscr.append('set PLTNM={0}\n'.format(PLTNM))
+    jobscr.append('set DICTNM={0}\n'.format(DICTNM))
+    jobscr.append('set PUNCHNM={0}\n'.format(PUNCHNM))
+    jobscr.append('set OPTPNM={0}\n'.format(OPTPNM))
+    jobscr.append('set LOGNM={0}\n'.format(LOGNM))
+
+    jobscr.append('set IN12={0}\n'.format(IN12))
+    jobscr.append('set OUT11={0}\n'.format(OUT11))
+
+    jobscr.append('set FTN11={0}\n'.format(FTN11 ))
+    jobscr.append('set FTN12={0}\n'.format(FTN12 ))
+    jobscr.append('set FTN13={0}\n'.format(FTN13 ))
+    jobscr.append('set FTN14={0}\n'.format(FTN14 ))
+    jobscr.append('set FTN15={0}\n'.format(FTN15 ))
+    jobscr.append('set FTN16={0}\n'.format(FTN16 ))
+    jobscr.append('set FTN17={0}\n'.format(FTN17 ))
+    jobscr.append('set FTN18={0}\n'.format(FTN18 ))
+    jobscr.append('set FTN19={0}\n'.format(FTN19 ))
+    jobscr.append('set FTN20={0}\n'.format(FTN20 ))
+    jobscr.append('set FTN21={0}\n'.format(FTN21 ))
+    jobscr.append('set FTN22={0}\n'.format(FTN22 ))
+    jobscr.append('set FTN23={0}\n'.format(FTN23 ))
+
+    jobscr.append('set SOF1={0}\n'.format(SOF1))
+    jobscr.append('set SOF2={0}\n'.format(SOF2))
+
+    jobscr.append('set DBMEM={0}\n'.format(12000000))
+    jobscr.append('set OCMEM={0}\n'.format(2000000))
+
+    jobscr.append('CHDIR /D "{0}"\n'.format(workdir))
+    jobscr.append('MKDIR "{0}"\n'.format(DIRCTY))
+    jobscr += '"{0}" "{1}" <"{2}" >"{3}"\n'.format(nastran_x,
+                                         ' '.join(alist),
+                                             os.path.abspath(args.input),
+                                             F06)
+    jobscr.append('RMDIR /Q /S "{0}"\n'.format(DIRCTY))
+    jobscr.append('ENDLOCAL\n')
+    jobscr.append('CALL :DELETESELF & EXIT /B\n')
+    jobscr.append(':DELETESELF\n')
+    jobscr.append('START /B "" CMD /C DEL /F /Q "%~DPNX0"&EXIT /B\n')
+    batchname = os.path.join(workdir,'{0}.bat'.format(rstr))
+    batchfile = open(batchname,'w')
+    batchfile.writelines(jobscr)
+    batchfile.close()
+  else:
   #jobscr += '/usr/local/bin/qsub {0} - <<EOF'.format(' '.join(qargs))
-  jobscr += '/bin/bash - <<EOF'
-  jobscr += '\n#!/bin/bash'
-  jobscr += '\n#PBS -q nas'
-  jobscr += '\n#PBS -N {0}'.format(bname)
-  jobscr += '\n#PBS -k n'
-  jobscr += '\nexport DIRCTY={0}'.format(DIRCTY)
-  jobscr += '\nexport RFDIR={0}'.format(RFDIR)
+    jobscr.append('#!/bin/sh\n')
+    jobscr.append('#PBS -q nas\n')
+    jobscr.append('#PBS -N {0}\n'.format(bname))
+    jobscr.append('#PBS -k n\n')
+    jobscr.append('export DIRCTY={0}\n'.format(DIRCTY))
+    jobscr.append('export RFDIR={0}\n'.format(RFDIR))
 
-  jobscr += '\nexport NPTPNM={0}'.format(NPTPNM)
-  jobscr += '\nexport PLTNM={0}'.format(PLTNM)
-  jobscr += '\nexport DICTNM={0}'.format(DICTNM)
-  jobscr += '\nexport PUNCHNM={0}'.format(PUNCHNM)
-  jobscr += '\nexport OPTPNM={0}'.format(OPTPNM)
-  jobscr += '\nexport LOGNM={0}'.format(LOGNM)
+    jobscr.append('export NPTPNM={0}\n'.format(NPTPNM))
+    jobscr.append('export PLTNM={0}\n'.format(PLTNM))
+    jobscr.append('export DICTNM={0}\n'.format(DICTNM))
+    jobscr.append('export PUNCHNM={0}\n'.format(PUNCHNM))
+    jobscr.append('export OPTPNM={0}\n'.format(OPTPNM))
+    jobscr.append('export LOGNM={0}\n'.format(LOGNM))
 
-  jobscr += '\nexport IN12={0}'.format(IN12)
-  jobscr += '\nexport OUT11={0}'.format(OUT11)
+    jobscr.append('export IN12={0}\n'.format(IN12))
+    jobscr.append('export OUT11={0}\n'.format(OUT11))
 
-  jobscr += '\nexport FTN11={0}'.format(FTN11 )
-  jobscr += '\nexport FTN12={0}'.format(FTN12 )
-  jobscr += '\nexport FTN13={0}'.format(FTN13 )
-  jobscr += '\nexport FTN14={0}'.format(FTN14 )
-  jobscr += '\nexport FTN15={0}'.format(FTN15 )
-  jobscr += '\nexport FTN16={0}'.format(FTN16 )
-  jobscr += '\nexport FTN17={0}'.format(FTN17 )
-  jobscr += '\nexport FTN18={0}'.format(FTN18 )
-  jobscr += '\nexport FTN19={0}'.format(FTN19 )
-  jobscr += '\nexport FTN20={0}'.format(FTN20 )
-  jobscr += '\nexport FTN21={0}'.format(FTN21 )
-  jobscr += '\nexport FTN22={0}'.format(FTN22 )
-  jobscr += '\nexport FTN23={0}'.format(FTN23 )
+    jobscr.append('export FTN11={0}\n'.format(FTN11 ))
+    jobscr.append('export FTN12={0}\n'.format(FTN12 ))
+    jobscr.append('export FTN13={0}\n'.format(FTN13 ))
+    jobscr.append('export FTN14={0}\n'.format(FTN14 ))
+    jobscr.append('export FTN15={0}\n'.format(FTN15 ))
+    jobscr.append('export FTN16={0}\n'.format(FTN16 ))
+    jobscr.append('export FTN17={0}\n'.format(FTN17 ))
+    jobscr.append('export FTN18={0}\n'.format(FTN18 ))
+    jobscr.append('export FTN19={0}\n'.format(FTN19 ))
+    jobscr.append('export FTN20={0}\n'.format(FTN20 ))
+    jobscr.append('export FTN21={0}\n'.format(FTN21 ))
+    jobscr.append('export FTN22={0}\n'.format(FTN22 ))
+    jobscr.append('export FTN23={0}\n'.format(FTN23 ))
 
-  jobscr += '\nexport SOF1={0}'.format(SOF1)
-  jobscr += '\nexport SOF2={0}'.format(SOF2)
+    jobscr.append('export SOF1={0}\n'.format(SOF1))
+    jobscr.append('export SOF2={0}\n'.format(SOF2))
 
-  jobscr += '\nexport DBMEM={0}'.format(12000000)
-  jobscr += '\nexport OCMEM={0}'.format(2000000)
+    jobscr.append('export DBMEM={0}\n'.format(12000000))
+    jobscr.append('export OCMEM={0}\n'.format(2000000))
 
-  jobscr += '\ncd {0}'.format(workdir)
-  jobscr += '\nmkdir -p {0}'.format(DIRCTY)
-  jobscr += '\n{0} {1} <{2} >{3}'.format(nastran_x,
-                                       ' '.join(alist),
-                                           args.input,
-                                           F06)
-  jobscr += '\nrm -rf   {0}'.format(DIRCTY)
-  jobscr += '\nEOF'
+    jobscr.append('cd "{0}"\n'.format(workdir))
+    jobscr.append('mkdir -p "{0}"\n'.format(DIRCTY))
+    jobscr += '"{0}" "{1}" <"{2}" >"{3}"\n'.format(nastran_x,
+                                         ' '.join(alist),
+                                             os.path.abspath(args.input),
+                                             F06)
+    jobscr.append('rm -rf "{0}"\n'.format(DIRCTY))
+
+    batchname = os.path.join(workdir,'{0}.sh'.format(rstr))
+    jobscr.append('rm -rf "{0}"\n'.format(batchname))
+
+    batchfile = open(batchname,'w')
+    batchfile.writelines(jobscr)
+    batchfile.close()
+    os.chmod(batchname, 0755)
 
   if args.no_run:
-    print(jobscr)
+    print('{0} created.'.format(batchname))
   else:
-    os.system(jobscr)
+    os.system('"{0}"'.format(batchname))
 
 def set_parser(parser):
   parser.set_defaults(func=main)
