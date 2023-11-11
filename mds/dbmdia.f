@@ -11,7 +11,7 @@ CDME  D. Everhart
 CDME  GFORTRAN doesn't allow character assignment to INTEGER data.
 CDME  This should be fixed to remove the HOLLERITH, though!
       DATA              SCRATCH / 4HSCRA,4HTCHX /                               
-CDME  DATA              SCRATCH / 'SCRA','TCHX' /                               
+CDME  DATA              SCRATCH / 4HSCRA , 4HTCHX /                               
       IBLKSZ = ISYSBF - 4                                                       
       ITOTI  = 0                                                                
       ITOTX  = 0                                                                
