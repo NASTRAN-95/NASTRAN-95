@@ -41,3 +41,6 @@ Makefile
 .cproject
 .project
 .settings
+
+# Quilt
+.pc
