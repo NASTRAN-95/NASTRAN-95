@@ -18,6 +18,7 @@
 *.15
 *.16
 *.76
+fort.6
 
 # http://www.gnu.org/software/automake
 Makefile
