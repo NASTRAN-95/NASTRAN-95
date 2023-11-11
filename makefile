@@ -37,7 +37,7 @@
 F77=gfortran
 AR=ar
 NASTRAN=./sbin/nastran.py
-LN=ln -s
+LN=ln -sf
 #
 FLAGS+=-g -fno-range-check -fno-automatic -fallow-invalid-boz -std=legacy -Iinclude -Llib -Jobj
 ################################################################################
