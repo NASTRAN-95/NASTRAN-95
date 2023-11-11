@@ -39,7 +39,7 @@ AR=ar
 NASTRAN=./sbin/nastran.py
 LN=ln -s
 #
-FLAGS+=-g -fno-range-check -fno-automatic -std=legacy -Iinclude -Llib -Jobj
+FLAGS+=-g -fno-range-check -fno-automatic -fallow-invalid-boz -std=legacy -Iinclude -Llib -Jobj
 ################################################################################
 all:       nastran nasthelp nastplot chkfil ff jobs
 nastran:   obj bin libnas NASINFO bin/nastran.x
