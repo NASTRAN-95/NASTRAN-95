@@ -1,24 +1,24 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 ################################################################################
 # NASTRAN BOOTSTRAP SCRIPT
 # D. Everhart
 # 10 FEB 2016
 ################################################################################
 # The MIT License (MIT)
-# 
+#
 # Copyright (c) 2016 Daniel Everhart
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the 
+# a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject
 # to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -26,8 +26,8 @@
 # CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
-#################################################################################  Version 
+#
+#################################################################################  Version
 __version_major__  = 0
 __version_minor__  = 0
 __version_bugfix__ = 0
@@ -69,10 +69,10 @@ def main(args):
   OPTPNM  = os.path.join(outputdir, '{0}.opt'  .format(bname))
   LOGNM   = os.path.join(outputdir, '{0}.f04'  .format(bname))
   F06     = os.path.join(outputdir, '{0}.f06'  .format(bname))
-                                                              
+
   IN12    = os.path.join(outputdir, '{0}.in12' .format(bname))
   OUT11   = os.path.join(outputdir, '{0}.out11'.format(bname))
-                                                              
+
   FTN11   = os.path.join(outputdir, '{0}.f11'  .format(bname))
   FTN12   = os.path.join(outputdir, '{0}.f12'  .format(bname))
   FTN13   = os.path.join(outputdir, '{0}.f13'  .format(bname))
@@ -86,7 +86,7 @@ def main(args):
   FTN21   = os.path.join(outputdir, '{0}.f21'  .format(bname))
   FTN22   = os.path.join(outputdir, '{0}.f22'  .format(bname))
   FTN23   = os.path.join(outputdir, '{0}.f23'  .format(bname))
-                                                              
+
   SOF1    = os.path.join(outputdir, '{0}.sof1' .format(bname))
   SOF2    = os.path.join(outputdir, '{0}.sof2' .format(bname))
 
@@ -103,7 +103,7 @@ def main(args):
   # Argument list for args to be added on to the end
   # of the qsub command.
   qargs = []
-  
+
   jobscr = []
   if os.name == 'nt':
     jobscr.append('@ECHO OFF\n')
@@ -209,7 +209,7 @@ def main(args):
     batchfile = open(batchname,'w')
     batchfile.writelines(jobscr)
     batchfile.close()
-    os.chmod(batchname, 0755)
+    os.chmod(batchname, 0o755)
 
   if args.no_run:
     print('{0} created.'.format(batchname))
