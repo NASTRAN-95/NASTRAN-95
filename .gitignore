@@ -31,7 +31,6 @@ Makefile
 /autom4te.cache
 /compile
 /depcomp
-/missing
 /stamp-h1
 /autoscan.log
 /config.log
