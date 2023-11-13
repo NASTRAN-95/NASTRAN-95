@@ -1,17 +1,11 @@
-
-# OS Specific Commands
-
-DELETE = del
-#LNX DELETE = rm
-
-# GNU Fortran
-
 FC = gfortran
 
 FFLAGS += -g -w
 FFLAGS += -fno-range-check
 FFLAGS += -fno-automatic
 FFLAGS += -fcray-pointer
+FFLAGS += -std=legacy
+FFLAGS += -J../../include
 
 # Archive
 
@@ -25,9 +19,9 @@ OBJS = $(patsubst %.f,%.o,$(SRCF))
 
 # Default target
 
-default:	libnastran.a
+default: libnastran.a
 
-all:	libnastran.a
+all: libnastran.a
 
 # Specific targets
 
@@ -44,7 +38,7 @@ libnastran.a:	$(OBJS)
 .PHONY:	clean distclean
 
 distclean:	clean
-	-$(DELETE) libnastran.a
+	rm -rf libnastran.a
 
 clean:
-	-$(DELETE) *.o
+	rm -rf *.o

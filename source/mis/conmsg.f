@@ -8,10 +8,6 @@ C
       integer values(8)
       character(4) cvalues(8)
       equivalence(values,cvalues)
-      character (len=12) real_clock(3), time
-      integer values(8)
-      character(4) cvalues(8)
-      equivalence(values,cvalues)
       DIMENSION MESAGE(1)
       DIMENSION ICRDAT(3)
       DIMENSION IDATE(3), ITIME(3)
