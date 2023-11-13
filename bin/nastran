@@ -9,14 +9,14 @@ set rfdir=$NASTHOME/rf
 set nasexec=$NASTHOME/bin/nastrn.exe
 set naschk=$NASTHOME/bin/chkfil.exe
 
-set probname = $1
-
 echo ' '
-if ( $probname == '' ) then
+if ( $#argv == 0 ) then
     echo '                                 NASTRAN'
     echo ' '
     echo -n 'Please give problem id for designation of files ===> '
     set probname = $<
+else
+    set probname = $1
 endif
 
 # set ft01=$probname.pun
