@@ -1,11 +1,14 @@
+<<<<<<< found
 #!/bin/csh
 
 unalias rm
 clear
 
+# Paths
 set rfdir=$NASTHOME/rf
 set nasexec=$NASTHOME/bin/nastrn.exe
 set naschk=$NASTHOME/bin/chkfil.exe
+
 set probname = $1
 
 echo ' '
@@ -500,7 +503,7 @@ if ( -e $script ) then
 rm $script
 endif
 
-echo "#\!/usr/bin/csh" >> $script
+echo "#\!/bin/csh" >> $script
 echo ' unalias rm ' >> $script
 echo 'if ( -d ' $nasscr' ) then' >> $script
 echo 'rm -r '$nasscr >> $script
