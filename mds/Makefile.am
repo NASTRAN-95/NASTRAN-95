@@ -2,27 +2,20 @@
 #OPT_OPTS ?= unknown
 #AM_FFLAGS = $(OPT_OPTS)
 #FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
-FFLAGS = -g -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+FFLAGS = -g -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -J../include
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 bin_PROGRAMS = nastran
-nastran_SOURCES = bckrec.f  dbmdmp.f  dsbrc1.f  dsnmdd.f	dsskrc.f  exfowr.f  klock.f   savpos.f \
-bldpk.f   dbmfdp.f  dsclos.f  dsnmrd.f	dsspos.f  fbsv.f    logfil.f  second.f \
-bldpki.f  dbmint.f  dscpos.f  dsnmwr.f	dsupkc.f  filpos.f  mapfns.f  sgino.f \
-bldpkn.f  dbmio.f   dsefwr.f  dsocff.f	dswrit.f  fornum.f  mpyq.f    skpfil.f \
-bpack.f   dbmlbk.f  dsfwr1.f  dsopen.f	dswrnb.f  forwrt.f  nasopn.f  sofio.f \
-btstrp.f  dbmmgr.f  dsgefl.f  dsopff.f	dswrt1.f  fwdrec.f  nastim.f  tdate.f \
-bufchk.f  dbmmov.f  dsgncl.f  dsprcl.f	dsxfsz.f  getstb.f  nastrn.f  umffd.f \
-bunpak.f  dbmnam.f  dsgnop.f  dsrdmb.f	dszbkk.f  getstr.f  numtyp.f  unpack.f \
-bunpk.f   dbmrel.f  dsgnrd.f  dsrdnb.f	dummy.f   geturn.f  open.f    vaxsch.f \
-dbmrlb.f  dsgnwr.f  dsrdpb.f	emgsoc.f  gnfiat.f  pack.f    waltim.f \
-close.f   dbmsrf.f  dshxdd.f  dsread.f	endget.f  ibmopn.f  putstr.f  write.f \
-conmsg.f  dbmstf.f  dshxdp.f  dsrlse.f	endgtb.f  intpk.f   qopen.f   wrtblk.f \
-corwds.f  defcor.f  dsinqr.f  dssdcb.f	endput.f  intpki.f  rdblk.f   wrtfmt.f \
-cputim.f  delscr.f  dsiodd.f  dssend.f	eof.f	  k2b.f     read.f    xsem00.f \
-dbmalb.f  dmpmat.f  dsipk1.f  dssize.f	errtrc.f  khrbcd.f  rectyp.f  zblpki.f \
-dbmdfc.f  dsblpk.f  dsmsg1.f  dsskfb.f	exford.f  khrfn1.f  rewind.f  zntpki.f \
-dbmdia.f  dsbpnk.f  dsmsg.f   dsskff.f	exfort.f  khrfn4.f  rfopen.f
+nastran_SOURCES = \
+bckrec.f  close.f   dbmio.f   defcor.f  dsgefl.f  dsiodd.f  dsrdmb.f  dsskfb.f  dsxfsz.f  exfort.f  intpk.f   nasopn.f  read.f    tdate.f   zntpki.f \
+bldpk.f   corwds.f  dbmlbk.f  dsblpk.f  dsgncl.f  dsipk1.f  dsrdnb.f  dsskff.f  dummy.f   filpos.f  intpki.f  nastim.f  rectyp.f  umffd.f \
+bldpki.f  cputim.f  dbmmgr.f  dsbpnk.f  dsgnop.f  dsmsg1.f  dsrdpb.f  dsskrc.f  emgsoc.f  forwrt.f  k2b.f     numtyp.f  rewind.f  unpack.f \
+bldpkn.f  dbmalb.f  dbmmov.f  dsbrc1.f  dsgnrd.f  dsmsg.f   dsread.f  dsspos.f  endget.f  fwdrec.f  khrbcd.f  open.f    rfopen.f  waltim.f \
+bpack.f   dbmdia.f  dbmnam.f  dsclos.f  dsgnwr.f  dsocff.f  dsrlse.f  dsupkc.f  endgtb.f  getstb.f  khrfn1.f  pack.f    savpos.f  write.f \
+btstrp.f  dbmdmp.f  dbmrel.f  dscpos.f  dshxdd.f  dsopen.f  dssdcb.f  dswrit.f  endput.f  getstr.f  khrfn4.f  putstr.f  sgino.f   wrtblk.f \
+bunpak.f  dbmfdp.f  dbmrlb.f  dsefwr.f  dshxdp.f  dsopff.f  dssend.f  dswrnb.f  eof.f     geturn.f  klock.f   qopen.f   skpfil.f  wrtfmt.f \
+bunpk.f   dbmint.f  dbmstf.f  dsfwr1.f  dsinqr.f  dsprcl.f  dssize.f  dswrt1.f  errtrc.f  gnfiat.f  mapfns.f  rdblk.f   sofio.f   zblpki.f \
+nastrn.f
 
 nastran_LDADD = ../mis/libnastran.a ../bd/libnastbd.a
