@@ -732,7 +732,7 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
 F77 = @F77@
-FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -fallow-invalid-boz -std=legacy
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -1305,10 +1305,6 @@ uninstall-am:
 	uninstall-am
 
 .PRECIOUS: Makefile
-
-
-# what flags you want to pass to the Fortran compiler & linker
-OPT_OPTS ?= unknown
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
