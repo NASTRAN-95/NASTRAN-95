@@ -8,6 +8,10 @@ C
       integer values(8)
       character(4) cvalues(8)
       equivalence(values,cvalues)
+      character (len=12) real_clock(3), time
+      integer values(8)
+      character(4) cvalues(8)
+      equivalence(values,cvalues)
       DIMENSION MESAGE(1)
       DIMENSION ICRDAT(3)
       DIMENSION IDATE(3), ITIME(3)
@@ -60,6 +64,9 @@ C
       call date_and_time(real_clock(1), time, Real_clock(3),
      1                  values)
 C
+      call date_and_time(real_clock(1), time, Real_clock(3),
+     1                  values)
+C
  2056 FORMAT (2( I2,':'),I2)
       IF (CTIME(4:4) .EQ. ' ') CTIME(4:4) = '0'
       IF (CTIME(7:7) .EQ. ' ') CTIME(7:7) = '0'
@@ -73,6 +80,8 @@ C
      *                        CPUTMM, INCTIM,(MESAGE(I), I = 1, MWORDS)
       IF (IMODTM.EQ.2) WRITE (LOUT,2110) time(1:2),time(3:4),time(5:10),
      *               CPUTMM, INCTIM, MODTIM, (MESAGE(I), I = 1, MWORDS)
+      call flush(4)
+C
       call flush(4)
 C
       LOGLIN = LOGLIN + 1

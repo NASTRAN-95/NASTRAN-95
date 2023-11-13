@@ -17,7 +17,8 @@ C     THESE DATES HAD TO BE INTERCHANGED FOR THE SUN
 CDME  19 JAN 2016
 CDME  D. Everhart
 CDME  This is basically a Y2K bugfix.
+CWUT  BAD FIX
       DATE(3)=MOD(DATE1(3),100)
-CDME  DATE(3)=DATE1(3)-1900
+CDME  DATE(3)=DATE1(3)-2000
       RETURN        
       END        
