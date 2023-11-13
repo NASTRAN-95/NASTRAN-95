@@ -3,7 +3,7 @@ Section: non-free/science
 Priority: optional
 Maintainer: Luca Dall'Olio <luca.dallolio@gmail.com>
 Standards-Version: 3.9.6
-Build-Depends: debhelper (>= 9), dh-exec, quilt, gfortran
+Build-Depends: debhelper (>= 9), dh-exec, quilt, gfortran, autoconf-archive
 Vcs-Git: https://github.com/ldallolio/NASTRAN-95.git
 Vcs-Browser: https://github.com/ldallolio/NASTRAN-95
 Homepage: https://github.com/nasa/NASTRAN-95

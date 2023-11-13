@@ -15,6 +15,10 @@ AC_PROG_RANLIB()
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_LANG_PUSH([Fortran 77])
+AX_CHECK_COMPILE_FLAG([-fallow-invalid-boz], [AM_FFLAGS="$AM_FFLAGS -fallow-invalid-boz"])
+AC_SUBST([AM_FFLAGS])
+AC_LANG_POP([Fortran 77])
 
 # Checks for library functions.
 
