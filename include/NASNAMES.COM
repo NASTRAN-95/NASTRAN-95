@@ -1,8 +1,10 @@
-      COMMON / DOSNAM / DIRTRY, RFDIR, INPUT, OUTPUT, LOG , PUNCH
-     &,                 PLOT,   NPTP , DIC  , OPTP  , RDIC, IN12, OUT11
-     &,                 INP1,   INP2 
-      CHARACTER * 72    DIRTRY, RFDIR, INPUT, OUTPUT, LOG , PUNCH
-      CHARACTER * 72    PLOT  , NPTP , DIC  , OPTP  , RDIC, IN12, OUT11
-      CHARACTER * 72    INP1,   INP2
-      COMMON / DSNAME / DSNAMES(89)
-      CHARACTER * 80    DSNAMES
+!
+! COMMON variable declarations
+!
+   CHARACTER*72 Dic , Dirtry , In12 , Inp1 , Inp2 , Input , Log , Nptp , Optp , Out11 , Output , Plot , Punch , Rdic , Rfdir
+   CHARACTER*80 Dsnames(89)
+   COMMON /dosnam/ Dirtry , Rfdir , Input , Output , Log , Punch , Plot , Nptp , Dic , Optp , Rdic , In12 , Out11 , Inp1 , Inp2
+   COMMON /dsname/ Dsnames
+!
+! End of declarations
+!

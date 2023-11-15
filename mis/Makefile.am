@@ -1,128 +1,128 @@
 # what flags you want to pass to the Fortran compiler & linker
 OPT_OPTS ?= unknown
-AM_FFLAGS = $(OPT_OPTS)
-FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -J../include
+AM_FCFLAGS = $(OPT_OPTS)
+FCFLAGS = -ffree-line-length-none -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -J../include
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 noinst_LIBRARIES = libnastran.a
 libnastran_a_SOURCES = \
-a42a8.f     area.f    cnorm.f   dkls.f    exo2.f    frlgb.f   hdvsr.f   kpanel.f     mma401.f  ofppun.f  psqad1.f   rotat.f    smccrd.f   strp12.o  trlgb.f \
-a42a8.o     arrm.f    cnstdd.f  dlamby.f  extern.f  frlg.f    head.f    kpltst.f     mma402.f  ofprf1.f  psqad2.f   rowdyz.f   smccrs.f   strpl1.f  trlgc.f \
-a82int.f    ascm01.f  cnstrc.f  dlamg.f   f6211.f   frmax.f   hess1.f   kqdmem.f     mma403.f  ofprf2.f  psqdm1.f   rsetup.f   smchlp.f   strpl1.o  trlgd.f \
-a82int.o    ascm02.f  com12.f   dlbpt2.f  f89.f     frmlta.f  hess2.f   kqdplt.f     mma404.f  ofprs1.f  psqdm.f    rsort.f    smcomp.f   strpts.f  trlg.f \
-adr.f       ascm03.f  comb1.f   dlkapm.f  fa1.f     frmltd.f  hmat.f    krod.f       mma411.f  ofprs2.f  psqpl1.f   ruler.f    smcout.f   strqd1.f  trmemd.f \
-adri.f      ascm04.f  comb2.f   dloop.f   fa1ke.f   frmlt.f   hring.f   krshft.f     mma412.f  ofpsn1.f  psrod.f    rzintd.f   smcph1.f   strqd2.f  trmems.f \
-adri.o      ascm05.f  combin.f  dlpt2.f   fa1k.f    frmltx.f  hsbg.f    kslot.f      mma413.f  ofpss1.f  psta.f     rzints.f   smcph2.f   strscn.f  trnsp.f \
-adr.o       ascm06.f  combo.f   dmatrs.f  fa1pka.f  frr1a1.f  iapd.f    ksolid.f     mma414.f  ofrf2s.f  pstamg.f   sadd.f     smcrtr.f   strsl1.f  trnsps.f \
-adrprt.f    ascm07.f  comect.f  dmatrx.f  fa1pke.f  frrd1c.f  idf1.f    ktetra.f     mma4.f    ofrs2s.f  pstpl1.f   sadotb.f   smcspl.f   strsl2.f  trplmd.f \
-adrprt.o    ascm08.f  comugv.f  dmfgr.f   fa1pki.f  frrd1d.f  idf2.f    ktrapr.f     mma.f     ofsplt.f  pstq1.f    sanorm.f   smleig1.f  strslv.f  trplms.f \
-af.f        ascm09.f  cone.f    dmpalt.f  fa1pkv.f  frrd1f.f  idist.f   ktrbsc.f     mmarc1.f  oldel1.f  pstq2.f    saxb.f     smleig.f   stube1.f  trplt.f \
-af.o        ascm10.f  conm1d.f  dmpfil.f  fa2.f     frrd2.f   idplot.f  ktriqd.f     mmarc2.f  oldel2.f  pstrb1.f   saxif1.f   smmats.f   sub1.f    trttem.f \
-ai.f        ascm11.f  conm1s.f  dmpyad.f  factor.f  frrd.f    ifb2ar.f  ktrirg.f     mmarc3.f  oldel3.f  pstri1.f   saxif2.f   smp1.f     suba.f    tshear.f \
-ai.o        ascm12.f  conm2d.f  dmpy.f    factru.f  frsw2.f   ifp1b.f   ktrm6d.f     mmarc4.f  olplot.f  pstri2.f   sbar1.f    smp2.f     subbb.f   tspl1d.f \
-ais.f       ascm13.f  conm2s.f  dnorm.f   failrs.f  frsw.f    ifp1c.f   ktrm6s.f     mmarm1.f  onetwo.f  pstrm1.f   sbar2.f    smpyad.f   subb.f    tspl1s.f \
-ais.o       asdmap.f  conmsg.f  dpd1.f    failur.f  ftube.f   ifp1d.f   ktrmem.f     mmarm2.f  onlins.f  pstrm.f    sbspl2.f   smsg.f     subcc.f   tspl2d.f \
-akapm.f     aspro.f   contor.f  dpd2.f    fbs1.f    fvrs1a.f  ifp1e.f   ktrpld.f     mmarm3.f  opt2a.f   pstrq2.f   scalar.f   snpdf.f    subc.f    tspl2s.f \
-akapm.o     asycon.f  copy.f    dpd3.f    fbs21.f   fvrs1b.f  ifp1.f    ktrpls.f     mmarm4.f  opt2b.f   pthbdy.f   scaled.f   sofcls.f   sub.f     tspl3d.f \
-akappa.f    ateig.f   cpyfil.f  dpd4.f    fbs2.f    fvrs1c.f  ifp1f.f   ktrplt.f     modac1.f  opt2c.f   ptintr.f   scalex.f   sofi.f     subi.f    tspl3s.f \
-akappa.o    autock.f  cpystr.f  dpd5.f    fbs3.f    fvrs1d.f  ifp1g.f   ktshld.f     modac2.f  opt2d.f   pull.f     scan.f     sofint.f   subpb.f   ttlpge.f \
-akp2.f      autosv.f  crdrd2.f  dpdaa.f   fbs4.f    fvrs1e.f  ifp1h.f   ktshls.f     modacc.f  optp1a.f  push.f     scat.f     sofo.f     subp.f    ttordr.f \
-akp2.o      axis10.f  crdrd.f   dpd.f     fbs.f     fvrs2a.f  ifp1pc.f  ktube.f      moda.f    optp1b.f  q2bcd.f    sce1.f     sofopn.f   subph1.f  ttrapr.f \
-alamda.f    axis.f    create.f  dplot.f   fbsf.f    fvrst1.f  ifp1s.f   lamx.f       modb.f    optp1c.f  q2bcs.f    scheme.f   sofsiz.f   summ.f    ttrirg.f \
-alamda.o    axloop.f  criggp.f  dpltst.f  fbsi1.f   fvrst2.f  ifp1xy.f  line10.f     modc.f    optp1d.f  q2trmd.f   scone1.f   softoc.f   sumphi.f  tubed.f \
-alg01.f     bandit.f  crspld.f  dppsb.f   fbsi2.f   fwmw.f    ifp3b.f   line.f       mplprt.f  optpr1.f  q2trms.f   scone2.f   softrl.f   suplt.f   tubes.f \
-alg01.o     bard.f    crspld.o  dpps.f    fbsi3.f   fzy2.f    ifp3.f    linein.f     mpy3a.f   optpr2.f  q4bmgd.f   scone3.f   sofut.f    suread.f  tvor.f \
-alg02.f     bar.f     crspls.f  dpse2.f   fbsi4.f   gauss2.f  ifp4b.f   linel.f      mpy3b.f   optpx1.f  q4bmgs.f   scrlm.f    solid.f    suwrt.f   twistd.f \
-alg02.o     bars.f    crspls.o  dpse3.f   fbsi.f    geloop.f  ifp4c.f   linkup.f     mpy3c.f   optpx.f   q4gmgs.f   sd2rhd.f   solve1.f   switch.f  twists.f \
-alg03.f     basglb.f  crsub.f   dpse4.f   fbsint.f  gencos.f  ifp4e.f   loadsu.f     mpy3dr.f  order.f   q4nrms.f   sdcin.f    solve.f    symbol.f  type10.f \
-alg04.f     bdat01.f  crsub.o   dpzy.f    fbsinv.f  gend.f    ifp4.f    locpt.f      mpy3.f    ortck.f   q4shps.f   sdcins.f   solver.f   t3bgbs.f  typflt.f \
-alg05.f     bdat02.f  csqrtx.f  dqdmem.f  fbsrdm.f  gendsb.f  ifp4f.f   lodapp.f     mpy3ic.f  ortho.f   qdmem.f    sdcmm.f    sortdg.f   t3bmgd.f  typint.f \
-alg06.f     bdat03.f  csqrtx.o  dquad.f   fcurl.f   genpar.f  ifp4g.f   logfil.f     mpy3nu.f  oscxrf.f  qdmm1d.f   sdcmps.f   sort.f     t3bmgs.f  unpscr.f \
-alg07.f     bdat04.f  csub.f    draw.f    fdit.f    genvec.f  ifp5a.f   loglog.f     mpy3oc.f  outmsc.f  qdmm1.f    sdcmq.f    sorti.f    t3gemd.f  upart.f \
-alg08.f     bdat05.f  csub.o    drkapm.f  fdsub.f   getblk.f  ifp5.f    lprops.f     mpy3p.f   outpak.f  qdmm1s.f   sdcom1.f   spanl1.f   t3gems.f  upcase.f \
-alg09.f     bdat06.f  csumm.f   drod.f    fdvect.f  getdef.f  ifpdco.f  lsplin.f     mpy4t.f   outpt1.f  qdmm2d.f   sdcom2.f   spanl2.f   t3pl4d.f  usrmsg.f \
-alg10.f     betrns.f  csumm.o   drwchr.f  feer1.f   gfbs.f    ifp.f     magbdy.f     mpya3d.f  outpt2.f  qdmm2.f    sdcom3.f   splt10.f   t3pl4s.f  valvec.f \
-alg11.f     bfsmat.f  cthmck.f  ds1a.f    feer2.f   gfscom.f  ifpmdc.f  magpha.f     mpyad.f   outpt3.f  qdmm2s.f   sdcom4.f   sptchk.f   t3setd.f  varian.f \
-alg12.f     bgrid.f   cthmck.o  ds1b.f    feer3.f   gfsdir.f  ifppar.f  Makefile     mpyado.f  outpt4.f  qdplt.f    sdcomp.f   sqdm11.f   t3sets.f  vdra.f \
-alg13.f     bint.f    ctrnsp.f  ds1etd.f  feer3x.f  gfshc.f   ifppvc.f  Makefile.am  mpydri.f  outpt5.f  qhbdy.f    sdcompx.f  sqdm12.f   ta1a.f    vdrb.f \
-alg14.f     biotsv.f  ctrnsp.o  ds1.f     feer4.f   gfsh.f    ifs1p.f   Makefile.in  mpyl.f    outpt.f   qloadl.f   sdcout.f   sqdm21.f   ta1b.f    vdr.f \
-alg15.f     bishel.f  curcas.f  dschk.f   feerdd.f  gfsma.f   ifs2p.f   makmcb.f     mpyq.f    page2.f   qparam.f   sdhtf1.f   sqdm22.f   ta1ca.f   vec.f \
-alg16.f     bislc2.f  curcas.o  dshear.f  feer.f    gfsmo2.f  ifs3p.f   mapset.f     mqdplt.f  page.f    qparmd.f   sdhtf2.f   sqdme1.f   ta1c.f    vecprt.f \
-alg17.f     bisloc.f  curv1.f   dsmg1.f   ferfbs.f  gfsmod.f  ifs4p.f   maskn.f      mred1a.f  pakcol.f  qparmr.f   sdhtff.f   sqdpl1.f   ta1cpd.f  viscd.f \
-alg18.f     bitpat.f  curv1.o   dsmg2.f   ferltd.f  gfsmrg.f  ifs5p.f   masstq.f     mred1b.f  param.f   qriter1.f  sdr1a.f    sqrtm.f    ta1cps.f  viscs.f \
-alg19.f     bmg.f     curv2.f   dstroy.f  ferlts.f  gfsmt.f   ifte2.f   matck.f      mred1c.f  paraml.f  qriter.f   sdr1b.f    squd41.f   ta1etd.f  wavey.f \
-alg1.f      bmgtns.f  curv2.o   dtranp.f  ferrdm.f  gfsptn.f  ifte4.f   matdum.f     mred1d.f  partn1.f  quad4d.f   sdr1.f     squd42.f   ta1.f     wilvec1.f \
-alg25.f     border.f  curv3.f   dtrbsc.f  ferrdm.o  gfsspc.f  ift.f     matgen.f     mred1e.f  partn2.f  quad4s.f   sdr2aa.f   srod1.f    ta1h.f    wilvec.f \
-alg26.f     bound.f   curv3.o   dtria.f   ferswd.f  gfstrn.f  iftg.f    matgpr.f     mred1.f   partn3.f  qvol.f     sdr2a.f    srod2.f    tabfmt.f  wplt10.f \
-alg29.f     bread.f   curv.f    dtrmem.f  ferswd.o  gfswch.f  ihexd.f   matprn.f     mred2a.f  partn.f   rand1.f    sdr2b.f    ss2d81.f   table5.f  wrtmsg.f \
-alg2.f      bseqgp.f  curvit.f  dtshld.f  fersws.f  gibstk.f  ihex.f    matprt.f     mred2b.f  pcoord.f  rand2.f    sdr2c.f    ss2d82.f   tablev.f  wrtprt.f \
-alg30.f     bug.f     curvit.o  dtshls.f  fersws.o  gi.f      ihexsd.f  matvc2.f     mred2c.f  permut.f  rand3.f    sdr2d.f    ssg1a.f    tabpch.f  wrttrl.f \
-alg3.f      calcv.f   curv.o    dumerg.f  ferxtd.f  giggks.f  ihexs.f   matvec.f     mred2d.f  perpec.f  rand5.f    sdr2e.f    ssg1.f     tabprt.f  xcei.f \
-alg4.f      case.f    curvps.f  dumod1.f  ferxtd.o  gigtka.f  ihexss.f  matwrt.f     mred2e.f  pexit.f   rand6.f    sdr2.f     ssg2a.f    tabpt.f   xchk.f \
-alg5.f      casege.f  cxloop.f  dumod2.f  ferxts.f  gigtkg.f  incore.f  maxdgr.f     mred2.f   phdmia.f  rand7.f    sdr3a.f    ssg2b.f    tapbit.f  xclean.f \
-alg6.f      cdcomp.f  cxtrny.f  dumod3.f  ferxts.o  ginofl.f  incro.f   mbamg.f      mred2f.f  pidck.f   rand8.f    sdr3.f     ssg2c.f    termsd.f  xcsa.f \
-alg7.f      cdetm2.f  cyct1.f   dumod4.f  ff100.f   gipsst.f  initl2.f  mbbslj.f     mred2g.f  piklvl.f  random.f   sdrchk.f   ssg2.f     termss.f  xdcode.f \
-alg8.f      cdetm.f   cyct2a.f  dumod5.f  ff100.o   givens.f  initl2.o  mbcap.f      mred2h.f  pkbar.f   rbmg1.f    sdretd.f   ssg3a.f    tetra.f   xdph.f \
-alg9.f      cdifbs.f  cyct2b.f  dumper.f  ffhelp.f  gkad1a.f  initl.f   mbctr.f      mred2i.f  pkqad1.f  rbmg2.f    sdrht.f    ssg3.f     tiger.f   xfadj1.f \
-algan.f     cdivid.f  cyct2.f   dumx.f    ffhelp.o  gkad1c.f  initl.o   mbdpdh.f     mred2j.f  pkqad2.f  rbmg3.f    sdumx1.f   ssg4.f     timeeq.f  xfldef.f \
-algap.f     cdtfbs.f  dadd5.f   dupart.f  ffread.f  gkad.f    inptt1.f  mbgae.f      mred2l.f  pkqdm1.f  rbmg4.f    sdumx2.f   ssgetd.f   timts1.f  xflord.f \
-algar.f     cead1a.f  dadd.f    dvectr.f  ffread.o  gkam1a.f  inptt1.o  mbgate.f     mred2m.f  pkqdm.f   rcard2.f   seemat.f   ssght1.f   timts2.f  xflszd.f \
-alg.f       cead.f    dadotb.f  dvmag.f   filcor.f  gkam1b.f  inptt2.f  mbgaw.f      mred2n.f  pkqdms.f  rcard.f    selas1.f   ssght2.f   timtst.f  xgpibs.f \
-algpb.f     centre.f  dapoly.f  dypz.f    filcor.o  gkam.f    inptt2.o  mbgeod.f     mred2o.f  pkqdpl.f  rcova.f    selas2.f   ssght.f    tipe.f    xgpidd.f \
-algpo.f     cf1fbs.f  daxb.f    dzpy.f    filswi.f  gmmatc.f  inptt3.f  mbmode.f     mred2p.f  pkrod.f   rcovb.f    selbo1.f   ssghtp.f   tis2d8.f  xgpidg.f \
-algpr.f     cf1ort.f  dbar.f    dzy.f     filswi.o  gmmatd.f  inptt3.o  mbplot.f     mrge.f    pktq1.f   rcovc.f    selbo2.f   ssgkhi.f   tker.f    xgpi.f \
-allmat.f    cf2fbs.f  dbase.f   dzymat.f  findc.f   gmmats.f  inptt4.f  mbprit.f     mring.f   pktq2.f   rcovds.f   selcam.f   ssgslt.f   tktztk.f  xgpimw.f \
-amatrx.f    cf2ort.f  dcone.f   eadd.f    findc.o   gmmerg.f  inptt4.o  mbreg.f      msgwrt.f  pktrbs.f  rcove.f    semint.f   sslot1.f   tldrs.f   xipfl.f \
-amgb1a.f    cfactr.f  dcross.f  eandm.f   finder.f  gmprtn.f  inptt5.f  mce1a.f      mslot.f   pktri1.f  rcovem.f   seteq.f    sslot2.f   tlodm6.f  xlnkdd.f \
-amgb1b.f    cfbsor.f  ddamat.f  ectloc.f  finder.o  gnfist.f  inptt5.o  mce1b.f      msolid.f  pktri2.f  rcovim.f   setfnd.f   ssold1.f   tlodsl.f  xlnkhd.f \
-amgb1c.f    cfe1ao.f  ddampg.f  edit.f    find.f    go.f      input4.f  mce1c.f      mtimsu.f  pktrm1.f  rcovls.f   setig.f    ssold2.f   tlodt1.f  xmpldd.f \
-amgb1d.f    cfe1my.f  ddcmps.f  edtl.f    find.o    gopen.f   input4.o  mce1d.f      mtmsu1.f  pktrm.f   rcovms.f   setinp.f   ssplin.f   tlodt2.f  xosgen.f \
-amgb1.f     cfe2ao.f  ddcomp.f  egnvct.f  flbelm.f  gp1.f     input.f   mce1.f       mtrapr.f  pktrms.f  rcovo.f    setlvl.f   sswtch.f   tlodt3.f  xparam.f \
-amgb1s.f    cfe2my.f  ddr1a.f   eject.f   flbema.f  gp2.f     input.o   mce2.f       mtrbsc.f  pktrpl.f  rcovqv.f   setval.f   stack.f    tlqd4d.f  xpolck.f \
-amgb2a.f    cfeer1.f  ddr1b.f   ektrmd.f  flbemg.f  gp3a.f    insert.f  mcone.f      mtriqd.f  pktrq2.f  rcovr3.f   sfarea.f   step2.f    tlqd4s.f  xpunp.f \
-amgb2.f     cfeer2.f  ddr1.f    ektrms.f  flbmg.f   gp3b.f    insert.o  mdumx.f      mtrirg.f  pktrqd.f  rcovr.f    sfetch.f   step.f     tltr3d.f  xpurge.f \
-amgbfs.f    cfeer3.f  ddr2.f    elelbl.f  flbprt.f  gp3c.f    int2a8.f  melbow.f     mtrplt.f  pla1.f    rcovsl.f   sgena.f    stord1.f   tltr3s.f  xrcard.f \
-amg.f       cfeer4.f  ddr.f     elim.f    flbset.f  gp3d.f    int2a8.o  merge1.f     mtrxi.f   pla2.f    rcovss.f   sgenb.f    stord2.f   tmtogo.f  xread.f \
-amgrod.f    cfeer.f   ddrmm1.f  em1d.f    flface.f  gp3.f     int2al.f  merged.f     mtrxin.f  pla31.f   rcovui.f   sgen.f     stpaic.f   tmtsio.f  xrecps.f \
-amgsba.f    cfer3d.f  ddrmm2.f  em2d.f    flfree.f  gp4.f     int2al.o  merge.f      mtrxo.f   pla32.f   rcovuo.f   sgenm.f    stpax1.f   tmtslp.f  xrgdcf.f \
-amgt1a.f    cfer3s.f  ddrmma.f  em3d.f    flld.f    gp4prt.f  intert.f  mesage.f     mxcid.f   pla3.f    rcovva.f   shape.f    stpax2.f   tmtsot.f  xrgdev.f \
-amgt1b.f    cfnor1.f  ddrmm.f   ema1d.f   fmdi.f    gp4sp.f   intert.o  mflud2.f     mxcids.f  pla41.f   rdmodx.f   shcsgd.f   stpax3.f   tordrd.f  xrgdfm.f \
-amgt1c.f    cfnor2.f  ddrmmp.f  ema1.f    fname.f   gpcyc.f   intfbs.f  mflud3.f     mxcids.o  pla42.f   re2al.f    shctsd.f   stpbg.f    tordrs.f  xrgdtb.f \
-amgt1d.f    chkopn.f  ddrmms.f  ema1s.f   fndgrd.f  gpfdr.f   intlst.f  mflud4.f     na12a8.f  pla4b.f   read1.f    shctss.f   stpbs0.f   totape.f  xrgdtp.f \
-amgt1.f     cidck.f   ddumx.f   emadtq.f  fndiam.f  gpstg.f   intprt.f  mfree.f      na12a8.o  pla4.f    read1.o    sheard.f   stpbs1.f   tpztem.f  xrgnum.f \
-amgt1s.f    cifsdd.f  decode.f  ema.f     fndlvl.f  gpstgn.f  intvec.f  mindeg.f     na12if.f  plamat.f  read2.f    shears.f   stpda.f    traile.f  xrgsst.f \
-amgt1t.f    cinfbs.f  decomp.f  emastq.f  fndnxl.f  gpstgs.f  inverd.f  mintrp.f     na12if.o  plbar1.f  read2.o    shfors.f   stpk.f     trail.f   xrgsub.f \
-amgt2a.f    cinvp1.f  degree.f  emfld.f   fndpar.f  gptlbl.f  invers.f  mma101.f     nascar.f  pload1.f  read3.f    shgmgd.f   stplot.f   tranem.f  xsave.f \
-amgt2.f     cinvp2.f  delete.f  emg1b.f   fndplt.f  gptsym.f  invert.f  mma102.f     nascar.o  pload3.f  read3.o    shgmgs.f   stpphi.f   tranp1.f  xscndm.f \
-ampa.f      cinvp3.f  delkls.f  emgcng.f  fndpnt.f  gpwg1a.f  invfbs.f  mma103.f     norm11.f  pload4.f  read4.f    shlsts.f   stppt2.f   transp.f  xsem00.f \
-ampb1.f     cinvpr.f  delset.f  emgcor.f  fndset.f  gpwg1b.f  invp1.f   mma104.f     norm11.o  pload.f   read4.o    shpsts.f   stqme2.f   trapad.f  xsfadd.f \
-ampb2.f     clstab.f  deltkl.f  emg.f     fnxt.f    gpwg1c.f  invp2.f   mma111.f     norm1.f   ploadx.f  read6.f    shstns.f   strap1.f   trapax.f  xsfa.f \
-ampb.f      clvec.f   desvel.f  emgfin.f  fnxtvc.f  gpwg.f    invp3.f   mma112.f     norm1.o   ploapf.f  read6.o    shstss.f   strap2.f   trbscd.f  xsort2.f \
-ampc1.f     cmauto.f  detck.f   emgold.f  fnxtvd.f  grav.f    invpwr.f  mma113.f     normal.f  plod4d.f  read7.f    shstts.f   strax1.f   trbsc.f   xsort.f \
-ampc2.f     cmcase.f  detdet.f  emgout.f  fnxtv.f   gravl1.f  invtr.f   mma114.f     normal.o  plod4s.f  read7.o    shxtrs.f   strax2.f   trbscs.f  xsosgn.f \
-ampc.f      cmckcd.f  detfbs.f  emgpro.f  form12.f  gravl2.f  is2d8d.f  mma1.f       nrlsum.f  plot.f    reduce.f   sihex1.f   strax3.f   trd1a2.f  xtrnsy.f \
-ampd.f      cmckdf.f  detgbs.f  emgtab.f  form1.f   gravl3.f  is2d8s.f  mma201.f     nrlsum.o  pltmrg.f  reduce.o   sihex2.f   strax3.o   trd1a.f   xtrny1.f \
-ampe.f      cmcomb.f  detm1.f   empcor.f  form22.f  gridip.f  isft.f    mma202.f     nsinfo.f  pltopr.f  redu.f     sinc0s1.f  strbs1.f   trd1c2.f  xychar.f \
-amp.f       cmcont.f  detm3.f   emsg.f    form2.f   gtmat1.f  itcode.f  mma203.f     nsinfo.o  pltset.f  redu.o     sinc0s.f   strbs1.o   trd1c.f   xydump.f \
-ampf.f      cmdisc.f  detm4.f   encode.f  format.f  gust1.f   itmprt.f  mma204.f     number.f  plttra.f  reig.f     sjump.f    stri31.f   trd1d2.f  xyfind.f \
-angtrs.f    cmhgen.f  detm5.f   eqmcka.f  formg2.f  gust2.f   ittype.f  mma211.f     number.o  pnm.f     reig.o     skpfrm.f   stri31.o   trd1d.f   xygraf.f \
-anisop.f    cmiwrt.f  detm.f    eqmck.f   formgg.f  gust3.f   iunion.f  mma212.f     odum.f    polypt.f  relabl.f   skprec.f   stri32.f   trd1e.f   xylog.f \
-anullsub.f  cmmcon.f  dfbs.f    eqmckm.f  fornam.f  gust.f    jacob2.f  mma213.f     odum.o    prefix.f  relabl.o   sma1a.f    stri32.o   trd.f     xyout.f \
-apd12.f     cmrd2a.f  dgree.f   eqmcks.f  fornum.f  hbdyd.f   jacobs.f  mma214.f     ofcomp.f  preloc.f  remflx.f   sma1b.f    strir1.f   tree.f    xyplot.f \
-apd1.f      cmrd2b.f  diag36.f  eqout1.f  fpont.f   hbdy.f    kbar.f    mma2.f       ofp1a.f   premat.f  remflx.o   sma1.f     strir1.o   trht1a.f  xyprpl.f \
-apd2.f      cmrd2c.f  diagon.f  eqscod.f  fqrw.f    hbdys.f   kcone2.f  mma301.f     ofp1b.f   presax.f  rename.f   sma2a.f    strir2.f   trht1b.f  xyprpt.f \
-apd3.f      cmrd2d.f  diam.f    eqsout.f  fqrwv.f   hccom.f   kconed.f  mma302.f     ofp1c.f   pretab.f  rename.o   sma2b.f    strir2.o   trht1c.f  xytics.f \
-apd4.f      cmrd2e.f  dihex.f   errmkn.f  frbk2.f   hdchk.f   kcones.f  mma303.f     ofp1.f    pretrd.f  retblk.f   sma2.f     strm61.f   trht.f    xytran.f \
-apd5.f      cmrd2.f   dipole.f  estmag.f  frbk.f    hdcoef.f  kdumx.f   mma304.f     ofpcc1.f  pretrs.f  rforce.f   sma3a.f    strm61.o   tria3d.f  yrcard.f \
-apdb1.f     cmrd2f.f  dis2d8.f  etrbkd.f  frd2a.f   hdlin.f   kelas.f   mma311.f     ofpcc2.f  print.f   rmg.f      sma3b.f    strm62.f   tria3s.f  zeroc.f \
-apdb2a.f    cmrd2g.f  displa.f  etrbks.f  frd2b.f   hdplot.f  kelbow.f  mma312.f     ofpcf1.f  proces.f  rodd.f     sma3c.f    strm62.o   triaad.f  zj.f \
-apdb2.f     cmrels.f  dist.f    etrbmd.f  frd2c.f   hdplt.f   kflud2.f  mma313.f     ofpcf2.f  procom.f  rod.f      sma3.f     strme1.f   triaax.f \
-apdb.f      cmsfil.f  dk100.f   etrbms.f  frd2d.f   hdsket.f  kflud3.f  mma314.f     ofpcs1.f  prolat.f  rods.f     smc2cd.f   strme1.o   tridi1.f \
-apdcs.f     cmsofo.f  dk211.f   exi2.f    frd2e.f   hdsolv.f  kflud4.f  mma321.f     ofpcs2.f  prompt.f  rombdk.f   smc2cs.f   strnam.f   tridi.f \
-apd.f       cmtimu.f  dk89.f    exio1.f   frd2f.f   hdstat.f  khrfn2.f  mma322.f     ofp.f     prtint.f  romber.f   smc2rd.f   strnam.o   trif.f \
-apdf.f      cmtoc.f   dki.f     exio2.f   frd2i.f   hdstus.f  khrfn3.f  mma323.f     ofpgpw.f  prtmsg.f  rombsk.f   smc2rs.f   strp11.f   trimem.f \
-apdoe.f     cmtrce.f  dkint.f   exio.f    fread.f   hdsurf.f  kompnt.f  mma324.f     ofpmis.f  prtprm.f  rotate1.f  smcccd.f   strp11.o   triqd.f \
-apdr.f      cnorm1.f  dkl.f     exlvl.f   frlga.f   hdvs1.f   korsz.f   mma3.f       ofppnt.f  psbar.f   rotate.f   smcccs.f   strp12.f   trlga.f
+a42a8.f90     area.f90    cnorm.f90   dkls.f90    exo2.f90    frlgb.f90   hdvsr.f90   kpanel.f90     mma401.f90  ofppun.f90  psqad1.f90   rotat.f90    smccrd.f90   strp12.o  trlgb.f90 \
+a42a8.o     arrm.f90    cnstdd.f90  dlamby.f90  extern.f90  frlg.f90    head.f90    kpltst.f90     mma402.f90  ofprf1.f90  psqad2.f90   rowdyz.f90   smccrs.f90   strpl1.f90  trlgc.f90 \
+a82int.f90    ascm01.f90  cnstrc.f90  dlamg.f90   f6211.f90   frmax.f90   hess1.f90   kqdmem.f90     mma403.f90  ofprf2.f90  psqdm1.f90   rsetup.f90   smchlp.f90   strpl1.o  trlgd.f90 \
+a82int.o    ascm02.f90  com12.f90   dlbpt2.f90  f89.f90     frmlta.f90  hess2.f90   kqdplt.f90     mma404.f90  ofprs1.f90  psqdm.f90    rsort.f90    smcomp.f90   strpts.f90  trlg.f90 \
+adr.f90       ascm03.f90  comb1.f90   dlkapm.f90  fa1.f90     frmltd.f90  hmat.f90    krod.f90       mma411.f90  ofprs2.f90  psqpl1.f90   ruler.f90    smcout.f90   strqd1.f90  trmemd.f90 \
+adri.f90      ascm04.f90  comb2.f90   dloop.f90   fa1ke.f90   frmlt.f90   hring.f90   krshft.f90     mma412.f90  ofpsn1.f90  psrod.f90    rzintd.f90   smcph1.f90   strqd2.f90  trmems.f90 \
+adri.o      ascm05.f90  combin.f90  dlpt2.f90   fa1k.f90    frmltx.f90  hsbg.f90    kslot.f90      mma413.f90  ofpss1.f90  psta.f90     rzints.f90   smcph2.f90   strscn.f90  trnsp.f90 \
+adr.o       ascm06.f90  combo.f90   dmatrs.f90  fa1pka.f90  frr1a1.f90  iapd.f90    ksolid.f90     mma414.f90  ofrf2s.f90  pstamg.f90   sadd.f90     smcrtr.f90   strsl1.f90  trnsps.f90 \
+adrprt.f90    ascm07.f90  comect.f90  dmatrx.f90  fa1pke.f90  frrd1c.f90  idf1.f90    ktetra.f90     mma4.f90    ofrs2s.f90  pstpl1.f90   sadotb.f90   smcspl.f90   strsl2.f90  trplmd.f90 \
+adrprt.o    ascm08.f90  comugv.f90  dmfgr.f90   fa1pki.f90  frrd1d.f90  idf2.f90    ktrapr.f90     mma.f90     ofsplt.f90  pstq1.f90    sanorm.f90   smleig1.f90  strslv.f90  trplms.f90 \
+af.f90        ascm09.f90  cone.f90    dmpalt.f90  fa1pkv.f90  frrd1f.f90  idist.f90   ktrbsc.f90     mmarc1.f90  oldel1.f90  pstq2.f90    saxb.f90     smleig.f90   stube1.f90  trplt.f90 \
+af.o        ascm10.f90  conm1d.f90  dmpfil.f90  fa2.f90     frrd2.f90   idplot.f90  ktriqd.f90     mmarc2.f90  oldel2.f90  pstrb1.f90   saxif1.f90   smmats.f90   sub1.f90    trttem.f90 \
+ai.f90        ascm11.f90  conm1s.f90  dmpyad.f90  factor.f90  frrd.f90    ifb2ar.f90  ktrirg.f90     mmarc3.f90  oldel3.f90  pstri1.f90   saxif2.f90   smp1.f90     suba.f90    tshear.f90 \
+ai.o        ascm12.f90  conm2d.f90  dmpy.f90    factru.f90  frsw2.f90   ifp1b.f90   ktrm6d.f90     mmarc4.f90  olplot.f90  pstri2.f90   sbar1.f90    smp2.f90     subbb.f90   tspl1d.f90 \
+ais.f90       ascm13.f90  conm2s.f90  dnorm.f90   failrs.f90  frsw.f90    ifp1c.f90   ktrm6s.f90     mmarm1.f90  onetwo.f90  pstrm1.f90   sbar2.f90    smpyad.f90   subb.f90    tspl1s.f90 \
+ais.o       asdmap.f90  conmsg.f90  dpd1.f90    failur.f90  ftube.f90   ifp1d.f90   ktrmem.f90     mmarm2.f90  onlins.f90  pstrm.f90    sbspl2.f90   smsg.f90     subcc.f90   tspl2d.f90 \
+akapm.f90     aspro.f90   contor.f90  dpd2.f90    fbs1.f90    fvrs1a.f90  ifp1e.f90   ktrpld.f90     mmarm3.f90  opt2a.f90   pstrq2.f90   scalar.f90   snpdf.f90    subc.f90    tspl2s.f90 \
+akapm.o     asycon.f90  copy.f90    dpd3.f90    fbs21.f90   fvrs1b.f90  ifp1.f90    ktrpls.f90     mmarm4.f90  opt2b.f90   pthbdy.f90   scaled.f90   sofcls.f90   sub.f90     tspl3d.f90 \
+akappa.f90    ateig.f90   cpyfil.f90  dpd4.f90    fbs2.f90    fvrs1c.f90  ifp1f.f90   ktrplt.f90     modac1.f90  opt2c.f90   ptintr.f90   scalex.f90   sofi.f90     subi.f90    tspl3s.f90 \
+akappa.o    autock.f90  cpystr.f90  dpd5.f90    fbs3.f90    fvrs1d.f90  ifp1g.f90   ktshld.f90     modac2.f90  opt2d.f90   pull.f90     scan.f90     sofint.f90   subpb.f90   ttlpge.f90 \
+akp2.f90      autosv.f90  crdrd2.f90  dpdaa.f90   fbs4.f90    fvrs1e.f90  ifp1h.f90   ktshls.f90     modacc.f90  optp1a.f90  push.f90     scat.f90     sofo.f90     subp.f90    ttordr.f90 \
+akp2.o      axis10.f90  crdrd.f90   dpd.f90     fbs.f90     fvrs2a.f90  ifp1pc.f90  ktube.f90      moda.f90    optp1b.f90  q2bcd.f90    sce1.f90     sofopn.f90   subph1.f90  ttrapr.f90 \
+alamda.f90    axis.f90    create.f90  dplot.f90   fbsf.f90    fvrst1.f90  ifp1s.f90   lamx.f90       modb.f90    optp1c.f90  q2bcs.f90    scheme.f90   sofsiz.f90   summ.f90    ttrirg.f90 \
+alamda.o    axloop.f90  criggp.f90  dpltst.f90  fbsi1.f90   fvrst2.f90  ifp1xy.f90  line10.f90     modc.f90    optp1d.f90  q2trmd.f90   scone1.f90   softoc.f90   sumphi.f90  tubed.f90 \
+alg01.f90     bandit.f90  crspld.f90  dppsb.f90   fbsi2.f90   fwmw.f90    ifp3b.f90   line.f90       mplprt.f90  optpr1.f90  q2trms.f90   scone2.f90   softrl.f90   suplt.f90   tubes.f90 \
+alg01.o     bard.f90    crspld.o  dpps.f90    fbsi3.f90   fzy2.f90    ifp3.f90    linein.f90     mpy3a.f90   optpr2.f90  q4bmgd.f90   scone3.f90   sofut.f90    suread.f90  tvor.f90 \
+alg02.f90     bar.f90     crspls.f90  dpse2.f90   fbsi4.f90   gauss2.f90  ifp4b.f90   linel.f90      mpy3b.f90   optpx1.f90  q4bmgs.f90   scrlm.f90    solid.f90    suwrt.f90   twistd.f90 \
+alg02.o     bars.f90    crspls.o  dpse3.f90   fbsi.f90    geloop.f90  ifp4c.f90   linkup.f90     mpy3c.f90   optpx.f90   q4gmgs.f90   sd2rhd.f90   solve1.f90   switch.f90  twists.f90 \
+alg03.f90     basglb.f90  crsub.f90   dpse4.f90   fbsint.f90  gencos.f90  ifp4e.f90   loadsu.f90     mpy3dr.f90  order.f90   q4nrms.f90   sdcin.f90    solve.f90    symbol.f90  type10.f90 \
+alg04.f90     bdat01.f90  crsub.o   dpzy.f90    fbsinv.f90  gend.f90    ifp4.f90    locpt.f90      mpy3.f90    ortck.f90   q4shps.f90   sdcins.f90   solver.f90   t3bgbs.f90  typflt.f90 \
+alg05.f90     bdat02.f90  csqrtx.f90  dqdmem.f90  fbsrdm.f90  gendsb.f90  ifp4f.f90   lodapp.f90     mpy3ic.f90  ortho.f90   qdmem.f90    sdcmm.f90    sortdg.f90   t3bmgd.f90  typint.f90 \
+alg06.f90     bdat03.f90  csqrtx.o  dquad.f90   fcurl.f90   genpar.f90  ifp4g.f90   logfil.f90     mpy3nu.f90  oscxrf.f90  qdmm1d.f90   sdcmps.f90   sort.f90     t3bmgs.f90  unpscr.f90 \
+alg07.f90     bdat04.f90  csub.f90    draw.f90    fdit.f90    genvec.f90  ifp5a.f90   loglog.f90     mpy3oc.f90  outmsc.f90  qdmm1.f90    sdcmq.f90    sorti.f90    t3gemd.f90  upart.f90 \
+alg08.f90     bdat05.f90  csub.o    drkapm.f90  fdsub.f90   getblk.f90  ifp5.f90    lprops.f90     mpy3p.f90   outpak.f90  qdmm1s.f90   sdcom1.f90   spanl1.f90   t3gems.f90  upcase.f90 \
+alg09.f90     bdat06.f90  csumm.f90   drod.f90    fdvect.f90  getdef.f90  ifpdco.f90  lsplin.f90     mpy4t.f90   outpt1.f90  qdmm2d.f90   sdcom2.f90   spanl2.f90   t3pl4d.f90  usrmsg.f90 \
+alg10.f90     betrns.f90  csumm.o   drwchr.f90  feer1.f90   gfbs.f90    ifp.f90     magbdy.f90     mpya3d.f90  outpt2.f90  qdmm2.f90    sdcom3.f90   splt10.f90   t3pl4s.f90  valvec.f90 \
+alg11.f90     bfsmat.f90  cthmck.f90  ds1a.f90    feer2.f90   gfscom.f90  ifpmdc.f90  magpha.f90     mpyad.f90   outpt3.f90  qdmm2s.f90   sdcom4.f90   sptchk.f90   t3setd.f90  varian.f90 \
+alg12.f90     bgrid.f90   cthmck.o  ds1b.f90    feer3.f90   gfsdir.f90  ifppar.f90  Makefile     mpyado.f90  outpt4.f90  qdplt.f90    sdcomp.f90   sqdm11.f90   t3sets.f90  vdra.f90 \
+alg13.f90     bint.f90    ctrnsp.f90  ds1etd.f90  feer3x.f90  gfshc.f90   ifppvc.f90  Makefile.am  mpydri.f90  outpt5.f90  qhbdy.f90    sdcompx.f90  sqdm12.f90   ta1a.f90    vdrb.f90 \
+alg14.f90     biotsv.f90  ctrnsp.o  ds1.f90     feer4.f90   gfsh.f90    ifs1p.f90   Makefile.in  mpyl.f90    outpt.f90   qloadl.f90   sdcout.f90   sqdm21.f90   ta1b.f90    vdr.f90 \
+alg15.f90     bishel.f90  curcas.f90  dschk.f90   feerdd.f90  gfsma.f90   ifs2p.f90   makmcb.f90     mpyq.f90    page2.f90   qparam.f90   sdhtf1.f90   sqdm22.f90   ta1ca.f90   vec.f90 \
+alg16.f90     bislc2.f90  curcas.o  dshear.f90  feer.f90    gfsmo2.f90  ifs3p.f90   mapset.f90     mqdplt.f90  page.f90    qparmd.f90   sdhtf2.f90   sqdme1.f90   ta1c.f90    vecprt.f90 \
+alg17.f90     bisloc.f90  curv1.f90   dsmg1.f90   ferfbs.f90  gfsmod.f90  ifs4p.f90   maskn.f90      mred1a.f90  pakcol.f90  qparmr.f90   sdhtff.f90   sqdpl1.f90   ta1cpd.f90  viscd.f90 \
+alg18.f90     bitpat.f90  curv1.o   dsmg2.f90   ferltd.f90  gfsmrg.f90  ifs5p.f90   masstq.f90     mred1b.f90  param.f90   qriter1.f90  sdr1a.f90    sqrtm.f90    ta1cps.f90  viscs.f90 \
+alg19.f90     bmg.f90     curv2.f90   dstroy.f90  ferlts.f90  gfsmt.f90   ifte2.f90   matck.f90      mred1c.f90  paraml.f90  qriter.f90   sdr1b.f90    squd41.f90   ta1etd.f90  wavey.f90 \
+alg1.f90      bmgtns.f90  curv2.o   dtranp.f90  ferrdm.f90  gfsptn.f90  ifte4.f90   matdum.f90     mred1d.f90  partn1.f90  quad4d.f90   sdr1.f90     squd42.f90   ta1.f90     wilvec1.f90 \
+alg25.f90     border.f90  curv3.f90   dtrbsc.f90  ferrdm.o  gfsspc.f90  ift.f90     matgen.f90     mred1e.f90  partn2.f90  quad4s.f90   sdr2aa.f90   srod1.f90    ta1h.f90    wilvec.f90 \
+alg26.f90     bound.f90   curv3.o   dtria.f90   ferswd.f90  gfstrn.f90  iftg.f90    matgpr.f90     mred1.f90   partn3.f90  qvol.f90     sdr2a.f90    srod2.f90    tabfmt.f90  wplt10.f90 \
+alg29.f90     bread.f90   curv.f90    dtrmem.f90  ferswd.o  gfswch.f90  ihexd.f90   matprn.f90     mred2a.f90  partn.f90   rand1.f90    sdr2b.f90    ss2d81.f90   table5.f90  wrtmsg.f90 \
+alg2.f90      bseqgp.f90  curvit.f90  dtshld.f90  fersws.f90  gibstk.f90  ihex.f90    matprt.f90     mred2b.f90  pcoord.f90  rand2.f90    sdr2c.f90    ss2d82.f90   tablev.f90  wrtprt.f90 \
+alg30.f90     bug.f90     curvit.o  dtshls.f90  fersws.o  gi.f90      ihexsd.f90  matvc2.f90     mred2c.f90  permut.f90  rand3.f90    sdr2d.f90    ssg1a.f90    tabpch.f90  wrttrl.f90 \
+alg3.f90      calcv.f90   curv.o    dumerg.f90  ferxtd.f90  giggks.f90  ihexs.f90   matvec.f90     mred2d.f90  perpec.f90  rand5.f90    sdr2e.f90    ssg1.f90     tabprt.f90  xcei.f90 \
+alg4.f90      case.f90    curvps.f90  dumod1.f90  ferxtd.o  gigtka.f90  ihexss.f90  matwrt.f90     mred2e.f90  pexit.f90   rand6.f90    sdr2.f90     ssg2a.f90    tabpt.f90   xchk.f90 \
+alg5.f90      casege.f90  cxloop.f90  dumod2.f90  ferxts.f90  gigtkg.f90  incore.f90  maxdgr.f90     mred2.f90   phdmia.f90  rand7.f90    sdr3a.f90    ssg2b.f90    tapbit.f90  xclean.f90 \
+alg6.f90      cdcomp.f90  cxtrny.f90  dumod3.f90  ferxts.o  ginofl.f90  incro.f90   mbamg.f90      mred2f.f90  pidck.f90   rand8.f90    sdr3.f90     ssg2c.f90    termsd.f90  xcsa.f90 \
+alg7.f90      cdetm2.f90  cyct1.f90   dumod4.f90  ff100.f90   gipsst.f90  initl2.f90  mbbslj.f90     mred2g.f90  piklvl.f90  random.f90   sdrchk.f90   ssg2.f90     termss.f90  xdcode.f90 \
+alg8.f90      cdetm.f90   cyct2a.f90  dumod5.f90  ff100.o   givens.f90  initl2.o  mbcap.f90      mred2h.f90  pkbar.f90   rbmg1.f90    sdretd.f90   ssg3a.f90    tetra.f90   xdph.f90 \
+alg9.f90      cdifbs.f90  cyct2b.f90  dumper.f90  ffhelp.f90  gkad1a.f90  initl.f90   mbctr.f90      mred2i.f90  pkqad1.f90  rbmg2.f90    sdrht.f90    ssg3.f90     tiger.f90   xfadj1.f90 \
+algan.f90     cdivid.f90  cyct2.f90   dumx.f90    ffhelp.o  gkad1c.f90  initl.o   mbdpdh.f90     mred2j.f90  pkqad2.f90  rbmg3.f90    sdumx1.f90   ssg4.f90     timeeq.f90  xfldef.f90 \
+algap.f90     cdtfbs.f90  dadd5.f90   dupart.f90  ffread.f90  gkad.f90    inptt1.f90  mbgae.f90      mred2l.f90  pkqdm1.f90  rbmg4.f90    sdumx2.f90   ssgetd.f90   timts1.f90  xflord.f90 \
+algar.f90     cead1a.f90  dadd.f90    dvectr.f90  ffread.o  gkam1a.f90  inptt1.o  mbgate.f90     mred2m.f90  pkqdm.f90   rcard2.f90   seemat.f90   ssght1.f90   timts2.f90  xflszd.f90 \
+alg.f90       cead.f90    dadotb.f90  dvmag.f90   filcor.f90  gkam1b.f90  inptt2.f90  mbgaw.f90      mred2n.f90  pkqdms.f90  rcard.f90    selas1.f90   ssght2.f90   timtst.f90  xgpibs.f90 \
+algpb.f90     centre.f90  dapoly.f90  dypz.f90    filcor.o  gkam.f90    inptt2.o  mbgeod.f90     mred2o.f90  pkqdpl.f90  rcova.f90    selas2.f90   ssght.f90    tipe.f90    xgpidd.f90 \
+algpo.f90     cf1fbs.f90  daxb.f90    dzpy.f90    filswi.f90  gmmatc.f90  inptt3.f90  mbmode.f90     mred2p.f90  pkrod.f90   rcovb.f90    selbo1.f90   ssghtp.f90   tis2d8.f90  xgpidg.f90 \
+algpr.f90     cf1ort.f90  dbar.f90    dzy.f90     filswi.o  gmmatd.f90  inptt3.o  mbplot.f90     mrge.f90    pktq1.f90   rcovc.f90    selbo2.f90   ssgkhi.f90   tker.f90    xgpi.f90 \
+allmat.f90    cf2fbs.f90  dbase.f90   dzymat.f90  findc.f90   gmmats.f90  inptt4.f90  mbprit.f90     mring.f90   pktq2.f90   rcovds.f90   selcam.f90   ssgslt.f90   tktztk.f90  xgpimw.f90 \
+amatrx.f90    cf2ort.f90  dcone.f90   eadd.f90    findc.o   gmmerg.f90  inptt4.o  mbreg.f90      msgwrt.f90  pktrbs.f90  rcove.f90    semint.f90   sslot1.f90   tldrs.f90   xipfl.f90 \
+amgb1a.f90    cfactr.f90  dcross.f90  eandm.f90   finder.f90  gmprtn.f90  inptt5.f90  mce1a.f90      mslot.f90   pktri1.f90  rcovem.f90   seteq.f90    sslot2.f90   tlodm6.f90  xlnkdd.f90 \
+amgb1b.f90    cfbsor.f90  ddamat.f90  ectloc.f90  finder.o  gnfist.f90  inptt5.o  mce1b.f90      msolid.f90  pktri2.f90  rcovim.f90   setfnd.f90   ssold1.f90   tlodsl.f90  xlnkhd.f90 \
+amgb1c.f90    cfe1ao.f90  ddampg.f90  edit.f90    find.f90    go.f90      input4.f90  mce1c.f90      mtimsu.f90  pktrm1.f90  rcovls.f90   setig.f90    ssold2.f90   tlodt1.f90  xmpldd.f90 \
+amgb1d.f90    cfe1my.f90  ddcmps.f90  edtl.f90    find.o    gopen.f90   input4.o  mce1d.f90      mtmsu1.f90  pktrm.f90   rcovms.f90   setinp.f90   ssplin.f90   tlodt2.f90  xosgen.f90 \
+amgb1.f90     cfe2ao.f90  ddcomp.f90  egnvct.f90  flbelm.f90  gp1.f90     input.f90   mce1.f90       mtrapr.f90  pktrms.f90  rcovo.f90    setlvl.f90   sswtch.f90   tlodt3.f90  xparam.f90 \
+amgb1s.f90    cfe2my.f90  ddr1a.f90   eject.f90   flbema.f90  gp2.f90     input.o   mce2.f90       mtrbsc.f90  pktrpl.f90  rcovqv.f90   setval.f90   stack.f90    tlqd4d.f90  xpolck.f90 \
+amgb2a.f90    cfeer1.f90  ddr1b.f90   ektrmd.f90  flbemg.f90  gp3a.f90    insert.f90  mcone.f90      mtriqd.f90  pktrq2.f90  rcovr3.f90   sfarea.f90   step2.f90    tlqd4s.f90  xpunp.f90 \
+amgb2.f90     cfeer2.f90  ddr1.f90    ektrms.f90  flbmg.f90   gp3b.f90    insert.o  mdumx.f90      mtrirg.f90  pktrqd.f90  rcovr.f90    sfetch.f90   step.f90     tltr3d.f90  xpurge.f90 \
+amgbfs.f90    cfeer3.f90  ddr2.f90    elelbl.f90  flbprt.f90  gp3c.f90    int2a8.f90  melbow.f90     mtrplt.f90  pla1.f90    rcovsl.f90   sgena.f90    stord1.f90   tltr3s.f90  xrcard.f90 \
+amg.f90       cfeer4.f90  ddr.f90     elim.f90    flbset.f90  gp3d.f90    int2a8.o  merge1.f90     mtrxi.f90   pla2.f90    rcovss.f90   sgenb.f90    stord2.f90   tmtogo.f90  xread.f90 \
+amgrod.f90    cfeer.f90   ddrmm1.f90  em1d.f90    flface.f90  gp3.f90     int2al.f90  merged.f90     mtrxin.f90  pla31.f90   rcovui.f90   sgen.f90     stpaic.f90   tmtsio.f90  xrecps.f90 \
+amgsba.f90    cfer3d.f90  ddrmm2.f90  em2d.f90    flfree.f90  gp4.f90     int2al.o  merge.f90      mtrxo.f90   pla32.f90   rcovuo.f90   sgenm.f90    stpax1.f90   tmtslp.f90  xrgdcf.f90 \
+amgt1a.f90    cfer3s.f90  ddrmma.f90  em3d.f90    flld.f90    gp4prt.f90  intert.f90  mesage.f90     mxcid.f90   pla3.f90    rcovva.f90   shape.f90    stpax2.f90   tmtsot.f90  xrgdev.f90 \
+amgt1b.f90    cfnor1.f90  ddrmm.f90   ema1d.f90   fmdi.f90    gp4sp.f90   intert.o  mflud2.f90     mxcids.f90  pla41.f90   rdmodx.f90   shcsgd.f90   stpax3.f90   tordrd.f90  xrgdfm.f90 \
+amgt1c.f90    cfnor2.f90  ddrmmp.f90  ema1.f90    fname.f90   gpcyc.f90   intfbs.f90  mflud3.f90     mxcids.o  pla42.f90   re2al.f90    shctsd.f90   stpbg.f90    tordrs.f90  xrgdtb.f90 \
+amgt1d.f90    chkopn.f90  ddrmms.f90  ema1s.f90   fndgrd.f90  gpfdr.f90   intlst.f90  mflud4.f90     na12a8.f90  pla4b.f90   read1.f90    shctss.f90   stpbs0.f90   totape.f90  xrgdtp.f90 \
+amgt1.f90     cidck.f90   ddumx.f90   emadtq.f90  fndiam.f90  gpstg.f90   intprt.f90  mfree.f90      na12a8.o  pla4.f90    read1.o    sheard.f90   stpbs1.f90   tpztem.f90  xrgnum.f90 \
+amgt1s.f90    cifsdd.f90  decode.f90  ema.f90     fndlvl.f90  gpstgn.f90  intvec.f90  mindeg.f90     na12if.f90  plamat.f90  read2.f90    shears.f90   stpda.f90    traile.f90  xrgsst.f90 \
+amgt1t.f90    cinfbs.f90  decomp.f90  emastq.f90  fndnxl.f90  gpstgs.f90  inverd.f90  mintrp.f90     na12if.o  plbar1.f90  read2.o    shfors.f90   stpk.f90     trail.f90   xrgsub.f90 \
+amgt2a.f90    cinvp1.f90  degree.f90  emfld.f90   fndpar.f90  gptlbl.f90  invers.f90  mma101.f90     nascar.f90  pload1.f90  read3.f90    shgmgd.f90   stplot.f90   tranem.f90  xsave.f90 \
+amgt2.f90     cinvp2.f90  delete.f90  emg1b.f90   fndplt.f90  gptsym.f90  invert.f90  mma102.f90     nascar.o  pload3.f90  read3.o    shgmgs.f90   stpphi.f90   tranp1.f90  xscndm.f90 \
+ampa.f90      cinvp3.f90  delkls.f90  emgcng.f90  fndpnt.f90  gpwg1a.f90  invfbs.f90  mma103.f90     norm11.f90  pload4.f90  read4.f90    shlsts.f90   stppt2.f90   transp.f90  xsem00.f90 \
+ampb1.f90     cinvpr.f90  delset.f90  emgcor.f90  fndset.f90  gpwg1b.f90  invp1.f90   mma104.f90     norm11.o  pload.f90   read4.o    shpsts.f90   stqme2.f90   trapad.f90  xsfadd.f90 \
+ampb2.f90     clstab.f90  deltkl.f90  emg.f90     fnxt.f90    gpwg1c.f90  invp2.f90   mma111.f90     norm1.f90   ploadx.f90  read6.f90    shstns.f90   strap1.f90   trapax.f90  xsfa.f90 \
+ampb.f90      clvec.f90   desvel.f90  emgfin.f90  fnxtvc.f90  gpwg.f90    invp3.f90   mma112.f90     norm1.o   ploapf.f90  read6.o    shstss.f90   strap2.f90   trbscd.f90  xsort2.f90 \
+ampc1.f90     cmauto.f90  detck.f90   emgold.f90  fnxtvd.f90  grav.f90    invpwr.f90  mma113.f90     normal.f90  plod4d.f90  read7.f90    shstts.f90   strax1.f90   trbsc.f90   xsort.f90 \
+ampc2.f90     cmcase.f90  detdet.f90  emgout.f90  fnxtv.f90   gravl1.f90  invtr.f90   mma114.f90     normal.o  plod4s.f90  read7.o    shxtrs.f90   strax2.f90   trbscs.f90  xsosgn.f90 \
+ampc.f90      cmckcd.f90  detfbs.f90  emgpro.f90  form12.f90  gravl2.f90  is2d8d.f90  mma1.f90       nrlsum.f90  plot.f90    reduce.f90   sihex1.f90   strax3.f90   trd1a2.f90  xtrnsy.f90 \
+ampd.f90      cmckdf.f90  detgbs.f90  emgtab.f90  form1.f90   gravl3.f90  is2d8s.f90  mma201.f90     nrlsum.o  pltmrg.f90  reduce.o   sihex2.f90   strax3.o   trd1a.f90   xtrny1.f90 \
+ampe.f90      cmcomb.f90  detm1.f90   empcor.f90  form22.f90  gridip.f90  isft.f90    mma202.f90     nsinfo.f90  pltopr.f90  redu.f90     sinc0s1.f90  strbs1.f90   trd1c2.f90  xychar.f90 \
+amp.f90       cmcont.f90  detm3.f90   emsg.f90    form2.f90   gtmat1.f90  itcode.f90  mma203.f90     nsinfo.o  pltset.f90  redu.o     sinc0s.f90   strbs1.o   trd1c.f90   xydump.f90 \
+ampf.f90      cmdisc.f90  detm4.f90   encode.f90  format.f90  gust1.f90   itmprt.f90  mma204.f90     number.f90  plttra.f90  reig.f90     sjump.f90    stri31.f90   trd1d2.f90  xyfind.f90 \
+angtrs.f90    cmhgen.f90  detm5.f90   eqmcka.f90  formg2.f90  gust2.f90   ittype.f90  mma211.f90     number.o  pnm.f90     reig.o     skpfrm.f90   stri31.o   trd1d.f90   xygraf.f90 \
+anisop.f90    cmiwrt.f90  detm.f90    eqmck.f90   formgg.f90  gust3.f90   iunion.f90  mma212.f90     odum.f90    polypt.f90  relabl.f90   skprec.f90   stri32.f90   trd1e.f90   xylog.f90 \
+anullsub.f90  cmmcon.f90  dfbs.f90    eqmckm.f90  fornam.f90  gust.f90    jacob2.f90  mma213.f90     odum.o    prefix.f90  relabl.o   sma1a.f90    stri32.o   trd.f90     xyout.f90 \
+apd12.f90     cmrd2a.f90  dgree.f90   eqmcks.f90  fornum.f90  hbdyd.f90   jacobs.f90  mma214.f90     ofcomp.f90  preloc.f90  remflx.f90   sma1b.f90    strir1.f90   tree.f90    xyplot.f90 \
+apd1.f90      cmrd2b.f90  diag36.f90  eqout1.f90  fpont.f90   hbdy.f90    kbar.f90    mma2.f90       ofp1a.f90   premat.f90  remflx.o   sma1.f90     strir1.o   trht1a.f90  xyprpl.f90 \
+apd2.f90      cmrd2c.f90  diagon.f90  eqscod.f90  fqrw.f90    hbdys.f90   kcone2.f90  mma301.f90     ofp1b.f90   presax.f90  rename.f90   sma2a.f90    strir2.f90   trht1b.f90  xyprpt.f90 \
+apd3.f90      cmrd2d.f90  diam.f90    eqsout.f90  fqrwv.f90   hccom.f90   kconed.f90  mma302.f90     ofp1c.f90   pretab.f90  rename.o   sma2b.f90    strir2.o   trht1c.f90  xytics.f90 \
+apd4.f90      cmrd2e.f90  dihex.f90   errmkn.f90  frbk2.f90   hdchk.f90   kcones.f90  mma303.f90     ofp1.f90    pretrd.f90  retblk.f90   sma2.f90     strm61.f90   trht.f90    xytran.f90 \
+apd5.f90      cmrd2.f90   dipole.f90  estmag.f90  frbk.f90    hdcoef.f90  kdumx.f90   mma304.f90     ofpcc1.f90  pretrs.f90  rforce.f90   sma3a.f90    strm61.o   tria3d.f90  yrcard.f90 \
+apdb1.f90     cmrd2f.f90  dis2d8.f90  etrbkd.f90  frd2a.f90   hdlin.f90   kelas.f90   mma311.f90     ofpcc2.f90  print.f90   rmg.f90      sma3b.f90    strm62.f90   tria3s.f90  zeroc.f90 \
+apdb2a.f90    cmrd2g.f90  displa.f90  etrbks.f90  frd2b.f90   hdplot.f90  kelbow.f90  mma312.f90     ofpcf1.f90  proces.f90  rodd.f90     sma3c.f90    strm62.o   triaad.f90  zj.f90 \
+apdb2.f90     cmrels.f90  dist.f90    etrbmd.f90  frd2c.f90   hdplt.f90   kflud2.f90  mma313.f90     ofpcf2.f90  procom.f90  rod.f90      sma3.f90     strme1.f90   triaax.f90 \
+apdb.f90      cmsfil.f90  dk100.f90   etrbms.f90  frd2d.f90   hdsket.f90  kflud3.f90  mma314.f90     ofpcs1.f90  prolat.f90  rods.f90     smc2cd.f90   strme1.o   tridi1.f90 \
+apdcs.f90     cmsofo.f90  dk211.f90   exi2.f90    frd2e.f90   hdsolv.f90  kflud4.f90  mma321.f90     ofpcs2.f90  prompt.f90  rombdk.f90   smc2cs.f90   strnam.f90   tridi.f90 \
+apd.f90       cmtimu.f90  dk89.f90    exio1.f90   frd2f.f90   hdstat.f90  khrfn2.f90  mma322.f90     ofp.f90     prtint.f90  romber.f90   smc2rd.f90   strnam.o   trif.f90 \
+apdf.f90      cmtoc.f90   dki.f90     exio2.f90   frd2i.f90   hdstus.f90  khrfn3.f90  mma323.f90     ofpgpw.f90  prtmsg.f90  rombsk.f90   smc2rs.f90   strp11.f90   trimem.f90 \
+apdoe.f90     cmtrce.f90  dkint.f90   exio.f90    fread.f90   hdsurf.f90  kompnt.f90  mma324.f90     ofpmis.f90  prtprm.f90  rotate1.f90  smcccd.f90   strp11.o   triqd.f90 \
+apdr.f90      cnorm1.f90  dkl.f90     exlvl.f90   frlga.f90   hdvs1.f90   korsz.f90   mma3.f90       ofppnt.f90  psbar.f90   rotate.f90   smcccs.f90   strp12.f90   trlga.f90
 
 libnastran_a_LIBADD = ../bd/libnastbd.a

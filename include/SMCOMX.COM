@@ -1,21 +1,23 @@
-      DOUBLE PRECISION  DAJJR   ,DAJJI   ,DDR     ,DDC     ,MINDD   
-      INTEGER           POWER   ,STURM   ,CHLSKY
-      LOGICAL           OPNSCR
-      COMMON  /SMCOMX/  NCOL    ,IERROR  ,IVWRDS  ,MAXNAC  ,NSPILL
-     &,                 MAXINLOP,IDBASE  ,IDBMAX  ,IBUF1   ,IBUF2
-     &,                 OPNSCR  ,IOLOOP  ,IILOOP  ,LASCOL  ,KROW
-     &,                 KROWS   ,KROWN   ,KRIDX   ,KRIDXN  ,JRIDXN
-     &,                 JROW    ,JROWS   ,JROWN   ,JRIDX   ,JVIDX
-     &,                 IROW1   ,IROWN   ,KFRCOL  ,KLSCOL  ,KLSROW
-     &,                 IOL     ,IIL     ,KTYPE   ,ISKIP   ,INDEXV
-     &,                 INDEXVD ,JCOL    ,KAROWS  ,MXRECL  ,NVTERM
-     &,                 KCOL    ,MAXNCOL ,MEMFRE  ,MEMCOL1 ,MEMLCK
-     &,                 MEMLAS  ,MEMCOLN ,ISPILL  ,KPREC   ,NBANDW
-     &,                 MAXNAR  ,MBLK(15),MOBLK(15)
-      COMMON  /SMCOMY/  DAJJR   ,DAJJI   ,AJJR    ,AJJI
-      COMMON  /SYSTEM/  ISYSBF  ,NOUT    ,DUM1(37),NBPW    ,DUM2(14)
-     &,                 ISPREC
-      COMMON  /SFACT /  MCB(7)  ,LLL(7)  ,DBC(7)  ,ISCR1   ,ISCR2
-     &,                 LCORE   ,DDR     ,DDC     ,POWER   ,SCR3    
-     &,                 MINDD   ,CHLSKY
-      COMMON  /STURMX/  STURM   ,SHFTPT  ,KEEP    ,PTSHFT  ,NR
+!
+! COMMON variable declarations
+!
+   REAL Ajji , Ajjr , Dbc(7) , Dum1(37) , Dum2(14) , Ptshft , Scr3 , Shftpt
+   INTEGER Chlsky , Ibuf1 , Ibuf2 , Idbase , Idbmax , Ierror , Iil , Iiloop , Indexv , Indexvd , Iol , Ioloop , Irow1 , Irown ,     &
+         & Iscr1 , Iscr2 , Iskip , Ispill , Isprec , Isysbf , Ivwrds , Jcol , Jridx , Jridxn , Jrow , Jrown , Jrows , Jvidx ,       &
+         & Karows , Kcol , Keep , Kfrcol , Klscol , Klsrow , Kprec , Kridx , Kridxn , Krow , Krown , Krows , Ktype , Lascol ,       &
+         & Lcore , Lll(7) , Maxinlop , Maxnac , Maxnar , Maxncol , Mblk(15) , Mcb(7) , Memcol1 , Memcoln , Memfre , Memlas ,        &
+         & Memlck , Moblk(15) , Mxrecl , Nbandw , Nbpw , Ncol , Nout , Nr , Nspill , Nvterm , Power , Sturm
+   DOUBLE PRECISION Dajji , Dajjr , Ddc , Ddr , Mindd
+   LOGICAL Opnscr
+   COMMON /sfact / Mcb , Lll , Dbc , Iscr1 , Iscr2 , Lcore , Ddr , Ddc , Power , Scr3 , Mindd , Chlsky
+   COMMON /smcomx/ Ncol , Ierror , Ivwrds , Maxnac , Nspill , Maxinlop , Idbase , Idbmax , Ibuf1 , Ibuf2 , Opnscr , Ioloop ,        &
+                 & Iiloop , Lascol , Krow , Krows , Krown , Kridx , Kridxn , Jridxn , Jrow , Jrows , Jrown , Jridx , Jvidx , Irow1 ,&
+                 & Irown , Kfrcol , Klscol , Klsrow , Iol , Iil , Ktype , Iskip , Indexv , Indexvd , Jcol , Karows , Mxrecl ,       &
+                 & Nvterm , Kcol , Maxncol , Memfre , Memcol1 , Memlck , Memlas , Memcoln , Ispill , Kprec , Nbandw , Maxnar ,      &
+                 & Mblk , Moblk
+   COMMON /smcomy/ Dajjr , Dajji , Ajjr , Ajji
+   COMMON /sturmx/ Sturm , Shftpt , Keep , Ptshft , Nr
+   COMMON /system/ Isysbf , Nout , Dum1 , Nbpw , Dum2 , Isprec
+!
+! End of declarations
+!

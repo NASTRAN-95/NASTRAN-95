@@ -1,5 +1,11 @@
-      COMMON / MMACOM / IFILE , LASIND, SIGN  , ITYPE , IAX   , IDX
-     1,                 IDX2  , IDX4  , IBROW , NWDD  , NWDB  , NCOLPP
-     2,                 OFILE , IPASS , NASTOR, NBSTOR, NWDDNDR,IBX
-     3,                 NWDDNBR,IRFILE, IRCOL1, IRCOLN, LASMEM, IRPOS(3)
-     4,                 IAX2  , LASINDM,METHOD
+!
+! COMMON variable declarations
+!
+   INTEGER Iax , Iax2 , Ibrow , Ibx , Idx , Idx2 , Idx4 , Ifile , Ipass , Ircol1 , Ircoln , Irfile , Irpos(3) , Itype , Lasind ,    &
+         & Lasindm , Lasmem , Method , Nastor , Nbstor , Ncolpp , Nwdb , Nwdd , Nwddnbr , Nwddndr
+   REAL Ofile , Sign
+   COMMON /mmacom/ Ifile , Lasind , Sign , Itype , Iax , Idx , Idx2 , Idx4 , Ibrow , Nwdd , Nwdb , Ncolpp , Ofile , Ipass , Nastor ,&
+                 & Nbstor , Nwddndr , Ibx , Nwddnbr , Irfile , Ircol1 , Ircoln , Lasmem , Irpos , Iax2 , Lasindm , Method
+!
+! End of declarations
+!

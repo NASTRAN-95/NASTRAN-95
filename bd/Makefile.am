@@ -1,13 +1,13 @@
 # what flags you want to pass to the Fortran compiler & linker#
 OPT_OPTS ?= unknown
-AM_FFLAGS = $(OPT_OPTS)
-FFLAGS = -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
+AM_FCFLAGS = $(OPT_OPTS)
+FCFLAGS = -ffree-line-length-none -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 noinst_LIBRARIES = libnastbd.a
-libnastbd_a_SOURCES = dpdcbd.f  gptabd.f  ifx4bd.f  of1pbd.f	of5pbd.f  of9pbd.f  pla4bd.f  sma1bd.f \
-exiobd.f  ifp3bd.f  ifx5bd.f  of2pbd.f	of6pbd.f  ofp1bd.f  plotbd.f  sma2bd.f \
-ferfbd.f  ifx1bd.f  ifx6bd.f  of3pbd.f	of7pbd.f  ofp5bd.f  readbd.f  ta1abd.f \
-flbbd.f   ifx2bd.f  ifx7bd.f  of3sbd.f	of7sbd.f  ofsnbd.f  sdr2bd.f  tabfbd.f \
-gp3bd.f   ifx3bd.f  itembd.f  of4pbd.f	of8pbd.f  ofssbd.f  semdbd.f  vdrbd.f
+libnastbd_a_SOURCES = dpdcbd.f90  gptabd.f90  ifx4bd.f90  of1pbd.f90	of5pbd.f90  of9pbd.f90  pla4bd.f90  sma1bd.f90 \
+exiobd.f90  ifp3bd.f90  ifx5bd.f90  of2pbd.f90	of6pbd.f90  ofp1bd.f90  plotbd.f90  sma2bd.f90 \
+ferfbd.f90  ifx1bd.f90  ifx6bd.f90  of3pbd.f90	of7pbd.f90  ofp5bd.f90  readbd.f90  ta1abd.f90 \
+flbbd.f90   ifx2bd.f90  ifx7bd.f90  of3sbd.f90	of7sbd.f90  ofsnbd.f90  sdr2bd.f90  tabfbd.f90 \
+gp3bd.f90   ifx3bd.f90  itembd.f90  of4pbd.f90	of8pbd.f90  ofssbd.f90  semdbd.f90  vdrbd.f90
