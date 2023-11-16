@@ -58,4 +58,5 @@ SUBROUTINE crsub(Name,I)
    Buf(jdit+1) = Name(2)
    Ditup = .TRUE.
    RETURN
-99999 END SUBROUTINE crsub
+99999 RETURN
+END SUBROUTINE crsub

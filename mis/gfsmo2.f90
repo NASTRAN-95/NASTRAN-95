@@ -222,4 +222,5 @@ SUBROUTINE gfsmo2
    GOTO 99999
  200  n = -2
    CALL mesage(n,file,Name)
-99999 END SUBROUTINE gfsmo2
+99999 RETURN
+END SUBROUTINE gfsmo2

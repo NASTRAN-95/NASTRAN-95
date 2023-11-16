@@ -96,4 +96,5 @@ SUBROUTINE pstamg(Input,Ajjl,Skj)
    CALL psta(Z(idel),Z(ib),Z(ica),Z(ipalp),Z(ipt),Ajjl)
    Nrow = Nrow + Nnj
 !
-99999 END SUBROUTINE pstamg
+99999 RETURN
+END SUBROUTINE pstamg

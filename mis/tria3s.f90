@@ -553,4 +553,5 @@ SUBROUTINE tria3s
    IF ( L38==1 ) CALL mesage(-61,0,0)
    Nogo = 1
 !
-99999 END SUBROUTINE tria3s
+99999 RETURN
+END SUBROUTINE tria3s

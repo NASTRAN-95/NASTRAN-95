@@ -93,4 +93,5 @@ SUBROUTINE dlkapm(Arg,Blkapm)
    c1 = c1 - 1.0/e1 + b*ccos(b*e1)/(csin(b*e1))
    Blkapm = c1
    RETURN
-99999 END SUBROUTINE dlkapm
+99999 RETURN
+END SUBROUTINE dlkapm

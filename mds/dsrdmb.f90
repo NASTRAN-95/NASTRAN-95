@@ -51,4 +51,5 @@ SUBROUTINE dsrdmb(Idata,M)
       CALL dsrdnb
       GOTO 100
    ENDIF
-99999 END SUBROUTINE dsrdmb
+99999 RETURN
+END SUBROUTINE dsrdmb

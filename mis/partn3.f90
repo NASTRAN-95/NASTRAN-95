@@ -135,4 +135,5 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
    Ones = 0
    Here = .FALSE.
    RETURN
-99999 END SUBROUTINE partn3
+99999 RETURN
+END SUBROUTINE partn3

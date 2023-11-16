@@ -300,4 +300,5 @@ SUBROUTINE getblk(Iold,Inew)
 !
  800  Inew = -1
    RETURN
-99999 END SUBROUTINE getblk
+99999 RETURN
+END SUBROUTINE getblk

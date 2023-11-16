@@ -421,4 +421,5 @@ SUBROUTINE tlodt1(Treal,Tint)
          Pg(i2) = Pg(i2) + Psubt(ii)
       ENDDO
    ENDDO
-99999 END SUBROUTINE tlodt1
+99999 RETURN
+END SUBROUTINE tlodt1

@@ -61,4 +61,5 @@ SUBROUTINE zblpki
       Iblka(4) = 0
       Iblka(7) = 0
    ENDIF
-99999 END SUBROUTINE zblpki
+99999 RETURN
+END SUBROUTINE zblpki

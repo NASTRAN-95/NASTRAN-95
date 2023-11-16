@@ -405,4 +405,5 @@ SUBROUTINE fa1pke(Khh,Bhh,Mhh,Bxhh,Fsave,Nloop,Bref,Rref,Neiw,Eps)
    trl(7) = Neiw
    CALL wrttrl(trl)
 !
-99999 END SUBROUTINE fa1pke
+99999 RETURN
+END SUBROUTINE fa1pke

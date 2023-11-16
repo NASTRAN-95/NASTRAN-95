@@ -37,4 +37,5 @@ SUBROUTINE centre(*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
    Center(1) = (X1+X2)/2.0
    Center(2) = (Y1+Y2)/2.0
    RETURN 1
-99999 END SUBROUTINE centre
+99999 RETURN
+END SUBROUTINE centre

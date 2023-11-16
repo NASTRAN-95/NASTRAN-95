@@ -272,4 +272,5 @@ SUBROUTINE outpt1
    mm = -37
    CALL mesage(mm,input,subnam)
 !
-99999 END SUBROUTINE outpt1
+99999 RETURN
+END SUBROUTINE outpt1

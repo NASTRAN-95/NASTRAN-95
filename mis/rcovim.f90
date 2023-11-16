@@ -235,4 +235,5 @@ SUBROUTINE rcovim(Higher)
  100  n = 2
    CALL mesage(n,file,name)
    Iopt = -1
-99999 END SUBROUTINE rcovim
+99999 RETURN
+END SUBROUTINE rcovim

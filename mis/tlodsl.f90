@@ -617,4 +617,5 @@ SUBROUTINE tlodsl(Treal,Tint)
          ENDDO
       ENDIF
    ENDIF
-99999 END SUBROUTINE tlodsl
+99999 RETURN
+END SUBROUTINE tlodsl

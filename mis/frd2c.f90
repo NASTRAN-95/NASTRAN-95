@@ -148,4 +148,5 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
    CALL close(B,1)
    CALL wrttrl(tx)
    CALL cfbsor(Scr1,Scr2,Scr3,X,iopt)
-99999 END SUBROUTINE frd2c
+99999 RETURN
+END SUBROUTINE frd2c

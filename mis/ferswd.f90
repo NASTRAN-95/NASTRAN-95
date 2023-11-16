@@ -174,4 +174,5 @@ SUBROUTINE ferswd(V1,V3,Vb)
          mem = mem - ntmsnx*2 - 4
       ENDIF
    ENDDO
-99999 END SUBROUTINE ferswd
+99999 RETURN
+END SUBROUTINE ferswd

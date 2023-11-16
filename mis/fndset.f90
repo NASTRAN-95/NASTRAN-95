@@ -88,4 +88,5 @@ SUBROUTINE fndset(Gpid,X,Ibuf,N)
  300  CALL bckrec(Oes1)
    CALL close(Oes1,Norew)
 !
-99999 END SUBROUTINE fndset
+99999 RETURN
+END SUBROUTINE fndset

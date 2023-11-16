@@ -60,4 +60,5 @@ SUBROUTINE fndnxl(Name,Newnm)
    Newnm(1) = Buf(jdit)
    Newnm(2) = Buf(jdit+1)
    RETURN
-99999 END SUBROUTINE fndnxl
+99999 RETURN
+END SUBROUTINE fndnxl

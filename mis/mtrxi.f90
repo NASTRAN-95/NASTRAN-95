@@ -160,4 +160,5 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
  500  CALL errmkn(19,9)
    RETURN
 !
-99999 END SUBROUTINE mtrxi
+99999 RETURN
+END SUBROUTINE mtrxi

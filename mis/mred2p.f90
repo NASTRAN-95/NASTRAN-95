@@ -91,4 +91,5 @@ SUBROUTINE mred2p(Nus,Nuf,N2)
          CALL smsg1(imsg,item,Oldnam,modnam)
       ENDIF
    ENDIF
-99999 END SUBROUTINE mred2p
+99999 RETURN
+END SUBROUTINE mred2p

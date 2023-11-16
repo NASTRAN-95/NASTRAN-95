@@ -147,4 +147,5 @@ SUBROUTINE sdr1a(Input,Iout)
    CALL close(Iuf1,1)
    CALL close(Iuf,1)
    CALL wrttrl(mcb)
-99999 END SUBROUTINE sdr1a
+99999 RETURN
+END SUBROUTINE sdr1a

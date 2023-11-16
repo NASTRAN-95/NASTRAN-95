@@ -29,4 +29,5 @@ SUBROUTINE dsopff(Dsname,Iunit,Istatus)
    iccerr = Istatus
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
-99999 END SUBROUTINE dsopff
+99999 RETURN
+END SUBROUTINE dsopff

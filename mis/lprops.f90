@@ -216,4 +216,5 @@ SUBROUTINE lprops(G)
    D(24) = Rmtout(11)
    D(25) = Rmtout(12)
 !
-99999 END SUBROUTINE lprops
+99999 RETURN
+END SUBROUTINE lprops

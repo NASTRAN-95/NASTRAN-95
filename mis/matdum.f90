@@ -388,4 +388,5 @@ SUBROUTINE matdum(Ia,Iprc,Npl,Nout)
    IF ( Line>=Nlpp ) CALL page
    GOTO ihop
 !
-99999 END SUBROUTINE matdum
+99999 RETURN
+END SUBROUTINE matdum

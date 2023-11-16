@@ -72,4 +72,5 @@ SUBROUTINE gfsh(Nuy,H)
    CALL close(H,1)
    CALL wrttrl(mcb)
    RETURN
-99999 END SUBROUTINE gfsh
+99999 RETURN
+END SUBROUTINE gfsh

@@ -215,4 +215,5 @@ SUBROUTINE cmcomb(Nps,Nent,Ndof,Ic)
    GOTO 99999
  1200 imsg = -3
    CALL mesage(imsg,ifile,aaa)
-99999 END SUBROUTINE cmcomb
+99999 RETURN
+END SUBROUTINE cmcomb

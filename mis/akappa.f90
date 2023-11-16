@@ -39,4 +39,5 @@ SUBROUTINE akappa(Arg,Bkappa)
    c2 = cos(s1) - cos((Arg-Del)*Sps+Sigma)
    Bkappa = c1/c2
    RETURN
-99999 END SUBROUTINE akappa
+99999 RETURN
+END SUBROUTINE akappa

@@ -483,4 +483,5 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
    GOTO 99999
  1700 n = -3
    CALL mesage(n,file,nam)
-99999 END SUBROUTINE estmag
+99999 RETURN
+END SUBROUTINE estmag

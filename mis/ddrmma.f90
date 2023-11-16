@@ -184,4 +184,5 @@ SUBROUTINE ddrmma(Setup)
    elwork(iout) = Bufb(npt)
    i = i + 1
    GOTO 400
-99999 END SUBROUTINE ddrmma
+99999 RETURN
+END SUBROUTINE ddrmma

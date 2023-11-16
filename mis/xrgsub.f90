@@ -92,4 +92,5 @@ SUBROUTINE xrgsub(Irestb,Subset)
       Irestb(k) = 0
    ENDDO
    Ignore = 1
-99999 END SUBROUTINE xrgsub
+99999 RETURN
+END SUBROUTINE xrgsub

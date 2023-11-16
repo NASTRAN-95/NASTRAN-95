@@ -243,4 +243,5 @@ SUBROUTINE t3bmgs(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bm
    Ierr = 1
    RETURN
 !
-99999 END SUBROUTINE t3bmgs
+99999 RETURN
+END SUBROUTINE t3bmgs

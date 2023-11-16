@@ -332,4 +332,5 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
          ENDDO
       ENDDO
    ENDIF
-99999 END SUBROUTINE allmat
+99999 RETURN
+END SUBROUTINE allmat

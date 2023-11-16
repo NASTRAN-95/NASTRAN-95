@@ -78,4 +78,5 @@ FUNCTION idist(Ns,Ml,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
    k = ko - ll + 1
    IF ( k>Ml ) Ml = k
    RETURN
-99999 END FUNCTION idist
+99999 RETURN
+END FUNCTION idist

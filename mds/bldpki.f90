@@ -61,4 +61,5 @@ SUBROUTINE bldpki(A,I,File,Block)
       Block(4) = 0
       Block(7) = 0
    ENDIF
-99999 END SUBROUTINE bldpki
+99999 RETURN
+END SUBROUTINE bldpki

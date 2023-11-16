@@ -123,4 +123,5 @@ SUBROUTINE pakcol(Terms,Nterms)
       ENDIF
    ENDDO
 !
-99999 END SUBROUTINE pakcol
+99999 RETURN
+END SUBROUTINE pakcol

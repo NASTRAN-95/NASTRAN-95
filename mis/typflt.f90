@@ -275,4 +275,5 @@ SUBROUTINE typflt(X,Y,Xyd,V,Field,Opt)
    ENDIF
    GOTO tra
 !
-99999 END SUBROUTINE typflt
+99999 RETURN
+END SUBROUTINE typflt

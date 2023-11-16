@@ -45,4 +45,5 @@ SUBROUTINE dbmnam(Igname,Name,Ifilex)
       Name(1) = 0
       Name(2) = 0
    ENDIF
-99999 END SUBROUTINE dbmnam
+99999 RETURN
+END SUBROUTINE dbmnam

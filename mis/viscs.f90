@@ -192,4 +192,5 @@ SUBROUTINE viscs
 !
    CALL emgout(b,b,144,1,dict,ifile,ip)
    RETURN
-99999 END SUBROUTINE viscs
+99999 RETURN
+END SUBROUTINE viscs

@@ -341,4 +341,5 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
    GOTO 1600
  1500 CALL mesage(-3,ifil,ns)
  1600 CALL mesage(-61,0,ns)
-99999 END SUBROUTINE fa1k
+99999 RETURN
+END SUBROUTINE fa1k

@@ -138,4 +138,5 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
       sgs = -Sg(Ls)
       GOTO 100
    ENDIF
-99999 END SUBROUTINE subp
+99999 RETURN
+END SUBROUTINE subp

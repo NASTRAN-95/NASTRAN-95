@@ -66,4 +66,5 @@ SUBROUTINE xflszd(File,Iblock,Filnam)
       indx = File*3 + 3
       Iblock = rshift(Pool(indx),16)
    ENDIF
-99999 END SUBROUTINE xflszd
+99999 RETURN
+END SUBROUTINE xflszd

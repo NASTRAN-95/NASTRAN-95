@@ -675,4 +675,5 @@ SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
  1300 j = -37
  1400 CALL mesage(j,file,name)
 !
-99999 END SUBROUTINE mpydri
+99999 RETURN
+END SUBROUTINE mpydri

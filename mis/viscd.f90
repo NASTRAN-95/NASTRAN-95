@@ -194,4 +194,5 @@ SUBROUTINE viscd
 !
    CALL emgout(b,b,144,1,dict,ifile,ip)
    RETURN
-99999 END SUBROUTINE viscd
+99999 RETURN
+END SUBROUTINE viscd

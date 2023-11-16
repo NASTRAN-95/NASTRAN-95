@@ -440,4 +440,5 @@ SUBROUTINE tpztem(Ti,Pg)
    ENDIF
  100  sp(1) = idel1
    CALL mesage(j,i,sp)
-99999 END SUBROUTINE tpztem
+99999 RETURN
+END SUBROUTINE tpztem

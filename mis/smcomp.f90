@@ -71,4 +71,5 @@ SUBROUTINE smcomp(*,Zi,Zr,Zd)
    ENDIF
  100  module(3) = end
    CALL conmsg(module,5,0)
-99999 END SUBROUTINE smcomp
+99999 RETURN
+END SUBROUTINE smcomp

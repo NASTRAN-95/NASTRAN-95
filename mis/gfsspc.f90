@@ -62,4 +62,5 @@ SUBROUTINE gfsspc(Nuy,Pvec)
    CALL close(Pvec,1)
    CALL wrttrl(mcb)
    RETURN
-99999 END SUBROUTINE gfsspc
+99999 RETURN
+END SUBROUTINE gfsspc

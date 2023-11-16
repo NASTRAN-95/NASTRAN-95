@@ -397,4 +397,5 @@ SUBROUTINE sorti(Inpfl,Outfl,Nwds,Keywrd,L,Nx)
  2600 file = out
    j = -2
    CALL mesage(j,file,subr)
-99999 END SUBROUTINE sorti
+99999 RETURN
+END SUBROUTINE sorti

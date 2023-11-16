@@ -139,4 +139,5 @@ SUBROUTINE inptt4
 !            = 3, ASCII INPUT TAPE, WITH LARGE FILED S.P./D.P. FORMATS
 !
    CALL input4(nmat,iunit,itape,bcdopt)
-99999 END SUBROUTINE inptt4
+99999 RETURN
+END SUBROUTINE inptt4

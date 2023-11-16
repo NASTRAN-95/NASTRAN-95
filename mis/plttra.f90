@@ -167,4 +167,5 @@ SUBROUTINE plttra
  700  ndx = -3
  800  CALL mesage(ndx,file,plt)
    CALL mesage(-61,0,0)
-99999 END SUBROUTINE plttra
+99999 RETURN
+END SUBROUTINE plttra

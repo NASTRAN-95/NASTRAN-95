@@ -167,4 +167,5 @@ SUBROUTINE trplmd(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
    CALL gmmatd(Bmat,3,nd1,-1,dbm,3,nd1,0,Akgg(Jcor))
    RETURN
 !
-99999 END SUBROUTINE trplmd
+99999 RETURN
+END SUBROUTINE trplmd

@@ -405,4 +405,5 @@ SUBROUTINE mpy4t(Iz,Z,Dz)
    Arow = Arow + 1
    IF ( Arow<=Arown ) GOTO 100
    RETURN
-99999 END SUBROUTINE mpy4t
+99999 RETURN
+END SUBROUTINE mpy4t

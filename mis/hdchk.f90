@@ -221,4 +221,5 @@ SUBROUTINE hdchk(Xxx,Ccc,Nno,Ii,Xi,Yi,Ngx,Zm,Zmi,Rv,Rvi,Tgm,Tgi,Zi,Lz,Xcc)
       ENDIF
    ENDDO
    Ngx(1) = M
-99999 END SUBROUTINE hdchk
+99999 RETURN
+END SUBROUTINE hdchk

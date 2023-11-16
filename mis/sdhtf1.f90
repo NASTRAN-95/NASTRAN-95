@@ -219,4 +219,5 @@ SUBROUTINE sdhtf1(Type,Reject)
 !
    CALL sdhtff
 !
-99999 END SUBROUTINE sdhtf1
+99999 RETURN
+END SUBROUTINE sdhtf1

@@ -277,4 +277,5 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
    CALL smsg(rc-2,item,Lastss)
  300  Iopt = -1
    RETURN
-99999 END SUBROUTINE rcovuo
+99999 RETURN
+END SUBROUTINE rcovuo

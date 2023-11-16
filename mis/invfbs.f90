@@ -257,4 +257,5 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
    parm(1) = -37
    CALL mesage(parm(1),parm(2),parm(3))
 !
-99999 END SUBROUTINE invfbs
+99999 RETURN
+END SUBROUTINE invfbs

@@ -188,4 +188,5 @@ SUBROUTINE autock(Iadd)
    ENDIF
    Oscar(Ospnt) = Oscar(Ospnt) + nlist + 1
    Ihead = 0
-99999 END SUBROUTINE autock
+99999 RETURN
+END SUBROUTINE autock

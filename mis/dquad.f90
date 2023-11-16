@@ -435,4 +435,5 @@ SUBROUTINE dquad(Itype)
       CALL ds1b(Kout,Necpt(j+51))
    ENDDO
    RETURN
-99999 END SUBROUTINE dquad
+99999 RETURN
+END SUBROUTINE dquad

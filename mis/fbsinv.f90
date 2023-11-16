@@ -65,4 +65,5 @@ SUBROUTINE fbsinv(X,Y,Iobuff)
    CALL rewind(Filel)
    CALL skprec(Filel,1)
    RETURN
-99999 END SUBROUTINE fbsinv
+99999 RETURN
+END SUBROUTINE fbsinv

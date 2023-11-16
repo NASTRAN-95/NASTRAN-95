@@ -1034,4 +1034,5 @@ SUBROUTINE reduce
    GOTO 99999
  3200 imsg = -3
    CALL mesage(imsg,ifile,modnam)
-99999 END SUBROUTINE reduce
+99999 RETURN
+END SUBROUTINE reduce

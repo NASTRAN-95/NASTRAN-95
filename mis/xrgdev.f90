@@ -110,4 +110,5 @@ SUBROUTINE xrgdev
          Ierror = 1
       ENDIF
    ENDIF
-99999 END SUBROUTINE xrgdev
+99999 RETURN
+END SUBROUTINE xrgdev

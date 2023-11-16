@@ -49,4 +49,5 @@ SUBROUTINE frr1a1(Rz,Cz,Ib,Reb,Ceb)
    Reb = real(zk)
    Ceb = aimag(zk)
    RETURN
-99999 END SUBROUTINE frr1a1
+99999 RETURN
+END SUBROUTINE frr1a1

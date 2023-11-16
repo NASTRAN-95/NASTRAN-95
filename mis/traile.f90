@@ -31,4 +31,5 @@ COMPLEX FUNCTION traile(X,J,N,P,M,Boxl)
    ENDIF
    traile = P(1,J)
    RETURN
-99999 END FUNCTION traile
+99999 RETURN
+END FUNCTION traile

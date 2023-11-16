@@ -172,4 +172,5 @@ SUBROUTINE mpy3b(Z,Iz,Dz)
  200  nerr = -2
    CALL mesage(nerr,file,name)
 !
-99999 END SUBROUTINE mpy3b
+99999 RETURN
+END SUBROUTINE mpy3b

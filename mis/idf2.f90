@@ -91,4 +91,5 @@ SUBROUTINE idf2(Ee,E2,Eta01,Zet01,A2r,A2i,B2r,B2i,C2r,C2i,R1sqx,Diijr,Diiji)
    trm2i = -alpha*faci/E2
    Diijr = Ee*(trm1r+trm2r)/deno
    Diiji = Ee*(trm1i+trm2i)/deno
-99999 END SUBROUTINE idf2
+99999 RETURN
+END SUBROUTINE idf2

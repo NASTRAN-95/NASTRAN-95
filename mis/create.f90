@@ -336,4 +336,5 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
    CALL close(Scr1,1)
    IF ( irdest<=0 ) GOTO 99999
  1700 CALL bckrec(Est)
-99999 END SUBROUTINE create
+99999 RETURN
+END SUBROUTINE create

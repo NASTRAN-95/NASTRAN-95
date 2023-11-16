@@ -296,4 +296,5 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !
  2300 CALL close(newin,1)
    GOTO 1900
-99999 END SUBROUTINE order
+99999 RETURN
+END SUBROUTINE order

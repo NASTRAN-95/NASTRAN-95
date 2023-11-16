@@ -172,4 +172,5 @@ SUBROUTINE q4gmgs(Mid,Factor,G)
       D(i) = D(i)*Factod
    ENDDO
 !
-99999 END SUBROUTINE q4gmgs
+99999 RETURN
+END SUBROUTINE q4gmgs

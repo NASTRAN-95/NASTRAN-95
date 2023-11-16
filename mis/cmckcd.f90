@@ -124,4 +124,5 @@ SUBROUTINE cmckcd
  600  imsg = -8
  700  CALL mesage(imsg,ifile,aaa)
 !
-99999 END SUBROUTINE cmckcd
+99999 RETURN
+END SUBROUTINE cmckcd

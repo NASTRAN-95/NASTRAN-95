@@ -173,4 +173,5 @@ SUBROUTINE xyprpl
 !
  300  IF ( any ) CALL xygraf(igraph)
    CALL close(xypltt,clorwd)
-99999 END SUBROUTINE xyprpl
+99999 RETURN
+END SUBROUTINE xyprpl

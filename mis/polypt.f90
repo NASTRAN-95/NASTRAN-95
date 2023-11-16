@@ -229,4 +229,5 @@ SUBROUTINE polypt(Loctof,Stedge,Tr,Ngridf,Fledge,Fl,Locfos,Eps,Npoly,P)
       klast = k
       GOTO 400
    ENDIF
-99999 END SUBROUTINE polypt
+99999 RETURN
+END SUBROUTINE polypt

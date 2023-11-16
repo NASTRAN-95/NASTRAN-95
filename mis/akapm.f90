@@ -88,4 +88,5 @@ SUBROUTINE akapm(Arg,Bkpm)
    c1 = c1*Bsycon
    Bkpm = c1
    RETURN
-99999 END SUBROUTINE akapm
+99999 RETURN
+END SUBROUTINE akapm

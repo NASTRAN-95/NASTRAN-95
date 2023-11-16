@@ -21,4 +21,5 @@ INTEGER FUNCTION isft(Bf,Sft,J)
    ENDIF
    isft = rshift(Bf,Sft)
    RETURN
-99999 END FUNCTION isft
+99999 RETURN
+END FUNCTION isft

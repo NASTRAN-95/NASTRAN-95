@@ -119,4 +119,5 @@ SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core
    IF ( Ia22(1)/=0 ) CALL wrttrl(Ia22)
 !
    RETURN
-99999 END SUBROUTINE gmprtn
+99999 RETURN
+END SUBROUTINE gmprtn

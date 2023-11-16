@@ -61,4 +61,5 @@ SUBROUTINE finder(Nam,Subno,Comno)
    Inam(2) = id(2)
    Comno = j
    IF ( .NOT.Tocopn ) CALL close(Sctoc,1)
-99999 END SUBROUTINE finder
+99999 RETURN
+END SUBROUTINE finder

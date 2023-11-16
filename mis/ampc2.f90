@@ -85,4 +85,5 @@ SUBROUTINE ampc2(Inp,Outp,Scrf)
 !
    CALL filswi(Inp,Outp)
    RETURN
-99999 END SUBROUTINE ampc2
+99999 RETURN
+END SUBROUTINE ampc2

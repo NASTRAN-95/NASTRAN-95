@@ -130,4 +130,5 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
    Wfact = (Den/Refden)*(Vel/Refvel)**2*((Amach*Refmac)/(Mach*Amachr))**2*(Radii(k)-Radii(l))*0.5
    IF ( Debug ) CALL bug1('WFACT     ',70,Wfact,1)
    RETURN
-99999 END SUBROUTINE amgb1s
+99999 RETURN
+END SUBROUTINE amgb1s

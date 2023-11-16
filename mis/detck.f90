@@ -343,4 +343,5 @@ SUBROUTINE detck(Jarg,Ifgpst,Npvt)
  800  ASSIGN 99999 TO igoto
    ip = ip + 3
    GOTO back
-99999 END SUBROUTINE detck
+99999 RETURN
+END SUBROUTINE detck

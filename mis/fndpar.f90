@@ -86,4 +86,5 @@ SUBROUTINE fndpar(Np2,Index)
    ENDIF
    Index = andf(Oscar(k),Mask3)
    RETURN
-99999 END SUBROUTINE fndpar
+99999 RETURN
+END SUBROUTINE fndpar

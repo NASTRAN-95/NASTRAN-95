@@ -531,4 +531,5 @@ SUBROUTINE trnsps(Z,Iz)
              &' CPU SECONDS')
    CALL mesage(-37,0,nam)
 !
-99999 END SUBROUTINE trnsps
+99999 RETURN
+END SUBROUTINE trnsps

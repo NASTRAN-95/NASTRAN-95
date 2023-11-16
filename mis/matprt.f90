@@ -63,4 +63,5 @@ SUBROUTINE matprt(*,*,A,Option,Column)
  400  IF ( Column(1)/=J ) GOTO 100
 !
    CALL close(File,rew)
-99999 END SUBROUTINE matprt
+99999 RETURN
+END SUBROUTINE matprt

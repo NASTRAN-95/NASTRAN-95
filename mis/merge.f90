@@ -263,4 +263,5 @@ SUBROUTINE merge(Irp,Icp,Core)
  300  mn = -7
  400  CALL mesage(mn,0,name)
 !
-99999 END SUBROUTINE merge
+99999 RETURN
+END SUBROUTINE merge

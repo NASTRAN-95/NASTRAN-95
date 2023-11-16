@@ -367,4 +367,5 @@ SUBROUTINE mtrapr
    CALL mesage(30,i,idel)
    Nogo = 1
 !
-99999 END SUBROUTINE mtrapr
+99999 RETURN
+END SUBROUTINE mtrapr

@@ -252,4 +252,5 @@ SUBROUTINE t3sets(Ierr,Sil,Jgpdt,Elth,Gpth,Dgpth,Egpdt,Gpnorm,Epnorm,Iorder,Teb,
    ENDIF
 !
  100  Ierr = 1
-99999 END SUBROUTINE t3sets
+99999 RETURN
+END SUBROUTINE t3sets

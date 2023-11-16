@@ -45,4 +45,5 @@ SUBROUTINE apdoe(Id,Z,Start,End,Found,Count)
       IF ( Z(i)==-1 ) EXIT
       Count = Count + 1
    ENDDO
-99999 END SUBROUTINE apdoe
+99999 RETURN
+END SUBROUTINE apdoe

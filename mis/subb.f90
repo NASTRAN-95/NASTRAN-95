@@ -125,4 +125,5 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
       lhs = 1
       GOTO 100
    ENDIF
-99999 END SUBROUTINE subb
+99999 RETURN
+END SUBROUTINE subb

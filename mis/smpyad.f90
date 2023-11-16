@@ -133,4 +133,5 @@ SUBROUTINE smpyad
       IF ( Trlrd(2)==Trlrd(3) ) Trlrd(4) = 1
       CALL wrttrl(Trlrd)
    ENDIF
-99999 END SUBROUTINE smpyad
+99999 RETURN
+END SUBROUTINE smpyad

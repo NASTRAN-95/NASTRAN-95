@@ -118,4 +118,5 @@ SUBROUTINE frmltd(Ifile,Dz,Dy,Zm)
 99001 FORMAT ('0*** TRY TO READ RECORD',I5,'.   I,N,IFILE(4) =',2I7,I5)
    CALL mesage(-2,ifl,nam)
 !
-99999 END SUBROUTINE frmltd
+99999 RETURN
+END SUBROUTINE frmltd

@@ -37,4 +37,5 @@ SUBROUTINE dsgefl
       Lcw = Ibase(Indbas+4)
       Lasnam = Name
    ENDIF
-99999 END SUBROUTINE dsgefl
+99999 RETURN
+END SUBROUTINE dsgefl

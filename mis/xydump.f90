@@ -546,4 +546,5 @@ SUBROUTINE xydump(Outfil,Type)
       ipair = Center + Steps
       GOTO 1000
    ENDIF
-99999 END SUBROUTINE xydump
+99999 RETURN
+END SUBROUTINE xydump

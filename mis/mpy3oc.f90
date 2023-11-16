@@ -373,4 +373,5 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
  300  nerr = -2
    CALL mesage(nerr,file,name)
 !
-99999 END SUBROUTINE mpy3oc
+99999 RETURN
+END SUBROUTINE mpy3oc

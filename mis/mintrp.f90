@@ -194,4 +194,5 @@ SUBROUTINE mintrp(Ni,Xi,Nd,Xd,Type,Symm1,Symk1,Dz,Infile,Outfil,Scr,Scr1,G,Ncore
    GOTO 100
  300  CALL mesage(-7,0,name)
  400  Nogo = 1
-99999 END SUBROUTINE mintrp
+99999 RETURN
+END SUBROUTINE mintrp

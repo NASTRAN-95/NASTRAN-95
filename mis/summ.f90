@@ -56,4 +56,5 @@ SUBROUTINE summ(Sum,Isum,Term1,Iterm1,Term2,Iterm2,N)
       Isum = isave
    ENDIF
    IF ( Sum==0.0D0 ) Isum = 0
-99999 END SUBROUTINE summ
+99999 RETURN
+END SUBROUTINE summ

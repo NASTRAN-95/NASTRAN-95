@@ -137,4 +137,5 @@ SUBROUTINE gfsmrg(Filea,File11,File21,File12,File22,Rpart,Cpart)
    CALL wrttrl(Ia)
 !
    RETURN
-99999 END SUBROUTINE gfsmrg
+99999 RETURN
+END SUBROUTINE gfsmrg

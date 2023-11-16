@@ -425,4 +425,5 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
    Nogo = 3
    CALL rfclse(lu)
 99008 FORMAT (20A4)
-99999 END SUBROUTINE xrgdfm
+99999 RETURN
+END SUBROUTINE xrgdfm

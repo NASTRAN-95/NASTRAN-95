@@ -50,4 +50,5 @@ SUBROUTINE format(A,N1x,N2x,N3x,L1x,L2x)
       WRITE (Mo,ff,ERR=99999) l1 , (A(i),i=n1,n2,n3) , l2
    ENDIF
 !
-99999 END SUBROUTINE format
+99999 RETURN
+END SUBROUTINE format

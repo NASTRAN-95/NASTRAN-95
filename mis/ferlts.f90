@@ -77,4 +77,5 @@ SUBROUTINE ferlts(Ifile,Dz,Dy,Zm)
       ENDDO
       Dy(i) = dsum
  300  ENDDO
-99999 END SUBROUTINE ferlts
+99999 RETURN
+END SUBROUTINE ferlts

@@ -81,4 +81,5 @@ SUBROUTINE mred2j(Nuf,N2)
    N2 = Nmodes - Nuf
    CALL gmprtn(Phiss,Phiss1,0,Phiss2,0,Rprtn,0,Nuf,N2,Rz(Korbgn),Korlen)
    RETURN
-99999 END SUBROUTINE mred2j
+99999 RETURN
+END SUBROUTINE mred2j

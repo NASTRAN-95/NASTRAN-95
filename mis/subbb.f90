@@ -196,4 +196,5 @@ SUBROUTINE subbb
    Am4 = F4s*t1*(Ai*Sps*C1/(t3)-Ai*Sns*C2/(t3)+(C1-C2)/((t3)**2)) + F4s*Ai*(2.0-Sps)*t1/(t3)*(C1-C2)
    CALL subc
    RETURN
-99999 END SUBROUTINE subbb
+99999 RETURN
+END SUBROUTINE subbb

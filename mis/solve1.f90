@@ -55,4 +55,5 @@ SUBROUTINE solve1(A1,R1,Rp,Xi,Lam2,Lam3,Lam4,Cont)
    Lam4 = 0.0E0
    IF ( bb/=0.0E0 ) Lam4 = psi2/bb
 !
-99999 END SUBROUTINE solve1
+99999 RETURN
+END SUBROUTINE solve1

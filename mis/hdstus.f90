@@ -109,4 +109,5 @@ SUBROUTINE hdstus(Oj,Tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,Ii,H,Im,Jxt,Zj,Nc,Zmi,Ccc,Lz)
       ENDIF
       EXIT
  100  ENDDO
-99999 END SUBROUTINE hdstus
+99999 RETURN
+END SUBROUTINE hdstus

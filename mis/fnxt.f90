@@ -123,4 +123,5 @@ SUBROUTINE fnxt(Ii,J)
       CALL sofio(ird,Nxtpbn,Buf(Nxt-2))
       RETURN
    ENDIF
-99999 END SUBROUTINE fnxt
+99999 RETURN
+END SUBROUTINE fnxt

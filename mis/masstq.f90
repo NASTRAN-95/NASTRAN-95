@@ -259,4 +259,5 @@ SUBROUTINE masstq(Narg)
    CALL sma2b(Mass(1),Npvt,-1,Ifmgg,0.0D0)
 !
    RETURN
-99999 END SUBROUTINE masstq
+99999 RETURN
+END SUBROUTINE masstq

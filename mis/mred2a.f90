@@ -115,4 +115,5 @@ SUBROUTINE mred2a
    Dry = -2
    CALL smsg1(imsg,item,Oldnam,modnam)
 !
-99999 END SUBROUTINE mred2a
+99999 RETURN
+END SUBROUTINE mred2a

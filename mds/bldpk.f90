@@ -29,4 +29,5 @@ SUBROUTINE bldpk(Itypin,Itypot,File,Block,Iflag)
    IF ( Iflag==0 ) CALL dsmsg1(Iblka)
    IF ( Iflag/=0 ) CALL dsmsg1(Block)
    CALL dsmsg(118)
-99999 END SUBROUTINE bldpk
+99999 RETURN
+END SUBROUTINE bldpk

@@ -73,4 +73,5 @@ SUBROUTINE frd2a(Nqhl,Qhr,Qhi,Ih,Nfreq)
    CALL wrttrl(thr)
    thr(1) = Qhi
    CALL wrttrl(thr)
-99999 END SUBROUTINE frd2a
+99999 RETURN
+END SUBROUTINE frd2a

@@ -41,4 +41,5 @@ SUBROUTINE intprt(A,Cr,O,Name)
  200  WRITE (Mo,crfmt) (cropt(i,icropt),i=1,2) , colnum
    CALL prtmat(*100,*200,colnum)
 !
-99999 END SUBROUTINE intprt
+99999 RETURN
+END SUBROUTINE intprt

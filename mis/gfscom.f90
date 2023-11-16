@@ -139,4 +139,5 @@ SUBROUTINE gfscom(Awy,Nuy,Kc,Ident,Ac,Scr)
 !
    CALL wrttrl(mcb)
    RETURN
-99999 END SUBROUTINE gfscom
+99999 RETURN
+END SUBROUTINE gfscom

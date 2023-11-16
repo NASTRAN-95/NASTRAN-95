@@ -191,4 +191,5 @@ SUBROUTINE scaled(Type,Emord)
    ENDIF
    CALL emgout(z,dz,nterms,1,dict,Emord,Iprec)
    RETURN
-99999 END SUBROUTINE scaled
+99999 RETURN
+END SUBROUTINE scaled

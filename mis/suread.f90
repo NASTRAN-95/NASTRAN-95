@@ -96,4 +96,5 @@ SUBROUTINE suread(Ia,Nd,Nout,Itest)
    ENDIF
    Nout = icount
    RETURN
-99999 END SUBROUTINE suread
+99999 RETURN
+END SUBROUTINE suread

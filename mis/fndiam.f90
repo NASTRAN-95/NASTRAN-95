@@ -113,4 +113,5 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
 !
  200  Ngrid = -3
    RETURN
-99999 END SUBROUTINE fndiam
+99999 RETURN
+END SUBROUTINE fndiam

@@ -249,4 +249,5 @@ SUBROUTINE detm3(*,*,*)
    Ifail = 1
    Nfail = Nfail + 1
    GOTO 200
-99999 END SUBROUTINE detm3
+99999 RETURN
+END SUBROUTINE detm3

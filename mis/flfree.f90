@@ -150,4 +150,5 @@ SUBROUTINE flfree(Frrec,Afe,Nafe,Kge,Nkge)
    ENDDO
 !
    RETURN
-99999 END SUBROUTINE flfree
+99999 RETURN
+END SUBROUTINE flfree

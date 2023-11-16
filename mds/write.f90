@@ -76,4 +76,5 @@ SUBROUTINE write(File,Idata,N,Eorflg)
       GOTO 99999
    ENDIF
    CALL dssdcb
-99999 END SUBROUTINE write
+99999 RETURN
+END SUBROUTINE write

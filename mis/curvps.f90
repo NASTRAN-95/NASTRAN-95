@@ -29,4 +29,5 @@ SUBROUTINE curvps(Sigs,Prin)
    ENDIF
    Prin(1) = atan2(delta,temp)*28.6478898E0
    RETURN
-99999 END SUBROUTINE curvps
+99999 RETURN
+END SUBROUTINE curvps

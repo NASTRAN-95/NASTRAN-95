@@ -59,4 +59,5 @@ SUBROUTINE empcor(Mt1x,Mt2x,Pt,Pc,Frsrow,Midrow,Lasrow,Nx,A,Z)
 !     END OF CORE DUMP
 !
  100  CALL close(mt,1)
-99999 END SUBROUTINE empcor
+99999 RETURN
+END SUBROUTINE empcor

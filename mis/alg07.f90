@@ -199,4 +199,5 @@ SUBROUTINE alg07
          S(j,I) = alg3(x3*alg4(H(j,I),S(j,l1)),H(j,I))
       ENDDO
    ENDIF
-99999 END SUBROUTINE alg07
+99999 RETURN
+END SUBROUTINE alg07

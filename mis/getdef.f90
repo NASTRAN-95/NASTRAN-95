@@ -114,4 +114,5 @@ SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
  700  Defval = Conv*sqrt(Defc(1)**2+Defc(sp-1)**2)
  800  IF ( abs(Defval)>Maxdef ) Maxdef = abs(Defval)
    GOTO 300
-99999 END SUBROUTINE getdef
+99999 RETURN
+END SUBROUTINE getdef

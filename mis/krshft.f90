@@ -52,4 +52,5 @@ FUNCTION krshft(Iword,N)
    ENDIF
    klshft = lshift(Iword(1),N*Nbpc)
    RETURN
-99999 END FUNCTION krshft
+99999 RETURN
+END FUNCTION krshft

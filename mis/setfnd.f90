@@ -86,4 +86,5 @@ SUBROUTINE setfnd(*,Set,Lset,Id,Next)
       ENDIF
    ENDDO
    RETURN 1
-99999 END SUBROUTINE setfnd
+99999 RETURN
+END SUBROUTINE setfnd

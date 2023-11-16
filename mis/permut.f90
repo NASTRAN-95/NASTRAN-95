@@ -46,4 +46,5 @@ SUBROUTINE permut(Ia,Id,N,Isw)
       l = j - k + 1
       Id(j) = ib(l)
    ENDDO
-99999 END SUBROUTINE permut
+99999 RETURN
+END SUBROUTINE permut

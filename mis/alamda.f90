@@ -40,4 +40,5 @@ SUBROUTINE alamda(Arg,Y,Blamda)
    c2 = cos(Sns*gam) - cos(s1)
    Blamda = c1/c2
    RETURN
-99999 END SUBROUTINE alamda
+99999 RETURN
+END SUBROUTINE alamda

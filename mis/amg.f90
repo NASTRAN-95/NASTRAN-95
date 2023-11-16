@@ -334,4 +334,5 @@ SUBROUTINE amg
    GOTO 99999
  900  nms = -2
    CALL mesage(nms,ifile,name)
-99999 END SUBROUTINE amg
+99999 RETURN
+END SUBROUTINE amg

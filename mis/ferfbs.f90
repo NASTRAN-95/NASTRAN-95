@@ -181,4 +181,5 @@ SUBROUTINE ferfbs(V1,V2,V3,Vb)
          CALL endget(iblk(1))
       ENDDO
  1200 ENDDO
-99999 END SUBROUTINE ferfbs
+99999 RETURN
+END SUBROUTINE ferfbs

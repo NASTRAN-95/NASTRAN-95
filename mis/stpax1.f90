@@ -825,4 +825,5 @@ SUBROUTINE stpax1
  100  i = 37
    CALL mesage(-30,i,Idel)
    IF ( .NOT.pzmat ) Ksys78 = ksave
-99999 END SUBROUTINE stpax1
+99999 RETURN
+END SUBROUTINE stpax1

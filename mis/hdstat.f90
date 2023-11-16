@@ -171,4 +171,5 @@ SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
          IF ( dx<.001 ) Nit = Nit - 1
       ENDIF
    ENDIF
-99999 END SUBROUTINE hdstat
+99999 RETURN
+END SUBROUTINE hdstat

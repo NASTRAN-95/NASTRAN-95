@@ -301,4 +301,5 @@ SUBROUTINE drod
       Fx = -Fx
       gx = -gx
    ENDDO
-99999 END SUBROUTINE drod
+99999 RETURN
+END SUBROUTINE drod

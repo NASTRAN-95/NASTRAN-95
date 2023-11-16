@@ -287,4 +287,5 @@ SUBROUTINE cyct1
 !
    IF ( .NOT.(lnmult) ) CALL ssg2b(vin,gcyc,0,vout,0,precis,1,scrt)
    RETURN
-99999 END SUBROUTINE cyct1
+99999 RETURN
+END SUBROUTINE cyct1

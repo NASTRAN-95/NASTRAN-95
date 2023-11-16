@@ -108,4 +108,5 @@ SUBROUTINE dbmalb(Lenreq,Index)
    ENDIF
    Index = -1
    RETURN
-99999 END SUBROUTINE dbmalb
+99999 RETURN
+END SUBROUTINE dbmalb

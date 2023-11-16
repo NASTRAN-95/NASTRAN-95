@@ -75,4 +75,5 @@ SUBROUTINE form12(U0,Udot0,U1,P0,P1,Deltt,Ibuf)
       P1(i) = P0(i) - Deltt*P1(i)
    ENDDO
    RETURN
-99999 END SUBROUTINE form12
+99999 RETURN
+END SUBROUTINE form12

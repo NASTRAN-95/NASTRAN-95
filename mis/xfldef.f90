@@ -188,4 +188,5 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
    ENDIF
    Ptdic(i+2) = or(Ptdic(i+2),Reuse)
    Nofind = 0
-99999 END SUBROUTINE xfldef
+99999 RETURN
+END SUBROUTINE xfldef

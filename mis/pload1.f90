@@ -385,4 +385,5 @@ SUBROUTINE pload1(Opt,Islt,V,Sa,Sb,Ba,Bb,Pa,Pb,Ta,Tb,Slt,Ept)
    Pb(5) = Pb(5) + tp(2)
    Pb(6) = Pb(6) + tp(3)
 !
-99999 END SUBROUTINE pload1
+99999 RETURN
+END SUBROUTINE pload1

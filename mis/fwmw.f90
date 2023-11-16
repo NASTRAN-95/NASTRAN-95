@@ -197,4 +197,5 @@ SUBROUTINE fwmw(Nd,Ne,Sgs,Cgs,Irb,A0,Arb,Xble,Xbte,Yb,Zb,Xs,Ys,Zs,Nas,Nasb,Kr,Be
    CALL subi(daib,zbi,ybi,darib,eta,zeta,Cgs,sg,dmmy,dmmy,dmmy,dy,dz,dmmy,dmmy,dmmy,dmmy,s,c,infl,ioutfl)
    IF ( ioutfl==0 ) GOTO 1000
    GOTO 900
-99999 END SUBROUTINE fwmw
+99999 RETURN
+END SUBROUTINE fwmw

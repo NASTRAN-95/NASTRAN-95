@@ -131,4 +131,5 @@ SUBROUTINE gmmerg(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub,Mrgtyp,Core
    CALL wrttrl(Ia)
 !
    RETURN
-99999 END SUBROUTINE gmmerg
+99999 RETURN
+END SUBROUTINE gmmerg

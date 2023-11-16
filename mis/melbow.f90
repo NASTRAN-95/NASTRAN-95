@@ -116,4 +116,5 @@ SUBROUTINE melbow
 !
    CALL sma2b(M,Npvt,-1,Ifmgg,Dumdp)
    RETURN
-99999 END SUBROUTINE melbow
+99999 RETURN
+END SUBROUTINE melbow

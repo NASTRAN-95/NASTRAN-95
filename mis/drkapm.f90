@@ -96,4 +96,5 @@ SUBROUTINE drkapm(Arg,Indx,Reslt)
    GOTO 99999
  100  Reslt = c2
    RETURN
-99999 END SUBROUTINE drkapm
+99999 RETURN
+END SUBROUTINE drkapm

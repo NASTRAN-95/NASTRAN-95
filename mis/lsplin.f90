@@ -317,4 +317,5 @@ SUBROUTINE lsplin(Ni,Xyi,Nd,Xyd,Ky,Kd,Kt,Dz,Dtx,Dty,Dtor,G,Ncore,Isng)
       icc = ic + 1
       GOTO 100
    ENDIF
-99999 END SUBROUTINE lsplin
+99999 RETURN
+END SUBROUTINE lsplin

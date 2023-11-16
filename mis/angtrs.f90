@@ -60,4 +60,5 @@ SUBROUTINE angtrs(Theta,K,Trans)
       Trand(2) = -Trand(2)
       Trand(4) = -Trand(4)
    ENDIF
-99999 END SUBROUTINE angtrs
+99999 RETURN
+END SUBROUTINE angtrs

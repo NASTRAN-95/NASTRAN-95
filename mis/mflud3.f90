@@ -75,4 +75,5 @@ SUBROUTINE mflud3
          CALL sma2b(Emass,Igrid,Jpvt,Ifmgg,0.0D0)
       ENDDO
    ENDIF
-99999 END SUBROUTINE mflud3
+99999 RETURN
+END SUBROUTINE mflud3

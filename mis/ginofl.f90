@@ -280,4 +280,5 @@ SUBROUTINE ginofl
  1100 k = -1
  1200 CALL mesage(k,file,name)
 !
-99999 END SUBROUTINE ginofl
+99999 RETURN
+END SUBROUTINE ginofl

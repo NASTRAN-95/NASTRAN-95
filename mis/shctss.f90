@@ -327,4 +327,5 @@ SUBROUTINE shctss(Ierr,Elid,Pid,Mid,Tlam,Tmean,Tgrad,Thetae,Ftherm,Epslnt,Icore,
    ENDDO
 !
    CALL gmmats(stiff(1),6,6,0,Ftherm(1),6,1,0,Epslnt(1))
-99999 END SUBROUTINE shctss
+99999 RETURN
+END SUBROUTINE shctss

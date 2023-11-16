@@ -30,4 +30,5 @@ FUNCTION iapd(I,J,Nc,Ncrd)
    IF ( I==2 ) RETURN
    iapd = 4 + 3*(I-2) + Ncrd
    RETURN
-99999 END FUNCTION iapd
+99999 RETURN
+END FUNCTION iapd

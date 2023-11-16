@@ -117,4 +117,5 @@ SUBROUTINE softrl(Name,Item,Mcb)
    ENDDO
    Mcb(1) = 1
    RETURN
-99999 END SUBROUTINE softrl
+99999 RETURN
+END SUBROUTINE softrl

@@ -102,4 +102,5 @@ SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
       ENDIF
    ENDIF
  100  CALL close(File(1),Rew)
-99999 END SUBROUTINE cfe1my
+99999 RETURN
+END SUBROUTINE cfe1my

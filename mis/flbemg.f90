@@ -221,4 +221,5 @@ SUBROUTINE flbemg
 !
  800  n = -2
    CALL mesage(n,file,name)
-99999 END SUBROUTINE flbemg
+99999 RETURN
+END SUBROUTINE flbemg

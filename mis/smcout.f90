@@ -353,4 +353,5 @@ SUBROUTINE smcout(Zi,Zr,Zd,Zrs,Zrd)
       Zr(kvidx) = akk
       GOTO 100
    ENDIF
-99999 END SUBROUTINE smcout
+99999 RETURN
+END SUBROUTINE smcout

@@ -234,4 +234,5 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
       sgs = -Sg(Ls)
       GOTO 100
    ENDIF
-99999 END SUBROUTINE subpb
+99999 RETURN
+END SUBROUTINE subpb

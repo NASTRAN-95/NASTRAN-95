@@ -217,4 +217,5 @@ SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
       nc = nb
       GOTO 100
    ENDIF
-99999 END SUBROUTINE ssplin
+99999 RETURN
+END SUBROUTINE ssplin

@@ -277,4 +277,5 @@ SUBROUTINE xscndm
 !
  1200 Nogo = 2
    Irturn = 5
-99999 END SUBROUTINE xscndm
+99999 RETURN
+END SUBROUTINE xscndm

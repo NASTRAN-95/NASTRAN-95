@@ -199,4 +199,5 @@ SUBROUTINE frrd1c(Frl,Frqset,Mdd,Bdd,Kdd,Ifr,Ull,Lll,Scr1,Scr2,Scr3,Scr4,Igood)
    IF ( w/=0.0 ) i = -5
    CALL mesage(i,Scr3,name)
    GOTO 100
-99999 END SUBROUTINE frrd1c
+99999 RETURN
+END SUBROUTINE frrd1c

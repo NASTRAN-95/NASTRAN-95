@@ -350,4 +350,5 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !
  1500 Itest = 6
    RETURN
-99999 END SUBROUTINE dstroy
+99999 RETURN
+END SUBROUTINE dstroy

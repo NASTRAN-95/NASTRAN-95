@@ -79,4 +79,5 @@ SUBROUTINE mbbslj(Arg,N,Bsl)
       N = N - 1
    ENDDO
    RETURN
-99999 END SUBROUTINE mbbslj
+99999 RETURN
+END SUBROUTINE mbbslj

@@ -172,4 +172,5 @@ SUBROUTINE cmckdf
  600  imsg = -8
  700  CALL mesage(imsg,ifile,nam)
 !
-99999 END SUBROUTINE cmckdf
+99999 RETURN
+END SUBROUTINE cmckdf

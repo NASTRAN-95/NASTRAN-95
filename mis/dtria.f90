@@ -641,4 +641,5 @@ SUBROUTINE dtria(Iopt)
       CALL ds1b(Kout(1),Necpt(j+1))
    ENDDO
    RETURN
-99999 END SUBROUTINE dtria
+99999 RETURN
+END SUBROUTINE dtria

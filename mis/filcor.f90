@@ -75,4 +75,5 @@ INTEGER FUNCTION filcor(Mt1x,Mt2x,Pc,Frsrow,Midrow,Nx,A,Nza,Z)
       ENDIF
       GOTO 100
    ENDIF
-99999 END FUNCTION filcor
+99999 RETURN
+END FUNCTION filcor

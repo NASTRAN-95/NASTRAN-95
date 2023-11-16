@@ -77,4 +77,5 @@ SUBROUTINE ema1d(J,Nsca,Scalas,Pivot,Dict,Cgv,Kgg,Cp,F)
    imat = icol0 + Cgv(ii-ii0) + Scalas(J)
    Kgg(imat) = Kgg(imat) + F*Cp(1)
    RETURN
-99999 END SUBROUTINE ema1d
+99999 RETURN
+END SUBROUTINE ema1d

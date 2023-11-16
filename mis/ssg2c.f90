@@ -105,4 +105,5 @@ SUBROUTINE ssg2c(A,B,C,Op,Block)
    ENDIF
    CALL sadd(Core,Core)
    CALL wrttrl(Ic)
-99999 END SUBROUTINE ssg2c
+99999 RETURN
+END SUBROUTINE ssg2c

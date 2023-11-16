@@ -120,4 +120,5 @@ SUBROUTINE subi(Da,Dzb,Dyb,Dar,Deta,Dzeta,Dcgam,Dsgam,Dee,Dxi,Tl,Detai,Dzetai,Dc
    ELSE
       Ioutfl = 0
    ENDIF
-99999 END SUBROUTINE subi
+99999 RETURN
+END SUBROUTINE subi

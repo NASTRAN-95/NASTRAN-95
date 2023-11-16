@@ -399,4 +399,5 @@ SUBROUTINE ta1h
    n = 44
    CALL mesage(-30,n,buf)
    CALL mesage(j,file,nam)
-99999 END SUBROUTINE ta1h
+99999 RETURN
+END SUBROUTINE ta1h

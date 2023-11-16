@@ -167,4 +167,5 @@ SUBROUTINE trmems
    CALL emgout(Mout,Mout,9,1,dict,2,ip)
    RETURN
 !
-99999 END SUBROUTINE trmems
+99999 RETURN
+END SUBROUTINE trmems

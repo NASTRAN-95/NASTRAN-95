@@ -210,4 +210,5 @@ SUBROUTINE psqdm
    Eps0 = Epss
    Epss = Eps1
    RETURN
-99999 END SUBROUTINE psqdm
+99999 RETURN
+END SUBROUTINE psqdm

@@ -315,4 +315,5 @@ SUBROUTINE smcph2(Zi,Zr,Zd)
 !      CALL AUDIT ( 'SMCPH2  ',2)
 !      CALL AUDIT ( 'END     ',1)
 !      IF ( NCOL .NE. 0 ) STOP
-99999 END SUBROUTINE smcph2
+99999 RETURN
+END SUBROUTINE smcph2

@@ -432,4 +432,5 @@ SUBROUTINE mred2e
    GOTO 99999
  900  CALL smsg1(imsg,item,Oldnam,modnam)
    Dry = -2
-99999 END SUBROUTINE mred2e
+99999 RETURN
+END SUBROUTINE mred2e

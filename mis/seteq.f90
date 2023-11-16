@@ -464,4 +464,5 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
  1700 CALL sofcls
    CALL mesage(k,0,nmsbr)
 !
-99999 END SUBROUTINE seteq
+99999 RETURN
+END SUBROUTINE seteq

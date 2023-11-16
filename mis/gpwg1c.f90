@@ -101,4 +101,5 @@ SUBROUTINE gpwg1c(B,E,Eig,Iflag)
    DO i = 1 , 3
       Eig(i) = B(i,i)
    ENDDO
-99999 END SUBROUTINE gpwg1c
+99999 RETURN
+END SUBROUTINE gpwg1c

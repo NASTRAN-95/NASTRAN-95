@@ -68,4 +68,5 @@ FUNCTION kompnt(Ig,Ic,Ideg,Iw,Icc,Jg)
       ENDDO
       IF ( ko<=ki ) GOTO 100
    ENDDO
-99999 END FUNCTION kompnt
+99999 RETURN
+END FUNCTION kompnt

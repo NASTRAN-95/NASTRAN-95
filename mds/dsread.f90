@@ -46,4 +46,5 @@ SUBROUTINE dsread(Iunit,Buff,Len,Irec)
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
    Numrea = Numrea + 1
-99999 END SUBROUTINE dsread
+99999 RETURN
+END SUBROUTINE dsread

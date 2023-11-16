@@ -927,4 +927,5 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    ENDDO
 !
    RETURN
-99999 END SUBROUTINE em2d
+99999 RETURN
+END SUBROUTINE em2d

@@ -330,4 +330,5 @@ SUBROUTINE qparam
  2400 i = andf(Oscar(16),65535)
    Vps(i) = Out
    RETURN
-99999 END SUBROUTINE qparam
+99999 RETURN
+END SUBROUTINE qparam

@@ -64,4 +64,5 @@ FUNCTION go(R,Etar,Etal,Ekm)
 !
    IF ( f<0.0 ) go = -go
    RETURN
-99999 END FUNCTION go
+99999 RETURN
+END FUNCTION go

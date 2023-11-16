@@ -108,4 +108,5 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
    Ioptr = Ioptr + 1
    GOTO 100
  300  RETURN
-99999 END SUBROUTINE suwrt
+99999 RETURN
+END SUBROUTINE suwrt

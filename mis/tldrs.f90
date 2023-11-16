@@ -81,4 +81,5 @@ SUBROUTINE tldrs(Offset,Ii,Trans,Trans1)
       Trand1(11) = -Dffset*Trand(ipoint+2)
       Trand1(12) = -Dffset*Trand(ipoint+3)
    ENDIF
-99999 END SUBROUTINE tldrs
+99999 RETURN
+END SUBROUTINE tldrs

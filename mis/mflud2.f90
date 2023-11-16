@@ -118,4 +118,5 @@ SUBROUTINE mflud2
          CALL sma2b(K2,j,i,ifile,0.0D0)
       ENDIF
    ENDIF
-99999 END SUBROUTINE mflud2
+99999 RETURN
+END SUBROUTINE mflud2

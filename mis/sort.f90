@@ -265,4 +265,5 @@ SUBROUTINE sort(Idum,Jdum,Nr,Keywd,Z,Nwds)
  900  WRITE (Nout,99002) subr(isort) , Nr , key , Nwds , nc
 99002 FORMAT ('0*** ERROR IN SORT',A2,4I8)
 !WKBR  320 CALL ERRTRC ('SORT    ',320)
-99999 END SUBROUTINE sort
+99999 RETURN
+END SUBROUTINE sort

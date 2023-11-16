@@ -180,4 +180,5 @@ SUBROUTINE fa1pki(Fsave,Qhhl)
       GOTO 99999
    ENDIF
  400  CALL mesage(-2,ifle,name)
-99999 END SUBROUTINE fa1pki
+99999 RETURN
+END SUBROUTINE fa1pki

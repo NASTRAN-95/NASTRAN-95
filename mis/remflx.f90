@@ -318,4 +318,5 @@ SUBROUTINE remflx(Ngrids)
  1000 n = -3
    CALL mesage(n,file,nam)
    CALL mesage(-61,0,0)
-99999 END SUBROUTINE remflx
+99999 RETURN
+END SUBROUTINE remflx

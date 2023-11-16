@@ -122,4 +122,5 @@ SUBROUTINE mmarm1(Zi,Zr,Mempcol)
 !     &,/,    ' BUT READ COLUMN =',I10,' FROM FILE =',I5 )
 !      CALL DSMSG( 777 )
 !      CALL MESAGE ( -61, 0, 0 )
-99999 END SUBROUTINE mmarm1
+99999 RETURN
+END SUBROUTINE mmarm1

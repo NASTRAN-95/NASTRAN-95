@@ -420,4 +420,5 @@ SUBROUTINE sma3a(Mcbcur)
    jud = jud + 1
    IF ( jud>limjud ) jud = limjud
    GOTO 300
-99999 END SUBROUTINE sma3a
+99999 RETURN
+END SUBROUTINE sma3a

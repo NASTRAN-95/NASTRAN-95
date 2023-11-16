@@ -147,4 +147,5 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
       Isubc(i) = Core(i2)
       i2 = i2 + 1
    ENDDO
-99999 END SUBROUTINE ifp1e
+99999 RETURN
+END SUBROUTINE ifp1e

@@ -56,4 +56,5 @@ SUBROUTINE rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
    ENDIF
    Ngrid = -3
    RETURN
-99999 END SUBROUTINE rsetup
+99999 RETURN
+END SUBROUTINE rsetup

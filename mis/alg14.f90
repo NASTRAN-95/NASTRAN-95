@@ -97,4 +97,5 @@ SUBROUTINE alg14(Xdata,Ydata,Ndata,Xin,Yout,Yprime,Nxy,Nwot)
       i = i + 1
       IF ( i>Nxy ) EXIT
    ENDDO
-99999 END SUBROUTINE alg14
+99999 RETURN
+END SUBROUTINE alg14

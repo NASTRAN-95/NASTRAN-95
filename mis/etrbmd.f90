@@ -553,4 +553,5 @@ SUBROUTINE etrbmd
       Aout(i) = A(i)
    ENDDO
    RETURN
-99999 END SUBROUTINE etrbmd
+99999 RETURN
+END SUBROUTINE etrbmd

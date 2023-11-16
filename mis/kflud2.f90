@@ -147,4 +147,5 @@ SUBROUTINE kflud2
    j = Necpt(3)
    CALL sma1b(K2,j,i,ifile,0.0D0)
    RETURN
-99999 END SUBROUTINE kflud2
+99999 RETURN
+END SUBROUTINE kflud2

@@ -125,4 +125,5 @@ SUBROUTINE ssg3a(A,Lll,B,X,Sr1,Sr2,Itr1,Res)
    CALL mesage(-1,ipm,name)
    GOTO 100
 !
-99999 END SUBROUTINE ssg3a
+99999 RETURN
+END SUBROUTINE ssg3a

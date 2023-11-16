@@ -133,4 +133,5 @@ SUBROUTINE pretrd(Cstmx,Ncstmx)
    ENDIF
    CALL gmmatd(ke(1),3,3,0,tl(1),3,3,0,Ta(1))
    RETURN
-99999 END SUBROUTINE pretrd
+99999 RETURN
+END SUBROUTINE pretrd

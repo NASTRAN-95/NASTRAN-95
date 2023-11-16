@@ -266,4 +266,5 @@ SUBROUTINE sma1
  1300 ifile = If4gg
  1400 iparm = -1
    CALL mesage(iparm,ifile,nmsma1(1))
-99999 END SUBROUTINE sma1
+99999 RETURN
+END SUBROUTINE sma1

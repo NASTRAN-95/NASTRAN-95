@@ -281,4 +281,5 @@ SUBROUTINE gfsdir
 !
    CALL gfswch(gia,gyw)
    RETURN
-99999 END SUBROUTINE gfsdir
+99999 RETURN
+END SUBROUTINE gfsdir

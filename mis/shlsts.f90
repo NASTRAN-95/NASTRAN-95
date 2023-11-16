@@ -489,4 +489,5 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
       CALL write(Oes1l,iflag3,1,0)
    ENDIF
 !
-99999 END SUBROUTINE shlsts
+99999 RETURN
+END SUBROUTINE shlsts

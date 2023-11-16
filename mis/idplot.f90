@@ -96,4 +96,5 @@ SUBROUTINE idplot(Idx)
       Edge(i) = save(i,4)
    ENDDO
 !
-99999 END SUBROUTINE idplot
+99999 RETURN
+END SUBROUTINE idplot

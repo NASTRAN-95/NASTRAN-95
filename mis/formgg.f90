@@ -199,4 +199,5 @@ SUBROUTINE formgg(Ig,Jr,Jd,Ir,Id)
    Zz(Ig+35) = Zz(Ig+14)
    Zz(Ig+36) = Zz(Ig+15)
    RETURN
-99999 END SUBROUTINE formgg
+99999 RETURN
+END SUBROUTINE formgg

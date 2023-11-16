@@ -145,4 +145,5 @@ SUBROUTINE piklvl(*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt
    IF ( j>k ) GOTO 100
    i = j
    GOTO 200
-99999 END SUBROUTINE piklvl
+99999 RETURN
+END SUBROUTINE piklvl

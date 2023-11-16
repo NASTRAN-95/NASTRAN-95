@@ -278,4 +278,5 @@ SUBROUTINE sgino
    shift = nbits
    GOTO tra
 !
-99999 END SUBROUTINE sgino
+99999 RETURN
+END SUBROUTINE sgino

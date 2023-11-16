@@ -532,4 +532,5 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
  1700 CALL mesage(-8,0,name)
    CALL mesage(-61,0,name)
    RETURN
-99999 END SUBROUTINE trlga
+99999 RETURN
+END SUBROUTINE trlga

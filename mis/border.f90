@@ -92,4 +92,5 @@ SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
    GOTO 200
  400  CALL line(0.,0.,0.,0.,1,+1)
    CALL close(Scr2,1)
-99999 END SUBROUTINE border
+99999 RETURN
+END SUBROUTINE border

@@ -869,4 +869,5 @@ SUBROUTINE xflord
  2720    Ospnt = Oscar(Ospnt) + Ospnt
       ENDDO
  2800 ENDDO
-99999 END SUBROUTINE xflord
+99999 RETURN
+END SUBROUTINE xflord

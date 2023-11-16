@@ -52,4 +52,5 @@ SUBROUTINE geturn(Namfil)
    Nlr = Fcb(3,Ifilex)
    Nblock = Fcb(4,Ifilex)
    Lasnam = Namfil
-99999 END SUBROUTINE geturn
+99999 RETURN
+END SUBROUTINE geturn

@@ -813,4 +813,5 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    ENDIF
 !
    RETURN
-99999 END SUBROUTINE em3d
+99999 RETURN
+END SUBROUTINE em3d

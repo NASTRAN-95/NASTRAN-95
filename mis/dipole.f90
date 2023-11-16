@@ -71,4 +71,5 @@ SUBROUTINE dipole(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    Hc3 = -mz/r3 + xnum*(Zz-cz)
    Hc3 = Hc3/fpi
 !
-99999 END SUBROUTINE dipole
+99999 RETURN
+END SUBROUTINE dipole

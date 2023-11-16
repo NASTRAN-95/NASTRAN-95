@@ -262,4 +262,5 @@ SUBROUTINE sma2
  1200 ifile = Ifbgg
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
-99999 END SUBROUTINE sma2
+99999 RETURN
+END SUBROUTINE sma2

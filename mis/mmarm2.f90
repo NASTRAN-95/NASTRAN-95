@@ -135,4 +135,5 @@ SUBROUTINE mmarm2(Zi,Zd,Mempcol)
 !      PRINT *,' IBLK=',IBLK
 !      CALL DSMSG ( 777 )
 !      CALL MESAGE ( -61, 0, 0 )
-99999 END SUBROUTINE mmarm2
+99999 RETURN
+END SUBROUTINE mmarm2

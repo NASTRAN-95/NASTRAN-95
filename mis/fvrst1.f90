@@ -834,4 +834,5 @@ SUBROUTINE fvrst1
 !
  1200 ip1 = -3
    CALL mesage(ip1,nfile,modnam(2))
-99999 END SUBROUTINE fvrst1
+99999 RETURN
+END SUBROUTINE fvrst1

@@ -1089,4 +1089,5 @@ SUBROUTINE plot(Mode,Buf1,B1,Setid,Deflst,Nofind)
    nogo = 1
    GOTO 7100
 !
-99999 END SUBROUTINE plot
+99999 RETURN
+END SUBROUTINE plot

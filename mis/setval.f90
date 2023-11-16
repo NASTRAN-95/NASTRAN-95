@@ -41,4 +41,5 @@ SUBROUTINE setval
 !
  100  IF ( i<=1 ) CALL mesage(-7,0,subnam)
 !
-99999 END SUBROUTINE setval
+99999 RETURN
+END SUBROUTINE setval

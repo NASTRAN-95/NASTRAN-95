@@ -127,4 +127,5 @@ SUBROUTINE ctrnsp(Ix,X,Nx,Filea,B,Sr1fil)
 !
  300  no = -1
    CALL mesage(no,ifile,name)
-99999 END SUBROUTINE ctrnsp
+99999 RETURN
+END SUBROUTINE ctrnsp

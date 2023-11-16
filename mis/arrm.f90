@@ -84,4 +84,5 @@ SUBROUTINE arrm(P,D,Nd)
    Nd(3) = nx
    D(3) = dx
    P(3) = px
-99999 END SUBROUTINE arrm
+99999 RETURN
+END SUBROUTINE arrm

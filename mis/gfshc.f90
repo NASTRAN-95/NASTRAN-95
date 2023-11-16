@@ -164,4 +164,5 @@ SUBROUTINE gfshc(Awy,Nuy,Hc,Ident,Ac,Mrow)
    CALL wrttrl(mcb)
 !
    RETURN
-99999 END SUBROUTINE gfshc
+99999 RETURN
+END SUBROUTINE gfshc

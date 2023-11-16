@@ -254,4 +254,5 @@ SUBROUTINE t3setd(Ierr,Sil,Jgpdt,Elth,Gpth,Dgpth,Egpdt,Gpnorm,Epnorm,Iorder,Teb,
    ENDIF
 !
  100  Ierr = 1
-99999 END SUBROUTINE t3setd
+99999 RETURN
+END SUBROUTINE t3setd

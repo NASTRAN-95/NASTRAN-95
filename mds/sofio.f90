@@ -97,4 +97,5 @@ SUBROUTINE sofio(Isop,Iblknm,Buf)
          ENDIF
       ENDIF
    ENDIF
-99999 END SUBROUTINE sofio
+99999 RETURN
+END SUBROUTINE sofio

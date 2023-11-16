@@ -197,4 +197,5 @@ SUBROUTINE pstrm
    Eps0 = Epss
    Epss = Eps1
    RETURN
-99999 END SUBROUTINE pstrm
+99999 RETURN
+END SUBROUTINE pstrm

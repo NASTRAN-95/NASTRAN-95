@@ -173,4 +173,5 @@ SUBROUTINE mpy3a(Z,Iz,Dz)
  400  nerr = -2
  500  CALL mesage(nerr,file,name)
 !
-99999 END SUBROUTINE mpy3a
+99999 RETURN
+END SUBROUTINE mpy3a

@@ -324,4 +324,5 @@ SUBROUTINE gpstgs
  900  ASSIGN 99999 TO igoto
    ip = ip + 3
    GOTO iback
-99999 END SUBROUTINE gpstgs
+99999 RETURN
+END SUBROUTINE gpstgs

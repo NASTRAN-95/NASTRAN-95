@@ -145,4 +145,5 @@ SUBROUTINE q4nrms(Bgpdt,Gpnorm,Iorder,Iflag)
       ENDIF
    ENDDO
 !
-99999 END SUBROUTINE q4nrms
+99999 RETURN
+END SUBROUTINE q4nrms

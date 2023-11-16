@@ -71,4 +71,5 @@ SUBROUTINE xychar(Row,Col,Char)
    let = rshift(andf(Char,nmask),Bperch*(ichar-1))
    Z(iword) = orf(andf(Z(iword),mask(ichar)),let)
    RETURN
-99999 END SUBROUTINE xychar
+99999 RETURN
+END SUBROUTINE xychar

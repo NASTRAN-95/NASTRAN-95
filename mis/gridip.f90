@@ -80,4 +80,5 @@ SUBROUTINE gridip(Grid,Seqss,Len,Ipset,Cset,No,Z,Lloc)
    No = noapp
    GOTO 99999
  100  Ierr = 1
-99999 END SUBROUTINE gridip
+99999 RETURN
+END SUBROUTINE gridip

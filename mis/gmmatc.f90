@@ -127,4 +127,5 @@ SUBROUTINE gmmatc(A,Rowa,Cola,Mta,B,Rowb,Colb,Ntb,C)
       ikn = ikn + incik1
    ENDDO
    RETURN
-99999 END SUBROUTINE gmmatc
+99999 RETURN
+END SUBROUTINE gmmatc

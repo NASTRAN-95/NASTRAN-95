@@ -457,4 +457,5 @@ SUBROUTINE emfld
    file = 0
  2100 CALL mesage(n,file,nam)
 !
-99999 END SUBROUTINE emfld
+99999 RETURN
+END SUBROUTINE emfld

@@ -187,4 +187,5 @@ SUBROUTINE comb1
  700  IF ( Tocopn ) CALL close(Sctoc,1)
  800  Dry = -2
    CALL sofcls
-99999 END SUBROUTINE comb1
+99999 RETURN
+END SUBROUTINE comb1

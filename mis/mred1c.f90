@@ -210,4 +210,5 @@ SUBROUTINE mred1c
    CALL smsg(imsg,nhbgss,Oldnam)
    RETURN
 !
-99999 END SUBROUTINE mred1c
+99999 RETURN
+END SUBROUTINE mred1c

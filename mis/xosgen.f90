@@ -1521,4 +1521,5 @@ SUBROUTINE xosgen
 !
  4100 CALL xgpidg(-48,Ospnt,oscar(iospnt),oscar(iospnt+1))
    GOTO 1200
-99999 END SUBROUTINE xosgen
+99999 RETURN
+END SUBROUTINE xosgen

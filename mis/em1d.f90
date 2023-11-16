@@ -368,4 +368,5 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
       Z(j) = Z(j) - xload(i)
    ENDDO
    RETURN
-99999 END SUBROUTINE em1d
+99999 RETURN
+END SUBROUTINE em1d

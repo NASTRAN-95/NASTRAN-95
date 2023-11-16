@@ -112,4 +112,5 @@ SUBROUTINE mesage(No,Parm,Name)
  50   CALL msgwrt
       CALL pexit
    ENDIF
-99999 END SUBROUTINE mesage
+99999 RETURN
+END SUBROUTINE mesage

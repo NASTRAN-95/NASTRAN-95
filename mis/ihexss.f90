@@ -254,4 +254,5 @@ SUBROUTINE ihexss(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
       ENDDO
    ENDDO
    RETURN
-99999 END SUBROUTINE ihexss
+99999 RETURN
+END SUBROUTINE ihexss

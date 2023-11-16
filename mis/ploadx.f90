@@ -64,4 +64,5 @@ SUBROUTINE ploadx
  200  j = -2
  300  CALL mesage(j,Slt,nam)
 !
-99999 END SUBROUTINE ploadx
+99999 RETURN
+END SUBROUTINE ploadx

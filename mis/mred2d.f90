@@ -334,4 +334,5 @@ SUBROUTINE mred2d
    ENDIF
    Dry = -2
    CALL smsg1(imsg,item,itmnam,modnam)
-99999 END SUBROUTINE mred2d
+99999 RETURN
+END SUBROUTINE mred2d

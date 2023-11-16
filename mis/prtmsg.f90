@@ -27,4 +27,5 @@ SUBROUTINE prtmsg
       ENDDO
    ENDDO
    CALL wrtmsg(msg)
-99999 END SUBROUTINE prtmsg
+99999 RETURN
+END SUBROUTINE prtmsg

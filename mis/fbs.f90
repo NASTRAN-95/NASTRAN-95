@@ -92,4 +92,5 @@ SUBROUTINE fbs(Zs,Zd)
    memavl = Lcore - 2*Sysbuf - nrhvwd
    IF ( memavl<=0 ) CALL mesage(-8,-memavl,subnam)
    CALL fbsf(Zs,Zd)
-99999 END SUBROUTINE fbs
+99999 RETURN
+END SUBROUTINE fbs
