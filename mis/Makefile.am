@@ -1,7 +1,7 @@
 # what flags you want to pass to the Fortran compiler & linker
 OPT_OPTS ?= unknown
 AM_FCFLAGS = $(OPT_OPTS)
-FCFLAGS = -ffree-line-length-none -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -J../include
+FCFLAGS = -g -ffree-line-length-none -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -J../include
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
