@@ -70,9 +70,9 @@ def replace_in_fortran_files(directory, mapping):
         for file in files:
             if not file.endswith(".f90"):
                 continue
-            
+
             file_path = os.path.join(root, file)
-            print(f'Updating file {file}...')
+            print(f'Updating file {file_path}...')
 
             with open(file_path, 'r') as file:
                 file_contents = file.read()
