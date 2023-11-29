@@ -10,12 +10,12 @@ def restore_comma_values(string):
     match = re.match(r'\s*(SUBROUTINE|ENTRY|FUNCTION)\s[^\(]+\(([^\)]*)\)', string)
     if not match:
         return string
-    
+
     # Find comma-separated values
     csv = match.group(2)
 
     # Restore old comma-separated values from the comment
-    string = string.replace(f'{csv}) !HIDESTARS ', '')
+    string = string.replace(f'{csv}) !HIDESTARS (', '')
     return string
 
 filename = sys.argv[1]

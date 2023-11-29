@@ -10,7 +10,7 @@ def remove_comma_values(string):
     match = re.match(r'\s*(SUBROUTINE|ENTRY|FUNCTION)\s[^\(]+\(([^\)]*)\)', string)
     if not match:
         return string
-    
+
     # Find comma-separated values
     csv = match.group(2)
     pattern = r'([^\,]+)'
@@ -22,7 +22,7 @@ def remove_comma_values(string):
 
     # Write new comma-separated values,
     # hide the original ones after the comment
-    string = string.replace(csv, f'{new_csv}) !HIDESTARS {csv}')
+    string = string.replace(csv, f'{new_csv}) !HIDESTARS ({csv}')
     return string
 
 filename = sys.argv[1]
