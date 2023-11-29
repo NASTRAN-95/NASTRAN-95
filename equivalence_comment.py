@@ -9,10 +9,21 @@ if len(sys.argv) < 2:
 
 file_path = sys.argv[1]
 
+# Encode comment lines, so that we are not bothered by imbalanced
+# parentheses in comments.
+comments={}
+icomment = 0
+code = ''
 with open(file_path, 'r') as file:
-    code = ''.join(file.readlines())
+    for line in file.readlines():
+        if re.match(r'\!.*', line.strip()):
+            comment = f'!{icomment}\n'
+            icomment += 1
+            comments[comment] = line
+            line = comment
+        code += line
 
-lst, _ = match_nested(code, matching= { "(" : ")" })
+lst, _ = match_nested(code, matching= { "(" : ")", "'" : "'" })
 
 def apply_list_recursive(lst, regex, func):
     for index, item in enumerate(lst):
@@ -32,7 +43,7 @@ def comment_equivalence(lst, index):
                     comment_linebreaks_recursive(item)
                 else:
                     item = item.replace('\n', '\n!>>>>')
-        
+
         comment_linebreaks_recursive(lst[index])
         if lst[index + 1].strip(' &\n') != ',':
             break
@@ -52,5 +63,8 @@ def join_list_recursive(lst):
 
 code = join_list_recursive(lst)
 with open(file_path, 'w') as file:
-    file.write(code)
+    for line in code.splitlines(keepends=True):
+        if line in comments:
+            line = comments[line]
+        file.write(line)
 
