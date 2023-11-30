@@ -52,7 +52,7 @@ SUBROUTINE ktriqd(Ntype)
 !  32                                           TEMP
 !
 !
-   EQUIVALENCE (Save(1),Ecpt(50)) , (Ecpt(1),Iecpt(1))
+   !>>>>EQUIVALENCE (Save(1),Ecpt(50)) , (Ecpt(1),Iecpt(1))
    DATA bcd/4HCTRI , 2HA1 , 4HCTRI , 2HA2 , 4HCQUA , 2HD1 , 4HCQUA , 2HD2/
    DATA old , kount , ngpt/0.0 , 2*0/
    DATA scr4 , bgpdt/304 , 15 , 9 , 16 , 10/

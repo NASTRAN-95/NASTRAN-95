@@ -61,7 +61,7 @@ SUBROUTINE vec
 !     FOR COLUMNS OPTION, ONE GINO BUFFER PLUS 2*USET (OR USETD) REQD.
 !
 !
-   EQUIVALENCE (nr,t(3))
+   !>>>>EQUIVALENCE (nr,t(3))
    DATA nermax , blank/10 , 1H /
    DATA b , c , d/4HBITI , 4HD    , 4HCOMP , 4H     , 4HCOLU , 4HMNS /
    DATA lr/4HRIGH , 4HT    , 4HLEFT , 4H    /

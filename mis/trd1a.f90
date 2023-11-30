@@ -18,7 +18,7 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA name , intrl/4HTRD1 , 4HA    , 4HTRL  , 4HTRD /
 !

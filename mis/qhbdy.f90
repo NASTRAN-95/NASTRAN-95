@@ -24,10 +24,10 @@ SUBROUTINE qhbdy
 !
 !
 !
-   EQUIVALENCE (Consts(1),Pi)
-   EQUIVALENCE (x(1),bgpdt(1,2)) , (y(1),bgpdt(1,3)) , (z(1),bgpdt(1,4))
-   EQUIVALENCE (iflag,card(1)) , (q0,card(2)) , (af,card(3))
-   EQUIVALENCE (grids(1),card(4),sils(1))
+   !>>>>EQUIVALENCE (Consts(1),Pi)
+   !>>>>EQUIVALENCE (x(1),bgpdt(1,2)) , (y(1),bgpdt(1,3)) , (z(1),bgpdt(1,4))
+   !>>>>EQUIVALENCE (iflag,card(1)) , (q0,card(2)) , (af,card(3))
+   !>>>>EQUIVALENCE (grids(1),card(4),sils(1))
 !
    DATA map/1 , 2 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
    DATA igrids/1 , 2 , 2 , 3 , 4/

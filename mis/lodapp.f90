@@ -46,8 +46,8 @@ SUBROUTINE lodapp
 !     PVEC - LOAD MATRICES (G-SET)         **BECOMES THE NEW PVEC**
 !     POVE - LOAD MATRICES (O-SET)         **BECOMES THE NEW POVE**
 !
-   EQUIVALENCE (Icorx(1),Rz(1))
-   EQUIVALENCE (Rz(1),Iz(1))
+   !>>>>EQUIVALENCE (Icorx(1),Rz(1))
+   !>>>>EQUIVALENCE (Rz(1),Iz(1))
    DATA ipapp , ipoap/101 , 102/
    DATA iscr1 , iscr2 , iscr3 , iscr4 , iscr5 , iscr6 , iscr7 , iscr8/301 , 302 , 303 , 304 , 305 , 306 , 307 , 308/
    DATA npapp , npoap , npvec , npove , nloap , nlods/4HPAPP , 4HPOAP , 4HPVEC , 4HPOVE , 4HLOAP , 4HLODS/

@@ -50,7 +50,7 @@ SUBROUTINE cmrd2b(Kode)
 !            LAMS   - LAMS INPUT FILE NUMBER
 !            PHISS  - PHISS INPUT FILE NUMBER
 !
-   EQUIVALENCE (Rz(1),Z(1)) , (Lamamr,Infile(2)) , (Phissr,Infile(3)) , (Phissl,Infile(4)) , (Lams,Iscr(5)) , (Phisl,Iscr(6))
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (Lamamr,Infile(2)) , (Phissr,Infile(3)) , (Phissl,Infile(4)) , (Lams,Iscr(5)) , (Phisl,Iscr(6))
    DATA modnam/4HCMRD , 4H2B  /
    DATA itmlst/4HPHIS , 4HPHIL , 4HLAMS/
    DATA rgdfmt/3/

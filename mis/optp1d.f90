@@ -17,7 +17,7 @@ SUBROUTINE optp1d(Elop,Pr,Pl)
 !
 !     PROPERTY OPTIMIZER   SET POINTERS TO PLIMIT
 !
-   EQUIVALENCE (Nkl(1),Kl(1))
+   !>>>>EQUIVALENCE (Nkl(1),Kl(1))
    DATA name/4H OPT , 4HPID /
 !
    nogo = 0

@@ -44,8 +44,8 @@ SUBROUTINE rmg
 !     THIS MODULE COMPUTES AND OUTPUTS DATA IN SINGLE OR DOUBLE
 !     PRECISION BASED ON -PRECIS-.
 !
-   EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1)) , (Do(1),Ao(1)) , (di(1),ai(1)) , (idata(1),rdata(1)) , (defalt,ideflt) ,      &
-    & (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(55),Iprec) , (Ksystm(57),Myradm) , (Ksystm(58),Radchk)
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1)) , (Do(1),Ao(1)) , (di(1),ai(1)) , (idata(1),rdata(1)) , (defalt,ideflt) ,      &
+!>>>>    & (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(55),Iprec) , (Ksystm(57),Myradm) , (Ksystm(58),Radchk)
 !
 !     MYRADM  = 1  IMPLIES SYMMETRIC SCRIPT-AF INPUT
 !     RADCHK NE 0  REQUESTS DIAGNOSTIC PRINTOUT OF AREAS AND VIEW FACTOR

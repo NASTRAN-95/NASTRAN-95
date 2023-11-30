@@ -18,7 +18,7 @@ SUBROUTINE gust3(Qhjk,Wj,Pp,Gustl,Pdel,Pgust,Q,Nfreq,Nload,Nrowj,Ncolw)
 !     FORMING PDEL
 !     PDEL IS THEN MULTIPLIED BY  Q*WG*PP(W)  FORMING PGUST
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA name/4HGUST , 1H3/
 !
 !     INITIALIZE

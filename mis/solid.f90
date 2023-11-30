@@ -21,7 +21,7 @@ SUBROUTINE solid(Temps,Pg,Itype)
 !
 !
 !
-   EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
 !*****
 !
 !  E C P T     TETRA          WEDGE          HEXA

@@ -22,7 +22,7 @@ SUBROUTINE subph1
          & scrt , sub1(2) , temp(10) , type , uset
    LOGICAL last
    EXTERNAL andf , lshift , orf
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA case , eqex , uset , bgpd , cstm , gpse , else , scrt/101 , 102 , 103 , 104 , 105 , 106 , 107 , 301/
    DATA eqss/4HEQSS/ , icstm/4HCSTM/ , lods/4HLODS/ , plts/4HPLTS/ , bgss/4HBGSS/
    DATA iua/25/ , sub1/4HSUBP , 4HH1  /

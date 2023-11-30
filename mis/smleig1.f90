@@ -16,8 +16,8 @@ SUBROUTINE smleig1(D,O,Val)
 !
 !
 !
-   EQUIVALENCE (Mo,Title(2)) , (Md,Title(3)) , (Entry,Title(11)) , (Xentry,Title(20)) , (Vcom(1),Title(101)) , (N,Vcom(1)) ,        &
-    & (Lama,Vcom(6)) , (Phia,Vcom(12)) , (Nfound,Vcom(10))
+   !>>>>EQUIVALENCE (Mo,Title(2)) , (Md,Title(3)) , (Entry,Title(11)) , (Xentry,Title(20)) , (Vcom(1),Title(101)) , (N,Vcom(1)) ,        &
+!>>>>    & (Lama,Vcom(6)) , (Phia,Vcom(12)) , (Nfound,Vcom(10))
 !
    DATA mcb/7*0/
 !

@@ -30,9 +30,9 @@ SUBROUTINE matgpr
 !
 !     THIS MODULE ENHANCED BY P.R.PAMIDI/RPK CORPORATION, 3/1988
 !
-   EQUIVALENCE (xxbuf(1),prbuf(1))
-   EQUIVALENCE (prbufc(1),prbufx(1))
-   EQUIVALENCE (Ia(1),A(1))
+   !>>>>EQUIVALENCE (xxbuf(1),prbuf(1))
+   !>>>>EQUIVALENCE (prbufc(1),prbufx(1))
+   !>>>>EQUIVALENCE (Ia(1),A(1))
    DATA gpl , uset , sil , matrx/101 , 102 , 103 , 104/
    DATA scalar , comps , nline/4H S   , 4HT1   , 4HT2   , 4HT3   , 4HR1   , 4HR2   , 4HR3   , 15/
    DATA name/4HMATG , 4HPR  /

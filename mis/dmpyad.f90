@@ -36,11 +36,11 @@ SUBROUTINE dmpyad
    INTEGER diag , dosi(3) , filea , fileb , filec , filed , i , ident , j , jj , k , ltype , name(2) , prec , rect , refus(3) ,     &
          & scrtch , square , symm
    INTEGER korsz
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Zzz(1),Z(1))
-   EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
-   EQUIVALENCE (Mcbs(1),P(1)) , (Mcbs(8),Typa) , (Mcbs(9),Alp(1)) , (Mcbs(13),Q(1)) , (Mcbs(20),Typb) , (Mcbs(21),Bet(1)) ,         &
-    & (Mcbs(61),R(1))
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Mcbs(1),P(1)) , (Mcbs(8),Typa) , (Mcbs(9),Alp(1)) , (Mcbs(13),Q(1)) , (Mcbs(20),Typb) , (Mcbs(21),Bet(1)) ,         &
+!>>>>    & (Mcbs(61),R(1))
    DATA filea , fileb , filec , filed , scrtch/101 , 102 , 103 , 201 , 301/
    DATA name/4HMPYA , 4HD   /
    DATA dosi/4HSING , 4HDOUB , 4HMLTP/ , refus/2*3H    , 3HREF/

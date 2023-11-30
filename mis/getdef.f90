@@ -13,7 +13,7 @@ SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
    REAL cn , sn
    INTEGER gp , gpx , i , i1 , i2 , inprew , k , rew , sil1 , sil2 , sp , trl(7) , type
 !
-   EQUIVALENCE (Defval,Defc(1))
+   !>>>>EQUIVALENCE (Defval,Defc(1))
    DATA inprew , rew/0 , 1/
 !
    Last = 0

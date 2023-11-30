@@ -44,7 +44,7 @@ SUBROUTINE kflud3
 !           19            -
 !           20            -
 !
-   EQUIVALENCE (Constd(1),Dpi) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Constd(1),Dpi) , (Ecpt(1),Necpt(1))
 !
 !     SELECT POINTS FOR COUNTERCLOCKWISE ORDER
 !

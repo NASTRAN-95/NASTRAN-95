@@ -21,9 +21,9 @@ SUBROUTINE jacob2(Elid,Shp,Dshp,Gpth,Bgpdt,Gpnorm,Jacob)
 !     DOUBLE PRECISION VERSION
 !
 !
-   EQUIVALENCE (Psitrn(1),V1(1))
-   EQUIVALENCE (Psitrn(4),V2(1))
-   EQUIVALENCE (Psitrn(7),V3(1))
+   !>>>>EQUIVALENCE (Psitrn(1),V1(1))
+   !>>>>EQUIVALENCE (Psitrn(4),V2(1))
+   !>>>>EQUIVALENCE (Psitrn(7),V3(1))
 !
    DATA eps/1.0D-15/
 !

@@ -26,7 +26,7 @@ SUBROUTINE fndset(Gpid,X,Ibuf,N)
 !     FNDSET POSITIONS THE STRESS FILE TO THE SUBCASE/VALUE LAST
 !     PROCESSED
 !
-   EQUIVALENCE (u(1),insub)
+   !>>>>EQUIVALENCE (u(1),insub)
    DATA twopi/0.0/
 !
    IF ( N/=0 ) THEN

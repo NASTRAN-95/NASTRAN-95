@@ -19,7 +19,7 @@ SUBROUTINE pstq2(Npts)
 !     NPTS = 4 IMPLIES SQUAD1 OR SQUAD2  (PHASE II)
 !
 !
-   EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9))
+   !>>>>EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9))
 !
 ! **********************************************************************
 ! **********************************************************************

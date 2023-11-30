@@ -32,7 +32,7 @@ SUBROUTINE gp3c
 !         ON SCR2.
 !
 !
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
 !
 !  FACE                 IHEX1             IHEX2             IHEX3
 !   NO                D1      D2        D1      D2        D1      D2

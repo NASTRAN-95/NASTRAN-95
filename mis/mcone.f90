@@ -52,7 +52,7 @@ SUBROUTINE mcone
 !     ECPT(34) = NULL                   REAL           BGPDT
 !     ECPT(35) = ELEMENT TEMPERATURE    REAL           GEOM3
 !
-   EQUIVALENCE (Ra,Ecpt(28)) , (Rb,Ecpt(32)) , (Za,Ecpt(29)) , (Zb,Ecpt(33)) , (T,Ecpt(5)) , (Mu,Ecpt(10)) , (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Ra,Ecpt(28)) , (Rb,Ecpt(32)) , (Za,Ecpt(29)) , (Zb,Ecpt(33)) , (T,Ecpt(5)) , (Mu,Ecpt(10)) , (Necpt(1),Ecpt(1))
 !
    L = sqrt((Rb-Ra)**2+(Zb-Za)**2)
 !

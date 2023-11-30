@@ -77,10 +77,10 @@ SUBROUTINE squd42
 !WKBR 3/95 SPR94017 2  INDXG2(3,3),INDX(6,3),OPRQST,FLAG,IPN(5),COMPS,
 !    5,               GPSTRS,INDEXU(3,3),INDEXV(2,3)
 !WKBR NCL93012 3/94      COMMON /BLANK / APP(2),SORT2,IDUM(2),COMPS
-   EQUIVALENCE (Z(1),Intz(1)) , (Nfors(1),Forsul(1)) , (Nphi(1),Phiout(1)) , (nstres(1),stres(1)) , (Elid,Nphi(1)) ,                &
-    & (Ksil(1),Nphi(2)) , (Tsub0,Phiout(18)) , (Iorder(1),Nphi(10)) , (Avgthk,Phiout(21)) , (Mominr,Phiout(22)) , (G(1),Phiout(23)) &
-    & , (Alfam(1),Phiout(59)) , (Gpth(1),Phiout(65)) , (Alfab(1),Phiout(62)) , (Ipid,Nphi(79)) , (Kstrs,Ksdrde(42)) ,               &
-    & (Kforce,Ksdrde(41)) , (Stemp(1),Ksdrde(97)) , (Sdest,Ksdrde(26)) , (Fdest,Ksdrde(33)) , (Nout,Ksystm(2)) , (Stemp(7),Flag)
+   !>>>>EQUIVALENCE (Z(1),Intz(1)) , (Nfors(1),Forsul(1)) , (Nphi(1),Phiout(1)) , (nstres(1),stres(1)) , (Elid,Nphi(1)) ,                &
+!>>>>    & (Ksil(1),Nphi(2)) , (Tsub0,Phiout(18)) , (Iorder(1),Nphi(10)) , (Avgthk,Phiout(21)) , (Mominr,Phiout(22)) , (G(1),Phiout(23)) &
+!>>>>    & , (Alfam(1),Phiout(59)) , (Gpth(1),Phiout(65)) , (Alfab(1),Phiout(62)) , (Ipid,Nphi(79)) , (Kstrs,Ksdrde(42)) ,               &
+!>>>>    & (Kforce,Ksdrde(41)) , (Stemp(1),Ksdrde(97)) , (Sdest,Ksdrde(26)) , (Fdest,Ksdrde(33)) , (Nout,Ksystm(2)) , (Stemp(7),Flag)
 !    1,               (INDEXU(1,1),INDEXV(1,1))
    DATA debug/.FALSE./
    DATA center/4HCNTR/

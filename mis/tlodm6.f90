@@ -71,8 +71,8 @@ SUBROUTINE tlodm6(Ti)
 !     EQUIVALENCE  IEST WITH EST IN COMMON BLOCK /EMGEST/ SINCE EST IS
 !     A MIXED INTEGER AND REAL ARRAY
 !
-   EQUIVALENCE (Iest(1),Est(1))
-   EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cc(1),c1) , (cc(2),c2) , (cc(3),c3) , (dd(1),d1) , (dd(2),d2) , (dd(3),d3)
+   !>>>>EQUIVALENCE (Iest(1),Est(1))
+   !>>>>EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cc(1),c1) , (cc(2),c2) , (cc(3),c3) , (dd(1),d1) , (dd(2),d2) , (dd(3),d3)
    DATA xu/0 , 1 , 0 , 2 , 1 , 0 , 6*0/ , yu/0 , 0 , 1 , 0 , 1 , 2 , 6*0/
    DATA xv/6*0 , 0 , 1 , 0 , 2 , 1 , 0/ , yv/6*0 , 0 , 0 , 1 , 0 , 1 , 2/
    DATA rk/0 , 1 , 0/ , sk/0 , 0 , 1/

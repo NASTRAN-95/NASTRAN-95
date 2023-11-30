@@ -21,7 +21,7 @@ SUBROUTINE ifs4p(*,*,*)
    REAL dc1 , dc2 , dc3 , dl1 , dl2 , dlc , dx1 , dx2 , dy1 , dy2 , dz1 , dz2 , zz
    LOGICAL ifpdco
 !
-   EQUIVALENCE (Z(1),M(1)) , (Kout,J(2))
+   !>>>>EQUIVALENCE (Z(1),M(1)) , (Kout,J(2))
    DATA thru , bcdyes , bcdno/4HTHRU , 4HYES  , 4HNO  /
    DATA bcds , bcda , bcdnon/4HS    , 4HA    , 4HNONE/
    DATA bcdaxi/4HAXIS/

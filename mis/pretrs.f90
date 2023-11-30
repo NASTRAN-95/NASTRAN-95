@@ -27,7 +27,7 @@ SUBROUTINE pretrs(Cstmx,Ncstmx)
 !     REVISED  7/92 BY G.CHAN/UNISYS. NEW REFERENCE TO CSTM ARRAY SUCH
 !     THAT THE SOURCE CODE IS UP TO ANSI FORTRAN 77 STANDARD.
 !
-   EQUIVALENCE (fl1,int1) , (fl2,int2)
+   !>>>>EQUIVALENCE (fl1,int1) , (fl2,int2)
 !
    ncstm = Ncstmx
    offset = locfx(Cstmx(1)) - locfx(Cstm(1))

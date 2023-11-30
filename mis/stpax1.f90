@@ -72,9 +72,9 @@ SUBROUTINE stpax1
 !                     CE66,E11,E12,E13,E14,E15,E16,E21,E22,E23,E24,E25,
 !                     E26,E31,E32,E33,E34,E35,E36,EPS11,EPS12,EPS13,
 !                     EPS22,EPS23,EPS33,RHO,A1,A2,A12,TREF,GE
-   EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Degrad) , (Acurl(1),Ak(1)) , (Iecpt(1),Ecpt(1)) , (R(1),R1) ,        &
-    & (R(2),R2) , (R(3),R3) , (R(4),R4) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , (Acurp1(1),Acurl(145)) ,                  &
-    & (Acurp2(1),Acurl(193))
+   !>>>>EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Degrad) , (Acurl(1),Ak(1)) , (Iecpt(1),Ecpt(1)) , (R(1),R1) ,        &
+!>>>>    & (R(2),R2) , (R(3),R3) , (R(4),R4) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , (Acurp1(1),Acurl(145)) ,                  &
+!>>>>    & (Acurp2(1),Acurl(193))
 !
    lsys78 = .FALSE.
    IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.

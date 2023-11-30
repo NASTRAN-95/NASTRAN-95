@@ -48,10 +48,10 @@ SUBROUTINE strax2(Sorc,Ti)
 !     SDR2 INPUT AND OUTPUT BLOCK
 !
 !
-   EQUIVALENCE (Iblock(1,1),Block(1,1)) , (Iclock(1,1),Clock(1,1)) , (Dum3(1),Idel) , (Ldtemp,Templd) ,                             &
-    & (Dum3(109),Stres(9),Istres(9),Eflux(1)) , (Dum3(201),Force(1),Iforce(1)) , (Dum2(1),Selp1(1)) , (Dum2(19),Akph2(1)) ,         &
-    & (Dum2(28),Akuph(1)) , (Dum2(55),Selp2(1)) , (Dum2(82),Selp3(1)) , (Consts(4),Degrad) , (Unu(1),D3(1)) , (Unu(4),D6(1)) ,      &
-    & (Unu(10),D9(1))
+   !>>>>EQUIVALENCE (Iblock(1,1),Block(1,1)) , (Iclock(1,1),Clock(1,1)) , (Dum3(1),Idel) , (Ldtemp,Templd) ,                             &
+!>>>>    & (Dum3(109),Stres(9),Istres(9),Eflux(1)) , (Dum3(201),Force(1),Iforce(1)) , (Dum2(1),Selp1(1)) , (Dum2(19),Akph2(1)) ,         &
+!>>>>    & (Dum2(28),Akuph(1)) , (Dum2(55),Selp2(1)) , (Dum2(82),Selp3(1)) , (Consts(4),Degrad) , (Unu(1),D3(1)) , (Unu(4),D6(1)) ,      &
+!>>>>    & (Unu(10),D9(1))
    DATA zeron/.FALSE./
    DATA iosorc/0/
 !

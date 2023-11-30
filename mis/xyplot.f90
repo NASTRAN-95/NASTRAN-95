@@ -41,8 +41,8 @@ SUBROUTINE xyplot
 !
 !
 !ZZ   COMMON /ZZXYPL/ Z(1)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outape) , (Ksystm(9),Nlpp) , (Ksystm(12),Nlines) , (Z(1),X(1),Ix(1),Xy(1)) ,         &
-    & (Xy(2),Y(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outape) , (Ksystm(9),Nlpp) , (Ksystm(12),Nlines) , (Z(1),X(1),Ix(1),Xy(1)) ,         &
+!>>>>    & (Xy(2),Y(1))
    DATA lpltmd , lcmr , xlpap , ylpap/ - 1 , -1 , -1.0 , -1.0/
    DATA xyplt/101/
    DATA nrwd , irdrw , iclsrw/300 , 0 , 1/

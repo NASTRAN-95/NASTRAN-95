@@ -12,7 +12,7 @@ SUBROUTINE ofp1b(Line)
 !     COMPILATION PURPOSES.  IT IS CALLED ONLY BY OFP1.
 !     PREVIOUSLY THIS ROUTINE WAS NAMED OPF1A.
 !
-   EQUIVALENCE (Core(1),Of(1)) , (Id(1),Fd(1),Of(6))
+   !>>>>EQUIVALENCE (Core(1),Of(1)) , (Id(1),Fd(1),Of(6))
    DATA idum1 , idum2 , idum3 , idum4 , idum5 , idum6/4HDUM1 , 4HDUM2 , 4HDUM3 , 4HDUM4 , 4HDUM5 , 4HDUM6/ , idum7 , idum8 ,        &
        &idum9/4HDUM7 , 4HDUM8 , 4HDUM9/
 !

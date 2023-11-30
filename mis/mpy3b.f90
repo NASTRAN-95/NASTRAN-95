@@ -37,9 +37,9 @@ SUBROUTINE mpy3b(Z,Iz,Dz)
 !
 !
 !
-   EQUIVALENCE (A(1),Da)
+   !>>>>EQUIVALENCE (A(1),Da)
 ! OPEN CORE POINTERS
-   EQUIVALENCE (Ibcols,Zpntrs(11)) , (Ibcid,Zpntrs(13)) , (Ibntu,Zpntrs(15)) , (Iktbp,Zpntrs(17)) , (Iakj,Zpntrs(21))
+   !>>>>EQUIVALENCE (Ibcols,Zpntrs(11)) , (Ibcid,Zpntrs(13)) , (Ibntu,Zpntrs(15)) , (Iktbp,Zpntrs(17)) , (Iakj,Zpntrs(21))
 !
 !
 !

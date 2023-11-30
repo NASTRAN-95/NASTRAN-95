@@ -64,7 +64,7 @@ SUBROUTINE ginofl
    INTEGER korsz
    CHARACTER*6 mxtb(2) , tbmx
 !
-   EQUIVALENCE (Scr,P1)
+   !>>>>EQUIVALENCE (Scr,P1)
    DATA name/4HGINO , 4HFL  / , scra , tch/4HSCRA , 4H    /
 !WKBR DATA    BLANK /  4H           /,  IZ2 / 2   /,OUTFL  / 201   /
    DATA iz2/2/ , outfl/201/

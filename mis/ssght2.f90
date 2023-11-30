@@ -26,7 +26,7 @@ SUBROUTINE ssght2(File,Delta,Uni)
 !                          MATRIX
 !                      DELTAP  IS THE NONLINEAR LOAD
 !
-   EQUIVALENCE (Constd(1),Pi)
+   !>>>>EQUIVALENCE (Constd(1),Pi)
    DATA npts/2 , 3 , 4 , 3 , 4 , 4 , 6 , 8 , 8 , 1 , 2 , 2 , 3 , 4 , 2/
    DATA nels/1 , 1 , 4 , 1 , 4 , 1 , 3 , 5 , 10 , 1 , 1 , 1 , 1 , 4 , 1/
    DATA subr/4HSSGH , 4HT2  /

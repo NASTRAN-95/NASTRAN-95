@@ -93,7 +93,7 @@ SUBROUTINE pkbar
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1),D(1)) , (Esub0,Plaans)
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1),D(1)) , (Esub0,Plaans)
 !
 !
 !     DETERMINE WHICH POINT IS THE PIVOT POINT.

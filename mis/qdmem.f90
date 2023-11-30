@@ -10,7 +10,7 @@ SUBROUTINE qdmem(T,Core)
    REAL a1(3) , a2(3) , a3(3) , a4(3) , coord(16) , cosang , d1(3) , d2(3) , ecptsa(36) , h , ivec(3) , jvec(3) , kvec(3) , ngrid(4)&
       & , r(6) , sinang , tbar , theta , u1 , u2 , v(8) , vecl
    INTEGER i , j , k , m(12) , ncoord , npoint , nsub1 , nsub3
-   EQUIVALENCE (r(1),ivec(1)) , (ngrid(1),ecptsa(2)) , (coord(1),ecptsa(10)) , (r(4),jvec(1))
+   !>>>>EQUIVALENCE (r(1),ivec(1)) , (ngrid(1),ecptsa(2)) , (coord(1),ecptsa(10)) , (r(4),jvec(1))
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
 !     ******************************************************************

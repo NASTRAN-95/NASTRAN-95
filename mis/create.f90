@@ -14,7 +14,7 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
          & isym(14) , itype(14) , iwds , j , jtj , k , kbar , kest , kq4 , kt3 , layskp , laytot , m , mem , msg1(20) , ngppe ,     &
          & nlayer , nlfin , nmsg1 , ntypes , nwds , offset , skipwd(20) , stress
 !
-   EQUIVALENCE (New,Newoes) , (kq4,isym(13)) , (kt3,isym(14))
+   !>>>>EQUIVALENCE (New,Newoes) , (kq4,isym(13)) , (kt3,isym(14))
    DATA ntypes/14/
    DATA isym/2HSH , 2HT1 , 2HTB , 2HTP , 2HTM , 2HQP , 2HQM , 2HT2 , 2HQ2 , 2HQ1 , 2HM1 , 2HM2 , 2HQ4 , 2HT3/ , kbar/2HBR/
    DATA itype/4 , 6 , 7 , 8 , 9 , 15 , 16 , 17 , 18 , 19 , 62 , 63 , 64 , 83/

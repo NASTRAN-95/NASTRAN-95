@@ -13,7 +13,7 @@ SUBROUTINE detm4
    COMMON /zzzzzz/ Psave
    REAL eps1
    INTEGER i , n , n2ev2 , nfnd , nn , nnd , nni , nnp , nnz
-   EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
+   !>>>>EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
 !
 !     RMAX = APPROXIMATE MAGNITUDE OF LARGEST EIGENVALUE OF INTEREST
 !

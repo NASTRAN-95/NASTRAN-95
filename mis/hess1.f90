@@ -69,7 +69,7 @@ SUBROUTINE hess1(Kdd,Mdd,Lamd,Phid,Oeigs,Nfound,Nvecd,Bdd,Scr1,Scr2,Scr3,Scr4,Sc
 !
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(55),Iprec) , (Z(1),Dz(1),Iz(1),Cz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(55),Iprec) , (Z(1),Dz(1),Iz(1),Cz(1))
    DATA name/4HHESS , 4H1   /
    DATA ihead/0 , 1009 , 4 , 7*0/
    DATA eigc , poin/207 , 2 , 4HPOIN/

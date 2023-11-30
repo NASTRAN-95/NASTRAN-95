@@ -24,7 +24,7 @@ SUBROUTINE mbamg(Input,Ajjl,Skj)
 !
 !     DRIVER FOR MACH BOX THEORY
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA name/4HMBAM , 4HG   /
    DATA nhcore , nhcapf , nhcont/4HCORE , 4HCAPF , 4HCONT/
    DATA scr2/302/

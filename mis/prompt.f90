@@ -11,7 +11,7 @@ SUBROUTINE prompt
    COMMON /blank / Param
    COMMON /system/ Ksysm
    INTEGER b , c , i , j , p , s
-   EQUIVALENCE (Nout,Ksysm(2)) , (Soln,Ksysm(22)) , (In,Ksysm(4)) , (Intra,Ksysm(86))
+   !>>>>EQUIVALENCE (Nout,Ksysm(2)) , (Soln,Ksysm(22)) , (In,Ksysm(4)) , (Intra,Ksysm(86))
    DATA p , s , c , b/1HP , 1HS , 1HC , 1H /
 !
    Intra = iabs(Intra)

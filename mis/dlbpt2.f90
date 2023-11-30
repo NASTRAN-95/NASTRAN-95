@@ -16,7 +16,7 @@ SUBROUTINE dlbpt2(Input,W1jk,W2jk)
          & lnfl , lns , lnsb , lt1 , lt2 , n , name(2) , nbe , nbtd , next , ntzy , nw
    INTEGER korsz
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA name/4HDLBP , 4HT2  /
 !
 !     GET CORE THEN SET POINTERS TO ACPT TABLE ARRAYS

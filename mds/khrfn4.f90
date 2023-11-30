@@ -7,7 +7,7 @@ INTEGER FUNCTION khrfn4(Word)
 !
 !     REVERSE BYTES FOR SORTING (USED MAINLY BY THE VAX MACHINE)
 !
-   EQUIVALENCE (c1(1),w1) , (c2(1),w2)
+   !>>>>EQUIVALENCE (c1(1),w1) , (c2(1),w2)
 !
    w1 = Word(1)
    c2(1) = c1(4)

@@ -141,7 +141,7 @@ SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
 !WKBR LOGICAL          BO,SP,CP,DP,MS,TAPEUP,TAPBIT,DEBUG
 !WKBI
 !WKBI
-   EQUIVALENCE (Iz(1),Z(1),Dz(1),Core(1)) , (dr(1),d,dd)
+   !>>>>EQUIVALENCE (Iz(1),Z(1),Dz(1),Core(1)) , (dr(1),d,dd)
    DATA outfil/201 , 202 , 203 , 204 , 205/ , skip/4H(SKI , 4HP)  /
    DATA iname , oname , typ/25*4H    / , subnam/4HINPT , 2HT4/
    DATA ty/4HRSP  , 4HRDP  , 4HCSP  , 4HCDP / , zero/4*0.0/

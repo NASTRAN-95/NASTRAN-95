@@ -52,7 +52,7 @@ SUBROUTINE totape(Caller,Z)
    LOGICAL disc
    INTEGER korsz
    LOGICAL tapbit
-   EQUIVALENCE (Ksystm(1),Ibuf) , (Ksystm(15),Date(1)) , (Ksystm(2),Nout) , (Ksystm(86),Intra) , (tab(2,3),blank)
+   !>>>>EQUIVALENCE (Ksystm(1),Ibuf) , (Ksystm(15),Date(1)) , (Ksystm(2),Nout) , (Ksystm(86),Intra) , (tab(2,3),blank)
    DATA tab/4HPLTS , 4HET   , 2 , 4HPLOT , 4H     , 5 , 4HOFP  , 4H     , 3/
    DATA file , nfile , mark/4HINP9 , 23 , 2*65536 , 11111/
    DATA sub/4HTOTA , 4HPE  /

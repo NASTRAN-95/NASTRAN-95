@@ -50,9 +50,9 @@ SUBROUTINE sdcmps(Zi,Zr,Zd)
 !     IF SYSTEM(57) IS .GT.1 - USED FOR -CLOS-,
 !                      .LT.0 - STOP AFTER PREPASS
 !
-   EQUIVALENCE (Nrow,Dba(3)) , (Typea,Dba(5)) , (Jstr,Blk(5)) , (Col,Blk(4)) , (Nterms,Blk(6)) , (Row,Key(1)) , (Dsr,Ddr) ,         &
-    & (Dsc,Ddc) , (Minds,Mindd) , (ddrr(1),rdia) , (dv,rv) , (dmant,rmant) , (ddia,rdia) , (pdefd,pdefr)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(31),Hicore) , (Ksystm(40),Nbpw) , (Ksystm(60),Sys60)
+   !>>>>EQUIVALENCE (Nrow,Dba(3)) , (Typea,Dba(5)) , (Jstr,Blk(5)) , (Col,Blk(4)) , (Nterms,Blk(6)) , (Row,Key(1)) , (Dsr,Ddr) ,         &
+!>>>>    & (Dsc,Ddc) , (Minds,Mindd) , (ddrr(1),rdia) , (dv,rv) , (dmant,rmant) , (ddia,rdia) , (pdefd,pdefr)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(31),Hicore) , (Ksystm(40),Nbpw) , (Ksystm(60),Sys60)
    DATA unuse , addi/'    UNUSED' , 'ADDITIONAL'/
    DATA subnam/4HSDCM , 2HPS , 1H / , nkey/6/ , begn/4HBEGN/ , end/4HEND / , two24/16777216/ , two25/33554432/
 !

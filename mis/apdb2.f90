@@ -27,8 +27,8 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
 !     GENERATE GTKA TRANSFORMATION MATRIX FOR SWEPT TURBOPROP
 !     BLADES (AERODYNAMIC THEORY NUMBER 7).
 !
-   EQUIVALENCE (Z(1),Core(1))
-   EQUIVALENCE (Z(1),Iz(1)) , (idata(1),rdata(1))
+   !>>>>EQUIVALENCE (Z(1),Core(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (idata(1),rdata(1))
    DATA single , multi , omit/.TRUE. , .TRUE. , .TRUE./
 !
    uset = 102

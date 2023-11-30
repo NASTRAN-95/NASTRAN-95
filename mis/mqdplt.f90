@@ -74,8 +74,8 @@ SUBROUTINE mqdplt
 !     ECPT(29) =                            ** Z4                REAL
 !     ECPT(30) =                            ** ELEMENT TEMP      REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1,1),Requiv(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) ,                &
-    & (Vq3(1),Ecpt(23)) , (Vq4(1),Ecpt(27)) , (A(1),Mout(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1,1),Requiv(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) ,                &
+!>>>>    & (Vq3(1),Ecpt(23)) , (Vq4(1),Ecpt(27)) , (A(1),Mout(1))
    DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
 !
 !     DETERMINE PIVOT POINT NUMBER

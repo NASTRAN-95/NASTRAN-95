@@ -15,7 +15,7 @@ SUBROUTINE xyprpl
    REAL buf(2) , center , delta , graph(3,8) , temp , xmax , xratio , ymax , ymin , yratio
    INTEGER korsz
 !
-   EQUIVALENCE (Fid(1),Id(1)) , (graph(1,1),igraph(1,1)) , (buf(1),ibuf(1))
+   !>>>>EQUIVALENCE (Fid(1),Id(1)) , (graph(1,1),igraph(1,1)) , (buf(1),ibuf(1))
    DATA symbol/1H* , 1H0 , 1HA , 1HB , 1HC , 1HD , 1HE , 1HF , 1HG , 1HH/
 !
 !     GRAPH ARRAY CONTENTS

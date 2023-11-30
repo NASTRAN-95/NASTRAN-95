@@ -22,7 +22,7 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
    INTEGER blk , i1 , i2 , i3 , i4 , ihld , ii , j , n , n1 , n2 , n3
    LOGICAL dec
    EXTERNAL andf , lshift , orf , rshift , shift
-   EQUIVALENCE (Bk(1),Bkmsk1(2)) , (Mk(1),Bimsk1(1)) , (Sft(1),Shifts(2)) , (Blks,Bkmsk1(8)) , (Bkx,Bkmsk1(1))
+   !>>>>EQUIVALENCE (Bk(1),Bkmsk1(2)) , (Mk(1),Bimsk1(1)) , (Sft(1),Shifts(2)) , (Blks,Bkmsk1(8)) , (Bkx,Bkmsk1(1))
 !
 !     DATA     BK   / 4H0000,4H0000,4H0000,4H000 ,4H00  ,4H0   /
 !     DATA     (MK(I),I=1,6) /O777777000000,O777700000000,O770000000000,

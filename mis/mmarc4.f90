@@ -32,7 +32,7 @@ SUBROUTINE mmarc4(Zi,Zd)
 !     ZI  - Memory for storage of data (integer)
 !     ZD  - Same location as ZI but real double reference
 !
-   EQUIVALENCE (Rxl,Dxl)
+   !>>>>EQUIVALENCE (Rxl,Dxl)
    mem = 1
    DO i = 1 , 15
       iblk(i) = 0

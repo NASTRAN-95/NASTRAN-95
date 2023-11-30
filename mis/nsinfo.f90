@@ -39,10 +39,10 @@ SUBROUTINE nsinfo(Jump)
    INTEGER khrfn1
 !WKBR 8/94 SUN INTEGER         NAME(2),NTAB(5),CARDX(4),CARD(20),DIAG48(4)
 !WKBR CHARACTER*167   IFILE
-   EQUIVALENCE (cardx(1),card(1))
-   EQUIVALENCE (Sys(1),Sysbuf) , (Sys(2),Nout) , (Sys(9),Nlpp) , (Sys(14),Mxlns) , (Sys(19),Ehco) , (Sys(31),Hicore) ,              &
-    & (Sys(35),Lprus) , (Sys(37),Lu) , (Sys(36),Nprus) , (Sys(20),Pltop) , (Sys(92),Dict) , (Sys(76),Nosbe) , (Sys(77),Bndit) ,     &
-    & (Sys(91),Lpch)
+   !>>>>EQUIVALENCE (cardx(1),card(1))
+   !>>>>EQUIVALENCE (Sys(1),Sysbuf) , (Sys(2),Nout) , (Sys(9),Nlpp) , (Sys(14),Mxlns) , (Sys(19),Ehco) , (Sys(31),Hicore) ,              &
+!>>>>    & (Sys(35),Lprus) , (Sys(37),Lu) , (Sys(36),Nprus) , (Sys(20),Pltop) , (Sys(92),Dict) , (Sys(76),Nosbe) , (Sys(77),Bndit) ,     &
+!>>>>    & (Sys(91),Lpch)
    DATA ttpg/0/
 !WKBR 8/94 SUN DATA    EQU   , R  ,  S  ,  BNK      ,   EQUALS   , NAME         /
 !WKBR 8/94 SUN1        1H=   , 1HR,  1HS,  4H       ,   4H====   , 4HNSIN,2HFO  /

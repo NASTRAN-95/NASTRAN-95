@@ -72,9 +72,9 @@ SUBROUTINE cmrd2d(Iter)
 !            HIM    - HIM INPUT FILE NUMBER
 !            HIMSCR - HIM SCRATCH INPUT FILE NUMBER
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Phissr,Infile(3)) , (Phissl,Infile(4)) , (Usetmr,Infile(6)) , (Phiam,Iscr(8)) ,                &
-    & (Himscr,Iscr(7)) , (Phibm,Iscr(9)) , (Gib,Iscr(8)) , (Gibbar,Iscr(11)) , (Phiim,Iscr(6)) , (Himprt,Iscr(7)) , (Himbar,Iscr(8))&
-    & , (Pprtn,Iscr(7)) , (Him,Iscr(10)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Phissr,Infile(3)) , (Phissl,Infile(4)) , (Usetmr,Infile(6)) , (Phiam,Iscr(8)) ,                &
+!>>>>    & (Himscr,Iscr(7)) , (Phibm,Iscr(9)) , (Gib,Iscr(8)) , (Gibbar,Iscr(11)) , (Phiim,Iscr(6)) , (Himprt,Iscr(7)) , (Himbar,Iscr(8))&
+!>>>>    & , (Pprtn,Iscr(7)) , (Him,Iscr(10)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HCMRD , 4H2D  /
    DATA epslon/1.0E-03/
    DATA item/4HGIMS/

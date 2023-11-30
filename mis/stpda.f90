@@ -21,7 +21,7 @@ SUBROUTINE stpda(Input,Ajjl,Skj)
 !
 !     DRIVER FOR STRIP THEORY
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA name/4HSTPD , 4HA   /
 !
    icore = korsz(Iz) - 4*Sysbuf

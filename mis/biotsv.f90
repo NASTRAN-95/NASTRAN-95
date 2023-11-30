@@ -36,7 +36,7 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
 !      .
 !     LOAD CARDS FOR SUBSEQUENT SIMPLE LOADS FOR THIS SUBCASE
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (buf(1),ibuf(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (buf(1),ibuf(1))
    DATA nam/4HBIOT , 4HSV  /
 !
    Hcx = 0.

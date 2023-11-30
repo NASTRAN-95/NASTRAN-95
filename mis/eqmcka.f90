@@ -15,7 +15,7 @@ SUBROUTINE eqmcka(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
 !
 !
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
 !
    DATA iz2 , iz3 , iz4 , iz5/2 , 3 , 4 , 5/
    DATA name/4HEQMC , 4HKA  /

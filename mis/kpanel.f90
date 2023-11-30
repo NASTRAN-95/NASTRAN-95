@@ -98,7 +98,7 @@ SUBROUTINE kpanel(Iarg)
 !
 !
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1),Ielid)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1),Ielid)
 !
 ! CALL MAT TO GET MATERIAL PROPERTIES.
 !

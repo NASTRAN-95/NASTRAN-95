@@ -37,7 +37,7 @@ SUBROUTINE selas1(Iarg)
 !
 !
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Scoeff,Icoeff)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Scoeff,Icoeff)
 !
 ! BUILD UP OUTPUT BLOCK DEPENDING UPON WHICH ELEMENT TYPE, ELAS1, ELAS2,
 ! ELAS3 OR ELAS4, IS BEING WORKED ON.

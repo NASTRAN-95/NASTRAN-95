@@ -30,8 +30,8 @@ SUBROUTINE is2d8s
 !
 !     SINGLE PRECISION VERSION
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (temp(1),b(1)) , (dnc(1),dnxi(1)) , (dnc(9),dneta(1)) , (dnl(1),dnx(1)) ,        &
-    & (dnl(9),dny(1)) , (Qq(1),G11) , (tempar(1),bt(1)) , (Xy1(1),X1) , (Xy2(1),X2) , (Isil(1),Ngrid(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (temp(1),b(1)) , (dnc(1),dnxi(1)) , (dnc(9),dneta(1)) , (dnl(1),dnx(1)) ,        &
+!>>>>    & (dnl(9),dny(1)) , (Qq(1),G11) , (tempar(1),bt(1)) , (Xy1(1),X1) , (Xy2(1),X2) , (Isil(1),Ngrid(1))
    DATA xi/ - 1.00 , 1.00 , 1.00 , -1.00 , 0.00 , 1.00 , 0.00 , -1.00/
    DATA eta/ - 1.00 , -1.00 , 1.00 , 1.00 , -1.00 , 0.00 , 1.00 , 0.00/
    DATA ind6/1 , 7 , 49 , 13 , 55 , 91 , 19 , 61 , 97 , 127 , 25 , 67 , 103 , 133 , 157 , 31 , 73 , 109 , 139 , 163 , 181 , 37 ,    &

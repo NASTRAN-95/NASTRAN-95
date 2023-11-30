@@ -103,7 +103,7 @@ SUBROUTINE kelbow
 !
 !
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (Iz(1),Z(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1)) , (Kee(1,1),Ke(1),S(1,1))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (Iz(1),Z(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1)) , (Kee(1,1),Ke(1),S(1,1))
    DATA dcr/.017453292/
 !
    sid(x) = sin(x*dcr)

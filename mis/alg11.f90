@@ -39,7 +39,7 @@ SUBROUTINE alg11
    INTEGER ible , idata(6) , ielem , ifle , ifte , ii , ilast , ileb , inode , ip , itrleb , j , k , l1 , l1keep , l2 , l3 , l4 ,   &
          & l5 , l6 , ledgeb , name1(2) , name2(2) , nout3s , nout3t , nstnsx
 !
-   EQUIVALENCE (idata(1),rdata(1))
+   !>>>>EQUIVALENCE (idata(1),rdata(1))
    DATA name1 , name2/4HPLOA , 4HD2   , 4HTEMP , 4H    /
 !
    opr = 0.0

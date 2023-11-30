@@ -21,7 +21,7 @@ SUBROUTINE comect(Ele,Max)
 !              FOR EACH OF THE TWO PLATES, ARE ADDED AFTER THE GRID
 !              DATA)
 !
-   EQUIVALENCE (offset(1),gp(1)) , (Ix(1),X(1))
+   !>>>>EQUIVALENCE (offset(1),gp(1)) , (Ix(1),X(1))
    DATA name/4H COM , 4HECT / , outrew , rew , inrew/1 , 1 , 0/
    DATA pcomp/5502 , 25 , 2 , 5602 , 14 , 2 , 5702 , 13 , 2 , 5802 , 17 , 17/
 !                     PCOMP      PCOMP1     PCOMP2     PSHELL

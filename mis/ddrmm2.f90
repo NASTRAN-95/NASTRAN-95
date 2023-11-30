@@ -37,9 +37,9 @@ SUBROUTINE ddrmm2(*,*,*,*)
 !
 !     PERFORMS SORT2 TYPE PROCESSING FOR MODULE DDRMM.
 !
-   EQUIVALENCE (Scrt1,Scrt(1)) , (Scrt2,Scrt(2)) , (Scrt3,Scrt(3)) , (Scrt4,Scrt(4)) , (Scrt5,Scrt(5)) , (Scrt6,Scrt(6)) ,          &
-    & (Scrt7,Scrt(7)) , (Buf1,Buff(1)) , (Buf2,Buff(2)) , (Buf3,Buff(3)) , (Buf4,Buff(4)) , (Buf5,Buff(5)) , (Buf6,Buff(6)) ,       &
-    & (A(1),Ia(1)) , (Z(1),Rz(1)) , (Buf(1),Rbuf(1),Bufa(1)) , (Bufb(1),Buf(76)) , (Idrec(1),Ridrec(1))
+   !>>>>EQUIVALENCE (Scrt1,Scrt(1)) , (Scrt2,Scrt(2)) , (Scrt3,Scrt(3)) , (Scrt4,Scrt(4)) , (Scrt5,Scrt(5)) , (Scrt6,Scrt(6)) ,          &
+!>>>>    & (Scrt7,Scrt(7)) , (Buf1,Buff(1)) , (Buf2,Buff(2)) , (Buf3,Buff(3)) , (Buf4,Buff(4)) , (Buf5,Buff(5)) , (Buf6,Buff(6)) ,       &
+!>>>>    & (A(1),Ia(1)) , (Z(1),Rz(1)) , (Buf(1),Rbuf(1),Bufa(1)) , (Bufb(1),Buf(76)) , (Idrec(1),Ridrec(1))
 !
    DATA eor , noeor/1 , 0/ , dvamid/2001 , 2010 , 2011/
 !

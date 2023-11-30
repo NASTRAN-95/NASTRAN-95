@@ -16,7 +16,7 @@ SUBROUTINE pktq2(Npts)
 !     NPTS = 3 IMPLIES STRIA1 OR STRIA2  (PHASE II)
 !     NPTS = 4 IMPLIES SQUAD1 OR SQUAD2  (PHASE II)
 !
-   EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9))
+   !>>>>EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9))
 !
 !     PHASE I OUTPUT FROM THE MEMBRANE IS THE FOLLOWING
 !     NOTE..BEGIN = 30*NPTS+8

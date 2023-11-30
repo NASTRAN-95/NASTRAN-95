@@ -30,14 +30,14 @@ BLOCKDATA plotbd
 !    9    ... OFFSET SCALE (WILL BE SET TO 1 BY PLTSET)
 !
 ! ... EQUIV FOR   /CHAR94/...
-   EQUIVALENCE (Char(1,1),Char1(1,1)) , (Char(1,4),Char2(1,1))
+   !>>>>EQUIVALENCE (Char(1,1),Char1(1,1)) , (Char(1,4),Char2(1,1))
 !
 ! ... EQUIV FOR   /CHRDRW/...
-   EQUIVALENCE (Chr(1,1),Chr19(1,1)) , (Chr(1,80),Chram(1,1)) , (Chr(1,168),Chrnz(1,1)) , (Chr(1,252),Chlpqm(1,1)) ,                &
-    & (Chr(1,304),Chrsym(1,1))
+   !>>>>EQUIVALENCE (Chr(1,1),Chr19(1,1)) , (Chr(1,80),Chram(1,1)) , (Chr(1,168),Chrnz(1,1)) , (Chr(1,252),Chlpqm(1,1)) ,                &
+!>>>>    & (Chr(1,304),Chrsym(1,1))
 !
 ! ... EQUIV FOR   /PLTDAT/...
-   EQUIVALENCE (Data(7,1),Npens(1,1)) , (Data(10,1),Pltype(1,1)) , (Data(12,1),Pbfsiz(1,1)) , (Data(13,1),Eof(1,1))
+   !>>>>EQUIVALENCE (Data(7,1),Npens(1,1)) , (Data(10,1),Pltype(1,1)) , (Data(12,1),Pbfsiz(1,1)) , (Data(13,1),Eof(1,1))
 !
 !
 ! ... THE FOLLOWING ARE NUMERIC EQUIVALENTS OF 7094 BINARY CHARACTERS.

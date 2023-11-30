@@ -86,7 +86,7 @@ SUBROUTINE bandit
 !
 !
 !
-   EQUIVALENCE (Hicore,Is(28))
+   !>>>>EQUIVALENCE (Hicore,Is(28))
    DATA sub/4HBAND , 4HIT   , 4HBEGN/
    DATA end , iquit/4HEND  , 4HQUIT/
 !

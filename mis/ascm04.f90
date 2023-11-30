@@ -11,8 +11,8 @@ SUBROUTINE ascm04(Name,Iphase,Isol,Nogo)
 !
 !     REDUCE COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (rdmap3(1,1),rdmap(1,19)) , (oct1(1,1),oct(1,1)) ,            &
-    & (ptbs1(1,1),ptbs(1,1)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37)) , (ptbs4(1,1),ptbs(1,55))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (rdmap3(1,1),rdmap(1,19)) , (oct1(1,1),oct(1,1)) ,            &
+!>>>>    & (ptbs1(1,1),ptbs(1,1)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37)) , (ptbs4(1,1),ptbs(1,55))
    DATA comnd/4HREDU , 23 , 4 , 16 , 67 , 0/
    DATA slash/1H//
    DATA isave/1 , 14 , 1 , 3 , 12 , 1 , 3 , 16 , 3 , 4 , 5 , 1 , 8 , 8 , 2 , 8 , 11 , 1 , 9 , 7 , 1 , 10 , 10 , 3 , 12 , 7 , 1 ,    &

@@ -12,8 +12,8 @@ SUBROUTINE ascm07(Name,Iphase,Isol,Nogo)
 !
 !     BRECOVER COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19))
    DATA comnd/4HBREC , 21 , 0 , 13 , 26 , 6/
    DATA slash/1H//
    DATA rdmap1/4HALTE , 4HR    , 4H  (S , 4HOLVE , 4H) $  , 13*4H     , 4HPARA , 4HM    , 4H  // , 4H*NOP , 4H*/AL , 4HWAYS ,       &

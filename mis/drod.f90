@@ -82,7 +82,7 @@ SUBROUTINE drod
 !
 !
 !
-   EQUIVALENCE (Rz(1),Iz(1),Dz(1)) , (Ecpt(1),Iecpt(1)) , (Zzt(1),Yyt(10))
+   !>>>>EQUIVALENCE (Rz(1),Iz(1),Dz(1)) , (Ecpt(1),Iecpt(1)) , (Zzt(1),Yyt(10))
 !
 ! BEGIN EXECUTION
 !

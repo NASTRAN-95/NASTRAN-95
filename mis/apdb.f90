@@ -43,7 +43,7 @@ SUBROUTINE apdb
 !
 !
 !     NAMES  -VALUE =  2   0    3    1      1      2     3
-   EQUIVALENCE (Z(1),Iz(1)) , (Minmac,Macmin) , (Maxmac,Macmax)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Minmac,Macmin) , (Maxmac,Macmax)
    DATA aero/3202 , 32 , 0/ , mkaer1/3802 , 38 , 0/ , mkaer2/3702 , 37 , 0/
    DATA fluttr/3902 , 39 , 0/ , flfact/4102 , 41 , 0/
    DATA strml1/3292 , 92 , 0/ , strml2/3293 , 93 , 0/

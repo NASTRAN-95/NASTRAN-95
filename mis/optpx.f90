@@ -21,7 +21,7 @@ SUBROUTINE optpx(Dtyp)
 !     OPTP1D
 !     MPT ASSUMED PREPOSITIONED TO PLIMIT CARDS.
 !
-   EQUIVALENCE (Stor(1),K(10)) , (Core(1),X(1)) , (X(7),Iy(1))
+   !>>>>EQUIVALENCE (Stor(1),K(10)) , (Core(1),X(1)) , (X(7),Iy(1))
    DATA etp/21*0/ , all/4HALL / , blank/1H / , name/4H OPT , 4HPX  /
 !
    maxw = 0

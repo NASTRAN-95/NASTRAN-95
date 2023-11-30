@@ -40,7 +40,7 @@ SUBROUTINE mflud4
 !          24            -
 !          25            -
 !****
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
    IF ( Ecpt(7)==0.0 ) GOTO 99999
    Ecpt(7) = Ecpt(7)*2.0
    DO i = 1 , 24

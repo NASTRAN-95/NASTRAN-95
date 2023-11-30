@@ -81,10 +81,10 @@ SUBROUTINE mtrplt
 !     ******************************************************************
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Necpt(1),Ecpt(1)) , (Prod12(1),A(13)) , (Habc(1),A(25)) , (Tite(1),A(37)) , (Tjte(1),A(46)) , (Mout(1),A(1)) ,      &
-    & (Temp36(1),Hinv(1)) , (V1(1),Ecpt(14)) , (V2(1),Ecpt(18)) , (V3(1),Ecpt(22)) , (requiv(1),r(1,1)) , (D1(1),A(1)) ,            &
-    & (D2(1),A(4)) , (Hq(1),A(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1)) , (Prod12(1),A(13)) , (Habc(1),A(25)) , (Tite(1),A(37)) , (Tjte(1),A(46)) , (Mout(1),A(1)) ,      &
+!>>>>    & (Temp36(1),Hinv(1)) , (V1(1),Ecpt(14)) , (V2(1),Ecpt(18)) , (V3(1),Ecpt(22)) , (requiv(1),r(1,1)) , (D1(1),A(1)) ,            &
+!>>>>    & (D2(1),A(4)) , (Hq(1),A(1))
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 4 , 3 , 1 , 4/
 !

@@ -24,9 +24,9 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
    REAL apdf
    INTEGER iapd
 !
-   EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(2),cid(1)) , (Key(2),Np) , (Key(3),Nstrip) , (Key(4),Ntp) ,          &
-    & (Key(5),F) , (ays(1),ys) , (ays(2),zs) , (ays(3),ee) , (ays(4),sg) , (ays(5),cg) , (axic(1),xic) , (axic(2),delx) ,           &
-    & (axic(3),xlam) , (sildx(1),icid) , (sildx(3),silc) , (acsix(1),acsib) , (Z(1),Iz(1)) , (acsix(2),vx2(1)) , (necta(1),eidb)
+   !>>>>EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(2),cid(1)) , (Key(2),Np) , (Key(3),Nstrip) , (Key(4),Ntp) ,          &
+!>>>>    & (Key(5),F) , (ays(1),ys) , (ays(2),zs) , (ays(3),ee) , (ays(4),sg) , (ays(5),cg) , (axic(1),xic) , (axic(2),delx) ,           &
+!>>>>    & (axic(3),xlam) , (sildx(1),icid) , (sildx(3),silc) , (acsix(1),acsib) , (Z(1),Iz(1)) , (acsix(2),vx2(1)) , (necta(1),eidb)
    DATA rdrew , clsrew , wtrew/0 , 1 , 1/
    DATA name/4HAPD1 , 1H /
 !

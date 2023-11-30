@@ -24,7 +24,7 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
 !        5 - ITEM IS NOT ONE OF THE ALLOWABLE MATRIX ITEMS
 !        6 - THE NASTRAN FILE HAS BEEN PURGED
 !
-   EQUIVALENCE (Buf(1),Nstrn)
+   !>>>>EQUIVALENCE (Buf(1),Nstrn)
    DATA nmsbr/4HMTRX , 4HI   /
    DATA ird/1/ , idle/0/ , ifetch/ - 1/
 !

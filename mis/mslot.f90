@@ -47,7 +47,7 @@ SUBROUTINE mslot(Itype)
 !
 !*****
 !*****
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
 !*****
    IF ( Itype>0 ) THEN
 !*****

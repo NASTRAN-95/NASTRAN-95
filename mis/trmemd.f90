@@ -38,9 +38,9 @@ SUBROUTINE trmemd
 !***********************************************************************
 !
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1),Ielid) , (dict5,dict(5))
-   EQUIVALENCE (K(1),M(1)) , (Kout(1),Mout(1)) , (Ksystm(2),Ioutpt)
-   EQUIVALENCE (Ksystm(56),Iheat) , (Ecpt(2),Ngrid(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1),Ielid) , (dict5,dict(5))
+   !>>>>EQUIVALENCE (K(1),M(1)) , (Kout(1),Mout(1)) , (Ksystm(2),Ioutpt)
+   !>>>>EQUIVALENCE (Ksystm(56),Iheat) , (Ecpt(2),Ngrid(1))
 !
    DATA ipart/1 , 2 , 3/
 !

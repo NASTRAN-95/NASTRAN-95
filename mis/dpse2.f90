@@ -54,7 +54,7 @@ SUBROUTINE dpse2
 !     ECPT(17) THRU ECPT(24) = DUM2 AND DUM6, NOT USED IN THIS ROUTINE
 !
 !     COMMON /SYSTEM/  IBUF,NOUT
-   EQUIVALENCE (Ecpt(1),Iecpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Iecpt(1))
 !
    ielem = Iecpt(1)
    IF ( Iecpt(2)==Npvt ) THEN

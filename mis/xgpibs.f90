@@ -33,8 +33,8 @@ SUBROUTINE xgpibs
          & mhibyt , modidx , modnam(2) , n , nblank , none(2) , nwptyp(6) , nxtgrp , nxtlin , opbtop , opbuff(1) , opncor(1) ,      &
          & utilty(1) , utlbot , utltop , xnone
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Xsys(2),Optap) , (Xsys(9),Nlpp) , (Xsys(12),Nlines) , (Xsys(4),Intap) ,                                             &
-    & (opncor(1),lnkspc(1),opbuff(1),Os(2),utilty(1)) , (Core(1),Os(1),Lopncr)
+   !>>>>EQUIVALENCE (Xsys(2),Optap) , (Xsys(9),Nlpp) , (Xsys(12),Nlines) , (Xsys(4),Intap) ,                                             &
+!>>>>    & (opncor(1),lnkspc(1),opbuff(1),Os(2),utilty(1)) , (Core(1),Os(1),Lopncr)
    DATA modnam/4HCHKP , 4HNT  /
    DATA delete/4HDELE/ , xnone/4HNONE/
    DATA enddta/4HENDD , 4HATA / , dolsgn/4H$   /

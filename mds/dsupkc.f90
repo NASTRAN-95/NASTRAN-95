@@ -8,8 +8,8 @@ SUBROUTINE dsupkc(Itin,Itout,A,B)
    REAL aa(4) , bb(4) , rs1 , rs2 , ssign
    INTEGER itout2 , iwrd1 , iwrd2 , k , nwords(4)
    DOUBLE PRECISION rd1 , rd2 , rdi1 , rdi2
-   EQUIVALENCE (aa,rs1,rd1) , (bb,rs2,rd2)
-   EQUIVALENCE (aa(3),rdi1) , (bb(3),rdi2)
+   !>>>>EQUIVALENCE (aa,rs1,rd1) , (bb,rs2,rd2)
+   !>>>>EQUIVALENCE (aa(3),rdi1) , (bb(3),rdi2)
    DATA nwords/1 , 2 , 2 , 4/
    iwrd1 = nwords(Itin)
    IF ( Itin/=Itout ) THEN

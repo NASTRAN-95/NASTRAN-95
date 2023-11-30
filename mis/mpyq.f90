@@ -61,12 +61,12 @@ SUBROUTINE mpyq(Z)
    DOUBLE PRECISION add(2) , bd(2) , bdi , bdr
    INTEGER all , apick2 , arith , arith2 , bpick , bpick2 , buf1 , fa3 , i1 , in , inca , init , irow , j , jb3 , k , k1 , k2 , k3 ,&
          & l , mask6f , moda , modb , nbr , nbr1 , nrow , nzz
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(58),Ipass)
-   EQUIVALENCE (A(1),Ad(1)) , (b(1),bd(1)) , (D(1),Dd(1)) , (Filea(2),M) , (Filea(3),N) , (Filea(5),Typea) , (Fileb(2),Q) ,         &
-    & (Fileb(3),R) , (Fileb(5),Typeb) , (Filec(5),Typec) , (Filed(5),Typd) , (nzz,buf1) , (Acoln,Arown) , (aa(1),add(1)) ,          &
-    & (Acol1,Arow1) , (Acol,Arow) , (Bbs(1),Bbd(1))
-   EQUIVALENCE (Block(2),Type) , (Block(3),Form) , (Block(4),Row,J3) , (Block(5),Point) , (Block(6),Nbrstr) , (Block(8),Flag)
-   EQUIVALENCE (Block(5),Jb31) , (Block(6),Nterm3) , (Block(7),Jb3n) , (Block(8),B3flag)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(58),Ipass)
+   !>>>>EQUIVALENCE (A(1),Ad(1)) , (b(1),bd(1)) , (D(1),Dd(1)) , (Filea(2),M) , (Filea(3),N) , (Filea(5),Typea) , (Fileb(2),Q) ,         &
+!>>>>    & (Fileb(3),R) , (Fileb(5),Typeb) , (Filec(5),Typec) , (Filed(5),Typd) , (nzz,buf1) , (Acoln,Arown) , (aa(1),add(1)) ,          &
+!>>>>    & (Acol1,Arow1) , (Acol,Arow) , (Bbs(1),Bbd(1))
+   !>>>>EQUIVALENCE (Block(2),Type) , (Block(3),Form) , (Block(4),Row,J3) , (Block(5),Point) , (Block(6),Nbrstr) , (Block(8),Flag)
+   !>>>>EQUIVALENCE (Block(5),Jb31) , (Block(6),Nterm3) , (Block(7),Jb3n) , (Block(8),B3flag)
 !     DATA    MASK6F / X'00FFFFFF'  /
    DATA mask6f/16777215/
 !

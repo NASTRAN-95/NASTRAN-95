@@ -21,7 +21,7 @@ SUBROUTINE curcas(*,Nskip,Trl,Mcb,Zz,Ibuf)
 !       * - NONSTANDARD RETURN IF UNABLE TO PROCESS.
 !-----
 !
-   EQUIVALENCE (icnt,rcnt)
+   !>>>>EQUIVALENCE (icnt,rcnt)
    DATA parm(3) , parm(4)/4HCURC , 2HAS/
 !
    parm(2) = Trl(1)

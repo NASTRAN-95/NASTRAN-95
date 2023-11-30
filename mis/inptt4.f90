@@ -95,8 +95,8 @@ SUBROUTINE inptt4
 !
 !     THE FIRT PARAMETER NMAT IN MSC/INPUTT4 IS NOT USED HERE
 !
-   EQUIVALENCE (Y(1),X(1))
-   EQUIVALENCE (Z(1),X(1))
+   !>>>>EQUIVALENCE (Y(1),X(1))
+   !>>>>EQUIVALENCE (Z(1),X(1))
 !
    IF ( P4<0 ) THEN
       nmat = iabs(P4)

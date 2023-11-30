@@ -33,7 +33,7 @@ SUBROUTINE dpd5
 !     NO COLUMN AND ROW WORD PACKING IN TFL FILE FOR MACHINES WITH 32
 !     BIT WORD SIZE, OR LESS
 !
-   EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
+   !>>>>EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
    DATA eigp/257 , 4/
 !
 !     (1) PROCESS EDD

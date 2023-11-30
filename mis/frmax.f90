@@ -8,7 +8,7 @@ SUBROUTINE frmax(Ifk,Ifm,N,Ipr,Rsn,Rsm)
    DOUBLE PRECISION dzk(1) , dzm(1) , ratinv , ratio
    INTEGER i
    REAL zk(1) , zm(1)
-   EQUIVALENCE (dzk(1),zk(1)) , (dzm(1),zm(1))
+   !>>>>EQUIVALENCE (dzk(1),zk(1)) , (dzm(1),zm(1))
    Iprc = Ipr
    Incr = 1
    Rsn = 0.D0

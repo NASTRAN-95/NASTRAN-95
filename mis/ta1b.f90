@@ -37,8 +37,8 @@ SUBROUTINE ta1b
 !     LOGICAL RECORD CONTAINS ALL GRID POINTS CONNECTED TO THE PIVOT (BY
 !     MEANS OF STRUCTURAL ELEMENTS).
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tempid) , (Idftmp,Deftmp)
-   EQUIVALENCE (blk(1),npvt) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (blk(2),n)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tempid) , (Idftmp,Deftmp)
+   !>>>>EQUIVALENCE (blk(1),npvt) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (blk(2),n)
    DATA nam/4HTA1B , 3H   / , cbar/4HBAR / , plot/4HPLOT/
    DATA two24/8388608/ , zeros/0 , 0 , 0 , 0/ , ppse/4303/
    DATA plotel , react , shear , twist , ihex2 , ihex3 , quadts , triats , bar/5201 , 5251 , 4 , 5 , 66 , 67 , 68 , 69 , 34/

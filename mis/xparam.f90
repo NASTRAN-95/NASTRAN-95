@@ -49,7 +49,7 @@ SUBROUTINE xparam
    INTEGER endcrd , i , iastk , ic , idmap , impl , in , index(2,2) , iospnt , iprvop , ipval , ipvt , is , isave , isyntx(4,5) ,   &
          & itmp(7) , itype(6) , iv , ival , iy , j , k , l , m , mplbot , mplln , name , newtyp , none , nospnt , nvps , nvstbl(4,4)
    EXTERNAL andf , lshift , orf , rshift
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
 !
    DATA index/1 , 3 , 2 , 4/ , isyntx/3*1 , 8 , 3*2 , 7 , 3*3 , 5 , 4*4 , 4*6/ , nvstbl/1 , 1 , 3 , 3 , 1 , 1 , 4 , 4 , 1 , 1 , 4 , &
       & 4 , 1 , 2 , 4 , 2/ , itype/1 , 1 , 2 , 2 , 2 , 4/ , ic/4HC   / , iv/4HV   / , iy/4HY   / , in/4HN   / , nvps/4HVPS / ,      &

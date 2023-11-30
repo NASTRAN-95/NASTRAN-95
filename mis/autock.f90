@@ -17,7 +17,7 @@ SUBROUTINE autock(Iadd)
 !     OPTION IS BEING USED, THE ADDRESS IADD IS THE STARTING
 !     LOCATION OF THE OUTPUT FILE NAMES TO BE TESTED
 !
-   EQUIVALENCE (Loscar,Core(1),Os(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5))
+   !>>>>EQUIVALENCE (Loscar,Core(1),Os(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5))
    DATA casess/4HCASE , 4HSS  /
    DATA casecc/4HCASE , 4HCC  /
    DATA casei/4HCASE , 4HI   /

@@ -66,7 +66,7 @@ SUBROUTINE qparmd
 !                   IF FLAG IS NON-ZERO, JOB TERMINATED IF ANY PREVIOUS
 !                      PARAMD (OR PARAMR) CONTAINS NON-FATAL ERROR(S)
 !
-   EQUIVALENCE (Vps(1),Ivps(1)) , (tempd,temp(1)) , (Il,Il1)
+   !>>>>EQUIVALENCE (Vps(1),Ivps(1)) , (tempd,temp(1)) , (Il,Il1)
    DATA name/4HQPAR , 4HMD  / , ifirst/15/
    DATA opcode/4HADD  , 4HSUB  , 4HMPY  , 4HDIV  , 4HNOP  , 4HSQRT , 4HSIN  , 4HCOS  , 4HABS  , 4HEXP  , 4HTAN  , 4HADDC , 4HSUBC , &
        &4HMPYC , 4HDIVC , 4HCOMP , 4HCSQR , 4HNORM , 4HREAL , 4HPOWE , 4HCONJ , 4HEQ   , 4HGT   , 4HGE   , 4HLT   , 4HLE   ,        &

@@ -90,8 +90,8 @@ SUBROUTINE strscn(Sorf)
 !          LBEG AND  =    ARE BEGINNING AND ENDING POINTERS TO THE ELEM.
 !          LEND           ID SET, ALL ELEMS. (LBEG .GT. LEND IF ISET=-1)
 !
-   EQUIVALENCE (Iz(1),Z(1))
-   EQUIVALENCE (chead,ihead(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (chead,ihead(1))
    DATA nam , sortx / 4HSTRS , 4HCN   , 4HSORT , 4H1    , 4H2   /
    DATA t24 , eor , noeor , iblank/ 1.E+24 , 1 , 0 , 1H /
 !

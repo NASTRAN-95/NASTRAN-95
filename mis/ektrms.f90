@@ -52,7 +52,7 @@ SUBROUTINE ektrms(Ntype)
 !     IF NTYPE = 0  COMPLETE MEMBRANE COMPUTATION IS PERFORMED
 !     IF NTYPE = 1  9  3X3 MATRICES FOR THE GRID POINTS  IN ECPT
 !
-   EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1),Mecpt(1)) , (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat)
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1),Mecpt(1)) , (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat)
 !
 !     SET UP THE E MATRIX WHICH IS (3X2) FOR THE TRI-MEMBRANE
 !

@@ -23,8 +23,8 @@ SUBROUTINE curv
 !     COMMON /ZZCURV/ MUST BE AT THE LONGEST OF OVERLAYS WITH CURV1,
 !     CURV2, AND CURV3.
 !
-   EQUIVALENCE (Indexs(16),Lmcsid) , (Indexs(52),Lcore) , (Indexs(79),Loc) , (Indexs(80),File) , (Indexs(81),Imsg) ,                &
-    & (Indexs(100),Eofos1) , (Indexs(103),Foes1g) , (Indexs(104),Strain) , (Indexs(105),Logerr)
+   !>>>>EQUIVALENCE (Indexs(16),Lmcsid) , (Indexs(52),Lcore) , (Indexs(79),Loc) , (Indexs(80),File) , (Indexs(81),Imsg) ,                &
+!>>>>    & (Indexs(100),Eofos1) , (Indexs(103),Foes1g) , (Indexs(104),Strain) , (Indexs(105),Logerr)
    DATA subr/4HCURV , 4H1    , 4HCURV , 4H2    , 4HCURV , 4H3   /
 !
 !

@@ -61,8 +61,8 @@ SUBROUTINE ssold1(Itype)
 !*****
 !
 !
-   EQUIVALENCE (Nphi(1),Phiout(1))
-   EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Nphi(1),Phiout(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
 !
    DATA m(1,1) , m(1,2) , m(1,3) , m(1,4)/1 , 2 , 3 , 4/
 !

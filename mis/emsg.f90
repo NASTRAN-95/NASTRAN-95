@@ -10,7 +10,7 @@ SUBROUTINE emsg(Nchar,No,Isys,Iwf,Itext)
 !     ISYS = 1   USER           IWF  =     1   WARNING
 !          = 2   SYSTEM             =     2   FATAL
 !
-   EQUIVALENCE (Ncpw,Sysbuf(41)) , (Nout,Sysbuf(2)) , (Imach,Sysbuf(22))
+   !>>>>EQUIVALENCE (Ncpw,Sysbuf(41)) , (Nout,Sysbuf(2)) , (Imach,Sysbuf(22))
    DATA imsg/4HUSER , 1H  , 4HSYST , 4HEM   , 4HWARN , 4HING  , 4HFATA , 1HL/
    nword = (Nchar+Ncpw-1)/Ncpw
    nline = (Nchar+9+131)/132 + 2

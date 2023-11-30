@@ -73,42 +73,42 @@ SUBROUTINE scone1
 !
 !
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1))
-   EQUIVALENCE (Ecpt(4),Matid1)
-   EQUIVALENCE (G(1),Huq(1))
-   EQUIVALENCE (Ecpt(5),T)
-   EQUIVALENCE (Ecpt(6),Matid2)
-   EQUIVALENCE (Ecpt(7),Iii)
-   EQUIVALENCE (Ecpt(8),Matid3)
-   EQUIVALENCE (Ecpt(9),Ts)
-   EQUIVALENCE (Ecpt(11),Z1)
-   EQUIVALENCE (Ecpt(12),Z2)
-   EQUIVALENCE (Ecpt(28),Ra)
-   EQUIVALENCE (Ecpt(29),Za)
-   EQUIVALENCE (Ecpt(32),Rb)
-   EQUIVALENCE (Ecpt(33),Zb)
-   EQUIVALENCE (D11,G(1))
-   EQUIVALENCE (D12,G(2))
-   EQUIVALENCE (D22,G(5))
-   EQUIVALENCE (D33,G(9))
-   EQUIVALENCE (Integ(1),Huq(1))
-   EQUIVALENCE (T30(1),H(1))
-   EQUIVALENCE (Hyq(1),H(31))
-   EQUIVALENCE (Hyq(1),H11)
-   EQUIVALENCE (Hyq(2),H12)
-   EQUIVALENCE (Hyq(3),H13)
-   EQUIVALENCE (Hyq(4),H14)
-   EQUIVALENCE (Hyq(5),H15)
-   EQUIVALENCE (Hyq(6),H16)
-   EQUIVALENCE (Hyq(7),H17)
-   EQUIVALENCE (Hyq(8),H18)
-   EQUIVALENCE (Hyq(9),H19)
-   EQUIVALENCE (Hyq(10),H1ten)
-   EQUIVALENCE (I00,Integ(1)) , (I20,Integ(11)) , (I01,Integ(2)) , (I21,Integ(12)) , (I02,Integ(3)) , (I22,Integ(13)) ,             &
-    & (I03,Integ(4)) , (I23,Integ(14)) , (I04,Integ(5)) , (I24,Integ(15)) , (I10,Integ(6)) , (I31,Integ(16)) , (I11,Integ(7)) ,     &
-    & (I32,Integ(17)) , (I12,Integ(8)) , (I33,Integ(18)) , (I13,Integ(9)) , (I34,Integ(19)) , (I14,Integ(10)) , (I52,Integ(23)) ,   &
-    & (I42,Integ(20)) , (I53,Integ(24)) , (I43,Integ(21)) , (I54,Integ(25)) , (I44,Integ(22)) , (I62,Integ(26)) , (I63,Integ(27)) , &
-    & (I64,Integ(28))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(4),Matid1)
+   !>>>>EQUIVALENCE (G(1),Huq(1))
+   !>>>>EQUIVALENCE (Ecpt(5),T)
+   !>>>>EQUIVALENCE (Ecpt(6),Matid2)
+   !>>>>EQUIVALENCE (Ecpt(7),Iii)
+   !>>>>EQUIVALENCE (Ecpt(8),Matid3)
+   !>>>>EQUIVALENCE (Ecpt(9),Ts)
+   !>>>>EQUIVALENCE (Ecpt(11),Z1)
+   !>>>>EQUIVALENCE (Ecpt(12),Z2)
+   !>>>>EQUIVALENCE (Ecpt(28),Ra)
+   !>>>>EQUIVALENCE (Ecpt(29),Za)
+   !>>>>EQUIVALENCE (Ecpt(32),Rb)
+   !>>>>EQUIVALENCE (Ecpt(33),Zb)
+   !>>>>EQUIVALENCE (D11,G(1))
+   !>>>>EQUIVALENCE (D12,G(2))
+   !>>>>EQUIVALENCE (D22,G(5))
+   !>>>>EQUIVALENCE (D33,G(9))
+   !>>>>EQUIVALENCE (Integ(1),Huq(1))
+   !>>>>EQUIVALENCE (T30(1),H(1))
+   !>>>>EQUIVALENCE (Hyq(1),H(31))
+   !>>>>EQUIVALENCE (Hyq(1),H11)
+   !>>>>EQUIVALENCE (Hyq(2),H12)
+   !>>>>EQUIVALENCE (Hyq(3),H13)
+   !>>>>EQUIVALENCE (Hyq(4),H14)
+   !>>>>EQUIVALENCE (Hyq(5),H15)
+   !>>>>EQUIVALENCE (Hyq(6),H16)
+   !>>>>EQUIVALENCE (Hyq(7),H17)
+   !>>>>EQUIVALENCE (Hyq(8),H18)
+   !>>>>EQUIVALENCE (Hyq(9),H19)
+   !>>>>EQUIVALENCE (Hyq(10),H1ten)
+   !>>>>EQUIVALENCE (I00,Integ(1)) , (I20,Integ(11)) , (I01,Integ(2)) , (I21,Integ(12)) , (I02,Integ(3)) , (I22,Integ(13)) ,             &
+!>>>>    & (I03,Integ(4)) , (I23,Integ(14)) , (I04,Integ(5)) , (I24,Integ(15)) , (I10,Integ(6)) , (I31,Integ(16)) , (I11,Integ(7)) ,     &
+!>>>>    & (I32,Integ(17)) , (I12,Integ(8)) , (I33,Integ(18)) , (I13,Integ(9)) , (I34,Integ(19)) , (I14,Integ(10)) , (I52,Integ(23)) ,   &
+!>>>>    & (I42,Integ(20)) , (I53,Integ(24)) , (I43,Integ(21)) , (I54,Integ(25)) , (I44,Integ(22)) , (I62,Integ(26)) , (I63,Integ(27)) , &
+!>>>>    & (I64,Integ(28))
 !
    DATA fac/1.0E0 , 1.0E0 , 2.0E0 , 6.0E0 , 24.0E0 , 120.0E0 , 720.0E0/
    DATA na/1 , 1 , 1 , 2 , 3 , 3 , 3/

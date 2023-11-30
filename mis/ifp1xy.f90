@@ -49,8 +49,8 @@ SUBROUTINE ifp1xy(Card,Xycard)
    LOGICAL tapbit
    EXTERNAL andf , complf , lshift , orf , rshift
 !     COMMON /ZZIFP1/ ICSE(400),INCARD(20),BUFF(150),SUBCAS(200),Z(1)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(3),Nogo) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(21),Iresrt) , &
-    & (Icse(1),Corex(1),Corey(1)) , (Incard(1),Corey(401)) , (Buff(1),Corey(421)) , (Subcas(1),Corey(571)) , (Z(1),Corey(771))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(3),Nogo) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(21),Iresrt) , &
+   !>>>> & (Icse(1),Corex(1),Corey(1)) , (Incard(1),Corey(401)) , (Buff(1),Corey(421)) , (Subcas(1),Corey(571)) , (Z(1),Corey(771))
    DATA nrword/14/ , niword/26/ , nbword/16/
    DATA ilnk/4HNS01/
    DATA kword/4HFILM , 4HPAPE , 4HBOTH/

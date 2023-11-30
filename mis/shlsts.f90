@@ -72,7 +72,7 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !               FX,  FY, FXY,   MX, MY, MXY,    VX, VY
 !
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Sdest,Ksdrde(26)) , (Fdest,Ksdrde(33)) , (Edest,Ksdrde(148)) , (Oes1l,Oes1al)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Sdest,Ksdrde(26)) , (Fdest,Ksdrde(33)) , (Edest,Ksdrde(148)) , (Oes1l,Oes1al)
    DATA symmem , mem , sym , pcomp , pcomp1 , pcomp2 , strinf/3 , 2 , 1 , 0 , 1 , 2 , 5/
 !
 !     INITIALIZE

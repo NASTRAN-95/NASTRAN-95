@@ -24,7 +24,7 @@ SUBROUTINE cmsofo
 !
 !     THIS ROUTINE GENERATES THE NEW SOF DATA FOR A COMBINATION.
 !
-   EQUIVALENCE (Rz(1),Z(1)) , (itran,ecpt(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (itran,ecpt(1))
    DATA aaa/4HCMSO , 4HFO  / , eog/4H$EOG/
    DATA papp , lods , loap/4HPAPP , 4HLODS , 4HLOAP/
    DATA nheqss , nhbgss , nhcstm , nhplts/4HEQSS , 4HBGSS , 4HCSTM , 4HPLTS/

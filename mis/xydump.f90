@@ -18,7 +18,7 @@ SUBROUTINE xydump(Outfil,Type)
    LOGICAL dec , intore , null , ok , on , ones
    REAL diff , temp , xinc , xmax , xmin , y1 , y2 , ylimit(2,3) , ymax(2) , ymin(2)
 !
-   EQUIVALENCE (limit(1,1),ylimit(1,1)) , (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Idout(1),Idoutr(1)) , (Ivalue(1),Value(1))
+   !>>>>EQUIVALENCE (limit(1,1),ylimit(1,1)) , (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Idout(1),Idoutr(1)) , (Ivalue(1),Value(1))
    DATA oneone/1 , 1/ , eor/1/ , noeor/0/
    DATA npaplt/0/
 !

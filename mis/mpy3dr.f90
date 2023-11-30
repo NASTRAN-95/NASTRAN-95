@@ -31,9 +31,9 @@ SUBROUTINE mpy3dr(Z)
    REAL rhoa , rhob , rhoe , tcol , timem1 , timem2 , timem3
    EXTERNAL andf , complf , lshift , orf
 !WKBI 4/94
-   EQUIVALENCE (Ac,Filea(2)) , (Ar,Filea(3)) , (Bc,Fileb(2)) , (Br,Fileb(3)) , (Bf,Fileb(4)) , (Ec,Filee(2)) , (Er,Filee(3)) ,      &
-    & (Ef,Filee(4))
-   EQUIVALENCE (Mcb(1,1),Filea(1))
+   !>>>>EQUIVALENCE (Ac,Filea(2)) , (Ar,Filea(3)) , (Bc,Fileb(2)) , (Br,Fileb(3)) , (Bf,Fileb(4)) , (Ec,Filee(2)) , (Er,Filee(3)) ,      &
+!>>>>    & (Ef,Filee(4))
+   !>>>>EQUIVALENCE (Mcb(1,1),Filea(1))
    DATA name/4HMPY3 , 4HDR  /
    DATA mpy/4HMPY3 , 4H     , 4H    /
    DATA jbegn , jend/4HBEGN , 4HEND /

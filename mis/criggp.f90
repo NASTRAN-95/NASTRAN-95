@@ -45,10 +45,10 @@ SUBROUTINE criggp(N23)
 !     EXTERNAL          ORF    ,LSHIFT
 !     INTEGER           ORF    ,LSHIFT
 !WKBR 8/94 SUN  INTEGER           RDREW    ,CLRSEW
-   EQUIVALENCE (Z(1),Rz(1),Dz(1))
-   EQUIVALENCE (ic(1),c(1))
-   EQUIVALENCE (Ksystm(2),Nout)
-   EQUIVALENCE (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Dz(1))
+   !>>>>EQUIVALENCE (ic(1),c(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(55),Iprec)
    DATA crigd1/5310 , 53/ , crigd2/5410 , 54/ , crigd3/8310 , 83/ , crigdr/8210 , 82/ , crrod/6510 , 65/ , crbar/6610 , 66/ ,       &
       & crtrpt/6710 , 67/ , crbe1/6810 , 68/ , crbe2/6910 , 69/ , crbe3/7010 , 70/ , crspli/7110 , 71/
    DATA name/4HCRIG , 2HGP/

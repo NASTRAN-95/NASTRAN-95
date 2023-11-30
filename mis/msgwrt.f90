@@ -15,7 +15,7 @@ SUBROUTINE msgwrt
 !
 !     MSGWRT WILL PRINT THE INDICATED ERROR MESSAGES ON THE OUTPUT TAPE
 !
-   EQUIVALENCE (Xmsg(1,1),Msg(1,1))
+   !>>>>EQUIVALENCE (Xmsg(1,1),Msg(1,1))
    DATA pos , neg/4HWARN , 4HING  , 4HFATA , 4HL   /
    DATA nmsgs/117/ , ipag/4H PAG , 4HE2  /
 !

@@ -17,7 +17,7 @@ SUBROUTINE page
 !
 !     MASTER PAGING ROUTINE FOR NASTRAN.
 !
-   EQUIVALENCE (Titlex(1),Title(1))
+   !>>>>EQUIVALENCE (Titlex(1),Title(1))
    DATA month/'JAN' , 'FEB' , 'MAR' , 'APR' , 'MAY' , 'JUN' , 'JUL' , 'AUG' , 'SEP' , 'OCT' , 'NOV' , 'DEC'/
    DATA name/4HPAGE , 4H    /
 !

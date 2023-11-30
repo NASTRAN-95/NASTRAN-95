@@ -41,9 +41,9 @@ SUBROUTINE sgen
    INTEGER nzb , pvec , scrt , scrt2 , sidc , sids , sil , spcs(2) , spcs1(2) , spcsd(2) , temp(10) , temp2(10) , tics(2) , type(2) &
          & , xxxx
    EXTERNAL andf , complf , orf
-   EQUIVALENCE (Rz(1),Z(1)) , (temp(1),rtemp(1)) , (temp2(1),rtemp2(1)) , (ctypes(1,1),mpcs(1)) , (ctypes(1,2),spcs(1)) ,           &
-    & (ctypes(1,3),spcs1(1)) , (ctypes(1,4),spcsd(1)) , (ctypes(1,5),dareas(1)) , (ctypes(1,6),delays(1)) , (ctypes(1,7),dphses(1)) &
-    & , (ctypes(1,8),tics(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (temp(1),rtemp(1)) , (temp2(1),rtemp2(1)) , (ctypes(1,1),mpcs(1)) , (ctypes(1,2),spcs(1)) ,           &
+!>>>>    & (ctypes(1,3),spcs1(1)) , (ctypes(1,4),spcsd(1)) , (ctypes(1,5),dareas(1)) , (ctypes(1,6),delays(1)) , (ctypes(1,7),dphses(1)) &
+!>>>>    & , (ctypes(1,8),tics(1))
    DATA minus , nlimit/3* - 1 , 3*2147483647/ , eqss/4HEQSS/ , lods/4HLODS/
    DATA casec , geom3 , geom4 , dynam/101 , 102 , 103 , 104/ , cases , casei , gpl , eqex , gpdt/201 , 202 , 203 , 204 , 205/ ,     &
       & bgpdt , sil , gp3s , gp4s , dyns/206 , 207 , 208 , 209 , 210/ , scrt , scrt2/201 , 202/

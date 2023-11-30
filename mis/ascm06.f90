@@ -11,8 +11,8 @@ SUBROUTINE ascm06(Name,Iphase,Isol,Nogo)
 !
 !     RECOVER, MRECOVER COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs2(1,1),ptbs(1,19)) ,            &
-    & (oct1(1,1),oct(1,1))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs2(1,1),ptbs(1,19)) ,            &
+!>>>>    & (oct1(1,1),oct(1,1))
    DATA comnd/4HRECO , 17 , 15 , 1 , 31 , 0 , 4HMREC , 17 , 15 , 1 , 31 , 0/
    DATA slash/1H//
    DATA rdmap1/4HFILE , 4H     , 4H  U1 , 4H=APP , 4HEND/ , 4HU2=A , 4HPPEN , 4HD/U3 , 4H=APP , 4HEND/ , 4HU4=A , 4HPPEN , 4HD/U5 , &

@@ -44,7 +44,7 @@ SUBROUTINE gfbs(X,Dx)
 !     DX       =  SAME BLOCK AS X, BUT TYPED DOUBLE PRECISION
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR
-   EQUIVALENCE (A(1),Da(1)) , (Filel(5),Typel) , (Filel(3),Nrow) , (Filex(5),Typex) , (Fileb(4),Formb) , (Fileb(5),Typeb)
+   !>>>>EQUIVALENCE (A(1),Da(1)) , (Filel(5),Typel) , (Filel(3),Nrow) , (Filex(5),Typex) , (Fileb(4),Formb) , (Fileb(5),Typeb)
    DATA parm(3) , parm(4)/4HGFBS , 4H    /
    DATA zeros/0. , 0. , 0. , 0./
    DATA subnam/4HGFBS , 4H    / , begn/4HBEGN/ , end/4HEND /

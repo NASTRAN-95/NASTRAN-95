@@ -19,7 +19,7 @@ SUBROUTINE ctrnsp(Ix,X,Nx,Filea,B,Sr1fil)
 !     TRANS WILL DO AN INCORE TRANSPOSE OF THE UPPER TRIANGLE OF ACTIVE
 !     ELEMENTS
 !
-   EQUIVALENCE (iii(3),di(1))
+   !>>>>EQUIVALENCE (iii(3),di(1))
    DATA name/4HCTRN , 4HSP  /
 !
 !

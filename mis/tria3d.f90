@@ -68,9 +68,9 @@ SUBROUTINE tria3d
 !        39        I   ELEMENT TEMPERATURE
 !
 !
-   EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(17),Nsm) ,            &
-    & (Est(23),Int) , (Est(26),Zoff1) , (Est(27),Bgpdt(1,1),Igpdt(1,1)) , (Est(39),Tempel) , (dict(5),adamp) , (necpt(1),ecpt(1)) , &
-    & (Z(1),Amgg(1),Akgg(1)) , (Kheat(4),Htcp) , (htcap(1),xmass(1))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(17),Nsm) ,            &
+!>>>>    & (Est(23),Int) , (Est(26),Zoff1) , (Est(27),Bgpdt(1,1),Igpdt(1,1)) , (Est(39),Tempel) , (dict(5),adamp) , (necpt(1),ecpt(1)) , &
+!>>>>    & (Z(1),Amgg(1),Akgg(1)) , (Kheat(4),Htcp) , (htcap(1),xmass(1))
    DATA hunmeg , eps/100000000 , 1.0D-7/
    DATA name , kmat , mmat , dmat/4HCTRI , 4HA3   , 1 , 2 , 3/
 !

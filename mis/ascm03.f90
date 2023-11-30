@@ -12,9 +12,9 @@ SUBROUTINE ascm03(Name,Iphase,Isol,Nogo)
 !
 !     COMBINE COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37)) ,                      &
-    & (ptbs4(1,1),ptbs(1,55)) , (ptbs5(1,1),ptbs(1,73)) , (ptbs6(1,1),ptbs(1,91))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37)) ,                      &
+!>>>>    & (ptbs4(1,1),ptbs(1,55)) , (ptbs5(1,1),ptbs(1,73)) , (ptbs6(1,1),ptbs(1,91))
    DATA comnd/4HCOMB , 24 , 10 , 21 , 93 , 0/
    DATA slash/1H//
    DATA isave/3 , 15 , 3 , 3 , 16 , 3 , 4 , 6 , 1 , 4 , 11 , 3 , 4 , 14 , 2 , 5 , 6 , 1 , 6 , 8 , 1 , 7 , 15 , 3 , 7 , 16 , 3 , 8 , &

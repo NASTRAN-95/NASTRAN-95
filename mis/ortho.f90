@@ -16,7 +16,7 @@ SUBROUTINE ortho(U,V,X1,X2,X3,X4,X5,Nz,Ibuf1,Ibuf2,Ibuf3,Ibuf4)
 !     ORTHO WILL ORTHOGONALIZE THE CURRENT ITERANT WITH RESPECT TO
 !     THE PREVIOUSLY EXTRACTED EIGENVECTORS
 !
-   EQUIVALENCE (Sr0fil,Scrfil(10)) , (Sr5fil,Scrfil(5)) , (Ncol,Filek(2))
+   !>>>>EQUIVALENCE (Sr0fil,Scrfil(10)) , (Sr5fil,Scrfil(5)) , (Ncol,Filek(2))
    DATA sub/4HORTH , 4HO   /
 !
    ncol2 = Ncol + Ncol

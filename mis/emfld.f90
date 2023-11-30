@@ -26,7 +26,7 @@ SUBROUTINE emfld
 !     EMFLD    HOEF1,HEST,CASECC,HCFLD,MPT,DIT,REMFLD,GEOM1,CSTM,HCCEN/
 !              HOEH1/V,N,HLUSET $
 !
-   EQUIVALENCE (rbuf(1),ibuf(1)) , (coord(1),icoord(1)) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (rbuf(1),ibuf(1)) , (coord(1),icoord(1)) , (Z(1),Iz(1))
    DATA hoef1 , hest , casecc , mpt , dit/101 , 102 , 103 , 105 , 106/
    DATA remfl , geom1 , cstm , hccen/107 , 108 , 109 , 110/
    DATA estfld , hoeh1/301 , 201/

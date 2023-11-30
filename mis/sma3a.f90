@@ -25,7 +25,7 @@ SUBROUTINE sma3a(Mcbcur)
 !
 !
 !
-   EQUIVALENCE (Iq(1),Dq(1),Q(1)) , (Ibuff3(2),M) , (Ibuff3(3),N)
+   !>>>>EQUIVALENCE (Iq(1),Dq(1),Q(1)) , (Ibuff3(2),M) , (Ibuff3(3),N)
 !
    DATA name(1)/4HSMA3/ , name(2)/4HA   /
 !

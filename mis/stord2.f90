@@ -37,10 +37,10 @@ SUBROUTINE stord2(Ti)
 !
 !
 !
-   EQUIVALENCE (Dum3(1),Idel)
-   EQUIVALENCE (Dum3(101),Stres(1),Istres(1))
-   EQUIVALENCE (Dum3(201),Force(1),Iforce(1))
-   EQUIVALENCE (Ldtemp,Templd)
+   !>>>>EQUIVALENCE (Dum3(1),Idel)
+   !>>>>EQUIVALENCE (Dum3(101),Stres(1),Istres(1))
+   !>>>>EQUIVALENCE (Dum3(201),Force(1),Iforce(1))
+   !>>>>EQUIVALENCE (Ldtemp,Templd)
 !
 !
 !

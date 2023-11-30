@@ -35,8 +35,8 @@ SUBROUTINE rcovb
 !     AN SOLN ITEM IS CREATED BY EDITING THE SOLN ITEM OF THE FSS.
 !
 !     INTEGER          SCR6       ,SCR7       ,SRD        ,SWRT
-   EQUIVALENCE (Buf(1),Z(1))
-   EQUIVALENCE (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Buf(1),Z(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1))
    DATA name/4HRCOV , 4HB   /
    DATA ugv , scr1 , scr2 , scr3 , scr5/106 , 301 , 302 , 303 , 305/
    DATA ui/204 , 205 , 206 , 207 , 208/

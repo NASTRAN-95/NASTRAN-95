@@ -20,8 +20,8 @@ SUBROUTINE ss2d81
 !     PHASE 1 OF STRESS DATA RECOVERY FOR 2-D, 8 GRID POINT
 !     ISOPARAMETRIC STRUCTURAL ELEMENT
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1)) , (Nph1(1),Ph1out(1)) , (Xy1(1),X1) , (Xy2(1),X2) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) ,        &
-    & (Qq(1),G11)
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1)) , (Nph1(1),Ph1out(1)) , (Xy1(1),X1) , (Xy2(1),X2) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) ,        &
+!>>>>    & (Qq(1),G11)
    DATA xi/ - 1. , 1. , 1. , -1. , 0. , 1. , 0. , -1./
    DATA eta/ - 1. , -1. , 1. , 1. , -1. , 0. , 1. , 0./
 !

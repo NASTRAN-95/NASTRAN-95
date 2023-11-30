@@ -69,7 +69,7 @@ SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,
 !     11 - 17    STRESSES FOR UPPER POINTS AT ELEMENT CENTER POINT
 !
 !
-   EQUIVALENCE (Nstres(1),Stres(1))
+   !>>>>EQUIVALENCE (Nstres(1),Stres(1))
    DATA cosmic , epss/.TRUE. , 1.0E-11/
 !
 !

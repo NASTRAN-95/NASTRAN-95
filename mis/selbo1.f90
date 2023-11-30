@@ -65,7 +65,7 @@ SUBROUTINE selbo1
 !     ECPT(39)  -  ELTEMP         AVG. ELEMENT TEMPERATURE
 !
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Kee(1,1),Ke(1),S(1,1))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Kee(1,1),Ke(1),S(1,1))
    DATA dcr/.017453292/
 !
    sid(x) = sin(x*dcr)

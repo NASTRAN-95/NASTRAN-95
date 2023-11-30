@@ -57,8 +57,8 @@ SUBROUTINE invpwr
 !     SR7FIL        CONTAINS THE VECTORS WHICH ARE USED TO ORTHOGONALIZE
 !                   THE CURRENT ITERATE
 !
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Iz(1),Z(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
    DATA name/4HINVP , 4HWR  /
 !
 !     DEFINITION OF INTERNAL PARAMETERS

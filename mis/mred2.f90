@@ -110,7 +110,7 @@ SUBROUTINE mred2
 !              MODPTS - NUMBER OF MODAL POINTS
 !              MODLEN - LENGTH OF MODE USE ARRAY
 !
-   EQUIVALENCE (Casecc,Infile(1)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Casecc,Infile(1)) , (Rz(1),Z(1))
    DATA nmonic/4HNAMA , 4HNAMB , 4HFREE , 4HRANG , 4HNMAX , 4HUSER , 4HOUTP , 4HOLDB , 4HOLDM , 4HRSAV/
    DATA iblank , nhlods , nhloap/4H     , 4HLODS , 4HLOAP/
    DATA modnam/4HMRED , 4H2   /

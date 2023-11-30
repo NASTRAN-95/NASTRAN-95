@@ -44,7 +44,7 @@ SUBROUTINE ifp5
 !     SOME OF THE ABOVE OUTPUT DATA CARDS ARE A FUNCTION OF MORE THAN
 !     ONE INPUT DATA CARDS
 !
-   EQUIVALENCE (Consts(2),Twopi) , (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (Z(1),Rz(1)) , (buf(1),rbuf(1)) , (card(1),rcard(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (Z(1),Rz(1)) , (buf(1),rbuf(1)) , (card(1),rcard(1))
    DATA axslot/1115 , 11/
    DATA slbdy/1415 , 14/
    DATA caxif/2108 , 21 , 2208 , 22 , 2308 , 23/

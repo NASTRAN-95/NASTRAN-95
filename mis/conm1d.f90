@@ -36,8 +36,8 @@ SUBROUTINE conm1d
 !
 !
 !
-   EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid)
-   EQUIVALENCE (dict(5),dict5)
+   !>>>>EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid)
+   !>>>>EQUIVALENCE (dict(5),dict5)
 !
 !     INITIALIZE
 !

@@ -15,8 +15,8 @@ SUBROUTINE smp1
 !     XAA = XAAB + GO(T)*XOAB + XOAB(T)*GO + GO(T)*XOOB*GO
 !     IS EVALUATED WHERE X = M OR B OR K4
 !
-   EQUIVALENCE (ff(3),mff) , (ff(2),bff) , (ff(1),k4ff) , (aa(3),maa) , (aa(2),baa) , (aa(1),k4aa) , (ioob(3),oob) , (ioab(3),oab) ,&
-    & (aab,scr5) , (ioob(1),scr6) , (ioab(1),scr7)
+   !>>>>EQUIVALENCE (ff(3),mff) , (ff(2),bff) , (ff(1),k4ff) , (aa(3),maa) , (aa(2),baa) , (aa(1),k4aa) , (ioob(3),oob) , (ioab(3),oab) ,&
+!>>>>    & (aab,scr5) , (ioob(1),scr6) , (ioab(1),scr7)
    DATA uset , kff , mff , bff , k4ff/101 , 102 , 103 , 104 , 105/
    DATA go , kaa , koob , loo , maa/201 , 202 , 203 , 204 , 205/
    DATA oob , oab , baa , k4aa/206 , 207 , 208 , 209/

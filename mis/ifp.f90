@@ -53,7 +53,7 @@ SUBROUTINE ifp
 !
 !     T1(1,K),T1(2,K) = THE BCD CARD NAMES
 !
-   EQUIVALENCE (N3(3),Iumfed) , (N2(9),Line)
+   !>>>>EQUIVALENCE (N3(3),Iumfed) , (N2(9),Line)
    DATA ncdsmx/359/
    DATA nfls/16/
    DATA fnm(1,1) , fnm(2,1)/4HGEOM , 4H1   /

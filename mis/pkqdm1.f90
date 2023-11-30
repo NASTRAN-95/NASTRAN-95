@@ -17,9 +17,9 @@ SUBROUTINE pkqdm1
 !
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Necpt(1),Ecpt(1))
-   EQUIVALENCE (R(1),Ivec(1)) , (Ngrid(1),Ecptsa(2)) , (Coord(1),Ecptsa(10)) , (S(1),Ph1out(10))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (R(1),Ivec(1)) , (Ngrid(1),Ecptsa(2)) , (Coord(1),Ecptsa(10)) , (S(1),Ph1out(10))
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
 !     ******************************************************************

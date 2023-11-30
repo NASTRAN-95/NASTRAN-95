@@ -33,7 +33,7 @@ SUBROUTINE gencos
 !     GENCOS    BGPDT,CSTM/DIRCOS/C,Y,SHOCK=0/C,Y,DIRECT=123/
 !               V,N,LUSET/V,N,NSCALE $
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (coord(1),icoord(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (coord(1),icoord(1))
    DATA bgpdt , cstm , dircos/101 , 102 , 201/
    DATA nam/4HGENC , 4HOS  /
 !

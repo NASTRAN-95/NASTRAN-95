@@ -28,7 +28,7 @@ SUBROUTINE emgcng
 !     RESULT IN THE ELEMENT COMPUTATIONS AND THE SETTING OF A DICTIONARY
 !     FILE TABLE ADDRESS WITH THE PRIMARY ID.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
    DATA subr/4HEMGC , 4HNG  / , noeor/0/ , cngrnt/5008 , 50/
 !
    buf = Ncore - Sysbuf - 2

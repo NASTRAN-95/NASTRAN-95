@@ -75,9 +75,9 @@ SUBROUTINE cmrd2f(Kode)
 !            KMM    - KMM FILE NUMBER
 !            HGH    - HORG INPUT FILE NUMBER
 !
-   EQUIVALENCE (Eqst,Infile(5)) , (Usetmr,Infile(6)) , (Paa,Infile(11)) , (Khh,Otfile(1)) , (Pove,Otfile(6)) , (Kbb,Iscr(1)) ,      &
-    & (Kib,Iscr(2)) , (Kii,Iscr(4)) , (Him,Iscr(10)) , (Uprt,Iscr(1)) , (Himbar,Iscr(8)) , (Kbarbb,Iscr(5)) , (Kmm,Iscr(6)) ,       &
-    & (Gib,Iscr(3)) , (Gibbar,Iscr(11)) , (Hghbar,Iscr(9)) , (Hgh,Iscr(8)) , (Rprtn,Iscr(1)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Eqst,Infile(5)) , (Usetmr,Infile(6)) , (Paa,Infile(11)) , (Khh,Otfile(1)) , (Pove,Otfile(6)) , (Kbb,Iscr(1)) ,      &
+!>>>>    & (Kib,Iscr(2)) , (Kii,Iscr(4)) , (Him,Iscr(10)) , (Uprt,Iscr(1)) , (Himbar,Iscr(8)) , (Kbarbb,Iscr(5)) , (Kmm,Iscr(6)) ,       &
+!>>>>    & (Gib,Iscr(3)) , (Gibbar,Iscr(11)) , (Hghbar,Iscr(9)) , (Hgh,Iscr(8)) , (Rprtn,Iscr(1)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HCMRD , 4H2F  / , papp/4HPAPP/ , blanks/4H    /
    DATA cmred2/26/
    DATA itmlst/4HKMTX , 4HHORG , 4HHLFT , 4HMMTX , 4HBMTX , 4HK4MX , 4HPVEC , 4HPAPP , 4HPOVE , 4HGIMS , 4HPOAP , 4HUPRT/

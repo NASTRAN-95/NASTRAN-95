@@ -48,7 +48,7 @@ SUBROUTINE optpr1
 !
 !
 !     LOGICAL         DEBUG
-   EQUIVALENCE (X(1),Core(1)) , (X(7),Y(1))
+   !>>>>EQUIVALENCE (X(1),Core(1)) , (X(7),Y(1))
 !     DATA    DEBUG / .FALSE. /
    DATA poph , plmh/404 , 4 , 304 , 3/ , name/4H OPT , 3HPR1/ , hpop/4H   P , 4HOPT / , none/4H (NO , 4HNE) / , ltype/90/ ,         &
       & numtyp/20/

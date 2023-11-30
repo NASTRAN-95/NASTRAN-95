@@ -32,7 +32,7 @@ SUBROUTINE feer4(It)
 !
 !WKBNB NCL93007 11/94
 !WKBNE NCL93007 11/94
-   EQUIVALENCE (Iz(1),Z(1),Dz(1)) , (sb(1),b(1)) , (dsce,sce)
+   !>>>>EQUIVALENCE (Iz(1),Z(1),Dz(1)) , (sb(1),b(1)) , (dsce,sce)
    DATA name/4HFEER , 4H4   / , icr/4HPASS , 4HFAIL/
 !
 !     SR4FLE CONTAINS THE EIGENVECTORS OF THE REDUCED PROBLEM

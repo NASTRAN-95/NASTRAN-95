@@ -41,7 +41,7 @@ SUBROUTINE prolat
 !              PROCF
 !
 !     INTEGER         DIT,REMFLD,MPT
-   EQUIVALENCE (Z(1),Iz(1)) , (info(1),fo(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (info(1),fo(1))
    DATA nam/4HPROL , 4HATE /
    DATA procos/302/
    DATA prolte/4101 , 41/

@@ -76,15 +76,15 @@ SUBROUTINE tlqd4s
 !WKBNE 11/93 SPR 93020
 !ZZ   COMMON /ZZSSB1/  Z(1)
 !
-   EQUIVALENCE (Z(1),Intz(1)) , (igpdt(1,1),Bgpdt(1,1))
-   EQUIVALENCE (Est(1),Nest(1)) , (Bgpdt(1,1),Est(29))
-   EQUIVALENCE (Elth,Est(14)) , (Gpth(1),Est(6))
-   EQUIVALENCE (Sil(1),Nest(2)) , (Matset,Rmtout(25))
-   EQUIVALENCE (Zoff,Est(12)) , (Zoff1,Est(28))
-   EQUIVALENCE (necpt(1),ecpt(1)) , (Buffer(1),Sysbuf)
-   EQUIVALENCE (Buffer(2),Nout) , (Buffer(3),Nogo)
-   EQUIVALENCE (Stemp(7),Flag) , (alfab(1),alpha(4))
-   EQUIVALENCE (alfam(1),alpha(1))
+   !>>>>EQUIVALENCE (Z(1),Intz(1)) , (igpdt(1,1),Bgpdt(1,1))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Bgpdt(1,1),Est(29))
+   !>>>>EQUIVALENCE (Elth,Est(14)) , (Gpth(1),Est(6))
+   !>>>>EQUIVALENCE (Sil(1),Nest(2)) , (Matset,Rmtout(25))
+   !>>>>EQUIVALENCE (Zoff,Est(12)) , (Zoff1,Est(28))
+   !>>>>EQUIVALENCE (necpt(1),ecpt(1)) , (Buffer(1),Sysbuf)
+   !>>>>EQUIVALENCE (Buffer(2),Nout) , (Buffer(3),Nogo)
+   !>>>>EQUIVALENCE (Stemp(7),Flag) , (alfab(1),alpha(4))
+   !>>>>EQUIVALENCE (alfam(1),alpha(1))
 !
    DATA eps1/1.0E-7/
    DATA pcomp/0/

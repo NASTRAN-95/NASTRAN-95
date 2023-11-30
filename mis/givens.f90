@@ -32,8 +32,8 @@ SUBROUTINE givens
 !
 !     DRIVER FOR GIVENS-HOUSEHOLDER METHOD
 !
-   EQUIVALENCE (Beta(1),Dbeta(1)) , (Alpha(1),Dalpha(1)) , (Slmdas,Dlmdas) , (Tcons(8),Mb(1)) , (Core(1),Dcore(1)) ,                &
-    & (Icore(1),Core(1)) , (Tcons(4),Apc) , (Tcons(5),Apu)
+   !>>>>EQUIVALENCE (Beta(1),Dbeta(1)) , (Alpha(1),Dalpha(1)) , (Slmdas,Dlmdas) , (Tcons(8),Mb(1)) , (Core(1),Dcore(1)) ,                &
+!>>>>    & (Icore(1),Core(1)) , (Tcons(4),Apc) , (Tcons(5),Apu)
    DATA name/4HGIVE , 4HNS   , 4HBEGI , 4HNS  / , mgiv/4HMGIV/ , end/4HENDS/ , icr1 , icr2/301 , 302/
 !
 !

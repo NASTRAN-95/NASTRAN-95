@@ -41,7 +41,7 @@ SUBROUTINE mred2c(Kode)
 !              LAMS   - LAMS INPUT FILE NUMBER
 !              PHISS  - PHISS INPUT FILE NUMBER
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Phis,Infile(3)) , (Lams,Iscr(5)) , (Phiss,Iscr(6))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Phis,Infile(3)) , (Lams,Iscr(5)) , (Phiss,Iscr(6))
    DATA modnam/4HMRED , 4H2C  /
    DATA itmlst/4HPHIS , 4HLAMS/
    DATA rgdfmt/3/

@@ -13,7 +13,7 @@ SUBROUTINE read6(Irig,Gphia,Nr,Phia)
 !
 !     ADDS GIVENS EIGENVECTORS TO RIGID BODY MODES ON PHIA
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
 !
 !
    ibuf1 = korsz(Z) - Sysbuf + 1

@@ -54,7 +54,7 @@ SUBROUTINE shcsgd(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad
 !        OF THE ELEMENT COORD. SYSTEM
 !
 !
-   EQUIVALENCE (tbmss(1),tbmsd(1))
+   !>>>>EQUIVALENCE (tbmss(1),tbmsd(1))
    DATA eps1d , eps1s/1.0D-7 , 1.0E-7/
 !
 !

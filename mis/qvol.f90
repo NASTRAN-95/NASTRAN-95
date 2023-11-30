@@ -17,8 +17,8 @@ SUBROUTINE qvol
 !
 !     CALCULATES THERMAL LOADS DUE TO QVOL CARDS
 !
-   EQUIVALENCE (Consts(2),Twopi) , (npts,card(1)) , (id,card(2)) , (nsil(1),card(3)) , (coef,card(11)) , (type,card(12)) ,          &
-    & (r(1,1),data4(2,1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3))
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (npts,card(1)) , (id,card(2)) , (nsil(1),card(3)) , (coef,card(11)) , (type,card(12)) ,          &
+!>>>>    & (r(1,1),data4(2,1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3))
    DATA map/1 , 2 , 3 , 4 , 1 , 2 , 3 , 6 , 1 , 2 , 6 , 5 , 1 , 4 , 5 , 6 , 1 , 2 , 3 , 6 , 1 , 3 , 4 , 8 , 1 , 3 , 8 , 6 , 1 , 5 , &
       & 6 , 8 , 3 , 6 , 7 , 8 , 2 , 3 , 4 , 7 , 1 , 2 , 4 , 5 , 2 , 4 , 5 , 7 , 2 , 5 , 6 , 7 , 4 , 5 , 7 , 8/
 !

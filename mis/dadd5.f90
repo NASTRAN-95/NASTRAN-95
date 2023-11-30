@@ -17,7 +17,7 @@ SUBROUTINE dadd5
 !     ADD5 A,B,C,D,E / X / V,N,P1 / V,N,P2 / V,N,P3 / V,N,P4 / V,N,P5 $
 !     THE PARAMETERS ARE ALL COMPLEX SINGLE-PRECISION.
 !
-   EQUIVALENCE (Mcbs(1),Amcbs(1)) , (Mcbs(61),Mc(1))
+   !>>>>EQUIVALENCE (Mcbs(1),Amcbs(1)) , (Mcbs(61),Mc(1))
    DATA inx/101 , 102 , 103 , 104 , 105/ , iout/201/
 !
    Lcore = korsz(Core)

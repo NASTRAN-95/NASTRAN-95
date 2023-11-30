@@ -33,7 +33,7 @@ SUBROUTINE tabpch
 !
 !  $MIXED_FORMATS
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (idata(1),rdata(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (idata(1),rdata(1))
    DATA blank/1H /
    DATA dti/4HDTI  , 1H /
    DATA dtis/4HDTI* , 1H /

@@ -20,8 +20,8 @@ SUBROUTINE sdhtf1(Type,Reject)
 !     THIS ROUTINE CONVERTS THE EST DATA FOR ALL THERMAL ELEMENTS TO A
 !     COMMON FORMAT. SDHT1B IS CALLED TO PRODUCE THE OUTPUT
 !
-   EQUIVALENCE (Consts(1),Pi) , (Nestsc(1),Estscr(1)) , (Nesto(1),Sub) , (Nest(1),Est(1)) , (point1(1,1),pointr(1,1)) ,             &
-    & (point2(1,1),pointr(1,21))
+   !>>>>EQUIVALENCE (Consts(1),Pi) , (Nestsc(1),Estscr(1)) , (Nesto(1),Sub) , (Nest(1),Est(1)) , (point1(1,1),pointr(1,1)) ,             &
+!>>>>    & (point2(1,1),pointr(1,21))
    DATA typold , numelt , tube , ftube , chbdy/0 , 23 , 3 , 82 , 52/
 !     DATA    HEX   / 16    /
 !

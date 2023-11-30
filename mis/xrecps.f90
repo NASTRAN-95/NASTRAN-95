@@ -68,7 +68,7 @@ SUBROUTINE xrecps(Inew,Iold)
 !       AN EXTERNAL MACHINE DEPENDENT CHARACTER CODE
 !
 !
-   EQUIVALENCE (Sft(1),Shifts(1)) , (Mk(1),Bimsk3(1)) , (Sft1,Shifts(2)) , (extab(1),con(1))
+   !>>>>EQUIVALENCE (Sft(1),Shifts(1)) , (Mk(1),Bimsk3(1)) , (Sft1,Shifts(2)) , (extab(1),con(1))
    DATA itape4/304/ , nrecps/4HXREC , 4HPS  /
    DATA con/4H     , 4H   0 , 4H   1 , 4H   2 , 4H   3 , 4H   4 , 4H   5 , 4H   6 , 4H   7 , 4H   8 , 4H   9 , 4H   A , 4H   B ,    &
        &4H   C , 4H   D , 4H   E , 4H   F , 4H   G , 4H   H , 4H   I , 4H   J , 4H   K , 4H   L , 4H   M , 4H   N , 4H   O ,        &

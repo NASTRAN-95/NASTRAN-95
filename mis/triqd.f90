@@ -49,7 +49,7 @@ SUBROUTINE triqd(Ntype,T)
 !  32                                           TEMP
 ! **********************************************************************
 !
-   EQUIVALENCE (Save(1),Ecpt(50))
+   !>>>>EQUIVALENCE (Save(1),Ecpt(50))
 !
 !     THIS SUBROUTINE INCORPORATES TRIA1, QUAD1, TRIA2, QUAD2
 !

@@ -27,8 +27,8 @@ SUBROUTINE gfsmod
 !     THIS ROUTINE PERFORMS THE MODAL FORMULATION OF THE
 !     FLUID / STRUCTURE MATRICES
 !
-   EQUIVALENCE (Badd(2),Dbadd(1)) , (Rz(1),Z(1)) , (Scr1,Usetd) , (Scr2,Pvec,Ident,Kjjl) , (Scr3,Azy,Ahj,Kjj,Gjh) ,                 &
-    & (Scr4,Ajh,Khhbar,Gyh) , (Scr5,Ac,Ayh,Mzz,Kzzbar) , (Scr6,Kzz) , (Scr7,Kc,Ahy) , (Scr8,H) , (Scr9,Mmat) , (Scr10,Gia,Mhhbar)
+   !>>>>EQUIVALENCE (Badd(2),Dbadd(1)) , (Rz(1),Z(1)) , (Scr1,Usetd) , (Scr2,Pvec,Ident,Kjjl) , (Scr3,Azy,Ahj,Kjj,Gjh) ,                 &
+!>>>>    & (Scr4,Ajh,Khhbar,Gyh) , (Scr5,Ac,Ayh,Mzz,Kzzbar) , (Scr6,Kzz) , (Scr7,Kc,Ahy) , (Scr8,H) , (Scr9,Mmat) , (Scr10,Gia,Mhhbar)
 !     DATA            AXY      ,AFRY     ,KYY      ,DKAA     ,DKFRFR   ,
 !    1                USETF    ,PHIA     ,PHIX     ,LAMA     ,
 !    2                KMAT     ,MMAT     ,GIA      ,POUT     ,

@@ -14,7 +14,7 @@ SUBROUTINE gigtkg
    REAL write
    EXTERNAL write
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA nam/4HGIGT , 4HKG  /
    DATA sdtab/9 , 9 , 0 , 9 , 1 , 9 , 9 , 0 , 1 , 9 , 2 , 3 , 9 , 9 , 0 , 9 , 9 , 9 , 9 , 9 , 0 , 9 , 1 , 2 , 9 , 9 , 0 , 9 , 1 , 2/
 !

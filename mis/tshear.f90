@@ -29,7 +29,7 @@ SUBROUTINE tshear
 !     ECPT(26)         - F1 EFFECTIVENESS FACTOR DIRECTION 1, (NOT USED)
 !     ECPT(27)         - F2 EFFECTIVENESS FACTOR DIRECTION 2, (NOT USED)
 !
-   EQUIVALENCE (Ncsid,Csid)
+   !>>>>EQUIVALENCE (Ncsid,Csid)
 !
    F12(1) = 1.00
    F12(2) = 1.00

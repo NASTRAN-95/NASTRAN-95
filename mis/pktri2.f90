@@ -60,7 +60,7 @@ SUBROUTINE pktri2
 ! SCRATCH BLOCK  325 CELLS
 !
 !
-   EQUIVALENCE (Necpt(6),matid1) , (Ecpt(1),Necpt(1)) , (G11,Plaans) , (G13,Nu) , (G11,Esub0) , (Necpts(1),Ecptsa(1)) , (G12,Nirof)
+   !>>>>EQUIVALENCE (Necpt(6),matid1) , (Ecpt(1),Necpt(1)) , (G11,Plaans) , (G13,Nu) , (G11,Esub0) , (Necpts(1),Ecptsa(1)) , (G12,Nirof)
 !
 ! SETUP GP MATRIX FOR PLAMAT
 !

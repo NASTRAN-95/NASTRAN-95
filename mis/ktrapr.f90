@@ -53,8 +53,8 @@ SUBROUTINE ktrapr
 !     ECPT(23) Z-COOR. OF GRID POINT D (IN BASIC COOR.)      R
 !     ECPT(24) EL. TEMPERATURE FOR MATERIAL PROPERTIES       R
 !
-   EQUIVALENCE (Constd(2),Twopi) , (Constd(4),Degrad) , (Iecpt(1),Ecpt(1)) , (R(1),R1) , (R(2),R2) , (R(3),R3) , (R(4),R4) ,        &
-    & (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , (Aki(1),Gambq(1)) , (Akt(1),Gambq(37))
+   !>>>>EQUIVALENCE (Constd(2),Twopi) , (Constd(4),Degrad) , (Iecpt(1),Ecpt(1)) , (R(1),R1) , (R(2),R2) , (R(3),R3) , (R(4),R4) ,        &
+!>>>>    & (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , (Aki(1),Gambq(1)) , (Akt(1),Gambq(37))
    DATA irg/4HTRAP/
 !
 !

@@ -29,7 +29,7 @@ SUBROUTINE gp3d
 !     DATA IN THE GPTT IS USED TOGETHER WITH DATA OBTAINED FROM TEMPP1,
 !     TEMPP2, TEMPP3, AND TEMPRB CARDS WHICH RESIDE ON GEOM3.
 !
-   EQUIVALENCE (Rz(1),Z(1)) , (Rbuf(1),Buf(1)) , (defalt,deftmp) , (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(56),Iheat)
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (Rbuf(1),Buf(1)) , (defalt,deftmp) , (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(56),Iheat)
    DATA nam/4HGP3D , 4H    /
 !
 !                 +---------------------+

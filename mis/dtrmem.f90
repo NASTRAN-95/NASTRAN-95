@@ -44,9 +44,9 @@ SUBROUTINE dtrmem(Iopt)
 !     INTERFACE DATA BLOCKS
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Ldtemp,Ftemp) , (Necpt(1),Ecpt(1)) , (Sum(1),Sigx)
-   EQUIVALENCE (Kij(1),Kd(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Ldtemp,Ftemp) , (Necpt(1),Ecpt(1)) , (Sum(1),Sigx)
+   !>>>>EQUIVALENCE (Kij(1),Kd(1))
 !
 !
 !     ******************************************************************

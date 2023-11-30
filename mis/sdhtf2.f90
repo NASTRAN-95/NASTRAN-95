@@ -15,8 +15,8 @@ SUBROUTINE sdhtf2(Ieqex,Neqex)
 !     FOR ALL ELEMENTS IN A HEAT TRANSFER PROBLEM.
 !      DATA IS OUTPUT FOR ELEMENT FORCE REQUEST ONLY.
 !******
-   EQUIVALENCE (Tgrad(1),Igrad(1)) , (Qout(1),Iqout(1))
-   EQUIVALENCE (Zz(1),Iz(1)) , (Esta(1),Ide)
+   !>>>>EQUIVALENCE (Tgrad(1),Igrad(1)) , (Qout(1),Iqout(1))
+   !>>>>EQUIVALENCE (Zz(1),Iz(1)) , (Esta(1),Ide)
    DATA ihex/4HIHEX/ , ione , itwo , ithr/4H1    , 4H2    , 4H3   /
    DATA ihex1 , ihex2 , ihex3/4HHEX1 , 4HHEX2 , 4HHEX3/
    DATA ftube/4HFTUB/

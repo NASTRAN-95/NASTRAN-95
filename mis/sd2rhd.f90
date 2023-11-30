@@ -14,7 +14,7 @@ SUBROUTINE sd2rhd(Istyp,Isetup)
 !     WORDS 1,2,6 AND 7 PRESET BY CALLING ROUTINE.
 !     ISETUP.NE.0 FIRST CALL.
 !
-   EQUIVALENCE (istyp6,rstyp6) , (istyp7,rstyp7)
+   !>>>>EQUIVALENCE (istyp6,rstyp6) , (istyp7,rstyp7)
    DATA ldmd/4HLOAD , 4HMODE , 4H, FR , 4HEQ.= , 4H, EI , 4HGEN= , 4H, TI , 4HME =/
 !
    IF ( Isetup/=0 ) THEN

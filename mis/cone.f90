@@ -19,11 +19,11 @@ SUBROUTINE cone(Ti,Z)
 !
 !     THIS ROUTINE COMPUTES THE THERMAL LOADS ON A AXISYMMETRIC CONE
 !
-   EQUIVALENCE (Ecpt(1),Mecpt(1)) , (Ecpt(9),Ts)
-   EQUIVALENCE (Ecpt(28),Ra) , (Ecpt(32),Rb)
-   EQUIVALENCE (Ecpt(29),Za) , (Ecpt(33),Zb)
-   EQUIVALENCE (Ecpt(6),Matid2) , (Ecpt(8),Matid3)
-   EQUIVALENCE (Gshear,G12)
+   !>>>>EQUIVALENCE (Ecpt(1),Mecpt(1)) , (Ecpt(9),Ts)
+   !>>>>EQUIVALENCE (Ecpt(28),Ra) , (Ecpt(32),Rb)
+   !>>>>EQUIVALENCE (Ecpt(29),Za) , (Ecpt(33),Zb)
+   !>>>>EQUIVALENCE (Ecpt(6),Matid2) , (Ecpt(8),Matid3)
+   !>>>>EQUIVALENCE (Gshear,G12)
    DATA one/1.0/
 !
 !     DEFINITION OF VARIABLES

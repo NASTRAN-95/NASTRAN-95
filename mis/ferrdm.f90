@@ -49,9 +49,9 @@ SUBROUTINE ferrdm(Mcb,Nidx,Memtot,Ibuffi,Lasind,Ipos)
 !              (6) = current logical record pointer for last record in file
 !              (7) = current buffer pointer for last record in file
 !
-   EQUIVALENCE (Ksystm(2),Nout)
-   EQUIVALENCE (Ksystm(55),Iprec)
-   EQUIVALENCE (Icore,Dcore,Rcore,Dxl,Rxl,Ixl)
+   !>>>>EQUIVALENCE (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Icore,Dcore,Rcore,Dxl,Rxl,Ixl)
    mem = Nidx
    ncol = Mcb(2)
    ntwds = 0

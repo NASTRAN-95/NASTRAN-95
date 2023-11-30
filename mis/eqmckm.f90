@@ -31,9 +31,9 @@ SUBROUTINE eqmckm
 !     NOT CODED TO HANDLE CONICAL ELEMENTS OR SORT2.
 !
 !ZZ   COMMON /ZZSSA2/ ZZ(1)
-   EQUIVALENCE (mcb(1),ocb(1)) , (Ksystm(1),Isbz) , (Ksystm(2),Nout) , (Ksystm(15),Itim) , (Ksystm(16),Idat(1))
+   !>>>>EQUIVALENCE (mcb(1),ocb(1)) , (Ksystm(1),Isbz) , (Ksystm(2),Nout) , (Ksystm(15),Itim) , (Ksystm(16),Idat(1))
 !WKBI 3/94 SPR93007
-   EQUIVALENCE (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Ksystm(55),Iprec)
    DATA name/4HEQMC , 2HKM/
    DATA kon/1 , 20 , 0 , -1 , 0 , 0 , 0 , 0 , 1 , 8/
    DATA kg/1HG/

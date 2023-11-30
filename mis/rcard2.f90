@@ -39,7 +39,7 @@ SUBROUTINE rcard2(Out,Fmt,Nflag,In)
    CHARACTER*9 num9
    CHARACTER*100 out100(4) , tmp100
    EXTERNAL complf , lshift , rshift
-   EQUIVALENCE (chr11,chr1(1)) , (k1(1),in4(1),d5,e80) , (fpt,intgr) , (khr1(1),chr4(1)) , (ddoubl,idoubl(1)) , (out4(1),out100(1))
+   !>>>>EQUIVALENCE (chr11,chr1(1)) , (k1(1),in4(1),d5,e80) , (fpt,intgr) , (khr1(1),chr4(1)) , (ddoubl,idoubl(1)) , (out4(1),out100(1))
    DATA blankc , starc , plusc , minusc , dotc , ec , dc/' ' , '*' , '+' , '-' , '.' , 'E' , 'D'/
    DATA blank , stars , seqgp5 , seqep5 , zeroc , num9/4H     , 4H==== , 'SEQGP' , 'SEQEP' , '0' , '123456789'/
    DATA plus1/0/

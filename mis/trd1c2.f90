@@ -33,7 +33,7 @@ SUBROUTINE trd1c2(Ic,Pd,Ngroup,Nlftp,Udv,Iloop,Scr1,Dit,Nlft,Noue,Modal,Pnl,Iski
 !RLBR1                MCB(7),IPNL(7),SUBNAM(2)
 !RLBR SPR94003 9/94
 !RLBR COMMON /SYSTEM/ SYSBUF
-   EQUIVALENCE (Z(1),Rz(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Iz(1))
    DATA subnam/4HTRD1 , 2HC2/
 !RLBNB SPR94003 9/94
    DATA ioutpu , iscr9/203 , 309/

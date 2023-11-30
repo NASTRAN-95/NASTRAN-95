@@ -11,7 +11,7 @@ SUBROUTINE mbcap(Nphi,Capphi)
    REAL go , zj
    INTEGER i , j , l
 !
-   EQUIVALENCE (Km,Ekm) , (Kbar,Ekbar)
+   !>>>>EQUIVALENCE (Km,Ekm) , (Kbar,Ekbar)
    DATA w/0.0506143 , 0.1111905 , 0.1568533 , 0.1813419 , 0.1813419 , 0.1568533 , 0.1111905 , 0.0506143 , 0.0 , 0.0/ , p/0.0198551 ,&
       & 0.1016667 , 0.2372338 , 0.4082826 , 0.5917174 , 0.7627662 , 0.8983333 , 0.9801449 , 0.0 , 0.0/
 !

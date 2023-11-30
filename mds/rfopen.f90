@@ -38,7 +38,7 @@ SUBROUTINE rfopen(Member,Lu)
 !     WRITTEN BY G.CHAN/UNISYS.   10/1990
 !
 !WKBI
-   EQUIVALENCE (mb1(1),mb5,mb6,mb8)
+   !>>>>EQUIVALENCE (mb1(1),mb5,mb6,mb8)
    DATA bk , add(1) , add(3) , free8/' ' , '@ADD,E ' , ' .  ' , '@FREE   '/
 !
    CALL a42k8(Member(1),Member(2),mb8)

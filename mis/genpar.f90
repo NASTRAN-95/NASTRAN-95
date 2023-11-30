@@ -21,7 +21,7 @@ SUBROUTINE genpar
 !     GENPART  PF/RPLAMB,CPLAMB,RPPF,CPMP/C,Y,LMODES/V,N,NMODES $
 !     SAVE NMODES $
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA pf , rplamb , cplamb , rppf , cpmp/101 , 201 , 202 , 203 , 204/
    DATA nam/4HGENP , 4HART /
 !

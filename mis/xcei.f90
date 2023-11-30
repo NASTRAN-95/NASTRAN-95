@@ -16,7 +16,7 @@ SUBROUTINE xcei
          & mask1 , mxloop , nbegn , nblank , nend , newsq , noflgs , noscar , nrecsz , nxcei(2) , nxptdc(2) , pool
    EXTERNAL andf , lshift , orf , rshift
 !WKBR COMMON /XCEITB/ CEITBL(2)
-   EQUIVALENCE (Databf(1),Idic(1))
+   !>>>>EQUIVALENCE (Databf(1),Idic(1))
    DATA nxptdc/4HXPTD , 4HIC  /
    DATA nxcei/4HXCEI , 4H    /
    DATA noscar/4HXOSC/

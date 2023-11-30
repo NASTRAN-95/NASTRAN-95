@@ -32,7 +32,7 @@ SUBROUTINE ssold2(Itype,Ftemp)
 !
 !  $MIXED_FORMATS
 !
-   EQUIVALENCE (Nphi(1),Phiout(1)) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
+   !>>>>EQUIVALENCE (Nphi(1),Phiout(1)) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
    DATA typ/4HTETR , 1HA , 4HWEDG , 1HE , 4HHEXA , 1H1 , 4HHEXA , 1H2/
    DATA lld , lsub , frlast/2* - 1 , -1.0E30 , -1.0E30/
 !

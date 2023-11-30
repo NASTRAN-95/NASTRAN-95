@@ -52,7 +52,7 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !     NGP, 6 BY 3 MATRICES, RELATING STRESS TO DISPLACEMENTS AT THIS
 !          STRESS POINT (STORED ROW-WISE)
 !
-   EQUIVALENCE (Est(1),Iest(1),Dshpb(1,1)) , (Phiout(1),Iphio(1)) , (Est(97),Idxyz) , (Est(98),Bxyz(1)) , (Ib(1),Bufm6(1))
+   !>>>>EQUIVALENCE (Est(1),Iest(1),Dshpb(1,1)) , (Phiout(1),Iphio(1)) , (Est(97),Idxyz) , (Est(98),Bxyz(1)) , (Ib(1),Bufm6(1))
    DATA gauss/.57735027 , .55555556 , .77459667 , .88888889 , .34785485 , .86113631 , .65214515 , .33998104/
 !
    IF ( Strspt==0 ) Strspt = Strspt + 1

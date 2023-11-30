@@ -10,7 +10,7 @@ SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
    INTEGER elid , i , ie , ie1 , iflag , ig , igdpt , ione , ip1 , itwo , j , lcor , m , nelmt , words(2)
    REAL pt(2,3)
 !
-   EQUIVALENCE (words(1),nelmt) , (words(2),igdpt)
+   !>>>>EQUIVALENCE (words(1),nelmt) , (words(2),igdpt)
 !
    lcor = Opcor/5 - 1
    CALL open(*99999,Scr2,Gplst(B1),0)

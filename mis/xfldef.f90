@@ -39,8 +39,8 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !
 !                  ** CONTROL CARD NAMES **
 !                  ** DMAP CARD NAMES **
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Iospnt,Os(4)) , (Os(5),Oscar(1),Fnm(1),Fmed(1),Ptdic(1)) , &
-    & (Medtp,Fmedtp) , (Two(4),Reuse)
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Iospnt,Os(4)) , (Os(5),Oscar(1),Fnm(1),Fmed(1),Ptdic(1)) , &
+!>>>>    & (Medtp,Fmedtp) , (Two(4),Reuse)
    DATA nxchkp/4HXCHK/ , ifirst/0/
 !
    and(i,j) = andf(i,j)

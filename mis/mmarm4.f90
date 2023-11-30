@@ -46,7 +46,7 @@ SUBROUTINE mmarm4(Zi,Zd,Mempcol)
 !     ZI  - Memory for storage of data (integer)
 !     ZD  - Same location as ZI but real double reference
 !
-   EQUIVALENCE (Rxl,Dxl)
+   !>>>>EQUIVALENCE (Rxl,Dxl)
    DATA module/4HMMAR , 4HM4  /
    mem = 1
    DO i = 1 , 15

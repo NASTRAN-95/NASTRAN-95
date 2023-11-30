@@ -18,7 +18,7 @@ SUBROUTINE ifp1g(Itype,Case,Isub1)
 !     IBEN   = FIRST BYTE BLANK, REST IS ZERO FILL
 !     EQUAL  = FIRST BYTE EQUAL, REST IS ZERO FILL
 !
-   EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
 !
 !     FIND EQUAL SIGN AND COPY REMAINING DATA ON CARD
 !

@@ -66,9 +66,9 @@ SUBROUTINE ifp3b
    LOGICAL ifpdco
    REAL t3
    EXTERNAL andf , lshift , orf
-   EQUIVALENCE (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) , (Axic,File(6)) , (Noeor,Inprwd,Zero) ,    &
-    & (Eor,Clorwd,Outrwd,One)
-   EQUIVALENCE (Ibufsz,Isystm(1))
+   !>>>>EQUIVALENCE (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) , (Axic,File(6)) , (Noeor,Inprwd,Zero) ,    &
+!>>>>    & (Eor,Clorwd,Outrwd,One)
+   !>>>>EQUIVALENCE (Ibufsz,Isystm(1))
    DATA ifist/4HFIST/ , i3 , i4 , i5/3 , 4 , 5/
 !
 !

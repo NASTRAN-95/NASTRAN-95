@@ -31,7 +31,7 @@ SUBROUTINE tmtsio(*,Debug1)
 !     COMMENT FORM G.CHAN/UNISYS   5/91
 !     BASICALLY THIS ROUTINE IS SAME AS TIMTS1.
 !
-   EQUIVALENCE (Zd(1),Z(1)) , (Xd(1),X(1)) , (T(1),Tgino)
+   !>>>>EQUIVALENCE (Zd(1),Z(1)) , (Xd(1),X(1)) , (T(1),Tgino)
    DATA files/301 , 304/ , zero/0/
    DATA i1000/1000/ , i1001/1001/
    DATA isubr/4HTMTS , 4HIO  /

@@ -15,9 +15,9 @@ SUBROUTINE ssg2c(A,B,C,Op,Block)
    INTEGER dt1(2) , i , iprec , irc , na(2) , nb(2) , nomix
    INTEGER korsz
 !
-   EQUIVALENCE (dt1,dit1)
-   EQUIVALENCE (Ksystm(55),Ipr1) , (Mcbs(1),Ia(1)) , (Mcbs(8),It(1),Dit) , (Mcbs(13),Ib(1)) , (Mcbs(20),It1(1)) , (Mcbs(61),Ic(1)) ,&
-    & (Ksystm(2),Nout) , (Ia5,Ia(5)) , (Ib5,Ib(5))
+   !>>>>EQUIVALENCE (dt1,dit1)
+   !>>>>EQUIVALENCE (Ksystm(55),Ipr1) , (Mcbs(1),Ia(1)) , (Mcbs(8),It(1),Dit) , (Mcbs(13),Ib(1)) , (Mcbs(20),It1(1)) , (Mcbs(61),Ic(1)) ,&
+!>>>>    & (Ksystm(2),Nout) , (Ia5,Ia(5)) , (Ib5,Ib(5))
 !
 !     BLOCK(6) WAS NOT USED IN ORIGINAL NASTRAN. IT IS NOW USED TO FLAG
 !     THE CHECKING OF THE INPUT MATRICES COMPATABILITY IF THE CALLER

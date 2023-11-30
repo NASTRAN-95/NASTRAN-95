@@ -20,7 +20,7 @@ SUBROUTINE emgfin
 !
 !     THIS ROUTINE OF THE -EMG- MODULE WRAPS UP THE WORK OF THE MODULE.
 !
-   EQUIVALENCE (Corex(1),Corey(1),Rx(1),Ix(1)) , (Z(1),Corey(201))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1),Rx(1),Ix(1)) , (Z(1),Corey(201))
    DATA vafile , scr4/207 , 304/
    DATA d2 , d3/4H2-D  , 4H3-D /
    DATA sub , scr3/4HEMGF , 4HIN   , 303/

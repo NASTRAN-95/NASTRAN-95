@@ -23,8 +23,8 @@ SUBROUTINE frlga(Dlt,Frl,Casecc,Dit,Pp,Lusetd,Nfreq,Nload,Frqset,Fol,Notrd)
 !     WITH ENTRY POINTS - GUST1A AND FRRD1A
 !                         ======     ======
 !
-   EQUIVALENCE (Core(1),Icore(1)) , (head(1),ihead(1),isil) , (head(2),a) , (head(3),tau) , (head(4),theta) , (Ksystm(1),Sysbuf) ,  &
-    & (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Core(1),Icore(1)) , (head(1),ihead(1),isil) , (head(2),a) , (head(3),tau) , (head(4),theta) , (Ksystm(1),Sysbuf) ,  &
+!>>>>    & (Ksystm(55),Iprec)
    DATA itlist/4 , 1105 , 11 , 1 , 1205 , 12 , 2 , 1305 , 13 , 3 , 1405 , 14 , 4/
    DATA name/4HDLT  , 4HFRLG , 4HA    , 4HGUST , 4H1A   , 4HFRRD/
    DATA ifrl/4HFRL /

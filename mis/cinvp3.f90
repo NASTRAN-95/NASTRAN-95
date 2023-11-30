@@ -27,8 +27,8 @@ SUBROUTINE cinvp3
 !
 !     TYPE DECLARATIONS
 !
-   EQUIVALENCE (Filek(2),Ncol) , (Scrfil(1),Sr1fil) , (Scrfil(2),Sr2fil) , (Scrfil(3),Sr3fil) , (Scrfil(4),Sr4fil) ,                &
-    & (Scrfil(8),Sr8fil) , (Scrfil(9),Sr9fil) , (Dz(1),Z(1)) , (Scrfil(11),S11fil)
+   !>>>>EQUIVALENCE (Filek(2),Ncol) , (Scrfil(1),Sr1fil) , (Scrfil(2),Sr2fil) , (Scrfil(3),Sr3fil) , (Scrfil(4),Sr4fil) ,                &
+!>>>>    & (Scrfil(8),Sr8fil) , (Scrfil(9),Sr9fil) , (Dz(1),Z(1)) , (Scrfil(11),S11fil)
    DATA name/4HCINV , 4HP3  /
    DATA plus1/ + 1.D0 , 0.D0/
 !

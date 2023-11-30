@@ -22,8 +22,8 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
 !     WILL PRINT SOF ITEM - USING  E15.7,I10, OR ALPHA FORMAT
 !
-   EQUIVALENCE (Ccore,Core)
-   EQUIVALENCE (Icore(1),Core(1))
+   !>>>>EQUIVALENCE (Ccore,Core)
+   !>>>>EQUIVALENCE (Icore(1),Core(1))
    DATA oparen , cparen , ec , ec1 , ec2 , intgc , alphc , alphc1 , cont , uned , d/4H(1X  , 4H)    , 4H,1P, , 4HE13. , 4H6    ,    &
        &4H,I13 , 4H,9X, , 4HA4   , 4HCONT , 4HINUE , 4HD   /
    DATA blank , subs , itm/4H     , 4HSUBS , 4HTRUC , 4HTURE , 4HITEM/

@@ -48,8 +48,8 @@ SUBROUTINE sqdme1
 !                                        COORD. SYS. IDS.
 !           ALL OTHERS ARE REAL IN THE ECPT.
 !
-   EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1),Ivec(1)) , (Ngrid(1),Ecptsa(2)) , (Coord(1),Ecptsa(10)) ,             &
-    & (S(1),Ph1out(10)) , (Ssubt(1),Ph1out(7))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1),Ivec(1)) , (Ngrid(1),Ecptsa(2)) , (Coord(1),Ecptsa(10)) ,             &
+!>>>>    & (S(1),Ph1out(10)) , (Ssubt(1),Ph1out(7))
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
 !
 !

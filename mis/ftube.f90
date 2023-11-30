@@ -44,7 +44,7 @@ SUBROUTINE ftube
 !     EST(16) = AVG TEMP OF ELEMENT.  NOT USED.
 !
 !
-   EQUIVALENCE (Iest(1),Est(1)) , (rk(1),k(1)) , (dict(5),dict5)
+   !>>>>EQUIVALENCE (Iest(1),Est(1)) , (rk(1),k(1)) , (dict(5),dict5)
 !
    IF ( .NOT.Heat ) GOTO 99999
    dict(1) = Estid

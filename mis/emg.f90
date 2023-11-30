@@ -27,7 +27,7 @@ SUBROUTINE emg
 !          C,Y,CPTRIA1/C,Y,CPTRIA2/C,Y,CPTUBE/C,Y,CQDPLT/C,Y,CPTRPLT/
 !          C,Y,CPTRBSC/V,Y,VOLUME/V,Y,SURFACE $
 !
-   EQUIVALENCE (Ksystm(3),Nogo) , (Ksystm(55),Ipreci) , (Ksystm(2),Nout) , (Ksystm(56),Noheat)
+   !>>>>EQUIVALENCE (Ksystm(3),Nogo) , (Ksystm(55),Ipreci) , (Ksystm(2),Nout) , (Ksystm(56),Noheat)
    DATA name/4HEMG  , 4H    /
 !
 !     SET EMG PRECISION FLAG TO SYSTEM PRECISION FLAG

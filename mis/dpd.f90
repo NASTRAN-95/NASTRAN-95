@@ -18,7 +18,7 @@ SUBROUTINE dpd
 !
 !     DPD IS MAIN CONTROL PROGRAM FOR THE DYNAMICS POOL DISTRIBUTOR.
 !
-   EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
+   !>>>>EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
 !
 !     INITIALIZE CONTROL PARAMETERS.
 !

@@ -96,10 +96,10 @@ SUBROUTINE inptt2
    INTEGER korsz
 !WKBNB
 !WKBNE
-   EQUIVALENCE (Core(1),X(1))
-   EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (blk(1),bname) , (blk(2),btyp) ,          &
-    & (blk(3),bform) , (blk(4),brow) , (blk(5),bpoint) , (blk(6),brav) , (blk(7),bwrt) , (blk(8),bflag) , (blk(12),bcol) ,          &
-    & (Dcore(1),Core(1))
+   !>>>>EQUIVALENCE (Core(1),X(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (blk(1),bname) , (blk(2),btyp) ,          &
+!>>>>    & (blk(3),bform) , (blk(4),brow) , (blk(5),bpoint) , (blk(6),brav) , (blk(7),bwrt) , (blk(8),bflag) , (blk(12),bcol) ,          &
+!>>>>    & (Dcore(1),Core(1))
 !WKBI
    DATA ifirst/0/
    DATA subnam/4HINPT , 4HT2  / , none/4H (NO , 4HNE) /

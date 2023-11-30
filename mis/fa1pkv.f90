@@ -13,7 +13,7 @@ SUBROUTINE fa1pkv(Az,Amk,Amb,N,E1,Cz,Bref,Pi,Vel,Ibuf)
    REAL e(2) , v(6)
    INTEGER i , ipass , iscr , iv(6) , j , k , n2 , na , nb , nc , nd , trl(7)
 !
-   EQUIVALENCE (v(1),iv(1)) , (eigen,e(1))
+   !>>>>EQUIVALENCE (v(1),iv(1)) , (eigen,e(1))
    DATA iscr/301/ , ipass/0/
 !
    eigz = (0.0,0.0)

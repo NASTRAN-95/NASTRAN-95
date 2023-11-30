@@ -47,9 +47,9 @@ SUBROUTINE xflord
          & k1 , k2 , khr , kk , kk1 , kxt , l , l1 , l2 , l3 , l4 , lpbot , lptop , lstbot , lstuse , ltu , m , m1 , m2 , n ,       &
          & ncpdp1 , ncpdp2 , ndatab , nnfind , nofind , nordn1 , nordn2 , nthpas , ntu , nwdh , nxvps , xnam(12)
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Core(1),Loscar,Os(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5),Ptdic(1)) ,                 &
-    & (Dmap(1),Itmp(1)) , (Oscar(1),Icpdpl(1)) , (Lmpl,Lordnl) , (Mplpnt,Iorbot) , (Dpl(1),Ndpfil) , (Dpl(2),Maxdpl) ,              &
-    & (Dpl(3),Lstdpl) , (Two(4),Reuse)
+   !>>>>EQUIVALENCE (Core(1),Loscar,Os(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5),Ptdic(1)) ,                 &
+!>>>>    & (Dmap(1),Itmp(1)) , (Oscar(1),Icpdpl(1)) , (Lmpl,Lordnl) , (Mplpnt,Iorbot) , (Dpl(1),Ndpfil) , (Dpl(2),Maxdpl) ,              &
+!>>>>    & (Dpl(3),Lstdpl) , (Two(4),Reuse)
    DATA nordn1/4HIORD/ , nordn2/4HNL  / , nxvps/4HXVPS/ , ncpdp1/4HICPD/ , ncpdp2/4HPL  / , xnam/4HXTIM , 4HE    , 4HXSAV , 4HE    ,&
        &4HXUOP , 4H     , 4HXCHK , 4H     , 4HXPUR , 4HGE   , 4HXEQU , 4HIV  /
    DATA nthpas/0/ , dlyerr/0/

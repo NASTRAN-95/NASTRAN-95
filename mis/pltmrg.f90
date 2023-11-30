@@ -18,7 +18,7 @@ SUBROUTINE pltmrg
 !
 !     APRIL 1974
 !
-   EQUIVALENCE (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1))
    DATA plts , eqss , subr , casecc/4HPLTS , 4HEQSS , 4HPLTM , 4HRG   , 4HCASE , 4HCC  /
    DATA casess , pcdb , pltp , gps , els/101 , 102 , 201 , 202 , 203/ , bgp , casep , eqex , scr1 , srd/204 , 205 , 206 , 301 , 1/ ,&
       & bar , quad4 , tria3/2HBR , 2HQ4 , 2HT3/

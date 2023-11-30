@@ -24,7 +24,7 @@ SUBROUTINE gfsh(Nuy,H)
 !     PACK - UNPACK COMMON BLOCKS
 !
 !
-   EQUIVALENCE (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1))
 !
    DATA name/4HGFSH , 4H    /
 !

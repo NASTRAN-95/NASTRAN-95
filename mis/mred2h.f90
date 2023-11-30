@@ -51,7 +51,7 @@ SUBROUTINE mred2h
          & papp , sofeog
    REAL zero
    EXTERNAL andf , rshift
-   EQUIVALENCE (Eqst,Infile(4)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Eqst,Infile(4)) , (Rz(1),Z(1))
    DATA modnam/4HMRED , 4H2H  /
    DATA papp , lods , loap/4HPAPP , 4HLODS , 4HLOAP/
    DATA farind , izero , zero/6 , 0 , 0.0/

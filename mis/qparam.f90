@@ -45,7 +45,7 @@ SUBROUTINE qparam
 !     29. UNDEFINED.
 !     30. UNDEFINED.
 !
-   EQUIVALENCE (Ksystm(2),Outtap) , (Ksystm(23),Lsystm) , (Ksystm(55),Iprec) , (Ksystm(79),Switch(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Outtap) , (Ksystm(23),Lsystm) , (Ksystm(55),Iprec) , (Ksystm(79),Switch(1))
    DATA opcode/4HAND  , 4HOR   , 4HADD  , 4HSUB  , 4HMPY  , 4HDIV  , 4HNOT  , 4HIMPL , 4HNOP  , 4HPREC , 4HKLOC , 4HTMTO , 4HSYST , &
        &4HDIAG , 4HSYSR , 4HSSSR , 4HSSST , 4HSTSR , 4HEQ   , 4HGT   , 4HLT   , 4HLE   , 4HGE   , 4HNE   , 4H**** , 4H**** ,        &
       & 4H**** , 4H**** , 4H**** , 4H****/

@@ -19,9 +19,9 @@ SUBROUTINE cfeer1
 !     CFEER1 INITIALIZES AND CALLS SUBROUTINE SADD FOR CFCNTL
 !
 !
-   EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(61),Ifilc(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,              &
-    & (Mcbs(21),Beta(1)) , (Mcbs(9),Alpha(1)) , (Iprec,Ksystm(55)) , (Alpha(1),Salpha(1)) , (Beta(1),Sbeta(1)) , (Z(1),Dz(1)) ,     &
-    & (Nout,Ksystm(2))
+   !>>>>EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(61),Ifilc(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,              &
+!>>>>    & (Mcbs(21),Beta(1)) , (Mcbs(9),Alpha(1)) , (Iprec,Ksystm(55)) , (Alpha(1),Salpha(1)) , (Beta(1),Sbeta(1)) , (Z(1),Dz(1)) ,     &
+!>>>>    & (Nout,Ksystm(2))
 !
 !     FORM   -(B + LAMBDA*M)  ON SCR2
 !

@@ -14,7 +14,7 @@ SUBROUTINE matwrt(Ifile,Xname,Xitem,Lcore)
    REAL blank , bstr , cont , dx , em , form(18) , re , su , type(10) , uctu , xinue , xit
    INTEGER i , ia(7) , ia7a , ia7b , ia7c , ibegn , if , ifin , ihop , inull , it1 , itest , j , jj , lcol , namea , ncol , nrow
 !
-   EQUIVALENCE (Col(1),Dcol(1))
+   !>>>>EQUIVALENCE (Col(1),Dcol(1))
    DATA type/4HREAL , 4H     , 4HDB   , 4HPREC , 4HCOMP , 4HLEX  , 4HCMP  , 4HD.P. , 4HILL  , 4HDEFN/
    DATA form/4HSQUA , 4HRE   , 4HRECT , 4HANG  , 4HDIAG , 4HONAL , 4HLOW  , 4HTRI  , 4HUPP  , 4HTRI  , 4HSYME , 4HTRIC , 4HVECT ,   &
        &4HOR   , 4HIDEN , 4HITY  , 4HILL  , 4HDEFN/

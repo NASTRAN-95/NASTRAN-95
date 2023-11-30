@@ -40,7 +40,7 @@ SUBROUTINE hmat(Id)
 !     7/92 - NEW REFERENCE TO OPEN CORE ARRAY SUCH THAT THE SOURCE CODE
 !            IS UP TO ANSI FORTRAN 77 STANDARD.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(56),Itherm) , (f4,n4) , (f5,n5)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(56),Itherm) , (f4,n4) , (f5,n5)
    DATA name/4HHMAT , 4H    / , noeor/0/
    DATA mat4/2103 , 21/
    DATA mat5/2203 , 22/

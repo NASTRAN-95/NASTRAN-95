@@ -68,7 +68,7 @@ SUBROUTINE sma2
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz)
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz)
 !
 !
 !

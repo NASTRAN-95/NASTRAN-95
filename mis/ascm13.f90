@@ -12,9 +12,9 @@ SUBROUTINE ascm13(Name,Iphase,Isol,Nogo)
 !
 !     CREDUCE COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap4(1,1),rdmap(1,28)) , (ptbs2(1,1),ptbs(1,19)) ,                    &
-    & (ptbs3(1,1),ptbs(1,37))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap4(1,1),rdmap(1,28)) , (ptbs2(1,1),ptbs(1,19)) ,                    &
+!>>>>    & (ptbs3(1,1),ptbs(1,37))
    DATA comnd/4HCRED , 30 , 11 , 20 , 53 , 0/
    DATA slash/1H//
    DATA isave/2 , 15 , 1 , 3 , 11 , 2 , 5 , 12 , 1 , 5 , 16 , 3 , 6 , 5 , 1 , 23 , 8 , 1 , 23 , 9 , 1 , 23 , 10 , 1 , 24 , 8 , 1 ,  &

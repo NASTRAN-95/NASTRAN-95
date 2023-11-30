@@ -109,13 +109,13 @@ SUBROUTINE quad4d
 !     NCORE = CURRENT LAST AVAILABLE LOCATION IN OPEN CORE
 !
 !ZZ   COMMON /ZZEMGX/  AKGG(1)
-   EQUIVALENCE (Sys(01),Sysbuf) , (Sys(02),Nout) , (Sys(03),Nogo) , (Sys(55),Iprec)
+   !>>>>EQUIVALENCE (Sys(01),Sysbuf) , (Sys(02),Nout) , (Sys(03),Nogo) , (Sys(55),Iprec)
 !     EQUIVALENCE      (SYS(48) ,ICSUB4  ), (SYS(49) ,ICSUBB    ),
 !    1                 (SYS(50) ,ICSUBT  ), (SYS(75) ,ICSUB8    )
-   EQUIVALENCE (Flags(1),Kgg1) , (Flags(2),Mgg1) , (adamp,dict(5)) , (igpth(1),Gpth(1)) , (Est(1),Nest(1)) , (Int,Nest(25)) ,       &
-    & (Elth,Est(14)) , (Gpth(1),Est(6)) , (Zoff,Est(12)) , (Zoff1,Est(28)) , (Sil(1),Nest(2)) , (Matset,Matout(25)) , (Nsm,Est(19)) &
-    & , (Amgg(1),Akgg(1)) , (Htcp,Kheat(4)) , (htflx(1),tmpmas(1)) , (htcap(1),xmass(1)) , (htcon(1),xmtmp(1)) , (necpt(1),ecpt(1)) &
-    & , (Bgpdt(1,1),Est(29)) , (iegpdt(1,1),egpdt(1,1)) , (Igpdt(1,1),Bgpdt(1,1))
+   !>>>>EQUIVALENCE (Flags(1),Kgg1) , (Flags(2),Mgg1) , (adamp,dict(5)) , (igpth(1),Gpth(1)) , (Est(1),Nest(1)) , (Int,Nest(25)) ,       &
+!>>>>    & (Elth,Est(14)) , (Gpth(1),Est(6)) , (Zoff,Est(12)) , (Zoff1,Est(28)) , (Sil(1),Nest(2)) , (Matset,Matout(25)) , (Nsm,Est(19)) &
+!>>>>    & , (Amgg(1),Akgg(1)) , (Htcp,Kheat(4)) , (htflx(1),tmpmas(1)) , (htcap(1),xmass(1)) , (htcon(1),xmtmp(1)) , (necpt(1),ecpt(1)) &
+!>>>>    & , (Bgpdt(1,1),Est(29)) , (iegpdt(1,1),egpdt(1,1)) , (Igpdt(1,1),Bgpdt(1,1))
    DATA eps1/1.0D-7/
    DATA const/0.57735026918962D0/
    DATA nam/4HQUAD , 4H4D  /

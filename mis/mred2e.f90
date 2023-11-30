@@ -67,9 +67,9 @@ SUBROUTINE mred2e
 !              HIM    - HIM INPUT FILE NUMBER
 !              HIMSCR - HIM SCRATCH INPUT FILE NUMBER
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Phiss,Infile(3)) , (Usetmr,Infile(5))
-   EQUIVALENCE (Gib,Iscr(8)) , (Pprtn,Iscr(5)) , (Him,Iscr(8)) , (Himprt,Iscr(9)) , (Phibm,Iscr(9))
-   EQUIVALENCE (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Phiss,Infile(3)) , (Usetmr,Infile(5))
+   !>>>>EQUIVALENCE (Gib,Iscr(8)) , (Pprtn,Iscr(5)) , (Him,Iscr(8)) , (Himprt,Iscr(9)) , (Phibm,Iscr(9))
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HMRED , 4H2E  /
    DATA epslon , iscr4 , fbmods/1.0E-03 , 304 , 6/
    DATA item/4HGIMS/

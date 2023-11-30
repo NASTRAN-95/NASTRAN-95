@@ -100,7 +100,7 @@ SUBROUTINE table5(*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
    INTEGER numtyp
    REAL temp(2)
 !WKBI 7/94
-   EQUIVALENCE (Z(1),Rz(1)) , (dtemp,temp(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1)) , (dtemp,temp(1))
    DATA sub/4HTABL , 4HE5  / , debug/.FALSE./
    DATA fmti , fmtr/'1HI,I9,' , '1HR,E14.7,'/
    DATA fmtb , fmtd/'1H/,A4,' , '1HD,D14.7,'/

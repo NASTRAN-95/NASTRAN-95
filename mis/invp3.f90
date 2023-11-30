@@ -34,7 +34,7 @@ SUBROUTINE invp3(norm1,sub,mtimsu,xtrnsy)
 !     EIGENVALUES AND EIGENVECTORS OF (K-LAMBDA*M)
 !     THIS ROUTINE HANDLES BOTH SINGLE AND DOUBLE PRECISION VERSIONS
 !
-   EQUIVALENCE (Dz(1),Z(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(9),Nlpp) , (Ksystm(12),Nlns) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Dz(1),Z(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(9),Nlpp) , (Ksystm(12),Nlns) , (Ksystm(55),Iprec)
    DATA name/4HINVP , 4H3   / , opt2/4HUINV/
 !
 !     DEFINITION OF LOCAL PARAMETERS

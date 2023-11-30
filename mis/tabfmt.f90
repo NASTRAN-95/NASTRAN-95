@@ -37,7 +37,7 @@ SUBROUTINE tabfmt
 !            OPT2 IS ZERO BY DEFAULT.
 !                 SKIP FILE-NAME AND KEY CHECKING IF OPT2 IS NON-ZERO.
 !
-   EQUIVALENCE (Rx(1),X(1),Ix(1))
+   !>>>>EQUIVALENCE (Rx(1),X(1),Ix(1))
    DATA none/4H (NO , 4HNE) /
    DATA subnam/4HTABF , 4HMT  /
    DATA f/101/

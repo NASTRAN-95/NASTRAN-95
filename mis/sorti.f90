@@ -32,7 +32,7 @@ SUBROUTINE sorti(Inpfl,Outfl,Nwds,Keywrd,L,Nx)
 !     THIS MODIFIED VERSION ALSO SORTS TABLE OF ANY LENGTH (PREVIOUSLY N
 !     OF WORDS PER ENTRY, NWDS, WAS LIMITED TO 20)
 !
-   EQUIVALENCE (Nfile(1),Scrb) , (Nfile(2),Scrc) , (Nfile(3),Scra)
+   !>>>>EQUIVALENCE (Nfile(1),Scrb) , (Nfile(2),Scrc) , (Nfile(3),Scra)
    DATA subr/4HSORT , 4HI   /
 !
    key2 = 1

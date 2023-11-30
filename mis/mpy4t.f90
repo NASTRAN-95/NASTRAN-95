@@ -39,7 +39,7 @@ SUBROUTINE mpy4t(Iz,Z,Dz)
    DOUBLE PRECISION dsumi , dsumr , dzero
    INTEGER init , ipoint , j , ja , jb , je , kb , l , last , nam(2) , nbr , nbrstr
    REAL sumi , sumr
-   EQUIVALENCE (dsumr,sumr) , (dsumi,sumi)
+   !>>>>EQUIVALENCE (dsumr,sumr) , (dsumi,sumi)
    DATA nam/4HMPY4 , 1HT/ , dzero/0.0D+0/
 !
 !*****

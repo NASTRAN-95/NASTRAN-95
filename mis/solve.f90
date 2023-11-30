@@ -39,11 +39,11 @@ SUBROUTINE solve
 !     ITYPE   =  DESIRED TYPE OF THE OUTPUT MATRIX X
 !
 !
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Zzz(1),Z(1))
-   EQUIVALENCE (Zzzz(1),Z(1))
-   EQUIVALENCE (Zzzzz(1),Z(1))
-   EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzzz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzzzz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
    DATA a , b , x/101 , 102 , 201/ , name/4HSOLV , 4HE   /
    DATA iscr1 , iscr2 , iscr3 , iscr4 , iscr5/301 , 302 , 303 , 304 , 305/
    DATA dosi/4HSING , 4HDOUB , 4HMLTP/ , refus/2*3H    , 3HREF/

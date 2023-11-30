@@ -22,7 +22,7 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !RLBNB SPR94003 9/94
 !RLBNE
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
 !
    DATA name/4HTRD1 , 4HE   /
    DATA epsi/1.0E-8/

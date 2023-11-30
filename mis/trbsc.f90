@@ -62,8 +62,8 @@ SUBROUTINE trbsc(Iopt,Ti)
 !     ECPT(24) = Z3                                  Z3        REAL
 !     ECPT(25) = ELEMENT TEMPERATURE                 ELTEMP    REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (G(1),A(79)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(88)) , (S(1),A(55)) , (Tite(1),A(127)) ,          &
-    & (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (G(1),A(79)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(88)) , (S(1),A(55)) , (Tite(1),A(127)) ,          &
+!>>>>    & (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73))
 !
    IF ( Iopt<=0 ) THEN
       Eltemp = Ecpt(25)

@@ -20,7 +20,7 @@ SUBROUTINE tranem(Mcsid,Ngrid,R,Icomp,U,Rc)
 !*****
 !
 !
-   EQUIVALENCE (rcent(1),ecpt(1))
+   !>>>>EQUIVALENCE (rcent(1),ecpt(1))
 !
    DATA subnam/4HTRAN , 2HEM/
 !

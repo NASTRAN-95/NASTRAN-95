@@ -27,7 +27,7 @@ SUBROUTINE cfer3d(V1,V1l,V2,V2l,V3,V3l,V4,V4l,V5,V5l,Zb,Zc)
 !     CFER3D IS A DOUBLE PRECISION ROUTINE (CALLED BY CFEER3) WHICH
 !     PERFORMS THE TRIDIAGONAL REDUCTION FOR THE COMPLEX FEER METHOD
 !
-   EQUIVALENCE (a(1),d(3)) , (Ksystm(2),Nout) , (d(1),s(1))
+   !>>>>EQUIVALENCE (a(1),d(3)) , (Ksystm(2),Nout) , (d(1),s(1))
    DATA zero/0.D0/
    DATA name/4HCFER , 4H3D  /
 !

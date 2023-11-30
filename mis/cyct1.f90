@@ -26,7 +26,7 @@ SUBROUTINE cyct1
 !     CYCT1   VIN/VOUT,GCYC/V,Y,CTYPE/V,Y,CDIR/V,Y,N/V,Y,KMAX/
 !             V,Y,NLOAD/V,N,NOGO $
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(55),Iprec) , (Iz(1),Rz(1),Dz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(55),Iprec) , (Iz(1),Rz(1),Dz(1))
    DATA subr/4HCYCT , 4H1   / , hback/4HBACK/
    DATA vin/101/ , vout , gcyc/201 , 202/ , scrt/301/
    DATA hrot , hdrl , hdsa/4HROT  , 4HDRL  , 4HDSA /

@@ -96,8 +96,8 @@ SUBROUTINE psbar
 !
 !
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Ecpt(71),D(1)) , (Esub0,Plaans) , (sa(37),sb(1)) , (Msten,Smten) ,      &
-    & (Mscom,Smcom)
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1)) , (Ecpt(71),D(1)) , (Esub0,Plaans) , (sa(37),sb(1)) , (Msten,Smten) ,      &
+!>>>>    & (Mscom,Smcom)
 !
 !-----------------------------------------------------------------------
 !

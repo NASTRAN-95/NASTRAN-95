@@ -70,8 +70,8 @@ SUBROUTINE t3pl4s
 !     VIA BI-LINEAR INTERPOLATION
 !
 !
-   EQUIVALENCE (Slt(1),Islt(1)) , (Est(1),Elid) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(12),Elth) ,                             &
-    & (Est(27),Bgpdt(1,1),Igpdt(1,1)) , (Slt(2),Ipdata(1),Rpdata(1))
+   !>>>>EQUIVALENCE (Slt(1),Islt(1)) , (Est(1),Elid) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(12),Elth) ,                             &
+!>>>>    & (Est(27),Bgpdt(1,1),Igpdt(1,1)) , (Slt(2),Ipdata(1),Rpdata(1))
 !
 !
 !     INITIALIZE

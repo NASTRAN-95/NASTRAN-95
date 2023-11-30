@@ -10,7 +10,7 @@ SUBROUTINE pload
       & v2 , v3 , vect(3) , vect1(3) , vect2(3) , vect3(3)
    INTEGER gridp(5) , i , igpco(4,4) , in , iord(4) , j , l , n1 , name(2) , pont(4)
 !
-   EQUIVALENCE (pmag,gridp(1)) , (igpco(2,1),gpco1(1)) , (igpco(2,2),gpco2(1)) , (igpco(2,3),gpco3(1)) , (igpco(2,4),gpco4(1))
+   !>>>>EQUIVALENCE (pmag,gridp(1)) , (igpco(2,1),gpco1(1)) , (igpco(2,2),gpco2(1)) , (igpco(2,3),gpco3(1)) , (igpco(2,4),gpco4(1))
    DATA name/4HPLOA , 4HD   / , pi/3.141592654/
 !
 !

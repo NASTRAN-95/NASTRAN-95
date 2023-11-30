@@ -114,9 +114,9 @@ SUBROUTINE stri31
 !         WORD 23-25         GRID COORDS   IN BASIC COORD. SYSTEM
 !
 !
-   EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(23),Int) ,            &
-    & (Est(26),Zoff1) , (Est(39),Tempel) , (Est(27),Bgpdt(1,1),Igpdt(1,1))
-   EQUIVALENCE (Nphi(1),Elid) , (Nphi(27),Drkce(1)) , (necpt(1),ecpt(1)) , (Ielout(1),Relout(1)) , (Htcp,Kheat(4))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(23),Int) ,            &
+!>>>>    & (Est(26),Zoff1) , (Est(39),Tempel) , (Est(27),Bgpdt(1,1),Igpdt(1,1))
+   !>>>>EQUIVALENCE (Nphi(1),Elid) , (Nphi(27),Drkce(1)) , (necpt(1),ecpt(1)) , (Ielout(1),Relout(1)) , (Htcp,Kheat(4))
    DATA hunmeg , istart/100000000 , 93/ , eps/1.0E-17/
    DATA name/4HTRIA , 4H3   /
 !

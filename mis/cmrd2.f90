@@ -106,7 +106,7 @@ SUBROUTINE cmrd2
 !              MODLEN - LENGTH OF MODE USE ARRAY
 !              MODPTS - NUMBER OF MODAL POINTS
 !
-   EQUIVALENCE (Casecc,Infile(1)) , (Phissl,Infile(4)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Casecc,Infile(1)) , (Phissl,Infile(4)) , (Rz(1),Z(1))
    DATA nmonic/4HNAMA , 4HNAMB , 4HSYMF , 4HRANG , 4HNMAX , 4HOUTP , 4HOLDM , 4HRSAV/
    DATA kaa/107/ , iblank , yes/4H     , 4HYES /
    DATA modnam/4HCMRD , 4H2   /

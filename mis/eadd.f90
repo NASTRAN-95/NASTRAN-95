@@ -13,8 +13,8 @@ SUBROUTINE eadd(P,Prec)
    INTEGER i , kprec
    INTEGER korsz
 !
-   EQUIVALENCE (Mcbs(1),Ia(1)) , (Mcbs(8),Ialp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ib(1)) , (Mcbs(20),Ibeta) , (Mcbs(21),Beta(1)) ,   &
-    & (Mcbs(61),Ic(1))
+   !>>>>EQUIVALENCE (Mcbs(1),Ia(1)) , (Mcbs(8),Ialp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ib(1)) , (Mcbs(20),Ibeta) , (Mcbs(21),Beta(1)) ,   &
+!>>>>    & (Mcbs(61),Ic(1))
 !
    Nz = (korsz(Core)/2)*2 - Lc
    DO i = 1 , 7

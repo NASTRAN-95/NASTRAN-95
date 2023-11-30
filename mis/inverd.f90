@@ -24,7 +24,7 @@ SUBROUTINE inverd(Ndim,A,N,B,M,Determ,Ising,Index)
 !     SOLUTION VECTORS RETURN IN B
 !     INDEX IS WORKING STORAGE (N,3)
 !
-   EQUIVALENCE (irow,jrow) , (icolum,jcolum) , (amax,t,swap)
+   !>>>>EQUIVALENCE (irow,jrow) , (icolum,jcolum) , (amax,t,swap)
    DATA epsi/1.0D-36/
 !
 !     INITIALIZE

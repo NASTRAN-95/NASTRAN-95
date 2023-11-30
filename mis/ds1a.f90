@@ -27,8 +27,8 @@ SUBROUTINE ds1a
 !     THIS ROUTINE GENERATES THE MATRIX KGGD WHICH IS THE SECOND ORDER
 !     APPROXIMATION TO THE STIFFNESS MATRIX KGG.
 !
-   EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(2),Ioutpt) , (Ksystm(46),Ndum(1)) , (Ksystm(55),Iprec)
-   EQUIVALENCE (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(2),Ioutpt) , (Ksystm(46),Ndum(1)) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1))
    DATA name/4HDS1A , 4H    / , bar , beam/4HBAR  , 4HBEAM/
 !
 !     DEFINE VARIABLES IN COMMON /DS1AAA/

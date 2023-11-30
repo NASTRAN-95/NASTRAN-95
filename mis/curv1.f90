@@ -102,8 +102,8 @@ SUBROUTINE curv1
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1))
-   EQUIVALENCE (Noeor,Rdrew) , (Eor,Cls)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1))
+   !>>>>EQUIVALENCE (Noeor,Rdrew) , (Eor,Cls)
 !
    DATA mat/103 , 1 , 12 , 203 , 2 , 17/
 !

@@ -87,10 +87,10 @@ SUBROUTINE ktrpls
 !     ECPT(47) = COORDINATE Z1                            REAL
 !     ECPT(48) = ELEMENT TEMPERATURE                      REAL
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (ksub(1,1),ksup(1)) , (ksubt(1,1),ksupt(1)) , (c1,cc(1)) , (c2,cc(2)) , (c3,cc(3)) , (c4,cc(4)) &
-    & , (c5,cc(5)) , (c6,cc(6)) , (c7,cc(7)) , (c8,cc(8)) , (c9,cc(9)) , (c10,cc(10)) , (thk1,tmem1) , (thk2,tmem3) , (thk3,tmem5) ,&
-    & (A,Dista) , (B,Distb) , (C,Distc) , (Iest(1),Est(1)) , (cmt(1),ktr3(1),mtr3(1),qqq(1,1)) , (Cm1(1,1),Ts6(1)) ,                &
-    & (Cm1(5,3),Ts1(1)) , (Cm1(11,6),Ts6s(1)) , (Cm1(15,8),Ts2(1)) , (Cm1(3,12),Ts7(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (ksub(1,1),ksup(1)) , (ksubt(1,1),ksupt(1)) , (c1,cc(1)) , (c2,cc(2)) , (c3,cc(3)) , (c4,cc(4)) &
+!>>>>    & , (c5,cc(5)) , (c6,cc(6)) , (c7,cc(7)) , (c8,cc(8)) , (c9,cc(9)) , (c10,cc(10)) , (thk1,tmem1) , (thk2,tmem3) , (thk3,tmem5) ,&
+!>>>>    & (A,Dista) , (B,Distb) , (C,Distc) , (Iest(1),Est(1)) , (cmt(1),ktr3(1),mtr3(1),qqq(1,1)) , (Cm1(1,1),Ts6(1)) ,                &
+!>>>>    & (Cm1(5,3),Ts1(1)) , (Cm1(11,6),Ts6s(1)) , (Cm1(15,8),Ts2(1)) , (Cm1(3,12),Ts7(1))
    DATA xpower/0 , 1 , 0 , 2 , 1 , 0 , 3 , 2 , 1 , 0 , 4 , 3 , 2 , 1 , 0 , 5 , 3 , 2 , 1 , 0/
    DATA ypower/0 , 0 , 1 , 0 , 1 , 2 , 0 , 1 , 2 , 3 , 0 , 1 , 2 , 3 , 4 , 0 , 2 , 3 , 4 , 5/
    DATA xthk/0 , 1 , 0 , 2 , 1 , 0 , 3 , 2 , 1 , 0/

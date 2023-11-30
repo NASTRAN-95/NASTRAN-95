@@ -15,7 +15,7 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
 !
 !     IFP1E WRITES CASECC OUT FROM CASE
 !
-   EQUIVALENCE (Corex(1),Corey(1),Case(1,1)) , (Core(1),Corey(401))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1),Case(1,1)) , (Core(1),Corey(401))
    DATA none/4HNONE/
 !
 !     INITIALIZE

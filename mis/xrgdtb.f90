@@ -55,7 +55,7 @@ SUBROUTINE xrgdtb(Lu)
 !
 !     ERRORS  MESSAGES 8028,8034,8029,8036 MAY BE ISSUED
 !
-   EQUIVALENCE (Ksystm(2),Optape) , (Ksystm(39),Nbpc) , (Ksystm(40),Nbpw) , (Ksystm(41),Ncpw)
+   !>>>>EQUIVALENCE (Ksystm(2),Optape) , (Ksystm(39),Nbpc) , (Ksystm(40),Nbpw) , (Ksystm(41),Ncpw)
    DATA blank/1H / , dollar/1H$/ , astrsk/1H*/
    DATA coment/4H$$$$/
    DO

@@ -30,7 +30,7 @@ SUBROUTINE trht1c(Ngroup,Udvt,Pd,Rdd,Iloop)
 !
 !     THIS ROUTINE  STEPS INTEGRATION PROCEDURE
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Ktrdxx(28),Iopen) , (Z(1),Iz(1),Dz(1)) , (Ill1(3),Mrow) , (Ksystm(2),Nprt)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Ktrdxx(28),Iopen) , (Z(1),Iz(1),Dz(1)) , (Ill1(3),Mrow) , (Ksystm(2),Nprt)
    DATA name/4HTRHT , 4H1C  /
 !
 !     SYMBOL TABLE

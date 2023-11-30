@@ -22,7 +22,7 @@ SUBROUTINE com12(*,Ix,X,Dx,Itermm)
 !*******
 !      PROGRAM TO SOLVE A MATRIX OF ORDER ONE OR TWO FOR CDCOMP
 !*******
-   EQUIVALENCE (Ifila(2),Ncol) , (Ifill(5),Typel) , (Sr2fil,Dum(2))
+   !>>>>EQUIVALENCE (Ifila(2),Ncol) , (Ifill(5),Typel) , (Sr2fil,Dum(2))
    DATA sub(1) , sub(2)/4HCOM1 , 4H2   /
 !
    ibuf1 = Nx - Sysbuf

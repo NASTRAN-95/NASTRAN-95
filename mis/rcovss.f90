@@ -22,7 +22,7 @@ SUBROUTINE rcovss
 !     THIS ROUTINE GENERATES THE STATIC SOLUTION ITEM FOR RIGID FORMATS
 !     1 AND 2
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (lod(1),clod(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (lod(1),clod(1))
    DATA name/4HRCOV , 4HSS  /
    DATA soln , eqss , lods/4HSOLN , 4HEQSS , 4HLODS/
    DATA casess , geom4 , scr1/101 , 102 , 301/

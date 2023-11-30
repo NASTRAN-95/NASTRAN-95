@@ -15,7 +15,7 @@ SUBROUTINE pla41
 !     ECPTNL DATA BLOCK AND CREATES A SCRATCH DATA BLOCK, ECPTS, OF
 !     THIS MERGED INFORMATION.  ECPTS IS PROCESSED BY SUBROUTINE PLA41.
 !
-   EQUIVALENCE (xecpt(1),iecpt(1))
+   !>>>>EQUIVALENCE (xecpt(1),iecpt(1))
    DATA ugv , ecptnl , ecpts/106 , 103 , 301/
    DATA name/4HPLA4 , 4H1   /
    DATA eor , neor , clsrw/1 , 0 , 1/

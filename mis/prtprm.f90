@@ -19,7 +19,7 @@ SUBROUTINE prtprm
    INTEGER lshift , numtyp , rshift
    REAL wal(32)
    EXTERNAL lshift , rshift
-   EQUIVALENCE (V(2),L) , (dal(1),val(1),wal(1))
+   !>>>>EQUIVALENCE (V(2),L) , (dal(1),val(1),wal(1))
    DATA xxxx/4HXXXX/ , oo/27/
    DATA kt/5 , 6 , 4 , 5 , 6 , 5 , 3 , 4 , 3 , 5 , 7 , 6 , 6 , 6 , 6 , 5 , 0 , 0 , 0 , 4 , 3 , 2 , 7 , 5 , 4 , 1/
    DATA k1/32*4H    /

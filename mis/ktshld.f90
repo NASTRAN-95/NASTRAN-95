@@ -109,11 +109,11 @@ SUBROUTINE ktshld
 !
 !     LOCAL DOUBLE PRECISION VARIABLES
 !
-   EQUIVALENCE (C1,Cc(1)) , (C2,Cc(2)) , (C3,Cc(3)) , (C4,Cc(4)) , (C5,Cc(5)) , (C6,Cc(6)) , (C7,Cc(7)) , (C8,Cc(8)) , (C9,Cc(9)) , &
-    & (C10,Cc(10))
-   EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cmt(1),ctm(1,1)) , (Iest(1),Est(1))
-   EQUIVALENCE (cmt(1),kshl(1),mshl(1),qqq(1,1)) , (Ksub(1,1),Ksup(1)) , (Ksubt(1,1),Ksupt(1)) , (qks(1),cmt(1025))
-   EQUIVALENCE (thk1,tbend1) , (thk2,tbend3) , (thk3,tbend5) , (cm1(1,1),cms(1)) , (Ksystm(2),Ioutpt) , (Ind(1,1),Index(1,1))
+   !>>>>EQUIVALENCE (C1,Cc(1)) , (C2,Cc(2)) , (C3,Cc(3)) , (C4,Cc(4)) , (C5,Cc(5)) , (C6,Cc(6)) , (C7,Cc(7)) , (C8,Cc(8)) , (C9,Cc(9)) , &
+!>>>>    & (C10,Cc(10))
+   !>>>>EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cmt(1),ctm(1,1)) , (Iest(1),Est(1))
+   !>>>>EQUIVALENCE (cmt(1),kshl(1),mshl(1),qqq(1,1)) , (Ksub(1,1),Ksup(1)) , (Ksubt(1,1),Ksupt(1)) , (qks(1),cmt(1025))
+   !>>>>EQUIVALENCE (thk1,tbend1) , (thk2,tbend3) , (thk3,tbend5) , (cm1(1,1),cms(1)) , (Ksystm(2),Ioutpt) , (Ind(1,1),Index(1,1))
    DATA xu/0 , 1 , 0 , 2 , 1 , 0 , 26*0/ , yu/0 , 0 , 1 , 0 , 1 , 2 , 26*0/ , xv/6*0 , 0 , 1 , 0 , 2 , 1 , 0 , 20*0/ , yv/6*0 , 0 , &
       & 0 , 1 , 0 , 1 , 2 , 20*0/ , xw/12*0 , 0 , 1 , 0 , 2 , 1 , 0 , 3 , 2 , 1 , 0 , 4 , 3 , 2 , 1 , 0 , 5 , 3 , 2 , 1 , 0/ ,      &
       & yw/12*0 , 0 , 0 , 1 , 0 , 1 , 2 , 0 , 1 , 2 , 3 , 0 , 1 , 2 , 3 , 4 , 0 , 2 , 3 , 4 , 5/

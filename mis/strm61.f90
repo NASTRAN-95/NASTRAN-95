@@ -31,8 +31,8 @@ SUBROUTINE strm61
 !
 !
 !
-   EQUIVALENCE (Nph1ou(1),Ph1out(1)) , (Iest(1),Est(1))
-   EQUIVALENCE (tm(1,1),tmm(1))
+   !>>>>EQUIVALENCE (Nph1ou(1),Ph1out(1)) , (Iest(1),Est(1))
+   !>>>>EQUIVALENCE (tm(1,1),tmm(1))
 !
    DATA name/4HSTRM , 4H61  / , blank/4H    /
    DATA degra/0.0174532925/

@@ -21,7 +21,7 @@ SUBROUTINE dlamby(Input,Matout,Skj)
 !
 !     DRIVER FOR DOUBLET LATTICE WITH BODIES
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA name/4HDLAM , 4HBY  /
    DATA nhaero , nhpoin , nhcore/4HAERO , 4HPOIN , 4HCORE/
 !

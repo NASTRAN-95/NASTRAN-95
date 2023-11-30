@@ -56,8 +56,8 @@ SUBROUTINE gpfdr
 !     10**-2 OR 10**-3 RANGE, SINGLE PRECISION COMPUTATION GIVES BAD
 !     RESULT.
 !
-   EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1)) , (out(1),rout(1)) , (name1,names(1)) , (name2,names(2)) , (idrec(1),ridrec(1))&
-    & , (diii,iii(1)) , (isum(1),rsum(1)) , (kvec(1),fvec(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1)) , (out(1),rout(1)) , (name1,names(1)) , (name2,names(2)) , (idrec(1),ridrec(1))&
+!>>>>    & , (diii,iii(1)) , (isum(1),rsum(1)) , (kvec(1),fvec(1))
    DATA enoeor , eor/0 , 1/ , lbuf/100/ , subr/4HGPFD , 4HR   /
    DATA casecc , ug , kmat , kdict , ect , eqexin , gpect , pg , qg/101 , 102 , 103 , 104 , 105 , 106 , 107 , 108 , 109/
    DATA onrgy1 , ogpf1 , scrt1 , scrt2 , scrt3 , scrt4 , lama/201 , 202 , 301 , 302 , 303 , 304 , 108/

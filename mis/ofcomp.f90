@@ -40,10 +40,10 @@ SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
 !     INTEGER         REIG,TRANS,BK1,ELEC
 !     REAL            HARMON,PANGLE,BUFF(1)
 !     COMMON /ZZOFPX/ L1,L2,L3,L4,L5,ID(50),HARMON,PANGLE,BUFF(1)
-   EQUIVALENCE (ist(1),rst(1)) , (Id(1),rid(1)) , (buf(1),bufr(1)) , (ibuf(1),rbuf(1)) , (ifail(1),failmx) , (ifail(2),maxflg) ,    &
-    & (Ksystm(2),Nout) , (Ksystm(9),Maxlns) , (Ksystm(12),Line) , (Ksystm(33),Iflg) , (Ksystm(56),Itherm) , (Ksystm(69),Isubs) ,    &
-    & (Ksystm(91),Punch) , (Head(1),Ititle(1)) , (Head(65),Label(1)) , (Head(33),Isubtl(1)) , (L1,Of(1),Core(1)) , (L2,Of(2)) ,     &
-    & (L3,Of(3)) , (Id(1),Of(6)) , (L4,Of(4)) , (L5,Of(5))
+   !>>>>EQUIVALENCE (ist(1),rst(1)) , (Id(1),rid(1)) , (buf(1),bufr(1)) , (ibuf(1),rbuf(1)) , (ifail(1),failmx) , (ifail(2),maxflg) ,    &
+!>>>>    & (Ksystm(2),Nout) , (Ksystm(9),Maxlns) , (Ksystm(12),Line) , (Ksystm(33),Iflg) , (Ksystm(56),Itherm) , (Ksystm(69),Isubs) ,    &
+!>>>>    & (Ksystm(91),Punch) , (Head(1),Ititle(1)) , (Head(65),Label(1)) , (Head(33),Isubtl(1)) , (L1,Of(1),Core(1)) , (L2,Of(2)) ,     &
+!>>>>    & (L3,Of(3)) , (Id(1),Of(6)) , (L4,Of(4)) , (L5,Of(5))
 !     EQUIVALENCE     (HARMON    ,OF (56)), (PANGLE   ,OF   (57)),
 !    1                (BUFF(1)   ,OF (58))
 !

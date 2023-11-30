@@ -54,12 +54,12 @@ SUBROUTINE ktrirg
 !
 !
 !
-   EQUIVALENCE (Constd(2),Twopi)
-   EQUIVALENCE (Constd(4),Degrad)
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
-   EQUIVALENCE (R(1),R1) , (R(2),R2) , (R(3),R3) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3)
-   EQUIVALENCE (Aki(1),Gambq(1))
-   EQUIVALENCE (Akt(1),Teo(1))
+   !>>>>EQUIVALENCE (Constd(2),Twopi)
+   !>>>>EQUIVALENCE (Constd(4),Degrad)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (R(1),R1) , (R(2),R2) , (R(3),R3) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3)
+   !>>>>EQUIVALENCE (Aki(1),Gambq(1))
+   !>>>>EQUIVALENCE (Akt(1),Teo(1))
 !
 ! ----------------------------------------------------------------------
 !

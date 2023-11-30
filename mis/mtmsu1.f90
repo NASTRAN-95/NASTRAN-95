@@ -14,7 +14,7 @@ SUBROUTINE mtmsu1(Y,X,Buf)
 !     M TIMS U  FORMS THE PRODUCT  X = M*Y
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR(1)
-   EQUIVALENCE (A(1),Da)
+   !>>>>EQUIVALENCE (A(1),Da)
 !
 !
    ncol = Filek(2)

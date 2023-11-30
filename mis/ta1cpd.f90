@@ -48,8 +48,8 @@ SUBROUTINE ta1cpd
 !       3. GENERATE EQUIVALENT PSHELL PROPERTY ENTRIES AND WRITE TO
 !          FILE EPTX.
 !
-   EQUIVALENCE (Z(1),Rz(1)) , (ipshel(1),rpshel(1)) , (imembr(1),gmembr(1)) , (ibendg(1),gbendg(1)) , (imembd(1),gmembd(1)) ,       &
-    & (itrshr(1),gtrshr(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1)) , (ipshel(1),rpshel(1)) , (imembr(1),gmembr(1)) , (ibendg(1),gbendg(1)) , (imembd(1),gmembd(1)) ,       &
+!>>>>    & (itrshr(1),gtrshr(1))
 !     DATA    MPT   /  107/
 !     DATA    MPTX  /  206/
 !     DATA    PCOMPS/  207/

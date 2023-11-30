@@ -26,7 +26,7 @@ SUBROUTINE cmsfil
 !     APPLIES ALL TRANSFORMATIONS
 !
 !WKBI ALPHA-OSF 9/94
-   EQUIVALENCE (ecpt1,ecpt(1)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (ecpt1,ecpt(1)) , (Rz(1),Z(1))
    DATA aaa/4H CMS , 4HFIL /
    DATA nhbgss , nhcstm , nheqss/4HBGSS , 4HCSTM , 4HEQSS/
 !

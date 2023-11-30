@@ -28,7 +28,7 @@ SUBROUTINE gipsst
 !     CHANGE IN EQUIV FOR SIZE OF SCARD OR CCARD
 !     NEED TO CHANGE PENDC
 !
-   EQUIVALENCE (Izx(1),Iz(1),Z(1),Scard(1),Srard(1)) , (Iz(11),Ccard(1)) , (Iz(27),Ngset) , (Iz(28),Nkset)
+   !>>>>EQUIVALENCE (Izx(1),Iz(1),Z(1),Scard(1),Srard(1)) , (Iz(11),Ccard(1)) , (Iz(27),Ngset) , (Iz(28),Nkset)
    DATA ns/4HGIPS , 4HST  /
    DATA tgs/18*0.0/
 !

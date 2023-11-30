@@ -48,8 +48,8 @@ SUBROUTINE gfsdir
 !
 !     SCRATCH FILE ASSIGNMENTS
 !
-   EQUIVALENCE (badd(1),rbadd(2)) , (dbadd(1),rbadd(3)) , (Rz(1),Z(1)) , (scr1,pvec,ident,kjjl) , (scr2,anybar,afy,awy) ,           &
-    & (scr3,amy,aaybar,awj,gjw,kjj) , (scr4,aoy,ajw,gyw) , (scr5,aay,kwwbar,ayw) , (scr6,ac) , (scr7,kc,mt) , (scr8,h) , (scr9,gia)
+   !>>>>EQUIVALENCE (badd(1),rbadd(2)) , (dbadd(1),rbadd(3)) , (Rz(1),Z(1)) , (scr1,pvec,ident,kjjl) , (scr2,anybar,afy,awy) ,           &
+!>>>>    & (scr3,amy,aaybar,awj,gjw,kjj) , (scr4,aoy,ajw,gyw) , (scr5,aay,kwwbar,ayw) , (scr6,ac) , (scr7,kc,mt) , (scr8,h) , (scr9,gia)
 !
 !     GINO FILE ASSIGNMENTS
 !

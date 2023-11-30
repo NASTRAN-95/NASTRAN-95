@@ -29,7 +29,7 @@ SUBROUTINE cfeer4
 !     CFEER4 OBTAINS THE EIGENVALUES AND EIGENVECTORS FROM THE
 !     REDUCED TRIDIAGONAL MATRIX FOR THE COMPLEX FEER METHOD
 !
-   EQUIVALENCE (Ksystm(2),Nout) , (Nrow,Mreduc) , (Ksystm(55),Iprec) , (d(1),s(1)) , (Z(1),Iz(1),Lz(1),Dz(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Nout) , (Nrow,Mreduc) , (Ksystm(55),Iprec) , (d(1),s(1)) , (Z(1),Iz(1),Lz(1),Dz(1))
    DATA name/4HCFEE , 4HR4  /
    DATA accept , reject/4H  AC , 4HCEPT , 4H -RE , 4HJECT/
 !

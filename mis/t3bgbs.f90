@@ -33,7 +33,7 @@ SUBROUTINE t3bgbs(Ng,Nb,Gmat,Bmat,Kmat)
 !           IN EACH TRIPLE MULTIPLY, THE RESULT IS ADDED TO KMAT.
 !
 !
-   EQUIVALENCE (g1(1,1),g2(1,1)) , (gbmat(1),gbmad(1))
+   !>>>>EQUIVALENCE (g1(1,1),g2(1,1)) , (gbmat(1),gbmad(1))
 !
 !
 !     SINGLE PRECISION

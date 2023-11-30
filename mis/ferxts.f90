@@ -54,7 +54,7 @@ SUBROUTINE ferxts(V1,V2,V3,V4,V5,Zb,Ifn)
 !     STORED IN S.P. WORD. SOME MACHINES, SUCH AS VAX, ARE VERY SLOW IN
 !     THIS SITUATION. MIXED MODE COMPUTATION AND RESULT IN D.P. IS OK.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
    DATA name/4HFERX , 4HTS   , 2*4HBEGN , 4HEND /
    DATA vdot , zero/4HV.   , 0.0D+0/
 !

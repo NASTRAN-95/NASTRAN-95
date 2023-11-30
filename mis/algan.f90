@@ -26,7 +26,7 @@ SUBROUTINE algan
    REAL yd , ydel , yint , ymn , yone , yones , yp(21,70) , yplot , ys(21,70) , yy1 , yy2 , yzero , yzeros , z , zinner , zouter ,  &
       & zq(21) , zs(21,70) , zspmxt , zzs(21)
 !
-   EQUIVALENCE (Title(1),Title2(1))
+   !>>>>EQUIVALENCE (Title(1),Title2(1))
 !
    pi = 4.0*atan(1.0)
    c1 = 180.0/pi

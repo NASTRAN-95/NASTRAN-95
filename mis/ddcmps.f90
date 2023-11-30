@@ -53,11 +53,11 @@ SUBROUTINE ddcmps
 !     POWER    =  SCALE FACTOR FOR DET
 !     SUBNAM   =  SUBSTRUCTURE NAME                       (SDCMPS)
 !
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Zzz(1),Z(1))
-   EQUIVALENCE (Zzzz(1),Z(1))
-   EQUIVALENCE (Zm(1),Z(1))
-   EQUIVALENCE (Ksystm(1),Nbufsz) , (Ksystm(2),Outpt) , (Knames(12),Sqr) , (Knames(13),Rect) , (Knames(17),Sym)
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzzz(1),Z(1))
+   !>>>>EQUIVALENCE (Zm(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Nbufsz) , (Ksystm(2),Outpt) , (Knames(12),Sqr) , (Knames(13),Rect) , (Knames(17),Sym)
    DATA luset , lgpl , lsil , kaa , lll , ull , lscr1 , lscr2 , lscr3/101 , 102 , 103 , 104 , 201 , 202 , 301 , 302 , 303/
    DATA lscr4 , lscr5 , lscr6/304 , 305 , 306/
    DATA name/4HDDCM , 4HPS  /

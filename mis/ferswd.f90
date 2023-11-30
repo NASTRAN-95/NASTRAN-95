@@ -17,8 +17,8 @@ SUBROUTINE ferswd(V1,V3,Vb)
 !  to read the matrix data from memory and after this data is exhausted
 !  then to read the remaining data from the file.
 !
-   EQUIVALENCE (Ksystm(02),Io)
-   EQUIVALENCE (Dcore(1),Icore(1),Xl(1))
+   !>>>>EQUIVALENCE (Ksystm(02),Io)
+   !>>>>EQUIVALENCE (Dcore(1),Icore(1),Xl(1))
    DATA zero/0.0D0/
 !
    nrow = Mcblt(2)

@@ -30,9 +30,9 @@ SUBROUTINE rcovr3
 !
 !     JANUARY 1974
 !
-   EQUIVALENCE (pg,ivec(1)) , (pgs,ovec(1)) , (ps,ivec(2)) , (pss,ovec(2)) , (po,ivec(3)) , (pos,ovec(3)) , (ys,ivec(4)) ,          &
-    & (yss,ovec(4)) , (soln,initm(1)) , (lama,outdb(1)) , (uvec,initm(2)) , (uas,outdb(2)) , (qvec,initm(3)) , (qas,outdb(3)) ,     &
-    & (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (pg,ivec(1)) , (pgs,ovec(1)) , (ps,ivec(2)) , (pss,ovec(2)) , (po,ivec(3)) , (pos,ovec(3)) , (ys,ivec(4)) ,          &
+!>>>>    & (yss,ovec(4)) , (soln,initm(1)) , (lama,outdb(1)) , (uvec,initm(2)) , (uas,outdb(2)) , (qvec,initm(3)) , (qas,outdb(3)) ,     &
+!>>>>    & (Z(1),Iz(1))
    DATA pg , ps , po , ys , uas , qas , pgs , pss , pos , yss , lama/101 , 102 , 103 , 104 , 201 , 202 , 203 , 204 , 205 , 206 ,    &
       & 207/
    DATA scr1 , scr2 , scr3/301 , 302 , 303/

@@ -29,10 +29,10 @@ SUBROUTINE mpy3p(Z,Iz,Dz)
 !
 !
 !
-   EQUIVALENCE (fact,dfact)
+   !>>>>EQUIVALENCE (fact,dfact)
 ! OPEN CORE POINTERS
-   EQUIVALENCE (Ipoint,Zpntrs(3)) , (Iacols,Zpntrs(5)) , (Itrans,Zpntrs(7)) , (Ic,Zpntrs(9)) , (Ibcols,Zpntrs(11)) ,                &
-    & (Iakj,Zpntrs(21))
+   !>>>>EQUIVALENCE (Ipoint,Zpntrs(3)) , (Iacols,Zpntrs(5)) , (Itrans,Zpntrs(7)) , (Ic,Zpntrs(9)) , (Ibcols,Zpntrs(11)) ,                &
+!>>>>    & (Iakj,Zpntrs(21))
 !*****
 !    LOOP FOR ACCUMULATING SUMS.
 !*****

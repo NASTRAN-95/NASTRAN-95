@@ -36,7 +36,7 @@ SUBROUTINE gfscom(Awy,Nuy,Kc,Ident,Ac,Scr)
 !     PACK - UNPACK COMMON BLOCKS
 !
 !
-   EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (Val,A(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Dz(1)) , (Val,A(1))
 !
    DATA name/4HGFSC , 4HOM  /
 !

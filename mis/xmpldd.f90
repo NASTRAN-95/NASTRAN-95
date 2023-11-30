@@ -36,12 +36,12 @@ SUBROUTINE xmpldd
 !                        LOAD /XGPI2/
 !                   MODULE PROPTERIES LIST (MPL)
 !
-   EQUIVALENCE (xx(1),x(1,1))
-   EQUIVALENCE (mpl(1),mpl01(1)) , (mpl(69),mpl02(1)) , (mpl(230),mpl03(1)) , (mpl(365),mpl04(1)) , (mpl(517),mpl05(1)) ,           &
-    & (mpl(655),mpl06(1)) , (mpl(817),mpl07(1)) , (mpl(1017),mpl08(1)) , (mpl(1154),mpl09(1)) , (mpl(1327),mpl10(1)) ,              &
-    & (mpl(1420),mpl11(1)) , (mpl(1536),mpl12(1)) , (mpl(1671),mpl13(1)) , (mpl(1821),mpl14(1)) , (mpl(1972),mpl15(1)) ,            &
-    & (mpl(2107),mpl16(1)) , (mpl(2160),mpl17(1)) , (mpl(2304),mpl18(1)) , (mpl(2473),mpl19(1)) , (mpl(2666),mpl20(1)) ,            &
-    & (mpl(2852),mpl21(1)) , (mpl(3048),mpl22(1))
+   !>>>>EQUIVALENCE (xx(1),x(1,1))
+   !>>>>EQUIVALENCE (mpl(1),mpl01(1)) , (mpl(69),mpl02(1)) , (mpl(230),mpl03(1)) , (mpl(365),mpl04(1)) , (mpl(517),mpl05(1)) ,           &
+!>>>>    & (mpl(655),mpl06(1)) , (mpl(817),mpl07(1)) , (mpl(1017),mpl08(1)) , (mpl(1154),mpl09(1)) , (mpl(1327),mpl10(1)) ,              &
+!>>>>    & (mpl(1420),mpl11(1)) , (mpl(1536),mpl12(1)) , (mpl(1671),mpl13(1)) , (mpl(1821),mpl14(1)) , (mpl(1972),mpl15(1)) ,            &
+!>>>>    & (mpl(2107),mpl16(1)) , (mpl(2160),mpl17(1)) , (mpl(2304),mpl18(1)) , (mpl(2473),mpl19(1)) , (mpl(2666),mpl20(1)) ,            &
+!>>>>    & (mpl(2852),mpl21(1)) , (mpl(3048),mpl22(1))
 !
    DATA lmplx/3166/
 !

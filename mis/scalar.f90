@@ -44,8 +44,8 @@ SUBROUTINE scalar
    LOGICAL noprt
    REAL sp(4)
    CHARACTER*10 type(4)
-   EQUIVALENCE (R2(1),Rdp) , (D4(1),Dplx(1)) , (ia(2),ncol) , (ia(3),nrow) , (ia(4),form) , (ia(5),prec) , (Da(1),A(1)) ,           &
-    & (dp(1),sp(1)) , (Vps(1),Ivps(1))
+   !>>>>EQUIVALENCE (R2(1),Rdp) , (D4(1),Dplx(1)) , (ia(2),ncol) , (ia(3),nrow) , (ia(4),form) , (ia(5),prec) , (Da(1),A(1)) ,           &
+   !>>>> & (dp(1),sp(1)) , (Vps(1),Ivps(1))
    DATA in1 , name/101 , 4HSCAL , 4HAR  / , first/12/
    DATA type/'S.P. REAL ' , 'D.P. REAL ' , 'S.P. CMPLX' , 'D.P. CMPLX'/
 !

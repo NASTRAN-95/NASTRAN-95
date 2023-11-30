@@ -27,8 +27,8 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
 !     DNX,DNY AT EACH GRID POINT -EVALUATED 8 TIMES
 !
 !
-   EQUIVALENCE (Ph1out(1),Nph1(1)) , (Ph1out(1),Id) , (Nsil(1),Ph1out(2)) , (Tref,Ph1out(10)) , (St(1),Ph1out(11)) ,                &
-    & (Ta(1),Ph1out(14)) , (G(1),Ph1out(63)) , (Ph1out(62),Id1) , (istres(1),stress(1)) , (Ldtemp,Eltemp) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Ph1out(1),Nph1(1)) , (Ph1out(1),Id) , (Nsil(1),Ph1out(2)) , (Tref,Ph1out(10)) , (St(1),Ph1out(11)) ,                &
+!>>>>    & (Ta(1),Ph1out(14)) , (G(1),Ph1out(63)) , (Ph1out(62),Id1) , (istres(1),stress(1)) , (Ldtemp,Eltemp) , (Z(1),Iz(1))
    DATA ex2d82/1.86603 , -.50000 , -.50000 , .13397 , -.50000 , .13397 , 1.86603 , -.50000 , .13397 , -.50000 , -.50000 , 1.86603 , &
       & -.50000 , 1.86603 , .13397 , -.50000 , .68301 , -.18301 , .68301 , -.18301 , -.18301 , -.18301 , .68301 , .68301 , -.18301 ,&
       & .68301 , -.18301 , .68301 , .68301 , .68301 , -.18301 , -.18301/

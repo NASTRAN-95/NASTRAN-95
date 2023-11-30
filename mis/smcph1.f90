@@ -44,11 +44,11 @@ SUBROUTINE smcph1(Zi,Zr,Zd)
 !            SPILL FILE
 !  NSPILL  = NUMBER OF COLUMNS WRITTEN TO THE SPILL FILE
 !
-   EQUIVALENCE (Ddr,Dsr) , (Ddc,Dsc)
-   EQUIVALENCE (Mindd,Minds) , (Xns,Xnd)
-   EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
-   EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
-   EQUIVALENCE (cname,name)
+   !>>>>EQUIVALENCE (Ddr,Dsr) , (Ddc,Dsc)
+   !>>>>EQUIVALENCE (Mindd,Minds) , (Xns,Xnd)
+   !>>>>EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
+   !>>>>EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
+   !>>>>EQUIVALENCE (cname,name)
    DATA ctype/'REAL SINGLE   ' , 'REAL DOUBLE   ' , 'COMPLEX SINGLE' , 'COMPLEX DOUBLE'/
 !
 !   open core is allocated as follows for phase1 of the decomposition

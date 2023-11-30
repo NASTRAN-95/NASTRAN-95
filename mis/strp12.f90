@@ -16,7 +16,7 @@ SUBROUTINE strp12(Ti)
 !
 !     PHASE II OF STRESS DATA RECOVERY
 !
-   EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(19)) , (Ldtemp,Ftemp) , (f1,n1)
+   !>>>>EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(19)) , (Ldtemp,Ftemp) , (f1,n1)
 !
 !     FIRST GET FORCE VECTOR FOR THE PLATE CONSIDERATION
 !

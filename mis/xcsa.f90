@@ -47,9 +47,9 @@ SUBROUTINE xcsa
          & solnm2(7,10) , solnm3(7,11) , solnms(7,31) , solnmx(6) , solrec(6) , solu(12) , soluf , test , timew , timex , xalt(2)
    LOGICAL tapbit
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Ibufsz,Xsys(1)) , (mask,maskhi) , (ectt(16),bgnal(1)) , (ectt(25),endal(1)) , (ectt(13),cend(1)) , (ectt(34),id) ,  &
-    & (solrec(1),apprec) , (solrec(2),rstrt) , (solrec(3),alter(1)) , (solrec(5),solu(1)) , (Gbuff(1),Dmapbf(1),Iptdic(1)) ,        &
-    & (solnms(1,1),solnm1(1,1)) , (solnms(1,11),solnm2(1,1)) , (solnms(1,21),solnm3(1,1))
+   !>>>>EQUIVALENCE (Ibufsz,Xsys(1)) , (mask,maskhi) , (ectt(16),bgnal(1)) , (ectt(25),endal(1)) , (ectt(13),cend(1)) , (ectt(34),id) ,  &
+   !>>>> & (solrec(1),apprec) , (solrec(2),rstrt) , (solrec(3),alter(1)) , (solrec(5),solu(1)) , (Gbuff(1),Dmapbf(1),Iptdic(1)) ,        &
+   !>>>> & (solnms(1,1),solnm1(1,1)) , (solnms(1,11),solnm2(1,1)) , (solnms(1,21),solnm3(1,1))
    DATA apptyp/4HDMAP , 4HDISP , 4HHEAT , 4HAERO/
    DATA blank , ixdmap , nsubs , renter , dolsin/1H  , 4HXDMA , 4HSUBS , 4HREEN , 4H$   /
    DATA iyes , no , idisk , ptape , optape , dmend/4HYES  , 4HNO   , 4HDISK , 4HNPTP , 4HOPTP , 4HEND /

@@ -17,7 +17,7 @@ SUBROUTINE bug(Name,Loc,Buf,Nwds)
 !     (THIS ROUTINE REPLACES THE OLD ONE IN NASTRAN)
 !     WRITTEN BY G.CHAN/SPERRY     MARCH 1986
 !
-   EQUIVALENCE (a(1),b(1))
+   !>>>>EQUIVALENCE (a(1),b(1))
    DATA line , nwpl , limit/0 , 14 , 5000/
    DATA zero , blank , xloc , err/' 00 ' , '    ' , 'LOC' , '(ERR)'/
 !

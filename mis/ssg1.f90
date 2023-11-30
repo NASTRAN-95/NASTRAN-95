@@ -17,7 +17,7 @@ SUBROUTINE ssg1
          & pg(7) , subnam(2)
    INTEGER korsz
 !
-   EQUIVALENCE (Core(1),Icore(1),Iary(1),Ary(1)) , (defml(1),idefml(1))
+   !>>>>EQUIVALENCE (Core(1),Icore(1),Iary(1),Ary(1)) , (defml(1),idefml(1))
    DATA iword/4 , 6 , 7 , 162/
    DATA subnam/4HSSG1 , 4H    /
 !

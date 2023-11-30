@@ -32,9 +32,9 @@ SUBROUTINE xread(*,Bufx)
    INTEGER complf , rshift
    CHARACTER*43 khr43
    EXTERNAL complf , rshift
-   EQUIVALENCE (kard1(1),card8(1),card80,card81) , (blank1,khr1(1)) , (khr43,khrk(1)) , (zero1,khr1(2)) , (d1,khr1(15)) ,           &
-    & (e1,khr1(16)) , (slash1,khr1(38)) , (dollr1,khr1(39)) , (star1,khr1(40)) , (plus1,khr1(41)) , (minus1,khr1(42)) ,             &
-    & (point1,khr1(43))
+   !>>>>EQUIVALENCE (kard1(1),card8(1),card80,card81) , (blank1,khr1(1)) , (khr43,khrk(1)) , (zero1,khr1(2)) , (d1,khr1(15)) ,           &
+!>>>>    & (e1,khr1(16)) , (slash1,khr1(38)) , (dollr1,khr1(39)) , (star1,khr1(40)) , (plus1,khr1(41)) , (minus1,khr1(42)) ,             &
+!>>>>    & (point1,khr1(43))
    DATA blank8 , slash8 , blank4 , equal4 , sub/'    ' , '/   ' , 4H     , 4H==== , 4HXREA , 4HD   /
    DATA nname/15/ , name8/'SPC1 ' , 'SPCS ' , 'TICS ' , 'MPCS ' , 'MPCAX' , 'RELES' , 'GTRAN' , 'FLUTTER' , 'BDYC ' , 'SPCSD' ,     &
        &'SPCS1' , 'RANDPS' , 'DAREAS' , 'DELAYS' , 'DPHASES'/

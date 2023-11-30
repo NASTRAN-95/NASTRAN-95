@@ -49,7 +49,7 @@ SUBROUTINE ampa(Aero,Qjh,Qhh,Ajjl,Qhhlo,Qjhlo,Index,Imax,Iany)
 !
 !     SPECIAL CODE EXISTS IN CASE AJJK HEADER HAS ONLY 2 WORDS
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA name/4HAMPA , 4H..../
 !
 !     INITIALIZE

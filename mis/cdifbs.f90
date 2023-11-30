@@ -17,7 +17,7 @@ SUBROUTINE cdifbs(Dz,Buf)
 !     THE TRANSPOSED MATRIX
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR
-   EQUIVALENCE (Scrfil(6),Uprtri) , (Scrfil(8),Lowtri) , (Idum(2),Nrow)
+   !>>>>EQUIVALENCE (Scrfil(6),Uprtri) , (Scrfil(8),Lowtri) , (Idum(2),Nrow)
    DATA name/4HCDIF , 4HBS  /
 !
    CALL sswtch(12,idiag)

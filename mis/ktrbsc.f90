@@ -41,8 +41,8 @@ SUBROUTINE ktrbsc(Iopt)
 !           GMMATD - DOUBLE PRECISION MATRIX MULTIPLY AND TRANSPOSE
 !           MESAGE - ERROR MESSAGE WRITER
 !
-   EQUIVALENCE (Consts(4),Degra) , (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(88)) , (Tjte(1),A(100)) ,                    &
-    & (Tite(1),S(1),A(82)) , (J2x2(1),A(92)) , (Ti(1),A(118))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(88)) , (Tjte(1),A(100)) ,                    &
+!>>>>    & (Tite(1),S(1),A(82)) , (J2x2(1),A(92)) , (Ti(1),A(118))
 !
 !     ECPT LIST FOR BASIC BENDING TRIANGLE             NAME IN
 !                                                      THIS

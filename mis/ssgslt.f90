@@ -31,7 +31,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          & kk , l , mcb(7) , ncore , nel
    INTEGER korsz
    INTEGER nels , next , noeor , npts , nrecs , ntypes , nwords , outcnt , points , qbdy1s , qbdy2s , qvects , subr(2) , type(25,4)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (ecpt(1),recpt(1)) , (buf(1),rbuf(1)) , (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (ecpt(1),recpt(1)) , (buf(1),rbuf(1)) , (Z(1),Rz(1))
    DATA subr/4HSSGS , 4HLT  / , noeor , eor/0 , 1/
    DATA bgpdt/102/
    DATA piovr4/0.7853981634E0/

@@ -75,9 +75,9 @@ SUBROUTINE triaax
 !                     E26,E31,E32,E33,E34,E35,E36,EPS11,EPS12,EPS13,
 !                     EPS22,EPS23,EPS33,RHO,A1,A2,A12,TREF,GE
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1),Idel) , (dict(5),dict5) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (aki(1),gababq(1,1)) ,               &
-    & (bmass(1,1),akm(1)) , (Consts(1),Pi) , (Consts(4),Degrad) , (Consts(2),Twopi) , (akip(1),gababp(1,1)) , (acurp1(1),acurl(82)) &
-    & , (acurp2(1),acurl(109))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1),Idel) , (dict(5),dict5) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (aki(1),gababq(1,1)) ,               &
+!>>>>    & (bmass(1,1),akm(1)) , (Consts(1),Pi) , (Consts(4),Degrad) , (Consts(2),Twopi) , (akip(1),gababp(1,1)) , (acurp1(1),acurl(82)) &
+!>>>>    & , (acurp2(1),acurl(109))
    DATA idel2 , jax/0 , 4HTRIA/
 !
    lsys78 = .FALSE.

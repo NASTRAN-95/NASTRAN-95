@@ -50,7 +50,7 @@ SUBROUTINE cmrd2g
 !            IO     - OUTPUT OPTIONS FLAG
 !            MODPTS - NUMBER OF MODAL POINTS
 !
-   EQUIVALENCE (Eqst,Infile(5)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Eqst,Infile(5)) , (Rz(1),Z(1))
    DATA modnam/4HCMRD , 4H2G  /
    DATA papp , lods , loap/4HPAPP , 4HLODS , 4HLOAP/
    DATA itmlst/4HEQSS , 4HBGSS , 4HLAMS/

@@ -42,7 +42,7 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
 !     MUCH LARGER LIMITS FOR DOUBLE PRECISION NUMBERS.
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR
-   EQUIVALENCE (A(1),Da) , (Filel(3),Nrow) , (djj,ijj(1))
+   !>>>>EQUIVALENCE (A(1),Da) , (Filel(3),Nrow) , (djj,ijj(1))
    DATA epsi/1.0D-24/
    DATA parm(3) , parm(4)/4HINVF , 4HBS  /
 !

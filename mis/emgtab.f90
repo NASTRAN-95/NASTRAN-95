@@ -19,7 +19,7 @@ SUBROUTINE emgtab
 !
 !     UTILITY ROUTINES ARE USED FOR THE MOST PART.
 !*****
-   EQUIVALENCE (Ksystm(1),Sysbuf)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf)
    DATA subr/4HEMGT , 4HAB  / , eor/1/
 !*****
 !     READ -CSTM- INTO CORE.

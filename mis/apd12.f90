@@ -21,7 +21,7 @@ SUBROUTINE apd12
    INTEGER orf
    EXTERNAL orf
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Eid,Iax(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Eid,Iax(1))
    DATA nam/4HAPD1 , 4H2   /
 !
    i17 = Ibit(17)

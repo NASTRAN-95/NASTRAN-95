@@ -44,8 +44,8 @@ SUBROUTINE trttem(Ti,Pg)
 !
 !  . MATERIAL INPUT AND OUTPUT...
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (r(1),r1) , (r(2),r2) , (r(3),r3)
-   EQUIVALENCE (Consts(1),Pi) , (Consts(4),Degrad)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (r(1),r1) , (r(2),r2) , (r(3),r3)
+   !>>>>EQUIVALENCE (Consts(1),Pi) , (Consts(4),Degrad)
 !
 ! START EXECUTION
 !

@@ -49,7 +49,7 @@ SUBROUTINE ffread(*,Card)
 !     THREE WORDS ARE ATTACHED TO THE END OF AN INPUT CARD TO BE USED
 !     FOR ALPHA-NUMERIC SORTING
 !
-   EQUIVALENCE (c(1),cx(1),a8(1),a8x(1),a5,a48,a81) , (kkf,fkk) , (Temp4,Temp,Tmp(1)) , (a1,a(1))
+   !>>>>EQUIVALENCE (c(1),cx(1),a8(1),a8x(1),a5,a48,a81) , (kkf,fkk) , (Temp4,Temp,Tmp(1)) , (a1,a(1))
 !
    DATA none , prompt , on , off , yes/4HNONE , 'PROM' , 'ON, ' , 'OFF,' , 'YES,'/
    DATA blank , dend , dbgn , from , slash/'      ' , '$   END ' , '$   ...' , ' FROM-' , '/    '/

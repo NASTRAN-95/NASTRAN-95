@@ -15,7 +15,7 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
 !
 ! COMBINES HC CENTROID INFO ON SCR6 TO HCCENS
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA mcbh/307 , 0 , 0 , 2 , 1 , 0 , 0/
    DATA scr6 , hccens/306 , 307/
    DATA nam/4HHCCO , 4HM   /

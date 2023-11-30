@@ -24,7 +24,7 @@ SUBROUTINE xipfl
 !
 !                  ** CONTROL CARD NAMES **
 !                  ** DMAP CARD NAMES **
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
 !
 !
 !     SET INPUT FILE FLAG

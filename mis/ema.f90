@@ -44,8 +44,8 @@ SUBROUTINE ema
 !     EMA USES TWO SCRATCH FILES
 !
 !WKBI 1/95
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (Ksystm(78),Ipiez)
-   EQUIVALENCE (Z(1),Zd(1)) , (xs(1),xd(1),is(1)) , (Z(1),Y(1)) , (Buf(1),D(1)) , (Ipvt,Ivpt) , (Buf(1),Ihq(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (Ksystm(78),Ipiez)
+   !>>>>EQUIVALENCE (Z(1),Zd(1)) , (xs(1),xd(1),is(1)) , (Z(1),Y(1)) , (Buf(1),D(1)) , (Ipvt,Ivpt) , (Buf(1),Ihq(1))
    DATA lbuf/100/ , mcb/7*0/ , ma1h/4HEMA  , 2H  / , kons/14/ , mdict/6/ , hdr/6*0/
    DATA gpect , xemd , xblock/101 , 102 , 103/ , xgg/201/ , scr1 , scr2/301 , 302/
 !

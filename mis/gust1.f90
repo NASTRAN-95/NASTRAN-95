@@ -23,7 +23,7 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
 !
 !         CALL GUST1A WITH NEW CASECC
 !
-   EQUIVALENCE (Iz(1),Z(1)) , (rgust(1),lgust(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (rgust(1),lgust(1))
    DATA name/4HGUST , 1H1/ , igust/1005 , 10/
    DATA igst/178/
 !

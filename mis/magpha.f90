@@ -10,7 +10,7 @@ SUBROUTINE magpha(A,B)
 ! THE PHASE OF (X=A, Y=B) IS THEN FORMED AND THE RESULT STORED IN B...
 !*****
 !
-   EQUIVALENCE (Consts(3),Radeg)
+   !>>>>EQUIVALENCE (Consts(3),Radeg)
 !
    value = sqrt(A**2+B**2)
    IF ( value/=0 ) THEN

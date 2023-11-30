@@ -21,7 +21,7 @@ SUBROUTINE wrttrl(Filblk)
    INTEGER i , iendf , index , itucb , iucb , lb(2) , mask , mbit , n , name(2) , nout
    EXTERNAL andf , lshift , orf , rshift
 !
-   EQUIVALENCE (System(2),Iout) , (System(24),Icfiat) , (System(40),Nbpw)
+   !>>>>EQUIVALENCE (System(2),Iout) , (System(24),Icfiat) , (System(40),Nbpw)
    DATA mbit/0/ , words/1.0 , 2.0 , 2.0 , 4.0/
    DATA name/4HWRTT , 4HRL  /
    DATA mask/65535/

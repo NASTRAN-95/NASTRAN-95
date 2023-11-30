@@ -35,8 +35,8 @@ SUBROUTINE srod2
 !
 !
 !
-   EQUIVALENCE (Templd,Ldtemp) , (Smsig,Mssig) , (Smtau,Mstau) , (Cfrvec(1),csiga) , (Cfrvec(2),ctau) , (Cfrvec(3),cp) ,            &
-    & (Cfrvec(4),ctrque) , (Ifrvec(4),Cfrvec(1)) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
+   !>>>>EQUIVALENCE (Templd,Ldtemp) , (Smsig,Mssig) , (Smtau,Mstau) , (Cfrvec(1),csiga) , (Cfrvec(2),ctau) , (Cfrvec(3),cp) ,            &
+!>>>>    & (Cfrvec(4),ctrque) , (Ifrvec(4),Cfrvec(1)) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
 !
    DATA lld , lsub , frlast/2* - 1 , -1.0E30 , -1.0E30/
    DATA typ/4H CON , 4HROD  , 4HTUBE , 1H /

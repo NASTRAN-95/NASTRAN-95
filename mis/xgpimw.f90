@@ -31,8 +31,8 @@ SUBROUTINE xgpimw(Msgno,I,J,A)
    INTEGER diag09 , diagi4 , hdg1(18) , hdg2(7) , hdg3(2) , hdg4(22) , hdg5(26) , i1 , i2 , ia1 , ia2 , iappnd , iblnk , iequiv ,   &
          & ifile , ipage , ireel , istar , itape , iunit , iwrite , kdlh , kkdj , l , l1 , line(12) , ltu , m , m1 , m2 , nscr
    EXTERNAL andf , rshift
-   EQUIVALENCE (Zsys(2),Op) , (Zsys(3),Nogo) , (Zsys(9),Nlpp) , (Zsys(12),Nlines) , (Zsys(77),Bkdata) , (Zsys(26),Cppgct) ,         &
-    & (Zsys(19),Iecho) , (Zsys(24),Icfiat)
+   !>>>>EQUIVALENCE (Zsys(2),Op) , (Zsys(3),Nogo) , (Zsys(9),Nlpp) , (Zsys(12),Nlines) , (Zsys(77),Bkdata) , (Zsys(26),Cppgct) ,         &
+!>>>>    & (Zsys(19),Iecho) , (Zsys(24),Icfiat)
    DATA hdg1/17 , 4H     , 4H COS , 4HMIC  , 4H/ NA , 4HSTRA , 4HN DM , 4HAP C , 4HOMPI , 4HLER  , 4H- SO , 4HURCE , 4H LIS ,       &
       & 4HTING , 4*4H    /
    DATA hdg2/6 , 6*4H    /

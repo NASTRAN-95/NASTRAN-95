@@ -20,7 +20,7 @@ SUBROUTINE gust
 !                V,N,BOV/C,Y,MACH/C,Y,Q  $
 !
 !     GUST USES SEVEN SCRATCH FILES
-   EQUIVALENCE (Xm(1),Nogust) , (iblock(1),rblock(1))
+   !>>>>EQUIVALENCE (Xm(1),Nogust) , (iblock(1),rblock(1))
    DATA casecc , dlt , frl , qhjl , acpt , cstma , phf1 , phf , scr1 , scr2 , scr3 , scr4/101 , 102 , 103 , 105 , 108 , 109 , 110 , &
       & 201 , 301 , 302 , 303 , 304/
    DATA dit , scr5 , scr6 , scr7/104 , 305 , 306 , 307/ , name/4HGUST , 1H / , rblock/11*0.0/

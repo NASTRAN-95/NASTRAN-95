@@ -44,7 +44,7 @@ SUBROUTINE trnsps(Z,Iz)
 !
 !     WRITTEN BY G.CHAN/UNISYS  12/91
 !
-   EQUIVALENCE (Filea(1),Namea) , (Fileat(1),Nameat) , (a(1),da)
+   !>>>>EQUIVALENCE (Filea(1),Namea) , (Fileat(1),Nameat) , (a(1),da)
    DATA nam/4HTRNS , 4HPS  / , debug/.FALSE./
 !
    CALL sswtch(19,i)

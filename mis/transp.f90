@@ -20,7 +20,7 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 !     (OUT-OF-CORE TRANSPOSE IS DONE BY TRNSP)
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR
-   EQUIVALENCE (iii(3),di)
+   !>>>>EQUIVALENCE (iii(3),di)
    DATA name/4HTRAN , 4HSP  /
 !
 !

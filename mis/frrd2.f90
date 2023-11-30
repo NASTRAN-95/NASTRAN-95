@@ -30,8 +30,8 @@ SUBROUTINE frrd2
 !
 !     COMMON FRD2BC WILL BE USED BY ROUTINES FRD2B AND FRD2C.
 !
-   EQUIVALENCE (Zzz(1),Z(1))
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA khh , bhh , mhh , qhhl , phf , fol , uhvf/101 , 102 , 103 , 104 , 105 , 106 , 201/
    DATA scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9/301 , 302 , 303 , 304 , 305 , 306 , 307 , 308 , 309/
    DATA name/4HFRRD , 4H2   /

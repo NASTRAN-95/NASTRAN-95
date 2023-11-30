@@ -19,7 +19,7 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
 !
 !     FBS3 EXECUTES THE FORWARD/BACKWARD PASS FOR FBSF IN CSP
 !
-   EQUIVALENCE (sumr,yjkr) , (sumi,yjki)
+   !>>>>EQUIVALENCE (sumr,yjkr) , (sumi,yjki)
    DATA subnam , begn , end/4HFBS3 , 4HBEGN , 4HEND /
 !
    buf(1) = subnam

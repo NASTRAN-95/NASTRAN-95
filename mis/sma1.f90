@@ -59,7 +59,7 @@ SUBROUTINE sma1
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz)
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz)
 !
    DATA nmsma1(1)/4HSMA1/ , nmsma1(2)/4H    /
 !*****

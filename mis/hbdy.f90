@@ -93,7 +93,7 @@ SUBROUTINE hbdy(Ecpt,Necpt,Iopt,Rvect,Ivect)
 !     16                      N2Z  -
 !
 !
-   EQUIVALENCE (Consts(1),Pi) , (dxyz(1),dx) , (dxyz(2),dy) , (dxyz(3),dz)
+   !>>>>EQUIVALENCE (Consts(1),Pi) , (dxyz(1),dx) , (dxyz(2),dy) , (dxyz(3),dz)
 !
 !
    DO i = 1 , 16

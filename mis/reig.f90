@@ -40,8 +40,8 @@ SUBROUTINE reig
 !     READ   KAA,MAA,MR,DM,EED,USET,CASECC/LAMA,PHIA,MI,OEIGS/C,N,IPROB
 !            /V,N,NUMMOD/C,N,ICASE/C,N,XLAMDA $
 !
-   EQUIVALENCE (Givn(1),Core(1))
-   EQUIVALENCE (Tcons(4),Apc) , (Tcons(5),Apu) , (Tcons(8),Mb(1)) , (error(2),subnam(1)) , (Dcore(1),Core(1),Icore(1))
+   !>>>>EQUIVALENCE (Givn(1),Core(1))
+   !>>>>EQUIVALENCE (Tcons(4),Apc) , (Tcons(5),Apu) , (Tcons(8),Mb(1)) , (error(2),subnam(1)) , (Dcore(1),Core(1),Icore(1))
    DATA eigr , casecc/307 , 3 , 107 , 1 , 107/ , sdet , udet , inv , sinv , i0/4HSDET , 4HUDET , 4HINV  , 4HSINV , 0/ , uinv ,      &
       & givi , kaa , maa , mr/4HUINV , 4HGIV  , 101 , 102 , 103/ , dm , eed , uset , lama , phia/104 , 105 , 106 , 201 , 202/ , mi ,&
       & pout , icr1 , icr2 , mode/203 , 204 , 301 , 302 , 4HMODE/ , error , feerx , mgiv/4HEED  , 4HREIG , 4H     , 4HFEER , 4HMGIV/

@@ -42,8 +42,8 @@ SUBROUTINE pstrb1(Iopt)
 !              GMMATS - SINGLE PRECISION MATRIX MULTIPLY AND TRANSPOSE
 !              MESAGE - ERROR MESSAGE WRITER
 !
-   EQUIVALENCE (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (Ks(1),Ph1out(1)) , (G2x2(1),A(88)) , (S(1),A(55)) , (Tite(1),A(127)) ,     &
-    & (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73))
+   !>>>>EQUIVALENCE (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (Ks(1),Ph1out(1)) , (G2x2(1),A(88)) , (S(1),A(55)) , (Tite(1),A(127)) ,     &
+!>>>>    & (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73))
 !
 !     ECPT LIST FOR BASIC BENDING TRIANGLE           NAME IN
 !                                                    THIS

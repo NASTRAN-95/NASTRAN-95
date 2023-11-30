@@ -41,10 +41,10 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !     TERMWISE MATRIX READ
 !
 !     SYSTEM PARAMETERS
-   EQUIVALENCE (Isavp,Zpntrs(1)) , (Nsavp,Zpntrs(2)) , (Intbu,Zpntrs(3)) , (Nntbu,Zpntrs(4)) , (Ilast,Zpntrs(5)) , (Nlast,Zpntrs(6))&
-    & , (Intbu2,Zpntrs(7)) , (Nntbu2,Zpntrs(8)) , (Ic,Zpntrs(9)) , (Nc,Zpntrs(10)) , (Ibcols,Zpntrs(11)) , (Nbcols,Zpntrs(12)) ,    &
-    & (Ibcid,Zpntrs(13)) , (Nbcid,Zpntrs(14)) , (Ibntu,Zpntrs(15)) , (Nbntu,Zpntrs(16)) , (Iktbp,Zpntrs(17)) , (Nktbp,Zpntrs(18)) , &
-    & (Iantu,Zpntrs(19)) , (Nantu,Zpntrs(20)) , (Iakj,Zpntrs(21)) , (Nakj,Zpntrs(22)) , (A(1),Da)
+   !>>>>EQUIVALENCE (Isavp,Zpntrs(1)) , (Nsavp,Zpntrs(2)) , (Intbu,Zpntrs(3)) , (Nntbu,Zpntrs(4)) , (Ilast,Zpntrs(5)) , (Nlast,Zpntrs(6))&
+!>>>>    & , (Intbu2,Zpntrs(7)) , (Nntbu2,Zpntrs(8)) , (Ic,Zpntrs(9)) , (Nc,Zpntrs(10)) , (Ibcols,Zpntrs(11)) , (Nbcols,Zpntrs(12)) ,    &
+!>>>>    & (Ibcid,Zpntrs(13)) , (Nbcid,Zpntrs(14)) , (Ibntu,Zpntrs(15)) , (Nbntu,Zpntrs(16)) , (Iktbp,Zpntrs(17)) , (Nktbp,Zpntrs(18)) , &
+!>>>>    & (Iantu,Zpntrs(19)) , (Nantu,Zpntrs(20)) , (Iakj,Zpntrs(21)) , (Nakj,Zpntrs(22)) , (A(1),Da)
    DATA name/4HMPY3 , 4HOC  /
    DATA nams/4HSCR3 , 4H    /
 !

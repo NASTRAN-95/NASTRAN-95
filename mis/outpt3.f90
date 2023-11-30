@@ -32,7 +32,7 @@ SUBROUTINE outpt3
 !
 !
 !
-   EQUIVALENCE (trl(1),trl1) , (trl(2),trl2) , (trl(3),trl3) , (trl(4),trl4) , (trl(5),trl5) , (trl(6),trl6) , (trl(7),trl7)
+   !>>>>EQUIVALENCE (trl(1),trl1) , (trl(2),trl2) , (trl(3),trl3) , (trl(4),trl4) , (trl(5),trl5) , (trl(6),trl6) , (trl(7),trl7)
    DATA subnam/4HOUTP , 4HUT3 / , in/101 , 102 , 103 , 104 , 105/
    DATA ityp/1/
 !

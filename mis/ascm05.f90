@@ -12,8 +12,8 @@ SUBROUTINE ascm05(Name,Iphase,Isol,Nogo)
 !
 !     SOLVE COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19)) , (rdmap4(1,1),rdmap(1,28))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19)) , (rdmap4(1,1),rdmap(1,28))
    DATA comnd/4HSOLV , 28 , 0 , 5 , 20 , 14/
    DATA slash/1H//
    DATA rdmap1/4HALTE , 4HR    , 4H  (G , 4HP1)  , 4H$    , 13*4H     , 4HPARA , 4HM    , 4H  // , 4H*NOP , 4H*/AL , 4HWAYS ,       &

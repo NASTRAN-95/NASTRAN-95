@@ -21,9 +21,9 @@ SUBROUTINE xlnkdd
 !
 !     SET SENSE SWITCH 28 TO GENERATE ALL FORTRAN CODE BELOW.
 !
-   EQUIVALENCE (link(1),link01(1)) , (link(91),link02(1)) , (link(181),link03(1)) , (link(271),link04(1)) , (link(361),link05(1)) , &
-    & (link(451),link06(1)) , (link(541),link07(1)) , (link(631),link08(1)) , (link(721),link09(1)) , (link(811),link10(1)) ,       &
-    & (link(901),link11(1))
+   !>>>>EQUIVALENCE (link(1),link01(1)) , (link(91),link02(1)) , (link(181),link03(1)) , (link(271),link04(1)) , (link(361),link05(1)) , &
+!>>>>    & (link(451),link06(1)) , (link(541),link07(1)) , (link(631),link08(1)) , (link(721),link09(1)) , (link(811),link10(1)) ,       &
+!>>>>    & (link(901),link11(1))
    DATA llinkx/970/
    DATA link01/4HCHKP , 4HNT   , 4HXCHK , 4H     , 32767 , 4HREPT , 4H     , 4HXCEI , 4H     , 32767 , 4HJUMP , 4H     , 4HXCEI ,   &
        &4H     , 32767 , 4HCOND , 4H     , 4HXCEI , 4H     , 32767 , 4HSAVE , 4H     , 4HXSAV , 4HE    , 32766 , 4HPURG , 4HE    ,  &

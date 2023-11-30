@@ -84,7 +84,7 @@ SUBROUTINE inptt1
 !                      THE MPL DEFAULT VALUE FOR P3 IS XXXXXXXX
 !
 !
-   EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line)
+   !>>>>EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line)
    DATA subnam/4HINPT , 4HT1  / , msc/4HMSC /
    DATA out/201 , 202 , 203 , 204 , 205/ , mask/65535/
    DATA zero , mone , mtwo , mtre , mfor/0 , -1 , -2 , -3 , -4/ , mfiv , msix , mete , mnin/ - 5 , -6 , -8 , -9/

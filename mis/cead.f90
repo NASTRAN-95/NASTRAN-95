@@ -24,7 +24,7 @@ SUBROUTINE cead
          & j , kdd , lamd , mcb(7) , mdd , method , name(2) , nrow , nvect , nz , oceigs , phid , phidl , scr1 , scr10 , scr11 ,    &
          & scr12 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9
    INTEGER korsz
-   EQUIVALENCE (Kz(1),Iz(1))
+   !>>>>EQUIVALENCE (Kz(1),Iz(1))
    DATA name/4HCEAD , 4H    /
    DATA hes/4HHESS/
    DATA feer/4HFEER/

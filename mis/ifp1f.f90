@@ -11,7 +11,7 @@ SUBROUTINE ifp1f(*,Iword,Ii)
 !
 !     FINDS FIRST 4 NON-BLANK CHARACTERS
 !
-   EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
 !
    Iword = Izzzbb
    l = 1

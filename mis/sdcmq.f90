@@ -59,7 +59,7 @@ SUBROUTINE sdcmq(*,Key,V1,V,Dv1,Dv,Ic,Z)
 !             = 3, ABORT,NONSTD RET.
 !             = 4, INTERNAL ERRORS.  ABORT AT MAJOR CHECK-POINTS.
 !-----
-   EQUIVALENCE (rv1,iv(2)) , (rv,iv(3))
+   !>>>>EQUIVALENCE (rv1,iv(2)) , (rv,iv(3))
    DATA name/4HSDCM , 2HQ /
 !
    IF ( Filcur>0 ) CALL close(Filcur,Kcl2)

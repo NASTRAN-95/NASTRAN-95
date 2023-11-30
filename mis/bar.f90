@@ -77,7 +77,7 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (ta(10),tb(1))
 !
 !
 !     SET UP POINTERS TO COOR. SYS. IDS., OFFSET VECTORS, AND PIN FLAGS.

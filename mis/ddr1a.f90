@@ -15,7 +15,7 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !
 !     ROUTINE TO COMPUTE PAD FROM MODAL APPROXIMATION TO SYSTEM
 !
-   EQUIVALENCE (mcb(1),imcb(1)) , (mcb2(1),imcb(8)) , (mcb1(1),imcb(15)) , (Consts(2),Twopi)
+   !>>>>EQUIVALENCE (mcb(1),imcb(1)) , (mcb2(1),imcb(8)) , (mcb1(1),imcb(15)) , (Consts(2),Twopi)
    DATA name/4HDDR1 , 4HA   /
    DATA freq/4HFREQ/
 !

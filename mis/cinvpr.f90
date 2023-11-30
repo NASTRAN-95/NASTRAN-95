@@ -49,9 +49,9 @@ SUBROUTINE cinvpr(Eed,Method,Nfound)
 !     REG(7,I) = NO. OF ESTIMATED ROOTS IN REGION I
 !
 !
-   EQUIVALENCE (Ksystm(1),Isys) , (Ireg(1,1),Reg(1,1))
-   EQUIVALENCE (Filek(5),Typek) , (Filem(5),Typem) , (Fileb(5),Typeb) , (Iz(1),Z(1))
-   EQUIVALENCE (Anodes,Nodes) , (Anoest,Noest) , (Z(1),Dz(1)) , (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(1),Isys) , (Ireg(1,1),Reg(1,1))
+   !>>>>EQUIVALENCE (Filek(5),Typek) , (Filem(5),Typem) , (Fileb(5),Typeb) , (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Anodes,Nodes) , (Anoest,Noest) , (Z(1),Dz(1)) , (Ksystm(2),Nout)
    DATA ihead/0 , 1009 , 2 , 7*0/
    DATA eigc/207 , 2/
    DATA name/4HCINV , 4HPR  /

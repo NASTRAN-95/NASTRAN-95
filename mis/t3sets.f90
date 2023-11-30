@@ -37,7 +37,7 @@ SUBROUTINE t3sets(Ierr,Sil,Jgpdt,Elth,Gpth,Dgpth,Egpdt,Gpnorm,Epnorm,Iorder,Teb,
 !           EDGLEN - EDGE LENGTHS
 !
 !
-   EQUIVALENCE (igpdt(1,1),bgpdt(1,1))
+   !>>>>EQUIVALENCE (igpdt(1,1),bgpdt(1,1))
 !
 !
 !     INITIALIZE

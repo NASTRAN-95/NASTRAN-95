@@ -19,7 +19,7 @@ SUBROUTINE pltopr
    REAL alst(20)
    INTEGER paper(2) , plttyp(3,3) , plus , prj(3,3) , skip , space , strain(4) , stress(34) , symm(4) , way(4) , xyz(3)
 !
-   EQUIVALENCE (list(1),alst(1))
+   !>>>>EQUIVALENCE (list(1),alst(1))
 !
    DATA nskip , skip/1 , 4H(1X)/
    DATA film , paper/4HFILM , 1H  , 4HPAPE , 1HR/

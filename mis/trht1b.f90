@@ -14,10 +14,10 @@ SUBROUTINE trht1b(Iof,Delta)
 !
 !
 !
-   EQUIVALENCE (iqblk(1),qblock(1))
-   EQUIVALENCE (iqblk(2),iblock(1))
-   EQUIVALENCE (qblock(2),block(1))
-   EQUIVALENCE (qblock(5),blk(1))
+   !>>>>EQUIVALENCE (iqblk(1),qblock(1))
+   !>>>>EQUIVALENCE (iqblk(2),iblock(1))
+   !>>>>EQUIVALENCE (qblock(2),block(1))
+   !>>>>EQUIVALENCE (qblock(5),blk(1))
 !
 ! ----------------------------------------------------------------------
 !

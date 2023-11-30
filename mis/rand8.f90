@@ -19,7 +19,7 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA name , mcb1 , mcb2/4HRAND , 4H8    , 14*0/
    DATA ipsdf , iauto/4001 , 4002/

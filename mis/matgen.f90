@@ -64,7 +64,7 @@ SUBROUTINE matgen
    REAL tmp(7)
    EXTERNAL lshift
 !ZZ   COMMON /ZZMGEN/  X(1)
-   EQUIVALENCE (Val(1),D(1)) , (X(1),Ix(1),Rx(1)) , (P(1),P1)
+   !>>>>EQUIVALENCE (Val(1),D(1)) , (X(1),Ix(1),Rx(1)) , (P(1),P1)
    DATA nam/4HMATG , 4HEN  / , np/11/
    DATA eqe , xin/4HEQEX , 4HIN  / , code/6 , 1/
    DATA out , t/201 , 101/

@@ -55,9 +55,9 @@ SUBROUTINE mred2d
 !             NEWNAM - NAME OF REDUCED SUBSTRUCTURE
 !             USRMOD - USERMODE FLAG
 !
-   EQUIVALENCE (Usetmr,Infile(5)) , (Kbb,Infile(6)) , (Mbb,Infile(7)) , (Paa,Infile(10)) , (Khh,Otfile(1)) , (Mhh,Otfile(2)) ,      &
-    & (Phh,Otfile(5)) , (Rprtn,Iscr(8)) , (Cprtn,Iscr(8)) , (K,Iscr(3)) , (Bbzero,Iscr(9)) , (M,Iscr(10)) , (Zero,Iscr(3)) ,        &
-    & (Rz(1),Z(1)) , (typea,block(1)) , (typeb,block(7))
+   !>>>>EQUIVALENCE (Usetmr,Infile(5)) , (Kbb,Infile(6)) , (Mbb,Infile(7)) , (Paa,Infile(10)) , (Khh,Otfile(1)) , (Mhh,Otfile(2)) ,      &
+!>>>>    & (Phh,Otfile(5)) , (Rprtn,Iscr(8)) , (Cprtn,Iscr(8)) , (K,Iscr(3)) , (Bbzero,Iscr(9)) , (M,Iscr(10)) , (Zero,Iscr(3)) ,        &
+!>>>>    & (Rz(1),Z(1)) , (typea,block(1)) , (typeb,block(7))
    DATA modnam/4HMRED , 4H2D  /
    DATA papp/4HPAPP/
    DATA mred2/27/

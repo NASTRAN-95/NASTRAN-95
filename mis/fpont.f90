@@ -11,8 +11,8 @@ SUBROUTINE fpont
 !
 !     DOES DIRECT,TPONT,FPONT,AND SCALAR LOADS
 !
-   EQUIVALENCE (gpid,gridp(2)) , (gridp(4),ip1) , (gridp(5),ip2) , (gridp(6),ip3) , (gridp(7),ip4) , (igpco(2,1),gpco1(1)) ,        &
-    & (igpco(2,2),gpco2(1)) , (igpco(2,3),gpco3(1)) , (igpco(2,4),gpco4(1)) , (icosyt,gridp(3))
+   !>>>>EQUIVALENCE (gpid,gridp(2)) , (gridp(4),ip1) , (gridp(5),ip2) , (gridp(6),ip3) , (gridp(7),ip4) , (igpco(2,1),gpco1(1)) ,        &
+!>>>>    & (igpco(2,2),gpco2(1)) , (igpco(2,3),gpco3(1)) , (igpco(2,4),gpco4(1)) , (icosyt,gridp(3))
    DATA swload/4HFPON , 4HT   /
 !
    nr = 6

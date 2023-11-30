@@ -48,18 +48,18 @@ SUBROUTINE ttrirg(Ti,Pg)
 !
 !
 !
-   EQUIVALENCE (Consts(2),Twopi)
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
-   EQUIVALENCE (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(1),z1) , (z(2),z2) , (z(3),z3)
-   EQUIVALENCE (gambl(1),ee(1))
-   EQUIVALENCE (gambl(17),teo(1))
-   EQUIVALENCE (gambl(33),dzero(1))
-   EQUIVALENCE (gambl(57),alfb(1))
-   EQUIVALENCE (gambl(61),delint(1))
-   EQUIVALENCE (gambl(37),sp(1))
-   EQUIVALENCE (gambl(1),gambq(1))
-   EQUIVALENCE (gambl(1),gamqs(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi)
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(1),z1) , (z(2),z2) , (z(3),z3)
+   !>>>>EQUIVALENCE (gambl(1),ee(1))
+   !>>>>EQUIVALENCE (gambl(17),teo(1))
+   !>>>>EQUIVALENCE (gambl(33),dzero(1))
+   !>>>>EQUIVALENCE (gambl(57),alfb(1))
+   !>>>>EQUIVALENCE (gambl(61),delint(1))
+   !>>>>EQUIVALENCE (gambl(37),sp(1))
+   !>>>>EQUIVALENCE (gambl(1),gambq(1))
+   !>>>>EQUIVALENCE (gambl(1),gamqs(1))
 !
 ! ----------------------------------------------------------------------
 !

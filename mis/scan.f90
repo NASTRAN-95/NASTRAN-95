@@ -124,7 +124,7 @@ SUBROUTINE scan
 !RLBNE 12/29/93 SPR 93010 & 93011
  
 !WKBR 1/4/94 SPR93010 & 93011     3                DEBUG
-   EQUIVALENCE (Imax,Amax) , (Imin,Amin) , (Idupl,Ibeg) , (Inc,Iend) , (Core(1),Z(1))
+   !>>>>EQUIVALENCE (Imax,Amax) , (Imin,Amin) , (Idupl,Ibeg) , (Inc,Iend) , (Core(1),Z(1))
 !RLBDB 12/29/93 SPR 93010 & 93011
 !     DATA            CASECC,   OESI,     OEFI,     OESFI,    SCR1    /
 !    1                101,      102,      103,      201,      301     /

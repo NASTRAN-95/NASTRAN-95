@@ -21,7 +21,7 @@ SUBROUTINE ift
 !
 !     IFT   UHVF,CASECC,TRL,FOL/UHVT,TOL/C,Y,IFTM
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA uhvf , casecc , trl , fol , uhvt , tol/101 , 102 , 103 , 104 , 201 , 202/
    DATA name/4HIFT  , 1H /
 !

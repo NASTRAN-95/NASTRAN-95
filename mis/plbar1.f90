@@ -16,7 +16,7 @@ SUBROUTINE plbar1(Ido,Lcore)
 !     LOADS, ON A BAR ELEMENT FROM A PLOAD1 CARD
 !     AND INSERTS THE VECTOR INO PV
 !
-   EQUIVALENCE (pg(1),iz(1))
+   !>>>>EQUIVALENCE (pg(1),iz(1))
    DATA nam/4HPLBA , 4HR1  / , n , oldid , islt/9*0/
    DATA iect , iept , ibg , nwds , bar/1 , 16 , 34 , 42 , 34/
 !

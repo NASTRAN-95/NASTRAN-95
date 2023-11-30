@@ -12,7 +12,7 @@ SUBROUTINE ofp1a(Line)
 !
 !     THIS ROUTINE WAS NAMED OFP1 BEFORE.
 !
-   EQUIVALENCE (Ksys(2),L) , (Ksys(12),Linet) , (Ksys(33),Iflag) , (Ksys(3),Nogo) , (Core(1),Of(1),L123(1)) , (Fid(1),Id(1),Of(6))
+   !>>>>EQUIVALENCE (Ksys(2),L) , (Ksys(12),Linet) , (Ksys(33),Iflag) , (Ksys(3),Nogo) , (Core(1),Of(1),L123(1)) , (Fid(1),Id(1),Of(6))
 !
    DATA rt/4HSING , 4HULAR , 4HITIE , 4HS EN , 4HCOUN , 4HTERE , 4HD.   , 4H     , 4H4 SH , 4HIFT  , 4HPTS. , 4HPER  , 4HROOT ,     &
        &4H EXC , 4HEEDE , 4HD.   , 4HALL  , 4HEIGE , 4HNVAL , 4HUES  , 4HFOUN , 4HD IN , 4H RAN , 4HGE.  , 4H3X E , 4HST.R ,        &

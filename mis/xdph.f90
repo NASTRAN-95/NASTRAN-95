@@ -30,12 +30,12 @@ SUBROUTINE xdph
    INTEGER fn , i , ii , iprt1 , iprt2 , iprt3 , isav , istart , iwkbuf , ix , j , k , kk , lmt , lmt2 , lmt3 , m , ncnt , nconst , &
          & nculg , ndph(2) , nfile , ngcnt , npol , pool , scrn1 , scrn2 , trial
    EXTERNAL andf , orf , rshift
-   EQUIVALENCE (Dpd(1),Dnaf) , (Fiat(1),Funlg) , (File(1),Fequ(1)) , (File(1),Ford(1)) , (Endsfa(1),Ndpd(1))
-   EQUIVALENCE (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) , (Sos(2),Sdbn(1)) ,           &
-    & (Sos(4),Sal(1)) , (Sos(4),Sntu(1)) , (Sos(4),Sord(1)) , (Comm(1),Almsk) , (Comm(2),Apndmk) , (Comm(3),Cursno) ,               &
-    & (Comm(4),Entn1) , (Comm(5),Entn2) , (Comm(6),Entn3) , (Comm(7),Entn4) , (Comm(8),Flag) , (Comm(9),Fnx) , (Comm(10),Lmsk) ,    &
-    & (Comm(11),Lxmsk) , (Comm(13),Rmsk) , (Comm(14),Rxmsk) , (Comm(15),S) , (Comm(16),Scornt) , (Comm(17),Tapmsk) ,                &
-    & (Comm(18),Thcrmk) , (Comm(19),Zap) , (Xf1at(1),Fntu(1)) , (Xf1at(1),Fon(1))
+   !>>>>EQUIVALENCE (Dpd(1),Dnaf) , (Fiat(1),Funlg) , (File(1),Fequ(1)) , (File(1),Ford(1)) , (Endsfa(1),Ndpd(1))
+   !>>>>EQUIVALENCE (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) , (Sos(2),Sdbn(1)) ,           &
+!>>>>    & (Sos(4),Sal(1)) , (Sos(4),Sntu(1)) , (Sos(4),Sord(1)) , (Comm(1),Almsk) , (Comm(2),Apndmk) , (Comm(3),Cursno) ,               &
+!>>>>    & (Comm(4),Entn1) , (Comm(5),Entn2) , (Comm(6),Entn3) , (Comm(7),Entn4) , (Comm(8),Flag) , (Comm(9),Fnx) , (Comm(10),Lmsk) ,    &
+!>>>>    & (Comm(11),Lxmsk) , (Comm(13),Rmsk) , (Comm(14),Rxmsk) , (Comm(15),S) , (Comm(16),Scornt) , (Comm(17),Tapmsk) ,                &
+!>>>>    & (Comm(18),Thcrmk) , (Comm(19),Zap) , (Xf1at(1),Fntu(1)) , (Xf1at(1),Fon(1))
 !
    DATA nconst/100/
    DATA scrn1/4HSCRA/ , scrn2/4HTCH*/

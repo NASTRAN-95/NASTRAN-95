@@ -13,9 +13,9 @@ SUBROUTINE ascm08(Name,Iphase,Isol,Nogo)
 !
 !     SOLVE COMMAND DMAP DATA FOR DYNAMIC ANALYSIS
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap4(1,1),rdmap(1,28)) , (ptbs2(1,1),ptbs(1,19)) ,                    &
-    & (rdmap5(1,1),rdmap(1,37)) , (rdmap6(1,1),rdmap(1,46)) , (rdmap7(1,1),rdmap(1,55))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (oct2(1,1),oct(1,19)) ,                &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs1(1,1),ptbs(1,1)) , (rdmap4(1,1),rdmap(1,28)) , (ptbs2(1,1),ptbs(1,19)) ,                    &
+!>>>>    & (rdmap5(1,1),rdmap(1,37)) , (rdmap6(1,1),rdmap(1,46)) , (rdmap7(1,1),rdmap(1,55))
    DATA comnd/4HSOLV , 55 , 0 , 23 , 25 , 14/
    DATA slash/1H//
    DATA isave/4 , 11 , 3 , 13 , 10 , 1 , 13 , 14 , 3 , 13 , 16 , 2 , 54 , 8 , 2 , 54 , 9 , 2 , 54 , 10 , 2/

@@ -29,7 +29,7 @@ SUBROUTINE fa1pke(Khh,Bhh,Mhh,Bxhh,Fsave,Nloop,Bref,Rref,Neiw,Eps)
 !     LAST REVISED  2/91, BY J.PETKAS/LOCKHEED
 !     ELEMENTS OF INTERPOLATION MATRIX IN D.P. AND LEAST SQUARE FIT
 !
-   EQUIVALENCE (Z(1),Dz(1))
+   !>>>>EQUIVALENCE (Z(1),Dz(1))
    DATA name/4HFA1P , 4HKE  /
    DATA istart/0/
 !

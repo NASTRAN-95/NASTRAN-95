@@ -99,8 +99,8 @@ SUBROUTINE strsl1
 !     ECPT (56) = ELEMENT TEMPERATURE  AT GRID POINTS G5        REAL
 !     ECPT (57) = ELEMENT TEMPERATURE  AT GRID POINTS G6        REAL
 !
-   EQUIVALENCE (A,Dista) , (B,Distb) , (C,Distc) , (V1(1),Est(29)) , (V2(1),Est(37)) , (V3(1),Est(45)) , (Iest(1),Est(1)) ,         &
-    & (tmmm(1),tmm(1,1)) , (Ph1out(1),Qqq(1,1)) , (Ph1out(401),Index(1,1),Ind(1,1)) , (Nph1ou(1),Ph1out(1))
+   !>>>>EQUIVALENCE (A,Dista) , (B,Distb) , (C,Distc) , (V1(1),Est(29)) , (V2(1),Est(37)) , (V3(1),Est(45)) , (Iest(1),Est(1)) ,         &
+!>>>>    & (tmmm(1),tmm(1,1)) , (Ph1out(1),Qqq(1,1)) , (Ph1out(401),Index(1,1),Ind(1,1)) , (Nph1ou(1),Ph1out(1))
    DATA degra/0.0174532925/
    DATA blank , name/4H     , 4HTRSH , 4HL   /
 !

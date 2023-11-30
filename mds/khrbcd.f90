@@ -30,7 +30,7 @@ SUBROUTINE khrbcd(Khr80,Bcd4)
 !     (THE READ OPERATION IS I/O BOUND, AND IS SLOW IN MOST MACHINES)
 !
 !
-   EQUIVALENCE (k100,k80,k72,k8,b4(1))
+   !>>>>EQUIVALENCE (k100,k80,k72,k8,b4(1))
 !
 !     ROUTINE KHRBCD (KAR80,BCD4)
 !     ===========================

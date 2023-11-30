@@ -37,7 +37,7 @@ SUBROUTINE inptt3
    COMMON /zzzzzz/ Z
    INTEGER buf1 , core , end , file , head , i , irew , iu , j , k , mcb(7) , name(2) , namx(2) , nc , nr , subnam(2) , type
    INTEGER korsz
-   EQUIVALENCE (Z(1),Dz(1))
+   !>>>>EQUIVALENCE (Z(1),Dz(1))
    DATA end , head , subnam/ - 999 , -111 , 4HINPT , 4HT3  /
 !
    core = korsz(Z(1))

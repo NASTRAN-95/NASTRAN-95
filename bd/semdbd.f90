@@ -74,7 +74,7 @@ BLOCKDATA semdbd
    COMMON /xxfiat/ Xxfiat
    COMMON /xxread/ Inflag , Insave , Ixxr
    INTEGER ksystm(100)
-   EQUIVALENCE (ksystm(1),Sysbuf)
+   !>>>>EQUIVALENCE (ksystm(1),Sysbuf)
 !
 !
 !     -------------------     /GINOX  /     ----------------------------

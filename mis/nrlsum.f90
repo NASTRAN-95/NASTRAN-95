@@ -30,9 +30,9 @@ SUBROUTINE nrlsum
 !     (IF (SQRSS.EQ.1), SQUARE ROOT OF THE SUM OF THE SQUARES IS USED
 !     INSTEAD OF NRL SUM
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (stress(1),istres(1))
-   EQUIVALENCE (sigp(1),sa) , (sigp(2),sb) , (sigp(3),sc)
-   EQUIVALENCE (sig(1),sx) , (sig(2),sy) , (sig(3),sz) , (sig(4),sxy) , (sig(5),syz) , (sig(6),szx)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (stress(1),istres(1))
+   !>>>>EQUIVALENCE (sigp(1),sa) , (sigp(2),sb) , (sigp(3),sc)
+   !>>>>EQUIVALENCE (sig(1),sx) , (sig(2),sy) , (sig(3),sz) , (sig(4),sxy) , (sig(5),syz) , (sig(6),szx)
    DATA oes2 , nrlstr , scr1 , scr2 , scr3/101 , 201 , 301 , 302 , 303/
    DATA oef2 , nrlfor/102 , 202/
    DATA scr/301 , 302 , 303/

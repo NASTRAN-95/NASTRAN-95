@@ -45,8 +45,8 @@ SUBROUTINE ifs2p(*,*,*)
 !            2.  NAME(2)
 !            3.  EQUIV FLAG, SIZE/1000, FILE NO. ON POOL
 !
-   EQUIVALENCE (Ksystm(1),Nbuf) , (Ksystm(24),Icfiat) , (Ksystm(2),Nout) , (Ksystm(55),Kprec) , (Ksystm(3),Abort) ,                 &
-    & (Ksystm(77),Bandit) , (nrows,t(3)) , (ifo,t(4)) , (ty2,t(5)) , (Z(1),I(1)) , (Xm(1),M(1)) , (Da(1),A(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Nbuf) , (Ksystm(24),Icfiat) , (Ksystm(2),Nout) , (Ksystm(55),Kprec) , (Ksystm(3),Abort) ,                 &
+!>>>>    & (Ksystm(77),Bandit) , (nrows,t(3)) , (ifo,t(4)) , (ty2,t(5)) , (Z(1),I(1)) , (Xm(1),M(1)) , (Da(1),A(1))
 !
    DATA nam/4HISF2 , 4HP   /
    DATA endt/4HENDT/ , skip/4HSKIP/ , pool/4HPOOL/

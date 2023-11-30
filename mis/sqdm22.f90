@@ -21,13 +21,13 @@ SUBROUTINE sqdm22
 !     TOGETHER WITH THE DISPLACEMENT VECTOR AND TEMPERATURE DATA
 !     TO ARRIVE AT STRESS AND FORCE OUTPUTS.
 !
-   EQUIVALENCE (Temp,Ldtemp)
-   EQUIVALENCE (Id(2),Isils(1)) , (Id(7),Tsub0) , (Id(8),Kij(1,1)) , (Id(101),Stress(1),Istr(1)) , (Id(152),Sg(1)) ,                &
-    & (Id(188),Pt(1,1)) , (Id(200),St(1)) , (Id(201),Force(1),Iforce(1)) , (Id(203),Rg(1))
-   EQUIVALENCE (F2,Force(2)) , (F1,Force(3)) , (F3,Force(4)) , (F4,Force(5)) , (F6,Force(6)) , (F5,Force(7)) , (F7,Force(8)) ,      &
-    & (F8,Force(9)) , (Fk1,Force(10)) , (Q1,Force(11)) , (Fk2,Force(12)) , (Q2,Force(13)) , (Fk3,Force(14)) , (Q3,Force(15)) ,      &
-    & (Fk4,Force(16)) , (Q4,Force(17))
-   EQUIVALENCE (ished(1),lsub) , (ished(2),lld) , (ished(6),frlast(1))
+   !>>>>EQUIVALENCE (Temp,Ldtemp)
+   !>>>>EQUIVALENCE (Id(2),Isils(1)) , (Id(7),Tsub0) , (Id(8),Kij(1,1)) , (Id(101),Stress(1),Istr(1)) , (Id(152),Sg(1)) ,                &
+!>>>>    & (Id(188),Pt(1,1)) , (Id(200),St(1)) , (Id(201),Force(1),Iforce(1)) , (Id(203),Rg(1))
+   !>>>>EQUIVALENCE (F2,Force(2)) , (F1,Force(3)) , (F3,Force(4)) , (F4,Force(5)) , (F6,Force(6)) , (F5,Force(7)) , (F7,Force(8)) ,      &
+!>>>>    & (F8,Force(9)) , (Fk1,Force(10)) , (Q1,Force(11)) , (Fk2,Force(12)) , (Q2,Force(13)) , (Fk3,Force(14)) , (Q3,Force(15)) ,      &
+!>>>>    & (Fk4,Force(16)) , (Q4,Force(17))
+   !>>>>EQUIVALENCE (ished(1),lsub) , (ished(2),lld) , (ished(6),frlast(1))
    DATA istyp/4HQDME , 2HM2/
    DATA lsub , lld , frlast/2* - 1 , -1.0E30 , -1.0E30/
 !

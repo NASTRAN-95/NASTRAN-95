@@ -27,7 +27,7 @@ SUBROUTINE dadd
 !     MATRIX C IS COMPLEX IF ANY ONE OF THE MATRIX A, MATRIX B, SCALE
 !     ALPHA, OR SCLAE BETA IS COMPLEX
 !
-   EQUIVALENCE (Alp(1),Dalp(1)) , (Bta(1),Dbta(1))
+   !>>>>EQUIVALENCE (Alp(1),Dalp(1)) , (Bta(1),Dbta(1))
    DATA in1 , in2 , iout1 , zero/101 , 102 , 201 , 0.0D+0/
    DATA one , xx , x/1.0D+0 , 1.0D+37 , 1.0E+37/
 !

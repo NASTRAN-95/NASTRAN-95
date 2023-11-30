@@ -32,7 +32,7 @@ SUBROUTINE pla42
 !     ECPTNL, ECPTNL1.  ECPTNL1, NAMED ECPTO IN THIS ROUTINE, DOES NOT
 !     CONTAIN DISPLACEMENT VECTOR COMPONENTS.
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (p(1),ip(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (p(1),ip(1))
    DATA name/4HPLA4 , 4H2   / , planos/1103 , 11/
    DATA nwdsp2/20 , 0 , 19 , 0 , 0 , 33 , 0 , 0 , 27 , 20 , 5*0 , 32 , 27 , 32 , 38 , 0 , 13*0 , 45 , 6*0/
 !

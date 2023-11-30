@@ -59,20 +59,20 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !     COMMON /SDRETT/ DUM(9) ,OLDEID
 !
 !
-   EQUIVALENCE (Iesta(1),Esta(1)) , (Stress(1),Istrs(1),Esta(101))
+   !>>>>EQUIVALENCE (Iesta(1),Esta(1)) , (Stress(1),Istrs(1),Esta(101))
 !
-   EQUIVALENCE (Sigp(1),Sa) , (Sig(1),Sx) , (Sig(2),Sy) , (Sig(3),Sz) , (Sig(4),Sxy) , (Sig(5),Syz) , (Sig(6),Szx) ,                &
-    & (csig(1),ifrvec(6))
+   !>>>>EQUIVALENCE (Sigp(1),Sa) , (Sig(1),Sx) , (Sig(2),Sy) , (Sig(3),Sz) , (Sig(4),Sxy) , (Sig(5),Syz) , (Sig(6),Szx) ,                &
+!>>>>    & (csig(1),ifrvec(6))
 !
-   EQUIVALENCE (lsub,ishd(1)) , (lld,ishd(2)) , (frlast(1),ishd(6))
-   EQUIVALENCE (ex20g3(1),ex2031(1)) , (ex20g3(133),ex2032(1)) , (ex20g3(260),ex2033(1)) , (ex20g3(387),ex2034(1)) ,                &
-    & (ex20g3(514),ex2035(1))
-   EQUIVALENCE (ex8g3(1),ex8g31(1)) , (ex8g3(133),ex8g32(1))
-   EQUIVALENCE (ex20g2(1),ex2021(1)) , (ex20g2(153),ex2022(1))
-   EQUIVALENCE (ex8g4(1),ex8g41(1)) , (ex8g4(153),ex8g42(1)) , (ex8g4(305),ex8g43(1)) , (ex8g4(457),ex8g44(1))
-   EQUIVALENCE (ex20g4(1),ex2041(1)) , (ex20g4(153),ex2042(1)) , (ex20g4(305),ex2043(1)) , (ex20g4(457),ex2044(1)) ,                &
-    & (ex20g4(609),ex2045(1)) , (ex20g4(761),ex2046(1)) , (ex20g4(913),ex2047(1)) , (ex20g4(1065),ex2048(1)) ,                      &
-    & (ex20g4(1217),ex2049(1))
+   !>>>>EQUIVALENCE (lsub,ishd(1)) , (lld,ishd(2)) , (frlast(1),ishd(6))
+   !>>>>EQUIVALENCE (ex20g3(1),ex2031(1)) , (ex20g3(133),ex2032(1)) , (ex20g3(260),ex2033(1)) , (ex20g3(387),ex2034(1)) ,                &
+!>>>>    & (ex20g3(514),ex2035(1))
+   !>>>>EQUIVALENCE (ex8g3(1),ex8g31(1)) , (ex8g3(133),ex8g32(1))
+   !>>>>EQUIVALENCE (ex20g2(1),ex2021(1)) , (ex20g2(153),ex2022(1))
+   !>>>>EQUIVALENCE (ex8g4(1),ex8g41(1)) , (ex8g4(153),ex8g42(1)) , (ex8g4(305),ex8g43(1)) , (ex8g4(457),ex8g44(1))
+   !>>>>EQUIVALENCE (ex20g4(1),ex2041(1)) , (ex20g4(153),ex2042(1)) , (ex20g4(305),ex2043(1)) , (ex20g4(457),ex2044(1)) ,                &
+!>>>>    & (ex20g4(609),ex2045(1)) , (ex20g4(761),ex2046(1)) , (ex20g4(913),ex2047(1)) , (ex20g4(1065),ex2048(1)) ,                      &
+!>>>>    & (ex20g4(1217),ex2049(1))
    DATA ex8g2/ - .0490 , .1830 , .1830 , -.6830 , .1830 , -.6830 , -.6830 , 2.5490 , .1830 , -.6830 , -.6830 , 2.5490 , -.0490 ,    &
       & .1830 , .1830 , -.6830 , -.6830 , 2.5490 , .1830 , -.6830 , .1830 , -.6830 , -.0490 , .1830 , .1830 , -.6830 , -.0490 ,     &
       & .1830 , -.6830 , 2.5490 , .1830 , -.6830 , .1830 , -.0490 , -.6830 , .1830 , -.6830 , .1830 , 2.5490 , -.6830 , -.6830 ,    &

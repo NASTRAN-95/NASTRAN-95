@@ -20,7 +20,7 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
 !
 !     ADRPRT FORMATS PKF BY USER SET REQUEST FOR EACH FREQUENCY
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA iaero/176/ , lcs/200/
    DATA nhfssu , nam/4HFSSU , 4HADRP , 4HRT  /
    DATA lsp/200 , 2/

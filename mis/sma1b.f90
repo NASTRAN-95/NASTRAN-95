@@ -43,7 +43,7 @@ SUBROUTINE sma1b(Ke,J,Ii,Ifile,Dampc)
 !     ECPT COMMON BLOCK
 !
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1))
 !
 !
 !     CALL EMG1B AND THEN RETURN IF THIS IS LINK 8.

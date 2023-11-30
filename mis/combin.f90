@@ -19,7 +19,7 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
    INTEGER hccen , hccens , hcfld , hcflds , i , ibuf1 , inull , ip1 , j , k , kk , kl , lcore , loadn(360) , loadnn(360) , lodc1(7)&
          & , mcb(7) , name(2) , nhc , nl1 , nlj , nperms , ns , remfl , remfls
 !
-   EQUIVALENCE (Core(1),Iary(1),Ary(1))
+   !>>>>EQUIVALENCE (Core(1),Iary(1),Ary(1))
 !
 !     ALSO COMBINE HCFLD AND REMFL IN MAGNETOSTATIC PROBLEMS
 !

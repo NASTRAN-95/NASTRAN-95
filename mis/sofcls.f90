@@ -16,8 +16,8 @@ SUBROUTINE sofcls
 !     WRITES OUT AT THE TERMINATION OF A MODULE ALL THE IN CORE BUFFERS
 !     AND COMMON BLOCKS.
 !
-   EQUIVALENCE (Dit,A(1)) , (Ditpbn,A(2)) , (Ditlbn,A(3)) , (Mdi,A(15)) , (Mdipbn,A(16)) , (Mdilbn,A(17)) , (Nxt,A(19)) ,           &
-    & (Nxtpbn,A(20)) , (Nxtlbn,A(21)) , (Ditup,A(34)) , (Mdiup,A(35)) , (Nxtup,A(36)) , (Nxtrst,A(37))
+   !>>>>EQUIVALENCE (Dit,A(1)) , (Ditpbn,A(2)) , (Ditlbn,A(3)) , (Mdi,A(15)) , (Mdipbn,A(16)) , (Mdilbn,A(17)) , (Nxt,A(19)) ,           &
+!>>>>    & (Nxtpbn,A(20)) , (Nxtlbn,A(21)) , (Ditup,A(34)) , (Mdiup,A(35)) , (Nxtup,A(36)) , (Nxtrst,A(37))
    DATA iwrt/2/
 !
    IF ( .NOT.Opnsof ) RETURN

@@ -26,8 +26,8 @@ SUBROUTINE wilvec(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !
 !     WILKINSON EIGENVECTOR SOLUTION FOR LARGE SYM MATRICES
 !
-   EQUIVALENCE (N,Vcom(1)) , (Pv,Vcom(5)) , (Nv,Vcom(7)) , (Nrigid,Vcom(10)) , (Phia,Vcom(12)) , (Nver,Vcom(13)) , (Maxitr,Vcom(15))&
-    & , (Iterm,Vcom(16))
+   !>>>>EQUIVALENCE (N,Vcom(1)) , (Pv,Vcom(5)) , (Nv,Vcom(7)) , (Nrigid,Vcom(10)) , (Phia,Vcom(12)) , (Nver,Vcom(13)) , (Maxitr,Vcom(15))&
+!>>>>    & , (Iterm,Vcom(16))
    DATA mul3 , mcb1 , mcb/0 , 0 , 0 , 0 , 2 , 2 , 0 , 0 , 7*0/
    DATA zero , one/0.0D+0 , 1.0D+0/
    DATA mgiv/4HMGIV/

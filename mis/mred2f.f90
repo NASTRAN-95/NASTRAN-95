@@ -59,9 +59,9 @@ SUBROUTINE mred2f
 !              HIM    - HIM PARTITION MATRIX FILE NUMBER
 !              HGH    - HORG MATRIX FILE NUMBER
 !
-   EQUIVALENCE (Usetmr,Infile(5)) , (Maa,Infile(7)) , (Dmr,Infile(11)) , (Rprtn,Iscr(9)) , (Ident,Iscr(5)) , (Cprtn,Iscr(10)) ,     &
-    & (Pprtn,Iscr(4)) , (Rz(1),Z(1)) , (Dz(1),Z(1)) , (Gib,Iscr(4)) , (Lii,Iscr11) , (Hirscr,Iscr(5)) , (Hgh,Iscr(8)) ,             &
-    & (Zero,Iscr(6)) , (Him,Iscr(8)) , (Hie,Iscr(7)) , (Hir,Iscr(9)) , (Far,Iscr(9)) , (Fir,Iscr(10))
+   !>>>>EQUIVALENCE (Usetmr,Infile(5)) , (Maa,Infile(7)) , (Dmr,Infile(11)) , (Rprtn,Iscr(9)) , (Ident,Iscr(5)) , (Cprtn,Iscr(10)) ,     &
+!>>>>    & (Pprtn,Iscr(4)) , (Rz(1),Z(1)) , (Dz(1),Z(1)) , (Gib,Iscr(4)) , (Lii,Iscr11) , (Hirscr,Iscr(5)) , (Hgh,Iscr(8)) ,             &
+!>>>>    & (Zero,Iscr(6)) , (Him,Iscr(8)) , (Hie,Iscr(7)) , (Hir,Iscr(9)) , (Far,Iscr(9)) , (Fir,Iscr(10))
    DATA modnam/4HMRED , 4H2F  /
    DATA farind , iscr7 , iscr8/6 , 307 , 308/
    DATA itmlst/4HGIMS , 4HHORG , 4HUPRT , 4HLMTX/

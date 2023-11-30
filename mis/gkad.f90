@@ -21,7 +21,7 @@ SUBROUTINE gkad
 !       NOUE,NOK4GG,NOBGG,NOKMGG,MODACC
 !
 !
-   EQUIVALENCE (iblock(1),blck(2)) , (block(1),blck(3))
+   !>>>>EQUIVALENCE (iblock(1),blck(2)) , (block(1),blck(3))
    DATA usetd , gm , go , kaa , baa , maa , k4aa , k2pp , m2pp , b2pp/101 , 102 , 103 , 104 , 105 , 106 , 107 , 108 , 109 , 110/
    DATA kdd , bdd , mdd , gmd , god , k2dd , m2dd , b2dd/201 , 202 , 203 , 204 , 205 , 206 , 207 , 208/
    DATA scr1 , scr2 , scr3 , scr4 , scr5 , scr6/301 , 302 , 303 , 304 , 305 , 306/

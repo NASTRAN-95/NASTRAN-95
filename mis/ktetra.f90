@@ -60,7 +60,7 @@ SUBROUTINE ktetra(Iopt,Jtype)
 !     IF JTYPE IS NEGATIVE, THIS IS LAST CALL FROM KSOLID
 !
 !
-   EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
    DATA idflag/0/ , scr4/304/
    DATA el/4HCWED , 4HGE   , 4HCHEX , 4HA1   , 4HCHEX , 4HA2   , 4HCTET , 4HRA  /
 !

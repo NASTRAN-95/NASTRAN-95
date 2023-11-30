@@ -28,7 +28,7 @@ SUBROUTINE ta1h
 !     ELEMENT CONNECTED TO THE GRID POINT.
 !
 !ZZ   COMMON /ZZTAA2/ Z(1)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tempid) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (blk(2),n)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tempid) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (blk(2),n)
    DATA nam/4HTA1H , 4H    / , two24/4194304/
 !
 !     PERFORM GENERAL INITIALIZATION

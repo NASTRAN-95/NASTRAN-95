@@ -48,10 +48,10 @@ SUBROUTINE ttrapr(Ti,Pg)
 !     ECPT(24) EL. TEMPERATURE FOR MATERIAL PROPERTIES       R
 !
 !
-   EQUIVALENCE (Consts(2),Twopi) , (Consts(4),Degra) , (Iecpt(1),Ecpt(1)) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (r(4),r4) ,         &
-    & (z(1),z1) , (z(2),z2) , (z(3),z3) , (z(4),z4) , (gambl(1),ee(1)) , (gambl(17),teo(1)) , (gambl(33),alfb(1)) ,                 &
-    & (gambl(37),ts(1)) , (gambl(41),delint(1)) , (gambl(1),gambq(1)) , (gambl(65),q(1)) , (gambl(97),hprim(1)) , (gambl(113),sp(1))&
-    & , (gambl(1),gamqs(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (Consts(4),Degra) , (Iecpt(1),Ecpt(1)) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (r(4),r4) ,         &
+!>>>>    & (z(1),z1) , (z(2),z2) , (z(3),z3) , (z(4),z4) , (gambl(1),ee(1)) , (gambl(17),teo(1)) , (gambl(33),alfb(1)) ,                 &
+!>>>>    & (gambl(37),ts(1)) , (gambl(41),delint(1)) , (gambl(1),gambq(1)) , (gambl(65),q(1)) , (gambl(97),hprim(1)) , (gambl(113),sp(1))&
+!>>>>    & , (gambl(1),gamqs(1))
 !
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !

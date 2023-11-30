@@ -11,8 +11,8 @@ SUBROUTINE ascm09(Name,Iphase,Isol,Nogo)
 !
 !     MREDUCE COMMAND DMAP DATA
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
-    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (ptbs2(1,1),ptbs(1,19)) , (ptbs3(1,1),ptbs(1,37))
    DATA comnd/4HMRED , 25 , 13 , 16 , 53 , 0/
    DATA slash/1H//
    DATA isave/1 , 15 , 1 , 2 , 11 , 2 , 4 , 12 , 1 , 4 , 16 , 3 , 5 , 5 , 1 , 19 , 7 , 3 , 19 , 8 , 3 , 19 , 9 , 3 , 22 , 15 , 2 ,  &

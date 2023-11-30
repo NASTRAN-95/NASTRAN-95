@@ -10,7 +10,7 @@ SUBROUTINE selcam(Camera,Pltnum,Opt)
 !
 !
 !
-   EQUIVALENCE (Model,Pd(1,1)) , (Ploter,Pd(2,1)) , (Xymax(1),Pd(7,1)) , (Edge(1),Pd(9,1)) , (Camnum,Pd(11,1)) , (Origin(1),Pd(8,2))
+   !>>>>EQUIVALENCE (Model,Pd(1,1)) , (Ploter,Pd(2,1)) , (Xymax(1),Pd(7,1)) , (Edge(1),Pd(9,1)) , (Camnum,Pd(11,1)) , (Origin(1),Pd(8,2))
    DATA con10 , cam10/1 , 2 , 1 , 2 , 3/
 !
    DO i = 1 , 2

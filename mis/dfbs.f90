@@ -33,8 +33,8 @@ SUBROUTINE dfbs
 !
 !ZZ   COMMON /ZZDFB1/ Z(1)
 !ZZ   COMMON /ZZDFB2/ ZZ(1)
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
    DATA l , u , b , x , scr/101 , 102 , 103 , 201 , 301/
    DATA sbnm/4HDFBS , 1H /
    DATA dosi/4HSING , 4HDOUB , 4HMLTP/ , refus/2*3H    , 3HREF/

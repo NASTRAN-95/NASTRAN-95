@@ -24,7 +24,7 @@ SUBROUTINE ifs5p(*,*,*)
    INTEGER lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
 !
-   EQUIVALENCE (M(1),Rm(1)) , (blank,iblank)
+   !>>>>EQUIVALENCE (M(1),Rm(1)) , (blank,iblank)
    DATA thru/4HTHRU/
    DATA blank/1H /
    DATA iyes , ino/4HYES  , 4HNO  /

@@ -34,8 +34,8 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !WKBNB 8/94
 !WKBNE 8/94
 !WKBI  8/94
-   EQUIVALENCE (ctyp,typ) , (xgpid,gpid) , (xin,in)
-   EQUIVALENCE (Ksystm(1),Nbufsz) , (Ksystm(2),Iout) , (Ksystm(69),Isubst)
+   !>>>>EQUIVALENCE (ctyp,typ) , (xgpid,gpid) , (xin,in)
+   !>>>>EQUIVALENCE (Ksystm(1),Nbufsz) , (Ksystm(2),Iout) , (Ksystm(69),Isubst)
    DATA err/4HNULL , 4HCOL. , 4HZERO , 4HDIAG , 4HNEG. , 4HDIAG , 4HSING , 4HTEST , 4HBAD  , 4HCOL. , 4HNON- , 4HCONS , 4HZERO ,    &
        &4HDIAG/
    DATA iner/4HINPU , 2HT  , 4HDECM , 2HP /

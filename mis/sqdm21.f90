@@ -73,7 +73,7 @@ SUBROUTINE sqdm21
 !
 !     WORKING STORAGE BLOCK (KEEP .LE. 300 WORDS)
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1))
    DATA map/1 , 2 , 3 , 4 , 2 , 3 , 4 , 1 , 5 , 5 , 5 , 5/
 !
 !     COMPUTE BASIC SIN AND COSINE OF ELEMENT MATERIAL ANGLE.

@@ -46,18 +46,18 @@ SUBROUTINE stord1
 !
 !
 !
-   EQUIVALENCE (Consts(2),Twopi)
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
-   EQUIVALENCE (A1,Alph(1)) , (A2,Alph(2))
-   EQUIVALENCE (R1,R(1)) , (R2,R(2))
-   EQUIVALENCE (Z1,Z(1)) , (Z2,Z(2))
-   EQUIVALENCE (gambqf(1),gambq(1))
-   EQUIVALENCE (gambqm(1),gambq(73))
-   EQUIVALENCE (delint(1),gambq(1))
-   EQUIVALENCE (gamrs(1),gambq(1))
-   EQUIVALENCE (aki(1),gambq(1))
-   EQUIVALENCE (gambl(1),gambq(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi)
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (A1,Alph(1)) , (A2,Alph(2))
+   !>>>>EQUIVALENCE (R1,R(1)) , (R2,R(2))
+   !>>>>EQUIVALENCE (Z1,Z(1)) , (Z2,Z(2))
+   !>>>>EQUIVALENCE (gambqf(1),gambq(1))
+   !>>>>EQUIVALENCE (gambqm(1),gambq(73))
+   !>>>>EQUIVALENCE (delint(1),gambq(1))
+   !>>>>EQUIVALENCE (gamrs(1),gambq(1))
+   !>>>>EQUIVALENCE (aki(1),gambq(1))
+   !>>>>EQUIVALENCE (gambl(1),gambq(1))
 !
 ! ----------------------------------------------------------------------
 !

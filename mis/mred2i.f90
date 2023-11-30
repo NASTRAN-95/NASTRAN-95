@@ -20,7 +20,7 @@ SUBROUTINE mred2i(Kode,Nuf,N2)
 !
 !     THIS SUBROUTINE COMPUTES THE GS MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Qsm,Infile(12)) , (Gs,Iscr(7)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Qsm,Infile(12)) , (Gs,Iscr(7)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HMRED , 4H2I  / , idiag/3/
 !
 !     TEST OPERATION MODE

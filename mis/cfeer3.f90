@@ -17,7 +17,7 @@ SUBROUTINE cfeer3
 !     CFEER3 IS A DRIVER ROUTINE WHICH PERFORMS THE TRIDIAGONAL
 !     REDUCTION FOR THE COMPLEX FEER METHOD
 !
-   EQUIVALENCE (Dz(1),Z(1)) , (Ksystm(55),Iprec) , (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Dz(1),Z(1)) , (Ksystm(55),Iprec) , (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
    DATA name/4HCFEE , 4HR3  /
 !
 !     SCRATCH FILE AND BUFFER ALLOCATION

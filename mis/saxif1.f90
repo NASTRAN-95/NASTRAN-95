@@ -17,7 +17,7 @@ SUBROUTINE saxif1(Iopt)
 !         1      CAXIF3
 !         2      CAXIF4
 !
-   EQUIVALENCE (Est(1),Nest(1)) , (Am(1),A(1))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Am(1),A(1))
 !
    DO i = 1 , 44
       Sv(i) = 0.0

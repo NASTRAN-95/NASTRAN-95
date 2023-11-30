@@ -87,7 +87,7 @@ SUBROUTINE mred1
    LOGICAL errors
    REAL range(2)
    EXTERNAL andf , orf , rshift
-   EQUIVALENCE (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1))
    DATA nmonic/4HNAMB , 4HBOUN , 4HFIXE , 4HMETH , 4HCMET , 4HOUTP , 4HRGRI , 4HOLDM , 4HOLDB , 4HRSAV , 4HRNAM , 4HRANG , 4HNMAX , &
        &4HUSER , 4HNAMA , 4HGPAR/
    DATA casecc/101/

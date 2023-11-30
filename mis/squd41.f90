@@ -72,10 +72,10 @@ SUBROUTINE squd41
 !
 !WKBNB 11/93 SPR 93020
 !WKBNE 11/93 SPR 93020
-   EQUIVALENCE (igpdt(1,1),Bgpdt(1,1)) , (Est(1),Nest(1)) , (Bgpdt(1,1),Est(29)) , (Gpth(1),Est(6)) , (Elth,Est(14)) ,              &
-    & (Sil(1),Nest(2)) , (Nphi(1),Phiout(1)) , (Int,Nest(25)) , (Zoff,Nest(12)) , (Zoff1,Est(28)) , (Ielout(1),Relout(1)) ,         &
-    & (Matset,Rmtout(25)) , (necpt(1),ecpt(1)) , (Systm(2),Nout) , (Phiout(65),Gpth2(1)) , (Systm(3),Nogo) , (Htcp,Kheat(4)) ,      &
-    & (Itherm,Systm(56))
+   !>>>>EQUIVALENCE (igpdt(1,1),Bgpdt(1,1)) , (Est(1),Nest(1)) , (Bgpdt(1,1),Est(29)) , (Gpth(1),Est(6)) , (Elth,Est(14)) ,              &
+!>>>>    & (Sil(1),Nest(2)) , (Nphi(1),Phiout(1)) , (Int,Nest(25)) , (Zoff,Nest(12)) , (Zoff1,Est(28)) , (Ielout(1),Relout(1)) ,         &
+!>>>>    & (Matset,Rmtout(25)) , (necpt(1),ecpt(1)) , (Systm(2),Nout) , (Phiout(65),Gpth2(1)) , (Systm(3),Nogo) , (Htcp,Kheat(4)) ,      &
+!>>>>    & (Itherm,Systm(56))
    DATA eps1/1.0E-16/ , ipn/1 , 4 , 2 , 3/
    DATA name/4HQUAD , 4H4   /
    DATA hunmeg/100000000/

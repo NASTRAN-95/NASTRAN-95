@@ -20,9 +20,9 @@ SUBROUTINE fa1
 !
 !     FA1 IS THE DRIVER FOR PART ONE OF FLUTTER ANALYSIS
 !
-   EQUIVALENCE (rec0(1),rec(1))
-   EQUIVALENCE (block(1),iblock(1))
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (rec0(1),rec(1))
+   !>>>>EQUIVALENCE (block(1),iblock(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA khh/101/ , bhh/102/ , mhh/103/ , qhhl/104/ , casecc/105/ , flist/106/ , fsave/201/ , kxhh/202/ , bxhh/203/ , mxhh/204/
    DATA scr1/301/ , ns/4HFA1  , 4H    /
    DATA imeth/4HS    , 4HL   /

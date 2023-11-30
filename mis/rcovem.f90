@@ -35,7 +35,7 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !     THIS SUBROUTINE CALCULATES THE ENERGIES ON THE MODAL COORDINATES
 !     THAT WERE EXCLUDED FROM THE MODAL REDUCTION PROCESSING
 !
-   EQUIVALENCE (Z(1),Rz(1),Cz(1)) , (Cz(2),Sc)
+   !>>>>EQUIVALENCE (Z(1),Rz(1),Cz(1)) , (Cz(2),Sc)
    DATA lams , phis , soln/4HLAMS , 4HPHIS , 4HSOLN/
    DATA scr3 , scr4 , scr5 , scr6 , scr7 , scr8/303 , 304 , 305 , 306 , 307 , 308/
    DATA name/4HRCOV , 4HEM  /

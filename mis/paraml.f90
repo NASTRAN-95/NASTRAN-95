@@ -69,8 +69,8 @@ SUBROUTINE paraml
    CHARACTER*7 nty(4)
    REAL sp(4) , x , y
    CHARACTER*10 type(4)
-   EQUIVALENCE (Vps(1),Ivps(1)) , (Z(1),Iz(1),Dz(1))
-   EQUIVALENCE (sp(1),dp(1))
+   !>>>>EQUIVALENCE (Vps(1),Ivps(1)) , (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (sp(1),dp(1))
    DATA name/4HPARA , 4HML  / , blank/4H    / , at/4HAND  , 4HTHRU/
    DATA opcd/4HTABL , 4HMATR , 4HPRES , 4HNULL , 4HTRAI , 4HDTI  , 4HDMI /
    DATA first/12/ , in1/101/ , ei/2HE1 , 2HE2 , 2HE4/

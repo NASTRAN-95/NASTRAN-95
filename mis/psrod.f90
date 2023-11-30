@@ -78,7 +78,7 @@ SUBROUTINE psrod
 !
 !
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Esub0,Plaans) , (Smsig,Mssig) , (Smtau,Mstau)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Esub0,Plaans) , (Smsig,Mssig) , (Smtau,Mstau)
 !
 ! CALL MAT ROUTINE TO GET MATERIAL PROPERTIES AND STORE IN LOCAL NAMES.
 !

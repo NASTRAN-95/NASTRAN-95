@@ -16,7 +16,7 @@ SUBROUTINE ifp1c(I81,Nz)
          & jexcpt , nifp1c(2) , thru
    REAL flag
 !
-   EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
    DATA thru/4HTHRU/ , exce/4HEXCE/
    DATA nifp1c/4H IFP , 4H1C  /
 !

@@ -65,7 +65,7 @@ SUBROUTINE sdr2d
 !     FORCE OUTPUT IS WRITTEN ON OEF1.
 !
 !    1,               IDSTRS   ,IDFORC   ,ILOGIC(2)
-   EQUIVALENCE (buf(1),bufr(1)) , (Z(1),Zz(1))
+   !>>>>EQUIVALENCE (buf(1),bufr(1)) , (Z(1),Zz(1))
 !    1,               (IDSTRS,ILOGIC(1)) ,(IDFORC,ILOGIC(2))
    DATA buf/50*0/ , kdefrm/104 , 1/ , xset0/100000000/
    DATA nmes1l/4HOES1 , 4HL   / , nmef1l/4HOEF1 , 4HL   /

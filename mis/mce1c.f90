@@ -15,7 +15,7 @@ SUBROUTINE mce1c
 !     RM*GM = -RN.
 !
 !
-   EQUIVALENCE (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Ksystm(55),Iprec)
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS
 !

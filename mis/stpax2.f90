@@ -50,9 +50,9 @@ SUBROUTINE stpax2(Sorc,Ti)
 !     SDR2 INPUT AND OUTPUT BLOCK
 !
 !
-   EQUIVALENCE (Iblock(1,1),Block(1,1)) , (Iclock(1,1),Clock(1,1)) , (Dum3(1),Idel) , (Dum3(101),Stres(1),Istres(1)) ,              &
-    & (Dum3(201),Force(1),Iforce(1)) , (Consts(4),Degrad) , (Ldtemp,Templd) , (Dum2(1),Akuph(1)) , (Dum2(49),Akph2(1)) ,            &
-    & (Dum2(65),Selp1(1)) , (Dum2(185),Selp2(1)) , (Dum2(365),Selp3(1)) , (Unu(1),D4(1)) , (Unu(5),D15(1)) , (Unu(20),D30(1))
+   !>>>>EQUIVALENCE (Iblock(1,1),Block(1,1)) , (Iclock(1,1),Clock(1,1)) , (Dum3(1),Idel) , (Dum3(101),Stres(1),Istres(1)) ,              &
+!>>>>    & (Dum3(201),Force(1),Iforce(1)) , (Consts(4),Degrad) , (Ldtemp,Templd) , (Dum2(1),Akuph(1)) , (Dum2(49),Akph2(1)) ,            &
+!>>>>    & (Dum2(65),Selp1(1)) , (Dum2(185),Selp2(1)) , (Dum2(365),Selp3(1)) , (Unu(1),D4(1)) , (Unu(5),D15(1)) , (Unu(20),D30(1))
    DATA zeron/.FALSE./
    DATA iosorc/0/
 !

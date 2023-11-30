@@ -69,9 +69,9 @@ SUBROUTINE etrbks(Iopt)
 !
 !
 !
-   EQUIVALENCE (Consts(4),Degra) , (G2x2(1),A(88))
-   EQUIVALENCE (Ielid,Ecpt(1),Necpt(1)) , (D(1),G(1),A(79)) , (Tjte(1),A(100)) , (Tite(1),S(1),A(82)) , (J2x2(1),A(92)) ,           &
-    & (Ti(1),A(118))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (G2x2(1),A(88))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Necpt(1)) , (D(1),G(1),A(79)) , (Tjte(1),A(100)) , (Tite(1),S(1),A(82)) , (J2x2(1),A(92)) ,           &
+!>>>>    & (Ti(1),A(118))
 !
    DATA no/81 , 190/
    ntype = 0

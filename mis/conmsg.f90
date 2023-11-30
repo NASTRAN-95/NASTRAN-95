@@ -18,11 +18,11 @@ SUBROUTINE conmsg(Mesage,Nwords,Idummy)
    CHARACTER*12 real_clock(3) , time
 !
 !
-   EQUIVALENCE (values,cvalues)
+   !>>>>EQUIVALENCE (values,cvalues)
 !
 !
-   EQUIVALENCE (Isystm(15),Idate(1)) , (Isystm(18),Cpustr) , (Isystm(42),Icrdat) , (Isystm(75),Cputim) , (Isystm(151),Nllog) ,      &
-    & (Isystm(152),Loglin) , (Isystm(159),Logpag) , (Isystm(160),Oldcpu)
+   !>>>>EQUIVALENCE (Isystm(15),Idate(1)) , (Isystm(18),Cpustr) , (Isystm(42),Icrdat) , (Isystm(75),Cputim) , (Isystm(151),Nllog) ,      &
+!>>>>    & (Isystm(152),Loglin) , (Isystm(159),Logpag) , (Isystm(160),Oldcpu)
 !
    DATA idsms , iwrtt , iaudt , impya/4HDSMS , 4HWRTT , 4HAUDT , 4HMPYA/
    DATA modtim/0.0/

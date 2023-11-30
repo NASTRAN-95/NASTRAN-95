@@ -12,7 +12,7 @@ SUBROUTINE ofp1
 !     THIS ROUTINE CALLS OPF1A, OFP1B OR OFP1C FOR ACTUAL PRINTING, SUCH
 !     THAT OFP1A, OFP1B AND OFP1C CAN BE OVERLAYED IN PARALLEL.
 !
-   EQUIVALENCE (Core(1),Of(1),L123(1)) , (Id(1),Of(6)) , (Nout,Ksys(2)) , (Linet,Ksys(12)) , (Iflag,Ksys(33))
+   !>>>>EQUIVALENCE (Core(1),Of(1),L123(1)) , (Id(1),Of(6)) , (Nout,Ksys(2)) , (Linet,Ksys(12)) , (Iflag,Ksys(33))
 !
 !     IFLAG IS WORD 33 OF /SYSTEM/ AND IS SET TO INCIDATE OFP PRINTED
 !     LAST.

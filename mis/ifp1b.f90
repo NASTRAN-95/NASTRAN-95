@@ -39,7 +39,7 @@ SUBROUTINE ifp1b
 !     LAST REVISED  7/91, BY G.CHAN/UNISYS, TO ALLOW HUGE THRU-RANGE ON
 !     SET IN CASE CONTROL SECTION FOR PRINTOUT OR PLOTTING
 !
-   EQUIVALENCE (Corex(1),Corey(1),Icase(1,1)) , (Core(1),Corey(401))
+   !>>>>EQUIVALENCE (Corex(1),Corey(1),Icase(1,1)) , (Core(1),Corey(401))
    DATA name/4HIFP1 , 4HB   /
    DATA case , cc/4HCASE , 4HCC  /
    DATA ss/4HSS  /

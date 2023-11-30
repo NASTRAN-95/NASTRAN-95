@@ -23,7 +23,7 @@ SUBROUTINE onetwo(*,Ix,X,Dx,Itermm)
 !*******
 !
 !
-   EQUIVALENCE (Ifila(2),Ncol) , (Ifill(5),Typel) , (Sr2fil,Dum(2))
+   !>>>>EQUIVALENCE (Ifila(2),Ncol) , (Ifill(5),Typel) , (Sr2fil,Dum(2))
 !
    DATA sub/4HONET , 4HWO  /
 !

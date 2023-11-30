@@ -15,7 +15,7 @@ SUBROUTINE mce1d
 !     MCE1D SOLVES FOR GM IN THE MATRIX EQUATION RM*GM = -RN
 !     WHERE RM IS A DIAGONAL MATRIX.
 !
-   EQUIVALENCE (Mcb(2),Ncol) , (Ad(1),A(1)) , (Mcb(5),Type) , (Zd(1),Z(1)) , (Bd(1),B(1)) , (mcb1(2),ncol1)
+   !>>>>EQUIVALENCE (Mcb(2),Ncol) , (Ad(1),A(1)) , (Mcb(5),Type) , (Zd(1),Z(1)) , (Bd(1),B(1)) , (mcb1(2),ncol1)
    DATA bcd , rdp/4HMCE1 , 4HD    , 2/
 !
 !     OPEN RM MATRIX,SKIP HEADER RECORD AND READ MATRIX CONTROL BLOCK

@@ -14,7 +14,7 @@ SUBROUTINE optpx1(*,Stor,Nogo,Nen,Loc1)
 !
 !     PROCESS PID DATA ON PLIMIT CARD
 !
-   EQUIVALENCE (Core(1),X(1)) , (X(7),Iy(1))
+   !>>>>EQUIVALENCE (Core(1),X(1)) , (X(7),Iy(1))
    DATA thru/4HTHRU/
 !
    nam(1) = Stor(1)

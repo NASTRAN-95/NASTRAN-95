@@ -17,7 +17,7 @@ SUBROUTINE timts2
 !     TIMTS2 TIME TESTS CPU TIMES FOR VARIOUS TYPES OF LOOPS
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (A(1),Ac(1),Ad(1),B(1),Bc(1),Bd(1),C(1),Cc(1),Cd(1),D(1),Dc(1),Dd(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Output) , (A(1),Ac(1),Ad(1),B(1),Bc(1),Bd(1),C(1),Cc(1),Cd(1),D(1),Dc(1),Dd(1))
    DATA tig/1H  , 4HTIGH , 4HT( R , 4HSP ) , 1H  , 4HTIGH , 4HT( R , 4HDP ) , 1H  , 4HTIGH , 4HT( C , 4HSP ) , 1H  , 4HTIGH ,       &
       & 4HT( C , 4HDP )/
    DATA med/1H  , 4HMEDI , 4HUM(R , 4HSP ) , 1H  , 4HMEDI , 4HUM(R , 4HDP ) , 1H  , 4HMEDI , 4HUM(C , 4HSP ) , 1H  , 4HMEDI ,       &

@@ -31,9 +31,9 @@ SUBROUTINE termsd(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
 !     PART OF THE INPUT IS PASSED TO THIS SUBROUTINE THROUGH THE
 !     INTERNAL COMMON BLOCK  /COMJAC/.
 !
-   EQUIVALENCE (dshpx(1),dshp(1)) , (dshpe(1),dshp(9))
-   EQUIVALENCE (Vn(1),Cjac(8)) , (Tie(1),Cjac(11))
-   EQUIVALENCE (Th,Cjac(1))
+   !>>>>EQUIVALENCE (dshpx(1),dshp(1)) , (dshpe(1),dshp(9))
+   !>>>>EQUIVALENCE (Vn(1),Cjac(8)) , (Tie(1),Cjac(11))
+   !>>>>EQUIVALENCE (Th,Cjac(1))
 !
    eps = 1.0D-15
    Badjac = .FALSE.

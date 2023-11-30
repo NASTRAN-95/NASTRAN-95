@@ -54,7 +54,7 @@ SUBROUTINE fbsi(Zs,Zd)
    INTEGER begn , block(15) , buf1 , buf2 , end , i , icdpsg , icspsg , iname(2) , j , k , l , l47 , last , last2 , ll , ln ,       &
          & memavl , mtria , nrhv , nrhvwd , rcb , rcl , subnam(2) , switch , typel
    LOGICAL ident
-   EQUIVALENCE (Dbl(2),Ncol) , (Dbb(5),Typeb) , (Dbx(5),Typex) , (Xd(1),Xs(1)) , (Yd(1),Ys(1))
+   !>>>>EQUIVALENCE (Dbl(2),Ncol) , (Dbb(5),Typeb) , (Dbx(5),Typex) , (Xd(1),Xs(1)) , (Yd(1),Ys(1))
    DATA subnam/4HFBSI , 4H    /
    DATA begn/4HBEGN/
    DATA end/4HEND /

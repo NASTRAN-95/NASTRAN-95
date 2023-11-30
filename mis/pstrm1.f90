@@ -33,8 +33,8 @@ SUBROUTINE pstrm1(Ntype)
 !
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (G(1),Tempar(19)) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (G(1),Tempar(19)) , (Ecpt(1),Necpt(1))
 !
 !     ECPT LIST
 !                                                      IN

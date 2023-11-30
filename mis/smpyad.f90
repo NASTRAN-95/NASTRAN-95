@@ -17,7 +17,7 @@ SUBROUTINE smpyad
          & refus(3) , resmat , trlr(7,5)
    INTEGER korsz
 !
-   EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
    DATA mat/101 , 102 , 103 , 104 , 105/
    DATA addmat , resmat , intres , mpyads , recmat/106 , 201 , 301 , 302 , 2/
    DATA dosi/4HSING , 4HDOUB , 4HMLTP/

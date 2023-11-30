@@ -39,11 +39,11 @@ SUBROUTINE mtrxin
    REAL bufr(13)
    LOGICAL pack
    EXTERNAL andf , lshift , orf , rshift
-   EQUIVALENCE (buf(1),bufr(1)) , (X(1),Xd(1)) , (filei(1),file1) , (filei(2),file2) , (bufi(1),buf3) , (bufi(2),buf4) ,            &
-    & (Nomat(1),Nomat1) , (Nomat(2),Nomat2) , (filei(3),file3) , (bufi(3),buf5) , (Nomat(3),Nomat3) , (bufd(1),db(13)) ,            &
-    & (buf(1),db(2))
-   EQUIVALENCE (Mcbs(1),Filea(1)) , (Mcbs(8),Typalp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Fileb(1)) , (Mcbs(20),Typbet) ,               &
-    & (Mcbs(21),Beta(1)) , (Mcbs(61),Filec(1))
+   !>>>>EQUIVALENCE (buf(1),bufr(1)) , (X(1),Xd(1)) , (filei(1),file1) , (filei(2),file2) , (bufi(1),buf3) , (bufi(2),buf4) ,            &
+!>>>>    & (Nomat(1),Nomat1) , (Nomat(2),Nomat2) , (filei(3),file3) , (bufi(3),buf5) , (Nomat(3),Nomat3) , (bufd(1),db(13)) ,            &
+!>>>>    & (buf(1),db(2))
+   !>>>>EQUIVALENCE (Mcbs(1),Filea(1)) , (Mcbs(8),Typalp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Fileb(1)) , (Mcbs(20),Typbet) ,               &
+!>>>>    & (Mcbs(21),Beta(1)) , (Mcbs(61),Filec(1))
    DATA mcb/201 , 9*0 , 202 , 9*0 , 203 , 29*0/ , casecc , mpool , eqex , tfpool/101 , 102 , 103 , 105/ , scr1 , scr2 , scr3 ,      &
       & scr4 , scr5 , scr6 , scr7/301 , 302 , 303 , 304 , 305 , 306 , 307/ , block/81*0/ , nam/4HMTRX , 4HIN  / , dmig/114 , 1/ ,   &
       & nfiles/21/ , imat1 , imat2 , imat3 , itf/139 , 141 , 143 , 15/

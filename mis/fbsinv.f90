@@ -18,7 +18,7 @@ SUBROUTINE fbsinv(X,Y,Iobuff)
 !     Y      = THE SOLUTION VECTOR
 !     IOBUFF = NOT USED
 !
-   EQUIVALENCE (Filel(3),Nrow) , (Filel(5),Ltype)
+   !>>>>EQUIVALENCE (Filel(3),Nrow) , (Filel(5),Ltype)
    DATA parm/4H     , 4HFBSI , 4HNV  /
 !
 !     FORWARD PASS

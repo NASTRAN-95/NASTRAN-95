@@ -24,7 +24,7 @@ SUBROUTINE genvec(*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
 !     MATRIX
 !
 !     COMMON /DESCRP/ LENGTH    ,MAJOR(1)
-   EQUIVALENCE (Istv(1),Sysbuf) , (Istv(2),Nout) , (Istv(55),P) , (Tcons(8),Xmb(1))
+   !>>>>EQUIVALENCE (Istv(1),Sysbuf) , (Istv(2),Nout) , (Istv(55),P) , (Tcons(8),Xmb(1))
    DATA name/4HGENV , 4HEC  / , cmax/200/ , namin/4H REA , 1HL , 4HCOMP , 3HLEX/
 !
 !

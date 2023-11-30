@@ -33,7 +33,7 @@ SUBROUTINE modac1(Casecc,Tol,Tol1,Casezz,Caseyy)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA name/4HMODA , 4HC1  /
 !
 !     BRING  IN  CASECC

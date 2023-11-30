@@ -53,8 +53,8 @@ SUBROUTINE cdcomp(*,Ix,X,Dx)
 !
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR
-   EQUIVALENCE (Da(1),A(1)) , (Dz(1),Z(1)) , (Forma,Filea(4)) , (Typea,Filea(5)) , (Ncol,Filea(3)) , (Typel,Filel(5))
-   EQUIVALENCE (itran(1),itrn) , (itran(2),jtrn) , (itran(3),dtrn(1))
+   !>>>>EQUIVALENCE (Da(1),A(1)) , (Dz(1),Z(1)) , (Forma,Filea(4)) , (Typea,Filea(5)) , (Ncol,Filea(3)) , (Typel,Filel(5))
+   !>>>>EQUIVALENCE (itran(1),itrn) , (itran(2),jtrn) , (itran(3),dtrn(1))
    DATA parm(3) , parm(4)/4HCDCO , 4HMP  /
    DATA ibegn/4HBEGN/ , iend/4HEND /
    DATA limit/1.0D-38/

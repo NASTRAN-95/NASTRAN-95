@@ -45,7 +45,7 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
 !     ALL OTHER SCRATCH FILES ARE USED
 !
 !    4                 SOLN       ,SRD        ,SWRT       ,SCHK       ,
-   EQUIVALENCE (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1))
    DATA name/4HRCOV , 4HUO  /
    DATA pove , lmtx/4HPOVE , 4HLMTX/
    DATA uprt , kmtx/4HUPRT , 4HKMTX/

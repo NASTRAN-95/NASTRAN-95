@@ -70,7 +70,7 @@ SUBROUTINE dshear
 !     ECPT(38)  -  ...                         ...
 !     ECPT(39)  -  ...                         ...
 !
-   EQUIVALENCE (Iz(1),Zz(1)) , (Ielid,Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Iz(1),Zz(1)) , (Ielid,Iecpt(1),Ecpt(1))
 !
 !     CALL MAT TO GET MATERIAL PROPERTIES.
 !

@@ -36,7 +36,7 @@ SUBROUTINE mflud2
 !           14       -
 !           15       -
 !
-   EQUIVALENCE (Constd(1),Dpi) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Constd(1),Dpi) , (Ecpt(1),Necpt(1))
 !
 !
    IF ( Ecpt(13)<Ecpt(9) ) THEN

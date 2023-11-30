@@ -13,7 +13,7 @@ SUBROUTINE sdr1
          & uoov , uset , ys
    EXTERNAL andf
 !
-   EQUIVALENCE (Isys(25),Irfno)
+   !>>>>EQUIVALENCE (Isys(25),Irfno)
    DATA dyna , reig/4HDYNA , 4HREIG/
 !
    ium = 304

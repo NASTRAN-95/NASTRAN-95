@@ -39,7 +39,7 @@ SUBROUTINE trd
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA casexx , trl , nlft , dit/101 , 102 , 103 , 104/ , kdd , bdd , mdd , pd/105 , 106 , 107 , 108/ , udvt , pnld , scr1 ,       &
       & scr2/201 , 202 , 301 , 302/ , scr3 , scr4 , scr5 , scr6/303 , 304 , 305 , 306/ , scr7 , scr8 , moda/307 , 308 , 4HMODA/ ,   &

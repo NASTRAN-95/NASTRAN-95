@@ -41,8 +41,8 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !                 OUTV AND OUTA
 !     INTYP =-1   OUTU, OUTV AND OUTA ARE MERGED ONTO OUTT
 !
-   EQUIVALENCE (temp(1),scale,rscale) , (temp(2),iscale) , (inblk1(1),oblk1(1)) , (inblk2(1),oblk2(1)) , (inblk3(1),oblk3(1)) ,     &
-    & (outblk(1),inblk(1))
+   !>>>>EQUIVALENCE (temp(1),scale,rscale) , (temp(2),iscale) , (inblk1(1),oblk1(1)) , (inblk2(1),oblk2(1)) , (inblk3(1),oblk3(1)) ,     &
+!>>>>    & (outblk(1),inblk(1))
    DATA name/4HRCOV , 4HVA  /
    DATA srd/1/
    DATA soln/4HSOLN/

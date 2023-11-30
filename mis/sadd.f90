@@ -34,7 +34,7 @@ SUBROUTINE sadd(Z,Dz)
 !
 !         MC    - MATRIX CONTROL BLOCK OF THE OUTPUT
 !
-   EQUIVALENCE (Amcb(1),Mcbs(9)) , (alph(1),dalph(1)) , (Da(1),A(1)) , (Dmcb(1),Mcbs(9)) , (Ntype,Mc(5)) , (Nrow,Mc(3))
+   !>>>>EQUIVALENCE (Amcb(1),Mcbs(9)) , (alph(1),dalph(1)) , (Da(1),A(1)) , (Dmcb(1),Mcbs(9)) , (Ntype,Mc(5)) , (Nrow,Mc(3))
    DATA name/4HSADD , 4H    /
 !
 !

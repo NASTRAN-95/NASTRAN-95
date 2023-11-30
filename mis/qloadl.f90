@@ -31,8 +31,8 @@ SUBROUTINE qloadl(Iopt)
 !     14-16      V1 VECTOR         *             *
 !     17-19      V2 VECTOR         *             *
 !
-   EQUIVALENCE (type,card(1)) , (id,card(2)) , (sils(1),card(3)) , (coef(1),card(7)) , (e(1),ie(1),card(11)) , (v1(1),card(14)) ,   &
-    & (v2(1),card(17))
+   !>>>>EQUIVALENCE (type,card(1)) , (id,card(2)) , (sils(1),card(3)) , (coef(1),card(7)) , (e(1),ie(1),card(11)) , (v1(1),card(14)) ,   &
+!>>>>    & (v2(1),card(17))
    DATA igrids/1 , 2 , 2 , 3 , 4 , 2/
    DATA subr/4HQLOA , 4HDL  /
    DATA itran1 , iold , minus/4HTRAN , 0 , -1 , -1/

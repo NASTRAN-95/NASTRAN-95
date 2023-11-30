@@ -48,7 +48,7 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
 !     ECPT(22) = Z4
 !     ECPT(23) = ELEMENT TEMPERATURE
 !
-   EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
 !
 !     FILL THE 4 X 4 H MATRIX.
 !

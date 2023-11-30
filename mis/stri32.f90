@@ -89,9 +89,9 @@ SUBROUTINE stri32
 !WKBI NCL93012 3/94
 !WKBR NCL93012 3/94 COMMON /BLANK / APP(2),SORT2,IDUM(2),COMPS
 !    1,               DUM(13),KTYPE
-   EQUIVALENCE (Iz1o,Z1o) , (Iz2o,Z2o) , (Avgthk,Ph1rst(1)) , (Mominr,Ph1rst(2)) , (G(1,1),Ph1rst(3)) , (Alfam(1),Ph1rst(39)) ,     &
-    & (Alfab(1),Ph1rst(42)) , (Gpth(1),Ph1rst(45)) , (Device,Ksdrde(2)) , (Nepsop,Ksdrde(151)) , (Kstrs,Ksdrde(42)) ,               &
-    & (Kstrn,Ksdrde(142)) , (Kforc,Ksdrde(41)) , (Stemp(1),Ksdrde(97)) , (Stemp(7),Flag) , (Oes1al,Oes1l)
+   !>>>>EQUIVALENCE (Iz1o,Z1o) , (Iz2o,Z2o) , (Avgthk,Ph1rst(1)) , (Mominr,Ph1rst(2)) , (G(1,1),Ph1rst(3)) , (Alfam(1),Ph1rst(39)) ,     &
+!>>>>    & (Alfab(1),Ph1rst(42)) , (Gpth(1),Ph1rst(45)) , (Device,Ksdrde(2)) , (Nepsop,Ksdrde(151)) , (Kstrs,Ksdrde(42)) ,               &
+!>>>>    & (Kstrn,Ksdrde(142)) , (Kforc,Ksdrde(41)) , (Stemp(1),Ksdrde(97)) , (Stemp(7),Flag) , (Oes1al,Oes1l)
    DATA istart/93/
    DATA center/4HCNTR/
    DATA nblnk/4HBLNK/

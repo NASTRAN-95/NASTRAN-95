@@ -35,8 +35,8 @@ SUBROUTINE mpy3a(Z,Iz,Dz)
 !
 !
 !
-   EQUIVALENCE (Ipoint,Zpntrs(3)) , (Npoint,Zpntrs(4)) , (Iacols,Zpntrs(5)) , (Itrans,Zpntrs(7)) , (Ibcols,Zpntrs(11))
-   EQUIVALENCE (A(1),Da)
+   !>>>>EQUIVALENCE (Ipoint,Zpntrs(3)) , (Npoint,Zpntrs(4)) , (Iacols,Zpntrs(5)) , (Itrans,Zpntrs(7)) , (Ibcols,Zpntrs(11))
+   !>>>>EQUIVALENCE (A(1),Da)
 !
 !
 !

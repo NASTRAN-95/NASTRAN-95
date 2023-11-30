@@ -49,8 +49,8 @@ SUBROUTINE mtrapr
 !     ECPT(23) Z-COOR. OF GRID POINT D (IN BASIC COOR.)      R
 !     ECPT(24) EL. TEMPERATURE FOR MATERIAL PROPERTIES       R
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (R(1),R1) , (R(2),R2) , (R(3),R3) , (R(4),R4) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , &
-    & (Am(1),Ak(1)) , (Constd(2),D2pi)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (R(1),R1) , (R(2),R2) , (R(3),R3) , (R(4),R4) , (Z(1),Z1) , (Z(2),Z2) , (Z(3),Z3) , (Z(4),Z4) , &
+!>>>>    & (Am(1),Ak(1)) , (Constd(2),D2pi)
 !
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !

@@ -37,7 +37,7 @@ SUBROUTINE ampc(Djh1,Djh2,Djh,Ajjl,Qjh,Qjho,Qjhua,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6)
 !              A) COMPUTE QJHTH = (AJJ)*DJH.
 !              B) QJHUA = QJHTH SINCE ONLY ONE BLADE AND GROUP (NGP = 1)
 !
-   EQUIVALENCE (iblock(1),block(1))
+   !>>>>EQUIVALENCE (iblock(1),block(1))
    DATA name/4HAMPC , 4H    /
    DATA iblock(1) , iblock(7) , block(2) , block(3) , block(8)/3 , 3 , 1.0 , 0. , 0./
 !

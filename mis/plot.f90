@@ -39,9 +39,9 @@ SUBROUTINE plot(Mode,Buf1,B1,Setid,Deflst,Nofind)
 !
 !     THIS PLOT ROUTINE IS CALLED ONLY BY PARAM
 !
-   EQUIVALENCE (err(1),frr(1)) , (word,awrd(1),iwrd,fwrd,dwrd)
-   EQUIVALENCE (Fscale,Scale(3)) , (Fvp,Vanpnt(1))
-   EQUIVALENCE (Skp19(1),Lasset)
+   !>>>>EQUIVALENCE (err(1),frr(1)) , (word,awrd(1),iwrd,fwrd,dwrd)
+   !>>>>EQUIVALENCE (Fscale,Scale(3)) , (Fvp,Vanpnt(1))
+   !>>>>EQUIVALENCE (Skp19(1),Lasset)
    DATA eor , inprew , norew , rew , skpttl , skplod/1000000 , 0 , 2 , 1 , 37 , 5/
    DATA subc/4HSUBC , 4HASES/
    DATA name/4H  PL , 4HOT  /

@@ -12,7 +12,7 @@ SUBROUTINE ploadx
 !     PLOADX BUILDS THE PRESSURE LOADS FROM A PLOADX CARD FOR THE
 !     TRIAX6 ELEMENT
 !
-   EQUIVALENCE (slc(1),islc(1),p1) , (slc(2),p3) , (gd(1),igd(1))
+   !>>>>EQUIVALENCE (slc(1),islc(1),p1) , (slc(2),p3) , (gd(1),igd(1))
    DATA nam/4HPLOA , 4HDX  /
 !
    CALL read(*100,*200,Slt,slc,5,0,flag)

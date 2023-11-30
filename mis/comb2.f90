@@ -32,7 +32,7 @@ SUBROUTINE comb2
 !     NOVEMBER 1973
 !
 !
-   EQUIVALENCE (Dbz(1),Z(1),Iz(1)) , (pvec,kmpitm(3))
+   !>>>>EQUIVALENCE (Dbz(1),Z(1),Iz(1)) , (pvec,kmpitm(3))
    DATA name/4HCOMB , 4H2   /
    DATA horg/4HHORG/
    DATA blank/4H    /

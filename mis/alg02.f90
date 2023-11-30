@@ -31,7 +31,7 @@ SUBROUTINE alg02
    INTEGER idata(24) , j , k , l , l1 , l2 , last , lastd , logn , name(2) , next , nle , nte
    REAL rdata(6)
 !
-   EQUIVALENCE (H(1,1),Ii(1,1)) , (S(1,1),Jj(1,1))
+   !>>>>EQUIVALENCE (H(1,1),Ii(1,1)) , (S(1,1),Jj(1,1))
    DATA name/4HALG0 , 4H2   /
 !
    debug = .FALSE.

@@ -169,7 +169,7 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
 !
 !     ERROR MESSAGES 8023,504,8025,8026,8024,8037 MAY BE ISSUED
 !
-   EQUIVALENCE (Ksystm(2),Optape) , (Ksystm(56),Ithrml) , (Ksystm(42),Idate(1)) , (Ksystm(69),Isubal) , (Ksystm(9),Nlpp)
+   !>>>>EQUIVALENCE (Ksystm(2),Optape) , (Ksystm(56),Ithrml) , (Ksystm(42),Idate(1)) , (Ksystm(69),Isubal) , (Ksystm(9),Nlpp)
    DATA filtyp/4HDMAP , 4HDISP , 4HHEAT , 4HAERO/
    DATA solnum/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 2H10 , 2H11 , 2H12 , 2H13 , 2H14 , 2H15 , 2H16 , 2H17 , 2H18 , &
        &2H19 , 2H20/

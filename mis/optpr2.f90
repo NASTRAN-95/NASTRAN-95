@@ -31,7 +31,7 @@ SUBROUTINE optpr2
 !             CARDNO = INPUT/OUTPUT - INTEGER, PUNCHED CARD COUNT
 !
 !     LOGICAL         DEBUG
-   EQUIVALENCE (y(1),iy(1),Parm(8)) , (Core(1),Max,Parm(1)) , (Parm(4),Iprn) , (Parm(7),Iprnt)
+   !>>>>EQUIVALENCE (y(1),iy(1),Parm(8)) , (Core(1),Max,Parm(1)) , (Parm(4),Iprn) , (Parm(7),Iprnt)
    DATA name/4H OPT , 4HPR2 / , none/4H (NO , 4HNE) /
    DATA ptpty , ptely , ptpry , ptply , ptrry/5*0/
 !     DATA    DEBUG / .FALSE /

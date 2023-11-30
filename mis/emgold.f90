@@ -41,7 +41,7 @@ SUBROUTINE emgold
 !     POINT-LOGIC ELEMENT SUBROUTINES TO BE USED IN CONJUNCTION WITH THE
 !     NON-PIVOT-POINT PROCESS.
 !
-   EQUIVALENCE (Ksystm(2),Outpt) , (Ksystm(40),Nbpw) , (Smaio(11),Ifkgg) , (Smaio(13),If4gg)
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (Ksystm(40),Nbpw) , (Smaio(11),Ifkgg) , (Smaio(13),If4gg)
 !
    ktemp = Knogo
    mtemp = Mnogo

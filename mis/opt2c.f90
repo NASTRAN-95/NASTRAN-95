@@ -24,8 +24,8 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
          & locf , mcb(7) , n , name(2) , neop(21) , nmes , npcard , nwds , quad4 , tria3 , trim6 , tube , wdopt(42)
    LOGICAL kpun
 !
-   EQUIVALENCE (Iz(1),Z(1)) , (Eid,Z(1)) , (Core(1),Parm(1),Max) , (G(1,1),Iz(100)) , (G(1,10),Ig10) , (Iprnt,Parm(7)) ,            &
-    & (Iy(1),Y(1),Parm(8))
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (Eid,Z(1)) , (Core(1),Parm(1),Max) , (G(1,1),Iz(100)) , (G(1,10),Ig10) , (Iprnt,Parm(7)) ,            &
+!>>>>    & (Iy(1),Y(1),Parm(8))
 !     EQUIVALENT ARE  (IPR,PR)
 !
 !

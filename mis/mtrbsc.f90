@@ -50,8 +50,8 @@ SUBROUTINE mtrbsc
 !     ECPT BLOCK
 !
 !
-   EQUIVALENCE (D(1),G(1),Siij(1,1),A(1)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(10)) , (J2x2(1),A(14)) , (Hyq(1),A(50)) ,               &
-    & (Mbaraa(1),A(136)) , (Mar(1),A(145)) , (Mrr(1),A(163)) , (S(1),A(82))
+   !>>>>EQUIVALENCE (D(1),G(1),Siij(1,1),A(1)) , (Ecpt(1),Necpt(1)) , (G2x2(1),A(10)) , (J2x2(1),A(14)) , (Hyq(1),A(50)) ,               &
+!>>>>    & (Mbaraa(1),A(136)) , (Mar(1),A(145)) , (Mrr(1),A(163)) , (S(1),A(82))
 !
 !     ECPT LIST FOR BASIC BENDING TRIANGLE             NAME IN
 !                                                      THIS

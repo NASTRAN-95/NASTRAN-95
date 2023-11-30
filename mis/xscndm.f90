@@ -33,8 +33,8 @@ SUBROUTINE xscndm
          & ncpw , noscr1 , noscr2 , npt , nwpc
    INTEGER khrfn1 , lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
-   EQUIVALENCE (Ksystm(3),Nogo) , (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) ,                          &
-    & (Os(5),Oscar(1),Dmpcrd(1),Gnobuf(1))
+   !>>>>EQUIVALENCE (Ksystm(3),Nogo) , (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) ,                          &
+!>>>>    & (Os(5),Oscar(1),Dmpcrd(1),Gnobuf(1))
    DATA itype/1 , 1 , 2 , 2 , 2 , 4/ , idlmtr/4H$    , 4H/    , 4H=    , 4H,    , 4H(    , 4H)    , 4H     , 4H*   /
    DATA noscr1/4HOSCA/ , noscr2/4HR   /
    DATA npt/4HNPTP/ , izero/0/

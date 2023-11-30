@@ -36,8 +36,8 @@ SUBROUTINE ta1a
    LOGICAL frstim , q4t3
    INTEGER korsz
    INTEGER sym , symmem , tria3 , typc , typc1 , typc2 , zeros(4)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(10),Tempid) , (Ksystm(56),Iheat) , (Idftmp,Deftmp) , (bufr(1),buf(1))&
-    & , (Z(1),Zz(1)) , (ipshel(1),rpshel(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(10),Tempid) , (Ksystm(56),Iheat) , (Idftmp,Deftmp) , (bufr(1),buf(1))&
+!>>>>    & , (Z(1),Zz(1)) , (ipshel(1),rpshel(1))
    DATA nam/4HTA1A , 4H    /
    DATA zeros/4*0/
    DATA bar/34/

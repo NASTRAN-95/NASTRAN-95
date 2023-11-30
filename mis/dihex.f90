@@ -49,13 +49,13 @@ SUBROUTINE dihex(Type)
 !     GPTLD  57-64  129-148  201-232    GRID POINT TEMPERATURE LOADS
 !     UGV    65-88  149-208  233-328    GLOBAL DISPLACEMENT VECTOR
 !
-   EQUIVALENCE (Z(1),Jz(1),Zs(1)) , (Eid,Est(1),Iest(1)) , (Sil(1),Est(2)) , (Work(1),Iwork(1)) , (Sig(1),sx) , (Sig(2),sy) ,       &
-    & (Sig(3),sz) , (Sig(4),sxy) , (Sig(5),syz) , (Sig(6),szx)
-   EQUIVALENCE (Work(1),Evec(1,1)) , (Work(37),Vn(1,1)) , (Work(43),Nc(1))
-   EQUIVALENCE (Work(1),Jacob(1,1)) , (Work(19),H(1)) , (Work(27),S(1)) , (Work(35),Part(1,1)) , (Work(53),Sig(1)) ,                &
-    & (Work(1),C(1,1))
-   EQUIVALENCE (Work(1),Tf(1,1)) , (Work(35),Tk(1,1))
-   EQUIVALENCE (Ib(1),Bufm6(1)) , (grid(1),igrid(1))
+   !>>>>EQUIVALENCE (Z(1),Jz(1),Zs(1)) , (Eid,Est(1),Iest(1)) , (Sil(1),Est(2)) , (Work(1),Iwork(1)) , (Sig(1),sx) , (Sig(2),sy) ,       &
+!>>>>    & (Sig(3),sz) , (Sig(4),sxy) , (Sig(5),syz) , (Sig(6),szx)
+   !>>>>EQUIVALENCE (Work(1),Evec(1,1)) , (Work(37),Vn(1,1)) , (Work(43),Nc(1))
+   !>>>>EQUIVALENCE (Work(1),Jacob(1,1)) , (Work(19),H(1)) , (Work(27),S(1)) , (Work(35),Part(1,1)) , (Work(53),Sig(1)) ,                &
+!>>>>    & (Work(1),C(1,1))
+   !>>>>EQUIVALENCE (Work(1),Tf(1,1)) , (Work(35),Tk(1,1))
+   !>>>>EQUIVALENCE (Ib(1),Bufm6(1)) , (grid(1),igrid(1))
    DATA kgg/101/ , mgg/ - 1/
    DATA dmaxar , dalfa , dbeta/5.0 , 10.0 , 15.0 , 45.0 , 45.0 , 45.0 , 45.0 , 45.0/
    DATA dtor , gauss/0.017453292519943E0 , 0.577350269189626D0 , 0.555555555555556D0 , 0.774596669241483D0 , 0.888888888888889D0 ,  &

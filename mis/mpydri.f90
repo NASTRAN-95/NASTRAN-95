@@ -41,8 +41,8 @@ SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
    DOUBLE PRECISION Da(1) , Db(1) , Dc(1)
    INTEGER ad(7) , buf1 , buf2 , buf3 , cola , colb , colb2 , colb4 , colc , diagnl , file , i , ident , j , je , k , kx , name(2) ,&
          & nwds , nz , rowa , rowa2 , rowb , rowb2 , rowc , rowd , rowd2 , rowvec , sd(7)
-   EQUIVALENCE (Filea(1),Fa) , (Filea(4),Forma) , (Filea(5),Typea) , (Fileb(1),Fb) , (Fileb(4),Formb) , (Fileb(5),Typeb) ,          &
-    & (Filec(1),Fc) , (Filec(4),Formc) , (Filec(5),Typec) , (Filed(1),Fd) , (Filed(2),Cold) , (Filed(4),Formd) , (Filed(5),Typed)
+   !>>>>EQUIVALENCE (Filea(1),Fa) , (Filea(4),Forma) , (Filea(5),Typea) , (Fileb(1),Fb) , (Fileb(4),Formb) , (Fileb(5),Typeb) ,          &
+!>>>>    & (Filec(1),Fc) , (Filec(4),Formc) , (Filec(5),Typec) , (Filed(1),Fd) , (Filed(2),Cold) , (Filed(4),Formd) , (Filed(5),Typed)
    DATA name/4HMPYA , 4HDRI / , diagnl , rowvec , ident/3 , 7 , 8/
 !
 !     MOVE TRUE ROWS AND COLUMNS INTO ROWA/B/C AND COLA/B/C

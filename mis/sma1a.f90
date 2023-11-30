@@ -34,7 +34,7 @@ SUBROUTINE sma1a
 !     AND EMA MODULES AND SMA1A IS RETAINED IN SKELETAL FORM TO PROVIDE
 !     A VEHICLE FOR USER-PROVIDED ELEMENTS.
 !
-   EQUIVALENCE (Ksystm(2),Sysprt) , (Ksystm(3),Nogo) , (Ksystm(55),Iprec) , (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Sysprt) , (Ksystm(3),Nogo) , (Ksystm(55),Iprec) , (Z(1),Iz(1),Dz(1))
    DATA name/4HSMA1 , 4HA   /
 !
 !     FLAG FOR ERROR CHECK IF A NON-HEAT ELEMENT IS REFERENCED

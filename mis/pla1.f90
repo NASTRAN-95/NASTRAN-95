@@ -69,8 +69,8 @@ SUBROUTINE pla1
 !     PLFACT IS THE FIRST PIECE-WISE LINEAR FACTOR TO BE USED FROM
 !            PLASET
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (Iecpt(1),Xecpt(1)) , (Mcbkgg(1),Estltr(1)) , (Trail(1),Estnlt(1)) , (Trail(2),Nnlel) ,         &
-    & (Estltr(2),Nlel) , (fnn,nn) , (Indstr,E)
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1)) , (Iecpt(1),Xecpt(1)) , (Mcbkgg(1),Estltr(1)) , (Trail(1),Estnlt(1)) , (Trail(2),Nnlel) ,         &
+!>>>>    & (Estltr(2),Nlel) , (fnn,nn) , (Indstr,E)
    DATA casecc , jstset , jplset , jsym/106 , 23 , 164 , 200/
    DATA name/4HPLA1 , 4H    / , hmpt/4HMPT /
    DATA planos/1103 , 11/

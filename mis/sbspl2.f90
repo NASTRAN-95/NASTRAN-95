@@ -26,9 +26,9 @@ SUBROUTINE sbspl2(Ntype,Ti)
 !
 !
 !
-   EQUIVALENCE (Si(1),Est(9)) , (Nsil(1),Est(2))
-   EQUIVALENCE (Nelid,Est(1))
-   EQUIVALENCE (f1,n1) , (ished(6),frlast(1)) , (ished(1),lsub) , (ished(2),lld)
+   !>>>>EQUIVALENCE (Si(1),Est(9)) , (Nsil(1),Est(2))
+   !>>>>EQUIVALENCE (Nelid,Est(1))
+   !>>>>EQUIVALENCE (f1,n1) , (ished(6),frlast(1)) , (ished(1),lsub) , (ished(2),lld)
 !
    DATA tr , qd , bsc , plt/4H  TR , 4H  QD , 4HBSC  , 4HPLT /
    DATA lld , lsub , frlast/2* - 100 , -1.0E30 , -1.0E30/

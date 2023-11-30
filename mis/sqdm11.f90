@@ -31,7 +31,7 @@ SUBROUTINE sqdm11
 !            TRANSS - SINGLE PRECISION TRANSFORMATION SUPPLIER
 !
 !
-   EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1))
 !
 !
 !      ECPT LIST

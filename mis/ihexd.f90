@@ -75,13 +75,13 @@ SUBROUTINE ihexd(Type)
 !
 !     SZ IS OPEN CORE.  USE ONLY RZ(IZS) TO RZ(NZS).
 !
-   EQUIVALENCE (Z(1),Jz(1),Rz(1)) , (Eid,Est(1),Iest(1)) , (Sil(1),Est(2)) , (work(1),iwork(1)) , (sig(1),sx) , (sig(2),sy) ,       &
-    & (sig(3),sz) , (sig(4),sxy) , (sig(5),syz) , (sig(6),szx) , (dstld,idstld)
-   EQUIVALENCE (work(1),evec(1,1)) , (work(37),vn(1,1)) , (work(43),nc(1))
-   EQUIVALENCE (work(1),jacob(1,1)) , (work(19),h(1)) , (work(27),s(1)) , (work(35),part(1,1)) , (work(53),sig(1)) ,                &
-    & (work(1),c(1,1))
-   EQUIVALENCE (work(1),tf(1,1)) , (work(35),tk(1,1))
-   EQUIVALENCE (Ib(1),Bufm6(1))
+   !>>>>EQUIVALENCE (Z(1),Jz(1),Rz(1)) , (Eid,Est(1),Iest(1)) , (Sil(1),Est(2)) , (work(1),iwork(1)) , (sig(1),sx) , (sig(2),sy) ,       &
+!>>>>    & (sig(3),sz) , (sig(4),sxy) , (sig(5),syz) , (sig(6),szx) , (dstld,idstld)
+   !>>>>EQUIVALENCE (work(1),evec(1,1)) , (work(37),vn(1,1)) , (work(43),nc(1))
+   !>>>>EQUIVALENCE (work(1),jacob(1,1)) , (work(19),h(1)) , (work(27),s(1)) , (work(35),part(1,1)) , (work(53),sig(1)) ,                &
+!>>>>    & (work(1),c(1,1))
+   !>>>>EQUIVALENCE (work(1),tf(1,1)) , (work(35),tk(1,1))
+   !>>>>EQUIVALENCE (Ib(1),Bufm6(1))
    DATA scr4/304/
    DATA bcd1 , bcd2/4HCIHE , 4HX1   , 4HX2   , 4HX3  /
    DATA dmaxar , dalfa , dbeta/5.0 , 10.0 , 15.0 , 45.0 , 45.0 , 45.0 , 45.0 , 45.0/

@@ -26,9 +26,9 @@ SUBROUTINE giggks
 !
 !     CHANGE IN EQUIV FOR SIZE OF SCARD OR CCARD
 !
-   EQUIVALENCE (Iz(1),Z(1),Scard(1),Set2(1)) , (Z(28),Nkset)
-   EQUIVALENCE (Z(11),Ccard(1),Crard(1)) , (Z(27),Ngset) , (Set2(3),Sp1) , (Set2(4),Sp2) , (Set2(5),Ch1) , (Set2(6),Ch2) ,          &
-    & (Set2(7),Z1) , (Set2(8),Z2)
+   !>>>>EQUIVALENCE (Iz(1),Z(1),Scard(1),Set2(1)) , (Z(28),Nkset)
+   !>>>>EQUIVALENCE (Z(11),Ccard(1),Crard(1)) , (Z(27),Ngset) , (Set2(3),Sp1) , (Set2(4),Sp2) , (Set2(5),Ch1) , (Set2(6),Ch2) ,          &
+!>>>>    & (Set2(7),Z1) , (Set2(8),Z2)
    DATA c/18*0.0/ , set1/3502 , 35 , 999/
    DATA ss1/3302 , 33 , 6/ , ls2/3402 , 34 , 10/ , st2/3602 , 36 , 8/ , caero/3002 , 30 , 16/
    DATA spl3/4901 , 49 , 1/ , atab/200 , 2/

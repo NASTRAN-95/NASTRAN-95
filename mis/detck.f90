@@ -25,7 +25,7 @@ SUBROUTINE detck(Jarg,Ifgpst,Npvt)
 !     IF JARG = 1, THE PIVOT POINT IS A GRID POINT AND NO ELEMENTS ARE
 !                  CONNECTED TO IT.
 !
-   EQUIVALENCE (Iz(1),Dz(1)) , (iarray(1),iorder) , (iarray(2),nwds)
+   !>>>>EQUIVALENCE (Iz(1),Dz(1)) , (iarray(1),iorder) , (iarray(2),nwds)
    DATA name/4HDETC , 4HK   / , neor/0/
 !
    dtol = Tolel

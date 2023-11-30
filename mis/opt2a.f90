@@ -21,7 +21,7 @@ SUBROUTINE opt2a(Ip,El,Iel,Pr,Ipr,Rr)
    LOGICAL first , unsafe
 !
 !     EQUIVALENT ARE  (EL,IEL), (PR,IPR)
-   EQUIVALENCE (Z(1),Iz(1)) , (Core(1),Parm(1),Max) , (Iy(1),Y(1),Parm(8))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Core(1),Parm(1),Max) , (Iy(1),Y(1),Parm(8))
    DATA name/4H OPT , 4H2A  /
    DATA plus/4H     , 4H+    , 4H++   , 4H+++  , 4H++++/
 !

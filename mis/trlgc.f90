@@ -76,7 +76,7 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !                       FCO                                      IBUF2
 !                       TOL                                      IBUF3
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Consts(2),Twopi) , (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Consts(2),Twopi) , (Consts(4),Degra)
    DATA name/4HTRLG , 4HC   /
    DATA itlist/4 , 1105 , 11 , 1 , 1205 , 12 , 2 , 1305 , 13 , 3 , 1405 , 14 , 4/
 !

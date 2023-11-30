@@ -23,7 +23,7 @@ SUBROUTINE ofppun(Ibuf,Buf,Nwds,Iopt,Idd,Pnched)
 !  $MIXED_FORMATS
 !
 !     COMMON /ZZOFPX/ L1,L2,L3,L4,L5,ID(50)
-   EQUIVALENCE (rid(1),id(1),Of(6)) , (L1,Of(1),Core(1)) , (L2,Of(2)) , (L3,Of(3)) , (L4,Of(4)) , (L5,Of(5))
+   !>>>>EQUIVALENCE (rid(1),id(1),Of(6)) , (L1,Of(1),Core(1)) , (L2,Of(2)) , (L3,Of(3)) , (L4,Of(4)) , (L5,Of(5))
    DATA vector , idtemp/1 , 0/
 !
 !

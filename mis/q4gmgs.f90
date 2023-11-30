@@ -25,7 +25,7 @@ SUBROUTINE q4gmgs(Mid,Factor,G)
 !     OUTPUT WILL BE G(9) OR D(9) FOR MID1, MID2 AND MID4.
 !     FOR MID3,  G(4) OR D(4) IS SENT BACK.
 !
-   EQUIVALENCE (Rmtout(1),E1) , (Rmtout(2),Nu12) , (Rmtout(3),E2)
+   !>>>>EQUIVALENCE (Rmtout(1),E1) , (Rmtout(2),Nu12) , (Rmtout(3),E2)
 !
 !     SINGLE PRECISION SECTION -
 !

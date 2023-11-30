@@ -38,8 +38,8 @@ SUBROUTINE ema1
 !
 !     EMA1 USES 2 SCRATCH FILES
 !
-   EQUIVALENCE (System(1),Sysbuf) , (System(2),Nout) , (trlsil(2),nbrsil) , (trlsil(3),luset) , (System(22),Mach) ,                 &
-    & (Zd(1),Zs(1),Zi(1)) , (Xd(1),Xs(1))
+   !>>>>EQUIVALENCE (System(1),Sysbuf) , (System(2),Nout) , (trlsil(2),nbrsil) , (trlsil(3),luset) , (System(22),Mach) ,                 &
+!>>>>    & (Zd(1),Zs(1),Zi(1)) , (Xd(1),Xs(1))
 !
 !     DEFINITION OF INPUT DATA BLOCKS
 !

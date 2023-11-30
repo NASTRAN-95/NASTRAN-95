@@ -15,8 +15,8 @@ SUBROUTINE apdcs
       & v2(3) , vx1(3) , vx2(3) , vx3(3)
    INTEGER i , icp , j , k
    REAL sadotb
-   EQUIVALENCE (Z(1),Iz(1))
-   EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (v1(1),rcp1(1)) , (v2(1),rcp4(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (v1(1),rcp1(1)) , (v2(1),rcp4(1))
    DATA degr/.017453293/
    Icpl(2) = 1
 ! CREATE PANEL COORDINATE SYSTEM

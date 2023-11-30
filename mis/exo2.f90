@@ -28,8 +28,8 @@ SUBROUTINE exo2
 !
 !     EXO2 PERFORMS EXTERNAL FORMAT SOFOUT OPERATIONS
 !
-   EQUIVALENCE (Cor(1),Z(1))
-   EQUIVALENCE (Z(1),Dz(1)) , (A(1),Da)
+   !>>>>EQUIVALENCE (Cor(1),Z(1))
+   !>>>>EQUIVALENCE (Z(1),Dz(1)) , (A(1),Da)
    DATA all , matric , tables , phase3 , whole/4HALL  , 4HMATR , 4HTABL , 4HPHAS , 4HWHOL , 4HESOF/ , subr , blank , sof ,          &
        &xxxx/4HEXO2 , 4H     , 4H     , 4HSOF  , 4HXXXX/ , eqss , bgss , cstm , lods , loap/4HEQSS , 4HBGSS , 4HCSTM , 4HLODS ,     &
        &4HLOAP/ , plts , soln , lams , q4 , t3 , bar/4HPLTS , 4HSOLN , 4HLAMS , 2HQ4 , 2HT3 , 2HBR/ , srd , swrt , more , eog ,     &

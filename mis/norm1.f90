@@ -13,7 +13,7 @@ SUBROUTINE norm1(X,Div)
 !     NORM WILL NORMALIZE X TO MAXIMUM ELEMENT EQUAL TO ONE AND STORE TH
 !     DIVISOR IN MAX
 !*******
-   EQUIVALENCE (Ncol,Filek(2))
+   !>>>>EQUIVALENCE (Ncol,Filek(2))
    DATA ind1/1/
    max = 0.D0
    DO i = 1 , Ncol

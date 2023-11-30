@@ -24,7 +24,7 @@ SUBROUTINE read2(Maa,Phia,Scr1,Norm,Ia,Uset,Mi,Lama,Ipout,Scr2,Epsi,Scr3)
 !     COMPUTE MODAL MASS AND NORMALIZES VECTORS ACCORDING TO POINT,
 !     MASS, OR MAX.  ALSO LOOKS FOR LARGE OFF DIAGONAL TERM
 !
-   EQUIVALENCE (Consts(2),Tphi) , (ix(2),ncol) , (ix(3),nrow) , (Core(1),Icore(1),Dcore(1)) , (dxmax,xmax)
+   !>>>>EQUIVALENCE (Consts(2),Tphi) , (ix(2),ncol) , (ix(3),nrow) , (Core(1),Icore(1),Dcore(1)) , (dxmax,xmax)
    DATA ihead1/21 , 9 , 8*0/
    DATA ihead/21 , 6 , 7*0 , 7 , 40*0/
    DATA mass , point/4HMASS , 4HPOIN/

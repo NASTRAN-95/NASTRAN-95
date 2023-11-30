@@ -30,7 +30,7 @@ SUBROUTINE tablev(*,In,Ll,Trl,Name,P4,Ibuf,Z5)
 !            = 1, INPUT FILE WAS WRITTEN FORMATTED, ASCII, INTEGER
 !     IBUF   = OPEN CORE AND GINO BUFFER POINTER, INTEGER
 !
-   EQUIVALENCE (z1,z5l) , (Z(1),Rz(1)) , (dz,z4(1))
+   !>>>>EQUIVALENCE (z1,z5l) , (Z(1),Rz(1)) , (dz,z4(1))
    DATA i1 , r1 , b1 , d1 , f1/'I' , 'R' , '/' , 'D' , 'X'/
    DATA fu , end , end5/2H   , 2HUN , 4H*END , ' *END'/
    DATA sub , tble/4HTABL , 4HEV   , 4HTBLE/

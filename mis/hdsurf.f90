@@ -32,8 +32,8 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
 !     DIMENSIONS      TEMP, IZ, AND P ARE TEMP(2*N+1), IZ(N+1,1), AND
 !                     P(3,N) WHERE N=LETSZ2=MAX OF LETSZ(2,I), I=1,9
 !
-   EQUIVALENCE (let(1),let1(1)) , (let(6),let2(1,1)) , (let(22),let3(1,1)) , (let(47),let4(1,1)) , (let(77),let5(1,1)) ,            &
-    & (let(131),let6(1,1)) , (let(209),let7(1)) , (let(214),let8(1)) , (let(221),let9(1))
+   !>>>>EQUIVALENCE (let(1),let1(1)) , (let(6),let2(1,1)) , (let(22),let3(1,1)) , (let(47),let4(1,1)) , (let(77),let5(1,1)) ,            &
+!>>>>    & (let(131),let6(1,1)) , (let(209),let7(1)) , (let(214),let8(1)) , (let(221),let9(1))
 !
    DATA name/4HHDSU , 4HRF  / , nm1 , m1/16 , 4H(33X , 4H,13H , 4HELEM , 4HENT  , 4HTYPE , 4H A5, , 4H4HWI , 4HTHI8 , 4H,24H ,      &
        &4H GRI , 4HDS S , 4HKIPP , 4HED I , 4HN LI , 4HNEL. , 4H)   /

@@ -21,7 +21,7 @@ SUBROUTINE fqrw(M,E,Er,A,B,W,P,Q,Xm,Int,Zb,Srfle,Mcbc)
       & ratio , s , scale , shift , ss , sum , sumx , t , tmax , tol , x , y , z , zerr
    INTEGER i , icf , iexp , ij , ilim , irp , it , j , jerr , jrp , k , k1 , l , l1 , m1 , mcb(7) , mvec , niter , nrp , nv
 !
-   EQUIVALENCE (Ksystm(2),Io) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Ksystm(2),Io) , (Ksystm(55),Iprec)
    DATA ilim , iexp , base/120 , 60 , 2./
 !
 !     IACC  =  ACCURACY CONTROL (EPSILON) FOR UNDERFLOW

@@ -40,8 +40,8 @@ SUBROUTINE sdr2c
 !     CONSTRAINT, LOADS, DISPLACEMENTS, VELOCITIES, ACCELERATIONS AND
 !     EIGENVECTORS.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(15),Date(1)) , (Ksystm(18),Time) , (Ksystm(20),Plots) , (Ksystm(38),Axif) ,             &
-    & (Ksystm(56),Iheat) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (pbuff(1),pbufr(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(15),Date(1)) , (Ksystm(18),Time) , (Ksystm(20),Plots) , (Ksystm(38),Axif) ,             &
+!>>>>    & (Ksystm(56),Iheat) , (buf(1),bufr(1)) , (Z(1),Zz(1)) , (pbuff(1),pbufr(1))
    DATA buf/50*0/
    DATA blanks/4H    /
    DATA xset0/100000000/

@@ -50,7 +50,7 @@ SUBROUTINE kslot(Itype)
 !      25                           W4
 !      26                           TEMP
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
 !
    IF ( Itype>0 ) THEN
 !

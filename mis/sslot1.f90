@@ -37,7 +37,7 @@ SUBROUTINE sslot1(Iopt)
 !      24                           Z4
 !***** 25                           W4
 !***** 26                           TEMP
-   EQUIVALENCE (Ecpt(1),Necpt(1)) , (Out(1),Nout(1)) , (Out(6),Sv(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1)) , (Out(1),Nout(1)) , (Out(6),Sv(1))
    iot = 6
    DO i = 1 , 30
       Nout(i) = 0

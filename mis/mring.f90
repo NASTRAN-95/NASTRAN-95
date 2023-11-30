@@ -20,7 +20,7 @@ SUBROUTINE mring(Points)
 !     THIS ROUTINE IS SEPARATE FROM MTRAPR AND MTRIRG SO AS TO BE
 !     IN OVERLAY WITH MTRMEM AND MQDMEM.
 !
-   EQUIVALENCE (t,tint)
+   !>>>>EQUIVALENCE (t,tint)
    DATA pi23/2.0943951024/
    DATA map/1 , 2 , 3 , 1 , 2 , 3 , 2 , 3 , 4 , 3 , 4 , 1 , 4 , 1 , 2/
 !

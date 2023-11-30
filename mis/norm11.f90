@@ -9,7 +9,7 @@ SUBROUTINE norm11(X,Div)
    INTEGER i , ind , ind1
    REAL max , xi , xx
 !
-   EQUIVALENCE (Ncol,Filek(2))
+   !>>>>EQUIVALENCE (Ncol,Filek(2))
    DATA ind1/1/
 !
    max = 0.0

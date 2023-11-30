@@ -37,8 +37,8 @@ SUBROUTINE stqme2(Ntype)
 !     4 S ARRAYS EACH 3X3
 !
 !
-   EQUIVALENCE (Ph1out(1),Est(1)) , (Nsil(1),Ph1out(2)) , (Tsub0,Ph1out(6)) , (St(1),Ph1out(7)) , (Si(1),Ph1out(10)) ,              &
-    & (Ftemp,Ldtemp) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
+   !>>>>EQUIVALENCE (Ph1out(1),Est(1)) , (Nsil(1),Ph1out(2)) , (Tsub0,Ph1out(6)) , (St(1),Ph1out(7)) , (Si(1),Ph1out(10)) ,              &
+!>>>>    & (Ftemp,Ldtemp) , (ishd(1),lsub) , (ishd(2),lld) , (ishd(6),frlast(1))
 !
    DATA lsub , lld , frlast/2* - 1 , -1.0E30 , -1.0E30/
    DATA typ/2HTR , 2HQD , 3HMEM/

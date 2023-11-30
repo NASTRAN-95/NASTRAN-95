@@ -25,7 +25,7 @@ SUBROUTINE rcovim(Higher)
 !     IN A SUBSTRUCTURE THAT WAS MODAL REDUCED.  IT WILL ALSO
 !     CALCULATE THE TOTAL ENERGY FOR EACH COLUMN.
 !
-   EQUIVALENCE (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1))
    DATA uvec , kmtx , mmtx/4HUVEC , 4HKMTX , 4HMMTX/
    DATA scr5 , scr6 , scr7 , scr8 , scr9/305 , 306 , 307 , 308 , 309/
    DATA name/4HRCOV , 4HIM  /

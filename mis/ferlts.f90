@@ -16,7 +16,7 @@ SUBROUTINE ferlts(Ifile,Dz,Dy,Zm)
 !   SEE SUBROUTINE FERRDM FOR CONTENTS OF SMAPOS AND HOW THE MATRIX
 !   DATA IS STORED IN MEMORY.
 !
-   EQUIVALENCE (Dcore(1),Icore(1))
+   !>>>>EQUIVALENCE (Dcore(1),Icore(1))
    n = Ifile(2)
    iccol = 1
    IF ( Nidsma==0 ) THEN

@@ -33,7 +33,7 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
 !
 !
 !
-   EQUIVALENCE (Ibcols,Zpntrs(11)) , (Ibcid,Zpntrs(13)) , (Ibntu,Zpntrs(15)) , (Iktbp,Zpntrs(17)) , (Iantu,Zpntrs(19))
+   !>>>>EQUIVALENCE (Ibcols,Zpntrs(11)) , (Ibcid,Zpntrs(13)) , (Ibntu,Zpntrs(15)) , (Iktbp,Zpntrs(17)) , (Iantu,Zpntrs(19))
 !
 !
 !

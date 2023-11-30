@@ -27,7 +27,7 @@ SUBROUTINE cf2fbs(Tpose,Xout,Iobuf)
 !     XOUT     = INPUT VECTOR GETS TRANSFORMED TO OUTPUT VECTOR
 !     IOBUF    = INPUT  GINO BUFFER
 !*******
-   EQUIVALENCE (Aadum(42),Iscr6)
+   !>>>>EQUIVALENCE (Aadum(42),Iscr6)
    DATA name/4HCF2F , 4HBS  /
 !
    IF ( Qpr ) WRITE (Nout,99001) Tpose(1) , Symmet , Nswp , Iscr6

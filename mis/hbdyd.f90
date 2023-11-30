@@ -25,8 +25,8 @@ SUBROUTINE hbdyd
 !     THIS IS THE BOUNDARY CONDITION (HEAT) ELEMENT ROUTINE
 !     IT PRODUCES THE STIFFNESS AND OR DAMPING ELEMENT MATRICES.
 !
-   EQUIVALENCE (necpt(1),Ecpt(1)) , (set2(1),set1(5)) , (Ecpt1,Ecpt(1)) , (dict5,dict(5)) , (Ksystm(2),Outpt) , (cc(1,1),c(1)) ,    &
-    & (master(1,1),mast(1))
+   !>>>>EQUIVALENCE (necpt(1),Ecpt(1)) , (set2(1),set1(5)) , (Ecpt1,Ecpt(1)) , (dict5,dict(5)) , (Ksystm(2),Outpt) , (cc(1,1),c(1)) ,    &
+!>>>>    & (master(1,1),mast(1))
    DATA ngrids/1 , 2 , 2 , 3 , 4 , 2 , 2/
 !
 !     EST ENTRY FOR -CHBDY- ELEMENT

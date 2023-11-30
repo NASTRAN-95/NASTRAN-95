@@ -44,10 +44,10 @@ SUBROUTINE sdcompx(*,Zi,Zr,Zd)
 !     MATRIX. THE MATRIX MAY BE REAL OR COMPLEX AND ITS PRECISION MAY
 !     BE SNGL OR DBL
 !
-   EQUIVALENCE (Nrow,Dba(3)) , (Forma,Dba(4)) , (Typea,Dba(5)) , (Jstr,Blk(5)) , (Col,Blk(4)) , (Nterms,Blk(6)) , (Xdns(1),Xns(1)) ,&
-    & (Row,Key(1)) , (Dsr,Ddr) , (rs,rd) , (Dsc,Ddc) , (Minds,Mindd)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(28),Config) , (Ksystm(40),Nbpw) , (Ksystm(57),Statfl) ,              &
-    & (dbname(1),subnam(4))
+   !>>>>EQUIVALENCE (Nrow,Dba(3)) , (Forma,Dba(4)) , (Typea,Dba(5)) , (Jstr,Blk(5)) , (Col,Blk(4)) , (Nterms,Blk(6)) , (Xdns(1),Xns(1)) ,&
+!>>>>    & (Row,Key(1)) , (Dsr,Ddr) , (rs,rd) , (Dsc,Ddc) , (Minds,Mindd)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(28),Config) , (Ksystm(40),Nbpw) , (Ksystm(57),Statfl) ,              &
+!>>>>    & (dbname(1),subnam(4))
    DATA subnam/4HSDCO , 2HMP , 3*1H / , nkey/6/ , begn/4HBEGN/ , end/4HEND / , two24/16777216/ , two25/33554432/
    DATA ireal , icmplx/4HREAL , 4H     , 4HCOMP , 4HLEX /
    DATA unuse , addi/'    UNUSED' , 'ADDITIONAL'/

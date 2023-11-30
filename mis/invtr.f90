@@ -31,7 +31,7 @@ SUBROUTINE invtr(*,X,Dx)
 !     DX       =  SAME BLOCK AS X, BUT TYPED DOUBLE PRECISION
 !
 !     COMMON /DESCRP/ LENGTH,MAJOR(1)
-   EQUIVALENCE (A(1),Da(1)) , (Filea(3),Nrow) , (Filea(4),Forma) , (Filea(5),Typea) , (Fileb(5),Typeb)
+   !>>>>EQUIVALENCE (A(1),Da(1)) , (Filea(3),Nrow) , (Filea(4),Forma) , (Filea(5),Typea) , (Fileb(5),Typeb)
    DATA name/4HINVT , 4HR   / , t/7*0/
 !
 !     INITIALIZE

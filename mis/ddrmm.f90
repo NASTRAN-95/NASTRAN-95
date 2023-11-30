@@ -43,14 +43,14 @@ SUBROUTINE ddrmm
 !     DDRMM    CASEXX,UHVF,PPF,IPHIP2,IQP2,IES2,IEF2,XYCDB,EST,MPT,DIT/
 !              ZUPVC2,ZQPC2,ZESC2,ZEFC2, $
 !
-   EQUIVALENCE (Rz(1),Z(1)) , (Rbuf(1),Buf(1))
-   EQUIVALENCE (Scrt1,Scrt(1)) , (Scrt2,Scrt(2))
-   EQUIVALENCE (Scrt3,Scrt(3)) , (Scrt4,Scrt(4))
-   EQUIVALENCE (Scrt5,Scrt(5)) , (Scrt6,Scrt(6))
-   EQUIVALENCE (Scrt7,Scrt(7)) , (Ridrec(1),Idrec(1))
-   EQUIVALENCE (Buf1,Buff(1)) , (Buf2,Buff(2))
-   EQUIVALENCE (Buf3,Buff(3)) , (Buf4,Buff(4))
-   EQUIVALENCE (Buf5,Buff(5)) , (Buf6,Buff(6))
+   !>>>>EQUIVALENCE (Rz(1),Z(1)) , (Rbuf(1),Buf(1))
+   !>>>>EQUIVALENCE (Scrt1,Scrt(1)) , (Scrt2,Scrt(2))
+   !>>>>EQUIVALENCE (Scrt3,Scrt(3)) , (Scrt4,Scrt(4))
+   !>>>>EQUIVALENCE (Scrt5,Scrt(5)) , (Scrt6,Scrt(6))
+   !>>>>EQUIVALENCE (Scrt7,Scrt(7)) , (Ridrec(1),Idrec(1))
+   !>>>>EQUIVALENCE (Buf1,Buff(1)) , (Buf2,Buff(2))
+   !>>>>EQUIVALENCE (Buf3,Buff(3)) , (Buf4,Buff(4))
+   !>>>>EQUIVALENCE (Buf5,Buff(5)) , (Buf6,Buff(6))
    DATA ifrout/145/ , dva/20 , 32 , 29/
    DATA istres , iforce , ispcf/23 , 26 , 35/
    DATA ilsym/166/

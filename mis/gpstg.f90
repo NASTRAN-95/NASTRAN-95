@@ -21,7 +21,7 @@ SUBROUTINE gpstg
 !
 !
 !
-   EQUIVALENCE (iorder,iarray(1)) , (nwds,iarray(2))
+   !>>>>EQUIVALENCE (iorder,iarray(1)) , (nwds,iarray(2))
 !
    DATA isubnm/4HGPST , 4HG   /
 !

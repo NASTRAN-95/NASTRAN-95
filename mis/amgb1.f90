@@ -30,7 +30,7 @@ SUBROUTINE amgb1(Input,Matout,Skj)
 !     SKJ = W*F(INVERS)TRANSPOSE.
 !
 !
-   EQUIVALENCE (Work(1),Iz(1))
+   !>>>>EQUIVALENCE (Work(1),Iz(1))
    DATA name/4HAMGB , 4H1   /
 !
 !     READ PARAMETERS IREF,MINMAC,MAXMAC,NLINES AND NSTNS

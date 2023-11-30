@@ -28,8 +28,8 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    REAL d1 , d2 , oldx , p1 , pio180 , temp , vx1(3) , vx2(3) , width
    INTEGER nsb , nsbea , nt121 , nt122 , nth1 , nth2 , nto , nty , ntys , ntz , ntzs , nwr , pc , ppc , sildx(2) , type(3)
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(1),eidb) , (necta(2),cid(1)) , (Key(2),Np) ,          &
-    & (Key(3),Nstrip) , (Key(4),Ntp) , (Eid,Iax(1)) , (sildx(1),icid) , (acsix(1),acsib) , (acsix(2),vx2(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(1),eidb) , (necta(2),cid(1)) , (Key(2),Np) ,          &
+!>>>>    & (Key(3),Nstrip) , (Key(4),Ntp) , (Eid,Iax(1)) , (sildx(1),icid) , (acsix(1),acsib) , (acsix(2),vx2(1))
    DATA type/1HZ , 2HZY , 1HY/
    DATA nam/4HAPD2 , 4H    /
    DATA pio180/.0174532925/

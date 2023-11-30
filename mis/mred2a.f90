@@ -41,8 +41,8 @@ SUBROUTINE mred2a
 !              KII    - KII OUTPUT FILE NUMBER
 !              UPRT   - KAA PARTITION VECTOR FILE NUMBER
 !
-   EQUIVALENCE (Eqst,Infile(4)) , (Usetmr,Infile(5)) , (Kaa,Infile(6)) , (Kbb,Iscr(1)) , (Kib,Iscr(2)) , (Kii,Iscr(3)) ,            &
-    & (Uprt,Iscr(5))
+   !>>>>EQUIVALENCE (Eqst,Infile(4)) , (Usetmr,Infile(5)) , (Kaa,Infile(6)) , (Kbb,Iscr(1)) , (Kib,Iscr(2)) , (Kii,Iscr(3)) ,            &
+!>>>>    & (Uprt,Iscr(5))
    DATA modnam/4HMRED , 4H2A  /
    DATA item/4HUPRT/
 !

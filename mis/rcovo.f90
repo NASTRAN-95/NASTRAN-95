@@ -47,8 +47,8 @@ SUBROUTINE rcovo
 !                  STEPS SET      I
 !                  GRID OR MODAL -I
 !
-   EQUIVALENCE (Buf(1),Z(1))
-   EQUIVALENCE (Buf(1),Rbuf(1)) , (rec(1),rrec(1)) , (iset,rset)
+   !>>>>EQUIVALENCE (Buf(1),Z(1))
+   !>>>>EQUIVALENCE (Buf(1),Rbuf(1)) , (rec(1),rrec(1)) , (iset,rset)
    DATA casess/101/ , subnam/4HRCOV , 4HO   /
    DATA eqss/4HEQSS/
    DATA recovr/4HRECO/ , mrecov/4HMREC/

@@ -39,7 +39,7 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
          & iparm(2) , ipgtt , ipm , ipr , iti , j , jltype , kk , ldefm , local , lpcomp , n1 , name , ncstm , nloop , nmat ,       &
          & noedt , nogptt , npts , ntlist , nwords , pcomp(2) , pcomp1(2) , pcomp2(2) , pcomps , tlist(1080)
    INTEGER korsz
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(55),Iprec) , (Ksystm(56),Ithrml) , (Ti(7),Icheck) , (Ti(6),Iflag)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(55),Iprec) , (Ksystm(56),Ithrml) , (Ti(7),Icheck) , (Ti(6),Iflag)
    DATA iparm , ipgtt/4HEDTL , 4H     , 4HGPTT/
    DATA crod , ctube , conrod , cbar , pcomps/1 , 3 , 10 , 34 , 112/
    DATA pcomp , pcomp1 , pcomp2/5502 , 55 , 5602 , 56 , 5702 , 57/

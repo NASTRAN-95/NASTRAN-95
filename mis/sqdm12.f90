@@ -34,8 +34,8 @@ SUBROUTINE sqdm12
 !
 !
 !
-   EQUIVALENCE (Ph1out(1),Est(1)) , (Nsil(1),Ph1out(2)) , (Tsub0,Ph1out(6)) , (St(1),Ph1out(7)) , (S(1),Ph1out(10)) , (Ftemp,Ldtemp)&
-    & , (ished(1),lsub) , (ished(2),lld) , (ished(6),frlast(1))
+   !>>>>EQUIVALENCE (Ph1out(1),Est(1)) , (Nsil(1),Ph1out(2)) , (Tsub0,Ph1out(6)) , (St(1),Ph1out(7)) , (S(1),Ph1out(10)) , (Ftemp,Ldtemp)&
+!>>>>    & , (ished(1),lsub) , (ished(2),lld) , (ished(6),frlast(1))
    DATA istyp/4HQDME , 2HM1/
    DATA lsub , lld , frlast/2* - 1 , -1.0E30 , -1.0E30/
 !

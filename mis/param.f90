@@ -31,7 +31,7 @@ SUBROUTINE param(Setid,Xx,Buf4)
 !
 !     THE DRIVER FOR THE PARAM MODULE IS QPARAM
 !
-   EQUIVALENCE (Ksystm(1),Bufsiz) , (pape,hkey(10)) , (word,awrd(1),dwrd,fwrd,iwrd)
+   !>>>>EQUIVALENCE (Ksystm(1),Bufsiz) , (pape,hkey(10)) , (word,awrd(1),dwrd,fwrd,iwrd)
 !
 !     THE FOLLOWING ARE THE ALLOWABLE FIRST WORDS ON THE LOGICAL CARD.
 !     THE PROJECTION DETERMINES HOW MANY WORDS ARE CHECKED.

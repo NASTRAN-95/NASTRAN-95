@@ -14,7 +14,7 @@ SUBROUTINE fbsint(X,Y)
 !     THIS ROUTINE IS SUITABLE FOR BOTH SINGLE AND DOUBLE PRECISION
 !     OPERATION
 !
-   EQUIVALENCE (Filel(3),Nrow)
+   !>>>>EQUIVALENCE (Filel(3),Nrow)
 !
    nrow2 = Nrow
    IF ( Filel(5)==2 ) nrow2 = 2*Nrow

@@ -12,7 +12,7 @@ SUBROUTINE cyct2b(Input,Outpt,Ncol,Iz,Mcb)
 !     THE PURPOSE OF THIS SUBROUTINE IS TO COPY NCOL COLUMNS FROM
 !     INPUT TO OUTPUT USING CORE AT IZ -- MCB IS THE TRAILER
 !
-   EQUIVALENCE (zero,izero)
+   !>>>>EQUIVALENCE (zero,izero)
    DATA zero/0.0/
 !
 !

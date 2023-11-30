@@ -23,7 +23,7 @@ SUBROUTINE gp2
 !     EXTERNAL GRID NUMBERS ARE CONVERTED TO INTERNAL NUMBERS.
 !
 !
-   EQUIVALENCE (geomp,geom2)
+   !>>>>EQUIVALENCE (geomp,geom2)
 !
 !     INPUT  DATA FILES
    DATA geom2 , eqexin/101 , 102/

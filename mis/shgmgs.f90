@@ -59,7 +59,7 @@ SUBROUTINE shgmgs(*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
 !
 !
 !                      MAT8 FORMAT...
-   EQUIVALENCE (E1,G11) , (Nu12,G12) , (E2,G13) , (G2z,G23) , (G1z,G33) , (G12x,G22)
+   !>>>>EQUIVALENCE (E1,G11) , (Nu12,G12) , (E2,G13) , (G2z,G23) , (G1z,G33) , (G12x,G22)
 !    2,                (GE  ,E  ),(T0,ALPH12)
 !             EQUIV    (MATOUT(1),G11))
    DATA name/4HSHGM , 4HGS  /

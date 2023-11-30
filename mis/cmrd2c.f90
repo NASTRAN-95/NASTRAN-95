@@ -51,8 +51,8 @@ SUBROUTINE cmrd2c(Iter)
 !            LII    - LII PARTITION MATRIX FILE NUMBER
 !            SYMTRY - KII SYMMETRY FLAG
 !
-   EQUIVALENCE (Kib,Iscr(2)) , (Kbi,Iscr(3)) , (Kii,Iscr(4)) , (Lii,Iscr(8)) , (Uii,Iscr(9)) , (Him,Iscr(10)) , (Gib,Iscr(11)) ,    &
-    & (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Kib,Iscr(2)) , (Kbi,Iscr(3)) , (Kii,Iscr(4)) , (Lii,Iscr(8)) , (Uii,Iscr(9)) , (Him,Iscr(10)) , (Gib,Iscr(11)) ,    &
+!>>>>    & (Dz(1),Z(1))
    DATA modnam/4HCMRD , 4H2C  /
    DATA lower , upper/4 , 5/
    DATA itmlst/4HLMTX , 4HGIMS , 4HHORG/

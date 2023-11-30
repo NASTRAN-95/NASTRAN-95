@@ -25,7 +25,7 @@ SUBROUTINE pthbdy
 !     THE ECT OUTPUT FILE HAS THE CHBDY FLAG SET NEGATIVE
 !     SO PLTSET CAN TELL THE ECTS APART IT ALSO HAS THE NEW GRID POINTS
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA geom2 , ect , ept , sil , ieq , bgpdt/101 , 102 , 103 , 104 , 105 , 106/
    DATA hect , hsil , oeq , hbgpdt , scr1 , scr2/201 , 202 , 203 , 204 , 301 , 302/
    DATA iyes , no , name , nphbdy , nview , ncb2/4HYES  , 4HNO   , 4HPLNB , 4HDY   , 7 , 6 , 15/

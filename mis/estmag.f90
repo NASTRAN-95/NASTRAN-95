@@ -26,7 +26,7 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
 !     FROM ELEMENT SYSTEM,OUTPUT COORD. SYSTEM ID, AND BASIC COORDS.
 !     OF STRESS POINT(USUALLY AVERAGE OF GRID COORDS.)
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (ecpt(1),iecpt(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (ecpt(1),iecpt(1))
    DATA nam/4HESTM , 4HAG  /
    DATA bfield/3101 , 31/
    DATA dn/4* - .25 , 4*.5/

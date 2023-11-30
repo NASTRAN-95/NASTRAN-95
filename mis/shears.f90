@@ -57,7 +57,7 @@ SUBROUTINE shears
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (me(1),ke(1)) , (kout(1),mout(1)) , (Iecpt(1),Ecpt(1),Ielid) , (dict(5),dict5)
+   !>>>>EQUIVALENCE (me(1),ke(1)) , (kout(1),mout(1)) , (Iecpt(1),Ecpt(1),Ielid) , (dict(5),dict5)
    DATA ipart/1 , 2 , 3 , 4/
 !
    Ngrids = 4

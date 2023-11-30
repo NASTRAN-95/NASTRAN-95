@@ -18,7 +18,7 @@ SUBROUTINE read1(Dm,Mr,Scr1,Scr2,Scr3,Phia,Uset,Nr1,Lama,Scr4)
    DOUBLE PRECISION si , term
    REAL ssi , sterm
 !
-   EQUIVALENCE (Dcore(1),Core(1))
+   !>>>>EQUIVALENCE (Dcore(1),Core(1))
    DATA nam/4HREAD , 4H1   /
 !
 !     BRING MR INTO CORE

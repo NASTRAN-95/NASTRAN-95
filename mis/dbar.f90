@@ -91,7 +91,7 @@ SUBROUTINE dbar
 !     ECPT(60)  -  UBS(5)                ...
 !     ECPT(61)  -  UBS(6)                ...
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (Iz(1),Z(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1)) , (kc(1,1),kd(1)) , (sa(37),sb(1))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Iecpt(1)) , (Iz(1),Z(1)) , (ta(10),tb(1)) , (Ecpt(71),Dp(1)) , (kc(1,1),kd(1)) , (sa(37),sb(1))
 !
 !     DETERMINE WHICH SIL IS THE PIVOT POINT.
 !

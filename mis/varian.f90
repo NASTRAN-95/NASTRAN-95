@@ -21,8 +21,8 @@ SUBROUTINE varian
 !     PARAMETERS--OP--BCD'DER' OR 'VAR'
 !                 DELTA--REAL--DEFAULT=1.0
 !
-   EQUIVALENCE (it1,itf(1)) , (itf(2),it2) , (itf(3),it3) , (itf(4),it4) , (itf(5),it5) , (ito(1),ot1) , (ito(2),ot2) , (ito(3),ot3)&
-    & , (ito(4),ot4) , (ito(5),ot5) , (Z(1),Iz(1),Rz(1))
+   !>>>>EQUIVALENCE (it1,itf(1)) , (itf(2),it2) , (itf(3),it3) , (itf(4),it4) , (itf(5),it5) , (ito(1),ot1) , (ito(2),ot2) , (ito(3),ot3)&
+!>>>>    & , (ito(4),ot4) , (ito(5),ot5) , (Z(1),Iz(1),Rz(1))
    DATA it1 , it2 , it3 , it4 , it5 , ot1 , ot2 , ot3 , ot4 , scr1 , ot5 , inpt , scr2/101 , 102 , 103 , 104 , 105 , 201 , 202 ,    &
       & 203 , 204 , 301 , 205 , 4HINPT , 302/
    DATA der , var , derl , name/4HDER  , 4HVAR  , 4HDERI , 4HVATI , 4HVE   , 4HVARI , 4HAN  /

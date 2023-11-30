@@ -29,8 +29,8 @@ SUBROUTINE eqmck
 !              NEGATIVE IF EIGENVALUE PROBLEM.
 !     SUBNAM - RESERVED FOR FUTURE USE
 !
-   EQUIVALENCE (Ksystm(2),Nout) , (K(1),Casecc) , (K(2),Eqexin) , (K(3),Gpl) , (K(4),Bgpdt) , (K(5),Sil) , (K(6),Uset) , (K(7),Kgg) &
-    & , (K(8),Gm) , (K(9),Ugv) , (K(10),Pgg) , (K(11),Qg) , (K(12),Cstm) , (K(13),Lama) , (K(14),Oqm) , (K(15),Sf(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Nout) , (K(1),Casecc) , (K(2),Eqexin) , (K(3),Gpl) , (K(4),Bgpdt) , (K(5),Sil) , (K(6),Uset) , (K(7),Kgg) &
+!>>>>    & , (K(8),Gm) , (K(9),Ugv) , (K(10),Pgg) , (K(11),Qg) , (K(12),Cstm) , (K(13),Lama) , (K(14),Oqm) , (K(15),Sf(1))
 !          ... CASECC,EQEXIN,GPL,BGPDT,SIL,USET,KGG,GM ,UGV,PGG,QG,CSTM,
 !          ... LAMA , OQM .....
    DATA kfil/101 , 102 , 103 , 104 , 105 , 106 , 107 , 108 , 109 , 110 , 111 , 112 , 110 , 201/

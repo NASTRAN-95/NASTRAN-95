@@ -28,7 +28,7 @@ SUBROUTINE crspld(*,Jump,Mu,Bp,Rs,Again,N23)
          & nwds , pass , refg , retn , retn1 , retn2 , retn3 , retn4 , sil , sild(6) , sing , times
    REAL coeff , dl , wt , zk
    LOGICAL debug
-   EQUIVALENCE (Z(1),Iz(1)) , (wt,iwt) , (dl,idl) , (X1,A(1)) , (X2,B(1)) , (X3,C(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (wt,iwt) , (dl,idl) , (X1,A(1)) , (X2,B(1)) , (X3,C(1))
    DATA one , zero , half , eps , times , debug/1.0D+0 , 0.0D+0 , 0.5D+0 , 1.0D-10 , 0 , .FALSE./
    DATA cm , cn , nogox , mask15 , name/6 , 12 , 0 , 32767 , 4HCRSP , 4HLD  /
 !

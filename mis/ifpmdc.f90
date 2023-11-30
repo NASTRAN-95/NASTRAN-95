@@ -27,7 +27,7 @@ SUBROUTINE ifpmdc
 !
 !     IFPMDC MODIFIES BULK DATA CARDS GIVEN THE INFORMATION ON IFIL
 !
-   EQUIVALENCE (Rm(1),M(1)) , (Rm1(1),M1(1)) , (ick(1),cd(1)) , (k,ick(1))
+   !>>>>EQUIVALENCE (Rm(1),M(1)) , (Rm1(1),M1(1)) , (ick(1),cd(1)) , (k,ick(1))
    DATA con/4H     , 4H   0 , 4H   1 , 4H   2 , 4H   3 , 4H   4 , 4H   5 , 4H   6 , 4H   7 , 4H   8 , 4H   9 , 4H   A , 4H   B ,    &
        &4H   C , 4H   D , 4H   E , 4H   F , 4H   G , 4H   H , 4H   I , 4H   J , 4H   K , 4H   L , 4H   M , 4H   N , 4H   O ,        &
       & 4H   P , 4H   Q , 4H   R , 4H   S , 4H   T , 4H   U , 4H   V , 4H   W , 4H   X , 4H   Y , 4H   Z , 4H    /

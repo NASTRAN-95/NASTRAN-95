@@ -64,10 +64,10 @@ SUBROUTINE xgpi
 !                  ** DMAP    CARD NAMES **
 !WKBR COMMON /XGPI3 / PVT(6)
 !WKBR COMMON /XCEITB/ CEITBL(2)
-   EQUIVALENCE (Loscar,Os(1),Core(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5)) ,                          &
-    & (Oscar(1),Med(1),Fnm(1),Cnm(1),Icpdpl(1)) , (Oscar(1),Ibufr(1),Dmpcrd(1),Ptdic(1))
-   EQUIVALENCE (Dmap(1),Icf(1)) , (Nmed,Iccnam(1)) , (Mpl(1),Ibf(1)) , (Dpl(1),Ndpfil) , (Dpl(2),Maxdpl) , (Dpl(3),Lstdpl) ,        &
-    & (Nogo,Lnogo)
+   !>>>>EQUIVALENCE (Loscar,Os(1),Core(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5)) ,                          &
+!>>>>    & (Oscar(1),Med(1),Fnm(1),Cnm(1),Icpdpl(1)) , (Oscar(1),Ibufr(1),Dmpcrd(1),Ptdic(1))
+   !>>>>EQUIVALENCE (Dmap(1),Icf(1)) , (Nmed,Iccnam(1)) , (Mpl(1),Ibf(1)) , (Dpl(1),Ndpfil) , (Dpl(2),Maxdpl) , (Dpl(3),Lstdpl) ,        &
+!>>>>    & (Nogo,Lnogo)
 !
 !           ** DEFINITION OF PROGRAM VARIABLES **
 !     LICF   = NUMBER OF WORDS IN ICF ARRAY

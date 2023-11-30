@@ -75,7 +75,7 @@ SUBROUTINE spanl1(Iarg)
 !
 !
 !
-   EQUIVALENCE (Ielid,Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Ielid,Iecpt(1),Ecpt(1))
 !
 ! CALL MAT TO GET MATERIAL PROPERTIES.
 !

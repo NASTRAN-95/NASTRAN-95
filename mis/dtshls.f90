@@ -136,11 +136,11 @@ SUBROUTINE dtshls
 !
 !     RK AND SK ARE EXPONENTS IN THICKNESS VARIATION
 !
-   EQUIVALENCE (c1,cc(1)) , (c2,cc(2)) , (c3,cc(3)) , (c4,cc(4)) , (c5,cc(5)) , (c6,cc(6)) , (c7,cc(7)) , (c8,cc(8)) , (c9,cc(9)) , &
-    & (c10,cc(10)) , (nsil(1),ph1out(2)) , (tm(1,1),tmmm(1)) , (a,dista) , (b,distb) , (c,distc) , (Iest(1),Est(1)) ,               &
-    & (cm1(1,1),cms(1)) , (thk1,tbend1) , (thk2,tbend3) , (thk3,tbend5) , (cmt(1025),qqqinv(1)) ,                                   &
-    & (ctm(1,1),cmt(1),kshl(1),mshl(1),qqq(1,1)) , (cmt(437),ph1out(1)) , (cmt(687),index(1,1)) , (cmt(747),ind(1,1)) ,             &
-    & (Ti(1),Est(65))
+   !>>>>EQUIVALENCE (c1,cc(1)) , (c2,cc(2)) , (c3,cc(3)) , (c4,cc(4)) , (c5,cc(5)) , (c6,cc(6)) , (c7,cc(7)) , (c8,cc(8)) , (c9,cc(9)) , &
+!>>>>    & (c10,cc(10)) , (nsil(1),ph1out(2)) , (tm(1,1),tmmm(1)) , (a,dista) , (b,distb) , (c,distc) , (Iest(1),Est(1)) ,               &
+!>>>>    & (cm1(1,1),cms(1)) , (thk1,tbend1) , (thk2,tbend3) , (thk3,tbend5) , (cmt(1025),qqqinv(1)) ,                                   &
+!>>>>    & (ctm(1,1),cmt(1),kshl(1),mshl(1),qqq(1,1)) , (cmt(437),ph1out(1)) , (cmt(687),index(1,1)) , (cmt(747),ind(1,1)) ,             &
+!>>>>    & (Ti(1),Est(65))
    DATA rk/0 , 1 , 0/ , rl/0 , 1 , 0/ , sk/0 , 0 , 1/ , sl/0 , 0 , 1/ , xu/0 , 1 , 0 , 2 , 1 , 0 , 26*0/ , yu/0 , 0 , 1 , 0 , 1 ,   &
       & 2 , 26*0/ , xv/6*0 , 0 , 1 , 0 , 2 , 1 , 0 , 20*0/ , yv/6*0 , 0 , 0 , 1 , 0 , 1 , 2 , 20*0/ , xw/12*0 , 0 , 1 , 0 , 2 , 1 , &
       & 0 , 3 , 2 , 1 , 0 , 4 , 3 , 2 , 1 , 0 , 5 , 3 , 2 , 1 , 0/ , yw/12*0 , 0 , 0 , 1 , 0 , 1 , 2 , 0 , 1 , 2 , 3 , 0 , 1 , 2 ,  &

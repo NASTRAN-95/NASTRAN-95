@@ -23,7 +23,7 @@ SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
 !     2. SOLVE FOR UDV-S ON SCR2
 !     3. STACK SOLVED LOADS ON UDV
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Core(1),Icore(1),Mcore(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Core(1),Icore(1),Mcore(1))
    DATA name/4HFRRD , 4H1D  / , ic/0/
 !
    Nx = korsz(Core)

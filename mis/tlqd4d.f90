@@ -82,15 +82,15 @@ SUBROUTINE tlqd4d
 !
 !ZZ   COMMON /ZZSSB1/  Z(1)
 !
-   EQUIVALENCE (Z(1),Intz(1)) , (igpdt(1,1),Bgpdt(1,1))
-   EQUIVALENCE (Est(1),Nest(1)) , (Matset,Rmtout(25))
-   EQUIVALENCE (Gpth(1),Est(6)) , (Bgpdt(1,1),Est(29))
-   EQUIVALENCE (Elth,Est(14)) , (Sil(1),Nest(2))
-   EQUIVALENCE (Zoff,Est(12)) , (Zoff1,Est(28))
-   EQUIVALENCE (necpt(1),ecpt(1)) , (Buffer(1),Sysbuf)
-   EQUIVALENCE (Buffer(2),Nout) , (Buffer(3),Nogo)
-   EQUIVALENCE (Stemp(7),Flag) , (alfam(1),alpha(1))
-   EQUIVALENCE (alfab(1),alpha(4))
+   !>>>>EQUIVALENCE (Z(1),Intz(1)) , (igpdt(1,1),Bgpdt(1,1))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Matset,Rmtout(25))
+   !>>>>EQUIVALENCE (Gpth(1),Est(6)) , (Bgpdt(1,1),Est(29))
+   !>>>>EQUIVALENCE (Elth,Est(14)) , (Sil(1),Nest(2))
+   !>>>>EQUIVALENCE (Zoff,Est(12)) , (Zoff1,Est(28))
+   !>>>>EQUIVALENCE (necpt(1),ecpt(1)) , (Buffer(1),Sysbuf)
+   !>>>>EQUIVALENCE (Buffer(2),Nout) , (Buffer(3),Nogo)
+   !>>>>EQUIVALENCE (Stemp(7),Flag) , (alfam(1),alpha(1))
+   !>>>>EQUIVALENCE (alfab(1),alpha(4))
 !
    DATA eps1/1.0D-7/
    DATA pcomp/0/

@@ -17,7 +17,7 @@ SUBROUTINE sslot2(Iopt,Ipart,Branch,Eigen)
 !         IPART  -  FIRST  = 1,  SECOND = 2
 !         BRANCH -  SDR2 PROCESS CODE WORD
 !
-   EQUIVALENCE (Consts(2),Twopi)
+   !>>>>EQUIVALENCE (Consts(2),Twopi)
 !
    kl = Iopt + 3
    kl2 = kl + 2

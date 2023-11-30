@@ -36,10 +36,10 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
 !
 !                  ** CONTROL CARD NAMES **
 !                  ** DMAP CARD NAMES **
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Med(1),Os(5))
-   EQUIVALENCE (Zsys(1),Bufsz) , (Zsys(2),Op) , (Zsys(3),Nogo) , (Zsys(9),Nlpp) , (Zsys(12),Nlines) , (Zsys(26),Cppgct) ,           &
-    & (Zsys(77),Isys77)
-   EQUIVALENCE (Mpl(1),Ibf(1))
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Med(1),Os(5))
+   !>>>>EQUIVALENCE (Zsys(1),Bufsz) , (Zsys(2),Op) , (Zsys(3),Nogo) , (Zsys(9),Nlpp) , (Zsys(12),Nlines) , (Zsys(26),Cppgct) ,           &
+!>>>>    & (Zsys(77),Isys77)
+   !>>>>EQUIVALENCE (Mpl(1),Ibf(1))
    DATA nlabl1/4HLABE/ , nlabl2/4HL   /
 !
 !     SET NOGO FLAG IF NCODE IS POSITIVE

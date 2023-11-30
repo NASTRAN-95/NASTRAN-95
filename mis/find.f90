@@ -22,7 +22,7 @@ SUBROUTINE find(Mode,Buf1,Buf4,Setid,X)
          & orig , poin , regi , region , scal , set , tra , vant , word
    DOUBLE PRECISION dwrd
 !
-   EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
+   !>>>>EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
    DATA name/4H  FI , 4HND  /
    DATA mm17p5 , rdist , sqrt3/.688975 , 29. , 1.732051/ , orig/4HORIG/ , regi/4HREGI/ , scal/4HSCAL/ , hset/3HSET/ , vant/4HVANT/ ,&
       & poin/4HPOIN/

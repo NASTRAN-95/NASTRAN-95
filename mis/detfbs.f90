@@ -36,7 +36,7 @@ SUBROUTINE detfbs(Iy,Iobuf,Fileu,Nrow,Kcount)
 !     NROW   = MATRIX SIZE
 !     KCOUNT = EIGENVALUE COUNTER
 !
-   EQUIVALENCE (Core(1),X(1),Dx(1),Y(1),Dy(1)) , (xmin,dxmin) , (sdiag,dsdiag)
+   !>>>>EQUIVALENCE (Core(1),X(1),Dx(1),Y(1),Dy(1)) , (xmin,dxmin) , (sdiag,dsdiag)
    DATA sdet/4HSDET/
    DATA parm(3) , parm(4)/4HDETF , 4HBS  /
 !

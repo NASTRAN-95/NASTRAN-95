@@ -23,8 +23,8 @@ SUBROUTINE pltset
 !     BY PARAM (IN MODULE PLOT), XYPLOT, AND SEEMAT
 !
 !
-   EQUIVALENCE (Pdata(1),Xymax(1)) , (Pdata(3),Cntsin) , (Pdata(4),Cntchr(1)) , (Pdata(10),Pltype) , (Pdata(12),Pbfsiz) ,           &
-    & (Nout,Ksystm(2)) , (Chrwrd,Ksystm(41)) , (Itrack,Ksystm(59))
+   !>>>>EQUIVALENCE (Pdata(1),Xymax(1)) , (Pdata(3),Cntsin) , (Pdata(4),Cntchr(1)) , (Pdata(10),Pltype) , (Pdata(12),Pbfsiz) ,           &
+!>>>>    & (Nout,Ksystm(2)) , (Chrwrd,Ksystm(41)) , (Itrack,Ksystm(59))
    DATA xysize/11.0 , 8.5/ , plt1 , plt2/4HPLT1 , 4HPLT2/
 !
 !     INITIALIZE -PDATA-

@@ -25,7 +25,7 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
 !     ITS TASK IS TO EXTRACT INITIAL CONDITION POINTS FROM CASEXX
 !     AND TO PUT INITIAL STUFF ON ICR5
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (A(1),Ia(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (A(1),Ia(1))
    DATA name/4HTRHT , 4H1A  /
 !
 !

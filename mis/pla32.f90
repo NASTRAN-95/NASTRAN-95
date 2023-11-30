@@ -30,7 +30,7 @@ SUBROUTINE pla32
 !     SCRATCH BLOCK USED BY ELEMENT ROUTINES (325 SINGLE PRECISION
 !     CELLS)  AND OUTPUT BLOCK FOR ELEMENT STRESSES
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Estbk(1),Iestbk(1)) , (p(1),ip(1)) , (Yyyyyy(1),Iy(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Estbk(1),Iestbk(1)) , (p(1),ip(1)) , (Yyyyyy(1),Iy(1))
    DATA name/4HPLA3 , 4H2   /
    DATA ititle/4HLOAD , 4H FAC , 4HTOR /
    DATA cstm , mpt , dit , estnls , casecc/101 , 102 , 103 , 301 , 106/

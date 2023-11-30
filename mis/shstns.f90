@@ -61,9 +61,9 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
 !
 !
 !WKBI NCL93012 3/94
-   EQUIVALENCE (Nstrin(1),Strin(1))
+   !>>>>EQUIVALENCE (Nstrin(1),Strin(1))
 !WKBI NCL93012 3/94
-   EQUIVALENCE (Nstres(1),Stres(1))
+   !>>>>EQUIVALENCE (Nstres(1),Stres(1))
 !WKBNB 7/94 SPR94004
 !WKBNE 7/94 SPR94004
    DATA cosmic , epss/.TRUE. , 1.0E-17/

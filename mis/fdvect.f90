@@ -17,7 +17,7 @@ SUBROUTINE fdvect(Delta,Pk)
    REAL x , xmax , y
 !
 !    1,                NAME(2)
-   EQUIVALENCE (Icore(1),Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Icore(1),Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
 !     DATA    NAME  /  4HFDVE,4HCT  /
 !
    nprob = Ia(3)

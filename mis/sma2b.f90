@@ -56,7 +56,7 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz(1))
 !
 !
 !     CALL EMG1B AND THEN RETURN IF THIS IS LINK 8.

@@ -102,11 +102,11 @@ SUBROUTINE mpyado(Zz,Z,Zd)
 !NVXNB
 !NVXNE
 !WKBI 10/93
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(58),Ksys58) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec)
-   EQUIVALENCE (A(1),Ad(1)) , (b(1),bd(1)) , (D(1),Dd(1)) , (Filea(2),M) , (Filea(3),N,Rowa) , (Filea(5),Typea) , (Fileb(2),Q) ,    &
-    & (Fileb(3),R) , (Fileb(5),Typeb) , (Filec(5),Typec) , (Filed(5),Typd) , (nzz,buf1) , (Acoln,Arown) , (Filec(7),Densc)
-   EQUIVALENCE (Block(2),Type) , (Block(3),Form) , (Block(4),Row) , (Block(5),Point) , (Block(6),Nbrstr) , (Block(8),Flag) ,        &
-    & (Xnd(1),Xns(1)) , (Acol1,Arow1) , (Acol,Arow) , (mpy(1),name(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(58),Ksys58) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (A(1),Ad(1)) , (b(1),bd(1)) , (D(1),Dd(1)) , (Filea(2),M) , (Filea(3),N,Rowa) , (Filea(5),Typea) , (Fileb(2),Q) ,    &
+!>>>>    & (Fileb(3),R) , (Fileb(5),Typeb) , (Filec(5),Typec) , (Filed(5),Typd) , (nzz,buf1) , (Acoln,Arown) , (Filec(7),Densc)
+   !>>>>EQUIVALENCE (Block(2),Type) , (Block(3),Form) , (Block(4),Row) , (Block(5),Point) , (Block(6),Nbrstr) , (Block(8),Flag) ,        &
+!>>>>    & (Xnd(1),Xns(1)) , (Acol1,Arow1) , (Acol,Arow) , (mpy(1),name(1))
 !
    DATA name/4HMPYA , 4HD   / , jbegn/4HBEGN/ , jend/3HEND/time1/0./ , time2/0./ , zero/4*0/ , method/4H1 NT , 4H1 T  , 4H2 NT ,    &
        &4H2 T  , 4H3 T  , 3H4 T/

@@ -22,7 +22,7 @@ SUBROUTINE ssg3a(A,Lll,B,X,Sr1,Sr2,Itr1,Res)
 !     ON OPTION COMPUTES RESIDUAL VECTOR RES = A*X - B
 !     AND EPSI= X(T)*RES/B(T)*X
 !
-   EQUIVALENCE (Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
    DATA name/4HSSG3 , 4HA   /
 !
    Fill(1) = Lll

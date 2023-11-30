@@ -59,7 +59,7 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !     ECPT(24) = Y4                                   Y4        REAL
 !     ECPT(25)   Z4                                   Z4        REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1))
 !
 !     SET UP THE E MATRIX WHICH IS (12X12) FOR THE QUAD-MEMBRANE PROJECT
 !                         ONTO THE MEAN PLANE

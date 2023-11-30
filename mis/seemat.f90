@@ -51,8 +51,8 @@ SUBROUTINE seemat
 !       7. REAL, Y DIMENSION OF PLOT FRAME (DEFAULT=0.0).
 !      NOTE - PARAMETERS 2-7 ARE USED ONLY IF PARAMETER 1 = -PLOT-.
 !
-   EQUIVALENCE (X(1),Ix(1)) , (iro(1),icol1) , (iro(2),iblcu1) , (iro(3),iblcu2) , (iro(4),jblcu1) , (iro(5),jblcu2) ,              &
-    & (iro(6),a,ipij1) , (iro(7),b,ipij2) , (iro(8),c) , (it(1),nam) , (it(2),ncols) , (it(3),nrows) , (it(5),ityp)
+   !>>>>EQUIVALENCE (X(1),Ix(1)) , (iro(1),icol1) , (iro(2),iblcu1) , (iro(3),iblcu2) , (iro(4),jblcu1) , (iro(5),jblcu2) ,              &
+!>>>>    & (iro(6),a,ipij1) , (iro(7),b,ipij2) , (iro(8),c) , (it(1),nam) , (it(2),ncols) , (it(3),nrows) , (it(5),ityp)
    DATA name , seemt/101 , 102 , 103 , 104 , 105 , 4HSEEM , 4HAT  /
    DATA blank , ncc , xstar , xdolr , xdddd/1H  , 100 , 1H* , 1H$ , 1HD/
    DATA kpp/4HPLOT , 4H    /

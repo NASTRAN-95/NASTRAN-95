@@ -22,9 +22,9 @@ SUBROUTINE ssght1(Iest,File,Nequiv)
 !*****
 !
 !
-   EQUIVALENCE (Consts(1),Pi)
-   EQUIVALENCE (Nesto(1),Elid) , (nest(1),est(1))
-   EQUIVALENCE (point1(1,1),pointr(1,1)) , (point2(1,1),pointr(1,21))
+   !>>>>EQUIVALENCE (Consts(1),Pi)
+   !>>>>EQUIVALENCE (Nesto(1),Elid) , (nest(1),est(1))
+   !>>>>EQUIVALENCE (point1(1,1),pointr(1,1)) , (point2(1,1),pointr(1,21))
 !
    DATA subr/4HSSGH , 4HT1  /
    DATA numelt/23/

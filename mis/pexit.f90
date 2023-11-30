@@ -16,7 +16,7 @@ SUBROUTINE pexit
 !DME  EXTERNAL statement to remove collision with GFORTRAN
 !DME  implementation of LINK function.
 !DME
-   EQUIVALENCE (Isystm(2),Nout) , (Isystm(76),Nosbe) , (Isystm(82),Icpflg) , (Isystm(15),Date)
+   !>>>>EQUIVALENCE (Isystm(2),Nout) , (Isystm(76),Nosbe) , (Isystm(82),Icpflg) , (Isystm(15),Date)
 !
 !     SEE IF ANY MESSAGES ARE IN THE QUEUE
 !

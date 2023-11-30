@@ -12,8 +12,8 @@ SUBROUTINE mapset(X1,Y1,X2,Y2,Ki1,Kj1,Ki2,Kj2,L)
 !     X,Y ARE IN PHYSICAL UNITS
 !     L IS OUTPUT FLAG, 1=I,J ARE INTEGER, 2=I,J ARE REAL
 !
-   EQUIVALENCE (i1,zi1) , (j1,zj1) , (i2,zi2) , (j2,zj2)
-   EQUIVALENCE (i,zi) , (j,zj)
+   !>>>>EQUIVALENCE (i1,zi1) , (j1,zj1) , (i2,zi2) , (j2,zj2)
+   !>>>>EQUIVALENCE (i,zi) , (j,zj)
 !
    i1 = Ki1
    j1 = Kj1

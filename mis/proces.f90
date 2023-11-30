@@ -14,7 +14,7 @@ SUBROUTINE proces(X)
    INTEGER gp , i , j
    DOUBLE PRECISION sum , v(3)
 !
-   EQUIVALENCE (Consts(3),Rad)
+   !>>>>EQUIVALENCE (Consts(3),Rad)
 !
 !     INITIALIZATION.
 !

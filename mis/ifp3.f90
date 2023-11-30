@@ -66,8 +66,8 @@ SUBROUTINE ifp3
    REAL difphi
    LOGICAL piez , secd
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) ,      &
-    & (Axic,File(6)) , (num(11),b) , (Noeor,Inprwd,Zero) , (Eor,Clorwd,Outrwd,One)
+   !>>>>EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) ,      &
+!>>>>    & (Axic,File(6)) , (num(11),b) , (Noeor,Inprwd,Zero) , (Eor,Clorwd,Outrwd,One)
    DATA inum/1H0 , 1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H /
    DATA ifiat/4HFIAT/ , ifist/4HFIST/ , i5 , i6/5 , 6/
    DATA msg1/4HIFP3 , 4HBEGN/ , msg2/4HIFP3 , 4HEND /

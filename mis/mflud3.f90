@@ -38,7 +38,7 @@ SUBROUTINE mflud3
 !           20            -
 !****
 !*****
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
 !*****
 !*****
 !

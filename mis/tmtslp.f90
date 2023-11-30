@@ -25,7 +25,7 @@ SUBROUTINE tmtslp
 !     IF ALL TIMING CONSTANTS ARE ZEROS (OR 0.001) SYSTEM HAS A WRONG
 !     CPUTIM.MDS SUBROUTINE. MOST LIKELY THE CPUTIM.MIS IS BEING USED.
 !
-   EQUIVALENCE (A(1),Ac(1),Ad(1),B(1),Bc(1),Bd(1),C(1),Cc(1),Cd(1),D(1),Dc(1),Dd(1)) , (E(1),Tgino)
+   !>>>>EQUIVALENCE (A(1),Ac(1),Ad(1),B(1),Bc(1),Bd(1),C(1),Cc(1),Cd(1),D(1),Dc(1),Dd(1)) , (E(1),Tgino)
    DATA isubr/4HTMTS , 4HLP  /
 !
 !     INITIALIZE

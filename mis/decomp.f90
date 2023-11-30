@@ -49,8 +49,8 @@ SUBROUTINE decomp(*,Ix,X,Dx)
 !     X        =  SAME BLOCK AS IX, BUT TYPED REAL
 !     DX       =  SAME BLOCK AS IX, BUT TYPED DOUBLE PRECISION
 !
-   EQUIVALENCE (Da,A(1)) , (Dz,Z(1)) , (Forma,Filea(4)) , (Typea,Filea(5)) , (Ncol,Filea(3)) , (Typel,Filel(5))
-   EQUIVALENCE (itran(1),itrn) , (itran(2),jtrn) , (itran(3),dtrn)
+   !>>>>EQUIVALENCE (Da,A(1)) , (Dz,Z(1)) , (Forma,Filea(4)) , (Typea,Filea(5)) , (Ncol,Filea(3)) , (Typel,Filel(5))
+   !>>>>EQUIVALENCE (itran(1),itrn) , (itran(2),jtrn) , (itran(3),dtrn)
    DATA parm(3) , parm(4)/4HDECO , 4HMP  /
    DATA ibegn/4HBEGN/ , iend/4HEND /
 !

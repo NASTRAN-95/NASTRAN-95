@@ -103,8 +103,8 @@ SUBROUTINE dquad(Itype)
 !         58                                              V4
 !         59                                              W4
 !
-   EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (Requiv(1),R(1,1)) , (Vq1(1),Ecpt(17)) , (Vq2(1),Ecpt(21)) ,                &
-    & (Vq3(1),Ecpt(25)) , (Vq4(1),Ecpt(29)) , (A(1),Kout(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (Requiv(1),R(1,1)) , (Vq1(1),Ecpt(17)) , (Vq2(1),Ecpt(21)) ,                &
+!>>>>    & (Vq3(1),Ecpt(25)) , (Vq4(1),Ecpt(29)) , (A(1),Kout(1))
    DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
 !
 !

@@ -23,7 +23,7 @@ SUBROUTINE mplprt
 !     AND CHECKS VALIDITY OF MANY ITEMS.
 !
 !
-   EQUIVALENCE (Xx(1),X(1,1))
+   !>>>>EQUIVALENCE (Xx(1),X(1,1))
 !
    DATA kp/1 , 1 , 2 , 2 , 2 , 4/ , add/4HADD  , 4H    /
    DATA flagb/1H / , flags/4H ***/

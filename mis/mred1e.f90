@@ -48,7 +48,7 @@ SUBROUTINE mred1e
 !              TTD    - TEMPORARY MATRIX HOLDING (T SMALD) (3X3)
 !              KOMPNT - ARRAY HOLDING DECODED SIL COMPONENTS
 !
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA modnam/4HMRED , 4H1E  /
    DATA nhbgss , nhcstm , nheqss/4HBGSS , 4HCSTM , 4HEQSS/
    DATA scr1 , dmr/301 , 204/

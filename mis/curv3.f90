@@ -138,8 +138,8 @@ SUBROUTINE curv3
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1))
-   EQUIVALENCE (Noeor,Rdrew) , (Eor,Cls)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1))
+   !>>>>EQUIVALENCE (Noeor,Rdrew) , (Eor,Cls)
 !
    DATA mcb/7*1/
 !

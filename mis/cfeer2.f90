@@ -18,7 +18,7 @@ SUBROUTINE cfeer2(Iret)
 !
 !     CFEER2 INITIALIZES AND CALLS CDCOMP FOR CFCNTL
 !
-   EQUIVALENCE (Z(1),Dz(1)) , (Nout,Ksystm(2)) , (Iprec,Ksystm(55))
+   !>>>>EQUIVALENCE (Z(1),Dz(1)) , (Nout,Ksystm(2)) , (Iprec,Ksystm(55))
 !
    itype = Iprec + 2
    Iret = 0

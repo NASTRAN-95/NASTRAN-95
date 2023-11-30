@@ -32,10 +32,10 @@ SUBROUTINE xrcard(Out,Nflag,In)
    REAL flpt
    CHARACTER*1 khar1(72) , save1(8)
    EXTERNAL complf , lshift , rshift
-   EQUIVALENCE (khar1(1),char72) , (save8,save1(1)) , (flpt,intg) , (ddoubl,idoubl(1)) , (chars(1),dollr1) , (chars(8),cparn1) ,    &
-    & (chars(2),plus1) , (chars(9),e1) , (chars(3),equal1) , (chars(10),d1) , (chars(4),minus1) , (chars(11),dot1) ,                &
-    & (chars(5),comma1) , (chars(12),blank1) , (chars(6),slash1) , (chars(13),astk1) , (chars(7),oparn1) , (chars(14),num1(1)) ,    &
-    & (num1(10),zero1)
+   !>>>>EQUIVALENCE (khar1(1),char72) , (save8,save1(1)) , (flpt,intg) , (ddoubl,idoubl(1)) , (chars(1),dollr1) , (chars(8),cparn1) ,    &
+!>>>>    & (chars(2),plus1) , (chars(9),e1) , (chars(3),equal1) , (chars(10),d1) , (chars(4),minus1) , (chars(11),dot1) ,                &
+!>>>>    & (chars(5),comma1) , (chars(12),blank1) , (chars(6),slash1) , (chars(13),astk1) , (chars(7),oparn1) , (chars(14),num1(1)) ,    &
+!>>>>    & (num1(10),zero1)
    DATA char23/'$+=-,/()ED. *1234567890'/ , blank8/'       '/
    DATA dollr1 , blank4 , diag , debug , numric/0 , 4H     , 4HDIAG , .FALSE. , 'NUMERIC'/
    DATA equal4 , slash4 , oparn4 , astk4/4H=    , 4H/    , 4H(    , 4H*   /

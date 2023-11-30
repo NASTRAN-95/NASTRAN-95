@@ -73,8 +73,8 @@ SUBROUTINE tis2d8(Temp,Pg)
 !     ECPT(45) = Z8                    Z8             REAL
 !     ECPT(46) = ELEMENT TEMP          TTEMP          REAL
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (Qq(1),G11) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) , (Dnl(1),Dnx(1)) ,           &
-    & (Dnl(9),Dny(1)) , (Tempar(1),Bt(1)) , (Xy1(1),X1) , (Xy2(1),X2)
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (Qq(1),G11) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) , (Dnl(1),Dnx(1)) ,           &
+!>>>>    & (Dnl(9),Dny(1)) , (Tempar(1),Bt(1)) , (Xy1(1),X1) , (Xy2(1),X2)
    DATA xi/ - 1. , 1. , 1. , -1. , 0. , 1. , 0. , -1./
    DATA eta/ - 1. , -1. , 1. , 1. , -1. , 0. , 1. , 0./
 !

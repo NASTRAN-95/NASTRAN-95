@@ -34,9 +34,9 @@ SUBROUTINE ifp1
    REAL symseq(360) , xintcd
    LOGICAL tapbit
    EXTERNAL andf , complf , orf , rshift
-   EQUIVALENCE (Corex(1),Xcase(1,1),Case(1,1),Corey(1)) , (Core(1),Xcore(1),Corey(401)) , (nono,outop(15)) , (Iaxic,Dumms(4)) ,     &
-    & (Iaxif,Dumms(15)) , (set,cccd(7)) , (plot,ttlcd(4)) , (xypl,xyprm(1)) , (outp,cccd(1)) , (begi,cccd(2)) , (both,outop(1)) ,   &
-    & (none,outop(2))
+   !>>>>EQUIVALENCE (Corex(1),Xcase(1,1),Case(1,1),Corey(1)) , (Core(1),Xcore(1),Corey(401)) , (nono,outop(15)) , (Iaxic,Dumms(4)) ,     &
+!>>>>    & (Iaxif,Dumms(15)) , (set,cccd(7)) , (plot,ttlcd(4)) , (xypl,xyprm(1)) , (outp,cccd(1)) , (begi,cccd(2)) , (both,outop(1)) ,   &
+!>>>>    & (none,outop(2))
    DATA nifp/4H  IF , 4HP1  /
    DATA casen/4HC A  , 4HS E  , 4H   C , 4H O N , 4H T R , 4H O L , 4H   D , 4H E C , 4H K   , 4H E C , 4H H O/
    DATA ibob , isymcm , loadn , iout2 , inomor/0 , 0 , 1 , 0 , 0/

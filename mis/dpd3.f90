@@ -20,7 +20,7 @@ SUBROUTINE dpd3
 !     DPD3 ASSEMBLES THE FREQUENCY RESPONSE LIST (FRL)
 !     AND THE POWER SPECTRAL DENSITY LIST (PSDL).
 !
-   EQUIVALENCE (Consts(2),Twopi) , (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
    DATA freq2 , randps , randt1 , randt2/1107 , 11 , 2107 , 21 , 2207 , 22 , 2307 , 23/
 !
 !     OPEN DYNAMICS POOL. SET POINTERS.

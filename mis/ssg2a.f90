@@ -9,7 +9,7 @@ SUBROUTINE ssg2a(Pg,Pnbar,Pm,Pvact)
    INTEGER i , pvect(7)
    INTEGER korsz
 !
-   EQUIVALENCE (Icore(1),Core(1))
+   !>>>>EQUIVALENCE (Icore(1),Core(1))
 !
 !
    pvect(1) = Pvact

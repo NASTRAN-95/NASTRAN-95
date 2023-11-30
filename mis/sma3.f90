@@ -24,8 +24,8 @@ SUBROUTINE sma3
 !     MATRIX ADD ROUTINE TO ADD THE KGGX MATRIX TO THE GENERAL ELEMENT
 !     MATRIX.
 !
-   EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(55),Iprec) , (Iq(1),Dq(1),Q(1)) , (Ibuff3(2),M) , (Ibuff3(3),N) , (Mcbid(1),Mcbc(1)) ,    &
-    & (block(1),iblock(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(55),Iprec) , (Iq(1),Dq(1),Q(1)) , (Ibuff3(2),M) , (Ibuff3(3),N) , (Mcbid(1),Mcbc(1)) ,    &
+!>>>>    & (block(1),iblock(1))
    DATA name/4HSMA3 , 4H    /
 !
 !     GENERAL INITIALIZATION

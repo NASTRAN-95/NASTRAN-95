@@ -16,10 +16,10 @@ SUBROUTINE pload3
 !
 !
 !
-   EQUIVALENCE (bgpd(1),ibgpd(1),dshp(1,1))
-   EQUIVALENCE (seq(1),shp(1))
-   EQUIVALENCE (n(1),ni) , (n(2),nj) , (n(3),nk)
-   EQUIVALENCE (f(1,1),rf(1,1))
+   !>>>>EQUIVALENCE (bgpd(1),ibgpd(1),dshp(1,1))
+   !>>>>EQUIVALENCE (seq(1),shp(1))
+   !>>>>EQUIVALENCE (n(1),ni) , (n(2),nj) , (n(3),nk)
+   !>>>>EQUIVALENCE (f(1,1),rf(1,1))
 !
    DATA absisa/0.577350269189626D0/
    DATA sgncol/ - 3 , -2 , 1 , 2 , -1 , 3/

@@ -14,7 +14,7 @@ SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
 !     READS FILE UNTIL IT FINDS DATA RECORD IN LIST - RETURNS LOAD,
 !     IF, AND LEN
 !
-   EQUIVALENCE (itb1(1),itb(1)) , (itb2(1),itb(138))
+   !>>>>EQUIVALENCE (itb1(1),itb(1)) , (itb2(1),itb(138))
    DATA ifmtt/1 , 11 , 41 , 55 , 61 , 99 , 121 , 155 , 181 , 199 , 237/
    DATA ioldld/0/
    DATA ifmt/1 , 1 , -1 , -1 , 1 , 1 , 1 , 1 , 1 , 1 , 6 , 2 , 6 , 2 , 6 , 2 , 0 , 3 , 1 , 1 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 0 , 6 ,  &

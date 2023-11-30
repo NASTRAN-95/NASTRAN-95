@@ -34,7 +34,7 @@ SUBROUTINE gp3b
 !     THE END OF THE GPTT.
 !
 !
-   EQUIVALENCE (Geom3,Geomp) , (Gptt,Scr1)
+   !>>>>EQUIVALENCE (Geom3,Geomp) , (Gptt,Scr1)
    DATA nam/4HGP3B , 4H    /
 !
 !     TURN NODEF FLAG ON

@@ -20,7 +20,7 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
 !
 !     FA1K BUILDS AN INTERPOLATED MATRIX ON OUTFIL FROM QHHL OR FSAVE
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA fsave/201/ , qhhl/104/ , scr2 , scr3 , scr4/302 , 303 , 304/
    DATA ns/4HFA1K , 4H    /
 !

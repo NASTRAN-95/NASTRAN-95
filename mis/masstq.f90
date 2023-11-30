@@ -59,8 +59,8 @@ SUBROUTINE masstq(Narg)
 ! **********************************************************************
 !
 !     COMMON /MATOUT/RHO
-   EQUIVALENCE (Necpt(1),Ecpt(1))
-   EQUIVALENCE (Iflag,Ecpt(8))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Iflag,Ecpt(8))
    DATA pi23/2.0943952/
 !
 !     THIS ROUTINE COMPUTES A MASS MATRIX OF THE FOLLOWING FORM.

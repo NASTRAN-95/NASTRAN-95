@@ -20,8 +20,8 @@ SUBROUTINE cead1a(Lami,Phidi,Phidli,Lamd,Phid,Phidl,Nfound,Nvect,Capp)
 !
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf)
-   EQUIVALENCE (Iz(1),Z(1)) , (Z(1),Zd(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf)
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (Z(1),Zd(1))
 !
    DATA name/4HCEAD , 4H1A  /
    DATA ih/7*0/

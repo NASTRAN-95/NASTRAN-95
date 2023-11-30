@@ -20,7 +20,7 @@ SUBROUTINE hring(Points)
 !     THIS ROUTINE IS SEPARATE FROM KTRAPR AND KTRIRG SO AS TO BE
 !     IN OVERLAY WITH KTRMEM AND KQDMEM.
 !
-   EQUIVALENCE (t,tint)
+   !>>>>EQUIVALENCE (t,tint)
    DATA pi23/2.0943951024E0/
    DATA map/1 , 2 , 3 , 1 , 2 , 3 , 2 , 3 , 4 , 3 , 4 , 1 , 4 , 1 , 2/
 !

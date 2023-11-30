@@ -11,7 +11,7 @@ SUBROUTINE grav(Ngrav,Gvect,Nlist,Ilist,Nloop)
    REAL flag , gl(5) , x(3)
    INTEGER i , igl , j , name(2) , nl1 , nlist1 , nsave
 !
-   EQUIVALENCE (igl,gl(2))
+   !>>>>EQUIVALENCE (igl,gl(2))
    DATA name/4HGRAV , 4H    /
 !
 !     CONVERTS GRAV CARD TO BASIC AND STORES

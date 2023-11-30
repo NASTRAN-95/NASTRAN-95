@@ -8,7 +8,7 @@ SUBROUTINE dsgnwr
    COMMON /system/ Isybuf , Iwr
    CHARACTER*4 Cbuff(3)
    INTEGER i , ialloc , iavail , iccer , idevic , idsnr , ifirst , inext , iop , isave , istrb , itest , kk , lasblk , maxpr1
-   EQUIVALENCE (Cbuff,Ibase)
+   !>>>>EQUIVALENCE (Cbuff,Ibase)
    Idsn = Mdsfcb(2,Ifilex)
    idsnr = Idsn
  100  istrb = Fcb(5,idsnr)

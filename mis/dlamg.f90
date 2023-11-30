@@ -20,7 +20,7 @@ SUBROUTINE dlamg(Input,Matout,Skj)
 !     DRIVER FOR THE DOUBLET LATTICE METHOD
 !     COMPUTATIONS ARE FOR THE AJJL MATRIX
 !
-   EQUIVALENCE (Work(1),Iz(1),Dt(1))
+   !>>>>EQUIVALENCE (Work(1),Iz(1),Dt(1))
    DATA name/4HDLAM , 4HG   /
 !
    Njj = Nj

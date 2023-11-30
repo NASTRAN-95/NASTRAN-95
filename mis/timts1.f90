@@ -25,7 +25,7 @@ SUBROUTINE timts1
 !
 !     TIMTS1 TIME TESTS GINO AND THE PACK ROUTINES
 !
-   EQUIVALENCE (Zd(1),Z(1)) , (Xd(1),X(1))
+   !>>>>EQUIVALENCE (Zd(1),Z(1)) , (Xd(1),X(1))
    DATA files/301 , 302/ , rd/1H  , 1H  , 1H  , 4HREAD/
    DATA i1000/1000/ , i1001/1001/ , wrt/1H  , 1H  , 4H   W , 4HRITE/ , bck/4H   B , 4HACKW , 4HARD  , 4HREAD/
    DATA bld/1H  , 4HBLDP , 4HK( R , 4HSP ) , 1H  , 4HBLDP , 4HK( R , 4HDP ) , 1H  , 4HBLDP , 4HK( C , 4HSP ) , 1H  , 4HBLDP ,       &

@@ -27,7 +27,7 @@ SUBROUTINE fa2
 !     THE PURPOSE OF THIS MODULE IS TO COPY PARTS OF PHIH, CLAMA, AND
 !    1    FSAVE ONTO PHIHL, CLAMAL, CASEYY, AND OVG RESPECTIVELY
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA phih , clama , fsave , phihl , clamal , caseyy , ovg/101 , 102 , 103 , 201 , 202 , 203 , 204/
    DATA name , no , mcbcl , mcbcc , mcbovg , iblnk/4HFA2  , 1H  , 2HNO , 21*0 , 4H    /
    DATA buf/146*1H /

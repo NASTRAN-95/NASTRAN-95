@@ -38,7 +38,7 @@ SUBROUTINE scaled(Type,Emord)
 !     ECPT(7) GSUBE     R    GSUBE     R
 !     ECPT(8) S         R    S         R
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (z(1),dz(1)) , (Iest(1),Est(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (z(1),dz(1)) , (Iest(1),Est(1))
    DATA gpt/2 , 3 , 2 , 3/ , cpt/4 , 5/ , kpt/6 , 2 , 4 , 2/
    DATA gspt/7 , 7 , 5 , 0/
 !

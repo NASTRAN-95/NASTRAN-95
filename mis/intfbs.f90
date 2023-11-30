@@ -27,7 +27,7 @@ SUBROUTINE intfbs(Dx,Dy,Iobuf)
 !
 !     NAMED COMMONS
 !
-   EQUIVALENCE (A(1),Da) , (Filel(3),Nrow)
+   !>>>>EQUIVALENCE (A(1),Da) , (Filel(3),Nrow)
    DATA parm(3) , parm(4)/4HINTF , 4HBS  /
 !
 !

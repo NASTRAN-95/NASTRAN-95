@@ -57,8 +57,8 @@ SUBROUTINE strbs1(Iopt)
 !                 THE I-TH ELEMENT TYPE, AND INSERTED INTO THE FORCES
 !                 ARRAY OF THE LABELED BLOCK SDR2X5.
 !
-   EQUIVALENCE (Consts(4),Degra) , (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (Ks(1),Ph1out(1)) , (G2x2(1),A(88)) , (S(1),A(55)) ,    &
-    & (Tite(1),A(127)) , (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73)) , (St(1),Ph1out(99))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (D(1),G(1),A(79)) , (Ecpt(1),Necpt(1)) , (Ks(1),Ph1out(1)) , (G2x2(1),A(88)) , (S(1),A(55)) ,    &
+!>>>>    & (Tite(1),A(127)) , (J2x2(1),A(92)) , (T(1),A(118)) , (Hib(1),A(109)) , (Hic(1),A(127)) , (Hinv(1),A(73)) , (St(1),Ph1out(99))
 !
 !     ECPT LIST FOR BASIC BENDING TRIANGLE             NAME IN
 !                                                      THIS

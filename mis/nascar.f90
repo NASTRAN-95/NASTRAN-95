@@ -23,9 +23,9 @@ SUBROUTINE nascar
    REAL s1
    CHARACTER*16 s2
    EXTERNAL complf , orf , rshift
-   EQUIVALENCE (System(1),Sysbuf) , (System(2),Outtap) , (System(3),Nogo) , (System(4),Intap) , (System(7),Logfl) ,                 &
-    & (System(20),Pltflg) , (System(29),Maxfil) , (System(30),Maxopn) , (System(34),Idrum) , (System(57),Modcom(1)) ,               &
-    & (System(70),Itolel,Rtolel) , (System(77),Bandit)
+   !>>>>EQUIVALENCE (System(1),Sysbuf) , (System(2),Outtap) , (System(3),Nogo) , (System(4),Intap) , (System(7),Logfl) ,                 &
+!>>>>    & (System(20),Pltflg) , (System(29),Maxfil) , (System(30),Maxopn) , (System(34),Idrum) , (System(57),Modcom(1)) ,               &
+!>>>>    & (System(70),Itolel,Rtolel) , (System(77),Bandit)
 !
    DATA nstrn/4HNAST , 4HRAN /
    DATA files/4HFILE , 1HS/ , blank/1H /

@@ -29,7 +29,7 @@ SUBROUTINE kqdmem
 !            SMA1B  - INSERTION ROUTINE
 !            MESAGE - ERROR MESSAGE WRITER
 !
-   EQUIVALENCE (Consts(4),Degra) , (K3x3(1),Kij(1)) , (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (K3x3(1),Kij(1)) , (Necpt(1),Ecpt(1))
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
    DATA piovr3/1.0471975512/
 !

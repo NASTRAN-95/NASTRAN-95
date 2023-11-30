@@ -128,7 +128,7 @@ SUBROUTINE fvrst1
 !                                                AND 3031.
 !
 !
-   EQUIVALENCE (coord(1),ncrd) , (Z(1),Zs(1)) , (Z(1),Iz(1)) , (mcb(1),mcb1(1)) , (mcbm1(1),mcb2(1)) , (Itid(1),Bxtid)
+   !>>>>EQUIVALENCE (coord(1),ncrd) , (Z(1),Zs(1)) , (Z(1),Iz(1)) , (mcb(1),mcb1(1)) , (mcbm1(1),mcb2(1)) , (Itid(1),Bxtid)
    DATA casecc , bgpdt , cstm , dit , frl , mgg/101 , 102 , 103 , 104 , 105 , 106/
    DATA frlx , b1gg , m1gg , m2gg , basexg , pdzero/201 , 202 , 203 , 204 , 205 , 206/
    DATA modnam/4HFRL  , 4HFVRS , 4HTR1 /

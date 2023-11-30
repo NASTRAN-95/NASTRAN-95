@@ -164,7 +164,7 @@ SUBROUTINE gnfiat
 ! /////////////////////////////////////////////////////////////////
 !
 !
-   EQUIVALENCE (Dum1(1),Nout)
+   !>>>>EQUIVALENCE (Dum1(1),Nout)
 !
    CALL dsiodd
    Ifufa = 0

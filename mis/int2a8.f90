@@ -14,7 +14,7 @@ SUBROUTINE int2a8(*,X,A8)
    INTEGER int , ip1 , ix , j , jx , ll , lu , n , n1 , nn , np1 , nt , power
    CHARACTER*8 temp , zero , zerox
 !
-   EQUIVALENCE (temp,temp10,a(1)) , (jx,rx) , (alp10,alp(1))
+   !>>>>EQUIVALENCE (temp,temp10,a(1)) , (jx,rx) , (alp10,alp(1))
    DATA ip , im , ib , pt , temp , zero , zerox , nn , ll , alp10/'+' , '-' , ' ' , '.' , 'T' , '0' , '0.0' , 0 , 0 , '1234567890'/
 !
 !     THESE ROUTINES ENCODE AN INTEGER OR F.P. NUMBER IN X, TO AN 8-BYTE

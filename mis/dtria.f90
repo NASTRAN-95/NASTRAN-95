@@ -98,9 +98,9 @@ SUBROUTINE dtria(Iopt)
 !          49                                  V3
 !          50                                  W3
 !
-   EQUIVALENCE (Necpt(1),Ecpt(1)) , (Prod12(1),A(13)) , (Habc(1),A(25)) , (Tite(1),A(37)) , (Tjte(1),S(1)) , (Kout(1),A(1)) ,       &
-    & (Temp18(1),Hinv(1)) , (V1(1),Ecpt(66)) , (V2(1),Ecpt(70)) , (V3(1),Ecpt(74)) , (Requiv(1),R(1,1)) , (D1(1),A(1)) ,            &
-    & (D2(1),A(4)) , (Hq(1),A(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1)) , (Prod12(1),A(13)) , (Habc(1),A(25)) , (Tite(1),A(37)) , (Tjte(1),S(1)) , (Kout(1),A(1)) ,       &
+!>>>>    & (Temp18(1),Hinv(1)) , (V1(1),Ecpt(66)) , (V2(1),Ecpt(70)) , (V3(1),Ecpt(74)) , (Requiv(1),R(1,1)) , (D1(1),A(1)) ,            &
+!>>>>    & (D2(1),A(4)) , (Hq(1),A(1))
 !
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 4 , 3 , 1 , 4/ , cid1/65/

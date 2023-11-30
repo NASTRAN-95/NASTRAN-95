@@ -30,10 +30,10 @@ SUBROUTINE frrd1c(Frl,Frqset,Mdd,Bdd,Kdd,Ifr,Ull,Lll,Scr1,Scr2,Scr3,Scr4,Igood)
 !                      REAL    SYMMETRIC    CALL SDCOMP
 !                              UNSYMMETRIC  CALL DECOMP
 !
-   EQUIVALENCE (Mcore(1),Core(1))
-   EQUIVALENCE (Icore(1),Core(1))
-   EQUIVALENCE (Amcb(1),Mcba(9)) , (Bmcb(1),Mcbb(9)) , (Cmcb(1),Mcbc(9)) , (Ksystm(2),Nout)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
+   !>>>>EQUIVALENCE (Mcore(1),Core(1))
+   !>>>>EQUIVALENCE (Icore(1),Core(1))
+   !>>>>EQUIVALENCE (Amcb(1),Mcba(9)) , (Bmcb(1),Mcbb(9)) , (Cmcb(1),Mcbc(9)) , (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
    DATA name/4HFRRD , 4H1C  /
 !
 !

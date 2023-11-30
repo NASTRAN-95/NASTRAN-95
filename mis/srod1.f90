@@ -35,7 +35,7 @@ SUBROUTINE srod1
 !
 !
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
 !
 ! CALL MAT TO GET MATERIAL PROPERTIES
 !

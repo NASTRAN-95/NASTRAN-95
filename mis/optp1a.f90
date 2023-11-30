@@ -19,7 +19,7 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
    REAL c1
    INTEGER i , i1 , i2 , ietyp , intyp , ipt(21) , iwd(28) , j1 , j2 , k1 , k2 , name(2) , nest
 !
-   EQUIVALENCE (E(1),Ie(1)) , (Omat(1),Imat(1)) , (k1,c1)
+   !>>>>EQUIVALENCE (E(1),Ie(1)) , (Omat(1),Imat(1)) , (k1,c1)
    DATA name/4H OPT , 4HP1A /
 !
 !     POINTER TO IPT ARRAY - ZERO MEANS ELEMENT NOT USED.

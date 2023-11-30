@@ -65,9 +65,9 @@ SUBROUTINE tltr3s
 !
 !
 !
-   EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(26),Zoff1) ,          &
-    & (Est(39),Tempel) , (Est(27),Bgpdt(1,1),Igpdt(1,1))
-   EQUIVALENCE (necpt(1),ecpt(1)) , (Stemp(7),Flag) , (Z(1),Loadvc(1))
+   !>>>>EQUIVALENCE (Est(1),Nest(1)) , (Est(2),Sil(1)) , (Est(5),Gpth(1)) , (Est(10),Zoff) , (Est(12),Elth) , (Est(26),Zoff1) ,          &
+!>>>>    & (Est(39),Tempel) , (Est(27),Bgpdt(1,1),Igpdt(1,1))
+   !>>>>EQUIVALENCE (necpt(1),ecpt(1)) , (Stemp(7),Flag) , (Z(1),Loadvc(1))
    DATA hunmeg , eps/100000000 , 1.0E-7/
 !
 !

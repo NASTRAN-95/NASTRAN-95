@@ -49,7 +49,7 @@ SUBROUTINE desvel
 !              C,Y,ACC1=0./C,Y,ACC2=0./C,Y,ACC3=0./C,Y,ACCA=0./
 !              C,Y,ACCB=0./C,Y,ACCC=0./C,Y,ACCD=0.
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA effw , omega , ssdv , acc , vwg , minac , minow2/101 , 102 , 201 , 202 , 203 , 204 , 205/
    DATA nam/4HDESV , 4HEL  /
 !

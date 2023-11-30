@@ -54,8 +54,8 @@ SUBROUTINE etrbms
 !     ECPT(24) = Z3                                    Z3        REAL
 !     ECPT(25) = ELEMENT TEMPERATURE                   ELTEMP    REAL
 !
-   EQUIVALENCE (Ielid,Ecpt(1),Necpt(1)) , (J2x2(1),A(14)) , (D(1),G(1),A(1),Siij(1,1)) , (G2x2(1),A(10)) , (Hyq(1),A(50)) ,         &
-    & (Mbaraa(1),A(136)) , (Mar(1),A(145)) , (Mrr(1),A(163)) , (S(1),A(82))
+   !>>>>EQUIVALENCE (Ielid,Ecpt(1),Necpt(1)) , (J2x2(1),A(14)) , (D(1),G(1),A(1),Siij(1,1)) , (G2x2(1),A(10)) , (Hyq(1),A(50)) ,         &
+!>>>>    & (Mbaraa(1),A(136)) , (Mar(1),A(145)) , (Mrr(1),A(163)) , (S(1),A(82))
 !
 !     SETTING UP G MATRIX
 !     BEFORE THIS SUBROUTINE CAN FUNCTION SEVERAL TERMS MUST BE DEFINED

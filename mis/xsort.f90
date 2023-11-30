@@ -37,9 +37,9 @@ SUBROUTINE xsort
    INTEGER m , mx3 , my1 , my2 , my3 , my4 , my5 , my6 , mz1 , n1 , n2 , n3 , nbuf2 , nbuf3 , nbuf4 , ncnt , ni , nl , notsor ,     &
          & nptp , nshift , nsort(2) , nx , ny , optp , pid , ptst , starsw , trial , tst , umf
    EXTERNAL andf , lshift , orf , rshift
-   EQUIVALENCE (Bk(1),Bkmsk1(5)) , (Mk(1),Bimsk2(2)) , (Mkb,Bimsk5(1)) , (Inf,Bimsk2(1)) , (Sfta,Shifts(2)) , (Mkd,Bimsk2(2)) ,     &
-    & (Mke,Bimsk5(2)) , (Mkc,Bimsk4(1))
-   EQUIVALENCE (Blanx,Bkmsk1(8))
+   !>>>>EQUIVALENCE (Bk(1),Bkmsk1(5)) , (Mk(1),Bimsk2(2)) , (Mkb,Bimsk5(1)) , (Inf,Bimsk2(1)) , (Sfta,Shifts(2)) , (Mkd,Bimsk2(2)) ,     &
+!>>>>    & (Mke,Bimsk5(2)) , (Mkc,Bimsk4(1))
+   !>>>>EQUIVALENCE (Blanx,Bkmsk1(8))
    DATA headu/10*4H     , 4H I N , 4H P U , 4H T   , 4H B U , 4H L K , 4H   D , 4H A T , 4H A   , 4H D E , 4H C K , 4H   E ,        &
       & 4H C H , 4H O   , 9*4H    /
    DATA heads/11*4H     , 4H S O , 4H R T , 4H E D , 4H   B , 4H U L , 4H K   , 4H D A , 4H T A , 4H   E , 4H C H , 4H O   ,        &

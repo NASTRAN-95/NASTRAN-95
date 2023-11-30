@@ -20,7 +20,7 @@ SUBROUTINE ifb2ar(Type,Ifb,Ar,L)
 !     IF TYPE=3, IFB IS A BCD WORD, 4 LETTERS ARE USE IN AR, AND
 !                L IS INCREASED BY 1
 !
-   EQUIVALENCE (ia,ra)
+   !>>>>EQUIVALENCE (ia,ra)
    DATA fmt/'(F12.9)' , '(F12.8)' , '(F12.7)' , '(F12.6)' , '(F12.5)' , '(F12.4)' , '(F12.3)' , '(F12.2)' , '(F12.1)' , '(F12.0)'/
    DATA fnt/'(1X,F11.8)' , '(1X,F11.7)' , '(1X,F11.6)' , '(1X,F11.5)' , '(1X,F11.4)' , '(1X,F11.3)' , '(1X,F11.2)' , '(1X,F11.1)' , &
        &'(1X,F11.0)'/

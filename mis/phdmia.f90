@@ -17,7 +17,7 @@ SUBROUTINE phdmia
 !
 !  $MIXED_FORMAT
 !
-   EQUIVALENCE (qx(1),iqx(1)) , (lfmt(2),kfmt(1))
+   !>>>>EQUIVALENCE (qx(1),iqx(1)) , (lfmt(2),kfmt(1))
    DATA dmi , iz , p , dmis , s/3HDMI , 0 , 1H+ , 4HDMI* , 1H*/
    DATA kfmt/3*4H$$$$ , 16*4H**** , 4HA1,A , 4H2,I5 , 4H)   /
    DATA kfmti , kfmtr1 , kfmtr2/4HI8 , , 4HF8.1 , 4H,   /

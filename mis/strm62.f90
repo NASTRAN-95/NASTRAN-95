@@ -25,7 +25,7 @@ SUBROUTINE strm62(Ti)
 !     PH1OUT(228)-(230)       THERMAL VECTOR - G TIMES ALPHA
 !
 !
-   EQUIVALENCE (Ns1l(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(11)) , (Ldtemp,Ftemp)
+   !>>>>EQUIVALENCE (Ns1l(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(11)) , (Ldtemp,Ftemp)
 !
    DO ii = 1 , 4
 !

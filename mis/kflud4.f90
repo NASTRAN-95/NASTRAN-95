@@ -44,7 +44,7 @@ SUBROUTINE kflud4
 !          24            -
 !          25            -
 !
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
 !
    IF ( Necpt(6)<=0.0 ) RETURN
 !

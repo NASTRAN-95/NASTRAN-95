@@ -15,7 +15,7 @@ SUBROUTINE hdsket(X,Y,Z,Np,Nc)
 !
 !     THIS SUBROUTINE SETS UP PEN MOTION INDICATORS.
 !
-   EQUIVALENCE (Iz(1),Rz(1))
+   !>>>>EQUIVALENCE (Iz(1),Rz(1))
 !
    l = Np
    li = Np

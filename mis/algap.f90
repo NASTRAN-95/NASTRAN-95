@@ -26,7 +26,7 @@ SUBROUTINE algap(Ifname,Ifnm)
 !
 !  $MIXED_FORMATS
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Out) , (Ksystm(91),Lpunch) , (Iz(1),Z(1)) , (idata(1),rdata(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Out) , (Ksystm(91),Lpunch) , (Iz(1),Z(1)) , (idata(1),rdata(1))
    DATA blank/1H /
    DATA dti/4HDTI  , 1H /
    DATA dtis/4HDTI* , 1H /

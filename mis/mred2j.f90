@@ -12,7 +12,7 @@ SUBROUTINE mred2j(Nuf,N2)
 !
 !     THIS SUBROUTINE PARTITIONS THE PHISS MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Phiss,Infile(3)) , (Phiss1,Iscr(8)) , (Phiss2,Iscr(9)) , (Rprtn,Iscr(10))
+   !>>>>EQUIVALENCE (Phiss,Infile(3)) , (Phiss1,Iscr(8)) , (Phiss2,Iscr(9)) , (Rprtn,Iscr(10))
    DATA modnam/4HMRED , 4H2J  /
 !
 !     SET UP PARTITIONING VECTOR

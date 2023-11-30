@@ -51,7 +51,7 @@ SUBROUTINE fnxtvd(V1,V2,V3,V4,V5,Zb,Ifn)
 !     SEE FEER FOR DEFINITIONS OF OTHER PARAMETERS. ALSO PROGRAMMER'S
 !           MANUAL PP. 4.48-19G THRU I
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
    DATA name/4HFNXT , 4HVD   , 2*4HBEGN , 4HEND /
    DATA vddot , zero/4HVD.  , 0.0D+0/
 !

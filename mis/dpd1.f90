@@ -29,7 +29,7 @@ SUBROUTINE dpd1
          & ngpl , noep , nsil , nwds
    LOGICAL first , nodyn
    EXTERNAL andf , orf
-   EQUIVALENCE (Msg(2),Ngrid)
+   !>>>>EQUIVALENCE (Msg(2),Ngrid)
 !
 !
 !     SET NODYN FLAG TO TRUE IF NO DYNAMIC

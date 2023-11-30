@@ -31,8 +31,8 @@ SUBROUTINE rcove
 !     THE ENERGIES ON THOSE MODES EXCLUDED FROM THE REDUCTION
 !     PROCESSING.
 !
-   EQUIVALENCE (Buf(1),Rz(1))
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Buf(1),Rz(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA casecc/4HCASE , 4HCC  /
    DATA eqss , lams , soln/4HEQSS , 4HLAMS , 4HSOLN/
    DATA casess , scr3 , scr4 , scr6 , scr7/101 , 303 , 304 , 306 , 307/

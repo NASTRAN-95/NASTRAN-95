@@ -21,8 +21,8 @@ SUBROUTINE rcard(Out,Fmt,Nflag,In)
    REAL fl1
    DOUBLE PRECISION xdoubl
    EXTERNAL complf , lshift , rshift
-   EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),blank) , (chars(2),star) , (chars(3),plus) ,            &
-    & (chars(4),minus) , (chars(5),period) , (chars(6),e) , (chars(7),d)
+   !>>>>EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),blank) , (chars(2),star) , (chars(3),plus) ,            &
+!>>>>    & (chars(4),minus) , (chars(5),period) , (chars(6),e) , (chars(7),d)
    DATA pass/.FALSE./ , blanks/4H    / , stars/4H****/ , line/20*4H    / , blank/1H / , star/1H*/ , plus/1H+/ , minus/1H-/ ,        &
        &period/1H./ , e/1HE/ , d/1HD/ , seq/3HSEQ/ , p/4HP   / , izero/0/
    DATA num/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H0/

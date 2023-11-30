@@ -52,7 +52,7 @@ SUBROUTINE shfors(Numpx,Elid,Igrid,Thikns,G,Epscsi,Qveci,Idr)
 !      2 - 9     FORCES AT ELEMENT CENTER POINT
 !
 !
-   EQUIVALENCE (Nfors(1),Forsul(1))
+   !>>>>EQUIVALENCE (Nfors(1),Forsul(1))
    DATA cosmic/.TRUE./
 !
 !

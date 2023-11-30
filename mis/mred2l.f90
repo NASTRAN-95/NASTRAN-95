@@ -21,8 +21,8 @@ SUBROUTINE mred2l(Nuf,N2,Nus,Ufbits)
 !     THIS SUBROUTINE PREFORMS PRELIMINARY CALCULATIONS AND MERGES OF
 !     THE HK MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Gs,Iscr(7)) , (Phiss1,Iscr(8)) , (Phiss2,Iscr(9)) , (Ident,Iscr(5)) , (Phiss,Iscr(6)) , (Phigs,Iscr(2)) ,           &
-    & (Phis12,Iscr(2)) , (Phi12i,Iscr(8)) , (Rprtn,Iscr(5)) , (Cprtn,Iscr(10)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Gs,Iscr(7)) , (Phiss1,Iscr(8)) , (Phiss2,Iscr(9)) , (Ident,Iscr(5)) , (Phiss,Iscr(6)) , (Phigs,Iscr(2)) ,           &
+!>>>>    & (Phis12,Iscr(2)) , (Phi12i,Iscr(8)) , (Rprtn,Iscr(5)) , (Cprtn,Iscr(10)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HMRED , 4H2L  /
 !
 !                  -1

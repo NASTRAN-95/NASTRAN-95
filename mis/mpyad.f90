@@ -35,7 +35,7 @@ SUBROUTINE mpyad(Zz,Z,Zd)
 !     40        UNPACK  GETSTR   UNPACK       NO         YES      YES
 !     41        GETSTR  GETSTR   UNPACK       NO         YES      YES
 !
-   EQUIVALENCE (Ksystm(58),Method)
+   !>>>>EQUIVALENCE (Ksystm(58),Method)
    CALL sswtch(49,l49)
    IF ( Method>=1 .AND. Method<=3 ) l49 = 1
    IF ( l49/=0 ) CALL mpyado(Zz,Z,Zd)

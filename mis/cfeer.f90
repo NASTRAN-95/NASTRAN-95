@@ -48,7 +48,7 @@ SUBROUTINE cfeer(Eed,Method,Nfound)
 !     REG(7,I) = NUMBER OF DESIRED ROOTS AROUND CENTER I
 !     REG(8,1) = CONVERGENCE CRITERION (EQUIV. TO REG(1,2) TEMPORARILY)
 !
-   EQUIVALENCE (Ireg(1,1),Reg(1,1)) , (anodes,nodes) , (Ksystm(2),Nout) , (Ksystm(40),Nbpw) , (asym,nonsym) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Ireg(1,1),Reg(1,1)) , (anodes,nodes) , (Ksystm(2),Nout) , (Ksystm(40),Nbpw) , (asym,nonsym) , (Z(1),Iz(1))
    DATA eigc/207 , 2/
    DATA ihead/0 , 1009 , 2 , 7*0/
    DATA name/4HCFCN , 4HTL  /

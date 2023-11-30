@@ -18,7 +18,7 @@ SUBROUTINE pstamg(Input,Ajjl,Skj)
 !
 !     DRIVER FOR PISTON THEORY
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA nhacpt , nhcomm , name/4HACPT , 4HCOMM , 4HPSTA , 4HMG  /
 !
    icore = korsz(Iz) - 4*Sysbuf

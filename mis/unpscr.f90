@@ -85,7 +85,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
    CHARACTER*8 backwd , fbwd , forwd
    LOGICAL debug , flag23
    INTEGER file , form , i , j , k , ll , max , nam(2) , nl , nrec , nwds , save(4) , sum , tot
-   EQUIVALENCE (Type,Tyiijj(1))
+   !>>>>EQUIVALENCE (Type,Tyiijj(1))
    DATA forwd , backwd/'FORWARD' , 'BACKWARD'/
    DATA nam/4HUNPS , 2HCR/
 !

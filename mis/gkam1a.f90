@@ -19,7 +19,7 @@ SUBROUTINE gkam1a(Mi,Phidh,Sdt,Scr1,Scr2,Iopt,Iout,Nopp,W,Nw,Nosdt,Lhset,I2dd,Iw
    INTEGER korsz
    DOUBLE PRECISION ma(2) , mc , md , zero(2)
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(55),Iprec) , (md,ma(1)) , (mc,ma(2))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(55),Iprec) , (md,ma(1)) , (mc,ma(2))
    DATA zero/0.0D0 , 0.0D0/
    DATA name/4HGKAM , 4H1A  /
    DATA ihh/4HMHH  , 4HBHH  , 4HKHH /

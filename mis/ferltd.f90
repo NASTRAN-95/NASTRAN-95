@@ -20,7 +20,7 @@ SUBROUTINE ferltd(Ifile,Dz,Dy,Zm)
 !
 !   FEER MATRIX TRANSPOSE MULTIPLY  (DOUBLE PREC)
 !
-   EQUIVALENCE (Dcore(1),Icore(1))
+   !>>>>EQUIVALENCE (Dcore(1),Icore(1))
    n = Ifile(2)
    iccol = 1
    IF ( Nidsma==0 ) THEN

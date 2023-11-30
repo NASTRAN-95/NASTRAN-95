@@ -13,8 +13,8 @@ SUBROUTINE timeeq(B,Bbar,C,Cbar,R,Ientry,Ncol,Tim)
 !     TIMEEQ SOLVES THE TIME AND CORE FUNCTIONS FOR DECOMP AND CDCOMP
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
-    & (Tcons(12),Mc(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
+!>>>>    & (Tcons(12),Mc(1))
 !
 !
    ientr = Ientry
@@ -51,8 +51,8 @@ SUBROUTINE tfin(Ab,Abbar,Ac,Acbar,Ar,Jentry,Ancol,Timex)
 !     TIMEEQ SOLVES THE TIME AND CORE FUNCTIONS FOR DECOMP AND CDCOMP
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
-    & (Tcons(12),Mc(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
+!>>>>    & (Tcons(12),Mc(1))
 !
 !
    ientr = Jentry
@@ -110,11 +110,10 @@ SUBROUTINE rcore(Ib,Ibbar,Ic,Icbar,Incol,Kentry,Nx,Ir)
 !     ENTRY FOR THE CORE FUNCTION
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
-    & (Tcons(12),Mc(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(40),Nbpw) , (Ksystm(55),Iprec) , (Tcons(1),Aaio) , (Tcons(2),Aapak) , (Tcons(8),Mb(1)) ,&
+!>>>>    & (Tcons(12),Mc(1))
 !
 !
    Ir = (Nx-((Ib+Ibbar+1)+2*Kentry*min0(Incol,Ib+Ibbar+Ibbar)+2*Kentry*Ic*(Ibbar+2)+2*Icbar*Kentry*(min0(Ib+Ibbar,Incol)+1)         &
       & +2*Kentry*Ic*Icbar+Ic+Icbar*Kentry+Icbar)-6*Sysbuf)/(2*Kentry*Ibbar)
 END SUBROUTINE rcore
-

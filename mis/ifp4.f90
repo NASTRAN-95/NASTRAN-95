@@ -59,7 +59,7 @@ SUBROUTINE ifp4
 !     SOME OF THE ABOVE OUTPUT CARD IMAGES ARE A FUNCTION OF SEVERAL
 !     INPUT CARD IMAGES
 !
-   EQUIVALENCE (Z(1),Rz(1)) , (buf(1),rbuf(1)) , (card(1),rcard(1)) , (core,icore) , (rhob,irhob) , (bd,ibd)
+   !>>>>EQUIVALENCE (Z(1),Rz(1)) , (buf(1),rbuf(1)) , (card(1),rcard(1)) , (core,icore) , (rhob,irhob) , (bd,ibd)
    DATA axif/8815 , 88/
    DATA bdylst/8915 , 89/
    DATA cfluid/7815 , 78 , 7915 , 79 , 8015 , 80/

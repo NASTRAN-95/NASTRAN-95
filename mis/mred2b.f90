@@ -45,7 +45,7 @@ SUBROUTINE mred2b
 !              KII    - KII PARTITION MATRIX FILE NUMBER
 !              LII    - LII PARTITION MATRIX FILE NUMBER (ISCR11)
 !
-   EQUIVALENCE (Dmr,Infile(11)) , (Gib,Iscr(6)) , (Dz(1),Z(1)) , (Kib,Iscr(2)) , (Kii,Iscr(3)) , (Lii,Iscr11)
+   !>>>>EQUIVALENCE (Dmr,Infile(11)) , (Gib,Iscr(6)) , (Dz(1),Z(1)) , (Kib,Iscr(2)) , (Kii,Iscr(3)) , (Lii,Iscr11)
    DATA modnam/4HMRED , 4H2B  /
    DATA lower/4/
    DATA itmlst/4HLMTX , 4HGIMS/

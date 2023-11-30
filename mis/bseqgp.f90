@@ -22,7 +22,7 @@ SUBROUTINE bseqgp(Norig,Ild,Jump)
    INTEGER orf
    EXTERNAL orf
 !
-   EQUIVALENCE (Ibuf,Isys(1)) , (Nlpp,Isys(9)) , (Lpch,Isys(91)) , (Iecho,Isys(19))
+   !>>>>EQUIVALENCE (Ibuf,Isys(1)) , (Nlpp,Isys(9)) , (Lpch,Isys(91)) , (Iecho,Isys(19))
    DATA sub , eof , seqgp/4HSSEQ , 4HGP   , 3*2147483647 , 5301 , 53 , 4/
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE

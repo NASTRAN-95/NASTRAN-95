@@ -60,7 +60,7 @@ SUBROUTINE kelas(Ijklmn)
 !
 !
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
 !
 !
 !

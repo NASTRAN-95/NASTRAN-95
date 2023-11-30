@@ -14,7 +14,7 @@ SUBROUTINE casege
 !     CASEGEN  CASECC/CASEDD/C,Y,LMODES/V,N,NDIR/V,N,NMODES $
 !    EQUIV CASEDD,CASECC  $
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA casecc , casedd/101 , 201/
    DATA nam/4HCASE , 4HGE  /
 !

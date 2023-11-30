@@ -28,7 +28,7 @@ SUBROUTINE pload1(Opt,Islt,V,Sa,Sb,Ba,Bb,Pa,Pb,Ta,Tb,Slt,Ept)
 !     TA,TB = TRANSFORMATION MATRICES FOR A AND B ONLY USED WITH OPT 1
 !     EPT   = POINTER TO EST
 !
-   EQUIVALENCE (a(1),e(1)) , (b(1),e(7)) , (c(1),e(4))
+   !>>>>EQUIVALENCE (a(1),e(1)) , (b(1),e(7)) , (c(1),e(4))
    DATA oldid , d/10*0/
 !
    IF ( oldid/=Islt(1) ) THEN

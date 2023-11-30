@@ -16,7 +16,7 @@ SUBROUTINE sdr1a(Input,Iout)
 !     CASE OF TRANSIENT ANALYSIS
 !
 !
-   EQUIVALENCE (Core(1),Corex(1))
+   !>>>>EQUIVALENCE (Core(1),Corex(1))
 !
    DATA bcd1/4HSDR1 , 4HA   /
 !

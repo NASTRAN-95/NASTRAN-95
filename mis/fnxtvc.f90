@@ -43,7 +43,7 @@ SUBROUTINE fnxtvc(V1,V2,V3,V4,V5,Zb,Ifn)
 !     (NUMERIC ACCURACY IS VERY IMPORTANT IN THIS SUBROUTINE)
 !
 !Q    REAL*16            D         ,DB       ,DSQ      ,SD       ,
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Io)
    DATA name/4HFNXT , 4HVC   , 2*4HBEGN , 4HEND /
    DATA vcdot , zero/4HVC.  , 0.0D+0/
 !

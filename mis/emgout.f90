@@ -102,7 +102,7 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !
 !     ONE OR MORE PARTITIONS WILL BE WRITTEN ON EACH CALL.
 !
-   EQUIVALENCE (Ksystm(2),Outpt) , (fff,ifff)
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (fff,ifff)
    DATA eor , noeor , maxfil/1 , 0 , 3/
 !
    IF ( Error ) RETURN

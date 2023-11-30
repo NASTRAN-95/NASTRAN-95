@@ -50,11 +50,11 @@ SUBROUTINE tabprt(Iname1)
 !  $MIXED_FORMATS
 !
 !WKBI
-   EQUIVALENCE (Xnd(1),Core(1))
-   EQUIVALENCE (Xns(1),Xnd(1)) , (Icore(1),Core(1),Dcore(1)) , (block(2),type) , (block(3),format) , (block(4),row) ,               &
-    & (block(5),jpoint) , (block(6),nterms) , (block(8),flag)
+   !>>>>EQUIVALENCE (Xnd(1),Core(1))
+   !>>>>EQUIVALENCE (Xns(1),Xnd(1)) , (Icore(1),Core(1),Dcore(1)) , (block(2),type) , (block(3),format) , (block(4),row) ,               &
+!>>>>    & (block(5),jpoint) , (block(6),nterms) , (block(8),flag)
 !WKBI
-   EQUIVALENCE (Core,Core1)
+   !>>>>EQUIVALENCE (Core,Core1)
    DATA oparen , cparen , ec , ec1 , ec2 , intgc , alphc , alphc1 , cont , uned/4H(1X  , 4H)    , 4H,1P, , 4HE13. , 2H6  , 4H,I13 , &
        &4H,9X, , 4HA4   , 4HCONT , 4HINUE/d/2HD / , name/4HTABP , 4HRT  /
    DATA blank , tabl , ebb/1H  , 4HTABL , 1HE/

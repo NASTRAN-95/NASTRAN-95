@@ -22,7 +22,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
    INTEGER all , casecc , file , flag , hccens , hcflds , i , ib , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ibuf5 , ido , iii , ij , ilsym , &
          & ip1 , ipre , iset , isetno , j , jopen , kcc , kkkk , kset , lcore , mcore , mset , n , name(2) , nbdys , ncc , ncore ,  &
          & nelout , nextz , ngrold , nloop , nograv , nset , permbd , remfls , ret , scr6 , setno
-   EQUIVALENCE (Core(1),Iz(1))
+   !>>>>EQUIVALENCE (Core(1),Iz(1))
    DATA casecc , permbd , hcflds , remfls , scr6 , hccens , name/110 , 112 , 304 , 305 , 306 , 307 , 4HEXTE , 4HRN  /
 !
    Iest(1) = -1

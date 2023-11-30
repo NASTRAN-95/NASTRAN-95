@@ -31,7 +31,7 @@ SUBROUTINE mfree
 !
 !
 !
-   EQUIVALENCE (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
    ifile = Io(11)
    IF ( Ecpt(4)==0.0 ) GOTO 99999
    IF ( Necpt(2)/=Necpt(3) ) THEN

@@ -18,7 +18,7 @@ SUBROUTINE fa1ke(Scr1,Kfreq,Bref,Rho,Rref,Floop,Nloop)
 !
 !
 !
-   EQUIVALENCE (Z(1),Cz(1))
+   !>>>>EQUIVALENCE (Z(1),Cz(1))
 !
    DATA name/4HFA1K , 4HE   /
    DATA khh/101/ , mhh/103/ , mout/203/ , fsave/201/

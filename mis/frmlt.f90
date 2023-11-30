@@ -22,7 +22,7 @@ SUBROUTINE frmlt(Ifile,Z,Y,Zm)
 !     EFFECIENT, AND IS ALREADY GOOD FOR VECTORIZATION
 !
 !DB   LOGICAL          DEBUG
-   EQUIVALENCE (dp,idp)
+   !>>>>EQUIVALENCE (dp,idp)
    DATA nam/4HFRML , 4HT   /
 !DB   DATA     DEBUG , ITER     ,MAX    / .FALSE.   ,0       ,3     /
 !

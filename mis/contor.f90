@@ -20,7 +20,7 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
          & k , kbar , kq4 , kt3 , l , labl(50) , lines , lopcor , lopcox , m , nel , ngppe , offset , pen , sub(2)
    REAL center , cenval , conmax , conmin , d , delta , essym , pt(8) , rcntrl , rcolor , s , sum1 , sum2 , v , xb(8) , xmid , ymid
 !
-   EQUIVALENCE (ibegin(1),lines) , (ibegin(2),igdpt)
+   !>>>>EQUIVALENCE (ibegin(1),lines) , (ibegin(2),igdpt)
    DATA kbar , kt3 , kq4/2HBR , 2HT3 , 2HQ4/
    DATA sub/4HCONT , 4HOR  /
 !

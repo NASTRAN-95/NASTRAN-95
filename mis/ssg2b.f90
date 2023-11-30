@@ -15,7 +15,7 @@ SUBROUTINE ssg2b(Kfs,Cdt,Pabar,Sr1,T1,Iprec1,Ia1,Sr2)
    INTEGER Cdt , Ia1 , Iprec1 , Kfs , Pabar , Sr1 , Sr2 , T1
    INTEGER diag , i , ident , irc , j , k , prec1 , rect , square , symm
    INTEGER korsz
-   EQUIVALENCE (Ksystm(55),Kprec1) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt)
+   !>>>>EQUIVALENCE (Ksystm(55),Kprec1) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt)
    DATA square , rect , diag , symm , ident/1 , 2 , 3 , 6 , 8/
 !
    prec1 = min0(Kprec1,Iprec1)

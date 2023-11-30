@@ -24,7 +24,7 @@ SUBROUTINE selas2
 !
 ! SDR2 INPUT AND OUTPUT BLOCK
 !
-   EQUIVALENCE (Scoeff,Icoeff)
+   !>>>>EQUIVALENCE (Scoeff,Icoeff)
 !
 !
 !

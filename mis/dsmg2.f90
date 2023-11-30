@@ -44,7 +44,7 @@ SUBROUTINE dsmg2
 !
 !
 !
-   EQUIVALENCE (block(1),iblock(1)) , (betasp,ibeta)
+   !>>>>EQUIVALENCE (block(1),iblock(1)) , (betasp,ibeta)
 !
 ! MODULE PARAMETERS
 !

@@ -16,7 +16,7 @@ SUBROUTINE mred2n
 !
 !     THIS SUBROUTINE CALCULATES THE K MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Rz(1),Z(1)) , (Dz(1),Z(1)) , (Hk,Iscr(2)) , (Kmw2,Iscr(5)) , (K,Iscr(3))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Rz(1),Z(1)) , (Dz(1),Z(1)) , (Hk,Iscr(2)) , (Kmw2,Iscr(5)) , (K,Iscr(3))
    DATA modnam/4HMRED , 4H2N  /
 !
 !                    2

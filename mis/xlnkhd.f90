@@ -30,7 +30,7 @@ SUBROUTINE xlnkhd
    INTEGER andf , lshift , orf , rshift
    INTEGER i , j , k , mpler , xchk
    EXTERNAL andf , lshift , orf , rshift
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Oscar(1),Med(1),Os(5))
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Oscar(1),Med(1),Os(5))
    DATA xchk/4HXCHK/
 !
    or(i,j) = orf(i,j)

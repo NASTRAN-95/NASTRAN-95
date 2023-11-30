@@ -29,7 +29,7 @@ SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
 !     N        NUMBER OF HARMONICS
 !     IL       POINTER IN GVECT ARRAY
 !
-   EQUIVALENCE (Sysbuf,Isystm(1))
+   !>>>>EQUIVALENCE (Sysbuf,Isystm(1))
 !
 !     INITIALIZE STUFF
 !

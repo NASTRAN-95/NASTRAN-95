@@ -31,9 +31,9 @@ SUBROUTINE btstrp
 !
 !                ===
 !
-   EQUIVALENCE (B(1),Sysbuf) , (B(22),Linkno) , (B(40),Nbpw) , (B(2),Outtap) , (B(41),Ncpw) , (B(42),Idate(1)) , (B(4),Intp) ,      &
-    & (B(34),Idrum) , (B(55),Iprec) , (B(9),Nlpp) , (B(39),Nbpc) , (B(91),Lpch) , (B(92),Ldict) , (B(95),Sperlk) , (Machx,Mach) ,   &
-    & (m1(1),mconst(1)) , (m2(1),mconst(111))
+   !>>>>EQUIVALENCE (B(1),Sysbuf) , (B(22),Linkno) , (B(40),Nbpw) , (B(2),Outtap) , (B(41),Ncpw) , (B(42),Idate(1)) , (B(4),Intp) ,      &
+!>>>>    & (B(34),Idrum) , (B(55),Iprec) , (B(9),Nlpp) , (B(39),Nbpc) , (B(91),Lpch) , (B(92),Ldict) , (B(95),Sperlk) , (Machx,Mach) ,   &
+!>>>>    & (m1(1),mconst(1)) , (m2(1),mconst(111))
 !
 !  DEFINE SYSTEM RELEASE DATE
 !

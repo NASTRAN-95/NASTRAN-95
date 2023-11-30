@@ -25,7 +25,7 @@ SUBROUTINE bmgtns(Cstm,Ncstm,Ecpt,Ta)
 !*****
 !
 !
-   EQUIVALENCE (fl1,int1) , (fl2,int2)
+   !>>>>EQUIVALENCE (fl1,int1) , (fl2,int2)
 !
    fl1 = Ecpt(1)
    IF ( int1==0 ) THEN

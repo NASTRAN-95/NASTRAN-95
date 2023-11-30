@@ -13,7 +13,7 @@ SUBROUTINE fndpnt(Iary,Id)
    REAL arry(3) , flag
    INTEGER i , icp , iedt(2) , if , ifed(2) , ifound , ipm , iry(3) , isave(4) , k , name(2) , ns
 !
-   EQUIVALENCE (iry(1),arry(1)) , (Core(1),Icore(1))
+   !>>>>EQUIVALENCE (iry(1),arry(1)) , (Core(1),Icore(1))
    DATA name/4HFNDP , 4HNT  /
    DATA iedt/4HEDT  , 4HFEDT/ , ifed/4HFEDT , 4HST  /
 !

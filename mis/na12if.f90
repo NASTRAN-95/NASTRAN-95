@@ -15,7 +15,7 @@ SUBROUTINE na12if(*,A,N,B,Int)
 !     VAX, IBM AND UNIVAC VERSION (CHARACTER FUNCTION PROCESSING)
 !     ===========================
 !
-   EQUIVALENCE (temp,t(1)) , (next,t(13)) , (i,xi)
+   !>>>>EQUIVALENCE (temp,t(1)) , (next,t(13)) , (i,xi)
    DATA bk , pt , blnk/' ' , '.' , '            '/
    DATA num/'0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9'/
 !

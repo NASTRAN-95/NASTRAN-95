@@ -88,9 +88,9 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !           6.  PREPARE FORMAT FOR COMPONENT WORDS PRINT OUT (FMT 690)
 !               UPDATE ISP-ARRAY IN CASE SP-ARRAY WAS USED PREVIOUSLY
 !
-   EQUIVALENCE (core(1),rcore(1),Corey(401)) , (Corex(1),Corey(1),Icse(1)) , (comp(1,1),comp1(1,1)) , (comp4(1,1),comp(1,58)) ,     &
-    & (tab1(1,1),tab(1,1)) , (comp2(1,1),comp(1,20)) , (tab2(1,1),tab(1,10)) , (comp3(1,1),comp(1,39)) , (Blank,Xblank) ,           &
-    & (stress,bcd(1,1)) , (force,bcd(1,2)) , (shea,comp(1,9)) , (norm,comp(1,9)) , (mome,comp(1,22))
+   !>>>>EQUIVALENCE (core(1),rcore(1),Corey(401)) , (Corex(1),Corey(1),Icse(1)) , (comp(1,1),comp1(1,1)) , (comp4(1,1),comp(1,58)) ,     &
+!>>>>    & (tab1(1,1),tab(1,1)) , (comp2(1,1),comp(1,20)) , (tab2(1,1),tab(1,10)) , (comp3(1,1),comp(1,39)) , (Blank,Xblank) ,           &
+!>>>>    & (stress,bcd(1,1)) , (force,bcd(1,2)) , (shea,comp(1,9)) , (norm,comp(1,9)) , (mome,comp(1,22))
    DATA ncomp , equal , lll , seti , debug/58 , 4H=    , 4HL    , 4HSET  , .FALSE./
    DATA llc , comma , mzero , bcd/4HC    , 4H,    , -0 , 4HSTRE , 2HSS , 4HFORC , 1HE , 2*1H /
    DATA nam/4HIFP1 , 4HH   /

@@ -18,8 +18,8 @@ SUBROUTINE cinvp1
 !*******
 !
 !
-   EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(61),Ifilc(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,              &
-    & (Mcbs(21),Beta(1)) , (Mcbs(9),Alpha(1))
+   !>>>>EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(61),Ifilc(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,              &
+!>>>>    & (Mcbs(21),Beta(1)) , (Mcbs(9),Alpha(1))
 !*******
 !     FORM -(B+LAMBDA*M) ON SCR2
 !*******

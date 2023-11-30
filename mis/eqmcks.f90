@@ -31,7 +31,7 @@ SUBROUTINE eqmcks
 !
 !WKBR 3/94 SPR93007      COMMON /SYSTEM/ ISBZ,NOUT
 !ZZ   COMMON /ZZEQMS/ ZZ(1)
-   EQUIVALENCE (Mb(6),Freq) , (Core(1,1),Cor1(1,1),Cor3(1,1))
+   !>>>>EQUIVALENCE (Mb(6),Freq) , (Core(1,1),Cor1(1,1),Cor3(1,1))
    DATA name/4HEQMC , 4HKS  /
    DATA head/4HAPPL , 4HIED  , 4HSPCF , 4HORCE , 4HMPCF , 4HORCE , 4H---T , 4HOTAL/
 !

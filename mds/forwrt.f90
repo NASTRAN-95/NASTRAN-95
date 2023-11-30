@@ -26,7 +26,7 @@ SUBROUTINE forwrt(Form,Indata,Nwds)
 !     ICOL  = CURRENT CHARACTER COLUMN POSITION WITHIN THE LINE
 !     NCNT  = NUMBER OF VALUES OF IDATA AND DATA THAT HAVE BEEN PROCESSE
 !********************************************************************
-   EQUIVALENCE (idata,data,ddata,cdata)
+   !>>>>EQUIVALENCE (idata,data,ddata,cdata)
    DATA h/'H'/ , e/'E'/ , d/'D'/ , x/'X'/ , f/'F'/
    DATA i/'I'/ , g/'G'/ , a/'A'/ , p/'P'/
    DATA lparen/'('/ , rparen/')'/ , period/'.'/

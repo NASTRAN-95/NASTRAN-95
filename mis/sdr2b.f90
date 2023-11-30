@@ -44,7 +44,7 @@ SUBROUTINE sdr2b
    INTEGER eltype , flag , i , id , idsave , ielem , imat , ipr , itabl , iz1st , jltype , k , kdefrm(2) , khi , klo , kn , knsil , &
          & kx , l , local , m8 , mmre(2) , n , n12 , n1mat , n2mat , name(2) , ngps , nip , noep , nsil , nwds , nwdsa , ret1 , star
 !WKBI 7/94 SPR 94007
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm) , (Z(1),Zz(1)) , (Bufr(1),Buf(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm) , (Z(1),Zz(1)) , (Bufr(1),Buf(1))
    DATA name/4HSDR2 , 4HB   / , star/4H* * /
    DATA kdefrm/104 , 1/
    DATA iz1st/1/

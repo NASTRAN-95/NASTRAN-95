@@ -23,8 +23,8 @@ SUBROUTINE rforce(Lcore)
 !
 !     COMPUTES STATIC LOADS DUE TO ROTATING COORDINATE SYSTEMS
 !
-   EQUIVALENCE (icard(1),card(1)) , (ir,ri(1)) , (ira,ra(1))
-   EQUIVALENCE (Sysbuf,Isystm(1))
+   !>>>>EQUIVALENCE (icard(1),card(1)) , (ir,ri(1)) , (ira,ra(1))
+   !>>>>EQUIVALENCE (Sysbuf,Isystm(1))
    DATA name/4HRFOR , 4HCE  /
 !
 !     DEFINITION OF VARIABLES

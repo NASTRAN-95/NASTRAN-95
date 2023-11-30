@@ -26,8 +26,8 @@ SUBROUTINE onlins(*,Lx)
    EXTERNAL andf , complf , lshift , orf , rshift
 !
 !            /ZZIFP1/ IS THE OPEN CORE FOR SCAN
-   EQUIVALENCE (Iz(1),Lcse(1))
-   EQUIVALENCE (Imax,Amax) , (Imin,Amin) , (Idupl,Ibeg) , (Inc,Iend) , (Card(1),Core(1)) , (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Lcse(1))
+   !>>>>EQUIVALENCE (Imax,Amax) , (Imin,Amin) , (Idupl,Ibeg) , (Inc,Iend) , (Card(1),Core(1)) , (Iz(1),Z(1))
    DATA blank , equal , stop , all , name/4H     , 4H=    , 4HSTOP , 4HALL  , 4HONLI , 4HNS  /
    DATA lu , debug1 , debug2 , debug3 , i0/1 , 4HDEBU , 4HG ON , 4HG OF , 0/
 !

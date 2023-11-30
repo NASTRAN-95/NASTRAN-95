@@ -77,11 +77,11 @@ SUBROUTINE gp1
 !
 !     THE 65535 LIMITATION INVOLVES ONLY A SAMLL CHANGE IN STA 973
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Iout) , (Ksystm(24),Icfiat) , (Ksystm(27),Axic) , (Ksystm(38),Iaxif) ,               &
-    & (Ksystm(40),Nbpw) , (Ksystm(56),Itherm) , (Ksystm(69),Isubs)
-   EQUIVALENCE (Z(1),Zz(1)) , (a(1),aa(1)) , (a(4),ab(1)) , (a(7),ac(1)) , (a(10),ai(1)) , (a(13),aj(1)) , (a(16),ak(1)) ,          &
-    & (a(19),ax(1)) , (a(22),ar(1)) , (Nocstm,Ifl) , (geomp,geom1) , (mcb(2),kn)
-   EQUIVALENCE (igpdt,icsdt)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Iout) , (Ksystm(24),Icfiat) , (Ksystm(27),Axic) , (Ksystm(38),Iaxif) ,               &
+!>>>>    & (Ksystm(40),Nbpw) , (Ksystm(56),Itherm) , (Ksystm(69),Isubs)
+   !>>>>EQUIVALENCE (Z(1),Zz(1)) , (a(1),aa(1)) , (a(4),ab(1)) , (a(7),ac(1)) , (a(10),ai(1)) , (a(13),aj(1)) , (a(16),ak(1)) ,          &
+!>>>>    & (a(19),ax(1)) , (a(22),ar(1)) , (Nocstm,Ifl) , (geomp,geom1) , (mcb(2),kn)
+   !>>>>EQUIVALENCE (igpdt,icsdt)
    DATA geom1/101/ , geom2/102/ , gpl/201/ , eqexin/202/ , gpdt/203/ , cstm/204/ , bgpdt/205/ , sil/206/ , scr1/301/ , scr2/302/
    DATA gp1ah/4HGP1  , 4H    / , cord/6 , 6 , 6 , 13 , 13 , 13/ , grid/4501 , 45/ , seqgp/5301 , 53/ , cordij/1701 , 17 , 1801 ,    &
       & 18 , 1901 , 19 , 2001 , 20 , 2101 , 21 , 2201 , 22/ , scalpt/5551 , 49/

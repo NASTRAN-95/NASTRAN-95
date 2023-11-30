@@ -15,9 +15,9 @@ SUBROUTINE scone3(Again)
 !
 !
 !
-   EQUIVALENCE (Istres(1),Stress(1))
-   EQUIVALENCE (Iforce(1),Force(1))
-   EQUIVALENCE (Iblock(1,1),Block(1,1))
+   !>>>>EQUIVALENCE (Istres(1),Stress(1))
+   !>>>>EQUIVALENCE (Iforce(1),Force(1))
+   !>>>>EQUIVALENCE (Iblock(1,1),Block(1,1))
 !
    IF ( .NOT.(Again) ) THEN
       Again = .TRUE.

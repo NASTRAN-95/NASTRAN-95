@@ -35,7 +35,7 @@ SUBROUTINE pload4(Ibuf5,Ido,Jopen)
 !                            ( T3PL4D
 !                            ( T3PL4S
 !
-   EQUIVALENCE (Core(1),Iz(1))
+   !>>>>EQUIVALENCE (Core(1),Iz(1))
    DATA quad4 , tria3 , name/64 , 83 , 4HPLOA , 4HD4  /
    DATA debug/.FALSE./
 !

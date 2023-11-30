@@ -33,7 +33,7 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
 !       ID3   = START OF LAST -LINE-
 !       ID4   = END   OF LAST -LINE-
 !
-   EQUIVALENCE (m1(1),m(1)) , (m2(1),m(18)) , (m3(1),m(35)) , (m4(1),m(46)) , (m5(1),m(63))
+   !>>>>EQUIVALENCE (m1(1),m(1)) , (m2(1),m(18)) , (m3(1),m(35)) , (m4(1),m(46)) , (m5(1),m(63))
    DATA nm/17 , 17 , 11 , 17 , 9/ , lm/1 , 18 , 35 , 46 , 63/ , m1/4H(35X , 4H,26H , 4HSUPL , 4HT RE , 4HJECT , 4HED P , 4HLOT. ,   &
        &4H PIV , 4HOT,I , 4H8,26 , 4HH IS , 4H ZER , 4HO OR , 4H SAM , 4HE AS , 4H ENT , 4HRY.)/ , m2/4H(35X , 4H,54H , 4HSUPL ,    &
        &4HT RE , 4HJECT , 4HED P , 4HLOT. , 4H NEG , 4HATIV , 4HE NU , 4HMBER , 4H ENT , 4HRIES , 4H - N , 4H3,N4 , 4H =,2 ,        &

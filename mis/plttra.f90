@@ -27,7 +27,7 @@ SUBROUTINE plttra
 !     LUSET IS THE VALUE OF SIL(LAST+1) IF IT EXISTED
 !     LUSEP IS THE VALUE OF SIP(LAST+1) IF IT EXISTED
 !
-   EQUIVALENCE (a(3),b(1)) , (file,mcb(1))
+   !>>>>EQUIVALENCE (a(3),b(1)) , (file,mcb(1))
    DATA bgpdt , sil , bgpdp , sip/101 , 102 , 201 , 202/
    DATA plt/4HPLTT , 4HRA  / , mcb/7*0/
    DATA leof/.FALSE./

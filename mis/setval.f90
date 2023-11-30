@@ -10,7 +10,7 @@ SUBROUTINE setval
    INTEGER i , j , k , subnam(2)
    EXTERNAL andf , rshift
 !
-   EQUIVALENCE (Ksystm(40),Nbpw)
+   !>>>>EQUIVALENCE (Ksystm(40),Nbpw)
    DATA subnam/4HSETV , 4HAL  /
 !
    j = 12

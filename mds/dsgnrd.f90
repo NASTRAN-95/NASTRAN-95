@@ -6,7 +6,7 @@ SUBROUTINE dsgnrd
    INCLUDE 'GINOX.COM'
    CHARACTER*4 Cbuff(2)
    INTEGER idsnr , iend , iop , isave , istrb
-   EQUIVALENCE (Cbuff,Ibase)
+   !>>>>EQUIVALENCE (Cbuff,Ibase)
    Idsn = Mdsfcb(2,Ifilex)
    idsnr = Idsn
  100  istrb = Fcb(5,idsnr)

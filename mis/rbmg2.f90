@@ -8,7 +8,7 @@ SUBROUTINE rbmg2
    COMMON /sfact / Qq
    INTEGER kll , lll , scr1 , scr2 , scr3 , scr4
 !
-   EQUIVALENCE (Qq(25),Det(1)) , (Qq(29),Ipwr)
+   !>>>>EQUIVALENCE (Qq(25),Det(1)) , (Qq(29),Ipwr)
    DATA kll , lll , scr1 , scr2 , scr3 , scr4/101 , 201 , 301 , 302 , 303 , 304/
 !
 !     DECOMPOSE KLL INTO LLL

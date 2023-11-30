@@ -44,7 +44,7 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
 !      OBITS -  BITS ARE ON FOR REQUIRED MATRICES  =  SUM OF NUMBERS
 !                   K=1 , M=2 , P=4 , PA=8 , B=16 , K4=32
 !
-   EQUIVALENCE (Ndbs,Sbd(1)) , (Dbs(1,1),Sbd(2))
+   !>>>>EQUIVALENCE (Ndbs,Sbd(1)) , (Dbs(1,1),Sbd(2))
    DATA alter/4HALTE/ , blank/4H    /
    DATA ast/4H*   / , slas/4H/   /
    DATA rfmask/65536 , 131072 , 262144 , 0 , 0 , 0 , 0 , 524288 , 1048576 , 31*0/

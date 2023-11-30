@@ -29,7 +29,7 @@ SUBROUTINE pstrq2(Ntype)
 !
 !
 !
-   EQUIVALENCE (Nsil(1),Ph1out(2)) , (Si(1),Ph1out(10))
+   !>>>>EQUIVALENCE (Nsil(1),Ph1out(2)) , (Si(1),Ph1out(10))
 !
 !
 !                        I=NSIZE

@@ -19,7 +19,7 @@ SUBROUTINE tridi(D,O,C,A,B,Aa)
 !     MODIFIED GIVENS REAL SYMMETRIC TRIDIAGONALIZATION
 !     THIS ROUTINE IS CALLED ONLY BY VALVEC
 !
-   EQUIVALENCE (Vvcom(1),Title(1)) , (N,Vvcom(101))
+   !>>>>EQUIVALENCE (Vvcom(1),Title(1)) , (N,Vvcom(101))
    DATA count , max , mcb/0 , 10 , 7*0/
 !
 !

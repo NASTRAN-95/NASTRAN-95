@@ -60,15 +60,15 @@ SUBROUTINE tordrs
 !
 !
 !
-   EQUIVALENCE (dict5,dict(5))
-   EQUIVALENCE (Iecpt(1),Ecpt(1),Idel)
-   EQUIVALENCE (Constd(2),Twopi)
-   EQUIVALENCE (Constd(4),Degrad)
-   EQUIVALENCE (A1,Alph(1)) , (A2,Alph(2))
-   EQUIVALENCE (gambqf(1),gambq(1))
-   EQUIVALENCE (gambqm(1),gambq(73))
-   EQUIVALENCE (delint(1),gambq(1))
-   EQUIVALENCE (gamrs(1),gambq(1))
+   !>>>>EQUIVALENCE (dict5,dict(5))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1),Idel)
+   !>>>>EQUIVALENCE (Constd(2),Twopi)
+   !>>>>EQUIVALENCE (Constd(4),Degrad)
+   !>>>>EQUIVALENCE (A1,Alph(1)) , (A2,Alph(2))
+   !>>>>EQUIVALENCE (gambqf(1),gambq(1))
+   !>>>>EQUIVALENCE (gambqm(1),gambq(73))
+   !>>>>EQUIVALENCE (delint(1),gambq(1))
+   !>>>>EQUIVALENCE (gamrs(1),gambq(1))
 !
 !
 ! ----------------------------------------------------------------------

@@ -19,7 +19,7 @@ SUBROUTINE mintrp(Ni,Xi,Nd,Xd,Type,Symm1,Symk1,Dz,Infile,Outfil,Scr,Scr1,G,Ncore
 !
 !
 !
-   EQUIVALENCE (Alpha(1),Ar) , (Alpha(2),Ai)
+   !>>>>EQUIVALENCE (Alpha(1),Ar) , (Alpha(2),Ai)
 !
    DATA name/4HMINT , 4HRP  /
 !

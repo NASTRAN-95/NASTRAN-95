@@ -45,7 +45,7 @@ INTEGER FUNCTION khrfn1(Word1,I,Word2,J)
 !     CHARACTER*n  TEMPC1,TEMPC2
 !        (WHERE n is 10 for CDC, 8 for 64-BIT UNIX and
 !                     4 for VAX and IBM)
-   EQUIVALENCE (temp1,tempc1) , (temp2,tempc2)
+   !>>>>EQUIVALENCE (temp1,tempc1) , (temp2,tempc2)
 !
    temp1 = Word1(1)
    temp2 = Word2(1)

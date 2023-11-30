@@ -14,7 +14,7 @@ SUBROUTINE sdr1b(Ipvect,Im1,Im2,Iout,Major,Sub1,Sub2,Iuset,Iopt,Iout1)
    INTEGER i , ip1 , ip2 , iprec , ipv1(7) , itype , name(2) , nload , noys
    INTEGER korsz
 !
-   EQUIVALENCE (Core(1),Kore(1))
+   !>>>>EQUIVALENCE (Core(1),Kore(1))
    DATA name/4HSDR1 , 4HB   /
 !
 !

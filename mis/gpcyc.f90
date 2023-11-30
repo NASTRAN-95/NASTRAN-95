@@ -36,7 +36,7 @@ SUBROUTINE gpcyc
 !     ISID1    POINTER TO START OF SIDE 1 CZRDS
 !     ISID2    POINTER TO START OF SIDE 2 CZRDS
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout)
    DATA geom4 , eqexin , uset , cycd , scr1 , scr2 , name/101 , 102 , 103 , 201 , 301 , 302 , 4HGPCY , 4HC   /
    DATA rot/4HROT / , rec , cyl , sph/1HR , 1HC , 1HS/
    DATA cyjoin/5210 , 52/

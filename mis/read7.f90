@@ -18,7 +18,7 @@ SUBROUTINE read7(Nr1,Olama,Ophia,Nlama,Nphia)
 !     IT ALSO PLACES THE EIGENVALUES ON NLAMA
 !     THIS ROUTINE HANDLES BOTH SINGLE AND DOUBLE PRECISION
 !
-   EQUIVALENCE (Dcore(1),Core(1)) , (x(1),dx)
+   !>>>>EQUIVALENCE (Dcore(1),Core(1)) , (x(1),dx)
    DATA name/4HREAD , 4H7   /
 !
 !     GET ORGANIZED

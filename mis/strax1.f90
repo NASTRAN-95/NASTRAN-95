@@ -60,8 +60,8 @@ SUBROUTINE strax1
 !                     E26,E31,E32,E33,E34,E35,E36,EPS11,EPS12,EPS13,EPS2
 !                     EPS23,EPS33,RHO,A1,A2,A12,TREF,GE
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(3),z3) , (Consts(1),Pi) ,        &
-    & (Consts(4),Degrad) , (acurp1(1),acurl(82)) , (acurp2(1),acurl(109))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(3),z3) , (Consts(1),Pi) ,        &
+!>>>>    & (Consts(4),Degrad) , (acurp1(1),acurl(82)) , (acurp2(1),acurl(109))
 !
    lsys78 = .FALSE.
    IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.

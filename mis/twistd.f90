@@ -60,7 +60,7 @@ SUBROUTINE twistd
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1),Ielid) , (dict(5),dict5) , (me(1),ke(1)) , (kout(1),mout(1))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1),Ielid) , (dict(5),dict5) , (me(1),ke(1)) , (kout(1),mout(1))
    DATA ipart/1 , 2 , 3 , 4/
 !
 !

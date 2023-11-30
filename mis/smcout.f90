@@ -42,8 +42,8 @@ SUBROUTINE smcout(Zi,Zr,Zd,Zrs,Zrd)
 !
 !  THE FINAL COMPUTATIONS ARE WRITTEN TO THE LLL MATRIX USING PUTSTR/ENDPUT.
 !
-   EQUIVALENCE (Xns,Xnd)
-   EQUIVALENCE (Minds,Mindd) , (Dsr,Ddr) , (Dsc,Ddc)
+   !>>>>EQUIVALENCE (Xns,Xnd)
+   !>>>>EQUIVALENCE (Minds,Mindd) , (Dsr,Ddr) , (Dsc,Ddc)
    DATA rzero/1.0E-10/
 !      PRINT *,' SMCOUT-ENTER,KCOL=',KCOL
    kdir = (Kcol-1)*4 + 1

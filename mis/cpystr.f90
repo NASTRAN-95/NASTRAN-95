@@ -21,7 +21,7 @@ SUBROUTINE cpystr(Inblk,Outblk,Flag,Col)
 !         .NE. 0 MEANS COL IS COLUMN NUMBER
 !
 !
-   EQUIVALENCE (Xns(1),Xnd(1))
+   !>>>>EQUIVALENCE (Xns(1),Xnd(1))
 !
 !     ON OPTION, MAKE 1ST CALL TO GETSTR AND THEN INITIALIZE
 !

@@ -27,7 +27,7 @@ SUBROUTINE ddrmma(Setup)
 !
 !
 !
-   EQUIVALENCE (Buf(1),Rbuf(1),Bufa(1),Rbufa(1)) , (Rbufb(1),Bufb(1),Buf(76))
+   !>>>>EQUIVALENCE (Buf(1),Rbuf(1),Bufa(1),Rbufa(1)) , (Rbufb(1),Bufb(1),Buf(76))
 !*****
 !  PERFORM SOLUTION COLUMN SETUP WHEN SETUP = .TRUE.
 !*****

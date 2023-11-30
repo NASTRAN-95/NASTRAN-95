@@ -18,8 +18,8 @@ SUBROUTINE frsw2(V1,V2,V3,Vb)
 !     MORE EFFICIENT, AND IS ALREADY GOOD FOR VECTORIZATION.
 !
 !DB   LOGICAL          DEBUG
-   EQUIVALENCE (Xl(1),Iz(1))
-   EQUIVALENCE (ljj(1),xljj) , (L16,Dumm(6))
+   !>>>>EQUIVALENCE (Xl(1),Iz(1))
+   !>>>>EQUIVALENCE (ljj(1),xljj) , (L16,Dumm(6))
    DATA nam/4HFRSW , 4H2    , 2*4HBEGN , 4HEND  , 4HBGIN/
    DATA zero/0.0D+0/
 !DB   DATA     DEBUG , ITER    ,MAX  / .FALSE.  ,0     ,3      /

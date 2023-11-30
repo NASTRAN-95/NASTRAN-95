@@ -24,8 +24,8 @@ SUBROUTINE dis2d8
 !     2-D, 8 GRID POINT ISOPARAMETRIC STRUCTURAL ELEMENT
 !     DIFFERENTIAL STIFFNESS MATRIX ROUTINE
 !
-   EQUIVALENCE (Alphas(1),Alpha1) , (Ecpt(1),Necpt(1)) , (Temp(1),B(1)) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) , (Dnl(1),Dnx(1)) ,  &
-    & (Dnl(9),Dny(1)) , (Qq(1),G11) , (Tempar(1),Bt(1)) , (Xy1(1),X1) , (Xy2(1),X2)
+   !>>>>EQUIVALENCE (Alphas(1),Alpha1) , (Ecpt(1),Necpt(1)) , (Temp(1),B(1)) , (Dnc(1),Dnxi(1)) , (Dnc(9),Dneta(1)) , (Dnl(1),Dnx(1)) ,  &
+!>>>>    & (Dnl(9),Dny(1)) , (Qq(1),G11) , (Tempar(1),Bt(1)) , (Xy1(1),X1) , (Xy2(1),X2)
    DATA xi/ - 1.D0 , 1.D0 , 1.D0 , -1.D0 , 0.D0 , 1.D0 , 0.D0 , -1.D0/
    DATA eta/ - 1.D0 , -1.D0 , 1.D0 , 1.D0 , -1.D0 , 0.D0 , 1.D0 , 0.D0/
 !

@@ -27,7 +27,7 @@ SUBROUTINE bmg
 !     7/12/73 NO AXIAL SYMMETRY UPPER INTEGRATION LIMIT OF LAST
 !             CIRCUMFERENTIAL GRID IS INCORRECT
 !
-   EQUIVALENCE (Consts(2),Twopi) , (Consts(4),Degrad) , (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (Consts(4),Degrad) , (Z(1),Rz(1),Dz(1)) , (buf(1),rbuf(1))
    DATA subr/4HBMG  , 4H    / , nabfl/4HABFL , 4H    /
    DATA bndfl/9614 , 96/ , mones/ - 1 , -1 , -1/
    DATA is/1/ , dmig/114 , 1 , 120/

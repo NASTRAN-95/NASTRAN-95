@@ -49,7 +49,7 @@ SUBROUTINE wplt10(A,Opt)
    INTEGER Opt
    INTEGER A(6)
    INTEGER c(30) , c1 , i , i3 , i4 , j , k , m , n , nc , nchr , plt2 , pzero , ten(5) , zero(30)
-   EQUIVALENCE (c1,c(1))
+   !>>>>EQUIVALENCE (c1,c(1))
    DATA nchr , ten , pzero/0 , 10000 , 1000 , 100 , 10 , 1 , +0/ , plt2 , nc , zero , c/4HPLT2 , 30 , 30*0 , 30*0/
 !
    IF ( Plot/=plt2 ) THEN

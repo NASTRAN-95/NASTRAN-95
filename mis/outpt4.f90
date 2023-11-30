@@ -77,8 +77,8 @@ SUBROUTINE outpt4
 !
 !WKBI
 !WKBI
-   EQUIVALENCE (X(1),Xns(1))
-   EQUIVALENCE (X(1),Ix(1),Dx(1)) , (Xns(1),Dxns(1)) , (nm1,name(1))
+   !>>>>EQUIVALENCE (X(1),Xns(1))
+   !>>>>EQUIVALENCE (X(1),Ix(1),Dx(1)) , (Xns(1),Dxns(1)) , (nm1,name(1))
    DATA inp/4HUT1  , 4HUT2  , 4HUT3  , 4HINPT , 4HINP1 , 4HINP2 , 4HINP3 , 4HINP4 , 4HINP5 , 4HINP6 , 4HINP7 , 4HINP8 , 4HINP9/
    DATA tab1/4HKELM , 4HMELM , 4HBELM , 4HKDIC , 4HMDIC , 4HBDIC/ , tab2/4HHKEL , 4HHMEL , 4HHBEL , 4HHKDI , 4HHMDI , 4HHBDI/
    DATA dns , spa/'DENSE ' , 'SPARSE'/rzero , zero/0. , 0/

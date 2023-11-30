@@ -44,15 +44,15 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
 !                     AXX   ,AYY   ,AZZ   ,AXY   ,AYZ   ,AZX   ,TREF  ,
 !                     GE    ,IER
 !
-   EQUIVALENCE (E,Buf(1),Y(1)) , (Y(1),G11,Ex3,Plaans,Indstr) , (Y(2),G12,Ey3,Icell2) , (Y(3),G13,Ez3) , (Y(4),G22,Nuxy3) ,         &
-    & (Y(5),G23,Nuyz3) , (Y(6),G33,Nuzx3) , (Y(7),Rhoy,Rho3) , (Y(8),Alph1,Gxy3) , (Y(9),Alph2,Gyz3) , (Y(10),Alph12,Gzx3) ,        &
-    & (Y(11),Toy,Ax3) , (Y(12),Gey,Ay3) , (Y(13),Sigty,Az3) , (Y(14),Sigcy,Tref3) , (Y(15),Sigsy,Ge3)
-   EQUIVALENCE (Y(16),J11,G113) , (Y(17),J12,G123) , (Y(18),J22,G133) , (Y(19),G223) , (Y(20),G233) , (Y(21),G333) , (Y(22),Sigty3) &
-    & , (Y(23),Sigcy3) , (Y(24),Sigsy3) , (Y(25),Matset)
-   EQUIVALENCE (x(1),ex) , (x(2),gx) , (x(3),nux) , (x(4),rhox) , (x(5),alphx) , (x(6),tox) , (x(7),gex) , (x(8),sigtx) ,           &
-    & (x(9),sigcx) , (x(10),sigsx)
-   EQUIVALENCE (Bufm6(1),Ib(1))
-   EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (E,Buf(1),Y(1)) , (Y(1),G11,Ex3,Plaans,Indstr) , (Y(2),G12,Ey3,Icell2) , (Y(3),G13,Ez3) , (Y(4),G22,Nuxy3) ,         &
+!>>>>    & (Y(5),G23,Nuyz3) , (Y(6),G33,Nuzx3) , (Y(7),Rhoy,Rho3) , (Y(8),Alph1,Gxy3) , (Y(9),Alph2,Gyz3) , (Y(10),Alph12,Gzx3) ,        &
+!>>>>    & (Y(11),Toy,Ax3) , (Y(12),Gey,Ay3) , (Y(13),Sigty,Az3) , (Y(14),Sigcy,Tref3) , (Y(15),Sigsy,Ge3)
+   !>>>>EQUIVALENCE (Y(16),J11,G113) , (Y(17),J12,G123) , (Y(18),J22,G133) , (Y(19),G223) , (Y(20),G233) , (Y(21),G333) , (Y(22),Sigty3) &
+!>>>>    & , (Y(23),Sigcy3) , (Y(24),Sigsy3) , (Y(25),Matset)
+   !>>>>EQUIVALENCE (x(1),ex) , (x(2),gx) , (x(3),nux) , (x(4),rhox) , (x(5),alphx) , (x(6),tox) , (x(7),gex) , (x(8),sigtx) ,           &
+!>>>>    & (x(9),sigcx) , (x(10),sigsx)
+   !>>>>EQUIVALENCE (Bufm6(1),Ib(1))
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
 !
 !     DATA DEFINING CARDS TO BE READ
 !

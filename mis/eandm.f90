@@ -36,7 +36,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !     ARE WRITTEN TO HCFLDS FOR LATER USE. THE OTHER CARDS ARE STILL ON
 !     SLT FOR USE IN THE NUMERICAL INTEGRATION.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Z(1),Iz(1)) , (Ksystm(56),Ithrml) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Z(1),Iz(1)) , (Ksystm(56),Ithrml) , (Ecpt(1),Necpt(1))
    DATA nam/4HEAND , 4HM   /
    DATA est , slt , hcflds , remfls , scr6/105 , 205 , 304 , 305 , 306/
    DATA mcb/304 , 0 , 0 , 2 , 1 , 0 , 0/

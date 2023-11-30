@@ -40,7 +40,7 @@ SUBROUTINE dtrbsc(Iopt,Npivot)
 !       :
 !     ECT.
 !
-   EQUIVALENCE (A(1),D(1),G(1)) , (Necpt(1),Ecpt(1)) , (J2x2(1),Dumdp(1)) , (Di(1,1),G(1))
+   !>>>>EQUIVALENCE (A(1),D(1),G(1)) , (Necpt(1),Ecpt(1)) , (J2x2(1),Dumdp(1)) , (Di(1,1),G(1))
 !
 !//////
 !     CALL BUG (4HTBIG,30,SX,12)

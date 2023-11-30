@@ -48,10 +48,10 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !
 !     NASTRAN PARAMETERS
 !
-   EQUIVALENCE (tfst(1,1),in(1)) , (x1,fl(1,1)) , (x2,fl(1,2)) , (tfst(1,2),jn(1)) , (y1,fl(2,1)) , (y2,fl(2,2)) , (tfst(1,3),kn(1))&
-    & , (z1,fl(3,1)) , (z2,fl(3,2)) , (ss(1),bb) , (x3,fl(1,3)) , (x4,fl(1,4)) , (ss(2),cc) , (y3,fl(2,3)) , (y4,fl(2,4)) ,         &
-    & (ss(3),zz) , (z3,fl(3,3)) , (z4,fl(3,4)) , (ss(4),nn) , (ss(5),nn1) , (ss(6),zz1) , (eps(1),aeps) , (eps(2),leps) , (fii,bb) ,&
-    & (factii,cc) , (conii,akjcon) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (tfst(1,1),in(1)) , (x1,fl(1,1)) , (x2,fl(1,2)) , (tfst(1,2),jn(1)) , (y1,fl(2,1)) , (y2,fl(2,2)) , (tfst(1,3),kn(1))&
+!>>>>    & , (z1,fl(3,1)) , (z2,fl(3,2)) , (ss(1),bb) , (x3,fl(1,3)) , (x4,fl(1,4)) , (ss(2),cc) , (y3,fl(2,3)) , (y4,fl(2,4)) ,         &
+!>>>>    & (ss(3),zz) , (z3,fl(3,3)) , (z4,fl(3,4)) , (ss(4),nn) , (ss(5),nn1) , (ss(6),zz1) , (eps(1),aeps) , (eps(2),leps) , (fii,bb) ,&
+!>>>>    & (factii,cc) , (conii,akjcon) , (Z(1),Iz(1))
 !
 !     GRID POINTS TO BE USED IN SUBDIVIDING QUADS INTO TRIANGLES
 !

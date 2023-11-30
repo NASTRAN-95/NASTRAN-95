@@ -66,9 +66,9 @@ SUBROUTINE sdr2e(*,Ieqex,Neqex)
          & nptfor , nptstr , nsesta , nsetfr , nw , oharms , oldawd , platit(12) , sphase
    REAL bufr(1)
    EXTERNAL andf
-   EQUIVALENCE (Ksystm(2),Opte) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm)
-   EQUIVALENCE (buf(1),bufr(1)) , (Z(1),Zz(1)) , (idstrs,ilogic(1)) , (idforc,ilogic(2)) , (idlyst,ilogic(3)) , (idlyfr,ilogic(4)) ,&
-    & (Temp,Jtemp) , (Nelhar,Elwork(155))
+   !>>>>EQUIVALENCE (Ksystm(2),Opte) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm)
+   !>>>>EQUIVALENCE (buf(1),bufr(1)) , (Z(1),Zz(1)) , (idstrs,ilogic(1)) , (idforc,ilogic(2)) , (idlyst,ilogic(3)) , (idlyfr,ilogic(4)) ,&
+!>>>>    & (Temp,Jtemp) , (Nelhar,Elwork(155))
    DATA platit/4HLOAD , 4H FAC , 4HTOR  , 9*0/
    DATA buf/50*0/ , ielold/0/ , ielchk/0/
 !

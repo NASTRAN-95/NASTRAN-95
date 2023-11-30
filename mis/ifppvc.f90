@@ -21,7 +21,7 @@ SUBROUTINE ifppvc(*,Ipvs,Jr)
 !     IFPPVC TAKES 1PARM AND 1VARY CARDS AND MAKES A SCRATCH FILE
 !     TO USE IN MODIFYING OTHER BULK DATA CARDS
 !
-   EQUIVALENCE (Kor(1),Z(1))
+   !>>>>EQUIVALENCE (Kor(1),Z(1))
    DATA ncdsmx , ifil , iplus , istar , nptp , ithr , blank/343 , 213 , 1H+ , 1H* , 4HNPTP , 4HTHRU , 4H    /
    DATA ivar , ipar , ivar1 , ipar1 , name/4HAVAR , 4HAPAR , 4H1VAR , 4H1PAR , 4HIFPP , 4HVC  /
 !

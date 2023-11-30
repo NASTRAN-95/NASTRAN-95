@@ -21,7 +21,7 @@ SUBROUTINE ddamat
 !     COLUMN, AND NUMBER OF COLUMNS OF A .GT. 1, THEN USE THAT COLUMN
 !     ON EACH COLUMN OF A.
 !
-   EQUIVALENCE (Iprec,Ibuf(55)) , (Z(1),Dz(1))
+   !>>>>EQUIVALENCE (Iprec,Ibuf(55)) , (Z(1),Dz(1))
    DATA a , b , c/101 , 102 , 201/
    DATA nam/4HDDAM , 4HAT  /
 !

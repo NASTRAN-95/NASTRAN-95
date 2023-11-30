@@ -13,8 +13,8 @@ SUBROUTINE dlpt2(Input,W1jk,W2jk)
    INTEGER ecore , i , icg , idelx , iee , inb , inc , isg , ixic , ixlam , iys , izs , n , name(2) , np(4) , nread , nstrip , ntp
    INTEGER korsz
 !
-   EQUIVALENCE (np(2),nstrip) , (np(3),ntp)
-   EQUIVALENCE (Work(1),Iz(1))
+   !>>>>EQUIVALENCE (np(2),nstrip) , (np(3),ntp)
+   !>>>>EQUIVALENCE (Work(1),Iz(1))
    DATA name/4HDLPT , 4H2   /
 !
 !     READ IN NP,NSIZE,NTP,F

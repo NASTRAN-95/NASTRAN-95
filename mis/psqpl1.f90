@@ -65,8 +65,8 @@ SUBROUTINE psqpl1
 !     ECPT(29) =                            ** Z4                REAL
 !     ECPT(30) =                            ** ELEMENT TEMP      REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) , (Vq3(1),Ecpt(23)) ,                 &
-    & (Vq4(1),Ecpt(27)) , (Requiv(1),R(1,1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Ecpt(1),Necpt(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) , (Vq3(1),Ecpt(23)) ,                 &
+!>>>>    & (Vq4(1),Ecpt(27)) , (Requiv(1),R(1,1))
    DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
 !
    Theta = Ecpt(6)*Degra

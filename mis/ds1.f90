@@ -36,8 +36,8 @@ SUBROUTINE ds1(Iarg)
 !     OF ELEMENTS FOR WHICH DIFFERENTIAL STIFFNESS IS DEFINED, IARG IS
 !     RETURNED CONTAINING A ZERO TO THE CALLING ROUTINE, DSMG1.
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (xecpt(1),iecpt(1)) , (gptbf3(1),tmpset) , (gptbf3(2),idfalt) , (gptbf3(3),recno) , (edtbuf(1),dfmset)&
-    & , (edtbuf(2),elid) , (edtbuf(3),deform) , (Ioutpt,Sysdum(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (xecpt(1),iecpt(1)) , (gptbf3(1),tmpset) , (gptbf3(2),idfalt) , (gptbf3(3),recno) , (edtbuf(1),dfmset)&
+!>>>>    & , (edtbuf(2),elid) , (edtbuf(3),deform) , (Ioutpt,Sysdum(1))
    DATA edtloc/104 , 1/ , nskip/137/
    DATA casecc , gptt , edt , ugv , ecpt , ecptds/101 , 102 , 104 , 105 , 108 , 301/
    DATA name/4HDS1  , 4H    /

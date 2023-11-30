@@ -40,7 +40,7 @@ SUBROUTINE viscs
 !     ECPT(14)   ELEMENT TEMPERATURE (NOT USED)
 !
 !
-   EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid) , (dict(5),dict5) , (indx(1),ia) , (indx(2),iab) , (indx(3),iba) , (indx(4),ib)
+   !>>>>EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid) , (dict(5),dict5) , (indx(1),ia) , (indx(2),iab) , (indx(3),iba) , (indx(4),ib)
    DATA kx/1 , 7 , 73 , 79/
    DATA kbx/40 , 46 , 112 , 118/
 !

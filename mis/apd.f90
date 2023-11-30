@@ -28,8 +28,8 @@ SUBROUTINE apd
    INTEGER set1(3) , set2(3) , sild , silgp , splin1(3) , splin2(3) , splin3(3) , spline , symxy , symxz , usetd , wtrew
    EXTERNAL andf , orf
 !
-   EQUIVALENCE (Z(1),Iz(1))
-   EQUIVALENCE (aerx(1),symxz) , (aerx(2),symxy) , (aerx(3),bref)
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (aerx(1),symxz) , (aerx(2),symxy) , (aerx(3),bref)
    DATA rdrew , clsrew , wtrew/0 , 1 , 1/
    DATA msg1/4HSETI , 4H AND , 4H/OR  , 4HSPLI , 4HNEI  , 4HCARD , 4HS RE , 4HQUIR , 4HED  /
    DATA msg2/4HNO A , 4HERO  , 4HCARD , 4H FOU , 4HND  /

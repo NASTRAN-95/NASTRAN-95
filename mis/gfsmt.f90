@@ -25,7 +25,7 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
 !     PACK - UNPACK COMMON BLOCKS
 !
 !
-   EQUIVALENCE (Val,A(1))
+   !>>>>EQUIVALENCE (Val,A(1))
 !
    DATA name/4HGFSM , 4HT   /
    DATA inblk/15*0/ , outblk/15*0/

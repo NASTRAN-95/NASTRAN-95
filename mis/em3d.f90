@@ -24,9 +24,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     TETRA  39   WEDGE  40   HEXA1 41  HEXA2  42
 !     IHEX1  65   IHEX2  66   IHEX3 67
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3)) ,  &
-    & (i4,ip(4))
-   EQUIVALENCE (buf(1),ibuf(1)) , (isc(1),sc(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ecpt(1),Necpt(1)) , (Z(1),Iz(1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3)) ,  &
+!>>>>    & (i4,ip(4))
+   !>>>>EQUIVALENCE (buf(1),ibuf(1)) , (isc(1),sc(1))
 !
 !     GRID POINT NO FOR EACH ELEMENT
 !

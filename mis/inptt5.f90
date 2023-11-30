@@ -175,7 +175,7 @@ SUBROUTINE inptt5
 !WKBNB
 !WKBNE
 !WKBR EQUIVALENCE      (RZ(1),IZ(1),DZ(1))
-   EQUIVALENCE (Rz(1),Iz(1),Dz(1),Z5)
+   !>>>>EQUIVALENCE (Rz(1),Iz(1),Dz(1),Z5)
    DATA binary , formtd , subnam , fn , bk/'BINARY' , 'FORMATTD' , 4HINPT , 2HT5 , 46*2H  /
    DATA mtrx , tble , skip/4HMTRX , 4HTBLE , 4HSKIP/
    DATA debug/.FALSE./

@@ -31,7 +31,7 @@ SUBROUTINE detm3(*,*,*)
 !
 !     A      = M + P*K
 !
-   EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
+   !>>>>EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
 !
    CALL arrm(Ps1,Det1,Ipdet1)
    aa = Ps1(3) - Ps1(2)

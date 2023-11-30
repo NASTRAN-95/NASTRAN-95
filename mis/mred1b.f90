@@ -68,7 +68,7 @@ SUBROUTINE mred1b(Mode)
          & isub1 , item , itest , iwds , j , jwds , k , kpntbd(9) , kpntsl(32) , kwds , l , loc , locbgn , m , modnam(2) , newust , &
          & nfound , nsilus , nxtbdy , ubors , uprt , usetrl(7) , usetx
    EXTERNAL andf , complf , orf , rshift
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA geom4 , bdyi , usetx/102 , 1210 , 12 , 1310 , 13 , 201/
    DATA modnam/4HMRED , 4H1B  /
    DATA ioshft/11 , 2/

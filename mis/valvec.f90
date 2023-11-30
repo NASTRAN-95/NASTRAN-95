@@ -12,8 +12,8 @@ SUBROUTINE valvec
 !     LARGE ORDER REAL SYMMETRIC EIGENVALUE-EIGENVECTOR PROBLEM
 !
 !WKBR 2/94 SPR93027 COMMON /SYSTEM/ ISYS
-   EQUIVALENCE (Md,Title(3)) , (Vcom(1),Title(101)) , (N,Vcom(1)) , (Nv,Vcom(7)) , (Oeigs,Vcom(11)) , (Nver,Vcom(13)) ,             &
-    & (Never,Vcom(14)) , (Iterm,Vcom(16))
+   !>>>>EQUIVALENCE (Md,Title(3)) , (Vcom(1),Title(101)) , (N,Vcom(1)) , (Nv,Vcom(7)) , (Oeigs,Vcom(11)) , (Nver,Vcom(13)) ,             &
+!>>>>    & (Never,Vcom(14)) , (Iterm,Vcom(16))
    DATA tri/4HTRID , 4HI    , 4H    /
    DATA qrx/4HQRIT , 4HER   , 4H    /
    DATA wil/4HWILV , 4HEC   , 4H    /

@@ -16,7 +16,7 @@ SUBROUTINE oscxrf(Iop,Avail)
          & ist , itemp , j , k , kdh , lab(6) , len , link , ll , mask1 , mask2 , mi , nastk , nblank , ndb , nosgn , notapp ,      &
          & nparam , nparm , ntype , nwds , pool , pseq , q
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline)
+   !>>>>EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline)
    DATA ihd1/7*4H     , 4HCOSM , 4HIC / , 4H NAS , 4HTRAN , 4H DMA , 4HP CO , 4HMPIL , 4HER - , 4H DMA , 4HP CR , 4HOSS  , 4HREFE , &
        &4HRENC , 4HE LI , 4HSTIN , 4HG    , 9*4H    /
    DATA ihd2/32*4H    /

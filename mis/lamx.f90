@@ -26,8 +26,8 @@ SUBROUTINE lamx
 !
 !
 !
-   EQUIVALENCE (d(1),a) , (d(2),b) , (d(3),c)
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (d(1),a) , (d(2),b) , (d(3),c)
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA edit , lama , lamb/101 , 102 , 201/
    DATA ist/21 , 6 , 7*0 , 7/

@@ -22,7 +22,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !     2) STRUCTURAL ELEMENT WHICH COINCIDES WITH FACE -
 !                         ELT(2) = ELEMENT ID AND ELT(3)-ELT(6) = GRIDS
 !
-   EQUIVALENCE (hex1(1,1),face(1,1,1)) , (hex2(1,1),face(1,1,2)) , (tetra(1,1),face(1,1,3)) , (wedge(1,1),face(1,1,4))
+   !>>>>EQUIVALENCE (hex1(1,1),face(1,1,1)) , (hex2(1,1),face(1,1,2)) , (tetra(1,1),face(1,1,3)) , (wedge(1,1),face(1,1,4))
 !
 !     DATA DEFINING FACES OF THE FLUID ELEMENTS
 !

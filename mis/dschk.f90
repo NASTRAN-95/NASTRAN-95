@@ -39,7 +39,7 @@ SUBROUTINE dschk
 !          5   ZERO EPSIO
 !          6   ZERO EPSI
 !
-   EQUIVALENCE (Count,Ni) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Count,Ni) , (Z(1),Iz(1))
    DATA pgi , pgip1 , ugip1 , scr1 , scr2 , scr3/101 , 102 , 103 , 301 , 302 , 303/
 !
 !     INITIALIZE

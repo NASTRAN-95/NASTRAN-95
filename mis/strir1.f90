@@ -49,13 +49,13 @@ SUBROUTINE strir1
 !
 !
 !
-   EQUIVALENCE (Consts(2),Twopi)
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Iecpt(1),Ecpt(1))
-   EQUIVALENCE (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(1),z1) , (z(2),z2) , (z(3),z3)
-   EQUIVALENCE (Gambl(1),Sp(1))
-   EQUIVALENCE (Gambl(1),Teo(1))
-   EQUIVALENCE (Gambl(17),Delint(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi)
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (r(1),r1) , (r(2),r2) , (r(3),r3) , (z(1),z1) , (z(2),z2) , (z(3),z3)
+   !>>>>EQUIVALENCE (Gambl(1),Sp(1))
+   !>>>>EQUIVALENCE (Gambl(1),Teo(1))
+   !>>>>EQUIVALENCE (Gambl(17),Delint(1))
 !
 ! ----------------------------------------------------------------------
 !

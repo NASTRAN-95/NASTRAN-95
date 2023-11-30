@@ -8,7 +8,7 @@ SUBROUTINE cdetm2(P,D,Ip,Pr,Pi,Dr,Di,Ips1)
 !
 !     ARRANGES  P,D,IP  IN ORDER BY MAGNITUDE OF DETERMINANT
 !
-   EQUIVALENCE (d1,dd(1)) , (d2,dd(2)) , (d3,dd(3))
+   !>>>>EQUIVALENCE (d1,dd(1)) , (d2,dd(2)) , (d3,dd(3))
 !
    d1 = D(1)*D(1) + D(2)*D(2)
    d2 = D(3)*D(3) + D(4)*D(4)

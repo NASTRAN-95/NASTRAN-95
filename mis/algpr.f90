@@ -28,7 +28,7 @@ SUBROUTINE algpr(Ierr)
    INTEGER nmany , nnodes , nrad , nrec , nsign , nspec , nstns , nte , ntype , nvects , nwar , nwar1 , ret2 , scr1 , scr2 ,        &
          & stream(3) , ugv
 !
-   EQUIVALENCE (Iz(1),Z(1)) , (idata(1),rdata(1)) , (ifill(1),rfill(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (idata(1),rdata(1)) , (ifill(1),rfill(1))
    DATA name/4HALGP , 4HR   /
    DATA stream/3292 , 92 , 292/
    DATA len/18 , 24 , 6/

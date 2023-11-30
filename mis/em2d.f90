@@ -31,8 +31,8 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     TRIA1 -6-   TRMEM -9-   QDMEM-16-  TRIA2-17-  QUAD2-18-  QUAD1-19-
 !     TRIARG-36-  TRAPRG-37   IS2D8-80-
 !
-   EQUIVALENCE (buf(1),jbuf(1)) , (sc(1),isc(1)) , (Z(1),Iz(1)) , (Ecpt(1),Necpt(1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3)) ,       &
-    & (dnc(1),dnxi(1)) , (dnc(9),dneta(1)) , (dnl(1),dnx(1)) , (dnl(9),dny(1))
+   !>>>>EQUIVALENCE (buf(1),jbuf(1)) , (sc(1),isc(1)) , (Z(1),Iz(1)) , (Ecpt(1),Necpt(1)) , (i1,ip(1)) , (i2,ip(2)) , (i3,ip(3)) ,       &
+!>>>>    & (dnc(1),dnxi(1)) , (dnc(9),dneta(1)) , (dnl(1),dnx(1)) , (dnl(9),dny(1))
    DATA xi/ - 1. , 1. , 1. , -1. , 0. , 1. , 0. , -1./
    DATA eta/ - 1. , -1. , 1. , 1. , -1. , 0. , 1. , 0./
    DATA twopi3/2.094395103/

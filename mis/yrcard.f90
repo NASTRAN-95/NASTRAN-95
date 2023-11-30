@@ -24,7 +24,7 @@ SUBROUTINE yrcard(Out,Nflag,In)
    REAL fl1
    DOUBLE PRECISION xdoubl
    EXTERNAL complf , lshift , rshift
-   EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),dollar) , (chars(2),plus) , (chars(3),equal) ,          &
+   !>>>>EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),dollar) , (chars(2),plus) , (chars(3),equal) ,          &
     & (chars(4),minus) , (chars(5),comma) , (chars(6),slash) , (chars(7),oparen) , (chars(8),cparen) , (chars(9),e) , (chars(10),d) &
     & , (chars(11),period) , (chars(12),blank) , (chars(13),astk)
    DATA blanks/4H    / , blank/4H    / , dollar/4H$   / , equal/1H=/ , astk/1H*/ , comma/1H,/ , slash/1H// , cparen/1H)/ ,          &

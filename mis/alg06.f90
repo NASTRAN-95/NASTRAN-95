@@ -9,7 +9,7 @@ SUBROUTINE alg06(R1,R2,X1,X2,H,S,Vm,Tb1,Tb2,W,Xk,Sclfac,Speed,Spdfac,G,Ej,Hmin,N
    INTEGER j , jj , jjj , l , ll , nkeep , ntub
 !
 !
-   EQUIVALENCE (xx2(1),xx5(1,1))
+   !>>>>EQUIVALENCE (xx2(1),xx5(1,1))
 !
    ntub = Nstrms - 1
    DO j = 1 , Nstrms

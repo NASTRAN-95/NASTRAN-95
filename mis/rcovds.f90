@@ -25,7 +25,7 @@ SUBROUTINE rcovds
 !     THIS ROUTINE GENERATES THE DYNAMIC SOLUTION ITEM FOR RIGID
 !     FORMATS 8 AND 9
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (iscale,scale)
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (iscale,scale)
    DATA name/4HRCOV , 4HDS  /
    DATA eqss , soln , lods/4HEQSS , 4HSOLN , 4HLODS/
    DATA srd , swrt , eog , eoi/1 , 2 , 2 , 3/

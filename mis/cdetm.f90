@@ -29,8 +29,8 @@ SUBROUTINE cdetm(Method,Eed,Mdd,Bdd,Kdd,Lama,Phid,Oceigs,Nfound,Scr1,Scr2,Scr3,S
 !
 !     SOLVES COMPLEX EIGENVALUE PROBLEM BY DETERMINANT METHOD
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Otpe) , (Amcb(1),Mcba(9)) , (Bmcb(1),Mcbb(9)) , (Cmcb(1),Mcbc(9)) ,                  &
-    & (Z(1),Iz(1),Zd(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Otpe) , (Amcb(1),Mcba(9)) , (Bmcb(1),Mcbb(9)) , (Cmcb(1),Mcbc(9)) ,                  &
+!>>>>    & (Z(1),Iz(1),Zd(1))
    DATA ipole , eigc , ihead , poin , name/257 , 4 , 207 , 2 , 0 , 1009 , 1 , 47*0 , 4HPOIN , 4HCDET , 4HM   /
    DATA nit , im1 , sign , numint , iz2 , iz3 , iz4 , iz5 , iz6 , iz7 , iz8/20 , 1 , -1.0 , 4 , 2 , 3 , 4 , 5 , 6 , 7 , 8/
 !

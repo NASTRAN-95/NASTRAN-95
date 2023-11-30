@@ -28,9 +28,9 @@ SUBROUTINE scone2(Sorc)
 !     9 THRU 22) PHI-S
 !     23 THRU 118) TWO 8X6 S MATRICES
 !
-   EQUIVALENCE (Consts(4),Degra) , (Nelem,Commun(1)) , (Sil(1),Commun(2)) , (Iii,Commun(6)) , (Zoff(1),Commun(7)) ,                 &
-    & (Phi(1),Commun(9)) , (S(1),Commun(23)) , (Iblock(1,1),Block(1,1)) , (Stress(1),Commun(101),Istres(1)) ,                       &
-    & (Force(1),Commun(201),Iforce(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Nelem,Commun(1)) , (Sil(1),Commun(2)) , (Iii,Commun(6)) , (Zoff(1),Commun(7)) ,                 &
+!>>>>    & (Phi(1),Commun(9)) , (S(1),Commun(23)) , (Iblock(1,1),Block(1,1)) , (Stress(1),Commun(101),Istres(1)) ,                       &
+!>>>>    & (Force(1),Commun(201),Iforce(1))
    DATA nelold/ - 1/
 !
    DO i = 1 , 8

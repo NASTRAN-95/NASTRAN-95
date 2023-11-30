@@ -26,7 +26,7 @@ BLOCKDATA itembd
 !
 !
 !
-   EQUIVALENCE (Item01(1,1),Item(1,1)) , (Item02(1,1),Item(1,11)) , (Item03(1,1),Item(1,21))
+   !>>>>EQUIVALENCE (Item01(1,1),Item(1,1)) , (Item02(1,1),Item(1,11)) , (Item03(1,1),Item(1,21))
 !
 !        NITEM     = NUMBER OF ITEMS
 !        ITEM(1,I) = ITEM NAME

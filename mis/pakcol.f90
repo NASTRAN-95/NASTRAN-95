@@ -31,8 +31,8 @@ SUBROUTINE pakcol(Terms,Nterms)
 !     PACK COMMON BLOCK
 !
 !
-   EQUIVALENCE (Val,A(1))
-   EQUIVALENCE (Tval,A(3))
+   !>>>>EQUIVALENCE (Val,A(1))
+   !>>>>EQUIVALENCE (Tval,A(3))
 !
 !***********************************************************************
 !

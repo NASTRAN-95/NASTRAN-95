@@ -33,7 +33,7 @@ SUBROUTINE sdrht
 !
 !     SDRHT SIL,USET,UGV,OEF1,SLT,EST,DIT,QGE,DLT,/OEF1X/V,N,TABS $
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Consts(2),Twopi) , (Consts(3),Raddeg) , (Z(1),Rz(1)) , (buf(1),rbuf(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Consts(2),Twopi) , (Consts(3),Raddeg) , (Z(1),Rz(1)) , (buf(1),rbuf(1))
    DATA tablst/4 , 1105 , 11 , 1 , 1205 , 12 , 2 , 1305 , 13 , 3 , 1405 , 14 , 4/
    DATA lentry/14/ , eor , noeor/1 , 0/ , subr/4HSDRH , 2HT /
    DATA idpos/2 , 1 , 5/ , hbdytp/52/ , sltyps/16/

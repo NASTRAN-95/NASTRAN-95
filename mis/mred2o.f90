@@ -18,8 +18,8 @@ SUBROUTINE mred2o(Nus)
 !
 !     THIS SUBROUTINE FORMS THE M MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Lamamr,Infile(2)) , (Gs,Iscr(7)) , (Dz(1),Z(1)) , (Hk,Iscr(2)) , (Kmw2,Iscr(5)) , (Hm,Iscr(9)) , (Gszero,Iscr(10)) ,&
-    & (M,Iscr(10)) , (Rprtn,Iscr(8)) , (Rz(1),Z(1)) , (typea,block(1)) , (typeb,block(7))
+   !>>>>EQUIVALENCE (Lamamr,Infile(2)) , (Gs,Iscr(7)) , (Dz(1),Z(1)) , (Hk,Iscr(2)) , (Kmw2,Iscr(5)) , (Hm,Iscr(9)) , (Gszero,Iscr(10)) ,&
+!>>>>    & (M,Iscr(10)) , (Rprtn,Iscr(8)) , (Rz(1),Z(1)) , (typea,block(1)) , (typeb,block(7))
    DATA modnam/4HMRED , 4H2O  /
 !
 !     FORM HM MATRIX

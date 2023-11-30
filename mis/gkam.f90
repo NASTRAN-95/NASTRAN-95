@@ -32,7 +32,7 @@ SUBROUTINE gkam
 !     SCRATCHES = 4
 !
 !
-   EQUIVALENCE (Core(1),Icore(1)) , (iblock(1),block(1))
+   !>>>>EQUIVALENCE (Core(1),Icore(1)) , (iblock(1),block(1))
 !
    DATA name/4HGKAM , 4H    /
    DATA iblock(1) , iblock(7) , block(2) , block(8)/1 , 1 , 1.0 , 1.0/

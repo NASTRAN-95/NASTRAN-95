@@ -25,7 +25,7 @@ SUBROUTINE exi2
 !
 !     EXI2 PERFORMS EXTERNAL FORMAT SOFIN OPERATIONS
 !
-   EQUIVALENCE (Z(1),Dz(1)) , (A(1),Da)
+   !>>>>EQUIVALENCE (Z(1),Dz(1)) , (A(1),Da)
    DATA sof , srd , swrt , eoi , sp/4HSOF  , 1 , 2 , 3 , 1/
    DATA leof , jh , scr1 , subr/4H$EOF , 1 , 301 , 4HEXI2 , 4H    /
    DATA dit , mdi , eog , zero/4HDIT  , 4HMDI  , 2 , 6*0.0/

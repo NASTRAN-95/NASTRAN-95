@@ -11,7 +11,7 @@ SUBROUTINE q2bcs(Est,Planar,Rmat,Et,Ierror)
 !     BASIC CALCULATIONS ARE PERFORMED FOR THE QDMEM2 ELEMENT IN THIS
 !     ROUTINE (SINGLE-PRECISION VERSION)
 !
-   EQUIVALENCE (grid(1,1),g1(1)) , (grid(1,2),g2(1)) , (grid(1,3),g3(1)) , (grid(1,4),g4(1)) , (grid(1,5),g5(1))
+   !>>>>EQUIVALENCE (grid(1,1),g1(1)) , (grid(1,2),g2(1)) , (grid(1,3),g3(1)) , (grid(1,4),g4(1)) , (grid(1,5),g5(1))
 !
 !     MOVE GRID COORDINATES
 !

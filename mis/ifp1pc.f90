@@ -22,8 +22,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
    INTEGER complf , rshift
    LOGICAL flag(3)
    EXTERNAL complf , rshift
-   EQUIVALENCE (proj,ctype(11)) , (defo,idvpr(1)) , (symm,pltpr(13)) , (anti,pltpr(14)) , (magn,cntur(13)) , (thru,pltpr(22)) ,     &
-    & (poin,lblpr(2)) , (core(1),Corey(401)) , (Corex(1),Corey(1),Case(1)) , (hidd,pltpr(24))
+   !>>>>EQUIVALENCE (proj,ctype(11)) , (defo,idvpr(1)) , (symm,pltpr(13)) , (anti,pltpr(14)) , (magn,cntur(13)) , (thru,pltpr(22)) ,     &
+!>>>>    & (poin,lblpr(2)) , (core(1),Corey(401)) , (Corex(1),Corey(1),Case(1)) , (hidd,pltpr(24))
    DATA ctype/4HPLOT , 4HORTH , 4HPERS , 4HSTER , 4HAXES , 4HVIEW , 4HMAXI , 4HCSCA , 4HFIND , 4HCONT , 4HPROJ , 4HOCUL , 4HCAME ,  &
        &4HPAPE , 4HPEN  , 4HPTIT , 4HSCAL , 4HORIG , 4HVANT , 4HSET  , 4HREGI/
    DATA camera/4HFILM , 4HPAPE , 4HBOTH , 4HBLAN , 4HFRAM/

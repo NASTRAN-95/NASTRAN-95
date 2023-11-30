@@ -37,8 +37,8 @@ SUBROUTINE diagon
 !     TO MAKE SUERE  0.0**0 = 1.0, NOT 0.0
 !
 !ZZ   COMMON /ZZDIAG/  CORE(1)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (ia(2),incol) , (ia(3),inrow) , (ia(4),iform) , (ia(5),itype) , (A(1),D(1)) ,&
-    & (Val(1),Dval(1)) , (Param(1),Opt(1)) , (Param(3),Power) , (Core(1),Dcore(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (ia(2),incol) , (ia(3),inrow) , (ia(4),iform) , (ia(5),itype) , (A(1),D(1)) ,&
+!>>>>    & (Val(1),Dval(1)) , (Param(1),Opt(1)) , (Param(3),Power) , (Core(1),Dcore(1))
    DATA col , sq/4HCOLU , 4HSQUA/ , in1 , iout/101 , 201/
    DATA name/4HDIAG , 4HONAL/
 !

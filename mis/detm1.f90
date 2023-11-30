@@ -54,7 +54,7 @@ SUBROUTINE detm1(*)
 !
 !
 !
-   EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
+   !>>>>EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1))
 !
    DATA name/4HDETM , 4H1   /
 !

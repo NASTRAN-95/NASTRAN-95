@@ -25,10 +25,10 @@ SUBROUTINE plod4d
 !     GRID POINT NUMBERING IS COUNTER-CLOCKWISE
 !     GRIDS 1,2,3, AND 4 ARE AT THE CORNERS
 !
-   EQUIVALENCE (Iz(1),Z(1)) , (Slt(1),Islt(1))
-   EQUIVALENCE (Nest(1),Best(1)) , (Numint,Nest(25))
-   EQUIVALENCE (Sil(1),Nest(2)) , (Bgpdt(1,1),Best(29))
-   EQUIVALENCE (Ibgpdt(1,1),Bgpdt(1,1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1)) , (Slt(1),Islt(1))
+   !>>>>EQUIVALENCE (Nest(1),Best(1)) , (Numint,Nest(25))
+   !>>>>EQUIVALENCE (Sil(1),Nest(2)) , (Bgpdt(1,1),Best(29))
+   !>>>>EQUIVALENCE (Ibgpdt(1,1),Bgpdt(1,1))
    DATA ndof/3/
 !
 !                 EST LISTING

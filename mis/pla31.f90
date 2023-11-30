@@ -17,7 +17,7 @@ SUBROUTINE pla31
 !     EACH ELEMENT, THEREBY CREATING THE ESTNLS, THE ESTNL SCRATCH FILE,
 !     WHICH IS PROCESSED BY SUBROUTINE PLA32.
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (estbk(1),iestbk(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (estbk(1),iestbk(1))
    DATA name/4HPLA3 , 4H1   /
    DATA delugv , estnl , estnls/104 , 105 , 301/
    DATA eor , neor , clsrw/1 , 0 , 1/

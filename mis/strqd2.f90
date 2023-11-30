@@ -31,9 +31,9 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !
 !
-   EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9)) , (Str(1),Ph1out(101)) , (Ldtemp,Ftemp) , (f1,n1) ,  &
-    & (Cfrvec(1),Ifrvec(1)) , (ished(6),frlast(1)) , (ished(1),lsub) , (ished(2),lld)
-   EQUIVALENCE (Str(1),Ist(1))
+   !>>>>EQUIVALENCE (Nsil(1),Ph1out(2)) , (Nph1ou(1),Ph1out(1)) , (Si(1),Ph1out(9)) , (Str(1),Ph1out(101)) , (Ldtemp,Ftemp) , (f1,n1) ,  &
+!>>>>    & (Cfrvec(1),Ifrvec(1)) , (ished(6),frlast(1)) , (ished(1),lsub) , (ished(2),lld)
+   !>>>>EQUIVALENCE (Str(1),Ist(1))
 !
    DATA tr , qu , ontw/4HTRIA , 4HQUAD , 1H1 , 1H2/ , lld/ - 100/
    DATA lsub , frlast/ - 100 , -1.0E30 , -1.0E30/

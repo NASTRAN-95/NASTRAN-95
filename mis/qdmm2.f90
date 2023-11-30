@@ -50,7 +50,7 @@ SUBROUTINE qdmm2(Temps,Pg)
 !     +  26 = AVERAGE OF CONNECTED GRID TEMPERATURES    +
 !     + + + + + + + + + + + + + + + + + + + + + + + + + +
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1))
    DATA map/1 , 2 , 3 , 4 , 2 , 3 , 4 , 1 , 5 , 5 , 5 , 5/
 !
 !     COMPUTE BASIC SIN AND COSINE OF ELEMENT MATERIAL ANGLE.

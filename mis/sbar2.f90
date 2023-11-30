@@ -48,8 +48,8 @@ SUBROUTINE sbar2(Ti)
 !  STRESS/FORCE PRECISION CHECK
 !
 !
-   EQUIVALENCE (Ldtemp,Templd) , (Msten,Smten) , (Mscom,Smcom) , (ished(6),frlast(1)) , (Ieid,Cfrvec(1)) , (ished(1),lsub) ,        &
-    & (ished(2),lld)
+   !>>>>EQUIVALENCE (Ldtemp,Templd) , (Msten,Smten) , (Mscom,Smcom) , (ished(6),frlast(1)) , (Ieid,Cfrvec(1)) , (ished(1),lsub) ,        &
+!>>>>    & (ished(2),lld)
 !
    DATA lld , lsub , frlast/2* - 100 , -1.0E30 , -1.0E30/
 !

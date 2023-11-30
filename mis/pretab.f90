@@ -53,7 +53,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !              = 1,2,3,4, OR 5.
 !     LNTH     = 12 WORDS PER TABLE ENTRY
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA clsrw , neor , name , px , lnth/1 , 0 , 4HPRET , 4HAB   , 3. , 2. , 1.339 , 1.0 , 12/
 !
 !     INITIALIZE

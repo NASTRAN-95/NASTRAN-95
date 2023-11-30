@@ -33,9 +33,9 @@ SUBROUTINE emg1b(Buf,Sil,Ii,File,Dampc)
 !     ELEMENT INVOLVED.
 !
 !
-   EQUIVALENCE (Ksystm(2),Outpt)
-   EQUIVALENCE (Z(1),Dz(1),Rz(1)) , (c,ic)
-   EQUIVALENCE (Smaio(13),If4gg)
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Z(1),Dz(1),Rz(1)) , (c,ic)
+   !>>>>EQUIVALENCE (Smaio(13),If4gg)
 !
    DATA subr/4HEMG1 , 4HB   /
 !

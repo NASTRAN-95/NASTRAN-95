@@ -23,7 +23,7 @@ SUBROUTINE k2b(K,B,N)
 !
 !     CHARACTER*n C4,D4
 !         Where n = 4 for IBM, VAX and UNIVAC, 8 for 64-BIT UNIX MACHINE
-   EQUIVALENCE (a,c,c4)
+   !>>>>EQUIVALENCE (a,c,c4)
    DATA d4/'    '/
 !
    c4 = d4

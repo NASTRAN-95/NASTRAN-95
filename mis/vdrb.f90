@@ -33,7 +33,7 @@ SUBROUTINE vdrb(Infil,Outfl,Ireqq)
 !     THESE VECTORS ARE FORMATTED FOR INPUT TO OFP WHERE ACTUAL OUTPUT
 !     WILL OCCUR.
 !
-   EQUIVALENCE (Consts(2),Twopi) , (Consts(3),Raddeg) , (Buf(1),Bufr(1)) , (Z(1),Zz(1))
+   !>>>>EQUIVALENCE (Consts(2),Twopi) , (Consts(3),Raddeg) , (Buf(1),Bufr(1)) , (Z(1),Zz(1))
    DATA igpf , iese , ireig/167 , 170 , 4HREIG/
 !
 !     PERFORM GENERAL INITIALIZATION.

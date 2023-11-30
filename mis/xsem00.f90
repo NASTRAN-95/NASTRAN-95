@@ -34,12 +34,12 @@ SUBROUTINE xsem00
 !
 !
 !
-   EQUIVALENCE (Xx(1),Nout) , (Xx(3),Nin)
+   !>>>>EQUIVALENCE (Xx(1),Nout) , (Xx(3),Nin)
                               ! input file number
-   EQUIVALENCE (Xx(19),Plotf)
-   EQUIVALENCE (Xx(17),Itmbgn)
+   !>>>>EQUIVALENCE (Xx(19),Plotf)
+   !>>>>EQUIVALENCE (Xx(17),Itmbgn)
 !WKBI 5/95
-   EQUIVALENCE (wordc,wordb)
+   !>>>>EQUIVALENCE (wordc,wordb)
 !
    DATA pool/4HPOOL/ , scrtch/4HSCRA , 4HTCH0 , 4HTCH0/ , numbr/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H0/ ,        &
        &wordb/4HSEM1 , 4HBEGN , 4H     , 4H    / , worde/4HBEGN , 4HEND / , iblnk/4H    / , modx/215/ , exit/4HEXIT/

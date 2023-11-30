@@ -19,7 +19,7 @@ SUBROUTINE loadsu
 !     AVAILABLE WORD, NTOT IS THE NUMBER OF WORDS PUT INTO OPEN CORE
 !     BY THIS ROUTINE. LOAD IS THE LOAD ID.
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (l(1),zl(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (l(1),zl(1))
    DATA nam/4HLOAD , 4HSU  /
    DATA nwords/6 , 6 , 4 , 4 , 6 , 6 , 2 , 5 , 5 , 6 , 6 , 7 , 12 , 10 , 10 , 19 , 38 , 7 , 5/
 !

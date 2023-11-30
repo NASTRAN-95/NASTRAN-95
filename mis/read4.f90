@@ -25,7 +25,7 @@ SUBROUTINE read4(Lama,Phi,Scr1,Eps,Mass)
 !     CORRESPONDING VECTORS ARE ORTHOGONAL
 !
 !WKBI ALPHA-OSF 9/94
-   EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(2),Iout) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Isys) , (Ksystm(2),Iout) , (Dz(1),Z(1))
    DATA name/4HREAD , 4H4   /
 !
    ncol = Phi(2)

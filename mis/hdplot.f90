@@ -21,7 +21,7 @@ SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
    LOGICAL debug
    INTEGER i , j , lintc , m , n , name(2) , nc , nholes , nps
    REAL x(20) , y(20) , z(20)
-   EQUIVALENCE (Isys(1),Skps) , (Ptrs(1),Xdum)
+   !>>>>EQUIVALENCE (Isys(1),Skps) , (Ptrs(1),Xdum)
    DATA name/4HHDPL , 4HOT  /
    DATA debug/.FALSE./
 !

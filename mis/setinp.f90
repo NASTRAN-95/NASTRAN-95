@@ -19,8 +19,8 @@ SUBROUTINE setinp
    DOUBLE PRECISION dwrd
    REAL fwrd
    EXTERNAL complf , rshift
-   EQUIVALENCE (X(1),El(1),Gp(1))
-   EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
+   !>>>>EQUIVALENCE (X(1),El(1),Gp(1))
+   !>>>>EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
    DATA inprew , outrew , rew , norew , eor/0 , 1 , 1 , 3 , 1000000/
    DATA blnk , stop , go , name/4H     , 4HSTOP , 4HGO   , 4H SET , 3HINP/
    DATA set , incl , excl , elem , grid , poin , exce , to/3HSET , 4HINCL , 4HEXCL , 4HELEM , 4HGRID , 4HPOIN , 4HEXCE , 2HTO/

@@ -55,8 +55,8 @@ SUBROUTINE fbsrdm(Mcb,Icore,Rcore,Dcore,Memtot,Buff,Lasind,Ipos)
 !              (6) = current logical record pointer for last record in file
 !              (7) = current buffer pointer for last record in file
 !
-   EQUIVALENCE (Ksystm(2),Nout)
-   EQUIVALENCE (Dxl,Rxl)
+   !>>>>EQUIVALENCE (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Dxl,Rxl)
    mem = 1
    ncol = Mcb(2)
    ntype = Mcb(5)

@@ -51,8 +51,8 @@ SUBROUTINE tpztem(Ti,Pg)
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (r(4),r4) , (z(4),z4) , &
-    & (gababq(1,1),aki(1)) , (Consts(1),Pi) , (Consts(4),Degrad)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (z(1),z1) , (z(2),z2) , (z(3),z3) , (r(1),r1) , (r(2),r2) , (r(3),r3) , (r(4),r4) , (z(4),z4) , &
+!>>>>    & (gababq(1,1),aki(1)) , (Consts(1),Pi) , (Consts(4),Degrad)
    DATA idel2 , jax/0 , 4HAX  /
 !
 !     START EXECUTION

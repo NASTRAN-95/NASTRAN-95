@@ -51,8 +51,8 @@ SUBROUTINE trplt(Ti)
 !     ECPT(24) = Z3                 REAL
 !     ECPT(25) = ELEMENT TEMP       REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (Prod15(1),Prod9(1)) , (Requiv(1),R(1,1)) , (Necpt(1),Ecpt(1)) , (V1(1),Ecpt(14)) ,              &
-    & (V2(1),Ecpt(18)) , (V3(1),Ecpt(22)) , (Tite(1),A(1)) , (V(1),Prod12(1)) , (Hq(1),A(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Prod15(1),Prod9(1)) , (Requiv(1),R(1,1)) , (Necpt(1),Ecpt(1)) , (V1(1),Ecpt(14)) ,              &
+!>>>>    & (V2(1),Ecpt(18)) , (V3(1),Ecpt(22)) , (Tite(1),A(1)) , (V(1),Prod12(1)) , (Hq(1),A(1))
    DATA m/1 , 2 , 4 , 2 , 3 , 4 , 3 , 1 , 4/
 !
    Eltemp = Ecpt(25)

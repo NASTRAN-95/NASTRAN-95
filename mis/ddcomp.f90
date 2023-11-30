@@ -34,9 +34,9 @@ SUBROUTINE ddcomp
 !        MINDIA =  MINIMUM DIAGONAL OF ULL
 !        SING   = -1 SINGULAR MATRIX
 !
-   EQUIVALENCE (Zz(1),Z(1))
-   EQUIVALENCE (Zzz(1),Z(1))
-   EQUIVALENCE (Ksystm(2),Outpt) , (Knames(12),Sqr) , (Knames(13),Rect) , (Knames(17),Sym) , (Knames(16),Upper) , (Knames(15),Lower)
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Zzz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (Knames(12),Sqr) , (Knames(13),Rect) , (Knames(17),Sym) , (Knames(16),Upper) , (Knames(15),Lower)
    DATA kaa , lll , ull , lscr1 , lscr2 , lscr3 , lscr4/101 , 201 , 202 , 301 , 302 , 303 , 304/
    DATA name/4HDDCO , 4HMP  /
 !

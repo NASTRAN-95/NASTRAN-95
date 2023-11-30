@@ -91,8 +91,8 @@ SUBROUTINE feer
 !     MCBRM         TRIAL VECTOR V OR C(INVERSE-TRANSPOSE)*V CONTROL
 !                   BLOCK
 !
-   EQUIVALENCE (Iz(1),Z(1),Dz(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Io) , (Ksystm(55),Iprec) , (Tcons(8),Tmt(1)) ,                  &
-    & (Tcons(12),Tml(4)) , (Ksystm(40),Nbpw)
+   !>>>>EQUIVALENCE (Iz(1),Z(1),Dz(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Io) , (Ksystm(55),Iprec) , (Tcons(8),Tmt(1)) ,                  &
+!>>>>    & (Tcons(12),Tml(4)) , (Ksystm(40),Nbpw)
    DATA name/4HFEER , 2*2H  / , ibegn/4HBEGN/
    DATA iend/4HEND / , mode/4HMODE/
    DATA i1 , i2 , i3 , i4 , i0/1H1 , 1H2 , 1H3 , 1H4 , 1H /

@@ -46,8 +46,8 @@ SUBROUTINE gp4
    EXTERNAL andf , complf , lshift , orf , rshift
 !WKBI 3/95 NCL94002
 !WKBR 3/95 NCL94002      COMMON /XMSSG / UFM
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outtap) , (Ksystm(27),Iaxic) , (Ksystm(38),Iaxif) , (Z(1),Rz(1)) , (Buf(1),Bufr(1)) ,&
-    & (ugset,usgset) , (Ib6,Buf(6))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outtap) , (Ksystm(27),Iaxic) , (Ksystm(38),Iaxif) , (Z(1),Rz(1)) , (Buf(1),Bufr(1)) ,&
+!>>>>    & (ugset,usgset) , (Ib6,Buf(6))
    DATA omit/5001 , 50/ , suport/5601 , 56/ , spc/5501 , 55/ , spc1/5481 , 58/ , spcadd/5491 , 59/ , omitx1/4951 , 63/ , aset/5561 ,&
       & 76/ , aset1/5571 , 77/ , spcd/5110 , 51/ , mpc/4901 , 49/ , mpcadd/4891 , 60/
    DATA name/4HGP4  , 4H    /

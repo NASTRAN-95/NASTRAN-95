@@ -33,9 +33,9 @@ SUBROUTINE ifs3p(*,*,*)
 !HURNE
 !HURNB 11/93
 !HURNE
-   EQUIVALENCE (M(1),Rm(1)) , (Line,Idummy(9)) , (Nbpw,Idummy(37))
+   !>>>>EQUIVALENCE (M(1),Rm(1)) , (Line,Idummy(9)) , (Nbpw,Idummy(37))
 !HURNB 11/93
-   EQUIVALENCE (xin,ixin)
+   !>>>>EQUIVALENCE (xin,ixin)
 !HURNE
    DATA prol , endt/.FALSE. , 4HENDT/ , perm/.FALSE./
    DATA first , prt/2*.TRUE./

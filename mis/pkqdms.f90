@@ -26,8 +26,8 @@ SUBROUTINE pkqdms
 !
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (K3x3(1),Kij(1)) , (Necpt(1),Ecpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (K3x3(1),Kij(1)) , (Necpt(1),Ecpt(1))
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
 !     ******************************************************************

@@ -22,7 +22,7 @@ SUBROUTINE matprt(*,*,A,Option,Column)
 !                  (PRTMAT = RETURN ENTRY POINT)
 !     COLUMN = CURRENT COLUMN NUMBER
 !
-   EQUIVALENCE (File,Mcb(1)) , (J,Mcb(2)) , (I,Mcb(3)) , (Type,Mcb(5))
+   !>>>>EQUIVALENCE (File,Mcb(1)) , (J,Mcb(2)) , (I,Mcb(3)) , (Type,Mcb(5))
    DATA rsp , rdp , csp , cdp , rew , inprew/1 , 2 , 3 , 4 , 1 , 0/
 !
    IF ( I<=0 .OR. J<=0 ) GOTO 99999

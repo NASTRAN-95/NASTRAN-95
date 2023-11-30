@@ -24,8 +24,8 @@ SUBROUTINE emgcor(Buf)
 !     CORE ALLOCATION AND PARAMETER INITIALIZATION FOR MAIN -EMG-
 !     PROCESSOR -EMGPRO-.
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf)
-   EQUIVALENCE (Ksystm(2),Outpt)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf)
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt)
    DATA type/4HSTIF , 4HMASS , 4HDAMP/
    DATA scr4/304/
    DATA subr/4HEMGC , 4HOR  / , eor/1/

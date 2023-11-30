@@ -16,7 +16,7 @@ SUBROUTINE crdrd2(*,*,Mu,Indcom,N23)
 !
 !     EXTERNAL          ORF    ,LSHIFT
 !     INTEGER           ORF
-   EQUIVALENCE (Z(1),Dz(1)) , (Z(1),Rz(1))
+   !>>>>EQUIVALENCE (Z(1),Dz(1)) , (Z(1),Rz(1))
    DATA mask15/32767/
 !
 !     INDTFM = INDEPENDENT GRID POINT TRANSFORMATION MATRIX

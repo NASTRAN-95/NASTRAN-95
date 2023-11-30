@@ -20,7 +20,7 @@ SUBROUTINE dpdaa
 !
 !
 !
-   EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
+   !>>>>EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid)
 !
 !*****
 ! IF EQDYN IS NOT IN CORE, READ IT IN AND SET FLAG.

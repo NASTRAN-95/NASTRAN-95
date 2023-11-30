@@ -31,7 +31,7 @@ SUBROUTINE rcovui(Ub,Lastss,Modal)
 !     ON A REDUCED SUBSTRUCTURE WHICH INCLUDE INERTIA AND DAMPING
 !     EFFECTS
 !
-   EQUIVALENCE (Dz(1),Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Dz(1),Rz(1),Z(1))
    DATA scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9/302 , 303 , 304 , 305 , 306 , 307 , 308 , 309/
    DATA horg , mmtx , bmtx , uprt/4HHORG , 4HMMTX , 4HBMTX , 4HUPRT/
    DATA k4mx/4HK4MX/ , k4gg/110/

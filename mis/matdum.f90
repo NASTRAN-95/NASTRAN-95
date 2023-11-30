@@ -50,7 +50,7 @@ SUBROUTINE matdum(Ia,Iprc,Npl,Nout)
 !     NOUT = P6, FORTRAN UNIT (SEE MATPRN)
 !
 !ZZ   COMMON /ZZTBPR/  COL(1)
-   EQUIVALENCE (Col(1),Dcol(1),Icol(1)) , (iblnk,blank)
+   !>>>>EQUIVALENCE (Col(1),Dcol(1),Icol(1)) , (iblnk,blank)
    DATA type/4HS.P. , 4HREAL , 4HD.P. , 4HREAL , 4HCOMP , 4HLEX  , 4HCMP  , 4HD.P. , 4HILL  , 4HDEFN/
    DATA form/4HSQUA , 4HRE   , 4HRECT , 4HANG  , 4HDIAG , 4HONAL , 4HLOW  , 4HTRI  , 4HUPP  , 4HTRI  , 4HSYMM , 4HETRC , 4HVECT ,   &
        &4HOR   , 4HIDEN , 4HTITY , 4HILL  , 4HDEFN/

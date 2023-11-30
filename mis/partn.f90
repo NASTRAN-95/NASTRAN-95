@@ -15,7 +15,7 @@ SUBROUTINE partn(Irp,Icp,Core)
          & loop , m , m1 , name(2)
    EXTERNAL andf , rshift
 !
-   EQUIVALENCE (Ias(1,1),Ia11(1))
+   !>>>>EQUIVALENCE (Ias(1,1),Ia11(1))
    DATA iln/20/ , name/4HPART , 4HN   /
 !
 !     ZERO 6 AND 7 OF OUTPUT BLOCKS

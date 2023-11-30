@@ -21,8 +21,8 @@ SUBROUTINE ascm01(Name,Iphase,Isol,Nogo)
 !     REPLACED BY
 !     THE ! WILL BE CHANGED BACK TO / IN THE EXECUTABLE CODE.
 !
-   EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
-    & (rdmap3(1,1),rdmap(1,19)) , (rdmap4(1,1),rdmap(1,28))
+   !>>>>EQUIVALENCE (rdmap1(1,1),rdmap(1,1)) , (oct1(1,1),oct(1,1)) , (rdmap2(1,1),rdmap(1,10)) , (ptbs1(1,1),ptbs(1,1)) ,               &
+!>>>>    & (rdmap3(1,1),rdmap(1,19)) , (rdmap4(1,1),rdmap(1,28))
    DATA comnd/4HSUBS , 29 , 3 , 13 , 16 , 8 , 4HSUBS , 8 , 1 , 0 , 3 , 0 , 4HSUBS , 8 , 1 , 0 , 3 , 2/
    DATA slash/1H//
    DATA isave/3 , 13 , 1 , 19 , 8 , 2 , 26 , 13 , 3 , 26 , 15 , 2 , 26 , 17 , 1 , 27 , 5 , 1 , 28 , 4 , 3/

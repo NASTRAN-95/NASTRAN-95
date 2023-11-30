@@ -84,8 +84,8 @@ SUBROUTINE bard
 !     ECPT(41)  -    ...          $
 !     ECPT(42)  -  ELTEMP         AVG. ELEMENT TEMPERATURE
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat) , (Ecpt(1),Iecpt(1),Ielid) , (Ksystm(87),Ksy87) , (Vec(1),Veci(1)) ,         &
-    & (Vec(4),Vecj(1)) , (Vec(7),Veck(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat) , (Ecpt(1),Iecpt(1),Ielid) , (Ksystm(87),Ksy87) , (Vec(1),Veci(1)) ,         &
+!>>>>    & (Vec(4),Vecj(1)) , (Vec(7),Veck(1))
    DATA ikk/1 , 7 , 73 , 79/ , epsi , epsi2/1.0D-18 , 1.0D-7/
    DATA is12or/1 , 37 , 109 , 73/ , is21or/73 , 109 , 37 , 1/
 !

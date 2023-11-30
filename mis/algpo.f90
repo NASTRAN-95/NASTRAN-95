@@ -18,7 +18,7 @@ SUBROUTINE algpo(Scr1)
    REAL dtemp , rrec(5)
    EXTERNAL orf
 !
-   EQUIVALENCE (lrec(1),rrec(1))
+   !>>>>EQUIVALENCE (lrec(1),rrec(1))
    DATA lend/3*2147483647/
    DATA name/4HALG  , 4H    /
    DATA labp/4HPLOA/ , labt/4HTEMP/

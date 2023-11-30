@@ -37,7 +37,7 @@ SUBROUTINE exio
 !
 !     FEBRUARY 1974
 !
-   EQUIVALENCE (inte,bcds(1,7)) , (exte,bcds(1,8)) , (Device(1),Inbcds(1,1))
+   !>>>>EQUIVALENCE (inte,bcds(1,7)) , (exte,bcds(1,8)) , (Device(1),Inbcds(1,1))
    DATA blank/4H    /
    DATA bcds/4HSOFI , 4HN    , 4HSOFO , 4HUT   , 4HREST , 4HORE  , 4HCHEC , 4HK    , 4HCOMP , 4HRESS , 4HAPPE , 4HND   , 4HINTE ,   &
        &4HRNAL , 4HEXTE , 4HRNAL , 4HREWI , 4HND   , 4HNORE , 4HWIND/

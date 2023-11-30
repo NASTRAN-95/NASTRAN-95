@@ -24,7 +24,7 @@ SUBROUTINE xytran
    INTEGER korsz
    LOGICAL oomcp , oompp , vgp
    REAL temp , temp1
-   EQUIVALENCE (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Ivalue(1),Value(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Ivalue(1),Value(1))
 !
    DATA stop/4HSTOP/ , go/4HGO  / , vdum/4HVDUM/ , xy/4HXY  / , fram/4HFRAM/ , clea/4HCLEA/ , tcur/4HTCUR/ , xaxi/4HXTIT/ ,         &
        &yaxi/4HYTIT/ , ytax/4HYTTI/ , ybax/4HYBTI/ , blank/4H    / , pset/4HPSET/

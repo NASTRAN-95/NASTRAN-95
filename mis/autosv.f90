@@ -17,7 +17,7 @@ SUBROUTINE autosv
 !     THIS ROUTINE GENERATES OSCAR ENTRIES FOR PARAMTERS
 !     THAT ARE TO BE SAVED IMPLICITLY
 !
-   EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
+   !>>>>EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
    DATA xsav/4HXSAV , 4HE   /
 !
 !     UPDATE OSCAR PARAMETERS

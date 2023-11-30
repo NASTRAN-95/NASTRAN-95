@@ -11,7 +11,7 @@ SUBROUTINE stplot(Pltnum)
    INTEGER i , id , idte(8) , j , lstplt , m , n
    REAL save(2,2)
 !
-   EQUIVALENCE (Ksystm(15),Date(1))
+   !>>>>EQUIVALENCE (Ksystm(15),Date(1))
    DATA idte/2*1H  , 1H/ , 2*1H  , 1H/ , 2*1H / , lstplt , m/0 , 0/
 !
    IF ( Pltnum<0 ) THEN

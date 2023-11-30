@@ -33,8 +33,8 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
 !
 !
 !
-   EQUIVALENCE (Consts(4),Degra)
-   EQUIVALENCE (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra)
+   !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
 !     ECPT LIST
 !                                                      IN
 !                                                      THIS

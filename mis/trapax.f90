@@ -70,8 +70,8 @@ SUBROUTINE trapax
 !                     CE66,E11,E12,E13,E14,E15,E16,E21,E22,E23,E24,E25,
 !                     E26,E31,E32,E33,E34,E35,E36,EPS11,EPS12,EPS13,
 !                     EPS22,
-   EQUIVALENCE (Ksystm(2),Iout) , (Ecpt(1),Iecpt(1),Idel) , (bmass(1,1),acurl(1),bmbss(1)) , (dict5,dict(5)) ,                      &
-    & (acurp1(1),acurl(145)) , (acurp2(1),acurl(193))
+   !>>>>EQUIVALENCE (Ksystm(2),Iout) , (Ecpt(1),Iecpt(1),Idel) , (bmass(1,1),acurl(1),bmbss(1)) , (dict5,dict(5)) ,                      &
+!>>>>    & (acurp1(1),acurl(145)) , (acurp2(1),acurl(193))
    DATA idel2 , jax/0 , 4HTRAP/
 !
    lsys78 = .FALSE.

@@ -24,7 +24,7 @@ SUBROUTINE anisop
 !     EQUIV   MPTA,MPT/ISOP $
 !     ISOP=-1 MEANS SUCH MATERIALS EXIST
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA geom1 , ept , bgpdt , eqexin , mpt , mpta/101 , 102 , 103 , 104 , 105 , 201/
    DATA ipi/7002 , 70/ , ic1/1801 , 18/ , ic2/2101 , 21/ , imat6/2503 , 25/ , mat1/103 , 1/
    DATA nam/4HANIS , 4HOP  /

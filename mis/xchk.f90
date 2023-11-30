@@ -74,9 +74,9 @@ SUBROUTINE xchk
 !WKBR COMMON /XCEITB/ CEITBL(2)
 !WKBI
 !      INCLUDE 'NASNAMES.COM'
-   EQUIVALENCE (Zsys(1),Bufsz) , (Zsys(2),Otpe) , (Zsys(9),Nlpp) , (Zsys(11),Npages) , (Zsys(12),Nlines) , (Zsys(24),Icfiat) ,      &
-    & (Zsys(26),Cppgct) , (Zsys(40),Nbpw)
-   EQUIVALENCE (dcparm(1),nrlfl) , (dcparm(2),seqno) , (Gbuf(1),Iobuf(1),Ptdic(1))
+   !>>>>EQUIVALENCE (Zsys(1),Bufsz) , (Zsys(2),Otpe) , (Zsys(9),Nlpp) , (Zsys(11),Npages) , (Zsys(12),Nlines) , (Zsys(24),Icfiat) ,      &
+!>>>>    & (Zsys(26),Cppgct) , (Zsys(40),Nbpw)
+   !>>>>EQUIVALENCE (dcparm(1),nrlfl) , (dcparm(2),seqno) , (Gbuf(1),Iobuf(1),Ptdic(1))
    DATA nptp/4HNPTP/
    DATA dpt/4HPOOL/
    DATA nblank/4H    /

@@ -12,7 +12,7 @@ SUBROUTINE procom(Procos,Procof,Casecc,Ncoefs,Ngrids)
 !
 !     PROCOM COMBINES PROCOF CASES FOR SUBCOM-S AND REPCASES
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA i166 , i16 , nam/166 , 16 , 4HPROC , 4HOM  /
 !
    lcore = korsz(Z)

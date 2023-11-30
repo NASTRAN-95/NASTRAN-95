@@ -49,8 +49,8 @@ SUBROUTINE cyct2
 !     ICS       1 IMPLIES FIRST COLUMN TYPE (COSINE FOR ROT)
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Constd(1),Pi) , (Kseg,Kindex) , (Z(1),Iz(1)) , (mcb(1),mcb1(1)) ,         &
-    & (mcb(8),mcb2(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Constd(1),Pi) , (Kseg,Kindex) , (Z(1),Iz(1)) , (mcb(1),mcb1(1)) ,         &
+!>>>>    & (mcb(8),mcb2(1))
    DATA cycd , kaa , maa , v1i , v2i , lamx , kxx , mxx , v1o , v2o , lama/101 , 102 , 103 , 104 , 105 , 106 , 201 , 202 , 203 ,    &
       & 204 , 205/
    DATA scr1 , scr2 , scr3 , scr4 , scr5 , scr6/301 , 302 , 303 , 304 , 305 , 306/

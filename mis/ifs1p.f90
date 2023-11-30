@@ -18,7 +18,7 @@ SUBROUTINE ifs1p(*,*,*)
          & l4 , l50 , nmo , thru
    LOGICAL ifpdco
 !
-   EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(3),Abort) , (M(1),Rm(1)) , (Slotdf(1),Klotdf(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(3),Abort) , (M(1),Rm(1)) , (Slotdf(1),Klotdf(1))
    DATA hbdynm/4HPOIN , 4HT    , 4HLINE , 4H     , 4HREV  , 4H     , 4HAREA , 4H3    , 4HAREA , 4H4    , 4HELCY , 4HL    , 4HFTUB , &
        &4HE   /
    DATA hbdyix/1 , 2 , 2 , 3 , 4 , 2 , 2/

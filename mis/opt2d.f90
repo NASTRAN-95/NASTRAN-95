@@ -16,7 +16,7 @@ SUBROUTINE opt2d(Ipr,Pr)
 !                       WORD 5 = ALPH
 !-----
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
 !
 !  . RECORD ZERO - COPY NAME AND 6 PARAMETERS...
 !

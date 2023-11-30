@@ -19,7 +19,7 @@ SUBROUTINE magbdy
 !
 !     MAGBDY   GEOM1,HEQEXIN/PERMBD/V,N,IPG $
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA nam/4HMAGB , 4HDY  /
    DATA geom1 , eqexin , permbd/101 , 102 , 201/
    DATA permby/4201 , 42/

@@ -18,8 +18,8 @@ SUBROUTINE detm5
 !
 !
 !
-   EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1),Core(1))
-   EQUIVALENCE (Consts(2),Tphi)
+   !>>>>EQUIVALENCE (Psave(1),Ps(1),Det(1),Ipdet(1),Core(1))
+   !>>>>EQUIVALENCE (Consts(2),Tphi)
 !
 ! ----------------------------------------------------------------------
 !

@@ -19,7 +19,7 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
 !     SOLVE A X = B
 !     USE INCORE DECOMP IF POSSIBLE
 !
-   EQUIVALENCE (Zz(1),Z(1))
+   !>>>>EQUIVALENCE (Zz(1),Z(1))
 !
    icore = korsz(Z)
    Incr = 1

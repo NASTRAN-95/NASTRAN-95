@@ -29,7 +29,7 @@ SUBROUTINE mtrxo(File,Name,Item,Dumbuf,Itest)
 !        5 - ITEM IS NOT ONE OF THE ALLOWABLE MATIX ITEMS
 !        6 - NASTRAN FILE HAS BEEN PURGED
 !
-   EQUIVALENCE (Buf(1),Nstrn)
+   !>>>>EQUIVALENCE (Buf(1),Nstrn)
    DATA nmsbr/4HMTRX , 4HO   /
    DATA iwrt/2/
    DATA ifetch/ - 2/

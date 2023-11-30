@@ -125,7 +125,7 @@ SUBROUTINE xsort2
    INTEGER tape , tape1 , tape2 , tape3 , tapecc , temp(2) , tempx , top , wrttn , zpoint
    EXTERNAL andf , lshift , orf , rshift
 !ZZ   COMMON /ZZXST2/ Z(1)
-   EQUIVALENCE (Y(1,1),Z(1)) , (Buf41,Buf4(1)) , (ibufx(1),buf(26)) , (itape(1),buf(38))
+   !>>>>EQUIVALENCE (Y(1,1),Z(1)) , (Buf41,Buf4(1)) , (ibufx(1),buf(26)) , (itape(1),buf(38))
    DATA head , head4/' I N P U T   B U L K   D A T A   D E C K   E C H O      ' ,                                                   &
        &'     S O R T E D   B U L K    D A T A    E C H O        ' , ' ---1--- +++2+++ ---3--- +++4+++ ---5--- +++6+++ ---7---' ,   &
        &' +++8+++ ---9--- +++10+++   '/ , i25/25/

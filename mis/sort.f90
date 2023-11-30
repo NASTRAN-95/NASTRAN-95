@@ -64,7 +64,7 @@ SUBROUTINE sort(Idum,Jdum,Nr,Keywd,Z,Nwds)
 !
 !     WRITTEN BY G.CHAN/SPERRY, 3/1987
 !
-   EQUIVALENCE (zi,ri) , (zn,rn)
+   !>>>>EQUIVALENCE (zi,ri) , (zn,rn)
    DATA subr/2H   , 2HF  , 2HA  , 2HA8 , 2HA7 , 2H2K/
 !
 !     CHECK ERROR, CHECK DATA TYPE, AND PREPARE FOR SORT

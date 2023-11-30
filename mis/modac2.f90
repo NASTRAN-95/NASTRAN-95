@@ -32,7 +32,7 @@ SUBROUTINE modac2(Nv,Inp1,Iout)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA name/4HMODA , 4HC2  /
 !
 !     ALLOCATE CORE

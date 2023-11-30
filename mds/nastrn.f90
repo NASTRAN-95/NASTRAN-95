@@ -20,7 +20,7 @@ PROGRAM nastrn
    CHARACTER*5 tmp
    CHARACTER*80 value
 !
-   EQUIVALENCE (Isystm,Systm)
+   !>>>>EQUIVALENCE (Isystm,Systm)
    Lenopc = 400000000
 !
 !     SAVE STARTING CPU TIME AND WALL CLOCK TIME IN /SYSTEM/

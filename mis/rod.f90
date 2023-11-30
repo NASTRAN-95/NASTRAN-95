@@ -18,7 +18,7 @@ SUBROUTINE rod
 !     ELEMENT TEMPERATURE AND DEFORMATION LOADING FOR THE ROD, CONROD,
 !     TUBE
 !
-   EQUIVALENCE (Iarry(1),Arry(1)) , (Icstma,Bgpdt(1)) , (Icstmb,Bgpdt(5)) , (Gpida1(1),Bgpdt(2)) , (Gpidb1(1),Bgpdt(6))
+   !>>>>EQUIVALENCE (Iarry(1),Arry(1)) , (Icstma,Bgpdt(1)) , (Icstmb,Bgpdt(5)) , (Gpida1(1),Bgpdt(2)) , (Gpidb1(1),Bgpdt(6))
 !
    nept = 5
    IF ( Eltype==3 ) nept = 4

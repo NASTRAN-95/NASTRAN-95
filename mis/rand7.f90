@@ -16,7 +16,7 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA name/4HRAND , 1H7/
    DATA itlist/2 , 55 , 25 , 1 , 56 , 26 , 5/

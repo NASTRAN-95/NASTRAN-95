@@ -19,7 +19,7 @@ SUBROUTINE frmltx(Ifile,Dz,Dy,Zm)
 !     ADDITIONAL OF A NEW METHOD WHICH IS MORE EFFICIENT, AND IS
 !     ALREADY GOOD FOR VECTORIZATION
 !
-   EQUIVALENCE (dp,idp(1))
+   !>>>>EQUIVALENCE (dp,idp(1))
    DATA nam/4HFRML , 4HTX  /
 !
    n = Ifile(2)

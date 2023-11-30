@@ -70,7 +70,7 @@ SUBROUTINE qdmm1d
 !     ECPT(25)   Z4                                 Z4        REAL
 !     ECPT(26) = ELEMENT TEMPERATURE                ELTEMP    REAL
 !
-   EQUIVALENCE (dict5,dict(5)) , (Ecpt(1),Necpt(1)) , (U(1),Tempar(1))
+   !>>>>EQUIVALENCE (dict5,dict(5)) , (Ecpt(1),Necpt(1)) , (U(1),Tempar(1))
 !
    o(d,v,f,h,p,q,y4a,x12,y34,y3a,x23,x14,eta,tea) = (d+(v*tea)+(f*eta)+(h*tea*eta)+(p*tea*tea)+(q*eta*eta))                         &
     & /((-y4a*x12)+(-y34*x12*eta)+((-y4a*x23)+(y3a*x14))*tea)

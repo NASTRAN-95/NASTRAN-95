@@ -15,8 +15,8 @@ SUBROUTINE gtmat1(Sym,Tt)
 !     THIS SUBROUTINE PROCESSES TRANSFORMATION MATRICES
 !     IT IS CALLED ONLY BY CMSFIL
 !
-   EQUIVALENCE (ecpt1,ecpt(1))
-   EQUIVALENCE (iflag,rflag)
+   !>>>>EQUIVALENCE (ecpt1,ecpt(1))
+   !>>>>EQUIVALENCE (iflag,rflag)
    DATA tid/1. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 1./
    DATA smat/ - 1. , 1. , 1. , 1. , -1. , -1. , 1. , -1. , 1. , -1. , 1. , -1. , 1. , 1. , -1. , -1. , -1. , 1./
    DATA name/4HGTMT , 4H1Z  /

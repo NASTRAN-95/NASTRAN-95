@@ -9,7 +9,7 @@ FUNCTION numtyp(Ivalue)
 !
  
 !
-   EQUIVALENCE (byte,word)
+   !>>>>EQUIVALENCE (byte,word)
 !
 !      WRITE(6,40646) IVALUE
 99001 FORMAT (' NUMTYP,IVALUE=',Z9)

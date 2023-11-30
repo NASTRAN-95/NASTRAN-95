@@ -26,7 +26,7 @@ SUBROUTINE gpwg1b(Mo,Ogpwg,Wtmass,Ipoint)
 !         Q  =  9  D.P.WORDS
 !               78 D.P.WORDS (156 S.P.WORDS) TOTAL
 !
-   EQUIVALENCE (dz(1),z(1),Iz(1))
+   !>>>>EQUIVALENCE (dz(1),z(1),Iz(1))
 !
 !
    DATA name/4HGPWG , 4H1B  /

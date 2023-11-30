@@ -37,7 +37,7 @@ SUBROUTINE cfnor1(Right,Left,Size2,Option,Ri)
 !     RI       = INNER-PRODUCT, OR SQUARE ROOT OF INNER-PRODUCT (SEE
 !                OPTION)
 !
-   EQUIVALENCE (Ksystm(2),Nout)
+   !>>>>EQUIVALENCE (Ksystm(2),Nout)
 !
    skip = .FALSE.
    DO

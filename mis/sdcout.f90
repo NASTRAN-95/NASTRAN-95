@@ -25,7 +25,7 @@ SUBROUTINE sdcout(Block,Irw,Ac,N,Vecs,Vecd)
 !             BY THE NUMBER STORED IN THE CORRESPONDING POSITION IN AC
 !     VECD  = SAME VECTOR AS VECS
 !
-   EQUIVALENCE (Xnd(1),Xns(1))
+   !>>>>EQUIVALENCE (Xnd(1),Xns(1))
 !
    Block(8) = -1
    Block(12) = Irw

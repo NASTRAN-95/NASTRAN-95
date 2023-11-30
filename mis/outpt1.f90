@@ -58,7 +58,7 @@ SUBROUTINE outpt1
    INTEGER korsz
    LOGICAL tapbit
    LOGICAL tapeup
-   EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(15),D(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(15),D(1))
    DATA subnam/4HOUTP , 4HT1  /
    DATA in/101 , 102 , 103 , 104 , 105/
    DATA zero , mone , mtwo , mtre , mfor , mnin/0 , -1 , -2 , -3 , -4 , -9/

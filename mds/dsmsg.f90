@@ -15,8 +15,8 @@ SUBROUTINE dsmsg(Iflag)
    INTEGER blank , i , iii , iname , index , itemp , k , loop , xname(2) , Gino(52)
 !
 !
-   EQUIVALENCE (Ieor,Gino(1))
-   EQUIVALENCE (Isystm(2),Iwr) , (Isystm(151),Nllog) , (Isystm(152),Loglin)
+   !>>>>EQUIVALENCE (Ieor,Gino(1))
+   !>>>>EQUIVALENCE (Isystm(2),Iwr) , (Isystm(151),Nllog) , (Isystm(152),Loglin)
 !
    DATA blank/1H /
    DATA iname/4HDSMS/

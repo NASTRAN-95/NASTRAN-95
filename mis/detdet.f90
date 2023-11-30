@@ -28,7 +28,7 @@ SUBROUTINE detdet(Deta,Ipowr1,P,Sml1,Oldd,Iold)
 !
 !
 !
-   EQUIVALENCE (Ksystm(2),Otpe)
+   !>>>>EQUIVALENCE (Ksystm(2),Otpe)
 !
    DATA sdet/4HSDET/
 !

@@ -25,7 +25,7 @@ SUBROUTINE remflx(Ngrids)
 !     CHECK FOR REMFLUX IN MAGNETIC FIELD PROBLEMS WHEN COMPUTING
 !     PROLATE SPHEROIDAL COEFFICIENTS
 !
-   EQUIVALENCE (Z(1),Iz(1)) , (ecpt(1),necpt(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (ecpt(1),necpt(1))
    DATA remfld , hest , mpt , dit , scr1/107 , 108 , 109 , 110 , 301/
    DATA nam/4HREMF , 4HLX  /
 !

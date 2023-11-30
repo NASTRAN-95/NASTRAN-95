@@ -14,7 +14,7 @@ SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
    REAL alph , ch , delp , pnew
    INTEGER i , icp , irr , kpl , nmes , np
 !
-   EQUIVALENCE (Core(1),Z(1),Max) , (Eps,Z(2)) , (Gama,Z(3)) , (Iprnt,Z(7)) , (Iy(1),Y(1),Z(8))
+   !>>>>EQUIVALENCE (Core(1),Z(1),Max) , (Eps,Z(2)) , (Gama,Z(3)) , (Iprnt,Z(7)) , (Iy(1),Y(1),Z(8))
 !     EQUIVALENT ARE  (IPR,PR)
 !
    nmes = 0

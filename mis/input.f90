@@ -28,8 +28,8 @@ SUBROUTINE input
 !     INPUT I1,I2,I3,I4,I5/O1,O2,O3,O4,O5/C,N,-V1-/C,N,-V2-/C,N,-V3- $
 !
 !
-   EQUIVALENCE (Ksystm(1),Nbuf) , (Ksystm(2),Nout) , (Ksystm(4),Nin) , (Ksystm(12),Nlines) , (Ksystm(57),Modcom(1)) ,               &
-    & (Ksystm(95),Sperlk) , (qk(1),k(1)) , (X(1),Ix(1)) , (kdsort(1),k1(1)) , (kdsort(101),k2(1)) , (kdsort(201),k3(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Nbuf) , (Ksystm(2),Nout) , (Ksystm(4),Nin) , (Ksystm(12),Nlines) , (Ksystm(57),Modcom(1)) ,               &
+!>>>>    & (Ksystm(95),Sperlk) , (qk(1),k(1)) , (X(1),Ix(1)) , (kdsort(1),k1(1)) , (kdsort(101),k2(1)) , (kdsort(201),k3(1))
 !
    DATA cord2c/2001 , 20/
    DATA mnam/4HINPU , 4HT   /

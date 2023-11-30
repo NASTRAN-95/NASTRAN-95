@@ -17,7 +17,7 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
 !     ROUTINE ANALIZES CASECC AND SLT TO BUILD LISTS OF SELECTED
 !     LOADS
 !
-   EQUIVALENCE (Icore(1),Core(1))
+   !>>>>EQUIVALENCE (Icore(1),Core(1))
    DATA name/4HSSG1 , 4HA   /
    DATA name1/4HSLT  , 4HSSG1/
 !

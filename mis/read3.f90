@@ -25,7 +25,7 @@ SUBROUTINE read3(Novect,Ncol,Sr1fil,Sr2fil,Filc,Kdblm)
 !     ZERO OUT RIGID BODY FREQUENCIES IF METHOD IS 'FEER' (NOT 'FEER-X'
 !     NOR 'FEER-Q')
 !
-   EQUIVALENCE (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1))
    DATA feer , dashz/4HFEER , 4H-X  /
    DATA nam/4HREAD , 4H3   / , i2/2/
 !

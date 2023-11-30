@@ -21,7 +21,7 @@ SUBROUTINE dumper
 !
 !     THIS SUBROUTINE DUMPS THE OSCAR
 !
-   EQUIVALENCE (Vps(1),Avps(1)) , (dprec,ra(1)) , (dprec1,ra(3)) , (oscar(1),roscar(1),Os(5)) , (Core(1),Os(1)) , (Iosbot,Os(3))
+   !>>>>EQUIVALENCE (Vps(1),Avps(1)) , (dprec,ra(1)) , (dprec1,ra(3)) , (oscar(1),roscar(1),Os(5)) , (Core(1),Os(1)) , (Iosbot,Os(3))
    DATA mask1 , mask2 , mask3 , mask4 , mask5/32767 , 32768 , 1073676288 , 1073741824 , 983040/
    DATA con1 , con2/4HCONS , 4HTANT/
    DATA ihd/2*4H     , 4H COS , 4HMIC  , 4H/ NA , 4HSTRA , 4HN DM , 4HAP C , 4HOMPI , 4HLER  , 4H- OS , 4HCAR  , 4HLIST , 4HING  ,  &

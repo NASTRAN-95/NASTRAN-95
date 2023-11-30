@@ -29,12 +29,12 @@ SUBROUTINE xsosgn
          & oscar , rept , scrn1 , scrn2 , scrn3
    EXTERNAL andf , lshift , orf , rshift
 !     LOGICAL         DEC
-   EQUIVALENCE (Dpd(1),Dnaf) , (Fiat(1),Funlg) , (File(1),Fequ(1)) , (File(1),Ford(1)) , (block(8),block1(1))
-   EQUIVALENCE (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,               &
-    & (Sos(2),Sdbn(1)) , (Sos(4),Sal(1),Sntu(1),Sord(1)) , (Comm(1),Almsk) , (Comm(2),Apndmk) , (Comm(3),Cursno) , (Comm(4),Entn1) ,&
-    & (Comm(5),Entn2) , (Comm(6),Entn3) , (Comm(7),Entn4) , (Comm(8),Flag) , (Comm(9),Fnx) , (Comm(10),Lmsk) , (Comm(11),Lxmsk) ,   &
-    & (Comm(13),Rmsk) , (Comm(14),Rxmsk) , (Comm(15),S) , (Comm(16),Scornt) , (Comm(17),Tapmsk) , (Comm(19),Zap) ,                  &
-    & (Xf1at(1),Fntu(1),Fon(1))
+   !>>>>EQUIVALENCE (Dpd(1),Dnaf) , (Fiat(1),Funlg) , (File(1),Fequ(1)) , (File(1),Ford(1)) , (block(8),block1(1))
+   !>>>>EQUIVALENCE (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,               &
+!>>>>    & (Sos(2),Sdbn(1)) , (Sos(4),Sal(1),Sntu(1),Sord(1)) , (Comm(1),Almsk) , (Comm(2),Apndmk) , (Comm(3),Cursno) , (Comm(4),Entn1) ,&
+!>>>>    & (Comm(5),Entn2) , (Comm(6),Entn3) , (Comm(7),Entn4) , (Comm(8),Flag) , (Comm(9),Fnx) , (Comm(10),Lmsk) , (Comm(11),Lxmsk) ,   &
+!>>>>    & (Comm(13),Rmsk) , (Comm(14),Rxmsk) , (Comm(15),S) , (Comm(16),Scornt) , (Comm(17),Tapmsk) , (Comm(19),Zap) ,                  &
+!>>>>    & (Xf1at(1),Fntu(1),Fon(1))
    DATA jump/4HJUMP/ , rept/4HREPT/ , cond/4HCOND/
    DATA oscar/4HPOOL/ , scrn1 , scrn2/4HSCRA , 4HTCH0/
    DATA nsosgn/4HXSOS , 2HGN/

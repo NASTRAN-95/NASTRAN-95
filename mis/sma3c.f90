@@ -22,7 +22,7 @@ SUBROUTINE sma3c(Iflag,K)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA name/4HSMA3 , 4HC   /
 !
 !     IUI IS POINTER TO UI SET, IUD IS POINTER TO UD SET

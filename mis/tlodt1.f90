@@ -37,9 +37,9 @@ SUBROUTINE tlodt1(Treal,Tint)
 !     EQUIVALENCE IECPT WITH ECPT IN COMMON BLOCK /SMA1ET/ SINCE ECPT IS
 !     A MIXED INTEGER AND REAL ARRAY
 !
-   EQUIVALENCE (thk1,tmem1) , (thk2,tmem3) , (thk3,tmem5) , (A,Dista) , (B,Distb) , (C,Distc) , (Iest(1),Est(1)) , (C1,Cc(1)) ,     &
-    & (C2,Cc(2)) , (C3,Cc(3)) , (C4,Cc(4)) , (C5,Cc(5)) , (C6,Cc(6)) , (C7,Cc(7)) , (C8,Cc(8)) , (C9,Cc(9)) , (C10,Cc(10)) ,        &
-    & (D(1),D1) , (D(2),D2) , (D(3),D3) , (Dd(1),D(1))
+   !>>>>EQUIVALENCE (thk1,tmem1) , (thk2,tmem3) , (thk3,tmem5) , (A,Dista) , (B,Distb) , (C,Distc) , (Iest(1),Est(1)) , (C1,Cc(1)) ,     &
+!>>>>    & (C2,Cc(2)) , (C3,Cc(3)) , (C4,Cc(4)) , (C5,Cc(5)) , (C6,Cc(6)) , (C7,Cc(7)) , (C8,Cc(8)) , (C9,Cc(9)) , (C10,Cc(10)) ,        &
+!>>>>    & (D(1),D1) , (D(2),D2) , (D(3),D3) , (Dd(1),D(1))
    DATA blank , nam/4H     , 4HTRPL , 4HT1  /
    DATA xpower/0 , 1 , 0 , 2 , 1 , 0 , 3 , 2 , 1 , 0 , 4 , 3 , 2 , 1 , 0 , 5 , 3 , 2 , 1 , 0/
    DATA ypower/0 , 0 , 1 , 0 , 1 , 2 , 0 , 1 , 2 , 3 , 0 , 1 , 2 , 3 , 4 , 0 , 2 , 3 , 4 , 5/

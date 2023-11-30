@@ -61,7 +61,7 @@ SUBROUTINE pktrms(Ntype)
 !     ECPT(20) = Z3                                  Z3        REAL
 !     ECPT(21) = ELEMENT TEMPERATURE                 ELTEMP    REAL
 !
-   EQUIVALENCE (Consts(4),Degra) , (G(1),Tempar(19)) , (Ecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (G(1),Tempar(19)) , (Ecpt(1),Necpt(1))
 !
 !     SET UP THE E MATRIX WHICH IS (3X2) FOR THE TRI-MEMBRANE
 !

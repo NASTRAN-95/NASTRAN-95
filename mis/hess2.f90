@@ -14,8 +14,8 @@ SUBROUTINE hess2(Nrow,Iden,Ipv)
 !
 !
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf)
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf)
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
 ! ----------------------------------------------------------------------
 !

@@ -61,15 +61,15 @@ SUBROUTINE tordrd
 !
 !
 !
-   EQUIVALENCE (dict5,dict(5))
-   EQUIVALENCE (Iecpt(1),Ecpt(1),Idel)
-   EQUIVALENCE (Constd(2),Twopi)
-   EQUIVALENCE (Constd(4),Degrad)
-   EQUIVALENCE (gambqf(1),gambq(1))
-   EQUIVALENCE (gambqm(1),gambq(73))
-   EQUIVALENCE (delint(1),gambq(1))
-   EQUIVALENCE (gamrs(1),gambq(1))
-   EQUIVALENCE (r1,r(1)) , (r2,r(2)) , (z1,z(1)) , (z2,z(2))
+   !>>>>EQUIVALENCE (dict5,dict(5))
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1),Idel)
+   !>>>>EQUIVALENCE (Constd(2),Twopi)
+   !>>>>EQUIVALENCE (Constd(4),Degrad)
+   !>>>>EQUIVALENCE (gambqf(1),gambq(1))
+   !>>>>EQUIVALENCE (gambqm(1),gambq(73))
+   !>>>>EQUIVALENCE (delint(1),gambq(1))
+   !>>>>EQUIVALENCE (gamrs(1),gambq(1))
+   !>>>>EQUIVALENCE (r1,r(1)) , (r2,r(2)) , (z1,z(1)) , (z2,z(2))
 !
 !
 ! ----------------------------------------------------------------------

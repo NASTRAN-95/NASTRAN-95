@@ -31,7 +31,7 @@ SUBROUTINE trht
 !     ICR6 IS A MATRIX
 !     ICR3,ICR4,ICR7 ARE DECOMP SCRATCH FILES
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Z(1),Iz(1))
    DATA casexx , usetd , nlft , dit , gptt , kdd , bdd , rdd , pd , trl/101 , 102 , 103 , 104 , 105 , 106 , 107 , 108 , 109 , 110/ ,&
       & udvt , pnld , iscr1 , iscr2 , iscr3 , iscr4 , iscr5 , iscr6 , iscr7/201 , 202 , 301 , 302 , 303 , 304 , 305 , 306 , 307/
    DATA name/4HTRD  , 4H    / , nb/8/

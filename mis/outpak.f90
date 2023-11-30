@@ -9,7 +9,7 @@ SUBROUTINE outpak(Ii,Iout,Isn)
    INTEGER klshft , krshft , orf
    EXTERNAL orf
 !
-   EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline) , (Ksys(41),Ncpw)
+   !>>>>EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline) , (Ksys(41),Ncpw)
    DATA number/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H0/
    DATA nblank/4H    /
 !

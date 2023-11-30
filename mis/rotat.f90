@@ -13,7 +13,7 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
    INTEGER bar , elid , esym , gpts(12) , i , iel , ielmt , ig1 , ig2 , ig3 , irdect , irec , ishear , isub , isym(13) , it ,       &
          & itype , j , k , m , more , n , ngppe , norm , nwds , offset , types(13)
 !
-   EQUIVALENCE (rec1(3),itype) , (rec1(4),isub) , (rec1(5),time) , (rec1(6),eigen) , (rec1(10),nwds)
+   !>>>>EQUIVALENCE (rec1(3),itype) , (rec1(4),isub) , (rec1(5),time) , (rec1(6),eigen) , (rec1(10),nwds)
    DATA types/6 , 7 , 8 , 9 , 15 , 16 , 17 , 18 , 19 , 62 , 63 , 64 , 83/
    DATA isym/2HT1 , 2HTB , 2HTP , 2HTM , 2HQP , 2HQM , 2HT2 , 2HQ2 , 2HQ1 , 2HM1 , 2HM2 , 2HQ4 , 2HT3/ , esym/2H  / , bar/2HBR/
 !

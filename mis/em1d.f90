@@ -61,8 +61,8 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     INCR   = MAX NO OF WORDS FOR AN ELEMENT OF THE ES T TABLE
 !     NE(1 AND2) = ELEMENT NAME
 !
-   EQUIVALENCE (ibuf(1),buf(1)) , (sc(1),isc(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(56),Ithrml) , (Ecpt(1),Necpt(1))&
-    & , (Z(1),Iz(1)) , (Nsil(1),Necpt(2))
+   !>>>>EQUIVALENCE (ibuf(1),buf(1)) , (sc(1),isc(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(56),Ithrml) , (Ecpt(1),Necpt(1))&
+!>>>>    & , (Z(1),Iz(1)) , (Nsil(1),Necpt(2))
    DATA nam/4H  EM , 4H1D  /
    DATA scr6/306/
 !

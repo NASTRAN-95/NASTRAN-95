@@ -31,8 +31,8 @@ SUBROUTINE rcovc
 !     RCOVC COMPUTES REACTION FORCES AND GENERATES OUTPUT DATA BLOCKS
 !     FOR DISPLACEMENTS, APPLIED LOADS, AND REACTION FORCES.
 !
-   EQUIVALENCE (Buf(1),Z(1))
-   EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1)) , (idbuf(1),rdbuf(1))
+   !>>>>EQUIVALENCE (Buf(1),Z(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Buf(1),Rbuf(1)) , (idbuf(1),rdbuf(1))
    DATA casess , ougv1 , opg1 , oqg1 , scr1 , pg , scr3 , scr6 , scr7 , scr8 , scr2/101 , 201 , 202 , 203 , 301 , 105 , 303 , 306 , &
       & 307 , 308 , 302/
    DATA srd/1/

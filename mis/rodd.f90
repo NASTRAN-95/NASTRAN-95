@@ -56,7 +56,7 @@ SUBROUTINE rodd
 !     THIS IS INTENDED AS AN EXAMPLE. NORMALLY FOR SMALL ARRAYS
 !     LOCAL VARIABLES MAY BE USED.
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat) , (Eid,Est(1),Iest(1)) , (Cp,Kcon)
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (Ksystm(56),Iheat) , (Eid,Est(1),Iest(1)) , (Cp,Kcon)
 !
 !     FOR DOUBLE PRECISION THE POINTERS TO OPEN CORE MUST BE MODIFIED.
 !

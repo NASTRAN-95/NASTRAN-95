@@ -73,8 +73,8 @@ SUBROUTINE ktrm6d
 !     EST(37) = COORDINATE Z6                           REAL
 !     EST(38) TO EST (43) = ELEMENT TEMPERATURES AT SIX GRID POINTS
 !
-   EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cc(1),c1) , (cc(2),c2) , (cc(3),c3) , (krt(1),ktr(1,1)) , (krt1(1),ktr1(1,1)) , &
-    & (Est(1),Iest(1)) , (Ksystm(2),Ioutpt) , (gkt(1,1),gktrm(1,1))
+   !>>>>EQUIVALENCE (a,dista) , (b,distb) , (c,distc) , (cc(1),c1) , (cc(2),c2) , (cc(3),c3) , (krt(1),ktr(1,1)) , (krt1(1),ktr1(1,1)) , &
+!>>>>    & (Est(1),Iest(1)) , (Ksystm(2),Ioutpt) , (gkt(1,1),gktrm(1,1))
    DATA xu/0 , 1 , 0 , 2 , 1 , 0 , 6*0/ , yu/0 , 0 , 1 , 0 , 1 , 2 , 6*0/
    DATA xv/6*0 , 0 , 1 , 0 , 2 , 1 , 0/ , yv/6*0 , 0 , 0 , 1 , 0 , 1 , 2/
    DATA rk/0 , 1 , 0/ , sk/0 , 0 , 1/

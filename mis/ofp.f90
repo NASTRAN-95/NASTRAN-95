@@ -37,11 +37,11 @@ SUBROUTINE ofp
    INTEGER phase , point , real(10) , reigen , scan(2) , sort , static , trans , tsave(96) , type
 !WKBI
 !ZZ   COMMON /ZZOFPX/  CORE(1)
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(9),Maxlns) , (Ksystm(12),Line) , (Ksystm(38),Axif) , (Ksystm(56),Itherm)&
-    & , (freal(1),real(1)) , (fimag(1),imag(1)) , (Id(3),ieltyp) , (iout(1),out(1),dout(1)) , (L1,Of(1),Core(1)) , (L2,Of(2)) ,     &
-    & (L3,Of(3)) , (L4,Of(4)) , (L5,Of(5)) , (Id(1),Of(6)) , (Buff(1),Of(56))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(9),Maxlns) , (Ksystm(12),Line) , (Ksystm(38),Axif) , (Ksystm(56),Itherm)&
+   !>>>> & , (freal(1),real(1)) , (fimag(1),imag(1)) , (Id(3),ieltyp) , (iout(1),out(1),dout(1)) , (L1,Of(1),Core(1)) , (L2,Of(2)) ,     &
+   !>>>> & (L3,Of(3)) , (L4,Of(4)) , (L5,Of(5)) , (Id(1),Of(6)) , (Buff(1),Of(56))
 !WKBI
-   EQUIVALENCE (cfmt,fmt)
+   !>>>>EQUIVALENCE (cfmt,fmt)
    DATA pe/4H1P,E/ , pf/4H0P,F/
    DATA e236/4H23.6/ , f236/4H14.1/
    DATA e156/4H15.6/ , f156/4H6.1 /

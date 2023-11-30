@@ -11,8 +11,8 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
          & ngppe , ntype , offset , sils(34) , three(3) , tp
    LOGICAL spill
 !
-   EQUIVALENCE (three(1),iflag) , (three(2),nelmt) , (three(3),igdpt)
-   EQUIVALENCE (kq4,isym(13)) , (kt3,isym(14))
+   !>>>>EQUIVALENCE (three(1),iflag) , (three(2),nelmt) , (three(3),igdpt)
+   !>>>>EQUIVALENCE (kq4,isym(13)) , (kt3,isym(14))
    DATA isym/2HSH , 2HT1 , 2HTB , 2HTP , 2HTM , 2HQP , 2HQM , 2HT2 , 2HQ2 , 2HQ1 , 2HM1 , 2HM2 , 2HQ4 , 2HT3/ , kbar/2HBR/
    DATA itype/4 , 6 , 7 , 8 , 9 , 15 , 16 , 17 , 18 , 19 , 62 , 63 , 64 , 83/
    DATA ntype/14/

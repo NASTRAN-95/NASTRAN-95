@@ -54,7 +54,7 @@ SUBROUTINE pkrod
 !     PLA42 LOCAL VARIABLE (SCRATCH) BLOCK
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
-   EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Plaans,Esub0)
+   !>>>>EQUIVALENCE (Iecpt(1),Ecpt(1)) , (Plaans,Esub0)
 !
 !     BEGIN EXECUTION
 !

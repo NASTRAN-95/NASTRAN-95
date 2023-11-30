@@ -49,7 +49,7 @@ SUBROUTINE fbsf(Zs,Zd)
    INTEGER begn , block(15) , buf1 , buf2 , dbl1 , end , i , icdpsg , icspsg , j , k , k1 , kn , l , last , ll , ln , nbrlod ,      &
          & need , nnn , nnndbl , npass , nterms , nvecs , nwds , opcls , oprd , opwrt , rc , subnam(2) , switch , typel , wds
    LOGICAL ident
-   EQUIVALENCE (Dbl(2),Nl) , (Dbb(5),Typeb) , (Dbx(5),Typex) , (Xd(1),Xs(1)) , (Yd(1),Ys(1))
+   !>>>>EQUIVALENCE (Dbl(2),Nl) , (Dbb(5),Typeb) , (Dbx(5),Typex) , (Xd(1),Xs(1)) , (Yd(1),Ys(1))
    DATA subnam/4HFBSF , 4H    /
    DATA begn/4HBEGN/
    DATA end/4HEND /

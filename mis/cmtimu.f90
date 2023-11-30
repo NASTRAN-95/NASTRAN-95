@@ -16,7 +16,7 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
 !     CM TIM U FORMS THE MATRIX PRODUCT X = M*Y WHERE ALL MAY BE COMPLEX
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR(1)
-   EQUIVALENCE (Ncol,Filek(2))
+   !>>>>EQUIVALENCE (Ncol,Filek(2))
    DATA name/4HCMTI , 4HMU  /
 !
    IF ( File(1)==0 ) THEN

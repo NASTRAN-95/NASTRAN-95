@@ -62,7 +62,7 @@ SUBROUTINE qdmm2d
 !     +  26 = AVERAGE OF CONNECTED GRID TEMPERATURES    +
 !     + + + + + + + + + + + + + + + + + + + + + + + + + +
 !
-   EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1)) , (dict(5),dict5) , (k1sum(1,1),kij(1)) , (Ksystm(56),Iheat)
+   !>>>>EQUIVALENCE (Ksystm(2),Ioutpt) , (Nest(1),Est(1)) , (dict(5),dict5) , (k1sum(1,1),kij(1)) , (Ksystm(56),Iheat)
    DATA map/1 , 2 , 3 , 4 , 2 , 3 , 4 , 1 , 5 , 5 , 5 , 5/
 !
 !     THIS ELEMENT NOT USED IN A HEAT PROBLEM

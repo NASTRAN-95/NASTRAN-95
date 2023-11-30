@@ -20,7 +20,7 @@ SUBROUTINE fbs4(Block,Y,Yn,Nwds)
 !
 !     FBS4 EXECUTES THE FORWARD/BACKWARD PASS FOR FBSF IN CDP
 !
-   EQUIVALENCE (sum1,yjkr) , (sum2,yjki)
+   !>>>>EQUIVALENCE (sum1,yjkr) , (sum2,yjki)
    DATA subnam , begn , end/4HFBS4 , 4HBEGN , 4HEND /
    DATA zero/0.0D+0/
 !

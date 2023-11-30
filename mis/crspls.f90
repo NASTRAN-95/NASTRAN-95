@@ -26,7 +26,7 @@ SUBROUTINE crspls(*,Jump,Mu,Bp,Rs,Again,N23)
          & k , k1 , k2 , khi , klo , kn2 , kx , l , l38 , lastk , ll , mask15 , mcode(2) , msg , name(2) , nd , nm , nogox , ns ,   &
          & nwds , pass , refg , retn , retn1 , retn2 , retn3 , retn4 , sil , sild(6) , sing , times
    LOGICAL debug
-   EQUIVALENCE (Z(1),Iz(1)) , (wt,iwt) , (dl,idl) , (X1,A(1)) , (X2,B(1)) , (X3,C(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (wt,iwt) , (dl,idl) , (X1,A(1)) , (X2,B(1)) , (X3,C(1))
    DATA one , zero , half , eps , times , debug/1.0 , 0.0 , 0.5 , 1.0E-10 , 0 , .FALSE./
    DATA cm , cn , nogox , mask15 , name/6 , 12 , 0 , 32767 , 4HCRSP , 4HLS  /
 !

@@ -28,7 +28,7 @@ SUBROUTINE adr
 !     ADR  UHVT1,CASECC,QKHL,TOL1,SPLINE,SILA,USETA/PKF/V,N,BOV/C,Y,
 !          MACH=0.0/C,N,APP $
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA iaero/176/
    DATA flut/4HFLUT/ , freq/4HFREQ/
    DATA disp/101/ , casecc/102/ , qkhl/103/ , load/104/

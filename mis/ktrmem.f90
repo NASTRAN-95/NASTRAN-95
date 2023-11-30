@@ -39,7 +39,7 @@ SUBROUTINE ktrmem(Ntype)
 !     GMMATD - DOUBLE PRECISION MATRIX MULTIPLY AND TRANSPOSE
 !     MESAGE - ERROR MESSAGE WRITER
 !
-   EQUIVALENCE (Consts(4),Degra) , (G(1),Tempar(19)) , (Ecpt(1),Mecpt(1),Necpt(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (G(1),Tempar(19)) , (Ecpt(1),Mecpt(1),Necpt(1))
 !
 !     ECPT LIST
 !                                                      THIS

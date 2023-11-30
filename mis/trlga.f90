@@ -26,7 +26,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !     WHICH HAS 1 COLUMN FOR EACH FUNCTION OF TIME
 !     AND TO BUILD THE TIME FUNCTION TABLE (FORMAT SHOWN IN TRLGC)
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Z(1),Iz(1)) , (Zb(1),Izb(1))
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Z(1),Iz(1)) , (Zb(1),Izb(1))
    DATA name/4HTRLG , 4HA   / , namt/4HDLT  , 4HTRLG/
    DATA itran1 , minus/4HTRAN , -1 , -1/
 !

@@ -41,8 +41,8 @@ SUBROUTINE ssght
 !            LFILE,UFILE/UGV,QG,RULV/V,N,NLK/V,N,NLR/C,Y,EPS0/C,Y,TABS/
 !            C,Y,MAXITR/C,Y,IRES/V,N,MPCF1/V,N,SINGLE $
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(55),Iprec1) , (buf(1),rbuf(1)) , (Z(1),Rz(1)) , &
-    & (idfalt,defalt)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(10),Tset) , (Ksystm(55),Iprec1) , (buf(1),rbuf(1)) , (Z(1),Rz(1)) , &
+!>>>>    & (idfalt,defalt)
    DATA diagon/.FALSE./
    DATA subr/4HSSGH , 4HT   / , eor , noeor/1 , 0/
    DATA uset , gptt , gm , est , mptfil/101 , 103 , 104 , 105 , 106/

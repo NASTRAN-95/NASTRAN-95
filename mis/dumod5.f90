@@ -131,7 +131,7 @@ SUBROUTINE dumod5
    INTEGER korsz , numtyp
 !WKBNB
 !WKBNE
-   EQUIVALENCE (Z(1),Iz(1)) , (Date(1),Dumm(13))
+   !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Date(1),Dumm(13))
 !WKBI
    DATA ifirst/0/
    DATA tape , irdlmt , id , im , ie , xx , epsi/15 , 5000 , 5001*0 , 1H- , 1H= , 4HXXXX , 1.0E-30/

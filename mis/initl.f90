@@ -22,8 +22,8 @@ SUBROUTINE initl(Offset,Deltt)
 !
 !     THIS ROUTINE IS SUITABLE FOR SINGLE PRECISION OPERATION
 !
-   EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,               &
-    & (Mcbs(21),Beta(1)) , (Mcbs(61),Ifilc(1))
+   !>>>>EQUIVALENCE (Mcbs(1),Ifila(1)) , (Mcbs(8),Itypal) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ifilb(1)) , (Mcbs(20),Itypbt) ,               &
+!>>>>    & (Mcbs(21),Beta(1)) , (Mcbs(61),Ifilc(1))
    DATA name/4HINIT , 4HL   /
 !
    Nomat = 2

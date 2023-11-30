@@ -19,7 +19,7 @@ SUBROUTINE dpd2
 !
 !     DPD2 ASSEMBLES THE DYNAMIC LOADS TABLE (DLT).
 !
-   EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid) , (Scr1,Scr(1)) , (Buf2,Bufx(1))
+   !>>>>EQUIVALENCE (Z(1),Zz(1)) , (Buf(1),Bufr(1)) , (Msg(2),Ngrid) , (Scr1,Scr(1)) , (Buf2,Bufx(1))
 !
 !     OPEN DYNAMICS POOL. SET POINTERS TO LOOP THRU DAREA, DELAY
 !     AND DPHASE TABLES.

@@ -39,10 +39,10 @@ SUBROUTINE conm2s
 !
 !
 !
-   EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid)
-   EQUIVALENCE (dict(5),dict5) , (Ecpt(4),Mb)
-   EQUIVALENCE (Ecpt(5),Xof) , (Ecpt(6),Yof) , (Ecpt(7),Zof)
-   EQUIVALENCE (Iner(1),Ecpt(8))
+   !>>>>EQUIVALENCE (Ecpt(1),Iecpt(1),Ielid)
+   !>>>>EQUIVALENCE (dict(5),dict5) , (Ecpt(4),Mb)
+   !>>>>EQUIVALENCE (Ecpt(5),Xof) , (Ecpt(6),Yof) , (Ecpt(7),Zof)
+   !>>>>EQUIVALENCE (Iner(1),Ecpt(8))
 !
 !     INITIALIZE
 !

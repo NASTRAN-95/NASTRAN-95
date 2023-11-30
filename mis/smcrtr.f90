@@ -15,9 +15,9 @@ SUBROUTINE smcrtr(Zr,Zd)
 !  THE MATRIX TO BE DECOMPOSED.  ISKIP IS THE NUMBER OF TERMS AT THE
 !  BEGINNING OF THE STRING TO SKIP OVER.
 !
-   EQUIVALENCE (Xns,Xnd)
-   EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
-   EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
+   !>>>>EQUIVALENCE (Xns,Xnd)
+   !>>>>EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
+   !>>>>EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
    IF ( Ktype==2 ) THEN
       IF ( Mtype==2 ) THEN
 !

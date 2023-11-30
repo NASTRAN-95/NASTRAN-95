@@ -15,7 +15,7 @@ SUBROUTINE ttlpge(Topt)
    CHARACTER*15 vn
 !
 !
-   EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(42),Idate(1)) , (Ksystm(9),Nlpp) , (Ksystm(11),Ipage) , (Ksystm(91),Lpch)
+   !>>>>EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(42),Idate(1)) , (Ksystm(9),Nlpp) , (Ksystm(11),Ipage) , (Ksystm(91),Lpch)
 !
 !     ASSEMBLE MCHTTL AND VN LINE
 !

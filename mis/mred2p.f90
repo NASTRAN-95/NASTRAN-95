@@ -14,7 +14,7 @@ SUBROUTINE mred2p(Nus,Nuf,N2)
 !     THIS SUBROUTINE OUTPUTS THE HAB MATRIX TO THE SOF AS THE HORG ITEM
 !     FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Hab,Iscr(2)) , (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Hab,Iscr(2)) , (Rz(1),Z(1))
    DATA modnam/4HMRED , 4H2P  /
    DATA item/4HHORG/
 !

@@ -68,8 +68,8 @@ SUBROUTINE xosgen
 !    2                (NTYPEE(5),NPURGE), (NTYPEE(6),NEQUIV)
 !    3                (NTYPEE(7),NCPW  ), (NTYPEE(8),NBPC  )
 !    4                (NTYPEE(9),NWPC  )
-   EQUIVALENCE (namtbl(9),nxpurg)
-   EQUIVALENCE (oscar(1),dmpcrd(1),lbltbl(1),med(1),Os(5)) , (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt)
+   !>>>>EQUIVALENCE (namtbl(9),nxpurg)
+   !>>>>EQUIVALENCE (oscar(1),dmpcrd(1),lbltbl(1),med(1),Os(5)) , (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt)
 !
    DATA xchk/4HXCHK/
    DATA itype/1 , 1 , 2 , 2 , 2 , 4/

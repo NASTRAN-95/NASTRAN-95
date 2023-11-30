@@ -24,7 +24,7 @@ SUBROUTINE solver(Lower,X,B,In,Out,Eps,Ifl,Scr)
 !    2. COMPUTES OUT = IN + B(T)*X
 !    3. IF REQUESTED, COMPUTES EPSILON = NORM(OUT)/NORM(IN)
 !
-   EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Ksystm(2),Ioutpt)
+   !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Ksystm(2),Ioutpt)
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS FOR FORWARD-BACKWARD SOLUTION
 !

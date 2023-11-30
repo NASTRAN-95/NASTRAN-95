@@ -45,8 +45,8 @@ SUBROUTINE cmrd2e(Iter)
 !             GIBBAR - GIB PARTITION MATRIX FILE NUMBER (LEFT SIDE)
 !             UPRT   - USET PARTITIONING VECTOR FILE NUMBER
 !
-   EQUIVALENCE (Him,Iscr(10)) , (Gib,Iscr(6)) , (Uprt,Iscr(7)) , (Gibbar,Iscr(11)) , (Hghbar,Iscr(9)) , (Hgh,Iscr(9)) ,             &
-    & (Himbar,Iscr(8)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
+   !>>>>EQUIVALENCE (Him,Iscr(10)) , (Gib,Iscr(6)) , (Uprt,Iscr(7)) , (Gibbar,Iscr(11)) , (Hghbar,Iscr(9)) , (Hgh,Iscr(9)) ,             &
+!>>>>    & (Himbar,Iscr(8)) , (Rz(1),Z(1)) , (Dz(1),Z(1))
    DATA modnam/4HCMRD , 4H2E  /
    DATA itmlst/4HHORG , 4HHLFT , 4HGIMS , 4HUPRT/
 !

@@ -214,7 +214,7 @@ SUBROUTINE outpt5
    REAL x , zero
 !WKBNB
 !WKBNE
-   EQUIVALENCE (Rz(1),Dz(1),Iz(1))
+   !>>>>EQUIVALENCE (Rz(1),Dz(1),Iz(1))
    DATA binary , formtd , subnam/'BINARY  ' , 'FORMATTD' , 4HOUTP , 2HT5/
    DATA zero , dzero , izero , one , mone , fn/0.0 , 0.0D0 , 0 , 1 , -1 , 30*4H    /
    DATA mtrx , tble , blank/4HMTRX , 4HTBLE , 4H    /

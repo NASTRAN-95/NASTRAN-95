@@ -38,8 +38,8 @@ SUBROUTINE exio1
 !
 !     EXIO1 SERVICES INTERNAL FORMAT FUNCTIONS FOR EXIO.
 !
-   EQUIVALENCE (Cor(1),Z(1))
-   EQUIVALENCE (Time(1),Hours) , (Time(2),Min) , (Time(3),Sec)
+   !>>>>EQUIVALENCE (Cor(1),Z(1))
+   !>>>>EQUIVALENCE (Time(1),Hours) , (Time(2),Min) , (Time(3),Sec)
    DATA tape , disk , sofin , sofout , check/4HTAPE , 4HDISK , 4HSOFI , 4HSOFO , 4HCHEC/ , append , comprs , norewi , rewi ,        &
        &eqf/4HAPPE , 4HCOMP , 4HNORE , 4HREWI , 4HEOF / , all , matric , tables , phase3 , dump/4HALL  , 4HMATR , 4HTABL , 4HPHAS , &
        &4HDUMP/ , restor , whole , rewi2/4HREST , 4HWHOL , 4HESOF , 4HND  / , subr , blank , sof , eoi/4HEXIO , 4H1    , 4H     ,   &

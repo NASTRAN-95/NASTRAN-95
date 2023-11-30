@@ -80,7 +80,7 @@ SUBROUTINE dbase
    REAL freq , ra(1) , rx(200) , t(9)
    INTEGER korsz , numtyp
    INTEGER ofpx , oname(6) , ougv , pid , scr1 , set , sub(2) , subn(3) , symbol
-   EQUIVALENCE (Z(1),Rz(1)) , (b(1),nam(1)) , (a(1),ra(1),a1(3)) , (rx(1),ix(1))
+   !>>>>EQUIVALENCE (Z(1),Rz(1)) , (b(1),nam(1)) , (a(1),ra(1),a1(3)) , (rx(1),ix(1))
    DATA eqexin , bgpdt , geom2 , cstm , scr1 , sub/101 , 102 , 103 , 104 , 301 , 4HDBAS , 4HE   /
    DATA end1 , end2 , end3 , fmt/4H -EN , 2HD- , 2H-- , 4H, UN , 4HFORM , 4HATTE , 1HD/
    DATA fmt1 , mone , blank , bzero , izero , debug/1H, , -1 , 4H     , 4H 0.0 , 4H-0   , .FALSE./

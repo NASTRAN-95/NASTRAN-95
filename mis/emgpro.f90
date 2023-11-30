@@ -43,7 +43,7 @@ SUBROUTINE emgpro(Ibuf)
 !     ELEMENT TYPES CONTRIBUTING TO STIFFNESS, MASS, OR DAMPING MATRICES
 !     WILL BE PROCESSED.
 !
-   EQUIVALENCE (Ksystm(2),Outpt) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Estbuf(1),Estx(1)) , (Iz(1),Z(1))
+   !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec) , (Estbuf(1),Estx(1)) , (Iz(1),Z(1))
    DATA trim6 , trpl1 , trshl/4HCTRI , 4HM6   , 4HCTRP , 4HLT1  , 4HCTRS , 4HHL  /
    DATA scr3 , scr4/303 , 304/
    DATA eor , noeor/1 , 0/ , subr/4HEMGP , 4HRO  /

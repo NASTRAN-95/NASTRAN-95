@@ -79,7 +79,7 @@ SUBROUTINE dcone
 !     ECPT(49) =                  ...                      REAL
 !     ECPT(50) =                  ...                      REAL
 !
-   EQUIVALENCE (G,G12) , (Ecpt(1),Necpt(1)) , (Ecpt(4),Matid1) , (Ecpt(6),Matid2) , (Ecpt(8),Matid3) , (Constd(1),Pi)
+   !>>>>EQUIVALENCE (G,G12) , (Ecpt(1),Necpt(1)) , (Ecpt(4),Matid1) , (Ecpt(6),Matid2) , (Ecpt(8),Matid3) , (Constd(1),Pi)
    DATA na/6*1 , 2*2 , 2*4/
    DATA fac/1.0D0 , 1.0D0 , 2.0D0 , 6.0D0 , 24.0D0 , 120.0D0 , 720.0D0 , 5040.0D0 , 40320.0D0 , 362880.0D0/
    DATA one/1.0D0/

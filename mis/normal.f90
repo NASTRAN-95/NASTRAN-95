@@ -63,7 +63,7 @@ SUBROUTINE normal
 !     THIS MODULE DEVELOPED BY P. R. PAMIDI OF RPK CORPORATION,
 !     MARCH 1988
 !
-   EQUIVALENCE (Iz(1),Z(1),Zd(1)) , (Iopt1,Iopt(1))
+   !>>>>EQUIVALENCE (Iz(1),Z(1),Zd(1)) , (Iopt1,Iopt(1))
    DATA matin , matout/101 , 201/
    DATA isubnm , max , isrss , iblnk , dzero/4HNORM , 4HAL   , 4HMAX  , 4HSRSS , 4H     , 0.0D+0/
 !

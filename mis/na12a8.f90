@@ -12,7 +12,7 @@ SUBROUTINE na12a8(*,A,N,B,Notuse)
    INTEGER cdc , i , j
    CHARACTER*1 t(8)
 !
-   EQUIVALENCE (t(1),temp)
+   !>>>>EQUIVALENCE (t(1),temp)
    DATA blnk/'          '/ , cdc/4/
 !
 !     THESE ROUTTNES CONVERT N A1 BCD WORDS IN A, OR N A1 CHARACTERS IN

@@ -41,9 +41,9 @@ SUBROUTINE asdmap
          & papp , pass , pawd , phase , phs(3) , pitm , poap , poit , posi , pove , ptape , pvec , pwd , r3val(5,5) , r3var(5) ,    &
          & rang , run , scrt , sof , sol , step , subnam(2) , titl , var(3,200)
    EXTERNAL andf , complf , lshift , orf , rshift
-   EQUIVALENCE (Ibuf,Sys(1)) , (Outt,Sys(2)) , (Nogo,Sys(3)) , (Intp,Sys(4)) , (Nlpp,Sys(9)) , (Nlines,Sys(12)) , (Iprec,Sys(55)) , &
-    & (Bandit,Sys(77))
-   EQUIVALENCE (var(1,1),ivar(1,1)) , (itemp(1),ocard(1)) , (Corex(1),Corey(1),Ndbs) , (Corey(2),Z(1))
+   !>>>>EQUIVALENCE (Ibuf,Sys(1)) , (Outt,Sys(2)) , (Nogo,Sys(3)) , (Intp,Sys(4)) , (Nlpp,Sys(9)) , (Nlines,Sys(12)) , (Iprec,Sys(55)) , &
+   !>>>> & (Bandit,Sys(77))
+   !>>>>EQUIVALENCE (var(1,1),ivar(1,1)) , (itemp(1),ocard(1)) , (Corex(1),Corey(1),Ndbs) , (Corey(2),Z(1))
    DATA alt1/4HALTE/ , alt2/4HR   / , asd1/4HASDM , 4HBEGN/ , asd2/4HASDM , 4HEND / , blank/4H    / , case/4HCASE/ , disk/4HDISK/ , &
       & dolsn/4H$   / , dry/4HDRY / , drygo/4HDRYG/ , ends/4HENDS/ , eqsn/4H=   /
    DATA exdef/ - 1 , 0 , 4HTAPE , 4H     , -1 , 0 , 4HINTE , 4H     , 0 , 0 , 4HNORE , 4H     , 4HALL  , 4H     , 4HWHOL , 4HESOF , &

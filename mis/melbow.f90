@@ -51,7 +51,7 @@ SUBROUTINE melbow
 !
 !     INPUT AND OUTPUT BLOCKS FOR SUBROUTINE MAT
 !
-   EQUIVALENCE (Z(1),Iz(1),Dz) , (Ecpt(1),Iecpt(1),Ielid)
+   !>>>>EQUIVALENCE (Z(1),Iz(1),Dz) , (Ecpt(1),Iecpt(1),Ielid)
    DATA dcr/0.01745329/
 !
 !     COMPUTE LENGTH OF ELBOW, FL

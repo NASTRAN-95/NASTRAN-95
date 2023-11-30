@@ -18,7 +18,7 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
    INTEGER card(2) , dtyp(21) , i , icpr , icpt , idp , idpe , idps , idx , ietyp , j1 , j2 , jetyp , m1 , name(2) , npr
    REAL rm1
 !
-   EQUIVALENCE (m1,rm1)
+   !>>>>EQUIVALENCE (m1,rm1)
    DATA name/4H OPT , 4HP1C / , rm1/ - 1.0/
 !
 !      PROPERTY CORRELATOR TO EST DESIGN VARIABLE (100*EST LOCATION).

@@ -30,7 +30,7 @@ SUBROUTINE page2(Lines)
    CHARACTER*30 ahead
    INTEGER fchar , flag , i , in , ll , name(2) , ncmnam , ncmos
    CHARACTER*3 month(12)
-   EQUIVALENCE (Titlex(1),Title(1))
+   !>>>>EQUIVALENCE (Titlex(1),Title(1))
    DATA month/'JAN' , 'FEB' , 'MAR' , 'APR' , 'MAY' , 'JUN' , 'JUL' , 'AUG' , 'SEP' , 'OCT' , 'NOV' , 'DEC'/
    DATA name/4H PAG , 4HE2  /
 !

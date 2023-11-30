@@ -30,7 +30,7 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
    INTEGER lshift , orf , rshift
    LOGICAL pass
    EXTERNAL lshift , orf , rshift
-   EQUIVALENCE (trl(1),mcb(2))
+   !>>>>EQUIVALENCE (trl(1),mcb(2))
    DATA subr/4HPART , 4HN3  /
    DATA pass/.FALSE./
 !

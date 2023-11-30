@@ -26,10 +26,10 @@ SUBROUTINE smcph2(Zi,Zr,Zd)
 ! SETUP IN MEMORY AND/OR THE SPILL BY SMCPH1.
 ! SEE SMCPH1 FOR THE DEFINITION OF SOME OF THE VARIABLES IN /SMCOMX/
 !
-   EQUIVALENCE (Xns,Xnd)
-   EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
-   EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
-   EQUIVALENCE (name,cname)
+   !>>>>EQUIVALENCE (Xns,Xnd)
+   !>>>>EQUIVALENCE (Mblk(6),Mterms) , (Mblk(5),Mstr)
+   !>>>>EQUIVALENCE (Mblk(4),Mrow) , (Mblk(2),Mtype)
+   !>>>>EQUIVALENCE (name,cname)
 !
 !   open core is allocated as follows for the decomposition
 !

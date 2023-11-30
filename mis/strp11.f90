@@ -41,11 +41,11 @@ SUBROUTINE strp11
 !     EQUIVALENCE IECPT WITH ECPT IN COMMON BLOCK /SMA1ET/ SINCE ECPT IS
 !     A MIXED INTEGER AND REAL ARRAY
 !
-   EQUIVALENCE (A,Dista) , (B,Distb) , (C,Distc) , (V1(1),Est(19)) , (V2(1),Est(23)) , (V3(1),Est(27)) , (Iest(1),Est(1)) ,         &
-    & (D11,Em(1)) , (D12,Em(2)) , (D13,Em(3)) , (D22,Em(4)) , (D23,Em(5)) , (D33,Em(6))
-   EQUIVALENCE (Nph1ou(1),Ph1out(1))
-   EQUIVALENCE (Ph1out(401),Index(1,1),Ind(1,1))
-   EQUIVALENCE (Ph1out(1),Qqq(1,1))
+   !>>>>EQUIVALENCE (A,Dista) , (B,Distb) , (C,Distc) , (V1(1),Est(19)) , (V2(1),Est(23)) , (V3(1),Est(27)) , (Iest(1),Est(1)) ,         &
+!>>>>    & (D11,Em(1)) , (D12,Em(2)) , (D13,Em(3)) , (D22,Em(4)) , (D23,Em(5)) , (D33,Em(6))
+   !>>>>EQUIVALENCE (Nph1ou(1),Ph1out(1))
+   !>>>>EQUIVALENCE (Ph1out(401),Index(1,1),Ind(1,1))
+   !>>>>EQUIVALENCE (Ph1out(1),Qqq(1,1))
    DATA degra/0.0174532925/
    DATA blank , name/4H     , 4HCTRP , 4HLT1 /
 !

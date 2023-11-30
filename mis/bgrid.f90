@@ -29,7 +29,7 @@ SUBROUTINE bgrid
 !     MAXGRD AND MAXDEG CONSTANTS.
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !
-   EQUIVALENCE (Nout,Isys(2))
+   !>>>>EQUIVALENCE (Nout,Isys(2))
    DATA igeom1 , igeom2 , igeom4 , iscr1/201 , 208 , 210 , 301/
    DATA kdimx , nelx , neqx , neqrx/150 , 0 , 0 , 0/
    DATA grid , seqgp , sub/4501 , 45 , 53 , 4HBGRI , 4HD   /

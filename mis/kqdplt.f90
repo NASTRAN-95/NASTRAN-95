@@ -36,8 +36,8 @@ SUBROUTINE kqdplt
 !           GMMATD - GENERAL MATRIX MULITPLY AND TRANSPOSE ROUTINE
 !           MESAGE - ERROR MESSAGE WRITER
 !
-   EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1,1),Requiv(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) ,                &
-    & (Vq3(1),Ecpt(23)) , (Vq4(1),Ecpt(27)) , (A(1),Kout(1))
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1,1),Requiv(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) ,                &
+!>>>>    & (Vq3(1),Ecpt(23)) , (Vq4(1),Ecpt(27)) , (A(1),Kout(1))
    DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
 !
 !

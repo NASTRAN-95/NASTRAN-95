@@ -12,8 +12,8 @@ SUBROUTINE mred2m(Nuf,N2,Nus)
 !
 !     THIS SUBROUTINE FORMS THE HK MATRIX FOR THE MRED2 MODULE.
 !
-   EQUIVALENCE (Hk,Iscr(2)) , (Ident,Iscr(8)) , (Hkpg,Iscr(3)) , (Phi12i,Iscr(8)) , (Cprtn,Iscr(9)) , (Rprtn,Iscr(9))
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Hk,Iscr(2)) , (Ident,Iscr(8)) , (Hkpg,Iscr(3)) , (Phi12i,Iscr(8)) , (Cprtn,Iscr(9)) , (Rprtn,Iscr(9))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA modnam/4HMRED , 4H2M  /
 !
 !     FORM HK MATRIX

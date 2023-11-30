@@ -38,7 +38,7 @@ SUBROUTINE ta1ca(Koz)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
 !
 !

@@ -24,10 +24,10 @@ SUBROUTINE mpy3ic(Z,Iz,Dz)
 !
 !     IN-CORE PRODUCT.
 !
-   EQUIVALENCE (Isavp,Zpntrs(1)) , (Nsavp,Zpntrs(2)) , (Ipoint,Zpntrs(3)) , (Npoint,Zpntrs(4)) , (Iacols,Zpntrs(5)) ,               &
-    & (Nacols,Zpntrs(6)) , (Itrans,Zpntrs(7)) , (Ntrans,Zpntrs(8)) , (Ic,Zpntrs(9)) , (Nc,Zpntrs(10)) , (Ibcols,Zpntrs(11)) ,       &
-    & (Nbcols,Zpntrs(12)) , (Ibcid,Zpntrs(13)) , (Nbcid,Zpntrs(14)) , (Ibntu,Zpntrs(15)) , (Nbntu,Zpntrs(16)) , (Iktbp,Zpntrs(17)) ,&
-    & (Nktbp,Zpntrs(18)) , (Iantu,Zpntrs(19)) , (Nantu,Zpntrs(20)) , (Iakj,Zpntrs(21)) , (Nakj,Zpntrs(22))
+   !>>>>EQUIVALENCE (Isavp,Zpntrs(1)) , (Nsavp,Zpntrs(2)) , (Ipoint,Zpntrs(3)) , (Npoint,Zpntrs(4)) , (Iacols,Zpntrs(5)) ,               &
+!>>>>    & (Nacols,Zpntrs(6)) , (Itrans,Zpntrs(7)) , (Ntrans,Zpntrs(8)) , (Ic,Zpntrs(9)) , (Nc,Zpntrs(10)) , (Ibcols,Zpntrs(11)) ,       &
+!>>>>    & (Nbcols,Zpntrs(12)) , (Ibcid,Zpntrs(13)) , (Nbcid,Zpntrs(14)) , (Ibntu,Zpntrs(15)) , (Nbntu,Zpntrs(16)) , (Iktbp,Zpntrs(17)) ,&
+!>>>>    & (Nktbp,Zpntrs(18)) , (Iantu,Zpntrs(19)) , (Nantu,Zpntrs(20)) , (Iakj,Zpntrs(21)) , (Nakj,Zpntrs(22))
    DATA name/4HMPY3 , 4HIC  /
 !
 !

@@ -15,9 +15,9 @@ SUBROUTINE wrtmsg(Filex)
 !
 !WKBI
 !WKBI
-   EQUIVALENCE (formt,for)
-   EQUIVALENCE (xlst,lst)
-   EQUIVALENCE (Sysx(2),Mo) , (Sysx(9),Maxlin) , (Sysx(12),Count) , (Sysx(39),Nbpc) , (Sysx(40),Nbpw) , (Sysx(41),Ncpw)
+   !>>>>EQUIVALENCE (formt,for)
+   !>>>>EQUIVALENCE (xlst,lst)
+   !>>>>EQUIVALENCE (Sysx(2),Mo) , (Sysx(9),Maxlin) , (Sysx(12),Count) , (Sysx(39),Nbpc) , (Sysx(40),Nbpw) , (Sysx(41),Ncpw)
    DATA lstmax , rew , formax , blank/50 , 1 , 100 , 4H    /
 !
    n2cpw = Ncpw/2

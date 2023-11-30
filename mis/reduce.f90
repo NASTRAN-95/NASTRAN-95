@@ -38,7 +38,7 @@ SUBROUTINE reduce
    INTEGER ngrp , nhbgss , nhcstm , nheqss , nhplts , nipnew , nnew , nnn , no , nout , nrec , nrsid , nset , nsid , nw , nwbs ,    &
          & nwds , nwdscc , nz , nzwd , papp , prtopt , pvx , score , scr1 , scr2 , usx
    EXTERNAL andf , lshift , orf , rshift
-   EQUIVALENCE (Rz(1),Z(1))
+   !>>>>EQUIVALENCE (Rz(1),Z(1))
    DATA ihd/4H     , 8*4H**** , 4H S U , 4H B S , 4H T R , 4H U C , 4H T U , 4H R E , 4H     , 4HM O  , 4HD U  , 4HL E  , 4H   R ,  &
        &4H E D , 4H U C , 4H E * , 9*4H**** , 64*4H    /
    DATA nheqss , nhbgss , nhcstm , nhplts/4HEQSS , 4HBGSS , 4HCSTM , 4HPLTS/

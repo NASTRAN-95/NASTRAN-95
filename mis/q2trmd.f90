@@ -56,8 +56,8 @@ SUBROUTINE q2trmd(Ra,Rb,Rc,Alpha,Isinth,Icosth,Gsube,It,Ierror,Iopt,Kmat,Pmat,Sm
 !
 !
 !
-   EQUIVALENCE (c(1,1),ca(1)) , (c(1,3),cb(1)) , (c(1,5),cc(1))
-   EQUIVALENCE (e(1),ivec(1)) , (e(4),jvec(1)) , (e(7),kvec(1))
+   !>>>>EQUIVALENCE (c(1,1),ca(1)) , (c(1,3),cb(1)) , (c(1,5),cc(1))
+   !>>>>EQUIVALENCE (e(1),ivec(1)) , (e(4),jvec(1)) , (e(7),kvec(1))
 !
    DATA ipart/28 , 46 , 1 , 37 , 55 , 10 , 0 , 0 , 19/
 !

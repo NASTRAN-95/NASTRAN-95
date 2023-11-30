@@ -19,7 +19,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
 !
 !
 !
-   EQUIVALENCE (Z(1),Iz(1))
+   !>>>>EQUIVALENCE (Z(1),Iz(1))
 !
    DATA nam/4HGUST , 1H2/
    DATA nhnju , nhacj/4HNJU  , 4HACJ /

@@ -37,7 +37,7 @@ SUBROUTINE detgbs(Iy,Iobuf,Kcount)
 !     NROW   = MATRIX SIZE
 !     KCOUNT = EIGENVALUE COUNTER
 !
-   EQUIVALENCE (Core(1),X(1),Dx(1),Y(1),Dy(1)) , (xmin,dxmin) , (sdiag,dsdiag) , (A(1),Da(1))
+   !>>>>EQUIVALENCE (Core(1),X(1),Dx(1),Y(1),Dy(1)) , (xmin,dxmin) , (sdiag,dsdiag) , (A(1),Da(1))
    DATA parm(3) , parm(4)/4HDETG , 4HFBS /
 !
    fileu(1) = Fc(1)

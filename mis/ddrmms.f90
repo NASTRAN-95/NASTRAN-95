@@ -15,7 +15,7 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
    REAL cprim , delta , fint1 , temp
    EXTERNAL andf
 !
-   EQUIVALENCE (int1,fint1) , (Ieltmp,Eltemp)
+   !>>>>EQUIVALENCE (int1,fint1) , (Ieltmp,Eltemp)
    DATA int1/1/ , est/109/ , mpt/110/ , dit/111/ , elm/1 , 3 , 10 , 34/ , mtd/4 , 4 , 4 , 16/ , tmp/17 , 16 , 17 , 42/ , wrd/17 ,   &
       & 16 , 17 , 42/
 !
