@@ -2,7 +2,7 @@ import re
 import sys
 
 comment1 = r"""!
-!.*argument declarations
+!.*argument declarations.*
 !
 """
 
