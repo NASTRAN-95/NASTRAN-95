@@ -23,7 +23,7 @@ with open(file_path, 'r') as file:
             line = comment
         code += line
 
-lst, _ = match_nested(code, matching= { "(" : ")", "'" : "'" })
+lst, _ = match_nested(code, matching= { "(" : ")" })
 
 def apply_list_recursive(lst, regex, func):
     for index, item in enumerate(lst):
