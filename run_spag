@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+# This is a script to transform each source file separately,
+# to an isolated folder. This way we guarantee that the modules
+# generation strictly matches the layout of the (former) COMMON
+# blocks in the same file, and are not overwriteen by the other
+# possibly mismatching generations for the other source files.
+#
+# The script implements some error tolerance. If the default version
+# of SPAG (8.01) does not properly eliminate the COMMON blocks,
+# the generation with previous SPAG version 7.61 is attempted.
+# If it does not crash, then it is used instead.
+#
+# Finding common sense between the modules generated for different
+# files is a separate problem created by the non-strict nature of
+# COMMON blocks.
+# XXX Be sure to not let the SPAG to shuffle the declarations in
+# modules, so that they remain in order and could be matched.
+
+my($cmd) = "~/nasa/spag/spag";
+my($cmd761) = "~/nasa/spag-7.61/spag";
+
+my(@bd) = split("\n", `find bd -name "*.f90"`);
+my(@mds) = split("\n", `find mds -name "*.f90"`);
+my(@mis) = split("\n", `find mis -name "*.f90"`);
+
+my(@files) = (@bd, @mds, @mis);
+foreach $file (@files)
+{
+	my($name) = $file;
+	$name =~ s/\.f90$//g;
+	#$name =~ s/^.*\///g;
+	system("$cmd $file");
+	system("mkdir -p source/$name && rm -rf source/$name");
+	system("mv SPAGged source/$name");
+	my($has_commons) = `cd source/$name && grep COMMON *`;
+	if (($has_commons !~ m/\!.*COMMON.*/) and ($has_commons =~ m/.*COMMON.*/))
+	{
+		#die "Has commons: $has_commons";
+
+		# Re-run with SPAG 7.61
+		system("$cmd761 $file");
+		system("mv SPAGged/* source/$name/");
+		system("rm -rf SPAGged");
+		
+		# TODO Count fallbacks
+	}
+}
+
+my($still_has_commons) = join('', `cd source && grep "^\\s*COMMON /" * -R`);
+if ($still_has_commons =~ m/.*COMMON.*/)
+{
+	print "The following files still have COMMON blocks that $cmd and $cmd761 were not able to eliminate:\n";
+	print "$still_has_commons\n";
+}
