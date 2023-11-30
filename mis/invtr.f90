@@ -1,5 +1,5 @@
 
-SUBROUTINE invtr(*,X,Dx)
+SUBROUTINE invtr(X,Dx) !HIDESTARS (*,X,Dx)
    IMPLICIT NONE
    REAL A(4) , Prc(2)
    DOUBLE PRECISION Da(2)

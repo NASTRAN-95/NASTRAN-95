@@ -955,7 +955,7 @@ SUBROUTINE dummy
 !     DUMMY ROUTINES REFERENCED ONLY IN LINK 2, ALL MACHINES
 ! ****
 !
-   ENTRY pdumi(*,*,*,I,J,K,L,M,N,O)
+   ENTRY pdumi(I,J,K,L,M,N,O) !HIDESTARS (*,*,*,I,J,K,L,M,N,O)
    name = 'PDUMI'
 !
 ! ****

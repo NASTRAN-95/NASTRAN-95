@@ -1,5 +1,5 @@
 
-SUBROUTINE fwdrec(*,File)
+SUBROUTINE fwdrec(File) !HIDESTARS (*,File)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INTEGER File

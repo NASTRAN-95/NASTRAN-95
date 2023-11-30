@@ -1,5 +1,5 @@
 
-SUBROUTINE sdcins(*,Block,Ac,N,Vecs,Vecd)
+SUBROUTINE sdcins(Block,Ac,N,Vecs,Vecd) !HIDESTARS (*,Block,Ac,N,Vecs,Vecd)
    IMPLICIT NONE
    INTEGER Nout , Prc(2) , Rlcmpx(4) , Words(4)
    REAL Sysbuf , Xns(1)

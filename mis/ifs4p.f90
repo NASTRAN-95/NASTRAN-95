@@ -1,5 +1,5 @@
 
-SUBROUTINE ifs4p(*,*,*)
+SUBROUTINE ifs4p() !HIDESTARS (*,*,*)
    IMPLICIT NONE
    LOGICAL Abort , Baddat , Badfor , Fphys1 , Lflsym , Lharm
    REAL Gc(7) , Slotdf(5) , Z(100)

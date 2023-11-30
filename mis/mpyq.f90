@@ -705,7 +705,7 @@ SUBROUTINE mpyq(Z)
    ENDIF
 !
 !
-   ENTRY mpy3t(*,Aas,Aad,Dds,Ddd)
+   ENTRY mpy3t(Aas,Aad,Dds,Ddd) !HIDESTARS (*,Aas,Aad,Dds,Ddd)
 !     ===============================
 !
 !     METHOD 3 (TRANSPOSE ONLY)

@@ -1,5 +1,5 @@
 
-SUBROUTINE detm3(*,*,*)
+SUBROUTINE detm3() !HIDESTARS (*,*,*)
    IMPLICIT NONE
    DOUBLE PRECISION Det(1) , Det1(4) , Detx(4) , P(4) , Ps(1) , Ps1(4) , Psave(1)
    REAL Epsi , Fact1 , Rmax , Rmin , Rminr , Sml1

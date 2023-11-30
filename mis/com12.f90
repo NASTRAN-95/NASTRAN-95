@@ -1,5 +1,5 @@
 
-SUBROUTINE com12(*,Ix,X,Dx,Itermm)
+SUBROUTINE com12(Ix,X,Dx,Itermm) !HIDESTARS (*,Ix,X,Dx,Itermm)
    IMPLICIT NONE
    INTEGER Cdp , Dum(3) , Ifila(7) , Ifill(7) , Ifilu(7) , Incrx , Incry , Itype1 , Itype2 , Itypex , Ixy , Iy , Jj , Jxy , Jy ,    &
          & Ncol , Norew , Nx , Rdp , Sr2fil , Sysbuf , Typel

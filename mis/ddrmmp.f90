@@ -1,5 +1,5 @@
 
-SUBROUTINE ddrmmp(*,Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy)
+SUBROUTINE ddrmmp(Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy) !HIDESTARS (*,Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy)
    IMPLICIT NONE
    REAL Cls , Clsrew , Dummy(362) , Rd , Rdrew , Sysbuf , Wrt , Wrtrew
    INTEGER Ierror , Iout

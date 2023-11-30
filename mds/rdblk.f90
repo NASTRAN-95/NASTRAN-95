@@ -1,5 +1,5 @@
 
-SUBROUTINE rdblk(*,File,Ifirst,Left)
+SUBROUTINE rdblk(File,Ifirst,Left) !HIDESTARS (*,File,Ifirst,Left)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'

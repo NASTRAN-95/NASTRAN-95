@@ -48,7 +48,7 @@ SUBROUTINE rdmodx(File,Mode,Word)
    RETURN
 !
 !
-   ENTRY rdmode(*,*,*,Mode,Word)
+   ENTRY rdmode(Mode,Word) !HIDESTARS (*,*,*,Mode,Word)
 !     ==============================
 !
 !     -RDMODE- IS CALLED TO READ -MODE-

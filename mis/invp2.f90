@@ -1,5 +1,5 @@
 
-SUBROUTINE invp2(*)
+SUBROUTINE invp2() !HIDESTARS (*)
    IMPLICIT NONE
    DOUBLE PRECISION Det , Detc , Detdet , Mindd
    INTEGER Dum(14) , Filea(7) , Filel(7) , Fileu(7) , Ia(7) , Ichl , Ij(8) , Ik(5) , Il(7) , Ipowr , Iscr1 , Iscr2 , Iscr3 ,        &

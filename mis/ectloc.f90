@@ -1,5 +1,5 @@
 
-SUBROUTINE ectloc(*,Ect,Buf,Ielem)
+SUBROUTINE ectloc(Ect,Buf,Ielem) !HIDESTARS (*,Ect,Buf,Ielem)
    IMPLICIT NONE
    INTEGER Elem(1) , Incr , Last , Nelem
    COMMON /gpta1 / Nelem , Last , Incr , Elem

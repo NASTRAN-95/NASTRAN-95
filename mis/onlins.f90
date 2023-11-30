@@ -1,5 +1,5 @@
 
-SUBROUTINE onlins(*,Lx)
+SUBROUTINE onlins(Lx) !HIDESTARS (*,Lx)
 !
 !     ON-LINE SCAN ROUTINE, CALLED ONLY BY SCAN
 !

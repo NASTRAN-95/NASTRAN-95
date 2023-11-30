@@ -1,5 +1,5 @@
 
-SUBROUTINE na12a8(*,A,N,B,Notuse)
+SUBROUTINE na12a8(A,N,B,Notuse) !HIDESTARS (*,A,N,B,Notuse)
    IMPLICIT NONE
    INTEGER Mach , Nout
    COMMON /machin/ Mach
@@ -39,7 +39,7 @@ SUBROUTINE na12a8(*,A,N,B,Notuse)
 !WKBD IF (MACH .EQ. CDC) B(1) = ISWAP(TEMP)
    RETURN
 !
-   ENTRY nk12k8(*,C,N,D,Notuse)
+   ENTRY nk12k8(C,N,D,Notuse) !HIDESTARS (*,C,N,D,Notuse)
 !     ===============================
 !
    IF ( N<=8 ) THEN

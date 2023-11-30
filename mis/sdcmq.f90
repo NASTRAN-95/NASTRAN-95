@@ -1,5 +1,5 @@
 
-SUBROUTINE sdcmq(*,Key,V1,V,Dv1,Dv,Ic,Z)
+SUBROUTINE sdcmq(Key,V1,V,Dv1,Dv,Ic,Z) !HIDESTARS (*,Key,V1,V,Dv1,Dv,Ic,Z)
    IMPLICIT NONE
    INTEGER Buf , Diagck , Filcur , Filscr , Ichly , Iout , Iprec , Isb , Kcl2 , Krd2 , Krr0 , Kwr1 , Kwt3 , Nerr(2) , Noglev ,      &
          & Parm(4) , Pdefck , Stscr

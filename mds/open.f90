@@ -1,5 +1,5 @@
 
-SUBROUTINE open(*,Namfil,Buff,Op)
+SUBROUTINE open(Namfil,Buff,Op) !HIDESTARS (*,Namfil,Buff,Op)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INTEGER Isystm(157)

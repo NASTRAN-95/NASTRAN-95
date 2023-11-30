@@ -1,5 +1,5 @@
 
-SUBROUTINE qopen(*,Namfil,Buff,Iop)
+SUBROUTINE qopen(Namfil,Buff,Iop) !HIDESTARS (*,Namfil,Buff,Iop)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'

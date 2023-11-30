@@ -1,5 +1,5 @@
 
-SUBROUTINE tmtsio(*,Debug1)
+SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    IMPLICIT NONE
    REAL A(1) , G(86) , Pu(226) , Rbldpk , Rgetst , Rgino , Rintpk , Rpck , Rputst , Runpak , T(23) , Tbldpk , Tgetsb , Tgetst ,     &
       & Tgino , Tintpk , Tllcdp , Tllcsp , Tllrdp , Tllrsp , Tpack , Tputst , Ttlcdp , Ttlcsp , Ttlrdp , Ttlrsp , Tunpak , X(1) ,   &

@@ -1,5 +1,5 @@
 
-SUBROUTINE ifs5p(*,*,*)
+SUBROUTINE ifs5p() !HIDESTARS (*,*,*)
    IMPLICIT NONE
    LOGICAL Abort , Baddat , Badfor
    INTEGER C , Gc(7) , I(100) , Iaero , Iax , Iaxf , Icont , Id , Ipopt , Junk(42) , K , Kb(32,2) , Kdumel(9) , Km , Kn , Knt , Kx ,&

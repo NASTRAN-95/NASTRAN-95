@@ -1,5 +1,5 @@
 
-SUBROUTINE linkup(*,Name)
+SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
 !
    IMPLICIT NONE
    INTEGER Ibot , Isn , Itop , Itype , Kind , Machx , Mask1 , Mask2 , Mask3 , Z(1)

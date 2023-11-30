@@ -1,5 +1,5 @@
 
-SUBROUTINE ffread(*,Card)
+SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
    IMPLICIT NONE
    REAL Dum(2) , F(9) , Rc(9)
    INTEGER Ffflag , Ibmcdc , Ibuf , Iechop , Iechos , Iechou , Ierr , In , Inflag , Insave , Jc(9) , Kount , L(9) , Loop , Loop4 ,  &

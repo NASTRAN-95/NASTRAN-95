@@ -1,5 +1,5 @@
 
-SUBROUTINE bislc2(*,Id,Aa,Nc,Nr,Loc)
+SUBROUTINE bislc2(Id,Aa,Nc,Nr,Loc) !HIDESTARS (*,Id,Aa,Nc,Nr,Loc)
    IMPLICIT NONE
    INTEGER Loc , Nc , Nr
    INTEGER Aa(Nr,Nc) , Id(2)

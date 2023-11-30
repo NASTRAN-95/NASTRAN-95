@@ -1,5 +1,5 @@
 
-SUBROUTINE genvec(*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
+SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
    IMPLICIT NONE
    REAL Dum(35) , Eofnrw , Rd , Rdrew , Rew , Tcons(15) , Wrt , Wrtrew , Xmb(2)
    INTEGER Eol , Ia(4) , Ii , Istv(65) , Isym , Lntime , Norew , Nout , P , Rsp , Sysbuf

@@ -1,5 +1,5 @@
 
-SUBROUTINE sdcompx(*,Zi,Zr,Zd)
+SUBROUTINE sdcompx(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
    IMPLICIT NONE
    INTEGER Ablk(15) , Bblk(20) , Blk(15) , C , Chlsky , Col , Config , Dba(7) , Dbc(7) , Dbl(7) , Forma , Frstpc , I1 , I2 , Iac ,  &
          & Incr1 , Incr2 , Itype1 , Itype2 , Itype3 , J1 , J2 , Jstr , Keep , Key(1) , Ksystm(63) , Lasti , Lastpl , Lcore ,        &

@@ -1,5 +1,5 @@
 
-SUBROUTINE a82int(*,A,N,B,Int)
+SUBROUTINE a82int(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
    IMPLICIT NONE
    INTEGER Nout
    COMMON /xreadx/ Nout
@@ -22,13 +22,13 @@ SUBROUTINE a82int(*,A,N,B,Int)
    nt = +1
    GOTO 100
 !
-   ENTRY k82int(*,C,N,B,Int)
+   ENTRY k82int(C,N,B,Int) !HIDESTARS (*,C,N,B,Int)
 !     ****************************
 !
    nt = +1
    GOTO 200
 !
-   ENTRY a82fp(*,A,N,B,Int)
+   ENTRY a82fp(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
 !     ***************************
 !
    nt = -1
@@ -38,7 +38,7 @@ SUBROUTINE a82int(*,A,N,B,Int)
    CALL na12if(*400,A,N,B,Int)
    RETURN
 !
-   ENTRY k82fp(*,C,N,B,Int)
+   ENTRY k82fp(C,N,B,Int) !HIDESTARS (*,C,N,B,Int)
 !     ***************************
 !
    nt = -1

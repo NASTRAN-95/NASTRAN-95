@@ -1,5 +1,5 @@
 
-SUBROUTINE setfnd(*,Set,Lset,Id,Next)
+SUBROUTINE setfnd(Set,Lset,Id,Next) !HIDESTARS (*,Set,Lset,Id,Next)
    IMPLICIT NONE
    INTEGER Id , Lset , Next
    INTEGER Set(Lset)

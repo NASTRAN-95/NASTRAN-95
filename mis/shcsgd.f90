@@ -1,5 +1,5 @@
 
-SUBROUTINE shcsgd(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd)
+SUBROUTINE shcsgd(Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd) !HIDESTARS (*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd)
    IMPLICIT NONE
    DOUBLE PRECISION Degrdd , Pid , Raddgd , Twopid
    REAL Degrds , Pis , Raddgs , Twopis
@@ -152,7 +152,7 @@ SUBROUTINE shcsgd(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad
    RETURN
 !
 !
-   ENTRY shcsgs(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss)
+   ENTRY shcsgs(Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss) !HIDESTARS (*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss)
 !     ======================================================
 !
 !     SINGLE PRECISION VERSION

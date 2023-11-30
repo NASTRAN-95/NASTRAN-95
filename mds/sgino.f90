@@ -59,7 +59,7 @@ SUBROUTINE sgino
    GOTO 99999
 !
 !
-   ENTRY sopen(*,Pltape,Buf,Ibfsz)
+   ENTRY sopen(Pltape,Buf,Ibfsz) !HIDESTARS (*,Pltape,Buf,Ibfsz)
 !     ================================
 !
 !     PLT2 FILE -

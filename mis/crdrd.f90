@@ -1,5 +1,5 @@
 
-SUBROUTINE crdrd(*,*,Mu,Indcom,N23)
+SUBROUTINE crdrd(Mu,Indcom,N23) !HIDESTARS (*,*,Mu,Indcom,N23)
    IMPLICIT NONE
    INTEGER Bgpdt , Buf(20) , Cstm , Geomp , Gpoint , Ihalf , Jhalf , Kn , Knkl1 , Mac , Mask16 , Nogo , Rgt , Scr1 , Z(1)
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Dz(1) , Rz(1)

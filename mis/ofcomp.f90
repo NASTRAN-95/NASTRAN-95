@@ -1,5 +1,5 @@
 
-SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
+SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    IMPLICIT NONE
    REAL Core(1)
    INTEGER Head(96) , Icard , Id(50) , Iflg , Isubs , Isubtl(32) , Itherm , Ititle(32) , Ksystm(100) , L1 , L2 , L3 , L4 , L5 ,     &

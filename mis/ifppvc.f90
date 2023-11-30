@@ -1,5 +1,5 @@
 
-SUBROUTINE ifppvc(*,Ipvs,Jr)
+SUBROUTINE ifppvc(Ipvs,Jr) !HIDESTARS (*,Ipvs,Jr)
    IMPLICIT NONE
    LOGICAL Abort
    REAL D1(52) , D2(3) , D3(6) , D4(18) , Z(1)

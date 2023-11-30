@@ -1,5 +1,5 @@
 
-SUBROUTINE onetwo(*,Ix,X,Dx,Itermm)
+SUBROUTINE onetwo(Ix,X,Dx,Itermm) !HIDESTARS (*,Ix,X,Dx,Itermm)
    IMPLICIT NONE
    DOUBLE PRECISION Det , Dz(2) , Mindia
    INTEGER Dum(3) , Eofnrw , Ifila(7) , Ifill(7) , Ifilu(7) , Incrx , Incry , Itype1 , Itype2 , Itypex , Ixy , Iy , Jj , Jxy , Jy , &

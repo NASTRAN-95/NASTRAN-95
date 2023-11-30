@@ -1,5 +1,5 @@
 
-SUBROUTINE piklvl(*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
+SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) !HIDESTARS (*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
    IMPLICIT NONE
    INTEGER Idpth , Idum
    COMMON /bandg / Idum , Idpth

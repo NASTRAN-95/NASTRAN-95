@@ -1,5 +1,5 @@
 
-SUBROUTINE shgmgd(*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
+SUBROUTINE shgmgd(Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha) !HIDESTARS (*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
    IMPLICIT NONE
    REAL Alph1 , Alph12 , Alph2 , Cosmat , Dum(8) , Dummy , E , E1 , E2 , Eltemp , G11 , G12 , G12x , G13 , G1z , G22 , G23 , G2z ,  &
       & G33 , Ge , Matset , Nu12 , Rhox , Sc , Sinmat , Ss , St , Tref

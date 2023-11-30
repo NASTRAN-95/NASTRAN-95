@@ -1,5 +1,5 @@
 
-SUBROUTINE outmsc(*,*)
+SUBROUTINE outmsc() !HIDESTARS (*,*)
    IMPLICIT NONE
    INTEGER D(3) , Ibuf , Idum4(6) , Idum5(5) , Idum6(2) , Mach , Nlpp , Nout , Nwds(4) , P1 , P2 , P3(2) , P4 , P5 , P6(2)
    DOUBLE PRECISION Dxns(1)

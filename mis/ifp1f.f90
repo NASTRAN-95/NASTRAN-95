@@ -1,5 +1,5 @@
 
-SUBROUTINE ifp1f(*,Iword,Ii)
+SUBROUTINE ifp1f(Iword,Ii) !HIDESTARS (*,Iword,Ii)
    IMPLICIT NONE
    REAL Core(1) , Corex(1) , Corey(401) , Skip1(4) , Skip2(4) , Skip3(3)
    INTEGER Iben , Izzzbb , Ncpw4

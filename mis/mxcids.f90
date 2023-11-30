@@ -1,5 +1,5 @@
 
-SUBROUTINE mxcids(*,Z,Mset,Msze,Nwds,Uset,Nstrt,Snam)
+SUBROUTINE mxcids(Z,Mset,Msze,Nwds,Uset,Nstrt,Snam) !HIDESTARS (*,Z,Mset,Msze,Nwds,Uset,Nstrt,Snam)
    IMPLICIT NONE
    INTEGER Mset , Msze , Nstrt , Nwds
    REAL Snam , Uset , Z

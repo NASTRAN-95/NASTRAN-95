@@ -1,5 +1,5 @@
 
-SUBROUTINE read(*,*,File,Idata,N,Ieorfl,M)
+SUBROUTINE read(File,Idata,N,Ieorfl,M) !HIDESTARS (*,*,File,Idata,N,Ieorfl,M)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'

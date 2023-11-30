@@ -1,5 +1,5 @@
 
-SUBROUTINE intpk(*,File,Block,Itypot,Iflag)
+SUBROUTINE intpk(File,Block,Itypot,Iflag) !HIDESTARS (*,File,Block,Itypot,Iflag)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'

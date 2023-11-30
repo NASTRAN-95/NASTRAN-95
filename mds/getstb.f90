@@ -1,5 +1,5 @@
 
-SUBROUTINE getstb(*,Block)
+SUBROUTINE getstb(Block) !HIDESTARS (*,Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'

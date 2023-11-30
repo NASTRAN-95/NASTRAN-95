@@ -1,5 +1,5 @@
 
-SUBROUTINE preloc(*,Buf,File)
+SUBROUTINE preloc(Buf,File) !HIDESTARS (*,Buf,File)
    IMPLICIT NONE
    INTEGER Two(32)
    COMMON /two   / Two
@@ -36,7 +36,7 @@ SUBROUTINE preloc(*,Buf,File)
  300  CALL mesage(-3,trl,nm1)
 !
 !
-   ENTRY locate(*,Bff,Id,Flg)
+   ENTRY locate(Bff,Id,Flg) !HIDESTARS (*,Bff,Id,Flg)
 !     ===========================
 !
 !     ENTRY TO POSITION DATA RECORD.

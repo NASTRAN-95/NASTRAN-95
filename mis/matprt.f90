@@ -1,5 +1,5 @@
 
-SUBROUTINE matprt(*,*,A,Option,Column)
+SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
    IMPLICIT NONE
    INTEGER Bufsiz , Count , File , I , J , Maxlin , Mcb(7) , Mo , Type , Ui , Uinc , Uj , Utype
    REAL Skp1(6) , Skp2(2)
@@ -44,7 +44,7 @@ SUBROUTINE matprt(*,*,A,Option,Column)
  300  RETURN 2
 !
 !
-   ENTRY prtmat(*,*,Column)
+   ENTRY prtmat(Column) !HIDESTARS (*,*,Column)
 !     =========================
 !
    CALL prtvec(*200,*300)

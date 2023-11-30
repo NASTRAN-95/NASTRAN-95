@@ -1,5 +1,5 @@
 
-SUBROUTINE ifs3p(*,*,*)
+SUBROUTINE ifs3p() !HIDESTARS (*,*,*)
    IMPLICIT NONE
    LOGICAL Abort , Baddat , Badfor , Blankh , Grdmsg , Iax , Idfreq , Lh , Lharm , Oneh
    REAL Dum21(21) , Gc(7) , Rm(50) , Slotdf(5)

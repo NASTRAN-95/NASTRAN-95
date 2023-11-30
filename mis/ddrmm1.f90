@@ -1,5 +1,5 @@
 
-SUBROUTINE ddrmm1(*,*,*,*)
+SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
    IMPLICIT NONE
    REAL A(4) , Aout(4) , Lambda , Omega , Pi , Rbuf(150) , Ridrec(6) , Rz(1) , Twopi
    INTEGER Buf(150) , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Buf6 , Buff(6) , Bufsav(10) , Cls , Clsrew , Device , Dhsize , Elem(1) ,   &

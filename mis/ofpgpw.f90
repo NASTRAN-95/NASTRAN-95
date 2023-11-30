@@ -1,5 +1,5 @@
 
-SUBROUTINE ofpgpw(*,File,Out,From)
+SUBROUTINE ofpgpw(File,Out,From) !HIDESTARS (*,File,Out,From)
    IMPLICIT NONE
    REAL Core(1) , Dummy(10)
    INTEGER Ibuf , L , L1 , L2 , L3 , L4 , L5 , Line , Of(5)

@@ -1,5 +1,5 @@
 
-SUBROUTINE centre(*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
+SUBROUTINE centre(X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center) !HIDESTARS (*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
    IMPLICIT NONE
    REAL X1 , X2 , X3 , X4 , Y1 , Y2 , Y3 , Y4
    REAL Center(2)

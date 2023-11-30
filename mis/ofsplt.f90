@@ -1,5 +1,5 @@
 
-SUBROUTINE ofsplt(*,Esym,Elid,G,Offset,X,Deform,Gplst)
+SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,Offset,X,Deform,Gplst)
 !
 !     CALLED ONLY BY LINEL TO PRCESS ELEMENT OFFSET PLOT
 !     THIS ROUTINE DRAW THE CBAR, CTRIA3, AND CQUAD4, WITH OFFSET IN

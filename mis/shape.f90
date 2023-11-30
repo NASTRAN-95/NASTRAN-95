@@ -1,5 +1,5 @@
 
-SUBROUTINE shape(*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
+SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
    IMPLICIT NONE
    INTEGER Ect , Merr , Ngp , Pedge
    REAL Skp1(9) , Skp15(15) , Skp2(2) , Skp21(7)

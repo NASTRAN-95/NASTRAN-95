@@ -1,5 +1,5 @@
 
-SUBROUTINE factru(*,A,Lll,Ull,Scr1,Scr2,Scr3)
+SUBROUTINE factru(A,Lll,Ull,Scr1,Scr2,Scr3) !HIDESTARS (*,A,Lll,Ull,Scr1,Scr2,Scr3)
    IMPLICIT NONE
    DOUBLE PRECISION Dett , Mindia
    INTEGER Ia(7) , Ib , Ibb , Il(7) , Ipow , Iprec , Iscr1 , Iscr2 , Iscr3 , Iu(7) , Nz

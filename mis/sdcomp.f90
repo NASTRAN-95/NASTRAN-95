@@ -1,5 +1,5 @@
 
-SUBROUTINE sdcomp(*,Zi,Zr,Zd)
+SUBROUTINE sdcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
    INTEGER Lout

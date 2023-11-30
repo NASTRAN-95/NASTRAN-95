@@ -1,5 +1,5 @@
 
-SUBROUTINE tablev(*,In,Ll,Trl,Name,P4,Ibuf,Z5)
+SUBROUTINE tablev(In,Ll,Trl,Name,P4,Ibuf,Z5) !HIDESTARS (*,In,Ll,Trl,Name,P4,Ibuf,Z5)
    IMPLICIT NONE
    INTEGER Nout , Sysbuf , Z(1)
    REAL Rz(1)

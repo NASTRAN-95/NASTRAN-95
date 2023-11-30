@@ -1,5 +1,5 @@
 
-SUBROUTINE sanorm(*,A)
+SUBROUTINE sanorm(A) !HIDESTARS (*,A)
    IMPLICIT NONE
    REAL A(3)
    REAL xl

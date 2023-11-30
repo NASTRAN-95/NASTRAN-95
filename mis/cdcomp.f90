@@ -1,5 +1,5 @@
 
-SUBROUTINE cdcomp(*,Ix,X,Dx)
+SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
    IMPLICIT NONE
    REAL A(4) , Cdp , Csp , Diag , Eofnrw , Rd , Rdrew , Rect , Rew , Row , Rsp , Uprtri , Wrt , Wrtrew , Z(4)
    INTEGER B , Bbar , C , Cbar , Eol , Filea(7) , Filel(7) , Fileu(7) , Forma , Ident , Ii , Incrx , Incry , Itype1 , Itype2 ,      &

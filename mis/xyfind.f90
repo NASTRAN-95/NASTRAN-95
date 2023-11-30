@@ -1,5 +1,5 @@
 
-SUBROUTINE xyfind(*,*,*,Majid,Idz)
+SUBROUTINE xyfind(Majid,Idz) !HIDESTARS (*,*,*,Majid,Idz)
    IMPLICIT NONE
    REAL Buf(100) , Center , Outopn , Paplot , Plot , Print , Punch , Steps , Tcurve(32) , Xaxis(32) , Yaxis(32) , Ybaxis(32) ,      &
       & Ytaxis(32)

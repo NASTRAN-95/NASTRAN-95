@@ -1,5 +1,5 @@
 
-SUBROUTINE na12if(*,A,N,B,Int)
+SUBROUTINE na12if(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
    IMPLICIT NONE
    INTEGER Nout
    COMMON /xreadx/ Nout
@@ -39,7 +39,7 @@ SUBROUTINE na12if(*,A,N,B,Int)
    CALL b2k(A,temp,N)
    GOTO 100
 !
-   ENTRY nk12if(*,C,N,B,Int)
+   ENTRY nk12if(C,N,B,Int) !HIDESTARS (*,C,N,B,Int)
 !     ****************************
 !
    IF ( N>12 ) GOTO 300

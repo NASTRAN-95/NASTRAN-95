@@ -1,5 +1,5 @@
 
-SUBROUTINE optpx1(*,Stor,Nogo,Nen,Loc1)
+SUBROUTINE optpx1(Stor,Nogo,Nen,Loc1) !HIDESTARS (*,Stor,Nogo,Nen,Loc1)
    IMPLICIT NONE
    REAL Core(1) , Skp1(5)
    INTEGER Iy(1) , Outtap , Sysbuf , X(7) , Ycor

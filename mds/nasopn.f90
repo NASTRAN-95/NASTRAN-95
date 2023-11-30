@@ -1,5 +1,5 @@
 
-SUBROUTINE nasopn(*,Lu,Dsn)
+SUBROUTINE nasopn(Lu,Dsn) !HIDESTARS (*,Lu,Dsn)
    IMPLICIT NONE
    INCLUDE 'NASNAMES.COM'
    CHARACTER*80 Dsn

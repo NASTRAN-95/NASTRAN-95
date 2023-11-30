@@ -1,5 +1,5 @@
 
-SUBROUTINE curcas(*,Nskip,Trl,Mcb,Zz,Ibuf)
+SUBROUTINE curcas(Nskip,Trl,Mcb,Zz,Ibuf) !HIDESTARS (*,Nskip,Trl,Mcb,Zz,Ibuf)
    IMPLICIT NONE
    INTEGER Ird , Irdrw , Isbz , Iwt , Iwtrw , Knerw , Knrw , Krew
    COMMON /names / Ird , Irdrw , Iwt , Iwtrw , Krew , Knrw , Knerw

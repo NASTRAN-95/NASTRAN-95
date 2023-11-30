@@ -1,5 +1,5 @@
 
-SUBROUTINE bisloc(*,Id,Arr,Len,Kn,Jloc)
+SUBROUTINE bisloc(Id,Arr,Len,Kn,Jloc) !HIDESTARS (*,Id,Arr,Len,Kn,Jloc)
    IMPLICIT NONE
    INTEGER Id , Jloc , Kn , Len
    INTEGER Arr(1)

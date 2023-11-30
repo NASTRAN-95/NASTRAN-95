@@ -1,5 +1,5 @@
 
-SUBROUTINE ifs1p(*,*,*)
+SUBROUTINE ifs1p() !HIDESTARS (*,*,*)
    IMPLICIT NONE
    LOGICAL Abort , Baddat , Badfor , Iax , Lharm , Slot
    INTEGER B1 , Bardf2 , Bardf5 , Bardf6 , Bardf7 , Bardf8 , E(40) , I(100) , Iaxf , Id , Idrdl , K , Klotdf(5) , Km , Kn , Knt ,   &

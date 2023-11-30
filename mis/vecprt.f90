@@ -1,5 +1,5 @@
 
-SUBROUTINE vecprt(*,*,Px,Nx,A,Ox)
+SUBROUTINE vecprt(Px,Nx,A,Ox) !HIDESTARS (*,*,Px,Nx,A,Ox)
    IMPLICIT NONE
    INTEGER Count , Maxlin , Mo
    REAL Skp1 , Skp2(6) , Skp3(2)
@@ -106,7 +106,7 @@ SUBROUTINE vecprt(*,*,Px,Nx,A,Ox)
  800  RETURN 1
 !
 !
-   ENTRY prtvec(*,*)
+   ENTRY prtvec() !HIDESTARS (*,*)
 !     ==================
 !
    Count = Count + 1

@@ -1,5 +1,5 @@
 
-SUBROUTINE ffhelp(*,*,J)
+SUBROUTINE ffhelp(J) !HIDESTARS (*,*,J)
    IMPLICIT NONE
    REAL Dummy(3) , Skip(2)
    INTEGER Iechos , In , Mach , Nout

@@ -1,5 +1,5 @@
 
-SUBROUTINE mxcid(*,Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1)
+SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1)
 !
 !     THIS SUBROUTINE CREATES AN ARRAY AT Z(1) OF LENGTH MSZE*NWDS
 !     WHICH CONTAINS THE EXTERNAL ID*10 + COMPONENT AT Z(1,M) FOR

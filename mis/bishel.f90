@@ -1,5 +1,5 @@
 
-SUBROUTINE bishel(*,List,Nent,Nterm,Array)
+SUBROUTINE bishel(List,Nent,Nterm,Array) !HIDESTARS (*,List,Nent,Nterm,Array)
    IMPLICIT NONE
    INTEGER Nent , Nterm
    INTEGER Array(1) , List(1)

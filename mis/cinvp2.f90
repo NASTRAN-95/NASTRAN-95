@@ -1,5 +1,5 @@
 
-SUBROUTINE cinvp2(*)
+SUBROUTINE cinvp2() !HIDESTARS (*)
    IMPLICIT NONE
    INTEGER Cdp , Dumm(36) , Filea(7) , Filel(7) , Fileu(7) , Ib , Ij(10) , Nz , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6 , Scr7 ,    &
          & Scr8 , Scr9 , Sr1fil , Sr2fil , Sr3fil , Switch , Sysbuf

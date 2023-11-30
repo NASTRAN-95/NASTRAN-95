@@ -1,5 +1,5 @@
 
-SUBROUTINE int2a8(*,X,A8)
+SUBROUTINE int2a8(X,A8) !HIDESTARS (*,X,A8)
    IMPLICIT NONE
    REAL Dummy(38)
    INTEGER Mach , Nbpc , Nbpw , Ncpw
@@ -34,19 +34,19 @@ SUBROUTINE int2a8(*,X,A8)
    nt = +1
    GOTO 100
 !
-   ENTRY int2k8(*,X,K8)
+   ENTRY int2k8(X,K8) !HIDESTARS (*,X,K8)
 !     =====================
 !
    nt = -1
    GOTO 100
 !
-   ENTRY fp2a8(*,X,A8)
+   ENTRY fp2a8(X,A8) !HIDESTARS (*,X,A8)
 !     ====================
 !
    nt = +2
    GOTO 100
 !
-   ENTRY fp2k8(*,X,K8)
+   ENTRY fp2k8(X,K8) !HIDESTARS (*,X,K8)
 !     ======================
 !
    nt = -2

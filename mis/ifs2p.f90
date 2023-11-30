@@ -1,5 +1,5 @@
 
-SUBROUTINE ifs2p(*,*,*)
+SUBROUTINE ifs2p() !HIDESTARS (*,*,*)
 !
    IMPLICIT NONE
    INTEGER A(4) , Bandit , Gc(7) , I(100) , I0 , Ibcds , Ibuf(1) , Icfiat , Id , Ifiat(2) , Ifist(1) , Ipfist , K , Km , Kn , Knt , &
