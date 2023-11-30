@@ -1,19 +1,10 @@
 
 SUBROUTINE dumerg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iabit(16) , Ibit(32) , Major(2) , Sub0(2) , Sub1(2)
    COMMON /bitpos/ Ibit , Iabit
    COMMON /blank / Major , Sub0 , Sub1
-!
-! Local variable declarations
-!
    INTEGER i , ib(3) , j , name(2) , nogo , phia , phif , phio , scr1 , uset
-!
-! End of declarations
-!
 !
 !     DRIVER FOR DMAP MODULE UMERGE
 !

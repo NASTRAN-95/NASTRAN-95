@@ -1,9 +1,6 @@
 
 SUBROUTINE ddrmm2(*,*,*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Aout(4) , Lambda , Omega , Pi , Rbuf(150) , Ridrec(1) , Rz(1) , Twopi
    INTEGER Buf(150) , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Buf6 , Bufa(75) , Bufb(75) , Buff(6) , Bufsav(10) , Cls , Clsrew ,         &
          & Complx(1) , Device , Dhsize , Elem(1) , Entrys , File , Filnam(2) , Form , I1 , I2 , Ia(4) , Icc , Idrec(146) , Ieol ,   &
@@ -32,17 +29,11 @@ SUBROUTINE ddrmm2(*,*,*,*)
    COMMON /zblpkx/ A , Irow
    COMMON /zntpkx/ Aout , Irowo , Ieol , Ieor
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    LOGICAL anyxy
    INTEGER dvamid(3) , elwork(300) , eor , i , iapp , id , idata , idvice , ielem , ij , insuf , iomega , iout , ixy , ixytyp , j , &
          & jdata , jlist , jp , jwords , jxy , k , kdata , klist , kxy , l , lentry , lxy , major , minor , ncols , ndata , next ,  &
          & noeor , nomega , npt , numwds , nxy , nxy1 , typout
    INTEGER korsz , numtyp
-!
-! End of declarations
-!
 !
 !     PERFORMS SORT2 TYPE PROCESSING FOR MODULE DDRMM.
 !

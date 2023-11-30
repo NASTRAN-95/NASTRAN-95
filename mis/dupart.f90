@@ -1,19 +1,10 @@
 
 SUBROUTINE dupart
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iabit(16) , Ibit(32) , Major(2) , Sub0(2) , Sub1(2)
    COMMON /bitpos/ Ibit , Iabit
    COMMON /blank / Major , Sub0 , Sub1
-!
-! Local variable declarations
-!
    INTEGER i , ib(3) , j , kff , kfs , knn , ksf , kss , name(2) , nogo , scr1 , uset
-!
-! End of declarations
-!
 !
 !     DRIVER FOR DMAP MODULE UPARTN
 !

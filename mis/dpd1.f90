@@ -5,9 +5,6 @@ SUBROUTINE dpd1
 !     USET-DYNAMICS (USETD), AND THE SCALAR INDEX LIST-DYNAMICS(SILD).
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Clsrew , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) ,  &
          & Eqdyn , Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ineq , Iout , Kn , Ks(37) , L , Loads(32) , Luset , Lusetd , Mcb(7) ,    &
          & Msg(3) , Nam(2) , Nbpw , Nbrep , Neqdyn , Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl ,    &
@@ -26,18 +23,12 @@ SUBROUTINE dpd1
    COMMON /two   / Two
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , orf
    INTEGER falg , file , flag , i , idseq1 , idseq2 , idseq3 , iep , ifail , igpl , ii , imax , irmndr , isil , j , jj , k , kk ,   &
          & ksw , m , maxz , mskua , mskud , mskue , mskuf , mskufe , mskun , mskune , mskup , mult , musetd , n , n1 , n2 , nep ,   &
          & ngpl , noep , nsil , nwds
    LOGICAL first , nodyn
    EXTERNAL andf , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Msg(2),Ngrid)
 !
 !

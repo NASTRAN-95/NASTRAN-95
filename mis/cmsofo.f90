@@ -1,9 +1,6 @@
 
 SUBROUTINE cmsofo
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Cnam(2) , Combo(7,5) , Iauto , Inpt , Iprint , Isort , Lcore , Mcon , Nipnew , Npsub , Outt , Pora ,&
          & Scbdat , Scconn , Sccstm , Score , Scr1 , Scsfil , Sctoc , Z(1)
    REAL Buf4 , Buf5 , Casecc , Conect , Conset , Dry , Geom4 , Origin(7,3) , Restct(7,7) , Rz(1) , Scmcon , Scr2 , Step , Toler ,   &
@@ -17,9 +14,6 @@ SUBROUTINE cmsofo
    COMMON /cmb004/ Tdat , Nipnew , Cnam , Lonly
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , ce(9) , ent(5) , eog , getip , i , iadd , idir , ifile , ii , imsg , ipn , isil , ist , istnm , istrn , isub ,  &
          & itest , itran , itype , j , jdh , jj , k , kdh , kid , kk , kkk , lbgss , lcc , list(32) , litm , llco , loap , lods ,   &
          & namold(14) , ncomp , ncs , ndir , ndof , ngrp , nhbgss , nhcstm , nheqss , nhplts , nlv , nnames , nnn , nnsub , noipn , &
@@ -27,9 +21,6 @@ SUBROUTINE cmsofo
    INTEGER andf , rshift
    REAL ecpt(4) , rent(3) , sav1(3) , sav2(9) , tmat(9)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE NEW SOF DATA FOR A COMBINATION.
 !

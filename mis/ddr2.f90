@@ -1,24 +1,15 @@
 
 SUBROUTINE ddr2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Frqset , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Um , Un , Une , Uo , Up , Ur , Us , Usb , Usg
    INTEGER Lc , N , N4 , No , Noue , React , Type(2) , Uset
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
    COMMON /blank / Type , Noue , React , Frqset
    COMMON /patx  / Lc , N , No , N4 , Uset
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER b2dd , dm , frl , isol , ivec , k2dd , lll , mdd , pad , paf , pd , pl , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , tran ,&
          & uav , uev , usetd , vud
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DYNAMIC DATA RECOVERY--PART 2 --MODE ACCELERATION
 !

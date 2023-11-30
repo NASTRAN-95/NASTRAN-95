@@ -1,9 +1,6 @@
 
 SUBROUTINE emgold
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bggind , Dum2(2) , S1dum(10) , S2dum(10) , Skip17(17) , Skip19(19) , Skip2(2) , Skipxx(15) , Smaio(36)
    INTEGER Dict(15) , Elem(1) , Elid , Eltype , Estbuf(100) , Estid , Filtyp , Flags(3) , Ibloc , Icmbar , If4gg , Ifkgg , Incr ,   &
          & Iopt4 , Ioptb , Irows , K4ggsw , Kecpt(100) , Kflags(3) , Knogo , Knpvt , Ksafe(200) , Ksystm(65) , Kwork(700) , L38 ,   &
@@ -37,14 +34,8 @@ SUBROUTINE emgold
    COMMON /sma2ht/ Lheat
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm , Sim
-!
-! Local variable declarations
-!
    INTEGER bdict(15) , estwds , i , i1 , i2 , icount , index , isil , izero , j , jltype , k , kdict(15) , ktemp , l , local ,      &
          & mdict(15) , mtemp , qp
-!
-! End of declarations
-!
 !
 !     THIS IS A DRIVING ROUTINE OF THE -EMG- MODULE WHICH ALLOWS PIVOT-
 !     POINT-LOGIC ELEMENT SUBROUTINES TO BE USED IN CONJUNCTION WITH THE

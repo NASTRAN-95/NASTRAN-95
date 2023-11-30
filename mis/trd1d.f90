@@ -1,9 +1,6 @@
 
 SUBROUTINE trd1d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Deltat , Sigma , Tabs , Tim , Z(1)
    INTEGER Dit , Icore , Icount , Ifrst , Ii , Iloop , Incr , Iout , Ip , Ipnl(7) , Ist , It1 , It2 , Iu , Iu1 , Iz(1) , Lcore ,    &
          & Mach , Modal , Nlft , Nlftp , Nmodes , Nout , Nrow , Nstep , Pnl , Sysbuf
@@ -16,17 +13,11 @@ SUBROUTINE trd1d
                  & Ist , Iu1 , Deltat , Ifrst , Tabs , Sigma , Tim
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL aa , ab , alpha , alphb , eta , etb , fab , fabsq , fx , fy , h , tavga , tavgb , x , xh , xk , y
    LOGICAL dec
    INTEGER file , i , ialg , ibuf1 , icards , icrq , iflag , in1 , in2 , in3 , ip1 , ipx , itabl , itid1 , itid2 , itlist(13) ,     &
          & izl , j , k , kk , kount , l , m , mm , n , name(2) , ncards , nmtd(2) , nn , ntabl , numtb , nxx
    INTEGER numtyp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES NON-LINEAR LOADS FOR TRANSIENT ANALYSIS
 !

@@ -1,18 +1,9 @@
 
 SUBROUTINE bisloc(*,Id,Arr,Len,Kn,Jloc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Id , Jloc , Kn , Len
    INTEGER Arr(1)
-!
-! Local variable declarations
-!
    INTEGER iswtch , j , jj , k , khi , klo
-!
-! End of declarations
-!
 !-----
 !     BINARY SEARCH - LOCATE KEY WORD 'ID' IN ARRAY 'ARR', 1ST ENTRY
 !     IF FOUND, 'JLOC' IS THE MATCHED POSITION IN 'ARR'

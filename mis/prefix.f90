@@ -1,25 +1,13 @@
 
 SUBROUTINE prefix(Iprefx,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Junk(38) , Nbpc , Nbpw , Ncpw
    COMMON /system/ Junk , Nbpc , Nbpw , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER Iprefx
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER iblank , iblnk , lword , rword
    INTEGER lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
-!
-! End of declarations
-!
 !
    DATA iblnk/4H    /
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE tria3d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Akgg(1) , Amgg(1)
    REAL Anycon , Bgpdt(4,3) , Cosmat , Dumm6(6) , Dummy , Eltemp , Elth , Eltype , Error , Est(39) , Gpth(3) , Htcp , Kheat(7) ,    &
       & Nsm , Precis , Sinmat , Tempel , Z(1) , Zoff , Zoff1
@@ -20,9 +17,6 @@ SUBROUTINE tria3d
    COMMON /system/ Sysbuf , Nout , Nogo , Idum , Prec
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL adamp , ecpt(4) , gsube , tsub0
    DOUBLE PRECISION aic(18) , alpha(1) , area , avgthk , bdum(3) , bmat1(486) , bmatrx(162) , bmtrx(54) , bterms(6) , cente(3) ,    &
                   & determ , detjac , dgpth(3) , dheat , dvol , edglen(3) , egnor(4) , egpdt(4,3) , epnorm(4,3) , eps , g(9,9) ,    &
@@ -33,9 +27,6 @@ SUBROUTINE tria3d
          & ip , ipoint , ipt , ising , ix , j , jcored , jend , jg , jj , jpoint , k , kk , kmat , kpt , length , mcsid , mid(4) ,  &
          & mmat , name(2) , nd2 , nd6 , nd7 , nd8 , nd9 , ndof , ndof33 , ndof66 , ndofp1 , necpt(4) , nnod2 , nnode , npart
    LOGICAL needk , needm , noalfa , sheart
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION ROUTINE TO FORM STIFFNESS, MASS, AND DAMPING
 !     MATRICES FOR THE CTRIA3 ELEMENT

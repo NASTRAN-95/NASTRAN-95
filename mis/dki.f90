@@ -1,20 +1,11 @@
 
 DOUBLE PRECISION FUNCTION dki(I,J,K,L,M,N,Ip,Iq,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , Ip , Iq , J , K , L , M , N
    DOUBLE PRECISION R(1) , Z(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION abs1 , ai , akkl , akmn , amkl , amm , ammn , arr , rd , xx
    DOUBLE PRECISION dk100 , dk211 , dk89 , dkint
    INTEGER irr , iss , mm , nn
-!
-! End of declarations
-!
    IF ( R(I)==R(J) ) THEN
       ai = 0.0D0
       dki = ai

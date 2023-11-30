@@ -1,9 +1,6 @@
 
 SUBROUTINE kelas(Ijklmn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Clsnrw , Clsrw , Dodet , Ecpt(100) , Eor , Frowic , Outrw , Tnrows
    INTEGER I6x64 , I6x6k , Icstm , Idetck , Idum1 , Iecpt(5) , If4gg , Ifcstm , Ifdit , Ifecpt , Ifgei , Ifgpct , Ifgpst , Ifkgg ,  &
          & Ifmpt , Ig4gg , Igecpt , Iggei , Iggpct , Iggpst , Igkgg , Igpct , Inrw , Iopt4 , Ipoint , Isys , Jmax , K4ggsw , Left , &
@@ -14,19 +11,10 @@ SUBROUTINE kelas(Ijklmn)
    COMMON /sma1io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Ifgei , Iggei , Ifkgg , Igkgg , If4gg ,     &
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys
-!
-! Dummy argument declarations
-!
    INTEGER Ijklmn
-!
-! Local variable declarations
-!
    INTEGER i , iarg , ifile , ii , ind , index , inpdof , inpvt , ipdof , ipvt , iretrn , iscalr , j , jj
    DOUBLE PRECISION ke
    REAL save
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES THE ELEMENT STIFFNESS AND STIFFNESS DAMPING
 ! 1 X 1 MATRICES FOR ELEMENTS ELAS1, ELAS2, ELAS3, ELAS4.

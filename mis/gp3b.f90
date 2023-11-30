@@ -1,9 +1,6 @@
 
 SUBROUTINE gp3b
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Buf3 , Clsrew , Eqexin , Ett , Geom3 , Geomp , Gptt , Idno(30) , Igrav , Ipld3 , Ipload , Load(2)&
          & , Mask(60) , Nograv , Noload , Nopld2 , Notemp , Nout , Ntypes , Rd , Rdrew , Scr1 , Slt , Temp(2) , Tempd(2) , Tempg(2) &
          & , Tempp1(2) , Tempp2(2) , Tempp3(2) , Tempp4(2) , Temprb(2) , Wrt , Wrtrew , Z(1)
@@ -17,15 +14,9 @@ SUBROUTINE gp3b
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER file , flag , i , id , ifile , isave , itabl , itempd , j , k , khi , klo , kn , l , n , n1 , nam(2) , neqx , ni ,       &
          & nodef , nogo , ntempd , nx
    LOGICAL intern
-!
-! End of declarations
-!
 !
 !     GP3B BUILDS THE GRID POINT TEMPERATURE TABLE (GPTT).
 !     TEMPD AND TEMP CARDS ARE READ.

@@ -1,9 +1,6 @@
 
 SUBROUTINE cfeer3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Ib(7) , Idiag , Ik(7) , Ilam(7) , Im(7) , Iphi(7) , Iprec , Iscr(11) , Ksystm(65) , Mcbvec(7) , Minopn , Mreduc ,  &
          & Nord , Nord2 , Nord4 , Nordp1 , Norew , Northo , Nout , Sqr , Switch , Sysbuf
    REAL Csp , Dudxx , Dumaa(84) , Eofnrw , Epsdum(2) , Rd , Rdp , Rdrew , Rew , Rsp , Wrt , Wrtrew , Xcdum(12) , Z(1)
@@ -13,15 +10,9 @@ SUBROUTINE cfeer3
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER ibuf1 , ibuf2 , ibuf3 , iend , iopn , itop , iv1 , iv1l , iv2 , iv2l , iv3 , iv3l , iv4 , iv4l , iv5 , iv5l , jprec ,    &
          & name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CFEER3 IS A DRIVER ROUTINE WHICH PERFORMS THE TRIDIAGONAL
 !     REDUCTION FOR THE COMPLEX FEER METHOD

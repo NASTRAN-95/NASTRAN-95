@@ -1,31 +1,19 @@
 
 SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Pi , Twopi , Z(1)
    INTEGER Irn , Iz(1) , Sysbuf
    COMMON /condas/ Pi , Twopi
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Irn
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Acpt , Cstm , Fol , Qhjl , Wj
    REAL V , X0
-!
-! Local variable declarations
-!
    INTEGER acdr(13) , buf1 , file , i , iacpt , ib , ib1 , ibs , ic , icg , icore , idelx , ix , ixic , ixs1 , ixs2 , j , jap ,     &
          & jcp , k , ks , meth , nam(2) , nb , nbei , nbes , nbxr , nfreq , nhacj , nhnju , nj , njg , nju , np , nr , nstrip ,     &
          & nto , ntp , ntys , ntzs , nwr , trl(7)
    REAL am , freq , temp
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GUST2 MAKE  WJ(W) MATRIX FOR GUST
 !

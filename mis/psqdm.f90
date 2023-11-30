@@ -1,9 +1,6 @@
 
 SUBROUTINE psqdm
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Deps , Depss , Dum(297) , Dum1 , Dummy(56) , Ecpt(26) , Ecptsa(100) , Elid , Eltemp , Eps0 , Eps1 , Eps2 , Epss ,   &
       & Estar , Esub0 , Extra(4) , F , G11 , G12 , G13 , G22 , G23 , G33 , Gamma , Gammas , Gp(9) , Nu , Ph1out(200) , Plaans ,     &
       & Plaarg , S(3) , Sigxs , Sigxys , Sigys , Sinth , Sx , Sy , Tau0 , Tau1 , Tau2 , Ui(12) , Z(24)
@@ -16,13 +13,7 @@ SUBROUTINE psqdm
    COMMON /pla3es/ Ecptsa , Ph1out
    COMMON /pla3uv/ Ivec , Z
    COMMON /plagp / Gp , Midgp , Elid
-!
-! Local variable declarations
-!
    INTEGER i , matid1
-!
-! End of declarations
-!
 !  THIS SUBROUTINE IS THE DRIVER FOR THE QUAD-MEMBRANE CALCULATIONS IN
 !  PLA3
 !

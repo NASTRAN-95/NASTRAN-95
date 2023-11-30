@@ -1,25 +1,13 @@
 
 SUBROUTINE a82int(*,A,N,B,Int)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nout
    COMMON /xreadx/ Nout
-!
-! Dummy argument declarations
-!
    REAL B
    CHARACTER*8 C
    INTEGER Int , N
    REAL A(2)
-!
-! Local variable declarations
-!
    INTEGER nt
-!
-! End of declarations
-!
 !
 !
 !     THESE ROUTINES PERFORM IN THE OPPOSITE DIRECTION AS THOSE OF THE

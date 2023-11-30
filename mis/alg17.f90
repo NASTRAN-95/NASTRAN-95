@@ -1,19 +1,10 @@
 
 SUBROUTINE alg17(Istak,Pltsze,Itrig,Title,Ikdum,Ifplot)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ifplot , Ikdum , Istak , Itrig
    REAL Pltsze
    REAL Title(18)
-!
-! Local variable declarations
-!
    REAL bal , plttit , xback1 , xback2 , xlen1 , xlen2 , yback1 , yback2 , ylen1 , ylen2
-!
-! End of declarations
-!
 !
 !
    plttit = Pltsze*.1

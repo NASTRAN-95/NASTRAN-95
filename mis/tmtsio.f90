@@ -1,9 +1,6 @@
 
 SUBROUTINE tmtsio(*,Debug1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , G(86) , Pu(226) , Rbldpk , Rgetst , Rgino , Rintpk , Rpck , Rputst , Runpak , T(23) , Tbldpk , Tgetsb , Tgetst ,     &
       & Tgino , Tintpk , Tllcdp , Tllcsp , Tllrdp , Tllrsp , Tpack , Tputst , Ttlcdp , Ttlcsp , Ttlrdp , Ttlrsp , Tunpak , X(1) ,   &
       & Z(1)
@@ -23,20 +20,11 @@ SUBROUTINE tmtsio(*,Debug1)
    COMMON /zblpkx/ Zd , Iz
    COMMON /zntpkx/ Xd , Ix , Eol , Eor
    COMMON /zzzzzz/ A
-!
-! Dummy argument declarations
-!
    INTEGER Debug1
-!
-! Local variable declarations
-!
    INTEGER ablk(15) , bblk(15) , buf1 , buf2 , end , f1 , f2 , files(2) , i , i1000 , i1001 , iret , isubr(2) , j , k , kerr , m ,  &
          & m10 , m100 , mcb(7) , mm , mx , n , n10 , nbrstr , nwds , type , zero
    REAL flag , fm , fn , rpack , t1 , t2 , t3 , t4 , time1 , time2 , tprrec , tprwrd
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TMTSIO TIME TESTS GINO AND THE PACK ROUTINES
 !

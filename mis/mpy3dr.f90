@@ -7,9 +7,6 @@ SUBROUTINE mpy3dr(Z)
 !     SETS UP OPEN CORE AND DETERMINES SOLUTION METHOD.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ac , Ar , Bc , Bf , Br , Buf1 , Buf2 , Buf3 , Buf4 , Code , D , Diag , Dum1(22) , Dum2(32) , Dumcp(34) , Ec , Ef , Er ,  &
          & Filea(7) , Fileb(7) , Filec(7) , Filee(7) , Icore , Itrl , Lcore , Lkore , Lout , M , Maxa , Mcb(7,3) , Mcore , Meth ,   &
          & Mfilea(7) , Mfileb(7) , Mfilec(7) , Mfilee(7) , Mprec , Mscr , Mt , N , Ncb , Nk , Nout , Prec , Scr(7) , Scr1 , Scr2 ,  &
@@ -27,21 +24,12 @@ SUBROUTINE mpy3dr(Z)
    COMMON /ntime / Timcon
    COMMON /system/ Sysbuf , Nout , Dum1 , Diag , Dum2 , Meth
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER aelms , belms , eelms , i , iprc , ityp , ixx , jbegn , jend , jmeth , kmeth , l19 , mpy(3) , name(2) , ttg
    INTEGER andf , complf , lshift , orf
    DOUBLE PRECISION dd , mm , nn , pp , xx
    REAL rhoa , rhob , rhoe , tcol , timem1 , timem2 , timem3
    EXTERNAL andf , complf , lshift , orf
-!
-! End of declarations
-!
 !WKBI 4/94
    EQUIVALENCE (Ac,Filea(2)) , (Ar,Filea(3)) , (Bc,Fileb(2)) , (Br,Fileb(3)) , (Bf,Fileb(4)) , (Ec,Filee(2)) , (Er,Filee(3)) ,      &
     & (Ef,Filee(4))

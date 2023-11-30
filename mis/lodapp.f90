@@ -1,9 +1,6 @@
 
 SUBROUTINE lodapp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(3) , Icdp , Icorx(1) , Icsp , Idiag , Iefnrw , Ifirst , Ilast , Ilower , Incr , Inorew , Iodum(8) , Ird , Irdp ,     &
          & Irdrew , Irect , Irew , Irsp , Irule , Isbuff , Isqure , Isym , Itypin , Itypot , Iupper , Iwrt , Iwrtrw , Iz(1) ,       &
          & Lcore , Lp , Mcbk(7) , Mcbk11(7) , Mcbk12(7) , Mcbk21(7) , Mcbk22(7) , Mdidum(4) , Nxtdum(15)
@@ -21,9 +18,6 @@ SUBROUTINE lodapp
    COMMON /system/ Isbuff , Lp
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    REAL adump(4000) , blnk
    INTEGER andf , itcode , korsz , rshift
    INTEGER i , ib1 , ib2 , ib3 , iblk , ibuf1 , ichk , icore , idrc1 , idrc2 , idry , idump , igo , ii , iloop , imdi , imergn ,    &
@@ -36,9 +30,6 @@ SUBROUTINE lodapp
    INTEGER nmrvcs , nn(2) , nnew1 , nnewf , nnews , npapp , npf , npoap , npove , nprog(2) , nps , npvec , ns , ns1 , nstart ,      &
          & nsubs , nwds , nwords
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS MODULE APPENDS NEW LOAD VECTORS (PAPP AND POAP) TO THE
 !     SUBSTRUCTURE  -NAME-.  THE NEW VECTORS ARE MERGED WITH ALREADY

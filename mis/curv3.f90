@@ -1,9 +1,6 @@
 
 SUBROUTINE curv3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Any , Any1g , Any1m , Anyout , Eofos1 , First , Foes1g , Strain
    INTEGER Buf(100) , Cls , Clsrew , Cstm , Cstms , Cstype , Depts , Device , Eltype , Eor , Est , Estwds , Ewords , File , Gpl ,   &
          & I , Ibuf1 , Ibuf2 , Ibuf3 , Ibuf4 , Icomp , Icstm , Ictype , Idep , Idoes1 , Idrec(146) , Idscr1 , Ieltyp , Iestx ,      &
@@ -30,14 +27,8 @@ SUBROUTINE curv3
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Ioutpt
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    REAL avgl , fl , xrange , xsqysq , yrange
    INTEGER icrq , idx , jsigma , kctype , mcb(7)
-!
-! End of declarations
-!
 !*****
 !  THIS OVERLAY WILL FORM OES1G (IF REQUESTED BY DMAP PARAMETER = 0)
 !

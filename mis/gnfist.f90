@@ -1,9 +1,6 @@
 
 SUBROUTINE gnfist(Filenm,Fistnm,Modno)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(3) , Fist(2) , Icfiat , Idpl(3) , Ipval(5) , Isval(34) , Ixval(5) , Oscar(7)
    REAL Skip(23)
    COMMON /ipurge/ Ipval
@@ -14,20 +11,11 @@ SUBROUTINE gnfist(Filenm,Fistnm,Modno)
    COMMON /xdpl  / Idpl
    COMMON /xfiat / Fiat
    COMMON /xfist / Fist
-!
-! Dummy argument declarations
-!
    INTEGER Fistnm , Modno
    INTEGER Filenm(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER fistx , i , i1 , j , j1 , k , l , lfiat , m , mask , mask1
    EXTERNAL andf
-!
-! End of declarations
-!
 !
    DATA mask1/65535/ , mask/32767/
 !             MASK1 = O177777   MASK  = O77777

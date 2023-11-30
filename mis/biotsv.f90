@@ -1,27 +1,15 @@
 
 SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf2 , Hest , Iout , Ist , Iz(1) , Load , Mcore , Ng1 , Ng2 , Nslt , Ntot , Scr1 , Subcas
    REAL Remfl , Sysbuf , X1 , X2 , Y1 , Y2 , Z(1) , Z1 , Z2
    COMMON /biot  / Ng1 , Ng2 , Ist , Subcas , X1 , Y1 , Z1 , X2 , Y2 , Z2 , Buf2 , Remfl , Mcore , Load , Nslt , Scr1 , Hest , Ntot
    COMMON /system/ Sysbuf , Iout
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Hcx , Hcy , Hcz , Xx , Yy , Zz
-!
-! Local variable declarations
-!
    REAL alls , buf(50) , fac , factor , hc(3) , hc1(3) , hc2(3) , hca , hcb , hcc , ratio , tlen , xlen
    INTEGER bgpdt , file , i , ibuf(50) , ic , ido , ing1 , ing2 , isimp , isimp1 , isub , j , k , ktype , ltype , mcb(7) , mwords , &
          & n3 , nam(2) , nc , ncards , ngrids , nobld , nrowsp , ns , nsimp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE MAGNETIC FIELD AT A POINT (XX,YY,ZZ)
 !     DUE TO MAGNETIC SOIRCES. THE ROUTINE IS USED BY PROLATE IN

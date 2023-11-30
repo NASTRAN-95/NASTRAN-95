@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovms
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Dry , Fss(2) , Icore , Iopt , Ireq , Lbasic , Lcore , Loop , Lreq , Lui , Neigv , Norew , Nosort , Rd , Rdrew ,   &
          & Rew , Rfno , Sof3 , Step , Wrt , Wrtrew , Z(1)
    REAL Buf2 , Buf3 , Buf4 , Energy , Eofnrw , Pa , Pthres , Qa , Qthres , Range(2) , Rss(2) , Sof1 , Sof2 , Ua , Uimpro ,          &
@@ -14,13 +11,7 @@ SUBROUTINE rcovms
    COMMON /rcovcm/ Mrecvr , Ua , Pa , Qa , Iopt , Rss , Energy , Uimpro , Range , Ireq , Lreq , Lbasic
    COMMON /rcovcr/ Icore , Lcore , Buf1 , Buf2 , Buf3 , Buf4 , Sof1 , Sof2 , Sof3
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER eog , eoi , file , i , i7 , itype , lama , lams , n , name(2) , nw , nwds , rc , soln , srd , swrt
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE MODAL SOLUTION ITEM FOR RIGID FORMAT 3
 !

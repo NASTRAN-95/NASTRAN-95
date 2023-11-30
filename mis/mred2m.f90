@@ -1,26 +1,14 @@
 
 SUBROUTINE mred2m(Nuf,N2,Nus)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cprtn , Dry , Gbuf1 , Hk , Hkpg , Ident , Idum1 , Idum2(17) , Idum3(14) , Idum4 , Incr , Irow , Iscr(10) , Korbgn ,      &
          & Korlen , Nmodes , Nrow , Otfile(6) , Phi12i , Rprtn , Typin , Typout , Z(1)
    REAL Rz(1)
    COMMON /blank / Idum1 , Dry , Idum4 , Gbuf1 , Idum2 , Otfile , Iscr , Korlen , Korbgn , Idum3 , Nmodes
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER N2 , Nuf , Nus
-!
-! Local variable declarations
-!
    INTEGER i , ifile , iform , imsg , isub(4) , itrlr1(7) , itrlr2(7) , itype , j , modnam(2)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE FORMS THE HK MATRIX FOR THE MRED2 MODULE.
 !

@@ -6,9 +6,6 @@ SUBROUTINE xsfa(X)
 !     REVISED  8/89,  SEE XSFABD
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Bff , Buf1 , Comm(20) , Cursno , Dculg , Ddbn(1) , Dfnu(1) , Dmm(14) , Dmxlg , Dnaf , Dpd(6) , Dum(17) ,&
          & Dum1 , Dum2 , Entn1 , Entn2 , Entn3 , Entn4 , Fculg , Fcum(1) , Fcus(1) , Fdbn(1) , Fequ(1) , Fiat(7) , File(1) , Fist , &
          & Fknd(1) , Flag , Fmat(1) , Fmxlg , Fntu(1) , Fnx , Fon(1) , Ford(1) , Fpun(1) , Funlg , Ibnk(1) , Ibufsz , Icfiat ,      &
@@ -28,22 +25,13 @@ SUBROUTINE xsfa(X)
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsfa1 / Md , Sos , Comm , Xf1at
    COMMON /zzzzzz/ Buf1
-!
-! Dummy argument declarations
-!
    INTEGER X
-!
-! Local variable declarations
-!
    INTEGER alcnt , blksiz , f1 , fil , fn , fnos , i , iapflg , ibegn , iend , ii , inam1 , inam2 , ip , iprt(23) , itemp , itest , &
          & itiord , itpflg , iunpfg , ix , iy , j , k , l , lmt , lmt1 , lmt2 , lmt4 , lmt5 , lmt8 , lmt8p1 , lmt9 , m , mxntu ,    &
          & mxntui , n , nfculg , noaval , ns14 , nsfa(3) , nx , oscar1 , oscar2 , pfil(2,3) , plus , pool , rnos , totf , totio ,   &
          & trial
    INTEGER andf , complf , lshift , orf , rshift
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Dpd(1),Dnaf) , (Dpd(2),Dmxlg) , (Dpd(3),Dculg) , (Dpd(4),Ddbn(1)) , (Dpd(6),Dfnu(1)) , (Fiat(1),Funlg) ,            &
     & (Fiat(2),Fmxlg) , (Fiat(3),Fculg) , (Fiat(4),Fequ(1)) , (Fiat(4),File(1)) , (Fiat(4),Ford(1)) , (Fiat(5),Fdbn(1)) ,           &
     & (Fiat(7),Fmat(1)) , (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,    &

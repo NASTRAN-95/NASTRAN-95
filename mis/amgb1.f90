@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb1(Input,Matout,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Degra , Den , Dum(2) , Flowa , Mach , Maxmac , Minmac , Pi , Radeg , Radius ,     &
       & Redf , Refc , Refcrd , Refden , Refflo , Refmac , Refstg , Refvel , Rfreq , S4pisq , Sigma , Stager , Twopi , Vel , Work(1) &
       & , Xsign
@@ -21,20 +18,11 @@ SUBROUTINE amgb1(Input,Matout,Skj)
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Work
-!
-! Dummy argument declarations
-!
    INTEGER Input , Matout , Skj
-!
-! Local variable declarations
-!
    REAL amachl , radii(50) , wfact
    INTEGER ecore , i , ibad , ip1 , ip2 , ip3 , ip4 , ip5 , iptr , irsln , isln , j , k , n , najjc , name(2) , ndata , next ,      &
          & nline , nsns , ntsonx , nw1 , nw2 , nwar
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR COMPRESSOR BLADE THEORY.
 !     COMPUTATIONS ARE FOR THE AJJL AND SKJ MATRICES.

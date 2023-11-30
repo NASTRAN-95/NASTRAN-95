@@ -1,9 +1,6 @@
 
 SUBROUTINE bars
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , Costh , D1 , D2 , Dela(6) , Delb(6) , Dum(12) , E , Ecpt(42) , Elid , Eltemp , F1 , F2 , Fe , Fj ,    &
       & Fk , G , G1 , G2 , Gpa(3) , Gpb(3) , Heat , I1 , I12 , I2 , K1 , K2 , Ke(144) , Kep(144) , Kk(144) , M(12,12) , Me(144) ,   &
       & Mep(144) , Nsm , Rho , Sigc , Sigs , Sigt , Sinth , Smallv(3) , Smalvn(6) , Stress , Ta(18) , Tb(9) , Tempel , Tsubo ,      &
@@ -24,9 +21,6 @@ SUBROUTINE bars
    COMMON /matout/ E , G , Nu , Rho , Alpha , Tsubo , Gsube , Sigt , Sigc , Sigs
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    REAL a2b , ael , beta , bl , bl13 , bl22 , blcube , blsq , blsq3 , blsq4 , const , ei1 , ei2 , epsi , epsi2 , fl , fll , fm ,    &
       & gak1 , gak2 , gjl , l2b3 , l2b6 , lb , limit , lr1 , lr2 , r1 , r2 , sk1 , sk2 , sk3 , sk4
    LOGICAL aofset , basic , bofset , offset
@@ -34,9 +28,6 @@ SUBROUTINE bars
          & ip5 , ipin(10) , is , is12or(4) , is21or(4) , isv , iwbeg , ix , ix1 , ix2 , j , j1 , j2 , jcsid , jcsida , jcsidb , ji ,&
          & jj , jll , jofset , jofsta , jofstb , jpina , jpinb , jta , jtb , k , ka , kb , korm , l1 , lim , lj , ll , low , mm ,   &
          & ndof , nsq
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION VERSION
 !

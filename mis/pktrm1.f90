@@ -1,9 +1,6 @@
 
 SUBROUTINE pktrm1(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Angle , C(18) , Consts(5) , Costh , Degra , Delta , Dumb(80) , Dumcl(149) , Dummy(244) , Dummy1 , Dummy2 , Dummy3 , E(18) , &
       & Ecpt(4) , Eltemp , Flamda , Fmu , G(9) , G11 , G12 , G13 , G22 , G23 , G33 , Ph1out(200) , Reelmu , Sinth , Stress , T ,    &
       & Temp , Tempar(27) , Theta , Ti(9) , Vol , X1 , X2 , X3 , Xsubb , Xsubc , Y1 , Y2 , Y3 , Ysubc , Z1 , Z2 , Z3
@@ -15,17 +12,8 @@ SUBROUTINE pktrm1(Ntype)
    COMMON /pla42s/ C , E , Ti , Tempar , Temp , Xsubb , Xsubc , Ysubc , Vol , Reelmu , Delta , Flamda , Theta , Dummy
    COMMON /pla4es/ Necpt , Ngrid , Angle , Matid1 , T , Fmu , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 , Z2 , Dummy3 , X3 , Y3 ,    &
                  & Z3 , Dumb , Ph1out
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j , npt1
-!
-! End of declarations
-!
 !  THIS ROUTINE CALCULATES PHASE I OUTPUT FOR PLA4
 !  BOTH FOR THE TRI-MEMBRANE AND SUB-CALCULATIONS FOR THE QUAD MEMBRANE
 !

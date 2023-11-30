@@ -1,27 +1,15 @@
 
 SUBROUTINE detck(Jarg,Ifgpst,Npvt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION B(9) , D(18) , Dz(1) , Fl(3) , M(3) , R(3)
    INTEGER Isys(69) , Iz(1)
    REAL Tolel
    COMMON /ma1xx / D , B , Dz , Fl , R , M
    COMMON /system/ Isys , Tolel
-!
-! Dummy argument declarations
-!
    INTEGER Ifgpst , Jarg , Npvt
-!
-! Local variable declarations
-!
    INTEGER back , i , i1 , iarg , iarray(8) , igoto , ii , inc1 , inc2 , inc3 , iorder , ip , ipoint , isave , itemp , j , j1 , jj ,&
          & k1 , k2 , kk , kount , ll , name(2) , neor , nwds , tnwds
    DOUBLE PRECISION const , det , dtol , fm , fr , temp
-!
-! End of declarations
-!
 !
 !     COMMENTS FROM G.CHAN/UNISYS, 5/1991,
 !     THIS ROUTINE WAS NAMED DETCKX BEFORE, WHICH HAD NOT BEEN TESTED.

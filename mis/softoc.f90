@@ -1,9 +1,6 @@
 
 SUBROUTINE softoc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Avblks , Blksiz , Buf(1) , Dirsiz , Ditnsb , Ditsiz , Filsiz(10) , Hiblk , Ifrst , Ihalf , Item(7,1) , Line , Mach ,     &
          & Nbpc , Nbpw , Nfiles , Nitem , Nlpp , Nout
    REAL Dit , Ditbl , Ditlbn , Ditpbn , Filnam(10) , Supsiz , Sysbuf , Y(2) , Z1(6) , Z2(26)
@@ -19,16 +16,10 @@ SUBROUTINE softoc
    COMMON /system/ Sysbuf , Nout , Z1 , Nlpp , Y , Line , Z2 , Nbpc , Nbpw
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Buf
-!
-! Local variable declarations
-!
    INTEGER andf , klshft , lshift , rshift , sofsiz
    INTEGER blank , cs , hdr(27,4) , hl , i , ibit , im , image , imask , inum , iper , is , it , itm(27) , j , jj , jmkn , k , l ,  &
          & ll , m0009 , m1019 , m2029 , maxitm , nblk , nitm , nshft , ntype , num(10) , ps , ss , ssname(2) , type(5)
    EXTERNAL andf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     SOF TABLE OF CONTENTS ROUTINE
 !

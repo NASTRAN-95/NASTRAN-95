@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Casecc , Dry , Gbuf1 , Gbuf2 , Gbuf3 , Infile(11) , Io , Iprntr , Iscr(11) , Korbgn , Korlen , Lamsap , Lstzwd , Modlen ,&
          & Modpts , Newnam(2) , Nmax , Oldnam(2) , Otfile(6) , Phissl , Popt , Sbuf1 , Sbuf2 , Sbuf3 , Step , Sysbuf , Z(1)
    LOGICAL Modes , Ponly , Rsave , Symtry
@@ -12,16 +9,10 @@ SUBROUTINE cmrd2
                  & Oldnam , Newnam , Symtry , Range , Nmax , Io , Modes , Rsave , Lamsap , Modpts , Modlen , Ponly , Lstzwd
    COMMON /system/ Sysbuf , Iprntr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , iblank , ifile , ihorg , imsg , itest , itrlr(7) , j , k , kaa , modnam(2) , nhhlft , nhhorg , nhloap , nhlods ,     &
          & nmonic(8) , nozwds , npass , nrange , nwdscc , nwdsrd , yes
    INTEGER korsz , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE IS THE CMRED2 MODULE WHICH PERFORMS THE MAJOR
 !     COMPUTATIONS FOR THE COMPLEX MODAL REDUCE COMMAND.

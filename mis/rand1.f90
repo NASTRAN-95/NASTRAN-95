@@ -1,23 +1,11 @@
 
 SUBROUTINE rand1(File,Mid,Type,Id,Comp,Q)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Head(1)
    COMMON /output/ Head
-!
-! Dummy argument declarations
-!
    INTEGER Comp , File , Id , Mid , Type
    INTEGER Q(2)
-!
-! Local variable declarations
-!
    INTEGER i , idr(50) , itype , mid1(2,7)
-!
-! End of declarations
-!
 !
 !     PUTS ID RECORD ON RANDOM OUTPUT FILES
 !

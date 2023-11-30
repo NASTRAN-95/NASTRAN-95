@@ -1,9 +1,6 @@
 
 SUBROUTINE frrd1c(Frl,Frqset,Mdd,Bdd,Kdd,Ifr,Ull,Lll,Scr1,Scr2,Scr3,Scr4,Igood)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Amcb(2) , Bmcb(2) , Cmcb(2) , Ddc , Ddr , Det(2) , Dett , Minda , Mindd
    INTEGER Chlsky , Fa(7) , Fl(7) , Fu(7) , Ia(7) , Ib , Ibbar , Icbr(3) , Icore(1) , Iib , Iibb , Il(7) , Ipow , Iprec , Iscr1 ,   &
          & Iscr2 , Iscr3 , Iu(7) , Ksystm(63) , Lcore , M1fil , M2fil , M3fil , Mcba(12) , Mcbb(12) , Mcbc(12) , Mcbd(12) , Mcbe(12)&
@@ -17,19 +14,10 @@ SUBROUTINE frrd1c(Frl,Frqset,Mdd,Bdd,Kdd,Ifr,Ull,Lll,Scr1,Scr2,Scr3,Scr4,Igood)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Bdd , Frl , Frqset , Ifr , Igood , Kdd , Lll , Mdd , Scr1 , Scr2 , Scr3 , Scr4 , Ull
-!
-! Local variable declarations
-!
    INTEGER i , mx4a , mx4b , mx4c , name(2) , nz
    INTEGER korsz
    REAL w
-!
-! End of declarations
-!
 !                                         (A)      (B)        (C)
 !     THIS ROUTINE FORMS AND DECOMPOSES   KDD + I*W*BDD - W**2*MDD
 !     WHERE  W = OMEGA, CYCLIC FREQ. AND I = SQUARE ROOT MINUS ONE

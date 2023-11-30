@@ -1,9 +1,6 @@
 
 SUBROUTINE drod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A , Alpha , Avgltp , Delta , Diff(3) , Dpterm , Dz(1) , E , Fx , Ke(36) , Ta(9) , Tb(9) , Tsub0 , Ua(6) ,       &
                   & Ub(6) , X , Xl , Xm(3) , Xn(3) , Y , Yl , Yvec(3) , Yyt(18) , Z , Zl , Zvec(3) , Zzt(9)
    REAL Alphas , Clsrw , Costh , Cstm , Dit , Ecpt(100) , Ecptds , Eltemp , Eor , Es , Frowic , G , Gpct , Gsube , Outrw , Rho ,    &
@@ -18,14 +15,8 @@ SUBROUTINE drod
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ Es , G , Nu , Rho , Alphas , Tsub0s , Gsube , Sigt , Sigc , Sigs
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    DOUBLE PRECISION d(6) , gx
    INTEGER i , iaypnt , ibasea , ibaseb , ibypnt , idispa , idispb , itemp , j , k , ka , kb
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES  K(NPVT,NPVT) AND
 ! K(NPVT,J) FOR A ROD HAVING END POINTS NUMBERED NPVT AND J.

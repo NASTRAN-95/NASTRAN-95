@@ -1,26 +1,17 @@
 
 SUBROUTINE sdr1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Append , Two1(32) , Ul , Usb , Usg
    INTEGER Iheat , Iprec , Irfno , Isys(54) , Itype(2) , Ua1 , Ud , Ue , Uf1 , Ufe , Ug1 , Um , Un1 , Une , Uo , Up , Ur , Us
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua1 , Uf1 , Us , Un1 , Ug1 , Ue , Up , Une , Ufe , Ud
    COMMON /blank / Append , Itype
    COMMON /system/ Isys , Iprec , Iheat
    COMMON /two   / Two1
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER dyna , gm , go , ia(7) , imulti , iomt , ipvect , ireact , isav , iscr5 , iscr6 , isng , itran , iua , iuf , iuf1 , iug ,&
          & ium , iun , iuo , iur , ius , kfs , kss , noue , pg , pgx , ps , qr , qsx , reig , ua , uf , ug , ugvx , ulv , un ,      &
          & uoov , uset , ys
    EXTERNAL andf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Isys(25),Irfno)
    DATA dyna , reig/4HDYNA , 4HREIG/

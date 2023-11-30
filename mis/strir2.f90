@@ -1,9 +1,6 @@
 
 SUBROUTINE strir2(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(81) , Disp(9) , Dum1(33) , Dum2(99) , Dum3(225) , Eforc(9) , Eldefm , Estres(4) , Force(25) , Sel(36) , Stres(100) ,     &
       & Templd , Ts(4) , Tz , Zz(1)
    INTEGER Icstm , Idel , Iforce(25) , Igp(3) , Istres(100) , Ivec , Ivecn , Ldtemp , Ncstm
@@ -11,18 +8,9 @@ SUBROUTINE strir2(Ti)
    COMMON /sdr2x7/ Idel , Igp , Tz , Sel , Ts , Ak , Dum2
    COMMON /sdr2x8/ Disp , Eforc , Estres
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    REAL Ti(3)
-!
-! Local variable declarations
-!
    REAL dt
    INTEGER i , iloc , j , k , kk , n , ncomp , ndof , ns , nsp , numpt
-!
-! End of declarations
-!
 !
 !*****
 ! THIS ROUTINE IS PHASE II OF STRESS DATA RECOVERY FOR THE TRIANGULAR

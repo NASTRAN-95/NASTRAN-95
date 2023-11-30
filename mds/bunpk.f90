@@ -1,25 +1,13 @@
 
 INTEGER FUNCTION bunpk(Ig,I,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum1b , Dum3b(3) , Dum4s(4) , Dum5s(5)
    INTEGER Ii1 , Ipass , Mask , Nbit , Nbpw , Nw
    COMMON /bandb / Nbit , Dum3b , Ipass , Nw , Dum1b , Nbpw
    COMMON /bands / Dum4s , Ii1 , Dum5s , Mask
-!
-! Dummy argument declarations
-!
    INTEGER I , J
    INTEGER*2 Ig(1)
-!
-! Local variable declarations
-!
    INTEGER loc , n1
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

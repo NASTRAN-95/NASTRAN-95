@@ -1,9 +1,6 @@
 
 SUBROUTINE apd3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acpl(3,3) , Acsid , Alzo , Buf11 , Buf12 , C1 , Ca2e , Ca2s , Ca4e , Ca4s , Cp , Cstma , Pa2e , Pa2s , Pa4e , Pa4s , Ra1(3) &
       & , Rb1(3) , S1 , Scr2 , Scr3 , Scr4 , Scr5 , Sysbuf , X1 , X12 , X1p , X4 , X43 , Xop , Xp2 , Xp3 , Xp4 , Y1 , Y4 , Yp4 ,    &
       & Z(1) , Z1 , Z4
@@ -22,9 +19,6 @@ SUBROUTINE apd3
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER acsix(4) , auset(6,2) , back , cid(5) , eidb , i , i17 , i18 , i19 , i20 , ibs , icid , ihead(10) , ilc1 , ilc2 , ilw ,  &
          & ipid , j , k , kk , kkk , lca , n , nam(2) , nc3 , necta(2) , nm , nn , nogo , nwc1 , nwc2 , nww , pspa , ret , silc ,   &
          & sildx(2) , uk , usa
@@ -32,9 +26,6 @@ SUBROUTINE apd3
    LOGICAL cntrl1 , cntrl2 , crank1 , crank2
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(1),eidb) , (necta(2),cid(1)) , (acsix(2),vx2(1)) , (sildx(1),icid) , &
     & (Z(1),Iz(1)) , (Eid,Ic(1)) , (crank1,ihead(3)) , (crank2,ihead(4)) , (cntrl1,ihead(5)) , (cntrl2,ihead(6))

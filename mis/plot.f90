@@ -1,9 +1,6 @@
 
 SUBROUTINE plot(Mode,Buf1,B1,Setid,Deflst,Nofind)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Anydef , Bfrms , Bufsiz , Casecc , Defile(3) , Direct , Elset , For , Fscale , Fvp , Gpset , Icntvl , Icolor , Isubs ,   &
          & Iused , Lasset , Merr , Ncntr , Ncor , Ngp , Ngpset , Norg , Nout , Nsets , Oes1 , Offscl , Org , Origin(11) , Parm ,    &
          & Pbufsz , Pcon , Pedge , Plabel , Pltnum , Plttap , Porig , Ppen , Prject , Prnt , Pset , Pshape , Psymbl(2) , Psymm(6) , &
@@ -25,14 +22,8 @@ SUBROUTINE plot(Mode,Buf1,B1,Setid,Deflst,Nofind)
    COMMON /xxparm/ Pbufsz , Camera , Bfrms , Skpcam , Penpap , Scale , Defmax , View , Vanpnt , Prject , Projct , For , Org , Norg ,&
                  & Origin , Skppar , Ncntr , Cntr , Icntvl , Where , Direct , Subcas , Flag , Data , Skp19 , Icolor , Skp235 ,      &
                  & Offscl
-!
-! Dummy argument declarations
-!
    INTEGER B1 , Buf1 , Mode , Nofind
    INTEGER Deflst(2) , Setid(1)
-!
-! Local variable declarations
-!
    INTEGER all , awrd(2) , both , contur , d1 , d2 , defbuf , defid , defo , dtype , elem , eor , epid , err(17) , f1(10) , f2(20) ,&
          & grid , gspc , i , i1 , i2 , i3 , iapp , imod , incom , inprew , isetd , iwrd , j , japp , keywd , lag(2) , load ,        &
          & loadid , lorig , lpcon , m , mag , magc(2) , mdef , mf1(2,5) , mf2(2,5) , mf3(3,3) , mf4(6) , mfile , modex , msg1(19) , &
@@ -45,9 +36,6 @@ SUBROUTINE plot(Mode,Buf1,B1,Setid,Deflst,Nofind)
    DOUBLE PRECISION dwrd
    LOGICAL tapbit
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS PLOT ROUTINE IS CALLED ONLY BY PARAM
 !

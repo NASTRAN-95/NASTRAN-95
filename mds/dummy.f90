@@ -1,25 +1,13 @@
 
 SUBROUTINE dummy
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Mach , Nout
    COMMON /machin/ Mach
    COMMON /system/ Isysbf , Nout
-!
-! Dummy argument declarations
-!
    REAL Code , O
    INTEGER I , I1 , I2 , I3 , I4 , I5 , J , K , Key , L , M
    INTEGER N(1)
-!
-! Local variable declarations
-!
    CHARACTER*8 name
-!
-! End of declarations
-!
 !
 !     NOTE:
 !     THIS DUMMY.MIS ROUTINE CONTAINS 4 MACHINE VERSIONS (IBM,CDC,VAX,

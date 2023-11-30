@@ -34,9 +34,6 @@ SUBROUTINE mred2h
 !             MODPTS - NUMBER OF MODAL POINTS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Eqst , Gbuf1 , Idum1 , Idum2(5) , Idum3(16) , Idum4(3) , Idum5 , Idum6(4) , Idum7(6) , Idum8(2) , Idum9 ,          &
          & Infile(12) , Io , Iprntr , Korbgn , Korlen , Line , Modpts , Newnam(2) , Nlpp , Oldnam(2) , Popt , Usrmod , Z(1)
    LOGICAL Frebdy , Ponly
@@ -47,9 +44,6 @@ SUBROUTINE mred2h
    COMMON /system/ Idum5 , Iprntr , Idum7 , Nlpp , Idum8 , Line
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER farind , i , icode , ifile , imsg , index1 , ipid , iprb , ips , item , itest , itmlst(3) , itmnam(2) , itrlr(7) ,       &
          & itype , iwds , izero , j , k , kore , lamloc , loap , loc , locbgs , loceqs , locnew , locold , lods , lstbit(32) ,      &
@@ -57,9 +51,6 @@ SUBROUTINE mred2h
          & papp , sofeog
    REAL zero
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Eqst,Infile(4)) , (Rz(1),Z(1))
    DATA modnam/4HMRED , 4H2H  /
    DATA papp , lods , loap/4HPAPP , 4HLODS , 4HLOAP/

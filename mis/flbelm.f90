@@ -1,9 +1,6 @@
 
 SUBROUTINE flbelm
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Ibgpdt , Ibuf1 ,     &
          & Ibuf2 , Ibuf3 , Ibuf4 , Ibuf5 , Icore , Igrav , Igrid , Isil , Kgdict , Kgmat , Lcore , Mpt , Nbgpdt , Ngrav , Ngrid ,   &
          & Nofree , Nograv , Nout , Nsil , Sil , Uset , Usetf , Usets , Z(1)
@@ -18,14 +15,8 @@ SUBROUTINE flbelm
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER card(10) , cflstr(2) , cfree(2) , elm2d(7,3) , elmfl(4,3) , file , grid(4) , i , id(3) , ids , ielmt , j , jloc , lelmt ,&
          & lgrid , mcb(7) , n , n2d , name(2) , nelm , nelmt , nfl , ngrdf , ngrds , ngrdt , ntype , nwds , nz
-!
-! End of declarations
-!
 !
 !     READS CFLSTR AND CFREE BULK DATA AND BUILDS INCORE TABLES TO
 !     DESCRIBE THE CONNECTIVITY BETWEEN THE STRUCTURE AND FLUID

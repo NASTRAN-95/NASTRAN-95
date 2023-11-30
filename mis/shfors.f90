@@ -1,29 +1,17 @@
 
 SUBROUTINE shfors(Numpx,Elid,Igrid,Thikns,G,Epscsi,Qveci,Idr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum71(100) , Forsul(200) , Stres(100) , Strin(100)
    LOGICAL Forreq , Grids , Gridss , Layer , Layers , Stnreq , Strcur , Stsreq , Vonms , Vonmss
    INTEGER Nfors(1)
    COMMON /outreq/ Stsreq , Stnreq , Forreq , Strcur , Grids , Vonms , Layer , Gridss , Vonmss , Layers
    COMMON /sdr2x7/ Dum71 , Stres , Forsul , Strin
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Numpx
    REAL Epscsi(6,1) , G(6,6) , Qveci(2,1) , Thikns(1)
    INTEGER Idr(1) , Igrid(1)
-!
-! Local variable declarations
-!
    LOGICAL cosmic
    REAL dforce(8) , gt(6,6) , t3ov12 , thick , thick2
    INTEGER ifor , iforce , ig , inplan , inptmp , jg , nump , nump1
-!
-! End of declarations
-!
 !
 !     TO CALCULATE SHELL ELEMENT FORCES FOR A 2-DL FORMULATION BASE.
 !

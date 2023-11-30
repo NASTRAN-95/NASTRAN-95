@@ -1,14 +1,8 @@
 
 BLOCKDATA of3pbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C1(120) , C21(120) , C41(120) , C61(120) , C81(120)
    COMMON /ofpb3 / C1 , C21 , C41 , C61 , C81
-!
-! End of declarations
-!
 !OF3PBD
 !
 !     C ARRAY FOR REAL STRESSES SORT 2 TIME

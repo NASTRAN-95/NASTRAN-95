@@ -1,20 +1,11 @@
 
 SUBROUTINE eqscod(Loc,N,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Loc , N
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , icode , iloc , inew , ist , j , mend , ng
    INTEGER lshift , orf
    EXTERNAL lshift , orf
-!
-! End of declarations
-!
 !
 !
    i = Loc

@@ -1,25 +1,13 @@
 
 SUBROUTINE invert(Ia,Ib,Scr1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fa(7) , Fb(7) , Nx , Prec , Scrfil
    REAL Z(1)
    COMMON /invtrx/ Fa , Fb , Scrfil , Nx , Prec
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ia , Ib , Scr1
-!
-! Local variable declarations
-!
    INTEGER korsz
    INTEGER name(2)
-!
-! End of declarations
-!
 !
 !     DRIVER  FOR  INVTR
 !

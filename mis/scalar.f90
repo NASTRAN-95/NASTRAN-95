@@ -26,9 +26,6 @@ SUBROUTINE scalar
 !     DIAG 37)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Rsp , Splx(2) , Vps(1)
    INTEGER Bk(1) , Col , Core(1) , D4(4) , Eol , Eor , Ii , Ivps(1) , Nout , R2(2) , Row , Sysbuf
    DOUBLE PRECISION Da(2) , Dplx(2) , Rdp
@@ -41,18 +38,12 @@ SUBROUTINE scalar
    COMMON /xvps  / Ivps
    COMMON /zntpkx/ A , Ii , Eol , Eor
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dp(2)
    INTEGER first , fnm(2) , form , i , ia(7) , ibuf , in1 , j , lcore , name(2) , ncol , nrow , pnm(2) , prec
    INTEGER korsz
    LOGICAL noprt
    REAL sp(4)
    CHARACTER*10 type(4)
-!
-! End of declarations
-!
    EQUIVALENCE (R2(1),Rdp) , (D4(1),Dplx(1)) , (ia(2),ncol) , (ia(3),nrow) , (ia(4),form) , (ia(5),prec) , (Da(1),A(1)) ,           &
     & (dp(1),sp(1)) , (Vps(1),Ivps(1))
    DATA in1 , name/101 , 4HSCAL , 4HAR  / , first/12/

@@ -1,24 +1,12 @@
 
 FUNCTION maxdgr(Nc,Ic,Ideg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nn
    COMMON /bands / Nn
-!
-! Dummy argument declarations
-!
    INTEGER Nc
    INTEGER Ic(1) , Ideg(1)
    INTEGER maxdgr
-!
-! Local variable declarations
-!
    INTEGER i , m
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

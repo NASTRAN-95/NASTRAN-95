@@ -1,18 +1,9 @@
 
 SUBROUTINE ifte4(Tha,Rp,Cp)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Cp , Rp , Tha
-!
-! Local variable declarations
-!
    REAL d , epsi , rn , rps , sign , t1 , t2 , thao , trm , tsq
    INTEGER i , it
-!
-! End of declarations
-!
    DATA thao , epsi/.1 , 1.E-9/
    IF ( abs(Tha)<thao ) THEN
 !

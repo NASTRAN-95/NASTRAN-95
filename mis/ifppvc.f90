@@ -1,9 +1,6 @@
 
 SUBROUTINE ifppvc(*,Ipvs,Jr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    REAL D1(52) , D2(3) , D3(6) , D4(18) , Z(1)
    INTEGER Dum(79) , Ibuf , Id(2) , Jrun , Kn , Knt , Kor(1) , M(50) , M1(35) , M1f(35) , Mf(50) , Ncds , Nopen , Nout , T1(2,1)
@@ -13,22 +10,13 @@ SUBROUTINE ifppvc(*,Ipvs,Jr)
    COMMON /system/ Ibuf , Nout , Abort , Dum , Jrun
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Kor
-!
-! Dummy argument declarations
-!
    INTEGER Ipvs
    INTEGER Jr(1)
-!
-! Local variable declarations
-!
    REAL a
    INTEGER blank , i , ia , ib , ibuf1 , ics , idon , if0 , ifield , ifil , ii , ik , ioldn , ipar , ipar1 , iplus , ipp , isort ,  &
          & istar , istop , isv , it , ithr , ivar , ivar1 , j , k , kdum , l42 , ln , lst , ltj , n , n1 , n2 , name(2) , ncdsmx ,  &
          & nptp , nv , nw
    INTEGER khrfn1
-!
-! End of declarations
-!
 !
 !     IFPPVC TAKES 1PARM AND 1VARY CARDS AND MAKES A SCRATCH FILE
 !     TO USE IN MODIFYING OTHER BULK DATA CARDS

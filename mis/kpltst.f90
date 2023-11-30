@@ -1,9 +1,6 @@
 
 SUBROUTINE kpltst(G1,G2,G3,G4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Id , Out
    LOGICAL Nogo
    REAL R(3) , R13(3) , R24(3) , Rxr(3) , Sysbuf
@@ -13,18 +10,9 @@ SUBROUTINE kpltst(G1,G2,G3,G4)
    COMMON /sma1et/ Id
    COMMON /system/ Sysbuf , Out , Nogo
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    REAL G1(3) , G2(3) , G3(3) , G4(3)
-!
-! Local variable declarations
-!
    REAL dh , dl , r1l , r2l
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WILL VERIFY THAT THE 4 GRID POINTS IN 3 SPACE LIE IN
 !     AN APPROXIMATE PLANE. IF NOT THE NOGO FLAG IS SET TRUE AND A

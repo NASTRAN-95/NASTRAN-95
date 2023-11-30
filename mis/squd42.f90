@@ -1,9 +1,6 @@
 
 SUBROUTINE squd42
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alfab(3) , Alfam(3) , App(2) , Avgthk , Degrad , Dumm(30) , Dummy(35) , Epsln(8) , Epslnt(6) , Forsul(46) , Fxcntr ,        &
       & Fxycnt , Fycntr , G(36) , G2alfb(30) , Gpth(4) , Gt(36) , Khit(3) , Mominr , Phiout(2395) , Pi , Raddeg , Reali(5) ,        &
       & Shpfnc(4) , Sigma(3) , Signx(4) , Signy(4) , Skp(4) , Sort2 , Stemp(8) , Strs(2) , Strx(2) , Stry(2) , Tes(9) , Tesu(9) ,   &
@@ -27,9 +24,6 @@ SUBROUTINE squd42
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL abbd(6,6) , alpha(3) , c , c2 , const , delt , delta(48) , deltat(8) , detg2 , detrm , dumc(6) , ei(2) , epsa , epsavg(6) , &
       & epsb(3) , epse(3) , epslne(3) , epss , epst(3) , epstot(3) , eta , ezerot(6) , fb(2) , fbmax , fbond , fibre , fimax ,      &
       & findex , fpmax , g2(9) , g3(4) , gdum , mintr , mther(6) , offset , proj , s , s2 , sb , sigavg , sigma1 , sigma2 , sigyp , &
@@ -48,9 +42,6 @@ SUBROUTINE squd42
          & souti , strain , sym , symmem
    REAL z1(5) , z2(5) , zbar(2) , zeta , zk , zk1 , zref , zsubi
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     PHASE 2 STRESS RECOVERY FOR 4-NODE ISOPARAMETRIC QUADRILATERAL
 !     SHELL ELEMENT (QUAD4)

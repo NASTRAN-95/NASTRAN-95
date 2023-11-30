@@ -1,25 +1,13 @@
 
 SUBROUTINE lprops(G)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL E1 , E2 , Nu12 , Rmtout(25)
    COMMON /matout/ Rmtout
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION D(25)
    REAL G(25)
-!
-! Local variable declarations
-!
    REAL const , mtype , nu21
    DOUBLE PRECISION donst
    INTEGER i , ii , mtyp
-!
-! End of declarations
-!
 !     &    ENTRY LPROPD (D)
 !
 !     THIS ROUTINE RETURNS INTRINSIC LAYER PROPERTIES FOR

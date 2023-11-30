@@ -1,27 +1,15 @@
 
 SUBROUTINE matprt(*,*,A,Option,Column)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , Count , File , I , J , Maxlin , Mcb(7) , Mo , Type , Ui , Uinc , Uj , Utype
    REAL Skp1(6) , Skp2(2)
    COMMON /system/ Bufsiz , Mo , Skp1 , Maxlin , Skp2 , Count
    COMMON /unpakx/ Utype , Ui , Uj , Uinc
    COMMON /xxmprt/ Mcb
-!
-! Dummy argument declarations
-!
    INTEGER Option
    REAL A(1)
    INTEGER Column(1)
-!
-! Local variable declarations
-!
    INTEGER cdp , csp , inprew , rdp , rew , rsp
-!
-! End of declarations
-!
 !
 !     MATPRT AND PRTMAT ARE CALLED ONLY BY INTPRT
 !

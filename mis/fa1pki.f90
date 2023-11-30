@@ -1,9 +1,6 @@
 
 SUBROUTINE fa1pki(Fsave,Qhhl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Floop , Ia , Icp , Iflag , Ik , Imvr , Incr1 , Inn , Iout , Iq , Ncore , Nk , Nnn , Nout , Sysbuf
    CHARACTER*23 Ufm
@@ -14,20 +11,11 @@ SUBROUTINE fa1pki(Fsave,Qhhl)
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Fsave , Qhhl
-!
-! Local variable declarations
-!
    INTEGER buf1 , i , iad , icpd , ifle , in , ising , j , k , l , m , n , n2 , name(2) , ni , nk1 , nn , nrow , nwr , trl(7)
    DOUBLE PRECISION det , dx1 , dx2
    INTEGER korsz
    REAL newm , oldm , rmi , rms , rmx
-!
-! End of declarations
-!
 !
 !     FA1PKI BUILDS AN INTERPOLATION MATRIX IN CORE FOR PK METHOD
 !

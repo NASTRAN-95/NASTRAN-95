@@ -1,26 +1,14 @@
 
 SUBROUTINE ploapf(Ecpt,Iecpt,L,Pa,Pb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL E , G
    COMMON /matout/ E , G
-!
-! Dummy argument declarations
-!
    REAL L
    REAL Ecpt(33) , Pa(1) , Pb(1)
    INTEGER Iecpt(9)
-!
-! Local variable declarations
-!
    REAL a , ael , beta , ei1 , ei2 , fj , gak , gjl , i1 , i12 , i2 , k1 , k2 , ke(144) , kep(144) , l2 , l2b3 , l2b6 , l3 , lb ,   &
       & lr1 , lr2 , pe(12) , pep(12) , r1 , r2 , sk1 , sk2 , sk3 , sk4
    INTEGER i , ii , ij , il , ill , ip , ip12 , ipin(10) , j , j12 , ji , jll , k , ka , kb , ll
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS CALLED ONLY BY PLOAD1 FOR HANDLING PIN FLAGS OF
 !     THE CBAR

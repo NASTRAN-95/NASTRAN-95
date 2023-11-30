@@ -73,9 +73,6 @@ SUBROUTINE inptt2
 !                  (SEE P5 PARAMETER IN INPTT2 AND P5 IN OUTPT2)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    DOUBLE PRECISION Dcore(1)
    CHARACTER*80 Dsnames(80)
@@ -91,18 +88,12 @@ SUBROUTINE inptt2
    COMMON /type  / Prec , Nwds
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER base , bcdbin(4) , bcol , bflag , bform , blk(20) , bname , bpoint , brav , brow , btyp , bwrt , dx(3) , i , i3 ,        &
          & idhdr(7) , idhdrx(7) , ifirst , imhere , in , index , ipt2 , ipt4 , iptx , irecf , k , key , keyx , kf , krec , l , l1 , &
          & l2 , lcor , mcb(7) , mete , mfiv , mfor , mone , msc , msix , mtre , mtwo , name(2) , namex(2) , ncol , nnt , none(2) ,  &
          & ns , nskip , nt(5,3) , ntrl , nwd , nwdsx , oubuf , output , p3x(2) , ret , subnam(2) , tapcod(2) , trl(8) , zero
    LOGICAL dp , sparse
    INTEGER korsz
-!
-! End of declarations
-!
 !WKBNB
 !WKBNE
    EQUIVALENCE (Core(1),X(1))

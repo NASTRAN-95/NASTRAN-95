@@ -1,9 +1,6 @@
 
 SUBROUTINE qdmm2d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alps(3) , Costh , Degra , Dum(2) , Dumm(15) , Eltemp , Est(26) , G11 , G12 , G13 , G22 , G23 , G33 , Ge , Heat , Pi ,       &
       & Radeg , Rho , S4pisq , Sinth , Stress , Tsub0 , Twopi
    INTEGER Elid , Estid , Icmbar , Inflag , Ioutpt , Iprec , Ismd(3) , Ksystm(65) , Matid , Nest(7) , Ngrids
@@ -18,18 +15,12 @@ SUBROUTINE qdmm2d
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alps , Tsub0 , Ge
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    REAL angl , dict5 , dummy
    INTEGER dict(11) , i , ia , ib , ic , ierror , iest , ii , ij , ip , ipart(4) , ising , j , j1 , j2 , j3 , j4 , jt , jtt , k ,   &
          & l , lpart , map(4,3) , modk
    DOUBLE PRECISION et(9) , g(36) , gsube(9) , icosth , idetrm , isinth , it , itemp9(9) , jtemp9(9) , k1sum(9,16) , k5mod(9,5) ,   &
                   & k5sum(9,5) , kij(1) , kmat(63) , kout(144) , ktemp9(9) , rmat(3,5) , tmat(36)
    LOGICAL planar
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE STIFFNESS, MASS AND DAMPING MATRICES
 !     FOR THE QDMM2 ELEMENT.

@@ -1,21 +1,12 @@
 
 SUBROUTINE k2b(K,B,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N
    INTEGER B(1)
    CHARACTER*1 K(1)
-!
-! Local variable declarations
-!
    INTEGER a , i
    CHARACTER*1 c
    CHARACTER*4 c4 , d4
-!
-! End of declarations
-!
 !
 !     MOVE ONLY THE APPROPRIATE PORTION OF THIS ROUTINE TO THE MDS GROUP
 !

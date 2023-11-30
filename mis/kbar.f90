@@ -1,9 +1,6 @@
 
 SUBROUTINE kbar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , Clsnrw , Clsrw , D1 , D2 , Dodet , E , Ecpt(100) , Eltemp , Eor , F1 , F2 , Fe , Fj , Fk , Frowic ,   &
       & G , G1 , G2 , Gpa(3) , Gpb(3) , Gsube , I1 , I12 , I2 , K1 , K2 , Nsm , Outrw , Rho , Sigc , Sigs , Sigt , Smallv(3) ,      &
       & Stress , Tempel , Tnrows , Tsubo , Za(3) , Zb(3)
@@ -25,18 +22,12 @@ SUBROUTINE kbar
    COMMON /sma1io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Ifgei , Iggei , Ifkgg , Igkgg , If4gg ,     &
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    DOUBLE PRECISION ael , beta , dampc , ei1 , ei2 , fl , fll , gak1 , gak2 , gjl , l , l2b3 , l2b6 , lb , lcube , lr1 , lr2 , lsq ,&
                   & r1 , r2 , sk1 , sk2 , sk3 , sk4 , smalv0(6) , ta(18) , tb(9) , veci(3) , vecj(3) , veck(3)
    INTEGER i , icsida , icsidb , idela , idelb , ig , ii , ij , ikel , il , ilim , ill , ilow , index , ipass , ipin(10) , ipvt ,   &
          & isv , iwbeg , j , jcsid , jcsida , jcsidb , ji , jll , jofset , jofsta , jofstb , jpina , jpinb , k , ka , kb , lim ,    &
          & ll , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE TWO 6X6 MATRICES K(NPVT,NPVT) AND
 !     K(NPVT,J) FOR A BAR ELEMENT HAVING END POINTS NUMBERED NPVT AND J.

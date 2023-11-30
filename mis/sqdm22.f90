@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdm22
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cfrvec(20) , Cshars(4) , Cvc(4) , Deform , Dum8(8) , Dummy(35) , F(4,3) , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , Ff(4,3) , &
       & Fk1 , Fk2 , Fk3 , Fk4 , Fnchk , Force(17) , Frtmei(2) , Kij(9,16) , Pt(3,4) , Q1 , Q2 , Q3 , Q4 , Rg(4) , Sg(36) , Shears(4)&
       & , Sigxyz(3) , St(3) , Stress(8) , Temp , Tloads , Tsub0 , Twotop , Vec(4) , Z(1)
@@ -14,15 +11,9 @@ SUBROUTINE sqdm22
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL delta , frlast(2) , tbar
    INTEGER eject
    INTEGER i , ip1 , ipart , ished(7) , istyp(2) , j , k , lld , lsub
-!
-! End of declarations
-!
 !
 !     PHASE-II STRESS-DATA-RECOVERY ROUTINE FOR THE -QDMEM2- ELEMENT.
 !

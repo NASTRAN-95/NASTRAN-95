@@ -1,26 +1,14 @@
 
 SUBROUTINE hess2(Nrow,Iden,Ipv)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , It1 , It2 , Iz(1) , Jj , Ksystm(65) , Sysbuf
    REAL Z(1)
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iden , Ipv , Nrow
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , mcb(7) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     HESS2  WILL GENERATE  AN IDENTITY MATRIX AND A PARTIIONING VECTOR
 !

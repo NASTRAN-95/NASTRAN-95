@@ -1,29 +1,17 @@
 
 SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , Incr , Inprew , Last , Merr , Mset , Ne(1) , Ngp , Norew , Nsets , Ntyps , Outnor , Outrew , Rew
    REAL Ect1 , Ect2 , Exgpid , Grid , Rd , Skp1(8) , Skp2 , Skp3(8) , Skp4 , Skp5(6)
    COMMON /blank / Ngp , Nsets , Skp1 , Skp2 , Exgpid , Skp3 , Merr , Skp4 , Grid , Ect2 , Skp5 , Mset , Ect1
    COMMON /gpta1 / Ntyps , Last , Incr , Ne
    COMMON /names / Rd , Inprew , Outnor , Outrew , Rew , Norew
    COMMON /system/ Bufsiz
-!
-! Dummy argument declarations
-!
    INTEGER Max
    INTEGER Buf(1) , Ele(1) , Gp(1)
-!
-! Local variable declarations
-!
    INTEGER ae , b1 , b2 , b3 , br , eid(2) , elid , err(2) , etype , exgp , gpt , gpts(32) , i , idx , ingp , j , labgp , m ,       &
          & msg1(14) , mtype , n , n1 , n2 , name(2) , ne16 , nel , neltyp , ngppe , ngpts , nmsg1 , ntypes , off(6) , offset , q4 , &
          & setid , setnum , sign , t3 , type(50)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE BUILDS THE ELSETS FILE
 !     THIS SUBROUTINE IS CALLED ONLY BY DPLTST, WHICH IS THE DRIVER OF

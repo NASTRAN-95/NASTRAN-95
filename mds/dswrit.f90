@@ -2,24 +2,12 @@
 SUBROUTINE dswrit(Iunit,Buff,Len,Irec,Iccerr)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Iwr
    REAL Sysbuf
    COMMON /system/ Sysbuf , Iwr
-!
-! Dummy argument declarations
-!
    INTEGER Iccerr , Irec , Iunit , Len
    INTEGER Buff(Len)
-!
-! Local variable declarations
-!
    INTEGER istat
-!
-! End of declarations
-!
 !      print *,' dswrit,len,IREC,UNIT=',len,irec,iunit
    IF ( Irec<=0 ) THEN
       WRITE (Iwr,99001) Iunit , Irec , Mdsnam(Iunit)

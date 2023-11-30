@@ -3,18 +3,9 @@ SUBROUTINE dsgefl
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER*2 Iunit(220)
    COMMON /dsunit/ Iunit
-!
-! Local variable declarations
-!
    INTEGER iobuf
-!
-! End of declarations
-!
    IF ( Name>=101 .AND. Name<=320 ) THEN
       Ifilex = Iunit(Name-100)
    ELSE

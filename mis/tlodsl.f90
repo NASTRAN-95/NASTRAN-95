@@ -1,9 +1,6 @@
 
 SUBROUTINE tlodsl(Treal,Tint)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Eltemp , Em(6) , Est(100) , F(14,14) , Fac , Gsube , P3(30) , P6(32) , P7(30) , Pg(1) , Pla34 , Rhoy ,     &
       & Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Tref
    INTEGER Elid , Eltype , Estid , Ibuf , Iest(42) , Ind(6,3) , Ldict , Matflg , Matid , Nlocs , Nout
@@ -16,14 +13,8 @@ SUBROUTINE tlodsl(Treal,Tint)
    COMMON /trimex/ Est
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Pg
-!
-! Dummy argument declarations
-!
    INTEGER Tint(6)
    REAL Treal(6)
-!
-! Local variable declarations
-!
    REAL a , a1 , a1sq , a2 , a2sq , a3 , a3sq , aa1 , aa2 , aa3 , area , aviner , avthk , b , balotr(36) , blank , c , c1 , c10 ,   &
       & c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 , cab(3) , cc(10) , d11 , d12 , d13 , d132 , d22 , d23 , d232 , d33 , d334 , dd(3) ,  &
       & degra , determ , dista , distb , distc , ee(30) , el(3) , el2 , el3 , g(9) , g1(3) , g11 , g11pr , g12 , g13 , g22 , g22pr ,&
@@ -38,9 +29,6 @@ SUBROUTINE tlodsl(Treal,Tint)
    REAL rjx , rkx , rlx , rmnx , rmx , rmx1 , rnx , rnx1 , t1prim , t3prim , t5prim , tbend1 , tbend3 , tbend5 , theta1 , thetam ,  &
       & thk1 , thk2 , thk3 , tmem1 , tmem3 , tmem5 , trand(9) , ts6(40) , tshr1 , tshr3 , tshr5 , vol , xc(6) , yc(6) , zc(6)
    INTEGER yv(32) , yw(32)
-!
-! End of declarations
-!
 !
 !     ECPT ENTRIES
 !

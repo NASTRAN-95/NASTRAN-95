@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2n
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gbuf2 , Hk , Icode , Idum1 , Idum2 , Idum3 , Idum4(14) , Idum5(4) , Idum6(2) , Incr , Infile(12) , Irow ,  &
          & Iscr(10) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) , Itrlre(7) , Jscr(3) , K , Kmw2 , Korbgn , Korlen , Lamamr , Lkore ,       &
          & Lstzwd , Nmodes , Nrow , Otfile(6) , Prec , Sbuf1 , Sbuf2 , Sbuf3 , Typin , Typout
@@ -15,13 +12,7 @@ SUBROUTINE mred2n
    COMMON /mpy3tl/ Itrlra , Itrlrb , Itrlre , Itrlrc , Jscr , Lkore , Icode , Prec , Dummy
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dblkor , i , ifile , iform , imsg , iprc , itrlr1(7) , itrlr2(7) , ityp , itype , j , modnam(2) , nwdsrd
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE K MATRIX FOR THE MRED2 MODULE.
 !

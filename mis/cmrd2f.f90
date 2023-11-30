@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2f(Kode)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Eqst , Fuset , Gbuf1 , Gib , Gibbar , Hgh , Hghbar , Him , Himbar , Icode , Idum1 , Idum2(2) , Idum3 , Idum4(9) ,  &
          & Idum5(10) , Idum6(4) , Idum7(4) , Incr , Infile(11) , Iprntr , Irow , Iscr(11) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) ,     &
          & Itrlrd(7) , Jscr(3) , Jtrlra(7) , Jtrlrb(7) , Jtrlrc(7) , Jtrlre(7) , Kbarbb , Kbb , Khh , Kib , Kii , Kmm , Korbgn ,    &
@@ -23,18 +20,9 @@ SUBROUTINE cmrd2f(Kode)
    COMMON /system/ Idum3 , Iprntr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Kode
-!
-! Local variable declarations
-!
    INTEGER blanks , cmred2 , dblkor , i , iform , imsg , iprc , isub(4) , item , itest , itmlst(12) , itmnam(2) , itrlr1(7) ,       &
          & itrlr2(7) , itrlr3(7) , ityp , itype , j , kbarow , kcol , kmmcol , kmmrow , modnam(2) , numb , papp
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE FINAL STRUCTURAL MATRICES FOR THE
 !     CMRED2 MODULE.

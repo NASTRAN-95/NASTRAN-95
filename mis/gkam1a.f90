@@ -1,9 +1,6 @@
 
 SUBROUTINE gkam1a(Mi,Phidh,Sdt,Scr1,Scr2,Iopt,Iout,Nopp,W,Nw,Nosdt,Lhset,I2dd,Iws,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Pi , Radeg , S4pisq , Twophi , Xx(9)
    INTEGER Ii , Iii , Incr , Incr1 , Iprec , It1 , It11 , It2 , Jj , Jjj , Kdamp , Ksystm(65) , Nout , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -15,21 +12,12 @@ SUBROUTINE gkam1a(Mi,Phidh,Sdt,Scr1,Scr2,Iopt,Iout,Nopp,W,Nw,Nosdt,Lhset,I2dd,Iw
    COMMON /system/ Ksystm
    COMMON /unpakx/ It11 , Iii , Jjj , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER I2dd , Iopt , Iout , Iws , Lhset , Mi , Nopp , Nosdt , Nw , Phidh , Scr1 , Scr2 , Scr3 , Sdt
    REAL W(1)
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf , icrq , ihh(3) , imi , ip1 , iret , itab(2) , itabt(13) , iz , k , lc , mcb(7) , mii , name(2) , ne , nz
    REAL g , xmass
    INTEGER korsz
    DOUBLE PRECISION ma(2) , mc , md , zero(2)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(55),Iprec) , (md,ma(1)) , (mc,ma(2))
    DATA zero/0.0D0 , 0.0D0/

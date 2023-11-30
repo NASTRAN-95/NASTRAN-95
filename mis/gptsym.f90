@@ -1,25 +1,13 @@
 
 SUBROUTINE gptsym(Gplst,X,U,Sym,Deform)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ngp
    COMMON /blank / Ngp
-!
-! Dummy argument declarations
-!
    INTEGER Deform
    INTEGER Gplst(1) , Sym(2)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER i , j
    REAL xx , yy
-!
-! End of declarations
-!
 !
 !
    CALL symbol(0,0,0,-1)

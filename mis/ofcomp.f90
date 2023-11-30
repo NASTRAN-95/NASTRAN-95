@@ -1,9 +1,6 @@
 
 SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Head(96) , Icard , Id(50) , Iflg , Isubs , Isubtl(32) , Itherm , Ititle(32) , Ksystm(100) , L1 , L2 , L3 , L4 , L5 ,     &
          & Label(32) , Line , Maxlns , Nout , Of(58) , Punch
@@ -11,14 +8,8 @@ SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    COMMON /output/ Head
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Eltyp , File , Form , Iapp , Type
    LOGICAL Headng , Pnched
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER astr , blnk , buf(86) , ceig , device , elemid , failth , flag , freq , hill(2) , hoffmn(2) , ibuf(3) , icheck , idd ,   &
          & idevce , ieltyp , ifail(2) , ii , iply , ist(86) , itemp , j , jj , jout , k , left , length , maxflg , nlayer , nlines ,&
@@ -27,9 +18,6 @@ SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    LOGICAL cmpxdt , force , heat , magpha , quad4 , sort1 , sort2 , stress , strn , tria3
    CHARACTER*5 q4 , t3 , t3q4
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     OFP ROUTINE TO HANDLE PRINT AND PUNCH OF LAYERED COMPOSITE
 !     ELEMENT STRESSES AND FORCES.  CURRENTLY, THIS INVOLVES ONLY

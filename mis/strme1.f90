@@ -1,9 +1,6 @@
 
 SUBROUTINE strme1(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alphas(3) , Angle , C(18) , Consts(5) , Costh , Degra , Delta , Dumb(80) , Dummy(219) , Dummy1 , Dummy2 , Dummy3 , E(18) ,  &
       & Ecpt(21) , Eltemp , Flamda , Fmu , Forvec(25) , G(9) , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 ,       &
       & Gsube , Ph1out(100) , Reelmu , Rho , Sigcom , Sigshe , Sigten , Sinth , Stress , T , Temp , Tempar(27) , Theta , Ti(9) ,    &
@@ -18,17 +15,8 @@ SUBROUTINE strme1(Ntype)
    COMMON /sdr2x5/ Necpt , Ngrid , Angle , Matid1 , T , Fmu , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 , Z2 , Dummy3 , X3 , Y3 ,    &
                  & Z3 , Dumb , Ph1out , Forvec
    COMMON /sdr2x6/ C , E , Ti , Tempar , Temp , Xsubb , Xsubc , Ysubc , Vol , Reelmu , Delta , Flamda , Theta , Dummy
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j , npt1
-!
-! End of declarations
-!
 !
 !     ******** PHASE I OF STRESS DATA RECOVERY *************************
 !     ******** TRIANGULAR MEMBRANE ELEMENT *****************************

@@ -1,9 +1,6 @@
 
 SUBROUTINE masstq(Narg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Area , Bggind , Cp , Dum4(10) , Dummy(504) , Dumxx(1) , Ecpt(100) , Eltemp , Fmu , Rho , T , Term , V1(3) , V1xv2(3) , V2(3)
    LOGICAL Heat
    INTEGER Ichek , Ifbgg , Iflag , Ifmgg , Inflag , Ioptb , Isub1 , Isub2 , Isub3 , Matid , Ncsid , Necpt(7) , Npivot , Npt1 ,      &
@@ -18,18 +15,9 @@ SUBROUTINE masstq(Narg)
    COMMON /sma2et/ Ecpt
    COMMON /sma2ht/ Heat
    COMMON /sma2io/ Dum4 , Ifmgg , Dumxx , Ifbgg
-!
-! Dummy argument declarations
-!
    INTEGER Narg
-!
-! Local variable declarations
-!
    INTEGER i
    REAL pi23
-!
-! End of declarations
-!
 !     ******************************************************************
 !     E C P T    L I S T I N G S
 !     **************************

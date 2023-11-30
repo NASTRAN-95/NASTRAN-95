@@ -5,9 +5,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !     CONTROL CARD FORMAT.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bit64
    INTEGER Blank , Case(400) , Corex(1) , Corey(401) , Ilink , Intra , Isys , Nogo , Nout , Pltopt , Skp(16) , Skp63(63) , Sys21
    CHARACTER*23 Ufm
@@ -16,14 +13,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
    COMMON /xifp1 / Blank , Bit64
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER I81 , Icont , Org , Porg
    INTEGER Pocard(1)
-!
-! Local variable declarations
-!
    INTEGER allon , anti , axes(3) , camera(5) , cntur(20) , coord(25) , core(1) , ctype(21) , defo , eor , forg , hidd , i , iax ,  &
          & icrd , idvpr(3) , ierr , ilnk , integ , ipr1 , ipr2 , iprm , iro , irtn , isplot , istb , istt , itype , ivc , iword ,   &
          & iwrd , j , lag , lblpr(5) , magn , maxes(3) , mode , msgno , nast(2) , ncrd , nint , nopt , nreal , nro , nthru ,        &
@@ -31,9 +22,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
    INTEGER complf , rshift
    LOGICAL flag(3)
    EXTERNAL complf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (proj,ctype(11)) , (defo,idvpr(1)) , (symm,pltpr(13)) , (anti,pltpr(14)) , (magn,cntur(13)) , (thru,pltpr(22)) ,     &
     & (poin,lblpr(2)) , (core(1),Corey(401)) , (Corex(1),Corey(1),Case(1)) , (hidd,pltpr(24))
    DATA ctype/4HPLOT , 4HORTH , 4HPERS , 4HSTER , 4HAXES , 4HVIEW , 4HMAXI , 4HCSCA , 4HFIND , 4HCONT , 4HPROJ , 4HOCUL , 4HCAME ,  &

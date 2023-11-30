@@ -1,9 +1,6 @@
 
 SUBROUTINE etrbkd(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(225) , Aout(324) , Consts(5) , Costh , D(9) , Degra , Dict5 , E(18) , G(9) , G2x2(4) , J2x2(4) , K(324) ,     &
                   & Prod9(9) , S(18) , Sinth , Temp9(9) , Ti(9) , Tite(18) , Tjte(18) , Xsubb , Xsubc , Ysubc
    REAL Alp12 , Alpha1 , Alpha2 , Angle , Dum(15) , Dumb(76) , Dummy1 , Dummy2 , Dummy3 , Ecpt(25) , Eltemp , Eye , Fmu , G11 ,     &
@@ -19,19 +16,10 @@ SUBROUTINE etrbkd(Iopt)
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alp12 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,   &
                  & G2x211 , G2x212 , G2x222
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    DOUBLE PRECISION area , determ , px2 , pxy2 , py2 , temp , theta , xbar , xbar3 , xbsq , xcsq , xcyc , ybar , ybar2 , ybar3 ,    &
                   & ycsq
    INTEGER i , ia , ii , iout , ising , j , jj , loopnd , no(2) , npivot , npt1 , npt2 , ntype
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS MATRIX FOR THE BASIC
 !     BENDING TRIANGLE.  IT IS USED BY SUBROUTINES TRBSCD,QDPLTD,

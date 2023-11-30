@@ -1,29 +1,17 @@
 
 SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ihead(96) , Ititl(96) , Junk1(6) , Junk2(2) , Nline , Nlpp , Outt
    REAL Xxx
    COMMON /output/ Ititl , Ihead
    COMMON /system/ Xxx , Outt , Junk1 , Nlpp , Junk2 , Nline
-!
-! Dummy argument declarations
-!
    INTEGER Icode , Loc , Nw
    REAL A(1)
    INTEGER Iz(1) , Name1(2) , Name2(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i , i1 , i2 , ibits(32) , icomp , ifin , ih1(96) , ih2(96) , ih3(96) , ih4(96) , ih5(96) , ih6(96) , ip , ipl(6) , ist , &
          & ist1 , j , kcode , kk , loap , nl
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE WRITES FORMATTED SOF ITEMS.
 !     ICODE = 1 FOR EQSS    ICODE = 2 FOR BGSS    ICODE = 3 FOR CSTM

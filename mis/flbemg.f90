@@ -1,9 +1,6 @@
 
 SUBROUTINE flbemg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Ibgpdt , Ibuf1 ,     &
          & Ibuf2 , Ibuf3 , Ibuf4 , Ibuf5 , Icore , Igrav , Igrid , Isil , Kgdict , Kgmat , Lcore , Mpt , Nbgpdt , Ngrav , Ngrid ,   &
          & Nofree , Nograv , Nsil , Sil , Uset , Usetf , Usets , Z(1)
@@ -15,16 +12,10 @@ SUBROUTINE flbemg
    COMMON /flbptr/ Error , Icore , Lcore , Ibgpdt , Nbgpdt , Isil , Nsil , Igrav , Ngrav , Igrid , Ngrid , Ibuf1 , Ibuf2 , Ibuf3 ,  &
                  & Ibuf4 , Ibuf5
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION afe(48) , kge(144)
    INTEGER dict(2) , fbrec(12) , file , frrec(7) , grav(2) , i , icstm , id , imat , j , jsil , n , nafe , name(2) , ncstm , nkge , &
          & nmat , nz , pos
    LOGICAL nocard
-!
-! End of declarations
-!
 !
 !     GENERATES ELEMENT AREA FACTOR AND GRAVITIATIONAL STIFFNESS
 !     MATRICES

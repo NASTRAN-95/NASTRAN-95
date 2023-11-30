@@ -1,30 +1,18 @@
 
 SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , Xcc
    REAL Rz(1) , Xdum
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
    COMMON /hdptrs/ Xdum , Xcc
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    REAL A , B , C
    INTEGER Ik , Ixr , Lz , Mt , Nit
    REAL Ccc(1) , X21(1) , Xa(1) , Xxx(1) , Y21(1) , Ya(1) , Z21(1) , Za(1)
    INTEGER Iia(1) , Iv(1)
-!
-! Local variable declarations
-!
    REAL amax , amaxx , amaxy , amin , aminx , aminy , d , dx , ei , exx , r , s , s1 , t , tx , ty , ve , xi , xii , ye , yi , yii ,&
       & ze , zi , zii
    INTEGER i , ib , ie , ig , is , j , jc , ji , jk , jo , jx , jxc , k , m , nk , nsub , nx
-!
-! End of declarations
-!
 !
 !
 !     THIS SUBROUTINE TAKES THE PTS OF INTERSECTION DETERMINED BY

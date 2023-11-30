@@ -1,27 +1,15 @@
 
 SUBROUTINE wavey(Ig,Ild,New,Nc,Ic,Kact,Maxb,Maxw,Averw,Sumw,Rms,Brms,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum6s(6)
    INTEGER Mindeg , Mm , Nn
    COMMON /bands / Nn , Mm , Dum6s , Mindeg
-!
-! Dummy argument declarations
-!
    REAL Averw , Brms , Rms
    INTEGER Maxb , Maxw , Nc , Sumw
    INTEGER Ic(1) , Ig(1) , Ild(1) , Jg(1) , Kact(1) , New(1)
-!
-! Local variable declarations
-!
    REAL ann , wave
    DOUBLE PRECISION bsumsq , sumsq
    INTEGER i , ib , ib1 , iwave , j , k , kt , l , m
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

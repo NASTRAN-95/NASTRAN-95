@@ -1,14 +1,8 @@
 
 FUNCTION iapd(I,J,Nc,Ncrd)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , J , Nc , Ncrd
    INTEGER iapd
-!
-! End of declarations
-!
    IF ( J==1 ) THEN
       iapd = Ncrd + 1
       IF ( I==1 ) RETURN

@@ -1,9 +1,6 @@
 
 SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acpl(3,3) , Alzo , C1 , Ca3e , Ca3s , Ca4e , Ca4s , Pa3e , Pa3s , Pa4e , Pa4s , Ra1(3) , Rb1(3) , S1 , Sysbuf , X1 , X12 ,  &
       & X1p , X4 , X43 , Xop , Xp2 , Xp3 , Xp4 , Y1 , Y4 , Yp4 , Z(1) , Z1 , Z4
    INTEGER Acpt , Acsid , Auset(6,2) , Bgpa , Buf10 , Buf11 , Buf12 , Ca2e , Ca2s , Cidbx , Cp , Cstma , Ecta , Eid , Gpla , Iacs , &
@@ -21,14 +18,8 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    COMMON /system/ Sysbuf , Not
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Id , Iopt , Ncore
    INTEGER Cao1(1) , Cao2(1)
-!
-! Local variable declarations
-!
    INTEGER acsib , acsix(4) , back , bet , cid(5) , eidb , i , iao , iaop , iarb , iavr , ibc , ibt , icg , ichord , icid , idelx , &
          & ids , iee , ifla1 , ifla2 , inas , inasb , inb , inbea1 , inbea2 , inc , infl , insbea , int121 , int122 , ipc , iret ,  &
          & iria , irib , irsb , isg , ispan , ith1 , ith1a , ith2 , ith2a , ix , ixic , ixis1 , ixis2 , ixlam , ixle , ixte , iyb , &
@@ -36,9 +27,6 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
          & nbea1 , nby , nbz , necta(6) , nfl , nint , nja , nka , nrib , nrsb
    REAL d1 , d2 , oldx , p1 , pio180 , temp , vx1(3) , vx2(3) , width
    INTEGER nsb , nsbea , nt121 , nt122 , nth1 , nth2 , nto , nty , ntys , ntz , ntzs , nwr , pc , ppc , sildx(2) , type(3)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Z(1),Iz(1)) , (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(1),eidb) , (necta(2),cid(1)) , (Key(2),Np) ,          &
     & (Key(3),Nstrip) , (Key(4),Ntp) , (Eid,Iax(1)) , (sildx(1),icid) , (acsix(1),acsib) , (acsix(2),vx2(1))

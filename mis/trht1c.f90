@@ -1,9 +1,6 @@
 
 SUBROUTINE trht1c(Ngroup,Udvt,Pd,Rdd,Iloop)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A , Ib(7) , Icore , Icount , Icr1 , Icr2 , Icr3 , Icr4 , Icr5 , Icr7 , Ifrst , Ii , Iii , Ik(7) , Ill1(7) , Iloop1 ,     &
          & In2 , Incr , Incr1 , Iopen , Ipnl(7) , Iprec , Ist , Isym , It1 , It2 , It3 , Iu1 , Iu1dum , Iul1(7) , Iz(1) , Jj , Jjj ,&
          & Ksystm(63) , Ktrdxx(28) , Ll1(7) , Moda1 , Mrow , Nlft1 , Nlftp1 , Nmodes , Norad , Nout , Nprt , Nstep , Nz , Pnl1 ,    &
@@ -24,21 +21,12 @@ SUBROUTINE trht1c(Ngroup,Udvt,Pd,Rdd,Iloop)
    COMMON /unpakx/ It3 , Iii , Jjj , Incr1
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iloop , Ngroup , Pd , Rdd , Udvt
-!
-! Local variable declarations
-!
    REAL delta1 , h , h1 , h2 , ombeta , opbeta , tim
    INTEGER file , i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ibuf5 , ibuf6 , ibuf7 , ibuf8 , icor , ifn(7) , igroup , in1 , ip1 , ip2 ,    &
          & iscr5 , itab(4) , itleft , iu2 , iuk , j , k , l , m , mcb(7) , name(2) , nbust , newgrp , nf , nolin , noload , nrow ,  &
          & nwds
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE  STEPS INTEGRATION PROCEDURE
 !

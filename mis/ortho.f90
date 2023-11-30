@@ -1,29 +1,17 @@
 
 SUBROUTINE ortho(U,V,X1,X2,X3,X4,X5,Nz,Ibuf1,Ibuf2,Ibuf3,Ibuf4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Fileb(7) , Filek(7) , Filelm(7) , Filem(7) , Filevc(7) , Ncol , Norew , Northo , Real , Sqr , Sr0fil , Sr5fil
    REAL Csp , Dmpfil , Dum(17) , Eofnrw , Rd , Rdp , Rdrew , Rew , Rsp , Scrfil(10) , Wrt , Wrtrew , Xxxx
    COMMON /cinvpx/ Filek , Filem , Fileb , Filelm , Filevc , Dmpfil , Scrfil
    COMMON /cinvxx/ Dum , Real , Xxxx , Northo
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr
-!
-! Dummy argument declarations
-!
    INTEGER Nz
    INTEGER Ibuf1(1) , Ibuf2(1) , Ibuf3(1) , Ibuf4(1)
    DOUBLE PRECISION U(1) , V(1) , X1(1) , X2(1) , X3(1) , X4(1) , X5(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION alpha(2) , beta(2) , const1(2) , const2(2) , pj(2)
    REAL flag
    INTEGER i , ifile , k , l7 , ncol2 , ncol4 , no , sub(2)
-!
-! End of declarations
-!
 !
 !     ORTHO WILL ORTHOGONALIZE THE CURRENT ITERANT WITH RESPECT TO
 !     THE PREVIOUSLY EXTRACTED EIGENVECTORS

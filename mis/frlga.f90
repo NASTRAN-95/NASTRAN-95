@@ -1,9 +1,6 @@
 
 SUBROUTINE frlga(Dlt,Frl,Casecc,Dit,Pp,Lusetd,Nfreq,Nload,Frqset,Fol,Notrd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Degra , Ovr(152) , Pi , Radeg , S4pisq , Twophi , Xx
    INTEGER Icore(14) , Ii , Incr , Iprec , It1 , It2 , Itl(3) , Jj , Ksystm(55) , Sysbuf
    COMMON /blank / Xx
@@ -12,13 +9,7 @@ SUBROUTINE frlga(Dlt,Frl,Casecc,Dit,Pp,Lusetd,Nfreq,Nload,Frqset,Fol,Notrd)
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Dit , Dlt , Fol , Frl , Frqset , Lusetd , Nfreq , Nload , Notrd , Pp
-!
-! Local variable declarations
-!
    REAL a , c , c1 , c2 , ceb , cosxl , cp , cz , dt , f , fx(2) , head(8) , p , reb , rp , rz , scale , sinxl , tau , theta , tk1 ,&
       & tk2 , xlama
    COMPLEX eb , pow , r1 , r2
@@ -26,9 +17,6 @@ SUBROUTINE frlga(Dlt,Frl,Casecc,Dit,Pp,Lusetd,Nfreq,Nload,Frqset,Fol,Notrd)
          & itabl , itld , itlist(13) , j , k , kk , l , lcore , llist , loadn , lvect , m , mcb(7) , name(6) , nbuf , nbuild ,      &
          & ndload , ndone , nsimpl , nsubl , nt , ntabl , nz , nz1
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES LOADS INCORE AT EACH FREQUENCY
 !

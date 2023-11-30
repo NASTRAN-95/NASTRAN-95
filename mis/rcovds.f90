@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovds
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Dry , Fss(2) , Icore , Iopt , Ireq , Iz(5) , Lbasic , Lcore , Loop , Lreq , Lui , Mrecvr , Neigv , Norew ,        &
          & Nosort , Nout , Rd , Rdrew , Rew , Rfno , Step , Sysbuf , Wrt , Wrtrew
    REAL Buf2 , Buf3 , Buf4 , Degra , Energy , Eofnrw , Pa , Pi , Pthres , Qa , Qthres , Radeg , Range(2) , Rss(2) , Sof1 , Sof2 ,   &
@@ -18,18 +15,12 @@ SUBROUTINE rcovds
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER casecc(2) , casess , dit , dload , dlt , eog , eoi , eqss , file , geom4 , i , i1 , i2 , idat , idat0 , idload , idlset ,&
          & ifac , ihit , ild , ildc , ildset , iload , iloadc , ilod , iold , iscale , isload , istep , isub , itab , itab0 ,       &
          & itabd , itype , ivec , j , k , l , ldload , ldlset , lldset , lload , lloadc , loadc(2) , lods , lsload , lstep , lsub , &
          & ltab , ltabd , lvec , n , name(2) , ndat , ns , nsload , nstep , nwds , rc , soln , srd , swrt , tabloc(13) , tolppf ,   &
          & trl(7) , upv
    REAL scale , tt
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE DYNAMIC SOLUTION ITEM FOR RIGID
 !     FORMATS 8 AND 9

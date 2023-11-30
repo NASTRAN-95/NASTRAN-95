@@ -1,9 +1,6 @@
 
 SUBROUTINE gkam
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Degra , Hfreq , Lfreq , Pi , Radeg , S4pisq , Twophi
    INTEGER Icore(2) , Ii , Ii1 , Incr , Incr1 , It1 , It2 , It3 , Jj , Jj1 , Kdamp , Nlmode , Nmode , Nob2dd , Nok2dd , Nom2dd ,    &
          & Noncup , Noue , Nout , Sysbuf
@@ -17,16 +14,10 @@ SUBROUTINE gkam
    COMMON /unpakx/ It3 , Ii1 , Jj1 , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER b2dd , bhh , casecc , i , i149 , iblock(11) , icrq , iflag , ip1 , ip2 , isw , k2dd , khh , lama , lc1 , lhset , m2dd ,  &
          & mcb(7) , mhh , mi , modes , name(2) , nosdt , nvect , nz , phia , phidh , phidh1 , scr1 , scr2 , scr3 , sdt , usetd
    REAL block(11) , f , file
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO ASSEMBLE MODAL MATRICES
 !

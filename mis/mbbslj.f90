@@ -1,9 +1,6 @@
 
 SUBROUTINE mbbslj(Arg,N,Bsl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER N6
    CHARACTER*25 Sfm , Uwm
    REAL Sysbuf
@@ -11,20 +8,11 @@ SUBROUTINE mbbslj(Arg,N,Bsl)
    CHARACTER*29 Uim
    COMMON /system/ Sysbuf , N6
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    REAL Arg
    INTEGER N
    REAL Bsl(4)
-!
-! Local variable declarations
-!
    REAL asq , f , pf
    INTEGER i , j , m
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO COMPUTE EVEN ORDERED BESSEL FUNCTIONS OF FIRST KIND
 !

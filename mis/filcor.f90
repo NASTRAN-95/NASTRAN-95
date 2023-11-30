@@ -1,23 +1,11 @@
 
 INTEGER FUNCTION filcor(Mt1x,Mt2x,Pc,Frsrow,Midrow,Nx,A,Nza,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr1 , It1 , Jj
    COMMON /unpakx/ It1 , Ii , Jj , Incr1
-!
-! Dummy argument declarations
-!
    INTEGER Frsrow , Midrow , Mt1x , Mt2x , Nx , Nza , Pc
    REAL A(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , k , lasrow , mt , mt1 , mt2 , n , na , nn
-!
-! End of declarations
-!
 !
 !     FILL CORE WITH A TRIANGULAR MATRIX
 !

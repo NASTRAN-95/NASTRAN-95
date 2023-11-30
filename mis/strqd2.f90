@@ -1,9 +1,6 @@
 
 SUBROUTINE strqd2(Npts,Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cfrvec(12) , Chpout(30) , Cvec(5) , Deform , Delta , Dum8(8) , Dummy(35) , Fnchk , Forvec(6) , Frtmei(2) , Ftemp ,          &
       & Ph1out(200) , Si(36) , Skp2de(8) , Str(18) , Stress(3) , Tem , Temp , Twotop , Vec(5) , Z(1) , Z1ovri , Z2ovri
    INTEGER I , Ibfsz , Idm(9) , Idummy(10) , Ieltyp , Ifrvec(12) , Ild , Ist(10) , Isub , Ivec , Ivecn , J , Ldtemp , Line , Nchk , &
@@ -17,21 +14,12 @@ SUBROUTINE strqd2(Npts,Ti)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Npts
    REAL Ti(6)
-!
-! Local variable declarations
-!
    INTEGER eject
    REAL f1 , ff , frlast(2) , sdelta(3) , sigx1 , sigx2 , sigxy1 , sigxy2 , sigy1 , sigy2 , sstrss(3) , z1 , z1i , z2 , z2i
    LOGICAL flag
    INTEGER iblank , ii , iretrn , ished(7) , istyp(2) , jst , k , k1 , lld , lsub , n1 , ontw(2) , qu , tr
-!
-! End of declarations
-!
 !
 !     ****PHASE II OF STRESS DATA RECOVERY*********
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE itmprt(Name,Item,Nz,Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    CHARACTER*1 Ccore(2000)
    REAL Core(1) , Head1(96) , Head2(96)
    INTEGER Icore(4) , Inx(6) , Inx1(2) , Inx2(26) , Line , Machx , Nlpp , Otpe , Sysbuf , Two1(32)
@@ -15,22 +12,13 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
    COMMON /two   / Two1
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iopt , Nz
    REAL Item
    REAL Name(2)
-!
-! Local variable declarations
-!
    REAL alphc , alphc1 , bgss , blank , cont , cparen , cstm , d , ec , ec1 , ec2 , eqss , flag , itm , loap , lods , oparen ,      &
       & plts , subs(3) , uned
    INTEGER i , icode , icomp , intgc , inum , iout , irec , ist , iv , ix , left , llen , ngrd , nout , np , nred , ns , nsub , rc
    INTEGER numtyp
-!
-! End of declarations
-!
 !
 !     WILL PRINT SOF ITEM - USING  E15.7,I10, OR ALPHA FORMAT
 !

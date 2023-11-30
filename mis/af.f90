@@ -1,21 +1,12 @@
 
 SUBROUTINE af(F,N,A,B,C,C1,C2,C3,T1,T3,T5,Jump)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B , C , C1 , C2 , C3 , T1 , T3 , T5
    INTEGER Jump , N
    REAL F(N,N)
-!
-! Local variable declarations
-!
    REAL ab
    DOUBLE PRECISION fac(20) , temp
    INTEGER i , i1 , j
-!
-! End of declarations
-!
 !
 !     THIS AREA INTEGRATION ROUTINE IS USED IN TRIM6, TRPLT1 AND TRSHL
 !     IT COMPUTES THE F FUNCTION, AND CONSTANTS C1, C2, C3

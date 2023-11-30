@@ -1,25 +1,13 @@
 
 SUBROUTINE curcas(*,Nskip,Trl,Mcb,Zz,Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ird , Irdrw , Isbz , Iwt , Iwtrw , Knerw , Knrw , Krew
    COMMON /names / Ird , Irdrw , Iwt , Iwtrw , Krew , Knrw , Knerw
    COMMON /system/ Isbz
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , Nskip
    INTEGER Mcb(7) , Trl(7) , Zz(1)
-!
-! Local variable declarations
-!
    INTEGER count , i , ibf2 , icnt , j , krw , parm(4)
    REAL rcnt
-!
-! End of declarations
-!
 !   THIS SUBROUTINE COPIES MATRIX FILE TRL(1) TO FILE MCB(1)
 ! SKIPPING NSKIP-1 MATRIX COLUMNS.  PRIMARY USE IS TO CREATE A MATRIX
 ! THAT INCLUDES ONLY SUBCASES IN THE CURRENT DMAP LOOP.

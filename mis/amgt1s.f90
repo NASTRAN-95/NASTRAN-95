@@ -1,9 +1,6 @@
 
 SUBROUTINE amgt1s(Input,Fmat,Xyzb,Index)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Dcbdzb , Degra , Den , Dum(2) , Mach , Maxmac , Minmac , Pi , Radeg , Redf ,      &
       & Refc , Refcrd , Refden , Refmac , Refstg , Refswp , Refvel , Rfreq , S4piso , Sigma , Stager , Sweep , Sysbuf , Twopi ,     &
       & Vel , Xsign
@@ -17,20 +14,11 @@ SUBROUTINE amgt1s(Input,Fmat,Xyzb,Index)
    COMMON /tamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stager , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amach , Redf , Blspc , Amachr , Tsonic , Xsign
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Input
    REAL Fmat(Nstns,Nstns) , Xyzb(3,Nstns)
    INTEGER Index(1)
-!
-! Local variable declarations
-!
    REAL al1 , al1sq , al2sq , an , arg , ch2 , determ , dum1 , pic , tbl(3,3) , x , xa , xb , xba , ya , yb , yba , za , zb , zba
    INTEGER i , ising , j , nstns3
-!
-! End of declarations
-!
 !
 !     COMPUTE F(INVERSE) FOR THIS STREAMLINE
 !

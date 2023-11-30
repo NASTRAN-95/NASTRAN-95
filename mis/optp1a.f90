@@ -1,9 +1,6 @@
 
 SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1p1 , Count , Ecor , Est , Ie(1) , Imat(1) , Incr , Inflag , Itype(21) , Last , Matid , Mpt , Ne(1) , Neltyp , Nelw ,   &
          & Noeor , Npow , Nprw , Nrd , Ntypes , Nwdse , Nwdsp , Nweor , Nwrt , Outtap , Sysbuf , Ycor
    REAL Costh , E(1) , Omat(20) , Pla , Sinth , Skp1(2) , Skp2(2) , Skp3 , Skp4(3) , Skp5(2) , Temp
@@ -17,19 +14,10 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
    COMMON /optpw1/ Ecor , E
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Dtyp(1) , Elop(2,1) , Elt(1)
    REAL Ele(1)
-!
-! Local variable declarations
-!
    REAL c1
    INTEGER i , i1 , i2 , ietyp , intyp , ipt(21) , iwd(28) , j1 , j2 , k1 , k2 , name(2) , nest
-!
-! End of declarations
-!
 !
    EQUIVALENCE (E(1),Ie(1)) , (Omat(1),Imat(1)) , (k1,c1)
    DATA name/4H OPT , 4HP1A /

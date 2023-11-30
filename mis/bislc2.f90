@@ -1,18 +1,9 @@
 
 SUBROUTINE bislc2(*,Id,Aa,Nc,Nr,Loc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Loc , Nc , Nr
    INTEGER Aa(Nr,Nc) , Id(2)
-!
-! Local variable declarations
-!
    INTEGER k , khi , klo
-!
-! End of declarations
-!
 !-----
 !     BINARY SEARCH ROUTINE - LOCATE ID POSTION IN AA
 !     SEARCH BY FIRST 2 WORDS (ROWS) OF ENTRIES.

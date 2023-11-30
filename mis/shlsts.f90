@@ -1,9 +1,6 @@
 
 SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degrad , Dum1(30) , Dum2(100) , Dum3(31) , Dum4(163) , Forsul(37) , Pi , Raddeg , Stres(69) , Strin(69) , Twopi , Z(1)
    INTEGER Edest , Fdest , Ipcmp , Ipcmp1 , Ipcmp2 , Iz(1) , Ksdrde(200) , Npcmp , Npcmp1 , Npcmp2 , Oef1l , Oes1al , Oes1l , Sdest
    LOGICAL Forreq , Grids , Gridss , Layer , Layers , Stnreq , Strcur , Stsreq , Vonms , Vonmss
@@ -14,15 +11,9 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
    COMMON /sdr2x2/ Dum1 , Oes1l , Oef1l
    COMMON /sdr2x7/ Dum2 , Stres , Dum3 , Forsul , Dum4 , Strin
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Pid
    REAL Tlam
    REAL Epscmi(6,1) , Epsumi(6,1)
-!
-! Local variable declarations
-!
    REAL c , c2 , ei(2) , epslcf(3) , epslcm(3) , epslr(3) , epsluf(3) , epslum(3) , ernar(2) , ernshr(2) , ernsrr(2) , fb(2) ,      &
       & fbmax , fbond , fbondr , fimax , fimaxr , findex , findxr , fpmax , gg(9) , s , s2 , sb , stresl(3) , strslr(3) , theta ,   &
       & ti , trans(9) , trnar(2) , trnshr(2) , trnsrr(2) , ultstn(6) , v(2) , zbar(2) , zk , zk1 , zref , zsubi
@@ -30,9 +21,6 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
          & itype , k , kk , lamopt , ll , lpc11 , lpcomp , lyrid , mem , nlay , nlayer , nstrqt , pcomp , pcomp1 , pcomp2 , pidloc ,&
          & souti , strinf , sym , symmem
    LOGICAL force , nonmem , pcmp , pcmp1 , pcmp2 , strain , stress , symlay , trnflx
-!
-! End of declarations
-!
 !
 !     TO PERFORM LAYER STRAIN, STRESS AND FORCE CALCULATIONS FOR THE
 !     2-D SHELL ELEMENTS.

@@ -32,9 +32,6 @@ SUBROUTINE mred1a(Mode)
 !              DRY    - MODULE OPERATION FLAG
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bndset , Dry , Fixset , Gbuf1 , Idum1 , Idum10(2) , Idum11(5) , Idum12 , Idum13(11) , Idum14(5) , Idum2(3) , Idum3(4) ,  &
          & Idum4(2) , Idum5 , Idum6(6) , Idum7(3) , Idum8 , Idum9(6) , Io , Iprntr , Itwo(32) , Kbdyc , Korlen , Korust , Line ,    &
          & Namebs , Nbdycc , Ncsubs , Nlpp , Nous , Oldnam(2) , Skipm , Ua , Uf , Ui , Ul , Un , Usetl , Z(1)
@@ -48,19 +45,10 @@ SUBROUTINE mred1a(Mode)
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Mode
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER array(3) , bdyc(2) , geom4 , i , ibits , ifile , iflag , ii , imsg , ishift , j , k , l , ll , modnam(2) , nwds , setid
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
    DATA geom4 , bdyc/102 , 910 , 9/
    DATA modnam/4HMRED , 4H1A  /
 !

@@ -1,19 +1,10 @@
 
 SUBROUTINE tvor(Sl1,Cl1,Tl1,Sl2,Cl2,Tl2,Sgs,Cgs,Sgr,Cgr,X01,X02,Y0,Z0,E,Beta,Cbar,Fmach,Kr,Bre,Bim)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Beta , Bim , Bre , Cbar , Cgr , Cgs , Cl1 , Cl2 , E , Fmach , Kr , Sgr , Sgs , Sl1 , Sl2 , Tl1 , Tl2 , X01 , X02 , Y0 , Z0
-!
-! Local variable declarations
-!
    REAL bs , cl , coef , cv , dij , dkc(2) , dki(2) , dko(2) , dx01 , dx02 , dy0 , dz0 , ecgs , ee , eps , esgs , etl1 , etl2 , fb ,&
       & fc , kd1(2) , kd2(2) , pi48 , r2 , r4 , sl , te , tl , x0
    INTEGER ib , iflld , isnp , l
-!
-! End of declarations
-!
 !
 !     NORMALWASH AT A POINT (X,Y,Z) - OF A SURFACE DIHEDRAL -
 !     DUE TO A TRAPEZOIDAL UNSTEADY VORTEX RING OF UNIT STRENGTH.

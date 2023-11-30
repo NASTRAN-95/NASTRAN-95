@@ -1,21 +1,12 @@
 
 FUNCTION ff100(I,A,B,M,N,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B
    INTEGER I , M , N
    REAL ff100
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL am1f , amn2f , amn2sf , an1 , an1f , an1p1 , an2 , capx , f100 , s , sf , xx
    INTEGER ifac , iret , is , lfac , n1 , n2 , n3 , n4 , nfac
-!
-! End of declarations
-!
    f100 = 0.0
    capx = A + B*X(I)
    xx = X(I)

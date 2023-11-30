@@ -1,24 +1,15 @@
 
 SUBROUTINE gkad
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Form(2) , Ib2pp , Ik2pp , Im2pp , Modacc , Multi , Nobgg , Nok4gg , Nokmgg , Noue , Omit , Single , Type(2)
    REAL G , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Um , Un , Une , Uo , Up , Ur , Us , Usb , Usg , W3 , W4
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
    COMMON /blank / Type , App , Form , G , W3 , W4 , Ik2pp , Im2pp , Ib2pp , Multi , Single , Omit , Noue , Nok4gg , Nobgg ,        &
                  & Nokmgg , Modacc
-!
-! Local variable declarations
-!
    INTEGER b1dd , b2dd , b2pp , baa , bdd , blck(12) , forc , gm , gmd , go , god , iblock(11) , k1dd , k2dd , k2pp , k41dd , k4aa ,&
          & kaa , kdd , m1dd , m2dd , m2pp , maa , mcb(7) , mdd , modal , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , tran , usetd
    DOUBLE PRECISION block(5)
    REAL xnum
-!
-! End of declarations
-!
 !
 !     GENERAL K ASSEMBLER DIRECT
 !

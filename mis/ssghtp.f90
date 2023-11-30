@@ -1,18 +1,9 @@
 
 SUBROUTINE ssghtp(Order,Z,Lz)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Lz
    INTEGER Order(Lz) , Z(Lz)
-!
-! Local variable declarations
-!
    INTEGER i , isave , jptr , ptr , save1 , save2
-!
-! End of declarations
-!
 !*****
 !  SPECIAL IN-PLACE PARTITIONING ROUTINE USED ONLY BY SSGHT MODULE.
 !*****

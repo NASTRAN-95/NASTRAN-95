@@ -1,9 +1,6 @@
 
 SUBROUTINE dlamg(Input,Matout,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Dt(1)
    INTEGER Ecore , Icg , Idelx , Idt , Iee , Ii , Inb , Inc , Incr , Isg , Isk , Iti , Ito , Ixic , Ixlam , Iys , Iz(1) , Izs ,     &
          & Length , Mcb(7) , Nd , Ne , Next , Nj , Njj , Nk , Nn , Np , Nrow , Nsk , Nstrip , Ntp , Sysbuf
@@ -15,19 +12,10 @@ SUBROUTINE dlamg(Input,Matout,Skj)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Work
-!
-! Dummy argument declarations
-!
    INTEGER Input , Matout , Skj
-!
-! Local variable declarations
-!
    REAL a(2)
    INTEGER i , k , ks , n , name(2) , nbxr , nread
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR THE DOUBLET LATTICE METHOD
 !     COMPUTATIONS ARE FOR THE AJJL MATRIX

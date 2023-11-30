@@ -1,9 +1,6 @@
 
 SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf , Filmsg , Iout , Isubst , Kcl2 , Krd2 , Krr0 , Ksystm(69) , Nbufsz , Nerr(2) , Noglev
    REAL Skpn(3)
    CHARACTER*23 Ufm
@@ -12,21 +9,12 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
    COMMON /sdcq  / Nerr , Noglev , Buf , Filmsg
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Gpl , Matrix , Mset , Msze , Sil , Uset
    INTEGER Subnam(2) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER buf2 , err(14) , exit(8) , gpid(4) , i , iblk , in(3) , iner(4) , iret , j , k , l , n(7) , name(2) , nstart , nwds ,    &
          & typ(6)
    CHARACTER*4 ctyp(6)
    REAL xgpid(4) , xin(3)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WRITES THE EXTERNAL ID AND COMPONENT ID FOR VARIOUS
 !     MATRIX ERROR CONDITIONS.

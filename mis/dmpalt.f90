@@ -2,26 +2,14 @@
 !*DECK,DMPALT
 SUBROUTINE dmpalt(Isize,Iopen,Iptape)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Altfil , Idum(115) , Isysbf , Newalt , Nmdmap , Nogo , Nout
    COMMON /altrxx/ Altfil , Newalt , Nogo
    COMMON /system/ Isysbf , Nout
    COMMON /xrgdxx/ Idum , Nmdmap
-!
-! Dummy argument declarations
-!
    INTEGER Iptape , Isize
    INTEGER Iopen(1)
-!
-! Local variable declarations
-!
    INTEGER ialter(2) , icard(18) , icheck , icount , idmap1 , idmap2 , iend , iflag , igoto , inumbr , ioccur , ioffst , ipoint ,   &
          & ireqd , isubr(2) , itemp , j , jgoto , logic , n2dmap , nwords , oldalt , xalter(2)
-!
-! End of declarations
-!
 !******************************************************************
 !                              NOTICE                             *
 !                              ------                             *

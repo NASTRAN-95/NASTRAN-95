@@ -30,9 +30,6 @@ SUBROUTINE ifp3
 !     23   CTRAPAX  --  AX.TRA.CR      7042-74  CTRAP-GEOM2
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , A4 , Angle , Coef , Consts(5) , Ni , Nisq , Nphi , Nphi1 , Pi , Raddeg , Rz(1) , Sum , T1 , T2 , Twopi
    INTEGER Axic , Axic1(3) , Axtrl(7) , Buff , Cconex(3) , Cdtype(50) , Clorwd , Compon , Csid , Csset , Ctrapa(3) , Ctriaa(3) ,    &
          & Dum1(26) , Dum37(37) , Dumdum(8) , Dummy(96) , Eor , File(6) , Flag , Force(3) , Forcex(3) , Geom(4) , Grav(3) , Grid(3) &
@@ -63,18 +60,12 @@ SUBROUTINE ifp3
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER andf , complf , korsz , lshift , orf , rshift
    INTEGER b , chr , i , i5 , i6 , iconb , icrq , ifiat , ifist , ii , ij , ik , imsg , in , in1 , inum(11) , ix , j , k , msg1(2) ,&
          & msg2(2) , mus , nh1 , nh2 , num(11) , word
    REAL difphi
    LOGICAL piez , secd
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) ,      &
     & (Axic,File(6)) , (num(11),b) , (Noeor,Inprwd,Zero) , (Eor,Clorwd,Outrwd,One)
    DATA inum/1H0 , 1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H /

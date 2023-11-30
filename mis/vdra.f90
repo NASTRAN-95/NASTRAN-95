@@ -1,9 +1,6 @@
 
 SUBROUTINE vdra
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Buf(50) , Buf1 , Buf2 , Buf3 , Casecc , Clsrew , Frq(2) , Iaacc , Iacc , Iadisp , Iavel , Idisp , Idload ,      &
          & Ielf , Ifrout , Iloads , Ilsym , Imode , Infile , Ipnl , Ispcf , Istr , Ittl , Ivel , Masks(6) , Modal(2) , Nam(2) , Rd ,&
          & Rdrew , Scr1 , Scr3 , Sdr2 , Sort2 , Sysbuf , Trn(2) , Vdrcom(1) , Vdrreq , Wrt , Wrtrew , Xset0 , Xycdb , Z(1)
@@ -15,17 +12,11 @@ SUBROUTINE vdra
                  & Ifrout , Idload , Casecc , Eqdyn , Usetd , Infile , Oeigs , Pp , Xycdb , Pnl , Outfle , Opnl1 , Scr1 , Scr3 ,    &
                  & Buf1 , Buf2 , Buf3 , Nam , Buf , Masks , Cei , Frq , Trn , Direct , Xset0 , Vdrreq , Modal
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER anynew , arg , dbname , file , format , i , icc , ilist , imstr , ireq , iset , isetno , ix , ixy , ixysc , ixyset , j , &
          & jx , k , l , last , lastxy , ll , ln , loop , master , n , ncc , nmstr , nset , nxy , nxysc , nxyset , setno , subcse ,  &
          & xsetno , xycdbf
    REAL flag
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     VDRA PROCESSES THE CASE CONTROL AND XYCDB DATA BLOCKS. IF XYCDB
 !     IS PURGED, NO ACTION IS TAKEN. OTHERWISE, OUTPUT REQUESTS IN

@@ -1,26 +1,14 @@
 
 SUBROUTINE tspl3d(Ts6)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , Aa1 , Aa2 , Aa3 , Dum(12) , Dum2(4) , Em(6) , X , Y
    COMMON /matout/ Em , Dum
    COMMON /sma1io/ X , Y , Dum2 , A1 , A2 , A3 , Aa1 , Aa2 , Aa3
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Ts6(40)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a11 , a12 , a13 , a14 , a15 , a16 , a21 , a22 , a23 , a24 , a25 , a26 , a31 , a32 , a33 , a34 , a35 , a36 ,     &
                   & a37 , a38 , a39 , a40 , a41 , thk , x2 , xy , y2
    REAL d11 , d12 , d13 , d21 , d22 , d23 , d31 , d32 , d33 , j11 , j12 , j22 , thk1 , thkts
    INTEGER i
-!
-! End of declarations
-!
 !
 !    TRANSVERSE SHEAR ROUTINE3 FOR CTRPLT1 - DOUBLE PRECISION VERSION
 !

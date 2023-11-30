@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2b
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds , Rsave
    INTEGER Chlsky , Dmr , Dry , Gib , Gibt(7) , Idum1 , Idum2(8) , Idum3 , Idum4(4) , Idum5 , Idum6(6) , Idum7(4) , Infile(12) ,    &
          & Iprntr , Iscr(10) , Iscr11 , Iscra , Iscrb , Iscrc , Iscrq(7) , Kib , Kibt(7) , Kii , Kiit(7) , Korbgn , Korlen , Lii ,  &
@@ -20,13 +17,7 @@ SUBROUTINE mred2b
    COMMON /system/ Idum5 , Iprntr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dblkor , i , ifile , imsg , item , itest , itmlst(2) , itrlr(7) , lower , modnam(2) , modsam
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PERFORMS THE GUYAN REDUCTION ON THE STRUCTURE
 !     POINTS FOR THE MRED2 MODULE.

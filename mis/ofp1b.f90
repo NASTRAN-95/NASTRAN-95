@@ -1,24 +1,12 @@
 
 SUBROUTINE ofp1b(Line)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Fd(50) , Of(6)
    INTEGER Ibuf , Id(50) , L , Nogo
    COMMON /system/ Ibuf , L , Nogo
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Line
-!
-! Local variable declarations
-!
    INTEGER idd , idum1 , idum2 , idum3 , idum4 , idum5 , idum6 , idum7 , idum8 , idum9 , idx , iharm , jharm , k , local
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE WAS FORMED ONLY TO REDUCE THE SIZE OF OFP1 FOR
 !     COMPILATION PURPOSES.  IT IS CALLED ONLY BY OFP1.

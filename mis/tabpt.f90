@@ -1,20 +1,11 @@
 
 SUBROUTINE tabpt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Irc , Iwd
    REAL Op(2)
    COMMON /blank / Op , Irc , Iwd
-!
-! Local variable declarations
-!
    REAL blank
    INTEGER i , in(5) , itrl(7)
-!
-! End of declarations
-!
 !
 !     MODULE DRIVER TO PRINT TABLES
 !

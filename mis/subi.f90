@@ -1,22 +1,13 @@
 
 SUBROUTINE subi(Da,Dzb,Dyb,Dar,Deta,Dzeta,Dcgam,Dsgam,Dee,Dxi,Tl,Detai,Dzetai,Dcgami,Dsgami,Deei,Dtlami,Dmuy,Dmuz,Infl,Ioutfl)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Da , Dar , Dcgam , Dcgami , Dee , Deei , Deta , Detai , Dmuy , Dmuz , Dsgam , Dsgami , Dtlami , Dxi , Dyb , Dzb , Dzeta ,   &
       & Dzetai , Tl
    INTEGER Infl , Ioutfl
-!
-! Local variable declarations
-!
    REAL abar , abar2 , costh , ct2 , ct3 , delxi , dxi1 , dxi2 , dybm , dybp , dzbm , dzbp , eps , eta1 , eta2 , etai1 , etai2 ,    &
       & par3 , paren , part1 , part2 , psqr , rho12 , rho2 , rho22 , rho4 , sinth , st2 , st3 , tedif , trm1 , trm2 , xetai ,       &
       & xzetai , ycbar , zcbar , zeta1 , zeta2 , zeti1 , zeti2
    INTEGER igo
-!
-! End of declarations
-!
 !
 !     COMPUTES THE IMAGE POINT COORDINATES INSIDE ASSOCIATED BODIES AND
 !     THE  MU-Z  MU-Y  ELEMENTS USED IN SUBROUTINE FWMW

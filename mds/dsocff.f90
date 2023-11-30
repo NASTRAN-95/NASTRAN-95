@@ -2,25 +2,13 @@
 SUBROUTINE dsocff(Dsname,Iunit,Istatus)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Iwr , Lqro , Mac(3)
    REAL Sysbuf
    COMMON /machin/ Mac , Lqro
    COMMON /system/ Sysbuf , Iwr
-!
-! Dummy argument declarations
-!
    CHARACTER*80 Dsname
    INTEGER Istatus , Iunit
-!
-! Local variable declarations
-!
    INTEGER iccerr , nbuff4
-!
-! End of declarations
-!
 !  OPEN AND CLOSE FILE IN ORDER TO DELETE SPACE
    OPEN (UNIT=Iunit,FILE=Dsname,IOSTAT=Istatus,ERR=100,STATUS='UNKNOWN')
  100  CLOSE (UNIT=Iunit,STATUS='DELETE',IOSTAT=Istatus,ERR=200)

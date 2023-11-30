@@ -1,9 +1,6 @@
 
 SUBROUTINE pstpl1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , C1 , C2 , Consts(5) , Cosang , Costh , D1(3) , D2(3) , Degra , Determ , Dum10 , Dum11 , Dum12(29) , Dum8 , Dum9 ,   &
       & E(18) , Ecpt(100) , Eltemp , Habc(18) , Hinv(36) , Hq(12) , Ivect(3) , Jvect(3) , Kvect(3) , L1 , L2 , Ph1out(200) ,        &
       & Prod12(12) , Prod15(15) , Prod9(9) , R(2,4) , Requiv(9) , S(18) , S1 , S2 , Sinang , Sinth , Ssum(60) , Stress , T(9) ,     &
@@ -17,14 +14,8 @@ SUBROUTINE pstpl1
                  & Temp9 , Dum8 , Km , Subsca , Subscb , Subscc , Dum11 , Theta , Nsubc , Ising , U1 , U2 , Sinang , Cosang ,       &
                  & Dum10 , Xc , Yc , Determ , Dum12
    COMMON /pla3es/ Ecpt , Ph1out
-!
-! Local variable declarations
-!
    REAL g(36) , temp15(15)
    INTEGER i , j , k , m(9)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES PHASE I OUTPUT FOR PLA3
 !     FOR THE TRI-PLATE PART OF COMBINATION ELEMENTS

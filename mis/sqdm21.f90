@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdm21
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alps(3) , Costh , Degra , E(9) , Eltemp , Elthik , Est(100) , G(36) , G11 , G12 , G13 , G22 , G23 , G33 , Gsube(9) ,        &
       & Imat12(12) , Jtemp9(9) , K1sum(9,16) , K5mod(9,5) , K5sum(9,5) , Pi , Pisum(3,5) , Pt(3,4) , R(3,4,5) , Radeg , Reftmp ,    &
       & Rg(4) , Rho , S4pisq , Sg(36) , Sinth , Sisum(9,5) , St(3) , Stress , T(9) , Tsub0 , Twopi
@@ -17,17 +14,11 @@ SUBROUTINE sqdm21
    COMMON /sdr2x6/ K5sum , Sisum , Pisum , R , K5mod , G , T , E , Imat12 , Jtemp9 , Gsube
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    REAL angl , determ , dummy , dvec(3,4) , eti(36) , fmag , icosth , isinth , itemp9(9) , kmat(63) , ktemp9(9) , kvec(3) , pmat(9) &
       & , q(3,3,4) , rmat(3,5) , smat(27) , zmat(9)
    INTEGER i , i1 , i2 , ia , ib , ic , ierror , ii , ising , j , j1 , j2 , j3 , j4 , jpart , k , kk , lpart , map(4,3)
    LOGICAL planar
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     PHASE-I STRESS-DATA-RECOVERY ROUTINE FOR THE -QDMEM2- ELEMENT.
 !

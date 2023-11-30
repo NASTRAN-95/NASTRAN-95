@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bit64
    INTEGER Blank , Case(200,2) , Casecc , Core(1) , Corey(401) , Iben , Icc , Ieor , Is , Istr , Isub , Lencc , Ncpw4 , Nmodes ,    &
          & Nset , Nsym , Nwpc
@@ -12,18 +9,9 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
                  & Ieor
    COMMON /xifp1 / Blank , Bit64
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER I81 , Icaste , Nwdsc
    INTEGER Isubc(5) , Symseq(1)
-!
-! Local variable declarations
-!
    INTEGER i , i2 , ido , ii , ik , iloop , imov , ip , iup , iword , j , k , none , nset1 , nwor
-!
-! End of declarations
-!
 !
 !     IFP1E WRITES CASECC OUT FROM CASE
 !

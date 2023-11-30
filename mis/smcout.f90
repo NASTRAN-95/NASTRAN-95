@@ -2,9 +2,6 @@
 SUBROUTINE smcout(Zi,Zr,Zd,Zrs,Zrd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
    CHARACTER*29 Uim
@@ -12,21 +9,12 @@ SUBROUTINE smcout(Zi,Zr,Zd,Zrs,Zrd)
    REAL Xns(10)
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(10) , Zrd(10)
    INTEGER Zi(10)
    REAL Zr(10) , Zrs(10)
-!
-! Local variable declarations
-!
    REAL akk , akk2 , akki , akkr , rs , rzero
    DOUBLE PRECISION dakk , dakk2 , dakki , dakkr , dr, Dsr, Dsc, Minds
    INTEGER i , istore , itwrds , jj , jstr , kdir , km2 , kmidx , kridn , kvidx , nrowm , nrowm1 , nrows , nstr , nwds
-!
-! End of declarations
-!
 !
 ! SMCOUT DOES THE FINAL DIVISION OF THE TERMS OF THE PIVOTAL COLUMN
 ! AND WRITES THE COLUMN DATA TO THE LOWER TRIANGULAR MATRIX.

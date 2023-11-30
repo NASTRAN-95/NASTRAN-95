@@ -1,9 +1,6 @@
 
 BLOCKDATA gp3bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Carddt(60) , Cardid(60) , Eqexin , Geom2 , Geom3 , Gptt , Idno(30) , Igrav , Ipld3 , Ipload , Load(2) ,        &
          & Mask(60) , Nopld2 , Ntypes , Pload2(2) , Pload3(2) , Scr1 , Scr2 , Slt , Status(60) , Temp(2) , Tempd(2) , Tempg(2) ,    &
          & Tempp1(2) , Tempp2(2) , Tempp3(2) , Tempp4(2) , Temprb(2)
@@ -11,9 +8,6 @@ BLOCKDATA gp3bd
    COMMON /gp3com/ Geom3 , Eqexin , Geom2 , Slt , Gptt , Scr1 , Scr2 , Buf1 , Buf2 , Buf , Cardid , Idno , Carddt , Mask , Status , &
                  & Ntypes , Ipload , Igrav , Pload2 , Load , Nopld2 , Temp , Tempd , Tempp1 , Tempp2 , Tempp3 , Temprb , Buf3 ,     &
                  & Pload3 , Ipld3 , Tempg , Tempp4
-!
-! End of declarations
-!
 !GP3BD
 !
 !     BLOCK DATA PROGRAM FOR MODULE GP3.

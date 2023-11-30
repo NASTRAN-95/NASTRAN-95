@@ -1,9 +1,6 @@
 
 SUBROUTINE cyct2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdir(2) , Cycseq , Ii , Iii , Iik , Incr , Incr1 , Iprec , Ita , Itb , Itc , Iz(1) , Jj , Jjk , Kindex , Kseg ,          &
          & Ksystm(65) , Nload , Nogo , Nseg , Sysbuf
    DOUBLE PRECISION Constd(5) , Dz(2) , Pi
@@ -15,17 +12,11 @@ SUBROUTINE cyct2
    COMMON /unpakx/ Itc , Iik , Jjk , Incr1
    COMMON /zblpkx/ Dz , Iii
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION arg , cos , sin
    INTEGER cycd , file , fore , i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ibuf5 , ics , idir , iflag , igc , iks , ilama , ip , ip1 ,     &
          & ipass , ityp , j , kaa , kxx , l , lama , lamx , lua , maa , mcb(14) , mcb1(7) , mcb2(7) , mm , mxx , name(2) , ncopy ,  &
          & nlps , nskip , nx , nz , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , v1i , v1o , v2i , v2o
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CYCT2 TRANSFORMS CYCLIC PROBLEMS BETWEEN SOLUTION VARIABLES AND
 !     THE CYCLIC COMPONENTS

@@ -1,28 +1,16 @@
 
 SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb,Zb,Ar,Nsbe,Xis1,Xis2,A0)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Kr , Refc
    INTEGER Mcb(7) , N , Nd , Ne , Npot , Nrow
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Fmach , Kr
    COMMON /system/ N , Npot
-!
-! Dummy argument declarations
-!
    REAL Beta , Cgr , Dx , Dy , Dz , Sgr
    INTEGER Idzdy , Iprnt , Nfb , Nlb , Ntape , Ntzys , Row
    REAL A0(1) , Ar(1) , D(2,Ntzys) , Xis1(1) , Xis2(1) , Yb(1) , Zb(1)
    INTEGER Nsbe(1)
-!
-! Local variable declarations
-!
    REAL azro , dar , delta , dzyi , dzyr , epslon , eta , xi1 , xi2 , zeta
    INTEGER b , b1 , it1 , jdzdy , lhs , nsbeb , t , t1
-!
-! End of declarations
-!
 !
 !     CALCULATE A ROW OF DZ OR DY
 !

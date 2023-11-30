@@ -1,27 +1,15 @@
 
 SUBROUTINE modac1(Casecc,Tol,Tol1,Casezz,Caseyy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Id , Iz(1) , Nfn , Nfo , Nz , Sysbuf
    REAL Z(1)
    COMMON /modac3/ Nfo , Nfn , Nz , Id
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Caseyy , Casezz , Tol , Tol1
-!
-! Local variable declarations
-!
    REAL diff , diff1 , r , real
    INTEGER file , flag , i , ibuf(6) , ibuf1 , ibuf2 , ibuf3 , icc , ifrout , ifset , ihd(2) , ilist , ilsym , ip1 , isetf ,        &
          & isetnf , ivec , ix , j , k , lw , m , mcb(7) , n , name(2) , nlist , nsetf , nzx
-!
-! End of declarations
-!
 !
 !     MODAC1 REDUCES THE NUMBER OF ENTRIES ON TOL TO THE TIMES
 !         SPECIFIED BY THE OFREQ SET IN CASECC

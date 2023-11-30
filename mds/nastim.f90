@@ -1,18 +1,9 @@
 
 SUBROUTINE nastim(Ihr,Imn,Isc,Cpusec)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Cpusec
    INTEGER Ihr , Imn , Isc
-!
-! Local variable declarations
-!
    REAL array(2) , secs , time
-!
-! End of declarations
-!
 !DME  19 JAN 2016
 !DME  D. Everhart
 !DME  Changed to conform to GFORTRAN implementation of ETIME subroutine.

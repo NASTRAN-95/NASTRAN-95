@@ -1,9 +1,6 @@
 
 SUBROUTINE selbo2(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Betar , C , Dum8(8) , Eldefm , Fa(6) , Fb(6) , Fj , Fx , Fxbt , I1 , I2 , K1a , K1b , K2a , K2b , L , M1a , M1b , M2a , &
       & M2bt , P1 , Q , R , R1 , R2 , R3 , R4 , Sa(36) , Sb(36) , Sdelta , Sig1a , Sig1b , Sig2a , Sig2b , Sig3a , Sig3b , Sig4a ,  &
       & Sig4b , Sigamn , Sigamx , Sigax , Sigbmn , Sigbmx , Sigbx , Sigmac , Sigmat , St , T , T1 , T2 , T3 , T4 , Tbt , Therm(4) , &
@@ -16,19 +13,10 @@ SUBROUTINE selbo2(Ti)
                  & Fx , T , M1b , M2bt , V1bt , Fxbt , Tbt
    COMMON /sdr2x8/ Fa , Fb , Idisp , Iua , Iub , P1 , K1a , K2a , K1b , K2b , Q , W
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    REAL Ti(14)
-!
-! Local variable declarations
-!
    REAL c1 , c2 , d1 , d2 , dcr , dt , ealf , f1 , f2 , g1 , g2 , i12 , m2b , smcom , smten , tb , tbar , templd , x , xl , yl
    REAL cod , sid
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS THE PHASE II SUBROUTINE OF STRESS DATA RECOVERY
 !     FOR THE BEAM ELEMENT.

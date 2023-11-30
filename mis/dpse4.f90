@@ -1,23 +1,14 @@
 
 SUBROUTINE dpse4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION C(12) , Dp(26) , Gamma , Kij(36) , Sign(3)
    REAL Dum12(12) , Dum2(2) , Ecpt(26)
    INTEGER Icstm , Ik(3) , Ncstm , Necpt(6) , Nk(3) , Npvt
    COMMON /ds1aaa/ Npvt , Icstm , Ncstm
    COMMON /ds1adp/ Gamma , Kij , Dp , C , Sign , Nk , Ik
    COMMON /ds1aet/ Ecpt , Dum2 , Dum12
-!
-! Local variable declarations
-!
    INTEGER i , ias , j , k , k1 , k2 , k3 , npivot
    REAL sg
-!
-! End of declarations
-!
 !
 !     PRESSURE STIFFNESS CALCULATIONS FOR A QUADRILATERAL MEMBRANE
 !     ELEMENT, WHICH HAS 4 GRID POINTS.

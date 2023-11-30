@@ -1,23 +1,11 @@
 
 SUBROUTINE piklvl(*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idpth , Idum
    COMMON /bandg / Idum , Idpth
-!
-! Dummy argument declarations
-!
    INTEGER Idflt , Isdir , Xc
    INTEGER Ccstor(1) , Lvls1(1) , Lvls2(1) , Nacum(1) , Nhigh(1) , Nlow(1) , Size(1) , Stpt(1)
-!
-! Local variable declarations
-!
    INTEGER end , i , inode , it , j , k , lvlnh , lvlnl , m , max1 , max2 , n , temp
-!
-! End of declarations
-!
 !
 !
 !     THIS ROUTINE IS USED ONLY BY GIBSTK OF BANDIT MODULE

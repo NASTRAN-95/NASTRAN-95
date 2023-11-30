@@ -1,25 +1,13 @@
 
 SUBROUTINE alamda(Arg,Y,Blamda)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Ai
    REAL Beta , Del , Dstr , Pi , Res , Scrk , Sigma , Sns , Sps
    COMMON /blk1  / Scrk , Sps , Sns , Dstr , Ai , Pi , Del , Sigma , Beta , Res
-!
-! Dummy argument declarations
-!
    REAL Arg , Y
    COMPLEX Blamda
-!
-! Local variable declarations
-!
    REAL arg1 , c2 , gam , s1 , scrk1
    COMPLEX c1
-!
-! End of declarations
-!
 !
 !     SUBROUTINE FOR COMPUTING LAMDA
 !

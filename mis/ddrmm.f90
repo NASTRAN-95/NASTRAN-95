@@ -1,9 +1,6 @@
 
 SUBROUTINE ddrmm
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(150) , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Buf6 , Buff(6) , Cls , Clsrew , Dhsize , Entrys , File , Filnam(2) , I1 ,  &
          & I2 , Icc , Idout , Idrec(146) , Ierror , Ilist , Infile , Ipass , Istlst , Iswtch , Itemp , Itype1 , Itype2 , Jfile ,    &
          & Lminor , Lsf , Lstlst , Mcb(7) , Ncc , Ncore , Nlambs , Nlist , Npos , Nptsf , Nsols , Nstxtr , Nwds , Nwdsf , Nwords ,  &
@@ -24,16 +21,10 @@ SUBROUTINE ddrmm
    COMMON /system/ Sysbuf , Outpt , Xsys , Iswtch
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER casecc , dva(3) , eor , frqset , i , ibase , ibuf , icol , ifile(4) , iforce , ifrout , ilsym , inblk(15) , index ,      &
          & isetx , ispcf , istres , iwrt , j , k , kk , l , m , noeor , nsetx , ofile(4) , oublk(15) , pp , subr(2) , uv
    REAL diff , diff1 , frq
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DYNAMIC-DATA-RECOVERY-MATRIX-METHOD
 !

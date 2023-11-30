@@ -1,9 +1,6 @@
 
 SUBROUTINE gfsmod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ac , Afry , Ahj , Ahy , Ajh , Axy , Ayh , Azy , Badd(11) , Comptp , Dkaa , Dkfrfr , Gia , Gjh , Gyh , H , Ibuf , Ident , &
          & Ii , Incr , Kc , Kcomp , Khhbar , Kjj , Kjjl , Kmat , Kyy , Kzz , Kzzbar , Lama , Lcore , Llmode , Lmodes , Mhhbar ,     &
          & Mmat , Mzz , Name(2) , Nmodes , Nn , Nofree , Nograv , Nout , Nsub0 , Nsub1 , Nsub2 , Phia , Phix , Pout , Pvec , Scr1 , &
@@ -23,15 +20,9 @@ SUBROUTINE gfsmod
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER file , i , ibit , ifr , inzm , izm , lvec , mcb(7) , n , namex(2) , nuy , phiar , phixr
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PERFORMS THE MODAL FORMULATION OF THE
 !     FLUID / STRUCTURE MATRICES

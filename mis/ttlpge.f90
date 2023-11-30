@@ -1,9 +1,6 @@
 
 SUBROUTINE ttlpge(Topt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idate(3) , Ipage , Ksystm(100) , Lpch , Machx , Nlpp , Nout
    CHARACTER*7 Machos
    CHARACTER*11 Mchnam
@@ -12,19 +9,10 @@ SUBROUTINE ttlpge(Topt)
    COMMON /machin/ Machx
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Topt
-!
-! Local variable declarations
-!
    INTEGER card(20) , fchar , i , ncmnam , ncmos
    CHARACTER*28 mchttl
    CHARACTER*15 vn
-!
-! End of declarations
-!
 !
 !
    EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(42),Idate(1)) , (Ksystm(9),Nlpp) , (Ksystm(11),Ipage) , (Ksystm(91),Lpch)

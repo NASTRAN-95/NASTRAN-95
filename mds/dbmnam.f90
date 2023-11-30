@@ -1,24 +1,12 @@
 
 SUBROUTINE dbmnam(Igname,Name,Ifilex)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(100) , Fist(100)
    COMMON /xfiat / Fiat
    COMMON /xfist / Fist
-!
-! Dummy argument declarations
-!
    INTEGER Ifilex , Igname
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER blank , i , index , lim , pool
-!
-! End of declarations
-!
 !********************************************************************
 !  DBMNAM RETURNS THE DMAP NAME AND TRAILER FOR A GIVEN GINO FILE
 !     ARGUMENTS

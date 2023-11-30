@@ -1,17 +1,8 @@
 
 SUBROUTINE sanorm(*,A)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A(3)
-!
-! Local variable declarations
-!
    REAL xl
-!
-! End of declarations
-!
 !
 !     VECTOR NORMALIZATION AND VECTOR LENGTH
 !

@@ -3,18 +3,9 @@ SUBROUTINE intpki(A,I,File,Block,Ieol)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , I , Ieol
    INTEGER A(4) , Block(15)
-!
-! Local variable declarations
-!
    INTEGER index , itypot , kk , num
-!
-! End of declarations
-!
    Name = File
    Iretrn = 0
    I = Block(4)

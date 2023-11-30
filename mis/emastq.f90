@@ -1,9 +1,6 @@
 
 SUBROUTINE emastq(Narg,Mass)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cp , Dum(16) , Ecpt(100) , Eltemp , Rho
    INTEGER Heat , Idamp , Iflag , Imass , Inflag , Iprec , Ksystm(55) , Matid , Necpt(7) , Nogo
    COMMON /emgest/ Ecpt
@@ -12,19 +9,10 @@ SUBROUTINE emastq(Narg,Mass)
    COMMON /matin / Matid , Inflag , Eltemp
    COMMON /matout/ Rho
    COMMON /system/ Ksystm , Heat
-!
-! Dummy argument declarations
-!
    INTEGER Narg
    REAL Mass(100)
-!
-! Local variable declarations
-!
    REAL area , fmu , pi23 , t , term , v1(3) , v1xv2(3) , v2(3)
    INTEGER i , i1 , i2 , ichek , isub1 , isub2 , isub3 , ncsid , ndof , ngrids , npt1 , npt2 , npt3 , npt4 , npvt , ntype
-!
-! End of declarations
-!
 !
 !  THIS SUBROUTINE CALCULATES THE MASS MATRIX FOR THE ELEMENTS LISTED
 !   BELOW

@@ -1,24 +1,12 @@
 
 SUBROUTINE axis(Xa,Ya,Xb,Yb,Penx,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Model , Npens , Ploter
    REAL Skpa(6) , Skpplt(18)
    COMMON /pltdat/ Model , Ploter , Skpplt , Skpa , Npens
-!
-! Dummy argument declarations
-!
    INTEGER Opt , Penx
    REAL Xa , Xb , Ya , Yb
-!
-! Local variable declarations
-!
    INTEGER pen
-!
-! End of declarations
-!
 !
 !     (XA,YA) = STARTING POINT OF THE AXIS.
 !     (XB,YB) = TERMINAL POINT OF THE AXIS.

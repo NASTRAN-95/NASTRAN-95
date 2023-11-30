@@ -1,9 +1,6 @@
 
 SUBROUTINE mqdplt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(1) , A1(3) , D1(3) , D2(3) , Dpdum1(27) , Dpdum2(10) , E(9) , H , Iiz , Ivect(3) , Jvect(3) , Kvect(3) ,      &
                   & M6x6(36) , Miz , Mout(36) , Prod9(9) , Ptmass , R(2,4) , Requiv(8) , Sign , T(9) , Temp , Temp36(36) , Temp9(9) &
                   & , Tite(9) , Tjte(36) , U1 , U2 , V(2) , Vv(2) , Xsubb , Xsubc , Ysubc
@@ -22,14 +19,8 @@ SUBROUTINE mqdplt
                  & Subsca , Subscb , Subscc , Sinang , Cosang , Npoint , Ivect , Jvect , Kvect , U1 , U2 , R , H , Ptmass
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifmgg , Dum2
-!
-! Local variable declarations
-!
    INTEGER i , j , k , m(12) , npt
    DOUBLE PRECISION msum(36)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES FOUR 6X6 STIFFNESS MATRICES WITH RESPECT
 !     TO ONE PIVOT POINT OF A QUADRILATERAL PLATE ELEMENT.

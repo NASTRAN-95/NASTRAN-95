@@ -10,30 +10,18 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
 !     RIGHT SHIFTING CAUSES INSERTION OF LEADING ZEROS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bimsk1(6) , Bimsk2(5) , Bimsk3(4) , Bimsk4(4) , Bimsk5(2) , Bimsk6 , Bk(6) , Bkmsk1(8) , Bkmsk2 , Bkx , Blank , Blks ,   &
          & Dollar , Icon1 , Icon2 , Is , Mach , Mask , Mbit4 , Mk(6) , Mka , Plus , Sft(3) , Sftm , Shifts(4) , Slash , Star , Starl
    COMMON /machin/ Mach
    COMMON /xsrtcm/ Bimsk1 , Bimsk2 , Bimsk3 , Bimsk4 , Bimsk5 , Bimsk6 , Bkmsk1 , Bkmsk2 , Shifts , Icon1 , Icon2 , Star , Plus ,   &
                  & Dollar , Starl , Slash , Sftm , Mask , Blank , Mka , Is , Mbit4
-!
-! Dummy argument declarations
-!
    INTEGER Sd
    INTEGER Bf(1)
    INTEGER shift
-!
-! Local variable declarations
-!
    INTEGER andf , isft , khrfn1 , khrfn3 , khrfn4 , lshift , orf , rshift
    INTEGER blk , i1 , i2 , i3 , i4 , ihld , ii , j , n , n1 , n2 , n3
    LOGICAL dec
    EXTERNAL andf , lshift , orf , rshift , shift
-!
-! End of declarations
-!
    EQUIVALENCE (Bk(1),Bkmsk1(2)) , (Mk(1),Bimsk1(1)) , (Sft(1),Shifts(2)) , (Blks,Bkmsk1(8)) , (Bkx,Bkmsk1(1))
 !
 !     DATA     BK   / 4H0000,4H0000,4H0000,4H000 ,4H00  ,4H0   /

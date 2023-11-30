@@ -1,9 +1,6 @@
 
 SUBROUTINE ddamat
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    REAL Gg , Z(1)
    INTEGER Ibuf(80) , Ii , Iii , Iin , Incr , Iout , Iprec , Jncr , Jout , Nn , Nnn
@@ -12,16 +9,10 @@ SUBROUTINE ddamat
    COMMON /system/ Ibuf
    COMMON /unpakx/ Jout , Iii , Nnn , Jncr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a , b , buf1 , buf2 , buf3 , c , i , inull , isub , j , k , lcore , mcb(7) , nam(2) , ncola , ncolb , nrowa , nrowb
    DOUBLE PRECISION dgg , ggdz
    REAL ggz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DDAMAT  A,B/C/C,Y,GG=1.  $
 !

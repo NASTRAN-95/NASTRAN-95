@@ -1,18 +1,9 @@
 
 SUBROUTINE sce1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER N(2) , N3 , Nn(3)
    COMMON /patx  / N , N3 , Nn
-!
-! Local variable declarations
-!
    INTEGER bff , bnn , k4ff , k4nn , kff , kfs , knn , kss , mff , mnn , pvect , uf , un , us , uset
-!
-! End of declarations
-!
 !
 !     MODULE 2.6 SCE PARTITIONS KNN,MNN,BNN,AND K4NN
 !

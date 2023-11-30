@@ -1,25 +1,13 @@
 
 SUBROUTINE vecprt(*,*,Px,Nx,A,Ox)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Count , Maxlin , Mo
    REAL Skp1 , Skp2(6) , Skp3(2)
    COMMON /system/ Skp1 , Mo , Skp2 , Maxlin , Skp3 , Count
-!
-! Dummy argument declarations
-!
    INTEGER Nx , Ox , Px
    REAL A(Nx)
-!
-! Local variable declarations
-!
    INTEGER cdp , csp , i , k , k1 , k2 , k6 , kk , kn , knkk , l , m , n , o , p , pm , rdp , rsp , tra
    INTEGER eject
-!
-! End of declarations
-!
 !
    DATA rsp , rdp , csp , cdp/1 , 2 , 3 , 4/
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE strsl1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A1 , A2 , A3 , Aa1 , Aa2 , Aa3 , Alf(3) , B , Balotr(36) , C , Cab(3) , Costh , D(9) , Dista , Distb , Distc , Dph1(9) ,&
       & E(18) , E1(18) , Ee(30) , Ee1(5,6) , Eltemp , Em(6) , Emod(9) , Eph1(15) , Est(100) , Forvec(24) , G(4) , Gph1(6) , Gsube , &
       & Ph1ben(9) , Ph1mem(6) , Ph1out(1200) , Ph1shr(6) , Ph2(18) , Ph3(12) , Ph4(90) , Pla34 , Q(6,6) , Qq , Qqq(20,20) ,         &
@@ -15,9 +12,6 @@ SUBROUTINE strsl1
    COMMON /sdr2x5/ Est , Ph1out , Forvec , X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , Aa1 , Aa2 , Aa3 , Qqqinv , Qq , Tm ,  &
                  & Tmqq , Ts6 , Ts7 , Q , Ee , Ee1 , Ph2 , Ph3 , Ph4 , E , E1 , Xc , Yc , Zc , Ph1mem , Ph1ben , Ph1shr , Dph1 ,    &
                  & Eph1 , Gph1 , G , D , Ics , Nl , Cab , Trans , Balotr , Emod , Si
-!
-! Local variable declarations
-!
    REAL a1sq , a2sq , a3sq , blank , c1 , c10 , c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 , d11 , d12 , d13 , d132 , d21 , d22 , d23 ,  &
       & d232 , d31 , d32 , d33 , d334 , degra , det , determ , f , g11 , g12 , g13 , g22 , g23 , g33 , h4 , h5 , h6 , ivect(3) ,    &
       & j11 , j12 , j22 , jvect(3) , kvect(3) , nsm , tbend1 , tbend3 , tbend5 , theta1 , thetam , thk , thk1 , tmb(60) , tmbq(54) ,&
@@ -27,9 +21,6 @@ SUBROUTINE strsl1
          & mz , name(2)
    LOGICAL nots
    REAL y5
-!
-! End of declarations
-!
 !
 !     OUTPUTS FROM THIS PHASE FOR USE IN PHASE II ARE THE FOLLOWING
 !

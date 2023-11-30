@@ -1,26 +1,14 @@
 
 SUBROUTINE fndnxl(Name,Newnm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Iodum(8) , Mdi , Mdibl , Mdilbn , Mdipbn , Nxtdum(15)
    LOGICAL Ditup , Mdiup
    COMMON /sof   / Dit , Ditpbn , Ditlbn , Ditsiz , Ditnsb , Ditbl , Iodum , Mdi , Mdipbn , Mdilbn , Mdibl , Nxtdum , Ditup , Mdiup
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Name(2) , Newnm(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER hl , i , iempty , imdi , jdit , k , nmsbr(2)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THE SUBROUTINE LOOKS FOR A HIGHER LEVEL SUBSTRUCTURE TO THE
 !     SUBSTRUCTURE NAME.  IF NAME DOES HAVE A HIGHER LEVEL SUBSTRUCTURE,

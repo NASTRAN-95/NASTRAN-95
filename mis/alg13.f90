@@ -3,22 +3,13 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                & Isecn,Xsemj,Ysemj,Istak,Xhere,X,Ss,Nstns,R,Dx,Y,Dy,Ss1,Bx,Sigma,Ccord,Isplit,Yzeros,Ts,Yones,Zspmxt,Perspj,Inast,  &
                & Irle,Irte,Tharr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Chordd(21) , Stag(21)
    INTEGER Nbldes
    COMMON /udstr2/ Nbldes , Stag , Chordd
-!
-! Dummy argument declarations
-!
    REAL Axialc , Beta1 , Beta2 , Bx , P , Perspj , Q , Sb , Sq , T , Ts , Xdel , Ydel , Yone , Yones , Yzero , Yzeros , Z , Zspmxt
    INTEGER Ibl , Ifcord , Inast , Iprint , Irle , Irte , Isecn , Isplit , Istak , Lnct , Log1 , Log2 , N , Nstns
    REAL Ccord(1) , Dx(100) , Dy(100) , R(10,21) , Sigma(100) , Ss(100) , Ss1(80,4) , Tharr(21,10) , X(100) , Xhere(100) , Xp(21,80) &
       & , Xs(21,80) , Xsemi(21,31) , Xsemj(21,31) , Y(100) , Yp(21,80) , Ys(21,80) , Ysemi(21,31) , Ysemj(21,31)
-!
-! Local variable declarations
-!
    REAL a , a1 , a2 , a4 , aform , am(80) , ang , area , area2 , areas , at , ax , b , b1 , b2 , beta3 , bform , bta1 , bta2 , c ,  &
       & c1 , c2 , camber , cc1 , cc2 , chord , chords , cosang , ct , d , d2 , dela , delep , delly , delsig , delx , delxx , dt ,  &
       & e1 , eps , eps2 , et , fact , fcslmn , fcslms , ft , fypr , g1 , g2 , g3 , h , hh , ht , ipx , ipy , ix , ixd , ixn , ixy , &
@@ -32,9 +23,6 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
       & xmm , xn , xnorms , xrnge , xspltm(45) , xspltp(45) , xsplts(45) , xsurf , xtc , xx , xxm(81) , y0 , y1 , y11 , y12 , y2 ,  &
       & y21 , y22 , ybar , ybarb , ybarc , ybars , yc , yint , yle , ym(80) , yml , ymm , yp1 , ypp
    REAL yprime , yspltm(45) , yspltp(45) , ysplts(45) , yss , ytc , yzs
-!
-! End of declarations
-!
 !
    DATA name/4HALG1 , 4H3   /
 !

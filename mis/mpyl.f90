@@ -1,19 +1,10 @@
 
 SUBROUTINE mpyl(A,B,Ncola,Nrowa,Ncolb,C)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ncola , Ncolb , Nrowa
    REAL A(Ncola,Nrowa) , B(Ncolb,Ncola) , C(Ncolb,Nrowa) , D(Nrowa,Ncola) , Vect(3) , X(3) , Y(3)
-!
-! Local variable declarations
-!
    INTEGER l , m , n
    REAL w
-!
-! End of declarations
-!
 !
 !     SINCE CDC FORTRAN 5 IMPOSES NO LONGER EXACT NO. OF DUMMY ARGUMENT
 !     LIST FOR SUBROUTINE AND ENTRY POINTS, THIS ROUTINE IS NOW MACHINE

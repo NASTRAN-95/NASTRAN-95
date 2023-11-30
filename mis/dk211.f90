@@ -1,20 +1,11 @@
 
 DOUBLE PRECISION FUNCTION dk211(I,A,B,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    INTEGER I
    DOUBLE PRECISION X(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aaj , c1 , c2 , c3 , f6211 , xx
    INTEGER j
-!
-! End of declarations
-!
    xx = X(I)
    IF ( (B*xx)**2<A**2 ) THEN
       f6211 = dlog(dabs(A))*dlog(dabs(xx))

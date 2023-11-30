@@ -1,26 +1,14 @@
 
 SUBROUTINE scone3(Again)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Block(9,14) , Conphi , Delta , Dum(5) , Dum2(92) , Elhar , Force(25) , Harm , Iii , Sig(3) , Sig1 , Sig12 , Sig2 , Sinphi , &
       & Stress(100) , Sum(8) , Temp , Theta , Vec(8) , Zoff(2) , Zoveri
    INTEGER Elemid , Iblock(9,14) , Iforce(25) , Ipt , Istres(100) , N , Nangle , Nphi , Npoint
    COMMON /sdr2x7/ Dum , Iii , Zoff , Dum2 , Stress , Force
    COMMON /sdr2x8/ Vec , Sum , Sig , Sig1 , Sig2 , Sig12 , Temp , Delta , Theta , Npoint , Zoveri , Ipt , Block , Elhar , Elemid ,  &
                  & Harm , N , Sinphi , Conphi , Nphi , Nangle
-!
-! Dummy argument declarations
-!
    LOGICAL Again
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 !
 !
 !

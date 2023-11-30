@@ -1,9 +1,6 @@
 
 SUBROUTINE ampd(Qjhua,Qhho,Skj,Gki,Qhh,Scr1,Scr2,Scr3,Scr4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ajjcol , Ii , Incr , Iprec , Itc , Iz(1) , Jj , Mcbqhh(7) , Mcbqjh(7) , Ncol , Ngp , Ngpd(2,30) , Noh , Noue , Nout ,    &
          & Nsub , Qhhcol , Sysbuf
    REAL Skp(52) , Xk , Xm
@@ -12,18 +9,9 @@ SUBROUTINE ampd(Qjhua,Qhho,Skj,Gki,Qhh,Scr1,Scr2,Scr3,Scr4)
    COMMON /system/ Sysbuf , Nout , Skp , Iprec
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Gki , Qhh , Qhho , Qjhua , Scr1 , Scr2 , Scr3 , Scr4 , Skj
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf1 , ibuf2 , ip1 , k , mcb(7) , name(2) , ncolj , qkh
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO COMPUTE(OR RETRIEVE) QHH
 !

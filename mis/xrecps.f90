@@ -9,9 +9,6 @@ SUBROUTINE xrecps(Inew,Iold)
 !     ******************************************************************
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B , Bimsk1(6) , Bimsk2(5) , Bimsk3(4) , Bimsk4(4) , Bimsk5(2) , Bimsk6 , Bkmsk1(8) , Bkmsk2 , Blank , D1(6) , D2(2) ,    &
          & D3(26) , Dollar , Ibits(1) , Icards(2) , Icon1 , Icon2 , Is , Itwo(32) , Lbd , Lcc , Lcnt , Mach , Mask , Mbit4 , Mk(4) ,&
          & Mka , Nbpc , Nbpw , Ncpw , Nlpp , Num , Outtap , Plus , Sft(4) , Sft1 , Sftm , Shifts(4) , Slash , Star , Starl
@@ -26,23 +23,14 @@ SUBROUTINE xrecps(Inew,Iold)
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsrtcm/ Bimsk1 , Bimsk2 , Bimsk3 , Bimsk4 , Bimsk5 , Bimsk6 , Bkmsk1 , Bkmsk2 , Shifts , Icon1 , Icon2 , Star , Plus ,   &
                  & Dollar , Starl , Slash , Sftm , Mask , Blank , Mka , Is , Mbit4
-!
-! Dummy argument declarations
-!
    INTEGER Inew , Iold , Kk , Sd
    INTEGER Ba(2) , Bf(1) , Bff(2) , Card(4) , Extwrd(1) , Intwrd(2)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , khrfn1 , khrfn3 , lshift , orf , rshift
    INTEGER bfi , c10c(7) , con(38) , extab(37) , exwrdi , i , iba , ichar , icycl , idif , idollr , ii , inwrdi , ipls , ipos ,     &
          & iret , islsh , istr , istrl , itape4 , itemp , itst , ivar , ivax , izero , j , ji , jtemp , k , kard1 , kard2 ,         &
          & kbmsk1(8) , kbrn , kpret1 , kpret2 , lmt , mbits , nrecps(2) , par1 , par2 , sftji , test
    LOGICAL dec
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     ENTRY XFADJ (BF,SD,KK)
 !     * XFADJ ADJUSTS 4 CHARACTER FIELDS, LEFT OR RIGHT, 2 OR 4 FIELDS

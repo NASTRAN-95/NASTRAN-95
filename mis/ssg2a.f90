@@ -1,25 +1,13 @@
 
 SUBROUTINE ssg2a(Pg,Pnbar,Pm,Pvact)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(6) , Ia1(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Icore(1) , Lcore , Lcr , N , No(4) , Rule
    COMMON /parmeg/ Ia1 , Ia11 , Ia12 , Ia21 , Ia22 , Lcr , Rule
    COMMON /patx  / Lcore , N , No
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    INTEGER Pg , Pm , Pnbar , Pvact
-!
-! Local variable declarations
-!
    INTEGER i , pvect(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Icore(1),Core(1))
 !

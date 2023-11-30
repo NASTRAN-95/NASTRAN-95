@@ -1,17 +1,8 @@
 
 SUBROUTINE waltim(Walsec)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Walsec
-!
-! Local variable declarations
-!
    INTEGER time(3)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OBTAINS THE CURRENT WALL CLOCK TIME IN SECONDS,
 !     PASS MID-NIGHT

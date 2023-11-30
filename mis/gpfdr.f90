@@ -1,9 +1,6 @@
 
 SUBROUTINE gpfdr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Rz(1)
    INTEGER App(2) , Cls , Clseof , Clsrew , Elem(1) , Ieol , Incr , Incrx , Irow , Irowx , Last , Nelems , Nrow , Outpt , Rd ,      &
          & Rdrew , Sysbuf , Typout , Wrt , Wrtrew , Z(1)
@@ -20,9 +17,6 @@ SUBROUTINE gpfdr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zntpkx/ A , Irowx , Ieol
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL any , anygp , axic , axif , diagm , dicout , double , enfile , enflag , engout , eorst4 , gpfile , silin
    INTEGER branch , buf(100) , buf1 , buf2 , buf3 , buf4 , buf5 , buf6 , casecc , comp , comps(32) , core , dicloc , ect , ectwds , &
          & eldvis , elnset , eltype , entrys , eor , eqexin , estid , exelid , extgp , extid , file , gpdvis , gpect , gpset ,      &
@@ -40,9 +34,6 @@ SUBROUTINE gpfdr
          & points , ptr , qg , recid(3) , recidx(3) , scale(2)
    INTEGER korsz
    INTEGER scrt1 , scrt2 , scrt3 , scrt4 , set , subcas , subr(2) , subtit , symflg , title , total , trl(7) , ug , ugpgqg
-!
-! End of declarations
-!
 !
 !     GRID-POINT-FORCE-DATA-RECOVERY (MODULE)
 !

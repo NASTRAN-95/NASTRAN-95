@@ -1,19 +1,10 @@
 
 SUBROUTINE stpphi(Ca,Bloc,Pm,Ns)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ns
    REAL Bloc(1) , Ca(1) , Pm(37,Ns)
-!
-! Local variable declarations
-!
    REAL c , c2 , ct , p(37) , pi , pmx , s , s2 , x
    INTEGER i , n
-!
-! End of declarations
-!
 !     PHI-FUNCTIONS FOR EACH STRIP (NACA TM 991, PG 19).
 !     THE FOLLOWING FUNCTIONS ARE NOT COMPUTED, THEY ARE LEFT ZEROED
 !         - NUMBERS  20, 22-30, 33, 34

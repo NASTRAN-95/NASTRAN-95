@@ -1,19 +1,10 @@
 
 INTEGER FUNCTION khrfn1(Word1,I,Word2,J)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , J
    INTEGER Word1(1) , Word2(1)
-!
-! Local variable declarations
-!
    INTEGER ii , jj , temp1 , temp2
    CHARACTER*4 tempc1 , tempc2
-!
-! End of declarations
-!
 !
 !     CHARACTER-FUNCTIONS 1,2,3,4, AND 5 WERE WRITTEN BY G.CHAN/UNISYS
 !     TO STANDARDIZE NASTRAN BCD-WORD BYTE PROCESSING.

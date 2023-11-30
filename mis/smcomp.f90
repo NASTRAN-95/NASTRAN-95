@@ -2,20 +2,11 @@
 SUBROUTINE smcomp(*,Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(4)
    INTEGER Zi(4)
    REAL Zr(4)
-!
-! Local variable declarations
-!
    INTEGER begn , end , jj , module(5)
    REAL rs
-!
-! End of declarations
-!
 !
 ! DRIVER PROGRAM FOR SYMMETRIC DECOMPOSITION.  SUBROUTINE SMCPH1 READS
 ! THE INPUT MATRIX AND STORES THE DATA EITHER IN MEMORY OR ON THE

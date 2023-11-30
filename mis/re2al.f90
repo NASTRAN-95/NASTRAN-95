@@ -1,25 +1,13 @@
 
 SUBROUTINE re2al(Re,Alph)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(37)
    INTEGER Ibuf , Nbpw , Nout
    COMMON /system/ Ibuf , Nout , Dummy , Nbpw
-!
-! Dummy argument declarations
-!
    REAL Re
    INTEGER Alph(2)
-!
-! Local variable declarations
-!
    INTEGER lshift
    EXTERNAL lshift
-!
-! End of declarations
-!
 !
 !
    CALL fp2a8(*200,Re,Alph)

@@ -1,9 +1,6 @@
 
 SUBROUTINE spanl2(Iarg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(2) , Cfrvec(19) , Ctu(4) , Dummy(33) , Eldefm , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , Fnchk , Forces(16) , Frtmei(2) ,  &
       & P13 , P24 , Q1 , Q2 , Q3 , Q4 , Ratio(3) , Rk(4) , Rk1 , Rk2 , Rk3 , Rk4 , Rq(4) , S(3,4) , S1bar , Safmar , Sigs , Stres(3)&
       & , T , Tau(4) , Tauavg , Taumax , Templd , Term , Twotop , Xxxxxx(68) , Yyyyyy(96) , Zz(1) , Zzzzzz(8)
@@ -15,19 +12,10 @@ SUBROUTINE spanl2(Iarg)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Iarg
-!
-! Local variable declarations
-!
    REAL cs1br , ctrm , f , frlast(2)
    INTEGER eject
    INTEGER i , ishd(7) , istyp(2) , j , k , larg , lld , lsub , typ(4)
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS PHASE II OF STRESS DATA RECOVERY FOR THE SHEAR AND
 ! TWIST PANEL ELEMENTS.

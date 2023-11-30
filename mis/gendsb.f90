@@ -1,9 +1,6 @@
 
 SUBROUTINE gendsb(Ncaray,Nbaray,Sg,Cg,Nfl,Nbea1,Nbea2,Ifla1,Ifla2,Dt,Dpz,Dpy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ecore , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla , Iflax , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc , &
          & Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Isk , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam ,    &
          & Ixle , Ixte , Iyb , Iyin , Iys , Izb , Izin , Izs , Mcb(7) , Nb , Nby , Nbz , Nd , Ne , Next , Nj1 , Nk1 , Np , Nrow ,   &
@@ -16,21 +13,12 @@ SUBROUTINE gendsb(Ncaray,Nbaray,Sg,Cg,Nfl,Nbea1,Nbea2,Ifla1,Ifla2,Dt,Dpz,Dpy)
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Ntbe
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Cg(1) , Sg(1)
    COMPLEX Dpy(1) , Dpz(1) , Dt(1)
    INTEGER Ifla1(1) , Ifla2(1) , Nbaray(1) , Nbea1(1) , Nbea2(1) , Ncaray(1) , Nfl(1)
-!
-! Local variable declarations
-!
    REAL cgr , sgr
    INTEGER i , i1 , i2 , ibuf1 , ibuf2 , ibuf3 , ibuf4 , icount , ifirst , ifl , ilast , itape , iz , j , j1 , j2 , jbo , k , kb ,  &
          & ks , kt , lbo , ls , lso , lsx , name(2) , nbox , nbuf , nbxr , nlt1 , nlt2 , nstrip , nyflag , nzykb , nzysv
-!
-! End of declarations
-!
    DATA name/4HGEND , 4HB   /
 !   ***   GENERATES THE INFLUENCE COEFFICIENT MATRIX  DT   USING THE
 !         FOLLOWING FOUR SUBROUTINES  --  DPPS, DPZY, DZPY,  AND  DYPZ

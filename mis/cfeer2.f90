@@ -1,9 +1,6 @@
 
 SUBROUTINE cfeer2(Iret)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bbbbar(5) , Dumm(36) , Filea(7) , Filel(7) , Fileu(7) , Incr , Iprec , Irow , Ksystm(65) , Mcblt(7) , Mcbut(7) , Nlast , &
          & Nout , Nz , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6 , Scr7 , Scr8 , Scr9 , Sr1fil , Sr2fil , Sr3fil , Typout
    DOUBLE PRECISION Det(2) , Dz(1) , Mindia
@@ -15,18 +12,9 @@ SUBROUTINE cfeer2(Iret)
    COMMON /system/ Ksystm
    COMMON /unpakx/ Typout , Irow , Nlast , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iret
-!
-! Local variable declarations
-!
    INTEGER i , ibuf , ifilxx , itype , j , limit
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CFEER2 INITIALIZES AND CALLS CDCOMP FOR CFCNTL
 !

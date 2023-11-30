@@ -8,9 +8,6 @@ SUBROUTINE xsort
 !     PROBLEM TAPE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bimsk1(6) , Bimsk2(5) , Bimsk3(4) , Bimsk4(4) , Bimsk5(2) , Bimsk6 , Bk(4) , Bkmsk1(8) , Bkmsk2 , Blank , Blanx , Buf(1) &
          & , D , D1(14) , Dollar , Dum1(2) , Dum12(12) , Dum2(96) , Dum44(44) , Dum8(8) , Echop , Echos , Echou , Ffflag , Head1(32)&
          & , Head2(32) , Head3(32) , Iapprc , Ibufsz , Icon1 , Icon2 , Icpflg , Iecho , Inf , Intape , Is , Isubs , Iuedit ,        &
@@ -29,9 +26,6 @@ SUBROUTINE xsort
    COMMON /xsrtcm/ Bimsk1 , Bimsk2 , Bimsk3 , Bimsk4 , Bimsk5 , Bimsk6 , Bkmsk1 , Bkmsk2 , Shifts , Icon1 , Icon2 , Star , Plus ,   &
                  & Dollar , Starl , Slash , Sftm , Mask , Blank , Mka , Is , Mbit4
    COMMON /zzzzzz/ Skip1 , Buf
-!
-! Local variable declarations
-!
    INTEGER andf , khrfn1 , khrfn3 , khrfn4 , korsz , lshift , orf , rshift
    INTEGER ccnt , cdcnt(3) , fcnt , headn(32) , heads(32) , headu(32) , i , ibk3 , ibk4 , iblkda(2) , ibrana , ibranb , ibranc ,    &
          & ibrand , ibrane , ibranf , ibuf1(20) , ibuf1a(2) , ibuf2(20) , ibuf2a(2) , ibuf3(2) , ibufbg , ibuflg , iccbrk , iccflg ,&
@@ -43,9 +37,6 @@ SUBROUTINE xsort
    INTEGER m , mx3 , my1 , my2 , my3 , my4 , my5 , my6 , mz1 , n1 , n2 , n3 , nbuf2 , nbuf3 , nbuf4 , ncnt , ni , nl , notsor ,     &
          & nptp , nshift , nsort(2) , nx , ny , optp , pid , ptst , starsw , trial , tst , umf
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Bk(1),Bkmsk1(5)) , (Mk(1),Bimsk2(2)) , (Mkb,Bimsk5(1)) , (Inf,Bimsk2(1)) , (Sfta,Shifts(2)) , (Mkd,Bimsk2(2)) ,     &
     & (Mke,Bimsk5(2)) , (Mkc,Bimsk4(1))
    EQUIVALENCE (Blanx,Bkmsk1(8))

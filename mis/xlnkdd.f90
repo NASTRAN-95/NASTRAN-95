@@ -1,19 +1,10 @@
 
 SUBROUTINE xlnkdd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Klink(970) , Llink
    COMMON /xlkspc/ Llink , Klink
-!
-! Local variable declarations
-!
    INTEGER i , link(960) , link01(90) , link02(90) , link03(90) , link04(90) , link05(90) , link06(90) , link07(90) , link08(90) ,  &
          & link09(90) , link10(90) , link11(70) , llinkx
-!
-! End of declarations
-!
 !
 !     LINK SPECIFICATION TABLE
 !

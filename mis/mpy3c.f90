@@ -1,9 +1,6 @@
 
 SUBROUTINE mpy3c(Z,Iz,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Code , Dum1(2) , Dum2(2) , E , Filea(7) , Fileb(7) , Filec(7) , Filee(7) , Scr , Scr3(7)
    LOGICAL First2
    INTEGER Iantu , Ibcid , Ibcols , Ibntu , Icore , Iflag , Iktbp , Itrl , J , K , K2 , Ka , Kcount , Lcore , Lkore , Ltac , Ltbc , &
@@ -13,19 +10,10 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
    COMMON /mpy3tl/ Filea , Fileb , Filee , Filec , Scr1 , Scr2 , Scr , Lkore , Code , Prec , Lcore , Scr3 , Buf1 , Buf2 , Buf3 ,    &
                  & Buf4 , E
    COMMON /unpakx/ Utyp , Urow1 , Urown , Uincr
-!
-! Dummy argument declarations
-!
    REAL Dz
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER file , i , ia , ib , ik , kb , kk , l , lta , ltb , precn
-!
-! End of declarations
-!
 !*****
 !    PERFORMS MULTIPLICATION AND SUMMATION FOR REMAINING TERMS OF COLUMN
 !    OF A.

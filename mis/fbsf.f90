@@ -26,9 +26,6 @@ SUBROUTINE fbsf(Zs,Zd)
 !     ZS( BUF2        ) - BUFFER FOR FILE WITH TRIANGULAR MATRIX
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Csp , Dbb(7) , Dbl(7) , Dbu(7) , Dbx(7) , Eofnrw , Eol , I1 , I2 , Incr1 , Incr2 , Itype1 , Itype2 , Itype3 , Ix , &
          & Iy , J1 , J2 , Ksys94 , Lcore , Lout , Nl , Norew , Nout , Prc(2) , Prec , Rd , Rdp , Rdrew , Rew , Rlcmpx(4) , Rsp ,    &
          & Scrx , Sign , Skip(91) , Sysbuf , Typeb , Typex , Words(4) , Wrt , Wrtrew
@@ -47,20 +44,11 @@ SUBROUTINE fbsf(Zs,Zd)
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zblpkx/ Yd , Iy
    COMMON /zntpkx/ Xd , Ix , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(1)
    REAL Zs(1)
-!
-! Local variable declarations
-!
    INTEGER begn , block(15) , buf1 , buf2 , dbl1 , end , i , icdpsg , icspsg , j , k , k1 , kn , l , last , ll , ln , nbrlod ,      &
          & need , nnn , nnndbl , npass , nterms , nvecs , nwds , opcls , oprd , opwrt , rc , subnam(2) , switch , typel , wds
    LOGICAL ident
-!
-! End of declarations
-!
    EQUIVALENCE (Dbl(2),Nl) , (Dbb(5),Typeb) , (Dbx(5),Typex) , (Xd(1),Xs(1)) , (Yd(1),Ys(1))
    DATA subnam/4HFBSF , 4H    /
    DATA begn/4HBEGN/

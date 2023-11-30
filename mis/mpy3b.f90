@@ -1,9 +1,6 @@
 
 SUBROUTINE mpy3b(Z,Iz,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(2) , Buf1 , Buf2 , Buf3 , Buf4 , Code , Dum(2) , Dumcp(2) , E , Fileb(7) , Filec(7) , Filee(7) , Scr , Scr3(7)
    DOUBLE PRECISION Da
    INTEGER Eol , Eor , Filea(7) , I , Iakj , Ibcid , Ibcols , Ibntu , Icore , Iflag , Iktbp , Irow , Itrl , J , K , K2 , Ka , Kb ,  &
@@ -15,19 +12,10 @@ SUBROUTINE mpy3b(Z,Iz,Dz)
                  & Buf4 , E
    COMMON /unpakx/ Utyp , Urow1 , Urown , Uincr
    COMMON /zntpkx/ A , Dum , Irow , Eol , Eor
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER file , ib , kbc , kbn , kj , kk , kkb , kkk , kt , l , name(2) , nerr , preck , precn
-!
-! End of declarations
-!
 !*****
 !    PROCESSES A AND PERFORMS FIRST PART OF PRODUCT.
 !*****

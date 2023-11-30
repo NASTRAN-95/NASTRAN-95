@@ -1,19 +1,10 @@
 
 SUBROUTINE smp2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Icom
    COMMON /blank / Icom
-!
-! Local variable declarations
-!
    INTEGER go , kdaa , kdaab , kdao , kdff , kdoo , mcb(7) , scr1 , scr2 , ua , uf , uo , uset
    REAL o
-!
-! End of declarations
-!
 !*****
 ! THIS MODULE, WHICH IS CALLED ONLY FOR DIFFERENTIAL STIFFNESS, PARTI-
 ! TIONS KDFF AND THEN COMPUTES KDAA AS FOLLOWS ....

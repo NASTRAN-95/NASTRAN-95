@@ -1,9 +1,6 @@
 
 SUBROUTINE invtr(*,X,Dx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Prc(2)
    DOUBLE PRECISION Da(2)
    INTEGER Eofnrw , Eol , Filea(7) , Fileb(7) , Forma , Ii , Incrx , Incry , It1 , It2 , Itx1 , Ix , Iy , Jx , Jy , Norew , Nrow ,  &
@@ -15,21 +12,12 @@ SUBROUTINE invtr(*,X,Dx)
    COMMON /type  / Prc , Nwds , Rc
    COMMON /unpakx/ Itx1 , Ix , Jx , Incrx
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dx(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL a1 , temp
    INTEGER bakskp , cmplx , core , forskp , i , i1 , in1 , in2 , inbuf , incr , iobuf , j , jj , k , kk , l , l1 , lend , ll , m ,  &
          & name(2) , no , outbuf , t(7) , tra , tra1 , tra2 , typear
    DOUBLE PRECISION dtemp
-!
-! End of declarations
-!
 !
 !     INVTR WILL INVERT A LOWER OR UPPER TRIANGULAR MATRIX
 !

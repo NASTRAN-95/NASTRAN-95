@@ -3,9 +3,6 @@
 !RLBR1                   NOUE,MODAL,PNL)
 SUBROUTINE trd1c2(Ic,Pd,Ngroup,Nlftp,Udv,Iloop,Scr1,Dit,Nlft,Noue,Modal,Pnl,Iskip)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Deltat , Dummy(4) , Rz(1) , To
    INTEGER Dit1 , Icore , Icount , Icpflg , Idum(14) , Ii , Iii , Ik(7) , Iloop1 , Incr , Incr1 , Iopen , Ip4 , Ipnl(7) , Iscr1 ,   &
          & Iscr2 , Iscr3 , Iscr4 , Iscr5 , Iscr6 , Ispnl , Ist , Isym , Isystm(79) , It1 , It2 , It3 , Iu1 , Iu2 , Iz(1) , Jj ,     &
@@ -20,22 +17,13 @@ SUBROUTINE trd1c2(Ic,Pd,Ngroup,Nlftp,Udv,Iloop,Scr1,Dit,Nlft,Noue,Modal,Pnl,Iski
    COMMON /trdxx / Ik , Idum , Iscr1 , Iscr2 , Iscr3 , Iscr4 , Iscr5 , Iscr6 , Iopen , Isym , To , Nopd , Ispnl
    COMMON /unpakx/ It3 , Iii , Jjj , Incr1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Dit , Ic , Iloop , Iskip , Modal , Ngroup , Nlft , Nlftp , Noue , Pd , Pnl , Scr1 , Udv
-!
-! Local variable declarations
-!
    REAL delta1
    INTEGER file , i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ibuf5 , ibuf6 , ibuf7 , ibuf8 , ibuf9 , ibufa , icrq , iflag , igroup , inl , &
          & ioutpu , ip1 , ip2 , ip3 , ipnt , iret1 , iretn , iscr9 , itest , itleft , itype , iu3 , j , jskip , k , kk , kkk , kkp ,&
          & l , m , mcb(7) , mcol , moutpu(7) , nnrow , nrow , nwds , subnam(2)
    DOUBLE PRECISION h
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE STEPS INTEGRATION PROCEDURE
 !

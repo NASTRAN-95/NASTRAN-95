@@ -1,9 +1,6 @@
 
 SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(52) , Z(1) , Zz(1)
    INTEGER Ih , Ii , Incr , Incr1 , Inn , Iout , Ip , Iprec , Iti , Ito , Nn , Nnn , Out , Sysbuf
    CHARACTER*23 Ufm
@@ -15,18 +12,9 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER A , B , Nfreq , Nload , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , X
-!
-! Local variable declarations
-!
    INTEGER i , ia , ib , ibuf1 , ibuf2 , icore , iopt , ix , j , k , l , m , n , n1 , na , nb , ncore , ta(7) , tb(7) , tx(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SOLVE A X = B
 !     USE INCORE DECOMP IF POSSIBLE

@@ -2,24 +2,12 @@
 SUBROUTINE mmarc4(Zi,Zd)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dxl(1)
    REAL Rxl(1)
    COMMON /zzzzzz/ Rxl
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(1)
    INTEGER Zi(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , ii , index , jrow , mem , mindex , ntms , ntms2
-!
-! End of declarations
-!
 !  MMARC4 - This routine will store a matrix column in memory in compact
 !           form and in complex double precision.  The input matrix can
 !           be stored in any precision or type.

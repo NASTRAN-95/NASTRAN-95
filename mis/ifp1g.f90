@@ -1,27 +1,15 @@
 
 SUBROUTINE ifp1g(Itype,Case,Isub1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(1) , Corey(401) , Equal , Iben , Istr , Izzzbb , Ncpw4 , Nwpc , Title(32)
    REAL Corex(1) , Skip1(3) , Skip2(4) , Skip3(2)
    COMMON /ifp1a / Skip1 , Nwpc , Ncpw4 , Skip2 , Izzzbb , Istr , Skip3 , Iben , Equal
    COMMON /output/ Title
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER Isub1 , Itype
    INTEGER Case(200,2)
-!
-! Local variable declarations
-!
    INTEGER char , i , i2 , ii , ipos , isave , its , j , k , k1
    INTEGER khrfn1
-!
-! End of declarations
-!
 !
 !     MAKE SURE THIS VERSION ALSO WORKS IN UNIVAC, IBM, CDC AND 64-BIT
 !     MACHINES

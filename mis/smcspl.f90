@@ -2,27 +2,15 @@
 SUBROUTINE smcspl(Mcol,Zi)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
    CHARACTER*29 Uim
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Mcol
    INTEGER Zi(10)
-!
-! Local variable declarations
-!
    INTEGER i , idir , iend , iend1 , iend2 , ifirst , iidx , ilen , im2 , imidx , imidx1 , index , index1 , index2 , indexp ,       &
          & indext , inext , iprev , ispace1 , ispace2 , itemp(4) , iterms , itotal , j , jdir , jlen , jm2 , jmidx1 , jterms , k ,  &
          & kcolp1 , kpos , length , lidx , mdir , mm2 , mterms , mwords
-!
-! End of declarations
-!
 !
 ! SMCSPL RETRIEVES COLUMN "MCOL" FROM THE SPILL FILE.
 ! IF THIS COLUMN IS THE PIVOT COLUMN AND NO SPACE IS AVAILABLE, THEN

@@ -1,26 +1,14 @@
 
 SUBROUTINE form12(U0,Udot0,U1,P0,P1,Deltt,Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(5)
    INTEGER Ifilb(7) , Ifilk(7) , Ifilm(7) , Istart
    COMMON /blank / Dummy , Istart
    COMMON /trdxx / Ifilk , Ifilm , Ifilb
-!
-! Dummy argument declarations
-!
    REAL Deltt
    INTEGER Ibuf(1)
    DOUBLE PRECISION P0(1) , P1(1) , U0(1) , U1(1) , Udot0(1)
-!
-! Local variable declarations
-!
    INTEGER i , nrow
-!
-! End of declarations
-!
 !*******
 !     FORM12 GENERATES THE STARTING VECTORS FOR THE INTEGRATION MODULE
 !

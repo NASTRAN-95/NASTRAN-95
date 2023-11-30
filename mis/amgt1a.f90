@@ -1,9 +1,6 @@
 
 SUBROUTINE amgt1a(Input,Matout,Ajj,Tsonx,Tamach,Tredf,Nstns2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Dcbdzb , Degra , Den , Dum(2) , Mach , Maxmac , Minmac , Pi , Radeg , Redf ,      &
       & Refc , Refcrd , Refden , Refmac , Refstg , Refswp , Refvel , Rfreq , S4pisq , Sigma , Stager , Sweep , Twopi , Vel
    LOGICAL Debug , Tsonic
@@ -14,21 +11,12 @@ SUBROUTINE amgt1a(Input,Matout,Ajj,Tsonx,Tamach,Tredf,Nstns2)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /tamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stager , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amach , Redf , Blspc , Amachr , Tsonic
-!
-! Dummy argument declarations
-!
    INTEGER Input , Matout , Nstns2
    COMPLEX Ajj(Nstns2,1)
    REAL Tamach(1) , Tredf(1)
    INTEGER Tsonx(1)
-!
-! Local variable declarations
-!
    REAL c3 , c4
    INTEGER i , iajjc , line , name(2) , nline , nstns3 , nwar
-!
-! End of declarations
-!
 !
 !     COMPUTE AJJ MATRIX FOR SWEPT TURBOPROP BLADES.
 !

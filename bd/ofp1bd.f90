@@ -1,17 +1,11 @@
 
 BLOCKDATA ofp1bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER D1(200) , D1001(200) , D1201(200) , D1401(200) , D1601(200) , D1801(200) , D2001(200) , D201(200) , D2201(200) ,         &
          & D2401(200) , D2601(200) , D2801(200) , D3001(200) , D3201(200) , D3401(200) , D3601(200) , D3801(200) , D4001(200) ,     &
          & D401(200) , D4201(90) , D601(200) , D801(200)
    COMMON /ofpbd1/ D1 , D201 , D401 , D601 , D801 , D1001 , D1201 , D1401 , D1601 , D1801 , D2001 , D2201 , D2401 , D2601 , D2801 , &
                  & D3001 , D3201 , D3401 , D3601 , D3801 , D4001 , D4201
-!
-! End of declarations
-!
 !OFP1BD
 !*****
 !     DATA RECORD DEFINITION DATA IS IN THE D-ARRAY...

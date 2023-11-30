@@ -1,24 +1,12 @@
 
 SUBROUTINE ifp4c(File,Scrt,Buf1,Buf2,Eof)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cls , Clsrew , Rd , Rdrew , Wrt , Wrtrew
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
-!
-! Dummy argument declarations
-!
    LOGICAL Eof
    INTEGER File , Scrt
    INTEGER Buf1(10) , Buf2(10)
-!
-! Local variable declarations
-!
    INTEGER eor , flag , i , name(2) , name2(2) , noeor , trail(7) , work(10)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE, CALLED BY IFP4, OPENS THE 2 FILES AND COPIES THE
 !     HEADER RECORD FROM -FILE- TO -SCRT-.

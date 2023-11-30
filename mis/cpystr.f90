@@ -1,26 +1,14 @@
 
 SUBROUTINE cpystr(Inblk,Outblk,Flag,Col)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Prc(2) , Rlcmpx(4) , Words(4)
    DOUBLE PRECISION Xnd(1)
    REAL Xns(1)
    COMMON /type  / Prc , Words , Rlcmpx
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    INTEGER Col , Flag
    INTEGER Inblk(15) , Outblk(15)
-!
-! Local variable declarations
-!
    INTEGER in , jout , nprev , nstr , out , prec , rc , type
-!
-! End of declarations
-!
 !
 !     CPYSTR COPIES A LOGICAL RECORD WRITTEN IN STRING FORMAT
 !     FROM ONE FILE TO ANOTHER FILE.

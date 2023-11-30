@@ -1,9 +1,6 @@
 
 SUBROUTINE cinvpr(Eed,Method,Nfound)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Anodes , Anoest , Eofnrw , Eps , Head(1) , Maxmod , Rd , Rdrew , Reg(7,10) , Rew , Rsp , Rzero , Wrt , Wrtrew , Z(1)
    INTEGER Comflg , Dmpfil , Fileb(7) , Filek(7) , Filelm(7) , Filem(7) , Filevc(7) , Idum(30) , Ind , Ind1 , Ireg(7,1) , Istart ,  &
          & Isym , Isys , Iter , Iterx , Ivect , Iz(1) , Kreg , Ksystm(65) , Left , Nochng , Nodes , Noest , Noreg , Norew , Noroot ,&
@@ -19,13 +16,7 @@ SUBROUTINE cinvpr(Eed,Method,Nfound)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Eed , Method , Nfound
-!
-! Local variable declarations
-!
    REAL anum1 , anum2 , arg , d , d1 , d2 , deltx , delty , flag , l , l1 , r , rang , range , shift , sign , slope , x1 , x2 ,     &
       & xl2 , xx , y1 , y2 , yl2 , yy
    DOUBLE PRECISION dtemp(2)
@@ -33,9 +24,6 @@ SUBROUTINE cinvpr(Eed,Method,Nfound)
          & , nodcmp , nomovs , nostrt , nrow , nrow2 , nshift , nz , t1 , t2
    INTEGER korsz
    LOGICAL noleft
-!
-! End of declarations
-!
 !
 !     GIVEN REAL OR COMPLEX MATRICIES, CINVPR WILL SOLVE FOR ALL OF
 !     THE EIGENVALUES AND EIGENVECTORS WITHIN A SPECIFIED REGION

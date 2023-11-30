@@ -1,9 +1,6 @@
 
 SUBROUTINE algpo(Scr1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Apress , Atemp , Ifail , Iprtk , Iz(1) , Norew , Nout , Pgeom , Rd , Rdrew , Rew , Strml , Sysbuf , Two(32) , Wrt ,      &
          & Wrtrew
    CHARACTER*23 Ufm
@@ -14,21 +11,12 @@ SUBROUTINE algpo(Scr1)
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Scr1
-!
-! Local variable declarations
-!
    INTEGER caseca , casecc , geom3a , i1 , i2 , ibit , ibuf1 , ibuf2 , idp , idt , ifile , itpd , itrl(7) , izx , kaperr , katerr , &
          & labp , labt , last , left , lend(3) , lrec(5) , name(2) , nwar , nwds , nz , pload2(3) , temp(3) , tempd(3)
    INTEGER corwds , korsz , orf
    REAL dtemp , rrec(5)
    EXTERNAL orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (lrec(1),rrec(1))
    DATA lend/3*2147483647/

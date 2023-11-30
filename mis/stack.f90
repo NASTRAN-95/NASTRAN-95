@@ -1,24 +1,12 @@
 
 SUBROUTINE stack(Ideg,New,Ild,Iw)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(5)
    INTEGER Kt , Nn
    COMMON /bandd / Dum , Kt
    COMMON /bands / Nn
-!
-! Dummy argument declarations
-!
    INTEGER Ideg(1) , Ild(1) , Iw(1) , New(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , j1 , k , kflag , kt1 , l , nn1
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

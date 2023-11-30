@@ -1,20 +1,11 @@
 
 SUBROUTINE shxtrs(Nrow,Ncol,Array)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ncol , Nrow
    REAL Array(Nrow,1)
-!
-! Local variable declarations
-!
    REAL const , eta , qpoint(2,4) , shp(4) , temp(4,4) , tpoint(2,3) , xsi
    INTEGER i , j , k
    LOGICAL tria
-!
-! End of declarations
-!
 !
 !     TO EXTRAPOLATE VALUES IN ARRAY FROM A SET OF EVALUATION POINTS TO
 !     THE GRID POINTS OF SPECIFIC SHELL ELEMENTS.

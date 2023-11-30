@@ -1,18 +1,9 @@
 
 SUBROUTINE cputim(Icpusc,Rcpusc,Iflag)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icpusc , Iflag
    REAL Rcpusc
-!
-! Local variable declarations
-!
    REAL array(2) , save , t , time
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS MACHINE DEPENDENT
 !

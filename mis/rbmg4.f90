@@ -1,13 +1,7 @@
 
 SUBROUTINE rbmg4
    IMPLICIT NONE
-!
-! Local variable declarations
-!
    INTEGER dm , mll , mlr , mr , mrr , scr1 , scr2 , scr3
-!
-! End of declarations
-!
 !*****
 ! RBMG4 COMPUTES MR FROM THE MATRIX EQUATION
 !      MR = MRR + DM(T) * MLR + MLR(T) * DM + DM(T) * MLL * DM

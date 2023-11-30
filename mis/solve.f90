@@ -1,9 +1,6 @@
 
 SUBROUTINE solve
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Cdet(2) , Cmndia , Det , Detc , Dett , Mindia , Minds
    INTEGER Cdp , Ia(7) , Ib , Ibbar , Ichol , Identy , Ifila(7) , Ifilb(7) , Ifilc(7) , Ifill(7) , Ifill1(7) , Ifillt(7) , Ifilx(7) &
          & , Il(7) , Ipow , Ipower , Ipr , Iprec , Iprec1 , Iscr , Iscr11 , Iscr22 , Iscr33 , Isgn , Isign1 , Isr1 , Isr2 , Isr3 ,  &
@@ -25,15 +22,9 @@ SUBROUTINE solve
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a , b , dosi(3) , i , ia5 , ib5 , iform , index , iscr1 , iscr2 , iscr3 , iscr4 , iscr5 , jj , ltype , n , name(2) , no ,&
          & refus(3) , x
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SOLVE IS A DMAP DRIVER TO SOLVE THE MATRIX EQUATION AX=B
 !

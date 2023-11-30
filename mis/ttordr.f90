@@ -1,29 +1,17 @@
 
 SUBROUTINE ttordr(Ti,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Consts(5) , Costh , Degra , E(3) , Ecpt(18) , Eltemp , G(3) , Gsube , Rho , Sinth , Stress , Twopi , Tzero
    INTEGER Iecpt(18) , Matflg , Matidc
    COMMON /condas/ Consts
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube
    COMMON /trimex/ Ecpt
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Ti(2)
-!
-! Local variable declarations
-!
    REAL a1 , a2 , aki(36) , alph(2) , cosa1 , cosa2 , d(36) , del , delint(42) , djp1 , dtf1 , dtf2 , dtm1 , dtm2 , ee(4) , ep ,    &
       & et , ffe(40) , fme(40) , gambl(144) , gambq(144) , gambqf(72) , gambqm(48) , gamrs(144) , phib , r(2) , r1 , r2 , rp , s ,  &
       & sina1 , sina2 , tempe , tf , tl(12) , tm , tz , vpt , vtp , z(2) , z1 , z2
    INTEGER i , ics(2) , idel , igp(2) , ip , itord , j , jp1 , k , kj , kk , kl , l , matid
-!
-! End of declarations
-!
 !
 !
 !*****

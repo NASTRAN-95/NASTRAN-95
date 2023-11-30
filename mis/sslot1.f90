@@ -1,24 +1,12 @@
 
 SUBROUTINE sslot1(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Col , Ecpt(100) , Fact , Out(100) , R(4) , Rho , Sv(24) , Z(4)
    INTEGER Ii , Ij , Iret , Nc1 , Nc2 , Nc3 , Necpt(100) , Nout(100) , Nr , Nr1 , Nr2 , Nr3
    COMMON /sdr2x5/ Ecpt , Out
    COMMON /sdr2x6/ R , Z , Rho , Fact , A , Nc1 , Nc2 , Nc3 , Iret , Nr , Col , Nr1 , Nr2 , Nr3 , Ii , Ij
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , iot , j , ncol
-!
-! End of declarations
-!
 !                  IOPT-  CSLOT3 = 0,  CSLOT4 = 1
 !     THE ECPT DATA FOR THESE ELEMENTS ARE
 !

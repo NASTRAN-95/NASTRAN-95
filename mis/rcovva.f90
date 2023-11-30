@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Dry , Icore , Incrp , Incru , Iopt , Ireq , Irp , Iru , Itinp , Itinu , Itoutp , Lbasic ,    &
          & Lcore , Loop , Lower , Lreq , Lui , Mrecvr , Neigv , Norew , Nosort , Nout , Nrp , Nru , Nwords(4) , Rfno , Rss(2) ,     &
          & Sysbuf , Ua
@@ -24,26 +21,17 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
    COMMON /type  / Pr , Nwords
    COMMON /unpakx/ Itinu , Iru , Nru , Incru
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    INTEGER In , Intyp , Outa , Outt , Outu , Outv
    COMPLEX Cz(2)
    DOUBLE PRECISION Dz(1)
    REAL Rz(4)
    INTEGER Ssnm(2)
-!
-! Local variable declarations
-!
    INTEGER file , i , inblk(15) , inblk1(15) , inblk2(15) , inblk3(15) , iprec , item , j , k , mcb(7) , mcba(7) , mcbu(7) , mcbv(7)&
          & , n , name(2) , ncol , nrow , nt , nwcol , nwds , nword , oblk1(15) , oblk2(15) , oblk3(15) , outblk(15) , rc , soln ,   &
          & srd , temp(4)
    REAL freq , iscale , rscale
    DOUBLE PRECISION ival , rval
    COMPLEX scale
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE VELOCITIES AND ACCELERATIONS FOR
 !     FOR A GIVEN DISPLACEMENT VECTOR

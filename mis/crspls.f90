@@ -7,9 +7,6 @@ SUBROUTINE crspls(*,Jump,Mu,Bp,Rs,Again,N23)
 !     SINGLE PRECISION VERSION
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(3) , B(3) , C(3) , X1 , X2 , X3 , Y1 , Y2 , Y3 , Z(1) , Z1 , Z2 , Z3
    INTEGER Bgpdt , Buf(20) , Buf1 , Buf2 , Buf3 , Buf4 , Cstm , Geomp , Gpoint , Iz(1) , Kn , Knkl1 , Nogo , Nout , Rgt , Sysbuf ,  &
          & Two16
@@ -20,24 +17,15 @@ SUBROUTINE crspls(*,Jump,Mu,Bp,Rs,Again,N23)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    LOGICAL Again
    INTEGER Bp , Jump , Mu , N23
    INTEGER Rs(3)
-!
-! Local variable declarations
-!
    REAL ans , coeff , d(9) , di , dl , eps , espx , fac , gnn(36) , half , knn(36) , len , leng , ln3 , one , snn(36) , t(36) ,     &
       & tx(36) , unn(36) , w(6) , wt , x(36) , y(36) , zero , zk , znn(36)
    INTEGER begn , cm , cn , comp , eid , flag , grid , i , i1 , i2 , i3 , ib , id , idl , ie , iend , ii , is , iwt , j , jj , js , &
          & k , k1 , k2 , khi , klo , kn2 , kx , l , l38 , lastk , ll , mask15 , mcode(2) , msg , name(2) , nd , nm , nogox , ns ,   &
          & nwds , pass , refg , retn , retn1 , retn2 , retn3 , retn4 , sil , sild(6) , sing , times
    LOGICAL debug
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Iz(1)) , (wt,iwt) , (dl,idl) , (X1,A(1)) , (X2,B(1)) , (X3,C(1))
    DATA one , zero , half , eps , times , debug/1.0 , 0.0 , 0.5 , 1.0E-10 , 0 , .FALSE./
    DATA cm , cn , nogox , mask15 , name/6 , 12 , 0 , 32767 , 4HCRSP , 4HLS  /

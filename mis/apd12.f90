@@ -1,9 +1,6 @@
 
 SUBROUTINE apd12
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acpt , Acsid , Auset(6,2) , Bgpa , Buf10 , Buf11 , Buf12 , Ca2e , Ca2s , Ca3e , Ca3s , Ca4e , Ca4s , Cidbx , Cp , Cstma ,&
          & Ecta , Eid , Gpla , Iacs , Iax(20) , Ibit(64) , Igid , Ippc , Isiln , Itwo(32) , Iut , Iz(1) , Key(5) , Lchord , Left ,  &
          & Lspan , Mcstm , Naef1 , Naef2 , Nasb , Nca1 , Nca2 , Ncam , Ncam2 , Nchord , Ncrd , Ncst1 , Ncst2 , Next , Npa1 , Npa2 , &
@@ -18,17 +15,11 @@ SUBROUTINE apd12
    COMMON /system/ Sysbuf , Iut
    COMMON /two   / Itwo
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL dlb , lc , ls
    INTEGER i , i17 , i18 , i19 , i20 , ichord , igid2 , ispan , j , jchord , jspan , lca , n1 , nam(2) , nc , nextc , nigid ,       &
          & nigid1 , nigid2 , nx , pspa
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Z(1),Iz(1)) , (Eid,Iax(1))
    DATA nam/4HAPD1 , 4H2   /

@@ -1,9 +1,6 @@
 
 SUBROUTINE dtshld
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Eltemp , Em(6) , Est(100) , F(18,18) , Gsube , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , &
       & Sinth , Ti(1) , Tref
    INTEGER Ibuf , Icstm , Iest(100) , Ioutpt , Matflg , Matid , Ncstm , Npvt
@@ -17,9 +14,6 @@ SUBROUTINE dtshld
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy , Rj11 , Rj12 , Rj22
    COMMON /system/ Ibuf , Ioutpt
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    REAL a , a1 , a1sq , a2 , a2sq , a3 , a3sq , b , blank , c , cab1 , cab2 , cab3 , d13 , d23 , d33 , degra , dista , distb ,      &
       & distc , ee1(6) , el(3) , emod(9) , eph1(6) , es(6) , fl(3) , gl(3) , ivect(3) , j11 , j12 , j22 , jvect(3) , kvect(3) ,     &
       & nsm , ph1out(250) , sigx(3) , sigxy(3) , sigy(3) , str(3) , stress(3) , tbend1 , tbend3 , tbend5 , tem , theta1 , thetam ,  &
@@ -40,9 +34,6 @@ SUBROUTINE dtshld
          & rr0 , rr1 , sil(6) , sil1 , sil2 , sk(3) , sl(3) , ss , ss0 , ss1 , xu(32) , xv(32) , xw(32) , yu(32) , yv(32) , yw(32)
    LOGICAL nogo , nots , uniben , unimem
    DOUBLE PRECISION sb34 , sb35 , sb36 , sb37 , sb38 , sb39 , sb4 , sb40 , sb5 , sb6 , sb7 , sb8 , sb9 , st , trand(9) , x , y
-!
-! End of declarations
-!
 !
 !     ECPT ENTRIES
 !

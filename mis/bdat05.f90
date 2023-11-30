@@ -1,9 +1,6 @@
 
 SUBROUTINE bdat05
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Conset , Geom4 , Iauto , Idry , Inpt , Lcore , Npsub , Outt , Scbdat , Score , Scr2 , Z(1)
    REAL Buf4 , Buf5 , Casecc , Combo(7,5) , Scconn , Scmcon , Scr1 , Scsfil , Sctoc , Step , Toler
    LOGICAL Tdat(6)
@@ -15,13 +12,7 @@ SUBROUTINE bdat05
    COMMON /cmb004/ Tdat
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , flag , gnew(2) , ifile , imsg
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE GNEW BULK DATA
 !

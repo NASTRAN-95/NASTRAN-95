@@ -6,9 +6,6 @@ SUBROUTINE xgpibs
 !     THE MODULE LINK TABLE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(22) , B(7) , Core(1) , Cpntry(7) , D(5) , Eotflg , Iallon , Iappnd , Ieqflg , Ijhalf(4) , Intap , Intgr , Iplus ,      &
          & Isgnon , Itape , Ixx(1) , Jmp(7) , Lhpw(2) , Link(1) , Llink , Lmpl , Lopncr , Losgn , Lpch , Lxlink , Maskhi , Masklo , &
          & Masks(1) , Maxlnk , Mchnam , Mlink(1) , Mpl(1) , Mplpnt , Nbpc , Ncpw , Nlines , Nlpp , Noflgs , Nosgn , Nwpc , Nwpic ,  &
@@ -30,18 +27,12 @@ SUBROUTINE xgpibs
    COMMON /xlkspc/ Llink , Link
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , complf , khrfn1 , korsz , lshift , orf , rshift
    INTEGER delete , dolsgn , enddta(2) , frstin , hdg1(32) , hdg2(32) , i , i1 , i10 , inbuff(20) , irtn , j , j1 , j10 , j2 , j3 , &
          & j4 , k , k1 , l , last , lastin , lk , ll(15) , lnkbot , lnkedt(15) , lnkspc(1) , lnktop , lstgrp , m , m1 , m10 ,       &
          & mhibyt , modidx , modnam(2) , n , nblank , none(2) , nwptyp(6) , nxtgrp , nxtlin , opbtop , opbuff(1) , opncor(1) ,      &
          & utilty(1) , utlbot , utltop , xnone
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Xsys(2),Optap) , (Xsys(9),Nlpp) , (Xsys(12),Nlines) , (Xsys(4),Intap) ,                                             &
     & (opncor(1),lnkspc(1),opbuff(1),Os(2),utilty(1)) , (Core(1),Os(1),Lopncr)
    DATA modnam/4HCHKP , 4HNT  /

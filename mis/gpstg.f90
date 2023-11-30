@@ -1,9 +1,6 @@
 
 SUBROUTINE gpstg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D(18)
    INTEGER Gpst , Ibuf2 , Igpst , Isys(69) , Iz(1) , Npvt , Nsing
    REAL Tolel
@@ -11,15 +8,9 @@ SUBROUTINE gpstg
    COMMON /gpstgy/ D
    COMMON /system/ Isys , Tolel
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    DOUBLE PRECISION b(9) , const , det , dtol , fl(3) , fm , fr , m(3) , r(3) , temp
    INTEGER i , i1 , iarray(8) , iback , igoto , ii , inc1 , inc2 , inc3 , iorder , ip , ipoint , isave , isubnm(2) , itemp , j ,    &
          & j1 , jj , k1 , k2 , kk , kount , ll , nwds , ttlwds
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES THE GRID POINT SINGULARITY TABLE
 !     BY EXAMINING THE TRANSLATIONAL AND ROTATIONAL 3 X 3

@@ -1,25 +1,13 @@
 
 SUBROUTINE ascm06(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(543) , Ioct , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,2) , i , icomnd , j , k , oct(3,1) , oct1(3,1) , ptbs(7,31) , ptbs1(7,18) , ptbs2(7,13) , rdmap(18,17) ,         &
          & rdmap1(18,9) , rdmap2(18,8) , subnam(2) , xtra(15)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     RECOVER, MRECOVER COMMAND DMAP DATA
 !

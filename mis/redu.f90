@@ -1,25 +1,13 @@
 
 SUBROUTINE redu(Cdata,Nx,Ix,Nas,Ias,Nvar,Var,Ipre,Ier)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Iout
    CHARACTER*23 Ufm
    COMMON /system/ Ibuf , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Ier , Ipre , Nas , Nvar , Nx
    INTEGER Cdata(5) , Ias(2,1) , Ix(3,1) , Var(3,6)
-!
-! Local variable declarations
-!
    INTEGER blank , eqs , i , i2 , j , keys(6) , name , nvx
-!
-! End of declarations
-!
 !
    DATA keys/4HNAMA , 4HNAMB , 4HNONA , 4HNONB , 4HPREC , 4HBOUN/
    DATA name/4HNAME/ , eqs/4H=   / , blank/4H    /

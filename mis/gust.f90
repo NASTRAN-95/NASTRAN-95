@@ -1,24 +1,15 @@
 
 SUBROUTINE gust
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bov , Q , Rmach , Xm(2)
    INTEGER Iz(1) , Nogust , Sysbuf
    COMMON /blank / Nogust , Bov , Rmach , Q
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER acpt , casecc , cstma , dit , dlt , frl , iblock(11) , ibuf1 , name(2) , ncolw , nfreq , nload , nogo , nrowj , nz ,     &
          & phf , phf1 , qhjl , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7
    INTEGER korsz
    REAL rblock(11) , v , xo
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS MODULE IS TO COMPUTE STATIONARY VERTICAL GUST
 !         LOADS FOR USE IN AEROLASTIC ANALYSIS

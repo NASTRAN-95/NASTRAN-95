@@ -1,9 +1,6 @@
 
 SUBROUTINE ds1b(Ke,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrw , Cstm , Dit , Ecptds , Eor , Frowic , I6x6k , Icstm , Igpct , Inrw , Ipoint , Iz(1) , Jmax , Kggd , Link(10) ,    &
          & Lrowic , Mpt , N6x6k , Ncstm , Neor , Ngpct , Nlinks , Nogo , Npoint , Npvt , Nrowsc , Outrw
    DOUBLE PRECISION Dz(1)
@@ -11,18 +8,9 @@ SUBROUTINE ds1b(Ke,J)
    COMMON /ds1aaa/ Npvt , Icstm , Ncstm , Igpct , Ngpct , Ipoint , Npoint , I6x6k , N6x6k , Cstm , Mpt , Dit , Ecptds , Gpct ,      &
                  & Kggd , Inrw , Outrw , Eor , Neor , Clsrw , Jmax , Frowic , Lrowic , Nrowsc , Nlinks , Link , Nogo
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER J
    DOUBLE PRECISION Ke(36)
-!
-! Local variable declarations
-!
    INTEGER i , i1 , isave , j1 , j2 , jj , k , k1 , l , l1 , lim , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE ADDS THE 6 X 6 DOUBLE PRECISION MATRIX KE TO THE
 !     SUBMATRIX OF ORDER NROWSC X JMAX.

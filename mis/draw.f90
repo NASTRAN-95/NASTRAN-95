@@ -1,9 +1,6 @@
 
 SUBROUTINE draw(Gplst,X,U,S,Disp,Stereo,Opcor,Buf1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axes(3) , Axymax(14) , Camera(5) , Cstm(3,3) , D0 , Defmax , Edge(11,4) , Max(3) , Maxdef , Min(3) , Objmod , Origx1(14) ,  &
       & Papsiz(2) , Pbufsz , Penpap(27) , Ploter , R0 , Reg(4) , Scale , Skp11(3) , Skp12(4) , Skp21(2) , Skp24(24) , Skpscl ,      &
       & Vantx1 , Vantx2(3) , Vantx3(2) , Vantx4 , View(9) , Xy(11,3)
@@ -15,24 +12,15 @@ SUBROUTINE draw(Gplst,X,U,S,Disp,Stereo,Opcor,Buf1)
    COMMON /rstxxx/ Cstm , Min , Max
    COMMON /xxparm/ Pbufsz , Camera , Nopens , Papsiz , Penpap , Scale , Objmod , Skpscl , Maxdef , Defmax , Axes , Daxis , View ,   &
                  & Vantx1 , R0 , Vantx2 , D0 , Vantx3 , Prject , Vantx4 , Origx1 , Edge , Xy , Ncntr , Icntvl , Skp24 , Color
-!
-! Dummy argument declarations
-!
    INTEGER Buf1 , Opcor , Stereo
    LOGICAL Disp
    INTEGER Gplst(1)
    REAL S(2,1) , U(3,1) , X(3,1)
-!
-! Local variable declarations
-!
    REAL a(3) , d , gpl , scalex , sign(3) , xorig
    INTEGER andf
    INTEGER axis(3) , defm , gp , i , iopt , iptl , ishape , j , k , later , maxsf , nmax , nv , pen , sucor , sym(2) , v , vec(3)
    DOUBLE PRECISION dr , sum
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !
 !     /DRWDAT/ CONTROLS THIS ROUTINE

@@ -4,13 +4,7 @@ SUBROUTINE dbmio(Opcode)
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Opcode
-!
-! End of declarations
-!
 !
 !  OPCODE
 !         = 1   OPEN, IOCODE = 0 OPEN FOR READ WITH REWIND

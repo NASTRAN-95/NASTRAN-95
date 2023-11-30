@@ -1,28 +1,16 @@
 
 SUBROUTINE q4bmgs(Dshp,Gpth,Bgpdt,Gpnorm,Phi,Bmatrx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Anglei(4) , Detj , Edgel(4) , Edgshr(3,4) , Hzta , Psitrn(9) , Uev(3,4) , Unv(3,4)
    LOGICAL Badj , Bendng , Mbcoup , Membrn , Norpth , Shrflx
    INTEGER Iorder(4) , N1 , Nnode , Rowflg
    COMMON /q4coms/ Anglei , Edgshr , Edgel , Unv , Uev , Rowflg , Iorder
    COMMON /q4dt  / Detj , Hzta , Psitrn , Nnode , Badj , N1
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
-!
-! Dummy argument declarations
-!
    REAL Bgpdt(4,1) , Bmatrx(1) , Dshp(1) , Gpnorm(4,1) , Gpth(1) , Phi(9)
-!
-! Local variable declarations
-!
    REAL atrans(6) , bb1 , bb2 , bb3 , bbar(120) , bsbar(48) , bsbar1(6) , deriv , tee(9) , term , thick
    INTEGER i , ib , ibar , iji , ipoint , itot , j , k , ka , kbar , kk , kkk , kp1 , kp2 , kpoint , m , n , nd2 , nd3 , nd4 , nd5 ,&
          & nd6 , ndof , ndof3 , nn
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE ASSEMBLES PORTIONS OF B-MATRIX FOR QUAD4
 !

@@ -14,9 +14,6 @@ SUBROUTINE reduce
 !     3.  BDYS1
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Idate(3) , Ihead(96) , Iiierr , Iinam(2) , Incr , Irow , Ititl(96) , Line , Nlpp , Nrow , Outt , Pora , Step ,     &
          & Sysbuf , Tpow(32) , Typin , Typout , X1(6) , X2(2) , X3(2) , Z(1)
    REAL Rz(1)
@@ -31,9 +28,6 @@ SUBROUTINE reduce
    COMMON /two   / Tpow
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf , rshift
    INTEGER aray(6) , bdyc(2) , bdys(2) , bdys1(2) , bset , buf1 , buf2 , buf3 , casecc , cset(6) , flag , geom4 , i , i1 , i2 , i3 ,&
          & iadd , ib1 , ib2 , ib3 , iba , ibad , ibf , ibits(6) , ibo , icode , icomp , id , idhid , ierr , ifile , ifin , ihd(96) ,&
@@ -44,9 +38,6 @@ SUBROUTINE reduce
    INTEGER ngrp , nhbgss , nhcstm , nheqss , nhplts , nipnew , nnew , nnn , no , nout , nrec , nrsid , nset , nsid , nw , nwbs ,    &
          & nwds , nwdscc , nz , nzwd , papp , prtopt , pvx , score , scr1 , scr2 , usx
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Rz(1),Z(1))
    DATA ihd/4H     , 8*4H**** , 4H S U , 4H B S , 4H T R , 4H U C , 4H T U , 4H R E , 4H     , 4HM O  , 4HD U  , 4HL E  , 4H   R ,  &
        &4H E D , 4H U C , 4H E * , 9*4H**** , 64*4H    /

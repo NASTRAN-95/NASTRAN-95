@@ -1,27 +1,15 @@
 
 SUBROUTINE pla4b(Ke,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Frowic , I6x6k , Idum(121) , Idum11(12) , Idum5(6) , Igpct , Ipoint , Iz(1) , Jmax , Lrowic , N6x6k , Ngpct , Npoint ,   &
          & Nrowsc
    REAL Z(1)
    COMMON /pla42c/ Idum5 , Igpct , Ngpct , Ipoint , Npoint , I6x6k , N6x6k , Idum11 , Jmax , Frowic , Lrowic , Nrowsc , Idum
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER J
    DOUBLE PRECISION Ke(36)
-!
-! Local variable declarations
-!
    INTEGER i , i1 , isave , j1 , j2 , jj , k , k1 , l , l1 , lim , low
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS THE INSERTION ROUTINE FOR THE PLA4 MODULE.  IT ADDS
 ! THE 6 X 6 DOUBLE PRECISION MATRIX KE TO THE SUBMATRIX OF ORDER

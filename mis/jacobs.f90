@@ -1,27 +1,15 @@
 
 SUBROUTINE jacobs(Elid,Shp,Dshp,Gpth,Bgpdt,Gpnorm,Jacob)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Badj
    REAL Detj , Hzta , Psitrn(9) , V1(3) , V2(3) , V3(3)
    INTEGER Ibuf , N1 , Nnode , Nogo , Nout
    COMMON /q4dt  / Detj , Hzta , Psitrn , Nnode , Badj , N1
    COMMON /system/ Ibuf , Nout , Nogo
-!
-! Dummy argument declarations
-!
    INTEGER Elid
    REAL Bgpdt(4,1) , Dshp(1) , Gpnorm(4,1) , Gpth(1) , Jacob(3,3) , Shp(1)
-!
-! Local variable declarations
-!
    REAL dum(3) , enk(3) , eps , sk(3) , tgrid(3,8) , thick , tk(3) , val
    INTEGER i , index(3,3) , ipoint , ising , j , jtemp , k
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES JACOBIAN AT EACH GIVEN INTEGRATION
 !     POINT FOR QUAD4 POTVIN TYPE ELEMENTS.

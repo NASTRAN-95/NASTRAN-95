@@ -1,9 +1,6 @@
 
 SUBROUTINE cfer3s(V1,V1l,V2,V2l,V3,V3l,V4,V4l,V5,V5l,Zb,Zc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cdp , Dudxx , Dumaa(84) , Eofnrw , Epsdum(2) , Lambda(4) , Rd , Rdp , Rdrew , Regdum(2) , Rew , Rsp , Sqr , Ten2mt ,        &
       & Tenmht , Wrt , Wrtrew , Xcdum(3)
    INTEGER Csp , Idiag , Ii , Iip , Ikmb(7,3) , Ilam(7) , Incr , Incrp , Iphi(7) , Iprc , Iscr(11) , It , Itp1 , Itp2 , Ksystm(65) ,&
@@ -19,20 +16,11 @@ SUBROUTINE cfer3s(V1,V1l,V2,V2l,V3,V3l,V4,V4l,V5,V5l,Zb,Zc)
    COMMON /system/ Ksystm
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    REAL V1(1) , V1l(1) , V2(1) , V2l(1) , V3(1) , V3l(1) , V4(1) , V4l(1) , V5(1) , V5l(1) , Zb(1) , Zc(1)
-!
-! Local variable declarations
-!
    REAL a(2) , d(4) , dsave(2) , s(8) , ss , temp1(2) , zero
    LOGICAL again , skip , sucess
    INTEGER i , ij , j , j2 , jj , lancos , n3 , name(2) , nord8
    DOUBLE PRECISION temp2
-!
-! End of declarations
-!
 !
 !     CFER3S IS A SINGLE PRECISION ROUTINE (CALLED BY CFEER3) WHICH
 !     PERFORMS THE TRIDIAGONAL REDUCTION FOR THE COMPLEX FEER METHOD

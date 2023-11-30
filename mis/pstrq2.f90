@@ -1,26 +1,14 @@
 
 SUBROUTINE pstrq2(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Delta , Dum(315) , Ph1out(300) , Si(36) , Stres(9) , Stress(3) , Temp , Vec(3) , Z(24)
    INTEGER Ivec , Npoint , Nsil(4) , Nsize
    COMMON /pla32s/ Stress , Vec , Temp , Delta , Nsize , Npoint , Dum
    COMMON /pla3es/ Ph1out
    COMMON /pla3uv/ Ivec , Z
    COMMON /sout  / Stres
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 ! THIS ROUTINE CALCULATES PHASE II OUTPUT FOR PLA3
 !
 !     NTYPE = 1 TRI-MEMBRANE

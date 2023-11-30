@@ -1,20 +1,11 @@
 
 SUBROUTINE dipole(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Hc1 , Hc2 , Hc3 , Xx , Yy , Zz
    REAL Buf(50)
    INTEGER Ibuf(50)
-!
-! Local variable declarations
-!
    REAL cx , cy , cz , fpi , max , min , mx , mxa , my , myb , mz , mzc , r3 , r5 , rmr1 , xnum
    INTEGER icid
-!
-! End of declarations
-!
 !
 ! DIPOLE COMPUTES THE MAGNETIC INTENSITY AT THE POINT (XX,YY,ZZ) DUE
 ! TO A MAGNETIC DIPOLE MOMENT DEFINED ON AN MDIPOLE CARD STORED IN BUF.

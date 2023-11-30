@@ -4,9 +4,6 @@ SUBROUTINE nascar
 !     NASCAR READS THE NASTRAN CARD (IF PRESENT) AND CALLS TTLPGE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bandit , Card(20) , Fist(2) , Flag , Idrum , Intap , Itolel , Lfist , Lhpw(4) , Logfl , Mach , Maxfil , Maxopn ,         &
          & Modcom(9) , Mxfl , Nfist , Nogo , Npfist , Outtap , Pghdg(96) , Pltflg , Sysbuf , System(100)
    REAL Rtolel
@@ -20,18 +17,12 @@ SUBROUTINE nascar
    COMMON /xfist / Nfist , Lfist , Fist
    COMMON /xmssg / Ufm , Uwm
    COMMON /xpfist/ Npfist
-!
-! Local variable declarations
-!
    INTEGER bdt(7) , blank , buf(75) , files(2) , hdg(14) , i , ii , ixx , j , j1 , jn , k , keywds(2,17) , khr , lkeywd , m ,       &
          & mask1 , mask2 , nstrn(2) , param , topt
    INTEGER complf , orf , rshift
    REAL s1
    CHARACTER*16 s2
    EXTERNAL complf , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (System(1),Sysbuf) , (System(2),Outtap) , (System(3),Nogo) , (System(4),Intap) , (System(7),Logfl) ,                 &
     & (System(20),Pltflg) , (System(29),Maxfil) , (System(30),Maxopn) , (System(34),Idrum) , (System(57),Modcom(1)) ,               &
     & (System(70),Itolel,Rtolel) , (System(77),Bandit)

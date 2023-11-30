@@ -1,23 +1,11 @@
 
 SUBROUTINE ofp1c(Line)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , L , L123(20000)
    COMMON /system/ Ibuf , L
    COMMON /zzzzzz/ L123
-!
-! Dummy argument declarations
-!
    INTEGER Line
-!
-! Local variable declarations
-!
    INTEGER local
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE WAS FORMED ONLY TO REDUCE THE SIZE OF OFP1 FOR
 !     COMPILATION PURPOSES.  IT IS CALLED ONLY BY OFP1.

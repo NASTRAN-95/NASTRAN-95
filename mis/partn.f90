@@ -1,9 +1,6 @@
 
 SUBROUTINE partn(Irp,Icp,Core)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A11(4) , Rule
    INTEGER Ia(2) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Ias(7,4) , Ieol , Ieor , Iforma , Ii , Itypa , Lcare , Namea , Ncola ,   &
          & Nrowa , Sysbuf , Two1(32)
@@ -11,21 +8,12 @@ SUBROUTINE partn(Irp,Icp,Core)
    COMMON /system/ Sysbuf
    COMMON /two   / Two1
    COMMON /zntpkx/ A11 , Ii , Ieol , Ieor
-!
-! Dummy argument declarations
-!
    INTEGER Core(1) , Icp(1) , Irp(1)
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    REAL block1(40) , head(2) , ocpct , orpct , zcpct , zrpct
    INTEGER i , ibuf , ibufcp , ibufrp , iln , inorp , iopen , iotp , ipm1 , ipm2 , ipos , itemp , j , k , km , l , l1 , lcore ,     &
          & loop , m , m1 , name(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ias(1,1),Ia11(1))
    DATA iln/20/ , name/4HPART , 4HN   /

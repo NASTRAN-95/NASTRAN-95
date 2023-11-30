@@ -1,27 +1,15 @@
 
 SUBROUTINE ferrdm(Mcb,Nidx,Memtot,Ibuffi,Lasind,Ipos)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dcore(1) , Dxl(1)
    INTEGER Icore(1) , Iprec , Ixl(1) , Ksystm(65) , Nout , Rd , Rdrew , Rew , Wrt , Wrtrew
    REAL Rcore(1) , Rxl(1)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    INTEGER Ibuffi , Lasind , Memtot , Nidx
    INTEGER Ipos(7) , Mcb(7)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(20) , iblock , icbp , iclr , ii , index , jcol , jrow , mem , mindex , ncol , ntms , ntwds
-!
-! End of declarations
-!
 !
 !  FERRDM - This routine will store an entire matrix in memory
 !           if sufficient memory exists.  The matrix

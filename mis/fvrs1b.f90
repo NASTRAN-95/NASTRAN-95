@@ -1,28 +1,16 @@
 
 SUBROUTINE fvrs1b(Base,W1,Nf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Dum(5) , Dum1(3) , Pi , Radeg , S4piq , Twopi
    INTEGER It(6)
    COMMON /blank / Dum , It , Dum1
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4piq
-!
-! Dummy argument declarations
-!
    INTEGER Nf
    COMPLEX Base(3,Nf)
    REAL W1(Nf)
-!
-! Local variable declarations
-!
    REAL f , phi , rad , xo
    INTEGER i , k , lp , lt
    COMPLEX p , z1
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO COMPUTE BASE(FI)(3X1) FOR MODFRL=FALSE
 !

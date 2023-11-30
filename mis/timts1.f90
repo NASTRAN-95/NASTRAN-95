@@ -1,9 +1,6 @@
 
 SUBROUTINE timts1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , X(1) , Z(1)
    INTEGER Eol , Eor , I1 , I2 , Incr1 , Incr2 , Ix , Iz , J1 , J2 , M , N , Opt1 , Opt2 , Output , Sysbuf , Type , Typin1 ,        &
          & Typou1 , Typou2
@@ -19,18 +16,12 @@ SUBROUTINE timts1
    COMMON /zblpkx/ Zd , Iz
    COMMON /zntpkx/ Xd , Ix , Eol , Eor
    COMMON /zzzzzz/ A
-!
-! Local variable declarations
-!
    INTEGER ablk(15) , bblk(15) , bck(4) , bld(16) , buf1 , buf2 , end , f1 , f2 , files(2) , get(16) , i , i1000 , i1001 , int(16) ,&
          & iret , isubr(2) , j , k , kerr , m10 , m100 , mask(9) , mcb(7) , mm , mx , n10 , name(4) , nbrstr , nmask , nwds , p ,   &
          & pak(16) , put(16) , rd(4) , unp(16) , wrt(4)
    INTEGER andf , korsz
    REAL flag , fm , fn , t1 , t2 , t3 , t4 , time1 , time2 , tprrec , tprwrd
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     TIMTS1 TIME TESTS GINO AND THE PACK ROUTINES
 !

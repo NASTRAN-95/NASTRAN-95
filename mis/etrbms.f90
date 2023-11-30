@@ -1,9 +1,6 @@
 
 SUBROUTINE etrbms
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Alp12 , Alpha1 , Alpha2 , Angle , Aout(324) , Bfact , Costh , D(9) , Dum(15) , Dumb(76) , Dummy1 , Dummy2 ,        &
       & Dummy3 , E(18) , Ecpt(1) , Eltemp , Eye , Fmu , G(9) , G11 , G12 , G13 , G22 , G23 , G2x2(4) , G2x211 , G2x212 , G2x222 ,   &
       & G33 , Gsube , Hyq(6) , J2x2(4) , Mar(18) , Mbaraa(9) , Mrr(36) , Prod9(9) , Rho , S(18) , Sigcom , Sigshe , Sigten ,        &
@@ -18,14 +15,8 @@ SUBROUTINE etrbms
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alp12 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,   &
                  & G2x211 , G2x212 , G2x222 , Space
-!
-! Local variable declarations
-!
    REAL aij , bij , determ , fi , fij , fj , fj2 , sizero , temp , xbsq , xcsq , xcyc , xprodi , ycsq , yprodj
    INTEGER i , ising , j , k , npt
-!
-! End of declarations
-!
 !
 !     BASIC BENDING TRIANGLE ELEMENT ROUTINE
 !     SINGLE PRECISION VERSION

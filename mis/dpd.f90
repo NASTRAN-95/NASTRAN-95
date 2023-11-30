@@ -1,9 +1,6 @@
 
 SUBROUTINE dpd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , Eqdyn ,   &
          & Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ineqc , Kn , L , Loads(32) , Luset , Lusetd , Mcb(7) , Msg(3) , Nam(2) , Neqdyn ,&
          & Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl , Nosdt , Notfl , Notrl , Noue , Psd(2) ,      &
@@ -16,14 +13,8 @@ SUBROUTINE dpd
                  & Nolin , Nogo , Msg , Tic , Tstep , Tf , Psd , Eigr , Eigb , Eigc , Mcb , Nam , Eqdyn , Sdt , Ineqc
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ineq
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DPD IS MAIN CONTROL PROGRAM FOR THE DYNAMICS POOL DISTRIBUTOR.
 !

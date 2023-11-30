@@ -1,16 +1,10 @@
 
 SUBROUTINE sqrtm(A,Ia,B,Ib)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    INTEGER Ia , Ib
    DOUBLE PRECISION Detsw(1)
    INTEGER Ipsw(1)
-!
-! End of declarations
-!
 !
 !     SCALED ARITHMETIC ROUTINES--SQUARE ROOT
 !

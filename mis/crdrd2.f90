@@ -1,28 +1,16 @@
 
 SUBROUTINE crdrd2(*,*,Mu,Indcom,N23)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Buf(20) , Cstm , Geomp , Gpoint , Kn , Knkl1 , Mask16 , Nogo , Rgt , Scr1 , Z(1)
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Rz(1)
    DOUBLE PRECISION Dz(1)
    COMMON /gp4fil/ Geomp , Bgpdt , Cstm , Rgt , Scr1
    COMMON /gp4prm/ Buf , Buf1 , Buf2 , Buf3 , Buf4 , Knkl1 , Mask16 , Nogo , Gpoint , Kn
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Indcom , Mu , N23
-!
-! Local variable declarations
-!
    DOUBLE PRECISION cdep , ddrcos(3) , deptfm(9) , idrcos(3) , indtfm(9) , rlngth , rodcos(3) , xd , yd , zd
    REAL coeff
    INTEGER i , idep , mask15 , mcode(2)
-!
-! End of declarations
-!
 !
 !     WRITE THE RIGID ROD ELEMENT ON THE RG FILE
 !

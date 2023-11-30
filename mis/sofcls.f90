@@ -1,9 +1,6 @@
 
 SUBROUTINE sofcls
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(37) , B(6) , Buf(1) , Dit , Ditlbn , Ditpbn , Filnam(10) , Filsiz(10) , Item(7,1) , Mdi , Mdilbn , Mdipbn , Nbuff ,    &
          & Nfiles , Nitem , Nxt , Nxtlbn , Nxtpbn , Psswrd(2)
    LOGICAL Ditup , Mdiup , Nxtrst , Nxtup , Opnsof
@@ -14,13 +11,7 @@ SUBROUTINE sofcls
    COMMON /sys   / B
    COMMON /system/ Nbuff
    COMMON /zzzzzz/ Buf
-!
-! Local variable declarations
-!
    INTEGER i , ibl , iwrt , j , k , last
-!
-! End of declarations
-!
 !
 !     WRITES OUT AT THE TERMINATION OF A MODULE ALL THE IN CORE BUFFERS
 !     AND COMMON BLOCKS.

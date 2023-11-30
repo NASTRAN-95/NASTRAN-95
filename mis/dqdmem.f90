@@ -1,9 +1,6 @@
 
 SUBROUTINE dqdmem
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Angl , Consts(5) , Coord(16) , Cosang , Costh , Degra , Dumcl(32) , Dummy(400) , Ecpt(100) , Eltemp , Ivec(3) , Jvec(3) ,   &
       & Kvec(3) , Pvec(3) , Sdisp(12) , Si(3) , Sinang , Sinth , Stress , U1 , U2 , V(3) , Vecl , Vsubk(3)
    INTEGER Icstm , Inflag , Jnot , Matid , Mpoint , Ncstm , Necpt(5) , Ngrid(4) , Nogo , Npivot , Npt1 , Npt2 , Npt3 , Npvt , Nsubsc
@@ -13,13 +10,7 @@ SUBROUTINE dqdmem
                  & Nsubsc , V , U1 , Si , U2 , Vecl , Angl , Sinang , Cosang
    COMMON /ds1aet/ Ecpt
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
-!
-! Local variable declarations
-!
    INTEGER i , j , k , m(12)
-!
-! End of declarations
-!
 !
 !
 !     QUADRILATERAL MEMBRANE ROUTINE FOR DIFFERENTIAL STIFFNESS..

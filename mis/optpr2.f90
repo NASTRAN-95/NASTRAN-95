@@ -1,9 +1,6 @@
 
 SUBROUTINE optpr2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1 , Count , Crew , Est1 , Est2 , Incr , Iprn , Iprnt , Last , Max , Ncard , Ne(1) , Nelop , Nelw , Nklw , Nprw , Nrd ,  &
          & Nrrew , Ntotl , Ntypes , Nwdse , Nwdsp , Nwrew , Nwrt , Oes1 , Optp1 , Optp2 , Outtap , Parm(8) , Print , Sysbuf ,       &
          & Tstart , Ycor , Zcor
@@ -17,15 +14,9 @@ SUBROUTINE optpr2
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER b2 , file , i , iy(1) , j , name(2) , none(2) , ptely , ptply , ptpry , ptpty , ptrry , tg , tl
    INTEGER korsz
    REAL y(1)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS THE DRIVER FOR PROPERTY OPTIMIZATION, PHASE 2.
 !

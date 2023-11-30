@@ -44,9 +44,6 @@ SUBROUTINE matgen
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D(2)
    INTEGER Dum14(14) , Dum37(37) , I2 , Incr2 , Iprec , Ita , Itb , Ix(12) , J2 , Machx , Nbpw , Nout , P(11) , P1 , P10 , P11 ,    &
          & P2 , P3 , P4 , P5 , P6 , P7 , P8 , P9 , Row , Sysbuf , X(20000)
@@ -61,17 +58,11 @@ SUBROUTINE matgen
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zblpkx/ Val , Row
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER a , b , c , code(2) , eqe , flag , form , i , ibuf1 , ibuf2 , ipx , irow1 , is2 , j , k , l , lcor , m , mcb(7) , nam(2) &
          & , np , nuset , nval , nval2 , out , pi , pos , px , t , tot , xin
    INTEGER korsz , lshift , rand
    REAL tmp(7)
    EXTERNAL lshift
-!
-! End of declarations
-!
 !ZZ   COMMON /ZZMGEN/  X(1)
    EQUIVALENCE (Val(1),D(1)) , (X(1),Ix(1),Rx(1)) , (P(1),P1)
    DATA nam/4HMATG , 4HEN  / , np/11/

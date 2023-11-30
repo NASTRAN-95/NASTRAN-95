@@ -1,19 +1,10 @@
 
 SUBROUTINE hdvs1(A,La,Ir)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER La
    INTEGER A(1) , Ir(1)
-!
-! Local variable declarations
-!
    INTEGER i , ij , il(21) , it , itt , iu(21) , j , k , l , m , t , tt
    REAL r
-!
-! End of declarations
-!
 !                                  FIRST EXECUTABLE STATEMENT
    IF ( La<=0 ) RETURN
    m = 1

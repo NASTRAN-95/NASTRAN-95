@@ -1,9 +1,6 @@
 
 SUBROUTINE cdcomp(*,Ix,X,Dx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Diag , Eofnrw , Rd , Rdrew , Rect , Rew , Row , Rsp , Uprtri , Wrt , Wrtrew , Z(4)
    INTEGER B , Bbar , C , Cbar , Eol , Filea(7) , Filel(7) , Fileu(7) , Forma , Ident , Ii , Incrx , Incry , Itype1 , Itype2 ,      &
          & Itypex , Ixy , Iy , Jj , Jxy , Jy , Lowtri , Ncol , Norew , Nout , Nx , Power , R , Rdp , Sqr , Sr1fil , Sr2fil ,        &
@@ -21,23 +18,14 @@ SUBROUTINE cdcomp(*,Ix,X,Dx)
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zblpkx/ Z , Jj
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dx(1)
    INTEGER Ix(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    INTEGER bbar1 , bbbar , bbbar1 , bufa , cbcnt , ccount , count , end , flag , i , i1 , i1sp , i2 , i3 , i3sp , i4 , i4sp , i5 ,  &
          & i6sp , i7sp , ibbar4 , ibegn , ibufl , icrq , iend , in1 , in2 , in3 , in4 , intch , intchn , ioff , ipak , iterm ,      &
          & itran(6) , itrn , jpos , jposl , jtrn , k , kk , kkk , lcol , ll , lll , llll , outbuf , parm(5) , scrflg , sr1buf ,     &
          & sr2buf , sr2fl , sr3buf , sr3fl
    DOUBLE PRECISION dtrn(2) , dx1 , dx2 , limit , max(2)
-!
-! End of declarations
-!
 !
 !     CDCOMP WILL DECOMPOSE A COMPLEX UNSYMETRIC MATRIX INTO A UNIT
 !     LOWER TRIANGULAR MATRIX AND AN UPPER TRIANGULAR MATRIX,USING

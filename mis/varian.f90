@@ -1,25 +1,16 @@
 
 SUBROUTINE varian
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Delta , Rz(1) , Skip(91) , Z(200)
    INTEGER Iop(2) , Iz(260) , Jrun , Sysbuf
    COMMON /blank / Iop , Delta
    COMMON /system/ Sysbuf , Skip , Jrun
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER der , derl(3) , file , i , iblnk , ibuf1 , ibuf2 , ibuf3 , id1 , id2 , ieor , iflag , ifound , in1 , inpt , io1 , ip1 ,  &
          & iread , iret , irtn , irtn1 , irtn2 , irtn3 , it1 , it2 , it3 , it4 , it5 , itf(5) , ito(5) , itype , j , k , m , mcb(7) &
          & , name(2) , njrun , nrec , nw , nz , ot1 , ot2 , ot3 , ot4 , ot5 , scr1 , scr2 , var , varan(2) , varl(3)
    INTEGER korsz , numtyp
    LOGICAL tapbit
-!
-! End of declarations
-!
 !
 !     VARIANCE ANALYSIS POST PROCESSOR MODULE
 !

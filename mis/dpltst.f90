@@ -2,22 +2,13 @@
 SUBROUTINE dpltst
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , Ect , Elset , Eqexin , Gpset , Merr , Mset , Ngp , Nsets , Parm , Pcdb , Pect , Skp1(8) , Skp2(7) , Skp3(6) ,   &
          & X(1)
    COMMON /blank / Ngp , Nsets , Skp1 , Pcdb , Eqexin , Ect , Skp2 , Merr , Parm , Gpset , Elset , Skp3 , Mset , Pect
    COMMON /system/ Bufsiz
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER ept , errttl(32) , i1 , i2 , i3 , outrew , rew
    INTEGER korsz
-!
-! End of declarations
-!
    DATA outrew , rew/1 , 1/
    DATA errttl/8*2H   , 4HERRO , 4HR ME , 4HSSAG , 4HES F , 4HROM  , 4HTHE  , 4HPLOT , 4H SET , 4H DEF , 4HINIT , 4HION  , 4HMODU , &
        &4HLE ( , 4HPLTS , 4HET)  , 9*1H /

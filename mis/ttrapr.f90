@@ -1,9 +1,6 @@
 
 SUBROUTINE ttrapr(Ti,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Consts(5) , Costh , Degra , E(3) , Ecpt(24) , Eltemp , G(3) , Rho , Sinth , Stress , Twopi , Tzero
    INTEGER Ibuf , Iecpt(24) , Iout , Matflg , Matidc
    CHARACTER*23 Ufm
@@ -13,21 +10,12 @@ SUBROUTINE ttrapr(Ti,Pg)
    COMMON /system/ Ibuf , Iout
    COMMON /trimex/ Ecpt
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Ti(4)
-!
-! Local variable declarations
-!
    REAL alfb(4) , cosg , d(22) , del , delint(12) , dgama , dgamr , ee(16) , er , et , ez , gambl(144) , gambq(64) , gamqs(96) ,    &
       & grz , hprim(16) , q(32) , r(4) , r1 , r2 , r3 , r4 , rmax , rmin , sing , sp(24) , tempe , teo(16) , tl(12) , ts(4) , tz ,  &
       & vrt , vrz , vtr , vtz , vzr , vzt , z(4) , z1 , z2 , z3 , z4 , zmin
    INTEGER i , i1 , icore , ics(4) , idel , igp(4) , ip , iq , ising , j , jj , jj1 , jj2 , jrz(2) , k , kk , l , matid
    REAL rzints
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE THERMAL LOAD FOR THE TRAPEZOIDAL
 !     CROSS SECTION RING

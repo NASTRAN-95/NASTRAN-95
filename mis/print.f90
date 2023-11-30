@@ -1,29 +1,17 @@
 
 SUBROUTINE print(X,Y,Xyd,Chr,N,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntchr(2) , Skpa(3) , Skpplt(20) , Skpsys(40)
    INTEGER Ncpw
    COMMON /pltdat/ Skpplt , Skpa , Cntchr
    COMMON /system/ Skpsys , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER N , Opt , Xyd
    REAL X , Y
    INTEGER Chr(1)
-!
-! Local variable declarations
-!
    INTEGER blank , blnk , c(80) , charx , d , i , j , l , l1 , l2 , nc
    INTEGER klshft , krshft , orf
    REAL s , xy(2,2)
    EXTERNAL klshft , krshft , orf
-!
-! End of declarations
-!
 !
 !     (X,Y) = STARTING OR ENDING POINT OF THE LINE TO BE PRINTED (ALWAYS
 !             LEFT-TO-RIGHT OR TOP-TO-BOTTOM).

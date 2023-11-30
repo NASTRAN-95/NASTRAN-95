@@ -24,9 +24,6 @@ SUBROUTINE merge1
 !                                      V,Y,CPCOL/V,Y,RPCOL  $
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Cpcol , Cpones , Cpsize , Dumfor(3) , Elem(4) , Form , Icp , Ireqcl , Irp , Nbpw , Ncp , Nrp , Outpt ,    &
          & Rd , Rdrew , Row , Rpcol , Rpones , Rpsize , Sym , Sysbuf , Type , Wrt , Wrtrew , Xxx(37) , Z(1)
    LOGICAL Cphere , Cpnull , Rphere , Rpnull
@@ -41,9 +38,6 @@ SUBROUTINE merge1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zblpkx/ Elem , Row
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a , aij(4) , bit , bitwd , block(80) , buff , cols , core , cp , cpzero , elem1(4) , elem2(4) , eol1 , eol2 , eor ,      &
          & head(2) , i , i1 , i2 , ibloc1 , ibloc2 , iblock , icol , ifile , il1 , ipos1 , ipos2 , ipr , irlcx , irow , irow1 ,     &
          & irow2 , iz , j , jrow , k , kblock , kfile , m , mcb(7,4) , mcba(7) , mpart , naform , nam1 , nam2 , natype , nform ,    &
@@ -51,9 +45,6 @@ SUBROUTINE merge1
    INTEGER andf , korsz , rshift
    LOGICAL only , pass
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
    DATA subr/4HMERG , 4HE1  / , eor/1/
    DATA aij/101 , 102 , 103 , 104/ , cp , rp/105 , 106/ , a/201/
    DATA naform/4HFORM/ , natype/4HTYPE/ , refus/2*3H    , 3HREF/

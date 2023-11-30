@@ -1,9 +1,6 @@
 
 SUBROUTINE dypz(Kb,Ks,Ls,I,J1,J2,Nyflag,Sgr,Cgr,Fmach,Arb,Nbea,Lbo,Lso,Jbo,Dt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecore , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Z(1)
    INTEGER Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc , Infl , &
          & Ins , Insbea , Int121 , Int122 , Iria , Isg , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam , Ixle , Ixte ,   &
@@ -13,23 +10,14 @@ SUBROUTINE dypz(Kb,Ks,Ls,I,J1,J2,Nyflag,Sgr,Cgr,Fmach,Arb,Nbea,Lbo,Lso,Jbo,Dt)
                  & Iee , Isg , Icg , Ixij , Ix , Idelx , Ixic , Ixlam , Ia0 , Ixis1 , Ixis2 , Ia0p , Iria , Inasb , Ifla1 , Ifla2 , &
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Cgr , Fmach , Sgr
    INTEGER I , J1 , J2 , Jbo , Kb , Ks , Lbo , Ls , Lso , Nyflag
    REAL Arb(1)
    COMPLEX Dt(1)
    INTEGER Nbea(1)
-!
-! Local variable declarations
-!
    REAL ar , beta , eps , pi
    INTEGER j , jb , jz , lb , ndy , nyfl
    COMPLEX sum
-!
-! End of declarations
-!
 !   ***   GENERATES ROWS OF THE SUBMATRICES  DYP, DYZ  AND DYY
 !         USING  SUBROUTINE  SUBB
    ndy = 1

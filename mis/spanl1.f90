@@ -1,9 +1,6 @@
 
 SUBROUTINE spanl1(Iarg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A2 , A3 , A4 , A5 , Alpha , Avec(4) , B , B2 , B3 , B4 , B5 , C , C2 , C3 , C4 , C5 , Cep1 , Cep2 , Costh , D , D2 ,    &
       & D3 , D4 , D5 , E , Ecpt(100) , Eltemp , Ep , Fmu , G , Gp1(3) , Gp2(3) , Gp3(3) , Gp4(3) , Gsube , Nu , Out(15) , P(4) ,    &
       & Pa , Rho , S(3,4) , Sa , Sigc , Sigs , Sigt , Sinth , Smallu(4) , Smallv(4) , Spcon , Stress , T , Temp , Tempel , Term1 ,  &
@@ -19,18 +16,9 @@ SUBROUTINE spanl1(Iarg)
                  & X3 , X4 , Y1 , Y2 , Y3 , Y4 , Vkl , Pa , V12dk , Cep1 , Cep2 , Ep , Temp , Yp , Xp , Sa , Xq , B , Xl , A , A2 , &
                  & A3 , A4 , A5 , B2 , B3 , B4 , B5 , C , C2 , C3 , C4 , C5 , D , D2 , D3 , D4 , D5 , Term1 , Term2 , Term3 ,       &
                  & Term4 , Term5 , Xl13 , Xl24
-!
-! Dummy argument declarations
-!
    INTEGER Iarg
-!
-! Local variable declarations
-!
    REAL f , term , vjl , vp12l , z
    INTEGER i , ivlbeg
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES PHASE I PARAMETERS FOR STRESS DATA RECOVERY FOR
 ! THE SHEAR PANEL (IF IARG = 4) AND THE TWIST PANEL (IF IARG = 5).

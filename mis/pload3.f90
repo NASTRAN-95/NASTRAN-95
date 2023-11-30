@@ -1,22 +1,13 @@
 
 SUBROUTINE pload3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt , Core(1) , Old , Slt
    INTEGER Lcore
    COMMON /loadx / Lcore , Slt , Bgpdt , Old
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    DOUBLE PRECISION absisa , detj , dshp(3,32) , f(3,32) , jinv(3,3) , pfact , s(3,2) , shp(32)
    REAL bgpd(4) , bxyz(3,32) , p(6) , rf(3,32) , sgn
    INTEGER cid(32) , col , face , gp(32) , i , ibgpd(4) , j , k , l , m , n(3) , ngp , ni , nj , nk , seq(32) , sgncol(6) , type
-!
-! End of declarations
-!
 !
 !     COMPUTES THE CONTRIBUTION TO THE LOAD VECTOR DUE TO PRESSURES
 !     APPLIED TO THE FACES OF ISOPARAMETRIC SOLID ELEMENTS

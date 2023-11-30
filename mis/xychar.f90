@@ -2,9 +2,6 @@
 SUBROUTINE xychar(Row,Col,Char)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bperch , Bperwd , Dum(38) , I123 , Id(300) , Iframe , Mach , Maxplt , Maxrow , Titlec(32) , Titlel(14) , Titler(14) ,    &
          & Xinc , Xmin , Xtitle(32) , Z(1)
    LOGICAL Exceed
@@ -12,20 +9,11 @@ SUBROUTINE xychar(Row,Col,Char)
    COMMON /system/ Dum , Bperch , Bperwd
    COMMON /xypppp/ Iframe , Titlec , Titlel , Titler , Xtitle , Id , Maxplt , Xmin , Xinc , Exceed , I123 , Maxrow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Char , Col , Row
-!
-! Local variable declarations
-!
    INTEGER andf , complf , khrfn1 , lshift , orf , rshift
    INTEGER i , ichar , ishift , iword , let , mask(4) , n , nmask
    LOGICAL pass
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    DATA pass/.FALSE./
 !
    IF ( Row<=Maxrow ) THEN

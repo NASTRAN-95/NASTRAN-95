@@ -4,14 +4,8 @@ SUBROUTINE dsgnrd
    INCLUDE 'XNSTRN.COM'
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
-!
-! Local variable declarations
-!
    CHARACTER*4 Cbuff(2)
    INTEGER idsnr , iend , iop , isave , istrb
-!
-! End of declarations
-!
    EQUIVALENCE (Cbuff,Ibase)
    Idsn = Mdsfcb(2,Ifilex)
    idsnr = Idsn

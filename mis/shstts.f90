@@ -1,13 +1,7 @@
 
 SUBROUTINE shstts(Tab,Uab,Vab)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Tab(9) , Uab(9) , Vab(4)
-!
-! End of declarations
-!
 !
 !     TO CREATE STRESS TENSOR TRANSFORMATION MATRICES FROM AN ORTHOGONAL
 !     TRANSFORMATION FOR SHELL ELEMENTS.

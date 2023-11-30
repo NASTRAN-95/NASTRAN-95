@@ -1,26 +1,14 @@
 
 SUBROUTINE ddr1b(In1,In2,Iout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Itc , Jj , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER In1 , In2 , Iout
-!
-! Local variable declarations
-!
    INTEGER i , mcb(7) , nd , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE REPLACES DISPLACEMNTS ON IN1 WITH DISPLACEMENTS ON
 !     IN2  AND WRITES ON  IOUT

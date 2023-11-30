@@ -1,9 +1,6 @@
 
 SUBROUTINE tordrs
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , Alf(3) , Alph(2) , Anu(3) , Costh , D1 , D2 , Degrad , Dum(15) , E(3) , Ecpt(9) , Eltemp , G(3) , Gsube , Om ,    &
       & R1 , R2 , Rho , Sinth , Stress , Tempe , Tf , Tm , Twopi , Tzero , Z1 , Z2
    DOUBLE PRECISION Constd(5)
@@ -17,17 +14,11 @@ SUBROUTINE tordrs
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube
    COMMON /system/ Ksystm , Heat
-!
-! Local variable declarations
-!
    REAL ak(144) , aki(36) , akm(36) , am(144) , cosa1 , cosa2 , d(144) , del , delint(66) , dict5 , djp1 , ee(4) , ep , et ,        &
       & gambq(144) , gambqf(72) , gambqm(48) , gamrs(144) , kout(144) , mout(144) , phib , r(2) , rp , s , sina1 , sina2 , vpt ,    &
       & vtp , z(2)
    INTEGER dict(9) , i , iai , iapp , ic , ics(2) , ii , ij , iout , ip , ipp , ipr , ir , itord , j , ji , jj , jp1 , k , ki , kj ,&
          & kk , kl
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE STIFFNESS MATRIX AND THE MASS MATRIX
 !     FOR AN AXI-SYMMETRIC TORDIDAL THIN SHELL RING

@@ -1,18 +1,9 @@
 
 SUBROUTINE feerdd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ifrcx(37)
    COMMON /feercx/ Ifrcx
-!
-! Local variable declarations
-!
    INTEGER i , jfrcx(28) , kfrcx(4) , lfrcx(4) , mfrcx
-!
-! End of declarations
-!
 !*******
 !
 !     SUBROUTINE TO INITIALIZE COMMON /FEERCX/

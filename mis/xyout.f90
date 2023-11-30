@@ -1,32 +1,20 @@
 
 SUBROUTINE xyout(Iopt,Buf,Rbuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL D1(6) , D2(2) , D3(78) , Dum(4) , Sysbuf
    INTEGER Icard , Icom1 , Ihalf , Ihead(96) , L , Line , Lpch , Mach , Maxlns
    COMMON /blank / Icom1 , Dum , Icard
    COMMON /machin/ Mach , Ihalf
    COMMON /output/ Ihead
    COMMON /system/ Sysbuf , L , D1 , Maxlns , D2 , Line , D3 , Lpch
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
    INTEGER Buf(300)
    REAL Rbuf(300)
-!
-! Local variable declarations
-!
    INTEGER i , icomp , icount , id , imtd(6) , iprint , irand , itemp , itempv , itype(4) , ivg , j , k , m , model , names(44) ,   &
          & plt(2) , type(6)
    INTEGER lshift , rshift
    LOGICAL print , punch
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE IS CALLED BY XYTRAN AND OUTPUTS TO PRINTER AND
 !     PUNCH

@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Fuset , Gbuf1 , Idum1 , Idum2(5) , Idum3 , Idum4(9) , Idum5(10) , Idum6 , Infile(11) , Iprntr , Iscr(11) , Kaa ,   &
          & Kbb , Kbi , Kib , Kii , Korbgn , Korlen , Lcore , Nsub(3) , Oldnam(2) , Otfile(6) , Ub , Ui , Un , Uprt , Usetmr , Z(1)
    CHARACTER*23 Ufm
@@ -13,13 +10,7 @@ SUBROUTINE cmrd2a
    COMMON /system/ Idum3 , Iprntr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER imsg , item , itest , modnam(2)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PARTITIONS THE STIFFNESS MATRIX INTO BOUNDARY AND
 !     INTERIOR POINTS AND THEN SAVES THE PARTITIONING VECTOR ON THE SOF

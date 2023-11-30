@@ -1,9 +1,6 @@
 
 SUBROUTINE bgrid
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum , Dum2s(2) , Dum4w(4) , Rdum(4) , Z(1)
    INTEGER Geom1 , Geom2 , Geom4 , I77 , Ibuf1 , Icrit , Idum5d(5) , Ipass , Irept , Isys(100) , Kdim , Kmod , Kor , Mach , Machx , &
          & Mask , Maxdeg , Maxgrd , Method , Mindeg , Mm , Nbitin , Nbpw , Nedge , Nel , Neq , Neqr , Ngpts(2) , Ngrid , Nn ,       &
@@ -23,16 +20,10 @@ SUBROUTINE bgrid
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER grid(2) , i , igeom1 , igeom2 , igeom4 , iscr1 , itrl(8) , j , k , k1 , k2 , kdimx , kore , max , n , nelx , neqrx ,     &
          & neqx , seqgp , sub(2)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES PROBLEM SIZE, INTEGER PACKING FACTOR, AND
 !     MAXGRD AND MAXDEG CONSTANTS.

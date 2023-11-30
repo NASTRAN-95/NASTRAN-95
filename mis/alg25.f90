@@ -1,20 +1,11 @@
 
 SUBROUTINE alg25(Ix,Lx,Log1,X,Y1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ix , Log1 , Lx
    REAL X(1) , Y1(1)
-!
-! Local variable declarations
-!
    REAL blank , cross , dash , line(121) , symbol(1) , xh , xi , xinc , xl , xmax , xmin , xnum(13) , xrange , yh , yinc , yinc2 ,  &
       & yl , ymax , ymin , ynum
    INTEGER i , kline , l , mx , my
-!
-! End of declarations
-!
 !
    DATA symbol/1H*/ , dash/1H-/ , cross/1H+/ , blank/1H / , xi/1HI/
 !

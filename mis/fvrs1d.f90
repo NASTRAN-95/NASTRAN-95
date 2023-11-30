@@ -1,19 +1,10 @@
 
 SUBROUTINE fvrs1d(Base,Base1,Index,Nfx)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Nfx
    COMPLEX Base(3,Nfx) , Base1(3,Nfx)
    INTEGER Index(Nfx)
-!
-! Local variable declarations
-!
    INTEGER i , l , loc
-!
-! End of declarations
-!
 !
 !
 !

@@ -1,18 +1,9 @@
 
 SUBROUTINE apdr(File,Z,Core,In,Out,Wr,Buf,Type)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Buf , Core , File , In , Out , Wr
    INTEGER Type(3) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER flag , name(2)
-!
-! End of declarations
-!
 !
    DATA name/4HAPD  , 4HR   /
 !

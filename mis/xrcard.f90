@@ -11,23 +11,14 @@ SUBROUTINE xrcard(Out,Nflag,In)
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Highpw , Lowpw , Nout
    LOGICAL Nogo
    CHARACTER*23 Ufm
    COMMON /lhpwx / Lowpw , Highpw
    COMMON /system/ Bufsz , Nout , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Nflag
    INTEGER In(18) , Out(2)
-!
-! Local variable declarations
-!
    INTEGER a67777 , a77777 , asave , astk1 , astk4 , blank1 , blank4 , char1(72) , char1i , char1n , charn2 , chars(23) , comma1 ,  &
          & cparn1 , d1 , diag , dollr1 , dot1 , e1 , equal1 , equal4 , i , ichar , ichek , idoubl(2) , imhere , intg , iout ,       &
          & ipower , irtn , it , k , l42 , last , minus1 , n , n1 , n2 , nt(15) , num1(10) , number , oparn1 , oparn4 , places ,     &
@@ -41,9 +32,6 @@ SUBROUTINE xrcard(Out,Nflag,In)
    REAL flpt
    CHARACTER*1 khar1(72) , save1(8)
    EXTERNAL complf , lshift , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (khar1(1),char72) , (save8,save1(1)) , (flpt,intg) , (ddoubl,idoubl(1)) , (chars(1),dollr1) , (chars(8),cparn1) ,    &
     & (chars(2),plus1) , (chars(9),e1) , (chars(3),equal1) , (chars(10),d1) , (chars(4),minus1) , (chars(11),dot1) ,                &
     & (chars(5),comma1) , (chars(12),blank1) , (chars(6),slash1) , (chars(13),astk1) , (chars(7),oparn1) , (chars(14),num1(1)) ,    &

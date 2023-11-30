@@ -1,26 +1,14 @@
 
 SUBROUTINE gfsh(Nuy,H)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER I1 , Incr1 , N1 , Sysbuf , Ti1 , To1 , Z(1)
    REAL Rz(2)
    COMMON /packx / Ti1 , To1 , I1 , N1 , Incr1
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER H , Nuy
-!
-! Local variable declarations
-!
    INTEGER i , ibuf , mcb(7) , name(2) , nuy1 , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO CALCULTE THE H TRANSFORMATION MATRIX USED WHEN NO
 !     SPC'S ARE ON THE FLUID

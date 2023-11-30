@@ -1,9 +1,6 @@
 
 SUBROUTINE apdb
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrew , Eofnrw , Ii , Incr , Iout , Iref , Iz(6) , Kindex , Macmax , Macmin , Mtype(2) , Neigv , Nj , Nk , Nn , Norew , &
          & Nsys(91) , Rd , Rdrew , Sysbuf , Typin , Typout , Wrt , Wrtrew
    LOGICAL Debug
@@ -17,9 +14,6 @@ SUBROUTINE apdb
    COMMON /system/ Sysbuf , Iout , Nsys
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER acpt , aero(3) , aerob , bgpdt , buf(7) , cstm , edt , eqexin , file , flag , flfact(3) , flist , fluttr(3) , i , ibuf1 ,&
          & ibuf2 , ibuf3 , igdp , intrl , ip1 , ip2 , ip3 , ip4 , ipos , ipos1 , ipos2 , ipos3 , ipv , isilc , isln , itrl(7) , j , &
          & jloc , kn , kode , last , left , maxsl , mkaer1(3) , mkaer2(3) , mthd , n1 , n2 , n3 , n4 , name(2) , name1(6,2) , nbg1 ,&
@@ -30,9 +24,6 @@ SUBROUTINE apdb
    LOGICAL first , lmkaer
    INTEGER strml2(3)
    REAL xsign , ytip1 , ytip2
-!
-! End of declarations
-!
 !
 !     AERODYNAMIC POOL DISTRIBUTOR AND GEOMETRY INTERPOLATOR FOR
 !     COMPRESSOR BLADES (AERODYNAMIC THEORY 6) AND SWEPT TURBOPROP

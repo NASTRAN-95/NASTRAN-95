@@ -1,18 +1,9 @@
 
 SUBROUTINE fndplt(Ploter,Model,Pmodel)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Model , Ploter
    INTEGER Pmodel(2)
-!
-! Local variable declarations
-!
    INTEGER i , i2 , n , n1 , pltmdl(2,6) , pltter(2,6)
-!
-! End of declarations
-!
 !
 !     PLOTER = PLOTTER INDEX.
 !     MODEL = MODEL INDEX.

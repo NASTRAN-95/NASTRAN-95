@@ -1,25 +1,13 @@
 
 SUBROUTINE dsupkc(Itin,Itout,A,B)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr
    COMMON /system/ Isysbf , Iwr
-!
-! Dummy argument declarations
-!
    INTEGER Itin , Itout
    REAL A(4) , B(4)
-!
-! Local variable declarations
-!
    REAL aa(4) , bb(4) , rs1 , rs2 , ssign
    INTEGER itout2 , iwrd1 , iwrd2 , k , nwords(4)
    DOUBLE PRECISION rd1 , rd2 , rdi1 , rdi2
-!
-! End of declarations
-!
    EQUIVALENCE (aa,rs1,rd1) , (bb,rs2,rd2)
    EQUIVALENCE (aa(3),rdi1) , (bb(3),rdi2)
    DATA nwords/1 , 2 , 2 , 4/

@@ -1,29 +1,17 @@
 
 SUBROUTINE amgt1d(Ajj,Tsonx,Tamach,Tredf,Nstns2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Dcbdzb , Den , Dum(2) , Redf , Refc , Refcrd , Refden , Refmac , Refstg , Refswp ,&
       & Refvel , Rfreq , Sigma , Stag , Sweep , Tsonic , Vel
    INTEGER Iref , Mach , Maxmac , Mcb(7) , Minmac , Nlines , Nrow , Nstns , Nstnsx , Sln
    COMMON /amgmn / Mcb , Nrow , Dum , Refc , Sigma , Rfreq
    COMMON /tamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stag , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amach , Redf , Blspc , Amachr , Tsonic
-!
-! Dummy argument declarations
-!
    INTEGER Nstns2
    COMPLEX Ajj(Nstns2,1)
    REAL Tamach(1) , Tredf(1)
    INTEGER Tsonx(1)
-!
-! Local variable declarations
-!
    INTEGER i , nline , nline1 , nline2 , nnline , ns , numm
-!
-! End of declarations
-!
 !
 !     TRANSONIC INTERPOLATION CODE FOR SWEPT TURBOPROPS.
 !

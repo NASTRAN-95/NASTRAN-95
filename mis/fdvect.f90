@@ -1,9 +1,6 @@
 
 SUBROUTINE fdvect(Delta,Pk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    DOUBLE PRECISION Dcore(1)
    INTEGER Ia(14) , Ib(5) , Ib1(9) , Ibuck , Icore(1) , Icount , Iip , Incrp , Iprec , It1p , It2p , Ivect(7) , Jjp , Ksystm(65) ,  &
@@ -12,21 +9,12 @@ SUBROUTINE fdvect(Delta,Pk)
    COMMON /regean/ Ia , Ivect , Ib , Lc1 , Ib1 , Loads , Lx , Icount , Lama , Ibuck , Nsym
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    REAL Delta
    DOUBLE PRECISION Pk
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dmax
    INTEGER i , icnt , im1 , ipm1 , kprec , lcore , mcb(7) , npro2 , nprob
    INTEGER korsz
    REAL x , xmax , y
-!
-! End of declarations
-!
 !
 !    1,                NAME(2)
    EQUIVALENCE (Icore(1),Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)

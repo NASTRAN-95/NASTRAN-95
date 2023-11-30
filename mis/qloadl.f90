@@ -1,9 +1,6 @@
 
 SUBROUTINE qloadl(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bg , Ifm , Ilid , Iout , Iqvect , Itran , Lc , Nxn(12) , Nyn(2) , Old , Slt
    REAL Core(1) , Sysbuf
    CHARACTER*23 Ufm
@@ -12,20 +9,11 @@ SUBROUTINE qloadl(Iopt)
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    REAL card(19) , coef(4) , dot , dot2 , e(3) , flag , v1(3) , v2(3)
    INTEGER i , id , ie(3) , igrids(6) , int , iold , isil , itran1 , minus(2) , n , nwords , sils(4) , subr(2) , type
    LOGICAL nogo , transt
    INTEGER numtyp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THERMAL LOADS FROM QBDY1, QBDY2, OR
 !     QVECT DATA. THE INPUT DATA, READ FROM FILE SLT, IS -

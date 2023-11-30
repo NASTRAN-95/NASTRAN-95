@@ -1,18 +1,9 @@
 
 DOUBLE PRECISION FUNCTION dapoly(N,P)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N
    DOUBLE PRECISION P(2,1)
-!
-! Local variable declarations
-!
    INTEGER i , j , k(2,10) , k1 , k2 , kedge(2,10) , nn
-!
-! End of declarations
-!
 !
 !     CALCULATES AREA OF A POLYGON DESCRIBED BY N POINTS (P)
 !        ( N .LE. 10 )

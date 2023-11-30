@@ -1,22 +1,10 @@
 
 SUBROUTINE degree(Ig,Ideg,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mm , Nn
    COMMON /bands / Nn , Mm
-!
-! Dummy argument declarations
-!
    INTEGER Ideg(1) , Ig(1) , Jg(1)
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

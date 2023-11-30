@@ -1,9 +1,6 @@
 
 SUBROUTINE sihex1(Type,Strspt,Nip)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Bgpdt(3,32) , Bufm6(46) , Bxyz(3) , D , Detj , Dshp(3,32) , Dshpb(3,32) , E , E1 , E2 , E3 , Est(100) , G , Gpt(32) &
       & , Jacob(3,3) , Nu , Phiout(649) , Rho , Sglob(18) , Space(19) , Sysbuf , T(3,3) , Temp , Tref
    INTEGER Bgpid(32) , Cid , Eid , Ib(46) , Idxyz , Iest(1) , Inflag , Iphio(1) , Iprnt , Junk(7) , Mid , Mtemp , Ngp
@@ -17,19 +14,10 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
    COMMON /sdr2x6/ Cid , Bgpid , Eid , Bgpdt , Gpt , Jacob , Dshp , Detj , D , E1 , E2 , E3 , T , Ngp , Sglob
    COMMON /system/ Sysbuf , Iprnt , Junk , Mtemp
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Nip , Strspt , Type
-!
-! Local variable declarations
-!
    LOGICAL anis , rect , tdep
    REAL gauss(8) , gmat(36) , s(4) , store(18) , x , y , z
    INTEGER i , ijk , is , isub , itab(3,64) , j , k , l , nipm1 , nwdiso , nwdnow
-!
-! End of declarations
-!
 !
 !     PHASE 1 STRESS ROUTINE FOR IHEX1, IHEX2, AND IHEX3 ELEMENTS
 !

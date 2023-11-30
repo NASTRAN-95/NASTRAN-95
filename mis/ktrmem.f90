@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrmem(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp12 , Alpha1 , Alpha2 , Angle , Consts(5) , Costh , Degra , Dodet , Dum1(10) , Dum2(1) , Dum3(23) , Dumb(80) , Dumcl(7) , &
       & Dummy(382) , Dummy1 , Dummy2 , Dummy3 , Ecpt(21) , Eltemp , Fmu , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 ,  &
       & G33 , Gsube , Matbuf(4) , Rho , Sigcom , Sigshe , Sigten , Sinth , Stress , T , Theta , Tsub0 , X1 , X2 , X3 , Y1 , Y2 ,    &
@@ -25,18 +22,9 @@ SUBROUTINE ktrmem(Ntype)
                  & Z3 , Dumb
    COMMON /sma1ht/ Heat
    COMMON /sma1io/ Dum1 , Ifkgg , Dum2 , If4gg , Dum3
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j , k , n1 , n2 , ncom , npt1 , npt2
    DOUBLE PRECISION tt(2)
-!
-! End of declarations
-!
 !
 !     TRIANGULAR MEMBRANE ELEMENT
 !

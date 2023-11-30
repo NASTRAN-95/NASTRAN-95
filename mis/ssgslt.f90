@@ -9,9 +9,6 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     THESE AND OTHER LOAD CARD TYPES VIA SUBROUTINE EXTERN.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Incr , Ksystm(65) , Last , Ne(1) , Nelem , Nrowsp , Outpt , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    REAL Rz(1)
    CHARACTER*25 Sfm , Uwm
@@ -23,13 +20,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Est , Newslt , Slt
-!
-! Local variable declarations
-!
    LOGICAL any , bgcore , bgopen , nogo
    REAL area , hc1 , hc2 , hc3 , piovr4 , q0 , rbuf(50) , recpt(100) , xx , yy , zz
    INTEGER bgpdt , buf(50) , buf1 , buf2 , buf3 , cbar , chbdy , chexa1 , chexa2 , cihex1 , cihex2 , cihex3 , conrod , core ,       &
@@ -40,9 +31,6 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          & kk , l , mcb(7) , ncore , nel
    INTEGER korsz
    INTEGER nels , next , noeor , npts , nrecs , ntypes , nwords , outcnt , points , qbdy1s , qbdy2s , qvects , subr(2) , type(25,4)
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (ecpt(1),recpt(1)) , (buf(1),rbuf(1)) , (Z(1),Rz(1))
    DATA subr/4HSSGS , 4HLT  / , noeor , eor/0 , 1/
    DATA bgpdt/102/

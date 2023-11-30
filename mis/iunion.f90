@@ -1,18 +1,9 @@
 
 FUNCTION iunion(I1,I2)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I1 , I2
    INTEGER iunion
-!
-! Local variable declarations
-!
    INTEGER i , ii , j , k(6,2) , kk(6) , l , r
-!
-! End of declarations
-!
 !
 !     I1 AND I2 ARE .GT. 0 BUT .LE. 654321 AND CONSIST OF ANY UNIQUE
 !     COMBINATION OF THE DIGITS 1 THRU 6

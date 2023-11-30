@@ -40,32 +40,20 @@ SUBROUTINE cidck(Z,Buf,Nopen)
 !       HERE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    INTEGER Ibuf , Nout , Two(1)
    CHARACTER*23 Ufm
    COMMON /system/ Ibuf , Nout , Abort
    COMMON /two   / Two
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Nopen
    INTEGER Buf(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER axic , axif(2) , bfield(2) , cid , conm2(2) , cord(2) , ept , file , force(2) , geom1 , geom2 , geom3 , grav(2) , grid(2)&
          & , gridb(2) , i , ib , ic , ie , ii , im , irtn , j , jrtn , k , krtn , l , m , moment(2) , name(2) , ncord , nrid , nz , &
          & nzx , pcd , pihex(2) , pload4(2) , pvcid , rforce(2) , trl(7)
    CHARACTER*7 caxif , cbfiel , cc , cconm2 , ccord2 , cforce , cgrav , cgrid , cgridb , cmment , cpihex , cplod4 , crforc , pcc
    EXTERNAL andf
-!
-! End of declarations
-!
    DATA geom1 , geom2 , geom3 , ept/201 , 208 , 209 , 202/ , axic , name , pcd , pcc/215 , 4HCIDC , 2HK  , 0 , 'XXXX   '/
    DATA axif , caxif/8815 , 88 , 'AXIF   '/bfield , cbfiel/3101 , 31 , 'BFIELD '/ , conm2 , cconm2/1501 , 15 , 'CONM2  '/cord ,     &
       & ccord2/1601 , 16 , 'CORD2  '/ , force , cforce/4201 , 42 , 'FORCE  '/grav , cgrav/4401 , 44 , 'GRAV   '/ , grid ,           &

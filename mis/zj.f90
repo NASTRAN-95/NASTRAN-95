@@ -1,19 +1,10 @@
 
 FUNCTION zj(Arg)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Arg
    REAL zj
-!
-! Local variable declarations
-!
    REAL a , an , dbslj , pf
    INTEGER i
-!
-! End of declarations
-!
 !
 !     ZERO ORDER BESSEL FUNCTION OF FIRST KIND
 !

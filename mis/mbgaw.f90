@@ -1,16 +1,10 @@
 
 SUBROUTINE mbgaw(Boxl,Dphi,Ws,Paw,Paf1,Paf2,Q,Q1,Q2,M,Kc,Kc1,Kc2)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Boxl , Paf1 , Paf2 , Paw
    COMPLEX Dphi , Ws
    INTEGER Kc , Kc1 , Kc2 , M
    COMPLEX Q(1) , Q1(1) , Q2(1)
-!
-! End of declarations
-!
 !
 !     MAIN PLANE BOXES
 !     (NEW MSC METHOD USED)

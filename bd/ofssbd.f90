@@ -1,14 +1,8 @@
 
 BLOCKDATA ofssbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C1(30)
    COMMON /ofss1 / C1
-!
-! End of declarations
-!
 !OFSSBD
 !     C ARRAY FOR REAL STRESSES SORT1 (IN MATERIAL COORDINATES)
 !

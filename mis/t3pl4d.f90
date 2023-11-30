@@ -1,25 +1,16 @@
 
 SUBROUTINE t3pl4d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt(4,3) , Elth , Est(45) , Gpth(3) , Loadvc(1) , Rpdata(1) , Slt(11)
    INTEGER Elid , Igpdt(4,3) , Ipdata(7) , Islt(1) , Nogo , Nout , Sil(3) , Sysbuf
    COMMON /pindex/ Est , Slt
    COMMON /system/ Sysbuf , Nout , Nogo
    COMMON /zzzzzz/ Loadvc
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aic(1) , avgthk , bmatrx(162) , bterms(6) , cente(3) , detjac , dgpth(3) , dpe(3,3) , edglen(3) , egpdt(4,3) ,  &
                   & epnorm(4,3) , gpnorm(4,3) , lx , ly , p , ppp(3) , shp(3) , teb(9) , th , tub(9) , v3t(3) , weight
    INTEGER cid , i , ierr , iorder(3) , ipt , j , jp , ndof , nnode
    LOGICAL constp , normal , sheart
    REAL locate(3) , nv(3) , nvx(3) , pe(3,3) , x
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION ROUTINE TO PROCESS PLOAD4 PRESSURE DATA AND
 !     GENERATE EQUIVALENT NODAL LOADS FOR A TRIA3 ELEMENT.

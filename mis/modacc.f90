@@ -1,21 +1,12 @@
 
 SUBROUTINE modacc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Id , Iop(2) , Iz(1) , Nfn , Nfo , Nz
    COMMON /blank / Iop
    COMMON /modac3/ Nfo , Nfn , Nz , Id
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER casecc , iceign , id1 , ireig , istat , itran , j , pdt , pdt3 , pp3 , ppt , pst , pst3 , tol , tol1 , udv1t , udv3t
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS IS THE MODULE MODACC
 !

@@ -3,17 +3,8 @@ SUBROUTINE filpos(File,Ipos)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , Ipos
-!
-! Local variable declarations
-!
    INTEGER icblk
-!
-! End of declarations
-!
    Name = File
    CALL dsgefl
    Nblock = iand(Ipos,Maskh2)

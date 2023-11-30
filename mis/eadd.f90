@@ -1,9 +1,6 @@
 
 SUBROUTINE eadd(P,Prec)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Alpha(2) , Beta(2)
    REAL Core(1) , Xx
    INTEGER Ia(7) , Ialp , Ib(7) , Ibeta , Ibuck , Ic(7) , Iev(7) , Ik(7) , Im(7) , Ka(5) , Lc , Mcbs(67) , Nn(13) , Nomat , Nz
@@ -11,19 +8,10 @@ SUBROUTINE eadd(P,Prec)
    COMMON /regean/ Im , Ik , Iev , Ka , Lc , Nn , Ibuck
    COMMON /saddx / Nomat , Nz , Mcbs
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Prec
    DOUBLE PRECISION P(1)
-!
-! Local variable declarations
-!
    INTEGER i , kprec
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Mcbs(1),Ia(1)) , (Mcbs(8),Ialp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ib(1)) , (Mcbs(20),Ibeta) , (Mcbs(21),Beta(1)) ,   &
     & (Mcbs(61),Ic(1))

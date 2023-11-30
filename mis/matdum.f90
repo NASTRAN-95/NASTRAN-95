@@ -1,9 +1,6 @@
 
 SUBROUTINE matdum(Ia,Iprc,Npl,Nout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Col(20000) , Head1(96) , Head2(96)
    DOUBLE PRECISION Dcol(1)
    INTEGER Icol(1) , Incr , Inx(6) , Inx1(2) , Iout , It , K , L , Line , Nlpp , P12(2) , P3 , P4 , P5 , Sysbuf
@@ -16,14 +13,8 @@ SUBROUTINE matdum(Ia,Iprc,Npl,Nout)
    COMMON /unpakx/ It , K , L , Incr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Col
-!
-! Dummy argument declarations
-!
    INTEGER Iprc , Nout , Npl
    INTEGER Ia(7)
-!
-! Local variable declarations
-!
    REAL blank , cont , ddx , form(18) , type(10) , xinue , xix , xmatr
    CHARACTER*35 cfmt , fmtc(2,4)
    INTEGER file(14) , i , ia7a , ia7b , ia7c , ibegn , iblnk , if , ifin , ihop , inull , j , jj , jmp3 , jmp4 , kj , lcol , ln ,   &
@@ -31,9 +22,6 @@ SUBROUTINE matdum(Ia,Iprc,Npl,Nout)
    CHARACTER*15 fmtr(2,7) , rfmt
    LOGICAL jump
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS CALLED ONLY BY MATPRN TO PRINT UP TO 5 MATRICES
 !

@@ -1,26 +1,14 @@
 
 SUBROUTINE matck(Mfile,Pfile,A,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    INTEGER Kdum(9) , N1 , Nout
    REAL Skip(42)
    COMMON /system/ N1 , Nout , Abort , Skip , Kdum
-!
-! Dummy argument declarations
-!
    INTEGER Mfile , Pfile
    INTEGER A(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER epti(2,40) , group , i , ib , ic , ie , ih(3) , ii , j , jb , je , jx , k , k1 , k4 , kk , komp , ma , mati(2,22) ,      &
          & matj(2,22) , mb , mc , md , me , name(2) , nept , nmat , nn , nomat , nwds
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CHECKS THE UNIQUENESS OF MATERIAL ID'S FOR
 !          1. MAT1 (1)     8. MATT1  (MB)  15. MATS1  (MC)

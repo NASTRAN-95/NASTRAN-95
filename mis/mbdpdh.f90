@@ -2,34 +2,22 @@
 SUBROUTINE mbdpdh(Ajjl,F,Df,F1,Df1,F2,Df2,Xwte,Ywte,Parea,Capphi,Dphite,Dss,Q,Q1,Q2,Ndn,Nd1,Nw1,Nwn,Kte,Kte1,Kte2,Nte,Nncb,Nnsbd,   &
                 & In17,Ibuf,A)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ang(10) , Beta , Boxa , Boxl , Boxw , Cotang(10) , Cr , Ek , Ekbar , Ekm , Gc , Tang(10) , X(12) , Y(12)
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Mach , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
    COMMON /mboxa / X , Y , Tang , Ang , Cotang
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
-!
-! Dummy argument declarations
-!
    REAL Ajjl
    INTEGER In17 , Nncb , Nnsbd
    COMPLEX A(1) , Capphi(1) , Dphite(3,Nnsbd) , Dss(Nncb,Nnsbd) , Q(1) , Q1(1) , Q2(1)
    REAL Df(1) , Df1(1) , Df2(1) , F(1) , F1(1) , F2(1) , Parea(50,50,3) , Xwte(1) , Ywte(1)
    INTEGER Ibuf(1) , Kte(1) , Kte1(1) , Kte2(1) , Nd1(1) , Ndn(1) , Nte(1) , Nw1(1) , Nwn(1)
-!
-! Local variable declarations
-!
    COMPLEX dphi , tdh , temphi , wf1 , wf2 , wphi , ws
    REAL ex , pad , paf1 , paf2 , paw , pawf , xb , xbb , xt , yb , z
    INTEGER i , ixr , iyr , j , jj , k , mood , n1 , nhcont , nhdss , nskp
    LOGICAL lphi , surf , tebox
    COMPLEX sumphi , traile
-!
-! End of declarations
-!
 !
    DATA nhcont , nhdss/4HCONT , 4HDSS /
 !

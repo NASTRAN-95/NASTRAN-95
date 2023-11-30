@@ -1,28 +1,16 @@
 
 SUBROUTINE cinfbs(Dx,Dy,Iobuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Eol , Ifill(7) , Ifilu(7) , Ii , Norew , Nrow
    REAL Csp , Eofnrw , Rd , Rdp , Rdrew , Rew , Rsp , Wrt , Wrtrew
    DOUBLE PRECISION Da(2)
    COMMON /cinfbx/ Ifill , Ifilu
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp
    COMMON /zntpkx/ Da , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dx(1) , Dy(1)
    INTEGER Iobuf(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dtemp
    INTEGER i , ifile , in1 , in2 , ioff , j , k , name(2) , nrow2 , typear
-!
-! End of declarations
-!
 !
 !     CINVFB DOES THE FORWARD AND BACKWARD PASS FOR COMPLEX INVERSE POWE
 !

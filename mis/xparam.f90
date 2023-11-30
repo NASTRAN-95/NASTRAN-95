@@ -27,9 +27,6 @@ SUBROUTINE xparam
 !        5  ERROR ENCOUNTERED
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bcdcnt , Bufsz , Core(1) , Dmap(1) , Dmpcnt , Dmppnt , Iallon , Ichar , Icold , Icrdtp , Idmpnt , Iequl , Insert ,       &
          & Irturn , Isavdw , Iseqn , Isgnon , Islsh , Ldmap , Length , Lmpl , Loscar , Maskhi , Masklo , Masks(1) , Modflg ,        &
          & Modidx , Mpl(1) , Mplpnt , Nbegin , Nblank , Nbpc , Nchkpt , Ncond , Ncpw , Ndiag , Ndmap , Nend , Nequiv , Nestm1 ,     &
@@ -47,17 +44,11 @@ SUBROUTINE xparam
    COMMON /xgpid / Xxgpid , Modflg
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER and , or
    INTEGER andf , lshift , orf , rshift
    INTEGER endcrd , i , iastk , ic , idmap , impl , in , index(2,2) , iospnt , iprvop , ipval , ipvt , is , isave , isyntx(4,5) ,   &
          & itmp(7) , itype(6) , iv , ival , iy , j , k , l , m , mplbot , mplln , name , newtyp , none , nospnt , nvps , nvstbl(4,4)
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Os(5),Oscar(1))
 !
    DATA index/1 , 3 , 2 , 4/ , isyntx/3*1 , 8 , 3*2 , 7 , 3*3 , 5 , 4*4 , 4*6/ , nvstbl/1 , 1 , 3 , 3 , 1 , 1 , 4 , 4 , 1 , 1 , 4 , &

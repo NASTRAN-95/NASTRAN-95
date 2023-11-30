@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr2aa
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Casecc , Cei(2) , Clsrew , Esta , Frq(2) , Iacc , Idispl , Idload , Ieldef , Ielf , Ifrout , Iloads , Ilsym ,   &
          & Isload , Ispcf , Istr , Isymfl , Itload , Ittl , Ivel , Mpt , Rd , Rdrew , Scr3 , Sdr2x1(1) , Sort2 , Sysbuf , Trn(2) ,  &
          & Wrt , Wrtrew , Xycdb , Z(1)
@@ -18,17 +15,11 @@ SUBROUTINE sdr2aa
    COMMON /sdr2x4/ X4 , Frq , Trn , Bkl , Cei
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER anynew , arg , buf(10) , buf1 , buf2 , buf3 , dbname , file , formt , i , icc , ilist , imstr , ireq , iset , isetno ,   &
          & ix , ixy , ixysc , ixyset , j , jx , k , l , last , lastxy , ll , ln , loop , master , n , nam(2) , ncc , nmstr , nset , &
          & nxy , nxysc , nxyset , setno , subcse , tab(14) , xsetno , xycdbf
    REAL flag
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SDR2AA PROCESSES THE CASE CONTROL AND XYCDB DATA BLOCKS. IF XYCDB
 !     IS PURGED, NO ACTION IS TAKEN. OTHERWISE, OUTPUT REQUESTS IN

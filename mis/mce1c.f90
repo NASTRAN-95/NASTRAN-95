@@ -1,9 +1,6 @@
 
 SUBROUTINE mce1c
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Gm , Gmx(7) , Iprec , Ksystm(65) , L , Lx(7) , Mcb(7) , Nz , Prec , Rg , Rm , Rn , Rnx(7) , Scr1 , Scr2 , Scr3 , Sign ,  &
          & U , Uset , Ux(7)
    REAL Z(1)
@@ -11,13 +8,7 @@ SUBROUTINE mce1c
    COMMON /gfbsx / Lx , Ux , Rnx , Gmx , Nz , Prec , Sign
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MCE1C PERFORMS A FORWARD-BACKWARD SUBSTITUTION WITH THE
 !     TRIANGULAR FACTORS OF RM TO SOLVE FOR GM IN THE EQUATION

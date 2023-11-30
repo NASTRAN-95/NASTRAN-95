@@ -1,9 +1,6 @@
 
 SUBROUTINE autosv
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Dmpcnt , Ihead , Iseqn , Junk(25) , Junk1(2) , Junk4(2) , Loscar , Maskhi , Nosgn , Nwords , Os(5) , Osbot , Oscar(1) ,  &
          & Ospnt , Osprc , Savnam(100) , Vps(1)
@@ -13,15 +10,9 @@ SUBROUTINE autosv
    COMMON /xgpic / Junk , Maskhi , Junk1 , Nosgn
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , lshift
    INTEGER i , ipt , ist , j , l , ll , n1 , n2 , n3 , nwd , xsav(2)
    EXTERNAL andf , lshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES OSCAR ENTRIES FOR PARAMTERS
 !     THAT ARE TO BE SAVED IMPLICITLY

@@ -1,9 +1,6 @@
 
 SUBROUTINE qdmm1s
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp12 , Alpha1 , Alpha2 , Angle , Aq(24) , B(144) , Bq(24) , Btxk(96) , C(6) , Consts(4) , Costh , Cq(30) , Degra , Dmmm(2) &
       & , Dum(75) , Dum2(16) , Dum3 , Dummy1 , Dummy2 , Dummy3 , Dummy4 , E(9) , Ecpt(26) , Eltemp , Etj(9,4) , Fmu , G11 , G12 ,   &
       & G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , Kij(3,3) , Rho , Sigcom , Sigshe , Sigten , Sinth , Stress ,     &
@@ -25,9 +22,6 @@ SUBROUTINE qdmm1s
    COMMON /sma2dp/ U , C , Aq , Bq , Cq , Ti , Btxk
    COMMON /system/ Ksystm , Outpt
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Local variable declarations
-!
    REAL at1 , at2 , at3 , at4 , cth1 , cth2 , cth31 , cth32 , cth41 , cth42 , d , dict5 , dlt1 , dlt2 , eta , eta01(2) , f , fact , &
       & h , h1 , hh , la , lb , lbd1 , lc , lcd1 , lcd2 , ld , ldd2 , magi , magj , magk , mgg(4) , p , pi1 , pi2 , pi3 , pj1 ,     &
       & pj2 , pj3 , pk1 , pk2 , pk3 , q , sth1 , sth2 , sth31 , sth32 , sth41 , sth42 , tea , temp , theta , v , x12 , x13 , x14 ,  &
@@ -36,9 +30,6 @@ SUBROUTINE qdmm1s
          & k3 , ka , kl , km1 , l , l1 , l2 , l3 , ldata , lm1 , map(2,4) , nn
    REAL o
    LOGICAL planar
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE STIFFNESS AND MASS MATRIX FOR THE
 !     FIRST QUADRILATERAL MEMBRANE ELEMENT.

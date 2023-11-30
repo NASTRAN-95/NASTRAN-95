@@ -1,9 +1,6 @@
 
 SUBROUTINE cyct1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdir(2) , Ctype(2) , Iprec , Iz(1) , Kmaxi , Ksystm(65) , Nload , Nn , Nogo , Outpt , Pkin , Pkincr , Pkirow , Pknrow ,  &
          & Pkout , Sysbuf
    DOUBLE PRECISION Dz(1)
@@ -14,9 +11,6 @@ SUBROUTINE cyct1
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER buf , gcyc , hback , hdrl , hdsa , hrot , icol , icos , isin , j , jcol , jcos , jsin , k , kcol , kcol2 , kcos , kmax , &
          & kmin , ksin , ktrig , mcb(7) , n , ncol , ncos , nloads , nloadt , nsin , ntrig , numrow , nxcol , precis , scrt ,       &
          & subr(2) , vin , vout
@@ -24,9 +18,6 @@ SUBROUTINE cyct1
    INTEGER korsz
    LOGICAL lback , lcos , ldrl , ldsa , lnmult , lvin , lvout
    REAL rn
-!
-! End of declarations
-!
 !
 !     GENERATE CYCLIC TRANSFORMATION MATRIX, TRANSFORM VECTORS
 !

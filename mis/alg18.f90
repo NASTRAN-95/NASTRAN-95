@@ -1,20 +1,11 @@
 
 SUBROUTINE alg18(Beta1,Beta2,I1,I2,Fact,X0,Y0,S0,Xr,Y1,X1,Y2,Rdius,S,C1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Beta1 , Beta2 , C1 , Fact , Rdius , S0 , X0 , X1 , Xr , Y0 , Y1 , Y2
    INTEGER I1 , I2
    REAL S(80)
-!
-! Local variable declarations
-!
    REAL am , delx , phi1 , phi2 , xx
    INTEGER i3 , j
-!
-! End of declarations
-!
 !
 !
    delx = Xr/float(I2-I1)

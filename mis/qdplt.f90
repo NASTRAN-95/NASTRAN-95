@@ -1,9 +1,6 @@
 
 SUBROUTINE qdplt(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , A1(3) , Consts(5) , Cosang , Costh , D(9) , D1(3) , D2(3) , Degra , E(18) , Ecpt(100) , Eltemp , H , Ivect(3) ,     &
       & Jvect(3) , Khi(5) , Ks(30) , Kvect(3) , P(5) , Prod15(15) , R(2,5) , Requiv(10) , Sinang , Sinth , Spdum1(18) , Spdum2(5) , &
       & Spdum3(15) , Spdum4(1) , Spdum5(2) , Spdum6(5) , Ssum(60) , Stress , T(9) , Temp , Temp15(15) , Theta , Tite(18) , U1 , U2 ,&
@@ -17,18 +14,9 @@ SUBROUTINE qdplt(Ti)
                  & Spdum4 , Subsca , Subscb , Subscc , Spdum5 , Xc , Yc , Spdum6
    COMMON /trimex/ Ecpt
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Ti(6)
-!
-! Local variable declarations
-!
    REAL ftemp
    INTEGER i , j , k , km , l , m(12)
-!
-! End of declarations
-!
 !
 !     THERMAL LOADING FOR THE BENDING QUADRILATERAL
 !

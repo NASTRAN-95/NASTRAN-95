@@ -1,9 +1,6 @@
 
 SUBROUTINE xsem00
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Databf(1) , Fist(2) , Fstrst , Inoscr(200) , Isperlnk , Itmbgn , Linknm(15) , Linkno , Lxlink , Mach , Mask , Mask2 ,    &
          & Mask3 , Maxlnk , Mxlink(1) , Nbpc , Nbpw , Ncpw , Nin , Nmsg , Nout , Param(100) , Plotf , Sysbuf , Vps(1)
    REAL Xx(20) , Xxx(16) , Xxxx(53)
@@ -18,9 +15,6 @@ SUBROUTINE xsem00
    COMMON /xpfist/ Fstrst
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Databf
-!
-! Local variable declarations
-!
    INTEGER andf , khrfn1 , korsz , lshift , rshift
    INTEGER equiv(2) , errflg , error_id , exit , fistnm , i , iblnk , ibuf1 , idin , ierr , ifile , ii , iplot , j , j1 , j2 , j3 , &
          & j5 , kode , kscr , ktime , l , ldiag , ll , mm , modno , modx , numbr(10) , opntr , parml , parmn , pool , purge(2) ,    &
@@ -28,9 +22,6 @@ SUBROUTINE xsem00
    CHARACTER*80 ft05 , ft06 , infile , output , proj
    LOGICAL lvax
    CHARACTER*4 wordc
-!
-! End of declarations
-!
 ! **********************************************************************
 ! THE PURPOSE OF THIS ROUTINE IS TO EXECUTE THE PREFACE AND THEN TO
 ! EXECUTE MODULES ACCORDING TO THE DMAP.  THE DMAP IS READ FROM THE

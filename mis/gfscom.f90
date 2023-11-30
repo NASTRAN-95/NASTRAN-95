@@ -1,9 +1,6 @@
 
 SUBROUTINE gfscom(Awy,Nuy,Kc,Ident,Ac,Scr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Comptp , Form , Kcomp , Rz(1)
    DOUBLE PRECISION Dz(1) , Val
    INTEGER I1 , I2 , Incr1 , Incr2 , Irow , Lmodes , N1 , N2 , Nofree , Nograv , Sysbuf , Ti1 , To1 , To2 , Z(1)
@@ -13,19 +10,10 @@ SUBROUTINE gfscom(Awy,Nuy,Kc,Ident,Ac,Scr)
    COMMON /unpakx/ To2 , I2 , N2 , Incr2
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ac , Awy , Ident , Kc , Nuy , Scr
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dkcomp
    INTEGER i , ibuf , j , mcb(7) , name(2) , nrow , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO COMPUTE THE FLUID COMPRESSIBILTY MATRIX
 !

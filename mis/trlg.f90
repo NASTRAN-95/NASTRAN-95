@@ -1,20 +1,11 @@
 
 SUBROUTINE trlg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ip1 , Ncol
    COMMON /blank / Ip1 , Ncol
-!
-! Local variable declarations
-!
    INTEGER ad , ah , ap , as , bgpdt , casexx , cstm , dit , dlt , est , fco , fct , gmd , god , ip2 , itrl , mcb(7) , mgg , mpt ,  &
          & pd , pdo , ph , phidh , ppo , pso , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9 , sil , slt , tmldtb ,  &
          & tol , trl , usetd
-!
-! End of declarations
-!
 !
 !     THIS IS THE MODULE DRIVER FOR  TRLG(TRANSIENT LOAD GENERATOR)
 !

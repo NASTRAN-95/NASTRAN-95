@@ -3,17 +3,8 @@ SUBROUTINE dsskfb(Nn)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Nn
-!
-! Local variable declarations
-!
    INTEGER id , n
-!
-! End of declarations
-!
    n = Nn
    DO WHILE ( n/=0 )
       DO

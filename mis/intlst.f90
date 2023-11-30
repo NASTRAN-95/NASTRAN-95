@@ -1,18 +1,9 @@
 
 SUBROUTINE intlst(List,N,Sign,N1,N2)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N , N1 , N2 , Sign
    INTEGER List(1)
-!
-! Local variable declarations
-!
    INTEGER i , thru , to
-!
-! End of declarations
-!
 !
    DATA to , thru/2HTO , 4HTHRU/
 !

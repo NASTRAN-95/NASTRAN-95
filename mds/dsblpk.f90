@@ -4,17 +4,8 @@ SUBROUTINE dsblpk(Block)
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER iflag
-!
-! End of declarations
-!
    Block(1) = Name
    Block(2) = Itypo
    IF ( Itrail==-1 ) THEN

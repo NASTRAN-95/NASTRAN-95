@@ -1,9 +1,6 @@
 
 SUBROUTINE psqpl1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , A1(3) , Consts(5) , Cosang , Costh , D1(3) , D2(3) , Degra , E(18) , Ecpt(100) , Eltemp , H , Ivect(3) , Jvect(3) , &
       & Kvect(3) , Ph1out(200) , Prod15(15) , R(2,5) , Requiv(10) , Sinang , Sinth , Spdum1(18) , Spdum2(5) , Spdum3(15) , Spdum4(1)&
       & , Spdum5(2) , Spdum6(5) , Ssum(60) , Stress , T(9) , Temp , Temp15(15) , Theta , Tite(18) , U1 , U2 , V(25) , Vq1(3) ,      &
@@ -15,14 +12,8 @@ SUBROUTINE psqpl1
                  & Ysubc , E , Temp , Vv1 , Vv2 , H , A1 , Npoint , Spdum2 , Ivect , Jvect , Kvect , Spdum3 , Theta , Nsubc ,       &
                  & Spdum4 , Subsca , Subscb , Subscc , Spdum5 , Xc , Yc , Spdum6
    COMMON /pla3es/ Ecpt , Ph1out
-!
-! Local variable declarations
-!
    REAL ftemp
    INTEGER i , j , k , km , m(12)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES PHASE I OUTPUT FOR PLA3
 !     FOR  THE QUAD-PLATE PART OF COMBINATION ELEMENTS

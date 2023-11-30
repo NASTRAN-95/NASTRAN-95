@@ -1,9 +1,6 @@
 
 SUBROUTINE krod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Clsnrw , Clsrw , Costh , Dodet , Dumet(83) , E , Ecpt(17) , Eltemp , Eor , Fk , Frowic , G , Gsube , Outrw , Rho ,  &
       & Sigc , Sigs , Sigt , Sinth , Stress , Tnrows , Tsubo
    DOUBLE PRECISION D(18) , Dampc , Dscl , Dscr , Dumdp(227) , Ke(36) , Ti(9) , X , Xl , Xn(3) , Y , Z
@@ -24,13 +21,7 @@ SUBROUTINE krod
    COMMON /sma1io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Ifgei , Iggei , Ifkgg , Igkgg , If4gg ,     &
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys
-!
-! Local variable declarations
-!
    INTEGER i , iretrn , itemp , k1 , k2 , ka , kb , nonpvt
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES  K(NPVT,NPVT) AND
 ! K(NPVT,J) FOR A ROD HAVING END POINTS NUMBERED NPVT AND J.

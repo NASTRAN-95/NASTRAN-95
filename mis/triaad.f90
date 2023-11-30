@@ -1,9 +1,6 @@
 
 SUBROUTINE triaad
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Acurl(117) , Acurp1(27) , Acurp2(9) , Aki(81) , Akj(144) , Akt(16) , Consts(5) , Degrad , Gababq(9,9) , Pi ,    &
                   & Teo(45) , Twopi
    REAL Alf(3) , Anu(3) , Costh , Dgama , Dm1 , Dum(14) , Dxx , E(3) , Ecpt(34) , Eltemp , G(3) , Gsube , Pzout(51) , R1 , R2 , R3 ,&
@@ -21,9 +18,6 @@ SUBROUTINE triaad
    COMMON /matpz / Pzout
    COMMON /system/ Ksystm , Ksys78
    COMMON /triaxx/ Aki , Akt , Acurl , Akj , Teo
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aa , ajho , ajjho , ak(81) , akip(9) , akjm(81) , akm(81) , akph2(9) , akuph(27) , amt(9) , area , bmass(9,9) , &
                   & c1 , c2 , c2s2 , c3 , c4 , convm , cosg , d(81) , d1(27) , d2(9) , del , delint(12) , delm(12) , dgamar ,       &
                   & dgamr , ee(63) , er , et , ez , gababp(3,3) , gor , grz , gzo , r(3) , rhod , s2 , s4 , sing , vor , voz , vro ,&
@@ -33,9 +27,6 @@ SUBROUTINE triaad
          & isil , isort(3) , j , j1 , jax , jj , k , ki , ksave , l , m , mjho , n
    DOUBLE PRECISION dkl
    LOGICAL lsys78 , pzmat
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE STIFFNESS AND MASS MATRICES FOR THE
 !     ASSYMMETRIC RING WITH A TRIANGULAR CROSS SECTION, TO BE USED BY

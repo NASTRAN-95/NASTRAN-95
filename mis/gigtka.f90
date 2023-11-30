@@ -1,9 +1,6 @@
 
 SUBROUTINE gigtka(Multi,Single,Omit)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpt , Cstm , Eqaero , Gsize , Sila , Spline
    INTEGER Core(1) , Gka , Gkab , Gkg , Gkm , Gknb , Gm , Go , Ibc , Ksize , Lc , N , No , Ny , Scr1 , Ua , Uf , Ug , Ul , Um , Un ,&
          & Uo , Ur , Us , Usb , Uset1 , Useta , Usg
@@ -11,18 +8,9 @@ SUBROUTINE gigtka(Multi,Single,Omit)
    COMMON /gicom / Spline , Useta , Cstm , Bgpt , Sila , Eqaero , Gm , Go , Gka , Ksize , Gsize , Scr1 , Gkg , Gknb , Gkm , Gkab
    COMMON /patx  / Lc , N , No , Ny , Uset1 , Ibc
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    LOGICAL Multi , Omit , Single
-!
-! Local variable declarations
-!
    INTEGER gkf , gkn , gko , gks
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !

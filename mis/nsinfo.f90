@@ -18,9 +18,6 @@ SUBROUTINE nsinfo(Jump)
 !     WRITTEN BY G.CHAN/UNISYS    6/1990
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bcd(1) , Bndit , Dict , Dum(64) , Ehco , Hicore , Iblnk(60) , Lpch , Lprus , Lu , Mach , Mxlns , Nbcd , Nlpp , Nosbe ,   &
          & Nout , Nprus , Nt , Pghdg3(32) , Pltop , Sys(100) , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -34,21 +31,12 @@ SUBROUTINE nsinfo(Jump)
    COMMON /output/ Dum , Pghdg3
    COMMON /system/ Sys
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Jump
-!
-! Local variable declarations
-!
    INTEGER bnd , bnk , bsz , card(20) , cardx(4) , cod , code , count , dd , diag48(4) , dic , ech , echo , end , eq , equ ,        &
          & equals , hic , i , j , jb , je , key , l20 , line , lpp , machx , mxl , name(2) , nos , npr , one , pch , pop , pru ,    &
          & relse , s , s3s , s88 , s89 , s90 , s92 , s94 , s96 , s97 , s98 , s99 , skp3 , symb1 , symbol , tim , tpg , ttpg , value
    CHARACTER*144 ifile
    INTEGER khrfn1
-!
-! End of declarations
-!
 !WKBR 8/94 SUN INTEGER         NAME(2),NTAB(5),CARDX(4),CARD(20),DIAG48(4)
 !WKBR CHARACTER*167   IFILE
    EQUIVALENCE (cardx(1),card(1))

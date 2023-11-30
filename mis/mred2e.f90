@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2e
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Fuset , Gbuf1 , Gbuf2 , Gbuf3 , Gib , Him , Himprt , Ia(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Idum1 ,       &
          & Idum2 , Idum3(9) , Idum4(2) , Idum5(5) , Idum6 , Idum7(10) , Idum8 , Incrp , Incru , Infile(12) , Iprntr , Irowp ,       &
          & Irowu , Iscr(10) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) , Itrlrd(7) , Korbgn , Korlen , Lamamr , Lcore , Lcr , Lstzwd ,     &
@@ -24,17 +21,11 @@ SUBROUTINE mred2e
    COMMON /unpakx/ Typeu , Irowu , Nrowu , Incru
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dblkor , dicore , fbmods , himscr , himtyp , i , icore , ifile , iform , ihim , ii , imsg , ipartn , iprc , iscr4 ,      &
          & item , iter , itest , itphis , itrlr(7) , ityp , itype , j , jhim , k , kore , l , lamlen , modal , modext , modnam(2) , &
          & ncore , nnmax , nrows , nwds , phiam , phiim , sglkor
    DOUBLE PRECISION dhimag , dhimsm
    REAL epslon , himmag , himsum , phimsm , pmsm
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE MODAL TRANSFORMATION MATRIX FOR THE
 !     MRED2 MODULE.

@@ -1,28 +1,16 @@
 
 SUBROUTINE upcase(Byte,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ffflag , Ia , Id , Iz , Machx
    LOGICAL Flag
    COMMON /machin/ Machx
    COMMON /upcasx/ Flag , Id , Ia , Iz
    COMMON /xechox/ Ffflag
-!
-! Dummy argument declarations
-!
    INTEGER N
    CHARACTER*1 Byte(1)
-!
-! Local variable declarations
-!
    CHARACTER*1 bk1 , ic , il , ip , la , lc(256) , lz
    INTEGER i , j , tab(20)
    CHARACTER*56 kc(5)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CHANGES ALL LOWER CASE CHARACTERS INTO UPPER CASE.
 !     IT ALSO CONVERTS BCD INPUT CODE TO EBCDIC FOR IBM MACHINE

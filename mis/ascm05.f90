@@ -1,26 +1,14 @@
 
 SUBROUTINE ascm05(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(673) , Ioct , Ipas25(14) , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
    COMMON /phas25/ Ipas25
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,1) , i , icomnd , j , k , oct(3,5) , oct1(3,5) , ptbs(7,20) , ptbs1(7,18) , ptbs2(7,2) , rdmap(18,28) ,          &
          & rdmap1(18,9) , rdmap2(18,9) , rdmap3(18,9) , rdmap4(18,1) , subnam(2)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     SOLVE COMMAND DMAP DATA
 !

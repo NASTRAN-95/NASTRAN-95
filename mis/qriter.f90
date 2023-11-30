@@ -1,9 +1,6 @@
 
 SUBROUTINE qriter(Val,O,Loc,Qr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dlmdas
    REAL Hfreq , Lfreq
    INTEGER Idum0(100) , Idum11 , Idum12 , Idum13 , Idum3 , Idum4 , Idum9 , Ioptn , Lama , Max , N , Ne , Never , Nfound , Nout ,    &
@@ -17,23 +14,14 @@ SUBROUTINE qriter(Val,O,Loc,Qr)
    COMMON /reigkr/ Ioptn
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Qr
    INTEGER Loc(1)
    DOUBLE PRECISION O(1) , Val(1)
-!
-! Local variable declarations
-!
    CHARACTER*5 above , belabv , below
    DOUBLE PRECISION epsi , g , one , ones , r , s , shift , t , u , zero
    INTEGER i , ib , ibuf1 , iter , j , k , m , m1 , m1p1 , m2 , m2m1 , mgiv , mm , mp1 , msg(10) , nn
    INTEGER korsz
    REAL valx
-!
-! End of declarations
-!
 !
 !     ORTEGA-KAISER QR ITERATION FOR A LARGE TRIDIAGONAL MATRIX
 !

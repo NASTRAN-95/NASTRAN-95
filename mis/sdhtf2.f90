@@ -1,27 +1,15 @@
 
 SUBROUTINE sdhtf2(Ieqex,Neqex)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ce(96) , Dum(58) , Dummy(35) , Esta(202) , Qout(3) , Rk(9) , Tgrad(3) , Tvec(32) , Zz(1)
    INTEGER Ide , Ido , Igrad(3) , Iqout(3) , Isil(32) , Ivec , Iz(1) , Name(2) , Namo(2) , Nq , Nsil
    COMMON /sdr2x4/ Dummy , Ivec
    COMMON /sdr2x7/ Ide , Isil , Nq , Nsil , Name , Rk , Ce , Dum , Ido , Namo , Tgrad , Qout
    COMMON /sdr2x8/ Tvec
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Ieqex , Neqex
-!
-! Local variable declarations
-!
    INTEGER ftube , i , ihex , ihex1 , ihex2 , ihex3 , iold , ione , ip , ipt(21) , istrpt , isub1 , isub2 , itemp , ithr , itwo ,   &
          & jjj , ns
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE CALCULATES TEMPERATURE GRADIENTS AND HEAT FLOWS
 !     FOR ALL ELEMENTS IN A HEAT TRANSFER PROBLEM.

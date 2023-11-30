@@ -1,27 +1,15 @@
 
 SUBROUTINE frbk(V1,V2,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumm(18) , Xl(1)
    INTEGER Io , Iz(1) , Ksystm , L16 , Mcblt(7) , Mcbsma(7) , Nzvb
    COMMON /feerxx/ Dumm , Nzvb
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm , Io
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    REAL V1(1) , V2(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER base , buf(6) , i , ib , iblk(15) , ie , ifb , ii , ik , j , ji , jj , ljj , ll , ll2 , mcbltx , nam , nrec , nrow , ntms
    REAL sum , v3j , xljj , zero
-!
-! End of declarations
-!
 !
 !     LAST REVISED BY G.CHAN/UNISYS  11/1991
 !     . ELIMINATE UN-NECCESSARY REWIND AND SKIP AFTER FIRST CALL TO THIS

@@ -1,27 +1,15 @@
 
 SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa,Isdir,Stka,Stkb,Stkc,Stkd,Nu,Idim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum3(3) , Dums(4)
    INTEGER Ibuf , Ideg , Idpth , Maxdeg , Maxgrd , N , Ngrid , Nout
    COMMON /bandb / Dum3 , Ngrid
    COMMON /bandg / N , Idpth , Ideg
    COMMON /bands / Dums , Maxgrd , Maxdeg
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ibw2 , Idim , Ipf2 , Isdir , Nflg , Num , Snd
    INTEGER Ipfa(1) , Lstpt(1) , Lvls2(1) , Lvlst(1) , Ndeg(1) , Ndstk(1) , Nu(1) , Renum(1) , Stka(1) , Stkb(1) , Stkc(1) , Stkd(1)
-!
-! Local variable declarations
-!
    INTEGER cx , end , i , inx , ipro , j , lnd , lst , lvln , max , nbw , nstpt , test , xa , xb , xc , xd
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

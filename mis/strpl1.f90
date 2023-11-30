@@ -1,9 +1,6 @@
 
 SUBROUTINE strpl1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , Alpha(3) , C1 , C2 , Consts(5) , Cosang , Costh , D1(3) , D2(3) , Degra , Determ , Dum10 , Dum11 , Dum12(4) , Dum8 ,&
       & Dum9 , E(18) , Ecpt(100) , Eltemp , G11 , G12 , G13 , G22 , G23 , G33 , Habc(18) , Hinv(36) , Hq(12) , Ivect(3) , Jvect(3) ,&
       & Kvect(3) , L1 , L2 , Ph1out(98) , Prod12(12) , Prod15(15) , Prod9(9) , R(2,4) , Requiv(9) , Rho , S(18) , S1 , S2 , Sinang ,&
@@ -18,14 +15,8 @@ SUBROUTINE strpl1
                  & Ysubc , E , Temp , L1 , L2 , C1 , C2 , S1 , S2 , X1 , X2 , Y1 , Y2 , Npoint , Dum9 , Temp1 , Temp2 , Prod9 ,     &
                  & Temp9 , Dum8 , Km , Subsca , Subscb , Subscc , Dum11 , Theta , Nsubc , Ising , U1 , U2 , Sinang , Cosang ,       &
                  & Dum10 , Xc , Yc , Determ , Dum12
-!
-! Local variable declarations
-!
    REAL d(9) , g(36) , temp15(15)
    INTEGER i , j , k , m(9)
-!
-! End of declarations
-!
 !
 !     PHASE I OF STRESS DATA RECOVERY FOR TRI-PLATE
 !

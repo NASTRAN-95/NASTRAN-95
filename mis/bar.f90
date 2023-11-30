@@ -1,9 +1,6 @@
 
 SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , Costh , D1 , D2 , Dela(6) , Delb(6) , E , Ecpt(100) , Eltemp , F1 , F2 , Fe , Fj , G , G1 , G2 ,      &
       & Gpa(3) , Gpb(3) , Gsube , I1 , I12 , I2 , K1 , K2 , Ke(144) , Kep(144) , Nsm , Rho , Sigc , Sigs , Sigt , Sinth , Smallv(3) &
       & , Stress , Tempel , Tsub0 , Za(3) , Zb(3)
@@ -13,22 +10,13 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    COMMON /ssgwrk/ Ke , Kep , Dela , Delb
    COMMON /trimex/ Ielid , Isilno , Smallv , Icssv , Ipinfl , Za , Zb , Imatid , A , I1 , I2 , Fj , Nsm , Fe , C1 , C2 , D1 , D2 ,  &
                  & F1 , F2 , G1 , G2 , K1 , K2 , I12 , Mcsida , Gpa , Mcsidb , Gpb , Tempel
-!
-! Dummy argument declarations
-!
    INTEGER Idefm , Noedt , Nogptt
    REAL Z(1)
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    REAL ael , alphal , beta , delta , ei1 , ei2 , fl , fll , gak1 , gak2 , gjl , l , l2b3 , l2b6 , lb , lcube , lr1 , lr2 , lsq ,   &
       & r1 , r2 , sk1 , sk2 , sk3 , sk4 , smalv0(6) , ta(18) , tb(9) , tbar , ua(6) , veci(3) , vecj(3) , veck(3)
    INTEGER i , icsida , icsidb , idela , idelb , ig , ii , ij , ikel , il , ill , index , ipin(10) , isasb , isv , iwbeg , j ,      &
          & jcsid , jcsida , jcsidb , ji , jll , jofset , jofsta , jofstb , jpina , jpinb , k , ka , kb , lim , ll , low
-!
-! End of declarations
-!
 !
 !     THIS IS THE ELEMENT TEMPERATURE AND DEFORMATION LOADING ROUTINE
 !     FOR THE BAR ELEMENT.

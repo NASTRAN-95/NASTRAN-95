@@ -1,9 +1,6 @@
 
 SUBROUTINE akapm(Arg,Bkpm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Ai , Bsycon
    REAL Beta , Del , Dstr , Pi , Res , Scrk , Sigma , Sns , Sps , Sysbuf
    INTEGER Ibbout
@@ -12,19 +9,10 @@ SUBROUTINE akapm(Arg,Bkpm)
    COMMON /blk2  / Bsycon
    COMMON /system/ Sysbuf , Ibbout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    COMPLEX Arg , Bkpm
-!
-! Local variable declarations
-!
    REAL a1 , a2 , b1 , c2n , c2p , c2q , c3q , csec , gam0 , gamn , gamp , pi2 , r , s1 , s2 , t1 , t2
    COMPLEX aln , alp , alp0 , at2 , at3 , c1 , c1test
    INTEGER i , nn
-!
-! End of declarations
-!
 !
 !     SUBROUTINE FOR COMPUTING KAPPA MINUS
 !

@@ -1,30 +1,18 @@
 
 SUBROUTINE mpy3p(Z,Iz,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Dum1(3) , Dum2(6) , E , Filea(7) , Fileb(7) , Filec(7) , Filee(7) , Scr , Scr1 , Scr2 , Scr3(7)
    INTEGER Code , Iacols , Iakj , Ibcols , Ic , Icore , Ipoint , Itrans , Itrl , Ka , Kb , Laend , Lcore , Lkore , M , N , Ncb ,    &
          & Prec , Zpntrs(22)
    COMMON /mpy3cp/ Itrl , Icore , N , Ncb , M , Dum1 , Zpntrs , Laend , Dum2 , Ka , Kb
    COMMON /mpy3tl/ Filea , Fileb , Filee , Filec , Scr1 , Scr2 , Scr , Lkore , Code , Prec , Lcore , Scr3 , Buf1 , Buf2 , Buf3 ,    &
                  & Buf4 , E
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dfact
    REAL fact
    INTEGER i , i1 , i2 , iac , iat , ii , iii , kb2 , kj , kj2 , l , l1 , ll , llp , lp
-!
-! End of declarations
-!
 !*****
 !    PERFORMS MULTIPLICATION AND SUMMATION.
 !*****

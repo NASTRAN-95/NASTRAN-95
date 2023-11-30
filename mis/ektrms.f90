@@ -1,9 +1,6 @@
 
 SUBROUTINE ektrms(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Alp12 , Alpha1 , Alpha2 , Angle , Consts(5) , Costh , Degra , Dict5 , Dum(19) , Dumb(80) , Dummy1 , Dummy2 ,       &
       & Dummy3 , E(18) , Ecpt(21) , Eltemp , Fmu , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , K(324) ,  &
       & Kij(81) , Kout(324) , Matbuf(4) , Prod9(9) , Rho , Sigcom , Sigshe , Sigten , Sinth , Stress , T , Temp9(9) , Tsub0 , X1 ,  &
@@ -20,18 +17,9 @@ SUBROUTINE ektrms(Ntype)
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alp12 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,   &
                  & G2x211 , G2x212 , G2x222
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    REAL c(18) , delta , flamda , g(9) , reelmu , temp , tempar(27) , theta , ti(9) , tt(2) , vol
    INTEGER i , j , ka , kmax , kq , n1 , n2 , ncom , npoint , npt1 , npt2 , npt36 , npvt , nsave
-!
-! End of declarations
-!
 !
 !     TRIANGULAR MEMBRANE ELEMENT
 !

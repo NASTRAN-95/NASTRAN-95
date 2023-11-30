@@ -1,9 +1,6 @@
 
 SUBROUTINE dtrbsc(Iopt,Npivot)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(144) , Ar , C(24,3) , D(9) , Di(5,5) , Dumdp(81) , Eye , G(9) , G2x2(4) , J2x2(4) , Px2 , Pxy2 , Py2 , R ,    &
                   & R2 , S2 , Sp , Sx , Sxy , Sy , T , T2 , U , Xbar , Xbar3 , Xbsq , Xcsq , Xcyc , Xsubb , Xsubc , Ybar , Ybar2 ,  &
                   & Ybar3 , Ycsq , Ysubc
@@ -16,19 +13,10 @@ SUBROUTINE dtrbsc(Iopt,Npivot)
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alph12 , Tsubd , Gsube , Sigten , Sigcon , Sigshe ,  &
                  & G2x211 , G2x212 , G2x222
-!
-! Dummy argument declarations
-!
    INTEGER Iopt , Npivot
-!
-! Local variable declarations
-!
    DOUBLE PRECISION determ , s(18) , xb2 , xbc , xc2 , yc2
    INTEGER i , ic , ih , ising , j , jc , jh , nohyq
    REAL temp
-!
-! End of declarations
-!
 !
 !     IOPT = 1  IMPLIES THAT A CLOUGH TRIANGLE IS CALLING
 !     IOPT = 2  IMPLIES THAT A QUADRILATERAL IS CALLING

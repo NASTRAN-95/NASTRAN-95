@@ -1,9 +1,6 @@
 
 SUBROUTINE detm1(*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Det(1) , Det1(4) , Detx(4) , P(4) , Ps(1) , Ps1(4) , Psave(1)
    REAL Epsi , Fact1 , Rmax , Rmin , Rminr , Sml1
    INTEGER Iadd , Ic , Idet , Iev(7) , Ifail , Iffnd , Ik(7) , Im(7) , Ipdet(1) , Ipdet1(4) , Ipdeta , Ipdetx(4) , Ips , Ipsav ,    &
@@ -14,16 +11,10 @@ SUBROUTINE detm1(*)
    COMMON /regean/ Im , Ik , Iev , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Lcore , Rmax , Rmin , Mz , Nev , Epsi , Rminr , Ne , Nit ,    &
                  & Nevm , Scr6 , Scr7 , Nfound , Lama
    COMMON /zzzzzz/ Psave
-!
-! Local variable declarations
-!
    DOUBLE PRECISION f1 , f2 , fact , ratio , x , y
    INTEGER i , ix , lc , n , name(2) , nn , nnd , nni , nnp , ns
    INTEGER korsz
    REAL srrmax , srrmin
-!
-! End of declarations
-!
 !
 !     RMAX = APPROXIMATE MAGNITUDE OF LARGEST EIGENVALUE OF INTEREST
 !

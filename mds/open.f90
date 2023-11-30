@@ -2,23 +2,11 @@
 SUBROUTINE open(*,Namfil,Buff,Op)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isystm(157)
    COMMON /system/ Isystm
-!
-! Dummy argument declarations
-!
    INTEGER Namfil , Op
    INTEGER Buff(1)
-!
-! Local variable declarations
-!
    INTEGER init , xname , xop
-!
-! End of declarations
-!
 !******
 !
 ! OPEN IS AN INTERMEDIARY TO ENTRY POINT QOPEN IN SUBROUTINE GINO.

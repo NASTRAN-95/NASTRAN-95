@@ -1,9 +1,6 @@
 
 SUBROUTINE emg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat , Linear , Nogo
    INTEGER Cmass , Cstm , Dictn(3) , Dit , Est , Flags(3) , Geom2 , Icmbar , Icong , Icore , Icstm , Idit , Ihmat , Imat , Ipreci , &
          & Jcore , Kflags(3) , Ksystm(65) , L38 , Lcong , Lcstm , Lhmat , Lmat , Mach , Mats(3) , Mpt , Ncong , Ncore , Ncstm ,     &
@@ -17,14 +14,8 @@ SUBROUTINE emg
    COMMON /machin/ Mach
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ibuf(7) , j , mcb(7) , name(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ELEMENT-MATRIX-GENERATOR MAIN DRIVING ROUTINE.
 !

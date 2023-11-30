@@ -1,18 +1,9 @@
 
 SUBROUTINE random
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Icoup
    COMMON /blank / Icoup
-!
-! Local variable declarations
-!
    INTEGER auto , casecc , dit , ifile(5) , ltab , nfile , nfreq , npsdl , ntau , psdf , psdl , xycb
-!
-! End of declarations
-!
 !
 !     RANDOM ANALYSIS MODULE
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrpld
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A1 , A2 , A3 , Aa1 , Aa2 , Aa3 , Alf(3) , B , C , Costh , Dista , Distb , Distc , Dum(12) , Eltemp , Em(6) , Est(100) , &
       & Gsube , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Tref , X , Y , Z
    DOUBLE PRECISION Cm1(18,18) , Ts1(60) , Ts2(60) , Ts6(40) , Ts6s(40) , Ts7(60)
@@ -20,9 +17,6 @@ SUBROUTINE ktrpld
    COMMON /sma1io/ X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , Aa1 , Aa2 , Aa3
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a1sq , a2sq , a3sq , balotr(36) , c1 , c10 , c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 , cc(10) , cmt(1296) ,       &
                   & csub(3,3) , csubt(6,3) , d132 , d232 , d334 , determ , e(18) , ksub(6,6) , ksubt(6,6) , ksup(36) , ksupt(36) ,  &
                   & ktr3(400) , mtr3(400) , qqq(20,20) , qqqinv(360) , rmnx , rmny , rmx , rmx1 , rmy , rmy1 , rnx , rnx1 , rny ,   &
@@ -35,9 +29,6 @@ SUBROUTINE ktrpld
          & mx2 , mx2x , mx3 , mx3x , my , my1 , my1x , name(2) , ndof , nl(6) , nx , nx0 , nx01 , nx011 , nx0y , nx1 , nx1y , nx2 , &
          & nx2y , nx3 , nx3y , ny , ny1 , ny1y , save(6) , sil1 , sil2 , small(6) , xpower(20) , xthk(10) , ypower(20) , ythk(10)
    LOGICAL imass , nogo , nots , uniben
-!
-! End of declarations
-!
 !
 !     STIFFNESS SUBROUTINE FOR HIGHER ORDER PLATE ELEMENT CTRPLT1
 !

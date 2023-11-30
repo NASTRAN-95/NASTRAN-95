@@ -9,9 +9,6 @@ SUBROUTINE asdmap
 !     TAPE
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bandit , Corex(1) , Corey(2) , Ibuf , Idat(1248) , Idum(161) , Iginob , Ihead(20) , Intp , Ioct , Iotit(68) , Iph ,      &
          & Iprec , Iptbs , Irdm , Ixtra , Length(10) , Lpch , Mchn , Ndbs , Nlines , Nlpp , Nname(10) , Noct , Nogo , Nph , Nptbs , &
          & Nrdm , Nsof , Nxtra , Outt , Paswd(2) , Stat , Sys(90) , Z(1)
@@ -29,9 +26,6 @@ SUBROUTINE asdmap
    COMMON /system/ Sys , Lpch
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Corex
-!
-! Local variable declarations
-!
    INTEGER alt1 , alt2 , alts(18) , asd1(2) , asd2(2) , blank , buf1 , buf2 , buf3 , bwd , card(20) , case , cdata(30) , cname ,    &
          & comnd(2,25) , dbval(2,6,5) , dbvar(6) , disk , dmap(18,60) , dolsn , dry , dryflg , drygo , dvec(3) , ends , eqsn ,      &
          & exdef(2,14) , extra(3,200) , file , fname(7) , gorun , i , i2 , i6777 , iac , iap2 , iapp , iblksz , icard , icnext ,    &
@@ -47,9 +41,6 @@ SUBROUTINE asdmap
          & papp , pass , pawd , phase , phs(3) , pitm , poap , poit , posi , pove , ptape , pvec , pwd , r3val(5,5) , r3var(5) ,    &
          & rang , run , scrt , sof , sol , step , subnam(2) , titl , var(3,200)
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Ibuf,Sys(1)) , (Outt,Sys(2)) , (Nogo,Sys(3)) , (Intp,Sys(4)) , (Nlpp,Sys(9)) , (Nlines,Sys(12)) , (Iprec,Sys(55)) , &
     & (Bandit,Sys(77))
    EQUIVALENCE (var(1,1),ivar(1,1)) , (itemp(1),ocard(1)) , (Corex(1),Corey(1),Ndbs) , (Corey(2),Z(1))

@@ -2,24 +2,12 @@
 SUBROUTINE dsread(Iunit,Buff,Len,Irec)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Iwr
    REAL Sysbuf
    COMMON /system/ Sysbuf , Iwr
-!
-! Dummy argument declarations
-!
    INTEGER Irec , Iunit , Len
    INTEGER Buff(Len)
-!
-! Local variable declarations
-!
    INTEGER iccerr , istat
-!
-! End of declarations
-!
    IF ( Irec>=0 ) THEN
 !      PRINT *,' DSREAD,LEN,IREC,IUNIT=',LEN,IREC,IUNIT
       istat = 0

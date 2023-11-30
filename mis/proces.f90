@@ -1,9 +1,6 @@
 
 SUBROUTINE proces(X)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Aver(3) , Beta , Beta13 , Beta2 , Consts(5) , Cstm(3,3) , D(3) , G(3,3) , Gamma , Max(3) , Min(3) , Pbufsz ,        &
       & Penpap(30) , Ploter(5) , Rad , Scale(5) , Sign(3) , Skpcom(5) , Vanput(8) , View(4)
    INTEGER Axes(6) , Axis(3) , Ngpset , Prject
@@ -12,19 +9,10 @@ SUBROUTINE proces(X)
    COMMON /drwaxs/ G
    COMMON /rstxxx/ Cstm , Min , Max , D , Aver , Axis , Sign
    COMMON /xxparm/ Pbufsz , Ploter , Penpap , Scale , Axes , Alpha , Beta , Gamma , Beta13 , Beta2 , View , Vanput , Prject
-!
-! Dummy argument declarations
-!
    REAL X(3,1)
-!
-! Local variable declarations
-!
    REAL cosa , cosb , cosg , sina , sinb , sing , val , xmax(3) , xmin(3)
    INTEGER gp , i , j
    DOUBLE PRECISION sum , v(3)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Consts(3),Rad)
 !

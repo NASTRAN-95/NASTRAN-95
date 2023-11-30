@@ -1,9 +1,6 @@
 
 SUBROUTINE fdit(I,K)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Ihalf , Iodum(8) , Jhalf , Mach , Mdidum(4) &
          & , Mdiup , Nbuff , Nout , Nxt , Nxtcur , Nxtfsz(10) , Nxtlbn , Nxtpbn , Nxtrst , Nxttsz
    LOGICAL Ditup , Nxtup
@@ -15,20 +12,11 @@ SUBROUTINE fdit(I,K)
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER I , K
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER ibl , iblock , icount , iempty , iend , indsbr , inxt , ird , istart , iwrt , j , ll , ndir , nmsbr(2)
    LOGICAL newblk
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     FETCHES FROM THE RANDOM ACCESS STORAGE DEVICE THE BLOCK OF THE
 !     DIT CONTAINING THE ITH SUBSTRUCTURE NAME, AND STORES IT IN THE

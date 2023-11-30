@@ -1,9 +1,6 @@
 
 SUBROUTINE fnxt(Ii,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Filsiz(10) , Iodum(8) , Mdidum(4) , Mdiup , &
          & Nfiles , Nxt , Nxtcur , Nxtfsz(10) , Nxtlbn , Nxtpbn , Nxtrst , Nxttsz , Supsiz
    LOGICAL Ditup , Nxtup
@@ -13,17 +10,8 @@ SUBROUTINE fnxt(Ii,J)
    COMMON /sofcom/ Nfiles , Filnam , Filsiz
    COMMON /sys   / Blksiz , Dirsiz , Supsiz
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Ii , J
-!
-! Local variable declarations
-!
    INTEGER filnum , filsup , i , iblock , index , indsbr , ird , iwrt , l , max , nmsbr(2)
-!
-! End of declarations
-!
 !
 !     FETCHES FROM THE RANDOM ACCESS STORAGE DEVICE THE BLOCK OF THE
 !     ARRAY NXT CONTAINING THE ENTRY FOR BLOCK I.  IT STORES THE FETCHED

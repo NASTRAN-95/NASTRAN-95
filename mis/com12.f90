@@ -1,9 +1,6 @@
 
 SUBROUTINE com12(*,Ix,X,Dx,Itermm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Dum(3) , Ifila(7) , Ifill(7) , Ifilu(7) , Incrx , Incry , Itype1 , Itype2 , Itypex , Ixy , Iy , Jj , Jxy , Jy ,    &
          & Ncol , Norew , Nx , Rdp , Sr2fil , Sysbuf , Typel
    REAL Csp , Eofnrw , Power , Rd , Rdrew , Rew , Rsp , Wrt , Wrtrew
@@ -14,22 +11,13 @@ SUBROUTINE com12(*,Ix,X,Dx,Itermm)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itypex , Ixy , Jxy , Incrx
    COMMON /zblpkx/ Dz , Jj
-!
-! Dummy argument declarations
-!
    INTEGER Bbar , Bbbar , Bbbar1 , Cbcnt , I1 , I1sp , I4 , I4sp , I6sp , Ipak , Iterm , Itermm , Jposl , Lcol , R , Scrflg , Sr2fl
    DOUBLE PRECISION Dx(12)
    INTEGER Ix(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL a , sub(2)
    DOUBLE PRECISION da
    INTEGER i , ibbar4 , ibuf1 , ibuf2 , ibuf3 , iend , ifile , in1 , in2 , j , k , kk , l , ll , name , no
-!
-! End of declarations
-!
 !
 !*******
 !      PROGRAM TO SOLVE A MATRIX OF ORDER ONE OR TWO FOR CDCOMP

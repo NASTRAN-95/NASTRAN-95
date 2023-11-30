@@ -1,25 +1,16 @@
 
 SUBROUTINE pla31
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Icom , Incupk , Itypeb , Iunpk , Iz(1) , Junpk
    REAL Z(1)
    COMMON /blank / Icom
    COMMON /system/ Bufsz
    COMMON /unpakx/ Itypeb , Iunpk , Junpk , Incupk
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bufr1 , bufr2 , clsrw , delugv , eltype , eor , estnl , estnls , estwds(40) , file , i , idisp , iestbk(100) , iflag ,   &
          & index , izmax , j , k , left , mcbugv(7) , name(2) , neor , ngpts(40) , nogpts , nwds , nwdsrd
    REAL estbk(100)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE READS THE INCREMENTAL DISPLACEMENT VECTOR INTO CORE
 !     AND APPENDS THE PROPER DISPLACEMENT VALUES TO THE ESTNL ENTRY FOR

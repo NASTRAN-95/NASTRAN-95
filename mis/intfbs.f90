@@ -1,9 +1,6 @@
 
 SUBROUTINE intfbs(Dx,Dy,Iobuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Da , Diag , Eofnrw , Rd , Rdrew , Rect , Rew , Row , Sqr , Sym , Uprtri , Wrt , Wrtrew
    INTEGER Eol , Filel(7) , Fileu(7) , Identy , Idummy(27) , Ii , Iopen , Lowtri , Norew , Nrow , Rdp , Rsp
    COMMON /infbsx/ Filel , Fileu
@@ -11,19 +8,10 @@ SUBROUTINE intfbs(Dx,Dy,Iobuf)
                  & Sym , Row , Identy
    COMMON /trdxx / Idummy , Iopen
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    REAL Dx(1) , Dy(1)
    INTEGER Iobuf(1)
-!
-! Local variable declarations
-!
    REAL dtemp
    INTEGER i , in1 , in2 , ioff , j , k , parm(4) , typear
-!
-! End of declarations
-!
 !
 !     GIVEN THE TRIANGULAR FACTORS FOR A GENERAL MATRIX, INTFBS WILL
 !     PERFORM THE FORWARD-BACKWARD SUBSTITUTION NECESSARY TO SOLVE

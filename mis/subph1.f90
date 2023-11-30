@@ -5,9 +5,6 @@ SUBROUTINE subph1
 !     TABLES TO THEIR EQUIVALENT SOF ITEMS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bsize , Dry , Name(2) , Out , Pitm , Pset , Two(32) , Z(1)
    REAL Rz(12)
    CHARACTER*25 Sfm , Uwm
@@ -18,9 +15,6 @@ SUBROUTINE subph1
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf
    INTEGER b1 , b2 , b3 , bgpd , bgss , buf(10) , buf1 , buf2 , c , case , cstm , else , eqex , eqss , file , gpse , i , i0 ,       &
          & icase , icode(32) , icstm , ipt , irec , is , isil , itest , iu , iua , izp , j , k , kcode , litm , loap , lods ,       &
@@ -28,9 +22,6 @@ SUBROUTINE subph1
          & scrt , sub1(2) , temp(10) , type , uset
    LOGICAL last
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Rz(1),Z(1))
    DATA case , eqex , uset , bgpd , cstm , gpse , else , scrt/101 , 102 , 103 , 104 , 105 , 106 , 107 , 301/
    DATA eqss/4HEQSS/ , icstm/4HCSTM/ , lods/4HLODS/ , plts/4HPLTS/ , bgss/4HBGSS/

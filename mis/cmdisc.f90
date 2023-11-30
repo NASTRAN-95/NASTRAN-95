@@ -1,9 +1,6 @@
 
 SUBROUTINE cmdisc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf4 , Buf5 , Casecc , Conset , Geom4 , Scbdat , Scmcon , Sctoc , Tdat(6) , Toler
    INTEGER Buf2 , Buf3 , Combo(7,5) , Iauto , Inpt , Lcore , Nipnew , Npsub , Outt , Scconn , Score , Scr1 , Scr2 , Scsfil , Z(1)
    COMMON /cmb001/ Scr1 , Scr2 , Scbdat , Scsfil , Scconn , Scmcon , Sctoc , Geom4 , Casecc
@@ -11,16 +8,10 @@ SUBROUTINE cmdisc
    COMMON /cmb003/ Combo , Conset , Iauto , Toler , Npsub
    COMMON /cmb004/ Tdat , Nipnew
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , ce(9) , de(9) , i , id , ifile , ilen , imsg , ip , iptr(7) , istrt , isvcor , itot , j , kdh , kk , len , loc ,&
          & ncsub , nn , nnn , nwd , scdisc
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DETERMINES THE DISCONNECTED DEGREES OF FREEDOM
 !     AND GENERATES  DISCONNECTION ENTRIES  WHICH ARE MERGED WITH THE

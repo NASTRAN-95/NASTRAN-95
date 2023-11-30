@@ -2,9 +2,6 @@
 SUBROUTINE smcph1(Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Diag , Eofnrw , Rdnrw , Rdp , Rdrew , Rect , Rsp , Sqr , Sym , Tmbpak , Tmgstr , Tmio , Tmipak , Tml(4) ,       &
       & Tmpak , Tmpstr , Tmt(4) , Tmupak , Uprtri , Wrt , Wrtrew , Xns(10)
    INTEGER Lout , Lowtri , Nitems , Norew , Prc(2) , Rew , Rlcmpx(4) , Words(4), Mrow, Mstr, Mterms, Mtype
@@ -19,15 +16,9 @@ SUBROUTINE smcph1(Zi,Zr,Zd)
    COMMON /type  / Prc , Words , Rlcmpx
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(4)
    INTEGER Zi(4)
    REAL Zr(4)
-!
-! Local variable declarations
-!
    CHARACTER*4 cname(2)
    CHARACTER*14 ctype(4)
    REAL dcr, dsr, dsc, minds
@@ -36,9 +27,6 @@ SUBROUTINE smcph1(Zi,Zr,Zd)
          & itemp(4) , itest , itwrds , ivd , ivval , izeros , k , kpos , l , l45 , len , lrow , maxrow , maxtes , minmum , name(2) ,&
          & nexcol , nrow , nrvals , nterms , nv , nvvals , nwords
    INTEGER lshift
-!
-! End of declarations
-!
 !
 !  KTYPE   = TYPE (1-RS,2-RD,3-CS,4-CD) OF LOWER TRIANGULAR MATRIX
 !  KPREC   = PRECISION (1-SINGL, 2-DOUBL) OF LOWER TRIANGULAR MATRIX

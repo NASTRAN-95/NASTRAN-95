@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr2c
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , App(2) , Axif , Bgpdt , Bk0(2) , Bk1(2) , Branch , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Casecc , Cei(2) , Cstm ,     &
          & Date(3) , Displ , Ds0(2) , Ds1(2) , Dtype(8) , Edt , Eigr , Eol , Eqexin , File , Force , Frq(2) , Harms , I2 , Iacc ,   &
          & Icb(7) , Icstm , Idispl , Idload , Ieigen , Ieldef , Ielf , Ifrout , Iheat , Iloads , Ilsym , Incr2 , Isload , Isopl ,   &
@@ -30,9 +27,6 @@ SUBROUTINE sdr2c
    COMMON /zblpkx/ Y , Iy
    COMMON /zntpkx/ Xx , Ixx , Eol , Eor
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL anyout , axcosi , axsine
    INTEGER blanks , buf(50) , dest , eof , extra , flag , formt , fsetno , i , ibufsv , icc , id , iflag , ilist , incore , index , &
          & infil , ireq , ireqx , iseq , iset , isetf , isetnf , isetno , iskip , isymn , itabl , itemp , ix , ixset , ixsetn , j , &
@@ -41,9 +35,6 @@ SUBROUTINE sdr2c
          & , retx , setno , sorc , xset0 , xsetno
    REAL bufr(11) , coef , diff , diff1 , omega , pbufr(4) , redner
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SDR2C PROCESSES OUTPUT REQUESTS FOR SINGLE-POINT FORCES OF
 !     CONSTRAINT, LOADS, DISPLACEMENTS, VELOCITIES, ACCELERATIONS AND

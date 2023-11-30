@@ -1,9 +1,6 @@
 
 SUBROUTINE is2d8d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph12 , Alpha1 , Alpha2 , C , Costh , Coup , Dum12(12) , Dum2(2) , Dum3(3) , Dumb(119) , Ecpt(46) , Elid , Eltemp , G11 ,  &
       & G12 , G13 , G22 , G23 , G33 , Kx , Kxy , Ky , Qq(15) , Rho , Sinth , Skip(16) , Stress , Surfac , T , Th , Tref , Ttemp ,   &
       & Volume , X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8 , Xy1(3) , Xy2(3) , Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7 , Y8 , Z1 , Z2 , Z3 ,   &
@@ -22,9 +19,6 @@ SUBROUTINE is2d8d
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alph12 , Tref , Ge , Dum3
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL area , tth , vec(3) , veci(3) , vecil , vecj(3) , veck(3) , veckl , vvec(3)
    DOUBLE PRECISION b(12) , bij , bt(12) , dc , determ , dhh , dn(8) , dnc(16) , dneta(1) , dnl(16) , dnx(1) , dnxi(1) , dny(1) ,   &
                   & drho , dumarg , e1t(6) , eta(8) , g(9) , h(3) , kij , mij , premul(6) , pstmul(9) , pt(3) , save(144) , savm(36)&
@@ -32,9 +26,6 @@ SUBROUTINE is2d8d
                   & xx(16) , xxjb(2,2)
    INTEGER bcd(2) , dict(13) , i , ic , iii , ind6(36) , ising , isub , isub1 , iws(2,3) , ixx , j , jjj , k , kk , l , ll , m , n ,&
          & nam(2) , ncol , nrow , nsq , scr4
-!
-! End of declarations
-!
 !
 !     2-D, 8 GRID POINT ISOPARAMETRIC STRUCTURAL  ELEMENT STIFFNESS,
 !     MASS, CONDUCTIVITY, AND CAPACITANCE ROUTINE

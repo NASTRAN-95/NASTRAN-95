@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrbsc(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(225) , Area , D(9) , Determ , E(18) , G(9) , G2x2(4) , J2x2(4) , Prod9(9) , Px2 , Pxy2 , Py2 , S(18) , Temp , &
                   & Temp9(9) , Ti(9) , Tite(18) , Tjte(18) , Xbar , Xbar3 , Xbsq , Xcsq , Xcyc , Xsubb , Xsubc , Ybar , Ybar2 ,     &
                   & Ybar3 , Ycsq , Ysubc
@@ -24,17 +21,8 @@ SUBROUTINE ktrbsc(Iopt)
    COMMON /sma1et/ Necpt , Ngrid , Angle , Matid1 , Eye , Matid2 , T2 , Fmu , Z11 , Z22 , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 ,&
                  & Z2 , Dummy3 , X3 , Y3 , Z3 , Dumb
    COMMON /sma1io/ Dum1 , Ifkgg , Dum2 , If4gg , Dum3
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , j , npt1 , npt2 , ntype
-!
-! End of declarations
-!
 !
 !     BASIC BENDING TRIANGLE  ELEMENT ROUTINE
 !

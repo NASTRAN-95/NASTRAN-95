@@ -56,9 +56,6 @@ SUBROUTINE dbase
 !     MAP THIS ROUTINE IN LINK2, LINK4 AND LINK14
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Basic , E(1) , Eofnrw , Formtd , Incr , Last , Mach , Nel , Nogo , Norew , Nout , Outtp , Rd , Rdrew , Rew , Sysbuf ,    &
          & Wrt , Wrtrew , Z(1)
    REAL Rz(1)
@@ -72,9 +69,6 @@ SUBROUTINE dbase
    COMMON /system/ Sysbuf , Nout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a(10) , a1(80) , again , b(5) , bgpdt , blank , buf1 , buf2 , bzero , case , cmplx , coor , cstm , dspl , eltyp , end1 , &
          & end2 , end3 , eqexin , f(79) , f8(6) , fi , file , flag , fmt(4) , fmt1 , fstf(4) , g1 , geom2 , grid , i , icstm ,      &
          & imhere , inp(8) , inpx(3) , iougv , ix(1) , izero , j , j16 , j17 , j31 , j32 , jb , jbm1 , jbp1 , je , jos , jso , k ,  &
@@ -86,9 +80,6 @@ SUBROUTINE dbase
    REAL freq , ra(1) , rx(200) , t(9)
    INTEGER korsz , numtyp
    INTEGER ofpx , oname(6) , ougv , pid , scr1 , set , sub(2) , subn(3) , symbol
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Rz(1)) , (b(1),nam(1)) , (a(1),ra(1),a1(3)) , (rx(1),ix(1))
    DATA eqexin , bgpdt , geom2 , cstm , scr1 , sub/101 , 102 , 103 , 104 , 301 , 4HDBAS , 4HE   /
    DATA end1 , end2 , end3 , fmt/4H -EN , 2HD- , 2H-- , 4H, UN , 4HFORM , 4HATTE , 1HD/

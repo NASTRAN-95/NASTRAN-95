@@ -1,30 +1,18 @@
 
 SUBROUTINE int2a8(*,X,A8)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(38)
    INTEGER Mach , Nbpc , Nbpw , Ncpw
    COMMON /machin/ Mach
    COMMON /system/ Dummy , Nbpc , Nbpw , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER A8(2)
    CHARACTER*8 K8(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    CHARACTER*1 a(10) , alp(10) , ib , im , ip , pt
    REAL absx , rx , xll , xlu
    CHARACTER*10 alp10 , temp10
    INTEGER int , ip1 , ix , j , jx , ll , lu , n , n1 , nn , np1 , nt , power
    CHARACTER*8 temp , zero , zerox
-!
-! End of declarations
-!
 !
    EQUIVALENCE (temp,temp10,a(1)) , (jx,rx) , (alp10,alp(1))
    DATA ip , im , ib , pt , temp , zero , zerox , nn , ll , alp10/'+' , '-' , ' ' , '.' , 'T' , '0' , '0.0' , 0 , 0 , '1234567890'/

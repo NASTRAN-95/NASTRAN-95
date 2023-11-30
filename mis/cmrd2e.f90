@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2e(Iter)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gbuf2 , Gib , Gibbar , Hgh , Hghbar , Him , Himbar , Idum1 , Idum2(4) , Idum3 , Idum7 , Incrp , Incru ,    &
          & Infile(11) , Iprntr , Irowp , Irowu , Iscr(11) , Korbgn , Korlen , Nrowp , Nrowu , Typeop , Typeu , Typinp , Uprt , Z(1)
    DOUBLE PRECISION Dz(1)
@@ -15,19 +12,10 @@ SUBROUTINE cmrd2e(Iter)
    COMMON /unpakx/ Typeu , Irowu , Nrowu , Incru
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iter
-!
-! Local variable declarations
-!
    INTEGER dblkor , dicore , gibrl , gibtyp , hghrl , himrl , himtyp , i , icore , ifile , iform , imsg , iprc , item , itest ,     &
          & itmlst(4) , itrlr1(7) , itrlr2(7) , itrlr3(7) , ityp , itype , j , k , kk , kols1 , kols2 , kore , l , ll , luprt ,      &
          & modnam(2) , nrows , nrows1 , nrows2 , sglkor
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE H TRANSFORMATION MATRIX FOR THE
 !     CMRED2 MODULE.

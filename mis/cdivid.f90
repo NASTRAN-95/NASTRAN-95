@@ -1,19 +1,10 @@
 
 SUBROUTINE cdivid(A,B,D,Ncol)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ncol
    DOUBLE PRECISION A(1) , B(1) , D(2)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION denm , dtemp
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE DIVIDES THE VECTOR A BY D AND STORE RESULT IN B
 !

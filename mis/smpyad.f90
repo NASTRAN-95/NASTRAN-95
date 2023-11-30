@@ -1,9 +1,6 @@
 
 SUBROUTINE smpyad
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1)
    INTEGER Iprec , Iprec1 , Kprec , Ksystm(65) , N , Na , Outpt , Sadd , Scrtch , Signab , Signc , Sreslt , Tmat(4) , Trlra(7) ,    &
          & Trlrb(7) , Trlrc(7) , Trlrd(7) , Trnsp
@@ -16,15 +13,9 @@ SUBROUTINE smpyad
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ A
-!
-! Local variable declarations
-!
    INTEGER addmat , dosi(3) , i , icol , intres , irow , itype , j , k , l , m , mat(5) , mpyads , name(2) , nm1 , nogo , recmat ,  &
          & refus(3) , resmat , trlr(7,5)
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)
    DATA mat/101 , 102 , 103 , 104 , 105/

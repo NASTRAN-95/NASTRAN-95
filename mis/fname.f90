@@ -1,24 +1,12 @@
 
 SUBROUTINE fname(File,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(1) , Fist(2)
    COMMON /xfiat / Fiat
    COMMON /xfist / Fist
-!
-! Dummy argument declarations
-!
    INTEGER File
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER ix , j , k , n , nblank , non1 , non2
-!
-! End of declarations
-!
 !*******
 !     GIVEN A FILE NO., FNAME WILL RETURN THE BCD DESCRIPTOR
 !*******

@@ -3,23 +3,11 @@
 SUBROUTINE mmarc1(Zi,Zr)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    REAL Rxl(1)
    COMMON /zzzzzz/ Rxl
-!
-! Dummy argument declarations
-!
    INTEGER Zi(1)
    REAL Zr(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , ii , index , jrow , mem , ntms
-!
-! End of declarations
-!
 !  MMARC1 - This routine will store a matrix column in memory in compact
 !           form and in real single precision.  The input matrix is
 !           assumed to be stored as real single precision.

@@ -1,9 +1,6 @@
 
 SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Fb(7) , Fl(7) , Fu(7) , Fx(7) , Icore(1) , Ii , Ii1 , Incr , Incr1 , Iprec , Iscrx , Isign , It1 , It2 , It3 , Jj , Jj1 ,&
          & Ksystm(65) , Mach , Mcore(1) , Mfb(7) , Mfl(7) , Mflt(7) , Mfx(7) , Mprec , Msign , Mx , Nx , Prec , Sysbuf
@@ -14,18 +11,9 @@ SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
    COMMON /system/ Ksystm
    COMMON /unpakx/ It1 , Ii , Jj , Incr
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ifr , Igood , Lll , Nfreq , Nload , Pd , Scr1 , Scr2 , Udv , Udv1 , Ull
-!
-! Local variable declarations
-!
    INTEGER file , i , ic , iflag , m , mcb(7) , name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE SOLVES FOR UDV GIVEN ULL,LLL, AND PD
 !

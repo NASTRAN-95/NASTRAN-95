@@ -1,9 +1,6 @@
 
 SUBROUTINE hdsket(X,Y,Z,Np,Nc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Di , Ibeg , Icct , Icore , Icount , Ict , Iend , Iia , Irct , Iz(1) , Jjj , Lz , W , X1skt , X21 , Xcc , Xe , Xi , Xu ,  &
          & Y1skt , Y21 , Ye , Yi , Yu , Z1skt , Z21 , Zi
    REAL Pit , Rol , Rz(1) , Scx , Vp , Xasolv , Xdum , Yasolv , Yaw , Zasolv , Zcoef , Zcoef1
@@ -11,19 +8,10 @@ SUBROUTINE hdsket(X,Y,Z,Np,Nc)
                  & Z21 , Iia , Xe , Ye , Xu , Yu , Xi , Yi , Zi , Di , Ibeg , Iend , Ict , Icct , W
    COMMON /hdsc  / Scx , Yaw , Rol , Pit , Lz , Vp , Jjj , Icore
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Nc , Np
    REAL X(1) , Y(1) , Z(1)
-!
-! Local variable declarations
-!
    REAL a , b , c , rx , t , u , v
    INTEGER i , ik , is , ix , ix1skt , j , l , li , lx , m , m1 , mx , npx
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE SETS UP PEN MOTION INDICATORS.
 !

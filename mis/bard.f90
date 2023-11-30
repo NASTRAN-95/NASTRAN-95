@@ -1,9 +1,6 @@
 
 SUBROUTINE bard
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , Costh , D1 , D2 , Dum(12) , E , Ecpt(42) , Elid , Eltemp , F1 , F2 , Fe , Fj , Fk , G , G1 , G2 ,     &
       & Gpa(3) , Gpb(3) , Heat , I1 , I12 , I2 , K1 , K2 , Nsm , Rho , Sigc , Sigs , Sigt , Sinth , Smalv(3) , Stress , Tempel ,    &
       & Tsubo , Za(3) , Zb(3)
@@ -25,9 +22,6 @@ SUBROUTINE bard
    COMMON /matout/ E , G , Nu , Rho , Alpha , Tsubo , Gsube , Sigt , Sigc , Sigs
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a2b , ael , beta , bl , bl13 , bl22 , blcube , blsq , blsq3 , blsq4 , const , ei1 , ei2 , epsi , epsi2 , fl ,   &
                   & fll , fm , gjl , l2b3 , l2b6 , lb , limit , lr1 , lr2 , r1 , r2 , sk1 , sk2 , sk3 , sk4 , smallv(3)
    LOGICAL aofset , basic , bofset , offset
@@ -36,9 +30,6 @@ SUBROUTINE bard
          & jj , jll , jofset , jofsta , jofstb , jpina , jpinb , jta , jtb , k , ka , kb , korm , l1 , lim , lj , ll , low , mm ,   &
          & ndof , nsq
    REAL gak1 , gak2
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES BAR  ELEMENT DATA TO PRODUCE STIFFNESS
 !     AND MASS MATRICES. IF THE HEAT TRANSFER OPTION IS ON, CONDUCTIVITY

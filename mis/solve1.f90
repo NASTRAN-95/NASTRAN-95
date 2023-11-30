@@ -1,17 +1,8 @@
 
 SUBROUTINE solve1(A1,R1,Rp,Xi,Lam2,Lam3,Lam4,Cont)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A1 , Cont , Lam2 , Lam3 , Lam4 , R1 , Rp , Xi
-!
-! Local variable declarations
-!
    REAL bb , cosa , psi1 , psi2 , rt , sina , sinsum , sum
-!
-! End of declarations
-!
 !
 !     ROUTINE TO SOLVE FOR LAMBDAS AS FNCTS. OF XI
 !

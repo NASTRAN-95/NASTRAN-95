@@ -4,28 +4,16 @@
 SUBROUTINE dbmmgr(Opcode)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    REAL Fiat(10) , Fist(10)
    INTEGER Isysbf , Iwr , Mem(4)
    COMMON /system/ Isysbf , Iwr
    COMMON /xfiat / Fiat
    COMMON /xfist / Fist
    COMMON /zzzzzz/ Mem
-!
-! Dummy argument declarations
-!
    INTEGER Opcode
-!
-! Local variable declarations
-!
    INTEGER case/4HCASE/ , i , iblk1 , iblk2 , iblk3 , icblk , icndex , idiff , ind1 , ind2 , indblk , ioff , iprblk , isave ,       &
          & isaveb , itest , k , lastib , lenbuf , nblk , nbuff3 , nexblk , pcdb/4HPCDB/ , pool/4HPOOL/ , xpdt/4HXPDT/ , xycd/4HXYCD/
    INTEGER locfx
-!
-! End of declarations
-!
 !*********************************************************************
 !        / FCB /
 !            FCB(1,I) - OPEN FLAG

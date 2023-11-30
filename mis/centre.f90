@@ -1,18 +1,9 @@
 
 SUBROUTINE centre(*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL X1 , X2 , X3 , X4 , Y1 , Y2 , Y3 , Y4
    REAL Center(2)
-!
-! Local variable declarations
-!
    REAL xm1 , xm2
-!
-! End of declarations
-!
    IF ( X1==X3 .AND. X2==X4 ) THEN
       Center(1) = X1
       Center(2) = (amax1(Y1,Y2,Y3,Y4)+amin1(Y1,Y2,Y3,Y4))/2.0

@@ -1,24 +1,12 @@
 
 SUBROUTINE selcam(Camera,Pltnum,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Camnum , Model , Ploter
    REAL Edge(2) , Origin(2) , Pd(20,2) , Xymax(2)
    COMMON /pltdat/ Pd
-!
-! Dummy argument declarations
-!
    INTEGER Camera , Opt , Pltnum
-!
-! Local variable declarations
-!
    INTEGER a(17) , cam10(3) , con10(2) , i
    REAL save(2,3)
-!
-! End of declarations
-!
 !
 !
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE fvrst2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cycio , Fkmax , Flmax , Lmax , Noro1 , Noro2 , Nout , Nsegs , Ntstps , Sysbuf
    DOUBLE PRECISION D4pisq , Ddegra , Dpi , Dradeg , Dtwopi
    REAL Z(1)
@@ -11,16 +8,10 @@ SUBROUTINE fvrst2
    COMMON /condad/ Dpi , Dtwopi , Dradeg , Ddegra , D4pisq
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dum(2) , file , fnam(2) , fol , frl , ibuf1 , ifol , ifreq , ifreq1 , ifreq2 , ip1 , itol , k1 , k2 , k3 , kk , modnam(2)&
          & , next , nfreq , ntimes , nz , reord1 , reord2 , tol , trl(7)
    DOUBLE PRECISION fact , freq , period
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !    1. ENTRY POINT - FVRST2
 !

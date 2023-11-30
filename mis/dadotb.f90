@@ -1,13 +1,7 @@
 
 DOUBLE PRECISION FUNCTION dadotb(A,B)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A(3) , B(3)
-!
-! End of declarations
-!
 !*****
 !  DOUBLE PRECISION VERSION
 !

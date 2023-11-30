@@ -1,27 +1,15 @@
 
 SUBROUTINE shape(*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ect , Merr , Ngp , Pedge
    REAL Skp1(9) , Skp15(15) , Skp2(2) , Skp21(7)
    COMMON /blank / Ngp , Skp1 , Skp2 , Ect , Skp21 , Merr
    COMMON /drwdat/ Skp15 , Pedge
-!
-! Dummy argument declarations
-!
    INTEGER Deform , Iopt , Iptl , Opcor , Pen
    INTEGER Gplst(1) , Liplt(1)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER br , elid , etyp , gp , i , j , l , lgpel , lid , ltyp , m , name(2) , ngpel , offset , q4 , t3 , te
    REAL off(6) , x1 , x2 , xy , y1 , y2
-!
-! End of declarations
-!
 !
 !     IOPT CONTROLS THIS ROUTINE
 !     IOPT .LT. 0

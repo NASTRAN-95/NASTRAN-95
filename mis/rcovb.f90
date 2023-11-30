@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovb
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Buf1 , Buf2 , Buf3 , Buf4 , Dry , Energy , Eofnrw , Fss(2) , Hmcb(7) , Icore , Iopt , Ireq , Iz(1) , Lbasic ,   &
          & Lcore , Loop , Lower , Lreq , Lui , Mprec , Mpyz , Mrecvr , Neigv , Norew , Nosort , Nout , Rd , Rdp , Rdrew , Rect ,    &
          & Rew , Rfno , Rsp , Scrm , Signab , Signc , Sof1 , Sof2 , Sof3 , Ssnm1(2) , Step , Sym , Sysbuf , Tflag , Ua , Uamcb(7) , &
@@ -23,9 +20,6 @@ SUBROUTINE rcovb
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , sofsiz
    INTEGER blank , eqss , file , gmask , horg , i , ib , idit , idpcor , imdi , ipove , item , j , jlvl , lastss , lcorez ,         &
          & mcbtrl(7) , mmask , n , name(2) , nrow , pao , pove , rc , rmask , schk , scr1 , scr2 , scr3 , scr5 , ssnm(2) , ub ,     &
@@ -33,9 +27,6 @@ SUBROUTINE rcovb
    LOGICAL modal
    REAL scr6 , scr7 , srd , swrt
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     RCOVB PERFORMS THE BACK-SUBSTITUTIONS TO OBTAIN THE G-SET
 !     DISPLACEMENTS OF A SUBSTRUCTURE WHOSE LEVEL IS LOWER THAN OR

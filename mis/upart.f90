@@ -1,26 +1,14 @@
 
 SUBROUTINE upart(Uset,Scr1,Major,Sub0,Sub1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Ia(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Lc , Lcore , N1 , N2 , N3 , Pvect(7) , Rule , Uset1
    COMMON /parmeg/ Ia , Ia11 , Ia12 , Ia21 , Ia22 , Lcore , Rule
    COMMON /patx  / Lc , N1 , N2 , N3 , Uset1 , Pvect
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ia1 , Ia111 , Ia121 , Ia211 , Ia221 , Major , Scr1 , Sub0 , Sub1 , Uset
-!
-! Local variable declarations
-!
    INTEGER i , j , n4
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     UPART ALONG WITH MPART WILL PERFORM A SYMMETRIC PARTITION OF A
 !     MATRIX

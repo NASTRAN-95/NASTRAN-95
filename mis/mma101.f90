@@ -2,9 +2,6 @@
 SUBROUTINE mma101(Zi,Zr)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Incrp , Incru , Iprc(2) , Iprow1 , Iprown , Irc(4) , Iurow1 , &
          & Iurown , Ksystm(152) , Nac , Nadens , Naform , Nanzwd , Nar , Natype , Nbc , Nbdens , Nbform , Nbnzwd , Nbr , Nbtype ,   &
          & Ncc , Ncdens , Ncform , Ncnzwd , Ncr , Nctype , Ndc , Nddens , Ndform , Ndnzwd , Ndr , Ndtype , Nout , Nwords(4) , Nz ,  &
@@ -16,18 +13,9 @@ SUBROUTINE mma101(Zi,Zr)
    COMMON /system/ Ksystm
    COMMON /type  / Iprc , Nwords , Irc
    COMMON /unpakx/ Typeu , Iurow1 , Iurown , Incru
-!
-! Dummy argument declarations
-!
    INTEGER Zi(2)
    REAL Zr(2)
-!
-! Local variable declarations
-!
    INTEGER i , ibrowi , idrow , idxx , ii , indxa , indxb , irow1 , irowa1 , irowan , irowb1 , irowbn , irown , j , k , nwddnar
-!
-! End of declarations
-!
 !
 !     MMA101 PERFORMS THE MATRIX OPERATION USING METHOD 10 AND
 !       REAL SINGLE PRECISION

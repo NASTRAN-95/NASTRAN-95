@@ -1,9 +1,6 @@
 
 SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Degra , Dummy , Twopi , Z(1) , Za(4)
    INTEGER Ii , Ii1 , Incr , It1 , It2 , Iz(1) , Jj , Mach , Ncont , Sysbuf
    COMMON /blank / Dummy , Ncont
@@ -13,22 +10,13 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ Za , Ii1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Dit , Fco , Fct , Iflag , Itrl , Tmldtb , Tol , Trl
-!
-! Local variable declarations
-!
    LOGICAL dec
    REAL deltat , ft , q1 , q2 , q3 , rt , t , to , tt , zrad
    INTEGER file , i , ibuf1 , ibuf2 , ibuf3 , igroup , ilen , iltab , ip , ip1 , iq , iq1 , iq2 , iq3 , iqvec , iret , ist , itab , &
          & iterm , itid , itlist(13) , ivs , j , k , l , lrec , ltab , lx , m , mcb(7) , mcb1(7) , name(2) , ngroup , noload ,      &
          & nout , nqvect , nstep , ntabl , nterm , nz
    INTEGER korsz , numtyp
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS SUBROUTINE IS TO PRODUCE A MATRIX OF FUNCTIONS
 !     OF TIME.  EACH COLUMN IS A TIME STEP (AS DEFINE BY TRL) AND EACH

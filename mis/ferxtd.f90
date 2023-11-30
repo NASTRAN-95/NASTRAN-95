@@ -1,9 +1,6 @@
 
 SUBROUTINE ferxtd(V1,V2,V3,V4,V5,Zb,Ifn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cndflg , Eofnrw , Ibflt , Ibforv , Ibfsma , Ibk , Idiag , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) ,&
          & Ifset , Ii , Iip , Incr , Incrp , Ind , Io , Ioptf , Iprc , Istart , Iter , Itp1 , Itp2 , Ksystm(65) , L16 , Ltpos(7) ,  &
          & Mcblt(7) , Mcbrm(7) , Mcbsma(7) , Mcbvec(7) , Mord , Mrank , Neig , Nidlt , Nidorv , Nidsma , Nltli , Nn , Nnp , Nonul , &
@@ -25,19 +22,10 @@ SUBROUTINE ferxtd(V1,V2,V3,V4,V5,Zb,Ifn)
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Zd
-!
-! Dummy argument declarations
-!
    INTEGER Ifn
    DOUBLE PRECISION V1(1) , V2(1) , V3(1) , V4(1) , V5(1) , Zb(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aii , b(2) , d , db , dbi , depx , depx2 , dsq , dtmp , omdepx , opdepx , sd , sdmax , zero
    INTEGER i , ic , ifg , ifv , iloc , ix , iy , name(5) , nidx , nord1 , vcdot
-!
-! End of declarations
-!
 !
 !     FERXTD is a modification of the old subroutine FNXTVC.  The
 !     modification allows for reading the orthogonal vectors and the

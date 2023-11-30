@@ -1,22 +1,13 @@
 
 SUBROUTINE tablev(*,In,Ll,Trl,Name,P4,Ibuf,Z5)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nout , Sysbuf , Z(1)
    REAL Rz(1)
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , In , Ll , P4
    INTEGER Name(3) , Trl(7)
    CHARACTER*5 Z5(1)
-!
-! Local variable declarations
-!
    CHARACTER*1 b1 , d1 , f1 , i1 , r1 , z1
    LOGICAL debug
    DOUBLE PRECISION dz
@@ -25,9 +16,6 @@ SUBROUTINE tablev(*,In,Ll,Trl,Name,P4,Ibuf,Z5)
    CHARACTER*10 z10
    CHARACTER*15 z15
    REAL z4(2)
-!
-! End of declarations
-!
 !
 !     TABLE-V IS CALLED ONLY BY INPUT5 TO GENERATE A GINO TABLE
 !     DATA BLOCK IN 'OUT' FROM AN INPUT FILE 'IN' - A REVERSE PROCESS

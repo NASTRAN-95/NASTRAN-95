@@ -1,25 +1,13 @@
 
 SUBROUTINE frmax(Ifk,Ifm,N,Ipr,Rsn,Rsm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Incr , Ip , Iprc , Np
    COMMON /unpakx/ Iprc , Ip , Np , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Ifk , Ifm , Ipr , N
    DOUBLE PRECISION Rsm , Rsn
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dzk(1) , dzm(1) , ratinv , ratio
    INTEGER i
    REAL zk(1) , zm(1)
-!
-! End of declarations
-!
    EQUIVALENCE (dzk(1),zk(1)) , (dzm(1),zm(1))
    Iprc = Ipr
    Incr = 1

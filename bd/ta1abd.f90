@@ -1,14 +1,8 @@
 
 BLOCKDATA ta1abd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ig(90)
    COMMON /ta1acm/ Ig
-!
-! End of declarations
-!
 !TA1ABD
 !
 !     /TA1ACM/ SPECIFIES THE OPEN CORE LABELED COMMONS /ZZEMXX/

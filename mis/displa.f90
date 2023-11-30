@@ -1,30 +1,18 @@
 
 SUBROUTINE displa(Gplst,X,S,U,Pen,Deform,Label,Pt,B1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axis(3) , Color , Daxis(3) , Ect2 , Icntvl , Merr , Ncntr , Ngpset , Scr1
    REAL Cntr(50) , Defmax , Maxdef , Sk(6) , Sk18(18) , Ski(6) , Skip(5) , Skip1(39) , Skip2(110) , Skip3(2) , Skp(7) , Skppar(6) , &
       & Xmin
    COMMON /blank / Skip , Ngpset , Sk , Ect2 , Skp , Merr , Ski , Scr1
    COMMON /pltdat/ Skip3 , Xmin
    COMMON /xxparm/ Skip1 , Maxdef , Defmax , Axis , Daxis , Skip2 , Ncntr , Cntr , Icntvl , Skppar , Sk18 , Color
-!
-! Dummy argument declarations
-!
    INTEGER B1 , Deform , Pen
    INTEGER Gplst(1) , Label(50)
    REAL Pt(8) , S(2,1) , U(3,1) , X(3,1)
-!
-! Local variable declarations
-!
    REAL a(4) , conmax , conmin , d , delta , dmax , sign(3) , xx(4) , yy(4)
    INTEGER elid , gp , gpts(12) , i , ig , ij , ik , index , itype , j , kbar , kq4 , kt3 , m , msg(13) , mvect(3) , ngppe , nmsg , &
          & offset
-!
-! End of declarations
-!
 !
    DATA nmsg/13/ , msg/4H(33X , 4H,41H , 4H***  , 4HINCO , 4HMPLE , 4HTE P , 4HLOT  , 4HDUE  , 4HTO I , 4HNPUT , 4H OR  , 4HFILE ,  &
        &4H.)  /

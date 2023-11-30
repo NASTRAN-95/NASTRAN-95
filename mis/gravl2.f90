@@ -1,9 +1,6 @@
 
 SUBROUTINE gravl2(Nvect,Fild,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , B(4) , Bgpdt , Core(1) , Cstm , Old
    INTEGER Ieol , Ii , Istl , Ll , Mass , N(2) , Nn(8) , Nrowsp , Sil , Sysbuf
    COMMON /blank / Nrowsp
@@ -12,20 +9,11 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
    COMMON /zblpkx/ B , Ii
    COMMON /zntpkx/ A , Ll , Ieol
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Fild , Nvect
    INTEGER Pg(7)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER ibuf , iloop , iout , ipm , isil , isil1 , isil2 , lcore , name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !

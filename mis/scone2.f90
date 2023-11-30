@@ -1,9 +1,6 @@
 
 SUBROUTINE scone2(Sorc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Block(9,14) , Commun(225) , Conphi , Consts(5) , Degra , Delta , Dum11(3) , Dummy(35) , Force(7) , Harm , Iii , Nphi ,      &
       & Phi(14) , S(96) , Sig(3) , Sig1 , Sig12 , Sig2 , Sinphi , Stress(18) , Sum(8) , Temp , Theta , Vec(8) , Z(1) , Zoff(2) ,    &
       & Zoveri
@@ -14,18 +11,9 @@ SUBROUTINE scone2(Sorc)
    COMMON /sdr2x8/ Vec , Sum , Sig , Sig1 , Sig2 , Sig12 , Temp , Delta , Theta , Npoint , Zoveri , Ipt , Block , Nelhar , Elemid , &
                  & Harm , N , Sinphi , Conphi , Nphi , Nangle
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Sorc
-!
-! Local variable declarations
-!
    INTEGER i , j , nelold
    LOGICAL zero
-!
-! End of declarations
-!
 !
 !     PHASE II OF STRESS DATA RECOVERY
 !

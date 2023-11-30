@@ -1,26 +1,14 @@
 
 SUBROUTINE frd2e(In,Io,Nload,Nfreq)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Incr1 , Inn , Iout , Isys , Nnn
    REAL Z(1)
    COMMON /system/ Isys
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER In , Io , Nfreq , Nload
-!
-! Local variable declarations
-!
    INTEGER i , ib1 , ib2 , j , ma(7) , mb(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !     MAKE UHDF FROM IN

@@ -1,21 +1,12 @@
 
 SUBROUTINE mflud4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum1(10) , Ecpt(100)
    INTEGER Ifmgg , Iopt1 , K1ggsw , Necpt(100) , Npvt
    COMMON /sma2cl/ Iopt1 , K1ggsw , Npvt
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifmgg
-!
-! Local variable declarations
-!
    INTEGER i , iret
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE IS USED FOR THE 4-SIDED FLUID ELEMENT. IT REARRANGES
 !      THE DATA AND  CALLS THE MFLUD3 ROUTINE FOR EACH SUBELEMENT.

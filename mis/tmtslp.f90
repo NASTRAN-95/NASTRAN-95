@@ -1,9 +1,6 @@
 
 SUBROUTINE tmtslp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , B(1) , C(1) , D(1) , E(16) , Skip(74) , Tbldpk , Tgetsb , Tgetst , Tgino , Tintpk , Tllcdp , Tllcsp , Tllrdp ,       &
       & Tllrsp , Tpack , Tputst , Ttlcdp , Ttlcsp , Ttlrdp , Ttlrsp , Tunpak
    COMPLEX Ac(1) , Bc(1) , Cc(1) , Dc(1)
@@ -14,17 +11,11 @@ SUBROUTINE tmtslp
                  & Tllrsp , Tllrdp , Tllcsp , Tllcdp , Tgetsb
    COMMON /system/ Sysbuf , Nout , Skip , Isy77
    COMMON /zzzzzz/ A
-!
-! Local variable declarations
-!
    COMPLEX adnc
    DOUBLE PRECISION adnd
    REAL adno , asq , t1 , t2 , time , tperop
    INTEGER buf1 , buf2 , end , end2 , end4 , i , iret , isubr(2) , itot , j , l , m , n , type
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TMTSLP TIME TESTS CPU TIMES FOR VARIOUS TYPES OF LOOPS
 !

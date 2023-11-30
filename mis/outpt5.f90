@@ -190,9 +190,6 @@ SUBROUTINE outpt5
 !     WRITTEN BY G.CHAN/UNISYS   1987
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Date(3) , Dum22(22) , Dum50(50) , Dum6(7) , Dumm4(4) , Ibuf , Ii , Ijhalf(3) , Incr , Ityp , Iz(1) , Jj , Line , Lpch ,  &
          & Mach , Mchnam , Nbpw , Nout , P1 , P2 , P3(2) , P4 , Ti(10)
    CHARACTER*80 Dsnames(80)
@@ -208,9 +205,6 @@ SUBROUTINE outpt5
    COMMON /unpakx/ Ityp , Ii , Jj , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    CHARACTER*8 bf , binary , formtd
    INTEGER blank , buf1 , col , dt(3) , err , fn(3,10) , i , input , izero , j , jb , je , k , l , lfn , mone , mtrx , mx , name(2) &
          & , nc , none(2) , nwds , one , out , row , subnam(2) , table , tapeid(2) , tble , trl(9) , type , wrt
@@ -218,9 +212,6 @@ SUBROUTINE outpt5
    DOUBLE PRECISION dx , dzero
    INTEGER korsz
    REAL x , zero
-!
-! End of declarations
-!
 !WKBNB
 !WKBNE
    EQUIVALENCE (Rz(1),Dz(1),Iz(1))

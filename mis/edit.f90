@@ -1,25 +1,13 @@
 
 SUBROUTINE edit(Name,Iopt,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Item(7,1) , Nitem
    COMMON /itemdt/ Nitem , Item
-!
-! Dummy argument declarations
-!
    INTEGER Iopt , Itest
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i , index , it , mask , nmsbr(2)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     REMOVES SELECTED ITEMS OF THE SUBSTRUCTURE NAME FROM THE SOF.
 !     THE VALUE OF IOPT IS THE SUM OF THE FOLLOWING INTEGERS REFLECTING

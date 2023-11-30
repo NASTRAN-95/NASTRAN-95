@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1cps
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt , Cstm , Degrad , Dm(20) , Ecpt , Ect , Eltemp , Est , Gei , Genl , Gpct , Gpect , Gptt , Pi , Raddeg , Rmtout(25) ,  &
       & Rz(1) , Scr1 , Scr2 , Scr3 , Scr4 , Sil , Two(32) , Twopi
    INTEGER Cls , Clsrew , Comps , Ept , Eptx , Icfiat , Inflag , Luset , Matid , Mpt , Mptx , Nogenl , Nogo , Nosimp , Nosup ,      &
@@ -18,9 +15,6 @@ SUBROUTINE ta1cps
                  & Scr1 , Scr2 , Scr3 , Scr4
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL alfa1 , alfa12 , alfa2 , c , c2 , c4 , const , determ , detrmn , dit , dum(6) , dummy(3) , e(2) , ei(2) , eixx , eiyy ,     &
       & epsi , ex , exx , ey , eyy , fi(2) , fii(2) , g(25) , g1(3,3) , g2(3,3) , g3(2,2) , g3bar(3,3) , g3br(9) , g3i(9) ,         &
       & g3invd(2,2) , g3iu(9) , g4(3,3) , gbar(3,3) , gbendg(17) , gbr(9) , gd(9) , gd1(3,3) , gd2(3,3) , gd4(3,3) , gdbar(3,3) ,   &
@@ -38,9 +32,6 @@ SUBROUTINE ta1cps
    INTEGER pcompr , pidloc , pos , pos1 , pshbit , pshlpr , pshnam(3) , sym , symmem , typc , typc1 , typc2
    REAL zx , zy
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     G3 MATRIX CALCULATION WITH NEW FORMULATION
 !

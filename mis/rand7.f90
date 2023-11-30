@@ -1,28 +1,16 @@
 
 SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Dit , Icoup , Ltab , Nfile , Nfreq , Npsdl , Ntau , Psdl , Xycdb
    INTEGER Ifile(1)
-!
-! Local variable declarations
-!
    REAL f
    INTEGER file , i , i10 , i163 , ibuf1 , ip1 , ipsdl(6) , irand , itabl , itau , itlist(7) , j , jj , k , l , lcore , len ,       &
          & name(2) , ntabl
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     STORES STUFF IN CORE FOR LATER RANDOM ANALSIS
 !

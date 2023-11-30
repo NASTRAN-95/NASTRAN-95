@@ -1,28 +1,16 @@
 
 SUBROUTINE na12if(*,A,N,B,Int)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nout
    COMMON /xreadx/ Nout
-!
-! Dummy argument declarations
-!
    REAL B
    INTEGER Int , N
    INTEGER A(1)
    CHARACTER*1 C(1)
-!
-! Local variable declarations
-!
    CHARACTER*1 bk , num(10) , pt , t(24) , tj
    CHARACTER*12 blnk , next , temp
    INTEGER i , j , k , nt
    REAL xi
-!
-! End of declarations
-!
 !
 !     VAX, IBM AND UNIVAC VERSION (CHARACTER FUNCTION PROCESSING)
 !     ===========================

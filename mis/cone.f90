@@ -1,9 +1,6 @@
 
 SUBROUTINE cone(Ti,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph1 , Alph2 , Alph3 , Costh , Degra , Ecpt(35) , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gshear ,  &
       & Gsube , Pi , Ra , Radeg , Rb , Rho , S4pisq , Sigcom , Sigshe , Sigten , Sinth , Stress , Temp , Ts , Tsub0 , Twopi , Za ,  &
       & Zb
@@ -13,21 +10,12 @@ SUBROUTINE cone(Ti,Z)
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alph1 , Alph2 , Alph3 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,     &
                  & G2x211 , G2x212 , G2x222
    COMMON /trimex/ Mecpt
-!
-! Dummy argument declarations
-!
    REAL Ti(2) , Z(1)
-!
-! Local variable declarations
-!
    REAL a , b , b2 , b3 , b4 , c , cp , cp2 , d , d11 , d12 , d22 , d33 , determ , dum , eht(96) , f , ff , huq(100) , hyq(10) ,    &
       & i00 , i01 , i02 , i03 , i10 , i11 , i12 , i13 , i21 , i22 , i23 , i31 , i33 , i41 , n2d33 , ncp , nsp , nspopi , one , opi ,&
       & oq , orbora , pa(8) , rasq , rav , rbma , rbma2 , rlog , sp , sp2 , sp2d22 , temp1 , temp2 , temp3 , temp4 , temp5 , temp6 ,&
       & temp7 , twod33 , twora , xi(6) , xl , xl2 , xl4 , xn , xn2 , zbma
    INTEGER i , inc1 , inc2 , ising , itest , ixn , j , k , krow , ncol
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE THERMAL LOADS ON A AXISYMMETRIC CONE
 !

@@ -1,22 +1,10 @@
 
 SUBROUTINE trlgd(Fct,Fco,Ap,As,Ad,Ah,Ppo,Pso,Pdo,Pdt,Pht,Iflag1,Scr1,Iflag)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iprec , Iskip(54)
    COMMON /system/ Iskip , Iprec
-!
-! Dummy argument declarations
-!
    INTEGER Ad , Ah , Ap , As , Fco , Fct , Iflag , Iflag1 , Pdo , Pdt , Pht , Ppo , Pso , Scr1
-!
-! Local variable declarations
-!
    INTEGER mcb(7) , prec , sign , trnsp
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS SUBROUTINE IS TO COMPUTE LOAD FACTORS
 !         BOTH AT APPLIED TIMES(T) AND OUTPUT TIMES(O).

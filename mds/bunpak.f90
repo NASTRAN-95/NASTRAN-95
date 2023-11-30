@@ -10,26 +10,14 @@ SUBROUTINE bunpak(Ig,I,Nj,Jg)
 !     WRITTEN BY G.CHAN/UNISYS,    MAY 1988
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dum3b(3) , Dum4(4) , Dum4s(4) , Ibuf , Ii1 , Ipass , Mask , Maxdeg , Nbit , Nout , Nw
    COMMON /bandb / Nbit , Dum3b , Ipass , Nw
    COMMON /bands / Dum4s , Ii1 , Maxdeg , Dum4 , Mask
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER I , Nj
    INTEGER*2 Ig(1)
    INTEGER Jg(1)
-!
-! Local variable declarations
-!
    INTEGER n , n1 , nam(2)
-!
-! End of declarations
-!
 !
 !DC   NEXT 2 LINES FOR CDC AND UNIVAC ONLY
 !     EXTERNAL         ANDF,     RSHIFT

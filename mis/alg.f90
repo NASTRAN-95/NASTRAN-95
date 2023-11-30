@@ -1,9 +1,6 @@
 
 SUBROUTINE alg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Algdb , Apress , Atemp , Ifail , Ipgeom , Iprtc , Iprtk , Iscr3 , Istrml , Iz(1) , Log1 , Log2 , Log3 , Log4 , Log5 ,    &
          & Log6 , Naero , Nanal , Narbit , Nbldes , Nout , Pgeom , Strml , Sysbuf
    REAL Chordd(21) , Fxcoor , Fycoor , Fzcoor , Sign , Stag(21) , Zorign
@@ -18,14 +15,8 @@ SUBROUTINE alg
    COMMON /udstr2/ Nbldes , Stag , Chordd
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER ibuf1 , ibuf2 , ibuf3 , ierr , ifile , iscr1 , iscr2 , iscr4 , name(2) , nz , title1(18) , wd(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS IS THE DRIVER SUBROUTINE FOR THE ALG MODULE
 !

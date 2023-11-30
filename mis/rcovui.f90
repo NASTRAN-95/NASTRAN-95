@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovui(Ub,Lastss,Modal)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp(3) , Alpha , Bet(3) , Beta , Cdp , Csp , Diag , Dum(24) , Energy , Eofnrw , Gam(3) , Gama , Pa , Pthres , Qa , Qthres , &
       & Range(2) , Rd , Rdp , Rdrew , Rect , Rew , Rsp , Rz(1) , Square , Step , Sym , Uimpro , Uinms(2,5) , Upper , Uthres , Wrt , &
       & Wrtrew
@@ -22,22 +19,13 @@ SUBROUTINE rcovui(Ub,Lastss,Modal)
    COMMON /rcovcr/ Icore , Lcore , Buf1 , Buf2 , Buf3 , Buf4 , Sof1 , Sof2 , Sof3
    COMMON /saddx / Nomat , Lcor , Mcbaa , Typa , Alpha , Alp , Mcbbb , Typb , Beta , Bet , Mcbcc , Typc , Gama , Gam , Dum , Mcbxx
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    LOGICAL Modal
    INTEGER Ub
    INTEGER Lastss(2)
-!
-! Local variable declarations
-!
    INTEGER bgg , bmtx , dua , gims , horg , i , idp , idpcor , item , k4gg , k4mx , lcorez , mgg , mmtx , name(2) , nhpdat , nrowo ,&
          & pid , rc , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9 , uad , uao , upart , uprt
    INTEGER korsz
    LOGICAL reqf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE IMPROVED LOWER LEVEL DISPLACEMENTS
 !     ON A REDUCED SUBSTRUCTURE WHICH INCLUDE INERTIA AND DAMPING

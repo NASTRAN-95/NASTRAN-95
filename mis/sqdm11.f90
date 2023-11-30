@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdm11
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(24) , Alphas(3) , Angle , B(96) , Consts(5) , Costh , Degra , Dumb(75) , Dummy(39) , Dummy1 , Dummy2 , Dummy3 , Dummy4 ,  &
       & E(9) , Ecpt(26) , Eltemp , Fmu , Forvec(25) , G(9) , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , &
       & Ph1out(100) , Rho , Sigcom , Sigshe , Sigten , Sinth , Stress , T , Tempar(150) , Theta , Ti(9) , Tsub0 , X1 , X2 , X3 ,    &
@@ -17,17 +14,11 @@ SUBROUTINE sqdm11
                  & Z3 , Dummy4 , X4 , Y4 , Z4 , Dumb , Ph1out , Forvec
    COMMON /sdr2x6/ E , Ti , Theta , Tempar , A , G , B
    COMMON /system/ Dummy , Nbpw
-!
-! Local variable declarations
-!
    REAL a2 , a3 , aj , b2 , b3 , c1 , cth1 , cth2 , cth31 , cth32 , cth41 , cth42 , dlt1 , dlt2 , ee(144) , etas , hh , la , lb ,   &
       & lbd1 , lc , lcd1 , lcd2 , ld , ldd2 , magi , magj , magk , pi1 , pi2 , pi3 , pj1 , pj2 , pj3 , pk1 , pk2 , pk3 , sth1 ,     &
       & sth2 , sth31 , sth32 , sth41 , sth42 , temp1 , temp2 , tol , tol2 , x12 , x13 , x14 , x21 , x23 , x24 , x31 , x34 , x41 ,   &
       & x42 , xis , xstar , y21 , y31 , y34 , y3a , y41 , y42 , y4a , ystar , z21 , z31 , z41 , z42
    INTEGER i , ii , iict , il , il59 , irowct , jj , jjct , ka , kk , kkct , ktot , l , lcnt , llct , mmct , n , nn , nn49 , nnct
-!
-! End of declarations
-!
 !
 !     PHASE I OF STRESS DATA RECOVERY FOR THE  QUADRILATERAL MEMBRANE
 !     ELEMENT

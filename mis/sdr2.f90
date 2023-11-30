@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , Any , Casecc , Displ , Icb(7) , Icstm , Intap , Isopl , Ivec , Ivecn , Knset , Ktype , Kwdcc , Kwdedt , Kwdest ,   &
          & Kwdgpt , Line , Loadnn , Loads , Maxlin , Mcb(7) , Method , Mpcn , Mset , Nam(2) , Ncstm , Nharms , Nogo , Nrigds ,      &
          & Nrings , Plots , Spcf , Vel
@@ -17,13 +14,7 @@ SUBROUTINE sdr2
                  & Cei , Pla , Nrings , Nharms , Axic , Knset , Isopl , Strspt , Ddrmm
    COMMON /system/ Sysbuf , Opte , Nogo , Intap , Mpcn , Spcn , Method , Loadnn , Symm , Stftmp , Page , Line , Tline , Maxlin ,    &
                  & Date , Time , Echo , Plots
-!
-! Local variable declarations
-!
    INTEGER k
-!
-! End of declarations
-!
 !
 !     SDR2 IS THE EXECUTIVE CONTROL PROGRAM FOR THE SDR2 MODULE.
 !

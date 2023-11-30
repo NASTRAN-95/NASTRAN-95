@@ -1,27 +1,15 @@
 
 SUBROUTINE fbs(Zs,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbb(7) , Dbl(7) , Lcore , Nout , Rlcmpx(4) , Sysbuf , Words(4)
    REAL Dbu(7) , Dbx(7) , Prc(2) , Prec , Scrx , Sign
    COMMON /fbsx  / Dbl , Dbu , Dbb , Dbx , Lcore , Prec , Sign , Scrx
    COMMON /system/ Sysbuf , Nout
    COMMON /type  / Prc , Words , Rlcmpx
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(1)
    REAL Zs(1)
-!
-! Local variable declarations
-!
    INTEGER iremain , l46 , memavl , ncol , need , nrhv , nrhvwd , rc , typeb , typel
    REAL subnam
-!
-! End of declarations
-!
 !
 !     GIVEN A LOWER TRIANGULAR FACTOR WITH DIAGONAL SUPERIMPOSED, AND
 !     WRITTEN WITH TRAILING STRING DEFINITION WORDS, FBS WILL PERFORM

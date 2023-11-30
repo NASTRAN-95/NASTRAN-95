@@ -4,23 +4,11 @@ SUBROUTINE unpack(*,File,A)
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Incr , Irobgn , Itypot , Lasrow
    COMMON /unpakx/ Itypot , Irobgn , Lasrow , Incr
-!
-! Dummy argument declarations
-!
    INTEGER File
    REAL A(4)
-!
-! Local variable declarations
-!
    INTEGER idiff , ilsrow , index1 , index2 , irow , itype , k , kk , kkk , large , num , numinc , numlef
-!
-! End of declarations
-!
    DATA large/65536/
    Name = File
    num = Nwrdel(iabs(Itypot))

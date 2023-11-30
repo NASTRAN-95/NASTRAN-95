@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb2a(Input,Fmat,Xyzb,Index)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Degra , Den , Dum(2) , Flowa , Mach , Maxmac , Minmac , Pi , Radeg , Radius ,     &
       & Redf , Refc , Refcrd , Refden , Refflo , Refmac , Refstg , Refvel , Rfreq , S4piso , Sigma , Stager , Sysbuf , Twopi , Vel ,&
       & Xsign
@@ -17,21 +14,12 @@ SUBROUTINE amgb2a(Input,Fmat,Xyzb,Index)
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4piso
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Input
    REAL Fmat(Nstns,Nstns) , Xyzb(3,Nstns)
    INTEGER Index(1)
-!
-! Local variable declarations
-!
    REAL al1 , al1sq , al2 , al2sq , an , arg , ch2 , determ , dum1 , pic , tbl(3,3) , x , xa , xb , xba , ya , yb , yba , za , zb , &
       & zba
    INTEGER i , ising , j , nstns3
-!
-! End of declarations
-!
 !
 !     COMPUTE F(INVERSE) FOR THIS STREAMLINE
 !

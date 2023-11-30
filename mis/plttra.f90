@@ -1,9 +1,6 @@
 
 SUBROUTINE plttra
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cls , Clsrew , Rd , Rdrew , Wrt , Wrtrew
    INTEGER Lusep , Luset , Not , Sysbuf , Z(1)
    CHARACTER*23 Ufm
@@ -12,16 +9,10 @@ SUBROUTINE plttra
    COMMON /system/ Sysbuf , Not
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a(4) , b(2) , bgpdp , bgpdt , buf1 , buf2 , buf3 , buf4 , delta , file , flag , mcb(7) , nadd , name(2) , ndx , ns , nz ,&
          & plt(2) , s1 , s2 , sil , sip
    INTEGER korsz
    LOGICAL leof
-!
-! End of declarations
-!
 !
 !     PLTTRA MODIFIES THE SIL AND BGPDT TABLES FOR THE PURPOSE OF
 !     PLOTTING SPECIAL SCALAR GRID POINTS

@@ -1,28 +1,16 @@
 
 SUBROUTINE na12a8(*,A,N,B,Notuse)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mach , Nout
    COMMON /machin/ Mach
    COMMON /xreadx/ Nout
-!
-! Dummy argument declarations
-!
    INTEGER N , Notuse
    INTEGER A(1) , B(2)
    CHARACTER*1 C(1)
    CHARACTER*8 D(1)
-!
-! Local variable declarations
-!
    CHARACTER*10 blnk , temp
    INTEGER cdc , i , j
    CHARACTER*1 t(8)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (t(1),temp)
    DATA blnk/'          '/ , cdc/4/

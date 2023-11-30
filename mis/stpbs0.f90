@@ -1,19 +1,10 @@
 
 SUBROUTINE stpbs0(X,Ncode,Bj0,By0)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Bj0 , By0 , X
    INTEGER Ncode
-!
-! Local variable declarations
-!
    REAL a , e , t , u , uw , w , z
    INTEGER name(2)
-!
-! End of declarations
-!
 !     SUBROUTINE  BES0.  J AND Y BESSEL FUNCTIONS OF ORDER ZERO
 !     E. ALBANO, ORGN 3721, EXT 1022, OCT. 1967
 !     COMPUTES J0(X)  IF X IS GREATER THAN -3.

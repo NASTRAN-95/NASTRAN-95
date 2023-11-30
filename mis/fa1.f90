@@ -1,9 +1,6 @@
 
 SUBROUTINE fa1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Floop , Icead , Ii , Ij , Incr , Incr1 , Iout , Iti , Ito , Iz(1) , Jj , Nn , Out , Sysbuf , Tstart
    REAL Hdg(96) , Z(1)
    CHARACTER*23 Ufm
@@ -14,18 +11,12 @@ SUBROUTINE fa1
    COMMON /unpakx/ Iout , Ii , Jj , Incr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER aero(2) , bhh , buff , buff1 , bxhh , casecc , flfact(2) , flist , flut(10) , fluter(2) , fmethd , fsave , i , i165 ,    &
          & iblock(12) , ibuf , ico , idum , iep , ifile , imeth(2) , izx , khh , kxhh , lcc , lfl , method(4) , mhh , mxhh , ncore ,&
          & neiw , nloops , nmd , np , nrho , ns(2) , nwr , pk , pm , pr , qhhl , rec0(8) , scr1 , sk , sl , sm , smeth , sr ,       &
          & trl(10)
    REAL block(12) , bref , dlt(3) , kfreq , rec(8) , rho , rref
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     FA1 IS THE DRIVER FOR PART ONE OF FLUTTER ANALYSIS
 !

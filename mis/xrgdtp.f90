@@ -1,20 +1,11 @@
 
 SUBROUTINE xrgdtp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Itype , Limit(2) ,         &
          & Member(2) , Name(2) , Nsubst , Num(2) , Number , Nument , Record(20)
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Local variable declarations
-!
    INTEGER delim(3) , k , nums(10)
-!
-! End of declarations
-!
 !****
 !    PURPOSE - XRGDTP DETERMINES A TYPE CODE FOR A CHARACTER
 !

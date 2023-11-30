@@ -1,9 +1,6 @@
 
 SUBROUTINE usrmsg(I)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER M , Mach , Msg(4,1) , N , Outtap
    CHARACTER*25 Sfm , Uwm
    CHARACTER*27 Swm
@@ -14,21 +11,12 @@ SUBROUTINE usrmsg(I)
    COMMON /msgx  / N , M , Msg
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    INTEGER I
-!
-! Local variable declarations
-!
    INTEGER a , b , bcd(5) , blank , c , d , e , f , i2015 , icrigd(4) , index , itype(6) , j , ja , jb , jc , jd , jf , k , l ,     &
          & ldset , ldtype , limit , list(10) , local , name(2) , p1 , p2 , ul , um , uo , ur , us
    REAL ax , rg
    CHARACTER*8 exin , exter , inter
    CHARACTER*6 quad4 , tria3
-!
-! End of declarations
-!
 !
 !     USRMSG WILL PRINT THE INDICATED USER LEVEL ERROR MESSAGE
 !

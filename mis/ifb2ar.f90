@@ -1,23 +1,14 @@
 
 SUBROUTINE ifb2ar(Type,Ifb,Ar,L)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ifb , L , Type
    INTEGER Ar(1)
-!
-! Local variable declarations
-!
    CHARACTER*12 c12
    CHARACTER*8 c8
    CHARACTER*7 fmt(10) , fmtx
    CHARACTER*10 fmty , fnt(9)
    INTEGER i , ia , j , k , sub(2) , zero(2)
    REAL ra , x , xl
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE STORES IN ARRAY AR(L+1) THE BCD VALUE OF IFB, AND
 !     UPDATE THE L COUNTER

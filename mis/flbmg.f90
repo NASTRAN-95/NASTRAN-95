@@ -1,9 +1,6 @@
 
 SUBROUTINE flbmg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Ibgpdt , Ibuf1 ,     &
          & Ibuf2 , Ibuf3 , Ibuf4 , Ibuf5 , Icore , Igrav , Igrid , Isil , Kgdict , Kgmat , Lcore , Mpt , Nbgpdt , Ngrav , Ngrid ,   &
          & Nofree , Nograv , Nout , Nsil , Sil , Sysbuf , Uset , Usetf , Usets , Z1(1) , Z2(1)
@@ -20,13 +17,7 @@ SUBROUTINE flbmg
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z1
-!
-! Local variable declarations
-!
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR MODULE FLBMG
 !

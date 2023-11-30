@@ -1,23 +1,14 @@
 
 SUBROUTINE pload
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt , Core(1) , Cstm , Old , Slt
    INTEGER Ksys(87) , Ksys88 , Lcore , Nn(11) , Nobld
    COMMON /loadx / Lcore , Slt , Bgpdt , Old , Cstm , Nn , Nobld
    COMMON /system/ Ksys , Ksys88
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL a1 , a2 , a3 , area , flag , gpco1(3) , gpco2(3) , gpco3(3) , gpco4(3) , pi , ploads(3,4) , pmag , sin1 , sin2 , sin3 , v1 ,&
       & v2 , v3 , vect(3) , vect1(3) , vect2(3) , vect3(3)
    INTEGER gridp(5) , i , igpco(4,4) , in , iord(4) , j , l , n1 , name(2) , pont(4)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (pmag,gridp(1)) , (igpco(2,1),gpco1(1)) , (igpco(2,2),gpco2(1)) , (igpco(2,3),gpco3(1)) , (igpco(2,4),gpco4(1))
    DATA name/4HPLOA , 4HD   / , pi/3.141592654/

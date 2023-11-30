@@ -1,9 +1,6 @@
 
 SUBROUTINE ssght2(File,Delta,Uni)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Af , Costh , Dum , Mato(6) , Matout(6) , R(3,8) , Sinth , Temp , Theta
    DOUBLE PRECISION Constd(5) , Pi
    INTEGER Elid , Imat , Inflag , Matid , Name(2) , Sil(8) , Sub
@@ -11,22 +8,13 @@ SUBROUTINE ssght2(File,Delta,Uni)
    COMMON /estout/ Elid , Sub , Name , Sil , Imat , Af , Theta , R , Mato
    COMMON /hmtout/ Matout
    COMMON /matin / Matid , Inflag , Temp , Dum , Sinth , Costh
-!
-! Dummy argument declarations
-!
    INTEGER File
    REAL Delta(1) , Uni(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION area , c(12) , determ , dr(3,4) , drt(4,4) , drtemp(3,4) , el , fact , k(9) , kq(9) , rbar , t1(8)
    DOUBLE PRECISION dadotb
    INTEGER flag , i , i1 , i2 , i3 , i4 , iel , ig , ip(4) , ipg , ising , itype , j , l , lrow , ltemp , m , nel , nels(15) , np , &
          & npts(15) , nq , sindx(4) , smap(52) , subr(2)
    REAL xpts
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE USES THE TEMPERATURE VECTOR DATA TO CALCULATE
 !     LOAD VECTER TERMS WITH THE EQUATION-

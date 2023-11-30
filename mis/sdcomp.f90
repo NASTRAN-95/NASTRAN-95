@@ -2,22 +2,10 @@
 SUBROUTINE sdcomp(*,Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Lout
    COMMON /logout/ Lout
-!
-! Dummy argument declarations
-!
    REAL Zd , Zi , Zr
-!
-! Local variable declarations
-!
    INTEGER i44
-!
-! End of declarations
-!
    CALL sswtch(44,i44)
    IF ( i44/=0 ) THEN
 !

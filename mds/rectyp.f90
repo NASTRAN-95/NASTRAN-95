@@ -3,17 +3,8 @@ SUBROUTINE rectyp(File,Itype)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , Itype
-!
-! Local variable declarations
-!
    INTEGER id
-!
-! End of declarations
-!
    Name = File
    CALL dsgefl
    DO

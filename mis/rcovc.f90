@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Buf1 , Buf2 , Buf3 , Buf4 , Dry , Energy , Fss(2) , Icore , Incu , Iopt , Ireq , Iru , Iz(2) , Lbasic , Lcore , &
          & Loop , Lreq , Lui , Mrecvr , Neigv , Norew , Nosort , Nout , Nru , Pa , Qa , Rfno , Rss(2) , Sof1 , Sof2 , Sof3 , Step , &
          & Sysbuf , Ua , Uinms(2,5) , Utypo
@@ -21,9 +18,6 @@ SUBROUTINE rcovc
    COMMON /unpakx/ Utypo , Iru , Nru , Incu
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER acce(3) , casecc(2) , casess , comps(3) , disp(3) , dofs(32) , eqss , file , i , iappro , icode , icomb , idbuf(146) ,   &
          & idc , ieqss , iform , iloc , in , iopst , iout , isc , iseq , iset , isets , isil , iskip , iss , isub , it , item ,     &
          & itype , ivect , j , jeqss , js , jset , jsil , jss , k , kid , kpoint , kset , lcc , lid , lseq , lsets , lskip , mcba(7)&
@@ -33,9 +27,6 @@ SUBROUTINE rcovc
    REAL data(12) , eigen , eigeni , rdbuf(7) , thresh , value
    INTEGER korsz
    INTEGER soln , spcf(3) , srd , substr(4) , uvec , velo(3)
-!
-! End of declarations
-!
 !
 !     RCOVC COMPUTES REACTION FORCES AND GENERATES OUTPUT DATA BLOCKS
 !     FOR DISPLACEMENTS, APPLIED LOADS, AND REACTION FORCES.

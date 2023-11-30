@@ -1,9 +1,6 @@
 
 SUBROUTINE loadsu
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf2 , Hest , Iout , Ist , Iz(1) , Load , Mcore , Ng1 , Ng2 , Nslt , Ntot , Scr1 , Subcas
    LOGICAL Remfl
    REAL Sysbuf , X1 , X2 , Y1 , Y2 , Z(1) , Z1 , Z2
@@ -13,15 +10,9 @@ SUBROUTINE loadsu
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL alls , factor , zl(2)
    INTEGER bgpdt , file , i , id , ido , iflag , iload , isimp , isub , isub1 , isub2 , iwords , j , ktype , l(2) , mcb(7) ,        &
          & mwords , n , nam(2) , ncards , nel , nloads , nobld , nrowsp , ns , ns2 , nsimp , nwords(19)
-!
-! End of declarations
-!
 !
 !     LOADSU SETS UP LOAD INFOTMATION FOR PROLAT FROM NSLT.
 !     Z(IST)IS THE STARTING POINT FOR OPEN CORE,Z(MCORE) IS THE LAST

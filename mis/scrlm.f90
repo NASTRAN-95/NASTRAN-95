@@ -1,19 +1,10 @@
 
 SUBROUTINE scrlm(Scurl,Xxi,E,H,Cont,Rp,Alf1,R1,Lam1,Hf)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Alf1 , Cont , H , Hf , Lam1 , R1 , Rp
    REAL E(2,2) , Scurl(15,10) , Xxi(3)
-!
-! Local variable declarations
-!
    REAL eel , el , ell , lam2 , lam3 , lam4 , sc1 , sc2 , xx1 , xx2 , xx3 , xx4 , xx5
    INTEGER i , j , jj , k , kk , ll
-!
-! End of declarations
-!
 !
 ! THIS SUBROUTINE COMPUTES THE STRESS MATRIX IN FIELD COORDINATES
 ! FOR THE TOROIDAL RING ELEMENT

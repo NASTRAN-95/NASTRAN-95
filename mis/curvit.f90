@@ -1,31 +1,19 @@
 
 SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Ioutpt , Rd , Rdrew , Sysbuf , Wrt , Wrtrew
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Ioutpt
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Ifile , Lz , Mclose , Mcsid , Nd , Ni
    REAL Toler , Xscale , Yscale
    REAL Dep(2,1) , Indep(2,1) , Z(1)
    INTEGER Iz(1)
-!
-! Local variable declarations
-!
    INTEGER eor , i , ibuf , icrq , idx , ilist , ipts , ising , itemp(2) , ixy , j , jxy , jz , k , k1 , k2 , n , nclose , nlist ,  &
          & noeor , nxy , subr(2)
    REAL fmax , fmin , tol , x , y
-!
-! End of declarations
-!
 !
 !     PERFORMS LOCAL INTERPOLATION
 !

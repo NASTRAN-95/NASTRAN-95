@@ -1,19 +1,10 @@
 
 SUBROUTINE mbmode(Input,Out,Icor,Ncor,Z,Ni,Nd,Xd,Yd,Is,Cr)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Cr , Out
    INTEGER Icor , Input , Is , Ncor , Nd , Ni
    REAL Xd(1) , Yd(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , icc , idp , j , l , m , name(2) , ncore , nnd , nni
-!
-! End of declarations
-!
 !
 !     MBMODE BUILDS THE MODE LIKE DATA ON OUT FROM SURFACE SPLINE INTER
 !

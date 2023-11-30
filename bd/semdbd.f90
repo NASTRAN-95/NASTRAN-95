@@ -10,9 +10,6 @@ BLOCKDATA semdbd
 !     OR MISSING INITIALIZED DATA MAY CAUSE PROBLEMS IN SOME MACHINES.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Adumel(9) , Apprch , Asofcb , Bandit , Bcd(19) , Cdc(244) , Cdp , Cei(42) , Cppgct , Csp , Ctime , Date(3) , Diag ,      &
          & Dpl(240) , Dummyi , Echof , Eofnrw , Fiat(1100) , Filnam(10) , Filsiz(10) , Fist(112) , H21 , H22 , H23 , H30 , H31 ,    &
          & H32 , Ha , Hab , Hd , Hdy(3) , He , Hf , Hfe , Hfr , Hg , Hi , Hicore , Hk , Hl , Hm , Hn , Hne , Ho , Hp , Hpa , Hps ,  &
@@ -76,13 +73,7 @@ BLOCKDATA semdbd
    COMMON /xvps  / Vps
    COMMON /xxfiat/ Xxfiat
    COMMON /xxread/ Inflag , Insave , Ixxr
-!
-! Local variable declarations
-!
    INTEGER ksystm(100)
-!
-! End of declarations
-!
    EQUIVALENCE (ksystm(1),Sysbuf)
 !
 !

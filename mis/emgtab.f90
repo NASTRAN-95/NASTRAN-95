@@ -1,9 +1,6 @@
 
 SUBROUTINE emgtab
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat
    INTEGER Cls , Clsrew , Cstm , Dit , Ditfil , Est , Flags(3) , Geom2 , Icmbar , Icong , Icore , Icstm , Idit , Ihmat , Iihmat ,   &
          & Imat , Jcore , Ksystm(65) , Lcong , Lcstm , Lhmat , Lmat , Mpt , Mptfil , Ncong , Ncore , Ncstm , Ndit , Nhmat , Nmat ,  &
@@ -15,13 +12,7 @@ SUBROUTINE emgtab
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , eor , file , icrq , subr(2)
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE OF THE -EMG- MODULE PREPARES OPEN CORE WITH SOME
 !     VARIOUS TABLES.  CSTM, MAT, ETC.

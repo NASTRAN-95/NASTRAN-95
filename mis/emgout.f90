@@ -1,9 +1,6 @@
 
 SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat
    INTEGER Dictn(3) , Elid , Eltype , Estid , Flags(3) , Icmbar , Icong , Icore , Icstm , Idit , Ihmat , Imat , Jcore , Kflags(3) , &
          & Ksystm(65) , Lcong , Lcstm , Ldict , Lhmat , Lmat , Matrix(3) , Misc(5) , Ncong , Ncore , Ncstm , Ndit , Nhmat , Nlocs , &
@@ -21,23 +18,14 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Eoe , File , Inprec , Lbuf
    DOUBLE PRECISION Dbuf(Lbuf)
    INTEGER Dict(5)
    REAL Rbuf(Lbuf)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION da
    INTEGER eor , fredms(3) , i , i1 , i2 , iadd , icrq , ifff , igrids , iloc , iprime , itab , itemp , j , k , locs(3) , maxfil ,  &
          & n2word , noeor , nwords , part(3) , qfile
    REAL fff , ra
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OF THE -EMG- MODULE WRITES THE DATA IN -BUF- TO
 !     -FILE-.

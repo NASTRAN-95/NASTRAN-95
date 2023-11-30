@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp1c(I81,Nz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bit64
    INTEGER Blank , Core(1) , Corey(401) , Iben , Icc , Iecho , Ieor , Intp , Intra , Ipage , Is , Istr , Isub , Lencc , Line ,      &
          & Loadnn , Maxlin , Method , Mpcn , Ncpw4 , Nlpp , Nmodes , Nogo , Nset , Nsym , Nwpc , Otpe , Scr1
@@ -14,19 +11,10 @@ SUBROUTINE ifp1c(I81,Nz)
                  & Date , Tim , Iecho , Splots , Skip , Intra
    COMMON /xifp1 / Blank , Bit64
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER I81 , Nz
-!
-! Local variable declarations
-!
    INTEGER exce , i , i81o , iacip , ial1 , ibk , ibk1 , iexcpt , ifwd , ifwd1 , il1 , ilset , iput , ireal , iret , iset , ithru , &
          & jexcpt , nifp1c(2) , thru
    REAL flag
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
    DATA thru/4HTHRU/ , exce/4HEXCE/

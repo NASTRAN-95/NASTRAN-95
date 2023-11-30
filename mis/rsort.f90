@@ -1,25 +1,13 @@
 
 SUBROUTINE rsort(Nwds,Keywx,L,Nx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Keywx , Nwds , Nx
    REAL L(1)
-!
-! Local variable declarations
-!
    LOGICAL bck , mag
    INTEGER i , ia , ii , iia , iii , j , jj , keywd , nam(2) , nnn
    REAL temp(50)
-!
-! End of declarations
-!
 !
 !     RSORT SORTS REAL NUMBERS IN L(NWDS,NCOL)
 !           WHERE NCOL = IABS(NX)/NWDS

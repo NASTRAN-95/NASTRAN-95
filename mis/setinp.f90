@@ -2,9 +2,6 @@
 SUBROUTINE setinp
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , El(1) , Gp(1) , Incr , Intr , Ipcdb , Last , Merr , Mset , Msetid , Ne(1) , Nin , Nogo , Nout , Nsets , Nsk(81) &
          & , Ntypes , Pcdb , Plot , Skp11 , Skp12(8) , Skp2(9) , Skp3(7) , X(1)
    CHARACTER*23 Ufm
@@ -15,9 +12,6 @@ SUBROUTINE setinp
    COMMON /system/ Bufsiz , Nout , Nogo , Nin , Nsk , Intr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER all , allon , awrd(2) , b1 , b2 , b3 , b4 , blnk , card(65) , elem , elgp , encard , eor , exce , excl , go , grid , i , &
          & icont , idx , ie , ilxx , incl , inprew , iorew , iwrd , j , jc , mode , n , name(2) , nelx , ngpx , norew , nt , nw ,   &
          & org , outrew , pcard(20) , pocard(200) , poin , porg , rew , set , setid , stop , thru , to , tra , typ(100) , word , xx
@@ -25,9 +19,6 @@ SUBROUTINE setinp
    DOUBLE PRECISION dwrd
    REAL fwrd
    EXTERNAL complf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (X(1),El(1),Gp(1))
    EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
    DATA inprew , outrew , rew , norew , eor/0 , 1 , 1 , 3 , 1000000/

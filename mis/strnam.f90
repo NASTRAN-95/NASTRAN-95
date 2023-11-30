@@ -1,26 +1,14 @@
 
 SUBROUTINE strnam(Ielt,Iscan,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(21)
    INTEGER Isysbf , Nout
    LOGICAL Layerd
    COMMON /system/ Isysbf , Nout
    COMMON /xscanx/ Dum , Layerd
-!
-! Dummy argument declarations
-!
    INTEGER Ielt , Iscan
    CHARACTER*12 Name
-!
-! Local variable declarations
-!
    INTEGER kscan
-!
-! End of declarations
-!
 !      PRINT *,' ENTERRING STRNAM,IELT,ISCAN=',IELT,ISCAN
    Name = ' '
    IF ( Ielt==1 .OR. Ielt==3 .OR. Ielt==10 ) THEN

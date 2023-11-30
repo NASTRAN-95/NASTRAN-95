@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovim(Higher)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Fss(2) , Icore , Incrp , Incru , Iopt , Ireq , Irp , Iru , Itinp , Itinu , Itoutp , Lbasic , &
          & Lcore , Loop , Lower , Lreq , Lui , Mcba(7) , Mcbb(7) , Mcbc(7) , Mcbd(7) , Mprec , Mpyz , Mrecvr , Neigv , Norew ,      &
          & Nosort , Nrp , Nru , Rfno , Rsp , Rss(2) , Scrm , Signab , Signc , Sof1 , Sof2 , Sof3 , Tflag , Ua , Z(1)
@@ -18,20 +15,11 @@ SUBROUTINE rcovim(Higher)
    COMMON /rcovcr/ Icore , Lcore , Buf1 , Buf2 , Buf3 , Buf4 , Sof1 , Sof2 , Sof3
    COMMON /unpakx/ Itinu , Iru , Nru , Incru
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Higher(2)
-!
-! Local variable declarations
-!
    INTEGER file , i , intyp , isk , item , ivec1 , ivec2 , j , k , kmtx , lcorez , mmtx , n , name(2) , ncol , rc , scr5 , scr6 ,   &
          & scr7 , scr8 , scr9 , uvec
    INTEGER korsz
    REAL total
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE ENERGIES ON THE MODAL COORDINATES
 !     IN A SUBSTRUCTURE THAT WAS MODAL REDUCED.  IT WILL ALSO

@@ -1,28 +1,16 @@
 
 SUBROUTINE sjump(N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Ihalf , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Jhalf , Mach
    REAL Ditdum(6)
    COMMON /machin/ Mach , Ihalf , Jhalf
    COMMON /sof   / Ditdum , Io , Iopbn , Iolbn , Iomode , Ioptr , Iosind , Ioitcd , Ioblk
    COMMON /sys   / Blksiz , Dirsiz
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER N
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER eog , eoi , icount , indsbr , inxt , ird , next , nmsbr(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     JUMP OVER N GROUPS WITHIN AN ITEM WHEN IN READ MODE.  N WILL BE
 !     RETURNED AS -1 IF THE END OF ITEM IS REACHED BEFORE JUMPING OVER

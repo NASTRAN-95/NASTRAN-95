@@ -1,9 +1,6 @@
 
 SUBROUTINE sdcmq(*,Key,V1,V,Dv1,Dv,Ic,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf , Diagck , Filcur , Filscr , Ichly , Iout , Iprec , Isb , Kcl2 , Krd2 , Krr0 , Kwr1 , Kwt3 , Nerr(2) , Noglev ,      &
          & Parm(4) , Pdefck , Stscr
    REAL Diaget , Skpn , Skpsf(32)
@@ -17,21 +14,12 @@ SUBROUTINE sdcmq(*,Key,V1,V,Dv1,Dv,Ic,Z)
    COMMON /sfact / Skpsf , Ichly
    COMMON /system/ Isb , Iout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dv , Dv1
    INTEGER Ic , Key
    REAL V , V1
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER filerr , i , iv(3) , name(2)
    REAL rv , rv1
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CREATES A SCRATCH FILE OF QUEUED SINGULARITY
 !     MESSAGES.  EACH MESSAGE IS A GINO RECORD DUE TO POSSIBLE CLOSE

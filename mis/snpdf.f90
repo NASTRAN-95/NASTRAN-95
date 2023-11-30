@@ -1,19 +1,10 @@
 
 SUBROUTINE snpdf(Sl,Cl,Tl,Sgs,Cgs,Sgr,Cgr,X0,Y0,Z0,Ee,Dij,Beta,Cv)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Beta , Cgr , Cgs , Cl , Cv , Dij , Ee , Sgr , Sgs , Sl , Tl , X0 , Y0 , Z0
-!
-! Local variable declarations
-!
    REAL acab , acbb , cab , cacb , cao , caoone , cave , cbb , cbi , clb , clcgs , clsgs , db2 , dbx , dby , dbz , di2 , do2 , ex , &
       & ey , ez , onecbi , ricab , rimag , rix , riy , riz , romag , rox , roy , roz , slb , sqtlb , test1 , test2 , tlb , vby ,    &
       & vbz , viy , viz , voy , voz , vy , vz , ww , x0b
-!
-! End of declarations
-!
 !
 !     SNPDF CALCULATES THE STEADY PART OF THE INFLUENCE COEFFICIENT
 !     MATRIX ELEMENTS

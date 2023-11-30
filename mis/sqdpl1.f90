@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdpl1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , A1(3) , Alpha(3) , Consts(5) , Cosang , Costh , D1(3) , D2(3) , Degra , E(18) , Ecpt(100) , Eltemp , G11 , G12 ,    &
       & G13 , G22 , G23 , G33 , H , Ivect(3) , Jvect(3) , Kvect(3) , Ph1out(128) , Prod15(15) , R(2,5) , Requiv(10) , Rho , Sinang ,&
       & Sinth , Spdum1(18) , Spdum2(5) , Spdum3(15) , Spdum4(1) , Spdum5(2) , Spdum6(5) , Ssum(60) , St(3) , Stress , T(9) , Temp , &
@@ -17,14 +14,8 @@ SUBROUTINE sqdpl1
    COMMON /sdr2x6/ A , Temp15 , Prod15 , T , Tite , V , D1 , D2 , Spdum1 , U1 , U2 , Sinang , Cosang , Ssum , R , Xsubb , Xsubc ,   &
                  & Ysubc , E , Temp , Vv1 , Vv2 , H , A1 , Npoint , Spdum2 , Ivect , Jvect , Kvect , Spdum3 , Theta , Nsubc ,       &
                  & Spdum4 , Subsca , Subscb , Subscc , Spdum5 , Xc , Yc , Spdum6
-!
-! Local variable declarations
-!
    REAL d(9) , eye , ftemp
    INTEGER i , idsave , j , k , km , m(12)
-!
-! End of declarations
-!
 !
 !     PHASE I OF STRESS DATA RECOVERY FOR TRI OR QUAD PLATE.
 !

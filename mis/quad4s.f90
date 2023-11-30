@@ -1,9 +1,6 @@
 
 SUBROUTINE quad4s
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Akgg(1) , Amgg(1) , Anglei(4) , Anycon , Bgpdt(4,4) , Cosmat , Degrad , Determ , Detj , Dum2 , Dummy , Edgel(4) ,           &
       & Edgshr(3,4) , Eltemp , Elth , Error , Est(45) , Eta , Gpth(4) , Htcp , Hzta , Kheat(7) , Matout(25) , Matset , Nsm , Pi ,   &
       & Precis , Psitrn(9) , Raddeg , Sinmat , Sys(100) , Sysbuf , Th , Twopi , Uev(3,4) , Unv(3,4) , Vi(3) , Vj(3) , Vn(3) , Xi ,  &
@@ -33,9 +30,6 @@ SUBROUTINE quad4s
    COMMON /trplm / Ndof , Ibot , Iptx1 , Iptx2 , Ipty1 , Ipty2
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Akgg
-!
-! Local variable declarations
-!
    REAL a , aa , adamp , area , area2 , aspctx , aspcty , aspect , avgthk , ax , b , bb , bfour(240) , bgpdm(3,4) , bmat1(384) ,    &
       & bterms(32) , by , cc , cent(3) , cente(3) , coeff , coeft , colstf(144) , coltmp(144) , const , csubb4 , csubt , csubtx ,   &
       & csubty , csubx , csuby , curve(3) , curvtr(3,4) , dfour(7,7) , dgpth(4) , dheat , dnux , dnuy , dshp(8) , dshptp(8) , dsub ,&
@@ -54,9 +48,6 @@ SUBROUTINE quad4s
       & ts , tsfact , tsi , tsmfx , tsmfy , tub(9) , tum(9) , u(9) , ugpdm(3,4) , v(3,3) , v12(3) , v12dk , v41(3) , vd1(3) , vd2(3)&
       & , vis(3) , vjl , vjs(3) , vkl , vkn(3) , vks(3) , vnt(3,4) , vol , voli , vp12(3) , vp12l , w1 , weitc , x31 , x42 , xa(4) ,&
       & xm , xmass(16) , xmasso , xmtmp(16) , xybmat(96) , y31 , y42 , yb(4) , ym , zc(4) , zta
-!
-! End of declarations
-!
 !
 !     FORMS STIFFNESS AND MASS MATRICES FOR THE QUAD4 PLATE ELEMENT
 !

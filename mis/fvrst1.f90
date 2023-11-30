@@ -1,9 +1,6 @@
 
 SUBROUTINE fvrst1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bxptid , Bxtid , Byptid , Bytid , Bzptid , Bztid , Cycio , Fkmax , In , In1 , Incr , Incr1 , Iout , Itid(6) , Iz(1) ,    &
          & Kmax , Nbuf , Nerr , Nf , Nf1 , Nl , Nl1 , Nobasx , Nofreq , Nomgg , Nout , Nsegs
    DOUBLE PRECISION D4pisq , Ddegra , Dpi , Dradeg , Dtwopi , Z(1)
@@ -14,9 +11,6 @@ SUBROUTINE fvrst1
    COMMON /system/ Nbuf , Nout , Nerr
    COMMON /unpakx/ In1 , Nf1 , Nl1 , Incr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a(3,3) , avgm , b(3,3) , c(3,3) , row(3) , ta(3,3)
    INTEGER b1gg , basexg , bgpdt , case(14) , casecc , cstm , dit , frl , frlx , frqset , i , ibuf1 , ibuf2 , ibuf3 , ibuf4 ,       &
          & ibuf5 , icstm , ifrl , ifrlx , ii , iitid , iltab , index , ip1 , ipdz , itab , itlist(13) , j , jj , k , kk , kkk , l , &
@@ -26,9 +20,6 @@ SUBROUTINE fvrst1
    REAL coord(4) , dummy , row2(3)
    INTEGER korsz
    LOGICAL modfrl
-!
-! End of declarations
-!
 !
 !
 !    1. ENTRY POINT - FVRST1

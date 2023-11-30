@@ -23,9 +23,6 @@ SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
 !     A DIAGONAL MATRIX OR A ROW-VECOTR,  2/93                 ----
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrew , Cold , Fa , Fb , Fc , Fd , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Forma , Formb , Formc , Formd , Incrp ,  &
          & Incru , Ip , Iscr , Iu , Jp , Ju , Lcore , Namea(7) , Nameat(7) , Nout , Nscr , Nzz , Prc(2) , Prec , Rd , Rdrew , Scr , &
          & Signab , Signc , Sysbuf , T , Typea , Typeb , Typec , Typed , Typep , Typeu , Typout , Words(4) , Wrt , Wrtrew
@@ -40,19 +37,10 @@ SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
    COMMON /type  / Prc , Words
    COMMON /unpakx/ Typeu , Iu , Ju , Incru
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    REAL A(1) , B(1) , C(1)
    DOUBLE PRECISION Da(1) , Db(1) , Dc(1)
-!
-! Local variable declarations
-!
    INTEGER ad(7) , buf1 , buf2 , buf3 , cola , colb , colb2 , colb4 , colc , diagnl , file , i , ident , j , je , k , kx , name(2) ,&
          & nwds , nz , rowa , rowa2 , rowb , rowb2 , rowc , rowd , rowd2 , rowvec , sd(7)
-!
-! End of declarations
-!
    EQUIVALENCE (Filea(1),Fa) , (Filea(4),Forma) , (Filea(5),Typea) , (Fileb(1),Fb) , (Fileb(4),Formb) , (Fileb(5),Typeb) ,          &
     & (Filec(1),Fc) , (Filec(4),Formc) , (Filec(5),Typec) , (Filed(1),Fd) , (Filed(2),Cold) , (Filed(4),Formd) , (Filed(5),Typed)
    DATA name/4HMPYA , 4HDRI / , diagnl , rowvec , ident/3 , 7 , 8/

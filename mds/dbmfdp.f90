@@ -3,19 +3,10 @@ SUBROUTINE dbmfdp
    IMPLICIT NONE
    INCLUDE 'ZZZZZZ.COM'
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr
    COMMON /system/ Isysbf , Iwr
-!
-! Local variable declarations
-!
    INTEGER ibase , icnt , index , ival , ival2 , ival3 , ival4 , ivaln , ivalp , lblock , next
    INTEGER locfx
-!
-! End of declarations
-!
 !********************************************************************
 !     DBMFDP- DUMPS THE DIRECTORY CHAIN OF A GIVEN FILE.
 !             ARGUMENT IDIR IS THE IN-MEMORY DIRECTORY FOR THE FILE

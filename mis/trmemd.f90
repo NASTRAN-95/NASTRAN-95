@@ -1,9 +1,6 @@
 
 SUBROUTINE trmemd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(225) , Bfact , E(18) , K(324) , Kout(324) , Ksave(81) , M(9) , Mout(9) , Prod9(9) , Temp9(9) , Xsub(3)
    REAL Dm(15) , Ecpt(50) , Qq(3)
    INTEGER Elid , Estid , Icmbar , Ielid , Iheat , Ioutpt , Iprec , Ismb(3) , Ksystm(60) , Necpt(50) , Ngrid(3)
@@ -13,14 +10,8 @@ SUBROUTINE trmemd
    COMMON /emgprm/ Dm , Ismb , Iprec , Nogo , Heat , Icmbar
    COMMON /emgtrx/ A , Prod9 , Temp9 , Xsub , Bfact , E , K , Kout , Ksave
    COMMON /system/ Ksystm
-!
-! Local variable declarations
-!
    INTEGER dict(10) , i , ii , ij , ik , iout , ip , ip1 , ipart(3) , isave , j , jj , ka , l
    REAL dict5
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS AND MASS MATRICES FOR
 !     THE  TRIANGULAR MEMBRANE ELEMENT.  CALCULATIONS ARE PERFORMED

@@ -1,9 +1,6 @@
 
 SUBROUTINE ddampg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf(80) , Ii , Iii , Iin , Incr , Iout , Jncr , Jout , Ndir , Nmodes , Nn , Nnn
    REAL Z(1)
    COMMON /blank / Nmodes , Ndir
@@ -11,15 +8,9 @@ SUBROUTINE ddampg
    COMMON /system/ Ibuf
    COMMON /unpakx/ Jout , Iii , Nnn , Jncr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , file , ijk , isub , j , k , lcore , mcb(7) , mcb4 , mcb5 , mp , n , nam(2) , ncolmp , ncolpv ,      &
          & nrowmp , nrowpv , pg , pvw
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DDAMPG  MP,PVW/PG/V,N,NMODES/V,N,NDIR $
 !

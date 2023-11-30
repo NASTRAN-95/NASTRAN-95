@@ -44,9 +44,6 @@ SUBROUTINE mred1b(Mode)
 !              NSILUS - ABSOLUTE INDEX INTO USET ARRAY
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bndset , Dry , Eqsind , Fixset , Fuset , Gbuf1 , Idum10(5) , Idum11(10) , Idum12 , Idum13 , Idum14(4) , Idum2(4) ,       &
          & Idum3(4) , Idum4(5) , Idum5(2) , Idum6 , Idum7 , Idum8(6) , Idum9(2) , Ieig , Incru , Io , Iprntr , Irowu , Itwo(32) ,   &
          & Kbdyc , Korbgn , Korlen , Lcore , Line , Locust , Luset , Namebs , Nbdycc , Nlpp , Nous , Nrowu , Nslbgn , Nsub(3) ,     &
@@ -64,22 +61,13 @@ SUBROUTINE mred1b(Mode)
    COMMON /unpakx/ Typeu , Irowu , Nrowu , Incru
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Mode
-!
-! Local variable declarations
-!
    INTEGER andf , complf , orf , rshift
    INTEGER array(3) , bdy(2) , bdyi(2,2) , bdyj , bdyk , bdyl , bdym , eqst , eqstrl(7) , geom4 , grpbgn , grpend , grpip , i ,     &
          & ibdy , ibits , icode , idum(3) , ierr , ifile , iflag , ifound , imsg , indsil , ioshft(2) , ip , ishift , isub0 ,       &
          & isub1 , item , itest , iwds , j , jwds , k , kpntbd(9) , kpntsl(32) , kwds , l , loc , locbgn , m , modnam(2) , newust , &
          & nfound , nsilus , nxtbdy , ubors , uprt , usetrl(7) , usetx
    EXTERNAL andf , complf , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Rz(1),Z(1))
    DATA geom4 , bdyi , usetx/102 , 1210 , 12 , 1310 , 13 , 201/
    DATA modnam/4HMRED , 4H1B  /

@@ -1,28 +1,16 @@
 
 SUBROUTINE frmltd(Ifile,Dz,Dy,Zm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum18(18)
    INTEGER Ibuf , Incr , Ip , Ityp , Iz(1) , Nout , Np , Nzm
    COMMON /feerxx/ Dum18 , Nzm
    COMMON /system/ Ibuf , Nout
    COMMON /unpakx/ Ityp , Ip , Np , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dy(1) , Dz(1) , Zm(1)
    INTEGER Ifile(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dp , dsum
    INTEGER i , idp(2) , ifl , ii , j , jj , ll , ll2 , n , nam(2) , next , nrec , nwds
-!
-! End of declarations
-!
 !
 !     FEER MATRIX TRANSPOSE MULTIPLY  (DOUBLE PREC)
 !               T

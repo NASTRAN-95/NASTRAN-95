@@ -1,9 +1,6 @@
 
 SUBROUTINE sdhtff
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Af , Ce(96) , Consts(5) , Dshpb(3,32) , Dumx(109) , Est(100) , K(9) , Mato(6) , Pi , R(3,32) , Theta
    INTEGER Ide , Imat , Name(2) , Nq , Nsil , Sig(32) , Strspt , Sub
    COMMON /condas/ Consts
@@ -11,15 +8,9 @@ SUBROUTINE sdhtff
    COMMON /sdr2x4/ Dumx , Strspt
    COMMON /sdr2x5/ Est , Ide , Sig , Nq , Nsil , Name , K , Ce , Dshpb
    COMMON /sdr2x6/ Sub , Imat , Af , Theta , R
-!
-! Local variable declarations
-!
    REAL area , c(12) , denom , determ , dr(3,4) , el , fact , kq(9) , vec(3) , vvec(3) , x57 , x68 , xels , y57 , y68 , zi(3) , zlen
    INTEGER i , i1 , i2 , i3 , iel , ig , ip(32) , ising , itype , j , lrow , nel , nels(18) , np , smap(52)
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE PHASE 1 FLUX-TEMPERATURE RELATIONSHIPS
 !

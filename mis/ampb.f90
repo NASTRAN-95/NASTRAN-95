@@ -1,9 +1,6 @@
 
 SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iprec , Iuset , Lc , Ncolj , Noue , Nout , Ns0 , Ns1 , Ns2 , Ua , Ud , Ue
    REAL Skip(52) , Sysbuf , Uf , Ufe , Ug , Uk , Ul , Um , Un , Une , Uo , Up , Upa , Ups , Ur , Us , Usa , Usb , Usg , Z(1)
    COMMON /ampcom/ Ncolj
@@ -12,18 +9,9 @@ SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr
    COMMON /patx  / Lc , Ns0 , Ns1 , Ns2 , Iuset
    COMMON /system/ Sysbuf , Nout , Skip , Iprec
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER D1je , D1jk , D2je , D2jk , Djh1 , Djh2 , Gki , Gtka , Phidh , Scr1 , Scr2 , Scr3 , Useta
-!
-! Local variable declarations
-!
    INTEGER dji1 , dji2 , mcb(7) , noh , phia
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS SUBROUTINE IS TO SOLVE FOR THE DJH MATRICES.
 !      IT ALSO COMPUTES GKI FOR LATER USE.

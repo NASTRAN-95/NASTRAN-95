@@ -1,9 +1,6 @@
 
 SUBROUTINE cmsfil
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Combo(7,5) , Intp , Iprint , Isort , Kltran , Lcore , Loc1 , Mcon , Npsub , Outt , Scbdat ,  &
          & Sccstm , Scmcon , Score , Scr3 , Scsfil , Trn , Z(1)
    REAL Buf5 , Casecc , Conect , Conset , Geom4 , Origin(7,3) , Restct(7,7) , Rz(1) , Scconn , Scr1 , Scr2 , Sctoc , Tc6(6,6) ,     &
@@ -15,9 +12,6 @@ SUBROUTINE cmsfil
    COMMON /cmb004/ Tdat
    COMMON /gtmatx/ Loc1 , Kltran , Trn , Tt6 , Tc6
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , bufex , cgid , cstmid , ecpt1 , i , i1 , i2 , i6 , iadd , iadd1 , iadd2 , icode , icomp , ifile , igtran , iip ,&
          & ikind , ikkind , imsg , ioefil , ip , itest , itis , j , j6 , jdh , jj , k , kfbgss , kfcstm , kfeqss , kfgtrn , kfhptr ,&
          & kfncid , kftran , kkc , klbgss , klcstm , kleqss , klgtrn , klhptr , klncid , kneqss , ksbgss , kscstm , ksej , kseqss , &
@@ -27,9 +21,6 @@ SUBROUTINE cmsfil
    REAL dofn(6) , ecpt(4) , tc(3,3) , tg(3,3) , tg6(6,6) , tmat(6,6) , tsave(6,6) , tt(3,3) , xx(3)
    LOGICAL xcstm , xtran
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES THE WORKING SUBSTRUCTURE FILE AND
 !     APPLIES ALL TRANSFORMATIONS

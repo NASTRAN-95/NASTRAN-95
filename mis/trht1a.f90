@@ -1,9 +1,6 @@
 
 SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Dit1 , X , Z(1)
    INTEGER Ia(1) , Ib(7) , Icr1 , Icr2 , Icr3 , Icr4 , Ii , Ii1 , Ik(7) , Incr , Iscr5 , Isk(11) , Isk1(3) , It1 , It2 , Iud , Iue ,&
          & Iz(160) , Jj1 , Nlft1 , Nlftp1 , Sysbuf , Two1(32)
@@ -16,21 +13,12 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
    COMMON /two   / Two1
    COMMON /zblpkx/ A , Ii
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Casexx , Gptt , Ngroup , Trl , Usetd
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER file , i , ibuf1 , ibuf2 , iflag , iflg , igroup , inext , inltmp , intmp , ip1 , ipos , its , itstep , ival , j , k ,   &
          & l , list , lusetd , m , mcb(7) , mskud , mskue , name(2) , ns , nsk , nx , nz
    REAL tdflt
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     TRHT1A INITIALIZES FOR TRHT MODULE
 !

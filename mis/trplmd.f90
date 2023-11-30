@@ -1,29 +1,17 @@
 
 SUBROUTINE trplmd(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Akgg(1)
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
    INTEGER Ibot , Iptx1 , Iptx2 , Ipty1 , Ipty2 , Ndof
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
    COMMON /trplm / Ndof , Ibot , Iptx1 , Iptx2 , Ipty1 , Ipty2
    COMMON /zzzzzz/ Akgg
-!
-! Dummy argument declarations
-!
    INTEGER Jcor , Mattyp
    DOUBLE PRECISION Wtk
    DOUBLE PRECISION Bmat(240) , Bmat1(1) , Bmat2(1) , Dmat(7,7) , Gmat(10,10)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dbm(240) , dmat1(3,3) , dmat2(4,4)
    INTEGER i , j , nd1 , nd2 , nd3 , nd4 , nd5 , nd6 , nd7 , nd8 , nd9 , nda
-!
-! End of declarations
-!
 !
 !     ROUTINE TO PERFORM THE TRIPLE MULTIPLY AT EACH INTEGRATION
 !     POINT FOR THE QUAD4 ELEMENT.

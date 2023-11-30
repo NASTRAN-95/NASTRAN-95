@@ -1,9 +1,6 @@
 
 SUBROUTINE stpda(Input,Ajjl,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bb(4) , Beta(4) , Bref , Clam , Dum , Ekr(1) , Fm , Fmach , Pi , Refc , Rfk , Tskj(7) , Twopi , Z(1)
    COMPLEX Ekm(4,4)
    INTEGER Ii , Incr , Isk , It0 , Iti , Iz(8) , Mcb(7) , Ncirc , Nd , Ne , Nj , Nk , Nn , Nncirc , Nout , Nrow , Ns , Nsk , Sysbuf
@@ -16,20 +13,11 @@ SUBROUTINE stpda(Input,Ajjl,Skj)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , Input , Skj
-!
-! Local variable declarations
-!
    INTEGER claf , i , i8 , ibloc , ibm , ica , icla , icore , id , idy , igap , igm , insize , ioc , ipm , lcirc , lclaf , n ,      &
          & name(2) , nmach , nnj , nw
    INTEGER korsz
    REAL rm
-!
-! End of declarations
-!
 !
 !     DRIVER FOR STRIP THEORY
 !

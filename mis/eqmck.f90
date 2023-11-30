@@ -1,9 +1,6 @@
 
 SUBROUTINE eqmck
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Casecc , Cstm , Eqexin , Gm , Gpl , Igrid , Iopt , K(21) , Kgg , Kload , Kmpc , Kspc , Ksystm(80) , Lama , Nout ,&
          & Nskip , Oqm , Parm(4) , Pgg , Qg , Sf(7) , Sil , Trl(7) , Ugv , Uset
    CHARACTER*23 Ufm
@@ -12,13 +9,7 @@ SUBROUTINE eqmck
    COMMON /eqmk1 / K , Kmpc , Kload , Kspc , Parm , Trl
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    INTEGER i , kfil(14) , l , name(2) , sfl(7)
-!
-! End of declarations
-!
 !
 !     EQMCK CREATES AN OUTPUT FILE OF MPC CONSTRAINT FORCES AND AN
 !     OVERALL TOTAL OF FORCES AND MOMENTS ON THE MODEL TO PROVIDE AN

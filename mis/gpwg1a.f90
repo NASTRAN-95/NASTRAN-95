@@ -1,27 +1,15 @@
 
 SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , It1 , It2 , Iz(1) , Jj , Sysbuf
    REAL Z(5)
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Bgpdt , Cstm , D , Eqexin , Ip , Iscalr
-!
-! Local variable declarations
-!
    REAL dd(6,6) , r(3) , ti(3,3) , tr(3,3) , tt(3,3)
    INTEGER file , i , ibuf , ibuf1 , iflag , ip1 , j , mcb(7) , name(2) , ncstm , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE FORMS D MATRIX (ACCTUALLY D TRANSPOSE)
 !

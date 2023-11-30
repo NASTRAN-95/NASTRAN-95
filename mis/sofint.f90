@@ -1,9 +1,6 @@
 
 SUBROUTINE sofint(Ib1,Ib2,Numb,Ibl1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Filnam(10) , Filsiz(10) , Hiblk , Ifrst , Ihalf , Item(7,1) , Mac , Nbpc , Nbpw , Nbuff , Ncpw , Nfiles ,       &
          & Nitem , Nout , Nsbuff , Psswrd(2) , Status
    LOGICAL First
@@ -20,20 +17,11 @@ SUBROUTINE sofint(Ib1,Ib2,Numb,Ibl1)
    COMMON /system/ Nbuff , Nout , X1 , Nbpc , Nbpw , Ncpw
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm , Sim
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Ib1 , Ib2 , Ibl1 , Numb
-!
-! Local variable declarations
-!
    INTEGER file , i , ibl , idiff , iempty , ihere1 , ird , iwrt , j , k , last , lastsz , lstsiz , max , maxnxt , maxold , min ,   &
          & n , name(2)
    INTEGER lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     CALLED ONCE BY EVERY RUN USING THE SOF UTILITY SUBROUTINES.
 !     SHOULD BE CALLED BEFORE ANY OF THEM IS CALLED.  IF THE SOF IS

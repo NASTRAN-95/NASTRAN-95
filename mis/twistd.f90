@@ -1,9 +1,6 @@
 
 SUBROUTINE twistd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Costh , Dum(15) , Ecpt(100) , Eltemp , Esp , Fmu , Gp1(3) , Gp2(3) , Gp3(3) , Gp4(3) , Gsp , Gsube , Heat , Nu ,    &
       & Rho , Sigc , Sigs , Sigt , Sinth , Stress , Tempel , Tsp , Tsub0
    INTEGER Elid , Estid , Icsid1 , Icsid2 , Icsid3 , Icsid4 , Idm , Iecpt(2) , Ielid , Iprec , Isilno(4) , Ismb(3) , Ksystm(55) ,   &
@@ -15,9 +12,6 @@ SUBROUTINE twistd
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ Esp , Gsp , Nu , Rho , Alpha , Tsub0 , Gsube , Sigt , Sigc , Sigs
    COMMON /system/ Ksystm , Iheat
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , a2 , a3 , a4 , a5 , avec(4) , b , b2 , b3 , b4 , b5 , c , c2 , c23 , c3 , c4 , c5 , cep1 , cep2 , cepx ,    &
                   & cepy , con , d , d2 , d3 , d4 , d5 , e , ep , f , g , ke(144) , kout(144) , me(144) , mout(144) , nuc , p(4) ,  &
                   & smallu(4) , smallv(4) , t , temp , term , term1 , term2 , term3 , term4 , term5 , ti(9) , v12(3) , v41(3) ,     &
@@ -26,9 +20,6 @@ SUBROUTINE twistd
    INTEGER dict(11) , i , ij , ike , iout , ip , ip1 , ipart(4) , ipvt , is , isort , it , ivlbeg , ivrbeg , j , js , jt , jt8 , k ,&
          & korm , l
    REAL dict5 , pa , sa , v12dk , vjl , vkl , vp12l
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE 12 X 12 STIFFNESS MATRIX FOR THE
 !     TWIST PANEL ELEMENT, AS WELL AS ITS DIAGONALIZED MASS MATRIX

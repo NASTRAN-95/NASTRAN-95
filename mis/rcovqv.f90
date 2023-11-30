@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovqv
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Fss(2) , Icore , Iopt , Ireq , Lbasic , Lcore , Loop , Lreq , Lui , Mcba(7) , Mcbb(7) ,      &
          & Mcbc(7) , Mcbd(7) , Mpyz , Mrecvr , Neigv , Nosort , Nout , Pa , Prec , Qa , Rfno , Rss(2) , Scrm , Signab , Signc ,     &
          & Sof1 , Sof2 , Sof3 , Sysbuf , Tflag , Ua
@@ -19,17 +16,11 @@ SUBROUTINE rcovqv
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bgg , bmtx , i , in , item , k4gg , k4mx , kgg , kmtx , malcom , mgg , mmtx , n , name(2) , qvec , rc , scr1 , scr2 ,    &
          & scr4 , scr5 , scr6 , scr7 , scr8
    REAL file
    INTEGER korsz
    LOGICAL reigen , reqf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE REACTION FORCES FOR THE REQUESTED
 !     SUBSTRUCTURE

@@ -1,19 +1,10 @@
 
 SUBROUTINE xsfadd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Comm(20) , Cursno , Entn1 , Entn2 , Entn3 , Entn4 , Flag , Fnx , Lmsk , Lxmsk , Macsft , Mf(401) ,      &
          & Rmsk , Rxmsk , S , Scornt , Sos(1501) , Tapmsk , Thcrmk , Xfiat(1320) , Zap
    COMMON /xsfa1 / Mf , Sos , Comm , Xfiat
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !
 !XSFABD
 !

@@ -1,29 +1,17 @@
 
 SUBROUTINE fvrs1c(Z,W1,Omega,Nf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Dum(5) , Dum1(3) , Pi , Radeg , S4piq , Twopi
    INTEGER Ixp , Ixt , Iyp , Iyt , Izp , Izt
    COMMON /blank / Dum , Ixt , Ixp , Iyt , Iyp , Izt , Izp , Dum1
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4piq
-!
-! Dummy argument declarations
-!
    INTEGER Nf
    REAL Omega
    REAL W1(Nf)
    COMPLEX Z(3,Nf)
-!
-! Local variable declarations
-!
    REAL a , b , cy , cz , f , phi , rad , xo , yo , yy , zo , zz
    INTEGER i , j , kk , kkk , ll
    COMPLEX p , py1a , py1b , py2a , py2b , pz1a , pz1b , pz2a , pz2b , z1
-!
-! End of declarations
-!
 !----------------------------------------------------------------------
 !
 !

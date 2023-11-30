@@ -1,9 +1,6 @@
 
 SUBROUTINE pkqdpl
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(1) , A1(3) , D1(3) , D2(3) , Dpdum1(54) , Dpdum2(3) , E(18) , H , Ivect(3) , Jvect(3) , Kout(36) , Ksum(36) , &
                   & Kvect(3) , Prod9(9) , R(2,4) , Requiv(8) , T(9) , Temp , Temp18(18) , Temp9(9) , Tite(18) , Tjte(18) , U1 , U2 ,&
                   & V(2) , Vv(2) , Xsubb , Xsubc , Ysubc
@@ -21,13 +18,7 @@ SUBROUTINE pkqdpl
                  & Ksum , Dpdum2 , Prod9 , Temp9 , Xsubb , Xsubc , Ysubc , E , Temp , Sp1 , Sp2 , Km , Nbegin , Jnot , Npivot ,     &
                  & Theta , Nsubc , Ising , Subsca , Subscb , Subscc , Sinang , Cosang , Npoint
    COMMON /pla4es/ Ecpt
-!
-! Local variable declarations
-!
    INTEGER i , j , k , m(12)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE STIFFNESS MATRIX FOR QUAD-PLATES IN
 !     PLA4

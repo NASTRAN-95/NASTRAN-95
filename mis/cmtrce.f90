@@ -1,25 +1,13 @@
 
 SUBROUTINE cmtrce(Iertab,Iwds,Itomny)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Combo(7,5) , Ij2(2) , Ijunk(6) , Junk , Line , Nlpp , Of , Z(1)
    COMMON /cmb003/ Combo
    COMMON /system/ Junk , Of , Ijunk , Nlpp , Ij2 , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Itomny , Iwds
    INTEGER Iertab(1)
-!
-! Local variable declarations
-!
    INTEGER i , ib , ii , iloc , iout(6) , ip , ips , ipt , ist , itest , j , jj , nam(2) , ncomp , nheqss , nline , nout , nwds
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE TRACES BACK IMPROPER CONNECTIONS FINDING
 !     GIRD POINT IDS FOR INTERNAL POINT  NUMBERS

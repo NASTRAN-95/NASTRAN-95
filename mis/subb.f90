@@ -1,30 +1,18 @@
 
 SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,Yb,Zb,Ys,Zs,X)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Kd1i , Kd1r , Kd2i , Kd2r , Refc
    INTEGER Ind , Kr , Mcb(7) , Nd , Ne , Nrow
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Fmach , Kr
    COMMON /kds   / Ind , Kd1r , Kd1i , Kd2r , Kd2i
-!
-! Dummy argument declarations
-!
    REAL Ar , Beta , Cgr , Eps , Pi , Sgr
    INTEGER I , J , Jb , Kb , Ks , Lb , Ls , Ndy , Nyfl
    COMPLEX Sum
    REAL Delx(1) , Ria(1) , X(1) , Yb(1) , Ys(1) , Zb(1) , Zs(1)
-!
-! Local variable declarations
-!
    REAL absyb , abszb , anot , ao , d2d , dxs , dzdyi , dzdyr , eta , flnd , flne , sign1 , test1 , test2 , xi1 , xi2 , xx , y , z ,&
       & zeta
    COMPLEX dp , dpll , dplr , dpul , dpur
    INTEGER idflag , idzdy , iflag , igo , lhs
-!
-! End of declarations
-!
 !   ***   COMPUTES ELEMENTS OF THE SUBMATRICES  DZP, DZZ, DZY, DYP,
 !         DYZ  AND  DYY  USING  SUBROUTINE  DZY
    flnd = float(Nd)

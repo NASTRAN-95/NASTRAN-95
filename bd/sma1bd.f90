@@ -1,9 +1,6 @@
 
 BLOCKDATA sma1bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsnrw , Clsrw , Eor , I6x64 , I6x6k , Icstm , Idetck , Idum1 , If4gg , Ifcstm , Ifdit , Ifecpt , Ifgei , Ifgpct ,       &
          & Ifgpst , Ifkgg , Ifmpt , Ig4gg , Igecpt , Iggei , Iggpct , Iggpst , Igkgg , Igpct , Inrw , Iopt4 , Ipoint , Jmax ,       &
          & K4ggsw , Left , Link(10) , Lrowic , Mcb4gg(7) , Mcbkgg(7) , N6x64 , N6x6k , Ncstm , Neor , Ngpct , Nlinks , Nogoo ,      &
@@ -17,9 +14,6 @@ BLOCKDATA sma1bd
    COMMON /sma1et/ Ecpt
    COMMON /sma1io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Ifgei , Iggei , Ifkgg , Igkgg , If4gg ,     &
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
-!
-! End of declarations
-!
 !SMA1BD
 !
 !

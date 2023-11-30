@@ -2,19 +2,10 @@
 SUBROUTINE dbmint
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr , Mem(4)
    COMMON /system/ Isysbf , Iwr
    COMMON /zzzzzz/ Mem
-!
-! Local variable declarations
-!
    INTEGER locfx
-!
-! End of declarations
-!
 !********************************************************************
 !     DBMINT - INITIALIZES ALL PARAMETERS AND THE FREE BLOCK CHAIN
 !              FOR THE IN-MEMORY DATA BASE.

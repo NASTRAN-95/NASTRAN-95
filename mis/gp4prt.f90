@@ -1,9 +1,6 @@
 
 SUBROUTINE gp4prt(Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iautsp , Idsub , Junk(6) , Line , Luset , Mpcf1 , Mpcf2 , Mtemp , Nlpp , Noa , Nol , Nosets , Nout , Npage , Nskip ,     &
          & Sysbuf , Two(32) , Ua , Uf , Ug , Ul , Um , Un , Uo , Ur , Us , Usb , Usg , Z(1)
    REAL Omit1 , React , Repeat , Single
@@ -16,22 +13,13 @@ SUBROUTINE gp4prt(Ibuf)
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf
-!
-! Local variable declarations
-!
    INTEGER andf , orf
    INTEGER blank , buf , d21 , d22 , dash , eqexin , erec1 , exflag , extype , file , i , iafrmt(2) , ibegn , id1 , idof , iend ,   &
          & iflag , iflg(8) , ifrmat(32) , iifrmt(2) , imk , index , inos , ip , ipas , iprint , irem , itm , iu , j , k , kk , kl , &
          & kn , ku , l , msk(12) , nam204(2) , name(3) , sbit(12) , scr1 , tdb204 , title(2,8) , trl(7) , upbit(12) , zcom(10) ,    &
          & zdum(10)
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     1. PRINTS  DOF VS. DISP. SETS IF DIAG 21 ON.
 !     2. PRINTS  DISP. SETS VS. DOF IF DIAG 22 ON.

@@ -6,18 +6,12 @@ SUBROUTINE prtprm
 !  $MIXED_FORMATS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1 , B2 , Dumhed(96) , H1(32) , H2(32) , H3(32) , Ic , Junk1(6) , Junk2(2) , L , Ln , Lnmax , Machx , Nb , Nout , V(2)
    COMMON /blank / Ic , B1 , B2
    COMMON /machin/ Machx
    COMMON /output/ Dumhed , H1 , H2 , H3
    COMMON /system/ Nb , Nout , Junk1 , Lnmax , Junk2 , Ln
    COMMON /xvps  / V
-!
-! Local variable declarations
-!
    INTEGER bt(26) , i , k1(32) , k2(32) , k3(32) , k4(32) , k5(32) , k6(32) , kick , kt(26) , m , mi , mm , name(2) , nw , oo , r , &
          & type , val(2) , xxxx
    DOUBLE PRECISION dal(2)
@@ -25,9 +19,6 @@ SUBROUTINE prtprm
    INTEGER lshift , numtyp , rshift
    REAL wal(32)
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (V(2),L) , (dal(1),val(1),wal(1))
    DATA xxxx/4HXXXX/ , oo/27/
    DATA kt/5 , 6 , 4 , 5 , 6 , 5 , 3 , 4 , 3 , 5 , 7 , 6 , 6 , 6 , 6 , 5 , 0 , 0 , 0 , 4 , 3 , 2 , 7 , 5 , 4 , 1/

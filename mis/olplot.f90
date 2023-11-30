@@ -1,18 +1,9 @@
 
 SUBROUTINE olplot
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    COMMON /system/ Ibuf , Nout
-!
-! Local variable declarations
-!
    INTEGER plt2
-!
-! End of declarations
-!
 !
 !     DRIVER FOR USER SUPPLIED INTERACTIVE PLOTTER
 !

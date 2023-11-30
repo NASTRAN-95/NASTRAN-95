@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2c(Iter)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Atrlr(7) , Attrlr(7) , B , Bbar , Chlsky , Dry , Gib , Gibfbs(7) , Gibt(7) , Him , Idum1 , Idum2(8) , Idum3(11) ,        &
          & Idum4(4) , Idum5 , Idum6(4) , Iprntr , Iscr(11) , Iscra , Iscrb , Iscrc , Iscrq(7) , Iscrth(8) , Isign , Kbi , Kib ,     &
          & Kibt(7) , Kigfbs(7) , Kii , Kiit(7) , Kiitc(7) , Korbgn , Korlen , Lcore , Ligfbs(7) , Lii , Liifbs(7) , Liit(7) ,       &
@@ -24,19 +21,10 @@ SUBROUTINE cmrd2c(Iter)
    COMMON /trnspx/ Atrlr , Attrlr , Lcore , Nscrth , Iscrth
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iter
-!
-! Local variable declarations
-!
    INTEGER dblkor , i , ifile , imsg , iprc , item , itest , itmlst(3) , itrlr(7) , ityp , itype , j , lower , modnam(2) , upper
    REAL gibbar
    LOGICAL restor , symtry
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PERFORMS THE GUYAN REDUCTION ON THE STRUCTURE
 !     POINTS FOR THE CMRED2 MODULE.

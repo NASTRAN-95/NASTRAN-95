@@ -1,9 +1,6 @@
 
 SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(7) , Dum2s(2) , Dum3s(3) , Dum6b(6) , Gdum(3)
    INTEGER Ibuf , Ibuf1 , Iz(1) , Kdim , Maxdeg , Maxgrd , Mm , Ndum(2) , Nedge , Neq , Neqr , Nn , Nodep , Nompc , Nout , Rd ,     &
          & Rdrew , Rew , Scr1
@@ -15,20 +12,11 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
    COMMON /names / Rd , Rdrew , Ndum , Rew
    COMMON /system/ Ibuf , Nout
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ii3
    INTEGER Ig(1) , Inv(Ii3,1) , Jg(1) , Kg(1) , List(1) , Norig(1)
-!
-! Local variable declarations
-!
    INTEGER bunpk
    INTEGER i , igrid , ii , is , j , j2 , jj , k , kdim4 , kk , l , m , mm1 , n , np , nq , nterm
    REAL sub(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE MAKES ADDITIONS TO THE CONNECTION TABLE IG TO REFLECT
 !     THE PRESENCE OF MPC'S AND STORES THE DEPENDENT POINTS IN LIST.

@@ -1,19 +1,10 @@
 
 SUBROUTINE delkls(Del,R,Z,Kode)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Kode
    REAL Del(15) , R(4) , Z(4)
-!
-! Local variable declarations
-!
    REAL a , a2 , a3 , aab , ab , abb , b , b2 , b3 , ln , r1 , r2 , r3 , r4 , r5 , r6 , r7 , ri , rm , si , sm , zi , zm
    INTEGER goback , i , l , m , n
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION VERSION USE DELKLS (DEL,R,Z,KODE)
 !

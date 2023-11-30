@@ -1,14 +1,8 @@
 
 SUBROUTINE outpt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Parm
    COMMON /blank / Parm
-!
-! End of declarations
-!
 !
 !*****
 !

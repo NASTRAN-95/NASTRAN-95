@@ -1,25 +1,13 @@
 
 SUBROUTINE decode(Code,List,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Two(32)
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    INTEGER Code , N
    INTEGER List(1)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     DECODE DECODES THE BITS IN A WORD AND RETURNS A LIST OF INTEGERS
 !     CORRESPONDING TO THE BIT POSITIONS WHICH ARE ON. NUMBERING

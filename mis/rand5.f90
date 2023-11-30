@@ -1,29 +1,17 @@
 
 SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Auto , Ltab , Nfile , Nfreq , Npsdl , Ntau , Psdf , Xycb
    INTEGER Ifile(1)
-!
-! Local variable declarations
-!
    REAL data(100) , q(2) , r
    INTEGER file , i , iauto , ibuf1 , ibuf2 , ibuf3 , icdone , icore , icrq , ics , if , ii , ip , ip1 , ips , ipsdf , isaa , itau ,&
          & j , jj , k , kk , l , lcore , len , ll , llist , llists , load , mcb1(7) , mcb2(7) , name(2) , ndo , ndone , nload ,     &
          & npoint , nz , oldld
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES RANDOM RESPONSE FOR UNCOUPLED POWER SPECTRAL
 !     DENSITY COEFFICIENTS

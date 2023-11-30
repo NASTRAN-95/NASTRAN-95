@@ -1,9 +1,6 @@
 
 SUBROUTINE mflud2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A , B , Constd(5) , Dpi , Dz , F0 , Hpq(4) , I2n0 , I2n1 , I2n2 , I2np2 , K1 , K2 , Kfact , Kh(4) , Pirho , Ri ,&
                   & Rk , Twopr , Z1p , Z2p
    REAL Dum1(10) , Dun2(2) , Ecpt(100)
@@ -13,15 +10,9 @@ SUBROUTINE mflud2
    COMMON /sma2dp/ Z1p , Z2p , Rk , Ri , Kfact , F0 , A , B , I2n0 , I2n1 , I2n2 , I2np2 , Dz , Hpq , Pirho , Twopr , Kh , K1 , K2
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifmgg
-!
-! Local variable declarations
-!
    REAL dum
    INTEGER i , ifile , j , k , lp , n
    DOUBLE PRECISION r1 , r2 , z1 , z1p1 , z2 , z2p1
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE PSUEDO STIFFNESS MATRIX TERMS
 !     FOR THE CENTER PLUG FLUID ELEMENT

@@ -1,9 +1,6 @@
 
 SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbb(7) , Dbc(7) , Dbl(7) , Dbu(7) , Ipos(7) , Lasind , Nout , Nvec , Nvecsz , Nwds , Rd , Rdrew , Rew , Wrt , Wrtrew
    REAL L(2) , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -15,20 +12,11 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ L
-!
-! Dummy argument declarations
-!
    INTEGER Block(8) , Ibuff(2) , Mem(2)
    REAL Dmem(2) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER begn , buf(2) , end , ifcol , ii , ij , ik , indxi , indxl , iopen , irow , iyrow , j , j1 , ji , k , kcol , last ,      &
          & lcol , ncol , nidlt , nrows , subnam
    REAL ljj , sum , yjk , zero
-!
-! End of declarations
-!
 !
 !     FBSI2 EXECUTES THE FORWARD/BACKWARD PASS FOR FBSI IN RDP
 !

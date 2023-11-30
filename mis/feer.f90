@@ -1,9 +1,6 @@
 
 SUBROUTINE feer
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cndflg , Dmpfle , Ibk , Icase , Idiag , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) , Ifset , Ii ,     &
          & Iip , Incr , Incrp , Ind , Io , Ioptf , Iprc , Iprec , Iprob(2) , Istart , Iter , Itp1 , Itp2 , Iz(12) , Keep(2) ,       &
          & Ksystm(65) , L16 , Lntime , Mcblt(7) , Mcbrm(7) , Mcbsma(7) , Mcbvec(7) , Mord , Mrank , Nbpw , Neig , Nn , Nnp ,        &
@@ -29,17 +26,11 @@ SUBROUTINE feer
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION drsm , drsn , dsm , epxm , scale
    INTEGER i , i0 , i1 , i2 , i3 , i4 , ibegn , ibuf1 , ibuf2 , icr(2) , iend , ifk , ifl , ifm , ij , ik , ising , it , j , jcr(2) &
          & , jj , mcb(7) , mode , mrk , name(3) , nodcmp , npr , nt , ntms , ntot , ntz , nz , t1 , t2 , t3 , timet
    INTEGER korsz
    REAL sp , xi , xm , xmp , xn , xt
-!
-! End of declarations
-!
 !
 !     DRIVER FOR THE FEER (FAST EIGENVALUE EXTRACTION ROUTINE) METHOD.
 !     THIS ROUTINE WAS CALLED FCNTL BEFORE

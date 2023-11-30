@@ -1,28 +1,16 @@
 
 SUBROUTINE frmlta(Ifile,Z,Y,Zm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dm18(18)
    INTEGER Ibuf , Incr , Ip , Ityp , Iz(1) , Nout , Np , Nzm
    COMMON /feerxx/ Dm18 , Nzm
    COMMON /system/ Ibuf , Nout
    COMMON /unpakx/ Ityp , Ip , Np , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ifile(7)
    REAL Y(1) , Z(1) , Zm(1)
-!
-! Local variable declarations
-!
    REAL dp , sum
    INTEGER i , idp , ifl , ii , ilf , j , jj , ll , ll2 , n , nam(2) , nrec , ntms
-!
-! End of declarations
-!
 !
 !     LOWER TRIANGULAR TRANSPOSE WITH OFF-DIAGONAL SWITCH
 !     SINGLE PRECISION VERSION

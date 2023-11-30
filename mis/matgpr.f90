@@ -1,9 +1,6 @@
 
 SUBROUTINE matgpr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Filter , Head(96) , Raddeg
    INTEGER Core(1) , Ia(4) , Ibits(32) , Ichar(17) , Idum(2) , Ieol , Ieor , Iflflg , Ii , Iiset(2) , Inx(6) , Inx1(2) , Ipopt(2) , &
          & Kkset(2) , Label(96) , Line , Nlpp , Otpe , Sysbuf , Two1(32)
@@ -18,9 +15,6 @@ SUBROUTINE matgpr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zntpkx/ Ia , Ii , Ieol , Ieor
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL amag , prbufx(5) , value , xxbuf(15)
    INTEGER andf , korsz
    INTEGER blank , comps(6) , exid , extra , gpl , head2(32) , hset , i , iallp , ibegn , ibuf , icmpx , icomp , ie , iend , ifin , &
@@ -28,9 +22,6 @@ SUBROUTINE matgpr
          & jj , k , kk , kset , ksil , kuset , l , lcore , lgpl , loop , loops , lsil , luset , mask , mask1 , matrx , muset ,      &
          & name(2) , ncol , nline , null , prbuf(15) , prbufc(5) , scalar , sil , tycomp , uset
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     DMAP FOR MATGPR MODULE
 !

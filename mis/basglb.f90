@@ -1,29 +1,17 @@
 
 SUBROUTINE basglb(Vin1,Vout1,Pont,Icstm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cstm , Ibuf , Icm , Idum(3) , Lc(4) , Lc1(10) , Nout , Nsys , Tysys
    REAL Ro(3) , To(3,3) , Tz(3,3)
    COMMON /loadx / Lc , Cstm , Lc1 , Idum , Icm
    COMMON /system/ Ibuf , Nout
    COMMON /tranx / Nsys , Tysys , Ro , To
    COMMON /xcstm / Tz
-!
-! Dummy argument declarations
-!
    INTEGER Icstm
    REAL Pont(3) , T(9) , Vin1(3) , Vout1(3)
-!
-! Local variable declarations
-!
    INTEGER check , i , iexit , ioth , iparm(2) , iparm1 , j , n1
    REAL flag , pont1(3) , r , ti(3,3) , tl(3,3) , vin(3) , xl , xr , yr , zl
    LOGICAL tonly
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CONTAINS FOUR ENTRY POINTS
 !

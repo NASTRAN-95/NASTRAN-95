@@ -1,9 +1,6 @@
 
 SUBROUTINE sdcmps(Zi,Zr,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ablk(15) , Bblk(20) , Blk(15) , Buf6 , C , Chlsky , Col , Dba(7) , Dbc(7) , Dbl(7) , Diagck , Diaget , Frstpc , Hicore , &
          & I1 , I2 , Iac , Incr1 , Incr2 , Itype1 , Itype2 , Itype3 , J1 , J2 , Jstr , Key(1) , Ksystm(100) , Lasti , Lastpl ,      &
          & Lcore , Lhpw(6) , Machx , Mtisa , Nbpw , Nerr(2) , Nitems , Noglev , Nout , Nrow , Nterms , Nzzadr , Nzzz , Parm(4) ,    &
@@ -30,15 +27,9 @@ SUBROUTINE sdcmps(Zi,Zr,Zd)
    COMMON /unpakx/ Itype3 , I2 , J2 , Incr2
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(1)
    INTEGER Zi(1)
    REAL Zr(1)
-!
-! Local variable declarations
-!
    CHARACTER*10 addi , unadd , unuse
    INTEGER andf , lshift , orf
    INTEGER any , begn , buf1 , buf2 , buf3 , buf4 , buf5 , c5max , cavg , ci , clos , cmax , dbname(2) , end , eor , groups , i ,   &
@@ -50,9 +41,6 @@ SUBROUTINE sdcmps(Zi,Zr,Zd)
    INTEGER maxc , nbrwds , sx
    LOGICAL rowone , spill , splin , splout
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     SDCMPS PERFORMS THE TRIANGULAR DECOMPOSITION OF A SYMMETRIC
 !     MATRIX. THE REAL MATRIX INPUT MAY BE SINGLE OR DOUBLE PRECISION.

@@ -1,25 +1,13 @@
 
 SUBROUTINE rotate1(A,Row,Row1,Row2,O,Sin,Cos)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER N
    REAL Title(100)
    COMMON /givn  / Title , N
-!
-! Dummy argument declarations
-!
    INTEGER Row , Row1 , Row2
    REAL A(1) , Cos(1) , O(1) , Sin(1)
-!
-! Local variable declarations
-!
    REAL cosine , sine , x , y , z
    INTEGER i , j , jp1 , m
-!
-! End of declarations
-!
 !
 !     ROTATION OF A MATRIX PARTITION.
 !     THIS ROUTINE IS CALLED ONLY BY TRIDI SUBROUTINE, WHICH IS CALLED

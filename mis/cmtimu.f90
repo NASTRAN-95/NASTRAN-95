@@ -1,9 +1,6 @@
 
 SUBROUTINE cmtimu(Y,X,File,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Dum(21) , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    DOUBLE PRECISION Da(2)
    INTEGER Diag , Eol , Eor , Filek(7) , Filemm(7) , Identy , Ii , Lowtri , Ncol , Norew , Nzero
@@ -12,18 +9,9 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Lowtri , Uprtri , &
                  & Sym , Row , Identy
    COMMON /zntpkx/ Da , Ii , Eol , Eor
-!
-! Dummy argument declarations
-!
    INTEGER Buf(1) , File(1)
    DOUBLE PRECISION X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER filem(7) , i , name(2) , ncol2
-!
-! End of declarations
-!
 !
 !     CM TIM U FORMS THE MATRIX PRODUCT X = M*Y WHERE ALL MAY BE COMPLEX
 !

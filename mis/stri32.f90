@@ -1,9 +1,6 @@
 
 SUBROUTINE stri32
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alfab(3) , Alfam(3) , App(2) , Avgthk , Delta(39) , Deltat(6) , Detg2 , Disp(1) , Dumm(30) , Dummy(35) , Epscmi(6,4) ,      &
       & Epscsi(6,4) , Epsln(8) , Epslnm(6) , Epslnt(6) , Epsumi(6,4) , Epsusi(6,4) , G(6,6) , G2(3,3) , G2alfb(3,4) , Gdum , Gpth(3)&
       & , Offset , Ph1rst(701) , Qveci(2,4) , Skp(4) , Sort2 , Stemp(8) , Stempd(3) , T3ov12 , Tbar , Tdelta(6) , Tes(9) , Thikns(4)&
@@ -24,18 +21,12 @@ SUBROUTINE stri32
                  & T3ov12 , Offset , Tbar
    COMMON /tmpdat/ Temper , Tempp1 , Tempp2
    COMMON /zzzzzz/ Disp
-!
-! Local variable declarations
-!
    INTEGER andf
    LOGICAL bendng , compos
    INTEGER center , i , icount , idelt , ieps , iet , ig2 , inpl , inplan , ish , isngg2 , istart , itmp , jdelt , jg2 , k , kdelt ,&
          & kpoint , ldelt , nblnk , ndof , ndof8 , nnode
    REAL tprime
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     ROUTINE TO RECOVER CTRIA3 ELEMENT FORCES, STRAINS, AND STRESSES.
 !     PHASE 2.

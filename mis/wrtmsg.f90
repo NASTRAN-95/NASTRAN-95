@@ -1,29 +1,17 @@
 
 SUBROUTINE wrtmsg(Filex)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Count , Mach , Maxlin , Mo , Nbpc , Nbpw , Ncpw , Sysx(41) , Title(32,6)
    COMMON /machin/ Mach
    COMMON /output/ Title
    COMMON /system/ Sysx
-!
-! Dummy argument declarations
-!
    INTEGER Filex
-!
-! Local variable declarations
-!
    INTEGER andf , complf , eject , lshift , orf , rshift
    INTEGER blank , file , for(100) , formax , i , j , k1 , k2 , lst(50) , lstmax , mask1(5) , mask2(5) , n , n2cpw , n2cpw1 ,       &
          & nbpc2 , nf , pos , ret , rew , ttlsav(32,6)
    CHARACTER*1 formt(400)
    REAL xlst
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !WKBI
 !WKBI

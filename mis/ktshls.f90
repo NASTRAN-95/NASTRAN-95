@@ -1,9 +1,6 @@
 
 SUBROUTINE ktshls
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Balotr(36) , C1 , C10 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , Cab(3) , Cc(10) , Costh , Csub(5,5) , Csubt(6,5) , &
       & Dumy(12) , Ee(30) , Eltemp , Em(6) , Est(100) , F(14,14) , Fac , Gsube , Ivect(3) , Jvect(3) , Ksub(6,6) , Ksubt(6,6) ,     &
       & Ksup(36) , Ksupt(36) , Kvect(3) , Pla34 , Q(6,6) , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Trand(9) ,   &
@@ -25,9 +22,6 @@ SUBROUTINE ktshls
                  & Small , Index , Ics , Nl
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL a , a1 , a1sq , a2 , a2sq , a3 , a3sq , amass , area , b , blank , c , cm1(30,30) , cms(900) , cmt(1296) , ctm(36,36) ,     &
       & d11 , d12 , d13 , d132 , d22 , d23 , d232 , d33 , d334 , degra , determ , dista , distb , distc , g11 , g12 , g13 , g22 ,   &
       & g23 , g33 , h4 , h5 , h6 , j11 , j12 , j22 , kshl(1024) , mshl(1024) , nsm , qks(960) , qqq(20,20) , qqqinv(360) , rho ,    &
@@ -47,9 +41,6 @@ SUBROUTINE ktshls
       & sb33 , sb34 , sb35 , sb36 , sb37 , sb38 , sb39 , sb4 , sb40 , sb41 , sb5 , sb6 , sb7 , sb8 , sb9 , st , st1 , st11 , st121 ,&
       & st122 , st131 , st132 , st133 , st22 , st231 , st232 , st233 , st331 , st332 , tbend1 , tbend3 , tbend5 , theta1 , thetam , &
       & thk1 , thk2 , thk3 , tmem1 , tmem3 , tmem5 , tshr , tshr1 , tshr3 , tshr5 , vol
-!
-! End of declarations
-!
 !
 !     ECPT ENTRIES
 !

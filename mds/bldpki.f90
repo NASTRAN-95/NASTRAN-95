@@ -3,18 +3,9 @@ SUBROUTINE bldpki(A,I,File,Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , I
    INTEGER A(4) , Block(15)
-!
-! Local variable declarations
-!
    INTEGER icrow , inccnt , index , itypin , k , kk , nexrow
-!
-! End of declarations
-!
    Name = File
    Block(15) = I
    itypin = Block(13)

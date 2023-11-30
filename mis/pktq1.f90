@@ -1,23 +1,11 @@
 
 SUBROUTINE pktq1(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(27) , Ecpt(100) , Ph1out(173)
    COMMON /pla4es/ Ecpt , Ph1out , Dummy
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i
    REAL save(32)
-!
-! End of declarations
-!
 !  THIS ROUTINE CALCULATES PHASE I OUTPUT FOR PLA4
 !  FOR COMBINATION ELEMENTS
 !

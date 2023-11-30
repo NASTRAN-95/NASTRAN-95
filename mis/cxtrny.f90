@@ -1,23 +1,11 @@
 
 SUBROUTINE cxtrny(X,Y,Alpha)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aaa
    INTEGER Ncol
    COMMON /cinvpx/ Aaa , Ncol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Alpha(2) , X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , ncol2
-!
-! End of declarations
-!
 !*******
 !     CX TRN Y FORMS THE DOT PRODUCT X TRANSPOSE * Y = ALPHA WHERE
 !     X AND Y ARE COMPLEX

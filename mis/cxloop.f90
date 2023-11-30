@@ -1,18 +1,9 @@
 
 SUBROUTINE cxloop(X,Y,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER M , N
    DOUBLE PRECISION Mpy(2) , X(1) , Xx(2) , Y(1) , Yy(2)
-!
-! Local variable declarations
-!
    INTEGER i , mm , nn
-!
-! End of declarations
-!
    nn = N + N
    DO i = 1 , nn
       X(i) = Y(i)

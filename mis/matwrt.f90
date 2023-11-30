@@ -1,9 +1,6 @@
 
 SUBROUTINE matwrt(Ifile,Xname,Xitem,Lcore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Col(1) , Head1(96) , Head2(96)
    DOUBLE PRECISION Dcol(1)
    INTEGER Incr , Inx(6) , Inx1(2) , It , K , L , Line , Nlpp , Otpe , Sysbuf
@@ -11,20 +8,11 @@ SUBROUTINE matwrt(Ifile,Xname,Xitem,Lcore)
    COMMON /system/ Sysbuf , Otpe , Inx , Nlpp , Inx1 , Line
    COMMON /unpakx/ It , K , L , Incr
    COMMON /zzzzzz/ Col
-!
-! Dummy argument declarations
-!
    INTEGER Ifile , Lcore
    REAL Xitem
    REAL Xname(2)
-!
-! Local variable declarations
-!
    REAL blank , bstr , cont , dx , em , form(18) , re , su , type(10) , uctu , xinue , xit
    INTEGER i , ia(7) , ia7a , ia7b , ia7c , ibegn , if , ifin , ihop , inull , it1 , itest , j , jj , lcol , namea , ncol , nrow
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Col(1),Dcol(1))
    DATA type/4HREAL , 4H     , 4HDB   , 4HPREC , 4HCOMP , 4HLEX  , 4HCMP  , 4HD.P. , 4HILL  , 4HDEFN/

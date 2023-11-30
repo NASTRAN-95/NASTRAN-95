@@ -1,9 +1,6 @@
 
 SUBROUTINE strax2(Sorc,Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(81) , Akph2(9) , Akuph(27) , Block(22,14) , Clock(22,14) , Conphi , Consts(5) , D3(3) , D6(6) , D9(9) , Degrad , Disp(9) &
       & , Dum1(33) , Dum2(90) , Dum3(225) , Dum4(12) , Dum5(33) , Eflux(3) , Eforc(9) , Eldefm , Estres(9) , Force(25) , Harm ,     &
       & Nphi , Phi(14) , Sel(54) , Selp1(18) , Selp2(27) , Selp3(9) , Sinphi , Stres(100) , Templd , Ts(6) , Tz , Unu(123) , Zz(1)
@@ -16,20 +13,11 @@ SUBROUTINE strax2(Sorc,Ti)
    COMMON /sdr2x8/ Disp , Eforc , Estres , Harm , N , Sinphi , Conphi , Nphi , Nangle , Elemid , Unu , Nelhar
    COMMON /system/ Ksystm , Ksys78
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Sorc
    REAL Ti(3)
-!
-! Local variable declarations
-!
    REAL dispp(3) , dt , echrg(3)
    INTEGER i , iloc , ilocp , iosorc , iwa , j , k , k3 , kk , ncomp , ndof , ns , nsp , numpt
    LOGICAL lsys78 , zero , zeron
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE II OF STRESS DATA FOR THE TRIANGULAR
 !     CROSS SECTION RING

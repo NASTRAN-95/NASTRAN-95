@@ -1,24 +1,12 @@
 
 SUBROUTINE diam(Nc,Maxdeg,Nl,Nodesl,Idem,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nn
    COMMON /bands / Nn
-!
-! Dummy argument declarations
-!
    INTEGER Idem , Maxdeg , Maxlev , Nc , Nl
    INTEGER Ic(1) , Icc(1) , Ideg(1) , Idis(1) , Ig(1) , Iw(1) , Jg(1) , Nodesl(1)
-!
-! Local variable declarations
-!
    INTEGER i , md , ml
    INTEGER idist
-!
-! End of declarations
-!
 !
 !     DETERMINE NL STARTING POINTS AND STORE IN NODESL.
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE

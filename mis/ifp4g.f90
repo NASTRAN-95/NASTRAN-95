@@ -1,24 +1,12 @@
 
 SUBROUTINE ifp4g(Ibit,File)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Two(32)
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    INTEGER File , Ibit
-!
-! Local variable declarations
-!
    INTEGER i1 , i2 , trail(7)
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     TURNS ON BIT -IBIT- IN TRAILER FOR DATA BLOCK -FILE-
 !

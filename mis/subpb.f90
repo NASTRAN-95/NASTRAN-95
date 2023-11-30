@@ -1,33 +1,21 @@
 
 SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas,Nasb,Avr,Zb,Yb,Arb,Xle,Xte,X,Nb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Kr , Refc
    INTEGER Mcb(7) , Nd , Ne , Nrow
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Fmach , Kr
-!
-! Dummy argument declarations
-!
    REAL Cgr , Sgr , Yrec , Zrec
    INTEGER I , J , L , Ls , Nb
    COMPLEX Sum
    REAL Arb(1) , Avr(1) , Cg(1) , Delx(1) , Ee(1) , Sg(1) , X(1) , Xic(1) , Xlam(1) , Xle(1) , Xte(1) , Yb(1) , Ys(1) , Zb(1) ,     &
       & Zs(1)
    INTEGER Nas(1) , Nasb(1)
-!
-! Local variable declarations
-!
    REAL ax , ax1 , ax2 , ay , ay1 , ay1i , ay2 , ay2i , ayi , az , az1 , az1i , az2 , az2i , azi , beta , cgs , cl , cv , da , dar ,&
       & dcgam , dcgami , dcl , dee , deei , deei2 , deli , delii , delis , delr , delri , delrs , dely , deta , detai , dij , diji ,&
       & dijs , dmuy , dmuz , dsgam , dsgami , dsl , dsqrtl , dtl , dtlami , dxi , dxle , dxs , dxte , dyb , dzb , dzeta , dzetai ,  &
       & eps , es , fl , flnd , flne , m , sdelx , sgs , sl , sqtl , tl , x0 , x0i , y0 , y0i , z0 , z0i
    COMPLEX dp , dpll , dplr , dpul , dpur
    INTEGER igo , infl , ioutfl , na , na1 , na2 , noas , nob , nobi
-!
-! End of declarations
-!
 !
 !     COMPUTES ELEMENTS OF THE SUBMATRICES  DPP, DPZ  AND  DPY
 !     USING  SUBROUTINES  SNPDF, INCRO AND SUBI

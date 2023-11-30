@@ -1,9 +1,6 @@
 
 SUBROUTINE partn2(Cp,Rp,Core,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cpcol , Cpones , Cpsize , Form(4) , Icp , Ireqcl , Irp , Ncp , Nrp , Outpt , Rpcol , Rpones , Rpsize , Sym , Sysbuf ,    &
          & Type , Z(1)
    LOGICAL Cphere , Cpnull , Rphere , Rpnull
@@ -16,18 +13,9 @@ SUBROUTINE partn2(Cp,Rp,Core,Buf)
    COMMON /system/ Sysbuf , Outpt
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Core , Cp , Rp
    INTEGER Buf(4)
-!
-! Local variable declarations
-!
    INTEGER i , j , subr(2)
-!
-! End of declarations
-!
 !
 !     THIS IS AN INITIALIZATION ROUTINE FOR PARTN1 AND MERGE1.
 !     IT CALLS PARTN3 TO BUILD THE BIT STRINGS FROM THE PARTITIONING

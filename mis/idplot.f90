@@ -1,25 +1,13 @@
 
 SUBROUTINE idplot(Idx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axymax(2) , Cntx , Cnty , Edge(12) , Skpa(3) , Skpb(4) , Skpout(32,6) , Skpplt(2) , Xymax(2) , Xymin(2)
    INTEGER Id(32) , Pltype
    COMMON /output/ Skpout , Id
    COMMON /pltdat/ Skpplt , Xymin , Xymax , Axymax , Edge , Skpa , Cntx , Cnty , Skpb , Pltype
-!
-! Dummy argument declarations
-!
    INTEGER Idx
-!
-! Local variable declarations
-!
    INTEGER blank , i , linsiz , nlines
    REAL save(2,4) , x , y , yy
-!
-! End of declarations
-!
 !
 !
    DATA blank , linsiz/1H  , 3/

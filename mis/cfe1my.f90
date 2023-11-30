@@ -1,27 +1,15 @@
 
 SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Da(4) , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    INTEGER Diag , Eol , Identy , Ii , Lowtri , Norew
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Lowtri , Uprtri , &
                  & Sym , Row , Identy
    COMMON /zntpkx/ Da , Ii , Eol
-!
-! Dummy argument declarations
-!
    INTEGER Buf(1) , File(7)
    LOGICAL Tpose(1)
    REAL X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , jj , ncol2
-!
-! End of declarations
-!
 !*******
 !     CFE1MY FORMS THE COMPLEX SINGLE PRECISION MATRIX
 !     PRODUCT X = M*Y FOR THE COMPLEX FEER METHOD

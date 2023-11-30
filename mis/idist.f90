@@ -1,24 +1,12 @@
 
 FUNCTION idist(Ns,Ml,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nn
    COMMON /bands / Nn
-!
-! Dummy argument declarations
-!
    INTEGER Maxlev , Ml , Ns
    INTEGER Ic(1) , Icc(1) , Ideg(1) , Idis(1) , Ig(1) , Iw(1) , Jg(1)
    INTEGER idist
-!
-! Local variable declarations
-!
    INTEGER i , ia , icn , ii , k , ki , ko , l , ll , n , nnc
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

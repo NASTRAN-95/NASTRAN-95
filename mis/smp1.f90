@@ -1,20 +1,11 @@
 
 SUBROUTINE smp1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ua , Uf , Uo
    REAL Ue , Ug , Ul , Um , Un , Up , Ur , Us , Usb , Usg
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up
-!
-! Local variable declarations
-!
    INTEGER aa(3) , aab , baa , bff , ff(3) , go , i , ioab(3) , ioob(3) , k4aa , k4ff , kaa , kff , koob , loo , maa , mcb(7) ,     &
          & mff , oab , oob , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , uset
-!
-! End of declarations
-!
 !
 !     SMP1 PARTITIONS KFF INTO KAAB,KOAB AND KOOB
 !     GO IS SOLVED FROM THE EQUATION KOOB*GO = -KOAB

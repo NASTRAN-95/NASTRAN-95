@@ -1,21 +1,12 @@
 
 SUBROUTINE locpt(N,P,M,S,K,Ks,Eps,Loc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER M , N
    DOUBLE PRECISION Eps(2) , Ks(3) , P(3,4) , S(3,4)
    INTEGER K(2,1) , Loc(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dadotb , dvmag
    DOUBLE PRECISION edotp , v(3) , vdotk , ve(3,4) , vemag(4) , vmag , vp(3) , vpmag
    INTEGER i , k1 , k2 , ne , np
-!
-! End of declarations
-!
 !
 !     DETERMINES POSITION OF EACH OF N POINTS (P) RELATIVE TO SURFACE
 !        BOUNDED BY M POINTS (S)

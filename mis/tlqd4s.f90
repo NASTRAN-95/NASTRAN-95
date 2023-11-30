@@ -1,9 +1,6 @@
 
 SUBROUTINE tlqd4s
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Anglei(4) , Bgpdt(4,4) , Buffer(100) , Degrad , Detj , Edgel(4) , Edgshr(3,4) , Eltemp , Elth , Est(45) , Gpth(4) , Hzta ,  &
       & Matset , Pi , Psitrn(9) , Raddeg , Rmtout(25) , Stemp(8) , Sysbuf , Twopi , Uev(3,4) , Unv(3,4) , Z(20000) , Zoff , Zoff1
    LOGICAL Badjac , Bendng , Mbcoup , Membrn , Norpth , Shrflx
@@ -21,9 +18,6 @@ SUBROUTINE tlqd4s
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
    COMMON /trimex/ Est
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL aa , abbd(6,6) , alfab(3) , alfam(3) , alpha(6) , alphad(6) , alphae(3) , alphal(3) , alpham(6) , bb , bdum , bgpdm(3,4) ,  &
       & bmatrx(144) , c , c2 , cc , cent(3) , cente(3) , coeff , const , delta , deltat , determ , detg2 , detu , dgpth(4) , dshp(8)&
       & , dshptp(8) , dum , ecpt(4) , egpdt(4,4) , epnorm(4,4) , eps1 , epslnt(6) , epsubt(6) , eta , exi , exj , ftherm(6) , g(6,6)&
@@ -40,9 +34,6 @@ SUBROUTINE tlqd4s
    REAL theta , thetae , thetam , thk , thrmom(3) , ti , tlam , tmean , tmpshp(4) , tmpthk(4) , trans(36) , transl(9) , tsub0 ,     &
       & tsubo , ttbar , tub(9) , tum(9) , u(9) , ugpdm(3,4) , v12(3) , v12dk , v41(3) , vd1(3) , vd2(3) , vis(3) , vjl , vjs(3) ,   &
       & vkl , vkn(3) , vks(3) , vp12(3) , vp12l , x31 , x42 , xi , xm , xybmat(96) , y31 , y42 , ym , zk , zk1 , zref , zsubi , zta
-!
-! End of declarations
-!
 !
 !     ELEMENT THERMAL LOAD GENERATOR FOR 4-NODE ISOPARAMETRIC
 !     QUADRILATERAL SHELL ELEMENT (QUAD4)

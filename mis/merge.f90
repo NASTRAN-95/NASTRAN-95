@@ -8,29 +8,17 @@ SUBROUTINE merge(Irp,Icp,Core)
 !     PARTITION
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ia(2) , Ia11(7,4) , Ic11(4) , Iforma , Ii , Itypa , Lcare , Namea , Ncola , Nout , Nrowa , Rule , Sysbuf , Two1(32)
    COMMON /parmeg/ Namea , Ncola , Nrowa , Iforma , Itypa , Ia , Ia11 , Lcare , Rule
    COMMON /system/ Sysbuf , Nout
    COMMON /two   / Two1
    COMMON /zblpkx/ Ic11 , Ii
-!
-! Dummy argument declarations
-!
    INTEGER Core(1) , Icp(1) , Irp(1)
-!
-! Local variable declarations
-!
    INTEGER a11(4) , b11(4) , block(40) , i , iaz , ibuf , ibufcp , ibufrp , ibz , ieol , io , iotp , ipos , irew , istor , itemp ,  &
          & j , jeol , jpos , k , km , l , l1 , l2 , l3 , lcore , loop , m , mn , nam1 , nam2 , name(2) , ncola1 , nm , nmat ,       &
          & ntypa , ocpct , orpct , zcpct , zrpct
    INTEGER andf , rshift
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
    DATA name/4HMERG , 4HE   /
 !
 !     CHECK FILES

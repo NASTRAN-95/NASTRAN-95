@@ -1,20 +1,11 @@
 
 SUBROUTINE ema1d(J,Nsca,Scalas,Pivot,Dict,Cgv,Kgg,Cp,F)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL F
    INTEGER J , Nsca
    INTEGER Cgv(1) , Dict(7) , Pivot(6) , Scalas(1)
    DOUBLE PRECISION Cp(1) , Kgg(1)
-!
-! Local variable declarations
-!
    INTEGER i , icol0 , ii , ii0 , imat , k , l , m , ngrid
-!
-! End of declarations
-!
 !     SUBROUTINE EMA1S( J, NSCA, SCALAS, PIVOT, DICT, CGV, KGG, CP, F )
 !*******
 ! EMA1S ADDS A COLUMN VECTOR IN REAL SINGLE PRECISION

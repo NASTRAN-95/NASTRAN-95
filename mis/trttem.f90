@@ -1,9 +1,6 @@
 
 SUBROUTINE trttem(Ti,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Consts(5) , Costh , Degrad , E(3) , Ecpt(34) , Eltemp , G(3) , Gsube , Pi , Rho , Setmat , Sinth ,        &
       & Stress , Tzero
    INTEGER Iecpt(34) , Matflg , Matidc , Moskp(9)
@@ -11,21 +8,12 @@ SUBROUTINE trttem(Ti,Pg)
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube , Moskp , Setmat
    COMMON /trimex/ Ecpt
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Ti(3)
-!
-! Local variable declarations
-!
    REAL aa , ajho , c1 , c2 , c2s2 , c3 , c4 , cosg , d(3) , del , delint(12) , dgama , dgamr , dtt(9) , ee01 , ee02 , ee03 , ee04 ,&
       & ee08 , ee09 , ee10 , ee15 , ee16 , er , et , ez , fij(9) , gababq(9,9) , gor , grz , gzo , r(3) , r1 , r2 , r3 , s2 , s4 ,  &
       & sing , t , t1 , t2 , t3 , t4 , tempe , teo(21) , tl(9) , vor , voz , vro , vrz , vzo , vzr , z(3) , z1 , z2 , z3 , zmin
    REAL ais
    INTEGER i , ics(3) , idel , igp(3) , j , k , l , matid
-!
-! End of declarations
-!
 !****
 ! THIS ROUTINE COMPUTES THE THERMAL LOAD FOR THE ASSYMMETRIC RING ELE
 ! WITH A TRIANGULAR CROSS SECTION

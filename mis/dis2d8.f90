@@ -1,9 +1,6 @@
 
 SUBROUTINE dis2d8
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp12 , Alpha1 , Alpha2 , Alphas(3) , C , Costh , Disp(24) , Ecpt(1) , Edt , Eltemp , G11 , G12 , G13 , G22 , G23 , G33 ,   &
       & Ge , Kx , Ky , Qq(15) , Rho , Sinth , Stress , T , Tgrid(8) , Th , Tref , Ttemp , X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8 ,   &
       & Xy1(3) , Xy2(3) , Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7 , Y8 , Z1 , Z2 , Z3 , Z4 , Z5 , Z6 , Z7 , Z8
@@ -18,17 +15,11 @@ SUBROUTINE dis2d8
                  & Z8 , Ttemp , Edt , Isetno , Tgrid , Disp
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alp12 , Tref , Ge , Kx , Ky , C
-!
-! Local variable declarations
-!
    REAL bb(72) , db(72) , dn(8) , gstemp , r(9) , rgtemp , s(6) , se1t(6) , semp(9) , sig(3) , st(3) , stb(9) , ttb(9) , tth ,      &
       & vec(3) , veci(3) , vecil , vecj(3) , veck(3) , veckl , vvec(3)
    DOUBLE PRECISION cid(18) , cjd(18) , dhh , e1t(9) , eta(8) , kmult(18) , kwd(36) , premul(9) , pstmul(9) , save(72) , thick ,    &
                   & xi(8)
    INTEGER i , idtemp , iii , ising , isub , iws(2,3) , ixx , j , jjj , k , kk , l , ll , n , n3 , nogo
-!
-! End of declarations
-!
 !
 !     2-D, 8 GRID POINT ISOPARAMETRIC STRUCTURAL ELEMENT
 !     DIFFERENTIAL STIFFNESS MATRIX ROUTINE

@@ -1,25 +1,13 @@
 
 SUBROUTINE solid(Temps,Pg,Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(100)
    INTEGER Necpt(52)
    COMMON /trimex/ Ecpt
-!
-! Dummy argument declarations
-!
    INTEGER Itype
    REAL Pg(6) , Temps(8)
-!
-! Local variable declarations
-!
    INTEGER i , iopt , itemp , itet , j , jpoint , kpoint , m(13,4) , ngrids , ntet
    REAL tmps(4)
-!
-! End of declarations
-!
 !*****
 !  ELEMENT THERMAL LOAD GENERATOR FOR THE WEDGE, HEXA1, AND HEXA2
 !

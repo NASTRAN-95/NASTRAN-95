@@ -8,9 +8,6 @@ SUBROUTINE retblk(Ibl)
 !     RESPECTIVE SUPERBLOCKS.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Avblks , Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Filnam(10) , Filsiz(10) , Ihalf ,  &
          & Iodum(8) , Jhalf , Mach , Mdidum(4) , Mdiup , Nfiles , Nxt , Nxtcur , Nxtfsz(10) , Nxtlbn , Nxtpbn , Nxttsz , Supsiz
    LOGICAL Ditup , Nxtup
@@ -20,21 +17,12 @@ SUBROUTINE retblk(Ibl)
    COMMON /sofcom/ Nfiles , Filnam , Filsiz
    COMMON /sys   / Blksiz , Dirsiz , Supsiz , Avblks
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Ibl
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    INTEGER btfree , filind , filnum , filsup , i , ilbn , ind , indsbr , ird , isv , iwrt , j , l , left , lmask , lstblk , max ,   &
          & nmsbr(2) , tpfree
    LOGICAL repeat
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    DATA ird , iwrt/1 , 2/
    DATA indsbr/13/ , nmsbr/4HRETB , 4HLK  /
 !

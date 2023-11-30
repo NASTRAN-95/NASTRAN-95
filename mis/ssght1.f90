@@ -1,9 +1,6 @@
 
 SUBROUTINE ssght1(Iest,File,Nequiv)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Af , Consts(5) , Costh , Dum(1) , Eltemp , Pi , R(3,8) , Sinth , Theta , Xxx(4)
    INTEGER Bufm(7) , Elem(1) , Elid , Imat , Incr , Inflag , Last , Matid , Mato(6) , Name(2) , Nelems , Nesto(45) , Sil(8) , Sub
    LOGICAL Linear
@@ -13,20 +10,11 @@ SUBROUTINE ssght1(Iest,File,Nequiv)
    COMMON /hmatdd/ Xxx , Linear
    COMMON /hmtout/ Bufm
    COMMON /matin / Matid , Inflag , Eltemp , Dum , Sinth , Costh
-!
-! Dummy argument declarations
-!
    INTEGER File , Iest
    INTEGER Nequiv(1)
-!
-! Local variable declarations
-!
    REAL est(100)
    INTEGER flag , i , ia , iel , ig , iloc , im , ipt , is , isil , itemp , ith , j , jpoint , nest(2) , np , numelt , nwords ,     &
          & point1(8,20) , point2(8,3) , pointr(8,23) , subr(2) , type , zp
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE CONVERTS THE EST DATA FOR ALL THERMAL ELEMENTS TO A
 !     COMMON FORMAT. OPTIONAL TASKS INCLUDE CALCULATING MATOUT DATA AND

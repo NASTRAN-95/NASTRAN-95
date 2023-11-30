@@ -1,14 +1,8 @@
 
 SUBROUTINE dumod1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Parm1 , Parm2 , Parm3 , Parm4 , Parm5
    COMMON /blank / Parm1 , Parm2 , Parm3 , Parm4 , Parm5
-!
-! End of declarations
-!
 !
 !
 !     DUMMY DECK FOR MODULE DUMMOD1 - SEE USER'S MANUAL SECTION 5.6.

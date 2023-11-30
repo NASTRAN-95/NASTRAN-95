@@ -1,19 +1,10 @@
 
 FUNCTION go(R,Etar,Etal,Ekm)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Ekm , Etal , Etar , R
    REAL go
-!
-! Local variable declarations
-!
    REAL arg , as(2) , bsl(23) , c(2) , dbslj , f , fi , s(2) , s0(2) , s4
    INTEGER i , j , n
-!
-! End of declarations
-!
 !
 !
    dbslj = 1.0E-10

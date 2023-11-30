@@ -1,9 +1,6 @@
 
 SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bggind , Z(1)
    INTEGER Clsnrw , Clsrw , Ecpt(100) , Eor , Frowic , I6x6b , I6x6m , Icstm , Idum1 , Idum2 , Idum3 , Idum4 , Idum5 , Ifbgg ,      &
          & Ifcstm , Ifdit , Ifecpt , Ifgpct , Ifmgg , Ifmpt , Igbgg , Igecpt , Iggpct , Igmgg , Igpct , Inrw , Ioptb , Ipoint ,     &
@@ -19,19 +16,10 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
                  & Igbgg , Idum4 , Idum5 , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbmgg , Mcbbgg
    COMMON /system/ Isys , Linkno
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dumdp
    INTEGER Ifile , Ii , J
    DOUBLE PRECISION Ke(36)
-!
-! Local variable declarations
-!
    INTEGER i , i1 , ibase , index , isave , j1 , j2 , j3 , jj , k , k1 , l , l1 , lim , low , nrow
-!
-! End of declarations
-!
 ! ******
 ! SUBROUTINE SMA2B  ADDS A N X N DOUBLE PRECISION MATRIX, KE, TO THE
 ! SUBMATRIX OF ORDER NROWSC X JMAX, WHICH IS IN CORE.  N IS 1 IF EITHER

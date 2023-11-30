@@ -1,27 +1,15 @@
 
 SUBROUTINE ascm08(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(1248) , Ioct , Ipas28(14) , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
    COMMON /phas28/ Ipas28
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,1) , i , icomnd , isave(21) , j , k , l , oct(3,23) , oct1(3,18) , oct2(3,5) , ptbs(7,25) , ptbs1(7,18) ,        &
          & ptbs2(7,7) , rdmap(18,55) , rdmap1(18,9) , rdmap2(18,9) , rdmap3(18,9) , rdmap4(18,9) , rdmap5(18,9) , rdmap6(18,9) ,    &
          & rdmap7(18,1) , subnam(2)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     SOLVE COMMAND DMAP DATA FOR DYNAMIC ANALYSIS
 !

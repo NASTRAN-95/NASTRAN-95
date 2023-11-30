@@ -1,9 +1,6 @@
 
 SUBROUTINE melbow
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Betar , Costh , Cp , Dum(14) , Dumm(8) , Dz , Ecpt(9) , Eltemp , Fe , Fj , Nsm , Prop(8) , R , Rho , Sinth , Smallv(3) ,&
       & Stress , Tempel , Z(1)
    INTEGER Bggind , Clsnrw , Clsrw , Eor , Frowic , I1 , I2 , I6x6b , I6x6m , Icssv , Icstm , Idum1 , Idum2 , Idum3 , Idum4 ,       &
@@ -23,15 +20,9 @@ SUBROUTINE melbow
    COMMON /sma2io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Idum2 , Idum3 , Ifmgg , Igmgg , Ifbgg ,     &
                  & Igbgg , Idum4 , Idum5 , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbmgg , Mcbbgg
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL dcr
    DOUBLE PRECISION fm
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE MASS MATRIX M(NPVT,NPVT) FOR AN ELBOW.
 !

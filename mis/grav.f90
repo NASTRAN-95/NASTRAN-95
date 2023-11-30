@@ -1,27 +1,15 @@
 
 SUBROUTINE grav(Ngrav,Gvect,Nlist,Ilist,Nloop)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Lcore , N(14) , Nobld , Nsys
    REAL Ro(3) , Slt , To(3,3) , Tysys
    COMMON /loadx / Lcore , Slt , N , Nobld
    COMMON /tranx / Nsys , Tysys , Ro , To
-!
-! Dummy argument declarations
-!
    INTEGER Ngrav , Nlist , Nloop
    REAL Gvect(1)
    INTEGER Ilist(1)
-!
-! Local variable declarations
-!
    REAL flag , gl(5) , x(3)
    INTEGER i , igl , j , name(2) , nl1 , nlist1 , nsave
-!
-! End of declarations
-!
 !
    EQUIVALENCE (igl,gl(2))
    DATA name/4HGRAV , 4H    /

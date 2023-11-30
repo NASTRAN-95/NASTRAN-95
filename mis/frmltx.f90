@@ -1,28 +1,16 @@
 
 SUBROUTINE frmltx(Ifile,Dz,Dy,Zm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dm18(18)
    INTEGER Ibuf , Incr , Ip , Ityp , Iz(1) , Nout , Np , Nzm
    COMMON /feerxx/ Dm18 , Nzm
    COMMON /system/ Ibuf , Nout
    COMMON /unpakx/ Ityp , Ip , Np , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dy(1) , Dz(1) , Zm(1)
    INTEGER Ifile(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dp , dsum
    INTEGER i , idp(2) , ifl , ii , j , jj , ll , ll2 , n , nam(2) , nrec , ntms , nwds
-!
-! End of declarations
-!
 !
 !     LOWER TRIANGULAR TRANSPOSE WITH OFF-DIAGONAL SWITCH
 !     DOUBLE PRECISION VERSION

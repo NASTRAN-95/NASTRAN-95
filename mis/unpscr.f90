@@ -71,9 +71,6 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
 !     WILL BE LEFT FOR NEXT PROJECT.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Jj , Nout , Rc(2) , Rd , Rdrew , Rew , Sysbuf , Tyiijj(4) , Type , Words(4) , Wrt , Wrtrew
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
@@ -83,20 +80,11 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
    COMMON /type  / Rc , Words
    COMMON /unpakx/ Type , Ii , Jj , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Buf1 , Buf2 , Flag , Maxz , Out , Tysign
    INTEGER In(7) , Z(3)
-!
-! Local variable declarations
-!
    CHARACTER*8 backwd , fbwd , forwd
    LOGICAL debug , flag23
    INTEGER file , form , i , j , k , ll , max , nam(2) , nl , nrec , nwds , save(4) , sum , tot
-!
-! End of declarations
-!
    EQUIVALENCE (Type,Tyiijj(1))
    DATA forwd , backwd/'FORWARD' , 'BACKWARD'/
    DATA nam/4HUNPS , 2HCR/

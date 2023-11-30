@@ -1,9 +1,6 @@
 
 SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Dcbdzb , Den , Dum(2) , Redf , Refc , Refcrd , Refden , Refmac , Refstg , Refswp ,&
       & Refvel , Rfreq , Sigma , Stag , Sweep , Tsonic , Vel
    INTEGER Ibuf , Iout , Iref , Mach , Maxmac , Mcb(7) , Minmac , Nlines , Nrow , Nstns , Nstnsx , Sln
@@ -13,15 +10,9 @@ SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
    COMMON /tamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stag , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amach , Redf , Blspc , Amachr , Tsonic
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL C1sbar , C2sbar
    INTEGER Nstns2
    COMPLEX Q(Nstns2,Nstns2)
-!
-! Local variable declarations
-!
    COMPLEX a(20,40) , ab(401) , an(401) , cb(401) , cn(401) , ff , fg , fk(401) , fo , fs , loads(21) , p(50) , pd(401) , s1(100) , &
          & slope , so(100) , st , stp , stt(20) , stti , sum1 , sum2
    REAL b , b2 , beta , c2ssch , cc , cj , ck , cl , con , con2 , conn , csbar , csbar1 , csblsb , csbm2s , ct , d , delta , deltm ,&
@@ -29,9 +20,6 @@ SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
       & tanlam , td , w(8) , ww(8) , x(20) , xl , xlam , zer
    INTEGER i , ir , is , j , jj , jk , k , kkk , l , n , n1 , n11 , n1m , n1n , n2 , n22 , nf , nk , nk1 , nk2 , nm , nn , nn1 ,    &
          & nn11 , nn22 , nnf , nnm , nnn
-!
-! End of declarations
-!
 !
 !      SUBSONIC RAO (CASCADES) CODE FOR SWEPT TURBOPROPS.
 !

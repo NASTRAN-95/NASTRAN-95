@@ -1,21 +1,12 @@
 
 COMPLEX FUNCTION sumphi(Ixr,Iyr,Nd1,Ndn,Capphi,Dss,N,M,Asym)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    LOGICAL Asym
    INTEGER Ixr , Iyr , M , N
    COMPLEX Capphi(1) , Dss(N,M)
    INTEGER Nd1(1) , Ndn(1)
-!
-! Local variable declarations
-!
    INTEGER i , ijphi , ip , iphi , ixs , iys , j , l , ltot
    REAL s
-!
-! End of declarations
-!
 !
 !     FUNCTION TO COMPUTE SUM OF CAPPHI-DELTA SOURCE STENGTH PRODUCT
 !

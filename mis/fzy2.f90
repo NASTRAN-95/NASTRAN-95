@@ -1,21 +1,12 @@
 
 SUBROUTINE fzy2(Xij,X1,X2,Eta,Zeta,Yb,Zb,A,Beta2,Cbar,K,Fzzr,Fzzi,Fzyr,Fzyi,Fyzr,Fyzi,Fyyr,Fyyi)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , Beta2 , Cbar , Eta , Fyyi , Fyyr , Fyzi , Fyzr , Fzyi , Fzyr , Fzzi , Fzzr , K , X1 , X2 , Xij , Yb , Zb , Zeta
-!
-! Local variable declarations
-!
    REAL a2 , arg1 , arg2 , capa , capdi , capdr , ct2 , cth , delta , delta2 , delta3 , deno4 , denom , dx , earg , eps , fri ,     &
       & frr , fthi , fthr , i1 , i10 , i11 , i2 , i3 , i4 , i5 , i6 , i7 , i8 , i9 , kbar , kbar2 , kbar3 , m , part1 , qi , qr ,   &
       & ra1 , ra12 , ra13 , ra2 , ra22 , ra23 , raa , raa2 , raa3 , raa4 , raij , raij2 , rwig , rwig2 , st2 , sth , tau , tau2 ,   &
       & test1 , test2 , trm1 , trm2 , xa
    INTEGER lastbr
-!
-! End of declarations
-!
 !   ***   THIS SUBROUTINE IS AN ALTERNATIVE TO SUBROUTINE  FMZY   ---
 !         IT IS USED WHENEVER THE OPTION FLAG   IBFS  =  1
 !   ***

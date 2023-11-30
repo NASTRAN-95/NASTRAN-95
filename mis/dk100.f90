@@ -1,20 +1,11 @@
 
 DOUBLE PRECISION FUNCTION dk100(I,A,B,M,N,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    INTEGER I , M , N
    DOUBLE PRECISION X(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION am1f , amn2f , amn2sf , an1 , an1f , an1p1 , an2 , capx , f100 , s , sf , xx
    INTEGER iret , is , kfac , lfac , n1 , n2 , n3 , n4 , nfac
-!
-! End of declarations
-!
    f100 = 0.0D0
    capx = A + B*X(I)
    xx = X(I)

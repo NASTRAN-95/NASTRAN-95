@@ -1,26 +1,14 @@
 
 SUBROUTINE ofppnt(Out,Nwds,Fmt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L , Machx
    REAL Sysbuf
    COMMON /machin/ Machx
    COMMON /system/ Sysbuf , L
-!
-! Dummy argument declarations
-!
    INTEGER Nwds
    CHARACTER*1 Fmt(1200)
    INTEGER Out(Nwds)
-!
-! Local variable declarations
-!
    INTEGER iosxx , k
-!
-! End of declarations
-!
 !
 !WKBD LOGICAL         DEBUG
 !WKBR INTEGER         OUT(NWDS), FMT(300)

@@ -2,9 +2,6 @@
 SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Di , Elid , Elset , G(3) , Ibeg , Icct , Icore , Icount , Ict , Idum(3) , Iend , Iia , Iout , Irct , Isys(100) , Lid ,   &
          & Merr , Mne , Mnp , Ngp , Nnn , Nofsur , Npers , Ns , Nscr1 , Nscr2 , Nscr3 , Nsets , Nsil , Ptrs(29) , Rz(1) , Skp1(7) , &
          & Skp2(2) , Skp22(7) , Skps , Used , Work , X1skt , X21 , Xasolv , Xcc , Xdum , Xe , Xi , Xu , Y1skt , Y21 , Yasolv , Ye , &
@@ -19,20 +16,11 @@ SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
    COMMON /pltscr/ Nnn , G
    COMMON /system/ Skps , Iout
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Ib , Iopcor , Maxsf , Nmax
    INTEGER Gplst(1)
-!
-! Local variable declarations
-!
    LOGICAL debug
    INTEGER i , j , lintc , m , n , name(2) , nc , nholes , nps
    REAL x(20) , y(20) , z(20)
-!
-! End of declarations
-!
    EQUIVALENCE (Isys(1),Skps) , (Ptrs(1),Xdum)
    DATA name/4HHDPL , 4HOT  /
    DATA debug/.FALSE./

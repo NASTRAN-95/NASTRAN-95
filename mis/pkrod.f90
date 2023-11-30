@@ -1,9 +1,6 @@
 
 SUBROUTINE pkrod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D(18) , Deps1 , Deps2 , Diff(3) , Dpterm , Dscl , Dscr , E , Eps1 , Eps2 , Epsin1 , Epsin2 , G , Gamma ,        &
                   & Gammas , Ke(36) , Sigma1 , Sigma2 , Ta(9) , Tb(9) , Ua(6) , Ub(6) , X , Xl , Xn(3) , Y , Z
    REAL Dumcl(146) , Dummat(18) , Ecpt(100) , Esub0 , Gnew , Gold , Gsub0 , Plaans , Plaarg , Temdum
@@ -14,13 +11,7 @@ SUBROUTINE pkrod
    COMMON /pla42d/ D , X , Y , Z , Xl , Xn , Ua , Ub , Ta , Tb , Diff , Dpterm , Epsin1 , Epsin2 , Deps1 , Deps2 , Eps1 , Eps2 ,    &
                  & Gamma , Gammas , Sigma1 , Sigma2 , Dscl , Dscr , E , G , Ke
    COMMON /pla42e/ Ecpt
-!
-! Local variable declarations
-!
    INTEGER i , ibasea , ibaseb , idispa , idispb , ind , iretrn , itemp , k1 , k2 , ka , kb , nonpvt
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES  K(NPVT,NPVT) AND
 !     K(NPVT,J) FOR A ROD HAVING END POINTS NUMBERED NPVT AND J.

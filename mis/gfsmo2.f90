@@ -1,9 +1,6 @@
 
 SUBROUTINE gfsmo2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ac , Afry , Ahj , Ahy , Ajh , Axy , Ayh , Azy , Badd(11) , Comptp , Dkaa , Dkfrfr , Gia , Gjh , Gyh , H , Ibuf , Ident , &
          & Ii , Incr , Kc , Kcomp , Khhbar , Kjj , Kjjl , Kmat , Kyy , Kzz , Kzzbar , Lama , Lcore , Llmode , Lmodes , Mhhbar ,     &
          & Mmat , Mzz , Name(2) , Nmodes , Nn , Nofree , Nograv , Nout , Nsub0 , Nsub1 , Nsub2 , Phia , Phix , Pout , Pvec , Scr1 , &
@@ -20,14 +17,8 @@ SUBROUTINE gfsmo2
    COMMON /system/ Sysbuf , Nout
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL eigval(7)
    INTEGER file , i , i1 , i2 , igk , igm , mcb(7) , n , nsub0s , nsub1s , phiar
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS THE CONTINUATION OF GFSMOD
 !

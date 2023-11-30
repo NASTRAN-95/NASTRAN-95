@@ -1,9 +1,6 @@
 
 SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idry , Iptr , Name(2) , Nono , Nss , Outt , Sysbuf , Two(32) , Z(1)
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -13,21 +10,12 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iextra , Ifile , Oextra , Ofile
    INTEGER Buf(1) , Icode(4) , Mcb(7) , Ocode(4) , Type(2)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , orf
    INTEGER card(20) , cexist(6) , cin(6) , code , comp , i , icd , ig , igr , igrd , igrid , inam , ipt , isil , j , jg , n , nc ,  &
          & ncin , ngrd , npro , nwds , subnam(2)
    EXTERNAL andf , complf , orf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE READS SUBSTRUCTURING CONSTRAINT AND DYNAMIC PROPERTY
 !     CARDS AND CONVERTS THEM TO NASTRAN FORMAT

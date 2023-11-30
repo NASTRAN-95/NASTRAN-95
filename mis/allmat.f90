@@ -1,23 +1,14 @@
 
 SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Iopt1 , M , Ncal
    COMPLEX A(M,M) , H(M,M) , Hl(M,M) , Lambda(2) , Mult(1) , Vect(1)
    INTEGER Int(1)
    LOGICAL Inth(1)
-!
-! Local variable declarations
-!
    REAL abig , abssq , aid , ain , ard , arn , big , eps , rho , sum , te , tem , term1 , term2 , term3
    COMPLEX cos , shift(3) , sin , temp , temp1 , temp2
    INTEGER i , icount , im1 , index , inter , ip1 , j , k , l , mn1 , n , n1i , ni1 , nm1 , nm2 , nvec , r , rp1 , rp2
    LOGICAL twice
-!
-! End of declarations
-!
 !
 !     SUBROUTINE ALLMAT (A,LAMBDA,M,IA,NCAL)
 !

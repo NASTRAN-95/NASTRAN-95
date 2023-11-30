@@ -1,20 +1,11 @@
 
 SUBROUTINE fvrs1e(A,K,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N
    REAL A(1)
    INTEGER K(1)
-!
-! Local variable declarations
-!
    REAL aipm , w
    INTEGER i , ikl , ipm , j , k1 , kw , m
-!
-! End of declarations
-!
 !
 !     PURPOSE
 !       TO SORT THE ELEMENTS OF A REAL*4 VECTOR, A, INTO ASCENDING

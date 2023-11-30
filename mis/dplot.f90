@@ -2,9 +2,6 @@
 SUBROUTINE dplot
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Bufsiz , Casecc , Ecpt , Elsets , Eqexin , Gpsets , Iused , Lsil , Ngp , Ngpset , Nodef , Nout , Nsets , Oes1 ,  &
          & Pdef1 , Pdef2 , Plotx , Pltflg , Pltnum , Pltpar , S2 , Scr1 , Scr2 , Scr3 , Scr4 , Setd , Sil , Skp1(3) , X(1)
    CHARACTER*23 Ufm
@@ -15,14 +12,8 @@ SUBROUTINE dplot
    COMMON /system/ Bufsiz , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER buf , i , i1 , i2 , inprew , name(2) , oes1l , onrgy1 , rew , tit(32)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     NOTE THAT NSETS IS DMAP PARAMETER JUMPPLOT
 !     IUSED IS USED IN PLOT AND HDPLOT

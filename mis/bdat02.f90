@@ -1,9 +1,6 @@
 
 SUBROUTINE bdat02
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Combo(7,5) , Conset , Geom4 , Iauto , Idry , Ierr , Ihead(96) , Inam(2) , Inpt , Iprint , Isort , Ititl(96)&
          & , Lcore , Mcon , Npsub , Outt , Scr1
    REAL Buf3 , Buf4 , Buf5 , Casecc , Conect , Origin(7,3) , Restct(7,7) , Scbdat , Scconn , Scmcon , Score , Scr2 , Scsfil ,       &
@@ -19,17 +16,11 @@ SUBROUTINE bdat02
    COMMON /output/ Ititl , Ihead
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , comp , conct(2) , flag , i , ibits(32) , iblnk , ic1 , ic2 , id(2) , ifile , ihd(16) , imsg , io(9) , is1 ,     &
          & is2 , j , jbits(32) , kdh , kk , n , name(14) , nams(4) , np2 , nwd
    INTEGER andf , rshift
    LOGICAL print
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES CONCT BULK DATA AND WRITES CONNECTION
 !     ENTRIES IN TERMS OF CODED GRID POINT ID NUMBERS ON SCR1

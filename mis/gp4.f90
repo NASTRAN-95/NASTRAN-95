@@ -10,9 +10,6 @@ SUBROUTINE gp4
 !       5. BUILDS THE RGT MATRIX AND YS VECTOR FOR CURRENT SUBCASE
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Buf(20) , Buf1 , Buf2 , Buf3 , Buf4 , Clsrew , Cstm , Geomp , Gpoint , Iautsp , Iaxic , Iaxif , Ib6 , Idsub ,    &
          & Ihalf , Ii , Ii1 , Incr , Incr1 , Iogpst , Ita1 , Itb , Itb1 , Ix , Jhalf , Jj , Jj1 , Kn , Knkl1 , Ksystm(65) , Luset , &
          & Mach , Mask16 , Mpcf1 , Mpcf2 , Mpcset , Msksng , Mskul , Mskum , Mskuo , Mskur , Mskus , Nauto , Noa , Nogo , Nol ,     &
@@ -36,9 +33,6 @@ SUBROUTINE gp4
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zblpkx/ X , Ix
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , complf , korsz , lshift , orf , rshift
    INTEGER aset(2) , aset1(2) , asetx , casecc , ctype(18) , dup , eqexin , file , flag , gpdt , i , i1 , i2 , i3 , icode , icomp , &
          & icount , icrq , id , idepn , ifl , iflag , iflg , igotch , ijk , ik , iload , impc , impcad , imsk , index , insuff ,    &
@@ -50,9 +44,6 @@ SUBROUTINE gp4
          & nspcad , omit(2) , omitx1(2) , r , ret , ret1 , ret2 , ret3 , rigid , scr2 , sg , sild , spc(2) , spc1(2) , spcadd(2) ,  &
          & spcd(2) , spcold , suport(2) , ugset , uset , usgset , ys
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !WKBI 3/95 NCL94002
 !WKBR 3/95 NCL94002      COMMON /XMSSG / UFM
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outtap) , (Ksystm(27),Iaxic) , (Ksystm(38),Iaxif) , (Z(1),Rz(1)) , (Buf(1),Bufr(1)) ,&

@@ -1,26 +1,14 @@
 
 SUBROUTINE tlodt3(Ts6,Nots)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , B1 , B2 , B3 , Dista , Distb , Distc , Dum50(50) , Em(6) , X , Y , Z
    COMMON /matout/ Em
    COMMON /ssgwrk/ X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , B1 , B2 , B3 , Dum50
-!
-! Dummy argument declarations
-!
    LOGICAL Nots
    REAL Ts6(40)
-!
-! Local variable declarations
-!
    REAL a11 , a12 , a13 , a14 , a15 , a16 , a21 , a22 , a23 , a24 , a25 , a26 , a31 , a32 , a33 , a34 , a35 , a36 , a37 , a38 ,     &
       & a39 , a40 , a41 , d11 , d12 , d13 , d21 , d22 , d23 , d31 , d32 , d33 , j11 , j12 , j22 , thk , thk1 , x2 , xy , y2
    INTEGER i
-!
-! End of declarations
-!
    DO i = 1 , 40
       Ts6(i) = 0.0
    ENDDO

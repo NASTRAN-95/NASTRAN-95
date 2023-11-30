@@ -1,9 +1,6 @@
 
 SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Ifrst , Iodum(8) , Item(7,1) , Mdi , Mdibl ,&
          & Mdilbn , Mdipbn , Nitem , Nxtdum(15)
    LOGICAL Ditup , Mdiup
@@ -12,22 +9,13 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
    COMMON /sof   / Dit , Ditpbn , Ditlbn , Ditsiz , Ditnsb , Ditbl , Iodum , Mdi , Mdipbn , Mdilbn , Mdibl , Nxtdum , Ditup , Mdiup
    COMMON /sys   / Blksiz , Dirsiz , Sys , Ifrst
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Itest , Lim
    INTEGER Image(1) , Imore(1) , Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf , rshift
    INTEGER cs , hl , i , ibl , icheck , icount , ics , idit , iempty , ihere , iis , ill , imdi , imtop , indcs , index , indhl ,   &
          & indis , indll , indps , indsbr , indss , ips , iret1 , iret2 , is , isave , iss , isv , itm , itop , j , jdit , ll ,     &
          & maskl , maskm , nmsbr(2) , ps , ss
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     DESTROYS THE SUBSTRUCTURE NAME BY DELETING ITS DIRECTORY FROM THE
 !     MDI AND ITS NAME FROM THE DIT.  NO OPERATION WILL TAKE PLACE IF

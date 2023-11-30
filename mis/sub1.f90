@@ -1,25 +1,13 @@
 
 SUBROUTINE sub1(X,Y,A,B)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ncol
    REAL Xx
    COMMON /invpwx/ Xx , Ncol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    REAL X(1) , Y(1)
-!
-! Local variable declarations
-!
    REAL a1 , b1
    INTEGER i
-!
-! End of declarations
-!
 !     SUBROUTINE SUB(X,Y,A,B)
 !*******
 !     SUB WILL FORM Y = A*X - B*Y  WHERE A AND B ARE SCALAR MULTIPLIERS

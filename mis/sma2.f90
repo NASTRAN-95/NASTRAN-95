@@ -1,9 +1,6 @@
 
 SUBROUTINE sma2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bggind , Clsnrw , Clsrw , Eor , Frowic , I6x6b , I6x6m , Icstm , Idit , Idum1 , Idum2 , Idum3 , Idum4 , Idum5 , Ifbgg ,  &
          & Ifcstm , Ifdit , Ifecpt , Ifgpct , Ifmgg , Ifmpt , Igbgg , Igecpt , Iggpct , Igmgg , Igpct , Ihmat , Incr , Inrw ,       &
          & Ioptb , Ipoint , Iprec , Isew1(53) , Isys , Itherm , Iz(1) , Jmax , Last , Left , Link(10) , Lrowic , Mcbbgg(7) ,        &
@@ -24,14 +21,8 @@ SUBROUTINE sma2
                  & Igbgg , Idum4 , Idum5 , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbmgg , Mcbbgg
    COMMON /system/ Isys , Isew1 , Iprec , Itherm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ifile , imat1 , imat11 , iparm , izmax , matcr , nmat1 , nmat2 , nmat3 , nmat4 , nmsma2(2)
    INTEGER korsz
-!
-! End of declarations
-!
 ! ******
 ! THIS ROUTINE IS A DRIVER AND INITIALIZATION PROGRAM FOR MODULE
 ! 2.4.2 OF THE NASTRAN SYSTEM.  IT GENERATES THE MASS MATRIX, MGG, AND

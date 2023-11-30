@@ -1,19 +1,10 @@
 
 SUBROUTINE alg14(Xdata,Ydata,Ndata,Xin,Yout,Yprime,Nxy,Nwot)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ndata , Nwot , Nxy
    REAL Xdata(2) , Xin(1) , Ydata(2) , Yout(1) , Yprime(1)
-!
-! Local variable declarations
-!
    REAL a(65) , b(65) , d(65) , dx , e1 , e2 , m(65) , ydash
    INTEGER i , ii , j , n
-!
-! End of declarations
-!
 !
 !     THIS SPLINE ROUTINE DETERMINES Y AND/OR YPRIME  LINEAR EXTRAPOLATI
 !     XDATA AND XIN MUST BE IN ASCENDING ORDER  E1 AND E2 ARE D2YDX2 LAS

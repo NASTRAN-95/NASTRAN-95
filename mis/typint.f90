@@ -1,25 +1,13 @@
 
 SUBROUTINE typint(X,Y,Xyd,Num,Field,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntx , Cnty , Skpa(3) , Skpplt(18)
    INTEGER Model , Ploter
    COMMON /pltdat/ Model , Ploter , Skpplt , Skpa , Cntx , Cnty
-!
-! Dummy argument declarations
-!
    INTEGER Field , Num , Opt , Xyd
    REAL X , Y
-!
-! Local variable declarations
-!
    INTEGER aster , d(11) , dir , i , j , minus , n , nd
    REAL xx , xy , yy
-!
-! End of declarations
-!
 !
 !     (X,Y) = STARTING OR ENDING POINT OF THE NUMBER TO BE TYPED (ALWAYS
 !             LEFT-TO-RIGHT OR TOP-TO-BOTTOM).

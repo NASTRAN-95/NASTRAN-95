@@ -1,20 +1,11 @@
 
 SUBROUTINE smmats(A,Irowa,Icola,Mta,B,Irowb,Icolb,Ntb,C,E)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icola , Icolb , Irowa , Irowb , Mta , Ntb
    REAL A(1) , B(1) , C(1) , E(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aia , bjb , cij , eij
    INTEGER cola , colb , i , ia , ifix , ij , ilim , inci , incj , incka , inckb , iparm(2) , j , jb , jlim , k , klim , lim , nta ,&
          & rowa , rowb
-!
-! End of declarations
-!
 !*****
 !     SMMATS - S P E C I A L   M A T R I X   M U L T I P L Y
 !                                 A N D

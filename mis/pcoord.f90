@@ -1,26 +1,14 @@
 
 SUBROUTINE pcoord(Pen)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntchr(2) , G(3,4) , Size
    INTEGER Fpltit , Idum2(2) , Idum20(20) , Idumm(215)
    COMMON /drwaxs/ G
    COMMON /pltdat/ Idum20 , Size , Idum2 , Cntchr
    COMMON /xxparm/ Idumm , Fpltit
-!
-! Dummy argument declarations
-!
    INTEGER Pen
-!
-! Local variable declarations
-!
    REAL de , ep , of , sf , x1 , x2 , y1 , y2
    INTEGER i , sym(2)
-!
-! End of declarations
-!
 !
 !     PLOTS A COORDINATE TRIAD AT THE LOWER RIGHT CORNER OF A STRUCTURAL
 !     PLOT. THIS ROUTINE IS CALLED ONLY BY DRAW

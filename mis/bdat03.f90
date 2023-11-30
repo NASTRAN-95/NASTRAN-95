@@ -1,9 +1,6 @@
 
 SUBROUTINE bdat03
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf4 , Combo(7,5) , Geom4 , Iauto , Idat(3) , Idry , Ihead(96) , Intp , Iot , Iprint , Isort , Ititl(96) , &
          & Junk(6) , Junk1(2) , Junk2(2) , Lcore , Line , Mcon , Nlpp , Npsub , Outt , Z(1)
    REAL Buf3 , Buf5 , Casecc , Conect , Conset , Origin(7,3) , Restct(7,7) , Scbdat , Scconn , Scmcon , Score , Scr1 , Scr2 ,       &
@@ -19,17 +16,11 @@ SUBROUTINE bdat03
    COMMON /system/ Xxx , Iot , Junk , Nlpp , Junk1 , Line , Junk2 , Idat
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , iblnk , id , ierr , ifile , ihd(10) , imsg , inum , it , j , jdh , kk , ll , n , ngtrn , ngtrn1 , nnn ,     &
          & npm1 , trans(2)
    INTEGER andf , rshift
    REAL flag , out(9) , temp(9) , v2(3) , xax(3) , xmag , yax(3) , ymag , zax(3) , zmag
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES TRANS BULK DATA, GENERATES THE
 !     TRANSFORMATION MATRIX, AND WRITES TO SCBDAT.

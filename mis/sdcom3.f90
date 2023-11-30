@@ -1,25 +1,13 @@
 
 SUBROUTINE sdcom3(P,Ac,Wa,Wb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C , Lasti , Lastpl , Row , Sc , Start
    REAL Frstpc , Spflg
    COMMON /sdcomx/ Row , C , Spflg , Start , Frstpc , Lastpl , Lasti , Sc
-!
-! Dummy argument declarations
-!
    INTEGER Ac(1)
    REAL P(2) , Wa(1) , Wb(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , k , k1 , l
    REAL p1 , p2 , pii , pir
-!
-! End of declarations
-!
 !******
 !
 ! SDCOM3 COMPUTES THE CONTRIBUTIONS OF THE PIVOT ROW FOR SDCOMP IN CSP

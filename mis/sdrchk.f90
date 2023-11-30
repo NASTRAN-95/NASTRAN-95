@@ -1,25 +1,13 @@
 
 SUBROUTINE sdrchk(Forvec,Cfrvec,Lvec,Kont)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fnchk , Twotop
    INTEGER Nchk(5)
    COMMON /sdr2x9/ Nchk , Twotop , Fnchk
-!
-! Dummy argument declarations
-!
    INTEGER Kont , Lvec
    REAL Cfrvec(Lvec) , Forvec(Lvec)
-!
-! Local variable declarations
-!
    INTEGER i
    REAL r , rj
-!
-! End of declarations
-!
 !   THIS ROUTINE IS USED BY ELEMENT SUBROUTINES THAT DETERMINE IF THE
 ! REQUESTED STRESS/FORCE PRECISION IS AVAILABLE...
 !-----

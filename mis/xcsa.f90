@@ -4,9 +4,6 @@ SUBROUTINE xcsa
 !     XCSA READS AND PROCESSES THE NASTRAN EXECUTIVE CONTROL DECK.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alnogo , Altfil , Apprch , Card(20) , Dmapbf(1) , Dum9(9) , Gbuff(1) , Ibot , Ibufsz , Icfiat , Icpflg , Idate(3) ,      &
          & Iecho , Ifiat(1) , Ifist(1) , Ijhalf(3) , Intape , Intra , Iptdic(1) , Irdict , Irestr , Iropen , Iseqno , Isubs , Itop ,&
          & Ixpfst , Ixxfat(1) , L13 , L15 , L8 , Ldic , Ldict , Links(15) , Logfl , Lu , Lxlink , Mach , Maxlnk , Mchnam , Mskdum(3)&
@@ -39,9 +36,6 @@ SUBROUTINE xcsa
    COMMON /xrgdxx/ Irestr , Nsubst
    COMMON /xxfiat/ Ixxfat
    COMMON /zzzzzz/ Gbuff
-!
-! Local variable declarations
-!
    INTEGER allon , alter(2) , altopn , altrbs , appaer , appdmp , apphea , apprec , apptyp(4) , bgnal(2) , blank , bnk , both ,     &
          & cend(2) , delete(9) , diag09 , diagx(11) , dmapbs , dmend , dolsin , drecsz , ectt(51) , endal(2) , endcd , erralt ,     &
          & flags , flgwrd , hdg(19) , i , i7 , icold , icrdct , id , iday , idfist , idisk , ignore , ileft , imhere , imnth ,      &
@@ -53,9 +47,6 @@ SUBROUTINE xcsa
          & solnm2(7,10) , solnm3(7,11) , solnms(7,31) , solnmx(6) , solrec(6) , solu(12) , soluf , test , timew , timex , xalt(2)
    LOGICAL tapbit
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Ibufsz,Xsys(1)) , (mask,maskhi) , (ectt(16),bgnal(1)) , (ectt(25),endal(1)) , (ectt(13),cend(1)) , (ectt(34),id) ,  &
     & (solrec(1),apprec) , (solrec(2),rstrt) , (solrec(3),alter(1)) , (solrec(5),solu(1)) , (Gbuff(1),Dmapbf(1),Iptdic(1)) ,        &
     & (solnms(1,1),solnm1(1,1)) , (solnms(1,11),solnm2(1,1)) , (solnms(1,21),solnm3(1,1))

@@ -1,9 +1,6 @@
 
 SUBROUTINE cmhgen
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Cnam(2) , Combo(7,5) , Iauto , Iiii , Iin , Incr , Inpt , Iout , Lcore , Nipnew , Nnnn ,     &
          & Npsub , Scbdat , Scconn , Score , Scr1 , Scr3 , Scsfil , Z(1)
    REAL Buf5 , Casecc , Conset , Geom4 , Outt , Sccstm , Scmcon , Scr2 , Sctoc , Tdat(6) , Toler
@@ -13,17 +10,11 @@ SUBROUTINE cmhgen
    COMMON /cmb004/ Tdat , Nipnew , Cnam
    COMMON /packx / Iin , Iout , Iiii , Nnnn , Incr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , bufex , ce(10) , i , i1 , i2 , iaddh , ic , icode , idh , idhm1 , ifile , ihead(2) , imsg , ioefil , ipnew ,    &
          & ipold , ir , ishptr , itest , j , j1 , j2 , lhptr , listn(32) , listo(32) , locipn , locipo , mcb(7) , nam(2) , ncn ,    &
          & nco , ncol , ncom , ncs , nheqss , nnn , nrow , nsilnw , nslold , nsub , ssil
    REAL colout(6) , t(6,6) , tid(6,6) , tp(6,6) , tpp(6,6) , ttran(6,6) , zero
    LOGICAL frsfil
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES THE (H) TRANSFORMATION MATRICES FOR
 !     COMPONENT SUBSTRUCTURES IN A COMBINE OPERATION AND WRITES THEM

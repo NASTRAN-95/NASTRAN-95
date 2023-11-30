@@ -1,20 +1,11 @@
 
 DOUBLE PRECISION FUNCTION dk89(I,A,B,M,N,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    INTEGER I , M , N
    DOUBLE PRECISION X(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION amf , ammsf , amn1f , an1 , an2 , anm1f , capx , f89 , s , sf
    INTEGER iret , is , kfac , lfac , n1 , n2 , n3 , nfac
-!
-! End of declarations
-!
    f89 = 0.0D0
    capx = A + B*X(I)
    nfac = M

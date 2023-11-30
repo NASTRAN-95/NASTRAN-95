@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cls , Clsrew , Rd , Rdrew , Wrt , Wrtrew
    LOGICAL Nogo
    INTEGER Output , Sysbuf
@@ -11,20 +8,11 @@ SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Output , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    LOGICAL Any , Eof
    INTEGER File , Lspace , Scrt
    INTEGER Recid(2) , Space(5)
-!
-! Local variable declarations
-!
    LOGICAL bit
    INTEGER buf1 , buf2 , eor , flag , i , ifile , ilimit(3) , j , name(2) , noeor , rec(3)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE, CALLED BY IFP4, COPIES DATA FROM -FILE- TO -SCRT-
 !     UP TO THE -RECID- SPECIFIED IF IT EXISTS AND COPIES THE -RECID-

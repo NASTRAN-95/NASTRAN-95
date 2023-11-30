@@ -1,25 +1,16 @@
 
 SUBROUTINE phdmia
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum90(90) , X
    INTEGER Erno , Ic , Icard1 , Icol , Ifo , Ir , Iro , Itin , Itout , Kpp , Mach , Nam , Name(2) , Nlpp , Noutpt , Np
    COMMON /mahcin/ Mach
    COMMON /phdmix/ Name , Nam , Ifo , Itin , Itout , Ir , Ic , Noutpt , Kpp , Nlpp , Erno , Icol , Iro , X , Icard1
    COMMON /system/ Dum90 , Np
-!
-! Local variable declarations
-!
    INTEGER c1 , c1a , c2 , c3 , fmt(8) , h1 , h1a , h2 , h3 , i , i1 , icard , iq , iqx(8) , irow , iz , k , kdmt8 , kdmtb , kdmti ,&
          & kdmtr0 , kdmtr1 , kdmtr2 , kfmt(22) , kfmt8 , kfmtb , kfmti , kfmtr1 , kfmtr2 , kp , l , lfmt(23) , n , n1 , nkp , nout ,&
          & ret , ret1
    REAL dmi , dmips , dmis , p , ps , qx(8) , s
    LOGICAL first
-!
-! End of declarations
-!
 !
 !     PUNCH SINGLE- OR DOUBLE-FIELD DMI CARDS FOR REAL, SINGLE-
 !     PRECISION MATRICES.

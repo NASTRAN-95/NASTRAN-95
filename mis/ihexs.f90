@@ -1,9 +1,6 @@
 
 SUBROUTINE ihexs(Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgg1 , Bufm6(46) , Cp , Dum(12) , E , Est(200) , G , Kheat(6) , Nu , Rho , Rz(1) , Skip16(16) , Spac(2) , Spac1 , Space(18) &
       & , Surfac , Sys1(7) , Sysbuf , Talpha , Temp , Tref , Volume , Z(1)
    INTEGER Cdamp , Eid , Ib(46) , Iest(1) , Iestid , Iext , Inflag , Iprec , Izs , Jz(1) , Kgg1 , Mgg1 , Mid , Mtemp , Ngrids ,     &
@@ -21,13 +18,7 @@ SUBROUTINE ihexs(Type)
    COMMON /system/ Sysbuf , Otpt , Sys1 , Mtemp
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Type
-!
-! Local variable declarations
-!
    REAL alfa , balfa , bar , bbeta , bcd1 , bcd2(3) , beta , bmag , c(3,3) , dalfa(3) , dalpha(6) , dbeta(2) , detj , dmaxar(3) ,   &
       & dstld , dtor , e1 , e2 , e3 , evec(3,12) , gauss(8) , gmat(36) , gptld(32) , h(4) , jacob(3,3) , maxar , part(3,3) , prt1 , &
       & s(4) , sfact , sig(6) , smag , store(45) , str(18) , sx , sxy , sy , syz , sz , szx , tf(3,3) , tk(3,3) , tmag , tvol ,     &
@@ -37,9 +28,6 @@ SUBROUTINE ihexs(Type)
          & idstld , ig , igcs , ihex , ii , ijk , ijkl , ijl , ik , il , im , in , inc , irp , it , iwork(1) , ix , iz , j , k ,    &
          & kgg , l , m , mgg , mz , n , nc(8) , nd , nerr1 , nerr2 , ngg , ngp , nip , nk , nm , nz , rvrs(5) , scr4 , twins(9) ,   &
          & ugv
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION VERSION
 !

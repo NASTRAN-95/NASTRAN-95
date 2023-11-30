@@ -1,29 +1,17 @@
 
 SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idum(35) , Iout , Isys , Nbpc , Nbpw , Ncpw , Nogo
    CHARACTER*23 Ufm
    COMMON /system/ Isys , Iout , Nogo , Idum , Nbpc , Nbpw , Ncpw
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Flag , Icol , Nchar
    INTEGER Bcd(1) , In(1)
-!
-! Local variable declarations
-!
    INTEGER blank , cperwd , digit , i , iadd , iadd1 , ib1 , ibl , ic , icl , ii(18) , ij , isave , ish , iwrd , ix , ixtra , k ,   &
          & lcol , lwrd , m , m1 , m2 , m3 , minus , nin , numbs(10) , nx
    LOGICAL first
    INTEGER klshft , krshft , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED TO PLACE BCD CHARACTERS OR INTEGERS FROM II
 !     ARRAY INTO THE BCD STRING . IF FLAG = 1 AN INTEGER IS INPUT

@@ -1,31 +1,19 @@
 
 SUBROUTINE sdr3a(Ofpfil)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibufsz , L , Z(1)
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /system/ Ibufsz , L
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ofpfil(6)
-!
-! Local variable declarations
-!
    INTEGER ahead , buff(10) , buff10 , buff9 , core , entrys(85) , eof , eor , file , full , group , i , iamt , ibuff , icore ,     &
          & id(146) , idata , idtemp(146) , ieor , ierror , ifile(6) , ihd , ihd2 , ihead , iname(2) , infile , inprwd , iretrn ,    &
          & itype , j , k , layers , n , n1 , n2 , ndata , nentry , nfile , nfiles , noeor , nofrq , npoint , nrecs , nscrat ,       &
          & ntypes , nwds , nwords , ofile(6) , oufile , outrwd , ovrlap , recpt , recs , rwd , scrtch(8) , total1 , total2 ,        &
          & trail(7) , vector(50) , vinbk , vperbk , words , wperbk
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SORT-2  MODULE
 !

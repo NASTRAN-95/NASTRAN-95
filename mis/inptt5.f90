@@ -147,9 +147,6 @@ SUBROUTINE inptt5
 !     MAJOR REVISED 12/1992 BY G.C.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Col , Dens , Dum36(36) , Form , Ibuf , Ii , Incr , Iz(7) , Jj , Mach , Max , Mcb(1) , Nbpw , Nogo , Nout , P1 , P2 ,     &
          & P3(2) , P4 , Row , Type , Typin , Typout
    CHARACTER*80 Dsnames(80)
@@ -167,9 +164,6 @@ SUBROUTINE inptt5
    COMMON /system/ Ibuf , Nout , Nogo , Dum36 , Nbpw
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    CHARACTER*8 bf , binary , formtd
    INTEGER bk , buf1 , col12 , dt(3) , err , fn(3,15) , formx , i , imhere , input , j , jb , je , jtyp , k , l , ll , mac(2) ,     &
          & mtrx , name(2) , nc , nck , nwds , output , p1n , rowx , skip , subnam(2) , tabel , tapeid(2) , tble
@@ -177,9 +171,6 @@ SUBROUTINE inptt5
    DOUBLE PRECISION dx
    INTEGER korsz
    REAL x
-!
-! End of declarations
-!
 !WKBI
 !WKBNB
 !WKBNE

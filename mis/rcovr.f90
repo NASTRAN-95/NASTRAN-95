@@ -1,16 +1,10 @@
 
 SUBROUTINE rcovr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dry , Fss(2) , Pa , Pthres , Qa , Qthres , Range(2) , Rfno , Rss(2) , Step , Ua , Uimpro , Uinms(2,5) , Uthres
    INTEGER Energy , Iopt , Ireq , Lbasic , Loop , Lreq , Lui , Mrecvr , Neigv , Nosort
    COMMON /blank / Dry , Loop , Step , Fss , Rfno , Neigv , Lui , Uinms , Nosort , Uthres , Pthres , Qthres
    COMMON /rcovcm/ Mrecvr , Ua , Pa , Qa , Iopt , Rss , Energy , Uimpro , Range , Ireq , Lreq , Lbasic
-!
-! End of declarations
-!
 !
 !     MAIN DRIVER FOR PHASE 2 SUBSTRUCTURING RECOVER OPERATION
 !

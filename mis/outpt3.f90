@@ -1,9 +1,6 @@
 
 SUBROUTINE outpt3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Eol , Eor , Erno , Ic , Icard1 , Icol , Ifo , Ir , Iro , Itin , Itout , Iz , Jo , Junk(6) , Kpp , Nam , Namex(2) , Nb ,  &
          & Nlp , Nlpp , No , Noutpt , Param(2,5)
    CHARACTER*23 Ufm
@@ -16,16 +13,10 @@ SUBROUTINE outpt3
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zntpkx/ Z , Iz , Eol , Eor
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    LOGICAL first
    INTEGER i , ibuf , ii , in(5) , ityp , j , jono , lcor , name(2) , ncards , subnam(2) , trl(7) , trl1 , trl2 , trl3 , trl4 ,     &
          & trl5 , trl6 , trl7
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     PUNCH UP TO 5 MATRIX DATA BLOCK ONTO DMI CARDS
 !

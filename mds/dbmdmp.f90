@@ -2,19 +2,10 @@
 SUBROUTINE dbmdmp
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr , Mem(4)
    COMMON /system/ Isysbf , Iwr
    COMMON /zzzzzz/ Mem
-!
-! Local variable declarations
-!
    INTEGER i , icnt , itotal , itotbk , ival , ivaln , ivalp , k , next
-!
-! End of declarations
-!
 !********************************************************************
 !     DBMDMP - DUMPS THE IN MEMORY DATA BASE DIRECTORY
 !********************************************************************

@@ -1,25 +1,13 @@
 
 SUBROUTINE formg2(Ig,Jr,Jd,Ir,Id)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Z(1)
    DOUBLE PRECISION Zz(1)
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Id , Ig , Ir , Jd , Jr
-!
-! Local variable declarations
-!
    INTEGER i
    DOUBLE PRECISION xd , yd , zd
    REAL zr(1)
-!
-! End of declarations
-!
 !
 !     FORMGG FORMS THE GG MATRIX FOR EACH RIGID ELEMENT DEGREE OF
 !     FREEDOM.  IG IS THE START OF THE ROW STORED GG MATRIX - 1

@@ -3,13 +3,7 @@ SUBROUTINE dsskrc
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Local variable declarations
-!
    INTEGER iclr , id , iflg , len
-!
-! End of declarations
-!
  100  DO
       id = iand(Ibase(Indclr),Maskq1)
       IF ( id==Idsrh ) EXIT

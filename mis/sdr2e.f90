@@ -6,9 +6,6 @@ SUBROUTINE sdr2e(*,Ieqex,Neqex)
 !     OES1 WHICH ARE OPENED IN SDR2D.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , All , Any , App(2) , Bgpdt , Bk0(2) , Bk1(2) , Branch , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Buf6 , Buf7 , Buf8 ,    &
          & Bufa(100) , Bufb(4076) , Bufflg , Casecc , Cei(2) , Clsrew , Coef , Complx(478) , Comps , Cstm , Deftmp , Device ,       &
          & Displ , Dit , Ds0(2) , Ds1(2) , Dtype(8) , Edt , Eigr , Eldef , Elem(1) , Elemid , Elesta(100) , Eltype , Elwork(300) ,  &
@@ -61,13 +58,7 @@ SUBROUTINE sdr2e(*,Ieqex,Neqex)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ieqex , Neqex
-!
-! Local variable declarations
-!
    LOGICAL acstic , again , heat , idforc , idlyfr , idlyst , idstrs , ilogic(4) , ok2wrt
    INTEGER andf
    INTEGER buf(50) , fphase , id , idelem , ielchk , ielold , ifltyp , ijk , iout , ipr , isetfr , isetid , ist , istore , istrpt , &
@@ -75,9 +66,6 @@ SUBROUTINE sdr2e(*,Ieqex,Neqex)
          & nptfor , nptstr , nsesta , nsetfr , nw , oharms , oldawd , platit(12) , sphase
    REAL bufr(1)
    EXTERNAL andf
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(2),Opte) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm)
    EQUIVALENCE (buf(1),bufr(1)) , (Z(1),Zz(1)) , (idstrs,ilogic(1)) , (idforc,ilogic(2)) , (idlyst,ilogic(3)) , (idlyfr,ilogic(4)) ,&
     & (Temp,Jtemp) , (Nelhar,Elwork(155))

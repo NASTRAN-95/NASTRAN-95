@@ -3,13 +3,7 @@ SUBROUTINE dssdcb
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Local variable declarations
-!
    INTEGER iclr
-!
-! End of declarations
-!
    iclr = Indclr - Indbas + 1
    Fcb(3,Ifilex) = iclr
    Fcb(4,Ifilex) = Nblock

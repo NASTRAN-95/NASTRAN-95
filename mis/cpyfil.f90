@@ -1,23 +1,11 @@
 
 SUBROUTINE cpyfil(Infile,Oufile,Area,N,Count)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iparam
    COMMON /blank / Iparam
-!
-! Dummy argument declarations
-!
    INTEGER Count , Infile , N , Oufile
    INTEGER Area(2)
-!
-! Local variable declarations
-!
    INTEGER eor , inblk(15) , nwds , oublk(15) , type
-!
-! End of declarations
-!
 !
 !     CPYFIL COPIES RECORDS FROM INFILE TO OUFILE UNTIL AN END-OF-FILE
 !     ON INFILE IS ENCOUNTERED. AN END-OF-FILE IS NOT WRITTEN ON OUFILE.

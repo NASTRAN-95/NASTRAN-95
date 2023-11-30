@@ -1,9 +1,6 @@
 
 SUBROUTINE gp3c
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Cardid(60) , Clsrew , Elem(1) , Geom2 , Geom3 , Idno(30) , Igrav , Incr , Ipld3 , Ipload , Last ,&
          & Load(2) , Mask(60) , Nelem , Nopld2 , Nout , Ntypes , Pload2(2) , Pload3(2) , Rdrew , Scr2 , Wrtrew , Z(1)
    REAL Buf3 , Carddt(60) , Eqexin , Gptt , Rd , Rz(1) , Scr1 , Slt , Status(60) , Sysbuf , Temp(2) , Tempd(2) , Tempp1(2) ,        &
@@ -16,17 +13,11 @@ SUBROUTINE gp3c
    COMMON /system/ Sysbuf , Nout
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER d1 , d2 , faces(6,12) , file , i , id1 , id2 , idl , incl , incrd , itype , ix , j , j1 , j2 , k , n , n3304 , n3305 ,   &
          & nam(2) , nface , ngps , nogo , np , npld2 , nwdect , nwds , pl2 , pl3 , pl3err(14) , pld(3)
    REAL flag , p(12)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     GP3C EXECUTES ONLY IF PLOAD2 AND/OR PLOAD3 CARDS ARE PRESENT. ITS
 !     FUNCTION IS TO --

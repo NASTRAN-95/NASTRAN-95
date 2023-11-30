@@ -1,18 +1,9 @@
 
 SUBROUTINE bishel(*,List,Nent,Nterm,Array)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Nent , Nterm
    INTEGER Array(1) , List(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , k , kid , l , m , n
-!
-! End of declarations
-!
 !-----
 !   BISHEL IS A MERGE/SORT/DUPLICATE ENTRY ELIMINATOR.  GIVEN A SORTED
 ! -ARRAY- AND A -LIST- TO MERGE, BISHEL ADDS THE -LIST- IN THE SORTED

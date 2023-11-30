@@ -1,30 +1,18 @@
 
 SUBROUTINE fa1ke(Scr1,Kfreq,Bref,Rho,Rref,Floop,Nloop)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Cz(1)
    INTEGER Incr1 , Inn , Iout , Nnn , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Bref , Kfreq , Rho , Rref
    INTEGER Floop , Nloop , Scr1
-!
-! Local variable declarations
-!
    INTEGER buf1 , fsave , i , iam1k , ibuf2 , ick , icp , ifl , ikc , ikp , im , imp , ims , in , ipk , ipm , ism , j , ji , khh ,  &
          & l , mhh , mout , n , n2 , name(2) , ncore , nl , nn , nwr , trl(7)
    REAL k2b2 , rr2
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !

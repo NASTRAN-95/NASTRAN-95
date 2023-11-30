@@ -1,9 +1,6 @@
 
 SUBROUTINE amgrod(D,Beta)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ecore , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc ,&
          & Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam , Ixle ,   &
          & Ixte , Iyb , Iyin , Iys , Izb , Izin , Izs , Nb , Nby , Nbz , Next , Nj1 , Nk1 , Np , Nt0 , Ntp , Nty , Ntys , Ntz ,     &
@@ -15,18 +12,9 @@ SUBROUTINE amgrod(D,Beta)
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Beta
    REAL D(1)
-!
-! Local variable declarations
-!
    INTEGER ibuf1 , idzdy , iprnt , name(2) , nfyb , nfzb , nlyb , nlzb
-!
-! End of declarations
-!
 !  D IS REALLY A 2-D ARRAY D(2,NTZS)
    DATA name/4HAMGR , 4HOD  /
    CALL sswtch(30,iprnt)

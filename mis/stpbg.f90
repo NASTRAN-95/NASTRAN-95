@@ -1,20 +1,11 @@
 
 SUBROUTINE stpbg(Bm,Gm,Ns,Bloc,D,Ca,Nsize)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ns
    REAL Bloc(1) , Bm(4,4,Ns) , Ca(1) , D(1) , Gm(4,3,Ns)
    INTEGER Nsize(1)
-!
-! Local variable declarations
-!
    REAL e
    INTEGER i , j , n
-!
-! End of declarations
-!
 !     MAKES MATRICES BM AND GM FOR EACH STRIP
    DO n = 1 , Ns
       DO i = 1 , 4

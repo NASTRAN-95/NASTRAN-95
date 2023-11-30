@@ -1,27 +1,15 @@
 
 SUBROUTINE gfsmt(Mt,Mmat,Mrow)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4)
    INTEGER Irow , Sysbuf , Z(1)
    DOUBLE PRECISION Val
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Mmat , Mrow , Mt
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , ibuf2 , icnt , inblk(15) , mcb(7) , mr , name(2) , nrow , nz , outblk(15)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO ADD 1.0 TO ROW MROW AND COLUMN MROW OF MT TO PREVENT
 !     SINGULARITIES IN THE MASS MATRIX FOR GIVINS

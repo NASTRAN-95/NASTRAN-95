@@ -1,28 +1,16 @@
 
 SUBROUTINE hbdy(Ecpt,Necpt,Iopt,Rvect,Ivect)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Pi
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /condas/ Consts
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
    REAL Ecpt(36) , Rvect(16)
    INTEGER Ivect(5) , Necpt(5)
-!
-! Local variable declarations
-!
    REAL area , dx , dxyz(3) , dy , dz , temp , v(3)
    INTEGER flag , i , j , npts
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE GEOMETRIC PROPERTIES OF THE VARIOUS
 !     TYPES OF HBDY ELEMENTS. IOPT IS DESCRIBED BELOW

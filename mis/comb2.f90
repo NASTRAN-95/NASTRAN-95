@@ -1,9 +1,6 @@
 
 SUBROUTINE comb2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acomb , Dry , Icode , Incr , Iprec , Irow , Iz(1) , Jn , Kk , Kn , Lcore , Lkore , Mcba(7) , Mcba2(7) , Mcbb(7) ,        &
          & Mcbb2(7) , Mcbc(7) , Mcbc2(7) , Mcbd(7) , Mcbd2(7) , Mcbp(7) , Mcbp11(7) , Mcbp12(7) , Mcbp21(7) , Mcbp22(7) , Mrgz ,    &
          & Mscr , Namess(2,7) , Norew , Nout , Nrow , Pora(2) , Prec , Rect , Rfiles(3) , Rsp , Rule , Scr5 , Scr6 , Scr7 , Signab ,&
@@ -22,18 +19,12 @@ SUBROUTINE comb2
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL addflg
    INTEGER amcb(7,7) , blank , buf1 , cpv(7) , hmcb(6,7) , horg , i , iform , inuse , iprc , irf , it , item , ityp , j , k , kmp(5)&
          & , kmpitm(5) , mcbtrl(7) , name(2) , nmat , nogo , nsize , papp , pvec , rc , rdsof , rpv(7) , rsofar , scr1 , scr2 ,     &
          & scr3 , scr4 , sof1 , sof2 , sof3 , xxxx
    REAL den
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     COMB2 PERFORMS THE TRANSFORMATION AND ADDITION OF STIFFNESS, MASS,
 !     OR LOAD MATRICES FOR THE PHASE 2 SUBSTRUCTURE COMBINE OPERATION

@@ -2,26 +2,14 @@
 SUBROUTINE mmarm1(Zi,Zr,Mempcol)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Ibfsiz , Iwr
    REAL Rxl(1)
    COMMON /system/ Ibfsiz , Iwr
    COMMON /zzzzzz/ Rxl
-!
-! Dummy argument declarations
-!
    INTEGER Mempcol
    INTEGER Zi(1)
    REAL Zr(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , icblk , icbp , iclr , icol , ii , index , jrow , mem , mem1 , module(2) , ntms
-!
-! End of declarations
-!
 !
 !  MMARM1 - This routine will store matrix columns in memory in compact
 !           form and in real single precision.  The input matrix is

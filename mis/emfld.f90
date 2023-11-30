@@ -1,9 +1,6 @@
 
 SUBROUTINE emfld
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Hluset , Ii , Incr , Incur , Iz(1) , Last , Ne(1) , Nelems , Nn , Otpe , Sysbuf , Typout
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
@@ -15,18 +12,12 @@ SUBROUTINE emfld
    COMMON /unpakx/ Typout , Ii , Nn , Incur
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , buf4 , buf5 , buf6 , casecc , cstm , dit , elid , eltype , estfld , file , geom1 , hccen , hcount , &
          & hest , hoef1 , hoeh1 , i , iany , ibuf(150) , icoord(4) , idum(2) , iel , ielid , iex , ifield , ipts , isub , itype ,   &
          & iwords , j , kcount , lcc , lcore , lsym , mcb(7) , mpt , n , nall , nall2 , nam(2) , ncount , ncstm , nelx , nelx2 ,    &
          & nextp , nextr , nextz , ngrids , nncr , nrows , nrows2 , nwords , oldcas , oldeid , remfl , strspt , subcas
    REAL coef , coord(4) , hc(3) , hex1 , hex2 , hex3 , hm(3) , hmg(3) , rbuf(150) , ta(9) , temp(3) , zn(2)
    INTEGER korsz , numtyp
-!
-! End of declarations
-!
 !
 !                                            SEE T01191A     ===========
 !     COMPUTES TOTAL MAGNETIC FIELD STRENGTH AND INDUCTION FOR

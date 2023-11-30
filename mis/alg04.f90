@@ -1,22 +1,13 @@
 
 SUBROUTINE alg04(H,S,Vw,R1,R2,X1,X2,Vm,Eps,Sclfac,G,Ej,Hmin,Vmin,Psmid,Nstrms,Log2,Lnct,Ifail)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Ej , Eps , G , Hmin , Psmid , Sclfac , Vmin
    INTEGER Ifail , Lnct , Log2 , Nstrms
    REAL H(1) , R1(1) , R2(1) , S(1) , Vm(1) , Vw(1) , X1(1) , X2(1)
-!
-! Local variable declarations
-!
    REAL alg2 , alg3 , alg5 , alg9
    REAL delr(20) , delz , flow , hdn(21) , hsdn(21) , hsup(21) , hup(21) , psdn(21) , psup(21) , q1 , q2 , r(21) , rmid(20) ,       &
       & sdn(21) , sup(21) , vm2 , vwdn(21) , vwfun(21) , vwup(21) , vzdn(21) , vzfun(21) , vzup(21) , x3 , x4 , xx1(21) , xx2(21)
    INTEGER imid , istep , itub , j , j1 , j2 , jj , jstep , k , kk , kstep
-!
-! End of declarations
-!
 !
 !
    DO j = 1 , Nstrms

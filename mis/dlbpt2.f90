@@ -1,9 +1,6 @@
 
 SUBROUTINE dlbpt2(Input,W1jk,W2jk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Refc , Rfk , Z(1)
    INTEGER Ii , Incr , Iti , Ito , Iz(1) , Mcb(7) , Nb , Nby , Nbz , Nd , Ne , Nj1 , Nk1 , Nn , Np , Nrow , Nt0 , Ntp , Nty , Ntys ,&
          & Ntz , Ntzs , Sysbuf , Tw1jk(7) , Tw2jk(7)
@@ -12,21 +9,12 @@ SUBROUTINE dlbpt2(Input,W1jk,W2jk)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Nj1 , Nk1 , Np , Nb , Ntp , Nbz , Nby , Ntz , Nty , Nt0 , Ntzs , Ntys , Z
-!
-! Dummy argument declarations
-!
    INTEGER Input , W1jk , W2jk
-!
-! Local variable declarations
-!
    REAL a(4)
    INTEGER ecore , i , iarb , iavr , ibt , icg , ics , idelx , iee , ify , iii , inas , inb , inbea1 , inbea2 , inc , infl , ins ,  &
          & insbea , int121 , int122 , isg , ix , ixij , ixle , ixte , iyb , iyin , iys , izb , izin , izs , j , k , lnas , lnb ,    &
          & lnfl , lns , lnsb , lt1 , lt2 , n , name(2) , nbe , nbtd , next , ntzy , nw
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Iz(1),Z(1))
    DATA name/4HDLBP , 4HT2  /

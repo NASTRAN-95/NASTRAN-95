@@ -1,20 +1,11 @@
 
 SUBROUTINE rombdk(B,Precis,Itdone,Fintg,K,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION B , Fintg , Precis
    INTEGER Itdone , K
    DOUBLE PRECISION X(6)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION const , den , diff , f , faaaa(20) , faaab(20) , faaac , faaad , faaae , faaaf , faaag , faaah
    INTEGER iaaaa , iaaac , iaaad , iaaaf , iret
-!
-! End of declarations
-!
 !
 !     INTEGRATE F(X) FROM 0.0 TO X = B
 !

@@ -1,20 +1,11 @@
 
 DOUBLE PRECISION FUNCTION dkint(I,J,A,B,Iv,Iw,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , B
    INTEGER I , Iv , Iw , J
    DOUBLE PRECISION R(1) , Z(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aw , bint , c1 , c1p , c2 , c2p , dkef , dkj , sp1
    INTEGER ic , id , in , is1 , it , iw1 , k
-!
-! End of declarations
-!
    bint = 0.0D0
    iw1 = Iw + 1
    c1p = B

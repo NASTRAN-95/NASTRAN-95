@@ -1,29 +1,17 @@
 
 SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1(4) , Two1(32)
    INTEGER Eol , L
    COMMON /two   / Two1
    COMMON /zntpkx/ A1 , L , Eol
-!
-! Dummy argument declarations
-!
    INTEGER Iopt , N , Onct , Rule , Zrct
    REAL Buff(1)
    INTEGER Icp(1) , List(1)
-!
-! Local variable declarations
-!
    REAL a , r
    INTEGER i , is , j , j1 , k , m , n1 , namcp , oct , zct
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     DETERMINES STRING OF ZEROS AND ONES IN LIST BY APPLYING RULE TO
 !     CP.

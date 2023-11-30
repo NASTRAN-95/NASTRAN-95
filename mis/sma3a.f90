@@ -1,9 +1,6 @@
 
 SUBROUTINE sma3a(Mcbcur)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsnrw , Clsrw , Eor , Ibuff3(3) , Ifa , Ifb , Ifc , Ifd , Ife , Iff , Ifgei , Ifkggx , Ifout , Index , Inrw , Iprec ,   &
          & Iq(1) , Is , Istzis , Isys , Iud , Iui , Izi , Izis , Left , Luset , M , Mcba(7) , Mcbb(7) , Mcbc(7) , Mcbd(7) , Mcbe(7) &
          & , Mcbf(7) , Mcbkgg(7) , N , Neor , Ngenel , Noecpt , Outrw
@@ -15,20 +12,11 @@ SUBROUTINE sma3a(Mcbcur)
    COMMON /system/ Isys , Dummy , Iprec
    COMMON /zblpkx/ Dpword , Dum2 , Index
    COMMON /zzzzzz/ Q
-!
-! Dummy argument declarations
-!
    INTEGER Mcbcur(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION det
    INTEGER i , ibuff , icol , idiff , idummy , ii , iloop , ind , ip , ippi , ising , ismall , izk , izrow , izscol , j , jcol ,    &
          & jrow , jud , jui , k , kk , l , lim , limjud , limjui , limk , low , max , mcb(7) , mpn , msq , name(2) , nsq , small
    LOGICAL zonly
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE BUILDS A GENERAL ELEMENT MATRIX (DOUBLE PRECISION AND
 ! SYMMETRIC) OF SIZE LUSET X LUSET.  MCBCUR IS THE MATRIX CONTROL BLOCK

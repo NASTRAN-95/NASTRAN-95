@@ -1,27 +1,15 @@
 
 SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    LOGICAL Nogo
    CHARACTER*23 Ufm
    COMMON /system/ Ibuf , Nout , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL A , B , C
    INTEGER Id
    REAL Elem(2) , Ivect(3) , Jvect(3) , Kvect(3) , Xc(6) , Yc(6) , Zc(6)
-!
-! Local variable declarations
-!
    REAL save , temp , x1 , x2 , y1 , y2 , z1 , z2
-!
-! End of declarations
-!
 !
 !     CALCULATEIONS FOR THE TRIANGLE USED IN TRIM6,TRPLT1,TRSHL - THE HI
 !     LEVEL PLATE ELEMENTS.  COMPUTATIONS IN SINGLE PRECISION ONLY

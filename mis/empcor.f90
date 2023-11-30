@@ -1,23 +1,11 @@
 
 SUBROUTINE empcor(Mt1x,Mt2x,Pt,Pc,Frsrow,Midrow,Lasrow,Nx,A,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , It1 , It2 , Jj
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Frsrow , Lasrow , Midrow , Mt1x , Mt2x , Nx , Pc , Pt
    REAL A(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER mcb(7) , mt , mt1 , mt2 , n , na , row
-!
-! End of declarations
-!
 !
 !     EMPTY CORE OF A TRIANGULAR MATRIX
 !

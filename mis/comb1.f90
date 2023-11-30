@@ -1,9 +1,6 @@
 
 SUBROUTINE comb1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Casecc , Dry , Geom4 , Intp , Iprint , Isort , Lcore , Nipnew , Npsub , Outt ,        &
          & Restct(7,7) , Scbdat , Scconn , Sccstm , Scmcon , Score , Scr1 , Scr2 , Scr3 , Scsfil , Sctoc , Step , Sys(69)
    REAL Cnam(2) , Combo(7,5) , Conset , Origin(7,3) , Toler , Z(1)
@@ -19,14 +16,8 @@ SUBROUTINE comb1
    COMMON /system/ Sys
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , ib1 , ib2 , ib3 , ibuf , ifile , j , nce , ndof , nps , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS IS THE MODULE FOR THE COMBINATION OF SUBSTRUCTURES.
 !

@@ -1,27 +1,15 @@
 
 SUBROUTINE flld(X01,X02,Y0,Z0,Sgr,Cgr,Sgs,Cgs,Kr,Cbar,Fmach,E,L,Kd1r,Kd1i,Kd2r,Kd2i)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ind
    REAL K10 , K10t1 , K1it1 , K1rt1 , K20 , K20t2p , K2it2p , K2rt2p , Kk1i , Kk1r , Kk2i , Kk2r
    COMMON /dlm   / K10 , K20 , K1rt1 , K1it1 , K2rt2p , K2it2p , K10t1 , K20t2p
    COMMON /kds   / Ind , Kk1r , Kk1i , Kk2r , Kk2i
-!
-! Dummy argument declarations
-!
    REAL Cbar , Cgr , Cgs , E , Fmach , Kd1i , Kd1r , Kd2i , Kd2r , Kr , Sgr , Sgs , X01 , X02 , Y0 , Z0
    INTEGER L
-!
-! Local variable declarations
-!
    REAL br , ct1 , delxi , rt1 , rt2 , st1 , t1 , x0
    INTEGER i
    COMPLEX k1xi1 , k1xi2 , k2xi1 , k2xi2 , kd1 , kd2 , temp1 , temp2
-!
-! End of declarations
-!
 !
 !     CALCULATION OF THE NUMERATOR OF A DOUBLET LINE OF FINITE LENGTH.
 !     LIKE KERN, THERE ARE TWO OUTPUT COMPLEX VALUES REPRESENTED BY

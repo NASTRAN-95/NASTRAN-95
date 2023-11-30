@@ -1,9 +1,6 @@
 
 SUBROUTINE sptchk
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum2(2) , Dum3(3) , Dum4(4) , Dum6(6) , Skip(4)
    INTEGER Geom1 , Geom2 , Ibuf , Ibuf1 , Incr , Irept , Ke(1) , Last , Maxgrd , Ndd(9) , Ne , Ngrid , Nout , Npt(2) , Rd , Rdrew , &
          & Rew , Z(1)
@@ -16,13 +13,7 @@ SUBROUTINE sptchk
    COMMON /names / Rd , Rdrew , Dum2 , Rew
    COMMON /system/ Ibuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ielem , j , k , kg(200) , name(2) , ngpt1 , ngpts , ns , ns1 , nss , nwds , spoint(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS CALLED ONLY BY BANDIT TO CHECK THE PRESENCE OF ANY
 !     UNDEFINED SPOINT. RESET NGRID AND RETURN FOR ONE MORE COMPUTATION

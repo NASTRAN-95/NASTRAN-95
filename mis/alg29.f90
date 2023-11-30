@@ -1,19 +1,10 @@
 
 SUBROUTINE alg29(Y,X,Fxy,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N
    REAL Fxy(3) , X(3) , Y(3)
-!
-! Local variable declarations
-!
    INTEGER j , n2
    REAL x1 , x2
-!
-! End of declarations
-!
 !
 !
    x1 = (X(3)+X(2))*(Y(3)-Y(2))/(X(3)-X(2))

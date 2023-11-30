@@ -1,21 +1,12 @@
 
 REAL FUNCTION ais(Np,I,L,Rr,Zz)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , L , Np
    REAL Rr(4) , Zz(4)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , aj , ar , beta , dfact , dkl , dl1 , dr , dz , dzj , eps , fact , gkl , one , pr , r(4) , ra , rak , rb ,   &
                   & rbk , three , two , z(4) , za , zb , zero
    REAL factl
    INTEGER j , jfact , k , l1 , l2 , lfact , lk , lmjf , m , nam(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE SINGLE PRECISION  DELTA(IJ) INTEGRALS
 !     FOR AXISYMMETRIC SOLIDS IN SDR2. CALCULATIONS DONE IN DOUBLE

@@ -1,9 +1,6 @@
 
 SUBROUTINE dlkapm(Arg,Blkapm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Ai
    REAL Beta , Del , Dstr , Pi , Res , Scrk , Sigma , Sns , Sps , Sysbuf
    INTEGER Ibbout
@@ -11,19 +8,10 @@ SUBROUTINE dlkapm(Arg,Blkapm)
    COMMON /blk1  / Scrk , Sps , Sns , Dstr , Ai , Pi , Del , Sigma , Beta , Res
    COMMON /system/ Sysbuf , Ibbout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    COMPLEX Arg , Blkapm
-!
-! Local variable declarations
-!
    REAL a1 , a2 , b , b1 , c2n , c2p , c2q , c3q , csec , gam0 , gamn , gamp , pi2 , r , s1 , s2 , t1 , t2
    COMPLEX aln , alp , alp0 , c1 , c1test , d1 , d2 , e1
    INTEGER i , nn
-!
-! End of declarations
-!
 !
 !     SUBROUTINE FOR COMPUTING LOGARITHMIC DERIVATIVE OF KAPPA MINUS
 !

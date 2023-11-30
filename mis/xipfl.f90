@@ -1,9 +1,6 @@
 
 SUBROUTINE xipfl
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bcdcnt , Dmap(1) , Dmpcnt , Dmppnt , Iallon , Ichar , Icold , Icomon , Icrdtp , Idmpnt , Iequl , Insert , Irturn ,       &
          & Isavdw , Iseqn , Isgnon , Islsh , Istopf , Ldmap , Length , Lmpl , Loscar , Maskhi , Masklo , Masks(1) , Modidx ,        &
          & Modnam , Mpl(1) , Mplpnt , Nbegin , Nblank , Nbpc , Nchkpt , Ncond , Ncpw , Ndiag , Ndmap , Nend , Nequiv , Nestm1 ,     &
@@ -18,15 +15,9 @@ SUBROUTINE xipfl
                  & Njump , Ncond , Nrept , Ntime , Nsave , Noutpt , Nchkpt , Npurge , Nequiv , Ncpw , Nbpc , Nwpc , Maskhi ,        &
                  & Masklo , Isgnon , Nosgn , Iallon , Masks
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , orf
    INTEGER i , iofl , ityp , j , k , k1 , k2 , k3 , l
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF XIOFL IS TO GENERATE THE INPUT AND OUTPUT FILE
 !     SECTIONS FOR AN OSCAR ENTRY.

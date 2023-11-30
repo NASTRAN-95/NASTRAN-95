@@ -1,25 +1,13 @@
 
 SUBROUTINE saxif1(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(9) , Am(9) , Coef , Dr , Dz , El , En , Est(100) , Hm(9) , R(4) , R1n , R2n , Rbar , Rbn1 , Sv(95) , Z(4) , Zbar
    INTEGER I1 , I2 , I3 , Ij , Ik , Iret , Kj , Nest(100) , Nid , Sil(4)
    COMMON /sdr2x5/ Est , Nid , Sil , Sv
    COMMON /sdr2x6/ Hm , R , Z , Am , Coef , En , El , Rbar , Zbar , R1n , R2n , Rbn1 , Dr , Dz , I1 , I2 , I3 , Iret , Ij , Ik , Kj
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , ir , j , jcol , k , n , ncol , nsta
    REAL rho
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES MATRICES WHICH RELATE PRESSURE TO VELOCITY
 !     IN A FLUID. IOPT DETERMINES THE ELEMENT TYPE

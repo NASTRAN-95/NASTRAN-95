@@ -1,19 +1,10 @@
 
 SUBROUTINE idf2(Ee,E2,Eta01,Zet01,A2r,A2i,B2r,B2i,C2r,C2i,R1sqx,Diijr,Diiji)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A2i , A2r , B2i , B2r , C2i , C2r , Diiji , Diijr , E2 , Ee , Eta01 , R1sqx , Zet01
-!
-! Local variable declarations
-!
    REAL alpha , arga , argt , atana , azet , coef , den2 , den3 , dena , denb , deno , eps , eta02 , fac2a , fac2b , fac3a , fac3b ,&
       & faci , facr , funct , parn , s , ser , test , test0 , trm1i , trm1r , trm2i , trm2r , trm3i , trm3r , up1i , up1r , up2i ,  &
       & up2r , zet02
-!
-! End of declarations
-!
 !   ***   INTEGRATES THE NONPLANAR PARTS OF THE INCREMENTAL
 !         OSCILLATORY KERNELS FOR UNSTEADY CASES
    eps = 0.0001

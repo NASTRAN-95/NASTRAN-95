@@ -1,25 +1,13 @@
 
 SUBROUTINE outpak(Ii,Iout,Isn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ksys(65) , Ncpw , Nline , Nlpp , Op
    COMMON /system/ Ksys
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Isn
    INTEGER Iout(1)
-!
-! Local variable declarations
-!
    INTEGER i , icode , idig(4) , j , k , kcode , ll , nblank , number(10)
    INTEGER klshft , krshft , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline) , (Ksys(41),Ncpw)
    DATA number/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H0/

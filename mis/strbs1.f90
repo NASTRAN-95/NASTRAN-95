@@ -1,9 +1,6 @@
 
 SUBROUTINE strbs1(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Alp12 , Alpha1 , Alpha2 , Angle , Area , Consts(5) , Costh , D(9) , Degra , Determ , Dum55(1) , Dumb(76) ,         &
       & Dumdum(4) , Dummy1 , Dummy2 , Dummy3 , E(18) , Ecpt(25) , Eltemp , Eye , Fmu , Forvec(25) , G(9) , G11 , G12 , G13 , G22 ,  &
       & G23 , G2x2(4) , G2x211 , G2x212 , G2x222 , G33 , Gsube , Hib(18) , Hic(18) , Hinv(36) , J2x2(4) , Ks(30) , Ph1out(100) ,    &
@@ -24,17 +21,8 @@ SUBROUTINE strbs1(Iopt)
    COMMON /sdr2x6/ A , Xsubb , Xsubc , Ysubc , E , Temp , Xbar , Area , Xcsq , Ybar2 , Ycsq , Ybar , Xbsq , Px2 , Xcyc , Py2 ,      &
                  & Pxy2 , Xbar3 , Ybar3 , Determ , Prod9 , Temp9 , Nsized , Dumdum , Npivot , Theta , Nsubc , Ising , Subsca ,      &
                  & Subscb , Nerror , Nbegin , Ntyped , Xc , Yc , Yc2 , Yc3 , Isub , Xc3 , Dum55
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , j , k
-!
-! End of declarations
-!
 !
 !     PHASE ONE FOR STRESS RECOVERY
 !

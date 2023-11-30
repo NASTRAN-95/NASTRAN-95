@@ -1,9 +1,6 @@
 
 SUBROUTINE psbar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , D(9) , D1 , D2 , Dela(6) , Delb(6) , Dum14(14) , Dum2(2) , Ecpt(100) , Eltemp , Epsin1 , Epsin2 ,     &
       & Estar , Esub0 , F1 , F2 , Fe , Fj , G1 , G2 , Gamma , Gammas , Gpa(3) , Gpb(3) , Gsub0 , Gsube , I1 , I12 , I2 , K1 , K2 ,  &
       & Ke(144) , Kep(144) , M1astr , M2astr , Nsm , Plaans , Plaarg , Rho , Sig1a , Sig1b , Sig2a , Sig2b , Sig3a , Sig3b , Sig4a ,&
@@ -20,9 +17,6 @@ SUBROUTINE psbar
    COMMON /pla32s/ Ke , Kep , Dela , Delb
    COMMON /sout  / Iselid , Sig1a , Sig2a , Sig3a , Sig4a , Sigax , Sigamx , Sigamn , Msten , Sig1b , Sig2b , Sig3b , Sig4b ,       &
                  & Sigbmx , Sigbmn , Mscom , Dum14
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    REAL ael , beta , deps1 , deps2 , e , e1 , ei1 , ei2 , eps1 , eps2 , esub0l , fa(6) , fb(6) , fl , fll , fx , g , gak1 , gak2 ,  &
       & gjl , gsub0l , k1a , k1b , k2a , k2b , l , l2b3 , l2b6 , lb , lcube , lr1 , lr2 , lsq , m1a , m1b , m2a , m2b , q , r1 ,    &
@@ -30,9 +24,6 @@ SUBROUTINE psbar
       & , vecj(3) , veck(3) , w
    INTEGER i , iab , icsida , icsidb , idela , idelb , ig , ii , ij , ikel , il , ill , index , ipass , ipin(10) , isv , iwbeg , j ,&
          & jcsid , jcsida , jcsidb , ji , jll , jofset , jofsta , jofstb , jpina , jpinb , k , ka , kb , lim , ll , low
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES K(NPVT,NPVT) AND
 ! K(NPVT,J) FOR A BAR ELEMENT HAVING END POINTS NUMBERED NPVT AND J.

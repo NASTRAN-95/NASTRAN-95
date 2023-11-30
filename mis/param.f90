@@ -1,9 +1,6 @@
 
 SUBROUTINE param(Setid,Xx,Buf4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axis(3) , Bframs , Bufsiz , Camera , Color , Daxis(3) , Direct , For , Fpltit , Fscale , Fvp , Icntvl , Ksystm(65) ,     &
          & Lasset , Layer , Merr , Model , Ncntr , Norg , Npens , Oesx , Org , Origin(11) , Paptyp(2) , Parm , Penclr(8,2) ,        &
          & Pensiz(8) , Ploter , Pltbuf , Pltitl(17) , Pltmod(2) , Pltype , Prject , Prnt , Tapden , Title(96) , Where
@@ -18,14 +15,8 @@ SUBROUTINE param(Setid,Xx,Buf4)
                  & Fscale , Maxdef , Defmax , Axis , Daxis , Vangle , Skpvue , Fvp , Vanpnt , D02 , D03 , Prject , S0s , For , Org ,&
                  & Norg , Origin , Edge , Xy , Ncntr , Cntr , Icntvl , Where , Direct , Subcas , Flag , Data , Lasset , Fpltit ,    &
                  & Pltitl , Color , Layer
-!
-! Dummy argument declarations
-!
    INTEGER Buf4
    INTEGER Setid(1) , Xx(1)
-!
-! Local variable declarations
-!
    INTEGER anti , awrd(2) , axisd(7) , blank , both , bpi , buf1 , by , colo , comm , defo , dens , disp , eor , err(3) , even ,    &
          & fill , film , fram , hkey(19) , hmode , hplot(2) , hx , i , icnda(20) , id , iwrd , j , k , kwrd , laye , list , loca ,  &
          & max , mid , mode , modex , msg1(20) , msg2(20) , msg4(22) , msg5(16) , n , nkwd(3) , nmsg1 , nmsg2 , nmsg4 , nmsg5 ,     &
@@ -34,9 +25,6 @@ SUBROUTINE param(Setid,Xx,Buf4)
    REAL blank4 , fwrd , x , y
    DOUBLE PRECISION dwrd
    LOGICAL test
-!
-! End of declarations
-!
 !
 !     THIS PARAM ROUTINE IS CALLED ONLY BY DPLOT, WHICH IS THE DRIVER
 !     OF THE PLOT MODULE           ==== == =====

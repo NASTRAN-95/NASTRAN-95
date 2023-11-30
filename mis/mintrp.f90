@@ -1,9 +1,6 @@
 
 SUBROUTINE mintrp(Ni,Xi,Nd,Xd,Type,Symm1,Symk1,Dz,Infile,Outfil,Scr,Scr1,G,Ncore,Nogo,Ipres)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(7) , B(7) , C(7) , D(7) , Ii , In , Incr , Incru , Iout , Ipre , Isab , Isc , Ita , Iti , Ito , Lcore , Ma(7) , Mc(7) ,&
          & Nmat , Nn , Nnn , Nt , Nwords , Scrm , Sysbuf
    DOUBLE PRECISION Ai , Ar
@@ -14,20 +11,11 @@ SUBROUTINE mintrp(Ni,Xi,Nd,Xd,Type,Symm1,Symk1,Dz,Infile,Outfil,Scr,Scr1,G,Ncore
    COMMON /saddx / Nmat , Lcore , Ma , Ita , Alpha , Dum , Mc
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Iout , In , Nnn , Incru
-!
-! Dummy argument declarations
-!
    REAL Dz
    INTEGER Infile , Ipres , Ncore , Nd , Ni , Nogo , Outfil , Scr , Scr1 , Symk1 , Symm1 , Type
    REAL G(1) , Xd(2) , Xi(1)
-!
-! Local variable declarations
-!
    INTEGER buff , gpoint , i , isng , ity , j , jj , k , kd , kt , name(2) , ncol , nii
    LOGICAL nimag , spec
-!
-! End of declarations
-!
 !
 !
 !

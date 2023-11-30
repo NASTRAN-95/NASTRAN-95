@@ -1,9 +1,6 @@
 
 SUBROUTINE sbspl2(Ntype,Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cfrvec(12) , Cvec(5) , Delta , Dum11(11) , Dummy(35) , Est(100) , Eye , Fnchk , Forvec(25) , Frtmei(2) , Si(1) , Skp(8) ,   &
       & Stres(100) , Temp , Twotop , Vec(5) , Z(1) , Zoveri
    INTEGER I , Ibfsz , Idm(9) , Ieltyp , Ild , Isub , Ivec , J , Line , Nchk , Nelid , Nout , Npoint , Nsil(1) , Tloads
@@ -14,21 +11,12 @@ SUBROUTINE sbspl2(Ntype,Ti)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
    REAL Ti(6)
-!
-! Local variable declarations
-!
    INTEGER bsc , ished(7) , istyp(2) , jst , k , k1 , lld , lsub , n1 , npts , plt , qd , tr
    INTEGER eject
    REAL f1 , ff , frlast(2) , sdelta(3) , zovi
    LOGICAL flag
-!
-! End of declarations
-!
 !
 !     PHASE TWO STRESS DATA RECOVERY BASIC BENDING TRIANGLE.
 !

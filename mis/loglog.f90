@@ -1,17 +1,8 @@
 
 SUBROUTINE loglog(A,B,C,D,E,F)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B , C , D , E , F
-!
-! Local variable declarations
-!
    REAL aa , bb , cc , dd , ee
-!
-! End of declarations
-!
 !
 !     WRITTEN BY G.CHAN/UNISYS  7/92, THE 1992 SUMMER OLYMPIC WEEK
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE selbo1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , Betar , C , C1 , C2 , Costh , D1 , D2 , Dela(6) , Delb(6) , Dum3(61) , E , Ecpt(100) , Eltemp , F1 , F2 , Fe ,  &
       & Fj , G , G1 , G2 , Gpa(3) , Gpb(3) , Gsube , I1 , I2 , K1 , K2 , Ke(144) , Kee(12,12) , Kep(144) , Kx , Ky , Kz , Nsm ,     &
       & Out(21) , R , Rho , S(12,12) , Sa(36) , Sb(36) , Sigc , Sigs , Sigt , Sinth , Smallv(3) , Stress , Tempel , Therm(30) ,     &
@@ -15,18 +12,12 @@ SUBROUTINE selbo1
                  & K1 , K2 , C , Kx , Ky , Kz , R , Betar , Mcsida , Gpa , Mcsidb , Gpb , Tempel , Dum3 , Jelid , Jsilno , Sa , Sb ,&
                  & Out , Therm
    COMMON /sdr2x6/ Ke , Kep , Dela , Delb
-!
-! Local variable declarations
-!
    LOGICAL abasic , basic , bbasic
    REAL alphar , c2t , ct , dampc , dcr , determ , df(6,6) , dp(20) , dum , f(6,6) , fi1 , fi2 , fjk , fld , fll , h(6,6) , hut(6) ,&
       & l , r2 , ra , rb0 , rb1 , rt , rv1 , rv2 , s2t , smalv0(6) , st , t , ta(18) , tb(9) , veci(3) , vecj(3) , veck(3) , x
    REAL cod , dtr , sid
    INTEGER i , i12 , iab , ic , icsida , icsidb , ig , ikel , in , index , ir , ising , isop , iwbeg , j , jcsid , jcsida , jcsidb ,&
          & k , lim , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE 1 OF STRESS DATA RECOVERY FOR THE ELBOW
 !     ELEMENT MUCH OF THE CODE WAS LIFTED FROM THE KELBOW SUBROUTINE

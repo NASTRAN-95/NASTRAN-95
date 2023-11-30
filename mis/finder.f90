@@ -1,9 +1,6 @@
 
 SUBROUTINE finder(Nam,Subno,Comno)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf2 , Buf3 , Buf5 , Casecc , Combo(7,5) , Conect , Conset , Geom4 , Origin(7,3) , Restct(7,7) , Scbdat , Scconn ,   &
       & Scmcon , Score , Scr1 , Scr2 , Scsfil , Toler , Tran , Z(1)
    INTEGER Buf4 , Iauto , Ierr , Inam(2) , Inpt , Iprint , Isort , Lcore , Mcon , Npsub , Outt , Sctoc
@@ -13,18 +10,9 @@ SUBROUTINE finder(Nam,Subno,Comno)
    COMMON /cmb003/ Combo , Conset , Iauto , Toler , Npsub , Conect , Tran , Mcon , Restct , Isort , Origin , Iprint , Tocopn
    COMMON /cmbfnd/ Inam , Ierr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Comno , Subno
    INTEGER Nam(2)
-!
-! Local variable declarations
-!
    INTEGER cnam(2) , i , id(3) , ieor , j , ncom , nnn
-!
-! End of declarations
-!
 !
 !
 !     THIS SUBROUTINE READS THE TABLE OF CONTENTS OF SUBSTRUCTURES

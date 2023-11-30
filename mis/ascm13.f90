@@ -1,26 +1,14 @@
 
 SUBROUTINE ascm13(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(982) , Ioct , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,1) , i , icomnd , isave(39) , j , k , l , oct(3,20) , oct1(3,18) , oct2(3,2) , ptbs(7,53) , ptbs1(7,18) ,        &
          & ptbs2(7,18) , ptbs3(7,17) , rdmap(18,30) , rdmap1(18,9) , rdmap2(18,9) , rdmap3(18,9) , rdmap4(18,3) , subnam(2) ,       &
          & xtra(11)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     CREDUCE COMMAND DMAP DATA
 !

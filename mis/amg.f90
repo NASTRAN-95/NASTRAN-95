@@ -1,9 +1,6 @@
 
 SUBROUTINE amg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Debug
    REAL Fmach(1) , Refc , Rfk
    INTEGER Ii , Incr , Iout , Isk , Iti , Ito , Iz(1) , Mcb(7) , Nd(1) , Ne , Nj , Nk , Nn , Nrow , Nsk , Sysbuf , Tskj(7) ,        &
@@ -19,15 +16,9 @@ SUBROUTINE amg
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER acpt , aero , ajjl , buf1 , buf2 , buf3 , i , icore , ifile , j , method , n , n1 , name(2) , nmk , nms , skj , w1jk ,   &
          & w2jk
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS IS THE MAIN DRIVER FOR AEROELASTIC MATRIX GENERATION
 !

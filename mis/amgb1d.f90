@@ -1,28 +1,16 @@
 
 SUBROUTINE amgb1d(Ajj,Tsonx,Tamach,Tredf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Den , Dum(2) , Flowa , Radius , Redf , Refc , Refcrd , Refden , Refflo , Refmac , &
       & Refstg , Refvel , Rfreq , Sigma , Sln , Stager , Tsonic , Vel
    INTEGER Iref , Mach , Maxmac , Mcb(7) , Minmac , Nlines , Nrow , Nstns , Nstnsx
    COMMON /amgmn / Mcb , Nrow , Dum , Refc , Sigma , Rfreq
    COMMON /bamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refflo , Sln , Nstnsx ,   &
                  & Stager , Chord , Radius , Bspace , Mach , Den , Vel , Flowa , Amach , Redf , Blspc , Amachr , Tsonic
-!
-! Dummy argument declarations
-!
    COMPLEX Ajj(Nstns,1)
    REAL Tamach(1) , Tredf(1)
    INTEGER Tsonx(1)
-!
-! Local variable declarations
-!
    INTEGER i , nline , nline1 , nline2 , nnline , ns , numm
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE INTERPOLATES TRANSONIC AJJ MATRICES
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE rfopen(Member,Lu)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , In , Mach , Nogo , Nout
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
@@ -12,14 +9,8 @@ SUBROUTINE rfopen(Member,Lu)
    COMMON /system/ Ibuf , Nout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xxread/ In
-!
-! Dummy argument declarations
-!
    INTEGER Lu
    INTEGER Member(2)
-!
-! Local variable declarations
-!
    CHARACTER*8 add(3) , free8 , mb8
    CHARACTER*1 bk , mb1(8)
    CHARACTER*44 dsn , rfdir
@@ -27,9 +18,6 @@ SUBROUTINE rfopen(Member,Lu)
    INTEGER i , j , lenr
    CHARACTER*5 mb5
    CHARACTER*6 mb6
-!
-! End of declarations
-!
 !
 !     THIS .MIS ROUTINE OPENS THE RIGID FORMAT FILE, AS AN ORDINARY
 !     FORTRAN FILE. USE REGULAR FORTRAN READ TO READ THE FILE

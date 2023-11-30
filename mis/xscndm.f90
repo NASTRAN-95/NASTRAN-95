@@ -12,9 +12,6 @@ SUBROUTINE xscndm
 !     REMOVING LVAX AND .NOT.LVAX AND STANDARDIZED ALL BYTE OPERATIONS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alter(2) , Bcdcnt , Core(1) , Diag14 , Diag17 , Diag25 , Diag4 , Dmap(1) , Dmpcnt , Dmpcrd(1) , Dmppnt , Gnobuf(1) ,     &
          & Iallon , Iapp , Ibuff(20) , Ichar , Icold , Icrdtp , Idmpnt , Iequl , Ifirst , Insert , Irturn , Isavdw , Iseqn ,        &
          & Isgnon , Islsh , Istopf , Kkcomm , Krud(6) , Ksystm(100) , Ldmap , Length , Loscar , Maskhi , Masklo , Modidx , Modnam , &
@@ -32,16 +29,10 @@ SUBROUTINE xscndm
                  & Masklo , Isgnon , Nosgn , Iallon
    COMMON /xgpie / Nscr
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER i , ibufct , ibwrd , icall , icom , idlmtr(8) , itype(6) , izero , kblank , kcomma , kdh , kfl1 , kh , l , lx , nchar ,  &
          & ncpw , noscr1 , noscr2 , npt , nwpc
    INTEGER khrfn1 , lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(3),Nogo) , (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) ,                          &
     & (Os(5),Oscar(1),Dmpcrd(1),Gnobuf(1))
    DATA itype/1 , 1 , 2 , 2 , 2 , 4/ , idlmtr/4H$    , 4H/    , 4H=    , 4H,    , 4H(    , 4H)    , 4H     , 4H*   /

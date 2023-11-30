@@ -1,9 +1,6 @@
 
 SUBROUTINE ampc(Djh1,Djh2,Djh,Ajjl,Qjh,Qjho,Qjhua,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ajjcol , Ib , Idjh , Ii , Ii1 , Incr , Incr1 , Iprec , Itc , Itc1 , Itc2 , Iz(1) , Jj , Jj1 , Mcbqhh(7) , Mcbqjh(7) ,    &
          & Ncolj , Ngp , Ngpd(2,30) , Noh , Nout , Nsub , Qhhcol , Sysbuf
    REAL Dum32(32) , Skp(52) , Xk , Xm
@@ -13,20 +10,11 @@ SUBROUTINE ampc(Djh1,Djh2,Djh,Ajjl,Qjh,Qjho,Qjhua,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6)
    COMMON /system/ Sysbuf , Nout , Skp , Iprec
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , Djh , Djh1 , Djh2 , Qjh , Qjho , Qjhua , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6
-!
-! Local variable declarations
-!
    REAL block(11)
    INTEGER file , i , iblock(11) , ibuf1 , ibuf2 , idjha , ionce , iopt , ip1 , k , mcb(7) , name(2) , nclold , ncolth , ngps ,     &
          & nth , qjhth
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO COMPUTE (OR RETRIEVE QJH)
 !

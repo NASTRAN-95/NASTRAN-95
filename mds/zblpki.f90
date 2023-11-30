@@ -4,18 +4,9 @@ SUBROUTINE zblpki
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , I
    COMMON /zblpkx/ A , I
-!
-! Local variable declarations
-!
    INTEGER icrow , inccnt , index , itypin , k , kk , nexrow
-!
-! End of declarations
-!
    Iblka(15) = I
    itypin = Iblka(13)
    Nwords = Nwrdel(itypin)

@@ -3,17 +3,8 @@ SUBROUTINE dswrt1(Idata)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Idata(2)
-!
-! Local variable declarations
-!
    INTEGER i , icount , ifin , iflg , inext , irwords
-!
-! End of declarations
-!
    inext = 0
    IF ( Lwords<=-1 ) THEN
       Ibase(Indclr) = Idseb

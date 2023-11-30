@@ -1,24 +1,12 @@
 
 SUBROUTINE ampb2(A,A11,A12,A21,A22,Rp,Cp,N1,N2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Mcba(7) , Mcba11(7) , Mcba12(7) , Mcba21(7) , Mcba22(7) , Nx , Rule
    COMMON /parmeg/ Mcba , Mcba11 , Mcba21 , Mcba12 , Mcba22 , Nx , Rule
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER A , A11 , A12 , A21 , A22 , Cp , N1 , N2 , Rp
-!
-! Local variable declarations
-!
    INTEGER korsz
    INTEGER mcb(20) , mcb1(20)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE IS A GENERAL DRIVER FOR PARTN
 !

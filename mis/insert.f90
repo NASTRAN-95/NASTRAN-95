@@ -1,19 +1,10 @@
 
 SUBROUTINE insert(Ncol,Nrow,Ndof,Ngrid,Jcore,Z,Dz,Temp,Dtemp,Ipr)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ipr , Jcore , Ncol , Ndof , Ngrid , Nrow
    DOUBLE PRECISION Dtemp(9) , Dz(1)
    REAL Temp(9) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i1 , i2 , is1 , iz1 , iz2
-!
-! End of declarations
-!
 !
 ! INSERT INSERTS MATRIX PARTITONS INTO OPEN CORE FOR IS2D8
 !

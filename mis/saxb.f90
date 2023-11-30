@@ -1,17 +1,8 @@
 
 SUBROUTINE saxb(A,B,C)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A(3) , B(3) , C(3)
-!
-! Local variable declarations
-!
    REAL d(3)
-!
-! End of declarations
-!
 !*****
 !  SINGLE-PRECISION VERSION
 !

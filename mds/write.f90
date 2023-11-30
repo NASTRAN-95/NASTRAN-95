@@ -3,23 +3,11 @@ SUBROUTINE write(File,Idata,N,Eorflg)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Iflpos(2,80)
    COMMON /ddiosv/ Iflpos
-!
-! Dummy argument declarations
-!
    INTEGER Eorflg , File , N
    INTEGER Idata(2)
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
    Ieor = Eorflg
    Name = File
    Nwords = N

@@ -1,9 +1,6 @@
 
 SUBROUTINE dpd3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , Eqdyn ,   &
          & Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ineq , Kn , L , Loads(32) , Luset , Lusetd , Mcb(7) , Msg(3) , Nam(2) , Neqdyn , &
          & Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl , Notfl , Notrl , Psd(2) , Psdl , Scr1 , Scr2 ,&
@@ -16,15 +13,9 @@ SUBROUTINE dpd3
                  & Nolin , Nogo , Msg , Tic , Tstep , Tf , Psd , Eigr , Eigb , Eigc , Mcb , Nam , Eqdyn , Sdt , Ineq
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL delf , delt , delta , f , f0 , fe , fi , fn , t0 , ti
    INTEGER file , flag , freq2(2) , i , ifrq , ifrq1 , ifrq2 , ilist , irps , irt1 , irt2 , ix , j , j1 , jn , jx , k , n , nfrq1 , &
          & nfrq2 , nlist , nofrq , nofrq1 , nofrq2 , nort , nort1 , nort2 , nrps , nrt1 , randps(2) , randt1(2) , randt2(2)
-!
-! End of declarations
-!
 !
 !     DPD3 ASSEMBLES THE FREQUENCY RESPONSE LIST (FRL)
 !     AND THE POWER SPECTRAL DENSITY LIST (PSDL).

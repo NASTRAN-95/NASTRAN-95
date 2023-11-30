@@ -1,29 +1,17 @@
 
 SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,Scr5)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Consts(5) , Core(1) , Twopi
    INTEGER Ieol , Ieor , Ii , Sysbuf
    COMMON /condas/ Consts
    COMMON /system/ Sysbuf
    COMMON /zntpkx/ A , Ii , Ieol , Ieor
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER B2dd , Frl , Frqset , Itype , K2dd , Mdd , Pad , Pd , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Vud
-!
-! Local variable declarations
-!
    REAL b(2) , w , w2
    INTEGER file , freq , i , iblk(60) , ibuf , ifile(3) , imcb(21) , ip1 , it , j , k , kk , l , mcb(7) , mcb1(7) , mcb2(7) ,       &
          & name(2) , nfreq , nload , nob2dd , nok2dd , nz , sr1 , sr3
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO COMPUTE PAD FROM MODAL APPROXIMATION TO SYSTEM
 !

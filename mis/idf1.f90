@@ -1,18 +1,9 @@
 
 SUBROUTINE idf1(Ee,E2,Eta01,Zet01,Are,Aim,Bre,Bim,Cre,Cim,R1sqx,Xiijr,Xiiji)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Aim , Are , Bim , Bre , Cim , Cre , E2 , Ee , Eta01 , R1sqx , Xiiji , Xiijr , Zet01
-!
-! Local variable declarations
-!
    REAL alarg2 , alpha , arg2 , arga , argt , atana , azet , coef , down , faci , facr , funct , parn , parni , parnr , pi , s ,    &
       & ser , test , test0 , trm1i , trm1r , trm2i , trm2r , trm3i , trm3r , up
-!
-! End of declarations
-!
 !   ***   INTEGRATES THE PLANAR PARTS OF THE INCREMENTAL
 !         OSCILLATORY KERNELS FOR UNSTEADY CASES
    pi = 3.1415926

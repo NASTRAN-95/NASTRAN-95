@@ -1,29 +1,17 @@
 
 SUBROUTINE fndpnt(Iary,Id)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Edt , I1(2) , I2 , Ibuf , Icore(1) , Ied , Igptt , Impt , Isil , Lcore , Mpt , Nout , Nrow1 , Old , Sil
    REAL Core(1) , Cstm , Dum(3) , Gptt
    COMMON /fpt   / Dum , Nrow1 , Lcore
    COMMON /loadx / I1 , Bgpdt , Old , Cstm , Sil , Isil , I2 , Mpt , Gptt , Edt , Impt , Igptt , Ied
    COMMON /system/ Ibuf , Nout
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    REAL Delta
    INTEGER Id , Idef , Ied1 , Ip
    INTEGER Iary(4)
-!
-! Local variable declarations
-!
    REAL arry(3) , flag
    INTEGER i , icp , iedt(2) , if , ifed(2) , ifound , ipm , iry(3) , isave(4) , k , name(2) , ns
-!
-! End of declarations
-!
 !
    EQUIVALENCE (iry(1),arry(1)) , (Core(1),Icore(1))
    DATA name/4HFNDP , 4HNT  /

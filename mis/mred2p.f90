@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2p(Nus,Nuf,N2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Hab , Idum1 , Idum2 , Idum3(17) , Idum4(12) , Idum5 , Incr , Iprntr , Irow , Iscr(10) , Korbgn , Korlen ,  &
          & Nmodes , Nrow , Otfile(6) , Typin , Typout , Z(1)
    REAL Oldnam(2) , Rz(1)
@@ -11,17 +8,8 @@ SUBROUTINE mred2p(Nus,Nuf,N2)
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /system/ Idum5 , Iprntr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER N2 , Nuf , Nus
-!
-! Local variable declarations
-!
    INTEGER i , iform , imsg , item , itest , itrlr1(7) , j , kolmns , modnam(2)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE OUTPUTS THE HAB MATRIX TO THE SOF AS THE HORG ITEM
 !     FOR THE MRED2 MODULE.

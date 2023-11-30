@@ -1,14 +1,8 @@
 
 BLOCKDATA itembd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Item(7,25) , Item01(7,10) , Item02(7,10) , Item03(7,5) , Nitem
    COMMON /itemdt/ Nitem , Item
-!
-! End of declarations
-!
 !ITEMBD
 !     ITEMBD BLOCK DATA
 !

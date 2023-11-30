@@ -1,9 +1,6 @@
 
 SUBROUTINE read4(Lama,Phi,Scr1,Eps,Mass)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    REAL Eofnrw , Rd , Rew , Wrt , Z(1)
    INTEGER Incr , Incrx , Iout , Ipak , Isys , Itypa , Itypb , Itype , Iunpak , Jpak , Junpak , Ksystm(65) , Norew , Rdrew , Rsp ,  &
@@ -16,22 +13,13 @@ SUBROUTINE read4(Lama,Phi,Scr1,Eps,Mass)
    COMMON /unpakx/ Itype , Iunpak , Junpak , Incr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Eps
    INTEGER Lama , Mass , Scr1
    INTEGER Phi(7)
-!
-! Local variable declarations
-!
    REAL eps1 , eps2 , epsi , rmult
    INTEGER i , ibuf , ibuf1 , ibuf2 , iclos , idid , ifile , ii , ij , ipos , ipr , j , kore , n , name(2) , ncol , no , nrow ,     &
          & num , nz , phi1(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     READ4 WILL TEST FOR CLOSE AND EQUAL ROOTS AND MAKE SURE THE
 !     CORRESPONDING VECTORS ARE ORTHOGONAL

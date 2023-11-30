@@ -24,9 +24,6 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !              CODE 8 ADDED - BIT 4 PAPERPLOT
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A377 , Bits(1) , Blank , Buff(150) , Corex(1) , Corey(771) , Dum3(3) , Dummy(11) , Icse(400) , Ihalf , Ilink , Incard(20)&
          & , Intr , Iresrt , Ksystm(21) , L , Lbd , Lcc , Line , Mach , Nlpp , Nogo , Nwpc , Skp63(63) , Subcas(200) , Sysbuf , Z(1)
    LOGICAL Bit64
@@ -38,14 +35,8 @@ SUBROUTINE ifp1xy(Card,Xycard)
    COMMON /xifp1 / Blank , Bit64
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER Card
    INTEGER Xycard(1)
-!
-! Local variable declarations
-!
    INTEGER a777 , acce , auto , bcd , binplt , bitwrd , buf(10) , bword(16) , clea , compon , cont , destin , disp , elfo , elst ,  &
          & eor , f , file , forc , fram , g , i , iat , icont , icore , icrq , idcom , iden , iequal , ilnk , imodel , inte ,       &
          & iword(26) , iwrd , j , kword(3) , load , model , modid(2) , n , n1 , n2 , nbword , ncurve , niword , nmod , no , noeor , &
@@ -57,9 +48,6 @@ SUBROUTINE ifp1xy(Card,Xycard)
          & vector , velo , vg , xtit , xtype , xvect , xy , xypa , xype , xypl , xypr , xypu , ybti , yes , ytit , ytti
    LOGICAL tapbit
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !     COMMON /ZZIFP1/ ICSE(400),INCARD(20),BUFF(150),SUBCAS(200),Z(1)
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(3),Nogo) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(21),Iresrt) , &
     & (Icse(1),Corex(1),Corey(1)) , (Incard(1),Corey(401)) , (Buff(1),Corey(421)) , (Subcas(1),Corey(571)) , (Z(1),Corey(771))

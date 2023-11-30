@@ -1,9 +1,6 @@
 
 SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xwte,Ywte,Kte,Kte1,Kte2,Parea)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ang(10) , Beta , Boxa , Boxl , Boxw , Cotang(10) , Cr , Ek , Ekbar , Ekm , Gc , Sys , Tang(10) , X(12) , Y(12)
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Mach , N6 , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
@@ -11,21 +8,12 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
    COMMON /system/ Sys , N6
-!
-! Dummy argument declarations
-!
    INTEGER Ireg
    INTEGER Kte(1) , Kte1(1) , Kte2(1) , Nc1(1) , Nc21(1) , Nc2n(1) , Ncn(1) , Nd1(1) , Ndn(1) , Nw1(1) , Nwn(1)
    REAL Parea(50,50,3) , Xk(1) , Xk1(1) , Xk2(1) , Xwte(1) , Yk(1) , Yk1(1) , Yk2(1) , Ywte(1)
-!
-! Local variable declarations
-!
    REAL a , pa , xb , xc , xle , xre , xt , ybe , yc , yl , yr , yte
    LOGICAL debug
    INTEGER i , il1 , il2 , iprint , ipt , ir1 , ir2 , ixr , j , j1 , jxr , k , kk , kp , kpt , kxyz , n1 , nn
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO COMPUTE LIMITS OF REGION AND PERCENTAGE OF BOX IN
 !     EACH

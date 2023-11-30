@@ -1,9 +1,6 @@
 
 SUBROUTINE ema1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Elem(1) , Ii1 , Ii2 , Incr1 , Incr2 , Incre , Ix , Jj1 , Jj2 , Jlast , Mach , Nelem , Nok4 , Nout , Rd ,  &
          & Rdrew , Sysbuf , System(80) , Typin1 , Typin2 , Typou1 , Wrt , Wrtrew , Zi(1)
    DOUBLE PRECISION D(18) , Xd(2) , Zd(1)
@@ -21,9 +18,6 @@ SUBROUTINE ema1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zblpkx/ Xd , Ix
    COMMON /zzzzzz/ Zd
-!
-! Local variable declarations
-!
    INTEGER block(20) , buf(10) , buf1 , buf2 , buf3 , dof , dofg , ect , gpect , i , icgvec , icode , idict , igrid , ii , iloc ,   &
          & ilook0 , imat , ipvt , isil0 , j , jj , k , kdict , kelem , kerr , kfact , kgg , kk , large , lcore , ll , lpcb , luset ,&
          & maxdct , maxnbr , maxvec , mcb(7) , mcbkgg(7) , minnbr , n , nbrcon , nbrgrd , nbrsil , ncgvec , ngrid , nhema1 , nmat , &
@@ -33,9 +27,6 @@ SUBROUTINE ema1
    INTEGER even
    INTEGER korsz
    LOGICAL last
-!
-! End of declarations
-!
 !
 !     EMA1 ASSEMBLES A STRUCTURAL MATRIX FOR THE MODEL FROM EACH OF
 !     THE INDIVIDUAL ELEMENT STRUCTURAL MATRICES.

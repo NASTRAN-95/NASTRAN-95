@@ -3,9 +3,6 @@ SUBROUTINE dsefwr
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! End of declarations
-!
    IF ( Iprvop==0 ) CALL dsmsg(7)
    IF ( Indclr/=Indcbp ) THEN
       Ibase(Indcbp+1) = Idsrt + Idsc + (Indclr-Indbas+1)

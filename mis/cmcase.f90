@@ -1,9 +1,6 @@
 
 SUBROUTINE cmcase
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Az(1) , Buf1 , Origin(7,3) , Tdat(6) , Toler , Xxx
    INTEGER Buf2 , Casecc , Cnam(2) , Combo(7,5) , Conset , Idat(3) , Idry , Ihead(96) , Iot , Iprint , Isort , Ititl(96) , Junk(8) ,&
          & Junk1(6) , Junk2(2) , Junk3(2) , Line , Mcon , Munk(6) , Nipnew , Nlpp , Npsub , Outt , Pora , Restct(7,7) , Step , Z(1)
@@ -18,18 +15,12 @@ SUBROUTINE cmcase
    COMMON /system/ Xxx , Iot , Munk , Nlpp , Junk3 , Line , Junk2 , Idat
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , auto , comp(7,2) , i , ibits(32) , idir(3) , ierr , ifile , ihd(96) , imsg , isym(15,2) , itest , j , jj , kdh ,&
          & kk , l , lindx , litm , loap , lods , mj , mnem(11) , ncnam(2) , nflg , nheqss , nmnem , nnn , nrec , nwdscc , papp ,    &
          & snam(7,2) , symt(7) , trans(7)
    LOGICAL lf(3) , srch
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE CASE CONTROL DATA BLOCK
 !

@@ -1,18 +1,9 @@
 
 SUBROUTINE alg30(A,B)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A(9,9) , B(9)
-!
-! Local variable declarations
-!
    REAL amax , pv
    INTEGER ic , index(9) , ir , j , l , l1 , n
-!
-! End of declarations
-!
 !
 !
    n = 9

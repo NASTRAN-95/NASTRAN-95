@@ -2,9 +2,6 @@
 SUBROUTINE smcph2(Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Diag , Eofnrw , Rdnrw , Rdp , Rdrew , Rect , Rew , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew , Xns(10)
    INTEGER Lout , Lowtri , Norew , Prc(2) , Rlcmpx(4) , Words(4), Mrow, Mterms, Mstr, Mtype
    CHARACTER*25 Sfm , Uwm
@@ -17,22 +14,13 @@ SUBROUTINE smcph2(Zi,Zr,Zd)
    COMMON /type  / Prc , Words , Rlcmpx
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(10)
    INTEGER Zi(10)
    REAL Zr(10)
-!
-! Local variable declarations
-!
    CHARACTER*4 cname(2)
    INTEGER iadj , ilsrow , inddir , index , irval , itemp(4) , itotal , ivval , iwork , kpos , l45 , left , maxmem , minum , more , &
          & mspill , name(2) , nar , need , nextra , nrvals , nterms
    REAL percnt , xcore , xfact , xmaxmem , xncol , xspill
-!
-! End of declarations
-!
 !
 ! SMCPH2 PERFORMS THE ACTUAL DECOMPOSITION OF THE MATRIX THAT WAS
 ! SETUP IN MEMORY AND/OR THE SPILL BY SMCPH1.

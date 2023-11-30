@@ -1,30 +1,18 @@
 
 SUBROUTINE mbctr(Ictr,Il1,Ir1,Ncn,Nc1,Nwn,Nw1,Parea)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ang(10) , Beta , Boxa , Boxl , Boxw , Cotg(10) , Cr , Ek , Ekbar , Ekm , Gc , Tg(10) , Xx(12) , Yy(12)
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Mach , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
    COMMON /mboxa / Xx , Yy , Tg , Ang , Cotg
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
-!
-! Dummy argument declarations
-!
    INTEGER Ictr , Il1 , Ir1
    INTEGER Nc1(1) , Ncn(1) , Nw1(1) , Nwn(1)
    REAL Parea(50,50,3)
-!
-! Local variable declarations
-!
    REAL cotang(5) , pa , tang(5) , x(5) , xb , xf , xf1 , xf2 , xlh , xll , xll1 , xlr , xlt , xrh , xrl , xrr , xrt , xt , y(5) ,  &
       & ybh , ybl , ybr , ybt , yc , yl , yl1 , yr , yth , ytl , ytr , ytt
    INTEGER i , j , jb , jt
-!
-! End of declarations
-!
 !
 !     CONTROL1 SURFACE
 !

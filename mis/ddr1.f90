@@ -1,13 +1,7 @@
 
 SUBROUTINE ddr1
    IMPLICIT NONE
-!
-! Local variable declarations
-!
    INTEGER phidh , scr1 , udv , uhv
-!
-! End of declarations
-!
 !
 !     DYNAMIC DATA RECOVERY PART1
 !

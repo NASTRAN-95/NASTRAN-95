@@ -1,9 +1,6 @@
 
 SUBROUTINE desvel
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acc1 , Acc2 , Acc3 , Acca , Accb , Accc , Accd , Gg , Vel1 , Vel2 , Vel3 , Vela , Velb , Velc , Z(1)
    INTEGER Ii , Iii , Iin , Incr , Iout , Iprint , Iz(1) , Jncr , Jout , Nn , Nnn , Sysbuf
    CHARACTER*23 Ufm
@@ -15,17 +12,11 @@ SUBROUTINE desvel
    COMMON /unpakx/ Jout , Iii , Nnn , Jncr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER acc , buf1 , buf2 , buf3 , buf4 , buf5 , effw , i , ipt , j , jj , lcore , mcb1(7) , mcb2(7) , mcb3(7) , mcb4(7) ,       &
          & mcb5(7) , minac , minow2 , nall , nam(2) , ncol , ndir , nmodes , nrow , ntot , omega , ssdv , vwg
    REAL acce , acci , efwt , omeg , vel , veli , vwog
    INTEGER korsz
    LOGICAL zero
-!
-! End of declarations
-!
 !
 !     DESVAL COMPUTES DESIGN VELOCITY AND ACCELERATION SPECTRA FOR
 !     DDAM. THE ASSUMUED FORM FOR VELOCITY IS

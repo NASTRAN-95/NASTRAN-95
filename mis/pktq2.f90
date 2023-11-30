@@ -1,21 +1,12 @@
 
 SUBROUTINE pktq2(Npts)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Delta , Dum1(308) , Ph1out(300) , Si(36) , Stress(3) , Tem , Temp , Vec(5) , Z(24) , Z1ovri , Z2ovri
    INTEGER I , Ivec , J , Nph1ou(1) , Npoint , Npt1 , Nsil(4)
    COMMON /pla42s/ Stress , Temp , Delta , Npoint , I , J , Npt1 , Vec , Tem , Z1ovri , Z2ovri , Dum1
    COMMON /pla4es/ Ph1out
    COMMON /pla4uv/ Ivec , Z
-!
-! Dummy argument declarations
-!
    INTEGER Npts
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES PHASE II OUTPUT FOR PLA4 FOR COMBINATION
 !     ELEMENTS

@@ -1,9 +1,6 @@
 
 SUBROUTINE xrgsst(Newsol)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(98)
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Ipas11(8) , Ipas25(14) , Ipas28(14) , Ipas31(2) , Ipas37(6) ,&
          & Iphase , Irestr , Iscr , Istate , Isysbf , Itype , Limit(2) , Member(2) , Name(2) , Nsubst , Num(2) , Number , Nument ,  &
@@ -18,18 +15,9 @@ SUBROUTINE xrgsst(Newsol)
    COMMON /xmssg / Ufm
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Dummy argument declarations
-!
    INTEGER Newsol
-!
-! Local variable declarations
-!
    INTEGER begin , blank , delete , eight , end , five , i , icflag , iflag , imap(2) , ind11 , ind25 , ind28 , ind31 , ind37 ,     &
          & insert , j , k , lflag(5) , nmap , one , seven
-!
-! End of declarations
-!
 !
 !     PURPOSE - XRGSST PROCESSES SUBSTRUCTURE CONTROLS CARDS IN
 !               A RIGID FORMAT (I.E., THE ****PHS- CARDS)

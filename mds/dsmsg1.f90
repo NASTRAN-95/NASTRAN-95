@@ -1,9 +1,6 @@
 
 SUBROUTINE dsmsg1(Block)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1(4) , A2(4)
    INTEGER Ieol2 , Ieor2 , Incr3 , Incr4 , Irow1 , Irow2 , Irow3 , Irow4 , Itin3 , Itout3 , Itout4 , Iwr , None , Nrow3 , Nrow4
    COMMON /packx / Itin3 , Itout3 , Irow3 , Nrow3 , Incr3
@@ -11,13 +8,7 @@ SUBROUTINE dsmsg1(Block)
    COMMON /unpakx/ Itout4 , Irow4 , Nrow4 , Incr4
    COMMON /zblpkx/ A1 , Irow1
    COMMON /zntpkx/ A2 , Irow2 , Ieol2 , Ieor2
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! End of declarations
-!
    WRITE (Iwr,99001)
 99001 FORMAT (' *** ERROR OCCURRED IN PAKUNPK I/O SUBSYSTEM ***')
    WRITE (Iwr,99002)

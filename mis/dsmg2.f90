@@ -1,25 +1,16 @@
 
 SUBROUTINE dsmg2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dscset , Ireptd , Ndskip , Sysbuf
    REAL Z(1)
    COMMON /blank / Ndskip , Ireptd , Dscset
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL betasp , block(11)
    INTEGER buffr1 , buffr2 , clsrw , dsnos(2) , file1 , file2 , file3 , i , ibeta , iblock(11) , idummy , iflag , ind , iundef ,    &
          & izmax , j , kaa , kbaa , kbfs , kbss , kdaa , kdfs , kdss , kfs , kss , left , mcb(7) , mpt , name(2) , neor , pbl ,     &
          & pbs , pl , ps , setno , uboov , uoov , ybs , ys
    INTEGER korsz
-!
-! End of declarations
-!
 !*****
 ! THIS MODULE PERFORMS THE FOLLOWING MATRIX OPERATIONS...
 !

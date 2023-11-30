@@ -1,9 +1,6 @@
 
 SUBROUTINE ddrmma(Setup)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Lambda , Omega , Rbuf(150) , Rbufa(75) , Rbufb(75)
    INTEGER Buf(150) , Bufa(75) , Bufb(75) , Buff(6) , Bufsav(10) , Complx(1) , Device , Dhsize , Entrys , File , Filnam(2) , Form , &
          & I1 , I2 , Icc , Idout , Idrec(146) , Ieol , Ieor , Ierror , Ilist , Infile , Ipass , Irow , Istlst , Itemp , Itype1 ,    &
@@ -17,17 +14,8 @@ SUBROUTINE ddrmma(Setup)
                  & Nlambs , Nwords , Omega , Ipass
    COMMON /stdata/ Lminor , Nstxtr , Npos , Savdat , Savpos , Bufsav
    COMMON /zntpkx/ A , Irow , Ieol , Ieor
-!
-! Dummy argument declarations
-!
    LOGICAL Setup
-!
-! Local variable declarations
-!
    INTEGER elwork(300) , i , icomp , iout , j , k , npt , typout
-!
-! End of declarations
-!
 !*****
 !  UNPACKS DATA FROM A TRANSIENT OR FREQUENCY RESPONSE SOLUTION
 !  COLUMN AS REQUIRED TO FORM ONE OFP OUTPUT LINE ENTRY.

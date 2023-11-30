@@ -1,22 +1,13 @@
 
 SUBROUTINE t3gemd(Ierr,Egpdt,Iorder,Gb,Gs,Lx,Ly,Edglen,Shrflx,Aic,Jog,Jok,K11,K22)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ierr
    DOUBLE PRECISION Jog , Jok , K11 , K22 , Lx , Ly
    LOGICAL Shrflx
    DOUBLE PRECISION Aic(18) , Edglen(3) , Egpdt(4,3) , Gb(9) , Gs(4)
    INTEGER Iorder(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aa(9) , bdum(3) , cosa , cosb , cosc , determ , h1 , h2 , sina , sinb , sinc , xx(3) , yy(3)
    INTEGER i , index(3,3) , ising , j , jo
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION ROUTINE TO SET UP THE REQUIRED SHEAR-RELATED
 !     TRANSFORMATION TO RELIEVE THE TRIA3 GEOMETRY BIAS IN BENDING.

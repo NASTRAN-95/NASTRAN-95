@@ -1,25 +1,16 @@
 
 SUBROUTINE gi
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bagpdt , Cstm , Ecta , Gm , Go , Gsize , Gtka , Ksize , Ng , Nk , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Sila , Spline ,     &
          & Two1(32) , Ua , Uf , Ug , Ul , Um , Un , Uo , Ur , Us , Usb , Useta , Usg
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug
    COMMON /blank / Nk , Ng
    COMMON /gicom / Spline , Useta , Cstm , Bagpdt , Sila , Ecta , Gm , Go , Gtka , Ksize , Gsize , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    COMMON /two   / Two1
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER ia(7)
    LOGICAL multi , omit , single
    EXTERNAL andf
-!
-! End of declarations
-!
 !
    DATA single/.TRUE./ , multi/.TRUE./ , omit/.TRUE./
    DATA ia/7*0/

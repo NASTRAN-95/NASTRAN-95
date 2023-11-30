@@ -1,9 +1,6 @@
 
 SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iprec , Iskip(54) , Iz(1) , N1 , N2 , N3 , Nz , Um , Uo , Us , Uset1
    REAL Two1(32) , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Un , Une , Up , Ur , Usb , Usg
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
@@ -11,19 +8,10 @@ SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
    COMMON /system/ Iskip , Iprec
    COMMON /two   / Two1
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ad , Ah , Ap , As , Gmd , God , Iflag1 , Phidh , Scr1 , Scr2 , Scr3 , Scr4 , Usetd
-!
-! Local variable declarations
-!
    INTEGER adbar , af , am , an , anbar , ao , mcb(7) , modal , multi , omit , prec , sign , single , trnsp
    INTEGER andf , korsz
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO REDUCE THE SCALE FACTOR MATRIX
 !     AP TO  A TRANS FORMATION MATRIX  AS, AD, AH

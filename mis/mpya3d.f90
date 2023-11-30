@@ -1,20 +1,11 @@
 
 SUBROUTINE mpya3d(Aa,Bb,Nrow,Band,Cc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Band , Nrow
    REAL A(1) , B(1) , C(1)
    DOUBLE PRECISION Aa(1) , Bb(1) , Cc(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dd
    INTEGER i , ia , ia1 , iaid , ib , ibia , ibic , ic , icid , id , id1 , id11n , id2 , ii , j , jj , kk
-!
-! End of declarations
-!
 !
 !     WITH ENTRY MPYA3S (A,B,NROW,BAND,C)
 !

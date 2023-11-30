@@ -2,27 +2,18 @@
 SUBROUTINE bfsmat(Nd,Ne,Nb,Np,Ntp,Length,Ntotal,Scr1,Jf,Jl,Nas,Fmach,Yb,Zb,Ys,Zs,X,Delx,Ee,Xic,Sg,Cg,Ar,Ria,Nbea1,Nbea2,Nasb,Nsaray,&
                 & Ncaray,Bfs,Avr,Cbar,A0,Xis1,Xis2,Kr,Nsbea,Nt0)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Cbar , Fmach , Kr
    INTEGER Jf , Jl , Length , Nb , Nd , Ne , Np , Nt0 , Ntotal , Ntp , Scr1
    REAL A0(1) , Ar(1) , Avr(1) , Cg(1) , Delx(1) , Ee(1) , Ria(1) , Sg(1) , X(1) , Xic(1) , Xis1(1) , Xis2(1) , Yb(1) , Ys(1) ,     &
       & Zb(1) , Zs(1)
    COMPLEX Bfs(Length,2)
    INTEGER Nas(1) , Nasb(1) , Nbea1(1) , Nbea2(1) , Ncaray(1) , Nsaray(1) , Nsbea(1)
-!
-! Local variable declarations
-!
    REAL area , beta2 , cgs , dria , dxle , dxs , dxte , dys , dzs , earg1 , earg2 , scale , scale2 , sgs , width , xaa , xeta ,     &
       & xx1 , xx2 , xxij , xyb , xzb , xzeta
    COMPLEX eikj1 , eikj2 , fwy , fwz
    INTEGER ib , ibody , ibox , icol , index , irb , irbe , irow , is , isb , isbe , isn , isp , istrip , itsb , iy , izyflg , j ,   &
          & jp1 , ksp , lsb , lsbe , lsbs , msbe , nasd , nc , nrbe , ns , nsbe , nw
    LOGICAL last
-!
-! End of declarations
-!
 !
 !     NOTE:
 !     A JUMP (VIA AN ASSIGN STATEMENT) TO 200 AND A JUMP TO 1100 (ALSO

@@ -1,18 +1,9 @@
 
 INTEGER FUNCTION findc(B,Bbar,N,Ix,Jx)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER B , Bbar , N
    INTEGER Ix(1) , Jx(1)
-!
-! Local variable declarations
-!
    INTEGER i , ic , icc , j , k , l
-!
-! End of declarations
-!
 !*******
 !     PICK OUT PAIRS OF NUMBERS FOR ACTIVE ROWS
 !*******

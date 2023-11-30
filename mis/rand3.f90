@@ -1,25 +1,13 @@
 
 SUBROUTINE rand3(F,S,Q,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Phi , Radeg , S4pisq , Twopi
    COMMON /condas/ Phi , Twopi , Radeg , Degra , S4pisq
-!
-! Dummy argument declarations
-!
    INTEGER N
    REAL R , Tau
    REAL F(1) , Q(2) , S(1)
-!
-! Local variable declarations
-!
    REAL a , alp , b , bta , df , fi , fi1 , fii1 , q1 , sum , sum1
    INTEGER check , i , name(2) , nn
-!
-! End of declarations
-!
 !
 !     COMPUTES  MEAN RESPONSE  Q
 !

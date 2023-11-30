@@ -1,9 +1,6 @@
 
 SUBROUTINE rods
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Afact , Alfa , Bgpdt(4,2) , Cfact , Cp , Dum(3) , Dum2(2) , Dumy(12) , E , Eltemp , Est(200) , G , Heat , Jfact , K(1) ,    &
       & Kcon , Mu , Rho , Tbar , Tsub0
    INTEGER Eid , Elid , Estid , Ge , Icmbar , Iest(13) , Iheat , Inflag , Ioutpt , Iprec , Ixtra , Izr , Kmbgg(3) , Ksystm(63) ,    &
@@ -19,16 +16,10 @@ SUBROUTINE rods
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ K
-!
-! Local variable declarations
-!
    INTEGER dict(7) , i , iaa , iaaz , iab , iabz , iba , ibaz , ibb , ibbz , icode , ij , ipart , ipass , iti , itj , iz , izero ,  &
          & izp5 , izpi , j , kz , ldata , ndof , ng , npart , nsq , nz
    REAL el , evect(3) , ha(3) , hb(3) , ke , kha(3) , khb(3) , massii(9) , massij(9) , massji(9) , massjj(9) , me , mijdum(9) ,     &
       & mjidum(9) , scale , ta(9) , tb(9) , te
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES ROD ELEMENT DATA TO PRODUCE STIFFNESS AND
 !     MASS MATRICES. IF THE HEAT TRANSFER OPTION IS ON, CONDUCTIVITY AND

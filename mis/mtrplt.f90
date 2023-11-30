@@ -1,9 +1,6 @@
 
 SUBROUTINE mtrplt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(81) , Arr9(9) , Array9(9) , C1 , C2 , D1(3) , D2(3) , Determ , E(9) , Habc(18) , Hinv(36) , Hq(12) , Ivect(3) &
                   & , Jvect(3) , Kvect(3) , L1 , L2 , M6x6(36) , Mout(36) , Prod12(12) , Prod9(9) , S(18) , S1 , S2 , T(9) , Temp , &
                   & Temp1 , Temp2 , Temp36(36) , Temp9(9) , Tite(9) , Tjte(36) , U1 , U2 , V(2) , Vv(2) , X1 , X2 , Xsubb , Xsubc , &
@@ -23,14 +20,8 @@ SUBROUTINE mtrplt
                  & Subscc , Npivot , Theta , Nsubc , Ising , Npt1 , V , Vv , Ivect , Jvect , Kvect , U1 , U2 , Sinang , Cosang
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifmgg , Dum2
-!
-! Local variable declarations
-!
    DOUBLE PRECISION em3 , g(36) , msum(63) , r(2,4) , requiv(8)
    INTEGER i , j , k , m(9) , nbegin , npt
-!
-! End of declarations
-!
 !
 !OMMENT.  ALL WRITE STATEMENTS WHICH HAVE BEEN COMMENTED OUT, HAVE BEEN
 !         LEFT IN THE PROGRAMMING FOR ANY FUTURE DEBUGGING USE.

@@ -1,9 +1,6 @@
 
 SUBROUTINE pla32
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Iestbk(100) , Ipass , Iy(30) , Iz(1) , Placnt , Plsetn
    REAL Degra , Estbk(100) , Gamma , Gammas , Pi , Radeg , S4pisq , Twopi , Xxxxxx(325) , Yyyyyy(30) , Z(1)
    COMMON /blank / Placnt , Plsetn
@@ -14,18 +11,12 @@ SUBROUTINE pla32
    COMMON /sout  / Yyyyyy
    COMMON /system/ Bufsz
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a , c , d , dmt , dum2(2) , fj , p(4) , t , tubsav(20) , word
    INTEGER bufr1 , bufr2 , bufr3 , casecc , clsrw , cstm , dit , eltype , eor , estnl1 , estnls , estt(7) , estwds(40) , file , i , &
          & icc , ichar(9) , icstm , idest , iflag , ihigh , iii , ilow , imat , inrw , ionles , ip(4) , ititle(3) , izmax , j ,     &
          & jdest , left , m , mpt , mused , name(2) , ncc , ncstm , neor , nn , nstwds(40) , nwdsp2(40) , nwdsrd , onles , ostrt(7) &
          & , outrw , planos(2) , setno
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE READS THE ESTNLS DATA BLOCK CREATED IN SUBROUTINE
 !     PLA31, AND CALLS THE PROPER ELEMENT ROUTINE TO COMPUTE ELEMENT

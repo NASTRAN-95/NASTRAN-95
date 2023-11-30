@@ -2,18 +2,9 @@
 SUBROUTINE dsipk1(Block,Itypot)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Itypot
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER iflag
-!
-! End of declarations
-!
    Iretrn = 0
    Block(1) = Name
    Block(8) = -1

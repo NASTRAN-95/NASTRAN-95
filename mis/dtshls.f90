@@ -1,9 +1,6 @@
 
 SUBROUTINE dtshls
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Eltemp , Em(6) , Est(100) , F(18,18) , Gsube , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , &
       & Sinth , Ti(1) , Tref
    INTEGER Ibuf , Icstm , Iest(100) , Ioutpt , Matflg , Matid , Ncstm , Npvt
@@ -17,9 +14,6 @@ SUBROUTINE dtshls
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy , Rj11 , Rj12 , Rj22
    COMMON /system/ Ibuf , Ioutpt
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    REAL a , a1 , a1sq , a2 , a2sq , a3 , a3sq , b , balotr(36) , blank , c , c1 , c10 , c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 ,     &
       & cab(3) , cab1 , cab2 , cab3 , cc(10) , cm1(30,30) , cms(900) , cmt(1296) , csub(5,5) , csubt(6,5) , ctm(36,36) , d13 ,      &
       & d132 , d23 , d232 , d33 , d334 , degra , determ , dista , distb , distc , ee(30) , ee1(6) , el(3) , emod(9) , eph1(6) ,     &
@@ -41,9 +35,6 @@ SUBROUTINE dtshls
       & sb35 , sb36 , sb37 , sb38 , sb39 , sb4 , sb40 , sb5 , sb6 , sb7 , sb8 , sb9 , sigx(3) , sigxy(3) , sigy(3) , st , str(3) ,  &
       & stress(3) , tbend1 , tbend3 , tbend5 , tem , theta1 , thetam , thk1 , thk2 , thk3 , tm(3,12) , tmem1 , tmem3 , tmem5 ,      &
       & tmmm(36) , trand(9) , trans(9) , tshr , tshr1 , tshr3 , tshr5 , vec(3) , x , xc(6) , y , yc(6) , zc(6)
-!
-! End of declarations
-!
 !
 !     ECPT ENTRIES
 !

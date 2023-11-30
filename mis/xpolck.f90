@@ -2,9 +2,6 @@
 SUBROUTINE xpolck(Dbn1,Dbn2,Fn,L)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Comm(20) , Cursno , Dculg , Ddbn(1) , Dfnu(1) , Dmxlg , Dnaf , Dpd(6) , Entn1 , Entn2 , Entn3 , Entn4 , &
          & Fculg , Fcum(1) , Fcus(1) , Fdbn(1) , Fequ(1) , Fiat(7) , File(1) , Fist , Fknd(1) , Flag , Fmat(1) , Fmxlg , Fntu(1) ,  &
          & Fnx , Fon(1) , Ford(1) , Fpun(1) , Funlg , Ksystm(65) , Lmsk , Lxmsk , Macsft , Md(401) , Minp(1) , Mlgn , Mlsn(1) ,     &
@@ -19,19 +16,10 @@ SUBROUTINE xpolck(Dbn1,Dbn2,Fn,L)
    COMMON /xfist / Fist
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsfa1 / Md , Sos , Comm , Xf1at
-!
-! Dummy argument declarations
-!
    INTEGER Dbn1 , Dbn2 , Fn , L , New , Nx , Ny
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER fdif , i , j , kfil , lmt1 , lmt2 , lmt3 , nfculg , npolck(2) , pool
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(2),Outtap)
    EQUIVALENCE (Dpd(1),Dnaf) , (Dpd(2),Dmxlg) , (Dpd(3),Dculg) , (Dpd(4),Ddbn(1)) , (Dpd(6),Dfnu(1)) , (Fiat(1),Funlg) ,            &
     & (Fiat(2),Fmxlg) , (Fiat(3),Fculg) , (Fiat(4),Fequ(1)) , (Fiat(4),File(1)) , (Fiat(4),Ford(1)) , (Fiat(5),Fdbn(1)) ,           &

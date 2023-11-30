@@ -1,21 +1,12 @@
 
 SUBROUTINE inptt4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuff , Nout , P1 , P2 , P3(2) , P4 , Y(1) , Z(1)
    REAL X(1)
    COMMON /blank / P1 , P2 , P3 , P4
    COMMON /system/ Ibuff , Nout
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER bcdopt , itape , iunit , nmat
-!
-! End of declarations
-!
 !
 !     THIS INPTT4 UTILITY MODULE WILL READ USER-SUPPLIED TAPE (OR DISC
 !     FILE), AS GENERATED FROM OUTPUT4 OR FROM MSC/OUTPUTi MODULES (i=1,

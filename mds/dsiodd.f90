@@ -3,9 +3,6 @@ SUBROUTINE dsiodd
    IMPLICIT NONE
    INCLUDE 'GINOX.COM'
    INCLUDE 'DSIOF.COM'
-!
-! End of declarations
-!
    Lginox = 5*NUMFCB + NUMSOF + 2
    Lhalf = 16
    Lendsp = 0

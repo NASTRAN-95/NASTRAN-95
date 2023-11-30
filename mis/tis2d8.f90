@@ -1,9 +1,6 @@
 
 SUBROUTINE tis2d8(Temp,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp12 , Alpha1 , Alpha2 , Alphas(3) , Bt(12) , C , Costh , Determ , Dnc(16) , Dneta(1) , Dnl(16) , Dnx(1) , Dnxi(1) , Dny(1)&
       & , Dumarg , Ecpt(1) , Eltemp , G(9) , G11 , G12 , G13 , G22 , G23 , G33 , Ge , H(3) , Kx , Ky , Pt(3) , Qq(15) , Rho ,       &
       & Rtside(3) , Save(16) , Sinth , Stress , T , Tempar(8) , Tempav , Th , Tref , Ttemp , X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8 ,&
@@ -17,19 +14,10 @@ SUBROUTINE tis2d8(Temp,Pg)
    COMMON /trimex/ Necpt , Ngrid , Id1 , Th , Matid1 , T , Isys1 , X1 , Y1 , Z1 , Isys2 , X2 , Y2 , Z2 , Isys3 , X3 , Y3 , Z3 ,     &
                  & Isys4 , X4 , Y4 , Z4 , Isys5 , X5 , Y5 , Z5 , Isys6 , X6 , Y6 , Z6 , Isys7 , X7 , Y7 , Z7 , Isys8 , X8 , Y8 ,    &
                  & Z8 , Ttemp , Save , Rtside , Tempav , Alphas , Xx , Dnc , Dnl , Xxjb , Xjb , Pt , H , G , Bt , Determ , Dumarg
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Temp(8)
-!
-! Local variable declarations
-!
    REAL coef , dn(8) , e1t(6) , eta(8) , gstemp , rgtemp , tth , vec(3) , veci(3) , vecil , vecj(3) , veck(3) , veckl , vvec(3) ,   &
       & xi(8)
    INTEGER i , iii , ising , isub , iws(2,3) , ixx , j , jjj , k , kk , l , lll , n
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES EQUIVALENT LOADS DUE TO GRID POINT
 !     TEMPERATURES FOR THE 2-D, 8 GRID POINT ISOPARAMETRIC ELEMENT

@@ -2,26 +2,14 @@
 SUBROUTINE linkup(*,Name)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibot , Isn , Itop , Itype , Kind , Machx , Mask1 , Mask2 , Mask3 , Z(1)
    COMMON /lnklst/ Itop , Ibot , Isn , Kind , Itype , Mask1 , Mask2 , Mask3
    COMMON /machin/ Machx
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf , rshift
    INTEGER ihash , ikind , itotal , k , l
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     HASH INTO TABLE
 !

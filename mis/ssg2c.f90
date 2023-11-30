@@ -1,9 +1,6 @@
 
 SUBROUTINE ssg2c(A,B,C,Op,Block)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dit
    INTEGER Ia(5) , Ia5 , Ib(5) , Ib5 , Ic(5) , Ipr1 , It(1) , It1(1) , Ksystm(65) , Lcore , Mcbs(67) , Nomat , Nout
    CHARACTER*23 Ufm
@@ -12,20 +9,11 @@ SUBROUTINE ssg2c(A,B,C,Op,Block)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER A , B , C , Op
    INTEGER Block(11)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dit1
    INTEGER dt1(2) , i , iprec , irc , na(2) , nb(2) , nomix
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (dt1,dit1)
    EQUIVALENCE (Ksystm(55),Ipr1) , (Mcbs(1),Ia(1)) , (Mcbs(8),It(1),Dit) , (Mcbs(13),Ib(1)) , (Mcbs(20),It1(1)) , (Mcbs(61),Ic(1)) ,&

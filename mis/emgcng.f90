@@ -1,9 +1,6 @@
 
 SUBROUTINE emgcng
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat
    INTEGER Cls , Clsrew , Cstm , Dictn(3) , Dit , Est , Flags(3) , Geom2 , Icmbar , Icong , Icore , Icstm , Idit , Ihmat , Imat ,   &
          & Jcore , Ksystm(65) , Lcong , Lcstm , Lhmat , Lmat , Mats(3) , Mpt , Ncong , Ncore , Ncstm , Ndit , Nhmat , Nmat , Nout , &
@@ -17,14 +14,8 @@ SUBROUTINE emgcng
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf , cngrnt(2) , flag , i , icongz , icrq , idprim , iwords , j , k , kid , lnum , ncong1 , ncong2 , noeor , nogo ,     &
          & subr(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OF THE -EMG- MODULE READS -CNGRNT- CARD
 !     IMAGES, IF ANY, FROM GEOM2 AND BUILDS A PAIRED LIST.

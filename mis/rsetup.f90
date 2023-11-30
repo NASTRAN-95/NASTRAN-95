@@ -1,25 +1,13 @@
 
 SUBROUTINE rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum3b(3)
    INTEGER Idpth , N , Ngrid
    COMMON /bandb / Dum3b , Ngrid
    COMMON /bandg / N , Idpth
-!
-! Dummy argument declarations
-!
    INTEGER Idim
    INTEGER Lvl(1) , Lvls1(1) , Lvls2(1) , Nacum(1)
-!
-! Local variable declarations
-!
    INTEGER i , itemp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

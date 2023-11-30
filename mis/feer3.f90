@@ -1,9 +1,6 @@
 
 SUBROUTINE feer3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cndflg , Ibflt , Ibforv , Ibfsma , Ibk , Idiag , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) , Ifset , &
          & Ii , Iip , Incr , Incrp , Ind , Ioptf , Iprc , Iprec , Istart , Iter , Itp1 , Itp2 , Iwords(4) , Iz(1) , Ksys94 , L16 ,  &
          & Ltpos(7) , Mcblt(7) , Mcbrm(7) , Mcbsma(7) , Mcbvec(7) , Mord , Mrank , Neig , Nidlt , Nidorv , Nidsma , Nltli , Nn ,    &
@@ -25,17 +22,11 @@ SUBROUTINE feer3
    COMMON /type  / Rc , Iwords
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dsq
    INTEGER i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , iend , ifn , ij , irmem , itest , iv1 , iv2 , iv2m1 , iv3 , iv4 , iv5 , j , k , l43 ,&
          & mavail , mcbscl(7) , memlt , memort , memsma , memtot , minnee , name(2) , ncols , nstrgs , nterms , nwds , nwdtrm , nz
    INTEGER korsz
    REAL sq , ss
-!
-! End of declarations
-!
 !                                                               T
 !     FEER3 OBTAINS THE REDUCED TRIDIAGONAL MATRIX   (LI)*M*(LI)
 !     WHERE M IS A SYMETRIC MATRIX AND L IS LOWER TRIANGULAR, AND (LI)

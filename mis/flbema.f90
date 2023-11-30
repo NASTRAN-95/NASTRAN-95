@@ -1,9 +1,6 @@
 
 SUBROUTINE flbema(Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Ibgpdt , Ibuf1 ,     &
          & Ibuf2 , Ibuf3 , Ibuf4 , Ibuf5 , Icore , Igrav , Igrid , Isil , Kgdict , Kgmat , Lcore , Mpt , Nbgpdt , Ngrav , Ngrid ,   &
          & Norew , Nout , Nsil , Rd , Rdrew , Rew , Sil , Uset , Usetf , Usets , Wrt , Wrtrew , Z(1)
@@ -20,20 +17,11 @@ SUBROUTINE flbema(Type)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Type
-!
-! Local variable declarations
-!
    INTEGER alloc(3) , colsil(12) , dict(2) , file , i , icode , icol , icpos , ifcol , ilcol , iloc , j , jcore , kcol , kcore ,    &
          & luset , mcb(7) , n , name(2) , ncol , ncore , nloc , nrow , ntpers , nwds , optc , optw , outmat , rowsil(4) , terms(288)&
          & , typin , typout , xdict , xmat
    LOGICAL skip
-!
-! End of declarations
-!
 !
 !     ASSEMBLES THE AF OR DKGG MATRIX UTITLIZING THE ELEMENT
 !     MATRICES GENERATED IN FLBEMG

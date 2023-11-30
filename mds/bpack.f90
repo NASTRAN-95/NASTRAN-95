@@ -2,24 +2,12 @@
 SUBROUTINE bpack(Ig,I,J,L)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dum1b , Dum3b(3) , Dum4s(4) , Dum5s(5) , Ii1 , Ipass , Mask , Nbit , Nbpw , Nw
    COMMON /bandb / Nbit , Dum3b , Ipass , Nw , Dum1b , Nbpw
    COMMON /bands / Dum4s , Ii1 , Dum5s , Mask
-!
-! Dummy argument declarations
-!
    INTEGER I , J , L
    INTEGER*2 Ig(1)
-!
-! Local variable declarations
-!
    INTEGER loc , n1
-!
-! End of declarations
-!
 !
 !DC   NEXT 2 LINES FOR CDC AND UNIVAC ONLY
 !     EXTERNAL         ORF,      LSHIFT

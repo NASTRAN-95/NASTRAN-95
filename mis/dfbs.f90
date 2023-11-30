@@ -1,9 +1,6 @@
 
 SUBROUTINE dfbs
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ib(7) , Il(7) , Inx , Ip1 , Iprec , Is1 , Iscr , Isym , Itype , Iu(7) , Ix(7) , Jb(7) , Jl(7) , Jnx , Jp1 , Js1 , Ju(7) ,&
          & Jx(7) , Kprec , Ksign , Ksystm(65) , Outpt
    CHARACTER*25 Sfm , Uwm
@@ -17,14 +14,8 @@ SUBROUTINE dfbs
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER b , dosi(3) , iprec1 , jj , l , ltype , n , nogo , refus(3) , sbnm(2) , scr , u , x
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     FBS   L,U,B/X/V,Y,ISYM=0/V,Y,KSIGN=1/V,Y,IPREC=0/V,Y,ITYPE=0 $
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE qparmd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(33) , Vps(1)
    INTEGER Flag , Ibuf , Il(8) , Il1 , Il2 , Il3 , Il4 , Il5 , Il6 , Il7 , Il8 , Ivps(1) , Ksys37 , Nogo , Nout , Op(2)
    DOUBLE PRECISION Inc1(2) , Inc2(2) , Ind1 , Ind2 , Outc(2) , Outd
@@ -15,16 +12,10 @@ SUBROUTINE qparmd
    COMMON /system/ Ibuf , Nout , Nogo , Dummy , Ksys37
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xvps  / Vps
-!
-! Local variable declarations
-!
    INTEGER blnk , i , ierr , ifirst , iflag , ilx(8) , iop , irtn3 , irtn4 , irtn6 , j , nam(2) , name(2) , opcode(50)
    DOUBLE PRECISION denom , tempd
    REAL parm , temp(2)
    LOGICAL prt
-!
-! End of declarations
-!
 !
 !     MODULE PARAMD PERFORMS THE FOLLOW OP ON PARAMETERS IN DOUBLE
 !     PRECISION

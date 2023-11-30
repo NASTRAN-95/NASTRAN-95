@@ -1,9 +1,6 @@
 
 SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(200) , Eltemp , Xmat(6) , Z(1)
    INTEGER Inflag , Iz(1) , Ksystm(2) , Matid , Necpt(1) , Outpt , Sysbuf
    CHARACTER*23 Ufm
@@ -13,13 +10,7 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER All , Eltype , Ido , Istart , Itype , Iwords , Nbdys , Ncount , Nelout
-!
-! Local variable declarations
-!
    REAL ahcx , ahcy , ahcz , buf(50) , bxyz(3,32) , det , detj , dr(24) , dshp(3,32) , dshpb(3,32) , f(32) , g(9) , g1 , g2 , g3 ,  &
       & gauss(8) , gh(3) , gpt(32) , h(4) , h1 , h2 , h3 , hc(96) , hc1 , hc2 , hc3 , hcx(4) , hcx3(60) , hcxyz(3) , hcy(4) , hcz(4)&
       & , hl , ll(4,5) , r(3,8) , s(4) , sc(5) , sfact , shp(32) , term1 , term2 , term3 , term4 , vol , w(5) , xjacob(3,3) ,       &
@@ -28,9 +19,6 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
          & ist , isub , isub1 , isub2 , isubx , isys1 , itemp , itt , j , jtype , k , k1 , k2 , kk , ktype , l , mid , nels , ng ,  &
          & ngrid , nip , nopts , np , npts , nsubx , nx , pointr(7,7) , scr6 , tmap(88) , typold
    LOGICAL onlyc
-!
-! End of declarations
-!
 !
 !     E  AND  M LOADS FOR 3-D ELEMENTS
 !     TETRA  39   WEDGE  40   HEXA1 41  HEXA2  42

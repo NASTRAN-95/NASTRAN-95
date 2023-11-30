@@ -1,26 +1,14 @@
 
 SUBROUTINE incro(Ax,Ay,Az,Ax1,Ay1,Az1,Ax2,Ay2,Az2,Sgr,Cgr,Sgs,Cgs,Kr,Fl,Beta,Sdelx,Dely,Delr,Deli)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ind
    REAL K10 , K10t1 , K1it1 , K1rt1 , K20 , K20t2p , K2it2p , K2rt2p
    COMMON /dlm   / K10 , K20 , K1rt1 , K1it1 , K2rt2p , K2it2p , K10t1 , K20t2p
    COMMON /kds   / Ind
-!
-! Dummy argument declarations
-!
    REAL Ax , Ax1 , Ax2 , Ay , Ay1 , Ay2 , Az , Az1 , Az2 , Beta , Cgr , Cgs , Deli , Delr , Dely , Fl , Kr , Sdelx , Sgr , Sgs
-!
-! Local variable declarations
-!
    REAL a2i , a2r , aim , are , at1 , at1s , at2 , at2s , azet0 , b2i , b2r , bim , br , bre , c2i , c2r , cim , count , cre ,      &
       & diiji , diijr , dkic , dkii , dkio , dkrc , dkri , dkro , e2 , ee , eps , eta01 , m , pi , r1sqx , t1 , t2 , x0 , xdelx ,   &
       & xdely , xiiji , xiijr , xkic , xkii , xkio , xkrc , xkri , xkro , xmult , y0 , z0 , zero , zet01
-!
-! End of declarations
-!
 !
 !     CALCULATES THE UNSTEADY PART OF THE INFLUENCE COEFFICIENT MATRIX
 !     ELEMENTS USING  SUBROUTINES  KERNEL, IDF1  AND  IDF2

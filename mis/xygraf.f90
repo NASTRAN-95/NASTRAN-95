@@ -1,9 +1,6 @@
 
 SUBROUTINE xygraf(Graph)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Exceed
    INTEGER I123 , Id(300) , Idum(6) , Idum2(2) , Iframe , Itlns , L , Lines , Maxplt , Maxrow , Nlpp , Sysbuf , Titlec(32) ,        &
          & Titlel(14) , Titler(14) , Xtitle(32) , Z(1)
@@ -15,18 +12,9 @@ SUBROUTINE xygraf(Graph)
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xypppp/ Iframe , Titlec , Titlel , Titler , Xtitle , Id , Maxplt , Xmin , Xinc , Exceed , I123 , Maxrow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Graph(3,8)
-!
-! Local variable declarations
-!
    REAL f , temp
    INTEGER i , i1 , i2 , j , m(5) , n , n1 , n2 , n3 , n4 , n5 , nu(5,10)
-!
-! End of declarations
-!
 !
 !
    DATA nu(1,1) , nu(1,2) , nu(1,3)/4H**** , 4H **  , 4H****/ , nu(2,1) , nu(2,2) , nu(2,3)/4H*  * , 4H  *  , 4H   */ , nu(3,1) ,   &

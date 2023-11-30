@@ -1,16 +1,10 @@
 
 BLOCKDATA ifx1bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibd1(100) , Ibd2(100) , Ibd3(100) , Ibd4(100) , Ibd5(100) , Ibd6(100) , Ibd7(100) , Ibd8(100) , Icc1(100) , Icc2(24) ,   &
          & Iparpt , Ipr1(100) , Ipr2(92) , Iwrds(18) , Lbdpr , Lcc , N
    COMMON /ifpx0 / Lbdpr , Lcc , Iwrds , Iparpt
    COMMON /ifpx1 / N , Ibd1 , Ibd2 , Ibd3 , Ibd4 , Ibd5 , Ibd6 , Ibd7 , Ibd8 , Ipr1 , Ipr2 , Icc1 , Icc2
-!
-! End of declarations
-!
 !IFX1BD
 !     DEFINITION OF VARIABLES IN /IFPX1/ AND /IFPX0/
 !*****

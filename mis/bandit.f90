@@ -1,9 +1,6 @@
 
 SUBROUTINE bandit
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum2w(2) , Dum3g(3) , Dum4w(4)
    INTEGER Geom1 , Geom2 , Geom4 , Hicore , I77 , Ib , Ibuf , Ibuf1 , Icrit , Ifl , Ih , Inp , Iop , Ipass , Irept , Is(97) , Kdim ,&
          & Kmod , Knew , Kore , Korig , Mach , Machin , Mask , Maxdeg , Maxgrd , Method , Mindeg , Mm , Nbitin , Nbpw , Ncm ,       &
@@ -20,14 +17,8 @@ SUBROUTINE bandit
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew
    COMMON /system/ Ibuf , Nout , Nogo , Is
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER end , ii3 , iquit , k1 , k2 , k3 , k4 , k5 , k6 , k7 , k8 , k9 , kdim4 , sub(3)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     BANDIT - A COMPUTER PROGRAM TO RE-SEQUENCE MATRIX BY BANDWIDTH,
 !              PROFILE, AND WAVEFRONT METHODS FOR NASTRAN.

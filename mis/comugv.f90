@@ -1,9 +1,6 @@
 
 SUBROUTINE comugv
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Ii , Iii , Iin , Incr , Iout , Jncr , Jout , Ndir , Nmodes , Nn , Nnn
    REAL Z(1)
    COMMON /blank / Nmodes , Ndir
@@ -11,15 +8,9 @@ SUBROUTINE comugv
    COMMON /system/ Ibuf
    COMMON /unpakx/ Jout , Iii , Nnn , Jncr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , i , indb(2) , j , jj , jnrow , k , kk , lcore , ll , mcb(7) , mcb1(7) , mcb2(7) , nam(2) , ncol ,   &
          & nd , nd1 , nm1 , nrow , nskip , oudb(2) , ugv , ugvadc , ugvadd , ugvnrl , ugvsqc , ugvsqr
    INTEGER korsz
-!
-! End of declarations
-!
 !
 ! FOR DDAM/EARTHQUAKE ANALYSES, COMBUGV COMBINES DISPLACEMENT
 ! COMPONENTS BY (1)ADDING THE COMPONENTS IN ABS VALUE AND (2)TAKING THE

@@ -1,23 +1,11 @@
 
 SUBROUTINE tspl2s(Ts7)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL X , Y
    COMMON /sma1io/ X , Y
-!
-! Dummy argument declarations
-!
    REAL Ts7(60)
-!
-! Local variable declarations
-!
    INTEGER i
    REAL x2 , x2y , x3 , xy , xy2 , y2 , y3
-!
-! End of declarations
-!
 !
 !    TRANSVERSE SHEAR ROUTINE2 FOR CTRPLT1 - SINGLE PRECISION VERSION
 !

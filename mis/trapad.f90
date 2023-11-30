@@ -1,9 +1,6 @@
 
 SUBROUTINE trapad
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anus(3) , Costh , Csdat(16) , Dgama , Dum(15) , Ecpt(20) , Eltemp , Es(3) , G(3) , Gam , Gsube , Heat , Pzout(51) ,&
       & Rho , Setmat , Sinth , Stress , Tempe , Tzero
    DOUBLE PRECISION Degrad , Pi , Twopi , Xq
@@ -18,9 +15,6 @@ SUBROUTINE trapad
    COMMON /matout/ Es , Anus , Rho , G , Alf , Tzero , Gsube , Moskp , Setmat
    COMMON /matpz / Pzout
    COMMON /system/ Ksystm , Ksys78 , Kdum2 , Iheat
-!
-! Local variable declarations
-!
    DOUBLE PRECISION acurl(208) , acurp1(48) , acurp2(16) , ajho , ajjho , ak(144) , akj(256) , akph2(16) , akt(27) , akuph(48) ,    &
                   & anu(3) , ar , bmass(12,12) , bmbss(144) , c2 , c2s2 , c4 , cosg , d(144) , d1(48) , d2(16) , del , delint(12) , &
                   & dgam , e(3) , ee(63) , gamr , gb(12,12) , gbp(4,4) , r(4) , rhod , rmax , rmin , s2 , s4 , sing , sp(36) ,      &
@@ -31,9 +25,6 @@ SUBROUTINE trapad
          & mjho
    LOGICAL lsys78 , pzmat
    DOUBLE PRECISION rzintd
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS AND MASS MATRICES FOR
 !     THE ASSYMETRIC RING ELEMENT WITH A TRAPEZOIDAL CROSS SECTION

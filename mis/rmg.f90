@@ -1,9 +1,6 @@
 
 SUBROUTINE rmg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ao(4) , Rz(2) , Sigma , Skip5(5) , Tabs
    INTEGER Cls , Clsrew , Elem(1) , Ia(7) , Ib , Ibbar , Il(7) , Incr , Ipow , Ipr , Iprec , Irow , Isgn , Isr1 , Isr2 , Isr3 ,     &
          & Iu(7) , Jb(7) , Jl(7) , Ju(7) , Jx(7) , Ksystm(65) , Last , Luset , Myradm , Nelems , Nlr , Nzz , Nzzz , Outpt , Pkin ,  &
@@ -25,9 +22,6 @@ SUBROUTINE rmg
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zblpkx/ Ao , Irow
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL ai(4) , check , defalt , rbuf(10) , rdata(16) , sumfa , temp1 , temp2 , value
    INTEGER block(20) , block2(20) , buf(10) , buf1 , buf2 , buf3 , core , dcol , dirgg , dnrgg , dx , ecpt(100) , eltype , eor ,    &
          & est , estwds , file , flag , gptt , hbdytp , i , i1 , i2 , iadd , icol , icolum , icount , idata(16) , ideflt , idum ,   &
@@ -39,9 +33,6 @@ SUBROUTINE rmg
    LOGICAL double , lrad , nogo
    INTEGER korsz
    INTEGER rcol , rgg , rx , scrt1 , scrt2 , scrt3 , scrt4 , scrt5 , scrt6 , subr(2) , words
-!
-! End of declarations
-!
 !
 !     RADIATION MATRIX GENERATOR MODULE.
 !

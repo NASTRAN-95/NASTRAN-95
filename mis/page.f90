@@ -1,9 +1,6 @@
 
 SUBROUTINE page
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Crdate(3) , Date(3) , Iofp , Ipage , Itline , Label(32) , Line , Loadn , Mach(4) , Maxlin , Method , Mpcn(3) , Otpe ,    &
          & Sym , Titlex(18)
    REAL Dum15(15) , Head1(32) , Head2(32) , Head3(32) , Spcn , St , Subtit(32) , Sysbuf , Title(32) , X(8)
@@ -14,15 +11,9 @@ SUBROUTINE page
    COMMON /output/ Title , Subtit , Label , Head1 , Head2 , Head3
    COMMON /system/ Sysbuf , Otpe , Mpcn , Spcn , Method , Loadn , Sym , St , Ipage , Line , Itline , Maxlin , Date , Dum15 , Iofp , &
                  & X , Crdate
-!
-! Local variable declarations
-!
    CHARACTER*30 ahead
    INTEGER fchar , i , in , iout , name(2) , ncmnam , ncmos
    CHARACTER*3 month(12)
-!
-! End of declarations
-!
 !
 !     MASTER PAGING ROUTINE FOR NASTRAN.
 !

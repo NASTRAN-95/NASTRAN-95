@@ -1,26 +1,14 @@
 
 SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Scr2 , Scr4
    REAL Scr3 , Skip(25)
    COMMON /blank / Skip , Scr2 , Scr3 , Scr4
-!
-! Dummy argument declarations
-!
    INTEGER B1 , Deform , Opcor
    INTEGER Gplst(1) , Istore(2)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER elid , i , ie , ie1 , iflag , ig , igdpt , ione , ip1 , itwo , j , lcor , m , nelmt , words(2)
    REAL pt(2,3)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (words(1),nelmt) , (words(2),igdpt)
 !

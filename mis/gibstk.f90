@@ -1,9 +1,6 @@
 
 SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,Nlow,Nacum,Size,Stpt,Un,Idim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Brms0 , Brms1 , Dum3b(3) , Dum5a(5) , Dum6s(6) , Rms0 , Rms1
    INTEGER I77 , Ibuf , Ideg , Idpth , Maxw0 , Maxw1 , Method , Mm , N , Nbw , Ncm , Ngrid , Nlpp , Nn , Nout , Np , Nzero , Obw ,  &
          & Op
@@ -14,22 +11,13 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
    COMMON /bands / Nn , Mm
    COMMON /bandw / Maxw0 , Rms0 , Maxw1 , Rms1 , I77 , Brms0 , Brms1
    COMMON /system/ Ibuf , Nout , Dum6s , Nlpp
-!
-! Dummy argument declarations
-!
    INTEGER Icrit , Idim , Jump
    INTEGER Ccstor(1) , Iold(1) , Lvl(1) , Lvls1(1) , Lvls2(1) , Nacum(1) , Ndeg(1) , Ndstk(1) , Nhigh(1) , Nlow(1) , Renum(1) ,     &
          & Size(1) , Stpt(1)
    REAL Un(1)
-!
-! Local variable declarations
-!
    REAL averwb , brmsa , brmsb , crit1 , crit2 , im1 , im2 , rmsa , rmsb
    INTEGER i , ibw1 , ibw2 , idflt , ipf1 , ipf2 , isdir , lowdg , lroot , lvlbot , lvln , lvlwth , maxb , maxlw , maxwa , maxwb ,  &
          & nflg , num , rvnode , sbnum , stnode , stnum , sumwb , xc , xcmax
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

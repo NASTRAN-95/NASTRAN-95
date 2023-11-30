@@ -1,9 +1,6 @@
 
 SUBROUTINE dschk
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Beta , Count , Done , Ii , Incr , Iprec , Ita , Iz(1) , Jj , Ksystm(52) , Ni , Nout , Nt , Shift , Sysbuf , Tin , Tout
    REAL Dsepsi , Epsio , Z(1)
    CHARACTER*23 Ufm
@@ -14,15 +11,9 @@ SUBROUTINE dschk
    COMMON /unpakx/ Ita , Ii , Jj , Incr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL epsi , value , xlama
    INTEGER file , ibuf1 , iexit , ifrst , iretn , nf , pgi , pgip1 , scr1 , scr2 , scr3 , ti , tleft , tnow , to , ugip1
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MODULE TO PERFORM DIFFERENTIAL STIFFNESS CONVERGENCE TESTS
 !

@@ -1,24 +1,12 @@
 
 SUBROUTINE ascm11(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(126) , Ioct , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,7) , i , icomnd , isave(21) , j , k , l , ptbs(7,12) , rdmap(18,2) , subnam(2) , xtra(4)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     EXIO COMMANDS DMAP DATA
 !

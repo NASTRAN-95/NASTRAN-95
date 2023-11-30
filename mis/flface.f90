@@ -1,9 +1,6 @@
 
 SUBROUTINE flface(Type,Ect,Elt,Grid)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Error
    INTEGER Ibgpdt , Icore , Lcore , Nbgpdt , Nout
    REAL Sysbuf , Z(1)
@@ -12,20 +9,11 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Type
    INTEGER Ect(10) , Elt(7) , Grid(4)
-!
-! Local variable declarations
-!
    REAL angle(6) , area , cs(3) , dist , heigth(6) , kf(3) , ks(3) , mag , r1(3) , r2(3) , r3(3) , tol
    INTEGER face(4,6,4) , faceid , gf(10) , gf1 , gf2 , gf3 , gf4 , gridf(4) , gs1 , gs2 , gs3 , gs4 , hex1(4,6) , hex2(4,6) , i ,   &
          & if , intype , j , nf , nface(4) , ngridf , ngrids , tetra(4,4) , wedge(4,5)
-!
-! End of declarations
-!
 !
 !     LOCATES THE FLUID GRID POINTS DEFINING THE FACE OF A FLUID
 !     ELEMENT.  THE FACE MAY BE SPECIFIED IN TWO MANNERS.

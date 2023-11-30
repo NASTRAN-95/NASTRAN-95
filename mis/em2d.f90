@@ -1,9 +1,6 @@
 
 SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Ecpt(200) , Eltemp , Sinth , Stress , Xmat(6) , Z(1)
    INTEGER Ibuf , Idum(78) , Inflag , Iz(1) , Matid , Necpt(10) , Nrowsp , Otpe
    CHARACTER*23 Ufm
@@ -14,13 +11,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    COMMON /system/ Ibuf , Otpe , Idum
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER All , Ido , Istart , Itype , Iwords , Jtype , Nbdys , Ncount , Nelout
-!
-! Local variable declarations
-!
    REAL ahcx , ahcy , ahcz , angle , area , buf(50) , cs , csq , d , d12(3) , d13(3) , ddnl(24) , ddnlb(24) , determ , dn(8) ,      &
       & dnc(16) , dneta(1) , dnl(16) , dnx(1) , dnxi(1) , dny(1) , dumarg , dxx(3) , et(9) , eta(8) , f(8) , g(9) , g1 , g2 , g3 ,  &
       & gh(3) , h(3) , h1 , h2 , h3 , hc(3) , hc1 , hc2 , hc3 , hci(24) , hcx(3) , hcxyz(3) , hcy(3) , hcz(3) , hl , l(3,4) ,       &
@@ -32,9 +23,6 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
          & noptsp , npts , nsil , pointr(9,9) , scr6 , typold
    LOGICAL onlyc
    REAL zz , zzc
-!
-! End of declarations
-!
 !
 !     COMPUTES ADDITIONAL E AND M LOADS FOR TWO DIMENSIONAL ELEMENTS
 !

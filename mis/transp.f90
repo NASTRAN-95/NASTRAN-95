@@ -1,31 +1,19 @@
 
 SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Eofnrw , Rd , Rdrew , Rew , Rsp , Wrt , Wrtrew
    INTEGER Eol , Eor , Ia(4) , Ihalf , Ii , Mach , Norew , Rdp , Sysbuf
    COMMON /machin/ Mach , Ihalf
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp
    COMMON /system/ Sysbuf
    COMMON /zntpkx/ Ia , Ii , Eol , Eor
-!
-! Dummy argument declarations
-!
    INTEGER B , Nx , Sr1fil
    INTEGER Filea(7) , Ix(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    INTEGER complf , lshift , orf , rshift
    DOUBLE PRECISION di
    INTEGER i , ifile , iii(4) , incr , iobuf , istor , j , k , kk , l , n , name(2) , ncol , no , num , typea
    EXTERNAL complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     TRANSP WILL DO AN INCORE TRANSPOSE OF THE UPPER TRIANGLE OF
 !     ACTIVE ELEMENTS

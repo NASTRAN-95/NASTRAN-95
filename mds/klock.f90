@@ -1,13 +1,7 @@
 
 SUBROUTINE klock(Icpusc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icpusc
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE OBTAINS THE CURRENT CPU TIME AS AN INTEGER VALUE
 !

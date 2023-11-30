@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2i(Kode,Nuf,N2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gs , Idum1 , Idum2 , Idum3(5) , Idum4 , Idum5(4) , Idum6(14) , Incr , Incru , Infile(12) , Iprntr , Irow , &
          & Irowu , Iscr(10) , Korbgn , Korlen , Lamamr , Modlen , Nmodes , Nrow , Nrowu , Otfile(6) , Qsm , Typin , Typinu ,        &
          & Typout , Z(1)
@@ -17,18 +14,9 @@ SUBROUTINE mred2i(Kode,Nuf,N2)
    COMMON /unpakx/ Typinu , Irowu , Nrowu , Incru
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Kode , N2 , Nuf
-!
-! Local variable declarations
-!
    INTEGER dblkor , i , idiag , ifile , imsg , itrlr1(7) , j , k , kore , locqsm , modnam(2) , nwdsrd , qsmcol , qsmrow , qsmtyp ,  &
          & sglkor
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE GS MATRIX FOR THE MRED2 MODULE.
 !

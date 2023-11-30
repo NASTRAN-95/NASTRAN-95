@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovls(Lastss)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Energy , Pa , Pthres , Qa , Qthres , Range(2) , Rss(2) , Sof1 , Sof2 , Sof3 , Sysbuf , Uimpro , &
       & Uthres , Z(1)
    INTEGER Dry , Fss(2) , Icore , Iopt , Ireq , Iz(3) , Lbasic , Lcore , Loop , Lreq , Lui , Mrecvr , Neigv , Nosort , Nout , Rfno ,&
@@ -15,18 +12,9 @@ SUBROUTINE rcovls(Lastss)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Lastss(2)
-!
-! Local variable declarations
-!
    INTEGER eog , eoi , eqss , i , ig0 , igs , incr , isol , istep , j , jgs , k , kgs , l1 , l2 , lsl , lvn , n , name(2) , nc ,    &
          & nl , ns , nsl , nsll , nss , nwds , rc , soln , srd , swrt
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CREATES THE SOLN ITEM FOR A LOWER LEVEL SUBSTRUCTURE,
 !     LASTSS, BY EDITING THAT OF THE SOLUTION SUBSTRUCTURE FSS.

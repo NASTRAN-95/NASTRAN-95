@@ -1,35 +1,23 @@
 
 SUBROUTINE shctsd(Ierr,Elid,Pid,Mid,Tlam,Tmean,Tgrad,Thetae,Ftherm,Epslnt,Icore,Core)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Degrad , Pi , Raddeg , Twopi
    REAL Eltemp
    INTEGER Inflag , Ipcmp , Ipcmp1 , Ipcmp2 , Matid , Npcmp , Npcmp1 , Npcmp2
    COMMON /condad/ Pi , Twopi , Raddeg , Degrad
    COMMON /matin / Matid , Inflag , Eltemp
    COMMON /sdr2c1/ Ipcmp , Npcmp , Ipcmp1 , Npcmp1 , Ipcmp2 , Npcmp2
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Ierr , Pid
    DOUBLE PRECISION Tgrad , Thetae , Tlam , Tmean
    REAL Core(1)
    DOUBLE PRECISION Epslnt(6) , Ftherm(6)
    INTEGER Icore(1) , Mid(4)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION abbd(6,6) , alphae(3) , alphal(3) , c , c2 , delta , deltat , determ , dum(6) , galpha(3) , gbar(9) , glay(9) , &
                   & glayt(9) , gprop(25) , minrt , s , s2 , stiff(36) , theta , transl(9) , tsubo , zk , zk1 , zref , zsubi
    INTEGER ii , indx(6,3) , ip , ipc11 , ipc21 , ipoint , ir , ising , itype , k , lamopt , ll , lpc11 , lpcomp , mem , mm , nlay , &
          & nn , pcomp , pcomp1 , pcomp2 , pidloc , sym , symmem
    LOGICAL nonmem , pcmp , pcmp1 , pcmp2
    REAL ti
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION ROUTINE TO EVALUATE THERMAL STRAINS FOR COMPOSITE
 !     SHELL ELEMENTS.

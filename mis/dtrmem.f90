@@ -1,9 +1,6 @@
 
 SUBROUTINE dtrmem(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph12 , Alpha1 , Alpha2 , Consts(5) , Costh , Degra , Ecpt(21) , Eldef , Eltemp , Ftemp , G11 , G12 , G13 , G22 , G23 ,    &
       & G2x211 , G2x212 , G2x222 , G33 , Gsube , Rho , Sdisp(9) , Sigcom , Sigshe , Sigten , Sinth , Stress , Theta , Tsub0
    DOUBLE PRECISION Areat , C(54) , Delta , Disp(9) , Dumdp(12) , E(9) , G(9) , Gamma1 , Gamma2 , Gamma3 , Kd(36) , Kij(36) ,       &
@@ -17,17 +14,8 @@ SUBROUTINE dtrmem(Iopt)
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alph12 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,  &
                  & G2x211 , G2x212 , G2x222
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 !
 !     DIFFERENTIAL STIFFNESS CALCULATIONS FOR THE TRIANGULAR MEMBRANE
 !     ELEMENT.  THREE 6X6 MATRICES FOR THE PIVOT POINT ARE INSERTED.

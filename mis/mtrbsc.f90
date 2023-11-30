@@ -1,9 +1,6 @@
 
 SUBROUTINE mtrbsc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(225) , Aij , Bij , D(9) , Determ , E(9) , Fi , Fij , Fj , Fj2 , G(9) , G2x2(4) , Hyq(6) , J2x2(4) , Mar(18) , &
                   & Mbaraa(9) , Mrr(36) , Prod9(9) , S(18) , Siij(7,7) , Sizero , Temp , Temp9(9) , Xbsq , Xcsq , Xcyc , Xprodi ,   &
                   & Xsubb , Xsubc , Ycsq , Yprodj , Ysubc
@@ -21,13 +18,7 @@ SUBROUTINE mtrbsc
    COMMON /sma2et/ Necpt , Ngrid , Angle , Matid1 , Eye , Matid2 , T2 , Fmu , Z11 , Z22 , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 ,&
                  & Z2 , Dummy3 , X3 , Y3 , Z3 , Dumb
    COMMON /sma2io/ Dum1 , Ifmgg , Dum2
-!
-! Local variable declarations
-!
    INTEGER i , j , k , npt
-!
-! End of declarations
-!
 !
 !OMMENT.  ALL WRITE STATEMENTS WHICH HAVE BEEN COMMENTED OUT, HAVE BEEN
 !         LEFT IN THE PROGRAMMING FOR ANY FUTURE DEBUGGING USE.

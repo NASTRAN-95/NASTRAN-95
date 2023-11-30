@@ -1,9 +1,6 @@
 
 SUBROUTINE sdretd(Elid,Ti,Grids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bufflg , Endid , Eorflg , Record
    INTEGER Defalt , Eltype , Gptt , Idefm , Ideft , Iout , Itemp , Oldeid , Oldel
    REAL Dum , Dum2(2) , Dum20(20) , Dummy(6)
@@ -13,19 +10,10 @@ SUBROUTINE sdretd(Elid,Ti,Grids)
    COMMON /sdrett/ Eltype , Oldel , Eorflg , Endid , Bufflg , Itemp , Ideft , Idefm , Record , Oldeid
    COMMON /system/ Dum , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Grids
    INTEGER Ti(33)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER i , id , maxwds , name(2) , nwords
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE (CALLED BY -SDR2E-) READS ELEMENT TEMPERATURE
 !     DATA FROM A PRE-POSITIONED RECORD

@@ -1,9 +1,6 @@
 
 SUBROUTINE ktetra(Iopt,Jtype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Dum1(10) , Dum2(1) , Dum3(23) , E , Ecpt(100) , Eltemp , Gg , Gsube , Matbuf(7) , Nu , Rho , Sigc , Sigs , Sigt ,   &
       & Skip(16) , Surfac , Sysbuf , Tsub0 , Tvol , Volume
    DOUBLE PRECISION C(72) , Ct(18) , G(36) , Gct(18) , H(16) , Hdeter , Kij(36) , T(9) , Temp(12) , Temp1
@@ -22,18 +19,9 @@ SUBROUTINE ktetra(Iopt,Jtype)
    COMMON /sma1io/ Dum1 , Ifkgg , Dum2 , If4gg , Dum3
    COMMON /system/ Sysbuf , Out , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Iopt , Jtype
-!
-! Local variable declarations
-!
    REAL dum
    INTEGER el(2,4) , i , idflag , idlh , ihcol , ising , j , ka , npoint , scr4
-!
-! End of declarations
-!
 !
 !     ELEMENT STIFFNESS MATRIX GENERATOR FOR THE TETRAHEDRON SOLID
 !     ELEMENT

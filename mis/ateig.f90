@@ -1,23 +1,14 @@
 
 SUBROUTINE ateig(M,A,Rr,Ri,Iana,Ia,B,Rra,Rri)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ia , M
    DOUBLE PRECISION A(1) , Ri(1) , Rr(1)
    REAL B(1) , Rra(1) , Rri(1)
    INTEGER Iana(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION alpha , cap , d , delta , e10 , e6 , e7 , eps , eta , g1 , g2 , g3 , pan , pan1 , pri(2) , prr(2) , psi1 ,      &
                   & psi2 , r , rmod , s , t , u , v
    INTEGER i , ii , ii1 , iip , ij , in , in1 , ip , ip2j , ipi , ipip , ipip2 , it , j , ji , jip , jip2 , k , maxit , n , n1 ,    &
          & n1n , n1n1 , n1n2 , n2 , nn , nn1 , np , p , p1 , q
-!
-! End of declarations
-!
 !
 !     ..................................................................
 !

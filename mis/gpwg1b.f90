@@ -1,30 +1,18 @@
 
 SUBROUTINE gpwg1b(Mo,Ogpwg,Wtmass,Ipoint)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Head(1)
    INTEGER Ii , Incr , It1 , Iz(1) , Jj , Sysbuf
    COMMON /output/ Head
    COMMON /system/ Sysbuf
    COMMON /unpakx/ It1 , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ipoint , Mo , Ogpwg
    REAL Wtmass
-!
-! Local variable declarations
-!
    DOUBLE PRECISION delta , dz(36) , epsi , mr(3,3) , mt(3,3) , mtr(3,3) , s(3,3) , temp(3,3)
    INTEGER i , ibuf , iflag , j , k , l , m , name(2) , z(150)
    INTEGER korsz
    REAL r
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION VERSION, BY G.CHAN/UNISYS  8/86
 !

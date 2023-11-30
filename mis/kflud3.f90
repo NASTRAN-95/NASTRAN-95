@@ -1,9 +1,6 @@
 
 SUBROUTINE kflud3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Bet2 , Beta , Blog , Constd(5) , Deth , Dpi , Dr , Dz , Dzr , Dzr2 , G00 , G01 , G02 , G10 , G11 , G20 , H(9) , &
                   & Kg(3) , Kq(9) , Kvec(3) , Piro , Prn2 , R , R1 , R12 , R2 , R22 , R3 , Ra , Rb , Rn , Z1 , Z2 , Z3 , Za , Zb
    REAL Dum1(10) , Ecpt(100) , Sysbuf
@@ -18,13 +15,7 @@ SUBROUTINE kflud3
    COMMON /sma1io/ Dum1 , Ifkgg
    COMMON /system/ Sysbuf , Out , Nogo
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    INTEGER i , np(3)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE PSUEDO STIFFNESS MATRIX TERMS
 !     FOR THE TRIANGULAR FLUID ELEMENT

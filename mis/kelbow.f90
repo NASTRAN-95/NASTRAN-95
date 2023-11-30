@@ -1,9 +1,6 @@
 
 SUBROUTINE kelbow
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , Betar , C , C1 , C2 , Clsnrw , Clsrw , Costh , D1 , D2 , Dodet , E , Ecpt(100) , Eltemp , Eor , F1 , F2 , Fe ,  &
       & Fj , Fk , Frowic , G , G1 , G2 , Gpa(3) , Gpb(3) , Gsube , I1 , I2 , K1 , K2 , Kx , Ky , Kz , Nsm , Outrw , R , Rho , Sigc ,&
       & Sigs , Sigt , Sinth , Smallv(3) , Stress , Sysbuf , Tempel , Tnrows , Tsubo , Z(1)
@@ -26,18 +23,12 @@ SUBROUTINE kelbow
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL abasic , basic , bbasic
    REAL c2t , ct , dcr , dum , f(6,6) , fi1 , fi2 , fjk , fld , r2 , ra , rb0 , rb1 , rt , rv1 , rv2 , s2t , st , t , x
    REAL cod , dtr , sid
    DOUBLE PRECISION dampc , determ , df(6,6) , fl , fll , h(6,6) , smalv0(6) , ta(18) , tb(9) , veci(3) , vecj(3) , veck(3)
    INTEGER i , ic , icsida , icsidb , ig , ikel , ilim , ilow , in , index , ipass , ipvt , ir , ising , iwbeg , iwork(6,3) , j ,   &
          & jcsid , jcsida , jcsidb , k , lim , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES K(NPVT,NPVT) AND
 !     K(NPVT,J) FOR A CURVED BAR ELEMENT HAVING END POINTS NUMBERED

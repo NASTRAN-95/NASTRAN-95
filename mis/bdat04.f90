@@ -1,9 +1,6 @@
 
 SUBROUTINE bdat04
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Conset , Geom4 , Iauto , Idat(3) , Idry , Ierr , Ihead(96) , Inam(2) , Inpt , Iot , Ipage , Iprint ,       &
          & Isort , Ititl(96) , Itline , Junk(6) , Lcore , Line , Maxlin , Mcon , Npsub , Outt , Scbdat , Scr2
    REAL Buf3 , Buf4 , Buf5 , Casecc , Combo(7,5) , Conect , Origin(7,3) , Restct(7,7) , Scconn , Scmcon , Score , Scr1 , Scsfil ,   &
@@ -20,17 +17,11 @@ SUBROUTINE bdat04
    COMMON /system/ Xxx , Iot , Junk , Ipage , Line , Itline , Maxlin , Idat
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , flag , i , ibas(2) , ibits(32) , ic , icc(6) , iccc , id(2) , ifile , ihd(96) , imsg , ip(6) , is , jbits(32) , &
          & k , kbits(32) , n , reles(2)
    INTEGER andf , rshift
    LOGICAL name , pager , print
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE RELES BULK DATA.
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE strsl2(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Deform , Delta , Dum8(8) , Dummy(35) , Forvec(24) , Ftemp , Ph1out(1200) , Si(36) , Stress(18) , Tem , Temp , Vec(5) ,      &
       & Z(1) , Z1ovri , Z2ovri
    INTEGER Ij1 , Ij2 , Ivec , Ivecn , Ldtemp , Maxsiz , Nph1ou(990) , Npoint , Npt1 , Nsil(6) , Tloads
@@ -11,19 +8,10 @@ SUBROUTINE strsl2(Ti)
    COMMON /sdr2x7/ Ph1out , Forvec
    COMMON /sdr2x8/ Temp , Delta , Npoint , Ij1 , Ij2 , Npt1 , Vec , Tem , Z1ovri , Z2ovri , Stress
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Ti(6)
-!
-! Local variable declarations
-!
    REAL f1 , ff , reali(4) , sdelta(3) , sigx1 , sigx2 , sigxy1 , sigxy2 , sigy1 , sigy2 , stout(68) , str(18) , z1 , z2
    LOGICAL flag
    INTEGER i , i1 , i2 , ii , ii1 , ij , ijk , iretrn , j , j1 , j2 , jst , k1 , n1 , npts
-!
-! End of declarations
-!
 !
 !     PHASE II OF STRESS DATA RECOVERY
 !

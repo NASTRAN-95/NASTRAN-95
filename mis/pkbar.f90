@@ -1,9 +1,6 @@
 
 SUBROUTINE pkbar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , C1 , C2 , D1 , D2 , Dumcl(146) , Ecpt(100) , Eltemp , Eps1sp , Eps2sp , Estar , Esub0 , F1 , F2 , Fe , Fj , G1 , G2 ,   &
       & Gnew , Gold , Gpa(3) , Gpb(3) , Gsub0 , I1 , I12 , I2 , K1 , K2 , Nsm , Plaans , Plaarg , Smallv(3) , Tdum , Uasp(6) ,      &
       & Ubsp(6) , Za(3) , Zb(3)
@@ -16,9 +13,6 @@ SUBROUTINE pkbar
    COMMON /pla42d/ Ke , Kep , Dela , Delb
    COMMON /pla42e/ Ielid , Isilno , Smallv , Icssv , Ipinfl , Za , Zb , Imatid , A , I1 , I2 , Fj , Nsm , Fe , C1 , C2 , D1 , D2 ,  &
                  & F1 , F2 , G1 , G2 , K1 , K2 , I12 , Mcsida , Gpa , Mcsidb , Gpb , Eltemp , Eps1sp , Eps2sp , Estar , Uasp , Ubsp
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    DOUBLE PRECISION ael , beta , deps1 , deps2 , e , ei1 , ei2 , eps1 , eps2 , epsin1 , epsin2 , esub0d , fl , fll , g , gak1 ,     &
                   & gak2 , gamma , gammas , gjl , gsub0d , l , l2b3 , l2b6 , lb , lcube , lr1 , lr2 , lsq , r1 , r2 , sigma1 ,      &
@@ -26,9 +20,6 @@ SUBROUTINE pkbar
    INTEGER i , icsida , icsidb , idela , idelb , ig , ii , ij , ikel , il , ilim , ill , ilow , index , ipass , ipin(10) , ipvt ,   &
          & isv , iwbeg , j , jcsid , jcsida , jcsidb , ji , jll , jofset , jofsta , jofstb , jpina , jpinb , k , ka , kb , lim ,    &
          & ll , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES K(NPVT,NPVT) AND
 !     K(NPVT,J) FOR A BAR ELEMENT HAVING END POINTS NUMBERED NPVT AND J.

@@ -1,9 +1,6 @@
 
 SUBROUTINE stord1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , Ak(144) , Alf(3) , Alph(2) , Anu(3) , Consts(5) , Costh , D(180) , Degra , Dum5(82) , E(3) , Ecpt(18) , Eltemp ,  &
       & G(3) , Gsube , R(2) , R1 , R2 , Rho , Sel(180) , Sinth , Stress , Ts(30) , Twopi , Tz , Tzero , Z(2) , Z1 , Z2
    INTEGER Idel , Iecpt(18) , Igp(2) , Matflg , Matidc
@@ -12,15 +9,9 @@ SUBROUTINE stord1
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube
    COMMON /sdr2x5/ Ecpt , Dum5 , Idel , Igp , Tz , Sel , Ts , Ak
    COMMON /sdr2x6/ D , R , Z , Alph
-!
-! Local variable declarations
-!
    REAL aki(36) , cosa1 , cosa2 , del , delint(66) , djp1 , ee(4) , ep , et , gambl(144) , gambq(144) , gambqf(72) , gambqm(48) ,   &
       & gamrs(144) , phib , rp , s , sina1 , sina2 , tempe , tf , tm , vpt , vtp
    INTEGER i , ics(2) , ip , itord , j , jp1 , k , kj , kk , kl , matid
-!
-! End of declarations
-!
 !
 !
 !*****

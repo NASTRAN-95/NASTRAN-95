@@ -1,9 +1,6 @@
 
 SUBROUTINE gp3d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Buf3 , Carddt(60) , Cardid(60) , Elem(1) , Eqexin , Ett , Geom2 , Geom3 , Idno(30) , Igrav ,     &
          & Iheat , Incr , Ipload , Ksystm(63) , Last , Load(2) , Mask(60) , Nelem , Nograv , Noload , Nopld2 , Norew , Notemp ,     &
          & Ntypes , Outpt , Pload2(2) , Rd , Rdrew , Rew , Scr1 , Scr2 , Slt , Status(60) , Sysbuf , Tempd(2) , Tempp1(2) ,         &
@@ -18,17 +15,11 @@ SUBROUTINE gp3d
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL any , anyet , anygpt , heat , lflag
    INTEGER defalt , ectwds , file , flag , gptrec , i , id , ieltyp , iet1 , iet2 , igpt , igptt , igrid , ii , ilist , inrec ,     &
          & irecs , iretrn , j , jtemp , k , let1 , let2 , lgpt , list1 , list2 , move , n , nam(2) , net1 , net2 , ngpt , ngptt ,   &
          & ngrid , nlist , nsets , nwords , outwds , record , setid , twoi
    REAL deftmp , factor , fgrids , h , hover2 , rtemp , sum , t1 , t2 , tbar , tgrid(32) , tprime
-!
-! End of declarations
-!
 !
 !     GP3D CREATES THE ETT (ELEMENT TEMPERATURE TABLE)
 !

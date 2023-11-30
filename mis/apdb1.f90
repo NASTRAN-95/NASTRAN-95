@@ -1,9 +1,6 @@
 
 SUBROUTINE apdb1(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Nodei,Isilc,Xyzb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ap(4) , Z(1)
    INTEGER Clsrew , Core(1) , Ibc(7) , Ii , Iprec , Itwo(32) , Iz(1) , Ksystm(54) , Lc , N , No , Ny , Rd , Rdrew , Ua , Uf , Ug ,  &
          & Ul , Um , Un , Uo , Ur , Us , Usb , Uset1 , Usg , Wrt , Wrtrew
@@ -16,25 +13,16 @@ SUBROUTINE apdb1(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
    COMMON /two   / Itwo
    COMMON /zblpkx/ Ap , Ii
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf1 , Ibuf2 , Lcstm , Left , Next , Nlines , Nstns
    REAL Xsign
    REAL Acstm(1) , Xyzb(4,Nstns)
    INTEGER Isilc(1) , Nodei(1) , Nodex(1)
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER gkab , gkf , gkm , gkn , gknb , gko , gks , gm , go , gsize , gtka , gtkg , icol , idata(7) , isil , itrl(7) , ncs ,     &
          & nline , nst , scr1 , scr2 , tgkg(7)
    LOGICAL multi , omit , single
    REAL rdata(7) , rl1 , rl2 , ta(3,3) , tbl(3) , tbla(3) , uset , xbmxa , ybmya , zbmza
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     GENERATE GTKA TRANSFORMATION MATRIX
 !

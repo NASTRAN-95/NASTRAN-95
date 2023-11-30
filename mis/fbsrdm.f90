@@ -1,30 +1,18 @@
 
 SUBROUTINE fbsrdm(Mcb,Icore,Rcore,Dcore,Memtot,Buff,Lasind,Ipos)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dxl(1)
    INTEGER Ksystm(65) , Nout , Rd , Rdrew , Rew , Wrt , Wrtrew
    REAL Rxl(1)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Dxl
-!
-! Dummy argument declarations
-!
    INTEGER Lasind , Memtot
    INTEGER Buff(2) , Icore(1) , Ipos(7) , Mcb(7)
    DOUBLE PRECISION Dcore(1)
    REAL Rcore(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(20) , iblock , icbp , iclr , ii , incr , index , jcol , jrow , mem , mindex , ncol , ntms , ntms2 , ntwds ,     &
          & ntype
-!
-! End of declarations
-!
 !
 !  FBSRDM - This routine will store an entire matrix in memory
 !           if sufficient memory exists.  The matrix

@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr2a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , All , Any , App(2) , Bk0(2) , Bk1(2) , Branch , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Casecc , Cei(2) , Cstm , Displ ,&
          & Ds0(2) , Ds1(2) , Eldef , File , Force , Frq(2) , Iacc , Icb(7) , Icstm , Idispl , Idummy(5) , Ieigen , Ieldef , Ielf ,  &
          & Ihalf , Iloads , Ilsym , Intap , Isopl , Ispcf , Istr , Istrn , Isymfl , Isystm(175) , Itload , Ittl , Ivec , Ivecn ,    &
@@ -29,15 +26,9 @@ SUBROUTINE sdr2a
                  & Date , Time , Echo , Plots , Ddd , Mn
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER any1 , i , ii , iset , isetno , j , jj , kn , mmreig , n , ncc , nset , pass , prevf , prevs , ret , setno , zi
    INTEGER korsz , lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     SDR2A PROCESSES THE CASE CONTROL DATA BLOCK. DEPENDING ON THE
 !     RIGID FORMAT AND THE VARIOUS OUTPUT REQUESTS, SDR2A SETS FLAGS

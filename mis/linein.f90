@@ -1,18 +1,9 @@
 
 SUBROUTINE linein(X1,Y1,Z1,X2,Y2,Z2,Hcdl)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Hcdl , X1 , X2 , Y1 , Y2 , Z1 , Z2
-!
-! Local variable declarations
-!
    REAL hcx , hcy , hcz , segl , segx , segy , segz , w(4) , xi(4) , xx , yy , zz
    INTEGER i
-!
-! End of declarations
-!
 !
 ! PERFORMS LINE INTEGRAL FROM (X1,Y1,Z1) TO (X2,Y2,Z2) OF BIOT-SAVART
 ! FILED DOTTED INTO THE LINE, IE INT(HC.DL)

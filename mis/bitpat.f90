@@ -1,25 +1,13 @@
 
 SUBROUTINE bitpat(Icode,Ibits)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Junk(38) , Nbpc , Nbpw
    COMMON /system/ Junk , Nbpc , Nbpw
-!
-! Dummy argument declarations
-!
    INTEGER Icode
    INTEGER Ibits(2)
-!
-! Local variable declarations
-!
    INTEGER i , ia , iblank , int(9) , j , k , list(32) , n , nbits
    INTEGER klshft , krshft , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO TRANSFORM THE DOF WORD INTO ITS
 !     NASTRAN DIGITAL REPRESENTATION.

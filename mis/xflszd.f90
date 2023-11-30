@@ -8,28 +8,16 @@ SUBROUTINE xflszd(File,Iblock,Filnam)
 !     IF FILE = 0 THE NUMBER OF WORDS PER BLOCK IS RETURNED IN IBLOCK
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(1) , Ifist(1) , Kystem , Lfist , Mach , Nfist , Pool(1)
    COMMON /machin/ Mach
    COMMON /system/ Kystem
    COMMON /xdpl  / Pool
    COMMON /xfiat / Fiat
    COMMON /xfist / Nfist , Lfist , Ifist
-!
-! Dummy argument declarations
-!
    INTEGER File , Filnam , Iblock
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER i , indx , lim , mask
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
    DATA mask/32767/
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrpls
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A1 , A2 , A3 , Aa1 , Aa2 , Aa3 , Alf(3) , B , C , Cm1(18,18) , Costh , Dista , Distb , Distc , Dum(12) , Eltemp ,       &
       & Em(6) , Est(100) , Gsube , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Tref , Ts1(60) , Ts2(60) ,   &
       & Ts6(40) , Ts6s(40) , Ts7(60) , X , Y , Z
@@ -20,9 +17,6 @@ SUBROUTINE ktrpls
    COMMON /sma1io/ X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , Aa1 , Aa2 , Aa3
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL a1sq , a2sq , a3sq , amass , area , balotr(36) , blank , c1 , c10 , c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 , cc(10) ,        &
       & cmt(1296) , csub(3,3) , csubt(6,3) , d11 , d12 , d13 , d132 , d22 , d23 , d232 , d33 , d334 , degra , determ , e(18) ,      &
       & f(14,14) , ivect(3) , jvect(3) , ksub(6,6) , ksubt(6,6) , ksup(36) , ksupt(36) , ktr3(400) , kvect(3) , mtr3(400) , nsm ,   &
@@ -36,9 +30,6 @@ SUBROUTINE ktrpls
          & ypower(20) , ythk(10)
    LOGICAL imass , nogo , nots , uniben
    REAL yc(6) , zc(6)
-!
-! End of declarations
-!
 !
 !     STIFFNESS SUBROUTINE FOR HIGHER ORDER PLATE ELEMENT CTRPLT1
 !

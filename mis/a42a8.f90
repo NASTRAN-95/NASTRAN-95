@@ -1,27 +1,15 @@
 
 SUBROUTINE a42a8(A,B,C)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(40)
    INTEGER Ncpw
    COMMON /system/ Dummy , Ncpw
-!
-! Dummy argument declarations
-!
    REAL A , B
    CHARACTER*4 Ka , Kb
    CHARACTER*8 Kc
    INTEGER Notuse
    REAL C(2)
-!
-! Local variable declarations
-!
    CHARACTER*8 d
-!
-! End of declarations
-!
 !
 !     MERGES TWO A4 BCD WORDS (A AND B) TO ONE A8 BCD WORD (C)
 !

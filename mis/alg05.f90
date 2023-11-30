@@ -1,9 +1,6 @@
 
 SUBROUTINE alg05
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bblock(30) , Bdist(30) , C1 , Conmx , Contr , Cppg(21) , Cr(21) , Data1(100) , Data2(100) , Data3(100) , Data4(100) ,       &
       & Data5(100) , Data6(100) , Data7(100) , Data8(100) , Data9(100) , Datac(100) , Delc(100) , Delf(30) , Delh(30) , Delt(30) ,  &
       & Delta(100) , Delw(21) , Diff(15,4) , Dm(11,5,2) , Drdm2(30) , Ej , Fdhub(15,4) , Fdmid(15,4) , Fdtip(15,4) , Flow(10) ,     &
@@ -26,14 +23,8 @@ SUBROUTINE alg05
                  & Work , Loss , Taneps , Xi , Vv , Delw , Lami , Lamim1 , Lamip1 , Phi , Cr , Gama , Sppg , Cppg , Hkeep , Skeep , &
                  & Vwkeep , Delh , Delt , Visk , Shape , Sclfac , Ej , G , Tolnce , Xscale , Pscale , Plow , Rlow , Xmmax , Rconst ,&
                  & Fm2 , Hmin , C1 , Pi , Contr , Conmx
-!
-! Local variable declarations
-!
    INTEGER ii , iii , ik , il , iw , j , k , l1 , l2 , l3 , l4
    REAL x1 , x2 , xn , xx1(21) , xx2(21) , xx3(21) , xx4(21) , xx5(21)
-!
-! End of declarations
-!
 !
 !
 !

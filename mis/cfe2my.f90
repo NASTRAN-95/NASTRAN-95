@@ -1,28 +1,16 @@
 
 SUBROUTINE cfe2my(Tpose,Y,X,File,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    DOUBLE PRECISION Da(2)
    INTEGER Diag , Eol , Identy , Ii , Lowtri , Norew
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Lowtri , Uprtri , &
                  & Sym , Row , Identy
    COMMON /zntpkx/ Da , Ii , Eol
-!
-! Dummy argument declarations
-!
    INTEGER Buf(1) , File(7)
    LOGICAL Tpose(1)
    DOUBLE PRECISION X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , jj , ncol2
-!
-! End of declarations
-!
 !*******
 !     CFE2MY FORMS THE COMPLEX DOUBLE PRECISION MATRIX
 !     PRODUCT X = M*Y FOR THE COMPLEX FEER METHOD

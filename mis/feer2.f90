@@ -1,9 +1,6 @@
 
 SUBROUTINE feer2(Iret)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Critf , Dmpfle , Dumm(12) , Power , Xlmbda , Z(1)
    DOUBLE PRECISION Det , Detc , Mindd
    INTEGER Filea(7) , Filel(7) , Fileu(7) , Ibk , Ichl , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) , Ifset ,    &
@@ -17,18 +14,9 @@ SUBROUTINE feer2(Iret)
    COMMON /sfact / Filea , Filel , Fileu , Isr1fl , Isr2fl , Nz , Det , Detc , Power , Isr3fl , Mindd , Ichl
    COMMON /system/ Ksystm , Prec
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iret
-!
-! Local variable declarations
-!
    INTEGER i
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     FEER2 INITIALIZES THEN CALLS  SDCOMP
 !

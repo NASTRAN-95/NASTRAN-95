@@ -1,29 +1,17 @@
 
 SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Z(1)
    INTEGER Idum , Ii , Incr , Iout , Irow , Ita , Itb , Iz(1) , Jj
    COMMON /packx / Ita , Itb , Ii , Jj , Incr
    COMMON /system/ Idum , Iout
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Icore , Itype , Kcount , Lcore , Nextz
-!
-! Local variable declarations
-!
    LOGICAL bldp , eor , incore
    REAL hc(63)
    INTEGER hccens , i , icount , id(2) , in , inext , inword , jcount , k , mcbh(7) , nam(2) , nj , nskip , nskip1 , nwds , nwords ,&
          & scr6
-!
-! End of declarations
-!
 !
 ! COMBINES HC CENTROID INFO ON SCR6 TO HCCENS
 !

@@ -37,9 +37,6 @@ SUBROUTINE totape(Caller,Z)
 !      OR 3 FOR BOTH
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Date(3) , Head(96) , Ibuf , Intra , Ksystm(100) , Norew , Nout , Param(1) , Rd , Rdrew , Rew , Wrt , Wrtrew
    CHARACTER*23 Ufm
    CHARACTER*29 Uim
@@ -49,21 +46,12 @@ SUBROUTINE totape(Caller,Z)
    COMMON /output/ Head
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Caller
    INTEGER Z(3)
-!
-! Local variable declarations
-!
    INTEGER blank , file , fn(2) , i , ibuf1 , ibuf2 , infil , kore , m , mark(3) , nfile , nparam , sub(2) , tab(3,3) , who(2)
    LOGICAL disc
    INTEGER korsz
    LOGICAL tapbit
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Ibuf) , (Ksystm(15),Date(1)) , (Ksystm(2),Nout) , (Ksystm(86),Intra) , (tab(2,3),blank)
    DATA tab/4HPLTS , 4HET   , 2 , 4HPLOT , 4H     , 5 , 4HOFP  , 4H     , 3/
    DATA file , nfile , mark/4HINP9 , 23 , 2*65536 , 11111/

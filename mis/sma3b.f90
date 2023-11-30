@@ -1,9 +1,6 @@
 
 SUBROUTINE sma3b(Iflag,Izk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D11(2)
    REAL Dum1(2) , Dum2(22) , Dum4(35) , Z(1)
    INTEGER Gei , Id(7) , Id1 , Idx , M , N , Se1 , Sysbuf , Ze1 , Zinvs
@@ -11,18 +8,9 @@ SUBROUTINE sma3b(Iflag,Izk)
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ D11 , Idx
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iflag , Izk
-!
-! Local variable declarations
-!
    INTEGER i , j , nz , se(7) , ze(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES A GENERAL ELEMENT FROM GEI
 !

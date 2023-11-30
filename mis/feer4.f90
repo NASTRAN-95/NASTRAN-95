@@ -1,9 +1,6 @@
 
 SUBROUTINE feer4(It)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cndflg , Eofnrw , Ibk , Idiag , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) , Ifset , Ii , Iip , Incr ,&
          & Incrp , Ind , Io , Ioptf , Iprc , Iprec , Istart , Iter , Itp1 , Itp2 , Iz(1) , L16 , Mach , Mcblt(7) , Mcbrm(7) ,       &
          & Mcbsma(7) , Mcbvec(7) , Mord , Mrank , Neig , Nn , Nnp , Nonul , Nord , Norew , Northo , Nzero , Rdrew , Rew , Sr2fle ,  &
@@ -21,13 +18,7 @@ SUBROUTINE feer4(It)
    COMMON /system/ Sysbuf , Io , Systm , Iprec
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER It
-!
-! Local variable declarations
-!
    DOUBLE PRECISION b(2) , dsce , dsm
    REAL erf , sb(2) , sce , sm
    INTEGER i , ibuf1 , ibuf2 , ibuf3 , icavl , icr(2) , icreq , iend , ier , iopn , isrv , iv1 , iv2 , iv3 , iv4 , iv5 , iv6 , iv7 ,&
@@ -35,9 +26,6 @@ SUBROUTINE feer4(It)
          & nw , nz
    LOGICAL incore
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     FEER4 OBTAINS FROM THE REDUCED TRIDIAGONAL MATRIX THE EIGENVALUES
 !     AND EIGENVECTORS

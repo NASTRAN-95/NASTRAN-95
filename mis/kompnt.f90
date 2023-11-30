@@ -1,23 +1,11 @@
 
 FUNCTION kompnt(Ig,Ic,Ideg,Iw,Icc,Jg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mm , Nn
    COMMON /bands / Nn , Mm
-!
-! Dummy argument declarations
-!
    INTEGER Ic(1) , Icc(1) , Ideg(1) , Ig(1) , Iw(1) , Jg(1)
    INTEGER kompnt
-!
-! Local variable declarations
-!
    INTEGER i , ia , ii , is , ki , ko , n , nc
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

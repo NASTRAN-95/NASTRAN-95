@@ -1,27 +1,15 @@
 
 SUBROUTINE matvec(Y,X,Filea,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Da , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Sqr , Sym , Uprtri , Wrt , Wrtrew
    INTEGER Diag , Eol , Identy , Idum(27) , Ii , Iopen , Iwtri , Norew , Rsp
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Iwtri , Uprtri ,  &
                  & Sym , Row , Identy
    COMMON /trdxx / Idum , Iopen
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    REAL Buf(1) , X(1) , Y(1)
    INTEGER Filea(7)
-!
-! Local variable declarations
-!
    INTEGER i , ncol , no , sub(2)
-!
-! End of declarations
-!
 !
 !     MATVEC WILL FORM THE PRODUCT X = X + A*Y WHERE A IS A MATRIX
 !     AND Y IS A VECTOR

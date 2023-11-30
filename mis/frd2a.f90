@@ -1,28 +1,16 @@
 
 SUBROUTINE frd2a(Nqhl,Qhr,Qhi,Ih,Nfreq)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Incr1 , Inn , Iout , Iti , Ito , Nn , Nnn , Sysbuf
    REAL Z(1)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ih , Nfreq , Nqhl , Qhi , Qhr
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER i , ibuf1 , ibuf2 , j , mcb(7) , nwc , nz , thi(7) , thr(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !     FIND COLUMN OF NQHL AND COPY REAL TO QHR AND IMAG TO QHI

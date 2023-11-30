@@ -1,26 +1,14 @@
 
 SUBROUTINE trht1b(Iof,Delta)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Beta , Radlin , Tabs
    INTEGER Ib(7) , Icr1 , Icr2 , Icr3 , Icr4 , Icr5 , Icr6 , Icr7 , Ik(7) , Isym , Norad
    COMMON /blank / Beta , Tabs , Norad , Radlin
    COMMON /trhtx / Ik , Ib , Icr1 , Icr2 , Icr3 , Icr4 , Icr5 , Isym , Icr6 , Icr7
-!
-! Dummy argument declarations
-!
    REAL Delta
    INTEGER Iof
-!
-! Local variable declarations
-!
    DOUBLE PRECISION blk(2) , block(2) , qblock(6)
    INTEGER iblock(11) , iqblk(12) , mcb(7) , name(2)
-!
-! End of declarations
-!
 !
 !
 !

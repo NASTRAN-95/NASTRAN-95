@@ -1,25 +1,16 @@
 
 SUBROUTINE case
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Count , Loop , Sysbuf , Z(1)
    REAL Clsrew , Rd , Rdrew , Wrt , Wrtrew
    COMMON /blank / App , Count , Loop
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER branch , buf(20) , buf1 , buf2 , buf3 , casecc , casexx , error(2) , file , i , ib2pp , ifreq , ifrqst , ik2pp , ilf ,   &
          & iload , ils , im2pp , imeth , imrqst , iocnt , irand , irset , iry , itfl , j , m8 , mcb(7) , n , nam(2) , ncc , nogo ,  &
          & nrigds , psdl , rfmts(40)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CASE READS THE CASE CONTROL DATA BLOCK AND WRITES A NEW
 !     DATA BLOCK WHICH CONTAINS ONLY THOSE RECORDS WHICH DESCRIBE THE

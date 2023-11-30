@@ -1,23 +1,11 @@
 
 SUBROUTINE gmmerg(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub,Mrgtyp,Core,Lcore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ia(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Lcr , Rule
    COMMON /parmeg/ Ia , Ia11 , Ia21 , Ia12 , Ia22 , Lcr , Rule
-!
-! Dummy argument declarations
-!
    INTEGER Cpart , File11 , File12 , File21 , File22 , Filea , Lcore , Mrgtyp , Rpart
    INTEGER Core(6) , Nsub(4)
-!
-! Local variable declarations
-!
    INTEGER cp(7) , i , name(2) , rp(7)
-!
-! End of declarations
-!
 !
 !     GENERAL MATRIX MERGE ROUTINE
 !

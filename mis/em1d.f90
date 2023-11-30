@@ -1,9 +1,6 @@
 
 SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(200) , Eltemp , Xmat , Z(1)
    INTEGER Incr , Inflag , Ithrml , Iz(1) , Ksystm(64) , Last , Matid , Ne(1) , Necpt(200) , Nelems , Nsil(2) , Outpt , Sysbuf
    CHARACTER*23 Ufm
@@ -14,22 +11,13 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER All , Eltype , Ido , Istart , Itype , Iwords , Nbdys , Ncount , Nelout
-!
-! Local variable declarations
-!
    REAL ahcx , ahcy , ahcz , arrod , buf(50) , const , dia , dndx(2) , dndy(2) , dndz(2) , gnu , h1 , h2 , h3 , hc1 , hc2 , hc3 ,   &
       & hcx(2) , hcy(2) , hcz(2) , hl , pi , rad , sc(5) , th , vol , w(2) , xi(2) , xl , xlacc(3) , xlen , xload(2) , xlocal ,     &
       & xlx , xlxp , xn(2) , xx , yl , yy , zi(3) , zl , zz
    INTEGER estwds , i , iar , ibuf(50) , idx , ijk , is , isc(5) , isub , itemp , ix1 , ix2 , iy1 , iy2 , iz1 , iz2 , j , jtype ,   &
          & k , mid , nam(2) , name(2) , ng , ngrids , npts , scr6
    LOGICAL onlyc
-!
-! End of declarations
-!
 !
 !     COMPUTE LOAD DUE TO MAGNETIC FIELD,  K*A + F = 0
 !     SOLVE FOR -F

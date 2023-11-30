@@ -1,19 +1,10 @@
 
 SUBROUTINE selas1(Iarg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(120) , Ecpt(100) , Scoeff , Stiff
    INTEGER Icoeff , Iecpt(6) , Isilno(2) , Jelid
    COMMON /sdr2x5/ Ecpt , Jelid , Isilno , Stiff , Scoeff , Dummy
-!
-! Dummy argument declarations
-!
    INTEGER Iarg
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS PHASE I OF STRESS DATA RECOVERY FOR THE ELAS ELEMENTS.
 !

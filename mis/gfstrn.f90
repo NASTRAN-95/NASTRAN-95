@@ -1,26 +1,14 @@
 
 SUBROUTINE gfstrn(A,At,I,Scr1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Irow , Sysbuf , Z(1)
    REAL Val(4)
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ Val , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER A , At , I , Scr1
-!
-! Local variable declarations
-!
    INTEGER ibuf , ir , mcb(7) , name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MATRIX TRANSPOSE ROUTINE
 !

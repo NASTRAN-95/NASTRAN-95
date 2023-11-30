@@ -1,19 +1,10 @@
 
 SUBROUTINE gpwg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Point
    REAL Wtmass
    COMMON /blank / Point , Wtmass
-!
-! Local variable declarations
-!
    INTEGER bgpdt , cstm , eqexin , ip , mgg , nogo , ogpwg , scr1 , scr2 , scr3 , scr4
-!
-! End of declarations
-!
 !
 !     GRID POINT WEIGHT GENERATOR
 !

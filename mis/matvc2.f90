@@ -1,9 +1,6 @@
 
 SUBROUTINE matvc2(Y,X,Filea,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(2) , Da
    REAL Cdp , Csp , Eofnrw , Rd , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    INTEGER Diag , Eol , Identy , Idum(27) , Ii , Iopen , Iwtri , Norew , Rdp
@@ -11,19 +8,10 @@ SUBROUTINE matvc2(Y,X,Filea,Buf)
                  & Sym , Row , Identy
    COMMON /trdxx / Idum , Iopen
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    REAL Buf(1)
    INTEGER Filea(7)
    DOUBLE PRECISION X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , ncol , no , sub(2)
-!
-! End of declarations
-!
 !
 !     MATVC2 WILL FORM THE PRODUCT X = X + A*Y WHERE A IS A MATRIX
 !     AND Y IS A VECTOR

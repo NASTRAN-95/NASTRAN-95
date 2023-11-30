@@ -1,27 +1,15 @@
 
 SUBROUTINE hdplt(X1,Y1,Ij,Im)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(3)
    INTEGER Ibuf , Nout , Ppen
    COMMON /drwdat/ Dum , Ppen
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ij , Im
    REAL X1(4) , Y1(4)
-!
-! Local variable declarations
-!
    LOGICAL debug
    INTEGER i , j
    REAL xold , xvalue , yold , yvalue
-!
-! End of declarations
-!
 !
 !     PLOTS POINTS GOVERNED BY THE VALUE OF IM.
 !

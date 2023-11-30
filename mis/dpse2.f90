@@ -1,22 +1,13 @@
 
 SUBROUTINE dpse2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Alpha , D(18) , Ke(36) , Ta(9) , Tb(9) , X , Xl , Y , Z
    REAL Dum2(2) , Dum6(6) , Ecpt(16)
    INTEGER Icstm , Iecpt(3) , Ncstm , Npvt
    COMMON /ds1aaa/ Npvt , Icstm , Ncstm
    COMMON /ds1adp/ Ke , Ta , Tb , D , X , Y , Z , Xl , Alpha
    COMMON /ds1aet/ Ecpt , Dum2 , Dum6
-!
-! Local variable declarations
-!
    INTEGER i , ielem , itemp , k1 , ka , kb , kb1 , kb2 , nogo
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE TWO 6 X 6 MATRICES K(NPVT,NPVT) AND
 !     K(NPVT,J), PRESSURE STIFFNESS MATRICES FOR A CPSE2 PRESSURE

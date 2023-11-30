@@ -1,9 +1,6 @@
 
 SUBROUTINE clvec(Lamd,Nvect,Phidl,Ih,Ibuf,Ibuf1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrew , Fileb(7) , Filek(7) , Filem(7) , Ii , Inc , It1 , It2 , Jj , Norew , Nrow , Rdrew , Scr(11) , Switch , Sysbuf
    REAL Dum(15) , Dumdcp(30) , Rd , Wrt , Wrtrew , Z(1)
    DOUBLE PRECISION Dz(1) , Lambda(2) , Mindia
@@ -14,20 +11,11 @@ SUBROUTINE clvec(Lamd,Nvect,Phidl,Ih,Ibuf,Ibuf1)
    COMMON /packx / It1 , It2 , Ii , Jj , Inc
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , Ibuf1 , Lamd , Nvect , Phidl
    INTEGER Ih(7)
-!
-! Local variable declarations
-!
    REAL buf(6) , f , fi1 , fnrow
    DOUBLE PRECISION di1 , dnrow
    INTEGER flag , i , ibuf2 , j , j2 , n , name(2)
-!
-! End of declarations
-!
 !*****
 !     CLVEC CACLULATES THE LEFT EIGENVECTORS FOR THE DETERMINANT AND
 !     UPPER HESSENBERG APPROACHES TO THE COMPLEX EIGENVALUE PROBLEM

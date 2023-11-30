@@ -8,23 +8,14 @@ SUBROUTINE yrcard(Out,Nflag,In)
 !     ALL RELIABILITY TESTS                 G.CHAN/UNISYS,  2/1988
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dum1(7) , F6 , Highpw , Ibufsz , Lowpw , Nlines , Npages
    LOGICAL Nogo
    CHARACTER*23 Ufm
    COMMON /lhpwx / Lowpw , Highpw
    COMMON /system/ Ibufsz , F6 , Nogo , Dum1 , Npages , Nlines
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Nflag
    INTEGER In(18) , Out(1)
-!
-! Local variable declarations
-!
    INTEGER a67777 , a77777 , asave , astk , blank , blanks , char(72) , charac , chars(13) , comma , cparen , d , dollar , e ,      &
          & equal , i , ichar , ichek , int1 , iout , ipos , ipower , it , j , k , minus , n , n1 , n2 , nchar , ndoubl(2) , nt(15) ,&
          & num(10) , number , oparen , period , places , plus , precis , psign , slash , type(72) , word , zero
@@ -33,9 +24,6 @@ SUBROUTINE yrcard(Out,Nflag,In)
    REAL fl1
    DOUBLE PRECISION xdoubl
    EXTERNAL complf , lshift , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),dollar) , (chars(2),plus) , (chars(3),equal) ,          &
     & (chars(4),minus) , (chars(5),comma) , (chars(6),slash) , (chars(7),oparen) , (chars(8),cparen) , (chars(9),e) , (chars(10),d) &
     & , (chars(11),period) , (chars(12),blank) , (chars(13),astk)

@@ -4,9 +4,6 @@ SUBROUTINE xpunp
 !     THIS SUBROUTINE POOLS AND UNPOOLS FILES AS PRESCRIBED BY XFIAT
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Buf1(1) , Comm(20) , Cursno , Dculg , Ddbn(1) , Dfnu(1) , Dmxlg , Dnaf , Dpd(6) , Entn1 , Entn2 ,       &
          & Entn3 , Entn4 , Fculg , Fcum(1) , Fcus(1) , Fdbn(1) , Fequ(1) , Fiat(7) , File(1) , Fist(2) , Fknd(1) , Flag , Fmat(1) , &
          & Fmxlg , Fntu(1) , Fnx , Fon(1) , Ford(1) , Fpun(1) , Funlg , Ibufsz , Lmsk , Lxmsk , Macsft , Md(401) , Minp(1) , Mlgn , &
@@ -23,16 +20,10 @@ SUBROUTINE xpunp
    COMMON /xpfist/ Pfist
    COMMON /xsfa1 / Md , Sos , Comm , Xf1at
    COMMON /zzzzzz/ Buf1
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER block(1000) , dfnusv , entn1x , entn5 , fn , fstidx , head(2) , header(8) , hold , i , ii , isw1 , isw2 , j , k , kk ,   &
          & l , lmt3 , lmt4 , n , ncnt , nn , npunp(2) , nx , pool
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Dpd(1),Dnaf) , (Dpd(2),Dmxlg) , (Dpd(3),Dculg) , (Dpd(4),Ddbn(1)) , (Dpd(6),Dfnu(1)) , (Fiat(1),Funlg) ,            &
     & (Fiat(2),Fmxlg) , (Fiat(3),Fculg) , (Fiat(4),Fequ(1)) , (Fiat(4),File(1)) , (Fiat(4),Ford(1)) , (Fiat(5),Fdbn(1)) ,           &
     & (Fiat(7),Fmat(1)) , (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,    &

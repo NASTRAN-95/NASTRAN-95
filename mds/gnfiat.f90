@@ -4,9 +4,6 @@ SUBROUTINE gnfiat
    INCLUDE 'NASNAMES.COM'
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
-!
-! COMMON variable declarations
-!
    REAL Dum1(43) , Dum2(110)
    INTEGER Fiat(640) , Ifcae , Ifmxe , Ifufa , Inmblk , Iperm , Isysbf , Nout , Npfist , Xfiat(19)
    INTEGER*2 Iunit(220)
@@ -15,14 +12,8 @@ SUBROUTINE gnfiat
    COMMON /xfiat / Ifufa , Ifmxe , Ifcae , Fiat
    COMMON /xpfist/ Npfist
    COMMON /xxfiat/ Xfiat
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i , ind , isize , istat , k , numblk
-!
-! End of declarations
-!
 !
 !
 !    FORMAT OF THE MEMBER DATASET FILE CONTROL BLOCK (MDSFCB)

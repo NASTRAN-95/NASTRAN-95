@@ -1,27 +1,15 @@
 
 SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fmt(1) , Fp(5,1) , Lbuf , Nf
    REAL X1(26)
    COMMON /blank / X1 , Lbuf
    COMMON /exio2f/ Fmt
    COMMON /exio2p/ Nf , Fp
-!
-! Dummy argument declarations
-!
    INTEGER F , Nwds , Prec , Rw , U
    INTEGER Buf(Nwds)
    DOUBLE PRECISION Dbuf(1)
-!
-! Local variable declarations
-!
    INTEGER frmt(10) , i , ifmt , leof , n
-!
-! End of declarations
-!
 !*****
 !
 !         *** IBM 360/370, VAX/780 VERSION ***

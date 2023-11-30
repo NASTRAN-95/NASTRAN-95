@@ -1,9 +1,6 @@
 
 SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bov , Dum(52) , P(2) , Pi , Q , Rm , Twopi
    INTEGER Ii , Incr , Incr1 , Inn , Iout , Iprec , Isys , Iti , Ito , Iwc(4) , Nn , Nnn , Out
    CHARACTER*23 Ufm
@@ -14,20 +11,11 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
    COMMON /type  / P , Iwc
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Ncore , Nfreq , Nrow , Qhhl , Scr1 , Scr2 , Scr3 , Scr4
    REAL Fl(1)
-!
-! Local variable declarations
-!
    REAL flag , rmi , rms , rmx , xm
    INTEGER i , ibuf1 , ibuf2 , icore , icp , ik , im , indx , ipd , ipi , iscr , j , ji , jj , k , kk , kkk , mcb(7) , n , name(2) ,&
          & nc , nhfrdi , ni , nl , nloop , nogo , nwc , trl(7)
-!
-! End of declarations
-!
 !
    DATA name/4HFRD2 , 4HI   /
    DATA nhfrdi/4HFRDI/

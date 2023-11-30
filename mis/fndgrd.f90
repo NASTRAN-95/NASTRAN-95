@@ -1,26 +1,14 @@
 
 SUBROUTINE fndgrd(Isub,Icomp,Igrid,Ip,Ic,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf3 , Ierr , Inam(2) , Junk(3) , Junk1(2) , Junk2(2) , Lcore , Score , Scsfil , Z(1)
    COMMON /cmb001/ Junk , Scsfil
    COMMON /cmb002/ Junk1 , Buf3 , Junk2 , Score , Lcore
    COMMON /cmbfnd/ Inam , Ierr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Icomp , Igrid , Isub , N
    INTEGER Ic(6) , Ip(6)
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , lloc , nfil , nrec , nwd
-!
-! End of declarations
-!
 !
    DATA aaa/4HFNDG , 4HRD  /
    CALL open(*200,Scsfil,Z(Buf3),0)

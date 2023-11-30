@@ -1,26 +1,14 @@
 
 SUBROUTINE opt2d(Ipr,Pr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Next , Nprw , Nrd , Nrrew , Nwdsp , Nwrew , Nwrt , Optp1 , Optp2 , Zcor
    REAL Skp1(9) , Skp3(2) , Skp4(2) , Z(1)
    COMMON /blank / Skp1 , Nwdsp , Optp1 , Skp3 , Optp2 , Skp4 , Nprw
    COMMON /names / Nrd , Nrrew , Nwrt , Nwrew , Next
    COMMON /optpw2/ Zcor , Z
-!
-! Dummy argument declarations
-!
    INTEGER Ipr(1)
    REAL Pr(1)
-!
-! Local variable declarations
-!
    INTEGER eor , i , n
-!
-! End of declarations
-!
 !-----
 !   COPY OPTP1 TO OPTP2 DATA FILE.
 !  CHANGE RECORD 3      WORD 1 = IABS (PID).

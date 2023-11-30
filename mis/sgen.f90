@@ -16,9 +16,6 @@ SUBROUTINE sgen
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Dry , Ibuf , Incr , Iptr , Irow , Ity , Luset , Name(2) , Nogpdt , Nono , Nrow , Nss , Nz , Outt ,  &
          & Two(2) , Z(4)
    REAL Rz(1)
@@ -32,9 +29,6 @@ SUBROUTINE sgen
    COMMON /unpakx/ Ity , Irow , Nrow , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER andf , complf , korsz , orf
    INTEGER bgpdt , buf4 , casec , casei , cases , code , ctypeo(2,8) , ctypes(2,8) , dareas(2) , delays(2) , dphses(2) , dynam ,    &
          & dyns , eqex , eqss , file , flag , geom3 , geom4 , gp3s , gp4s , gpdt , gpl , i , ibs1 , ibs2 , ibs3 , ic , icode(4,9) , &
@@ -47,9 +41,6 @@ SUBROUTINE sgen
    INTEGER nzb , pvec , scrt , scrt2 , sidc , sids , sil , spcs(2) , spcs1(2) , spcsd(2) , temp(10) , temp2(10) , tics(2) , type(2) &
          & , xxxx
    EXTERNAL andf , complf , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Rz(1),Z(1)) , (temp(1),rtemp(1)) , (temp2(1),rtemp2(1)) , (ctypes(1,1),mpcs(1)) , (ctypes(1,2),spcs(1)) ,           &
     & (ctypes(1,3),spcs1(1)) , (ctypes(1,4),spcsd(1)) , (ctypes(1,5),dareas(1)) , (ctypes(1,6),delays(1)) , (ctypes(1,7),dphses(1)) &
     & , (ctypes(1,8),tics(1))

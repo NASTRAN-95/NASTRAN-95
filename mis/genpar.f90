@@ -1,9 +1,6 @@
 
 SUBROUTINE genpar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , In , Incr , Iout , Iz(1) , Lmodes , Nmodes , Nn , Otpe , Sysbuf
    CHARACTER*23 Ufm
    REAL Z(1)
@@ -12,14 +9,8 @@ SUBROUTINE genpar
    COMMON /system/ Sysbuf , Otpe
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , cplamb , cpmp , i , l1 , lcore , mcb(7) , nam(2) , ndir , pf , rplamb , rppf
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GENERATES PARTITIONING VECTORS FOR DDAM SO THAT ONLY THE FIRST
 !     LMODES MODES WILL BE USED, NOT NECESSARILY ALL THE ONES FOUND ON

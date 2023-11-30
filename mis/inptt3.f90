@@ -24,9 +24,6 @@ SUBROUTINE inptt3
 !                   = 1, NAMES CHECK, WILL SEARCH TAPE FOR MATCH.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Errflg , Ibuf , Ii , Incr , Jj , Nout , Rd , Rdrew , Rew , Test , Typin , Typout , Unit , Wrt , Wrtrew , Z(1)
    CHARACTER*23 Ufm
@@ -38,14 +35,8 @@ SUBROUTINE inptt3
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , core , end , file , head , i , irew , iu , j , k , mcb(7) , name(2) , namx(2) , nc , nr , subnam(2) , type
    INTEGER korsz
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Dz(1))
    DATA end , head , subnam/ - 999 , -111 , 4HINPT , 4HT3  /
 !

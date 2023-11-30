@@ -1,9 +1,6 @@
 
 SUBROUTINE reig
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Apc , Apu , Core(1) , Critf , D1 , D2 , D4 , Degra , Dmpfle , Dum(100) , Eps , Epsi , Fps , Hfreq , Lfreq , Lmax , Lmin ,   &
       & Mb(1) , Order , Pi , Ptshft , Radeg , Rmax , Rmin , Rminr , Shftpt , Shftzo , Sr1fle , Sr2fle , Sr3fle , Sr4fle , Sr5fle ,  &
       & Sr6fle , Sr7fle , Sr8fle , Tcons(15) , Twopi , Xlamda , Xlmbda
@@ -34,17 +31,11 @@ SUBROUTINE reig
    COMMON /unpakx/ Itu , Iiu , Jju , Incru
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER casecc , dm , eed , eigr(4) , error(3) , feerx , file , givi , i , i0 , icore6 , icore7 , icore8 , icr1 , icr2 , iflag , &
          & inv , ip1 , isil , ix(7) , kaa , l26 , lama , llcore , maa , method , mgiv , mi , mode , mr , nnv , norm , phia , pout , &
          & sdet , sinv , subnam(2) , udet , uinv , uset
    REAL core4 , core5 , epsii , xxx
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     READ   KAA,MAA,MR,DM,EED,USET,CASECC/LAMA,PHIA,MI,OEIGS/C,N,IPROB
 !            /V,N,NUMMOD/C,N,ICASE/C,N,XLAMDA $

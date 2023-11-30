@@ -1,27 +1,15 @@
 
 SUBROUTINE fvrs1a(Base,Base1,Z,W,Buf,Index,Modfrl,Basexg,Nrow,Nf,Nfx,Fkmax,Omega)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER In , Incr , Iout , Nl , Ns
    COMMON /packx / In , Iout , Ns , Nl , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Basexg , Fkmax , Nf , Nfx , Nrow
    LOGICAL Modfrl
    REAL Omega
    COMPLEX Base(3,Nfx) , Base1(3,Nfx) , Z(Nrow)
    REAL Buf(1) , W(Nf)
    INTEGER Index(1)
-!
-! Local variable declarations
-!
    INTEGER i , k , l , mcb(7) , npts
-!
-! End of declarations
-!
 !
 !
 !

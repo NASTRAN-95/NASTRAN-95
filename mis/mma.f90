@@ -2,9 +2,6 @@
 SUBROUTINE mma(Zi,Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cls , Clsrew , D(4) , Rd , Rdrew , Time , Wrt , Wrtrew
    DOUBLE PRECISION Ad(2) , Dd(2)
    INTEGER Eol , Eor , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Incrp , Incru , Iprec , Irow1p , Irowbk , Irowin , Irownp ,      &
@@ -23,15 +20,9 @@ SUBROUTINE mma(Zi,Zr,Zd)
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zblpkx/ D , Irowbk
    COMMON /zntpkx/ A , Irowin , Eol , Eor
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(2)
    INTEGER Zi(2)
    REAL Zr(2)
-!
-! Local variable declarations
-!
    INTEGER blk1(15) , blk2(15) , i , ibuf1 , ibuf2 , ierr , isave(9) , itest1 , itest2 , jbegn , jend , l19 , memavl , module(3) ,  &
          & mpass10 , mpass11 , mpass20 , mpass21 , mpass30 , mpass31 , mpass32 , mpass40 , mpass41 , namea(2) , nameb(2) , namec(2) &
          & , named(2) , napack , nastrgs , naterms , natotal , nbpack , nbstrgs , nbterms , nbtotal , ncols , ncpack , ncstor ,     &
@@ -39,9 +30,6 @@ SUBROUTINE mma(Zi,Zr,Zd)
    CHARACTER*2 ct
    REAL denstya , denstyb , denstyc , percnta , percntb , percntc , testpct , x , y
    CHARACTER*6 upmeth(2)
-!
-! End of declarations
-!
 !
 !     MMA PERFORMS THE MATRIX OPERATION
 !       (+/-)A    * B (+/-)C = D   OR

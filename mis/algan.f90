@@ -1,9 +1,6 @@
 
 SUBROUTINE algan
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(21,10) , B1(21) , B2(21) , Bs(21) , Chordd(21) , Cord(21) , Delx(21) , Dely(21) , Epz(80,4) , Pp(21) , Qq(21) ,       &
       & R(10,21) , Rad(100) , Rle(21) , Rsta(21,10) , S(21) , Sigma(100) , Ss(100) , Stag(21) , Tanphi(10,21) , Tc(21) , Te(21) ,   &
       & Temp1(21) , Temp2(21) , Temp3(21) , Temp4(21) , Theta(21,10) , Title(18) , Title2(18) , X(100) , Xhere(10) , Xsemi(21,31) , &
@@ -18,9 +15,6 @@ SUBROUTINE algan
                  & Zsemj , Xsta , Rsta , Kpts , Sigma , Tanphi , Zcamb , Ycamb , Ifangs , Theta , Alpha
    COMMON /ud3prt/ Iprtc , Istrml , Ipgeom
    COMMON /udstr2/ Nbldes , Stag , Chordd
-!
-! Local variable declarations
-!
    REAL alp , alpb(10,21) , alphb , ang , area , ax , beta1 , beta2 , blafor(10,21) , block(10,21) , bx , c1 , ccord(21) , chd ,    &
       & cosang , cosstg , dela , delu , dz , eps , epslon(10,21) , f , ipx , ipy , ix , ixd , ixn , ixy , ixyn , iy , iyd , iyn ,   &
       & p , perspj , perspt(21) , pi , pltsze , pres , q , rd , rdata(6) , rles(21) , sb , scale , sinstg , sq , stackx , stager ,  &
@@ -31,9 +25,6 @@ SUBROUTINE algan
          & ndum , nelem , nlines , npoint , nsign , nspec , nstad , nstad1 , nstns , nstrd , nt , nz
    REAL yd , ydel , yint , ymn , yone , yones , yp(21,70) , yplot , ys(21,70) , yy1 , yy2 , yzero , yzeros , z , zinner , zouter ,  &
       & zq(21) , zs(21,70) , zspmxt , zzs(21)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Title(1),Title2(1))
 !

@@ -13,9 +13,6 @@ SUBROUTINE xflord
 !     IORDNO = FILE ORDINAL NUMBER
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alter(2) , Bcdcnt , Bufsz , Core(1) , Diag14 , Dmap(1) , Dmpcnt , Dmppnt , Dpl(3) , Dum1(20) , Dum2(57) , Dum5(5) ,      &
          & File(1) , Fpnt , Iallon , Iapp , Iappnd , Icfiat , Icfpnt , Icftop , Ichar , Icold , Icpbot , Icpdpl(1) , Icpflg ,       &
          & Icptop , Icrdtp , Icst , Ictlfl(1) , Idmapp , Idmpnt , Idsapp , Iequl , Iestim , Ifiat(3) , Ifist(1) , Iflag , Ihapp ,   &
@@ -44,18 +41,12 @@ SUBROUTINE xflord
    COMMON /xgpid / Icst , Iunst , Imst , Ihapp , Idsapp , Idmapp , Isave , Itape , Iappnd , Intgr , Losgn , Noflgs
    COMMON /xoldpt/ Ptdtop , Ptdbot , Lptdic , Nrlfl , Seqno
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER and , compl , or
    INTEGER andf , complf , lshift , orf , rshift
    INTEGER dlyerr , i , i1 , i2 , idmpct , idpl , ifeq , ii , incrlp , iopnt , iordnl(1800) , iprime , irentr , j , j1 , j2 , k ,   &
          & k1 , k2 , khr , kk , kk1 , kxt , l , l1 , l2 , l3 , l4 , lpbot , lptop , lstbot , lstuse , ltu , m , m1 , m2 , n ,       &
          & ncpdp1 , ncpdp2 , ndatab , nnfind , nofind , nordn1 , nordn2 , nthpas , ntu , nwdh , nxvps , xnam(12)
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Core(1),Loscar,Os(1)) , (Osprc,Os(2)) , (Osbot,Os(3)) , (Ospnt,Os(4)) , (Oscar(1),Os(5),Ptdic(1)) ,                 &
     & (Dmap(1),Itmp(1)) , (Oscar(1),Icpdpl(1)) , (Lmpl,Lordnl) , (Mplpnt,Iorbot) , (Dpl(1),Ndpfil) , (Dpl(2),Maxdpl) ,              &
     & (Dpl(3),Lstdpl) , (Two(4),Reuse)

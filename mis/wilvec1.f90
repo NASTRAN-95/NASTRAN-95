@@ -1,9 +1,6 @@
 
 SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dlmdas , Rstrt , T12(5) , T131(20) , T19 , T21(80) , T3 , T6 , T8(3) , Title(1) , Vcom(30)
    INTEGER Entry , Ii , Iii , Incr , Incr1 , Ioptn , Iotpe , Iprec , It1 , It2 , It3 , Iterm , Jj , Jjj , Ksys(52) , Maxitr , Mo ,  &
          & Mr , Mt1 , Mv1 , N , Nrigid , Nv , Nver , Phia , Pv , Sysbuf , V2 , Xentry
@@ -17,23 +14,14 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
    COMMON /system/ Sysbuf , Iotpe , Ksys , Iprec
    COMMON /unpakx/ It3 , Iii , Jjj , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Nx
    REAL D(1) , F(1) , O(1) , P(1) , Q(1) , R(1) , V(1) , Val(1) , Vec(Nx,1)
    INTEGER Svec(1) , Vloc(1)
-!
-! Local variable declarations
-!
    REAL deps , one , rmult , rrmult , sft , sftinv , value , vmult , w , x , y , z , zero
    INTEGER i , i1 , ibuf1 , ibuf2 , iclos , ifin , im , im1 , im2 , ist , iter , itime , j , k , kk , kkk , l , l1 , l2 , lm1 ,     &
          & loc , m , max , mcb(7) , mcb1(7) , mgiv , min , mt , mul1 , mul2 , mul3 , mulp1 , mulp2 , mulp3 , n1 , n2 , n2m1 , n2m2 ,&
          & nm1 , nm2 , nv1 , nv2 , nz , path , v1 , vector , vv
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     WILKINSON EIGENVECTOR SOLUTION FOR LARGE SYM MATRICES
 !

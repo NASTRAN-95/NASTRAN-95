@@ -1,22 +1,13 @@
 
 SUBROUTINE valvec
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , Oeigs , Title(150) , Vcom(30)
    INTEGER Idumm(53) , Iprec , Isys , Iterm , Md , N , Never , Nv , Nver
    COMMON /givn  / Title
    COMMON /system/ Isys , Idumm , Iprec
    COMMON /zzzzzz/ A
-!
-! Local variable declarations
-!
    INTEGER i1 , i2 , i3 , i4 , i5 , i6 , ibegn , id , iend , il , io , iv , mcb(8) , n2 , qr , qrx(3) , tri(3) , val(3) , wil(3)
    REAL rstrt
-!
-! End of declarations
-!
 !
 !     LARGE ORDER REAL SYMMETRIC EIGENVALUE-EIGENVECTOR PROBLEM
 !

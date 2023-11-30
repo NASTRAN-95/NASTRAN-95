@@ -1,9 +1,6 @@
 
 SUBROUTINE flbset
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Ibgpdt , Ibuf1 ,     &
          & Ibuf2 , Ibuf3 , Ibuf4 , Ibuf5 , Icore , Igrav , Igrid , Ihalf , Isil , Jhalf , Kgdict , Kgmat , Lcore , Mach , Mpt ,     &
          & Nbgpdt , Ngrav , Ngrid , Nsil , Sil , Two(32) , Ua , Uab , Ufr , Ui , Uset , Usetf , Usets , Ux , Uy , Uz , Z(1)
@@ -17,16 +14,10 @@ SUBROUTINE flbset
    COMMON /machin/ Mach , Ihalf , Jhalf
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , complf , orf , rshift
    INTEGER file , group(3) , i , icstm , ifree , igrd , iuset , j , jloc , jsil , juset , k , luset , mask , maska , mcb(7) , n ,   &
          & nam(2) , name(2) , nfl , nfr , nfree , ngroup , nngrid , nnsil , nstr , nuset , nz , total
    EXTERNAL andf , complf , orf , rshift
-!
-! End of declarations
-!
 !
 !     CONSTRUCTS THE HYDROELASTIC USET VECTOR AND WRITES THE CONECT
 !     FILE FOR USE IN CORE ALLOCATION DURING MATRIX ASSEMBLY

@@ -1,19 +1,10 @@
 
 SUBROUTINE cdetm2(P,D,Ip,Pr,Pi,Dr,Di,Ips1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION D(6) , Di(3) , Dr(3) , P(6) , Pi(3) , Pr(3)
    INTEGER Ip(6) , Ips1(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION d1 , d2 , d3 , d4 , dd(3)
    INTEGER i , ips(3) , is1 , is2 , isret , k , nx
-!
-! End of declarations
-!
 !
 !     ARRANGES  P,D,IP  IN ORDER BY MAGNITUDE OF DETERMINANT
 !

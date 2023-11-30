@@ -1,27 +1,15 @@
 
 SUBROUTINE pretrd(Cstmx,Ncstmx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cstm(1)
    COMMON /zzzzzz/ Cstm
-!
-! Dummy argument declarations
-!
    INTEGER Ncstmx
    REAL Cstmx(1) , Ecpt(4)
    DOUBLE PRECISION Ta(9)
-!
-! Local variable declarations
-!
    REAL fl1 , fl2
    INTEGER i , icheck , int1 , int2 , j , k , kk , ncstm , offset
    DOUBLE PRECISION ke(9) , r , tl(9) , x , xl , xn(3) , y , z
    INTEGER locfx
-!
-! End of declarations
-!
 !
 !     PRETRD SETS UP EVENTUAL CALLS TO TRANSD.  FOR A MODULE TO USE
 !     TRANSD A CALL TO PRETRD MUST BE INITIATED BY THE MODULE DRIVER

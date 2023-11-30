@@ -1,9 +1,6 @@
 
 SUBROUTINE eqsout
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cnam(2) , Combo(7,5) , Iauto , Ihalf , Ihead(96) , Iprint , Isort , Ititl(96) , Junk(5) , Mach , Mcon , Nipnew , Npsub , &
          & Score , Z(1)
    REAL Conect , Conset , Origin(7,3) , Restct(7,7) , Tdat(6) , Toler , Tran
@@ -13,16 +10,10 @@ SUBROUTINE eqsout
    COMMON /machin/ Mach , Ihalf
    COMMON /output/ Ititl , Ihead
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    INTEGER i , iblank , icode , icomp , ihd(64) , ii , ioff , iords(2) , isil , isteqs , itest , iw , j , jj , loc , nbot(7) ,      &
          & ncomp , ndof , nheqss , nout , ntop(7) , nwrd , string(32) , words(6)
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WRITES THE CONNECTION TRACE FOR A NEWLY COMBINED
 !     PSEUDOSTRUCTURE.

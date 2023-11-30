@@ -1,9 +1,6 @@
 
 SUBROUTINE cfeer(Eed,Method,Nfound)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Eofnrw , Head(1) , Rd , Rdp , Rdrew , Reg(7,10) , Rew , Rsp , Ten2mt , Tenmht , Tenmtt , Wrt , Wrtrew , Z(1)
    DOUBLE PRECISION Eps , Lambda(2)
    INTEGER Ib(7) , Idiag , Idmpfl , Ik(7) , Ilam(7) , Im(7) , Iphi(7) , Ireg(7,1) , Iscr(11) , It , Iz(1) , Jreg , Jskip ,          &
@@ -21,20 +18,11 @@ SUBROUTINE cfeer(Eed,Method,Nfound)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Eed , Method , Nfound
-!
-! Local variable declarations
-!
    REAL anodes , asym , flag , unidum , x1 , y1
    INTEGER eigc(2) , have(10) , i , ibuf , ifile , ihead(10) , iopn , iret , ising , iterm , ixx , limsum , name(2) , nodcmp ,      &
          & nodes , nomnf , nonsym , nprint , nz , want(10)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     PREVIOUS THIS ROUITNE IS CALLED CFCNTL
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE switch
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Icfiat , Ifiat(3) , Ifist(2) , Iparam , Ipfist , Nout
    CHARACTER*25 Sfm , Uwm
    REAL Skip(21) , Sysbuf
@@ -15,16 +12,10 @@ SUBROUTINE switch
    COMMON /xfist / Ifist
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xpfist/ Ipfist
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf , rshift
    INTEGER file1 , file2 , i , j1 , j2 , k , lastwd , ltu1 , ltu2 , mask , mask1 , mask2 , mask3 , modnam(2) , mxe , nacent ,       &
          & name(2) , nfiles , nuniqe , nwd , psave1 , psave2 , unit , unit1 , unit2 , unt
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS MODULE IS TO INTERCHANGE THE NAMES OF THE
 !     TWO INPUT FILES.  THIS IS ACCOMPLISHED BY THE DIRECT UPDATING

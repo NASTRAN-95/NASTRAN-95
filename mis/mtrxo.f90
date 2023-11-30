@@ -1,9 +1,6 @@
 
 SUBROUTINE mtrxo(File,Name,Item,Dumbuf,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Ihalf , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Jhalf , Mach , Nbuf , Nout ,   &
          & Nstrn
    REAL Ditdum(6) , Sofdum(20)
@@ -15,21 +12,12 @@ SUBROUTINE mtrxo(File,Name,Item,Dumbuf,Itest)
    COMMON /system/ Nbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Nstrn
-!
-! Dummy argument declarations
-!
    REAL Dumbuf
    INTEGER File , Item , Itest
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , ittype , locfx , lshift , orf
    INTEGER first , i , idisp , idle , ifetch , imdi , iopt , itm , iwrt , j , left , nmsbr(2) , oldbuf , trail(7)
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     COPIES MATRIX ITEM OF SUBSTRUCTURE NAME FROM THE NASTRAN FILE
 !     TO THE SOF

@@ -1,19 +1,10 @@
 
 SUBROUTINE arrm(P,D,Nd)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION D(3) , P(3)
    INTEGER Nd(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dx , px
    INTEGER i , nx
-!
-! End of declarations
-!
 !
 !     SCALED ARITHMETIC ROUTINES--ARRANGING ROUTINE
 !

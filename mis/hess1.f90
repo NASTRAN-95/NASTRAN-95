@@ -1,9 +1,6 @@
 
 SUBROUTINE hess1(Kdd,Mdd,Lamd,Phid,Oeigs,Nfound,Nvecd,Bdd,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Eed,Method)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Cz(1)
    REAL Dum32(32) , Head(1) , Z(1)
    DOUBLE PRECISION Dz(1)
@@ -16,22 +13,13 @@ SUBROUTINE hess1(Kdd,Mdd,Lamd,Phid,Oeigs,Nfound,Nvecd,Bdd,Scr1,Scr2,Scr3,Scr4,Sc
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Bdd , Eed , Kdd , Lamd , Mdd , Method , Nfound , Nvecd , Oeigs , Phid , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6 , Scr7
-!
-! Local variable declarations
-!
    REAL alph1 , alph2 , epsi , w1 , w2
    INTEGER amat , eigc(2) , file , i , ia , ibdd , ibuf1 , id , iflag , ih , ihead(10) , ihl , il , im , imat1 , imat2 , inorm ,    &
          & int , inth , iopt , iopt1 , ip1 , isil , iv , iz0 , j , k , m , mcb(7) , name(2) , ncount , nout , nrow , nz , poin
    DOUBLE PRECISION d1 , d2 , d3 , d4 , d5 , temp(2)
    INTEGER korsz
    COMPLEX tz
-!
-! End of declarations
-!
 !
 !     SUBROUTINE HESS1 TRANSFORMS THE  PROBLEM
 !         PSQ M  + P B  + K   INTO   PSQ I  + MINV K

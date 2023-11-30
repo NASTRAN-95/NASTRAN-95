@@ -18,9 +18,6 @@ SUBROUTINE page2(Lines)
 !     SIMPLIFIED BY G.CHAN/UNISYS, AND PAGE3 ADDED  12/92
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Crdate(3) , Date(3) , Dum15(15) , Dum6(6) , Dum8(8) , Head1(32) , Head2(32) , Head3(32) , Ibuf , Label(32) , Line ,      &
          & Mach(4) , Maxlin , Nout , Ofp , Page , St , Subtit(32) , Sym , Title(32) , Titlex(18) , Tline
    CHARACTER*7 Machos
@@ -29,19 +26,10 @@ SUBROUTINE page2(Lines)
    COMMON /machin/ Mach
    COMMON /output/ Title , Subtit , Label , Head1 , Head2 , Head3
    COMMON /system/ Ibuf , Nout , Dum6 , Sym , St , Page , Line , Tline , Maxlin , Date , Dum15 , Ofp , Dum8 , Crdate
-!
-! Dummy argument declarations
-!
    INTEGER Lines
-!
-! Local variable declarations
-!
    CHARACTER*30 ahead
    INTEGER fchar , flag , i , in , ll , name(2) , ncmnam , ncmos
    CHARACTER*3 month(12)
-!
-! End of declarations
-!
    EQUIVALENCE (Titlex(1),Title(1))
    DATA month/'JAN' , 'FEB' , 'MAR' , 'APR' , 'MAY' , 'JUN' , 'JUL' , 'AUG' , 'SEP' , 'OCT' , 'NOV' , 'DEC'/
    DATA name/4H PAG , 4HE2  /

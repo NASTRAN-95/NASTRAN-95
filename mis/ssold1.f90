@@ -1,9 +1,6 @@
 
 SUBROUTINE ssold1(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alfa , Beta(8) , Cmat(18,8) , E , Ecpt(100) , Eltemp , Elvol , Fact , Floc , G , Ge(36) , H(4,4) , Nu , Phiout(170) , R(3,3)&
       & , Rho , Temp(18) , Tempo , Ti(9) , Vol
    INTEGER Itest , J1 , Jloc , Kpt , Matflg , Mfirst , Necpt(100) , Nel , Nmat , Nphi(170) , Npts , Nrow , Ntemp
@@ -12,17 +9,8 @@ SUBROUTINE ssold1(Itype)
    COMMON /sdr2x5/ Ecpt , Phiout
    COMMON /sdr2x6/ Cmat , Beta , Temp , Elvol , Vol , Fact , Npts , Nel , Mfirst , Nrow , Itest , Floc , J1 , Jloc , Kpt , Ntemp ,  &
                  & Ge , H , R , Ti
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , icord , j , k , m(14,4) , me
-!
-! End of declarations
-!
 !*****
 !
 !  E C P T     TETRA          WEDGE          HEXA

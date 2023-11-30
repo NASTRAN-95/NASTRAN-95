@@ -1,9 +1,6 @@
 
 SUBROUTINE gpcyc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ctype(2) , Isk(6) , Itwo(32) , Iua , Iz(1) , Ksystm(65) , Nogo , Nout , Sysbuf
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -13,18 +10,12 @@ SUBROUTINE gpcyc
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER blk , cycd , cyjoin(2) , cyl , eqexin , file , geom4 , i , ib(5) , ibb(4) , iblen , ibuf1 , ibuf2 , ic1 , ic2 , icid ,   &
          & icm , idum , if , iflag , ip , ip1 , isam , isid , isid1 , isid2 , ityp , ix1 , ix2 , k , l , lcyj , lua , luset , m ,   &
          & mcb(7) , name(2) , ncord , nent , nocnt , nocy , noeq , nopar , nosid1 , np , ns1 , ns2 , nx , nz , rec , rot , scr1 ,   &
          & scr2 , sph , uset
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     GPCYC IS THE GEOMETRY PROCESSOR FOR CYCLIC PROBLEM
 !

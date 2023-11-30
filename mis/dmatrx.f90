@@ -1,18 +1,9 @@
 
 SUBROUTINE dmatrx(D,V,C,Ca,Ca2,Va,Dm,Db,Yi)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION C , Ca , Ca2 , Db , Dm , V , Va
    DOUBLE PRECISION D(10,10) , Yi(6,11)
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 !
 !
 ! THIS ROUTINE COMPUTES THE STIFFNESS MATRIX IN FIELD COORDINATES FOR

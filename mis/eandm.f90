@@ -1,9 +1,6 @@
 
 SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Ecpt(200) , Z(1)
    INTEGER Ii , Incr , Incur , Irow , Ita , Itb , Ithrml , Iz(1) , Jj , Ksystm(64) , Last , Ne(1) , Necpt(1) , Nelems , Nrowsp ,    &
          & Outpt , Sysbuf
@@ -16,20 +13,11 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
    COMMON /xmssg / Ufm
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL All
    INTEGER Ido , Itype , Lcore , Nbdys , Nelout , Nextz
-!
-! Local variable declarations
-!
    INTEGER buf1 , eltype , est , estwds , file , hcflds , icore , idx , iflag , ijk , istart , iwords , jj1 , kcount , mcb(7) ,     &
          & mcb1(7) , mcb2(7) , n , nam(2) , name(2) , ncount , nel , ngrids , nwords , remfls , scr6 , slt
    LOGICAL done
-!
-! End of declarations
-!
 !
 !     COMPUTES ADDITIONAL LOAD IN ZIEKIEWICZ PAPER DUE TO SPECIFIED
 !     MAGNETIC FIELD OR CURRENT LOOP

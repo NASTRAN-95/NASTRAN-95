@@ -3,14 +3,8 @@ SUBROUTINE bldpk(Itypin,Itypot,File,Block,Iflag)
    IMPLICIT NONE
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'DSIOF.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , Iflag , Itypin , Itypot
    INTEGER Block(15)
-!
-! End of declarations
-!
    Itrail = Iflag
    Itypi = Itypin
    Itypo = Itypot

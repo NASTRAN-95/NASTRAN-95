@@ -1,19 +1,10 @@
 
 SUBROUTINE stpbs1(X,Ncode,Bj1,By1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Bj1 , By1 , X
    INTEGER Ncode
-!
-! Local variable declarations
-!
    REAL a , e , t , u , uw , w , z
    INTEGER name(2)
-!
-! End of declarations
-!
 !     SUBROUTINE BES1        J AND Y BESSEL FUNCTIONS OF FIRST ORDER
 !     E. ALBANO, ORGN 3721, EXT 1022, OCT 1967
 !     COMPUTES J1(X) IF X IS GREATER THAN -3.

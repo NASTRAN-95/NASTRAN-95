@@ -1,26 +1,14 @@
 
 SUBROUTINE mred2j(Nuf,N2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Idum1 , Idum2(5) , Idum3(14) , Idum4 , Incr , Infile(12) , Irow , Iscr(10) , Korbgn , Korlen , Nmodes ,    &
          & Nrow , Otfile(6) , Phiss , Rprtn , Typin , Typout
    REAL Phiss1 , Phiss2 , Rz(1)
    COMMON /blank / Idum1 , Dry , Idum4 , Gbuf1 , Idum2 , Infile , Otfile , Iscr , Korlen , Korbgn , Idum3 , Nmodes
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER N2 , Nuf
-!
-! Local variable declarations
-!
    INTEGER i , ifile , iform , imsg , itrlr1(7) , kolumn , modnam(2)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PARTITIONS THE PHISS MATRIX FOR THE MRED2 MODULE.
 !

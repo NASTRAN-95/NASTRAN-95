@@ -1,28 +1,16 @@
 
 SUBROUTINE q4gmgs(Mid,Factor,G)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL E1 , E2 , Nu12 , Rmtout(25)
    COMMON /matout/ Rmtout
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Factod
    REAL Factor
    INTEGER Mid
    DOUBLE PRECISION D(9)
    REAL G(9)
-!
-! Local variable declarations
-!
    REAL const , mtype , nu21
    DOUBLE PRECISION donst
    INTEGER i , mtyp
-!
-! End of declarations
-!
 !     &    ENTRY Q4GMGD (MID,FACTOD,D)
 !
 !

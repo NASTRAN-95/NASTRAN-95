@@ -1,25 +1,16 @@
 
 SUBROUTINE khrbcd(Khr80,Bcd4)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    CHARACTER*100 Khr100
    CHARACTER*72 Khr72
    CHARACTER*8 Khr8
    CHARACTER*80 Khr80
    INTEGER Bcd4(2)
-!
-! Local variable declarations
-!
    INTEGER b4(2) , i
    CHARACTER*100 k100
    CHARACTER*72 k72
    CHARACTER*8 k8
    CHARACTER*80 k80
-!
-! End of declarations
-!
 !
 !     MOVE ONLY THE APPROPRIATE PORTION OF THIS ROUTINE TO THE MDS GROUP
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE apdcs
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acpl(3,3) , Acpt , Alzo , Bgpa , Buf10 , Buf11 , Buf12 , Cg , Cidbx , Ecta , Eid , Gpla , Pid , Ra1(3) , Rb1(3) , Scr1 ,    &
       & Scr2 , Scr3 , Scr4 , Scr5 , Sg , Sila , Silb , Useta , X1 , X12 , X1p , X4 , X43 , Xop , Xp2 , Xp3 , Xp4 , Y1 , Y4 , Yp4 ,  &
       & Z(1) , Z1 , Z4
@@ -14,16 +11,10 @@ SUBROUTINE apdcs
                  & Bgpa , Gpla , Useta , Sila , Cstma , Acpt , Buf10 , Buf11 , Buf12 , Next , Left , Isiln
    COMMON /apd1d / Icpl , Yp4 , Sg , Cg , Xp2 , Xp3 , Xp4 , Ra1
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL degr , ee , ra2(3) , ra3(3) , ra4(3) , rb2(3) , rb3(3) , rb4(3) , rcp1(3) , rcp4(3) , rx1(3) , rx4(3) , sx1 , sx2 , v1(3) , &
       & v2(3) , vx1(3) , vx2(3) , vx3(3)
    INTEGER i , icp , j , k
    REAL sadotb
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Iz(1))
    EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (v1(1),rcp1(1)) , (v2(1),rcp4(1))
    DATA degr/.017453293/

@@ -1,29 +1,17 @@
 
 SUBROUTINE softrl(Name,Item,Mcb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Ihalf , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Jhalf , Mach
    REAL Ditdum(6)
    COMMON /machin/ Mach , Ihalf , Jhalf
    COMMON /sof   / Ditdum , Io , Iopbn , Iolbn , Iomode , Ioptr , Iosind , Ioitcd , Ioblk
    COMMON /sys   / Blksiz
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Item
    INTEGER Mcb(7) , Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , itcode , ittype , rshift
    INTEGER i , i1 , i2 , imdi , inxt , ird , itm , next , nmsbr(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     UTILITY SUBROUTINE TO OBTAIN THE MATRIX TRAILER FOR A MATRIX
 !     STORED ON THE SOF

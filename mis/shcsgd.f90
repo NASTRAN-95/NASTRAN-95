@@ -1,31 +1,19 @@
 
 SUBROUTINE shcsgd(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Degrdd , Pid , Raddgd , Twopid
    REAL Degrds , Pis , Raddgs , Twopis
    COMMON /condad/ Pid , Twopid , Raddgd , Degrdd
    COMMON /condas/ Pis , Twopis , Raddgs , Degrds
-!
-! Dummy argument declarations
-!
    INTEGER Ccsid , Cflag , Csid , Pcsid , Pflag
    REAL Ctheta , Ptheta , Thetas
    DOUBLE PRECISION Thetad
    INTEGER Necpt(4)
    DOUBLE PRECISION Tubd(9) , Tumsd(9)
    REAL Tubs(9) , Tumss(9)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION eps1d , flipd , tbmsd(9) , xmd , ymd
    REAL eps1s , flips , tbmss(9) , xms , yms
    INTEGER i
-!
-! End of declarations
-!
 !
 !     WITH ENTRY SHCSGS (*,CFLAG,CCSID,CTHETA,PFLAG,PCSID,PTHETA,
 !    1                   NECPT,TUBS,CSID,THETAS,TUMSS)

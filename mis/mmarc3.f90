@@ -2,25 +2,13 @@
 SUBROUTINE mmarc3(Zi,Zr)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Ibfsiz , Iwr
    REAL Rxl(1)
    COMMON /system/ Ibfsiz , Iwr
    COMMON /zzzzzz/ Rxl
-!
-! Dummy argument declarations
-!
    INTEGER Zi(1)
    REAL Zr(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , ii , index , jrow , mem , mindex , ntms , ntms2
-!
-! End of declarations
-!
 !
 !  MARRC3 - This routine will store a matrix column in memory in compact
 !           form and in complex single precision.  The input matrix is

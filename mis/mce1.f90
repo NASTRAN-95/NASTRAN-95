@@ -1,14 +1,8 @@
 
 SUBROUTINE mce1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Gm , L , Mcb(7) , Rg , Rm , Rn , Scr1 , Scr2 , Scr3 , U , Uset
    COMMON /blank / Uset , Rg , Gm , Scr1 , Scr2 , Scr3 , Rm , Rn , L , U , Mcb
-!
-! End of declarations
-!
 !
 !     MCE1 PARTITIONS RG INTO RM AND RN
 !     THEN SOLVES THE MATRIX EQUATION RM * GM = -RN.

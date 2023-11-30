@@ -13,9 +13,6 @@ SUBROUTINE mtrxin
 !     WITH DOUBLE PRECISION DATA
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(4) , Beta(4) , X(4)
    INTEGER Clsrew , Filea(7) , Fileb(7) , Filec(7) , Ifile(6) , Ihalf , Jhalf , Loadnn , Luset , Mach , Mcbs(67) , Nomat(3) ,       &
          & Nomat1 , Nomat2 , Nomat3 , Nomats , Nout , Nwds(4) , Nz , Prc(2) , Rd , Rdrew , Row , Sysbuf , Typalp , Typbet , Wrt ,   &
@@ -32,9 +29,6 @@ SUBROUTINE mtrxin
    COMMON /xmssg / Ufm
    COMMON /zblpkx/ X , Row
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf , rshift
    INTEGER block(81) , buf(20) , buf1 , buf2 , buf3 , buf4 , buf5 , bufi(3) , bufx , casecc , col , db(13) , dmig(2) , eqex , file ,&
          & file1 , file2 , file3 , filei(3) , flag , i , i10 , i11 , i12 , i45 , i7 , icol , imat1 , imat2 , imat3 , imtrx , iprc , &
@@ -45,9 +39,6 @@ SUBROUTINE mtrxin
    REAL bufr(13)
    LOGICAL pack
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (buf(1),bufr(1)) , (X(1),Xd(1)) , (filei(1),file1) , (filei(2),file2) , (bufi(1),buf3) , (bufi(2),buf4) ,            &
     & (Nomat(1),Nomat1) , (Nomat(2),Nomat2) , (filei(3),file3) , (bufi(3),buf5) , (Nomat(3),Nomat3) , (bufd(1),db(13)) ,            &
     & (buf(1),db(2))

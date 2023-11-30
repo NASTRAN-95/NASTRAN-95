@@ -1,17 +1,8 @@
 
 SUBROUTINE skprec(Ifile,K)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ifile , K
-!
-! Local variable declarations
-!
    INTEGER i , m , name(2)
-!
-! End of declarations
-!
 !
 !
    DATA name/4HSKPR , 2HEC/

@@ -1,28 +1,16 @@
 
 SUBROUTINE tlodt2(Ts1,Ts2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , B1 , B2 , B3 , D(3) , Dista , Distb , Distc , Dum6(9) , Em(6) , Est(100) , G1(3) , Rj11 , Rj12 , Rj22 , X ,  &
       & Y , Z
    COMMON /emgest/ Est
    COMMON /matout/ Em , Dum6 , Rj11 , Rj12 , Rj22
    COMMON /ssgwrk/ X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , B1 , B2 , B3 , G1 , D
-!
-! Dummy argument declarations
-!
    REAL Ts1(60) , Ts2(20)
-!
-! Local variable declarations
-!
    REAL a11 , a12 , a13 , a14 , a15 , a16 , a21 , a22 , a23 , a24 , a25 , a26 , a31 , a32 , a33 , a34 , a35 , a36 , a37 , be(7) ,   &
       & cons(2) , cons1 , d11 , d12 , d13 , d21 , d22 , d23 , d31 , d32 , d33 , ga(7) , j11 , j12 , j22 , temp , thk , thk1 ,       &
       & ts3(20) , wt(7)
    INTEGER i , k , kase
-!
-! End of declarations
-!
 !
 !    CALCULATION OF PTGEN2 - GEN THERMAL LOAD VECTOR DUE TO TRANSVERSE S
 !

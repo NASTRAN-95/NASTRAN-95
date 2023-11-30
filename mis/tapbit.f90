@@ -1,9 +1,6 @@
 
 LOGICAL FUNCTION tapbit(File)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(1) , Fist(1) , Ib(45) , Itwo(32) , Lfiat , Lfist , Mfiat , Nfiat , Nfist , Npfist , Xfiat(1)
    COMMON /system/ Ib
    COMMON /two   / Itwo
@@ -11,19 +8,10 @@ LOGICAL FUNCTION tapbit(File)
    COMMON /xfist / Nfist , Lfist , Fist
    COMMON /xpfist/ Npfist
    COMMON /xxfiat/ Xfiat
-!
-! Dummy argument declarations
-!
    INTEGER File
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER j , nam(2) , npf1
    EXTERNAL andf
-!
-! End of declarations
-!
 !
    DATA nam/4HTAPB , 4HIT  /
 !

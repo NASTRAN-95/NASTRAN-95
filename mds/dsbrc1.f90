@@ -3,13 +3,7 @@ SUBROUTINE dsbrc1
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Local variable declarations
-!
    INTEGER id , iflag
-!
-! End of declarations
-!
 !        PRINT *,' DSBRC1-1,NBLOCK,INDCLR,INDBAS=',NBLOCK,INDCLR,INDBAS
    IF ( Indclr/=Indcbp ) THEN
       Indcbp = Indclr

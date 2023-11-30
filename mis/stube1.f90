@@ -1,20 +1,11 @@
 
 SUBROUTINE stube1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , C , Degra , Dum(84) , Ecpt(16) , Fj , Pi , Radeg , S4pisq , Temp , Twopi
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4pisq
    COMMON /sdr2x5/ Ecpt , Dum
    COMMON /sdr2x6/ Temp , A , Fj , C
-!
-! Local variable declarations
-!
    INTEGER i , m
-!
-! End of declarations
-!
 !*****
 ! THE TUBE BEING SO SIMILAR TO THE ROD, WE ALTER THE ECPT FOR THE TUBE
 ! SO THAT IT IS IDENTICAL TO THE ONE FOR THE ROD AND THEN CALL SROD1

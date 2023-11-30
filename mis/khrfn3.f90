@@ -1,19 +1,10 @@
 
 INTEGER FUNCTION khrfn3(Word1,Word2,Move,Idir)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Idir , Move
    INTEGER Word1(1) , Word2(1)
-!
-! Local variable declarations
-!
    INTEGER i , iend , imove , ncpw , word3
    INTEGER khrfn1
-!
-! End of declarations
-!
 !
 !     CHARACTER FUNCTION KHRFN3 MERGES TWO WORDS, WORD1 AND WORD2, BY
 !     BYTES

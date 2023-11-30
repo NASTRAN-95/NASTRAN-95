@@ -1,20 +1,11 @@
 
 SUBROUTINE alg16(Ix,Log1,X1,Y1,X2,Y2)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ix , Log1
    REAL X1(1) , X2(1) , Y1(1) , Y2(1)
-!
-! Local variable declarations
-!
    REAL blank , cross , dash , line(121) , symbol , xh , xi , xinc , xl , xmax , xmin , xnum(13) , xrange , yh , yinc , yinc2 , yl ,&
       & ymax , ymin , ynum
    INTEGER i , kline , l , mx , my
-!
-! End of declarations
-!
 !
 !
 !

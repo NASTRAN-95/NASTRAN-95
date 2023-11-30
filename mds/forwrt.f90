@@ -1,20 +1,11 @@
 
 SUBROUTINE forwrt(Form,Indata,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr
    COMMON /system/ Isysbf , Iwr
-!
-! Dummy argument declarations
-!
    INTEGER Nwds
    CHARACTER*1 Form(1000)
    INTEGER*4 Indata(Nwds)
-!
-! Local variable declarations
-!
    CHARACTER*1 a , blank , comma , d , e , f , g , h , i , lparen , number(10) , p , period , rparen , slash , x
    CHARACTER*4 cdata(200)
    REAL*4 data(200)
@@ -24,9 +15,6 @@ SUBROUTINE forwrt(Form,Indata,Nwds)
    INTEGER*4 idata(200)
    CHARACTER*132 line , tform
    CHARACTER*2 pfact
-!
-! End of declarations
-!
 !********************************************************************
 !    EXPECTED TYPES OF FORMAT CODES ARE AS FOLLOWS
 !        NH------       NENN.N       NDNN.N         NX

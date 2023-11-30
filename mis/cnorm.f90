@@ -1,26 +1,14 @@
 
 SUBROUTINE cnorm(X,Div,Y)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(30) , Filek(7)
    INTEGER Ibuf , Ind1 , Iter , Ncol , Nout
    COMMON /cinvpx/ Filek
    COMMON /cinvxx/ Dum , Ind1 , Iter
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Div(2) , X(1) , Y(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION cosang , d , max , r , ri , sign , temp , xo
    INTEGER i , idiag , ind , ncol2
-!
-! End of declarations
-!
 !
 !     CNORM WILL NORMALIZE X TO THE MAXIMUM ELEMENT EQUAL TO A MODULUS
 !     OF ONE AND STORE THE DIVISOR IN MAX (X MAY BE COMPLEX)

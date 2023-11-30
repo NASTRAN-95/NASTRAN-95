@@ -1,9 +1,6 @@
 
 SUBROUTINE gkam1b(Usetd,Scr1,Scr2,Phidh,Phidh1,Modes,Core,Lhset,Noue,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Um , Un , Une , Uo , Up , Ur , Us , Usb , Usg
    INTEGER Ia(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Ii , Irule , Lc , Lcore , N1 , N2 , N3 , Sysbuf , Uset
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
@@ -11,19 +8,10 @@ SUBROUTINE gkam1b(Usetd,Scr1,Scr2,Phidh,Phidh1,Modes,Core,Lhset,Noue,Scr3)
    COMMON /patx  / Lc , N1 , N2 , N3 , Uset
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Ii
-!
-! Dummy argument declarations
-!
    INTEGER Lhset , Modes , Noue , Phidh , Phidh1 , Scr1 , Scr2 , Scr3 , Usetd
    INTEGER Core(1)
-!
-! Local variable declarations
-!
    INTEGER i , mcb(7) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !

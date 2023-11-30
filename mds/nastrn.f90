@@ -2,9 +2,6 @@
 PROGRAM nastrn
    IMPLICIT NONE
    INCLUDE 'NASNAMES.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Ibasbf , Idbadr , Idbbas , Idbdir , Idbfre , Idblen , Ifilex , Indbas , Indcbp , Indclr , Inddir , Iocode , Irdict ,     &
          & Iropen , Isystm(94) , Iz(400000000) , Lastad , Lenalc , Lenopc , Lout , Maxalc , Maxblk , Maxdsk , Name , Nblock ,       &
          & Numcls , Numopn , Numrea , Numwri , Sperlk
@@ -18,16 +15,10 @@ PROGRAM nastrn
    COMMON /sofdsn/ Sdsn
    COMMON /system/ Isystm , Sperlk
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER i , iocmem , len
    INTEGER locfx
    CHARACTER*5 tmp
    CHARACTER*80 value
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Isystm,Systm)
    Lenopc = 400000000

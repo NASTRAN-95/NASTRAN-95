@@ -6,9 +6,6 @@ SUBROUTINE onlins(*,Lx)
 !     WRITTEN FEBY G.CHAN/SPERRY,  FEB. 1986
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Amax , Amin , Card(20) , Casecc , Core(1) , Dum(74) , Dumm(2) , Dummy(3) , Ibeg , Iblnk , Ibuf , Icc , Icomp , Icompx ,  &
          & Idum(4) , Idupl , Iel , Ielt(2) , Iend , Ieor , Iequal , Imax , Imin , In , Inc , Intra , Iopt , Is , Iset , Isort ,     &
          & Isub , Iz(1) , Jdum(6) , Lbeg , Lcore , Lcse(400) , Lencc , Lend , Mach , Ncpw , Nmodes , Nogo , Nset , Ntop , Nwpc ,    &
@@ -21,21 +18,12 @@ SUBROUTINE onlins(*,Lx)
    COMMON /system/ Ibuf , Outtap , Nogo , In , Dum , Swtch1 , Jdum , Intra
    COMMON /xscanx/ Skip , Lcore , Lbeg , Lend , Dumm , Iel , Iopt , Iset , Isort , Idum , Debug
    COMMON /zzzzzz/ Lcse , Core
-!
-! Dummy argument declarations
-!
    INTEGER Lx
-!
-! Local variable declarations
-!
    INTEGER all , bgn , blank , debug1 , debug2 , debug3 , end , equal , i , i0 , i81 , ib , iscan , j , jj , jmp , jumph , kk , l , &
          & lsem , lu , name(2) , nout , nwpc1 , nz , nzz , stop , subid
    INTEGER andf , complf , korsz , lshift , orf , rshift
    REAL r(2)
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !            /ZZIFP1/ IS THE OPEN CORE FOR SCAN
    EQUIVALENCE (Iz(1),Lcse(1))

@@ -1,31 +1,19 @@
 
 SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL App(2) , Comps , Dum71(100) , Forsul(200) , Sk2(39) , Skp(4) , Sort2 , Stres(100) , Strin(100)
    LOGICAL Forreq , Grids , Gridss , Layer , Layers , Ostrai , Stnreq , Strcur , Stsreq , Vonms , Vonmss
    INTEGER Idum(2) , Midve , Nstres(1) , Nstrin(1)
    COMMON /blank / App , Sort2 , Idum , Comps , Skp , Ostrai , Sk2 , Midve
    COMMON /outreq/ Stsreq , Stnreq , Forreq , Strcur , Grids , Vonms , Layer , Gridss , Vonmss , Layers
    COMMON /sdr2x7/ Dum71 , Stres , Forsul , Strin
-!
-! Dummy argument declarations
-!
    LOGICAL Bendng
    INTEGER Elid , Numpx
    REAL Epslni(6,1) , Z12(2,1)
    INTEGER Idr(1) , Igrid(1)
-!
-! Local variable declarations
-!
    LOGICAL cosmic
    REAL epsil(3) , epsilp(4) , epss , fiber
    INTEGER i , inplan , inptmp , istrin , its , iz , nump , nump1
-!
-! End of declarations
-!
 !
 !     TO CALCULATE SHELL ELEMENT STRAINS FOR A 2-D FORMULATION BASE.
 !     COMPOSITE LAYER STRAINS ARE NOT CALCULATED IN THIS ROUTINE.

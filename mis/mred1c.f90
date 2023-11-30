@@ -1,9 +1,6 @@
 
 SUBROUTINE mred1c
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds
    INTEGER Dry , Eqsind , Gbuf1 , Idum1(6) , Idum2(4) , Idum3(4) , Idum4(4) , Idum5(20) , Idum6(3) , Idum7(4) , Itwo(32) , Korlen , &
          & Locust , Namebs , Ncsubs , Newnam(2) , Nsil , Nslbgn , Oldnam(2) , Rgrid(2) , Ub , Z(1)
@@ -12,16 +9,10 @@ SUBROUTINE mred1c
                  & Nslbgn , Nsil , Idum6 , Locust , Idum7 , Bounds
    COMMON /two   / Itwo
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , orf
    INTEGER bitpat(32) , eqst , eqstrl(7) , estdta , estwrt , i , icode , ifile , imsg , itest , j , k , kompnt , korbgn , loindx ,  &
          & modnam(2) , nbgss , ndof , newips , newsil , nhbgss , nwds , nwdsd , nwdsrd , sildof , silind
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CONVERTS THE EQSS DATA AND BGSS DATA TO CORRESPOND
 !     TO THE BOUNDARY DEGREES OF FREEDOM (UB) FOR THE MRED1 MODULE

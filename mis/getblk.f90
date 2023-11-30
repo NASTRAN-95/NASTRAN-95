@@ -1,9 +1,6 @@
 
 SUBROUTINE getblk(Iold,Inew)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Avblks , Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Filsiz(10) , Ihalf , Iodum(8) ,    &
          & Jhalf , Mach , Mdidum(4) , Mdiup , Nbuff , Nfiles , Nxt , Nxtcur , Nxtfsz(10) , Nxtlbn , Nxtpbn , Nxttsz , Supsiz
    LOGICAL Ditup , Nxtrst , Nxtup
@@ -15,20 +12,11 @@ SUBROUTINE getblk(Iold,Inew)
    COMMON /sys   / Blksiz , Dirsiz , Supsiz , Avblks
    COMMON /system/ Nbuff
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Inew , Iold
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    INTEGER btfree , filind , filnum , filsup , i , ind , index , indsbr , ird , iwrt , last , left , lmask , lstsiz , max , nmsbr(2)&
          & , nxtblk , tpfree
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     FINDS A FREE BLOCK INEW.  IF IOLD IS NOT ZERO IOLD POINTER WILL
 !     BE SET TO INEW.

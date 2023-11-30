@@ -1,25 +1,13 @@
 
 SUBROUTINE gridip(Grid,Seqss,Len,Ipset,Cset,No,Z,Lloc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ierr , Inam(2)
    COMMON /cmbfnd/ Inam , Ierr
-!
-! Dummy argument declarations
-!
    INTEGER Grid , Len , Lloc , No , Seqss
    INTEGER Cset(6) , Ipset(6) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , icode , istart , k , kk , loc , mask26 , nent , noapp , posno
    INTEGER maskn , orf , rshift
    EXTERNAL orf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE FINDS SETS OF IP NUMBERS AND DEGREE OF FREEDOM
 !     COMPONENT NUMBERS FOR GRID POINTS DEFINED IN A BASIC

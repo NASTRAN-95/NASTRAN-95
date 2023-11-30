@@ -1,9 +1,6 @@
 
 SUBROUTINE sma3c(Iflag,K)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D11(2)
    REAL Dum(4) , Dum1(62) , Dummy(53) , Z(1)
    INTEGER Gei , Id , Iprec , Iz(1) , Luset , M , N , Stz(1) , Stzs(1) , Sysbuf , Zinvs(1) , Zs(1)
@@ -12,21 +9,12 @@ SUBROUTINE sma3c(Iflag,K)
    COMMON /system/ Sysbuf , Dummy , Iprec
    COMMON /zblpkx/ D11 , Id
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iflag
    INTEGER K(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a11 , b11
    REAL block1(20) , block2(20)
    INTEGER i , ia , iad , iaeol , ib , ibd , ibeol , idp , ihop , ii , iip , iud , iui , jj , l , llen , nam1 , nam2 , name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WILL MERGE ZINVS,ZS,STZ,AND STZS INTO KE AND
 !       BUILD KE UP TO G SIZE.  IF INFLAG .LT. 0 THERE ARE NO

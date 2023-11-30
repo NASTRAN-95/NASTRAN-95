@@ -1,18 +1,9 @@
 
 SUBROUTINE line10(X1,Y1,X2,Y2,Penden,Opt)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Opt , Penden
    REAL X1 , X2 , Y1 , Y2
-!
-! Local variable declarations
-!
    INTEGER a(6) , line , optx
-!
-! End of declarations
-!
 !
 !     X1,Y1  = STARTING POINT OF THE LINE
 !     X2,Y2  = TERMINAL POINT OF THE LINE

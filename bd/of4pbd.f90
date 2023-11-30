@@ -1,14 +1,8 @@
 
 BLOCKDATA of4pbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C1(240) , C21(240) , C41(240) , C61(240) , C81(240)
    COMMON /ofpb4 / C1 , C21 , C41 , C61 , C81
-!
-! End of declarations
-!
 !OF4PBD
 !
 !     C ARRAY FOR COMPLEX STRESSES SORT2 FREQUENCY

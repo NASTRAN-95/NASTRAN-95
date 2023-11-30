@@ -1,19 +1,10 @@
 
 SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ndata , Ntype , Nxy
    REAL Xdata(2) , Xin(1) , Ydata(2) , Yout(1)
-!
-! Local variable declarations
-!
    REAL a(21) , b(21) , d(21) , dx , m(21) , yprime
    INTEGER i , ii , j , jp , kp , n
-!
-! End of declarations
-!
 !
 !
 !

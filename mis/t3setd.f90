@@ -1,24 +1,15 @@
 
 SUBROUTINE t3setd(Ierr,Sil,Jgpdt,Elth,Gpth,Dgpth,Egpdt,Gpnorm,Epnorm,Iorder,Teb,Tub,Cent,Avgthk,Lx,Ly,Edglen,Elid)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Avgthk , Lx , Ly
    INTEGER Elid , Ierr
    REAL Elth
    DOUBLE PRECISION Cent(3) , Dgpth(3) , Edglen(3) , Egpdt(4,3) , Epnorm(4,3) , Gpnorm(4,3) , Teb(9) , Tub(9)
    REAL Gpth(3)
    INTEGER Iorder(3) , Jgpdt(4,3) , Sil(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION area2 , axis(3,3) , cc , edg12(3) , edg13(3) , edg23(3) , ggu(9) , length , small , x(3) , y(3) , z(3)
    REAL bgpdt(4,3) , tmpthk(3)
    INTEGER i , igpdt(4,3) , igrid(4,3) , ii , ip , ipoint , isil , itemp , j , k , ksil(3) , nnode , nodei , nodej , nodek
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION ROUTINE TO DO THE SET-UP FOR TRIA3 ELEMENTS
 !

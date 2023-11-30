@@ -3,18 +3,9 @@ SUBROUTINE dbmrel
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'ZZZZZZ.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr
    COMMON /system/ Isysbf , Iwr
-!
-! Local variable declarations
-!
    INTEGER index , isave
-!
-! End of declarations
-!
 !********************************************************************
 !  DBMREL  -   RELEASES IN-MEMORY BLOCKS THAT ARE CURRENTLY
 !              ALLOCATED TO AN IN-MEMORY FILE

@@ -1,9 +1,6 @@
 
 SUBROUTINE dquad(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(1) , A1(3) , D1(3) , D2(3) , Dpdum(1) , Dpdum2(43) , E(18) , H , Ivect(3) , Jvect(3) , Kout(36) , Ksum(36) ,  &
                   & Kvect(3) , Prod9(9) , R(2,4) , Requiv(8) , Sigx , Sigxy , Sigy , T(9) , Temp , Temp18(18) , Temp9(9) , Tite(18) &
                   & , Tjte(18) , U1 , U2 , V(2) , Vv(2) , Xsubb , Xsubc , Ysubc
@@ -26,17 +23,8 @@ SUBROUTINE dquad(Itype)
                  & G2x211 , G2x212 , G2x222
    COMMON /system/ Ibuff , Nout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , j , k , m(12)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE FOLLOWING
 !

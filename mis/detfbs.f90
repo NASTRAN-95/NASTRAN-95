@@ -1,9 +1,6 @@
 
 SUBROUTINE detfbs(Iy,Iobuf,Fileu,Nrow,Kcount)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dum1(23) , Dum2(11) , Dum3(36) , Rd , Rdrew , Rew , Wrt , Wrtrew , X(1) , Y(1)
    DOUBLE PRECISION Dx(1) , Dy(1)
    INTEGER Filev(7) , Filevt(7) , Incr , Ipdeta , Itypex , Iunpak , Junpak , Lcore , Ncr , Option , Scr(2) , Scr3 , Scr4 , Scr6
@@ -14,20 +11,11 @@ SUBROUTINE detfbs(Iy,Iobuf,Fileu,Nrow,Kcount)
    COMMON /trnspx/ Filev , Filevt , Lcore , Ncr , Scr
    COMMON /unpakx/ Itypex , Iunpak , Junpak , Incr
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iy , Kcount , Nrow
    INTEGER Fileu(7) , Iobuf(7)
-!
-! Local variable declarations
-!
    REAL aden , ai , anum , avalue , sdiag , xmin
    DOUBLE PRECISION dsdiag , dxmin
    INTEGER i , index , isd , ising , ius , j , k , nfile , parm(4) , sdet
-!
-! End of declarations
-!
 !
 !     DETFBS IS A SPECIAL VERSION OF THE GFBS ROUTINE AND IS USED BY
 !     THE REAL DETERMINANT METHOD.  IT IS SUITABLE FOR BOTH SINGLE

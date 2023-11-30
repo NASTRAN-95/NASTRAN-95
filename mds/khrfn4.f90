@@ -1,18 +1,9 @@
 
 INTEGER FUNCTION khrfn4(Word)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Word(1)
-!
-! Local variable declarations
-!
    CHARACTER*1 c1(4) , c2(4)
    INTEGER w1 , w2
-!
-! End of declarations
-!
 !
 !     REVERSE BYTES FOR SORTING (USED MAINLY BY THE VAX MACHINE)
 !

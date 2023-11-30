@@ -1,9 +1,6 @@
 
 SUBROUTINE exi2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , Dry , Iadd , Irow , Lbuf , Line , Mach , Nlpp , Nout , Nword(4) , Prc(2) , Sysbuf , Uname(2) , Unit , Z(1)
    DOUBLE PRECISION Da , Dz(1)
    REAL Rd , Rdrew , Rew , Univac , Wrt , Wrtrew , X1(3) , X2(18) , X3(6) , X4(2)
@@ -18,9 +15,6 @@ SUBROUTINE exi2
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bar , buf1 , buf2 , buf3 , buf4 , dit , eog , eoi , hdr(7) , i , idm , iprc , irw , item , itest , itm , j , jh , k ,    &
          & lcore , leof , mcb(7) , mdi , n , name(2) , ncol , ncore , nos , np2 , nwds , offset , plts , prec , q4 , rc , scr1 ,    &
          & sof , sp , srd , subr(2) , swrt , t3
@@ -28,9 +22,6 @@ SUBROUTINE exi2
    LOGICAL usrmsg
    REAL zero(6)
    EXTERNAL lshift
-!
-! End of declarations
-!
 !
 !     EXI2 PERFORMS EXTERNAL FORMAT SOFIN OPERATIONS
 !

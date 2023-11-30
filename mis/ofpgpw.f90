@@ -1,25 +1,13 @@
 
 SUBROUTINE ofpgpw(*,File,Out,From)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dummy(10)
    INTEGER Ibuf , L , L1 , L2 , L3 , L4 , L5 , Line , Of(5)
    COMMON /system/ Ibuf , L , Dummy , Line
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER File , From
    DOUBLE PRECISION Out(1)
-!
-! Local variable declarations
-!
    INTEGER flag , i
-!
-! End of declarations
-!
 !
 !     PRINT GRID POINT WEIGHT GENERATORN TABLE
 !     (SOURCE PROGRAM ORIGINALLY CODED IN OFP)

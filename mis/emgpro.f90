@@ -1,9 +1,6 @@
 
 SUBROUTINE emgpro(Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat
    INTEGER Cstm , Dictn(3) , Dit , Elem(1) , Elid , Eltype , Est , Estbuf(200) , Estid , Flags(3) , Geom2 , Icall , Icmbar , Icong ,&
          & Icore , Icstm , Idit , Ihmat , Ilast , Imat , Incr , Iprec , Iz(1) , Jcore , Kdummy(22) , Kflags(3) , Knogo , Ksystm(65) &
@@ -33,21 +30,12 @@ SUBROUTINE emgpro(Ibuf)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf(7)
-!
-! Local variable declarations
-!
    INTEGER dosi(2) , eor , estwds , i , i1 , i2 , iadd , iaddd , ibfind , ibuf1 , ibuf2 , ibuf3 , icg , icrq , idprim , ifile ,     &
          & igoto , imatch , indcng , index , index1 , ipos(32) , ipr , iprime , iqdmm1 , iqdmm2 , isave1 , isave2 , isil , iwords , &
          & izero , j , jfile , jjcore , jltype , kht , l , l1 , l2 , lnum , local , ltypes , m , n , nnwrds , noeor , nscal1 ,      &
          & nscal2 , nsils , nwords , ret , savjcr , savncr , scr3 , scr4 , sil(32) , subr(2)
    REAL thk , trim6(2) , trpl1(2) , trshl(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OF THE -EMG- MODULE IS THE MAIN PROCESSOR.  IT WILL
 !     PASS THE -EST- DATA BLOCK ONCE, ELEMENT TYPE BY ELEMENT TYPE.

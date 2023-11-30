@@ -1,9 +1,6 @@
 
 SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum1(6) , Head(96) , Z(1)
    INTEGER Ibit(64) , Ii , Incr , Ito , Itwo(32) , Iz(1) , Nlpp , Nn , Out , Sysbuf
    COMMON /bitpos/ Ibit
@@ -12,23 +9,14 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
    COMMON /two   / Itwo
    COMMON /unpakx/ Ito , Ii , Nn , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Ncore , Nfreq , Nload , Pkf , Sila , Spline , Useta
    REAL Freq(1)
-!
-! Local variable declarations
-!
    INTEGER all , extid , i , iaero , ibuf1 , ibuf2 , icc , id , iend , ipsil , ipuset , iret , iret1 , irow , iset , isetno ,       &
          & ismal , izsil , izspl , izuset , izvect , j , k , l , lcc , lcs , lsp(2) , m , mask , mm , n , nam(2) , nextra , nhfssu ,&
          & nlppp , nr , nset , nsil , nskip , nspl , nvect , nwr , setno , trl(7)
    INTEGER andf
    REAL buf(12) , dum , tsave(96)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     ADRPRT FORMATS PKF BY USER SET REQUEST FOR EACH FREQUENCY
 !

@@ -1,24 +1,12 @@
 
 SUBROUTINE skpfrm(Bframs)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axymax(2) , Edge(2) , Origin(2) , Pxymax(7) , Reg(2,2) , Skpplt(9)
    INTEGER Camera , Model , Ploter
    COMMON /pltdat/ Model , Ploter , Reg , Axymax , Edge , Camera , Skpplt , Pxymax , Origin
-!
-! Dummy argument declarations
-!
    INTEGER Bframs
-!
-! Local variable declarations
-!
    INTEGER a(10) , adv10(3) , bfrms , con10 , i
    REAL save(2,4) , xymax(2)
-!
-! End of declarations
-!
 !
    DATA adv10 , con10/1 , 2 , 3 , 3/
 !

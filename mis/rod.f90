@@ -1,9 +1,6 @@
 
 SUBROUTINE rod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Arry(3) , Bgpdt(9) , Bufflg , Core(1) , Costh , Degra , Delta , E1 , Endid , Eorflg , Force(3) , G , Ge , Gpida1(1) &
       & , Gpidb1(1) , Oldel , Pi , Radeg , Rho , S4pisq , Sigmac , Sigmas , Sigmat , Sinth , Space(10) , Stress , Tbar , Temp ,     &
       & Ti(16) , To1 , Twopi , Vect(3) , Vmag , Xl
@@ -15,14 +12,8 @@ SUBROUTINE rod
    COMMON /ssgwrk/ Ti , Vect , Force , Bgpdt , Vmag , In , L , Tbar , Delta , Xl
    COMMON /trimex/ Eid , Gpida , Gpidb , Iarry
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL a
    INTEGER i , nept
-!
-! End of declarations
-!
 !
 !     ELEMENT TEMPERATURE AND DEFORMATION LOADING FOR THE ROD, CONROD,
 !     TUBE

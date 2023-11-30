@@ -1,28 +1,16 @@
 
 SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Casnew , Dit , Dlt , Fol , Frl , Gustl , Nfreq , Nload , Nogust , Pp
    REAL V , Xo
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf1 , ibuf2 , ibuf3 , icc , idx , igsid , igst , igust(2) , ip1 , lcc , lgust(5) , name(2) , nlgust , nogo ,&
          & notrd , nz
    REAL frqset , rgust(5)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THI ROUTINE IS TO GERATE PP,GUSTL,FOL.
 !

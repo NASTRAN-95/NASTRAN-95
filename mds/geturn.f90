@@ -2,26 +2,14 @@
 SUBROUTINE geturn(Namfil)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Ifatca , Ifatmx , Ifatuf , Ifiat(640) , Ifist(100) , Ifstca , Ifstmx , Ixfiat(19)
    INTEGER*2 Iunit(220)
    COMMON /dsunit/ Iunit
    COMMON /xfiat / Ifatuf , Ifatmx , Ifatca , Ifiat
    COMMON /xfist / Ifstmx , Ifstca , Ifist
    COMMON /xxfiat/ Ixfiat
-!
-! Dummy argument declarations
-!
    INTEGER Namfil
-!
-! Local variable declarations
-!
    INTEGER ifst , lim , mask
-!
-! End of declarations
-!
    DATA mask/'00007FFF'x/
    IF ( Namfil/=Lasnam .OR. Ifilex==0 ) THEN
       Ifilex = 0

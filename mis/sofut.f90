@@ -1,9 +1,6 @@
 
 SUBROUTINE sofut
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Ditup
    INTEGER Dry , Items(10) , Iz(1) , Name1(2) , Name2(2) , Nout , Oper(2) , Opt , Prefx(2) , Sysbuf
    REAL Sss(33)
@@ -14,15 +11,9 @@ SUBROUTINE sofut
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER dele , i , ib1 , ib2 , ib3 , idest , iedit , iequiv , ii , iprnt , iscr1 , itask , itest , name(2) , nz , renam
    INTEGER ittype , korsz
    EXTERNAL rename
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THE MODULE IS TO PERFORM THE TASKS OF ALTERING THE
 !     SOF FILE IN ORDER TO EDIT, PURGE, AND EQUIVALENCE THE DATA ITEMS

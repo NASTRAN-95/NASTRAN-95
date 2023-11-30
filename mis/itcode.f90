@@ -1,25 +1,13 @@
 
 FUNCTION itcode(Itemx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ifrst , Item(7,1) , Nitem
    REAL Sys(5)
    COMMON /itemdt/ Nitem , Item
    COMMON /sys   / Sys , Ifrst
-!
-! Dummy argument declarations
-!
    INTEGER Itemx
    INTEGER itcode
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THE FUNCTION RETURNS AN INTEGER CODE NUMBER FOR ITEM.  THE CODE
 !     NUMBER IS USED IN UPDATING THE MDI.  IF AN INCORRECT ITEM NAME IS

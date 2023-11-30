@@ -1,9 +1,6 @@
 
 SUBROUTINE pload4(Ibuf5,Ido,Jopen)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Est , Ibuf , Idum(5) , Ielem(1) , Iest(45) , Incr , Iprec , Islt(11) , Iz(1) , Jdum(52) , Last , Lcare , Nelem , Nout ,  &
          & Slt
@@ -14,19 +11,10 @@ SUBROUTINE pload4(Ibuf5,Ido,Jopen)
    COMMON /system/ Ibuf , Nout , Jdum , Iprec
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf5 , Ido , Jopen
-!
-! Local variable declarations
-!
    LOGICAL allin , debug
    INTEGER file , i , ib , ido11 , ieltyp , imhere , j , jsave , lcore , name(2) , nwords , q4 , quad4 , t3 , tria3
    REAL flag
-!
-! End of declarations
-!
 !
 !     TO GENERATE PLOAD4 PRESSURE LOAD FOR QUAD4 AND TRIA3 ELEMENTS.
 !

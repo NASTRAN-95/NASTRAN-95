@@ -1,9 +1,6 @@
 
 SUBROUTINE bdat06
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Combo(7,5) , Geom4 , Iauto , Idry , Ierr , Ihead(96) , Inam(2) , Inpt , Iprint , Isort ,     &
          & Ititl(96) , Lcore , Mcon , Npsub , Outt , Scbdat , Score , Scr1 , Scr2 , Z(1)
    REAL Buf5 , Casecc , Conect , Conset , Origin(7,3) , Restct(7,7) , Scconn , Scmcon , Scsfil , Sctoc , Step , Toler , Tran
@@ -18,16 +15,10 @@ SUBROUTINE bdat06
    COMMON /output/ Ititl , Ihead
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , flag , gtran(2) , i , ic , id(5) , ifile , ihd(96) , imsg , is , kk , n , nn
    INTEGER andf , rshift
    LOGICAL print
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE GTRAN BULK DATA
 !

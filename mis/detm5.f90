@@ -1,9 +1,6 @@
 
 SUBROUTINE detm5
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Core(5) , Epsi , Fact1 , P(32) , Prec , Rmax , Rmin , Rminr , Scr6 , Sml1 , Tphi
    DOUBLE PRECISION Det(1) , Ps(1) , Psave(1)
    INTEGER Iadd , Ic , Idet , Ifail , Iffnd , Im(26) , Ipdet(8) , Ipdet1(4) , Ipdeta , Ipdetx(4) , Ipout , Ips , Ipsav , Is ,       &
@@ -14,14 +11,8 @@ SUBROUTINE detm5
    COMMON /regean/ Im , Lcore , Rmax , Rmin , Mz , Nev , Epsi , Rminr , Ne , Nit , Nevm , Scr6 , Ipout , Nfound , Lama
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Psave
-!
-! Local variable declarations
-!
    INTEGER i , n2ev2 , nnd , nni , nnp , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     WRITES EIGENVALUE SUMMARY FOR DETERMINANT METHOD
 !

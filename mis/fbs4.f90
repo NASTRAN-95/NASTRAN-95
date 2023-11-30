@@ -1,9 +1,6 @@
 
 SUBROUTINE fbs4(Block,Y,Yn,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbl , N , Nout
    DOUBLE PRECISION L(1)
    CHARACTER*25 Sfm , Uwm
@@ -14,21 +11,12 @@ SUBROUTINE fbs4(Block,Y,Yn,Nwds)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ L
-!
-! Dummy argument declarations
-!
    INTEGER Nwds
    INTEGER Block(8)
    DOUBLE PRECISION Y(1) , Yn(1)
-!
-! Local variable declarations
-!
    INTEGER begn , buf(2) , end , ii , ij , ik , j , j1 , ji , jk , jstr , k , last , nbritm , nstr , nterms , subnam
    DOUBLE PRECISION ljji , ljjr , ssqr , sum1 , sum2 , yjki , yjkr , zero
    INTEGER locfx
-!
-! End of declarations
-!
 !
 !     FBS4 EXECUTES THE FORWARD/BACKWARD PASS FOR FBSF IN CDP
 !

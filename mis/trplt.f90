@@ -1,9 +1,6 @@
 
 SUBROUTINE trplt(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(45) , C1 , C2 , Consts(5) , Cosang , Costh , D(9) , D1(3) , D2(3) , Degra , Determ , Dum10 , Dum11 , Dum12(4) , Dum8 ,    &
       & Dum9 , E(18) , Ecpt(100) , Eltemp , Habc(18) , Hinv(36) , Hq(12) , Ivect(3) , Jvect(3) , Khi(5) , Ks(30) , Kvect(3) , L1 ,  &
       & L2 , P(5) , Prod12(12) , Prod15(15) , Prod9(9) , R(2,4) , Requiv(9) , S(18) , S1 , S2 , Sinang , Sinth , Ssum(60) , Stress ,&
@@ -19,18 +16,9 @@ SUBROUTINE trplt(Ti)
                  & Dum10 , Xc , Yc , Determ , Dum12
    COMMON /trimex/ Ecpt
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Ti(6)
-!
-! Local variable declarations
-!
    REAL g(36) , temp15(15)
    INTEGER i , j , k , l , m(9)
-!
-! End of declarations
-!
 !
 !     ELEMENT THERMAL LOADING FOR THE BENDING TRIANGULAR PLATE.
 !

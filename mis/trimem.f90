@@ -1,9 +1,6 @@
 
 SUBROUTINE trimem(Ntype,Tbar,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alphas(3) , Angle , C(18) , Consts(5) , Costh , Degra , Dummy1 , Dummy2 , Dummy3 , E(18) , Ecpt(21) , Eltemp , Etempx(6) ,  &
       & Fmu , G(9) , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , Rho , Sigcom , Sigshe , Sigten , Sinth ,&
       & Stress , T , Tempar(9) , Tsub0 , X1 , X2 , X3 , Y1 , Y2 , Y3 , Z1 , Z2 , Z3
@@ -14,20 +11,11 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
                  & G2x222
    COMMON /ssgwrk/ Etempx , C , E , G , Tempar
    COMMON /trimex/ Necpt , Ngrid , Angle , Matid1 , T , Fmu , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 , Z2 , Dummy3 , X3 , Y3 , Z3
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
    REAL Tbar
    REAL Pg(1)
-!
-! Local variable declarations
-!
    REAL delta , flamda , reelmu , temp , theta , vol , xsubb , xsubc , ysubc
    INTEGER i , k , l
-!
-! End of declarations
-!
 !
 !     ******** PHASE I OF STRESS DATA RECOVERY *************************
 !     ******** TRIANGULAR MEMBRANE ELEMENT *****************************

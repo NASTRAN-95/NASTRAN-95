@@ -1,9 +1,6 @@
 
 SUBROUTINE inptt1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ksystm(65) , Line , Mach , Nb , Nlpp , Nout , P1 , P2 , P3(2) , P4(2)
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
@@ -14,9 +11,6 @@ SUBROUTINE inptt1
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , rshift
    INTEGER bcdbin(4) , dx(3) , i , idhdr(7) , idhdrx(7) , ifile , in , inbuf , inn(10) , iold , ipt1 , ipt4 , iptx , ix , j , j1 ,  &
          & j2 , kf , lcor , mask , mete , mfiv , mfor , mnin , mone , msc , msix , mtre , mtwo , name(2) , namex(2) , nf , nnt ,    &
@@ -24,9 +18,6 @@ SUBROUTINE inptt1
    LOGICAL tapbit
    LOGICAL tapeup
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     READ DATA BLOCK(S) FROM A NASTRAN USER TAPE WHICH MUST BE SET UP.
 !

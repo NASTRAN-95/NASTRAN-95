@@ -1,9 +1,6 @@
 
 SUBROUTINE ktshld
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , C1 , C10 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , Cc(10) , Costh , Dumy(12) , Eltemp , Em(6) , Est(100) , F(14,14)&
       & , Fac , Gsube , Ivect(3) , Jvect(3) , Kvect(3) , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Tref , &
       & Xc(6) , Yc(6) , Zc(6)
@@ -26,9 +23,6 @@ SUBROUTINE ktshld
                  & Small , Index , Ics , Nl
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL a , a1 , a2 , a3 , amass , b , blank , c , dista , distb , distc , j11 , j12 , j22 , name(2) , nsm , tbend1 , tbend3 ,      &
       & tbend5 , theta1 , thetam , thk1 , thk2 , thk3 , tmem1 , tmem3 , tmem5 , tshr , tshr1 , tshr3 , tshr5
    DOUBLE PRECISION a1sq , a2sq , a3sq , area , cm1(30,30) , cms(900) , cmt(1296) , ctm(36,36) , d11 , d12 , d13 , d132 , d22 ,     &
@@ -50,9 +44,6 @@ SUBROUTINE ktshld
    DOUBLE PRECISION sb30 , sb31 , sb32 , sb33 , sb34 , sb35 , sb36 , sb37 , sb38 , sb39 , sb4 , sb40 , sb41 , sb5 , sb6 , sb7 ,     &
                   & sb8 , sb9 , st , st1 , st11 , st121 , st122 , st131 , st132 , st133 , st22 , st231 , st232 , st233 , st331 ,    &
                   & st332 , vol
-!
-! End of declarations
-!
 !
 !     ECPT ENTRIES
 !

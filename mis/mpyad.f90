@@ -1,24 +1,12 @@
 
 SUBROUTINE mpyad(Zz,Z,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Prec1 , Scrtch , Signab , Signc , T , Time
    INTEGER Ksystm(152) , Method , Nz
    COMMON /mpyadx/ Filea , Fileb , Filec , Filed , Nz , T , Signab , Signc , Prec1 , Scrtch , Time
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    REAL Z , Zd , Zz
-!
-! Local variable declarations
-!
    INTEGER l49
-!
-! End of declarations
-!
 !
 !     THE FOLLOWING DEFINES THE VARIOUS I/O METHODS AND STORAGE METHODS USED
 !  BY THE DIFFERENT MULTIPLY-ADD METHODS.

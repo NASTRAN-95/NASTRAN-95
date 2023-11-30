@@ -1,23 +1,11 @@
 
 SUBROUTINE pktrqd(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(600) , Ecpt(100) , Save(32)
    COMMON /pla42d/ Dummy
    COMMON /pla4es/ Ecpt
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !  THIS ROUTINE SETS UP THE ECPT FOR COMBINATION ELEMENTS IN PLA4
 !
 !

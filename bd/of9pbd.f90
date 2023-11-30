@@ -1,14 +1,8 @@
 
 BLOCKDATA of9pbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C1(240) , C41(240)
    COMMON /ofpb9 / C1 , C41
-!
-! End of declarations
-!
 !OF9PBD
 !
 !     BLOCK DATA FOR ALL NON-STRESS AND NON-FORCE C ARRAYS

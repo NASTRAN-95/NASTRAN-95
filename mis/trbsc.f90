@@ -1,9 +1,6 @@
 
 SUBROUTINE trbsc(Iopt,Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Alp12 , Alpha1 , Alpha2 , Angle , Area , Consts(5) , Costh , D(9) , Degra , Determ , Dum55(1) , Dumdum(4) ,        &
       & Dummy1 , Dummy2 , Dummy3 , E(18) , Ecpt(25) , Eltemp , Eye , Fmu , G(9) , G11 , G12 , G13 , G22 , G23 , G2x2(4) , G2x211 ,  &
       & G2x212 , G2x222 , G33 , Gsube , Hib(18) , Hic(18) , Hinv(36) , J2x2(4) , Khi(5) , Ks(30) , P(6) , Prod9(9) , Px2 , Pxy2 ,   &
@@ -24,18 +21,9 @@ SUBROUTINE trbsc(Iopt,Ti)
    COMMON /trimex/ Necpt , Ngrid , Angle , Matid1 , Eye , Matid2 , T2 , Fmu , Z11 , Z22 , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 ,&
                  & Z2 , Dummy3 , X3 , Y3 , Z3
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
    REAL Ti(6)
-!
-! Local variable declarations
-!
    INTEGER i , j , k
-!
-! End of declarations
-!
 !
 !     ELEMENT THERMAL LOADING ROUTINE FOR THE BASIC BENDING TRIANGLE.
 !

@@ -1,28 +1,16 @@
 
 SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Eofnrw , Rd , Rdrew , Rew , Rsp , Wrt , Wrtrew , Z(4)
    INTEGER Ieol , Ii , Norew
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp
    COMMON /zntpkx/ Z , Ii , Ieol
-!
-! Dummy argument declarations
-!
    REAL Eps
    INTEGER Mass , Ndim , Num
    DOUBLE PRECISION Accum(1)
    REAL Gm(Num,1) , X(Ndim,1)
    INTEGER Ibuf(1)
-!
-! Local variable declarations
-!
    INTEGER i , iden , im(7) , j , k , kk , m
-!
-! End of declarations
-!
 !
 !     ORTCK WILL GENERATE THE GENERALIZED MASS MATRIX FOR CLOSE ROOTS
 !     AND MAKE THE EPSILON TEST TO DETERMINE IF THE VECTORS SHOULD BE

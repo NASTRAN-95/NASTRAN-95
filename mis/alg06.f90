@@ -1,21 +1,12 @@
 
 SUBROUTINE alg06(R1,R2,X1,X2,H,S,Vm,Tb1,Tb2,W,Xk,Sclfac,Speed,Spdfac,G,Ej,Hmin,Nstrms,Pi)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Ej , G , Hmin , Pi , Sclfac , Spdfac , Speed , Xk
    INTEGER Nstrms
    REAL H(1) , R1(1) , R2(1) , S(1) , Tb1(1) , Tb2(1) , Vm(1) , W(1) , X1(1) , X2(1)
-!
-! Local variable declarations
-!
    REAL a , b(150) , dr , q1 , q2 , r(150) , w2d(150) , w3d(150) , xx1(150) , xx2(150) , xx3(150) , xx5(9,9)
    REAL alg4 , alg5
    INTEGER j , jj , jjj , l , ll , nkeep , ntub
-!
-! End of declarations
-!
 !
 !
    EQUIVALENCE (xx2(1),xx5(1,1))

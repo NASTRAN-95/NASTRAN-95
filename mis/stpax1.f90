@@ -1,9 +1,6 @@
 
 SUBROUTINE stpax1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acurl(208) , Acurp1(48) , Acurp2(16) , Ak(144) , Akph2(16) , Akuph(48) , Alf(3) , Anu(3) , Consts(5) , Costh , D(144) ,     &
       & Degrad , Dum5(61) , Dum75(75) , E(3) , E1(36) , Ecpt(39) , Eltemp , G(3) , Gsube , Phi(14) , Pi , Pzout(51) , R(5) , R1 ,   &
       & R2 , R3 , R4 , Rho , Sel(360) , Selp1(120) , Selp2(180) , Selp3(60) , Setmat , Sinth , Stress , Ts(06) , Twopi , Tz ,       &
@@ -18,18 +15,12 @@ SUBROUTINE stpax1
    COMMON /sdr2x6/ D , E1 , Wj , R , Z
    COMMON /system/ Ibuf , Iout , Dum75 , Ksys78
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL ajho , ajjho , alfb(6) , c2 , c2s2 , c3 , c4 , cosg , cs , cs2 , d1(48) , d2(16) , del , delint(12) , dgama , dgamr , ee(63)&
       & , er , et , ez , gababq(12,12) , gbp(4,4) , gor , grz , gzo , rmax , rmin , rsum , s2 , s3 , s4 , sc2 , sing , tempe ,      &
       & teo(45) , vor , voz , vro , vrz , vzo , vzr , wjp(3,4) , zdr , zmin , zsum
    INTEGER i , i1 , ib , ic , ics(4) , idel1 , iki , ip , iq , ising , j , k , kp1 , kp2 , kp3 , ksave , matid , sp(50)
    LOGICAL lsys78 , pzmat
    REAL rzints
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE I OF STRESS DATA RECOVERY FOR THE AXI-
 !     SYMMETRIC WITH A TRAPEZOIDAL CROSS SECTION

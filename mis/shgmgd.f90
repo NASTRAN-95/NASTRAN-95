@@ -1,9 +1,6 @@
 
 SUBROUTINE shgmgd(*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph1 , Alph12 , Alph2 , Cosmat , Dum(8) , Dummy , E , E1 , E2 , Eltemp , G11 , G12 , G12x , G13 , G1z , G22 , G23 , G2z ,  &
       & G33 , Ge , Matset , Nu12 , Rhox , Sc , Sinmat , Ss , St , Tref
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
@@ -11,24 +8,15 @@ SUBROUTINE shgmgd(*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
    COMMON /matin / Matid , Inflag , Eltemp , Dummy , Sinmat , Cosmat
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rhox , Alph1 , Alph2 , Alph12 , Tref , Ge , St , Sc , Ss , E , Dum , Matset
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
-!
-! Dummy argument declarations
-!
    INTEGER Elid
    REAL Gsube , Tsub0
    LOGICAL Noalfa
    DOUBLE PRECISION Rho , Ts
    DOUBLE PRECISION Alpha(6) , Egnor(4) , G(36) , Tem(9)
    INTEGER Mid(4)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION bdum , const , detu , dn12 , dn21 , gt(9) , ps1 , ps2 , talpha(6) , u(9)
    INTEGER ig , igobk , index(3,3) , isngu , it0 , l , lpoint , m , morb , mtype , name(2)
    REAL nu21 , tmtset
-!
-! End of declarations
-!
 !
 !     MATERIAL PROPERTY G-MATRICES GENERATOR FOR SHELL ELEMENTS
 !

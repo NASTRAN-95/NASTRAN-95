@@ -1,24 +1,12 @@
 
 SUBROUTINE csub(X,Y,Z,A,B)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aaa
    INTEGER Ncol
    COMMON /cinvpx/ Aaa , Ncol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A(2) , B(2) , X(2) , Y(2) , Z(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dum
    INTEGER i , ncol2
-!
-! End of declarations
-!
 !*******
 !     CSUB WILL FORM Z = A*X - B*Y WHERE A AND B ARE SCALAR
 !     MULTIPLIERS FOR THE COMPLEX VECTORS X AND Y

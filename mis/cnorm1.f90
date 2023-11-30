@@ -1,24 +1,12 @@
 
 SUBROUTINE cnorm1(X,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER N
    DOUBLE PRECISION X(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION div(2) , dum , max
    INTEGER i , index , name(2) , nn
-!
-! End of declarations
-!
 !
 !     CNORM1 WILL SEARCH A VECTOR FOR THE LARGEST VALUE AND NORMALIZE
 !     THE VECTOR TO LARGEST ELEMENT EQUAL TO ONE

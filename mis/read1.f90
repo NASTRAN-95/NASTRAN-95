@@ -1,9 +1,6 @@
 
 SUBROUTINE read1(Dm,Mr,Scr1,Scr2,Scr3,Phia,Uset,Nr1,Lama,Scr4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Ua , Uf , Ug , Ul , Um , Un , Uo , Ur , Us , Usb , Usg
    DOUBLE PRECISION Dcore(1)
    INTEGER Ii , Ii1 , Incur , Incur1 , Ita1 , Itb , Itb1 , Jj , Jj1 , Ksystm(63) , Nout , Sysbuf
@@ -14,21 +11,12 @@ SUBROUTINE read1(Dm,Mr,Scr1,Scr2,Scr3,Phia,Uset,Nr1,Lama,Scr4)
    COMMON /unpakx/ Itb , Ii , Jj , Incur
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Dm , Lama , Mr , Nr1 , Phia , Scr1 , Scr2 , Scr3 , Scr4
    REAL Uset
-!
-! Local variable declarations
-!
    INTEGER i , i3 , ialph , iloop , imr(7) , iphi , iscr1(7) , ivi , ivi2 , j , k , kk , kkk , l , lc , nam(2) , nprob , nr , nr2
    INTEGER korsz
    DOUBLE PRECISION si , term
    REAL ssi , sterm
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Dcore(1),Core(1))
    DATA nam/4HREAD , 4H1   /

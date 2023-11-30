@@ -1,9 +1,6 @@
 
 SUBROUTINE emadtq(Narg,Mass)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cp , Ecpt(100) , Eltemp , Rho
    INTEGER Heat , Iflag , Inflag , Ksystm(55) , Matid , Necpt(7)
    COMMON /emgest/ Ecpt
@@ -11,20 +8,11 @@ SUBROUTINE emadtq(Narg,Mass)
    COMMON /matin / Matid , Inflag , Eltemp
    COMMON /matout/ Rho
    COMMON /system/ Ksystm , Heat
-!
-! Dummy argument declarations
-!
    INTEGER Narg
    DOUBLE PRECISION Mass(100)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION area , fmu , rhod , t , term , v1(3) , v1xv2(3) , v2(3)
    REAL cpd , pi23
    INTEGER i , i1 , i2 , ichek , isub1 , isub2 , isub3 , ncsid , ndof , ngrids , npt1 , npt2 , npt3 , npt4 , npvt , ntype
-!
-! End of declarations
-!
 !  THE EMG MASS DOUBLE PRECISION ROUTINE FOR TRI S, QUAD S, TWIST +
 !     SHEAR ELEMENTS
 !

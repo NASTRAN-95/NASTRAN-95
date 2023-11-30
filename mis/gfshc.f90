@@ -1,9 +1,6 @@
 
 SUBROUTINE gfshc(Awy,Nuy,Hc,Ident,Ac,Mrow)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Rz(1)
    DOUBLE PRECISION Dz(1) , Val
    INTEGER I1 , I2 , Incr1 , Incr2 , Irow , N1 , N2 , Sysbuf , Ti1 , To1 , To2 , Z(1)
@@ -12,19 +9,10 @@ SUBROUTINE gfshc(Awy,Nuy,Hc,Ident,Ac,Mrow)
    COMMON /unpakx/ To2 , I2 , N2 , Incr2
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ac , Awy , Hc , Ident , Mrow , Nuy
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dterm
    INTEGER i , ibuf , ir , mcb(7) , mr , name(2) , nrow , nz , scr
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO GENERATE CONSTRAINT MATRIX FOR PURELY INCOMPRESSIBLE
 !     FORMULATION WHEN NO SPC'S ARE ON FLUID

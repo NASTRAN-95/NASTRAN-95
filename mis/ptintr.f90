@@ -1,19 +1,10 @@
 
 SUBROUTINE ptintr(A,Aa,B,Bb,S,K,Eps)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER K
    DOUBLE PRECISION A(2) , Aa(2) , B(2) , Bb(2) , Eps(2) , S(2)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aaa , ax , ay , bbb , bx , by , d , p(2) , pa , paa , pb , pbb , u , v , x , y
    DOUBLE PRECISION dist
-!
-! End of declarations
-!
 !
 !     RETURNS DOUBLE PRECISION VALUES OF X,Y COORDINATES (S) OF
 !         POINT OF INTERSECTION (IF ANY) OF LINE SEGMENTS

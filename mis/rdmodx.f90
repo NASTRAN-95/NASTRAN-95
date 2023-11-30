@@ -1,25 +1,13 @@
 
 SUBROUTINE rdmodx(File,Mode,Word)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bitson , Check1 , Check2 , Entry , Filex , Refptr , Z(1)
    COMMON /xrdmod/ Filex , Refptr , Check1 , Check2 , Bitson , Entry
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER File
    INTEGER A(1) , Mode(1) , Word(2)
-!
-! Local variable declarations
-!
    INTEGER blank , eor , i , name(2) , next(2)
    INTEGER complf , locfx
-!
-! End of declarations
-!
 !
 !     ENTRY POINTS - RDMODX (FILE ,MODE,WORD)
 !                    RDMODY (A    ,MODE,WORD)

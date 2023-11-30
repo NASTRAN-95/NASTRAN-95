@@ -1,9 +1,6 @@
 
 SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Scr8,Scr9,Scr10)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ajjcol , Ib , Idjh , Ii , Ii1 , Incr , Incr1 , Iprec , Itc , Itc1 , Itc2 , Jj , Jj1 , Mcbqhh(7) , Mcbqjh(7) , Ncolj ,    &
          & Ngp , Ngpd(2,30) , Noh , Nout , Nsub , Sysbuf
    REAL Dum32(32) , Qhhcol , Skp(52) , Xk , Xm , Z(1)
@@ -13,19 +10,10 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
    COMMON /system/ Sysbuf , Nout , Skp , Iprec
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , Gkh , Imax , Plan , Qhjl , Scr1 , Scr10 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6 , Scr7 , Scr8 , Scr9 , Skj
-!
-! Local variable declarations
-!
    INTEGER ibuf1 , ibuf2 , iloop , ionce , iop , iopt , itf , itl , itmto , its , k , mcb(7) , name(2) , nclold , ncolth , ngps ,   &
          & nth , rjh
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO SOLVE FOR QHJL
 !

@@ -1,26 +1,14 @@
 
 SUBROUTINE ifp1d(Msno)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL D , Dd(5) , Ddd(2)
    INTEGER Line , Nlpp , Nogo , Nout
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /system/ D , Nout , Nogo , Dd , Nlpp , Ddd , Line
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Msno
-!
-! Local variable declarations
-!
    INTEGER amsno , iwher , maxmsg
-!
-! End of declarations
-!
 !
 !     MESSAGE WRITER FOR IFP1
 !

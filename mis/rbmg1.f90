@@ -1,19 +1,10 @@
 
 SUBROUTINE rbmg1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ua , Ul , Ur
    REAL Ue , Uf , Ug , Um , Un , Uo , Up , Us , Usb , Usg
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up
-!
-! Local variable declarations
-!
    INTEGER kaa , kll , klr , krr , maa , mll , mlr , mrr , scr1 , uset
-!
-! End of declarations
-!
 !*****
 ! RBMG1 PARTITIONS KAA INTO KLL, KLR AND KRR AND MAA SIMILARLY.
 !*****

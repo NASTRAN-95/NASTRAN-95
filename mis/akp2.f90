@@ -1,19 +1,10 @@
 
 SUBROUTINE akp2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Ai
    REAL Beta , Del , Dstr , Pi , Res , Scrk , Sigma , Sns , Sps
    COMMON /blk1  / Scrk , Sps , Sns , Dstr , Ai , Pi , Del , Sigma , Beta , Res
-!
-! Local variable declarations
-!
    REAL c1 , c2 , d1 , d2 , dc1da , dc2da , dgda , gam , s1
-!
-! End of declarations
-!
 !
 !
 !

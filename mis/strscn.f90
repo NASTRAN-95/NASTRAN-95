@@ -1,9 +1,6 @@
 
 SUBROUTINE strscn(Sorf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amax , Amin , Dum , Eofnrw , Rd , Rdrew , Rew , Space(6) , Wrt , Wrtrew , Z(2)
    LOGICAL Debug , Force , Iopen , Jopen , Layerd , Stress
    INTEGER Head(96) , Ibuf , Icomp , Icompx , Iel , Ielt(2) , Infile , Iopt , Iset , Isort , Itrl3 , Iz(2) , Lbeg , Lcore , Lcse1 , &
@@ -15,13 +12,7 @@ SUBROUTINE strscn(Sorf)
    COMMON /xscanx/ Infile , Oufile , Lcore , Lbeg , Lend , Iopen , Jopen , Iel , Iopt , Iset , Isort , Itrl3 , Subc , Osubc , Oel , &
                  & Debug , Lloop , Quad4 , Tria3 , Stress , Force , Layerd
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Sorf
-!
-! Local variable declarations
-!
    LOGICAL any
    REAL bmax , bmin , t24 , zk
    CHARACTER*100 chead
@@ -29,9 +20,6 @@ SUBROUTINE strscn(Sorf)
          & istr , iwds , izn , izn1 , j , jdupl , jj , jnc , k , kk , lbuf0 , lbuf1 , lbuf2 , lbuf3 , len , mm , nam(2) , nn ,      &
          & noeor , nrew , ns , nscan , ntop , numfld , nwds , nwds1 , sortx(3)
    CHARACTER*12 field , scnfld(6)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PERFORMS STRESS AND FORCE OUTPUT SCAN.
 !

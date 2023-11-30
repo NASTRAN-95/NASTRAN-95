@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrirg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ak(36) , Aki(36) , Akt(9) , Area , Constd(5) , Cosg , D(36) , Degrad , Del , Delint(8) , Dgama , Dgamr , Dr ,   &
                   & Dz , Ee(16) , Er , Et , Ez , Gambq(36) , Grz , R(3) , R1 , R2 , R3 , Ra , Rh , Sing , Teo(16) , Twopi , Vrt ,   &
                   & Vrz , Vtr , Vtz , Vzr , Vzt , Z(3) , Z1 , Z2 , Z3 , Za , Zh , Zmin
@@ -18,15 +15,9 @@ SUBROUTINE ktrirg
                  & Vrt , Vtr , Vtz , Vzt , Vzr , Vrz , Grz , Del , Cosg , Sing , Dgamr , Igp , Ics , Sp , Tempe
    COMMON /sma1et/ Ecpt , Dum5
    COMMON /sma1io/ Dum1 , Ifkgg , Igkgg , If4gg , Dum2
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dampc
    DOUBLE PRECISION dki
    INTEGER i , i1 , iai , iapp , ic1 , idel , ieror1 , ieror2 , ip , ipp , iq , ir1 , irc , ising , j , j1 , j2 , k , kode , matid
-!
-! End of declarations
-!
 !
 !
 !*****

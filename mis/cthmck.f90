@@ -1,9 +1,6 @@
 
 SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodesl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Brms0 , Brms1 , Dum3b(3) , Dum6y(6) , Dumb2(2) , Rms0 , Rms1
    INTEGER I77 , Ib , Ibuf1 , Icrit , Ih , Ih0 , Ihe , Isys , Kdim , Knew , Korig , Maxgrd , Maxw0 , Maxw1 , Method , Mm , Ncm ,    &
          & Ngrid , Nlpp , Nn , Nodep , Nompc , Nopch , Norun , Nout
@@ -17,22 +14,13 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
    COMMON /bandw / Maxw0 , Rms0 , Maxw1 , Rms1 , I77 , Brms0 , Brms1
    COMMON /system/ Isys , Nout , Dum6y , Nlpp
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Io , Jump , Nom , Nt , Num
    INTEGER Ic(1) , Icc(1) , Ideg(1) , Idis(1) , Ig(1) , Ild(1) , Ipp(1) , Iw(1) , New(1) , Nodesl(1)
    REAL Un(1)
-!
-! Local variable declarations
-!
    REAL averw , brms , crit1 , crit2 , im1 , im2 , rms
    INTEGER i , iajdim , idem , ij , is , j , jmax , k , k2 , ma , mad , maxd , maxlev , maxw , median , mi , mmc , modd , nc , nl , &
          & sumw
    INTEGER kompnt , maxdgr , mindeg
-!
-! End of declarations
-!
 !
 !     THIS IS THE EXECUTIVE FOR THE CUTHILL-MCKEE GRID POINT RENUMBERING
 !     STRATEGY.

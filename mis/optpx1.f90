@@ -1,9 +1,6 @@
 
 SUBROUTINE optpx1(*,Stor,Nogo,Nen,Loc1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Skp1(5)
    INTEGER Iy(1) , Outtap , Sysbuf , X(7) , Ycor
    CHARACTER*23 Ufm
@@ -11,18 +8,9 @@ SUBROUTINE optpx1(*,Stor,Nogo,Nen,Loc1)
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Loc1 , Nen , Nogo
    INTEGER Stor(15)
-!
-! Local variable declarations
-!
    INTEGER i1 , i2 , i3 , l , nam(2) , thru
-!
-! End of declarations
-!
 !
 !     PROCESS PID DATA ON PLIMIT CARD
 !

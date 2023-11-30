@@ -1,19 +1,10 @@
 
 SUBROUTINE xylog(V1,V2,Cycles)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Cycles
    REAL V1 , V2
-!
-! Local variable declarations
-!
    INTEGER power1 , power2
    REAL temp
-!
-! End of declarations
-!
 !*****
 !  THIS SUBROUTINE TAKES V1 AND V2 REGARDLESS OF THEIR VALUES
 !  AND COMPUTES A LOG SCALE OF AT LEAST 1 CYCLE...

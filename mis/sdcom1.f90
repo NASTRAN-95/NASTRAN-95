@@ -1,25 +1,13 @@
 
 SUBROUTINE sdcom1(P,Ac,Wa,Wb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C , Lasti , Lastpl , Row , Start
    REAL Frstpc , Spflg
    COMMON /sdcomx/ Row , C , Spflg , Start , Frstpc , Lastpl , Lasti
-!
-! Dummy argument declarations
-!
    INTEGER Ac(1)
    REAL P(1) , Wa(1) , Wb(1)
-!
-! Local variable declarations
-!
    INTEGER i , iend , ijmk , ilmk , istart , j , k , k1 , l
    REAL pi
-!
-! End of declarations
-!
 !
 !
    j = 1

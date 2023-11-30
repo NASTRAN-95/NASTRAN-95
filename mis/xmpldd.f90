@@ -1,24 +1,15 @@
 
 SUBROUTINE xmpldd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Imp(3166) , Lmpl , Mplpnt
    DOUBLE PRECISION Xxx(20)
    COMMON /xgpi2 / Lmpl , Mplpnt , Imp
    COMMON /xgpi2x/ Xxx
-!
-! Local variable declarations
-!
    INTEGER i , lmplx , mpl(3166) , mpl01(68) , mpl02(161) , mpl03(135) , mpl04(152) , mpl05(138) , mpl06(162) , mpl07(200) ,        &
          & mpl08(137) , mpl09(173) , mpl10(93) , mpl11(116) , mpl12(135) , mpl13(150) , mpl14(151) , mpl15(135) , mpl16(53) ,       &
          & mpl17(144) , mpl18(169) , mpl19(193) , mpl20(186) , mpl21(196) , mpl22(119)
    REAL x(2,20)
    DOUBLE PRECISION xx(20)
-!
-! End of declarations
-!
 !
 !
 !     MPL    = MODULE PROPERTIES TABLE

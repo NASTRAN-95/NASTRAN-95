@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2g
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Eqst , Gbuf1 , Idum1 , Idum2(5) , Idum3(17) , Idum4(4) , Idum5(3) , Idum6 , Idum7(6) , Idum8(2) , Idum9 ,          &
          & Infile(11) , Io , Iprntr , Korbgn , Korlen , Line , Modpts , Newnam(2) , Nlpp , Oldnam(2) , Popt , Z(1)
    LOGICAL Ponly
@@ -14,18 +11,12 @@ SUBROUTINE cmrd2g
    COMMON /system/ Idum6 , Iprntr , Idum7 , Nlpp , Idum8 , Line
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER i , icode , ifile , imsg , index1 , ipid , ips , item , itest , itmlst(3) , itmnam(2) , itrlr(7) , itype , iwds , j , k ,&
          & kore , lamloc , loap , loc , locbgs , loceqs , locnew , locold , lods , lstbit(32) , lstsil , mode , modnam(2) , moduse ,&
          & namloc , nbgss , ncsubs , newcs , newpts , ngrp , nhcstm , nhplts , nofreq , nwds , nwdsd , nwdsrd , sofeog
    REAL papp
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CREATES THE REDUCED SUBSTRUCTURE NEW TABLE ITEMS
 !     FOR THE CMRD2 MODULE.

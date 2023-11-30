@@ -3,17 +3,8 @@ SUBROUTINE endput(Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER iflg , lim
-!
-! End of declarations
-!
    lim = Nbuff - Block(3)*2
    Name = Block(1)
    CALL dsgefl

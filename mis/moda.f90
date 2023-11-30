@@ -1,15 +1,9 @@
 
 SUBROUTINE moda
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iparm(5) , Parm12 , Parm13
    REAL Parm(5) , Parm11
    COMMON /blank / Parm , Iparm , Parm11 , Parm12 , Parm13
-!
-! End of declarations
-!
 !
 !*****
 !

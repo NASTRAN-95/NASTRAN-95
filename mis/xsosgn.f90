@@ -8,9 +8,6 @@ SUBROUTINE xsosgn
 !     THE XSEMX ROUTINES.   2/1990
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Buf1(1) , Comm(20) , Cursno , Dculg , Ddbn(2) , Dfnu(1) , Dmxlg , Dnaf , Dpd(1) , Entn1 , Entn2 ,       &
          & Entn3 , Entn4 , Entn5 , Entn6 , Fculg , Fcum(1) , Fcus(1) , Fdbn(2) , Fequ(1) , Fiat(1) , File(1) , Fist , Fknd(1) ,     &
          & Flag , Fmat(1) , Fmxlg , Fntu(1) , Fnx , Fon(1) , Ford(1) , Fpun(1) , Funlg , Ibufsz , J , K , Lmsk , Lxmsk , Md(401) ,  &
@@ -27,16 +24,10 @@ SUBROUTINE xsosgn
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsfa1 / Md , Sos , Comm , Xf1at , Fpun , Fcum , Fcus , Fknd
    COMMON /zzzzzz/ Buf1
-!
-! Local variable declarations
-!
    INTEGER andf , khrfn1 , lshift , orf , rshift
    INTEGER blkcnt , block(100) , block1(93) , cond , i , iflag , isw , jump , l , ll , lll , n1 , nsosgn(2) , numbr(10) , nwds ,    &
          & oscar , rept , scrn1 , scrn2 , scrn3
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !     LOGICAL         DEC
    EQUIVALENCE (Dpd(1),Dnaf) , (Fiat(1),Funlg) , (File(1),Fequ(1)) , (File(1),Ford(1)) , (block(8),block1(1))
    EQUIVALENCE (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,               &

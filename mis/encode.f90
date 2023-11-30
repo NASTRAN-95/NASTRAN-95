@@ -1,17 +1,8 @@
 
 SUBROUTINE encode(Ii)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ii
-!
-! Local variable declarations
-!
    INTEGER i , idiv(6) , isum , j
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CONVERTS THE DEGREE OF FREEDOM CODES AS GIVEN
 !     IN BULK DATA FORM ( INTEGERS FROM 1-6 ) TO THE BIT PATTERN

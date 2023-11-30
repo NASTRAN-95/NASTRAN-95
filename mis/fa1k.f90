@@ -1,9 +1,6 @@
 
 SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(52) , Z(1)
    INTEGER Floop , Ii , Incr , Incr1 , Inn , Iout , Iprec , Iti , Ito , Iz(1) , Nn , Nnn , Out , Sysbuf
    CHARACTER*23 Ufm
@@ -13,22 +10,13 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ico , Imeth , Outfil
    REAL K , Rho
-!
-! Local variable declarations
-!
    INTEGER buff , buff1 , fsave , i , idp , ifil , ig , iip , ij , ik , ilop , j , ji , jj , mcb(7) , n , nc , ncm , ncol , ncore , &
          & nd , nf , ni , ni2 , nip , nogo , nrd , nrho , ns(2) , nwc , nwr , qhhl , scr2 , scr3 , scr4 , trl(7) , type
    REAL cmach , eps , ok , omach , temp
    INTEGER korsz
    LOGICAL new
-!
-! End of declarations
-!
 !
 !     FA1K BUILDS AN INTERPOLATED MATRIX ON OUTFIL FROM QHHL OR FSAVE
 !

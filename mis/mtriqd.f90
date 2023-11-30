@@ -1,9 +1,6 @@
 
 SUBROUTINE mtriqd(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Ecpt(100) , Eltemp , Rho , Save(32) , Sinth , Stress
    LOGICAL Heat
    INTEGER Inflag , Isave(32) , Matid
@@ -11,17 +8,8 @@ SUBROUTINE mtriqd(Ntype)
    COMMON /matout/ Rho
    COMMON /sma2et/ Ecpt
    COMMON /sma2ht/ Heat
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , narg
-!
-! End of declarations
-!
 !
 !
 !     8/18/67           E C P T     L I S T I N G

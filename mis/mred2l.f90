@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2l(Nuf,N2,Nus,Ufbits)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cprtn , Gs , Phi12i , Phigs , Phis12 , Phiss2 , Rprtn , Rz(1) , Z(1)
    INTEGER Dry , Gbuf1 , Ident , Idum1 , Idum2 , Idum3(2) , Idum4(14) , Idum5(2) , Incr , Infile(12) , Irow , Iscr(10) , Itrlra(7) ,&
          & Itrlrb(7) , Itrlrc(7) , Itrlrd(7) , Korbgn , Korlen , Lstzwd , Modpts , Nrow , Nz , Otfile(6) , Phiss , Phiss1 , Prec ,  &
@@ -14,21 +11,12 @@ SUBROUTINE mred2l(Nuf,N2,Nus,Ufbits)
    COMMON /mpyadx/ Itrlra , Itrlrb , Itrlrc , Itrlrd , Nz , T , Signab , Signc , Prec , Scr
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER N2 , Nuf , Nus , Ufbits
-!
-! Local variable declarations
-!
    INTEGER andf
    REAL b , determ , hkpg , phigsh , phissi , usetmr
    INTEGER dblkor , i , icol , icore , ifile , iform , imsg , invert , ising , isub(4) , itest , itrlr1(7) , itrlr2(7) , itype , j ,&
          & kolumn , kore , modnam(2) , nwdsrd , rows , sglkor
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PREFORMS PRELIMINARY CALCULATIONS AND MERGES OF
 !     THE HK MATRIX FOR THE MRED2 MODULE.

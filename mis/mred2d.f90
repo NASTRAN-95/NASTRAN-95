@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bbzero , Cprtn , Dry , Gbuf1 , Idum1 , Idum2(5) , Idum3(2) , Idum4(4) , Idum5(5) , Idum6(10) , Idum7 , Incr , Infile(12) &
          & , Iprntr , Irow , Iscr(10) , Itwo(32) , K , Kbb , Khh , Korbgn , Korlen , M , Mbb , Mhh , Newnam(2) , Nmodes , Nrow ,    &
          & Oldnam(2) , Otfile(6) , Paa , Phh , Popt , Rprtn , Sbuf1 , Sbuf2 , Sbuf3 , Typin , Typout , Ua , Ub , Uf , Ul , Un , Us ,&
@@ -18,16 +15,10 @@ SUBROUTINE mred2d
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL block(11) , ufbits , zero1
    INTEGER i , ifile , iform , ii , imsg , iop , isub(4) , item , itest , itmlst(6) , itmnam(2) , itrlr(7) , itrlr1(7) , itrlr2(7) ,&
          & itype , j , jrow , km , kmbb , kmhh , kolmns , kolumn , lafnb , luset , modnam(2) , mred2 , n2 , nuf , nus , nwdsrd ,    &
          & papp , snb , typea , typeb
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE MODAL MASS AND STIFFNESS MATRICES
 !     IF USERMODE = TYPE2 FOR THE MRED2 MODULE.

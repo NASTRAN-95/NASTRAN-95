@@ -1,21 +1,12 @@
 
 DOUBLE PRECISION FUNCTION dkl(Np,I,L,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , L , Np
    DOUBLE PRECISION R(1) , Z(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , aj , ar , beta , dfact , dl1 , dr , dz , dzj , eps , fact , gkl , one , pr , ra , rak , rb , rbk , three ,  &
                   & two , za , zb , zero
    REAL factl
    INTEGER j , jfact , k , l1 , l2 , lfact , lk , lmjf , m , nam(2)
-!
-! End of declarations
-!
 !-----
 !   THIS ROUTINE CALCULATES THE DOUBLE PRECISION  DELTA(IJ)  INTEGRALS
 ! FOR AXISYMMETRIC SOLIDS IN SMA1, EMG.

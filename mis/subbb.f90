@@ -1,9 +1,6 @@
 
 SUBROUTINE subbb
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX A , Ai , Aln , Alp , Am1 , Am2 , Am2p , Am4 , Am4tst , Am5 , Am5t , Am5tt , Am6 , Amtest , Arg , Arg2 , B , Bc , Bc2 ,   &
          & Bc3 , Bc4 , Bc5 , Bkdel1 , Bkdel2 , Bkdel3 , Blam1 , Blam2 , Blkap1 , Blkapm , Bsycon , C1 , C1n , C1p , C1t , C2 , C2n ,&
          & C2p , Ca1 , Ca2 , Ca3 , Ca4 , Clift , Cmomt , F1 , F1s , F2 , F2p , F4 , F4s , F5 , F5s , F5t , F6s , Fq7 , Fqa , Fqb ,  &
@@ -26,15 +23,9 @@ SUBROUTINE subbb
                  & Betnn , Betnp , Bkap1 , Xlsv1 , Xlsv2 , Xlsv3 , Xlsv4 , Alpamp , Amoaxs , Gusamp , Disamp , Pitaxs , Pitcor
    COMMON /system/ Sysbuf , Ibbout
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL aa , aa1 , aa2 , carg , ckap1 , s1 , temp , temp2 , temp3 , xl2
    COMPLEX c1a , c3a , c4a , cexp2a , cexp2b , cexp2c , cexp3 , cexp3a , cexp3b , cexp3c , cexp4 , cexp4a , cexp4b , cexp4c ,       &
          & const , t1 , t2 , t3 , t4
-!
-! End of declarations
-!
 !
 !
    s1 = 2.0 + Sns - Sps

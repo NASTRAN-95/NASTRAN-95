@@ -1,26 +1,14 @@
 
 SUBROUTINE dmpfil(Ifile,Z,Lz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cls , Clsrew , Rd , Rdrew , Wrt , Wrtrew
    INTEGER Incr , Iout , Irow , Nrow , Outpt , Sysbuf
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Outpt
    COMMON /unpakx/ Iout , Irow , Nrow , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Ifile , Lz
    INTEGER Z(2)
-!
-! Local variable declarations
-!
    INTEGER buf , file , i , i1 , i2 , irec , iwords , j , k , l , lcore , name(2) , ncols , nels
-!
-! End of declarations
-!
 !
 !     DUMPS A FILE ON DIAG 20 SETTING.
 !

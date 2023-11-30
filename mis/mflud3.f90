@@ -1,9 +1,6 @@
 
 SUBROUTINE mflud3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Are2 , Emass , Piab , R(3) , Z(3)
    REAL Dum(2) , Dum1(10) , Ecpt(100)
    INTEGER Ifmgg , Igrid , Ir , Jp , Jpvt , Necpt(100) , Npvt
@@ -11,13 +8,7 @@ SUBROUTINE mflud3
    COMMON /sma2dp/ R , Z , Are2 , Piab , Emass , Jp , Ir , Jpvt , Igrid
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifmgg
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE GENERATES THE PSUEDO   MASS    MATRIX TERMS
 !     FOR THE TRIANGULAR FLUID ELEMENT

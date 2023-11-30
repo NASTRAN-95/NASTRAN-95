@@ -1,9 +1,6 @@
 
 SUBROUTINE sbar1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alpha , C1 , C2 , Costh , D1 , D2 , Dela(6) , Delb(6) , Dum3(58) , E , Ecpt(100) , Eltemp , F1 , F2 , Fe , Fj , G , G1 ,&
       & G2 , Gpa(3) , Gpb(3) , Gsube , I1 , I12 , I2 , K1 , K2 , Ke(144) , Kep(144) , Nsm , Out(19) , Rho , Sa(36) , Sb(36) , Sigc ,&
       & Sigs , Sigt , Sinth , Smallv(3) , Stress , Tempel , Therm(30) , Tsub0 , Za(3) , Zb(3)
@@ -14,17 +11,11 @@ SUBROUTINE sbar1
                  & F1 , F2 , G1 , G2 , K1 , K2 , I12 , Mcsida , Gpa , Mcsidb , Gpb , Tempel , Dum3 , Jelid , Jsilno , Sa , Sb ,     &
                  & Out , Therm
    COMMON /sdr2x6/ Ke , Kep , Dela , Delb
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    REAL ael , alphal , alpl2 , alpl3 , alpl6 , beta , ei1 , ei2 , fl , fll , gak1 , gak2 , gjl , hut(36) , l , l2b3 , l2b6 , lb ,   &
       & lcube , lr1 , lr2 , lsq , r1 , r2 , sk1 , sk2 , sk3 , sk4 , smalv0(6) , ta(18) , tb(9) , veci(3) , vecj(3) , veck(3)
    INTEGER i , iab , icsida , icsidb , idela , idelb , ig , ii , ij , ikel , il , ill , index , ipin(10) , isv , iwbeg , j , jcsid ,&
          & jcsida , jcsidb , ji , jll , jofset , jofsta , jofstb , jpina , jpinb , k , ka , kb , lim , ll , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE 1 OF STRESS DATA RECOVERY FOR THE BAR
 !     ELEMENT. MUCH OF THE CODE WAS LIFTED FROM THE KBAR SUBROUTINE.

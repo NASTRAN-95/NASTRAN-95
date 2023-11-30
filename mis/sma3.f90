@@ -1,9 +1,6 @@
 
 SUBROUTINE sma3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsnrw , Clsrw , Eor , Ibuff3(3) , Ifa , Ifb , Ifc , Ifd , Ife , Iff , Ifgei , Ifkggx , Ifout , Inrw , Iprec , Iq(1) ,   &
          & Is , Istzis , Isys , Iud , Iui , Izi , Izis , Ksystm(65) , Left , Luset , M , Mcba(7) , Mcbb(7) , Mcbc(7) , Mcbd(7) ,    &
          & Mcbe(7) , Mcbf(7) , Mcbid(7) , Mcbkgg(7) , N , Neor , Ngenel , Noecpt , Outrw
@@ -14,17 +11,11 @@ SUBROUTINE sma3
                  & Mcbb , Mcbc , Mcbd , Mcbe , Mcbf , Mcbkgg , Iui , Iud , Izi , Is , Izis , Istzis , Ibuff3 , Left
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Q
-!
-! Local variable declarations
-!
    REAL block(11)
    LOGICAL even , onlyge
    INTEGER i , iblock(11) , idummy , if201 , if301 , if302 , if303 , if304 , if305 , if306 , ifg , iga , iggei , ii , ipass ,       &
          & iqmax , ise , itemp1 , izk , name(2) , needed , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE, FOR EACH GENERAL ELEMENT, READS THE GENERAL ELEMENT
 !     INPUT FILE, GEI, CALLS SMA3A OR SMA3B, DEPENDING UPON WHETHER OR

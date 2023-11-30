@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr1b(Ipvect,Im1,Im2,Iout,Major,Sub1,Sub2,Iuset,Iopt,Iout1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(7) , Ia(7) , Ia11(7) , Ia12(7) , Ib11(7) , Ib12(7) , Iip1 , Iiu1 , Incr , Incr1 , Irule , Itp1 , Itp2 , Itu1 ,      &
          & Iuset1 , Jjp1 , Jju1 , Kore(1) , Nsub1 , Nsub2 , Nsub3 , Nz , Nz1 , Sysbuf
    COMMON /packx / Itp1 , Itp2 , Iip1 , Jjp1 , Incr
@@ -12,19 +9,10 @@ SUBROUTINE sdr1b(Ipvect,Im1,Im2,Iout,Major,Sub1,Sub2,Iuset,Iopt,Iout1)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itu1 , Iiu1 , Jju1 , Incr1
    COMMON /zzzzzz/ Kore
-!
-! Dummy argument declarations
-!
    INTEGER Im1 , Im2 , Iopt , Iout , Iout1 , Ipvect , Iuset , Major
    REAL Sub1 , Sub2
-!
-! Local variable declarations
-!
    INTEGER i , ip1 , ip2 , iprec , ipv1(7) , itype , name(2) , nload , noys
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Core(1),Kore(1))
    DATA name/4HSDR1 , 4HB   /

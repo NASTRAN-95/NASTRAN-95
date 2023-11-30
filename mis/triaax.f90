@@ -1,9 +1,6 @@
 
 SUBROUTINE triaax
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Costh , Degrad , Dgama , Dm1 , Dum(14) , Dxx , E(3) , Ecpt(10) , Eltemp , G(3) , Gsube , Pi , Pzout(51) , &
       & R1 , R2 , R3 , Rho , Setmat , Sinth , Spa(14) , Stress , Tempe , Twopi , Tzero , Zer , Zer2 , Zer3 , Zz1 , Zz2 , Zz3
    DOUBLE PRECISION Consts(5)
@@ -19,9 +16,6 @@ SUBROUTINE triaax
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube , Moskp , Setmat
    COMMON /matpz / Pzout
    COMMON /system/ Ksystm , Ksys78
-!
-! Local variable declarations
-!
    REAL aa , acurl(117) , acurp1(27) , acurp2(9) , ajho , ajjho , ak(81) , aki(81) , akip(9) , akj(144) , akjm(81) , akm(81) ,      &
       & akph2(9) , akt(16) , akuph(27) , amt(9) , area , bmass(9,9) , c1 , c2 , c2s2 , c3 , c4 , convm , cosg , cs , cs2 , d(81) ,  &
       & d1(27) , d2(9) , del , delint(12) , delm(12) , dgamr , dict5 , dr , ee(63) , er , et , ez , gababp(3,3) , gababq(9,9) ,     &
@@ -31,9 +25,6 @@ SUBROUTINE triaax
          & isil , isort(3) , j , j1 , jax , jj , k , ki , ksave , l , m , mjho , n
    REAL dkls
    LOGICAL lsys78 , pzmat
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE STIFFNESS AND MASS MATRICES FOR THE
 !     ASSYMMETRIC RING WITH A TRIANGULAR CROSS SECTION, TO BE USED BY

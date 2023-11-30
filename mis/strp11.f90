@@ -1,9 +1,6 @@
 
 SUBROUTINE strp11
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A1 , A2 , A3 , Alf(3) , B , B1 , B2 , B3 , Balotr(36) , C , Costh , D11 , D12 , D13 , D22 , D23 , D33 , Dista , Distb , &
       & Distc , E(18) , E1(18) , Eltemp , Em(6) , Est(100) , Forvec(24) , Gsube , Ph1out(990) , Ph2(18) , Ph3(12) , Ph4(90) ,       &
       & Pla34 , Q(6,6) , Qqq(20,20) , Qqqinv(360) , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty , Sinth , Trans(9) , Tref ,   &
@@ -13,9 +10,6 @@ SUBROUTINE strp11
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy , Rj11 , Rj12 , Rj22
    COMMON /sdr2x5/ Est , Ph1out , Forvec , X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3 , B1 , B2 , B3 , Qqqinv , Ts6 , Ts7 ,   &
                  & Ph2 , Ph3 , Ph4 , Q , E , E1 , Trans , Balotr
-!
-! Local variable declarations
-!
    REAL ai , blank , d(9) , degra , dph1(9) , emod(9) , f , g(4) , gph1(6) , ivect(3) , j11 , j12 , j22 , jvect(3) , kvect(3) ,     &
       & nsm , ph1ben(9) , ph1shr(6) , theta1 , thetam , thk , tmem1 , tmem3 , tmem5 , tshr1 , tshr3 , tshr5 , x2 , x2y , x3 ,       &
       & xc(6) , xy , xy2 , y2 , y3 , yc(6) , zc(6)
@@ -23,9 +17,6 @@ SUBROUTINE strp11
    INTEGER i , i1 , i2 , i3 , ics(6) , idele , ii , ij , ising , j , j1 , j2 , jj , jj1 , kz , l , m , matid1 , matid2 , mz ,       &
          & name(2) , nl(6)
    LOGICAL nots
-!
-! End of declarations
-!
 !
 !     PHASE 1 STRESS DATA RECOVERY FOR CTRPLT1 - HIGHER ORDER PLATE
 !     ELEMENT

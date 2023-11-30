@@ -1,25 +1,13 @@
 
 SUBROUTINE rotate(Da,Row,Row1,Row2,O,Sin,Cos)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER N
    REAL Title(100)
    COMMON /givn  / Title , N
-!
-! Dummy argument declarations
-!
    INTEGER Row , Row1 , Row2
    DOUBLE PRECISION Cos(1) , Da(1) , O(1) , Sin(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION cosine , sine , x , y , z
    INTEGER i , j , jp1 , m
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS CALLED ONLY BY TRIDI SUBROUTINE, WHICH IS CALLED
 !     ONLY BY VALVEC

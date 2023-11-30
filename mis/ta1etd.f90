@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1etd(Elid,Ti,Grids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bufflg , Endid , Eorflg , Record
    INTEGER Defalt , Eltype , Gptt , Iback , Iout , Itemp , Oldeid , Oldel
    REAL Dum , Dummy(5)
@@ -12,19 +9,10 @@ SUBROUTINE ta1etd(Elid,Ti,Grids)
    COMMON /ta1com/ Dummy , Gptt
    COMMON /ta1ett/ Eltype , Oldel , Eorflg , Endid , Bufflg , Itemp , Defalt , Iback , Record , Oldeid
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Grids
    INTEGER Ti(2)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER i , id , maxwds , name(2) , nwords
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE (CALLED BY -TA1A- AND -TA1B-) READS ELEMENT
 !     TEMPERATURE DATA FROM A PRE-POSITIONED RECORD

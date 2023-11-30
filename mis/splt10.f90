@@ -1,18 +1,9 @@
 
 SUBROUTINE splt10(Icomp,Comps,Nc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icomp , Nc
    INTEGER Comps(9)
-!
-! Local variable declarations
-!
    INTEGER i , ic , ix , jx
-!
-! End of declarations
-!
    IF ( Icomp==0 ) Icomp = 1
    ic = Icomp
    Nc = 0

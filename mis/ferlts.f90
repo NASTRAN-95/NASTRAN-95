@@ -1,28 +1,16 @@
 
 SUBROUTINE ferlts(Ifile,Dz,Dy,Zm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dcore(1)
    INTEGER Ibflt , Ibforv , Ibfsma , Icore(1) , Incr , Ip , Iprc , Ltpos(7) , Nidlt , Nidorv , Nidsma , Nltli , Np , Nsmali ,       &
          & Smapos(7)
    COMMON /feerim/ Nidsma , Nidlt , Nidorv , Nltli , Nsmali , Ibfsma , Ibflt , Ibforv , Smapos , Ltpos
    COMMON /unpakx/ Iprc , Ip , Np , Incr
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    REAL Dy(1) , Dz(1) , Zm(1)
    INTEGER Ifile(7)
-!
-! Local variable declarations
-!
    REAL dsum
    INTEGER i , iccol , icol , ii , ilcol , indx , j , mem , n , ntms
-!
-! End of declarations
-!
 !
 !   FEER MATRIX TRANSPOSE MULTIPLY  (SINGLE PRECISION)
 !   SEE SUBROUTINE FERRDM FOR CONTENTS OF SMAPOS AND HOW THE MATRIX

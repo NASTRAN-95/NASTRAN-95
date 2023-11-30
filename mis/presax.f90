@@ -1,28 +1,16 @@
 
 SUBROUTINE presax(Iharm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt , Degrad , Old , Pi , Radeg , S4pisq , Twopi , Z(1)
    INTEGER Ksystm(80) , Lc , Slt
    COMMON /condas/ Pi , Twopi , Radeg , Degrad , S4pisq
    COMMON /loadx / Lc , Slt , Bgpdt , Old
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iharm
-!
-! Local variable declarations
-!
    REAL card(6) , cossi , gpco(4,2) , pr , prc , prpiez , prs , sinsi , xi , xl
    INTEGER file , i , icard(6) , iflag , iord(2) , ip1 , isila , isilb , j , n , name(2)
    LOGICAL piez
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE APPLIES PRESSURE LOADS TO AXISYMMETRIC SHELL
 !

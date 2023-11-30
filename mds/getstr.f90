@@ -3,17 +3,8 @@ SUBROUTINE getstr(*,Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER id
-!
-! End of declarations
-!
    Iretrn = 0
    Name = Block(1)
    CALL dsgefl

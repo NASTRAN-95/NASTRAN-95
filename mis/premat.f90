@@ -1,9 +1,6 @@
 
 SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph1 , Alph12 , Alph2 , Alpha , Ax3 , Ay3 , Az3 , Bufm6(46) , Clsrew , Costh , Dum26(26) , E , Ex3 , Ey3 , Ez3 , G , G11 , &
       & G113 , G12 , G123 , G13 , G133 , G22 , G223 , G23 , G233 , G33 , G333 , Ge , Ge3 , Gey , Gxy3 , Gyz3 , Gzx3 , J11 , J12 ,   &
       & J22 , Matset , Nu , Nuxy3 , Nuyz3 , Nuzx3 , Plaans , Plaarg , Pzout(51) , Rd , Rdrew , Rho , Rho3 , Rhoy , Sigcy , Sigcy3 , &
@@ -18,15 +15,9 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew
    COMMON /system/ Sysbuf , Nout , Skp , Tempid
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ditf , Elemid , Mptf , N2mat , Nimat
    INTEGER Bfr(1) , Iz(1)
    REAL Rz(1)
-!
-! Local variable declarations
-!
    REAL alphx , bufpz(51) , buftm6(39) , ce11 , ce12 , ce13 , ce33 , ce44 , ce66 , costho , dd , ddn1 , ddn2 , e15 , e31 , e33 ,    &
       & eps11 , eps33 , epso , ex , factor , gex , gx , nux , nuxx , prop , propt , rhox , se1 , se2 , sigcx , sigsx , sigtx ,      &
       & sintho , tox , up , x(27) , xl1 , xl2 , xl3 , xm1 , xm2 , xm3 , xn1 , xn2 , xn3 , xx , xy(108) , yy
@@ -40,9 +31,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
    INTEGER nmat2 , nmat3 , nmat6 , nmat8 , nmatf , nmtpz1 , nmtpz2 , nn , ntabl , ntypes , nwds , nwmat1 , nwmat2 , nx , offset ,   &
          & pass , qmat1 , qmat2 , qmat3 , qmat6 , qmat8 , qmatf , qmatx , qmtpz1 , qmtpz2 , ret , ret1 , tablei(16) , tablid
    LOGICAL part1 , pla
-!
-! End of declarations
-!
 !
 !     REVISED 7/92, BY G.CHAN, NEW REFERENCE TO OPEN CORE ARRAY, SUCH
 !     THAT THE SOURCE CODE IS UP TO ANSI FORTRAN 77 STANADARD

@@ -1,22 +1,13 @@
 
 SUBROUTINE lsplin(Ni,Xyi,Nd,Xyd,Ky,Kd,Kt,Dz,Dtx,Dty,Dtor,G,Ncore,Isng)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Dtor , Dtx , Dty , Dz
    INTEGER Isng , Kd , Kt , Ky , Ncore , Nd , Ni
    REAL G(1) , Xyd(1) , Xyi(1)
-!
-! Local variable declarations
-!
    REAL aym , aymd , ayp , aypd , det , dtor2 , ey , temp , ym , yp
    LOGICAL bnone , bone , both , ikt , nethr , oxr , oyr , sone , spec , stwo
    INTEGER i , ia , ib , ic , icb , icc , ig , ii , ik , is , j , k , kk , mp , name(2) , nc , nca , nca2 , ncb , ncc , needed ,    &
          & nii , nj , nsc , size
-!
-! End of declarations
-!
 !
    DATA name/4HLSPL , 4HIN  /
    spec = .FALSE.

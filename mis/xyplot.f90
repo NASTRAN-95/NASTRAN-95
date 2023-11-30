@@ -1,9 +1,6 @@
 
 SUBROUTINE xyplot
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL All , Apo(2) , Axmax , Cch , Ccv , Chrscl , Clbl(32) , Cntpi , Cscale , Cvtl(32) , D1 , D2(2) , D3(37) , Papszx , Papszy ,  &
       & Pc(8,2) , Pnam1 , Pnam2 , Ptyp1 , Ptyp2 , Sbtl(32) , Skp5(5) , Spare , Titl(32) , X(1) , Xa(9) , Xatl(32) , Xdtc , Xedge ,  &
       & Xint , Xltc , Xmax , Xmin , Xpap , Xtic , Xwmax , Xwmin , Xy(2) , Xymax(2) , Y(1) , Ya(115) , Yatl(32) , Ydtc , Yedge ,     &
@@ -27,9 +24,6 @@ SUBROUTINE xyplot
                  & Iltc , Irtc , Logx , Logy , Ixax , Xint , Iyax , Yint , Icrv , D2 , Ipens , Ipenn , Skp5 , Titl , Sbtl , Clbl ,  &
                  & Cvtl , Xatl , Yatl , Ixgd , Iygd , D3 , Cscale , Ipsz , Nplt , Xpap , Ypap , Ncmr , D4
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL dl , dtc , dx , dy , nums , oldx , oldy , r , rnum , s , t , t1 , t2 , tltv(22) , xc , xdr , xl , xlpap , xmaxs , xmins ,   &
       & xpl , xprm , xps , xt , xts , y1t , yc , ydr , yl , ylabel , ylpap , ymaxs , ymins , ypl , yprm , yps , yt , yts , ywmin ,  &
       & yxtr
@@ -38,9 +32,6 @@ SUBROUTINE xyplot
          & nitk , nrwd , ntt , xyplt
    INTEGER korsz , lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     XYPLOT IS AN OUTPUT MODULE
 !

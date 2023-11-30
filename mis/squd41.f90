@@ -1,9 +1,6 @@
 
 SUBROUTINE squd41
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Anglei(4) , Bgpdt(4,4) , Degrad , Detj , Edgel(4) , Edgshr(3,4) , Eltemp , Elth , Est(100) , Gpth(4) , Gpth2(4) , Htcp ,    &
       & Hzta , Kheat(7) , Matset , Phiout(2395) , Pi , Psitrn(9) , Raddeg , Relout(300) , Rmtout(25) , Systm(100) , Twopi , Uev(3,4)&
       & , Unv(3,4) , Zoff , Zoff1
@@ -22,9 +19,6 @@ SUBROUTINE squd41
    COMMON /system/ Systm
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL a , aa , alfa(3) , aspect , avgthk , ax , b , bb , bdum , bgpdm(3,4) , bmatrx(192) , by , cc , cent(3) , cente(3) , coeff , &
       & const , cosmat , detu , dnux , dnuy , dq(24) , dshp(8) , dshptp(8) , ecpt(4) , egpdt(4,4) , enorx , enory , epnorm(4,4) ,   &
       & eps , eps1 , epsi , epst , eta , exi , exj , g(6,6) , gge(9) , ggu(9) , gi(36) , gnorx , gnory , gpc(3) , gpnorm(4,4) ,     &
@@ -41,9 +35,6 @@ SUBROUTINE squd41
    REAL tsi , tsmfx , tsmfy , tsu(9) , tsub0 , tub(9) , tum(9) , u(9) , ugpdm(3,4) , v12(3) , v12dk , v41(3) , vd1(3) , vd2(3) ,    &
       & vis(3) , vjl , vjs(3) , vkl , vkn(3) , vks(3) , vnt(3,4) , vp12(3) , vp12l , x31 , x42 , xa(4) , xi , xm , xs , xybmat(96) ,&
       & y31 , y42 , yb(4) , ym , ys , zc(4) , zeta
-!
-! End of declarations
-!
 !
 !     PHASE 1  STRESS DATA RECOVERY FOR CQUAD4 ELEMENT
 !

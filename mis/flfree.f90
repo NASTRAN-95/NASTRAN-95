@@ -1,9 +1,6 @@
 
 SUBROUTINE flfree(Frrec,Afe,Nafe,Kge,Nkge)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(3) , Rho , Sysbuf , Tilt(2) , Z(1)
    LOGICAL Error
    INTEGER Ibgpdt , Icore , Igrav , Inflag , Isil , Iz(1) , Lcore , Matid , Ngbpdt , Ngrav , Nofree , Nograv , Nout , Nsil
@@ -15,22 +12,13 @@ SUBROUTINE flfree(Frrec,Afe,Nafe,Kge,Nkge)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Nafe , Nkge
    DOUBLE PRECISION Afe(16) , Kge(16)
    INTEGER Frrec(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , afact , r12(3) , r13(3) , rhoxg , rt(3)
    REAL g
    INTEGER gf1 , gf2 , gf3 , grid(3,4) , i , icol , iloc , irow , it , itria , j , lgrav , ngridf
    LOGICAL grav , ltilt
-!
-! End of declarations
-!
 !
 !     CALCULATES THE AREA FACTOR MATRIX AND GRAVITATIONAL STIFFNESS
 !     MATRIX FOR A SINGLE FLUID ELEMENT ON THE FREE SURFACE

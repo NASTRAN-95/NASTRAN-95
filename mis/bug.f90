@@ -1,26 +1,14 @@
 
 SUBROUTINE bug(Name,Loc,Buf,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Loc , Nwds
    REAL Buf(1) , Name(3)
-!
-! Local variable declarations
-!
    CHARACTER*4 a(28) , blank , xloc
    CHARACTER*8 b(14) , err , zero
    INTEGER i , j , l , limit , line , nwpl
    INTEGER numtyp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PRINTS NAME,LOC, AND CONTENT OF BUF ARRAY
 !     E.G.   CALL BUG ('SUBR ABC',105,CORE(1),120)

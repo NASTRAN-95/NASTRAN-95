@@ -1,9 +1,6 @@
 
 SUBROUTINE vdr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Buf(50) , Casecc , Iaacc , Iacc , Iadisp , Iavel , Idisp , Idload , Ielf , Ifrout , Iloads , Ilsym , Imode ,    &
          & Infile , Ipnl , Ispcf , Istr , Ittl , Ivel , Masks(6) , Modal(2) , Nam(2) , Opnl1 , Outfle , Output , Pnl , Sdr2 ,       &
          & Sort2 , Sscell , Trn(2) , Vdrreq
@@ -14,13 +11,7 @@ SUBROUTINE vdr
    COMMON /vdrcom/ Vdrcom , Idisp , Ivel , Iacc , Ispcf , Iloads , Istr , Ielf , Iadisp , Iavel , Iaacc , Ipnl , Ittl , Ilsym ,     &
                  & Ifrout , Idload , Casecc , Eqdyn , Usetd , Infile , Oeigs , Pp , Xycdb , Pnl , Outfle , Opnl1 , Scr1 , Scr2 ,    &
                  & Buf1 , Buf2 , Buf3 , Nam , Buf , Masks , Cei , Frq , Trn , Direct , Xset0 , Vdrreq , Modal
-!
-! Local variable declarations
-!
    INTEGER i , mcb(7)
-!
-! End of declarations
-!
 !
 !     VDR IS THE CONTROL PROGRAM FOR THE VECTOR DATA RECOVERY MODULE
 !

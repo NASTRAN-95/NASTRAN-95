@@ -1,27 +1,15 @@
 
 SUBROUTINE frsw(V1,V2,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumm(18) , Xl(1)
    INTEGER Io , Iz(1) , Ksystm , L16 , Mcblt(7) , Mcbsma(7) , Nzvb
    COMMON /feerxx/ Dumm , Nzvb
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm , Io
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    REAL V1(1) , V2(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER base , i , ib , iblk(15) , ie , ifb , ii , ik , j , ji , jj , jx , ljj , ll , ll2 , mcbltx , nam(6) , nrec , nrow , ntms
    REAL sum , v3j , xljj , zero
-!
-! End of declarations
-!
 !
 !     LAST REVISED  11/91, BY G.CHAN/UNISYS
 !     ADDITION OF A NEW FORWARD-BACKWARD SUBSTITUTION METHOD, WHICH IS

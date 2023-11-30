@@ -1,9 +1,6 @@
 
 SUBROUTINE dlamby(Input,Matout,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ecore , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc ,&
          & Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Isk , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam ,    &
          & Ixle , Ixte , Iyb , Iyin , Iys , Iz(1) , Izb , Izin , Izs , Mcb(7) , Nb , Nby , Nbz , Nd , Ne , Next , Nj , Nj1 , Nk ,   &
@@ -17,19 +14,10 @@ SUBROUTINE dlamby(Input,Matout,Skj)
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Ntbe
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Input , Matout , Skj
-!
-! Local variable declarations
-!
    REAL beta
    INTEGER i , k , lnas , lnb , lnfl , lns , lnsb , lt1 , lt2 , n , n1 , name(2) , nhaero , nhcore , nhpoin
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR DOUBLET LATTICE WITH BODIES
 !

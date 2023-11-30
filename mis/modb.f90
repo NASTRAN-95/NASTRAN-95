@@ -1,15 +1,9 @@
 
 SUBROUTINE modb
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iparm1(3) , Iparm2(3)
    REAL Parm(4) , Parm8
    COMMON /blank / Parm , Iparm1 , Parm8 , Iparm2
-!
-! End of declarations
-!
 !
 !*****
 !

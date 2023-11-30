@@ -1,9 +1,6 @@
 
 SUBROUTINE mbamg(Input,Ajjl,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ang(10) , Beta , Boxa , Boxl , Boxw , Cotang(10) , Cr , Ek , Ekbar , Ekm , Fmach , Gc , Mach , Refc , Rfk , Tang(10) ,      &
       & Tskj(7) , X(12) , Y(12) , Z(1)
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
@@ -18,21 +15,12 @@ SUBROUTINE mbamg(Input,Ajjl,Skj)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , Input , Skj
-!
-! Local variable declarations
-!
    INTEGER buf1 , i , icore , icorr , icrq , ireg , is , l , na , name(2) , nc1 , nc21 , nc2n , ncap , ncaph , ncn , nd1 , ndn ,    &
          & ndss , nhcapf , nhcont , nhcore , nhxect , nkte , nkte1 , nkte2 , nparea , nphit , nq , nq1 , nq2 , nw1 , nwn , nxk ,    &
          & nxk1 , nxk2 , nxwte , nyk , nyk1 , nyk2 , nywte , scr2
    REAL cmax , rm
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR MACH BOX THEORY
 !

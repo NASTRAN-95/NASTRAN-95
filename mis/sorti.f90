@@ -1,27 +1,15 @@
 
 SUBROUTINE sorti(Inpfl,Outfl,Nwds,Keywrd,L,Nx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufin , Nbpw , Nfile(6) , Scra , Scrb , Scrc , Sysbuf , Two(16)
    REAL Dum38(38)
    COMMON /setup / Nfile , Bufin
    COMMON /system/ Sysbuf , Dum38 , Nbpw
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    INTEGER Inpfl , Keywrd , Nwds , Nx , Outfl
    INTEGER L(Nwds,2)
-!
-! Local variable declarations
-!
    INTEGER bufa , bufb , bufc , dist1 , dist2 , dummy , file , i , if1 , if2 , ii , in1 , in2 , j , jj , k , key2 , keywd , last ,  &
          & len , level , limit , m , n , nflag , nn , nnn , nrec , nz , out , r , subr(2) , temp , total , two31
-!
-! End of declarations
-!
 !
 !     WITH ENTRY POINT SORTI2 TO SORT TABLE BY 2 KEY WORDS
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE msolid(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Cp , Dum1(2) , Dum2(10) , Dumxx(1) , Ecpt(100) , Eltemp , Rho , Sinth , Stress
    DOUBLE PRECISION Emass , Mge(36) , Ptmass , R(3,3)
    LOGICAL Heat
@@ -16,17 +13,8 @@ SUBROUTINE msolid(Itype)
    COMMON /sma2et/ Ecpt
    COMMON /sma2ht/ Heat
    COMMON /sma2io/ Dum2 , Ifmgg , Dumxx , Ifbgg
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , j , m(14,4) , me , ntemp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE MASS MATRICES FOR THE SOLID ELEMENTS,
 !

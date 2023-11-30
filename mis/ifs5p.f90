@@ -1,9 +1,6 @@
 
 SUBROUTINE ifs5p(*,*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort , Baddat , Badfor
    INTEGER C , Gc(7) , I(100) , Iaero , Iax , Iaxf , Icont , Id , Ipopt , Junk(42) , K , Kb(32,2) , Kdumel(9) , Km , Kn , Knt , Kx ,&
          & Ky , Lharm , Ll(6) , M(100) , M1(100) , M1f(100) , Mf(100) , N , Nax , Naxf , Nbuf , Ncds , Nopen , Nout , Nparam , P ,  &
@@ -19,9 +16,6 @@ SUBROUTINE ifs5p(*,*,*)
    COMMON /ifpx1 / Ncds , T1
    COMMON /system/ Nbuf , Nout , Abort , Junk , Kdumel
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    REAL angsin , tmag , tr1 , tr2 , tr3 , v11 , v12 , v13 , v1mag , v21 , v22 , v23 , v2mag
    INTEGER blank , ialt , iblank , idumel , ig1 , ig2 , in1 , in2 , in3 , in4 , in5 , ino , irange , iscal(4) , itype(12) , iyes ,  &
          & j , j1 , kdlh , kdx , kz , l , l1 , l2 , l3 , ldh , lz , met(4) , ml , mot(3) , ms , n1 , nb , nbpc , ncpw , ndumc ,     &
@@ -29,9 +23,6 @@ SUBROUTINE ifs5p(*,*,*)
    LOGICAL ifpdco
    INTEGER lshift , orf , rshift
    EXTERNAL lshift , orf , rshift
-!
-! End of declarations
-!
 !
    EQUIVALENCE (M(1),Rm(1)) , (blank,iblank)
    DATA thru/4HTHRU/

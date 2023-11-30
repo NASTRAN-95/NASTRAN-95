@@ -1,28 +1,16 @@
 
 SUBROUTINE hdchk(Xxx,Ccc,Nno,Ii,Xi,Yi,Ngx,Zm,Zmi,Rv,Rvi,Tgm,Tgi,Zi,Lz,Xcc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Js , Jt , L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , M , Nn
    REAL Vx , Vx1 , Vx2 , Vx3
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
    COMMON /hedg  / Js , M , Jt , Vx , Vx1 , Vx2 , Vx3 , Nn
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Lz
    REAL Ccc(1) , Rv(1) , Rvi(1) , Tgi(1) , Tgm(1) , Xcc(1) , Xi(1) , Xxx(1) , Yi(1) , Zi(1) , Zm(1) , Zmi(1)
    INTEGER Ngx(1) , Nno(1)
-!
-! Local variable declarations
-!
    REAL a , a1 , ac , al , b , b1 , bc , bl , c , c1 , cc , cl , d , eex , eg , egx , egx1 , egy , egy1 , exp , s , s1 , t , tsx ,  &
       & tsz , vt , vu , x1 , x2 , xo , xp , y1 , y2 , yo , yp , z1 , z2 , zp , zx , zx1
    INTEGER jc , je , jm , jr , ju , jv , le , lg , nk
-!
-! End of declarations
-!
 !
 !
 !

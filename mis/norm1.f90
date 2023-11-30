@@ -1,26 +1,14 @@
 
 SUBROUTINE norm1(X,Div)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Filek(7)
    INTEGER Ncol
    COMMON /invpwx/ Filek
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Div
    DOUBLE PRECISION X(1)
-!
-! Local variable declarations
-!
    INTEGER i , ind , ind1
    DOUBLE PRECISION max
    REAL xi , xx
-!
-! End of declarations
-!
 !*******
 !     NORM WILL NORMALIZE X TO MAXIMUM ELEMENT EQUAL TO ONE AND STORE TH
 !     DIVISOR IN MAX

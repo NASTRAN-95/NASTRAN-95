@@ -1,14 +1,8 @@
 
 FUNCTION sadotb(A,B)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A(3) , B(3)
    REAL sadotb
-!
-! End of declarations
-!
 !*****
 !  SINGLE-PRECISION VERSION
 !

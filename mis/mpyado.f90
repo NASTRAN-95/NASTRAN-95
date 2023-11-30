@@ -2,9 +2,6 @@
  
 SUBROUTINE mpyado(Zz,Z,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , D(4) , Qt(2) , Time , Tmbpak , Tmgstr , Tmio , Tmipak , Tml(4) , Tmpak , Tmpstr , Tmt(4) , Tmupak , Xns(1)
    INTEGER Acol , Acol1 , Acoln , Acore , Apoint , Arow , Arow1 , Arown , Bcol , Block(20) , Cls , Clsrew , Crow , Densc , Drow ,   &
          & Eol , Eor , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Firstl , Flag , Form , Ihalf , Incr1 , Incr2 , Incra , Ip ,      &
@@ -28,15 +25,9 @@ SUBROUTINE mpyado(Zz,Z,Zd)
    COMMON /zblpkx/ D , Drow
    COMMON /zntpkx/ A , Ip , Eol , Eor
    COMMON /zzzzzz/ Xnd
-!
-! Dummy argument declarations
-!
    REAL Z(1)
    DOUBLE PRECISION Zd(1)
    INTEGER Zz(6)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    REAL arith , aterm , b(4) , bterm , core , cterm , cterm2 , dterm , dterm2 , fm , fn , fnt , fp , fp1 , fr , rhoa , rhob , rhoc ,&
       & rhod , time1 , time2 , time3 , zero(4)
@@ -48,9 +39,6 @@ SUBROUTINE mpyado(Zz,Z,Zd)
    DOUBLE PRECISION bd(2)
    LOGICAL last , null
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     MPYAD PERFORMS THE MATRIX OPERATION
 !       (+/-)A    * B (+/-)C = D   OR

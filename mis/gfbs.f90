@@ -1,9 +1,6 @@
 
 SUBROUTINE gfbs(X,Dx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Diag , Prc(2) , Rd , Rdp , Rdrew , Rect , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    DOUBLE PRECISION Da(2)
    INTEGER Eofnrw , Eol , Fileb(7) , Filel(7) , Fileu(7) , Filex(7) , Formb , Identy , Ii , Incrx , Incry , Isign , Ixy , Iy , Jxy ,&
@@ -21,22 +18,13 @@ SUBROUTINE gfbs(X,Dx)
    COMMON /unpakx/ Typea , Ixy , Jxy , Incry
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dx(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL begn , buf(2) , end , subnam(2) , temp , zeros(4)
    INTEGER clsop , cmplx , col , fstcol , i , icol , ident , ijk , in1 , in2 , incr , intchn , iobuf , ioff , j , j1 , j2 , k ,     &
          & kerr , khr , kk , l , lstcol , lstlod , ncol , nm , nn , noload , nxtnz , parm(4) , tra1 , tra2 , tra3 , tra4 , tra5 ,   &
          & typear
    DOUBLE PRECISION dtemp
-!
-! End of declarations
-!
 !
 !     GIVEN THE TRIANGULAR FACTORS FOR A GENERAL MATRIX, GFBS WILL
 !     PERFORM THE FORWARD-BACKWARD SUBSTITUTION NECESSARY TO SOLVE

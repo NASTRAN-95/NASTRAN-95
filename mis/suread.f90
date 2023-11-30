@@ -1,29 +1,17 @@
 
 SUBROUTINE suread(Ia,Nd,Nout,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Ihalf , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Jhalf , Mach
    REAL Ditdum(6)
    COMMON /machin/ Mach , Ihalf , Jhalf
    COMMON /sof   / Ditdum , Io , Iopbn , Iolbn , Iomode , Ioptr , Iosind , Ioitcd , Ioblk
    COMMON /sys   / Blksiz , Dirsiz
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Itest , Nd , Nout
    INTEGER Ia(1)
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER icount , idle , ieog , ieoi , indsbr , inxt , ird , next , nmsbr(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     READS DATA FROM THE SOF INTO THE ARRAY IA.  ND IS AN INPUT
 !     PARAMETER INDICATING THE NUMBER OF WORDS DESIRED.  ND=-1 MEANS

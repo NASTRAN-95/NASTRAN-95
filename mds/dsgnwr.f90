@@ -4,19 +4,10 @@ SUBROUTINE dsgnwr
    INCLUDE 'XNSTRN.COM'
    INCLUDE 'GINOX.COM'
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isybuf , Iwr
    COMMON /system/ Isybuf , Iwr
-!
-! Local variable declarations
-!
    CHARACTER*4 Cbuff(3)
    INTEGER i , ialloc , iavail , iccer , idevic , idsnr , ifirst , inext , iop , isave , istrb , itest , kk , lasblk , maxpr1
-!
-! End of declarations
-!
    EQUIVALENCE (Cbuff,Ibase)
    Idsn = Mdsfcb(2,Ifilex)
    idsnr = Idsn

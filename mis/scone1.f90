@@ -1,9 +1,6 @@
 
 SUBROUTINE scone1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Costh , D11 , D12 , D22 , D33 , Degra , Ecpt(100) , Eltemp , G(9) , G11 , G12 , G13 , G22 , G23 , G33 , H(120) ,    &
       & H11 , H12 , H13 , H14 , H15 , H16 , H17 , H18 , H19 , H1ten , Huq(100) , Hyq(20) , I00 , I01 , I02 , I03 , I04 , I10 , I11 ,&
       & I12 , I13 , I14 , I20 , I21 , I22 , I23 , I24 , I31 , I32 , I33 , I34 , I42 , I43 , I44 , I52 , I53 , I54 , I62 , I63 ,     &
@@ -15,16 +12,10 @@ SUBROUTINE scone1
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Alpha
    COMMON /sdr2x5/ Ecpt , Ph1out
    COMMON /sdr2x6/ Huq , H , Ks
-!
-! Local variable declarations
-!
    REAL a , b , cp , determ , dum , fac(7) , l2 , n , n2 , n2d33 , n2rsq , ncp , ncprsq , novr , nsp , nspopi , nsprsq , one , opi ,&
       & oq , piovb , r , rasq , rbsq , rsq , s , s2 , s3 , sign , sl , sp , sp2 , sp2d22 , spcpr2 , spovr , ssubt , sum , temp ,    &
       & temp1 , temp2 , temp3 , temp4 , temp5 , temp6 , temp7 , tsg3 , twod33 , var
    INTEGER i , icont , ifac , inc1 , inc2 , ising , isub , iten , j , k , kk , mplus1 , na(7) , nbegin , nerror(2) , npow
-!
-! End of declarations
-!
 !     ******* PHASE I OF STRESS DATA RECOVERY FOR CONICAL SHELL*********
 !     OUTPUTS FROM THIS ROUTINE FOR USE IN PHASE II ARE...
 !     1) ELEMENT ID

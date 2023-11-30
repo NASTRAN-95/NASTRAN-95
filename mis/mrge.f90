@@ -1,18 +1,9 @@
 
 SUBROUTINE mrge(List,N,String,M)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER M , N
    INTEGER List(1) , String(1)
-!
-! Local variable declarations
-!
    INTEGER id , k , k1 , k2 , kk , kstart , kx , nm
-!
-! End of declarations
-!
 !*****
 ! MRGE IS A MERGE ROUTINE. GIVEN A SORTED LIST AND A SORTED STRING,
 ! MRGE ADDS THE ENTRIES IN THE STRING TO THE LIST IN THEIR APPROPRIATE

@@ -1,18 +1,12 @@
 
 SUBROUTINE fa2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Itc , Iz(1) , Jj , Mtemp , Nlines , Nlpp , Nout , Npag , Print(2) , Sysbuf , Tstart
    REAL Skp(6) , Vref , Z(1)
    COMMON /blank / Tstart , Vref , Print
    COMMON /system/ Sysbuf , Nout , Skp , Nlpp , Mtemp , Npag , Nlines
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    REAL bref , f , g , iml , kfreq , lbuf(6) , oneok , phib , rel , rho , twophi , value , value1 , valuei , valuer , vout , xmach
    INTEGER buf(146) , caseyy , clama , clamal , file , floop , fmeth , fsave , i , ialph(2) , iary(22) , iblnk , ibuf1 , ibuf2 ,    &
          & ibuf3 , ibuf4 , iflag , imr , imr1 , index , ip1 , ir , irho , iri , irr , itlft , j , k , ki , kr , l , l1 , li , lr ,  &
@@ -20,9 +14,6 @@ SUBROUTINE fa2
          & nv , nvalu1 , nvalue , nz , ovg , phih , phihl , yes , yesb
    INTEGER eject , korsz , lshift
    EXTERNAL lshift
-!
-! End of declarations
-!
 !
 !     THIS IS THE DMAP MODULE FA2
 !

@@ -1,18 +1,9 @@
 
 INTEGER FUNCTION isft(Bf,Sft,J)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Bf , J , Sft
-!
-! Local variable declarations
-!
    INTEGER lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !
    IF ( J==4 ) THEN

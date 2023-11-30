@@ -1,23 +1,14 @@
 
 SUBROUTINE setval
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ksystm(65) , Nbpw , Oscar(1) , P(2,5) , Vps(1)
    COMMON /blank / P
    COMMON /oscent/ Oscar
    COMMON /system/ Ksystm
    COMMON /xvps  / Vps
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER i , j , k , subnam(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksystm(40),Nbpw)
    DATA subnam/4HSETV , 4HAL  /

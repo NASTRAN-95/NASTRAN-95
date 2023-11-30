@@ -1,29 +1,17 @@
 
 SUBROUTINE exlvl(Nos,Md,Name,Z,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Line , Nlpp , Nout
    LOGICAL Mdiup
    REAL Sysbuf , X1(6) , X2(2) , X3(34)
    COMMON /sof   / X3 , Mdiup
    COMMON /system/ Sysbuf , Nout , X1 , Nlpp , X2 , Line
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Nos , Nwds
    INTEGER Md(4,1) , Name(2) , Z(2)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    INTEGER cs , hl , i , iold , iss , j , ll , m , nl , nss , ps , subr(2) , tp
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     EXLVL ADDS A SUBSTRUCTURE TO THE RESIDENT SOF FOR THE SOFIN
 !     OPERATION.  IT USES THE DIT AND MDI DATA WRITTEN ON THE EXTERNAL

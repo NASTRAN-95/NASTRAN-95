@@ -1,9 +1,6 @@
 
 SUBROUTINE ifppar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    INTEGER Iapp , Ibuff(1) , Idta(509) , N1 , N2(17) , N3(3) , Nout , Nparam , Rf
    CHARACTER*23 Ufm
@@ -12,14 +9,8 @@ SUBROUTINE ifppar
    COMMON /system/ N1 , Nout , Abort , N2 , Iapp , N3 , Rf
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Ibuff
-!
-! Local variable declarations
-!
    INTEGER app , appr(4) , ctyp , hfre , ierr , ip1 , ip2 , ip3 , ipm , ipn , kind , lfre , lmod , msgno , nodj , nseg , que
    LOGICAL ctype , hfreq , kindx , lfreq , lmode , ltest , nodje , nsegs , p1 , p2 , p3 , ptot , queue
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO TEST FOR PARAM CARD PARAMETERS REQUIRED BY VARIOUS
 !     RIGID FORMATS.

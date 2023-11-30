@@ -1,9 +1,6 @@
 
 SUBROUTINE tridi1(D,O,C,A,B,Aa)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Entry , Idummy(52) , Ii , Iii , Incr , Incr1 , Iprec , It1 , It2 , It3 , Jj , Jjj , M1 , M2 , M3 , M4 , Md , Mo , Mr1 ,  &
          & N , Nout , Row , Rstrt , Savemr , Sysbuf , Xentry
    REAL T10 , T12(5) , T19 , Title(1) , Vvcom(150)
@@ -13,19 +10,10 @@ SUBROUTINE tridi1(D,O,C,A,B,Aa)
    COMMON /system/ Sysbuf , Nout , Idummy , Iprec
    COMMON /unpakx/ It3 , Iii , Jjj , Incr1
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL A(2) , Aa(1) , B(1) , C(1) , D(1) , O(1)
-!
-! Local variable declarations
-!
    INTEGER count , i , ibuf1 , ibuf2 , im1 , j , k , max , mcb(7) , midin , midout , mr , ms , ms1 , ms2 , ms3 , ms4 , mss , na ,   &
          & nm1 , nm2 , nz , nzsq , nzz , rot , row1 , row2 , rowp1 , rowp2
    INTEGER filcor , korsz
-!
-! End of declarations
-!
 !
 !     MODIFIED GIVENS REAL SYMMETRIC TRIDIAGONALIZATION
 !     THIS ROUTINE IS CALLED ONLY BY VALVEC

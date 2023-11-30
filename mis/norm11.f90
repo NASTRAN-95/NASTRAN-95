@@ -1,25 +1,13 @@
 
 SUBROUTINE norm11(X,Div)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Filek(7)
    INTEGER Ncol
    COMMON /invpwx/ Filek
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Div
    REAL X(1)
-!
-! Local variable declarations
-!
    INTEGER i , ind , ind1
    REAL max , xi , xx
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ncol,Filek(2))
    DATA ind1/1/

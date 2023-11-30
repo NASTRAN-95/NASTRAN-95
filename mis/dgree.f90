@@ -1,24 +1,12 @@
 
 SUBROUTINE dgree(Ndstk,Ndeg,Iold,Ibw1,Ipf1,Nu)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ideg , Idpth , Mm , N , Nn
    COMMON /bandg / N , Idpth , Ideg
    COMMON /bands / Nn , Mm
-!
-! Dummy argument declarations
-!
    INTEGER Ibw1 , Ipf1
    INTEGER Iold(1) , Ndeg(1) , Ndstk(1) , Nu(1)
-!
-! Local variable declarations
-!
    INTEGER i , idif , irw , itst , j
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !     DGREE COMPUTES THE DEGREE OF EACH NODE IN NDSTK AND STORES

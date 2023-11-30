@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Iaxif , Output , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    REAL Dum34(34) , Rz(4)
    LOGICAL Nogo
@@ -12,9 +9,6 @@ SUBROUTINE ifp4
    COMMON /system/ Sysbuf , Output , Nogo , Dum34 , Iaxif
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL angle , bd , degrad , drho , g , r , rbuf(10) , rcard(10) , rhob , rj , rjl1 , rjp1 , temp , temp1 , temp2 , zj , zjl1 ,    &
       & zjp1 , ztemp , zz
    LOGICAL any , anygb , anygrd , bit , bit2 , end , g1eof , g2eof , g4eof , harms , mateof , press , set102
@@ -28,9 +22,6 @@ SUBROUTINE ifp4
    INTEGER nlist , nmpc , nn , nname , noeor , nosym , nring , nsize , nspc , nspnt , ntemp , nwords , point , prespt(2) , ringfl(2)&
          & , saveid(5) , scrt1 , scrt2 , seqgp(2) , space , spc(2) , spc1(2) , spcadd(2) , spoint(2) , subr(2) , trail(7) , type(2) &
          & , words
-!
-! End of declarations
-!
 !
 !     HYDROELASTIC PREFACE ROUTINE
 !

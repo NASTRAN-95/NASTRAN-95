@@ -1,26 +1,14 @@
 
 SUBROUTINE scat(Kg,Ncon,Inv,Ii3,Norig)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum3(3) , Dum3b(3)
    INTEGER Isys , Kmod , Maxdeg , Maxgrd , Ngrid , Nn , Nout
    COMMON /bandb / Dum3b , Ngrid
    COMMON /bands / Nn , Dum3 , Maxgrd , Maxdeg , Kmod
    COMMON /system/ Isys , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ii3 , Ncon
    INTEGER Inv(Ii3,2) , Kg(1) , Norig(1)
-!
-! Local variable declarations
-!
    INTEGER i , loc , nold
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

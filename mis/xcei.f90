@@ -2,9 +2,6 @@
 SUBROUTINE xcei
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bfsz , Buf(7) , Ceitbl(42) , Databf(1) , Dum21(21) , Dum57(57) , Icfiat , Icpflg , Idic(1) , Idpl(3) , Ifiat(3) ,        &
          & Isysou , Vps(1)
    COMMON /oscent/ Buf
@@ -14,16 +11,10 @@ SUBROUTINE xcei
    COMMON /xfiat / Ifiat
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Databf
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf , rshift
    INTEGER ceitbx , contrl(4) , dcparm(2) , i , ibot , ihold , ii , itop , ivpspt , j , jj , kk , ldic , loop , lpflg , mask ,      &
          & mask1 , mxloop , nbegn , nblank , nend , newsq , noflgs , noscar , nrecsz , nxcei(2) , nxptdc(2) , pool
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !WKBR COMMON /XCEITB/ CEITBL(2)
    EQUIVALENCE (Databf(1),Idic(1))
    DATA nxptdc/4HXPTD , 4HIC  /

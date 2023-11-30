@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1h
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Cls , Clsrew , Cstm , Ecpt , Ect , Elem(1) , Ept , Eqexin , Est , Gei , Genl , Gpct , Gpect , Gptt , Incr ,      &
          & Jlast , Ksystm(65) , Luset , Mpt , Mptx , Nelem , Nogenl , Nosimp , Nosup , Nsil , Outpt , Rd , Rdrew , Scr1 , Scr2 ,    &
          & Scr3 , Scr4 , Sil , Sysbuf , Tempid , Tempsz , Wrt , Wrtrew , Z(20000)
@@ -16,18 +13,12 @@ SUBROUTINE ta1h
    COMMON /ta1com/ Nsil , Ect , Ept , Bgpdt , Sil , Gptt , Cstm , Mpt , Est , Gei , Gpect , Ecpt , Gpct , Mptx , Pcomps , Eptx ,    &
                  & Scr1 , Scr2 , Scr3 , Scr4 , Eqexin
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER blk(2) , buf(50) , buf1 , buf2 , buf3 , elemid , flag , i , idcntr , idptr , iecpt0 , ielem , igr1 , igr2 , ii , infile ,&
          & ix , izero , j , k , khr , kk , ktwo24 , l , last , length , lj , ll , llx , lx , m , maxdof , maxel , mm , n , n2 ,     &
          & n21 , nam(2) , ndx1 , ndx2 , neq1 , neq2 , ngrids , noect , op , oufile , out(3) , scri , scro , two24
    REAL bufr(50) , file
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     FOR LEVEL 16 A MAJOR REVISION HAS BEEN MADE TO TA1B. THE ECPT AND
 !     GPCT ARE NO LONGER CONTSTRUCTED BUT, INSTEAD, THE GPECT IS BUILT.

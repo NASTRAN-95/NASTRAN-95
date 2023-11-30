@@ -1,9 +1,6 @@
 
 SUBROUTINE dbar
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Alphas , Costh , Dum2(8) , Dum3(38) , Dumcl(32) , Dummy1 , Dummy2 , Dummy3 , Ecpt(100) , Eldef , Eltemp , Es , Fj ,     &
       & Fmu , Gef(4) , Gpa(3) , Gpb(3) , Gs , Gsube , I1 , I2 , K1 , K2 , Rho , Sigc , Sigs , Sigt , Sinth , Smallv(3) , Stress ,   &
       & Tempel , Temper , Tsub0s , Uas(6) , Ubs(6) , Z(1) , Za(3) , Zb(3)
@@ -17,9 +14,6 @@ SUBROUTINE dbar
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ Es , Gs , Nu , Rho , Alphas , Tsub0s , Gsube , Sigt , Sigc , Sigs
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL abasic , aofset , basic , bbasic , bofset , offset
    DOUBLE PRECISION alpha , da , dfj , dpveca(6) , dpvecb(6) , e , ei1 , ei2 , fl , fll , fx , gak1 , gak2 , kc(12,12) , kd(144) ,  &
                   & kdp(144) , kes(144) , l , lcube , lsq , may , maz , mby , mbz , rrv1 , rrv2 , sa(72) , sb(36) , sk1 , sk2 ,     &
@@ -28,9 +22,6 @@ SUBROUTINE dbar
    INTEGER i , iab , icsida , icsidb , idela , idelb , ig , ii , ij , ikde , ikel , il , ilim , ill , ilow , ipin(10) , ipvt , isv ,&
          & ita , iwbeg , iwleft , iwrght , j , j1 , j2 , jcsid , jcsida , jcsidb , ji , jj , jll , jofset , jofsta , jofstb ,       &
          & jpina , jpinb , k , ka , kb , kk , l1 , lim , lj , ll , low
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE 2 6X6 DIFFERENTIAL STIFFNESS MATRICES
 !     K(NPVT,NPVT) AND K(NPVT,J) FOR A BEAM HAVING END POINTS OF SIL

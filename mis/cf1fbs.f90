@@ -1,9 +1,6 @@
 
 SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aadum(117) , Cdp , Da(2) , Eofnrw , Rd , Rdp , Rdrew , Rew , Rsp , Wrt , Wrtrew , Xa(2) , Xcd01(4) , Xcd02(9) , Xcd03(6)
    INTEGER Csp , Eol , Ii , Iscr6 , Ksystm , Mcblt(7) , Mcbut(7) , Norew , Nout , Nswp
    LOGICAL Qpr , Symmet
@@ -12,20 +9,11 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp
    COMMON /system/ Ksystm , Nout
    COMMON /zntpkx/ Da , Xa , Ii , Eol
-!
-! Dummy argument declarations
-!
    INTEGER Iobuf(1)
    LOGICAL Tpose(1)
    REAL Xout(1)
-!
-! Local variable declarations
-!
    REAL dtemp , unidum
    INTEGER i , i1 , i2 , ii1 , ii2 , in1 , in2 , intchn , ioff , j , j1 , j2 , junk , k , mcsave , name(2)
-!
-! End of declarations
-!
 !*******
 !     CF1FBS PERFORMS THE SINGLE-PRECISION FORWARD AND BACKWARD SWEEPS
 !     FOR THE COMPLEX FEER METHOD. THESE SWEEPS CONSTITUTE THE

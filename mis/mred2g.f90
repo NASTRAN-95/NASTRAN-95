@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2g(Kode)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds , Frebdy , Modes , Ponly
    INTEGER Cprtn , Dry , Eqst , Fuset , Gbuf1 , Gib , Hgh , Hie , Icode , Idum1 , Idum2(2) , Idum3 , Idum4(9) , Idum5(10) , Idum6(5)&
          & , Idum7(4) , Incr , Infile(12) , Iprntr , Irow , Iscr(10) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) , Itrlrd(7) , Jscr(3) ,    &
@@ -23,18 +20,9 @@ SUBROUTINE mred2g(Kode)
    COMMON /system/ Idum3 , Iprntr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Kode
-!
-! Local variable declarations
-!
    INTEGER blanks , dblkor , i , iform , imsg , iprc , isub(4) , item , itest , itmlst(11) , itmnam(2) , itrlr1(7) , itrlr2(7) ,    &
          & itrlr3(7) , ityp , itype , j , kbarow , kcol , keecol , keerow , modnam(2) , mred2 , numb , papp
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE FINAL STRUCTURAL MATRICES FOR THE
 !     MRED2 MODULE.

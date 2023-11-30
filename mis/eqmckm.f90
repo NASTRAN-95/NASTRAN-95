@@ -1,9 +1,6 @@
 
 SUBROUTINE eqmckm
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(3) , Ilru , Incu , Inru , Ins(3) , Iprec , Isbz , Itim , Itypu , Kbgdt , Kcstm , Kexin , Kgg , Kgm , Kgpl , Klam ,  &
          & Kload , Kmpc , Knerw , Knrw , Koqm , Kpgg , Kqg , Krw , Kscc , Kscr(7) , Ksil , Kspc , Ksystm(80) , Kugv , Kuset , Lcor ,&
          & Luset , Ma(7) , Mb(7) , Mc(7) , Md(7) , Mpr , Msab , Msc , Mscr , Mt , Mz , Nout , Nskip , Parm(4) , Rdnrw , Rdrw ,      &
@@ -22,16 +19,10 @@ SUBROUTINE eqmckm
    COMMON /unpakx/ Itypu , Inru , Ilru , Incu
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Zz
-!
-! Local variable declarations
-!
    LOGICAL anyout , firstc , firsto , lascas
    INTEGER i , iapp , idg , ieg , ifil , ild , isb , isdone , ivec , j , k , kg , kon(10) , l , lcc , lkscc , lsetd , lvec , m ,    &
          & mcb(7) , ms , msze , name(2) , nent , ngset , nvec , nzz , nzz1 , nzz2 , nzz3 , nzz4 , ocb(8)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE MPC CONSTRAINT FORCES AND CREATES
 !     THE OUTPUT FILE FOR OFP.

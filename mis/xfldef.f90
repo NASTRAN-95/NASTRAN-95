@@ -1,9 +1,6 @@
 
 SUBROUTINE xfldef(Name1,Name2,Nofind)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bcdcnt , Bs , Cnmtp , Core(1) , Dmap(1) , Dmpcnt , Dmppnt , Dum(78) , Osprc , Seqno , Subset , Xgpid1(5)
    INTEGER Fmdmsk(7) , Fmed(1) , Fmedtp , Fnm(1) , Fnmtp , Iallon , Iapp , Icfpnt , Icftop , Ichar , Icold , Icpflg , Icrdtp ,      &
          & Icst , Ictlfl(1) , Idmapp , Idmpnt , Idsapp , Iequl , Iestim , Iexit(2) , Iflag , Ihapp , Imst , Insert , Iospnt ,       &
@@ -25,21 +22,12 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
    COMMON /xmdmsk/ Nmskcd , Nmskfl , Nmskrf , Fmdmsk
    COMMON /xoldpt/ Ptdtp , Ptdbot , Lptdic , Nrlfl , Seqno
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Nofind
    INTEGER Name1(1) , Name2(1)
-!
-! Local variable declarations
-!
    INTEGER and , or
    INTEGER andf , complf , orf
    INTEGER i , ifirst , ii , index , j , j1 , j2 , jj , k , k1 , l , n , nam1 , nam2 , nxchkp , ospnt , regen
    EXTERNAL andf , complf , orf
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO TURN ON ALL OSCAR ENTRY EXECUTE
 !     FLAGS NECESSARY TO DEFINE FILE .

@@ -1,19 +1,10 @@
 
 SUBROUTINE dsinqr(Dsn,Istat,Isize)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    CHARACTER*(*) Dsn
    INTEGER Isize , Istat
-!
-! Local variable declarations
-!
    LOGICAL avail
    INTEGER nrec
-!
-! End of declarations
-!
 !        DSINQR DETERMINES THE EXISTANCE OF A FILE:
 !            DSN   ( INPUT  )   FILE NAME
 !            ISTAT ( OUTPUT )   =0, IF NOT EXIST; =1, IF EXIST

@@ -1,19 +1,10 @@
 
 SUBROUTINE summ(Sum,Isum,Term1,Iterm1,Term2,Iterm2,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Isum , Iterm1 , Iterm2 , N
    DOUBLE PRECISION Sum , Term1 , Term2
-!
-! Local variable declarations
-!
    DOUBLE PRECISION factor , temp1 , temp2
    INTEGER isave , mult
-!
-! End of declarations
-!
 !
 !
    IF ( Term1/=0.0D0 ) THEN

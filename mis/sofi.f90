@@ -1,9 +1,6 @@
 
 SUBROUTINE sofi
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Items(2,5) , Iz(1) , Name(2) , Nout , Sysbuf
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -11,14 +8,8 @@ SUBROUTINE sofi
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER file(5) , i , ib1 , ib2 , ib3 , iblnk , itest , mcb(7) , modnam(2) , nz , xxxx
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MODULE USED TO COPY SELECTED ITEMS FROM SELECTED SUBSTRUCTURES
 !     ONTO NASTRAN MATRIX FILES.   THE CALLING SEQUENCE TO THE MODULE

@@ -1,16 +1,10 @@
 
 SUBROUTINE gfsma
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Comptp , Form , Kcomp , Lmodes , Nofree , Nograv
    REAL Dummy(38)
    COMMON /blank / Nograv , Nofree , Kcomp , Comptp , Form , Lmodes
    COMMON /gfsmox/ Dummy
-!
-! End of declarations
-!
 !
 !     MODULE GFSMA  ( GENERAL FLUID / STRUCTURE MATRIX ASSEMBLER )
 !

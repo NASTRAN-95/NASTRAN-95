@@ -91,9 +91,6 @@ SUBROUTINE xsort2
 !     WRITTEN BY G.CHAN/UNISYS   10/1987
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Apprc , Buf4(4) , Buf41 , Bufsz , Cpflg , Date(4) , Dum10(96) , Dum11(12) , Dum12 , Dum13(2) , Dum3(10) , Dum4 , Dum5(9) &
          & , Dum6(7) , Dum7(28) , Dum8(12) , Dum9(8) , Echo , Echop , Echos , Echou , Eofnrw , F3long , Ffflag , Head1(32) ,        &
          & Head2(32) , Head3(32) , Hicore , Ibits(1) , Icards(2) , Ijhalf(2) , In , Itwo(32) , Ixsort , Kumf , Lpch , Lqro , Mach , &
@@ -115,9 +112,6 @@ SUBROUTINE xsort2
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsortx/ Buf4 , Table
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , complf , khrfn3 , korsz , lshift , orf , rshift
    INTEGER base , bk , blank , bsize , buf(50) , buf41x , bulkda(2) , case , cdcnt(3) , cmmt , count , crdflg , empty , exh , file ,&
          & filea , filex , from , fub(25) , fub41 , full , i , i25 , ib , ibuf1 , ibuf2 , ibuf3 , ibufc , ibufl , ibufx(10) , ic ,  &
@@ -130,9 +124,6 @@ SUBROUTINE xsort2
    CHARACTER*28 head4
    INTEGER tape , tape1 , tape2 , tape3 , tapecc , temp(2) , tempx , top , wrttn , zpoint
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !ZZ   COMMON /ZZXST2/ Z(1)
    EQUIVALENCE (Y(1,1),Z(1)) , (Buf41,Buf4(1)) , (ibufx(1),buf(26)) , (itape(1),buf(38))
    DATA head , head4/' I N P U T   B U L K   D A T A   D E C K   E C H O      ' ,                                                   &

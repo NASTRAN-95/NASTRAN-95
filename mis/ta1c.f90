@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1c
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Buf1 , Buf2 , Buf3 , Clsrew , Cstm , Ecpt , Ect , Ept , Est , Gei , Genl , Gpct , Gpect , Gptt , Idgenl , Iud ,  &
          & Iui , Iz , Luset , Mpt , Mptx , Nbpw , Nfile(6) , Nogenl , Nogo , Nosimp , Nosup , Nsil , Nud , Nui , Rd , Rdrew , Scr1 ,&
          & Scr2 , Scr3 , Scr4 , Sil , Sysbuf , Wrt , Wrtrew , Z(1)
@@ -16,15 +13,9 @@ SUBROUTINE ta1c
                  & Scr1 , Scr2 , Scr3 , Scr4
    COMMON /tac1ax/ Buf1 , Buf2 , Buf3 , Iui , Nui , Iud , Nud , Iz , Nogo , Idgenl
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf(10) , file , flag , genel(2) , half , i , ijk , intcol , introw , j , jfile , k , kcol , koz , krow , m , n , nam(2) &
          & , nbrud , nbrui , ncore , nocore , nwds , nwdud , nwdui , nwdz , silno
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TA1C READS GENERAL ELEMENTS FROM THE ECT AND BUILDS THE GEI.
 !     FOR EACH GENERAL ELEMENT, THE UI AND UD LISTS ARE CONVERTED TO

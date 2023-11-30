@@ -2,9 +2,6 @@
 BLOCKDATA sdr2bd
 !SDR2BD
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , All , Any , Axic , Bgpdt , Bk0(2) , Bk1(2) , Branch , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Casecc , Cei(2) , Cstm ,  &
          & Ddrmm , Deform , Displ , Dit , Ds0(2) , Ds1(2) , Dtype(8) , Edt , Eigr , Eldef , End , Eqexin , Est , Esta , File ,      &
          & Force , Frq(2) , Gptt , Gptta , Harms , Iacc , Icb(7) , Icstm , Idispl , Idload , Ieigen , Ieldef , Ielf , Ifrout ,      &
@@ -22,9 +19,6 @@ BLOCKDATA sdr2bd
                  & Buf3 , Buf4 , Buf5 , Any , All , Tloads , Eldef , Symflg , Branch , Ktype , Loads , Spcf , Displ , Vel , Acc ,   &
                  & Stress , Force , Kwdest , Kwdedt , Kwdgpt , Kwdcc , Nrigds , Sta , Rei , Ds0 , Ds1 , Frq , Trn , Bk0 , Bk1 ,     &
                  & Cei , Pla , Nrings , Nharms , Axic , Knset , Isopl , Strspt , Ddrmm , Isopl8
-!
-! End of declarations
-!
 !
 !
 !

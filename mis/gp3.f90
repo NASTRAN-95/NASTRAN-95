@@ -1,9 +1,6 @@
 
 SUBROUTINE gp3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Buf3 , Geom3 , Gptt , Idno(30) , Igrav , Ipld3 , Ipload , Load(2) , Mask(60) , Nograv , Noload , &
          & Nopld2 , Notemp , Ntypes , Pload2(2) , Slt , Sperlk , Status(60) , Sysbuf , Two(32)
    REAL Carddt(60) , Cardid(60) , Eqexin , Geom2 , Pload3(2) , Scr1 , Scr2 , Sy(93) , Temp(2) , Tempd(2) , Tempp1(2) , Tempp2(2) ,  &
@@ -15,14 +12,8 @@ SUBROUTINE gp3
    COMMON /system/ Sysbuf , Sy , Sperlk
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GP3 IS THE MAIN CONTROL PROGRAM FOR MODULE GP3.
 !     IF PLOAD2 CARDS ARE PRESENT, GP3C IS EXECUTED TO BUILD PLOAD DATA

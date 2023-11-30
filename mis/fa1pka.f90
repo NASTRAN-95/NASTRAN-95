@@ -1,18 +1,9 @@
 
 SUBROUTINE fa1pka(A,M1k,M1b,Eiv,Ncore,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N , Ncore
    REAL A(1) , Eiv(1) , M1b(1) , M1k(1)
-!
-! Local variable declarations
-!
    INTEGER i , ih , ii , il , im , imb , imi , imk , iz , j , k , l39 , n2 , n4 , name(2) , nheige , nheigs
-!
-! End of declarations
-!
 !
 !     FA1PKA BUILDS THE MATRIX FOR ALLMAT
 !

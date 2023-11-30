@@ -1,25 +1,13 @@
 
 SUBROUTINE symbol(X,Y,Symx,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Model , Nsym , Ploter , Symbl(20,2)
    COMMON /pltdat/ Model , Ploter
    COMMON /symbls/ Nsym , Symbl
-!
-! Dummy argument declarations
-!
    INTEGER Opt
    REAL X , Y
    INTEGER Symx(2)
-!
-! Local variable declarations
-!
    INTEGER i , sym
-!
-! End of declarations
-!
 !
 !     (X,Y) = POINT AT WHICH THE SYMBOLS ARE TO BE TYPED.
 !     SYMX  = SYMBOLS TO BE TYPED.

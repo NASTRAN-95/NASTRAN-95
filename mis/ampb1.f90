@@ -1,26 +1,14 @@
 
 SUBROUTINE ampb1(Ipvct,Noh,Noe)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Z(1)
    INTEGER Ii , Sysbuf
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Ii
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ipvct , Noe , Noh
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , mcb(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE BUILDS A PARTITIONING VECTOR WHICH WILL APPEND NOE
 !       TERM(OR COLUMNS)

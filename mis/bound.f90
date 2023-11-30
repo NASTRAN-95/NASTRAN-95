@@ -1,9 +1,6 @@
 
 SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(3) , Rho , Sysbuf , Z(1)
    LOGICAL Error
    INTEGER Ibgpdt , Icore , Igrav , Inflag , Isil , Iz(1) , Lcore , Matid , Nbgpdt , Ngrav , Nograv , Nout , Nsil
@@ -16,15 +13,9 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Nafe , Nkge
    DOUBLE PRECISION Afe(48) , Kge(144)
    INTEGER Fbrec(12)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , aa , aa2 , aeps , aflel , aflstr , akj(3,4) , akjcon , astrel , astria , bb , c(4,7) , c1 , c2 , c3 , cc ,  &
                   & conii , d1 , d2 , dd , dhalf , dlb , dpoly , dub , dz , e(3,2) , eps(2) , epslon , epso10 , f(3,7) , factii ,   &
                   & fdet , fii , fl(3,4) , h , in(3) , jn(3) , kident(3) , kii(144) , kik(9) , kn(3) , ks(3) , ksb(3) , ktemp(2,3) ,&
@@ -38,9 +29,6 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
    REAL g
    LOGICAL grav
    DOUBLE PRECISION zz1
-!
-! End of declarations
-!
 !
 !     COMPUTES AREA FACTOR AND GRAVITIONAL STIFFNESS MATRICES FOR A FACE
 !     OF A INDIVIDUAL FLUID ELEMENT

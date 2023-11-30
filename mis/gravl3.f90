@@ -1,9 +1,6 @@
 
 SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL B(4) , Z(1)
    INTEGER Ihalf , Ii , Isystm(175) , Ix(25) , Jhalf , Luset , Mach , Mn , Sysbuf
    COMMON /blank / Luset
@@ -11,21 +8,12 @@ SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
    COMMON /system/ Sysbuf , Ix , Mn
    COMMON /zblpkx/ B , Ii
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iharm , Nvect , Sr1
    REAL Gvect(1)
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , rshift
    REAL cosph , costh , g , gxy , sinph , sinth
    INTEGER i , ibuf , il , iloop , m , mcb(7) , n
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     BUILD GRAVITY LOADS FOR AXISYMMETRIC SHELL
 !

@@ -7,9 +7,6 @@ SUBROUTINE ofp
 !     OFP1 OUTPUTS HEADINGS ONLY.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axif , Buff(1) , Core(20000) , D(1) , E(1) , Esingl(64) , Head(96) , Icard , Id(50) , Idm(2) , Itherm , Ksystm(65) , L , &
          & L1 , L2 , L3 , L4 , L5 , Line , Maxlns , Mpunch , Of(56) , Option(2) , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -26,13 +23,7 @@ SUBROUTINE ofp
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ifile1
-!
-! Local variable declarations
-!
    INTEGER a4 , b(23,4) , bk1 , ceigen , center , comma , cparen , device , e156 , e236 , e9pt1 , eend , f156 , f174 , f236 , file ,&
          & filex(6) , flag , fmt(300) , freq , from , grdpt , gse(4) , hex1 , hex2 , hex3 , i , i1 , i12 , i15blk(2) , i15x , i1h0 ,&
          & i1x , i1xx , i2 , i2x , i2xx , i6x , i8 , i9x , iapp , iblank , icore , icurv , idd , ieltyp , ifile , ifmt , igse ,     &
@@ -44,9 +35,6 @@ SUBROUTINE ofp
    REAL fimag(2) , freal(10) , out(100)
    INTEGER korsz
    INTEGER phase , point , real(10) , reigen , scan(2) , sort , static , trans , tsave(96) , type
-!
-! End of declarations
-!
 !WKBI
 !ZZ   COMMON /ZZOFPX/  CORE(1)
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(9),Maxlns) , (Ksystm(12),Line) , (Ksystm(38),Axif) , (Ksystm(56),Itherm)&

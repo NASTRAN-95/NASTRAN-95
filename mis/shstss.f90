@@ -1,32 +1,20 @@
 
 SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,Idr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum71(100) , Forsul(200) , Stres(100) , Strin(100)
    LOGICAL Forreq , Grids , Gridss , Layer , Layers , Stnreq , Strcur , Stsreq , Temper , Tempp1 , Tempp2 , Vonms , Vonmss
    INTEGER Nstres(1)
    COMMON /outreq/ Stsreq , Stnreq , Forreq , Strcur , Grids , Vonms , Layer , Gridss , Vonmss , Layers
    COMMON /sdr2x7/ Dum71 , Stres , Forsul , Strin
    COMMON /tmpdat/ Temper , Tempp1 , Tempp2
-!
-! Dummy argument declarations
-!
    LOGICAL Bendng
    INTEGER Elid , Numpx
    REAL Tbar
    REAL Epscsi(6,1) , G(6,6) , G2alfb(3,1) , Stemp(2) , Thikns(1) , Z12(2,1)
    INTEGER Idr(1) , Igrid(1)
-!
-! Local variable declarations
-!
    REAL const , epss , fiber , s1mat(3,3) , s2mat(3,3) , sigma(3) , sigmap(4) , t3ov12 , thick , tprime , tsubi
    LOGICAL cosmic
    INTEGER i , inplan , inptmp , ist , istres , its , iz , j , nump , nump1
-!
-! End of declarations
-!
 !
 !     TO CALCULATE SHELL ELEMENT STRESSES FOR A 2-D FORMULATION BASE.
 !     COMPOSITE LAYER STRESSES ARE NOT CALCULATED IN THIS ROUTINE.

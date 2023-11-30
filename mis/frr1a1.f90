@@ -1,20 +1,11 @@
 
 SUBROUTINE frr1a1(Rz,Cz,Ib,Reb,Ceb)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Ceb , Cz , Reb , Rz
    INTEGER Ib
-!
-! Local variable declarations
-!
    REAL bf , bf1 , den
    INTEGER i , n
    COMPLEX sum , term , z , zk
-!
-! End of declarations
-!
 !
 !
    z = cmplx(Rz,Cz)

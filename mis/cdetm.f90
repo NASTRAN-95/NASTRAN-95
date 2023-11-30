@@ -1,9 +1,6 @@
 
 SUBROUTINE cdetm(Method,Eed,Mdd,Bdd,Kdd,Lama,Phid,Oceigs,Nfound,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Scr8)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Amcb(2) , Bmcb(2) , Cmcb(2) , D2pi , D4pisq , Degrad , Di , Dpi , Dr , Minda , Raddeg , Zd(1)
    INTEGER Fa(7) , Fl(7) , Fu(7) , Ib , Iz(1) , Ksystm(65) , Lcadd , Mach , Maxgx , Mc(7) , Mcba(12) , Mcbb(12) , Mcbc(12) ,        &
          & Mcbd(12) , Mcbe(12) , Nmsgx , Nomat , Nx , Otpe , Powr , Sr1 , Sr2 , Sr3 , Sysbuf
@@ -16,13 +13,7 @@ SUBROUTINE cdetm(Method,Eed,Mdd,Bdd,Kdd,Lama,Phid,Oceigs,Nfound,Scr1,Scr2,Scr3,S
    COMMON /saddx / Nomat , Lcadd , Mcba , Mcbb , Mcbc , Mcbd , Mcbe , Mc
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Bdd , Eed , Kdd , Lama , Mdd , Method , Nfound , Oceigs , Phid , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Scr6 , Scr7 , Scr8
-!
-! Local variable declarations
-!
    REAL aloc1 , alph1 , alph2 , epsi , lu , rll , sign , w1 , w2 , wloc1 , x , xl , xu , xvr , y , yu , yvr
    DOUBLE PRECISION d1 , d10 , d2 , d3 , d4 , d5 , d6 , d7 , d8 , d9 , ddist2 , ddistx , deltki , deltkr , deti(3) , detr(3) ,      &
                   & dsi(3) , dsr(3) , dt1 , dt2 , dt3 , gki , gkr , h1bar , h2bar , h3bar , hk1i , hk1r , hki , hkp1i , hkp1r ,     &
@@ -35,9 +26,6 @@ SUBROUTINE cdetm(Method,Eed,Mdd,Bdd,Kdd,Lama,Phid,Oceigs,Nfound,Scr1,Scr2,Scr3,S
          & nchang , nd , ndcomp , ndesrd , ne , nf , nfail , nit , nmoves , nosing , noutsd , npass , npole , nregn
    INTEGER korsz
    INTEGER nrorg , nrow , nsbdon , nsbrgn , numint , nxorg , poin
-!
-! End of declarations
-!
 !
 !     SOLVES COMPLEX EIGENVALUE PROBLEM BY DETERMINANT METHOD
 !

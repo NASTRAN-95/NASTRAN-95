@@ -1,9 +1,6 @@
 
 SUBROUTINE trbscs
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Bfact , Dm(12) , E(18) , Ecpt(25) , Heat , Kk(324) , Kout(324) , M(324) , Mout(324) , Prod(9) , Qq , Sxubc ,       &
       & Temp9(9) , Xsubb , Ysubc
    INTEGER Elid , Estid , Icmbar , Ielid , Ioutpt , Iprec , Ismb(3) , Ixtr , Jcore , Ksav(81) , Ksystm(60) , Ldict , Ncore ,        &
@@ -14,14 +11,8 @@ SUBROUTINE trbscs
    COMMON /emgprm/ Ixtr , Jcore , Ncore , Dm , Ismb , Iprec , Nogo , Heat , Icmbar
    COMMON /emgtrx/ A , Prod , Temp9 , Xsubb , Sxubc , Ysubc , Bfact , E , Kout , Kk , Ksav
    COMMON /system/ Ksystm
-!
-! Local variable declarations
-!
    INTEGER dict(9) , i , ia , ii , ij , ik , iout , ip , ip1 , ipart(3) , j , jj , k , l
    REAL dict5
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS AND MASS MATRICES FOR
 !     THE BASIC BENDING TRIANGLE.  THE MASS MATRIX MAY BE CALCULATED

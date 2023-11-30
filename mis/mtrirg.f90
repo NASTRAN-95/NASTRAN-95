@@ -1,9 +1,6 @@
 
 SUBROUTINE mtrirg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ak(36) , Aki(36) , Akt(9) , Am(36) , Area , Constd(5) , D(36) , D2pi , Delint(8) , Dgama , Dr , Dz , Gambq(36) ,&
                   & R(3) , R1 , R2 , R3 , Ra , Rh , Rhod , Twopi , Z(3) , Z1 , Z2 , Z3 , Za , Zh , Zmin
    REAL Alf(3) , Anu(3) , Costh , Dum1(10) , Dum2(25) , Dum3(2) , Dum4(7) , Dum5(81) , E(3) , Ecpt(19) , Eltemp , G(3) , Rho ,      &
@@ -17,14 +14,8 @@ SUBROUTINE mtrirg
                  & Igp , Ics , Sp , Tempe
    COMMON /sma2et/ Ecpt , Dum5
    COMMON /sma2io/ Dum1 , Ifmgg , Dum2
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dki
    INTEGER i , i1 , iai , iapp , ic1 , idel , ieror1 , ieror2 , ip , ipp , iq , ir1 , irc , ising , j , j1 , j2 , k , kode , matid
-!
-! End of declarations
-!
 !
 !
 !*****

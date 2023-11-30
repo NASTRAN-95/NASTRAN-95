@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb2(Input,D1jk,D2jk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Degra , Den , Dum(2) , Flowa , Mach , Maxmac , Minmac , Pi , Radeg , Radius ,     &
       & Redf , Refc , Refcrd , Refden , Refflo , Refmac , Refstg , Refvel , Rfreq , S4pisq , Sigma , Stager , Twopi , Vel , Work(1) &
       & , Xsign
@@ -20,19 +17,10 @@ SUBROUTINE amgb2(Input,D1jk,D2jk)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf , Iout
    COMMON /zzzzzz/ Work
-!
-! Dummy argument declarations
-!
    INTEGER D1jk , D2jk , Input
-!
-! Local variable declarations
-!
    INTEGER ecore , i , icol , ip1 , ip2 , ip3 , iptr , irsln , j , k , name(2) , ndata , next , nline , nsns , nwar
    INTEGER korsz
    REAL radii
-!
-! End of declarations
-!
 !
 !     DRIVER FOR COMPRESSOR BLADE THEORY
 !     COMPUTATIONS ARE FOR D1JK AND D2JK MATRICES

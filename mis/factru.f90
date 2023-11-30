@@ -1,26 +1,14 @@
 
 SUBROUTINE factru(*,A,Lll,Ull,Scr1,Scr2,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dett , Mindia
    INTEGER Ia(7) , Ib , Ibb , Il(7) , Ipow , Iprec , Iscr1 , Iscr2 , Iscr3 , Iu(7) , Nz
    REAL Sys(54) , Xx(1)
    COMMON /dcompx/ Ia , Il , Iu , Iscr1 , Iscr2 , Iscr3 , Dett , Ipow , Nz , Mindia , Ib , Ibb
    COMMON /system/ Sys , Iprec
    COMMON /zzzzzz/ Xx
-!
-! Dummy argument declarations
-!
    INTEGER A , Lll , Scr1 , Scr2 , Scr3 , Ull
-!
-! Local variable declarations
-!
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !

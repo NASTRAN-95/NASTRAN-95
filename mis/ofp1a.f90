@@ -1,26 +1,14 @@
 
 SUBROUTINE ofp1a(Line)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Fid(50)
    INTEGER Id(50) , Id22 , Iflag , Ksys(80) , L , L123(5) , Linet , M , Nogo , Of(6)
    COMMON /ofp1id/ Id22 , M
    COMMON /system/ Ksys
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Line
-!
-! Local variable declarations
-!
    REAL cycfrq , f , rt(8,15) , sectn(2) , twopi
    INTEGER j , k , local
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WAS NAMED OFP1 BEFORE.
 !

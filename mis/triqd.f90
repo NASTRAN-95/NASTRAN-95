@@ -1,24 +1,12 @@
 
 SUBROUTINE triqd(Ntype,T)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Ecpt(100) , Save(32)
    COMMON /trimex/ Ecpt
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
    REAL T(1)
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !*****
 !  ELEMENT THERMAL AND DEFORMATION LOADING ROUTINE FOR FOUR ELEMENTS
 !*****

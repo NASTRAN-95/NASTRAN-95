@@ -1,29 +1,17 @@
 
 SUBROUTINE sort(Idum,Jdum,Nr,Keywd,Z,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dm37(37)
    INTEGER Ibuf , Ijhlf(2) , Lqro , Mach , Nbpw , Nout , Two(16)
    COMMON /machin/ Mach , Ijhlf , Lqro
    COMMON /system/ Ibuf , Nout , Dm37 , Nbpw
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    INTEGER Idum , Jdum , Keywd , Nr , Nwds
    INTEGER Z(Nr,1)
-!
-! Local variable declarations
-!
    INTEGER i , ii , isort , j , jj , k , key , kk , l , limit , m , n , nc , subr(6) , temp , two31 , zi , zn
    INTEGER khrfn1
    REAL ri , rn , zero
    LOGICAL rvsbcd
-!
-! End of declarations
-!
 !
 !     THE ORIGINAL NASTRAN SORT ROUTINE FOR IN-CORE SORTING AND FILE
 !     SORT IS NOW RENAMED SORTI

@@ -1,22 +1,13 @@
 
 SUBROUTINE dpse3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION C(9) , Dp(21) , Gamma , Kij(36) , Sgn , Sgn1 , Sgn2
    REAL Dum2(2) , Dum9(9) , Ecpt(21)
    INTEGER Icstm , Ncstm , Necpt(5) , Npvt
    COMMON /ds1aaa/ Npvt , Icstm , Ncstm
    COMMON /ds1adp/ Gamma , Kij , Sgn , Sgn1 , Sgn2 , Dp , C
    COMMON /ds1aet/ Ecpt , Dum2 , Dum9
-!
-! Local variable declarations
-!
    INTEGER i , j , k , k1 , k2 , kk2 , kk3 , ni , nj , nk , npivot
-!
-! End of declarations
-!
 !
 !     PRESSURE STIFFNESS CALCULATIONS FOR A TRIANGULAR MEMBRANE
 !     ELEMENT (3 GRID POINTS).

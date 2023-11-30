@@ -1,9 +1,6 @@
 
 SUBROUTINE dlpt2(Input,W1jk,W2jk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Refc , Rfk , Work(1)
    INTEGER Ii , Incr , Iti , Ito , Iz(1) , Mcb(7) , Nd , Ne , Nn , Nrow , Sysbuf , Tw1jk(7) , Tw2jk(7)
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Fmach , Rfk
@@ -11,19 +8,10 @@ SUBROUTINE dlpt2(Input,W1jk,W2jk)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Work
-!
-! Dummy argument declarations
-!
    INTEGER Input , W1jk , W2jk
-!
-! Local variable declarations
-!
    REAL a(2)
    INTEGER ecore , i , icg , idelx , iee , inb , inc , isg , ixic , ixlam , iys , izs , n , name(2) , np(4) , nread , nstrip , ntp
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (np(2),nstrip) , (np(3),ntp)
    EQUIVALENCE (Work(1),Iz(1))

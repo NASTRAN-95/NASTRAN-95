@@ -1,23 +1,14 @@
 
 SUBROUTINE mbgeod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ang(10) , Beta , Boxa , Boxl , Boxw , Cotang(10) , Cr , Ek , Ekbar , Ekm , Gc , Tang(10) , X(12) , Y(12)
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Mach , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
    COMMON /mboxa / X , Y , Tang , Ang , Cotang
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
-!
-! Local variable declarations
-!
    REAL area1 , area2 , areaw , big , tm , xcent , ycent
    INTEGER i
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO COMPUTE GEOMETRY AND INDEXES OF REGIONS
 !

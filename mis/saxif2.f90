@@ -1,28 +1,16 @@
 
 SUBROUTINE saxif2(Iopt,Ipart,Branch,Eigen)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Dumy(35) , Sv(95) , Twopi , Veli(11) , Velr(11) , Zz(1)
    INTEGER Id1 , Id2 , Ide , Ivec , Sil(4)
    COMMON /condas/ Consts
    COMMON /sdr2x4/ Dumy , Ivec
    COMMON /sdr2x7/ Ide , Sil , Sv , Id1 , Velr , Id2 , Veli
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Branch , Iopt , Ipart
    REAL Eigen(3)
-!
-! Local variable declarations
-!
    REAL em , x , y
    INTEGER i , ij , j , k , kc , kr
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES FLUID VELOCITIES DUE TO HARMONIC
 !     PRESSURES IN AN AXISYMMETRIC FLUID

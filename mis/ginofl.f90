@@ -44,9 +44,6 @@ SUBROUTINE ginofl
 !     NEW SCRATCH1 BEING ASSIGNED TO GINOFILE MODULE).
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(3) , Fist(2) , Icfiat , Incrp , Incru , Irowp , Irowu , Itypep , Itypeu , Jrowp , Jrowu , Jtypep , Nout , P1 , P2 , &
          & P3 , Save(6) , Scr , Skip(21) , Sysbuf , Z(1)
    CHARACTER*23 Ufm
@@ -61,17 +58,11 @@ SUBROUTINE ginofl
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xsortx/ Save
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL debug
    INTEGER file , fisti , fisti1 , fn(2) , i , ibuf1 , ibuf2 , icrq , ii , index , irctyp , itrl(7) , iz2 , k , kore , l , name(2) ,&
          & ncol , nwds , outfl , scra , scrx , tch , tchi(9) , trl(7) , trl2
    INTEGER korsz
    CHARACTER*6 mxtb(2) , tbmx
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Scr,P1)
    DATA name/4HGINO , 4HFL  / , scra , tch/4HSCRA , 4H    /

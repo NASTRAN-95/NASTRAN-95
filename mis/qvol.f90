@@ -1,9 +1,6 @@
 
 SUBROUTINE qvol
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bg , Ifm , Iout , Lc , Nx(12) , Old , Slt
    REAL Consts(5) , Core(1) , Sysbuf , Twopi
    CHARACTER*25 Sfm , Uwm
@@ -14,15 +11,9 @@ SUBROUTINE qvol
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL card(12) , coef , d12(3) , d13(3) , d14(3) , data4(4,9) , el , fact , p(8) , r(4,8)
    INTEGER i , i1 , i2 , i3 , i4 , id , iel , im , imap , ip(3) , isil , l , map(4,14) , n , nel , npts , nsil(8) , order(8) ,      &
          & reason , type
-!
-! End of declarations
-!
 !
 !     CALCULATES THERMAL LOADS DUE TO QVOL CARDS
 !

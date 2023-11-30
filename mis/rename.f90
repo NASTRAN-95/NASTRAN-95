@@ -1,9 +1,6 @@
 
 SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf(1) , Ditdum(6) , Sysbuf
    LOGICAL Ditup , Mdiup
    INTEGER Iodum(8) , Items(7,1) , Mdidum(4) , Nitem , Nout , Nxtdum(15)
@@ -15,22 +12,13 @@ SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Itest , Nz
    INTEGER Name1(2) , Name2(2) , Z(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER blank , eog , i , icore , idit , iloc , iloc2 , imdi , incr , ind , inum , ips , irw , item , itm , name(2) , nameh(2) , &
          & namsub(2) , ncomp , ncore , nwds , ps
    LOGICAL higher
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE RENAMES SUBSTRUCTURE NAME1 TO NAME2. SOF ITEMS EQSS,
 !     BGSS, CSTM, LODS, LOAP AND PLTS ARE REWRITTEN TO REFLECT THE NEW

@@ -1,28 +1,16 @@
 
 SUBROUTINE sdcout(Block,Irw,Ac,N,Vecs,Vecd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Prc(2) , Rlcmpx(4) , Words(4)
    DOUBLE PRECISION Xnd(1)
    REAL Xns(1)
    COMMON /type  / Prc , Words , Rlcmpx
    COMMON /zzzzzz/ Xnd
-!
-! Dummy argument declarations
-!
    INTEGER Irw , N
    INTEGER Ac(1) , Block(15)
    DOUBLE PRECISION Vecd(1)
    REAL Vecs(1)
-!
-! Local variable declarations
-!
    INTEGER i , ii , j , jj , jstr , k , nbrstr , nstr , prec , rc , type
-!
-! End of declarations
-!
 !
 !     SDCOUT WRITES A ROW OF A MATRIX IN STRING FORMAT USING
 !     PUTSTR/ENDPUT.

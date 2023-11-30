@@ -1,9 +1,6 @@
 
 SUBROUTINE ssold2(Itype,Ftemp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Csig(7) , Ctmp(6) , Deform , Dummy(35) , Factor , Fnchk , Forvec(25) , Frtmei(2) , Phiout(100) , Sigma(9) , Stres(100) ,    &
       & Temp(6) , Twotop , Z(1)
    INTEGER Ibfsz , Idm(9) , Ild , Isub , Ivec , Ivecn , Kbeta , Ks , Ldtemp , Line , Nchk , Nout , Nphi(1) , Npoint , Npts
@@ -13,20 +10,11 @@ SUBROUTINE ssold2(Itype,Ftemp)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Itype
    REAL Ftemp(8)
-!
-! Local variable declarations
-!
    INTEGER eject
    REAL frlast(2)
    INTEGER i , ishd(7) , istyp(2) , j , k , lld , lsub , n , typ(8)
-!
-! End of declarations
-!
 !
 !     PHASE TWO STRESS DATA RECOVERY FOR THE SOLID ELEMENTS
 !

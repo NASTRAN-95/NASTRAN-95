@@ -2,9 +2,6 @@
 SUBROUTINE ifs2p(*,*,*)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , Bandit , Gc(7) , I(100) , I0 , Ibcds , Ibuf(1) , Icfiat , Id , Ifiat(2) , Ifist(1) , Ipfist , K , Km , Kn , Knt , &
          & Kprec , Ksystm(77) , Kx , Ky , L15 , L8 , Ll(6) , M(100) , M1(100) , M1f(100) , Mach , Mf(100) , N , Nax , Naxf , Nbuf , &
          & Nopen , Nout , Nparam , Nt1 , P(3) , Slotdf(5) , T1(2,1)
@@ -28,9 +25,6 @@ SUBROUTINE ifs2p(*,*,*)
    COMMON /xpfist/ Ipfist
    COMMON /zblpkx/ A , I0
    COMMON /zzzzzz/ Ibuf
-!
-! Local variable declarations
-!
    INTEGER bcdblk , bcddet , bcdfer , bcdgiv , bcdhes , bcdinv , bcdll , bcdls , bcdmas , bcdmax , bcdmgv , bcdpoi , bcdq , bcdsdt ,&
          & bcdsin , bcdsl , bcdt , bcdudt , bcduin , bcdz , dmi , dmig , dti , eigb , eigr , endrc1 , endrc2 , endt , failur , i2 , &
          & iall(2) , icomp , ierr , ifo , ihill(2) , ihoff(2) , ii , imem(2) , ino , iold1 , iold2 , iold3 , ioldm2 , ioldm4 ,      &
@@ -42,9 +36,6 @@ SUBROUTINE ifs2p(*,*,*)
    INTEGER nm(2) , nrows , nwords , onm(2) , pool , r , r1 , skip , t(7) , thru , ty1 , ty2
    REAL oldxm3 , x1 , x2 , xl , xl1 , zseq , zseq1
    EXTERNAL lshift , orf
-!
-! End of declarations
-!
 !
 !     P(1) = NEXT AVAILABLE FILE ON POOL
 !     P(2) = TOTAL NUMBER OF POSSIBLE ENTRYS

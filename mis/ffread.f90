@@ -1,9 +1,6 @@
 
 SUBROUTINE ffread(*,Card)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(2) , F(9) , Rc(9)
    INTEGER Ffflag , Ibmcdc , Ibuf , Iechop , Iechos , Iechou , Ierr , In , Inflag , Insave , Jc(9) , Kount , L(9) , Loop , Loop4 ,  &
          & Mchn , Ncard , Noecho , Nogo , Nout , Prom , Screen , Wasff , Xsort
@@ -17,13 +14,7 @@ SUBROUTINE ffread(*,Card)
    COMMON /xechox/ Ffflag , Iechou , Iechos , Iechop , Xsort , Wasff , Ncard , Dum , Noecho
    COMMON /xreadx/ Screen , Loop , Kount , Prom , Notyet , Star , Pct , Jc , L , Rc , F
    COMMON /xxread/ Inflag , Insave , Loop4 , Ibmcdc , Ierr
-!
-! Dummy argument declarations
-!
    CHARACTER*8 Card(10)
-!
-! Local variable declarations
-!
    INTEGER a(94) , a1 , aii , at , dot , i , ia , ib , ic , id , ie , ig , ih , ii , iisave , il , im , indx , int , ip , ir , is , &
          & iwo , j , j1 , je , jj , k , ke , kk , kkf , l12 , l94 , lash , lout , mach , noec , none , pt , sp , univc(11)
    CHARACTER*48 a48
@@ -35,9 +26,6 @@ SUBROUTINE ffread(*,Card)
    REAL facsf
    REAL fkk , xxxx
    LOGICAL fp , twodot
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE READS INPUT CARDS IN FREE FIELD OR FIXED FIELD
 !     FORMATS.

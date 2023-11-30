@@ -1,9 +1,6 @@
 
 SUBROUTINE read2(Maa,Phia,Scr1,Norm,Ia,Uset,Mi,Lama,Ipout,Scr2,Epsi,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Core(13) , Givens , Head(1) , Lfreq , Ptshft , Shftpt , Title1(100) , Title2(4) , Tphi
    DOUBLE PRECISION Dcore(1)
    INTEGER Icore(1) , Ii , Ii1 , Incur , Incur1 , Ita1 , Itb , Itb1 , Jj , Jj1 , Keep , Nnv , Nr , Sturm , Sysbuf
@@ -15,23 +12,14 @@ SUBROUTINE read2(Maa,Phia,Scr1,Norm,Ia,Uset,Mi,Lama,Ipout,Scr2,Epsi,Scr3)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itb , Ii , Jj , Incur
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    REAL Epsi , Uset
    INTEGER Ia , Ipout , Lama , Maa , Mi , Norm , Phia , Scr1 , Scr2 , Scr3
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dxmax
    REAL gm , refreq , t2 , t3 , t4 , t5 , t6 , t7 , xmax , xmax1
    INTEGER i , i0 , icopy , iden , iflag , ihead(50) , ihead1(10) , im(7) , imi , imsg , ip1 , iphia(7) , ipont , istor , ix(7) ,   &
          & j , jjj , jstor , k , kk , l , l1 , l2 , lcore , m , mass , max , mcol , mm , nam(2) , ncol , ncol2 , nlama , nrow ,     &
          & nrow2 , nwords , nwrds , point
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     COMPUTE MODAL MASS AND NORMALIZES VECTORS ACCORDING TO POINT,
 !     MASS, OR MAX.  ALSO LOOKS FOR LARGE OFF DIAGONAL TERM

@@ -1,9 +1,6 @@
 
 SUBROUTINE tabfmt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER H1(32) , H2(32) , H3(32) , Hx(32,40) , Ix(1) , Junk1(6) , Junk2(2) , La , Line , Na(2,21) , Nb , Nlpp , No , P(2) , P2 , &
          & P3 , Re(21) , X(14)
    REAL Rx(14) , T1(32) , T2(32) , T3(32)
@@ -15,16 +12,10 @@ SUBROUTINE tabfmt
    COMMON /tabftx/ La , Na , Hx , Re
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Ix
-!
-! Local variable declarations
-!
    INTEGER a , b , eid , f , i , ib , ival , j , kf , l , lc , ls , m , m1 , m2 , m3 , nam(2) , name(2) , none(2) , one , r , rl ,  &
          & subnam(2) , t(7) , two , wd , y , z(2) , zero
    INTEGER korsz
    REAL pi
-!
-! End of declarations
-!
 !
 !     MODULE MAIN PROGRAM FOR DMAP MODULE TABPRT
 !

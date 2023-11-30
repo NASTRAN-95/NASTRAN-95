@@ -1,9 +1,6 @@
 
 SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , B , Bbb(4) , Ccc(35) , Cosphi , Dcos(3,3) , Ddd(13) , Esta(649) , Fnchk , Frtmei(2) , P , Phi , Q , R , Rm , Rx , Rxy , &
       & Ry , Ryz , Rz , Rzx , S , Sa , Sb , Sc , Sig(6) , Sigp(3) , Skip(56) , Sn , So , Stress(10) , Strspx , Sx , Sxy , Sy , Syz ,&
       & Sz , Szx , T , Temp , Twotop , V , X , Z(1)
@@ -18,14 +15,8 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Istore , Nip , Strspt , Type
    REAL Gpt(1)
-!
-! Local variable declarations
-!
    REAL ax , csig(6) , csigs(126) , dtor , ex2021(152) , ex2022(16) , ex2031(132) , ex2032(127) , ex2033(127) , ex2034(127) ,       &
       & ex2035(54) , ex2041(152) , ex2042(152) , ex2043(152) , ex2044(152) , ex2045(152) , ex2046(152) , ex2047(152) , ex2048(152) ,&
       & ex2049(128) , ex20g2(168) , ex20g3(567) , ex20g4(1344) , ex8g2(72) , ex8g3(243) , ex8g31(132) , ex8g32(111) , ex8g4(576) ,  &
@@ -33,9 +24,6 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    INTEGER eject
    INTEGER extrnl(32) , ifrvec(11) , ipoint , isave , ishd(7) , jj , kk , lld , lsub , nequ , ngp1 , nip3 , oldeid , typ(4)
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     PHASE 2 STRESS DATA RECOVERY FOR IHEX1, IHEX2, AND IHEX3 ELEMENTS
 !

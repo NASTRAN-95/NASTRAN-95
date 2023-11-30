@@ -1,9 +1,6 @@
 
 SUBROUTINE mpy3a(Z,Iz,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(2) , Buf4 , Code , Dum(2) , Dumcp(3) , E , Filec(7) , Filee(7) , Scr , Scr3(7)
    INTEGER Buf1 , Buf2 , Buf3 , Eol , Eor , Filea(7) , Fileb(7) , Iacols , Ibcols , Icore , Incr , Ipoint , Irow , Itrans , Itrl ,  &
          & Laend , Lcore , Lkore , M , N , Ncb , Npoint , Prec , Row1 , Rowm , Scr1 , Scr2 , Typin , Typout , Uincr , Urow1 ,       &
@@ -15,19 +12,10 @@ SUBROUTINE mpy3a(Z,Iz,Dz)
    COMMON /packx / Typin , Typout , Row1 , Rowm , Incr
    COMMON /unpakx/ Utyp , Urow1 , Urown , Uincr
    COMMON /zntpkx/ A , Dum , Irow , Eol , Eor
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER file , i , ib , ii , incrjj , j , jj , jj2 , jjc , jjt , k , l , mcb(7) , name(2) , nerr , precl , precn
-!
-! End of declarations
-!
 !*****
 !    PREPARES B AND A(T).
 !*****

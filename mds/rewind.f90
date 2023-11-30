@@ -3,13 +3,7 @@ SUBROUTINE rewind(File)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File
-!
-! End of declarations
-!
    Name = File
    CALL dsgefl
 ! CALL DBMMGR FOR REWIND SO TO SET BUFFER ADDRESS CORRECTLY

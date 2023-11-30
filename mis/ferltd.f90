@@ -1,28 +1,16 @@
 
 SUBROUTINE ferltd(Ifile,Dz,Dy,Zm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dcore(1)
    INTEGER Ibflt , Ibforv , Ibfsma , Icore(1) , Incr , Ip , Ityp , Ltpos(7) , Nidlt , Nidorv , Nidsma , Nltli , Np , Nsmali ,       &
          & Smapos(7)
    COMMON /feerim/ Nidsma , Nidlt , Nidorv , Nltli , Nsmali , Ibfsma , Ibflt , Ibforv , Smapos , Ltpos
    COMMON /unpakx/ Ityp , Ip , Np , Incr
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dy(1) , Dz(1) , Zm(1)
    INTEGER Ifile(7)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dsum
    INTEGER i , iccol , icol , ii , ilcol , indx , j , mem , n , ntms
-!
-! End of declarations
-!
 !
 !  FERLTD was originally subroutine FRMLTD.  FERLTD allows for
 !  reading the input matrix from core and after the core data is

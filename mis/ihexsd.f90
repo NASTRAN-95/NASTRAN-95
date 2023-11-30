@@ -1,30 +1,18 @@
 
 SUBROUTINE ihexsd(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Op
    REAL Sysbuf
    CHARACTER*23 Ufm
    COMMON /system/ Sysbuf , Op
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Detj , Eta , Xi , Zeta
    INTEGER Eid , Type
    REAL Bxyz(3,8)
    DOUBLE PRECISION Dshp(3,8) , Jacob(3,3) , Shp(8)
-!
-! Local variable declarations
-!
    REAL d
    INTEGER i , j , k , ngp
    DOUBLE PRECISION qeta , qxi , qxyz , qzeta , work(3,3) , x , y , z
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION VERSION
 !

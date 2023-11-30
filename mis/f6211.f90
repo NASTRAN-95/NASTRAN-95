@@ -1,21 +1,12 @@
 
 FUNCTION f6211(I,A,B,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B
    INTEGER I
    REAL f6211
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL aaj , c1 , c2 , c3 , xx
    INTEGER j
-!
-! End of declarations
-!
    xx = X(I)
    IF ( (B*xx)**2<A**2 ) THEN
       f6211 = alog(abs(A))*alog(abs(xx))

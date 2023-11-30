@@ -1,9 +1,6 @@
 
 SUBROUTINE pstq2(Npts)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Delta , Dum1(308) , Dummy(94) , Forvec(6) , Ph1out(200) , Si(36) , Str(18) , Stress(3) , Tem , Temp , Vec(5) , Z(24) ,      &
       & Z1ovri , Z2ovri
    INTEGER I , Ivec , J , Nph1ou(2) , Npoint , Npt1 , Nsil(4)
@@ -11,17 +8,8 @@ SUBROUTINE pstq2(Npts)
    COMMON /pla3es/ Ph1out , Forvec , Dummy
    COMMON /pla3uv/ Ivec , Z
    COMMON /sout  / Str
-!
-! Dummy argument declarations
-!
    INTEGER Npts
-!
-! Local variable declarations
-!
    REAL sigx1 , sigx2 , sigxy1 , sigxy2 , sigy1 , sigy2 , z1 , z2
-!
-! End of declarations
-!
 !  THIS ROUTINE CALCULATES PHASE II OUTPUT FOR PLA3
 !  FOR COMBINATION ELEMENTS
 !

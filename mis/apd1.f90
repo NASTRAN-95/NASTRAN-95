@@ -1,9 +1,6 @@
 
 SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Acpl(3,3) , Alzo , C1 , F , Ra1(3) , Rb1(3) , S1 , Sysbuf , Uk , Usa , X1 , X12 , X1p , X4 , X43 , Xop , Xp2 , Xp3 , Xp4 ,  &
       & Y1 , Y4 , Yp4 , Z(1) , Z1 , Z4
    INTEGER Acpt , Acsid , Auset(6,2) , Bgpa , Buf10 , Buf11 , Buf12 , Cidbx , Cp , Cstma , Ecta , Eid , Gpla , Iacs , Icpl(14) ,    &
@@ -17,24 +14,15 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
    COMMON /blank / Nk , Nj , Luseta
    COMMON /system/ Sysbuf , Not
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    LOGICAL Lc , Ls
    INTEGER Nc , Ns
    REAL Fct(1) , Fst(1)
-!
-! Local variable declarations
-!
    INTEGER acsib , acsix(4) , ays(5) , back , cid(5) , clsrew , eidb , file , i , icid , ip1 , iret , j , k , kk , name(2) , nbox , &
          & ncary(2) , ncid , ncrdp , necta(6) , rdrew , silc , sildx(4) , wtrew
    REAL aij , aij1 , axic(3) , cg , cj , cj1 , delx , dj , dj1 , ds , ee , fci1 , fsj1 , sg , vx1(3) , vx2(3) , xb(5) , xi1j ,      &
       & xi1j1 , xic , xij , xij1 , xlam , yj , yj1 , ys , ysp , zs
    REAL apdf
    INTEGER iapd
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (necta(2),cid(1)) , (Key(2),Np) , (Key(3),Nstrip) , (Key(4),Ntp) ,          &
     & (Key(5),F) , (ays(1),ys) , (ays(2),zs) , (ays(3),ee) , (ays(4),sg) , (ays(5),cg) , (axic(1),xic) , (axic(2),delx) ,           &

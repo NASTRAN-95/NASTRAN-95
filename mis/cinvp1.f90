@@ -1,9 +1,6 @@
 
 SUBROUTINE cinvp1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Alpha(2) , Beta(2) , Lambda(2)
    INTEGER Cdp , Csp , Fileb(7) , Filek(7) , Filem(7) , Ifila(7) , Ifilb(7) , Ifilc(7) , Itypal , Itypbt , Mcbs(67) , Nomat , Nz ,  &
          & Scr1 , Scr11 , Scr2 , Sqr , Switch , Sysbuf
@@ -14,14 +11,8 @@ SUBROUTINE cinvp1
    COMMON /saddx / Nomat , Nz , Mcbs
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i
    INTEGER korsz
-!
-! End of declarations
-!
 !*******
 !     CINVP1 INITIALIZES AND CALLS SUBROUTINE ADD FOR CINVPR
 !*******

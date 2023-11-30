@@ -1,31 +1,19 @@
 
 SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Coth , E , Eltemp , G , Gsube , Nu , Rho , Sigc , Sigs , Sigt , Sinth , Stress , T0
    INTEGER Ieltmp , Isys(61) , Matflg , Matid , Z(1)
    COMMON /matin / Matid , Matflg , Eltemp , Stress , Sinth , Coth
    COMMON /matout/ E , G , Nu , Rho , Alpha , T0 , Gsube , Sigt , Sigc , Sigs
    COMMON /system/ Isys
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Buf4 , Buf6 , Eltype
    REAL Buf(16)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER bufa(100) , dit , elm(4) , elt , est , file , i , ielid , imatid , int1 , iretrn , itemp , mpt , mtd(4) , n , n1mat ,    &
          & n2mat , nam , nelt , nwords , tmp(4) , wrd(4)
    REAL cprim , delta , fint1 , temp
    EXTERNAL andf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (int1,fint1) , (Ieltmp,Eltemp)
    DATA int1/1/ , est/109/ , mpt/110/ , dit/111/ , elm/1 , 3 , 10 , 34/ , mtd/4 , 4 , 4 , 16/ , tmp/17 , 16 , 17 , 42/ , wrd/17 ,   &

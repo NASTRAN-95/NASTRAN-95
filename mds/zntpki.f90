@@ -4,18 +4,9 @@ SUBROUTINE zntpki
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , I , Iendrc , Ieol
    COMMON /zntpkx/ A , I , Ieol , Iendrc
-!
-! Local variable declarations
-!
    INTEGER index , itypot , kk , num
-!
-! End of declarations
-!
    Iretrn = 0
    I = Iblkb(4)
    index = (Iblkb(5)-1)*Iblkb(14) + 1 + Iblkb(7)*Iblkb(11)

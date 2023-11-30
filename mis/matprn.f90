@@ -1,22 +1,13 @@
 
 SUBROUTINE matprn
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout , P1 , P2 , P3 , P4 , P5 , P6
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /blank / P1 , P2 , P3 , P4 , P5 , P6
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    INTEGER i , iout , iprec , ityp , mcb(7) , ndpl , npl
-!
-! End of declarations
-!
 !
 !     MATRIX PRINT MODULE
 !     WILL PRINT UP TO 5 DBi INPUT MATRICES

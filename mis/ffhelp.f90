@@ -1,9 +1,6 @@
 
 SUBROUTINE ffhelp(*,*,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(3) , Skip(2)
    INTEGER Iechos , In , Mach , Nout
    CHARACTER*1 Qmark
@@ -12,17 +9,8 @@ SUBROUTINE ffhelp(*,*,J)
    COMMON /system/ Dummy , In
    COMMON /xechox/ Skip , Iechos
    COMMON /xreadx/ Nout
-!
-! Dummy argument declarations
-!
    INTEGER J
-!
-! Local variable declarations
-!
    CHARACTER*4 help , stop , xx , yes
-!
-! End of declarations
-!
    DATA stop , yes , help/'STOP' , 'Y   ' , 'HELP'/
 !
 !     THIS ROUTINE IS CALLED ONLY BY FF

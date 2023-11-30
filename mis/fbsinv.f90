@@ -1,23 +1,11 @@
 
 SUBROUTINE fbsinv(X,Y,Iobuff)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Filel(7) , Ltype , Nrow
    COMMON /fbsx  / Filel
-!
-! Dummy argument declarations
-!
    INTEGER Iobuff
    REAL X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , nrow2 , parm(3)
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION VERSION
 !

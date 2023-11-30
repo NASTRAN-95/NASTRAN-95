@@ -2,23 +2,11 @@
 SUBROUTINE dbmrlb(Index)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr , Mem(4)
    COMMON /system/ Isysbf , Iwr
    COMMON /zzzzzz/ Mem
-!
-! Dummy argument declarations
-!
    INTEGER Index
-!
-! Local variable declarations
-!
    INTEGER indexl , isave , lindex
-!
-! End of declarations
-!
 !********************************************************************
 !  DBMRLB  -   RELEASES AN IN-MEMORY BLOCK THAT IS CURRENTLY
 !              ALLOCATED AS THE LAST BLOCK OF AN IN-MEMORY FILE.

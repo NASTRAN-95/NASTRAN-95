@@ -1,19 +1,10 @@
 
 SUBROUTINE gauss2(A,N,N2)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER N , N2
    COMPLEX A(20,1)
-!
-! Local variable declarations
-!
    DOUBLE COMPLEX da(20,30)
    INTEGER i , j , k , l , m
-!
-! End of declarations
-!
 !
 !
    DO i = 1 , N

@@ -1,20 +1,11 @@
 
 SUBROUTINE ktube
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , C , Degra , Dum(84) , Ecpt(16) , Fj , Pi , Radeg , S4pisq , Temp , Twopi
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4pisq
    COMMON /sma1dp/ Temp , A , Fj , C
    COMMON /sma1et/ Ecpt , Dum
-!
-! Local variable declarations
-!
    INTEGER i , m
-!
-! End of declarations
-!
 !*****
 ! THE TUBE BEING SO SIMILAR TO THE ROD, WE ALTER THE ECPT FOR THE TUBE
 ! SO THAT IT IS IDENTICAL TO THE ONE FOR THE ROD AND THEN CALL KROD

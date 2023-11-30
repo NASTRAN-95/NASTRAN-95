@@ -1,9 +1,6 @@
 
 SUBROUTINE stord2(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(144) , Disp(12) , Dum1(33) , Dum3(225) , Eforc(12) , Eldefm , Estres(15) , Force(25) , Sel(180) , Stres(100) , Templd ,  &
       & Ts(30) , Tz , Zz(1)
    INTEGER Icstm , Idel , Iforce(25) , Igp(2) , Istres(100) , Ivec , Ivecn , Ldtemp , Ncstm
@@ -11,18 +8,9 @@ SUBROUTINE stord2(Ti)
    COMMON /sdr2x7/ Idel , Igp , Tz , Sel , Ts , Ak
    COMMON /sdr2x8/ Disp , Eforc , Estres
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    REAL Ti(2)
-!
-! Local variable declarations
-!
    REAL dtf1 , dtf2 , dtm1 , dtm2
    INTEGER i , iloc , j , k , kk , n , ncomp , ndof , ns , nsp , numpt
-!
-! End of declarations
-!
 !
 !*****
 ! THIS ROUTINE IS PHASE II OF STRESS DATA RECOVERY FOR AN AXI-SYMMETRIC

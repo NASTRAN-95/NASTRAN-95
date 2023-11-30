@@ -1,26 +1,14 @@
 
 SUBROUTINE typflt(X,Y,Xyd,V,Field,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntx , Cnty , Skpa(3) , Skpplt(18)
    INTEGER Model , Ploter
    COMMON /pltdat/ Model , Ploter , Skpplt , Skpa , Cntx , Cnty
-!
-! Dummy argument declarations
-!
    INTEGER Field , Opt , Xyd
    REAL V , X , Y
-!
-! Local variable declarations
-!
    REAL a , ten7 , ten8 , tenm2 , xx , xy , yy
    INTEGER aster , c(100) , d(9) , decpnt , dir , exp , expfld , fw , i , j , minus , n , nsig , num , plus , tra
    DOUBLE PRECISION val , z
-!
-! End of declarations
-!
 !
 !
 !     (X,Y) = STARTING OR ENDING POINT OF THE NUMBER TO BE TYPED (ALWAYS

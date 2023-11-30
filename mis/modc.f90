@@ -1,14 +1,8 @@
 
 SUBROUTINE modc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iparm
    COMMON /blank / Iparm
-!
-! End of declarations
-!
 !
 !*****
 !

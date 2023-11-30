@@ -1,9 +1,6 @@
 
 SUBROUTINE ktriqd(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(6) , Dummy(600) , Ecpt(100) , Rho , Save(32) , Skip(16) , Surfac , Volume
    LOGICAL Heat
    INTEGER Iecpt(4)
@@ -12,18 +9,9 @@ SUBROUTINE ktriqd(Ntype)
    COMMON /sma1dp/ Dummy
    COMMON /sma1et/ Ecpt
    COMMON /sma1ht/ Heat
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER bcd(2,4) , bgpdt(4) , i , k , kount , ngpt , scr4
    REAL old
-!
-! End of declarations
-!
 !
 !
 !     8/18/67         E C P T     L I S T I N G

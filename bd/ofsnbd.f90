@@ -1,14 +1,8 @@
 
 BLOCKDATA ofsnbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER C1(66)
    COMMON /ofsn1 / C1
-!
-! End of declarations
-!
 !OFSNBD
 !     C ARRAY FOR REAL STRAINS SORT1
 !

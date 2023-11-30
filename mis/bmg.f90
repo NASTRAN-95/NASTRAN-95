@@ -1,9 +1,6 @@
 
 SUBROUTINE bmg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Iout , Iprec , Iskp(52) , Kflags(2) , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    REAL Consts(5) , Degrad , Rz(1) , Twopi , Value(2)
    DOUBLE PRECISION Dz(1)
@@ -16,9 +13,6 @@ SUBROUTINE bmg
    COMMON /system/ Sysbuf , Iout , Iskp , Iprec
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION ain , dtemp(3) , dub , t0f(9) , term(3) , ti(9) , vi(3)
    REAL angle , cosphi , fn , kii , phil1 , phip1 , rbuf(10) , sinphi
    INTEGER bdpool , bgpdt , bndfl(2) , buf(10) , buf1 , buf2 , buf3 , core , cstm , dmig(3) , entrys , eor , eqexin , file , flag , &
@@ -27,9 +21,6 @@ SUBROUTINE bmg
          & noeor , ntable , point , scrt1 , subr(2)
    LOGICAL head , labfl , lkbfl , nstar
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     HYDROELASTIC BOUNDARY MATRIX GENERATOR
 !

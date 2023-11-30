@@ -1,26 +1,14 @@
 
 SUBROUTINE pull(Bcd,Out,Icol,Nchar,Flag)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idum(38) , Nbpc , Nbpw , Ncpw
    COMMON /system/ Idum , Nbpc , Nbpw , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER Flag , Icol , Nchar
    INTEGER Bcd(1) , Out(1)
-!
-! Local variable declarations
-!
    INTEGER blank , cperwd , i , ib1 , ibcd , ibl , itemp , iwd , ixtra , lword , m1 , m2 , nbl , nwds , nx
    LOGICAL first
    INTEGER klshft , krshft , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE EXTRACTS BCD DATA (OUT) FROM A STRING,(BCD)
 !     STARTING AT POSITION ICOL

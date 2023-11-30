@@ -1,22 +1,10 @@
 
 SUBROUTINE ascm12(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(213) , Ioct , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,1) , i , icomnd , j , k , ptbs(7,15) , rdmap(18,6) , subnam(2)
-!
-! End of declarations
-!
 !
 !     PLOT COMMAND DMAP DATA
 !

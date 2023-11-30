@@ -1,9 +1,6 @@
 
 SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,Iscr3,Est,Newslt,Mgg,Iscr4,Mpt1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt1 , Cstm1 , Est1 , Idit , Ieol , Ieor , Iib , Iii , Iqvect , Isil , Isk(11) , Itran , Iue , Iz(38) , Izb(4) ,       &
          & Ksystm(65) , Lc , Lodc , Mass , Mpt , N(3) , Ng , Nobld , Sil1 , Slt1 , Sysbuf , Two1(32)
    REAL Edt , Gptt , Old , Z(1) , Za(4) , Zb(4)
@@ -16,23 +13,14 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
    COMMON /zblpkx/ Za , Iib
    COMMON /zntpkx/ Zb , Iii , Ieol , Ieor
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ap , Bgpdt , Casecc , Cstm , Dlt , Est , Iscr1 , Iscr2 , Iscr3 , Iscr4 , Itrl , Mgg , Mpt1 , Newslt , Sil , Slt ,        &
          & Tmldtb , Usetd
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER file , gvect(30) , i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , iclst , idload , idltr , iflag , iharm , illst , iloop , ip1 ,    &
          & iqr , iqvid , iqvrn , iretn , isel , isild , isllst , itauo , iterm , itran1 , j , k , l , ll , lusetd , m , mcb(7) ,    &
          & minus(2) , mskue , n1 , name(2) , namt(2) , nave , ndload , nex , ngrav , noslt , nsimpl , nsubl , nx , nz , nz1 , pg(7)
    REAL scale
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO CONSTRUCT THE AP MATRIX
 !     WHICH HAS 1 COLUMN FOR EACH FUNCTION OF TIME

@@ -1,9 +1,6 @@
 
 SUBROUTINE ds1(Iarg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bufflg , Dscset , Fdfalt , Sysdum(25) , Xxx18(18) , Z(1)
    INTEGER Eltype , Iback , Ihalf , Incr , Incupk , Ioutpt , Isys , Itypeb , Iunpk , Iz(1) , Junpk , Last , Mach , Mn , Ndum(9) ,   &
          & Ne(1) , Nelems , Oldeid , Oldel , Tsetno
@@ -19,13 +16,7 @@ SUBROUTINE ds1(Iarg)
    COMMON /unpakx/ Itypeb , Iunpk , Junpk , Incupk
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iarg
-!
-! Local variable declarations
-!
    INTEGER buffr1 , buffr2 , buffr3 , bufloc , casecc , ccbuf(2) , clsrw , dfmset , dsetno , ecpt , ecptds , edt , edtbuf(3) ,      &
          & edtloc(2) , elid , eor , file , gptt , i , i1 , idfalt , idisp , idset , idx , iecpt(328) , iedt , iflag , iharm , iii , &
          & ileft , imhere , ind , index , inrw , isil , itemp , izmax , j , j1 , jsil(2) , kk , left , lim , low , mcbugv(7) ,      &
@@ -34,9 +25,6 @@ SUBROUTINE ds1(Iarg)
    LOGICAL dstype
    INTEGER korsz , rshift
    EXTERNAL rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CREATES THE SCRATCH FILE ECPTDS BY APPENDING TO EACH
 !     ELEMENT IN THE ECPT AN ELEMENT DEFORMATION, AN AVERAGE ELEMENT

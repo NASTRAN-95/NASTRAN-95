@@ -3,20 +3,11 @@ SUBROUTINE intpk(*,File,Block,Itypot,Iflag)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'
-!
-! COMMON variable declarations
-!
    REAL A(4)
    INTEGER Iendrc , Ieol , Irow
    COMMON /zntpkx/ A , Irow , Ieol , Iendrc
-!
-! Dummy argument declarations
-!
    INTEGER File , Iflag , Itypot
    INTEGER Block(15)
-!
-! End of declarations
-!
    Name = File
    IF ( Iflag==0 ) THEN
       Ieol = 0

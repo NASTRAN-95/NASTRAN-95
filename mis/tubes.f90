@@ -1,20 +1,11 @@
 
 SUBROUTINE tubes
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Est(100) , Pi
    COMMON /condas/ Pi
    COMMON /emgest/ Est
-!
-! Local variable declarations
-!
    REAL a , c , fj , temp
    INTEGER i , m
-!
-! End of declarations
-!
 !
 !***
 !  THE TUBE BEING SO SIMILAR TO THE ROD, WE ALTER THE EST FOR THE TUBE

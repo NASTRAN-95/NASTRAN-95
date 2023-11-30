@@ -1,9 +1,6 @@
 
 SUBROUTINE mred1d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gbuf2 , Idum1(3) , Idum2(3) , Idum3(6) , Idum4 , Idum5 , Idum6(12) , Idum7(4) , Ieig , Iprntr , Itwo(32) , &
          & Korbgn , Korlen , Oldnam(2) , Type(2) , Z(1)
    CHARACTER*23 Ufm
@@ -14,16 +11,10 @@ SUBROUTINE mred1d
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dnamic , eedx , eig(3,3) , eigcp , eigcpr(3) , eigtrl(7) , eigtyp , i , imsg , itest , komplx , kreal , letr(3) ,        &
          & modnam(2) , nowdsr , nwds2r
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES THE EEDX DATA BLOCK USING THE EED DATA
 !     BLOCK FORMAT FROM THE EIGR OR EIGC AND EIGP BULK DATA FOR THE

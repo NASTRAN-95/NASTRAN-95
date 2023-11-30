@@ -1,9 +1,6 @@
 
 SUBROUTINE magbdy
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iout , Ipg , Iz(1) , Sysbuf
    CHARACTER*23 Ufm
    REAL Z(1)
@@ -11,15 +8,9 @@ SUBROUTINE magbdy
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , eqexin , file , geom1 , i , idx , ieqex , jloc , lcore , mcb(7) , n , nam(2) , neq , ngrids , npts , permbd ,     &
          & permby(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PICKS UP THE GRIDS ON THE AIR/IRON INTERFACES
 !     FROM A PERMBDY CARD,CONVERTS EXTERNAL TO INTERNAL SILS, AND

@@ -1,9 +1,6 @@
 
 SUBROUTINE curv
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Eofos1 , Foes1g , Strain
    INTEGER File , Imsg , Indexs(108) , Ioutpt , Ip1 , Ip2 , Isysbf , Iz(1) , Lcore , Lmcsid , Loc , Logerr
    CHARACTER*25 Sfm , Uwm
@@ -14,13 +11,7 @@ SUBROUTINE curv
    COMMON /system/ Isysbf , Ioutpt
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER i , j , jsub , mcb(7) , subr(6)
-!
-! End of declarations
-!
 !
 !     MAIN DRIVING ROUTINE OF MODULE -CURV-.
 !

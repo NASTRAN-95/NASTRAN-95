@@ -1,9 +1,6 @@
 
 SUBROUTINE ddcomp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Cdet(2) , Cmndia , Ddet , Dmndia , Mindia , Minds , Sdet , Sdetc
    INTEGER Chlsky , Ia(7) , Ib , Ichlk , Ifila(7) , Ifill(7) , Ifilu(7) , Il(7) , Ipow , Iscr1 , Iscr2 , Iscr3 , Isym , Iu(7) ,     &
          & Ja(7) , Jb , Jl(7) , Jpow , Jscr1 , Jscr2 , Jscr3 , Ju(7) , Knames(19) , Kpow , Kscr1 , Kscr2 , Kscr3 , Ksystm(65) ,     &
@@ -21,14 +18,8 @@ SUBROUTINE ddcomp
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER iform , kaa , lll , lscr1 , lscr2 , lscr3 , lscr4 , name(2) , ull
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DDCOMP IS THE DMAP DRIVER FOR DECOMP
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE qdmm2(Temps,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alps(3) , Costh , Degra , Eltemp , Est(26) , G11 , G12 , G13 , G22 , G23 , G33 , Pi , Radeg , Rho , S4pisq , Sinth ,        &
       & Stress , Tsub0 , Twopi
    INTEGER Inflag , Ioutpt , Ksystm(65) , Matid , Nest(7)
@@ -15,20 +12,11 @@ SUBROUTINE qdmm2(Temps,Pg)
    COMMON /system/ Ksystm
    COMMON /trimex/ Est
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Temps(1)
-!
-! Local variable declarations
-!
    REAL alpha(3) , angl , determ , dummy , et(9) , gsube(9) , icosth , isinth , it , itemp9(9) , jtemp9(9) , k5sum(9,5) , kmat(27) ,&
       & pmat(9) , psum(3,5) , rmat(3,5) , tbar
    INTEGER i , ia , ib , ic , ierror , ising , j , k , l , map(4,3)
    LOGICAL planar
-!
-! End of declarations
-!
 !
 !     THERMAL LOAD GENERATION FOR THE QDMEM2 ELEMENT.
 !

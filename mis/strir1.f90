@@ -1,9 +1,6 @@
 
 SUBROUTINE strir1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(81) , Alf(3) , Alfb(4) , Anu(3) , Consts(5) , Costh , D(81) , Degra , Delint(8) , Dum5(81) , Dzero(24) , E(3) , Ecpt(19) &
       & , Ee(16) , Eltemp , G(3) , Gambl(81) , Gambq(36) , Gamqs(54) , Rho , Sel(36) , Sinth , Sp(18) , Stress , Teo(16) , Ts(4) ,  &
       & Twopi , Tz , Tzero
@@ -13,16 +10,10 @@ SUBROUTINE strir1
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero
    COMMON /sdr2x5/ Ecpt , Dum5 , Idel , Igp , Tz , Sel , Ts , Ak
    COMMON /sdr2x6/ D , Gambq , Ee , Gamqs , Dzero , Gambl , Alfb
-!
-! Local variable declarations
-!
    REAL ai
    REAL area , cosg , del , dgama , dgamr , dr , dz , er , et , ez , grz , r(3) , r1 , r2 , r3 , ra , rh , sing , tempe , vrt ,     &
       & vrz , vtr , vtz , vzr , vzt , z(3) , z1 , z2 , z3 , za , zh , zmin
    INTEGER i , i1 , ics(3) , ip , iq , ising , j , jj , k , kk , kode , matid
-!
-! End of declarations
-!
 !
 !
 !*****

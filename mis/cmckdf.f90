@@ -1,9 +1,6 @@
 
 SUBROUTINE cmckdf
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf3 , Buf4 , Buf5 , Casecc , Conect , Conset , Geom4 , Origin(7,3) , Restct(7,7) , Scbdat , Scmcon , Scr1 , Scr2 ,  &
       & Scr3 , Sctoc , Step , Toler , Tran , Z(1)
    INTEGER Buf2 , Combo(7,5) , Iauto , Idry , Intp , Iprint , Isort , Iz(1) , Lcore , Mcon , Npsub , Outt , Scconn , Sccstm ,       &
@@ -15,16 +12,10 @@ SUBROUTINE cmckdf
    COMMON /cmb003/ Combo , Conset , Iauto , Toler , Npsub , Conect , Tran , Mcon , Restct , Isort , Origin , Iprint
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER ce(9) , cstmid(7) , ecpt1 , i , ibgss , icstm , idpsub(7) , ifile , imsg , ist(7) , isub , isum , j , jj , k , kk ,      &
          & llco , loc , nam(2) , ncsub , nn , npt , nptm1 , nw
    REAL cstm(7,9) , ecpt(4) , tt(9)
    LOGICAL ferror , first
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DETERMINES WHETHER ALL (TRANSFORMED) LOCAL
 !     COORDINATE SYSTEMS SPECIFIED AT A GIVEN CONNECTION ARE COMPATABLE

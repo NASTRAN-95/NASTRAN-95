@@ -1,27 +1,15 @@
 
 SUBROUTINE sswtch(Nbit,L)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(3) , Xsys(78)
    INTEGER Lxlink , Maxlnk , Ns(1) , Switch(3)
    COMMON /sem   / Dummy , Ns
    COMMON /system/ Xsys , Switch
    COMMON /xlink / Lxlink , Maxlnk
-!
-! Dummy argument declarations
-!
    INTEGER L , Nbit
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , rshift
    INTEGER i , iret , nbit2 , renter
    EXTERNAL andf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     PURPOSE OF THIS ROUTINE IS TO SET L = 1 IF SENSE SWITCH BIT IS
 !     ON, OTHERWISE L = 0.

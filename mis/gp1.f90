@@ -1,9 +1,6 @@
 
 SUBROUTINE gp1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axic , Cls , Clsrew , Elem(1) , Iaxif , Icfiat , Ifl , Incrx , Iout , Isubs , Itherm , Ksystm(100) , Lastx , Luset ,     &
          & Nbpw , Nelem , Nfile(6) , Nocstm , Nogpdt , Ptr , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    REAL Degra , Pi , Radeg , S4pisq , Twopi , Zz(1)
@@ -18,9 +15,6 @@ SUBROUTINE gp1
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a(34) , bgpdt , buf1 , buf2 , buf3 , cord(6) , cordij(12) , cstm , eqexin , file , flag , geom1 , geom2 , geomp ,        &
          & gp1ah(2) , gpdt , gpfl , gpl , grid(2) , i , icsdt , icsgp , idseq1 , idseq2 , idseq3 , ierr , ifail , igpdt , ii , ij , &
          & ijk , ilist , ilist0 , imax , incr , irmndr , itype , j , j1 , jerr , jj , k , khi , khr , kk , klo , kn , l , large ,   &
@@ -31,9 +25,6 @@ SUBROUTINE gp1
    CHARACTER*29 lvl1 , lvl2
    INTEGER offset , scalpt(2) , scr1 , scr2 , seqgp(2) , sil , solv , solvp , spoint(2) , type
    EXTERNAL rshift
-!
-! End of declarations
-!
 !
 !     GP1  BUILDS THE FOLLOWING DATA BLOCKS--
 !       1. GRID POINT LIST (GPL)

@@ -1,9 +1,6 @@
 
 SUBROUTINE cfeer1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Alpha(2) , Beta(2) , Dz(1) , Lambda(2)
    REAL Cdp , Dum(15) , Dumaa(91) , Dumm(10) , Dumxc(12) , Dumxc2(4) , Salpha(4) , Sbeta(4) , Scr(8) , Z(1)
    INTEGER Ib(7) , Ifila(7) , Ifilb(7) , Ifilc(7) , Ik(7) , Im(7) , Incr , Iprec , Irow , Itypal , Itypbt , Ksystm(65) , Mcblmb(7) ,&
@@ -16,14 +13,8 @@ SUBROUTINE cfeer1
    COMMON /system/ Ksystm
    COMMON /unpakx/ Typout , Irow , Nlast , Incr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ibuf , itype , j , limit
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CFEER1 INITIALIZES AND CALLS SUBROUTINE SADD FOR CFCNTL
 !

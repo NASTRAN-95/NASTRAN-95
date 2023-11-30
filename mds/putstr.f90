@@ -3,17 +3,8 @@ SUBROUTINE putstr(Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER idiv(4) , iflg , lim , nelm
-!
-! End of declarations
-!
 !*******************************************************
 !
 !       FORMAT OF THE I/O MATRIX CONTROL TABLE

@@ -3,21 +3,12 @@ SUBROUTINE dsxfsz
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Ifiat(643) , Ifist(100) , Lfist , Mem(2) , Nfist
    COMMON /xfiat / Ifiat
    COMMON /xfist / Lfist , Nfist , Ifist
    COMMON /zzzzzz/ Mem
-!
-! Local variable declarations
-!
    INTEGER i , ifrblk , index , indx , ipblks , itotal , itotl1 , itotl2 , lasblk , lblock , lim , maxusd , maxusm , nexblk ,       &
          & numblk , nun
-!
-! End of declarations
-!
    Idsn = Ifilex
    nun = 0
    itotal = 0

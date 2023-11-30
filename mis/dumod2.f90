@@ -1,18 +1,12 @@
 
 SUBROUTINE dumod2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Parm1 , Parm2 , Parm3 , Parm4 , Parm7(2)
    DOUBLE PRECISION Parm10(2) , Parm8
    REAL Parm5 , Parm6 , X(1)
    COMPLEX Parm9
    COMMON /blank / Parm1 , Parm2 , Parm3 , Parm4 , Parm5 , Parm6 , Parm7 , Parm8 , Parm9 , Parm10
    COMMON /zzzzzz/ X
-!
-! End of declarations
-!
 !
 !*****
 !

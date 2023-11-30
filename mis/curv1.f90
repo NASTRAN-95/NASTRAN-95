@@ -1,9 +1,6 @@
 
 SUBROUTINE curv1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Any , Any1g , Any1m , Anyout , Eofos1 , First , Foes1g , Strain
    INTEGER Buf(100) , Cls , Clsrew , Cstm , Cstms , Cstype , Depts , Device , Eltype , Eor , Est , Estwds , Ewords , File , Gpl ,   &
          & I , Ibuf1 , Ibuf2 , Ibuf3 , Ibuf4 , Icmplx , Icomp , Icstm , Ictype , Idep , Idoes1 , Idrec(146) , Idscr1 , Ieltyp ,     &
@@ -30,15 +27,9 @@ SUBROUTINE curv1
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Ioutpt
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER elem(5,4) , icrq , idum , kid , mat(6)
    REAL flag
    INTEGER korsz
-!
-! End of declarations
-!
 !*****
 !  INITIALIZATION OVERLAY. ALL LOGIC INDEPENDENT OF PROCESSING
 !  THE SUBCASE DATA ON OES1 IS HANDLED IN THIS INITIALIZATION

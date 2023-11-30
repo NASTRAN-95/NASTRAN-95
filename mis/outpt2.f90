@@ -85,9 +85,6 @@ SUBROUTINE outpt2
 !     LAST REVISED  2/93 BY G.CHAN    TO INCLUDE P6 PARAMETER
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buffsz , D(3) , Dum(2) , Dum2(2) , Dum6(6) , Incr , Irow , Itype , Line , Mach , Nlpp , Nout , Nrow , P1 , P2 , P3(2) ,  &
          & P4 , P5 , P6(2) , X(1)
    CHARACTER*80 Dsnames(80)
@@ -101,18 +98,12 @@ SUBROUTINE outpt2
    COMMON /unpakx/ Itype , Irow , Nrow , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    LOGICAL dp , sparse
    INTEGER dsp , dx(3) , endfil , endrec , i , icrq , idhdr(7) , idhdrx(7) , ifirst , ii , inbuf , index , inp(3) , input , irec1 , &
          & irec2 , j , j12 , k , k1 , k2 , kb , kbe , ke , key , keyx , kf , kk , l , lcor , lrec , mm , mnin , mone , msc , mtre , &
          & mtwo , name(2) , namex(2) , ncol , nf , ns , nskip , nwds , out , p3x(2) , ret , subnam(2) , tapcod(2) , trl(8) , zero
    INTEGER korsz
    CHARACTER*6 matrix , mt , table
-!
-! End of declarations
-!
 !WKBNB
 !WKBNE
    DATA subnam/4HOUTP , 4HT2  / , matrix , table/'MATRIX' , ' TABLE'/

@@ -1,9 +1,6 @@
 
 SUBROUTINE dpd2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Bufx(3) , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , &
          & Eqdyn , Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Idummy(55) , Ineq , Ithrml , Kn , L , Loads(32) , Luset , Lusetd , Mcb(7)&
          & , Msg(3) , Nam(2) , Neqdyn , Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl , Nosdt , Notfl , &
@@ -17,14 +14,8 @@ SUBROUTINE dpd2
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew
    COMMON /system/ Idummy , Ithrml
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER file , flag , i , ibuf , id , idarea , idload , iemf , ii , iii , itabl , itemp , j , j2 , jj , k , kk , m , n , ncore , &
          & nlist , nn , nodld , nx
-!
-! End of declarations
-!
 !
 !     DPD2 ASSEMBLES THE DYNAMIC LOADS TABLE (DLT).
 !

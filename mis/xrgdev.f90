@@ -1,9 +1,6 @@
 
 SUBROUTINE xrgdev
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(98)
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Isysbf , Itype , Limit(2) ,&
          & Member(2) , Name(2) , Nout , Nsubst , Num(2) , Number , Nument , Record(20)
@@ -12,13 +9,7 @@ SUBROUTINE xrgdev
    COMMON /xmssg / Ufm
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Local variable declarations
-!
    INTEGER i , istr , j , k , state(5,7)
-!
-! End of declarations
-!
 !
 !     PURPOSE - XRGDEV PROCESSES A FIELD FROM A ****CARD, ****FILE,
 !               ****SBST, OR A ****RFMT CARD FROM THE RIGID FORMAT

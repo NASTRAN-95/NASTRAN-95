@@ -1,9 +1,6 @@
 
 SUBROUTINE gipsst
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , Dum(3) , Srard(10) , Z(1)
    INTEGER Bagpdt , Ccard(16) , Cstm , Eqaero , Gm , Go , Gsize , Gtka , Ieol , Ieor , Ii , Incr , Itc , Iz(28) , Izx(1) , J1 ,     &
          & Ksize , Ngset , Nkset , Nr , Out , Scard(10) , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Sila , Spline , Sysbuf , Useta
@@ -15,9 +12,6 @@ SUBROUTINE gipsst
    COMMON /xmssg / Ufm
    COMMON /zntpkx/ A , Dum , Nr , Ieol , Ieor
    COMMON /zzzzzz/ Izx
-!
-! Local variable declarations
-!
    REAL an(6) , block(20) , bx , by , bz , pendc , rol(3) , sign , t(3) , t1 , t2 , t3 , t4 , tg(9) , tgs(18) , tl(9) , tt(9) ,     &
       & txl , tyl
    INTEGER buff , buff1 , buff2 , ctype , i , ibcc , ibtyp , ic , ifil , ipass , ipk , is , isng , j , jj , k , k2 , k3 , kcoln ,   &
@@ -25,9 +19,6 @@ SUBROUTINE gipsst
          & oldid , pbgpt , pcstm , pg , pk , proe , prol , psil , pte , ptl , slope , tgkg(7) , trl(7) , type
    LOGICAL kcol , oxr , oyr , zap
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE LOCATES ALL THE G AND K SET POINTS IN THE SPLINE
 !     COORDINATE SYSTEM AND FORMS G FOR EACH SET THEN

@@ -1,9 +1,6 @@
 
 SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbs(2,50) , Idat(1) , Idum1 , Ioct , Iout , Iph , Iptbs , Irdm , Ixtra , Ndbs , Noct , Nogo , Nph , Nptbs , Nrdm , Nxtra
    REAL Sbd(2)
    CHARACTER*25 Sfm , Uwm
@@ -13,22 +10,13 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
    COMMON /system/ Idum1 , Iout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Sbd
-!
-! Dummy argument declarations
-!
    INTEGER Nvar , Obits , Sol
    INTEGER Dmap(18,1) , Var(3,200)
-!
-! Local variable declarations
-!
    INTEGER alter , ast , blank , flag , i , i3 , icd , icol , ii(2) , ikeep , j , key , kopt , l , m , name(4) , nc , nchar , nnew ,&
          & nold , nxdel , oball , oct(3,50) , ptbs(7,200) , rfmask(40) , slas , vword
    INTEGER andf
    LOGICAL rmv , rmvall
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS CODE  PERFORMS THE  ROUTINE PROCESSING OF THE  DMAP ALTERS
 !     FOR ASDMAP.  KEY TABLES ARE-

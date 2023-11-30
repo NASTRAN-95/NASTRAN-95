@@ -1,9 +1,6 @@
 
 SUBROUTINE trd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ib(7) , Ibuf , Idummy(53) , Ik(7) , Im(7) , Iopen , Iprec , Ispnl , Isym , Iz(1) , Modal(2) , Ncol , Noncup , Nopd ,     &
          & Noue , Sr1 , Sr2 , Sr3 , Sr4 , Sr5 , Sr6
    REAL To , Z(1)
@@ -11,17 +8,11 @@ SUBROUTINE trd
    COMMON /system/ Ibuf , Idummy , Iprec
    COMMON /trdxx / Ik , Im , Ib , Sr1 , Sr2 , Sr3 , Sr4 , Sr5 , Sr6 , Iopen , Isym , To , Nopd , Ispnl
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bdd , casexx , dit , i , icrq , igroup , iskip , itime1 , itime2 , itime3 , itleft , jgroup , kdd , mdd , moda , moda1 , &
          & name(2) , ngroup , nlft , nlftp , nrow , nskip , nstep , nz , pd , pnld , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 ,      &
          & scr7 , scr8 , trl , udvt
    REAL delta
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TRANSIENT RESPONSE MODULE DRIVER
 !

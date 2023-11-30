@@ -1,9 +1,6 @@
 
 SUBROUTINE detm
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Det1(4) , Detx(4) , P(4) , Ps1(4)
    REAL Epsi , Fact1 , Rmax , Rmin , Rminr , Sml1
    INTEGER Iadd , Ic , Idet , Iev(7) , Ifail , Iffnd , Ik(7) , Im(7) , Ipdet1(4) , Ipdeta , Ipdetx(4) , Ips , Ipsav , Is , Isng ,   &
@@ -13,13 +10,7 @@ SUBROUTINE detm
                  & Nd , Iadd , Sml1 , Ipdetx , Ipdet1 , Ifail , K , Fact1 , Iffnd , Nfail , Npole , Isng
    COMMON /regean/ Im , Ik , Iev , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Lcore , Rmax , Rmin , Mz , Nev , Epsi , Rminr , Ne , Nit ,    &
                  & Nevm , Scr6 , Scr7 , Nfound , Lama
-!
-! Local variable declarations
-!
    INTEGER idone , iscr7 , itime1 , itime2 , itleft , name(2)
-!
-! End of declarations
-!
    DATA name/4HDETE , 4HRM  /
 !
 !     RMAX = APPROXIMATE MAGNITUDE OF LARGEST EIGENVALUE OF INTEREST

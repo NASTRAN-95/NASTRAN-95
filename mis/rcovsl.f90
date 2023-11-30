@@ -1,30 +1,18 @@
 
 SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cmx(7) , Fmx(7) , Incp , Irowp , Itypp , Mcore , Norew , Nout , Nrowp , Otypp , Pmx(7) , Prec , Rd , Rdrew , Rew , Scr , &
          & Signc , Signpf , Slmx(7) , Sysbuf , T , Wrt , Wrtrew
    COMMON /mpyadx/ Pmx , Fmx , Cmx , Slmx , Mcore , T , Signpf , Signc , Prec , Scr
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew
    COMMON /packx / Itypp , Otypp , Irowp , Nrowp , Incp
    COMMON /system/ Sysbuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Amat , In , Item , Lcore , Out , Rfno , Scr2 , Scr3
    LOGICAL First
    INTEGER Iz(1) , Name(2)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER buf1 , fss(2) , i , ibuf(3) , icol , ifact , ip , itm , j , n , nb , ncol , nfact , nl , nr , nrow , nrs , nst , rc ,    &
          & soln , srd , subr(2) , type
-!
-! End of declarations
-!
 !
 !     RCOVSL CALCULATES THE STATIC LOAD VECTORS FOR THE SUBSTRUCTURING
 !     PHASE 2 AND PHASE 3 OPERATIONS FROM THE SUBSTRUCTURE SOLN ITEM

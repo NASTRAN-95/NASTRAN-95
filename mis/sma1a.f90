@@ -1,9 +1,6 @@
 
 SUBROUTINE sma1a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsnrw , Clsrw , Eor , Frowic , I6x64 , I6x6k , Icstm , Idetck , Idum1 , If4gg , Ifcstm , Ifdit , Ifecpt , Ifgei ,       &
          & Ifgpct , Ifgpst , Ifkgg , Ifmpt , Ig4gg , Igecpt , Iggei , Iggpct , Iggpst , Igkgg , Igpct , Incr , Index , Inrw ,       &
          & Iopt4 , Ipoint , Iprec , Iz(1) , Jmax , K4ggsw , Ksystm(65) , Last , Link(10) , Lleft , Lrowic , Mcb4gg(7) , Mcbkgg(7) , &
@@ -28,15 +25,9 @@ SUBROUTINE sma1a
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zblpkx/ Dpword , Dum , Index
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , i1 , i2 , i3 , ibeg , idx , ifile , ifirst , iflag , ilast , imcb , inc , inpvt(2) , iparm , ipr , iretrn , itemp ,  &
          & itype , itypx , ixx , j , jj , jjj , jlast , kkk , left , lim , lincor , low , name(2)
    LOGICAL noheat
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE FORMERLY GENERATED THE KGG AND K4GG MATRICES FOR
 !     THE SMA1 MODULE.  THESE OPERATIONS ARE NOW PERFORMED IN THE EMG

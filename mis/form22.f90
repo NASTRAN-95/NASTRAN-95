@@ -1,19 +1,10 @@
 
 SUBROUTINE form22(Uddip1,Udiprm,Uiprm,Piprm,Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ifilb(7) , Ifilk(7) , Ifilm(7)
    COMMON /trdxx / Ifilk , Ifilm , Ifilb
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf(1)
    DOUBLE PRECISION Piprm(1) , Uddip1(1) , Udiprm(1) , Uiprm(1)
-!
-! End of declarations
-!
 !*******
 !     FORM22 GENERATES THE VECTORS NECESSARY TO CHANGE THE TIME STEP
 !

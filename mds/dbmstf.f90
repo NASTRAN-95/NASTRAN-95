@@ -2,20 +2,11 @@
 SUBROUTINE dbmstf
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr , Lout
    COMMON /logout/ Lout
    COMMON /system/ Isysbf , Iwr
-!
-! Local variable declarations
-!
    INTEGER iblksz , imemnu , iperc1
    REAL perc1
-!
-! End of declarations
-!
    iblksz = Isysbf - 4
    IF ( Maxblk/=0 ) perc1 = Maxblk*1.0/Maxalc
    iperc1 = perc1*100.

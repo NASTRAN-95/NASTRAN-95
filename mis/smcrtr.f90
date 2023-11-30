@@ -2,24 +2,12 @@
 SUBROUTINE smcrtr(Zr,Zd)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Xnd(10)
    REAL Xns(10)
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(10)
    REAL Zr(10)
-!
-! Local variable declarations
-!
    INTEGER istr , k , num , Mrow , Mtype , Mstr , Mterms
-!
-! End of declarations
-!
 !
 !  THIS SUBROUTINE MOVES DATA FROM STRINGS TO OPEN CORE AND PERFORMS
 !  ANY TYPE CONVERSIONS REQUIRED.  KTYPE IS THE TYPE THAT THE

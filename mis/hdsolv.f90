@@ -1,28 +1,16 @@
 
 SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , Xasolv , Xcc , Yasolv , Zasolv
    REAL Rz(1) , Xdum
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
    COMMON /hdptrs/ Xdum , Xcc , Xasolv , Yasolv , Zasolv
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Ixr , J , Lz , Nc , Nit
    REAL Ccc(1) , X21(1) , Xxx(1) , Y21(1) , Z21(1) , Zm(1) , Zmi(1)
    INTEGER Iia(1) , Nno(1)
-!
-! Local variable declarations
-!
    REAL a , a1 , a3 , a4 , b , b1 , b3 , b4 , c , c1 , c3 , c4 , d3 , d4 , e , er , ers , exp , exx , f , s , s1 , t , xo , yo , zt
    INTEGER i , ig , is , iv(2) , ix , jb , jj , jt , jv , jx , k , l , m , mt , nk , nr
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE SOLVES FOR THE LINES OF INTERSECTION RESULTING
 !     FROM THE INTERSECTIONS OF THE JTH ELEMENT WITH THE OTHER

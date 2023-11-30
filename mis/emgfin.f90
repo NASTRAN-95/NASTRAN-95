@@ -1,9 +1,6 @@
 
 SUBROUTINE emgfin
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Date(3) , Dictn(3) , Est , Flags(3) , Ibuf , Icmbar , Icore , Ix(6) , Jcore , Lcstm , Lhmat , Line ,      &
          & Lmat , Mach , Matrix(3) , Mpt , Ncore , Nlpp , Nok4gg , Nokmb(3) , Nout , Precis , Rdrew , Wrtrew
    REAL Cmass , Corex(1) , Corey(201) , Cstm , Dit , Dum12(12) , Dummy(11) , Geom2 , Head(96) , Rd , Rx(200) , Sk1p2(2) , Skip2(2) ,&
@@ -18,14 +15,8 @@ SUBROUTINE emgfin
    COMMON /output/ Head
    COMMON /system/ Ibuf , Nout , Skip6 , Nlpp , Skip2 , Line , Sk1p2 , Date
    COMMON /zzzzzz/ Corex
-!
-! Local variable declarations
-!
    REAL d2 , d3 , inpi(10) , tmas2 , tmas3 , tvol2 , tvol3
    INTEGER i , ibuf1 , ibuf2 , inp , j , l , ln , mcb(7) , n4 , n7 , ngpt , nokdgg , nrec , scr3 , scr4 , sil(32) , sub(2) , vafile
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OF THE -EMG- MODULE WRAPS UP THE WORK OF THE MODULE.
 !

@@ -1,16 +1,10 @@
 
 BLOCKDATA tabfbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Hx(32,40) , Hx01(32) , Hx02(32) , Hx03(32) , Hx04(32) , Hx05(32) , Hx06(32) , Hx07(32) , Hx08(32) , Hx09(32) , Hx10(32) ,&
          & Hx11(32) , Hx12(32) , Hx13(32) , Hx14(32) , Hx15(32) , Hx16(32) , Hx17(32) , Hx18(32) , Hx19(32) , Hx20(32) , Hx21(32) , &
          & Hx22(32) , La , Na(2,21) , Re(21)
    COMMON /tabftx/ La , Na , Hx , Re
-!
-! End of declarations
-!
 !TABFBD
 ! TABFTX - BLOCK DATA PROGRAM FOR MODULE TABPRT
 !

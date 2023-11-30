@@ -1,9 +1,6 @@
 
 SUBROUTINE genvec(*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(35) , Eofnrw , Rd , Rdrew , Rew , Tcons(15) , Wrt , Wrtrew , Xmb(2)
    INTEGER Eol , Ia(4) , Ii , Istv(65) , Isym , Lntime , Norew , Nout , P , Rsp , Sysbuf
    CHARACTER*23 Ufm
@@ -15,22 +12,13 @@ SUBROUTINE genvec(*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
    COMMON /system/ Istv
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zntpkx/ Ia , Ii , Eol
-!
-! Dummy argument declarations
-!
    INTEGER B , Bbar , C , Cbar , Ientry , Ncol , Nx , R
    INTEGER Filea(1) , Ibuf(1) , Ix(2)
-!
-! Local variable declarations
-!
    INTEGER bb , bbr , bbr1 , bbr2 , bmax , cc , ccr , ccr1 , ccr2 , cmax , dbname(2) , i , i1 , i2 , i3 , i4 , ib , ibbar , ic ,    &
          & icbar , icount , icrq , ifile , ilast , in1 , incrxx , ir , ixy , j , k , l , l11 , mmax , name(2) , namin(2,2) , nmax , &
          & no , rr1 , rr2 , rrr
    INTEGER findc
    REAL time , tt , tt1 , tt2
-!
-! End of declarations
-!
 !
 !     GENVEC WILL PICK THE OPTIMUM VALUE OF B AND BBAR FOR A GIVEN
 !     MATRIX

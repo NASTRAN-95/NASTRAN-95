@@ -1,9 +1,6 @@
 
 SUBROUTINE ddcmps
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf6 , Chlsky , Diagck , Diaget , Ia(7) , Ib , Ichlk , Ifila(7) , Ifill(7) , Ifilu(7) , Il(7) , Ipow , Iscdia , Iscmsg , &
          & Iscr1 , Iscr2 , Iscr3 , Istscr , Isym , Iu(7) , Ja(7) , Jb , Jl(7) , Jpow , Jscr1 , Jscr2 , Jscr3 , Ju(7) , Kdgck ,      &
          & Kdget , Knames(19) , Kpdfck , Kpow , Kprec , Kscr1 , Kscr2 , Kscr3 , Ksystm(69) , Nbufsz , Nerr(2) , Noglev , Nz , Nzz , &
@@ -24,14 +21,8 @@ SUBROUTINE ddcmps
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , iform , kaa , lgpl , lll , lscr1 , lscr2 , lscr3 , lscr4 , lscr5 , lscr6 , lsil , luset , nam(2) , name(2) , ull
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DDCMPS IS THE DMAP DRIVER FOR SDCMPS
 !

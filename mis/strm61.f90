@@ -1,24 +1,15 @@
 
 SUBROUTINE strm61
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Eltemp , Em(6) , Est(100) , Gsube , Ph1out(250) , Pla34 , Rhoy , Sigcy , Sigsy , Sigty , Sinth , Tref
    INTEGER Iest(45) , Matflg , Matid , Nph1ou(990)
    COMMON /matin / Matid , Matflg , Eltemp , Pla34 , Sinth , Costh
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy
    COMMON /sdr2x5/ Est , Ph1out
-!
-! Local variable declarations
-!
    REAL balotr(9) , blank , degra , determ , dista , distb , distc , e(6) , ee1(6) , emod(9) , eph1(6) , ivect(3) , jvect(3) ,      &
       & kvect(3) , nsm , q(6,6) , qq(36) , theta1 , thetam , tm(3,12) , tmem1 , tmem3 , tmem5 , tmm(36) , to , trans(9) , x ,       &
       & xc(6) , y , yc(6) , zc(6)
    INTEGER i , i1 , ics(6) , idele , ii , ij , ij1 , ind(6,3) , ising , j , j1 , j2 , jj , matid1 , mz , name(2) , nl(6)
-!
-! End of declarations
-!
 !
 !
 !   PHASE I OF  STRESS DATA RECOVERY FOR TRIANGULAR MEMBRANE ELEMENT TRI

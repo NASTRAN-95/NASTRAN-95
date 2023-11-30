@@ -1,9 +1,6 @@
 
 SUBROUTINE ferfbd(V1,V2,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dcore(1) , Xl(1)
    INTEGER Ibflt , Ibforv , Ibfsma , Icore(1) , Ksystm(65) , Ltpos(7) , Mcblt(7) , Mcbsma(7) , Nidlt , Nidorv , Nidsma , Nltli ,    &
          & Nout , Nsmali , Smapos(7)
@@ -11,18 +8,9 @@ SUBROUTINE ferfbd(V1,V2,V3,Vb)
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION V1(1) , V2(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(20) , iblock , icbp , iclr , icol , icrow , ii , ik , ilrow , j , ji , mem , nrow , ntms , ntmsnx , ntmss
    DOUBLE PRECISION v2j , v3j , xljj
-!
-! End of declarations
-!
 !
 !  FERFBD is a modification of the old FRBK2 subroutine.  It has been
 !  modified to read matrix data from memory until that data is exhausted

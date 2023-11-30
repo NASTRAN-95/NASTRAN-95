@@ -1,9 +1,6 @@
 
 SUBROUTINE copy
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ifiat(1) , Ifist(1) , Iparam , Sysbuf
    REAL Z(1)
    COMMON /blank / Iparam
@@ -11,14 +8,8 @@ SUBROUTINE copy
    COMMON /xfiat / Ifiat
    COMMON /xfist / Ifist
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER ibuf1 , ibuf2 , icount , in(15) , input , itrl(7) , lcore , modnam(2) , nzwd , out(15) , output
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     COPY  INPUT /OUTPUT/ PARAM $
 !

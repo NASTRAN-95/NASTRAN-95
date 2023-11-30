@@ -1,9 +1,6 @@
 
 SUBROUTINE pstri1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Deps , Depss , Dum(297) , Dum1 , Dummy(44) , Ecpt(27) , Ecptsa(100) , Elid , Eltemp , Eps0 , Eps1 , Eps2 , Epss ,   &
       & Estar , Esub0 , Extra(4) , F , Forvec(5) , G11 , G12 , G13 , G22 , G23 , G33 , Gamma , Gammas , Gp(9) , Nu , Ph1out(200) ,  &
       & Plaans , Plaarg , S(3) , Sigxs , Sigxys , Sigys , Sinth , Sx , Sy , Tau0 , Tau1 , Tau2 , Ui(18) , Z(24)
@@ -16,13 +13,7 @@ SUBROUTINE pstri1
    COMMON /pla3es/ Ecptsa , Ph1out
    COMMON /pla3uv/ Ivec , Z
    COMMON /plagp / Gp , Midgp , Elid
-!
-! Local variable declarations
-!
    INTEGER i , i201 , matid1
-!
-! End of declarations
-!
 !  THIS ROUTINE CALCULATES GP,SET-S UP THE ECPT AND UPDATES THE ECPT
 !  FOR THE TRIA1 ELEMENTS
 !

@@ -1,20 +1,11 @@
 
 SUBROUTINE hdvsr(A,La,Ir)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER La
    REAL A(1)
    INTEGER Ir(1)
-!
-! Local variable declarations
-!
    INTEGER i , ij , il(21) , it , itt , iu(21) , j , k , l , m
    REAL r , t , tt
-!
-! End of declarations
-!
 !   IMSL ROUTINE NAME   - HDVSR
 !
 !-----------------------------------------------------------------------

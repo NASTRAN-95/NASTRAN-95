@@ -1,9 +1,6 @@
 
 SUBROUTINE curv2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Any , Any1g , Any1m , Anyout , Eofos1 , First , Foes1g , Strain
    INTEGER Buf(100) , Cls , Clsrew , Cstm , Cstms , Cstype , Depts , Device , Eltype , Eor , Est , Estwds , Ewords , File , Gpl ,   &
          & I , Ibuf1 , Ibuf2 , Ibuf3 , Ibuf4 , Icmplx , Icomp , Icstm , Ictype , Idep , Idoes1 , Idrec(146) , Idscr1 , Ieltyp ,     &
@@ -31,14 +28,8 @@ SUBROUTINE curv2
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Ioutpt
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER icrq , iformt , incr , ll1 , ll2 , lll , mcb(7) , mm1 , mm2
    REAL u(9) , ztemp
-!
-! End of declarations
-!
 !*****
 ! PASSES NEXT SUBCASE OF ELEMENT STRESS OR STRAIN DATA IN OES1
 ! AND OUTPUTS OES1M FOR THIS SUBCASE. SETS UP FILES AND TABLES

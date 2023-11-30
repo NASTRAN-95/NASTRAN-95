@@ -1,27 +1,15 @@
 
 SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axymax(13) , Cntx , Cnty , Cscale , Skpa(3) , Skpplt(2) , Title(32,3) , Xymax(2) , Xymin(2)
    INTEGER Fpltit , Iskp(215) , Pltitl(17)
    COMMON /output/ Title
    COMMON /pltdat/ Skpplt , Xymin , Xymax , Axymax , Cscale , Skpa , Cntx , Cnty
    COMMON /xxparm/ Iskp , Fpltit , Pltitl
-!
-! Dummy argument declarations
-!
    INTEGER Dtyp , Mtyp , Pltp
    INTEGER Idat(17)
-!
-! Local variable declarations
-!
    REAL delx , nt1(5) , nt2(4) , nt3(3) , x , x0
    INTEGER j , maxdef(3) , mtypf(2,3) , n , phas(3) , ptyp(2,5) , subc(2) , undef(4)
-!
-! End of declarations
-!
 !
 !
 ! ... NUMBER CHAR+2 FOR STATIC - CMODAL ... NOTE, 1 BLANK AT START...

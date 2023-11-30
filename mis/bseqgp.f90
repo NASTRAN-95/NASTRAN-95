@@ -1,9 +1,6 @@
 
 SUBROUTINE bseqgp(Norig,Ild,Jump)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Brms0 , Brms1 , Dum1a , Dum1b , Dum2(2) , Dum2a(2) , Dum3(3) , Rms0 , Rms1
    INTEGER Geom1 , Geom2 , I77 , Ibuf , Ibuf1 , Icrit , Iecho , Isys(100) , Kore , Lpch , Maxw0 , Maxw1 , Method , Mindeg , Mm ,    &
          & Nbit , Nbw , Ncm , Nedge , Nel , Neq , Neqr , Ngpts , Ngrd , Ngrid , Nlpp , Nn , Nopch , Norew , Nout , Np , Nspts ,     &
@@ -18,21 +15,12 @@ SUBROUTINE bseqgp(Norig,Ild,Jump)
    COMMON /system/ Ibuf , Nout
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Jump
    INTEGER Ild(1) , Norig(2)
-!
-! Local variable declarations
-!
    REAL an , ann , av1 , av2 , den
    INTEGER eof(3) , grid(8) , i , j , j77 , k , nnx , nonz , seqgp(3) , sub(2)
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ibuf,Isys(1)) , (Nlpp,Isys(9)) , (Lpch,Isys(91)) , (Iecho,Isys(19))
    DATA sub , eof , seqgp/4HSSEQ , 4HGP   , 3*2147483647 , 5301 , 53 , 4/

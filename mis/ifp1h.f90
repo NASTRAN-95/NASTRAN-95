@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp1h(I81,Nz,J400)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bit64
    INTEGER Blank , Corey(401) , E(1) , Iblnk , Ibuf , Icc , Icse(400) , Ieor , Iequal , Incr , Is , Isub , Last , Lencc , Line ,    &
          & Mach , Misset(1) , More(2) , Msst , Ncpw , Nelem , Nlpp , Nmodes , Nogo , Nout , Nset , Nwpc , Scr1
@@ -17,13 +14,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
    COMMON /xifp1 / Blank , Bit64
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER I81 , J400 , Nz
-!
-! Local variable declarations
-!
    REAL bcd(2,3) , cc(4) , comma , flag , rcore(1) , shea
    INTEGER comp(2,60) , comp1(2,19) , comp2(2,19) , comp3(2,19) , comp4(2,3) , core(1) , equal , err , etab(90) , force , i ,       &
          & icomp , idupl , ie , ielem , iend , ieq , ii , iisub , inc , irept , iscan , iset , isp(10) , iwds , iword , j , jc ,    &
@@ -31,9 +22,6 @@ SUBROUTINE ifp1h(I81,Nz,J400)
          & norm , nrp , nscan , nsv , nwdsf , nwdss , save(5) , seti , sp(30) , stress , tab(10,17) , tab1(10,9) , tab2(10,8)
    LOGICAL debug
    INTEGER khrfn1 , khrfn2 , khrfn3 , korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES THE SCAN CARD IN CASE CONTROL SECTION
 !

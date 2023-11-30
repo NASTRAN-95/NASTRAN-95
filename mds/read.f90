@@ -4,18 +4,9 @@ SUBROUTINE read(*,*,File,Idata,N,Ieorfl,M)
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , Ieorfl , M , N
    INTEGER Idata(2)
-!
-! Local variable declarations
-!
    INTEGER id , idiff , ilim , ireq , iwords , k , l , lasblk
-!
-! End of declarations
-!
    Name = File
    Nwords = N
    Ieor = Ieorfl

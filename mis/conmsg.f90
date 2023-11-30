@@ -1,9 +1,6 @@
 
 SUBROUTINE conmsg(Mesage,Nwords,Idummy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cpustr , Cputim , Oldcpu
    INTEGER Icrdat(3) , Idate(3) , Isystm(175) , Loglin , Logpag , Lout , Nllog
    CHARACTER*7 Machos
@@ -11,23 +8,14 @@ SUBROUTINE conmsg(Mesage,Nwords,Idummy)
    COMMON /chmach/ Mchnam , Machos
    COMMON /logout/ Lout
    COMMON /system/ Isystm
-!
-! Dummy argument declarations
-!
    INTEGER Idummy , Nwords
    INTEGER Mesage(1)
-!
-! Local variable declarations
-!
    CHARACTER*41 ahead
    REAL cputmm , inctim , modtim
    CHARACTER*8 ctime
    CHARACTER*4 cvalues(8)
    INTEGER fchar , i , iaudt , idash , idsms , imodtm , impya , itime(3) , iwrtt , mwords , ncmnam , ncmos , values(8)
    CHARACTER*12 real_clock(3) , time
-!
-! End of declarations
-!
 !
 !
    EQUIVALENCE (values,cvalues)

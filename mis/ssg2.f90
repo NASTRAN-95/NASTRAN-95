@@ -1,9 +1,6 @@
 
 SUBROUTINE ssg2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dum54(54) , Two1(32) , Usb , Usg
    INTEGER Ibc , Iprec , Lc , N , N4 , No , Single , Ua , Uf , Ug , Ul , Um , Un , Uo , Ur , Us , Uset1
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug
@@ -12,16 +9,10 @@ SUBROUTINE ssg2
    COMMON /system/ Dum54 , Iprec
    COMMON /two   / Two1
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER d , gm , go , ia(7) , kfs , multi , omit , pa , pabar , pf , pfbar , pg , pl , pm , pn , pnbar , po , pr , ps , pvect ,  &
          & qr , react , sr4 , uset , ys
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     MULTI  = 0  IMPLIES NO MULTI-POINT CONSTRAINTS PN = PG
 !

@@ -112,9 +112,6 @@ SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(1) , Dum36(36) , Ii , Incr , Iz(1) , Jj , Mach , Nbpw , Nogo , Nout , Nwds(4) , P1 , P2 , P3(2) , P4 , Prec(2) ,    &
          & Sysbuf , Typin , Typout
    CHARACTER*80 Dsnames(80)
@@ -132,13 +129,7 @@ SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
    COMMON /type  / Prec , Nwds
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Bcdopt , Nmat , Tape , Unitx
-!
-! Local variable declarations
-!
    INTEGER base , blnk , buf1 , flag , i , icol , ifirst , imhere , iname(2,5) , iold , irow , irowp , j , j1 , j2 , k , kpb ,      &
          & lcor , lcore , ln , name(2) , ncol , ncol1 , nform , nn , nrow , ntype , nw , nwords , oname(2,5) , outfil(5) , output , &
          & skip(2) , subnam(2) , t(2,5) , trl(7) , ty(4) , typ(5)
@@ -147,9 +138,6 @@ SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
    DOUBLE PRECISION dd
    CHARACTER*11 fm , fmd , unf
    INTEGER korsz
-!
-! End of declarations
-!
 !WKBR LOGICAL          BO,SP,CP,DP,MS,TAPEUP,TAPBIT,DEBUG
 !WKBI
 !WKBI

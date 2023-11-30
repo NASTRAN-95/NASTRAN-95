@@ -9,9 +9,6 @@ SUBROUTINE cead
 !     1  PARAMETER
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Eps
    INTEGER Ib(7) , Idmpfl , Ik(7) , Ilam(7) , Im(7) , Iphi(7) , Iscr(11) , Iz(1) , Kz(1) , Nfound , Noreg , Nout , Phidli ,         &
          & Reg(7,10) , Sysbuf
@@ -23,16 +20,10 @@ SUBROUTINE cead
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER bdd , capp , casecc , det , eed , eigc(2) , error(2) , feer , file , hes , ibuf , iflag , inv , ip1 , iz148 , iz2 , iz6 ,&
          & j , kdd , lamd , mcb(7) , mdd , method , name(2) , nrow , nvect , nz , oceigs , phid , phidl , scr1 , scr10 , scr11 ,    &
          & scr12 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9
    INTEGER korsz
-!
-! End of declarations
-!
    EQUIVALENCE (Kz(1),Iz(1))
    DATA name/4HCEAD , 4H    /
    DATA hes/4HHESS/

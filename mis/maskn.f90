@@ -1,19 +1,10 @@
 
 FUNCTION maskn(L2,L1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER L1 , L2
    INTEGER maskn
-!
-! Local variable declarations
-!
    INTEGER lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     TO BUILD AN INTEGER MASK FOR BIT MANIPULATION
 !                                                                   0 OR

@@ -1,19 +1,10 @@
 
 SUBROUTINE mapset(X1,Y1,X2,Y2,Ki1,Kj1,Ki2,Kj2,L)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ki , Ki1 , Ki2 , Kj , Kj1 , Kj2 , L
    REAL X , X1 , X2 , Y , Y1 , Y2
-!
-! Local variable declarations
-!
    REAL a , b , c , d , zi , zi1 , zi2 , zj , zj1 , zj2
    INTEGER i , i1 , i2 , j , j1 , j2 , ll
-!
-! End of declarations
-!
 !
 !     POINT 1 IS LOWER LEFT CORNER OF FRAME
 !     POINT 2 IS UPPER RIGHT CORNER OF FRAME

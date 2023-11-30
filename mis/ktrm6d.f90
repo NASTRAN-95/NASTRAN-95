@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrm6d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Dumy(12) , Eltemp , Em(6) , Est(45) , Gsube , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty ,  &
       & Sinth , Tref
    INTEGER Elid , Eltype , Estid , Iest(45) , Ioutpt , Iprec , Ixtra , Izr , Kmbgg(3) , Ksystm(63) , Ldict , Matflg , Matid ,       &
@@ -18,9 +15,6 @@ SUBROUTINE ktrm6d
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy , Rj11 , Rj12 , Rj22
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL a , amass , area , b , blank , c , c1 , c2 , c3 , cc(3) , degra , dista , distb , distc , f(6,6) , ivect(3) , jvect(3) ,    &
       & kvect(3) , nsm , theta1 , thetam , tmem1 , tmem3 , tmem5 , vol , xc(6) , yc(6) , zc(6)
    DOUBLE PRECISION balotr(9) , determ , e(6) , g11 , g12 , g13 , g22 , g23 , g33 , gk11(6,6) , gk12(6,6) , gk22(6,6) , gkt(12,12) ,&
@@ -31,9 +25,6 @@ SUBROUTINE ktrm6d
          & nj , nl(6) , nsq , pi , pimj , pinj , pipj , piqj , pj , qi , qimj , qinj , qipj , qiqj , qj , rk(3) , save(6) , sil(6) ,&
          & sil1 , sil2 , sk(3) , xu(12) , xv(12) , yu(12) , yv(12)
    LOGICAL imass , unimem
-!
-! End of declarations
-!
 !
 !     STIFFNESS SUBROUTINE FOR LINEAR STRAIN MEMBRANE ELEMENT
 !     DOUBLE PRECISION VERSION

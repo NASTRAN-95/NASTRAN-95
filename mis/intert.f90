@@ -1,19 +1,10 @@
 
 SUBROUTINE intert(Nl,Nl1,Nl2,Nm,Ajj,Ta)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Nl , Nl1 , Nl2 , Nm
    REAL Ajj(1) , Ta(1)
-!
-! Local variable declarations
-!
    REAL fract , t , t1 , t2
    INTEGER i , n , n1 , n2
-!
-! End of declarations
-!
 !
 !
    t1 = Ta(Nl1)

@@ -1,9 +1,6 @@
 
 SUBROUTINE mfree
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ct , Dr , Em , Rn , Rp
    REAL Dum(2) , Ecpt(100)
    INTEGER Io(36) , Necpt(100) , Npvt
@@ -11,13 +8,7 @@ SUBROUTINE mfree
    COMMON /sma2dp/ Rp , Rn , Dr , Ct , Em
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Io
-!
-! Local variable declarations
-!
    INTEGER ifile , in , ip
-!
-! End of declarations
-!
 !     THIS ROUTINE GENERATES MASS TERMS FOR THE INTERNALLY CREATED
 !     ELEMENT WHICH DESCRIBES FREE SURFACE EFFECTS
 !*****

@@ -1,9 +1,6 @@
 
 SUBROUTINE feer1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dalpha(2) , Dbeta(2) , Lambda
    REAL Dum(36) , Z(1)
    INTEGER Filea(7) , Fileb(7) , Filec(7) , Filek(7) , Filem(7) , Ij(8) , Ik(2) , Iprec , Ksystm(56) , Nomat , Nz , Rdp , Scr1 ,    &
@@ -14,14 +11,8 @@ SUBROUTINE feer1
    COMMON /saddx / Nomat , Nz , Filea , Typalp , Dalpha , Fileb , Typbta , Dbeta , Dum , Filec
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     FEER1 INITIALIZES AND CALLS SUBROUTINE ADD FOR FEER
 !

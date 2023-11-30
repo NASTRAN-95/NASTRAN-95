@@ -1,32 +1,20 @@
 
 SUBROUTINE cmcomb(Nps,Nent,Ndof,Ic)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Idry , Istep , Junk(2) , Junk1(2) , Lcore , Scconn , Scmcon , Score , Scr2 , Z(1)
    REAL Scr1
    COMMON /blank / Istep , Idry
    COMMON /cmb001/ Scr1 , Scr2 , Junk , Scconn , Scmcon
    COMMON /cmb002/ Buf1 , Buf2 , Buf3 , Junk1 , Score , Lcore
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ndof , Nent , Nps
    INTEGER Ic(Nent,Nps,Ndof)
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , ce(9) , ceid , comset , i , ibeg , icomp , ient , iersub , iertab(2000) , ifile , ifin , iinc , imsg , io(10) , &
          & irow , isub , itomny , j , jj , k , kk , krow(6) , list(32) , nce , ncomp , nersub , nloop , nmcon , nnn , npss , nrec , &
          & nwd , nword , saconn , savce
    LOGICAL match
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMBINES CONNECTION ENTRIES THAT HAVE BEEN SPECIFI
 !     ON SEVERAL CONCT OR CONCT1 CARDS.

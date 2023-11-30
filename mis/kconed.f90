@@ -1,9 +1,6 @@
 
 SUBROUTINE kconed
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A , B , Constd(5) , Cp , Cp2 , Cp2e22 , Cpe12 , Cpe22 , D11 , D12 , D22 , D33 , Dl , E11 , E12 , E22 , E33 ,    &
                   & H11 , H12 , H13 , H14 , H15 , H16 , H17 , H18 , H19 , H1ten , Huq(100) , Hyq(10) , Hyqf(10) , I00 , I01 , I02 , &
                   & I03 , I04 , I10 , I11 , I12 , I13 , I14 , I20 , I21 , I22 , I23 , I24 , I31 , I32 , I33 , I34 , I42 , I43 ,     &
@@ -24,16 +21,10 @@ SUBROUTINE kconed
                  & Cpe12 , Oq , N2e22 , Twod33 , Tnsp , N2e33 , Sp2e33 , Spe33
    COMMON /sma1et/ Ecpt
    COMMON /sma1io/ Dum1 , Ifkgg , Dum2 , If4gg
-!
-! Local variable declarations
-!
    DOUBLE PRECISION determ , fac(7) , h(120) , kqe(10,10) , kqn(10,10) , kqx(10,10) , kqy(10,10) , n2d33 , nspopi , one , qq1 ,     &
                   & qq2 , qq3 , qq4 , sp2d22 , sum
    INTEGER i , idx , inc1 , inc2 , iretrn , ising , iten , j , k , kk , mk1 , mn2 , mnk2 , mplus1 , na(7) , nbegin , nerror(2) ,    &
          & nint , npivot , oldpt1 , oldpt2
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION CONEAX ROUTINE
 !

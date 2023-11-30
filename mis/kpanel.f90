@@ -1,9 +1,6 @@
 
 SUBROUTINE kpanel(Iarg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A , A2 , A3 , A4 , A5 , Avec(4) , B , B2 , B3 , B4 , B5 , C , C2 , C23 , C3 , C4 , C5 , Cep1 , Cep2 , D , D2 ,  &
                   & D3 , D4 , D5 , Dampc , Dpcon , E , Ep , F , G , Ke(36) , Nu , Nuc , P(4) , Pa , Sa , Smallu(4) , Smallv(4) , T ,&
                   & Temp , Term , Term1 , Term2 , Term3 , Term4 , Term5 , Ti(9) , V12(3) , V12dk , V41(3) , Vd1(3) , Vd2(3) ,       &
@@ -28,17 +25,8 @@ SUBROUTINE kpanel(Iarg)
    COMMON /sma1io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Ifgei , Iggei , Ifkgg , Igkgg , If4gg ,     &
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys
-!
-! Dummy argument declarations
-!
    INTEGER Iarg
-!
-! Local variable declarations
-!
    INTEGER i , ii , ipvt , ivlbeg , ivrbeg , j , k
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES THE  4  6 X 6 MATRICES K(NPVT,NPVT), K(NPVT,J1)
 ! K(NPVT,J2), K(NPVT,J3) FOR A SHEAR PANEL (IF IARG = 4) AND FOR A

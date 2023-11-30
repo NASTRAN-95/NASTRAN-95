@@ -1,9 +1,6 @@
 
 SUBROUTINE ds1a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrw , Cstm , Dit , Ecptds , Eor , Frowic , Gpct , I6x6k , Icom , Icstm , Igpct , Incr , Index , Inrw , Ioutpt ,        &
          & Ipoint , Iprec , Isys , Iz(1) , Jmax , Kggd , Ksystm(100) , Last , Link(10) , Lrowic , Mpt , N6x6k , Ncstm , Ndum(9) ,   &
          & Ne(1) , Nelems , Neor , Ngpct , Nlinks , Nogo , Npoint , Npvt , Nrowsc , Outrw
@@ -21,17 +18,11 @@ SUBROUTINE ds1a
    COMMON /xmssg / Ufm
    COMMON /zblpkx/ Dpword , Dum , Index
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a , c , fj , temp
    INTEGER bar , beam , buffr1 , buffr2 , buffr3 , file , i , i1 , i2 , i3 , ibeg , idx , ifile , ifirst , iflag , ii , iityp ,     &
          & ilast , imat1 , inc , inpvt(2) , ip , ipr , itemp , itype , itypi(20) , izmax , j , jj , jjj , jlast , jtyp , kkk , l38 ,&
          & left , leftt , lim , lincor , local , low , m , matcr , mcbkgg(7) , name(2) , nfree , nwords
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE MATRIX KGGD WHICH IS THE SECOND ORDER
 !     APPROXIMATION TO THE STIFFNESS MATRIX KGG.

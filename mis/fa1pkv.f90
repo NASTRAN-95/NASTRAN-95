@@ -1,29 +1,17 @@
 
 SUBROUTINE fa1pkv(Az,Amk,Amb,N,E1,Cz,Bref,Pi,Vel,Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Lines , Nlpp , Nout
    REAL Space(6) , Sysbuf , X(2)
    COMMON /system/ Sysbuf , Nout , Space , Nlpp , X , Lines
-!
-! Dummy argument declarations
-!
    REAL Bref , Pi , Vel
    INTEGER N
    REAL Amb(1) , Amk(1) , Cz(1) , E1(5)
    COMPLEX Az(1)
    INTEGER Ibuf(1)
-!
-! Local variable declarations
-!
    COMPLEX ceig , eigen , eigz
    REAL e(2) , v(6)
    INTEGER i , ipass , iscr , iv(6) , j , k , n2 , na , nb , nc , nd , trl(7)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (v(1),iv(1)) , (eigen,e(1))
    DATA iscr/301/ , ipass/0/

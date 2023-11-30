@@ -1,29 +1,17 @@
 
 SUBROUTINE eqout1(Ia,Len1,Ns,Len2,Isil)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Conset , Toler
    INTEGER Iauto , Icomb(7,5) , Ihalf , Junk(8) , Junk1(8) , Junk2(2) , Mach , Nline , Nlpp , Npsub , Outt
    COMMON /cmb002/ Junk , Outt
    COMMON /cmb003/ Icomb , Conset , Iauto , Toler , Npsub
    COMMON /machin/ Mach , Ihalf
    COMMON /system/ Junk1 , Nlpp , Junk2 , Nline
-!
-! Dummy argument declarations
-!
    INTEGER Isil , Len1 , Len2
    INTEGER Ia(1) , Ns(1)
-!
-! Local variable declarations
-!
    INTEGER i , ibits(2) , iblank , icode , idbas , ifirst , ips , isub , j , jj , k , n1(17) , n2(14)
    INTEGER lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES OUTPUT ENTRIES FOR CONNECTION TRACE
 !

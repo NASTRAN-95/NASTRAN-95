@@ -1,9 +1,6 @@
 
 SUBROUTINE cifsdd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1 , Bardf2 , Bardf5 , Bardf6 , Bardf7 , Bardf8 , G1 , Iaero , Ibcds , Ic , Icont , Iddsf , Idrad , Idrdl , Ids ,        &
          & Igdst2 , Igdst6 , Igdst7 , Igdst8 , Ip , Ipopt , J(20) , Jms , Km1 , Km2 , Km3 , Km4 , Km5 , Kms , L0 , L7 , La1 , Lplf ,&
          & Nvar
@@ -14,13 +11,7 @@ SUBROUTINE cifsdd
                  & Ids , Jms , Kms , Lplf
    COMMON /cifs4p/ J , Km4 , Lflsym , Ffphys
    COMMON /cifs5p/ Km5 , Ic , Ip , Icont , Iaero , Ipopt
-!
-! Local variable declarations
-!
    INTEGER i , icc , ipp
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE INITIALIZES THE CIFS1P, CIFS2P, CIFS3P,
 !     CIFS4P, AND CIFS5P COMMON BLOCKS.

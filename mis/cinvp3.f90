@@ -1,9 +1,6 @@
 
 SUBROUTINE cinvp3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Comflg , Fileb(7) , Filek(7) , Filel(7) , Filelm(7) , Fileu(7) , Filevc(7) , Ind , Ind1 , Iofff , Ireg , Istart ,  &
          & Isym , Iter , Iterto , Ivect , Left , Ncol , Nochng , Nodes , Noest , Noreg , Norew , Noroot , Northo , Nout , Nzero ,   &
          & Real , S11fil , Scrfil(11) , Sqr , Sr1fil , Sr2fil , Sr3fil , Sr4fil , Sr8fil , Sr9fil , Switch , Sysbuf , Timed
@@ -17,9 +14,6 @@ SUBROUTINE cinvp3
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a , aaa , ep1 , ep2 , ep3 , gamma
    DOUBLE PRECISION aln(2) , alnm1(2) , cn(2) , con1(2) , con2(2) , delta(2) , eta(2) , etanm1(2) , h2n(2) , h2nm1(2) , lam2(2) ,   &
                   & lm1nm1(2) , lm2nm1(2) , plus1(2) , xyz(2)
@@ -27,9 +21,6 @@ SUBROUTINE cinvp3
          & inu , iobuf , ir1 , irapid , iu , ixx , ixz , j , jj1 , jj2 , jj3 , jj5 , k , kk1 , kk2 , kk3 , kk4 , kk5 , kk6 , kkkk , &
          & kx , ll1 , ll2 , name(2) , navg , ncol2 , ncol4 , ncount , nz , nzz , t1 , t2 , timeit
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SUBROUTINE CINVP3, THE MAIN LINK OF CINVPR, SOLVES FOR THE
 !     EIGENVALUES AND EIGENVECTORS OF (LAMBDA**2*M + LAMBDA*B*K)

@@ -1,9 +1,6 @@
 
 SUBROUTINE amp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ajjcol , Ib , Ibbar , Idjh , Igust , Isk(32) , Iz(1) , Mcbqhh(7) , Mcbqjh(7) , Mcbrjh(7) , Ncol , Ngp , Ngpd(2,30) ,     &
          & Noh , Noue , Nout , Nsub , Qhhcol , Sysbuf , Xqhhl
    REAL Xk , Xm
@@ -12,17 +9,11 @@ SUBROUTINE amp
    COMMON /cdcmpx/ Isk , Ib , Ibbar
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER aero , ajjl , d1je , d1jk , d2je , d2jk , gtka , i , iany , ibuf1 , imax , iop , itf , itl , itmto , its , mcb(7) ,      &
          & name(2) , phidh , qhhl , qhjl , qjhl , scr1 , scr10 , scr11 , scr12 , scr13 , scr14 , scr2 , scr3 , scr4 , scr5 , scr6 , &
          & scr7 , scr8 , scr9 , skj , useta
    INTEGER korsz
    REAL xko
-!
-! End of declarations
-!
 !
 !     THIS IS THE DMAP DRIVER FOR AMP
 !

@@ -4,9 +4,6 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !     GENERATES EXTERNAL LOADS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Cstm , Est , Icm , Idit , Iditfl , Idum(14) , Iest(45) , Ii , Iihmat , Ilid , Incur , Isil , Itya , Ityb ,       &
          & Iz(1) , Jdum , Jj , Lcare , Mpt , Mptfil , Nn(7) , Nnhmat , Nobld , Nrowsp , Old , Sil , Slt , Sysbuf
    REAL Core(1)
@@ -19,21 +16,12 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
    COMMON /system/ Sysbuf
    COMMON /tranx / Idum
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iharm , N1 , Nex , Ngrav
    REAL Gvect(1)
    INTEGER Ilist(1) , Pg(1)
-!
-! Local variable declarations
-!
    INTEGER all , casecc , file , flag , hccens , hcflds , i , ib , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ibuf5 , ido , iii , ij , ilsym , &
          & ip1 , ipre , iset , isetno , j , jopen , kcc , kkkk , kset , lcore , mcore , mset , n , name(2) , nbdys , ncc , ncore ,  &
          & nelout , nextz , ngrold , nloop , nograv , nset , permbd , remfls , ret , scr6 , setno
-!
-! End of declarations
-!
    EQUIVALENCE (Core(1),Iz(1))
    DATA casecc , permbd , hcflds , remfls , scr6 , hccens , name/110 , 112 , 304 , 305 , 306 , 307 , 4HEXTE , 4HRN  /
 !

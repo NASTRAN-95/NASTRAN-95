@@ -1,9 +1,6 @@
 
 SUBROUTINE optp1d(Elop,Pr,Pl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1p1 , Count , Klwds , Nkl(2) , Nklw , Noeor , Npow , Nprw , Nrd , Nwdsp , Nweor , Nwrt , Outtap , Scrth1 , Sysbuf , Ycor
    REAL Kl(4) , Skp1(2) , Skp2(2) , Skp3(2) , Skp4(6)
    CHARACTER*25 Sfm , Uwm
@@ -14,18 +11,9 @@ SUBROUTINE optp1d(Elop,Pr,Pl)
    COMMON /optpw1/ Klwds , Kl
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Elop(2,1) , Pr(1)
    REAL Pl(1)
-!
-! Local variable declarations
-!
    INTEGER i , ill , ip1 , ip2 , ipr , itp , l , loc , lpl , name(2) , nogo , npl , npr , pid , plp
-!
-! End of declarations
-!
 !
 !     PROPERTY OPTIMIZER   SET POINTERS TO PLIMIT
 !

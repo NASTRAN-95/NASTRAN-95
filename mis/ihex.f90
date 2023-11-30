@@ -1,9 +1,6 @@
 
 SUBROUTINE ihex(Temps,Pg,Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bufm6(46) , Cdamp , Est(200) , G , H(4) , Heat , Rho , Se , Snu , Space(18) , Sys1(7) , Sys2(45) , Sysbuf , Talpha , Tref
    DOUBLE PRECISION Dshp(3,32) , Eltemp , Jacob(3,3) , S(4) , Shp(32)
    INTEGER Eid , Ib(46) , Iest(1) , Inflag , Jz(32) , Mid , Mtemp , Otpt
@@ -14,21 +11,12 @@ SUBROUTINE ihex(Temps,Pg,Type)
    COMMON /ssgwrk/ Shp , Dshp , Jacob , S , H
    COMMON /system/ Sysbuf , Otpt , Sys1 , Mtemp , Sys2 , Heat
    COMMON /trimex/ Est
-!
-! Dummy argument declarations
-!
    INTEGER Type
    REAL Pg(1) , Temps(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a(6) , alpvec , cn(3,32) , dalpha(6) , detj , e1 , e2 , e3 , gauss(8) , gmat(36) , parg(96) , sfact , temp
    LOGICAL anis , rect , tdep
    INTEGER bcord , bgpdt , cid , gpt , i , ibgp , ii , ijk , j , jj , k , l , ngp , nip , nogo , ntlp , sil , ufm(6)
    REAL psgl(96)
-!
-! End of declarations
-!
 !
 !     ELEMENT THERMAL LOAD GENERATOR FOR ISOPARAMETRIC SOLID ELEMENTS
 !

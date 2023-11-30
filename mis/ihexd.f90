@@ -1,9 +1,6 @@
 
 SUBROUTINE ihexd(Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgg1 , Bufm6(46) , Cp , Dum(12) , E , Est(200) , G , Kheat(6) , Nu , Rho , Rz(1) , Skip16(16) , Spac(2) , Spac1 , Space(18) &
       & , Surfac , Sys1(7) , Sysbuf , Talpha , Tref , Volume
    INTEGER Cdamp , Eid , Ib(46) , Iest(1) , Iestid , Iext , Inflag , Iprec , Izs , Jz(1) , Kgg1 , Mgg1 , Mid , Mtemp , Ngrids ,     &
@@ -22,13 +19,7 @@ SUBROUTINE ihexd(Type)
    COMMON /system/ Sysbuf , Otpt , Sys1 , Mtemp
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Type
-!
-! Local variable declarations
-!
    REAL alfa , balfa , bar , bbeta , bcd1 , bcd2(3) , beta , bmag , dalfa(3) , dbeta(2) , dmaxar(3) , dstld , dtor , evec(3,12) ,   &
       & gptld(32) , maxar , smag , tmag , vn(3,2) , work(66)
    LOGICAL anis , diag , nocstm , rect , tdep
@@ -38,9 +29,6 @@ SUBROUTINE ihexd(Type)
          & ugv
    DOUBLE PRECISION c(3,3) , dalpha(6) , detj , e1 , e2 , e3 , gauss(8) , gmat(36) , h(4) , jacob(3,3) , part(3,3) , prt1 , s(4) ,  &
                   & sfact , sig(6) , store(45) , str(18) , sx , sxy , sy , syz , sz , szx , tf(3,3) , tk(3,3) , tvol
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION VERSION
 !

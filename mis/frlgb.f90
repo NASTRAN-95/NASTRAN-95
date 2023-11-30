@@ -1,26 +1,14 @@
 
 SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Scr2,Scr3,Scr4)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Um , Un , Une , Uo , Up , Ur , Us , Usb , Usg
    INTEGER N1 , N2 , N3 , Nz , Uset
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
    COMMON /patx  / Nz , N1 , N2 , N3 , Uset
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Gmd , God , Modal , Multi , Omit , Pd , Ph , Phidh , Pp , Ps , Scr1 , Scr2 , Scr3 , Scr4 , Single , Usetd
-!
-! Local variable declarations
-!
    INTEGER korsz
    INTEGER moda , pdbar , pf , pm , pn , pnbar , po
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE REDUCES LOADS FROM P SET TO D SET
 !

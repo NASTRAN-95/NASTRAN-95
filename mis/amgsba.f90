@@ -1,9 +1,6 @@
 
 SUBROUTINE amgsba(Ajjl,A0,Ar,Nsbe,A,Yb,Zb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ecore , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Ii , Inas , Inasb , Inb , Inbea1 , Inbea2 , &
          & Inc , Incr , Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Isk , Ith1a , Ith2a , Iti , Ito , Ix , Ixic , Ixij ,   &
          & Ixis1 , Ixis2 , Ixlam , Ixle , Ixte , Iyb , Iyin , Iys , Izb , Izin , Izs , Mcb(7) , Nb , Nby , Nbz , Nd , Ne , Next ,   &
@@ -18,20 +15,11 @@ SUBROUTINE amgsba(Ajjl,A0,Ar,Nsbe,A,Yb,Zb)
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl
    REAL A(1) , A0(1) , Ar(1) , Yb(1) , Zb(1)
    INTEGER Nsbe(1)
-!
-! Local variable declarations
-!
    REAL den
    INTEGER i , ib , ibuf1 , ibuf2 , ibuf3 , it , j , name(2) , nbuf , nfsbeb , nfyb , nl , nlsbeb , ns1 , ns2 , ns5 , ntot
-!
-! End of declarations
-!
 !
 !     BUILD AJJL FOR DOUBLET LATTICE WITH BODIES
 !

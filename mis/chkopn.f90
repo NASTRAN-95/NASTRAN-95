@@ -1,9 +1,6 @@
 
 SUBROUTINE chkopn(Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nbuff , Nout
    LOGICAL Opnsof
    REAL Sofdum(25)
@@ -11,13 +8,7 @@ SUBROUTINE chkopn(Name)
    COMMON /sofcom/ Sofdum , Opnsof
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Name(2)
-!
-! End of declarations
-!
 !
 !     CHECKS IF A CALL TO SOFOPN HAS BEEN MADE.
 !

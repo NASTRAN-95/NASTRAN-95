@@ -1,9 +1,6 @@
 
 SUBROUTINE ifp1b
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bits(1) , Casecc , Core(2) , Corey(401) , Iben , Iblank , Ibuf , Icase(200,2) , Icc , Ieor , Is , Istr , Isub , Lbd ,    &
          & Lcc , Lencc , Ncpw4 , Nmodes , Nout , Nset , Nsym , Nwpc , Two1(32)
    REAL Corex(1) , Equal , Scr1 , Zzzzbb
@@ -18,9 +15,6 @@ SUBROUTINE ifp1b
    COMMON /xifp1 / Iblank
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Corex
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , orf
    INTEGER case , cc , i , ib1 , ib11 , ib2 , ib21 , ibit(200) , ibuf1 , ibuf2 , icrq , iecase , ieoptp , ifcase , ifirod , ifirst ,&
          & iflag , ifoptp , ifreq , ifreq1 , ihop , ik1 , ik11 , ik2 , ik21 , iloop , im1 , im11 , im2 , im21 , impc , impc1 ,      &
@@ -28,9 +22,6 @@ SUBROUTINE ifp1b
          & iword(200) , ix , iy , j , jump , k , l , leng1 , leng2 , lsym , m , m0 , m1 , m2 , mm , name(2) , nz , optp , ss
    LOGICAL debug , new
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE DETERMINES THE LOOP CONDITIONS AND CASE CONTROL
 !     REQUEST CHNGES

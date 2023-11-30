@@ -1,9 +1,6 @@
 
 SUBROUTINE mtrapr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ak(64) , Aki(36) , Akt(9) , Am(64) , Constd(5) , D(64) , D2pi , Delint(12) , Dgama , Gambq(64) , R(4) , R1 ,    &
                   & R2 , R3 , R4 , Rhod , Twopi , Z(4) , Z1 , Z2 , Z3 , Z4 , Zmin
    REAL Alf(3) , Anu(3) , Costh , Dum1(10) , Dum2(25) , Dum3(2) , Dum4(7) , Dum5(76) , E(3) , Ecpt(24) , Eltemp , G(3) , Rho ,      &
@@ -17,16 +14,10 @@ SUBROUTINE mtrapr
    COMMON /sma2et/ Ecpt , Dum5
    COMMON /sma2io/ Dum1 , Ifmgg , Dum2
    COMMON /system/ Ibuf , Iout
-!
-! Local variable declarations
-!
    INTEGER i , i1 , iai , iapp , ic1 , icore , idel , ip , ipp , iq , ir1 , irc , ising , j , j1 , j2 , jj1 , jj2 , jrz(2) , k ,    &
          & matid
    DOUBLE PRECISION rmax , rmin
    DOUBLE PRECISION rzintd
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE MASS MATRIX FOR A AXI-SYMMETRIC RING
 !     WITH A TRAPEZOIDAL CROSS SECTION

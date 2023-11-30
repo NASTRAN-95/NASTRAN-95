@@ -1,21 +1,12 @@
 
 SUBROUTINE polypt(Loctof,Stedge,Tr,Ngridf,Fledge,Fl,Locfos,Eps,Npoly,P)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ngridf , Npoly
    DOUBLE PRECISION Eps(2) , Fl(3,4) , P(2,7) , Tr(3,3)
    INTEGER Fledge(2,4) , Locfos(4) , Loctof(3) , Stedge(2,3)
-!
-! Local variable declarations
-!
    REAL ap1 , ap2
    INTEGER i , inter , ip , j , j1 , j2 , jedge(2,7) , jj1 , jj2 , jlast , jp1 , k , k1 , k2 , kedge(2,5) , kk1 , kk2 , klast
    DOUBLE PRECISION p1(2) , ss(2)
-!
-! End of declarations
-!
 !
 !     POLYPT DETERMINES PERIMETER POINTS OF AREA COMMON TO STRUCTURAL
 !        TRIANGLE BOUNDED BY TR POINTS AND FLUID ELEMENT BOUNDED BY

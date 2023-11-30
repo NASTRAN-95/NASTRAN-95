@@ -1,9 +1,6 @@
 
 SUBROUTINE pla1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufr1 , Bufr2 , Bufr3 , Bufr4 , Bufsz , Clsnrw , Clsrw , Cstm , Dit , Ecpt , Ecptnl , Eor , Estl , Estltr(7) , Estnl ,   &
          & Estnlt(7) , Frowic , Gpct , I6x6k , Icstm , Iecpt(100) , Igpct , Incr , Index , Indstr , Inflag , Inrw , Iopt4 , Ipoint ,&
          & Iprec , Isp1(37) , Isp2(14) , Isyspt , Itype , Iz(1) , Jmax , Kggl , Kgglpg , Kickof , Last , Left , Link(10) , Llllll(2)&
@@ -29,9 +26,6 @@ SUBROUTINE pla1
    COMMON /xmssg / Ufm , Uwm
    COMMON /zblpkx/ Dpword , Llllll , Index
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL all , phase1
    INTEGER casecc , est , file , i , i1 , i2 , i3 , ibeg , icc , idx , ielid , ifirst , iflag , ilast , ileft , imat , inc ,        &
          & inpvt(2) , ipass , iplset , ipr , iset , isetno , istset , isym , itemp , izmax , j , jj , jjj , jlast , jplset ,        &
@@ -39,9 +33,6 @@ SUBROUTINE pla1
          & outfil , plaary(90) , planos(2) , setno , yessd
    REAL fnn , hmpt
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS FUNCTIONAL MODULE IS THE FIRST OF FOUR FUNCTIONAL MODULES
 !     UNIQUE TO THE PIECE-WISE LINEAR ANALYSIS (DISPLACEMENT METHOD)

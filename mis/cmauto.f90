@@ -1,9 +1,6 @@
 
 SUBROUTINE cmauto
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Combo(7,5) , Idat(3) , Idry , Ihead(96) , Inpt , Iot , Iprint , Isort , Isw , Ititl(96) , Junk(6) ,        &
          & Junk1(2) , Junk2(2) , Junk7(7) , Lcore , Line , Mcon , Nlpp , Npsub , Outt , Restct(7,7) , Scconn , Score , Scsfil , Z(1)
    REAL Buf3 , Buf4 , Buf5 , Casecc , Conect , Conset , Geom4 , Origin(7,3) , Rz(1) , Scbdat , Scmcon , Scr1 , Scr2 , Sctoc , Step ,&
@@ -19,9 +16,6 @@ SUBROUTINE cmauto
    COMMON /system/ Xxx , Iot , Junk , Nlpp , Junk1 , Line , Junk2 , Idat , Junk7 , Isw
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a(3) , asej , b(3) , bsej , xsej
    INTEGER aaa(2) , ce(9) , i , ibits(2) , iblnk , ic1 , ic2 , idir , ifile , ihd(12) , imsg , isavl , isavs , j , jbits(2) , jj ,  &
          & k , kdh , kk , m1 , m2 , mm , name(14) , ncsub , ni , nipi , nipj , nlin , nout , np2 , nsil(8) , nwd(8) , snext(8) ,    &
@@ -29,9 +23,6 @@ SUBROUTINE cmauto
    INTEGER andf , rshift
    LOGICAL back , found , print
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE AUTOMATIC CONNECTION OF
 !     SUBSTRUCTURES IN THE COMB1 MODULE

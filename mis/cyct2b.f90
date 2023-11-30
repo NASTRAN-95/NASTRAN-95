@@ -1,25 +1,13 @@
 
 SUBROUTINE cyct2b(Input,Outpt,Ncol,Iz,Mcb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Iik , Incr , Incr1 , Ita , Itb , Itc , Jj , Jjk
    COMMON /packx / Ita , Itb , Ii , Jj , Incr
    COMMON /unpakx/ Itc , Iik , Jjk , Incr1
-!
-! Dummy argument declarations
-!
    INTEGER Input , Ncol , Outpt
    INTEGER Iz(4) , Mcb(7)
-!
-! Local variable declarations
-!
    INTEGER i , izero
    REAL zero
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS SUBROUTINE IS TO COPY NCOL COLUMNS FROM
 !     INPUT TO OUTPUT USING CORE AT IZ -- MCB IS THE TRAILER

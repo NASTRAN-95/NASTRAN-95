@@ -1,9 +1,6 @@
 
 SUBROUTINE alg11
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bblock(30) , Bdist(30) , C1 , Chordd(21) , Conmx , Contr , Cppg(21) , Cr(21) , Data1(100) , Data2(100) , Data3(100) ,       &
       & Data4(100) , Data5(100) , Data6(100) , Data7(100) , Data8(100) , Data9(100) , Datac(100) , Delc(100) , Delf(30) , Delh(30) ,&
       & Delt(30) , Delta(100) , Delw(21) , Diff(15,4) , Dm(11,5,2) , Drdm2(30) , Ej , Fdhub(15,4) , Fdmid(15,4) , Fdtip(15,4) ,     &
@@ -33,9 +30,6 @@ SUBROUTINE alg11
    COMMON /ud3prt/ Iprtc , Istrml , Ipgeom
    COMMON /udsign/ Nsign
    COMMON /udstr2/ Nbldes , Stag , Chordd
-!
-! Local variable declarations
-!
    REAL alg2 , alg3 , alg4 , alg5 , alg7 , alg9
    REAL alpha , bbeta , beta , bspace , coef , delp , deltb(21) , deltp(21,30) , dh1 , dhn , dif , dpq , eff1 , effn , fi , ga ,    &
       & h1bar , hbar , hnbar , hri , hs , oeff , opr , p1(21) , p1bar , pbar , pfac , pload , pn(21) , pnbar , power , ppg(21) ,    &
@@ -44,9 +38,6 @@ SUBROUTINE alg11
       & xmr , xn , xsign
    INTEGER ible , idata(6) , ielem , ifle , ifte , ii , ilast , ileb , inode , ip , itrleb , j , k , l1 , l1keep , l2 , l3 , l4 ,   &
          & l5 , l6 , ledgeb , name1(2) , name2(2) , nout3s , nout3t , nstnsx
-!
-! End of declarations
-!
 !
    EQUIVALENCE (idata(1),rdata(1))
    DATA name1 , name2/4HPLOA , 4HD2   , 4HTEMP , 4H    /

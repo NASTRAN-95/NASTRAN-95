@@ -1,28 +1,16 @@
 
 SUBROUTINE sslot2(Iopt,Ipart,Branch,Eigen)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Dumy(35) , Sv(95) , Twopi , Veli(11) , Velr(11) , Zz(1)
    INTEGER Elid , Id1 , Id2 , Ivec , Sil(4)
    COMMON /condas/ Consts
    COMMON /sdr2x4/ Dumy , Ivec
    COMMON /sdr2x7/ Elid , Sil , Sv , Id1 , Velr , Id2 , Veli
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Branch , Iopt , Ipart
    REAL Eigen(3)
-!
-! Local variable declarations
-!
    REAL em , x , y
    INTEGER i , ij , j , k , kl , kl2
-!
-! End of declarations
-!
 !
 !     THE OPTIONS ARE
 !         IOPT   -  CSLOT3 = 0,  CSLOT4 = 1

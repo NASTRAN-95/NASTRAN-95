@@ -1,22 +1,13 @@
 
 SUBROUTINE dmfgr(A,M,N,Eps,Irank,Irow,Icol)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Eps
    INTEGER Irank , M , N
    DOUBLE PRECISION A(1)
    INTEGER Icol(1) , Irow(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION hold , piv , save
    INTEGER i , ic , ii , ir , j , jj , kk , l , ll , mm , ncol , nm
    REAL tol
-!
-! End of declarations
-!
 !
 !     DMFGR CALCULATES THE RANK AND LINEARLY INDEPENDENT ROWS AND
 !     COLUMNS OF A M BY N MATRIX.  IT EXPRESSES A SUBMATRIX OF

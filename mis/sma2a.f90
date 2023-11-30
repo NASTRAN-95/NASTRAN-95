@@ -1,9 +1,6 @@
 
 SUBROUTINE sma2a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bggind , Dum(2) , Ecpt(200) , Wtmass , Z(1)
    INTEGER Clsnrw , Clsrw , Eor , Frowic , I6x6b , I6x6m , Icmas , Icmbar , Icmqd1 , Icmqd2 , Icmqdp , Icmrod , Icmtr1 , Icmtr2 ,   &
          & Icmtrb , Icmtrp , Icmtub , Icstm , Idum1 , Idum2 , Idum3 , Idum4 , Idum5 , Ifbgg , Ifcstm , Ifdit , Ifecpt , Ifgpct ,    &
@@ -26,14 +23,8 @@ SUBROUTINE sma2a
    COMMON /xmssg / Ufm
    COMMON /zblpkx/ Dpword , Dum , Index
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , i1 , i2 , i3 , ibeg , idx , ifile , ifirst , iflag , ilast , imcb , inc , inpvt(2) , iparm , ipr , iretrn , itemp ,  &
          & itype , itypx , j , jj , jjj , jlast , kkk , left , lim , lincor , low , name(2) , sysprt
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE FORMERLY GENERATED THE MGG AND BGG MATRICES FOR
 !     THE SMA2 MODULE.  THESE OPERATIONS ARE NOW PERFORMED IN THE EMG

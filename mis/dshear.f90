@@ -1,9 +1,6 @@
 
 SUBROUTINE dshear
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A , A2 , A3 , A4 , A5 , Avec(4) , B , B2 , B3 , B4 , B5 , C , C2 , C23 , C3 , C4 , C5 , Cep1 , Cep2 , D , D2 ,  &
                   & D3 , D4 , D5 , Dpterm , E , Ep , F , F13 , F24 , Fxx , G , J3x3(9) , Jj(3) , K3x3(9) , Ke(36) , Nu , Nuc ,      &
                   & P(4) , Pa , Sa , Smallu(4) , Smallv(4) , Sum , T , Temp , Term , Term1 , Term2 , Term3 , Term4 , Term5 , Ti(9) ,&
@@ -25,13 +22,7 @@ SUBROUTINE dshear
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ Esp , Gsp , Nusp , Rho , Alpha , Tsubo , Gsube , Sigt , Sigc , Sigs
    COMMON /zzzzzz/ Zz
-!
-! Local variable declarations
-!
    INTEGER i , ii , ivlbeg , j , k , kk , mpoint , npoint
-!
-! End of declarations
-!
 !
 !     THIS COMPUTES THE THE TWO 6X6 DIFFERENTIAL STIFFNESS MATRICES
 !     K(NPVT,NPVT) AND K(NPVT,J) WHERE J = 3,4,1,2 IF NPVT = 1,2,3,4

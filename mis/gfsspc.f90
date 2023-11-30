@@ -1,26 +1,14 @@
 
 SUBROUTINE gfsspc(Nuy,Pvec)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4)
    INTEGER Irow , Sysbuf , Z(1)
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Nuy , Pvec
-!
-! Local variable declarations
-!
    INTEGER ibuf , mcb(7) , name(2) , nuy1 , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE TO CALCULATE A PARTITIONING VECTOR TO REMOVE FIRST
 !     ROW AND COLUMN OF FLUID STIFFNESS MATRIX IF NO SPC'S ARE ON

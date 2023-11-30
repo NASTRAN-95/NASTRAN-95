@@ -1,9 +1,6 @@
 
 SUBROUTINE fndpar(Np2,Index)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mask , Mask2 , Mask3 , Nout , Oscar(7)
    REAL Sysbuf
    CHARACTER*23 Ufm
@@ -11,19 +8,10 @@ SUBROUTINE fndpar(Np2,Index)
    COMMON /sem   / Mask , Mask2 , Mask3
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Index , Np2
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i , itype , k , m , name(2) , nip , nop , np , np1
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     FNDPAR FINDS THE INDEX INTO THE  VPS FOR PARAMETER NUMBER NP
 !     IN THE CURRENT OSCAR (THIS PARAMETER MUST BE VARIABLE)

@@ -1,20 +1,11 @@
 
 SUBROUTINE failrs(Fthr,Ultstn,Stresl,Findex)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Findex
    INTEGER Fthr
    REAL Stresl(3) , Ultstn(6)
-!
-! Local variable declarations
-!
    REAL crit , eps1 , eps2 , f12 , fi1 , fi12 , fi2 , gama , s , sig1 , sig2 , tau12 , x , xc , xt , xx , y , yc , yt
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE FAILURE INDEX OF A LAYER IN A LAMINATED
 !     COMPOSITE ELEMENT USING ONE OF THE FOLLOWING FIVE FAILURE THEORIES

@@ -1,9 +1,6 @@
 
 SUBROUTINE ferswd(V1,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dcore(1) , Xl(1)
    INTEGER Ibflt , Ibforv , Ibfsma , Icore(1) , Io , Ksystm(65) , Ltpos(7) , Mcblt(7) , Mcbsma(7) , Nidlt , Nidorv , Nidsma ,       &
          & Nltli , Nsmali
@@ -12,18 +9,9 @@ SUBROUTINE ferswd(V1,V3,Vb)
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION V1(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER iblk(20) , icol , icrow , ii , ik , ilrow , j , ji , mem , nrow , ntms , ntmsnx , ntmss
    DOUBLE PRECISION sum , v3j , xljj , zero
-!
-! End of declarations
-!
 !
 !  The original to this subroutine was FRSW2.  It has been modified
 !  to read the matrix data from memory and after this data is exhausted

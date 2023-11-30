@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2b(Kode)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Idum1 , Idum2(5) , Idum3(6) , Idum4 , Idum5(7) , Idum6 , Idum7 , Infile(11) , Iprntr , Iscr(11) , Korbgn , &
          & Korlen , Lamaap , Lamamr , Lams , Modlen , Nfound , Oldnam(2) , Phisl , Phissl , Phissr , Z(1)
    LOGICAL Modes
@@ -14,17 +11,8 @@ SUBROUTINE cmrd2b(Kode)
    COMMON /system/ Idum4 , Iprntr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Kode
-!
-! Local variable declarations
-!
    INTEGER i , ifile , imsg , item , itest , itmlst(3) , lamwds , modnam(2) , nwds , nwdsrd , rgdfmt
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE OLDMODES OPTION FLAG FOR THE CMRED2
 !     MODULE.

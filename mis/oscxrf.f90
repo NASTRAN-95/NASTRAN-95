@@ -2,9 +2,6 @@
 SUBROUTINE oscxrf(Iop,Avail)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER I , Iflg(5) , Ihead(96) , Iseqn , Ititl(96) , Itype , Kind , Ksys(65) , Mask3 , Mask4 , Mask5 , Nline , Nlpp , Nvail ,   &
          & Op , Vps(3) , Z(1)
    COMMON /lnklst/ I , Nvail , Iseqn , Kind , Itype , Mask3 , Mask4 , Mask5
@@ -13,21 +10,12 @@ SUBROUTINE oscxrf(Iop,Avail)
    COMMON /system/ Ksys
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Avail , Iop
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf , rshift
    INTEGER block(6) , dbent(3) , iauto , ihd1(32) , ihd2(32) , ihd3(32) , ihd4(32) , ihd5(32) , ii , il , iout(32) , irlh , isn ,   &
          & ist , itemp , j , k , kdh , lab(6) , len , link , ll , mask1 , mask2 , mi , nastk , nblank , ndb , nosgn , notapp ,      &
          & nparam , nparm , ntype , nwds , pool , pseq , q
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Ksys(2),Op) , (Ksys(9),Nlpp) , (Ksys(12),Nline)
    DATA ihd1/7*4H     , 4HCOSM , 4HIC / , 4H NAS , 4HTRAN , 4H DMA , 4HP CO , 4HMPIL , 4HER - , 4H DMA , 4HP CR , 4HOSS  , 4HREFE , &
        &4HRENC , 4HE LI , 4HSTIN , 4HG    , 9*4H    /

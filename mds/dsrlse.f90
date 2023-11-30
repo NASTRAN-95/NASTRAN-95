@@ -3,13 +3,7 @@ SUBROUTINE dsrlse
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
-!
-! Local variable declarations
-!
    INTEGER inext , nexdsn
-!
-! End of declarations
-!
    inext = Ifilex
    DO
       nexdsn = iand(Mdsfcb(3,inext),Maskh2)

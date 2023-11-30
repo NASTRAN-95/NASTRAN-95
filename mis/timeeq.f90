@@ -1,26 +1,14 @@
 
 SUBROUTINE timeeq(B,Bbar,C,Cbar,R,Ientry,Ncol,Tim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aaio , Aapak , Mb(1) , Mc(1) , Tcons(15)
    INTEGER Iprec , Ksystm(65) , Lntime , Nbpw , Sysbuf
    COMMON /ntime / Lntime , Tcons
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    REAL Ab , Abbar , Ac , Acbar , Ancol , Ar , B , Bbar , C , Cbar , R , Tim , Timex
    INTEGER Ib , Ibbar , Ic , Icbar , Ientry , Incol , Ir , Jentry , Kentry , Ncol , Nx
-!
-! Local variable declarations
-!
    REAL aio , amb , amc , apak , k1 , k2 , k3 , k4 , k5
    INTEGER ientr , iret
-!
-! End of declarations
-!
 !
 !     TIMEEQ SOLVES THE TIME AND CORE FUNCTIONS FOR DECOMP AND CDCOMP
 !
@@ -51,26 +39,14 @@ END SUBROUTINE timeeq
 !
 SUBROUTINE tfin(Ab,Abbar,Ac,Acbar,Ar,Jentry,Ancol,Timex)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aaio , Aapak , Mb(1) , Mc(1) , Tcons(15)
    INTEGER Iprec , Ksystm(65) , Lntime , Nbpw , Sysbuf
    COMMON /ntime / Lntime , Tcons
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    REAL Ab , Abbar , Ac , Acbar , Ancol , Ar , B , Bbar , C , Cbar , R , Tim , Timex
    INTEGER Ib , Ibbar , Ic , Icbar , Ientry , Incol , Ir , Jentry , Kentry , Ncol , Nx
-!
-! Local variable declarations
-!
    REAL aio , amb , amc , apak , k1 , k2 , k3 , k4 , k5
    INTEGER ientr , iret
-!
-! End of declarations
-!
 !
 !     TIMEEQ SOLVES THE TIME AND CORE FUNCTIONS FOR DECOMP AND CDCOMP
 !
@@ -122,26 +98,14 @@ END SUBROUTINE tfin
 !
 SUBROUTINE rcore(Ib,Ibbar,Ic,Icbar,Incol,Kentry,Nx,Ir)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aaio , Aapak , Mb(1) , Mc(1) , Tcons(15)
    INTEGER Iprec , Ksystm(65) , Lntime , Nbpw , Sysbuf
    COMMON /ntime / Lntime , Tcons
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    REAL Ab , Abbar , Ac , Acbar , Ancol , Ar , B , Bbar , C , Cbar , R , Tim , Timex
    INTEGER Ib , Ibbar , Ic , Icbar , Ientry , Incol , Ir , Jentry , Kentry , Ncol , Nx
-!
-! Local variable declarations
-!
    REAL aio , amb , amc , apak , k1 , k2 , k3 , k4 , k5
    INTEGER ientr , iret
-!
-! End of declarations
-!
 !
 !     ENTRY FOR THE CORE FUNCTION
 !

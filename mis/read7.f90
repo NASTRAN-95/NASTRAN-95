@@ -1,9 +1,6 @@
 
 SUBROUTINE read7(Nr1,Olama,Ophia,Nlama,Nphia)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    DOUBLE PRECISION Dcore(2)
    INTEGER Ii , Iip , Incrp , Incur , It1 , It2 , Itb , Jj , Jjp , Sysbuf
@@ -11,20 +8,11 @@ SUBROUTINE read7(Nr1,Olama,Ophia,Nlama,Nphia)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itb , Ii , Jj , Incur
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Nlama , Nphia , Nr1 , Olama , Ophia
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dx
    INTEGER i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ifile , ifl , ix(7) , j , lc , name(2) , nn , nr , nrow , sgldbl
    INTEGER korsz
    REAL x(7)
-!
-! End of declarations
-!
 !
 !     READ7  COPIES NR VECTORS FROM OPHIA TO NPHIA -
 !     IT ALSO PLACES THE EIGENVALUES ON NLAMA

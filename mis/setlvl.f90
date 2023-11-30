@@ -22,27 +22,15 @@ SUBROUTINE setlvl(Newnm,Numb,Oldnms,Itest,Ibit)
 !     MADE TO THE MDI
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Iodum(8) , Mdi , Mdibl , Mdilbn , Mdipbn , Nxtdum(15)
    LOGICAL Ditup , Mdiup
    COMMON /sof   / Dit , Ditpbn , Ditlbn , Ditsiz , Ditnsb , Ditbl , Iodum , Mdi , Mdipbn , Mdilbn , Mdibl , Nxtdum , Ditup , Mdiup
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Ibit , Itest , Numb
    INTEGER Newnm(2) , Oldnms(14)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf
    INTEGER cs , hl , i , ib , icount , idit , iempty , imdi , inew , iold(7) , k , kk , ll , llmask , maskcs , nmsbr(2)
    EXTERNAL andf , complf , lshift , orf
-!
-! End of declarations
-!
    DATA iempty/4H    / , nmsbr/4HSETL , 4HVL  /
    DATA ll , cs , hl/2 , 2 , 2/
    DATA ib/1/

@@ -1,9 +1,6 @@
 
 SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , Color , Est , Icntvl , Iset , Jset , Layer , Ncntr , Newoes , Nout , Parm , Pedge , Scr1 , Sort , Stress
    REAL Cntr(50) , Sk18(18) , Skip(10) , Skip2(157) , Skip3(2) , Skip6(5) , Skip7(14) , Skp4 , Skp8(11) , Xmin
    CHARACTER*23 Ufm
@@ -15,22 +12,13 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
    COMMON /system/ Bufsiz , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xxparm/ Skip2 , Ncntr , Cntr , Icntvl , Skip6 , Iset , Sk18 , Color , Layer
-!
-! Dummy argument declarations
-!
    INTEGER B1 , Deform , Opcor , Ppen
    REAL Dd(3,1) , U(2,1) , X(3,1) , Z(1)
    INTEGER Gplst(1) , Iz(1)
-!
-! Local variable declarations
-!
    INTEGER b2 , b3 , elid , elmid , err , esym , gpts(12) , i , ib , ibegin(2) , ic , icen , icolor , id , id1 , iflag , ig , ig1 , &
          & igdpt , ii , ik , ik1 , ik2 , ik3 , ik4 , imhere , iread , irr , irtn , is , isav , iv , ival , j , jc , jrr , js , jv , &
          & k , kbar , kq4 , kt3 , l , labl(50) , lines , lopcor , lopcox , m , nel , ngppe , offset , pen , sub(2)
    REAL center , cenval , conmax , conmin , d , delta , essym , pt(8) , rcntrl , rcolor , s , sum1 , sum2 , v , xb(8) , xmid , ymid
-!
-! End of declarations
-!
 !
    EQUIVALENCE (ibegin(1),lines) , (ibegin(2),igdpt)
    DATA kbar , kt3 , kq4/2HBR , 2HT3 , 2HQ4/

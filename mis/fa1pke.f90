@@ -1,9 +1,6 @@
 
 SUBROUTINE fa1pke(Khh,Bhh,Mhh,Bxhh,Fsave,Nloop,Bref,Rref,Neiw,Eps)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Floop , Ia , Icp , Iflag , Ik , Imvr , Incr1 , Inn , Iout , Iq , Ncore , Nk , Nnn , Nout , Sysbuf
    REAL Pi , Twopi , Z(1)
@@ -17,14 +14,8 @@ SUBROUTINE fa1pke(Khh,Bhh,Mhh,Bxhh,Fsave,Nloop,Bref,Rref,Neiw,Eps)
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Bhh , Bxhh , Fsave , Khh , Mhh , Neiw , Nloop
    REAL Bref , Eps , Rref
-!
-! Local variable declarations
-!
    REAL a10 , a11 , bov , d1 , det , ei , er , kint , rbv , rf , rg , rho , rk , rktst , rvs , vel , vels , x10 , x11 , x12 , xav , &
       & xav1 , y10 , y11 , yav1
    INTEGER buf1 , i , iad , ib , ibh , ibuf2 , ic0 , ic0d , ieigns , ifl , ikh , ima , imh , imhere , iop , ip0 , ip0d , iq0 , iqi ,&
@@ -32,9 +23,6 @@ SUBROUTINE fa1pke(Khh,Bhh,Mhh,Bxhh,Fsave,Nloop,Bref,Rref,Neiw,Eps)
          & nrem , nroot , nrow , nrs , nwr , trl(7)
    DOUBLE PRECISION dsum , dx1 , dx2
    LOGICAL eigv
-!
-! End of declarations
-!
 !
 !     FA1PKE COMPUTES THE EIGENVALUES FOR THE PK METHOD
 !

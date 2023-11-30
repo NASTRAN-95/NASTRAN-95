@@ -1,25 +1,13 @@
 
 SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(6) , Rd , Rdrew , Rew , Skip(2)
    INTEGER Ibuf , L , Nlpp
    COMMON /names / Rd , Rdrew , Skip , Rew
    COMMON /system/ Ibuf , L , Dummy , Nlpp
-!
-! Dummy argument declarations
-!
    INTEGER Buf , Eqexin , Gpl , Sil
    INTEGER Z(2)
-!
-! Local variable declarations
-!
    INTEGER file , i , im1 , j , j1 , j2 , j3 , k , n , n1 , n2 , n3 , nam(2) , nlpx
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PRINTS THE INTERNAL-EXTERNAL-SIL NOS. OF THE GRID
 !     POINTS AND SCALAR POINTS, AS REQUESTED BY DIAG 36

@@ -1,9 +1,6 @@
 
 SUBROUTINE fqrwv(M,E,Er,A,B,W,P,Q,Xm,Int,Zb,Srfle,Mcbc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cndflg , Eofnrw , Rd , Rdrew , Rew , Timed , Wrt , Wrtrew
    INTEGER Iacc , Ii , Iip , Incr , Incrp , Io , Iprc , Iprec , Iter , Itp1 , Itp2 , Ksystm(65) , L16 , Lhpw(3) , Machx , Nn , Nnp ,&
          & Norew
@@ -18,23 +15,14 @@ SUBROUTINE fqrwv(M,E,Er,A,B,W,P,Q,Xm,Int,Zb,Srfle,Mcbc)
    COMMON /system/ Ksystm
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER M , Srfle
    DOUBLE PRECISION A(1) , B(2) , E(1) , Er(1) , P(1) , Q(1) , W(1) , Xm(1)
    LOGICAL Int(1)
    INTEGER Mcbc(7)
    REAL Zb(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION base , bmax , c , delta , dim , dimf , e1 , e2 , emax , eps , epx , epx2 , erf , ev , f , gg , hov , pprc ,     &
                   & prc , ratio , s , scale , shift , sqrt2 , ss , sum , sumx , t , tmax , tol , x , x1 , y , z , zerr
    INTEGER i , icf , iexp , ij , ilim , irp , it , j , jerr , jrp , k , k1 , l , l1 , m1 , mcb(7) , mvec , niter , nrp , nv
-!
-! End of declarations
-!
 !                                                  SR5FLE SR4FLE
 !
    EQUIVALENCE (Ksystm(2),Io) , (Ksystm(55),Iprec)

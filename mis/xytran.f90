@@ -2,9 +2,6 @@
 SUBROUTINE xytran
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blkcom , Buf(100) , Center , File , Iat , Idin(153) , Idout(300) , Idum1 , Ifile , Ihead(96) , Intr , Ipset , Ipset2 ,   &
          & Ivalue(60) , Knt , Ksystm(81) , L , Major , Nat , Nbots , Ncard , Nframe , Nin , Nogo , Ntops , Steps , Subc(5) ,        &
          & Sysbuf , Tcurve(32) , Vecid(5) , Vector , Xaxis(32) , Yaxis(32) , Ybaxis(32) , Ytaxis(32) , Z(1)
@@ -19,9 +16,6 @@ SUBROUTINE xytran
    COMMON /xywork/ File , Tcurve , Ntops , Print , Ifile , Xaxis , Nbots , Plot , Vector , Yaxis , Vecid , Punch , Major , Ytaxis , &
                  & Subc , Center , Random , Ybaxis , Idin , Buf , Ivalue , Iat , Idout , Outopn , Steps , Nat , Paplot , Knt
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bcd , blank , card , clea , comp , core , eor , files(11) , flag , fram , go , headsv(96) , i , i1 , i13 , i2 , i23 ,    &
          & i3 , icore , icrq , id , idtot , idz , ier , ifcrv , ifle , ij , indb(5) , inprwd , intrwd , istep , istsv , item ,      &
          & itemp , itry , ival , j , jj , kasknt , ktype , majid(11) , n , name(2) , namev(11) , namevg , nbeg , noeor , nslots ,   &
@@ -30,9 +24,6 @@ SUBROUTINE xytran
    INTEGER korsz
    LOGICAL oomcp , oompp , vgp
    REAL temp , temp1
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Ivalue(1),Value(1))
 !
    DATA stop/4HSTOP/ , go/4HGO  / , vdum/4HVDUM/ , xy/4HXY  / , fram/4HFRAM/ , clea/4HCLEA/ , tcur/4HTCUR/ , xaxi/4HXTIT/ ,         &

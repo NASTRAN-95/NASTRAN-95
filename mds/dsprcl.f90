@@ -3,17 +3,8 @@ SUBROUTINE dsprcl(Block)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15)
-!
-! Local variable declarations
-!
    INTEGER idiv(4)
-!
-! End of declarations
-!
    DATA idiv/1 , 2 , 1 , 2/
    Block(2) = iand(Ibase(Indcbp),Maskq4)
    Block(3) = iand(Ibase(Indcbp),Maskq3)

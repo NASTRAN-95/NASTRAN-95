@@ -1,16 +1,10 @@
 
 BLOCKDATA flbbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Af , Afdict , Afmat , Bgpdt , Conect , Cstm , Dkgg , Ect , Eqexin , Fbelm , Frelm , Geom2 , Geom3 , Kgdict , Kgmat ,     &
          & Mpt , Sil , Uset , Usetf , Usets
    COMMON /flbfil/ Geom2 , Ect , Bgpdt , Sil , Mpt , Geom3 , Cstm , Uset , Eqexin , Usetf , Usets , Af , Dkgg , Fbelm , Frelm ,     &
                  & Conect , Afmat , Afdict , Kgmat , Kgdict
-!
-! End of declarations
-!
 !FLBBD
 !     FLBBD - BLOCK DATA FOR MODULE FLBMG
 !

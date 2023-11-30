@@ -1,19 +1,10 @@
 
 SUBROUTINE gpwg1c(B,E,Eig,Iflag)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Iflag
    DOUBLE PRECISION B(3,3) , E(3,3) , Eig(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION bmax , bp(3,3) , c , detb , ep(3,3) , epsil , r , s , t
    INTEGER i , ii , j , k
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION VERSION, BY G.CHAN/SPERRY    8/86
 !

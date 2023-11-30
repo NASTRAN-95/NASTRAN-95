@@ -1,9 +1,6 @@
 
 SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL B(9) , Bb(72) , Db(72) , Deform , Disp(24) , Dnx(8) , Dny(8) , Dnz , Dummy(35) , Eltemp , Forvec(250) , G(9) , Ph1out(100) ,&
       & Sig(3) , St(3) , Str(250) , Ta(48) , Tb(6) , Tref , Z(1)
    INTEGER Ibase , Id , Id1 , Idtemp , Is , Ivec , Ivecn , Iz(1) , Ldtemp , Nph1(1) , Npt , Nsil(1) , Nstrt
@@ -11,19 +8,10 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
    COMMON /sdr2x7/ Ph1out , Str , Forvec
    COMMON /sdr2x8/ Disp , Dnx , Dny , Dnz , B , Tb , Bb , Db , Sig , Ibase , Nstrt , Npt , Is , Idtemp
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ieqex , Neqex
    REAL Tgrid(8)
-!
-! Local variable declarations
-!
    REAL dn(8) , eta(8) , ex2d82(32) , ex2d83(72) , gstemp , pt(3) , rgtemp , sigs(27) , sigt(24) , stress(43) , temp(9) , xi(8)
    INTEGER i , i3 , idn , iii , istres(3) , isub , isub1 , isub2 , j , jii , jjj , jjsub , jsub , k , kk , n , n3 , ns , nx , ny
-!
-! End of declarations
-!
 !
 !     PHASE 2 OF STRESS DATA RECOVERY FOR 2-D, 8 GRID POINT
 !     ISOPARAMETRIC STRUCTURAL ELEMENT

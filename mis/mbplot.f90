@@ -1,26 +1,14 @@
 
 SUBROUTINE mbplot(Nw1,Nd1,Nwn,Nc21,Nc2n,Nc1,Ncn,Ndn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Asym , Beta , Boxa , Boxl , Boxw , Cntrl1 , Cntrl2 , Cr , Crank1 , Crank2 , Ek , Ekbar , Ekm , Gc , Mach , Sys
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , N6 , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
    COMMON /system/ Sys , N6
-!
-! Dummy argument declarations
-!
    INTEGER Nc1(1) , Nc21(1) , Nc2n(1) , Ncn(1) , Nd1(1) , Ndn(1) , Nw1(1) , Nwn(1)
-!
-! Local variable declarations
-!
    REAL blank , dia , fp , pl(50) , tp , wg , wk
    INTEGER i , j , ncbmx , nsbm
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO PRINT A REPRESENTATION OF PLANFORM BEING CONSIDERED
 !

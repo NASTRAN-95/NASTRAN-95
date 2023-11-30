@@ -2,9 +2,6 @@
 SUBROUTINE mma324(Zi,Zd)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    DOUBLE COMPLEX Cd
    INTEGER Cls , Clsrew , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Incrp , Incru , Iprc(2) , Iprow1 , Iprown , Irc(4) , Iurow1 , &
          & Iurown , Iwr , Kdrow , Ksystm(152) , Nac , Nadens , Naform , Nanzwd , Nar , Natype , Nbc , Nbdens , Nbform , Nbnzwd ,    &
@@ -18,20 +15,11 @@ SUBROUTINE mma324(Zi,Zd)
    COMMON /type  / Iprc , Nwords , Irc
    COMMON /unpakx/ Typeu , Iurow1 , Iurown , Incru
    COMMON /zblpkx/ D , Kdrow
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(2)
    INTEGER Zi(2)
-!
-! Local variable declarations
-!
    DOUBLE COMPLEX cdtemp
    INTEGER i , icola , icrows , idrow , ii , indxa , indxal , indxav , indxb , indxbs , indxbv , indxc , indxcv , irow1 , irowa1 ,  &
          & irowan , irowb1 , irowbn , irowc1 , irowcn , irown , irows , k , kcnt , lasindb , lasindc , nrows , ntms
-!
-! End of declarations
-!
 !
 !     MMA324 PERFORMS THE MATRIX OPERATION IN COMPLEX DOUBLE PRECISION
 !       (+/-)A(T & NT) * B (+/-)C = D

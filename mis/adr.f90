@@ -1,9 +1,6 @@
 
 SUBROUTINE adr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App , Ii , Incr , Incr1 , Inn , Iout , Iti , Ito , Iz(1) , Nn , Nnn , Out , Sysbuf
    REAL Bov , Mach , Pi , Twopi , Z(1)
    CHARACTER*23 Ufm
@@ -16,16 +13,10 @@ SUBROUTINE adr
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER casecc , disp , flut , freq , i , iaero , ibuf1 , ibuf2 , ibuf3 , ipa , ipd , ipq , j , k , l , load , m , mcb(7) , nam ,&
          & ncol , ncore , next , nfreq , nload , nns1 , nogo , nrow , nterma , ntermd , nterms , nw , pkf , qkhl , scr1 , scr2 ,    &
          & scr3 , scr4 , sila , spline , useta
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     AERODYNAMIC DATA RECOVERY   -  FORCE OUTPUT BY SET SELECTION
 !

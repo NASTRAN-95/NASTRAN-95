@@ -1,9 +1,6 @@
 
 SUBROUTINE gigtkg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(8) , Scr1 , Spline , Z(1)
    INTEGER Gsize , Ii , Incr , Iti , Ito , Iz(1) , Ksize , Nn , Out , Scr2 , Scr3 , Sysbuf
    CHARACTER*23 Ufm
@@ -12,16 +9,10 @@ SUBROUTINE gigtkg
    COMMON /system/ Sysbuf , Out
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , ctype , i , icm , iss , j , jj , jjj , k , kcol , kst , nam(2) , ncore , nwr , sdtab(6,5) , trl(7)
    INTEGER korsz
    REAL write
    EXTERNAL write
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Z(1),Iz(1))
    DATA nam/4HGIGT , 4HKG  /

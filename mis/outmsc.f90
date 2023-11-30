@@ -1,9 +1,6 @@
 
 SUBROUTINE outmsc(*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER D(3) , Ibuf , Idum4(6) , Idum5(5) , Idum6(2) , Mach , Nlpp , Nout , Nwds(4) , P1 , P2 , P3(2) , P4 , P5 , P6(2)
    DOUBLE PRECISION Dxns(1)
    CHARACTER*25 Sfm , Uwm
@@ -16,17 +13,11 @@ SUBROUTINE outmsc(*,*)
    COMMON /type  / Idum6 , Nwds
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER block(20) , buf1 , dx(3) , endfil , endrec , hdr(7) , hdrx(7) , i , ii , inp(13) , input , iret , j , k , k1 , k2 , key ,&
          & keyx , l , lcor , lend , mcb(7) , name(2) , none(2) , nskip , nwd , out , sub(2) , tapcod(2) , tmp(2)
    LOGICAL dp
    INTEGER korsz
    CHARACTER*19 mo2
-!
-! End of declarations
-!
 !
 !     COPY DATA BLOCK(S) TO FORTRAN UNIT, IN MSC/OUTPUT2 COMPATIBLE
 !     RECORD FORMATS.

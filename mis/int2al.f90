@@ -1,19 +1,10 @@
 
 SUBROUTINE int2al(Int,Alf,Ch)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Int
    INTEGER Alf(2) , Ch(9)
-!
-! Local variable declarations
-!
    INTEGER blank , j , zero
    CHARACTER*8 k8
-!
-! End of declarations
-!
 !     ----------
 !     THIS ROUTINE CONVERTS AN INTEGER TO ALPHA-NUMERIC WORD. THE
 !     NUMBER IS LEFT JUSTIFIED WITH NO BLANKS.

@@ -1,22 +1,13 @@
 
 SUBROUTINE casege
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(1) , Lmodes , Ndir , Nmodes , Sysbuf
    REAL Z(1)
    COMMON /blank / Lmodes , Ndir , Nmodes
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , casecc , casedd , i , itot , iwords , lcore , mcb(7) , nam(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 ! GENERATES IDENTICAL SUBCASES LMODES*NDIR TIMES FOR DDAM
 !

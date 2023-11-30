@@ -1,23 +1,11 @@
 
 FUNCTION ittype(Itemx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Item(7,1) , Nitem
    COMMON /itemdt/ Nitem , Item
-!
-! Dummy argument declarations
-!
    INTEGER Itemx
    INTEGER ittype
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !
 !*****
 !

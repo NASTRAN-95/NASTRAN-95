@@ -1,9 +1,6 @@
 
 SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb,Zb,Nbea)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecore , Fmach , Refc , Scr1 , Scr2 , Scr3 , Scr4 , Scr5 , Sysbuf , Z(1)
    INTEGER Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc , Infl , &
          & Ins , Insbea , Int121 , Int122 , Iria , Isg , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam , Ixle , Ixte ,   &
@@ -16,21 +13,12 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    COMMON /system/ Sysbuf , Npot
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Beta
    INTEGER Idzdy , Iprnt , Nfb , Nlb , Ntape , Ntzys
    REAL Cg(1) , D(2,Ntzys) , Sg(1) , Xp(1) , Yb(1) , Yp(1) , Zb(1) , Zp(1)
    INTEGER Nbea(1) , Nc(1) , Ns(1)
-!
-! Local variable declarations
-!
    INTEGER by , bz , c , c1 , i , isn , ixp , nbey , nbez , ncp , nfyb , nfybm1 , nsp , p , s , s1 , yt , zt
    REAL cgr , dx , dy , dz , sgr
-!
-! End of declarations
-!
 !
 !     CALCULATION OF DZ AND DY MATRICES SLENDER BODY CALCULATIONS
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE ektrmd(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(225) , Dict5 , E(18) , K(324) , Kij(81) , Kout(324) , Prod9(9) , Temp9(9) , Xsubb , Xsubc , Ysubc
    REAL Alp12 , Alpha1 , Alpha2 , Angle , Consts(5) , Costh , Degra , Dum(19) , Dumb(80) , Dummy1 , Dummy2 , Dummy3 , Ecpt(21) ,    &
       & Eltemp , Fmu , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , Matbuf(4) , Rho , Sigcom , Sigshe ,   &
@@ -20,19 +17,10 @@ SUBROUTINE ektrmd(Ntype)
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rho , Alpha1 , Alpha2 , Alp12 , Tsub0 , Gsube , Sigten , Sigcom , Sigshe ,   &
                  & G2x211 , G2x212 , G2x222
    COMMON /system/ Ksystm
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    DOUBLE PRECISION c(18) , delta , flamda , g(9) , reelmu , temp , tempar(27) , ti(9) , tt(2) , vol
    INTEGER i , j , ka , kmax , kq , n1 , n2 , ncom , npoint , npt1 , npt2 , npt36 , npvt , nsave
    REAL theta
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS MATRIX FOR THE
 !     TRIANGULAR MEMBRANE ELEMENT

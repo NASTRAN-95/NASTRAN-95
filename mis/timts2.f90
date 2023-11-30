@@ -1,9 +1,6 @@
 
 SUBROUTINE timts2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , B(1) , C(1) , D(1)
    COMPLEX Ac(1) , Bc(1) , Cc(1) , Dc(1)
    DOUBLE PRECISION Ad(1) , Bd(1) , Cd(1) , Dd(1)
@@ -11,17 +8,11 @@ SUBROUTINE timts2
    COMMON /blank / N , M , Type , Opt1 , Opt2
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ A
-!
-! Local variable declarations
-!
    COMPLEX adnc
    DOUBLE PRECISION adnd
    REAL adno , asq , t1 , t2 , time , tperop
    INTEGER buf1 , buf2 , end , end2 , end4 , i , iret , isubr(2) , itot , j , l , los(16) , m8 , med(16) , name(4) , p , tig(16)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TIMTS2 TIME TESTS CPU TIMES FOR VARIOUS TYPES OF LOOPS
 !

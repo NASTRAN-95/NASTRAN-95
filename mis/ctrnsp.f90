@@ -1,9 +1,6 @@
 
 SUBROUTINE ctrnsp(Ix,X,Nx,Filea,B,Sr1fil)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Eol , Eor , Ia(4) , Ihalf , Ii , Jprec(2) , Mach , Norew , Nwds(4) , Rdp , Sysbuf
    REAL Csp , Eofnrw , Rd , Rdrew , Rew , Rsp , Wrt , Wrtrew
    COMMON /machin/ Mach , Ihalf
@@ -11,22 +8,13 @@ SUBROUTINE ctrnsp(Ix,X,Nx,Filea,B,Sr1fil)
    COMMON /system/ Sysbuf
    COMMON /type  / Jprec , Nwds
    COMMON /zntpkx/ Ia , Ii , Eol , Eor
-!
-! Dummy argument declarations
-!
    INTEGER B , Nx , Sr1fil
    INTEGER Filea(7) , Ix(1)
    REAL X(1)
-!
-! Local variable declarations
-!
    INTEGER complf , lshift , orf , rshift
    DOUBLE PRECISION di(2)
    INTEGER i , ifile , iii(6) , incr , iobuf , iprec , istor , j , k , kk , l , name(2) , ncol , no , num , typea
    EXTERNAL complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     TRANS WILL DO AN INCORE TRANSPOSE OF THE UPPER TRIANGLE OF ACTIVE
 !     ELEMENTS

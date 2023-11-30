@@ -1,9 +1,6 @@
 
 SUBROUTINE amgt2(Input,D1jk,D2jk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Dcbdzb , Degra , Den , Dum(2) , Mach , Maxmac , Minmac , Pi , Radeg , Redf ,      &
       & Refc , Refcrd , Refden , Refmac , Refstg , Refswp , Refvel , Rfreq , S4pisq , Sigma , Stager , Sweep , Twopi , Vel , Work(1)&
       & , Xsign
@@ -20,18 +17,9 @@ SUBROUTINE amgt2(Input,D1jk,D2jk)
    COMMON /tamg2l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stager , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amach , Redf , Blspc , Amachr , Tsonic , Xsign
    COMMON /zzzzzz/ Work
-!
-! Dummy argument declarations
-!
    INTEGER D1jk , D2jk , Input
-!
-! Local variable declarations
-!
    INTEGER ecore , i , icol , ip1 , ip2 , ip3 , iptr , irsln , j , k , name(2) , ndata , next , nline , nsns , nstns2 , nwar
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR SWEPT TURBOPROP BLADES (AEROELASTIC THEORY 7).
 !

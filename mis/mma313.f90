@@ -2,9 +2,6 @@
 SUBROUTINE mma313(Zi,Zc)
    IMPLICIT NONE
    INCLUDE 'MMACOM.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Incrp , Incru , Iprc(2) , Iprow1 , Iprown , Irc(4) , Iurow1 , &
          & Iurown , Iwr , Ksystm(152) , Nac , Nadens , Naform , Nanzwd , Nar , Natype , Nbc , Nbdens , Nbform , Nbnzwd , Nbr ,      &
          & Nbtype , Ncc , Ncdens , Ncform , Ncnzwd , Ncr , Nctype , Ndc , Nddens , Ndform , Ndnzwd , Ndr , Ndtype , Nwords(4) , Nz ,&
@@ -16,19 +13,10 @@ SUBROUTINE mma313(Zi,Zc)
    COMMON /system/ Ksystm
    COMMON /type  / Iprc , Nwords , Irc
    COMMON /unpakx/ Typeu , Iurow1 , Iurown , Incru
-!
-! Dummy argument declarations
-!
    COMPLEX Zc(2)
    INTEGER Zi(2)
-!
-! Local variable declarations
-!
    INTEGER i , icola , idrow , idxx , ii , indxa , indxal , indxav , indxb , indxbv , irow1 , irowa1 , irowan , irowb1 , irowbn ,   &
          & irown , irows , j , k , ntms
-!
-! End of declarations
-!
 !
 !     MMA313 PERFORMS THE MATRIX OPERATION IN COMPLEX SINGLE PRECISION
 !       (+/-)A(T & NT) * B (+/-)C = D

@@ -1,9 +1,6 @@
 
 SUBROUTINE xrgnum
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(98)
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Isysbf , Itype , Limit(2) ,&
          & Member(2) , Name(2) , Nsubst , Num(2) , Number , Nument , Optape , Record(20)
@@ -12,13 +9,7 @@ SUBROUTINE xrgnum
    COMMON /xmssg / Ufm
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Local variable declarations
-!
    INTEGER blank , i , ifrcol , j , k , newnum , nums(10)
-!
-! End of declarations
-!
 !
 !     XRGNUM PROCESSES THE NUMBER ON A CARD OR FILE NAME TABLE ENTRY
 !     THIS ROUTINE IS CALLED ONLY BY XRGDTB

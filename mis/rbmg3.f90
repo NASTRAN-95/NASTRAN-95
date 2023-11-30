@@ -1,14 +1,8 @@
 
 SUBROUTINE rbmg3
    IMPLICIT NONE
-!
-! Local variable declarations
-!
    INTEGER dm , klr , krr , lll , scr1 , scr2
    REAL eps
-!
-! End of declarations
-!
 !*****
 !     SOLVE KLL * DM = -KLR  FOR DM (WHERE LLL IS THE TRI FACTOR)
 !     THEN COMPUTE X = KRR + KLR(T) * DM

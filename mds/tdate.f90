@@ -1,17 +1,8 @@
 
 SUBROUTINE tdate(Date)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Date(3)
-!
-! Local variable declarations
-!
    INTEGER date1(3)
-!
-! End of declarations
-!
 !
 !     VAX VERSION
 !     ===========

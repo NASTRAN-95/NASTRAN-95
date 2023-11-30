@@ -1,9 +1,6 @@
 
 SUBROUTINE initl(Offset,Deltt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(4) , Beta(4) , Cdp , Csp , Dum(39) , Eofnrw , Power , Rd , Rdrew , Rew , Wrt , Wrtrew , Z(1)
    DOUBLE PRECISION Det , Mindia
    INTEGER Fileb(7) , Filek(7) , Filem(7) , Ia(7) , Ichl , Id(5) , Id1(2) , Ifa(7) , Ifila(7) , Ifilb(7) , Ifilc(7) , Ifl(7) ,      &
@@ -16,19 +13,10 @@ SUBROUTINE initl(Offset,Deltt)
    COMMON /system/ Dum , Nbpw
    COMMON /trdxx / Filek , Filem , Fileb , Iscr1 , Iscr2 , Iscr3 , Iscr4 , Iscr5 , Iscr6 , Iopen , Isym
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Deltt
    INTEGER Offset
-!
-! Local variable declarations
-!
    INTEGER file , i , ip1 , iprec , name(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     INITL WILL COMPUTE THE STARTING VALUES FOR THE INTEGRATION ROUTINE
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE ds1etd(Elid,Ti,Grids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bufflg , Endid , Eorflg , Record
    INTEGER Defalt , Eltype , Iback , Iout , Itemp , Oldeid , Oldel
    REAL Dum
@@ -11,19 +8,10 @@ SUBROUTINE ds1etd(Elid,Ti,Grids)
    COMMON /ds1ett/ Eltype , Oldel , Eorflg , Endid , Bufflg , Itemp , Defalt , Iback , Record , Oldeid
    COMMON /system/ Dum , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Grids
    INTEGER Ti(2)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER gptt , i , id , maxwds , name(2) , nwords
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE (CALLED BY -DS1-) READS ELEMENT TEMPERATURE
 !     DATA FROM A PRE-POSITIONED RECORD

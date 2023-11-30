@@ -1,21 +1,12 @@
 
 SUBROUTINE combo(Cdata,Nx,Extra,Nnam,Name,Nn,Var,Ier)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ier , Nn , Nnam , Nx
    INTEGER Cdata(5) , Extra(3,1) , Name(2,1) , Var(3,2)
-!
-! Local variable declarations
-!
    INTEGER complf , rshift
    INTEGER eqsn , i , ic , inum(7) , ix , iy , j , jnam , k , kn , lprn , lword , manu , mopt(3) , msort(3) , nai(7) , nams , ncno ,&
          & nnc , nno , nopt , nsort , numbs(7)
    EXTERNAL complf , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE  PROCESSES THE  COMBINE INPUT.
 !        THE  INPUT/ OUTPUTS  ARE

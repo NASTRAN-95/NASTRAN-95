@@ -1,9 +1,6 @@
 
 SUBROUTINE outpt4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER D(3) , Ibuff , Ii , Incr , Itu , Ix(3) , Jj , Line , Mach , Nbpw , Nlpp , Nout , Nwd(4) , P1 , P2 , P3
    CHARACTER*80 Dsnames(80)
    REAL Dum1(6) , Dum2(2) , Dum22(22) , Dum3(2) , Prc(2) , X(1) , Xns(1)
@@ -19,9 +16,6 @@ SUBROUTINE outpt4
    COMMON /unpakx/ Itu , Ii , Jj , Incr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER block(20) , buf1 , i , ifirst , inp(13) , input , ipt , j , j1 , j2 , k , l , lcor , ln , m , mrow , name(2) , nc ,      &
          & ndict , nm1 , none(2) , nr , nw , nwds , nword1 , nwords , sub(2) , tab1(6) , tab2(6) , trl(8) , zero
    LOGICAL bo , cp , dp , sp , sparse
@@ -29,9 +23,6 @@ SUBROUTINE outpt4
    CHARACTER*11 fm , fmd , unf
    INTEGER korsz
    REAL rzero
-!
-! End of declarations
-!
 !
 !     COPY MATRIX DATA BLOCKS ONTO A FORTRAN TAPE, BINARY OR ASCII
 !     FORMATS, IN DENSE MATRIX FORM (FROM FIRST TO LAST NON-ZERO TERMS

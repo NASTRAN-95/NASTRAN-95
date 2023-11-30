@@ -1,19 +1,10 @@
 
 SUBROUTINE alg01(Xdata,Ydata,Ndata,Xin,Yout,Slope,Nxy,Ntype,Nwot)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ndata , Ntype , Nwot , Nxy
    REAL Slope(1) , Xdata(2) , Xin(1) , Ydata(2) , Yout(1)
-!
-! Local variable declarations
-!
    REAL a(21) , b(21) , d(21) , dx , m(21) , yprime
    INTEGER i , ii , islope , iy , j , jp , kp , n
-!
-! End of declarations
-!
 !
 !
 !

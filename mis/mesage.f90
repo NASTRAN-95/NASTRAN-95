@@ -1,26 +1,14 @@
 
 SUBROUTINE mesage(No,Parm,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(19)
    INTEGER Ibuf , Linkno , M , Mach , Msg(4,1) , N , Nout
    COMMON /machin/ Mach
    COMMON /msgx  / N , M , Msg
    COMMON /system/ Ibuf , Nout , Dum , Linkno
-!
-! Dummy argument declarations
-!
    INTEGER No , Parm
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER i , j , k , link1
-!
-! End of declarations
-!
 !
 !     MESAGE IS USED TO QUEUE NON-FATAL MESSAGES DURING THE EXECUTION
 !     OF A MODULE, AND EXITS IF MESSAGE IS FATAL

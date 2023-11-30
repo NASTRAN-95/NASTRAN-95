@@ -1,14 +1,8 @@
 
 BLOCKDATA ofp5bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER E1(100) , E21(100) , E41(100) , E61(100) , E81(100) , Esingl(64)
    COMMON /ofpbd5/ Esingl , E1 , E21 , E41 , E61 , E81
-!
-! End of declarations
-!
 !OFP5BD
 !*****
 !     SPACING ARRAY - ESINGL

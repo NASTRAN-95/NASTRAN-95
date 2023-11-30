@@ -1,9 +1,6 @@
 
 SUBROUTINE mce1d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(1) , B(1) , Rg , Scr1 , Scr2 , Scr3 , Skp(53) , U , Uset , Z(1)
    DOUBLE PRECISION Ad(2) , Bd(2) , Zd(1)
    INTEGER Eol , Eor , Gm , I , Ipr , J , L , Mcb(7) , Ncol , Rm , Rn , Sysbuf , Type
@@ -12,14 +9,8 @@ SUBROUTINE mce1d
    COMMON /zblpkx/ Bd , J
    COMMON /zntpkx/ Ad , I , Eol , Eor
    COMMON /zzzzzz/ Zd
-!
-! Local variable declarations
-!
    INTEGER bcd(2) , k , mcb1(7) , mcb2(7) , n , n1 , ncol1 , nz , rdp
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MCE1D SOLVES FOR GM IN THE MATRIX EQUATION RM*GM = -RN
 !     WHERE RM IS A DIAGONAL MATRIX.

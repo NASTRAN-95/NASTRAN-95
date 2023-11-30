@@ -1,9 +1,6 @@
 
 SUBROUTINE cead1a(Lami,Phidi,Phidli,Lamd,Phid,Phidl,Nfound,Nvect,Capp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Head(1) , Pi , Radeg , S4pisq , Twopi , Z(1)
    INTEGER Fileb(7) , Filek(7) , Filem(7) , Ii , Incur , It1 , It2 , Iz(1) , Jj , Ksystm(65) , Sysbuf
    DOUBLE PRECISION Zd(1)
@@ -13,19 +10,10 @@ SUBROUTINE cead1a(Lami,Phidi,Phidli,Lamd,Phid,Phidl,Nfound,Nvect,Capp)
    COMMON /packx / It1 , It2 , Ii , Jj , Incur
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Capp , Lamd , Lami , Nfound , Nvect , Phid , Phidi , Phidl , Phidli
-!
-! Local variable declarations
-!
    DOUBLE PRECISION d1 , d2
    INTEGER det , file , hes , i , ibuf , ibuf1 , iflag , ih(7) , ilama , ip1 , ipos , j , k , l , m , name(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE SORTS LAMI, PHIDI AND PHIDLI (INV. POWER), BASED ON LAMI,
 !     AND CREATES LAMD, PHID AND PHIDL

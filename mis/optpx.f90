@@ -1,9 +1,6 @@
 
 SUBROUTINE optpx(Dtyp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1p1 , Count , Entry(21) , Ept , Incr , Iy(1) , K(10) , Kcor , Last , Mpt , Ne(1) , Neltyp , Nklw , Noeor , Npow , Nrd , &
          & Ntypes , Nweor , Nwrt , Outtap , Scrth1 , Stor(21) , Sysbuf , X(7) , Ycor
    REAL Core(1) , Skp1(2) , Skp2(2) , Skp3(4) , Skp5(4)
@@ -15,19 +12,10 @@ SUBROUTINE optpx(Dtyp)
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Dtyp(1)
-!
-! Local variable declarations
-!
    INTEGER all , any , blank , etp(21) , i , i1 , i2 , i3 , i4 , iall , ide , idx , imhere , iret , j , j1 , j2 , l , loc1 , loc2 , &
          & m , maxw , n , name(2) , nde , nen , nocor , nogo , nwds , nx
    INTEGER eject
-!
-! End of declarations
-!
 !
 !     PROCESS PLIMIT CARDS INTO ELEMENT SECTIONS THAT MAY BE READ BY
 !     OPTP1D

@@ -1,9 +1,6 @@
 
 SUBROUTINE tlodm6(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Costh , Eltemp , Em(6) , Est(100) , Gsube , Pg(1) , Pla34 , Rhoy , Rj11 , Rj12 , Rj22 , Sigcy , Sigsy , Sigty ,    &
       & Sinth , Tref
    INTEGER Iest(45) , Matflg , Matid
@@ -11,13 +8,7 @@ SUBROUTINE tlodm6(Ti)
    COMMON /matout/ Em , Rhoy , Alf , Tref , Gsube , Sigty , Sigcy , Sigsy , Rj11 , Rj12 , Rj22
    COMMON /trimex/ Est
    COMMON /zzzzzz/ Pg
-!
-! Dummy argument declarations
-!
    REAL Ti(6)
-!
-! Local variable declarations
-!
    REAL a , b , blank , c , c1 , c2 , c3 , cc(3) , d1 , d2 , d3 , dd(3) , degra , determ , dista , distb , distc , e(6) , f(5,5) ,  &
       & g(9) , g1(3) , ivect(3) , jvect(3) , kvect(3) , name(2) , nsm , psub(2) , psubt(3) , psubt1(3) , ptele(12) , ptem(12) ,     &
       & ptemp , ptglb(18) , q(6,6) , qinv(36) , rix , rjx , rkx , rlx , t1bar , t2bar , t3bar , t5bar , theta1 , thetam , tmem1 ,   &
@@ -26,9 +17,6 @@ SUBROUTINE tlodm6(Ti)
          & kx , kxr , kxrt , kxrt1 , l , lx , lxs , lxsu , lxsu1 , matid1 , nl(6) , rk(3) , sil(6) , sil1 , sk(3) , tl(3) , ul(3) , &
          & xu(12) , xv(12) , yu(12) , yv(12)
    LOGICAL unimem , unitem
-!
-! End of declarations
-!
 !
 !     THERMAL LOAD VECTOR FOR TRIM6 (LINEAR STRAIN MEMBRANE TRIANGLE)
 !     ELEMENT

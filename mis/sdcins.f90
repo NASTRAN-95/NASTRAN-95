@@ -1,29 +1,17 @@
 
 SUBROUTINE sdcins(*,Block,Ac,N,Vecs,Vecd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nout , Prc(2) , Rlcmpx(4) , Words(4)
    REAL Sysbuf , Xns(1)
    DOUBLE PRECISION Xnd(1)
    COMMON /system/ Sysbuf , Nout
    COMMON /type  / Prc , Words , Rlcmpx
    COMMON /zzzzzz/ Xnd
-!
-! Dummy argument declarations
-!
    INTEGER N
    INTEGER Ac(1) , Block(15)
    DOUBLE PRECISION Vecd(1)
    REAL Vecs(1)
-!
-! Local variable declarations
-!
    INTEGER i , ii , j , jj , jstr , kerr , nn , nstr , prec , type
-!
-! End of declarations
-!
 !
 !     SDCIN USES GETSTR/ENDGET TO READ A ROW OF A MATRIX AND ADD THE
 !     TERMS OF THE ROW INTO A VECTOR.  USED BY REAL SYM. DECOMP WITH

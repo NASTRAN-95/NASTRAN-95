@@ -1,9 +1,6 @@
 
 SUBROUTINE tpztem(Ti,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Consts(5) , Costh , Degrad , E(3) , Ecpt(39) , Eltemp , G(3) , Gsube , Pi , Rho , Setmat , Sinth ,        &
       & Stress , Tzero
    INTEGER Ibuf , Iecpt(39) , Iout , Matflg , Matidc , Moskp(9)
@@ -12,22 +9,13 @@ SUBROUTINE tpztem(Ti,Pg)
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube , Moskp , Setmat
    COMMON /system/ Ibuf , Iout
    COMMON /trimex/ Ecpt
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Ti(4)
-!
-! Local variable declarations
-!
    REAL a , a1 , a2 , a3 , a4 , ajho , aki(144) , cosg , cosg2 , cosg4 , d(144) , dela , delint(15) , dgama , dgamr , ee01 , ee02 , &
       & ee03 , ee04 , ee05 , ee06 , ee07 , ee08 , ee09 , er , et , ez , gababq(12,12) , gor , grz , gzo , h(4,4) , htn(12,4) ,      &
       & r(4) , r1 , r2 , r21a , r3 , r34a , r4 , rmax , rmin , sing , sing2 , sing4 , tempe , teo(21) , tl(12) , vor , voz , vro ,  &
       & vrz , vzo , vzr , z(4) , z1 , z2 , z3 , z4 , zmin
    INTEGER i , i1 , ics(4) , idel , idel1 , idel2 , igp(4) , ip , iq , ising , j , jax , k , l , matid , sp(36)
    REAL rzints
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE THERMAL LOAD FOR THE AXI-SYMMETRIC
 !     TRAPEZOIDAL CROSS SECTION RING

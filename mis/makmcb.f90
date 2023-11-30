@@ -1,14 +1,8 @@
 
 SUBROUTINE makmcb(Mcb,Ifile,Irow,If,It)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER If , Ifile , Irow , It
    INTEGER Mcb(7)
-!
-! End of declarations
-!
 !
 !
    Mcb(1) = Ifile

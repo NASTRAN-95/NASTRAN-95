@@ -3,17 +3,8 @@ SUBROUTINE dssend(File)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File
-!
-! Local variable declarations
-!
    INTEGER icblk
-!
-! End of declarations
-!
 !
 ! DSSEND (Dataset Set to End) will position a file to the end
 ! to allow for closing a file for read and opening it for write

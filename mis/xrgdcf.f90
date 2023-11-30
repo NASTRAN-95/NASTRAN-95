@@ -1,28 +1,16 @@
 
 SUBROUTINE xrgdcf(Irestb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(98)
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Isysbf , Itype , Limit(2) ,&
          & Member(2) , Name(2) , Nout , Nsubst , Num(2) , Number , Nument , Record(20)
    COMMON /system/ Isysbf , Nout , Dum
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Dummy argument declarations
-!
    INTEGER Irestb(7)
-!
-! Local variable declarations
-!
    INTEGER ibit , iend , istr , iword , k
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     PURPOSE - XRGDCF PROCESSES THE '****CARD', '****FILE' AND
 !               '****RFMT' CONTROL CARDS WITHIN THE RIGID DMAP

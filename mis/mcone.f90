@@ -1,9 +1,6 @@
 
 SUBROUTINE mcone
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Dum3(2) , Dum4(10) , Dum5(25) , Ecpt(100) , Eltemp , L , Mu , Pi , Ra , Radeg , Rb , Rho , S4pisq , T , Temp ,      &
       & Term , Twopi , Za , Zb
    INTEGER Ifmgg , Inflag , M1 , Matid , Necpt(100) , Npvt
@@ -15,13 +12,7 @@ SUBROUTINE mcone
    COMMON /sma2dp/ Mass , Temp , L , Term , M1
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum4 , Ifmgg , Dum5
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !
 !     MASS MATRIX GENERATION FOR AXIS-SYMETRIC CONICAL SHELL ELEMENT
 !

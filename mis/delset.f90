@@ -1,19 +1,10 @@
 
 SUBROUTINE delset
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idum(9) , Incr , Last , Ne(1) , Nelem , Nskip(45)
    COMMON /gpta1 / Nelem , Last , Incr , Ne
    COMMON /system/ Nskip , Idum
-!
-! Local variable declarations
-!
    INTEGER dumtyp(9) , i , izero , n , nc , nd , ngrids , np
-!
-! End of declarations
-!
 !*****
 !  THIS ROUTINE SETS VARIABLES FOR DUMMY ELEMENTS IN /GPTA1/
 !

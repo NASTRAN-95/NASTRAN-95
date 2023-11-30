@@ -1,9 +1,6 @@
 
 SUBROUTINE ampa(Aero,Qjh,Qhh,Ajjl,Qhhlo,Qjhlo,Index,Imax,Iany)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ajjcol , Idjh , Igust , Ii , Ii1 , Incr , Incr1 , Iprec , It1 , It2 , It3 , Iz(1) , Jj , Jj1 , Mcbqhh(7) , Mcbqjh(7) ,   &
          & Mcbrjh(7) , Ncol , Ngp , Ngpd(2,30) , Noh , Noue , Nout , Nsub , Qhhcol , Sysbuf , Xqhhl
    REAL Skp(52) , Xk , Xm , Z(1)
@@ -13,20 +10,11 @@ SUBROUTINE ampa(Aero,Qjh,Qhh,Ajjl,Qhhlo,Qjhlo,Index,Imax,Iany)
    COMMON /system/ Sysbuf , Nout , Skp , Iprec
    COMMON /unpakx/ It1 , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Aero , Ajjl , Iany , Imax , Index , Qhh , Qhhlo , Qjh , Qjhlo
-!
-! Local variable declarations
-!
    INTEGER file , i , iaero , iajjl , ibuf1 , ibuf2 , iflag , ip1 , iqhh , izx , j , k , mcbajj(7) , name(2) , nclqhh , nclqjh ,    &
          & noajjh , nqhh , nz
    INTEGER korsz
    REAL xka , xma
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO
 !         1. INITIALIZE QHJ AND QHH

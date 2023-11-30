@@ -1,9 +1,6 @@
 
 SUBROUTINE btstrp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , B(100) , Dum(3)
    INTEGER Highpw , Ibmcdc , Idate(3) , Idrum , Ihalf , Intp , Iprec , Jhalf , Kshift , Ldict , Linkno , Lnknos(15) , Lowpw , Lpch ,&
          & Lqro , Mach , Machx , Mask2 , Mask3 , Mtisa , Mxfl , Mzero , Nbpc , Nbpw , Ncpw , Nlpp , Nudflw , Nwpic , Outtap ,       &
@@ -17,9 +14,6 @@ SUBROUTINE btstrp
    COMMON /system/ B
    COMMON /two   / Two , Mzero
    COMMON /xxread/ Dum , Ibmcdc
-!
-! Local variable declarations
-!
    INTEGER abcd , ak , i , imnth , iyr1 , iyr2 , ka , locf , m1(110) , m2(110) , mask , mconst(220) , mvax , nmach , order , qp ,   &
          & recl
    INTEGER andf , complf , khrfn1 , locfx , lshift , rshift
@@ -27,9 +21,6 @@ SUBROUTINE btstrp
    CHARACTER*11 comput(22)
    REAL xx , yy
    EXTERNAL andf , complf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     BASED ON MACHINE NUMBER, BTSTRP WILL DEFINE ALL THE
 !     MACHINE-DEPENDENT CONSTANTS NEEDED IN NASTRAN. THESE CONSTANTS

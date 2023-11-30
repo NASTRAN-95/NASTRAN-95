@@ -1,16 +1,10 @@
 
 SUBROUTINE cnstdd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION D2pi , D4pisq , Degrad , Dpi , Raddeg
    REAL Degra , Pi , Radeg , S4pisq , Twopi
    COMMON /condad/ Dpi , D2pi , Raddeg , Degrad , D4pisq
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4pisq
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DEFINES COMMONLY USED PHYSICAL CONSTANTS
 !

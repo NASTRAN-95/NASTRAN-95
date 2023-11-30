@@ -1,25 +1,13 @@
 
 SUBROUTINE sfarea(Ngpt,V,G)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(16) , Surfac , Volume
    COMMON /blank / Dummy , Volume , Surfac
-!
-! Dummy argument declarations
-!
    INTEGER Ngpt
    REAL G(1) , V(1)
-!
-! Local variable declarations
-!
    REAL a(6) , s2d8 , tetra , trim6 , trpl1 , trshl
    REAL area
    INTEGER i , j , jj , jx(6) , k , kk , kx(12) , l , m , n , narea , sub(2) , type(6)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE IS CALLED ONLY BY EMGFIN TO COMPUTE THE SURFACE
 !     AREAS OF THE SOLID AND PLATE ELEMENTS

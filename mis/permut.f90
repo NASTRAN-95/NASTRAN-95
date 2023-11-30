@@ -1,18 +1,9 @@
 
 SUBROUTINE permut(Ia,Id,N,Isw)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Isw , N
    INTEGER Ia(1) , Id(10)
-!
-! Local variable declarations
-!
    INTEGER i , i1 , ib(32) , ic(32) , is1 , j , k , l , n1
-!
-! End of declarations
-!
    DO i = 1 , N
       ic(i) = Ia(i)
       ib(i) = i

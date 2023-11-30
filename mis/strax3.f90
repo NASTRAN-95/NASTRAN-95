@@ -1,9 +1,6 @@
 
 SUBROUTINE strax3(Again)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Block(22,14) , Clock(22,14) , Conphi , Disp(9) , Dum(100) , Dum4(51) , Dum5(33) , Eforc(9) , Estres(9) , Force(25) , Harm , &
       & Savef(75) , Saves(75) , Sinphi , Skip(25) , Stress(100) , Unu(123)
    INTEGER Cangle , Elemid , Iblock(22,14) , Iclock(22,14) , Iforce(25) , Ipart , Isavef(75) , Isaves(75) , Istres(100) , Ktype ,   &
@@ -13,17 +10,8 @@ SUBROUTINE strax3(Again)
    COMMON /sdr2x4/ Dum4 , Ktype
    COMMON /sdr2x7/ Dum , Stress , Force , Skip , Block , Clock
    COMMON /sdr2x8/ Disp , Eforc , Estres , Harm , N , Sinphi , Conphi , Nphi , Nangle , Elemid , Unu , Nelhar
-!
-! Dummy argument declarations
-!
    LOGICAL Again
-!
-! Local variable declarations
-!
    INTEGER i , j , k
-!
-! End of declarations
-!
 !
 !
 !

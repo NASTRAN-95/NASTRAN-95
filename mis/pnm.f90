@@ -1,19 +1,10 @@
 
 SUBROUTINE pnm(M,N,X,Ir,V)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ir , M , N
    REAL V , X
-!
-! Local variable declarations
-!
    REAL abxx , cf , gamma(81) , w , y , z
    INTEGER i , i2 , ii , j , j2 , nmm , npnn1
-!
-! End of declarations
-!
    IF ( N<M ) THEN
       V = 0.0
       RETURN

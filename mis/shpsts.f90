@@ -1,25 +1,13 @@
 
 SUBROUTINE shpsts(Sigma,Vonms,Sigp)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL App(2) , Comps , Sk2(39) , Skp(4) , Sort2
    INTEGER Idum(2) , Midve
    LOGICAL Ostrai
    COMMON /blank / App , Sort2 , Idum , Comps , Skp , Ostrai , Sk2 , Midve
-!
-! Dummy argument declarations
-!
    LOGICAL Vonms
    REAL Sigma(3) , Sigp(4)
-!
-! Local variable declarations
-!
    REAL eps , proj , sig , taumax , txy2
-!
-! End of declarations
-!
 !
 !     TO CALCULATE PRINCIPAL STRESSES AND THEIR ANGLES FOR THE
 !     ISOPARAMETRIC SHELL ELEMENTS

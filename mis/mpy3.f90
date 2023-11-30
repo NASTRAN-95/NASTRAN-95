@@ -1,21 +1,12 @@
 
 SUBROUTINE mpy3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Code , Filea(7) , Fileb(7) , Filec(7) , Filee(7) , Ibcc , Ibcp , Lcore , Prec , Scr1 , Scr2 , Scr3
    REAL Dummy(13) , Z(1)
    COMMON /blank / Ibcc , Ibcp
    COMMON /mpy3tl/ Filea , Fileb , Filee , Filec , Scr1 , Scr2 , Scr3 , Lcore , Code , Prec , Dummy
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER korsz
-!
-! End of declarations
-!
 !*****
 !     PRIMARY DRIVER FOR MATRIX TRIPLE PRODUCT.
 !

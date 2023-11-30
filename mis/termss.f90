@@ -1,28 +1,16 @@
 
 SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Badjac
    REAL Cjac(19) , Detj , Eta , Th , Tie(9) , Vn(3) , Xi , Zeta
    INTEGER Ltypfl
    COMMON /cjacob/ Cjac
    COMMON /comjac/ Xi , Eta , Zeta , Detj , Badjac , Ltypfl
-!
-! Dummy argument declarations
-!
    INTEGER Nnode
    REAL Bterms(1) , Egpdt(4,1) , Epnorm(4,1) , Gpth(1)
    INTEGER Iorder(1) , Mmn(1)
-!
-! Local variable declarations
-!
    REAL dshp(16) , dshpe(8) , dshpx(8) , dum , eps , gridc(3,8) , jacob(3,3) , shp(8) , tdshp(16) , temp , tj(3,3) , tshp(8)
    INTEGER i , ii , ij , ik , index(3,3) , io , ising , j , j1 , k , ngp , node3
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION ROUTINE TO CALCULATE B-MATRIX TERMS
 !     FOR ELEMENTS  QUAD4, QUAD8 AND TRIA6.

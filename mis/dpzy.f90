@@ -1,9 +1,6 @@
 
 SUBROUTINE dpzy(Kb,Iz,I,J1,J2,Ifirst,Ilast,Yb,Zb,Avr,Arb,Th1a,Th2a,Nt121,Nt122,Nbaray,Ncaray,Nzykb,Dpz,Dpy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecore , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    INTEGER Ia , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Inas , Inasb , Inb , Inbea1 , Inbea2 , Inc ,   &
          & Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Ith1a , Ith2a , Ixic , Ixij , Ixis1 , Ixis2 , Ixlam , Ixle , Ixte , &
@@ -13,22 +10,13 @@ SUBROUTINE dpzy(Kb,Iz,I,J1,J2,Ifirst,Ilast,Yb,Zb,Avr,Arb,Th1a,Th2a,Nt121,Nt122,N
                  & Iee , Isg , Icg , Ixij , Ia , Idelx , Ixic , Ixlam , Ia0 , Ixis1 , Ixis2 , Ia0p , Iria , Inasb , Ifla1 , Ifla2 , &
                  & Ith1a , Ith2a , Ecore , Next , Scr1 , Scr2 , Scr3 , Scr4 , Scr5
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER I , Ifirst , Ilast , Iz , J1 , J2 , Kb , Nzykb
    REAL Arb(1) , Avr(1) , Th1a(1) , Th2a(1) , Yb(1) , Zb(1)
    COMPLEX Dpy(1) , Dpz(1)
    INTEGER Nbaray(1) , Ncaray(1) , Nt121(1) , Nt122(1)
-!
-! Local variable declarations
-!
    REAL cgr , cmult , delth , pi , rho , sgr , smult , theta , thm1 , thp1 , yrec , zrec
    INTEGER ix , ix1 , ix2 , ixm1 , ixp1 , j , ksp , l , ls , nbcum , nbxs , nc1
    COMPLEX sum
-!
-! End of declarations
-!
 !   ***   GENERATES ROWS OF THE SUBMATRICES  DPZ  AND DPY  USING
 !         SUBROUTINE  SUBP
    pi = 3.1415926

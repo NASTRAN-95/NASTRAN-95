@@ -45,9 +45,6 @@ SUBROUTINE xchk
 !     LPTDIC = LENGTH (IN WORDS) OF PTDIC
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Ceitbl(42) , Cppgct , Dpl(3) , Fiat(3) , Fist(2) , Gbuf(1) , Icfiat , Iobuf(1) , Ipfst , Irdict , Iropen , Mach ,&
          & Nbpw , Nlines , Nlpp , Npages , Oscar(7) , Otpe , Pghdg(1) , Ptdic(1) , Tapid(6) , Vps(2) , Zsys(91)
    CHARACTER*25 Sfm , Uwm
@@ -67,9 +64,6 @@ SUBROUTINE xchk
    COMMON /xpfist/ Ipfst
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Gbuf
-!
-! Local variable declarations
-!
    INTEGER allon , blkcnt(90) , blksiz , dcparm(2) , diag09 , dict(400) , dpfct , dplflg , dppnt , dpt , eorflg , eotflg , eqflg ,  &
          & fdict(400) , filcnt , fnass , fpnt , hdg(32) , head(2) , i , i1 , i2 , ifstmp , ii , iopnt , j , j1 , j2 , k , lcptp ,   &
          & ldc , limit , liobuf , lptdic , lpurge , maskhi , minfn , n , n1 , name , nblank , nfile , nflags , ngino , noflgs ,     &
@@ -77,9 +71,6 @@ SUBROUTINE xchk
          & ptdtop , purge(100) , recsz , reelct , return , seqno , seteor , svfst(2) , ucbpnt
    INTEGER andf , complf , korsz , lshift , orf , rshift
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !WKBR COMMON /XCEITB/ CEITBL(2)
 !WKBI
 !      INCLUDE 'NASNAMES.COM'

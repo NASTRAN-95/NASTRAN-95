@@ -1,27 +1,15 @@
 
 SUBROUTINE setig(Kg1,Kg2,Ig,Norig)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum2(2) , Dum3(3)
    INTEGER Ibuf , Maxdeg , Maxgrd , Mm , Nedge , Nn , Nout
    COMMON /bands / Nn , Mm , Dum2 , Maxgrd , Maxdeg , Dum3 , Nedge
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Kg1 , Kg2
    INTEGER Ig(1) , Norig(1)
-!
-! Local variable declarations
-!
    INTEGER bunpk
    INTEGER is , k , l , loop , m
    REAL sub(2)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

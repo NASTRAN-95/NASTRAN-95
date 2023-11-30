@@ -3,25 +3,13 @@ SUBROUTINE qopen(*,Namfil,Buff,Iop)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    REAL Dum1(77) , Dum2(21)
    INTEGER Idiag , Isysbf
    COMMON /system/ Isysbf , Dum1 , Idiag , Dum2
-!
-! Dummy argument declarations
-!
    INTEGER Iop , Namfil
    INTEGER Buff(10)
-!
-! Local variable declarations
-!
    INTEGER dname(2) , i , ibashi , ibaslo , ibasts , init , itrl(7) , locbuf
    INTEGER locfx
-!
-! End of declarations
-!
    DATA init/0/
    Name = Namfil
    Iocode = Iop

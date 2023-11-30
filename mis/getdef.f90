@@ -1,29 +1,17 @@
 
 SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Defc(4) , Defval , Maxdef , Pbufsz , Penpap(30) , Ploter(5) , Scale(4) , Skp11(3) , Skp12(4) , Skp2(6)
    INTEGER Last , Lsil , Msil , Ngp , Ngpset , Siln
    COMMON /blank / Ngp , Lsil , Skp11 , Ngpset , Skp12 , Skp2 , Msil
    COMMON /xxparm/ Pbufsz , Ploter , Penpap , Scale , Maxdef
    COMMON /zntpkx/ Defc , Siln , Last
-!
-! Dummy argument declarations
-!
    REAL Conv , Ph
    INTEGER Dfrm , Mag , Plttyp
    INTEGER Buf(1) , Gpt(1)
    REAL D(3,1)
-!
-! Local variable declarations
-!
    REAL cn , sn
    INTEGER gp , gpx , i , i1 , i2 , inprew , k , rew , sil1 , sil2 , sp , trl(7) , type
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Defval,Defc(1))
    DATA inprew , rew/0 , 1/

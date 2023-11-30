@@ -1,19 +1,10 @@
 
 SUBROUTINE gmmats(A,Irowa,Icola,Mta,B,Irowb,Icolb,Ntb,C)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icola , Icolb , Irowa , Irowb , Mta , Ntb
    REAL A(1) , B(1) , C(1)
-!
-! Local variable declarations
-!
    INTEGER cola , colb , i , ia , ifix , ij , ilim , inci , incj , incka , inckb , iparm(2) , j , jb , jlim , k , klim , lim , nta ,&
          & rowa , rowb
-!
-! End of declarations
-!
 !*****
 !     GMMATS - G E N E R A L  M A T R I X  M U L T I P L Y
 !                                 A N D

@@ -1,9 +1,6 @@
 
 SUBROUTINE seemat
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axmax , Aymax , Edge(12) , Paperx , Papery , Papsiz(2) , Region(4) , Skpa(9) , Skparm(4) , X(1) , Z(4)
    INTEGER Eol , Eor , Fsize , Ix(1) , Iz , Jazz1(6) , Jazz2(2) , Jazz3(26) , Kamran , Lnct , Model , Modela , Modida(2) , Nblfm ,  &
          & Nbpc , Nbpw , Ncpw , Nlines , Nout , Pfile , Ploter , Pltbuf , Pltter , Pltype , Pp(2) , Sysbuf , Two(32)
@@ -20,9 +17,6 @@ SUBROUTINE seemat
    COMMON /xxparm/ Pltbuf , Kamran , Nblfm , Skparm , Papsiz
    COMMON /zntpkx/ Z , Iz , Eol , Eor
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER a , b , bcor , blank , c , gobac , i , i1 , i100 , i2 , ib , iblcu1 , iblcu2 , icol1 , iii , ij , ija , ijb , ijm ,      &
          & ijmax , ip , ip1 , ip2 , ipak , ipij1 , ipij2 , iro(10) , it(7) , ityp , iw , ixx , j100 , jblcu1 , jblcu2 , jj , kcor , &
          & kerror , kpp(2) , lbl(2) , lblk , lcor , lin(25) , modid(2) , nam , name(5) , nblcur , nblk , nblkfm , nblks , nblks1 ,  &
@@ -33,9 +27,6 @@ SUBROUTINE seemat
    LOGICAL nobits , plotit , prntit , sq , table
    LOGICAL tapbit
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     SUBROUTINE SEEMAT IS THE DMAP DRIVER FOR UTILITY MODULE SEEMAT
 !     WHOSE DMAP CALL FOLLOWS

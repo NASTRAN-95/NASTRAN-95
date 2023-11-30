@@ -1,9 +1,6 @@
 
 SUBROUTINE prolat
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf2 , Hest , Ii , Iii , Incr , Ist , Itypin , Itypou , Iz(6) , Jncr , Load , Mcore , Ng1 , Ng2 , Nn , Nnn , Nslt ,      &
          & Ntot , Otpe , Scr1 , Subcas , Sysbuf , Typout
    LOGICAL Remfl
@@ -19,9 +16,6 @@ SUBROUTINE prolat
    COMMON /unpakx/ Typout , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm , Sim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL ab , add , ang , area , areaep , c , cm , cn , con , detj , dfoc , dxi , em , eps , eta , etai(4) , etaint(4) , fden ,      &
       & fnum , fo(7) , hcdl , inter(4,4) , j11 , j12 , j21 , j22 , phi , phiint(4) , pi , pnmv(4) , poti(4) , potv(4) , pt1 , pt2 , &
       & reff , semaj , semin , sum , suma , sumb , sumep , sump , title(96) , tpi , trig1 , trig2 , trigc(4) , trigs(4) , v , v13(3)&
@@ -33,9 +27,6 @@ SUBROUTINE prolat
          & ncoefs , ncol , neqex , ngrids , nmharm , nmm , nmp1 , nnharm , nnp1 , npm , nrow , ns , nsegs , nsym , procof , procos ,&
          & prolte(2) , trail(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     PROLATE COMPUTES COEFFICIENTS FOR A PROLATE SPHEROIDAL HARMONIC
 !     EXPANSION FOR MAGNETOSTATICS PROBLEMS. A PROLATE SPHEROID IA

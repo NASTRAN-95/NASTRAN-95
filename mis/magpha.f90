@@ -1,22 +1,10 @@
 
 SUBROUTINE magpha(A,B)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Radeg
    COMMON /condas/ Consts
-!
-! Dummy argument declarations
-!
    REAL A , B
-!
-! Local variable declarations
-!
    REAL phase , value
-!
-! End of declarations
-!
 !*****
 ! THIS SUBROUTINE FORMS THE MAGNITUDE OF (A,B) AND STORES IT IN A...
 ! THE PHASE OF (X=A, Y=B) IS THEN FORMED AND THE RESULT STORED IN B...

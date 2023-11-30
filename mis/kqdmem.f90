@@ -1,9 +1,6 @@
 
 SUBROUTINE kqdmem
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Coord(16) , Cosang , Costh , Degra , Dodet , Dum1(10) , Dum2(1) , Dum3(23) , Dum7(156) , Dum88(6) , Dum99(11) , &
       & Dumcl(7) , Dumm8(248) , Ecpt(100) , Eltemp , Gsube , Ivec(3) , Jvec(3) , Kvec(3) , Pvec(3) , Si(3) , Sinang , Sinth ,       &
       & Stress , U1 , U2 , V(3) , Vecl , Vsubk(3)
@@ -20,15 +17,9 @@ SUBROUTINE kqdmem
    COMMON /sma1et/ Ecpt
    COMMON /sma1ht/ Heat
    COMMON /sma1io/ Dum1 , Ifkgg , Dum2 , If4gg , Dum3
-!
-! Local variable declarations
-!
    REAL angl , piovr3
    LOGICAL hring
    INTEGER i , j , jnot , k , m(12) , npt1 , npt2 , npt3
-!
-! End of declarations
-!
 !
 !     *** QUADRILATERAL MEMBRANE SUBROUTINE ***
 !

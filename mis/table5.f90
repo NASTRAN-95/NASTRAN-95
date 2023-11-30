@@ -80,9 +80,6 @@ SUBROUTINE table5(*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
 !  $MIXED_FORMATS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dummy(4) , Mach , Nout , P4 , Sysbuf , Ti(1) , Z(1)
    REAL Rz(1)
    CHARACTER*23 Ufm
@@ -93,14 +90,8 @@ SUBROUTINE table5(*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , In , Lfn , Out , Wrt
    INTEGER Fn(3,1) , Trl(7)
-!
-! Local variable declarations
-!
    LOGICAL debug , dp , tion
    INTEGER del , end , i , ib , isave , j , ji , jj , jz , k , kk , kk1 , kk2 , kk3 , kore , l , l5 , ll , name(2) , pjj , sub(2) , &
          & tble , til , til10
@@ -108,9 +99,6 @@ SUBROUTINE table5(*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
    CHARACTER*10 fmt(30) , fmtb , fmtd , fmti , fmtr , fmtx , lpren , lpri10 , rpren
    INTEGER numtyp
    REAL temp(2)
-!
-! End of declarations
-!
 !WKBI 7/94
    EQUIVALENCE (Z(1),Rz(1)) , (dtemp,temp(1))
    DATA sub/4HTABL , 4HE5  / , debug/.FALSE./

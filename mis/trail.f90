@@ -1,9 +1,6 @@
 
 SUBROUTINE trail
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum21(21)
    INTEGER Fiat(2) , Fist(2) , Ibuf , Icfiat , Nout , Opt(2) , Value , Word
    CHARACTER*23 Ufm
@@ -12,15 +9,9 @@ SUBROUTINE trail
    COMMON /xfiat / Fiat
    COMMON /xfist / Fist
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER db , i , index , iw , mask , mcb(7) , modnam(2) , n , return(2) , store(2)
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     MODULE TO INTERROGATE OR ALTER ANY VALUE OF A 6 WORD MATRIX
 !     OR TABLE TRAILER

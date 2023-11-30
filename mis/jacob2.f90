@@ -1,28 +1,16 @@
 
 SUBROUTINE jacob2(Elid,Shp,Dshp,Gpth,Bgpdt,Gpnorm,Jacob)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Badj
    DOUBLE PRECISION Detj , Hzta , Psitrn(9) , V1(3) , V2(3) , V3(3)
    INTEGER Ibuf , N1 , Nnode , Nogo , Nout
    COMMON /q4dt  / Detj , Hzta , Psitrn , Nnode , Badj , N1
    COMMON /system/ Ibuf , Nout , Nogo
-!
-! Dummy argument declarations
-!
    INTEGER Elid
    REAL Bgpdt(4,1) , Gpnorm(4,1)
    DOUBLE PRECISION Dshp(1) , Gpth(1) , Jacob(3,3) , Shp(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dum(3) , enk(3) , eps , sk(3) , tgrid(3,8) , thick , tk(3) , val
    INTEGER i , index(3,3) , ipoint , ising , j , jtemp , k
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WAS CALLED JACOBD BEFORE, AND WAS THE ONLY ROUTINE
 !     THAT ENDED WITH 'DB' AND WAS NOT A BLOCK DATA SUBROUTINE.

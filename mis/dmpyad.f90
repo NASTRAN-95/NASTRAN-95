@@ -18,9 +18,6 @@ SUBROUTINE dmpyad
 !     C MATRICES ARE IN S.P. OTHERWISE, THE PRODUCT WILL BE IN D.P.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(7) , B(7) , C(7) , D(7) , E(7) , F(7) , Flag , G(7) , Itype , Kprec , Ksystm(65) , Mcbs(67) , Nomat , Nz , Nzz , Nzzz ,&
          & Outpt , P(4) , Prec1 , Q(4) , R(4) , Sab , Sc , Scr , Sgn , Signab , Signc , T , Trnsp , Typa , Typb , Z(1) , Zz(1) ,    &
          & Zzz(1)
@@ -36,15 +33,9 @@ SUBROUTINE dmpyad
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER diag , dosi(3) , filea , fileb , filec , filed , i , ident , j , jj , k , ltype , name(2) , prec , rect , refus(3) ,     &
          & scrtch , square , symm
    INTEGER korsz
-!
-! End of declarations
-!
    EQUIVALENCE (Zz(1),Z(1))
    EQUIVALENCE (Zzz(1),Z(1))
    EQUIVALENCE (Ksystm(55),Kprec) , (Ksystm(2),Outpt)

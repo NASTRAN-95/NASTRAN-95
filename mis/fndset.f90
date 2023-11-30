@@ -1,28 +1,16 @@
 
 SUBROUTINE fndset(Gpid,X,Ibuf,N)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Inprew , Ngp , Ngpset , Nirew , Norew , Oes1 , Rew , Subc
    REAL Data , Flag , Skp11(4) , Skp12(4) , Skp21(4) , Skp22(8) , Skpn1(2) , Skpp(211)
    COMMON /blank / Ngp , Skp11 , Ngpset , Skp12 , Skp21 , Bgpdt , Skp22 , Oes1
    COMMON /names / Nirew , Inprew , Skpn1 , Rew , Norew
    COMMON /xxparm/ Skpp , Subc , Flag , Data
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , N
    INTEGER Gpid(1)
    REAL X(3,1)
-!
-! Local variable declarations
-!
    INTEGER i , insub , j
    REAL twopi , u(3)
-!
-! End of declarations
-!
 !
 !     GPID = GRID POINT TABLE FOR THIS SET
 !

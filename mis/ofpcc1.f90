@@ -1,17 +1,8 @@
 
 SUBROUTINE ofpcc1(Ix,L1,L2,L3,L4,L5,Ipoint)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ipoint , Ix , L1 , L2 , L3 , L4 , L5
-!
-! Local variable declarations
-!
    INTEGER idata(48)
-!
-! End of declarations
-!
 !*****
 !     SETS HEADER LINE FORMATS FOR COMPLEX ELEMENT STRESSES IN
 !     MATERIAL COORDINATE SYSTEM  --  SORT 1 OUTPUT

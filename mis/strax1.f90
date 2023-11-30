@@ -1,9 +1,6 @@
 
 SUBROUTINE strax1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(81) , Akph2(9) , Akuph(27) , Alf(3) , Anu(3) , Consts(5) , Costh , D(81) , Degrad , Dum5(66) , E(3) , Ecpt(34) , Eltemp ,&
       & G(3) , Gababq(9,9) , Gsube , Phi(14) , Pi , Pzout(51) , Rho , Sel(54) , Selp1(18) , Selp2(27) , Selp3(9) , Setmat , Sinth , &
       & Stress , Ts(6) , Tz , Tzero , Wj(6,9)
@@ -15,9 +12,6 @@ SUBROUTINE strax1
    COMMON /sdr2x5/ Ecpt , Dum5 , Idel , Igp , Tz , Sel , Ts , Ak , Phi , Selp1 , Akph2 , Akuph , Selp2 , Selp3
    COMMON /sdr2x6/ Gababq , D , Wj
    COMMON /system/ Ksystm , Ksys78
-!
-! Local variable declarations
-!
    REAL aa , acurl(117) , acurp1(27) , acurp2(9) , ajho , ajjho , area , c1 , c2 , c2s2 , c3 , c4 , cosg , cs , cs2 , d1(27) ,      &
       & d2(9) , del , delint(12) , dgama , dgamr , dr , ee(63) , er , et , ez , gababp(3,3) , gor , grz , gzo , r(3) , r1 , r2 ,    &
       & r3 , ra , rh , rsum , s2 , s3 , s4 , sc2 , sing , tempe , teo(45) , vor , voz , vro , vrz , vzo , vzr , wjp(3,3) , z(3) ,   &
@@ -25,9 +19,6 @@ SUBROUTINE strax1
    REAL ais
    INTEGER i , i1 , ib , ic , ics(3) , iki , ip , iq , j , ksave , matid , nogo
    LOGICAL lsys78 , pzmat
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE I OF STRESS DATA RECOVERY FOR THE AXI-
 !     SYMMETRIC RING WITH TRIANGULAR CROSS SECTION RING

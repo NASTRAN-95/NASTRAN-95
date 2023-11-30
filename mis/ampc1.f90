@@ -1,23 +1,11 @@
 
 SUBROUTINE ampc1(Input,Output,Ncol,Z,Mcb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , It1 , It2 , Nn
    COMMON /packx / It1 , It2 , Ii , Nn , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Input , Ncol , Output
    INTEGER Mcb(7) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO COPY NCOL COLUMNS FROM INPUT
 !      TO OUTPUT VIA UNPACK AND PACK.

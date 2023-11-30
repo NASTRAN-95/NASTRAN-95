@@ -1,9 +1,6 @@
 
 SUBROUTINE vdrb(Infil,Outfl,Ireqq)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App(2) , Axif , Buf(50) , Buf1 , Buf2 , Buf3 , Casecc , Cei(2) , Date(3) , Direct(2) , Eqdyn , Form(2) , Frq(2) , I2 ,   &
          & Iaacc , Iacc , Iadisp , Iavel , Idisp , Idload , Ielf , Ifrout , Iloads , Ilsym , Imode , Incr2 , Infile , Ipnl , Ispcf ,&
          & Istr , Ittl , Ivel , J2 , Masks(6) , Modal(2) , Nam(2) , Oeigs , Output , Pp , Qtype2 , Sdr2 , Sort2 , Sysbuf , Time ,   &
@@ -21,13 +18,7 @@ SUBROUTINE vdrb(Infil,Outfl,Ireqq)
                  & Ifrout , Idload , Casecc , Eqdyn , Usetd , Infile , Oeigs , Pp , Xycdb , Pnl , Outfle , Opnl1 , Scr1 , Scr2 ,    &
                  & Buf1 , Buf2 , Buf3 , Nam , Buf , Masks , Cei , Frq , Trn , Direct , Xset0 , Vdrreq , Modal
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Infil , Ireqq , Outfl
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER branch , code , dest , eof , file , flag , format , fsetno , gptype , i , icc , id , iese , igpf , ilist , incore ,      &
          & ireig , ireq , ireqx , iset , isetf , isetnf , isetno , itemp , iusetd , ivec , ivecn , ix , ixset , ixsetn , j ,        &
@@ -36,9 +27,6 @@ SUBROUTINE vdrb(Infil,Outfl,Ireqq)
          & nxset , oharms , ret , retx , setno , sild , word , xsetno
    REAL clsrrw , diff , diff1 , omega , redner
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     VDRB PROCESSES VECTORS IN THE ANALYSIS OR MODAL SET. IN
 !     ACCORDANCE WITH OUTPUT REQUESTS IN THE CASE CONTROL DATA BLOCK,

@@ -1,9 +1,6 @@
 
 SUBROUTINE mring(Points)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(100)
    LOGICAL Nogo
    INTEGER Outpt , Sysbuf
@@ -14,18 +11,9 @@ SUBROUTINE mring(Points)
    COMMON /sma2et/ Ecpt
    COMMON /system/ Sysbuf , Outpt , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    INTEGER Points
-!
-! Local variable declarations
-!
    INTEGER i , i1 , i2 , ir , is , it , j , jpoint , k , map(15) , tint
    REAL pi23 , t , temp
-!
-! End of declarations
-!
 !
 !     HEAT CONDUCTIVITY SMA2 ROUITNE FOR TRIANGULAR (POINTS=3) AND
 !     TRAPEZOIDAL (POINTS=4) RING ELEMENTS.

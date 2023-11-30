@@ -1,9 +1,6 @@
 
 SUBROUTINE dpdaa
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , Eqdyn ,   &
          & Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ineq , Kn , L , Loads(32) , Mcb(7) , Msg(3) , Nam(2) , Neqdyn , Ngrid , Nlft ,   &
          & Nogo , Nolin(21) , Psd(2) , Psdl , Scr1 , Scr2 , Scr3 , Scr4 , Seqep(2) , Sil , Sild , Tf(2) , Tfl , Tic(2) , Trl ,      &
@@ -13,13 +10,7 @@ SUBROUTINE dpdaa
                  & Scr4 , Buf , Buf1 , Buf2 , Buf3 , Buf4 , Epoint , Seqep , L , Kn , Neqdyn , Loads , Dload , Freq1 , Freq ,       &
                  & Nolin , Nogo , Msg , Tic , Tstep , Tf , Psd , Eigr , Eigb , Eigc , Mcb , Nam , Eqdyn , Sdt , Ineq
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER k , khi , klo
-!
-! End of declarations
-!
 !*****
 ! DPDAA PERFORMS A BINARY SEARCH IN EQDYN AND CONVERTS THE GRID NO
 ! AND COMPONENT CODE TO AN SIL VALUE.

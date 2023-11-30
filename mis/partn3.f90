@@ -11,9 +11,6 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
 !     COLUMN VECTOR WHICH IS STORED ON FILE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Cpcol , Elem(4) , Eol , Form(4) , Ireqcl , Nbpw , Outpt , Rd , Rdrew , Row , Rpcol , Sym , Sysbuf , Type ,&
          & Wrt , Wrtrew , Xxx(37) , Z(1)
    CHARACTER*25 Sfm , Uwm
@@ -26,22 +23,13 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zntpkx/ Elem , Row , Eol
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Core , File , Iz , Nz , Ones , Size
    LOGICAL Here
    INTEGER Buf(4)
-!
-! Local variable declarations
-!
    INTEGER bit(64) , i , j , k , mcb(7) , subr(2) , trl(6) , zbit , zword
    INTEGER lshift , orf , rshift
    LOGICAL pass
    EXTERNAL lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (trl(1),mcb(2))
    DATA subr/4HPART , 4HN3  /
    DATA pass/.FALSE./

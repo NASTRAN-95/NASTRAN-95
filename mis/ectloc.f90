@@ -1,23 +1,11 @@
 
 SUBROUTINE ectloc(*,Ect,Buf,Ielem)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Elem(1) , Incr , Last , Nelem
    COMMON /gpta1 / Nelem , Last , Incr , Elem
-!
-! Dummy argument declarations
-!
    INTEGER Ect , Ielem
    INTEGER Buf(3)
-!
-! Local variable declarations
-!
    INTEGER i , nread , plotel
-!
-! End of declarations
-!
 !*****
 ! ECTLOC IS A SPECIAL PURPOSE VERSION OF SUBROUTINE LOCATE.  ITS
 ! PURPOSE IS TO PASS THE ECT FILE SEQUENTIALLY POSITIONING EACH LOGICAL

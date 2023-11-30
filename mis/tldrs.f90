@@ -1,21 +1,12 @@
 
 SUBROUTINE tldrs(Offset,Ii,Trans,Trans1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dffset
    INTEGER Ii
    REAL Offset
    DOUBLE PRECISION Trand(1) , Trand1(36)
    REAL Trans(1) , Trans1(36)
-!
-! Local variable declarations
-!
    INTEGER i , ipoint , j , jpoint , kpoint , lpoint
-!
-! End of declarations
-!
 !
 !     &    ENTRY TLDRD (DFFSET,II,TRAND,TRAND1)
 !

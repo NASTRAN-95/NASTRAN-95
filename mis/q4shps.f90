@@ -1,22 +1,13 @@
 
 SUBROUTINE q4shps(Xi,Eta,Shp,Sshp)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Di , Etd
    REAL Eta , Xi
    DOUBLE PRECISION Dshp(4) , Dsshp(8)
    REAL Shp(4) , Sshp(8)
-!
-! Local variable declarations
-!
    REAL clc(2,4)
    DOUBLE PRECISION dld(2,4)
    INTEGER i
-!
-! End of declarations
-!
 !     &    ENTRY Q4SHPD (DI,ETD,DSHP,DSSHP)
 !
 !*****

@@ -1,27 +1,15 @@
 
 SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER File , If , Len , Llist , Load
    INTEGER Data(1) , Ilist(2)
-!
-! Local variable declarations
-!
    INTEGER data1(100) , filex , i , ichk , idata(50) , idr(10) , ielem , ieltp , iflag , ifmt(2,84) , ifmtp , ifmtt(11) , ioldld ,  &
          & ip1 , itb(180) , itb1(137) , itb2(145) , itemp(5) , j , k , l , len1 , lenx , ll , m , mid(2,10) , name(2)
-!
-! End of declarations
-!
 !
 !     READS FILE UNTIL IT FINDS DATA RECORD IN LIST - RETURNS LOAD,
 !     IF, AND LEN

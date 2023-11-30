@@ -1,9 +1,6 @@
 
 SUBROUTINE cmrd2d(Iter)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Fuset , Gbuf1 , Gbuf2 , Gbuf3 , Gib , Gibbar , Him , Himbar , Himprt , Himscr , Ia(7) , Ia11(7) , Ia12(7) , Ia21(7)&
          & , Ia22(7) , Idum1 , Idum2 , Idum3(9) , Idum4(3) , Idum5 , Idum6 , Idum7(10) , Idum8 , Idum9 , Incrp , Incru , Infile(11) &
          & , Iprntr , Irowp , Irowu , Iscr(11) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) , Itrlrd(7) , Korbgn , Korlen , Lamamr , Lcore , &
@@ -25,21 +22,12 @@ SUBROUTINE cmrd2d(Iter)
    COMMON /unpakx/ Typeu , Irowu , Nrowu , Incru
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Iter
-!
-! Local variable declarations
-!
    INTEGER dblkor , dicore , himtyp , i , icore , ifile , iform , ihim , ii , imsg , ipartn , iphim , iprc , iscr7 , it , item ,    &
          & itest , itphis , itrlr(7) , ityp , itype , j , jhim , k , khim , kore , lamlen , lamwds , modext , modnam(2) , ncore ,   &
          & nnmax , nwds , phiss , sglkor
    DOUBLE PRECISION dhimag , dhimg , dhimsm , dphim
    REAL epslon , himag , himmag , himsum , phimsm
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE MODAL TRANSFORMATION MATRIX FOR THE
 !     CMRED2 MODULE.

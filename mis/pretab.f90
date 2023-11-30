@@ -1,9 +1,6 @@
 
 SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Pi , Radeg , S4pisq , Twopi , Z(1)
    INTEGER Ibuf , Iz(1) , Nout
    CHARACTER*23 Ufm
@@ -11,16 +8,10 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ditf , Lcrgvn , Lcused , Tabid
    REAL X
    REAL Buf(1) , Rz(1) , Y(2)
    INTEGER Inz(1) , List(1) , Tabnol(1)
-!
-! Local variable declarations
-!
    COMPLEX a , b , sum , term
    INTEGER clsrw , dit , i , iary(8) , icheck , icrq , idic , idich , idicl , iflag , igoto , ihop , ii , index , itabl , itable ,  &
          & itype , j , jj , jj3 , jlim , jlow , k , khi , klo , kx , kxx , kxx1 , l , lim , limjj , lnth , lx , mn , name(2) ,      &
@@ -29,9 +20,6 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
       & yip1 , yo
    INTEGER locfx
    LOGICAL part1
-!
-! End of declarations
-!
 !
 !     SUBROUTINE PRETAB READS TABLES INTO OPEN CORE, SETS UP TABLE
 !     DICTIONARIES WHICH ARE LATER USED WHEN THE CALLING ROUTINE

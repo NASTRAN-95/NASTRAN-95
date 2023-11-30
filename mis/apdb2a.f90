@@ -1,21 +1,12 @@
 
 SUBROUTINE apdb2a(Nline,Nl,Scr1,Nstns,M1,S1,Sn,Tblt,Tblr)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL M1
    INTEGER Nl , Nline , Nstns , Scr1
    REAL S1(3) , Sn(3) , Tblr(3) , Tblt(3)
-!
-! Local variable declarations
-!
    REAL a1 , a2 , a3 , a4 , a5 , a6 , b1 , b2 , b3 , b4 , b5 , b6 , c1 , c2 , c3 , c4 , c5 , c6 , data(7) , f1(3) , fn(3) , l1 ,    &
       & l2 , l3 , p1(3) , pn(3)
    INTEGER file , i , ip1 , mm , name(2) , nskip
-!
-! End of declarations
-!
 !
 !     GENERATE BASIC TO LOCAL TRANSFORMATION MATRIX FOR
 !     STREAMLINE NL OF SWEPT TURBOPROP BLADE.

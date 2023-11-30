@@ -1,18 +1,9 @@
 
 SUBROUTINE rand6(Xycb,Buffer,Npoint,Iz,Input,Lcore)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Input , Lcore , Npoint , Xycb
    INTEGER Buffer(1) , Iz(1)
-!
-! Local variable declarations
-!
    INTEGER auto , file , i , ilist(6) , ip , ip1 , ireq , itype(13,5) , k , l , name(2) , ntype , psdf
-!
-! End of declarations
-!
 !
 !     ANALYSIS OF REQUESTS AND BUILDS LIST
 !

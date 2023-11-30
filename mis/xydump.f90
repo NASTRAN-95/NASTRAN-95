@@ -1,9 +1,6 @@
 
 SUBROUTINE xydump(Outfil,Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Blkcom , Idoutr(300) , Rbuf(100) , Rz(1) , Value(60) , Vari(3)
    INTEGER Buf(100) , Center , File , Iat , Idin(153) , Idout(300) , Ifile , Ivalue(60) , Machx , Major , Nat , Nbots , Ncard ,     &
          & Nframe , Ntops , Steps , Subc(5) , Tcurve(32) , Two1(32) , Vecid(5) , Vector , Xaxis(32) , Yaxis(32) , Ybaxis(32) ,      &
@@ -15,20 +12,11 @@ SUBROUTINE xydump(Outfil,Type)
    COMMON /xywork/ File , Tcurve , Ntops , Print , Ifile , Xaxis , Nbots , Plot , Vector , Yaxis , Vecid , Punch , Major , Ytaxis , &
                  & Subc , Center , Random , Ybaxis , Idin , Buf , Ivalue , Iat , Idout , Outopn , Steps , Nat , Paplot
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Outfil , Type
-!
-! Local variable declarations
-!
    INTEGER begin , curve , eor , i , i1 , i2 , icont , iflag , ipair , is1 , itemp , j , j1 , j2 , k , limit(2,3) , m , mcount , n ,&
          & noeor , npaplt , nx1 , nx2 , oneone(2) , xcycle , ycycle(2)
    LOGICAL dec , intore , null , ok , on , ones
    REAL diff , temp , xinc , xmax , xmin , y1 , y2 , ylimit(2,3) , ymax(2) , ymin(2)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (limit(1,1),ylimit(1,1)) , (Z(1),Rz(1)) , (Buf(1),Rbuf(1)) , (Idout(1),Idoutr(1)) , (Ivalue(1),Value(1))
    DATA oneone/1 , 1/ , eor/1/ , noeor/0/

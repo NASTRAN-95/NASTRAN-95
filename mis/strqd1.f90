@@ -1,23 +1,11 @@
 
 SUBROUTINE strqd1(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(100) , Ph1out(176)
    COMMON /sdr2x5/ Ecpt , Ph1out
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i
    REAL save(32)
-!
-! End of declarations
-!
 !
 !**************** PHASE I  STRESS DATA RECOVERY ************************
 ! **********************************************************************

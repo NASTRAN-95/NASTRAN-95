@@ -1,9 +1,6 @@
 
 SUBROUTINE gp2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Elem(1) , Iaxif , Incr , Junk(36) , Last , Nbpc , Nbpw , Nelem , Nfile(6) , Noect , Rd , Rdrew , Sysbuf , &
          & Two(32) , Wrt , Wrtrew , Z(1)
    COMMON /blank / Noect
@@ -13,17 +10,11 @@ SUBROUTINE gp2
    COMMON /system/ Sysbuf , Junk , Iaxif , Nbpc , Nbpw
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER b(34) , buf1 , buf2 , buf3 , cbar , cbeam , ect , eqexin , file , genel(2) , geom2 , geomp , gp2h(2) , i , igrid , ii ,  &
          & ijk , ijk1 , j , k , khi , klo , kn , l , lx , m , mcb(7) , mm , n , n1 , name , ncore , nogeo2 , nogo , nread , ns ,    &
          & nud , nui , nz , ret , ret1
    REAL flag
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GP2 BUILDS THE ELEMENT CONNECTION TABLE (ECT).
 !     STRUCTURAL ELEMENT CONNECTION CARDS ARE ON GEOM2.

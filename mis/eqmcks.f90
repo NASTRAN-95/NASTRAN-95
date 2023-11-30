@@ -1,9 +1,6 @@
 
 SUBROUTINE eqmcks
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cor1(8,1) , Cor3(8,3) , Core(8,4) , Dum(52) , Freq , Skpb(15) , Zz(20000)
    INTEGER Igpt , Iopt , Iprec , Isbz , Iuninc , Iunpr , Iunrw , Kcstm , Keqin(8) , Klama , Kload , Kmpc , Knerw , Knrw , Koqm ,    &
          & Kpgg , Kqg , Krw , Kscc , Kscr(7) , Kspc , Ma(7) , Mb(7) , Mc(7) , Md(7) , Mpr , Msab , Msc , Mscr , Mt , Mz , Nout ,    &
@@ -18,16 +15,10 @@ SUBROUTINE eqmcks
    COMMON /unpakx/ Iunpr , Iunrw , Nunrw , Iuninc
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Zz
-!
-! Local variable declarations
-!
    INTEGER eject , korsz
    REAL head(2,4)
    INTEGER i , ibfl , ihdcnt , iret , ivec , j , k , l , maxvec , name(2) , nentry , nvec , nzz , nzz1 , nzz2 , nzz3
    LOGICAL lsteig
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES AND OUTPUTS OVERALL EQUILIBRIUM FORCES
 !

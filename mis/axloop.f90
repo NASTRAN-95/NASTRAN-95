@@ -1,9 +1,6 @@
 
 SUBROUTINE axloop(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Epse , Sysbuf
    INTEGER Idum(3) , Otpe
    CHARACTER*23 Ufm
@@ -11,23 +8,14 @@ SUBROUTINE axloop(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    COMMON /blank / Idum , Epse
    COMMON /system/ Sysbuf , Otpe
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    REAL Hc1 , Hc2 , Hc3 , Xx , Yy , Zz
    REAL Buf(50)
    INTEGER Ibuf(50)
-!
-! Local variable declarations
-!
    REAL anx , any , anz , at1 , at2 , at3 , br , bthe , bx , by , bz , c , costhe , cx , cy , cz , dele , delf , delte1 , delte2 ,  &
       & deltf1 , deltf2 , e , f , fpi , hcx , hcy , hcz , pi , piby2 , r , r2 , rad2 , radius , realk , realk2 , rpx , rpy , rpz ,  &
       & rx , ry , rz , sinthe , sqar2s , trpx , trpy , trpz , tx , ty , tz , x1 , x2 , xc , xiacpi , xiacr , xj , xn2 , xn21 , y1 , &
       & y2 , yc , z1 , z2 , zc
    INTEGER iaxi , icid , n
-!
-! End of declarations
-!
 !
 !
    pi = 3.1415926536

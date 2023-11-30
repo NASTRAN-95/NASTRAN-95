@@ -1,22 +1,13 @@
 
 SUBROUTINE q2trms(Ra,Rb,Rc,Alpha,Isinth,Icosth,Gsube,It,Ierror,Iopt,Kmat,Pmat,Smat,Zmat)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Icosth , Isinth , It
    INTEGER Ierror , Iopt
    REAL Alpha(3) , Gsube(9) , Kmat(1) , Pmat(1) , Ra(3) , Rb(3) , Rc(3) , Smat(1) , Zmat(1)
-!
-! Local variable declarations
-!
    REAL alp(3) , c(3,6) , ca(6) , cb(6) , cc(6) , e(9) , hi(27) , hitge(9) , i33 , iarea , iareat , ic , is , ivec(3) , ixsubb ,    &
       & ixsubc , iysubc , jvec(3) , kvec(3) , mag , temp9(9) , tm(9) , tm3(3) , v12(3) , v13(3)
    INTEGER i , ipart(3,3) , ipartn , irow1 , j , jpartn , k , kk
    REAL sadotb
-!
-! End of declarations
-!
 !*****
 !  SUB-TRIANGLE COMPUTATION ROUTINE FOR THE QDMEM2 ELEMENT
 !

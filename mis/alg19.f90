@@ -2,30 +2,18 @@
 SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,Pi,C1,Nblade,Ccord,Block,Alpb,Epslon,Ifangs,Ipunch,  &
                & Naero)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iprtc
    COMMON /ud3prt/ Iprtc
-!
-! Dummy argument declarations
-!
    REAL C1 , Pi
    INTEGER Ipunch , Log1 , Log2 , Log3 , Log5 , Naero , Nblade , Nlines , Nspec
    REAL Alpb(10,21) , B1(1) , B2(1) , Block(10,21) , Ccord(1) , Epslon(10,21) , R(10,21) , Rsta(21,10) , Tc(1) , Xsta(21,10) , Zr(1)
    INTEGER Ifangs(1) , Kpts(1)
-!
-! Local variable declarations
-!
    REAL ac(21) , aonc , beta1 , beta2 , camber , dadd , deltad(21) , dev(10,21) , devfr , devv(10,5) , dm(11,5) , do , doo(5) ,     &
       & dvfrac(11,5) , dx(10) , f137b(8) , f137s(5) , f142tc(7) , f161d(8,5) , f164xb(8) , f172k(7) , f195m(8,2) , q , rdata(6) ,   &
       & rdte(21) , rr(21,10) , rte(5) , sol(21) , solid , speed , thick , x(10) , x1 , xb , xj , xkdt , xkshpe , xloss(21,10) , xms
    INTEGER i , idata(24) , j , k , kk , l1 , l2 , lmax , lnct , nblad(10) , ncurve(10) , ndatr , ndel(10) , ndpts , neval(10) ,     &
          & nl1(10) , nl2(10) , nle , nliter(10) , nloss(10) , nmach(10) , nout1(10) , nout2(10) , nout3(10) , nr(10) , nrad ,       &
          & nswitc , nte , nterp(10) , nx
-!
-! End of declarations
-!
 !
    DATA f137b/0.0 , 10.0 , 20.0 , 30.0 , 40.0 , 50.0 , 60.0 , 70.0/
    DATA f137s/0.4 , 0.8 , 1.2 , 1.6 , 2.0/

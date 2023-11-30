@@ -2,9 +2,6 @@
 SUBROUTINE ssg2b(Kfs,Cdt,Pabar,Sr1,T1,Iprec1,Ia1,Sr2)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(1) , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , I1 , I2 , Ioutpt , Kprec1 , Ksystm(55) , Nz , Prec , Scr2 ,        &
          & Sysbuf , T
    CHARACTER*25 Sfm , Uwm
@@ -15,18 +12,9 @@ SUBROUTINE ssg2b(Kfs,Cdt,Pabar,Sr1,T1,Iprec1,Ia1,Sr2)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Cdt , Ia1 , Iprec1 , Kfs , Pabar , Sr1 , Sr2 , T1
-!
-! Local variable declarations
-!
    INTEGER diag , i , ident , irc , j , k , prec1 , rect , square , symm
    INTEGER korsz
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(55),Kprec1) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt)
    DATA square , rect , diag , symm , ident/1 , 2 , 3 , 6 , 8/
 !

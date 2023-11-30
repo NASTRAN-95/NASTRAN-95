@@ -1,9 +1,6 @@
 
 SUBROUTINE ifs3p(*,*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort , Baddat , Badfor , Blankh , Grdmsg , Iax , Idfreq , Lh , Lharm , Oneh
    REAL Dum21(21) , Gc(7) , Rm(50) , Slotdf(5)
    INTEGER G1 , I(100) , Iaxf , Iaxg , Ibuff(1) , Id , Iddsf , Idrad , Ids , Idummy(52) , Igdst2 , Igdst6 , Igdst7 , Igdst8 ,       &
@@ -21,9 +18,6 @@ SUBROUTINE ifs3p(*,*,*)
    COMMON /system/ Nbuf , Nout , Abort , Idummy , Ithrml , Dum21 , Ipiez
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Ibuff
-!
-! Local variable declarations
-!
    REAL anum , den , factor , term1 , term2 , xin
    INTEGER arigid , blnk , brigid , crba , crbe , crigid , crtr , drigid , endt , erigid , frigid , ia(6) , ib(6) , ic(6) , ifile , &
          & ih , il , ill , im , imid , ind , iones(4) , ip , irg , irigid , iscr1 , items , itot1 , itot2 , ium , ixin , iz , j ,   &
@@ -32,9 +26,6 @@ SUBROUTINE ifs3p(*,*,*)
    LOGICAL first , nos , noud , perm , prol , prt , rbe
    CHARACTER*19 gcc , scc
    LOGICAL ifpdco
-!
-! End of declarations
-!
 !
 !HURNB 11/93
 !HURNE

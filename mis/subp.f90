@@ -1,30 +1,18 @@
 
 SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(3) , F , Fmach , Kr , Refc
    INTEGER Mcb(7) , Nd , Ne , Nrow
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Fmach , Kr
    COMMON /dlcom / Dum , F
-!
-! Dummy argument declarations
-!
    REAL Cgr , Sgr , Yrec , Zrec
    INTEGER I , J , L , Ls
    COMPLEX Sum
    REAL Cg(1) , Delx(1) , Ee(1) , Sg(1) , Xic(1) , Xlam(1) , Ys(1) , Zs(1)
-!
-! Local variable declarations
-!
    REAL ax , ax1 , ax2 , ay , ay1 , ay2 , az , az1 , az2 , beta , cgs , cl , cv , deli , delii , delr , delri , dely , dij , diji , &
       & dxs , eps , es , fl , flnd , flne , m , sdelx , sgs , sl , sqtl , tl , x , x0 , y0 , z0
    COMPLEX dp , dpll , dplr , dpul , dpur
    INTEGER igo , nobi
-!
-! End of declarations
-!
 !
 !     COMPUTES ELEMENTS OF THE SUBMATRICES  DPP, DPZ  AND  DPY
 !     USING  SUBROUTINES  SNPDF,  INCRO  AND SUBI

@@ -1,9 +1,6 @@
 
 SUBROUTINE pktrpl
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(81) , Arr9(9) , Array9(9) , C1 , C2 , D1(3) , D2(3) , Determ , E(18) , Habc(18) , Hinv(36) , Hq(12) , Ivect(3)&
                   & , Jvect(3) , Kout(36) , Ksum(63) , Kvect(3) , L1 , L2 , Prod12(12) , Prod9(9) , S(18) , S1 , S2 , T(9) , Temp , &
                   & Temp1 , Temp18(18) , Temp2 , Temp9(9) , Tite(18) , Tjte(18) , U1 , U2 , V(2) , Vv(2) , X1 , X2 , Xsubb , Xsubc ,&
@@ -21,14 +18,8 @@ SUBROUTINE pktrpl
                  & C1 , C2 , X1 , X2 , Y1 , Y2 , Temp1 , Temp2 , Dumtwo , Determ , Npoint , Km , Subsca , Subscb , Subscc , Npivot ,&
                  & Theta , Nsubc , Ising , Npt1 , V , Vv , Ivect , Jvect , Kvect , U1 , U2 , Sinang , Cosang
    COMMON /pla4es/ Ecpt
-!
-! Local variable declarations
-!
    DOUBLE PRECISION g(36) , r(2,4) , requiv(8)
    INTEGER i , j , k , m(9) , nbegin
-!
-! End of declarations
-!
 !  THIR ROUTINE CALCULATES THE STIFFNESS MATRIX FOR TRI-PLATES IN  PLA4
 !
 !     THIS ROUTINE GENERATES THE FOLLOWING

@@ -1,9 +1,6 @@
 
 SUBROUTINE solver(Lower,X,B,In,Out,Eps,Ifl,Scr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ad(2)
    INTEGER Eol , Eor , Fileb(7) , Filee(7) , Filef(7) , Fileg(7) , Fileh(7) , Filel(7) , Fileu(7) , Filex(7) , I , Ioutpt , Iprec , &
          & Ksystm(65) , Nz , Nzz , Prec , Precx , Scr1 , Scrtch , Sign , Signab , Signc , Sysbuf , T
@@ -16,20 +13,11 @@ SUBROUTINE solver(Lower,X,B,In,Out,Eps,Ifl,Scr)
    COMMON /xmssg / Ufm , Uwm
    COMMON /zntpkx/ Ad , I , Eol , Eor
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER B , Ifl , In , Lower , Out , Scr , X
    REAL Eps
-!
-! Local variable declarations
-!
    DOUBLE PRECISION denom , num
    INTEGER k , n1 , n2 , name(2) , ncol
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !    SOLVER PERFORMS THREE OPERATIONS--
 !    1. SOLVES FOR B BY FORWARD-BACKWARD SUBSTITUTION

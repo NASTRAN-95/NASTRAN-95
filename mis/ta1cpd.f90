@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1cpd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bgpdt , Cstm , Dm(20) , Ecpt , Ect , Eltemp , Est , Gei , Genl , Gpct , Gpect , Gptt , Rmtout(25) , Rz(1) , Scr1 , Scr2 ,   &
       & Scr3 , Scr4 , Sil , Two(32)
    INTEGER Cls , Clsrew , Comps , Ept , Eptx , Icfiat , Inflag , Luset , Mach , Matid , Mpt , Mptx , Nogenl , Nogo , Nosimp ,       &
@@ -20,9 +17,6 @@ SUBROUTINE ta1cpd
                  & Scr1 , Scr2 , Scr3 , Scr4
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL alfa1 , alfa12 , alfa2 , dit , eixx , eiyy , exx , eyy , gbendg(17) , glay(25) , gmembd(17) , gmembr(17) , gsube ,          &
       & gtrshr(17) , rpshel(17) , tref , zoffs , zx , zy
    INTEGER andf , korsz , orf
@@ -40,9 +34,6 @@ SUBROUTINE ta1cpd
    LOGICAL okuai
    INTEGER pcompr , pidloc , pos , pos1 , pshbit , pshlpr , pshnam(3) , sym , symmem , typc , typc1 , typc2
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     G3 MATRIX CALCULATION WITH NEW FORMULATION
 !

@@ -1,24 +1,12 @@
 
 SUBROUTINE dist(Ideg,Hist,Median,Modd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isys , Mm , Nn , Nout
    COMMON /bands / Nn , Mm
    COMMON /system/ Isys , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Median , Modd
    INTEGER Hist(1) , Ideg(1)
-!
-! Local variable declarations
-!
    INTEGER i , k , max , mm1 , nn2
-!
-! End of declarations
-!
 !
 !     COMPUTE THE DISTRIBUTION OF NODAL DEGREES WITH MEDIAN AND MODE
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE

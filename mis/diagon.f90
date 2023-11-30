@@ -1,9 +1,6 @@
 
 SUBROUTINE diagon
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Core(20000) , Param(3) , Power , Val(4)
    DOUBLE PRECISION D(2) , Dcore(1) , Dval(2)
    INTEGER Ii , Incru , Itypeu , Iu , Jrow , Ju , Ksystm(60) , Last , Nout , Opt(2) , Sysbuf
@@ -18,15 +15,9 @@ SUBROUTINE diagon
    COMMON /zblpkx/ Val , Jrow
    COMMON /zntpkx/ A , Ii , Last
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER col , i , ia(7) , ib(7) , ib4 , ib5 , ibuf , iform , in1 , incol , inrow , inull , iout , ipow , itype , jju , lcore ,   &
          & name(2) , nowcol , nprec , num , numm , sq
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DMAP FUNCTIONAL MODULE
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE xyfind(*,*,*,Majid,Idz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf(100) , Center , Outopn , Paplot , Plot , Print , Punch , Steps , Tcurve(32) , Xaxis(32) , Yaxis(32) , Ybaxis(32) ,      &
       & Ytaxis(32)
    INTEGER File , Iat , Idin(153) , Idout(300) , Ifile , Ivalue(60) , Knt , Major , Nat , Nbots , Ntops , Subc(5) , Vecid(5) ,      &
@@ -12,19 +9,10 @@ SUBROUTINE xyfind(*,*,*,Majid,Idz)
    COMMON /xywork/ File , Tcurve , Ntops , Print , Ifile , Xaxis , Nbots , Plot , Vector , Yaxis , Vecid , Punch , Major , Ytaxis , &
                  & Subc , Center , Random , Ybaxis , Idin , Buf , Ivalue , Iat , Idout , Outopn , Steps , Nat , Paplot , Knt
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Idz
    INTEGER Majid(11)
-!
-! Local variable declarations
-!
    INTEGER eor , flag , isav , itemp , k
    LOGICAL retry
-!
-! End of declarations
-!
 !
    DATA eor/1/
 !

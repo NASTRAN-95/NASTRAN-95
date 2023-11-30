@@ -1,27 +1,15 @@
 
 SUBROUTINE gkad1a(Usetd,Go,God,Scr1,Ue,Ua,Ud)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(1) , Ia(7) , Ia11(7) , Ia12(7) , Ib11(7) , Ib12(7) , Idum(54) , Iprec , Irule , Lc , N , N4 , No , Nz , Uset1
    COMMON /parmeg/ Ia , Ia11 , Ia12 , Ib11 , Ib12 , Nz , Irule
    COMMON /patx  / Lc , N , No , N4 , Uset1
    COMMON /system/ Idum , Iprec
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER B1dd , Baa , Go , God , K1dd , K41dd , K4aa , Kaa , M1dd , Maa , Scr1 , Usetd
    REAL Ua , Ud , Ue
-!
-! Local variable declarations
-!
    INTEGER i , ient , iout , ipv1(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GKAD1A WILL EXPAND GO BY NULL MATRIX TO MAKE GOD, AND
 !     AA-S TO D-S ADDING ZEROS FOR E-S

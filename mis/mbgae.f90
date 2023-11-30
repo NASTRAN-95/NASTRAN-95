@@ -1,9 +1,6 @@
 
 SUBROUTINE mbgae(Ajjl,In17,A,F,Df,F1,Df1,F2,Df2,Q,Q1,Q2,Mood)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Asym , Cntrl1 , Cntrl2 , Crank1 , Crank2
    REAL Beta , Boxa , Boxl , Boxw , Cr , Ek , Ekbar , Ekm , Gc , Mach , Sysbuf
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Mcb(7) , N6 , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
@@ -11,21 +8,12 @@ SUBROUTINE mbgae(Ajjl,In17,A,F,Df,F1,Df1,F2,Df2,Q,Q1,Q2,Mood)
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
    COMMON /system/ Sysbuf , N6
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , In17 , Mood
    COMPLEX A(1) , Q(1) , Q1(1) , Q2(1)
    REAL Df(1) , Df1(1) , Df2(1) , F(1) , F1(1) , F2(1)
-!
-! Local variable declarations
-!
    LOGICAL debug
    REAL gck
    INTEGER i , j , jj , kcc , kcc1 , kcc2
-!
-! End of declarations
-!
 !
 !     MULTIPLY SUM OBTAINED PREVIOUSLY BY SCRIPT A FACTOR
 !

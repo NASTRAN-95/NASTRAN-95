@@ -1,26 +1,14 @@
 
 SUBROUTINE sd2rhd(Istyp,Isetup)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Branch , Isysb , Nout
    REAL Dummy(50)
    COMMON /sdr2x4/ Dummy , Branch
    COMMON /system/ Isysb , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Isetup
    INTEGER Istyp(7)
-!
-! Local variable declarations
-!
    INTEGER i , istyp6 , istyp7 , ldmd(8) , n1
    REAL rstyp6 , rstyp7
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WRITES HEADING FOR PRECISION CHECK IN SDR2E.
 !     WORDS 1,2,6 AND 7 PRESET BY CALLING ROUTINE.

@@ -1,20 +1,11 @@
 
 SUBROUTINE amgt1t(Nline,Nl,Acpt,Nstns,C3t,C4t)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Acpt , Nl , Nline , Nstns
    REAL C3t , C4t
-!
-! Local variable declarations
-!
    REAL a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9 , b1 , b2 , b3 , b4 , b5 , b6 , b7 , b8 , b9 , c1 , c2 , c3 , c4 , c5 , c6 , c7 ,&
       & c8 , c9 , data(3) , f1(3) , fn(3) , l1 , l2 , l3 , p1(3) , pn(3) , s1(3) , sn(3) , w1 , w2
    INTEGER file , i , ip1 , mm , name(2) , nskip
-!
-! End of declarations
-!
 !
 !     GENERATE CONSTANTS C3T AND C4T FOR
 !     STREAMLINE NL OF SWEPT TURBOPROP BLADE.

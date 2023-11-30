@@ -1,9 +1,6 @@
 
 SUBROUTINE ss2d81
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp12 , Alpha1 , Alpha2 , Alphas(3) , C , Costh , Determ , Dnc(16) , Dneta(8) , Dnl(16) , Dnxi(8) , Dumarg , Dumb(54) ,     &
       & Ecpt(1) , Eltemp , G11 , G12 , G13 , G22 , G23 , G33 , Ge , Kx , Ky , Ph1out(400) , Qq(15) , Rho , Sinth , Stress , T ,     &
       & Tb(9) , Th , Tref , Tsave(6) , Ttemp , X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8 , Xjb(4) , Xxjb(2,2) , Xy , Xy1(3) , Xy2(3) ,  &
@@ -17,14 +14,8 @@ SUBROUTINE ss2d81
                  & Isys4 , X4 , Y4 , Z4 , Isys5 , X5 , Y5 , Z5 , Isys6 , X6 , Y6 , Z6 , Isys7 , X7 , Y7 , Z7 , Isys8 , X8 , Y8 ,    &
                  & Z8 , Ttemp , Dumb , Ph1out
    COMMON /sdr2x6/ Dnc , Dnl , Xxjb , Xjb , Tb , Determ , Dumarg , Xy , Alphas , Tsave
-!
-! Local variable declarations
-!
    REAL e1t(6) , eta(8) , g(9) , pt(3) , tth , vec(3) , veci(3) , vecil , vecj(3) , veck(3) , veckl , vvec(3) , xi(8) , xx(16)
    INTEGER i , iii , ising , isub , iws(2,3) , ixx , j , jjj , k , kk , l , n
-!
-! End of declarations
-!
 !
 !     PHASE 1 OF STRESS DATA RECOVERY FOR 2-D, 8 GRID POINT
 !     ISOPARAMETRIC STRUCTURAL ELEMENT

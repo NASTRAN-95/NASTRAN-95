@@ -1,25 +1,13 @@
 
 SUBROUTINE pretrs(Cstmx,Ncstmx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cstm(1)
    COMMON /zzzzzz/ Cstm
-!
-! Dummy argument declarations
-!
    INTEGER Ncstmx
    REAL Cstmx(1) , Ecpt(4) , Ta(9)
-!
-! Local variable declarations
-!
    REAL fl1 , fl2 , ke(9) , r , tl(9) , x , xl , xn(3) , y , z
    INTEGER i , icheck , int1 , int2 , j , k , kk , ncstm , offset
    INTEGER locfx
-!
-! End of declarations
-!
 !
 !     PRETRS SETS UP EVENTUAL CALLS TO TRANSS.  FOR A MODULE TO USE
 !     TRANSS A CALL TO PRETRS MUST BE INITIATED BY THE MODULE DRIVER

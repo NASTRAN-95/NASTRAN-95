@@ -1,9 +1,6 @@
 
 SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(4) , Z(1)
    INTEGER Ii , Iii , Incur , Incur1 , It1 , It2 , It3 , Iz(1) , Jj , Jjj , Ncol , Sysbuf
    COMMON /blank / Dummy , Ncol
@@ -11,21 +8,12 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ It3 , Iii , Jjj , Incur1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Bhh , Khh , Mhh , Ngroup , Ph , Uhv
-!
-! Local variable declarations
-!
    REAL beta , betasq , bh , bi , coswh , epsi , expbh , h , ki , mi , sinwh , t1 , t2 , t3 , w , wh , wosq , wsq
    INTEGER file , i , ia , iapr , ib , ibii , ibpr , ibuf1 , ibuf2 , icrq , if , ifpr , ig , igpr , igroup , ikii , imii , ip1 ,    &
          & iphj , iphj1 , iretn , ist , iudj , iudj1 , iuhv(7) , iuj , iuj1 , j , jk , k , kd , kd1 , kd2 , kd3 , kk , kkk , l ,    &
          & lc , name(2) , nmodes , nout , nstep
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE SOLVES TRANSIENT PROBLEM ANALYTICALLY IN CASE
 !         OF UNCOUPLED MODAL WITH NO NONLINEAR LOADS

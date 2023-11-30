@@ -1,9 +1,6 @@
 
 SUBROUTINE cdifbs(Dz,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cdp , Csp , Eofnrw , Rd , Rdp , Rdrew , Rew , Rsp , Scrfil(11) , Wrt , Wrtrew
    DOUBLE PRECISION Da(2)
    INTEGER Eol , Idum(36) , Idumm(20) , Ii , Iof , Lowtri , Norew , Nrow , Uprtri
@@ -11,19 +8,10 @@ SUBROUTINE cdifbs(Dz,Buf)
    COMMON /cinvpx/ Idum , Scrfil
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp
    COMMON /zntpkx/ Da , Ii , Eol
-!
-! Dummy argument declarations
-!
    REAL Buf(1)
    DOUBLE PRECISION Dz(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dtemp
    INTEGER i , idiag , in1 , intchn , ioff , j , k , name(2) , nrow2
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO DO THE FBS PASS TO FIND THE LEFT EIGENVECTOR FOR
 !     THE TRANSPOSED MATRIX

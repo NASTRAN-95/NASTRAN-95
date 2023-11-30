@@ -1,9 +1,6 @@
 
 SUBROUTINE wrttrl(Filblk)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(3) , Fist(2) , Icfiat , Iout , Isav(6) , L15 , L8 , Lout , Mach , Nbpw
    CHARACTER*25 Sfm , Uwm
    CHARACTER*27 Swm
@@ -18,20 +15,11 @@ SUBROUTINE wrttrl(Filblk)
    COMMON /xfist / Fist
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /xsortx/ Isav
-!
-! Dummy argument declarations
-!
    INTEGER Filbk(7) , Filblk(7)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    REAL count , fm , fn , words(4)
    INTEGER i , iendf , index , itucb , iucb , lb(2) , mask , mbit , n , name(2) , nout
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
    EQUIVALENCE (System(2),Iout) , (System(24),Icfiat) , (System(40),Nbpw)
    DATA mbit/0/ , words/1.0 , 2.0 , 2.0 , 4.0/

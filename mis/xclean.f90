@@ -2,9 +2,6 @@
 SUBROUTINE xclean
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Almsk , Apndmk , Comm(20) , Cursno , Dculg , Ddbn(1) , Dfnu(1) , Dmxlg , Dnaf , Dpd(6) , Entn1 , Entn2 , Entn3 , Entn4 , &
          & Fculg , Fcum(1) , Fcus(1) , Fdbn(1) , Fequ(1) , Fiat(7) , File(1) , Fist , Fknd(1) , Flag , Fmat(1) , Fmxlg , Fntu(1) ,  &
          & Fnx , Fon(1) , Ford(1) , Fpun(1) , Funlg , Ibufsz , Lmsk , Lxmsk , Macsft , Md(401) , Minp(1) , Mlgn , Mlsn(1) , Mout(1) &
@@ -19,16 +16,10 @@ SUBROUTINE xclean
    COMMON /xfist / Fist
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsfa1 / Md , Sos , Comm , Xf1at
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    INTEGER entn1x , entn1y , hold , i , icursn , ifail , ifordi , ihop , ik , isw , j , k , l , lmt1 , lmt2 , lmt3 , lmt4 , lmt5 ,  &
          & lmt6 , lmt7 , lmti , nclean(2) , nfculg , trial
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Dpd(1),Dnaf) , (Dpd(2),Dmxlg) , (Dpd(3),Dculg) , (Dpd(4),Ddbn(1)) , (Dpd(6),Dfnu(1)) , (Fiat(1),Funlg) ,            &
     & (Fiat(2),Fmxlg) , (Fiat(3),Fculg) , (Fiat(4),Fequ(1)) , (Fiat(4),File(1)) , (Fiat(4),Ford(1)) , (Fiat(5),Fdbn(1)) ,           &
     & (Fiat(7),Fmat(1)) , (Md(1),Mlgn) , (Md(2),Mlsn(1)) , (Md(3),Minp(1)) , (Md(4),Mout(1)) , (Md(5),Mscr(1)) , (Sos(1),Slgn) ,    &

@@ -1,9 +1,6 @@
 
 SUBROUTINE tabpch
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(10) , Ksystm(88) , Lpch , Mach , N1(2,5) , Out , Sysbuf
    CHARACTER*23 Ufm
@@ -15,18 +12,12 @@ SUBROUTINE tabpch
    COMMON /system/ Sysbuf , Out , Ksystm , Lpch
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER blank , dti(2) , dtis(2) , endrec(2) , file , form(30,2) , forms(30,2) , i , ibcd(2) , ibcdd(2) , ibuf , ichr , icrq ,   &
          & id , idata(20) , idf , idt , if , ifnm(5) , iform(20) , ifrs , ift , ilen , int(2) , intd(2) , io , ip1 , iplus ,        &
          & ircnm1 , ireal(2) , irecno , is , istar , it , j , jb , je , jv , k , kmb , ll(4) , m , mcb(7) , name(2) , nf , nlist ,  &
          & nread , ns , nsp , nz , pform(30) , sp(3) , tabnm(2)
    INTEGER korsz , numtyp
    REAL rdata(20)
-!
-! End of declarations
-!
 !
 !     THE TABPCH MODULE WILL PUNCH UP TO 5 TABLES INTO DTI CARDS
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE xgpidd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alter(2) , Cnmtp , Fnmtp
    INTEGER Bcdcnt , Cpntry(7) , Diag14 , Diag17 , Diag25 , Diag4 , Dmap(200) , Dmpcnt , Dmppnt , Eotflg , Iallon , Iapp , Iappnd ,  &
          & Ibuff(20) , Icfpnt , Icftop , Ichar , Icold , Icpbot , Icptop , Icrdtp , Icst , Ictlfl(1) , Idmapp , Idmpnt , Idsapp ,   &
@@ -22,13 +19,7 @@ SUBROUTINE xgpidd
    COMMON /xgpic / Icold , Iholc , Ncpw , Nbpc , Nwpc , Maskhi , Masklo , Isgnon , Nosgn , Iallon , Masks
    COMMON /xgpid / Icst , Iunst , Imst , Ihapp , Idsapp , Idmapp , Isave , Itape , Iappnd , Intgr , Losgn , Noflgs , Seteor ,       &
                  & Eotflg , Ieqflg , Cpntry , Jmp
-!
-! Local variable declarations
-!
    INTEGER i , ihol(22) , ipls , namopt(26)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DEFINES ALL NAMED COMMON FOR SUBROUTINES
 !     XGPI,XOSGEN,XLNKHD,XIOFL,XPARAM,XSCNDM,XFLORD,XFLDEF AND XGPIDG.

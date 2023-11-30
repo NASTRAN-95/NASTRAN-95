@@ -1,29 +1,17 @@
 
 SUBROUTINE rotat(Ect2,B1,Gplst,X)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Data , Flag , Oes1 , Scr1 , Scr2 , Skip(23) , Skparm , Skppar(211)
    INTEGER Icase , Newoes
    COMMON /blank / Skip , Oes1 , Scr1 , Scr2 , Newoes
    COMMON /xxparm/ Skppar , Icase , Flag , Data , Skparm
-!
-! Dummy argument declarations
-!
    INTEGER B1 , Ect2
    INTEGER Gplst(1)
    REAL X(3,1)
-!
-! Local variable declarations
-!
    REAL a(3,3) , cross(3) , eigen , figen , magtud(2) , normal(3) , rec1(146) , rec2(17) , shear(3) , sum , t(2,2) , time , twopi , &
       & v(2,3)
    INTEGER bar , elid , esym , gpts(12) , i , iel , ielmt , ig1 , ig2 , ig3 , irdect , irec , ishear , isub , isym(13) , it ,       &
          & itype , j , k , m , more , n , ngppe , norm , nwds , offset , types(13)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (rec1(3),itype) , (rec1(4),isub) , (rec1(5),time) , (rec1(6),eigen) , (rec1(10),nwds)
    DATA types/6 , 7 , 8 , 9 , 15 , 16 , 17 , 18 , 19 , 62 , 63 , 64 , 83/

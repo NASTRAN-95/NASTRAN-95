@@ -1,9 +1,6 @@
 
 SUBROUTINE exio2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Datype(2) , Device(2) , Formt(2) , Sysbuf , X1(36)
    INTEGER Dry , Iadd , Lbuf , Mode(2) , Names(10) , Nbpc , Nbpw , Ncpw , Nout , Pos(2) , Uname(2) , Unit , Xblk
    CHARACTER*23 Ufm
@@ -12,13 +9,7 @@ SUBROUTINE exio2
    COMMON /blank / Dry , Xblk , Device , Uname , Formt , Mode , Pos , Datype , Names , Unit , Univac , Lbuf , Iadd
    COMMON /system/ Sysbuf , Nout , X1 , Nbpc , Nbpw , Ncpw
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    INTEGER eqf , fort , i , iomode , nogo , num(32) , rewi , sofin , sofout
-!
-! End of declarations
-!
 !
 !     EXIO2 COPIES SUBSTRUCTURE ITEMS BETWEEN THE SOF AND AN EXTERNAL
 !     TAPE USING FORTRAN FORMATTED IO.  THE TAPE COULD HAVE BEEN CREATED

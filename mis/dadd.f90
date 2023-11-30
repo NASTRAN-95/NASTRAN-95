@@ -1,9 +1,6 @@
 
 SUBROUTINE dadd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp(4) , Alpha(2) , Beta(2) , Bta(4) , Cde(3,12) , Core(1)
    DOUBLE PRECISION Dalp(2) , Dalpha(2) , Dbeta(2) , Dbta(2)
    INTEGER Echo , Ia(7) , Ib(7) , Ibuf , Ic(7) , Ita , Itb , Lcore , Nomat , Nout
@@ -15,17 +12,11 @@ SUBROUTINE dadd
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER aa(2) , bb(2) , fn(2) , i , in1 , in2 , iout1
    LOGICAL dblea , dbleb
    INTEGER korsz
    DOUBLE PRECISION one , xx , zero
    REAL x
-!
-! End of declarations
-!
 !
 !     DMAP DRIVER FOR ADD--
 !

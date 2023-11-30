@@ -1,28 +1,16 @@
 
 SUBROUTINE stpk(Ek,N,Nstop,Nopen,Nsted,Tsr,Pm,Cr,Ci,Im,J1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bb(4) , Beta(4) , Bref , Clam , Dum , Ekr(1) , Fm
    COMPLEX Ekm(4,4)
    INTEGER Ncirc , Nncirc , Nns
    COMMON /stripc/ Nns , Bref , Clam , Fm , Ncirc , Nncirc , Ekr , Dum , Bb , Beta , Ekm
-!
-! Dummy argument declarations
-!
    REAL Ci , Cr , Ek , Tsr
    INTEGER Im , J1 , N , Nopen , Nsted , Nstop
    REAL Pm(1)
-!
-! Local variable declarations
-!
    REAL a1 , a2 , beoek , bj0 , bj1 , by0 , by1 , denom , e1k , fcr , p(37) , tst
    COMPLEX cmp0 , r , t , unit , v1 , v2 , w , w2
    INTEGER i , j , nhek , nhsize , nhti , nhtr , nn
-!
-! End of declarations
-!
 !     COMPUTES K MATRIX FOR STRIP NUMBER N
 !     EK= LOCAL REDUCED FREQUENCY
 !     NSTOP  =2 FOR NO CONTROL SURFACE

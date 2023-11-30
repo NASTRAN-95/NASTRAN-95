@@ -1,21 +1,12 @@
 
 FUNCTION f89(I,A,B,M,N,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B
    INTEGER I , M , N
    REAL f89
    REAL X(1)
-!
-! Local variable declarations
-!
    REAL amf , ammsf , amn1f , an1 , an2 , anm1f , capx , s , sf
    INTEGER ifac , iret , is , lfac , n1 , n2 , n3 , nfac
-!
-! End of declarations
-!
 !
 !
    f89 = 0.0

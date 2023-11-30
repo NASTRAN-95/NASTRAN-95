@@ -1,25 +1,13 @@
 
 SUBROUTINE dvectr(Gpt,X,U,Pen)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ngp
    COMMON /blank / Ngp
-!
-! Dummy argument declarations
-!
    INTEGER Pen
    INTEGER Gpt(1)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER i , j
    REAL x1 , x2 , y1 , y2
-!
-! End of declarations
-!
 !
 !
    CALL line(0,0,0,0,0,-1)

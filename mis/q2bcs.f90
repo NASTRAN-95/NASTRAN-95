@@ -1,21 +1,12 @@
 
 SUBROUTINE q2bcs(Est,Planar,Rmat,Et,Ierror)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ierror
    LOGICAL Planar
    REAL Est(1) , Et(3,3) , Rmat(3,5)
-!
-! Local variable declarations
-!
    REAL d12(3) , d13(3) , d24(3) , g1(3) , g2(3) , g3(3) , g4(3) , g5(3) , grid(3,5) , iarea , itwoh , mag , vec(3)
    INTEGER i
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     BASIC CALCULATIONS ARE PERFORMED FOR THE QDMEM2 ELEMENT IN THIS
 !     ROUTINE (SINGLE-PRECISION VERSION)

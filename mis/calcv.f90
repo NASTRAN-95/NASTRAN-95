@@ -1,30 +1,18 @@
 
 SUBROUTINE calcv(Pvact,Set1,Sub1,Sub2,Core)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL B1(4) , Two1(32)
    INTEGER Lc , N , N1 , N3 , No , Pvect(7) , Sysbuf , Uset
    COMMON /patx  / Lc , N , No , N3 , Uset , Pvect
    COMMON /system/ Sysbuf
    COMMON /two   / Two1
    COMMON /zblpkx/ B1 , N1
-!
-! Dummy argument declarations
-!
    INTEGER Pvact , Set1 , Sub1 , Sub2
    INTEGER Core(1)
-!
-! Local variable declarations
-!
    INTEGER a1 , lcore
    INTEGER andf
    REAL flag
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !
 !

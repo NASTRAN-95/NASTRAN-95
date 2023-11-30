@@ -1,9 +1,6 @@
 
 SUBROUTINE rcove
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Buf1 , Buf2 , Buf3 , Buf4 , Dry , Energy , Fss(2) , Icore , Incru , Iopt , Ireq , Iru , Itinu , Ititle(96) ,    &
          & Lbasic , Lcore , Loop , Lreq , Lui , Mrecvr , Neigv , Nlines , Nlpp , Norew , Nosort , Nout , Nru , Rfno , Rsp , Rss(2) ,&
          & Sof1 , Sof2 , Sof3 , Sysbuf , Ua , Z(3)
@@ -20,9 +17,6 @@ SUBROUTINE rcove
    COMMON /unpakx/ Itinu , Iru , Nru , Incru
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER blank , casecc(2) , casess , cmask , eqss , file , grid , higher(2) , i , ib , icode , icol , idit , iexc , iinc ,       &
          & ikflag , imdi , imode , ip , ipflag , iset , isets , isil , item , ivec1 , ivec2 , ivec3 , ivec4 , lams , lcc , lseq ,   &
@@ -31,9 +25,6 @@ SUBROUTINE rcove
    LOGICAL credu , mredu , noexcl
    REAL freq , keng , peng , perk , perkt , perp , perpt , tkeng , tpeng
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PRINTS THE ENERGIES ON THE MODAL COORDINATES
 !     IN A SUBSTRUCTURE THAT WAS MODAL REDUCED.  IT WILL ALSO PRINT

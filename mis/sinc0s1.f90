@@ -1,25 +1,13 @@
 
 SUBROUTINE sinc0s1(Row,Sick,D,O,Cos)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER N
    REAL Title(100)
    COMMON /givn  / Title , N
-!
-! Dummy argument declarations
-!
    INTEGER Row , Sick
    REAL Cos(1) , D(1) , O(1)
-!
-! Local variable declarations
-!
    INTEGER i , rowp2
    REAL z
-!
-! End of declarations
-!
 !                    =
 !     SUBROUTINE SICOX (D,O,COS)
 !

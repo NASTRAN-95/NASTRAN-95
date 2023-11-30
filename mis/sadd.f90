@@ -1,9 +1,6 @@
 
 SUBROUTINE sadd(Z,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Amcb(1)
    DOUBLE PRECISION Da(2) , Dmcb(1)
    INTEGER Eol , Ii , Incr , Lcore , Mc(7) , Mcbs(60) , N , Nomat , Nout , Nrow , Ntype , Nwds(4) , One , Prc(2) , Rc(4) , Sysbuf , &
@@ -13,20 +10,11 @@ SUBROUTINE sadd(Z,Dz)
    COMMON /system/ Sysbuf , Nout
    COMMON /type  / Prc , Nwds , Rc
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    REAL alph(1)
    DOUBLE PRECISION dalph(10)
    INTEGER end , hop , i , ibuf , j , jj , k , ll , name(2) , ncol1 , num , prec , type
-!
-! End of declarations
-!
 !
 !     TO COMPUTE MATRIX SUM WITH MULTIPLIERS
 !         ACCEPTS 1 TO 5 MATRIX BLOCKS PASSED ON VIA /SADDX/

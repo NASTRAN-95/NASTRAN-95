@@ -3,13 +3,7 @@ SUBROUTINE dsrdnb
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Local variable declarations
-!
    INTEGER iblk
-!
-! End of declarations
-!
    CALL dbmmgr(5)
    Nblock = Fcb(4,Ifilex)
    Indclr = Indbas + 5

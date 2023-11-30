@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2o(Nus)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gbuf2 , Gs , Gszero , Hk , Hm , Icode , Idum1 , Idum2 , Idum3 , Idum4(2) , Idum5(14) , Incr , Infile(12) , &
          & Irow , Iscr(10) , Itrlra(7) , Itrlrb(7) , Itrlrc(7) , Itrlre(7) , Jscr(3) , Kmw2 , Korbgn , Korlen , Lamamr , Lkore ,    &
          & Lstzwd , M , Nmodes , Nrow , Otfile(6) , Prec , Rprtn , Sbuf1 , Sbuf2 , Sbuf3 , Typin , Typout , Z(1)
@@ -14,19 +11,10 @@ SUBROUTINE mred2o(Nus)
    COMMON /mpy3tl/ Itrlra , Itrlrb , Itrlre , Itrlrc , Jscr , Lkore , Icode , Prec , Dummy
    COMMON /packx / Typin , Typout , Irow , Nrow , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Nus
-!
-! Local variable declarations
-!
    REAL block(11)
    INTEGER dblkor , i , ifile , iform , imsg , iop , iprc , isub(4) , itrlr1(7) , itrlr2(7) , ityp , itype , j , modnam(2) ,        &
          & nwdsrd , typea , typeb
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE FORMS THE M MATRIX FOR THE MRED2 MODULE.
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE strap1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(144) , Alf(3) , Anu(3) , Consts(5) , Costh , D(144) , Degra , Delint(12) , Dum5(76) , E(3) , Ecpt(24) , Eltemp , G(3) ,  &
       & Gambl(144) , R(5) , R1 , R2 , R3 , R4 , Rho , Sel(240) , Sinth , Sp(24) , Stress , Teo(16) , Ts(4) , Twopi , Tz , Tzero ,   &
       & Z(5) , Z1 , Z2 , Z3 , Z4
@@ -16,16 +13,10 @@ SUBROUTINE strap1
    COMMON /sdr2x6/ D , Gambl , R , Z
    COMMON /system/ Ibuf , Iout
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    REAL alfb(4) , cosg , del , dgama , dgamr , dzero(32) , ee(16) , ee48 , er , et , ez , gambq(64) , gamqs(96) , grz , rmax ,      &
       & rmin , sing , tempe , vrt , vrz , vtr , vtz , vzr , vzt , zmin
    INTEGER i , i1 , icore , ics(4) , ip , iq , ising , j , jj , jj1 , jj2 , jrz(2) , k , kk , matid
    REAL rzints
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE I OF STRESS DATA RECOVERY FOR THE
 !     TRAPEZOIDAL CROSS SECTION RING

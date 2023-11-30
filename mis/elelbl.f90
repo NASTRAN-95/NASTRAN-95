@@ -1,9 +1,6 @@
 
 SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Casecc(5) , Cntchr(2) , Skp(3) , Skp1(6) , Skp2(2) , Skpa(3) , Skpn(2) , Skpplt(20) , Xy(2,8)
    INTEGER Chr(60) , Crew , Ect , Elsets , Gpts(4) , Incr , Ksystm(40) , Last , Ncor , Ncpw , Ne(1) , Norew , Ntyps , Plabel ,      &
          & Pltflg , Pset , Rdrew
@@ -15,23 +12,14 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
    COMMON /pltdat/ Skpplt , Skpa , Cntchr
    COMMON /pltscr/ Ncor , Xy , Gpts
    COMMON /system/ Ksystm , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER Buf1 , Deform
    INTEGER Gplst(1)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    REAL absslp , b , ba , bb , cc , cntx , cnty , infnty , len , ma , maxlen , mb , minslp , slp , slpmax , xc , xx , yc , yy , zz
    INTEGER blank , br , elid , elidp(2) , eltype , hb , i , iect , itetra , j , jtj , k , lbl(10) , lblp(8) , lpid , ngpel ,        &
          & ngpel1 , nl , np , npid , offset , pid , q4 , t3 , twod
    INTEGER khrfn1
    LOGICAL solid
-!
-! End of declarations
-!
 !
 !
    DATA blank , infnty , slpmax/1H  , 1.E3 , 5./ , pid/4/ , itetra/2HTE/ , iect/4HECT / , hb/2HHB/ , br/2HBR/ , q4/2HQ4/ , t3/2HT3/

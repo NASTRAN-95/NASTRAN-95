@@ -2,26 +2,17 @@
 SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Zi,Di,Ibeg,Iend,Ict,Icct,Ind,Nind,Xxx,Ccc,In,In1,In2,&
                & Tgm,Tgmt,Tgi,Zm,Zmi,Rv,Rvi,Nno,Noct,Ymin,Zmin,Coord,Sndt,Neh,Keep)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Icore , Jat , Jjj , Jt , L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , Lz , Me , &
          & Nn
    REAL Pit , Roll , Scx , Vp , Vx , Vx1 , Vx2 , Vx3 , Yaw
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
    COMMON /hdsc  / Scx , Yaw , Roll , Pit , Lz , Vp , Jjj , Icore
    COMMON /hedg  / Jat , Me , Jt , Vx , Vx1 , Vx2 , Vx3 , Nn
-!
-! Dummy argument declarations
-!
    INTEGER Nc , Np
    REAL Ccc(1) , Coord(1) , Di(1) , Rv(1) , Rvi(1) , Sndt(1) , Tgi(1) , Tgm(1) , Tgmt(1) , X(1) , X21(1) , Xcc(1) , Xe(1) , Xi(1) , &
       & Xu(1) , Xxx(1) , Y(1) , Y21(1) , Ye(1) , Yi(1) , Ymin(1) , Yu(1) , Z(1) , Z21(1) , Zi(1) , Zm(1) , Zmi(1) , Zmin(1)
    INTEGER Ibeg(1) , Icct(1) , Icount(1) , Ict(1) , Iend(1) , Iia(1) , In(1) , In1(1) , In2(1) , Ind(1) , Irct(1) , Keep(1) , Neh(1)&
          & , Nind(1) , Nno(1) , Noct(1)
-!
-! Local variable declarations
-!
    REAL a , a1 , a3 , amaxx , amaxy , aminx , aminy , ava , b , b1 , b3 , c , c3 , c4 , cosx , cosy , cosz , crx , cry , d3 , dy ,  &
       & e , en , h(15) , hh , hold , hold1 , hold2 , hold3 , hx1 , hxx , oj , pi , pk , ppppp , ps , pt , r , r1 , r2 , rrx(20) ,   &
       & rx , s , s1 , sct , sd , sinx , siny , sinz , sw , sw1 , t , t1 , tmax , tmj , tw , ty , tz , u(6) , ux , v(6) , vl , vpx , &
@@ -30,9 +21,6 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
          & im , ir , is , isave , it , iv , ix , ix1 , ixr , ixt , ixu , ixxx , j , jb , jh , jj , jk , jm , jo , js , jtt , jv ,   &
          & jx , jxt , jxx , k , k1 , k2 , ke , kr , ks , ku , kv , l , l14 , l15 , l16 , l17 , l18 , lc , lg , lt , lx , m , mnd ,  &
          & ms , mu , mx , n , nb , ng , ngx(15) , ni , nii , nit , npx , ns , nt , nv
-!
-! End of declarations
-!
 !
 !
 !     THIS SUBROUTINE IS THE EXECUTIVE.

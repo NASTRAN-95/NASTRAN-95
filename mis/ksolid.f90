@@ -1,9 +1,6 @@
 
 SUBROUTINE ksolid(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(100) , R(3) , R12(3) , R13(3) , R24(3) , Rxr(3) , Sysbuf
    INTEGER Iopt4 , Iskp(19) , K4ggsw , Necpt(52) , Nogoo , Npvt , Out
    LOGICAL Nogo
@@ -13,18 +10,9 @@ SUBROUTINE ksolid(Itype)
    COMMON /sma1et/ Ecpt
    COMMON /system/ Sysbuf , Out , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , idelem , igflag , iopt , itemp , itet , j , jpoint , jtype , kpoint , m(22,4) , ngrids , ntet
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     IOPT = 1 IMPLIES WEDGE - 3 TETRAHEDRONS
 !     IOPT = 2 IMPLIES HEXA(6-SIDED-SOLID) 5  TETRAHEDRONS

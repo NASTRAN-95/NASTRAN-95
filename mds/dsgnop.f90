@@ -4,13 +4,7 @@ SUBROUTINE dsgnop
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Local variable declarations
-!
    INTEGER inext , iop , itest
-!
-! End of declarations
-!
    Idsn = Ifilex
    IF ( Iocode>=2 ) THEN
       DO

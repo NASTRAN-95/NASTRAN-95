@@ -1,9 +1,6 @@
 
 SUBROUTINE cfactr(A,Ll,Ul,Scr1,Scr2,Scr3,Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL D(5) , D1(2) , Powr
    DOUBLE PRECISION Det(2) , Mind
    INTEGER Fa(7) , Fl(7) , Fu(7) , Ib , Ibbar , Ichol , Iz(1) , J1fil , J2fil , Jfa(7) , Jfc(7) , Jfl(7) , Jx , M1fil , M2fil ,     &
@@ -12,18 +9,9 @@ SUBROUTINE cfactr(A,Ll,Ul,Scr1,Scr2,Scr3,Iopt)
    COMMON /sdccsp/ Jfa , Jfl , Jfc , J1fil , J2fil , Jx
    COMMON /sfact / Mfa , Mfl , Mfc , M1fil , M2fil , Mxx , D , M3fil , D1 , Ichol
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER A , Iopt , Ll , Scr1 , Scr2 , Scr3 , Ul
-!
-! Local variable declarations
-!
    INTEGER i , mcb(7) , name(2) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
    DATA name/4HCFAC , 4HTR  /
 !

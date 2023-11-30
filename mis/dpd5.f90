@@ -1,9 +1,6 @@
 
 SUBROUTINE dpd5
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , Eqdyn ,   &
          & Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ibuf , Ifile(6) , Ihalf , Ineq , Jhalf , Kn , L , Loads(32) , Luset , Lusetd ,   &
          & Mach , Mcb(7) , Msg(3) , Nam(2) , Neqdyn , Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl ,   &
@@ -22,17 +19,11 @@ SUBROUTINE dpd5
    COMMON /system/ Ibuf , Nout
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER eigp(2) , file , flag , i , i23 , i45 , id , imsg(2) , in , irow , isw , itfl , iusetd , j , k , last , mask , n ,       &
          & nback , nusetd
    LOGICAL pack
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     DPD5 ASSEMBLEMS
 !     (1) THE EIGENVALUE EXTRACTION DATA BLOCK (EED), AND

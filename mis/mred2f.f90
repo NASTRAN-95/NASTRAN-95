@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2f
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds , Frebdy
    INTEGER Cprtn , Dmr , Dry , Far , Fir , Fuset , Gbuf1 , Gbuf2 , Gib , Hgh , Hie , Him , Hir , Hirscr , Ident , Idum1 , Idum2 ,   &
          & Idum3 , Idum4(2) , Idum5(9) , Idum6(10) , Idum7 , Idum8(5) , Idum9(6) , Incrp , Incru , Infile(12) , Iprntr , Irowp ,    &
@@ -23,16 +20,10 @@ SUBROUTINE mred2f
    COMMON /system/ Idum3 , Iprntr
    COMMON /unpakx/ Typinu , Irowu , Nrowu , Incru
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER dblkor , farind , i , iform , ii , imsg , iprc , iscr7 , iscr8 , isub(4) , item , iter , itest , itmlst(4) , itrlr1(7) , &
          & itrlr2(7) , ityp , itype , j , modnam(2) , nrows , sglkor
    DOUBLE PRECISION dhirmg
    REAL hirmag , prec
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE FREEBODY EFFECTS FOR THE MRED2
 !     MODULE.

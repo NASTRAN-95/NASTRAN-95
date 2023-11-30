@@ -1,9 +1,6 @@
 
 SUBROUTINE ema
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(100) , Buf1 , Buf2 , Buf3 , Cls , Clsrew , Col , Col1 , Coln , Gpewds , High , I , Icol , Icolx , Idict , Ielem ,    &
          & Igpx , Ihalf , Ihq(180) , Ii , Ilist , Imat , Imatn , Ipiez , Ipvt , Iq , Irow , Irowp , Irowx , Ivpt , J , Jhalf , Jj , &
          & Jnext , K , K4flag , Kelem , Kk , Kshift , Ksystm(100) , L , L1 , L2 , Lcore , Ldict , Lhpw(5) , Low , M , Mach , Maxii ,&
@@ -28,9 +25,6 @@ SUBROUTINE ema
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zblpkx/ Q , Iq
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf , rshift
    REAL eps , factor , xs(2) , yj
    LOGICAL first , last , piez
@@ -39,9 +33,6 @@ SUBROUTINE ema
          & scr1 , scr2 , xblock , xemd , xgg
    DOUBLE PRECISION xd(1) , xdd
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     DMAP SEQUENCE
 !

@@ -1,21 +1,12 @@
 
 SUBROUTINE q4nrms(Bgpdt,Gpnorm,Iorder,Iflag)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Iflag
    REAL Bgpdt(4,4) , Gpnorm(4,4)
    INTEGER Iorder(4)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION adi(4) , aetd(4) , di , dmag , dshp(4) , dsshp(4,2) , dv(3,3) , etd , tdshp(4) , tdsshp(4,2)
    REAL aeta(4) , axi(4) , eta , shp(4) , sshp(4,2) , tshp(4) , tsshp(4,2) , v(3,3) , vmag , xi
    INTEGER i , ii , ik , io , j , j1 , k
-!
-! End of declarations
-!
 !     &    ENTRY Q4NRMD (BGPDT,GPNORM,IORDER,IFLAG)
 !
 !*****

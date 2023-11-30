@@ -1,20 +1,11 @@
 
 SUBROUTINE incore(A,N,B,Cx,Ix)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ix , N
    COMPLEX A(N,N) , B(Ix,N) , Cx(Ix,N)
-!
-! Local variable declarations
-!
    REAL amax
    COMPLEX cmax , csum , scrch , t1 , t2 , t3
    INTEGER i , irow , j , jj , jmax , jp1 , k , l , nm1
-!
-! End of declarations
-!
 !
 !     IN-CORE DECOMPOSITION OF SQUARE, COMPLEX, NXN MATRIX,A.
 !     AX = B.

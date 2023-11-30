@@ -1,9 +1,6 @@
 
 SUBROUTINE trapax
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Costh , Csdat(16) , Degrad , Dgama , Dum(15) , E(3) , Ecpt(20) , Eltemp , G(3) , Gam , Gsube , Heat , Pi ,&
       & Pzout(51) , Rho , Setmat , Sinth , Stress , Tempe , Twopi , Tzero , Xq
    INTEGER Elid , Estid , Icmbar , Idel , Idm , Iecpt(39) , Igp(4) , Iout , Iphi(13) , Iprec , Ismb(3) , Kdum2(2) , Ksys78 ,        &
@@ -17,9 +14,6 @@ SUBROUTINE trapax
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero , Gsube , Moskp , Setmat
    COMMON /matpz / Pzout
    COMMON /system/ Ksystm , Ksys78 , Kdum2 , Iheat
-!
-! Local variable declarations
-!
    REAL acurl(208) , acurp1(48) , acurp2(16) , ajho , ajjho , ak(144) , akj(256) , akph2(16) , akuph(48) , ar , bmass(12,12) ,      &
       & bmbss(144) , c2 , c2s2 , c3 , c4 , cosg , cs , cs2 , d(144) , d1(48) , d2(16) , del , delint(12) , dict5 , ee(63) , gamr ,  &
       & gb(12,12) , gbp(4,4) , r(4) , rhod , rmax , rmin , s2 , s3 , s4 , sc2 , sing , sp(36) , teo(45) , v , vr , vz , z(4) , zmin
@@ -27,9 +21,6 @@ SUBROUTINE trapax
          & ising , isort , it , j , jax , jt , k , kk , korm , ksave , l , masor , mjho
    LOGICAL lsys78 , pzmat
    REAL rzints
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE STIFFNESS AND MASS MATRICES FOR THE
 !     ASSYMETRIC RING ELEMENT WITH A TRAPEZOIDAL CROSS SECTION

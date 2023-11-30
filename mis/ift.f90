@@ -1,9 +1,6 @@
 
 SUBROUTINE ift
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iftm , Ii , Ii1 , Incr , Incr1 , It1 , It2 , It3 , Iz(1) , Jj , Jj1 , Nout , Sysbuf
    REAL Phi , Twopi , Z(1)
    COMMON /blank / Iftm
@@ -12,17 +9,11 @@ SUBROUTINE ift
    COMMON /system/ Sysbuf , Nout
    COMMON /unpakx/ It3 , Ii1 , Jj1 , Incr1
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER casecc , file , fol , i , iap , ibuf1 , ibuf2 , ick , iequal , ifreq , ihop , im , im1 , im2 , isk , itstp , iudot ,     &
          & iuhvf , iuvt , j , k , kk , l , ll , lll , lx , m , m1 , m2 , mcb(7) , mcb1(7) , n , n1 , n2 , name(2) , nbig , nfreq ,  &
          & ngroup , nload , nmodes , nstep , nz , tol , trl , uhvf , uhvt
    REAL ck , cmnc , cmnr , cp , delt , delw , dmnc , dmnr , epsi , fbig , r1 , r2 , rp , sk , t , tt , wn , wnm1 , wnp1
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     INVERSE FOURIER TRANSFORM MODULE (IFT)
 !

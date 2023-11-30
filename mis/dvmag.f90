@@ -1,19 +1,10 @@
 
 DOUBLE PRECISION FUNCTION dvmag(V1,Eps)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Eps
    DOUBLE PRECISION V1(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a
    DOUBLE PRECISION dadotb
-!
-! End of declarations
-!
 !
 !     RETURNS DOUBLE PRECISION MAGNITUDE OF VECTOR V1
 !        DVMAG= 0.D0 WHEN .LE. EPS

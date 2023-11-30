@@ -4,9 +4,6 @@ SUBROUTINE dsmsg(Iflag)
    INCLUDE 'DSIOF.COM'
    INCLUDE 'GINOX.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Avblks , Blksiz , Dirsiz , Filnam(10) , Filsiz(10) , Hiblk , Iflpos(2,MAXPRI) , Isystm(175) , Iwr , Loglin , Lout ,      &
          & Nfiles , Nllog , Supsiz
    COMMON /ddiosv/ Iflpos
@@ -14,17 +11,8 @@ SUBROUTINE dsmsg(Iflag)
    COMMON /sofcom/ Nfiles , Filnam , Filsiz
    COMMON /sys   / Blksiz , Dirsiz , Supsiz , Avblks , Hiblk
    COMMON /system/ Isystm
-!
-! Dummy argument declarations
-!
    INTEGER Iflag
-!
-! Local variable declarations
-!
    INTEGER blank , i , iii , iname , index , itemp , k , loop , xname(2) , Gino(52)
-!
-! End of declarations
-!
 !
 !
    EQUIVALENCE (Ieor,Gino(1))

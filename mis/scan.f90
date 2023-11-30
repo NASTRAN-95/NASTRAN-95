@@ -1,9 +1,6 @@
 
 SUBROUTINE scan
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amax , Amin , Core(1) , Eofnrw , Rd , Rdrew , Rew , Skp(83) , Wrt , Wrtrew
    LOGICAL Debug , Force , Iopen , Jopen , Layerd , Stress
    INTEGER E(1) , Ibeg , Ibuf , Icomp , Icompx , Idupl , Iel , Ielt(2) , Iend , Imax , Imin , Inc , Incr , Infile , Intra , Iopt ,  &
@@ -21,17 +18,11 @@ SUBROUTINE scan
    COMMON /xscanx/ Infile , Oufile , Lcore , Lbeg , Lend , Iopen , Jopen , Iel , Iopt , Iset , Isort , Itrl3 , Subc , Osubc , Oel , &
                  & Debug , Lloop , Quad4 , Tria3 , Stress , Force , Layerd
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER casecc , eor , file , i , ib , ibuf1 , ibuf2 , ibuf3 , ie , ii , ioef , ioes , iol1 , iol2 , irf , j , jelt(2) , jmp ,   &
          & kk , l , l1 , le , lencc , ll , ll2 , llc , lll1 , ls , lsem , lx , nam(2) , ncase , nn , nscan , nxx , nz , oefi(2) ,   &
          & oesfi(2) , oesi(2) , scr1 , sorf
    INTEGER khrfn1 , khrfn2 , khrfn3 , korsz
    LOGICAL kopen , lopen
-!
-! End of declarations
-!
 !
 !     THIS IS THE MAIN DRIVER FOR THE OUTPUT SCAN MODULE - SCAN
 !

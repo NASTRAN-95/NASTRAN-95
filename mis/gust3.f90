@@ -1,30 +1,18 @@
 
 SUBROUTINE gust3(Qhjk,Wj,Pp,Gustl,Pdel,Pgust,Q,Nfreq,Nload,Nrowj,Ncolw)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Ii1 , Incr , Incr1 , Itc , Itc1 , Itc2 , Iz(1) , Jj , Jj1 , Sysbuf
    REAL Z(1)
    COMMON /packx / Itc1 , Itc2 , Ii1 , Jj1 , Incr1
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Gustl , Ncolw , Nfreq , Nload , Nrowj , Pdel , Pgust , Pp , Qhjk , Wj
    REAL Q
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , ibuf2 , ibuf3 , ibuf4 , ipdel , iqhj , it1 , iwj , iz2 , j , m , mcb(7) , name(2) , nrqhj , ntpdel , ntqhj , &
          & ntwz , nz
    INTEGER korsz
    REAL pgc , pgr , qwg , qwgc , qwgr
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO MULTIPLY QHJK(+) BY WJ
 !     FORMING PDEL

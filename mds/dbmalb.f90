@@ -3,17 +3,8 @@ SUBROUTINE dbmalb(Lenreq,Index)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'ZZZZZZ.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Index , Lenreq
-!
-! Local variable declarations
-!
    INTEGER iprev , lenavl , newind , next
-!
-! End of declarations
-!
 !********************************************************************
 !     DBMALB - ALLOCATES A MEMORY BLOCK OF LENGTH "LENREQ"
 !              FROM THE FREE CHAIN AND RETURNS THE

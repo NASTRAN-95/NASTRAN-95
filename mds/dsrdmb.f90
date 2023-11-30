@@ -3,18 +3,9 @@ SUBROUTINE dsrdmb(Idata,M)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER M
    INTEGER Idata(2)
-!
-! Local variable declarations
-!
    INTEGER id , idiff , inum , ireq , iwords , k , len
-!
-! End of declarations
-!
    Irword = 0
  100  len = iand(Ibase(Indclr),Maskh2)
    IF ( len/=0 ) THEN

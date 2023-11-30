@@ -1,9 +1,6 @@
 
 BLOCKDATA vdrbd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Buf3 , Casecc , Cei(2) , Direct(2) , Eqdyn , Frq(2) , Iaacc , Iacc , Iadisp , Iavel , Idisp ,    &
          & Idload , Ielf , Ifrout , Iloads , Ilsym , Infile , Ipnl , Ispcf , Istr , Ittl , Ivel , Masks(6) , Modal(2) , Nam(2) ,    &
          & Oeigs , Opnl1 , Outfle , Pnl , Pp , Scr1 , Scr2 , Trn(2) , Usetd , Xset0 , Xycdb
@@ -11,9 +8,6 @@ BLOCKDATA vdrbd
    COMMON /vdrcom/ Vdrcom , Idisp , Ivel , Iacc , Ispcf , Iloads , Istr , Ielf , Iadisp , Iavel , Iaacc , Ipnl , Ittl , Ilsym ,     &
                  & Ifrout , Idload , Casecc , Eqdyn , Usetd , Infile , Oeigs , Pp , Xycdb , Pnl , Outfle , Opnl1 , Scr1 , Scr2 ,    &
                  & Buf1 , Buf2 , Buf3 , Nam , Buf , Masks , Cei , Frq , Trn , Direct , Xset0 , Vdrreq , Modal
-!
-! End of declarations
-!
 !VDRBD
 ! BLOCK DATA FOR THE VECTOR DATA RECOVERY MODULE (VDR).
 !*****

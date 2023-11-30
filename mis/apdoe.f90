@@ -1,19 +1,10 @@
 
 SUBROUTINE apdoe(Id,Z,Start,End,Found,Count)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Count , End , Found , Id , Start
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , j
    LOGICAL look
-!
-! End of declarations
-!
 !
 !     APDOE FINDS AND OPEN ENDED CARD FOR ID
 !     GIVEN A LIST Z(START ) TO Z(END)

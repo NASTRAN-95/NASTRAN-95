@@ -1,27 +1,15 @@
 
 SUBROUTINE ascm01(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(684) , Ioct , Ipas11(8) , Ipas31(2) , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
    COMMON /phas11/ Ipas11
    COMMON /phas31/ Ipas31
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,3) , i , icomnd , isave(21) , j , k , l , oct(3,13) , oct1(3,13) , ptbs(7,16) , ptbs1(7,16) , rdmap(18,29) ,     &
          & rdmap1(18,9) , rdmap2(18,9) , rdmap3(18,9) , rdmap4(18,2) , subnam(2) , xtra(3)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     SUBSTRUCTURE COMMAND DMAP DATA
 !

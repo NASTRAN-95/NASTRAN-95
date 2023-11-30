@@ -11,9 +11,6 @@ SUBROUTINE bread(Ig,Inv,Ii3,Norig,Kg)
 !      03/92, TO INCLUDE DUMMY ELEMENTS, CDUM1,...,CDUM9
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dum43(43) , Dum6(6) , Geom1 , Geom2 , Geom4 , Ibuf , Ibuf1 , Ifl , Incr , Ipnw(2) , Kdim , Kdum(9) , Ke(1) , Kore ,      &
          & Last , Nbitin , Ne , Nel , Neq , Neqr , Ngrid , Nn(10) , Nompc , Nout , Rd , Rdrew , Rew , Scr1 , Wrt , Wrtrew , Z(1)
    CHARACTER*23 Ufm
@@ -28,21 +25,12 @@ SUBROUTINE bread(Ig,Inv,Ii3,Norig,Kg)
    COMMON /system/ Ibuf , Nout , Dum43 , Kdum
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ii3
    INTEGER Ig(1) , Inv(Ii3,1) , Kg(7) , Norig(1)
-!
-! Local variable declarations
-!
    INTEGER chbdy , crbar , crbe1 , crbe2 , crbe3 , crigd1 , crigd2 , crigd3 , crigdr , crrod , crspln , crtrpt , genel , i , ibuf2 ,&
          & ielem , ifile , irtn , iz(3) , iz2 , j , k , kdim4 , kgpv , l , m , maxmpc , mpc , mset , ncon , ngpt1 , ngpt2 , ngpts , &
          & ntot , nwds , plotel , scalar , sub(2) , xxx(3)
    LOGICAL debug
-!
-! End of declarations
-!
    DATA crigdr , crigd1 , crigd2 , crigd3 , genel/8210 , 5310 , 5410 , 8310 , 4301/
    DATA chbdy , plotel , crrod , crbar , crtrpt/4208 , 5201 , 6510 , 6610 , 6710/
    DATA crbe1 , crbe2 , crbe3 , crspln , mset/6810 , 6910 , 7010 , 7110 , 4HMSET/

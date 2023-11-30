@@ -1,9 +1,6 @@
 
 SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Core(138) , Cstm , Ecpt , Edt , Gptt , Icore(1) , Isil , Itherm , Lc , Loadnn , Lodc , Mass , Mpt , N(3) ,       &
          & Nobld , Nout , Nrowsp , Sil , Slt , System
    REAL Dum53(53) , Old
@@ -11,20 +8,11 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
    COMMON /loadx / Lc , Slt , Bgpdt , Old , Cstm , Sil , Isil , Ecpt , Mpt , Gptt , Edt , N , Lodc , Mass , Nobld
    COMMON /system/ System , Nout , Dum53 , Itherm
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Iharm , N1 , Ncent , Nedt , Ntemp
    INTEGER Ilist(1)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER i , icomb(1080) , idefml(1080) , iflag , ifound , ifrst , ione , ip1 , ip2 , islt , ispcn , itempl(1080) , j , k , lc1 , &
          & llist , mpcn , name(2) , name1(2) , nogo
-!
-! End of declarations
-!
 !
 !     ROUTINE ANALIZES CASECC AND SLT TO BUILD LISTS OF SELECTED
 !     LOADS

@@ -1,9 +1,6 @@
 
 SUBROUTINE xyprpl
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Exceed
    REAL Fid(300) , Xinc , Xmin
    INTEGER I123 , Id(300) , Iframe , Ihead(96) , L , Maxplt , Maxrow , Sysbuf , Titlec(32) , Titlel(14) , Titler(14) , Xtitle(32) , &
@@ -12,17 +9,11 @@ SUBROUTINE xyprpl
    COMMON /system/ Sysbuf , L
    COMMON /xypppp/ Iframe , Titlec , Titlel , Titler , Xtitle , Id , Maxplt , Xmin , Xinc , Exceed , I123 , Maxrow
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL any
    INTEGER blank , buff , clorwd , curvch , eor , eye , i , ibuf(2) , icol , icore , icurve , igraph(3,8) , inprwd , irow , j ,     &
          & minxd , n , noeor , nwords , symbol(10) , xypltt
    REAL buf(2) , center , delta , graph(3,8) , temp , xmax , xratio , ymax , ymin , yratio
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Fid(1),Id(1)) , (graph(1,1),igraph(1,1)) , (buf(1),ibuf(1))
    DATA symbol/1H* , 1H0 , 1HA , 1HB , 1HC , 1HD , 1HE , 1HF , 1HG , 1HH/

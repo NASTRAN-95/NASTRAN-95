@@ -5,9 +5,6 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
 !     DEFORMATION LOADS
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alpha , Comps , Costh , Cstm , Dit , Dum(300) , E1 , Ecpt , Edt , Eltype , G , Ge , Gptt , Icheck , Icm , Idefm , Ideft ,&
          & Idum1(14) , Iec , Iflag , Igptt , Ii , Impt , Incr , Incur , Inflag , Iparam , Ipcmp , Ipcmp1 , Ipcmp2 , Iprec , Itemp , &
          & Ithrml , Itya , Ityb , Jj , Ksystm(64) , Last , Lcare , Lcore , Matid , Mecpt(200) , Mpt , N(3) , Ne(1) , Nelems ,       &
@@ -36,21 +33,12 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
    COMMON /xcstm / Tgb
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Nedt , Ntemp
    INTEGER Ilist(1) , Pg(7)
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , buf4 , buf5 , cbar , conrod , crod , ctube , dummy , flag , i , iddd , idx , iijj , illop , imat ,  &
          & iparm(2) , ipgtt , ipm , ipr , iti , j , jltype , kk , ldefm , local , lpcomp , n1 , name , ncstm , nloop , nmat ,       &
          & noedt , nogptt , npts , ntlist , nwords , pcomp(2) , pcomp1(2) , pcomp2(2) , pcomps , tlist(1080)
    INTEGER korsz
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Outpt) , (Ksystm(55),Iprec) , (Ksystm(56),Ithrml) , (Ti(7),Icheck) , (Ti(6),Iflag)
    DATA iparm , ipgtt/4HEDTL , 4H     , 4HGPTT/
    DATA crod , ctube , conrod , cbar , pcomps/1 , 3 , 10 , 34 , 112/

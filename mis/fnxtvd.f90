@@ -1,9 +1,6 @@
 
 SUBROUTINE fnxtvd(V1,V2,V3,V4,V5,Zb,Ifn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cndflg , Ibk , Idiag , Ifkaa(7) , Iflelm(7) , Iflrva , Iflrvc , Iflvec(7) , Ifmaa(7) , Ifset , Ii , Iip , Incr , Incrp , &
          & Ind , Io , Ioptf , Iprc , Istart , Iter , Itp1 , Itp2 , Ksystm(65) , L16 , Mcblt(7) , Mcbrm(7) , Mcbsma(7) , Mcbvec(7) , &
          & Mord , Mrank , Neig , Nn , Nnp , Nonul , Nord , Norew , Northo , Nzero , Sr5fle , Sysbuf
@@ -22,20 +19,11 @@ SUBROUTINE fnxtvd(V1,V2,V3,V4,V5,Zb,Ifn)
    COMMON /system/ Ksystm
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Ifn
    REAL V1(1) , V2(1) , V3(1) , V4(1) , V5(1) , Zb(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION aii , b(2) , d , db , dbi , depx , depx2 , dsq , omdepx , opdepx , sd , sdmax , zero
    REAL dtmp , tmp , tmx
    INTEGER i , ifg , ifv , ix , iy , name(5) , nord1 , vddot
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS SAME AS FNXTV EXCEPT IN CERTAIN KEY AREAS THE
 !     COMPUTATIONS ARE REINFORCED BY DOUBLE PRECISION OPERATIONS FOR

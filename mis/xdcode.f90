@@ -1,22 +1,13 @@
 
 SUBROUTINE xdcode
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dm37(37) , Record(20) , Skip1(3) , Skip2(8) , Skip3(2) , Skip4(2)
    INTEGER Ibuf , Ichar(80) , Icol , Icount , Name(2) , Nbpw , Nout
    COMMON /system/ Ibuf , Nout , Dm37 , Nbpw
    COMMON /xrgdxx/ Skip1 , Icol , Skip2 , Record , Ichar , Skip3 , Icount , Skip4 , Name
-!
-! Local variable declarations
-!
    INTEGER iblank , k , notuse
    CHARACTER*80 temp
    CHARACTER*8 temp8
-!
-! End of declarations
-!
 !
 !     (MACHINE INDEPENDENT FORTRAN 77 ROUTINE)
 !

@@ -37,29 +37,17 @@ SUBROUTINE sgino
 !           OF (750A4) IS SUFFICIENT)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    CHARACTER*80 Dsnames(80)
    INTEGER Idum1 , Nbpc , Nbpw , Ncpw , Nout , Skpsys(36)
    COMMON /dsname/ Dsnames
    COMMON /system/ Idum1 , Nout , Skpsys , Nbpc , Nbpw , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER Eorx , Ibfsz , N , Pltape
    INTEGER A(1) , Buf(1)
-!
-! Local variable declarations
-!
    INTEGER bfsz , eof , eor , format(3) , formtx(3) , irecsz , j , lbuf(1) , name(2) , nb , nbits , noff , nw , plt1 , plt2 , pltx ,&
          & ptape , shift , tra , word
    CHARACTER*7 fortn , none
    INTEGER locfx
    LOGICAL nopack , open
-!
-! End of declarations
-!
 !WKBNB
 !WKBNE
    DATA open/.FALSE./ , name/4H SGI , 2HNO/

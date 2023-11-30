@@ -1,9 +1,6 @@
 
 SUBROUTINE cmtoc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf2 , Buf3 , Buf4 , Casecc , Conect , Conset , Geom4 , Origin(7,3) , Restct(7,7) , Scbdat , Scconn , Scmcon , Scr1 ,&
       & Scr2 , Scsfil , Toler , Tran
    INTEGER Buf5 , Combo(7,5) , Iauto , Ihdr(96) , Inpt , Iprint , Isort , Ititl(96) , Lcore , Mcon , Npsub , Outt , Score , Sctoc , &
@@ -15,16 +12,10 @@ SUBROUTINE cmtoc
    COMMON /output/ Ititl , Ihdr
    COMMON /system/ Xxx
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , ia , ib , ihed(96) , itest , itot , kdh , name(2) , nheqss , nt , nwds
    INTEGER andf , rshift
    LOGICAL print
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES A TABLE OF CONTENTS FOR A COMBINE
 !     OPERATION. FOR EACH PSEUDO-STRUCTURE IT LISTS THE NAME, NUMBER

@@ -1,9 +1,6 @@
 
 SUBROUTINE cmckcd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Buf1 , Buf3 , Buf4 , Buf5 , Casecc , Conect , Conset , Geom4 , Origin(7,3) , Restct(7,7) , Scbdat , Sccstm , Scmcon , Scr1 ,&
       & Scr2 , Scr3 , Sctoc , Step , Toler , Tran , Z(1)
    INTEGER Buf2 , Combo(7,5) , Iauto , Idry , Intp , Iprint , Isort , Lcore , Mcon , Npsub , Outt , Scconn , Score , Scsfil
@@ -16,15 +13,9 @@ SUBROUTINE cmckcd
    COMMON /cmb003/ Combo , Conset , Iauto , Toler , Npsub , Conect , Tran , Mcon , Restct , Isort , Origin , Iprint
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , ce(9) , i , iadd , ierr , ifile , imsg , ipnum(7) , ist(7) , it , j , jj , kdh , kk , llco , mm , nnn , npt ,   &
          & nptm1 , nrec
    REAL coord(7,3) , diff2(3) , dist , sum
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DETERMINES WHETHER MANUALLY SPECIFIED CONNECTION
 !     ENTRIES ARE ALLOWABLE BASED ON THE PRESCRIBED GEOMETRIC TOLERANCE.

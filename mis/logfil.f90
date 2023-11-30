@@ -1,18 +1,9 @@
 
 SUBROUTINE logfil(Line)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Lout
    COMMON /logout/ Lout
-!
-! Dummy argument declarations
-!
    INTEGER Line(18)
-!
-! End of declarations
-!
 !
 !
 !

@@ -2,17 +2,8 @@
 SUBROUTINE dsbpnk(Block,Mcb)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! Dummy argument declarations
-!
    INTEGER Block(15) , Mcb(7)
-!
-! Local variable declarations
-!
    INTEGER num
-!
-! End of declarations
-!
    IF ( Block(1)/=Name ) THEN
       CALL dsmsg1(Block)
       CALL dsmsg(120)

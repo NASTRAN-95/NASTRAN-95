@@ -1,22 +1,13 @@
 
 SUBROUTINE fpont
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bg , Core(1) , Old
    INTEGER Ifm , Lc , N(12) , Slt
    COMMON /loadx / Lc , Slt , Bg , Old , N , Ifm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL flag , gpco1(3) , gpco2(3) , gpco3(3) , gpco4(3) , gridp(7) , scale , vect(3) , vect1(3) , vect2(3) , xl
    INTEGER gpid , i , icosyt , igpco(4,5) , in , iord(5) , ip1 , ip2 , ip3 , ip4 , iparm , l , minus , n1 , np , nr , pont(5) ,     &
          & swload(2)
-!
-! End of declarations
-!
 !
 !     DOES DIRECT,TPONT,FPONT,AND SCALAR LOADS
 !

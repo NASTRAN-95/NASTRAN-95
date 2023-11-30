@@ -1,9 +1,6 @@
 
 SUBROUTINE pstrb1(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(225) , Alp12 , Alpha1 , Alpha2 , Angle , Area , Costh , D(9) , Determ , Dum55(26) , Dumb(76) , Dumdum(4) , Dummy1 ,       &
       & Dummy2 , Dummy3 , E(18) , Ecpt(1) , Eltemp , Eye , Fmu , G(9) , G11 , G12 , G13 , G22 , G23 , G2x2(4) , G2x211 , G2x212 ,   &
       & G2x222 , G33 , Gsube , Hib(18) , Hic(18) , Hinv(36) , J2x2(4) , Ks(30) , Ph1out(200) , Prod9(9) , Px2 , Pxy2 , Py2 , Rho ,  &
@@ -21,17 +18,8 @@ SUBROUTINE pstrb1(Iopt)
                  & Subscb , Nerror , Nbegin , Ntyped , Xc , Yc , Yc2 , Yc3 , Isub , Xc3 , Dum55
    COMMON /pla3es/ Necpt , Ngrid , Angle , Matid1 , Eye , Matid2 , T2 , Fmu , Z11 , Z22 , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 ,&
                  & Z2 , Dummy3 , X3 , Y3 , Z3 , Dumb , Ph1out
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER i , j , k
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE DOES SUB-CALCULATIONS FOR PLATE ELEMENTS IN PLA3
 !

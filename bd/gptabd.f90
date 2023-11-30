@@ -1,9 +1,6 @@
 
 BLOCKDATA gptabd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Comp1(100) , Comp2(100) , Comp3(100) , Comp4(100) , Comp5(100) , Comp6(30) , Complx(530) , E(2150) , E1(25) , E10(25) ,  &
          & E11(25) , E12(25) , E13(25) , E14(25) , E15(25) , E16(25) , E17(25) , E18(25) , E19(25) , E2(25) , E20(25) , E21(25) ,   &
          & E22(25) , E23(25) , E24(25) , E25(25) , E26(25) , E27(25) , E28(25) , E29(25) , E3(25) , E30(25) , E31(25) , E32(25) ,   &
@@ -15,9 +12,6 @@ BLOCKDATA gptabd
          & E86(25) , E9(25) , Incr , Last , Nelem
    COMMON /clstrs/ Complx
    COMMON /gpta1 / Nelem , Last , Incr , E
-!
-! End of declarations
-!
 !GPTABD
 !     BLOCK DATA PROGRAM FOR ALL MODULES HAVING ANYTHING TO DO WITH THE
 !     NASTRAN STRUCTURAL ELEMENTS.

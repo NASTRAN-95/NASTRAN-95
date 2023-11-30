@@ -1,9 +1,6 @@
 
 SUBROUTINE trnsp(Core)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ia(2) , Iat(2) , Iforat , Iforma , Ii , Incr , Incr1 , Iotyp , Iotyp1 , Iotypa , Is1 , Itypa , Itypat , Jj , Ksys94 ,    &
          & Lcare , Mach , Namea , Nameat , Ncola , Ncolat , Nrow1 , Nrowa , Nrowat , Nscrh , Otpe , Scrth(8) , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -18,19 +15,10 @@ SUBROUTINE trnsp(Core)
                  & Scrth
    COMMON /unpakx/ Iotyp1 , Is1 , Nrow1 , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    REAL Core(1)
-!
-! Local variable declarations
-!
    REAL a(2) , zero(4)
    INTEGER i , ibuf , ibuf1 , icol , iii , ij1 , ik , iloop , im1 , ioloop , iover , iparm(2) , iparm1 , j , k , km , l , last ,    &
          & lcore , m , m2 , n1 , name(2) , nbrut , ncalat , nl , nrem , nrow , nrow2 , nrowo , nscrth , ntype , trb1(7,8)
-!
-! End of declarations
-!
 !
 !     OUT-OF-CORE MATRIX TRANSPOSE USING 1 TO 8 SCRATCH FILES - NASTRAN
 !     ORIGINAL ROUTINE.

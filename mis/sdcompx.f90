@@ -1,9 +1,6 @@
 
 SUBROUTINE sdcompx(*,Zi,Zr,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ablk(15) , Bblk(20) , Blk(15) , C , Chlsky , Col , Config , Dba(7) , Dbc(7) , Dbl(7) , Forma , Frstpc , I1 , I2 , Iac ,  &
          & Incr1 , Incr2 , Itype1 , Itype2 , Itype3 , J1 , J2 , Jstr , Keep , Key(1) , Ksystm(63) , Lasti , Lastpl , Lcore ,        &
          & Lowtri , Nbpw , Nitems , Norew , Nout , Nr , Nrow , Nterms , Nzzadr , Nzzz , Power , Prc(2) , Prevc , Rlcmpx(4) , Row ,  &
@@ -27,15 +24,9 @@ SUBROUTINE sdcompx(*,Zi,Zr,Zd)
    COMMON /unpakx/ Itype3 , I2 , J2 , Incr2
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Xns
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Zd(2)
    INTEGER Zi(1)
    REAL Zr(2)
-!
-! Local variable declarations
-!
    CHARACTER*10 addi , unadd , unuse
    INTEGER andf , lshift , orf
    INTEGER begn , buf1 , buf2 , buf3 , buf4 , buf5 , c5max , cavg , ci , clos , cmax , dbname(2) , end , groups , i , icmplx(2) ,   &
@@ -48,9 +39,6 @@ SUBROUTINE sdcompx(*,Zi,Zr,Zd)
    LOGICAL go , rowone , spill , splin , splout
    INTEGER maxc , nbrwds , sx
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     SDCOMP PERFORMS THE TRIANGULAR DECOMPOSITION OF A SYMMETRIC
 !     MATRIX. THE MATRIX MAY BE REAL OR COMPLEX AND ITS PRECISION MAY

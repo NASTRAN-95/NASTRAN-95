@@ -1,9 +1,6 @@
 
 SUBROUTINE givens
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(4) , Apc , Apu , Beta(4) , Core(1) , D1 , D2 , D3 , D4 , Degra , Dum(100) , Epsi , Fps , Hfreq , Lfreq , Mb(1) ,      &
       & Order , Pi , Radeg , Rmax , Rmin , Rminr , Slmdas , Tcons(15) , Twopi , Xlmdas
    DOUBLE PRECISION Dalpha(2) , Dbeta(2) , Dcore(1) , Dlmdas
@@ -28,16 +25,10 @@ SUBROUTINE givens
    COMMON /unpakx/ Itu , Iiu , Jju , Incru
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL ak , am , amb , an , an2 , anv , av , av2 , az , t1 , t2 , t23 , t3
    INTEGER eigr(4) , end , file , i , ibuf1 , ibuf2 , icr1 , icr2 , ifile1 , ifile2 , ip1 , ix(7) , k , kaa , l , m , maa , mgiv ,  &
          & name(4) , ncol , nnv , nz , phia , t
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER FOR GIVENS-HOUSEHOLDER METHOD
 !

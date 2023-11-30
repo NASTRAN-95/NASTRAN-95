@@ -1,9 +1,6 @@
 
 SUBROUTINE tetra(Temps,Pg,Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , E , Ecpt(23) , Eltemp , Gg , Gsube , Nu , Rho , Sigc , Sigs , Sigt , Sysbuf , Tsub0
    INTEGER Inflag , Matid , Necpt(2) , Out
    CHARACTER*23 Ufm
@@ -12,19 +9,10 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
    COMMON /system/ Sysbuf , Out
    COMMON /trimex/ Ecpt
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
    REAL Pg(6) , Temps(4)
-!
-! Local variable declarations
-!
    REAL alfa(6) , c(72) , ctg(18) , dum , g(36) , h(16) , hdeter , p(6) , temp(12) , temp1
    INTEGER i , ising , j , k , l
-!
-! End of declarations
-!
 !
 !     ELEMENT THERMAL LOAD GENERATOR FOR THE TETRAHEDRON SOLID ELEMENT
 !

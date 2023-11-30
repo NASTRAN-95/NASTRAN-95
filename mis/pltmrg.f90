@@ -1,26 +1,17 @@
 
 SUBROUTINE pltmrg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(7) , Lsil , Name(2) , Ngptot , Nm(2) , Norew , Npset , Sysbuf , Z(3)
    REAL Rd , Rdrew , Rew , Rz(1) , Wrt , Wrtrew
    COMMON /blank / Name , Ngptot , Lsil , Npset , Nm , Buf
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER bar , bgp , buf1 , buf2 , buf3 , buf4 , buf5 , casecc(2) , casep , casess , elid , els , eqex , eqss , file , gps , i ,  &
          & i5 , icore , indx , iss , isx , item , j , k , ksil , lcore , n , ncore , ngp , ngpel , ngpset , nss , nwds , offset ,   &
          & pcdb , pltp , plts , quad4 , rc , scr1 , srd , subr(2) , tria3
    LOGICAL ident
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MODULE PLTMRG WRITES GINO DATA BLOCKS WHICH ARE USED AS INPUT TO
 !     THE PLOT MODULE FOR PLOTTING A SUBSTRUCTURE.

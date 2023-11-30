@@ -1,26 +1,14 @@
 
 SUBROUTINE mpy3nu(Iz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum1(4) , Dum2(8) , Sysbuf
    INTEGER Iacols , Icore , Id , Ipoint , Itrl , J , Laend , N , Ncb , Nout , Ntbu , Zpntrs(22)
    CHARACTER*23 Ufm
    COMMON /mpy3cp/ Itrl , Icore , N , Ncb , Dum1 , Zpntrs , Laend , Dum2 , J , Id , Ntbu
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Iz(1)
-!
-! Local variable declarations
-!
    INTEGER l , l1 , l2 , lac , ll , lp , name(2)
-!
-! End of declarations
-!
 !
 !     CALCULATES NEXT TIME USED FOR INDIVIDUAL COLUMNS OF B OR FOR ROWS
 !     CORRESPONDING TO NON-ZERO TERMS IN COLUMN OF A.

@@ -1,24 +1,12 @@
 
 SUBROUTINE gkad1c(Xmd,Xod,Xcr1,Xcr2,Xcr3,Xcr4,Xcr5,Xcr6,Xsetd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL App(2) , G , Type(2) , Ua , Ud , Ue , Uf , Ufe , Ug , Ul , Um , Un , Une , Uo , Up , Ur , Us , Usb , Usg , W3 , W4
    INTEGER Ib2pp , Ik2pp , Im2pp , Modal(2) , Multi , Noue , Omit , Single
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up , Une , Ufe , Ud
    COMMON /blank / Type , App , Modal , G , W3 , W4 , Ik2pp , Im2pp , Ib2pp , Multi , Single , Omit , Noue
-!
-! Dummy argument declarations
-!
    INTEGER K2dd , K2pp , Xcr1 , Xcr2 , Xcr3 , Xcr4 , Xcr5 , Xcr6 , Xmd , Xod , Xsetd
-!
-! Local variable declarations
-!
    INTEGER check , gmd , god , k2ff , k2nn , name(2) , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , usetd
-!
-! End of declarations
-!
 !
 !     GKAD1C SETS UP TO REDUCE STRUCTURAL MODAL
 !

@@ -1,27 +1,15 @@
 
 SUBROUTINE alg1(Lnct)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cp , Dum , Ej , G , Gamma , R , Rojcp , Sysbuf
    INTEGER Iprtc , Nalgdb , Nout
    COMMON /algino/ Dum , Nalgdb
    COMMON /gas   / G , Ej , R , Cp , Gamma , Rojcp
    COMMON /system/ Sysbuf , Nout
    COMMON /ud3prt/ Iprtc
-!
-! Dummy argument declarations
-!
    INTEGER Lnct
-!
-! Local variable declarations
-!
    INTEGER log1 , log2
    REAL rdata(4)
-!
-! End of declarations
-!
 !
 !
    log1 = Nalgdb

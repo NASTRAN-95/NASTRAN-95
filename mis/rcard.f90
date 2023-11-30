@@ -5,23 +5,14 @@ SUBROUTINE rcard(Out,Fmt,Nflag,In)
 !     CDIR$ IS CRAY COMPILER DIRECTIVE. 64 BIT INTEGER IS USED LOCALLY
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dum1(7) , Dum2(10) , F6 , Highpw , Ibufsz , Lowpw , Lsystm , Nlines , Npages
    LOGICAL Nogo
    CHARACTER*23 Ufm
    COMMON /lhpwx / Lowpw , Highpw
    COMMON /system/ Ibufsz , F6 , Nogo , Dum1 , Npages , Nlines , Dum2 , Lsystm
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Nflag
    INTEGER Fmt(1) , In(1) , Out(1)
-!
-! Local variable declarations
-!
    INTEGER a67777 , bcd(16) , blank , blanks , charac , chars(7) , d , e , field , i , ichek , ifmt , int1 , iout , iretrn , it ,   &
          & izero , j , k , line(20) , max , minus , n , n8or16 , ndoubl(2) , nnn , npoint , nt(16) , num(10) , number , nwords , p ,&
          & period , places , plus , power , seq , sign , star , stars , type(16) , val(16) , word , word1 , word2 , zero
@@ -30,9 +21,6 @@ SUBROUTINE rcard(Out,Fmt,Nflag,In)
    REAL fl1
    DOUBLE PRECISION xdoubl
    EXTERNAL complf , lshift , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (fl1,int1) , (xdoubl,ndoubl(1)) , (num(10),zero) , (chars(1),blank) , (chars(2),star) , (chars(3),plus) ,            &
     & (chars(4),minus) , (chars(5),period) , (chars(6),e) , (chars(7),d)
    DATA pass/.FALSE./ , blanks/4H    / , stars/4H****/ , line/20*4H    / , blank/1H / , star/1H*/ , plus/1H+/ , minus/1H-/ ,        &

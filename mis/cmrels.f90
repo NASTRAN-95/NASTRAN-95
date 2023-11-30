@@ -1,26 +1,17 @@
 
 SUBROUTINE cmrels
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Inpt , Junk(38) , Lcore , Npsub , Scbdat , Scconn , Score , Z(1)
    REAL Buf3 , Buf4 , Buf5 , Outt , Scr1 , Scr2 , Scsfil
    COMMON /cmb001/ Scr1 , Scr2 , Scbdat , Scsfil , Scconn
    COMMON /cmb002/ Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Score , Lcore , Inpt , Outt
    COMMON /cmb003/ Junk , Npsub
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , icode , id , ifile , ii , imsg , ist , ist1 , ist2 , iw , ix(7,3) , j , kid , kj , list(32) , n , nc , nce ,&
          & nnn , nw , nw1 , nw2 , nwrd , ps1 , ps2 , stce
    INTEGER andf
    LOGICAL first
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE ENFORCES THE RELES DATA SPECIFIED FOR THE
 !     COMB1 MODULE.

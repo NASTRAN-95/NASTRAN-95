@@ -1,9 +1,6 @@
 
 SUBROUTINE opt2a(Ip,El,Iel,Pr,Ipr,Rr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Conv , Core(1) , Parm(8) , Skp(2) , Skq(2) , Skr(2) , Sks , Skt(3) , Sku , Sysbuf , Y(1) , Z(16)
    INTEGER Count , Iy(1) , Iz(10) , Kore , Max , Nelw , Next , Noeor , Nprw , Nrd , Ntotl , Nwdse , Nwdsp , Nwrt , Oes1 , Outtap ,  &
          & Zcor
@@ -16,21 +13,12 @@ SUBROUTINE opt2a(Ip,El,Iel,Pr,Ipr,Rr)
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    REAL El(1) , Pr(1) , Rr(1)
    INTEGER Iel(1) , Ip(2,1) , Ipr(1)
-!
-! Local variable declarations
-!
    REAL ae1 , e1 , rc , s13 , s1s , s2s , s3s , x1 , x1a , x2 , x2a , xstar
    INTEGER eid(20) , etyp , i , icp , idel , ides , ier , ifle , ii , iret , irr , izk , j , k , kconv , kel , lel , limit , loce , &
          & locp , locp1 , m , m1 , mel , mest , name(2) , ne , nelr , nesw , oldtyp , pest , plus(5) , pstres , ptelt
    LOGICAL first , unsafe
-!
-! End of declarations
-!
 !
 !     EQUIVALENT ARE  (EL,IEL), (PR,IPR)
    EQUIVALENCE (Z(1),Iz(1)) , (Core(1),Parm(1),Max) , (Iy(1),Y(1),Parm(8))

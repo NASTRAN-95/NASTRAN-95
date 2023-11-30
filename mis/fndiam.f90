@@ -1,25 +1,13 @@
 
 SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum3b(3)
    INTEGER Idpth , N , Ngrid
    COMMON /bandb / Dum3b , Ngrid
    COMMON /bandg / N , Idpth
-!
-! Dummy argument declarations
-!
    INTEGER Idflt , Idim , Snd1 , Snd2
    INTEGER Iwk(1) , Jwk(1) , Lvl(1) , Lvls1(1) , Lvls2(1) , Ndeg(1) , Ndlst(Idim) , Ndstk(1)
-!
-! Local variable declarations
-!
    INTEGER flag , i , lvlbot , lvln , lvlwth , maxlw , mtw1 , mtw2 , ndxl , ndxn , snd
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

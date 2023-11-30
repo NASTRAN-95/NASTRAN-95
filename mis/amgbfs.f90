@@ -1,9 +1,6 @@
 
 SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Fmach , Refc , Rfk , Scr3 , Scr4 , Scr5 , Z(1)
    INTEGER Ecore , Ia0 , Ia0p , Iarb , Iavr , Icg , Ics , Idelx , Iee , Ifla1 , Ifla2 , Iis , Inas , Inasb , Inb , Inbea1 , Inbea2 ,&
          & Inc , Infl , Ins , Insbea , Int121 , Int122 , Iria , Isg , Isk , Ith1a , Ith2a , Ix , Ixic , Ixij , Ixis1 , Ixis2 ,      &
@@ -17,21 +14,12 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ A , Iis
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Skj
    REAL A0(1) , A0p(1) , Delx(1) , Ee(1) , Xis1(1) , Xis2(1)
    INTEGER Nba(1) , Nc(1) , Nsbe(1)
-!
-! Local variable declarations
-!
    REAL a02p , dx , p5 , rfkoc , x1 , x2 , x3
    INTEGER i , ia , ib , ibf , ibuf2 , ibzy , icorr , ig , ii , irow , isl , it , izbf , j , jf , jl , k , ks , l , length , name(2)&
          & , nbx , nbxr , ncore , nfb , nfse , nfyb , nha , nhbfs , nhg , nl , nlse , nn , nsb , nt02 , ntp2 , nzy2
-!
-! End of declarations
-!
 !
 !     BUILD SKJ CALL BFSMAT THEN SHUFFEL AND DEAL
 !

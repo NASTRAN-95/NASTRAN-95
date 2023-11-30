@@ -1,19 +1,10 @@
 
 SUBROUTINE gmmatc(A,Rowa,Cola,Mta,B,Rowb,Colb,Ntb,C)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Cola , Colb , Mta , Ntb , Rowa , Rowb
    COMPLEX A(1) , B(1) , C(1)
-!
-! Local variable declarations
-!
    INTEGER i , ij , ij1 , ijn , ik , ik1 , ikn , incik1 , inckj1 , incrik , incrkj , iparm(2) , kj , kj1 , ncola , ncolb , nrowa ,  &
          & nrowb , nta , nterms
-!
-! End of declarations
-!
 !*****
 !     GMMATC - G E N E R A L  M A T R I X  M U L T I P L Y
 !                                 A N D

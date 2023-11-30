@@ -1,25 +1,13 @@
 
 SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Model , Npens , Ploter
    REAL Reg(2,2) , Skpa(6) , Skpplt(14)
    COMMON /pltdat/ Model , Ploter , Reg , Skpplt , Skpa , Npens
-!
-! Dummy argument declarations
-!
    INTEGER Opt , Penx
    REAL X1 , X2 , Y1 , Y2
-!
-! Local variable declarations
-!
    REAL b , infnty , slp , x , xy(2,2) , y
    INTEGER i , ifl , j , m , pen , tra1 , tra2
-!
-! End of declarations
-!
 !
 !     (X1,Y1) = STARTING POINT OF THE LINE
 !     (X2,Y2) = TERMINAL POINT OF THE LINE

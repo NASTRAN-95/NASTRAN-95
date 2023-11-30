@@ -1,28 +1,16 @@
 
 SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iout , Merr , Ngrid
    REAL Skp1(19) , Sysbuf
    COMMON /blank / Ngrid , Skp1 , Merr
    COMMON /system/ Sysbuf , Iout
-!
-! Dummy argument declarations
-!
    INTEGER Deform , Pen
    INTEGER Gplst(1) , Iy(1) , Iz(1)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER err(4) , i , i1 , id1 , id2 , id3 , id4 , ih , il , ipar , iret , iret1 , j , j1 , j2 , k , kk , l , len , lim , limt(2) &
          & , linesp , ll , lm(5) , m(71) , m1(17) , m2(17) , m3(11) , m4(17) , m5(9) , n , n3 , n4 , nm(5) , ntab
    REAL x1 , x2 , y1 , y2
-!
-! End of declarations
-!
 !
 !     TO CREATE A SET OF UNIQUE LINES TO BE PLOTTED.  IN ADDITION, TO
 !     AVOID SKIPPING ALL OVER THE PLOT FOR EACH LINE.

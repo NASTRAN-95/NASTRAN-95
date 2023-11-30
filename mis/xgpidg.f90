@@ -1,9 +1,6 @@
 
 SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bcdcnt , Cppgct , Dmap(1) , Dmpcnt , Dmppnt , Iallon , Ibf(6) , Ichar , Icold , Icrdtp , Idmpnt , Iequl , Iflg(6) ,      &
          & Insert , Irturn , Isavdw , Iseqn , Isgnon , Islsh , Isys77 , Ldmap , Length , Lmpl , Loscar , Lpch , Maskhi , Masklo ,   &
          & Masks(1) , Med(1) , Modidx , Mpl(1) , Mplpnt , Namopt(26) , Nbegin , Nblank , Nbpc , Nchkpt , Ncond , Ncpw , Ndiag ,     &
@@ -25,20 +22,11 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
                  & Masklo , Isgnon , Nosgn , Iallon , Masks
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER K , Ncode
    INTEGER Ix(1) , Jx(1)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , rshift
    INTEGER i , icode , iday , imnth , iyear , j , jday , jmnth , jyear , kdhcod , l , lx , m , n , nlabl1 , nlabl2 , nme1 , nodmap
    EXTERNAL andf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF XGPIDG IS TO WRITE DIAGNOSTIC MESSAGES FOR EXGPI
 !

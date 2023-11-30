@@ -26,9 +26,6 @@ SUBROUTINE partn1
 !                                   V,Y,F12/V,Y,F22 $
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Cpcol , Cpones , Cpsize , Elem(4) , Eol , Form(4) , Icp , Ireqcl , Irp , Machx , Nbpw , Ncp , Nrp ,       &
          & Outpt , Rd , Rdrew , Row , Rpcol , Rpones , Rpsize , Sym , Sysbuf , Type , Wrt , Wrtrew , Xxx(37) , Z(1)
    LOGICAL Cphere , Cpnull , Rphere , Rpnull
@@ -44,17 +41,11 @@ SUBROUTINE partn1
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zntpkx/ Elem , Row , Eol
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER a , aij(4) , bit , bitwd , block(80) , buff , buffs(5) , cols , core , cp , cpzero , eor , file , head(2) , i , iblock , &
          & ifile , il1 , inform , iz , izm1 , j , jj , jrow , jz , k , kblock , kfile , l , m , mcb(7,4) , mcba(7) , naform ,       &
          & natype , nform , ntype , nz , ones , refus(3) , rows , rp , rpzero , shift , subr(2) , zero
    INTEGER andf , korsz , rshift
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
    DATA subr/4HPART , 4HN1  / , a , cp , rp/101 , 102 , 103/ , aij/201 , 202 , 203 , 204/
    DATA naform/4HFORM/ , natype/4HTYPE/ , refus/2*3H    , 3HREF/
    DATA eor/1/

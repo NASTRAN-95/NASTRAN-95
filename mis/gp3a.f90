@@ -1,9 +1,6 @@
 
 SUBROUTINE gp3a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(50) , Buf1 , Buf2 , Carddt(60) , Cardid(60) , Clsrew , Eqexin , Geom3 , Gptt , Idm(6) , Idno(30) , Idum(2) , Igrav , &
          & Ipld3 , Ipload , Iptr , Isb , Ksystm(80) , Lines , Load(2) , Mask(60) , Nlpp , Nograv , Noload , Nopld2 , Notemp ,       &
          & Ntypes , Rd , Rdrew , Scr1 , Scr2 , Slt , Status(60) , Wrt , Wrtrew , Z(1)
@@ -17,16 +14,10 @@ SUBROUTINE gp3a
    COMMON /system/ Isb , Iptr , Idm , Nlpp , Idum , Lines
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER file , first , flag , gpoint , i , id , idcmld , ii , iii , ilist , irfrc , iset , itabl , jj , jj1 , jjj , jjn , jstop ,&
          & jx , k , k1 , k2 , khi , kkk , klist , klo , kn , kset , ktabl , lset , mset , n , nam(2) , ncore , neqx , nkey , nlist ,&
          & nogo , nread , nset , nskip , nwds , nwds1 , setid
    LOGICAL piez
-!
-! End of declarations
-!
 !
 !     GP3A BUILDS THE STATIC LOADS TABLE (SLT).
 !     FORCE, FORCE1, FORCE2, MOMENT, MOMNT1, MOMNT2, GRAV, PLOAD, SLOAD

@@ -1,9 +1,6 @@
 
 SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Idry , Iptr , Name(2) , Nono , Nss , Nz , Outt , Sysbuf , Z(1)
    CHARACTER*23 Ufm
    COMMON /blank / Idry , Name
@@ -11,19 +8,10 @@ SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
    COMMON /system/ Sysbuf , Outt
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ifile , Ntype , Ofile , Sfile
    INTEGER Ctypeo(2,8) , Ctypes(2,8) , Icode(4,1) , Ocode(4,1)
-!
-! Local variable declarations
-!
    INTEGER card(3) , i , i1 , idx , j , k , m , nlimit(3) , nwds , subnam(2)
    REAL file
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE MERGES CONVERTED SUBSTRUCTURING DATA WITH EXISTING
 !     NASTRAN DATA

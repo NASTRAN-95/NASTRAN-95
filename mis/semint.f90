@@ -1,9 +1,6 @@
 
 SUBROUTINE semint(Debug1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axic , Axif , Hicore , Inflag , Insave , Intap , Isubs , Isy70(7) , Isy77 , Mach , Ncds , Nogo , Outtap , Plotf
    REAL Dumm15(15) , Dumm30(30) , Dumm6(6) , Dummy3(3) , Dummy4(4) , Dummy6(6) , Echo(4) , System , T1(2,370)
    CHARACTER*23 Ufm
@@ -16,19 +13,10 @@ SUBROUTINE semint(Debug1)
    COMMON /xechox/ Echo
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xxread/ Inflag , Insave
-!
-! Dummy argument declarations
-!
    INTEGER Debug1
-!
-! Local variable declarations
-!
    REAL bcd1 , bcd10 , bcd11 , bcd2 , bcd3 , bcd4 , bcd5 , bcd6 , bcd7 , bcd8 , bcd9 , bcdx
    INTEGER iby , j , kaxif , l35 , l42 , nogo1 , nogox
    CHARACTER*6 subr(13)
-!
-! End of declarations
-!
 !
 !     SEMINT IS THE EXECUTION MONITOR FOR THE PREFACE.
 !     UMF IS NO LONGER SUPPORTED.

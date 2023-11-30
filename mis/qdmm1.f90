@@ -1,9 +1,6 @@
 
 SUBROUTINE qdmm1(Tbar,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alphas(3) , Angle , B(96) , C(24) , Consts(5) , Costh , Degra , Dummy1 , Dummy2 , Dummy3 , Dummy4 , Ecpt(26) , Ee(144) ,    &
       & Eltemp , Fmu , G11 , G12 , G13 , G22 , G23 , G2x211 , G2x212 , G2x222 , G33 , Gsube , Rho , Sigcom , Sigshe , Sigten ,      &
       & Sinth , Stress , T , Tempar(24) , Ti(9) , Tsub0 , X1 , X2 , X3 , X4 , Y1 , Y2 , Y3 , Y4 , Z1 , Z2 , Z3 , Z4
@@ -15,22 +12,13 @@ SUBROUTINE qdmm1(Tbar,Pg)
    COMMON /ssgwrk/ Ee , B , Tempar , C , Ti
    COMMON /trimex/ Necpt , Ngrid , Angle , Matid1 , T , Fmu , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 , Z2 , Dummy3 , X3 , Y3 ,    &
                  & Z3 , Dummy4 , X4 , Y4 , Z4
-!
-! Dummy argument declarations
-!
    REAL Tbar
    REAL Pg(1)
-!
-! Local variable declarations
-!
    REAL cth1 , cth2 , cth31 , cth32 , cth41 , cth42 , dlt1 , dlt2 , e(9) , g(9) , h , hh , la , lb , lbd1 , lc , lcd1 , lcd2 , ld , &
       & ldd2 , magi , magj , magk , pi1 , pi2 , pi3 , pj1 , pj2 , pj3 , pk1 , pk2 , pk3 , sth1 , sth2 , sth31 , sth32 , sth41 ,     &
       & sth42 , temp , theta , x12 , x13 , x14 , x21 , x23 , x24 , x31 , x34 , x41 , x42 , y21 , y31 , y34 , y3a , y41 , y42 , y4a ,&
       & z21 , z31 , z41 , z42
    INTEGER i , i1 , iict , isw , jj , jjct , jjk , k , k19 , ka , kkct , ktot , l , llct , mmct , nnct
-!
-! End of declarations
-!
 !
 !     QUADRILATERAL MEMBRANE ELEMENT
 !

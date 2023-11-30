@@ -1,18 +1,9 @@
 
 SUBROUTINE fcurl(Fmeo,Fme1,Ffeo,Ffe1,Yi,S,Lam1)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Lam1 , S
    REAL Ffe1(10,2) , Ffeo(10,2) , Fme1(10,2) , Fmeo(10,2) , Yi(6,7)
-!
-! Local variable declarations
-!
    REAL s1
-!
-! End of declarations
-!
 !     ------------------------------------------------------------------
    Fmeo(1,1) = 0.0
    Fmeo(2,1) = Yi(1,1)

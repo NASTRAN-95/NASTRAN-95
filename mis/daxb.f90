@@ -1,17 +1,8 @@
 
 SUBROUTINE daxb(A,B,C)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A(3) , B(3) , C(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION d(3)
-!
-! End of declarations
-!
 !*****
 !  DOUBLE PRECISION VERSION
 !

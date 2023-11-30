@@ -1,9 +1,6 @@
 
 SUBROUTINE exo2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , Cor(1) , Ditsiz , Dry , Eol , Eor , Iadd , Irow , Items(7,1) , Lbuf , Line , Mach , Names(10) , Nitem , Nlpp ,    &
          & Nout , Nword(4) , Prc(2) , Sysbuf , Type(2) , Uname(2) , Unit , Z(1)
    DOUBLE PRECISION Da , Dz(1)
@@ -22,18 +19,12 @@ SUBROUTINE exo2
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zntpkx/ A , Irow , Eol , Eor
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER all , bar , bdit , bgss , blank , bmdi , buf1 , buf2 , buf3 , buf4 , cstm , eltype , eog , eoi , eqss , hdr(7) , i ,     &
          & icore , idpcor , iprc , irfno , irw , iss , item , itm , itms(50) , j , jh , k , lams , lcore , loap , lods , matric ,   &
          & more , n , n2 , ncol , ncore , ngpel , nitems , ns , nss , nwds , nwds0 , offset , phase3 , plts , q4 , rc , scr1 , sof ,&
          & soln , sp , srd , subr(2) , swrt , t3 , tables , typout , whole(2) , xxxx
    INTEGER andf , ittype , korsz , rshift
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     EXO2 PERFORMS EXTERNAL FORMAT SOFOUT OPERATIONS
 !

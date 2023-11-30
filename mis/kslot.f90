@@ -1,9 +1,6 @@
 
 SUBROUTINE kslot(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A2 , Coef , Fir(3) , Fiz(3) , Kij , R(3) , Rki , Z(3)
    REAL Dum1(10) , Ecpt(100) , Sysbuf
    INTEGER Ifile , Iopt4 , Ip , Ipvt , Iret , K4ggsw , Lri , Lrj , Lrk , Necpt(100) , Nneg , Nptj , Npvt , Out
@@ -15,17 +12,8 @@ SUBROUTINE kslot(Itype)
    COMMON /sma1io/ Dum1 , Ifile
    COMMON /system/ Sysbuf , Out , Nogo
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , j , k , nj
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES THE STIFFNESS MATRIX TERMS FOR THE
 !     CSLOT3 AND CSLOT4 TWO DIMENSIONAL LAPLACE ELEMENTS

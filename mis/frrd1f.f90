@@ -1,28 +1,16 @@
 
 SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , B(4) , Core(1)
    INTEGER Ieol , Ieor , Ii , Jj , Sysbuf
    COMMON /system/ Sysbuf
    COMMON /zblpkx/ B , Jj
    COMMON /zntpkx/ A , Ii , Ieol , Ieor
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Bhh , Frl , Frqset , Khh , Mhh , Nfreq , Nload , Ph , Uhv
-!
-! Local variable declarations
-!
    REAL cdem , factr , ratio , rdem , w , w2
    INTEGER file , i , ib , ibhh , ibuf1 , ibuf2 , ik , ikhh , im , imhh , ip1 , ipnt , iret , j , lhset , matnam , mcb(7) , name(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ROUTINE  SOLVES DIRECTLY FOR UNCOUPLED MODAL FORMULATION
 !

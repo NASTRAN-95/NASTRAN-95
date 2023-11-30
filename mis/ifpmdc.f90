@@ -1,9 +1,6 @@
 
 SUBROUTINE ifpmdc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    INTEGER Apprch , Dum(17) , Ibits(18) , Ibuf , Id(2) , Im1(6) , Im10(3) , Im2(5) , Im3(4) , Im4(4) , Im5(2) , Im6 , Im7(8) , Im8 ,&
          & Im9(7) , Iparpt , Isfim , Isft(4) , Itwo(32) , Jrun , Kn , Knt , Kor(1) , Lbd , Lcc , M(50) , M1(35) , M1f(35) , Mach ,  &
@@ -21,18 +18,12 @@ SUBROUTINE ifpmdc
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /xsrtcm/ Im1 , Im2 , Im3 , Im4 , Im5 , Im6 , Im7 , Im8 , Isft , Im9 , Isfim , Im10 , Mis
    COMMON /zzzzzz/ Kor
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , rshift
    REAL cd(6)
    LOGICAL cf , diag
    INTEGER cnt , con(38) , exi , i , ibuf1 , ick(6) , icycl , iefm , iend , ieof , ifil , ilst , inc(2) , iod , ionf , ipos , isc , &
          & ists , itm , ivc(2) , j , ji , k , k1 , karl , l , ncore , nf , nw , ret , test , xi(2)
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     IFPMDC MODIFIES BULK DATA CARDS GIVEN THE INFORMATION ON IFIL
 !

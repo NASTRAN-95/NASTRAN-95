@@ -1,9 +1,6 @@
 
 SUBROUTINE rforce(Lcore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Degra , Dumy(25) , Pi , Radeg , S4pisq , Ti(3,3) , To(3,3) , Twophi , Z(1)
    INTEGER Bgpdt , Ieol , Ieor , Ihalf , Ii , Incr , Irow , Isystm(175) , It1 , Ix(5) , Jhalf , Jj , Lc , Mach , Mgg , Mn , Nn(11) ,&
          & Old , Slt , Sysbuf
@@ -16,22 +13,13 @@ SUBROUTINE rforce(Lcore)
    COMMON /xcstm / Ti
    COMMON /zntpkx/ A , Irow , Ieol , Ieor
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Lcore
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    REAL card(6) , mr(3,3) , mt(3,3) , mtr(3,3) , ra(4) , ri(4) , wb(3) , wg(3) , xm(6,6)
    LOGICAL cupmas , nonshl
    INTEGER file , i , i1 , icard(6) , icrrqd , iflag , ip1 , iptax , ir , ira , iy(7) , j , kountm , name(2) , ncol , nharms ,      &
          & nrings , strtmn
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     COMPUTES STATIC LOADS DUE TO ROTATING COORDINATE SYSTEMS
 !

@@ -1,25 +1,13 @@
 
 SUBROUTINE format(A,N1x,N2x,N3x,L1x,L2x)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mo
    REAL Skip
    COMMON /system/ Skip , Mo
-!
-! Dummy argument declarations
-!
    INTEGER L1x , L2x , N1x , N2x , N3x
    REAL A(6)
-!
-! Local variable declarations
-!
    REAL f(6,6,2) , f11(6) , f12(6) , f21(6) , f22(6) , f31(6) , f32(6) , f41(6) , f42(6) , f51(6) , f52(6) , f61(6) , f62(6) , ff(6)
    INTEGER i , l , l1 , l2 , n , n1 , n2 , n3
-!
-! End of declarations
-!
 !
 !  $MIXED_FORMATS
 !

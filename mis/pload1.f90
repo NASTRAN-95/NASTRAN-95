@@ -1,29 +1,17 @@
 
 SUBROUTINE pload1(Opt,Islt,V,Sa,Sb,Ba,Bb,Pa,Pb,Ta,Tb,Slt,Ept)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL F , G
    COMMON /matout/ F , G
-!
-! Dummy argument declarations
-!
    INTEGER Opt
    REAL Ba(3) , Bb(3) , Ept(32) , Pa(6) , Pb(6) , Sa(3) , Sb(3) , Slt(7) , Ta(9) , Tb(9) , V(3)
    INTEGER Islt(7)
-!
-! Local variable declarations
-!
    REAL a(3) , aly , alz , b(3) , c(3) , d(9) , e(9) , f1 , f2 , fscale , fx1 , fx2 , fy1 , fy2 , fz1 , fz2 , len , omaly , omalz , &
       & temp , tmp , tp(3) , x1 , x2
    DOUBLE PRECISION ax , ay , az , bx , by , bz , dfx1 , dfx2 , dfy1 , dfy2 , dfz1 , dfz2 , dl , dt , dx1 , dx2 , i01 , i02 , i11 , &
                   & i12 , i21 , i22 , i31 , i32 , i41 , i42 , s1 , s2 , s3 , s4 , s5
    INTEGER i , j , oldid , scale , type
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     PLOAD1 CALCULATES THE END LOADS ON A BAR ELEMENT FOR PLOAD1 LOADS
 !     IT IS CALLED ONLY BY PLBAR1

@@ -1,18 +1,9 @@
 
 SUBROUTINE scalex(Ilval,Code,L)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Code , Ilval
    INTEGER L(1)
-!
-! Local variable declarations
-!
    INTEGER expnd(6) , i , id , ii , inv , j , k
-!
-! End of declarations
-!
    DO i = 1 , 6
       L(i) = 0
    ENDDO

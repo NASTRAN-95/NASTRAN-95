@@ -1,9 +1,6 @@
 
 SUBROUTINE mpy3oc(Z,Iz,Dz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(2) , D , Dum(2) , Dum1(2) , Fileb(7) , Scr
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Code , Eol , Eor , Filea(7) , Filec(7) , Filee(7) , Iakj , Iantu , Ibcid , Ibcols , Ibntu ,  &
          & Ic , Iflag , Iktbp , Ilast , Incr , Intbu , Intbu2 , Irow , Isavp , J , K , K2 , Ka , Kcount , Laend , Lcore , Lkore ,   &
@@ -21,21 +18,12 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
    COMMON /system/ Sysbuf , Nout
    COMMON /unpakx/ Utyp , Urow1 , Urown , Uincr
    COMMON /zntpkx/ A , Dum , Irow , Eol , Eor
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER buf5 , file , i , j1 , j2 , jbck , jfwd , jj , jj1 , kan , kbc , kbn , kc , kf , kk , kl , kn , kn2 , kt , mm , name(2) ,&
          & nams(2) , nerr , precm
    LOGICAL first3
-!
-! End of declarations
-!
 !
 !     OUT-OF-CORE PRODUCT.
 !

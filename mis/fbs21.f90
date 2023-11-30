@@ -1,9 +1,6 @@
 
 SUBROUTINE fbs21(Block,Y,Yn,Nwds)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbl , N , Nout
    DOUBLE PRECISION L(1)
    CHARACTER*25 Sfm , Uwm
@@ -14,22 +11,13 @@ SUBROUTINE fbs21(Block,Y,Yn,Nwds)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ L
-!
-! Dummy argument declarations
-!
    INTEGER Nwds
    INTEGER Block(20)
    REAL Y(1) , Yn(1)
-!
-! Local variable declarations
-!
    INTEGER begn , buf(3) , end , ii , ij , ik , j , ji , jk , jstr , k , last , nbritm , nbrvec , nstr , nterms , subnam(2)
    DOUBLE PRECISION ljj
    INTEGER locfx
    REAL xlij , xljj , yjk
-!
-! End of declarations
-!
 !
 !     FBS2 EXECUTES THE FORWARD/BACKWARD PASS FOR FBS IN RSP
 !                                                        ===

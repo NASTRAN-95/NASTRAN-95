@@ -1,9 +1,6 @@
 
 SUBROUTINE ifs1p(*,*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort , Baddat , Badfor , Iax , Lharm , Slot
    INTEGER B1 , Bardf2 , Bardf5 , Bardf6 , Bardf7 , Bardf8 , E(40) , I(100) , Iaxf , Id , Idrdl , K , Klotdf(5) , Km , Kn , Knt ,   &
          & Ksystm(80) , Kx , Ky , Ll(6) , M(100) , M1(100) , M1f(100) , Mf(100) , N , Nax , Naxf , Nopen , Nout , Nparam
@@ -17,15 +14,9 @@ SUBROUTINE ifs1p(*,*,*)
                  & Lharm , Knt , Slotdf , Gc , Ll
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    INTEGER bcdc , bcdr , bcds , blk , hbdyix(7) , hbdynm(2,7) , icell , it1 , it2 , it3 , iz , k914 , kl , kz , l , l1 , l2 , l3 ,  &
          & l4 , l50 , nmo , thru
    LOGICAL ifpdco
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksystm(2),Nout) , (Ksystm(3),Abort) , (M(1),Rm(1)) , (Slotdf(1),Klotdf(1))
    DATA hbdynm/4HPOIN , 4HT    , 4HLINE , 4H     , 4HREV  , 4H     , 4HAREA , 4H3    , 4HAREA , 4H4    , 4HELCY , 4HL    , 4HFTUB , &

@@ -1,23 +1,11 @@
 
 SUBROUTINE fornam(Ielt,Iscan,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Nout
    COMMON /system/ Isysbf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ielt , Iscan
    CHARACTER*12 Name
-!
-! Local variable declarations
-!
    INTEGER kscan
-!
-! End of declarations
-!
    Name = ' '
    IF ( Ielt==1 .OR. Ielt==3 .OR. Ielt==10 ) THEN
 ! ROD, TUBE, CONROD

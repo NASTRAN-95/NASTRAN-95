@@ -1,9 +1,6 @@
 
 SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Elset , G(3) , Iout , Merr , Ngp , Nnn , Offscl , Pedge
    REAL Skp1(9) , Skp2(2) , Skp3(7) , Skp4 , Skp5(15) , Skp6(235)
    COMMON /blank / Ngp , Skp1 , Skp2 , Elset , Skp3 , Merr
@@ -11,21 +8,12 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
    COMMON /pltscr/ Nnn , G
    COMMON /system/ Skp4 , Iout
    COMMON /xxparm/ Skp6 , Offscl
-!
-! Dummy argument declarations
-!
    INTEGER Deform , Nwds , Opcor , Opt , Pen
    INTEGER Gplst(1) , Iz(1)
    REAL X(3,1)
-!
-! Local variable declarations
-!
    INTEGER elid , etyp , i , i1 , i2 , ii , iret , j , k , k2d8 , kae , kbar , kfh1 , kfh2 , kfte , kfwd , khb , khx1 , khx2 ,      &
          & kix1 , kix2 , kix3 , kq4 , kt3 , ktet , ktm6 , ktrplt , ktrshl , kweg , l , l1 , ldx(9) , lid , ll , m , m1(16) , n ,    &
          & name(2) , ng(121) , ngpel , ngpelx , ngtyp(2,13) , nm1 , offset , type
-!
-! End of declarations
-!
 !
 !     CALL TO LINEL IS AS FOLLOWS -
 !

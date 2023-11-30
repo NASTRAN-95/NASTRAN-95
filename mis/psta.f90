@@ -1,30 +1,18 @@
 
 SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Emach , Pi , Radg , Refc , Rfk , Seclam , Twopi
    INTEGER Ii , Incr , It0 , Iti , Mcb(7) , Nalpha , Nd , Ne , Njj , Nmach , Nn , Nrow , Nstrip , Ntaus , Nthick , Nthry , Nxis
    COMMON /amgmn / Mcb , Nrow , Nd , Ne , Refc , Emach , Rfk
    COMMON /condas/ Pi , Twopi , Radg , Degra
    COMMON /packx / Iti , It0 , Ii , Nn , Incr
    COMMON /pstonc/ Njj , Nmach , Nthry , Nthick , Nalpha , Nxis , Ntaus , Nstrip , Seclam
-!
-! Dummy argument declarations
-!
    REAL Ajjl
    REAL Alph(1) , Bi(1) , Ca(1) , Deltay(1) , Thi(13)
-!
-! Local variable declarations
-!
    REAL a(3,3) , ai(6) , aj(6) , alpha , alpha2 , b , bref , cbar1 , cbar2 , cbar3 , const , e1k , e1ks , ek(6) , ems , g(3,3) ,    &
       & gi(3,3) , h(3,3) , p(3,6) , q(3,3) , qi(3,3) , rfc , secs , t , tau , tauh , taut , ts , zetah , zetam
    INTEGER i , it , j , k , l , m1 , n , n2
    COMPLEX pc(3)
-!
-! End of declarations
-!
    DATA a/9*0.0/ , h/9*0.0/
    bref = Refc*.5
    rfc = Rfk/bref

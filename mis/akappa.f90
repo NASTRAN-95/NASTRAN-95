@@ -1,23 +1,11 @@
 
 SUBROUTINE akappa(Arg,Bkappa)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX Ai
    REAL Beta , Del , Dstr , Pi , Res , Scrk , Sigma , Sns , Sps
    COMMON /blk1  / Scrk , Sps , Sns , Dstr , Ai , Pi , Del , Sigma , Beta , Res
-!
-! Dummy argument declarations
-!
    REAL Arg , Bkappa
-!
-! Local variable declarations
-!
    REAL arg1 , c1 , c2 , gam , s1 , scrk1
-!
-! End of declarations
-!
 !
 !     SUBROUTINE FOR COMPUTING KAPPA
 !

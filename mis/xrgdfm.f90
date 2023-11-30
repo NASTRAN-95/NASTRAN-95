@@ -1,9 +1,6 @@
 
 SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Altfil , Ichar(80) , Icol , Icount , Idate(3) , Idmap , Ierror , Ignore , Ind , Ipas11(8) , Ipas25(14) , Ipas28(14) ,    &
          & Ipas31(2) , Ipas37(6) , Iphase , Irestr , Iscrx , Istate , Isubal , Ithrml , Itype , Ksystm(100) , Limit(2) , Medmsk(7) ,&
          & Member(2) , N1 , N2 , N3 , Name(2) , Newalt , Nlpp , Nsubst , Num(2) , Number , Nument , Optape , Record(20) , Two(31)
@@ -20,21 +17,12 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
    COMMON /xmssg / Ufm
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscrx , Name , Member , Ignore
-!
-! Dummy argument declarations
-!
    INTEGER Iapp , Iscr , Isize , Nogo
    INTEGER Iopen(100) , Iufile(2) , Newsol(12) , Oldsol(12)
-!
-! Local variable declarations
-!
    INTEGER asters , blank , card , coment , dolacr , dolafl , file , filtyp(4) , ibit , ifill , index , ioutbf(200) , isol , iword ,&
          & k , kb , lu , maxsol , nas , next , numsol(50) , oldind , oldnum , phase(3) , rfmt , solnum(20) , sub(2) , subset
    INTEGER orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     XRGDFM READS AND PROCESSES RIGID FORMATS
 !

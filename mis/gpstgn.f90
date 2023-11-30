@@ -1,9 +1,6 @@
 
 SUBROUTINE gpstgn
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION B(18)
    REAL Bs(18) , Dum(52)
    INTEGER Gpst , Ibuf2 , Igpst , Ii , Incr , Iprec , Isil , Isysbf , Itypot , Iz(1) , Jj , Nout , Nsing
@@ -12,15 +9,9 @@ SUBROUTINE gpstgn
    COMMON /system/ Isysbf , Nout , Dum , Iprec
    COMMON /unpakx/ Itypot , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , icore , ifile , iii , iloop , isilnx , ist , istx , isubnm(2) , ityp , j , k(3) , kgg , logic , luset ,      &
          & mcb(7) , n , npts , sil
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS MODULE GENERATES THE GRID POINT SINGULARITY TABLE
 !     BY EXAMINING THE SUBMATRICES ALONG THE LEADING DIAGONAL

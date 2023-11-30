@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr1a(Input,Iout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Core(1100) , Ii , Ii1 , Incr , Incr1 , It1 , It2 , It3 , Jj , Jj1 , Ksystm(65) , Loadnn , Sysbuf
    REAL Corex(1)
    COMMON /blank / Loadnn
@@ -11,18 +8,9 @@ SUBROUTINE sdr1a(Input,Iout)
    COMMON /system/ Sysbuf , Ksystm
    COMMON /unpakx/ It1 , Ii , Jj , Incr
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER Input , Iout , Itran , Iuf , Iuf1 , Ps
-!
-! Local variable declarations
-!
    INTEGER bcd1(2) , i , ia(7) , ibf , ibf1 , k , mcb(7) , ncolps , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE MAKES PS AND IUF COMPATABLE TO COMPUTE QS IN
 !     CASE OF TRANSIENT ANALYSIS

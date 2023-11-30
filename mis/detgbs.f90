@@ -1,9 +1,6 @@
 
 SUBROUTINE detgbs(Iy,Iobuf,Kcount)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Core(1) , Dum1(23) , Dum2(11) , Dum3(36) , Fa(7) , Fl(7) , Rd , Rdrew , Rew , Wrt , Wrtrew , X(1) , Y(1)
    DOUBLE PRECISION Da(2) , Dx(1) , Dy(1)
    INTEGER Eol , Fc(7) , Ii , Incr , Ipdeta , Itypex , Iunpak , Junpak , Option , Scr3 , Scr4 , Scr6
@@ -15,20 +12,11 @@ SUBROUTINE detgbs(Iy,Iobuf,Kcount)
    COMMON /unpakx/ Itypex , Iunpak , Junpak , Incr
    COMMON /zntpkx/ A , Ii , Eol
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iy , Kcount
    INTEGER Iobuf(7)
-!
-! Local variable declarations
-!
    REAL aden , ai , anum , avalue , sdiag , xmin
    DOUBLE PRECISION dsdiag , dxmin
    INTEGER fileu(7) , i , in1 , in2 , ind , index , ioff , iprec , j , k , lcore , nfile , nrow , parm(4)
-!
-! End of declarations
-!
 !
 !     DETGFBS IS A SPECIAL VERSION OF THE DETFBS ROUTINE AND IS USED BY
 !     THE REAL DETERMINANT METHOD FOR UNSYMMETRIC DECOMPOSITION.

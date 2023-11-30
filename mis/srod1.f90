@@ -1,9 +1,6 @@
 
 SUBROUTINE srod1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Area , Costh , Dummy1(83) , E , Ecpt(17) , Eltemp , Eoverl , Fjovrc , Forvec(25) , G , Gsube , Rho , Sar(3) , Sat(3)&
       & , Sbr(3) , Sbt(3) , Sdelta , Sigc , Sigmac , Sigmas , Sigmat , Sigs , Sigt , Sigvec(77) , Sinth , St , Stress , Ti(9) ,     &
       & Tsub0 , Tsubc0 , Xl , Xn(6)
@@ -13,13 +10,7 @@ SUBROUTINE srod1
    COMMON /sdr2x5/ Ecpt , Dummy1 , Ielid , Isilno , Sat , Sbt , Sar , Sbr , St , Sdelta , Area , Fjovrc , Tsubc0 , Sigmat , Sigmac ,&
                  & Sigmas , Sigvec , Forvec
    COMMON /sdr2x6/ Xn , Ti , Xl , Eoverl , Ibase
-!
-! Local variable declarations
-!
    REAL gcovrl
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS PHASE I OF STRESS DATA RECOVERY FOR THE ROD.
 !*****

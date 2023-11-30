@@ -1,9 +1,6 @@
 
 SUBROUTINE ssght
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ai(4) , Ao(4) , Eps0 , Rz(1) , Tabs
    INTEGER Bmcb(7) , Cls , Clsrew , Ditx , Eol , Ihmat , Iprec , Iprec1 , Ires , Irow , Isign , Jbmcb(7) , Jlmcb(7) , Jprec , Jrow ,&
          & Jsign , Jumcb(7) , Jxmcb(7) , Jzzz , Ksystm(65) , Lmcb(7) , Lz , Maxitr , Mpcf1 , Mptx , Nhmat , Nlk , Nlr , Outpt ,     &
@@ -24,9 +21,6 @@ SUBROUTINE ssght
    COMMON /zblpkx/ Ao , Jrow
    COMMON /zntpkx/ Ai , Irow , Eol
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER alibi(5,5) , buf(10) , buf1 , buf2 , core , dit , eor , est , file , flag , fsize , gm , gptt , gsize , i , iat , idelp ,&
          & idelpz , idelu , ideluz , idfalt , ieqiv , iexit , if , ijk , ipos , iq , iqs , iqsz , iretrn , is , isil , isn , isnz , &
          & ium , iume , iumez , iumz , iun , iunat , iuni , iuniat , iuniz , iusz , j , jdelp , jpos , k , k1 , k2 , kdelu , kff ,  &
@@ -38,9 +32,6 @@ SUBROUTINE ssght
    INTEGER noeor , npoint , nqs , nsize , nsn , num , number , nume , nun , nuni , nval , pf , precis , ps , qg , rfn , rsn ,       &
          & rulmcb(7) , rulv , scrt1 , scrt2 , scrt3 , scrt4 , ssize , subr(2) , telaps , tend , tloop , tstart , ufile , ugv ,      &
          & uset , word
-!
-! End of declarations
-!
 !
 !     THIS IS THE STATIC-SOLUTION-GENERATOR FOR HEAT TRANSFER.
 !

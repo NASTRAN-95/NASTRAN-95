@@ -1,24 +1,12 @@
 
 SUBROUTINE emgsoc(Icore,Ncore,Heat)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ixxx , Mach
    COMMON /machin/ Mach
    COMMON /zzemgx/ Ixxx
-!
-! Dummy argument declarations
-!
    REAL Heat
    INTEGER Icore , Ncore
-!
-! Local variable declarations
-!
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS .MDS VERSION IS USED ONLY IN THE VIRTUAL MACHINES (IBM, VAX,
 !     AND UNIX)

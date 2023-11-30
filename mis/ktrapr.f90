@@ -1,9 +1,6 @@
 
 SUBROUTINE ktrapr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ak(64) , Aki(36) , Akt(9) , Constd(5) , Cosg , D(64) , Degrad , Del , Delint(12) , Dgama , Dgamr , Ee(16) , Er ,&
                   & Et , Ez , Gambq(64) , Grz , R(4) , R1 , R2 , R3 , R4 , Sing , Teo(16) , Twopi , Vrt , Vrz , Vtr , Vtz , Vzr ,   &
                   & Vzt , Z(4) , Z1 , Z2 , Z3 , Z4 , Zmin
@@ -21,16 +18,10 @@ SUBROUTINE ktrapr
    COMMON /sma1et/ Ecpt , Dum5
    COMMON /sma1io/ Dum1 , Ifkgg , Igkgg , If4gg , Dum2
    COMMON /system/ Ibuf , Iout
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dampc , ee48 , rmax , rmin
    INTEGER i , i1 , iai , iapp , ic1 , icore , idel , ip , ipp , iq , ir1 , irc , irg , ising , j , j1 , j2 , jj1 , jj2 , jrz(2) ,  &
          & k , matid
    DOUBLE PRECISION rzintd
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES THE STIFFNESS MATRIX FOR A AXI-SYMMETRIC
 !     RING WITH A TRAPEZOIDAL CROSS SECTION

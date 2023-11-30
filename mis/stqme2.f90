@@ -1,9 +1,6 @@
 
 SUBROUTINE stqme2(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cstr(4) , Cvec(3) , Deform , Delta , Dummy(35) , Est(100) , Fnchk , Forvec(25) , Frtmei(2) , Ftemp , Ph1out(45) , Si(36) ,  &
       & St(3) , Stres(100) , Stress(3) , Tem , Temp , Tsub0 , Twotop , Vec(3) , Z(1)
    INTEGER Ibfsz , Idm(9) , Ild , Isub , Ivec , Ivecn , Ldtemp , Line , Nchk , Nout , Npoint , Nsil(4) , Nsize
@@ -13,19 +10,10 @@ SUBROUTINE stqme2(Ntype)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER eject
    REAL frlast(2)
    INTEGER i , ishd(7) , istyp(2) , j , k , lld , lsub , typ(3)
-!
-! End of declarations
-!
 !
 !     PHASE TWO STRESS DATA RECOVERY TRIANGULAR MEMBRANE
 !

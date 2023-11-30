@@ -1,18 +1,12 @@
 
 SUBROUTINE tmtsot
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dummy(74) , Rbldpk , Rgetst , Rgino , Rintpk , Rpack , Rputst , Runpak , Tbldpk , Tgetsb , Tgetst , Tgino , Tintpk ,        &
       & Tllcdp , Tllcsp , Tllrdp , Tllrsp , Tpack , Tputst , Ttlcdp , Ttlcsp , Ttlrdp , Ttlrsp , Tunpak
    INTEGER Isy77 , Isysbf , Nitems , Nout
    COMMON /ntime / Nitems , Tgino , Tbldpk , Tintpk , Tpack , Tunpak , Tgetst , Tputst , Ttlrsp , Ttlrdp , Ttlcsp , Ttlcdp ,        &
                  & Tllrsp , Tllrdp , Tllcsp , Tllcdp , Tgetsb , Rgino , Rbldpk , Rintpk , Rpack , Runpak , Rgetst , Rputst
    COMMON /system/ Isysbf , Nout , Dummy , Isy77
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PRINTS THE CONTENTS OF COMMON /NTIME/
 !

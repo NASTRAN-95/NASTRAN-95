@@ -4,24 +4,12 @@ SUBROUTINE pack(A,File,Mcb)
    INCLUDE 'DSIOF.COM'
    INCLUDE 'PAKBLK.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Iflpos(2,80) , Incr , Irobgn , Itypin , Itypot , Lasrow
    COMMON /ddiosv/ Iflpos
    COMMON /packx / Itypin , Itypot , Irobgn , Lasrow , Incr
-!
-! Dummy argument declarations
-!
    INTEGER File
    INTEGER A(4) , Mcb(7)
-!
-! Local variable declarations
-!
    INTEGER incrr , indea1 , indexa , indexb , irow , k , kk , klast , klim , lasind , ncnt , nwdin
-!
-! End of declarations
-!
    Name = File
    Iblkc(1) = Name
    Iblkc(2) = Itypot

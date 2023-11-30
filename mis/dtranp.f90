@@ -1,9 +1,6 @@
 
 SUBROUTINE dtranp
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Ia(7) , Iat(7) , Ibuf , Iscr(8) , Ixx , Lcore , Nout , Nscr
    CHARACTER*23 Ufm
@@ -13,14 +10,8 @@ SUBROUTINE dtranp
    COMMON /trnspx/ Ia , Iat , Lcore , Nscr , Iscr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER i , in1 , in2
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DRIVER OF MATRIX TRANSPOSE MODULE
 !

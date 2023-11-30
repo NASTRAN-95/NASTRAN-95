@@ -1,9 +1,6 @@
 
 SUBROUTINE vec
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bn(32,2) , Ii , Incr , Lb , Nerr , Nn , Nout , P1(2) , P2(2) , P3(2) , P4 , Two(32) , Tyin , Tyou
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -15,17 +12,11 @@ SUBROUTINE vec
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER b(2) , blank , c(2) , d(2) , f , fi , fo , i , ib , j , k , l , lc , lcex , lr(2,2) , maskx , maskx0 , maskx1 , modnam(2)&
          & , nam(2) , nbn , nermax , nr , nw , nz , offset , p(2) , t(7)
    LOGICAL cols , flag1 , flag2 , l0 , l1 , lz
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THE CALL TO THIS MODULE IS
 !                   VEC USET  / V / C,N,X / C,N,X0 / C,N,X1 $

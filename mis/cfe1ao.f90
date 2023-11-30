@@ -1,27 +1,15 @@
 
 SUBROUTINE cfe1ao(Tpose,V1,V2,V3,Zb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum01(2) , Dum02(2) , Dum03(4) , Dumaa(117) , Epsdum(2) , Lambda(4)
    INTEGER Ib(7) , Idiag , Ik(7) , Im(7) , Ksys , Mcblmb(7) , Nord , Nord2 , Nord4 , Nordp1 , Northo , Nout
    LOGICAL Nob , Qpr
    COMMON /feeraa/ Ik , Im , Ib , Dumaa , Mcblmb
    COMMON /feerxc/ Lambda , Dum01 , Nord , Idiag , Epsdum , Northo , Nord2 , Nord4 , Nordp1 , Dum02 , Nob , Dum03 , Qpr
    COMMON /system/ Ksys , Nout
-!
-! Dummy argument declarations
-!
    LOGICAL Tpose(1)
    REAL V1(1) , V2(1) , V3(1) , Zb(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , ni , nj
-!
-! End of declarations
-!
 !*******
 !     CFE1AO IS A SINGLE PRECISION ROUTINE WHICH PERFORMS THE OPERATION
 !     (A) OR (A)-TRANSPOSE FOR THE COMPLEX FEER METHOD. THIS OPERATION

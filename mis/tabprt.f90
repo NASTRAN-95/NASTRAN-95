@@ -1,9 +1,6 @@
 
 SUBROUTINE tabprt(Iname1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dum(42) , Head1(96) , Head2(96) , Xns(1)
    CHARACTER*1 Core1(2000)
    DOUBLE PRECISION Dcore(1) , Xnd(1)
@@ -16,22 +13,13 @@ SUBROUTINE tabprt(Iname1)
    COMMON /system/ Sysbuf , Otpe , Inx , Nlpp , Inx1 , Line , Dum , Iprc
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iname1
-!
-! Local variable declarations
-!
    REAL alphc , alphc1 , blank , cont , cparen , d , ebb , ec , ec1 , ec2 , oparen , sp(3) , tabl , uned
    INTEGER bcd , block(20) , flag , format , forms(2) , fpn , i , iflag , iform , iname , int , intgc , inum , iout , ircd , irec , &
          & ix , ixxx , j , jj , jpoint , jv , llen , n , name(2) , np , npoint , nred , ns , nsp , nterms , nz , pure , recf , row ,&
          & strnbr , type , types(4)
    LOGICAL dec
    INTEGER korsz , numtyp
-!
-! End of declarations
-!
 !
 !     WILL PRINT TABLE - USING 1P,E13.6, I13, OR (9X,A4) FORMAT
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE srod2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Area , Cfrvec(4) , Chkvec(4) , Dummy(33) , Dummy2(77) , Dummy3(95) , Dummy4(22) , Eldefm , Fjovrc , Fnchk , Frtmei(2) , P , &
       & Rota , Rotb , Sar(3) , Sat(3) , Sbr(3) , Sbt(3) , Sdelta , Sigma , Sigmac , Sigmas , Sigmat , Skp2de(8) , Smsig , Smtau ,   &
       & St , Tau , Templd , Torque , Trana , Tranb , Tsubc0 , Twotop , Zz(1)
@@ -17,15 +14,9 @@ SUBROUTINE srod2
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Zz
-!
-! Local variable declarations
-!
    REAL cp , crta , crtb , csiga , ctau , ctrna , ctrnb , ctrque , frlast(2)
    INTEGER eject
    INTEGER idisp , ishd(7) , j , k , lld , lsub , typ(4)
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS PHASE II OF STRESS DATA RECOVERY FOR THE ROD.
 !*****

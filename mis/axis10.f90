@@ -1,24 +1,12 @@
 
 SUBROUTINE axis10(X1,Y1,X2,Y2,Penden,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Skpplt(2) , Xymax(2) , Xymin(2)
    COMMON /pltdat/ Skpplt , Xymin , Xymax
-!
-! Dummy argument declarations
-!
    INTEGER Opt , Penden
    REAL X1 , X2 , Y1 , Y2
-!
-! Local variable declarations
-!
    INTEGER a(6) , axis , i , j , optx
    REAL xy(2,2)
-!
-! End of declarations
-!
 !
 !     (X1,Y1) = STARTING POINT OF THE AXIS.
 !     (X2,Y2) = TERMINAL POINT OF THE AXIS.

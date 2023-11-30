@@ -1,9 +1,6 @@
 
 SUBROUTINE exio1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Avblks , Blksiz , Buf(10) , Cor(1) , Date(3) , Datype(2) , Device(2) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , &
          & Ditsiz , Dry , Eofnrw , Filnam(10) , Filsiz(10) , Hdrec(10) , Head1(96) , Head2(96) , Hours , Ifrst , Ihalf , Io ,       &
          & Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Items(7,1) , Jhalf , Line , Mach , Mdi , Mdibl , Mdilbn ,     &
@@ -30,9 +27,6 @@ SUBROUTINE exio1
    COMMON /system/ Sysbuf , Nout , X1 , Nlpp , X2 , Line , X3 , Date , X4 , Nbpc , Nbpw , Ncpw
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm , Sim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER all , append , blank , buf1 , buf2 , buf3 , buf4 , buf5 , check , comprs , disk , dump , eoi , eqf , flag , hdr , i ,    &
          & icount , id , idm , ifile , inblk(15) , incblk , ipos , irec , iss , item , itype , iz2 , j , jcopy , jmdi , jrmdi ,     &
          & jss , k , kdh , kdit , kmdi , knxt , lcore , lrec1 , mask , matric , n , ncopy , ncore , nitems , nold , norewi , nos ,  &
@@ -41,9 +35,6 @@ SUBROUTINE exio1
    INTEGER andf , ittype , korsz , lshift , orf , rshift , sofsiz
    LOGICAL tapbit
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !     EXIO1 SERVICES INTERNAL FORMAT FUNCTIONS FOR EXIO.
 !

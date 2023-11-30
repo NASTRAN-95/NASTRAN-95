@@ -1,18 +1,12 @@
 
 SUBROUTINE timtst
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , M , N , Nout , O1 , O2 , T
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /blank / N , M , T , O1 , O2
    COMMON /system/ Isysbf , Nout
    COMMON /xmssg / Ufm , Uwm
-!
-! End of declarations
-!
 !
 !     TIMETEST   /,/ C,N,N / C,N,M / C,N,T / C,N,O1 / C,N,O2 $
 !

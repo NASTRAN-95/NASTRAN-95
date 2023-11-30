@@ -1,14 +1,8 @@
 
 SUBROUTINE tktztk(Tk,Z,Nz,L,M,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER L , M , N , Nz
    DOUBLE PRECISION Tk(3,3) , Z(1)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE  PERFORMS A COORDINATE TRANSFORMATION ON THE
 !     SYMMETRIC HALF OF A 3 BY 3 MATRIX

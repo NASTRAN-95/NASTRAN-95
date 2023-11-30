@@ -1,9 +1,6 @@
 
 SUBROUTINE giggks
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bagpdt , Ccard(5) , Cstm , Ecta , Gm , Go , Gsize , Gtka , Iz(1) , Ksize , Ngset , Nkset , Out , Scard(5) , Scr1 , Scr2 ,&
          & Scr3 , Scr4 , Scr5 , Sila , Spline , Sysbuf , Useta
    REAL Ch1 , Ch2 , Crard(16) , Degra , Dum(3) , Set2(8) , Sp1 , Sp2 , Z(28) , Z1 , Z2
@@ -15,9 +12,6 @@ SUBROUTINE giggks
    COMMON /system/ Sysbuf , Out
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER atab(2) , buff , buff1 , buff2 , caero(3) , ctyp , eqt(7) , gkset , i , i1 , i18 , idum , ieq , ifil , ifrst , ii , il , &
          & iz2 , j , j1 , jj , jjj , jl , k , kk , kkk , l , lca , ls2(3) , max , n , n1 , nbg , nco , ncord , ncstm , neq , nk ,   &
          & nmax , nmin , nogo , nr , ns(2) , ns1 , ns2 , ns3 , nsil , nw , nwds , nwr , pbgpt , pcstm , prcp , pre , ptcp , pte ,   &
@@ -25,9 +19,6 @@ SUBROUTINE giggks
    REAL b(6) , c(18) , cb(18) , px1 , px2 , px3 , px4 , py1 , py2 , py3 , py4 , sum , temp(3) , temp1(6) , x1b(3) , x1e(3) , x2e ,  &
       & x3e , x4b(3) , x4e(3) , y2e , y3e
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE READS THE SPLINE CARDS AND DETERMINES THE
 !     POINTS IN THE G AND K S

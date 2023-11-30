@@ -1,9 +1,6 @@
 
 SUBROUTINE sdr2d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , App(2) , Bgpdt , Bk0(2) , Bk1(2) , Branch , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Buf6 , Buf7 , Buf8 , Bufa(100) ,    &
          & Bufb(4076) , Casecc , Cei(2) , Comps , Cstm , Date(3) , Device , Displ , Ds0(2) , Ds1(2) , Dtype(8) , Edt , Eigr ,       &
          & Eldef , Elemid , Elesta(100) , Eltype , Eof , Eol , Eqexin , Esta , Estawd , Fdest , File , Flag , Force , Forcex ,      &
@@ -54,17 +51,11 @@ SUBROUTINE sdr2d
    COMMON /zblpkx/ Y , Iy
    COMMON /zntpkx/ Xx , Ixx , Eol , Eor
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL axcosi , axsine
    INTEGER buf(50) , buf0 , bufm1 , idx , ieqex , iflag , ilayer , index , iskip , isvsrc , isvvcn , isvvec , itr(7) , ixstnf ,     &
          & ixstns , kdefrm(2) , limit , ncc , neqex , nmef1l(2) , nmes1l(2) , pcomp(2) , pcomp1(2) , pcomp2(2) , xset0
    REAL bufr(2) , coef1
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SDR2D PERFORMS THE FINAL STRESS AND FORCE RECOVERY COMPUTATIONS.
 !     CASE CONTROL AND THE DISPLACEMENT VECTOR FILE ARE PROCESSED IN

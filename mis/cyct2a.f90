@@ -1,22 +1,10 @@
 
 SUBROUTINE cyct2a(Kaa,Kxx,G1,G2,Scr1,Scr2,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idum(54) , Iprec
    COMMON /system/ Idum , Iprec
-!
-! Dummy argument declarations
-!
    INTEGER G1 , G2 , Kaa , Kxx , Scr1 , Scr2 , Scr3
-!
-! Local variable declarations
-!
    INTEGER iout , isc , isc1 , isc2 , mcb(7)
-!
-! End of declarations
-!
 !
    mcb(1) = Kaa
    CALL rdtrl(mcb)

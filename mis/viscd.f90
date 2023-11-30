@@ -1,9 +1,6 @@
 
 SUBROUTINE viscd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(12) , Ecpt(14) , Heat , Skp , Xx(1)
    INTEGER Elid , Estid , Icmbar , Idamp , Idm , Iecpt(14) , Ielid , Iheat , Imass , Ioutpt , Iprec , Istif , Ixtra , Jcore ,       &
          & Ksystm(53) , Lcstm , Ldict , Lhmat , Lmat , Ncore , Ngrids
@@ -15,16 +12,10 @@ SUBROUTINE viscd
    COMMON /system/ Skp , Ioutpt , Ksystm , Iheat
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Xx
-!
-! Local variable declarations
-!
    DOUBLE PRECISION b(144) , c1 , c2 , d(64) , fl , ta(9) , tb(9) , vec(3)
    INTEGER dict(7) , i , i1 , i2 , ia , iab , ib , iba , ifile , indx(4) , ip , ipa , ipb , ix , j , jtj , kb , kbb , kbx(4) , kx(4)
    REAL dict5
    LOGICAL idbug
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE 12X12 MATRIX BGG FOR A VISCOUS
 !     (DASHPOT) ELEMENT

@@ -1,9 +1,6 @@
 
 SUBROUTINE input
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degra , Pi , Radeg , S4pisq , Twopi , X(1)
    INTEGER Ix(1) , Ksystm(100) , Mach , Modcom(9) , Nbuf , Nin , Nlines , Nout , Parama , Paramb , Paramc , Sperlk , Two(32)
    CHARACTER*25 Sfm , Uwm
@@ -16,9 +13,6 @@ SUBROUTINE input
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    CHARACTER*8 chr , e1 , e2 , e3
    REAL cl , ddy , dx , dy , f , lambda , qk(100) , sl , th , u , x1 , x2 , x3 , xb , xk1 , xk2 , xl , xm , xo , zk , zm
    INTEGER cord2c(2) , eee(3) , fil , file , filin(5) , filout(5) , hfil(3,5) , i , i1t(20) , i1tt , i2t(20) , i2tt , ibuf , ic ,   &
@@ -30,9 +24,6 @@ SUBROUTINE input
    INTEGER iunion , korsz , orf
    INTEGER lf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     INPUT I1,I2,I3,I4,I5/O1,O2,O3,O4,O5/C,N,-V1-/C,N,-V2-/C,N,-V3- $
 !

@@ -1,9 +1,6 @@
 
 BLOCKDATA sma2bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bggind , Dummy(202) , Ecpt(200) , Frowic , Tnrows
    INTEGER Clsnrw , Clsrw , Eor , I6x6b , I6x6m , Icstm , Idum1 , Idum2 , Idum3 , Idum4 , Idum5 , Ifbgg , Ifcstm , Ifdit , Ifecpt , &
          & Ifgpct , Ifmgg , Ifmpt , Igbgg , Igecpt , Iggpct , Igmgg , Igpct , Inrw , Iopt4 , Ipoint , Jmax , Left , Link(10) ,      &
@@ -13,9 +10,6 @@ BLOCKDATA sma2bd
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Ifcstm , Ifmpt , Ifdit , Idum1 , Ifecpt , Igecpt , Ifgpct , Iggpct , Idum2 , Idum3 , Ifmgg , Igmgg , Ifbgg ,     &
                  & Igbgg , Idum4 , Idum5 , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbmgg , Mcbbgg
-!
-! End of declarations
-!
 !SMA2BD
 !
 !

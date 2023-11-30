@@ -1,9 +1,6 @@
 
 SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1 , Count , Eid , Est1 , Est2 , Ig10 , Incr , Iprnt , Iy(1) , Iz(100) , Last , Lpch , Max , Ncard , Ne(1) , Nelop ,     &
          & Nelw , Nklw , Nlines , Nlpp , Noeor , Nprw , Nrd , Ntotl , Ntypes , Nwdse , Nwdsp , Nweor , Nwrt , Outtap , Sysbuf ,     &
          & Ycor , Zcor
@@ -19,22 +16,13 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
    COMMON /system/ Sysbuf , Outtap , Skps1 , Nlpp , Skps2 , Nlines , Skps3 , Lpch
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iel(1) , Ipr(1) , Pt(2,1)
    REAL Pr(1) , Rr(1)
-!
-! Local variable declarations
-!
    REAL a , blk , c , ch , pc , pcd(2,21) , plus , yes
    INTEGER eject , khrfn3
    INTEGER etyp , headng , i , icp , ie1 , ie2 , ii , ip1 , ipl , irr , itp , j , jj , k , k1 , k2 , k3 , kk , kount , l , lel ,    &
          & locf , mcb(7) , n , name(2) , neop(21) , nmes , npcard , nwds , quad4 , tria3 , trim6 , tube , wdopt(42)
    LOGICAL kpun
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Iz(1),Z(1)) , (Eid,Z(1)) , (Core(1),Parm(1),Max) , (G(1,1),Iz(100)) , (G(1,10),Ig10) , (Iprnt,Parm(7)) ,            &
     & (Iy(1),Y(1),Parm(8))

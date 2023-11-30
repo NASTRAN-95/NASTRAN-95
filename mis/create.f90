@@ -1,30 +1,18 @@
 
 SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntr(50) , Flag , Scr2 , Ski(2) , Skip(12) , Skip1(7) , Skip4(157) , Skp20(20) , Value
    INTEGER Direct , Est , Icntvl , Layer , Ncntr , New , Newoes , Oes1 , Prnt , Scr1 , Sub , Where
    COMMON /blank / Skip , Est , Skip1 , Prnt , Ski , Oes1 , Scr1 , Scr2 , New
    COMMON /xxparm/ Skip4 , Ncntr , Cntr , Icntvl , Where , Direct , Sub , Flag , Value , Skp20 , Layer
-!
-! Dummy argument declarations
-!
    INTEGER B1 , B2 , Deform , Lcor
    REAL Conmax , Conmin
    INTEGER Elmtid(100) , Gplst(1)
    REAL Store(202) , U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    REAL c(2,4) , centrd(2) , contur , detail , eigen , pt(2,5) , third(2) , twopi
    INTEGER elid , err(2) , estsym(7) , esym , gpts(12) , i , idummy(2) , ieltyp , ieor , ig , index , irdest , is , ist , isub ,    &
          & isym(14) , itype(14) , iwds , j , jtj , k , kbar , kest , kq4 , kt3 , layskp , laytot , m , mem , msg1(20) , ngppe ,     &
          & nlayer , nlfin , nmsg1 , ntypes , nwds , offset , skipwd(20) , stress
-!
-! End of declarations
-!
 !
    EQUIVALENCE (New,Newoes) , (kq4,isym(13)) , (kt3,isym(14))
    DATA ntypes/14/

@@ -3,13 +3,7 @@ SUBROUTINE rdblk(*,File,Ifirst,Left)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , Ifirst , Left
-!
-! End of declarations
-!
    Name = File
    CALL dsgefl
 !        PRINT *,' RDBLK,NAME,IFILEX,INDBAS=',NAME,IFILEX,INDBAS

@@ -3,18 +3,9 @@ SUBROUTINE dbmdia
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'ZZZZZZ.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Isysbf , Iwr
    COMMON /system/ Isysbf , Iwr
-!
-! Local variable declarations
-!
    INTEGER i , iblksz , iextb , iintb , index , itoti , itotx , scratch(2)
-!
-! End of declarations
-!
 !********************************************************************
 !     DBMDIA - DUMPS THE IN MEMORY DATA BASE DIRECTORY
 !********************************************************************

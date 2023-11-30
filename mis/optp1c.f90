@@ -1,9 +1,6 @@
 
 SUBROUTINE optp1c(Elt,Elop,Pr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B1p1 , Count , Entry(21) , Ept , Incr , Last , Ne(1) , Noeor , Npow , Nprw , Nrd , Ntypes , Nwdsp , Nweor , Nwrt ,       &
          & Outtap , Prc(1) , Prcor , Sysbuf , Ycor
    CHARACTER*25 Sfm , Uwm
@@ -17,18 +14,9 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Dummy argument declarations
-!
    INTEGER Elop(2,2) , Elt(1) , Pr(1)
-!
-! Local variable declarations
-!
    INTEGER card(2) , dtyp(21) , i , icpr , icpt , idp , idpe , idps , idx , ietyp , j1 , j2 , jetyp , m1 , name(2) , npr
    REAL rm1
-!
-! End of declarations
-!
 !
    EQUIVALENCE (m1,rm1)
    DATA name/4H OPT , 4HP1C / , rm1/ - 1.0/

@@ -1,9 +1,6 @@
 
 SUBROUTINE dpd4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(24) , Buf1 , Buf2 , Buf3 , Buf4 , Dload(2) , Dlt , Dpool , Eed , Eigb(2) , Eigc(2) , Eigr(2) , Epoint(2) , Eqdyn ,   &
          & Freq(2) , Freq1(2) , Frl , Gpl , Gpld , Ineq , Kn , L , Loads(32) , Luset , Lusetd , Mcb(7) , Msg(3) , Nam(2) , Neqdyn , &
          & Ngrid , Nlft , Nodlt , Noeed , Nofrl , Nogo , Nolin(21) , Nonlft , Nopsdl , Notfl , Notrl , Psd(2) , Psdl , Scr1 , Scr2 ,&
@@ -19,16 +16,10 @@ SUBROUTINE dpd4
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew
    COMMON /two   / Two
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER file , flag , i , id , ii , iii , incore , inolin , ipoint , iset , itic , iusetd , j , k , k1 , k2 , kk , kkk , kset ,  &
          & mskud , mskue , n , nn , nnolin , nolinr , notic , notstp , nset , nusetd , nwdin
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     DPD4 ASSEMBLES THE NON-LINEAR FORCING TABLE (NLFT)
 !     AND THE TRANSIENT RESPONSE LIST (TRL).

@@ -1,9 +1,6 @@
 
 SUBROUTINE psrod
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Diff(3) , Dum2(2) , Ecpt(100) , Esub0 , Gamma , Gammas , Gsub0 , Plaans , Plaarg , Sigma , Sigmac , Sigmas , Sigmat ,       &
       & Smsig , Smtau , Ta(9) , Tau , Tb(9) , Temdum , Ua(9) , Ub(9) , Xl , Xn(3)
    INTEGER Iecpt(100) , Jselid , Matdum(5) , Matflg , Matidc , Mssig , Mstau
@@ -13,14 +10,8 @@ SUBROUTINE psrod
    COMMON /pla32e/ Ecpt
    COMMON /pla32s/ Xl , Xn , Ua , Ub , Ta , Tb , Diff
    COMMON /sout  / Jselid , Sigma , Smsig , Tau , Smtau
-!
-! Local variable declarations
-!
    REAL deps1 , deps2 , e , eps1 , eps2 , epsin1 , epsin2 , esub0l , g , gsub0l , p , sigma1 , sigma2 , t , term
    INTEGER i , ibasea , ibaseb , iselid
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE COMPUTES STRESSES AND FORCES FOR THE ROD ELEMENT FOR THE
 ! PLA3 FUNCTIONAL MODULE.

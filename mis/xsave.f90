@@ -1,20 +1,11 @@
 
 SUBROUTINE xsave
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ioscr(7) , Ipar(1) , Ivps(1)
    COMMON /blank / Ipar
    COMMON /oscent/ Ioscr
    COMMON /xvps  / Ivps
-!
-! Local variable declarations
-!
    INTEGER i1 , i2 , j , k , l , n
-!
-! End of declarations
-!
 !     THE PURPOSE OF THIS ROUTINE IS TO PERFORM THE FUNCTIONS ASSIGNED
 !     TO THE SAVE DMAP INSTRUCTION.
 !

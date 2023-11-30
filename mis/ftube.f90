@@ -1,9 +1,6 @@
 
 SUBROUTINE ftube
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dmmm(4) , Dum15(15) , Est(16) , Pi , Sysbuf
    LOGICAL Error , Heat
    INTEGER Estid , Iest(1) , Ioutpt , Iprec , Kmb(3)
@@ -16,15 +13,9 @@ SUBROUTINE ftube
    COMMON /emgprm/ Dum15 , Kmb , Iprec , Error , Heat
    COMMON /system/ Sysbuf , Ioutpt
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Local variable declarations
-!
    INTEGER dict(7) , ifil , irtn , isze
    REAL dict5 , id1 , id2 , rhocp , rk(4) , vdot , xa , xb , ya , yb , za , zb
    DOUBLE PRECISION k(4) , length
-!
-! End of declarations
-!
 !
 !     THIS IS THE FLUID TUBE ELEMENT IN HEAT TRANSFER.
 !     IT COMPUTES AND OUTPUTS THE CONDUCTIVITY AND/OR CAPACITY MATRICES

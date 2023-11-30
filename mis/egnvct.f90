@@ -1,22 +1,13 @@
 
 SUBROUTINE egnvct(C1,C2,Eigen,C3,N1,N2,N)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    COMPLEX Eigen
    INTEGER N
    COMPLEX C1(N,N) , C2(N) , C3(N)
    INTEGER N1(N) , N2(N)
-!
-! Local variable declarations
-!
    COMPLEX d1 , d2 , d3 , d4 , d5 , d6 , d8
    INTEGER i , i1 , ii2 , ii3 , ii4 , j , j1 , k , k5 , k6
    REAL x1 , x2
-!
-! End of declarations
-!
 !
 !     SUBROUTINE TO OBTAIN EIGENVECTOR FROM REAL NON-SYMMETRIC
 !     MATRICES FOR WHICH THE EIGENVALUE IS KNOWN.  THE METHOD

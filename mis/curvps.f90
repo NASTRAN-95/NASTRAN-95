@@ -1,17 +1,8 @@
 
 SUBROUTINE curvps(Sigs,Prin)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Prin(4) , Sigs(3)
-!
-! Local variable declarations
-!
    REAL delta , temp
-!
-! End of declarations
-!
 !*****
 !  COMPUTES PRINCIPAL STRESSES OR STRAINS AND ANGLE OF MAXIMUM.
 !*****

@@ -22,9 +22,6 @@ SUBROUTINE xosgen
 !              INSTRUCTION.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alter(2) , Bcdcnt , Bufsz , Ceitbl(42) , Cnmtp , Core(1) , Diag14 , Diag17 , Diag25 , Diag4 , Dmap(1) , Dmpcnt , Dmppnt ,&
          & Dum(20) , Fiat(3) , File(1) , Fnmtp , Fpnt , Iallon , Iapp , Iappnd , Ibuff(20) , Icfiat , Icfpnt , Icftop , Ichar ,     &
          & Icold , Icpflg , Icrdtp , Icst , Ictlfl(1) , Idmapp , Idmpnt , Idsapp , Iequl , Iestim , Ifirst , Iflag , Iflg(6) ,      &
@@ -55,9 +52,6 @@ SUBROUTINE xosgen
    COMMON /xoldpt/ Xx , Seqno
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , korsz , lshift , orf , rshift
    INTEGER cdcomp(3) , declar(3) , dmpcrd(1) , fcode , fparam(3) , i , i1 , idlhss , idpbuf , iendf , ilevel , index , iold , ion , &
          & iosdav , iospnt , iprcfo , iprime , itype(6) , ivrept , ix , iy , j , j1 , jx , k , k1 , k2 , kdh , kk , l , lblbot ,    &
@@ -66,9 +60,6 @@ SUBROUTINE xosgen
          & xchk , xdmap(2)
    LOGICAL skip
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
 !WKBR COMMON /XGPI3 / PVT(2)
 !WKBR COMMON /XCEITB/ CEITBL(2)
 !

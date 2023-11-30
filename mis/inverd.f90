@@ -1,26 +1,14 @@
 
 SUBROUTINE inverd(Ndim,A,N,B,M,Determ,Ising,Index)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mach
    COMMON /machin/ Mach
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Determ
    INTEGER Ising , M , N , Ndim
    DOUBLE PRECISION A(Ndim,1) , B(Ndim,1)
    INTEGER Index(N,3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION amax , epsi , pivot , swap , t
    INTEGER i , icolum , irow , j , jcolum , jrow , k , l , l1
-!
-! End of declarations
-!
 !
 !     INVERSE, OR LINEAR EQUATIONS SOLVER
 !

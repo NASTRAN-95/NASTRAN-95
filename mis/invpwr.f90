@@ -1,9 +1,6 @@
 
 SUBROUTINE invpwr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Comflg , Dmpfil , Filek(7) , Ind , Iprec , Ireg , Istart , Isym , Iter , Ivect , Iz(12) , Keep(2) , Ksystm(65) , Ndmnus ,&
          & Ndplus , Neg , Nochng , Noest , Noneg , Nopos , Norew , Northo , Nzero , Rew , Sr1fil , Sr2fil , Sturm , Switch ,        &
          & Sysbuf , Timed , Wrtrew
@@ -19,18 +16,12 @@ SUBROUTINE invpwr
    COMMON /sturmx/ Sturm , Shftpt , Keep
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL dellam , lmin , x , y
    INTEGER ibuf1 , icrq , ifile , ishift , ising , iterm , ix , mxchng , name(2) , ncol , ncol2 , no , nodcmp , nomovs , nostrt ,   &
          & nshift , nz , t1 , t2
    INTEGER korsz , mtimsu , mtmsu1 , norm1 , norm11
    REAL sub , sub1 , xtrnsy , xtrny1
    EXTERNAL mtimsu , mtmsu1 , norm1 , norm11 , sub , sub1 , xtrnsy , xtrny1
-!
-! End of declarations
-!
 !
 !     GIVEN A REAL SYMETRIC MATRIX, INVPWR WILL SOLVE FOR ALL OF THE
 !     EIGENVALUES AND EIGENVECTORS WITHIN A SPECIFIED RANGE

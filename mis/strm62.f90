@@ -1,27 +1,15 @@
 
 SUBROUTINE strm62(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Deform , Delta , Dum8(8) , Dummy(35) , Ftemp , Ph1out(250) , Si(36) , Tem , Temp , Vec(5) , Z(1)
    INTEGER Ij1 , Ij2 , Ivec , Ivecn , Ldtemp , Nph1ou(990) , Npoint , Npt1 , Ns1l(6) , Tloads
    COMMON /sdr2x4/ Dummy , Ivec , Ivecn , Ldtemp , Deform , Dum8 , Tloads
    COMMON /sdr2x7/ Ph1out
    COMMON /sdr2x8/ Temp , Delta , Npoint , Ij1 , Ij2 , Npt1 , Vec , Tem
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    REAL Ti(6)
-!
-! Local variable declarations
-!
    INTEGER i , ii , ii12 , ijk , j , j1 , j2
    REAL sigx1 , sigx2 , sigxy1 , sigxy2 , sigy1 , sigy2 , stout(99) , str(18) , stress(3) , temp1
-!
-! End of declarations
-!
 !
 !
 !     PHASE II OF STRESS DATA RECOVERY FOR TRIANGULAR MEMBRANE ELEMENT

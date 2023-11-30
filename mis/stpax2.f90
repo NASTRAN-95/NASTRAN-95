@@ -1,9 +1,6 @@
 
 SUBROUTINE stpax2(Sorc,Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ak(144) , Akph2(16) , Akuph(48) , Block(62,14) , Clock(62,14) , Conphi , Consts(5) , D15(15) , D30(30) , D4(4) , Degrad ,   &
       & Disp(12) , Dum1(33) , Dum2(424) , Dum3(225) , Dum4(12) , Dum5(33) , Eforc(12) , Eldefm , Estres(30) , Force(25) , Harm ,    &
       & Nphi , Phi(14) , Sel(360) , Selp1(120) , Selp2(180) , Selp3(60) , Sinphi , Stres(100) , Templd , Ts(6) , Tz , Unu(93) ,     &
@@ -17,21 +14,12 @@ SUBROUTINE stpax2(Sorc,Ti)
    COMMON /sdr2x8/ Disp , Eforc , Estres , Harm , N , Sinphi , Conphi , Nphi , Nangle , Elemid , Unu , Nelhar , Kangle , Klemid
    COMMON /system/ Ksystm , Ksys78
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    INTEGER Sorc
    REAL Ti(4)
-!
-! Local variable declarations
-!
    REAL dispp(4) , dt , echrg(4) , eflux(15) , t
    INTEGER i , ie , ii , iloc , ilocp , iosorc , ir , j , k , ke , kepz , kepz2 , kk , kr , kr3 , krpz , l , ncomp , ndof , ns ,    &
          & nsp , numpt
    LOGICAL lsys78 , zero , zeron
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS PHASE II OF STRESS RECOVERY FOR THE TRAPEZOIDAL
 !     CROSS SECTION RING

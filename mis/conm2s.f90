@@ -1,22 +1,13 @@
 
 SUBROUTINE conm2s
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dmm(2) , Dum(15) , Ecpt(100) , Iner(6) , Mb , Xof , Yof , Zof
    INTEGER Elid , Estid , Iecpt(14) , Ielid , Iprec , Ismb(3) , Nlocs , Nogo
    COMMON /emgdic/ Dmm , Nlocs , Elid , Estid
    COMMON /emgest/ Ecpt
    COMMON /emgprm/ Dum , Ismb , Iprec , Nogo
-!
-! Local variable declarations
-!
    INTEGER dict(11) , i , icidt1 , icidt2 , ij , ip , it , itemp , j , ji
    REAL dict5 , mm(36) , t(36) , tt(36) , x2 , y2 , z2
-!
-! End of declarations
-!
 !
 ! THIS SUBROUTINE COMPUTES THE CONCENTRATED MASS ELEMENTS MASS MATRIX
 ! FOR THE M2 TYPE ELEMENT

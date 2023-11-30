@@ -1,9 +1,6 @@
 
 SUBROUTINE remflx(Ngrids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Ditfil , Ibuf , Ii , Iihmat , Incr , Inflag , Iout , Iz(1) , Jncr , Jout , Last , Lcore , Matid , Mptfil , Ne(1) ,&
          & Nelems , Nn , Nnhmat
    REAL Costh , Dum(10) , Eltemp , Sinth , Stress , Xmat(6) , Z(1)
@@ -18,21 +15,12 @@ SUBROUTINE remflx(Ngrids)
    COMMON /unpakx/ Jout , Ii , Nn , Jncr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ngrids
-!
-! Local variable declarations
-!
    REAL angle , c , cs , csq , den , det , ecpt(200) , g(3,3) , rem(3) , s , ssq , temp , x2
    INTEGER buf2 , buf3 , dit , eltype , estwds , file , hest , i , ict , idx , iflag , igrids , ihc , imid , ipoint(32) , ipt ,     &
          & irem , isil , ising , isub , itemp , ith , iwork(3,3) , j , jcount , jel , kount , mcb(7) , mpt , n , n3 , nam(2) ,      &
          & ncol , ncount , necpt(200) , nextz , nhit , nrow , pointr(6,19) , remfld , scr1
    LOGICAL hitone
-!
-! End of declarations
-!
 !
 !     CHECK FOR REMFLUX IN MAGNETIC FIELD PROBLEMS WHEN COMPUTING
 !     PROLATE SPHEROIDAL COEFFICIENTS

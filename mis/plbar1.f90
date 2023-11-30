@@ -1,27 +1,15 @@
 
 SUBROUTINE plbar1(Ido,Lcore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL D1(5) , D2(11) , Pv(1) , Slt , Temp
    INTEGER Est , Ibuff , Ilid , Inflag , Lc , Matid , Nout
    COMMON /loadx / Lc , Slt , D1 , Est , D2 , Ilid
    COMMON /matin / Matid , Inflag , Temp
    COMMON /ssga1x/ Pv
    COMMON /system/ Ibuff , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ido , Lcore
-!
-! Local variable declarations
-!
    INTEGER bar , i , ibg , iect , iept , ipg , islt(7) , iz(1) , n , nam(2) , nwds , oldid
    REAL flag , pa(6) , pb(6) , pg(42) , ta(9) , tb(9)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE SETS UP THE DATA NEEDED TO CALL PLOAD1
 !     TO GET THE APPLIED CONCENTRATED, UNIFORMLY OR LINEARLY DISTRIBUTED

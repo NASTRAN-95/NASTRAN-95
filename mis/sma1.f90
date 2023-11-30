@@ -1,9 +1,6 @@
 
 SUBROUTINE sma1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anytab , Dodet , Heat , Linear
    INTEGER Clsnrw , Clsrw , Eor , Frowic , I6x64 , I6x6k , Icstm , Idetck , Idit , Idum1 , If4gg , Ifcstm , Ifdit , Ifecpt , Ifgei ,&
          & Ifgpct , Ifgpst , Ifkgg , Ifmpt , Ig4gg , Igecpt , Iggei , Iggpct , Iggpst , Igkgg , Igpct , Ihmat , Incr , Inrw ,       &
@@ -24,14 +21,8 @@ SUBROUTINE sma1
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys , Skip , Iprec , Itherm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , ibuf(7) , ifile , imat1 , imat11 , iparm , izmax , matcr , nmat1 , nmat2 , nmat3 , nmat4 , nmsma1(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS A DRIVER AND INITIALIZATION PROGRAM FOR MODULE
 ! 2.4.1 OF THE NASTRAN SYSTEM.  IT GENERATES THE STIFFNESS MATRIX, KGG,

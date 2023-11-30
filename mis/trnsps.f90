@@ -1,9 +1,6 @@
 
 SUBROUTINE trnsps(Z,Iz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Clsrew , Rc(2) , Rd , Rdrew , Wrt , Wrtrew
    INTEGER Dgflag , Filea(7) , Fileat(7) , Ia(2) , Iat(2) , Iforat , Iforma , Incr , Incr1 , Iotyp , Iotyp1 , Iotypa , Ip , Iscr ,  &
          & Itypa , Itypat , Iu , Iwords(4) , Jp , Ju , Lcore , Namea , Nameat , Ncola , Ncolat , Nout , Nrowa , Nrowat , Nscr ,     &
@@ -20,22 +17,13 @@ SUBROUTINE trnsps(Z,Iz)
    COMMON /type  / Rc , Iwords
    COMMON /unpakx/ Iotyp1 , Iu , Ju , Incr1
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Iz(2)
    REAL Z(6)
-!
-! Local variable declarations
-!
    REAL a(2) , t1 , t2
    INTEGER base , file , i , i2 , i3 , ibuf , ibuf1 , iend , iend1 , ii , iikb , imhere , irat , isum , j , jj , jjke , k , kb ,    &
          & kbe , ke , kx , last , ll , lx , mm , n1 , n2 , nam(2) , ncp7 , ncpp , npas , nrec , ntype , nwd , nwd1 , nwds , nz
    DOUBLE PRECISION da
    LOGICAL debug
-!
-! End of declarations
-!
 !
 !     MATRIX TRANSPOSE ROUTINE REPLACING NASTRAN ORIGINAL TRNSP, WHICH
 !     IS AT LEAST 2 TO 4 TIMES SLOWER (COMPARISON DONE ON VAX), AND

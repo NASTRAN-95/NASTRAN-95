@@ -1,9 +1,6 @@
 
 SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Conv , Core(1) , Eps , Gama , Skp1(2) , Skp2(6) , Skp3(6) , Y(1) , Z(8)
    INTEGER Count , Iprnt , Iy(1) , Max , Nklw , Nprw , Ntotl , Nwdsp , Outtap , Sysbuf
    CHARACTER*23 Ufm
@@ -12,19 +9,10 @@ SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Ipr(1)
    REAL Pl(1) , Pr(1) , Rr(1)
-!
-! Local variable declarations
-!
    REAL alph , ch , delp , pnew
    INTEGER i , icp , irr , kpl , nmes , np
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Core(1),Z(1),Max) , (Eps,Z(2)) , (Gama,Z(3)) , (Iprnt,Z(7)) , (Iy(1),Y(1),Z(8))
 !     EQUIVALENT ARE  (IPR,PR)

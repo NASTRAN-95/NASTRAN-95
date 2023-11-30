@@ -1,23 +1,11 @@
 
 SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core,Lcore)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ia(7) , Ia11(7) , Ia12(7) , Ia21(7) , Ia22(7) , Lcr , Rule
    COMMON /parmeg/ Ia , Ia11 , Ia21 , Ia12 , Ia22 , Lcr , Rule
-!
-! Dummy argument declarations
-!
    INTEGER Cpart , File11 , File12 , File21 , File22 , Filea , Lcore , Nsub0 , Nsub1 , Rpart
    INTEGER Core(6)
-!
-! Local variable declarations
-!
    INTEGER cp(7) , i , name(2) , rp(7)
-!
-! End of declarations
-!
 !
 !     GENERAL MATRIX PARTION ROUTINE
 !

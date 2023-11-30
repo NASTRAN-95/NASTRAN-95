@@ -1,25 +1,16 @@
 
 SUBROUTINE frlg
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iapp(2) , Itwo(32) , Ium , Iuo , Ius , Modal(2) , Notrd
    REAL Skp(6)
    COMMON /bitpos/ Ium , Iuo , Skp , Ius
    COMMON /blank / Modal , Notrd , Iapp
    COMMON /two   / Itwo
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER casexx , dit , dlt , fol , frl , gmd , god , ifreq(2) , itran(2) , lusetd , mcb(7) , moda , multi , nfreq , nload ,      &
          & omit , pdf , phf , phidh , ppf , psf , scr1 , scr2 , scr3 , scr4 , single , usetd
    REAL frqset
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     FREQUENCE RESPONSE LOAD GENERATOR
 !

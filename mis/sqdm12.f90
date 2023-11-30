@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdm12
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cstrs(4) , Cvc(3) , Deform , Delta , Dummy(35) , Est(100) , Fnchk , Forvec(25) , Frtmei(2) , Ftemp , Ph1out(45) , S(36) ,   &
       & St(3) , Stres(100) , Stress(3) , Tem , Temp , Tsub0 , Twotop , Vec(3) , Z(1)
    INTEGER Ibfsz , Idm(9) , Ild , Isub , Ivec , Ivecn , Ldtemp , Line , Nchk , Nout , Npoint , Nsil(4) , Nsize
@@ -13,15 +10,9 @@ SUBROUTINE sqdm12
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER eject
    REAL frlast(2)
    INTEGER i , ished(7) , istyp(2) , j , k , lld , lsub
-!
-! End of declarations
-!
 !
 !      PHASE TWO STRESS DATA RECOVERY QUADRILATERAL MEMBRANE
 !

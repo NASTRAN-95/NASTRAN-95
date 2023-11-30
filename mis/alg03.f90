@@ -1,19 +1,10 @@
 
 SUBROUTINE alg03(Lnct,L)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iprtc , Limit , Lq
    COMMON /ud3prt/ Iprtc
    COMMON /upage / Limit , Lq
-!
-! Dummy argument declarations
-!
    INTEGER L , Lnct
-!
-! End of declarations
-!
 !
 !
    Lnct = Lnct + L

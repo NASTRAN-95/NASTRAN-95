@@ -34,9 +34,6 @@ SUBROUTINE mpyq(Z)
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Bbs(17000) , D(4)
    INTEGER Acol , Acol1 , Acoln , Acore , All4 , Apoint , Arow , Arow1 , Arown , B3flag , Bcol , Block(20) , Cls , Clsrew , Crow ,  &
          & Drow , Eol , Eor , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Firstl , Flag , Form , I , Incr1 , Incr2 , Incra , Ipass ,&
@@ -57,22 +54,13 @@ SUBROUTINE mpyq(Z)
    COMMON /zblpkx/ D , Drow
    COMMON /zntpkx/ A , I , Eol , Eor
    COMMON /zzzzzz/ Bbs
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Aad(1) , Ddd(1) , Zd(1)
    REAL Aas(1) , Dds(1) , Z(1)
    INTEGER Zz(1)
-!
-! Local variable declarations
-!
    REAL aa(4) , aaa , b(4) , bbb , bsi , bsr
    DOUBLE PRECISION add(2) , bd(2) , bdi , bdr
    INTEGER all , apick2 , arith , arith2 , bpick , bpick2 , buf1 , fa3 , i1 , in , inca , init , irow , j , jb3 , k , k1 , k2 , k3 ,&
          & l , mask6f , moda , modb , nbr , nbr1 , nrow , nzz
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Mout) , (Ksystm(58),Ipass)
    EQUIVALENCE (A(1),Ad(1)) , (b(1),bd(1)) , (D(1),Dd(1)) , (Filea(2),M) , (Filea(3),N) , (Filea(5),Typea) , (Fileb(2),Q) ,         &
     & (Fileb(3),R) , (Fileb(5),Typeb) , (Filec(5),Typec) , (Filed(5),Typd) , (nzz,buf1) , (Acoln,Arown) , (aa(1),add(1)) ,          &

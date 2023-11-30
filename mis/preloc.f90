@@ -1,25 +1,13 @@
 
 SUBROUTINE preloc(*,Buf,File)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Two(32)
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    INTEGER File , Flg
    INTEGER Bff(1) , Buf(2) , Id(2)
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER flag , icheck , j , k , l , last , nam(2) , nm1(2) , ret , trl(7)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     PRELOC OPENS AND POSITIONS REQUESTED FILE TO FIRST DATA RECORD.
 !     LOCATE POSITIONS FILE TO REQUESTED DATA RECORD WITHIN FILE.

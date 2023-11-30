@@ -1,24 +1,15 @@
 
 SUBROUTINE pla41
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Incupk , Itypeb , Iunpk , Junpk , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itypeb , Iunpk , Junpk , Incupk
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buffr1 , buffr2 , clsrw , ecptnl , ecpts , eltype , eor , file , i , iecpt(100) , iflag , index , izmax , j , k , left , &
          & mcbugv(7) , name(2) , neor , ngpts(40) , nogpts , npvt , nwds , nwords(40) , ugv
    INTEGER korsz
    REAL xecpt(100)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE APPENDS DISPLACEMENT VECTOR INFORMATION TO THE
 !     ECPTNL DATA BLOCK AND CREATES A SCRATCH DATA BLOCK, ECPTS, OF

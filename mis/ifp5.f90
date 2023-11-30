@@ -1,18 +1,12 @@
 
 SUBROUTINE ifp5
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cls , Clsrew , Ksystm(65) , Output , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    REAL Consts(5) , Rz(4) , Twopi
    COMMON /condas/ Consts
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL alpha , bd , beta , bl1 , bp1 , fi , kf , l1 , l1l2 , l2 , l3 , lc , le , rbar , rbuf(24) , rcard(10) , rho , rhod , rr(3) ,&
       & term , wbar , wd , ww(3) , zz(3)
    LOGICAL any , g1eof , g2eof , plotel
@@ -22,9 +16,6 @@ SUBROUTINE ifp5
          & md , msg1(2) , msg2(2) , n , ngridf , ngrids , nlines , noeor , nslbdy , ntemp , plotls(2) , scrt1 , scrt2 , slbdy(2) ,  &
          & subr(2) , words
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ACOUSTIC CAVITY PREFACE ROUTINE
 !

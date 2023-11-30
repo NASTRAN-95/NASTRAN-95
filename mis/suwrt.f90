@@ -1,9 +1,6 @@
 
 SUBROUTINE suwrt(Ia,Nwords,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Ihalf , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Jhalf , Mach , Mdi ,  &
          & Mdibl , Mdilbn , Mdipbn , Nbuff , Nout , Nxtdum(15)
    REAL Ditdum(6) , Ditup
@@ -16,20 +13,11 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Itest , Nwords
    INTEGER Ia(1)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER icount , idle , ieog , ieoi , imdi , iwrt , j , nmsbr(2)
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     COPIES DATA FROM THE ARRAY IA ON THE SOF.  NWORD IS AN INPUT
 !     PARAMETER INDICATING THE NUMBER OF WORDS TO BE COPIED.  ITEST IS

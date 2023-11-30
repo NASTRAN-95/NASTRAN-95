@@ -1,22 +1,13 @@
 
 SUBROUTINE ploadx
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Lc , Slt
    REAL Pi , Z(1)
    COMMON /condsa/ Pi
    COMMON /loadx / Lc , Slt
    COMMON /ssg1ax/ Z
-!
-! Local variable declarations
-!
    REAL flag , gd(12) , p(3) , p1 , p3 , pn(3) , rl , slc(5) , zl
    INTEGER i , igd(1) , islc(1) , j , k , nam(2)
-!
-! End of declarations
-!
 !
 !     PLOADX BUILDS THE PRESSURE LOADS FROM A PLOADX CARD FOR THE
 !     TRIAX6 ELEMENT

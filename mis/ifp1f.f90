@@ -1,25 +1,13 @@
 
 SUBROUTINE ifp1f(*,Iword,Ii)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Corex(1) , Corey(401) , Skip1(4) , Skip2(4) , Skip3(3)
    INTEGER Iben , Izzzbb , Ncpw4
    COMMON /ifp1a / Skip1 , Ncpw4 , Skip2 , Izzzbb , Skip3 , Iben
    COMMON /zzzzzz/ Corex
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Iword
-!
-! Local variable declarations
-!
    INTEGER i , j , k , l
    INTEGER khrfn1
-!
-! End of declarations
-!
 !
 !     FINDS FIRST 4 NON-BLANK CHARACTERS
 !

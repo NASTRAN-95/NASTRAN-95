@@ -1,24 +1,12 @@
 
 SUBROUTINE emsg(Nchar,No,Isys,Iwf,Itext)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Imach , Ncpw , Nout
    REAL Sysbuf(41)
    COMMON /system/ Sysbuf
-!
-! Dummy argument declarations
-!
    INTEGER Isys , Iwf , Nchar , No
    INTEGER Itext(1)
-!
-! Local variable declarations
-!
    INTEGER i , imsg(2,4) , k , m , nline , no1 , nword
-!
-! End of declarations
-!
 !     ISYS = 1   USER           IWF  =     1   WARNING
 !          = 2   SYSTEM             =     2   FATAL
 !

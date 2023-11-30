@@ -1,9 +1,6 @@
 
 SUBROUTINE pktrms(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Angle , Consts(5) , Costh , Degra , Dum1(148) , Dumb(80) , Dummy(382) , Dummy1 , Dummy2 , Dummy3 , Ecpt(1) , Eltemp , Fmu , &
       & G11 , G12 , G13 , G22 , G23 , G33 , Sinth , Stress , T , Theta , X1 , X2 , X3 , Y1 , Y2 , Y3 , Z1 , Z2 , Z3
    DOUBLE PRECISION C(18) , Delta , E(9) , Flamda , G(9) , Kij(36) , Reelmu , Temp , Tempar(27) , Ti(9) , Vol , Xsubb , Xsubc ,     &
@@ -17,17 +14,8 @@ SUBROUTINE pktrms(Ntype)
                  & Nsave , Dummy
    COMMON /pla4es/ Necpt , Ngrid , Angle , Matid1 , T , Fmu , Dummy1 , X1 , Y1 , Z1 , Dummy2 , X2 , Y2 , Z2 , Dummy3 , X3 , Y3 ,    &
                  & Z3 , Dumb
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j , ncom , npt1 , npt2
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CALCULATES AND SHIPS TO PLA4B THE STIFFNESS MATRIX
 !     FOR PLA4

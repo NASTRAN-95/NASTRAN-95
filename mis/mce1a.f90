@@ -1,9 +1,6 @@
 
 SUBROUTINE mce1a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(7) , A11(7) , A12(7) , A21(7) , A22(7) , Gm , L , Mcb(7) , N , Nsub1 , Nsub2 , Nsub3 , Nz , Rg , Rm , Rn , Rule ,      &
          & Scr1 , Scr2 , Scr3 , Ug , Um , Un , Uset , Usetxx , Z(1)
    REAL U , Ua , Uf , Ul , Uo , Ur , Us , Usb , Usg
@@ -12,14 +9,8 @@ SUBROUTINE mce1a
    COMMON /parmeg/ A , A11 , A21 , A12 , A22 , N , Rule
    COMMON /patx  / Nz , Nsub1 , Nsub2 , Nsub3 , Usetxx
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , rect , square
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     MCE1A PARTITIONS RG INTO RM AND RN
 !

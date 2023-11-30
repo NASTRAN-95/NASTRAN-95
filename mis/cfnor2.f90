@@ -1,9 +1,6 @@
 
 SUBROUTINE cfnor2(Right,Left,Size2,Option,Ri)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumxc(21)
    INTEGER Ksystm(65) , Nout
    LOGICAL Qpr
@@ -12,20 +9,11 @@ SUBROUTINE cfnor2(Right,Left,Size2,Option,Ri)
    COMMON /feerxc/ Dumxc , Qpr
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Option , Size2
    DOUBLE PRECISION Left(1) , Ri(2) , Right(1)
-!
-! Local variable declarations
-!
    INTEGER i , j
    DOUBLE PRECISION rj(2) , rsqrt , theta2
    LOGICAL skip
-!
-! End of declarations
-!
 !
 !     CFNOR2 IS A DOUBLE-PRECISION ROUTINE (CREATED FOR USE BY
 !     THE COMPLEX FEER METHOD) WHICH NORMALIZES A COMPLEX PAIR

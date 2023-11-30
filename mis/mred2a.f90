@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2a
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds
    INTEGER Dry , Eqst , Fuset , Gbuf1 , Idum1 , Idum2(5) , Idum3(6) , Idum4(9) , Idum5(10) , Idum6 , Idum7(6) , Idum8 , Idum9 ,     &
          & Infile(12) , Iprntr , Iscr(10) , Kaa , Kbb , Kib , Kii , Korbgn , Korlen , Lcore , Nsub(3) , Oldnam(2) , Ub , Ui , Un ,  &
@@ -14,13 +11,7 @@ SUBROUTINE mred2a
    COMMON /patx  / Lcore , Nsub , Fuset
    COMMON /system/ Idum8 , Iprntr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER imsg , item , itest , itrlr(7) , modnam(2)
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PARTITIONS THE STIFFNESS MATRIX INTO BOUNDARY AND
 !     INTERIOR POINTS AND THEN SAVES THE PARTITIONING VECTOR ON THE SOF

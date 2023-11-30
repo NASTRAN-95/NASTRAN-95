@@ -1,21 +1,12 @@
 
 SUBROUTINE plamat
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Dummy(14) , Elid , Eltemp , G11 , G12 , G13 , G22 , G23 , G33 , Gp(9) , Plaarg , Sinth
    INTEGER Inflag , Matid , Midgp
    COMMON /matin / Matid , Inflag , Eltemp , Plaarg , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Dummy
    COMMON /plagp / Gp , Midgp , Elid
-!
-! Local variable declarations
-!
    REAL x(27)
-!
-! End of declarations
-!
 ! THIS ROUTINE RETURNS GP ROTATED FOR PLA3 AND PLA4
 !
 !

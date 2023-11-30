@@ -1,9 +1,6 @@
 
 SUBROUTINE rcova
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Dry , Fss(2) , Icore , Iopt , Ireq , Iz(1) , Lbasic , Lcore , Loop , Lreq , Lui , Neigv , Nosort ,  &
          & Nout , Rfno , Sof1 , Sof2 , Sof3 , Step , Sysbuf
    REAL Buf4 , Energy , Pa , Pthres , Qa , Qthres , Range(2) , Rss(2) , Ua , Uimpro , Uinms(2,5) , Uthres , Z(1)
@@ -13,14 +10,8 @@ SUBROUTINE rcova
    COMMON /rcovcr/ Icore , Lcore , Buf1 , Buf2 , Buf3 , Buf4 , Sof1 , Sof2 , Sof3
    COMMON /system/ Sysbuf , Nout
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , km(5) , kmu(5) , name(2) , phis , rc , schk , scr1 , soln , uvec
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     RCOVA CREATES THE SOLN ITEM FOR A FINAL SOLUTION STRUCTURE (FSS)
 !     IN PHASE 2 OF SUBSTRUCTURING

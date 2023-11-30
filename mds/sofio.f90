@@ -3,9 +3,6 @@ SUBROUTINE sofio(Isop,Iblknm,Buf)
    IMPLICIT NONE
    INCLUDE 'GINOX.COM'
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    REAL Avblks , Blksiz , Dirsiz , Supsiz
    CHARACTER*4 Filnam(10)
    INTEGER Filsiz(10) , Hiblk , Isysbf , Iwr , Nfiles
@@ -14,19 +11,10 @@ SUBROUTINE sofio(Isop,Iblknm,Buf)
    COMMON /sofdsn/ Sofdsn
    COMMON /sys   / Blksiz , Dirsiz , Supsiz , Avblks , Hiblk
    COMMON /system/ Isysbf , Iwr
-!
-! Dummy argument declarations
-!
    INTEGER Iblknm , Isop
    INTEGER Buf(10)
-!
-! Local variable declarations
-!
    CHARACTER*80 dsname
    INTEGER ialloc , iblk , icerr , ifile , iop , isize , istat , k , lasfil , num , numblk
-!
-! End of declarations
-!
    IF ( Lensof(1)==0 ) THEN
       numblk = 1
       IF ( Lenwpb/=0 ) numblk = Isysbf/Lenwpb

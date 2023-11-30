@@ -1,9 +1,6 @@
 
 SUBROUTINE criggp(N23)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Buf(20) , Buf1 , Buf2 , Buf3 , Buf4 , Cstm , Geomp , Gpoint , Ihalf , Iprec , Jhalf , Kn , Knkl1 , Ksystm(55) ,  &
          & Mach , Mask16 , Nogo , Nout , Rdrew , Rgt , Scr1 , Z(1)
    REAL Clsrew , Rd , Rz(1) , Wrt , Wrtrew
@@ -18,13 +15,7 @@ SUBROUTINE criggp(N23)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER N23
-!
-! Local variable declarations
-!
    REAL a(36) , b(6) , c(18) , coeff , det
    LOGICAL again , debug , genre , l38
    INTEGER crbar(2) , crbe1(2) , crbe2(2) , crbe3(2) , crigd1(2) , crigd2(2) , crigd3(2) , crigdr(2) , crrod(2) , crspli(2) ,       &
@@ -33,9 +24,6 @@ SUBROUTINE criggp(N23)
          & jrigid , k , kcol , khi , ki4 , kinew , kiold , klo , kn2 , knkl2 , knkl3 , knkl4 , krow , l , lastk , left , m ,        &
          & mask15 , mcode(2) , mdbgp , mdep , mm , more , mset , mu , n , name(2) , nbgpdt , ncstm , nind , ntype , nwds , ret ,    &
          & ret1
-!
-! End of declarations
-!
 !
 !     ******************************************************************
 !                                                                      *

@@ -1,9 +1,6 @@
 
 SUBROUTINE fmdi(I,J)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Ihalf , Iodum(8) , Jhalf , Mach , Mdi , Mdibl , Mdilbn , Mdipbn , Nbuff , Nout , Nxtdum(15)
    REAL Ditdum(6) , Ditup
    LOGICAL Mdiup
@@ -14,20 +11,11 @@ SUBROUTINE fmdi(I,J)
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER I , J
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER ibl , iblock , icount , indsbr , ird , iwrt , k , ll , max , min , ndir , nmsbr(2) , nxtk
    LOGICAL newblk
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THE SUBROUTINE FETCHES FROM THE RANDOM ACCESS STORAGE DEVICE THE
 !     BLOCK OF MDI CONTAINING THE I-TH DIRECTORY, AND STORES THAT BLOCK

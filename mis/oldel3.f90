@@ -2,9 +2,6 @@
 SUBROUTINE oldel3
    IMPLICIT NONE
 !
-! End of declarations
-!
-!
 !     ANY ELEMENT (NEW OR OLD) WHICH HAS NOT BEEN CONVERTED TO USE
 !     EMGPRO SHOULD HAVE AN ENTRY POINT IN OLDEL1, OLDEL2, OR OLDEL3
 !     ***************************************************************

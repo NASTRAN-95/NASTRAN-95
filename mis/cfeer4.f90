@@ -1,9 +1,6 @@
 
 SUBROUTINE cfeer4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumaa(84) , Eofnrw , Rd , Rdrew , Rew , Swdum , Ten2mt , Tenmht , Tenmtt , Wrt , Z(1)
    DOUBLE PRECISION Dz(1) , Eps , Lambda(2)
    INTEGER Idiag , Idmpfl , Ii , Ikmb(21) , Ilam(7) , Incr , Iphi(7) , Iprc , Iprec , Iscr(11) , It , Iz(1) , Jreg , Ksystm(65) ,   &
@@ -21,9 +18,6 @@ SUBROUTINE cfeer4
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL accept(2) , alam(2) , denom , dm(2) , dmp1(2) , reject(2) , rms , rsqrt , s(8) , status(2) , sumi , sumr , theta2 , unidum
    DOUBLE PRECISION d(4) , lam1(2)
    LOGICAL decrem , dpmach
@@ -31,9 +25,6 @@ SUBROUTINE cfeer4
          & iv , iv1 , iv1x , iv2 , izz , j , ji , jj , jr , k , ki , kk , kr , l , l1 , lim1 , lim2 , ll , lll , m , mi , mid , mm ,&
          & mr , mrd , msave , n3 , name(2) , nfound , nord8 , nrow1 , nrow2 , nrow22 , nrowsq , nw , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CFEER4 OBTAINS THE EIGENVALUES AND EIGENVECTORS FROM THE
 !     REDUCED TRIDIAGONAL MATRIX FOR THE COMPLEX FEER METHOD

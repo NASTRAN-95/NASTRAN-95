@@ -1,28 +1,16 @@
 
 SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ind
    REAL K10 , K10t1 , K1it1 , K1rt1 , K20 , K20t2p , K2it2p , K2rt2p , Kd1i , Kd1r , Kd2i , Kd2r
    COMMON /dlm   / K10 , K20 , K1rt1 , K1it1 , K2rt2p , K2it2p , K10t1 , K20t2p
    COMMON /kds   / Ind , Kd1r , Kd1i , Kd2r , Kd2i
-!
-! Dummy argument declarations
-!
    REAL Br , Cgr , Cgs , Kr , M , Sgr , Sgs , T1 , T2 , X0 , Y0 , Z0
-!
-! Local variable declarations
-!
    REAL beta2 , bigr , c1 , c10 , c11 , c2 , c3 , c4 , c5 , c6 , c7 , c8 , c9 , car , ck1i , ck1r , ck2i , ck2r , dk1i , dk1r ,     &
       & dk2i , dk2r , e , eps , exarg , i00i , i00r , i0ui , i0ur , i10i , i10r , i1ui , i1ur , i20i3 , i20r3 , i2ui3 , i2ur3 ,     &
       & j00i , j00r , j0ui , j0ur , k1 , k2 , mu , mu1 , q1 , q10 , q11 , q2 , q3 , q4 , q5 , q6 , q7 , q8 , q9 , r1 , r10 , r11 ,  &
       & r1s , r2 , r3 , r4 , r5 , r6 , r7 , r8 , r9 , t2p
    INTEGER ichuz
-!
-! End of declarations
-!
 !
 !     COMPUTES EITHER THE TOTAL KERNELS (IND=0) USED IN THE CALCULATION
 !     OF A FINITE LENGTH DOUBLET LINE,  OR

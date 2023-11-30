@@ -1,24 +1,12 @@
 
 SUBROUTINE intprt(A,Cr,O,Name)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Mo
    REAL Skip
    COMMON /system/ Skip , Mo
-!
-! Dummy argument declarations
-!
    INTEGER Cr , O
    REAL A(1) , Name(2)
-!
-! Local variable declarations
-!
    INTEGER colnum , crfmt(3) , cropt(2,2) , i , icropt
-!
-! End of declarations
-!
 !
    DATA crfmt/4H(60X , 4H,2A4 , 4H,I5)/
    DATA cropt/4HCOLU , 4HMN   , 4HROW  , 4H    /

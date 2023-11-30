@@ -1,26 +1,14 @@
 
 SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cntchr(6) , Cscale , Skpa(3) , Skpplt(2) , Xymax(15) , Xymin(2)
    INTEGER Pltype
    COMMON /pltdat/ Skpplt , Xymin , Xymax , Cscale , Skpa , Cntchr , Pltype
-!
-! Dummy argument declarations
-!
    INTEGER Nn , Opt , Xyd
    REAL X , Y
    INTEGER Chr(1)
-!
-! Local variable declarations
-!
    INTEGER a(6) , d , i , j , k , lstchr , n , optx , type
    REAL s , xy(2,2)
-!
-! End of declarations
-!
 !
 !     (X,Y) = STARTING OR ENDING POINT OF THE LINE TO BE TYPED (ALWAYS
 !             LEFT-TO-RIGHT OR TOP-TO-BOTTOM)

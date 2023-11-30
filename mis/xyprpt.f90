@@ -2,9 +2,6 @@
 SUBROUTINE xyprpt
    IMPLICIT NONE
 !
-! End of declarations
-!
-!
 !*****
 !
 !     DUMMY DECK FOR MODULE XYPRNPLT - SEE USER'S MANUAL SECTION 5.6.

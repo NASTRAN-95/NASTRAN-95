@@ -1,9 +1,6 @@
 
 SUBROUTINE normal
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Incrp , Incru , Iopt(2) , Iopt1 , Ip1 , Ip2 , Ipkot1 , Ipkot2 , Iprc(2) , Irc(4) , Isysbf , Iu1 , Iu2 , Iunout , Iz(1) , &
          & Ncol , Nout , Nrow , Nwds(4)
    CHARACTER*23 Ufm
@@ -16,17 +13,11 @@ SUBROUTINE normal
    COMMON /unpakx/ Iunout , Iu1 , Iu2 , Incru
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    REAL dx , x , xmax , xx
    DOUBLE PRECISION dxmax , dzero
    INTEGER i , iblnk , ibuf1 , ibuf2 , icore , icrreq , iprec , isrss , isubnm(2) , itype , ivec , ivec1 , ivec2 , j , k , kwords , &
          & matin , matout , max , mcb(7) , mwords , nrow2 , nrowp , nwords
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS IS THE DRIVER FOR THE NORM MODULE.
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE pla2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Z(1)
    INTEGER Bufsz , Eol , Idummy , Incpk , Incupk , Index , Ipack , Iunpk , Iunpkb , Jpack , Junpk , Placnt , Typea , Typeb
    COMMON /blank / Placnt
@@ -12,16 +9,10 @@ SUBROUTINE pla2
    COMMON /unpakx/ Iunpkb , Iunpk , Junpk , Incupk
    COMMON /zntpkx/ A , Index , Eol , Idummy
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buffr1 , buffr2 , clsnrw , clsrw , eor , i , ifile , iloop , inblk(15) , inrw , iopt , izmax , jfile , ktype , left ,    &
          & mcb(7) , name(2) , nrecs , ofile , oublk(15) , outnrw , outrw
    REAL dummy(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE IS THE SECOND FUNCTIONAL MODULE UNIQUE TO THE PIECE-WISE
 ! LINEAR ANALYSIS (PLA) RIGID FORMAT FOR THE DISPLACEMENT APPROACH.

@@ -1,9 +1,6 @@
 
 SUBROUTINE mplprt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER H1(32) , H2(32) , H3(32) , Junk1(6) , Junk2(2) , Line , Lmpl , Mpl(1) , Mplpnt , Nb , Nfist , Nlpp , No , Npfist , T1(32)&
          & , T2(32) , T3(32)
    CHARACTER*25 Sfm , Uwm
@@ -19,14 +16,8 @@ SUBROUTINE mplprt
    COMMON /xgpi2x/ Xx
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /xpfist/ Npfist
-!
-! Local variable declarations
-!
    INTEGER add(2) , flag , flagb , flags , flgtot , h1x(32) , h2x(32) , h3x(32) , i , i0 , i1 , i2 , ip , j1 , j2 , kp(6) , l , l1 ,&
          & l2 , m , m1 , m2 , mplid , np , npad , tot
-!
-! End of declarations
-!
 !
 !     PRINTS MPL TABLE FOR DOCUMENTATION PURPOSES
 !     AND CHECKS VALIDITY OF MANY ITEMS.

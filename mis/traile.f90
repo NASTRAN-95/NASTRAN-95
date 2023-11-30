@@ -1,20 +1,11 @@
 
 COMPLEX FUNCTION traile(X,J,N,P,M,Boxl)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Boxl , X
    INTEGER J , M
    INTEGER N(1)
    COMPLEX P(3,M)
-!
-! Local variable declarations
-!
    REAL xa
-!
-! End of declarations
-!
 !
 !     ROUTINE TO FIND PHI FOR TRAILING EDGE
 !

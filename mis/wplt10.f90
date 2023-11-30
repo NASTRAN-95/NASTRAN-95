@@ -43,24 +43,12 @@ SUBROUTINE wplt10(A,Opt)
 !              BEING READ)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Edge(12)
    INTEGER Maxchr , Plot , Skpa(10) , Skpplt(8)
    COMMON /pltdat/ Skpplt , Edge , Skpa , Plot , Maxchr
-!
-! Dummy argument declarations
-!
    INTEGER Opt
    INTEGER A(6)
-!
-! Local variable declarations
-!
    INTEGER c(30) , c1 , i , i3 , i4 , j , k , m , n , nc , nchr , plt2 , pzero , ten(5) , zero(30)
-!
-! End of declarations
-!
    EQUIVALENCE (c1,c(1))
    DATA nchr , ten , pzero/0 , 10000 , 1000 , 100 , 10 , 1 , +0/ , plt2 , nc , zero , c/4HPLT2 , 30 , 30*0 , 30*0/
 !

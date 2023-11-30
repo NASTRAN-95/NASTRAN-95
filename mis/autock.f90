@@ -1,29 +1,17 @@
 
 SUBROUTINE autock(Iadd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Dmpcnt , Ihead , Iseqn , Junk(2) , Loscar , Nnames , Os(5) , Osbot , Oscar(1) , Ospnt , Osprc , Preflg , Prenam(100)
    COMMON /autocm/ Preflg , Nnames , Prenam
    COMMON /autohd/ Ihead
    COMMON /xgpi4 / Junk , Iseqn , Dmpcnt
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iadd
-!
-! Local variable declarations
-!
    INTEGER casecc(2) , casei(2) , casess(2) , i , ib , iblank , ifin , incr , iop , ist , j , list(100) , mi , n2 , ndb , nlist ,   &
          & nopf , nwd , xchk(2)
    INTEGER lshift , rshift
    EXTERNAL lshift , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES A CHKPT OSCAR RECORD WHEN THE PRECHK
 !     OPTION IS BEING USED, THE ADDRESS IADD IS THE STARTING

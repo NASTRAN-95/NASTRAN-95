@@ -1,9 +1,6 @@
 
 SUBROUTINE pltopr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axis(3) , Bframs , Camera , Daxis(3) , Eof , Icntvl , Idirec , Iwhere , Layer , Model , Ncntr , Nopens , Norg , Npens ,  &
          & Org , Origin(11) , Paptyp(2) , Penclr(8,2) , Pensiz(8) , Ploter , Pltmdl(2) , Pltype , Prject , Prnt , Tapden
    REAL Cntin3 , Cntr(50) , Cntsin , Cscale , D0 , For , Origx3(11,4) , Papsiz(2) , Pbufsz , Penpap , R0 , S0l , S0r , S0s ,        &
@@ -14,9 +11,6 @@ SUBROUTINE pltopr
    COMMON /xxparm/ Pbufsz , Camera , Bframs , Pltmdl , Tapden , Npens , Papsiz , Paptyp , Pensiz , Penclr , Penpap , Scale ,        &
                  & Skpscl , Axis , Daxis , Vangle , Vantx1 , R0 , S0l , S0r , T0 , D0 , Vantx2 , Prject , S0s , For , Org , Norg ,  &
                  & Origin , Origx3 , Xy , Ncntr , Cntr , Icntvl , Iwhere , Idirec , Skip23 , Layer
-!
-! Local variable declarations
-!
    INTEGER a1(9) , a2(12) , a3(25) , a4(13) , a5(17) , a6(6) , b1(16) , b2(16) , b5(10) , blank , c1(16) , c2(17) , c3(24) , d1(11) &
          & , d2(6) , d3(29) , displa(10) , dist(12) , e1(12) , e2(20) , e3(14) , e4(18) , f1(22) , f2(25) , f3(12) , f4(23) ,       &
          & film(2) , g1(13) , g2(11) , g3(16) , g4(6) , g5(11) , g6(8) , g7(4) , h1(11) , i , ilay(20) , itype(4) , j , k , l ,     &
@@ -24,9 +18,6 @@ SUBROUTINE pltopr
          & ne1 , ne2 , ne3 , ne4 , nf1 , nf2 , nf3 , nf4 , ng1 , ng2 , ng3 , ng4 , ng5 , ng6 , ng7 , nh1 , np6 , nskip , p6(23)
    REAL alst(20)
    INTEGER paper(2) , plttyp(3,3) , plus , prj(3,3) , skip , space , strain(4) , stress(34) , symm(4) , way(4) , xyz(3)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (list(1),alst(1))
 !

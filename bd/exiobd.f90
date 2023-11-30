@@ -1,15 +1,9 @@
 
 BLOCKDATA exiobd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER F1(32) , F2(35) , F3(40) , Nf , P1(50) , P2(50) , P3(40)
    COMMON /exio2f/ F1 , F2 , F3
    COMMON /exio2p/ Nf , P1 , P2 , P3
-!
-! End of declarations
-!
 !
 !     BLOCK DATA SUBPROGRAM FOR MODULE EXIO.
 !

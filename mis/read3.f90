@@ -1,9 +1,6 @@
 
 SUBROUTINE read3(Novect,Ncol,Sr1fil,Sr2fil,Filc,Kdblm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Eofnrw , Rd , Rew , Shftpt , Systm(52) , Wrt , Wrtrew , Z(1)
    INTEGER Incr , Incru , Ipak , Iprec , Itypa , Itypb , Itypu , Iunp , Iz(1) , Jpak , Junp , Norew , Nout , Option , Optn2 , Rdp , &
          & Rdrew , Rsp , Sturm , Sysbuf
@@ -14,21 +11,12 @@ SUBROUTINE read3(Novect,Ncol,Sr1fil,Sr2fil,Filc,Kdblm)
    COMMON /system/ Sysbuf , Nout , Systm , Iprec
    COMMON /unpakx/ Itypu , Iunp , Junp , Incru
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Filc , Kdblm , Ncol , Novect , Sr1fil , Sr2fil
-!
-! Local variable declarations
-!
    INTEGER dashz , feer , filelm(7) , filevc(7) , i , i2 , ibuf1 , ibuf2 , ifile , ii , ik , ipos , j , k , nam(2) , ncol2 , no ,   &
          & nocl , nz
    DOUBLE PRECISION dxx(2)
    REAL file , zz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     READ3 PACKS THE EIGENVECTORS AND EIGENVALUES AND PUTS THEM OUT IN
 !     ASCENDING ORDER

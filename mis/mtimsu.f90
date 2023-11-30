@@ -1,9 +1,6 @@
 
 SUBROUTINE mtimsu(Y,X,Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Dumm(13) , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    DOUBLE PRECISION Da
    INTEGER Diag , Eol , Filek(7) , Filem(7) , Identy , Ii , Lowtri , Norew , Nzero
@@ -12,18 +9,9 @@ SUBROUTINE mtimsu(Y,X,Buf)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Lowtri , Uprtri , &
                  & Sym , Row , Identy
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    REAL Buf(1)
    DOUBLE PRECISION X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , ncol
-!
-! End of declarations
-!
 !
 !     M TIMS U  FORMS THE  PRODUCT  X = M*Y
 !

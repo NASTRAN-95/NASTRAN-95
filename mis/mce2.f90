@@ -1,20 +1,11 @@
 
 SUBROUTINE mce2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ua , Ue , Uf , Ul , Uo , Up , Ur , Us , Usb , Usg
    INTEGER Ug , Um , Un
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug , Ue , Up
-!
-! Local variable declarations
-!
    INTEGER bgg , bmmb , bmnb , bnn , bnnb , gm , k4gg , k4mmb , k4mnb , k4nn , k4nnb , kgg , kmmb , kmnb , knn , knnb , mcb(7) ,    &
          & mgg , mmmb , mmnb , mnn , mnnb , scr1 , scr2 , scr6 , uset
-!
-! End of declarations
-!
 !
 !     MCE2 PARTITIONS KGG INTO KNNB, KMNB AND KMMB THEN COMPUTES
 !

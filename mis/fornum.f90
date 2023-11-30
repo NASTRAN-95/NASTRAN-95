@@ -1,19 +1,10 @@
 
 SUBROUTINE fornum(Form,Ichar,Imult)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ichar , Imult
    CHARACTER*1 Form(200)
-!
-! Local variable declarations
-!
    CHARACTER*1 blank , number(2)
    INTEGER ii
-!
-! End of declarations
-!
 !
 ! THIS SUBROUTINE CONVERTS ALL NUMBERS TO INTEGER FORMAT
 !

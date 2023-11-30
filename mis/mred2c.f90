@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2c(Kode)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Idum1 , Idum2(5) , Idum3(6) , Idum4 , Idum5(9) , Idum6 , Idum7 , Infile(12) , Iprntr , Iscr(10) , Korbgn , &
          & Korlen , Lamaap , Lamamr , Lams , Modlen , Nfound , Oldnam(2) , Phis , Phiss , Z(1)
    LOGICAL Modes
@@ -11,17 +8,8 @@ SUBROUTINE mred2c(Kode)
                  & Lamaap , Nfound , Modlen
    COMMON /system/ Idum4 , Iprntr
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Kode
-!
-! Local variable declarations
-!
    INTEGER i , ifile , imsg , ismg , item , itest , itmlst(2) , lamwds , modnam(2) , nwds , nwdsrd , rgdfmt
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES THE OLDMODES OPTION FLAG FOR THE MRED2
 !     MODULE.

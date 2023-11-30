@@ -1,9 +1,6 @@
 
 BLOCKDATA ifp3bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axic1(3) , Cconex(3) , Cdtype(50) , Ctrapa(3) , Ctriaa(3) , File(6) , Force(3) , Forcex(3) , Grav(3) , Grid(3) , Iconso ,&
          & Iheadb(96) , Iname(12) , Load(3) , Momax(3) , Moment(3) , Mpc(3) , Mpcadd(3) , Mpcax(3) , Neg111(3) , Omit(3) , Omitax(3)&
          & , One , Pload(3) , Pointx(3) , Presax(3) , Rforce(3) , Ringax(3) , Sectax(3) , Seqgp(3) , Spc(3) , Spcadd(3) , Spcax(3) ,&
@@ -11,9 +8,6 @@ BLOCKDATA ifp3bd
    COMMON /ifp3cm/ File , Iname , Cdtype , Axic1 , Cconex , Forcex , Force , Grav , Load , Momax , Moment , Mpcadd , Mpcax ,        &
                  & Omitax , Pointx , Presax , Ringax , Sectax , Seqgp , Spcax , Supax , Tempax , Tempd , Pload , Mpc , Spc , Grid , &
                  & Suport , Neg111 , T65535 , Temp , Omit , Spcadd , One , Zero , Iheadb , Ctriaa , Ctrapa , Iconso , Rforce
-!
-! End of declarations
-!
 !IFP3BD
 !     B L O C K   D A T A   F O R   I F P 3
 !

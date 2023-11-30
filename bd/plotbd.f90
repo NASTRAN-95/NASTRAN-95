@@ -2,9 +2,6 @@
 BLOCKDATA plotbd
 !PLOTBD
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axis(3) , Axymax(2) , Bframs , Bufsiz , Camera , Char(60,4) , Char1(60,3) , Char2(60,1) , Chlpqm(2,52) , Chr(2,350) ,    &
          & Chr19(2,79) , Chram(2,88) , Chrind(60) , Chrnz(2,84) , Chrsym(2,19) , Color , D0 , Daxis(3) , Defmax , Direct , Eof(20,2)&
          & , Flag , Forg , Fpltit , Fscale , Fvp , Icntvl , Lasset , Layer , Lstchr , Model , Ncntr , Ncor , Nopens , Norg ,        &
@@ -22,9 +19,6 @@ BLOCKDATA plotbd
                  & Fscale , Maxdef , Defmax , Axis , Daxis , Vangle , View , Fvp , R0 , S0l , S0r , T0 , D0 , D02 , D03 , Prject ,  &
                  & S0s , Forg , Org , Norg , Origin , Edge , Xy , Ncntr , Cntr , Icntvl , Where , Direct , Subcas , Flag , Value ,  &
                  & Lasset , Fpltit , Pltitl , Color , Layer , Offscl
-!
-! End of declarations
-!
 !    1    ... PLOTTING DATA
 !    2    ... PEN + PAPER DATA
 !    3    ... SCALING DATA

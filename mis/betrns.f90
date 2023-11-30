@@ -1,21 +1,12 @@
 
 SUBROUTINE betrns(Tbe,Gg,Kflag,Elid)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Kflag
    DOUBLE PRECISION Gd(9) , Tbd(9)
    REAL Gg(9) , Tbe(9)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION d12(3) , dsstr(3) , dstr(3) , dtemp , dv(3) , led
    INTEGER i
    REAL len , r12(3) , rsstr(3) , rstr(3) , rv(3) , temp
-!
-! End of declarations
-!
 !     &    ENTRY BETRND (TBD,GD,KFLAG,ELID)
 !
 !*****

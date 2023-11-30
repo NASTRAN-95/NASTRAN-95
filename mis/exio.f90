@@ -1,9 +1,6 @@
 
 SUBROUTINE exio
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Datype(2) , Pdate , Ptime , Sysbuf , Xmach
    INTEGER Device(2) , Dry , Format(2) , Head1(96) , Head2(96) , Inbcds(2,5) , Mode(2) , Names(10) , Nout , Pos(2) , Uname(2)
    CHARACTER*23 Ufm
@@ -12,13 +9,7 @@ SUBROUTINE exio
    COMMON /output/ Head1 , Head2
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    INTEGER bcds(2,10) , blank , exte , i , inte , j
-!
-! End of declarations
-!
 !
 !     THE MAIN PURPOSE OF THIS MODULE IS TO COPY DATA BETWEEN THE
 !     RESIDENT SOF AND AN EXTERNAL TAPE OR DISK FILE.  AS AN EXTRA

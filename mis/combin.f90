@@ -1,9 +1,6 @@
 
 SUBROUTINE combin(Pg,Ilist,Nlist)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Ary(1) , Core(1) , Dum52(52)
    INTEGER Iary(1) , Ieol , Ieor , Ii , Incur , Iprec , Iptr , Ita , Itb , Jj , Lc , Ll , Lodc , Mass , N(13) , Nload , Nrowsp ,    &
          & Otpe , Sysbuf
@@ -16,20 +13,11 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
    COMMON /xmssg / Ufm
    COMMON /zntpkx/ A , Ll , Ieol , Ieor
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Nlist , Pg
    INTEGER Ilist(1)
-!
-! Local variable declarations
-!
    REAL alpha(360) , alpha1(360) , head(2)
    INTEGER hccen , hccens , hcfld , hcflds , i , ibuf1 , inull , ip1 , j , k , kk , kl , lcore , loadn(360) , loadnn(360) , lodc1(7)&
          & , mcb(7) , name(2) , nhc , nl1 , nlj , nperms , ns , remfl , remfls
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Core(1),Iary(1),Ary(1))
 !

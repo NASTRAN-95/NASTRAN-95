@@ -1,9 +1,6 @@
 
 SUBROUTINE xrgdtb(Lu)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Itype , Ksystm(100) ,      &
          & Limit(2) , Member(2) , Name(2) , Nbpc , Nbpw , Ncpw , Nsubst , Num(2) , Number , Nument , Optape , Record(20)
    CHARACTER*23 Ufm
@@ -11,17 +8,8 @@ SUBROUTINE xrgdtb(Lu)
    COMMON /xmssg / Ufm
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Dummy argument declarations
-!
    INTEGER Lu
-!
-! Local variable declarations
-!
    INTEGER astrsk , blank , coment , dollar , icolum
-!
-! End of declarations
-!
 !
 !     XRGDTB PROCESSES THE CARD AND FILE NAME RESTART TABLES
 !     THIS SUBROUTINE IS CALLED ONLY BY XRGDFM

@@ -1,9 +1,6 @@
 
 SUBROUTINE plod4d
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Best(45) , Bgpdt(4,4) , Cstm , Slt(11) , Z(1)
    INTEGER Ibgpdt(4,4) , Icm , Idum1(4) , Idum2(13) , Islt(11) , Iz(1) , Nest(125) , Nogo , Nout , Numint , Sil(4) , Sysbuf
    CHARACTER*25 Sfm , Uwm
@@ -14,17 +11,11 @@ SUBROUTINE plod4d
    COMMON /system/ Sysbuf , Nout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    DOUBLE PRECISION area , dpe(3,4) , dshp(8) , dshptp(8) , eps , eta , gauss(3) , shp(4) , tmpshp(4) , v3t(3) , vi(3) , vj(3) ,    &
                   & weight , wtgaus(3) , xsi
    INTEGER cid , i , ieta , ii , iii , iorder(4) , ipoint , isil , itemp , itgrid(4,4) , ixsi , j , jb , jp , kk , ksil(4) , ksild ,&
          & ncrd , ndof , nsurf , nvct , swp
    REAL locate(3) , nv(3) , nvx(3) , p , pe(3,4) , ppp(4) , x
-!
-! End of declarations
-!
 !
 !     ROUTINE TO PROCESS PLOAD4 BULK DATA TO CREATE LOADS ON QUAD4
 !     ELEMENTS

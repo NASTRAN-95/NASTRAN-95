@@ -1,9 +1,6 @@
 
 SUBROUTINE dumper
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Avps(1) , Core(1) , Sysbuf
    INTEGER Ceitbl(1) , Ihead(96) , Iosbot , Ititle(96) , Junk22(28) , Junk5(6) , Junk6(2) , Lmpl , Mpl(1) , Mplpnt , Nlines , Nlpp ,&
          & Nosgn , Op , Os(5) , Vps(1)
@@ -14,9 +11,6 @@ SUBROUTINE dumper
    COMMON /xgpic / Junk22 , Nosgn
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , rshift
    INTEGER ap , bl , cl , con1 , con2 , dmapno , el , i , iexflg , ifin , ihd(96) , iname(2) , io , ioff , ion , irn , ist , itype ,&
          & ivps , iw , ixtra(3) , j , k , kk , loco(300) , ltu , mask1 , mask2 , mask3 , mask4 , mask5 , mi , ml , mplp , msave ,   &
@@ -24,9 +18,6 @@ SUBROUTINE dumper
    DOUBLE PRECISION dprec , dprec1
    REAL ra(4) , roscar(1)
    EXTERNAL andf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DUMPS THE OSCAR
 !

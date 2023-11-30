@@ -1,21 +1,12 @@
 
 FUNCTION ai(I,J,K,L,M,N,Ip,Iq,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , Ip , Iq , J , K , L , M , N
    REAL ai
    REAL R(1) , Z(1)
-!
-! Local variable declarations
-!
    REAL abs1 , akkl , akmn , amkl , amm , ammn , arr , rd , xx
    REAL bint , f6211 , f89 , ff100
    INTEGER irr , iss , mm , nn
-!
-! End of declarations
-!
 !
 !
    IF ( R(I)==R(J) ) THEN

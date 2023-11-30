@@ -1,15 +1,9 @@
 
 FUNCTION area(G,I,J,K)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , J , K
    REAL area
    REAL G(1)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS CALLED BY SFAREA WHICH IS CALLED BY EMGFIN TO
 !     COMPUTE THE SURFACE AREAS OF THE SOLID ELEMENTS

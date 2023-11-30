@@ -5,9 +5,6 @@ SUBROUTINE xlnkhd
 !     AN OSCAR ENTRY
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alter(2) , Bcdcnt , Cnmtp , Core(1) , Cpflg , Dmap(1) , Dmpcnt , Dmppnt , Dummy(5) , Fnmtp , Iallon , Iapp , Icfpnt ,    &
          & Icftop , Ichar , Icold , Icrdtp , Icst , Ictlfl(1) , Idmapp , Idmpnt , Idsapp , Iequl , Iestim , Ifirst , Iflag , Ihapp ,&
          & Ihead , Imst , Insert , Irturn , Isavdw , Iseqn , Isgnon , Islsh , Isys(81) , Iunst , Lctlfl , Ldmap , Length , Lmed ,   &
@@ -29,16 +26,10 @@ SUBROUTINE xlnkhd
    COMMON /xmdmsk/ Nmskcd , Nmskfl , Nmskrf , Medmsk
    COMMON /xoldpt/ Xx , Seqno
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER and , or
    INTEGER andf , lshift , orf , rshift
    INTEGER i , j , k , mpler , xchk
    EXTERNAL andf , lshift , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Core(1),Os(1),Loscar) , (Os(2),Osprc) , (Os(3),Osbot) , (Os(4),Ospnt) , (Oscar(1),Med(1),Os(5))
    DATA xchk/4HXCHK/
 !

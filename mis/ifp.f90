@@ -2,9 +2,6 @@
 SUBROUTINE ifp
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort , Baddat , Badfor , Iax , Lharm
    INTEGER Axiccc , Axifcc , Dum(30) , Endara(40) , F(1469) , Gc(7) , I(100) , Iapp , Iaxf , Ib(18) , Ibuff(1) , Id , Isubs ,       &
          & Iumfed , Junk(10) , K , Kn , Knt , Kslot1 , Kslot2 , Kslot3 , Kslot4 , Kslot5 , Kx , Ky , Lbd , Lcc , Line , Ll(6) ,     &
@@ -28,9 +25,6 @@ SUBROUTINE ifp
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Ibuff
-!
-! Local variable declarations
-!
    INTEGER andf , eject , korsz , orf
    INTEGER ap(12) , blank , curfil , eid , eidm1 , eofz , fnm(2,16) , iap , iaxic , iaxif , iblkda(2) , icount , iend(3) , ifail ,  &
          & ifile , iflag , ifle(16) , ifpna1(2) , ifpna2(2) , ii(16) , ileft , inam(2) , index , indx , iparm , ipm , ipn , ipvs ,  &
@@ -41,9 +35,6 @@ SUBROUTINE ifp
    LOGICAL cf , cl , eofflg
    INTEGER nnn , nw , nwds , ooo(5) , status(16)
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
 !     NCDS    = LENGTH OF T1
 !     NCDSMX  = NO. OF CARD NAMES IN NASTRAN

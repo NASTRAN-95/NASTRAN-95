@@ -1,9 +1,6 @@
 
 SUBROUTINE psqdm1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1(3) , A2(3) , A3(3) , A4(3) , Consts(5) , Coord(16) , Cosang , Costh , D1(3) , D2(3) , Degra , Dummy(100) , Dumy(85) ,    &
       & Ecpt(100) , Ecptsa(36) , Eltemp , H , Ivec(3) , Jvec(3) , Kvec(3) , Ph1out(200) , R(6) , S(27) , Sinang , Sinth , St(3) ,   &
       & Stemp(9) , Stress , Sum(36) , T(9) , Theta , U1 , U2 , V(8) , Vecl
@@ -13,13 +10,7 @@ SUBROUTINE psqdm1
    COMMON /pla32s/ Dummy , Sum , Stemp , D1 , D2 , A1 , A2 , A3 , A4 , Ivec , Jvec , Kvec , Vecl , H , V , Ecptsa , St , Ncoord ,   &
                  & Npoint , Nsub1 , Nsub2 , Nsub3 , T , Cosang , Sinang , U1 , U2 , Theta , Dumy
    COMMON /pla3es/ Ecpt , Ph1out
-!
-! Local variable declarations
-!
    INTEGER i , j , k , m(12)
-!
-! End of declarations
-!
 !  THIS ROUTINE CALCULATES PHASE I OUTPUT FOR THE QUAD-MEMBRAND IN
 !   PLA3
 !

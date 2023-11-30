@@ -1,9 +1,6 @@
 
 SUBROUTINE kflud4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ecpt(100) , Ki , R(3) , Skip(34) , Sysbuf , Z(3)
    INTEGER Iaxif , Iopt1 , K1ggsw , Necpt(100) , Nj , Nneg , Nptj , Npvt , Out
    LOGICAL Nogo
@@ -13,13 +10,7 @@ SUBROUTINE kflud4
    COMMON /sma1et/ Ecpt
    COMMON /system/ Sysbuf , Out , Nogo , Skip , Iaxif
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    INTEGER i , ip , iret , j
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED FOR THE 4-SIDED FLUID ELEMENT. IT REARRANGES
 !     THE DATA AND  CALLS THE KFLUD3 ROUTINE FOR EACH SUBELEMENT.

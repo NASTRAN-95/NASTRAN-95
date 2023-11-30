@@ -1,24 +1,12 @@
 
 LOGICAL FUNCTION ifpdco(Ic)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(521)
    INTEGER Gc(7) , Idummy(55) , Ithrml , Ll(6)
    COMMON /ifpdta/ Dum , Gc , Ll
    COMMON /system/ Idummy , Ithrml
-!
-! Dummy argument declarations
-!
    INTEGER Ic
-!
-! Local variable declarations
-!
    INTEGER dg , lc
-!
-! End of declarations
-!
 !
 !     DECODE D.O.F. INTO LL SPACE.
 !     RETURN WITH IFPDCO=.TRUE. IF ERROR ENCOUNTERED

@@ -1,9 +1,6 @@
 
 SUBROUTINE msgwrt
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER M , Mach , Msg(4,1) , N , Outtap
    CHARACTER*25 Sfm , Uwm
    CHARACTER*27 Swm
@@ -14,13 +11,7 @@ SUBROUTINE msgwrt
    COMMON /msgx  / N , M , Msg
    COMMON /system/ Sysbuf , Outtap
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Local variable declarations
-!
    INTEGER i , ipag(2) , j , l , lplus , name(2) , neg(2) , nmsgs , png(2) , pos(2)
-!
-! End of declarations
-!
 !
 !     MSGWRT WILL PRINT THE INDICATED ERROR MESSAGES ON THE OUTPUT TAPE
 !

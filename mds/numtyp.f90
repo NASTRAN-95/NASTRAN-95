@@ -1,20 +1,11 @@
 
 FUNCTION numtyp(Ivalue)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ivalue
    INTEGER numtyp
-!
-! Local variable declarations
-!
    CHARACTER*2 byte(4)
    INTEGER i
    CHARACTER*8 word
-!
-! End of declarations
-!
 !
  
 !

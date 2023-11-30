@@ -1,21 +1,12 @@
 
 SUBROUTINE angtrs(Theta,K,Trans)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER K
    REAL Theta
    DOUBLE PRECISION Thetad
    DOUBLE PRECISION Trand(9)
    REAL Trans(9)
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !     &    ENTRY ANGTRD
 !
 !     ROUTINE TO CALCULATE AND OUTPUT THE INPLANE ROTATION

@@ -1,9 +1,6 @@
 
 SUBROUTINE filswi(Name1,Name2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Fiat(4) , Fist(1) , Icfiat , Lfist , Nfist , Nout , Sys
    CHARACTER*25 Sfm , Uwm
    REAL Skip(21)
@@ -13,19 +10,10 @@ SUBROUTINE filswi(Name1,Name2)
    COMMON /xfiat / Fiat
    COMMON /xfist / Nfist , Lfist , Fist
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Name1 , Name2
-!
-! Local variable declarations
-!
    INTEGER andf , complf , orf
    INTEGER i , k1 , k2 , mask1 , mask2 , n , unit , unit1 , unit2
    EXTERNAL andf , complf , orf
-!
-! End of declarations
-!
 !
 !     FILSWI SWITCHES THE UNITS ASSIGNED TO THE SPECIFIED DATA BLOCKS.
 !

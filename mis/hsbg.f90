@@ -1,20 +1,11 @@
 
 SUBROUTINE hsbg(N,A,Ia,B)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ia , N
    DOUBLE PRECISION A(1)
    REAL B(1)
-!
-! Local variable declarations
-!
    INTEGER i , ipiv , isub , j , jk , k , kj , kl , l , l1 , l2 , lia , lj , lk , m , n2 , nia
    DOUBLE PRECISION piv , s , t
-!
-! End of declarations
-!
 !
 !     ..................................................................
 !

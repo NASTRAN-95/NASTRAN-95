@@ -1,19 +1,10 @@
 
 SUBROUTINE gopen(File,Buffer,Option)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER File , Option
    REAL Buffer(1)
-!
-! Local variable declarations
-!
    INTEGER err , inpnor , outnor , outrew
    REAL header(2) , subnam(2)
-!
-! End of declarations
-!
 !
    DATA subnam/4H GOP , 4HEN  /
    DATA outrew , inpnor , outnor/1 , 2 , 3/

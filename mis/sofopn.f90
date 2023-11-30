@@ -1,9 +1,6 @@
 
 SUBROUTINE sofopn(B1,B2,B3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(37) , B(6) , Buf(1) , Ginobl , Item(7,1) , Mach , Nbuff , Nfiles , Nitem , Nout
    REAL C(161) , Filnam(10) , Filsiz(10) , Psswrd(2) , Status
    LOGICAL First , Opnsof
@@ -17,18 +14,9 @@ SUBROUTINE sofopn(B1,B2,B3)
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER B1(1) , B2(1) , B3(1)
-!
-! Local variable declarations
-!
    INTEGER corwds , korsz
    INTEGER dit , i , ibl1 , iptr(3) , ird , isiz , j , k , name(2) , numb
-!
-! End of declarations
-!
 !
 !     READS THE SOF AND SYS COMMON BLOCKS FROM THE DIRECT ACCESS STORAGE
 !     DEVICE, AND INITIALIZES THE POINTERS TO THE THREE BUFFERS NEEDED

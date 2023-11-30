@@ -1,9 +1,6 @@
 
 SUBROUTINE sqdme1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1(3) , A2(3) , A3(3) , A4(3) , Consts(5) , Coord(16) , Cosang , Costh , D1(3) , D2(3) , Degra , Dummy(100) , Dumy(61) ,    &
       & Ecpt(100) , Ecptsa(36) , Eltemp , Forvec(25) , H , Ivec(3) , Jvec(3) , Kvec(3) , Ph1out(100) , R(6) , S(27) , Sinang ,      &
       & Sinth , Ssubt(3) , St(3) , Stemp(9) , Stress , Sum(36) , T(9) , U1 , U2 , V(8) , Vecl
@@ -13,14 +10,8 @@ SUBROUTINE sqdme1
    COMMON /sdr2x5/ Ecpt , Ph1out , Forvec
    COMMON /sdr2x6/ Dummy , Sum , Stemp , D1 , D2 , A1 , A2 , A3 , A4 , Ivec , Jvec , Kvec , Vecl , H , V , Ecptsa , St , Ncoord ,   &
                  & Npoint , Nsub1 , Nsub2 , Nsub3 , T , Cosang , Sinang , U1 , U2 , Dumy
-!
-! Local variable declarations
-!
    REAL angl
    INTEGER i , j , k , m(12)
-!
-! End of declarations
-!
 !
 !          ECPT                        ECPT
 !       RECEIVED BY                 REQUIRED BY

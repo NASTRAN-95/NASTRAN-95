@@ -27,9 +27,6 @@ SUBROUTINE ifp3b
 !    21  TEMPD    -----  STANDARD       5641-65  TEMPD-GEOM3,
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , A4 , Angle , Coef , Consts(5) , Gc(7) , Ni , Nisq , Nphi , Nphi1 , Raddeg , Rz(1) , Sum , T1 , T2
    INTEGER Axic , Axic1(3) , Axtrl(7) , Bottom , Buff , Cconex(3) , Cdtype(50) , Clorwd , Compon , Csid , Csset , Ctrapa(3) ,       &
          & Ctriaa(3) , Ddd(14) , Dum(521) , Dum50(50) , Dumdum(8) , Dummy(96) , Eor , File(6) , Flag , Force(3) , Forcex(3) ,       &
@@ -64,17 +61,11 @@ SUBROUTINE ifp3b
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Rz
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER i , i3 , i4 , i5 , icard , ifist , ilast , imsg , irec , j , l2
    LOGICAL ifpdco
    REAL t3
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
    EQUIVALENCE (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) , (Axic,File(6)) , (Noeor,Inprwd,Zero) ,    &
     & (Eor,Clorwd,Outrwd,One)
    EQUIVALENCE (Ibufsz,Isystm(1))

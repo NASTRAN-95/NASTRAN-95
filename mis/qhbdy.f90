@@ -1,23 +1,14 @@
 
 SUBROUTINE qhbdy
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bg , Ifm , Lc , N(12) , Old , Slt
    REAL Consts(5) , Core(1) , Pi
    COMMON /condas/ Consts
    COMMON /loadx / Lc , Slt , Bg , Old , N , Ifm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    REAL af , bgpdt(4,4) , data4(4) , fact , factx , flag , length , p(4) , q0 , r12(3) , r13(3) , x(4) , y(4) , z(4)
    INTEGER card(7) , grids(4) , i , i1 , i2 , i3 , iflag , igrids(5) , imap , isil , l , map(15) , ngrids , nmap , order(4) ,       &
          & sils(4) , subr(2)
-!
-! End of declarations
-!
 !*****
 !
 !  THIS ROUTINE APPLIES THE LOADS DUE TO A SELECTED HEAT FLUX

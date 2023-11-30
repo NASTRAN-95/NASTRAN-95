@@ -1,9 +1,6 @@
 
 SUBROUTINE pltset
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Axymax(2) , Chrscl , Cntchr(2) , Cntsin , Papsiz(2) , Reg(2,2) , Skp235(226) , Skp4(4) , Skparm(6) , Xyedge(11) , Xymax(2)
    INTEGER Chrwrd , Itrack , Ksystm(65) , Mach , Model , Nout , Offscl , Pbfsiz , Pbufsz , Pdata(20) , Ploter , Pltdat(20,1) ,      &
          & Pltnum , Pltype
@@ -16,15 +13,9 @@ SUBROUTINE pltset
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xxparm/ Pbufsz , Skparm , Papsiz , Skp235 , Offscl
-!
-! Local variable declarations
-!
    INTEGER i , plt1 , plt2
    LOGICAL tapbit
    REAL xysize(2)
-!
-! End of declarations
-!
 !
 !     COMMENTS FROM G.C. -
 !     THE DRIVER FOR DMAP MODULE PLTSET IS DPLTST

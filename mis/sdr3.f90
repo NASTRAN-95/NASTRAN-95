@@ -1,19 +1,10 @@
 
 SUBROUTINE sdr3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L
    REAL Sysbuf
    COMMON /system/ Sysbuf , L
-!
-! Local variable declarations
-!
    INTEGER i , ifile , ofpfil(6)
-!
-! End of declarations
-!
 !
 !*****
 !  MAIN DRIVER FOR THE SDR3 MODULE...

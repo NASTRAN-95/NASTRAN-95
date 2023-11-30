@@ -1,27 +1,15 @@
 
 SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Chrind(60) , Lstind , Xychr(2,1)
    REAL Cntchr(2) , Cscale , Edge(11) , Reg(2,2) , Skpa(3) , Skplt(2) , Xymax(2)
    COMMON /chrdrw/ Lstind , Chrind , Xychr
    COMMON /pltdat/ Skplt , Reg , Xymax , Edge , Cscale , Skpa , Cntchr
-!
-! Dummy argument declarations
-!
    INTEGER Nn , Opt , Xyd
    REAL X , Y
    INTEGER Chr(1)
-!
-! Local variable declarations
-!
    INTEGER d , i , j , k , l , lstchr , n , n1 , n2
    REAL s , save(2,2) , xy(2,2) , xyc(2,2)
-!
-! End of declarations
-!
 !
 !     (X,Y)  = STARTING OR ENDING POINT OF THE LINE TO BE TYPED (ALWAYS
 !              LEFT-TO-RIGHT OR TOP-TO-BOTTOM)

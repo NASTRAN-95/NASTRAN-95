@@ -1,21 +1,12 @@
 
 FUNCTION dkls(Np,I,L,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER I , L , Np
    REAL dkls
    REAL R(3) , Z(3)
-!
-! Local variable declarations
-!
    REAL a , aj , ar , beta , dfact , dl1 , dr , dz , dzj , eps , fact , factl , gkl , one , pr , ra , rak , rb , rbk , two , za ,   &
       & zb , zero
    INTEGER j , jfact , k , l1 , l2 , lfact , lk , lmjf , m , nam(2)
-!
-! End of declarations
-!
 !-----
 !    THIS ROUTINE CALCULATES THE SINGLE PRECISION INTEGRALS FOR
 !    AXISYMMETRIC SOLIDS IN EMG

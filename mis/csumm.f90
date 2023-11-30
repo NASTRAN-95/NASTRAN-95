@@ -1,20 +1,11 @@
 
 SUBROUTINE csumm(D1,D2,Id1,D3,D4,Id2,D5,D6,Id5)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION D1 , D2 , D3 , D4 , D5 , D6
    INTEGER Id1 , Id2 , Id5
-!
-! Local variable declarations
-!
    REAL factor
    INTEGER mult
    DOUBLE PRECISION t1 , t2 , t3 , t4
-!
-! End of declarations
-!
 !
 !     ADDS  D1+D2 TO  D3+D4 SCALING OUTPUT
 !

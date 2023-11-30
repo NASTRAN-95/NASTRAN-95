@@ -1,9 +1,6 @@
 
 SUBROUTINE mred2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bounds , Frebdy , Modes , Ponly , Rsave
    INTEGER Casecc , Dry , Gbuf1 , Gbuf2 , Gbuf3 , Infile(12) , Io , Iprntr , Iscr(10) , Iscr11 , Korbgn , Korlen , Lamsap , Lstzwd ,&
          & Modlen , Modpts , Newnam(2) , Nmax , Oldnam(2) , Otfile(6) , Popt , Sbuf1 , Sbuf2 , Sbuf3 , Step , Sysbuf , Usrmod , Z(1)
@@ -13,16 +10,10 @@ SUBROUTINE mred2
                  & Ponly , Lstzwd , Iscr11
    COMMON /system/ Sysbuf , Iprntr
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , iblank , ifile , imsg , itest , itrlr(7) , j , k , modnam(2) , mrd2g , nhloap , nhlods , nmonic(10) , nozwds ,       &
          & nrange , nwdscc , nwdsrd
    INTEGER korsz , orf
    EXTERNAL orf
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE IS THE MRED2 MODULE WHICH PERFORMS THE MAJOR
 !     COMPUTATIONS FOR THE REDUCE COMMAND.

@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1b
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Cls , Clsrew , Cstm , Ecpt , Ect , Elem(1) , Eltype , Ept , Eqexin , Est , Gei , Genl , Gpct , Gpect , Gptt ,    &
          & Iback , Idftmp , Incr , Itemp , Jlast , Ksystm(65) , Luset , Mpt , Mptx , Nelem , Nogenl , Nosimp , Nosup , Nsil ,       &
          & Oldeid , Oldel , Outpt , Rd , Rdrew , Scr1 , Scr2 , Scr3 , Scr4 , Sil , Sysbuf , Tempid , Wrt , Wrtrew , Z(1)
@@ -21,9 +18,6 @@ SUBROUTINE ta1b
    COMMON /ta1ett/ Eltype , Oldel , Eorflg , Endid , Bufflg , Itemp , Idftmp , Iback , Record , Oldeid
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER andf , korsz
    INTEGER bar , blk(2) , buf(50) , buf1 , buf2 , buf3 , buf4 , cbar , elemid , file , flag , gpsav(34) , i , id , idcntr , idptr , &
          & iecpt0 , ielem , igp , ihex2 , ihex3 , ii , ijk , ik , infile , ipass , irigd , is1 , is2 , iset , ist , itmpid , ix ,   &
@@ -34,9 +28,6 @@ SUBROUTINE ta1b
    INTEGER nx , op , oufile , plot , plotel , ppse , quadts , react , ret , ret1 , ret2 , scri , scro , shear , triats , twist ,    &
          & two24 , zeros(4)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     TA1B BUILDS THE ELEMENT CONNECTION AND PROPERTIES TABLE (ECPT)
 !     AND THE GRID POINT CONNECTION TABLE. THE ECPT CONTAINS ONE LOGICAL

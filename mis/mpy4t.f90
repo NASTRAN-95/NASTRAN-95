@@ -23,9 +23,6 @@ SUBROUTINE mpy4t(Iz,Z,Dz)
 !     WRITTEN BY G.CHAN/UNISYS   1/92
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acore , All , Apoint , Arow , Arow1 , Arown , Bcol , Crow , Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Firstl , Ihalf , &
          & Ii , Jbb , Jhalf , Jj , Jump , Ll , Lll , Mach , Na(3) , Nbx(3) , Nwda , Nwds(4) , Prc(2) , Prca , Prcd , Rc(4) , Rca ,  &
          & Rcb , Rcd , Typ
@@ -35,22 +32,13 @@ SUBROUTINE mpy4t(Iz,Z,Dz)
    COMMON /mpyqt4/ Rca , Prca , All , Jump , Prcd
    COMMON /type  / Prc , Nwds , Rc
    COMMON /unpakx/ Typ , Ii , Jj
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dz(1)
    INTEGER Iz(1)
    REAL Z(1)
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    DOUBLE PRECISION dsumi , dsumr , dzero
    INTEGER init , ipoint , j , ja , jb , je , kb , l , last , nam(2) , nbr , nbrstr
    REAL sumi , sumr
-!
-! End of declarations
-!
    EQUIVALENCE (dsumr,sumr) , (dsumi,sumi)
    DATA nam/4HMPY4 , 1HT/ , dzero/0.0D+0/
 !

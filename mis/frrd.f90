@@ -1,23 +1,14 @@
 
 SUBROUTINE frrd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL App(2) , Dum32(32) , Frqset , Ovf(150)
    INTEGER Ib , Ibbar , Icnt , Idit , Ifrd , Ifrst , Itl(3) , K4dd , Lusetd , Modal(2) , Multi , Noncup , Omit , Single
    COMMON /blank / App , Modal , Lusetd , Multi , Single , Omit , Noncup , Frqset
    COMMON /cdcmpx/ Dum32 , Ib , Ibbar
    COMMON /frrdst/ Ovf , Icnt , Ifrst , Itl , Idit , Ifrd , K4dd
-!
-! Local variable declarations
-!
    INTEGER bdd , casecc , dit , dlt , fol , frl , gmd , god , i , igood , itime1 , itime2 , itleft , kdd , mcb(7) , mdd , moda ,    &
          & name(2) , ndone , nfreq , nload , notrd , pd , pdd , phidh , pp , ps , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 ,  &
          & scr8 , udv , usetd
-!
-! End of declarations
-!
 !
 !     FREQUENCY AND RANDOM RESPONSE MODULE
 !

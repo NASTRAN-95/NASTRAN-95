@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb1a(Input,Matout,Ajj,Ajjt,Tsonx,Tamach,Tredf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Degra , Den , Dum(2) , Flowa , Mach , Maxmac , Minmac , Pi , Radeg , Radius ,     &
       & Redf , Refc , Refcrd , Refden , Refflo , Refmac , Refstg , Refvel , Rfreq , S4pisq , Sigma , Stager , Twopi , Vel
    LOGICAL Debug , Tsonic
@@ -14,20 +11,11 @@ SUBROUTINE amgb1a(Input,Matout,Ajj,Ajjt,Tsonx,Tamach,Tredf)
                  & Stager , Chord , Radius , Bspace , Mach , Den , Vel , Flowa , Amach , Redf , Blspc , Amachr , Tsonic
    COMMON /condas/ Pi , Twopi , Radeg , Degra , S4pisq
    COMMON /packx / Iti , Ito , Ii , Nn , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Input , Matout
    COMPLEX Ajj(Nstns,1) , Ajjt(Nstns)
    REAL Tamach(1) , Tredf(1)
    INTEGER Tsonx(1)
-!
-! Local variable declarations
-!
    INTEGER i , iajjc , line , name(2) , nline , nstns3 , nwar
-!
-! End of declarations
-!
 !
 !     COMPUTE AJJ MATRIX FOR COMPRESSOR BLADES
 !

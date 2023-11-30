@@ -1,9 +1,6 @@
 
 SUBROUTINE trht
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Beta , Sigma , Tabs , Tim , Z(1)
    INTEGER Dit1 , Ib(7) , Icore , Icount , Icr1 , Icr2 , Icr3 , Icr4 , Icr5 , Icr6 , Icr7 , Ik(7) , Iloop1 , Ip4 , Ipnl(7) , Iprec ,&
          & Ist , Isym , Iu2 , Iz(1) , Ksystm(65) , Moda1 , More(6) , Nlft1 , Nlftp1 , Nmodes , Norad , Nout , Nstep , Nz , Pnl1 ,   &
@@ -14,16 +11,10 @@ SUBROUTINE trht
                  & Ist , More
    COMMON /trhtx / Ik , Ib , Icr1 , Icr2 , Icr3 , Icr4 , Icr5 , Isym , Icr6 , Icr7 , Tim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bdd , casexx , dit , gptt , i , igroup , iscr1 , iscr2 , iscr3 , iscr4 , iscr5 , iscr6 , iscr7 , itim1 , itim2 , itim3 , &
          & itleft , kdd , name(2) , nb , ngroup , nlft , nv , pd , pnld , rdd , trl , udvt , usetd
    REAL delta
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     TRANSIENT INTEGRATION HEAT TRANSFER MODULE
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE cf2ort(Sucess,Maxits,Ten2mt,Nzero,Iortho,Vr,Vl,V1,V1l,V2,V2l,Zb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumaa(42) , Dumxc(7) , Eofnrw , Rd , Rdrew , Rew , Wrt , Wrtrew , Xcdum(3) , Xcdum2(9) , Xcdum3(5)
    INTEGER Idiag , Ii , Incr , Iprc , Iscr7 , Ksys , Nn , Nord2 , Norew , Nout , Numort
    LOGICAL Qpr
@@ -12,23 +9,14 @@ SUBROUTINE cf2ort(Sucess,Maxits,Ten2mt,Nzero,Iortho,Vr,Vl,V1,V1l,V2,V2l,Zb)
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw
    COMMON /system/ Ksys , Nout
    COMMON /unpakx/ Iprc , Ii , Nn , Incr
-!
-! Dummy argument declarations
-!
    INTEGER Iortho , Maxits , Nzero
    LOGICAL Sucess
    REAL Ten2mt
    DOUBLE PRECISION V1(1) , V1l(1) , V2(1) , V2l(1) , Vl(1) , Vr(1)
    INTEGER Zb(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a(2) , critf , otest(4)
    INTEGER i , j , k , l , ll , mortho
    LOGICAL skip
-!
-! End of declarations
-!
 !*******
 !     CF2ORT IS A DOUBLE-PRECISION ROUTINE (CREATED FOR USE BY
 !     THE COMPLEX FEER METHOD) WHICH PERFORMS THE

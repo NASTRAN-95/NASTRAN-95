@@ -1,9 +1,6 @@
 
 SUBROUTINE dadd5
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(10) , Amcbs(1) , Core(1)
    INTEGER Ibuf , Lcore , Mc(5) , Mcbs(67) , Nomat , Nout
    CHARACTER*23 Ufm
@@ -12,14 +9,8 @@ SUBROUTINE dadd5
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER i , inx(5) , iout , j , k
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     DMAP DRIVER FOR SADD (MATRIX ADD) ROUTINE
 !     THE DMAP CALL FOR THIS MODULE IS

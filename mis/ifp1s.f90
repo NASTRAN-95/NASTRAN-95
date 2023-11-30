@@ -1,27 +1,15 @@
 
 SUBROUTINE ifp1s(List,Istor,Nlist)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Inx(6) , Inx1(2) , Line , Nlpp , Otpe
    REAL Sysbuf
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /system/ Sysbuf , Otpe , Inx , Nlpp , Inx1 , Line
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Nlist
    INTEGER Istor(1) , List(1)
-!
-! Local variable declarations
-!
    INTEGER i , in , in1 , iout , ipair , ising , ix , k , l , m , n1 , n2
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE FINDS ANY OVERLAPPING INTERVALS IN A SET LIST.
 !     IT WILL ALSO CHECK SINGLES

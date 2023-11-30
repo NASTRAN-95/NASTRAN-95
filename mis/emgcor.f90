@@ -1,9 +1,6 @@
 
 SUBROUTINE emgcor(Buf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat
    INTEGER Cls , Clsrew , Cstm , Dit , Est , Flags(3) , Geom2 , Icmbar , Icong , Icore , Icstm , Idit , Ihmat , Imat , Jcore ,      &
          & Kflags(3) , Kmbdic(3) , Kmbmat(3) , Ksystm(65) , L38 , Lcong , Lcstm , Lhmat , Lmat , Mpt , Ncong , Ncore , Ncstm ,      &
@@ -21,17 +18,8 @@ SUBROUTINE emgcor(Buf)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Buf(8)
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , bufs , eor , i , ibuf , n , name(2) , scr4 , subr(2) , type(3)
-!
-! End of declarations
-!
 !
 !     CORE ALLOCATION AND PARAMETER INITIALIZATION FOR MAIN -EMG-
 !     PROCESSOR -EMGPRO-.

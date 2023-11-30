@@ -1,28 +1,16 @@
 
 SUBROUTINE gtmat1(Sym,Tt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Len1 , Loc1 , Trn
    REAL Tc6(6,6) , Tt6(6,6) , Z(1)
    COMMON /gtmatx/ Loc1 , Len1 , Trn , Tt6 , Tc6
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ihelp , Len2 , Loc2 , Sym , Tran
    REAL Acpt(1) , Tc(3,3) , Tg(3,3) , Tg6(6,6) , Tt(3,3)
-!
-! Local variable declarations
-!
    INTEGER andf , orf , rshift
    INTEGER chk1 , chk2 , ecpt1 , i , idir , iflag , ikind , isav , j , list(32) , name(2) , ndir
    REAL ecpt(4) , prod(6) , rflag , smat(6,3) , symm(6,6) , t(6,6) , tid(3,3)
    EXTERNAL andf , orf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PROCESSES TRANSFORMATION MATRICES
 !     IT IS CALLED ONLY BY CMSFIL

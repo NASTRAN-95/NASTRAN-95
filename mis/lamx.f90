@@ -1,9 +1,6 @@
 
 SUBROUTINE lamx
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Hdg(96) , Pi , Twopi , Z(7)
    INTEGER Ie , Ii , Iii , Incr , Incr1 , Ito , Ityin , Ityout , Iz(1) , Nlam , Nnn , Nout , Sysbuf
    COMMON /blank / Nlam
@@ -13,16 +10,10 @@ SUBROUTINE lamx
    COMMON /system/ Sysbuf , Nout
    COMMON /unpakx/ Ito , Ii , Ie , Incr
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    REAL a , b , c , d(3)
    INTEGER bufa , bufb , bufe , edit , i , icore , ied , ist(10) , iz2 , j , l , lama , lamb , lma , m , nam , ncol , nloop , nwr , &
          & trl(7)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     LAMX MAKES OR EDITS THE LAMA DATA BLOCK
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum1(8) , Dum2(6) , Dum3 , U21 , U22 , U23 , Ud , Ue , Ufe , Uk , Une , Up , Upa , Ups , Usa
    INTEGER Eqexin , Line , Nlpp , Nout , Npage , Sysbuf , Two(32) , Ua , Uab , Uf , Ufr , Ug , Ui , Ul , Um , Un , Uo , Ur , Us ,   &
          & Usb , Usg , Ux , Uy , Uz , Z(1)
@@ -16,20 +13,11 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
    COMMON /two   / Two
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf , Ieqex , Iuset
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER astric , blank , d32 , d33 , dash , expnt , file , i , ibit , icol , idof , imk , inpnt , inum , itype , iu , juset , k ,&
          & kk , msk(17) , n , name(2) , ndof , neqex , nz , sbit(17) , title(3,9) , upbit(17) , zdof(10) , zgrd(10)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     HYDROELEASTIC USET OUTPUT
 !

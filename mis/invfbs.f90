@@ -1,9 +1,6 @@
 
 SUBROUTINE invfbs(Dx,Dy,Iobuf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Cdp , Csp , Diag , Eofnrw , Rc(2) , Rd , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    DOUBLE PRECISION Da
    INTEGER Eol , Filel(7) , Fileu(7) , Ibuf , Identy , Idummy(27) , Ii , Iopen , Lowtri , Mach , Norew , Nout , Nrow , Nwds(4) , Rdp
@@ -19,20 +16,11 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
    COMMON /type  / Rc , Nwds
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zntpkx/ A , Ii , Eol
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dx(1) , Dy(1)
    INTEGER Iobuf(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION djj , dtemp , dyj , epsi
    INTEGER i , ifile , ifw , ijj(2) , in1 , in2 , ioff , j , ji , jj , jx , k , ntms , nwd , parm(4) , typear
    REAL x1 , x2
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION VERSION
 !

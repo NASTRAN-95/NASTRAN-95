@@ -1,26 +1,14 @@
 
 SUBROUTINE errmkn(N,Ierr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Nbuff , Nout
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
    CHARACTER*29 Uim
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Ierr , N
-!
-! Local variable declarations
-!
    INTEGER isubr(26)
-!
-! End of declarations
-!
 !
 !     SENDS ERROR MESSAGES.  N IS THE INDEX OF THE SUBROUTINE CALLING
 !     ERROR, AND IERR IS AN ERROR CODE.

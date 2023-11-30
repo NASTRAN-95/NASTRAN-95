@@ -1,26 +1,14 @@
 
 SUBROUTINE ascm07(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(605) , Ioct , Ipas37(6) , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
    COMMON /phas37/ Ipas37
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,1) , i , icomnd , j , k , oct(3,13) , oct1(3,13) , ptbs(7,26) , ptbs1(7,18) , ptbs2(7,8) , rdmap(18,21) ,        &
          & rdmap1(18,9) , rdmap2(18,9) , rdmap3(18,3) , subnam(2)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     BRECOVER COMMAND DMAP DATA
 !

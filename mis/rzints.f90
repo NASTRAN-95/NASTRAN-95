@@ -1,20 +1,11 @@
 
 FUNCTION rzints(Ip,Iq,R,Z,Ngrids)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ip , Iq , Ngrids
    REAL R(4) , Z(4)
    REAL rzints
-!
-! Local variable declarations
-!
    REAL detj , drdeta , drdxi , dzdeta , dzdxi , h(3) , pt(3) , rr , rrp , xint , zz , zzq
    INTEGER iii , jjj , npt
-!
-! End of declarations
-!
    IF ( Ngrids/=3 ) THEN
       npt = 3
       pt(1) = -.7745966692

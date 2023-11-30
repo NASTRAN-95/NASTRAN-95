@@ -1,9 +1,6 @@
 
 SUBROUTINE find(Mode,Buf1,Buf4,Setid,X)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aver(3) , Axis(6) , Axymax(14) , Cntchr(2) , Cstm(3,3) , D(3) , D0 , Defmax , Edge(11,4) , Max(3) , Maxdef , Min(3) ,       &
       & Objmod , Papsiz(2) , Penpap(27) , Pltbuf , Pltter(5) , Reg(4) , S0s , Scale , Skp11 , Skp12 , Skp13(4) , Skp2(8) , Skpa(3) ,&
       & Skpplt(2) , Skpvp1(4) , Skpvp2(2) , View(9) , Xy(11,3)
@@ -18,21 +15,12 @@ SUBROUTINE find(Mode,Buf1,Buf4,Setid,X)
    COMMON /xmssg / Ufm , Uwm
    COMMON /xxparm/ Pltbuf , Pltter , Nopens , Papsiz , Penpap , Scale , Objmod , Fscale , Maxdef , Defmax , Axis , View , Fvp ,     &
                  & Skpvp1 , D0 , Skpvp2 , Prject , S0s , For , Org , Norg , Origin , Edge , Xy
-!
-! Dummy argument declarations
-!
    INTEGER Buf1 , Buf4 , Mode
    INTEGER Setid(1) , X(1)
-!
-! Local variable declarations
-!
    REAL a , b , diam , fwrd , imsep , mm17p5 , ratio , rdist , sqrt3
    INTEGER awrd(2) , err(3) , hset , i , icrq , iwrd , j , msg1(20) , msg3(21) , msg6(20) , name(2) , nmsg1 , nmsg3 , nmsg6 , nogo ,&
          & orig , poin , regi , region , scal , set , tra , vant , word
    DOUBLE PRECISION dwrd
-!
-! End of declarations
-!
 !
    EQUIVALENCE (word,awrd(1),iwrd,fwrd,dwrd)
    DATA name/4H  FI , 4HND  /

@@ -15,9 +15,6 @@ SUBROUTINE rcard2(Out,Fmt,Nflag,In)
 !     RCARD2 ASSUMES ALL INPUT FIELDS IN 'IN' ARE LEFT-ADJUSTED.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Dum1(8) , Dum2(4) , Highpw , Lowpw , Nlines , Nout , Xsort2
    LOGICAL Nogo
    CHARACTER*23 Ufm
@@ -25,15 +22,9 @@ SUBROUTINE rcard2(Out,Fmt,Nflag,In)
    COMMON /system/ Bufsz , Nout , Nogo , Dum1 , Nlines
    COMMON /xechox/ Dum2 , Xsort2
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Nflag
    CHARACTER*4 C4(1)
    INTEGER Fmt(1) , In(20) , Out(1)
-!
-! Local variable declarations
-!
    INTEGER a1(80) , a1nb , a67777 , base , blank , blank1 , check , chr1(16) , chr11 , d1 , dot1 , e1 , field , i , idoubl(2) ,     &
          & ifmt , intgr , iout , it , j , k , minus1 , n , n8or16 , npoint , nt(16) , num1(9) , number , nwords , outx(100) ,       &
          & places , plus1 , power , sign1 , star1 , stars , type(16) , value(16) , word , zero1
@@ -48,9 +39,6 @@ SUBROUTINE rcard2(Out,Fmt,Nflag,In)
    CHARACTER*9 num9
    CHARACTER*100 out100(4) , tmp100
    EXTERNAL complf , lshift , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (chr11,chr1(1)) , (k1(1),in4(1),d5,e80) , (fpt,intgr) , (khr1(1),chr4(1)) , (ddoubl,idoubl(1)) , (out4(1),out100(1))
    DATA blankc , starc , plusc , minusc , dotc , ec , dc/' ' , '*' , '+' , '-' , '.' , 'E' , 'D'/
    DATA blank , stars , seqgp5 , seqep5 , zeroc , num9/4H     , 4H==== , 'SEQGP' , 'SEQEP' , '0' , '123456789'/

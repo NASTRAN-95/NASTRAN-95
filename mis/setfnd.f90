@@ -1,18 +1,9 @@
 
 SUBROUTINE setfnd(*,Set,Lset,Id,Next)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Id , Lset , Next
    INTEGER Set(Lset)
-!
-! Local variable declarations
-!
    INTEGER id1
-!
-! End of declarations
-!
 !*****
 !  FINDS AN ID IN A SORTED SET LIST WHICH MAY HAVE THE NASTRAN THROUGH
 !  NOTATION.  IE.  6,-18 IMPLIES 6 THRU 18.

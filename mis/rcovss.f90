@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovss
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Dry , Eofnrw , Fss(2) , Icore , Iopt , Ireq , Iz(5) , Lbasic , Lcore , Loop , Lreq , Lui , Mrecvr , &
          & Neigv , Norew , Nosort , Nout , Rd , Rdrew , Rew , Rfno , Step , Sysbuf , Wrt , Wrtrew
    REAL Buf4 , Energy , Pa , Pthres , Qa , Qthres , Range(2) , Rss(2) , Sof1 , Sof2 , Sof3 , Ua , Uimpro , Uinms(2,5) , Uthres ,    &
@@ -17,16 +14,10 @@ SUBROUTINE rcovss
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER casecc(2) , casess , cc(2) , eog , eoi , eqss , file , geom4 , i , icase , ilods , isc , iseq , j , jsoln , k , lcc ,    &
          & loadc(2) , lod(4) , lods , lodsin , lsem , lskip , n , name(2) , nc , nlds , nlods , noldc , nrec , ns , nskip , nwds ,  &
          & rc , scr1 , soln , srd , swrt
    REAL clod(4) , sfac
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE STATIC SOLUTION ITEM FOR RIGID FORMATS
 !     1 AND 2

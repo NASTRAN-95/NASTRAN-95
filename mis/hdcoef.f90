@@ -1,27 +1,15 @@
 
 SUBROUTINE hdcoef(X,Y,Z,Xxx,Jxx,Ns,Ccc,Lz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , Zcoef , Zcoef1
    REAL Rz(1) , X1skt , Xasolv , Xcc , Xdum , Y1skt , Yasolv , Z1skt , Zasolv
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
    COMMON /hdptrs/ Xdum , Xcc , Xasolv , Yasolv , Zasolv , X1skt , Y1skt , Z1skt , Zcoef1 , Zcoef
    COMMON /zzzzzz/ Rz
-!
-! Dummy argument declarations
-!
    INTEGER Jxx , Lz , Ns
    REAL Ccc(1) , X(1) , Xxx(1) , Y(1) , Z(1)
-!
-! Local variable declarations
-!
    REAL a1 , a2 , b1 , b2 , c1 , c2 , coe(8) , e , epsi , f , p , s , t , t1 , u
    INTEGER i , ibcoef(5) , ix , j , ja , japj , jf , jfpk , k , k1 , k2 , k3 , le
-!
-! End of declarations
-!
 !
 !
 !     THIS SUBROUTINE DETERMINES EQUATION OF LINES AND PLANES.

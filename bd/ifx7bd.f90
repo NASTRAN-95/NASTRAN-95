@@ -1,15 +1,9 @@
 
 BLOCKDATA ifx7bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER J1(160) , J10(56) , J11(24) , J12(8) , J13(16) , J14(57) , J15(52) , J2(160) , J3(160) , J4(160) , J5(160) , J6(160) ,   &
          & J7(160) , J8(80) , J9(56)
    COMMON /ifpx7 / J1 , J2 , J3 , J4 , J5 , J6 , J7 , J8 , J9 , J10 , J11 , J12 , J13 , J14 , J15
-!
-! End of declarations
-!
 !IFX7BD
 !     EACH ENTRY CONTAINS THE ADMISSIBLE SEQUAENCE OF FORMAT CODES FOR
 !     THAT CARD TYPE.  THE POINTER TO EACH ENTRY IS PROVIDED FROM THE

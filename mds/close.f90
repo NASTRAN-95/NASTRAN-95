@@ -3,25 +3,13 @@ SUBROUTINE close(File,Iop)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
    INCLUDE 'XNSTRN.COM'
-!
-! COMMON variable declarations
-!
    REAL Dum1(77) , Dum2(21)
    INTEGER Idiag , Isysbf
    INTEGER*2 Iunit(220)
    COMMON /dsunit/ Iunit
    COMMON /system/ Isysbf , Dum1 , Idiag , Dum2
-!
-! Dummy argument declarations
-!
    INTEGER File , Iop
-!
-! Local variable declarations
-!
    INTEGER isave
-!
-! End of declarations
-!
 !***************************************************************
 !                          NOTICE
 !

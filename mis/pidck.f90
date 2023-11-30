@@ -1,9 +1,6 @@
 
 SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort
    INTEGER Ibuf , Incr , Kdum(9) , Last , Ne(1) , Nelem , Nout
    REAL Skip(42)
@@ -13,19 +10,10 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    COMMON /gpta1 / Nelem , Last , Incr , Ne
    COMMON /system/ Ibuf , Nout , Abort , Skip , Kdum
    COMMON /xmssg / Ufm , Uwm , Uim
-!
-! Dummy argument declarations
-!
    INTEGER Geom2 , Nopid , Pfile
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER flag , i , i4 , ii , iz , j , jb , je , jj , jj1 , k , kk , komp , kp1 , name(2) , nc , ng , np , nwds , pcomp(3) ,      &
          & pshell , quad4 , x(3)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CHECKS THE UNIQUNESS OF PROPERTY IDS FOR ALL ELEMENTS
 !     THAT HAVE PID FIELDS

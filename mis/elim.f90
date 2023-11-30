@@ -1,26 +1,14 @@
 
 SUBROUTINE elim(In1,In2,In3,In4,Out1,Scr1,Scr2,Scr3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Filea(7) , Fileb(7) , Filec(7) , Filed(7) , Idum(54) , Iprec , Nz , Prec , Scrtch , Signab , Signc , T
    REAL Z(1)
    COMMON /mpyadx/ Filea , Fileb , Filec , Filed , Nz , T , Signab , Signc , Prec , Scrtch
    COMMON /system/ Idum , Iprec
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER In1 , In2 , In3 , In4 , Out1 , Scr1 , Scr2 , Scr3
-!
-! Local variable declarations
-!
    INTEGER i , plus , rdp
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ELIM EVALUATES THE MATRIX EQUATION -
 !

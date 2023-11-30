@@ -1,9 +1,6 @@
 
 SUBROUTINE invp2(*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Det , Detc , Detdet , Mindd
    INTEGER Dum(14) , Filea(7) , Filel(7) , Fileu(7) , Ia(7) , Ichl , Ij(8) , Ik(5) , Il(7) , Ipowr , Iscr1 , Iscr2 , Iscr3 ,        &
          & Isr3fl , Iu(7) , Ksystm(63) , Lowtri , Mind , Mz , Nz , Option , Prec , Q(1) , Rdp , Scr1(7) , Scr2(7) , Scr3 , Scr4 ,   &
@@ -17,14 +14,8 @@ SUBROUTINE invp2(*)
    COMMON /sfact / Filea , Filel , Fileu , Sr1fil , Sr2fil , Nz , Det , Detc , Power , Isr3fl , Mindd , Ichl
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER i , opt2
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     INVP2 INITIALIZES THEN CALLS EITHER SDCOMP OR DECOMP DEPENDING ON
 !     THE OPTION SELECTED ON THE EIGR CARD

@@ -1,26 +1,14 @@
 
 SUBROUTINE smsg(No,P1,P2)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER K
    REAL Sysbuf
    CHARACTER*23 Ufm
    COMMON /system/ Sysbuf , K
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER No , P1
    INTEGER P2(2) , P3(2)
-!
-! Local variable declarations
-!
    INTEGER l , msgno , neg(2) , nmsg , nmsg1 , png(2) , pos(2)
-!
-! End of declarations
-!
 !
 !     MESSAGE WRITER FOR SUBSTRUCTURE DIAGNOSTICS, 61XX SERIES
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE pthbdy
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum(6) , Pi , Z(1)
    INTEGER Iz(1) , Mesh(2) , Nhbdy , Nlpp , Out , Sysbuf
    CHARACTER*23 Ufm
@@ -13,9 +10,6 @@ SUBROUTINE pthbdy
    COMMON /system/ Sysbuf , Out , Dum , Nlpp
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL af , d , e(3) , r21(3) , tem(3) , v(3) , x1 , x2 , x3 , x4 , xl , zs3
    INTEGER bgpdt , buf1 , buf2 , buf3 , buf4 , buf5 , buf6 , cbs(20) , chbdy(2) , ect , ept , file1 , file2 , flag , geom2 ,        &
          & hbgpdt , hect , hsil , i , i1 , i2 , i3 , i4 , icore , ieq , ilft , ipn , iprt , ipv , itry , ivew , iyes , leq , line , &
@@ -23,9 +17,6 @@ SUBROUTINE pthbdy
          & oeq , osil , phbdy(2) , scr1 , scr2 , sil , trl(7) , view(2)
    INTEGER korsz
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     PTHBDY MODIFIES THE SIL,ECT,EQEXIN AND BGBDT FOR CHBDY ELEMENTS
 !     SO THEY CAN BE PLOTTED.

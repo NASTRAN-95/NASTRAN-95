@@ -1,9 +1,6 @@
 
 SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bov , Dum(52) , P(2) , Pi , Rm , Twopi
    INTEGER Ii , Incr , Incr1 , Inn , Iout , Iprec , Isys , Iti , Ito , Iwc(4) , Nn , Nnn , Out
    CHARACTER*23 Ufm
@@ -14,20 +11,11 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
    COMMON /type  / P , Iwc
    COMMON /unpakx/ Iout , Inn , Nnn , Incr1
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Ncol , Ncore , Nfreq , Nogo , Nrow , Qhhl , Scr1 , Scr2 , Scr3 , Scr4
    REAL Fl(1)
-!
-! Local variable declarations
-!
    REAL flag , rmi , rms , rmx
    INTEGER i , ibuf1 , ibuf2 , icp , ik , im , ipd , ipi , j , ji , jj , k , kk , mcb(7) , n , name(2) , nc , nhfrdi , ni , nl ,    &
          & nwc , trl(7)
-!
-! End of declarations
-!
 !
    DATA nhfrdi , name/4HFRDI , 4HADRI , 4H    /
 !

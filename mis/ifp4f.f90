@@ -1,25 +1,13 @@
 
 SUBROUTINE ifp4f(Ibit,File,Bit)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Two(32)
    COMMON /two   / Two
-!
-! Dummy argument declarations
-!
    LOGICAL Bit
    INTEGER File , Ibit
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER i1 , i2 , trail(7)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     TEST BIT -IBIT- IN TRAILER OF DATA BLOCK -FILE-
 !

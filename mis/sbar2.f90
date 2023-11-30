@@ -1,9 +1,6 @@
 
 SUBROUTINE sbar2(Ti)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , C1 , C2 , Cfa(6) , Cfb(6) , Cfrvec(10) , D1 , D2 , Dum8(8) , Eldefm , F1 , F2 , Fa(6) , Fb(6) , Fj , Fnchk , Frtmei(2) ,&
       & Frvec(10) , Fx , G1 , G2 , I1 , I12 , I2 , K1a , K1b , K2a , K2b , L , M1a , M1b , M2a , M2b , P1 , Q , Sa(36) , Sb(36) ,   &
       & Sdelta , Sig1a , Sig1b , Sig2a , Sig2b , Sig3a , Sig3b , Sig4a , Sig4b , Sigamn , Sigamx , Sigax , Sigbmn , Sigbmx ,        &
@@ -19,19 +16,10 @@ SUBROUTINE sbar2(Ti)
    COMMON /sdr2x9/ Nchk , Isub , Ild , Frtmei , Twotop , Fnchk
    COMMON /system/ Ibfsz , Nout , Idm , Line
    COMMON /zzzzzz/ Zz
-!
-! Dummy argument declarations
-!
    REAL Ti(14)
-!
-! Local variable declarations
-!
    REAL ealf , frlast(2) , tsave
    INTEGER eject
    INTEGER i , ished(7) , j , k , lld , lsub
-!
-! End of declarations
-!
 !******
 ! THIS ROUTINE IS THE PHASE II SUBROUTINE OF STRESS DATA RECOVERY FOR
 ! THE BEAM ELEMENT.

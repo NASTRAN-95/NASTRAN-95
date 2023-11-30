@@ -1,30 +1,18 @@
 
 SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Ihalf , Io , Iolbn , Iomode , Iopbn , Jhalf , Mach , Nstrn
    REAL Ditdum(6)
    COMMON /machin/ Mach , Ihalf , Jhalf
    COMMON /sof   / Ditdum , Io , Iopbn , Iolbn , Iomode
    COMMON /sys   / Blksiz
    COMMON /zzzzzz/ Nstrn
-!
-! Dummy argument declarations
-!
    REAL Dumbuf
    INTEGER File , Item , Itest
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , ittype , locfx , rshift
    INTEGER eof , i , idisp , idle , ifetch , ijump , in , inxt , iopt , ird , itm , itrail , next , nmsbr(2) , oldbuf , trail(7)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     COPIES MATRIX ITEM OF SUBSTRUCTURE NAME FROM THE SOF TO THE
 !     NASTRAN FILE

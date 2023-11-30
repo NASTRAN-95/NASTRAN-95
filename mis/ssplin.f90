@@ -1,21 +1,12 @@
 
 SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Dz
    INTEGER Isng , Kd , Kt , Kx , Ky , Ncore , Nd , Ni
    REAL G(1) , Xyd(1) , Xyi(1)
-!
-! Local variable declarations
-!
    REAL alt1 , alt2 , alt3 , alt4 , det , ex , ey , sum , t1 , t2 , t3 , t4 , xm , xp , ym , yp
    INTEGER i , ia , ib , ic , ig , ii , ik , inr , is , j , jj , k , kk , mp , n , name(2) , nb , nc , needed , nr , nt
    LOGICAL ikd , ikt , lone , lx , ly
-!
-! End of declarations
-!
    DATA name/4HSSPL , 4HIN  /
    lone = .TRUE.
    lx = .TRUE.

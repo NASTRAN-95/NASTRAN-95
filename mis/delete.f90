@@ -1,9 +1,6 @@
 
 SUBROUTINE delete(Name,Itemx,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Ifrst , Iodum(8) , Item(7,1) , Mdi , Mdibl , Mdilbn , Mdipbn , Nitem , Nxtdum(15)
    REAL Ditdum(6) , Ditup , Sys(3)
    LOGICAL Mdiup
@@ -11,20 +8,11 @@ SUBROUTINE delete(Name,Itemx,Itest)
    COMMON /sof   / Ditdum , Iodum , Mdi , Mdipbn , Mdilbn , Mdibl , Nxtdum , Ditup , Mdiup
    COMMON /sys   / Blksiz , Dirsiz , Sys , Ifrst
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Itemx , Itest
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , itcode , rshift
    INTEGER ibl , ii , imdi , is , isvps , isvss , itm , k , nmsbr(2) , ps , ss
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     DELETES ITEM WHICH BELONGS TO THE SUBSTRUCTURE NAME.  THE MDI IS
 !     UPDATED ACCORDINGLY AND THE BLOCKS ON WHICH ITEM WAS WRITTEN ARE

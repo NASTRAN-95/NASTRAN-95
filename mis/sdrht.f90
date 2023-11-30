@@ -1,9 +1,6 @@
 
 SUBROUTINE sdrht
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ai(4) , Consts(5) , Raddeg , Rz(1) , Tabs , Twopi
    INTEGER Cls , Clsrew , Eol , Irow , Ksystm(65) , Mach , Outpt , Rd , Rdrew , Sysbuf , Wrt , Wrtrew , Z(1)
    CHARACTER*25 Sfm , Uwm
@@ -18,9 +15,6 @@ SUBROUTINE sdrht
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zntpkx/ Ai , Irow , Eol
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf(50) , buf1 , buf2 , buf3 , core , dit , dlt , ecpt(100) , eltype , eor , est , estwds , file , gsize , hbdytp , i ,  &
          & idit , idpos(3) , idrec , ieltab , iflag , ildid , iload , imast , iqgid , irtids , itabid , itype , iug , iugz , j ,    &
          & jcount , jeltab , jid , jj1 , jj2 , jpoint , jword , k , k1 , k2 , kid , kk , kkk , krec , ktype , l , lcore , ldword(16)&
@@ -31,9 +25,6 @@ SUBROUTINE sdrht
    LOGICAL cardin , found , havids , lhbdy , mch521 , transt
    INTEGER korsz , numtyp
    INTEGER oef1x , pass , qge , slt , sltat , sltrec , sltyps , subr(2) , tablst(13) , ug
-!
-! End of declarations
-!
 !
 !     SPECIAL FLUX-DATA-RECOVERY MODULE FOR HBDY ELEMENTS IN HEAT
 !     TRANSFER.

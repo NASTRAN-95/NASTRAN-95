@@ -1,9 +1,6 @@
 
 SUBROUTINE cmcont
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf2 , Buf3 , Buf4 , Combo(7,5) , Iauto , Idry , Ierr , Inam(2) , Inpt , Lcore , Npsub , Outt , Scconn , Scmcon , &
          & Score , Scr1 , Scr2 , Scsfil
    REAL Buf5 , Casecc , Conset , Geom4 , Scbdat , Sctoc , Step , Toler , Z(1)
@@ -15,17 +12,11 @@ SUBROUTINE cmcont
    COMMON /cmbfnd/ Inam , Ierr
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , dof(6) , i , iclen , icomp , icor , ifile , igrid , ii(9) , ii2 , ilen(100) , imsg , io(9) , ip(6) , isave ,    &
          & istrt(100) , j , jj , mfile , ncsub , nip , nnn , nwd , ofile
    INTEGER andf , lshift , rshift
    LOGICAL odd
    EXTERNAL andf , lshift , rshift
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE DEFINES THE CONNECTION ENTRIES IN TERMS OF IP
 !     NUMBERS.

@@ -1,19 +1,10 @@
 
 SUBROUTINE deltkl(Del,R,Z,Kode)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Kode
    DOUBLE PRECISION Del(15) , R(4) , Z(4)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a , a2 , a3 , aab , ab , abb , b , b2 , b3 , ln , r1 , r2 , r3 , r4 , r5 , r6 , r7 , ri , rm , si , sm , zi , zm
    INTEGER goback , i , l , m , n
-!
-! End of declarations
-!
 !
 !     EVAULATE -
 !        DELT(K,L) = SURFACE-INTEGRAL((R**K)*(Z**L)) DR*DZ

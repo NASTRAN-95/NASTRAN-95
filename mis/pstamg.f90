@@ -1,9 +1,6 @@
 
 SUBROUTINE pstamg(Input,Ajjl,Skj)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Fmach , Refc , Rfk , Seclam , Tskj(7) , Z(1)
    INTEGER Ii , Incr , Iout , Isk , Iti , Ito , Iz(1) , Mcb(7) , Nalpha , Nd , Ne , Nmach , Nn , Nnj , Nrow , Nsk , Nstrip , Ntaus ,&
          & Nthick , Nthry , Nxis , Sysbuf
@@ -14,19 +11,10 @@ SUBROUTINE pstamg(Input,Ajjl,Skj)
    COMMON /system/ Sysbuf , Iout
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ajjl , Input , Skj
-!
-! Local variable declarations
-!
    INTEGER i , ib , ica , icore , idel , iend , ipalp , ipt , n , name(2) , nhacpt , nhcomm , nt , nw
    INTEGER korsz
    REAL rm
-!
-! End of declarations
-!
 !
 !     DRIVER FOR PISTON THEORY
 !

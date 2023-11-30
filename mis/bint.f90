@@ -1,21 +1,12 @@
 
 FUNCTION bint(I,J,A,B,Iv,Iw,R,Z)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A , B
    INTEGER I , Iv , Iw , J
    REAL bint
    REAL R(1) , Z(1)
-!
-! Local variable declarations
-!
    REAL aj , aw , c1 , c1p , c2 , c2p , coef , sp1
    INTEGER ic , id , in , is1 , it , iw1 , k
-!
-! End of declarations
-!
    bint = 0.0
    iw1 = Iw + 1
    c1p = B

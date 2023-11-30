@@ -14,9 +14,6 @@ SUBROUTINE xread(*,Bufx)
 !     OPERATIONS (VERY IMPORTANT FOR CDC MACHINE)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsz , Dum , Dummy , Echou , F3long , Ibuf(4) , Large , Mach , Nogo , Nout , Osop(2) , Table(255) , Wasff , Xsort
    CHARACTER*23 Ufm
    COMMON /machin/ Mach
@@ -24,13 +21,7 @@ SUBROUTINE xread(*,Bufx)
    COMMON /xechox/ Dummy , Echou , Osop , Xsort , Wasff , Dum , F3long , Large
    COMMON /xmssg / Ufm
    COMMON /xsortx/ Ibuf , Table
-!
-! Dummy argument declarations
-!
    INTEGER Bufx(20)
-!
-! Local variable declarations
-!
    LOGICAL alpha , bcd2 , bcd3 , double , numric
    INTEGER blank1 , blank4 , card1(80) , cdc , d1 , derr , dollr1 , e1 , equal4 , er , fp , fromy , i , ib , ie , ioo , ioooo , j , &
          & j1 , je , k , khr1(43) , l , minus1 , n1 , n2 , n3 , n4 , n5 , n6 , n7 , nname , plus1 , point1 , sign , sigx , slash1 , &
@@ -41,9 +32,6 @@ SUBROUTINE xread(*,Bufx)
    INTEGER complf , rshift
    CHARACTER*43 khr43
    EXTERNAL complf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (kard1(1),card8(1),card80,card81) , (blank1,khr1(1)) , (khr43,khrk(1)) , (zero1,khr1(2)) , (d1,khr1(15)) ,           &
     & (e1,khr1(16)) , (slash1,khr1(38)) , (dollr1,khr1(39)) , (star1,khr1(40)) , (plus1,khr1(41)) , (minus1,khr1(42)) ,             &
     & (point1,khr1(43))

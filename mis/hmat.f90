@@ -1,9 +1,6 @@
 
 SUBROUTINE hmat(Id)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anytab , Linear
    REAL Buf(7) , C , Dum(1) , Eltemp , Rd , Rdrew , S , Tstep , Wrt , Wrtrew , Z(1)
    INTEGER Cls , Clsrew , Dit , Ihmatx , Inflag , Itherm , Ksystm(65) , Matid , Mpt , Nhmatx , Outpt , Sysbuf , Tset
@@ -17,14 +14,8 @@ SUBROUTINE hmat(Id)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Id
    REAL Rz(1)
-!
-! Local variable declarations
-!
    LOGICAL any4 , any5 , anyt4 , anyt5
    REAL card(10) , cs , cs2kxy , csq , f4 , f5 , factor , oldcos , oldsin , oldstp , oldtem , ssq , x
    INTEGER core , flag , i , icheck , idit , igbuf , ihmat , imat , imat4 , imat5 , imatt4 , imatt5 , itabno , itemp , iwords , j , &
@@ -32,9 +23,6 @@ SUBROUTINE hmat(Id)
          & matt5(2) , matt5s , n4 , n5 , name(2) , ndit , nhmat , nmat4 , nmat5 , nmatt4 , nmatt5 , noeor , ntabno , ntemp ,        &
          & offset , oldflg , oldmid , tablst(16) , type
    INTEGER locfx
-!
-! End of declarations
-!
 !
 !     MAT ROUTINE FOR USE IN -HEAT- FORMULATIONS ONLY.
 !

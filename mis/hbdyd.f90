@@ -1,9 +1,6 @@
 
 SUBROUTINE hbdyd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Absorp , Af , Avgtmp , Cpx , Csid(4,8) , D15(15) , Dmmm(2) , Ecpt(53) , Ecpt1 , Ecpt14 , Eltemp , Emiss , Hx , R1 , R2 ,    &
       & V(3)
    INTEGER Elid , Estid , Icmbar , Iflag , Inflag , Iprec , Kmbgg(3) , Ksystm(100) , Matflg , Matid , Nlocs , Outpt , Sils(8)
@@ -20,16 +17,10 @@ SUBROUTINE hbdyd
    COMMON /matin / Matid , Inflag , Eltemp
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a1(5) , a2(3) , a3(3) , a4(3) , c(16) , cc(4,4) , itemp , ke , mast(64) , master(8,8) , me
    REAL cp , dict5 , h
    INTEGER dict(13) , i , i1 , i2 , ic , ij , imhere , irow , isize , j , j1 , j2 , jcol , k , n , necpt(53) , ngrids(7) , set1(8) ,&
          & set2(4) , siltab(8)
-!
-! End of declarations
-!
 !
 !     THIS IS THE BOUNDARY CONDITION (HEAT) ELEMENT ROUTINE
 !     IT PRODUCES THE STIFFNESS AND OR DAMPING ELEMENT MATRICES.

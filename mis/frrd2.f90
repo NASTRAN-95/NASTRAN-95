@@ -1,9 +1,6 @@
 
 SUBROUTINE frrd2
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bov , Dumm32(32) , M , Ovf(150) , Phi , Q , Twopi , Z(1) , Zzz(1)
    INTEGER Ib , Icnt , Ifrst , Ih , Ipfrdc , Iz(1) , Sysbuf
    COMMON /blank / Bov , Q , M
@@ -13,17 +10,11 @@ SUBROUTINE frrd2
    COMMON /frrdst/ Ovf , Icnt , Ifrst
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    COMPLEX a1 , a2 , a3 , a4 , a5
    INTEGER bhh , fol , i , ibuf1 , icor , ihh , itab(5) , k , khh , mcb(7) , mhh , name(2) , ncore , nfreq , nload , noncup , nto , &
          & nz , pass , phf , qhhl , scr1 , scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , scr9 , uhvf
    INTEGER korsz
    REAL w
-!
-! End of declarations
-!
 !
 !     AEROELASTIC FREQUENCY RESPONSE SOLUTION MODULE
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE tlodt1(Treal,Tint)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A , A1 , A2 , A3 , Alf(3) , B , B1 , B2 , B3 , Balotr(36) , C , C1 , C10 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , Cc(10) , &
       & Costh , D(3) , D1 , D2 , D3 , Dd(3) , Dista , Distb , Distc , E(18) , Eltemp , Em(6) , Est(100) , G(9) , G1(3) , Gsube ,    &
       & Ivect(3) , Jvect(3) , Kvect(3) , Pg(1) , Pla34 , Psub(3) , Psubt(6) , Psubt1(6) , Ptele(18) , Ptem(20) , Ptglb(36) , Rhoy , &
@@ -18,14 +15,8 @@ SUBROUTINE tlodt1(Treal,Tint)
    COMMON /trimex/ Est
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Pg
-!
-! Dummy argument declarations
-!
    INTEGER Tint(6)
    REAL Treal(6)
-!
-! Local variable declarations
-!
    REAL a1sq , a2sq , a3sq , aviner , avthk , blank , degra , determ , distab , f(10,10) , ge1(9) , ptemp , qqinv(360) , qqq(20,20) &
       & , rmnx , rmx , rmx1 , rnx , rnx1 , t1prim , t3prim , t5prim , temp1 , temp3 , temp5 , theta1 , thetam , thk1 , thk2 , thk3 ,&
       & tmem1 , tmem3 , tmem5 , trand(9) , ts1(60) , ts2(60) , tshr1 , tshr3 , tshr5 , xc(6) , yc(6) , zc(6)
@@ -33,9 +24,6 @@ SUBROUTINE tlodt1(Treal,Tint)
          & mx1 , mx1x , mx1xp , mxx , mxxp , nam(2) , nx , nx01 , nx01y , nx01yq , nx1 , nx1y , nx1yq , nxy , nxyq , pt(3) , qt(3) ,&
          & sil(6) , sil1 , xpower(20) , xthk(10) , ypower(20) , ythk(10)
    LOGICAL nogo , nots , uniben , unitem
-!
-! End of declarations
-!
 !
 !     THERMAL LOAD VECTOR FOR TRPLT1 (HIGHER ORDER PLATE BENDING ELEMENT
 !

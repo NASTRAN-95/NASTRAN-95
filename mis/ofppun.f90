@@ -1,9 +1,6 @@
 
 SUBROUTINE ofppun(Ibuf,Buf,Nwds,Iopt,Idd,Pnched)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1) , Dum34(34) , Dum53(53) , Hd(96) , Sysbuf
    INTEGER Icard , Ie(25,1) , Incr , Itherm , L , L1 , L2 , L3 , L4 , L5 , Last , Lpch , M , Nelm , Of(56)
    LOGICAL Temper
@@ -13,22 +10,13 @@ SUBROUTINE ofppun(Ibuf,Buf,Nwds,Iopt,Idd,Pnched)
    COMMON /output/ Hd
    COMMON /system/ Sysbuf , L , Dum53 , Itherm , Dum34 , Lpch
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Idd , Iopt , Nwds
    LOGICAL Pnched
    REAL Buf(Nwds)
    INTEGER Ibuf(Nwds)
-!
-! Local variable declarations
-!
    INTEGER i , iapp , ic1 , id(50) , id3 , idtemp , j , ktype , n , nword , vector
    INTEGER numtyp
    REAL rid(50)
-!
-! End of declarations
-!
 !
 !     MAIN OFP PUNCH ROUTINE FOR PUNCHING OF DATA LINES ONLY
 !

@@ -1,26 +1,14 @@
 
 SUBROUTINE tspl1s(Ts1,Ts2,Ts6,Ts6s,Ts7,Ktr3,Ktr31)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A1 , A2 , A3 , Dista , Distb , Distc , Dum6(9) , Em(6) , Rj11 , Rj12 , Rj22 , X , Y , Z
    COMMON /matout/ Em , Dum6 , Rj11 , Rj12 , Rj22
    COMMON /sma1io/ X , Y , Z , Dista , Distb , Distc , A1 , A2 , A3
-!
-! Dummy argument declarations
-!
    REAL Ktr3(400) , Ktr31(400) , Ts1(60) , Ts2(60) , Ts6(40) , Ts6s(40) , Ts7(60)
-!
-! Local variable declarations
-!
    REAL a11 , a12 , a13 , a14 , a15 , a16 , a21 , a22 , a23 , a24 , a25 , a26 , a31 , a32 , a33 , a34 , a35 , a36 , a37 , be(7) ,   &
       & cons(2) , cons1 , cons11 , cons14 , d11 , d12 , d13 , d21 , d22 , d23 , d31 , d32 , d33 , ga(7) , ge1(9) , gs1(4) , j11 ,   &
       & j12 , j22 , thk , thk1 , wt(7)
    INTEGER i , ij , j , ji , k , kase
-!
-! End of declarations
-!
 !
 !    TRANSVERSE SHEAR ROUTINE1 FOR CTRPLT1 - SINGLE PRECISION VERSION
 !

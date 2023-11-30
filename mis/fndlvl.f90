@@ -1,24 +1,12 @@
 
 SUBROUTINE fndlvl(Name,Newnm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1)
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Name(2) , Newnm(2)
-!
-! Local variable declarations
-!
    INTEGER andf , rshift
    INTEGER iempty , ill , imdi , jdit , k , ll , nmsbr(2)
    EXTERNAL andf , rshift
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE LOOKS FOR A LOWER LEVEL SUBSTRUCTUE TO THE
 !     SUBSTRUCTURE NAME.  IF NAME DOES HAVE A LOWER LEVEL SUBSTRUCTURE,

@@ -1,9 +1,6 @@
 
 SUBROUTINE mslot(Itype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A2 , Coef , Mij , R(3) , W(3) , Wb , Z(3)
    REAL Dum1(10) , Ecpt(100)
    INTEGER Ifile , Iopt4 , Ip , Iret , K , K4ggsw , Necpt(100) , Npvt
@@ -11,17 +8,8 @@ SUBROUTINE mslot(Itype)
    COMMON /sma2dp/ Coef , A2 , Wb , R , Z , W , Mij , Iret , Ip , K
    COMMON /sma2et/ Ecpt
    COMMON /sma2io/ Dum1 , Ifile
-!
-! Dummy argument declarations
-!
    INTEGER Itype
-!
-! Local variable declarations
-!
    INTEGER i , ipvt , j
-!
-! End of declarations
-!
 !*****
 !     THIS ROUTINE CALCULATES THE MASS MATRIX TERMS FOR THE
 !         CSLOT3 AND CSLOT4 TWO DIMENSIONAL LAPLACE ELEMENTS

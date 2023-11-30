@@ -1,9 +1,6 @@
 
 SUBROUTINE algpr(Ierr)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Apress , Atemp , Clsrew , Ifail , Incr , Iprtk , Ir1 , Ir2 , Iz(1) , Norew , Nout , Pgeom , Rd , Rdrew , Strml , Sysbuf ,&
          & Typout , Wrt , Wrtrew
    REAL Fxcoor , Fycoor , Fzcoor , Pi , Radeg , Sign , Twopi , Z(1) , Zorign
@@ -16,13 +13,7 @@ SUBROUTINE algpr(Ierr)
    COMMON /unpakx/ Typout , Ir1 , Ir2 , Incr
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ierr
-!
-! Local variable declarations
-!
    INTEGER algdb , algdd , bgpdt , buf1 , buf2 , cstm , edt , eqexin , file , i , i1 , i2 , ibgpdt , iblk , ic , icc , ichord ,     &
          & icid , icopy , icstm , id , idata(24) , idx , ifangs(10) , ifcord , ifill(3) , ikp , inl , intn , ipunch , irle , irte , &
          & irte1 , irte2 , isecn , isil , isk , isplit , istatn , itrl(7) , ivec , ivecn , izero , j , jchord , jsta , jvec , k ,   &
@@ -36,9 +27,6 @@ SUBROUTINE algpr(Ierr)
    LOGICAL debug
    INTEGER nmany , nnodes , nrad , nrec , nsign , nspec , nstns , nte , ntype , nvects , nwar , nwar1 , ret2 , scr1 , scr2 ,        &
          & stream(3) , ugv
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Iz(1),Z(1)) , (idata(1),rdata(1)) , (ifill(1),rfill(1))
    DATA name/4HALGP , 4HR   /

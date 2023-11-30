@@ -1,9 +1,6 @@
 
 SUBROUTINE subcc
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX A , Ai , Aln , Alp , Am1 , Am2 , Am2p , Am4 , Am4tst , Am5 , Am5t , Am5tt , Am6 , Amtest , Arg , Arg2 , B , Bc , Bc2 ,   &
          & Bc3 , Bc4 , Bc5 , Bkdel1 , Bkdel2 , Bkdel3 , Blam1 , Blam2 , Blkap1 , Blkapm , Bsycon , C1 , C1n , C1p , C1t , C2 , C2n ,&
          & C2p , Ca1 , Ca2 , Ca3 , Ca4 , Clift , Cmomt , F1 , F1s , F2 , F2p , F4 , F4s , F5 , F5s , F5t , F6s , Fq7 , Fqa , Fqb ,  &
@@ -26,14 +23,8 @@ SUBROUTINE subcc
                  & Betnn , Betnp , Bkap1 , Xlsv1 , Xlsv2 , Xlsv3 , Xlsv4 , Alpamp , Amoaxs , Gusamp , Disamp , Pitaxs , Pitcor
    COMMON /system/ Sysbuf , Ibbout
    COMMON /xmssg / Ufm
-!
-! Local variable declarations
-!
    COMPLEX c1a , c2a , cexp1 , cexp1a , cexp2 , cexp2a , const , const2 , const3 , const4 , const5 , const6 , ss , t1 , t2 , t3 , t4
    REAL s1 , s2 , s3 , s4 , s5 , temp
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE WAS ORIGINALLY CALLED SUBD
 !

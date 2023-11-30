@@ -1,24 +1,12 @@
 
 SUBROUTINE ascm10(Name,Iphase,Isol,Nogo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idat(109) , Ioct , Iph , Iptbs , Irdm , Ixtra , Noct , Nph , Nptbs , Nrdm , Nxtra
    COMMON /asdbd / Irdm , Nrdm , Ixtra , Nxtra , Ioct , Noct , Iptbs , Nptbs , Iph , Nph , Idat
-!
-! Dummy argument declarations
-!
    INTEGER Iphase , Isol , Name , Nogo
-!
-! Local variable declarations
-!
    INTEGER comnd(6,6) , i , icomnd , j , k , ptbs(7,10) , rdmap(18,2) , subnam(2) , xtra(1)
    INTEGER khrfn1
    REAL slash
-!
-! End of declarations
-!
 !
 !     SUBSTRUCTURE UTILITY COMMANDS DMAP DATA
 !

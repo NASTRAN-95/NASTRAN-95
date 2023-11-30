@@ -1,9 +1,6 @@
 
 SUBROUTINE qparam
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER In1 , In2 , Iprec , Ksystm(80) , Lsystm , Op(2) , Oscar(16) , Out , Outtap , Switch(2) , Vps(1)
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -12,15 +9,9 @@ SUBROUTINE qparam
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
    COMMON /xvps  / Vps
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf , xorf
    INTEGER i , mask , off , opcode(30)
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
 !
 !     PARAM PERFORMS THE FOLLOWING OPERATIONS ON PARAMETERS--
 !      1. OUT = IN1 .AND. IN2

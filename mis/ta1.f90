@@ -1,9 +1,6 @@
 
 SUBROUTINE ta1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Comps , Cstm , Ecpt , Ect , Ept , Eptx , Eqexin , Est , Gei , Genl , Gpct , Gpect , Gptt , Iprec , Isystm(54) ,  &
          & Luset , Mpt , Mptx , Nogenl , Nosimp , Nosup , Nsil , Pcomps , Scr1 , Scr2 , Scr3 , Scr4 , Sil , Two(32)
    COMMON /blank / Luset , Nosimp , Nosup , Nogenl , Genl , Comps
@@ -11,15 +8,9 @@ SUBROUTINE ta1
    COMMON /ta1com/ Nsil , Ect , Ept , Bgpdt , Sil , Gptt , Cstm , Mpt , Est , Gei , Gpect , Ecpt , Gpct , Mptx , Pcomps , Eptx ,    &
                  & Scr1 , Scr2 , Scr3 , Scr4 , Eqexin
    COMMON /two   / Two
-!
-! Local variable declarations
-!
    INTEGER andf
    INTEGER genel(2) , j , k , mcb(7)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     TA1 CONTROLS THE EXECUTION OF THE TABLE ASSEMBLER.
 !

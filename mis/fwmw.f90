@@ -1,23 +1,14 @@
 
 SUBROUTINE fwmw(Nd,Ne,Sgs,Cgs,Irb,A0,Arb,Xble,Xbte,Yb,Zb,Xs,Ys,Zs,Nas,Nasb,Kr,Beta2,Cbar,Avr,Fwz,Fwy)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL A0 , Beta2 , Cbar , Cgs , Sgs , Xble , Xbte , Xs , Ys , Zs
    COMPLEX Fwy , Fwz
    INTEGER Irb , Kr , Nas , Nd , Ne
    REAL Arb(1) , Avr(1) , Yb(1) , Zb(1)
    INTEGER Nasb(1)
-!
-! Local variable declarations
-!
    REAL b , c , da , daib , darib , deleps , dfyyi , dfyyr , dfyzi , dfyzr , dfzyi , dfzyr , dfzzi , dfzzr , dmmy , dy , dyb , dz , &
       & dzb , eta , f , fwyi , fwyr , fwzi , fwzr , rho , rho2 , rhodb , s , sg , sy , sz , ybi , zbar , zbi , zeta
    INTEGER i , ib , infl , ioutfl , iret1 , itype , k
-!
-! End of declarations
-!
 !
 !     CALCULATES THE EFFECT OF A DOUBLET PLUS ANY CONTRIBUTIONS DUE TO
 !     IMAGES, SYMMETRY AND GROUND EFFECT ON BODY

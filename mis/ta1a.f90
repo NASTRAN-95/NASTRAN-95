@@ -7,9 +7,6 @@ SUBROUTINE ta1a
 !     RECORD PER SIMPLE ELEMENT TYPE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Bufflg , Cls , Clsrew , Comps , Cstm , Ecpt , Ect , Elem(1) , Eltype , Ept , Eptx , Est , Gei , Genl , Gpct ,    &
          & Gpect , Gptt , Iback , Idftmp , Ig(90) , Iheat , Incr , Itemp , Ksystm(65) , Ktwo(32) , Last , Luset , Mpt , Mptx ,      &
          & Nelem , Nogenl , Nosimp , Nosup , Nout , Nsil , Oldeid , Oldel , Pcomps , Rd , Rdrew , Scr1 , Scr2 , Scr3 , Scr4 , Sil , &
@@ -30,9 +27,6 @@ SUBROUTINE ta1a
    COMMON /two   / Ktwo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER bar , buf(50) , buf1 , buf2 , buf3 , eoeloc , file , flag , gpsav(34) , hbdy , i , id , ii , iip , iip1 , iip2 , ipc ,   &
          & ipc1 , ipc2 , ipshel(16) , iset , itabl , itmpid , itype , j , jscalr , jtemp , k , khi , kk , klo , kn , kpc , kpc2 ,   &
          & ksavew , kscalr , kx , l , l40 , lamopt , len , ll , locbgp , lpc , lpc1 , lpc2 , lpcomp , lstprp , lx , m , m1 , m8 ,   &
@@ -42,9 +36,6 @@ SUBROUTINE ta1a
    LOGICAL frstim , q4t3
    INTEGER korsz
    INTEGER sym , symmem , tria3 , typc , typc1 , typc2 , zeros(4)
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Nout) , (Ksystm(10),Tempid) , (Ksystm(56),Iheat) , (Idftmp,Deftmp) , (bufr(1),buf(1))&
     & , (Z(1),Zz(1)) , (ipshel(1),rpshel(1))
    DATA nam/4HTA1A , 4H    /

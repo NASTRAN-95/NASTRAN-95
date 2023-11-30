@@ -2,18 +2,9 @@
  
 SUBROUTINE tree(Iroot,Ndstk,Lvl,Iwk,Ndeg,Lvlwth,Lvlbot,Lvln,Maxlw,Ibort,Jwk)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ibort , Iroot , Lvlbot , Lvln , Lvlwth , Maxlw
    INTEGER Iwk(1) , Jwk(1) , Lvl(1) , Ndeg(1) , Ndstk(1)
-!
-! Local variable declarations
-!
    INTEGER inow , itest , itop , iwknow , j , lvltop , ndrow
-!
-! End of declarations
-!
 !
 !     TREE DROPS A TREE IN NDSTK FROM IROOT
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE

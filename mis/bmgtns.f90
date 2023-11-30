@@ -1,21 +1,12 @@
 
 SUBROUTINE bmgtns(Cstm,Ncstm,Ecpt,Ta)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Ncstm
    REAL Cstm(1) , Ecpt(4)
    DOUBLE PRECISION Ta(9)
-!
-! Local variable declarations
-!
    REAL fl1 , fl2
    INTEGER i , int1 , int2 , j , k , kk
    DOUBLE PRECISION ke(9) , r , tl(9) , x , xl , xn(3) , y , z
-!
-! End of declarations
-!
 !/// THIS ROUTINE WAS LIFTED FROM PRETRD AND TRANSD AND CONVERTED
 !///// TO HAVE ONE ENTRY POINT
 !

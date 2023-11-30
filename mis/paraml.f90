@@ -47,9 +47,6 @@ SUBROUTINE paraml
 !       DPLX  = DOUBLE PRECISION COMPLEX (FROM 1 TO 4 INPUT WORDS)
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bcd(2) , Ii , Il(2) , Il3 , Il4 , Il5 , Il6 , Il7 , Il8 , Il9 , Incr , Integ , Ityp , Ivps(1) , Iz(1) , Jj , Nout ,      &
          & Op(2) , P1 , P2 , Sysbuf
    DOUBLE PRECISION Dplx(2) , Dz(1) , Rdp
@@ -64,9 +61,6 @@ SUBROUTINE paraml
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    INTEGER at(2) , atx , blank , col , ei(3) , first , flag , fnm(2) , i , ibuf1 , in1 , index , ixp1 , j , k , mcb(7) , name(2) ,  &
          & nmvps(2) , nz , opcd(7) , prec , recno , rl , row
    DOUBLE PRECISION dp(2)
@@ -75,9 +69,6 @@ SUBROUTINE paraml
    CHARACTER*7 nty(4)
    REAL sp(4) , x , y
    CHARACTER*10 type(4)
-!
-! End of declarations
-!
    EQUIVALENCE (Vps(1),Ivps(1)) , (Z(1),Iz(1),Dz(1))
    EQUIVALENCE (sp(1),dp(1))
    DATA name/4HPARA , 4HML  / , blank/4H    / , at/4HAND  , 4HTHRU/

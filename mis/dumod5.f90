@@ -107,9 +107,6 @@ SUBROUTINE dumod5
 !         SHOULD BE MADE TO ALL THREE MODULES.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Date(3) , Dumm(88) , Ibuf , Ii , Ijhalf(3) , Incr , Iz(8) , Jj , Lpch , Mach , Mchnam , Nout , P(5) , Q , R , Typin ,    &
          & Typout
    CHARACTER*80 Dsnames(80)
@@ -124,9 +121,6 @@ SUBROUTINE dumod5
    COMMON /system/ Ibuf , Nout , Dumm , Lpch
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , core , eg(2) , half , half1 , i , i6or8 , id(5001) , ie , ifirst , ijk , im , infile(2) , input , ir(5001) &
          & , irdlmt , is , itype , j , jb , je , jm , jsq , k , kk , kount , l , last , lj , loc , loca , locid , loop , m , mcb(7) &
          & , mt(2) , name(2) , neltp , newlt , nrop , nwds , nwds1 , nwds2 , nxir , nxzh , one , outfil(2) , outpt , pv , retn ,    &
@@ -135,9 +129,6 @@ SUBROUTINE dumod5
    DOUBLE PRECISION dtemp , dzero
    REAL epsi
    INTEGER korsz , numtyp
-!
-! End of declarations
-!
 !WKBNB
 !WKBNE
    EQUIVALENCE (Z(1),Iz(1)) , (Date(1),Dumm(13))

@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovuo(Pid,Uao,Lastss)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp(3) , Alpha , Bet(3) , Beta , Buf2 , Buf3 , Buf4 , Dum(36) , Energy , Pa , Pthres , Qa , Qthres , Range(2) , Rss(2) ,    &
       & Sysbuf , Uimpro , Uthres , Z(1)
    INTEGER Bmcb(7) , Buf1 , Cdp , Chlsky , Csp , Diag , Dry , Eofnrw , Fbsz , Fss(2) , Icore , Incrp , Iopt , Ireq , Iro , Iz(1) ,  &
@@ -30,20 +27,11 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Pid , Uao
    INTEGER Lastss(2)
-!
-! Local variable declarations
-!
    INTEGER file , i , idpcor , item , kmtx , lcorez , lmtx , mattyp , mcbpao(7) , n , name(2) , pao , pove , rc , scr2 , scr3 ,     &
          & scr4 , scr6 , scr7 , scr8 , scr9 , uprt
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE FULL SIZE DISPLACEMENT VECTOR ON
 !     ANY OMITTED POINTS.  THE OPTIONAL INERTIA AND DAMPING EFFECTS

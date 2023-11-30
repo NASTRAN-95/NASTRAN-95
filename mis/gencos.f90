@@ -1,9 +1,6 @@
 
 SUBROUTINE gencos
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Direct , Ibuf , Ii , In , Incr , Iout , Iz(1) , Luset , Nn , Nscale , Otpe , Shock
    CHARACTER*23 Ufm
    REAL Z(1)
@@ -12,17 +9,11 @@ SUBROUTINE gencos
    COMMON /system/ Ibuf , Otpe
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL all , rec
    INTEGER bgpdt , buf1 , cstm , dircos , file , i , icoord(4) , idir(3) , ip , isub(3) , isys , iwords , j , jsub , lcore , mcb(7) &
          & , n , nam(2) , ncount , ncstm , ndir , npts
    REAL coord(4) , tfinal(9) , tpoint(9) , tshock(9)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     GENCOS  GENERATES DIRECTION COSINE MATRIX, UP TO NX3, FOR DDAM.
 !     THE SHOCK DIRECTIONS ARE GIVEN BY A COORDINATE SYSTEM (PROBABLY

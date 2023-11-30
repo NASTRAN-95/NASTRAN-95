@@ -1,9 +1,6 @@
 
 SUBROUTINE cmmcon(Nce)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf1 , Buf3 , Inpt , Junk(2) , Junk2(38) , Junk3(2) , Lcore , Npsub , Scconn , Scmcon , Score , Z(1)
    REAL Buf2 , Outt , Scbdat , Scr1 , Scr2 , Scsfil
    LOGICAL Mcon
@@ -11,17 +8,8 @@ SUBROUTINE cmmcon(Nce)
    COMMON /cmb002/ Buf1 , Buf2 , Buf3 , Junk , Score , Lcore , Inpt , Outt
    COMMON /cmb003/ Junk2 , Npsub , Junk3 , Mcon
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Nce
-!
-! Local variable declarations
-!
    INTEGER aaa(2) , i , ifile , iloc , ist , isub , j , k , loc , ncem1 , nnn , nwd
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DETERMINES WHETHER MORE THAN ONE CONNECTION ENTRY
 !     HAS BEEN SPECIFIED FOR A GIVEN IP NUMBER.

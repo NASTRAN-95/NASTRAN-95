@@ -1,28 +1,16 @@
 
 SUBROUTINE trd1a2(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , It1 , It2 , Iz(160) , Jj , Sysbuf
    REAL Rz(3)
    DOUBLE PRECISION Z(1)
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Casexx , Ic , Moda1 , Ngroup , Nlftp , Trl
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf1 , ibuf2 , icp , icrq , idisp , iflag , igroup , intrl(2) , ip1 , itrl , itstep , ivel , k , l , lud ,   &
          & mcb(7) , name(2) , nx , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE BUILDS THE INITIAL CONDITIONS TABLE, PUTS TSTEP STUFF
 !      IN CORE AND EXTRACTS THE NLFTP POINTER

@@ -1,30 +1,18 @@
 
 SUBROUTINE ttrirg(Ti,Pg)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alf(3) , Anu(3) , Consts(5) , Costh , Degra , E(3) , Ecpt(19) , Eltemp , G(3) , Rho , Sinth , Stress , Twopi , Tzero
    INTEGER Iecpt(19) , Matflg , Matidc
    COMMON /condas/ Consts
    COMMON /matin / Matidc , Matflg , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ E , Anu , Rho , G , Alf , Tzero
    COMMON /trimex/ Ecpt
-!
-! Dummy argument declarations
-!
    REAL Pg(1) , Ti(3)
-!
-! Local variable declarations
-!
    REAL ai
    REAL alfb(4) , area , cosg , d(18) , del , delint(8) , dgama , dgamr , dr , dz , dzero(24) , ee(16) , er , et , ez , gambl(81) , &
       & gambq(36) , gamqs(54) , grz , r(3) , r1 , r2 , r3 , ra , rh , sing , sp(18) , tempe , teo(16) , tl(9) , tz , vrt , vrz ,    &
       & vtr , vtz , vzr , vzt , z(3) , z1 , z2 , z3 , za , zh , zmin
    INTEGER i , i1 , ics(3) , idel , igp(3) , ip , iq , ising , j , jj , k , kk , kode , l , matid
-!
-! End of declarations
-!
 !
 !
 !*****

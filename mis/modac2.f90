@@ -1,26 +1,14 @@
 
 SUBROUTINE modac2(Nv,Inp1,Iout)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Itc , Iz(1) , Jj , Nfn , Nfo , Nz , Sysbuf
    REAL Z(1)
    COMMON /modac3/ Nfo , Nfn , Nz
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Itc , Ii , Jj , Incr
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Inp1 , Iout , Nv
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf1 , ibuf2 , icol , ifn , ihd(2) , ikr , inv , ip1 , j , k , m , mcb(7) , name(2) , nload
-!
-! End of declarations
-!
 !
 !     MODAC2  REDUCES THE SIZE OF INP1 (BY REMOVING SELECTED COLUMNS)
 !

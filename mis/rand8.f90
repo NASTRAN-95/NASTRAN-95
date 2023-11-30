@@ -1,30 +1,18 @@
 
 SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Degrad , Pi , Radeg , S4pisq , Twopi , Z(1)
    INTEGER Iz(1) , Sysbuf
    COMMON /condas/ Pi , Twopi , Radeg , Degrad , S4pisq
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Auto , Ltab , Nfile , Nfreq , Npsdl , Ntau , Psdf , Xycb
    INTEGER Ifile(1)
-!
-! Local variable declarations
-!
    REAL data(100) , q(2) , r , two , x
    INTEGER file , i , iauto , ibuf1 , ibuf2 , ibuf3 , icdone , icore , icrq , ics , if , ih1 , ih2 , ii , iload , ip , ip1 ,        &
          & ipsave , ipsdf , isaa , isj , itau , j , jj , k , kk , l , l1 , l2 , lcore , len , ll , llist , llists , load , m ,      &
          & mcb1(7) , mcb2(7) , mincr , name(2) , ndo , ndone , nload , npoint , nunq , nz , oldld
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE COMPUTES RANDOM RESPONSE FOR COUPLED POWER SPECTRAL
 !       DENSITY COEFICIENTS

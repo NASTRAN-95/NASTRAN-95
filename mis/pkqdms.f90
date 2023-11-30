@@ -1,9 +1,6 @@
 
 SUBROUTINE pkqdms
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Consts(5) , Coord(16) , Cosang , Costh , Degra , Dum1(3) , Dum7(156) , Dumcl(145) , Dumm8(248) , Ecpt(100) , Eltemp ,       &
       & Ivec(3) , Jvec(3) , Kvec(3) , Pvec(3) , Si(3) , Sinang , Sinth , Stress , U1 , U2 , V(3) , Vecl , Vsubk(3)
    INTEGER Inflag , Matid , Mi , Mpoint , Necpt(5) , Ngrid(4) , Nogo , Npivot , Npvt , Nsubsc
@@ -14,14 +11,8 @@ SUBROUTINE pkqdms
    COMMON /pla42d/ Kij , Dum7 , Ksum , Temp , Cosang , Sinang , Vecl , Ivec , Jvec , Kvec , Pvec , Vsubk , V , Si , Npivot ,        &
                  & Mpoint , Mi , Nsubsc , Ngrid , U1 , U2 , Coord , Dumm8
    COMMON /pla4es/ Ecpt
-!
-! Local variable declarations
-!
    REAL angl
    INTEGER i , j , jnot , k , m(12) , npt1 , npt2 , npt3
-!
-! End of declarations
-!
 ! THIS SUBROUTINE CALCULATES AND SHIPS TO PLA4B THE STIFFNESS MATRIX FOR
 ! PLA4
 !     *** QUADRILATERAL MEMBRANE SUBROUTINE ***

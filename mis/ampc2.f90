@@ -1,27 +1,15 @@
 
 SUBROUTINE ampc2(Inp,Outp,Scrf)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Ii1 , Incr , Incr1 , Isk(2) , It1 , It2 , It3 , Iword(4) , Iz(1) , Jj , Jj1 , Sysbuf
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Sysbuf
    COMMON /type  / Isk , Iword
    COMMON /unpakx/ It3 , Ii1 , Jj1 , Incr1
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Inp , Outp , Scrf
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , ibuf2 , ibuf3 , j , mcbi(7) , mcbo(7) , ncol , nri , nro , nrowis , nrowo , nterm
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE PURPOSE OF THIS ROUTINE IS TO COPY SCR5 ONTO THE BOTTOM OF
 !     OUTPUT

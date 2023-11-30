@@ -1,9 +1,6 @@
 
 SUBROUTINE sma1b(Ke,J,Ii,Ifile,Dampc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsnrw , Clsrw , Eor , Frowic , I6x64 , I6x6k , Icom , Icstm , Idetck , Idum1 , If4gg , Ifcstm , Ifdit , Ifecpt , Ifgei ,&
          & Ifgpct , Ifgpst , Ifkgg , Ifmpt , Ig4gg , Igecpt , Iggei , Iggpct , Iggpst , Igkgg , Igpct , Inrw , Iopt4 , Ipoint ,     &
          & Isys(21) , Iz(1) , Jmax , K4ggsw , Left , Link(10) , Linkno , Lnknos(15) , Lrowic , Mask(3) , Mcb4gg(7) , Mcbkgg(7) ,    &
@@ -19,19 +16,10 @@ SUBROUTINE sma1b(Ke,J,Ii,Ifile,Dampc)
                  & Ig4gg , Ifgpst , Iggpst , Inrw , Outrw , Clsnrw , Clsrw , Neor , Eor , Mcbkgg , Mcb4gg
    COMMON /system/ Isys , Linkno
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dampc
    INTEGER Ifile , Ii , J
    DOUBLE PRECISION Ke(36)
-!
-! Local variable declarations
-!
    INTEGER i , i1 , ibase , index , isave , j1 , j2 , j3 , jj , k , k1 , l , l1 , lim , low , nrow
-!
-! End of declarations
-!
 !
 !     SUBROUTINE SMA1B ADDS A N X N DOUBLE PRECISION MATRIX, KE, TO THE
 !     SUBMATRIX OF ORDER NROWSC X JMAX, WHICH IS IN CORE.  N IS 1 IF

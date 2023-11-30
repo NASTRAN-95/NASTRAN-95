@@ -44,9 +44,6 @@ SUBROUTINE outpt1
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER D(3) , Ksystm(65) , Line , Mach , Nb , Nlpp , Nout , P1 , P2 , P3(2) , X(1)
    CHARACTER*25 Sfm , Uwm
    CHARACTER*23 Ufm
@@ -56,17 +53,11 @@ SUBROUTINE outpt1
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ X
-!
-! Local variable declarations
-!
    INTEGER dx(3) , i , idhdr(7) , idhdrx(7) , ii , in(5) , inbuf , input , iold , kf , lcor , mfor , mm , mnin , mone , mtre ,      &
          & mtwo , name(2) , namex(2) , nf , ott(10) , oubuf , out , p3x(2) , subnam(2) , tapcod(2) , trl(7) , zero
    INTEGER korsz
    LOGICAL tapbit
    LOGICAL tapeup
-!
-! End of declarations
-!
    EQUIVALENCE (Ksystm(1),Nb) , (Ksystm(2),Nout) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(15),D(1))
    DATA subnam/4HOUTP , 4HT1  /
    DATA in/101 , 102 , 103 , 104 , 105/

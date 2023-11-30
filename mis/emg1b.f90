@@ -1,9 +1,6 @@
 
 SUBROUTINE emg1b(Buf,Sil,Ii,File,Dampc)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Anycon , Error , Heat , Last
    INTEGER Dict(15) , Elid , Eltype , Estid , Filtyp , Flags(3) , Ibloc , Icall , Icmbar , Icong , Icore , Icstm , Idit , If4gg ,   &
          & Ihmat , Ilast , Imat , Irows , Jcore , Ksystm(65) , Lcong , Lcstm , Ldict , Lhmat , Lmat , Nbloc , Ncong , Ncore ,       &
@@ -22,21 +19,12 @@ SUBROUTINE emg1b(Buf,Sil,Ii,File,Dampc)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Dampc
    INTEGER File , Ii , Sil
    DOUBLE PRECISION Buf(1)
-!
-! Local variable declarations
-!
    REAL c
    LOGICAL double
    INTEGER i , ic , idbloc , j , j1 , j2 , kmat , ndbloc , rowsiz , subr(2) , zbase
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE REPLACES SMA1B AND GROUPS TOGETHER THE
 !     SUB-PARTITIONS OF A PIVOT-PARTITION.

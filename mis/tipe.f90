@@ -1,27 +1,15 @@
 
 SUBROUTINE tipe(X,Y,Xyd,Chr,N,Opt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Char(60) , Model , Ploter
    REAL Cntchr(2) , Skpa(3) , Skpplt(18)
    COMMON /char94/ Char
    COMMON /pltdat/ Model , Ploter , Skpplt , Skpa , Cntchr
-!
-! Dummy argument declarations
-!
    INTEGER N , Opt , Xyd
    REAL X , Y
    INTEGER Chr(1)
-!
-! Local variable declarations
-!
    INTEGER blank , c(80) , charx , d , i , j , l , l1 , l2 , lstchr , nc
    REAL s , xy(2,2)
-!
-! End of declarations
-!
 !
 !     (X,Y) = STARTING OR ENDING POINT OF THE LINE TO BE TYPED (ALWAYS
 !             LEFT-TO-RIGHT OR TOP-TO-BOTTOM.

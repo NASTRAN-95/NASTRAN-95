@@ -1,29 +1,17 @@
 
 SUBROUTINE smleig(D,O,Val)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Entry , Ii , Iii , Incr , Incr1 , It1 , It2 , It3 , Jj , Jjj , Lama , Md , Mo , N , Nfound , Phia , Sysbuf , Xentry
    REAL Title(150) , Vcom(30)
    COMMON /givn  / Title
    COMMON /packx / It1 , It2 , Ii , Jj , Incr
    COMMON /system/ Sysbuf
    COMMON /unpakx/ It3 , Iii , Jjj , Incr1
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION D(2) , O(2) , Val(2)
-!
-! Local variable declarations
-!
    INTEGER i , ibuf1 , im1 , itra , loc , mcb(7)
    INTEGER korsz
    DOUBLE PRECISION p , q
    REAL valx
-!
-! End of declarations
-!
 !
 !     COMPUTES EIGENVALUES AND VECTORS FOR 1X1 AND 2X2
 !

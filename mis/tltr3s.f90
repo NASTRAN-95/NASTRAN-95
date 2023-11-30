@@ -1,9 +1,6 @@
 
 SUBROUTINE tltr3s
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
    REAL Bgpdt(4,3) , Cosmat , Degrad , Dum(51) , Dummy , Eltemp , Elth , Est(39) , Gpth(3) , Loadvc(1) , Pi , Prec , Raddeg ,       &
       & Sinmat , Stemp(7) , Tempel , Twopi , Z(1) , Zoff , Zoff1
@@ -16,9 +13,6 @@ SUBROUTINE tltr3s
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
    COMMON /trimex/ Est
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL aic(1) , alfab(3) , alfam(3) , alpha(6) , avgthk , bmatrx(162) , bterms(6) , cente(3) , detg2 , detjac , dgpth(6) , ecpt(4) &
       & , edglen(3) , egnor(4) , egpdt(4,3) , epnorm(4,3) , eps , epslnt(6) , epsubt(6) , ftherm(6) , g(6,6) , g2(3,3) , gdum ,     &
       & gepsbt(6) , gi(36) , gpnorm(4,3) , gsube , gtemps(3) , lx , ly , mominr , offset , pt(6,3) , ptg(6,3) , reali , rho ,       &
@@ -27,9 +21,6 @@ SUBROUTINE tltr3s
    LOGICAL compos , noalfa , sheart , tempp1 , tempp2
    INTEGER elid , hunmeg , i , ial , iec , ierr , ig , ig1 , ig2 , ig4 , indxg2(3,3) , iorder(3) , ipnt , ipoint , ipt , ir ,       &
          & isngg2 , j , jg , k , ll , mcsid , mid(4) , nd2 , nd6 , nd7 , nd8 , ndof , necpt(4) , nnod2 , nnode , npart , pid
-!
-! End of declarations
-!
 !
 !     SINGLE PRECISION ROUTINE TO GENERATE EQUIVALENT THERMAL LOADS FOR
 !     THE CTRIA3 ELEMENT.

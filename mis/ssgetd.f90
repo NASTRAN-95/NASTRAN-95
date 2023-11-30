@@ -1,9 +1,6 @@
 
 SUBROUTINE ssgetd(Elid,Ti,Grids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bufflg , Endid , Eorflg , Record
    INTEGER Defalt , Eltype , Gptt , Idefm , Ideft , Iout , Itemp , Oldel
    REAL Dum , Dummy(9)
@@ -13,19 +10,10 @@ SUBROUTINE ssgetd(Elid,Ti,Grids)
    COMMON /ssgett/ Eltype , Oldel , Eorflg , Endid , Bufflg , Itemp , Ideft , Idefm , Record
    COMMON /system/ Dum , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    INTEGER Elid , Grids
    INTEGER Ti(7)
-!
-! Local variable declarations
-!
    REAL flag
    INTEGER i , id , maxwds , name(2) , nwords
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE (CALLED BY -EDTL-) READS ELEMENT TEMPERATURE
 !     DATA FROM A PRE-POSITIONED RECORD

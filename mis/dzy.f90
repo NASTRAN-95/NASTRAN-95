@@ -1,20 +1,11 @@
 
 SUBROUTINE dzy(X,Y,Z,Sgr,Cgr,Xi1,Xi2,Eta,Zeta,Ar,Ao,Kr,Cbar,Beta,Fmach,Lsh,Idzdy,Dzdyr,Dzdyi)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Ao , Ar , Beta , Cbar , Cgr , Dzdyi , Dzdyr , Eta , Fmach , Sgr , X , Xi1 , Xi2 , Y , Z , Zeta
    INTEGER Idzdy , Kr , Lsh
-!
-! Local variable declarations
-!
    REAL cgs , cl1 , cl2 , e , kd1mi , kd1mr , kd1pi , kd1pr , kd2mi , kd2mr , kd2pi , kd2pr , pi16 , r1for , r1sqr , r2for , r2sqr ,&
       & sgs , sl1 , sl2 , tl1 , tl2 , x01 , x02 , y0 , y01 , y02 , z0 , z01 , z02
    INTEGER l
-!
-! End of declarations
-!
 !
 !     CALCULATION OF THE DZ AND DY MATRICES USED IN SLENDER BODY FLOW
 !

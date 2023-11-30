@@ -1,9 +1,6 @@
 
 SUBROUTINE stpax3(Again)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Block(62,14) , Clock(62,14) , Disp(59) , Dum(100) , Dum4(51) , Dum5(33) , Force(25) , Savef(75) , Saves(75) , Skip(729) ,   &
       & Stress(100) , Unu(94)
    INTEGER Cangle , Elemid , Iblock(62,14) , Iclock(62,14) , Iforce(25) , Ipart , Isavef(75) , Isaves(75) , Istres(100) , Kangle ,  &
@@ -13,17 +10,8 @@ SUBROUTINE stpax3(Again)
    COMMON /sdr2x4/ Dum4 , Ktype
    COMMON /sdr2x7/ Dum , Stress , Force , Skip , Block , Clock
    COMMON /sdr2x8/ Disp , Nangle , Elemid , Unu , Kangle , Klemid
-!
-! Dummy argument declarations
-!
    LOGICAL Again
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 !
 !
 !

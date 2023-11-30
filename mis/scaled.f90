@@ -1,9 +1,6 @@
 
 SUBROUTINE scaled(Type,Emord)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum2(2) , Dumy(15) , Est(100)
    INTEGER Elid , Estid , Iest(1) , Imat(3) , Ioutpt , Iprec , Ksystm(65) , Nlocs
    LOGICAL Nogo
@@ -14,20 +11,11 @@ SUBROUTINE scaled(Type,Emord)
    COMMON /emgprm/ Dumy , Imat , Iprec , Nogo
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm
-!
-! Dummy argument declarations
-!
    INTEGER Emord , Type
-!
-! Local variable declarations
-!
    INTEGER code , cpt(2) , dict(7) , eid , gpt(4) , gspt(4) , gsube , i , icomp(2) , ip , ipg , isil(2) , kpt(4) , ncol , ngrids ,  &
          & nterms
    DOUBLE PRECISION dz(16)
    REAL z(16)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES CELAS, CDAMP, AND CMASS ELEMENTS.
 !

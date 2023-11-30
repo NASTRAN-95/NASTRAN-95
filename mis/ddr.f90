@@ -1,14 +1,8 @@
 
 SUBROUTINE ddr
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Parm1(2) , Parm2(2) , Parm3(2)
    COMMON /blank / Parm1 , Parm2 , Parm3
-!
-! End of declarations
-!
 !
 !*****
 !

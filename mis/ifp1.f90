@@ -4,9 +4,6 @@ SUBROUTINE ifp1
 !     READS AND INTERPRETS CASE CONTROL DECK FOR NASTRAN
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER App , Blank , Case(200,2) , Casecc , Core(7) , Corex(1) , Corey(401) , Date(3) , Dmz(4) , Dumms(16) , Dummy(28) ,        &
          & Dumz(16) , Equal , Head1(32) , Head2(32) , Head3(32) , Iaxic , Iaxif , Iben , Ibuf41 , Icc , Idum , Iecho , Ieor , Intp ,&
          & Intra , Ipage , Is , Istr , Isub , Isubs , Label(32) , Lencc , Line , Loadnn , Logfl , Lpch , Lsystm , Maxlin ,          &
@@ -25,9 +22,6 @@ SUBROUTINE ifp1
    COMMON /xmssg / Ufm
    COMMON /xsortx/ Ibuf41
    COMMON /zzzzzz/ Corex
-!
-! Local variable declarations
-!
    INTEGER all , anom , anti , begi , blank4 , both , card , casen(11) , cccd(9) , cccds(54) , cosi , coun , defa , dol , dol1 ,    &
          & equal1 , file , flag , flui , i , i1 , i2 , i81 , ibob , ibuf1 , ibuf2 , icasec , icaste , icnt , icont , icrq , ido ,   &
          & ihowdy , ii , ik , il , inomor , io , iop , iout2 , ip , ip1 , iret , iret1 , iret3 , iset , isubc(5) , isymcm , itype , &
@@ -40,9 +34,6 @@ SUBROUTINE ifp1
    REAL symseq(360) , xintcd
    LOGICAL tapbit
    EXTERNAL andf , complf , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Corex(1),Xcase(1,1),Case(1,1),Corey(1)) , (Core(1),Xcore(1),Corey(401)) , (nono,outop(15)) , (Iaxic,Dumms(4)) ,     &
     & (Iaxif,Dumms(15)) , (set,cccd(7)) , (plot,ttlcd(4)) , (xypl,xyprm(1)) , (outp,cccd(1)) , (begi,cccd(2)) , (both,outop(1)) ,   &
     & (none,outop(2))

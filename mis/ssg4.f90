@@ -1,21 +1,12 @@
 
 SUBROUTINE ssg4
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iomt
    REAL Ua , Uf , Ug , Ul , Um , Un , Uo , Ur , Us , Usb , Usg
    COMMON /bitpos/ Um , Uo , Ur , Usg , Usb , Ul , Ua , Uf , Us , Un , Ug
    COMMON /blank / Iomt
-!
-! Local variable declarations
-!
    INTEGER d , go , mll , mlr , moab , moob , mr , pl , pli , po , poi , qr , scr1 , scr2 , scr3 , scr4 , scr5 , uset
    REAL xxx
-!
-! End of declarations
-!
 !
 !     DRIVER TO DO INERTIAL RELIEF PORTION OF SSG
 !

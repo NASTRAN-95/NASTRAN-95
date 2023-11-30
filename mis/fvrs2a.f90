@@ -1,24 +1,12 @@
 
 SUBROUTINE fvrs2a(File,Kk1,Kk2,Noro,Buffer)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Incr , Nn , Typin , Typout
    COMMON /packx / Typin , Typout , Ii , Nn , Incr
-!
-! Dummy argument declarations
-!
    INTEGER File , Kk1 , Kk2 , Noro
    INTEGER Buffer(1)
-!
-! Local variable declarations
-!
    INTEGER k1 , k2 , row , trl(7)
    REAL value
-!
-! End of declarations
-!
 !
 !     GENERATE COLUMN REORDERING MATRIX. THIS MATRIX WILL REORDER
 !     COLUMNS OF A MATRIX BY POST-MULTIPLYING THE MATRIX WHOSE

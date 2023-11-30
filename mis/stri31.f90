@@ -1,9 +1,6 @@
 
 SUBROUTINE stri31
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
    REAL Bgpdt(4,3) , Cosmat , Drkce(33) , Dummy , Eltemp , Elth , Est(100) , Gpth(3) , Htcp , Kheat(7) , Ph1rst(701) , Relout(300) ,&
       & Sinmat , Tempel , Tsub0 , Type , Z1o , Z2o , Zoff , Zoff1
@@ -15,9 +12,6 @@ SUBROUTINE stri31
    COMMON /sdr2x6/ Ielout
    COMMON /system/ Sysbuf , Nout , Nogo , Idum , Prec , Itherm
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
-!
-! Local variable declarations
-!
    REAL aic(18) , alpha(6) , avgthk , bdum(3) , bmat1(486) , bmatrx(162) , bmtrx(36) , bterms(6) , cente(3) , determ , detjac ,     &
       & dgpth(3) , ecpt(4) , edglen(3) , egnor(4) , egpdt(4,3) , epnorm(4,3) , eps , gi(36) , gpnorm(4,3) , gsube , jog , jok ,     &
       & k11 , k22 , lx , ly , mominr , offset , reali , rho , shpt(3) , tbg(9) , teb(9) , tem(9) , tes(9) , teu(9) , th , thetam ,  &
@@ -26,9 +20,6 @@ SUBROUTINE stri31
          & ising , istart , ix , j , jg , kpt , ll , mcsid , mid(4) , name(2) , nd2 , nd25 , nd6 , nd7 , nd8 , nd9 , ndof , necpt(4)&
          & , nnod2 , nnode , npart , scsid
    LOGICAL noalfa , sheart , userst
-!
-! End of declarations
-!
 !
 !     ROUTINE TO RECOVER CTRIA3 ELEMENT FORCES, STRAINS, AND STRESSES.
 !     PHASE 1.

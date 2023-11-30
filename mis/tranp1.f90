@@ -1,25 +1,13 @@
 
 SUBROUTINE tranp1(In,Iout,Nscrth,Is1,Is2,Is3,Is4,Is5,Is6,Is7,Is8)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Ia(7) , Iat(7) , Lcore , Nscrh , Scr(8)
    COMMON /trnspx/ Ia , Iat , Lcore , Nscrh , Scr
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER In , Iout , Is1 , Is2 , Is3 , Is4 , Is5 , Is6 , Is7 , Is8 , Nscrth
-!
-! Local variable declarations
-!
    INTEGER korsz
    INTEGER nam(2)
-!
-! End of declarations
-!
 !
 !     DRIVER OF THE OUT-OF-CORE MATRIX TRANSPOSE ROUTINE TRNSP
 !     (DTRANP IS THE TRNSP MODULE DRIVER)

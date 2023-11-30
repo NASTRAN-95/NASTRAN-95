@@ -1,18 +1,9 @@
 
 SUBROUTINE algpb(Idat,Ntype)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Idat , Ntype
-!
-! Local variable declarations
-!
    INTEGER itype , na(4)
    INTEGER numtyp
-!
-! End of declarations
-!
 !
    DATA na/2 , 2 , 3 , 1/
 !                ZERO, INTEGER, REAL, ALPHA

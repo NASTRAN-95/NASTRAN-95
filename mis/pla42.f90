@@ -1,9 +1,6 @@
 
 SUBROUTINE pla42
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrw , Cstm , Dit , Ecpto , Ecpts , Eor , Frowic , Gpct , I6x6k , Icstm , Igpct , Index , Inrw , Iovrly(40) , Ipass ,   &
          & Ipoint , Iprec , Iskpu(53) , Iz(1) , Jmax , Kggnl , Link(40) , Lrowic , Mpt , N6x6k , Ncstm , Neor , Ngpct , Nlinks ,    &
          & Nogo , Npoint , Npvt , Nrowsc , Nwords(40) , Outrw , Placnt , Plsetn , Sysbuf
@@ -23,17 +20,11 @@ SUBROUTINE pla42
    COMMON /system/ Sysbuf , Iskpu , Iprec
    COMMON /zblpkx/ Dpword , Dum , Index
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a , c , d , dmt , fj , p(4) , t , tubsav(16) , word
    INTEGER buffr1 , buffr2 , buffr3 , buffr4 , ecptot(7) , file , i , i1 , i2 , i3 , ibeg , ifile , ifirst , iflag , ilast , imat , &
          & inc , inpvt(2) , ip(4) , ipr , itemp , itype , izmax , j , jj , jjj , jlast , kkk , left , leftt , lim , lincor , low ,  &
          & m , matcr , mcbkgg(7) , name(2) , nn , nwdsp2(40) , nwdsrd , planos(2) , setno
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES THE SCRATCH DATA BLOCK ECPTS, WHICH IS THE
 !     ECPTNL DATA BLOCK APPENDED WITH THE PROPER DISPLACEMENT VECTOR

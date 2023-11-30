@@ -9,9 +9,6 @@ SUBROUTINE sdr2b
 !
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acc , All , Any , App(2) , Bgpdt , Bk0(2) , Bk1(2) , Branch , Buf(100) , Buf1 , Buf2 , Buf3 , Buf4 , Buf5 , Bufa(100) ,  &
          & Bufb(4176) , Casecc , Cei(2) , Clsrew , Cstm , Ddrmm , Deform , Displ , Dit , Ds0(2) , Ds1(2) , Dtype(8) , Edt , Eigr ,  &
          & Eldef , Elem(1) , End , Eqexin , Est , Esta , File , Force , Frq(2) , Gptt , Gptta , Harms , Iacc , Icb(7) , Icstm ,     &
@@ -43,15 +40,9 @@ SUBROUTINE sdr2b
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    LOGICAL anyout , heat , reject
    INTEGER eltype , flag , i , id , idsave , ielem , imat , ipr , itabl , iz1st , jltype , k , kdefrm(2) , khi , klo , kn , knsil , &
          & kx , l , local , m8 , mmre(2) , n , n12 , n1mat , n2mat , name(2) , ngps , nip , noep , nsil , nwds , nwdsa , ret1 , star
-!
-! End of declarations
-!
 !WKBI 7/94 SPR 94007
    EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(55),Iprec) , (Ksystm(56),Itherm) , (Z(1),Zz(1)) , (Bufr(1),Buf(1))
    DATA name/4HSDR2 , 4HB   / , star/4H* * /

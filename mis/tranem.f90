@@ -1,19 +1,10 @@
 
 SUBROUTINE tranem(Mcsid,Ngrid,R,Icomp,U,Rc)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Icomp , Mcsid , Ngrid
    REAL R(9) , Rc(3) , U(9)
-!
-! Local variable declarations
-!
    REAL c , grds , rcent(4) , s , sum , temp , ve1 , ve2 , ve3 , vm1 , vm2 , vm3 , vn1 , vn2 , vn3 , vndotm
    INTEGER ecpt(4) , i , ic , ig , k , subnam(2)
-!
-! End of declarations
-!
 !*****
 !     COMPUTES A STRESS TRANSFORMATION MATRIX U FOR TRIANGLES AND QUADS.
 !     INPUTS

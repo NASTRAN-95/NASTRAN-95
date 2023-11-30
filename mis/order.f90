@@ -1,27 +1,15 @@
 
 SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ecpt , Est , Newoes , Ngp , Scr2 , Scr4 , Sil
    REAL Oes1 , Scr1 , Skip1(3) , Skip2(5) , Skp(11)
    COMMON /blank / Ngp , Skp , Est , Skip1 , Sil , Skip2 , Ecpt , Oes1 , Scr1 , Scr2 , Newoes , Scr4
-!
-! Dummy argument declarations
-!
    INTEGER B1 , B2 , B3 , Lcor
    INTEGER Gplst(1) , Grids(1) , Id(1) , Idtab(2) , Rest(2)
-!
-! Local variable declarations
-!
    INTEGER elid , hold(3) , i , iafter , iall , ibefor , ieor , iflag , igdpt , igrd(2) , index , ione , iq , isym(14) , itwo ,     &
          & itype(14) , j , jspill , k , kbar , kq4 , kt3 , lastng , lcorx , length , lgrids , lidtab , m , nelmt , newin , newout , &
          & ngppe , ntype , offset , sils(34) , three(3) , tp
    LOGICAL spill
-!
-! End of declarations
-!
 !
    EQUIVALENCE (three(1),iflag) , (three(2),nelmt) , (three(3),igdpt)
    EQUIVALENCE (kq4,isym(13)) , (kt3,isym(14))

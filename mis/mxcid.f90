@@ -13,9 +13,6 @@ SUBROUTINE mxcid(*,Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1)
 !     INSTEAD
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Hset(32) , Itwo(32) , Kcl , Kclrw , Koutp , Krd , Krdrw , Kweof , Kwr , Kwrrw , Mask2(32) , Nbufsz
    CHARACTER*25 Sfm , Uwm
    CHARACTER*27 Swm
@@ -26,21 +23,12 @@ SUBROUTINE mxcid(*,Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1)
    COMMON /system/ Nbufsz , Koutp
    COMMON /two   / Itwo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
-!
-! Dummy argument declarations
-!
    INTEGER Buf1 , Gpl , Mset , Msze , Nwds , Sil , Uset
    INTEGER Z(1)
-!
-! Local variable declarations
-!
    INTEGER andf , lshift , orf
    INTEGER buf2 , fnam(2) , i , iset , j , k , l , lgp , ll , lll , lsil , luset , mcount , name(2) , ndf , ndof , ngp , none ,     &
          & nset , psil , puset , sil1 , sil2 , x(7)
    EXTERNAL andf , lshift , orf
-!
-! End of declarations
-!
    DATA nset/20/
    DATA name , none/4HMXCI , 4HD    , 4H (NO/
 !

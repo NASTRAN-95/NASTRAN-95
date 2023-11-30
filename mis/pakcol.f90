@@ -1,24 +1,12 @@
 
 SUBROUTINE pakcol(Terms,Nterms)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER A(4) , Irow
    DOUBLE PRECISION Tval , Val
    COMMON /zblpkx/ A , Irow
-!
-! Dummy argument declarations
-!
    INTEGER Nterms
    INTEGER Terms(1)
-!
-! Local variable declarations
-!
    INTEGER i , iloc , isil , j , jloc , jsil , kloc , nt , temp(7)
-!
-! End of declarations
-!
 !
 !     PACKS OUT A COLUMN OF AF OR DKGG MATRIX - DATA IS IN THE
 !     FOLLOWING SAMPLE FORMATS.

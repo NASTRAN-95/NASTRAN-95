@@ -1,26 +1,14 @@
 
 SUBROUTINE frd2d(In,Io,Ip)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Incr1 , Inn , Iout , Mnn , Sysbuf
    REAL Z(1)
    COMMON /system/ Sysbuf
    COMMON /unpakx/ Iout , Inn , Mnn , Incr1
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER In , Io , Ip
-!
-! Local variable declarations
-!
    INTEGER ib1 , ib2 , ma(7) , mb(7) , n , nc
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
 !     ADD IN TO END OF IO

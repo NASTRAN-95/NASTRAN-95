@@ -1,27 +1,15 @@
 
 SUBROUTINE read6(Irig,Gphia,Nr,Phia)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ii , Iiu , Incr1 , Incr1u , It1 , It2 , It2u , Iz(1) , Jj , Jju , Sysbuf
    REAL Z(3)
    COMMON /packx / It1 , It2 , Ii , Jj , Incr1
    COMMON /system/ Sysbuf
    COMMON /unpakx/ It2u , Iiu , Jju , Incr1u
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Gphia , Irig , Nr , Phia
-!
-! Local variable declarations
-!
    INTEGER file , i , ibuf1 , ibuf2 , mcb(7) , ncol
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ADDS GIVENS EIGENVECTORS TO RIGID BODY MODES ON PHIA
 !

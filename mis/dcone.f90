@@ -1,9 +1,6 @@
 
 SUBROUTINE dcone
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph12 , Alpha1 , Alpha2 , Costh , Dum(10) , Dumcl(34) , Ecpt(100) , Eltemp , G , G11 , G12 , G13 , G22 , G23 , G33 , Rhoy ,&
       & Sinth , Stress
    DOUBLE PRECISION Constd(5) , E11 , E12 , E22 , E33 , Eht(96) , Huq(100) , Kij(36) , Kqd(64) , Pi
@@ -14,9 +11,6 @@ SUBROUTINE dcone
    COMMON /ds1aet/ Ecpt
    COMMON /matin / Matid , Inflag , Eltemp , Stress , Sinth , Costh
    COMMON /matout/ G11 , G12 , G13 , G22 , G23 , G33 , Rhoy , Alpha1 , Alpha2 , Alph12 , Dum
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a(5,3) , a0 , a1 , a2 , a3 , b(7,3) , b0 , b1 , b2 , b3 , c(3,3) , c0 , c1 , cp , cp2 , d0 , d1 , d11 , d12 ,   &
                   & d22 , d33 , depp , deps , determ , epp , eps , fac(10) , gshear , hyq(10) , int(10,4) , l2 , n , n2 , n2d33 ,   &
                   & n2ov4 , ncp , nov4 , nsp , nspopi , nspov4 , one , opi , oq , piovb , q(8) , ra , rasq , rb , rbsq , sd22pi ,   &
@@ -24,9 +18,6 @@ SUBROUTINE dcone
                   & temp48(48) , temp5 , temp6 , temp7 , tm , ts , twod33 , u(10) , za , zb
    INTEGER i , ifac , inc1 , inc2 , ip1 , ip2 , ip3 , ising , j , jp1 , k , k1 , k2 , kk , kpow , krow , mplus1 , na(10) , nbegin , &
          & ncol , nerror(2) , nint , npivot , npow
-!
-! End of declarations
-!
 !
 !     DIFFERENTIAL STIFFNESS FOR THE CONICAL SHELL. FMMS-68
 !

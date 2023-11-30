@@ -1,9 +1,6 @@
 
 SUBROUTINE dmpy(Z,Zd)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION Ad(2) , Xd(2)
    INTEGER Clsrew , Eol , Eor , Filea(7) , Fileb(7) , Filec(7) , Flag , I , Incr , Ix , Nx , Nz , One , Rd , Rdrew , Sign , Sysbuf ,&
          & Type , Wrt , Wrtrew
@@ -13,18 +10,9 @@ SUBROUTINE dmpy(Z,Zd)
    COMMON /unpakx/ Type , One , Nx , Incr
    COMMON /zblpkx/ Xd , Ix
    COMMON /zntpkx/ Ad , I , Eol , Eor
-!
-! Dummy argument declarations
-!
    INTEGER Z(1)
    DOUBLE PRECISION Zd(1)
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , j , k , kl , kr , ptype , qtype , rcc
-!
-! End of declarations
-!
 !
 !     DMPY WILL PRE OR POST MULTIPLY AN ARBITRARY MATRIX BY A DIAGONAL
 !     MATRIX.

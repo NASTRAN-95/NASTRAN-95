@@ -1,9 +1,6 @@
 
 SUBROUTINE dihex(Type)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Bufm6(46) , Cdamp , Dum12(12) , Dum2(2) , Dum6(6) , E , Est(328) , Evec(3,12) , G , Nu , Rho , Space(18) , Sys(6) , Sysbuf ,&
       & Talpha , Temp , Tref , Vn(3,2) , Work(66) , Zs(1)
    DOUBLE PRECISION C(3,3) , H(4) , Jacob(3,3) , Part(3,3) , S(4) , Sig(6) , Sk(6,6) , Str(18) , Tf(3,3) , Tk(3,3) , Z(1)
@@ -18,22 +15,13 @@ SUBROUTINE dihex(Type)
    COMMON /matout/ E , G , Nu , Rho , Talpha , Tref , Cdamp , Space , Mtdep
    COMMON /system/ Sysbuf , Otpt , Nogo , Sys , Mtemp
    COMMON /zzzzzz/ Zs
-!
-! Dummy argument declarations
-!
    INTEGER Type
-!
-! Local variable declarations
-!
    REAL alfa , beta , dalfa(3) , dbeta(2) , dmaxar(3) , dtor , grid(128) , maxar
    LOGICAL anis , diag , rect , tdep
    INTEGER bcord , bgpdt , cid , elno(3) , gpt , heat , i , id , ig , igp , igrid(128) , ihex , ii , ijk , ik , im , in , inc ,     &
          & iprec , irp , ix , iz , izs , j , k , kgg , l , m , mgg , mz , n , nd , nerr1 , ngg , ngp , nip , nk , nm , nz , nzs ,   &
          & ufm(6)
    DOUBLE PRECISION dalpha(6) , detj , e1 , e2 , e3 , gauss(8) , gmat(36) , sfact , store(18) , sv , sx , sxy , sy , syz , sz , szx
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PROCESSES IHEX1, IHEX2, AND IHEX3 ELEMENT DATA TO
 !     PRODUCE THE DIFFERENTIAL STIFFNESS MATRIX

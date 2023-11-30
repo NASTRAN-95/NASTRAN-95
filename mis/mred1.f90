@@ -65,9 +65,6 @@ SUBROUTINE mred1
 !              BOUNDS - OLDBOUNDS OPTION FLAG
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bdycs , Bndset , Dry , Eqsind , Fixset , Gbuf1 , Gbuf2 , Ieig , Io , Iprntr , Irsave , Korbgn , Korlen , Namebs ,        &
          & Nbdycc , Ncsubs , Newnam(2) , Nous , Nsil , Nslbgn , Oldnam(2) , Rgrid(2) , Rgridx , Rgridy , Rgridz , Rname(2) , Sbuf1 ,&
          & Sbuf2 , Sbuf3 , Skipm , Step , Sysbuf , Type(2) , Usetl , Ustloc , Z(1)
@@ -82,9 +79,6 @@ SUBROUTINE mred1
    COMMON /system/ Sysbuf , Iprntr
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER all , casecc , cctype(2) , cred , errnam(6) , i , ibf , iblank , ibound , icode , ifile , iflag , ifree , imax , imode , &
          & imsg , irange , isil , itest , itmnam(2) , iuserm , j , k , letrs(2) , lstbit(32) , modes , modnam(2) , module ,         &
          & mtrlra(7) , mtrlrb(7) , mtrlrc(7) , mtrlrd(7) , mtrlre(7) , nheqss , nhloap , nhlods , nmax , nmonic(16) , no , noieig , &
@@ -93,9 +87,6 @@ SUBROUTINE mred1
    LOGICAL errors
    REAL range(2)
    EXTERNAL andf , orf , rshift
-!
-! End of declarations
-!
    EQUIVALENCE (Z(1),Rz(1))
    DATA nmonic/4HNAMB , 4HBOUN , 4HFIXE , 4HMETH , 4HCMET , 4HOUTP , 4HRGRI , 4HOLDM , 4HOLDB , 4HRSAV , 4HRNAM , 4HRANG , 4HNMAX , &
        &4HUSER , 4HNAMA , 4HGPAR/

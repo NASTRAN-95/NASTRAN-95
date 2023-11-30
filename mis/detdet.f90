@@ -1,9 +1,6 @@
 
 SUBROUTINE detdet(Deta,Ipowr1,P,Sml1,Oldd,Iold)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER B , C , Fa(7) , Fa1(7) , Fc(7) , Fc1(7) , Fl(7) , Fl1(7) , Ia , Ibuck , Ichol , Il1 , Il2 , Im(21) , In(4) , In1(2) ,    &
          & In2(2) , In3(2) , Ipaav , Ipowr , Ipowra , Isew(33) , Isew1(5) , Isew2(20) , Ising , Ksystm(65) , Lama , Lc , Mach , Mz ,&
          & Ndcmp , Nevm , Nfound , Npole , Nsym , Nz , Nz1 , Option , Otpe , R , Sr1 , Sr11 , Sr2 , Sr21 , Sr3 , Sr31
@@ -17,23 +14,14 @@ SUBROUTINE detdet(Deta,Ipowr1,P,Sml1,Oldd,Iold)
    COMMON /sfact / Fa1 , Fc1 , Fl1 , Sr11 , Sr21 , Nz1 , Det1 , Ipowra , Sr31 , Mindd , Ichol , B , C , R , Sml21
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER Iold
    DOUBLE PRECISION Oldd
    REAL Sml1
    DOUBLE PRECISION Deta(1) , P(1)
    INTEGER Ipowr1(1)
-!
-! Local variable declarations
-!
    INTEGER i , ii , iprod , iprt , isave , nzz , sdet
    INTEGER korsz
    DOUBLE PRECISION prod
-!
-! End of declarations
-!
 !
 !
 !

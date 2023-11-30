@@ -1,9 +1,6 @@
 
 SUBROUTINE ferfbs(V1,V2,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dcore(1) , Xl(1)
    INTEGER Ibflt , Ibforv , Ibfsma , Icore(1) , Ksystm(65) , Ltpos(7) , Mcblt(7) , Mcbsma(7) , Nidlt , Nidorv , Nidsma , Nltli ,    &
          & Nout , Nsmali , Smapos(7)
@@ -11,18 +8,9 @@ SUBROUTINE ferfbs(V1,V2,V3,Vb)
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm
    COMMON /zzzzzz/ Icore
-!
-! Dummy argument declarations
-!
    REAL V1(1) , V2(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(20) , icol , icrow , ii , ik , ilrow , j , ji , mem , nrow , ntms , ntmsnx , ntmss
    REAL v2j , v3j , xljj
-!
-! End of declarations
-!
 !
 !  FERFBS is a modification of the old FRBK subroutine.  It has been
 !  modified to read matrix data from memory until that data is exhausted

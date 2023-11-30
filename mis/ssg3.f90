@@ -1,19 +1,10 @@
 
 SUBROUTINE ssg3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Epsi
    INTEGER Ires , Nskip , Omit
    COMMON /blank / Omit , Ires , Nskip , Epsi
-!
-! Local variable declarations
-!
    INTEGER kll , koob , lll , loo , pl , po , rulv , ruov , sr1 , sr2 , ulv , uov
-!
-! End of declarations
-!
 !
 !     DMAP FOR STATIC SOLUTION GENERATOR 3
 !

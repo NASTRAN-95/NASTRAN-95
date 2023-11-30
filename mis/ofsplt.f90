@@ -62,9 +62,6 @@ SUBROUTINE ofsplt(*,Esym,Elid,G,Offset,X,Deform,Gplst)
 !     THE OFFSET PLOT IS QUESTIONABLE.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Axis(3) , Elset , Nout , Offlag , Offscl , Pedge , Pen , Plabel , Skp1(12) , Skp2 , Skp3(12) , Skp4(235) , Skp5 , Skp6 , &
          & Skp7(11) , Skp8(6) , Skp9(15)
    REAL Cntx , Cnty , Cstm(3,3) , Sign(3) , Xmax , Ymax
@@ -74,20 +71,11 @@ SUBROUTINE ofsplt(*,Esym,Elid,G,Offset,X,Deform,Gplst)
    COMMON /rstxxx/ Cstm , Skp3 , Axis , Sign
    COMMON /system/ Skp2 , Nout
    COMMON /xxparm/ Skp4 , Offscl
-!
-! Dummy argument declarations
-!
    INTEGER Deform , Elid , Esym , Offset
    INTEGER G(3) , Gplst(1)
    REAL X(3,1)
-!
-! Local variable declarations
-!
    REAL cnty4 , delx , off(3,2) , ofv(3,2) , scale , v(3) , x1 , x2 , x3 , y1 , y2 , y3 , ymax1
    INTEGER i , ipen , j , k , kbar , kq4 , kt3 , l , mpen , nl , offhdg(5) , pn1 , sym(2)
-!
-! End of declarations
-!
    DATA kbar , kt3 , kq4/2HBR , 2HT3 , 2HQ4/ , sym/2 , 0/
    DATA offhdg/4H OFF , 4HSET  , 4HSCAL , 4HE =  , 4H   X/
 !

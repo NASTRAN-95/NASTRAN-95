@@ -1,29 +1,17 @@
 
 SUBROUTINE ta1ca(Koz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bgpdt , Bufr1 , Bufr2 , Bufr3 , Clsrw , Cstm , Gei , Idgenl , Inrw , Iud , Iui , Iz(1) , Izzz , Nogo , Nud , Nui
    REAL Dum2(2) , Dum22(2) , Dum3(3) , Dummy1 , Dummy2 , Outrw , Z(1)
    COMMON /names / Dummy1 , Inrw , Dummy2 , Outrw , Clsrw
    COMMON /ta1com/ Dum3 , Bgpdt , Dum2 , Cstm , Dum22 , Gei
    COMMON /tac1ax/ Bufr1 , Bufr2 , Bufr3 , Iui , Nui , Iud , Nud , Izzz , Nogo , Idgenl
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Koz
-!
-! Local variable declarations
-!
    DOUBLE PRECISION b(6) , d(42) , dd(30) , det , dl(25) , du(25) , e(18) , index(18) , s(6) , t(9) , v(3)
    INTEGER eor , file , i , ibeg , ibgpdt , icol(6) , icstm , ierow , ind , indxz , irank , irow , ising , j , jj , k , kk , l ,    &
          & left , lim , lima , lk , ll , lrow(5) , name(2) , nbgpdt , ncstm , neor
    REAL ssp(6)
-!
-! End of declarations
-!
 !*****
 ! THIS ROUTINE, CALLED BY SUBROUTINE TA1C, COMPUTES THE S MATRIX OF A
 ! GENERAL ELEMENT FROM INFORMATION IN THE CSTM AND BGPDT DATA BLOCKS.

@@ -1,9 +1,6 @@
 
 SUBROUTINE frd2b(A,Alp,B,Bet,C,Gam,D,Del,E,Eps,Out)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha(4) , Beta(4) , Delta(4) , Epsln(4) , Gama(4) , Z(1)
    INTEGER Ih , Iprec , Ksystm(54) , Lcore , Mc(7) , Mcba(7) , Mcbb(7) , Mcbc(7) , Mcbd(7) , Mcbe(7) , Nomat , Typa , Typb , Typc , &
          & Typd , Type
@@ -12,19 +9,10 @@ SUBROUTINE frd2b(A,Alp,B,Bet,C,Gam,D,Del,E,Eps,Out)
                  & Type , Epsln , Mc
    COMMON /system/ Ksystm , Iprec
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER A , B , C , D , E , Out
    REAL Alp(2) , Bet(2) , Del(2) , Eps(2) , Gam(2)
-!
-! Local variable declarations
-!
    INTEGER i , ifo , irow , ity , n , nc
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     ADD UP MATRICIES
 !

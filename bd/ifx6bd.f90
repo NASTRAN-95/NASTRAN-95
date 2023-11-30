@@ -1,14 +1,8 @@
 
 BLOCKDATA ifx6bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER I1(100) , I2(100) , I3(100) , I4(100) , I5(100) , I6(100) , I7(100) , I8(40)
    COMMON /ifpx6 / I1 , I2 , I3 , I4 , I5 , I6 , I7 , I8
-!
-! End of declarations
-!
 !IFX6BD
 !
 !     THE FIRST  WORD DEFINES A CARD-TYPE IDENTIFICATION CODE, AND

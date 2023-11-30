@@ -1,24 +1,12 @@
 
 SUBROUTINE intvec(Vector)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ncpw
    REAL Skip(40)
    COMMON /system/ Skip , Ncpw
-!
-! Dummy argument declarations
-!
    INTEGER Vector
-!
-! Local variable declarations
-!
    INTEGER char , i , k , n , nshape , vec(4) , vecwrd , xyzr(4)
    INTEGER klshft , krshft
-!
-! End of declarations
-!
 !
    DATA xyzr/1HX , 1HY , 1HZ , 1HR/
    DATA n/1HN/

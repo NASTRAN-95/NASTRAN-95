@@ -1,9 +1,6 @@
 
 SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Costh , Eltemp , Sinth , Stress , Xmat(6) , Z(1)
    INTEGER Iditfl , Iihmat , Incr , Inflag , Iz(1) , Last , Matid , Mptfil , Ne(1) , Nelems , Nnhmat , Otpe , Sysbuf
    CHARACTER*23 Ufm
@@ -14,22 +11,13 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
    COMMON /system/ Sysbuf , Otpe
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Dit , Estfld , Geom1 , Hest , Iany , Kcount , Mpt
-!
-! Local variable declarations
-!
    REAL angle , c , con1 , con2 , coord(3) , cs , csq , dn(8) , e(9) , ecpt(200) , g(9) , s , ssq , temp , v12(3) , v13(3) , x2 ,   &
       & xi(3) , xj(3) , xk(3) , xlen , xm(32)
    INTEGER bfield(2) , buf1 , buf2 , buf3 , eltype , estwds , file , frstgd , i , iadd , iall , icount , idefid , idex , idim ,     &
          & idx , iecpt(200) , ifield , iflag , isys1 , isys2 , isys3 , itemp , ith , iwords , j , jco , jcount , jel , jsub , kadd ,&
          & kount(2) , lcore , mcb(7) , mid , n , nam(2) , name(2) , nextz , nfield , ngrids , num , oldeid , pointr(6,20)
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     CREATE SCRATCH FILE ESTFLD WHICH WILL BE USED TO COMPUTE TOTAL
 !     MAGNETIC FIELD. READ EST AND CREATE SIMILAR RECORDS CONTAINING

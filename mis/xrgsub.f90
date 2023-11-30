@@ -1,24 +1,12 @@
 
 SUBROUTINE xrgsub(Irestb,Subset)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ichar(80) , Icol , Icount , Idmap , Ierror , Ignore , Ind , Iphase , Irestr , Iscr , Istate , Itype , Limit(2) ,         &
          & Member(2) , Name(2) , Nsubst , Num(2) , Number , Nument , Record(20)
    COMMON /xrgdxx/ Irestr , Nsubst , Iphase , Icol , Number , Itype , Istate , Ierror , Num , Ind , Nument , Record , Ichar ,       &
                  & Limit , Icount , Idmap , Iscr , Name , Member , Ignore
-!
-! Dummy argument declarations
-!
    INTEGER Irestb(7) , Subset(12)
-!
-! Local variable declarations
-!
    INTEGER iend , istr , k , kk
-!
-! End of declarations
-!
 !****
 !     PURPOSE - XRGSUB PROCESSES THE ****SBST CONTROL CARD IN
 !               RIGID FORMAT DATA BASE

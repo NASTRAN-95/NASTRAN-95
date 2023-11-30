@@ -1,14 +1,8 @@
 
 SUBROUTINE mxcids(*,Z,Mset,Msze,Nwds,Uset,Nstrt,Snam)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Mset , Msze , Nstrt , Nwds
    REAL Snam , Uset , Z
-!
-! End of declarations
-!
 !-----
 !   THIS SUBROUTINE CREATES A LIST OF SUBSTRUCTURE NAMES AT Z(1)
 ! AND AN ARRAY AT Z(NSTRT) OF LENGTH MSZE*NWDS WITH THE FIRST TWO WORDS

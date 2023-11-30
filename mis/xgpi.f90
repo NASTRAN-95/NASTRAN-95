@@ -5,9 +5,6 @@ SUBROUTINE xgpi
 !     SUBROUTINES - XOSGEN AND XFLORD.
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Alter(2) , Apprch , Bandit , Bcdcnt , Ceitbl(42) , Cnm(1) , Cnmtp , Core(1) , Cpntry(7) , Cppgct , Diag14 , Diag17 ,     &
          & Diag25 , Diag4 , Dmap(1) , Dmpcnt , Dmpcrd(1) , Dmppnt , Dpl(3) , Eotflg , Fnm(1) , Fnmtp , Iallon , Ibf(8) , Ibuff(20) ,&
          & Ibufr(1) , Ibufsz , Iccnam(1) , Icf(1) , Icfiat , Icfpnt , Icftop , Ichar , Icold , Icpbot , Icpdpl(1) , Icpflg ,        &
@@ -55,9 +52,6 @@ SUBROUTINE xgpi
    COMMON /xoldpt/ Ptdtop , Ptdbot , Lptdic , Nrlfl , Seqno
    COMMON /xvps  / Vps
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER andf , complf , korsz , lshift , orf , rshift
    INTEGER bgnmsk , endmsk , filcon , i , i1 , i2 , ib1s , ibegn , ibulk , icase , idelet , idp , idpbuf , idpfct , idpwrd , iend , &
          & iendbt , ii , iii , index , iop , iopbuf , iopwrd , ioshdr(2) , iparbt , iparpt , iparw1 , iparw2 , istrbt , itrl(7) ,   &
@@ -65,9 +59,6 @@ SUBROUTINE xgpi
          & lim1 , lim2 , ll , lloscr , llx , lx , m , nam1 , nam2 , nampt , ndpl , nfile , nmask , nparam , npt , nptbuf , nptwrd , &
          & npvt , nxaltr , nxcsa , nxgpi(2) , nxptdc(2) , nxvps , ptfct , wrngrl
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
 !
 !                  ** CONTROL CARD NAMES **
 !                  ** DMAP    CARD NAMES **

@@ -1,9 +1,6 @@
 
 SUBROUTINE ssg1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Ary(1) , Dum53(53) , Dum6(6) , Old
    INTEGER Bgpdt , Core(166) , Cstm , Ecpt , Edt , Gptt , Iary(1) , Icore(1) , Idit , Iotpe , Iptr , Isil , Itherm , Lc , Loadnn ,  &
          & Lodc , Mass , Mpt , N(3) , Nload , Nobld , Nrowsp , Sil , Slt , Sysbuf
@@ -14,17 +11,11 @@ SUBROUTINE ssg1
    COMMON /system/ Sysbuf , Iotpe , Dum53 , Itherm
    COMMON /xmssg / Ufm
    COMMON /zzzzzz/ Icore
-!
-! Local variable declarations
-!
    REAL a , defml(2) , flag , gvect(1080)
    INTEGER casecc , i , icr2 , icr3 , idefml(2) , iflag , ifrst , iharm , ilist(360) , inull , ip1 , ip2 , ipont , ipont1 , islt ,  &
          & ispcn , iword(4) , j , k , lc1 , mcb(7) , mpcn , n1 , n1a , ncent , nedt , newslt , nex , ngrav , nllst , ntemp , nwds , &
          & pg(7) , subnam(2)
    INTEGER korsz
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Core(1),Icore(1),Iary(1),Ary(1)) , (defml(1),idefml(1))
    DATA iword/4 , 6 , 7 , 162/

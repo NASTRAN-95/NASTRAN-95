@@ -1,27 +1,15 @@
 
 SUBROUTINE ddrmmp(*,Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Cls , Clsrew , Dummy(362) , Rd , Rdrew , Sysbuf , Wrt , Wrtrew
    INTEGER Ierror , Iout
    COMMON /ddrmc1/ Dummy , Ierror
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
    COMMON /system/ Sysbuf , Iout
-!
-! Dummy argument declarations
-!
    LOGICAL Anyxy
    INTEGER Icase , Ixytyp , Lused , Ncore
    INTEGER Buff(1) , Z(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , loc(6) , noeor , nwds , xycdb
-!
-! End of declarations
-!
 !*****
 !  BUILD LIST OF POINTS IN SORT FOR WHICH XYCDB OUTPUT REQUESTS EXIST
 !  OF FILE TYPE -IXYTYP- AND OF SUBCASE 0 AND SUBCASE -ICASE-.

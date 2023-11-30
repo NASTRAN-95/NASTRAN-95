@@ -1,9 +1,6 @@
 
 SUBROUTINE sfetch(Name,Item,Irw,Itest)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Io , Ioblk , Ioitcd , Iolbn , Iomode , Iopbn , Ioptr , Iosind , Mdi , Mdibl , Mdilbn ,        &
          & Mdipbn , Nbuff , Nout , Nxtdum(15)
    REAL Ditdum(6) , Ditup
@@ -17,20 +14,11 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
    COMMON /system/ Nbuff , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Irw , Item , Itest
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    INTEGER andf , itcode , ittype
    INTEGER ibl , idle , imdi , ird , irdwrt , itest1 , itm , iwrt , nmsbr(2)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     POSITIONS THE SOF TO READ OR WRITE DATA ASSOCIATED WITH ITEM OF
 !     SUBSTRUCTURE NAME.

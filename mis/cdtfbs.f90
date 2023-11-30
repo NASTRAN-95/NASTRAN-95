@@ -1,28 +1,16 @@
 
 SUBROUTINE cdtfbs(Dx,Dy,Iobuf,Fileu,Nrow)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Cdp , Identy , Incrx , Itypex , Iunpak , Junpak , Lowtri , Norew
    REAL Csp , Diag , Eofnrw , Rd , Rdp , Rdrew , Rect , Rew , Row , Rsp , Sqr , Sym , Uprtri , Wrt , Wrtrew
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew , Norew , Eofnrw , Rsp , Rdp , Csp , Cdp , Sqr , Rect , Diag , Lowtri , Uprtri , &
                  & Sym , Row , Identy
    COMMON /unpakx/ Itypex , Iunpak , Junpak , Incrx
-!
-! Dummy argument declarations
-!
    INTEGER Nrow
    DOUBLE PRECISION Dx(1) , Dy(1)
    INTEGER Fileu(7) , Iobuf(1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dtemp
    INTEGER i , ioff , ising , j , jj , jk , ju , k , parm(4) , typear
-!
-! End of declarations
-!
 !
 !     CDTFBS IS A SPECIAL VERSION OF GFBS USED BY COMPLEX DETERMINATE
 !     METHOD

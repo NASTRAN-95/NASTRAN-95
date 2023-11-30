@@ -1,9 +1,6 @@
 
 SUBROUTINE gfsdir
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL A(4) , Form , Kcomp , Rz(1)
    INTEGER Bit(12) , Comptp , Ii , Incr , Irow , Lcore , Lmodes , Nn , Nofree , Nograv , Nsub0 , Nsub1 , Nsub2 , Sysbuf , Two(32) , &
          & Typin , Typout , Ua , Uab , Uf , Ufr , Ug , Ui , Ul , Um , Un , Uo , Ur , Us , Usb , Uset , Usg , Ux , Uy , Uz , Z(1)
@@ -15,9 +12,6 @@ SUBROUTINE gfsdir
    COMMON /two   / Two
    COMMON /zblpkx/ A , Irow
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aay , aaybar , ac , afry , afy , ajw , amy , any , anybar , aoy , awj , awy , axy , ayw , badd(11) , dkaa , dkfrfr ,     &
          & file , gia , gjw , gm , go , gyw , h , hc , ibuf , ident , kaa , kaabar , kc , kjj , kjjl , kmat , kwwbar , kyy , maa ,  &
          & mbit , mcb(7) , mmat , mrow , mt , mwwbar , n , name(2) , nuy , obit , pvec , sbit , scr1 , scr2 , scr3 , scr4 , scr5 ,  &
@@ -26,9 +20,6 @@ SUBROUTINE gfsdir
    DOUBLE PRECISION dbadd(5)
    REAL rbadd(12)
    EXTERNAL andf
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PERFORMS THE DIRECT FORMULATION OF THE
 !     FLUID/STRUCTURE MATRICES

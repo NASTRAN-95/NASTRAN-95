@@ -1,9 +1,6 @@
 
 SUBROUTINE algap(Ifname,Ifnm)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iz(10) , Ksystm(100) , Lpunch , Out , Sysbuf
    CHARACTER*23 Ufm
    CHARACTER*29 Uim
@@ -12,21 +9,12 @@ SUBROUTINE algap(Ifname,Ifnm)
    COMMON /system/ Ksystm
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Ifname , Ifnm
-!
-! Local variable declarations
-!
    INTEGER blank , dti(2) , dtis(2) , endrec(2) , file , form(30,2) , forms(30,2) , i , ibcd(2) , ibcdd(2) , ibuf , ichr , id ,     &
          & idata(20) , idf , idt , if , iform(20) , ifrs , ift , ilen , int(2) , intd(2) , ip1 , iplus , ircnm1 , ireal(2) ,        &
          & irecno , is , istar , it , j , k , ll(4) , m , mcb(7) , n1 , name(2) , nf , nlist , nread , nz , pform(30) , tabnm(2)
    INTEGER korsz , numtyp
    REAL rdata(20)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS A MODIFIED VERSION OF SUBROUTINE TABPCH. IT WILL
 !     ONLY PUNCH ONE TABLE INTO DTI CHARDS.

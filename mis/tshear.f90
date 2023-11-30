@@ -1,9 +1,6 @@
 
 SUBROUTINE tshear
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alpha , Area , Bufflg , Costh , Csid(4,4) , Diag1(3) , Diag2(3) , E1 , Ecpt(1) , Eltemp , Eltype , Endid , Eorflg , F12(2) ,&
       & Fmu , G , Ge , Oldel , Pa , Pg(1) , Rho , Sigmac , Sigmas , Sigmat , Sinth , Stress , Tbar , Temp , Thick , Ti(16) , To1 ,  &
       & Tsq , Vec(3,4) , Veca(3) , Vecb(3) , Vmag , Xl(4)
@@ -14,14 +11,8 @@ SUBROUTINE tshear
    COMMON /ssgwrk/ Vec , Xl , Diag1 , Diag2 , Ti , Pa , Tsq , Veca , Vecb , Area , Vmag , I , J , Ia , Ib , I12 , Tbar , In
    COMMON /trimex/ Ecpt , Isils , Mid , Thick , Fmu , Csid , Eltemp , F12
    COMMON /zzzzzz/ Pg
-!
-! Local variable declarations
-!
    INTEGER igrid2
    REAL vkl
-!
-! End of declarations
-!
 !
 !     ELEMENT TEMPERATURE AND DEFORMATION LOADING FOR THE SHEAR PANEL.
 !

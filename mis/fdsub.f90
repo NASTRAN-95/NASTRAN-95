@@ -1,27 +1,15 @@
 
 SUBROUTINE fdsub(Name,I)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Iodum(8) , Mdidum(4) , Nxtdum(15)
    LOGICAL Ditup
    COMMON /sof   / Dit , Ditpbn , Ditlbn , Ditsiz , Ditnsb , Ditbl , Iodum , Mdidum , Nxtdum , Ditup
    COMMON /sys   / Blksiz , Dirsiz
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER I
    INTEGER Name(2)
-!
-! Local variable declarations
-!
    REAL dummy
    INTEGER j , k , kk , max , nblks , nmsbr(2) , nnms
-!
-! End of declarations
-!
 !                                                           ** PRETTIED
 !     SEARCHES IF THE SUBSTRUCTURE NAME HAS AN ENTRY IN THE DIT. IF IT
 !     DOES, THE OUTPUT VALUE OF I WILL INDICATE THAT NAME IS THE ITH

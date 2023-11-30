@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb1b(Q)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Amach , Amachr , Blspc , Bspace , Chord , Den , Dum(2) , Flowa , Radius , Redf , Refc , Refcrd , Refden , Refflo , Refmac , &
       & Refstg , Refvel , Rfreq , Sigma , Stag , Tsonic , Vel
    INTEGER Ibuf , Iout , Iref , Mach , Maxmac , Mcb(7) , Minmac , Nlines , Nrow , Nstns , Nstnsx , Sln
@@ -13,21 +10,12 @@ SUBROUTINE amgb1b(Q)
                  & Stag , Chord , Radius , Bspace , Mach , Den , Vel , Flowa , Amach , Redf , Blspc , Amachr , Tsonic
    COMMON /system/ Ibuf , Iout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    COMPLEX Q(Nstns,Nstns)
-!
-! Local variable declarations
-!
    COMPLEX a(20,30) , ab(401) , an(401) , cb(401) , cn(401) , ff , fg , fk(401) , fo , fs , loads(21) , p(50) , pd(401) , s1(100) , &
          & slope , so(100) , st , stp , stt(20) , sum
    REAL b , b2 , beta , cc , cj , ck , cl , con , con2 , ct , d , delta , deltm , disp(20,10) , h , hh , kappa , lamda , lamdm , m ,&
       & mu , mus , nu , omega , pi , pi2 , s , sl , ss , w(8) , x(20) , xl , xlam , zer
    INTEGER i , j , jj , jk , k , kkk , l , n , n1 , n11 , n1m , n1n , n2 , n22 , nf , nk , nk1 , nk2 , nm , nnn
-!
-! End of declarations
-!
 !
 !     SUBSONIC RAO (CASCADES)
 !

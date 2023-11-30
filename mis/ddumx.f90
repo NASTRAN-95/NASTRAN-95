@@ -1,21 +1,12 @@
 
 SUBROUTINE ddumx
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Nout
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm
-!
-! Local variable declarations
-!
    INTEGER ii(9) , j , jj , kk(9)
-!
-! End of declarations
-!
 !
 !     DELETE ANY OF THE FOLLOW ENTRY POINT IF A SUBROUTINE OF THE SAME
 !     NAME ALREADY EXISTS

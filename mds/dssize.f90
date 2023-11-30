@@ -2,22 +2,10 @@
 SUBROUTINE dssize(Namfil,Ncols,Nterms,Nstrgs,Nwdtrm)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! COMMON variable declarations
-!
    INTEGER Mem(4)
    COMMON /zzzzzz/ Mem
-!
-! Dummy argument declarations
-!
    INTEGER Namfil , Ncols , Nstrgs , Nterms , Nwdtrm
-!
-! Local variable declarations
-!
    INTEGER mcb(7)
-!
-! End of declarations
-!
 !
 !   DSSIZE DETERMINES THE SIZE OF A GIVEN MATRIX FILE
 !      NCOLS  = NUMBER OF COLUMNS

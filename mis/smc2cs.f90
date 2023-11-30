@@ -3,22 +3,13 @@
 SUBROUTINE smc2cs(Zi,Zcs,Zil,Zol,Nar,Lasrow,Rtemp,I1,I2,I3)
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
-!
-! Dummy argument declarations
-!
    INTEGER I1 , I2 , I3
    INTEGER Lasrow(I2) , Nar(I3) , Zi(10)
    COMPLEX Rtemp(I3) , Zcs(10) , Zil(I1,I2) , Zol(I2,2)
-!
-! Local variable declarations
-!
    INTEGER i , iavail , ic1 , ic2 , iilcol , iilrow , iilrow1 , iilrowb , ilim1 , ilim2 , incr , itest , j , jdir , jlim1 , jlim2 , &
          & jlim4 , jm2 , jmidx , jrowl , jvtmp , k , kbc , kdir , kfrcolg , kfrcolp , kk , klscolp , km2 , kmidx , kr , kridxs ,    &
          & krow1 , krowb , krowsb , kvidx , limit , lrow1 , lrown , missin , nrows , num , nzeros
    COMPLEX zoltmp
-!
-! End of declarations
-!
 !
 ! ZIL    = INNER LOOP TERMS (SIZE = MAXNAC * (MAXNCOL+NEXTRA)
 ! ZOL    = OUTER LOOP TERMS (SIZE = (MAXNCOL+NEXTRA) * 2)

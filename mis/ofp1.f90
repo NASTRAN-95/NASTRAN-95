@@ -1,20 +1,11 @@
 
 SUBROUTINE ofp1
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    INTEGER Id(50) , Iflag , Ksys(100) , L123(5) , Linet , Nout , Of(6)
    COMMON /system/ Ksys
    COMMON /zzzzzz/ Core
-!
-! Local variable declarations
-!
    INTEGER i , line
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE OUTPUTS A PAGE HEADING BASED ON PARAMETERS COMING
 !     THROUGH COMMON.

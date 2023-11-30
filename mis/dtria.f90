@@ -1,9 +1,6 @@
 
 SUBROUTINE dtria(Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    DOUBLE PRECISION A(54) , Arr9(9) , Array9(9) , C1 , C2 , D1(3) , D2(3) , Determ , Dumtwo(2) , E(18) , Habc(18) , Hinv(36) ,      &
                   & Hq(12) , Ivect(3) , Jvect(3) , Kout(36) , Ksum(63) , Kvect(3) , L1 , L2 , Prod12(12) , Prod9(9) , R(2,4) ,      &
                   & Requiv(8) , S(18) , S1 , S2 , Sigx , Sigxy , Sigy , Stres(3) , T(9) , Temp , Temp1 , Temp18(18) , Temp2 ,       &
@@ -28,18 +25,9 @@ SUBROUTINE dtria(Iopt)
                  & G2x211 , G2x212 , G2x222
    COMMON /system/ Ibuff , Nout , Nogo
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Dummy argument declarations
-!
    INTEGER Iopt
-!
-! Local variable declarations
-!
    INTEGER cid1 , i , icid , j , k , m(9) , nbegin
    DOUBLE PRECISION g(36)
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE GENERATES THE FOLLOWING
 !

@@ -1,29 +1,17 @@
 
 SUBROUTINE perpec(X,Stereo)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Aver(3) , Cstm(3,3) , D(3) , D0 , D02 , D03 , Max(3) , Min(3) , Objmod , Penpap(30) , R0 , S0l , S0r , S0s , Scalx1 ,       &
       & Scalx2(3) , Skp(5) , Skpplt(6) , T0 , View(15)
    INTEGER Fvp , Ngpset , Prject
    COMMON /blank / Skp , Ngpset
    COMMON /rstxxx/ Cstm , Min , Max , D , Aver
    COMMON /xxparm/ Skpplt , Penpap , Scalx1 , Objmod , Scalx2 , View , Fvp , R0 , S0l , S0r , T0 , D0 , D02 , D03 , Prject , S0s
-!
-! Dummy argument declarations
-!
    INTEGER Stereo
    REAL X(3,1)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION diam , r
    INTEGER gp , i
    REAL rdist , s , scal , slr , t
-!
-! End of declarations
-!
 !
    DATA rdist/29./
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE apd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Acpt , Acsid , Bgpa , Buf10 , Buf11 , Buf12 , Ca2e , Ca2s , Ca3e , Ca3s , Ca4e , Ca4s , Ca5e , Ca5s , Cidbx , Cp ,       &
          & Cstma , Ecta , Eid , Gpla , Iacs , Ibit(64) , Igid , Isiln , Itwo(32) , Iz(1) , Lchord , Left , Lspan , Luseta , Mcstm , &
          & Naef1 , Naef2 , Nca1 , Nca2 , Ncam , Nchord , Ncrd , Ncst1 , Ncst2 , Next , Nj , Nk , Not , Npa1 , Npa2 , Nspan , Pa2e , &
@@ -19,9 +16,6 @@ SUBROUTINE apd
    COMMON /system/ Sysbuf , Not
    COMMON /two   / Itwo
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER aefact(3) , aero(3) , aeror , aerx(3) , bgpdt , buf(7) , buf1 , buf2 , buf3 , buf4 , buf5 , buf6 , buf7 , buf8 , buf9 ,  &
          & caero1(3) , caero2(3) , caero3(3) , caero4(3) , caero5(3) , clsrew , cstm , ect , edt , eqaero , eqdyn , file , flag ,   &
          & flfact(3) , flist , fluttr(3) , gpld , i , i17 , i20 , ip1 , iret , isp , izx , j , j1 , jp , k , kid , ko , kspl(3) ,   &
@@ -33,9 +27,6 @@ SUBROUTINE apd
    LOGICAL lmkaer , lset , lskip , lsplin
    INTEGER set1(3) , set2(3) , sild , silgp , splin1(3) , splin2(3) , splin3(3) , spline , symxy , symxz , usetd , wtrew
    EXTERNAL andf , orf
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Z(1),Iz(1))
    EQUIVALENCE (aerx(1),symxz) , (aerx(2),symxy) , (aerx(3),bref)

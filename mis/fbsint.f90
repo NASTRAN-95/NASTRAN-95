@@ -1,23 +1,11 @@
 
 SUBROUTINE fbsint(X,Y)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Filel(7) , Lfile(7) , Nrow
    COMMON /fbsx  / Lfile
    COMMON /infbsx/ Filel
-!
-! Dummy argument declarations
-!
    REAL X(1) , Y(1)
-!
-! Local variable declarations
-!
    INTEGER i , iblk(15) , nrow2
-!
-! End of declarations
-!
 !
 !     GIVEN THE DECOMPOSITION OF A REAL SYMMETRIC MATRIX, FBSINT WILL
 !     SOLVE A SYSTEM OF SIMULTANEOUS LINEAR EQUATIONS BY FORWARD-

@@ -1,20 +1,11 @@
 
 SUBROUTINE dloop(X,Y,Mpy,End)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION A , Mpy
    INTEGER End , Nn
    REAL Endd
    DOUBLE PRECISION B(1) , C(1) , X(1) , Xx(1) , Y(1) , Yy(1)
-!
-! Local variable declarations
-!
    INTEGER i
-!
-! End of declarations
-!
 !*******
 !     DLOOP IMPROVES THE EFFICIENCY OF AN INNER DCOMP LOOP
 !*******

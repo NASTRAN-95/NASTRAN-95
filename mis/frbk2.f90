@@ -1,9 +1,6 @@
 
 SUBROUTINE frbk2(V1,V2,V3,Vb)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dumm(18)
    INTEGER Io , Iz(1) , Ksystm , L16 , Mcblt(7) , Mcbsma(7) , Nzvb
    DOUBLE PRECISION Xl(1)
@@ -11,19 +8,10 @@ SUBROUTINE frbk2(V1,V2,V3,Vb)
    COMMON /opinv / Mcblt , Mcbsma
    COMMON /system/ Ksystm , Io
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION V1(1) , V2(1) , V3(1) , Vb(1)
-!
-! Local variable declarations
-!
    INTEGER base , buf(6) , i , ib , iblk(15) , ie , ifb , ii , ik , j , ji , jj , ljj(2) , ll , ll2 , mcbltx , nam , nrec , nrow ,  &
          & ntms , nwds
    DOUBLE PRECISION sum , v3j , xljj , zero
-!
-! End of declarations
-!
 !
 !     LAST REVISED BY G.CHAN/UNISYS  11/1991
 !     . ELIMINATE UN-NECCESSARY REWIND AND SKIP AFTER FIRST CALL TO THIS

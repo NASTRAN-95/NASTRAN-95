@@ -1,20 +1,11 @@
 
 SUBROUTINE romber(B,Precis,Itdone,Fintg,K,X)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL B , Fintg , Precis
    INTEGER Itdone , K
    REAL X(6)
-!
-! Local variable declarations
-!
    REAL const , den , diff , f , faaaa(20) , faaab(20) , faaac , faaad , faaae , faaaf , faaag , faaah
    INTEGER iaaaa , iaaac , iaaad , iaaaf , iret
-!
-! End of declarations
-!
 !
 !     TO INTEGRATE F(X) FROM X = A TO X = B
 !

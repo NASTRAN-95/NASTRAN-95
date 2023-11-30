@@ -1,9 +1,6 @@
 
 SUBROUTINE anisop
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Isop , Iz(1) , Nout
    CHARACTER*23 Ufm
    CHARACTER*25 Uwm
@@ -12,18 +9,12 @@ SUBROUTINE anisop
    COMMON /system/ Ibuf , Nout
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a(3) , b(3) , c(3) , dl , store(9) , xd(9) , xp(3) , yp(3) , zp(3)
    INTEGER bgpdt , buf1 , buf2 , ept , eqexin , file , geom1 , i , ibgpdt , ic1(2) , ic2(2) , icid , icord , idum(31) , idx , ieq , &
          & igrid , ii , iii , ijk , im , imat6(2) , ip , ip4 , ipi(2) , ipoint , isubb , isubk , isubl , itrl(7) , j , jj , jp , k ,&
          & k3 , l , lcore , m , mat1(2) , mcore , mid , mpt , mpta , n , nam(2) , ncid , ncjj , ncord1 , ncord2 , nmat1 , nmat6 ,   &
          & nn , num
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     COMPUTES DIRECTION COSINES FOR RECTANGULAR COORD. SYSTEMS
 !     (W.R.T. BASIC COORD. SYSTEM) DESCRIBING ORIENTATION OF ANIS.

@@ -1,29 +1,17 @@
 
 SUBROUTINE t3bmgd(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bmatrx)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Detjac , Th
    INTEGER Ierr , Ipt
    LOGICAL Sheart
    DOUBLE PRECISION Aic(1) , Bmatrx(1) , Bterms(1) , Dgpth(1) , Egpdt(4,1) , Shp(3)
    INTEGER Iorder(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dnx , dny , dshpe(3) , dshpx(3) , eps , eta , etai , jacob(4) , psi , psii , ptint(2,7) , shpf , tdshpe(3) ,    &
                   & tdshpx(3) , trc(2,3) , tshp(3) , vi(2) , vj(2) , xsi , xsii
    INTEGER i , i71 , i72 , i81 , i82 , i91 , i92 , ii , ip , ipt1 , ish , j , kk , nd1 , nd2 , nd3 , nd4 , nd5 , nd6 , nd7 , nd8 ,  &
          & nd9 , nnode
-!
-! End of declarations
-!
 !
 !     B-MATRIX GENERATOR ROUTINE FOR TRIA3 ELEMENTS
 !

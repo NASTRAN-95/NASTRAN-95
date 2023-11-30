@@ -1,21 +1,12 @@
 
 SUBROUTINE xytics(Iout,Out,Ndevis,R1,R2,Iskip,Log,Iflag)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    INTEGER Iflag , Iskip , Log , Ndevis
    REAL R1 , R2
    INTEGER Iout(8)
    REAL Out(8)
-!
-! Local variable declarations
-!
    REAL div , endv , finc , first , length , temp
    INTEGER iinc , ipower , itics , last , maxdig , nfirst , ntemp
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE PERFORMS ONLY TIC COMPUTATIONS FOR XYDUMP.
 !

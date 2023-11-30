@@ -1,9 +1,6 @@
 
 SUBROUTINE amgt1c(Q,Nstns2,C1sbar,C2sbar)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX A , Ai , Aln , Alp , Am1 , Am2 , Am2p , Am4 , Am4tst , Am5 , Am5t , Am5tt , Am6 , Amtest , Arg , Arg2 , B , Bc , Bc2 ,   &
          & Bc3 , Bc4 , Bc5 , Bkdel1 , Bkdel2 , Bkdel3 , Blam1 , Blam2 , Blkap1 , Blkapm , Bsycon , C1 , C1n , C1p , C1t , C2 , C2n ,&
          & C2p , Ca1 , Ca2 , Ca3 , Ca4 , Clift , Cmomt , F1 , F1s , F2 , F2p , F4 , F4s , F5 , F5s , F5t , F6s , Fq7 , Fqa , Fqb ,  &
@@ -32,24 +29,15 @@ SUBROUTINE amgt1c(Q,Nstns2,C1sbar,C2sbar)
    COMMON /tamg1l/ Iref , Minmac , Maxmac , Nlines , Nstns , Refstg , Refcrd , Refmac , Refden , Refvel , Refswp , Sln , Nstnsx ,   &
                  & Stg , Chord , Dcbdzb , Bspace , Mach , Den , Vel , Sweep , Amachd , Redfd , Blspc , Amachr , Tsonic
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL C1sbar , C2sbar
    INTEGER Nstns2
    COMPLEX Q(Nstns2,Nstns2)
-!
-! Local variable declarations
-!
    REAL aa , aye(10,29) , c2ssch , const , conz1 , conz2 , conz3 , conz4 , conz5 , conz6 , csbar , csbar1 , csblsb , csbm2s ,       &
       & determ , dlsdzb , gee(29,80) , geetmp(29,40) , gye(29,29) , m2sbar , s1 , sps1 , sumi1 , sumi2 , sumr1 , sumr2 , tanlam ,   &
       & td , temp , xlow(29) , xtemp(29) , xup(29)
    INTEGER index(29,3) , ising , j , jndx , jx , k , nm , nm2z , nm3z , nm4z , nmm , nmmm , nmz , nsns2 , nstns4 , nstns8 , ntimes ,&
          & nx , nxx
    COMPLEX presl(29) , presu(29)
-!
-! End of declarations
-!
 !
 !     SUPERSONIC CASCADE CODE FOR SWEPT TURBOPROPS.
 !

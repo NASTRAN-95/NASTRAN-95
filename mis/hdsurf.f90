@@ -1,24 +1,15 @@
 
 SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Elid , Elset , G(3) , Ibuf , Idum(3) , Iout , Lid , Merr , Ngp , Nnn , Nofsur , Npers , Ns , Nscr1 , Nscr2 , Nscr3
    REAL P(3,13) , Skp11(11) , Skp22(7)
    COMMON /blank / Ngp , Skp11 , Elset , Skp22 , Merr , Idum , Nscr1 , Nscr2 , Nscr3
    COMMON /hdrec / Nofsur , Ns , Elid , Lid , Npers , P
    COMMON /pltscr/ Nnn , G
    COMMON /system/ Ibuf , Iout
-!
-! Dummy argument declarations
-!
    INTEGER Deform , Ib , Iopcor , Maxsf , Nmax , Pedge , Pen
    INTEGER Gplst(1) , Iz(14,1)
    REAL U(2,1) , X(3,1)
-!
-! Local variable declarations
-!
    INTEGER etyp , file , gp , i , im1 , ipedge , ipen , is , itype , j , k , kae , kbar , kfhex1 , kfhex2 , kfteta , kfwedg , khx1 ,&
          & khx2 , kis2d8 , kix1 , kix2 , kix3 , kq4 , kt3 , ktet , ktrim6 , ktrplt , ktrshl , kweg , ldx(9) , let(229) , let1(5) ,  &
          & let2(4,4) , let3(5,5) , let4(5,6) , let5(9,6) , let6(13,6) , let7(5) , let8(7) , let9(9) , letsz(3,9) , letsz2 , ls ,    &
@@ -26,9 +17,6 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
          & solid , temp(27)
    LOGICAL hidden , shrink
    REAL shk , x1 , x2 , xc , y1 , y2 , yc , zc
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE PREPARES THE ELEMENT SURFACES FOR HIDDEN LINE PLOT
 !     IT ALSO GENERATES THE SHRINK PLOT IF SHRINK ALONE IS REQUESTED.

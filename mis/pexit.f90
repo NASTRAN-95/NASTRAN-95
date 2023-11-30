@@ -1,24 +1,15 @@
 
 SUBROUTINE pexit
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Date(3) , Icpflg , Irdict , Isystm(100) , Le(17) , Mach , Nmsg , Nosbe , Nout
    COMMON /machin/ Mach
    COMMON /msgx  / Nmsg
    COMMON /output/ Le
    COMMON /resdic/ Irdict
    COMMON /system/ Isystm
-!
-! Local variable declarations
-!
    INTEGER hh , i , j , mm , ss
    REAL t
    EXTERNAL link
-!
-! End of declarations
-!
 !
 !DME  19 JAN 2016
 !DME  D. Everhart

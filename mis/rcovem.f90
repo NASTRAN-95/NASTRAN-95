@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovem(Noexcl,Nrowe)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alp(3) , Alpha , Bet(3) , Beta , Buf4 , Cdp , Dry , Dum(36) , Energy , Eofnrw , Fss(2) , Phi , Pthres , Qthres , Range(2) , &
       & Rd , Rdp , Rdrew , Rect , Rew , Rz(5) , Square , Step , Sysbuf , Twophi , Ua , Uimpro , Uinms(2,5) , Uthres , Wrt , Wrtrew
    INTEGER Buf1 , Buf2 , Buf3 , Csp , Icore , Incrp , Incru , Iopt , Ireq , Irp , Iru , Itinp , Itinu , Itoutp , Lbasic , Lcore ,   &
@@ -27,22 +24,13 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
    COMMON /unpakx/ Itinu , Iru , Nru , Incru
    COMMON /xmssg / Ufm , Uwm
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    LOGICAL Noexcl
    INTEGER Nrowe
-!
-! Local variable declarations
-!
    REAL dkd , dks , freq , s2 , wk2
    COMPLEX dkdc , dksc , sc2
    INTEGER i , i1 , i2 , icode , icol , icvec1 , im , imode , irh , item , ivec1 , ivec2 , j , lams , n , name(2) , ncode , ncol ,  &
          & nmode , nword , phis , rc , scr3 , scr4 , scr5 , scr6 , scr7 , scr8 , soln
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE CALCULATES THE ENERGIES ON THE MODAL COORDINATES
 !     THAT WERE EXCLUDED FROM THE MODAL REDUCTION PROCESSING

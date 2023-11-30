@@ -1,9 +1,6 @@
 
 SUBROUTINE sdhtf1(Type,Reject)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Af , Consts(5) , Costh , Ddrmm , Domx(105) , Dshpb(3,32) , Dum(1) , Dumx(109) , Eltemp , Est(100) , Estscr(200) , Pi ,      &
       & R(3,32) , Sinth , Theta
    INTEGER Elem(1) , Elid , Imat , Incr , Inflag , Isopl8 , Last , Matid , Name(2) , Nels , Nest(2) , Nesto(100) , Nestsc(200) ,    &
@@ -14,20 +11,11 @@ SUBROUTINE sdhtf1(Type,Reject)
    COMMON /sdr2x4/ Dumx , Strspt , Ddrmm , Isopl8
    COMMON /sdr2x5/ Est , Elid , Sil , Nq , Np , Name , Domx , Dshpb
    COMMON /sdr2x6/ Sub , Imat , Af , Theta , R , Estscr
-!
-! Dummy argument declarations
-!
    LOGICAL Reject
    INTEGER Type
-!
-! Local variable declarations
-!
    REAL bxyz(3,32) , d , detj , dshp(3,32) , gpt(32) , shp(32) , x , xjacob(3,3) , y , z
    INTEGER chbdy , estwds , ftube , i , ia , iel , ig , iloc , im , ip , is , isil , itemp , ith , itype , j , numelt , point1(8,20)&
          & , point2(8,3) , pointr(8,23) , tube , typold
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE CONVERTS THE EST DATA FOR ALL THERMAL ELEMENTS TO A
 !     COMMON FORMAT. SDHT1B IS CALLED TO PRODUCE THE OUTPUT

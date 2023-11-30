@@ -1,26 +1,14 @@
 
 SUBROUTINE t3bgbs(Ng,Nb,Gmat,Bmat,Kmat)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Bendng , Mbcoup , Membrn , Norpth , Shrflx
    COMMON /terms / Membrn , Bendng , Shrflx , Mbcoup , Norpth
-!
-! Dummy argument declarations
-!
    INTEGER Nb , Ng
    DOUBLE PRECISION Bmad(1) , Gmad(9,1) , Kmad(1)
    REAL Bmat(1) , Gmat(9,1) , Kmat(1)
-!
-! Local variable declarations
-!
    REAL g1(3,3) , gbmat(162)
    DOUBLE PRECISION g2(3,3) , gbmad(162)
    INTEGER i , ii , j , jj , nd3 , nd6
-!
-! End of declarations
-!
 !
 !     WITH ENTRY T3BGBD (NG,NB,GMAD,BMAD,KMAD)
 !

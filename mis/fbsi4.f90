@@ -1,9 +1,6 @@
 
 SUBROUTINE fbsi4(Block,Y,Mem,Dmem,Ibuff)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dbb(7) , Dbc(7) , Dbl(7) , Dbu(7) , Ipos(7) , Lasind , Nout , Nvec , Nvecsz , Nwds , Rd , Rdrew , Rew , Wrt , Wrtrew
    DOUBLE PRECISION L(2)
    CHARACTER*25 Sfm , Uwm
@@ -16,21 +13,12 @@ SUBROUTINE fbsi4(Block,Y,Mem,Dmem,Ibuff)
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ L
-!
-! Dummy argument declarations
-!
    INTEGER Block(8) , Ibuff(2) , Mem(2)
    DOUBLE PRECISION Dmem(2)
    DOUBLE COMPLEX Y(1)
-!
-! Local variable declarations
-!
    INTEGER begn , buf(2) , end , ifcol , ii , ij , ik , indxi , indxl , iopen , irow , iyrow , j , j1 , ji , k , kcol , last ,      &
          & lcol , ncol , nidlt , nrows , subnam
    DOUBLE COMPLEX ljj , sum , yjk , zero
-!
-! End of declarations
-!
 !
 !     FBSI4 EXECUTES THE FORWARD/BACKWARD PASS FOR FBSI IN CDP
 !

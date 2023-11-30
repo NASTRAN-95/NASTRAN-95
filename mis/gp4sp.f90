@@ -1,9 +1,6 @@
 
 SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dd(78) , Dum(3) , Head(1) , React , Repeat , Single
    INTEGER Iautsp , Idsub , Iiii , Incr , Iogpst , Ioutpt , Ipunch , Irgt , Isysbf , Itypot , Iz(1) , Jdum(6) , Jjjj , Kdum(2) ,    &
          & Line , Luset , Mpcf1 , Mpcf2 , Mpcset , Msksng , Mskul , Mskum , Mskuo , Mskur , Mskus , Nauto , Nlpp , Noa , Nol ,      &
@@ -19,22 +16,13 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
    COMMON /unpakx/ Itypot , Iiii , Jjjj , Incr
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Ibuf1 , Ibuf2 , Ibuf3
-!
-! Local variable declarations
-!
    INTEGER andf , complf , lshift , orf
    INTEGER eqexin , gpst , i , ibase , icore , idum , ieqexn , ierror , iexcld(9) , ifile , iflag , igpid , ii , iii , iloop , ims ,&
          & index , indxms(9) , initl , iok , iold , iordr , iponts(9) , iscr2 , isil , ispc , ist , istart , isubnm(2) , ityp ,     &
          & iword(8) , j , jj , jponts(9) , k , kk , logic , mcb(7) , mskin , mskms , mskxx , multi , ncard , neqexn , npts , num ,  &
          & ogpst , ogpst1(10) , scr2
    EXTERNAL andf , complf , lshift , orf
-!
-! End of declarations
-!
 !
 !     ROUTINE TO LOOK AT GPST TO ELIMINATE SINGULARITIES
 !

@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovr3
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Here(6) , Ibuf(3) , Incp , Incun , Irowp , Irowun , Itypp , Iz(10) , Name(2) , Norew , Noue , Nout , Nrowp , Nrowun ,    &
          & Otypp , Otypun , Rfno , Sysbuf , Titles(1) , Trl(7)
    REAL Rd , Rdrew , Rew , Wrt , Wrtrew , Z(1)
@@ -18,17 +15,11 @@ SUBROUTINE rcovr3
    COMMON /unpakx/ Otypun , Irowun , Nrowun , Incun
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , buf4 , file , fss(2) , i , iblank , initm(3) , ivec(4) , j , lama , lcore , mcbtrl(7) , n , nc ,    &
          & neigv , nogo , outdb(3) , ovec(4) , pg , pgs , po , pos , ps , pss , qas , qvec , rc , scr1 , scr2 , scr3 , soln , srd , &
          & subr(2) , uas , uvec , ys , yss
    LOGICAL first
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     THE RCOVR3 MODULE RECOVERS DATA FOR SUBSTRUCTURE PHASE 3.
 !

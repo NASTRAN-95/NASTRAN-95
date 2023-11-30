@@ -1,9 +1,6 @@
 
 BLOCKDATA pla4bd
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Clsrw , Cstm , Dit , Ecpto , Ecpts , Eor , Gpct , I6x6k , Icstm , Igpct , Inrw , Iovrly(40) , Ipass , Ipoint , Jmax ,    &
          & Kggnl , Link(40) , Lrowic , Mpt , N6x6k , Ncstm , Neor , Ngpct , Nlinks , Nogo , Npoint , Npvt , Nrowsc , Nwords(40) ,   &
          & Outrw
@@ -11,9 +8,6 @@ BLOCKDATA pla4bd
    COMMON /pla42c/ Npvt , Gami , Gamip1 , Ipass , Icstm , Ncstm , Igpct , Ngpct , Ipoint , Npoint , I6x6k , N6x6k , Cstm , Mpt ,    &
                  & Ecpts , Gpct , Dit , Kggnl , Ecpto , Inrw , Outrw , Eor , Neor , Clsrw , Jmax , Frowic , Lrowic , Nrowsc ,       &
                  & Nlinks , Nwords , Iovrly , Link , Nogo
-!
-! End of declarations
-!
 !PLA4BD
 !
 !

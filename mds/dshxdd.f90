@@ -1,23 +1,11 @@
 
 SUBROUTINE dshxdd(Ii,Iarr,Len)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Iibuff(2048)
    COMMON /dsbuff/ Iibuff
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Len
    INTEGER Iarr(10000)
-!
-! Local variable declarations
-!
    INTEGER i , k
-!
-! End of declarations
-!
    DO k = 1 , Len
       Iibuff(k) = Iarr(k)
    ENDDO

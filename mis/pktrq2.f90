@@ -1,25 +1,13 @@
 
 SUBROUTINE pktrq2(Ntype)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Delta , Dum(315) , Ph1out(300) , Si(36) , Stress(3) , Temp , Vec(3) , Z(24)
    INTEGER Ivec , Npoint , Nsil(4) , Nsize
    COMMON /pla42s/ Stress , Vec , Temp , Delta , Nsize , Npoint , Dum
    COMMON /pla4es/ Ph1out
    COMMON /pla4uv/ Ivec , Z
-!
-! Dummy argument declarations
-!
    INTEGER Ntype
-!
-! Local variable declarations
-!
    INTEGER i , j
-!
-! End of declarations
-!
 ! THIS ROUTINE CALCULATES PHASE II OUTPUT FOR PLA4
 !
 !     NTYPE = 1 TRI-MEMBRANE

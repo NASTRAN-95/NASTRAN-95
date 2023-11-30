@@ -1,25 +1,13 @@
 
 SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dums(3)
    INTEGER Ibuf , Maxgrd , Nn , Nout
    COMMON /bands / Nn , Dums , Maxgrd
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Idim , Ns
    INTEGER Iaj(1) , Ic(1) , Icc(1) , Ideg(1) , Idis(1) , Ig(1) , Ild(1) , Iw(1) , Jg(1) , New(1) , Nodes(1)
-!
-! Local variable declarations
-!
    INTEGER i , ia , icn , ii , ij , iz , j , jj , jt , k , ki , ko , l , ll , m , n , n1 , n2 , ngrid , nnc , nt , x
-!
-! End of declarations
-!
 !
 !     THIS ROUTINE IS USED ONLY IN BANDIT MODULE
 !

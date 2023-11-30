@@ -7,19 +7,10 @@ SUBROUTINE prompt
 !                    S,N,SCAN1/S,N,SCAN2/DUM1/DUM2/DUM3/DUM4 $
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER In , Intra , Ksysm(100) , Nout , Param(10) , Soln
    COMMON /blank / Param
    COMMON /system/ Ksysm
-!
-! Local variable declarations
-!
    INTEGER b , c , i , j , p , s
-!
-! End of declarations
-!
    EQUIVALENCE (Nout,Ksysm(2)) , (Soln,Ksysm(22)) , (In,Ksysm(4)) , (Intra,Ksysm(86))
    DATA p , s , c , b/1HP , 1HS , 1HC , 1H /
 !

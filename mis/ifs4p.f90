@@ -1,9 +1,6 @@
 
 SUBROUTINE ifs4p(*,*,*)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    LOGICAL Abort , Baddat , Badfor , Fphys1 , Lflsym , Lharm
    REAL Gc(7) , Slotdf(5) , Z(100)
    INTEGER I(100) , Iax , Iaxf , Id , J(20) , K , Km , Kn , Knt , Kout , Kx , Ky , Ll(6) , M(100) , M1(100) , M1f(100) , Mach ,     &
@@ -19,16 +16,10 @@ SUBROUTINE ifs4p(*,*,*)
    COMMON /machin/ Mach
    COMMON /system/ Nbuf , Nout , Abort
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-!
-! Local variable declarations
-!
    INTEGER bcda , bcdaxi , bcdno , bcdnon , bcds , bcdyes , i1 , iem , ifo , ii , in , iqvl , isid , ity1 , k2078 , kfl , kz , l ,  &
          & l1 , l2 , l3 , l4 , l5 , l6 , lll , lp1 , n1 , nm(2) , nn , npts , ntot , ret , save(24) , thru , ty1 , ty2
    REAL dc1 , dc2 , dc3 , dl1 , dl2 , dlc , dx1 , dx2 , dy1 , dy2 , dz1 , dz2 , zz
    LOGICAL ifpdco
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Z(1),M(1)) , (Kout,J(2))
    DATA thru , bcdyes , bcdno/4HTHRU , 4HYES  , 4HNO  /

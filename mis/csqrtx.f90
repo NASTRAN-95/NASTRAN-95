@@ -1,17 +1,8 @@
 
 SUBROUTINE csqrtx(Xx,Y)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Xx(2) , Y(2)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION r , x(2)
-!
-! End of declarations
-!
 !*******
 !     ROUTINE TO FIND THE COMPLEX SQUARE ROOT OF X AND STORE IT IN Y
 !*******

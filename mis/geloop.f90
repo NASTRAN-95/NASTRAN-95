@@ -1,20 +1,11 @@
 
 SUBROUTINE geloop(Rbuf,Buf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    REAL Hc1 , Hc2 , Hc3 , Xx , Yy , Zz
    INTEGER Buf(50)
    REAL Rbuf(50)
-!
-! Local variable declarations
-!
    REAL factor , fpi , xi , zdot , zi(3) , zj(3) , zjl , zjxi(3) , zk(3) , zkl , zlen2
    INTEGER i , icid , ii , npts , nptsm1 , ti1 , ti2
-!
-! End of declarations
-!
 !
 ! GELOOP COMPUTES MAGNETIC FIELD COMPONENTS HC1,HC2,HC3(IN BASIC
 ! COORDS. AT XX,YY,ZZ DUE TO GEMLOOP CARD. DATA FIELDS(EXCEPT SET ID)

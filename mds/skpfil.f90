@@ -2,13 +2,7 @@
 SUBROUTINE skpfil(File,N)
    IMPLICIT NONE
    INCLUDE 'DSIOF.COM'
-!
-! Dummy argument declarations
-!
    INTEGER File , N
-!
-! End of declarations
-!
    IF ( N/=0 ) THEN
       Name = File
       CALL dsgefl

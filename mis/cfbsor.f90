@@ -1,27 +1,15 @@
 
 SUBROUTINE cfbsor(Ll,Ul,Bx,Xx,Iopt)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Idum(54) , Iprec , Iz(1) , Jfb(7) , Jfl(7) , Jfu(7) , Jfx(7) , Jprec , Jsign , Jx , Mfb(7) , Mfl(7) , Mflt(7) , Mfx(7) , &
          & Mprec , Msign , Mx
    COMMON /fbsx  / Mfl , Mflt , Mfb , Mfx , Mx , Mprec , Msign
    COMMON /gfbsx / Jfl , Jfu , Jfb , Jfx , Jx , Jprec , Jsign
    COMMON /system/ Idum , Iprec
    COMMON /zzzzzz/ Iz
-!
-! Dummy argument declarations
-!
    INTEGER Bx , Iopt , Ll , Ul , Xx
-!
-! Local variable declarations
-!
    INTEGER i , mcb(7) , nz
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !
    nz = korsz(Iz)

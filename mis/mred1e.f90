@@ -1,9 +1,6 @@
 
 SUBROUTINE mred1e
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Dry , Gbuf1 , Gbuf2 , Idum1(6) , Idum2(3) , Idum3(6) , Idum4 , Idum5(3) , Idum6(4) , Incrp , Incrup , Irowp , Irowup ,   &
          & Korbgn , Korlen , Lrowp , Lrowup , Ncsubs , Nsil , Oldnam(2) , Rgrid(2) , Rname(2) , Typin , Typpck , Typunp , Z(1)
    REAL Rgrid0(3) , Rz(1)
@@ -12,16 +9,10 @@ SUBROUTINE mred1e
    COMMON /packx / Typin , Typpck , Irowp , Lrowp , Incrp
    COMMON /unpakx/ Typunp , Irowup , Lrowup , Incrup
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL bigd(36) , smald(9) , ti(9) , ttd(9)
    INTEGER dmr , dmrnam(2) , i , icode , ifile , iform , ii , imsg , irowd , it , itest , itrlr(7) , j , k , kolmns , kompnt(32) ,  &
          & l , locbgs , locdmr , locrgr , locsil , locstm , modnam(2) , nbgss , nhbgss , nhcstm , nheqss , nwdsd , nwdsrd , scr1 ,  &
          & tiijd1 , tiijd2 , tittd , ttdijd , zeroij
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE GENERATES THE RIGID BODY MATRIX DMX IF FREEBODY
 !     MODES ARE REQUESTED FOR THE MRED1 MODULE.

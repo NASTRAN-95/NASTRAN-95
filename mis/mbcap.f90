@@ -1,27 +1,15 @@
 
 SUBROUTINE mbcap(Nphi,Capphi)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Asym , Beta , Boxa , Boxl , Boxw , Cntrl1 , Cntrl2 , Cr , Crank1 , Crank2 , Ek , Ekbar , Ekm , Gc , Kbar , Km , Mach
    INTEGER Kc , Kc1 , Kc1t , Kc2 , Kc2t , Kct , Nbox , Ncb , Njj , Npts0 , Npts1 , Npts2 , Nsb , Nsbd , Ntote
    COMMON /mboxc / Njj , Crank1 , Crank2 , Cntrl1 , Cntrl2 , Nbox , Npts0 , Npts1 , Npts2 , Asym , Gc , Cr , Mach , Beta , Ek ,     &
                  & Ekbar , Ekm , Boxl , Boxw , Boxa , Ncb , Nsb , Nsbd , Ntote , Kc , Kc1 , Kc2 , Kct , Kc1t , Kc2t
-!
-! Dummy argument declarations
-!
    INTEGER Nphi
    COMPLEX Capphi(1)
-!
-! Local variable declarations
-!
    REAL arg , arg1 , p(10) , w(10) , x , xb , xl , xr , xu
    REAL go , zj
    INTEGER i , j , l
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Km,Ekm) , (Kbar,Ekbar)
    DATA w/0.0506143 , 0.1111905 , 0.1568533 , 0.1813419 , 0.1813419 , 0.1568533 , 0.1111905 , 0.0506143 , 0.0 , 0.0/ , p/0.0198551 ,&

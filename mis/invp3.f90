@@ -1,9 +1,6 @@
 
 SUBROUTINE invp3(norm1,sub,mtimsu,xtrnsy)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Comflg , Dmpfil , Eofnrw , Filek(7) , Filel(7) , Filelm , Filelt(7) , Filem(7) , Filevc , Ibuck , Idum40(40) , Idummy(27)&
          & , Iip , Iiu , Incrp , Incru , Ind , Iofff , Iopen , Ioutpt , Iprec , Ireg , Istart , Iterto , Itp1 , Itp2 , Itu , Ivect ,&
          & Jjp , Jju , Ksystm(65) , Lfile(7) , Ndmnus , Ndplus , Neg , Nlns , Nlpp , Nochng , Noest , Noneg , Nopos , Norew ,       &
@@ -25,9 +22,6 @@ SUBROUTINE invp3(norm1,sub,mtimsu,xtrnsy)
    COMMON /trdxx / Idummy , Iopen
    COMMON /unpakx/ Itu , Iiu , Jju , Incru
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    REAL a , deltm1 , ep1 , ep2 , ep3 , gamma , xxx
    DOUBLE PRECISION aln , alnm1 , cn , delta , dtemp , eta , etanm1 , freq , h2n , h2nm1 , lam1 , lam1d , lam2 , lm1nm1 , lm2nm1
    INTEGER end , i , ibuf1 , ibuf2 , ibuf3 , icurnt , idum , iend , iep2 , iepcnt , ifile , ii , ii1 , ii2 , iijjkk , ijkk , in1 ,  &
@@ -35,9 +29,6 @@ SUBROUTINE invp3(norm1,sub,mtimsu,xtrnsy)
          & kount , ksave , l16 , mcbvc(7) , name(2) , navg , ncol , ncol2 , no , nz , opt2 , t1 , t2 , timeit
    INTEGER korsz
    EXTERNAL mtimsu , norm1 , sub , xtrnsy
-!
-! End of declarations
-!
 !
 !     SUBROUTINE INVP3, THE MAIN LINK OF INVPWR, SOLVES FOR THE
 !     EIGENVALUES AND EIGENVECTORS OF (K-LAMBDA*M)

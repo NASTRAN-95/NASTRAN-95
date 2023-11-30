@@ -1,26 +1,14 @@
 
 SUBROUTINE procom(Procos,Procof,Casecc,Ncoefs,Ngrids)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Ibuf , Iz(1)
    REAL Z(1)
    COMMON /system/ Ibuf
    COMMON /zzzzzz/ Z
-!
-! Dummy argument declarations
-!
    INTEGER Casecc , Ncoefs , Ngrids , Procof , Procos
-!
-! Local variable declarations
-!
    INTEGER buf1 , buf2 , buf3 , file , i , i16 , i166 , inew , info(7) , iwords , j , k , lcc , lcore , lsym , nam(2) , ntot
    REAL coef
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     PROCOM COMBINES PROCOF CASES FOR SUBCOM-S AND REPCASES
 !

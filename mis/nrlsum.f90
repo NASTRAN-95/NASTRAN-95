@@ -1,17 +1,11 @@
 
 SUBROUTINE nrlsum
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Direct , Iz(1) , Nmodes , Nshock , Sqrss , Sysbuf
    REAL Z(20)
    COMMON /blank / Nmodes , Nshock , Direct , Sqrss
    COMMON /system/ Sysbuf
    COMMON /zzzzzz/ Iz
-!
-! Local variable declarations
-!
    REAL a , b , cosphi , dcos(3,3) , dtor , p , phi , q , r , rm , rmax , rx , rxy , ry , ryz , rz , rzx , s , sa , sb , sc , sd ,  &
       & sig(6) , sigp(3) , smat(3,3) , sn , so , sq , ss , st , stress(146) , sum , sx , sxy , sy , syz , sz , szx , t , thresh ,   &
       & v , x
@@ -20,9 +14,6 @@ SUBROUTINE nrlsum
          & n , nam(2) , ndir , nrlfor , nrlstr , ns , nsub(3) , nwds , oef2 , oes2 , ofil , oldtyp , scr(3) , scr1 , scr2 , scr3
    INTEGER korsz
    REAL sadotb
-!
-! End of declarations
-!
 !
 !     NRLSUM   OES2,OEF2/NRLSTR,NRLFOR/V,N,NMODES/V,N,NSHOCK(NDIR)/
 !              C,Y,DIRECT=123/C,Y,SQRSS=0 $

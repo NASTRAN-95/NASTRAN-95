@@ -1,18 +1,9 @@
 
 SUBROUTINE dnorm(X,Mag)
    IMPLICIT NONE
-!
-! Dummy argument declarations
-!
    DOUBLE PRECISION Mag
    DOUBLE PRECISION X(3)
-!
-! Local variable declarations
-!
    DOUBLE PRECISION a
-!
-! End of declarations
-!
 !
 !     DOUBLE PRECISION NORMALIZATION
 !

@@ -1,30 +1,18 @@
 
 SUBROUTINE comect(Ele,Max)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bufsiz , Ect1 , Ect2 , Incr , Ix(1) , Last , Merr , Ne(1) , Nel
    REAL Skp1(12) , Skp2(7) , Skp3(10) , X(1)
    COMMON /blank / Skp1 , Ect1 , Skp2 , Merr , Skp3 , Ect2
    COMMON /gpta1 / Nel , Last , Incr , Ne
    COMMON /system/ Bufsiz
    COMMON /zzzzzz/ X
-!
-! Dummy argument declarations
-!
    INTEGER Max
    INTEGER Ele(1)
-!
-! Local variable declarations
-!
    INTEGER b1 , b2 , elid(2) , ept , err(5) , gp(32) , i , idrec(3) , idx , ihx2(20) , ihx3(32) , ilxx , inrew , j , jcomp , k ,    &
          & kcomp , lect , lele , m , m1(18) , n , name(2) , ngpel , nm1 , outrew , pcomp(12) , pid , rew , type
    INTEGER korsz
    REAL offset(1)
-!
-! End of declarations
-!
 !
 !     REVISED  10/1990 BY G.CHAN/UNISYS
 !              TO INCLUDE OFFSET DATA FOR CBAR, CTRIA3 AND CQUAD4 IN

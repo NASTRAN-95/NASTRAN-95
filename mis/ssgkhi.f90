@@ -1,9 +1,6 @@
 
 SUBROUTINE ssgkhi(Treal,Tint,Fn)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Alph12 , Alpha1 , Alpha2 , D(9) , Dum(7) , Eid , Khi(5) , P(6) , Sysbuf
    INTEGER Iout , Ks(30)
    CHARACTER*23 Ufm
@@ -12,20 +9,11 @@ SUBROUTINE ssgkhi(Treal,Tint,Fn)
    COMMON /system/ Sysbuf , Iout
    COMMON /trimex/ Eid
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    REAL Fn
    INTEGER Tint(6)
    REAL Treal(6)
-!
-! Local variable declarations
-!
    REAL determ
    INTEGER index(9) , ising
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE COMPUTES THE (5X1) KHI  VECTOR FOR USE BY TRBSC,
 !                                           E

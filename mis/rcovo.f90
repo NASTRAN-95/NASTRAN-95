@@ -1,9 +1,6 @@
 
 SUBROUTINE rcovo
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Buf(1) , Buf1 , Energy , Fss(2) , Icore , Iopt , Ireq , Lbasic , Lcore , Loop , Lreq , Lui , Neigv , Norew , Nosort ,    &
          & Nout , Rd , Rdrew , Rew , Rfno , Rss(2) , Sof1 , Sof2 , Sof3 , Step , Sysbuf , Uimpro , Wrt , Wrtrew , Z(1)
    REAL Buf2 , Buf3 , Buf4 , Dry , Eofnrw , Pa , Pthres , Qa , Qthres , Rang(2) , Rbuf(1) , Ua , Uinms(2,5) , Uthres
@@ -19,9 +16,6 @@ SUBROUTINE rcovo
    COMMON /system/ Sysbuf , Nout
    COMMON /xmssg / Ufm , Uwm , Uim , Sfm , Swm
    COMMON /zzzzzz/ Z
-!
-! Local variable declarations
-!
    INTEGER all , casess , comds(13) , eqss , freq , i , i1 , i2 , idit , iloc , imdi , irange , iset , ll , maskll , mode , mrecov ,&
          & n , nbs , ncomds , none , np , nreq , nss1 , nss2 , nwds , print , rc , rec(3) , recovr , save , srd , subc , subnam(2) ,&
          & subs , time
@@ -29,9 +23,6 @@ SUBROUTINE rcovo
    LOGICAL basic
    REAL rrec(3) , rset
    EXTERNAL andf , lshift
-!
-! End of declarations
-!
 !
 !     RCOVO READS THE CASESS RECOVER RECORD AND PROCESSES ANY
 !     OUTPUT REQUESTS FOR THE CURRENT SAVE OR PRINT REQUEST

@@ -1,26 +1,14 @@
 
 SUBROUTINE hdstus(Oj,Tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,Ii,H,Im,Jxt,Zj,Nc,Zmi,Ccc,Lz)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER L0 , L00 , L01 , L1 , L10 , L11 , L12 , L13 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9
    COMMON /go3   / L0 , L1 , L00 , L01 , L2 , L3 , L4 , L5 , L6 , L7 , L8 , L9 , L10 , L11 , L12 , L13
-!
-! Dummy argument declarations
-!
    INTEGER Ii , Im , Jxt , Lz , Nc
    REAL Oj , Tmj , Zj
    REAL Ccc(1) , H(8) , Rv(1) , Rvi(1) , Tgi(1) , Tgm(1) , Xxx(1) , Zm(1) , Zmi(1)
    INTEGER Nno(1)
-!
-! Local variable declarations
-!
    REAL d , dy , ei , ggk , r , s , s1 , t , ve , vx , vx1 , vx2 , yg , zs
    INTEGER i , ib , j , jg , jo , js , jt , ns , nsub
-!
-! End of declarations
-!
 !
 !     THIS SUBROUTINE DETERMINES THE VISIBILITY OF AN ARBITRARY POINT
 !     BY DRAWING A LINE FROM THE POINT IN QUESTION TO INFINITY AND

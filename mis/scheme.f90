@@ -1,9 +1,6 @@
 
 SUBROUTINE scheme(Ig,Inv,Ii3,Int,Icc,Ild,Norig,Ip,Un,Z)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Dum2(2) , Dum4a(4) , Dum7d(7) , Gdum(3)
    INTEGER Ibuf , Ibuf1 , Icrit , Ifl , Ipass , Kdim , Kmod , Kore , Mach , Maxdeg , Maxgrd , Method , Mindeg , Mm , Nbitin ,       &
          & Nedge , Neq , Neqr , Ngrid , Nn , Nout , Nw , Rd , Rdrew , Rew , Scr1 , Wrt , Wrtrew
@@ -14,19 +11,10 @@ SUBROUTINE scheme(Ig,Inv,Ii3,Int,Icc,Ild,Norig,Ip,Un,Z)
    COMMON /geomx / Gdum , Scr1
    COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Rew
    COMMON /system/ Ibuf , Nout
-!
-! Dummy argument declarations
-!
    INTEGER Ii3
    INTEGER Icc(1) , Ig(1) , Ild(1) , Int(1) , Inv(1) , Ip(1) , Norig(1) , Z(1)
    REAL Un(1)
-!
-! Local variable declarations
-!
    INTEGER i , j , jump , k , k1 , k2 , k3 , k4 , k5 , loc , m , ngrid1 , sub(2)
-!
-! End of declarations
-!
 !
    DATA sub/4HSCHE , 4HME  /
 !

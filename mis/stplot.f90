@@ -1,27 +1,15 @@
 
 SUBROUTINE stplot(Pltnum)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Bframs , Camera , Char(60) , Date(3) , Eof , Ksystm(65) , Model , Ploter , Pltape , Pltype
    REAL Chrscl , Cntx , Pbufsz , Reg(2,2) , Skpa1(3) , Skpa2(5) , Skpa3 , Xymax(13)
    COMMON /char94/ Char
    COMMON /pltdat/ Model , Ploter , Reg , Xymax , Chrscl , Skpa1 , Cntx , Skpa2 , Pltype , Pltape , Skpa3 , Eof
    COMMON /system/ Ksystm
    COMMON /xxparm/ Pbufsz , Camera , Bframs
-!
-! Dummy argument declarations
-!
    INTEGER Pltnum
-!
-! Local variable declarations
-!
    INTEGER i , id , idte(8) , j , lstplt , m , n
    REAL save(2,2)
-!
-! End of declarations
-!
 !
    EQUIVALENCE (Ksystm(15),Date(1))
    DATA idte/2*1H  , 1H/ , 2*1H  , 1H/ , 2*1H / , lstplt , m/0 , 0/

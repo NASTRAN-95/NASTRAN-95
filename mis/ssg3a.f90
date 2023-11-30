@@ -1,9 +1,6 @@
 
 SUBROUTINE ssg3a(A,Lll,B,X,Sr1,Sr2,Itr1,Res)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    REAL Core(1)
    DOUBLE PRECISION Dcore(1) , Dx(2)
    INTEGER Filb(7) , Fill(7) , Fillt(7) , Filx(7) , I , Ieol , Ieor , Iepsi , Ik , Incur , Iprec , Ires , Isign , Itb , J ,         &
@@ -14,20 +11,11 @@ SUBROUTINE ssg3a(A,Lll,B,X,Sr1,Sr2,Itr1,Res)
    COMMON /unpakx/ Itb , I , J , Incur
    COMMON /zntpkx/ Dx , Ik , Ieol , Ieor
    COMMON /zzzzzz/ Core
-!
-! Dummy argument declarations
-!
    INTEGER A , B , Itr1 , Lll , Res , Sr1 , Sr2 , X
-!
-! Local variable declarations
-!
    DOUBLE PRECISION dnom , dnum
    REAL epsi
    INTEGER ipm , l , name(2) , nlen , nload
    INTEGER korsz
-!
-! End of declarations
-!
 !
 !     SSG3A SOLVES AX = B USING A = L*LT
 !

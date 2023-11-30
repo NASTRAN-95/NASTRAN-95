@@ -12,9 +12,6 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !         1  OTHERWISE
 !
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    INTEGER Blksiz , Buf(1) , Dirsiz , Dit , Ditbl , Ditlbn , Ditnsb , Ditpbn , Ditsiz , Dum(36) , Ifrst , Ihalf , Io , Iodum(7) ,   &
          & Item(7,1) , Jhalf , Mach , Mdi , Mdibl , Mdilbn , Mdipbn , Nbpc , Nbpw , Nbuff , Ncpw , Nitem , Nout , Nxtdum(15) ,      &
          & Subtit(96) , Sys(3) , Title(96)
@@ -31,14 +28,8 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
    COMMON /system/ Nbuff , Nout , Dum , Nbpc , Nbpw , Ncpw
    COMMON /xmssg / Ufm , Uwm , Uim
    COMMON /zzzzzz/ Buf
-!
-! Dummy argument declarations
-!
    INTEGER Dry2 , Itest , Lim , Prefx
    INTEGER Imore(1) , Name1(2) , Name2(2)
-!
-! Local variable declarations
-!
    INTEGER andf , complf , khrfn1 , klshft , krshft , lshift , orf , rshift
    INTEGER bb , cs , dry , first , first2 , hl , i , ib , ibs , ics , idit , iempty , ifnd , ihl , ill , image , imdi , inc , ind1 ,&
          & ind2 , indcs , indll , indsbr , inxt , ipp , ips , iptr , ird , irdbl , iret , isave(50) , iss , itm , itop , iwant ,    &
@@ -46,9 +37,6 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          & numb , ps , rest , rest2 , ss
    LOGICAL more
    EXTERNAL andf , complf , lshift , orf , rshift
-!
-! End of declarations
-!
    DATA ps , ss , ib , ll , cs , hl , bb , ird , iwrt , indsbr/1 , 1 , 1 , 2 , 2 , 2 , 1 , 1 , 2 , 15/
    DATA iempty , mask , nmsbr/4H     , 4HMASK , 4HSETE , 4HQ   /
 !

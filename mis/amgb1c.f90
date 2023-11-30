@@ -1,9 +1,6 @@
 
 SUBROUTINE amgb1c(Q)
    IMPLICIT NONE
-!
-! COMMON variable declarations
-!
    COMPLEX A , Ai , Aln , Alp , Am1 , Am2 , Am2p , Am4 , Am4tst , Am5 , Am5t , Am5tt , Am6 , Amtest , Arg , Arg2 , B , Bc , Bc2 ,   &
          & Bc3 , Bc4 , Bc5 , Bkdel1 , Bkdel2 , Bkdel3 , Blam1 , Blam2 , Blkap1 , Blkapm , Bsycon , C1 , C1n , C1p , C1t , C2 , C2n ,&
          & C2p , Ca1 , Ca2 , Ca3 , Ca4 , Clift , Cmomt , F1 , F1s , F2 , F2p , F4 , F4s , F5 , F5s , F5t , F6s , Fq7 , Fqa , Fqb ,  &
@@ -32,20 +29,11 @@ SUBROUTINE amgb1c(Q)
                  & Betnn , Betnp , Bkap1 , Xlsv1 , Xlsv2 , Xlsv3 , Xlsv4 , Alpamp , Amoaxs , Gusamp , Disamp , Pitaxs , Pitcor
    COMMON /system/ Sysbuf , Ibbout
    COMMON /xmssg / Ufm
-!
-! Dummy argument declarations
-!
    COMPLEX Q(Nstns,Nstns)
-!
-! Local variable declarations
-!
    REAL aa , aye(10,29) , con , const , determ , gee(29,40) , geetmp(29,20) , gye(29,29) , s1 , sps1 , sumi , sumr , temp , xlow(29)&
       & , xtemp(29) , xup(29)
    INTEGER index(29,3) , ising , j , k , n1n , nf , nm , nm2 , nm3 , nm4 , nmm , nmmm , nsns2 , nstns2 , nstns4 , ntimes , nx , nxx
    COMPLEX presl(29) , presu(29)
-!
-! End of declarations
-!
 !
 !     UNSTEADY FLOW ANALYSIS OF A SUPERSONIC CASCADE
 !
