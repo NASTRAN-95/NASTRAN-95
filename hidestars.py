@@ -17,7 +17,17 @@ def remove_comma_values(string):
     values = re.findall(pattern, csv)
 
     # Remove values that are equal to *
-    filtered_values = [value.strip() for value in values if value.strip() != '*']
+    has_star = False
+    filtered_values = []
+    for value in values:
+        if value.strip() == '*':
+            has_star = True
+        else:
+            filtered_values.append(value.strip())
+
+    if not has_star:
+        return string
+
     new_csv = ','.join(filtered_values)
 
     # Write new comma-separated values,
