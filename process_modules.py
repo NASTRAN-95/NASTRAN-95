@@ -4,9 +4,29 @@
 import os
 import re
 import sys
-from pygments import highlight
-from pygments.lexers import FortranLexer
-from pygments.formatters import TerminalFormatter
+import subprocess
+
+# TODO Can we get a special key shortcut to quickly switch
+# between items?
+# We need the following keys:
+# NEXT problem
+# PREV problem
+# STOP and exit
+# SUBMIT if validation passes for all concerned sources, release the module ONLY COPY (+copy the changed sources) and git-push the change
+
+# Replacement of system to run the command,
+# and optionally capture its output
+def system(cmd, capture=False, tokenize=False):
+    if capture:
+        output = subprocess.check_output(cmd, shell=True)
+        output = output.decode("utf-8")
+        if tokenize:
+            return ' ' + re.sub('\n', ' ', output).strip() + ' '
+        return output
+    
+    err = os.system(cmd)
+    if err != 0:
+        raise Exception(f'os.system({cmd}) returned error code {err}')
 
 def load_modules(folder):
     modules = {}
@@ -28,93 +48,128 @@ def load_modules(folder):
                     modules[module_name][content].append(function_name)
     return modules
 
-def colorize_fortran_code(code):
-    lexer = FortranLexer()
-    formatter = TerminalFormatter()
-    colored_code = highlight(code, lexer, formatter)
-    return colored_code
-
-folder_path = "./source"
-modules = load_modules(folder_path)
-
-single_representation = 0
-two_representations = 0
-for module_name in modules.keys():
-    print(f'{module_name} has {len(modules[module_name].keys())} representations:')
-    if len(modules[module_name].keys()) == 1:
-        single_representation += 1
-        function_names = list(modules[module_name].values())[0]
+def create_playground_for_module(module):
+    # Create a temp folder with symbolic links to all sources,
+    # prefixed with the index of representation.
+    # Create a compile.sh script to validate the compilation of
+    # all sources.
+    system('rm -rf ./process_modules_temp')
+    system('mkdir ./process_modules_temp')
+    compile_sh = '#!/bin/bash\n'
+    compile_sh += 'set -e\n'
+    for function_names in module:
         for function_name in function_names:
-            library = re.sub('/[^\/]+', '/', function_name)
-            # TODO Validate by compiling the source folder with a Makefile
-            # TODO Do not remove - copy the module, so that the source could still be compiled!
-            # TODO Copy the sources as well
-            # TODO Remove the source folder, only if all modules for it are a single representation
-            os.system(f'mv {folder_path}/{function_name}/c_{module_name}.f90 {library}')
-            os.system(f'git rm {folder_path}/{function_name}/c_{module_name}.f90')
-    elif len(modules[module_name].keys()) == 2:
-        for module_content in modules[module_name].keys():
-            print(colorize_fortran_code(module_content))
-        function_names = list(modules[module_name].values())
+            linkname = re.sub('\/', '_', function_name)
+            filename = re.sub('.*\/', '', function_name)
+            system(f'ln -s ../{folder_path}/{function_name}/{filename}.f90 ./process_modules_temp/{linkname}.f90')
+            compile_sh += 'gfortran -Wall -ffree-line-length-none -w -fno-range-check -fPIC '
+            compile_sh += '-fno-automatic -fcray-pointer -std=legacy -fallow-invalid-boz -J../include '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/c_*.f90` '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/done_c_*.f90` '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/{filename}.f90` '
+            compile_sh += f'-shared -o lib{filename}.so\n'
+            compile_sh += f'echo "VERIFIED OK"\n'
+    with open('./process_modules_temp/compile.sh', "w") as screenrc_file:
+        screenrc_file.write(compile_sh)
+    system('chmod +x ./process_modules_temp/compile.sh')
+
+def validate_playground():
+    while True:
+        output = system('cd ./process_modules_temp && ./compile.sh', capture=True)
+        if re.search('VERIFIED\sOK', output):
+            break
         
-        # We will inspect the differences between the following two modules,
-        # with respect to the source files below
-        module_file1 = f'{folder_path}/{function_names[0][0]}/c_{module_name}.f90'
-        module_file2 = f'{folder_path}/{function_names[1][0]}/c_{module_name}.f90'
-        
-        # Create a temp folder with symbolic links to all sources,
-        # prefixed with the index of representation.
-        # Create a compile.sh script to validate the compilation of
-        # all sources.
-        os.system('rm -rf ./process_modules_temp')
-        os.system('mkdir ./process_modules_temp')
-        compile_sh = '#!/bin/bash\n'
-        compile_sh += 'set +e\n'
-        for function_names in modules[module_name].values():
-            for function_name in function_names:
-                linkname = re.sub('\/', '_', function_name)
-                filename = re.sub('.*\/', '', function_name)
-                os.system(f'ln -s ../{folder_path}/{function_name}/{filename}.f90 ./process_modules_temp/{linkname}.f90')
-                compile_sh += 'gfortran -Wall -J../include '
-                compile_sh += f'../{folder_path}/{function_name}/{filename}/c_*.f90 '
-                compile_sh += f'../{folder_path}/{function_name}/{filename}.f90 '
-                compile_sh += f'-o lib{filename}.so\n'
-        with open('./process_modules_temp/compile.sh', "w") as screenrc_file:
-            screenrc_file.write(compile_sh)
-        os.system('chmod +x ./process_modules_temp/compile.sh')
-        
-        # Create screen or tmux with two modules split on the left and
-        # "mc" browsing the sources links folder on the right.
+        # TODO Open interactive session for fixing the compile errors.
         screenrc = f"""
-            mousetrack on
-            defmousetrack on
-            screen -t name1 vim {module_file1}
-            split -v
-            focus
             chdir ./process_modules_temp
-            screen -t sources mc
-            focus
-            split
-            focus
-            chdir ..
-            screen -t name2 vim {module_file2}
+            screen -t bash -i ./compile.sh | moar
             focus
         """
+
         with open('./process_modules_temp/.screenrc', "w") as screenrc_file:
             screenrc_file.write(screenrc)
+
+        # Execute interactive session
         # Emergency stop in case of a bug:
         # killall -9 python3 && killall -9 screen
-        os.system(f'screen -c ./process_modules_temp/.screenrc')
+        system(f'screen -c ./process_modules_temp/.screenrc')
 
-        # TODO Can we get a special key shortcut to quickly switch
-        # between items?
-        # We need the following keys:
-        # NEXT problem
-        # PREV problem
-        # STOP and exit
-        # SUBMIT if validation passes for all concerned sources, release the module ONLY COPY (+copy the changed sources) and git-push the change
-        two_representations += 1
-    for function_names in modules[module_name].values():
-        print('\t' + ', '.join(function_names))
-print(f'{two_representations}/{len(modules.keys())} modules with two representations can possibly be fixed')
-print(f'{single_representation}/{len(modules.keys())} modules with single representation are good to be deployed')
+if __name__ == "__main__":
+    representations = 0
+    if len(sys.argv) > 1:
+        representations = int(sys.argv[1])
+
+    folder_path = "./source"
+    modules = load_modules(folder_path)
+
+    for module_name in modules.keys():
+        print(f'{module_name} has {len(modules[module_name].keys())} representations:')
+        if (len(modules[module_name].keys()) == 1) and (representations == 1):
+            create_playground_for_module(modules[module_name].values())
+        
+            # Validate the source code readiness by compiling the playground
+            validate_playground()
+
+            extra_note = ''
+            function_names = list(modules[module_name].values())[0]
+            for function_name in function_names:
+                library = re.sub('/[^\/]+', '/', function_name)
+                system(f'cp {folder_path}/{function_name}/c_{module_name}.f90 {library}')
+                system(f'git add {library}/c_{module_name}.f90')
+                system(f'cd {folder_path}/{function_name} && git mv c_{module_name}.f90 done_c_{module_name}.f90')
+
+                # If there are no more modules to process for the source,
+                # copy the sources as well, and remove the folder.
+                if not re.search('\sc_[^\s]+\.f90\s', system(f'ls {folder_path}/{function_name}/', capture=True, tokenize=True)):
+                    print("No more modules for function {function_name}, release it")
+                    filename = re.sub('.*\/', '', function_name)
+                    system(f'cp {folder_path}/{function_name}/{filename} {library}/')
+                    system(f'git add {library}/{filename}')
+                    system(f'git rm -rf {folder_path}/{function_name}')
+                    
+                    if extra_note == '':
+                        extra_note = ', releasing completed file(s): '
+                    else:
+                        extra_note += ', '
+                    
+                    extra_note += function_name
+                 
+            system(f'git commit -m "Cleaning up COMMON block module {module_name}{extra_note}"')
+
+        elif (len(modules[module_name].keys()) == 2) and (representations == 2):
+            # We will inspect the differences between the following two modules,
+            # with respect to the source files below
+            function_names = list(modules[module_name].values())
+            module_file1 = f'{folder_path}/{function_names[0][0]}/c_{module_name}.f90'
+            module_file2 = f'{folder_path}/{function_names[1][0]}/c_{module_name}.f90'
+            
+            create_playground_for_module(modules[module_name].values())
+            
+            # Create screen or tmux with two modules split on the left and
+            # "mc" browsing the sources links folder on the right.
+            screenrc = f"""
+                mousetrack on
+                defmousetrack on
+                screen -t name1 vim {module_file1}
+                split -v
+                focus
+                chdir ./process_modules_temp
+                screen -t sources mc
+                focus
+                split
+                focus
+                chdir ..
+                screen -t name2 vim {module_file2}
+                focus
+            """
+            with open('./process_modules_temp/.screenrc', "w") as screenrc_file:
+                screenrc_file.write(screenrc)
+
+            # Execute interactive session
+            # Emergency stop in case of a bug:
+            # killall -9 python3 && killall -9 screen
+            system(f'screen -c ./process_modules_temp/.screenrc')
+
+        for function_names in modules[module_name].values():
+            print('\t' + ', '.join(function_names))
+
