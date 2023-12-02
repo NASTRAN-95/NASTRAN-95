@@ -1,4 +1,10 @@
 !*==/home/marcusmae/nasa/nastran/SPAGged/C_DRWAXS.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
 MODULE C_DRWAXS
    REAL, DIMENSION(12) :: G
+!
+! ... DATA FOR DRAWING A X-Y-Z COORDINATE TRIAD IN /DRWAXS/
+!     G   - X,Y,Z COORD. POINT DATA AND SYMBOLS
+!
+   DATA g/9*0.0 , 1HX , 1HY , 1HZ/
+
 END MODULE C_DRWAXS

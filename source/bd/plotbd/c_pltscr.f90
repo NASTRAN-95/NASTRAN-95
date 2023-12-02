@@ -2,4 +2,10 @@
 MODULE C_PLTSCR
    INTEGER :: Ncor
    INTEGER, DIMENSION(50) :: Pltsc
+!
+! ... PLOTTER SCRATCH AREA
+!
+!          NCOR = ARRAY LENGTH
+   DATA ncor , pltsc/50 , 50*0/
+
 END MODULE C_PLTSCR
