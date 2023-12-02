@@ -64,9 +64,9 @@ def create_playground_for_module(module):
             system(f'ln -s ../{folder_path}/{function_name}/{filename}.f90 ./process_modules_temp/{linkname}.f90')
             compile_sh += 'gfortran -Wall -ffree-line-length-none -w -fno-range-check -fPIC '
             compile_sh += '-fno-automatic -fcray-pointer -std=legacy -fallow-invalid-boz -J../include '
-            compile_sh += f'`ls ../{folder_path}/{function_name}/c_*.f90` '
-            compile_sh += f'`ls ../{folder_path}/{function_name}/done_c_*.f90` '
-            compile_sh += f'`ls ../{folder_path}/{function_name}/{filename}.f90` '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/c_*.f90 2>/dev/null` '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/done_c_*.f90 2>/dev/null` '
+            compile_sh += f'`ls ../{folder_path}/{function_name}/{filename}.f90 2>/dev/null` '
             compile_sh += f'-shared -o lib{filename}.so\n'
             compile_sh += f'echo "VERIFIED OK"\n'
     with open('./process_modules_temp/compile.sh', "w") as screenrc_file:
