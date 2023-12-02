@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE preloc(Buf,File) !HIDESTARS (*,Buf,File)
+SUBROUTINE preloc(*,Buf,File)
    USE c_two
    USE C_TWO
    IMPLICIT NONE
@@ -46,8 +46,7 @@ SUBROUTINE preloc(Buf,File) !HIDESTARS (*,Buf,File)
  60      CALL mesage(-3,trl,nm1)
 !
 !
-         ENTRY locate(Bff,Id,Flg)
-                            !HIDESTARS (*,Bff,Id,Flg)
+         ENTRY locate(*,Bff,Id,Flg)
 !     ===========================
 !
 !     ENTRY TO POSITION DATA RECORD.

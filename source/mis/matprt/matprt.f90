@@ -1,7 +1,7 @@
 !*==matprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
+SUBROUTINE matprt(*,*,A,Option,Column)
    USE c_system
    USE c_unpakx
    USE c_xxmprt
@@ -61,8 +61,7 @@ SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
  40      RETURN 2
 !
 !
-         ENTRY prtmat(Column)
-                        !HIDESTARS (*,*,Column)
+         ENTRY prtmat(*,*,Column)
 !     =========================
 !
          CALL prtvec(*20,*40)

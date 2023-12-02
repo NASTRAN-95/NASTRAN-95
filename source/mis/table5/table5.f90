@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE table5(In,Out,Trl,Ibuf,Wrt,Lfn,Fn) !HIDESTARS (*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
+SUBROUTINE table5(*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
 !
 !     THIS ROUTINE IS CALLED ONLY BY OUTPT5 TO COPY A TABLE FILE IN 'IN'
 !     TO AN OUPUT FILE 'OUT', BY FORTRAN WRITE, FORMATTED OR UNFORMATTED

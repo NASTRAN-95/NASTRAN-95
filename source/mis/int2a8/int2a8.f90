@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE int2a8(X,A8) !HIDESTARS (*,X,A8)
+SUBROUTINE int2a8(*,X,A8)
    USE c_machin
    USE c_system
    USE C_MACHIN
@@ -47,24 +47,21 @@ SUBROUTINE int2a8(X,A8) !HIDESTARS (*,X,A8)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY int2k8(X,K8)
-                      !HIDESTARS (*,X,K8)
+         ENTRY int2k8(*,X,K8)
 !     =====================
 !
          nt = -1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY fp2a8(X,A8)
-                     !HIDESTARS (*,X,A8)
+         ENTRY fp2a8(*,X,A8)
 !     ====================
 !
          nt = +2
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY fp2k8(X,K8)
-                     !HIDESTARS (*,X,K8)
+         ENTRY fp2k8(*,X,K8)
 !     ======================
 !
          nt = -2

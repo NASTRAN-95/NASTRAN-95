@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE com12(Ix,X,Dx,Itermm) !HIDESTARS (*,Ix,X,Dx,Itermm)
+SUBROUTINE com12(*,Ix,X,Dx,Itermm)
    USE c_cdcmpx
    USE c_names
    USE c_packx

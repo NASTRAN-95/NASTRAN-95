@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ectloc(Ect,Buf,Ielem) !HIDESTARS (*,Ect,Buf,Ielem)
+SUBROUTINE ectloc(*,Ect,Buf,Ielem)
    USE c_gpta1
    IMPLICIT NONE
 !

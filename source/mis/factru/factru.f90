@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE factru(A,Lll,Ull,Scr1,Scr2,Scr3) !HIDESTARS (*,A,Lll,Ull,Scr1,Scr2,Scr3)
+SUBROUTINE factru(*,A,Lll,Ull,Scr1,Scr2,Scr3)
    USE c_dcompx
    USE c_system
    USE c_zzzzzz

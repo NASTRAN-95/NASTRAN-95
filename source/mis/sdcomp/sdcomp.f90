@@ -1,7 +1,7 @@
 !*==sdcomp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sdcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
+SUBROUTINE sdcomp(*,Zi,Zr,Zd)
    USE i_smcomx
    USE c_logout
    IMPLICIT NONE

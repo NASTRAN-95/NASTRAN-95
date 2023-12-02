@@ -1,6 +1,6 @@
 !*==genvec.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
+SUBROUTINE genvec(*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
    IMPLICIT NONE
    USE c_dcompx
    USE c_names

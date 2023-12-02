@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,Offset,X,Deform,Gplst)
+SUBROUTINE ofsplt(*,Esym,Elid,G,Offset,X,Deform,Gplst)
 !
 !     CALLED ONLY BY LINEL TO PRCESS ELEMENT OFFSET PLOT
 !     THIS ROUTINE DRAW THE CBAR, CTRIA3, AND CQUAD4, WITH OFFSET IN

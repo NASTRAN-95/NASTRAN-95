@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) !HIDESTARS (*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
+SUBROUTINE piklvl(*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
    USE c_bandg
    IMPLICIT NONE
 !

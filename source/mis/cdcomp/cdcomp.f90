@@ -1,6 +1,6 @@
 !*==cdcomp.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
+SUBROUTINE cdcomp(*,Ix,X,Dx)
    IMPLICIT NONE
    USE c_cdcmpx
    USE c_names

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE onlins(Lx) !HIDESTARS (*,Lx)
+SUBROUTINE onlins(*,Lx)
 !
 !     ON-LINE SCAN ROUTINE, CALLED ONLY BY SCAN
 !

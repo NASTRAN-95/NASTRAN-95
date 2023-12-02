@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
+SUBROUTINE sdr2e(*,Ieqex,Neqex)
 !
 !     THIS ROUTINE WHICH IS CALLED ONLY FROM SDR2D WILL PROCESS THE ESTA
 !     FILE ONCE AND OUTPUT FORCE AND OR STRESS RESULTS ON OEF1 AND OR

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sdcompx(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
+SUBROUTINE sdcompx(*,Zi,Zr,Zd)
    USE c_names
    USE c_ntime
    USE c_packx

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sanorm(A) !HIDESTARS (*,A)
+SUBROUTINE sanorm(*,A)
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG

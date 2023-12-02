@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE getstr(Block) !HIDESTARS (*,Block)
+SUBROUTINE getstr(*,Block)
    USE i_dsiof
    USE i_xnstrn
    USE I_DSIOF

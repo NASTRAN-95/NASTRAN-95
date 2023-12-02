@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE nasopn(Lu,Dsn) !HIDESTARS (*,Lu,Dsn)
+SUBROUTINE nasopn(*,Lu,Dsn)
    USE i_nasnames
    USE I_NASNAMES
    IMPLICIT NONE

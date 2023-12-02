@@ -1,6 +1,6 @@
 !*==ifs5p.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE ifs5p() !HIDESTARS (*,*,*)
+SUBROUTINE ifs5p(*,*,*)
    IMPLICIT NONE
    USE c_bitpos
    USE c_cifs5p

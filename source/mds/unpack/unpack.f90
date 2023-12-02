@@ -1,7 +1,7 @@
 !*==unpack.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE unpack(File,A) !HIDESTARS (*,File,A)
+SUBROUTINE unpack(*,File,A)
    USE i_pakblk
    USE i_dsiof
    USE i_xnstrn

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE cinvp2() !HIDESTARS (*)
+SUBROUTINE cinvp2(*)
    USE c_cdcmpx
    USE c_cinvpx
    USE c_cinvxx

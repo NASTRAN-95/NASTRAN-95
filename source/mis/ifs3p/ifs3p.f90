@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ifs3p() !HIDESTARS (*,*,*)
+SUBROUTINE ifs3p(*,*,*)
    USE c_cifs3p
    USE c_ifpdta
    USE c_ifpx2

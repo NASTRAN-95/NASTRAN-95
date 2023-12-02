@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ifppvc(Ipvs,Jr) !HIDESTARS (*,Ipvs,Jr)
+SUBROUTINE ifppvc(*,Ipvs,Jr)
    USE c_ifpdta
    USE c_ifpx1
    USE c_system

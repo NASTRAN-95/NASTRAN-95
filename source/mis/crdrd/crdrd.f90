@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE crdrd(Mu,Indcom,N23) !HIDESTARS (*,*,Mu,Indcom,N23)
+SUBROUTINE crdrd(*,*,Mu,Indcom,N23)
    USE c_gp4fil
    USE c_gp4prm
    USE c_machin

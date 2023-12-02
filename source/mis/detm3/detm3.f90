@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE detm3() !HIDESTARS (*,*,*)
+SUBROUTINE detm3(*,*,*)
    USE c_detmx
    USE c_regean
    USE c_zzzzzz

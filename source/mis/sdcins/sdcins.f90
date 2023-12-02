@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sdcins(Block,Ac,N,Vecs,Vecd) !HIDESTARS (*,Block,Ac,N,Vecs,Vecd)
+SUBROUTINE sdcins(*,Block,Ac,N,Vecs,Vecd)
    USE c_system
    USE c_type
    USE c_zzzzzz

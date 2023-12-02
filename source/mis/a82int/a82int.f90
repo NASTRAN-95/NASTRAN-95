@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE a82int(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
+SUBROUTINE a82int(*,A,N,B,Int)
    USE c_xreadx
    USE C_XREADX
    IMPLICIT NONE
@@ -33,16 +33,14 @@ SUBROUTINE a82int(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY k82int(C,N,B,Int)
-                           !HIDESTARS (*,C,N,B,Int)
+         ENTRY k82int(*,C,N,B,Int)
 !     ****************************
 !
          nt = +1
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY a82fp(A,N,B,Int)
-                          !HIDESTARS (*,A,N,B,Int)
+         ENTRY a82fp(*,A,N,B,Int)
 !     ***************************
 !
          nt = -1
@@ -57,8 +55,7 @@ SUBROUTINE a82int(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
          CALL na12if(*20,A,N,B,Int)
          RETURN
 !
-         ENTRY k82fp(C,N,B,Int)
-                          !HIDESTARS (*,C,N,B,Int)
+         ENTRY k82fp(*,C,N,B,Int)
 !     ***************************
 !
          nt = -1

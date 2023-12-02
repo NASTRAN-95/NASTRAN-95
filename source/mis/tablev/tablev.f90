@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE tablev(In,Ll,Trl,Name,P4,Ibuf,Z5) !HIDESTARS (*,In,Ll,Trl,Name,P4,Ibuf,Z5)
+SUBROUTINE tablev(*,In,Ll,Trl,Name,P4,Ibuf,Z5)
    USE c_system
    USE c_zzzzzz
    USE iso_fortran_env

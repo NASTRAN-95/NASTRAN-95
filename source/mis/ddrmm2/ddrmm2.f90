@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ddrmm2() !HIDESTARS (*,*,*,*)
+SUBROUTINE ddrmm2(*,*,*,*)
    USE c_clstrs
    USE c_condas
    USE c_ddrmc1

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE ifp1f(Iword,Ii) !HIDESTARS (*,Iword,Ii)
+SUBROUTINE ifp1f(*,Iword,Ii)
    USE c_ifp1a
    USE c_zzzzzz
    IMPLICIT NONE

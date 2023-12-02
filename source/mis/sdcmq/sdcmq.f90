@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE sdcmq(Key,V1,V,Dv1,Dv,Ic,Z) !HIDESTARS (*,Key,V1,V,Dv1,Dv,Ic,Z)
+SUBROUTINE sdcmq(*,Key,V1,V,Dv1,Dv,Ic,Z)
    USE c_names
    USE c_sdcq
    USE c_sfact

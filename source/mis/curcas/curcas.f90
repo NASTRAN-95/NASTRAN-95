@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE curcas(Nskip,Trl,Mcb,Zz,Ibuf) !HIDESTARS (*,Nskip,Trl,Mcb,Zz,Ibuf)
+SUBROUTINE curcas(*,Nskip,Trl,Mcb,Zz,Ibuf)
    USE c_names
    USE c_system
    IMPLICIT NONE

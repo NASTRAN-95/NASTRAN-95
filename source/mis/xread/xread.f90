@@ -1,7 +1,7 @@
 !*==xread.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
+SUBROUTINE xread(*,Bufx)
 !
 !     THIS ROUTINE MAKES FREE-FIELD INPUT PACKAGE (HANDLED BY FFREAD)
 !     COMPLETELY MACHINE INDEPENDENT.
@@ -778,8 +778,7 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
  20      RETURN 1
 !
 !
-         ENTRY yread(Bufx)
-                     !HIDESTARS (*,Bufx)
+         ENTRY yread(*,Bufx)
 !     ====================
 !
 !     YREAD IS CALLED ONLY BY XSORT TO RE-PROCESS CARD IMAGES FROM

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE bishel(List,Nent,Nterm,Array) !HIDESTARS (*,List,Nent,Nterm,Array)
+SUBROUTINE bishel(*,List,Nent,Nterm,Array)
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG

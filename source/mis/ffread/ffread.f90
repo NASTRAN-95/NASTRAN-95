@@ -1,6 +1,6 @@
 !*==ffread.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
+SUBROUTINE ffread(*,Card)
    IMPLICIT NONE
    USE c_machin
    USE c_qmarkq

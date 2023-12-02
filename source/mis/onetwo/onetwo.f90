@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE onetwo(Ix,X,Dx,Itermm) !HIDESTARS (*,Ix,X,Dx,Itermm)
+SUBROUTINE onetwo(*,Ix,X,Dx,Itermm)
    USE c_dcompx
    USE c_names
    USE c_packx

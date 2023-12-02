@@ -1,6 +1,6 @@
 !*==ofcomp.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
+SUBROUTINE ofcomp(*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    IMPLICIT NONE
    USE c_blank
    USE c_output

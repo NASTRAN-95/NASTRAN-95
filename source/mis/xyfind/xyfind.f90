@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE xyfind(Majid,Idz) !HIDESTARS (*,*,*,Majid,Idz)
+SUBROUTINE xyfind(*,*,*,Majid,Idz)
    USE c_xywork
    USE c_zzzzzz
    IMPLICIT NONE

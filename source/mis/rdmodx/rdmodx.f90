@@ -61,8 +61,7 @@ CONTAINS
       RETURN
 !
 !
-      ENTRY rdmode(mode,word)
-                           !HIDESTARS (*,*,*,Mode,Word)
+      ENTRY rdmode(*,*,*,Mode,Word)
 !     ==============================
 !
 !     -RDMODE- IS CALLED TO READ -MODE-

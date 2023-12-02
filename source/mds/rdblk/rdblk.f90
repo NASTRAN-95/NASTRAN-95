@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE rdblk(File,Ifirst,Left) !HIDESTARS (*,File,Ifirst,Left)
+SUBROUTINE rdblk(*,File,Ifirst,Left)
    USE i_dsiof
    USE i_xnstrn
    USE I_DSIOF

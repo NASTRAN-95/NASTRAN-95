@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE na12a8(A,N,B,Notuse) !HIDESTARS (*,A,N,B,Notuse)
+SUBROUTINE na12a8(*,A,N,B,Notuse)
    USE c_machin
    USE c_xreadx
    USE C_MACHIN
@@ -49,7 +49,7 @@ SUBROUTINE na12a8(A,N,B,Notuse) !HIDESTARS (*,A,N,B,Notuse)
 !WKBD IF (MACH .EQ. CDC) B(1) = ISWAP(TEMP)
    RETURN
 !
-   ENTRY nk12k8(C,N,D,Notuse) !HIDESTARS (*,C,N,D,Notuse)
+   ENTRY nk12k8(*,C,N,D,Notuse)
 !     ===============================
 !
    IF ( N<=8 ) THEN

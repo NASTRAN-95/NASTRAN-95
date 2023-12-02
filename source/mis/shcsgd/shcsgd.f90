@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE shcsgd(Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd) !HIDESTARS (*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd)
+SUBROUTINE shcsgd(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,Tumsd)
    USE c_condad
    USE c_condas
    USE C_CONDAD
@@ -159,7 +159,7 @@ SUBROUTINE shcsgd(Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubd,Csid,Thetad,T
    RETURN
 !
 !
-   ENTRY shcsgs(Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss) !HIDESTARS (*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss)
+   ENTRY shcsgs(*,Cflag,Ccsid,Ctheta,Pflag,Pcsid,Ptheta,Necpt,Tubs,Csid,Thetas,Tumss)
 !     ======================================================
 !
 !     SINGLE PRECISION VERSION

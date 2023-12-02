@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE na12if(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
+SUBROUTINE na12if(*,A,N,B,Int)
    USE c_xreadx
    USE C_XREADX
    IMPLICIT NONE
@@ -54,8 +54,7 @@ SUBROUTINE na12if(A,N,B,Int) !HIDESTARS (*,A,N,B,Int)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
-         ENTRY nk12if(C,N,B,Int)
-                           !HIDESTARS (*,C,N,B,Int)
+         ENTRY nk12if(*,C,N,B,Int)
 !     ****************************
 !
          IF ( N>12 ) THEN

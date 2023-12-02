@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE bisloc(Id,Arr,Len,Kn,Jloc) !HIDESTARS (*,Id,Arr,Len,Kn,Jloc)
+SUBROUTINE bisloc(*,Id,Arr,Len,Kn,Jloc)
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG

@@ -1,6 +1,6 @@
 !*==tmtsio.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
  
-SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
+SUBROUTINE tmtsio(*,Debug1)
    IMPLICIT NONE
    USE c_ginox
    USE c_ntime

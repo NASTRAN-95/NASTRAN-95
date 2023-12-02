@@ -83,8 +83,7 @@ USE C_SYSTEM
          RETURN
 !
 !
-         ENTRY sopen(Pltape,Buf,Ibfsz)
-                                 !HIDESTARS (*,Pltape,Buf,Ibfsz)
+         ENTRY sopen(*,Pltape,Buf,Ibfsz)
 !     ================================
 !
 !     PLT2 FILE -

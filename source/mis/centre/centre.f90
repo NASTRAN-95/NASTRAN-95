@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE centre(X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center) !HIDESTARS (*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
+SUBROUTINE centre(*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG

@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
+SUBROUTINE shape(*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
    USE c_blank
    USE c_drwdat
    IMPLICIT NONE

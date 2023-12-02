@@ -2,7 +2,7 @@
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
-SUBROUTINE mxcids(Z,Mset,Msze,Nwds,Uset,Nstrt,Snam) !HIDESTARS (*,Z,Mset,Msze,Nwds,Uset,Nstrt,Snam)
+SUBROUTINE mxcids(*,Z,Mset,Msze,Nwds,Uset,Nstrt,Snam)
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
