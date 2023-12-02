@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram LOGFIL in file mis/logfil.f90
-     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
-   0         X             K             mis/logfil.f90,0000002,0000014
-   1         C     / 1/  U          4   /LOGOUT/LOUT
-   2    3   1 I    ( 1)A U E            LINE(18)
-   3         S     ( 1)  U          2   LOGFIL(LINE)
-   4    1   1 I        C U E            LOUT
-**-- END OF SYMBOL TABLE

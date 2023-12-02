@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram SANORM in file mis/sanorm.f90
-     produced by SPAG     8.01RF-40 at 14:46:48 on  2 Dec 2023
-   0         X             K             mis/sanorm.f90,0000002,0000015
-   1    2   1 R    ( 1)AMU E            A(3)
-   2         S     ( 1) MU          6   SANORM(A)
-   3         I?    ( 1)  U I            SQRT
-   4          R         MU E            XL
-**-- END OF SYMBOL TABLE

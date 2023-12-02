@@ -1,9 +1,0 @@
-**++ Symbol table for subprogram DDR in file mis/ddr.f90
-     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
-   0         X             K             mis/ddr.f90,0000002,0000020
-   1         C     / 3/            24   /BLANK/PARM1,PARM2,PARM3
-   2         S                          DDR
-   3    1   1 I    ( 1)C   E        2   PARM1(2)
-   4    1   2 I    ( 1)C   E        2   PARM2(2)
-   5    1   3 I    ( 1)C   E        2   PARM3(2)
-**-- END OF SYMBOL TABLE

@@ -1,7 +1,0 @@
-**++ Symbol table for subprogram C_IFP1HX in file mis/c_ifp1hx.f90
-     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
-   0         X                           mis/c_ifp1hx.f90,0000002,0000005
-   1         U                          C_IFP1HX
-   2    1     I    ( 1)    E       20   MISSET(20)
-   3    1     I            E            MSST
-**-- END OF SYMBOL TABLE

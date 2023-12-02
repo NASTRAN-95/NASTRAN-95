@@ -1,9 +1,0 @@
-**++ Symbol table for subprogram DAXB in file mis/daxb.f90
-     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
-   0         X             K             mis/daxb.f90,0000002,0000017
-   1    5   1 D    ( 1)A U E            A(3)
-   2    5   2 D    ( 1)A U E            B(3)
-   3    5   3 D    ( 1)AM  E            C(3)
-   4          D    ( 1) MU E        3   D(3)
-   5         S     ( 3) MU          6   DAXB(A,B,C)
-**-- END OF SYMBOL TABLE

@@ -1,9 +1,0 @@
-**++ Symbol table for subprogram NUMTYP in file mds/numtyp.f90
-     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
-   0         X             K             mds/numtyp.f90,0000002,0000057
-   1          C*2  ( 1)  U E        4   BYTE(4)*2
-   2          I         MU E            I
-   3    4   1 I        A U E            IVALUE
-   4         FI    ( 1) MU E       24   NUMTYP(IVALUE)
-   5          C*8       M  E            WORD*8
-**-- END OF SYMBOL TABLE

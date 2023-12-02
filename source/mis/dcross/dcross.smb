@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram DCROSS in file mis/dcross.f90
-     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
-   0         X             K             mis/dcross.f90,0000002,0000012
-   1         S     ( 3) MU          3   DCROSS(X,Y,Z)
-   2    1   1 D    ( 1)A U E            X(3)
-   3    1   2 D    ( 1)A U E            Y(3)
-   4    1   3 D    ( 1)AM  E            Z(3)
-**-- END OF SYMBOL TABLE

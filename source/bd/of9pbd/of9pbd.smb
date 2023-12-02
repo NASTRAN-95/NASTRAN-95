@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram OF9PBD in file bd/of9pbd.f90
-     produced by SPAG     8.01RF-40 at 14:46:30 on  2 Dec 2023
-   0         X             K             bd/of9pbd.f90,0000002,0000071
-   1         C     / 2/D         1920   /OFPB9/C1,C41
-   2    1   1 I    ( 1)D   E      240   C1(240)
-   3    1   2 I    ( 1)D   E      240   C41(240)
-   4         B                          OF9PBD
-**-- END OF SYMBOL TABLE

@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram SHSTTS in file mis/shstts.f90
-     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
-   0         X             K             mis/shstts.f90,0000002,0000066
-   1         S     ( 3) MU         13   SHSTTS(TAB,UAB,VAB)
-   2    1   1 R    ( 1)A U E            TAB(9)
-   3    1   2 R    ( 1)AM  E            UAB(9)
-   4    1   3 R    ( 1)AM  E            VAB(4)
-**-- END OF SYMBOL TABLE

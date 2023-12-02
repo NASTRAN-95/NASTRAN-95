@@ -1,7 +1,0 @@
-**++ Symbol table for subprogram OUTPT in file mis/outpt.f90
-     produced by SPAG     8.01RF-40 at 14:46:36 on  2 Dec 2023
-   0         X             K             mis/outpt.f90,0000002,0000019
-   1         C     / 1/             4   /BLANK/PARM
-   2         S                          OUTPT
-   3    1   1 I        C   E            PARM
-**-- END OF SYMBOL TABLE

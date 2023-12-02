@@ -1,8 +1,0 @@
-**++ Symbol table for subprogram ZEROC in file mis/zeroc.f90
-     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
-   0         X             K             mis/zeroc.f90,0000002,0000014
-   1          I         MU E            I
-   2    4   1 I    ( 1)AM  E            IZ(N)
-   3    4   2 I        A U E         Z  N
-   4         S     ( 2) MU          3   ZEROC(IZ,N)
-**-- END OF SYMBOL TABLE
