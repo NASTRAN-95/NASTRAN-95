@@ -20,7 +20,7 @@ BLOCKDATA sdr2bd
 !
 !
 !
-   !>>>>EQUIVALENCE (Sta(1),Rfmts(1))
+   EQUIVALENCE (Sta(1),Rfmts(1))
 !
 !*****
 !     DATA DEFINING POSITIONS OF PARAMETERS IN A CASE CONTROL RECORD.

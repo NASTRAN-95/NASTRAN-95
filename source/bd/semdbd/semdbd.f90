@@ -42,7 +42,7 @@ BLOCKDATA semdbd
    USE c_xvps
    USE c_xxfiat
    USE c_xxread
-   !>>>>EQUIVALENCE (ksystm(1),Sysbuf)
+   EQUIVALENCE (ksystm(1),Sysbuf)
 !
 !
 !     -------------------     /GINOX  /     ----------------------------
