@@ -1,16 +1,17 @@
-!*==optp1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==optp1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
+   USE c_blank
+   USE c_gpta1
+   USE c_matin
+   USE c_matout
+   USE c_names
+   USE c_optpw1
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_NAMES
-   USE C_OPTPW1
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,21 +58,21 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Nelw = 0
-         Sinth = 0.0
-         Costh = 1.0
-         Pla = 0.0
-         Inflag = 2
+         nelw = 0
+         sinth = 0.0
+         costh = 1.0
+         pla = 0.0
+         inflag = 2
 !
 !     COPY POINTER ARRAY INTO CORE
 !
-         DO i = 1 , Ntypes
+         DO i = 1 , ntypes
             Elt(i) = Dtyp(i)
          ENDDO
 !
 !     ZERO OUT POINTER ARRAY
 !
-         i1 = 2*(Npow+1)
+         i1 = 2*(npow+1)
          DO i = 2 , i1
             Elop(i,1) = 0
          ENDDO
@@ -81,8 +82,8 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     READ IN ELEMENT TYPE
 !
-         CALL read(*40,*80,Est,ietyp,1,Noeor,i)
-         IF ( ietyp<=Ntypes ) THEN
+         CALL read(*40,*80,est,ietyp,1,noeor,i)
+         IF ( ietyp<=ntypes ) THEN
             intyp = Dtyp(ietyp)
             IF ( intyp>0 ) THEN
 !
@@ -95,20 +96,20 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
                i2 = iwd(i+1)
                i1 = i2/100
                i2 = i2 - i1*100
-               nest = (ietyp-1)*Incr + 12
-               nest = Ne(nest)
-               IF ( nest>Ecor ) THEN
+               nest = (ietyp-1)*incr + 12
+               nest = ne(nest)
+               IF ( nest>ecor ) THEN
                   CALL page2(-2)
-                  WRITE (Outtap,99002) name , Ecor , ietyp
-                  Nelw = 0
+                  WRITE (outtap,99002) name , ecor , ietyp
+                  nelw = 0
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                DO
-                  CALL read(*60,*20,Est,E,nest,Noeor,k1)
-                  Matid = ie(j1-1)
-                  IF ( Matid==0 ) Matid = ie(j2-1)
-                  Temp = E(nest)
+                  CALL read(*60,*20,est,e,nest,noeor,k1)
+                  matid = ie(j1-1)
+                  IF ( matid==0 ) matid = ie(j2-1)
+                  temp = e(nest)
                   CALL mat(ie(1))
 !
 !     TEST IF PERTINENT STRESS LIMITS ARE ZERO
@@ -119,7 +120,7 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     SHEAR
 !
-                     IF ( Omat(15)==0.0 ) THEN
+                     IF ( omat(15)==0.0 ) THEN
                         IF ( i1/=2 ) k1 = 1
                         IF ( i2==1 .OR. i2==3 ) k2 = 1
                      ENDIF
@@ -128,14 +129,14 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     TENSION
 !
-                     IF ( Omat(13)==0.0 ) THEN
+                     IF ( omat(13)==0.0 ) THEN
                         IF ( i1>1 ) k1 = k1 + 1
                         IF ( i2>1 ) k2 = k2 + 1
                      ENDIF
 !
 !     COMPRESSION
 !
-                     IF ( Omat(14)==0.0 ) THEN
+                     IF ( omat(14)==0.0 ) THEN
                         IF ( i1>1 ) k1 = k1 + 1
                         IF ( i2>1 ) k2 = k2 + 1
                      ENDIF
@@ -145,7 +146,7 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     CHECK IF PROPERTY IS NONZERO AND STORE INFO IN PID POINTER
 !
-                     IF ( E(j1)/=0.0 ) THEN
+                     IF ( e(j1)/=0.0 ) THEN
 !
                         IF ( k1<i1 ) THEN
 !
@@ -155,26 +156,26 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
                            GOTO 2
                         ENDIF
                      ENDIF
-                     IF ( E(j2)==0.0 ) CYCLE
+                     IF ( e(j2)==0.0 ) CYCLE
 !
                      IF ( k2>=i2 ) CYCLE
 !
 !     ALTERNATE PROPERTY USED
 !
                      k1 = j2*100 + i2
- 2                   IF ( Nelw+5>Ycor ) THEN
+ 2                   IF ( nelw+5>ycor ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     Ele(Nelw+1) = E(1)
-                     Ele(Nelw+2) = Omat(13)
-                     Ele(Nelw+3) = Omat(14)
-                     Ele(Nelw+4) = Omat(15)
+                     Ele(nelw+1) = e(1)
+                     Ele(nelw+2) = omat(13)
+                     Ele(nelw+3) = omat(14)
+                     Ele(nelw+4) = omat(15)
 !
 !     NOTE, K1 = C1
 !
-                     Ele(Nelw+5) = c1
-                     Nelw = Nelw + Nwdse
+                     Ele(nelw+5) = c1
+                     nelw = nelw + nwdse
                   ENDIF
                ENDDO
             ENDIF
@@ -182,27 +183,27 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     NEW ELEMENT TYPE
 !
-         CALL fread(Est,0,0,Nweor)
-         IF ( ietyp>Ntypes ) GOTO 40
+         CALL fread(est,0,0,nweor)
+         IF ( ietyp>ntypes ) GOTO 40
          IF ( intyp<=0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 20      Elop(1,intyp+1) = Nelw + 1
+ 20      Elop(1,intyp+1) = nelw + 1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     EOF
 !
- 40      i1 = Npow + 1
+ 40      i1 = npow + 1
          DO i = 2 , i1
             IF ( Elop(1,i)<=0 ) Elop(1,i) = Elop(1,i-1)
          ENDDO
-         IF ( Nelw==0 ) THEN
+         IF ( nelw==0 ) THEN
             CALL page2(-2)
-            WRITE (Outtap,99001) Ufm
+            WRITE (outtap,99001) ufm
 99001       FORMAT (A23,' 2295, NO ELEMENTS EXIST FOR OPTIMIZATION.')
-            Count = -1
+            count = -1
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
@@ -210,21 +211,20 @@ SUBROUTINE optp1a(Elt,Elop,Ele,Dtyp)
 !
 !     ILLEGAL EOF
 !
- 60      CALL mesage(-2,Est,name)
+ 60      CALL mesage(-2,est,name)
 !
 !     ILLEGAL EOR
 !
- 80      CALL mesage(-3,Est,name)
+ 80      CALL mesage(-3,est,name)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     INSUFFICIENT CORE
 !
          CALL page2(-2)
-         WRITE (Outtap,99002) Ufm , name , B1p1 , ie(1)
-         Nelw = 0
+         WRITE (outtap,99002) ufm , name , b1p1 , ie(1)
+         nelw = 0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99002 FORMAT (A23,' 2296, INSUFFICIENT CORE ',2A4,1H(,I10,' ), ELEMENT',I9)

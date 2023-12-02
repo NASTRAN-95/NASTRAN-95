@@ -1,4 +1,5 @@
-!*==sdr2e.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdr2e.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
@@ -7,25 +8,25 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     FILE ONCE AND OUTPUT FORCE AND OR STRESS RESULTS ON OEF1 AND OR
 !     OES1 WHICH ARE OPENED IN SDR2D.
 !
+   USE c_blank
+   USE c_clstrs
+   USE c_gpta1
+   USE c_isave
+   USE c_lhpwx
+   USE c_names
+   USE c_sdr2c1
+   USE c_sdr2de
+   USE c_sdr2x1
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_sdrett
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CLSTRS
-   USE C_GPTA1
-   USE C_ISAVE
-   USE C_LHPWX
-   USE C_NAMES
-   USE C_SDR2C1
-   USE C_SDR2DE
-   USE C_SDR2X1
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SDRETT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -63,146 +64,146 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     INITIALIZE ESTA POINTERS.
 !
-         IF ( Stresx==0 .AND. Forcex==0 ) RETURN
+         IF ( stresx==0 .AND. forcex==0 ) RETURN
          heat = .FALSE.
          IF ( itherm/=0 ) heat = .TRUE.
-         Estawd = Iesta
+         estawd = iesta
          istore = 0
-         Ix = Icc + Harms
+         ix = icc + harms
          again = .FALSE.
-         oharms = Z(Ix)
-         IF ( oharms<0 ) oharms = Nharms
-         Isave = Ivec
-         isvsrc = Sorc
-         Eltype = Z(Estawd)
-         File = Esta
-         Ix = Icc + Istr + 2
-         sphase = iabs(Z(Ix))
-         Ix = Icc + Ielf + 2
-         fphase = iabs(Z(Ix))
-         Twotop = alog10(2.0**Mtisa)
+         oharms = z(ix)
+         IF ( oharms<0 ) oharms = nharms
+         isave = ivec
+         isvsrc = sorc
+         eltype = z(estawd)
+         file = esta
+         ix = icc + istr + 2
+         sphase = iabs(z(ix))
+         ix = icc + ielf + 2
+         fphase = iabs(z(ix))
+         twotop = alog10(2.0**mtisa)
 !
 !     POSITION TO THE PROPER THERMAL RECORD IF NECESSARY.
 !
-         Record = .FALSE.
-         IF ( Tloads/=0 ) THEN
-            IF ( Tmprec/=0 ) THEN
-               CALL rewind(Gptt)
-               File = Gptt
-               DO I = 1 , Tmprec
-                  CALL fwdrec(*100,Gptt)
+         record = .FALSE.
+         IF ( tloads/=0 ) THEN
+            IF ( tmprec/=0 ) THEN
+               CALL rewind(gptt)
+               file = gptt
+               DO i = 1 , tmprec
+                  CALL fwdrec(*100,gptt)
                ENDDO
 !
 !     READ AND VERIFY SET-ID  (FAILSAFE)
 !
-               CALL read(*100,*120,Gptt,isetid,1,0,Flag)
-               IF ( Tloads/=isetid ) THEN
-                  WRITE (opte,99001) Sfm , Tloads , isetid
+               CALL read(*100,*120,gptt,isetid,1,0,flag)
+               IF ( tloads/=isetid ) THEN
+                  WRITE (opte,99001) sfm , tloads , isetid
 99001             FORMAT (A25,' 4019, SDR2E DETECTS INVALID TEMPERATURE DATA FOR ','TEMPERATURE LOAD SET',2I10)
                   CALL mesage(-61,0,0)
                ENDIF
-               Record = .TRUE.
+               record = .TRUE.
 !
 !     INITIALIZE /SDRETT/ VARIABLES
 !
-               Oldeid = 0
-               Oldel = 0
-               Eorflg = .FALSE.
-               Endid = .TRUE.
+               oldeid = 0
+               oldel = 0
+               eorflg = .FALSE.
+               endid = .TRUE.
             ENDIF
          ENDIF
-         Itemp = Tloads
-         IF ( Nesta==0 ) THEN
-            CALL rewind(Esta)
-            CALL read(*80,*120,Esta,Eltype,1,0,Flag)
+         itemp = tloads
+         IF ( nesta==0 ) THEN
+            CALL rewind(esta)
+            CALL read(*80,*120,esta,eltype,1,0,flag)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     ELEMENT PARAMETERS FOR NEW ELEMENT TYPE
 !
-         Ielem = (Eltype-1)*Incr
-         Ieltyp = Eltype
+         ielem = (eltype-1)*incr
+         ieltyp = eltype
          ipr = iprec
          IF ( ipr/=1 ) ipr = 0
-         jltype = 2*Eltype - ipr
-         jcore = Icore
-         IF ( heat .AND. Eltype/=82 ) THEN
+         jltype = 2*eltype - ipr
+         jcore = icore
+         IF ( heat .AND. eltype/=82 ) THEN
 !
-            Nwdfor = 9
-            Nwdstr = 0
+            nwdfor = 9
+            nwdstr = 0
             nptfor = 0
             nptstr = 0
-            Nwdsa = 142
+            nwdsa = 142
 !
 !     CHOP OFF 483 WORDS FROM OPEN CORE SPACE FOR CIHEX ELEMENTS
 !
-            IF ( Eltype>=65 .AND. Eltype<=67 ) Icore = Icore - 483
+            IF ( eltype>=65 .AND. eltype<=67 ) icore = icore - 483
          ELSE
 !                            FTUBE
-            Nwdsa = Elem(Ielem+17)
-            nptstr = Elem(Ielem+20)
-            nptfor = Elem(Ielem+21)
-            Nwdstr = Elem(Ielem+18)
-            Nwdfor = Elem(Ielem+19)
+            nwdsa = elem(ielem+17)
+            nptstr = elem(ielem+20)
+            nptfor = elem(ielem+21)
+            nwdstr = elem(ielem+18)
+            nwdfor = elem(ielem+19)
          ENDIF
 !
 !
 !     SETUP STRESS PRECISION CHECK.
 !
-         Nchk = Z(Icc+146)
-         Fnchk = Nchk
+         nchk = z(icc+146)
+         fnchk = nchk
 !
 !     SUBCASE ID
 !
-         Isub = Z(Icc+1)
+         isub = z(icc+1)
 !
 !     DETERMINE LOAD/MODE, EIGENVALUE/FREQ/TIME HEADER
 !
-         Frtmei(1) = 0.
-         Frtmei(2) = 0.
-         IF ( Branch==5 .OR. Branch==6 ) THEN
+         frtmei(1) = 0.
+         frtmei(2) = 0.
+         IF ( branch==5 .OR. branch==6 ) THEN
 !
 !     FREQUENCY/TRANSIENT
 !
-            I = Icc + Idload
-            Ild = Z(I)
-            Frtmei(1) = zz(Jlist)
-         ELSEIF ( Branch==2 .OR. Branch==8 .OR. Branch==9 ) THEN
+            i = icc + idload
+            ild = z(i)
+            frtmei(1) = zz(jlist)
+         ELSEIF ( branch==2 .OR. branch==8 .OR. branch==9 ) THEN
 !
 !     EIGENVALUES
 !
-            Ild = Z(Jlist)
-            Frtmei(1) = zz(Jlist+1)
-            Frtmei(2) = zz(Jlist+2)
-            IF ( Branch==2 ) THEN
-               IF ( zz(Jlist+1)>0. ) Frtmei(1) = sqrt(zz(Jlist+1))/6.2831852
+            ild = z(jlist)
+            frtmei(1) = zz(jlist+1)
+            frtmei(2) = zz(jlist+2)
+            IF ( branch==2 ) THEN
+               IF ( zz(jlist+1)>0. ) frtmei(1) = sqrt(zz(jlist+1))/6.2831852
             ENDIF
          ELSE
 !
 !     STATICS
 !
-            I = Icc + Isload
-            Ild = Z(I)
+            i = icc + isload
+            ild = z(i)
          ENDIF
-         lstres = Nwdstr
-         lforce = Nwdfor
+         lstres = nwdstr
+         lforce = nwdfor
          idstrs = .FALSE.
          idforc = .FALSE.
          idlyst = .FALSE.
          idlyfr = .FALSE.
          ok2wrt = .TRUE.
-         IF ( Ktype==1 .OR. nptstr/=0 .OR. nptfor/=0 ) THEN
-            IF ( Nwdstr+Nwdfor>0 ) THEN
+         IF ( ktype==1 .OR. nptstr/=0 .OR. nptfor/=0 ) THEN
+            IF ( nwdstr+nwdfor>0 ) THEN
 !
 !     OK SOME STRESS AND OR FORCE REQUESTS EXIST FOR THIS ELEMENT TYPE.
 !     PROCESS INDIVIDUAL ELEMENTS REQUESTED
 !
-               IF ( Nesta/=0 ) THEN
+               IF ( nesta/=0 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Nwdsa<=Icore ) THEN
+               IF ( nwdsa<=icore ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -211,7 +212,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     INSUFFICIENT CORE TO HOLD ESTA FOR 1 ELEMENT OF CURRENT ELEMENT
 !     TYPE TRY PROCESSING THE OTHER ELEMENT TYPES IN AVAILABLE CORE.
 !
-               CALL mesage(8,0,Nam(1))
+               CALL mesage(8,0,nam(1))
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -220,13 +221,13 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     NO STRESS OR FORCE WORDS POSSIBLE FOR THIS ELEMENT TYPE IF FALL
 !     HERE
 !
-         IF ( Nesta/=0 ) THEN
+         IF ( nesta/=0 ) THEN
             DO
 !
 !     FIND END OF CURRENT ELEMEMT TYPE LIST IN CORE
 !
-               Estawd = Estawd + Nwdsa
-               IF ( Z(Estawd+1)==0 ) THEN
+               estawd = estawd + nwdsa
+               IF ( z(estawd+1)==0 ) THEN
                   spag_nextblock_1 = 36
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -237,144 +238,141 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     FORWARD REC ON FILE TO NEXT ELEMENT TYPE
 !
-         CALL fwdrec(*100,Esta)
-         CALL read(*80,*120,Esta,Eltype,1,0,Flag)
+         CALL fwdrec(*100,esta)
+         CALL read(*80,*120,esta,eltype,1,0,flag)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
-         CALL read(*100,*60,Esta,Z(Iesta),Nwdsa,0,Flag)
-         Estawd = Iesta - 1
+         CALL read(*100,*60,esta,z(iesta),nwdsa,0,flag)
+         estawd = iesta - 1
          spag_nextblock_1 = 5
       CASE (5)
 !
 !     DETERMINE IF THIS PARTICULAR ELEMENT OF THE CURRENT ELEMENT TYPE
 !     HAS A STRESS OR FORCE REQUEST IN THE CURRENT CASE CONTROL RECORD.
 !
-         Elemid = Z(Estawd+1)
+         elemid = z(estawd+1)
 !
 !     THE FOLLOWING CODE (THRU 93) IS FOR THE COMPLEX ANALYSIS OF IHEX
 !     ELEMENTS ONLY (ELEM. TYPES 65,66,67)
 !
-         IF ( Ktype==2 .AND. Eltype>=65 .AND. Eltype<=67 ) THEN
-            IF ( Ipart==2 .AND. istrpt==(nip3+ngp1+1) ) THEN
+         IF ( ktype==2 .AND. eltype>=65 .AND. eltype<=67 ) THEN
+            IF ( ipart==2 .AND. istrpt==(nip3+ngp1+1) ) THEN
 !
 !     DONE FOR THIS IHEX ELEMENT, RESET CHECKING VARIABLES
 !
-               Ipart = 0
+               ipart = 0
                ielold = 0
                ielchk = 0
 !
 !     FIRST INTEGRATION POINT FOR IMAGINARY RETULS FOR THIS IHEX ELEMENT
 !     SAVE ELEMENT ID AND CURRENT ESTAWD
 !
-            ELSEIF ( Ipart/=1 .OR. istrpt/=1 ) THEN
+            ELSEIF ( ipart/=1 .OR. istrpt/=1 ) THEN
 !
 !     FIRST INTEGRATION POINT FOR REAL RESULTS FOR THIS IHEX ELEMENT,
 !     SAVE ELEMENT ID TO CHECK WITH EARLIER ELEMENT ID SAVED ABOVE
 !
-               IF ( Ipart==2 .AND. istrpt==1 ) ielchk = Elemid
+               IF ( ipart==2 .AND. istrpt==1 ) ielchk = elemid
             ELSE
-               ielold = Elemid
-               oldawd = Estawd - Nwdsa
+               ielold = elemid
+               oldawd = estawd - nwdsa
             ENDIF
          ENDIF
 !
 !     END OF SPECIAL TREATMENT FOR IHEX ELEMENT
 !
-         idelem = Elemid
+         idelem = elemid
 !
 !     DECODE ELEMID TO FIND IT IN SET
 !
-         IF ( Axic ) THEN
-            nelhar = Elemid - (Elemid/1000)*1000
-            Elemid = Elemid/1000
+         IF ( axic ) THEN
+            nelhar = elemid - (elemid/1000)*1000
+            elemid = elemid/1000
          ENDIF
-         Jstrs = 0
-         Jforc = 0
-         I = Isets
-         IF ( Nwdstr/=0 ) THEN
-            IF ( Stresx<0 ) THEN
-               Jstrs = 1
-            ELSEIF ( Stresx/=0 ) THEN
+         jstrs = 0
+         jforc = 0
+         i = isets
+         IF ( nwdstr/=0 ) THEN
+            IF ( stresx<0 ) THEN
+               jstrs = 1
+            ELSEIF ( stresx/=0 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
-         IF ( I/=Nsets ) THEN
-            IF ( Z(I+1)<=0 ) THEN
-               I = I + 1
-               IF ( Elemid<Z(I-1) .OR. Elemid>-Z(I) ) THEN
+         IF ( i/=nsets ) THEN
+            IF ( z(i+1)<=0 ) THEN
+               i = i + 1
+               IF ( elemid<z(i-1) .OR. elemid>-z(i) ) THEN
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Jstrs = 1
+               jstrs = 1
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Elemid==Z(I) ) THEN
-            Jstrs = 1
+         IF ( elemid==z(i) ) THEN
+            jstrs = 1
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
-         I = I + 1
-         IF ( I<=Nsets ) THEN
+         i = i + 1
+         IF ( i<=nsets ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
-         I = Isetf
-         IF ( Nwdfor/=0 ) THEN
-            IF ( Forcex<0 ) THEN
-               Jforc = 1
-            ELSEIF ( Forcex/=0 ) THEN
+         i = isetf
+         IF ( nwdfor/=0 ) THEN
+            IF ( forcex<0 ) THEN
+               jforc = 1
+            ELSEIF ( forcex/=0 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
-         IF ( I/=Nsetf ) THEN
-            IF ( Z(I+1)<=0 ) THEN
-               I = I + 1
-               IF ( Elemid<Z(I-1) .OR. Elemid>-Z(I) ) THEN
+         IF ( i/=nsetf ) THEN
+            IF ( z(i+1)<=0 ) THEN
+               i = i + 1
+               IF ( elemid<z(i-1) .OR. elemid>-z(i) ) THEN
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Jforc = 1
+               jforc = 1
                spag_nextblock_1 = 11
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Elemid==Z(I) ) THEN
-            Jforc = 1
+         IF ( elemid==z(i) ) THEN
+            jforc = 1
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 10
       CASE (10)
-         I = I + 1
-         IF ( I<=Nsetf ) THEN
+         i = i + 1
+         IF ( i<=nsetf ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 11
       CASE (11)
-         Jany = Jstrs + Jforc
-         IF ( Jany==0 ) THEN
-            IF ( Nesta==0 ) THEN
+         jany = jstrs + jforc
+         IF ( jany==0 ) THEN
+            IF ( nesta==0 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Estawd = Estawd + Nwdsa
+            estawd = estawd + nwdsa
             spag_nextblock_1 = 34
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -386,7 +384,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     ELEMENT TEMPERATURE
 !
-            IF ( Tloads==0 ) THEN
+            IF ( tloads==0 ) THEN
 !
 !     NORMALLY TGRID(1) WILL CONTAIN THE AVERAGE ELEMENT TEMPERATUE
 !     AND IF GRID POINT TEMPERATURES ARE RETURNED THEY WILL BEGIN
@@ -394,7 +392,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
                jtemp = -1
             ELSE
-               N = Elem(Ielem+10)
+               n = elem(ielem+10)
 !
 !     IF NEW ELEMENTS ARE ADDED THAT HAVE SPECIAL BENDING THERMAL DATA
 !     POSSIBLE THEN THE FOLLOWING TEST SHOULD BE EXPANDED TO INCLUDE
@@ -402,62 +400,62 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     TEMPERATURE RATHER THAN SIMULATED GRID POINT TEMPERATURES IN THE
 !     ABSENCE OF ANY USER SPECIFIED DATA.
 !
-               IF ( Ieltyp==34 .OR. Ieltyp==6 .OR. Ieltyp==7 .OR. Ieltyp==8 .OR. Ieltyp==15 .OR. Ieltyp==17 .OR. Ieltyp==18 .OR.    &
-                  & Ieltyp==19 ) N = 0
-               IF ( Ieltyp==74 .OR. Ieltyp==75 ) N = 0
-               IF ( Ieltyp==64 .OR. Ieltyp==83 ) N = 0
+               IF ( ieltyp==34 .OR. ieltyp==6 .OR. ieltyp==7 .OR. ieltyp==8 .OR. ieltyp==15 .OR. ieltyp==17 .OR. ieltyp==18 .OR.    &
+                  & ieltyp==19 ) n = 0
+               IF ( ieltyp==74 .OR. ieltyp==75 ) n = 0
+               IF ( ieltyp==64 .OR. ieltyp==83 ) n = 0
 !
 !
-               CALL sdretd(idelem,Tgrid,N)
+               CALL sdretd(idelem,tgrid,n)
 !
 !     SET THE AVERAGE ELEMENT TEMPERATURE CELL.
 !
-               Temp = Tgrid(1)
+               temp = tgrid(1)
             ENDIF
 !
 !     ELEMENT DEFORMATION
 !
-            Deform = 0.0
-            IF ( Eldef/=0 ) THEN
-               DO I = Idef , Ndef , 2
-                  IF ( Z(I)==Elemid ) GOTO 10
+            deform = 0.0
+            IF ( eldef/=0 ) THEN
+               DO i = idef , ndef , 2
+                  IF ( z(i)==elemid ) GOTO 10
                ENDDO
             ENDIF
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
- 10         Deform = zz(I+1)
+ 10         deform = zz(i+1)
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
 !
 !     WRITE ID FOR STRESSES IF NOT YET WRITTEN FOR THIS ELEMENT TYPE.
 !
-         IF ( Stress/=0 .AND. Nwdstr/=0 .AND. Jstrs/=0 ) THEN
-            IF ( Comps==-1 .AND. Nstrop>1 ) THEN
+         IF ( stress/=0 .AND. nwdstr/=0 .AND. jstrs/=0 ) THEN
+            IF ( comps==-1 .AND. nstrop>1 ) THEN
 !
                IF ( .NOT.(idlyst) ) THEN
-                  Nlogic = 3
-                  Ofile = Oes1l
-                  Device = Sdest
+                  nlogic = 3
+                  ofile = oes1l
+                  device = sdest
                   ifltyp = 22
-                  Irecx = Icc + Istr
-                  Nwds = 10
+                  irecx = icc + istr
+                  nwds = 10
                   jcmplx = 0
                   ok2wrt = .FALSE.
-                  ASSIGN 20 TO Iretrn
+                  ASSIGN 20 TO iretrn
                   spag_nextblock_1 = 37
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSEIF ( .NOT.(idstrs) ) THEN
-               Nlogic = 1
-               Ofile = Oes1
-               Device = Sdest
-               Iseq = 4
-               ifltyp = Dtype(Iseq)
-               Irecx = Icc + Istr
-               Nwds = Nwdstr
+               nlogic = 1
+               ofile = oes1
+               device = sdest
+               iseq = 4
+               ifltyp = dtype(iseq)
+               irecx = icc + istr
+               nwds = nwdstr
                jcmplx = nptstr
-               ASSIGN 20 TO Iretrn
+               ASSIGN 20 TO iretrn
                spag_nextblock_1 = 37
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -465,32 +463,32 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     WRITE ID FOR FORCES IF NOT YET WRITTEN FOR THIS ELEMENT TYPE.
 !
- 20      IF ( Force/=0 .AND. Nwdfor/=0 .AND. Jforc/=0 ) THEN
-            IF ( Comps==-1 .AND. Nstrop>1 .AND. Stress/=0 ) THEN
+ 20      IF ( force/=0 .AND. nwdfor/=0 .AND. jforc/=0 ) THEN
+            IF ( comps==-1 .AND. nstrop>1 .AND. stress/=0 ) THEN
 !
                IF ( .NOT.(idlyfr) ) THEN
-                  Nlogic = 4
-                  Ofile = Oef1l
-                  Device = Fdest
+                  nlogic = 4
+                  ofile = oef1l
+                  device = fdest
                   ifltyp = 23
-                  Irecx = Icc + Ielf
-                  Nwds = 9
+                  irecx = icc + ielf
+                  nwds = 9
                   jcmplx = 0
                   ok2wrt = .FALSE.
-                  ASSIGN 40 TO Iretrn
+                  ASSIGN 40 TO iretrn
                   spag_nextblock_1 = 37
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSEIF ( .NOT.(idforc) ) THEN
-               Nlogic = 2
-               Ofile = Oef1
-               Device = Fdest
-               Iseq = 5
-               ifltyp = Dtype(Iseq)
-               Irecx = Icc + Ielf
-               Nwds = Nwdfor
+               nlogic = 2
+               ofile = oef1
+               device = fdest
+               iseq = 5
+               ifltyp = dtype(iseq)
+               irecx = icc + ielf
+               nwds = nwdfor
                jcmplx = nptfor
-               ASSIGN 40 TO Iretrn
+               ASSIGN 40 TO iretrn
                spag_nextblock_1 = 37
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -498,18 +496,18 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     MOVE ESTA DATA INTO /SDR2X7/
 !
- 40      nsesta = Estawd
-         IF ( ielchk==0 .OR. Ipart<2 .OR. ielchk/=ielold ) THEN
-            Ipart = 0
+ 40      nsesta = estawd
+         IF ( ielchk==0 .OR. ipart<2 .OR. ielchk/=ielold ) THEN
+            ipart = 0
          ELSE
-            Ipart = 1
+            ipart = 1
          ENDIF
          spag_nextblock_1 = 13
       CASE (13)
-         Ipart = Ipart + 1
-         DO I = 1 , Nwdsa
-            Estawd = Estawd + 1
-            Elesta(I) = Z(Estawd)
+         ipart = ipart + 1
+         DO i = 1 , nwdsa
+            estawd = estawd + 1
+            elesta(i) = z(estawd)
          ENDDO
          acstic = .FALSE.
 !
@@ -559,54 +557,54 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
                   spag_nextblock_1 = 34
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( jltype==7 .OR. jltype==8 ) THEN
-                  K = 4
-                  CALL spanl2(K)
+                  k = 4
+                  CALL spanl2(k)
                ELSEIF ( jltype==9 .OR. jltype==10 ) THEN
-                  K = 5
-                  CALL spanl2(K)
+                  k = 5
+                  CALL spanl2(k)
                ELSEIF ( jltype==11 .OR. jltype==12 .OR. jltype==33 .OR. jltype==34 ) THEN
-                  K = 3
-                  CALL strqd2(K,Tgrid(1))
+                  k = 3
+                  CALL strqd2(k,tgrid(1))
                ELSEIF ( jltype==13 .OR. jltype==14 ) THEN
-                  K = 0
-                  CALL sbspl2(K,Tgrid(1))
+                  k = 0
+                  CALL sbspl2(k,tgrid(1))
                ELSEIF ( jltype==15 .OR. jltype==16 ) THEN
-                  K = 3
-                  CALL sbspl2(K,Tgrid(1))
+                  k = 3
+                  CALL sbspl2(k,tgrid(1))
                ELSEIF ( jltype==17 .OR. jltype==18 ) THEN
-                  K = 1
-                  CALL stqme2(K)
+                  k = 1
+                  CALL stqme2(k)
                ELSEIF ( jltype==21 .OR. jltype==22 .OR. jltype==23 .OR. jltype==24 .OR. jltype==25 .OR. jltype==26 .OR.             &
                       & jltype==27 .OR. jltype==28 ) THEN
                   CALL selas2
                ELSEIF ( jltype==29 .OR. jltype==30 ) THEN
-                  K = 4
-                  CALL sbspl2(K,Tgrid(1))
+                  k = 4
+                  CALL sbspl2(k,tgrid(1))
                ELSEIF ( jltype==31 .OR. jltype==32 ) THEN
-                  K = 2
-                  CALL stqme2(K)
+                  k = 2
+                  CALL stqme2(k)
                ELSEIF ( jltype==35 .OR. jltype==36 .OR. jltype==37 .OR. jltype==38 ) THEN
-                  K = 4
-                  CALL strqd2(K,Tgrid(1))
+                  k = 4
+                  CALL strqd2(k,tgrid(1))
                ELSEIF ( jltype==67 .OR. jltype==68 ) THEN
-                  CALL sbar2(Tgrid(1))
+                  CALL sbar2(tgrid(1))
                ELSEIF ( jltype==69 .OR. jltype==70 ) THEN
                   again = .FALSE.
-                  CALL scone2(Sorc)
+                  CALL scone2(sorc)
                ELSEIF ( jltype==71 .OR. jltype==72 ) THEN
-                  CALL strir2(Tgrid(2))
+                  CALL strir2(tgrid(2))
                ELSEIF ( jltype==73 .OR. jltype==74 ) THEN
-                  CALL strap2(Tgrid(2))
+                  CALL strap2(tgrid(2))
                ELSEIF ( jltype==75 .OR. jltype==76 ) THEN
-                  CALL stord2(Tgrid(2))
+                  CALL stord2(tgrid(2))
                ELSEIF ( jltype==77 .OR. jltype==78 ) THEN
-                  CALL ssold2(1,Tgrid(2))
+                  CALL ssold2(1,tgrid(2))
                ELSEIF ( jltype==79 .OR. jltype==80 ) THEN
-                  CALL ssold2(2,Tgrid(2))
+                  CALL ssold2(2,tgrid(2))
                ELSEIF ( jltype==81 .OR. jltype==82 ) THEN
-                  CALL ssold2(3,Tgrid(2))
+                  CALL ssold2(3,tgrid(2))
                ELSEIF ( jltype==83 .OR. jltype==84 ) THEN
-                  CALL ssold2(4,Tgrid(2))
+                  CALL ssold2(4,tgrid(2))
                ELSEIF ( jltype==93 .OR. jltype==94 ) THEN
                   kk = 0
                   spag_nextblock_1 = 14
@@ -683,20 +681,20 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
             ELSEIF ( local==37 .OR. local==38 ) THEN
             ELSEIF ( local==39 .OR. local==40 ) THEN
                again = .FALSE.
-               CALL strax2(Sorc,Tgrid(2))
+               CALL strax2(sorc,tgrid(2))
             ELSEIF ( local==41 .OR. local==42 ) THEN
                again = .FALSE.
-               CALL stpax2(Sorc,Tgrid(2))
+               CALL stpax2(sorc,tgrid(2))
             ELSEIF ( local==45 .OR. local==46 ) THEN
-               CALL strm62(Tgrid(1))
+               CALL strm62(tgrid(1))
             ELSEIF ( local==47 .OR. local==48 ) THEN
-               CALL strp12(Tgrid(1))
+               CALL strp12(tgrid(1))
             ELSEIF ( local==49 .OR. local==50 ) THEN
-               CALL strsl2(Tgrid(1))
+               CALL strsl2(tgrid(1))
             ELSEIF ( local==59 .OR. local==60 ) THEN
-               CALL ss2d82(Ieqex,Neqex,Tgrid(1))
+               CALL ss2d82(Ieqex,Neqex,tgrid(1))
             ELSEIF ( local==61 .OR. local==62 ) THEN
-               CALL selbo2(Tgrid(1))
+               CALL selbo2(tgrid(1))
             ELSEIF ( local==65 .OR. local==66 ) THEN
 !
                CALL stri32
@@ -705,23 +703,20 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
             ENDIF
          ENDIF
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
-         CALL saxif2(kk,Ipart,Branch,Z(Jlist))
+         CALL saxif2(kk,ipart,branch,z(jlist))
          acstic = .TRUE.
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
-         CALL sslot2(kk,Ipart,Branch,Z(Jlist))
+         CALL sslot2(kk,ipart,branch,z(jlist))
          acstic = .TRUE.
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
          SPAG_Loop_1_1: DO
-            CALL sihex2(Eltype-64,Tgrid(1),nip,istrpt,istore)
-            ngp = 12*(Eltype-64) - 4
+            CALL sihex2(eltype-64,tgrid(1),nip,istrpt,istore)
+            ngp = 12*(eltype-64) - 4
             ngp1 = ngp + 1
-            IF ( Eltype==67 ) ngp1 = 21
+            IF ( eltype==67 ) ngp1 = 21
             nip3 = nip**3
             IF ( istrpt<nip3+1 ) THEN
                spag_nextblock_1 = 35
@@ -729,31 +724,31 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
             ENDIF
             IF ( istrpt/=nip3+1 ) THEN
                IF ( istrpt==nip3+1+ngp1 ) istore = 0
-               IF ( Ktype==1 ) EXIT SPAG_Loop_1_1
+               IF ( ktype==1 ) EXIT SPAG_Loop_1_1
                ngpx = istrpt - (nip3+1)
                nw = 22
-               IF ( Eltype==67 ) nw = 23
+               IF ( eltype==67 ) nw = 23
                ist = nw*(ngpx-1)
-               IF ( Ipart>=Ktype ) THEN
+               IF ( ipart>=ktype ) THEN
 !
 !     RETRIEVE IMAGINARY PARTS FOR THIS GRID (IHEX ELEMENTS)
 !
-                  ijk = ist + Icore
-                  DO J = 1 , nw
-                     Isaves(J) = Z(J+ijk)
+                  ijk = ist + icore
+                  DO j = 1 , nw
+                     isaves(j) = z(j+ijk)
                   ENDDO
                   EXIT SPAG_Loop_1_1
                ELSE
 !
 !     STORE IMARINARY PARTS FOR THIS GRID (IHEX ELEMENTS)
 !
-                  ijk = ist + Icore
-                  DO J = 1 , nw
-                     Z(J+ijk) = Bufa(J)
+                  ijk = ist + icore
+                  DO j = 1 , nw
+                     z(j+ijk) = bufa(j)
                   ENDDO
                   IF ( istore==0 ) THEN
-                     Ivec = Midvec
-                     Estawd = oldawd
+                     ivec = midvec
+                     estawd = oldawd
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -767,17 +762,17 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     SECOND.  CALL ELEMENT ROUTINE TWICE IF AXIC PROBLEM
 !     ONCE FOR EACH OF THE 2 VECTORS IN CORE
 !
-         IF ( .NOT.(Axic .AND. Midvec/=0 .AND. Ipart==1) ) THEN
-            IF ( Ipart>=Ktype ) THEN
+         IF ( .NOT.(axic .AND. midvec/=0 .AND. ipart==1) ) THEN
+            IF ( ipart>=ktype ) THEN
 !
 !     SPLIT OUTPUT FROM SECOND CALL FOR ACOUSTIC ELEMENTS
 !     AXIF2, AXIF3, AXIF4, SLOT3, OR SLOT4.
 !
                IF ( acstic ) THEN
-                  IF ( Ipart>=2 ) THEN
-                     DO I = 1 , 12
-                        Isaves(I) = Bufa(I)
-                        Bufa(I) = Bufa(I+12)
+                  IF ( ipart>=2 ) THEN
+                     DO i = 1 , 12
+                        isaves(i) = bufa(i)
+                        bufa(i) = bufa(i+12)
                      ENDDO
                   ENDIF
                ENDIF
@@ -785,7 +780,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     OUTPUT ONLY FIRST N HARMONICS REQUESTED
 !
-               IF ( .NOT.Axic ) THEN
+               IF ( .NOT.axic ) THEN
                   spag_nextblock_1 = 18
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -793,7 +788,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
                   spag_nextblock_1 = 34
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Ipart==2 .AND. Ktype==1 ) THEN
+               IF ( ipart==2 .AND. ktype==1 ) THEN
                   spag_nextblock_1 = 34
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -801,36 +796,35 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         Ivec = Midvec
+         ivec = midvec
 !
 !     FOR CONICAL SHELL ONLY
 !
-         IF ( .NOT.(Axic .AND. Ktype/=1) ) THEN
-            Itemp = 1
-            IF ( Sorc==1 ) Itemp = 2
-            Sorc = Itemp
+         IF ( .NOT.(axic .AND. ktype/=1) ) THEN
+            itemp = 1
+            IF ( sorc==1 ) itemp = 2
+            sorc = itemp
          ENDIF
-         Estawd = nsesta
-         IF ( .NOT.(Axic .AND. Ktype==1) ) THEN
+         estawd = nsesta
+         IF ( .NOT.(axic .AND. ktype==1) ) THEN
 !
 !     SAVE IMAGINARY OUTPUTS  (NOT MORE THAN 75 STRESS OR FORCE WORDS)
 !
-            DO I = 1 , 75
-               Isaves(I) = Bufa(I)
-               Isavef(I) = Bufb(I)
+            DO i = 1 , 75
+               isaves(i) = bufa(i)
+               isavef(i) = bufb(i)
             ENDDO
          ENDIF
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
 !
 !     OUTPUT STRESS RESULTS ON OES1 (IF REQUESTED)
 !
-         IF ( Jstrs==0 .OR. Nwdstr==0 ) THEN
+         IF ( jstrs==0 .OR. nwdstr==0 ) THEN
             spag_nextblock_1 = 26
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ktype==1 ) THEN
+         IF ( ktype==1 ) THEN
             spag_nextblock_1 = 22
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -843,10 +837,10 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     COMPLEX STRESSES
 !
          iout = 0
-         I = nptstr
+         i = nptstr
          spag_nextblock_1 = 19
       CASE (19)
-         npt = Complx(I)
+         npt = complx(i)
          IF ( npt<0 ) THEN
             npt = -npt
             IF ( sphase/=3 ) THEN
@@ -856,15 +850,15 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     COMPUTE MAGNITUDE/PHASE
 !
-            CALL magpha(Bufa(npt),Isaves(npt))
+            CALL magpha(bufa(npt),isaves(npt))
          ELSEIF ( npt==0 ) THEN
 !
 !     TRANSFER RESULTS TO BUFA
 !
-            DO I = 1 , iout
-               Bufa(I) = Elwork(I)
+            DO i = 1 , iout
+               bufa(i) = elwork(i)
             ENDDO
-            Nwdstr = iout
+            nwdstr = iout
             spag_nextblock_1 = 22
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -874,10 +868,9 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
          spag_nextblock_1 = 20
       CASE (20)
          iout = iout + 1
-         Elwork(iout) = Bufa(npt)
-         I = I + 1
+         elwork(iout) = bufa(npt)
+         i = i + 1
          spag_nextblock_1 = 19
-         CYCLE SPAG_DispatchLoop_1
       CASE (21)
          IF ( npt<=lstres ) THEN
             spag_nextblock_1 = 20
@@ -885,10 +878,9 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
          ENDIF
          npt = npt - lstres
          iout = iout + 1
-         Elwork(iout) = Isaves(npt)
-         I = I + 1
+         elwork(iout) = isaves(npt)
+         i = i + 1
          spag_nextblock_1 = 19
-         CYCLE SPAG_DispatchLoop_1
       CASE (22)
 !
 !     WRITE STRESSES
@@ -896,7 +888,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     DETERMINE DESTINATION FOR STRESS ENTRY
 !
-         IF ( Stress==0 ) THEN
+         IF ( stress==0 ) THEN
             spag_nextblock_1 = 26
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -904,59 +896,58 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
             spag_nextblock_1 = 26
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         id = Bufa(1)
-         Bufa(1) = 10*id + Sdest
-         IF ( Xsetns<0 ) THEN
-         ELSEIF ( Xsetns==0 ) THEN
-            Bufa(1) = 10*id
+         id = bufa(1)
+         bufa(1) = 10*id + sdest
+         IF ( xsetns<0 ) THEN
+         ELSEIF ( xsetns==0 ) THEN
+            bufa(1) = 10*id
          ELSE
-            Ix = Ixsets
+            ix = ixsets
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 25
-         CYCLE SPAG_DispatchLoop_1
       CASE (23)
-         IF ( Ix/=Nxsets ) THEN
-            IF ( Z(Ix+1)<=0 ) THEN
-               IF ( id>=Z(Ix) .AND. id<=(-Z(Ix+1)) ) THEN
+         IF ( ix/=nxsets ) THEN
+            IF ( z(ix+1)<=0 ) THEN
+               IF ( id>=z(ix) .AND. id<=(-z(ix+1)) ) THEN
                   spag_nextblock_1 = 25
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Ix = Ix + 2
+               ix = ix + 2
                spag_nextblock_1 = 24
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( id==Z(Ix) ) THEN
+         IF ( id==z(ix) ) THEN
             spag_nextblock_1 = 25
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Ix = Ix + 1
+         ix = ix + 1
          spag_nextblock_1 = 24
       CASE (24)
-         IF ( Ix<=Nxsets ) THEN
+         IF ( ix<=nxsets ) THEN
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Bufa(1) = 10*id
+         bufa(1) = 10*id
          spag_nextblock_1 = 25
       CASE (25)
 !
 !     NOW WRITE STRESS ENTRY
 !
-         CALL write(Oes1,Bufa(1),Nwdstr,0)
-         Bufa(1) = id
+         CALL write(oes1,bufa(1),nwdstr,0)
+         bufa(1) = id
          spag_nextblock_1 = 26
       CASE (26)
 !
 !     OUTPUT FORCE RESULTS ON OEF1 (IF REQUESTED)
 !
-         IF ( Jforc==0 .OR. Nwdfor==0 ) THEN
+         IF ( jforc==0 .OR. nwdfor==0 ) THEN
             spag_nextblock_1 = 34
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ktype==1 ) THEN
+         IF ( ktype==1 ) THEN
             spag_nextblock_1 = 30
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -964,10 +955,10 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     COMPLEX FORCES
 !
          iout = 0
-         I = nptfor
+         i = nptfor
          spag_nextblock_1 = 27
       CASE (27)
-         npt = Complx(I)
+         npt = complx(i)
          IF ( npt<0 ) THEN
             npt = -npt
             IF ( fphase/=3 ) THEN
@@ -977,15 +968,15 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     COMPUTE MAGNITUDE/PHASE FOR FORCES
 !
-            CALL magpha(Bufb(npt),Isavef(npt))
+            CALL magpha(bufb(npt),isavef(npt))
          ELSEIF ( npt==0 ) THEN
 !
 !     TRANSFER RESULTS TO BUFB
 !
-            DO I = 1 , iout
-               Bufb(I) = Elwork(I)
+            DO i = 1 , iout
+               bufb(i) = elwork(i)
             ENDDO
-            Nwdfor = iout
+            nwdfor = iout
             spag_nextblock_1 = 30
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -995,10 +986,9 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
          spag_nextblock_1 = 28
       CASE (28)
          iout = iout + 1
-         Elwork(iout) = Bufb(npt)
-         I = I + 1
+         elwork(iout) = bufb(npt)
+         i = i + 1
          spag_nextblock_1 = 27
-         CYCLE SPAG_DispatchLoop_1
       CASE (29)
          IF ( npt<=lforce ) THEN
             spag_nextblock_1 = 28
@@ -1006,10 +996,9 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
          ENDIF
          npt = npt - lforce
          iout = iout + 1
-         Elwork(iout) = Isavef(npt)
-         I = I + 1
+         elwork(iout) = isavef(npt)
+         i = i + 1
          spag_nextblock_1 = 27
-         CYCLE SPAG_DispatchLoop_1
       CASE (30)
 !
 !     WRITE FORCES
@@ -1017,7 +1006,7 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     DETERMINE DESTINATION FOR FORCE ENTRY
 !
-         IF ( Force==0 ) THEN
+         IF ( force==0 ) THEN
             spag_nextblock_1 = 34
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1025,49 +1014,48 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
             spag_nextblock_1 = 34
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         id = Bufb(1)
-         Bufb(1) = 10*id + Fdest
-         IF ( Xsetnf<0 ) THEN
-         ELSEIF ( Xsetnf==0 ) THEN
-            Bufb(1) = 10*id
+         id = bufb(1)
+         bufb(1) = 10*id + fdest
+         IF ( xsetnf<0 ) THEN
+         ELSEIF ( xsetnf==0 ) THEN
+            bufb(1) = 10*id
          ELSE
-            Ix = Ixsetf
+            ix = ixsetf
             spag_nextblock_1 = 31
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 33
-         CYCLE SPAG_DispatchLoop_1
       CASE (31)
-         IF ( Ix/=Nxsetf ) THEN
-            IF ( Z(Ix+1)<=0 ) THEN
-               IF ( id>=Z(Ix) .AND. id<=(-Z(Ix+1)) ) THEN
+         IF ( ix/=nxsetf ) THEN
+            IF ( z(ix+1)<=0 ) THEN
+               IF ( id>=z(ix) .AND. id<=(-z(ix+1)) ) THEN
                   spag_nextblock_1 = 33
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Ix = Ix + 2
+               ix = ix + 2
                spag_nextblock_1 = 32
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( id==Z(Ix) ) THEN
+         IF ( id==z(ix) ) THEN
             spag_nextblock_1 = 33
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Ix = Ix + 1
+         ix = ix + 1
          spag_nextblock_1 = 32
       CASE (32)
-         IF ( Ix<=Nxsetf ) THEN
+         IF ( ix<=nxsetf ) THEN
             spag_nextblock_1 = 31
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Bufb(1) = 10*id
+         bufb(1) = 10*id
          spag_nextblock_1 = 33
       CASE (33)
 !
 !     NOW WRITE FORCE ENTRY
 !
-         CALL write(Oef1,Bufb(1),Nwdfor,0)
-         Bufb(1) = id
+         CALL write(oef1,bufb(1),nwdfor,0)
+         bufb(1) = id
          spag_nextblock_1 = 34
       CASE (34)
          IF ( .NOT.(again) ) THEN
@@ -1075,64 +1063,63 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
                spag_nextblock_1 = 16
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Ktype/=1 .OR. (Axic .AND. Midvec/=0) ) Ivec = Isave
-            IF ( Axic .AND. Midvec/=0 ) Sorc = isvsrc
-            IF ( .NOT.Axic ) THEN
+            IF ( ktype/=1 .OR. (axic .AND. midvec/=0) ) ivec = isave
+            IF ( axic .AND. midvec/=0 ) sorc = isvsrc
+            IF ( .NOT.axic ) THEN
                spag_nextblock_1 = 35
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( nelhar/=Nharms ) THEN
+            IF ( nelhar/=nharms ) THEN
                spag_nextblock_1 = 35
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Eltype==35 ) CALL scone3(again)
-         IF ( Eltype==70 ) CALL strax3(again)
-         IF ( Eltype==71 ) CALL stpax3(again)
+         IF ( eltype==35 ) CALL scone3(again)
+         IF ( eltype==70 ) CALL strax3(again)
+         IF ( eltype==71 ) CALL stpax3(again)
          nelhar = -1
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (35)
-         IF ( Nesta==0 ) THEN
+         IF ( nesta==0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Z(Estawd+1)/=0 ) THEN
+         IF ( z(estawd+1)/=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     END OF ESTA FOR CURRENT ELEMENT TYPE
 !
- 60      IF ( idstrs ) CALL write(Oes1,0,0,1)
-         IF ( idforc ) CALL write(Oef1,0,0,1)
-         IF ( idlyst ) CALL write(Oes1l,0,0,1)
-         IF ( idlyfr ) CALL write(Oef1l,0,0,1)
-         IF ( Nesta==0 ) THEN
-            CALL read(*80,*120,Esta,Eltype,1,0,Flag)
+ 60      IF ( idstrs ) CALL write(oes1,0,0,1)
+         IF ( idforc ) CALL write(oef1,0,0,1)
+         IF ( idlyst ) CALL write(oes1l,0,0,1)
+         IF ( idlyfr ) CALL write(oef1l,0,0,1)
+         IF ( nesta==0 ) THEN
+            CALL read(*80,*120,esta,eltype,1,0,flag)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 36
       CASE (36)
-         Estawd = Estawd + 2
-         IF ( Estawd<Nesta ) THEN
-            Eltype = Z(Estawd)
+         estawd = estawd + 2
+         IF ( estawd<nesta ) THEN
+            eltype = z(estawd)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     END OF ESTA FILE HIT
 !
- 80      Ivec = Isave
-         Icore = jcore
+ 80      ivec = isave
+         icore = jcore
          RETURN
       CASE (37)
 !
 !     INTERNAL SUBROUTINE FOR WRITING ID RECORDS TO OUTPUT FILES
 !
-         DO I = 1 , 50
-            buf(I) = 0
+         DO i = 1 , 50
+            buf(i) = 0
          ENDDO
 !
 !     IF THE ID IS BEING WRITTEN TO A FILE WITH COMPLEX DATA,
@@ -1141,17 +1128,17 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     IN THE 'COMPLX' ARRAY.  (SEE FORTRAN LABELS 651 THRU 654
 !     AND 951 THRU 954)
 !
-         IF ( Ktype/=1 ) THEN
+         IF ( ktype/=1 ) THEN
             IF ( jcmplx==0 ) RETURN 1
             jout = 0
-            I = jcmplx
+            i = jcmplx
             SPAG_Loop_1_2: DO
-               ncmplx = Complx(I)
+               ncmplx = complx(i)
                IF ( ncmplx/=0 ) THEN
                   jout = jout + 1
-                  I = I + 1
+                  i = i + 1
                ELSE
-                  Nwds = jout
+                  nwds = jout
                   EXIT SPAG_Loop_1_2
                ENDIF
             ENDDO SPAG_Loop_1_2
@@ -1160,36 +1147,36 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     CHECK FOR VON MISES STRESS REQUEST.  SET WORD 11 IF
 !     REQUEST IS FOUND.
 !
-         IF ( andf(Nstrop,1)/=0 ) buf(11) = 1
+         IF ( andf(nstrop,1)/=0 ) buf(11) = 1
 !
-         IF ( Branch==2 .OR. Branch==8 .OR. Branch==9 ) THEN
+         IF ( branch==2 .OR. branch==8 .OR. branch==9 ) THEN
 !
 !     EIGENVALUES OR BUCKLING PHASE 1.
 !
-            buf(2) = ifltyp + Ktypex
-            buf(5) = Z(Jlist)
-            buf(6) = Z(Jlist+1)
-            buf(7) = Z(Jlist+2)
+            buf(2) = ifltyp + ktypex
+            buf(5) = z(jlist)
+            buf(6) = z(jlist+1)
+            buf(7) = z(jlist+2)
             buf(8) = 0
-         ELSEIF ( Branch==5 ) THEN
+         ELSEIF ( branch==5 ) THEN
 !
 !     FREQUENCY RESPONSE.
 !
-            Ix = Icc + Idload
-            buf(8) = Z(Ix)
+            ix = icc + idload
+            buf(8) = z(ix)
             buf(6) = 0
             buf(7) = 0
-            buf(2) = ifltyp + Ktypex
+            buf(2) = ifltyp + ktypex
             spag_nextblock_1 = 38
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Branch==6 ) THEN
+         ELSEIF ( branch==6 ) THEN
 !
 !     TRANSIENT RESPONSE.
 !
-            buf(5) = Z(Jlist)
+            buf(5) = z(jlist)
             buf(2) = ifltyp
-            Ix = Icc + Idload
-            buf(8) = Z(Ix)
+            ix = icc + idload
+            buf(8) = z(ix)
             buf(6) = 0
             buf(7) = 0
             spag_nextblock_1 = 38
@@ -1199,68 +1186,67 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !     NORMAL STATICS OR DIFF.STIFF. PHASE 0 OR 1 OR BUCKLING PHASE 0.
 !
             buf(2) = ifltyp
-            Ix = Icc + Isload
-            buf(5) = Z(Icc+1)
+            ix = icc + isload
+            buf(5) = z(icc+1)
             buf(6) = 0
             buf(7) = 0
-            buf(8) = Z(Ix)
-            IF ( Branch==10 ) THEN
-               Ix = Icc + Ittl + 84
-               Z(Ix) = platit(1)
-               Z(Ix+1) = platit(2)
-               Z(Ix+2) = platit(3)
-               CALL int2al(Ugvvec-1,Z(Ix+3),platit(4))
+            buf(8) = z(ix)
+            IF ( branch==10 ) THEN
+               ix = icc + ittl + 84
+               z(ix) = platit(1)
+               z(ix+1) = platit(2)
+               z(ix+2) = platit(3)
+               CALL int2al(ugvvec-1,z(ix+3),platit(4))
             ENDIF
          ENDIF
          spag_nextblock_1 = 40
-         CYCLE SPAG_DispatchLoop_1
       CASE (38)
 !
 !     FIRST TIME FOR THIS LOAD VECTOR ONLY - MATCH LIST OF
 !
-         IF ( Kfrq==0 ) THEN
+         IF ( kfrq==0 ) THEN
 !
 !     USER REQUESTED FREQS WITH ACTUAL FREQS. MARK FOR
 !     OUTPUT EACH ACTUAL FREQ WHICH IS CLOSEST TO USER REQUEST.
 !
-            Kfrq = 1
-            Ix = Icc + Ifrout
-            Fsetno = Z(Ix)
-            IF ( Fsetno>0 ) THEN
-               Ix = Icc + Ilsym
-               Isetnf = Ix + Z(Ix) + 1
+            kfrq = 1
+            ix = icc + ifrout
+            fsetno = z(ix)
+            IF ( fsetno>0 ) THEN
+               ix = icc + ilsym
+               isetnf = ix + z(ix) + 1
                SPAG_Loop_1_3: DO
-                  isetfr = Isetnf + 2
-                  nsetfr = Z(Isetnf+1) + isetfr - 1
-                  IF ( Z(Isetnf)==Fsetno ) THEN
-                     DO I = isetfr , nsetfr
-                        K = 0
-                        Diff = 1.E25
-                        bufr(1) = zz(I)
-                        DO J = Ilist , Nlist , 2
-                           IF ( Z(J+1)==0 ) THEN
-                              Diff1 = abs(zz(J)-bufr(1))
-                              IF ( Diff1<Diff ) THEN
-                                 Diff = Diff1
-                                 K = J
+                  isetfr = isetnf + 2
+                  nsetfr = z(isetnf+1) + isetfr - 1
+                  IF ( z(isetnf)==fsetno ) THEN
+                     DO i = isetfr , nsetfr
+                        k = 0
+                        diff = 1.E25
+                        bufr(1) = zz(i)
+                        DO j = ilist , nlist , 2
+                           IF ( z(j+1)==0 ) THEN
+                              diff1 = abs(zz(j)-bufr(1))
+                              IF ( diff1<diff ) THEN
+                                 diff = diff1
+                                 k = j
                               ENDIF
                            ENDIF
                         ENDDO
-                        IF ( K/=0 ) Z(K+1) = 1
+                        IF ( k/=0 ) z(k+1) = 1
                      ENDDO
                      spag_nextblock_1 = 39
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     Isetnf = nsetfr + 1
-                     IF ( Isetnf>=Ivec ) THEN
-                        Fsetno = -1
+                     isetnf = nsetfr + 1
+                     IF ( isetnf>=ivec ) THEN
+                        fsetno = -1
                         EXIT SPAG_Loop_1_3
                      ENDIF
                   ENDIF
                ENDDO SPAG_Loop_1_3
             ENDIF
-            DO J = Ilist , Nlist , 2
-               Z(J+1) = 1
+            DO j = ilist , nlist , 2
+               z(j+1) = 1
             ENDDO
          ENDIF
          spag_nextblock_1 = 39
@@ -1268,45 +1254,45 @@ SUBROUTINE sdr2e(Ieqex,Neqex) !HIDESTARS (*,Ieqex,Neqex)
 !
 !     DETERMINE IF CURRENT FREQ IS MARKED FOR OUTPUT.
 !
-         IF ( Z(Jlist+1)==0 ) GOTO 80
-         buf(5) = Z(Jlist)
+         IF ( z(jlist+1)==0 ) GOTO 80
+         buf(5) = z(jlist)
          spag_nextblock_1 = 40
       CASE (40)
 !
 !     WRITE ID RECORD ON OUTPUT FILE.
 !     (FOR MORE DETAIL, SEE OES1 FILE IN PROGRAMMER MANUAL P.2.3-130)
 !
-         buf(1) = Device + 10*Branch
-         buf(3) = Eltype
+         buf(1) = device + 10*branch
+         buf(3) = eltype
 !
 !     CHECK FOR TRIA1, TRIA2, TRIA3, QUAD1, QUAD2, QUAD4  ELEMENTS
 !
-         IF ( Eltype==6 .OR. Eltype==17 .OR. Eltype==18 .OR. Eltype==19 .OR. Eltype==64 .OR. Eltype==83 ) THEN
+         IF ( eltype==6 .OR. eltype==17 .OR. eltype==18 .OR. eltype==19 .OR. eltype==64 .OR. eltype==83 ) THEN
 !
 !     CHECK FOR STRAIN OPTION
 !
-            IF ( buf(2)==5 .AND. Strain ) buf(2) = 21
+            IF ( buf(2)==5 .AND. strain ) buf(2) = 21
          ENDIF
-         buf(4) = Z(Icc+1)
-         IF ( Ddrmm ) buf(4) = 9999
-         buf(9) = iabs(Z(Irecx+2))
-         IF ( buf(9)==1 .AND. Ktype==2 ) buf(9) = 2
-         buf(10) = Nwds
-         CALL write(Ofile,buf(1),50,0)
-         Ix = Icc + Ittl
-         CALL write(Ofile,Z(Ix),96,1)
-         ilogic(Nlogic) = .TRUE.
-         GOTO Iretrn
+         buf(4) = z(icc+1)
+         IF ( ddrmm ) buf(4) = 9999
+         buf(9) = iabs(z(irecx+2))
+         IF ( buf(9)==1 .AND. ktype==2 ) buf(9) = 2
+         buf(10) = nwds
+         CALL write(ofile,buf(1),50,0)
+         ix = icc + ittl
+         CALL write(ofile,z(ix),96,1)
+         ilogic(nlogic) = .TRUE.
+         GOTO iretrn
 !
 !     ERRORS
 !
- 100     N = 2
+ 100     n = 2
          spag_nextblock_1 = 41
          CYCLE SPAG_DispatchLoop_1
- 120     N = 3
+ 120     n = 3
          spag_nextblock_1 = 41
       CASE (41)
-         CALL mesage(N,File,Nam)
+         CALL mesage(n,file,nam)
          RETURN 1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

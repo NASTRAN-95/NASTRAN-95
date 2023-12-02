@@ -1,14 +1,15 @@
-!*==sgena.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sgena.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
+   USE c_blank
+   USE c_sgencm
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SGENCM
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -78,15 +79,15 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
 !
 !     FIND SUBSTRUCTURE
 !
-            DO i = 1 , Nss
+            DO i = 1 , nss
                inam = 2*i + 3
-               IF ( Z(inam)==card(2) .AND. Z(inam+1)==card(3) ) EXIT SPAG_Loop_1_1
+               IF ( z(inam)==card(2) .AND. z(inam+1)==card(3) ) EXIT SPAG_Loop_1_1
             ENDDO
 !
 !     SUBSTRUCTURE NOT FOUND - SKIP OVER DATA
 !
             CALL page2(-4)
-            WRITE (Outt,99001) Uwm , (card(j),j=2,3) , Type , Name
+            WRITE (outt,99001) uwm , (card(j),j=2,3) , Type , name
 99001       FORMAT (A25,' 6329, SUBSTRUCTURE ',2A4,' REFERENCED ON ',2A4,' CARD',/30X,'IS NOT A COMPONENT BASIC SUBSTRUCTURE OF ',  &
                    &'SOLUTION STRUCTURE ',2A4,/30X,'THIS CARD WILL BE IGNORED')
             DO
@@ -98,9 +99,9 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
 !
 !     FOUND SUBSTRUCTURE NAME
 !
-         ipt = Iptr + i - 1
-         igrd = Z(ipt)
-         ngrd = (Z(ipt+1)-Z(ipt))/3
+         ipt = iptr + i - 1
+         igrd = z(ipt)
+         ngrd = (z(ipt+1)-z(ipt))/3
          spag_nextblock_1 = 3
       CASE (3)
          DO
@@ -117,10 +118,10 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
                comp = card(6)
                IF ( comp==0 ) comp = 1
                card(6) = 0
-               CALL bisloc(*20,igrid,Z(igrd),3,ngrd,igr)
+               CALL bisloc(*20,igrid,z(igrd),3,ngrd,igr)
                ig = igr + igrd - 1
                npro = 0
-               DO WHILE ( Z(ig-3)==Z(ig) )
+               DO WHILE ( z(ig-3)==z(ig) )
                   IF ( ig<=igrd ) THEN
                      CALL splt10(comp,cin,ncin)
                      spag_nextblock_1 = 4
@@ -140,18 +141,17 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
 !
 !     BAD GRID
 !
- 20      Nono = 1
+ 20      nono = 1
          CALL page2(-3)
-         WRITE (Outt,99002) Ufm , (card(j),j=2,3) , igrid , comp , Type , Name
+         WRITE (outt,99002) ufm , (card(j),j=2,3) , igrid , comp , Type , name
 99002    FORMAT (A23,' 6022, SUBSTRUCTURE ',2A4,', GRID POINT',I9,', COMPONENTS',I9,1H,/30X,'REFERENCED ON ',2A4,                   &
                 &' CARD, DO NOT EXIST ON SOLUTION STRUCTURE ',2A4)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          DO
-            code = Z(ig+2)
+            code = z(ig+2)
             IF ( code==0 ) code = 1
-            isil = Z(ig+1)
+            isil = z(ig+1)
             CALL decode(code,cexist,nc)
 !
 !     FIND ACTUAL REMAINING COMPONENTS AND WRITE CONVERTED DATA TO
@@ -170,7 +170,7 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Z(ig+3)/=Z(ig) ) GOTO 20
+            IF ( z(ig+3)/=z(ig) ) GOTO 20
             IF ( (ig+3)>=(igrd+3*ngrd) ) GOTO 20
             ig = ig + 3
          ENDDO
@@ -183,13 +183,13 @@ SUBROUTINE sgena(Type,Buf,Mcb,Ifile,Icode,Iextra,Ofile,Ocode,Oextra)
 !
          j = (Icode(2)-1)/16
          i = Icode(2) - 16*j
-         Mcb(j+2) = andf(complf(Two(i+16)),Mcb(j+2))
+         Mcb(j+2) = andf(complf(two(i+16)),Mcb(j+2))
 !
 !     TURN ON TRAILER FOR OUTPUT CARD TYPE
 !
          j = (Ocode(2)-1)/16
          i = Ocode(2) - 16*j
-         Mcb(j+2) = orf(Two(i+16),Mcb(j+2))
+         Mcb(j+2) = orf(two(i+16),Mcb(j+2))
 !
 !     RETURN
 !

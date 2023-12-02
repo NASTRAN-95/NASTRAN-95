@@ -1,21 +1,22 @@
-!*==rcovem.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovem.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovem(Noexcl,Nrowe)
+   USE c_blank
+   USE c_condas
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_parmeg
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_saddx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_PARMEG
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SADDX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,24 +50,24 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !
 !     INITILIZE
 !
-   Lcorez = korsz(Z)
+   lcorez = korsz(z)
 !
 !     FROM THE LAST GROUP ON LAMS CREATE A PARTITIONING VECTOR TO
 !     DIFFERENTIATE THE INCLUDED AND EXCLUDED MODES
 !
    Nrowe = 0
    item = lams
-   CALL sfetch(Rss,lams,1,rc)
+   CALL sfetch(rss,lams,1,rc)
    IF ( rc/=1 ) THEN
 !
 !     ERRORS
 !
-      CALL smsg(rc-2,item,Rss)
+      CALL smsg(rc-2,item,rss)
    ELSE
       n = 2
       CALL sjump(n)
       IF ( n<0 ) THEN
-         CALL smsg(7,item,Rss)
+         CALL smsg(7,item,rss)
       ELSE
          i = 0
          SPAG_Loop_1_1: DO
@@ -74,7 +75,7 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
             CALL suread(icode,1,n,rc)
             IF ( rc==1 ) THEN
                i = i + 1
-               IF ( i>Buf1 ) THEN
+               IF ( i>buf1 ) THEN
                   CALL mesage(8,0,name)
                   EXIT SPAG_Loop_1_1
                ELSE
@@ -92,119 +93,119 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
                Noexcl = .TRUE.
                RETURN
             ELSE
-               IF ( Qa+Pa/=0 ) THEN
-                  Itinp = Rsp
-                  Itoutp = Rsp
-                  Irp = 1
-                  Nrp = i
-                  Incrp = 1
-                  CALL makmcb(Mcba,scr8,Nrp,Rect,Rsp)
-                  CALL gopen(scr8,Z(Buf1),Wrtrew)
-                  CALL pack(rz(1),scr8,Mcba)
-                  CALL close(scr8,Rew)
-                  CALL wrttrl(Mcba)
+               IF ( qa+pa/=0 ) THEN
+                  itinp = rsp
+                  itoutp = rsp
+                  irp = 1
+                  nrp = i
+                  incrp = 1
+                  CALL makmcb(mcba,scr8,nrp,rect,rsp)
+                  CALL gopen(scr8,z(buf1),wrtrew)
+                  CALL pack(rz(1),scr8,mcba)
+                  CALL close(scr8,rew)
+                  CALL wrttrl(mcba)
 !
 !     PARTITION THE EIGENVECTOR TO GET THE EXCLUDED MODES OUT
 !
                   item = phis
-                  CALL mtrxi(scr7,Rss,phis,0,rc)
+                  CALL mtrxi(scr7,rss,phis,0,rc)
                   IF ( rc/=1 ) THEN
-                     CALL smsg(rc-2,item,Rss)
+                     CALL smsg(rc-2,item,rss)
                   ELSE
-                     Rule = 0
-                     Mcbp(1) = scr7
-                     CALL rdtrl(Mcbp)
-                     IF ( Mcbp(2)/=Nrp ) THEN
-                        WRITE (Nout,99001) Uwm , Rss
+                     rule = 0
+                     mcbp(1) = scr7
+                     CALL rdtrl(mcbp)
+                     IF ( mcbp(2)/=nrp ) THEN
+                        WRITE (nout,99001) uwm , rss
 99001                   FORMAT (A25,' 6372, THE PHIS AND LAMS ITEMS ARE INCONSISTANT FOR',' SUBSTRUCTURE ',2A4)
                      ELSE
-                        CALL makmcb(Mcbp11,scr6,Mcbp(3),Rect,Mcbp(5))
-                        Mcbp11(2) = Nrowe
-                        Mcbp21(1) = 0
-                        Mcbp12(1) = 0
-                        Mcbp22(1) = 0
+                        CALL makmcb(mcbp11,scr6,mcbp(3),rect,mcbp(5))
+                        mcbp11(2) = Nrowe
+                        mcbp21(1) = 0
+                        mcbp12(1) = 0
+                        mcbp22(1) = 0
 !
 !     SETUP NULL COLUMN PARTITONING VECTOR
 !
-                        CALL makmcb(Mcbb,0,Mcbp(3),Rect,Rsp)
-                        Mcbb(2) = 1
-                        Mrgz = Lcorez
+                        CALL makmcb(mcbb,0,mcbp(3),rect,rsp)
+                        mcbb(2) = 1
+                        mrgz = lcorez
                         CALL sofcls
 !
-                        CALL partn(Mcba,Mcbb,Z(1))
+                        CALL partn(mcba,mcbb,z(1))
 !
-                        CALL wrttrl(Mcbp11)
+                        CALL wrttrl(mcbp11)
 !
 !     IF BOTH LOADS AND SINGLE POINT CONSTRAINT FORCES EXIST, ADD
 !     THEM TOGETHER
 !
-                        irh = Qa + Pa
-                        IF ( Qa/=0 .AND. Pa/=0 ) THEN
-                           Nomat = 2
-                           Typa = 1
-                           Alpha = 1.0
-                           Mcbaa(1) = Qa
-                           CALL rdtrl(Mcbaa)
-                           Typb = 1
-                           Beta = 1.0
-                           Mcbbb(1) = Pa
-                           CALL rdtrl(Mcbbb)
-                           CALL makmcb(Mcbxx,scr7,Mcbaa(3),Rect,Mcbaa(5))
-                           Mcbxx(2) = Mcbaa(2)
+                        irh = qa + pa
+                        IF ( qa/=0 .AND. pa/=0 ) THEN
+                           nomat = 2
+                           typa = 1
+                           alpha = 1.0
+                           mcbaa(1) = qa
+                           CALL rdtrl(mcbaa)
+                           typb = 1
+                           beta = 1.0
+                           mcbbb(1) = pa
+                           CALL rdtrl(mcbbb)
+                           CALL makmcb(mcbxx,scr7,mcbaa(3),rect,mcbaa(5))
+                           mcbxx(2) = mcbaa(2)
 !
-                           CALL sadd(Z(1),Z(1))
+                           CALL sadd(z(1),z(1))
 !
-                           CALL wrttrl(Mcbxx)
+                           CALL wrttrl(mcbxx)
                            irh = scr7
                         ENDIF
 !
 !     MULTIPLY   PK = QK(T)*(PA + QA)
 !
                         DO i = 1 , 7
-                           Mcba(i) = Mcbp11(i)
+                           mcba(i) = mcbp11(i)
                         ENDDO
-                        Mcbb(i) = irh
-                        CALL rdtrl(Mcbb)
-                        Mcbc(1) = 0
-                        Mpyz = Lcorez
-                        Tflag = 1
-                        Signab = 1
-                        Signc = 1
-                        Mprec = 0
-                        Mscr = scr8
-                        CALL makmcb(Mcbd,scr5,Nrowe,Rect,Mcba(5))
+                        mcbb(i) = irh
+                        CALL rdtrl(mcbb)
+                        mcbc(1) = 0
+                        mpyz = lcorez
+                        tflag = 1
+                        signab = 1
+                        signc = 1
+                        mprec = 0
+                        mscr = scr8
+                        CALL makmcb(mcbd,scr5,Nrowe,rect,mcba(5))
 !
-                        CALL mpyad(Z(1),Z(1),Z(1))
+                        CALL mpyad(z(1),z(1),z(1))
 !
 !     READ MODAL MASS AND TWOPHI*FREQUENCY FOR EACH OF THE EXCLUDED
 !     MODES MODES FROM LAMS
 !     IF MODE WAS EXCLUDED BECAUSE OF NON-PARTICIPATION, SET ITS
 !     FREQUENCY TO ZERO
 !
-                        CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+                        CALL sofopn(z(sof1),z(sof2),z(sof3))
                         item = lams
-                        CALL sfetch(Rss,lams,1,rc)
+                        CALL sfetch(rss,lams,1,rc)
                         IF ( rc/=1 ) THEN
-                           CALL smsg(rc-2,item,Rss)
+                           CALL smsg(rc-2,item,rss)
                         ELSE
                            n = 1
                            CALL sjump(n)
                            IF ( n<=0 ) THEN
-                              CALL smsg(7,item,Rss)
+                              CALL smsg(7,item,rss)
                            ELSE
                               imode = 8
-                              CALL suread(Z(imode),-1,n,rc)
+                              CALL suread(z(imode),-1,n,rc)
                               IF ( rc==2 ) THEN
                                  nmode = imode + n - 1
-                                 IF ( nmode>Buf3 ) THEN
+                                 IF ( nmode>buf3 ) THEN
                                     CALL mesage(8,0,name)
                                     EXIT SPAG_Loop_1_1
                                  ELSE
                                     icode = nmode + 1
-                                    CALL suread(Z(icode),-1,n,rc)
+                                    CALL suread(z(icode),-1,n,rc)
                                     IF ( rc==2 .OR. rc==3 ) THEN
                                        ncode = icode + n - 1
-                                       IF ( ncode>Buf3 ) THEN
+                                       IF ( ncode>buf3 ) THEN
                                          CALL mesage(8,0,name)
                                          EXIT SPAG_Loop_1_1
                                        ELSE
@@ -213,10 +214,10 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
                                          i2 = imode - 2
                                          DO i = icode , ncode
                                          i1 = i1 + 7
-                                         IF ( Z(i)/=1 ) THEN
+                                         IF ( z(i)/=1 ) THEN
                                          i2 = i2 + 2
                                          rz(i2) = rz(i1+3)
-                                         IF ( Z(i)==2 .OR. rz(i2)<=0.001 ) rz(i2) = 0.0
+                                         IF ( z(i)==2 .OR. rz(i2)<=0.001 ) rz(i2) = 0.0
                                          rz(i2+1) = rz(i1+5)
                                          ENDIF
                                          ENDDO
@@ -225,43 +226,43 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !     POSITION SOLN ITEM TO SOLUTION DATA
 !
                                          item = soln
-                                         CALL sfetch(Rss,soln,1,rc)
+                                         CALL sfetch(rss,soln,1,rc)
                                          IF ( rc/=1 ) THEN
-                                         CALL smsg(rc-2,item,Rss)
+                                         CALL smsg(rc-2,item,rss)
                                          EXIT SPAG_Loop_1_1
                                          ELSE
                                          n = 1
                                          CALL sjump(n)
                                          IF ( n<0 ) THEN
-                                         CALL smsg(7,item,Rss)
+                                         CALL smsg(7,item,rss)
                                          EXIT SPAG_Loop_1_1
                                          ELSE
 !
 !     SET UP TO LOOP OVER COLUMNS
 !
-                                         ncol = Mcbd(2)
+                                         ncol = mcbd(2)
                                          nword = 1
-                                         IF ( Mcbd(5)>=3 ) nword = 2
+                                         IF ( mcbd(5)>=3 ) nword = 2
                                          ivec1 = (nmode/2)*2 + 3
                                          icvec1 = ivec1/2 + 1
                                          ivec2 = ivec1 + (Nrowe*nword/2)*2 + 1
-                                         IF ( ivec2+Nrowe>Buf3 ) THEN
+                                         IF ( ivec2+Nrowe>buf3 ) THEN
                                          CALL mesage(8,0,name)
                                          EXIT SPAG_Loop_1_1
                                          ELSE
 !
-                                         CALL gopen(scr5,Z(Buf1),Rdrew)
-                                         CALL gopen(scr3,Z(Buf2),Wrtrew)
-                                         CALL gopen(scr4,Z(Buf3),Wrtrew)
-                                         CALL makmcb(Mcba,scr3,Nrowe,Rect,Rsp)
-                                         CALL makmcb(Mcbb,scr4,Nrowe,Rect,Rsp)
+                                         CALL gopen(scr5,z(buf1),rdrew)
+                                         CALL gopen(scr3,z(buf2),wrtrew)
+                                         CALL gopen(scr4,z(buf3),wrtrew)
+                                         CALL makmcb(mcba,scr3,Nrowe,rect,rsp)
+                                         CALL makmcb(mcbb,scr4,Nrowe,rect,rsp)
 !
-                                         Itinu = Rsp
-                                         IF ( Mcbd(5)>=3 ) Itinu = Csp
-                                         Iru = 1
-                                         Nru = Nrowe
-                                         Incru = 1
-                                         Nrp = Nrowe
+                                         itinu = rsp
+                                         IF ( mcbd(5)>=3 ) itinu = csp
+                                         iru = 1
+                                         nru = Nrowe
+                                         incru = 1
+                                         nrp = Nrowe
 !
 !     LOOP OVER EACH SOLUTION STEP
 !
@@ -273,22 +274,22 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !
 !     GET FREQUENCY OR POLE FROM SOLN ITEM FOR THIS STEP
 !
-                                         IF ( Rfno>3 ) THEN
+                                         IF ( rfno>3 ) THEN
 !
                                          CALL suread(rz(1),1,n,rc)
                                          IF ( rc/=1 ) GOTO 4
-                                         sc = Twophi*rz(1)*(0.0,1.0)
+                                         sc = twophi*rz(1)*(0.0,1.0)
                                          sc2 = sc*sc
                                          ELSE
                                          CALL suread(rz(1),7,n,rc)
                                          IF ( rc/=1 ) GOTO 4
-                                         IF ( Mcbd(5)>=3 ) THEN
+                                         IF ( mcbd(5)>=3 ) THEN
 !
                                          sc = cz(2)
                                          sc2 = sc*sc
                                          ELSE
                                          freq = rz(5)
-                                         s2 = -(Twophi*freq)**2
+                                         s2 = -(twophi*freq)**2
                                          ENDIF
                                          ENDIF
 !
@@ -296,7 +297,7 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !
                                          CALL unpack(*2,scr5,rz(ivec1))
 !
-                                         IF ( Mcbd(5)>=3 ) THEN
+                                         IF ( mcbd(5)>=3 ) THEN
 !
 !     CALCULATE ENERGIES FOR COMPLEX VECTORS
 !
@@ -327,7 +328,7 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
                                          DO i = 1 , Nrowe
                                          im = im + 2
                                          j = i - 1
-                                         IF ( rz(im)==0.0 .OR. (Twophi*freq)>rz(im) ) THEN
+                                         IF ( rz(im)==0.0 .OR. (twophi*freq)>rz(im) ) THEN
 !
                                          rz(ivec1+j) = 0.0
                                          rz(ivec2+j) = 0.0
@@ -355,19 +356,19 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
 !
 !     PACK OUT THE KENETIC AND POTENTIAL ENERGIES
 !
-                                         CALL pack(rz(ivec1),scr3,Mcba)
-                                         CALL pack(rz(ivec2),scr4,Mcbb)
+                                         CALL pack(rz(ivec1),scr3,mcba)
+                                         CALL pack(rz(ivec2),scr4,mcbb)
                                          EXIT SPAG_DispatchLoop_1
                                          END SELECT
                                          ENDDO SPAG_DispatchLoop_1
 !
                                          ENDDO
 !
-                                         CALL close(scr5,Rew)
-                                         CALL close(scr3,Rew)
-                                         CALL close(scr4,Rew)
-                                         CALL wrttrl(Mcba)
-                                         CALL wrttrl(Mcbb)
+                                         CALL close(scr5,rew)
+                                         CALL close(scr3,rew)
+                                         CALL close(scr4,rew)
+                                         CALL wrttrl(mcba)
+                                         CALL wrttrl(mcbb)
 !
 !     NORMAL RETURN
 !
@@ -379,7 +380,7 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
                                     ENDIF
                                  ENDIF
                               ENDIF
- 4                            CALL smsg(rc+4,item,Rss)
+ 4                            CALL smsg(rc+4,item,rss)
                            ENDIF
                         ENDIF
                      ENDIF
@@ -390,13 +391,13 @@ SUBROUTINE rcovem(Noexcl,Nrowe)
          ENDDO SPAG_Loop_1_1
       ENDIF
    ENDIF
-   WRITE (Nout,99002) Uwm , Rss
+   WRITE (nout,99002) uwm , rss
 !
 !     FORMAT STATEMENTS
 !
 99002 FORMAT (A25,' 6371, CALCULATIONS FOR EXCLUDED MODE ENERGIES FOR',' SUBSTRUCTURE ',2A4,' ABORTED.')
    Noexcl = .TRUE.
-   CALL close(scr3,Rew)
-   CALL close(scr4,Rew)
-   CALL close(scr5,Rew)
+   CALL close(scr3,rew)
+   CALL close(scr4,rew)
+   CALL close(scr5,rew)
 END SUBROUTINE rcovem

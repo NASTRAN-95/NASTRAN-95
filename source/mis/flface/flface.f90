@@ -1,12 +1,13 @@
-!*==flface.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flface.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flface(Type,Ect,Elt,Grid)
+   USE c_flbptr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FLBPTR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -84,7 +85,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !
 !     ILLEGAL FACE NUMBER
 !
-         WRITE (Nout,99001) Ufm , faceid , Ect(1)
+         WRITE (nout,99001) ufm , faceid , Ect(1)
 99001    FORMAT (A23,' 8009. FACE',I9,' SPECIFIED FOR FLUID ELEMENT',I9,' IS AN ILLEGAL VALUE.')
          CALL spag_block_2
          RETURN
@@ -97,22 +98,22 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !
       ngrids = 4
       IF ( Elt(6)<0 ) ngrids = 3
-      gs1 = Ibgpdt + (Elt(3)-1)*4
-      gs2 = Ibgpdt + (Elt(4)-1)*4
-      gs3 = Ibgpdt + (Elt(5)-1)*4
+      gs1 = ibgpdt + (Elt(3)-1)*4
+      gs2 = ibgpdt + (Elt(4)-1)*4
+      gs3 = ibgpdt + (Elt(5)-1)*4
       gs4 = -1
-      IF ( ngrids==4 ) gs4 = Ibgpdt + (Elt(6)-1)*4
+      IF ( ngrids==4 ) gs4 = ibgpdt + (Elt(6)-1)*4
 !
       ngridf = gridf(intype)
       DO i = 1 , ngridf
-         gf(i) = Ibgpdt + (Ect(i+2)-1)*4
+         gf(i) = ibgpdt + (Ect(i+2)-1)*4
       ENDDO
 !
 !     FIND NORMAL VECTOR TO STRUCTURAL ELEMENT FACE
 !
       DO i = 1 , 3
-         r1(i) = Z(gs2+i) - Z(gs1+i)
-         r2(i) = Z(gs3+i) - Z(gs1+i)
+         r1(i) = z(gs2+i) - z(gs1+i)
+         r2(i) = z(gs3+i) - z(gs1+i)
       ENDDO
 !
       ks(1) = r1(2)*r2(3) - r1(3)*r2(2)
@@ -126,7 +127,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !
 !     BAD GEOMETRY FOR STRUCTURAL ELEMENT
 !
-         WRITE (Nout,99002) Ufm , Elt(2)
+         WRITE (nout,99002) ufm , Elt(2)
 !
 !     ERROR FORMATS
 !
@@ -148,8 +149,8 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !     FIND CENTROID OF STRUCTURAL FACE
 !
          DO i = 1 , 3
-            cs(i) = Z(gs1+i) + Z(gs2+i) + Z(gs3+i)
-            IF ( ngrids==4 ) cs(i) = cs(i) + Z(gs4+i)
+            cs(i) = z(gs1+i) + z(gs2+i) + z(gs3+i)
+            IF ( ngrids==4 ) cs(i) = cs(i) + z(gs4+i)
             cs(i) = cs(i)/float(ngrids)
          ENDDO
 !
@@ -170,8 +171,8 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !     FIND NORMAL TO FLUID FACE
 !
             DO i = 1 , 3
-               r2(i) = Z(gf2+i) - Z(gf1+i)
-               r3(i) = Z(gf3+i) - Z(gf1+i)
+               r2(i) = z(gf2+i) - z(gf1+i)
+               r3(i) = z(gf3+i) - z(gf1+i)
             ENDDO
 !
             kf(1) = r2(2)*r3(3) - r2(3)*r3(2)
@@ -197,7 +198,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !     FLUID FACE
 !
                DO i = 1 , 3
-                  r2(i) = cs(i) - Z(gf1+i)
+                  r2(i) = cs(i) - z(gf1+i)
                ENDDO
 !
                heigth(if) = abs(kf(1)*r2(1)+kf(2)*r2(2)+kf(3)*r2(3))
@@ -223,7 +224,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !
 !     NO FACE WITHIN 30 DEGREES FO STRUCTURAL ELEMENT FACE
 !
-            WRITE (Nout,99003) Ufm , Ect(1) , Elt(2)
+            WRITE (nout,99003) ufm , Ect(1) , Elt(2)
 99003       FORMAT (A23,' 8007. NO FACE ON FLUID ELEMENT',I9,' IS WITHIN 30 DEGREES OF STRUCTURAL ELEMENT',I9)
             CALL spag_block_2
             RETURN
@@ -234,7 +235,7 @@ SUBROUTINE flface(Type,Ect,Elt,Grid)
 !
 !     FLUID ELEMENT IS NOT WITHIN TOLERENCE RANGE OF STRUCTURAL ELEMENT
 !
-            WRITE (Nout,99004) Ufm , Ect(1) , Elt(2)
+            WRITE (nout,99004) ufm , Ect(1) , Elt(2)
 99004       FORMAT (A23,' 8008. THE DISTANCE BETWEEN FLUID ELEMENT',I9,' AND STRUCTURAL ELEMENT',I9,/30X,                           &
                    &'IS GREATER THAN THE ALLOWED TOLERANCE.')
             CALL spag_block_2
@@ -279,12 +280,12 @@ CONTAINS
 !
 !     BAD GEOMETRY FOR FLUID ELEMENT
 !
-      WRITE (Nout,99005) Ufm , if , Ect(1)
-99005 FORMAT (A23,' 8006. BAD GEOMETRY DEFINED FOR FACE',I9,' OF FLUID ELEMENT',I9)
+      WRITE (Nout,99001) Ufm , If , Ect(1)
+99001 FORMAT (A23,' 8006. BAD GEOMETRY DEFINED FOR FACE',I9,' OF FLUID ELEMENT',I9)
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
-      Error = .TRUE.
+      error = .TRUE.
    END SUBROUTINE spag_block_2
 END SUBROUTINE flface

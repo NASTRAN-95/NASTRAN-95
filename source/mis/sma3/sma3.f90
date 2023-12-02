@@ -1,12 +1,13 @@
-!*==sma3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sma3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sma3
-USE C_BLANK
-USE C_GENELY
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_genely
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -44,8 +45,8 @@ USE ISO_FORTRAN_ENV
 !
 !     GENERAL INITIALIZATION
 !
-         Ifgei = 101
-         Ifkggx = 102
+         ifgei = 101
+         ifkggx = 102
          if201 = 201
          if301 = 301
          if302 = 302
@@ -53,68 +54,68 @@ USE ISO_FORTRAN_ENV
          if304 = 304
          if305 = 305
          if306 = 306
-         Ifout = if201
-         Ifa = if301
-         Ifb = if302
-         Ifc = if303
-         Ifd = if304
-         Ife = if305
-         Iff = if306
+         ifout = if201
+         ifa = if301
+         ifb = if302
+         ifc = if303
+         ifd = if304
+         ife = if305
+         iff = if306
          ifg = 307
-         Inrw = 0
-         Outrw = 1
-         Clsrw = 1
-         Clsnrw = 2
-         Eor = 1
-         Neor = 0
+         inrw = 0
+         outrw = 1
+         clsrw = 1
+         clsnrw = 2
+         eor = 1
+         neor = 0
 !
 !     DETERMINE THE SIZE OF VARIABLE CORE AVAILABLE AND SET IUI TO THE
 !     ZEROTH LOCATION OF VARIABLE CORE.
 !
-         iqmax = korsz(Q)
-         Iui = 0
+         iqmax = korsz(q)
+         iui = 0
 !
 !     OPEN THE GENERAL ELEMENT INPUT FILE AND SKIP OVER THE HEADER
 !     RECORD.
 !
          iggei = iqmax - isys + 1
-         CALL gopen(Ifgei,Q(iggei),0)
+         CALL gopen(ifgei,q(iggei),0)
          iga = iggei - isys
 !
 !     DETERMINE IF THE NUMBER OF GENERAL ELEMENTS IS EVEN OR ODD.
 !
          even = .TRUE.
-         IF ( (Ngenel/2)*2/=Ngenel ) even = .FALSE.
+         IF ( (ngenel/2)*2/=ngenel ) even = .FALSE.
          ipass = 0
 !
 !     COMPUTE LENGTH OF OPEN CORE
 !
-         Left = iga - 1
-         nz = Left
+         left = iga - 1
+         nz = left
 !
 !     READ THE TRAILER FOR KGGX TO SEE IF IT EXISTS.
 !
          onlyge = .FALSE.
-         Mcbkgg(1) = Ifkggx
-         CALL rdtrl(Mcbkgg(1))
-         IF ( Mcbkgg(1)<0 ) THEN
+         mcbkgg(1) = ifkggx
+         CALL rdtrl(mcbkgg(1))
+         IF ( mcbkgg(1)<0 ) THEN
             onlyge = .TRUE.
          ELSE
-            Ifb = Mcbkgg(1)
+            ifb = mcbkgg(1)
             DO i = 1 , 7
-               Mcbb(i) = Mcbkgg(i)
-               Mcbkgg(i) = 0
+               mcbb(i) = mcbkgg(i)
+               mcbkgg(i) = 0
             ENDDO
          ENDIF
 !
 !     INITIALIZATION PRIOR TO LOOP
 !
          IF ( onlyge ) THEN
-            Ifa = Ifout
-            IF ( even ) Ifa = if302
+            ifa = ifout
+            IF ( even ) ifa = if302
          ELSE
-            Ifout = if201
-            IF ( even ) Ifout = if302
+            ifout = if201
+            IF ( even ) ifout = if302
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -126,7 +127,7 @@ USE ISO_FORTRAN_ENV
 !     READ THE ELEMENT ID, THE LENGTH OF THE UI SET, M, AND THE LENGTH
 !     OF THE UD SET, N
 !
-         CALL read(*20,*40,Ifgei,Ibuff3(1),3,Neor,idummy)
+         CALL read(*20,*40,ifgei,ibuff3(1),3,neor,idummy)
          needed = 2*(m+n+m**2+n**2+2*m*n)
          itemp1 = 2*(m+n+m**2) + 3*m
          IF ( itemp1>needed ) needed = itemp1
@@ -134,7 +135,7 @@ USE ISO_FORTRAN_ENV
 !     DETERMINE IF THERE IS ENOUGH CORE STORAGE AVAILABLE TO USE THE IN
 !     CORE MATRIX ROUTINES.
 !
-         IF ( needed>Left ) THEN
+         IF ( needed>left ) THEN
 !
 !     ***********  OUT OF CORE VERSION  *************
 !
@@ -143,13 +144,13 @@ USE ISO_FORTRAN_ENV
 !
             IF ( .NOT.(ipass==1 .AND. onlyge .AND. .NOT.even) ) THEN
                DO i = 1 , 7
-                  ii = Mcbkgg(i)
-                  Mcbkgg(i) = Mcbb(i)
-                  Mcbb(i) = ii
+                  ii = mcbkgg(i)
+                  mcbkgg(i) = mcbb(i)
+                  mcbb(i) = ii
                ENDDO
-               ii = Ifout
-               Ifout = Ifb
-               Ifb = ii
+               ii = ifout
+               ifout = ifb
+               ifb = ii
             ENDIF
 !
 !     THE IN CORE MATRIX ROUTINES CANNOT BE USED.SUBROUTINE SMA3B BUILDS
@@ -163,7 +164,7 @@ USE ISO_FORTRAN_ENV
 !     FACTOR DECOMPOSES THE ZE MATRIX INTO ITS UPPER AND LOWER
 !     TRIANGULAR FACTORS.  TWO SCRATCH FILES ARE NEEDED.
 !
-               CALL factor(Ifa,Ife,Iff,Ifd,Ifc,ifg)
+               CALL factor(ifa,ife,iff,ifd,ifc,ifg)
 !
 !     CONVERT IFB INTO THE IDENTITY MATRIX.  (MCBID HAS BEEN SET UP BY
 !     SMA3B)
@@ -172,7 +173,7 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE Z INVERSE
 !
-               CALL ssg3a(Ifa,Ife,Ifc,Ifd,0,0,-1,0)
+               CALL ssg3a(ifa,ife,ifc,ifd,0,0,-1,0)
             ENDIF
 !
 !     GO TO 150 IF NO SE MATRIX IS PRESENT.
@@ -183,44 +184,44 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE -S XK OR -S XZ  AND STORE ON IFF
 !               E  E     E  E
 !
-               CALL ssg2b(Ifb,Ifd,0,Iff,0,iprec,1,Ifc)
+               CALL ssg2b(ifb,ifd,0,iff,0,iprec,1,ifc)
 !
 !     TRANSPOSE THE SE FILE ONTO IFA.  HENCE IFA CONTAINS THE -SE MATRIX
 !
-               CALL tranp1(Ifb,Ifa,1,Ifc,0,0,0,0,0,0,0)
+               CALL tranp1(ifb,ifa,1,ifc,0,0,0,0,0,0,0)
 !
 !                       -1
 !     COMPUTE K X-S OR Z  X-S AND STORE ON IFE
 !              E   E    E    E
 !
-               CALL ssg2b(Ifd,Ifa,0,Ife,0,iprec,1,Ifc)
+               CALL ssg2b(ifd,ifa,0,ife,0,iprec,1,ifc)
 !
 !              T          T  -1
 !     COMPUTE S XK XS OR S XZ  XS AND STORE ON IFC
 !              E  E  E    E  E   E
 !
-               CALL ssg2b(Ifb,Ife,0,Ifc,0,iprec,1,Ifa)
+               CALL ssg2b(ifb,ife,0,ifc,0,iprec,1,ifa)
 !
 !     SMA3C BUILDS THE FINAL MATRIX OF G (LUSET) SIZE.
 !
-               Mcba(1) = Ifa
+               mcba(1) = ifa
             ENDIF
-            CALL sma3c(ise,Mcba)
+            CALL sma3c(ise,mcba)
 !
 !     RETURN FILES IFB AND IFOUT TO ORIGIONAL FILES AFTER OUT OF CORE
 !
             IF ( .NOT.(ipass==1 .AND. onlyge .AND. .NOT.even) ) THEN
                DO i = 1 , 7
-                  ii = Mcbkgg(i)
-                  Mcbkgg(i) = Mcbb(i)
-                  Mcbb(i) = ii
+                  ii = mcbkgg(i)
+                  mcbkgg(i) = mcbb(i)
+                  mcbb(i) = ii
                ENDDO
-               ii = Ifout
-               Ifout = Ifb
+               ii = ifout
+               ifout = ifb
 !
 !     RETURN TO SUMATION
 !
-               Ifb = ii
+               ifb = ii
             ENDIF
          ELSE
 !
@@ -229,19 +230,19 @@ USE ISO_FORTRAN_ENV
 !
 !     USE THE IN CORE MATRIX ROUTINES.  CALL SMA3A.
 !
-            CALL makmcb(Mcba,Ifa,0,6,iprec)
+            CALL makmcb(mcba,ifa,0,6,iprec)
 !
 !     OPEN THE FILE ON WHICH THE CURRENT GENERAL ELEMENT WILL BE OUTPUT.
 !
-            CALL gopen(Ifa,Q(iga),1)
-            CALL sma3a(Mcba)
+            CALL gopen(ifa,q(iga),1)
+            CALL sma3a(mcba)
 !
 !     STORE THE CORRECT NUMBER OF ROWS IN THE 3RD WORD OF THE MATRIX
 !     CONTROL BLOCK AND CLOSE THE FILE WITH REWIND.
 !
-            Mcba(3) = Mcba(2)
-            CALL wrttrl(Mcba)
-            CALL close(Ifa,Clsrw)
+            mcba(3) = mcba(2)
+            CALL wrttrl(mcba)
+            CALL close(ifa,clsrw)
          ENDIF
 !
 !     SUMATION
@@ -249,7 +250,7 @@ USE ISO_FORTRAN_ENV
 !     JUMP TO 100 ONLY IF THIS IS THE FIRST PASS AND KGGX DOES NOT EXIST
 !
          IF ( .NOT.(ipass==1 .AND. onlyge) ) THEN
-            CALL makmcb(Mcbkgg,Ifout,0,6,iprec)
+            CALL makmcb(mcbkgg,ifout,0,6,iprec)
             iblock(1) = 1
             block(2) = 1.0
             block(3) = 0.0
@@ -264,35 +265,35 @@ USE ISO_FORTRAN_ENV
 !
 !     CLOSE GEI WITH NO REWIND SO SUBROUTINE ADD CAN HAVE THE BUFFER
 !
-            CALL close(Ifgei,2)
+            CALL close(ifgei,2)
 !
 !     CALL SSG2C TO PERFORM SUMMATION - OUTPUT ON IFOUT
 !
-            CALL ssg2c(Ifa,Ifb,Ifout,0,block)
-            IF ( ipass==Ngenel ) THEN
+            CALL ssg2c(ifa,ifb,ifout,0,block)
+            IF ( ipass==ngenel ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL rdtrl(Mcbkgg)
+            CALL rdtrl(mcbkgg)
 !
 !     RESTORE GEI AFTER SUMATION
 !
-            CALL gopen(Ifgei,Q(iggei),2)
+            CALL gopen(ifgei,q(iggei),2)
             IF ( ipass>1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Ngenel==1 ) THEN
+         IF ( ngenel==1 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Ifa = if301
-         Ifb = if302
-         Ifout = if201
+         ifa = if301
+         ifb = if302
+         ifout = if201
          IF ( even ) THEN
-            Ifb = if201
-            Ifout = if302
+            ifb = if201
+            ifout = if302
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
@@ -300,30 +301,29 @@ USE ISO_FORTRAN_ENV
 !     SWITCH FILES IFB AND IFOUT FOR NEXT GENEL PROCESSING
 !
          DO i = 1 , 7
-            ii = Mcbkgg(i)
-            Mcbkgg(i) = Mcbb(i)
-            Mcbb(i) = ii
+            ii = mcbkgg(i)
+            mcbkgg(i) = mcbb(i)
+            mcbb(i) = ii
          ENDDO
-         ii = Ifout
-         Ifout = Ifb
+         ii = ifout
+         ifout = ifb
 !
 !     RETURN TO BEGIN LOOP
 !
-         Ifb = ii
+         ifb = ii
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     WRAP-UP
 !
-         CALL close(Ifgei,Clsrw)
-         IF ( Ifout/=if201 ) CALL mesage(-30,28,5)
+         CALL close(ifgei,clsrw)
+         IF ( ifout/=if201 ) CALL mesage(-30,28,5)
          RETURN
 !
 !     FATAL ERROR MESSAGES
 !
- 20      CALL mesage(-2,Ifgei,name)
- 40      CALL mesage(-3,Ifgei,name)
+ 20      CALL mesage(-2,ifgei,name)
+ 40      CALL mesage(-3,ifgei,name)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

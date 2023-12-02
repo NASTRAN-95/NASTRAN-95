@@ -1,9 +1,10 @@
-!*==sdcomp.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==sdcomp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
+   USE i_smcomx
+   USE c_logout
    IMPLICIT NONE
-   USE I_SMCOMX
-   USE C_LOGOUT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,7 +30,7 @@ SUBROUTINE sdcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
 !
       CALL smcomp(*100,Zi,Zr,Zd)
       IF ( ierror==1 ) THEN
-         WRITE (Lout,99001)
+         WRITE (lout,99001)
 99001    FORMAT (8X,'INSUFFICIENT OPEN CORE FOR NEW SYMMETRIC DECOMPOSITION',/,8X,'WILL SWITCH AND USE OLD METHOD.')
          CALL sdcompx(*100,Zi,Zr,Zd)
       ENDIF

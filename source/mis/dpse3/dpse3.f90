@@ -2,14 +2,20 @@
  
 SUBROUTINE dpse3
    IMPLICIT NONE
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i , j , k , k1 , k2 , kk2 , kk3 , ni , nj , nk , npivot
    INTEGER , DIMENSION(5) :: necpt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -66,12 +72,12 @@ SUBROUTINE dpse3
 !
 !     STORE ECPT IN DOUBLE PRECISION
 !
-   Dp(5) = Ecpt(5)
+   dp(5) = ecpt(5)
    k = 9
    DO i = 1 , 3
       DO j = 1 , 3
          k = k + 1
-         Dp(k) = Ecpt(k)
+         dp(k) = ecpt(k)
       ENDDO
       k = k + 1
    ENDDO
@@ -87,20 +93,20 @@ SUBROUTINE dpse3
 !     R2 STORED IN C(4), C(5), C(6)
 !     R3 STORED IN C(7), C(8), C(9)
 !
-   C(1) = Dp(10) - 2.0D0*Dp(18) + Dp(14)
-   C(2) = Dp(11) - 2.0D0*Dp(19) + Dp(15)
-   C(3) = Dp(12) - 2.0D0*Dp(20) + Dp(16)
+   c(1) = dp(10) - 2.0D0*dp(18) + dp(14)
+   c(2) = dp(11) - 2.0D0*dp(19) + dp(15)
+   c(3) = dp(12) - 2.0D0*dp(20) + dp(16)
 !
-   C(4) = 2.0D0*Dp(14) - Dp(10) - Dp(18)
-   C(5) = 2.0D0*Dp(15) - Dp(11) - Dp(19)
-   C(6) = 2.0D0*Dp(16) - Dp(12) - Dp(20)
+   c(4) = 2.0D0*dp(14) - dp(10) - dp(18)
+   c(5) = 2.0D0*dp(15) - dp(11) - dp(19)
+   c(6) = 2.0D0*dp(16) - dp(12) - dp(20)
 !
-   C(7) = Dp(14) - 2.0D0*Dp(10) + Dp(18)
-   C(8) = Dp(15) - 2.0D0*Dp(11) + Dp(19)
-   C(9) = Dp(16) - 2.0D0*Dp(12) + Dp(20)
+   c(7) = dp(14) - 2.0D0*dp(10) + dp(18)
+   c(8) = dp(15) - 2.0D0*dp(11) + dp(19)
+   c(9) = dp(16) - 2.0D0*dp(12) + dp(20)
 !
    DO i = 1 , 3
-      IF ( necpt(i+1)==Npvt ) THEN
+      IF ( necpt(i+1)==npvt ) THEN
          npivot = i
          GOTO 100
       ENDIF
@@ -120,8 +126,8 @@ SUBROUTINE dpse3
       nk = 1
       k1 = 1
       k2 = 4
-      Sgn1 = 1.0D0
-      Sgn2 = 1.0D0
+      sgn1 = 1.0D0
+      sgn2 = 1.0D0
    ELSEIF ( npivot==2 ) THEN
 !
 !     SET COUNTERS AND POINTERS FOR CALCULATING KBA, KBC
@@ -132,8 +138,8 @@ SUBROUTINE dpse3
       nk = 2
       k1 = 1
       k2 = 7
-      Sgn1 = -1.0D0
-      Sgn2 = 1.0D0
+      sgn1 = -1.0D0
+      sgn2 = 1.0D0
    ELSE
 !
 !     SET COUNTERS AND POINTERS FOR CALCULATING KCA, KCB
@@ -144,27 +150,27 @@ SUBROUTINE dpse3
       nk = 1
       k1 = 4
       k2 = 7
-      Sgn1 = -1.0D0
-      Sgn2 = -1.0D0
+      sgn1 = -1.0D0
+      sgn2 = -1.0D0
    ENDIF
 !
-   Gamma = -Dp(5)/12.0D0
-   Sgn = Sgn1*Gamma
+   gamma = -dp(5)/12.0D0
+   sgn = sgn1*gamma
    k = k1
    DO i = ni , nj , nk
       DO j = 1 , 36
-         Kij(j) = 0.0D0
+         kij(j) = 0.0D0
       ENDDO
       kk2 = k + 1
       kk3 = k + 2
-      Kij(2) = -C(kk3)*Sgn
-      Kij(3) = C(kk2)*Sgn
-      Kij(7) = C(kk3)*Sgn
-      Kij(9) = -C(k)*Sgn
-      Kij(13) = -C(kk2)*Sgn
-      Kij(14) = C(k)*Sgn
-      CALL ds1b(Kij(1),necpt(i+1))
-      Sgn = Sgn2*Gamma
+      kij(2) = -c(kk3)*sgn
+      kij(3) = c(kk2)*sgn
+      kij(7) = c(kk3)*sgn
+      kij(9) = -c(k)*sgn
+      kij(13) = -c(kk2)*sgn
+      kij(14) = c(k)*sgn
+      CALL ds1b(kij(1),necpt(i+1))
+      sgn = sgn2*gamma
       k = k2
    ENDDO
 !

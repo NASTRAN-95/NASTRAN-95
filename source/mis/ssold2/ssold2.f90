@@ -1,14 +1,15 @@
-!*==ssold2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssold2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssold2(Itype,Ftemp)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,62 +51,62 @@ SUBROUTINE ssold2(Itype,Ftemp)
    DATA lld , lsub , frlast/2* - 1 , -1.0E30 , -1.0E30/
 !
    IF ( Itype==2 ) THEN
-      Npts = 6
+      npts = 6
    ELSEIF ( Itype==3 .OR. Itype==4 ) THEN
-      Npts = 8
+      npts = 8
    ELSE
-      Npts = 4
+      npts = 4
    ENDIF
 !
 !
    DO i = 1 , 9
-      Csig(i) = 0.0
-      Sigma(i) = 0.0
+      csig(i) = 0.0
+      sigma(i) = 0.0
    ENDDO
 !
 !     LOOP ON GRID POINTS, DISPLACEMENT EFFECTS
 !
-   DO n = 1 , Npts
-      Npoint = Ivec + nphi(n+1) - 1
-      Ks = 18*n + 2*Npts - 9
-      CALL smmats(Phiout(Ks),6,3,0,Z(Npoint),3,1,0,Temp,Ctmp)
+   DO n = 1 , npts
+      npoint = ivec + nphi(n+1) - 1
+      ks = 18*n + 2*npts - 9
+      CALL smmats(phiout(ks),6,3,0,z(npoint),3,1,0,temp,ctmp)
       DO i = 1 , 6
-         Csig(i+1) = Csig(i+1) + Ctmp(i)
-         Sigma(i+1) = Sigma(i+1) + Temp(i)
+         csig(i+1) = csig(i+1) + ctmp(i)
+         sigma(i+1) = sigma(i+1) + temp(i)
       ENDDO
 !
 !     TEMPERATURE EFFECTS
 !
-      IF ( Ldtemp/=-1 ) THEN
-         Kbeta = Npts + n + 8
-         Factor = (Ftemp(n)-Phiout(Npts+2))*Phiout(Kbeta)
+      IF ( ldtemp/=-1 ) THEN
+         kbeta = npts + n + 8
+         factor = (Ftemp(n)-phiout(npts+2))*phiout(kbeta)
 !
          DO i = 1 , 6
-            Kbeta = Npts + i + 2
-            Sigma(i+1) = Sigma(i+1) - Phiout(Kbeta)*Factor
+            kbeta = npts + i + 2
+            sigma(i+1) = sigma(i+1) - phiout(kbeta)*factor
          ENDDO
       ENDIF
    ENDDO
-   Sigma(1) = Phiout(1)
+   sigma(1) = phiout(1)
    DO i = 1 , 7
-      Stres(i) = Sigma(i)
+      stres(i) = sigma(i)
    ENDDO
 !
 !     OCTAHEDRAL STRESS AND HYDROSTATIC PRESSURE
 !
-   Stres(8) = sqrt(Sigma(2)*(Sigma(2)-Sigma(3)-Sigma(4))*2.0+2.0*Sigma(3)*(Sigma(3)-Sigma(4))+2.0*Sigma(4)                          &
-            & **2+6.0*(Sigma(5)**2+Sigma(6)**2+Sigma(7)**2))/3.0
-   Stres(9) = -(Sigma(2)+Sigma(3)+Sigma(4))/3.0
-   IF ( Nchk>0 ) THEN
+   stres(8) = sqrt(sigma(2)*(sigma(2)-sigma(3)-sigma(4))*2.0+2.0*sigma(3)*(sigma(3)-sigma(4))+2.0*sigma(4)                          &
+            & **2+6.0*(sigma(5)**2+sigma(6)**2+sigma(7)**2))/3.0
+   stres(9) = -(sigma(2)+sigma(3)+sigma(4))/3.0
+   IF ( nchk>0 ) THEN
 !
 !   . CHECK PRECISION
 !
-      Csig(1) = Phiout(1)
+      csig(1) = phiout(1)
       k = 0
 !
 !   . STRESSES
 !
-      CALL sdrchk(Sigma(2),Csig(2),6,k)
+      CALL sdrchk(sigma(2),csig(2),6,k)
       IF ( k==0 ) RETURN
 !
 !   . LIMITS EXCEEDED
@@ -115,21 +116,21 @@ SUBROUTINE ssold2(Itype,Ftemp)
       istyp(2) = typ(j)
       j = 0
 !
-      IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
-         lsub = Isub
-         lld = Ild
-         frlast(1) = Frtmei(1)
-         frlast(2) = Frtmei(2)
+      IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
+         lsub = isub
+         lld = ild
+         frlast(1) = frtmei(1)
+         frlast(2) = frtmei(2)
          j = 2
          CALL page1
       ELSEIF ( eject(2)==0 ) THEN
          GOTO 50
       ENDIF
       CALL sd2rhd(ishd,j)
-      Line = Line + 1
-      WRITE (Nout,99001)
+      line = line + 1
+      WRITE (nout,99001)
 99001 FORMAT (7X,4HTYPE,5X,3HEID,5X,2HSX,5X,2HSY,5X,2HSZ,4X,3HTYZ,4X,3HTXZ,4X,3HTXY)
- 50   WRITE (Nout,99002,ERR=99999) istyp , Csig
+ 50   WRITE (nout,99002,ERR=99999) istyp , csig
 99002 FORMAT (1H0,6X,A4,A1,I7,6F7.1)
    ENDIF
 !

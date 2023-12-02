@@ -1,15 +1,16 @@
-!*==mred2d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2d
+   USE c_bitpos
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -81,7 +82,7 @@ SUBROUTINE mred2d
 !
 !     CHECK USERMODE OPTION FLAG
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
 !
 !     COUNT NUMBER OF FREE, FIXED POINTS WITHIN BOUNDARY SET
 !
@@ -90,22 +91,22 @@ SUBROUTINE mred2d
          ifile = usetmr
          IF ( itrlr(1)<0 ) GOTO 40
          luset = itrlr(3)
-         IF ( (Korbgn+luset)>=Korlen ) THEN
+         IF ( (korbgn+luset)>=korlen ) THEN
             imsg = -8
             ifile = 0
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL gopen(usetmr,Z(Gbuf1),0)
-            CALL read(*20,*40,usetmr,Z(Korbgn),luset,0,nwdsrd)
+            CALL gopen(usetmr,z(gbuf1),0)
+            CALL read(*20,*40,usetmr,z(korbgn),luset,0,nwdsrd)
             CALL close(usetmr,1)
             nuf = 0
             nus = 0
-            snb = Itwo(Us) + Itwo(Un) + Itwo(Ub)
-            lafnb = Itwo(Ul) + Itwo(Ua) + Itwo(Uf) + Itwo(Un) + Itwo(Ub)
+            snb = itwo(us) + itwo(un) + itwo(ub)
+            lafnb = itwo(ul) + itwo(ua) + itwo(uf) + itwo(un) + itwo(ub)
             DO i = 1 , luset
-               IF ( Z(Korbgn+i-1)==lafnb ) nuf = nuf + 1
-               IF ( Z(Korbgn+i-1)==snb ) nus = nus + 1
+               IF ( z(korbgn+i-1)==lafnb ) nuf = nuf + 1
+               IF ( z(korbgn+i-1)==snb ) nus = nus + 1
             ENDDO
 !
 !     IF FIXED SET, COMPUTE GS MATRIX
@@ -139,12 +140,12 @@ SUBROUTINE mred2d
 !     II = 1, PROCESS STIFFNESS MATRIX
 !     II = 2, PROCESS MASS MATRIX
 !
-            IF ( Dry==-2 ) RETURN
-            CALL setlvl(Newnam,1,Oldnam,itest,mred2)
+            IF ( dry==-2 ) RETURN
+            CALL setlvl(newnam,1,oldnam,itest,mred2)
             IF ( itest==8 ) THEN
-               WRITE (Iprntr,99001) Ufm
+               WRITE (iprntr,99001) ufm
 99001          FORMAT (A23,' 6518, ONE OF THE COMPONENT SUBSTRUCTURES HAS BEEN ','USED IN A PREVIOUS COMBINE OR REDUCE.')
-               Dry = -2
+               dry = -2
                RETURN
             ELSE
                DO ii = 1 , 2
@@ -172,20 +173,20 @@ SUBROUTINE mred2d
                      kolumn = itrlr1(2)
                      itrlr2(1) = km
                      CALL rdtrl(itrlr2)
-                     Nrow = itrlr2(3)
+                     nrow = itrlr2(3)
                      kolmns = itrlr2(2)
-                     DO i = 1 , Nrow
-                        rz(Korbgn+i-1) = 0.0
-                        IF ( i>jrow ) rz(Korbgn+i-1) = 1.0
+                     DO i = 1 , nrow
+                        rz(korbgn+i-1) = 0.0
+                        IF ( i>jrow ) rz(korbgn+i-1) = 1.0
                      ENDDO
                      iform = 7
-                     Typin = 1
-                     Typout = 1
-                     Irow = 1
-                     Incr = 1
-                     CALL makmcb(itrlr1,rprtn,Nrow,iform,Typin)
-                     CALL gopen(rprtn,Z(Gbuf1),1)
-                     CALL pack(Z(Korbgn),rprtn,itrlr1)
+                     typin = 1
+                     typout = 1
+                     irow = 1
+                     incr = 1
+                     CALL makmcb(itrlr1,rprtn,nrow,iform,typin)
+                     CALL gopen(rprtn,z(gbuf1),1)
+                     CALL pack(z(korbgn),rprtn,itrlr1)
                      CALL close(rprtn,1)
                      CALL wrttrl(itrlr1)
 !
@@ -194,9 +195,9 @@ SUBROUTINE mred2d
                      isub(1) = kolumn
                      isub(2) = kolmns - kolumn
                      isub(3) = jrow
-                     isub(4) = Nrow - jrow
+                     isub(4) = nrow - jrow
                      itype = 1
-                     CALL gmmerg(bbzero,kmbb,0,0,0,rprtn,rprtn,isub,itype,Z(Korbgn),Korlen)
+                     CALL gmmerg(bbzero,kmbb,0,0,0,rprtn,rprtn,isub,itype,z(korbgn),korlen)
 !
 !     FORM STIFFNESS, MASS MATRICES
 !
@@ -218,7 +219,7 @@ SUBROUTINE mred2d
                      typeb = itrlr1(5)
                      iop = 1
                      CALL ssg2c(km,bbzero,kmhh,iop,block)
-                     CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+                     CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
                   ENDIF
 !
 !     STORE MATRIX ON SOF
@@ -226,9 +227,9 @@ SUBROUTINE mred2d
 !     II = 2, STORE MHH AS MMTX
 !
                   item = itmlst(ii)
-                  itmnam(1) = Newnam(1)
-                  itmnam(2) = Newnam(2)
-                  CALL mtrxo(kmhh,Newnam,item,0,itest)
+                  itmnam(1) = newnam(1)
+                  itmnam(2) = newnam(2)
+                  CALL mtrxo(kmhh,newnam,item,0,itest)
                   IF ( itest/=3 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
@@ -253,20 +254,20 @@ SUBROUTINE mred2d
 !                  *     *
 !                  **   **
 !
-               Nrow = itrlr1(3) + n2
-               IF ( n2==0 ) Nrow = Nrow + (Nmodes-nuf)
+               nrow = itrlr1(3) + n2
+               IF ( n2==0 ) nrow = nrow + (nmodes-nuf)
                iform = 7
-               Typin = 1
-               Typout = 1
-               Irow = 1
-               Incr = 1
-               CALL makmcb(itrlr2,cprtn,Nrow,iform,Typin)
-               DO i = 1 , Nrow
-                  rz(Korbgn+i-1) = 0.0
-                  IF ( i>itrlr1(3) ) rz(Korbgn+i-1) = 1.0
+               typin = 1
+               typout = 1
+               irow = 1
+               incr = 1
+               CALL makmcb(itrlr2,cprtn,nrow,iform,typin)
+               DO i = 1 , nrow
+                  rz(korbgn+i-1) = 0.0
+                  IF ( i>itrlr1(3) ) rz(korbgn+i-1) = 1.0
                ENDDO
-               CALL gopen(cprtn,Z(Gbuf1),1)
-               CALL pack(Z(Korbgn),cprtn,itrlr2)
+               CALL gopen(cprtn,z(gbuf1),1)
+               CALL pack(z(korbgn),cprtn,itrlr2)
                CALL close(cprtn,1)
                CALL wrttrl(itrlr2)
 !
@@ -274,17 +275,17 @@ SUBROUTINE mred2d
 !
                isub(3) = itrlr1(3)
                isub(4) = n2
-               IF ( n2==0 ) isub(4) = Nmodes - nuf
+               IF ( n2==0 ) isub(4) = nmodes - nuf
                itype = 1
-               CALL gmmerg(phh,paa,0,0,0,0,cprtn,isub,itype,Z(Korbgn),Korlen)
+               CALL gmmerg(phh,paa,0,0,0,0,cprtn,isub,itype,z(korbgn),korlen)
 !
 !     SAVE PHH AS PVEC OR PAPP ON SOF
 !
                item = itmlst(3)
-               IF ( Popt==papp ) item = itmlst(4)
-               itmnam(1) = Newnam(1)
-               itmnam(2) = Newnam(2)
-               CALL mtrxo(phh,Newnam,item,0,itest)
+               IF ( popt==papp ) item = itmlst(4)
+               itmnam(1) = newnam(1)
+               itmnam(2) = newnam(2)
+               CALL mtrxo(phh,newnam,item,0,itest)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -294,23 +295,23 @@ SUBROUTINE mred2d
 !
                iform = 2
                kolmns = itrlr1(2)
-               Nrow = n2
-               IF ( n2==0 ) Nrow = Nmodes - nuf
-               CALL makmcb(itrlr2,zero,Nrow,iform,Typin)
-               CALL gopen(zero,Z(Gbuf1),1)
+               nrow = n2
+               IF ( n2==0 ) nrow = nmodes - nuf
+               CALL makmcb(itrlr2,zero,nrow,iform,typin)
+               CALL gopen(zero,z(gbuf1),1)
                DO i = 1 , kolmns
-                  DO j = 1 , Nrow
-                     rz(Korbgn+j-1) = 0.0
+                  DO j = 1 , nrow
+                     rz(korbgn+j-1) = 0.0
                   ENDDO
-                  CALL pack(Z(Korbgn),zero,itrlr2)
+                  CALL pack(z(korbgn),zero,itrlr2)
                ENDDO
                CALL close(zero,1)
                CALL wrttrl(itrlr2)
                item = itmlst(5)
-               IF ( Popt==papp ) item = itmlst(6)
-               itmnam(1) = Oldnam(1)
-               itmnam(2) = Oldnam(2)
-               CALL mtrxo(zero1,Oldnam,item,0,itest)
+               IF ( popt==papp ) item = itmlst(6)
+               itmnam(1) = oldnam(1)
+               itmnam(2) = oldnam(2)
+               CALL mtrxo(zero1,oldnam,item,0,itest)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -353,7 +354,7 @@ SUBROUTINE mred2d
          ELSE
             imsg = -9
          ENDIF
-         Dry = -2
+         dry = -2
          CALL smsg1(imsg,item,itmnam,modnam)
          EXIT SPAG_DispatchLoop_1
       END SELECT

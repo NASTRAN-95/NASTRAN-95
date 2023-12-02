@@ -1,11 +1,12 @@
-!*==ifp1e.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1e.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
+   USE c_ifp1a
+   USE c_xifp1
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_XIFP1
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,7 +41,7 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
       IF ( case(i,2)==0 ) case(i,2) = case(i,1)
    ENDDO
    IF ( case(38,2)==0 ) case(38,2) = case(38,1)
-   IF ( Nsym<=1 .OR. case(16,2)/=0 ) THEN
+   IF ( nsym<=1 .OR. case(16,2)/=0 ) THEN
       DO i = 1 , 7
          ik = (i-1)*3 + 17
          IF ( case(ik,2)==0 ) THEN
@@ -50,7 +51,7 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
             ENDDO
          ENDIF
          iword = case(ik,2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword==none ) case(ik,2) = 0
       ENDDO
    ENDIF
@@ -58,8 +59,8 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
       DO i = 1 , 32
          k = 32*j + i + 6
          iword = case(k,2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-         IF ( iword/=Blank ) CYCLE SPAG_Loop_1_1
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+         IF ( iword/=blank ) CYCLE SPAG_Loop_1_1
       ENDDO
       DO i = 1 , 32
          k = 32*j + i + 6
@@ -71,7 +72,7 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
       case(j,2) = Isubc(i)
       j = j + 1
    ENDDO
-   DO i = 135 , Lencc
+   DO i = 135 , lencc
       IF ( case(i,2)==0 ) case(i,2) = case(i,1)
    ENDDO
 !     IMOV = CASE(136,2)*100000000  !! VAX/IBM INTGER OVERFLOW FOR ANOMA
@@ -84,7 +85,7 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
    IF ( case(7,2)/=0 ) case(7,2) = case(7,2) + imov
    IF ( case(8,2)/=0 ) case(8,2) = case(8,2) + imov
    Icaste = case(8,2)
-   DO iloop = 1 , Nmodes
+   DO iloop = 1 , nmodes
       IF ( case(1,2)>99999999 ) CALL ifp1d(-625)
 !
 !     CHECK FOR METHOD AND LOAD IN SAME SUBCASE
@@ -92,33 +93,33 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
       IF ( case(5,2)/=0 .AND. case(4,2)+case(6,2)+case(7,2)/=0 ) CALL ifp1d(-627)
       IF ( case(4,2)==case(6,2) .AND. case(4,2)/=0 .OR. case(6,2)==case(7,2) .AND. case(6,2)/=0 .OR. case(4,2)==case(7,2) .AND.     &
          & case(4,2)/=0 ) CALL ifp1d(-628)
-      CALL write(Casecc,case(1,2),Lencc,0)
+      CALL write(casecc,case(1,2),lencc,0)
       case(1,2) = case(1,2) + 1
       IF ( case(16,2)>0 ) THEN
-         ido = case(Lencc,2)
-         CALL write(Casecc,Symseq(1),ido,0)
+         ido = case(lencc,2)
+         CALL write(casecc,Symseq(1),ido,0)
       ENDIF
-      IF ( Nset/=0 ) THEN
+      IF ( nset/=0 ) THEN
          ip = Nwdsc + 1
-         DO i = 1 , Nset
+         DO i = 1 , nset
             nwor = core(ip)
-            CALL write(Casecc,core(ip-1),2,0)
-            CALL write(Casecc,core(ip+2),nwor,0)
+            CALL write(casecc,core(ip-1),2,0)
+            CALL write(casecc,core(ip+2),nwor,0)
             ip = ip + nwor + 3
          ENDDO
       ENDIF
-      CALL write(Casecc,core(1),0,1)
+      CALL write(casecc,core(1),0,1)
    ENDDO
-   Nmodes = 1
-   IF ( Nset/=0 ) THEN
+   nmodes = 1
+   IF ( nset/=0 ) THEN
 !
 !     REMOVE ALL SETS REFERING TO SUBCASE ONLY
 !
       iup = Nwdsc
       ip = Nwdsc
-      nset1 = Nset
+      nset1 = nset
       imov = 0
-      DO i = 1 , Nset
+      DO i = 1 , nset
          IF ( core(ip+2)/=1 ) THEN
             imov = 1
             nset1 = nset1 - 1
@@ -136,12 +137,12 @@ SUBROUTINE ifp1e(Isubc,Symseq,Nwdsc,I81,Icaste)
             ip = ip + core(ip+1) + 3
          ENDIF
       ENDDO
-      Nset = nset1
+      nset = nset1
       I81 = iup
    ENDIF
-   DO i = 1 , Lencc
+   DO i = 1 , lencc
       case(i,2) = 0
-      IF ( i>38 .AND. i<135 ) case(i,2) = Blank
+      IF ( i>38 .AND. i<135 ) case(i,2) = blank
    ENDDO
    CALL ifp1f(*99999,iword,i2)
    DO i = 1 , 5

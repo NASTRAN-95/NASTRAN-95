@@ -1,14 +1,15 @@
-!*==tabfmt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tabfmt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tabfmt
+   USE c_blank
+   USE c_output
+   USE c_system
+   USE c_tabftx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_TABFTX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,20 +58,19 @@ SUBROUTINE tabfmt
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         lc = korsz(x) - Nb
+         lc = korsz(x) - nb
          ib = lc + 1
          IF ( lc<=0 ) CALL mesage(-8,lc,subnam)
          ls = 1
-         IF ( P2/=0 ) ls = 2
+         IF ( p2/=0 ) ls = 2
 !
-         DO i = 1 , La
-            IF ( P(1)==Na(1,i) .AND. P(2)==Na(2,i) ) THEN
+         DO i = 1 , la
+            IF ( p(1)==na(1,i) .AND. p(2)==na(2,i) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
          CALL fname(f,name)
@@ -79,9 +79,9 @@ SUBROUTINE tabfmt
          CALL rdtrl(t)
          IF ( t(1)<=0 ) GOTO 460
          CALL open(*460,f,x(ib),0)
-         CALL read(*480,*500,f,nam,2,Re(i),kf)
-         IF ( nam(1)/=P(1) .OR. nam(2)/=P(2) ) THEN
-            IF ( P3==0 ) THEN
+         CALL read(*480,*500,f,nam,2,re(i),kf)
+         IF ( nam(1)/=p(1) .OR. nam(2)/=p(2) ) THEN
+            IF ( p3==0 ) THEN
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -167,9 +167,9 @@ SUBROUTINE tabfmt
          ENDIF
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
- 20      H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = one
+ 20      h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = one
          IF ( lc<4 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -178,14 +178,14 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*40,f,x,4,0,kf)
             j = j + 1
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99001) j , x(1) , (rx(l),l=2,4)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99001) j , x(1) , (rx(l),l=2,4)
 99001       FORMAT (20X,I10,I13,1X,1P,3E20.5)
          ENDDO
  40      IF ( kf==0 ) THEN
@@ -193,7 +193,6 @@ SUBROUTINE tabfmt
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     PRINT CONTENTS OF TABLE DATA BLOCK GPL.
@@ -207,9 +206,9 @@ SUBROUTINE tabfmt
          ASSIGN 60 TO r
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 60      H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = one
+ 60      h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = one
          IF ( lc<5 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -218,25 +217,25 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*80,f,x,5,0,kf)
             j = j + 5
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99017) j , (x(l),l=1,5)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99017) j , (x(l),l=1,5)
          ENDDO
  80      IF ( kf/=0 ) THEN
             j = j + 5
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99017) j , (x(l),l=1,kf)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99017) j , (x(l),l=1,kf)
          ENDIF
 !
 !     RECORD 2
@@ -251,9 +250,9 @@ SUBROUTINE tabfmt
          ASSIGN 100 TO r
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 100     H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = two
+ 100     h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = two
          IF ( lc<6 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -262,25 +261,25 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*120,f,x,6,0,kf)
             j = j + 3
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99018) j , (x(l),l=1,6)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99018) j , (x(l),l=1,6)
          ENDDO
  120     IF ( kf/=0 ) THEN
             j = j + 3
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99018) j , (x(l),l=1,kf)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99018) j , (x(l),l=1,kf)
          ENDIF
 !
          IF ( mod(kf,2)==0 ) THEN
@@ -289,9 +288,9 @@ SUBROUTINE tabfmt
          ENDIF
          spag_nextblock_1 = 12
          CYCLE SPAG_DispatchLoop_1
- 140     H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = one
+ 140     h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = one
          IF ( lc<14 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -300,14 +299,14 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*160,f,x,14,0,kf)
             j = j + 1
-            Line = Line + ls + 2
-            IF ( Line>Nlpp ) THEN
+            line = line + ls + 2
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls + 2
+               WRITE (no,99016)
+               line = ls + 2
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99002) j , x(1) , x(2) , rx(6) , rx(7) , rx(8) , rx(3) , rx(9) , rx(10) , rx(11) , rx(4) , rx(12) , rx(13) ,  &
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99002) j , x(1) , x(2) , rx(6) , rx(7) , rx(8) , rx(3) , rx(9) , rx(10) , rx(11) , rx(4) , rx(12) , rx(13) ,  &
                            & rx(14) , rx(5)
 99002       FORMAT (10X,I10,I10,I10,1P,3E20.8,10X,1P,E20.8/40X,1P,3E20.8,10X,1P,E20.8/40X,1P,3E20.8,10X,1P,E20.8)
          ENDDO
@@ -319,7 +318,6 @@ SUBROUTINE tabfmt
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     PRINT CONTENTS OF TABLE DATA BLOCK EQEXIN
@@ -330,9 +328,9 @@ SUBROUTINE tabfmt
          ASSIGN 180 TO r
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 180     H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = one
+ 180     h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = one
          spag_nextblock_1 = 5
       CASE (5)
          IF ( lc<8 ) THEN
@@ -343,30 +341,30 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*200,f,x,8,0,kf)
             j = j + 4
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99019) j , (x(l),l=1,8)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99019) j , (x(l),l=1,8)
          ENDDO
  200     IF ( kf/=0 ) THEN
             j = j + 4
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99019) j , (x(l),l=1,kf)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99019) j , (x(l),l=1,kf)
          ENDIF
 !
 !     RECORD 2
 !
-         IF ( H1(24)==two ) THEN
+         IF ( h1(24)==two ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -376,17 +374,17 @@ SUBROUTINE tabfmt
          ASSIGN 220 TO r
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 220     H1(19) = P(1)
-         H1(20) = P(2)
+ 220     h1(19) = p(1)
+         h1(20) = p(2)
 !
 !     PRINT CONTENTS OF TABLE DATA BLOCK EQDYN
 !
-         H1(24) = two
+         h1(24) = two
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 240     H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = one
+ 240     h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = one
          IF ( lc<7 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -395,14 +393,14 @@ SUBROUTINE tabfmt
          DO
             CALL read(*480,*260,f,x,7,0,kf)
             j = j + 1
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
-            WRITE (No,99003) x(1) , x(2) , rx(3) , rx(4) , rx(5) , x(6) , x(7)
+            IF ( p2/=0 ) WRITE (no,99016)
+            WRITE (no,99003) x(1) , x(2) , rx(3) , rx(4) , rx(5) , x(6) , x(7)
 99003       FORMAT (7X,I8,10X,I8,10X,3(1P,E12.5,5X),5X,I8,10X,I8)
          ENDDO
  260     IF ( kf==0 ) THEN
@@ -411,9 +409,9 @@ SUBROUTINE tabfmt
          ENDIF
          spag_nextblock_1 = 12
          CYCLE SPAG_DispatchLoop_1
- 280     H1(19) = P(1)
-         H1(20) = P(2)
-         H1(24) = zero
+ 280     h1(19) = p(1)
+         h1(20) = p(2)
+         h1(24) = zero
          IF ( (lc/3)*3/=0 ) THEN
             ival = (lc/3)*3
             CALL read(*480,*300,f,x,ival,0,kf)
@@ -423,18 +421,18 @@ SUBROUTINE tabfmt
  300     wd = ((kf-1)/3) + 1
          IF ( kf==0 ) wd = ((lc-1)/3) + 1
          DO j = 1 , wd
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
+            IF ( p2/=0 ) WRITE (no,99016)
             IF ( x(3*j-1)==-1 ) THEN
-               WRITE (No,99004) j , x(3*j-2) , x(3*j-1) , x(3*j)
+               WRITE (no,99004) j , x(3*j-2) , x(3*j-1) , x(3*j)
 99004          FORMAT (7X,I8,10X,I8,14X,6X,I3,22X,I8)
             ELSE
-               WRITE (No,99005) j , x(3*j-2) , rx(3*j-1) , x(3*j)
+               WRITE (no,99005) j , x(3*j-2) , rx(3*j-1) , x(3*j)
 99005          FORMAT (7X,I8,10X,I8,14X,1P,E12.5,19X,I8)
             ENDIF
          ENDDO
@@ -484,23 +482,23 @@ SUBROUTINE tabfmt
                      a = 3*wd + 1
                      b = a + 7
                      IF ( b>=(a+z(2)) ) b = a + z(2) - 1
-                     Line = Line + ls
-                     IF ( Line>Nlpp ) THEN
+                     line = line + ls
+                     IF ( line>nlpp ) THEN
                         CALL page
-                        WRITE (No,99020) x(3*rl) , y
-                        WRITE (No,99006)
+                        WRITE (no,99020) x(3*rl) , y
+                        WRITE (no,99006)
 99006                   FORMAT (14H0   ELEMENT ID,8X,5H( 1 ),9X,5H( 2 ),9X,5H( 3 ),9X,5H( 4 ),9X,5H( 5 ),9X,5H( 6 ),9X,5H( 7 ),9X,  &
                                &5H( 8 ))
-                        WRITE (No,99016)
-                        Line = ls + 3
+                        WRITE (no,99016)
+                        line = ls + 3
                      ENDIF
                      IF ( eid<0 ) THEN
-                        WRITE (No,99021) eid
+                        WRITE (no,99021) eid
                      ELSEIF ( eid==0 ) THEN
                         CALL read(*480,*340,f,z,2,0,kf)
                      ELSE
-                        WRITE (No,99021) eid , (rx(l),l=a,b)
-                        IF ( P2/=0 ) WRITE (No,99016)
+                        WRITE (no,99021) eid , (rx(l),l=a,b)
+                        IF ( p2/=0 ) WRITE (no,99016)
                         IF ( b/=(a+z(2)-1) ) THEN
                            a = a + 8
                            EXIT SPAG_Loop_2_1
@@ -510,16 +508,16 @@ SUBROUTINE tabfmt
                   DO
                      b = a + 7
                      IF ( b>=(a+z(2)) ) b = a + z(2) - 1
-                     Line = Line + ls
-                     IF ( Line>Nlpp ) THEN
+                     line = line + ls
+                     IF ( line>nlpp ) THEN
                         CALL page
-                        WRITE (No,99020) x(3*rl) , y
-                        WRITE (No,99016)
-                        Line = ls + 3
+                        WRITE (no,99020) x(3*rl) , y
+                        WRITE (no,99016)
+                        line = ls + 3
                      ENDIF
-                     WRITE (No,99007) (rx(l),l=a,b)
+                     WRITE (no,99007) (rx(l),l=a,b)
 99007                FORMAT (17X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5,2X,1P,E12.5)
-                     IF ( P2/=0 ) WRITE (No,99016)
+                     IF ( p2/=0 ) WRITE (no,99016)
                      IF ( b==(a+z(2)-1) ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
@@ -546,13 +544,13 @@ SUBROUTINE tabfmt
          CALL read(*440,*500,f,pi,1,0,kf)
          j = j + 1
          wd = 10
-         Line = Line + ls
-         IF ( Line>Nlpp ) THEN
+         line = line + ls
+         IF ( line>nlpp ) THEN
             CALL page
-            WRITE (No,99016)
-            Line = ls
+            WRITE (no,99016)
+            line = ls
          ENDIF
-         IF ( P2/=0 ) WRITE (No,99016)
+         IF ( p2/=0 ) WRITE (no,99016)
          CALL read(*480,*420,f,m,1,0,kf)
          CALL read(*480,*380,f,x,10,0,kf)
          spag_nextblock_1 = 7
@@ -560,28 +558,28 @@ SUBROUTINE tabfmt
  380     wd = kf
          spag_nextblock_1 = 7
       CASE (7)
-         WRITE (No,99022) j , pi , m , (x(l),l=1,wd)
+         WRITE (no,99022) j , pi , m , (x(l),l=1,wd)
          IF ( m<=10 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO
-            Line = Line + ls
-            IF ( Line>Nlpp ) THEN
+            line = line + ls
+            IF ( line>nlpp ) THEN
                CALL page
-               WRITE (No,99016)
-               Line = ls
+               WRITE (no,99016)
+               line = ls
             ENDIF
-            IF ( P2/=0 ) WRITE (No,99016)
+            IF ( p2/=0 ) WRITE (no,99016)
             CALL read(*480,*400,f,x,10,0,kf)
-            WRITE (No,99023) (x(l),l=1,wd)
+            WRITE (no,99023) (x(l),l=1,wd)
          ENDDO
  400     wd = kf
-         WRITE (No,99023) (x(l),l=1,wd)
+         WRITE (no,99023) (x(l),l=1,wd)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  420     m = 0
-         WRITE (No,99022) pi , m
+         WRITE (no,99022) pi , m
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
 !
@@ -600,7 +598,6 @@ SUBROUTINE tabfmt
 !
  440     IF ( j==0 ) GOTO 480
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !
@@ -608,11 +605,11 @@ SUBROUTINE tabfmt
 !     -------------------------------------------------------------
 !
          DO m = 1 , 32
-            H1(m) = Hx(m,m1)
-            H2(m) = Hx(m,m2)
-            H3(m) = Hx(m,m3)
+            h1(m) = hx(m,m1)
+            h2(m) = hx(m,m2)
+            h3(m) = hx(m,m3)
          ENDDO
-         Line = Nlpp
+         line = nlpp
          GOTO r
       CASE (9)
 !
@@ -620,7 +617,7 @@ SUBROUTINE tabfmt
 !     PRINT TRAILER OF TABLE DATA BLOCK
 !     ---------------------------------
 !
-         WRITE (No,99008) (t(l),l=2,7)
+         WRITE (no,99008) (t(l),l=2,7)
 99008    FORMAT (15H0*** TRAILER = ,6I18)
 !
 !
@@ -631,37 +628,37 @@ SUBROUTINE tabfmt
       CASE (10)
 !
 !
-         WRITE (No,99009) Uwm , P
+         WRITE (no,99009) uwm , p
 99009    FORMAT (A25,' 2094, SUBROUTINE TABFMT, KEYNAME ',2A4,' NOT IN LIST OF AVAILABLE KEYNAMES.')
 !
-         WRITE (No,99010) (Na(1,l),Na(2,l),l=1,La)
+         WRITE (no,99010) (na(1,l),na(2,l),l=1,la)
 99010    FORMAT ('0*** LIST OF RECOGNIZED KEYNAMES FOLLOWS...',/(20X,2A4))
          CALL close(f,1)
          RETURN
 !
- 460     WRITE (No,99011) Uwm
+ 460     WRITE (no,99011) uwm
 99011    FORMAT (A25,' 2095, SUBROUTINE TABFMT, PURGED INPUT.')
          CALL close(f,1)
          RETURN
 !
- 480     WRITE (No,99012) Uwm
+ 480     WRITE (no,99012) uwm
 99012    FORMAT (A25,' 2096, SUBROUTINE TABFMT, EOF ENCOUNTERED.')
          CALL close(f,1)
          RETURN
 !
- 500     WRITE (No,99013) Uwm
+ 500     WRITE (no,99013) uwm
 99013    FORMAT (A25,' 2097, SUBROUTINE TABFMT, EOR ENCOUNTERED.')
          CALL close(f,1)
          RETURN
       CASE (11)
 !
-         WRITE (No,99014) Uwm
+         WRITE (no,99014) uwm
 99014    FORMAT (A25,' 2098, SUBROUTINE TABFMT, INSUFFICIENT CORE.')
          CALL close(f,1)
          RETURN
       CASE (12)
 !
-         WRITE (No,99015) Uwm , kf
+         WRITE (no,99015) uwm , kf
 99015    FORMAT (A25,' 2099, SUBROUTINE TABFMT, KF =',I10)
          CALL close(f,1)
          EXIT SPAG_DispatchLoop_1

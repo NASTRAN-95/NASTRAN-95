@@ -1,9 +1,10 @@
-!*==dssize.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dssize.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dssize(Namfil,Ncols,Nterms,Nstrgs,Nwdtrm)
+   USE i_dsiof
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !

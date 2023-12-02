@@ -1,10 +1,11 @@
-!*==push.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==push.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,15 +44,15 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
 !
 !     REMOVE BLANKS FROM NUMBERS, AND ZERO FILL
 !
-            ish = Ncpw - 1
+            ish = ncpw - 1
             DO i = 1 , 10
                isave = krshft(numbs(i),ish)
                numbs(i) = klshft(isave,ish)
             ENDDO
             isave = krshft(minus,ish)
             minus = klshft(isave,ish)
-            nx = Ncpw - cperwd
-            ixtra = nx*Nbpc
+            nx = ncpw - cperwd
+            ixtra = nx*nbpc
             ibl = 0
             IF ( nx/=0 ) THEN
                ib1 = krshft(blank,ish)
@@ -64,7 +65,7 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
          IF ( Nchar<=0 ) RETURN
          IF ( Nchar+Icol>128 ) THEN
 !
-            WRITE (Iout,99001) Ufm , Nchar , In
+            WRITE (iout,99001) ufm , Nchar , In
 99001       FORMAT (A23,' 6015. TOO MANY CHARACTERS TO BE INSERTED IN A DMAP',' LINE',/6X,4H N =,I8,6X,6HWORD =,A4)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -135,9 +136,9 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
          icl = Icol - (iwrd-1)*cperwd
          lwrd = (Icol+Nchar-2)/cperwd + 1
          lcol = Icol + Nchar - (lwrd-1)*cperwd - 1
-         m1 = (icl-1)*Nbpc
-         m2 = cperwd*Nbpc - m1
-         m3 = m2 + (Ncpw-cperwd)*Nbpc
+         m1 = (icl-1)*nbpc
+         m2 = cperwd*nbpc - m1
+         m3 = m2 + (ncpw-cperwd)*nbpc
 !
 !     M1 IS THE NUMBER OF BITS FOR THE  FIRST SET OF CHARACTERS
 !     M2 IS THE NUMBER OF BITS FOR THE SECOND SET OF CHARACTERS
@@ -145,8 +146,8 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
 !
 !     IADD IS THE CURRENT WORKING WORD, IADD1 IS THE SPILL
 !
-         isave = krshft(Bcd(iwrd),m3/Nbpc)
-         iadd1 = klshft(isave,m3/Nbpc)
+         isave = krshft(Bcd(iwrd),m3/nbpc)
+         iadd1 = klshft(isave,m3/nbpc)
          k = 0
          DO i = iwrd , lwrd
             k = k + 1
@@ -155,14 +156,14 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
 !
 !     MOVE LEFT HALF TO RIGHT SIDE OF IADD AND ADD IADD1
 !
-            isave = krshft(ii(k),(m1+ixtra)/Nbpc)
-            iadd = orf(klshft(isave,ixtra/Nbpc),iadd1)
+            isave = krshft(ii(k),(m1+ixtra)/nbpc)
+            iadd = orf(klshft(isave,ixtra/nbpc),iadd1)
 !
 !     IF THIS ISNT THE LAST WORD MOVE THE RIGHT HALF TO IADD1 AND INSERT
 !
             IF ( i<lwrd ) THEN
-               isave = krshft(ii(k),ixtra/Nbpc)
-               iadd1 = klshft(isave,m3/Nbpc)
+               isave = krshft(ii(k),ixtra/nbpc)
+               iadd1 = klshft(isave,m3/nbpc)
 !
                Bcd(i) = orf(iadd,ibl)
             ENDIF
@@ -171,19 +172,19 @@ SUBROUTINE push(In,Bcd,Icol,Nchar,Flag)
 !
 !     LAST WORD PROCESSED HERE, REMOVE EXTRA CHARACTERS
 !
-         ish = Ncpw - lcol
+         ish = ncpw - lcol
          isave = krshft(iadd,ish)
          iadd = klshft(isave,ish)
          isave = klshft(Bcd(lwrd),lcol)
          Bcd(lwrd) = orf(iadd,krshft(isave,lcol))
          RETURN
       CASE (3)
-         WRITE (Iout,99002) Ufm , In
+         WRITE (iout,99002) ufm , In
 99002    FORMAT (A23,' 6016. TOO MANY DIGITS TO BE INSERTED IN DMAP.',2X,'VALUE =',I12)
          spag_nextblock_1 = 4
       CASE (4)
 !
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

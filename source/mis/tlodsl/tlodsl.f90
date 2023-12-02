@@ -1,16 +1,17 @@
-!*==tlodsl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tlodsl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tlodsl(Treal,Tint)
+   USE c_emgdic
+   USE c_matin
+   USE c_matout
+   USE c_ssgwrk
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_EMGDIC
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SSGWRK
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -131,27 +132,27 @@ SUBROUTINE tlodsl(Treal,Tint)
    DO i = 1 , 6
       nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = Est(10)
-   tmem3 = Est(11)
-   tmem5 = Est(12)
+   tmem1 = est(10)
+   tmem3 = est(11)
+   tmem5 = est(12)
    matid2 = iest(13)
-   tbend1 = (Est(14)*12.0)**0.3333333333
-   tbend3 = (Est(15)*12.0)**0.3333333333
-   tbend5 = (Est(16)*12.0)**0.3333333333
+   tbend1 = (est(14)*12.0)**0.3333333333
+   tbend3 = (est(15)*12.0)**0.3333333333
+   tbend5 = (est(16)*12.0)**0.3333333333
    matid3 = iest(17)
-   tshr1 = Est(18)
-   tshr3 = Est(19)
-   tshr5 = Est(20)
-   nsm = Est(21)
+   tshr1 = est(18)
+   tshr3 = est(19)
+   tshr5 = est(20)
+   nsm = est(21)
    j = 0
    DO i = 28 , 48 , 4
       j = j + 1
       ics(j) = iest(i)
-      xc(j) = Est(i+1)
-      yc(j) = Est(i+2)
-      zc(j) = Est(i+3)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
 !
 !     IF TMEM3 OR TMEM5 EQUAL TO ZERO OR BLANK, THEY WILL BE
@@ -169,53 +170,53 @@ SUBROUTINE tlodsl(Treal,Tint)
    IF ( tbend5==0.0 .OR. tbend5==blank ) tbend5 = tbend1
    IF ( t3prim==0.0 .OR. t3prim==blank ) t3prim = t1prim
    IF ( t5prim==0.0 .OR. t5prim==blank ) t5prim = t1prim
-   Eltemp = Est(52)
+   eltemp = est(52)
    avthk = (tbend1+tbend3+tbend5)/3.0
    aviner = avthk**3/12.0
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUTE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
-   IF ( Matid>0 ) THEN
+   matflg = 2
+   matid = matid1
+   IF ( matid>0 ) THEN
       CALL mat(idele)
 !
-      g11 = Em(1)
-      g12 = Em(2)
-      g13 = Em(3)
-      g22 = Em(4)
-      g23 = Em(5)
-      g33 = Em(6)
-      gm1 = Em(1)*Alf(1) + Em(2)*Alf(2) + Em(3)*Alf(3)
-      gm2 = Em(2)*Alf(1) + Em(4)*Alf(2) + Em(5)*Alf(3)
-      gm3 = Em(3)*Alf(1) + Em(5)*Alf(2) + Em(6)*Alf(3)
+      g11 = em(1)
+      g12 = em(2)
+      g13 = em(3)
+      g22 = em(4)
+      g23 = em(5)
+      g33 = em(6)
+      gm1 = em(1)*alf(1) + em(2)*alf(2) + em(3)*alf(3)
+      gm2 = em(2)*alf(1) + em(4)*alf(2) + em(5)*alf(3)
+      gm3 = em(3)*alf(1) + em(5)*alf(2) + em(6)*alf(3)
       g11pr = 0.0
       g22pr = 0.0
       g33pr = 0.0
    ENDIF
-   Matflg = 2
-   Matid = matid2
-   IF ( Matid>0 ) THEN
+   matflg = 2
+   matid = matid2
+   IF ( matid>0 ) THEN
       CALL mat(idele)
-      d11 = Em(1)
-      d12 = Em(2)
-      d13 = Em(3)
-      d22 = Em(4)
-      d23 = Em(5)
-      d33 = Em(6)
-      g(1) = Em(1)
-      g(2) = Em(2)
-      g(3) = Em(3)
-      g(4) = Em(2)
-      g(5) = Em(4)
-      g(6) = Em(5)
-      g(7) = Em(3)
-      g(8) = Em(5)
-      g(9) = Em(6)
+      d11 = em(1)
+      d12 = em(2)
+      d13 = em(3)
+      d22 = em(4)
+      d23 = em(5)
+      d33 = em(6)
+      g(1) = em(1)
+      g(2) = em(2)
+      g(3) = em(3)
+      g(4) = em(2)
+      g(5) = em(4)
+      g(6) = em(5)
+      g(7) = em(3)
+      g(8) = em(5)
+      g(9) = em(6)
 !
 !     IF  TINT(6).NE.1,G1 IS G AND T1PRIME IS ALPHA TIMES T1PRIME
 !     IF  TINT(6).EQ.1,G1 IS G TIMES ALPHA AND T1PRIME IS T1PRIME
@@ -230,7 +231,7 @@ SUBROUTINE tlodsl(Treal,Tint)
          ising = -1
          CALL invers(3,ge1(1),3,ts6(1),0,determ,ising,index)
          IF ( ising==2 ) THEN
-            WRITE (Nout,99001) Ufm , iest(1)
+            WRITE (nout,99002) ufm , iest(1)
             nogo = .TRUE.
             RETURN
          ELSE
@@ -240,7 +241,7 @@ SUBROUTINE tlodsl(Treal,Tint)
 !
 !     G1 IS G TIMES ALFA
 !
-         CALL gmmats(g,3,3,0,Alf,3,1,0,g1)
+         CALL gmmats(g,3,3,0,alf,3,1,0,g1)
 !
          g11pr = g1(1)
          g22pr = g1(2)
@@ -254,7 +255,7 @@ SUBROUTINE tlodsl(Treal,Tint)
 !
 !     COMPUTE THE AREA INTEGRATION FUNCTION F
 !
-   CALL af(F,14,a,b,c,0,0,0,0,0,0,-1)
+   CALL af(f,14,a,b,c,0,0,0,0,0,0,-1)
 !
 !     CALCULATIONS FOR QMATRIX (QQQ) AND ITS INVERSE
 !
@@ -336,11 +337,11 @@ SUBROUTINE tlodsl(Treal,Tint)
 !     SET ISING = -1
 !
    ising = -1
-   CALL invers(6,q,6,ts6(1),0,determ,ising,Ind)
+   CALL invers(6,q,6,ts6(1),0,determ,ising,ind)
    IF ( ising==2 ) THEN
-      WRITE (Nout,99002) Ufm , iest(1)
+      WRITE (nout,99001) ufm , iest(1)
 !
-99002 FORMAT (A23,' 2416, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',/26X,                &
+99001 FORMAT (A23,' 2416, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',/26X,                &
              &'CHECK COORDINATES OF ELEMENT  TRSHL WITH ID =',I9,1H.)
       nogo = .TRUE.
    ELSE
@@ -355,7 +356,7 @@ SUBROUTINE tlodsl(Treal,Tint)
 !     ISING EQUAL TO 2 IMPLIES THAT QQQ IS SINGULAR
 !
       IF ( ising==2 ) THEN
-         WRITE (Nout,99001) Ufm , iest(1)
+         WRITE (nout,99002) ufm , iest(1)
          nogo = .TRUE.
       ELSE
 !
@@ -389,12 +390,12 @@ SUBROUTINE tlodsl(Treal,Tint)
 !     EVALUATE THE CONSTANTS C1,C2,AND C3 IN THE LINEAR EQUATION FOR
 !     THICKNESS VARIATION - MEMBRANE
 !
-         CALL af(F,14,a,b,c,c1,c2,c3,tmem1,tmem3,tmem5,1)
+         CALL af(f,14,a,b,c,c1,c2,c3,tmem1,tmem3,tmem5,1)
          cab(1) = c1
          cab(2) = c2
          cab(3) = c3
-         area = F(1,1)
-         vol = c1*F(1,1) + c2*F(2,1) + c3*F(1,2)
+         area = f(1,1)
+         vol = c1*f(1,1) + c2*f(2,1) + c3*f(1,2)
          uniben = .FALSE.
          unimem = .FALSE.
          unitem = .FALSE.
@@ -408,19 +409,19 @@ SUBROUTINE tlodsl(Treal,Tint)
 !     GRADIENT. CURRENTLY ONLY UNIFORM TEMP GRADIENT IS PERMITTED IN
 !     THE ELEMENT, THOUGH THE CODE IS WRITTEN FOR LINEAR VARIATION
 !
-         CALL af(F,14,a,b,c,dd(1),dd(2),dd(3),t1prim,t3prim,t5prim,1)
+         CALL af(f,14,a,b,c,dd(1),dd(2),dd(3),t1prim,t3prim,t5prim,1)
 !
 !     EL(1) TO EL(3) ARE THE CONSTANTS IN THE LINEAR EQUATION FOR
 !     MEAN TEMP VARIATION
 !
-         el(1) = Treal(1) - Tref
+         el(1) = Treal(1) - tref
          el(2) = 0.0
          el(3) = 0.0
 !
 !     A1,A2,A3 ARE THE COEFFICIENTS OF LINEAR EQUATION FOR VARIATION
 !     OF BENDING THICKNESSES
 !
-         CALL af(F,14,a,b,c,a1,a2,a3,thk1,thk2,thk3,1)
+         CALL af(f,14,a,b,c,a1,a2,a3,thk1,thk2,thk3,1)
          a1sq = a1*a1
          a2sq = a2*a2
          a3sq = a3*a3
@@ -442,7 +443,7 @@ SUBROUTINE tlodsl(Treal,Tint)
 !     AA1, AA2, AA3  ARE COEFFICIENTS IN THICKNESS VARIATION FOR
 !     TRANSVERSE SHEAR
 !
-         CALL af(F,14,a,b,c,aa1,aa2,aa3,tshr1,tshr3,tshr5,1)
+         CALL af(f,14,a,b,c,aa1,aa2,aa3,tshr1,tshr3,tshr5,1)
          h4 = q(4,1)*zc(1) + q(4,2)*zc(2) + q(4,3)*zc(3) + q(4,4)*zc(4) + q(4,5)*zc(5) + q(4,6)*zc(6)
          h5 = q(5,1)*zc(1) + q(5,2)*zc(2) + q(5,3)*zc(3) + q(5,4)*zc(4) + q(5,5)*zc(5) + q(5,6)*zc(6)
          h6 = q(6,1)*zc(1) + q(6,2)*zc(2) + q(6,3)*zc(3) + q(6,4)*zc(4) + q(6,5)*zc(5) + q(6,6)*zc(6)
@@ -500,12 +501,12 @@ SUBROUTINE tlodsl(Treal,Tint)
                      lxsu1 = lxsu + 1
                      mkr1 = mx + kx + rk(k) - 1
                      nls1 = nx + lx + sk(k) - 1
-                     IF ( ixrt>0 ) ptemp = ptemp + cab(k)*el(l)*gm1*rix*F(ixrt,jxsu1)
-                     IF ( lxsu>0 ) ptemp = ptemp + cab(k)*el(l)*gm2*rlx*F(kxrt1,lxsu)
-                     IF ( jxsu>0 ) ptemp = ptemp + cab(k)*el(l)*gm3*rjx*F(ixrt1,jxsu)
-                     IF ( kxrt>0 ) ptemp = ptemp + cab(k)*el(l)*gm3*rkx*F(kxrt,lxsu1)
-                     IF ( mkr1>0 .AND. nls1>0 ) ptemp = ptemp - (g11pr*h4*el(l)*cab(k)*F(mkr1,nls1))                                &
-                        & - (g22pr*h4*el(l)*cab(k)*F(mkr1,nls1)) - (g33pr*h4*el(l)*cab(k)*F(mkr1,nls1))
+                     IF ( ixrt>0 ) ptemp = ptemp + cab(k)*el(l)*gm1*rix*f(ixrt,jxsu1)
+                     IF ( lxsu>0 ) ptemp = ptemp + cab(k)*el(l)*gm2*rlx*f(kxrt1,lxsu)
+                     IF ( jxsu>0 ) ptemp = ptemp + cab(k)*el(l)*gm3*rjx*f(ixrt1,jxsu)
+                     IF ( kxrt>0 ) ptemp = ptemp + cab(k)*el(l)*gm3*rkx*f(kxrt,lxsu1)
+                     IF ( mkr1>0 .AND. nls1>0 ) ptemp = ptemp - (g11pr*h4*el(l)*cab(k)*f(mkr1,nls1))                                &
+                        & - (g22pr*h4*el(l)*cab(k)*f(mkr1,nls1)) - (g33pr*h4*el(l)*cab(k)*f(mkr1,nls1))
                      IF ( unitem ) EXIT SPAG_Loop_3_1
                   ENDDO SPAG_Loop_3_1
                   IF ( unimem ) EXIT SPAG_Loop_2_2
@@ -527,23 +528,23 @@ SUBROUTINE tlodsl(Treal,Tint)
                         nx01yq = nx01y + qt(l)
                         mxxp = mxx + pt(l)
                         nxyq = nxy + qt(l)
-                        IF ( mx01xp>0 .AND. nx1yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(1)*rmx1*F(mx01xp,nx1yq)
-                        IF ( mx1xp>0 .AND. nx01yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(2)*rnx1*F(mx1xp,nx01yq)
-                        IF ( mxxp>0 .AND. nxyq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(3)*rmnx*F(mxxp,nxyq)
+                        IF ( mx01xp>0 .AND. nx1yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(1)*rmx1*f(mx01xp,nx1yq)
+                        IF ( mx1xp>0 .AND. nx01yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(2)*rnx1*f(mx1xp,nx01yq)
+                        IF ( mxxp>0 .AND. nxyq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(3)*rmnx*f(mxxp,nxyq)
                         IF ( unitem ) EXIT SPAG_Loop_3_3
                      ENDDO SPAG_Loop_3_3
                   ENDIF
                   IF ( Tint(6)/=1 ) THEN
-                     IF ( mx01x>0 ) ptemp = ptemp + cc(k)*rmx1*(pl(1)*g(1)+pl(2)*g(2)+pl(3)*g(3))*F(mx01x,nx1y)
-                     IF ( nx01y>0 ) ptemp = ptemp + cc(k)*rnx1*(pl(1)*g(4)+pl(2)*g(5)+pl(3)*g(6))*F(mx1x,nx01y)
-                     IF ( mxx>0 .AND. nxy>0 ) ptemp = ptemp + cc(k)*rmnx*(pl(1)*g(7)+pl(2)*g(8)+pl(3)*g(9))*F(mxx,nxy)
+                     IF ( mx01x>0 ) ptemp = ptemp + cc(k)*rmx1*(pl(1)*g(1)+pl(2)*g(2)+pl(3)*g(3))*f(mx01x,nx1y)
+                     IF ( nx01y>0 ) ptemp = ptemp + cc(k)*rnx1*(pl(1)*g(4)+pl(2)*g(5)+pl(3)*g(6))*f(mx1x,nx01y)
+                     IF ( mxx>0 .AND. nxy>0 ) ptemp = ptemp + cc(k)*rmnx*(pl(1)*g(7)+pl(2)*g(8)+pl(3)*g(9))*f(mxx,nxy)
                   ENDIF
                   IF ( uniben ) EXIT SPAG_Loop_2_4
                ENDDO SPAG_Loop_2_4
                ptem(i) = ptemp/12.0
             ENDIF
          ENDDO
-         CALL gmmats(qq,32,30,+1,ptem,32,1,0,P6)
+         CALL gmmats(qq,32,30,+1,ptem,32,1,0,p6)
          DO i = 1 , 30
             ee(i) = 0.0
          ENDDO
@@ -566,14 +567,14 @@ SUBROUTINE tlodsl(Treal,Tint)
             DO i = 1 , 2
                k1 = 6*(i-1) + k
                i1 = 5*(k-1) + i
-               P7(i1) = P6(k1)
+               p7(i1) = p6(k1)
             ENDDO
          ENDDO
          DO k = 1 , 6
             DO i = 1 , 3
                i2 = 5*(k-1) + i + 2
                k2 = 12 + (k-1)*3 + i
-               P7(i2) = P6(k2)
+               p7(i2) = p6(k2)
             ENDDO
          ENDDO
 !
@@ -598,7 +599,7 @@ SUBROUTINE tlodsl(Treal,Tint)
             ENDDO
             DO k = 1 , 5
                k1 = (sil1-1)*5 + k
-               p8(k) = P7(k1)
+               p8(k) = p7(k1)
             ENDDO
             CALL gmmats(ee,6,5,0,p8,5,1,0,p9)
 !
@@ -617,18 +618,18 @@ SUBROUTINE tlodsl(Treal,Tint)
                   balotr(l+22) = trand(m+1)
                   balotr(l+23) = trand(m+2)
                ENDDO
-               CALL gmmats(balotr(1),6,6,1,p9(1),6,1,0,P6(1))
+               CALL gmmats(balotr(1),6,6,1,p9(1),6,1,0,p6(1))
                DO k = 1 , 6
-                  p9(k) = P6(k)
+                  p9(k) = p6(k)
                ENDDO
             ENDIF
             DO ii = 1 , 6
                i2 = iest(i+1) + ii - 1
-               Pg(i2) = Pg(i2) + p9(ii)
+               pg(i2) = pg(i2) + p9(ii)
             ENDDO
          ENDDO
       ENDIF
    ENDIF
-99001 FORMAT (A23,' 2417, A SINGULAR MATERIAL MATRIX FOR ELEMENT ID =',I9,' HAS BEEN DETECTED BY SUBROUTINE TLODSL',/26X,'WHILE',   &
+99002 FORMAT (A23,' 2417, A SINGULAR MATERIAL MATRIX FOR ELEMENT ID =',I9,' HAS BEEN DETECTED BY SUBROUTINE TLODSL',/26X,'WHILE',   &
              &' TRYING TO COMPUTE THERMAL LOADS WITH TEMPP2 CARD DATA.')
 END SUBROUTINE tlodsl

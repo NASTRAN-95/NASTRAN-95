@@ -2,11 +2,11 @@
  
 SUBROUTINE sfetch(Name,Item,Irw,Itest)
    IMPLICIT NONE
-   USE C_SOF
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_sof
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,21 +24,30 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     POSITIONS THE SOF TO READ OR WRITE DATA ASSOCIATED WITH ITEM OF
 !     SUBSTRUCTURE NAME.
 !
    DATA idle , ird , iwrt/0 , 1 , 2/ , nmsbr/4HSFET , 4HCH  /
 !
    CALL chkopn(nmsbr(1))
-   CALL fdsub(Name(1),Iosind)
-   IF ( Iosind==-1 ) THEN
+   CALL fdsub(Name(1),iosind)
+   IF ( iosind==-1 ) THEN
 !
 !     NAME DOES NOT EXIST.
 !
       Itest = 4
    ELSE
-      Ioitcd = itcode(Item)
-      IF ( Ioitcd==-1 ) THEN
+      ioitcd = itcode(Item)
+      IF ( ioitcd==-1 ) THEN
 !
 !     ITEM IS AN ILLEGAL ITEM NAME.
 !
@@ -54,16 +63,16 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
 !
 !     ATTEMPT TO OPERATE ON A MATRIX ITEM
 !
-               WRITE (Nout,99001) Sfm , Item , Name
+               WRITE (nout,99001) sfm , Item , Name
 99001          FORMAT (A25,' 6227, AN ATTEMPT HAS BEEN MADE TO OPERATE ON THE ','MATRIX ITEM ',A4,' OF SUBSTRUCTURE ',2A4,          &
                       &' USING SFETCH.')
                GOTO 100
             ENDIF
          ENDIF
-         CALL fmdi(Iosind,imdi)
-         Iolbn = 1
-         Ioptr = Io + 1
-         ibl = andf(Buf(imdi+Ioitcd),65535)
+         CALL fmdi(iosind,imdi)
+         iolbn = 1
+         ioptr = io + 1
+         ibl = andf(buf(imdi+ioitcd),65535)
          irdwrt = iabs(Irw)
          IF ( irdwrt==2 ) THEN
 !
@@ -76,25 +85,25 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
 !     ITEM IS TO BE WRITTEN.  GET A FREE BLOCK AND UPDATE THE COMMON
 !     BLOCK SOF.
 !
-                  CALL getblk(0,Ioblk)
-                  IF ( Ioblk==-1 ) THEN
+                  CALL getblk(0,ioblk)
+                  IF ( ioblk==-1 ) THEN
 !
 !     NO MORE BLOCKS ON SOF
 !
-                     WRITE (Nout,99002) Ufm
+                     WRITE (nout,99002) ufm
 99002                FORMAT (A23,' 6223, SUBROUTINE SFETCH - THERE ARE NO MORE FREE ','BLOCKS AVAILABLE ON THE SOF.')
                      GOTO 100
                   ELSE
-                     Iopbn = Ioblk
-                     Iomode = iwrt
+                     iopbn = ioblk
+                     iomode = iwrt
                      RETURN
                   ENDIF
                ELSE
 !
 !     ITEM IS TO BE PSEUDO-WRITTEN.
 !
-                  Buf(imdi+Ioitcd) = 65535
-                  Mdiup = .TRUE.
+                  buf(imdi+ioitcd) = 65535
+                  mdiup = .TRUE.
                   RETURN
                ENDIF
             ELSE
@@ -117,9 +126,9 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
 !
             Itest = 1
             IF ( irdwrt/=3 ) THEN
-               Iopbn = ibl
-               Iomode = ird
-               CALL sofio(ird,Iopbn,Buf(Io-2))
+               iopbn = ibl
+               iomode = ird
+               CALL sofio(ird,iopbn,buf(io-2))
                RETURN
             ENDIF
          ELSE
@@ -130,7 +139,7 @@ SUBROUTINE sfetch(Name,Item,Irw,Itest)
          ENDIF
       ENDIF
    ENDIF
-   Iomode = idle
+   iomode = idle
    RETURN
  100  CALL sofcls
    CALL mesage(-61,0,0)

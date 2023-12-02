@@ -2,17 +2,17 @@
  
 SUBROUTINE ktshls
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA2DP
-   USE C_SYSTEM
-   USE C_XMSSG
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma2dp
+   USE c_system
+   USE c_xmssg
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,6 +51,12 @@ SUBROUTINE ktshls
          & theta1 , thetam , thk1 , thk2 , thk3 , tmem1 , tmem3 , tmem5 , tshr , tshr1 , tshr3 , tshr5 , vol
    INTEGER , DIMENSION(10) , SAVE :: xthk , ythk
    INTEGER , DIMENSION(32) , SAVE :: xu , xv , xw , yu , yv , yw
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -137,46 +143,46 @@ SUBROUTINE ktshls
    DATA xthk/0 , 1 , 0 , 2 , 1 , 0 , 3 , 2 , 1 , 0/
    DATA ythk/0 , 0 , 1 , 0 , 1 , 2 , 0 , 1 , 2 , 3/
 !
-   Dict(1) = Estid
+   dict(1) = estid
 !
 !     COMPONENT CODE,ICODE,IS  111111  AND HAS A VALUE OF 63
 !
    icode = 63
    ndof = 36
    nsq = ndof**2
-   Dict(2) = 1
-   Dict(3) = ndof
-   Dict(4) = icode
-   Dict(5) = Gsube
+   dict(2) = 1
+   dict(3) = ndof
+   dict(4) = icode
+   dict(5) = gsube
    nots = .FALSE.
    imass = .FALSE.
-   IF ( Nom>0 ) imass = .TRUE.
+   IF ( nom>0 ) imass = .TRUE.
    ipass = 1
    idele = iest(1)
    DO i = 1 , 6
-      Nl(i) = iest(i+1)
+      nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = Est(10)
-   tmem3 = Est(11)
-   tmem5 = Est(12)
+   tmem1 = est(10)
+   tmem3 = est(11)
+   tmem5 = est(12)
    matid2 = iest(13)
-   tbend1 = (Est(14)*12.0)**0.3333333333
-   tbend3 = (Est(15)*12.0)**0.3333333333
-   tbend5 = (Est(16)*12.0)**0.3333333333
+   tbend1 = (est(14)*12.0)**0.3333333333
+   tbend3 = (est(15)*12.0)**0.3333333333
+   tbend5 = (est(16)*12.0)**0.3333333333
    matid3 = iest(17)
-   tshr1 = Est(18)
-   tshr3 = Est(19)
-   tshr5 = Est(20)
-   nsm = Est(21)
+   tshr1 = est(18)
+   tshr3 = est(19)
+   tshr5 = est(20)
+   nsm = est(21)
    j = 0
    DO i = 28 , 48 , 4
       j = j + 1
-      Ics(j) = iest(i)
-      Xc(j) = Est(i+1)
-      Yc(j) = Est(i+2)
-      Zc(j) = Est(i+3)
+      ics(j) = iest(i)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
 !
 !     IF TMEM3 OR TMEM5 EQUAL TO ZERO OR BLANK, THEY WILL BE
@@ -190,56 +196,56 @@ SUBROUTINE ktshls
    tshr = (tshr1+tshr3+tshr5)/3.0
    IF ( tbend3==0.0 .OR. tbend3==blank ) tbend3 = tbend1
    IF ( tbend5==0.0 .OR. tbend5==blank ) tbend5 = tbend1
-   Eltemp = Est(52)
+   eltemp = est(52)
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUTE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    IF ( matid1/=0 ) THEN
       CALL mat(idele)
 !
-      g11 = Em(1)
-      g12 = Em(2)
-      g13 = Em(3)
-      g22 = Em(4)
-      g23 = Em(5)
-      g33 = Em(6)
+      g11 = em(1)
+      g12 = em(2)
+      g13 = em(3)
+      g22 = em(4)
+      g23 = em(5)
+      g33 = em(6)
    ENDIF
-   Matflg = 2
-   Matid = matid2
+   matflg = 2
+   matid = matid2
    IF ( matid2/=0 ) THEN
       CALL mat(idele)
-      d11 = Em(1)
-      d12 = Em(2)
-      d13 = Em(3)
-      d22 = Em(4)
-      d23 = Em(5)
-      d33 = Em(6)
+      d11 = em(1)
+      d12 = em(2)
+      d13 = em(3)
+      d22 = em(4)
+      d23 = em(5)
+      d33 = em(6)
       j11 = 0.0
       j12 = 0.0
       j22 = 0.0
       IF ( .NOT.(nots) ) THEN
-         Matflg = 3
-         Matid = matid3
+         matflg = 3
+         matid = matid3
          CALL mat(idele)
-         j11 = 1.0/(Rj11*tshr)
+         j11 = 1.0/(rj11*tshr)
          j12 = 0.0
-         j22 = 1.0/(Rj22*tshr)
+         j22 = 1.0/(rj22*tshr)
       ENDIF
    ENDIF
 !
 !     CALCULATIONS FOR THE TRIANGLE
 !
-   CALL trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,a,b,c,iest(1),name)
+   CALL trif(xc,yc,zc,ivect,jvect,kvect,a,b,c,iest(1),name)
 !
 !     COMPUTE THE AREA INTEGRATION FUNCTION F
 !
-   CALL af(F,14,a,b,c,0,0,0,0,0,0,-1)
+   CALL af(f,14,a,b,c,0,0,0,0,0,0,-1)
 !
 !     CALCULATIONS FOR QMATRIX (QQQ) AND ITS INVERSE
 !
@@ -253,28 +259,28 @@ SUBROUTINE ktshls
       i2 = (i-1)*3 + 2
       i3 = (i-1)*3 + 3
       qqq(i1,1) = 1.0
-      qqq(i1,2) = Xc(i)
-      qqq(i1,3) = Yc(i)
-      qqq(i1,4) = Xc(i)*Xc(i)
-      qqq(i1,5) = Xc(i)*Yc(i)
-      qqq(i1,6) = Yc(i)*Yc(i)
-      qqq(i1,7) = qqq(i1,4)*Xc(i)
-      qqq(i1,8) = qqq(i1,4)*Yc(i)
-      qqq(i1,9) = qqq(i1,5)*Yc(i)
-      qqq(i1,10) = qqq(i1,6)*Yc(i)
-      qqq(i1,11) = qqq(i1,7)*Xc(i)
-      qqq(i1,12) = qqq(i1,7)*Yc(i)
-      qqq(i1,13) = qqq(i1,8)*Yc(i)
-      qqq(i1,14) = qqq(i1,9)*Yc(i)
-      qqq(i1,15) = qqq(i1,10)*Yc(i)
-      qqq(i1,16) = qqq(i1,11)*Xc(i)
-      qqq(i1,17) = qqq(i1,12)*Yc(i)
-      qqq(i1,18) = qqq(i1,13)*Yc(i)
-      qqq(i1,19) = qqq(i1,14)*Yc(i)
-      qqq(i1,20) = qqq(i1,15)*Yc(i)
+      qqq(i1,2) = xc(i)
+      qqq(i1,3) = yc(i)
+      qqq(i1,4) = xc(i)*xc(i)
+      qqq(i1,5) = xc(i)*yc(i)
+      qqq(i1,6) = yc(i)*yc(i)
+      qqq(i1,7) = qqq(i1,4)*xc(i)
+      qqq(i1,8) = qqq(i1,4)*yc(i)
+      qqq(i1,9) = qqq(i1,5)*yc(i)
+      qqq(i1,10) = qqq(i1,6)*yc(i)
+      qqq(i1,11) = qqq(i1,7)*xc(i)
+      qqq(i1,12) = qqq(i1,7)*yc(i)
+      qqq(i1,13) = qqq(i1,8)*yc(i)
+      qqq(i1,14) = qqq(i1,9)*yc(i)
+      qqq(i1,15) = qqq(i1,10)*yc(i)
+      qqq(i1,16) = qqq(i1,11)*xc(i)
+      qqq(i1,17) = qqq(i1,12)*yc(i)
+      qqq(i1,18) = qqq(i1,13)*yc(i)
+      qqq(i1,19) = qqq(i1,14)*yc(i)
+      qqq(i1,20) = qqq(i1,15)*yc(i)
       qqq(i2,3) = 1.0
-      qqq(i2,5) = Xc(i)
-      qqq(i2,6) = Yc(i)*2.0
+      qqq(i2,5) = xc(i)
+      qqq(i2,6) = yc(i)*2.0
       qqq(i2,8) = qqq(i1,4)
       qqq(i2,9) = qqq(i1,5)*2.0
       qqq(i2,10) = qqq(i1,6)*3.0
@@ -287,8 +293,8 @@ SUBROUTINE ktshls
       qqq(i2,19) = qqq(i1,14)*4.0
       qqq(i2,20) = qqq(i1,15)*5.0
       qqq(i3,2) = -1.0
-      qqq(i3,4) = -2.0*Xc(i)
-      qqq(i3,5) = -Yc(i)
+      qqq(i3,4) = -2.0*xc(i)
+      qqq(i3,5) = -yc(i)
       qqq(i3,7) = -qqq(i1,4)*3.0
       qqq(i3,8) = -qqq(i1,5)*2.0
       qqq(i3,9) = -qqq(i1,6)
@@ -314,21 +320,21 @@ SUBROUTINE ktshls
    DO i = 1 , 6
       DO j = 1 , 6
          i1 = (i-1)*3 + 1
-         Q(i,j) = qqq(i1,j)
+         q(i,j) = qqq(i1,j)
       ENDDO
    ENDDO
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
    ising = -1
-   CALL invers(6,Q,6,Balotr(1),0,determ,ising,ind)
+   CALL invers(6,q,6,balotr(1),0,determ,ising,ind)
    IF ( ising==2 ) GOTO 400
 !
 !     FOURTH ARGUMENT IS A DUMMY LOCATION FOR INVERSE AND HENCE TS1(1)
 !     IS U
 !
    ising = -1
-   CALL invers(20,qqq,20,Balotr(1),0,determ,ising,Index)
+   CALL invers(20,qqq,20,balotr(1),0,determ,ising,index)
 !
 !     ISING EQUAL TO 2 IMPLIES THAT QQQ IS SINGULAR
 !
@@ -353,12 +359,12 @@ SUBROUTINE ktshls
 !     EVALUATE THE CONSTANTS C1,C2,AND C3 IN THE LINEAR EQUATION FOR
 !     THICKNESS VARIATION - MEMBRANE
 !
- 100  CALL af(F,14,a,b,c,c1,c2,c3,tmem1,tmem3,tmem5,1)
-   Cab(1) = c1
-   Cab(2) = c2
-   Cab(3) = c3
-   area = F(1,1)
-   vol = c1*F(1,1) + c2*F(2,1) + c3*F(1,2)
+ 100  CALL af(f,14,a,b,c,c1,c2,c3,tmem1,tmem3,tmem5,1)
+   cab(1) = c1
+   cab(2) = c2
+   cab(3) = c3
+   area = f(1,1)
+   vol = c1*f(1,1) + c2*f(2,1) + c3*f(1,2)
 !
 !
    d334 = d33*4.0
@@ -368,7 +374,7 @@ SUBROUTINE ktshls
 !     A1,A2,A3 ARE THE COEFFICIENTS OF LINEAR EQUATION FOR VARIATION
 !     OF BENDING THICKNESSES
 !
-   CALL af(F,14,a,b,c,a1,a2,a3,thk1,thk2,thk3,1)
+   CALL af(f,14,a,b,c,a1,a2,a3,thk1,thk2,thk3,1)
    unimem = .FALSE.
    uniben = .FALSE.
    IF ( abs(c2)<=1.0E-06 .AND. abs(c3)<=1.0E-06 ) unimem = .TRUE.
@@ -394,9 +400,9 @@ SUBROUTINE ktshls
 !    (POSSIBLY AN ERROR HERE - AA1,AA2, AND AA3 ARE NOT USED IN PROGRAM)
 !     CALL AF (F,14,A,B,C,AA1,AA2,AA3,TSHR1,TSHR3,TSHR5,1)
 !
-   h4 = Q(4,1)*Zc(1) + Q(4,2)*Zc(2) + Q(4,3)*Zc(3) + Q(4,4)*Zc(4) + Q(4,5)*Zc(5) + Q(4,6)*Zc(6)
-   h5 = Q(5,1)*Zc(1) + Q(5,2)*Zc(2) + Q(5,3)*Zc(3) + Q(5,4)*Zc(4) + Q(5,5)*Zc(5) + Q(5,6)*Zc(6)
-   h6 = Q(6,1)*Zc(1) + Q(6,2)*Zc(2) + Q(6,3)*Zc(3) + Q(6,4)*Zc(4) + Q(6,5)*Zc(5) + Q(6,6)*Zc(6)
+   h4 = q(4,1)*zc(1) + q(4,2)*zc(2) + q(4,3)*zc(3) + q(4,4)*zc(4) + q(4,5)*zc(5) + q(4,6)*zc(6)
+   h5 = q(5,1)*zc(1) + q(5,2)*zc(2) + q(5,3)*zc(3) + q(5,4)*zc(4) + q(5,5)*zc(5) + q(5,6)*zc(6)
+   h6 = q(6,1)*zc(1) + q(6,2)*zc(2) + q(6,3)*zc(3) + q(6,4)*zc(4) + q(6,5)*zc(5) + q(6,6)*zc(6)
    h4 = h4*2.0
    h6 = h6*2.0
 !
@@ -487,11 +493,11 @@ SUBROUTINE ktshls
                      s33 = 0.0
                      s13 = 0.0
                      s23 = 0.0
-                     IF ( mx3x>0 ) s11 = d11*rmx1*rmy1*Cc(k)*F(mx3x,ny1y)
-                     IF ( nx3y>0 ) s22 = d22*rnx1*rny1*Cc(k)*F(my1x,nx3y)
-                     IF ( mx1x>0 .AND. nx1y>0 ) s33 = (d334*rmnx*rmny+d12*(rmx1*rny1+rmy1*rnx1))*Cc(k)*F(mx1x,nx1y)
-                     IF ( mx2x>0 .AND. nx0y>0 ) s13 = d132*(rmx1*rmny+rmnx*rmy1)*Cc(k)*F(mx2x,nx0y)
-                     IF ( mx0x>0 .AND. nx2y>0 ) s23 = d232*(rmnx*rny1+rnx1*rmny)*Cc(k)*F(mx0x,nx2y)
+                     IF ( mx3x>0 ) s11 = d11*rmx1*rmy1*cc(k)*f(mx3x,ny1y)
+                     IF ( nx3y>0 ) s22 = d22*rnx1*rny1*cc(k)*f(my1x,nx3y)
+                     IF ( mx1x>0 .AND. nx1y>0 ) s33 = (d334*rmnx*rmny+d12*(rmx1*rny1+rmy1*rnx1))*cc(k)*f(mx1x,nx1y)
+                     IF ( mx2x>0 .AND. nx0y>0 ) s13 = d132*(rmx1*rmny+rmnx*rmy1)*cc(k)*f(mx2x,nx0y)
+                     IF ( mx0x>0 .AND. nx2y>0 ) s23 = d232*(rmnx*rny1+rnx1*rmny)*cc(k)*f(mx0x,nx2y)
                      st = st + (s11+s22+s33+s13+s23)/12.0
                      IF ( uniben ) EXIT
                   ENDDO
@@ -533,20 +539,20 @@ SUBROUTINE ktshls
                      st231 = 0.0
                      st232 = 0.0
                      st233 = 0.0
-                     IF ( ixr1>0 ) st11 = g11*rix*riy*F(ixr1,jxs01)
-                     IF ( lxs1>0 ) st22 = g22*rlx*rly*F(kxr01,lxs1)
-                     IF ( jxs1>0 ) st331 = g33*rjx*rjy*F(ixr01,jxs1)
-                     IF ( kxr1>0 ) st332 = g33*rkx*rky*F(kxr1,lxs01)
-                     IF ( ixky1>0 .AND. jxly1>0 ) st121 = (g33*rjx*rky+g12*rix*rly)*F(ixky1,jxly1)
-                     IF ( iykx1>0 .AND. jylx1>0 ) st122 = (g33*rjy*rkx+g12*riy*rlx)*F(iykx1,jylx1)
-                     IF ( ixiy0>0 .AND. jxjy0>0 ) st131 = g13*(riy*rjx+rix*rjy)*F(ixiy0,jxjy0)
-                     IF ( iykx2>0 ) st132 = g13*riy*rkx*F(iykx2,jylx0)
-                     IF ( ixky2>0 ) st133 = g13*rix*rky*F(ixky2,jxly0)
-                     IF ( kxky0>0 .AND. lxly0>0 ) st231 = g23*(rkx*rly+rky*rlx)*F(kxky0,lxly0)
-                     IF ( jxly2>0 ) st232 = g23*rjx*rly*F(ixky0,jxly2)
-                     IF ( jylx2>0 ) st233 = g23*rjy*rlx*F(iykx0,jylx2)
+                     IF ( ixr1>0 ) st11 = g11*rix*riy*f(ixr1,jxs01)
+                     IF ( lxs1>0 ) st22 = g22*rlx*rly*f(kxr01,lxs1)
+                     IF ( jxs1>0 ) st331 = g33*rjx*rjy*f(ixr01,jxs1)
+                     IF ( kxr1>0 ) st332 = g33*rkx*rky*f(kxr1,lxs01)
+                     IF ( ixky1>0 .AND. jxly1>0 ) st121 = (g33*rjx*rky+g12*rix*rly)*f(ixky1,jxly1)
+                     IF ( iykx1>0 .AND. jylx1>0 ) st122 = (g33*rjy*rkx+g12*riy*rlx)*f(iykx1,jylx1)
+                     IF ( ixiy0>0 .AND. jxjy0>0 ) st131 = g13*(riy*rjx+rix*rjy)*f(ixiy0,jxjy0)
+                     IF ( iykx2>0 ) st132 = g13*riy*rkx*f(iykx2,jylx0)
+                     IF ( ixky2>0 ) st133 = g13*rix*rky*f(ixky2,jxly0)
+                     IF ( kxky0>0 .AND. lxly0>0 ) st231 = g23*(rkx*rly+rky*rlx)*f(kxky0,lxly0)
+                     IF ( jxly2>0 ) st232 = g23*rjx*rly*f(ixky0,jxly2)
+                     IF ( jylx2>0 ) st233 = g23*rjy*rlx*f(iykx0,jylx2)
 !
-                     st1 = (st11+st22+st331+st332+st121+st122+st131+st132+st133+st231+st232+st233)*Cab(k)
+                     st1 = (st11+st22+st331+st332+st121+st122+st131+st132+st133+st231+st232+st233)*cab(k)
                      st = st + st1
                      IF ( unimem ) EXIT
                   ENDDO
@@ -596,94 +602,94 @@ SUBROUTINE ktshls
                sb37 = 0.0
                sb39 = 0.0
                sb40 = 0.0
-               IF ( ixmyr>0 ) sb1 = -g11*rix*h4*Cab(k)*F(ixmyr,jxnys1)
+               IF ( ixmyr>0 ) sb1 = -g11*rix*h4*cab(k)*f(ixmyr,jxnys1)
                iymxr = iy + mx + rk(k)
                jynxs1 = jy + nx + sk(k) + 1
-               IF ( iymxr>0 ) sb2 = -g11*riy*h4*Cab(k)*F(iymxr,jynxs1)
+               IF ( iymxr>0 ) sb2 = -g11*riy*h4*cab(k)*f(iymxr,jynxs1)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb3 = g11*h4**2*Cab(k)*F(mxmyr1,nxnys1)
+               sb3 = g11*h4**2*cab(k)*f(mxmyr1,nxnys1)
                kxmyr1 = kx + my + rk(k) + 1
                lxnys = lx + ny + sk(k)
-               IF ( lxnys>0 ) sb4 = -g22*rlx*h6*Cab(k)*F(kxmyr1,lxnys)
+               IF ( lxnys>0 ) sb4 = -g22*rlx*h6*cab(k)*f(kxmyr1,lxnys)
                mxkyr1 = mx + ky + rk(k) + 1
                nxlys = nx + ly + sk(k)
-               IF ( nxlys>0 ) sb5 = -g22*rly*h6*Cab(k)*F(mxkyr1,nxlys)
+               IF ( nxlys>0 ) sb5 = -g22*rly*h6*cab(k)*f(mxkyr1,nxlys)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb6 = g22*h6**2*Cab(k)*F(mxmyr1,nxnys1)
+               sb6 = g22*h6**2*cab(k)*f(mxmyr1,nxnys1)
                ixmyr1 = ix + my + rk(k) + 1
                jxnys = jx + ny + sk(k)
-               IF ( jxnys>0 ) sb8 = -g33*rjx*h5*Cab(k)*F(ixmyr1,jxnys)
+               IF ( jxnys>0 ) sb8 = -g33*rjx*h5*cab(k)*f(ixmyr1,jxnys)
                kxmyr = kx + my + rk(k)
                lxnys1 = lx + ny + sk(k) + 1
-               IF ( kxmyr>0 ) sb11 = -g33*rkx*h5*Cab(k)*F(kxmyr,lxnys1)
+               IF ( kxmyr>0 ) sb11 = -g33*rkx*h5*cab(k)*f(kxmyr,lxnys1)
                mxiyr1 = mx + iy + rk(k) + 1
                nxjys = nx + jy + sk(k)
-               IF ( nxjys>0 ) sb12 = -g33*rjy*h5*Cab(k)*F(mxiyr1,nxjys)
+               IF ( nxjys>0 ) sb12 = -g33*rjy*h5*cab(k)*f(mxiyr1,nxjys)
                mxkyr = mx + ky + rk(k)
                nxlys1 = nx + ly + sk(k) + 1
-               IF ( mxkyr>0 ) sb13 = -g33*rky*h5*Cab(k)*F(mxkyr,nxlys1)
+               IF ( mxkyr>0 ) sb13 = -g33*rky*h5*cab(k)*f(mxkyr,nxlys1)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb14 = g33*h5**2*Cab(k)*F(mxmyr1,nxnys1)
+               sb14 = g33*h5**2*cab(k)*f(mxmyr1,nxnys1)
                ixmyr = ix + my + rk(k)
                jxnys1 = jx + ny + sk(k) + 1
-               IF ( ixmyr>0 ) sb15 = -g12*rix*h6*Cab(k)*F(ixmyr,jxnys1)
+               IF ( ixmyr>0 ) sb15 = -g12*rix*h6*cab(k)*f(ixmyr,jxnys1)
                mxkyr1 = mx + ky + rk(k) + 1
                nxlys = nx + ly + sk(k)
-               IF ( nxlys>0 ) sb16 = -g12*rly*h4*Cab(k)*F(mxkyr1,nxlys)
+               IF ( nxlys>0 ) sb16 = -g12*rly*h4*cab(k)*f(mxkyr1,nxlys)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb17 = 2*g12*h4*h6*Cab(k)*F(mxmyr1,nxnys1)
+               sb17 = 2*g12*h4*h6*cab(k)*f(mxmyr1,nxnys1)
                kxmyr1 = kx + my + rk(k) + 1
                lxnys = lx + ny + sk(k)
-               IF ( lxnys>0 ) sb19 = -g12*rlx*h4*Cab(k)*F(kxmyr1,lxnys)
+               IF ( lxnys>0 ) sb19 = -g12*rlx*h4*cab(k)*f(kxmyr1,lxnys)
                mxiyr = mx + iy + rk(k)
                nxjys1 = nx + jy + sk(k) + 1
-               IF ( mxiyr>0 ) sb20 = -g12*riy*h6*Cab(k)*F(mxiyr,nxjys1)
+               IF ( mxiyr>0 ) sb20 = -g12*riy*h6*cab(k)*f(mxiyr,nxjys1)
                ixmyr = ix + my + rk(k)
                jxnys1 = jx + ny + sk(k) + 1
-               IF ( ixmyr>0 ) sb22 = -g13*rix*h5*Cab(k)*F(ixmyr,jxnys1)
+               IF ( ixmyr>0 ) sb22 = -g13*rix*h5*cab(k)*f(ixmyr,jxnys1)
                mxiyr1 = mx + iy + rk(k) + 1
                nxjys = nx + jy + sk(k)
-               IF ( nxjys>0 ) sb23 = -g13*rjy*h4*Cab(k)*F(mxiyr1,nxjys)
+               IF ( nxjys>0 ) sb23 = -g13*rjy*h4*cab(k)*f(mxiyr1,nxjys)
                mxkyr = mx + ky + rk(k)
                nxlys1 = nx + ly + sk(k) + 1
-               IF ( mxkyr>0 ) sb24 = -g13*rky*h4*Cab(k)*F(mxkyr,nxlys1)
+               IF ( mxkyr>0 ) sb24 = -g13*rky*h4*cab(k)*f(mxkyr,nxlys1)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb25 = 2*g13*h4*h5*Cab(k)*F(mxmyr1,nxnys1)
+               sb25 = 2*g13*h4*h5*cab(k)*f(mxmyr1,nxnys1)
                ixmyr1 = ix + my + rk(k) + 1
                jxnys = jx + ny + sk(k)
-               IF ( jxnys>0 ) sb27 = -g13*rjx*h4*Cab(k)*F(ixmyr1,jxnys)
+               IF ( jxnys>0 ) sb27 = -g13*rjx*h4*cab(k)*f(ixmyr1,jxnys)
                kxmyr = kx + my + rk(k)
                lxnys1 = lx + ny + sk(k) + 1
-               IF ( kxmyr>0 ) sb29 = -g13*rkx*h4*Cab(k)*F(kxmyr,lxnys1)
+               IF ( kxmyr>0 ) sb29 = -g13*rkx*h4*cab(k)*f(kxmyr,lxnys1)
                mxiyr = mx + iy + rk(k)
                nxjys1 = nx + jy + sk(k) + 1
-               IF ( mxiyr>0 ) sb30 = -g13*riy*h5*Cab(k)*F(mxiyr,nxjys1)
+               IF ( mxiyr>0 ) sb30 = -g13*riy*h5*cab(k)*f(mxiyr,nxjys1)
                kxmyr1 = kx + my + rk(k) + 1
                lxnys = lx + ny + sk(k)
-               IF ( lxnys>0 ) sb32 = -g23*rlx*h5*Cab(k)*F(kxmyr1,lxnys)
+               IF ( lxnys>0 ) sb32 = -g23*rlx*h5*cab(k)*f(kxmyr1,lxnys)
                mxiyr1 = mx + iy + rk(k) + 1
                nxjys = nx + jy + sk(k)
-               IF ( nxjys>0 ) sb33 = -g23*rjy*h6*Cab(k)*F(mxiyr1,nxjys)
+               IF ( nxjys>0 ) sb33 = -g23*rjy*h6*cab(k)*f(mxiyr1,nxjys)
                mxkyr = mx + ky + rk(k)
                nxlys1 = nx + ly + sk(k) + 1
-               IF ( mxkyr>0 ) sb34 = -g23*rky*h6*Cab(k)*F(mxkyr,nxlys1)
+               IF ( mxkyr>0 ) sb34 = -g23*rky*h6*cab(k)*f(mxkyr,nxlys1)
                mxmyr1 = mx + my + rk(k) + 1
                nxnys1 = nx + ny + sk(k) + 1
-               sb35 = 2*g23*h5*h6*Cab(k)*F(mxmyr1,nxnys1)
+               sb35 = 2*g23*h5*h6*cab(k)*f(mxmyr1,nxnys1)
                ixmyr1 = ix + my + rk(k) + 1
                jxnys = jx + ny + sk(k)
-               IF ( jxnys>0 ) sb37 = -g23*rjx*h6*Cab(k)*F(ixmyr1,jxnys)
+               IF ( jxnys>0 ) sb37 = -g23*rjx*h6*cab(k)*f(ixmyr1,jxnys)
                kxmyr = kx + my + rk(k)
                lxnys1 = lx + ny + sk(k) + 1
-               IF ( kxmyr>0 ) sb39 = -g23*rkx*h6*Cab(k)*F(kxmyr,lxnys1)
+               IF ( kxmyr>0 ) sb39 = -g23*rkx*h6*cab(k)*f(kxmyr,lxnys1)
                mxkyr1 = mx + ky + rk(k) + 1
                nxlys = nx + ly + sk(k)
-               IF ( nxlys>0 ) sb40 = -g23*rly*h5*Cab(k)*F(mxkyr1,nxlys)
+               IF ( nxlys>0 ) sb40 = -g23*rly*h5*cab(k)*f(mxkyr1,nxlys)
                sb41 = sb3 + sb6 + sb14 + sb17 + sb25 + sb35
                IF ( i<=12 ) sb41 = 0.0
                st = st + sb1 + sb2 + sb4 + sb5 + sb7 + sb8 + sb9 + sb10 + sb11 + sb12 + sb13 + sb15 + sb16 + sb18 + sb19 + sb20 +   &
@@ -694,16 +700,16 @@ SUBROUTINE ktshls
          ELSE
             ix011 = ix01 + 1
             jx011 = jx01 + 1
-            rho = Rhoy*1.0
+            rho = rhoy*1.0
             IF ( j<=12 ) THEN
-               mshl(ij) = rho*(Cab(1)*F(ix01,jx01)+Cab(2)*F(ix011,jx01)+Cab(3)*F(ix01,jx011)) + nsm*F(ix01,jx01)
+               mshl(ij) = rho*(cab(1)*f(ix01,jx01)+cab(2)*f(ix011,jx01)+cab(3)*f(ix01,jx011)) + nsm*f(ix01,jx01)
                mshl(ji) = mshl(ij)
             ENDIF
             mx01 = mx0 + 1
             nx01 = nx0 + 1
             mx011 = mx01 + 1
             nx011 = nx01 + 1
-            mshl(ij) = rho*(a1*F(mx01,nx01)+a2*F(mx011,nx01)+a3*F(mx01,nx011)) + nsm*F(mx01,nx01)
+            mshl(ij) = rho*(a1*f(mx01,nx01)+a2*f(mx011,nx01)+a3*f(mx01,nx011)) + nsm*f(mx01,nx01)
             mshl(ji) = mshl(ij)
             CYCLE
          ENDIF
@@ -720,8 +726,8 @@ SUBROUTINE ktshls
 !
 !     (QQQINV) TRANSPOSE (KTR3)  (QQQINV)
 !
-   CALL gmmats(Q,6,6,0,kshl(1),6,32,0,qks(1))
-   CALL gmmats(Q,6,6,0,kshl(193),6,32,0,qks(193))
+   CALL gmmats(q,6,6,0,kshl(1),6,32,0,qks(1))
+   CALL gmmats(q,6,6,0,kshl(193),6,32,0,qks(193))
    CALL gmmats(qqqinv,20,18,+1,kshl(385),20,32,0,qks(385))
    DO i = 1 , 30
       DO j = 1 , 6
@@ -738,8 +744,8 @@ SUBROUTINE ktshls
          kshl(ji) = qks(ij)
       ENDDO
    ENDDO
-   CALL gmmats(kshl(1),30,6,0,Q,6,6,1,qks(1))
-   CALL gmmats(kshl(181),30,6,0,Q,6,6,1,qks(181))
+   CALL gmmats(kshl(1),30,6,0,q,6,6,1,qks(1))
+   CALL gmmats(kshl(181),30,6,0,q,6,6,1,qks(181))
    CALL gmmats(kshl(361),30,20,0,qqqinv,20,18,0,qks(361))
    DO i = 1 , 30
       DO j = 1 , 6
@@ -757,23 +763,23 @@ SUBROUTINE ktshls
       ENDDO
    ENDDO
    DO i = 1 , 30
-      Ee(i) = 0.0
+      ee(i) = 0.0
    ENDDO
-   Ee(1) = Ivect(1)
-   Ee(2) = Jvect(1)
-   Ee(3) = Kvect(1)
-   Ee(6) = Ivect(2)
-   Ee(7) = Jvect(2)
-   Ee(8) = Kvect(2)
-   Ee(11) = Ivect(3)
-   Ee(12) = Jvect(3)
-   Ee(13) = Kvect(3)
-   Ee(19) = Ivect(1)
-   Ee(20) = Jvect(1)
-   Ee(24) = Ivect(2)
-   Ee(25) = Jvect(2)
-   Ee(29) = Ivect(3)
-   Ee(30) = Jvect(3)
+   ee(1) = ivect(1)
+   ee(2) = jvect(1)
+   ee(3) = kvect(1)
+   ee(6) = ivect(2)
+   ee(7) = jvect(2)
+   ee(8) = kvect(2)
+   ee(11) = ivect(3)
+   ee(12) = jvect(3)
+   ee(13) = kvect(3)
+   ee(19) = ivect(1)
+   ee(20) = jvect(1)
+   ee(24) = ivect(2)
+   ee(25) = jvect(2)
+   ee(29) = ivect(3)
+   ee(30) = jvect(3)
    DO k = 1 , 6
       DO i = 1 , 2
          k1 = 6*(i-1) + k
@@ -832,40 +838,40 @@ SUBROUTINE ktshls
 !     INSERT THE 6X6 SUBMATRIX  INTO KGG MATRIX
 !
       DO i = 1 , 6
-         Save(i) = Nl(i)
+         save(i) = nl(i)
       ENDDO
       DO i = 1 , 6
-         Small(i) = i
-         ismall = Nl(i)
+         small(i) = i
+         ismall = nl(i)
          DO j = 1 , 6
-            IF ( ismall>Nl(j) ) THEN
-               Small(i) = j
-               ismall = Nl(j)
+            IF ( ismall>nl(j) ) THEN
+               small(i) = j
+               ismall = nl(j)
             ENDIF
          ENDDO
-         ism = Small(i)
-         Nl(ism) = 1000000
+         ism = small(i)
+         nl(ism) = 1000000
       ENDDO
       DO i = 1 , 6
-         Nl(i) = Save(i)
+         nl(i) = save(i)
       ENDDO
       DO i = 1 , 6
-         sil1 = Small(i)
+         sil1 = small(i)
          DO j = i , 6
-            sil2 = Small(j)
+            sil2 = small(j)
             DO ii = 1 , 36
-               Balotr(ii) = 0.0
+               balotr(ii) = 0.0
                ksup(ii) = 0.0
             ENDDO
             DO k = 1 , 5
                k1 = (sil1-1)*5 + k
                DO l = 1 , 5
                   l1 = (sil2-1)*5 + l
-                  Csub(k,l) = cm1(k1,l1)
+                  csub(k,l) = cm1(k1,l1)
                ENDDO
             ENDDO
-            CALL gmmats(Ee,6,5,0,Csub,5,5,0,Csubt)
-            CALL gmmats(Csubt,6,5,0,Ee,6,5,+1,ksupt)
+            CALL gmmats(ee,6,5,0,csub,5,5,0,csubt)
+            CALL gmmats(csubt,6,5,0,ee,6,5,+1,ksupt)
             DO k = 1 , 6
                DO l = 1 , 6
                   k1 = (k-1)*6 + l
@@ -876,40 +882,40 @@ SUBROUTINE ktshls
 !
 !     TRANSFORM THE KSUP(36) FROM BASIC TO DISPLACEMENT COORDINATES
 !
-            IF ( Nl(sil1)/=0 .AND. Ics(sil1)/=0 ) THEN
+            IF ( nl(sil1)/=0 .AND. ics(sil1)/=0 ) THEN
                jj = 4*sil1 + 24
-               CALL transs(iest(jj),Trand)
+               CALL transs(iest(jj),trand)
                DO jj = 1 , 3
                   l = 6*(jj-1) + 1
                   m = 3*(jj-1) + 1
-                  Balotr(l) = Trand(m)
-                  Balotr(l+1) = Trand(m+1)
-                  Balotr(l+2) = Trand(m+2)
-                  Balotr(l+21) = Trand(m)
-                  Balotr(l+22) = Trand(m+1)
-                  Balotr(l+23) = Trand(m+2)
+                  balotr(l) = trand(m)
+                  balotr(l+1) = trand(m+1)
+                  balotr(l+2) = trand(m+2)
+                  balotr(l+21) = trand(m)
+                  balotr(l+22) = trand(m+1)
+                  balotr(l+23) = trand(m+2)
                ENDDO
-               CALL gmmats(Balotr(1),6,6,1,ksup(1),6,6,0,ksupt)
+               CALL gmmats(balotr(1),6,6,1,ksup(1),6,6,0,ksupt)
                DO k = 1 , 36
                   ksup(k) = ksupt(k)
                ENDDO
             ENDIF
-            IF ( Nl(sil2)/=0 .AND. Ics(sil2)/=0 ) THEN
+            IF ( nl(sil2)/=0 .AND. ics(sil2)/=0 ) THEN
                IF ( j/=i ) THEN
                   jj = 4*sil2 + 24
-                  CALL transs(iest(jj),Trand)
+                  CALL transs(iest(jj),trand)
                   DO jj = 1 , 3
                      l = 6*(jj-1) + 1
                      m = 3*(jj-1) + 1
-                     Balotr(l) = Trand(m)
-                     Balotr(l+1) = Trand(m+1)
-                     Balotr(l+2) = Trand(m+2)
-                     Balotr(l+21) = Trand(m)
-                     Balotr(l+22) = Trand(m+1)
-                     Balotr(l+23) = Trand(m+2)
+                     balotr(l) = trand(m)
+                     balotr(l+1) = trand(m+1)
+                     balotr(l+2) = trand(m+2)
+                     balotr(l+21) = trand(m)
+                     balotr(l+22) = trand(m+1)
+                     balotr(l+23) = trand(m+2)
                   ENDDO
                ENDIF
-               CALL gmmats(ksup(1),6,6,0,Balotr(1),6,6,0,ksupt)
+               CALL gmmats(ksup(1),6,6,0,balotr(1),6,6,0,ksupt)
                DO k = 1 , 36
                   ksup(k) = ksupt(k)
                ENDDO
@@ -918,20 +924,20 @@ SUBROUTINE ktshls
                DO jj = 1 , 6
                   i1 = (i-1)*6 + ii
                   j1 = (j-1)*6 + jj
-                  ctm(i1,j1) = Ksub(jj,ii)
-                  ctm(j1,i1) = Ksub(jj,ii)
+                  ctm(i1,j1) = ksub(jj,ii)
+                  ctm(j1,i1) = ksub(jj,ii)
                ENDDO
             ENDDO
          ENDDO
       ENDDO
       GOTO 300
    ENDIF
- 200  amass = (Rhoy*vol+nsm*area)/6.
+ 200  amass = (rhoy*vol+nsm*area)/6.
    DO i = 1 , 1296 , 37
       cmt(i) = amass
    ENDDO
    ipass = 2
- 300  CALL emgout(cmt(1),cmt(1),1296,1,Dict,ipass,Iprec)
+ 300  CALL emgout(cmt(1),cmt(1),1296,1,dict,ipass,iprec)
    IF ( .NOT.imass .OR. ipass>=2 ) RETURN
 !
 !     TO TO 295 TO COMPUTE LUMPED MASS MATRIX
@@ -945,9 +951,9 @@ SUBROUTINE ktshls
 !
 !     ERROR
 !
- 400  Nogo = .TRUE.
-   Knogo = 1
-   WRITE (ioutpt,99001) Ufm , iest(1)
+ 400  nogo = .TRUE.
+   knogo = 1
+   WRITE (ioutpt,99001) ufm , iest(1)
 99001 FORMAT (A23,' 2416, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',//26X,               &
              &'CHECK COORDINATES OF ELEMENT  TRSHL WITH ID',I9,1H.)
 99999 END SUBROUTINE ktshls

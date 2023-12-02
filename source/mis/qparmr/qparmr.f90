@@ -1,13 +1,14 @@
-!*==qparmr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==qparmr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qparmr
+   USE c_blank
+   USE c_ilxxr
+   USE c_system
+   USE c_xmssg
+   USE c_xvps
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_ILXXR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XVPS
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -104,18 +105,18 @@ SUBROUTINE qparmr
          IF ( prt ) THEN
             CALL page2(ifirst)
             ifirst = 6
-            WRITE (Nout,99001) Uim , Op
+            WRITE (nout,99001) uim , op
 99001       FORMAT (A29,' FROM PARAMR MODULE - OP CODE = ',2A4,/5X,'(ALL PARAMR MESSAGES CAN BE SUPPRESED BY DIAG 37)')
          ENDIF
 !
 !     BRANCH ON OPERATION CODE
 !
-         iflag = Flag
-         Flag = 0
+         iflag = flag
+         flag = 0
          ierr = 0
 !
          DO iop = 1 , 32
-            IF ( Op(1)==opcode(iop) ) THEN
+            IF ( op(1)==opcode(iop) ) THEN
                IF ( iop==1 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
@@ -246,7 +247,7 @@ SUBROUTINE qparmr
                ENDIF
             ENDIF
          ENDDO
-         WRITE (Nout,99002) Op(1) , nam
+         WRITE (nout,99002) op(1) , nam
 99002    FORMAT (22X,'UNRECOGNIZABLE OP CODE = ',A4,'  (INPUT ERROR) ',2A4)
          CALL mesage(-7,0,name)
          spag_nextblock_1 = 2
@@ -258,49 +259,45 @@ SUBROUTINE qparmr
 !
 !     ADD
 !
-         Outr = In1r + In2r
+         outr = in1r + in2r
          spag_nextblock_1 = 36
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     SUBTRACT
 !
-         Outr = In1r - In2r
+         outr = in1r - in2r
          spag_nextblock_1 = 36
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     MULTIPLY
 !
-         Outr = In1r*In2r
+         outr = in1r*in2r
          spag_nextblock_1 = 36
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     DIVIDE
 !
-         Outr = 0.0
-         IF ( In2r/=0.D0 ) THEN
-            Outr = In1r/In2r
+         outr = 0.0
+         IF ( in2r/=0.D0 ) THEN
+            outr = in1r/in2r
             spag_nextblock_1 = 36
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
-         WRITE (Nout,99003) nam
+         WRITE (nout,99003) nam
 99003    FORMAT (5X,'ERROR - DIVIDED BY ZERO  ',2A4)
          ierr = 1
-         Flag = +1
-         IF ( Il8>0 ) THEN
-            ivps(Il8) = Flag
-            i = Il8 - 3
-            WRITE (Nout,99004) ivps(i) , ivps(i+1) , Flag , nam
+         flag = +1
+         IF ( il8>0 ) THEN
+            ivps(il8) = flag
+            i = il8 - 3
+            WRITE (nout,99004) ivps(i) , ivps(i+1) , flag , nam
 99004       FORMAT (22X,2A4,2H =,I10,'   (OUTPUT)  ',2A4)
          ENDIF
 !
          ASSIGN 40 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     NOP
@@ -310,8 +307,8 @@ SUBROUTINE qparmr
 !
 !     SQUARE ROOT
 !
-         IF ( In1r>=0.0 ) THEN
-            Outr = sqrt(In1r)
+         IF ( in1r>=0.0 ) THEN
+            outr = sqrt(in1r)
 !
             ASSIGN 60 TO irtn3
             spag_nextblock_1 = 37
@@ -319,125 +316,116 @@ SUBROUTINE qparmr
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
-         WRITE (Nout,99005) nam
+         WRITE (nout,99005) nam
 99005    FORMAT (5X,'ERROR - OPERATING ON A NEGATIVE NUMBER  ',2A4)
-         Outr = 0.0
+         outr = 0.0
          ierr = 1
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     SINE
 !
-         Outr = sin(In1r)
+         outr = sin(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     COSINE
 !
-         Outr = cos(In1r)
+         outr = cos(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
 !     ABSOLUTE VALUE
 !
-         Outr = abs(In1r)
+         outr = abs(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     EXPONENTIAL
 !
-         Outr = exp(In1r)
+         outr = exp(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
 !     TANGENT
 !
-         Outr = tan(In1r)
+         outr = tan(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
 !
 !     NORM
 !
-         Outr = sqrt(Outc(1)**2+Outc(2)**2)
+         outr = sqrt(outc(1)**2+outc(2)**2)
 !
          IF ( prt ) THEN
-            i = Il5 - 3
-            IF ( Il5<=0 ) WRITE (Nout,99011) ilx(5) , parm , Outc
-            IF ( Il5>0 ) WRITE (Nout,99011) ivps(i) , ivps(i+1) , Outc
+            i = il5 - 3
+            IF ( il5<=0 ) WRITE (nout,99011) ilx(5) , parm , outc
+            IF ( il5>0 ) WRITE (nout,99011) ivps(i) , ivps(i+1) , outc
          ENDIF
-         IF ( Il5==0 ) ierr = 1
+         IF ( il5==0 ) ierr = 1
          GOTO 60
       CASE (16)
 !
 !     POWER
 !
-         Outr = In1r**In2r
+         outr = in1r**in2r
          spag_nextblock_1 = 36
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
 !
 !     LOG
 !
-         IF ( In1r<0.0 ) THEN
+         IF ( in1r<0.0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Outr = alog10(In1r)
+         outr = alog10(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
 !
 !     NATURAL LOG
 !
-         IF ( In1r<0.0 ) THEN
+         IF ( in1r<0.0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Outr = alog(In1r)
+         outr = alog(in1r)
          ASSIGN 60 TO irtn3
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (19)
 !
 !     FLOAT
 !
-         Outr = iflag
+         outr = iflag
 !
          IF ( prt ) THEN
-            i = Il8 - 3
-            IF ( Il8<=0 ) WRITE (Nout,99012) ilx(8) , parm , iflag
-            IF ( Il8>0 ) WRITE (Nout,99012) ivps(i) , ivps(i+1) , iflag
+            i = il8 - 3
+            IF ( il8<=0 ) WRITE (nout,99012) ilx(8) , parm , iflag
+            IF ( il8>0 ) WRITE (nout,99012) ivps(i) , ivps(i+1) , iflag
          ENDIF
-         IF ( Il8==0 ) ierr = 1
+         IF ( il8==0 ) ierr = 1
          GOTO 60
       CASE (20)
 !
 !     ERR
 !
-         IF ( iflag/=0 .AND. Ksys37/=0 ) THEN
-            WRITE (Nout,99006)
+         IF ( iflag/=0 .AND. ksys37/=0 ) THEN
+            WRITE (nout,99006)
 99006       FORMAT (5X,'JOB TERMINATED DUE TO PREVIOUS ERROR(S)',/)
             CALL pexit
          ELSE
-            Ksys37 = 0
-            Nogo = 0
-            IF ( prt ) WRITE (Nout,99007)
+            ksys37 = 0
+            nogo = 0
+            IF ( prt ) WRITE (nout,99007)
 99007       FORMAT (5X,'SYSTEM NOGO FLAG IS RESET TO INTEGER ZERO',/)
          ENDIF
-         IF ( Ksys37==0 ) Ksys37 = ierr
+         IF ( ksys37==0 ) ksys37 = ierr
          RETURN
       CASE (21)
 !
@@ -447,164 +435,149 @@ SUBROUTINE qparmr
 !
 !     ADD COMPLEX
 !
-         Outc(1) = In1c(1) + In2c(1)
-         Outc(2) = In1c(2) + In2c(2)
+         outc(1) = in1c(1) + in2c(1)
+         outc(2) = in1c(2) + in2c(2)
          ASSIGN 40 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (22)
 !
 !     SUBTRACT COMPLEX
 !
-         Outc(1) = In1c(1) - In2c(1)
-         Outc(2) = In1c(2) - In2c(2)
+         outc(1) = in1c(1) - in2c(1)
+         outc(2) = in1c(2) - in2c(2)
          ASSIGN 40 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (23)
 !
 !     MULTIPLY COMPLEX
 !
-         Outc(1) = In1c(1)*In2c(1) - In1c(2)*In2c(2)
-         Outc(2) = In1c(1)*In2c(2) + In1c(2)*In2c(1)
+         outc(1) = in1c(1)*in2c(1) - in1c(2)*in2c(2)
+         outc(2) = in1c(1)*in2c(2) + in1c(2)*in2c(1)
          ASSIGN 40 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (24)
 !
 !     DIVIDE COMPLEX
 !
-         denom = In2c(1)**2 + In2c(2)**2
+         denom = in2c(1)**2 + in2c(2)**2
          IF ( denom==0.0 ) THEN
-            Outc(1) = 0.0
-            Outc(2) = 0.0
+            outc(1) = 0.0
+            outc(2) = 0.0
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            Outc(1) = (In1c(1)*In2c(1)+In1c(2)*In2c(2))/denom
-            Outc(2) = (In1c(2)*In2c(1)-In1c(1)*In2c(2))/denom
+            outc(1) = (in1c(1)*in2c(1)+in1c(2)*in2c(2))/denom
+            outc(2) = (in1c(2)*in2c(1)-in1c(1)*in2c(2))/denom
             ASSIGN 40 TO irtn6
             spag_nextblock_1 = 39
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (25)
 !
 !     COMPLEX
 !
-         Outc(1) = In1r
-         Outc(2) = In2r
+         outc(1) = in1r
+         outc(2) = in2r
 !
          ASSIGN 20 TO irtn3
          ASSIGN 80 TO irtn4
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (26)
 !
 !     COMPLEX SQUARE ROOT
 !
-         Outc(1) = (In1c(1)**2+In1c(2)**2)**0.25*cos(0.5*atan2(In1c(2),In1c(1)))
-         Outc(2) = (In1c(1)**2+In1c(2)**2)**0.25*sin(0.5*atan2(In1c(2),In1c(1)))
+         outc(1) = (in1c(1)**2+in1c(2)**2)**0.25*cos(0.5*atan2(in1c(2),in1c(1)))
+         outc(2) = (in1c(1)**2+in1c(2)**2)**0.25*sin(0.5*atan2(in1c(2),in1c(1)))
 !
          ASSIGN 80 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (27)
 !
 !     CONJUGATE
 !
-         Outc(1) = In1c(1)
-         Outc(2) = -In1c(2)
+         outc(1) = in1c(1)
+         outc(2) = -in1c(2)
          ASSIGN 80 TO irtn6
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (28)
 !
 !     REAL
 !
-         In1r = Outc(1)
-         In2r = Outc(2)
+         in1r = outc(1)
+         in2r = outc(2)
 !
          IF ( prt ) THEN
-            i = Il5 - 3
-            IF ( Il5<=0 ) WRITE (Nout,99011) ilx(5) , parm , Outc
-            IF ( Il5>0 ) WRITE (Nout,99011) ivps(i) , ivps(i+1) , Outc
+            i = il5 - 3
+            IF ( il5<=0 ) WRITE (nout,99011) ilx(5) , parm , outc
+            IF ( il5>0 ) WRITE (nout,99011) ivps(i) , ivps(i+1) , outc
          ENDIF
-         IF ( Il5==0 ) ierr = 1
+         IF ( il5==0 ) ierr = 1
 !
 !     THIRD AND FOURTH PARAMETERS - INR1, INR2
 !
-         IF ( Il3>0 ) THEN
-            IF ( ierr==0 ) Vps(Il3) = In1r
-            i = Il3 - 3
-            IF ( prt ) WRITE (Nout,99014) ivps(i) , ivps(i+1) , Vps(Il3)
+         IF ( il3>0 ) THEN
+            IF ( ierr==0 ) vps(il3) = in1r
+            i = il3 - 3
+            IF ( prt ) WRITE (nout,99014) ivps(i) , ivps(i+1) , vps(il3)
          ELSE
-            WRITE (Nout,99015) ilx(3) , nam
+            WRITE (nout,99015) ilx(3) , nam
             ierr = 1
          ENDIF
-         IF ( Il4>0 ) THEN
-            IF ( ierr==0 ) Vps(Il4) = In2r
-            j = Il4 - 3
-            IF ( prt ) WRITE (Nout,99014) ivps(j) , ivps(j+1) , Vps(Il4)
+         IF ( il4>0 ) THEN
+            IF ( ierr==0 ) vps(il4) = in2r
+            j = il4 - 3
+            IF ( prt ) WRITE (nout,99014) ivps(j) , ivps(j+1) , vps(il4)
          ELSE
-            WRITE (Nout,99015) ilx(4) , nam
+            WRITE (nout,99015) ilx(4) , nam
             ierr = 1
          ENDIF
          spag_nextblock_1 = 40
-         CYCLE SPAG_DispatchLoop_1
       CASE (29)
 !
 !     EQUAL
 !
-         IF ( In1r==In2r ) Flag = -1
+         IF ( in1r==in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (30)
 !
 !     GREATER THAN
 !
-         IF ( In1r>In2r ) Flag = -1
+         IF ( in1r>in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (31)
 !
 !     GREATER THAN OR EQUAL
 !
-         IF ( In1r>=In2r ) Flag = -1
+         IF ( in1r>=in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (32)
 !
 !     LESS THAN
 !
-         IF ( In1r<In2r ) Flag = -1
+         IF ( in1r<in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (33)
 !
 !     LESS THAN OR EQUAL
 !
-         IF ( In1r<=In2r ) Flag = -1
+         IF ( in1r<=in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (34)
 !
 !     NOT EQUAL
 !
-         IF ( In1r/=In2r ) Flag = -1
+         IF ( in1r/=in2r ) flag = -1
          spag_nextblock_1 = 38
-         CYCLE SPAG_DispatchLoop_1
       CASE (35)
 !
 !     FIX
 !
-         Flag = Outr
+         flag = outr
 !
          IF ( prt ) THEN
-            i = Il2 - 3
-            IF ( Il2<=0 ) WRITE (Nout,99013) ilx(2) , parm , Outr
-            IF ( Il2>0 ) WRITE (Nout,99013) ivps(i) , ivps(i+1) , Outr
+            i = il2 - 3
+            IF ( il2<=0 ) WRITE (nout,99013) ilx(2) , parm , outr
+            IF ( il2>0 ) WRITE (nout,99013) ivps(i) , ivps(i+1) , outr
          ENDIF
-         IF ( Il2==0 ) ierr = 1
+         IF ( il2==0 ) ierr = 1
          GOTO 100
       CASE (36)
 !
@@ -617,51 +590,50 @@ SUBROUTINE qparmr
          spag_nextblock_1 = 37
       CASE (37)
          IF ( prt ) THEN
-            i = Il3 - 3
-            IF ( Il3<=0 ) WRITE (Nout,99013) ilx(3) , parm , In1r
-            IF ( Il3>0 ) WRITE (Nout,99013) ivps(i) , ivps(i+1) , In1r
+            i = il3 - 3
+            IF ( il3<=0 ) WRITE (nout,99013) ilx(3) , parm , in1r
+            IF ( il3>0 ) WRITE (nout,99013) ivps(i) , ivps(i+1) , in1r
          ENDIF
-         IF ( Il3==0 ) ierr = 1
+         IF ( il3==0 ) ierr = 1
          GOTO irtn3
  20      IF ( prt ) THEN
-            j = Il4 - 3
-            IF ( Il4<=0 ) WRITE (Nout,99013) ilx(4) , parm , In2r
-            IF ( Il4>0 ) WRITE (Nout,99013) ivps(j) , ivps(j+1) , In2r
+            j = il4 - 3
+            IF ( il4<=0 ) WRITE (nout,99013) ilx(4) , parm , in2r
+            IF ( il4>0 ) WRITE (nout,99013) ivps(j) , ivps(j+1) , in2r
          ENDIF
-         IF ( Il4==0 ) ierr = 1
+         IF ( il4==0 ) ierr = 1
          GOTO irtn4
       CASE (38)
 !
          ASSIGN 20 TO irtn3
          ASSIGN 100 TO irtn4
          spag_nextblock_1 = 37
-         CYCLE SPAG_DispatchLoop_1
       CASE (39)
          IF ( prt ) THEN
-            i = Il6 - 3
-            IF ( Il6<=0 ) WRITE (Nout,99011) ilx(6) , parm , In1c
-            IF ( Il6>0 ) WRITE (Nout,99011) ivps(i) , ivps(i+1) , In1c
+            i = il6 - 3
+            IF ( il6<=0 ) WRITE (nout,99011) ilx(6) , parm , in1c
+            IF ( il6>0 ) WRITE (nout,99011) ivps(i) , ivps(i+1) , in1c
          ENDIF
-         IF ( Il6==0 ) ierr = 1
+         IF ( il6==0 ) ierr = 1
          GOTO irtn6
  40      IF ( prt ) THEN
-            j = Il7 - 3
-            IF ( Il7<=0 ) WRITE (Nout,99011) ilx(7) , parm , In2c
-            IF ( Il7>0 ) WRITE (Nout,99011) ivps(j) , ivps(j+1) , In2c
+            j = il7 - 3
+            IF ( il7<=0 ) WRITE (nout,99011) ilx(7) , parm , in2c
+            IF ( il7>0 ) WRITE (nout,99011) ivps(j) , ivps(j+1) , in2c
          ENDIF
-         IF ( Il7==0 ) ierr = 1
+         IF ( il7==0 ) ierr = 1
          GOTO 80
 !
 !     OUTPUT PARAMETER CHECK
 !
 !     SECOND PARAMETER - OUTR
 !
- 60      IF ( Il2>0 ) THEN
-            IF ( ierr==0 ) Vps(Il2) = Outr
-            i = Il2 - 3
-            IF ( prt ) WRITE (Nout,99014) ivps(i) , ivps(i+1) , Vps(Il2)
+ 60      IF ( il2>0 ) THEN
+            IF ( ierr==0 ) vps(il2) = outr
+            i = il2 - 3
+            IF ( prt ) WRITE (nout,99014) ivps(i) , ivps(i+1) , vps(il2)
          ELSE
-            WRITE (Nout,99015) ilx(2) , nam
+            WRITE (nout,99015) ilx(2) , nam
             ierr = 1
          ENDIF
          spag_nextblock_1 = 40
@@ -669,16 +641,16 @@ SUBROUTINE qparmr
 !
 !     FIFTH PARAMETER - OUTC
 !
- 80      IF ( Il5>0 ) THEN
+ 80      IF ( il5>0 ) THEN
             IF ( ierr/=1 ) THEN
-               Vps(Il5) = Outc(1)
-               Vps(Il5+1) = Outc(2)
+               vps(il5) = outc(1)
+               vps(il5+1) = outc(2)
             ENDIF
-            i = Il5 - 3
-            IF ( prt ) WRITE (Nout,99008) ivps(i) , ivps(i+1) , Vps(Il5) , Vps(Il5+1)
+            i = il5 - 3
+            IF ( prt ) WRITE (nout,99008) ivps(i) , ivps(i+1) , vps(il5) , vps(il5+1)
 99008       FORMAT (22X,2A4,4H = (,E13.6,1H,,E13.6,')   (OUTPUT)')
          ELSE
-            WRITE (Nout,99015) ilx(5) , nam
+            WRITE (nout,99015) ilx(5) , nam
             ierr = 1
          ENDIF
          spag_nextblock_1 = 40
@@ -686,23 +658,23 @@ SUBROUTINE qparmr
 !
 !     EIGHTH PARAMETER - FLAG
 !
- 100     IF ( Il8>0 ) THEN
-            IF ( ierr==0 ) ivps(Il8) = Flag
-            i = Il8 - 3
-            IF ( prt ) WRITE (Nout,99009) ivps(i) , ivps(i+1) , ivps(Il8)
+ 100     IF ( il8>0 ) THEN
+            IF ( ierr==0 ) ivps(il8) = flag
+            i = il8 - 3
+            IF ( prt ) WRITE (nout,99009) ivps(i) , ivps(i+1) , ivps(il8)
 99009       FORMAT (22X,2A4,2H =,I10,6X,'(OUTPUT)')
          ELSE
-            WRITE (Nout,99015) ilx(8) , nam
+            WRITE (nout,99015) ilx(8) , nam
             ierr = 1
          ENDIF
          spag_nextblock_1 = 40
       CASE (40)
 !
          IF ( ierr/=0 ) THEN
-            WRITE (Nout,99010) Uwm , nam
+            WRITE (nout,99010) uwm , nam
 99010       FORMAT (A25,' - I/O ERROR, OUTPUT NOT SAVED. OUTPUT DEFAULT ','VALUE REMAINS ',2A4,/)
          ENDIF
-         IF ( Ksys37==0 ) Ksys37 = ierr
+         IF ( ksys37==0 ) ksys37 = ierr
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

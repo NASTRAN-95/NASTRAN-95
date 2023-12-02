@@ -1,4 +1,5 @@
-!*==ifp1pc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1pc.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
@@ -6,11 +7,11 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !     SUBROUTINE TO PERFORM FIRST-LEVEL CHECKING OF STRUCTURE PLOTTER
 !     CONTROL CARD FORMAT.
 !
+   USE c_system
+   USE c_xifp1
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XIFP1
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -78,7 +79,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !
 !     INITIALIZE
 !
-         IF ( Intra>1 .OR. Ilink/=ilnk ) THEN
+         IF ( intra>1 .OR. ilink/=ilnk ) THEN
             DO i = 1 , 200
                core(i) = Pocard(i)
             ENDDO
@@ -113,13 +114,10 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ASSIGN 380 TO ierr
             msgno = 348
             spag_nextblock_1 = 66
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( core(iwrd)==0 ) THEN
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
          IF ( core(iwrd)<=0 ) GOTO 20
@@ -137,7 +135,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !     BRANCH FOR CARD TYPE
 !
          iword = core(iwrd)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          DO i = 1 , 20
             IF ( iword==ctype(i) ) THEN
                IF ( i==1 ) THEN
@@ -232,24 +230,22 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          Icont = 0
          IF ( core(iwrd)==0 ) Icont = 1
          spag_nextblock_1 = 69
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     BRANCH TO PLOT OR PLOTTER
 !
          iword = core(iwrd+1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword==ter ) THEN
 !
 !     PLOTTER CARD
 !
             iword = core(iwrd+2)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword/=nast(1) .AND. iword/=nast(2) ) GOTO 20
             ASSIGN 420 TO ierr
             msgno = 350
             spag_nextblock_1 = 67
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             isplot = 1
 !
@@ -266,7 +262,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          iwrd = iwrd + 2
          mode = mode - 1
          iword = core(iwrd)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword/=proj ) THEN
             ASSIGN 40 TO irtn
             iprm = proj
@@ -280,7 +276,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
          SPAG_Loop_1_1: DO
 !
@@ -289,8 +284,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             iwrd = iwrd + 2
             mode = mode - 1
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                DO j = 1 , 3
                   flag(j) = .FALSE.
                ENDDO
@@ -299,7 +294,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ENDIF
          ENDDO SPAG_Loop_1_1
          DO
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                DO j = 1 , 3
                   IF ( iword==axes(j) .OR. iword==maxes(j) ) flag(j) = .TRUE.
                ENDDO
@@ -310,7 +305,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( i<3 ) THEN
                iword = core(iwrd)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             ELSE
 !
                ASSIGN 20 TO irtn
@@ -320,7 +315,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                ENDIF
                DO
                   iword = core(iwrd)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+                  IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
                   IF ( iword==symm .OR. iword==anti ) THEN
                      iwrd = iwrd + 2
                      mode = mode - 1
@@ -335,7 +330,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                         spag_nextblock_1 = 6
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+                     IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -357,7 +352,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          nreal = 3
          nopt = 0
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     MAXIMUM DEFORMATION CARD
@@ -365,7 +359,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          nreal = 1
          nopt = 0
          iword = core(iwrd+2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword==defo ) THEN
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
@@ -373,7 +367,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          ASSIGN 20 TO irtn
          iprm = core(iwrd+2)
          spag_nextblock_1 = 57
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
 !     CSCALE CARD
@@ -390,15 +383,15 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                   spag_nextblock_1 = 25
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( core(iwrd)+1==0 ) THEN
-                  WRITE (Nout,99001)
+                  WRITE (nout,99001)
 99001             FORMAT (/5X,'REAL VALUE, NOT INTEGER, IS NOW USED FOR CSCALE')
                ENDIF
                spag_nextblock_1 = 61
                CYCLE SPAG_DispatchLoop_1
             ELSE
                iword = core(iwrd)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-               IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+               IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                   spag_nextblock_1 = 59
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -422,8 +415,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   iword = core(iwrd)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-                  IF ( core(iwrd)==allon .OR. iword==Blank ) THEN
+                  IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+                  IF ( core(iwrd)==allon .OR. iword==blank ) THEN
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -465,8 +458,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
                         iword = core(iwrd)
-                        IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-                        IF ( core(iwrd)/=allon .AND. iword/=Blank ) CYCLE SPAG_Loop_1_2
+                        IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+                        IF ( core(iwrd)/=allon .AND. iword/=blank ) EXIT SPAG_DispatchLoop_2
                      ENDIF
                   ENDDO
                   spag_nextblock_2 = 3
@@ -499,8 +492,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
                         iword = core(iwrd)
-                        IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-                        IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+                        IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+                        IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                            spag_nextblock_1 = 60
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -511,7 +504,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ENDDO SPAG_DispatchLoop_2
          ENDDO SPAG_Loop_1_2
          spag_nextblock_1 = 19
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
          iwrd = iwrd + 2
@@ -520,17 +512,15 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          IF ( mode<=0 ) THEN
             iprm = poin
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword==poin ) THEN
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             iprm = core(iwrd)
             spag_nextblock_1 = 57
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (15)
 !
@@ -540,8 +530,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) EXIT SPAG_Loop_1_3
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                spag_nextblock_1 = 62
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -579,7 +569,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          Icont = 0
          IF ( core(iwrd)==0 ) Icont = 4
          spag_nextblock_1 = 69
-         CYCLE SPAG_DispatchLoop_1
       CASE (20)
 !
 !     CONTOUR
@@ -589,8 +578,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          ASSIGN 20 TO irtn
          DO WHILE ( core(iwrd)/=0 .AND. core(iwrd)/=eor )
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)==allon .OR. iword==Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)==allon .OR. iword==blank ) THEN
                iwrd = iwrd + 2
                mode = mode - 1
                IF ( mode<=0 ) THEN
@@ -607,7 +596,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ENDIF
          ENDDO
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (21)
 !
 !     PROJECTION PLANE SEPARATION
@@ -618,26 +606,22 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          IF ( mode<=0 ) THEN
             iprm = plan
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword/=plan ) THEN
                iprm = core(iwrd)
                spag_nextblock_1 = 57
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                iword = core(iwrd+2)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
                IF ( iword==sepa ) THEN
                   nreal = 1
                   nopt = 0
                   spag_nextblock_1 = 23
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   iprm = core(iwrd)
                   spag_nextblock_1 = 57
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
          ENDIF
@@ -648,7 +632,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          nreal = 1
          nopt = 0
          iword = core(iwrd+2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword/=sepa ) THEN
             ASSIGN 20 TO irtn
             iprm = core(iwrd+2)
@@ -676,8 +660,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) EXIT SPAG_Loop_1_4
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                IF ( core(iwrd)==eor .OR. core(iwrd)==0 ) THEN
                   spag_nextblock_1 = 63
                   CYCLE SPAG_DispatchLoop_1
@@ -694,8 +678,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                   mode = mode - 1
                   IF ( mode<=0 ) EXIT SPAG_Loop_1_4
                   iword = core(iwrd)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-                  IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+                  IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+                  IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                      i = i + 1
                      IF ( iword/=camera(4) .AND. iword/=camera(5) ) THEN
                         ASSIGN 20 TO irtn
@@ -716,7 +700,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 63
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ASSIGN 20 TO irtn
             IF ( core(iwrd)+1/=0 ) THEN
@@ -725,7 +708,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ENDIF
             iwrd = iwrd + 2
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (25)
 !
@@ -761,13 +743,10 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             iro = 1
             nro = nopt
             spag_nextblock_1 = 26
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( core(iwrd)==0 ) THEN
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (27)
 !
@@ -776,7 +755,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          nreal = 1
          nopt = 1
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (28)
 !
 !     ORIGIN
@@ -788,8 +766,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) EXIT SPAG_Loop_1_5
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) EXIT SPAG_Loop_1_5
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) EXIT SPAG_Loop_1_5
          ENDDO SPAG_Loop_1_5
          IF ( core(iwrd)==-1 ) THEN
             IF ( core(iwrd)==-4 ) iwrd = iwrd + 1
@@ -806,18 +784,16 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = core(iwrd)
             iwrd = iwrd + 1
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)==allon .OR. iword==Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)==allon .OR. iword==blank ) THEN
                spag_nextblock_1 = 23
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 59
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iprm = ctype(18)
             ASSIGN 20 TO irtn
             spag_nextblock_1 = 60
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (29)
 !
@@ -826,7 +802,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          nreal = 3
          nopt = 1
          iword = core(iwrd+2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword==poin ) THEN
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
@@ -834,7 +810,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          ASSIGN 20 TO irtn
          iprm = core(iwrd+2)
          spag_nextblock_1 = 57
-         CYCLE SPAG_DispatchLoop_1
       CASE (30)
 !
 !     SET DEFINITION CARD
@@ -851,8 +826,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                CYCLE SPAG_DispatchLoop_1
             ELSE
                iword = core(iwrd)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-               IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+               IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                   iprm = ctype(20)
                   ASSIGN 160 TO irtn
                   spag_nextblock_1 = 60
@@ -881,7 +856,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          Icont = 2
          nthru = 0
          spag_nextblock_1 = 69
-         CYCLE SPAG_DispatchLoop_1
       CASE (33)
          IF ( core(iwrd)/=eor ) THEN
             mode = core(iwrd)
@@ -893,10 +867,10 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          ENDIF
  160     SPAG_Loop_1_6: DO
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                iword = core(iwrd)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
                IF ( iword/=thru ) GOTO 200
                nthru = nthru + 1
                IF ( core(iwrd-3)==-1 .AND. core(iwrd+2)==-1 ) THEN
@@ -906,13 +880,12 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                   ASSIGN 620 TO ierr
                   msgno = 359
                   spag_nextblock_1 = 66
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   ASSIGN 180 TO irtn
                   nreal = 1
                   spag_nextblock_1 = 64
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ELSE
                iwrd = iwrd + 2
                mode = mode - 1
@@ -938,8 +911,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          iword = core(iwrd)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-         IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+         IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
             DO i = 1 , 33
                IF ( iword==setpr(i) ) THEN
                   IF ( i==1 .OR. i==2 .OR. i==3 .OR. i==4 .OR. i==6 .OR. i==7 .OR. i==9 .OR. i==10 .OR. i==11 .OR. i==15 .OR.       &
@@ -999,12 +972,11 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) EXIT SPAG_Loop_1_7
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) GOTO 200
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) GOTO 200
          ENDDO SPAG_Loop_1_7
  240     nthru = 0
          spag_nextblock_1 = 31
-         CYCLE SPAG_DispatchLoop_1
       CASE (34)
 !
          iwrd = iwrd + 2
@@ -1013,58 +985,49 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ASSIGN 240 TO irtn
             iprm = poin
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword==poin ) GOTO 220
             ASSIGN 200 TO irtn
             iprm = core(iwrd)
             spag_nextblock_1 = 57
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (35)
 !
          istt = 4
          istb = 6
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (36)
 !
          istt = 3
          istb = 6
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (37)
 !
          istt = 7
          istb = 9
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (38)
 !
          istt = 3
          istb = 5
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (39)
 !
          istt = 10
          istb = 12
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (40)
 !
          istt = 5
          istb = 6
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (41)
 !
          istt = 1
          istb = 2
          spag_nextblock_1 = 43
-         CYCLE SPAG_DispatchLoop_1
       CASE (42)
 !
          istt = 1
@@ -1073,7 +1036,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
       CASE (43)
 !
          iword = core(iwrd+1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          DO i = istt , istb
             IF ( iword==setp2(i) ) GOTO 220
          ENDDO
@@ -1083,8 +1046,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          CYCLE SPAG_DispatchLoop_1
  260     IF ( core(iwrd)==0 .OR. core(iwrd)==eor ) GOTO 320
          iword = core(iwrd)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-         IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+         IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
             DO i = 1 , 28
                IF ( iword==pltpr(i) ) THEN
                   IF ( i==1 .OR. i==12 .OR. i==15 .OR. i==16 .OR. i==17 .OR. i==28 ) THEN
@@ -1148,8 +1111,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !
  280     iwrd = iwrd + 2
          mode = mode - 1
-         IF ( mode<=0 ) GOTO 300
-         GOTO 260
+         IF ( mode>0 ) GOTO 260
+         GOTO 300
       CASE (44)
 !
          iprm = core(iwrd)
@@ -1159,8 +1122,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) EXIT SPAG_Loop_1_8
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                spag_nextblock_1 = 60
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -1204,7 +1167,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             Icont = 0
          ENDIF
          spag_nextblock_1 = 69
-         CYCLE SPAG_DispatchLoop_1
       CASE (45)
 !
          ipr1 = core(iwrd)
@@ -1215,10 +1177,9 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             iprm = defo
             ASSIGN 300 TO irtn
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             DO i = 1 , 3
 !                                     DEFO  VELO  ACCE
                IF ( iword==idvpr(i) ) THEN
@@ -1232,7 +1193,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ASSIGN 280 TO irtn
             iprm = core(iwrd)
             spag_nextblock_1 = 57
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (46)
 !
@@ -1242,18 +1202,16 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ASSIGN 300 TO irtn
             iprm = defo
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             DO i = 1 , 3
                IF ( iword==idvpr(i) ) GOTO 280
             ENDDO
             ASSIGN 280 TO irtn
             iprm = core(iwrd)
             spag_nextblock_1 = 57
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (47)
 !
@@ -1279,8 +1237,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                CYCLE SPAG_DispatchLoop_1
             ELSE
                iword = core(iwrd)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-               IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+               IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                   spag_nextblock_1 = 62
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -1296,15 +1254,13 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             ASSIGN 300 TO irtn
             iprm = lag
             spag_nextblock_1 = 56
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword==lag ) GOTO 340
             ASSIGN 340 TO irtn
             iprm = core(iwrd)
             spag_nextblock_1 = 57
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (49)
 !
@@ -1312,7 +1268,6 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
          icrd = 1
          ivc = 0
          spag_nextblock_1 = 51
-         CYCLE SPAG_DispatchLoop_1
       CASE (50)
          ncrd = 25
          icrd = 4
@@ -1334,8 +1289,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
                   SELECT CASE (spag_nextblock_4)
                   CASE (1)
                      iword = core(iwrd)
-                     IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-                     IF ( core(iwrd)==allon .OR. iword==Blank ) EXIT SPAG_Loop_2_9
+                     IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+                     IF ( core(iwrd)==allon .OR. iword==blank ) EXIT SPAG_Loop_2_9
                      DO i = icrd , ncrd
                         IF ( iword==coord(i) ) THEN
                            spag_nextblock_4 = 2
@@ -1367,8 +1322,8 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             mode = mode - 1
             IF ( mode<=0 ) GOTO 300
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
-            IF ( core(iwrd)/=allon .AND. iword/=Blank ) THEN
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
+            IF ( core(iwrd)/=allon .AND. iword/=blank ) THEN
                DO i = 1 , 5
                   IF ( iword==lblpr(i) ) THEN
                      IF ( i==1 ) CYCLE SPAG_Loop_1_10
@@ -1390,7 +1345,7 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
             CYCLE SPAG_DispatchLoop_1
          ELSE
             iword = core(iwrd)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             IF ( iword/=defo ) THEN
                ASSIGN 360 TO irtn
                iprm = core(iwrd)
@@ -1404,64 +1359,53 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
 !
          iwrd = iwrd + 2
          iword = core(iwrd)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          IF ( iword==hidd ) GOTO 280
          mode = mode - 1
          IF ( mode>=0 ) GOTO 300
          ASSIGN 300 TO irtn
          spag_nextblock_1 = 59
-         CYCLE SPAG_DispatchLoop_1
       CASE (55)
 !
          IF ( core(iwrd-3)==-1 .AND. core(iwrd+2)==-1 ) GOTO 280
          ASSIGN 280 TO irtn
          spag_nextblock_1 = 64
-         CYCLE SPAG_DispatchLoop_1
       CASE (56)
          ASSIGN 440 TO ierr
          msgno = 351
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (57)
          ASSIGN 460 TO ierr
          msgno = 351
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (58)
          ASSIGN 480 TO ierr
          msgno = 352
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (59)
          ASSIGN 500 TO ierr
          msgno = 353
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (60)
          ASSIGN 520 TO ierr
          msgno = 354
          spag_nextblock_1 = 67
-         CYCLE SPAG_DispatchLoop_1
       CASE (61)
          ASSIGN 540 TO ierr
          msgno = 355
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (62)
          ASSIGN 560 TO ierr
          msgno = 356
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (63)
          ASSIGN 580 TO ierr
          msgno = 357
          spag_nextblock_1 = 67
-         CYCLE SPAG_DispatchLoop_1
       CASE (64)
          ASSIGN 600 TO ierr
          msgno = 358
          spag_nextblock_1 = 66
-         CYCLE SPAG_DispatchLoop_1
       CASE (65)
          ASSIGN 640 TO ierr
          msgno = 360
@@ -1469,83 +1413,82 @@ SUBROUTINE ifp1pc(I81,Icont,Pocard,Org,Porg)
       CASE (66)
 !
          CALL page2(2)
-         WRITE (Nout,99002) Ufm , msgno
+         WRITE (nout,99002) ufm , msgno
 99002    FORMAT (A23,I4)
-         IF ( Pltopt<=2 ) Nogo = 1
+         IF ( pltopt<=2 ) nogo = 1
          spag_nextblock_1 = 68
-         CYCLE SPAG_DispatchLoop_1
       CASE (67)
          CALL page2(2)
-         WRITE (Nout,99003) Uwm , msgno
+         WRITE (nout,99003) uwm , msgno
 99003    FORMAT (A25,I4)
          spag_nextblock_1 = 68
       CASE (68)
 !
          GOTO ierr
 !
- 380     WRITE (Nout,99004)
+ 380     WRITE (nout,99004)
 99004    FORMAT (5X,'FIRST CHARACTER ON CARD IS NUMERIC. INCORRECT FORMAT',' OR INCORRECT CONTINUATION ON PREVIOUS CARD')
          GOTO 20
 !
- 400     WRITE (Nout,99005) core(iwrd)
+ 400     WRITE (nout,99005) core(iwrd)
 99005    FORMAT (5X,'PLOT COMMAND ',A4,' NOT RECOGNIZED.  CHECK SPELLING ',                                                         &
                 &'AND FORMAT ON THIS CARD AND CONTINUATION ON PREVIOUS ONE')
          GOTO 20
- 420     WRITE (Nout,99006)
+ 420     WRITE (nout,99006)
 99006    FORMAT (1H+,30X,' - ONLY NASTRAN GENERAL PURPOSE PLOTTER IS ','SUPPORTED')
          GOTO 20
 !
- 440     WRITE (Nout,99007) iprm
+ 440     WRITE (nout,99007) iprm
 99007    FORMAT (1H+,30X,' - KEYWORD ',A4,' NOT FOUND')
          GOTO irtn
 !
- 460     WRITE (Nout,99008) iprm
+ 460     WRITE (nout,99008) iprm
 99008    FORMAT (1H+,30X,' - KEYWORD ',A4,' NOT RECOGNIZED')
          GOTO irtn
 !
- 480     WRITE (Nout,99009)
+ 480     WRITE (nout,99009)
 99009    FORMAT (1H+,30X,' - COORDINATE AXES INCORRECTLY DEFINED')
          GOTO irtn
 !
- 500     WRITE (Nout,99010)
+ 500     WRITE (nout,99010)
 99010    FORMAT (1H+,30X,' - INCORRECT FORMAT')
          GOTO irtn
 !
- 520     WRITE (Nout,99011) iprm
+ 520     WRITE (nout,99011) iprm
 99011    FORMAT (1H+,30X,3H - ,A4,' IDENTIFICATION NUMBER NOT DEFINED')
          GOTO irtn
 !
- 540     WRITE (Nout,99012)
+ 540     WRITE (nout,99012)
 99012    FORMAT (1H+,30X,' - DATA TYPE IS INCORRECT')
          GOTO irtn
 !
- 560     WRITE (Nout,99013)
+ 560     WRITE (nout,99013)
 99013    FORMAT (1H+,30X,' - ONE OR MORE REQUIRED REAL VALUES MISSING')
          GOTO irtn
 !
- 580     WRITE (Nout,99014)
+ 580     WRITE (nout,99014)
 99014    FORMAT (1H+,30X,' - CAMERA OPTION NOT SPECIFIED')
          GOTO 20
 !
- 600     WRITE (Nout,99015)
+ 600     WRITE (nout,99015)
 99015    FORMAT (1H+,30X,' - THRU MUST BE PRECEDED AND FOLLOWED BY INTEGER',' VALUES')
          GOTO irtn
 !
- 620     WRITE (Nout,99016)
+ 620     WRITE (nout,99016)
 99016    FORMAT (1H+,30X,' - THRU RANGE OVERLAPS RANGE OF PREVIOUS THRU')
          GOTO 180
 !
- 640     WRITE (Nout,99017) ipr1 , ipr2
+ 640     WRITE (nout,99017) ipr1 , ipr2
 99017    FORMAT (1H+,30X,' - ONLY DEFORMATION VALID WITH ',2A4)
          GOTO 280
 !
- 660     WRITE (Nout,99018) forg , Porg
+ 660     WRITE (nout,99018) forg , Porg
 99018    FORMAT (1H+,30X,' - A NEW ORIGIN',I8,' WAS DEFINED IN A FIND ','CARD, BUT IT IS NOT USED BY THE IMMEDIATE PLOT CARD',/5X,  &
                 &'(ORIGIN',I8,' WILL BE USED FOR THIS PLOT)',/)
          spag_nextblock_1 = 70
          CYCLE SPAG_DispatchLoop_1
 !
- 680     WRITE (Nout,99019) Porg
+ 680     WRITE (nout,99019) Porg
 99019    FORMAT (1H+,30X,' - ORIGIN',I8,' IS UNDEFINED')
          GOTO 280
       CASE (69)

@@ -1,7 +1,12 @@
-!*==gkad1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gkad1a.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkad1a(Usetd,Go,God,Scr1,Ue,Ua,Ud)
+   USE c_parmeg
+   USE c_patx
+   USE c_system
+   USE c_zzzzzz
    USE C_PARMEG
    USE C_PATX
    USE C_SYSTEM
@@ -105,7 +110,6 @@ SUBROUTINE gkad1a(Usetd,Go,God,Scr1,Ue,Ua,Ud)
 !
          ient = 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          CALL merge(ipv1(1),ipv1(1),Core(1))
          CALL wrttrl(Ia)

@@ -1,12 +1,13 @@
-!*==opt2b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==opt2b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,14 +35,14 @@ SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
    nmes = 0
    ch = 1.0
 !
-   DO np = 1 , Nprw , Nwdsp
+   DO np = 1 , nprw , nwdsp
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
             alph = Pr(np+4)
             i = 1
-            icp = Ntotl - 4
+            icp = ntotl - 4
             SPAG_Loop_2_1: DO
                icp = icp + 4
                IF ( iy(icp)<=0 ) EXIT SPAG_Loop_2_1
@@ -74,7 +75,7 @@ SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
                IF ( iprnt/=0 .AND. nmes<100 ) THEN
                   nmes = nmes + 1
                   CALL page2(-2)
-                  WRITE (Outtap,99001) Uwm , Ipr(np)
+                  WRITE (outtap,99001) uwm , Ipr(np)
 99001             FORMAT (A25,' 2303, FULLY-STRESSED DESIGN DETECTED ZERO STRESS ','FOR PROPERTY',I9,/5X,                           &
                          &'CHECK PROPERTY CARD OR UNLOADED ','ELEMENT(S)')
                ENDIF
@@ -83,7 +84,7 @@ SUBROUTINE opt2b(Ipr,Pr,Pl,Rr)
 !
 !     POSITIVE ALPHA, CALCULATE PNEW
 !
-            irr = (np+Nwdsp)/Nwdsp
+            irr = (np+nwdsp)/nwdsp
             IF ( abs(gama-1.0)<1.0E-4 ) ch = 0.25*Rr(irr) + 0.75
             pnew = Pr(np+3)*((alph/(alph+(1.0-alph)*gama))**ch)
             IF ( Ipr(np+5)/=0 ) THEN

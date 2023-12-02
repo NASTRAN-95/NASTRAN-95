@@ -2,16 +2,16 @@
  
 SUBROUTINE stri32
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTREQ
-   USE C_SDR2C1
-   USE C_SDR2DE
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_TMPDAT
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_outreq
+   USE c_sdr2c1
+   USE c_sdr2de
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_tmpdat
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -23,6 +23,12 @@ SUBROUTINE stri32
             & jg2 , k , kdelt , kforc , kpoint , kstrn , kstrs , ldelt , mominr , ndof , ndof8 , nepsop , nnode , oes1al
    REAL , DIMENSION(6,6) :: g
    REAL , DIMENSION(8) :: stemp
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -107,19 +113,19 @@ SUBROUTINE stri32
    nnode = 3
    ndof = 6*nnode
    ndof8 = 8*ndof
-   Temper = Ldtemp/= - 1
+   temper = ldtemp/= - 1
    bendng = mominr>0.0
 !
 !     CHECK FOR OFFSET AND COMPOSITES
 !
-   Offset = Ph1rst(48)
-   compos = Comps== - 1 .AND. Ipid>0
+   offset = ph1rst(48)
+   compos = comps== - 1 .AND. ipid>0
 !
 !     CHECK THE OUTPUT STRESS FORCE AND STRAIN REQUESTS
 !
-   Stsreq = kstrs==1
-   Forreq = kforc==1
-   Stnreq = kstrn==1
+   stsreq = kstrs==1
+   forreq = kforc==1
+   stnreq = kstrn==1
 !
 !     STRESS OUTPUT REQUEST FLAGS
 !
@@ -127,9 +133,9 @@ SUBROUTINE stri32
 !     VONMS = ANDF(NSTROP, 8).NE.0
 !     LAYER = ANDF(NSTROP,32).NE.0 .AND. COMPOS .AND. KTYPE.EQ.1
 !
-   Grids = .FALSE.
-   Vonms = andf(Nstrop,1)/=0
-   Layer = andf(Nstrop,2)/=0
+   grids = .FALSE.
+   vonms = andf(nstrop,1)/=0
+   layer = andf(nstrop,2)/=0
 !
 !     STRAIN OUTPUT REQUEST FLAGS
 !
@@ -138,47 +144,47 @@ SUBROUTINE stri32
 !     LAYERS = ANDF(NEPSOP, 32).NE.0 .AND. COMPOS .AND. KTYPE.EQ.1
 !     STRCUR = ANDF(NEPSOP,128).NE.0 .AND. STNREQ
 !
-   Gridss = .FALSE.
-   Vonmss = .FALSE.
-   Layers = .FALSE.
-   Strcur = .FALSE.
+   gridss = .FALSE.
+   vonmss = .FALSE.
+   layers = .FALSE.
+   strcur = .FALSE.
 !WKBNB NCL93012 3/94
-   Stnreq = Ostrai
-   Strcur = Ostrai
+   stnreq = ostrai
+   strcur = ostrai
 !WKBNE NCL93012 3/94
 !
 !     IF USER ERRONEOUSLY REQESTS LAYERED OUTPUT AND THERE ARE NO LAYER-
 !     COMPOSITE DATA, SET LAYER FLAGS TO FALSE
 !
-   IF ( Npcmp+Npcmp1+Npcmp2<=0 ) THEN
-      Layer = .FALSE.
-      Layers = .FALSE.
+   IF ( npcmp+npcmp1+npcmp2<=0 ) THEN
+      layer = .FALSE.
+      layers = .FALSE.
 !
 !     USER CORRECTLY REQUESTS LAYERED OUTPUT, BUT CURRENT ELEMENT IS NOT
 !     A LAYER-COMPOSITE; SET LAYER FLAGS TO FALSE
 !
-   ELSEIF ( Ipid<=0 ) THEN
-      Layer = .FALSE.
-      Layers = .FALSE.
+   ELSEIF ( ipid<=0 ) THEN
+      layer = .FALSE.
+      layers = .FALSE.
    ENDIF
 !
 !     SET DEFAULTS FOR FORCE IF STRESS ABSENT
 !
-   IF ( .NOT.(.NOT.Forreq .OR. Nstrop/=0) ) Layer = .FALSE.
+   IF ( .NOT.(.NOT.forreq .OR. nstrop/=0) ) layer = .FALSE.
 !
 !     CHECK FOR THE TYPE OF TEMPERATURE DATA (SET BY SDRETD)
 !     - TYPE TEMPP1 ALSO INCLUDES TYPE TEMPP3.
 !     - IF TEMPPI ARE NOT SUPPLIED, GRID POINT TEMPERATURES ARE PRESENT.
 !
-   Tempp1 = flag==13
-   Tempp2 = flag==2
+   tempp1 = flag==13
+   tempp2 = flag==2
 !
 !     GET THE EXTERNAL GRID POINT ID NUMBERS FOR CORRESPONDING SIL NOS.
 !
 !     CALL FNDGID (ELID,3,KSIL,EXTRNL)
 !
    DO i = 1 , nnode
-      Extrnl(i) = 0
+      extrnl(i) = 0
    ENDDO
 !
 !     COMMENTS FROM G.C.  2/1990
@@ -190,15 +196,15 @@ SUBROUTINE stri32
 !     PREPARE TO REARRANGE STRESSES, STRAINS, AND FORCES ACCORDING TO
 !     EXTERNAL ORDER
 !
-   IF ( .NOT.Grids .AND. .NOT.Gridss ) THEN
-      Idr(1) = 1
-      Idr(2) = 2
-      Idr(3) = 3
+   IF ( .NOT.grids .AND. .NOT.gridss ) THEN
+      idr(1) = 1
+      idr(2) = 2
+      idr(3) = 3
    ELSE
       DO inpl = 1 , 3
          DO i = 1 , nnode
-            IF ( Iorder(i)==inpl ) THEN
-               Idr(inpl) = Extrnl(i)
+            IF ( iorder(i)==inpl ) THEN
+               idr(inpl) = extrnl(i)
                EXIT
             ENDIF
          ENDDO
@@ -209,10 +215,10 @@ SUBROUTINE stri32
 !
 !     SORT THE GRID TEMPERATURE CHANGES INTO SIL ORDER
 !
-   IF ( .NOT.(.NOT.Temper .OR. (Tempp1 .AND. Tempp2)) ) THEN
+   IF ( .NOT.(.NOT.temper .OR. (tempp1 .AND. tempp2)) ) THEN
       DO k = 1 , nnode
-         kpoint = Iorder(k)
-         Deltat(k) = stemp(kpoint)
+         kpoint = iorder(k)
+         deltat(k) = stemp(kpoint)
       ENDDO
    ENDIF
 !
@@ -220,17 +226,17 @@ SUBROUTINE stri32
 !     ELEMENT COORD. SYSTEM
 !
    DO idelt = 1 , nnode
-      jdelt = Ivec + Ksil(idelt) - 2
+      jdelt = ivec + ksil(idelt) - 2
       kdelt = 6*(idelt-1) + 1
       DO ldelt = 1 , 6
-         Tdelta(ldelt) = Disp(jdelt+ldelt)
+         tdelta(ldelt) = disp(jdelt+ldelt)
       ENDDO
 !
 !     FETCH [TEG] 3X3 FOR EACH NODE, LOAD IT INTO A 6X6 MATRIX AND
 !     INCLUDE THE EFFECTS OF OFFSET
 !
-      CALL tldrs(Offset,idelt,Ph1rst(67),U)
-      CALL gmmats(U,6,6,0,Tdelta,6,1,0,Delta(kdelt))
+      CALL tldrs(offset,idelt,ph1rst(67),u)
+      CALL gmmats(u,6,6,0,tdelta,6,1,0,delta(kdelt))
    ENDDO
 !
 !     RECOVER THE STRESS-TO-ELEMENT ORTHOGONAL TRANSFORMATION AND BUILD
@@ -239,10 +245,10 @@ SUBROUTINE stri32
 !     MATERIAL COORDINATE SYSTEM.
 !
    DO i = 1 , 9
-      Uem(i) = Ph1rst(48+i)
-      Tes(i) = Ph1rst(57+i)
+      uem(i) = ph1rst(48+i)
+      tes(i) = ph1rst(57+i)
    ENDDO
-   CALL shstts(Tes,Ues,Ves)
+   CALL shstts(tes,ues,ves)
 !
 !     RECOVER STRAINS AT EVALUATION POINTS
 !
@@ -260,26 +266,26 @@ SUBROUTINE stri32
 !
 !     MATCH GRID ID NUMBER WHICH IS IN SIL ORDER
 !
-      Igrid(inplan) = center
+      igrid(inplan) = center
       IF ( inplan>1 ) THEN
          DO i = 1 , nnode
-            IF ( Iorder(i)==inplan-1 ) Igrid(inplan) = Extrnl(i)
+            IF ( iorder(i)==inplan-1 ) igrid(inplan) = extrnl(i)
          ENDDO
       ENDIF
 !
 !     THICKNESS AND MOMENT OF INERTIA AT THIS POINT
 !
-      Thikns(inplan) = Ph1rst(icount+1)
-      IF ( (Grids .OR. Gridss) .AND. inplan/=1 ) Thikns(inplan) = gpth(inplan-1)
-      T3ov12 = Thikns(inplan)**3/12.0
+      thikns(inplan) = ph1rst(icount+1)
+      IF ( (grids .OR. gridss) .AND. inplan/=1 ) thikns(inplan) = gpth(inplan-1)
+      t3ov12 = thikns(inplan)**3/12.0
 !
 !     DETERMINE FIBER DISTANCE VALUES
 !
-      Z12(1,inplan) = Z1o
-      IF ( iz1o==nblnk ) Z12(1,inplan) = -0.5*Thikns(inplan)
+      z12(1,inplan) = z1o
+      IF ( iz1o==nblnk ) z12(1,inplan) = -0.5*thikns(inplan)
 !
-      Z12(2,inplan) = Z2o
-      IF ( iz2o==nblnk ) Z12(2,inplan) = 0.5*Thikns(inplan)
+      z12(2,inplan) = z2o
+      IF ( iz2o==nblnk ) z12(2,inplan) = 0.5*thikns(inplan)
 !
 !
 !     FIRST COMPUTE LOCAL STRAINS UNCORRECTED FOR THERMAL STRAINS AT
@@ -289,31 +295,31 @@ SUBROUTINE stri32
 !       EPS =        B     *   U
 !       8X1        8XNDOF    NDOFX1
 !
-      CALL gmmats(Ph1rst(icount+9),8,ndof,0,Delta(1),ndof,1,0,Epsln)
+      CALL gmmats(ph1rst(icount+9),8,ndof,0,delta(1),ndof,1,0,epsln)
 !
-      IF ( .NOT.(.NOT.Layer .AND. .NOT.Layers) ) THEN
+      IF ( .NOT.(.NOT.layer .AND. .NOT.layers) ) THEN
 !
 !     TRANSFORM UNCORRECTED STRAINS FROM ELEMENT TO MATERIAL COORD.
 !     SYSTEM TO BE USED FOR ELEMENT LAYER STRAINS
 !
-         CALL gmmats(Uem(1),3,3,0,Epsln(1),3,1,0,Epsumi(1,inplan))
-         CALL gmmats(Uem(1),3,3,0,Epsln(4),3,1,0,Epsumi(4,inplan))
+         CALL gmmats(uem(1),3,3,0,epsln(1),3,1,0,epsumi(1,inplan))
+         CALL gmmats(uem(1),3,3,0,epsln(4),3,1,0,epsumi(4,inplan))
 !
          DO i = 1 , 6
-            Epscmi(i,inplan) = Epsumi(i,inplan)
+            epscmi(i,inplan) = epsumi(i,inplan)
          ENDDO
       ENDIF
 !
-      IF ( .NOT.(.NOT.Forreq .AND. Layer .AND. Layers) ) THEN
+      IF ( .NOT.(.NOT.forreq .AND. layer .AND. layers) ) THEN
 !
 !     TRANSFORM UNCORRECTED STRAINS FROM ELEMENT TO STRESS COORD. SYSTEM
 !     TO BE USED FOR ELEMENT STRAINS
 !
-         CALL gmmats(Ues(1),3,3,0,Epsln(1),3,1,0,Epsusi(1,inplan))
-         CALL gmmats(Ues(1),3,3,0,Epsln(4),3,1,0,Epsusi(4,inplan))
+         CALL gmmats(ues(1),3,3,0,epsln(1),3,1,0,epsusi(1,inplan))
+         CALL gmmats(ues(1),3,3,0,epsln(4),3,1,0,epsusi(4,inplan))
 !
          DO i = 1 , 6
-            Epscsi(i,inplan) = Epsusi(i,inplan)
+            epscsi(i,inplan) = epsusi(i,inplan)
          ENDDO
       ENDIF
 !
@@ -324,64 +330,64 @@ SUBROUTINE stri32
 !     SHEAR STRAINS MAY NOT BE TRANSFORMED BEFORE MULTIPLICATION BECAUSE
 !     [G3] IS DIRECTION-DEPENDENT.
 !
-      IF ( Forreq .OR. Layer .OR. Layers ) THEN
-         CALL gmmats(Ph1rst(icount+2),2,2,0,Epsln(7),2,1,0,Vxvy)
-         CALL gmmats(Ves(1),2,2,0,Vxvy,2,1,0,Qveci(1,inplan))
+      IF ( forreq .OR. layer .OR. layers ) THEN
+         CALL gmmats(ph1rst(icount+2),2,2,0,epsln(7),2,1,0,vxvy)
+         CALL gmmats(ves(1),2,2,0,vxvy,2,1,0,qveci(1,inplan))
       ENDIF
 !
 !     CALCULATE THERMAL STRAINS IF TEMPERATURES ARE PRESENT
 !
-      IF ( Temper ) THEN
+      IF ( temper ) THEN
          DO iet = 1 , 6
-            Epslnt(iet) = 0.0
+            epslnt(iet) = 0.0
          ENDDO
 !
 !     MEMBRANE STRAINS
 !
-         IF ( .NOT.Tempp1 .AND. .NOT.Tempp2 ) THEN
-            Tbar = 0.0
+         IF ( .NOT.tempp1 .AND. .NOT.tempp2 ) THEN
+            tbar = 0.0
             DO ish = 1 , nnode
-               Tbar = Tbar + Ph1rst(icount+5+ish)*Deltat(ish)
+               tbar = tbar + ph1rst(icount+5+ish)*deltat(ish)
             ENDDO
          ELSE
-            Tbar = stemp(1)
+            tbar = stemp(1)
          ENDIF
 !
          DO ieps = 1 , 3
-            Epslnt(ieps) = (Tbar-Tsub0)*alfam(ieps)
+            epslnt(ieps) = (tbar-tsub0)*alfam(ieps)
          ENDDO
 !
 !     BENDING STRAINS (ELEMENT TEMPERATURES ONLY)
 !
-         IF ( .NOT.(.NOT.bendng .OR. .NOT.(Tempp1 .AND. Tempp2)) ) THEN
+         IF ( .NOT.(.NOT.bendng .OR. .NOT.(tempp1 .AND. tempp2)) ) THEN
 !
 !     EXTRACT [G2] FROM [G]
 !
             DO ig2 = 1 , 3
                DO jg2 = 1 , 3
-                  G2(ig2,jg2) = g(ig2+3,jg2+3)
+                  g2(ig2,jg2) = g(ig2+3,jg2+3)
                ENDDO
             ENDDO
-            CALL gmmats(G2,3,3,0,alfab,3,1,0,G2alfb(1,inplan))
+            CALL gmmats(g2,3,3,0,alfab,3,1,0,g2alfb(1,inplan))
 !
-            IF ( Tempp2 ) THEN
+            IF ( tempp2 ) THEN
                DO ig2 = 1 , 3
                   DO jg2 = 1 , 3
-                     G2(ig2,jg2) = G2(ig2,jg2)*T3ov12
+                     g2(ig2,jg2) = g2(ig2,jg2)*t3ov12
                   ENDDO
                ENDDO
 !
                DO itmp = 1 , 3
-                  Stempd(itmp) = stemp(itmp+1)
+                  stempd(itmp) = stemp(itmp+1)
                ENDDO
 !
-               CALL invers(3,G2,3,Gdum,0,Detg2,isngg2,Indxg2)
-               CALL gmmats(G2,3,3,0,Stempd,3,1,0,Epslnt(4))
+               CALL invers(3,g2,3,gdum,0,detg2,isngg2,indxg2)
+               CALL gmmats(g2,3,3,0,stempd,3,1,0,epslnt(4))
 !
-            ELSEIF ( Tempp1 ) THEN
+            ELSEIF ( tempp1 ) THEN
                tprime = stemp(2)
                DO ieps = 4 , 6
-                  Epslnt(ieps) = -tprime*alfab(ieps-3)
+                  epslnt(ieps) = -tprime*alfab(ieps-3)
                ENDDO
             ENDIF
          ENDIF
@@ -389,25 +395,25 @@ SUBROUTINE stri32
 !     CORRECT STRAINS FOR THERMAL EFFECTS
 !
          DO i = 1 , 6
-            Epslnm(i) = Epsln(i) - Epslnt(i)
+            epslnm(i) = epsln(i) - epslnt(i)
          ENDDO
 !
-         IF ( Layer ) THEN
+         IF ( layer ) THEN
 !
 !     TRANSFORM CORRECTED STRAINS FROM ELEMENT TO MATERIAL COOR. SYSTEM
 !     TO BE USED FOR ELEMENT LAYER STRESSES
 !
-            CALL gmmats(Uem(1),3,3,0,Epslnm(1),3,1,0,Epscmi(1,inplan))
-            CALL gmmats(Uem(1),3,3,0,Epslnm(4),3,1,0,Epscmi(4,inplan))
+            CALL gmmats(uem(1),3,3,0,epslnm(1),3,1,0,epscmi(1,inplan))
+            CALL gmmats(uem(1),3,3,0,epslnm(4),3,1,0,epscmi(4,inplan))
          ENDIF
 !
-         IF ( .NOT.(Layer .AND. .NOT.Forreq) ) THEN
+         IF ( .NOT.(layer .AND. .NOT.forreq) ) THEN
 !
 !     TRANSFORM CORRECTED STRAINS FROM ELEMENT TO STRESS COORD. SYSTEM
 !     TO BE USED FOR ELEMENT STRESSES AND ELEMENT (LAYER) FORCES
 !
-            CALL gmmats(Ues(1),3,3,0,Epslnm(1),3,1,0,Epscsi(1,inplan))
-            CALL gmmats(Ues(1),3,3,0,Epslnm(4),3,1,0,Epscsi(4,inplan))
+            CALL gmmats(ues(1),3,3,0,epslnm(1),3,1,0,epscsi(1,inplan))
+            CALL gmmats(ues(1),3,3,0,epslnm(4),3,1,0,epscsi(4,inplan))
          ENDIF
       ENDIF
 !
@@ -416,12 +422,12 @@ SUBROUTINE stri32
 !     THIS DOES NOT AFFECT THE MEMBRANE STRAINS, AND TRANSVERSE SHEAR
 !     STRAIN TRANSFORMATION TAKES CARE OF THOSE COMPONENTS.
 !
-      IF ( Ph1rst(66)<0.0 ) THEN
+      IF ( ph1rst(66)<0.0 ) THEN
          DO i = 4 , 6
-            Epscmi(i,inplan) = -Epscmi(i,inplan)
-            Epscsi(i,inplan) = -Epscsi(i,inplan)
-            Epsumi(i,inplan) = -Epsumi(i,inplan)
-            Epsusi(i,inplan) = -Epsusi(i,inplan)
+            epscmi(i,inplan) = -epscmi(i,inplan)
+            epscsi(i,inplan) = -epscsi(i,inplan)
+            epsumi(i,inplan) = -epsumi(i,inplan)
+            epsusi(i,inplan) = -epsusi(i,inplan)
          ENDDO
       ENDIF
 !
@@ -436,24 +442,24 @@ SUBROUTINE stri32
 !     IF REQUIRED, EXTRAPOLATE NON-CENTER VALUES FROM EVALUATION POINTS
 !     TO GRID POINTS.
 !
-   IF ( Gridss ) CALL shxtrs(6,nnode,Epsusi(1,2))
-   IF ( Grids ) CALL shxtrs(6,nnode,Epscsi(1,2))
-   IF ( Grids .AND. Forreq ) CALL shxtrs(2,nnode,Qveci(1,2))
+   IF ( gridss ) CALL shxtrs(6,nnode,epsusi(1,2))
+   IF ( grids ) CALL shxtrs(6,nnode,epscsi(1,2))
+   IF ( grids .AND. forreq ) CALL shxtrs(2,nnode,qveci(1,2))
 !
 !     CALCULATE AND OUTPUT STRESSES
 !
-   IF ( Stsreq .AND. .NOT.Layer ) CALL shstss(4,Elid,Igrid,Thikns,Z12,g,Epscsi,stemp,Tbar,G2alfb,bendng,Idr)
+   IF ( stsreq .AND. .NOT.layer ) CALL shstss(4,elid,igrid,thikns,z12,g,epscsi,stemp,tbar,g2alfb,bendng,idr)
 !
 !     CALCULATE AND OUTPUT STRAINS
 !
-   IF ( Stnreq .AND. .NOT.Layers ) CALL shstns(4,Elid,Igrid,Z12,Epsusi,bendng,Idr)
+   IF ( stnreq .AND. .NOT.layers ) CALL shstns(4,elid,igrid,z12,epsusi,bendng,idr)
 !
 !     CALCULATE AND OUTPUT FORCES
 !
-   IF ( Forreq .OR. Layer .OR. Layers ) CALL shfors(4,Elid,Igrid,Thikns,g,Epscsi,Qveci,Idr)
+   IF ( forreq .OR. layer .OR. layers ) CALL shfors(4,elid,igrid,thikns,g,epscsi,qveci,idr)
 !
 !     CALCULATE AND OUTPUT LAYER-RELATED INFORMATION
 !
-   IF ( Layer .OR. Layers ) CALL shlsts(Elid,Ipid,avgthk,Epsumi,Epscmi)
+   IF ( layer .OR. layers ) CALL shlsts(elid,ipid,avgthk,epsumi,epscmi)
 !
 END SUBROUTINE stri32

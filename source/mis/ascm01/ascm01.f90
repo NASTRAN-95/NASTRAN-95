@@ -1,11 +1,12 @@
-!*==ascm01.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ascm01.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ascm01(Name,Iphase,Isol,Nogo)
+   USE c_asdbd
+   USE c_phas11
+   USE c_phas31
    IMPLICIT NONE
-   USE C_ASDBD
-   USE C_PHAS11
-   USE C_PHAS31
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -103,82 +104,81 @@ SUBROUTINE ascm01(Name,Iphase,Isol,Nogo)
       RETURN
    ELSE
       icomnd = Iphase
-      Irdm = 1
-      Nrdm = comnd(2,icomnd)
-      Ixtra = Irdm + 18*Nrdm
-      Nxtra = comnd(3,icomnd)
-      Ioct = Ixtra + Nxtra
-      Noct = comnd(4,icomnd)
-      Iptbs = Ioct + 3*Noct
-      Nptbs = comnd(5,icomnd)
-      Iph = Iptbs + 7*Nptbs
-      Nph = comnd(6,icomnd)
+      irdm = 1
+      nrdm = comnd(2,icomnd)
+      ixtra = irdm + 18*nrdm
+      nxtra = comnd(3,icomnd)
+      ioct = ixtra + nxtra
+      noct = comnd(4,icomnd)
+      iptbs = ioct + 3*noct
+      nptbs = comnd(5,icomnd)
+      iph = iptbs + 7*nptbs
+      nph = comnd(6,icomnd)
 !
 !     MOVE RDMAP DATA
 !
       k = 0
-      IF ( Nrdm/=0 ) THEN
-         DO j = 1 , Nrdm
+      IF ( nrdm/=0 ) THEN
+         DO j = 1 , nrdm
             DO i = 1 , 18
                k = k + 1
-               Idat(k) = rdmap(i,j)
+               idat(k) = rdmap(i,j)
             ENDDO
          ENDDO
       ENDIF
 !
 !      MOVE XTRA DATA
 !
-      IF ( Nxtra/=0 ) THEN
-         DO i = 1 , Nxtra
+      IF ( nxtra/=0 ) THEN
+         DO i = 1 , nxtra
             k = k + 1
-            Idat(k) = xtra(i)
+            idat(k) = xtra(i)
          ENDDO
       ENDIF
 !
 !     MOVE OCT DATA
 !
-      IF ( Noct/=0 ) THEN
-         DO j = 1 , Noct
+      IF ( noct/=0 ) THEN
+         DO j = 1 , noct
             DO i = 1 , 3
                k = k + 1
-               Idat(k) = oct(i,j)
+               idat(k) = oct(i,j)
             ENDDO
          ENDDO
       ENDIF
 !
 !     MOVE PTBS DATA
 !
-      IF ( Nptbs/=0 ) THEN
-         DO j = 1 , Nptbs
+      IF ( nptbs/=0 ) THEN
+         DO j = 1 , nptbs
             DO i = 1 , 7
                k = k + 1
-               Idat(k) = ptbs(i,j)
+               idat(k) = ptbs(i,j)
             ENDDO
          ENDDO
       ENDIF
 !
 !     MOVE PHASE 1 DATA
 !
-      IF ( Iphase==1 .AND. Nph/=0 ) THEN
+      IF ( Iphase==1 .AND. nph/=0 ) THEN
          DO i = 3 , 8
             k = k + 1
-            Idat(k) = Ipas11(i)
+            idat(k) = ipas11(i)
          ENDDO
          DO i = 1 , 2
             k = k + 1
-            Idat(k) = Ipas11(i)
+            idat(k) = ipas11(i)
          ENDDO
 !
 !     MOVE PHASE 3 DATA
 !
-      ELSEIF ( Iphase==3 .AND. Nph/=0 ) THEN
-         DO i = 1 , Nph
+      ELSEIF ( Iphase==3 .AND. nph/=0 ) THEN
+         DO i = 1 , nph
             k = k + 1
-            Idat(k) = Ipas31(i)
+            idat(k) = ipas31(i)
          ENDDO
       ENDIF
    ENDIF
 !
-   RETURN
 !
 END SUBROUTINE ascm01

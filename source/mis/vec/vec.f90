@@ -1,15 +1,16 @@
-!*==vec.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==vec.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE vec
+   USE c_bitpos
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -85,43 +86,43 @@ SUBROUTINE vec
          flag1 = .FALSE.
          flag2 = .FALSE.
          offset = 0
-         Nerr = 0
+         nerr = 0
          lz = .FALSE.
          l0 = .FALSE.
          l1 = .FALSE.
-         lc = korsz(X) - Lb
+         lc = korsz(x) - lb
          IF ( lc<=0 ) CALL mesage(-8,lc,modnam)
          ib = lc + 1
 !
 !     CHECK PARAMETER VALUES AND COMPUTE MASKS.
 !
-         IF ( P1(1)/=d(1) .OR. P1(2)/=d(2) ) THEN
+         IF ( p1(1)/=d(1) .OR. p1(2)/=d(2) ) THEN
             cols = .FALSE.
-            IF ( P1(1)/=b(1) .OR. P1(2)/=b(2) ) THEN
-               IF ( P1(2)==blank ) THEN
+            IF ( p1(1)/=b(1) .OR. p1(2)/=b(2) ) THEN
+               IF ( p1(2)==blank ) THEN
                   DO i = 1 , nbn
-                     IF ( P1(1)==Bn(i,2) ) THEN
+                     IF ( p1(1)==bn(i,2) ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                   ENDDO
                ENDIF
-               p(1) = P1(1)
-               p(2) = P1(2)
+               p(1) = p1(1)
+               p(2) = p1(2)
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSE
             cols = .TRUE.
             DO j = 1 , 2
-               IF ( P2(1)==lr(1,j) .AND. P2(2)==lr(2,j) ) GOTO 10
+               IF ( p2(1)==lr(1,j) .AND. p2(2)==lr(2,j) ) GOTO 10
             ENDDO
             j = 2
  10         j = 2*j - 3
          ENDIF
          lz = .TRUE.
          l0 = .TRUE.
-         IF ( P4<0 .OR. P4>32 ) THEN
+         IF ( p4<0 .OR. p4>32 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -129,33 +130,31 @@ SUBROUTINE vec
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( P4>0 ) THEN
-            maskx1 = Two(P4)
+         IF ( p4>0 ) THEN
+            maskx1 = two(p4)
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( P2(2)==blank ) THEN
+            IF ( p2(2)==blank ) THEN
                DO i = 1 , nbn
-                  IF ( P2(1)==Bn(i,2) ) THEN
+                  IF ( p2(1)==bn(i,2) ) THEN
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
             ENDIF
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
-         i = Bn(i,1)
-         maskx = Two(i)
+         i = bn(i,1)
+         maskx = two(i)
 !
-         IF ( P2(1)==c(1) .AND. P2(2)==c(2) ) THEN
+         IF ( p2(1)==c(1) .AND. p2(2)==c(2) ) THEN
             l0 = .TRUE.
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( P2(2)==blank ) THEN
+         ELSEIF ( p2(2)==blank ) THEN
             DO i = 1 , nbn
-               IF ( P2(1)==Bn(i,2) ) THEN
+               IF ( p2(1)==bn(i,2) ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -163,43 +162,41 @@ SUBROUTINE vec
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         p(1) = P2(1)
-         p(2) = P2(2)
+         p(1) = p2(1)
+         p(2) = p2(2)
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         i = Bn(i,1)
-         maskx0 = Two(i)
+         i = bn(i,1)
+         maskx0 = two(i)
          spag_nextblock_1 = 5
       CASE (5)
 !
-         IF ( P3(1)==c(1) .AND. P3(2)==c(2) ) THEN
+         IF ( p3(1)==c(1) .AND. p3(2)==c(2) ) THEN
             l1 = .TRUE.
             IF ( .NOT.(l0) ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            WRITE (Nout,99001) Ufm
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 2146, BOTH OF THE SECOND AND THIRD VEC PARAMETERS ','REQUEST COMPLEMENT.')
             CALL mesage(-61,0,0)
             RETURN
          ELSE
-            IF ( P3(2)==blank ) THEN
+            IF ( p3(2)==blank ) THEN
                DO i = 1 , nbn
-                  IF ( P3(1)==Bn(i,2) ) THEN
+                  IF ( p3(1)==bn(i,2) ) THEN
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
             ENDIF
-            p(1) = P3(1)
-            p(2) = P3(2)
+            p(1) = p3(1)
+            p(2) = p3(2)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (6)
-         i = Bn(i,1)
-         maskx1 = Two(i)
+         i = bn(i,1)
+         maskx1 = two(i)
          spag_nextblock_1 = 7
       CASE (7)
 !
@@ -207,15 +204,15 @@ SUBROUTINE vec
 !
          f = fi
          CALL fname(f,nam)
-         CALL gopen(f,X(ib),0)
-         CALL read(*60,*40,f,X,lc,0,nw)
+         CALL gopen(f,x(ib),0)
+         CALL read(*60,*40,f,x,lc,0,nw)
 !
 !     INSUFFICIENT CORE - IF DESIRED, THIS ROUTINE CAN BE WRITTEN TO
 !     RUN IN SMALLER CORE.
 !
          lcex = 0
          DO
-            CALL read(*60,*20,f,X,lc,0,nw)
+            CALL read(*60,*20,f,x,lc,0,nw)
             lcex = lcex + lc
          ENDDO
  20      lcex = lcex + nw
@@ -224,7 +221,7 @@ SUBROUTINE vec
          CYCLE SPAG_DispatchLoop_1
  40      CALL close(f,1)
          IF ( cols ) THEN
-            IF ( P4<=0 ) THEN
+            IF ( p4<=0 ) THEN
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -232,7 +229,7 @@ SUBROUTINE vec
             k = 1
             l = 1
             IF ( j<0 ) k = 32
-            maskx1 = Two(k)
+            maskx1 = two(k)
             IF ( 2*nw>lc ) THEN
                lcex = 2*nw - lc
                spag_nextblock_1 = 8
@@ -243,12 +240,12 @@ SUBROUTINE vec
 !     PREPARE OUTPUT FILE.
 !
          f = fo
-         CALL gopen(f,X(ib),1)
+         CALL gopen(f,x(ib),1)
          CALL makmcb(t,f,0,2,1)
-         Tyin = 1
-         Tyou = 1
-         Ii = 1
-         Incr = 1
+         tyin = 1
+         tyou = 1
+         ii = 1
+         incr = 1
          SPAG_Loop_1_1: DO
 !
 !     CREATE VECTOR IN CORE OCCUPIED BY USET (OR USETD).
@@ -262,21 +259,21 @@ SUBROUTINE vec
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
                      IF ( .NOT.(lz) ) THEN
-                        IF ( andf(X(i),maskx)==0 ) THEN
+                        IF ( andf(x(i),maskx)==0 ) THEN
                            IF ( .NOT.(l0) ) THEN
-                              IF ( andf(X(i),maskx0)/=0 ) THEN
-                                 Nerr = Nerr + 1
-                                 IF ( Nerr<=nermax ) THEN
-                                    WRITE (Nout,99002) Ufm , i
+                              IF ( andf(x(i),maskx0)/=0 ) THEN
+                                 nerr = nerr + 1
+                                 IF ( nerr<=nermax ) THEN
+                                    WRITE (nout,99002) ufm , i
 99002                               FORMAT (A23,' 2122, MODULE VEC - SET X BIT IS ZERO BUT SUBSET X0',' BIT IS NOT.  I =',I10)
                                  ENDIF
                               ENDIF
                            ENDIF
                            IF ( .NOT.(l1) ) THEN
-                              IF ( andf(X(i),maskx1)/=0 ) THEN
-                                 Nerr = Nerr + 1
-                                 IF ( Nerr<=nermax ) THEN
-                                    WRITE (Nout,99003) Ufm , i
+                              IF ( andf(x(i),maskx1)/=0 ) THEN
+                                 nerr = nerr + 1
+                                 IF ( nerr<=nermax ) THEN
+                                    WRITE (nout,99003) ufm , i
 99003                               FORMAT (A23,' 2123, MODULE VEC - SET X BIT IS ZERO BUT SUBSET X1',' BIT IS NOT.  I =',I10)
                                  ENDIF
                               ENDIF
@@ -286,51 +283,50 @@ SUBROUTINE vec
                      ENDIF
                      IF ( .NOT.l0 ) THEN
                         IF ( .NOT.l1 ) THEN
-                           IF ( andf(X(i),maskx1)==0 ) THEN
-                              IF ( andf(X(i),maskx0)/=0 ) THEN
+                           IF ( andf(x(i),maskx1)==0 ) THEN
+                              IF ( andf(x(i),maskx0)/=0 ) THEN
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
                               ENDIF
-                              Nerr = Nerr + 1
-                              IF ( Nerr<=nermax ) THEN
-                                 WRITE (Nout,99004) Ufm , i
+                              nerr = nerr + 1
+                              IF ( nerr<=nermax ) THEN
+                                 WRITE (nout,99004) ufm , i
 99004                            FORMAT (A23,' 2121, MODULE VEC - BOTH SUBSET BITS ARE ZERO.',3X,'I =',I10)
                               ENDIF
                               CYCLE
-                           ELSEIF ( andf(X(i),maskx0)/=0 ) THEN
-                              Nerr = Nerr + 1
-                              IF ( Nerr<=nermax ) THEN
-                                 WRITE (Nout,99005) Ufm , i
+                           ELSEIF ( andf(x(i),maskx0)/=0 ) THEN
+                              nerr = nerr + 1
+                              IF ( nerr<=nermax ) THEN
+                                 WRITE (nout,99005) ufm , i
 99005                            FORMAT (A23,' 2120, MODULE VEC - BOTH SUBSET BITS ARE NON-ZERO.',3X,'I =',I10)
                               ENDIF
                               CYCLE
                            ENDIF
-                        ELSEIF ( andf(X(i),maskx0)/=0 ) THEN
+                        ELSEIF ( andf(x(i),maskx0)/=0 ) THEN
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
-                     ELSEIF ( andf(X(i),maskx1)==0 ) THEN
+                     ELSEIF ( andf(x(i),maskx1)==0 ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                      nr = nr + 1
                      nz = nz + 1
-                     X(nr+offset) = 1.0
-                     CYCLE
+                     x(nr+offset) = 1.0
                   CASE (2)
                      nr = nr + 1
-                     X(nr+offset) = 0.0
+                     x(nr+offset) = 0.0
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
                ENDDO SPAG_DispatchLoop_2
             ENDDO
 !
-            IF ( Nerr<=0 ) THEN
+            IF ( nerr<=0 ) THEN
 !
                IF ( .NOT.(flag1) ) THEN
                   flag1 = .TRUE.
                   IF ( nr<=0 ) THEN
-                     WRITE (Nout,99006) Uwm
+                     WRITE (nout,99006) uwm
 99006                FORMAT (A25,' 2124, MODULE VEC - NR=0, OUTPUT WILL BE PURGED.')
                      EXIT SPAG_Loop_1_1
                   ENDIF
@@ -338,26 +334,26 @@ SUBROUTINE vec
                IF ( nz<=0 ) THEN
                   IF ( .NOT.(flag2) ) THEN
                      flag2 = .TRUE.
-                     WRITE (Nout,99007) Uwm
+                     WRITE (nout,99007) uwm
 99007                FORMAT (A25,' 2125, MODULE VEC - NZ=0, ONE OR MORE COLUMNS OF ','OUTPUT MATRIX WILL BE NULL.')
                   ENDIF
                ENDIF
 !
 !     PACK OUT COLUMN OF OUTPUT VECTOR.
 !
-               Nn = nr
-               CALL pack(X(offset+1),f,t)
-               IF ( .NOT.cols .OR. l>=P4 ) THEN
+               nn = nr
+               CALL pack(x(offset+1),f,t)
+               IF ( .NOT.cols .OR. l>=p4 ) THEN
                   CALL wrttrl(t)
                   EXIT SPAG_Loop_1_1
                ELSE
                   l = l + 1
                   k = k + j
-                  maskx1 = Two(k)
+                  maskx1 = two(k)
                ENDIF
             ELSE
-               IF ( Nerr>nermax ) THEN
-                  WRITE (Nout,99008) Ufm , Nerr , nermax
+               IF ( nerr>nermax ) THEN
+                  WRITE (nout,99008) ufm , nerr , nermax
 99008             FORMAT (A23,' 2145,',I8,' FATAL MESSAGES HAVE BEEN GENERATED IN',' SUBROUTINE VEC.',/5X,'ONLY THE FIRST',I4,      &
                          &' HAVE BEEN PRINTED.')
                ENDIF
@@ -371,23 +367,23 @@ SUBROUTINE vec
 !
 !     ERROR PROCESSING.
 !
- 60      WRITE (Nout,99009) Ufm , f , nam
+ 60      WRITE (nout,99009) ufm , f , nam
 99009    FORMAT (A23,' 2141, MODULE VEC - EOF ENCOUNTERED WHILE READING ','GINO FILE ',I3,', DATA BLOCK ',2A4)
          CALL mesage(-61,0,0)
          RETURN
       CASE (8)
-         WRITE (Nout,99010) Ufm , lc , lcex
+         WRITE (nout,99010) ufm , lc , lcex
 99010    FORMAT (A23,' 2142, INSUFFICIENT CORE FOR MODULE VEC.  AVAILABLE',' CORE =',I11,' WORDS.',/5X,'ADDITIONAL CORE NEEDED =',  &
                & I11,' WORDS.')
          CALL mesage(-61,0,0)
          RETURN
       CASE (9)
-         WRITE (Nout,99011) Ufm , p
+         WRITE (nout,99011) ufm , p
 99011    FORMAT (A23,' 2143, MODULE VEC UNABLE TO IDENTIFY SET OR SUBSET ','DESCRIPTOR ',2A4)
          CALL mesage(-61,0,0)
          RETURN
       CASE (10)
-         WRITE (Nout,99012) Ufm , P4
+         WRITE (nout,99012) ufm , p4
 99012    FORMAT (A23,' 2150, ILLEGAL VALUE FOR FOURTH PARAMETER =',I11)
          CALL mesage(-61,0,0)
          EXIT SPAG_DispatchLoop_1

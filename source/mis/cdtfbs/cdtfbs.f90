@@ -1,10 +1,11 @@
-!*==cdtfbs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cdtfbs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cdtfbs(Dx,Dy,Iobuf,Fileu,Nrow)
-USE C_NAMES
-USE C_UNPAKX
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_unpakx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -42,30 +43,30 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Incrx = 1
-         Itypex = Cdp
-         typear = Cdp
+         incrx = 1
+         itypex = cdp
+         typear = cdp
 !
 !     BEGIN BACKWARD PASS
 !
          ioff = Fileu(7) - 1
          parm(2) = Fileu(1)
-         CALL open(*20,Fileu,Iobuf,Rd)
+         CALL open(*20,Fileu,Iobuf,rd)
          DO i = 1 , Nrow
-            Iunpak = 0
+            iunpak = 0
             j = Nrow - i + 1
             jj = j + j
             CALL bckrec(Fileu)
             CALL unpack(*40,Fileu,Dy)
             CALL bckrec(Fileu)
             ising = 0
-            k = (Junpak-Iunpak+1)*2
-            ju = Junpak + Junpak
+            k = (junpak-iunpak+1)*2
+            ju = junpak + junpak
             SPAG_Loop_2_2: DO
-               IF ( Junpak<j ) THEN
+               IF ( junpak<j ) THEN
                   Dx(ju-1) = Dx(ju-1) - Dx(jj-1)*Dy(k-1) + Dx(jj)*Dy(k)
                   Dx(ju) = Dx(ju) - Dx(jj)*Dy(k-1) - Dx(jj-1)*Dy(k)
-               ELSEIF ( Junpak==j ) THEN
+               ELSEIF ( junpak==j ) THEN
                   ising = 1
 !
 !     DIVIDE BY THE DIAGONAL
@@ -81,7 +82,7 @@ USE ISO_FORTRAN_ENV
                SPAG_Loop_3_1: DO
                   k = k - 2
                   ju = ju - 2
-                  Junpak = Junpak - 1
+                  junpak = junpak - 1
                   IF ( k==0 ) THEN
                      IF ( ising/=0 ) EXIT SPAG_Loop_3_1
                      GOTO 40
@@ -92,7 +93,7 @@ USE ISO_FORTRAN_ENV
                EXIT SPAG_Loop_2_2
             ENDDO SPAG_Loop_2_2
          ENDDO
-         CALL close(Fileu,Rew)
+         CALL close(Fileu,rew)
          RETURN
 !
  20      parm(1) = -1

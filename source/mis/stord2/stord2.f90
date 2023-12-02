@@ -1,12 +1,13 @@
-!*==stord2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==stord2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stord2(Ti)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -72,23 +73,23 @@ SUBROUTINE stord2(Ti)
 !
    k = 0
    DO i = 1 , numpt
-      iloc = Ivec + Igp(i) - 2
+      iloc = ivec + igp(i) - 2
       DO j = 1 , ndof
          iloc = iloc + 1
          k = k + 1
-         Disp(k) = Zz(iloc)
+         disp(k) = zz(iloc)
       ENDDO
    ENDDO
 !
 !
 ! COMPUTE THE GRID POINT FORCES
 !
-   CALL gmmats(Ak(1),n,n,0,Disp(1),n,1,0,Eforc(1))
+   CALL gmmats(ak(1),n,n,0,disp(1),n,1,0,eforc(1))
 !
 !
 ! COMPUTE THE STRESSES
 !
-   CALL gmmats(Sel(1),ns,n,0,Disp(1),n,1,0,Estres(1))
+   CALL gmmats(sel(1),ns,n,0,disp(1),n,1,0,estres(1))
 !
 !
 ! COMPUTE THERMAL STRESS IF THERMAL LOAD EXISTS
@@ -96,7 +97,7 @@ SUBROUTINE stord2(Ti)
 !
    IF ( ldtemp/=(-1) ) THEN
 !
-      dtm1 = Ti(1) - Tz
+      dtm1 = Ti(1) - tz
       dtm2 = Ti(2) - Ti(1)
       dtf1 = 0.0E0
       dtf2 = 0.0E0
@@ -114,9 +115,9 @@ SUBROUTINE stord2(Ti)
          DO j = 1 , ncomp
             k = k + 1
             IF ( j>2 ) THEN
-               Estres(k) = Estres(k) - dtf1*Ts(k) - dtf2*Ts(k+15)
+               estres(k) = estres(k) - dtf1*ts(k) - dtf2*ts(k+15)
             ELSE
-               Estres(k) = Estres(k) - dtm1*Ts(k) - dtm2*Ts(k+15)
+               estres(k) = estres(k) - dtm1*ts(k) - dtm2*ts(k+15)
             ENDIF
          ENDDO
       ENDDO
@@ -128,24 +129,24 @@ SUBROUTINE stord2(Ti)
 !
    k = 0
    j = 1
-   istres(1) = Idel
+   istres(1) = idel
    DO kk = 1 , nsp
       DO i = 1 , ncomp
          j = j + 1
          k = k + 1
-         stres(j) = Estres(k)
+         stres(j) = estres(k)
       ENDDO
    ENDDO
 !
 !
    k = 0
    j = 1
-   iforce(1) = Idel
+   iforce(1) = idel
    DO i = 1 , numpt
       DO kk = 1 , ndof
          j = j + 1
          k = k + 1
-         force(j) = Eforc(k)
+         force(j) = eforc(k)
       ENDDO
    ENDDO
 !

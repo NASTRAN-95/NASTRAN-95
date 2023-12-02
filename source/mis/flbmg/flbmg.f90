@@ -1,14 +1,15 @@
-!*==flbmg.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flbmg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flbmg
+   USE c_blank
+   USE c_flbfil
+   USE c_flbptr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FLBFIL
-   USE C_FLBPTR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -68,37 +69,37 @@ SUBROUTINE flbmg
 !
 !     INITILIZE OPEN CORE FOR ELEMENT MATRIX GENERATION PHASE
 !
-   Error = .FALSE.
-   Lcore = korsz(Z1(1))
-   Icore = 1
-   Ibuf1 = Lcore - Sysbuf - 1
-   Ibuf2 = Ibuf1 - Sysbuf
-   Ibuf3 = Ibuf2 - Sysbuf
-   Ibuf4 = Ibuf3 - Sysbuf
-   Ibuf5 = Ibuf4 - Sysbuf
+   error = .FALSE.
+   lcore = korsz(z1(1))
+   icore = 1
+   ibuf1 = lcore - sysbuf - 1
+   ibuf2 = ibuf1 - sysbuf
+   ibuf3 = ibuf2 - sysbuf
+   ibuf4 = ibuf3 - sysbuf
+   ibuf5 = ibuf4 - sysbuf
 !
 !     PROCESS FLUID ELEMENTS ON THE FLUID / STRUCTURE BOUNDARY
 !     AND THE FREE SURFACE .
 !
    CALL flbelm
-   IF ( .NOT.(Error) ) THEN
+   IF ( .NOT.(error) ) THEN
 !
 !     BUILD THE HYDROELASTIC USET VECTOR
 !
       CALL flbset
-      IF ( .NOT.(Error) ) THEN
+      IF ( .NOT.(error) ) THEN
 !
 !     GENERATE THE ELEMENT MATRICES
 !
          CALL flbemg
-         IF ( .NOT.(Error) ) THEN
+         IF ( .NOT.(error) ) THEN
 !
 !     INITIALIZE CORE FOR THE MATRIX ASSEMBLY PHASE
 !
-            Lcore = korsz(z2(1))
-            Icore = 1
-            Ibuf1 = Lcore - Sysbuf - 1
-            Ibuf2 = Ibuf1 - Sysbuf
+            lcore = korsz(z2(1))
+            icore = 1
+            ibuf1 = lcore - sysbuf - 1
+            ibuf2 = ibuf1 - sysbuf
 !
 !     ASSEMBLE THE AREA FACTOR MATRIX
 !
@@ -106,7 +107,7 @@ SUBROUTINE flbmg
 !
 !     IF GRAVITY LOADS - ASSEMBLE THE GRAVITY STIFFNESS MATRIX
 !
-            IF ( Nograv>=0 ) CALL flbema(2)
+            IF ( nograv>=0 ) CALL flbema(2)
 !
 !     MODULE COMPLETION
 !
@@ -117,7 +118,7 @@ SUBROUTINE flbmg
 !
 !     FATAL ERROR OCCURED DURING PROCESSING - TERMINATE RUN
 !
-   WRITE (Nout,99001) Uim
+   WRITE (nout,99001) uim
 99001 FORMAT (A29,' 8000, MODULE FLBMG TERMINATED DUE TO ABOVE ERRORS.')
    CALL mesage(-61,0,0)
 END SUBROUTINE flbmg

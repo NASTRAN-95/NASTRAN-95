@@ -1,9 +1,10 @@
-!*==decode.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==decode.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE decode(Code,List,N)
+   USE c_two
    IMPLICIT NONE
-   USE C_TWO
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,7 +36,7 @@ SUBROUTINE decode(Code,List,N)
 !
    N = 0
    DO i = 1 , 32
-      IF ( andf(Two(33-i),Code)/=0 ) THEN
+      IF ( andf(two(33-i),Code)/=0 ) THEN
          N = N + 1
          List(N) = i - 1
       ENDIF

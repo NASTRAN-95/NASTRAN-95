@@ -1,4 +1,5 @@
-!*==bfsmat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bfsmat.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bfsmat(Nd,Ne,Nb,Np,Ntp,Length,Ntotal,Scr1,Jf,Jl,Nas,Fmach,Yb,Zb,Ys,Zs,X,Delx,Ee,Xic,Sg,Cg,Ar,Ria,Nbea1,Nbea2,Nasb,Nsaray,&
@@ -52,13 +53,21 @@ SUBROUTINE bfsmat(Nd,Ne,Nb,Np,Ntp,Length,Ntotal,Scr1,Jf,Jl,Nas,Fmach,Yb,Zb,Ys,Zs
          & xx1 , xx2 , xxij , xyb , xzb , xzeta
    COMPLEX :: eikj1 , eikj2 , fwy , fwz
    INTEGER :: ib , ibody , ibox , icol , index , irb , irbe , irow , is , isb , isbe , isn , isp , istrip , itsb , iy , izyflg , j ,&
-            & jp1 , ksp , lsb , lsbe , lsbs , msbe , nasd , nc , nrbe , ns , nsbe , nw
+            & jp1 , ksp , lsb , lsbe , lsbs , msbe , nasd , nc , nrbe , ns , nsbe , nw , spag_nextblock_1
    LOGICAL :: last
    EXTERNAL fwmw , write
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

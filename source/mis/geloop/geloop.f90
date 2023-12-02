@@ -1,4 +1,5 @@
-!*==geloop.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==geloop.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE geloop(Rbuf,Buf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
@@ -21,6 +22,15 @@ SUBROUTINE geloop(Rbuf,Buf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    REAL , SAVE :: fpi
    INTEGER :: i , icid , ii , npts , nptsm1 , ti1 , ti2
    REAL , DIMENSION(3) :: zi , zj , zjxi , zk
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

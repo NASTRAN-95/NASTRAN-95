@@ -1,12 +1,13 @@
-!*==mred2p.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2p.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2p(Nus,Nuf,N2)
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,32 +42,32 @@ SUBROUTINE mred2p(Nus,Nuf,N2)
 !        *     *   *   .   *
 !        **   **   **     **
 !
-   IF ( Dry/=-2 ) THEN
+   IF ( dry/=-2 ) THEN
       kolmns = Nus + Nuf + N2
-      IF ( N2==0 ) kolmns = kolmns + (Nmodes-Nuf)
-      Typin = 1
-      Typout = 1
-      Irow = 1
-      Nrow = Nus + Nuf
-      Incr = 1
+      IF ( N2==0 ) kolmns = kolmns + (nmodes-Nuf)
+      typin = 1
+      typout = 1
+      irow = 1
+      nrow = Nus + Nuf
+      incr = 1
       iform = 2
-      CALL makmcb(itrlr1,hab,Nrow,iform,Typin)
-      CALL gopen(hab,Z(Gbuf1),1)
+      CALL makmcb(itrlr1,hab,nrow,iform,typin)
+      CALL gopen(hab,z(gbuf1),1)
       DO i = 1 , kolmns
-         DO j = 1 , Nrow
-            rz(Korbgn+j-1) = 0.0
+         DO j = 1 , nrow
+            rz(korbgn+j-1) = 0.0
             IF ( i<=Nus+Nuf ) THEN
-               IF ( j==i ) rz(Korbgn+j-1) = 1.0
+               IF ( j==i ) rz(korbgn+j-1) = 1.0
             ENDIF
          ENDDO
-         CALL pack(Z(Korbgn),hab,itrlr1)
+         CALL pack(z(korbgn),hab,itrlr1)
       ENDDO
       CALL close(hab,1)
       CALL wrttrl(itrlr1)
 !
 !     STORE HAB MATRIX AS HORG ON SOF
 !
-      CALL mtrxo(hab,Oldnam,item,0,itest)
+      CALL mtrxo(hab,oldnam,item,0,itest)
       IF ( itest/=3 ) THEN
 !
 !     PROCESS MODULE FATAL ERRORS
@@ -75,23 +76,23 @@ SUBROUTINE mred2p(Nus,Nuf,N2)
             imsg = -11
          ELSEIF ( itest==3 ) THEN
             imsg = -1
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==4 ) THEN
             imsg = -2
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==5 ) THEN
             imsg = -3
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==6 ) THEN
             imsg = -10
          ELSE
             imsg = -9
          ENDIF
-         Dry = -2
-         CALL smsg1(imsg,item,Oldnam,modnam)
+         dry = -2
+         CALL smsg1(imsg,item,oldnam,modnam)
       ENDIF
    ENDIF
 END SUBROUTINE mred2p

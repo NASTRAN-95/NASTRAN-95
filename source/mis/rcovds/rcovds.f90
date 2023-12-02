@@ -1,16 +1,17 @@
-!*==rcovds.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rcovds.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovds
+   USE c_blank
+   USE c_condas
+   USE c_names
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_NAMES
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -54,35 +55,35 @@ SUBROUTINE rcovds
 !     GET NUMBER OF BASIC SUBSTRUCTURES (NS) FROM EQSS AND CREATE
 !     GROUP 0 OF SOLN AT TOP OF OPEN CORE
 !
-         Lcore = Buf1 - 1
-         CALL sfetch(Fss,eqss,srd,rc)
+         lcore = buf1 - 1
+         CALL sfetch(fss,eqss,srd,rc)
          IF ( rc==1 ) THEN
-            CALL suread(Z,2,nwds,rc)
+            CALL suread(z,2,nwds,rc)
             CALL suread(ns,1,nwds,rc)
-            IF ( Lcore<2*ns+5 ) THEN
+            IF ( lcore<2*ns+5 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suread(Z,1,nwds,rc)
-            iz(1) = Fss(1)
-            iz(2) = Fss(2)
-            iz(3) = Rfno
+            CALL suread(z,1,nwds,rc)
+            iz(1) = fss(1)
+            iz(2) = fss(2)
+            iz(3) = rfno
             iz(4) = ns
 !
 !     GET THE BASIC SUBSTRUCTURE NAMES FROM EQSS
 !
             DO i = 1 , ns
-               CALL suread(Z(3*i+3),2,nwds,rc)
+               CALL suread(z(3*i+3),2,nwds,rc)
             ENDDO
 !
 !     GET THE NUMBER OF LOAD VECTORS FOR EACH SUBSTRUCTURE FORM LODS
 !
-            CALL sfetch(Fss,lods,srd,rc)
+            CALL sfetch(fss,lods,srd,rc)
             IF ( rc==1 ) THEN
                j = 1
                CALL sjump(j)
                DO i = 1 , ns
-                  CALL suread(Z(3*i+5),1,nwds,rc)
+                  CALL suread(z(3*i+5),1,nwds,rc)
                   CALL sjump(j)
                ENDDO
 !
@@ -91,38 +92,38 @@ SUBROUTINE rcovds
                trl(1) = upv
                CALL rdtrl(trl)
                nstep = trl(2)
-               IF ( Rfno==9 ) nstep = nstep/3
+               IF ( rfno==9 ) nstep = nstep/3
                iz(5) = nstep
 !
 !     GET THE REQUESTED DLOAD SET FROM CASE CONTROL
 !
                file = casess
-               CALL gopen(casess,Z(Buf1),Rdrew)
+               CALL gopen(casess,z(buf1),rdrew)
                DO
                   CALL fread(casess,trl,2,1)
                   IF ( trl(1)==casecc(1) .AND. trl(2)==casecc(2) ) THEN
                      CALL fread(casess,0,-12,0)
                      CALL fread(casess,dload,1,0)
-                     CALL close(casess,Rew)
+                     CALL close(casess,rew)
 !
 !     CHECK IF DLOAD SET POINTS TO A DLOAD COMBINATION CARD OR A
 !     SIMPLE LOAD CARD BY LOOKING AT SET IDS IN HEADER RECORD OF DLT
 !
                      i = 3*ns + 6
                      file = dlt
-                     CALL open(*80,dlt,Z(Buf1),Rdrew)
-                     CALL read(*100,*20,dlt,Z(i),Lcore-i,1,nwds)
+                     CALL open(*80,dlt,z(buf1),rdrew)
+                     CALL read(*100,*20,dlt,z(i),lcore-i,1,nwds)
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
             ELSE
-               CALL smsg(rc-2,lods,Fss)
+               CALL smsg(rc-2,lods,fss)
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSE
-            CALL smsg(rc-2,eqss,Fss)
+            CALL smsg(rc-2,eqss,fss)
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -142,11 +143,10 @@ SUBROUTINE rcovds
 !
 !     NO DLOAD MATCH - MUST BE SIMPLE RLOAD OR TLOAD
 !
-         Z(idload) = 1.0
+         z(idload) = 1.0
          iz(idload+1) = dload
          ldload = idload + 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          SPAG_Loop_1_1: DO
 !
@@ -157,14 +157,14 @@ SUBROUTINE rcovds
                i = idload
                iscale = trl(2)
                DO
-                  CALL fread(dlt,Z(i),2,0)
+                  CALL fread(dlt,z(i),2,0)
                   IF ( iz(i)==-1 ) THEN
                      ldload = i - 1
                      EXIT SPAG_Loop_1_1
                   ELSE
-                     Z(i) = Z(i)*scale
+                     z(i) = z(i)*scale
                      i = i + 2
-                     IF ( i>Lcore ) THEN
+                     IF ( i>lcore ) THEN
                         spag_nextblock_1 = 6
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -197,15 +197,14 @@ SUBROUTINE rcovds
                      ENDIF
                   ENDDO
                   CALL fwdrec(*100,dlt)
-                  CYCLE
                CASE (2)
 !
 !     SAVE RLOAD DATA IF RIGID FORMAT 8
 !     SAVE TLOAD DATA IF RIGID FORMAT 9
 !
                   CALL fread(dlt,itype,1,0)
-                  IF ( itype>2 .OR. Rfno/=8 ) THEN
-                     IF ( itype<3 .OR. Rfno/=9 ) THEN
+                  IF ( itype>2 .OR. rfno/=8 ) THEN
+                     IF ( itype<3 .OR. rfno/=9 ) THEN
                         CALL fwdrec(*100,dlt)
                         CYCLE
                      ENDIF
@@ -215,7 +214,7 @@ SUBROUTINE rcovds
                   CALL fread(dlt,iz(l+1),7,1)
                   iz(j+1) = -l
                   l = l + 8
-                  IF ( l>Lcore ) THEN
+                  IF ( l>lcore ) THEN
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -225,7 +224,7 @@ SUBROUTINE rcovds
          ENDDO
 !
          lload = l - 1
-         CALL close(dlt,Rew)
+         CALL close(dlt,rew)
 !
 !     READ THE LOADC DATA FROM GEOM4 AND SAVE ANY THAT WAS REQUESTED
 !     ON TLOAD OR RLOAD CARDS
@@ -239,10 +238,10 @@ SUBROUTINE rcovds
          isload = iloadc
          lsload = isload - 1
 !
-         IF ( Rfno==8 ) GOTO 60
+         IF ( rfno==8 ) GOTO 60
 !
-         CALL preloc(*60,Z(Buf1),geom4)
-         CALL locate(*60,Z(Buf1),loadc,i)
+         CALL preloc(*60,z(buf1),geom4)
+         CALL locate(*60,z(buf1),loadc,i)
          iold = 0
          i1 = iloadc
          i2 = i1
@@ -276,15 +275,15 @@ SUBROUTINE rcovds
             ENDIF
          ENDDO SPAG_Loop_1_3
          DO
-            CALL fread(geom4,Z(i2),4,0)
+            CALL fread(geom4,z(i2),4,0)
             IF ( iz(i2+2)==-1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             iz(i1) = iz(i1) + 1
-            Z(i2+3) = Z(i2+3)*scale
+            z(i2+3) = z(i2+3)*scale
             i2 = i2 + 4
-            IF ( i2>Lcore ) THEN
+            IF ( i2>lcore ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -295,20 +294,20 @@ SUBROUTINE rcovds
 !
  40      lloadc = i2 - 1
          IF ( iloadc<=lloadc ) THEN
-            CALL sfetch(Fss,lods,srd,rc)
+            CALL sfetch(fss,lods,srd,rc)
             i = 1
             CALL sjump(i)
             ilod = 1
             idat0 = lloadc + 1
             idat = idat0 + 1
-            ndat = Lcore - lloadc
+            ndat = lcore - lloadc
             isub = 6
             lsub = 3*ns + 5
 !
 !     FOR EACH BASIC READ THE LODS DATA INTO CORE
 !
             DO i = isub , lsub , 3
-               CALL suread(Z(idat0),ndat,nwds,rc)
+               CALL suread(z(idat0),ndat,nwds,rc)
                IF ( rc/=2 ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
@@ -335,13 +334,12 @@ SUBROUTINE rcovds
                                     CYCLE SPAG_DispatchLoop_3
                                  ENDIF
                               ENDDO
-                              WRITE (Nout,99001) Uwm , iz(k+2) , Z(i) , Z(i+1) , Fss
+                              WRITE (nout,99001) uwm , iz(k+2) , z(i) , z(i+1) , fss
 99001                         FORMAT (A25,' 6316, RCOVR MODULE IS UNABLE TO FIND LOAD SET ',I8,' FOR SUBSTRUCTURE ',2A4,/32X,       &
                                      &'AMONG THOSE ON LODS.  ','IT WILL BE IGNORED IN CREATING THE SOLN ITEM FOR FINAL',/32X,       &
                                      &'SOLUTION STRUCTURE ',2A4)
                               iz(k+2) = -1
                            ENDIF
-                           CYCLE
                         CASE (2)
 !
                            iz(k+2) = ilod + l - idat
@@ -371,7 +369,7 @@ SUBROUTINE rcovds
                i2 = j + iz(j)*4
                SPAG_Loop_2_6: DO k = i1 , i2 , 4
                   IF ( iz(k)/=0 ) THEN
-                     WRITE (Nout,99002) Uwm , Z(k) , Z(k+1) , Fss , iz(k+2) , Fss
+                     WRITE (nout,99002) uwm , z(k) , z(k+1) , fss , iz(k+2) , fss
 !
 !     DIAGNOSTICS
 !
@@ -387,7 +385,7 @@ SUBROUTINE rcovds
                      ENDIF
                      nsload = nsload + 1
                      lsload = lsload + 1
-                     IF ( lsload>Lcore ) THEN
+                     IF ( lsload>lcore ) THEN
                         spag_nextblock_1 = 6
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -399,7 +397,7 @@ SUBROUTINE rcovds
 !
 !     SORT LIST OF IDS
 !
-                  CALL sort(0,0,1,1,Z(isload),nsload)
+                  CALL sort(0,0,1,1,z(isload),nsload)
 !
 !     MAKE ONE MORE PASS THROUGH THE LOAC DATA CONVERTING THE
 !     INTERNAL LOAD IDS TO A RELATIVE POSITION IN THE LOAD LIST
@@ -415,14 +413,13 @@ SUBROUTINE rcovds
                            SELECT CASE (spag_nextblock_4)
                            CASE (1)
                               IF ( iz(k+2)>=0 ) THEN
-                                 DO l = isload , lsload
+                                 SPAG_Loop_6_1: DO l = isload , lsload
                                     IF ( iz(k+2)==iz(l) ) THEN
                                        spag_nextblock_4 = 2
-                                       CYCLE SPAG_DispatchLoop_4
+                                       EXIT SPAG_Loop_6_1
                                     ENDIF
-                                 ENDDO
+                                 ENDDO SPAG_Loop_6_1
                               ENDIF
-                              CYCLE
                            CASE (2)
                               iz(k+2) = l - isload
                               EXIT SPAG_DispatchLoop_4
@@ -438,12 +435,12 @@ SUBROUTINE rcovds
 !
 !     OK - NOW WE CAN WRITE OUT GROUP 0 OF THE SOLN ITEM
 !
- 60      CALL close(geom4,Rew)
+ 60      CALL close(geom4,rew)
          rc = 3
-         CALL sfetch(Fss,soln,swrt,rc)
-         CALL suwrt(Z(1),3*ns+5,1)
+         CALL sfetch(fss,soln,swrt,rc)
+         CALL suwrt(z(1),3*ns+5,1)
          CALL suwrt(nsload,1,1)
-         IF ( nsload>0 ) CALL suwrt(Z(isload),nsload,1)
+         IF ( nsload>0 ) CALL suwrt(z(isload),nsload,1)
          CALL suwrt(0,0,eog)
 !
 !     COPY THE FREQUENCY STEPS FROM PPF OR THE TIME STEPS FROM TOL
@@ -451,17 +448,17 @@ SUBROUTINE rcovds
 !
          istep = isload
          lstep = istep + nstep - 1
-         IF ( lstep>Lcore ) THEN
+         IF ( lstep>lcore ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file = tolppf
-         CALL open(*80,tolppf,Z(Buf1),Rdrew)
+         CALL open(*80,tolppf,z(buf1),rdrew)
          CALL fread(tolppf,trl,2,0)
-         CALL fread(tolppf,Z(istep),nstep,0)
-         CALL close(tolppf,Rew)
+         CALL fread(tolppf,z(istep),nstep,0)
+         CALL close(tolppf,rew)
 !
-         CALL suwrt(Z(istep),nstep,eog)
+         CALL suwrt(z(istep),nstep,eog)
 !
 !     IF ANY SCALAR LOADS EXIST CALCULATE THE SCALE FACTORS FOR EACH
 !     LOAD AND WRITE THEM TO THE SOF - 1 GROUP PER TIME OR FREQUENCY
@@ -475,7 +472,7 @@ SUBROUTINE rcovds
          ELSE
             ivec = lstep + 1
             lvec = ivec + nsload - 1
-            IF ( lvec>Lcore ) THEN
+            IF ( lvec>lcore ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -507,7 +504,7 @@ SUBROUTINE rcovds
                            ENDDO
                         ENDIF
                         ltab = ltab + 1
-                        IF ( ltab>Lcore ) THEN
+                        IF ( ltab>lcore ) THEN
                            spag_nextblock_1 = 6
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -520,7 +517,7 @@ SUBROUTINE rcovds
 !
             IF ( iz(itab0)/=0 ) THEN
                itabd = ltab + 1
-               CALL pretab(dit,Z(itabd),iz(itabd),Z(Buf1),Lcore-itabd,ltabd,Z(itab0),tabloc)
+               CALL pretab(dit,z(itabd),iz(itabd),z(buf1),lcore-itabd,ltabd,z(itab0),tabloc)
                ltabd = itabd + ltabd - 1
             ENDIF
 !
@@ -558,17 +555,17 @@ SUBROUTINE rcovds
 !
 !     TLOAD1 DATA
 !
-                           CALL tab(iz(ild+2),Z(i),scale)
+                           CALL tab(iz(ild+2),z(i),scale)
                         ELSEIF ( itype==4 ) THEN
 !
 !     TLOAD2 DATA
 !
                            scale = 0.0
-                           tt = Z(i) - Z(ild+2)
+                           tt = z(i) - z(ild+2)
                            IF ( tt==0.0 ) THEN
-                              IF ( Z(ild+7)==0.0 ) scale = cos(Z(ild+5))
-                           ELSEIF ( tt>=0.0 .AND. tt<=Z(ild+3) ) THEN
-                              scale = tt**Z(ild+7)*exp(Z(ild+6)*tt)*cos(Twopi*Z(ild+4)*tt+Z(ild+5)*Degra)
+                              IF ( z(ild+7)==0.0 ) scale = cos(z(ild+5))
+                           ELSEIF ( tt>=0.0 .AND. tt<=z(ild+3) ) THEN
+                              scale = tt**z(ild+7)*exp(z(ild+6)*tt)*cos(twopi*z(ild+4)*tt+z(ild+5)*degra)
                            ENDIF
                         ELSE
 !
@@ -586,7 +583,7 @@ SUBROUTINE rcovds
                            DO k = i1 , i2 , 4
                               IF ( iz(k+2)>=0 ) THEN
                                  ifac = ivec + iz(k+2)
-                                 Z(ifac) = Z(ifac) + scale*Z(j)*Z(k+3)
+                                 z(ifac) = z(ifac) + scale*z(j)*z(k+3)
                               ENDIF
                            ENDDO
                         ENDIF
@@ -597,7 +594,7 @@ SUBROUTINE rcovds
 !
 !     WRITE OUT THESE FACTORS TO THE NEXT GROUP OF THE SOF
 !
-               CALL suwrt(Z(ivec),nsload,eog)
+               CALL suwrt(z(ivec),nsload,eog)
             ENDDO
             CALL suwrt(0,0,eoi)
          ENDIF
@@ -610,7 +607,6 @@ SUBROUTINE rcovds
          CYCLE SPAG_DispatchLoop_1
  100     n = 2
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          n = 8
          spag_nextblock_1 = 7
@@ -619,12 +615,12 @@ SUBROUTINE rcovds
          spag_nextblock_1 = 8
       CASE (8)
          CALL sofcls
-         Iopt = -1
-         CALL close(casess,Rew)
-         CALL close(dlt,Rew)
-         CALL close(geom4,Rew)
-         CALL close(tolppf,Rew)
-         CALL close(dit,Rew)
+         iopt = -1
+         CALL close(casess,rew)
+         CALL close(dlt,rew)
+         CALL close(geom4,rew)
+         CALL close(tolppf,rew)
+         CALL close(dit,rew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

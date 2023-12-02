@@ -1,13 +1,14 @@
-!*==ddamat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddamat.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddamat
-USE C_BLANK
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -38,20 +39,20 @@ USE ISO_FORTRAN_ENV
 !
 !     SET PACK AND UNPACK PARAMETER
 !
-   Jout = iprec
-   Iin = iprec
-   Iout = iprec
-   Incr = 1
-   Jncr = 1
-   Ii = 1
-   Iii = 1
+   jout = iprec
+   iin = iprec
+   iout = iprec
+   incr = 1
+   jncr = 1
+   ii = 1
+   iii = 1
 !
 !     SET OPEN CORE
 !
-   lcore = korsz(Z)
-   buf1 = lcore - Ibuf(1) + 1
-   buf2 = buf1 - Ibuf(1)
-   buf3 = buf2 - Ibuf(1)
+   lcore = korsz(z)
+   buf1 = lcore - ibuf(1) + 1
+   buf2 = buf1 - ibuf(1)
+   buf3 = buf2 - ibuf(1)
    lcore = buf3 - 1
    IF ( lcore<=0 ) THEN
       k = -8
@@ -88,18 +89,18 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
 !
-         Nn = nrowa
-         Nnn = nrowa
+         nn = nrowa
+         nnn = nrowa
          mcb(1) = c
          mcb(2) = 0
          mcb(3) = nrowa
          mcb(6) = 0
          mcb(7) = 0
-         IF ( iprec==2 ) dgg = Gg
+         IF ( iprec==2 ) dgg = gg
 !
-         CALL gopen(a,Z(buf1),0)
-         CALL gopen(b,Z(buf2),0)
-         CALL gopen(c,Z(buf3),1)
+         CALL gopen(a,z(buf1),0)
+         CALL gopen(b,z(buf2),0)
+         CALL gopen(c,z(buf3),1)
 !
 !     UNPACK A COLUMN OF A AND B, COMPUTE PRODUCTS, AND PACK TO C.
 !     IF I.GT.1 AND B=1, USE THE ONE COLUMN OF B OVER AGAIN.
@@ -115,30 +116,29 @@ USE ISO_FORTRAN_ENV
                      ggdz = dgg
                      CALL unpack(*6,a,dz(1))
                      spag_nextblock_1 = 4
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     ggz = Gg
-                     CALL unpack(*2,a,Z(1))
+                     ggz = gg
+                     CALL unpack(*2,a,z(1))
                      spag_nextblock_1 = 2
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
+                  CYCLE
  2                inull = 1
                   spag_nextblock_1 = 2
                CASE (2)
-                  IF ( i<=1 .OR. ncolb/=1 ) CALL unpack(*4,b,Z(nrowa+1))
+                  IF ( i<=1 .OR. ncolb/=1 ) CALL unpack(*4,b,z(nrowa+1))
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
  4                inull = 1
                   DO j = 1 , nrowa
-                     Z(nrowa+j) = 0.
+                     z(nrowa+j) = 0.
                   ENDDO
                   spag_nextblock_1 = 3
                CASE (3)
                   IF ( inull==1 ) ggz = 0.
                   DO j = 1 , nrowa
-                     Z(j) = ggz*Z(j)*Z(nrowa+j)
+                     z(j) = ggz*z(j)*z(nrowa+j)
                   ENDDO
-                  CALL pack(Z(1),c,mcb)
+                  CALL pack(z(1),c,mcb)
                   CYCLE
  6                inull = 1
                   spag_nextblock_1 = 4

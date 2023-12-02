@@ -1,10 +1,11 @@
-!*==ifp1s.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifp1s.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1s(List,Istor,Nlist)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,10 +59,10 @@ SUBROUTINE ifp1s(List,Istor,Nlist)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                ix = iabs(Istor(k+1))
-               WRITE (Otpe,99001) Uwm , in , iout , Istor(k) , ix
+               WRITE (otpe,99001) uwm , in , iout , Istor(k) , ix
 99001          FORMAT (A25,' 621, INTERVAL',I8,' THRU',I8,' OVERLAPS INTERVAL',I8,' THRU',I8,'. THE MAXIMUM INTERVAL WILL BE USED.')
-               Line = Line + 3
-               IF ( Line>=Nlpp ) CALL page
+               line = line + 3
+               IF ( line>=nlpp ) CALL page
 !
 !     REMOVE PAIR L FROM ISTOR
 !
@@ -106,10 +107,10 @@ SUBROUTINE ifp1s(List,Istor,Nlist)
 !     ERROR -- PAIR CONTAINS SINGLE
 !
                in1 = iabs(Istor(k+1))
-               WRITE (Otpe,99002) Uwm , in , Istor(k) , in1
+               WRITE (otpe,99002) uwm , in , Istor(k) , in1
 99002          FORMAT (A25,' 619, SET MEMBER',I8,' BELONGS TO',I8,' THRU',I8)
-               Line = Line + 3
-               IF ( Line>=Nlpp ) CALL page
+               line = line + 3
+               IF ( line>=nlpp ) CALL page
                CYCLE SPAG_Loop_1_3
             ELSE
                l = l + 1
@@ -124,10 +125,10 @@ SUBROUTINE ifp1s(List,Istor,Nlist)
          DO k = 1 , ising
             l = 2*ipair + k
             IF ( in==Istor(l) ) THEN
-               WRITE (Otpe,99003) Uwm , in
+               WRITE (otpe,99003) uwm , in
 99003          FORMAT (A25,' 620, SET MEMBER',I8,' IS DUPLICATED IN SET LIST.')
-               Line = Line + 3
-               IF ( Line>=Nlpp ) CALL page
+               line = line + 3
+               IF ( line>=nlpp ) CALL page
                CYCLE SPAG_Loop_1_3
             ENDIF
          ENDDO

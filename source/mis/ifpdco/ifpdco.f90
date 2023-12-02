@@ -1,10 +1,11 @@
-!*==ifpdco.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifpdco.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION ifpdco(Ic)
+   USE c_ifpdta
+   USE c_system
    IMPLICIT NONE
-   USE C_IFPDTA
-   USE C_SYSTEM
 !
 ! Function and Dummy argument declarations rewritten by SPAG
 !
@@ -26,9 +27,9 @@ FUNCTION ifpdco(Ic)
 !                   IFPDCO=.FALSE.
 !
 !
-   Gc(1) = Ic
+   gc(1) = Ic
    DO lc = 1 , 6
-      Ll(lc) = 0
+      ll(lc) = 0
    ENDDO
    IF ( Ic<0 ) THEN
       CALL spag_block_3
@@ -36,13 +37,13 @@ FUNCTION ifpdco(Ic)
    ENDIF
    IF ( Ic/=0 ) THEN
       DO lc = 1 , 6
-         Gc(lc+1) = Gc(lc)/10
-         dg = Gc(lc) - 10*Gc(lc+1)
-         IF ( Ithrml/=1 .AND. dg>6 ) THEN
+         gc(lc+1) = gc(lc)/10
+         dg = gc(lc) - 10*gc(lc+1)
+         IF ( ithrml/=1 .AND. dg>6 ) THEN
             CALL spag_block_3
             RETURN
          ENDIF
-         IF ( Ithrml==1 .AND. dg>1 ) THEN
+         IF ( ithrml==1 .AND. dg>1 ) THEN
             CALL spag_block_3
             RETURN
          ENDIF
@@ -50,13 +51,13 @@ FUNCTION ifpdco(Ic)
             CALL spag_block_2
             RETURN
          ENDIF
-         IF ( Ll(dg)/=0 ) THEN
+         IF ( ll(dg)/=0 ) THEN
             CALL spag_block_3
             RETURN
          ENDIF
-         Ll(dg) = dg
+         ll(dg) = dg
       ENDDO
-      IF ( Gc(7)/=0 ) THEN
+      IF ( gc(7)/=0 ) THEN
          CALL spag_block_3
          RETURN
       ENDIF
@@ -65,10 +66,9 @@ FUNCTION ifpdco(Ic)
 CONTAINS
    SUBROUTINE spag_block_1
       ifpdco = .FALSE.
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      IF ( Gc(lc)==0 ) THEN
+      IF ( gc(Lc)==0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF

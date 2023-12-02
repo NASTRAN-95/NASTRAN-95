@@ -1,12 +1,13 @@
-!*==flbemg.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flbemg.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flbemg
-USE C_BLANK
-USE C_FLBFIL
-USE C_FLBPTR
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_flbfil
+   USE c_flbptr
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -54,50 +55,50 @@ USE ISO_FORTRAN_ENV
 !
 !     READ MATERIAL PROPERTY DATA INTO CORE
 !
-         imat = Icore
-         nz = Ibuf5 - imat
-         CALL premat(Z(imat),Z(imat),Z(Ibuf1),nz,nmat,Mpt,0)
+         imat = icore
+         nz = ibuf5 - imat
+         CALL premat(z(imat),z(imat),z(ibuf1),nz,nmat,mpt,0)
 !
 !     READ CSTM DATA INTO CORE
 !
          icstm = imat + nmat
          ncstm = 0
-         nz = Ibuf5 - icstm
-         file = Cstm
-         CALL open(*40,Cstm,Z(Ibuf1),0)
-         CALL fwdrec(*140,Cstm)
-         CALL read(*140,*20,Cstm,Z(icstm),nz,0,ncstm)
+         nz = ibuf5 - icstm
+         file = cstm
+         CALL open(*40,cstm,z(ibuf1),0)
+         CALL fwdrec(*140,cstm)
+         CALL read(*140,*20,cstm,z(icstm),nz,0,ncstm)
          n = -8
          CALL mesage(n,file,name)
          RETURN
- 20      CALL close(Cstm,1)
-         CALL pretrd(Z(icstm),ncstm)
+ 20      CALL close(cstm,1)
+         CALL pretrd(z(icstm),ncstm)
 !
 !     READ GRAV DATA INTO CORE
 !
- 40      Igrav = icstm + ncstm
-         Ngrav = 0
-         nz = Ibuf5 - Igrav
-         Nograv = -1
+ 40      igrav = icstm + ncstm
+         ngrav = 0
+         nz = ibuf5 - igrav
+         nograv = -1
          nocard = .TRUE.
-         file = Geom3
-         CALL preloc(*80,Z(Ibuf1),Geom3)
-         CALL locate(*60,Z(Ibuf1),grav,id)
+         file = geom3
+         CALL preloc(*80,z(ibuf1),geom3)
+         CALL locate(*60,z(ibuf1),grav,id)
          nocard = .FALSE.
-         CALL read(*140,*60,Geom3,Z(Igrav),nz,0,Ngrav)
+         CALL read(*140,*60,geom3,z(igrav),nz,0,ngrav)
          n = -8
          CALL mesage(n,file,name)
          RETURN
 !
- 60      CALL close(Geom3,1)
+ 60      CALL close(geom3,1)
 !
 !     OPEN MATRIX AND DICTIONARY FILES
 !
- 80      CALL gopen(Afmat,Z(Ibuf2),1)
-         CALL gopen(Afdict,Z(Ibuf4),1)
+ 80      CALL gopen(afmat,z(ibuf2),1)
+         CALL gopen(afdict,z(ibuf4),1)
          IF ( .NOT.(nocard) ) THEN
-            CALL gopen(Kgmat,Z(Ibuf3),1)
-            CALL gopen(Kgdict,Z(Ibuf5),1)
+            CALL gopen(kgmat,z(ibuf3),1)
+            CALL gopen(kgdict,z(ibuf5),1)
          ENDIF
 !
 !
@@ -105,49 +106,49 @@ USE ISO_FORTRAN_ENV
 !     SUBROUTINE BOUND WILL GENERATE THE ELEMENT MATRICES FOR
 !     EACH ENTRY.
 !
-         file = Fbelm
-         CALL gopen(Fbelm,Z(Ibuf1),0)
+         file = fbelm
+         CALL gopen(fbelm,z(ibuf1),0)
          DO
-            CALL read(*140,*100,Fbelm,fbrec,12,0,n)
+            CALL read(*140,*100,fbelm,fbrec,12,0,n)
 !
             CALL bound(fbrec,afe,nafe,kge,nkge)
-            IF ( .NOT.(Error) ) THEN
+            IF ( .NOT.(error) ) THEN
 !
 !     CONVERT GRID POINTS TO SILS
 !
                DO i = 1 , 4
                   j = fbrec(i+2) - 1
-                  IF ( j>=0 ) fbrec(i+2) = Z(Isil+j)
+                  IF ( j>=0 ) fbrec(i+2) = z(isil+j)
                   j = fbrec(i+8) - 1
-                  IF ( j>=0 ) fbrec(i+8) = Z(Isil+j)
+                  IF ( j>=0 ) fbrec(i+8) = z(isil+j)
                ENDDO
 !
 !     WRITE AREA MATRICES AND DICTIONARY ENTRUES
 !
-               CALL write(Afmat,fbrec(3),4,0)
-               CALL write(Afmat,fbrec(9),4,0)
-               CALL write(Afmat,afe,nafe,1)
-               CALL savpos(Afmat,pos)
+               CALL write(afmat,fbrec(3),4,0)
+               CALL write(afmat,fbrec(9),4,0)
+               CALL write(afmat,afe,nafe,1)
+               CALL savpos(afmat,pos)
                dict(2) = pos
                DO i = 1 , 4
                   dict(1) = fbrec(i+8)
-                  IF ( dict(1)>=0 ) CALL write(Afdict,dict,2,0)
+                  IF ( dict(1)>=0 ) CALL write(afdict,dict,2,0)
                ENDDO
 !
 !     WRITE GRAVITATIONAL STIFFNESS MATRICES IF THEY EXIST
 !
                IF ( nkge/=0 ) THEN
-                  CALL write(Kgmat,fbrec(3),4,0)
-                  CALL write(Kgmat,fbrec(3),4,0)
-                  CALL write(Kgmat,kge,nkge,1)
-                  CALL savpos(Kgmat,pos)
+                  CALL write(kgmat,fbrec(3),4,0)
+                  CALL write(kgmat,fbrec(3),4,0)
+                  CALL write(kgmat,kge,nkge,1)
+                  CALL savpos(kgmat,pos)
                   dict(2) = pos
                   DO i = 1 , 4
                      jsil = fbrec(i+2)
                      IF ( jsil>=0 ) THEN
                         DO j = 1 , 3
                            dict(1) = jsil
-                           CALL write(Kgdict,dict,2,0)
+                           CALL write(kgdict,dict,2,0)
                            jsil = jsil + 1
                         ENDDO
                      ENDIF
@@ -156,71 +157,71 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDIF
          ENDDO
- 100     CALL close(Fbelm,1)
+ 100     CALL close(fbelm,1)
 !
 !
 !     PASS THROUGH FRELM FILE AND PROCESS EACH ENTRY ON THE FREE
 !     SURFACE.  SUBROUTINE FLFREE WILL CALCULATE THE AREA AND
 !     GRAVITATIONAL STIFFNESS MATRICES FOR EACH ENTRY
 !
-         IF ( Nofree<0 ) THEN
+         IF ( nofree<0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Frelm
-         CALL gopen(Frelm,Z(Ibuf1),0)
+         file = frelm
+         CALL gopen(frelm,z(ibuf1),0)
          DO
-            CALL read(*140,*120,Frelm,frrec,7,0,n)
+            CALL read(*140,*120,frelm,frrec,7,0,n)
 !
             CALL flfree(frrec,afe,nafe,kge,nkge)
-            IF ( .NOT.(Error) ) THEN
+            IF ( .NOT.(error) ) THEN
 !
 !     CONVERT GRID POINTS TO SILS
 !
                DO i = 1 , 4
                   j = frrec(i+2) - 1
-                  IF ( j>=0 ) frrec(i+2) = Z(Isil+j)
+                  IF ( j>=0 ) frrec(i+2) = z(isil+j)
                ENDDO
 !
 !     WRITE AREA MATRICES AND DICTIONARY ENTRIES
 !
-               CALL write(Afmat,frrec(3),4,0)
-               CALL write(Afmat,frrec(3),4,0)
-               CALL write(Afmat,afe,nafe,1)
-               CALL savpos(Afmat,pos)
+               CALL write(afmat,frrec(3),4,0)
+               CALL write(afmat,frrec(3),4,0)
+               CALL write(afmat,afe,nafe,1)
+               CALL savpos(afmat,pos)
                dict(2) = pos
                DO i = 1 , 4
                   dict(1) = frrec(i+2)
-                  IF ( dict(1)>=0 ) CALL write(Afdict,dict,2,0)
+                  IF ( dict(1)>=0 ) CALL write(afdict,dict,2,0)
                ENDDO
 !
 !     WRITE GRAVITATIONAL STIFFNESS MATRICES IF THEY EXIST
 !
                IF ( nkge/=0 ) THEN
-                  CALL write(Kgmat,frrec(3),4,0)
-                  CALL write(Kgmat,frrec(3),4,0)
-                  CALL write(Kgmat,kge,nkge,1)
-                  CALL savpos(Kgmat,pos)
+                  CALL write(kgmat,frrec(3),4,0)
+                  CALL write(kgmat,frrec(3),4,0)
+                  CALL write(kgmat,kge,nkge,1)
+                  CALL savpos(kgmat,pos)
                   dict(2) = pos
                   DO i = 1 , 4
                      dict(1) = frrec(i+2)
-                     IF ( dict(1)>=0 ) CALL write(Kgdict,dict,2,0)
+                     IF ( dict(1)>=0 ) CALL write(kgdict,dict,2,0)
 !
                   ENDDO
                ENDIF
             ENDIF
          ENDDO
- 120     CALL close(Frelm,1)
+ 120     CALL close(frelm,1)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     CLOSE FILES AND RETURN
 !
-         CALL close(Afmat,1)
-         CALL close(Afdict,1)
+         CALL close(afmat,1)
+         CALL close(afdict,1)
          IF ( .NOT.(nocard) ) THEN
-            CALL close(Kgmat,1)
-            CALL close(Kgdict,1)
+            CALL close(kgmat,1)
+            CALL close(kgdict,1)
          ENDIF
 !
          RETURN

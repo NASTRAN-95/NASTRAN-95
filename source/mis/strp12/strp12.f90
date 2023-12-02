@@ -1,12 +1,13 @@
-!*==strp12.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strp12.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strp12(Ti)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,12 +50,12 @@ SUBROUTINE strp12(Ti)
 !
          npts = 6
          DO i = 1 , 24
-            Forvec(i) = 0.0
+            forvec(i) = 0.0
          ENDDO
-         Forvec(1) = Ph1out(1)
-         Forvec(7) = Ph1out(1)
-         Forvec(13) = Ph1out(1)
-         Forvec(19) = Ph1out(1)
+         forvec(1) = ph1out(1)
+         forvec(7) = ph1out(1)
+         forvec(13) = ph1out(1)
+         forvec(19) = ph1out(1)
 !
 !     DO 155 II = 1,4
 !
@@ -64,21 +65,21 @@ SUBROUTINE strp12(Ti)
          ii = ii + 1
          IF ( ii>4 ) THEN
             DO i = 1 , 17
-               Ph1out(100+i) = stout(i)
+               ph1out(100+i) = stout(i)
             ENDDO
             DO j = 1 , 3
                DO i = 1 , 16
                   j1 = 117 + (j-1)*16 + i
                   j2 = (j-1)*17 + i + 18
-                  Ph1out(j1) = stout(j2)
+                  ph1out(j1) = stout(j2)
                ENDDO
             ENDDO
             DO i = 1 , 6
-               Ph1out(200+i) = Forvec(i)
+               ph1out(200+i) = forvec(i)
             ENDDO
             DO i = 1 , 5
-               Ph1out(206+i) = Forvec(i+7)
-               Ph1out(211+i) = Forvec(i+13)
+               ph1out(206+i) = forvec(i+7)
+               ph1out(211+i) = forvec(i+13)
             ENDDO
             RETURN
          ELSE
@@ -96,7 +97,6 @@ SUBROUTINE strp12(Ti)
                z1 = 0.0
                z2 = 0.0
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 !     FORM SUMMATION
@@ -105,31 +105,31 @@ SUBROUTINE strp12(Ti)
 !
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
 !
-                  Npoint = Ivec + nsil(i) - 1
+                  npoint = ivec + nsil(i) - 1
 !
                   ii1 = (ii-1)*180 + 30*i - 29
-                  CALL gmmats(si(ii1),5,6,0,Z(Npoint),6,1,0,Vec(1))
+                  CALL gmmats(si(ii1),5,6,0,z(npoint),6,1,0,vec(1))
 !
                   DO j = 2 , 6
                      ij = (ii-1)*6 + j
-                     Forvec(ij) = Forvec(ij) + Vec(j-1)
+                     forvec(ij) = forvec(ij) + vec(j-1)
                   ENDDO
                ENDDO
 !
-               IF ( Tloads/=0 ) THEN
+               IF ( tloads/=0 ) THEN
                   jst = (ii-1)*3 + 738
                   i1 = (ii-1)*6
                   flag = .FALSE.
                   f1 = Ti(6)
                   IF ( n1==1 ) THEN
-                     Forvec(i1+2) = Forvec(i1+2) + Ti(2)*Ph1out(jst+1)
-                     Forvec(i1+3) = Forvec(i1+3) + Ti(2)*Ph1out(jst+2)
-                     Forvec(i1+4) = Forvec(i1+4) + Ti(2)*Ph1out(jst+3)
+                     forvec(i1+2) = forvec(i1+2) + Ti(2)*ph1out(jst+1)
+                     forvec(i1+3) = forvec(i1+3) + Ti(2)*ph1out(jst+2)
+                     forvec(i1+4) = forvec(i1+4) + Ti(2)*ph1out(jst+3)
                      IF ( Ti(3)==0.0 .AND. Ti(4)==0.0 ) flag = .TRUE.
                   ELSE
-                     Forvec(i1+2) = Forvec(i1+2) - Ti(2)
-                     Forvec(i1+3) = Forvec(i1+3) - Ti(3)
-                     Forvec(i1+4) = Forvec(i1+4) - Ti(4)
+                     forvec(i1+2) = forvec(i1+2) - Ti(2)
+                     forvec(i1+3) = forvec(i1+3) - Ti(3)
+                     forvec(i1+4) = forvec(i1+4) - Ti(4)
                      IF ( Ti(5)==0.0 .AND. Ti(6)==0.0 ) flag = .TRUE.
                   ENDIF
                ENDIF
@@ -137,36 +137,36 @@ SUBROUTINE strp12(Ti)
 !     FORCE VECTOR IS NOW COMPLETE
 !
                IF ( ii==4 ) THEN
-                  ziovri = -1.5/Ph1out(17)**2
-                  Z2ovri = -Z1ovri
+                  ziovri = -1.5/ph1out(17)**2
+                  z2ovri = -z1ovri
                ELSE
                   i1 = ii*2 + 9
                   i2 = i1 + 1
-                  Z1ovri = -12.0*Ph1out(i1)/Ph1out(7+ii)**3
-                  Z2ovri = -12.0*Ph1out(i2)/Ph1out(7+ii)**3
+                  z1ovri = -12.0*ph1out(i1)/ph1out(7+ii)**3
+                  z2ovri = -12.0*ph1out(i2)/ph1out(7+ii)**3
                ENDIF
                ii1 = (ii-1)*6
 !
                k1 = 0
                ASSIGN 20 TO iretrn
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
 !
- 20      sigx1 = Forvec(ii1+2)*Z1ovri - sdelta(1)
-         sigy1 = Forvec(ii1+3)*Z1ovri - sdelta(2)
-         sigxy1 = Forvec(ii1+4)*Z1ovri - sdelta(3)
+ 20      sigx1 = forvec(ii1+2)*z1ovri - sdelta(1)
+         sigy1 = forvec(ii1+3)*z1ovri - sdelta(2)
+         sigxy1 = forvec(ii1+4)*z1ovri - sdelta(3)
 !
          k1 = 1
          ASSIGN 40 TO iretrn
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
- 40      sigx2 = Forvec(ii1+2)*Z2ovri - sdelta(1)
-         sigy2 = Forvec(ii1+3)*Z2ovri - sdelta(2)
+ 40      sigx2 = forvec(ii1+2)*z2ovri - sdelta(1)
+         sigy2 = forvec(ii1+3)*z2ovri - sdelta(2)
 !
-         sigxy2 = Forvec(ii1+4)*Z2ovri - sdelta(3)
+         sigxy2 = forvec(ii1+4)*z2ovri - sdelta(3)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -201,38 +201,38 @@ SUBROUTINE strp12(Ti)
 !
 !     COMPUTE PRINCIPAL STRESSES
 !
-            str(1) = Ph1out(1)
-            str(2) = Ph1out(ii*2+9)
+            str(1) = ph1out(1)
+            str(2) = ph1out(ii*2+9)
             str(3) = sigx1
             str(4) = sigy1
             str(5) = sigxy1
-            str(10) = Ph1out(1)
-            str(11) = Ph1out(ii*2+10)
+            str(10) = ph1out(1)
+            str(11) = ph1out(ii*2+10)
             str(12) = sigx2
             str(13) = sigy2
             str(14) = sigxy2
 !
             DO i = 3 , 12 , 9
-               Temp = str(i) - str(i+1)
-               str(i+6) = sqrt((Temp/2.0)**2+str(i+2)**2)
-               Delta = (str(i)+str(i+1))/2.0
-               str(i+4) = Delta + str(i+6)
-               str(i+5) = Delta - str(i+6)
-               Delta = 2.0*str(i+2)
-               IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
+               temp = str(i) - str(i+1)
+               str(i+6) = sqrt((temp/2.0)**2+str(i+2)**2)
+               delta = (str(i)+str(i+1))/2.0
+               str(i+4) = delta + str(i+6)
+               str(i+5) = delta - str(i+6)
+               delta = 2.0*str(i+2)
+               IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
                   str(i+3) = 0.0
                ELSE
-                  str(i+3) = atan2(Delta,Temp)*28.6478898E0
+                  str(i+3) = atan2(delta,temp)*28.6478898E0
                ENDIF
             ENDDO
          ENDIF
-         str(1) = Ph1out(1)
-         str(10) = Ph1out(1)
+         str(1) = ph1out(1)
+         str(10) = ph1out(1)
 !
 !     ADDITION TO ELIMINATE 2ND ELEMENT ID IN OUTPUT
 !
          ijk = (ii-1)*17
-         stout(ijk+1) = Ph1out(1)
+         stout(ijk+1) = ph1out(1)
          DO i = 2 , 9
             stout(ijk+i) = str(i)
          ENDDO
@@ -241,34 +241,33 @@ SUBROUTINE strp12(Ti)
 !
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     INTERNAL SUBROUTINE
 !
-         IF ( .NOT.(Tloads==0 .OR. flag) ) THEN
+         IF ( .NOT.(tloads==0 .OR. flag) ) THEN
             jst = 738 + (ii-1)*3
-            reali(1) = Ph1out(8)**3/12.0
-            reali(2) = Ph1out(9)**3/12.0
-            reali(3) = Ph1out(10)**3/12.0
-            centhk = Ph1out(17)*2.0
+            reali(1) = ph1out(8)**3/12.0
+            reali(2) = ph1out(9)**3/12.0
+            reali(3) = ph1out(10)**3/12.0
+            centhk = ph1out(17)*2.0
             reali(4) = centhk**3/12.0
             IF ( n1/=1 ) THEN
                ff = Ti(k1+5) - Ti(1)
-               IF ( abs(Ph1out(k1+9+2*ii))>1.0E-07 ) THEN
-                  sdelta(1) = (Ph1out(jst+1)*ff+Ti(2)*Ph1out(k1+9+2*ii))/reali(ii)
-                  sdelta(2) = (Ph1out(jst+2)*ff+Ti(3)*Ph1out(k1+9+2*ii))/reali(ii)
-                  sdelta(3) = (Ph1out(jst+3)*ff+Ti(4)*Ph1out(k1+9+2*ii))/reali(ii)
+               IF ( abs(ph1out(k1+9+2*ii))>1.0E-07 ) THEN
+                  sdelta(1) = (ph1out(jst+1)*ff+Ti(2)*ph1out(k1+9+2*ii))/reali(ii)
+                  sdelta(2) = (ph1out(jst+2)*ff+Ti(3)*ph1out(k1+9+2*ii))/reali(ii)
+                  sdelta(3) = (ph1out(jst+3)*ff+Ti(4)*ph1out(k1+9+2*ii))/reali(ii)
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-            ELSEIF ( abs(Ph1out(k1+9+2*ii))>1.0E-07 ) THEN
-               ff1 = (Ti(k1+3)-Ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
-               ff2 = (Ti(k1+3)-Ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
-               ff3 = (Ti(k1+3)-Ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
-               sdelta(1) = Ph1out(jst+1)*ff1
-               sdelta(2) = Ph1out(jst+2)*ff2
-               sdelta(3) = Ph1out(jst+3)*ff3
+            ELSEIF ( abs(ph1out(k1+9+2*ii))>1.0E-07 ) THEN
+               ff1 = (Ti(k1+3)-ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
+               ff2 = (Ti(k1+3)-ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
+               ff3 = (Ti(k1+3)-ph1out(k1+9+2*ii)*Ti(2)-Ti(1))/reali(ii)
+               sdelta(1) = ph1out(jst+1)*ff1
+               sdelta(2) = ph1out(jst+2)*ff2
+               sdelta(3) = ph1out(jst+3)*ff3
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF

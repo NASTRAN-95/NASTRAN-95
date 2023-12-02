@@ -1,10 +1,11 @@
-!*==diag36.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==diag36.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
+   USE c_names
+   USE c_system
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,10 +44,10 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
 !
             n = 1
             DO i = 1 , 2
-               CALL open(*20,file,Z(Buf),Rdrew)
+               CALL open(*20,file,Z(Buf),rdrew)
                CALL fwdrec(*40,file)
                CALL read(*20,*60,file,Z(n),n1,1,j)
-               CALL close(file,Rew)
+               CALL close(file,rew)
                file = Sil
                n = n + n1
             ENDDO
@@ -55,11 +56,11 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
 !        Z(   1 THRU N1) = EXTERNAL NOS.
 !        Z(N1+1 THRU N2) = SIL NOS.
 !
-            nlpx = Nlpp - 8
+            nlpx = nlpp - 8
             n = nlpx*3
             DO i = 1 , n1 , n
                CALL page1
-               WRITE (L,99001)
+               WRITE (l,99001)
 99001          FORMAT (/46X,38HTABLE OF INTERNAL-EXTERNAL-SIL NUMBERS,//10X,3(6X,30HINTERNAL  EXTERNAL      SIL   ),/10X,           &
                       &3(6X,3(10H--------  )))
                im1 = i - 1
@@ -67,9 +68,9 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
                   j1 = im1 + j
                   j2 = j1 + nlpx
                   j3 = j2 + nlpx
-                  IF ( j3<=n1 ) WRITE (L,99004) j1 , Z(j1) , Z(j1+n1) , j2 , Z(j2) , Z(j2+n1) , j3 , Z(j3) , Z(j3+n1)
-                  IF ( j3>n1 .AND. j2<=n1 ) WRITE (L,99004) j1 , Z(j1) , Z(j1+n1) , j2 , Z(j2) , Z(j2+n1)
-                  IF ( j2>n1 .AND. j1<=n1 ) WRITE (L,99004) j1 , Z(j1) , Z(j1+n1)
+                  IF ( j3<=n1 ) WRITE (l,99004) j1 , Z(j1) , Z(j1+n1) , j2 , Z(j2) , Z(j2+n1) , j3 , Z(j3) , Z(j3+n1)
+                  IF ( j3>n1 .AND. j2<=n1 ) WRITE (l,99004) j1 , Z(j1) , Z(j1+n1) , j2 , Z(j2) , Z(j2+n1)
+                  IF ( j2>n1 .AND. j1<=n1 ) WRITE (l,99004) j1 , Z(j1) , Z(j1+n1)
                ENDDO
             ENDDO
 !
@@ -77,11 +78,11 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
             IF ( j==0 ) RETURN
 !
             file = Eqexin
-            CALL open(*20,file,Z(Buf),Rdrew)
+            CALL open(*20,file,Z(Buf),rdrew)
             CALL fwdrec(*40,file)
             CALL read(*20,*60,file,Z(1),n2,1,j)
             CALL read(*20,*60,file,Z(n3),n2,1,j)
-            CALL close(file,Rew)
+            CALL close(file,rew)
             i = n3 - 1
             j = n2
             k = n3 + n2 - 1
@@ -101,7 +102,7 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
             n3 = n3 - 1
             DO i = 1 , n3 , n
                CALL page1
-               WRITE (L,99002)
+               WRITE (l,99002)
 99002          FORMAT (/44X,44HTABLE OF EXTERNAL-INTERNAL-CODED SIL NUMBERS,//10X,3(6X,30HEXTERNAL  INTERNAL CODED SIL  ),/10X,     &
                      & 3(5X,3(10H--------- ),1X))
                im1 = i - 1
@@ -109,13 +110,13 @@ SUBROUTINE diag36(Z,Buf,Gpl,Sil,Eqexin)
                   j1 = im1 + j
                   j2 = j1 + nlpx
                   j3 = j2 + nlpx
-                  IF ( j3<=n3 ) WRITE (L,99004) Z(j1) , Z(j1+1) , Z(j1+2) , Z(j2) , Z(j2+1) , Z(j2+2) , Z(j3) , Z(j3+1) , Z(j3+2)
-                  IF ( j3>n3 .AND. j2<=n3 ) WRITE (L,99004) Z(j1) , Z(j1+1) , Z(j1+2) , Z(j2) , Z(j2+1) , Z(j2+2)
-                  IF ( j2>n3 .AND. j1<=n3 ) WRITE (L,99004) Z(j1) , Z(j1+1) , Z(j1+2)
+                  IF ( j3<=n3 ) WRITE (l,99004) Z(j1) , Z(j1+1) , Z(j1+2) , Z(j2) , Z(j2+1) , Z(j2+2) , Z(j3) , Z(j3+1) , Z(j3+2)
+                  IF ( j3>n3 .AND. j2<=n3 ) WRITE (l,99004) Z(j1) , Z(j1+1) , Z(j1+2) , Z(j2) , Z(j2+1) , Z(j2+2)
+                  IF ( j2>n3 .AND. j1<=n3 ) WRITE (l,99004) Z(j1) , Z(j1+1) , Z(j1+2)
                ENDDO
             ENDDO
 !
-            WRITE (L,99003)
+            WRITE (l,99003)
 99003       FORMAT (//10X,33H*** JOB TERMINATED BY DIAG 20 ***)
             CALL pexit
          ENDIF

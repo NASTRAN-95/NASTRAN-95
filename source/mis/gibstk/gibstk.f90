@@ -1,15 +1,16 @@
-!*==gibstk.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gibstk.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,Nlow,Nacum,Size,Stpt,Un,Idim)
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bandg
+   USE c_bands
+   USE c_bandw
+   USE c_system
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDG
-   USE C_BANDS
-   USE C_BANDW
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -95,29 +96,29 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !     FROM ONE COMPONENT OF ORIGINAL GRAPH.
 !
          xcmax = Idim/2
-         Ncm = 0
-         N = Nn
+         ncm = 0
+         n = nn
          ibw2 = 0
          ipf2 = 0
 !
 !     SET RENUM(I) = 0 FOR ALL I TO INDICATE NODE I IS UNNUMBERED
 !     THEN COMPUTE DEGREE OF EACH NODE AND ORIGINAL B AND P.
 !
-         DO i = 1 , N
+         DO i = 1 , n
             Renum(i) = 0
          ENDDO
          CALL dgree(Ndstk,Ndeg,Iold,ibw1,ipf1,Un)
 !
 !     ORIGINAL ACTIVE COLUMN DATA IN MAXW1 AND RMS1, COMPUTED BY SCHEME
 !
-         IF ( Method/=0 ) THEN
-            maxwa = Maxw0
-            rmsa = Rms0
-            brmsa = Brms0
+         IF ( method/=0 ) THEN
+            maxwa = maxw0
+            rmsa = rms0
+            brmsa = brms0
          ELSE
-            maxwa = Maxw1
-            rmsa = Rms1
-            brmsa = Brms1
+            maxwa = maxw1
+            rmsa = rms1
+            brmsa = brms1
          ENDIF
 !
 !     NUMBER THE NODES OF DEGREE ZERO
@@ -125,8 +126,8 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !     STNUM = HIGH END OF AVAILABLE NUMBERS FOR RENUMBERING
 !
          sbnum = 1
-         stnum = N
-         DO i = 1 , N
+         stnum = n
+         DO i = 1 , n
             IF ( Ndeg(i)<=0 ) THEN
                Renum(i) = stnum
                stnum = stnum - 1
@@ -135,18 +136,18 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !
 !     NODES OF ZERO DEGREE APPEAR LAST IN NEW SEQUENCE.
 !
-         Nzero = N - stnum
-         Ncm = Nzero
+         nzero = n - stnum
+         ncm = nzero
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     FIND AN UNNUMBERED NODE OF MIN DEGREE TO START ON
 !
-         lowdg = Ideg + 1
-         Ncm = Ncm + 1
+         lowdg = ideg + 1
+         ncm = ncm + 1
          nflg = 1
          isdir = 1
-         DO i = 1 , N
+         DO i = 1 , n
             IF ( Ndeg(i)<lowdg .AND. Renum(i)<=0 ) THEN
                lowdg = Ndeg(i)
                stnode = i
@@ -158,7 +159,7 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !     ARE THE RESPECTIVE LEVEL STRUCTURES.
 !
          CALL fndiam(stnode,rvnode,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,idflt,Size,Un,Idim)
-         IF ( Ngrid==-3 ) RETURN
+         IF ( ngrid==-3 ) RETURN
          IF ( Ndeg(stnode)>Ndeg(rvnode) ) THEN
 !
 !     NFLG INDICATES THE END TO BEGIN NUMBERING ON
@@ -168,20 +169,20 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
          ENDIF
          CALL rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
 !                                  NHIGH,NLOW,    <===== NEW
-         IF ( Ngrid==-3 ) RETURN
+         IF ( ngrid==-3 ) RETURN
 !
 !     FIND ALL THE CONNECTED COMPONENTS  (XC COUNTS THEM)
 !
          xc = 0
          lroot = 1
          lvln = 1
-         DO i = 1 , N
+         DO i = 1 , n
             IF ( Lvl(i)==0 ) THEN
                xc = xc + 1
                IF ( xc<=xcmax ) THEN
 !
                   Stpt(xc) = lroot
-                  CALL tree(i,Ndstk,Lvl,Ccstor,Ndeg,lvlwth,lvlbot,lvln,maxlw,N,Un)
+                  CALL tree(i,Ndstk,Lvl,Ccstor,Ndeg,lvlwth,lvlbot,lvln,maxlw,n,Un)
                   Size(xc) = lvlbot + lvlwth - lroot
                   lroot = lvlbot + lvlwth
                   lvln = lroot
@@ -189,7 +190,7 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !
 !     DIMENSION EXCEEDED.  STOP JOB.
 !
-                  Ngrid = -3
+                  ngrid = -3
                   RETURN
                ENDIF
             ENDIF
@@ -205,7 +206,7 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
          IF ( isdir<0 ) num = stnum
 !
          CALL number(stnode,num,Ndstk,Lvls2,Ndeg,Renum,Lvls1,Lvl,nflg,ibw2,ipf2,Ccstor,isdir,Nhigh,Nlow,Nacum,Size,Un,Idim)
-         IF ( Ngrid==-3 ) RETURN
+         IF ( ngrid==-3 ) RETURN
 !
 !     UPDATE STNUM OR SBNUM AFTER NUMBERING
 !
@@ -222,7 +223,7 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !
          ibw2 = maxb
          ipf2 = sumwb
-         IF ( Nlpp>50 ) WRITE (Nout,99001) maxb , sumwb , maxwb , averwb , rmsb , brmsb
+         IF ( nlpp>50 ) WRITE (nout,99001) maxb , sumwb , maxwb , averwb , rmsb , brmsb
 99001    FORMAT (/31X,66HAFTER RESEQUENCING BY GIBBS-POOLE-STOCKMEYER (GPS) ALGORITHM - - -,/40X,13HBANDWIDTH    ,I9,/40X,          &
                 &13HPROFILE      ,I9,/40X,13HMAX WAVEFRONT,I9,/40X,13HAVG WAVEFRONT,F9.3,/40X,13HRMS WAVEFRONT,F9.3,/40X,           &
                 &13HRMS BANDWIDTH,F9.3)
@@ -268,7 +269,7 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
 !
 !     IF ORIGINAL NUMBERING IS BETTER THAN NEW ONE, SET UP TO RETURN IT
 !
-         DO i = 1 , N
+         DO i = 1 , n
             Renum(i) = Iold(i)
          ENDDO
          ibw2 = ibw1
@@ -278,11 +279,11 @@ SUBROUTINE gibstk(Ndstk,Iold,Renum,Ndeg,Lvl,Lvls1,Lvls2,Ccstor,Jump,Icrit,Nhigh,
          brmsb = brmsa
          spag_nextblock_1 = 3
       CASE (3)
-         Nbw = ibw2
-         Np = ipf2
-         Maxw1 = maxwb
-         Rms1 = rmsb
-         Brms1 = brmsb
+         nbw = ibw2
+         np = ipf2
+         maxw1 = maxwb
+         rms1 = rmsb
+         brms1 = brmsb
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

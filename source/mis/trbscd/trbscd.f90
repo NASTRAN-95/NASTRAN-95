@@ -1,13 +1,14 @@
-!*==trbscd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trbscd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trbscd
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_EMGTRX
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_emgtrx
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -67,7 +68,7 @@ USE ISO_FORTRAN_ENV
 !>>>>    & (Kout(1),M(1))
    DATA ipart/1 , 2 , 3/
 !
-   ip = Iprec
+   ip = iprec
 !
 !     IF THIS IS A HEAT PROBLEM THIS SHOULD NOT CALL US, SO RETURN
 !
@@ -82,7 +83,7 @@ USE ISO_FORTRAN_ENV
          ii = ipart(i)
          DO j = ip1 , 3
             jj = ipart(j)
-            IF ( Ngrid(ii)>Ngrid(jj) ) THEN
+            IF ( ngrid(ii)>ngrid(jj) ) THEN
                ipart(i) = jj
                ipart(j) = ii
                ii = jj
@@ -94,11 +95,11 @@ USE ISO_FORTRAN_ENV
 !     IF STIFFNESS MATRIX IS DESIRED CALL ETRBKD, OTHERWISE ONLY MASS
 !     MATRIX IS DESIRED
 !
-      IF ( Ismb(1)/=0 ) THEN
+      IF ( ismb(1)/=0 ) THEN
 !
          CALL etrbkd(0)
-         IF ( Nogo ) RETURN
-         dict5 = Bfact
+         IF ( nogo ) RETURN
+         dict5 = bfact
 !
 !     RE ORDER THE MATRIX BY INCREASING SIL VALUE.    NOTE THAT
 !
@@ -128,7 +129,7 @@ USE ISO_FORTRAN_ENV
                   DO l = 1 , 3
                      ik = (ii-1)*27 + (jj-1)*9 + (k-1)*3 + l
                      iout = (i-1)*27 + (j-1)*3 + (k-1)*9 + l
-                     Kout(iout) = Kk(ik)
+                     kout(iout) = kk(ik)
                   ENDDO
                ENDDO
             ENDDO
@@ -136,26 +137,26 @@ USE ISO_FORTRAN_ENV
 !
 !     NOW OUTPUT THE MATRIX
 !
-         dict(1) = Estid
+         dict(1) = estid
          dict(2) = 1
          dict(3) = 9
          dict(4) = 4 + 8 + 16
 !
-         CALL emgout(Kout,Kout,81,1,dict,1,ip)
+         CALL emgout(kout,kout,81,1,dict,1,ip)
       ENDIF
 !
 !     NOW CALCULATE THE MASS MATRIX IF NEEDED
 !
-      IF ( Ismb(2)==0 ) RETURN
+      IF ( ismb(2)==0 ) RETURN
 !
 !     WHICH MASS METHOD TO BE USED (CONVENTIONAL OR CONSISTENT)
 !
-      IF ( Icmbar<0 ) EXIT SPAG_Loop_1_1
+      IF ( icmbar<0 ) EXIT SPAG_Loop_1_1
 !
 !     THE COUPLED MASS MATRIX CALCULATIONS ARE MADE HERE VIA ETRBMD
 !
       CALL etrbmd
-      IF ( Nogo ) RETURN
+      IF ( nogo ) RETURN
 !
 !     INSERT THE MATRICES INTO THE OUTPUT MATRIX IN INCREASING SIL ORDER
 !
@@ -175,7 +176,7 @@ USE ISO_FORTRAN_ENV
 !
 !     NOW OUTPUT THE MASS MATRIX
 !
-      dict(1) = Estid
+      dict(1) = estid
       dict(2) = 1
       dict(3) = 9
       dict(4) = 4 + 8 + 16
@@ -201,13 +202,12 @@ USE ISO_FORTRAN_ENV
 !
 !     NOW OUTPUT THE MATRIX
 !
-   dict(1) = Estid
+   dict(1) = estid
    dict(2) = 2
    dict(3) = 9
    dict(4) = 7
 !
    CALL emgout(mout,mout,9,1,dict,2,ip)
 !
-   RETURN
 !
 END SUBROUTINE trbscd

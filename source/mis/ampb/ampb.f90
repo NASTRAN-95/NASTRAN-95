@@ -1,14 +1,15 @@
-!*==ampb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ampb.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr3)
+   USE c_ampcom
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMPCOM
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -66,7 +67,7 @@ SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr
 !
 !     DETERMINE IF PHIDH MUST BE MODIFIED
 !
-   IF ( Noue==-1 ) THEN
+   IF ( noue==-1 ) THEN
 !
 !     NO MOD REQUIRED
 !
@@ -75,10 +76,10 @@ SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr
 !
 !     BUILD PARTITIONING VECTORS
 !
-      Iuset = Useta
-      Lc = korsz(Z)
-      CALL calcv(Scr1,Ud,Ua,Ue,Z)
-      CALL ampb1(Scr2,noh-Noue,Noue)
+      iuset = Useta
+      lc = korsz(z)
+      CALL calcv(Scr1,ud,ua,ue,z)
+      CALL ampb1(Scr2,noh-noue,noue)
 !
 !     PERFORM PARTITION
 !                       RP   CP
@@ -88,18 +89,18 @@ SUBROUTINE ampb(Phidh,Gtka,D1jk,D2jk,D1je,D2je,Useta,Djh1,Djh2,Gki,Scr1,Scr2,Scr
 !
 !     COMPUTE GKI
 !
-   CALL ssg2b(Gtka,phia,0,Gki,1,Iprec,1,Scr1)
+   CALL ssg2b(Gtka,phia,0,Gki,1,iprec,1,Scr1)
 !
 !     START COMPUTATION OF DJH MATRICES
 !
    dji1 = Scr3
    dji2 = Scr3
-   IF ( Noue<=0 ) THEN
+   IF ( noue<=0 ) THEN
       dji1 = Djh1
       dji2 = Djh2
    ENDIF
-   CALL ssg2b(D1jk,Gki,0,dji1,1,Iprec,1,Scr1)
-   IF ( Noue/=-1 ) CALL merged(dji1,D1je,0,0,Djh1,Scr2,0,0,Ncolj)
-   CALL ssg2b(D2jk,Gki,0,dji2,1,Iprec,1,Scr1)
-   IF ( Noue/=-1 ) CALL merged(dji2,D2je,0,0,Djh2,Scr2,0,0,Ncolj)
+   CALL ssg2b(D1jk,Gki,0,dji1,1,iprec,1,Scr1)
+   IF ( noue/=-1 ) CALL merged(dji1,D1je,0,0,Djh1,Scr2,0,0,ncolj)
+   CALL ssg2b(D2jk,Gki,0,dji2,1,iprec,1,Scr1)
+   IF ( noue/=-1 ) CALL merged(dji2,D2je,0,0,Djh2,Scr2,0,0,ncolj)
 END SUBROUTINE ampb

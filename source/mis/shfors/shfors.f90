@@ -1,10 +1,11 @@
-!*==shfors.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==shfors.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shfors(Numpx,Elid,Igrid,Thikns,G,Epscsi,Qveci,Idr)
+   USE c_outreq
+   USE c_sdr2x7
    IMPLICIT NONE
-   USE C_OUTREQ
-   USE C_SDR2X7
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -93,7 +94,7 @@ SUBROUTINE shfors(Numpx,Elid,Igrid,Thikns,G,Epscsi,Qveci,Idr)
       IF ( .NOT.(cosmic) ) THEN
 !
          iforce = (inplan-1)*9 + 2
-         IF ( .NOT.(Grids .AND. Gridss) .OR. inplan<=1 ) THEN
+         IF ( .NOT.(grids .AND. gridss) .OR. inplan<=1 ) THEN
             nfors(iforce) = inplan - 1
          ELSE
             SPAG_Loop_2_1: DO inptmp = 1 , nump1
@@ -125,7 +126,7 @@ SUBROUTINE shfors(Numpx,Elid,Igrid,Thikns,G,Epscsi,Qveci,Idr)
 !     SHIP OUT
 !
       DO ifor = 1 , 8
-         Forsul(iforce+ifor) = dforce(ifor)
+         forsul(iforce+ifor) = dforce(ifor)
       ENDDO
    ENDDO
 !

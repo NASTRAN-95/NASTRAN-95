@@ -1,10 +1,11 @@
-!*==pload3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pload3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pload3
-USE C_LOADX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_loadx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -47,8 +48,8 @@ USE ISO_FORTRAN_ENV
 !     READ PRESSURES AND GRID POINT ID S FROM THE SLT, DETERMINE
 !     ELEMENT TYPE AND NUMBER OF GRID POINTS AND GET BASIC COORDINATES.
 !
-   CALL read(*100,*100,Slt,p,6,0,i)
-   CALL read(*100,*100,Slt,gp,32,0,i)
+   CALL read(*100,*100,slt,p,6,0,i)
+   CALL read(*100,*100,slt,gp,32,0,i)
    type = 1
    ngp = 8
    IF ( gp(9)/=0 ) THEN
@@ -59,7 +60,7 @@ USE ISO_FORTRAN_ENV
          ngp = 32
       ENDIF
    ENDIF
-   CALL permut(gp,seq,ngp,Old)
+   CALL permut(gp,seq,ngp,old)
    DO i = 1 , ngp
       j = seq(i)
       CALL fndpnt(bgpd,gp(j))
@@ -127,7 +128,7 @@ USE ISO_FORTRAN_ENV
       CALL fndsil(gp(i))
       DO j = 1 , 3
          k = gp(i) + j - 1
-         Core(k) = Core(k) + rf(j,i)
+         core(k) = core(k) + rf(j,i)
       ENDDO
    ENDDO
    RETURN

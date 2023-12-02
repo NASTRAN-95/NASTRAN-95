@@ -1,14 +1,15 @@
-!*==frd2c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==frd2c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
+   USE c_frd2bc
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FRD2BC
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,19 +40,19 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
 !
    !>>>>EQUIVALENCE (Zz(1),Z(1))
 !
-   icore = korsz(Z)
-   Incr = 1
-   Ii = 1
-   Inn = 1
-   Incr1 = 1
-   Iout = 3
-   IF ( Ih==0 .AND. Iprec==2 ) Iout = 4
+   icore = korsz(z)
+   incr = 1
+   ii = 1
+   inn = 1
+   incr1 = 1
+   iout = 3
+   IF ( ih==0 .AND. iprec==2 ) iout = 4
 !
 !     IH IN /FRD2BC/ IS INITIALIZED BY ROUTINE FRRD2.
 !     (COMPLEX D.P. ARITHMETIC IS USED IF IH=0)
 !
-   Ito = Iout
-   Iti = Ito
+   ito = iout
+   iti = ito
 !
 !     DECIDE IF INCORE IS POSSIBLE
 !
@@ -61,55 +62,55 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
    CALL rdtrl(tb)
    na = ta(2)
    nb = tb(3)*Nload
-   ibuf1 = icore - Sysbuf
-   ncore = na*na*2 + nb*2 + nb*2 + Sysbuf
+   ibuf1 = icore - sysbuf
+   ncore = na*na*2 + nb*2 + nb*2 + sysbuf
 !
 !     IF IH=0, COMPLEX D.P. COMPUTATION WILL BE USED.  NOTICE THAT THE
 !     ROUTINE INCORE IS WRITTEN ONLY FOR COMPLEX S.P. OPERATION.
 !
-   IF ( Ih/=0 ) THEN
+   IF ( ih/=0 ) THEN
       IF ( ncore<=icore ) THEN
 !
 !     DO INCORE
 !
          ia = 1
-         CALL gopen(A,Z(ibuf1),0)
-         Nnn = ta(3)
-         Incr1 = Nnn
+         CALL gopen(A,z(ibuf1),0)
+         nnn = ta(3)
+         incr1 = nnn
          n = na + na
          DO i = 1 , n , 2
-            CALL unpack(*10,A,Z(i))
+            CALL unpack(*10,A,z(i))
             CYCLE
  10         DO k = 1 , n , 2
-               l = (k-1)*Nnn
-               Z(i+l) = 0.0
-               Z(i+l+1) = 0.0
+               l = (k-1)*nnn
+               z(i+l) = 0.0
+               z(i+l+1) = 0.0
             ENDDO
          ENDDO
          CALL close(A,1)
 !
 !     GET FREQ FROM B
 !
-         ib = Nnn*Nnn*2 + 1
-         Nnn = tb(3)
-         Incr1 = Nload
-         n1 = Nnn + Nnn
+         ib = nnn*nnn*2 + 1
+         nnn = tb(3)
+         incr1 = Nload
+         n1 = nnn + nnn
          j = tb(2)/Nload - 1
          m = 0
-         CALL gopen(B,Z(ibuf1),0)
+         CALL gopen(B,z(ibuf1),0)
          CALL skprec(B,Nfreq-1)
          DO i = 1 , Nload
             spag_nextblock_1 = 1
             SPAG_DispatchLoop_1: DO
                SELECT CASE (spag_nextblock_1)
                CASE (1)
-                  CALL unpack(*12,B,Z(ib+m))
+                  CALL unpack(*12,B,z(ib+m))
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
  12               DO k = 1 , n1 , 2
                      l = (k-1)*Nload + ib + m
-                     Z(l) = 0.0
-                     Z(l+1) = 0.0
+                     z(l) = 0.0
+                     z(l+1) = 0.0
                   ENDDO
                   spag_nextblock_1 = 2
                CASE (2)
@@ -120,15 +121,15 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
             ENDDO SPAG_DispatchLoop_1
          ENDDO
          CALL close(B,1)
-         ix = Nload*Nnn*2 + ib
-         CALL incore(Z(ia),na,Z(ib),Z(ix),Nload)
-         Nn = na
-         CALL gopen(X,Z(ibuf1),1)
-         CALL makmcb(tx,X,Nn,tb(4),Ito)
-         Incr = Nload
+         ix = Nload*nnn*2 + ib
+         CALL incore(z(ia),na,z(ib),z(ix),Nload)
+         nn = na
+         CALL gopen(X,z(ibuf1),1)
+         CALL makmcb(tx,X,nn,tb(4),ito)
+         incr = Nload
          j = ix
          DO i = 1 , Nload
-            CALL pack(Z(j),X,tx)
+            CALL pack(z(j),X,tx)
             j = j + 2
          ENDDO
          CALL close(X,1)
@@ -137,24 +138,24 @@ SUBROUTINE frd2c(A,B,X,Scr1,Scr2,Scr3,Scr4,Scr5,Nload,Nfreq)
 !
 !     USE FILE SOLVE
 !
-      ELSEIF ( Ip==0 ) THEN
-         Ip = ncore - icore
-         WRITE (Out,99001) Uim , Ip
+      ELSEIF ( ip==0 ) THEN
+         ip = ncore - icore
+         WRITE (out,99001) uim , ip
 99001    FORMAT (A29,' 2437, ADDITIONAL CORE NEEDED FOR IN-CORE ','DECOMPOSITION IN FRRD2 MODULE IS',I8,' WORDS.')
       ENDIF
    ENDIF
    CALL cfactr(A,Scr1,Scr2,Scr3,Scr4,Scr5,iopt)
    icore = korsz(zz)
-   ibuf1 = icore - Sysbuf
-   ibuf2 = ibuf1 - Sysbuf
+   ibuf1 = icore - sysbuf
+   ibuf2 = ibuf1 - sysbuf
    CALL gopen(B,zz(ibuf1),0)
    CALL gopen(Scr3,zz(ibuf2),1)
-   Iout = 3
-   IF ( Ih==0 .AND. Iprec==2 ) Iout = 4
-   Incr1 = 1
+   iout = 3
+   IF ( ih==0 .AND. iprec==2 ) iout = 4
+   incr1 = 1
    j = tb(2)/Nload - 1
-   Nn = tb(3)
-   CALL makmcb(tx,Scr3,Nn,tb(4),Ito)
+   nn = tb(3)
+   CALL makmcb(tx,Scr3,nn,tb(4),ito)
    CALL skprec(B,Nfreq-1)
    DO i = 1 , Nload
       CALL cyct2b(B,Scr3,1,zz,tx)

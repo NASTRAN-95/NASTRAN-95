@@ -1,15 +1,16 @@
-!*==input.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==input.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE input
+   USE c_blank
+   USE c_condas
+   USE c_machin
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -113,10 +114,10 @@ SUBROUTINE input
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( param1<=Parama .AND. Parama<=paramn ) THEN
+         IF ( param1<=parama .AND. parama<=paramn ) THEN
 !
             kor = 10*nbuf + 1
-            nkor = korsz(X) - 10*nbuf
+            nkor = korsz(x) - 10*nbuf
             IF ( nkor<=0 ) CALL mesage(-8,nkor,mnam)
             CALL page1
             nlines = nlines + 8
@@ -126,7 +127,7 @@ SUBROUTINE input
                    &'**   5  **   6  **   7  **   8  **   9  **  10  *',///)
             iox = 0
             ioy = 0
-            IF ( Mach<5 .OR. sperlk/=0 ) THEN
+            IF ( mach<5 .OR. sperlk/=0 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -142,7 +143,7 @@ SUBROUTINE input
                ENDIF
             ENDDO
          ELSE
-            WRITE (nout,99003) Ufm , Parama
+            WRITE (nout,99003) ufm , parama
 99003       FORMAT (A23,' 1738, UTILITY MODULE INPUT FIRST PARAMETER VALUE - ',I20,' OUT OF RANGE')
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
@@ -150,13 +151,13 @@ SUBROUTINE input
 !
 !     ENDDATA CARD NOT FOUND
 !
- 20      WRITE (nout,99004) Ufm
+ 20      WRITE (nout,99004) ufm
 99004    FORMAT (A23,' - "ENDDATA" CARD NOT FOUND BY INPUT MODULE')
          CALL mesage(-37,0,mnam)
          spag_nextblock_1 = 2
       CASE (2)
 !
-         IF ( Parama==2 ) THEN
+         IF ( parama==2 ) THEN
 !
 !
 !     PARAMA = 2 RECTANGULAR FRAME MADE FROM BAR-S OR ROD-S
@@ -182,13 +183,13 @@ SUBROUTINE input
             ASSIGN 380 TO r2
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Parama==3 ) THEN
+         ELSEIF ( parama==3 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Parama==4 ) THEN
+         ELSEIF ( parama==4 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Parama==5 ) THEN
+         ELSEIF ( parama==5 ) THEN
 !
 !
 !     PARAMA = 5 N-SEGMENT STRING
@@ -209,7 +210,7 @@ SUBROUTINE input
 !
             ifil = 2
             ASSIGN 860 TO r
-         ELSEIF ( Parama==6 ) THEN
+         ELSEIF ( parama==6 ) THEN
 !
 !
 !     PARAMA = 6 N-CELL BAR
@@ -229,7 +230,7 @@ SUBROUTINE input
 !
             ifil = 1
             ASSIGN 1040 TO r
-         ELSEIF ( Parama==7 ) THEN
+         ELSEIF ( parama==7 ) THEN
 !
 !
 !     PARAMA = 7 FULL MATRIX AND OPTIONAL UNIT LOAD
@@ -249,7 +250,7 @@ SUBROUTINE input
 !
             ifil = 2
             ASSIGN 1260 TO r
-         ELSEIF ( Parama==8 ) THEN
+         ELSEIF ( parama==8 ) THEN
 !
 !
 !     PARAMA = 8 N-SPOKE WHEEL
@@ -282,14 +283,14 @@ SUBROUTINE input
 !     INPUT, ,GEOM2,,,/,G2,,,/C,N,1/C,N,3 $     REAL-EIG WITH MASS COUPL
 !
 !
-            IF ( Paramb==2 ) THEN
+            IF ( paramb==2 ) THEN
 !
 !
                READ (nin,99014) n , zk , zm
 99014          FORMAT (I8,2E8.0)
                CALL page2(-1)
                WRITE (nout,99032) n , zk , zm
-            ELSEIF ( Paramb==3 ) THEN
+            ELSEIF ( paramb==3 ) THEN
 !
                READ (nin,99015) n , zk , zm , f
 99015          FORMAT (I8,3E8.0)
@@ -368,8 +369,8 @@ SUBROUTINE input
                k(1) = lf(i,j,n1)
                k(3) = k(1)
                k(4) = k(3) + 1
-               IF ( Paramb/=1 .AND. i==1 ) k(3) = 0
-               IF ( Paramb/=1 .AND. i==n ) k(4) = 0
+               IF ( paramb/=1 .AND. i==1 ) k(3) = 0
+               IF ( paramb/=1 .AND. i==n ) k(4) = 0
                CALL write(file,k,4,0)
             ENDDO
          ENDDO
@@ -378,15 +379,15 @@ SUBROUTINE input
                k(3) = lf(i,j,n1)
                k(4) = k(3) + n1
                k(1) = k(3) + 1000000
-               IF ( Paramb/=1 .AND. j==1 ) k(3) = 0
-               IF ( Paramb/=1 .AND. j==n ) k(4) = 0
+               IF ( paramb/=1 .AND. j==1 ) k(3) = 0
+               IF ( paramb/=1 .AND. j==n ) k(4) = 0
                CALL write(file,k,4,0)
             ENDDO
          ENDDO
          ASSIGN 160 TO r1
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
- 160     IF ( Paramb==1 ) GOTO 200
+ 160     IF ( paramb==1 ) GOTO 200
 !
 !     CMASS4
 !
@@ -403,7 +404,7 @@ SUBROUTINE input
                CALL write(file,k,4,0)
             ENDDO
          ENDDO
-         IF ( Paramb==3 ) THEN
+         IF ( paramb==3 ) THEN
 !
             qk(2) = -f*zm
             DO j = 2 , n
@@ -472,14 +473,14 @@ SUBROUTINE input
          CYCLE SPAG_DispatchLoop_1
  220     DO j = 2 , n
             DO i = 1 , n
-               IF ( .NOT.(Paramb/=1 .AND. (i==1 .OR. i==n)) ) THEN
+               IF ( .NOT.(paramb/=1 .AND. (i==1 .OR. i==n)) ) THEN
                   k(1) = lf(i,j,n1)
                   CALL write(file,k,1,0)
                ENDIF
             ENDDO
          ENDDO
          DO j = 1 , n
-            IF ( .NOT.(Paramb/=1 .AND. (j==1 .OR. j==n)) ) THEN
+            IF ( .NOT.(paramb/=1 .AND. (j==1 .OR. j==n)) ) THEN
                DO i = 2 , n
                   k(1) = lf(i,j,n1) + 1000000
                   CALL write(file,k,1,0)
@@ -488,7 +489,7 @@ SUBROUTINE input
          ENDDO
          k(1) = -1
          CALL write(file,k,1,0)
-         IF ( Paramb/=1 ) THEN
+         IF ( paramb/=1 ) THEN
             DO j = 2 , n
                DO i = 1 , n , nm1
                   k(1) = lf(i,j,n1)
@@ -504,7 +505,7 @@ SUBROUTINE input
             k(1) = -1
             CALL write(file,k,1,0)
          ENDIF
-         IF ( Paramb/=1 ) THEN
+         IF ( paramb/=1 ) THEN
             DO j = 2 , n
                DO i = 2 , n
                   k(1) = lf(i,j,n1) + 2000000
@@ -513,7 +514,7 @@ SUBROUTINE input
             ENDDO
             k(1) = -1
             CALL write(file,k,1,0)
-            IF ( Paramb/=2 ) THEN
+            IF ( paramb/=2 ) THEN
                DO j = 2 , n
                   DO i = 2 , nm1
                      k(1) = lf(i,j,n1) + 3000000
@@ -600,8 +601,8 @@ SUBROUTINE input
          k(2) = 0
          k(6) = 0
          k(8) = 0
-         sl = sin(Degra*lambda)
-         cl = cos(Degra*lambda)
+         sl = sin(degra*lambda)
+         cl = cos(degra*lambda)
          ddy = dy*cl
          jj = -1
          DO j = 1 , ny1
@@ -629,13 +630,13 @@ SUBROUTINE input
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
 !
- 320     IF ( Paramb==1 ) GOTO 360
+ 320     IF ( paramb==1 ) GOTO 360
          ic = 8
          ASSIGN 340 TO r
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 340     IF ( Paramb/=1 ) THEN
-            IF ( Paramb==3 ) THEN
+ 340     IF ( paramb/=1 ) THEN
+            IF ( paramb==3 ) THEN
 !
 !     ACTIVE COLUMNS BANDING
 !
@@ -664,7 +665,7 @@ SUBROUTINE input
                   ENDIF
                   CALL write(file,k,2,0)
                ENDDO
-            ELSEIF ( Paramb==4 ) THEN
+            ELSEIF ( paramb==4 ) THEN
 !
 !     REVERSE DOUBLE BANDING
 !
@@ -751,7 +752,7 @@ SUBROUTINE input
          ASSIGN 420 TO r
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 420     IF ( Paramc/=0 ) THEN
+ 420     IF ( paramc/=0 ) THEN
 !
 !     CROD
 !
@@ -798,7 +799,6 @@ SUBROUTINE input
  460     IF ( modcom(1)/=0 ) THEN
             ASSIGN 500 TO r
             spag_nextblock_1 = 14
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     CNGRNT    (OUT OF SEQUENCE FOR CROD CASES)
@@ -806,8 +806,8 @@ SUBROUTINE input
             ic = 15
             ASSIGN 480 TO r
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  480     DO j = 1 , ny1
             DO i = 1 , nx
                k(1) = lf(i,j,nx1)
@@ -824,17 +824,17 @@ SUBROUTINE input
          ENDDO
          k(1) = -1
          CALL write(file,k,1,0)
-         IF ( Paramc/=0 ) THEN
+         IF ( paramc/=0 ) THEN
             DO j = 1 , ny
                SPAG_Loop_2_1: DO i = 1 , nx
                   k(1) = lf(i,j,nx1)*2 + 1999999
                   CALL write(file,k,1,0)
-                  IF ( Paramc==3 .AND. j>1 ) EXIT SPAG_Loop_2_1
+                  IF ( paramc==3 .AND. j>1 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
             ENDDO
             k(1) = -1
             CALL write(file,k,1,0)
-            IF ( Paramc==1 ) THEN
+            IF ( paramc==1 ) THEN
                DO j = 1 , ny
                   DO i = 1 , nx
                      k(1) = lf(i,j,nx1)*2 + 2000000
@@ -872,8 +872,8 @@ SUBROUTINE input
                k(4) = k(3) + nx
                k(1) = 2*k(3) + 1999997
                CALL write(file,k,4,0)
-               IF ( Paramc==3 .AND. j>1 ) EXIT SPAG_Loop_2_2
-               IF ( Paramc==1 ) THEN
+               IF ( paramc==3 .AND. j>1 ) EXIT SPAG_Loop_2_2
+               IF ( paramc==1 ) THEN
                   k(1) = k(1) + 1
                   k(3) = k(3) - 1
                   k(4) = k(4) + 1
@@ -882,7 +882,6 @@ SUBROUTINE input
             ENDDO SPAG_Loop_2_2
          ENDDO
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !
@@ -925,7 +924,7 @@ SUBROUTINE input
 !
 !     CQUAD1
 !
- 580     IF ( Parama==4 ) THEN
+ 580     IF ( parama==4 ) THEN
 !
 !     CTRIA1
 !
@@ -955,7 +954,6 @@ SUBROUTINE input
  620     IF ( modcom(1)/=0 ) THEN
             ASSIGN 660 TO r
             spag_nextblock_1 = 14
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     CNGRNT (OUT OF SEQUENCE)
@@ -963,8 +961,8 @@ SUBROUTINE input
             ic = 15
             ASSIGN 640 TO r
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  640     DO j = 1 , ny
             DO i = 1 , nx
                k(1) = lf(i,j,nx1)
@@ -988,7 +986,6 @@ SUBROUTINE input
          ifil = 4
          ASSIGN 700 TO r
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     SPC
@@ -1094,7 +1091,7 @@ SUBROUTINE input
                k(3) = lf(i,j,nx1)
                k(4) = k(3) + 1
                k(1) = 2*k(3) - 1
-               IF ( Paramc==2 ) THEN
+               IF ( paramc==2 ) THEN
                   k(5) = k(3) + nx1
                   CALL write(file,k,6,0)
                   k(1) = k(1) + 1
@@ -1119,7 +1116,6 @@ SUBROUTINE input
  820     IF ( modcom(1)/=0 ) THEN
             ASSIGN 660 TO r
             spag_nextblock_1 = 14
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     CNGRNT (OUT OF SEQUENCE)
@@ -1127,8 +1123,8 @@ SUBROUTINE input
             ic = 15
             ASSIGN 840 TO r
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  840     DO j = 1 , ny
             DO i = 1 , nx
                k(1) = lf(i,j,nx1)*2 - 1
@@ -1349,7 +1345,6 @@ SUBROUTINE input
  1140    IF ( modcom(1)/=0 ) THEN
             ASSIGN 1180 TO r
             spag_nextblock_1 = 14
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     CNGRNT
@@ -1357,8 +1352,8 @@ SUBROUTINE input
             ic = 15
             ASSIGN 1160 TO r
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  1160    DO i = 1 , n
             k(1) = i
             CALL write(file,k,1,0)
@@ -1524,8 +1519,8 @@ SUBROUTINE input
 !     LOCATE AND COPY CORD2C CARD FROM THE FIRST INPUT FILE
 !
  1480    ibuf = (ifil+4)*nbuf + 1
-         CALL preloc(*1840,X(ibuf),filin(ifil))
-         CALL locate(*1860,X(ibuf),cord2c,qk(3))
+         CALL preloc(*1840,x(ibuf),filin(ifil))
+         CALL locate(*1860,x(ibuf),cord2c,qk(3))
          CALL read(*1840,*1500,filin(ifil),qk(4),13,0,iflag)
          CALL close(filin(ifil),1)
          inopen(ifil) = .FALSE.
@@ -1550,7 +1545,7 @@ SUBROUTINE input
 !
          IF ( n<=0 .OR. n>=256 ) THEN
             CALL page2(-2)
-            WRITE (nout,99024) Uwm
+            WRITE (nout,99024) uwm
 99024       FORMAT (A25,' 2369, WHEEL MUST HAVE FEWER THAN 256 SPOKES. ','INPUT MODULE RESETTING TO 255')
             n = 255
          ENDIF
@@ -1637,18 +1632,18 @@ SUBROUTINE input
 !
          file = filout(ifil)
          ibuf = (ifil-1)*nbuf + 1
-         CALL gopen(file,X(ibuf),1)
+         CALL gopen(file,x(ibuf),1)
          t(1) = file
          DO j = 2 , 7
             t(j) = 0
          ENDDO
          fil = filin(ifil)
          ibuf = (ifil+4)*nbuf + 1
-         IF ( Parama==8 ) THEN
+         IF ( parama==8 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*1680,fil,X(ibuf),0)
+         CALL open(*1680,fil,x(ibuf),0)
          inopen(ifil) = .TRUE.
          t(1) = fil
          CALL rdtrl(t)
@@ -1661,7 +1656,7 @@ SUBROUTINE input
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         WRITE (nout,99027) Sfm
+         WRITE (nout,99027) sfm
 99027    FORMAT (A25,' 1742, NO DATA PRESENT')
          spag_nextblock_1 = 20
          CYCLE SPAG_DispatchLoop_1
@@ -1692,18 +1687,18 @@ SUBROUTINE input
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          IF ( ksrt==ksrtx ) THEN
-            WRITE (nout,99028) Ufm , kdn(1,ic) , kdn(2,ic)
+            WRITE (nout,99028) ufm , kdn(1,ic) , kdn(2,ic)
 99028       FORMAT (A23,' 1744, DATA CARD(S) -',2A4,'- GENERATED BY UTILITY',' MODULE INPUT NOT ALLOWED TO APPEAR IN BULK DATA')
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL write(file,hfil(1,ifil),3,0)
             DO
-               CALL read(*1820,*1700,fil,X(kor),nkor,0,rdflg)
-               CALL write(file,X(kor),nkor,0)
+               CALL read(*1820,*1700,fil,x(kor),nkor,0,rdflg)
+               CALL write(file,x(kor),nkor,0)
             ENDDO
          ENDIF
- 1700    CALL write(file,X(kor),rdflg,1)
+ 1700    CALL write(file,x(kor),rdflg,1)
          CALL fread(fil,hfil(1,ifil),3,0)
          DO j = 1 , 3
             IF ( hfil(j,ifil)/=eee(j) ) THEN
@@ -1714,17 +1709,16 @@ SUBROUTINE input
          inopen(ifil) = .FALSE.
          CALL close(fil,1)
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
          ktt = kt(ic)
          i1tt = i1t(ic)
          j1tt = j1t(ic) + 16
-         t(i1tt) = orf(t(i1tt),Two(j1tt))
+         t(i1tt) = orf(t(i1tt),two(j1tt))
          IF ( ktt/=1 ) THEN
             i2tt = i2t(ic)
             j2tt = j2t(ic) + 16
-            t(i2tt) = orf(t(i2tt),Two(j2tt))
+            t(i2tt) = orf(t(i2tt),two(j2tt))
          ENDIF
          GOTO r
       CASE (14)
@@ -1733,12 +1727,11 @@ SUBROUTINE input
          IF ( inopen(ifil) ) THEN
             CALL write(file,hfil(1,ifil),3,0)
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL write(file,eee,3,1)
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  1720    CALL close(fil,1)
          inopen(ifil) = .FALSE.
          spag_nextblock_1 = 15
@@ -1748,12 +1741,11 @@ SUBROUTINE input
          GOTO r
       CASE (16)
          DO
-            CALL read(*1720,*1740,fil,X(kor),nkor,0,rdflg)
-            CALL write(file,X(kor),nkor,0)
+            CALL read(*1720,*1740,fil,x(kor),nkor,0,rdflg)
+            CALL write(file,x(kor),nkor,0)
          ENDDO
- 1740    CALL write(file,X(kor),rdflg,1)
+ 1740    CALL write(file,x(kor),rdflg,1)
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
 !
          CALL write(file,0,0,1)
@@ -1780,14 +1772,14 @@ SUBROUTINE input
          ENDDO
          spag_nextblock_1 = 19
       CASE (19)
-         WRITE (nout,99029) Ufm
+         WRITE (nout,99029) ufm
 99029    FORMAT (A23,' 1745, UTILITY MODULE CANNOT HANDLE THE IFLG=2 CASE',' SINCE THERE IS NO WAY TO GENERATE GRID POINT G0')
          spag_nextblock_1 = 20
          CYCLE SPAG_DispatchLoop_1
  1840    m = -1
          CALL mesage(m,file,mnam)
          GOTO 1820
- 1860    WRITE (nout,99030) Ufm
+ 1860    WRITE (nout,99030) ufm
 99030    FORMAT (A23,' 1746, COORDINATE SYSTEM NOT DEFINED ON A CORD2C',' CARD')
          spag_nextblock_1 = 20
       CASE (20)

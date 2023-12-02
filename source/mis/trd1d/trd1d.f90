@@ -1,14 +1,15 @@
-!*==trd1d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trd1d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trd1d
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_trdd1
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TRDD1
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -89,14 +90,14 @@ SUBROUTINE trd1d
 !
 !     DETERMINE ENTRY NUMBER
 !
-         dec = Mach==5 .OR. Mach==6 .OR. Mach==21
-         ipx = Ip
+         dec = mach==5 .OR. mach==6 .OR. mach==21
+         ipx = ip
 !
-         IF ( (Iloop==1 .AND. Icount>1) .OR. (Iloop>1 .AND. Icount>0) ) THEN
+         IF ( (iloop==1 .AND. icount>1) .OR. (iloop>1 .AND. icount>0) ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ifrst/=0 ) THEN
+         IF ( ifrst/=0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -104,28 +105,28 @@ SUBROUTINE trd1d
 !     FIRST TIME FOR TIME STEP
 !
          CALL sswtch(10,ialg)
-         ibuf1 = Lcore + Icore - Sysbuf
-         file = Nlft
-         Lcore = Lcore - Sysbuf - 1
-         icrq = -Lcore
-         IF ( Lcore>0 ) THEN
-            CALL open(*60,Nlft,iz(ibuf1),0)
+         ibuf1 = lcore + icore - sysbuf
+         file = nlft
+         lcore = lcore - sysbuf - 1
+         icrq = -lcore
+         IF ( lcore>0 ) THEN
+            CALL open(*60,nlft,iz(ibuf1),0)
 !
 !     FIND SELECTED SET ID
 !
-            CALL read(*80,*20,Nlft,iz(Icore+1),Lcore,0,iflag)
-            icrq = Lcore
+            CALL read(*80,*20,nlft,iz(icore+1),lcore,0,iflag)
+            icrq = lcore
          ENDIF
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
  20      DO i = 3 , iflag
-            k = i + Icore
-            IF ( iz(k)==Nlftp ) THEN
+            k = i + icore
+            IF ( iz(k)==nlftp ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         CALL mesage(-31,Nlftp,name)
+         CALL mesage(-31,nlftp,name)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -134,7 +135,7 @@ SUBROUTINE trd1d
          k = i - 3
          IF ( k/=0 ) THEN
             DO i = 1 , k
-               CALL fwdrec(*80,Nlft)
+               CALL fwdrec(*80,nlft)
             ENDDO
          ENDIF
 !
@@ -144,16 +145,16 @@ SUBROUTINE trd1d
 !     COUNT NUMBER OF CARDS
 !
          ncards = 0
-         icards = Icore + 1
+         icards = icore + 1
          k = icards
          DO
-            icrq = 8 - Lcore
+            icrq = 8 - lcore
             IF ( icrq>0 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL read(*80,*40,Nlft,iz(k),8,0,iflag)
-            IF ( Modal>=0 ) THEN
+            CALL read(*80,*40,nlft,iz(k),8,0,iflag)
+            IF ( modal>=0 ) THEN
 !
 !     MODAL FORM -- CONVERT SILE TO ROW POSITIONS AND STORE IN SILD
 !
@@ -161,21 +162,21 @@ SUBROUTINE trd1d
 !
 !     LOADED POINT  NOT E-POINT IN MODAL FORMULATION
 !
-                  CALL mesage(-44,Nlftp,iz(k))
+                  CALL mesage(-44,nlftp,iz(k))
                   RETURN
                ELSE
-                  iz(k+1) = iz(k+2) + Nmodes
+                  iz(k+1) = iz(k+2) + nmodes
                   IF ( iz(k+5)==0 ) THEN
-                     CALL mesage(-44,Nlftp,iz(k))
+                     CALL mesage(-44,nlftp,iz(k))
                      RETURN
                   ELSE
-                     iz(k+4) = iz(k+5) + Nmodes
+                     iz(k+4) = iz(k+5) + nmodes
                      IF ( iz(k)==2 .OR. iz(k)==6 .OR. iz(k)==9 .OR. iz(k)==10 ) THEN
                         IF ( iz(k+7)==0 ) THEN
-                           CALL mesage(-44,Nlftp,iz(k))
+                           CALL mesage(-44,nlftp,iz(k))
                            RETURN
                         ELSE
-                           iz(k+6) = iz(k+7) + Nmodes
+                           iz(k+6) = iz(k+7) + nmodes
                         ENDIF
                      ENDIF
                   ENDIF
@@ -187,13 +188,13 @@ SUBROUTINE trd1d
             iz(k+2) = iz(k+4)
             iz(k+4) = iz(k+6)
             k = k + 5
-            Lcore = Lcore - 5
+            lcore = lcore - 5
             ncards = ncards + 1
          ENDDO
 !
 !     END OF RECORD-- DONE
 !
- 40      CALL close(Nlft,1)
+ 40      CALL close(nlft,1)
 !
 !     EXTRACT LIST OF  UNIQUE TABLES FROM CARD TYPES 1,5,11 THRU 14
 !
@@ -284,9 +285,9 @@ SUBROUTINE trd1d
          ENDDO
 !
          iz(itabl) = ntabl
-         Lcore = Lcore - ntabl - 1
-         icrq = -Lcore
-         IF ( Lcore<=0 ) THEN
+         lcore = lcore - ntabl - 1
+         icrq = -lcore
+         IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -295,28 +296,28 @@ SUBROUTINE trd1d
 !     INITIALIZE TABLES
 !
             k = itabl + ntabl + 1
-            CALL pretab(Dit,iz(k),iz(k),iz(ibuf1),Lcore,l,iz(itabl),itlist)
-            Lcore = Lcore - l
+            CALL pretab(dit,iz(k),iz(k),iz(ibuf1),lcore,l,iz(itabl),itlist)
+            lcore = lcore - l
             IF ( ialg/=0 ) THEN
                in1 = k + l - 1
-               in2 = in1 + Nrow
-               in3 = in2 + Nrow
-               Lcore = Lcore - 3*Nrow
-               icrq = -Lcore
-               IF ( Lcore<0 ) THEN
+               in2 = in1 + nrow
+               in3 = in2 + nrow
+               lcore = lcore - 3*nrow
+               icrq = -lcore
+               IF ( lcore<0 ) THEN
                   spag_nextblock_1 = 9
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
 !
 !     ZERO LOAD VECTORS
 !
-               DO i = 1 , Nrow
+               DO i = 1 , nrow
                   k = in1 + i
-                  Z(k) = 0.0
+                  z(k) = 0.0
                   k = in2 + i
-                  Z(k) = 0.0
+                  z(k) = 0.0
                   k = in3 + i
-                  Z(k) = 0.0
+                  z(k) = 0.0
                ENDDO
             ENDIF
          ENDIF
@@ -328,26 +329,26 @@ SUBROUTINE trd1d
          k = icards + ncards*5 - 1
          IF ( ialg/=0 ) THEN
             ipx = in1
-            DO i = 1 , Nrow
+            DO i = 1 , nrow
                l = in1 + i
-               Z(l) = 0.0
+               z(l) = 0.0
             ENDDO
          ENDIF
 !
 !     LOOP THRU EACH LOAD CARD OR COLLECTION (NOLIN5, NOLIN6)
 !
-         h = 1.0/Deltat
+         h = 1.0/deltat
          i = icards
          spag_nextblock_1 = 4
       CASE (4)
          fx = 0.0
          fy = 1.0
-         m = Iu + iz(i+2)
-         mm = Iu + iz(i+4)
-         n = Iu1 + iz(i+2)
-         nn = Iu1 + iz(i+4)
-         x = Z(m)
-         y = (x-Z(n))*h
+         m = iu + iz(i+2)
+         mm = iu + iz(i+4)
+         n = iu1 + iz(i+2)
+         nn = iu1 + iz(i+4)
+         x = z(m)
+         y = (x-z(n))*h
          l = iz(i)
 !     L  =     1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14
          IF ( l/=2 ) THEN
@@ -355,12 +356,12 @@ SUBROUTINE trd1d
 !
 !     NOLIN  3
 !
-               IF ( x>0.0 ) fx = x**Z(i+4)
+               IF ( x>0.0 ) fx = x**z(i+4)
             ELSEIF ( l==4 ) THEN
 !
 !     NOLIN 4
 !
-               IF ( x<0.0 ) fx = -abs(x)**Z(i+4)
+               IF ( x<0.0 ) fx = -abs(x)**z(i+4)
             ELSE
                IF ( l==5 ) THEN
                   x = y
@@ -370,36 +371,36 @@ SUBROUTINE trd1d
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l==7 ) THEN
                   x = y
-                  IF ( x>0.0 ) fx = x**Z(i+4)
+                  IF ( x>0.0 ) fx = x**z(i+4)
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l==8 ) THEN
                   x = y
-                  IF ( x<0.0 ) fx = -abs(x)**Z(i+4)
+                  IF ( x<0.0 ) fx = -abs(x)**z(i+4)
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l==9 ) THEN
                   x = y
-                  fx = x*(Z(mm)-Z(nn))*h
+                  fx = x*(z(mm)-z(nn))*h
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l==10 ) THEN
-                  fx = x*(Z(mm)-Z(nn))*h
+                  fx = x*(z(mm)-z(nn))*h
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l==11 ) THEN
 !
 !     NFTUBE.  LOOKUP VDOT IF NEEDED
 !
-                  fx = Z(i+4)
+                  fx = z(i+4)
                   izl = iz(i+4)
                   nxx = numtyp(izl)
                   IF ( dec .AND. izl>16000 .AND. izl<=99999999 ) nxx = 1
-                  IF ( nxx==1 ) CALL tab(iz(i+4),Tim,fx)
-                  IF ( fx>=0.0 ) m = Iu + iz(i+1)
-                  fx = fx*Z(m)
+                  IF ( nxx==1 ) CALL tab(iz(i+4),tim,fx)
+                  IF ( fx>=0.0 ) m = iu + iz(i+1)
+                  fx = fx*z(m)
                   l = ipx + iz(i+2)
-                  Z(l) = Z(l) + fx*Z(i+3)
+                  z(l) = z(l) + fx*z(i+3)
                   fy = -1.0
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
@@ -418,34 +419,34 @@ SUBROUTINE trd1d
                      IF ( l==3 ) j = 6
                      m = iz(i+j)
                      IF ( m/=0 ) THEN
-                        m = Iu + m
-                        tavga = tavga + Z(m)
+                        m = iu + m
+                        tavga = tavga + z(m)
                         mm = mm + 1
                      ENDIF
                      m = iz(i+j+10)
                      IF ( m/=0 ) THEN
-                        m = Iu + m
-                        tavgb = tavgb + Z(m)
+                        m = iu + m
+                        tavgb = tavgb + z(m)
                         nn = nn + 1
                      ENDIF
                      j = j + 1
                   ENDDO
                   tavga = tavga/float(mm)
                   tavgb = tavgb/float(nn)
-                  aa = Z(i+3)
-                  ab = Z(i+4)
-                  fab = Z(i+8)
+                  aa = z(i+3)
+                  ab = z(i+4)
+                  fab = z(i+8)
                   fabsq = fab*fab
-                  eta = Z(i+13)
-                  etb = Z(i+14)
+                  eta = z(i+13)
+                  etb = z(i+14)
                   nxx = numtyp(iz(i+13))
                   IF ( dec .AND. iz(i+13)>16000 .AND. iz(i+13)<=99999999 ) nxx = 1
                   IF ( nxx==1 ) CALL tab(iz(i+13),tavga,eta)
                   nxx = numtyp(iz(i+14))
                   IF ( dec .AND. iz(i+14)>16000 .AND. iz(i+14)<=99999999 ) nxx = 1
                   IF ( nxx==1 ) CALL tab(iz(i+14),tavgb,etb)
-                  alpha = Z(i+18)
-                  alphb = Z(i+19)
+                  alpha = z(i+18)
+                  alphb = z(i+19)
                   nxx = numtyp(iz(i+18))
                   IF ( dec .AND. iz(i+18)>16000 .AND. iz(i+18)<=99999999 ) nxx = 1
                   IF ( nxx==1 ) CALL tab(iz(i+18),tavga,alpha)
@@ -457,8 +458,8 @@ SUBROUTINE trd1d
 !
 !     B. COMPUTE DENOMINATOR
 !
-                  xh = Sigma*eta*(tavga+Tabs)**4
-                  xk = Sigma*etb*(tavgb+Tabs)**4
+                  xh = sigma*eta*(tavga+tabs)**4
+                  xk = sigma*etb*(tavgb+tabs)**4
                   fx = alpha*fab*xk - aa*xh + fab*xk - (alphb*fabsq*xh)/ab
                   fy = alphb*fab*xh - ab*xk + fab*xh - (alpha*fabsq*xk)/aa
                   fab = 1.0 - (alpha*alphb/aa)*(fabsq/ab)
@@ -473,12 +474,12 @@ SUBROUTINE trd1d
                      m = iz(i+j)
                      IF ( m/=0 ) THEN
                         m = ipx + m
-                        Z(m) = Z(m) + fx
+                        z(m) = z(m) + fx
                      ENDIF
                      m = iz(i+j+10)
                      IF ( m/=0 ) THEN
                         m = ipx + m
-                        Z(m) = Z(m) + fy
+                        z(m) = z(m) + fy
                      ENDIF
                      j = j + 1
                   ENDDO
@@ -491,9 +492,9 @@ SUBROUTINE trd1d
 !
                   x = y
                   fy = x*abs(x)
-                  x = Z(m)
+                  x = z(m)
                ELSEIF ( l==14 ) THEN
-                  y = Z(mm)
+                  y = z(mm)
                   fy = y*abs(y)
                ENDIF
 !
@@ -509,7 +510,7 @@ SUBROUTINE trd1d
 !
 !     NOLIN 2
 !
-         y = Z(mm)
+         y = z(mm)
          fx = x*y
          spag_nextblock_1 = 6
       CASE (6)
@@ -517,13 +518,13 @@ SUBROUTINE trd1d
 !     FINISH APPLYING SCALE FACTOR AND ADD
 !
          l = ipx + iz(i+1)
-         Z(l) = Z(l) + fx*fy*Z(i+3)
-         IF ( abs(Z(l))<1.0E-36 ) Z(l) = 0.0
-         IF ( abs(Z(l))>=1.0E+36 ) THEN
+         z(l) = z(l) + fx*fy*z(i+3)
+         IF ( abs(z(l))<1.0E-36 ) z(l) = 0.0
+         IF ( abs(z(l))>=1.0E+36 ) THEN
             kount = kount + 1
-            IF ( kount==1 .OR. kount==4 ) WRITE (Iout,99001)
+            IF ( kount==1 .OR. kount==4 ) WRITE (iout,99001)
 99001       FORMAT (/1X,28(4H****),/)
-            IF ( kount<=3 ) WRITE (Iout,99002) Uwm , Z(l)
+            IF ( kount<=3 ) WRITE (iout,99002) uwm , z(l)
 99002       FORMAT (A25,' 3309, UNUSUALLY LARGE VALUE COMPUTED FOR NONLINEAR',' FORCING FUNCTION',5X,E15.5)
          ENDIF
          i = i + 5
@@ -540,15 +541,15 @@ SUBROUTINE trd1d
 !     DONE
 !
          IF ( ialg/=0 ) THEN
-            DO i = 1 , Nrow
+            DO i = 1 , nrow
 !
 !     SUM OVER LAST THREE LOADS
 !
-               l = Ip + i
+               l = ip + i
                k = in1 + i
                m = in2 + i
                kk = in3 + i
-               Z(l) = Z(l) + (Z(k)+Z(m)+Z(kk))/3.0
+               z(l) = z(l) + (z(k)+z(m)+z(kk))/3.0
             ENDDO
 !
 !     SWITCH POINTERS
@@ -562,7 +563,7 @@ SUBROUTINE trd1d
 !
 !     ERROR MESSAGES
 !
- 60      WRITE (Iout,99003) Ufm
+ 60      WRITE (iout,99003) ufm
 99003    FORMAT (A23,', NON-LINEAR FORCING LOAD (NLFT) WAS NOT GENERATED ','PREVIOUSLY')
          ip1 = -37
          spag_nextblock_1 = 8
@@ -571,12 +572,10 @@ SUBROUTINE trd1d
          RETURN
  80      ip1 = -2
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE trd1d

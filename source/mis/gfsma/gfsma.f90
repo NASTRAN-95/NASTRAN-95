@@ -1,10 +1,11 @@
-!*==gfsma.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gfsma.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gfsma
+   USE c_blank
+   USE c_gfsmox
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GFSMOX
    EXTERNAL gfsdir , gfsmo2 , gfsmod
 !
 ! End of declarations rewritten by SPAG
@@ -69,7 +70,7 @@ SUBROUTINE gfsma
 !
 !***********************************************************************
 !
-   IF ( Form>0 ) THEN
+   IF ( form>0 ) THEN
 !
 !     MODAL FORMULATION
 !

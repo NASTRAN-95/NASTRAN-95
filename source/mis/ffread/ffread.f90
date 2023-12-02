@@ -2,12 +2,12 @@
  
 SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_QMARKQ
-   USE C_SYSTEM
-   USE C_XECHOX
-   USE C_XREADX
-   USE C_XXREAD
+   USE c_machin
+   USE c_qmarkq
+   USE c_system
+   USE c_xechox
+   USE c_xreadx
+   USE c_xxread
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,6 +35,15 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
    CHARACTER(4) :: temp4
    INTEGER , DIMENSION(11) , SAVE :: univc
    REAL , SAVE :: xxxx
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -164,7 +173,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
    DATA c1 , i , ii , jj , kk/' ' , 4*0/
 !
-   mach = Mchn
+   mach = mchn
    IF ( mach==12 ) mach = 4
    IF ( mach>=5 ) THEN
       l12 = 12
@@ -188,15 +197,15 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
       CALL khrfn1(univc(1),1,at,1)
    ENDIF
 !
-   IF ( Kount/=0 ) GOTO 1000
- 100  IF ( Inflag==0 ) THEN
-      IF ( Ffflag==1234 ) GOTO 800
+   IF ( kount/=0 ) GOTO 1000
+ 100  IF ( inflag==0 ) THEN
+      IF ( ffflag==1234 ) GOTO 800
 !
 !     10A8 INPUT
 !
-      READ (In,99040,END=300) Card
-      Ncard = Ncard + 1
-      IF ( Iechos==-2 ) WRITE (lout,99040) Card
+      READ (in,99040,END=300) Card
+      ncard = ncard + 1
+      IF ( iechos==-2 ) WRITE (lout,99040) Card
 !
       IF ( Card(1)/=skfl .OR. Card(2)/=blank ) THEN
          IF ( Card(1)/=rdfl ) GOTO 2700
@@ -207,18 +216,18 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
          GOTO 1100
       ENDIF
    ELSE
-      READ (Inflag,99041,END=300) (a8x(j),j=1,l12)
+      READ (inflag,99041,END=300) (a8x(j),j=1,l12)
 !     NCARD = NCARD + 1
-      IF ( Iechos==-2 ) WRITE (lout,99041) a8x
+      IF ( iechos==-2 ) WRITE (lout,99041) a8x
       IF ( a81==rdfl ) THEN
-         WRITE (Screen,99001)
+         WRITE (screen,99001)
 99001    FORMAT (39H *** WARNING- NESTED READFILE OPERATION)
          GOTO 1100
       ELSEIF ( a81/=skfl .OR. a8(2)/=blank ) THEN
-         IF ( Ffflag==1234 ) GOTO 900
+         IF ( ffflag==1234 ) GOTO 900
          DO i = 1 , 10
             Card(i) = a8(i)
-            Save(i) = a8(i)
+            save(i) = a8(i)
          ENDDO
          GOTO 3100
       ENDIF
@@ -226,13 +235,13 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
 !     IT IS A SKIPFILE CARD - TO SKIP TO THE END OF INPUT FILE
 !
- 200  IF ( Inflag==0 ) THEN
-      WRITE (Nout,99002)
+ 200  IF ( inflag==0 ) THEN
+      WRITE (nout,99002)
 99002 FORMAT (/,48H *** SKIPFILE IGNORED.  FILE HAS NOT BEEN OPENED)
       GOTO 100
    ELSE
       DO
-         READ (Inflag,99040,END=4800) Card
+         READ (inflag,99040,END=4800) Card
       ENDDO
    ENDIF
 !
@@ -243,66 +252,66 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
       ELSEIF ( mach==3 ) THEN
          GOTO 500
       ELSE
-         IF ( Inflag==0 ) RETURN 1
-         IF ( Inflag>=iwo ) REWIND Inflag
-         Ierr = Ierr + 1
-         IF ( Ierr<=15 ) GOTO 400
-         GOTO 3500
+         IF ( inflag==0 ) RETURN 1
+         IF ( inflag>=iwo ) REWIND inflag
+         ierr = ierr + 1
+         IF ( ierr>15 ) GOTO 3500
+         GOTO 400
       ENDIF
    ENDIF
-   IF ( Inflag==0 ) RETURN 1
- 400  CLOSE (UNIT=Inflag)
- 500  IF ( Inflag==0 ) RETURN 1
-   Inflag = Inflag - 1
-   IF ( Inflag<=iwo ) Inflag = 0
+   IF ( inflag==0 ) RETURN 1
+ 400  CLOSE (UNIT=inflag)
+ 500  IF ( inflag==0 ) RETURN 1
+   inflag = inflag - 1
+   IF ( inflag<=iwo ) inflag = 0
    Card(1) = dend
    Card(2) = rdfl
    DO j = 3 , 10
       Card(j) = blank
    ENDDO
-   IF ( Iechos/=-2 ) THEN
+   IF ( iechos/=-2 ) THEN
       CALL page2(-2)
-      Noecho = Noecho - 1
-      IF ( Noecho>=0 ) WRITE (Nout,99003) Noecho
+      noecho = noecho - 1
+      IF ( noecho>=0 ) WRITE (nout,99003) noecho
 99003 FORMAT (12X,1H(,I4,' CARDS READ)')
-      WRITE (Nout,99043) Card
-      Noecho = 0
+      WRITE (nout,99043) Card
+      noecho = 0
    ENDIF
    GOTO 100
 !
- 600  Loop = 0
-   Loop4 = Loop - 4
-   Kount = 0
-   Star = .FALSE.
-   Pct = .FALSE.
-   Notyet = .FALSE.
+ 600  loop = 0
+   loop4 = loop - 4
+   kount = 0
+   star = .FALSE.
+   pct = .FALSE.
+   notyet = .FALSE.
    DO j = 1 , 9
-      L(j) = 0
-      F(j) = 0.0
+      l(j) = 0
+      f(j) = 0.0
    ENDDO
-   IF ( Inflag<iwo ) GOTO 800
-   GOTO 100
+   IF ( inflag>=iwo ) GOTO 100
+   GOTO 800
 !
 !     FREE FIELD INPUT
 !
- 700  WRITE (Nout,99045)
-   Ierr = Ierr + 1
-   IF ( Ierr>3 ) GOTO 3500
-   WRITE (Screen,99046) a8
-   IF ( mach==4 .AND. In==5 ) REWIND In
- 800  IF ( Prom/=0 ) WRITE (Screen,99004)
+ 700  WRITE (nout,99045)
+   ierr = ierr + 1
+   IF ( ierr>3 ) GOTO 3500
+   WRITE (screen,99046) a8
+   IF ( mach==4 .AND. in==5 ) REWIND in
+ 800  IF ( prom/=0 ) WRITE (screen,99004)
 99004 FORMAT (7H ENTER )
-   READ (In,99042,END=700) (cx(j),j=1,l94)
-   Ncard = Ncard + 1
+   READ (in,99042,END=700) (cx(j),j=1,l94)
+   ncard = ncard + 1
    lash = 0
- 900  IF ( Iechos==-2 ) WRITE (lout,99042) cx
+ 900  IF ( iechos==-2 ) WRITE (lout,99042) cx
    CALL k2b(a8,a,l94)
    IF ( a1/=id ) THEN
 !
       IF ( a81==rdfl ) GOTO 1100
       IF ( a81==skfl .AND. a8(2)==blank ) GOTO 200
-      IF ( Ffflag==1234 ) THEN
-         Wasff = +1
+      IF ( ffflag==1234 ) THEN
+         wasff = +1
          DO i = 1 , 10
             IF ( a(i)==ic .OR. a(i)==ie ) GOTO 1000
          ENDDO
@@ -313,10 +322,10 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
          GOTO 3100
       ENDIF
    ENDIF
-   Wasff = -1
-   IF ( Iechou/=0 .AND. Xsort/=0 ) THEN
+   wasff = -1
+   IF ( iechou/=0 .AND. xsort/=0 ) THEN
       CALL page2(-1)
-      WRITE (Nout,99005) a
+      WRITE (nout,99005) a
 99005 FORMAT (30X,94A1)
    ENDIF
    IF ( a1==id ) GOTO 100
@@ -325,24 +334,24 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
       IF ( a8(i)/=blank ) j = 1
       Card(i) = a8(i)
    ENDDO
-   Loop = -1
-   Loop4 = Loop - 4
-   IF ( j==0 .AND. Iechos==-2 ) GOTO 4500
-   GOTO 2700
+   loop = -1
+   loop4 = loop - 4
+   IF ( j/=0 .OR. iechos/=-2 ) GOTO 2700
+   GOTO 4500
 !
- 1000 IF ( Iechos/=-2 ) THEN
-      IF ( Iechou/=0 .AND. Kount<1 ) THEN
+ 1000 IF ( iechos/=-2 ) THEN
+      IF ( iechou/=0 .AND. kount<1 ) THEN
          CALL page2(-1)
-         WRITE (Nout,99006) a
+         WRITE (nout,99006) a
 99006    FORMAT (30X,4H-FF-,4X,94A1)
       ENDIF
-      IF ( Loop/=-1 ) THEN
+      IF ( loop/=-1 ) THEN
          DO j = 1 , 10
-            Card(j) = Save(j)
+            Card(j) = save(j)
          ENDDO
       ENDIF
    ENDIF
-   IF ( Kount/=0 ) GOTO 2100
+   IF ( kount/=0 ) GOTO 2100
  1100 ke = 0
    k = 0
    DO j = 1 , l94
@@ -394,7 +403,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
 !     READFILE FORMAT - '(', ')', ',', AND '=' ARE IGNORED.
 !
-      Noecho = 0
+      noecho = 0
       noec = 0
       i = 9
    ENDIF
@@ -414,7 +423,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                a(j) = aii
                c(j) = c(i)
                IF ( j/=7 .OR. a81/=noprt ) CYCLE
-               Noecho = 1
+               noecho = 1
                noec = 1
                GOTO 1300
             ELSEIF ( noec<=0 ) THEN
@@ -444,25 +453,25 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
             i = 49
  1210       a(i) = dot
          ELSE
-            IF ( Inflag<iwo ) Inflag = iwo - 1
-            Inflag = Inflag + 1
+            IF ( inflag<iwo ) inflag = iwo - 1
+            inflag = inflag + 1
 !WKBI 8/94 ALPHA-VMS
             IF ( mach==21 ) THEN
                indx = index(a48,' ')
                a48(indx:indx) = '.'
-               OPEN (UNIT=Inflag,FILE=a48,STATUS='OLD',ERR=1400)
+               OPEN (UNIT=inflag,FILE=a48,STATUS='OLD',ERR=1400)
             ELSE
-               IF ( Ibmcdc==0 ) OPEN (UNIT=Inflag,FILE=a8(1),STATUS='OLD',ERR=1400)
+               IF ( ibmcdc==0 ) OPEN (UNIT=inflag,FILE=a8(1),STATUS='OLD',ERR=1400)
 !WKBNB 8/94 ALPHA-VMS
-               IF ( Ibmcdc/=0 ) OPEN (UNIT=Inflag,FILE=a48,STATUS='OLD',ERR=1400)
+               IF ( ibmcdc/=0 ) OPEN (UNIT=inflag,FILE=a48,STATUS='OLD',ERR=1400)
             ENDIF
 !WKBNE 8/94 ALPHA-VMS
 !
-            IF ( mach==4 ) REWIND Inflag
+            IF ( mach==4 ) REWIND inflag
             GOTO 1240
          ENDIF
- 1220    Inflag = In
-         iwo = In
+ 1220    inflag = in
+         iwo = in
          READ (a48,99007) (univc(i),i=3,14)
 99007    FORMAT (12A4)
          i = facsf(univc)
@@ -474,30 +483,30 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
          DO j = 4 , 10
             Card(j) = a8(j-3)
          ENDDO
-         IF ( Iechos==-2 ) THEN
-            Prom = +1
+         IF ( iechos==-2 ) THEN
+            prom = +1
          ELSE
             CALL page2(-1)
-            WRITE (Nout,99043) Card
+            WRITE (nout,99043) Card
          ENDIF
          GOTO 100
       ENDDO
       EXIT
  1300 ENDDO
 !
- 1400 WRITE (Nout,99008) Inflag , (a(i),i=1,j)
+ 1400 WRITE (nout,99008) inflag , (a(i),i=1,j)
 99008 FORMAT (//,29H *** CAN NOT OPEN FILE (UNIT=,I3,4H) - ,94A1)
    GOTO 1600
  1500 j = j - 1
-   WRITE (Nout,99009) (a(i),i=1,j)
+   WRITE (nout,99009) (a(i),i=1,j)
 99009 FORMAT (//,23H *** FILE NAME ERROR - ,48A1)
-   IF ( j>=48 ) WRITE (Nout,99010)
+   IF ( j>=48 ) WRITE (nout,99010)
 99010 FORMAT (5X,31HFILE NAME EXCEEDS 48 CHARACTERS)
- 1600 Nogo = 1
-   IF ( mach==3 .OR. mach>=5 ) WRITE (Nout,99011)
+ 1600 nogo = 1
+   IF ( mach==3 .OR. mach>=5 ) WRITE (nout,99011)
 99011 FORMAT (5X,38HSUGGESTION- CHECK USER ID OR QUALIFIER)
-   Inflag = Inflag - 1
-   IF ( Inflag<=iwo ) Inflag = 0
+   inflag = inflag - 1
+   IF ( inflag<=iwo ) inflag = 0
    Card(1) = blank
    Card(2) = blank
    RETURN
@@ -508,16 +517,16 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
       IF ( aii/=ih ) THEN
          IF ( aii/=ie ) THEN
             IF ( jj<=1 ) THEN
-               IF ( (Star .OR. Pct) .AND. Loop/=-1 ) WRITE (Nout,99012)
+               IF ( (star .OR. pct) .AND. loop/=-1 ) WRITE (nout,99012)
 99012          FORMAT (' *** PREVIOUS CARD SETTING UP FOR DUPLICATION IS NOW ','ABANDONNED')
-               Kount = 0
-               Loop = 0
-               Star = .FALSE.
-               Pct = .FALSE.
-               Notyet = .FALSE.
+               kount = 0
+               loop = 0
+               star = .FALSE.
+               pct = .FALSE.
+               notyet = .FALSE.
                DO j = 1 , 9
-                  L(j) = 0
-                  F(j) = 0.0
+                  l(j) = 0
+                  f(j) = 0.0
                ENDDO
             ENDIF
             IF ( aii==ic ) THEN
@@ -534,12 +543,12 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                      ENDDO
                      IF ( i>1 ) THEN
                         IF ( a5/=seqgp .AND. a5/=seqep ) THEN
-                           WRITE (Screen,99013) (a(j),j=jj,je)
+                           WRITE (screen,99013) (a(j),j=jj,je)
 99013                      FORMAT (5X,27HMORE THAN ONE DEC. PT.,  - ,16A1)
                            GOTO 3300
                         ELSE
                            twodot = .TRUE.
-                           Loop = -1
+                           loop = -1
                         ENDIF
                      ENDIF
                   ENDIF
@@ -571,7 +580,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                   jj = ii + 1
                ELSE
                   j = kk + 1
-                  WRITE (Nout,99014) j
+                  WRITE (nout,99014) j
 99014             FORMAT (34H *** ILLEGAL USE OF SLASH IN FIELD,I3)
                   jj = ii + 1
                ENDIF
@@ -582,7 +591,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
                IF ( kk==0 ) THEN
                   kk = 1
-                  Card(kk) = Save(10)
+                  Card(kk) = save(10)
                   ii = ii + 1
                   IF ( ii>ke .OR. a(ii)/=ic ) GOTO 3300
                   iisave = jj - 2
@@ -596,7 +605,7 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                   int = 1
                   IF ( aii/=ip ) CALL nk12if(*4100,c(jj),ii-jj,j,int)
                   IF ( j<=0 .OR. j>10 ) THEN
-                     WRITE (Screen,99015)
+                     WRITE (screen,99015)
 99015                FORMAT (5X,'INDEX ERROR BEFORE RIGHT BRACKET )')
                      GOTO 3400
                   ELSE
@@ -625,14 +634,14 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                IF ( a(ii)/=il ) GOTO 4200
                jj = ii + 1
                fp = .FALSE.
-               IF ( .NOT.(Star .OR. Pct) ) THEN
+               IF ( .NOT.(star .OR. pct) ) THEN
                   DO k = 1 , 9
-                     L(k) = 0
-                     F(k) = 0.0
+                     l(k) = 0
+                     f(k) = 0.0
                   ENDDO
                ENDIF
-               IF ( sp==is ) Star = .TRUE.
-               IF ( sp==ig ) Pct = .TRUE.
+               IF ( sp==is ) star = .TRUE.
+               IF ( sp==ig ) pct = .TRUE.
                DO
                   ii = ii + 1
                   aii = a(ii)
@@ -645,20 +654,20 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                      IF ( fp ) THEN
                         int = -1
                         CALL nk12if(*4100,c(jj),ii-jj,kkf,int)
-                        F(kk) = fkk
-                        CALL k82fp(*3600,Save(kk),8,Rc(kk),int)
+                        f(kk) = fkk
+                        CALL k82fp(*3600,save(kk),8,rc(kk),int)
                         GOTO 2300
                      ELSE
                         int = 1
-                        CALL nk12if(*4000,c(jj),ii-jj,L(kk),int)
-                        CALL k82int(*3600,Save(kk),8,Jc(kk),int)
+                        CALL nk12if(*4000,c(jj),ii-jj,l(kk),int)
+                        CALL k82int(*3600,save(kk),8,jc(kk),int)
                         GOTO 2200
                      ENDIF
                   ENDIF
                ENDDO
             ELSE
                IF ( aii/=il ) CYCLE
-               WRITE (Nout,99016)
+               WRITE (nout,99016)
 99016          FORMAT (/,73H *** LEFT BRACKET ENCOUNTERED WITHOUT FIRST PRECEEDED BY '=', '*', OR '%')
                GOTO 3300
             ENDIF
@@ -674,10 +683,10 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
 ! ... CANCEL = N, LIST = +N
 !
-               IF ( Iechos/=-2 ) THEN
-                  WRITE (Nout,99017)
+               IF ( iechos/=-2 ) THEN
+                  WRITE (nout,99017)
 99017             FORMAT (/,26H *** FEATURE NOT AVAILABLE)
-                  IF ( Iechos/=-2 ) WRITE (Screen,99046) a8
+                  IF ( iechos/=-2 ) WRITE (screen,99046) a8
                   GOTO 100
                ELSE
                   Card(1) = temp
@@ -686,25 +695,25 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                      ii = ii + 1
                      IF ( a(ii)==ic ) THEN
                         int = 1
-                        CALL nk12if(*4000,c(jj),ii-jj,Jc(1),int)
-                        IF ( temp==cancel .AND. Jc(1)<=0 ) GOTO 4000
-                        IF ( temp==list .AND. Jc(1)<=0 ) GOTO 4000
+                        CALL nk12if(*4000,c(jj),ii-jj,jc(1),int)
+                        IF ( temp==cancel .AND. jc(1)<=0 ) GOTO 4000
+                        IF ( temp==list .AND. jc(1)<=0 ) GOTO 4000
                         Card(3) = temp
                         GOTO 3100
                      ENDIF
                   ENDDO
                ENDIF
             ELSEIF ( temp4==echo ) THEN
-               WRITE (Screen,99018)
+               WRITE (screen,99018)
 99018          FORMAT (45H *** SO BE IT.  TO RUN NASTRAN LINK1 ONLY ***,/)
                GOTO 100
             ELSE
                IF ( temp4/=prompt ) GOTO 3300
                CALL nk12k8(*3700,c(ii+1),4,temp,-1)
                IF ( temp4/=on .AND. temp4/=off .AND. temp4/=yes ) GOTO 3300
-               IF ( temp4==on ) Prom = -1
-               IF ( temp4==off ) Prom = 0
-               IF ( temp4==yes ) Prom = +1
+               IF ( temp4==on ) prom = -1
+               IF ( temp4==off ) prom = 0
+               IF ( temp4==yes ) prom = +1
                GOTO 100
             ENDIF
          ELSE
@@ -724,21 +733,21 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
                   aii = a(ii)
                   IF ( aii==ir ) THEN
                      int = 1
-                     CALL nk12if(*4000,c(jj),ii-jj,Loop,int)
-                     IF ( Loop<=0 ) THEN
-                        WRITE (Screen,99019)
+                     CALL nk12if(*4000,c(jj),ii-jj,loop,int)
+                     IF ( loop<=0 ) THEN
+                        WRITE (screen,99019)
 99019                   FORMAT (41H *** ZERO LOOP COUNT.  NO CARDS GENERATED)
                         GOTO 3400
                      ELSE
-                        Loop4 = Loop - 4
+                        loop4 = loop - 4
                         ii = ii + 1
                         IF ( ii+1<ke ) THEN
                            iisave = jj - 2
                            jj = ii + 1
                            GOTO 1800
                         ELSE
-                           IF ( .NOT.(.NOT.Star .AND. .NOT.Pct) ) GOTO 2000
-                           WRITE (Screen,99020)
+                           IF ( .NOT.(.NOT.star .AND. .NOT.pct) ) GOTO 2000
+                           WRITE (screen,99020)
 99020                      FORMAT (5X,44HPREVIOUS CARD WAS NOT SET UP FOR DUPLICATION)
                            GOTO 3300
                         ENDIF
@@ -761,66 +770,66 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
  1900 kk = 10
    IF ( twodot ) GOTO 3000
-   IF ( Loop<=0 ) GOTO 2700
- 2000 Kount = 0
-   IF ( Notyet ) THEN
-      Notyet = .FALSE.
+   IF ( loop<=0 ) GOTO 2700
+ 2000 kount = 0
+   IF ( notyet ) THEN
+      notyet = .FALSE.
       DO kk = 2 , 9
-         IF ( L(kk)==none ) THEN
-            L(kk) = 0
-            F(kk) = (F(kk)-Rc(kk))/float(Loop)
-         ELSEIF ( F(kk)/=xxxx ) THEN
-            IF ( L(kk)/=0 ) Jc(kk) = Jc(kk) - L(kk)
-            IF ( F(kk)/=0.0 ) Rc(kk) = Rc(kk) - F(kk)
+         IF ( l(kk)==none ) THEN
+            l(kk) = 0
+            f(kk) = (f(kk)-rc(kk))/float(loop)
+         ELSEIF ( f(kk)/=xxxx ) THEN
+            IF ( l(kk)/=0 ) jc(kk) = jc(kk) - l(kk)
+            IF ( f(kk)/=0.0 ) rc(kk) = rc(kk) - f(kk)
          ELSE
-            F(kk) = 0.0
-            i = (L(kk)-Jc(kk))/Loop
-            IF ( i*Loop+Jc(kk)/=L(kk) ) GOTO 4300
-            L(kk) = i
+            f(kk) = 0.0
+            i = (l(kk)-jc(kk))/loop
+            IF ( i*loop+jc(kk)/=l(kk) ) GOTO 4300
+            l(kk) = i
          ENDIF
       ENDDO
    ENDIF
- 2100 Kount = Kount + 1
-   IF ( Kount>Loop ) GOTO 600
+ 2100 kount = kount + 1
+   IF ( kount>loop ) GOTO 600
    DO kk = 2 , 9
-      IF ( L(kk)/=0 ) THEN
-         Jc(kk) = Jc(kk) + L(kk)
-         CALL int2k8(*3700,Jc(kk),Card(kk))
-      ELSEIF ( F(kk)/=0.0 ) THEN
-         Rc(kk) = Rc(kk) + F(kk)
-         CALL fp2k8(*3300,Rc(kk),Card(kk))
+      IF ( l(kk)/=0 ) THEN
+         jc(kk) = jc(kk) + l(kk)
+         CALL int2k8(*3700,jc(kk),Card(kk))
+      ELSEIF ( f(kk)/=0.0 ) THEN
+         rc(kk) = rc(kk) + f(kk)
+         CALL fp2k8(*3300,rc(kk),Card(kk))
       ENDIF
    ENDDO
-   IF ( Prom<0 .AND. Kount==Loop ) WRITE (Screen,99021) Loop , Card
+   IF ( prom<0 .AND. kount==loop ) WRITE (screen,99021) loop , Card
 99021 FORMAT (/,I5,' ADDITIONAL CARDS WERE GENERATED.  LAST CARD WAS-',/1X,10A8)
    GOTO 2700
  2200 IF ( sp/=ig ) THEN
-      IF ( Loop<=0 ) THEN
-         Jc(kk) = Jc(kk) + L(kk)
-         CALL int2k8(*3700,Jc(kk),Card(kk))
+      IF ( loop<=0 ) THEN
+         jc(kk) = jc(kk) + l(kk)
+         CALL int2k8(*3700,jc(kk),Card(kk))
       ENDIF
       GOTO 2400
 !
-   ELSEIF ( Loop>0 ) THEN
-      i = (L(kk)-Jc(kk))/Loop
-      IF ( i*Loop+Jc(kk)/=L(kk) ) GOTO 4300
-      L(kk) = i
+   ELSEIF ( loop>0 ) THEN
+      i = (l(kk)-jc(kk))/loop
+      IF ( i*loop+jc(kk)/=l(kk) ) GOTO 4300
+      l(kk) = i
       GOTO 2400
    ELSE
-      F(kk) = xxxx
-      Notyet = .TRUE.
+      f(kk) = xxxx
+      notyet = .TRUE.
       GOTO 2400
    ENDIF
  2300 IF ( sp==ig ) THEN
-      IF ( Loop>0 ) THEN
-         F(kk) = (F(kk)-Rc(kk))/float(Loop)
+      IF ( loop>0 ) THEN
+         f(kk) = (f(kk)-rc(kk))/float(loop)
       ELSE
-         L(kk) = none
-         Notyet = .TRUE.
+         l(kk) = none
+         notyet = .TRUE.
       ENDIF
-   ELSEIF ( Loop<=0 ) THEN
-      Rc(kk) = Rc(kk) + F(kk)
-      CALL fp2k8(*3300,Rc(kk),Card(kk))
+   ELSEIF ( loop<=0 ) THEN
+      rc(kk) = rc(kk) + f(kk)
+      CALL fp2k8(*3300,rc(kk),Card(kk))
    ENDIF
  2400 ii = ii + 1
    iisave = jj - 2
@@ -845,50 +854,50 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
    ELSEIF ( kk==10 ) THEN
       GOTO 1900
    ELSE
-      WRITE (Screen,99022)
+      WRITE (screen,99022)
 99022 FORMAT (49H *** INPUT ERROR - TOO MANY FIELDS.  REPEAT INPUT)
       GOTO 3400
    ENDIF
 !
 !     PREPARE TO RETURN
 !
- 2700 IF ( Notyet ) GOTO 100
+ 2700 IF ( notyet ) GOTO 100
 !
 ! ... UPDATE CONTINUATION FIELDS IF WE ARE IN A DUPLICATION LOOP
 !
-   IF ( Loop==-1 ) GOTO 3000
-   IF ( Kount==0 .AND. .NOT.Star ) GOTO 3000
+   IF ( loop==-1 ) GOTO 3000
+   IF ( kount==0 .AND. .NOT.star ) GOTO 3000
    kk = 10
-   IF ( Save(kk)==blank ) GOTO 2900
- 2800 temp = Save(kk)
-   IF ( Tmp(1)==cp ) THEN
+   IF ( save(kk)==blank ) GOTO 2900
+ 2800 temp = save(kk)
+   IF ( tmp(1)==cp ) THEN
       jj = 0
       DO i = 3 , 8
-         IF ( Tmp(i)==cm ) jj = i
-         IF ( Tmp(i)==cb ) GOTO 2850
+         IF ( tmp(i)==cm ) jj = i
+         IF ( tmp(i)==cb ) GOTO 2850
       ENDDO
       i = 9
  2850 IF ( jj/=0 ) THEN
          int = 1
-         CALL nk12if(*4600,Tmp(jj+1),i-jj-1,j,int)
+         CALL nk12if(*4600,tmp(jj+1),i-jj-1,j,int)
          IF ( mach==3 ) THEN
 !
 ! ... UNIVAC USES NEXT 5 CARDS INSTEAD OF THE 3 ABOVE
 !
-            CALL int2k8(*4000,j,Spill)
+            CALL int2k8(*4000,j,spill)
             j = 9 - jj
             DO i = 1 , j
-               Tmp(jj+i) = Tmp(8+i)
+               tmp(jj+i) = tmp(8+i)
             ENDDO
          ELSE
             j = j + 1
-            CALL int2k8(*4000,j,Tmp(jj+1))
+            CALL int2k8(*4000,j,tmp(jj+1))
          ENDIF
          j = 9
-         IF ( Tmp(j)/=cb ) THEN
-            WRITE (Screen,99023) (Tmp(j),j=1,9)
+         IF ( tmp(j)/=cb ) THEN
+            WRITE (screen,99023) (tmp(j),j=1,9)
 99023       FORMAT (35H *** CONTINUATION FIELD TOO LONG - ,9A1,/5X,25HLAST GENERATED CARD WAS -,/)
-            WRITE (Screen,99044) Save
+            WRITE (screen,99044) save
             GOTO 4400
          ELSE
             Card(kk) = temp
@@ -900,25 +909,25 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
       GOTO 2800
    ENDIF
 !
- 3000 IF ( Ffflag==1234 ) THEN
+ 3000 IF ( ffflag==1234 ) THEN
       IF ( lash==+1 ) Card(1) = slash
-      IF ( Prom==+1 ) THEN
-         IF ( Kount<7 .OR. Kount>Loop4 ) WRITE (Screen,99044) Card
-         IF ( Kount==7 .AND. Kount<=Loop4 ) WRITE (Screen,99024)
+      IF ( prom==+1 ) THEN
+         IF ( kount<7 .OR. kount>loop4 ) WRITE (screen,99044) Card
+         IF ( kount==7 .AND. kount<=loop4 ) WRITE (screen,99024)
 99024    FORMAT (9X,1H.,2(/,9X,1H.))
       ENDIF
-      IF ( Loop/=-1 ) THEN
+      IF ( loop/=-1 ) THEN
          DO kk = 1 , 10
-            Save(kk) = Card(kk)
+            save(kk) = Card(kk)
          ENDDO
       ENDIF
    ENDIF
-   IF ( Card(1)==help .AND. Card(2)==blank .AND. Iechos==-2 ) CALL ffhelp(*100,*3200,2)
-   IF ( Card(1)==stop .AND. Card(2)==blank .AND. Iechos/=-2 ) GOTO 3200
+   IF ( Card(1)==help .AND. Card(2)==blank .AND. iechos==-2 ) CALL ffhelp(*100,*3200,2)
+   IF ( Card(1)==stop .AND. Card(2)==blank .AND. iechos/=-2 ) GOTO 3200
    IF ( Card(1)==scale8 .OR. Card(1)==scale1 ) THEN
-      IF ( Card(1)==scale8 ) WRITE (Nout,99025) (i,i=1,10)
+      IF ( Card(1)==scale8 ) WRITE (nout,99025) (i,i=1,10)
 99025 FORMAT (/1X,10(I5,3X),/1X,5('--------++++++++'))
-      IF ( Card(1)==scale1 ) WRITE (Nout,99026) (i,i=1,8)
+      IF ( Card(1)==scale1 ) WRITE (nout,99026) (i,i=1,8)
 99026 FORMAT (/1X,8I10,/1X,8('1234567890'))
       GOTO 100
    ENDIF
@@ -928,69 +937,69 @@ SUBROUTINE ffread(Card) !HIDESTARS (*,Card)
 !
 !     ERRORS
 !
- 3300 WRITE (Screen,99045)
- 3400 IF ( Iechos==-2 ) GOTO 600
-   IF ( Ierr<=15 ) WRITE (Screen,99046) a8
-   Nogo = 1
-   Ierr = Ierr + 1
-   IF ( Ierr<30 ) GOTO 600
- 3500 WRITE (Screen,99027)
+ 3300 WRITE (screen,99045)
+ 3400 IF ( iechos==-2 ) GOTO 600
+   IF ( ierr<=15 ) WRITE (screen,99046) a8
+   nogo = 1
+   ierr = ierr + 1
+   IF ( ierr<30 ) GOTO 600
+ 3500 WRITE (screen,99027)
 99027 FORMAT (48H0*** JOB TERMINATED DUE TO TOO MANY INPUT ERRORS)
    STOP
  3600 je = ii - 1
-   WRITE (Screen,99028) kk , Card(kk) , (a(j),j=jj,je)
+   WRITE (screen,99028) kk , Card(kk) , (a(j),j=jj,je)
 99028 FORMAT (5X,5HFIELD,I3,2H (,A8,') OF PREVIOUS CARD SHOULD NOT BE ','USED FOR',/5X,'INCREMENTATION (BY ',8A1,                   &
              &').  ZERO IS ASSUMED')
-   IF ( int>0 ) Jc(kk) = 0
-   IF ( int<0 ) Rc(kk) = 0.0
+   IF ( int>0 ) jc(kk) = 0
+   IF ( int<0 ) rc(kk) = 0.0
    IF ( int<0 ) GOTO 2300
-   IF ( int/=0 ) GOTO 2200
-   GOTO 3300
+   IF ( int==0 ) GOTO 3300
+   GOTO 2200
  3700 je = ii - 1
-   WRITE (Screen,99029) kk , (a(j),j=jj,je)
+   WRITE (screen,99029) kk , (a(j),j=jj,je)
 99029 FORMAT (5X,'FIELD',I3,' IS TOO LONG. ONLY 8 DIGITS ALLOWED - ',16A1)
    GOTO 3300
- 3800 WRITE (Screen,99030) a8
+ 3800 WRITE (screen,99030) a8
 99030 FORMAT (35H *** INDEX ERROR.  NO VALUE AFTER ))
    GOTO 3400
- 3900 WRITE (Screen,99031)
+ 3900 WRITE (screen,99031)
 99031 FORMAT (37H *** INPUT ERROR AFTER EQUAL SIGN (=))
-   IF ( Iechos/=-2 ) THEN
-      WRITE (Screen,99046) a8
-      Nogo = 1
+   IF ( iechos/=-2 ) THEN
+      WRITE (screen,99046) a8
+      nogo = 1
    ENDIF
    GOTO 100
  4000 je = ii - 1
-   WRITE (Screen,99032) (a(j),j=jj,je)
+   WRITE (screen,99032) (a(j),j=jj,je)
 99032 FORMAT (5X,18HINVALID INTEGER - ,16A1)
    GOTO 3300
  4100 je = ii - 1
-   WRITE (Screen,99033) (a(j),j=jj,je)
+   WRITE (screen,99033) (a(j),j=jj,je)
 99033 FORMAT (5X,22HINVALID F.P. NUMBER - ,16A1)
    GOTO 3300
- 4200 WRITE (Screen,99034)
+ 4200 WRITE (screen,99034)
 99034 FORMAT (47H *** INPUT ERROR AFTER STAR (*), OR PERCENT (%))
    GOTO 3400
- 4300 WRITE (Screen,99035) kk , L(kk) , Jc(kk) , Loop
+ 4300 WRITE (screen,99035) kk , l(kk) , jc(kk) , loop
 99035 FORMAT (5X,5HFIELD,I3,2H (,I8,1H-,I8,21H) IS NOT DIVIDABLE BY,I4,/5X,12HRESUME INPUT,/)
- 4400 IF ( Iechos/=-2 ) Nogo = 1
+ 4400 IF ( iechos/=-2 ) nogo = 1
    DO j = 1 , 10
-      Card(j) = Save(j)
+      Card(j) = save(j)
    ENDDO
    GOTO 100
- 4500 WRITE (Screen,99036)
+ 4500 WRITE (screen,99036)
 99036 FORMAT (23H *** BLANK LINE IGNORED)
    GOTO 100
- 4600 WRITE (Screen,99037) temp
+ 4600 WRITE (screen,99037) temp
 99037 FORMAT (40H *** INTEGER ERROR IN CONTINUATION ID - ,A8)
-   IF ( Iechos/=-2 ) WRITE (Screen,99046) a8
+   IF ( iechos/=-2 ) WRITE (screen,99046) a8
    GOTO 4400
- 4700 WRITE (Screen,99038)
+ 4700 WRITE (screen,99038)
 99038 FORMAT (27H *** TOO MANY LEFT BRACKETS)
    GOTO 3400
- 4800 WRITE (Nout,99039)
+ 4800 WRITE (nout,99039)
 99039 FORMAT (/,20H *** EOF ENCOUNTERED)
-   IF ( mach==4 .AND. Inflag==5 ) REWIND Inflag
+   IF ( mach==4 .AND. inflag==5 ) REWIND inflag
    GOTO 100
 99040 FORMAT (10A8)
 99041 FORMAT (11A8,A6)

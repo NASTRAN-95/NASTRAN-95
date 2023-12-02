@@ -1,15 +1,16 @@
-!*==read3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==read3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE read3(Novect,Ncol,Sr1fil,Sr2fil,Filc,Kdblm)
-USE C_NAMES
-USE C_PACKX
-USE C_REIGKR
-USE C_STURMX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_packx
+   USE c_reigkr
+   USE c_sturmx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -52,30 +53,30 @@ USE ISO_FORTRAN_ENV
 !
    filelm(1) = Kdblm
    filevc(1) = Filc
-   Itypa = Rsp
-   Itypb = Rsp
-   Incr = 1
-   Ipak = 1
-   Jpak = Ncol
-   ncol2 = Iprec*Ncol
-   Itypu = Rsp
-   Incru = 1
+   itypa = rsp
+   itypb = rsp
+   incr = 1
+   ipak = 1
+   jpak = Ncol
+   ncol2 = iprec*Ncol
+   itypu = rsp
+   incru = 1
    nocl = 2*Ncol + 2
-   nz = korsz(Z)
-   ibuf1 = nz - Sysbuf
-   ibuf2 = ibuf1 - Sysbuf
+   nz = korsz(z)
+   ibuf1 = nz - sysbuf
+   ibuf2 = ibuf1 - sysbuf
 !
 !     READ IN ALL EIGENVALUES
 !
    ifile = Sr1fil
-   CALL gopen(Sr1fil,Z(ibuf1),Rdrew)
+   CALL gopen(Sr1fil,z(ibuf1),rdrew)
    i = 1
    SPAG_Loop_1_2: DO
-      CALL fread(Sr1fil,dxx,Iprec,1)
-      Z(i+1) = dxx(1)
+      CALL fread(Sr1fil,dxx,iprec,1)
+      z(i+1) = dxx(1)
       i = i + 1
       IF ( i>Novect ) THEN
-         CALL close(Sr1fil,Rew)
+         CALL close(Sr1fil,rew)
 !
 !     SET UP AN INDEX VECTOR AND SORT THE EIGENVALUES
 !
@@ -86,18 +87,18 @@ USE ISO_FORTRAN_ENV
             iz(i) = ii
             ii = ii + 1
          ENDDO
-         Z(1) = Z(i2)
+         z(1) = z(i2)
          j = 2
          k = j + Novect - 1
          DO i = j , k
-            IF ( Z(i)<Z(1) ) Z(1) = Z(i)
+            IF ( z(i)<z(1) ) z(1) = z(i)
          ENDDO
          DO i = 1 , Novect
             k = i
-            DO WHILE ( Z(k+1)<Z(k) )
-               zz = Z(k)
-               Z(k) = Z(k+1)
-               Z(k+1) = zz
+            DO WHILE ( z(k+1)<z(k) )
+               zz = z(k)
+               z(k) = z(k+1)
+               z(k+1) = zz
                j = k + Ncol
                ii = iz(j)
                iz(j) = iz(j+1)
@@ -111,21 +112,21 @@ USE ISO_FORTRAN_ENV
 !     I.E. ZERO FREQUENCIES BELOW PTSHFT AND KEEP, AS CHECKED BY STURM
 !     SEQUENCE
 !
-         IF ( Sturm>=0 ) THEN
+         IF ( sturm>=0 ) THEN
             SPAG_Loop_2_1: DO i = 2 , Novect
-               ik = i + Sturm
-               IF ( Z(ik)>=Shftpt .OR. ik>Novect ) EXIT SPAG_Loop_2_1
-               IF ( Z(i)<0. .AND. Option==feer .AND. Optn2==dashz ) Z(i) = 0.
+               ik = i + sturm
+               IF ( z(ik)>=shftpt .OR. ik>Novect ) EXIT SPAG_Loop_2_1
+               IF ( z(i)<0. .AND. option==feer .AND. optn2==dashz ) z(i) = 0.
             ENDDO SPAG_Loop_2_1
          ENDIF
 !
 !     READ THE EIGENVECTORS AND PACK THEM IN ASCENDING ORDER
 !
-         CALL gopen(filevc,Z(ibuf1),1)
+         CALL gopen(filevc,z(ibuf1),1)
          ifile = Sr2fil
-         CALL gopen(Sr2fil,Z(ibuf2),Rdrew)
+         CALL gopen(Sr2fil,z(ibuf2),rdrew)
          ipos = 1
-         CALL makmcb(filevc(1),Filc,Ncol,2,Rsp)
+         CALL makmcb(filevc(1),Filc,Ncol,2,rsp)
 !
          DO i = 1 , Novect
             spag_nextblock_1 = 1
@@ -144,37 +145,37 @@ USE ISO_FORTRAN_ENV
                      ipos = ipos + no
                      CALL skprec(Sr2fil,no)
                   ENDIF
-                  Iunp = 0
-                  CALL unpack(*2,Sr2fil,Z(nocl))
+                  iunp = 0
+                  CALL unpack(*2,Sr2fil,z(nocl))
                   ipos = ipos + 1
-                  Ipak = Iunp
-                  Jpak = Junp
+                  ipak = iunp
+                  jpak = junp
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
- 2                Ipak = 1
-                  Jpak = 1
-                  Z(nocl) = 0.0
+ 2                ipak = 1
+                  jpak = 1
+                  z(nocl) = 0.0
                   spag_nextblock_1 = 2
                CASE (2)
-                  CALL pack(Z(nocl),filevc,filevc)
+                  CALL pack(z(nocl),filevc,filevc)
                   EXIT SPAG_DispatchLoop_1
                END SELECT
             ENDDO SPAG_DispatchLoop_1
          ENDDO
 !
-         CALL close(filevc(1),Rew)
-         CALL close(Sr2fil,Rew)
+         CALL close(filevc(1),rew)
+         CALL close(Sr2fil,rew)
          CALL wrttrl(filevc)
 !
 !     OUTPUT THE EIGENVALUES, 1ST DATA RECORD
 !
-         CALL gopen(filelm,Z(ibuf1),1)
-         CALL write(filelm,Z(i2),Novect,1)
+         CALL gopen(filelm,z(ibuf1),1)
+         CALL write(filelm,z(i2),Novect,1)
 !
 !     SAVE ORDER FOUND IN 2ND DATA RECORD
 !
          CALL write(filelm,iz(Ncol+2),Novect,1)
-         CALL close(filelm(1),Rew)
+         CALL close(filelm(1),rew)
          filelm(2) = Novect
          CALL wrttrl(filelm)
          RETURN

@@ -1,4 +1,5 @@
-!*==alg04.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg04.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg04(H,S,Vw,R1,R2,X1,X2,Vm,Eps,Sclfac,G,Ej,Hmin,Vmin,Psmid,Nstrms,Log2,Lnct,Ifail)
@@ -32,12 +33,20 @@ SUBROUTINE alg04(H,S,Vw,R1,R2,X1,X2,Vm,Eps,Sclfac,G,Ej,Hmin,Vmin,Psmid,Nstrms,Lo
    REAL :: delz , flow , q1 , q2 , vm2 , x3 , x4
    REAL , DIMENSION(21) :: hdn , hsdn , hsup , hup , psdn , psup , r , sdn , sup , vwdn , vwfun , vwup , vzdn , vzfun , vzup , xx1 ,&
                          & xx2
-   INTEGER :: imid , istep , itub , j , j1 , j2 , jj , jstep , k , kk , kstep
-   EXTERNAL alg03 , alg2 , alg29 , alg3 , alg5 , alg9
+   INTEGER :: imid , istep , itub , j , j1 , j2 , jj , jstep , k , kk , kstep , spag_nextblock_1
+   EXTERNAL alg03 , alg29
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

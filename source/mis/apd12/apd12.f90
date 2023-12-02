@@ -2,12 +2,12 @@
  
 SUBROUTINE apd12
    IMPLICIT NONE
-   USE C_APD12C
-   USE C_APD1C
-   USE C_BITPOS
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
+   USE c_apd12c
+   USE c_apd1c
+   USE c_bitpos
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,38 +21,44 @@ SUBROUTINE apd12
 ! End of declarations rewritten by SPAG
 !
 !
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
    !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Eid,Iax(1))
    DATA nam/4HAPD1 , 4H2   /
 !
-   i17 = Ibit(17)
-   i18 = Ibit(18)
-   i19 = Ibit(19)
-   i20 = Ibit(20)
-   pspa = orf(Itwo(i17),Itwo(i20))
-   Usa = orf(pspa,Itwo(i18))
-   Uk = orf(Itwo(i19),Itwo(i20))
+   i17 = ibit(17)
+   i18 = ibit(18)
+   i19 = ibit(19)
+   i20 = ibit(20)
+   pspa = orf(itwo(i17),itwo(i20))
+   usa = orf(pspa,itwo(i18))
+   uk = orf(itwo(i19),itwo(i20))
    DO j = 1 , 2
       DO i = 1 , 6
-         Auset(i,j) = Usa
+         auset(i,j) = usa
       ENDDO
    ENDDO
-   Auset(3,2) = Uk
-   Auset(5,2) = Uk
-   Ncam = ((Nca2-Nca1)+1)/16
-   IF ( Nca1==0 ) Ncam = 0
-   Ncam2 = ((Ca2e-Ca2s)+1)/16
-   IF ( Ca2s==0 ) Ncam2 = 0
+   auset(3,2) = uk
+   auset(5,2) = uk
+   ncam = ((nca2-nca1)+1)/16
+   IF ( nca1==0 ) ncam = 0
+   ncam2 = ((ca2e-ca2s)+1)/16
+   IF ( ca2s==0 ) ncam2 = 0
    lca = 16
 !
 !     CREATE IGID SEQUENCE ARRAY
 !
-   nigid1 = Next
-   igid2 = Next
-   nigid = Next
-   nx = Nca1
+   nigid1 = next
+   igid2 = next
+   nigid = next
+   nx = nca1
    j = nigid1
-   IF ( Ncam/=0 ) THEN
-      DO i = 1 , Ncam
+   IF ( ncam/=0 ) THEN
+      DO i = 1 , ncam
          iz(j) = iz(nx+7)
          j = j + 1
          iz(j) = nx
@@ -62,28 +68,28 @@ SUBROUTINE apd12
 !
 !     SORT IGID ARRAY ON IGID
 !
-      CALL sort(0,0,2,1,iz(nigid1),2*Ncam)
+      CALL sort(0,0,2,1,iz(nigid1),2*ncam)
    ENDIF
-   IF ( Ncam2/=0 ) THEN
-      nx = Ca2s
+   IF ( ncam2/=0 ) THEN
+      nx = ca2s
       nigid2 = j
-      DO i = 1 , Ncam2
+      DO i = 1 , ncam2
          iz(j) = iz(nx+7)
          j = j + 1
          iz(j) = nx
          nx = nx + lca
          j = j + 1
       ENDDO
-      CALL sort(0,0,2,1,iz(nigid2),2*Ncam2)
+      CALL sort(0,0,2,1,iz(nigid2),2*ncam2)
       igid2 = nigid2
    ENDIF
    nextc = j
-   IF ( Ncam/=0 ) THEN
+   IF ( ncam/=0 ) THEN
       nigid = nigid1
 !
 !     OUTTER LOOP PROCESSES CAERO1 CARDS
 !
-      DO i = 1 , Ncam
+      DO i = 1 , ncam
 !
 !     SET APD1 INPUT COMMON BLOCK
 !
@@ -95,34 +101,34 @@ SUBROUTINE apd12
             n1 = j + nc
             iax(j) = iz(n1)
          ENDDO
-         Mcstm = Mcstm + 1
-         iz(nc+2) = Mcstm
+         mcstm = mcstm + 1
+         iz(nc+2) = mcstm
 !
 !     FIND PAERO1 CARD
 !
-         IF ( Npa1/=0 ) THEN
-            DO j = Npa1 , Npa2 , 8
-               Ippc = j
-               IF ( Pid==iz(j) ) GOTO 20
+         IF ( npa1/=0 ) THEN
+            DO j = npa1 , npa2 , 8
+               ippc = j
+               IF ( pid==iz(j) ) GOTO 20
             ENDDO
          ENDIF
          GOTO 300
- 20      Xop = .25
-         X1p = .75
-         Alzo = 0.0
+ 20      xop = .25
+         x1p = .75
+         alzo = 0.0
 !
 !     FIND AEFACT ARRAYS IF PRESENT
 !
-         jspan = Nspan
-         jchord = Nchord
-         IF ( Lspan/=0 ) THEN
-            CALL apdoe(Lspan,iz,Naef1,Naef2,ispan,jspan)
+         jspan = nspan
+         jchord = nchord
+         IF ( lspan/=0 ) THEN
+            CALL apdoe(lspan,iz,naef1,naef2,ispan,jspan)
             IF ( ispan==0 ) GOTO 100
             ispan = ispan + 1
             jspan = jspan - 1
          ENDIF
-         IF ( Lchord/=0 ) THEN
-            CALL apdoe(Lchord,iz,Naef1,Naef2,ichord,jchord)
+         IF ( lchord/=0 ) THEN
+            CALL apdoe(lchord,iz,naef1,naef2,ichord,jchord)
             IF ( ichord==0 ) GOTO 200
             ichord = ichord + 1
             jchord = jchord - 1
@@ -138,14 +144,14 @@ SUBROUTINE apd12
          ENDIF
          lc = .FALSE.
          dlb = .FALSE.
-         IF ( i/=Ncam ) THEN
+         IF ( i/=ncam ) THEN
             IF ( iz(nigid)==iz(nigid+2) ) GOTO 40
          ENDIF
          lc = .TRUE.
 !
 !     CHECK FOR CAERO2 ELEMENT
 !
-         IF ( Ncam2/=0 ) THEN
+         IF ( ncam2/=0 ) THEN
             IF ( nigid2>nextc ) THEN
                IF ( dlb ) lc = .FALSE.
             ELSE
@@ -168,38 +174,38 @@ SUBROUTINE apd12
 !
 !     CALL APD1 TO MANUFACTURE BOXES
 !
- 40      CALL apd1(Z(ispan),jspan,Z(ichord),jchord,ls,lc)
-         Nchord = jchord
-         Nspan = jspan
-         iz(nc+4) = Nspan
-         iz(nc+5) = Nchord
+ 40      CALL apd1(z(ispan),jspan,z(ichord),jchord,ls,lc)
+         nchord = jchord
+         nspan = jspan
+         iz(nc+4) = nspan
+         iz(nc+5) = nchord
          iz(nc+8) = 1
 !
 !     PROCESS CAERO2 WITH CAERO1
 !
-         IF ( dlb ) CALL apd2(1,iz(Next),iz(igid2),nextc,iz(nigid))
+         IF ( dlb ) CALL apd2(1,iz(next),iz(igid2),nextc,iz(nigid))
          nigid = nigid + 2
       ENDDO
    ENDIF
 !
 !     PROCESS CAERO2 CARDS NOT PROCESSED YET
 !
-   IF ( Ncam2/=0 ) CALL apd2(0,iz(Next),iz(igid2),nextc,iz(nigid))
+   IF ( ncam2/=0 ) CALL apd2(0,iz(next),iz(igid2),nextc,iz(nigid))
    RETURN
  100  DO
       CALL emsg(0,2326,1,2,0)
-      WRITE (Iut,99002) Eid , Lspan
+      WRITE (iut,99002) eid , lspan
 !
 !     ERROR MESSAGES
 !
       CALL mesage(-61,0,nam)
    ENDDO
  200  CALL emsg(0,2327,1,2,0)
-   WRITE (Iut,99002) Eid , Lchord
+   WRITE (iut,99002) eid , lchord
    CALL mesage(-61,0,nam)
    GOTO 100
  300  CALL emsg(0,2323,1,2,0)
-   WRITE (Iut,99001) Pid , Eid
+   WRITE (iut,99001) pid , eid
 99001 FORMAT (10X,16HPAERO1 CARD NO. ,I8,31H REFERENCED BY CAERO1 CARD NO. ,I8,20H BUT DOES NOT EXIST.)
    CALL mesage(-61,0,nam)
    GOTO 100

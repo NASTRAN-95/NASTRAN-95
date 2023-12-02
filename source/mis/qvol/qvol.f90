@@ -1,13 +1,14 @@
-!*==qvol.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==qvol.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qvol
+   USE c_condas
+   USE c_loadx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -47,10 +48,10 @@ SUBROUTINE qvol
 !                        *    Q  FOR  TYPE=3 (BELL) OR 4 (SOLID)
 !       12        TYPE
 !
-   CALL fread(Slt,card,12,0)
+   CALL fread(slt,card,12,0)
    reason = 1
    IF ( npts>1 ) THEN
-      CALL permut(nsil(1),order(1),npts,Old)
+      CALL permut(nsil(1),order(1),npts,old)
       reason = 2
       DO i = 1 , npts
          l = order(i)
@@ -156,7 +157,7 @@ SUBROUTINE qvol
 !
          DO i = 1 , npts
             isil = nsil(i)
-            Core(isil) = Core(isil) + p(i)
+            core(isil) = core(isil) + p(i)
          ENDDO
          RETURN
       ENDIF
@@ -167,7 +168,7 @@ CONTAINS
 !
 !     ERROR MESSAGE
 !
-      WRITE (Iout,99001) Sfm , id , reason
+      WRITE (iout,99001) sfm , Id , Reason
 99001 FORMAT (A25,' 3093, ELEMENT =',I9,'.   REASON =',I7)
       CALL mesage(-61,0,0)
    END SUBROUTINE spag_block_1

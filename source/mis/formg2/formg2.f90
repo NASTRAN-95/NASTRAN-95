@@ -1,9 +1,10 @@
-!*==formg2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==formg2.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE formg2(Ig,Jr,Jd,Ir,Id)
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -43,7 +44,7 @@ USE ISO_FORTRAN_ENV
 !
 !     IF NO TRANSFORMATION IS NECESSARY, GO TO 30
 !
-   IF ( Z(Ir)==0 .AND. Z(Id)==0 ) THEN
+   IF ( z(Ir)==0 .AND. z(Id)==0 ) THEN
 !
 !     NO TRANSFORMATIONS
 !
@@ -66,12 +67,12 @@ USE ISO_FORTRAN_ENV
 !
 !     IF ONLY DEPENDENT GRID POINT HAS A TRANSFORMATION, GO TO 20
 !
-   ELSEIF ( Z(Ir)/=0 ) THEN
+   ELSEIF ( z(Ir)/=0 ) THEN
 !
 !     IF BOTH HAVE TRANSFORMATIONS, GO TO 10
 !
 !
-      IF ( Z(Id)/=0 ) THEN
+      IF ( z(Id)/=0 ) THEN
 !
 !     BOTH HAVE TRANSFORMATIONS
 !
@@ -203,5 +204,4 @@ USE ISO_FORTRAN_ENV
    zz(Ig+34) = zz(Ig+13)
    zz(Ig+35) = zz(Ig+14)
    zz(Ig+36) = zz(Ig+15)
-   RETURN
 END SUBROUTINE formg2

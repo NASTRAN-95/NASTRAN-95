@@ -1,17 +1,18 @@
-!*==trlga.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trlga.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,Iscr3,Est,Newslt,Mgg,Iscr4,Mpt1)
+   USE c_bitpos
+   USE c_blank
+   USE c_loadx
+   USE c_qvect
+   USE c_system
+   USE c_two
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_LOADX
-   USE C_QVECT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -134,7 +135,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
          m = iflag + 1
          iflag = m
          iz(m) = idload
-         Z(m+1) = 1.0
+         z(m+1) = 1.0
          l = ndload + 3
          DO i = 1 , nsimpl
             l = l + 1
@@ -176,7 +177,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !
 !     FOUND DLOAD SELECTED
 !
-         scale = Z(isel+1)
+         scale = z(isel+1)
 !
 !     CONVERT SCALE FACTORS TO OVERALL SCALE FACTORS
 !     BUILD LIST OF TRIPLES-- TLOAD ID,RECORD NO.IN DLT, SCALE FACTOR
@@ -188,7 +189,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
          spag_nextblock_1 = 3
       CASE (3)
          idload = iz(l+1)
-         Z(l) = Z(l)*scale
+         z(l) = z(l)*scale
          k = ndload + 3
          DO i = 1 , nsimpl
             k = k + 1
@@ -205,7 +206,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !     FOUND SIMPLE ID
 !
          iz(m) = iz(l+1)
-         Z(m+1) = Z(l)
+         z(m+1) = z(l)
          iz(m+2) = i
          l = l + 2
          m = m + 3
@@ -215,7 +216,6 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     FOUND SIMPLE LOAD
@@ -258,7 +258,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
          mcb(1) = Sil
          mcb(3) = 0
          CALL rdtrl(mcb)
-         Ng = mcb(3)
+         ng = mcb(3)
          IF ( noslt/=0 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
@@ -304,19 +304,19 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !
 !     SET UP SCRATCH FILE FOR QLOADL
 !
-         Itran = itran1
-         Iqvect = Iscr1
+         itran = itran1
+         iqvect = Iscr1
          CALL gopen(Iscr1,iz(ibuf1),1)
-         CALL makmcb(pg,Iscr2,Ng,2,1)
-         Slt1 = Newslt
-         Bgpdt1 = Bgpdt
-         Cstm1 = Cstm
-         Sil1 = Sil
-         Est1 = Est
-         Mass = Mgg
-         Mpt = Mpt1
+         CALL makmcb(pg,Iscr2,ng,2,1)
+         slt1 = Newslt
+         bgpdt1 = Bgpdt
+         cstm1 = Cstm
+         sil1 = Sil
+         est1 = Est
+         mass = Mgg
+         mpt = Mpt1
          CALL gopen(pg,iz(ibuf2),1)
-         Lc = ibuf2 - 1
+         lc = ibuf2 - 1
          CALL extern(nex,ngrav,gvect,iz(isllst),pg,n1,iharm)
          CALL close(pg,1)
          CALL wrttrl(pg)
@@ -358,8 +358,8 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
          lusetd = mcb(2)
          CALL fread(Usetd,iz(1),lusetd,1)
          CALL close(Usetd,1)
-         isild = isllst - Ng
-         mskue = Two1(Iue)
+         isild = isllst - ng
+         mskue = two1(iue)
          l = isild
          DO i = 1 , lusetd
             IF ( andf(iz(i),mskue)==0 ) THEN
@@ -367,7 +367,7 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                l = l + 1
             ENDIF
          ENDDO
-         nz = nz - Ng
+         nz = nz - ng
 !
 !     BEGIN LOOP ON EACH TLOAD CARD
 !
@@ -394,13 +394,13 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !
                      k = 2*lusetd
                      DO i = 1 , k
-                        Z(i) = 0.0
+                        z(i) = 0.0
                      ENDDO
 !
 !     FIND APPROPRIATE STATIC LOAD
 !
                      k = illst + (iloop-1)*3
-                     scale = Z(k+2)
+                     scale = z(k+2)
                      idload = iz(k)
                      idltr = iz(k+1)
                      IF ( noslt==0 ) THEN
@@ -416,7 +416,6 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                         ENDDO
                      ENDIF
                      spag_nextblock_2 = 3
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (2)
 !
 !     POSITION TO PROPER AP RECORD
@@ -425,12 +424,12 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                      CALL gopen(pg,iz(ibuf1),0)
                      CALL skprec(pg,m)
                      CALL intpk(*62,pg,0,1,0)
-                     DO WHILE ( Ieol==0 )
+                     DO WHILE ( ieol==0 )
                         CALL zntpki
-                        Zb(1) = Zb(1)*scale
-                        k = isild + Iii - 1
+                        zb(1) = zb(1)*scale
+                        k = isild + iii - 1
                         k = iz(k)
-                        Z(k) = Zb(1)
+                        z(k) = zb(1)
                      ENDDO
  62                  CALL close(pg,1)
                      spag_nextblock_2 = 3
@@ -448,8 +447,8 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
 !
                         CALL read(*120,*64,Dlt,izb,4,0,iflag)
                         l = izb(1)
-                        Z(l) = Zb(2) + Z(l)
-                        Z(l+lusetd) = Zb(3)
+                        z(l) = zb(2) + z(l)
+                        z(l+lusetd) = zb(3)
                      ENDDO
  64                  CALL close(Dlt,1)
                      iqr = 0
@@ -457,12 +456,12 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                      m = 0
                      k = iclst
                      DO i = 1 , lusetd
-                        IF ( Z(i)/=0.0 ) THEN
-                           Z(i) = Z(i)*scale
+                        IF ( z(i)/=0.0 ) THEN
+                           z(i) = z(i)*scale
                            m = m + 1
                            iz(k) = i
-                           Z(k+1) = Z(i)
-                           Z(k+2) = Z(i+lusetd)
+                           z(k+1) = z(i)
+                           z(k+2) = z(i+lusetd)
                            k = k + 3
                         ENDIF
                      ENDDO
@@ -474,20 +473,20 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                      k = 3*m + iclst - 4
                      IF ( iclst<=k ) THEN
                         DO l = iclst , k , 3
-                           IF ( .NOT.(Z(l+5)>Z(l+2) .OR. (Z(l+5)==Z(l+2) .AND. iz(l+3)>=iz(l))) ) THEN
+                           IF ( .NOT.(z(l+5)>z(l+2) .OR. (z(l+5)==z(l+2) .AND. iz(l+3)>=iz(l))) ) THEN
                               ll = l
                               iz(k+4) = iz(l+3)
-                              Z(k+5) = Z(l+4)
-                              Z(k+6) = Z(l+5)
+                              z(k+5) = z(l+4)
+                              z(k+6) = z(l+5)
                               SPAG_Loop_3_3: DO
                                  iz(ll+3) = iz(ll)
-                                 Z(ll+4) = Z(ll+1)
-                                 Z(ll+5) = Z(ll+2)
+                                 z(ll+4) = z(ll+1)
+                                 z(ll+5) = z(ll+2)
                                  ll = ll - 3
-                                 IF ( .NOT.(ll>=iclst .AND. (Z(k+6)<Z(ll+2) .OR. (Z(k+6)==Z(ll+2).AND.iz(k+4)<iz(ll)))) ) THEN
+                                 IF ( .NOT.(ll>=iclst .AND. (z(k+6)<z(ll+2) .OR. (z(k+6)==z(ll+2).AND.iz(k+4)<iz(ll)))) ) THEN
                                     iz(ll+3) = iz(k+4)
-                                    Z(ll+4) = Z(k+5)
-                                    Z(ll+5) = Z(k+6)
+                                    z(ll+4) = z(k+5)
+                                    z(ll+5) = z(k+6)
                                     EXIT SPAG_Loop_3_3
                                  ENDIF
                               ENDDO SPAG_Loop_3_3
@@ -503,8 +502,8 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                         itauo = iz(l+2)
                         CALL bldpk(1,1,Ap,0,0)
                         DO
-                           Za(1) = Z(l+1)
-                           Iib = iz(l)
+                           za(1) = z(l+1)
+                           iib = iz(l)
                            CALL zblpki
                            l = l + 3
 !WKBR 8/94 ALPHA IF (L.LT.3*M+ICLST .AND. Z(L+2).EQ.TAUO) GO TO 345
@@ -546,13 +545,13 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
                      k = iclst
                      IF ( m/=-1 ) THEN
                         DO i = 1 , m
-                           CALL fread(Iscr1,Zb,2,0)
-                           Zb(2) = Zb(2)*scale
+                           CALL fread(Iscr1,zb,2,0)
+                           zb(2) = zb(2)*scale
                            j = isild + izb(1) - 1
                            j = iz(j)
                            iz(k) = j
-                           Z(k+1) = Zb(2)
-                           Z(k+2) = Z(j+lusetd)
+                           z(k+1) = zb(2)
+                           z(k+2) = z(j+lusetd)
                            k = k + 3
                         ENDDO
                         iqvrn = iqvrn + 1
@@ -610,7 +609,6 @@ SUBROUTINE trlga(Casecc,Usetd,Dlt,Slt,Bgpdt,Sil,Cstm,Ap,Tmldtb,Itrl,Iscr1,Iscr2,
          CYCLE SPAG_DispatchLoop_1
  140     ip1 = -3
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          CALL mesage(-8,0,name)
          CALL mesage(-61,0,name)

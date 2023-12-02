@@ -1,11 +1,12 @@
-!*==ifp1g.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1g.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1g(Itype,Case,Isub1)
+   USE c_ifp1a
+   USE c_output
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_OUTPUT
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,16 +39,16 @@ SUBROUTINE ifp1g(Itype,Case,Isub1)
 !     IS OPTIONAL AND NOT MANDATORY)
 !
    k = -1
-   i2 = Nwpc - 2
+   i2 = nwpc - 2
    DO i = 1 , i2
-      DO j = 1 , Ncpw4
-         char = khrfn1(Izzzbb,1,core(i),j)
-         IF ( char==Equal ) THEN
+      DO j = 1 , ncpw4
+         char = khrfn1(izzzbb,1,core(i),j)
+         IF ( char==equal ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
-         IF ( char/=Iben .AND. k==-1 ) k = 0
-         IF ( char==Iben .AND. k==0 ) k = i*100 + j
+         IF ( char/=iben .AND. k==-1 ) k = 0
+         IF ( char==iben .AND. k==0 ) k = i*100 + j
       ENDDO
    ENDDO
    IF ( Itype==8 ) THEN
@@ -57,50 +58,50 @@ SUBROUTINE ifp1g(Itype,Case,Isub1)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      k = (Itype-1)*32
-      k1 = k + 38
-      IF ( Itype==8 ) k1 = 0
-      IF ( j==Ncpw4 ) THEN
-         i = i + 1
-         j = 0
+      K = (Itype-1)*32
+      K1 = K + 38
+      IF ( Itype==8 ) K1 = 0
+      IF ( J==Ncpw4 ) THEN
+         I = I + 1
+         J = 0
       ENDIF
-      j = j + 1
-      ipos = 1
-      its = k + 1
-      isave = Izzzbb
-      DO ii = i , i2
+      J = J + 1
+      Ipos = 1
+      Its = K + 1
+      Isave = Izzzbb
+      DO Ii = I , I2
          SPAG_Loop_2_1: DO
-            isave = khrfn1(isave,ipos,core(ii),j)
-            ipos = ipos + 1
-            IF ( ipos>4 ) THEN
-               ipos = 1
+            Isave = khrfn1(Isave,Ipos,Core(Ii),J)
+            Ipos = Ipos + 1
+            IF ( Ipos>4 ) THEN
+               Ipos = 1
                IF ( Itype==7 ) THEN
-                  Title(its) = isave
-               ELSEIF ( Istr/=1 ) THEN
-                  Title(its) = isave
+                  title(Its) = Isave
+               ELSEIF ( istr/=1 ) THEN
+                  title(Its) = Isave
                ELSE
-                  Case(k1+1,Isub1) = isave
-                  k1 = k1 + 1
+                  Case(K1+1,Isub1) = Isave
+                  K1 = K1 + 1
                ENDIF
-               isave = Izzzbb
-               its = its + 1
+               Isave = Izzzbb
+               Its = Its + 1
             ENDIF
-            j = j + 1
-            IF ( j>Ncpw4 ) THEN
-               j = 1
+            J = J + 1
+            IF ( J>Ncpw4 ) THEN
+               J = 1
                EXIT SPAG_Loop_2_1
             ENDIF
          ENDDO SPAG_Loop_2_1
       ENDDO
-      DO i = ipos , 4
-         isave = khrfn1(isave,i,Iben,1)
+      DO I = Ipos , 4
+         Isave = khrfn1(Isave,I,Iben,1)
       ENDDO
       IF ( Itype==7 ) THEN
-         Title(its) = isave
-      ELSEIF ( Istr/=1 ) THEN
-         Title(its) = isave
+         title(Its) = Isave
+      ELSEIF ( istr/=1 ) THEN
+         title(Its) = Isave
       ELSE
-         Case(k1+1,Isub1) = isave
+         Case(K1+1,Isub1) = Isave
       ENDIF
    END SUBROUTINE spag_block_1
 END SUBROUTINE ifp1g

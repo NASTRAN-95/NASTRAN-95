@@ -1,9 +1,10 @@
-!*==intprt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==intprt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE intprt(A,Cr,O,Name)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,9 +39,9 @@ SUBROUTINE intprt(A,Cr,O,Name)
 !
    CALL matprt(*100,*200,A,-1,colnum)
    RETURN
- 100  WRITE (Mo,99001) Name(1) , Name(2)
+ 100  WRITE (mo,99001) Name(1) , Name(2)
 99001 FORMAT (50X,24HINTERMEDIATE MATRIX ... ,2A4//)
- 200  WRITE (Mo,crfmt) (cropt(i,icropt),i=1,2) , colnum
+ 200  WRITE (mo,crfmt) (cropt(i,icropt),i=1,2) , colnum
    CALL prtmat(*100,*200,colnum)
 !
 END SUBROUTINE intprt

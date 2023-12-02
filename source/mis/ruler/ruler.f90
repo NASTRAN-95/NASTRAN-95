@@ -1,10 +1,11 @@
-!*==ruler.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ruler.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
+   USE c_two
+   USE c_zntpkx
    IMPLICIT NONE
-   USE C_TWO
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,7 +39,7 @@ SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
 !
 !     PICK UP PARAMETERS
 !
-         Eol = 0
+         eol = 0
          r = Rule
          namcp = Icp(1)
          zct = 0
@@ -46,7 +47,7 @@ SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
          ASSIGN 24 TO is
          IF ( r>=0.0 ) ASSIGN 22 TO is
          r = abs(r)
-         L = 0
+         l = 0
          j1 = 0
          m = 0
          n1 = N
@@ -57,7 +58,7 @@ SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  20      m = n1
-         Eol = 1
+         eol = 1
          spag_nextblock_1 = 2
       CASE (2)
          DO i = 1 , n1
@@ -67,17 +68,17 @@ SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
                CASE (1)
                   j = (i+31)/32
                   IF ( m<i ) THEN
-                     IF ( Eol==0 ) THEN
+                     IF ( eol==0 ) THEN
                         CALL zntpki
                      ELSE
-                        L = n1
-                        A1(1) = 0.0
+                        l = n1
+                        a1(1) = 0.0
                      ENDIF
                   ENDIF
-                  IF ( L==i ) THEN
-                     a = A1(1)
+                  IF ( l==i ) THEN
+                     a = a1(1)
                   ELSE
-                     m = L
+                     m = l
                      a = 0.0
                   ENDIF
                   IF ( Iopt/=1 .AND. j>j1 ) THEN
@@ -105,9 +106,8 @@ SUBROUTINE ruler(Rule,Icp,Zrct,Onct,List,N,Buff,Iopt)
                      List(i) = oct
                   ELSE
                      k = i - ((i-1)/32)*32
-                     List(j) = orf(List(j),Two1(k))
+                     List(j) = orf(List(j),two1(k))
                   ENDIF
-                  CYCLE
                CASE (3)
                   zct = zct + 1
                   IF ( Iopt/=0 ) List(i) = -zct

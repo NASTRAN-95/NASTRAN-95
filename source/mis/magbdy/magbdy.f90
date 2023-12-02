@@ -1,12 +1,13 @@
-!*==magbdy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==magbdy.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE magbdy
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -37,22 +38,22 @@ SUBROUTINE magbdy
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Sysbuf
+         lcore = korsz(z)
+         buf1 = lcore - sysbuf
          lcore = buf1 - 1
          IF ( lcore>0 ) THEN
 !
 !     SEE IF A PERMBDY CARD EXISTS
 !
-            Ipg = -1
+            ipg = -1
             file = geom1
-            CALL preloc(*100,Z(buf1),geom1)
-            CALL locate(*20,Z(buf1),permby,idx)
-            Ipg = 1
+            CALL preloc(*100,z(buf1),geom1)
+            CALL locate(*20,z(buf1),permby,idx)
+            ipg = 1
 !
 !     READ PERMBDY INTO CORE
 !
-            CALL read(*120,*40,geom1,Z,lcore,0,npts)
+            CALL read(*120,*40,geom1,z,lcore,0,npts)
          ENDIF
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
@@ -67,9 +68,9 @@ SUBROUTINE magbdy
 !
          lcore = lcore - npts
          ieqex = npts
-         CALL gopen(eqexin,Z(buf1),0)
+         CALL gopen(eqexin,z(buf1),0)
          file = eqexin
-         CALL read(*120,*60,eqexin,Z(ieqex+1),lcore,0,neq)
+         CALL read(*120,*60,eqexin,z(ieqex+1),lcore,0,neq)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  60      CALL close(eqexin,1)
@@ -87,7 +88,7 @@ SUBROUTINE magbdy
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
- 80      WRITE (Iout,99001) Ufm , iz(i)
+ 80      WRITE (iout,99001) ufm , iz(i)
 99001    FORMAT (A23,', GRID',I9,' ON PERMBDY CARD DOES NOT EXIST')
          CALL mesage(-61,0,0)
          spag_nextblock_1 = 2
@@ -95,7 +96,7 @@ SUBROUTINE magbdy
 !
 !     WRITE THESE INTERNAL ID-S ONTO PERMBD
 !
-         CALL gopen(permbd,Z(buf1),1)
+         CALL gopen(permbd,z(buf1),1)
          CALL write(permbd,iz(1),npts,1)
          CALL close(permbd,1)
          mcb(1) = permbd
@@ -112,7 +113,6 @@ SUBROUTINE magbdy
          CYCLE SPAG_DispatchLoop_1
  120     n = -2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          n = -8
          file = 0

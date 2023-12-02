@@ -1,4 +1,5 @@
-!*==ssplin.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ssplin.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
@@ -22,14 +23,22 @@ SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: alt1 , alt2 , alt3 , alt4 , det , ex , ey , sum , t1 , t2 , t3 , t4 , xm , xp , ym , yp
-   INTEGER :: i , ia , ib , ic , ig , ii , ik , inr , is , j , jj , k , kk , mp , n , nb , nc , needed , nr , nt
+   INTEGER :: i , ia , ib , ic , ig , ii , ik , inr , is , j , jj , k , kk , mp , n , nb , nc , needed , nr , nt , spag_nextblock_1
    LOGICAL :: ikd , ikt , lone , lx , ly
    INTEGER , DIMENSION(2) , SAVE :: name
    EXTERNAL gmmats , invers , mesage
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    DATA name/4HSSPL , 4HIN  /
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
@@ -77,7 +86,6 @@ SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
             ic = nb*Ni
             mp = ic + 1
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     B MATRIX COLUMN STORED
@@ -85,7 +93,6 @@ SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
             ib = nb*Ni
             mp = ib + 1
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
 !
@@ -188,7 +195,6 @@ SUBROUTINE ssplin(Ni,Xyi,Nd,Xyd,Kx,Ky,Kd,Kt,Dz,G,Ncore,Isng)
             nc = Ni
             ia = ic
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (4)
          nr = 2*Nd

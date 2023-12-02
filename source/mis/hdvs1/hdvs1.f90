@@ -1,4 +1,5 @@
-!*==hdvs1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==hdvs1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdvs1(A,La,Ir)
@@ -12,13 +13,21 @@ SUBROUTINE hdvs1(A,La,Ir)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   INTEGER :: i , ij , it , itt , j , k , l , m , t , tt
+   INTEGER :: i , ij , it , itt , j , k , l , m , spag_nextblock_1 , t , tt
    INTEGER , DIMENSION(21) :: il , iu
    REAL :: r
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

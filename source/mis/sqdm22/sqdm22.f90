@@ -1,14 +1,15 @@
-!*==sqdm22.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sqdm22.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sqdm22
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,26 +52,26 @@ SUBROUTINE sqdm22
 !     SIG , SIG , TAU   = SUMMATION((S )(U )) - (S )(TEMP-T )
 !        X     Y     XY               I   I       T        0
 !
-   Sigxyz(1) = 0.0
-   Sigxyz(2) = 0.0
-   Sigxyz(3) = 0.0
-   Cfrvec(2) = 0.0
-   Cfrvec(3) = 0.0
-   Cfrvec(4) = 0.0
+   sigxyz(1) = 0.0
+   sigxyz(2) = 0.0
+   sigxyz(3) = 0.0
+   cfrvec(2) = 0.0
+   cfrvec(3) = 0.0
+   cfrvec(4) = 0.0
 !
    DO i = 1 , 4
-      j = Ivec + isils(i)
-      CALL smmats(sg(9*i-8),3,3,0,Z(j-1),3,1,0,Vec,Cvc)
+      j = ivec + isils(i)
+      CALL smmats(sg(9*i-8),3,3,0,z(j-1),3,1,0,vec,cvc)
       DO j = 1 , 3
-         Sigxyz(j) = Sigxyz(j) + Vec(j)
-         Cfrvec(j+1) = Cfrvec(j+1) + Cvc(j)
+         sigxyz(j) = sigxyz(j) + vec(j)
+         cfrvec(j+1) = cfrvec(j+1) + cvc(j)
       ENDDO
    ENDDO
 !
-   IF ( Ldtemp/=-1 ) THEN
+   IF ( ldtemp/=-1 ) THEN
       tbar = temp - tsub0
       DO j = 1 , 3
-         Sigxyz(j) = Sigxyz(j) - st(j)*tbar
+         sigxyz(j) = sigxyz(j) - st(j)*tbar
       ENDDO
    ENDIF
 !
@@ -81,28 +82,28 @@ SUBROUTINE sqdm22
 !
    ipart = 0
    DO i = 1 , 4
-      F(i,1) = 0.0
-      F(i,2) = 0.0
-      F(i,3) = 0.0
-      Ff(i,1) = 0.0
-      Ff(i,2) = 0.0
-      Ff(i,3) = 0.0
+      f(i,1) = 0.0
+      f(i,2) = 0.0
+      f(i,3) = 0.0
+      ff(i,1) = 0.0
+      ff(i,2) = 0.0
+      ff(i,3) = 0.0
       DO j = 1 , 4
-         k = Ivec + isils(j)
+         k = ivec + isils(j)
          ipart = ipart + 1
-         CALL smmats(kij(1,ipart),3,3,0,Z(k-1),3,1,0,Vec,Cvc)
-         F(i,1) = F(i,1) + Vec(1)
-         F(i,2) = F(i,2) + Vec(2)
-         F(i,3) = F(i,3) + Vec(3)
-         Ff(i,1) = Ff(i,1) + Cvc(1)
-         Ff(i,2) = Ff(i,2) + Cvc(2)
-         Ff(i,3) = Ff(i,3) + Cvc(3)
+         CALL smmats(kij(1,ipart),3,3,0,z(k-1),3,1,0,vec,cvc)
+         f(i,1) = f(i,1) + vec(1)
+         f(i,2) = f(i,2) + vec(2)
+         f(i,3) = f(i,3) + vec(3)
+         ff(i,1) = ff(i,1) + cvc(1)
+         ff(i,2) = ff(i,2) + cvc(2)
+         ff(i,3) = ff(i,3) + cvc(3)
       ENDDO
-      IF ( Ldtemp/=-1 ) THEN
+      IF ( ldtemp/=-1 ) THEN
          tbar = temp - tsub0
-         F(i,1) = F(i,1) - pt(1,i)*tbar
-         F(i,2) = F(i,2) - pt(2,i)*tbar
-         F(i,3) = F(i,3) - pt(3,i)*tbar
+         f(i,1) = f(i,1) - pt(1,i)*tbar
+         f(i,2) = f(i,2) - pt(2,i)*tbar
+         f(i,3) = f(i,3) - pt(3,i)*tbar
       ENDIF
    ENDDO
 !
@@ -111,53 +112,53 @@ SUBROUTINE sqdm22
    DO i = 1 , 4
       ip1 = i + 1
       IF ( ip1==5 ) ip1 = 1
-      Shears(i) = (F(ip1,2)-F(i,1))/rg(i)
-      Cshars(i) = (Ff(ip1,2)-Ff(i,1))/abs(rg(i))
+      shears(i) = (f(ip1,2)-f(i,1))/rg(i)
+      cshars(i) = (ff(ip1,2)-ff(i,1))/abs(rg(i))
    ENDDO
 !
 !     ALL COMPUTATIONS COMPLETE.
 !
-   q1 = -Shears(1)
-   q2 = Shears(2)
-   q3 = -Shears(3)
-   q4 = Shears(4)
-   Cfrvec(14) = -Cshars(1)
-   Cfrvec(16) = +Cshars(2)
-   Cfrvec(18) = -Cshars(3)
-   Cfrvec(20) = +Cshars(4)
+   q1 = -shears(1)
+   q2 = shears(2)
+   q3 = -shears(3)
+   q4 = shears(4)
+   cfrvec(14) = -cshars(1)
+   cfrvec(16) = +cshars(2)
+   cfrvec(18) = -cshars(3)
+   cfrvec(20) = +cshars(4)
 !
-   istr(1) = Id(1)
-   Cfrvec(1) = stress(1)
-   stress(2) = Sigxyz(1)
-   stress(3) = Sigxyz(2)
-   stress(4) = Sigxyz(3)
+   istr(1) = id(1)
+   cfrvec(1) = stress(1)
+   stress(2) = sigxyz(1)
+   stress(3) = sigxyz(2)
+   stress(4) = sigxyz(3)
 !
-   iforce(1) = Id(1)
-   f1 = F(1,1)
-   f2 = F(1,2)
-   f3 = F(2,2)
-   f4 = F(2,1)
-   f5 = F(3,1)
-   f6 = F(3,2)
-   f7 = F(4,2)
-   f8 = F(4,1)
-   Cfrvec(6) = Ff(1,1)
-   Cfrvec(5) = Ff(1,2)
-   Cfrvec(7) = Ff(2,2)
-   Cfrvec(8) = Ff(2,1)
-   Cfrvec(10) = Ff(3,1)
-   Cfrvec(9) = Ff(3,2)
-   Cfrvec(11) = Ff(4,2)
-   Cfrvec(12) = Ff(4,1)
+   iforce(1) = id(1)
+   f1 = f(1,1)
+   f2 = f(1,2)
+   f3 = f(2,2)
+   f4 = f(2,1)
+   f5 = f(3,1)
+   f6 = f(3,2)
+   f7 = f(4,2)
+   f8 = f(4,1)
+   cfrvec(6) = ff(1,1)
+   cfrvec(5) = ff(1,2)
+   cfrvec(7) = ff(2,2)
+   cfrvec(8) = ff(2,1)
+   cfrvec(10) = ff(3,1)
+   cfrvec(9) = ff(3,2)
+   cfrvec(11) = ff(4,2)
+   cfrvec(12) = ff(4,1)
 !
-   fk1 = F(1,3)
-   fk2 = F(2,3)
-   fk3 = F(3,3)
-   fk4 = F(4,3)
-   Cfrvec(13) = Ff(1,3)
-   Cfrvec(15) = Ff(2,3)
-   Cfrvec(17) = Ff(3,3)
-   Cfrvec(19) = Ff(4,3)
+   fk1 = f(1,3)
+   fk2 = f(2,3)
+   fk3 = f(3,3)
+   fk4 = f(4,3)
+   cfrvec(13) = ff(1,3)
+   cfrvec(15) = ff(2,3)
+   cfrvec(17) = ff(3,3)
+   cfrvec(19) = ff(4,3)
 !
    temp = stress(2) - stress(3)
 !
@@ -182,7 +183,7 @@ SUBROUTINE sqdm22
    ELSE
       stress(5) = 0.0
    ENDIF
-   IF ( Nchk>0 ) THEN
+   IF ( nchk>0 ) THEN
 !
 !     STRESS/FORCE PRECISION CHECK
 !
@@ -190,34 +191,34 @@ SUBROUTINE sqdm22
 !
 !     STRESSES
 !
-      CALL sdrchk(stress(2),Cfrvec(2),3,k)
+      CALL sdrchk(stress(2),cfrvec(2),3,k)
 !
 !     FORCES
 !
-      CALL sdrchk(force(2),Cfrvec(5),16,k)
+      CALL sdrchk(force(2),cfrvec(5),16,k)
       IF ( k==0 ) RETURN
 !
 !     LIMITS EXCEEDED
 !
       j = 0
-      IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
+      IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
 !
-         lsub = Isub
-         lld = Ild
-         frlast(1) = Frtmei(1)
-         frlast(2) = Frtmei(2)
+         lsub = isub
+         lld = ild
+         frlast(1) = frtmei(1)
+         frlast(2) = frtmei(2)
          j = 1
          CALL page1
       ELSEIF ( eject(2)==0 ) THEN
          GOTO 50
       ENDIF
       CALL sd2rhd(ished,j)
-      Line = Line + 1
-      WRITE (Nout,99001)
+      line = line + 1
+      WRITE (nout,99001)
 99001 FORMAT (3X,4HTYPE,5X,3HEID,4X,2HSX,4X,2HSY,3X,3HSXY,11H  F1-4  F1-,                                                           &
              &60H2  F2-1  F2-3  F3-2  F3-4  F4-3  F4-1   K-1  SH12   K-2  SH2,25H3   K-3  SH34   K-4  SH41)
 !
- 50   WRITE (Nout,99002) istyp , Cfrvec
+ 50   WRITE (nout,99002) istyp , cfrvec
 99002 FORMAT (2H0 ,A4,A2,I7,19F6.1)
    ENDIF
 !

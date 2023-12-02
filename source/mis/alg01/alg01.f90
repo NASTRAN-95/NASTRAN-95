@@ -1,4 +1,5 @@
-!*==alg01.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alg01.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg01(Xdata,Ydata,Ndata,Xin,Yout,Slope,Nxy,Ntype,Nwot)
@@ -20,11 +21,19 @@ SUBROUTINE alg01(Xdata,Ydata,Ndata,Xin,Yout,Slope,Nxy,Ntype,Nwot)
 !
    REAL , DIMENSION(21) :: a , b , d , m
    REAL :: dx , yprime
-   INTEGER :: i , ii , islope , iy , j , jp , kp , n
+   INTEGER :: i , ii , islope , iy , j , jp , kp , n , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !
 !
@@ -79,7 +88,6 @@ SUBROUTINE alg01(Xdata,Ydata,Ndata,Xin,Yout,Slope,Nxy,Ntype,Nwot)
                GOTO islope
  10            Slope(i) = (-m(j-1)*(Xdata(j)-Xin(i))**2/2.0+m(j)*(Xin(i)-Xdata(j-1))**2/2.0+Ydata(j)-Ydata(j-1))/dx - (m(j)-m(j-1)) &
                         & /6.0*dx
-               CYCLE
             CASE (2)
                yprime = (Ydata(kp)-Ydata(jp))/(Xdata(kp)-Xdata(jp)) - m(kp)/6.0*(Xdata(kp)-Xdata(jp))
                IF ( Nwot/=1 ) Yout(i) = Ydata(jp) + (Xin(i)-Xdata(jp))*yprime

@@ -1,9 +1,10 @@
-!*==pktq1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pktq1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pktq1(Ntype)
+   USE c_pla4es
    IMPLICIT NONE
-   USE C_PLA4ES
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -74,7 +75,7 @@ SUBROUTINE pktq1(Ntype)
 !     SAVE THE INCOMING ECPT
 !
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO OPERATIONS DESIRED
@@ -88,8 +89,8 @@ SUBROUTINE pktq1(Ntype)
 !     **************
       IF ( save(7)==0.0E0 ) THEN
 !
-         Ph1out(99) = Ecpt(1)
-         Ph1out(100) = 0.0E0
+         ph1out(99) = ecpt(1)
+         ph1out(100) = 0.0E0
          RETURN
       ELSE
 !     SET UP CALL TO PKTRM1
@@ -102,7 +103,7 @@ SUBROUTINE pktq1(Ntype)
 !     WORDS (1 THRU 36) DOWN TO (99 THRU 134)
 !
          DO i = 1 , 36
-            Ph1out(i+98) = Ph1out(i)
+            ph1out(i+98) = ph1out(i)
          ENDDO
          RETURN
       ENDIF
@@ -113,16 +114,16 @@ SUBROUTINE pktq1(Ntype)
 !     **************
 !
       IF ( save(8)==0.0E0 ) THEN
-         Ph1out(129) = Ecpt(1)
-         Ph1out(130) = 0.0E0
+         ph1out(129) = ecpt(1)
+         ph1out(130) = 0.0E0
          RETURN
       ELSE
 !
 !     SET UP CALL TO PKQDM1
 !
-         Ecpt(9) = save(13)
+         ecpt(9) = save(13)
          DO i = 10 , 26
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL pkqdm1
@@ -131,7 +132,7 @@ SUBROUTINE pktq1(Ntype)
 !     WORDS (1 THRU 45) DOWN TO (129 THRU 173)
 !
          DO i = 1 , 45
-            Ph1out(i+128) = Ph1out(i)
+            ph1out(i+128) = ph1out(i)
          ENDDO
 !
          RETURN
@@ -145,8 +146,8 @@ SUBROUTINE pktq1(Ntype)
 !
       IF ( save(8)==0.0E0 ) THEN
 !
-         Ph1out(129) = Ecpt(1)
-         Ph1out(130) = 0.0E0
+         ph1out(129) = ecpt(1)
+         ph1out(130) = 0.0E0
          RETURN
       ENDIF
 !
@@ -156,12 +157,12 @@ SUBROUTINE pktq1(Ntype)
 !
 !     SET UP ECPT FOR PKTRM1, FIRST CHECK T1 FOR ZERO
    ELSEIF ( save(7)==0.0E0 ) THEN
-      Ph1out(99) = Ecpt(1)
-      Ph1out(100) = 0.0E0
+      ph1out(99) = ecpt(1)
+      ph1out(100) = 0.0E0
       RETURN
    ELSE
       DO i = 9 , 21
-         Ecpt(i) = save(i+6)
+         ecpt(i) = save(i+6)
       ENDDO
 !
       CALL pktrm1(0)
@@ -171,7 +172,7 @@ SUBROUTINE pktq1(Ntype)
 !
 !
       DO i = 1 , 36
-         Ph1out(i+98) = Ph1out(i)
+         ph1out(i+98) = ph1out(i)
       ENDDO
       RETURN
    ENDIF
@@ -186,7 +187,6 @@ SUBROUTINE pktq1(Ntype)
 !     WORDS (1 THRU 45) DOWN TO (129 THRU 173)
 !
    DO i = 1 , 45
-      Ph1out(i+128) = Ph1out(i)
+      ph1out(i+128) = ph1out(i)
    ENDDO
-   RETURN
 END SUBROUTINE pktq1

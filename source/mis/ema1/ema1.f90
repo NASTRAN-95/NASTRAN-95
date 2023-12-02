@@ -1,18 +1,19 @@
-!*==ema1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ema1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ema1
-USE C_BLANK
-USE C_GPTA1
-USE C_MA1XX
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_gpta1
+   USE c_ma1xx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -83,7 +84,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PERFORM GENERALIZATION
 !
-         lcore = korsz(Zd)
+         lcore = korsz(zd)
          trlsil(1) = sil
          CALL rdtrl(trlsil)
          WRITE (nout,99002) (trlsil(i),i=1,7)
@@ -97,28 +98,28 @@ USE ISO_FORTRAN_ENV
          WRITE (nout,99002) (buf(i),i=1,7)
          prec = buf(2)
          CALL makmcb(mcbkgg,kgg,luset,6,prec)
-         openw = Wrtrew
-         openr = Rdrew
+         openw = wrtrew
+         openr = rdrew
          last = .FALSE.
          silnbr = 0
-         opcls = Cls
+         opcls = cls
          maxdct = 0
          maxvec = 0
          oldcod = 0
 !
 !     SET SWITCH FOR MULTIPLICATION BY DAMPING AND/OR WEIGHT MASS FACTOR
 !
-         eps = abs(Wtmass-1.0)
-         IF ( eps<1.E-6 .AND. Nok4<0 ) ASSIGN 100 TO kfact
-         IF ( eps<1.E-6 .AND. Nok4>=0 ) ASSIGN 120 TO kfact
-         IF ( eps>=1.E-6 .AND. Nok4<0 ) ASSIGN 140 TO kfact
-         IF ( eps>=1.E-6 .AND. Nok4>=0 ) ASSIGN 160 TO kfact
+         eps = abs(wtmass-1.0)
+         IF ( eps<1.E-6 .AND. nok4<0 ) ASSIGN 100 TO kfact
+         IF ( eps<1.E-6 .AND. nok4>=0 ) ASSIGN 120 TO kfact
+         IF ( eps>=1.E-6 .AND. nok4<0 ) ASSIGN 140 TO kfact
+         IF ( eps>=1.E-6 .AND. nok4>=0 ) ASSIGN 160 TO kfact
 !
 !     READ THE CONTENTS OF THE SIL DATA BLOCK INTO CORE
 !
-         CALL gopen(sil,zi(buf1),Rdrew)
+         CALL gopen(sil,zi(buf1),rdrew)
          CALL fread(sil,zi(isil0+1),nbrsil,1)
-         CALL close(sil,Clsrew)
+         CALL close(sil,clsrew)
          zi(isil0+nbrsil+1) = luset + 1
          CALL cdcbug(nhema1,100,zi(isil0+1),nbrsil+1)
 !
@@ -145,20 +146,20 @@ USE ISO_FORTRAN_ENV
 !     GRID POINTS ARE IN SORT BY INTERNAL INDEX. ZERO INDICATES
 !     MISSING GRID POINT. ANY ZERO-S ARE LAST IN LIST.
 !
-         CALL gopen(kdict,zi(buf1),Rdrew)
-         CALL gopen(ect,zi(buf2),Rdrew)
-         CALL gopen(scr2,zi(buf3),Wrtrew)
+         CALL gopen(kdict,zi(buf1),rdrew)
+         CALL gopen(ect,zi(buf2),rdrew)
+         CALL gopen(scr2,zi(buf3),wrtrew)
  20      CALL read(*60,*20,kdict,buf(4),3,0,j)
          CALL cdcbug(nhema1,111,buf(4),3)
          DO
             CALL ectloc(*200,ect,buf,i)
             CALL cdcbug(nhema1,112,buf,3)
-            IF ( Elem(i+2)==buf(4) ) THEN
+            IF ( elem(i+2)==buf(4) ) THEN
                buf(5) = buf(5) + buf(6)
                CALL write(scr2,buf(4),3,0)
-               igrid = Elem(i+12)
-               nbrgrd = Elem(i+9)
-               nwdect = Elem(i+5)
+               igrid = elem(i+12)
+               nbrgrd = elem(i+9)
+               nwdect = elem(i+5)
                idict = nwdect + 1
                nwddct = buf(5) - buf(6)
                ngrid = igrid + nbrgrd - 1
@@ -197,9 +198,9 @@ USE ISO_FORTRAN_ENV
  40      CALL skprec(kdict,1)
          CALL write(scr2,0,0,1)
          GOTO 20
- 60      CALL close(kdict,Clsrew)
-         CALL close(ect,Clsrew)
-         CALL close(scr2,Clsrew)
+ 60      CALL close(kdict,clsrew)
+         CALL close(ect,clsrew)
+         CALL close(scr2,clsrew)
          tt(1) = maxdct
          tt(2) = maxvec
          CALL cdcbug(nhema1,125,tt,2)
@@ -216,10 +217,10 @@ USE ISO_FORTRAN_ENV
 !     THE 2ND RECORD IS A PACKED COLUMN WHICH CONTAINS A NON-ZERO TERM
 !     FOR EACH CONNECTED POINT.
 !
-         Typin1 = 1
-         Typou1 = 1
-         Incr1 = 1
-         Incr2 = 1
+         typin1 = 1
+         typou1 = 1
+         incr1 = 1
+         incr2 = 1
          CALL makmcb(mcb,scr1,nbrsil,1,1)
          ilook0 = nbrsil + 1
          IF ( ilook0+luset+1>=buf3 ) CALL mesage(-8,0,subnam)
@@ -228,8 +229,8 @@ USE ISO_FORTRAN_ENV
             zi(ilook0+j) = i
          ENDDO
          CALL cdcbug(nhema1,131,zi(ilook0+1),luset)
-         CALL gopen(gpect,zi(buf1),Rdrew)
-         CALL gopen(scr1,zi(buf2),Wrtrew)
+         CALL gopen(gpect,zi(buf1),rdrew)
+         CALL gopen(scr1,zi(buf2),wrtrew)
          DO ii = 1 , nbrsil
             nbrcon = buf(4)
             minnbr = buf(5)
@@ -277,17 +278,17 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK COLUMN FOR POINT WITH CONNECTED POINTS
 !
-               Ii1 = buf(5)
-               Jj1 = buf(6)
-               CALL cdcbug(nhema1,139,zi(Ii1),Jj1-Ii1+1)
-               CALL pack(zs(Ii1),scr1,mcb)
+               ii1 = buf(5)
+               jj1 = buf(6)
+               CALL cdcbug(nhema1,139,zi(ii1),jj1-ii1+1)
+               CALL pack(zs(ii1),scr1,mcb)
             ENDIF
 !
 !     CLOSE FILES
 !
          ENDDO
-         CALL close(gpect,Clsrew)
-         CALL close(scr1,Clsrew)
+         CALL close(gpect,clsrew)
+         CALL close(scr1,clsrew)
          CALL wrttrl(mcb)
 !
 !     ALLOCATE STORAGE FOR MAXIMUM COLUMN OF ELEMENT MATRIX
@@ -349,11 +350,11 @@ USE ISO_FORTRAN_ENV
 !     RELATIVE POINTERS (IN PRECISION OF PROBLEM) TO THE CORRESPONDING
 !     1ST TERM OF THE ELEMENT MATRIX
 !
-                  Ii2 = zi(ii+4)
-                  Jj2 = zi(ii+5)
+                  ii2 = zi(ii+4)
+                  jj2 = zi(ii+5)
                   ntrmec = zi(ii+2)
                   kk = 1
-                  Typin2 = 1
+                  typin2 = 1
                   CALL unpack(*220,scr1,zs(icgvec))
                   DO i = icgvec , ncgvec
                      IF ( zi(i)/=0 ) THEN
@@ -378,7 +379,7 @@ USE ISO_FORTRAN_ENV
 !     HERE WHEN LAST PIVOT HAS BEEN READ AND ALLOCATED
 !
                last = .TRUE.
-               opcls = Clsrew
+               opcls = clsrew
                npvt = ii
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -397,8 +398,8 @@ USE ISO_FORTRAN_ENV
 !
 !
          CALL close(scr1,opcls)
-         CALL gopen(scr2,zi(buf1),Rdrew)
-         CALL gopen(kelem,zi(buf2),Rdrew)
+         CALL gopen(scr2,zi(buf1),rdrew)
+         CALL gopen(kelem,zi(buf2),rdrew)
 !
 !     READ HEADER FOR CURRENT ELEMENT TYPE FROM SCR2
 !
@@ -425,10 +426,10 @@ USE ISO_FORTRAN_ENV
  120     factor = zs(idict+4)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 140     factor = Wtmass
+ 140     factor = wtmass
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 160     factor = Wtmass*zs(idict+4)
+ 160     factor = wtmass*zs(idict+4)
          spag_nextblock_1 = 5
       CASE (5)
 !
@@ -471,8 +472,8 @@ USE ISO_FORTRAN_ENV
 !     ALL COLUMNS OF STRUCTURAL MATRIX NOW ALLOCATED ARE COMPLETE.
 !     OPEN KGG AND PACK COLUMNS.
 !
- 180     CALL close(scr2,Clsrew)
-         CALL close(kelem,Clsrew)
+ 180     CALL close(scr2,clsrew)
+         CALL close(kelem,clsrew)
          CALL gopen(kgg,zi(buf1),openw)
          DO ii = ipvt , npvt , lpcb
             dof = zi(ii+1)
@@ -480,10 +481,10 @@ USE ISO_FORTRAN_ENV
             nbrcon = zi(ii+3)
             icgvec = zi(ii+6)
             imat = zi(ii+7)
-            Ii1 = zi(ii+4)
-            Ii2 = zi(ii+5)
+            ii1 = zi(ii+4)
+            ii2 = zi(ii+5)
             kk = imat
-            CALL cdcbug(nhema1,260,zi(imat),((Ii2-Ii1+1)*(dof*dofg)))
+            CALL cdcbug(nhema1,260,zi(imat),((ii2-ii1+1)*(dof*dofg)))
 !
 !     PACK COLUMNS WITH BLDPK
 !
@@ -491,7 +492,7 @@ USE ISO_FORTRAN_ENV
                CALL bldpk(prec,prec,kgg,block,1)
                IF ( nbrcon/=0 ) THEN
                   i = icgvec
-                  DO j = Ii1 , Ii2
+                  DO j = ii1 , ii2
                      IF ( zi(i)/=0 ) THEN
                         k = zi(isil0+j)
                         n = k + min0(dofg,zi(isil0+j+1)-zi(isil0+j)) - 1
@@ -519,8 +520,8 @@ USE ISO_FORTRAN_ENV
             CALL wrttrl(mcbkgg)
             RETURN
          ELSE
-            openr = Rd
-            openw = Wrt
+            openr = rd
+            openw = wrt
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -536,7 +537,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS LOGIC ERROR
 !
-         WRITE (nout,99001) Sfm , kerr
+         WRITE (nout,99001) sfm , kerr
 99001    FORMAT (A25,' 3102, EMA1 LOGIC ERROR',I4)
          IF ( mach==2 .OR. mach==5 .OR. mach==21 ) kerr = -kerr
          CALL gperr(subnam,kerr)

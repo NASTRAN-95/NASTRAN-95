@@ -1,16 +1,17 @@
-!*==decomp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==decomp.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE decomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
-USE C_DCOMPX
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_dcompx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -69,7 +70,7 @@ USE ISO_FORTRAN_ENV
 !
 !     AT LAST, THE START OF THE PROGRAM
 !
-         IF ( (forma/=Sqr .AND. forma/=Sym) .OR. typea>Rdp ) THEN
+         IF ( (forma/=sqr .AND. forma/=sym) .OR. typea>rdp ) THEN
 !
 !     ERROR EXITS
 !
@@ -80,57 +81,57 @@ USE ISO_FORTRAN_ENV
 !
 !     BUFFER ALLOCATION
 !
-            bufa = Nx - Sysbuf
-            ibufl = bufa - Sysbuf
-            outbuf = ibufl - Sysbuf
-            sr1buf = outbuf - Sysbuf
-            sr2buf = sr1buf - Sysbuf
-            sr3buf = sr2buf - Sysbuf
+            bufa = nx - sysbuf
+            ibufl = bufa - sysbuf
+            outbuf = ibufl - sysbuf
+            sr1buf = outbuf - sysbuf
+            sr2buf = sr1buf - sysbuf
+            sr3buf = sr2buf - sysbuf
             icrq = -sr3buf
             IF ( icrq>0 ) THEN
                spag_nextblock_1 = 23
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Det = 1.D0
-            Power = 0
-            Mindia = 1.D+25
+            det = 1.D0
+            power = 0
+            mindia = 1.D+25
             iterm = 0
-            IF ( Filea(1)<0 ) iterm = 1
-            Filea(1) = iabs(Filea(1))
+            IF ( filea(1)<0 ) iterm = 1
+            filea(1) = iabs(filea(1))
 !
 !     WRITE THE HEADER RECORD ON THE OUTPUT TAPES AND INITIALIZE THE
 !     TRAILER RECORDS.
 !
-            CALL gopen(Filel,Ix(ibufl),Wrtrew)
-            parm(2) = Sr2fil
-            CALL open(*60,Sr2fil,Ix(outbuf),Wrtrew)
-            CALL fname(Fileu(1),X(1))
-            CALL write(Sr2fil,X(1),2,1)
-            Filel(3) = ncol
-            Filel(4) = 4
-            Filel(2) = 0
-            Filel(6) = 0
-            Filel(7) = 0
-            Fileu(2) = 0
-            Fileu(3) = ncol
-            Fileu(4) = 5
-            Fileu(6) = 0
-            Fileu(7) = 0
-            Filea(5) = 2
+            CALL gopen(filel,Ix(ibufl),wrtrew)
+            parm(2) = sr2fil
+            CALL open(*60,sr2fil,Ix(outbuf),wrtrew)
+            CALL fname(fileu(1),X(1))
+            CALL write(sr2fil,X(1),2,1)
+            filel(3) = ncol
+            filel(4) = 4
+            filel(2) = 0
+            filel(6) = 0
+            filel(7) = 0
+            fileu(2) = 0
+            fileu(3) = ncol
+            fileu(4) = 5
+            fileu(6) = 0
+            fileu(7) = 0
+            filea(5) = 2
             IF ( ncol>2 ) THEN
-               IF ( B<=0 .OR. Bbar<=0 ) THEN
+               IF ( b<=0 .OR. bbar<=0 ) THEN
                   imhere = 10
-                  CALL genvec(*120,Ix(bufa),Filea(1),Nx,Ix(1),ncol,B,Bbar,C,Cbar,R,1)
+                  CALL genvec(*120,Ix(bufa),filea(1),nx,Ix(1),ncol,b,bbar,c,cbar,r,1)
                ENDIF
-               bbar1 = Bbar + 1
-               bbbar = min0(B+Bbar,ncol)
+               bbar1 = bbar + 1
+               bbbar = min0(b+bbar,ncol)
                bbbar1 = bbbar - 1
                scrflg = 0
-               IF ( R<bbbar1 ) scrflg = 1
+               IF ( r<bbbar1 ) scrflg = 1
                IF ( scrflg/=0 ) THEN
-                  icrq = (bbbar1-R)*2*Bbar
+                  icrq = (bbbar1-r)*2*bbar
                   CALL page2(3)
-                  WRITE (Nout,99001) Uim , icrq
+                  WRITE (nout,99001) uim , icrq
 99001             FORMAT (A29,' 2177, SPILL WILL OCCUR IN UNSYMMETRIC DECOMPOSITION',/,I10,                                         &
                          &' ADDITIONAL MEMORY WORDS NEEDED TO STAY IN CORE.')
                ENDIF
@@ -138,17 +139,17 @@ USE ISO_FORTRAN_ENV
 !     INITIALIZE POINTERS TO SPECIFIC AREAS OF CORE
 !
                i1 = 1
-               i1sp = (i1+Bbar*R)*2 - 1
-               ipak = i1 + Bbar*R + bbbar/2 + 1
+               i1sp = (i1+bbar*r)*2 - 1
+               ipak = i1 + bbar*r + bbbar/2 + 1
                i2 = ipak
-               i3sp = (i2+min0(ncol,bbbar+Bbar))*2 - 1
-               i3 = i2 + min0(ncol,bbbar+Bbar) + C
-               i4sp = i3sp + (Bbar+2)*C*2
-               i4 = i3 + bbar1*C + Cbar
-               i5 = i4 + bbbar*Cbar
-               i6sp = (i5+C*Cbar)*2 - 1
-               i7sp = i6sp + Cbar
-               end = i7sp + C
+               i3sp = (i2+min0(ncol,bbbar+bbar))*2 - 1
+               i3 = i2 + min0(ncol,bbbar+bbar) + c
+               i4sp = i3sp + (bbar+2)*c*2
+               i4 = i3 + bbar1*c + cbar
+               i5 = i4 + bbbar*cbar
+               i6sp = (i5+c*cbar)*2 - 1
+               i7sp = i6sp + cbar
+               end = i7sp + c
                parm(5) = ibegn
                CALL conmsg(parm(3),3,0)
 !
@@ -191,28 +192,28 @@ USE ISO_FORTRAN_ENV
 !     ORDER
 !     ****************************************************************
 !
-               parm(2) = Filea(1)
-               CALL open(*60,Filea(1),Ix(bufa),Rdrew)
+               parm(2) = filea(1)
+               CALL open(*60,filea(1),Ix(bufa),rdrew)
                ccount = 0
-               IF ( C/=0 ) CALL transp(Ix(1),X(1),Nx,Filea(1),B,Sr1fil)
+               IF ( c/=0 ) CALL transp(Ix(1),X(1),nx,filea(1),b,sr1fil)
 !
 !     ZERO CORE
 !
                DO i = 1 , end
                   X(i) = 0.
                ENDDO
-               IF ( C==0 ) GOTO 20
+               IF ( c==0 ) GOTO 20
 !
 !     ****************************************************************
 !     OPEN THE FILE CONTAINING THE TRANSPOSED ACTIVE ELEMENTS AND READ I
 !     THE FIRST BBAR + 1 ROWS
 !     ****************************************************************
 !
-               parm(2) = Sr1fil
-               CALL open(*60,Sr1fil,Ix(sr1buf),Rd)
+               parm(2) = sr1fil
+               CALL open(*60,sr1fil,Ix(sr1buf),rd)
                k = 0
                SPAG_Loop_1_1: DO
-                  CALL read(*80,*100,Sr1fil,itran(1),4,0,flag)
+                  CALL read(*80,*100,sr1fil,itran(1),4,0,flag)
                   IF ( itrn>0 ) THEN
                      DO WHILE ( itrn>k+1 )
                         k = k + 1
@@ -245,8 +246,8 @@ USE ISO_FORTRAN_ENV
                               EXIT SPAG_Loop_2_2
                            ELSE
                               kk = kk + 1
-                              IF ( kk<C ) THEN
-                              ELSEIF ( kk==C ) THEN
+                              IF ( kk<c ) THEN
+                              ELSEIF ( kk==c ) THEN
 !
 !     CREATE NEW ACTIVE COLUMN
 !
@@ -256,14 +257,14 @@ USE ISO_FORTRAN_ENV
                                     in1 = i3sp + kk
                                     IF ( Ix(in1)==0 ) THEN
                                        Ix(in1) = jtrn
-                                       in1 = in1 + C
+                                       in1 = in1 + c
                                        Ix(in1) = k + 1
                                        in1 = i3 + kk*bbar1 + k
                                        Dx(in1) = dtrn
                                        EXIT SPAG_Loop_2_2
                                     ELSE
                                        kk = kk + 1
-                                       IF ( kk>=C ) THEN
+                                       IF ( kk>=c ) THEN
                                          parm(1) = -25
                                          CALL mesage(parm(1),parm(2),parm(3))
                                          RETURN
@@ -279,7 +280,7 @@ USE ISO_FORTRAN_ENV
                         ENDDO SPAG_Loop_2_2
                      ENDIF
                   ELSE
-                     CALL close(Sr1fil,Rew)
+                     CALL close(sr1fil,rew)
                      ASSIGN 20 TO kk
                      EXIT SPAG_Loop_1_1
                   ENDIF
@@ -332,8 +333,8 @@ USE ISO_FORTRAN_ENV
                in1 = in1 + 1
             ENDIF
             k = k + 1
-            IF ( k<C ) THEN
-            ELSEIF ( k==C ) THEN
+            IF ( k<c ) THEN
+            ELSEIF ( k==c ) THEN
                GOTO kk
             ELSE
                parm(1) = -25
@@ -344,11 +345,11 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
- 20      sr2fl = Fileu(1)
-         sr3fl = Sr3fil
+ 20      sr2fl = fileu(1)
+         sr3fl = sr3fil
          jpos = 1
-         parm(2) = Filea(1)
-         CALL fwdrec(*80,Filea(1))
+         parm(2) = filea(1)
+         CALL fwdrec(*80,filea(1))
          lcol = 0
          cbcnt = 0
          jposl = 0
@@ -358,13 +359,13 @@ USE ISO_FORTRAN_ENV
 !
 !     FINISH WRITING OUT THE COMPLETED COLUMNS OF L
 !
-            CALL close(Sr1fil,Rew)
-            CALL close(Filel,Norew)
-            CALL close(Sr2fil,Norew)
+            CALL close(sr1fil,rew)
+            CALL close(filel,norew)
+            CALL close(sr2fil,norew)
             parm(5) = iend
             CALL conmsg(parm(3),3,0)
-            CALL finwrt(iterm,scrflg,sr2fl,jposl,i1sp,Bbar,i1,cbcnt,ipak,R,bbbar1,bbbar,i6sp,i4,i4sp,Ix,Dx,X,lcol)
-            Fileu(7) = bbbar
+            CALL finwrt(iterm,scrflg,sr2fl,jposl,i1sp,bbar,i1,cbcnt,ipak,r,bbbar1,bbbar,i6sp,i4,i4sp,Ix,Dx,X,lcol)
+            fileu(7) = bbbar
             RETURN
          ELSE
 !****************************************************************
@@ -373,32 +374,31 @@ USE ISO_FORTRAN_ENV
             ioff = max0(1,jpos-bbbar1)
             count = cbcnt
             imhere = 275
-            CALL intpk(*120,Filea(1),0,Rdp,0)
+            CALL intpk(*120,filea(1),0,rdp,0)
             k = 1
-            IF ( jpos>bbbar ) k = jpos - B + 1
-            DO WHILE ( Eol==0 )
+            IF ( jpos>bbbar ) k = jpos - b + 1
+            DO WHILE ( eol==0 )
                CALL zntpki
-               IF ( Ii>=k ) THEN
-                  k = jpos + Bbar
+               IF ( ii>=k ) THEN
+                  k = jpos + bbar
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (4)
-         IF ( Ii>k ) THEN
+         IF ( ii>k ) THEN
 !
 !     TAKE CARE OF ACTIVE ELEMENTS BELOW THE BAND
 !
             kk = 0
             SPAG_Loop_1_4: DO
                in1 = i4sp + kk
-               IF ( Ix(in1)/=Ii ) THEN
+               IF ( Ix(in1)/=ii ) THEN
                   kk = kk + 1
-                  IF ( kk<Cbar ) THEN
-                  ELSEIF ( kk==Cbar ) THEN
+                  IF ( kk<cbar ) THEN
+                  ELSEIF ( kk==cbar ) THEN
 !
 !     CREATE NEW ACTIVE ROW
 !
@@ -406,8 +406,8 @@ USE ISO_FORTRAN_ENV
                      DO
                         in1 = i4sp + kk
                         IF ( Ix(in1)==0 ) THEN
-                           Ix(in1) = Ii
-                           in1 = in1 + Cbar
+                           Ix(in1) = ii
+                           in1 = in1 + cbar
                            Ix(in1) = jpos
                            in1 = i4 + (kk+1)*bbbar - 1
                            Dx(in1) = da
@@ -415,7 +415,7 @@ USE ISO_FORTRAN_ENV
                            EXIT SPAG_Loop_1_4
                         ELSE
                            kk = kk + 1
-                           IF ( kk>=Cbar ) THEN
+                           IF ( kk>=cbar ) THEN
                               parm(1) = -25
                               CALL mesage(parm(1),parm(2),parm(3))
                               RETURN
@@ -440,10 +440,10 @@ USE ISO_FORTRAN_ENV
 !
 !     READ ELEMENTS WITHIN THE BAND INTO AREA II
 !
-            in1 = i2 - ioff + Ii
+            in1 = i2 - ioff + ii
             Dx(in1) = da
          ENDIF
-         IF ( Eol==0 ) THEN
+         IF ( eol==0 ) THEN
             CALL zntpki
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -491,8 +491,8 @@ USE ISO_FORTRAN_ENV
                   in1 = in1 + 1
                ENDIF
                k = k + 1
-               IF ( k<Cbar ) THEN
-               ELSEIF ( k==Cbar ) THEN
+               IF ( k<cbar ) THEN
+               ELSEIF ( k==cbar ) THEN
                   EXIT SPAG_Loop_1_6
                ELSE
                   parm(1) = -25
@@ -520,7 +520,7 @@ USE ISO_FORTRAN_ENV
 !     ACTIVE COLUMN IN AREA III
 !
             Ix(in1) = 0
-            in1 = in1 + C
+            in1 = in1 + c
             Ix(in1) = 0
             in1 = i3 + Ix(i7sp)*bbar1
             ccount = ccount - 1
@@ -540,7 +540,7 @@ USE ISO_FORTRAN_ENV
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  in1 = i5 + Ix(i7sp)*Cbar
+                  in1 = i5 + Ix(i7sp)*cbar
                   k = 0
                   EXIT SPAG_Loop_1_7
                ELSE
@@ -558,7 +558,7 @@ USE ISO_FORTRAN_ENV
             IF ( Ix(in2)/=0 ) THEN
                in3 = in1 + k
                IF ( Dx(in3)/=0.D0 ) THEN
-                  IF ( Ix(in2)>jpos+Bbar ) THEN
+                  IF ( Ix(in2)>jpos+bbar ) THEN
 !
 !     STORE ELEMENT IN THE ACTIVE ROW
 !
@@ -576,8 +576,8 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDIF
             k = k + 1
-            IF ( k>=Cbar ) THEN
-               IF ( k/=Cbar ) THEN
+            IF ( k>=cbar ) THEN
+               IF ( k/=cbar ) THEN
                   parm(1) = -25
                   CALL mesage(parm(1),parm(2),parm(3))
                   RETURN
@@ -608,13 +608,13 @@ USE ISO_FORTRAN_ENV
 !     ****************************************************************
 !
          IF ( scrflg/=0 ) THEN
-            IF ( lcol>=(R-1) ) THEN
-               IF ( lcol/=(R-1) ) THEN
+            IF ( lcol>=(r-1) ) THEN
+               IF ( lcol/=(r-1) ) THEN
                   parm(2) = sr2fl
-                  CALL open(*60,sr2fl,Ix(sr2buf),Rd)
+                  CALL open(*60,sr2fl,Ix(sr2buf),rd)
                ENDIF
                parm(2) = sr3fl
-               CALL open(*60,sr3fl,Ix(sr3buf),Wrtrew)
+               CALL open(*60,sr3fl,Ix(sr3buf),wrtrew)
             ENDIF
          ENDIF
          ll = 0
@@ -643,7 +643,7 @@ USE ISO_FORTRAN_ENV
          end = min0(bbar1,ncol-(jposl+ll))
          end = end - 1
          IF ( Dx(in2)/=0 ) THEN
-            in1 = i1 + lll*Bbar
+            in1 = i1 + lll*bbar
             CALL dloop(Dx(in2+1),Dx(in1),-Dx(in2),end)
             IF ( cbcnt/=0 ) THEN
 !
@@ -654,8 +654,8 @@ USE ISO_FORTRAN_ENV
                SPAG_Loop_1_9: DO
                   in3 = i6sp + kkk
                   in1 = Ix(in3) + i4sp
-                  IF ( Ix(in1)>jpos+Bbar ) EXIT SPAG_Loop_1_9
-                  kk = in1 + Cbar
+                  IF ( Ix(in1)>jpos+bbar ) EXIT SPAG_Loop_1_9
+                  kk = in1 + cbar
                   IF ( Ix(kk)<=jposl+ll+1 ) THEN
                      IF ( Ix(in1)-jposl-bbar1>ll ) THEN
 !
@@ -683,27 +683,27 @@ USE ISO_FORTRAN_ENV
             ENDIF
             k = 0
          ELSE
-            IF ( ll-R+1<0 ) THEN
+            IF ( ll-r+1<0 ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( ll-R+1==0 ) THEN
-               IF ( R==bbbar1 ) THEN
+            IF ( ll-r+1==0 ) THEN
+               IF ( r==bbbar1 ) THEN
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               in1 = i1 + ll*Bbar
+               in1 = i1 + ll*bbar
             ELSE
-               in1 = i1 + (lll-1)*Bbar
-               IF ( ll/=R .OR. lcol/=bbbar1 ) CALL write(sr3fl,Dx(in1),2*Bbar,0)
+               in1 = i1 + (lll-1)*bbar
+               IF ( ll/=r .OR. lcol/=bbbar1 ) CALL write(sr3fl,Dx(in1),2*bbar,0)
                lll = lll - 1
             ENDIF
-            icrq = in1 + Bbar*2 - 1 - sr3buf
+            icrq = in1 + bbar*2 - 1 - sr3buf
             IF ( icrq>0 ) THEN
                spag_nextblock_1 = 23
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            ibbar2 = Bbar*2
+            ibbar2 = bbar*2
             CALL read(*80,*100,sr2fl,Dx(in1),ibbar2,0,flag)
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -711,8 +711,8 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 9
       CASE (9)
          in1 = i4sp + k
-         IF ( Ix(in1)>jpos+Bbar ) THEN
-            in1 = in1 + Cbar
+         IF ( Ix(in1)>jpos+bbar ) THEN
+            in1 = in1 + cbar
             IF ( Ix(in1)/=jpos ) THEN
                kkk = max0(0,bbbar-jpos+Ix(in1)-1)
                in2 = i4 + k*bbbar - 1
@@ -736,11 +736,11 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
          k = k + 1
-         IF ( k<Cbar ) THEN
+         IF ( k<cbar ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( k/=Cbar ) THEN
+         IF ( k/=cbar ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             RETURN
@@ -779,7 +779,7 @@ USE ISO_FORTRAN_ENV
 !
 !     INTERCHANGE ROWS IN AREA II
 !
-            Det = -Det
+            det = -det
 !
             max = Dx(in1)
             in2 = in1 + intchn
@@ -797,16 +797,16 @@ USE ISO_FORTRAN_ENV
          imhere = 870
          IF ( Dx(in1)==0.D0 ) GOTO 120
          max = 1.D0/Dx(in1)
-         Mindia = dmin1(dabs(Dx(in1)),Mindia)
-         DO WHILE ( dabs(Det)>10.D0 )
-            Det = Det/10.D0
-            Power = Power + 1
+         mindia = dmin1(dabs(Dx(in1)),mindia)
+         DO WHILE ( dabs(det)>10.D0 )
+            det = det/10.D0
+            power = power + 1
          ENDDO
-         DO WHILE ( dabs(Det)<.1D0 )
-            Det = Det*10.D0
-            Power = Power - 1
+         DO WHILE ( dabs(det)<.1D0 )
+            det = det*10.D0
+            power = power - 1
          ENDDO
-         Det = Det*Dx(in1)
+         det = det*Dx(in1)
          k = 1
          end = min0(bbar1,ncol-jpos+1)
          IF ( end/=1 ) THEN
@@ -834,8 +834,8 @@ USE ISO_FORTRAN_ENV
                Dx(in1) = Dx(in1)*max
                in1 = in1 + bbbar
                k = k + 1
-               IF ( k<Cbar ) THEN
-               ELSEIF ( k==Cbar ) THEN
+               IF ( k<cbar ) THEN
+               ELSEIF ( k==cbar ) THEN
                   EXIT SPAG_Loop_1_13
                ELSE
                   parm(1) = -25
@@ -888,11 +888,11 @@ USE ISO_FORTRAN_ENV
             ENDDO SPAG_Loop_1_14
          ENDIF
          k = k + 1
-         IF ( k<C ) THEN
+         IF ( k<c ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( k/=C ) THEN
+         IF ( k/=c ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             RETURN
@@ -902,17 +902,17 @@ USE ISO_FORTRAN_ENV
 !
 !     WRITE OUT THE NEXT COLUMN OF U AND THE ROW OF ACTIVE ELEMENTS
 !
-         parm(2) = Sr2fil
-         CALL bldpk(Rdp,typel,Sr2fil,0,0)
+         parm(2) = sr2fil
+         CALL bldpk(rdp,typel,sr2fil,0,0)
          in1 = i2
-         Jj = ioff
+         jj = ioff
          imhere = 1030
          SPAG_Loop_1_15: DO
             dz = Dx(in1)
             IF ( dz/=0 ) CALL zblpki
             in1 = in1 + 1
-            Jj = Jj + 1
-            IF ( Jj>jpos ) THEN
+            jj = jj + 1
+            IF ( jj>jpos ) THEN
                IF ( Dx(in1-1)==0 ) GOTO 120
 !
 !     PACK ACTIVE COLUMN ELEMENTS ALSO
@@ -935,7 +935,7 @@ USE ISO_FORTRAN_ENV
             in3 = i3 + Ix(in1)*bbar1
             dz = Dx(in3)
             IF ( dz/=0.D0 ) THEN
-               Jj = Ix(in2)
+               jj = Ix(in2)
                CALL zblpki
             ENDIF
             k = k + 1
@@ -950,7 +950,7 @@ USE ISO_FORTRAN_ENV
          ENDDO SPAG_Loop_1_16
          spag_nextblock_1 = 13
       CASE (13)
-         CALL bldpkn(Sr2fil,0,Fileu)
+         CALL bldpkn(sr2fil,0,fileu)
 !
 !     COMPUTE ACTIVE ROW-COLUMN INTERACTION
 !
@@ -972,12 +972,12 @@ USE ISO_FORTRAN_ENV
                in2 = i4sp + kk
                in2 = i4 + kk*bbbar
                IF ( Dx(in2)/=0.D0 ) THEN
-                  in3 = i5 + k*Cbar + kk
+                  in3 = i5 + k*cbar + kk
                   Dx(in3) = Dx(in3) + Dx(in2)*Dx(in1)
                ENDIF
                kk = kk + 1
-               IF ( kk<Cbar ) THEN
-               ELSEIF ( kk==Cbar ) THEN
+               IF ( kk<cbar ) THEN
+               ELSEIF ( kk==cbar ) THEN
                   EXIT SPAG_Loop_1_17
                ELSE
                   parm(1) = -25
@@ -987,11 +987,11 @@ USE ISO_FORTRAN_ENV
             ENDDO SPAG_Loop_1_17
          ENDIF
          k = k + 1
-         IF ( k<C ) THEN
+         IF ( k<c ) THEN
             spag_nextblock_1 = 14
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( k/=C ) THEN
+         IF ( k/=c ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             RETURN
@@ -1020,8 +1020,8 @@ USE ISO_FORTRAN_ENV
                in2 = in1 + kk
                Dx(in2) = Dx(in2+1)
                kk = kk + 1
-               IF ( kk<Bbar ) THEN
-               ELSEIF ( kk==Bbar ) THEN
+               IF ( kk<bbar ) THEN
+               ELSEIF ( kk==bbar ) THEN
                   Dx(in2+1) = 0.D0
                   EXIT SPAG_Loop_1_18
                ELSE
@@ -1032,11 +1032,11 @@ USE ISO_FORTRAN_ENV
             ENDDO SPAG_Loop_1_18
          ENDIF
          k = k + 1
-         IF ( k<C ) THEN
+         IF ( k<c ) THEN
             spag_nextblock_1 = 16
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( k/=C ) THEN
+         IF ( k/=c ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             RETURN
@@ -1053,24 +1053,24 @@ USE ISO_FORTRAN_ENV
 !
 !     OUTPUT A COLUMN OF L
 !
-         parm(2) = Filel(1)
+         parm(2) = filel(1)
          jposl = jposl + 1
-         CALL bldpk(Rdp,typel,Filel(1),0,0)
+         CALL bldpk(rdp,typel,filel(1),0,0)
 !
 !     STORE THE PERMUTATION INDEX AS THE DIAGONAL ELEMENT
 !
-         Jj = jposl
+         jj = jposl
          dz = Ix(i1sp)
          CALL zblpki
          k = 0
          SPAG_Loop_1_19: DO
-            Jj = jposl + k + 1
+            jj = jposl + k + 1
             in2 = i1 + k
             dz = Dx(in2)
             IF ( dz/=0 ) CALL zblpki
             k = k + 1
-            IF ( k<Bbar ) THEN
-            ELSEIF ( k==Bbar ) THEN
+            IF ( k<bbar ) THEN
+            ELSEIF ( k==bbar ) THEN
 !
 !     PACK ACTIVE ROW ELEMENTS ALSO
 !
@@ -1090,7 +1090,7 @@ USE ISO_FORTRAN_ENV
             in1 = i6sp + k
             in2 = i4 + Ix(in1)*bbbar
             in1 = Ix(in1) + i4sp
-            Jj = Ix(in1)
+            jj = Ix(in1)
             dz = Dx(in2)
             IF ( dz/=0.D0 ) CALL zblpki
             k = k + 1
@@ -1105,7 +1105,7 @@ USE ISO_FORTRAN_ENV
          ENDDO SPAG_Loop_1_20
          spag_nextblock_1 = 18
       CASE (18)
-         CALL bldpkn(Filel,0,Filel)
+         CALL bldpkn(filel,0,filel)
 !
 !     MOVE PERMUTATION INDICES OVER ONE ELEMENT
 !
@@ -1118,15 +1118,15 @@ USE ISO_FORTRAN_ENV
 !
          k = 0
          IF ( scrflg/=0 ) THEN
-            CALL close(sr2fl,Rew)
-            IF ( R<=2 ) THEN
-               icrq = i1 + Bbar*2 - 1 - sr3buf
+            CALL close(sr2fl,rew)
+            IF ( r<=2 ) THEN
+               icrq = i1 + bbar*2 - 1 - sr3buf
                IF ( icrq>0 ) THEN
                   spag_nextblock_1 = 23
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL open(*60,sr2fl,Ix(sr2buf),Rd)
-               ibbar2 = 2*Bbar
+               CALL open(*60,sr2fl,Ix(sr2buf),rd)
+               ibbar2 = 2*bbar
                CALL read(*80,*100,sr2fl,Dx(i1),ibbar2,0,flag)
                lcol = lcol - 1
                spag_nextblock_1 = 19
@@ -1134,24 +1134,24 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
          SPAG_Loop_1_21: DO
-            in1 = i1 + k*Bbar
-            in2 = in1 + Bbar
-            CALL xloop(Dx(in1),Dx(in2),Bbar)
+            in1 = i1 + k*bbar
+            in2 = in1 + bbar
+            CALL xloop(Dx(in1),Dx(in2),bbar)
             k = k + 1
-            IF ( k-R+2<0 ) THEN
-            ELSEIF ( k-R+2==0 ) THEN
-               IF ( R<bbbar1 ) THEN
-                  icrq = in2 + Bbar*2 - 1 - sr3buf
+            IF ( k-r+2<0 ) THEN
+            ELSEIF ( k-r+2==0 ) THEN
+               IF ( r<bbbar1 ) THEN
+                  icrq = in2 + bbar*2 - 1 - sr3buf
                   IF ( icrq>0 ) THEN
                      spag_nextblock_1 = 23
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL open(*60,sr2fl,Ix(sr2buf),Rd)
-                  ibbar2 = Bbar*2
+                  CALL open(*60,sr2fl,Ix(sr2buf),rd)
+                  ibbar2 = bbar*2
                   CALL read(*80,*100,sr2fl,Dx(in2),ibbar2,0,flag)
                   lcol = lcol - 1
                   EXIT SPAG_Loop_1_21
-               ELSEIF ( R/=bbbar1 ) THEN
+               ELSEIF ( r/=bbbar1 ) THEN
                   parm(1) = -25
                   CALL mesage(parm(1),parm(2),parm(3))
                   RETURN
@@ -1196,11 +1196,11 @@ USE ISO_FORTRAN_ENV
             ENDDO SPAG_Loop_1_22
          ENDIF
          k = k + 1
-         IF ( k<Cbar ) THEN
+         IF ( k<cbar ) THEN
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( k/=Cbar ) THEN
+         IF ( k/=cbar ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             RETURN
@@ -1211,18 +1211,18 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE COLUMN ON THE SCRATCH FILE
 !
-            IF ( lcol-R+1>=0 ) THEN
-               IF ( lcol-R+1/=0 ) THEN
-                  in1 = i1 + (lll-1)*Bbar
-                  CALL write(sr3fl,Dx(in1),Bbar*2,0)
+            IF ( lcol-r+1>=0 ) THEN
+               IF ( lcol-r+1/=0 ) THEN
+                  in1 = i1 + (lll-1)*bbar
+                  CALL write(sr3fl,Dx(in1),bbar*2,0)
                ENDIF
                in1 = i2 + jpos - ioff + 1
-               CALL write(sr3fl,Dx(in1),Bbar*2,0)
+               CALL write(sr3fl,Dx(in1),bbar*2,0)
 !
 !     CLOSE SCRATCH FILES AND SWITCH THE POINTERS TO THEM
 !
-               CALL close(sr3fl,Rew)
-               CALL close(sr2fl,Rew)
+               CALL close(sr3fl,rew)
+               CALL close(sr2fl,rew)
                in1 = sr2fl
                sr2fl = sr3fl
                sr3fl = in1
@@ -1233,8 +1233,8 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE COLUMN IN CORE
 !
-         in1 = i1 + lcol*Bbar
-         end = min0(Bbar,ncol-jpos)
+         in1 = i1 + lcol*bbar
+         end = min0(bbar,ncol-jpos)
          IF ( end/=0 ) THEN
             k = 0
             in3 = i2 + jpos - ioff + 1
@@ -1256,14 +1256,14 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 22
       CASE (22)
          lcol = lcol + 1
-         IF ( C/=0 ) THEN
+         IF ( c/=0 ) THEN
             IF ( jpos>=bbbar ) THEN
 !
 !     READ IN THE NEXT ROW OF ACTIVE COLUMN ELEMENTS
 !
                count = ccount
                IF ( itrn>=0 ) THEN
-                  SPAG_Loop_1_25: DO WHILE ( itrn<=jpos-B+2 )
+                  SPAG_Loop_1_25: DO WHILE ( itrn<=jpos-b+2 )
 !
 !     TEST TO SEE IF COLUMN IS ALREADY ACTIVE
 !
@@ -1279,8 +1279,8 @@ USE ISO_FORTRAN_ENV
                            EXIT SPAG_Loop_2_24
                         ELSE
                            k = k + 1
-                           IF ( k<C ) THEN
-                           ELSEIF ( k==C ) THEN
+                           IF ( k<c ) THEN
+                           ELSEIF ( k==c ) THEN
 !
 !     CREATE A NEW ACTIVE COLUMN
 !
@@ -1289,7 +1289,7 @@ USE ISO_FORTRAN_ENV
                                  in1 = i3sp + k
                                  IF ( Ix(in1)==0 ) THEN
                                     Ix(in1) = jtrn
-                                    in1 = in1 + C
+                                    in1 = in1 + c
                                     Ix(in1) = itrn
                                     in1 = i3 + (k+1)*bbar1 - 1
                                     Dx(in1) = dtrn
@@ -1297,7 +1297,7 @@ USE ISO_FORTRAN_ENV
                                     EXIT SPAG_Loop_2_24
                                  ELSE
                                     k = k + 1
-                                    IF ( k>=C ) THEN
+                                    IF ( k>=c ) THEN
                                        parm(1) = -25
                                        CALL mesage(parm(1),parm(2),parm(3))
                                        RETURN
@@ -1311,9 +1311,9 @@ USE ISO_FORTRAN_ENV
                            ENDIF
                         ENDIF
                      ENDDO SPAG_Loop_2_24
-                     CALL read(*80,*100,Sr1fil,itran,4,0,flag)
+                     CALL read(*80,*100,sr1fil,itran,4,0,flag)
                      IF ( itrn<=0 ) THEN
-                        CALL close(Sr1fil,Rew)
+                        CALL close(sr1fil,rew)
                         EXIT SPAG_Loop_1_25
                      ENDIF
                   ENDDO SPAG_Loop_1_25
@@ -1332,7 +1332,7 @@ USE ISO_FORTRAN_ENV
 !
 !     ZERO AREA II
 !
-         end = i2 + min0(jpos-ioff+Bbar-1,ncol-1)
+         end = i2 + min0(jpos-ioff+bbar-1,ncol-1)
          DO i = i2 , end
             Dx(i) = 0.D0
          ENDDO
@@ -1349,21 +1349,21 @@ USE ISO_FORTRAN_ENV
                k = 0
                SPAG_Loop_1_26: DO
                   in2 = in1 + k
-                  IF ( Ix(in2)==jpos-B+1 ) THEN
+                  IF ( Ix(in2)==jpos-b+1 ) THEN
                      in1 = i5 + k
-                     in2 = i3 + Bbar
+                     in2 = i3 + bbar
                      k = 0
                      DO
                         Dx(in2) = Dx(in2) - Dx(in1)
                         Dx(in1) = 0.D0
                         in2 = in2 + bbar1
-                        in1 = in1 + Cbar
+                        in1 = in1 + cbar
                         k = k + 1
-                        IF ( k>=C ) EXIT SPAG_Loop_1_26
+                        IF ( k>=c ) EXIT SPAG_Loop_1_26
                      ENDDO
                   ELSE
                      k = k + 1
-                     IF ( k>=Cbar ) THEN
+                     IF ( k>=cbar ) THEN
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -1379,7 +1379,7 @@ USE ISO_FORTRAN_ENV
 !     ELIMINATE THE ACTIVE ROW
 !
                Ix(in1) = 0
-               in1 = in1 + Cbar
+               in1 = in1 + cbar
                Ix(in1) = 0
                cbcnt = cbcnt - 1
 !
@@ -1393,7 +1393,6 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (23)
          parm(1) = -8
          parm(2) = icrq
@@ -1411,16 +1410,16 @@ USE ISO_FORTRAN_ENV
 !
 !     SINGULAR MATRIX - CLOSE ALL FILES AND RETURN TO USER
 !
- 120     CALL close(Filea(1),Rew)
-         CALL close(Filel(1),Rew)
-         CALL close(Fileu(1),Rew)
-         CALL close(Sr1fil,Rew)
-         CALL close(Sr2fil,Rew)
-         CALL close(Sr3fil,Rew)
-         WRITE (Nout,99002) imhere
+ 120     CALL close(filea(1),rew)
+         CALL close(filel(1),rew)
+         CALL close(fileu(1),rew)
+         CALL close(sr1fil,rew)
+         CALL close(sr2fil,rew)
+         CALL close(sr3fil,rew)
+         WRITE (nout,99002) imhere
 99002    FORMAT (/60X,'DECOMP/IMHERE@',I5)
 !WKBA 4/95 SPR94018
-         Fileu(7) = bbbar
+         fileu(7) = bbbar
          RETURN 1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

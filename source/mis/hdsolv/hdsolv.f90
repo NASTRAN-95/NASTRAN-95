@@ -1,11 +1,12 @@
-!*==hdsolv.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdsolv.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
+   USE c_go3
+   USE c_hdptrs
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GO3
-   USE C_HDPTRS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,8 +48,8 @@ SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
    er = ers
    exx = .015
    exp = .015
-   jt = L12 + (J-1)*5
-   jb = L13 + (J-1)*Lz
+   jt = l12 + (J-1)*5
+   jb = l13 + (J-1)*Lz
    IF ( Ii/=0 ) THEN
       a3 = Xxx(1+jt)
       b3 = Xxx(2+jt)
@@ -56,15 +57,15 @@ SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
       d3 = Xxx(4+jt)
       IF ( Xxx(jt+3)/=0. ) THEN
          SPAG_Loop_1_1: DO l = 1 , Ii
-            k = Nno(L4+l)
+            k = Nno(l4+l)
 !
 !     CHECKS TO SEE IF THIS RELEVANT ELEMENT IS TO BE CONSIDERED FOR
 !     INTERSECTION
 !
             IF ( k>0 ) THEN
                IF ( k>=J ) THEN
-                  jx = L12 + (k-1)*5
-                  IF ( Zm(L2+J)>=Zmi(L3+k) ) THEN
+                  jx = l12 + (k-1)*5
+                  IF ( Zm(l2+J)>=Zmi(l3+k) ) THEN
                      IF ( abs(Xxx(3+jx))>=ers ) THEN
                         mt = 0
                         a4 = Xxx(1+jx)
@@ -92,8 +93,8 @@ SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
                            DO m = 1 , 2
                               jv = 1
                               i = iv(m)
-                              jj = L13 + (i-1)*Lz
-                              ig = L12 + (i-1)*5 + 5
+                              jj = l13 + (i-1)*Lz
+                              ig = l12 + (i-1)*5 + 5
                               nk = Xxx(ig)
                               DO ix = 1 , nk
                                  a1 = Ccc(jv+jj)
@@ -133,17 +134,17 @@ SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
 !
 !     STORE THE PTS OF INTERSECTIONS.
 !
-                                       Rz(Xasolv-1+mt) = xo
-                                       Rz(Yasolv-1+mt) = yo
-                                       Rz(Zasolv-1+mt) = -(d3+a3*xo+b3*yo)/c3
+                                       rz(xasolv-1+mt) = xo
+                                       rz(yasolv-1+mt) = yo
+                                       rz(zasolv-1+mt) = -(d3+a3*xo+b3*yo)/c3
                                        zt = -(d4+a4*xo+b4*yo)/c4
-                                       IF ( abs(zt-Rz(Zasolv-1+mt))>exx ) CYCLE SPAG_Loop_1_1
+                                       IF ( abs(zt-rz(zasolv-1+mt))>exx ) CYCLE SPAG_Loop_1_1
                                     ENDIF
                                  ENDIF
                                  jv = jv + 5
                               ENDDO
                            ENDDO
-                           CALL hdstat(mt,Nit,Ixr,X21,Y21,Z21,Iia,iv,a,b,c,J,Rz(Xasolv),Rz(Yasolv),Rz(Zasolv),Ccc,Xxx,Lz)
+                           CALL hdstat(mt,Nit,Ixr,X21,Y21,Z21,Iia,iv,a,b,c,J,rz(xasolv),rz(yasolv),rz(zasolv),Ccc,Xxx,Lz)
                         ENDIF
                      ENDIF
                   ENDIF
@@ -154,7 +155,7 @@ SUBROUTINE hdsolv(Ixr,J,Xxx,Ccc,Ii,Nno,Nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
    ENDIF
    nr = 5*Xxx(5+jt)
    DO is = 1 , nr
-      Rz(Xcc-1+is) = Ccc(is+jb)
+      rz(xcc-1+is) = Ccc(is+jb)
    ENDDO
    Xxx(5+jt) = Xxx(5+jt) + Nit
 END SUBROUTINE hdsolv

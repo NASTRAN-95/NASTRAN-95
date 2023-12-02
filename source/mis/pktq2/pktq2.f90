@@ -1,11 +1,12 @@
-!*==pktq2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pktq2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pktq2(Npts)
+   USE c_pla42s
+   USE c_pla4es
+   USE c_pla4uv
    IMPLICIT NONE
-   USE C_PLA42S
-   USE C_PLA4ES
-   USE C_PLA4UV
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,24 +49,24 @@ SUBROUTINE pktq2(Npts)
 !     STRESS VECTOR = (SUMMATION(S )(U ))
 !                       I=1       I   I
 !
-   DO I = 1 , Npts
+   DO i = 1 , Npts
 !
 !     POINTER TO I-TH SIL IN PH1OUT
 !
-      Npoint = 30*Npts + 9 + I
+      npoint = 30*Npts + 9 + i
 !
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
 !
-      Npoint = Ivec + nph1ou(Npoint) - 1
+      npoint = ivec + nph1ou(npoint) - 1
 !
 !     POINTER TO S SUB I 3X3
 !
-      Npt1 = 30*Npts + 9 + 9*I
+      npt1 = 30*Npts + 9 + 9*i
 !
-      CALL gmmats(Ph1out(Npt1),3,3,0,Z(Npoint),3,1,0,Vec(1))
+      CALL gmmats(ph1out(npt1),3,3,0,z(npoint),3,1,0,vec(1))
 !
-      DO J = 1 , 3
-         Stress(J) = Stress(J) + Vec(J)
+      DO j = 1 , 3
+         stress(j) = stress(j) + vec(j)
       ENDDO
 !
    ENDDO

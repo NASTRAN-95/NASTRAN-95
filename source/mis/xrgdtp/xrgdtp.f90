@@ -1,9 +1,10 @@
-!*==xrgdtp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrgdtp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgdtp
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_XRGDXX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,17 +53,17 @@ SUBROUTINE xrgdtp
    DATA delim/1H, , 1H- , 1H /
 !
    DO k = 1 , 3
-      IF ( Ichar(Icol)==delim(k) ) THEN
-         Itype = k + 1
+      IF ( ichar(icol)==delim(k) ) THEN
+         itype = k + 1
          RETURN
       ENDIF
    ENDDO
    DO k = 1 , 10
-      IF ( Ichar(Icol)==nums(k) ) THEN
-         Itype = 1
-         Number = mod(k,10)
+      IF ( ichar(icol)==nums(k) ) THEN
+         itype = 1
+         number = mod(k,10)
          RETURN
       ENDIF
    ENDDO
-   Itype = 5
+   itype = 5
 END SUBROUTINE xrgdtp

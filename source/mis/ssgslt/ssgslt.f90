@@ -1,4 +1,5 @@
-!*==ssgslt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssgslt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssgslt(Slt,Newslt,Est)
@@ -10,13 +11,13 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     MISC. CONSTANTS.  THE EXTERNAL LOADS WILL BE PREPARED AS USUAL FOR
 !     THESE AND OTHER LOAD CARD TYPES VIA SUBROUTINE EXTERN.
 !
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -208,7 +209,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          bgcore = .FALSE.
          bgopen = .FALSE.
          nogo = .FALSE.
-         buf1 = korsz(Z) - 2*sysbuf - 2
+         buf1 = korsz(z) - 2*sysbuf - 2
          buf2 = buf1 - sysbuf - 2
          buf3 = buf2 - sysbuf - 2
          core = buf3 - 1
@@ -216,12 +217,12 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
 !     OPEN SLT, AND NEWSLT.  COPY HEADER RECORD ACROSS.
 !
-         CALL open(*300,Slt,Z(buf1),Rdrew)
-         CALL open(*320,Newslt,Z(buf2),Wrtrew)
-         CALL read(*340,*20,Slt,Z,core,eor,iwords)
+         CALL open(*300,Slt,z(buf1),rdrew)
+         CALL open(*320,Newslt,z(buf2),wrtrew)
+         CALL read(*340,*20,Slt,z,core,eor,iwords)
          CALL mesage(-8,0,subr)
- 20      CALL fname(Newslt,Z)
-         CALL write(Newslt,Z,iwords,eor)
+ 20      CALL fname(Newslt,z)
+         CALL write(Newslt,z,iwords,eor)
 !
 !     READ TRAILER OF SLT AND GET COUNT OF LOAD SET RECORDS.
 !
@@ -263,7 +264,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     CHECK FOR KNOWN TYPE
 !
          IF ( itype>ntypes .OR. itype<=0 ) THEN
-            WRITE (outpt,99001) Sfm , itype
+            WRITE (outpt,99001) sfm , itype
 99001       FORMAT (A25,' 3094, SLT LOAD TYPE',I9,' IS NOT RECOGNIZED.')
             CALL mesage(-61,0,subr)
          ENDIF
@@ -286,7 +287,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
             IF ( ifirst/=1 ) THEN
                ifirst = 1
                jcore1 = ncore + 1
-               jcoren = ncore + 3*Nrowsp
+               jcoren = ncore + 3*nrowsp
                IF ( jcoren>core ) CALL mesage(-8,0,subr)
 !
                DO j1 = jcore1 , jcoren
@@ -321,8 +322,8 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     IS SET TO NONZERO, HCFLD IS COMPUTED AT THE POINTS FOR ALL LOAD
 !     TYPES AND CAN BE PRINTED FOR INFORMATIONAL PURPOSES IF DESIRED.
 !
-                     IF ( Ksystm(65)/=0 ) THEN
-                        CALL gopen(bgpdt,Z(buf3),0)
+                     IF ( ksystm(65)/=0 ) THEN
+                        CALL gopen(bgpdt,z(buf3),0)
                         mcb(1) = bgpdt
                         CALL rdtrl(mcb)
                         npts = mcb(2)
@@ -331,7 +332,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                         IF ( jcoren+4*npts>core ) bgcore = .FALSE.
                         next = jcoren + 4*npts
                         IF ( .NOT.bgcore ) next = jcoren
-                        IF ( bgcore ) CALL fread(bgpdt,Z(jcoren+1),4*npts,0)
+                        IF ( bgcore ) CALL fread(bgpdt,z(jcoren+1),4*npts,0)
                      ENDIF
                   ENDIF
                   CALL write(Newslt,buf,2,0)
@@ -345,7 +346,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                      IF ( itype==23 ) iwords = 9
                      CALL fread(Slt,buf,iwords,0)
                      CALL write(Newslt,buf,iwords,0)
-                     IF ( Ksystm(65)/=0 ) THEN
+                     IF ( ksystm(65)/=0 ) THEN
 !
 !
 !     DO THIS LOOP FOR ALL POINTS
@@ -353,7 +354,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                         DO kk = 1 , npts
                            IF ( bgcore ) THEN
                               jcor = jcoren + 4*kk
-                              IF ( Z(jcor-3)==-1 ) CYCLE
+                              IF ( z(jcor-3)==-1 ) CYCLE
                               xx = rz(jcor-2)
                               yy = rz(jcor-1)
                               zz = rz(jcor)
@@ -423,7 +424,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     DONE WITH ALL SPCFLD CARDS IN THIS LOAD SET. CHECK FOR OTHER CARD
 !     TYPES IN THIS LOAD SET
 !
-                  CALL write(Newslt,rz(jcore1),3*Nrowsp,0)
+                  CALL write(Newslt,rz(jcore1),3*nrowsp,0)
                ENDIF
 !
 !     CHECK IF NEXT CARD TYPE IS 21 ,22, OR 23. CARD TYPES ON SLT ARE
@@ -449,7 +450,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     CONTAINS TOTAL BX,BY,BZ FROM ALL REMFLUX CARDS FOR EACH ELEMENT
 !     IN THE ORDER OF ELEMENTS ON EST
 !
-            CALL gopen(Est,Z(buf3),0)
+            CALL gopen(Est,z(buf3),0)
             mcb(1) = Est
             CALL rdtrl(mcb)
             nel = mcb(2)
@@ -486,25 +487,25 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
                jcore = ncore + 1
                type(itype,4) = jcore
-               Z(jcore) = itype
-               Z(jcore+1) = entrys
+               z(jcore) = itype
+               z(jcore+1) = entrys
                jcore = jcore + 2
                ncore = jcore + entrys*outcnt - 1
                IF ( ncore>core ) CALL mesage(-8,0,subr)
                DO j = jcore , ncore
-                  Z(j) = 1
+                  z(j) = 1
                ENDDO
                kcore = jcore
 !
 !     READ IN THE LOAD ENTRIES.
 !
                DO j = jcore , ncore , outcnt
-                  CALL fread(Slt,Z(j),incnt,0)
+                  CALL fread(Slt,z(j),incnt,0)
                ENDDO
                id = 2
                IF ( itype==15 ) id = 1
                IF ( itype==16 ) id = 5
-               CALL sort(0,0,outcnt,id,Z(kcore),ncore-kcore+1)
+               CALL sort(0,0,outcnt,id,z(kcore),ncore-kcore+1)
                any = .TRUE.
             ENDIF
             spag_nextblock_1 = 3
@@ -520,7 +521,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
 !     THE EST IS NOW PROCESSED FOR ELEMENT TYPES CHECKED BELOW.
 !
-         CALL gopen(Est,Z(buf3),Rdrew)
+         CALL gopen(Est,z(buf3),rdrew)
  60      SPAG_Loop_1_1: DO
 !
 !     READ ELEMENT TYPE
@@ -721,9 +722,9 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                                          idbdy1 = type(14,4) + 3
                                          idbdy2 = type(15,4) + 2
                                          idqvec = type(16,4) + 6
-                                         qbdy1s = Z(idbdy1-2)
-                                         qbdy2s = Z(idbdy2-1)
-                                         qvects = Z(idqvec-5)
+                                         qbdy1s = z(idbdy1-2)
+                                         qbdy2s = z(idbdy2-1)
+                                         qvects = z(idqvec-5)
                                          estwds = 53
                                          GOTO 120
                                        ENDIF
@@ -759,7 +760,6 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          iarea = 7
          itype = 2
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     QDMEM AND QUAD2
@@ -770,7 +770,6 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          iarea = 8
          itype = 2
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     HEXA1 AND HEXA2
@@ -790,7 +789,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
             GOTO 60
          ELSE
             idqvol = type(13,4) + 3
-            entrys = Z(idqvol-2)
+            entrys = z(idqvol-2)
             iwords = 12
             j1 = idqvol
             j2 = j1 + entrys*iwords
@@ -801,7 +800,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
 !     LOOK FOR THIS ELEMENT ID AMONG QVOL DATA.
 !
-         CALL bisloc(*80,ecpt(1),Z(idqvol),12,entrys,jpoint)
+         CALL bisloc(*80,ecpt(1),z(idqvol),12,entrys,jpoint)
 !
 !     MATCH FOUND ON ID. COMPUTE ZERO POINTER TO ZERO WORD OF QVOL ENTRY
 !
@@ -820,7 +819,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !     IF COEFICIENT IS NOT AN INTEGER 1 ENTRY HAS BEEN ALTERED BEFORE.
 !
  100     DO index = k1 , k2 , iwords
-            IF ( Z(index+11)==1 ) THEN
+            IF ( z(index+11)==1 ) THEN
 !
 !     ALTER ENTRY IN PLACE (NOTE THE CONVERSION TABLE ABOVE)
 !
@@ -835,19 +834,19 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                i1 = index + 3
                i2 = index + 10
                DO j = i1 , i2
-                  Z(j) = 0
+                  z(j) = 0
                ENDDO
                i2 = i1 + points - 1
                igrid = grid1
                DO j = i1 , i2
-                  Z(j) = ecpt(igrid)
+                  z(j) = ecpt(igrid)
                   igrid = igrid + 1
                ENDDO
                rz(index+11) = rz(index+1)*area
-               Z(index+1) = points
-               Z(index+12) = itype
+               z(index+1) = points
+               z(index+12) = itype
             ELSE
-               WRITE (outpt,99002) Uwm , eltype , ecpt(1) , Z(i+2)
+               WRITE (outpt,99002) uwm , eltype , ecpt(1) , z(i+2)
 99002          FORMAT (A25,' 3095, ELEMENT TYPE',I9,' WITH ID =',I9,', REFERENCED BY A QVOL CARD IN LOAD SET',I9,1H,,/5X,           &
                       &'IS NOT BEING USED FOR INTERNAL HEAT GENERATION IN THIS ',                                                   &
                       &'LOAD SET BECAUSE ANOTHER ELEMENT TYPE WITH THE SAME ID',/5X,'HAS ALREADY BEEN USED.')
@@ -867,7 +866,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          j2 = j1 + qbdy1s*iwords
          idptr = 2
          ASSIGN 140 TO iretrn
-         CALL bisloc(*160,ecpt(1),Z(idbdy1),10,qbdy1s,jpoint)
+         CALL bisloc(*160,ecpt(1),z(idbdy1),10,qbdy1s,jpoint)
 !
 !     MATCH FOUND.  CHECK FOR PREVIOUS REFERENCE.
 !
@@ -876,22 +875,22 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
  140     DO index = k1 , k2 , iwords
-            IF ( Z(index+10)==1 ) THEN
+            IF ( z(index+10)==1 ) THEN
 !
 !     ALTER ENTRY FOR OUTPUT.  GET AREA FACTORS FOR HBDY ELEMENT.
 !
                CALL hbdy(ecpt,ecpt,2,rbuf,buf)
-               Z(index+3) = buf(3)
-               Z(index+4) = buf(4)
-               Z(index+5) = buf(5)
-               Z(index+6) = buf(6)
+               z(index+3) = buf(3)
+               z(index+4) = buf(4)
+               z(index+5) = buf(5)
+               z(index+6) = buf(6)
                rz(index+7) = rbuf(7)*rz(index+1)
                rz(index+8) = rbuf(8)*rz(index+1)
                rz(index+9) = rbuf(9)*rz(index+1)
                rz(index+10) = rbuf(10)*rz(index+1)
-               Z(index+1) = ecpt(2)
+               z(index+1) = ecpt(2)
             ELSE
-               WRITE (outpt,99004) Ufm , ecpt(1)
+               WRITE (outpt,99004) ufm , ecpt(1)
                nogo = .TRUE.
                GOTO 300
             ENDIF
@@ -905,7 +904,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          j2 = j1 + qbdy2s*iwords
          idptr = 1
          ASSIGN 180 TO iretrn
-         CALL bisloc(*200,ecpt(1),Z(idbdy2),10,qbdy2s,jpoint)
+         CALL bisloc(*200,ecpt(1),z(idbdy2),10,qbdy2s,jpoint)
 !
 !     MATCH FOUND.  CHECK FOR PREVIOUS REFERENCE.
 !
@@ -914,7 +913,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
  180     DO index = k1 , k2 , iwords
-            IF ( Z(index+10)==1 ) THEN
+            IF ( z(index+10)==1 ) THEN
 !
 !     ALTER ENTRY FOR OUTPUT.  GET AREA FACTORS FOR HBDY ELEMENT.
 !
@@ -923,13 +922,13 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                rz(index+8) = rbuf(8)*rz(index+3)
                rz(index+9) = rbuf(9)*rz(index+4)
                rz(index+10) = rbuf(10)*rz(index+5)
-               Z(index+3) = buf(3)
-               Z(index+4) = buf(4)
-               Z(index+5) = buf(5)
-               Z(index+6) = buf(6)
-               Z(index+2) = ecpt(2)
+               z(index+3) = buf(3)
+               z(index+4) = buf(4)
+               z(index+5) = buf(5)
+               z(index+6) = buf(6)
+               z(index+2) = ecpt(2)
             ELSE
-               WRITE (outpt,99004) Ufm , ecpt(1)
+               WRITE (outpt,99004) ufm , ecpt(1)
                nogo = .TRUE.
                GOTO 300
             ENDIF
@@ -943,7 +942,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          j2 = j1 + qvects*iwords
          idptr = 5
          ASSIGN 220 TO iretrn
-         CALL bisloc(*120,ecpt(1),Z(idqvec),19,qvects,jpoint)
+         CALL bisloc(*120,ecpt(1),z(idqvec),19,qvects,jpoint)
 !
 !     MATCH FOUND.  CHECK FOR PREVIOUS REFERENCE.
 !
@@ -952,7 +951,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
  220     DO index = k1 , k2 , iwords
-            IF ( Z(index+19)==1 ) THEN
+            IF ( z(index+19)==1 ) THEN
 !
 !     ALTER ENTRY FOR OUTPUT.  GET AREA FACTORS FOR HBDY ELEMENT.
 !
@@ -967,17 +966,17 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                rz(index+18) = rbuf(15)
                rz(index+19) = rbuf(16)
                q0 = rz(index+1)
-               Z(index+1) = buf(3)
-               Z(index+2) = buf(4)
-               Z(index+3) = buf(5)
-               Z(index+4) = buf(6)
-               Z(index+6) = ecpt(2)
+               z(index+1) = buf(3)
+               z(index+2) = buf(4)
+               z(index+3) = buf(5)
+               z(index+4) = buf(6)
+               z(index+6) = ecpt(2)
                rz(index+7) = rbuf(7)*q0
                rz(index+8) = rbuf(8)*q0
                rz(index+9) = rbuf(9)*q0
                rz(index+10) = rbuf(10)*q0
             ELSE
-               WRITE (outpt,99004) Ufm , ecpt(1)
+               WRITE (outpt,99004) ufm , ecpt(1)
                nogo = .TRUE.
                GOTO 300
             ENDIF
@@ -986,11 +985,11 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
 !     EST HAS BEEN PASSED FOR ALL ELEMENTS.  NOW OUTPUT DATA TO NEWSLT.
 !
- 240     CALL close(Est,Clsrew)
+ 240     CALL close(Est,clsrew)
          DO j = 13 , 16
             jcore = type(j,4)
             IF ( jcore>0 ) THEN
-               nwords = Z(jcore+1)*type(j,2) + 2
+               nwords = z(jcore+1)*type(j,2) + 2
 !
 !     INSURE THAT ALL ENTRYS WERE MODIFIED.
 !     CHECK WORD 7 FOR NO INTEGER 1 IN TYPES 14,15, AND 16.
@@ -1002,7 +1001,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                i2 = i1 + nwords - 3
                outcnt = type(j,2)
                DO l = i1 , i2 , outcnt
-                  IF ( Z(l)==1 ) THEN
+                  IF ( z(l)==1 ) THEN
                      k = j - 12
                      IF ( k==2 ) THEN
                         id = l - 5
@@ -1013,13 +1012,13 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
                      ELSE
                         id = l - 9
                      ENDIF
-                     WRITE (outpt,99003) Ufm , Z(id)
+                     WRITE (outpt,99003) ufm , z(id)
 99003                FORMAT (A23,' 3096, ELEMENT ID =',I9,' AS REFERENCED ON A QVOL, ','QBDY1, QBDY2, OR QVECT LOAD CARD,',/5X,     &
                             &'COULD NOT BE ','FOUND AMONG ACCEPTABLE ELEMENTS FOR THAT LOAD TYPE.')
                      nogo = .TRUE.
                   ENDIF
                ENDDO
-               CALL write(Newslt,Z(jcore),nwords,noeor)
+               CALL write(Newslt,z(jcore),nwords,noeor)
             ENDIF
          ENDDO
          spag_nextblock_1 = 8
@@ -1039,17 +1038,17 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
 !     COPY BALANCE OF DATA ON -SLT- TO -NEWSLT- WHATEVER IT BE.
 !
-            CALL read(*280,*260,Slt,Z,core,noeor,iwords)
-            CALL write(Newslt,Z,core,noeor)
+            CALL read(*280,*260,Slt,z,core,noeor,iwords)
+            CALL write(Newslt,z,core,noeor)
          ENDDO
- 260     CALL write(Newslt,Z,iwords,eor)
+ 260     CALL write(Newslt,z,iwords,eor)
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
 !
 !     NEWSLT IS COMPLETE.
 !
- 280     CALL close(Slt,Clsrew)
-         CALL close(Newslt,Clsrew)
+ 280     CALL close(Slt,clsrew)
+         CALL close(Newslt,clsrew)
  300     IF ( nogo ) CALL mesage(-61,0,subr)
          RETURN
 !
@@ -1063,7 +1062,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          RETURN
       CASE (10)
          SPAG_Loop_1_2: DO WHILE ( jindex>=j1 )
-            IF ( Z(jindex)/=ecpt(1) ) EXIT SPAG_Loop_1_2
+            IF ( z(jindex)/=ecpt(1) ) EXIT SPAG_Loop_1_2
             jindex = jindex - iwords
          ENDDO SPAG_Loop_1_2
          k1 = jindex + iwords - idptr
@@ -1072,7 +1071,7 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
          jindex = k1 + iwords + idptr
          SPAG_Loop_1_3: DO WHILE ( jindex<j2 )
-            IF ( Z(jindex)/=ecpt(1) ) EXIT SPAG_Loop_1_3
+            IF ( z(jindex)/=ecpt(1) ) EXIT SPAG_Loop_1_3
             jindex = jindex + iwords
          ENDDO SPAG_Loop_1_3
          k2 = jindex - iwords - idptr
@@ -1083,15 +1082,15 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          buf(1) = -20
          buf(2) = 1
          CALL write(Newslt,buf,2,0)
-         CALL write(Newslt,rz(jcore1),3*Nrowsp,0)
+         CALL write(Newslt,rz(jcore1),3*nrowsp,0)
          IF ( bgopen ) CALL close(bgpdt,1)
          IF ( ieor==1 ) GOTO 40
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
  440     CALL read(*460,*360,Est,eltype,1,0,iwords)
-         idx = (eltype-1)*Incr
-         estwds = Ne(idx+12)
+         idx = (eltype-1)*incr
+         estwds = ne(idx+12)
          DO
             CALL read(*380,*440,Est,elid,1,0,iwords)
             nels = nels + 1
@@ -1102,8 +1101,8 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
 !
             DO j1 = 1 , entrys
                isub1 = jcoren + 5*j1
-               IF ( Z(isub1)/=-1 ) THEN
-                  IF ( elid/=Z(isub1) ) CYCLE
+               IF ( z(isub1)/=-1 ) THEN
+                  IF ( elid/=z(isub1) ) CYCLE
                ENDIF
 !
 !     MATCH-STORE THIS PERM MAG
@@ -1125,7 +1124,6 @@ SUBROUTINE ssgslt(Slt,Newslt,Est)
          CALL write(Newslt,buf,2,0)
          CALL write(Newslt,rz(jcore1),3*nel,0)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99004 FORMAT (A23,' 2362, CHBDY CARDS WITH DUPLICATE IDS FOUND IN EST,',' CHBDY ID NUMBER =',I9)

@@ -2,7 +2,7 @@
  
 SUBROUTINE pakcol(Terms,Nterms)
    IMPLICIT NONE
-   USE C_ZBLPKX
+   USE c_zblpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -14,6 +14,15 @@ SUBROUTINE pakcol(Terms,Nterms)
    INTEGER :: i , iloc , isil , j , jloc , jsil , kloc , nt
    INTEGER , DIMENSION(7) :: temp
    REAL*8 :: tval , val
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -66,13 +75,13 @@ SUBROUTINE pakcol(Terms,Nterms)
 !
             iloc = 1
             DO
-               Irow = iabs(Terms(iloc))
+               irow = iabs(Terms(iloc))
                nt = 2
                IF ( Terms(iloc)>0 ) nt = 6
 !
                DO i = 1 , nt , 2
-                  A(1) = Terms(iloc+i)
-                  A(2) = Terms(iloc+i+1)
+                  a(1) = Terms(iloc+i)
+                  a(2) = Terms(iloc+i+1)
                   jloc = iloc
                   DO
                      j = jloc
@@ -83,8 +92,8 @@ SUBROUTINE pakcol(Terms,Nterms)
 !
 !     DUPLICATE SILS - ADD THEM
 !
-                     A(3) = Terms(jloc+i)
-                     A(4) = Terms(jloc+i+1)
+                     a(3) = Terms(jloc+i)
+                     a(4) = Terms(jloc+i+1)
                      val = val + tval
                      j = jloc
                   ENDDO
@@ -92,7 +101,7 @@ SUBROUTINE pakcol(Terms,Nterms)
 !     PACK OUT TERM
 !
                   CALL zblpki
-                  Irow = Irow + 1
+                  irow = irow + 1
                ENDDO
 !
                iloc = jloc

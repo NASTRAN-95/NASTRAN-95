@@ -1,13 +1,14 @@
-!*==comugv.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==comugv.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE comugv
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,10 +53,10 @@ SUBROUTINE comugv
 !
 ! OPEN CORE AND BUFFERS
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Ibuf + 1
-         buf2 = buf1 - Ibuf
-         buf3 = buf2 - Ibuf
+         lcore = korsz(z)
+         buf1 = lcore - ibuf + 1
+         buf2 = buf1 - ibuf
+         buf3 = buf2 - ibuf
          lcore = buf3 - 1
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 3
@@ -65,7 +66,7 @@ SUBROUTINE comugv
          CALL rdtrl(mcb)
          ncol = mcb(2)
          nrow = mcb(3)
-         IF ( ncol/=Nmodes*Ndir ) THEN
+         IF ( ncol/=nmodes*ndir ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -88,25 +89,25 @@ SUBROUTINE comugv
          mcb2(6) = 0
          mcb2(7) = 0
 !
-         Jout = 1
-         Iii = 1
-         Nnn = nrow
-         Jncr = 1
-         Iin = 1
-         Iout = 1
-         Ii = 1
-         Nn = nrow
-         Incr = 1
+         jout = 1
+         iii = 1
+         nnn = nrow
+         jncr = 1
+         iin = 1
+         iout = 1
+         ii = 1
+         nn = nrow
+         incr = 1
 !
-         CALL gopen(ugv,Z(buf1),0)
-         CALL gopen(ugvadd,Z(buf2),1)
-         CALL gopen(ugvsqr,Z(buf3),1)
+         CALL gopen(ugv,z(buf1),0)
+         CALL gopen(ugvadd,z(buf2),1)
+         CALL gopen(ugvsqr,z(buf3),1)
 !
 ! UNPACK NDIR COLUMNS OF UGV WHICH CORRESPOND TO A SINGLE MODE
 !
-         nm1 = Nmodes - 1
-         nd1 = Ndir - 1
-         DO i = 1 , Nmodes
+         nm1 = nmodes - 1
+         nd1 = ndir - 1
+         DO i = 1 , nmodes
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -123,12 +124,12 @@ SUBROUTINE comugv
 !
 ! UNPACK VECTOR
 !
-                  CALL unpack(*2,ugv,Z(1))
+                  CALL unpack(*2,ugv,z(1))
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
 !
  2                DO j = 1 , nrow
-                     Z(j) = 0.
+                     z(j) = 0.
                   ENDDO
                   spag_nextblock_2 = 2
                CASE (2)
@@ -139,8 +140,8 @@ SUBROUTINE comugv
 !
 ! JUST ONE DIRECTION ON UGV- COPY TO DATA BLOCKS
 !
-                     CALL pack(Z(1),ugvadd,mcb1)
-                     CALL pack(Z(1),ugvsqr,mcb2)
+                     CALL pack(z(1),ugvadd,mcb1)
+                     CALL pack(z(1),ugvsqr,mcb2)
                   ELSE
                      DO j = 1 , nd1
                         IF ( nm1/=0 ) THEN
@@ -150,10 +151,10 @@ SUBROUTINE comugv
                         ENDIF
 !
                         jnrow = j*nrow
-                        CALL unpack(*4,ugv,Z(jnrow+1))
+                        CALL unpack(*4,ugv,z(jnrow+1))
                         CYCLE
  4                      DO jj = 1 , nrow
-                           Z(j*nrow+jj) = 0.
+                           z(j*nrow+jj) = 0.
                         ENDDO
 !
                      ENDDO
@@ -161,14 +162,14 @@ SUBROUTINE comugv
 ! NOW PERFORM EACH OPERATION AND STORE INTO Z(3*NROW+1)
 !
                      DO kk = 1 , nrow
-                        Z(3*nrow+kk) = abs(Z(kk)) + abs(Z(nrow+kk)) + abs(Z(2*nrow+kk))
+                        z(3*nrow+kk) = abs(z(kk)) + abs(z(nrow+kk)) + abs(z(2*nrow+kk))
                      ENDDO
-                     CALL pack(Z(3*nrow+1),ugvadd,mcb1)
+                     CALL pack(z(3*nrow+1),ugvadd,mcb1)
 !
                      DO kk = 1 , nrow
-                        Z(3*nrow+kk) = sqrt(Z(kk)**2+Z(nrow+kk)**2+Z(2*nrow+kk)**2)
+                        z(3*nrow+kk) = sqrt(z(kk)**2+z(nrow+kk)**2+z(2*nrow+kk)**2)
                      ENDDO
-                     CALL pack(Z(3*nrow+1),ugvsqr,mcb2)
+                     CALL pack(z(3*nrow+1),ugvsqr,mcb2)
                   ENDIF
 !
 ! DONE FOR THIS MODE - GET ANOTHER
@@ -197,26 +198,26 @@ SUBROUTINE comugv
          mcb1(7) = 0
          CALL rewind(ugv)
          CALL fwdrec(*40,ugv)
-         CALL gopen(ugvnrl,Z(buf2),1)
+         CALL gopen(ugvnrl,z(buf2),1)
 !
-         DO nd = 1 , Ndir
+         DO nd = 1 , ndir
 !
 ! SET UP VECTOR OF MAXIMUM DISPLACEMENT COMPONENTS AND VECTOR OF SUMS
 !
             DO i = 1 , nrow
-               Z(i) = 0.
-               Z(2*nrow+i) = 0.
+               z(i) = 0.
+               z(2*nrow+i) = 0.
             ENDDO
 !
-            DO i = 1 , Nmodes
+            DO i = 1 , nmodes
 !
-               CALL unpack(*10,ugv,Z(nrow+1))
+               CALL unpack(*10,ugv,z(nrow+1))
 !
 ! COMPARE TO MAXIMUM COMPONENTS
 !
                DO j = 1 , nrow
-                  IF ( abs(Z(nrow+j))>Z(j) ) Z(j) = abs(Z(nrow+j))
-                  Z(2*nrow+j) = Z(2*nrow+j) + Z(nrow+j)**2
+                  IF ( abs(z(nrow+j))>z(j) ) z(j) = abs(z(nrow+j))
+                  z(2*nrow+j) = z(2*nrow+j) + z(nrow+j)**2
                ENDDO
 !
 ! GET ANOTHER DISPLACEMENT VECTOR CORRESPONDING TO ANOTHER MODE
@@ -226,16 +227,16 @@ SUBROUTINE comugv
 ! SUBTRACT THE MAXIMA FROM THE SUMS
 !
             DO j = 1 , nrow
-               Z(2*nrow+j) = Z(2*nrow+j) - Z(j)**2
+               z(2*nrow+j) = z(2*nrow+j) - z(j)**2
 !
 ! TAKE SQUARE ROOT AND ADD IN THE MAXIMA
 !
-               Z(2*nrow+j) = sqrt(Z(2*nrow+j)) + Z(j)
+               z(2*nrow+j) = sqrt(z(2*nrow+j)) + z(j)
             ENDDO
 !
 ! PACK RESULTS ANG GET ANOTHER DIRECTION
 !
-            CALL pack(Z(2*nrow+1),ugvnrl,mcb1)
+            CALL pack(z(2*nrow+1),ugvnrl,mcb1)
          ENDDO
 !
          CALL close(ugv,1)
@@ -264,34 +265,34 @@ SUBROUTINE comugv
             mcb1(5) = 1
             mcb1(6) = 0
             mcb1(7) = 0
-            IF ( ncol/=Nmodes ) THEN
+            IF ( ncol/=nmodes ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
-            CALL gopen(indb(i),Z(buf1),0)
-            CALL gopen(oudb(i),Z(buf2),1)
+            CALL gopen(indb(i),z(buf1),0)
+            CALL gopen(oudb(i),z(buf2),1)
 !
             DO j = 1 , nrow
-               Z(j) = 0.
+               z(j) = 0.
             ENDDO
 !
 ! UNPACK THE COLUMNS OF INDB AND ACCUMULATE SUMS OF SQUARES
 !
-            DO j = 1 , Nmodes
-               CALL unpack(*20,indb(i),Z(nrow+1))
+            DO j = 1 , nmodes
+               CALL unpack(*20,indb(i),z(nrow+1))
 !
                DO k = 1 , nrow
-                  Z(k) = Z(k) + Z(nrow+k)**2
+                  z(k) = z(k) + z(nrow+k)**2
                ENDDO
 !
  20         ENDDO
 !
             DO k = 1 , nrow
-               Z(k) = sqrt(Z(k))
+               z(k) = sqrt(z(k))
             ENDDO
 !
-            CALL pack(Z(1),oudb(i),mcb1)
+            CALL pack(z(1),oudb(i),mcb1)
 !
             CALL close(indb(i),1)
             CALL close(oudb(i),1)

@@ -2,11 +2,11 @@
  
 SUBROUTINE qparam
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OSCENT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XVPS
+   USE c_blank
+   USE c_oscent
+   USE c_system
+   USE c_xmssg
+   USE c_xvps
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -14,6 +14,12 @@ SUBROUTINE qparam
    INTEGER , SAVE :: off
    INTEGER , DIMENSION(30) , SAVE :: opcode
    INTEGER , DIMENSION(2) :: switch
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -59,7 +65,7 @@ SUBROUTINE qparam
 !     BRANCH ON OPERATION CODE.
 !
    DO i = 1 , 30
-      IF ( Op(1)==opcode(i) ) THEN
+      IF ( op(1)==opcode(i) ) THEN
          IF ( i==1 ) GOTO 100
          IF ( i==2 ) GOTO 200
          IF ( i==3 ) GOTO 300
@@ -113,52 +119,52 @@ SUBROUTINE qparam
 !
 !     OPERATION CODE NOT DEFINED-- WRITE MESSAGE.
 !
-   WRITE (outtap,99001) Ufm , Op(1) , Op(2)
+   WRITE (outtap,99001) ufm , op(1) , op(2)
 99001 FORMAT (A23,' 2024, OPERATION CODE ',2A4,' NOT DEFINED FOR ','MODULE PARAM.')
    CALL mesage(-61,0,0)
    GOTO 99999
 !
 !     .AND.
 !
- 100  Out = -1
-   IF ( In1>=0 .OR. In2>=0 ) Out = +1
+ 100  out = -1
+   IF ( in1>=0 .OR. in2>=0 ) out = +1
    GOTO 2400
 !
 !     .OR.
 !
- 200  Out = +1
-   IF ( In1<0 .OR. In2<0 ) Out = -1
+ 200  out = +1
+   IF ( in1<0 .OR. in2<0 ) out = -1
    GOTO 2400
 !
 !     ADD
 !
- 300  Out = In1 + In2
+ 300  out = in1 + in2
    GOTO 2400
 !
 !     SUB
 !
- 400  Out = In1 - In2
+ 400  out = in1 - in2
    GOTO 2400
 !
 !     MPY
 !
- 500  Out = In1*In2
+ 500  out = in1*in2
    GOTO 2400
 !
 !     DIV
 !
- 600  Out = In1/In2
+ 600  out = in1/in2
    GOTO 2400
 !
 !     NOT
 !
- 700  Out = -In1
+ 700  out = -in1
    GOTO 2400
 !
 !     IMPLY
 !
- 800  Out = +1
-   IF ( In1>=0 .OR. In2<0 ) Out = -1
+ 800  out = +1
+   IF ( in1>=0 .OR. in2<0 ) out = -1
 !
 !     NOP
 !
@@ -166,85 +172,85 @@ SUBROUTINE qparam
 !
 !     PROVIDE PRECISION FROM /SYSTEM/.
 !
- 900  Out = iprec
+ 900  out = iprec
    GOTO 2400
 !
 !     PROVIDE CURRENT TIME
 !
- 1000 CALL klock(Out)
+ 1000 CALL klock(out)
    GOTO 2400
 !
 !     PROVIDE TIME-TO-GO
 !
- 1100 CALL tmtogo(Out)
+ 1100 CALL tmtogo(out)
    GOTO 2400
 !
 !     MODIFY SYSTEM CELL.
 !
- 1200 Out = In2
-   Ksystm(In1) = In2
-   IF ( In1<=0 .OR. In1>lsystm ) WRITE (outtap,99002) Uwm , In1
+ 1200 out = in2
+   ksystm(in1) = in2
+   IF ( in1<=0 .OR. in1>lsystm ) WRITE (outtap,99002) uwm , in1
 99002 FORMAT (A25,' 2317, PARAM HAS STORED OUTSIDE DEFINED RANGE OF ','COMMON BLOCK /SYSTEM/.',/32X,'INDEX VALUE =',I20)
    GOTO 2400
 !
 !     TURN DIAG SWITCH ON OR OFF.
 !
- 1300 IF ( In2<In1 ) In2 = In1
-   DO i = In1 , In2
+ 1300 IF ( in2<in1 ) in2 = in1
+   DO i = in1 , in2
       IF ( i>31 ) THEN
-         Out = i - 31
-         Out = lshift(1,Out-1)
-         switch(2) = orf(switch(2),Out)
-         IF ( Op(2)==off ) switch(2) = switch(2) - Out
-         Out = Out + 31
+         out = i - 31
+         out = lshift(1,out-1)
+         switch(2) = orf(switch(2),out)
+         IF ( op(2)==off ) switch(2) = switch(2) - out
+         out = out + 31
       ELSE
-         Out = lshift(1,i-1)
-         switch(1) = orf(switch(1),Out)
-         IF ( Op(2)==off ) switch(1) = switch(1) - Out
+         out = lshift(1,i-1)
+         switch(1) = orf(switch(1),out)
+         IF ( op(2)==off ) switch(1) = switch(1) - out
       ENDIF
    ENDDO
-   Out = switch(1)
-   IF ( i>31 ) Out = switch(2)
+   out = switch(1)
+   IF ( i>31 ) out = switch(2)
    GOTO 2400
 !
 !     RETURN VALUE OF IN1-TH WORD OF /SYSTEM/.
 !
- 1400 Out = Ksystm(In1)
+ 1400 out = ksystm(in1)
    GOTO 2400
 !
 !     SAVE OR RESTORE SSWITCH WORD
 !
- 1500 IF ( In1<0 ) THEN
-      IF ( iabs(In1)>31 ) THEN
-         switch(2) = Out
+ 1500 IF ( in1<0 ) THEN
+      IF ( iabs(in1)>31 ) THEN
+         switch(2) = out
       ELSE
-         switch(1) = Out
+         switch(1) = out
       ENDIF
-   ELSEIF ( In1>31 ) THEN
-      Out = switch(2)
+   ELSEIF ( in1>31 ) THEN
+      out = switch(2)
    ELSE
-      Out = switch(1)
+      out = switch(1)
    ENDIF
    GOTO 2400
 !
 !     TURN SSWITCH ON OR OFF
 !
- 1600 IF ( Out/=0 ) THEN
-      IF ( Out>0 ) THEN
-         IF ( Out>31 ) THEN
-            Out = Out - 31
-            switch(2) = orf(lshift(1,Out-1),switch(2))
-            Out = Out + 31
+ 1600 IF ( out/=0 ) THEN
+      IF ( out>0 ) THEN
+         IF ( out>31 ) THEN
+            out = out - 31
+            switch(2) = orf(lshift(1,out-1),switch(2))
+            out = out + 31
          ELSE
-            switch(1) = orf(lshift(1,Out-1),switch(1))
+            switch(1) = orf(lshift(1,out-1),switch(1))
          ENDIF
-      ELSEIF ( iabs(Out)>31 ) THEN
-         Out = Out + 31
-         mask = lshift(1,iabs(Out)-1)
+      ELSEIF ( iabs(out)>31 ) THEN
+         out = out + 31
+         mask = lshift(1,iabs(out)-1)
          switch(2) = xorf(mask,orf(mask,switch(2)))
-         Out = Out - 31
+         out = out - 31
       ELSE
-         mask = lshift(1,iabs(Out)-1)
+         mask = lshift(1,iabs(out)-1)
          switch(1) = xorf(mask,orf(mask,switch(1)))
       ENDIF
    ENDIF
@@ -254,53 +260,53 @@ SUBROUTINE qparam
 !
 !     SAVE
 !
- 1700 IF ( In1<0 ) THEN
+ 1700 IF ( in1<0 ) THEN
 !
 !     RESTORE
 !
-      In1 = iabs(In1)
-      Ksystm(In1) = Out
+      in1 = iabs(in1)
+      ksystm(in1) = out
    ELSE
-      Out = Ksystm(In1)
+      out = ksystm(in1)
    ENDIF
    GOTO 2400
 !
 !     ARITHMETIC RELATIONAL OPERATORS.
 !
- 1800 IF ( In1/=In2 ) THEN
-      Out = +1
+ 1800 IF ( in1/=in2 ) THEN
+      out = +1
    ELSE
-      Out = -1
+      out = -1
    ENDIF
    GOTO 2400
- 1900 IF ( In1<=In2 ) THEN
-      Out = +1
+ 1900 IF ( in1<=in2 ) THEN
+      out = +1
    ELSE
-      Out = -1
+      out = -1
    ENDIF
    GOTO 2400
- 2000 IF ( In1<In2 ) THEN
-      Out = -1
+ 2000 IF ( in1<in2 ) THEN
+      out = -1
    ELSE
-      Out = +1
+      out = +1
    ENDIF
    GOTO 2400
- 2100 IF ( In1<=In2 ) THEN
-      Out = -1
+ 2100 IF ( in1<=in2 ) THEN
+      out = -1
    ELSE
-      Out = +1
+      out = +1
    ENDIF
    GOTO 2400
- 2200 IF ( In1<In2 ) THEN
-      Out = +1
+ 2200 IF ( in1<in2 ) THEN
+      out = +1
    ELSE
-      Out = -1
+      out = -1
    ENDIF
    GOTO 2400
- 2300 IF ( In1/=In2 ) THEN
-      Out = -1
+ 2300 IF ( in1/=in2 ) THEN
+      out = -1
    ELSE
-      Out = +1
+      out = +1
 !
 !     UNDEFINED.
 !
@@ -323,7 +329,6 @@ SUBROUTINE qparam
 !
 !     SAVE OUT IN THE VPS.
 !
- 2400 i = andf(Oscar(16),65535)
-   Vps(i) = Out
-   RETURN
+ 2400 i = andf(oscar(16),65535)
+   vps(i) = out
 99999 END SUBROUTINE qparam

@@ -1,10 +1,11 @@
-!*==ifp1f.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1f.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1f(Iword,Ii) !HIDESTARS (*,Iword,Ii)
+   USE c_ifp1a
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,17 +25,17 @@ SUBROUTINE ifp1f(Iword,Ii) !HIDESTARS (*,Iword,Ii)
 !
    !>>>>EQUIVALENCE (Corex(1),Corey(1)) , (Core(1),Corey(401))
 !
-   Iword = Izzzbb
+   Iword = izzzbb
    l = 1
    Ii = 0
    DO i = 1 , 18
-      DO j = 1 , Ncpw4
-         k = khrfn1(Izzzbb,1,core(i),j)
-         IF ( k/=Iben ) THEN
+      DO j = 1 , ncpw4
+         k = khrfn1(izzzbb,1,core(i),j)
+         IF ( k/=iben ) THEN
             IF ( Ii==0 ) Ii = i
             Iword = khrfn1(Iword,l,k,1)
             l = l + 1
-            IF ( l>Ncpw4 ) RETURN
+            IF ( l>ncpw4 ) RETURN
          ENDIF
       ENDDO
    ENDDO

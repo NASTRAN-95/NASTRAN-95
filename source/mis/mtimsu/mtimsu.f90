@@ -2,10 +2,10 @@
  
 SUBROUTINE mtimsu(Y,X,Buf)
    IMPLICIT NONE
-   USE C_INVPWX
-   USE C_INVPXX
-   USE C_NAMES
-   USE C_ZNTPKX
+   USE c_invpwx
+   USE c_invpxx
+   USE c_names
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,35 +21,44 @@ SUBROUTINE mtimsu(Y,X,Buf)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     M TIMS U  FORMS THE  PRODUCT  X = M*Y
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR(1)
    !>>>>EQUIVALENCE (A(1),Da)
 !
 !
-   ncol = Filek(2)
+   ncol = filek(2)
    DO i = 1 , ncol
       X(i) = 0.D0
    ENDDO
 !
 !     MASS MATRIX IS NOT DIAGONAL
 !
-   Nzero = 0
+   nzero = 0
    DO i = 1 , ncol
       IF ( Y(i)==0.D0 ) THEN
-         CALL skprec(Filem,1)
-         Nzero = Nzero + 1
+         CALL skprec(filem,1)
+         nzero = nzero + 1
       ELSE
-         CALL intpk(*100,Filem(1),0,Rdp,0)
-         Nzero = Nzero + 1
+         CALL intpk(*100,filem(1),0,rdp,0)
+         nzero = nzero + 1
          DO
             CALL zntpki
-            X(Ii) = da*Y(i) + X(Ii)
-            IF ( Eol/=0 ) EXIT
+            X(ii) = da*Y(i) + X(ii)
+            IF ( eol/=0 ) EXIT
          ENDDO
       ENDIF
  100  ENDDO
-   CALL rewind(Filem(1))
-   CALL skprec(Filem,1)
-   Nzero = ncol - Nzero
+   CALL rewind(filem(1))
+   CALL skprec(filem,1)
+   nzero = ncol - nzero
 END SUBROUTINE mtimsu

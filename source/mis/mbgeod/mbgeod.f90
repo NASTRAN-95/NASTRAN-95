@@ -1,10 +1,11 @@
-!*==mbgeod.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mbgeod.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbgeod
+   USE c_mboxa
+   USE c_mboxc
    IMPLICIT NONE
-   USE C_MBOXA
-   USE C_MBOXC
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,147 +23,147 @@ SUBROUTINE mbgeod
 !
    big = -1.0E35
    DO i = 1 , 10
-      Tang(i) = 0.0
-      Ang(i) = 0.0
+      tang(i) = 0.0
+      ang(i) = 0.0
    ENDDO
-   Y(4) = Y(1)
-   Y(6) = Y(3)
+   y(4) = y(1)
+   y(6) = y(3)
 !
-   IF ( .NOT.(Crank1) ) THEN
-      X(2) = X(3)
-      Y(2) = Y(3)
-      Tang(2) = 0.0
+   IF ( .NOT.(crank1) ) THEN
+      x(2) = x(3)
+      y(2) = y(3)
+      tang(2) = 0.0
    ENDIF
 !
-   IF ( .NOT.(Crank2) ) THEN
-      X(5) = X(6)
-      Y(5) = Y(6)
-      Tang(5) = 0.0
+   IF ( .NOT.(crank2) ) THEN
+      x(5) = x(6)
+      y(5) = y(6)
+      tang(5) = 0.0
    ENDIF
 !
-   Tang(1) = (X(2)-X(1))/(Y(2)-Y(1))
-   Ang(1) = 57.2958*atan(Tang(1))
-   IF ( Crank1 ) Tang(2) = (X(3)-X(2))/(Y(3)-Y(2))
-   Ang(2) = 57.2958*atan(Tang(2))
-   Tang(4) = (X(5)-X(4))/(Y(5)-Y(4))
-   Ang(4) = 57.2958*atan(Tang(4))
-   IF ( Crank2 ) Tang(5) = (X(6)-X(5))/(Y(6)-Y(5))
-   Ang(5) = 57.2958*atan(Tang(5))
+   tang(1) = (x(2)-x(1))/(y(2)-y(1))
+   ang(1) = 57.2958*atan(tang(1))
+   IF ( crank1 ) tang(2) = (x(3)-x(2))/(y(3)-y(2))
+   ang(2) = 57.2958*atan(tang(2))
+   tang(4) = (x(5)-x(4))/(y(5)-y(4))
+   ang(4) = 57.2958*atan(tang(4))
+   IF ( crank2 ) tang(5) = (x(6)-x(5))/(y(6)-y(5))
+   ang(5) = 57.2958*atan(tang(5))
 !
-   areaw = 0.5*(X(1)*(Y(1)-Y(2))+X(2)*(Y(1)-Y(3))+X(3)*(Y(2)-Y(3))+X(4)*(Y(5)-Y(1))+X(5)*(Y(3)-Y(1))+X(6)*(Y(3)-Y(5)))
+   areaw = 0.5*(x(1)*(y(1)-y(2))+x(2)*(y(1)-y(3))+x(3)*(y(2)-y(3))+x(4)*(y(5)-y(1))+x(5)*(y(3)-y(1))+x(6)*(y(3)-y(5)))
 !
 !     CONTROL1 SURFACE GEOMETRY
 !
    area1 = 0.0
-   IF ( Cntrl1 ) THEN
-      Tang(7) = (X(9)-X(8))/(Y(9)-Y(8))
-      Ang(7) = 57.2958*atan(Tang(7))
+   IF ( cntrl1 ) THEN
+      tang(7) = (x(9)-x(8))/(y(9)-y(8))
+      ang(7) = 57.2958*atan(tang(7))
 !
-      IF ( abs(Y(7)-Y(8))>0.01 ) THEN
+      IF ( abs(y(7)-y(8))>0.01 ) THEN
 !
-         tm = (X(7)-X(8))/(Y(7)-Y(8))
-         IF ( Y(5)/=Y(7) .OR. X(5)/=X(7) ) THEN
-            Y(7) = (tm*Y(8)-Tang(4)*Y(4)+X(4)-X(8))/(tm-Tang(4))
-            IF ( Y(7)<=Y(5) ) THEN
-               X(7) = Tang(4)*(Y(7)-Y(4)) + X(4)
+         tm = (x(7)-x(8))/(y(7)-y(8))
+         IF ( y(5)/=y(7) .OR. x(5)/=x(7) ) THEN
+            y(7) = (tm*y(8)-tang(4)*y(4)+x(4)-x(8))/(tm-tang(4))
+            IF ( y(7)<=y(5) ) THEN
+               x(7) = tang(4)*(y(7)-y(4)) + x(4)
             ELSE
-               Y(7) = (tm*Y(8)-Tang(5)*Y(5)+X(5)-X(8))/(tm-Tang(5))
-               X(7) = Tang(5)*(Y(7)-Y(5)) + X(5)
+               y(7) = (tm*y(8)-tang(5)*y(5)+x(5)-x(8))/(tm-tang(5))
+               x(7) = tang(5)*(y(7)-y(5)) + x(5)
             ENDIF
          ENDIF
       ELSE
-         Y(7) = Y(8)
+         y(7) = y(8)
          tm = big
-         IF ( Y(7)>Y(5) ) THEN
-            X(7) = Tang(5)*(Y(7)-Y(5)) + X(5)
+         IF ( y(7)>y(5) ) THEN
+            x(7) = tang(5)*(y(7)-y(5)) + x(5)
          ELSE
-            X(7) = Tang(4)*(Y(7)-Y(4)) + X(4)
+            x(7) = tang(4)*(y(7)-y(4)) + x(4)
          ENDIF
       ENDIF
-      Tang(6) = tm
+      tang(6) = tm
 !
-      IF ( abs(Y(11)-Y(9))>0.01 ) THEN
+      IF ( abs(y(11)-y(9))>0.01 ) THEN
 !
-         tm = (X(11)-X(9))/(Y(11)-Y(9))
-         IF ( Y(5)/=Y(11) .OR. X(5)/=X(11) ) THEN
-            Y(11) = (tm*Y(9)-Tang(4)*Y(4)+X(4)-X(9))/(tm-Tang(4))
-            IF ( Y(11)<=Y(5) ) THEN
-               X(11) = Tang(4)*(Y(11)-Y(4)) + X(4)
+         tm = (x(11)-x(9))/(y(11)-y(9))
+         IF ( y(5)/=y(11) .OR. x(5)/=x(11) ) THEN
+            y(11) = (tm*y(9)-tang(4)*y(4)+x(4)-x(9))/(tm-tang(4))
+            IF ( y(11)<=y(5) ) THEN
+               x(11) = tang(4)*(y(11)-y(4)) + x(4)
             ELSE
-               Y(11) = (tm*Y(9)-Tang(5)*Y(5)+X(5)-X(9))/(tm-Tang(5))
-               X(11) = Tang(5)*(Y(11)-Y(5)) + X(5)
+               y(11) = (tm*y(9)-tang(5)*y(5)+x(5)-x(9))/(tm-tang(5))
+               x(11) = tang(5)*(y(11)-y(5)) + x(5)
             ENDIF
          ENDIF
       ELSE
-         Y(11) = Y(9)
+         y(11) = y(9)
          tm = big
-         IF ( Y(11)>Y(5) ) THEN
-            X(11) = Tang(5)*(Y(11)-Y(5)) + X(5)
+         IF ( y(11)>y(5) ) THEN
+            x(11) = tang(5)*(y(11)-y(5)) + x(5)
          ELSE
-            X(11) = Tang(4)*(Y(11)-Y(4)) + X(4)
+            x(11) = tang(4)*(y(11)-y(4)) + x(4)
          ENDIF
       ENDIF
-      Tang(8) = tm
+      tang(8) = tm
 !
-      IF ( Y(7)<=Y(5) .AND. Y(11)>=Y(5) ) THEN
+      IF ( y(7)<=y(5) .AND. y(11)>=y(5) ) THEN
 !
-         area1 = 0.5*(X(5)*(Y(11)-Y(7))+X(8)*(Y(7)-Y(9))+X(9)*(Y(8)-Y(11))+X(7)*(Y(5)-Y(8))+X(11)*(Y(9)-Y(5)))
+         area1 = 0.5*(x(5)*(y(11)-y(7))+x(8)*(y(7)-y(9))+x(9)*(y(8)-y(11))+x(7)*(y(5)-y(8))+x(11)*(y(9)-y(5)))
       ELSE
-         area1 = 0.5*((X(8)-X(11))*(Y(7)-Y(9))+(X(9)-X(7))*(Y(8)-Y(11)))
+         area1 = 0.5*((x(8)-x(11))*(y(7)-y(9))+(x(9)-x(7))*(y(8)-y(11)))
       ENDIF
    ENDIF
 !
 !     CONTROL2 SURFACE GEOMETRY
 !
    area2 = 0.0
-   IF ( Cntrl2 ) THEN
-      Tang(10) = (X(10)-X(9))/(Y(10)-Y(9))
-      Ang(10) = 57.2958*atan(Tang(10))
-      IF ( abs(Y(12)-Y(10))>0.01 ) THEN
-         tm = (X(12)-X(10))/(Y(12)-Y(10))
-         IF ( Y(5)/=Y(12) .OR. X(5)/=X(12) ) THEN
-            Y(12) = (tm*Y(10)-Tang(4)*Y(4)+X(4)-X(10))/(tm-Tang(4))
-            IF ( Y(12)<=Y(5) ) THEN
-               X(12) = Tang(4)*(Y(12)-Y(4)) + X(4)
+   IF ( cntrl2 ) THEN
+      tang(10) = (x(10)-x(9))/(y(10)-y(9))
+      ang(10) = 57.2958*atan(tang(10))
+      IF ( abs(y(12)-y(10))>0.01 ) THEN
+         tm = (x(12)-x(10))/(y(12)-y(10))
+         IF ( y(5)/=y(12) .OR. x(5)/=x(12) ) THEN
+            y(12) = (tm*y(10)-tang(4)*y(4)+x(4)-x(10))/(tm-tang(4))
+            IF ( y(12)<=y(5) ) THEN
+               x(12) = tang(4)*(y(12)-y(4)) + x(4)
             ELSE
-               Y(12) = (tm*Y(10)-Tang(5)*Y(5)+X(5)-X(10))/(tm-Tang(5))
-               X(12) = Tang(5)*(Y(12)-Y(5)) + X(5)
+               y(12) = (tm*y(10)-tang(5)*y(5)+x(5)-x(10))/(tm-tang(5))
+               x(12) = tang(5)*(y(12)-y(5)) + x(5)
             ENDIF
          ENDIF
       ELSE
-         Y(12) = Y(10)
+         y(12) = y(10)
          tm = big
-         IF ( Y(12)>Y(5) ) THEN
-            X(12) = Tang(5)*(Y(12)-Y(5)) + X(5)
+         IF ( y(12)>y(5) ) THEN
+            x(12) = tang(5)*(y(12)-y(5)) + x(5)
          ELSE
-            X(12) = Tang(4)*(Y(12)-Y(4)) + X(4)
+            x(12) = tang(4)*(y(12)-y(4)) + x(4)
          ENDIF
       ENDIF
-      Tang(9) = tm
+      tang(9) = tm
 !
-      IF ( Y(11)<=Y(5) .AND. Y(12)>=Y(5) ) THEN
+      IF ( y(11)<=y(5) .AND. y(12)>=y(5) ) THEN
 !
-         area2 = 0.5*(X(5)*(Y(12)-Y(11))+X(9)*(Y(11)-Y(10))+X(10)*(Y(9)-Y(12))+X(11)*(Y(5)-Y(9))+X(12)*(Y(10)-Y(5)))
+         area2 = 0.5*(x(5)*(y(12)-y(11))+x(9)*(y(11)-y(10))+x(10)*(y(9)-y(12))+x(11)*(y(5)-y(9))+x(12)*(y(10)-y(5)))
       ELSE
-         area2 = 0.5*((X(9)-X(12))*(Y(11)-Y(10))+(X(10)-X(11))*(Y(9)-Y(12)))
+         area2 = 0.5*((x(9)-x(12))*(y(11)-y(10))+(x(10)-x(11))*(y(9)-y(12)))
       ENDIF
    ENDIF
 !
 !     PRINT GEOMETRY DATA
 !
-   Cr = X(4) - X(1)
+   cr = x(4) - x(1)
    CALL mbprit(areaw,area1,area2)
-   Gc = 2.0*Cr**2
-   xcent = (X(3)+X(4)+X(6))/4.0
-   ycent = Y(3)*(0.333+0.167*(X(6)-X(3))/X(4))
+   gc = 2.0*cr**2
+   xcent = (x(3)+x(4)+x(6))/4.0
+   ycent = y(3)*(0.333+0.167*(x(6)-x(3))/x(4))
 !
    DO i = 1 , 10
-      IF ( Tang(i)==0 ) THEN
-         Cotang(i) = big
-      ELSEIF ( Tang(i)/=big ) THEN
-         Cotang(i) = 1./Tang(i)
+      IF ( tang(i)==0 ) THEN
+         cotang(i) = big
+      ELSEIF ( tang(i)/=big ) THEN
+         cotang(i) = 1./tang(i)
       ELSE
-         Cotang(i) = 0.
+         cotang(i) = 0.
       ENDIF
    ENDDO
 END SUBROUTINE mbgeod

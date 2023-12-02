@@ -1,15 +1,16 @@
-!*==cthmck.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cthmck.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodesl)
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bands
+   USE c_bandw
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDS
-   USE C_BANDW
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -113,7 +114,7 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !
 !     SET UP SCRATCH SPACE NODESL.
 !
-         idem = Kdim
+         idem = kdim
          k2 = idem + 1
          iajdim = 3*idem
 !
@@ -121,14 +122,14 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !     AND THE MAXIMUM DEGREE OF ANY NODE.
 !
          CALL degree(Ig,Ideg,Un)
-         Ncm = kompnt(Ig,Ic,Ideg,Iw,Icc,Un)
+         ncm = kompnt(Ig,Ic,Ideg,Iw,Icc,Un)
          maxd = maxdgr(0,Ic,Ideg)
          mmc = maxd
 !
 !     INITIALIZE NEW ARRAY FROM THE ILD ARRAY.
 !     ILD MUST BE INPUT TO CUTHILL.
 !
-         DO i = 1 , Nn
+         DO i = 1 , nn
             k = Ild(i)
             New(k) = i
          ENDDO
@@ -137,39 +138,39 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !     IH0 = ORIGINAL PROFILE,  IS = ORIGINAL BW
 !
          CALL wavey(Ig,Ild,New,0,Ic,Iw,is,maxw,averw,sumw,rms,brms,Un)
-         Ih = sumw
-         Maxw0 = maxw
-         Rms0 = rms
-         Brms0 = brms
-         Korig = is
-         Ih0 = Ih
+         ih = sumw
+         maxw0 = maxw
+         rms0 = rms
+         brms0 = brms
+         korig = is
+         ih0 = ih
          CALL page1
-         i = Method + 2
-         WRITE (Nout,99001) Uim , Icrit , i , Nompc , Nodep , Nopch
+         i = method + 2
+         WRITE (nout,99001) uim , icrit , i , nompc , nodep , nopch
 99001    FORMAT (A29,'S FROM RESEQUENCING PROCESSOR - BANDIT     (CRI=',I2,',  MTH=',I2,',  MPC=',I2,',  DEP=',I2,',  PCH=',I2,')', &
                & /)
-         IF ( Nlpp>50 ) THEN
-            WRITE (Nout,99002)
+         IF ( nlpp>50 ) THEN
+            WRITE (nout,99002)
 99002       FORMAT (31X,'BEFORE RESEQUENCING - - -')
-            WRITE (Nout,99004) is , Ih , maxw , averw , rms , brms
+            WRITE (nout,99004) is , ih , maxw , averw , rms , brms
          ENDIF
 !
 !     COMPUTE NODAL DEGREE STATISTICS.
 !
          CALL dist(Ideg,Ipp,median,modd)
-         IF ( Method==+1 ) RETURN
+         IF ( method==+1 ) RETURN
 !
 !     INITIALIZE ILD AND NEW ARRAYS.
 !
          Jump = 0
-         DO i = 1 , Nn
+         DO i = 1 , nn
             New(i) = 0
             Ild(i) = 0
          ENDDO
 !
 !     GENERATE NUMBERING SCHEME FOR EACH COMPONENT, NC.
 !
-         DO nc = 1 , Ncm
+         DO nc = 1 , ncm
 !
 !     DETERMINE THE RANGE OF DEGREES (MI TO MAD) OF NODES OF INTEREST.
 !     MAKE SURE MAD DOES NOT EXCEED MEDIAN
@@ -198,22 +199,22 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !
             DO j = 1 , jmax
                CALL relabl(1,Nodesl(j),Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Nodesl(k2),Un,iajdim)
-               CALL wavey(Ig,Ild,New,nc,Ic,Iw,Ib,maxw,averw,sumw,rms,brms,Un)
-               IF ( Ngrid==-1 ) RETURN
+               CALL wavey(Ig,Ild,New,nc,Ic,Iw,ib,maxw,averw,sumw,rms,brms,Un)
+               IF ( ngrid==-1 ) RETURN
 !
-               Ih = sumw
+               ih = sumw
                IF ( Io==2 ) THEN
-                  crit1 = Ib
-                  crit2 = Ih
+                  crit1 = ib
+                  crit2 = ih
                ELSEIF ( Io==3 ) THEN
-                  crit1 = Ih
-                  crit2 = Ib
+                  crit1 = ih
+                  crit2 = ib
                ELSEIF ( Io==4 ) THEN
                   crit1 = maxw
                   crit2 = rms
                ELSE
                   crit1 = rms
-                  crit2 = Ih
+                  crit2 = ih
                ENDIF
                IF ( im1<crit1 ) THEN
                ELSEIF ( im1==crit1 ) THEN
@@ -233,7 +234,7 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !     SELECTED.
 !
             CALL relabl(1,Nodesl(ij),Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Nodesl(k2),Un,iajdim)
-            IF ( Ngrid==-1 ) RETURN
+            IF ( ngrid==-1 ) RETURN
 !
          ENDDO
 !
@@ -241,13 +242,13 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !     COMPUTE BANDWIDTH, PROFILE AND WAVEFRONT DATA.
 !
          CALL stack(Ideg,New,Ild,Iw)
-         CALL wavey(Ig,Ild,New,0,Ic,Iw,Ib,maxw,averw,sumw,rms,brms,Un)
-         Ih = sumw
+         CALL wavey(Ig,Ild,New,0,Ic,Iw,ib,maxw,averw,sumw,rms,brms,Un)
+         ih = sumw
 !
-         IF ( Nlpp>50 ) THEN
-            WRITE (Nout,99003)
+         IF ( nlpp>50 ) THEN
+            WRITE (nout,99003)
 99003       FORMAT (/31X,'AFTER RESEQUENCING BY REVERSE CUTHILL-MCKEE (CM)',' ALGORITHM - - -')
-            WRITE (Nout,99004) Ib , Ih , maxw , averw , rms , brms
+            WRITE (nout,99004) ib , ih , maxw , averw , rms , brms
          ENDIF
 !
 !     CHECK CM LABELING AGAINST ORIGINAL LABELING TO SEE IF BETTER.
@@ -255,24 +256,24 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !
          IF ( Io==2 ) THEN
             im1 = is
-            im2 = Ih0
-            crit1 = Ib
-            crit2 = Ih
+            im2 = ih0
+            crit1 = ib
+            crit2 = ih
          ELSEIF ( Io==3 ) THEN
-            im1 = Ih0
+            im1 = ih0
             im2 = is
-            crit1 = Ih
-            crit2 = Ib
+            crit1 = ih
+            crit2 = ib
          ELSEIF ( Io==4 ) THEN
-            im1 = Maxw0
-            im2 = Rms0
+            im1 = maxw0
+            im2 = rms0
             crit1 = maxw
             crit2 = rms
          ELSE
-            im1 = Rms0
-            im2 = Ih0
+            im1 = rms0
+            im2 = ih0
             crit1 = rms
-            crit2 = Ih
+            crit2 = ih
          ENDIF
          IF ( crit1>=im1 ) THEN
             IF ( crit1==im1 ) THEN
@@ -284,12 +285,12 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !
 !     IF NO IMPROVEMENT RETURN TO ORIGINAL SEQUENCE.
 !
-            Ib = is
-            Ih = Ih0
-            maxw = Maxw0
-            rms = Rms0
-            brms = Brms0
-            DO i = 1 , Nn
+            ib = is
+            ih = ih0
+            maxw = maxw0
+            rms = rms0
+            brms = brms0
+            DO i = 1 , nn
                Ild(i) = i
                New(i) = i
             ENDDO
@@ -300,11 +301,11 @@ SUBROUTINE cthmck(Nt,Num,Nom,Io,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Ipp,Jump,Un,Nodes
 !
 !     SET FINAL VALUES OF B, P, RMS, W.
 !
-         Knew = Ib
-         Ihe = Ih
-         Maxw1 = maxw
-         Rms1 = rms
-         Brms1 = brms
+         knew = ib
+         ihe = ih
+         maxw1 = maxw
+         rms1 = rms
+         brms1 = brms
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

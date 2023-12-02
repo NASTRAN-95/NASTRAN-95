@@ -1,16 +1,17 @@
-!*==gp4sp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gp4sp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
+   USE c_blank
+   USE c_gp4fil
+   USE c_gp4spx
+   USE c_output
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GP4FIL
-   USE C_GP4SPX
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,36 +50,36 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
       CASE (1)
 !
 !
-         index = iabs(Iautsp)
+         index = iabs(iautsp)
          IF ( index>2 ) THEN
             ierror = 1
-            WRITE (Ioutpt,99001) Uwm
+            WRITE (ioutpt,99001) uwm
 99001       FORMAT (A25,' 2439, ILLEGAL VALUE INPUT FOR PARAMETER AUTOSPC - ','SINGULARITY PROCESSING SKIPPED IN MODULE GP4')
             GOTO 40
          ELSE
-            IF ( index==2 .AND. Omit1>0 ) index = 3
-            mskms = orf(Mskum,Mskus)
-            IF ( Iautsp/=0 ) THEN
+            IF ( index==2 .AND. omit1>0 ) index = 3
+            mskms = orf(mskum,mskus)
+            IF ( iautsp/=0 ) THEN
                multi = 0
-               IF ( Mpcf1/=-1 ) THEN
+               IF ( mpcf1/=-1 ) THEN
                   mskin = lshift(1,12)
                   mskxx = complf(mskin)
-                  CALL gopen(Irgt,Iz(Ibuf1),0)
-                  Itypot = 1
-                  Iiii = 1
-                  Jjjj = 1
-                  Incr = 1
-                  DO i = 1 , Luset
-                     CALL unpack(*2,Irgt,idum)
-                     IF ( andf(Iz(i),mskms)==0 ) THEN
+                  CALL gopen(irgt,iz(Ibuf1),0)
+                  itypot = 1
+                  iiii = 1
+                  jjjj = 1
+                  incr = 1
+                  DO i = 1 , luset
+                     CALL unpack(*2,irgt,idum)
+                     IF ( andf(iz(i),mskms)==0 ) THEN
                         multi = 1
-                        Iz(i) = orf(Iz(i),mskin)
+                        iz(i) = orf(iz(i),mskin)
                      ENDIF
  2                ENDDO
-                  CALL close(Irgt,1)
+                  CALL close(irgt,1)
                ENDIF
             ENDIF
-            CALL open(*80,gpst,Iz(Ibuf1),0)
+            CALL open(*80,gpst,iz(Ibuf1),0)
             ifile = gpst
             CALL fwdrec(*100,gpst)
          ENDIF
@@ -104,27 +105,27 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
 !
             DO i = 1 , npts
                ii = iponts(i)
-               j = Iz(ii)
+               j = iz(ii)
                IF ( andf(j,mskms)/=0 ) indxms(i) = 1
-               IF ( Iautsp/=0 ) THEN
-                  IF ( andf(j,Mskuo)/=0 .AND. andf(j,Mskul)/=0 ) THEN
+               IF ( iautsp/=0 ) THEN
+                  IF ( andf(j,mskuo)/=0 .AND. andf(j,mskul)/=0 ) THEN
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  IF ( andf(j,Mskuo)/=0 .AND. andf(j,Mskur)/=0 ) THEN
+                  IF ( andf(j,mskuo)/=0 .AND. andf(j,mskur)/=0 ) THEN
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  IF ( andf(j,Mskur)/=0 .AND. andf(j,Mskul)/=0 ) THEN
+                  IF ( andf(j,mskur)/=0 .AND. andf(j,mskul)/=0 ) THEN
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  IF ( andf(j,Mskur)/=0 ) iexcld(i) = 1
+                  IF ( andf(j,mskur)/=0 ) iexcld(i) = 1
                   IF ( multi/=0 .AND. indxms(i)==0 ) THEN
                      IF ( andf(j,mskin)/=0 ) iexcld(i) = 1
                   ENDIF
                   IF ( index>=3 ) THEN
-                     IF ( andf(j,Mskul)/=0 ) iexcld(i) = 1
+                     IF ( andf(j,mskul)/=0 ) iexcld(i) = 1
                   ENDIF
                ENDIF
             ENDDO
@@ -138,12 +139,12 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                DO i = 1 , npts
                   IF ( indxms(i)/=0 ) CYCLE SPAG_Loop_1_1
                ENDDO
-               IF ( Iautsp/=0 ) THEN
+               IF ( iautsp/=0 ) THEN
                   SPAG_Loop_2_2: DO i = 1 , npts
                      IF ( iexcld(i)==0 ) THEN
                         ii = iponts(i)
-                        Iz(ii) = Msksng
-                        Nauto = Nauto + 1
+                        iz(ii) = msksng
+                        nauto = nauto + 1
                         ispc = ispc + 1
                         jponts(ispc) = ii
                         EXIT SPAG_Loop_2_2
@@ -175,8 +176,8 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                                     spag_nextblock_2 = 2
                                     CYCLE SPAG_DispatchLoop_2
                                  ENDIF
-                                 Iz(ii) = Msksng
-                                 Nauto = Nauto + 1
+                                 iz(ii) = msksng
+                                 nauto = nauto + 1
                                  ispc = ispc + 1
                                  jponts(ispc) = ii
                               ENDIF
@@ -195,8 +196,8 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                               ELSE
                                  IF ( iloop==1 ) CYCLE
                                  IF ( iexcld(i+1)/=0 ) CYCLE
-                                 Iz(jj) = Msksng
-                                 Nauto = Nauto + 1
+                                 iz(jj) = msksng
+                                 nauto = nauto + 1
                                  ispc = ispc + 1
                                  jponts(ispc) = jj
                               ENDIF
@@ -220,7 +221,7 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                         END SELECT
                      ENDDO SPAG_DispatchLoop_2
                   ENDDO
-                  IF ( Iautsp==0 ) THEN
+                  IF ( iautsp==0 ) THEN
                      spag_nextblock_1 = 7
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -238,7 +239,7 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                DO i = 1 , npts
                   IF ( indxms(i)/=0 ) THEN
                      ims = ims + 1
-                  ELSEIF ( Iautsp==0 ) THEN
+                  ELSEIF ( iautsp==0 ) THEN
                      iok = 1
                      CYCLE
                   ELSEIF ( iexcld(i)/=0 ) THEN
@@ -246,8 +247,8 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                      CYCLE
                   ELSE
                      ii = iponts(i)
-                     Iz(ii) = Msksng
-                     Nauto = Nauto + 1
+                     iz(ii) = msksng
+                     nauto = nauto + 1
                      ispc = ispc + 1
                      jponts(ispc) = ii
                   ENDIF
@@ -292,21 +293,21 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
 !
 !     BRING IN EQEXIN
 !
-         CALL gopen(eqexin,Iz(Ibuf2),0)
+         CALL gopen(eqexin,iz(Ibuf2),0)
          CALL skprec(eqexin,1)
          mcb(1) = eqexin
          CALL rdtrl(mcb)
-         icore = Luset + 2*(mcb(2)+1) - Ibuf2
+         icore = luset + 2*(mcb(2)+1) - Ibuf2
          IF ( icore<0 ) THEN
             ifile = eqexin
-            CALL read(*100,*20,eqexin,Iz(Luset+1),Ibuf2-Luset,0,neqexn)
+            CALL read(*100,*20,eqexin,iz(luset+1),Ibuf2-luset,0,neqexn)
          ENDIF
          spag_nextblock_1 = 12
          CYCLE SPAG_DispatchLoop_1
  20      CALL close(eqexin,1)
-         CALL sort(0,0,2,2,Iz(Luset+1),neqexn)
-         Iz(Luset+neqexn+1) = 0
-         Iz(Luset+neqexn+2) = 10*(Luset+1)
+         CALL sort(0,0,2,2,iz(luset+1),neqexn)
+         iz(luset+neqexn+1) = 0
+         iz(luset+neqexn+2) = 10*(luset+1)
          neqexn = neqexn + 2
 !
 !     LOOK UP SIL IN EQEXIN
@@ -316,8 +317,8 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
       CASE (4)
          kk = ibase
          DO i = istart , neqexn , 2
-            k = Luset + i
-            isil = Iz(k)/10
+            k = luset + i
+            isil = iz(k)/10
             IF ( kk<isil ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
@@ -325,14 +326,13 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
          ENDDO
          logic = 110
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     PICK UP POINT ID AND TYPE (GRID OR SCALAR) FROM EQEXIN
 !
-         igpid = Iz(k-3)
-         isil = Iz(k-2)/10
-         ityp = Iz(k-2) - 10*isil
+         igpid = iz(k-3)
+         isil = iz(k-2)/10
+         ityp = iz(k-2) - 10*isil
          istart = i - 2
          IF ( ityp/=1 ) THEN
 !
@@ -352,12 +352,12 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
             IF ( ityp==2 ) jponts(1) = 0
             IF ( iscr2/=1 ) THEN
                iscr2 = 1
-               iword(1) = Spcset
+               iword(1) = spcset
                IF ( iword(1)<=0 ) iword(1) = 1
 !
 !     INITIALIZE SCR2
 !
-               CALL gopen(scr2,Iz(Ibuf3),1)
+               CALL gopen(scr2,iz(Ibuf3),1)
             ENDIF
 !
 !     WRITE AUTOMATICALLY GENERATED SPC1 DATA ON SCR2
@@ -382,20 +382,20 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
          ENDIF
 !
 !
-         IF ( Iogpst/=1 ) THEN
-            Iogpst = 1
+         IF ( iogpst/=1 ) THEN
+            iogpst = 1
 !
 !     INITIALIZE OGPST
 !
-            CALL gopen(ogpst,Iz(Ibuf2),1)
+            CALL gopen(ogpst,iz(Ibuf2),1)
             ogpst1(1) = 0
             ogpst1(2) = 8
-            ogpst1(3) = Spcset
-            ogpst1(4) = Mpcset
+            ogpst1(3) = spcset
+            ogpst1(4) = mpcset
             ogpst1(10) = 12
             CALL write(ogpst,ogpst1,10,0)
-            CALL write(ogpst,Iz,40,0)
-            CALL write(ogpst,Head(1),96,1)
+            CALL write(ogpst,iz,40,0)
+            CALL write(ogpst,head(1),96,1)
          ENDIF
 !
 !     PUT OUT ERROR RECORDS ON OGPST
@@ -463,7 +463,6 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
          ENDDO
          CALL write(ogpst,iponts,9,0)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          IF ( iordr/=1 ) THEN
             IF ( iordr==2 ) THEN
@@ -512,7 +511,7 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
          CYCLE SPAG_DispatchLoop_1
 !
  40      CALL close(gpst,1)
-         IF ( Iogpst==1 ) THEN
+         IF ( iogpst==1 ) THEN
             CALL close(ogpst,1)
             IF ( ierror==0 ) THEN
                CALL makmcb(ogpst1,ogpst,0,0,0)
@@ -520,8 +519,8 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                CALL wrttrl(ogpst1)
             ENDIF
          ENDIF
-         IF ( Iautsp==0 ) GOTO 80
-         IF ( Nauto>0 ) THEN
+         IF ( iautsp==0 ) GOTO 80
+         IF ( nauto>0 ) THEN
             logic = 220
             IF ( iscr2/=1 ) THEN
                spag_nextblock_1 = 14
@@ -530,20 +529,20 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
             CALL write(scr2,0,0,1)
             CALL close(scr2,1)
             IF ( ierror/=0 ) GOTO 80
-            IF ( Iogpst/=1 ) WRITE (Ioutpt,99002) Uim
+            IF ( iogpst/=1 ) WRITE (ioutpt,99002) uim
 !
 99002       FORMAT (A29,' 2435, AT USER''S REQUEST, ALL POTENTIAL ','SINGULARITIES HAVE BEEN REMOVED BY THE',/5X,                   &
                    &'APPLICATION OF SINGLE POINT CONSTRAINTS.  REFER TO PRINT',                                                     &
                    &'OUT OF AUTOMATICALLY GENERATED SPC1 CARDS FOR DETAILS.')
-            IF ( Iogpst==1 ) WRITE (Ioutpt,99003) Uim
+            IF ( iogpst==1 ) WRITE (ioutpt,99003) uim
 99003       FORMAT (A29,' 2436, AT USER''S REQUEST, ONE OR MORE POTENTIAL ','SINGULARITIES HAVE BEEN REMOVED BY THE',/5X,           &
                    &'APPLICATION OF SINGLE POINT CONSTRAINTS.  REFER TO PRINT',                                                     &
                    &'OUT OF AUTOMATICALLY GENERATED SPC1 CARDS FOR DETAILS.')
-            IF ( Iogpst==1 .AND. index<3 ) WRITE (Ioutpt,99004) Uwm
+            IF ( iogpst==1 .AND. index<3 ) WRITE (ioutpt,99004) uwm
 99004       FORMAT (A25,' 2437, ONE OR MORE POTENTIAL SINGULARITIES HAVE NOT',' BEEN REMOVED',/5X,                                  &
                    &'BECAUSE OF THG PRESENCE OF SUPORT ','CARDS AND/OR MULTIPOINT CONSTRAINTS OR RIGID ELEMENTS.',/5X,              &
                    &'REFER TO THE GRID POINT SINGULARITY TABLE FOR DETAILS.')
-            IF ( Iogpst==1 .AND. index==3 ) WRITE (Ioutpt,99005) Uwm
+            IF ( iogpst==1 .AND. index==3 ) WRITE (ioutpt,99005) uwm
 99005       FORMAT (A25,' 2437, ONE OR MORE POTENTIAL SINGULARITIES HAVE NOT',' BEEN REMOVED',/5X,                                  &
                    &'BECAUSE OF THG PRESENCE OF SUPORT ','CARDS AND/OR MULTIPOINT CONSTRAINTS OR RIGID ELEMENTS',/5X,               &
                    &'OR BECAUSE THE SINGULARITIES ARE NOT PART OF THE ','OMIT SET (O-SET) DEGREES OF FREEDOM.',/5X,                 &
@@ -552,10 +551,10 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
 !     PRINT OUT AND, IF REQUESTED, PUNCH OUT
 !     AUTOMATICALLY GENERATED SPC DATA CARDS
 !
-            CALL gopen(scr2,Iz(Ibuf3),0)
+            CALL gopen(scr2,iz(Ibuf3),0)
             ifile = scr2
-            CALL read(*100,*60,scr2,Iz(Luset+1),Ibuf3-Luset,0,iflag)
-            icore = Luset + 2*Nauto - Ibuf3
+            CALL read(*100,*60,scr2,iz(luset+1),Ibuf3-luset,0,iflag)
+            icore = luset + 2*nauto - Ibuf3
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -564,11 +563,11 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
                spag_nextblock_1 = 14
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Iogpst==1 .AND. index<3 ) WRITE (Ioutpt,99006) Uwm
+            IF ( iogpst==1 .AND. index<3 ) WRITE (ioutpt,99006) uwm
 99006       FORMAT (A25,' 2437A, IN SPITE OF THE USER''S REQUEST, NONE OF ','THE POTENTIAL SINGULARITIES HAS BEEN REMOVED',/5X,     &
                    &'BECAUSE OF THG PRESENCE OF SUPORT CARDS AND/OR MULTI','POINT CONSTRAINTS OR RIGID ELEMENTS.',/5X,              &
                    &'REFER TO THE GRID POINT SINGULARITY TABLE FOR DETAILS.')
-            IF ( Iogpst==1 .AND. index==3 ) WRITE (Ioutpt,99007) Uwm
+            IF ( iogpst==1 .AND. index==3 ) WRITE (ioutpt,99007) uwm
 99007       FORMAT (A25,' 2437A, IN SPITE OF THE USER''S REQUEST, NONE OF ','THE POTENTIAL SINGULARITIES HAS BEEN REMOVED',/5X,     &
                    &'BECAUSE OF THG PRESENCE OF SUPORT CARDS AND/OR MULTI','POINT CONSTRAINTS OR RIGID ELEMENTS',/5X,'OR BECAUSE ', &
                    &'THE SINGULARITIES ARE NOT PART OF THE OMIT SET (O-SET) ','DEGREES OF FREEDOM.',/5X,                            &
@@ -576,33 +575,33 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
             GOTO 80
          ENDIF
  60      logic = 230
-         IF ( iflag/=2*Nauto ) THEN
+         IF ( iflag/=2*nauto ) THEN
             spag_nextblock_1 = 14
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL sort(0,0,2,1,Iz(Luset+1),iflag)
-         i = Luset + 1
+         CALL sort(0,0,2,1,iz(luset+1),iflag)
+         i = luset + 1
          iold = -1
          ist = i
          j = 0
          spag_nextblock_1 = 9
       CASE (9)
-         SPAG_Loop_1_4: DO WHILE ( i<=Luset+iflag )
-            IF ( iold>=0 .AND. Iz(i)/=iold ) EXIT SPAG_Loop_1_4
-            iold = Iz(i)
+         SPAG_Loop_1_4: DO WHILE ( i<=luset+iflag )
+            IF ( iold>=0 .AND. iz(i)/=iold ) EXIT SPAG_Loop_1_4
+            iold = iz(i)
             j = j + 2
             i = i + 2
          ENDDO SPAG_Loop_1_4
-         CALL sort(0,0,2,-2,Iz(ist),j)
-         IF ( i>Luset+iflag ) THEN
+         CALL sort(0,0,2,-2,iz(ist),j)
+         IF ( i>luset+iflag ) THEN
 !
-            i = Luset + 1
+            i = luset + 1
             iold = -1
             CALL page1
-            WRITE (Ioutpt,99012)
-            Line = Line + 6
+            WRITE (ioutpt,99012)
+            line = line + 6
          ELSE
-            iold = Iz(i)
+            iold = iz(i)
             ist = i
             j = 0
             spag_nextblock_1 = 9
@@ -612,35 +611,35 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
       CASE (10)
          ii = 2
          SPAG_Loop_1_5: DO j = 1 , 6
-            IF ( i>Luset+iflag ) EXIT SPAG_Loop_1_5
-            IF ( iold>=0 .AND. Iz(i)/=iold ) EXIT SPAG_Loop_1_5
-            iold = Iz(i)
-            iword(ii+1) = Iz(i+1)
+            IF ( i>luset+iflag ) EXIT SPAG_Loop_1_5
+            IF ( iold>=0 .AND. iz(i)/=iold ) EXIT SPAG_Loop_1_5
+            iold = iz(i)
+            iword(ii+1) = iz(i+1)
             ii = ii + 1
             i = i + 2
          ENDDO SPAG_Loop_1_5
          iword(2) = iold
-         IF ( Line>Nlpp ) THEN
+         IF ( line>nlpp ) THEN
             CALL page1
-            WRITE (Ioutpt,99012)
-            Line = Line + 6
+            WRITE (ioutpt,99012)
+            line = line + 6
          ENDIF
          ncard = ncard + 1
-         WRITE (Ioutpt,99008) ncard , (iword(j),j=1,ii)
+         WRITE (ioutpt,99008) ncard , (iword(j),j=1,ii)
 99008    FORMAT (15X,I5,'-',8X,'SPC1    ',8I8)
-         Line = Line + 1
-         IF ( Iautsp<0 ) WRITE (Ipunch,99009) (iword(j),j=1,ii)
+         line = line + 1
+         IF ( iautsp<0 ) WRITE (ipunch,99009) (iword(j),j=1,ii)
 99009    FORMAT ('SPC1    ',8I8)
-         IF ( i>Luset+iflag ) THEN
+         IF ( i>luset+iflag ) THEN
             CALL close(scr2,1)
          ELSE
-            iold = Iz(i)
+            iold = iz(i)
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 80      IF ( Iautsp==0 .OR. multi==0 ) RETURN
-         DO i = 1 , Luset
-            Iz(i) = andf(Iz(i),mskxx)
+ 80      IF ( iautsp==0 .OR. multi==0 ) RETURN
+         DO i = 1 , luset
+            iz(i) = andf(iz(i),mskxx)
          ENDDO
          RETURN
 !
@@ -655,14 +654,13 @@ SUBROUTINE gp4sp(Ibuf1,Ibuf2,Ibuf3)
          num = -8
          ifile = icore
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
          ierror = 2
-         WRITE (Ioutpt,99010) Uwm
+         WRITE (ioutpt,99010) uwm
 99010    FORMAT (A25,' 2440, SINGULARITY PROCESSING SKIPPED IN MODULE GP4',' BECAUSE OF INCONSISTENT SET DEFINITION')
          GOTO 40
       CASE (14)
-         WRITE (Ioutpt,99011) Sfm , logic
+         WRITE (ioutpt,99011) sfm , logic
 99011    FORMAT (A25,' 2438, LOGIC ERROR NO.',I4,' IN SUBROUTINE GP4SP IN MODULE GP4')
          CALL mesage(-61,0,0)
          EXIT SPAG_DispatchLoop_1

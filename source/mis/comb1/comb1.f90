@@ -1,16 +1,17 @@
-!*==comb1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==comb1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE comb1
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -59,77 +60,77 @@ SUBROUTINE comb1
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Dry==0 .OR. Dry==-2 ) RETURN
-         Scr1 = 301
-         Scr2 = 302
-         Scbdat = 303
-         Scsfil = 304
-         Scconn = 305
-         Scmcon = 306
-         Sctoc = 307
-         Sccstm = 308
-         Scr3 = 309
-         Geom4 = 102
-         Casecc = 101
+         IF ( dry==0 .OR. dry==-2 ) RETURN
+         scr1 = 301
+         scr2 = 302
+         scbdat = 303
+         scsfil = 304
+         scconn = 305
+         scmcon = 306
+         sctoc = 307
+         sccstm = 308
+         scr3 = 309
+         geom4 = 102
+         casecc = 101
          DO i = 1 , 6
-            Tdat(i) = .FALSE.
+            tdat(i) = .FALSE.
          ENDDO
          DO i = 1 , 7
             DO j = 1 , 3
-               Origin(i,j) = 0.0
+               origin(i,j) = 0.0
             ENDDO
          ENDDO
-         Lonly = .FALSE.
-         Intp = Sys(4)
-         Outt = Sys(2)
-         ibuf = Sys(1)
+         lonly = .FALSE.
+         intp = sys(4)
+         outt = sys(2)
+         ibuf = sys(1)
 !
-         nz = korsz(Z(1))
-         Buf1 = nz - ibuf - 2
-         Buf2 = Buf1 - ibuf
-         Buf3 = Buf2 - ibuf
-         Buf4 = Buf3 - ibuf
-         Buf5 = Buf4 - ibuf
-         ib1 = Buf5 - ibuf
+         nz = korsz(z(1))
+         buf1 = nz - ibuf - 2
+         buf2 = buf1 - ibuf
+         buf3 = buf2 - ibuf
+         buf4 = buf3 - ibuf
+         buf5 = buf4 - ibuf
+         ib1 = buf5 - ibuf
          ib2 = ib1 - ibuf
          ib3 = ib2 - ibuf
-         Score = 1
-         Lcore = ib3 - 1
-         IF ( Lcore>0 ) THEN
+         score = 1
+         lcore = ib3 - 1
+         IF ( lcore>0 ) THEN
 !
-            CALL open(*60,Scconn,Z(Buf2),1)
-            CALL close(Scconn,2)
-            CALL sofopn(Z(ib1),Z(ib2),Z(ib3))
+            CALL open(*60,scconn,z(buf2),1)
+            CALL close(scconn,2)
+            CALL sofopn(z(ib1),z(ib2),z(ib3))
 !
             CALL cmcase
-            IF ( Dry==-2 ) THEN
-               WRITE (Outt,99001) Ufm
+            IF ( dry==-2 ) THEN
+               WRITE (outt,99001) ufm
 99001          FORMAT (A23,' 6535, MODULE COMB1 TERMINATING DUE TO ABOVE ','SUBSTRUCTURE CONTROL ERRORS.')
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ELSE
                CALL cmtoc
-               IF ( .NOT.Lonly ) THEN
+               IF ( .NOT.lonly ) THEN
 !
-                  ifile = Geom4
-                  CALL preloc(*20,Z(Buf1),Geom4)
-                  IF ( Conect ) THEN
+                  ifile = geom4
+                  CALL preloc(*20,z(buf1),geom4)
+                  IF ( conect ) THEN
                      CALL bdat01
                      CALL bdat02
                   ENDIF
-                  ifile = Scbdat
-                  CALL open(*60,Scbdat,Z(Buf2),1)
+                  ifile = scbdat
+                  CALL open(*60,scbdat,z(buf2),1)
                   CALL bdat05
                   CALL bdat06
                   CALL bdat03
-                  CALL close(Geom4,1)
+                  CALL close(geom4,1)
 !
                   CALL cmsfil
-                  CALL preloc(*40,Z(Buf1),Geom4)
+                  CALL preloc(*40,z(buf1),geom4)
                   CALL bdat04
-                  CALL close(Geom4,1)
-                  IF ( Dry==-2 ) THEN
-                     WRITE (Outt,99002) Ufm
+                  CALL close(geom4,1)
+                  IF ( dry==-2 ) THEN
+                     WRITE (outt,99002) ufm
 99002                FORMAT (A23,' 6536, MODULE COMB1 TERMINATING DUE TO ABOVE ERRORS',' IN BULK DATA.')
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
@@ -142,34 +143,34 @@ SUBROUTINE comb1
             ENDIF
          ELSE
             CALL mesage(8,0,aaa)
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( Tdat(1) .OR. Tdat(2) ) CALL cmcont
-         IF ( Dry==-2 ) THEN
+         IF ( tdat(1) .OR. tdat(2) ) CALL cmcont
+         IF ( dry==-2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL cmauto
-         IF ( Tdat(1) .OR. Tdat(2) ) CALL cmckcd
-         IF ( Dry==-2 ) THEN
+         IF ( tdat(1) .OR. tdat(2) ) CALL cmckcd
+         IF ( dry==-2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Tdat(4) ) CALL cmrels
+         IF ( tdat(4) ) CALL cmrels
          CALL cmmcon(nce)
-         nps = Npsub + 1
+         nps = npsub + 1
          ndof = 6
-         IF ( Mcon ) CALL cmcomb(nps,nce,ndof,Z)
-         IF ( Dry==-2 ) THEN
+         IF ( mcon ) CALL cmcomb(nps,nce,ndof,z)
+         IF ( dry==-2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
          CALL cmckdf
-         IF ( Dry==-2 ) THEN
+         IF ( dry==-2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -180,18 +181,18 @@ SUBROUTINE comb1
       CASE (3)
 !
          CALL sofcls
-         IF ( Tocopn ) CALL close(Sctoc,1)
-         WRITE (Outt,99003) Uim
+         IF ( tocopn ) CALL close(sctoc,1)
+         WRITE (outt,99003) uim
 99003    FORMAT (A29,' 6521, MODULE COMB1 SUCCESSFULLY COMPLETED.')
          RETURN
 !
- 20      IF ( .NOT.(Conect .OR. Tran) ) THEN
-            ifile = Scbdat
-            CALL open(*60,Scbdat,Z(Buf2),1)
-            CALL eof(Scbdat)
-            CALL close(Scbdat,1)
+ 20      IF ( .NOT.(conect .OR. tran) ) THEN
+            ifile = scbdat
+            CALL open(*60,scbdat,z(buf2),1)
+            CALL eof(scbdat)
+            CALL close(scbdat,1)
             CALL cmsfil
-            IF ( .NOT.Conect ) THEN
+            IF ( .NOT.conect ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -199,21 +200,21 @@ SUBROUTINE comb1
 !
 !     ERRORS
 !
- 40      WRITE (Outt,99004) Ufm
+ 40      WRITE (outt,99004) ufm
 99004    FORMAT (A23,' 6510, THE REQUESTED COMBINE OPERATION REQUIRES ','SUBSTRUCTURE BULK DATA WHICH HAS NOT BEEN GIVEN.')
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 60      CALL mesage(1,Scbdat,aaa)
+ 60      CALL mesage(1,scbdat,aaa)
          spag_nextblock_1 = 4
       CASE (4)
-         WRITE (Outt,99005) Ufm
+         WRITE (outt,99005) ufm
 99005    FORMAT (A23,' 6537, MODULE COMB1 TERMINATING DUE TO ABOVE ERRORS')
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( Tocopn ) CALL close(Sctoc,1)
+         IF ( tocopn ) CALL close(sctoc,1)
          spag_nextblock_1 = 6
       CASE (6)
-         Dry = -2
+         dry = -2
          CALL sofcls
          EXIT SPAG_DispatchLoop_1
       END SELECT

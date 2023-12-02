@@ -1,4 +1,5 @@
-!*==dbase.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dbase.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbase
@@ -57,14 +58,14 @@ SUBROUTINE dbase
 !
 !     MAP THIS ROUTINE IN LINK2, LINK4 AND LINK14
 !
+   USE c_blank
+   USE c_gpta1
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -118,20 +119,20 @@ SUBROUTINE dbase
       CASE (1)
 !
 !
-         IF ( debug ) WRITE (Nout,99001)
+         IF ( debug ) WRITE (nout,99001)
 99001    FORMAT (/5X,'-- DBASE LOCAL DEBUG --')
          nam(1) = 106
          CALL rdtrl(nam(1))
          IF ( nam(1)<=0 ) THEN
             CALL page
-            WRITE (Nout,99002) Uim
+            WRITE (nout,99002) uim
 99002       FORMAT (A29,', DATABASE NEW DMAP FORMAT',//5X,'DATABASE   EQEXIN,BGPDT,GEOM2,CSTM,O1,O2,O3//C,N,OUTTP/',                &
                    &'C,N,FORMAT/C,N,BASIC  $',/5X,'FIRST 4 FILES ARE FIXED ',                                                       &
                    &'IN NAMES AND ORDER, NEXT 3 FILES CAN BE SELECTED BY USER',/5X,                                                 &
                    &'FIRST EQEXIN FILE MUST BE PRESENT, OTHERS CAN BE ','SELECTIVELY OMITTED')
          ENDIF
-         IF ( Outtp<11 .OR. Outtp>24 ) THEN
-            WRITE (Nout,99003) Ufm , Outtp
+         IF ( outtp<11 .OR. outtp>24 ) THEN
+            WRITE (nout,99003) ufm , outtp
 99003       FORMAT (A23,', OUTPUT FILE SPEC. ERROR')
             CALL mesage(-37,0,sub)
          ENDIF
@@ -139,14 +140,14 @@ SUBROUTINE dbase
          fmttd = .FALSE.
          basc = .FALSE.
          ecxyz = .FALSE.
-         IF ( Formtd==1 ) fmttd = .TRUE.
-         IF ( Basic==1 ) basc = .TRUE.
+         IF ( formtd==1 ) fmttd = .TRUE.
+         IF ( basic==1 ) basc = .TRUE.
          IF ( fmttd ) fmt(1) = fmt1
          CALL fname(101,nam(1))
          IF ( nam(1)/=inp(1) .OR. nam(2)/=inp(2) ) THEN
             CALL page2(3)
-            WRITE (Nout,99029) fstf(1) , nam(1) , nam(2)
-            Nogo = 1
+            WRITE (nout,99029) fstf(1) , nam(1) , nam(2)
+            nogo = 1
          ENDIF
          nobgpt = .FALSE.
          nogeom = .FALSE.
@@ -158,8 +159,8 @@ SUBROUTINE dbase
             CALL fname(102,nam(1))
             IF ( nam(1)/=inp(3) .OR. nam(2)/=inp(4) ) THEN
                CALL page2(3)
-               WRITE (Nout,99029) fstf(2) , nam(1) , nam(2)
-               Nogo = 1
+               WRITE (nout,99029) fstf(2) , nam(1) , nam(2)
+               nogo = 1
             ENDIF
          ENDIF
          nam(1) = geom2
@@ -169,8 +170,8 @@ SUBROUTINE dbase
             CALL fname(103,nam(1))
             IF ( nam(1)/=inp(5) .OR. nam(2)/=inp(6) ) THEN
                CALL page2(3)
-               WRITE (Nout,99029) fstf(3) , nam(1) , nam(2)
-               Nogo = 1
+               WRITE (nout,99029) fstf(3) , nam(1) , nam(2)
+               nogo = 1
             ENDIF
          ENDIF
          nam(1) = cstm
@@ -180,15 +181,15 @@ SUBROUTINE dbase
             CALL fname(104,nam(1))
             IF ( nam(1)/=inp(7) .OR. nam(2)/=inp(8) ) THEN
                CALL page2(3)
-               WRITE (Nout,99029) fstf(4) , nam(1) , nam(2)
-               Nogo = 1
+               WRITE (nout,99029) fstf(4) , nam(1) , nam(2)
+               nogo = 1
             ENDIF
          ENDIF
-         IF ( Nogo==1 ) RETURN
+         IF ( nogo==1 ) RETURN
 !
-         nz = korsz(Z(1))
-         buf1 = nz - Sysbuf
-         buf2 = buf1 - Sysbuf
+         nz = korsz(z(1))
+         buf1 = nz - sysbuf
+         buf2 = buf1 - sysbuf
          nz = buf2 - 1
          coor = 0
 !
@@ -196,24 +197,24 @@ SUBROUTINE dbase
 !     NUMBERS, Z(1) THRU Z(NEQ)
 !
          file = eqexin
-         CALL open(*420,eqexin,Z(buf1),Rdrew)
+         CALL open(*420,eqexin,z(buf1),rdrew)
          CALL fwdrec(*420,eqexin)
-         CALL read(*420,*40,eqexin,Z(1),nz,1,neq)
+         CALL read(*420,*40,eqexin,z(1),nz,1,neq)
          j = 0
          DO
-            CALL read(*420,*20,eqexin,Z(1),nz,1,neq)
+            CALL read(*420,*20,eqexin,z(1),nz,1,neq)
             j = j + nz
          ENDDO
  20      j = j + neq
          j = j*2
          CALL mesage(-8,j,sub)
 !
- 40      CALL close(eqexin,Rew)
+ 40      CALL close(eqexin,rew)
          left = nz - neq - 1
          neq2 = neq/2
          j = neq2*5 - left
          IF ( j>0 ) CALL mesage(-8,j,sub)
-         CALL sort(0,0,2,2,Z(1),neq)
+         CALL sort(0,0,2,2,z(1),neq)
 !
 !     IF BGPDT FILE NOT REQUESTED, SKIP PROCESSING GRID POINT DATA
 !
@@ -229,22 +230,22 @@ SUBROUTINE dbase
 !     WRITE THE NEW DATA TO SCR1 FILE - EXT.GIRD ID, X,Y,Z BASIC COORD.
 !
          file = scr1
-         CALL open(*420,scr1,Z(buf1),Wrtrew)
+         CALL open(*420,scr1,z(buf1),wrtrew)
          file = bgpdt
-         CALL open(*80,bgpdt,Z(buf2),Rdrew)
+         CALL open(*80,bgpdt,z(buf2),rdrew)
          CALL fwdrec(*420,bgpdt)
          ngd = 0
          DO
             CALL read(*60,*60,bgpdt,b(2),4,0,flag)
             ngd = ngd + 1
             k = ngd*2 - 1
-            b(1) = Z(k)
+            b(1) = z(k)
             b(2) = 0
             CALL write(scr1,b,5,0)
          ENDDO
  60      CALL write(scr1,0,0,1)
-         CALL close(scr1,Rew)
-         CALL close(bgpdt,Rew)
+         CALL close(scr1,rew)
+         CALL close(bgpdt,rew)
 !
 !     OPEN SCR1 AND OUTTP
 !     SORT THE GRID POINT DATA BY THEIR EXTERNAL NUMBERS
@@ -266,15 +267,15 @@ SUBROUTINE dbase
          jbp1 = jb + 1
          jbm1 = jb - 1
          k = ngd*5
-         CALL open(*420,scr1,Z(buf1),Rdrew)
-         CALL read(*420,*440,scr1,Z(jbp1),k,1,flag)
-         CALL close(scr1,Rew)
-         CALL sort(0,0,5,1,Z(jbp1),k)
+         CALL open(*420,scr1,z(buf1),rdrew)
+         CALL read(*420,*440,scr1,z(jbp1),k,1,flag)
+         CALL close(scr1,rew)
+         CALL sort(0,0,5,1,z(jbp1),k)
 !
 !     FIRST GRID POINT IDENTIFICATION RECORD TO OUTTP
 !
-         IF ( .NOT.fmttd ) WRITE (Outtp) gpt , dash
-         IF ( fmttd ) WRITE (Outtp,99030) gpt , dash
+         IF ( .NOT.fmttd ) WRITE (outtp) gpt , dash
+         IF ( fmttd ) WRITE (outtp,99030) gpt , dash
 !
          IF ( fmttd ) THEN
 !
@@ -289,18 +290,18 @@ SUBROUTINE dbase
 !           :     1-5     REPEAT RECORD 3 AS MANY TIMES AS THERE
 !                         ARE GRIDS
 !
-            WRITE (Outtp,99004) ngd
+            WRITE (outtp,99004) ngd
 99004       FORMAT (1X,I8,'= TOTAL NUMBER OF GRID POINTS')
             k = jb
             DO i = 1 , ngd
-               WRITE (Outtp,99005) Z(k+1) , Z(k+2) , rz(k+3) , rz(k+4) , rz(k+5)
+               WRITE (outtp,99005) z(k+1) , z(k+2) , rz(k+3) , rz(k+4) , rz(k+5)
 99005          FORMAT (1X,2I8,3(1P,E12.5))
                k = k + 5
             ENDDO
          ELSE
-            Z(jb) = k
+            z(jb) = k
             je = k + jb
-            WRITE (Outtp) (Z(j),j=jb,je)
+            WRITE (outtp) (z(j),j=jb,je)
          ENDIF
 !
 !     IF GEOM2 IS NOT REQUESTED, SKIP PROCESSING ELEMENT DATA
@@ -314,20 +315,20 @@ SUBROUTINE dbase
 !     OPEN GEOM2 AND SCR1. TRANSFER ELEMENT DATA TO SCR1 FILE
 !
          file = geom2
-         CALL open(*220,geom2,Z(buf2),Rdrew)
+         CALL open(*220,geom2,z(buf2),rdrew)
          CALL fwdrec(*420,geom2)
 !
 !     FIRST ELEMENT IDENTIFICATION RECORD TO OUTTUP
 !
-         IF ( .NOT.fmttd ) WRITE (Outtp) elm , dash
-         IF ( fmttd ) WRITE (Outtp,99030) elm , dash
+         IF ( .NOT.fmttd ) WRITE (outtp) elm , dash
+         IF ( fmttd ) WRITE (outtp,99030) elm , dash
          spag_nextblock_1 = 2
       CASE (2)
 !
          CALL read(*200,*200,geom2,b,3,0,flag)
          IF ( b(1)==b(2) .AND. b(2)==b(3) ) GOTO 200
-         DO i = 4 , Last , Incr
-            IF ( b(1)==E(i) ) THEN
+         DO i = 4 , last , incr
+            IF ( b(1)==e(i) ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -335,14 +336,14 @@ SUBROUTINE dbase
          CALL mesage(-61,0,0)
          spag_nextblock_1 = 3
       CASE (3)
-         nam(1) = E(i-3)
-         nam(2) = E(i-2)
-         eltyp = E(i-1)
-         nwds = E(i+2)
-         pid = E(i+3)
-         symbol = E(i+12)
-         ng = E(i+6)
-         g1 = E(i+9) - 1
+         nam(1) = e(i-3)
+         nam(2) = e(i-2)
+         eltyp = e(i-1)
+         nwds = e(i+2)
+         pid = e(i+3)
+         symbol = e(i+12)
+         ng = e(i+6)
+         g1 = e(i+9) - 1
          ng3 = ng + 3
          ne = 0
          mid = 0
@@ -373,7 +374,7 @@ SUBROUTINE dbase
 !                 IS WRITTED WITH A FORMAT
 !
          file = scr1
-         CALL open(*420,scr1,Z(buf1),Wrtrew)
+         CALL open(*420,scr1,z(buf1),wrtrew)
          CALL write(scr1,nam,8,0)
          file = geom2
          DO
@@ -390,10 +391,10 @@ SUBROUTINE dbase
             ne = ne + 1
          ENDDO
  100     CALL write(scr1,0,0,1)
-         CALL close(scr1,Rew)
+         CALL close(scr1,rew)
          file = scr1
-         CALL open(*420,scr1,Z(buf1),Rdrew)
-         CALL read(*420,*160,scr1,Z(jb),left,1,nwds)
+         CALL open(*420,scr1,z(buf1),rdrew)
+         CALL read(*420,*160,scr1,z(jb),left,1,nwds)
          CALL bckrec(scr1)
          IF ( .NOT.fmttd ) THEN
 !
@@ -401,33 +402,33 @@ SUBROUTINE dbase
 !
             CALL read(*420,*420,scr1,a,8,0,flag)
             a(6) = ne
-            WRITE (Outtp,99031,ERR=460) (a(j),j=1,8)
+            WRITE (outtp,99031,ERR=460) (a(j),j=1,8)
             DO
                CALL read(*420,*180,scr1,a,ng3,0,flag)
                IF ( ng3>16 ) THEN
-                  WRITE (Outtp,99033,ERR=460) (a(j),j=1,16)
+                  WRITE (outtp,99033,ERR=460) (a(j),j=1,16)
                   IF ( ng3>32 ) THEN
-                     WRITE (Outtp,99032,ERR=460) (a(j),j=17,32)
-                     WRITE (Outtp,99032,ERR=460) (a(j),j=33,ng3)
+                     WRITE (outtp,99032,ERR=460) (a(j),j=17,32)
+                     WRITE (outtp,99032,ERR=460) (a(j),j=33,ng3)
                   ELSE
-                     WRITE (Outtp,99032,ERR=460) (a(j),j=17,ng3)
+                     WRITE (outtp,99032,ERR=460) (a(j),j=17,ng3)
                   ENDIF
                ELSE
-                  WRITE (Outtp,99033,ERR=460) (a(j),j=1,ng3)
+                  WRITE (outtp,99033,ERR=460) (a(j),j=1,ng3)
                ENDIF
             ENDDO
          ELSE
             j = 0
-            CALL read(*420,*120,scr1,Z(jb),left,0,flag)
+            CALL read(*420,*120,scr1,z(jb),left,0,flag)
          ENDIF
  120     DO
-            CALL read(*420,*140,scr1,Z(jb),left,0,flag)
+            CALL read(*420,*140,scr1,z(jb),left,0,flag)
             j = j + left
          ENDDO
  140     j = j + flag
          CALL mesage(-8,j,sub)
- 160     CALL close(scr1,Rew)
-         Z(jb+5) = ne
+ 160     CALL close(scr1,rew)
+         z(jb+5) = ne
          IF ( fmttd ) THEN
 !
 !     ELEMENT RECORD TO SCR1
@@ -493,38 +494,38 @@ SUBROUTINE dbase
 !     REPEAT FORMATTED RECORD 3 (AND POSSIBLE 4 AND 5) AS MANY TIMES AS
 !     THERE ARE ELEMENTS
 !
-            WRITE (Outtp,99031) (Z(j+jbm1),j=1,8)
+            WRITE (outtp,99031) (z(j+jbm1),j=1,8)
             i = jb + 8
             SPAG_Loop_1_1: DO j = 9 , nwds , ng3
                je = i + ng3 - 1
                IF ( ng3>16 ) THEN
                   j16 = i + 15
                   j17 = i + 16
-                  WRITE (Outtp,99033,ERR=460) (Z(k),k=i,j16)
+                  WRITE (outtp,99033,ERR=460) (z(k),k=i,j16)
                   IF ( ng3>31 ) THEN
                      j31 = i + 30
                      j32 = i + 31
-                     WRITE (Outtp,99032,ERR=460) (Z(k),k=j17,j31)
-                     WRITE (Outtp,99032,ERR=460) (Z(k),k=j32,je)
+                     WRITE (outtp,99032,ERR=460) (z(k),k=j17,j31)
+                     WRITE (outtp,99032,ERR=460) (z(k),k=j32,je)
                   ELSE
-                     WRITE (Outtp,99032,ERR=460) (Z(k),k=j17,je)
+                     WRITE (outtp,99032,ERR=460) (z(k),k=j17,je)
                      EXIT SPAG_Loop_1_1
                   ENDIF
                ELSE
-                  WRITE (Outtp,99033,ERR=460) (Z(k),k=i,je)
+                  WRITE (outtp,99033,ERR=460) (z(k),k=i,je)
                ENDIF
                i = je + 1
             ENDDO SPAG_Loop_1_1
          ELSE
             k = jb + 7
-            WRITE (Outtp) (Z(j),j=jb,k)
+            WRITE (outtp) (z(j),j=jb,k)
             i = k + 1
             k = nwds + jb - 1
-            WRITE (Outtp) (Z(j),j=i,k)
+            WRITE (outtp) (z(j),j=i,k)
          ENDIF
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 180     CALL close(scr1,Rew)
+ 180     CALL close(scr1,rew)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -534,15 +535,15 @@ SUBROUTINE dbase
 !     --------++++++++--------++++++++--------++++++++--------++++++++
 !     ELEMENT -END-     TYPE =   0  -- GRIDS =       0 TOTAL =  ETC...
 !
- 200     CALL close(geom2,Rew)
+ 200     CALL close(geom2,rew)
          DO i = 3 , 8
             nam(i) = 0
          ENDDO
          nam(1) = end1
          nam(2) = end2
          nam(4) = end3
-         IF ( .NOT.fmttd ) WRITE (Outtp) nam
-         IF ( fmttd ) WRITE (Outtp,99031) nam
+         IF ( .NOT.fmttd ) WRITE (outtp) nam
+         IF ( fmttd ) WRITE (outtp,99031) nam
 !
 !
 !     PROCESS OFP DATA BLOCKS   SIGNITURE
@@ -576,14 +577,14 @@ SUBROUTINE dbase
          IF ( nam(1)<=0 ) GOTO 400
 !
          file = ofpx
-         CALL open(*400,ofpx,Z(buf1),Rdrew)
+         CALL open(*400,ofpx,z(buf1),rdrew)
          CALL fwdrec(*380,ofpx)
          jos = 2*ofpset + 1
          ofpset = ofpset + 1
          CALL fname(ofpx,oname(jos))
          IF ( basc .AND. nobgpt .AND. .NOT.nocstm ) THEN
 !
-            WRITE (Nout,99006) Uim
+            WRITE (nout,99006) uim
 99006       FORMAT (A29,' FROM DATABASE MODULE - DISPLACEMENT VECTORS REMAIN',' IN GLOBAL COOR. SYSTEM',/5X,                        &
                    &'DUE TO BGPDT OR CSTM FILE BEING PURGED',/)
             basc = .FALSE.
@@ -654,16 +655,16 @@ SUBROUTINE dbase
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          IF ( nwds>limaf ) THEN
-            WRITE (Nout,99040) Uim , oname(jso) , oname(jso+1)
-            WRITE (Nout,99007) limaf
+            WRITE (nout,99040) uim , oname(jso) , oname(jso+1)
+            WRITE (nout,99007) limaf
 99007       FORMAT (5X,'THE A AND F WORKING ARRAYS OF',I4,' WORDS IN DBASE ','SUBROUTINE ARE NOT BIG ENOUGH TO RECEIVE OFP DATA.')
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ELSEIF ( basc ) THEN
-            WRITE (Nout,99040) Uim , oname(jso) , oname(jso+1)
-            WRITE (Nout,99008)
+            WRITE (nout,99040) uim , oname(jso) , oname(jso+1)
+            WRITE (nout,99008)
 99008       FORMAT (5X,'ELEMENT STRESSES OR FORCES CAN NOT BE OUTPUT IN ','BASIC COORDINATES AS REQUESTED')
-            CALL close(ofpx,Rew)
+            CALL close(ofpx,rew)
             GOTO 400
          ELSE
             efs = .TRUE.
@@ -674,7 +675,7 @@ SUBROUTINE dbase
                IF ( j==0 .AND. i>1 ) j = f(i-1)
                f(i) = j
             ENDDO
-            IF ( debug ) WRITE (Nout,99034) nwds , (f(i),i=1,nwds)
+            IF ( debug ) WRITE (nout,99034) nwds , (f(i),i=1,nwds)
             again = 0
             CALL read(*380,*240,ofpx,a,nwds,0,flag)
             DO i = 1 , nwds
@@ -693,7 +694,7 @@ SUBROUTINE dbase
                   ENDIF
                ENDDO
                imhere = 560
-               IF ( debug ) WRITE (Nout,99034) imhere , (f(i),i=1,nwds)
+               IF ( debug ) WRITE (nout,99034) imhere , (f(i),i=1,nwds)
             ENDIF
          ENDIF
  240     f(nwds+1) = -9
@@ -713,14 +714,14 @@ SUBROUTINE dbase
                l = l/10
             ENDDO
          ENDDO
-         IF ( debug ) WRITE (Nout,99009) na4 , (f8(i),i=1,kk)
+         IF ( debug ) WRITE (nout,99009) na4 , (f8(i),i=1,kk)
 99009    FORMAT (/,'  NA4 =',I4,'  FORMAT CODE/@590 =',6I10)
          spag_nextblock_1 = 6
       CASE (6)
 !
          IF ( kount<=1 ) THEN
-            IF ( .NOT.fmttd ) WRITE (Outtp) dxx , dash
-            IF ( fmttd ) WRITE (Outtp,99030) dxx , dash
+            IF ( .NOT.fmttd ) WRITE (outtp) dxx , dash
+            IF ( fmttd ) WRITE (outtp,99030) dxx , dash
          ENDIF
 !
          IF ( ecxyz ) THEN
@@ -755,25 +756,25 @@ SUBROUTINE dbase
 !     SORT THIS NEW TABLE BY THE EXTERNAL GRID NUMBERS.
 !
          file = bgpdt
-         CALL open(*420,bgpdt,Z(buf2),Rdrew)
+         CALL open(*420,bgpdt,z(buf2),rdrew)
          CALL fwdrec(*420,bgpdt)
          k = -1
          j = jb
          DO
-            CALL read(*260,*260,bgpdt,Z(j+1),4,0,flag)
+            CALL read(*260,*260,bgpdt,z(j+1),4,0,flag)
             k = k + 2
-            Z(j) = Z(k)
+            z(j) = z(k)
             j = j + 5
          ENDDO
- 260     CALL close(bgpdt,Rew)
+ 260     CALL close(bgpdt,rew)
          IF ( k+1/=neq ) CALL mesage(-61,0,0)
          nbgt = j - jb
          nbg5 = nbgt/5
          DO j = 1 , nbgt
-            Z(j) = Z(j+jbm1)
+            z(j) = z(j+jbm1)
          ENDDO
-         CALL sort(0,0,5,1,Z(1),nbgt)
-         IF ( debug ) WRITE (Nout,99010) (Z(j),Z(j+1),rz(j+2),rz(j+3),rz(j+4),j=1,nbgt,5)
+         CALL sort(0,0,5,1,z(1),nbgt)
+         IF ( debug ) WRITE (nout,99010) (z(j),z(j+1),rz(j+2),rz(j+3),rz(j+4),j=1,nbgt,5)
 99010    FORMAT (/11X,'EXT.GRID - COOR - X,Y,Z/@640',/,(10X,2I8,3E11.4))
 !
 !     OPEN CSTM FILE IF IT EXISTS.  SAVE ALL COORDINATE TRANSFORMATION
@@ -783,13 +784,13 @@ SUBROUTINE dbase
          icstm = nbgt + 1
          ncstm = nbgt
          file = cstm
-         CALL open(*420,cstm,Z(buf2),Rdrew)
+         CALL open(*420,cstm,z(buf2),rdrew)
          CALL fwdrec(*420,cstm)
-         CALL read(*280,*280,cstm,Z(icstm),left,1,flag)
+         CALL read(*280,*280,cstm,z(icstm),left,1,flag)
          CALL mesage(-8,0,sub)
- 280     CALL close(cstm,Rew)
+ 280     CALL close(cstm,rew)
          ncstm = ncstm + flag
-         CALL pretrs(Z(icstm),flag)
+         CALL pretrs(z(icstm),flag)
          spag_nextblock_1 = 7
       CASE (7)
 !
@@ -938,40 +939,40 @@ SUBROUTINE dbase
 !
          file = ofpx
          iougv = ncstm + 1
-         CALL read(*380,*300,ofpx,Z(iougv),nz-iougv,1,flag)
+         CALL read(*380,*300,ofpx,z(iougv),nz-iougv,1,flag)
          CALL mesage(-37,file,sub)
  300     IF ( flag/=146 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         dspl = mod(Z(iougv+1),100)
-         nwds = Z(iougv+9)
+         dspl = mod(z(iougv+1),100)
+         nwds = z(iougv+9)
          IF ( .NOT.efs .AND. nwds/=8 .AND. nwds/=14 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          nsub = nsub + 1
          camo = ca
-         case = Z(iougv+3)
+         case = z(iougv+3)
          freq = 0.0
          IF ( dspl==7 .OR. dspl==14 ) THEN
             camo = mo
-            case = Z(iougv+4)
+            case = z(iougv+4)
             freq = rz(iougv+5)
          ENDIF
          bagl = ba
          IF ( .NOT.basc ) bagl = gl
          IF ( fmttd .AND. f8(6)==0 ) f8(6) = na4
          IF ( efs ) THEN
-            j = (Z(iougv+2)-1)*Incr
-            Z(iougv+144) = E(j+1)
-            Z(iougv+145) = E(j+2)
+            j = (z(iougv+2)-1)*incr
+            z(iougv+144) = e(j+1)
+            z(iougv+145) = e(j+2)
          ENDIF
-         IF ( .NOT.fmttd ) WRITE (Outtp) case , freq , nwds , oname(jos) , oname(jos+1) , f8 , (Z(j+iougv),j=50,145)
-         IF ( fmttd ) WRITE (Outtp,99035) camo , case , freq , nwds , oname(jos) , oname(jos+1) , bagl , f8 , (Z(j+iougv),j=50,145)
+         IF ( .NOT.fmttd ) WRITE (outtp) case , freq , nwds , oname(jos) , oname(jos+1) , f8 , (z(j+iougv),j=50,145)
+         IF ( fmttd ) WRITE (outtp,99035) camo , case , freq , nwds , oname(jos) , oname(jos+1) , bagl , f8 , (z(j+iougv),j=50,145)
          IF ( .NOT.(fmttd) ) THEN
             file = scr1
-            CALL open(*420,scr1,Z(buf2),Wrtrew)
+            CALL open(*420,scr1,z(buf2),wrtrew)
             file = ofpx
          ENDIF
          spag_nextblock_1 = 8
@@ -979,7 +980,7 @@ SUBROUTINE dbase
          CALL read(*360,*320,ofpx,a,nwds,0,flag)
          a(1) = a(1)/10
          IF ( .NOT.(efs) ) THEN
-            IF ( debug ) WRITE (Nout,99011) a(1)
+            IF ( debug ) WRITE (nout,99011) a(1)
 99011       FORMAT (10X,'EXT.GRID/@740 =',I8)
             IF ( basc ) THEN
 !
@@ -1001,14 +1002,14 @@ SUBROUTINE dbase
                   IF ( lastk==k ) CALL mesage(-61,0,0)
                   lastk = k
                   k5 = k*5
-                  IF ( grid<Z(k5-4) ) THEN
+                  IF ( grid<z(k5-4) ) THEN
                      khi = k
-                  ELSEIF ( grid==Z(k5-4) ) THEN
-                     coor = Z(k5-3)
+                  ELSEIF ( grid==z(k5-4) ) THEN
+                     coor = z(k5-3)
                      IF ( coor>0 ) THEN
-                        CALL transs(Z(k5-3),t)
+                        CALL transs(z(k5-3),t)
                         IF ( debug ) THEN
-                           WRITE (Nout,99012) grid , coor , t
+                           WRITE (nout,99012) grid , coor , t
 99012                      FORMAT (20X,'EXT GRID, COORD.ID AND TRANSF.MATRIX/@1250 =',2I8,/,(25X,3E13.5))
                         ENDIF
                      ENDIF
@@ -1058,12 +1059,12 @@ SUBROUTINE dbase
             DO
                k = k + 1
                IF ( f(k)==-9 ) THEN
-                  WRITE (Outtp,99036,ERR=460) (ix(k),k=1,l)
+                  WRITE (outtp,99036,ERR=460) (ix(k),k=1,l)
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( l+3>limrx ) THEN
-                  WRITE (Nout,99040) Uim , oname(jso) , oname(jso+1)
-                  WRITE (Nout,99013) limrx
+                  WRITE (nout,99040) uim , oname(jso) , oname(jso+1)
+                  WRITE (nout,99013) limrx
 99013             FORMAT (5X,'THE RX WORKING ARRAY OF',I5,' WORDS IN DBASE ','SUBROUTINE IS NOT BIG ENOUGH TO RECEIVE OFP DATA.')
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
@@ -1072,9 +1073,9 @@ SUBROUTINE dbase
                ENDIF
             ENDDO
          ELSE
-            WRITE (Outtp,99014,ERR=460) a(1) , a(2) , (ra(k),k=3,8)
+            WRITE (outtp,99014,ERR=460) a(1) , a(2) , (ra(k),k=3,8)
 99014       FORMAT (1X,2I8,6(1P,E12.5))
-            IF ( nwds==14 ) WRITE (Outtp,99037,ERR=460) (ra(k),k=9,14)
+            IF ( nwds==14 ) WRITE (outtp,99037,ERR=460) (ra(k),k=9,14)
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1113,55 +1114,55 @@ SUBROUTINE dbase
                      l = l + 2
                   ENDIF
                ENDDO
-               WRITE (Outtp,99036,ERR=460) (ix(i),i=1,l)
+               WRITE (outtp,99036,ERR=460) (ix(i),i=1,l)
             ELSE
                DO i = 1 , 6
                   rx(i) = 0.0
                ENDDO
-               WRITE (Outtp,99015,ERR=460) (rx(i),i=1,6)
+               WRITE (outtp,99015,ERR=460) (rx(i),i=1,6)
 99015          FORMAT (1X,2(6X,2H-0),6(1P,E12.5))
-               IF ( nwds==14 ) WRITE (Outtp,99037,ERR=460) (rx(i),i=1,6)
+               IF ( nwds==14 ) WRITE (outtp,99037,ERR=460) (rx(i),i=1,6)
             ENDIF
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL write(scr1,0,0,1)
-            CALL close(scr1,Rew)
+            CALL close(scr1,rew)
             file = scr1
-            CALL open(*420,scr1,Z(buf2),Rdrew)
-            CALL read(*340,*340,scr1,Z(iougv+1),nz-iougv,1,k)
+            CALL open(*420,scr1,z(buf2),rdrew)
+            CALL read(*340,*340,scr1,z(iougv+1),nz-iougv,1,k)
             CALL mesage(-8,file,sub)
          ENDIF
- 340     CALL close(scr1,Rew)
-         Z(iougv) = k
+ 340     CALL close(scr1,rew)
+         z(iougv) = k
          kiougv = k + iougv
-         WRITE (Outtp) (Z(j),j=iougv,kiougv)
+         WRITE (outtp) (z(j),j=iougv,kiougv)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF CURRENT OFP FILE
 !     ADD AN ENDING RECORD TO OUTTP FILE AND ENDFILE
 !
- 360     CALL close(scr1,Rew)
- 380     CALL close(ofpx,Rew)
+ 360     CALL close(scr1,rew)
+ 380     CALL close(ofpx,rew)
 !
          dyy(ofpset) = dxx
          subn(ofpset) = nsub
          case = 0
          freq = 0.0
-         Z(1) = 0
+         z(1) = 0
          j = 0
-         Z(j+2) = end1
-         Z(j+3) = end2
-         Z(j+4) = blank
+         z(j+2) = end1
+         z(j+3) = end2
+         z(j+4) = blank
          DO j = 5 , 10
-            Z(j) = 0
+            z(j) = 0
          ENDDO
          DO j = 11 , 106
-            Z(j) = blank
+            z(j) = blank
          ENDDO
-         IF ( .NOT.fmttd ) WRITE (Outtp) case , freq , (Z(j),j=1,106)
-         IF ( fmttd ) WRITE (Outtp,99035,ERR=460) camo , case , freq , (Z(j),j=1,106)
+         IF ( .NOT.fmttd ) WRITE (outtp) case , freq , (z(j),j=1,106)
+         IF ( fmttd ) WRITE (outtp,99035,ERR=460) camo , case , freq , (z(j),j=1,106)
  400     IF ( ofp<3 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -1169,8 +1170,8 @@ SUBROUTINE dbase
 !
 !     JOB DONE. WRITE A USER FRIENDLY MESSAGE OUT
 !
-         ENDFILE Outtp
-         REWIND Outtp
+         ENDFILE outtp
+         REWIND outtp
          set = ofpset
          IF ( .NOT.nobgpt ) set = set + 1
          IF ( .NOT.nogeom ) set = set + 1
@@ -1178,37 +1179,37 @@ SUBROUTINE dbase
          IF ( set>1 ) j = ls
          k = 3 + 2*set
          CALL page2(k)
-         IF ( Outtp>12 ) THEN
+         IF ( outtp>12 ) THEN
             nam(1) = inpx(1)
-            nam(2) = Outtp - 14
-            IF ( Outtp==14 .OR. Outtp==25 ) THEN
-               WRITE (Nout,99038) Uim , set , j , inpx(2)
+            nam(2) = outtp - 14
+            IF ( outtp==14 .OR. outtp==25 ) THEN
+               WRITE (nout,99038) uim , set , j , inpx(2)
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSE
             nam(1) = inpx(3)
-            nam(2) = Outtp - 10
+            nam(2) = outtp - 10
          ENDIF
-         WRITE (Nout,99038) Uim , set , j , nam(1) , nam(2)
+         WRITE (nout,99038) uim , set , j , nam(1) , nam(2)
          spag_nextblock_1 = 9
       CASE (9)
-         WRITE (Nout,99016) Outtp , fmt
+         WRITE (nout,99016) outtp , fmt
 99016    FORMAT (1H+,85X,'(FORTRAN UNIT',I3,1H),4A4)
          set = 0
          IF ( .NOT.(nobgpt) ) THEN
             set = set + 1
-            WRITE (Nout,99017) set
+            WRITE (nout,99017) set
 99017       FORMAT (/4X,I2,'. GRID POINT DATA - EXTERNAL NUMBERS AND BASIC ','RECTANGULAR COORDINATES')
          ENDIF
          IF ( .NOT.(nogeom) ) THEN
             set = set + 1
-            WRITE (Nout,99018) set
+            WRITE (nout,99018) set
 99018       FORMAT (/4X,I2,'. ELEMENT CONNECTIVITY DATA - ALL GRID POINTS ','ARE EXTERNAL NUMBERS')
          ENDIF
          IF ( ofpset==0 ) THEN
 !
-            WRITE (Nout,99039)
+            WRITE (nout,99039)
             RETURN
          ELSE
             jso = 1
@@ -1219,27 +1220,27 @@ SUBROUTINE dbase
                   CASE (1)
                      set = set + 1
                      nsub = subn(j)
-                     WRITE (Nout,99019) set , dyy(j) , oname(jso) , oname(jso+1)
+                     WRITE (nout,99019) set , dyy(j) , oname(jso) , oname(jso+1)
 99019                FORMAT (/4X,I2,2H. ,A8,' DATA FROM INPUT FILE ',2A4)
                      IF ( .NOT.(efs) ) THEN
-                        IF ( basc ) WRITE (Nout,99020)
+                        IF ( basc ) WRITE (nout,99020)
 99020                   FORMAT (1H+,46X,', CONVERTED TO BASIC RECT. COORDINATES,')
-                        IF ( .NOT.basc ) WRITE (Nout,99021)
+                        IF ( .NOT.basc ) WRITE (nout,99021)
 99021                   FORMAT (1H+,46X,', IN NASTRAN GLOBAL COORDINATE SYSTEM,')
                         IF ( dspl==7 .OR. dspl==14 ) THEN
-                           WRITE (Nout,99022) nsub
+                           WRITE (nout,99022) nsub
 99022                      FORMAT (1H+,87X,I4,' FRQUENCIES')
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
                      ENDIF
-                     IF ( .NOT.efs ) WRITE (Nout,99023) nsub
+                     IF ( .NOT.efs ) WRITE (nout,99023) nsub
 99023                FORMAT (1H+,87X,I4,' SUBCASES')
-                     IF ( efs ) WRITE (Nout,99024) nsub
+                     IF ( efs ) WRITE (nout,99024) nsub
 99024                FORMAT (1H+,46X,I4,' SUBCASES')
                      spag_nextblock_2 = 2
                   CASE (2)
-                     IF ( nobgpt .AND. nogeom ) WRITE (Nout,99039)
+                     IF ( nobgpt .AND. nogeom ) WRITE (nout,99039)
                      jso = jso + 2
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
@@ -1263,21 +1264,20 @@ SUBROUTINE dbase
          CYCLE SPAG_DispatchLoop_1
  440     j = -2
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
-         WRITE (Nout,99040) Uim , oname(jso) , oname(jso+1)
-         WRITE (Nout,99025) nwds
+         WRITE (nout,99040) uim , oname(jso) , oname(jso+1)
+         WRITE (nout,99025) nwds
 99025    FORMAT (5X,'THE REQUEST OF AN ILLEGITIMATE DATA BLOCK.',7X,'NO. OF WORDS =',I6)
-         CALL close(ofpx,Rew)
+         CALL close(ofpx,rew)
          GOTO 400
       CASE (12)
-         WRITE (Nout,99026)
+         WRITE (nout,99026)
 99026    FORMAT (5X,'SUGGESTION - USE OUTPUT5 OR OUTPUT2 TO CAPTURE THE ','REQUESTED DATA BLOCK')
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 460     WRITE (Nout,99027)
+ 460     WRITE (nout,99027)
 99027    FORMAT ('0*** SYSTEM FATAL ERROR WRITING FORMATTED TAPE IN DATA','BASE MODULE')
-         IF ( Mach==3 ) WRITE (Nout,99028)
+         IF ( mach==3 ) WRITE (nout,99028)
 99028    FORMAT (5X,'IBM USER - CHECK FILE ASSIGNMENT FOR DCB PARAMETER ','OF 133 BYTES')
          j = -37
          spag_nextblock_1 = 13

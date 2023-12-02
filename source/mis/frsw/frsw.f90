@@ -1,12 +1,13 @@
-!*==frsw.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==frsw.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frsw(V1,V2,V3,Vb)
+   USE c_feerxx
+   USE c_opinv
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FEERXX
-   USE C_OPINV
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,9 +53,9 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
 !     WRITE  (IO,10) NZVB,ITER
 !  10 FORMAT ('  .... IN FRSW2.  NZVB =',I8,',   ITER =',I3)
 !  20 CONTINUE
-         nrow = Mcblt(2)
-         CALL frmlt(Mcbsma(1),V1(1),V3(1),Vb(1))
-         IF ( Mcblt(7)<0 ) THEN
+         nrow = mcblt(2)
+         CALL frmlt(mcbsma(1),V1(1),V3(1),Vb(1))
+         IF ( mcblt(7)<0 ) THEN
 !
 !     NEW METHOD
 !
@@ -63,10 +64,10 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
 !
             IF ( nam(3)==nam(5) ) nam(3) = nam(6)
             IF ( l16/=0 ) CALL conmsg(nam,3,0)
-            mcbltx = -Mcblt(7)
-            IF ( mod(Mcblt(4),10)/=2 ) THEN
-               j = mod(Mcblt(4),10)
-               WRITE (Io,99001) j
+            mcbltx = -mcblt(7)
+            IF ( mod(mcblt(4),10)/=2 ) THEN
+               j = mod(mcblt(4),10)
+               WRITE (io,99001) j
 99001          FORMAT ('0*** MCBLT MATRIX IN WRONG FORM.  UNPSCR FLAG =',I3)
                CALL mesage(-37,0,nam)
             ELSE
@@ -97,7 +98,7 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
                         nrec = nrec + 1
 !DB   IF (DEBUG) WRITE (IO,210) NREC,IFB
 ! 210 FORMAT ('  ...READING RECORD',I5,'.   IFB =',I5)
-                        CALL read(*40,*2,mcbltx,Vb,Nzvb,1,ll)
+                        CALL read(*40,*2,mcbltx,Vb,nzvb,1,ll)
                         CALL mesage(-8,0,nam)
 ! 220 LL2  = LL/NWDS
  2                      ll2 = ll
@@ -155,7 +156,7 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
                            ENDIF
                            nrec = nrec + 1
 !DB   IF (DEBUG) WRITE (IO,210) NREC,IFB
-                           CALL read(*40,*4,mcbltx,Vb,Nzvb,1,ll)
+                           CALL read(*40,*4,mcbltx,Vb,nzvb,1,ll)
                            CALL mesage(-8,0,nam)
 ! 270 LL2  = LL/NWDS
  4                         ll2 = ll
@@ -199,11 +200,11 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
 !
 !     NASTRAN ORIGINAL METHOD
 !
-            iblk(1) = Mcblt(1)
+            iblk(1) = mcblt(1)
             iblk(9) = 1
             iblk(10) = 1
-            CALL rewind(Mcblt)
-            CALL skprec(Mcblt,1)
+            CALL rewind(mcblt)
+            CALL skprec(mcblt,1)
 !
 !     FORWARD SWEEP DIRECTLY ON V3
 !
@@ -274,13 +275,13 @@ SUBROUTINE frsw(V1,V2,V3,Vb)
 !
 !     ERROR
 !
- 40      i = Mcblt(4)/10
-         WRITE (Io,99002) nrec , j , i , ifb
+ 40      i = mcblt(4)/10
+         WRITE (io,99002) nrec , j , i , ifb
 99002    FORMAT ('0*** TRY TO READ RECORD',I5,'.  J,MCBLT(4),IFB =',I7,2I5)
          CALL mesage(-2,mcbltx,nam)
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (Io,99003) ifb , ii , j
+         WRITE (io,99003) ifb , ii , j
 99003    FORMAT ('0*** ERROR.   IFB),II,J =',I5,1H),2I8)
          CALL mesage(-37,0,nam)
          spag_nextblock_1 = 4

@@ -2,16 +2,16 @@
  
 SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_ZNTPKX
+   USE c_names
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
-   INTEGER :: Num
-   INTEGER :: Ndim
    REAL , DIMENSION(Ndim,1) :: X
    INTEGER :: Mass
    INTEGER , DIMENSION(1) :: Ibuf
+   INTEGER :: Num
+   INTEGER :: Ndim
    REAL , DIMENSION(Num,1) :: Gm
    REAL*8 , DIMENSION(1) :: Accum
    REAL :: Eps
@@ -20,6 +20,15 @@ SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
 !
    INTEGER :: i , iden , j , k , kk , m
    INTEGER , DIMENSION(7) :: im
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -50,14 +59,14 @@ SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
 !
 !     IDENTITY
 !
-            Ieol = 1
-            Ii = i
-            Z(1) = 1.0
+            ieol = 1
+            ii = i
+            z(1) = 1.0
             GOTO 40
          ELSE
-            CALL intpk(*50,Mass,0,Rsp,0)
+            CALL intpk(*50,Mass,0,rsp,0)
          ENDIF
- 20      IF ( Ieol==1 ) THEN
+ 20      IF ( ieol==1 ) THEN
             DO j = 1 , Num
                DO m = 1 , Num
                   Gm(j,m) = Gm(j,m) + Accum(j)*X(i,m)
@@ -68,7 +77,7 @@ SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
             CALL zntpki
          ENDIF
  40      DO j = 1 , Num
-            Accum(j) = Accum(j) + Z(1)*X(Ii,j)
+            Accum(j) = Accum(j) + z(1)*X(ii,j)
          ENDDO
          GOTO 20
  50   ENDDO
@@ -79,8 +88,8 @@ SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
       Gm(1,1) = sqrt(Gm(1,1))
       DO i = 2 , Num
          Gm(i,i) = sqrt(Gm(i,i))
-         Ii = i - 1
-         DO j = 1 , Ii
+         ii = i - 1
+         DO j = 1 , ii
             Gm(i,j) = Gm(i,j)/(Gm(i,i)*Gm(j,j))
          ENDDO
       ENDDO
@@ -101,7 +110,7 @@ SUBROUTINE ortck(X,Mass,Ibuf,Num,Ndim,Gm,Accum,Eps)
          ENDDO
          k = k + 1
          IF ( k>=Num ) THEN
-            IF ( iden/=1 ) CALL close(Mass,Rew)
+            IF ( iden/=1 ) CALL close(Mass,rew)
             EXIT
          ELSEIF ( j/=0 ) THEN
             GOTO 100

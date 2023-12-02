@@ -1,14 +1,15 @@
-!*==ampf.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ampf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Scr8,Scr9,Scr10)
+   USE c_ampcom
+   USE c_cdcmpx
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMPCOM
-   USE C_CDCMPX
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -86,8 +87,8 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
 !
 !     INITIALIZE
 !
-         ibuf1 = korsz(Z) - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
+         ibuf1 = korsz(z) - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
          iop = 0
          itl = 0
          DO iloop = 1 , Imax
@@ -96,86 +97,86 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   CALL klock(its)
-                  CALL gopen(Plan,Z(ibuf1),iop)
+                  CALL gopen(Plan,z(ibuf1),iop)
                   iop = 2
-                  CALL fread(Plan,Xm,4,1)
+                  CALL fread(Plan,xm,4,1)
                   CALL close(Plan,2)
 !
 !     FIND  SKJ(K) IN SKJL
 !
-                  CALL gopen(Skj,Z(ibuf1),0)
-                  CALL gopen(Scr1,Z(ibuf2),1)
-                  k = Ajjcol - 1
+                  CALL gopen(Skj,z(ibuf1),0)
+                  CALL gopen(Scr1,z(ibuf2),1)
+                  k = ajjcol - 1
                   CALL skprec(Skj,k)
                   mcb(1) = Skj
                   CALL rdtrl(mcb)
                   CALL makmcb(mcb,Scr1,mcb(3),mcb(4),mcb(5))
-                  Incr = 1
-                  Itc = mcb(5)
-                  CALL cyct2b(Skj,Scr1,Ncolj,Z,mcb)
+                  incr = 1
+                  itc = mcb(5)
+                  CALL cyct2b(Skj,Scr1,ncolj,z,mcb)
                   CALL close(Skj,1)
                   CALL close(Scr1,1)
                   CALL wrttrl(mcb)
 !                     T
 !     MULTIPLY  SKJ(K) *GKH  ONTO SCR2
 !
-                  CALL ssg2b(Scr1,Gkh,0,Scr2,1,Iprec,1,Scr3)
+                  CALL ssg2b(Scr1,Gkh,0,Scr2,1,iprec,1,Scr3)
 !
 !     POSITION AJJL
 !
-                  CALL gopen(Ajjl,Z(ibuf1),0)
-                  k = Ajjcol - 1
+                  CALL gopen(Ajjl,z(ibuf1),0)
+                  k = ajjcol - 1
                   CALL skprec(Ajjl,k)
                   CALL close(Ajjl,2)
 !
 !     SET UP TO LOOP ON CONSTANT THEORY
 !
                   ngps = 1
-                  nth = Ngpd(1,ngps)
+                  nth = ngpd(1,ngps)
                   ncolth = 0
                   spag_nextblock_2 = 2
                CASE (2)
                   nclold = ncolth + 1
-                  SPAG_Loop_2_1: DO WHILE ( ngps<=Ngp )
-                     IF ( Ngpd(1,ngps)/=nth ) EXIT SPAG_Loop_2_1
-                     ncolth = ncolth + Ngpd(2,ngps)
+                  SPAG_Loop_2_1: DO WHILE ( ngps<=ngp )
+                     IF ( ngpd(1,ngps)/=nth ) EXIT SPAG_Loop_2_1
+                     ncolth = ncolth + ngpd(2,ngps)
                      ngps = ngps + 1
                   ENDDO SPAG_Loop_2_1
                   ionce = 0
-                  IF ( nclold==1 .AND. ngps>Ngp ) ionce = 1
+                  IF ( nclold==1 .AND. ngps>ngp ) ionce = 1
 !                                 G
 !     COPY AJJL(K) TO SCR1 (AJJ(K) )
 !
-                  CALL gopen(Ajjl,Z(ibuf1),2)
-                  CALL gopen(Scr1,Z(ibuf2),1)
+                  CALL gopen(Ajjl,z(ibuf1),2)
+                  CALL gopen(Scr1,z(ibuf2),1)
                   mcb(1) = Ajjl
                   CALL rdtrl(mcb)
                   CALL makmcb(mcb,Scr1,ncolth,mcb(4),mcb(5))
-                  Ii = nclold
-                  Jj = ncolth
-                  Ii1 = 1
-                  Jj1 = ncolth - nclold + 1
-                  Itc = mcb(5)
-                  Itc1 = Itc
-                  Itc2 = Itc
-                  Incr = 1
-                  Incr1 = 1
-                  CALL ampc1(Ajjl,Scr1,ncolth,Z,mcb)
+                  ii = nclold
+                  jj = ncolth
+                  ii1 = 1
+                  jj1 = ncolth - nclold + 1
+                  itc = mcb(5)
+                  itc1 = itc
+                  itc2 = itc
+                  incr = 1
+                  incr1 = 1
+                  CALL ampc1(Ajjl,Scr1,ncolth,z,mcb)
                   CALL close(Ajjl,2)
                   CALL close(Scr1,1)
                   CALL wrttrl(mcb)
 !                                   G
 !     COPY SKJ(K)  ONTO SCR3 (SKJ(K) )
 !
-                  CALL gopen(Scr2,Z(ibuf1),0)
-                  CALL gopen(Scr3,Z(ibuf2),1)
+                  CALL gopen(Scr2,z(ibuf1),0)
+                  CALL gopen(Scr3,z(ibuf2),1)
                   mcb(1) = Scr2
                   CALL rdtrl(mcb)
                   CALL makmcb(mcb,Scr3,ncolth,mcb(4),mcb(5))
-                  Itc = mcb(5)
-                  Itc1 = Itc
-                  Itc2 = Itc
-                  CALL ampc1(Scr2,Scr3,Noh,Z,mcb)
+                  itc = mcb(5)
+                  itc1 = itc
+                  itc2 = itc
+                  CALL ampc1(Scr2,Scr3,noh,z,mcb)
                   CALL close(Scr2,1)
                   CALL close(Scr3,1)
                   CALL wrttrl(mcb)
@@ -194,7 +195,7 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
 !
 !     OTHER THEORIES
 !
-                     CALL ssg2b(Scr1,Scr3,0,rjh,1,Iprec,1,Scr4)
+                     CALL ssg2b(Scr1,Scr3,0,rjh,1,iprec,1,Scr4)
                      spag_nextblock_2 = 4
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
@@ -206,7 +207,7 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
 !                     G
 !     DECOMPOSE AJJ(K)
 !
-                  Ib = 0
+                  ib = 0
                   CALL cfactr(Scr1,Scr4,Scr5,Scr6,Scr7,Scr8,iopt)
                   CALL cfbsor(Scr4,Scr5,Scr3,rjh,iopt)
                   spag_nextblock_2 = 4
@@ -216,7 +217,7 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
 !
                   IF ( ionce==0 ) THEN
                      CALL ampc2(rjh,Scr9,Scr1)
-                     IF ( ngps<=Ngp ) THEN
+                     IF ( ngps<=ngp ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -227,13 +228,13 @@ SUBROUTINE ampf(Skj,Gkh,Ajjl,Qhjl,Plan,Imax,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,S
 !
 !     COPY ONTO  QHJL
 !
-                  CALL gopen(Scr9,Z(ibuf1),0)
-                  CALL gopen(Qhjl,Z(ibuf2),3)
+                  CALL gopen(Scr9,z(ibuf1),0)
+                  CALL gopen(Qhjl,z(ibuf2),3)
                   mcb(1) = Qhjl
                   CALL rdtrl(mcb(1))
-                  Itc = mcb(5)
-                  Incr = 1
-                  CALL cyct2b(Scr9,Qhjl,Noh,Z,mcb)
+                  itc = mcb(5)
+                  incr = 1
+                  CALL cyct2b(Scr9,Qhjl,noh,z,mcb)
                   CALL close(Qhjl,2)
                   CALL close(Scr9,1)
                   CALL wrttrl(mcb)

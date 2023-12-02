@@ -1,11 +1,12 @@
-!*==strm61.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==strm61.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strm61
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,11 +58,11 @@ SUBROUTINE strm61
    DO i = 1 , 6
       nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = Est(10)
-   tmem3 = Est(11)
-   tmem5 = Est(12)
+   tmem1 = est(10)
+   tmem3 = est(11)
+   tmem5 = est(12)
 !
 !   IF TMEM3 OR TMEM5 IS 0.0 OR BLANK , IT WILL BE SET EQUAL TO TMEM1
 !
@@ -69,29 +70,29 @@ SUBROUTINE strm61
 !
    IF ( tmem5==0.0 .OR. tmem5==blank ) tmem5 = tmem1
 !
-   nsm = Est(13)
+   nsm = est(13)
 !
    j = 0
    DO i = 14 , 34 , 4
       j = j + 1
       ics(j) = iest(i)
-      xc(j) = Est(i+1)
-      yc(j) = Est(i+2)
-      zc(j) = Est(i+3)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
-   Eltemp = (Est(38)+Est(39)+Est(40)+Est(41)+Est(42)+Est(43))/6.0
+   eltemp = (est(38)+est(39)+est(40)+est(41)+est(42)+est(43))/6.0
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !
 !   EVALUATE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    CALL mat(idele)
-   to = Tref
+   to = tref
 !
 !   CALCULATIONS FOR THE TRIANGLE
 !
@@ -141,21 +142,21 @@ SUBROUTINE strm61
    ENDDO
 !
    DO i = 1 , 7
-      Ph1out(i) = Est(i)
+      ph1out(i) = est(i)
    ENDDO
-   Ph1out(8) = Est(10)
-   Ph1out(9) = Est(11)
-   Ph1out(10) = Est(12)
-   Ph1out(11) = to
-   emod(1) = Em(1)
-   emod(2) = Em(2)
-   emod(3) = Em(3)
-   emod(4) = Em(2)
-   emod(5) = Em(4)
-   emod(6) = Em(5)
-   emod(7) = Em(3)
-   emod(8) = Em(5)
-   emod(9) = Em(6)
+   ph1out(8) = est(10)
+   ph1out(9) = est(11)
+   ph1out(10) = est(12)
+   ph1out(11) = to
+   emod(1) = em(1)
+   emod(2) = em(2)
+   emod(3) = em(3)
+   emod(4) = em(2)
+   emod(5) = em(4)
+   emod(6) = em(5)
+   emod(7) = em(3)
+   emod(8) = em(5)
+   emod(9) = em(6)
 !
 !   STRESSES AND STRAINS ARE EVALUATED AT FOUR POINTS ,VIZ., THE THREE
 !   CORNER GRID POINTS AND THE CENTROID
@@ -199,8 +200,8 @@ SUBROUTINE strm61
          ij1 = (jj-1)*54 + (ii-1)*9 + 12
          mz = (ii-1)*6 + 1
          CALL gmmats(emod,3,3,0,tmm(mz),2,3,+1,eph1)
-         CALL gmmats(eph1,3,2,0,ee1,2,3,0,Ph1out(ij1))
+         CALL gmmats(eph1,3,2,0,ee1,2,3,0,ph1out(ij1))
       ENDDO
    ENDDO
-   CALL gmmats(emod,3,3,0,Alf,3,1,0,Ph1out(228))
+   CALL gmmats(emod,3,3,0,alf,3,1,0,ph1out(228))
 END SUBROUTINE strm61

@@ -1,13 +1,14 @@
-!*==cfeer3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cfeer3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfeer3
-USE C_FEERAA
-USE C_FEERXC
-USE C_NAMES
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -40,7 +41,7 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE STORAGE ALLOCATIONS
 !
-   nz = korsz(Z)
+   nz = korsz(z)
    ibuf1 = nz - sysbuf
    ibuf2 = ibuf1 - sysbuf
    ibuf3 = ibuf2 - sysbuf
@@ -49,14 +50,14 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE LOCATIONS OF RIGHT-HANDED VECTORS
 !
    iv1 = 1
-   iv2 = iv1 + Nord4
-   iv3 = iv2 + Nord4
-   iv4 = iv3 + Nord4
-   iv5 = iv4 + Nord4
+   iv2 = iv1 + nord4
+   iv3 = iv2 + nord4
+   iv4 = iv3 + nord4
+   iv5 = iv4 + nord4
 !
 !     TEST FOR INSUFFICIENT CORE
 !
-   iend = iprec*(5*Nord4+1)
+   iend = iprec*(5*nord4+1)
    IF ( iend>itop ) THEN
 !
       iend = (iend-itop)/1000 + 1
@@ -68,19 +69,19 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE LOCATIONS OF LEFT-HANDED VECTORS
 !
-   iv1l = iv1 + Nord2
-   iv2l = iv2 + Nord2
-   iv3l = iv3 + Nord2
-   iv4l = iv4 + Nord2
-   iv5l = iv5 + Nord2
+   iv1l = iv1 + nord2
+   iv2l = iv2 + nord2
+   iv3l = iv3 + nord2
+   iv4l = iv4 + nord2
+   iv5l = iv5 + nord2
    iopn = itop - iend
-   IF ( Idiag/=0 ) WRITE (nout,99002) iopn
+   IF ( idiag/=0 ) WRITE (nout,99002) iopn
 99002 FORMAT (1H ,I10,36H SINGLE PRECISION WORDS OF OPEN CORE,29H NOT USED (SUBROUTINE CFEER3))
-   IF ( iopn<Minopn ) Minopn = iopn
+   IF ( iopn<minopn ) minopn = iopn
 !
 !     INITIALIZE SCRATCH FILE TO CONTAIN TRIDIAGONAL ELEMENTS
 !
-   CALL gopen(Iscr(5),Z(ibuf3),Wrtrew)
+   CALL gopen(iscr(5),z(ibuf3),wrtrew)
 !
 !     GENERATE MATRIX CONTROL BLOCK FOR SCRATCH FILE TO CONTAIN
 !     ORTHOGONAL VECTORS (LEFT VECTOR PACKED IMMEDIATELY AFTER
@@ -88,19 +89,18 @@ USE ISO_FORTRAN_ENV
 !     LEFT VECTOR)
 !
    jprec = iprec + 2
-   CALL makmcb(Mcbvec(1),Iscr(7),Nord2,2,jprec)
+   CALL makmcb(mcbvec(1),iscr(7),nord2,2,jprec)
 !
 !     PERFORM DOUBLE PRECISION FEER
 !
-   IF ( iprec==2 ) CALL cfer3d(dz(iv1),dz(iv1l),dz(iv2),dz(iv2l),dz(iv3),dz(iv3l),dz(iv4),dz(iv4l),dz(iv5),dz(iv5l),Z(ibuf1),       &
-                             & Z(ibuf2))
+   IF ( iprec==2 ) CALL cfer3d(dz(iv1),dz(iv1l),dz(iv2),dz(iv2l),dz(iv3),dz(iv3l),dz(iv4),dz(iv4l),dz(iv5),dz(iv5l),z(ibuf1),       &
+                             & z(ibuf2))
 !
 !     PERFORM SINGLE PRECISION FEER
 !
-   IF ( iprec/=2 ) CALL cfer3s(Z(iv1),Z(iv1l),Z(iv2),Z(iv2l),Z(iv3),Z(iv3l),Z(iv4),Z(iv4l),Z(iv5),Z(iv5l),Z(ibuf1),Z(ibuf2))
+   IF ( iprec/=2 ) CALL cfer3s(z(iv1),z(iv1l),z(iv2),z(iv2l),z(iv3),z(iv3l),z(iv4),z(iv4l),z(iv5),z(iv5l),z(ibuf1),z(ibuf2))
 !
 !     TERMINATE SCRATCH FILE CONTAINING TRIDIAGONAL ELEMENTS
 !
-   CALL close(Iscr(5),Norew)
-   RETURN
+   CALL close(iscr(5),norew)
 END SUBROUTINE cfeer3

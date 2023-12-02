@@ -2,10 +2,10 @@
  
 SUBROUTINE tlodm6(Ti)
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRIMEX
-   USE C_ZZZZZZ
+   USE c_matin
+   USE c_matout
+   USE c_trimex
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,6 +34,15 @@ SUBROUTINE tlodm6(Ti)
    INTEGER , DIMENSION(3) , SAVE :: rk , sk , tl , ul
    LOGICAL :: unimem , unitem
    INTEGER , DIMENSION(12) , SAVE :: xu , xv , yu , yv
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -106,26 +115,26 @@ SUBROUTINE tlodm6(Ti)
    DO i = 1 , 6
       nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = Est(10)
-   tmem3 = Est(11)
-   tmem5 = Est(12)
+   tmem1 = est(10)
+   tmem3 = est(11)
+   tmem5 = est(12)
 !
 !     IF TMEM3 OR TMEM5 IS 0.0 OR BLANK,IT WILL BE SET EQUAL TO TMEM1
 !
    IF ( tmem3==0.0 .OR. tmem3==blank ) tmem3 = tmem1
    IF ( tmem5==0.0 .OR. tmem5==blank ) tmem5 = tmem1
 !
-   nsm = Est(13)
+   nsm = est(13)
 !
    j = 0
    DO i = 14 , 34 , 4
       j = j + 1
       ics(j) = iest(i)
-      xc(j) = Est(i+1)
-      yc(j) = Est(i+2)
-      zc(j) = Est(i+3)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
 !
 !     TEMPERATURE AT THE THREE GRID POINTS ARE  DENOTED BY TO1,TO3 AND
@@ -135,11 +144,11 @@ SUBROUTINE tlodm6(Ti)
    to3 = Ti(3)
    to5 = Ti(5)
 !
-   Eltemp = (Est(38)+Est(39)+Est(40)+Est(41)+Est(42)+Est(43))/6.0
+   eltemp = (est(38)+est(39)+est(40)+est(41)+est(42)+est(43))/6.0
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     CALCULATIONS FOR THE  TRIANGLE
 !
@@ -180,31 +189,31 @@ SUBROUTINE tlodm6(Ti)
 !
 !     EVALUATE  MATERIAL PROPERTIES AND FILL IN G MATRIX
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    CALL mat(idele)
-   g(1) = Em(1)
-   g(2) = Em(2)
-   g(3) = Em(3)
-   g(4) = Em(2)
-   g(5) = Em(4)
-   g(6) = Em(5)
-   g(7) = Em(3)
-   g(8) = Em(5)
-   g(9) = Em(6)
+   g(1) = em(1)
+   g(2) = em(2)
+   g(3) = em(3)
+   g(4) = em(2)
+   g(5) = em(4)
+   g(6) = em(5)
+   g(7) = em(3)
+   g(8) = em(5)
+   g(9) = em(6)
 !
 !     G1 IS G TIMES ALFA
 !
-   CALL gmmats(g,3,3,0,Alf,3,1,0,g1)
+   CALL gmmats(g,3,3,0,alf,3,1,0,g1)
 !
 !     CALCULATION OF THERMAL LOAD VECTOR
 !
 !     EVALUATE THE CONSTANTS D1,D2,D3 IN THE LINEAR EQUATION FOR
 !     TEMPERATURE VARIATION OVER THE ELEMENT
 !
-   t1bar = to1 - Tref
-   t3bar = to3 - Tref
-   t5bar = to5 - Tref
+   t1bar = to1 - tref
+   t3bar = to3 - tref
+   t5bar = to5 - tref
 !
    CALL af(f,5,a,b,c,d1,d2,d3,t1bar,t2bar,t3bar,1)
    unitem = .FALSE.
@@ -298,7 +307,7 @@ SUBROUTINE tlodm6(Ti)
          i1 = (i-1)*3 + ii
          i2 = iest(i+1) + ii - 1
          ptglb(i1) = psubt(ii)
-         Pg(i2) = Pg(i2) + psubt(ii)
+         pg(i2) = pg(i2) + psubt(ii)
       ENDDO
    ENDDO
 END SUBROUTINE tlodm6

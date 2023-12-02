@@ -1,9 +1,10 @@
-!*==diam.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==diam.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE diam(Nc,Maxdeg,Nl,Nodesl,Idem,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
+   USE c_bands
    IMPLICIT NONE
-   USE C_BANDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,7 +36,7 @@ SUBROUTINE diam(Nc,Maxdeg,Nl,Nodesl,Idem,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
 !
    Nl = 0
    Maxlev = 600000
-   DO i = 1 , Nn
+   DO i = 1 , nn
       IF ( Nc==Ic(i) ) THEN
          IF ( Maxdeg>=Ideg(i) ) THEN
             md = idist(i,ml,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
@@ -60,8 +61,8 @@ SUBROUTINE diam(Nc,Maxdeg,Nl,Nodesl,Idem,Maxlev,Ig,Ic,Ideg,Idis,Iw,Icc,Jg)
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      ml = 1
-      Nodesl(1) = i
+      Ml = 1
+      Nodesl(1) = I
       Maxlev = 0
    END SUBROUTINE spag_block_1
 END SUBROUTINE diam

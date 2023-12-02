@@ -1,4 +1,5 @@
-!*==mxcid.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mxcid.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1)
@@ -14,12 +15,12 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !     IF THIS IS A SUBSTRUCTURING PROBLEM, MXCIDS SHOULD BE CALLED
 !     INSTEAD
 !
+   USE c_bitpos
+   USE c_names
+   USE c_system
+   USE c_two
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -54,7 +55,7 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !
 !     ALLOCATE CORE - CHECK DATA FILE AVAILABILITY
 !
-         buf2 = Buf1 + Nbufsz
+         buf2 = Buf1 + nbufsz
          IF ( Nwds<=0 ) Nwds = 1
          lgp = Msze*Nwds + 1
          x(1) = Sil
@@ -71,10 +72,9 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !     INSUFFICIENT CORE
 !
                CALL page2(2)
-               WRITE (Koutp,99001) Swm , name
+               WRITE (koutp,99001) swm , name
 99001          FORMAT (A27,' 3008, INSUFFICIENT CORE AVAILABLE FOR SUBROUTINE ',2A4,1H.)
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 !     DETERMINE IF SIL (AND USET) FIT IN CORE
@@ -93,12 +93,12 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !     CHECK SET REQUEST
 !
                DO iset = 1 , nset
-                  IF ( Hset(iset)==Mset ) GOTO 5
+                  IF ( hset(iset)==Mset ) GOTO 5
                ENDDO
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
- 5             iset = Mask2(iset)
-               iset = Itwo(iset)
+ 5             iset = mask2(iset)
+               iset = itwo(iset)
                IF ( andf(l,iset)==0 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
@@ -107,13 +107,13 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !     LOAD GPL INTO CORE
 !
                x(1) = Gpl
-               CALL open(*20,Gpl,Z(buf2),Krdrw)
+               CALL open(*20,Gpl,Z(buf2),krdrw)
                CALL fread(Gpl,0,0,1)
                CALL fread(Gpl,Z(lgp),ngp,0)
-               CALL close(Gpl,Kcl)
+               CALL close(Gpl,kcl)
                x(1) = Sil
-               CALL gopen(Sil,Z(Buf1),Krdrw)
-               CALL gopen(Uset,Z(buf2),Krdrw)
+               CALL gopen(Sil,Z(Buf1),krdrw)
+               CALL gopen(Uset,Z(buf2),krdrw)
 !
 !     LOAD SIL AND USET IF POSSIBLE
 !
@@ -123,14 +123,14 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
                   psil = lgp + ngp
                ELSE
                   CALL fread(Sil,Z(lsil),ngp,0)
-                  CALL close(Sil,Kcl)
+                  CALL close(Sil,kcl)
                   sil1 = Z(lsil)
                   psil = lsil + 1
                   i = ngp - 1
                ENDIF
                IF ( luset/=0 ) THEN
                   CALL fread(Uset,Z(luset),ndof,0)
-                  CALL close(Uset,Kcl)
+                  CALL close(Uset,kcl)
                   puset = luset
                ENDIF
                IF ( luset==0 ) puset = psil + i
@@ -177,7 +177,6 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
                            ENDIF
                         ENDDO
                         spag_nextblock_2 = 4
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (3)
 !
 !     LOCATED A POINT IN THE SET
@@ -208,36 +207,35 @@ SUBROUTINE mxcid(Z,Mset,Msze,Nwds,Uset,Gpl,Sil,Buf1) !HIDESTARS (*,Z,Mset,Msze,N
 !     END OF ALL GRIDS AND MATRIX NOT FILLED - NEED IMMEDIATE MESSAGE.
 !
                CALL page2(2)
-               WRITE (Koutp,99002) Swm , name
+               WRITE (koutp,99002) swm , name
 99002          FORMAT (A27,' 3016, MATRIX IS NOT IN PROPER FORM IN SUBROUTINE ',2A4)
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
 !
 !     PURGED FILES
 !
  20      CALL page2(2)
-         WRITE (Koutp,99003) Swm , x(1) , name
+         WRITE (koutp,99003) swm , x(1) , name
 99003    FORMAT (A27,' 3001, ATTEMPT TO OPEN DATA SET',I4,' IN SUBROUTINE',1X,2A4,' WHICH WAS NOT DEFINED IN FIST')
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
 !     ILLEGAL INPUT
 !
          CALL page2(2)
-         WRITE (Koutp,99004) Swm , name
+         WRITE (koutp,99004) swm , name
 99004    FORMAT (A27,' 3007, ILLEGAL INPUT TO SUBROUTINE ',2A4)
          spag_nextblock_1 = 3
       CASE (3)
 !
-         CALL close(Sil,Kcl)
-         CALL close(Uset,Kcl)
+         CALL close(Sil,kcl)
+         CALL close(Uset,kcl)
          RETURN 1
       CASE (4)
-         CALL close(Sil,Kcl)
-         CALL close(Uset,Kcl)
+         CALL close(Sil,kcl)
+         CALL close(Uset,kcl)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

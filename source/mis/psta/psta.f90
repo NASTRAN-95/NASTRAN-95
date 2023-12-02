@@ -1,12 +1,13 @@
-!*==psta.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==psta.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
+   USE c_amgmn
+   USE c_condas
+   USE c_packx
+   USE c_pstonc
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_PSTONC
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -32,14 +33,14 @@ SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
 ! End of declarations rewritten by SPAG
 !
    DATA a/9*0.0/ , h/9*0.0/
-   bref = Refc*.5
-   rfc = Rfk/bref
-   Ii = Nrow + 1
-   Nn = Nrow
+   bref = refc*.5
+   rfc = rfk/bref
+   ii = nrow + 1
+   nn = nrow
 !
 !     BUILD AJJL FOR EACH STRIP
 !
-   DO i = 1 , Nstrip
+   DO i = 1 , nstrip
       b = Bi(i)
       const = 8.0*Deltay(i)*(rfc*b)**2
       a(1,1) = -1.0
@@ -51,20 +52,20 @@ SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
       h(2,2) = b
       h(3,3) = b
       alpha = Alph(1)
-      IF ( Nalpha/=1 ) alpha = Alph(i)
-      alpha = alpha*Degra
+      IF ( nalpha/=1 ) alpha = Alph(i)
+      alpha = alpha*degra
       alpha2 = alpha*alpha
       n = 2
       IF ( Ca(i)/=0.0 ) n = 3
-      IF ( Nthick==0 ) THEN
-         IF ( Ntaus/=1 ) THEN
+      IF ( nthick==0 ) THEN
+         IF ( ntaus/=1 ) THEN
             k = (i-1)*3 + 1
             tau = Thi(k)
             tauh = Thi(k+1)
             taut = Thi(k+2)
             IF ( n==2 ) taut = 0.
             t = tauh - taut
-            k = (i-1)*2 + 1 + 3*Nstrip
+            k = (i-1)*2 + 1 + 3*nstrip
             zetam = Thi(k)
             zetah = Thi(k+1)
             DO j = 1 , 6
@@ -102,26 +103,26 @@ SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
             IF ( n==3 ) aj(j) = Thi(j+6)
          ENDDO
          zetah = 1.0
-         IF ( Nxis==1 ) zetah = Thi(13)
-         IF ( Nxis>1 ) zetah = Thi(i+12)
+         IF ( nxis==1 ) zetah = Thi(13)
+         IF ( nxis>1 ) zetah = Thi(i+12)
       ENDIF
-      ems = Emach*Emach
-      secs = Seclam*Seclam
-      IF ( Nthry/=0 ) THEN
-         cbar1 = Emach/sqrt(ems-secs)
+      ems = emach*emach
+      secs = seclam*seclam
+      IF ( nthry/=0 ) THEN
+         cbar1 = emach/sqrt(ems-secs)
          cbar2 = (ems*ems*(1.4+1.)-4.*secs*(ems-secs))/(4.*(ems-secs)**2)
       ELSE
          cbar1 = 1.
          cbar2 = (1.4+1.)/4.
       ENDIF
       cbar3 = (1.4+1.)/12.
-      ek(1) = (1./Emach)*(cbar1+2.*cbar2*Emach*ai(1)+3.*cbar3*ems*(ai(4)+alpha2))
-      ek(2) = (1./Emach)*(cbar1+4.*cbar2*Emach*ai(2)+3.*cbar3*ems*(2.*ai(5)+alpha2))
-      ek(3) = (4./(3.*Emach))*(cbar1+6.*cbar2*Emach*ai(3)+3.*cbar3*ems*(3.*ai(6)+alpha2))
+      ek(1) = (1./emach)*(cbar1+2.*cbar2*emach*ai(1)+3.*cbar3*ems*(ai(4)+alpha2))
+      ek(2) = (1./emach)*(cbar1+4.*cbar2*emach*ai(2)+3.*cbar3*ems*(2.*ai(5)+alpha2))
+      ek(3) = (4./(3.*emach))*(cbar1+6.*cbar2*emach*ai(3)+3.*cbar3*ems*(3.*ai(6)+alpha2))
       IF ( n/=3 ) THEN
-         ek(4) = (1./Emach)*(cbar1*(1.-zetah)+2.*cbar2*Emach*aj(1)+3.*cbar3*ems*aj(4)+alpha2*(1.-zetah))
-         ek(5) = (1./Emach)*(cbar1*(1.-zetah*zetah)+4.*cbar2*Emach*aj(2)+3.*cbar3*ems*(2.*aj(5)+alpha2*(1.-zetah*zetah)))
-         ek(6) = (4./(3.*Emach))*(cbar1*(1.-zetah**3)+6.*cbar2*Emach*aj(3)+3.*cbar3*ems*(3.*aj(6)+alpha2*(1.-zetah**3)))
+         ek(4) = (1./emach)*(cbar1*(1.-zetah)+2.*cbar2*emach*aj(1)+3.*cbar3*ems*aj(4)+alpha2*(1.-zetah))
+         ek(5) = (1./emach)*(cbar1*(1.-zetah*zetah)+4.*cbar2*emach*aj(2)+3.*cbar3*ems*(2.*aj(5)+alpha2*(1.-zetah*zetah)))
+         ek(6) = (4./(3.*emach))*(cbar1*(1.-zetah**3)+6.*cbar2*emach*aj(3)+3.*cbar3*ems*(3.*aj(6)+alpha2*(1.-zetah**3)))
          e1k = 1.0/(rfc*b)
          e1ks = e1k*e1k
          g(1,1) = 0.
@@ -175,13 +176,13 @@ SUBROUTINE psta(Deltay,Bi,Ca,Alph,Thi,Ajjl)
 !
 !     PACK OUT
 !
-      Nn = Nn + n
+      nn = nn + n
       DO j = 1 , n2 , 2
          DO k = 1 , n
             pc(k) = cmplx(p(k,j),p(k,j+1))
          ENDDO
-         CALL pack(pc,Ajjl,Mcb)
+         CALL pack(pc,Ajjl,mcb)
       ENDDO
-      Ii = Ii + n
+      ii = ii + n
    ENDDO
 END SUBROUTINE psta

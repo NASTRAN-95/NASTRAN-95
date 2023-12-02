@@ -1,20 +1,21 @@
-!*==ssght.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssght.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssght
+   USE c_blank
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_hmatdd
+   USE c_names
+   USE c_packx
+   USE c_stime
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FBSX
-   USE C_GFBSX
-   USE C_HMATDD
-   USE C_NAMES
-   USE C_PACKX
-   USE C_STIME
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -126,7 +127,7 @@ SUBROUTINE ssght
 !
 !     CORE SIZE AND BUFFERS
 !
-         lcore = korsz(Z)
+         lcore = korsz(z)
          buf1 = lcore - sysbuf - 2
          buf2 = buf1 - sysbuf - 2
          core = buf2 - 1
@@ -135,14 +136,14 @@ SUBROUTINE ssght
 !
 !     SET MISC. FLAGS.
 !
-         eps010 = 10.0*Eps0
-         epsold = Eps0 + 1.0
+         eps010 = 10.0*eps0
+         epsold = eps0 + 1.0
          nlrad = .TRUE.
-         IF ( Nlr==-1 ) nlrad = .FALSE.
+         IF ( nlr==-1 ) nlrad = .FALSE.
          CALL sswtch(18,k)
          IF ( k==1 ) diagon = .TRUE.
          linear = .TRUE.
-         IF ( Nlk==+1 ) linear = .FALSE.
+         IF ( nlk==+1 ) linear = .FALSE.
 !
 !     READ TRAILER OF USET TO GET GSIZE.
 !
@@ -168,14 +169,14 @@ SUBROUTINE ssght
          iuni = 1
          nuni = nsize
          iuniz = iuni - 1
-         Ihmat = nuni + 1
-         Nhmat = nuni
-         IF ( .NOT.linear ) Nhmat = core
-         Mptx = mptfil
-         Ditx = dit
-         IF ( .NOT.linear ) CALL prehma(Z)
-         iun = Nhmat + 1
-         nun = Nhmat + nsize
+         ihmat = nuni + 1
+         nhmat = nuni
+         IF ( .NOT.linear ) nhmat = core
+         mptx = mptfil
+         ditx = dit
+         IF ( .NOT.linear ) CALL prehma(z)
+         iun = nhmat + 1
+         nun = nhmat + nsize
          ieqiv = nun + 1
          neqiv = nun + gsize
 !
@@ -204,15 +205,15 @@ SUBROUTINE ssght
 !                       M        N
 !
          file = uset
-         CALL gopen(uset,Z(buf1),Rdrew)
+         CALL gopen(uset,z(buf1),rdrew)
          mpoint = iumz
          npoint = iun - 1
          isil = 0
          fsize = 0
-         CALL fread(uset,Z(ieqiv),gsize,0)
-         CALL close(uset,Clsrew)
+         CALL fread(uset,z(ieqiv),gsize,0)
+         CALL close(uset,clsrew)
          DO i = ieqiv , neqiv
-            word = Z(i)
+            word = z(i)
             isil = isil + 1
 !
 !     CHECK FOR M-POINT
@@ -229,17 +230,17 @@ SUBROUTINE ssght
 !
 !     OK N-POINT IS AN F-POINT.
 !
-                  Z(npoint) = -isil
+                  z(npoint) = -isil
                   fsize = fsize + 1
                ELSE
 !
 !     OK N-POINT IS ASSUMED AN S-POINT
 !
-                  Z(npoint) = +isil
+                  z(npoint) = +isil
                ENDIF
             ELSE
                mpoint = mpoint + 1
-               Z(mpoint) = isil
+               z(mpoint) = isil
             ENDIF
          ENDDO
          ssize = nsize - fsize
@@ -248,7 +249,7 @@ SUBROUTINE ssght
 !      M      N
 !
          IF ( isil/=gsize .OR. npoint/=nun .OR. mpoint/=num ) THEN
-            WRITE (outpt,99001) Sfm
+            WRITE (outpt,99001) sfm
 99001       FORMAT (A25,' 3081, INCONSISTENT USET DATA DETECTED.')
             CALL mesage(-61,0,subr)
          ENDIF
@@ -259,9 +260,9 @@ SUBROUTINE ssght
 !
          IF ( nume>=iume ) THEN
             DO i = iume , nume
-               Z(i) = 0
+               z(i) = 0
             ENDDO
-            CALL gopen(gm,Z(buf1),Rdrew)
+            CALL gopen(gm,z(buf1),rdrew)
             DO i = 1 , nsize
 !
 !     OPERATE ON A COLUMN OF GM.
@@ -274,29 +275,29 @@ SUBROUTINE ssght
 !     ROW POSITION -IROW- IN U  GETS COLUMN NUMBER.
 !                             M
 !
-                  ipos = iumez + Irow
-                  IF ( Z(ipos)<=0 ) THEN
-                     Z(ipos) = i
+                  ipos = iumez + irow
+                  IF ( z(ipos)<=0 ) THEN
+                     z(ipos) = i
                   ELSE
 !
 !     ERROR
 !
-                     WRITE (outpt,99002) Uwm , Irow , i
+                     WRITE (outpt,99002) uwm , irow , i
 99002                FORMAT (A25,' 3082, M =',I10,'  N =',I10)
                   ENDIF
-                  IF ( Eol>0 ) EXIT SPAG_Loop_2_1
+                  IF ( eol>0 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
  10         ENDDO
-            CALL close(gm,Clsrew)
+            CALL close(gm,clsrew)
 !
 !     INSURE ALL UME SLOTS FILLED
 !
             nogo = .FALSE.
             DO i = iume , nume
-               IF ( Z(i)<=0 ) THEN
+               IF ( z(i)<=0 ) THEN
                   m = i - iumez
                   isil = iumz + m
-                  WRITE (outpt,99003) Ufm , m , Z(isil)
+                  WRITE (outpt,99003) ufm , m , z(isil)
 99003             FORMAT (A23,' 3083, UM POSITION =',I10,', SIL =',I10)
                   nogo = .TRUE.
                ENDIF
@@ -309,10 +310,10 @@ SUBROUTINE ssght
 !                        G
 !
          mpoint = ium
-         mpt = Z(mpoint)
+         mpt = z(mpoint)
          IF ( mpoint>num ) mpt = 1000000
          mpte = iume
-         mval = Z(mpte)
+         mval = z(mpte)
          nval = 1
          k = ieqiv - 1
          DO i = 1 , gsize
@@ -321,17 +322,17 @@ SUBROUTINE ssght
 !
 !     N-POINT NEXT
 !
-               Z(k) = nval
+               z(k) = nval
                nval = nval + 1
             ELSE
 !
 !     M-POINT NEXT
 !
-               Z(k) = mval
+               z(k) = mval
                mpte = mpte + 1
-               mval = Z(mpte)
+               mval = z(mpte)
                mpoint = mpoint + 1
-               mpt = Z(mpoint)
+               mpt = z(mpoint)
                IF ( mpoint>num ) mpt = 1000000
             ENDIF
          ENDDO
@@ -339,10 +340,10 @@ SUBROUTINE ssght
 !     SET UP RULV IF RESIDUAL LOAD MATRIX IS TO BE FORMED.
 !
          rulvec = .FALSE.
-         IF ( Ires>0 ) THEN
+         IF ( ires>0 ) THEN
             CALL makmcb(rulmcb,rulv,fsize,2,precis)
-            CALL gopen(rulv,Z(buf1),Wrtrew)
-            CALL close(rulv,Cls)
+            CALL gopen(rulv,z(buf1),wrtrew)
+            CALL close(rulv,cls)
             rulvec = .TRUE.
          ENDIF
 !
@@ -359,7 +360,7 @@ SUBROUTINE ssght
             k = 1
          ENDIF
          DO i = iuni , nuni
-            Z(i) = k
+            z(i) = k
          ENDDO
          IF ( tset<=0 ) THEN
             spag_nextblock_1 = 2
@@ -369,7 +370,7 @@ SUBROUTINE ssght
 !     POSITION GPTT TO GRID TEMPERATURE DATA SECTION.
 !
          file = gptt
-         CALL open(*460,gptt,Z(buf1),Rdrew)
+         CALL open(*460,gptt,z(buf1),rdrew)
          CALL fread(gptt,buf,-2,0)
          number = 0
          DO
@@ -394,7 +395,7 @@ SUBROUTINE ssght
 !     TEMP PAIRS IN INTERNAL-ID AND TEMPERATURE.
 !
                iunat = iun
-               isil = iabs(Z(iunat))
+               isil = iabs(z(iunat))
                iuniat = iuni
 !
 !     READ A TEMPERATURE PAIR.
@@ -408,27 +409,27 @@ SUBROUTINE ssght
                CALL read(*480,*40,gptt,buf,2,noeor,flag)
                CYCLE
             ELSEIF ( buf(1)==isil ) THEN
-               Z(iuniat) = buf(2)
+               z(iuniat) = buf(2)
             ENDIF
             iunat = iunat + 1
-            isil = iabs(Z(iunat))
+            isil = iabs(z(iunat))
             iuniat = iuniat + 1
             IF ( iuniat>nuni ) EXIT SPAG_Loop_1_3
          ENDDO SPAG_Loop_1_3
- 40      CALL close(gptt,Clsrew)
+ 40      CALL close(gptt,clsrew)
 !
 !     CHECK FOR INTEGER 1-S WHICH GET THE DEFAULT TEMP.
 !
          nogo = .FALSE.
          DO i = iuni , nuni
-            IF ( Z(i)==1 ) THEN
+            IF ( z(i)==1 ) THEN
                IF ( idfalt/=-1 ) THEN
                   rz(i) = defalt
                ELSE
                   nogo = .TRUE.
                   k = iun + i - iuni
-                  isil = iabs(Z(k))
-                  WRITE (outpt,99004) Ufm , isil
+                  isil = iabs(z(k))
+                  WRITE (outpt,99004) ufm , isil
 99004             FORMAT (A23,' 3084, THERE IS NO TEMPERATURE DATA FOR SIL NUMBER',I10)
                ENDIF
             ENDIF
@@ -443,25 +444,25 @@ SUBROUTINE ssght
 !
          k = idelpz + fsize
          DO i = idelp , k
-            Z(i) = 0
+            z(i) = 0
          ENDDO
-         CALL open(*60,pf,Z(buf1),Rdrew)
+         CALL open(*60,pf,z(buf1),rdrew)
          CALL fwdrec(*60,pf)
          CALL intpk(*60,pf,0,precis,0)
          SPAG_Loop_1_4: DO
             CALL zntpki
-            k = idelpz + Irow
-            rz(k) = Ai(1)
-            IF ( Eol>0 ) EXIT SPAG_Loop_1_4
+            k = idelpz + irow
+            rz(k) = ai(1)
+            IF ( eol>0 ) EXIT SPAG_Loop_1_4
          ENDDO SPAG_Loop_1_4
- 60      CALL close(pf,Clsrew)
+ 60      CALL close(pf,clsrew)
 !
 !                         1
 !     SUBTRACT OFF (K  )(U )
 !                    FS   S
 !
          iat = iun - 1
-         CALL open(*100,kfs,Z(buf1),Rdrew)
+         CALL open(*100,kfs,z(buf1),rdrew)
          CALL fwdrec(*100,kfs)
          DO i = 1 , ssize
             SPAG_Loop_2_5: DO
@@ -469,43 +470,43 @@ SUBROUTINE ssght
 !     FIND NEXT US POINT TEMPERATURE DATA.
 !
                iat = iat + 1
-               IF ( Z(iat)>0 ) THEN
+               IF ( z(iat)>0 ) THEN
                   k = iuniz + iat - iun + 1
                   CALL intpk(*80,kfs,0,precis,0)
                   value = rz(k)
                   DO
                      CALL zntpki
-                     k = idelpz + Irow
-                     rz(k) = rz(k) - Ai(1)*value
-                     IF ( Eol>0 ) EXIT SPAG_Loop_2_5
+                     k = idelpz + irow
+                     rz(k) = rz(k) - ai(1)*value
+                     IF ( eol>0 ) EXIT SPAG_Loop_2_5
                   ENDDO
                ENDIF
             ENDDO SPAG_Loop_2_5
  80      ENDDO
- 100     CALL close(kfs,Clsrew)
+ 100     CALL close(kfs,clsrew)
 !
 !                1
 !     PACK OUT (P ) ON SCRATCH-4
 !                F
 !
-         CALL gopen(scrt4,Z(buf1),Wrtrew)
+         CALL gopen(scrt4,z(buf1),wrtrew)
          CALL makmcb(mcb,scrt4,fsize,2,precis)
-         Pkin = precis
-         Pkout = precis
-         Pkirow = 1
-         Pknrow = fsize
-         Pkincr = 1
-         CALL pack(Z(idelp),scrt4,mcb)
-         CALL close(scrt4,Clsrew)
+         pkin = precis
+         pkout = precis
+         pkirow = 1
+         pknrow = fsize
+         pkincr = 1
+         CALL pack(z(idelp),scrt4,mcb)
+         CALL close(scrt4,clsrew)
          CALL wrttrl(mcb)
 !
 !     ELEMENT INITIAL PROCESSING PHASE.
 !
-         CALL gopen(scrt1,Z(buf2),Wrtrew)
+         CALL gopen(scrt1,z(buf2),wrtrew)
          IF ( .NOT.(linear) ) THEN
-            CALL gopen(est,Z(buf1),Rdrew)
-            CALL ssght1(est,scrt1,Z(ieqiv))
-            CALL close(est,Clsrew)
+            CALL gopen(est,z(buf1),rdrew)
+            CALL ssght1(est,scrt1,z(ieqiv))
+            CALL close(est,clsrew)
          ENDIF
 !
 !        E
@@ -513,8 +514,8 @@ SUBROUTINE ssght
 !        G
 !
          CALL write(scrt1,0,0,1)
-         CALL write(scrt1,Z(ieqiv),gsize,1)
-         CALL close(scrt1,Clsrew)
+         CALL write(scrt1,z(ieqiv),gsize,1)
+         CALL close(scrt1,clsrew)
 !
 !                      1            3
 !     FORM (S ) = 4( (U ) + (TABS) )  DIAGONAL MATRIX.
@@ -524,7 +525,7 @@ SUBROUTINE ssght
             j = iuniz
             DO i = isn , nsn
                j = j + 1
-               rz(i) = 4.0*(rz(j)+Tabs)**3
+               rz(i) = 4.0*(rz(j)+tabs)**3
             ENDDO
          ENDIF
 !
@@ -534,18 +535,18 @@ SUBROUTINE ssght
          is = fsize
          if = 0
          DO i = iun , nun
-            IF ( Z(i)<=0 ) THEN
+            IF ( z(i)<=0 ) THEN
 !
 !     F-POINTER
 !
                if = if + 1
-               Z(i) = if
+               z(i) = if
             ELSE
 !
 !     S-POINTER
 !
                is = is + 1
-               Z(i) = is
+               z(i) = is
             ENDIF
          ENDDO
          loop = 0
@@ -564,16 +565,16 @@ SUBROUTINE ssght
 !
          CALL tmtogo(tstart)
          DO i = idelp , ndelp
-            Z(i) = 0
+            z(i) = 0
          ENDDO
          IF ( .NOT.(loop1 .OR. linear) ) THEN
-            CALL gopen(scrt1,Z(buf1),Rdrew)
-            CALL ssght2(scrt1,Z(idelp),Z(iuni))
-            CALL close(scrt1,Clsrew)
+            CALL gopen(scrt1,z(buf1),rdrew)
+            CALL ssght2(scrt1,z(idelp),z(iuni))
+            CALL close(scrt1,clsrew)
 !
 !     PARTITION DELTA-P VECTOR INTO DELTA-F AND DELTA-S VECTORS.
 !
-            CALL ssghtp(Z(iun),Z(idelp),nsize)
+            CALL ssghtp(z(iun),z(idelp),nsize)
          ENDIF
 !
 !                     I
@@ -587,7 +588,7 @@ SUBROUTINE ssght
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*140,rfn,Z(buf2),Rdrew)
+         CALL open(*140,rfn,z(buf2),rdrew)
          CALL fwdrec(*140,rfn)
          DO i = 1 , nsize
 !
@@ -601,18 +602,18 @@ SUBROUTINE ssght
             un = rz(k)
             k = isnz + i
             sn = rz(k)
-            value = (un+Tabs)**4 - sn*un
+            value = (un+tabs)**4 - sn*un
             SPAG_Loop_2_6: DO
 !
 !     UNPACK NON-ZERO TERMS OF COLUMN.
 !
                CALL zntpki
-               k = idelpz + Irow
-               rz(k) = rz(k) + Ai(1)*value
-               IF ( Eol>0 ) EXIT SPAG_Loop_2_6
+               k = idelpz + irow
+               rz(k) = rz(k) + ai(1)*value
+               IF ( eol>0 ) EXIT SPAG_Loop_2_6
             ENDDO SPAG_Loop_2_6
  120     ENDDO
- 140     CALL close(rfn,Clsrew)
+ 140     CALL close(rfn,clsrew)
          spag_nextblock_1 = 4
       CASE (4)
 !
@@ -635,17 +636,17 @@ SUBROUTINE ssght
 !     OPEN (P ) FOR UNPACKING OF ONE COLUMN.
 !            F
 !
-         CALL open(*160,scrt4,Z(buf2),Rdrew)
+         CALL open(*160,scrt4,z(buf2),rdrew)
          CALL fwdrec(*160,scrt4)
          CALL intpk(*160,scrt4,0,precis,0)
          SPAG_Loop_1_7: DO
             CALL zntpki
-            k = idelpz + Irow
-            rz(k) = rz(k) + Ai(1)
-            IF ( loop1 ) pfmag = pfmag + Ai(1)*Ai(1)
-            IF ( Eol>0 ) EXIT SPAG_Loop_1_7
+            k = idelpz + irow
+            rz(k) = rz(k) + ai(1)
+            IF ( loop1 ) pfmag = pfmag + ai(1)*ai(1)
+            IF ( eol>0 ) EXIT SPAG_Loop_1_7
          ENDDO SPAG_Loop_1_7
- 160     CALL close(scrt4,Clsrew)
+ 160     CALL close(scrt4,clsrew)
 !
 !          I
 !     (PBAR ) IS NOW PACKED OUT TO SCRATCH-2.
@@ -654,20 +655,20 @@ SUBROUTINE ssght
          IF ( loop1 ) THEN
             pfmag = sqrt(pfmag)
             IF ( pfmag<=0 ) THEN
-               WRITE (outpt,99005) Ufm
+               WRITE (outpt,99005) ufm
 99005          FORMAT (A23,' 3085, THE PF LOAD VECTOR IS EITHER PURGED OR NULL.')
                CALL mesage(-61,0,subr)
             ENDIF
          ENDIF
          CALL makmcb(mcb2,scrt2,fsize,2,2)
-         CALL gopen(scrt2,Z(buf2),Wrtrew)
-         Pkin = precis
-         Pkout = iprec1
-         Pkirow = 1
-         Pknrow = fsize
-         Pkincr = 1
-         CALL pack(Z(idelp),scrt2,mcb2)
-         CALL close(scrt2,Clsrew)
+         CALL gopen(scrt2,z(buf2),wrtrew)
+         pkin = precis
+         pkout = iprec1
+         pkirow = 1
+         pknrow = fsize
+         pkincr = 1
+         CALL pack(z(idelp),scrt2,mcb2)
+         CALL close(scrt2,clsrew)
          CALL wrttrl(mcb2)
 !
 !                       I           I
@@ -680,8 +681,8 @@ SUBROUTINE ssght
 !     FIRST PARTITION (U ) TO (U ) AND (U )
 !                       N       F        S
 !
-         CALL ssghtp(Z(iun),Z(iuni),nsize)
-         CALL open(*200,kff,Z(buf1),Rdrew)
+         CALL ssghtp(z(iun),z(iuni),nsize)
+         CALL open(*200,kff,z(buf1),rdrew)
          CALL fwdrec(*200,kff)
          DO i = 1 , fsize
 !
@@ -700,12 +701,12 @@ SUBROUTINE ssght
 !                                                            I
 !     SUBTRACT THIS ELEMENT*VALUE FROM IROW POSITION OF (PBAR )
 !                                                            F
-               k = idelpz + Irow
-               rz(k) = rz(k) - Ai(1)*value
-               IF ( Eol>0 ) EXIT SPAG_Loop_2_8
+               k = idelpz + irow
+               rz(k) = rz(k) - ai(1)*value
+               IF ( eol>0 ) EXIT SPAG_Loop_2_8
             ENDDO SPAG_Loop_2_8
  180     ENDDO
- 200     CALL close(kff,Clsrew)
+ 200     CALL close(kff,clsrew)
 !
 !     COMPUTE EPSILON
 !                    P
@@ -726,14 +727,14 @@ SUBROUTINE ssght
 !                                                   F
 !
          IF ( rulvec ) THEN
-            CALL open(*220,rulv,Z(buf1),Wrt)
-            Pkin = precis
-            Pkout = precis
-            Pkirow = 1
-            Pknrow = fsize
-            Pkincr = 1
-            CALL pack(Z(idelp),rulv,rulmcb)
-            CALL close(rulv,Cls)
+            CALL open(*220,rulv,z(buf1),wrt)
+            pkin = precis
+            pkout = precis
+            pkirow = 1
+            pknrow = fsize
+            pkincr = 1
+            CALL pack(z(idelp),rulv,rulmcb)
+            CALL close(rulv,cls)
          ENDIF
 !
 !                     I+1
@@ -744,47 +745,47 @@ SUBROUTINE ssght
 !                           F           F
 !
 !
- 220     Isign = +1
-         Iprec = 2
-         Lmcb(1) = lfile
-         CALL rdtrl(Lmcb)
-         Umcb(1) = ufile
-         CALL rdtrl(Umcb)
-         Bmcb(1) = scrt2
-         CALL rdtrl(Bmcb)
-         CALL makmcb(Xmcb,scrt3,fsize,2,2)
+ 220     isign = +1
+         iprec = 2
+         lmcb(1) = lfile
+         CALL rdtrl(lmcb)
+         umcb(1) = ufile
+         CALL rdtrl(umcb)
+         bmcb(1) = scrt2
+         CALL rdtrl(bmcb)
+         CALL makmcb(xmcb,scrt3,fsize,2,2)
 !
 !     INSURE EVEN BOUNDARY (ARRAY WILL BE USED AS DOUBLE PRECISION)
 !
          jdelp = ndelp + 1 + mod(ndelp+1,2) + 1
-         Lz = lcore - jdelp
+         lz = lcore - jdelp
 !WKBI 3/94
-         Jzzz = Lz
+         jzzz = lz
          DO ijk = 1 , 31
-            Jlmcb(ijk) = Lmcb(ijk)
+            jlmcb(ijk) = lmcb(ijk)
          ENDDO
-         IF ( Umcb(1)>0 ) CALL gfbs(Z(jdelp),Z(jdelp))
-         IF ( Umcb(1)<=0 ) CALL fbs(Z(jdelp),Z(jdelp))
-         IF ( Umcb(1)>0 ) CALL wrttrl(Xmcb)
-         IF ( Umcb(1)<=0 ) CALL wrttrl(Jxmcb)
+         IF ( umcb(1)>0 ) CALL gfbs(z(jdelp),z(jdelp))
+         IF ( umcb(1)<=0 ) CALL fbs(z(jdelp),z(jdelp))
+         IF ( umcb(1)>0 ) CALL wrttrl(xmcb)
+         IF ( umcb(1)<=0 ) CALL wrttrl(jxmcb)
 !
 !       I+1
 !     (U   ) IS NOW MOVED FROM SCRATCH-3 INTO CORE IN (DELTA-P ) SPACE.
 !       F                                                     N
 !
-         CALL gopen(scrt3,Z(buf1),Rdrew)
+         CALL gopen(scrt3,z(buf1),rdrew)
          k = idelpz + fsize
          DO i = idelp , k
-            Z(i) = 0
+            z(i) = 0
          ENDDO
          CALL intpk(*240,scrt3,0,precis,0)
          SPAG_Loop_1_9: DO
             CALL zntpki
-            k = idelpz + Irow
-            rz(k) = Ai(1)
-            IF ( Eol>0 ) EXIT SPAG_Loop_1_9
+            k = idelpz + irow
+            rz(k) = ai(1)
+            IF ( eol>0 ) EXIT SPAG_Loop_1_9
          ENDDO SPAG_Loop_1_9
- 240     CALL close(scrt3,Clsrew)
+ 240     CALL close(scrt3,clsrew)
          IF ( loop1 ) THEN
 !
 !                   I
@@ -792,7 +793,7 @@ SUBROUTINE ssght
 !                   U
 !
             iexit = 2
-            IF ( loop<Maxitr ) THEN
+            IF ( loop<maxitr ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -816,7 +817,7 @@ SUBROUTINE ssght
 !     LOAD (DELTA-P ) INTO QS FORMATION CORE SPACE.
 !                  S
 !
-            WRITE (outpt,99007) Uwm
+            WRITE (outpt,99007) uwm
 99007       FORMAT (A25,' 3132, SSGHT RECOVERING FROM SEVERE USER CONVERGENCE',' CRITERIA.')
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
@@ -839,7 +840,7 @@ SUBROUTINE ssght
 !
 !     WHERE I = ITERATION GREATER THAN 1.
 !
-            CALL gopen(scrt2,Z(buf1),Rdrew)
+            CALL gopen(scrt2,z(buf1),rdrew)
             alpha = 0.0
             beta = 0.0
             gamma = 0.0
@@ -849,16 +850,16 @@ SUBROUTINE ssght
 !     ONLY NON-ZERO TERMS OF (PBAR ) NEED BE CONSIDERED.
 !                                 F
                CALL zntpki
-               kufip1 = idelpz + Irow
-               kdelu = ideluz + Irow
-               kufi = iuniz + Irow
-               alpha = alpha + rz(kufip1)*Ai(1)
-               beta = beta + rz(kdelu)*Ai(1)
-               gamma = gamma + (rz(kufip1)-rz(kufi))*Ai(1)
-               IF ( Eol>0 ) EXIT SPAG_Loop_1_10
+               kufip1 = idelpz + irow
+               kdelu = ideluz + irow
+               kufi = iuniz + irow
+               alpha = alpha + rz(kufip1)*ai(1)
+               beta = beta + rz(kdelu)*ai(1)
+               gamma = gamma + (rz(kufip1)-rz(kufi))*ai(1)
+               IF ( eol>0 ) EXIT SPAG_Loop_1_10
             ENDDO SPAG_Loop_1_10
          ENDIF
- 260     CALL close(scrt2,Clsrew)
+ 260     CALL close(scrt2,clsrew)
 !
 !     CONVERGENCE TESTS ARE MADE HERE.
 !
@@ -884,25 +885,25 @@ SUBROUTINE ssght
             epst = 0.0
          ENDIF
          CALL tmtogo(kleft)
-         telaps = Treqst - kleft
-         tau = 1.0 - float(tloop+telaps)/(.8*float(Treqst))
+         telaps = treqst - kleft
+         tau = 1.0 - float(tloop+telaps)/(.8*float(treqst))
          IF ( diagon ) WRITE (outpt,99008) loop , epsubp , flamda , epst
 99008    FORMAT (I6,1P,E19.6,1P,E18.6,1P,E18.6)
          iexit = 1
-         IF ( epst<Eps0 .AND. flamda>1.0 .AND. epsubp<eps010 ) THEN
+         IF ( epst<eps0 .AND. flamda>1.0 .AND. epsubp<eps010 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     TEST FOR TWO SUCCESSIVE CASES PASSING TEST
 !
-         IF ( epst<Eps0 .AND. epsold<Eps0 ) THEN
+         IF ( epst<eps0 .AND. epsold<eps0 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          epsold = epst
          iexit = 2
-         IF ( loop>=Maxitr ) THEN
+         IF ( loop>=maxitr ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -957,8 +958,8 @@ SUBROUTINE ssght
          kuni = iuniz
          DO i = iun , nun
             kuni = kuni + 1
-            jpos = idelpz + Z(i)
-            Z(kuni) = Z(jpos)
+            jpos = idelpz + z(i)
+            z(kuni) = z(jpos)
          ENDDO
          GOTO iretrn
 !
@@ -968,12 +969,11 @@ SUBROUTINE ssght
          tloop = tstart - tend
          loop1 = .FALSE.
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         WRITE (outpt,99009) Uim , iexit , (alibi(j,iexit),j=1,5)
+         WRITE (outpt,99009) uim , iexit , (alibi(j,iexit),j=1,5)
 99009    FORMAT (A29,' 3086, ENTERING SSGHT EXIT MODE BY REASON NUMBER ',I2,2H (,5A4,1H))
          noqg = .TRUE.
-         CALL open(*380,qg,Z(buf2),Wrtrew)
+         CALL open(*380,qg,z(buf2),wrtrew)
          noqg = .FALSE.
          CALL fname(qg,name)
          CALL write(qg,name,2,eor)
@@ -983,27 +983,27 @@ SUBROUTINE ssght
          k = idelpz + fsize
          DO i = iqs , nqs
             k = k + 1
-            Z(i) = Z(k)
+            z(i) = z(k)
          ENDDO
 !
 !     SUBTRACT OFF NON-ZERO TERMS OF PS VECTOR.
 !
-         CALL open(*300,ps,Z(buf1),Rdrew)
+         CALL open(*300,ps,z(buf1),rdrew)
          CALL fwdrec(*300,ps)
          CALL intpk(*300,ps,0,precis,0)
          SPAG_Loop_1_11: DO
             CALL zntpki
-            k = iqsz + Irow
-            rz(k) = rz(k) - Ai(1)
-            IF ( Eol>0 ) EXIT SPAG_Loop_1_11
+            k = iqsz + irow
+            rz(k) = rz(k) - ai(1)
+            IF ( eol>0 ) EXIT SPAG_Loop_1_11
          ENDDO SPAG_Loop_1_11
- 300     CALL close(ps,Clsrew)
+ 300     CALL close(ps,clsrew)
 !
 !                   I
 !     ADD IN (K  )(U )
 !              SF   F
 !
-         CALL open(*340,ksf,Z(buf1),Rdrew)
+         CALL open(*340,ksf,z(buf1),rdrew)
          CALL fwdrec(*340,ksf)
          DO i = 1 , fsize
             CALL intpk(*320,ksf,0,precis,0)
@@ -1011,18 +1011,18 @@ SUBROUTINE ssght
             value = rz(k)
             SPAG_Loop_2_12: DO
                CALL zntpki
-               k = iqsz + Irow
-               rz(k) = rz(k) + Ai(1)*value
-               IF ( Eol>0 ) EXIT SPAG_Loop_2_12
+               k = iqsz + irow
+               rz(k) = rz(k) + ai(1)*value
+               IF ( eol>0 ) EXIT SPAG_Loop_2_12
             ENDDO SPAG_Loop_2_12
  320     ENDDO
- 340     CALL close(ksf,Clsrew)
+ 340     CALL close(ksf,clsrew)
 !
 !     ADD IN (K  )(U )
 !              SS   S
 !
          IF ( ssize/=0 ) THEN
-            CALL open(*360,kss,Z(buf1),Rdrew)
+            CALL open(*360,kss,z(buf1),rdrew)
             CALL fwdrec(*360,kss)
             iusz = iuniz + fsize
             DO i = 1 , ssize
@@ -1031,13 +1031,13 @@ SUBROUTINE ssght
                value = rz(k)
                SPAG_Loop_2_13: DO
                   CALL zntpki
-                  k = iqsz + Irow
-                  rz(k) = rz(k) + Ai(1)*value
-                  IF ( Eol>0 ) EXIT SPAG_Loop_2_13
+                  k = iqsz + irow
+                  rz(k) = rz(k) + ai(1)*value
+                  IF ( eol>0 ) EXIT SPAG_Loop_2_13
                ENDDO SPAG_Loop_2_13
  350        ENDDO
          ENDIF
- 360     CALL close(kss,Clsrew)
+ 360     CALL close(kss,clsrew)
 !
 !                                     I
 !     TO COMPUTE ADDITIONAL PRODUCT (U ) IS NOW FORMED.
@@ -1063,38 +1063,38 @@ SUBROUTINE ssght
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*440,rsn,Z(buf1),Rdrew)
+         CALL open(*440,rsn,z(buf1),rdrew)
          CALL fwdrec(*440,rsn)
          DO i = 1 , nsize
             CALL intpk(*420,rsn,0,precis,0)
             ku = iuniz + i
             ks = isnz + i
-            value = (rz(ku)+Tabs)**4 - rz(ku)*rz(ks)
+            value = (rz(ku)+tabs)**4 - rz(ku)*rz(ks)
             SPAG_Loop_2_14: DO
                CALL zntpki
-               k = iqsz + Irow
-               rz(k) = rz(k) + Ai(1)*value
-               IF ( Eol>0 ) EXIT SPAG_Loop_2_14
+               k = iqsz + irow
+               rz(k) = rz(k) + ai(1)*value
+               IF ( eol>0 ) EXIT SPAG_Loop_2_14
             ENDDO SPAG_Loop_2_14
  420     ENDDO
- 440     CALL close(rsn,Clsrew)
+ 440     CALL close(rsn,clsrew)
          spag_nextblock_1 = 8
       CASE (8)
 !
 !     (QS) IS COMPLETE AND READY FOR EXPANSION TO GSIZE AND OUTPUT.
 !
          CALL makmcb(mcb,qg,gsize,2,precis)
-         Jrow = 0
+         jrow = 0
          file = uset
          IF ( ssize/=0 ) THEN
-            CALL gopen(uset,Z(buf1),Rdrew)
+            CALL gopen(uset,z(buf1),rdrew)
             iq = iqs
             CALL bldpk(precis,precis,qg,0,0)
             SPAG_Loop_1_15: DO
                CALL fread(uset,word,1,0)
-               Jrow = Jrow + 1
+               jrow = jrow + 1
                IF ( mod(word/2,2)>0 ) THEN
-                  Ao(1) = rz(iq)
+                  ao(1) = rz(iq)
                   CALL zblpki
                   iq = iq + 1
                   IF ( iq>nqs ) THEN
@@ -1102,9 +1102,9 @@ SUBROUTINE ssght
 !     QS HAS NOW BEEN EXPANDED TO GSIZE AND OUTPUT ON QG DATA BLOCK.
 !
                      CALL bldpkn(qg,0,mcb)
-                     CALL close(qg,Clsrew)
+                     CALL close(qg,clsrew)
                      CALL wrttrl(mcb)
-                     CALL close(uset,Clsrew)
+                     CALL close(uset,clsrew)
                      EXIT SPAG_Loop_1_15
                   ENDIF
                ENDIF
@@ -1123,16 +1123,16 @@ SUBROUTINE ssght
 !     READ EQUIVALENCE TABLE BACK INTO CORE AT THIS TIME.
 !
          file = scrt1
-         CALL gopen(scrt1,Z(buf1),Rdrew)
+         CALL gopen(scrt1,z(buf1),rdrew)
          CALL skprec(scrt1,1)
-         CALL fread(scrt1,Z(ieqiv),gsize,0)
+         CALL fread(scrt1,z(ieqiv),gsize,0)
 !
-         CALL close(scrt1,Clsrew)
+         CALL close(scrt1,clsrew)
 !
 !     REPLACE POINTERS WITH THE VALUES.
 !
          DO i = ieqiv , neqiv
-            k = iuniz + Z(i)
+            k = iuniz + z(i)
             rz(i) = rz(k)
          ENDDO
 !
@@ -1140,21 +1140,21 @@ SUBROUTINE ssght
 !                G
 !
          CALL makmcb(mcb,ugv,gsize,2,precis)
-         CALL gopen(ugv,Z(buf1),1)
-         Pkin = precis
-         Pkout = precis
-         Pkirow = 1
-         Pknrow = gsize
-         Pkincr = 1
-         CALL pack(Z(ieqiv),ugv,mcb)
-         CALL close(ugv,Clsrew)
+         CALL gopen(ugv,z(buf1),1)
+         pkin = precis
+         pkout = precis
+         pkirow = 1
+         pknrow = gsize
+         pkincr = 1
+         CALL pack(z(ieqiv),ugv,mcb)
+         CALL close(ugv,clsrew)
          CALL wrttrl(mcb)
 !
 !     COMPLETE RULV IF NECESSARY.
 !
          IF ( rulvec ) THEN
-            CALL gopen(rulv,Z(buf1),3)
-            CALL close(rulv,Clsrew)
+            CALL gopen(rulv,z(buf1),3)
+            CALL close(rulv,clsrew)
             CALL wrttrl(rulmcb)
          ENDIF
          RETURN
@@ -1166,7 +1166,7 @@ SUBROUTINE ssght
          GOTO 500
  480     n = -2
          CALL mesage(n,file,subr)
- 500     WRITE (outpt,99010) Ufm , tset
+ 500     WRITE (outpt,99010) ufm , tset
 99010    FORMAT (A23,' 3087, TEMPERATURE SET',I10,' IS NOT PRESENT IN ','GPTT DATA BLOCK.')
          CALL mesage(-61,0,subr)
          EXIT SPAG_DispatchLoop_1

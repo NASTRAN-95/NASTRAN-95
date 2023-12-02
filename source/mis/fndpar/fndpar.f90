@@ -1,12 +1,13 @@
-!*==fndpar.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fndpar.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndpar(Np2,Index)
+   USE c_oscent
+   USE c_sem
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_OSCENT
-   USE C_SEM
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,15 +28,15 @@ SUBROUTINE fndpar(Np2,Index)
 !
    DATA name/4HFNDP , 4HAR  /
 !
-   nip = Oscar(7)
-   itype = andf(Oscar(3),7)
+   nip = oscar(7)
+   itype = andf(oscar(3),7)
    i = 8 + 3*nip
    IF ( itype/=2 ) THEN
-      nop = Oscar(i)
+      nop = oscar(i)
       i = i + 3*nop + 1
    ENDIF
    i = i + 1
-   np1 = Oscar(i)
+   np1 = oscar(i)
    np = iabs(Np2)
    IF ( np>np1 ) THEN
       IF ( Np2<=0 ) THEN
@@ -45,7 +46,7 @@ SUBROUTINE fndpar(Np2,Index)
          Index = -1
          RETURN
       ELSE
-         WRITE (Nout,99001) Ufm , np
+         WRITE (nout,99001) ufm , np
 99001    FORMAT (A23,' 3123, PARAMETER NUMBER',I6,' NOT IN DMAP CALL.')
          CALL mesage(-61,0,name)
       ENDIF
@@ -54,7 +55,7 @@ SUBROUTINE fndpar(Np2,Index)
    k = i + 1
    IF ( np1/=0 ) THEN
       DO i = 1 , np1
-         m = Oscar(k)
+         m = oscar(k)
          IF ( m<0 ) THEN
 !
 !     VARTABLE
@@ -71,16 +72,15 @@ SUBROUTINE fndpar(Np2,Index)
 !
 !     K POINTS  TO WANTED OSCAR WORD
 !
-   IF ( Oscar(k)>=0 ) THEN
+   IF ( oscar(k)>=0 ) THEN
       IF ( Np2<=0 ) THEN
          Index = -1
          RETURN
       ELSE
-         WRITE (Nout,99002) Ufm , np
+         WRITE (nout,99002) ufm , np
 99002    FORMAT (A23,' 3124, PARAMETER NUMBER',I6,' IS NOT A VARIABLE.')
          CALL mesage(-61,0,name)
       ENDIF
    ENDIF
-   Index = andf(Oscar(k),Mask3)
-   RETURN
+   Index = andf(oscar(k),mask3)
 END SUBROUTINE fndpar

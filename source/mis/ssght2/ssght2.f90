@@ -1,12 +1,13 @@
-!*==ssght2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssght2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssght2(File,Delta,Uni)
-USE C_CONDAD
-USE C_ESTOUT
-USE C_HMTOUT
-USE C_MATIN
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_estout
+   USE c_hmtout
+   USE c_matin
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -55,65 +56,65 @@ USE ISO_FORTRAN_ENV
 !
 !     READ DATA, 45 WORDS PER ELEMENT.
 !
-      CALL read(*200,*100,File,Elid,45,0,flag)
+      CALL read(*200,*100,File,elid,45,0,flag)
 !
 !     CALCULATE AVERAGE ELEMENT TEMPERATURE
 !
-      np = npts(Sub)
+      np = npts(sub)
       xpts = float(np)
-      IF ( Sub>9 ) xpts = xpts*2.0
+      IF ( sub>9 ) xpts = xpts*2.0
 !
-      Temp = 0.0
+      temp = 0.0
       DO i = 1 , np
-         ltemp = Sil(i)
-         Temp = Temp + Uni(ltemp)
-         IF ( Sub>9 ) THEN
-            IF ( Sil(i+4)/=0 ) THEN
-               ltemp = Sil(i+4)
-               Temp = Temp + Uni(ltemp)
+         ltemp = sil(i)
+         temp = temp + Uni(ltemp)
+         IF ( sub>9 ) THEN
+            IF ( sil(i+4)/=0 ) THEN
+               ltemp = sil(i+4)
+               temp = temp + Uni(ltemp)
             ENDIF
          ENDIF
       ENDDO
-      Temp = Temp/xpts
+      temp = temp/xpts
 !
 !     SET UP CALL TO MATERIAL SUBROUTINE
 !
-      Inflag = 1
-      IF ( Sub>=2 .AND. Sub<=5 ) Inflag = 2
-      IF ( Sub>=6 .AND. Sub<=9 ) Inflag = 3
-      Sinth = 0.0
-      Costh = 1.0
-      IF ( Theta/=0.0 .AND. Inflag==2 ) THEN
-         Sinth = sin(Theta)
-         Costh = cos(Theta)
+      inflag = 1
+      IF ( sub>=2 .AND. sub<=5 ) inflag = 2
+      IF ( sub>=6 .AND. sub<=9 ) inflag = 3
+      sinth = 0.0
+      costh = 1.0
+      IF ( theta/=0.0 .AND. inflag==2 ) THEN
+         sinth = sin(theta)
+         costh = cos(theta)
       ENDIF
-      Matid = Imat
-      CALL hmat(Elid)
+      matid = imat
+      CALL hmat(elid)
 !
 !     SUBTRACT  CONDUCTIVITY AT INITIAL TEMPERATURE AND PLACE IN  MATRIX
 !
-      IF ( Inflag==2 ) THEN
-         k(1) = Matout(1) - Mato(1)
-         k(2) = Matout(2) - Mato(2)
+      IF ( inflag==2 ) THEN
+         k(1) = matout(1) - mato(1)
+         k(2) = matout(2) - mato(2)
          k(3) = k(2)
-         k(4) = Matout(3) - Mato(3)
-      ELSEIF ( Inflag==3 ) THEN
-         k(1) = Matout(1) - Mato(1)
-         k(2) = Matout(2) - Mato(2)
-         k(3) = Matout(3) - Mato(3)
+         k(4) = matout(3) - mato(3)
+      ELSEIF ( inflag==3 ) THEN
+         k(1) = matout(1) - mato(1)
+         k(2) = matout(2) - mato(2)
+         k(3) = matout(3) - mato(3)
          k(4) = k(2)
-         k(5) = Matout(4) - Mato(4)
-         k(6) = Matout(5) - Mato(5)
+         k(5) = matout(4) - mato(4)
+         k(6) = matout(5) - mato(5)
          k(7) = k(3)
          k(8) = k(6)
-         k(9) = Matout(6) - Mato(6)
+         k(9) = matout(6) - mato(6)
       ELSE
-         k(1) = Matout(1) - Mato(1)
+         k(1) = matout(1) - mato(1)
       ENDIF
       ip(1) = 1
       ip(2) = 2
       ip(3) = 3
-      IF ( Sub==3 .OR. Sub==5 ) THEN
+      IF ( sub==3 .OR. sub==5 ) THEN
 !
 !     MOVE  QUADS TO ELEMENT COORDINATES
 !
@@ -133,9 +134,9 @@ USE ISO_FORTRAN_ENV
                i4 = 2
             ENDIF
             DO i = 1 , 3
-               dr(i,1) = R(i,i2) - R(i,i1)
-               dr(i,3) = R(i,i3) - R(i,i1)
-               dr(i,2) = R(i,i4) - R(i,i2)
+               dr(i,1) = r(i,i2) - r(i,i1)
+               dr(i,3) = r(i,i3) - r(i,i1)
+               dr(i,2) = r(i,i4) - r(i,i2)
             ENDDO
             CALL daxb(dr(1,3),dr(1,2),dr(1,4))
 !
@@ -155,7 +156,7 @@ USE ISO_FORTRAN_ENV
 !
             CALL daxb(dr(1,4),dr(1,1),dr(1,2))
             DO i = 1 , 3
-               dr(i,4) = R(i,i4) - R(i,i1)
+               dr(i,4) = r(i,i4) - r(i,i1)
             ENDDO
             CALL gmmatd(dr(1,1),2,3,0,dr(1,3),2,3,1,kq)
             drt(l,3) = kq(1)
@@ -167,13 +168,13 @@ USE ISO_FORTRAN_ENV
             drt(m,1) = 0.0D0
             drt(m,2) = 0.0D0
          ENDDO
-      ELSEIF ( Sub==2 .OR. Sub==4 ) THEN
+      ELSEIF ( sub==2 .OR. sub==4 ) THEN
 !
 !     MOVE  TRIANGLES TO ELEMENT COORDINATES
 !
          DO i = 1 , 3
-            dr(i,1) = R(i,2) - R(i,1)
-            dr(i,2) = R(i,3) - R(i,1)
+            dr(i,1) = r(i,2) - r(i,1)
+            dr(i,2) = r(i,3) - r(i,1)
          ENDDO
 !
          el = dr(1,1)**2 + dr(2,1)**2 + dr(3,1)**2
@@ -190,15 +191,15 @@ USE ISO_FORTRAN_ENV
 !
 !     LOOP  ON  SUBELEMENTS  (ONE FOR MOST)
 !
-      nel = nels(Sub)
+      nel = nels(sub)
       SPAG_Loop_2_1: DO iel = 1 , nel
          spag_nextblock_1 = 1
          SPAG_DispatchLoop_1: DO
             SELECT CASE (spag_nextblock_1)
             CASE (1)
 !
-               IF ( Sub==2 .OR. Sub==3 ) THEN
-               ELSEIF ( Sub==4 .OR. Sub==5 ) THEN
+               IF ( sub==2 .OR. sub==3 ) THEN
+               ELSEIF ( sub==4 .OR. sub==5 ) THEN
 !
 !     RING ELEMENTS, TRIANGLES AND QUADRILATERALS
 !
@@ -206,18 +207,18 @@ USE ISO_FORTRAN_ENV
                   DO i = 1 , 3
                      ig = i + iel - 1
                      IF ( ig>4 ) ig = ig - 4
-                     rbar = rbar + R(1,ig)
+                     rbar = rbar + r(1,ig)
                      ip(i) = ig
                   ENDDO
-                  Af = rbar/3.0*pi
-                  IF ( Sub/=5 ) THEN
+                  af = rbar/3.0*pi
+                  IF ( sub/=5 ) THEN
                      i1 = ip(1)
                      i2 = ip(2)
                      i3 = ip(3)
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-               ELSEIF ( Sub==6 ) THEN
+               ELSEIF ( sub==6 ) THEN
 !
 !     SOLID ELEMENTS
 !
@@ -226,7 +227,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Sub==7 ) THEN
+               ELSEIF ( sub==7 ) THEN
 !
 !     WEDGE
 !
@@ -237,7 +238,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Sub==8 .OR. Sub==9 ) THEN
+               ELSEIF ( sub==8 .OR. sub==9 ) THEN
 !
 !     HEXA1 AND HEXA2 ELEMENTS
 !
@@ -249,16 +250,16 @@ USE ISO_FORTRAN_ENV
                   i1 = ip(1)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Sub==10 .OR. Sub==11 .OR. Sub==12 .OR. Sub==13 .OR. Sub==14 .OR. Sub==15 ) THEN
+               ELSEIF ( sub==10 .OR. sub==11 .OR. sub==12 .OR. sub==13 .OR. sub==14 .OR. sub==15 ) THEN
 !
 !     BOUNDARY HEAT CONVECTION ELEMENTS
 !
-                  itype = Sub - 9
+                  itype = sub - 9
                   IF ( itype>7 ) EXIT SPAG_Loop_2_1
                   IF ( itype==2 .OR. itype==6 .OR. itype==7 ) THEN
                      np = 2
-                     el = (R(1,2)-R(1,1))**2 + (R(2,2)-R(2,1))**2 + (R(3,2)-R(3,1))**2
-                     kq(1) = Af*k(1)*dsqrt(el)/3.0D0
+                     el = (r(1,2)-r(1,1))**2 + (r(2,2)-r(2,1))**2 + (r(3,2)-r(3,1))**2
+                     kq(1) = af*k(1)*dsqrt(el)/3.0D0
                      kq(2) = kq(1)/2.0D0
                      kq(3) = kq(2)
                      kq(4) = kq(1)
@@ -266,12 +267,12 @@ USE ISO_FORTRAN_ENV
 !
 !     RING SURFACE
 !
-                     el = ((R(1,2)-R(1,1))**2+(R(3,2)-R(3,1))**2)
+                     el = ((r(1,2)-r(1,1))**2+(r(3,2)-r(3,1))**2)
                      c(1) = pi*k(1)*dsqrt(el)/6.0D0
-                     kq(1) = c(1)*(3.0D0*R(1,1)+R(1,2))
-                     kq(2) = c(1)*(R(1,1)+R(1,2))
+                     kq(1) = c(1)*(3.0D0*r(1,1)+r(1,2))
+                     kq(2) = c(1)*(r(1,1)+r(1,2))
                      kq(3) = kq(2)
-                     kq(4) = c(1)*(R(1,1)+3.0D0*R(1,2))
+                     kq(4) = c(1)*(r(1,1)+3.0D0*r(1,2))
                      np = 2
                   ELSEIF ( itype==4 .OR. itype==5 ) THEN
 !
@@ -286,8 +287,8 @@ USE ISO_FORTRAN_ENV
                      i2 = ip(2)
                      i3 = ip(3)
                      DO i = 1 , 3
-                        dr(i,1) = R(i,i2) - R(i,i1)
-                        dr(i,2) = R(i,i3) - R(i,i1)
+                        dr(i,1) = r(i,i2) - r(i,i1)
+                        dr(i,2) = r(i,i3) - r(i,i1)
                      ENDDO
                      CALL daxb(dr(i,1),dr(i,2),dr(i,3))
                      area = dsqrt(dr(1,3)**2+dr(2,3)**2+dr(3,3)**2)/12.0D0
@@ -304,17 +305,17 @@ USE ISO_FORTRAN_ENV
                      np = 3
                   ELSE
                      np = 1
-                     kq(1) = Af*k(1)
+                     kq(1) = af*k(1)
                   ENDIF
 !
 !     PERFORM MATRIX MULTIPLY, FIRST GET TEMPERATURE VECTOR
 !
                   DO i = 1 , np
                      ig = ip(i)
-                     ltemp = Sil(ig)
+                     ltemp = sil(ig)
                      t1(i) = Uni(ltemp)
-                     IF ( Sil(ig+4)/=0 ) THEN
-                        ltemp = Sil(ig+4)
+                     IF ( sil(ig+4)/=0 ) THEN
+                        ltemp = sil(ig+4)
                         t1(i+4) = Uni(ltemp)
                      ELSE
                         t1(i+4) = 0.0D0
@@ -324,11 +325,11 @@ USE ISO_FORTRAN_ENV
                   CALL gmmatd(kq(1),np,np,0,t1(5),np,1,0,c(5))
                   DO i = 1 , np
                      ig = ip(i)
-                     ipg = Sil(ig)
+                     ipg = sil(ig)
                      Delta(ipg) = Delta(ipg) + c(i) - c(i+4)
                      ig = ig + 4
-                     IF ( Sil(ig)>0 ) THEN
-                        ipg = Sil(ig)
+                     IF ( sil(ig)>0 ) THEN
+                        ipg = sil(ig)
                         Delta(ipg) = Delta(ipg) + c(i+4) - c(i)
                      ENDIF
                   ENDDO
@@ -339,9 +340,9 @@ USE ISO_FORTRAN_ENV
 !
                   c(1) = 1.0D0
                   c(2) = -1.0D0
-                  el = (R(1,2)-R(1,1))**2 + (R(2,2)-R(2,1))**2 + (R(3,2)-R(3,1))**2
+                  el = (r(1,2)-r(1,1))**2 + (r(2,2)-r(2,1))**2 + (r(3,2)-r(3,1))**2
                   el = dsqrt(el)
-                  kq(1) = Af*k(1)/el
+                  kq(1) = af*k(1)/el
                   ip(1) = 1
                   ip(2) = 2
                   np = 2
@@ -383,20 +384,19 @@ USE ISO_FORTRAN_ENV
                c(5) = (dr(1,i1)-dr(1,i3))/area
                c(6) = (dr(1,i2)-dr(1,i1))/area
 !
-               IF ( Sub==3 .OR. Sub==5 ) area = area/2.0D0
+               IF ( sub==3 .OR. sub==5 ) area = area/2.0D0
                DO i = 1 , 4
-                  kq(i) = k(i)*area*Af/2.0D0
+                  kq(i) = k(i)*area*af/2.0D0
                ENDDO
 !
                np = 3
                nq = 2
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             CASE (3)
                DO i = 1 , 3
                   ig = ip(i+1)
                   DO j = 1 , 3
-                     dr(j,i) = R(j,ig) - R(j,i1)
+                     dr(j,i) = r(j,ig) - r(j,i1)
                   ENDDO
                ENDDO
 !
@@ -414,7 +414,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDDO
                fact = determ/6.0D0
-               IF ( Sub==9 ) fact = fact/2.0D0
+               IF ( sub==9 ) fact = fact/2.0D0
                DO i = 1 , 9
                   kq(i) = k(i)*fact
                ENDDO
@@ -429,9 +429,9 @@ USE ISO_FORTRAN_ENV
 !
                DO i = 1 , np
                   ig = ip(i)
-                  ltemp = Sil(ig)
+                  ltemp = sil(ig)
                   t1(i) = Uni(ltemp)
-                  sindx(i) = Sil(ig)
+                  sindx(i) = sil(ig)
                ENDDO
                CALL gmmatd(c,nq,np,0,t1,np,1,0,drtemp)
                CALL gmmatd(kq,nq,nq,0,drtemp,nq,1,0,drtemp(1,3))

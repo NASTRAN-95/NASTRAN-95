@@ -1,15 +1,16 @@
-!*==mma201.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma201.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mma201(Zi,Zr)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,13 +66,13 @@ SUBROUTINE mma201(Zi,Zr)
 ! PROCESS ALL OF THE COLUMNS OF "A"
 !
    DO ii = 1 , nac
-      Iurow1 = -1
-      Typeu = ndtype
-      CALL unpack(*100,Filea,Zr(1))
-      irowa1 = Iurow1
-      irowan = Iurown
+      iurow1 = -1
+      typeu = ndtype
+      CALL unpack(*100,filea,Zr(1))
+      irowa1 = iurow1
+      irowan = iurown
       indxa = 1 - irowa1
-      IF ( T/=0 ) THEN
+      IF ( t/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
@@ -118,6 +119,6 @@ SUBROUTINE mma201(Zi,Zr)
 !  NOW SAVE COLUMNS COMPLETED
    DO k = 1 , ncolpp
       indx = idx + (k-1)*nwddndr
-      CALL pack(Zr(indx),Filed,Filed)
+      CALL pack(Zr(indx),filed,filed)
    ENDDO
 END SUBROUTINE mma201

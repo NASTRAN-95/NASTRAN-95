@@ -1,16 +1,17 @@
-!*==ddcomp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddcomp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddcomp
-USE C_BLANK
-USE C_CDCMPX
-USE C_DCOMPX
-USE C_NAMES
-USE C_SFACT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_cdcmpx
+   USE c_dcompx
+   USE c_names
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -43,107 +44,107 @@ USE ISO_FORTRAN_ENV
    DATA kaa , lll , ull , lscr1 , lscr2 , lscr3 , lscr4/101 , 201 , 202 , 301 , 302 , 303 , 304/
    DATA name/4HDDCO , 4HMP  /
 !
-   Sing = 0
-   Ja(1) = kaa
-   CALL rdtrl(Ja)
-   iform = Ja(4)
-   IF ( Isym<0 ) THEN
-      IF ( iform==sym ) WRITE (outpt,99001) Swm , name
+   sing = 0
+   ja(1) = kaa
+   CALL rdtrl(ja)
+   iform = ja(4)
+   IF ( isym<0 ) THEN
+      IF ( iform==sym ) WRITE (outpt,99001) swm , name
 99001 FORMAT (A27,' 2340, MODULE ',2A4,' HAS BEEN REQUESTED TO DO ','UNSYMMETRIC DECOMPOSITION OF A SYMMETRIC MATRIX')
       iform = rect
-      IF ( Ja(2)==Ja(3) ) iform = sqr
-   ELSEIF ( Isym/=0 ) THEN
-      IF ( Ja(2)==Ja(3) .AND. iform/=sym ) WRITE (outpt,99002) Swm , name
+      IF ( ja(2)==ja(3) ) iform = sqr
+   ELSEIF ( isym/=0 ) THEN
+      IF ( ja(2)==ja(3) .AND. iform/=sym ) WRITE (outpt,99002) swm , name
 99002 FORMAT (A27,' 2341, MODULE ',2A4,'HAS BEEN FURNISHED A SQUARE ','MATRIX MARKED UNSYMMETRIC FOR SYMMETRIC DECOMPOSITION.')
       iform = sym
    ENDIF
-   Isym = -1
-   IF ( iform==sym ) Isym = 1
-   Ja(4) = iform
-   IF ( Isym>=0 ) THEN
+   isym = -1
+   IF ( iform==sym ) isym = 1
+   ja(4) = iform
+   IF ( isym>=0 ) THEN
 !
 !     SET UP CALL TO SDCOMP
 !
-      Ifila(1) = kaa
-      CALL rdtrl(Ifila)
-      Ifill(1) = lll
-      Ifilu(1) = lscr4
-      Kscr1 = lscr1
-      Kscr2 = lscr2
-      Kscr3 = lscr3
-      Nz = korsz(Z)
-      Ifill(5) = Ifila(5)
-      Ichlk = Chlsky
-      CALL sdcomp(*100,Z,Z,Z)
-      Det(1) = Sdet
-      Det(2) = Sdetc
-      Mindia = Minds
-      Power = Kpow
-      Ifill(2) = Ifila(2)
-      Ifill(3) = Ifila(3)
-      Ifill(4) = lower
-      CALL wrttrl(Ifill)
+      ifila(1) = kaa
+      CALL rdtrl(ifila)
+      ifill(1) = lll
+      ifilu(1) = lscr4
+      kscr1 = lscr1
+      kscr2 = lscr2
+      kscr3 = lscr3
+      nz = korsz(z)
+      ifill(5) = ifila(5)
+      ichlk = chlsky
+      CALL sdcomp(*100,z,z,z)
+      det(1) = sdet
+      det(2) = sdetc
+      mindia = minds
+      power = kpow
+      ifill(2) = ifila(2)
+      ifill(3) = ifila(3)
+      ifill(4) = lower
+      CALL wrttrl(ifill)
       RETURN
 !
 !     SET UP CALL TO DECOMP
 !
-   ELSEIF ( Ja(5)>2 ) THEN
+   ELSEIF ( ja(5)>2 ) THEN
 !
 !     SET UP CALL TO CDCOMP
 !
-      Jl(1) = lll
-      Ju(1) = ull
-      Jscr1 = lscr1
-      Jscr2 = lscr2
-      Jscr3 = lscr3
-      Nzzz = korsz(zzz)
-      Jl(5) = 4
-      Jb = 0
+      jl(1) = lll
+      ju(1) = ull
+      jscr1 = lscr1
+      jscr2 = lscr2
+      jscr3 = lscr3
+      nzzz = korsz(zzz)
+      jl(5) = 4
+      jb = 0
       CALL cdcomp(*100,zzz,zzz,zzz)
-      Ju(5) = 4
-      Jl(4) = lower
-      Ju(4) = upper
-      Jl(3) = Jl(2)
-      Ju(3) = Ju(2)
-      Det(1) = Cdet(1)
-      Det(2) = Cdet(2)
-      Mindia = Cmndia
-      Power = Jpow
-      CALL wrttrl(Jl)
-      CALL wrttrl(Ju)
+      ju(5) = 4
+      jl(4) = lower
+      ju(4) = upper
+      jl(3) = jl(2)
+      ju(3) = ju(2)
+      det(1) = cdet(1)
+      det(2) = cdet(2)
+      mindia = cmndia
+      power = jpow
+      CALL wrttrl(jl)
+      CALL wrttrl(ju)
       RETURN
    ELSE
-      Ia(1) = kaa
-      CALL rdtrl(Ia)
-      Il(1) = lll
-      Iu(1) = ull
-      Nzz = korsz(zz)
-      Iscr1 = lscr1
-      Iscr2 = lscr2
-      Iscr3 = lscr3
-      Ib = 0
-      Il(5) = 2
+      ia(1) = kaa
+      CALL rdtrl(ia)
+      il(1) = lll
+      iu(1) = ull
+      nzz = korsz(zz)
+      iscr1 = lscr1
+      iscr2 = lscr2
+      iscr3 = lscr3
+      ib = 0
+      il(5) = 2
       CALL decomp(*100,zz,zz,zz)
-      Iu(5) = 2
-      Il(4) = lower
-      Iu(4) = upper
-      Il(3) = Il(2)
-      Iu(3) = Iu(2)
-      Det(1) = Ddet
-      Det(2) = 0.0
-      Power = Ipow
-      Mindia = Dmndia
-      CALL wrttrl(Iu)
-      CALL wrttrl(Il)
+      iu(5) = 2
+      il(4) = lower
+      iu(4) = upper
+      il(3) = il(2)
+      iu(3) = iu(2)
+      det(1) = ddet
+      det(2) = 0.0
+      power = ipow
+      mindia = dmndia
+      CALL wrttrl(iu)
+      CALL wrttrl(il)
       RETURN
    ENDIF
 !
- 100  Sing = -1
-   Det(1) = 0.0
-   Det(2) = 0.0
-   Power = 0
-   Mindia = 0.0
-   CALL fname(kaa,Ja(1))
-   WRITE (outpt,99003) Uim , Ja(1) , Ja(2)
+ 100  sing = -1
+   det(1) = 0.0
+   det(2) = 0.0
+   power = 0
+   mindia = 0.0
+   CALL fname(kaa,ja(1))
+   WRITE (outpt,99003) uim , ja(1) , ja(2)
 99003 FORMAT (A29,' FORM DECOMP MODULE. MATRIX ',2A4,' IS SINGULAR')
 END SUBROUTINE ddcomp

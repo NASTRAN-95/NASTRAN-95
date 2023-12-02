@@ -1,14 +1,15 @@
-!*==viscs.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==viscs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE viscs
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -59,21 +60,21 @@ SUBROUTINE viscs
 !     INITIALIZE EMGOUT PARAMETERS
 !
    idbug = .TRUE.
-   Ngrids = 2
-   Ldict = 5 + Ngrids
-   dict(1) = Estid
+   ngrids = 2
+   ldict = 5 + ngrids
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 12
    dict(4) = 63
    dict5 = 0.
    ifile = 3
-   ip = Iprec
+   ip = iprec
 !
 !     NOW COMPUTE THE LENGTH OF THE ROD AND NORMALIZE
 !
    fl = 0.
    DO i = 1 , 3
-      vec(i) = Ecpt(i+6) - Ecpt(i+10)
+      vec(i) = ecpt(i+6) - ecpt(i+10)
       fl = fl + vec(i)**2
    ENDDO
    fl = sqrt(fl)
@@ -82,9 +83,9 @@ SUBROUTINE viscs
 !
 !     ERROR EXITS
 !
-      WRITE (Ioutpt,99001) Ufm , ielid
+      WRITE (ioutpt,99001) ufm , ielid
 99001 FORMAT (A23,' 31XX, ILLEGAL GEOMETRY OR CONNECTIONS FOR VISC ','ELEMENT',I10)
-      Nogo = .TRUE.
+      nogo = .TRUE.
       RETURN
    ELSE
       DO i = 1 , 3
@@ -124,7 +125,7 @@ SUBROUTINE viscs
       IF ( iecpt(ipa)/=0 ) THEN
          ia = 19
          iab = 10
-         CALL transs(Ecpt(ipa),ta(1))
+         CALL transs(ecpt(ipa),ta(1))
          CALL gmmats(ta(1),3,3,1,d(1),3,3,0,d(10))
          CALL gmmats(d(10),3,3,0,ta(1),3,3,0,d(19))
       ENDIF
@@ -134,7 +135,7 @@ SUBROUTINE viscs
       IF ( iecpt(ipb)/=0 ) THEN
          ib = 28
          iba = 37
-         CALL transs(Ecpt(ipb),tb(1))
+         CALL transs(ecpt(ipb),tb(1))
          CALL gmmats(tb(1),3,3,1,d(1),3,3,0,d(37))
          CALL gmmats(d(37),3,3,0,tb(1),3,3,0,d(28))
 !
@@ -166,8 +167,8 @@ SUBROUTINE viscs
 !                       *      /     /      /      *
 !                       ****                    ****
 !
-   c1 = Ecpt(4)
-   c2 = Ecpt(5)
+   c1 = ecpt(4)
+   c2 = ecpt(5)
 !
    DO jtj = 1 , 4
       kb = kx(jtj)
@@ -194,5 +195,4 @@ SUBROUTINE viscs
 !     OUTPUT THE MATRIX
 !
    CALL emgout(b,b,144,1,dict,ifile,ip)
-   RETURN
 END SUBROUTINE viscs

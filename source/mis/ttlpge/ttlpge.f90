@@ -1,12 +1,13 @@
-!*==ttlpge.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ttlpge.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ttlpge(Topt)
+   USE c_chmach
+   USE c_machin
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CHMACH
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,21 +32,21 @@ SUBROUTINE ttlpge(Topt)
 !
    mchttl = ' '
    vn = ' '
-   ncmnam = index(Mchnam,' ') - 1
+   ncmnam = index(mchnam,' ') - 1
    IF ( ncmnam<=-1 ) ncmnam = 11
-   ncmos = index(Machos,' ') - 1
+   ncmos = index(machos,' ') - 1
    IF ( ncmos<=-1 ) ncmos = 7
    fchar = (11-ncmnam)/2 + 1
-   mchttl(fchar:fchar+ncmnam+16) = Mchnam(1:ncmnam)//' COMPUTER SYSTEMS'
+   mchttl(fchar:fchar+ncmnam+16) = mchnam(1:ncmnam)//' COMPUTER SYSTEMS'
    fchar = (7-ncmos)/2 + 1
-   vn(fchar:fchar+ncmos+7) = Machos(1:ncmos)//' VERSION'
+   vn(fchar:fchar+ncmos+7) = machos(1:ncmos)//' VERSION'
 !
 !     SET TOPT DEFAULT TO +2 FOR THE MAIN FRAMES, OR TO -1 FOR UNIX
 !     BASE WORKSTATION
 !
    IF ( Topt==-9 ) THEN
       Topt = +2
-      IF ( Machx>=6 .AND. Machx<=20 ) Topt = -1
+      IF ( machx>=6 .AND. machx<=20 ) Topt = -1
    ENDIF
 !
 !     BRANCH ON OPTION

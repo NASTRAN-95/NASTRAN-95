@@ -1,4 +1,5 @@
-!*==dmpyad.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dmpyad.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dmpyad
@@ -19,14 +20,14 @@ SUBROUTINE dmpyad
 !     IF ITYPE IS 0, MPYAD PRODUCT WILL BE IN S.P. ONLY IF ALL A, B, AND
 !     C MATRICES ARE IN S.P. OTHERWISE, THE PRODUCT WILL BE IN D.P.
 !
+   USE c_blank
+   USE c_dmpyx
+   USE c_mpyadx
+   USE c_saddx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DMPYX
-   USE C_MPYADX
-   USE C_SADDX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -54,94 +55,94 @@ SUBROUTINE dmpyad
 !
 !     READ TRAILERS FOR A, B AND C MATRICES.
 !
-   Nz = korsz(Z)
-   A(1) = filea
-   CALL rdtrl(A)
-   IF ( A(1)==filea ) THEN
-      B(1) = fileb
-      CALL rdtrl(B)
-      IF ( B(1)==fileb ) THEN
-         C(1) = filec
-         C(5) = 0
-         CALL rdtrl(C)
-         IF ( C(1)<0 ) C(1) = 0
-         D(1) = filed
-         D(3) = A(3)
-         IF ( T/=0 ) D(3) = A(2)
-         D(4) = rect
+   nz = korsz(z)
+   a(1) = filea
+   CALL rdtrl(a)
+   IF ( a(1)==filea ) THEN
+      b(1) = fileb
+      CALL rdtrl(b)
+      IF ( b(1)==fileb ) THEN
+         c(1) = filec
+         c(5) = 0
+         CALL rdtrl(c)
+         IF ( c(1)<0 ) c(1) = 0
+         d(1) = filed
+         d(3) = a(3)
+         IF ( t/=0 ) d(3) = a(2)
+         d(4) = rect
 !
 !     CHECK FOR CONFORMABLE MATRICIES
 !
-         IF ( ((C(2)/=B(2) .OR. C(3)/=D(3)) .AND. C(1)/=0) .OR. (B(3)/=A(2) .AND. T==0) .OR. (B(3)/=A(3) .AND. T/=0) )              &
+         IF ( ((c(2)/=b(2) .OR. c(3)/=d(3)) .AND. c(1)/=0) .OR. (b(3)/=a(2) .AND. t==0) .OR. (b(3)/=a(3) .AND. t/=0) )              &
             & CALL mesage(-55,0,name)
-         Trnsp = T
-         Sab = Signab
-         Sc = Signc
+         trnsp = t
+         sab = signab
+         sc = signc
          prec = 1
-         IF ( Itype==0 ) prec = 0
-         IF ( Itype==2 .OR. Itype==4 ) prec = 2
-         Prec1 = max0(A(5),B(5),C(5))
-         IF ( Prec1>2 ) Prec1 = Prec1 - 2
-         IF ( Prec1<1 .OR. Prec1>2 ) Prec1 = kprec
-         IF ( prec/=Prec1 .AND. prec/=0 ) THEN
+         IF ( itype==0 ) prec = 0
+         IF ( itype==2 .OR. itype==4 ) prec = 2
+         prec1 = max0(a(5),b(5),c(5))
+         IF ( prec1>2 ) prec1 = prec1 - 2
+         IF ( prec1<1 .OR. prec1>2 ) prec1 = kprec
+         IF ( prec/=prec1 .AND. prec/=0 ) THEN
             IF ( prec<1 .OR. prec>2 ) prec = 3
-            WRITE (outpt,99001) Swm , dosi(prec) , refus(prec) , name , dosi(Prec1)
+            WRITE (outpt,99001) swm , dosi(prec) , refus(prec) , name , dosi(prec1)
 99001       FORMAT (A27,' 2430, REQUESTED ',A4,'LE PRECISION ',A3,'USED BY ',2A4,2H. ,A4,'LE PRECISION IS LOGICAL CHOICE')
-            IF ( prec/=3 ) Prec1 = prec
+            IF ( prec/=3 ) prec1 = prec
          ENDIF
-         ltype = Prec1
-         IF ( A(5)==3 .OR. A(5)==4 .OR. B(5)==3 .OR. B(5)==4 .OR. C(5)==3 .OR. C(5)==4 ) ltype = Prec1 + 2
-         IF ( Itype/=0 .AND. Itype/=ltype ) THEN
+         ltype = prec1
+         IF ( a(5)==3 .OR. a(5)==4 .OR. b(5)==3 .OR. b(5)==4 .OR. c(5)==3 .OR. c(5)==4 ) ltype = prec1 + 2
+         IF ( itype/=0 .AND. itype/=ltype ) THEN
             jj = 1
-            IF ( Itype<1 .OR. Itype>4 ) jj = 3
-            WRITE (outpt,99002) Swm , Itype , refus(jj) , name , ltype
+            IF ( itype<1 .OR. itype>4 ) jj = 3
+            WRITE (outpt,99002) swm , itype , refus(jj) , name , ltype
 99002       FORMAT (A27,' 2431, REQUESTED TYPE ',I4,2H, ,A3,'USED BY ',2A4,7H. TYPE ,I4,'  IS LOGICAL CHOICE.')
-            IF ( jj/=3 ) ltype = Itype
+            IF ( jj/=3 ) ltype = itype
          ENDIF
-         Itype = ltype
-         D(5) = Itype
-         Scr = scrtch
+         itype = ltype
+         d(5) = itype
+         scr = scrtch
 !
 !     IF NEITHER A NOR B IS DIAGONAL, CALL MPYAD AND RETURN.
 !
-         IF ( A(4)==diag .OR. B(4)==diag ) THEN
+         IF ( a(4)==diag .OR. b(4)==diag ) THEN
 !
 !     OTHERWISE, CALL DMPY FOR DIAGONAL MULTIPLICATION.
 !
             DO i = 1 , 7
-               E(i) = A(i)
-               F(i) = B(i)
-               IF ( A(4)/=diag ) THEN
-                  E(i) = B(i)
-                  F(i) = A(i)
+               e(i) = a(i)
+               f(i) = b(i)
+               IF ( a(4)/=diag ) THEN
+                  e(i) = b(i)
+                  f(i) = a(i)
                ENDIF
-               G(i) = D(i)
+               g(i) = d(i)
             ENDDO
-            Nzz = korsz(zz)
-            Sgn = Signab
-            Flag = 0
-            IF ( B(4)==diag ) Flag = 1
-            IF ( C(1)/=0 ) G(1) = scrtch
+            nzz = korsz(zz)
+            sgn = signab
+            flag = 0
+            IF ( b(4)==diag ) flag = 1
+            IF ( c(1)/=0 ) g(1) = scrtch
             CALL dmpy(zz,zz)
-            IF ( G(2)==G(3) ) THEN
-               G(4) = square
+            IF ( g(2)==g(3) ) THEN
+               g(4) = square
                k = 0
                DO i = 4 , 14 , 7
-                  j = E(i)
+                  j = e(i)
                   IF ( j/=symm .AND. j/=diag .AND. j/=ident ) GOTO 10
                   IF ( j==symm ) k = 1
                ENDDO
-               IF ( k==1 ) G(4) = symm
+               IF ( k==1 ) g(4) = symm
             ENDIF
- 10         CALL wrttrl(G)
+ 10         CALL wrttrl(g)
 !
 !     IF ADDITION REQUIRED, CALL ADD ROUTINE.
 !
-            IF ( C(1)==0 ) RETURN
+            IF ( c(1)==0 ) RETURN
             DO i = 1 , 7
-               p(i) = G(i)
-               q(i) = C(i)
-               r(i) = D(i)
+               p(i) = g(i)
+               q(i) = c(i)
+               r(i) = d(i)
             ENDDO
             DO i = 2 , 4
                alp(i) = 0.0
@@ -151,9 +152,9 @@ SUBROUTINE dmpyad
             alp(1) = 1.0
             typb = 1
             bet(1) = 1.0
-            IF ( Signc<0 ) bet(1) = -1.0
-            Nzzz = korsz(zzz)
-            Nomat = 2
+            IF ( signc<0 ) bet(1) = -1.0
+            nzzz = korsz(zzz)
+            nomat = 2
             CALL sadd(zzz,zzz)
             IF ( r(2)==r(3) ) THEN
                r(4) = square
@@ -161,19 +162,19 @@ SUBROUTINE dmpyad
                CALL wrttrl(r)
             ENDIF
          ELSE
-            CALL mpyad(Z,Z,Z)
-            IF ( D(2)==D(3) ) THEN
-               D(4) = square
-               IF ( C(4)==0 ) C(4) = diag
+            CALL mpyad(z,z,z)
+            IF ( d(2)==d(3) ) THEN
+               d(4) = square
+               IF ( c(4)==0 ) c(4) = diag
                k = 0
                DO i = 4 , 21 , 7
-                  j = A(i)
+                  j = a(i)
                   IF ( j/=symm .AND. j/=diag .AND. j/=ident ) GOTO 20
                   IF ( j==symm ) k = 1
                ENDDO
-               IF ( k==1 ) D(4) = symm
+               IF ( k==1 ) d(4) = symm
             ENDIF
- 20         CALL wrttrl(D)
+ 20         CALL wrttrl(d)
             RETURN
          ENDIF
       ENDIF

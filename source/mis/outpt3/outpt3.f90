@@ -1,14 +1,15 @@
-!*==outpt3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==outpt3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE outpt3
+   USE c_blank
+   USE c_phdmix
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PHDMIX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -48,31 +49,31 @@ SUBROUTINE outpt3
       CASE (1)
 !
 !
-         lcor = korsz(X) - Nb
+         lcor = korsz(x) - nb
          IF ( lcor<=0 ) CALL mesage(-8,lcor,subnam)
          ibuf = lcor + 1
          jono = 0
-         IF ( Jo<0 ) jono = iabs(Jo)
-         Noutpt = jono
-         Itin = 1
-         Kpp = 2
-         Nlp = Nlpp
+         IF ( jo<0 ) jono = iabs(jo)
+         noutpt = jono
+         itin = 1
+         kpp = 2
+         nlp = nlpp
 !
          DO ii = 1 , 5
             trl1 = in(ii)
             CALL rdtrl(trl)
             IF ( trl1>0 ) THEN
                CALL fname(in(ii),name)
-               CALL gopen(in(ii),X(ibuf),0)
-               Namex(1) = name(1)
-               Namex(2) = name(2)
-               Nam = Param(1,ii)
-               Ifo = trl4
-               Itout = 0
-               Ir = trl3
-               Ic = trl2
+               CALL gopen(in(ii),x(ibuf),0)
+               namex(1) = name(1)
+               namex(2) = name(2)
+               nam = param(1,ii)
+               ifo = trl4
+               itout = 0
+               ir = trl3
+               ic = trl2
                CALL phdmia
-               IF ( Erno/=0 ) THEN
+               IF ( erno/=0 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -80,27 +81,27 @@ SUBROUTINE outpt3
                DO j = 1 , trl2
                   CALL intpk(*5,in(ii),0,ityp,0)
                   first = .FALSE.
-                  Icol = j
+                  icol = j
 !
                   SPAG_Loop_3_1: DO i = 1 , trl3
-                     IF ( Eol/=0 ) EXIT SPAG_Loop_3_1
+                     IF ( eol/=0 ) EXIT SPAG_Loop_3_1
                      CALL zntpki
-                     Iro = Iz
-                     Xx = Z(1)
+                     iro = iz
+                     xx = z(1)
 !
 !     VAX MAY HAVE A FEW IMBEDED ZEROS
 !
-                     IF ( Xx/=0.0 ) THEN
+                     IF ( xx/=0.0 ) THEN
                         IF ( first ) THEN
                            CALL phdmic
-                           IF ( Erno/=0 ) THEN
+                           IF ( erno/=0 ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
                         ELSE
                            first = .TRUE.
                            CALL phdmib
-                           IF ( Erno/=0 ) THEN
+                           IF ( erno/=0 ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -109,15 +110,15 @@ SUBROUTINE outpt3
                   ENDDO SPAG_Loop_3_1
 !
                   CALL phdmid
-                  IF ( Erno/=0 ) THEN
+                  IF ( erno/=0 ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
  5             ENDDO
 !
-               ncards = Icard1 + 1
+               ncards = icard1 + 1
                CALL page2(-2)
-               WRITE (No,99001) Uim , name , ncards
+               WRITE (no,99001) uim , name , ncards
 99001          FORMAT (A29,' 4103, OUTPUT3 HAS PUNCHED MATRIX DATA BLOCK ',2A4,' ONTO ',I5,' DMI CARDS.')
                CALL close(in(ii),1)
             ENDIF
@@ -128,7 +129,7 @@ SUBROUTINE outpt3
 !     ERROR MESSAGE
 !
          CALL page2(-2)
-         WRITE (No,99002) Ufm
+         WRITE (no,99002) ufm
 99002    FORMAT (A23,' 4104, ATTEMPT TO PUNCH MORE THAN 99999 DMI CARDS ','FOR A SINGLE MATRIX.')
          CALL mesage(-61,0,0)
          EXIT SPAG_DispatchLoop_1

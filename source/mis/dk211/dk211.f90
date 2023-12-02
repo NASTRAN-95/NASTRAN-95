@@ -1,7 +1,9 @@
-!*==dk211.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dk211.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dk211(I,A,B,X)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -17,6 +19,15 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: aaj , c1 , c2 , c3 , f6211 , xx
    INTEGER :: j
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

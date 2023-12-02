@@ -1,11 +1,12 @@
-!*==mred2j.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mred2j.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2j(Nuf,N2)
+   USE c_blank
+   USE c_packx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -30,11 +31,11 @@ SUBROUTINE mred2j(Nuf,N2)
 !
 !     SET UP PARTITIONING VECTOR
 !
-   IF ( Dry==-2 ) RETURN
-   Typin = 1
-   Typout = 1
-   Irow = 1
-   Incr = 1
+   IF ( dry==-2 ) RETURN
+   typin = 1
+   typout = 1
+   irow = 1
+   incr = 1
 !
 !     COMMENTS FROM G.CHAN/UNISYS    4/92
 !     ORIGINALLY AT THIS POINT, THE FOLLOWING DO 20 LOOP IS IN ERROR
@@ -56,16 +57,16 @@ SUBROUTINE mred2j(Nuf,N2)
       RETURN
    ENDIF
    kolumn = itrlr1(2)
-   Nrow = itrlr1(3)
+   nrow = itrlr1(3)
    DO i = 1 , kolumn
-      Rz(Korbgn+i-1) = 0.0
-      IF ( i>Nuf ) Rz(Korbgn+i-1) = 1.0
+      rz(korbgn+i-1) = 0.0
+      IF ( i>Nuf ) rz(korbgn+i-1) = 1.0
    ENDDO
 !
    iform = 7
-   CALL makmcb(itrlr1,rprtn,Nrow,iform,itrlr1(5))
-   CALL gopen(rprtn,Rz(Gbuf1),1)
-   CALL pack(Rz(Korbgn),rprtn,itrlr1)
+   CALL makmcb(itrlr1,rprtn,nrow,iform,itrlr1(5))
+   CALL gopen(rprtn,rz(gbuf1),1)
+   CALL pack(rz(korbgn),rprtn,itrlr1)
    CALL close(rprtn,1)
    CALL wrttrl(itrlr1)
 !
@@ -79,7 +80,6 @@ SUBROUTINE mred2j(Nuf,N2)
 !
    itrlr1(1) = phiss
    CALL rdtrl(itrlr1)
-   N2 = Nmodes - Nuf
-   CALL gmprtn(phiss,phiss1,0,phiss2,0,rprtn,0,Nuf,N2,Rz(Korbgn),Korlen)
-   RETURN
+   N2 = nmodes - Nuf
+   CALL gmprtn(phiss,phiss1,0,phiss2,0,rprtn,0,Nuf,N2,rz(korbgn),korlen)
 END SUBROUTINE mred2j

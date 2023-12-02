@@ -1,12 +1,13 @@
-!*==ssg2c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssg2c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg2c(A,B,C,Op,Block)
-USE C_SADDX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_saddx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -63,7 +64,7 @@ USE ISO_FORTRAN_ENV
                nomix = 1
                CALL fname(A,na)
                CALL fname(B,nb)
-               WRITE (nout,99001) Uwm , na , ia(2) , ia(3) , ia5 , ia(4) , nb , ib(2) , ib(3) , ib5 , ib(4)
+               WRITE (nout,99001) uwm , na , ia(2) , ia(3) , ia5 , ia(4) , nb , ib(2) , ib(3) , ib5 , ib(4)
 99001          FORMAT (A25,', SSG2C RECEIVES TWO MIXED FILE TYPES FOR ADDING.',/,2(5X,'FILE ',2A4,'(',I6,' X',I6,') TYPE =',I3,     &
                       &', FORM =',I3))
             ENDIF
@@ -82,12 +83,12 @@ USE ISO_FORTRAN_ENV
       it(i) = Block(i)
       it1(i) = Block(i+6)
    ENDDO
-   dt1(1) = Mcbs(20)
-   dt1(2) = Mcbs(21)
+   dt1(1) = mcbs(20)
+   dt1(2) = mcbs(21)
    IF ( nomix/=0 ) WRITE (nout,99002,ERR=100) it(1) , dit , it1(1) , dit1
 99002 FORMAT ('  MULTIPLIERS =',I3,D12.3,I8,D12.3)
  100  ic(1) = C
-   Lcore = korsz(Core)
+   lcore = korsz(core)
 !
 !     DETERMINE TYPE OF OUTPUT
 !
@@ -100,12 +101,12 @@ USE ISO_FORTRAN_ENV
    ENDIF
    iprec = ipr1
    ic(5) = irc + iprec
-   Nomat = 2
+   nomat = 2
    IF ( nomix/=0 ) THEN
       CALL fname(ic(1),na)
       WRITE (nout,99003) na , ic(2) , ic(3) , ic(5) , ic(4)
 99003 FORMAT (5X,'FILE ',2A4,'(',I6,' X',I6,') TYPE =',I3,', FORM =',I3,5X,'(RESULTANT)')
    ENDIF
-   CALL sadd(Core,Core)
+   CALL sadd(core,core)
    CALL wrttrl(ic)
 END SUBROUTINE ssg2c

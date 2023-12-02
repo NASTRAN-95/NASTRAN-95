@@ -1,15 +1,16 @@
-!*==emg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==emg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emg
+   USE c_blank
+   USE c_emgfil
+   USE c_emgprm
+   USE c_hmatdd
+   USE c_machin
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGFIL
-   USE C_EMGPRM
-   USE C_HMATDD
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -37,19 +38,19 @@ SUBROUTINE emg
 !
 !     SET EMG PRECISION FLAG TO SYSTEM PRECISION FLAG
 !
-   Precis = ipreci
+   precis = ipreci
 !
 !     IF .NOT.1 .AND. .NOT.2 DEFAULT EMG PRECISION TO SINGLE
 !
-   IF ( Precis<1 .OR. Precis>2 ) Precis = 1
+   IF ( precis<1 .OR. precis>2 ) precis = 1
 !
 !     HEAT  FORMULATION
 !
-   Heat = .FALSE.
+   heat = .FALSE.
    IF ( noheat>0 ) THEN
-      Heat = .TRUE.
-      Linear = .TRUE.
-      Nokdgg = -1
+      heat = .TRUE.
+      linear = .TRUE.
+      nokdgg = -1
    ENDIF
 !
 !     TEST FOR NO SIMPLE ELEMENTS
@@ -62,16 +63,16 @@ SUBROUTINE emg
 !
 !     SET OPEN CORE
 !
-         Ncore = korsz(Z(1))
-         Icore = 3
-         IF ( Mach==3 .OR. Mach==4 ) CALL emgsoc(Icore,Ncore,Heat)
-         Ncore = Ncore - 1
-         Jcore = Icore
+         ncore = korsz(z(1))
+         icore = 3
+         IF ( mach==3 .OR. mach==4 ) CALL emgsoc(icore,ncore,heat)
+         ncore = ncore - 1
+         jcore = icore
 !
 !     SET WORKING CORE TO ALL ZEROS
 !
-         DO i = Icore , Ncore
-            Z(i) = 0
+         DO i = icore , ncore
+            z(i) = 0
          ENDDO
 !
 !     THIS MODULE WILL SET NOK4GG = -1 . IF DURING EXECUTION A NON-ZERO
@@ -81,25 +82,25 @@ SUBROUTINE emg
 !     A DMAP DETERMINATION CAN THEN BE MADE WHETHER OR NOT TO HAVE EMA
 !     FORM THE K4GG MATRIX
 !
-         Nok4gg = -1
+         nok4gg = -1
 !
 !     SET GINO FILE NUMBERS
 !
-         Est = 101
-         Cstm = 102
-         Mpt = 103
-         Dit = 104
-         Geom2 = 105
+         est = 101
+         cstm = 102
+         mpt = 103
+         dit = 104
+         geom2 = 105
          DO i = 1 , 3
-            Mats(i) = 199 + 2*i
-            Dictn(i) = Mats(i) + 1
+            mats(i) = 199 + 2*i
+            dictn(i) = mats(i) + 1
          ENDDO
-         Error = .FALSE.
+         error = .FALSE.
 !
 !     IF DIAG 38 IS ON, PRINT TOTAL TIME (IN SECONDS) USED BY EMGPRO
 !     AND MESSAGES 3113 AND 3107  WHILE PRPCESSING ELEMENTS
 !
-         CALL sswtch(38,L38)
+         CALL sswtch(38,l38)
 !
 !     READ AND SETUP INTO CORE MISC. TABLES.
 !     E.G. MPT, CSTM, DIT, ETC.
@@ -117,9 +118,9 @@ SUBROUTINE emg
 !
 !     PASS THE EST AND WRITE THE OUTPUT DATA BLOCKS.
 !
-         IF ( L38==1 ) CALL klock(i)
+         IF ( l38==1 ) CALL klock(i)
          CALL emgpro(ibuf)
-         IF ( L38/=0 ) THEN
+         IF ( l38/=0 ) THEN
             CALL klock(j)
             j = j - i
             WRITE (nout,99001) j
@@ -129,13 +130,12 @@ SUBROUTINE emg
 !     WRAP-UP OPERATIONS.
 !
          CALL emgfin
-         IF ( nogo .OR. Error ) CALL mesage(-37,0,name)
+         IF ( nogo .OR. error ) CALL mesage(-37,0,name)
          RETURN
       ENDIF
    ENDIF
-   Nok = -1
-   Nom = -1
-   Nob = -1
-   Nok4gg = -1
-   RETURN
+   nok = -1
+   nom = -1
+   nob = -1
+   nok4gg = -1
 END SUBROUTINE emg

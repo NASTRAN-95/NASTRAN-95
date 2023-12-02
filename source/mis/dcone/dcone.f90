@@ -1,14 +1,15 @@
-!*==dcone.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dcone.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dcone
-USE C_CONDAD
-USE C_DS1AAA
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -105,14 +106,14 @@ USE ISO_FORTRAN_ENV
 !
 !     CALCULATE SHELL ORIENTATION CONSTANTS
 !
-   Sinth = 0.0
-   Costh = 1.0
+   sinth = 0.0
+   costh = 1.0
    nint = necpt(1)/1000
    n = necpt(1) - nint*1000 - 1
-   ra = Ecpt(28)
-   za = Ecpt(29)
-   rb = Ecpt(32)
-   zb = Ecpt(33)
+   ra = ecpt(28)
+   za = ecpt(29)
+   rb = ecpt(32)
+   zb = ecpt(33)
    temp1 = rb - ra
    temp2 = zb - za
    l2 = temp1**2 + temp2**2
@@ -234,29 +235,29 @@ USE ISO_FORTRAN_ENV
 !     FOR EXPLICIT FORMULATION OF HUQ, SEE MS-28, PP.15,16 AND PP.24,25.
 !
       DO i = 1 , 100
-         Huq(i) = 0.0D0
+         huq(i) = 0.0D0
       ENDDO
-      Huq(1) = one
-      Huq(13) = one
-      Huq(25) = one
-      Huq(36) = one
-      Huq(41) = cp/ra
-      Huq(49) = one
-      Huq(51) = one
-      Huq(52) = sl
-      Huq(63) = one
-      Huq(64) = sl
-      Huq(75) = one
-      Huq(76) = sl
-      Huq(77) = l2
-      Huq(78) = Huq(77)*sl
-      Huq(86) = one
-      Huq(87) = 2.0D0*sl
-      Huq(88) = 3.0D0*Huq(77)
-      Huq(91) = cp/rb
-      Huq(92) = Huq(91)*sl
-      Huq(99) = one
-      Huq(100) = sl
+      huq(1) = one
+      huq(13) = one
+      huq(25) = one
+      huq(36) = one
+      huq(41) = cp/ra
+      huq(49) = one
+      huq(51) = one
+      huq(52) = sl
+      huq(63) = one
+      huq(64) = sl
+      huq(75) = one
+      huq(76) = sl
+      huq(77) = l2
+      huq(78) = huq(77)*sl
+      huq(86) = one
+      huq(87) = 2.0D0*sl
+      huq(88) = 3.0D0*huq(77)
+      huq(91) = cp/rb
+      huq(92) = huq(91)*sl
+      huq(99) = one
+      huq(100) = sl
 !
 !     IF TRANSVERSE SHEAR IS ZERO
 !
@@ -268,27 +269,27 @@ USE ISO_FORTRAN_ENV
 !     THEN (HYQ)  = (0).  THEREFORE, USE HUQ MATRIX AS IS
 !
       IF ( matid2/=0 .AND. matid3/=0 ) THEN
-         IF ( Ecpt(9)/=0.0 .AND. Ecpt(7)/=0.0 ) THEN
-            Inflag = 1
-            Matid = matid3
-            Eltemp = Ecpt(35)
-            CALL mat(Ecpt(1))
+         IF ( ecpt(9)/=0.0 .AND. ecpt(7)/=0.0 ) THEN
+            inflag = 1
+            matid = matid3
+            eltemp = ecpt(35)
+            CALL mat(ecpt(1))
             gshear = g
             IF ( g/=0.0 ) THEN
-               Inflag = 2
-               Matid = matid2
-               Eltemp = Ecpt(35)
-               CALL mat(Ecpt(1))
+               inflag = 2
+               matid = matid2
+               eltemp = ecpt(35)
+               CALL mat(ecpt(1))
 !
 !     FORM
 !     (D) = I*(G)
 !
-               d11 = Ecpt(7)*G11
-               d12 = Ecpt(7)*G12
-               d22 = Ecpt(7)*G22
-               d33 = Ecpt(7)*G33
+               d11 = ecpt(7)*g11
+               d12 = ecpt(7)*g12
+               d22 = ecpt(7)*g22
+               d33 = ecpt(7)*g33
 !
-               ts = Ecpt(9)
+               ts = ecpt(9)
 !
                DO i = 1 , 10
                   hyq(i) = 0.0D0
@@ -306,8 +307,8 @@ USE ISO_FORTRAN_ENV
                hyq(8) = oq*(-d11*6.0D0*sl*rb+3.0D0*int(3,3)*sd22pi)
 !
                DO i = 6 , 8
-                  Huq(i+30) = Huq(i+30) - hyq(i)
-                  Huq(i+80) = Huq(i+80) - hyq(i)
+                  huq(i+30) = huq(i+30) - hyq(i)
+                  huq(i+80) = huq(i+80) - hyq(i)
                ENDDO
             ENDIF
          ENDIF
@@ -317,7 +318,7 @@ USE ISO_FORTRAN_ENV
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
       ising = -1
-      CALL inverd(10,Huq(1),10,Dum,0,determ,ising,temp48(1))
+      CALL inverd(10,huq(1),10,dum,0,determ,ising,temp48(1))
 !
 !     CHECK SINGULARITY
 !
@@ -347,42 +348,42 @@ USE ISO_FORTRAN_ENV
          k1 = 0
          k2 = 0
          SPAG_Loop_1_1: DO
-            u(k2+1) = dble(Ecpt(k1+40))
-            u(k2+2) = dble(Ecpt(k1+39))*sp + dble(Ecpt(k1+41))*cp
-            u(k2+3) = dble(Ecpt(k1+39))*cp - dble(Ecpt(k1+41))*sp
-            u(k2+4) = dble(Ecpt(k1+43))
-            u(k2+5) = dble(Ecpt(k1+42))*sp + dble(Ecpt(k1+44))*cp
+            u(k2+1) = dble(ecpt(k1+40))
+            u(k2+2) = dble(ecpt(k1+39))*sp + dble(ecpt(k1+41))*cp
+            u(k2+3) = dble(ecpt(k1+39))*cp - dble(ecpt(k1+41))*sp
+            u(k2+4) = dble(ecpt(k1+43))
+            u(k2+5) = dble(ecpt(k1+42))*sp + dble(ecpt(k1+44))*cp
 !
             IF ( k1/=0 ) THEN
 !
-               CALL gmmatd(Huq(1),8,10,0,u(1),10,1,0,q(1))
+               CALL gmmatd(huq(1),8,10,0,u(1),10,1,0,q(1))
 !
 !     CALCULATE STRAIN COEFFICIENTS AND OBTAIN MATERIAL PROPERTY MATRIX
 !     (E)
 !
-               Matid = matid1
-               Inflag = 2
-               Eltemp = Ecpt(35)
-               CALL mat(Ecpt(1))
-               E11 = G11
-               E12 = G12
-               E22 = G22
-               E33 = G33
-               tdif = (dble(Ecpt(38))-dble(Ecpt(37)))/sl
-               deps = dble(Alpha1)*tdif
-               depp = dble(Alpha2)*tdif
-               eps = dble(Alpha1)*dble(Ecpt(37))
-               epp = dble(Alpha2)*dble(Ecpt(37))
+               matid = matid1
+               inflag = 2
+               eltemp = ecpt(35)
+               CALL mat(ecpt(1))
+               e11 = g11
+               e12 = g12
+               e22 = g22
+               e33 = g33
+               tdif = (dble(ecpt(38))-dble(ecpt(37)))/sl
+               deps = dble(alpha1)*tdif
+               depp = dble(alpha2)*tdif
+               eps = dble(alpha1)*dble(ecpt(37))
+               epp = dble(alpha2)*dble(ecpt(37))
 !
 !     COMPUTE COEFFICIENTS FOR POWER SERIES OF DIFFERENTIAL STIFF. COEFF
 !
-               tm = Ecpt(5)
+               tm = ecpt(5)
                temp1 = sp*q(3) + cp*q(5)
                temp2 = sp*q(4) + cp*q(6)
                temp3 = q(4) - eps
-               te11 = tm*E11
-               te12 = tm*E12
-               te22 = tm*E22
+               te11 = tm*e11
+               te12 = tm*e12
+               te22 = tm*e22
 !
                a0 = te12*temp1
                a1 = te12*temp2
@@ -434,22 +435,22 @@ USE ISO_FORTRAN_ENV
 !     CASE ONE.. HARMONIC NUMBER = ZERO
 !
                DO i = 1 , 64
-                  Kqd(i) = 0.0D0
+                  kqd(i) = 0.0D0
                ENDDO
                sp2d4 = sp2*0.25D0
-               Kqd(1) = cp2*b(1,3) + sp2d4*c(1,3)
-               Kqd(2) = cp2*b(2,3) + 0.25D0*sp*c(1,2) + sp2d4*c(2,3)
-               Kqd(9) = Kqd(2)
-               Kqd(10) = cp2*b(3,3) + (c(1,1)+2.0D0*sp*c(2,2)+sp2*c(3,3))*0.25D0
-               Kqd(46) = a(1,1)
-               Kqd(47) = a(2,1)*2.0D0
-               Kqd(48) = a(3,1)*3.0D0
-               Kqd(54) = Kqd(47)
-               Kqd(55) = a(3,1)*4.0D0
-               Kqd(56) = a(4,1)*6.0D0
-               Kqd(62) = Kqd(48)
-               Kqd(63) = Kqd(56)
-               Kqd(64) = a(5,1)*9.0D0
+               kqd(1) = cp2*b(1,3) + sp2d4*c(1,3)
+               kqd(2) = cp2*b(2,3) + 0.25D0*sp*c(1,2) + sp2d4*c(2,3)
+               kqd(9) = kqd(2)
+               kqd(10) = cp2*b(3,3) + (c(1,1)+2.0D0*sp*c(2,2)+sp2*c(3,3))*0.25D0
+               kqd(46) = a(1,1)
+               kqd(47) = a(2,1)*2.0D0
+               kqd(48) = a(3,1)*3.0D0
+               kqd(54) = kqd(47)
+               kqd(55) = a(3,1)*4.0D0
+               kqd(56) = a(4,1)*6.0D0
+               kqd(62) = kqd(48)
+               kqd(63) = kqd(56)
+               kqd(64) = a(5,1)*9.0D0
 !
 !     CHECK HARMONIC NUMBER
 !
@@ -461,87 +462,87 @@ USE ISO_FORTRAN_ENV
                   nspov4 = nov4*sp
                   ncp = n*cp
                   n2ov4 = nov4*n
-                  Kqd(3) = nspov4*c(1,3)
-                  Kqd(4) = nspov4*c(2,3)
-                  Kqd(5) = ncp*b(1,3)
-                  Kqd(6) = ncp*b(2,3)
-                  Kqd(7) = ncp*b(3,3)
-                  Kqd(8) = ncp*b(4,3)
-                  Kqd(11) = nov4*(c(1,2)+sp*c(2,3))
-                  Kqd(12) = nov4*(c(2,2)+sp*c(3,3))
-                  Kqd(13) = ncp*b(2,3)
-                  Kqd(14) = ncp*b(3,3)
-                  Kqd(15) = ncp*b(4,3)
-                  Kqd(16) = ncp*b(5,3)
-                  Kqd(17) = Kqd(3)
-                  Kqd(18) = Kqd(11)
-                  Kqd(19) = n2ov4*c(1,3)
-                  Kqd(20) = n2ov4*c(2,3)
-                  Kqd(25) = Kqd(4)
-                  Kqd(26) = Kqd(12)
-                  Kqd(27) = Kqd(20)
-                  Kqd(28) = n2ov4*c(3,3)
-                  Kqd(33) = Kqd(5)
-                  Kqd(34) = Kqd(13)
-                  Kqd(37) = n2*b(1,3)
-                  Kqd(38) = n2*b(2,3)
-                  Kqd(39) = n2*b(3,3)
-                  Kqd(40) = n2*b(4,3)
-                  Kqd(41) = Kqd(6)
-                  Kqd(42) = Kqd(14)
-                  Kqd(45) = Kqd(38)
-                  Kqd(46) = Kqd(46) + n2*b(3,3)
-                  Kqd(47) = Kqd(47) + n2*b(4,3)
-                  Kqd(48) = Kqd(48) + n2*b(5,3)
-                  Kqd(49) = Kqd(7)
-                  Kqd(50) = Kqd(15)
-                  Kqd(53) = Kqd(39)
-                  Kqd(54) = Kqd(47)
-                  Kqd(55) = Kqd(55) + n2*b(5,3)
-                  Kqd(56) = Kqd(56) + n2*b(6,3)
-                  Kqd(57) = Kqd(8)
-                  Kqd(58) = Kqd(16)
-                  Kqd(61) = Kqd(40)
-                  Kqd(62) = Kqd(48)
-                  Kqd(63) = Kqd(56)
-                  Kqd(64) = Kqd(64) + n2*b(7,3)
+                  kqd(3) = nspov4*c(1,3)
+                  kqd(4) = nspov4*c(2,3)
+                  kqd(5) = ncp*b(1,3)
+                  kqd(6) = ncp*b(2,3)
+                  kqd(7) = ncp*b(3,3)
+                  kqd(8) = ncp*b(4,3)
+                  kqd(11) = nov4*(c(1,2)+sp*c(2,3))
+                  kqd(12) = nov4*(c(2,2)+sp*c(3,3))
+                  kqd(13) = ncp*b(2,3)
+                  kqd(14) = ncp*b(3,3)
+                  kqd(15) = ncp*b(4,3)
+                  kqd(16) = ncp*b(5,3)
+                  kqd(17) = kqd(3)
+                  kqd(18) = kqd(11)
+                  kqd(19) = n2ov4*c(1,3)
+                  kqd(20) = n2ov4*c(2,3)
+                  kqd(25) = kqd(4)
+                  kqd(26) = kqd(12)
+                  kqd(27) = kqd(20)
+                  kqd(28) = n2ov4*c(3,3)
+                  kqd(33) = kqd(5)
+                  kqd(34) = kqd(13)
+                  kqd(37) = n2*b(1,3)
+                  kqd(38) = n2*b(2,3)
+                  kqd(39) = n2*b(3,3)
+                  kqd(40) = n2*b(4,3)
+                  kqd(41) = kqd(6)
+                  kqd(42) = kqd(14)
+                  kqd(45) = kqd(38)
+                  kqd(46) = kqd(46) + n2*b(3,3)
+                  kqd(47) = kqd(47) + n2*b(4,3)
+                  kqd(48) = kqd(48) + n2*b(5,3)
+                  kqd(49) = kqd(7)
+                  kqd(50) = kqd(15)
+                  kqd(53) = kqd(39)
+                  kqd(54) = kqd(47)
+                  kqd(55) = kqd(55) + n2*b(5,3)
+                  kqd(56) = kqd(56) + n2*b(6,3)
+                  kqd(57) = kqd(8)
+                  kqd(58) = kqd(16)
+                  kqd(61) = kqd(40)
+                  kqd(62) = kqd(48)
+                  kqd(63) = kqd(56)
+                  kqd(64) = kqd(64) + n2*b(7,3)
 !
 !     COMPUTE HUQ FOR NTH HARMONIC
 !
                   DO i = 1 , 100
-                     Huq(i) = 0.0D0
+                     huq(i) = 0.0D0
                   ENDDO
-                  Huq(1) = one
-                  Huq(13) = one
-                  Huq(25) = one
-                  Huq(36) = one
-                  Huq(41) = cp/ra
-                  Huq(45) = n/ra
-                  Huq(49) = one
-                  Huq(51) = one
-                  Huq(52) = sl
-                  Huq(63) = one
-                  Huq(64) = sl
-                  Huq(75) = one
-                  Huq(76) = sl
-                  Huq(77) = l2
-                  Huq(78) = Huq(77)*sl
-                  Huq(86) = one
-                  Huq(87) = 2.0D0*sl
-                  Huq(88) = 3.0D0*Huq(77)
-                  Huq(91) = cp/rb
-                  Huq(92) = Huq(91)*sl
-                  Huq(95) = n/rb
-                  Huq(96) = Huq(95)*sl
-                  Huq(97) = Huq(95)*l2
-                  Huq(98) = Huq(96)*l2
-                  Huq(99) = one
-                  Huq(100) = sl
+                  huq(1) = one
+                  huq(13) = one
+                  huq(25) = one
+                  huq(36) = one
+                  huq(41) = cp/ra
+                  huq(45) = n/ra
+                  huq(49) = one
+                  huq(51) = one
+                  huq(52) = sl
+                  huq(63) = one
+                  huq(64) = sl
+                  huq(75) = one
+                  huq(76) = sl
+                  huq(77) = l2
+                  huq(78) = huq(77)*sl
+                  huq(86) = one
+                  huq(87) = 2.0D0*sl
+                  huq(88) = 3.0D0*huq(77)
+                  huq(91) = cp/rb
+                  huq(92) = huq(91)*sl
+                  huq(95) = n/rb
+                  huq(96) = huq(95)*sl
+                  huq(97) = huq(95)*l2
+                  huq(98) = huq(96)*l2
+                  huq(99) = one
+                  huq(100) = sl
 !
 !     COMPUTE HYQ
 !
                   IF ( matid2/=0 .AND. matid3/=0 ) THEN
-                     IF ( Ecpt(9)/=0.0 .AND. Ecpt(7)/=0.0 ) THEN
+                     IF ( ecpt(9)/=0.0 .AND. ecpt(7)/=0.0 ) THEN
                         IF ( gshear/=0.0D0 ) THEN
 !
                            n2d33 = n2*d33
@@ -572,8 +573,8 @@ USE ISO_FORTRAN_ENV
                            hyq(10) = oq*(n*sl*(d12+d33)-temp2*int(2,3))
 !
                            DO i = 1 , 10
-                              Huq(i+30) = Huq(i+30) - hyq(i)
-                              Huq(i+80) = Huq(i+80) - hyq(i)
+                              huq(i+30) = huq(i+30) - hyq(i)
+                              huq(i+80) = huq(i+80) - hyq(i)
                            ENDDO
                         ENDIF
                      ENDIF
@@ -583,14 +584,14 @@ USE ISO_FORTRAN_ENV
 !     AGAIN SET ISING TO -1
 !
                   ising = -1
-                  CALL inverd(10,Huq(1),10,Dum,0,determ,ising,temp48(1))
+                  CALL inverd(10,huq(1),10,dum,0,determ,ising,temp48(1))
                   IF ( ising==2 ) THEN
                      CALL mesage(30,40,necpt(1))
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-                     Nogo = 1
+                     nogo = 1
                      RETURN
                   ENDIF
                ENDIF
@@ -629,27 +630,27 @@ USE ISO_FORTRAN_ENV
                   DO i = 1 , 8
                      krow = i + inc1
                      ncol = (i-1)*10 + inc2
-                     Eht(krow) = sp*Huq(ncol+2) + cp*Huq(ncol+3)
-                     Eht(krow+8) = Huq(ncol+1)
-                     Eht(krow+16) = cp*Huq(ncol+2) - sp*Huq(ncol+3)
-                     Eht(krow+24) = sp*Huq(ncol+5)
-                     Eht(krow+32) = Huq(ncol+4)
-                     Eht(krow+40) = cp*Huq(ncol+5)
+                     eht(krow) = sp*huq(ncol+2) + cp*huq(ncol+3)
+                     eht(krow+8) = huq(ncol+1)
+                     eht(krow+16) = cp*huq(ncol+2) - sp*huq(ncol+3)
+                     eht(krow+24) = sp*huq(ncol+5)
+                     eht(krow+32) = huq(ncol+4)
+                     eht(krow+40) = cp*huq(ncol+5)
                   ENDDO
                   IF ( inc1>0 ) THEN
 !
 !     CHECK FOR PIVOT POINT NUMBER
 !
                      DO i = 1 , 2
-                        IF ( Npvt==necpt(i+1) ) GOTO 2
+                        IF ( npvt==necpt(i+1) ) GOTO 2
                      ENDDO
 !
 !     FALL THRU LOOP IMPLIES NO PIVOT POINT NUMBER
 !
-                     CALL mesage(-30,34,Ecpt(1))
+                     CALL mesage(-30,34,ecpt(1))
 !
  2                   npivot = i
-                     CALL gmmatd(Eht(48*npivot-47),6,8,0,Kqd(1),8,8,0,temp48(1))
+                     CALL gmmatd(eht(48*npivot-47),6,8,0,kqd(1),8,8,0,temp48(1))
 !
 !     IF N = 0 DOUBLE RESULT
 !
@@ -660,8 +661,8 @@ USE ISO_FORTRAN_ENV
                      ENDIF
 !
                      DO j = 1 , 2
-                        CALL gmmatd(temp48(1),6,8,0,Eht(48*j-47),6,8,1,Kij(1))
-                        CALL ds1b(Kij(1),necpt(j+1))
+                        CALL gmmatd(temp48(1),6,8,0,eht(48*j-47),6,8,1,kij(1))
+                        CALL ds1b(kij(1),necpt(j+1))
                      ENDDO
                      EXIT SPAG_Loop_1_1
                   ELSE
@@ -680,7 +681,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          RETURN
       ENDIF
    ELSE
@@ -691,7 +692,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
       RETURN
    ENDIF
 !

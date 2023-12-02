@@ -1,12 +1,13 @@
-!*==sma3b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sma3b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sma3b(Iflag,Izk)
-USE C_GENELY
-USE C_SYSTEM
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_genely
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -33,47 +34,47 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE LENGTH OF VARIABLE CORE
 !
-   nz = korsz(Z) - Sysbuf
+   nz = korsz(z) - sysbuf
    Iflag = -1
-   nz = nz - Sysbuf
+   nz = nz - sysbuf
 !
 ! SKIP M+N WORDS ON GEI FILE
 !
-   CALL fread(Gei,Z,M+N,0)
+   CALL fread(gei,z,m+n,0)
 !
 ! READ FLAG VARIABLE FOR Z OR K MATRIX
 !
-   CALL fread(Gei,Izk,1,0)
+   CALL fread(gei,Izk,1,0)
 !
 ! IF Z MATRIX INPUT,WRITE ON ZE1 FILE
 ! IF K MATRIX INPUT,WRITE ON ZINVS FILE
 !
-   CALL makmcb(ze,Ze1,M,6,2)
-   IF ( Izk==2 ) ze(1) = Zinvs
-   CALL makmcb(se,Se1,N,2,2)
+   CALL makmcb(ze,ze1,m,6,2)
+   IF ( Izk==2 ) ze(1) = zinvs
+   CALL makmcb(se,se1,n,2,2)
 !
 ! READY FOR PACKING MATRICES
 !
 !
 ! OPEN ZE MATRIX
 !
-   CALL gopen(ze,Z(nz+1),1)
+   CALL gopen(ze,z(nz+1),1)
 !
 !     LOOP ON M COLUMNS OF ZE
 !
-   DO i = 1 , M
+   DO i = 1 , m
       CALL bldpk(2,2,ze(1),0,0)
-      DO j = 1 , M
-         CALL fread(Gei,Z,1,0)
-         D11(1) = Z(1)
-         Idx = j
+      DO j = 1 , m
+         CALL fread(gei,z,1,0)
+         d11(1) = z(1)
+         idx = j
          CALL zblpki
       ENDDO
       CALL bldpkn(ze(1),0,ze)
    ENDDO
    CALL close(ze(1),1)
    CALL wrttrl(ze)
-   IF ( N/=0 ) THEN
+   IF ( n/=0 ) THEN
       Iflag = 1
 !
 !     NOW BUILD SE TRANSPOSE
@@ -81,17 +82,17 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN AND WRITE HEADER
 !
-      CALL gopen(se,Z(nz+1),1)
+      CALL gopen(se,z(nz+1),1)
 !
 !     LOOP ON N COLUMNS OF SE
 !     LOOP ON M COLUMNS OF SE  TRANSPOSE
 !
-      DO i = 1 , M
+      DO i = 1 , m
          CALL bldpk(2,2,se(1),0,0)
-         DO j = 1 , N
-            CALL fread(Gei,Z,1,0)
-            D11(1) = -Z(1)
-            Idx = j
+         DO j = 1 , n
+            CALL fread(gei,z,1,0)
+            d11(1) = -z(1)
+            idx = j
             CALL zblpki
          ENDDO
          CALL bldpkn(se(1),0,se)
@@ -102,13 +103,13 @@ USE ISO_FORTRAN_ENV
 !
 !     BACKSPACE GEI SO UD AND UI AVAILABLE LATER
 !
-   CALL bckrec(Gei)
-   CALL close(Gei,2)
-   Id(1) = Id1
-   Id(2) = M
-   Id(3) = M
-   Id(4) = 8
-   Id(5) = 2
-   Id(6) = 1
-   Id(7) = 0
+   CALL bckrec(gei)
+   CALL close(gei,2)
+   id(1) = id1
+   id(2) = m
+   id(3) = m
+   id(4) = 8
+   id(5) = 2
+   id(6) = 1
+   id(7) = 0
 END SUBROUTINE sma3b

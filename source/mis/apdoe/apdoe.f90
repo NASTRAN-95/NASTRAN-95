@@ -1,4 +1,5 @@
-!*==apdoe.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==apdoe.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apdoe(Id,Z,Start,End,Found,Count)
@@ -17,6 +18,15 @@ SUBROUTINE apdoe(Id,Z,Start,End,Found,Count)
 !
    INTEGER :: i , j
    LOGICAL :: look
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -46,14 +56,14 @@ SUBROUTINE apdoe(Id,Z,Start,End,Found,Count)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      Found = i
-      j = i + 2
+      Found = I
+      J = I + 2
       Count = Count + 1
 !
 !     START COUNT AT + 2 BECAUSE PAERO4 CARD CAN HAVE -1 IN FIELD 2
 !
-      SPAG_Loop_1_1: DO i = j , End
-         IF ( Z(i)==-1 ) EXIT SPAG_Loop_1_1
+      SPAG_Loop_1_1: DO I = J , End
+         IF ( Z(I)==-1 ) EXIT SPAG_Loop_1_1
          Count = Count + 1
       ENDDO SPAG_Loop_1_1
    END SUBROUTINE spag_block_1

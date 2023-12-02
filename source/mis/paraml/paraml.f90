@@ -1,4 +1,5 @@
-!*==paraml.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==paraml.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE paraml
@@ -48,14 +49,14 @@ SUBROUTINE paraml
 !       SPLX  = SINGLE PRECISION COMPLEX (FROM 1 TO 4 INPUT WORDS)
 !       DPLX  = DOUBLE PRECISION COMPLEX (FROM 1 TO 4 INPUT WORDS)
 !
-USE C_BLANK
-USE C_ILOCAL
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_XVPS
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_ilocal
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_xvps
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -97,8 +98,8 @@ USE ISO_FORTRAN_ENV
 !
          CALL sswtch(37,i)
          prt = i==0
-         nz = korsz(Iz)
-         ibuf1 = nz - Sysbuf + 1
+         nz = korsz(iz)
+         ibuf1 = nz - sysbuf + 1
          IF ( ibuf1<=0 ) THEN
             j = -8
             CALL mesage(j,in1,name)
@@ -112,23 +113,23 @@ USE ISO_FORTRAN_ENV
                prec = mcb(5)
                CALL fname(in1,fnm)
                DO j = 3 , 9
-                  CALL fndpar(-j,Il(j))
+                  CALL fndpar(-j,il(j))
                ENDDO
-               IF ( Op(1)/=opcd(3) .OR. Op(2)/=blank ) THEN
-                  IF ( Op(1)==opcd(4) ) THEN
+               IF ( op(1)/=opcd(3) .OR. op(2)/=blank ) THEN
+                  IF ( op(1)==opcd(4) ) THEN
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   IF ( prt ) THEN
                      CALL page2(first)
                      first = 5
-                     WRITE (Nout,99014) Uim , Op
+                     WRITE (nout,99014) uim , op
                   ENDIF
 !
 !     IDENTIFY OPCODE
 !
                   DO i = 1 , 7
-                     IF ( Op(1)==opcd(i) ) THEN
+                     IF ( op(1)==opcd(i) ) THEN
                         IF ( i==1 ) THEN
                            spag_nextblock_1 = 8
                            CYCLE SPAG_DispatchLoop_1
@@ -162,22 +163,22 @@ USE ISO_FORTRAN_ENV
 !
 !     INPUT PURGED.  RETURN IF OP(1) IS NOT 'PRES'
 !
-               IF ( Op(1)/=opcd(3) ) RETURN
+               IF ( op(1)/=opcd(3) ) RETURN
                flag = -1
-               CALL fndpar(-5,Il5)
-               IF ( prt .AND. Op(2)/=blank ) WRITE (Nout,99014) Uim , Op
+               CALL fndpar(-5,il5)
+               IF ( prt .AND. op(2)/=blank ) WRITE (nout,99014) uim , op
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Integ = flag
-         ivps(Il5) = flag
-         nmvps(1) = ivps(Il5-3)
-         nmvps(2) = ivps(Il5-2)
-         IF ( prt .AND. Op(2)/=blank ) WRITE (Nout,99021) Integ , nmvps
+         integ = flag
+         ivps(il5) = flag
+         nmvps(1) = ivps(il5-3)
+         nmvps(2) = ivps(il5-2)
+         IF ( prt .AND. op(2)/=blank ) WRITE (nout,99021) integ , nmvps
          RETURN
       CASE (3)
-         WRITE (Nout,99001) Ufm , Op
+         WRITE (nout,99001) ufm , op
 99001    FORMAT (A23,', ILLEGAL OP REQUEST TO MODULE PARAML - ',2A4)
          spag_nextblock_1 = 4
       CASE (4)
@@ -186,7 +187,7 @@ USE ISO_FORTRAN_ENV
       CASE (5)
 !
          IF ( prt ) THEN
-            WRITE (Nout,99002) Uim
+            WRITE (nout,99002) uim
 99002       FORMAT (A29,', NEW PARAMETERS USED IN PARAML MODULE:',//5X,'PARAML  DB//C,N,OP/C,N,P1/V,N,P2/V,N,RSP/V,N,INT/V,N,RDP/', &
                    &'V,N,BCD/V,N,CSX/V,N,CDX  $',/13X,'OP      = OPCODE, ONE OF THE FOLLOWING KEY WORDS, BCD INPUT, N','O DEFAULT', &
                   & /23X,43H'MATRIX', 'NULL', 'PRESENCE', 'TRAILER', OR,/23X,28H'TABLE1', 'TABLE2', 'TABLE4',/13X,                  &
@@ -201,9 +202,9 @@ USE ISO_FORTRAN_ENV
                    &'ABSTRACT THE 3RD RECORD AND 9TH WORD  OF EPT DATA BLCOK',//5X,                                                 &
                    &'PARAML  KGG//*MATRIX*/C,N,9/C,N,3/V,N,R93//V,N,D93//V,N,CS93',/5X,                                             &
                    &'PARAML  EPT//*TABLE1*/C,N,3/C,N,9//V,N,I39/V,N,D39',/)
-            IF ( i==6 ) WRITE (Nout,99003)
+            IF ( i==6 ) WRITE (nout,99003)
 99003       FORMAT (5X,'SUGGESTION- REPLACE THE OPCODE ''DTI'' BY ''TABLE1''')
-            IF ( i==7 ) WRITE (Nout,99004)
+            IF ( i==7 ) WRITE (nout,99004)
 !
 !     OP = PRESENCE
 !     TEST FOR PRESENCE OF DATA BLOCK
@@ -212,7 +213,6 @@ USE ISO_FORTRAN_ENV
                    &'AND NOTE THAT P1 IS ROW NUMBER AND P2 IS COLUMN NO.')
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     OP = NULL
@@ -220,23 +220,21 @@ USE ISO_FORTRAN_ENV
 !
          IF ( mcb(7)==0 ) flag = -1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     OP = TRAILER
 !     PLACE THE (P1+1) WORD OF THE TRAILER IN P2
 !
-         IF ( P1<=0 .OR. P1>=7 ) THEN
-            WRITE (Nout,99005) Ufm , P1
+         IF ( p1<=0 .OR. p1>=7 ) THEN
+            WRITE (nout,99005) ufm , p1
 99005       FORMAT (A23,', 2ND PARAMETER IN PARAML MODULE IS ILLEGAL',I5)
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            P2 = mcb(P1+1)
-            ivps(Il3) = P2
-            nmvps(1) = ivps(Il3-3)
-            nmvps(2) = ivps(Il3-2)
-            IF ( prt ) WRITE (Nout,99021) P2 , nmvps
+            p2 = mcb(p1+1)
+            ivps(il3) = p2
+            nmvps(1) = ivps(il3-3)
+            nmvps(2) = ivps(il3-2)
+            IF ( prt ) WRITE (nout,99021) p2 , nmvps
             RETURN
          ENDIF
       CASE (8)
@@ -247,28 +245,28 @@ USE ISO_FORTRAN_ENV
          tb1 = .FALSE.
          tb2 = .FALSE.
          tb4 = .FALSE.
-         IF ( Op(2)==ei(1) ) tb1 = .TRUE.
-         IF ( Op(2)==ei(2) ) tb2 = .TRUE.
-         IF ( Op(2)==ei(3) ) tb4 = .TRUE.
+         IF ( op(2)==ei(1) ) tb1 = .TRUE.
+         IF ( op(2)==ei(2) ) tb2 = .TRUE.
+         IF ( op(2)==ei(3) ) tb4 = .TRUE.
          IF ( .NOT.tb1 .AND. .NOT.tb2 .AND. .NOT.tb4 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          mat = .FALSE.
-         recno = P1
-         index = P2
+         recno = p1
+         index = p2
          IF ( tb2 ) ixp1 = index + 1
          IF ( tb4 ) ixp1 = index + 3
          atx = at(1)
          IF ( tb4 ) atx = at(2)
-         CALL open(*80,in1,Iz(ibuf1),0)
+         CALL open(*80,in1,iz(ibuf1),0)
          CALL skprec(in1,recno)
-         CALL read(*100,*20,in1,Iz,ibuf1-1,1,rl)
+         CALL read(*100,*20,in1,iz,ibuf1-1,1,rl)
          j = -8
          CALL mesage(j,in1,name)
          RETURN
  20      IF ( index>rl ) GOTO 100
-         IF ( Il4<=0 ) THEN
+         IF ( il4<=0 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -277,15 +275,15 @@ USE ISO_FORTRAN_ENV
 !
          IF ( prt ) THEN
             IF ( .NOT.tb1 ) THEN
-               WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ELSE
-               WRITE (Nout,99016) fnm , recno , index
+               WRITE (nout,99016) fnm , recno , index
             ENDIF
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
-         nmvps(1) = ivps(Il4-3)
-         nmvps(2) = ivps(Il4-2)
+         nmvps(1) = ivps(il4-3)
+         nmvps(2) = ivps(il4-2)
          IF ( .NOT.(tb4) ) THEN
             IF ( tb2 ) THEN
                k = -1
@@ -298,24 +296,24 @@ USE ISO_FORTRAN_ENV
 !WKBI
                IF ( sp(2)==0.0 ) dp(1) = sp(1)
 !WKBR RSP = SNGL(DP(1))
-               Rsp = sp(1)
-               k = numtyp(Rsp) + 1
+               rsp = sp(1)
+               k = numtyp(rsp) + 1
                IF ( k==2 .OR. k==4 ) THEN
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSE
-               Rsp = z(index)
+               rsp = z(index)
                IF ( .NOT.(mat) ) THEN
-                  k = numtyp(Rsp) + 1
+                  k = numtyp(rsp) + 1
                   IF ( k==2 .OR. k==4 ) THEN
                      spag_nextblock_1 = 10
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
             ENDIF
-            IF ( prt ) WRITE (Nout,99017) Rsp , nmvps
-            Vps(Il4) = Rsp
+            IF ( prt ) WRITE (nout,99017) rsp , nmvps
+            vps(il4) = rsp
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -323,55 +321,55 @@ USE ISO_FORTRAN_ENV
       CASE (10)
 !
          IF ( prt ) THEN
-            WRITE (Nout,99018) nmvps
-            IF ( k>0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-            IF ( k==-1 ) WRITE (Nout,99020) Uwm , nmvps
+            WRITE (nout,99018) nmvps
+            IF ( k>0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+            IF ( k==-1 ) WRITE (nout,99020) uwm , nmvps
          ENDIF
          spag_nextblock_1 = 11
       CASE (11)
 !
-         IF ( .NOT.(Il5<=0 .OR. mat) ) THEN
+         IF ( .NOT.(il5<=0 .OR. mat) ) THEN
 !
 !     OUTPUT REQUEST IS INTEGER
 !
             IF ( prt ) THEN
-               IF ( tb1 ) WRITE (Nout,99016) fnm , recno , index
-               IF ( .NOT.tb1 ) WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               IF ( tb1 ) WRITE (nout,99016) fnm , recno , index
+               IF ( .NOT.tb1 ) WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ENDIF
-            nmvps(1) = ivps(Il5-3)
-            nmvps(2) = ivps(Il5-2)
+            nmvps(1) = ivps(il5-3)
+            nmvps(2) = ivps(il5-2)
             k = 0
             IF ( .NOT.(tb2 .OR. tb4) ) THEN
-               Integ = Iz(index)
-               k = numtyp(Integ) + 1
+               integ = iz(index)
+               k = numtyp(integ) + 1
                IF ( k<=2 ) THEN
-                  ivps(Il5) = Integ
-                  IF ( prt ) WRITE (Nout,99021) Integ , nmvps
+                  ivps(il5) = integ
+                  IF ( prt ) WRITE (nout,99021) integ , nmvps
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
 !
             IF ( prt ) THEN
-               WRITE (Nout,99018) nmvps
-               IF ( k>0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-               IF ( k==0 ) WRITE (Nout,99006) Uwm , nmvps
+               WRITE (nout,99018) nmvps
+               IF ( k>0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+               IF ( k==0 ) WRITE (nout,99006) uwm , nmvps
 99006          FORMAT (A25,' - ILLEGAL INTEGER ABSTRACTION FROM 2 OR 4 DATA ','WORDS.  OUPUT PARAMETER ',2A4,' NOT SAVED')
             ENDIF
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
 !
-         IF ( Il6>0 ) THEN
+         IF ( il6>0 ) THEN
 !
 !     OUTPUT REQUEST IN D.P. REAL
 !
             IF ( prt ) THEN
-               IF ( tb1 ) WRITE (Nout,99016) fnm , recno , index
-               IF ( .NOT.tb1 ) WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               IF ( tb1 ) WRITE (nout,99016) fnm , recno , index
+               IF ( .NOT.tb1 ) WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ENDIF
-            nmvps(1) = ivps(Il6-3)
-            nmvps(2) = ivps(Il6-2)
+            nmvps(1) = ivps(il6-3)
+            nmvps(2) = ivps(il6-2)
             IF ( mat ) THEN
                IF ( prec==1 ) dp(1) = dble(z(index))
             ELSEIF ( tb2 ) THEN
@@ -405,50 +403,49 @@ USE ISO_FORTRAN_ENV
 !WKBI
             IF ( sp(2)==0.0 ) dp(1) = sp(1)
 !WKBR  570 RDP = DP(1)
-            Rdp = dp(1)
-            Vps(Il6) = sp(1)
-            Vps(Il6+1) = sp(2)
-            IF ( prt ) WRITE (Nout,99022) Rdp , nmvps
+            rdp = dp(1)
+            vps(il6) = sp(1)
+            vps(il6+1) = sp(2)
+            IF ( prt ) WRITE (nout,99022) rdp , nmvps
          ENDIF
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
          IF ( prt ) THEN
-            WRITE (Nout,99018) nmvps
+            WRITE (nout,99018) nmvps
             IF ( j==2 .OR. j==4 ) k = j
-            IF ( k>0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-            IF ( k==-1 ) WRITE (Nout,99020) Uwm , nmvps
+            IF ( k>0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+            IF ( k==-1 ) WRITE (nout,99020) uwm , nmvps
          ENDIF
          spag_nextblock_1 = 14
       CASE (14)
 !
-         IF ( .NOT.(Il7<=0 .OR. mat) ) THEN
+         IF ( .NOT.(il7<=0 .OR. mat) ) THEN
 !
 !     OUTPUT REQUEST IN BCD
 !
             IF ( prt ) THEN
-               IF ( tb1 ) WRITE (Nout,99016) fnm , recno , index
-               IF ( .NOT.tb1 ) WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               IF ( tb1 ) WRITE (nout,99016) fnm , recno , index
+               IF ( .NOT.tb1 ) WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ENDIF
-            nmvps(1) = ivps(Il7-3)
-            nmvps(2) = ivps(Il7-2)
+            nmvps(1) = ivps(il7-3)
+            nmvps(2) = ivps(il7-2)
             k = 0
             IF ( .NOT.(tb4) ) THEN
-               Bcd(1) = Iz(index)
-               Bcd(2) = blank
-               k = numtyp(Bcd(1)) + 1
+               bcd(1) = iz(index)
+               bcd(2) = blank
+               k = numtyp(bcd(1)) + 1
                IF ( k==4 ) THEN
                   IF ( .NOT.(tb1) ) THEN
                      k = -1
                      IF ( index+1>rl ) GOTO 30
-                     Bcd(2) = Iz(index+1)
-                     k = numtyp(Bcd(2)) + 1
+                     bcd(2) = iz(index+1)
+                     k = numtyp(bcd(2)) + 1
                      IF ( k/=4 ) GOTO 30
                   ENDIF
-                  ivps(Il7) = Bcd(1)
-                  ivps(Il7+1) = Bcd(2)
-                  IF ( prt ) WRITE (Nout,99007) Bcd , nmvps
+                  ivps(il7) = bcd(1)
+                  ivps(il7+1) = bcd(2)
+                  IF ( prt ) WRITE (nout,99007) bcd , nmvps
 99007             FORMAT (1H+,70X,2A4,'   = ',2A4)
                   spag_nextblock_1 = 15
                   CYCLE SPAG_DispatchLoop_1
@@ -456,26 +453,26 @@ USE ISO_FORTRAN_ENV
             ENDIF
 !
  30         IF ( prt ) THEN
-               WRITE (Nout,99018) nmvps
-               IF ( k>0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-               IF ( k==0 ) WRITE (Nout,99008) Uwm , nmvps
+               WRITE (nout,99018) nmvps
+               IF ( k>0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+               IF ( k==0 ) WRITE (nout,99008) uwm , nmvps
 99008          FORMAT (A25,' - ILLEGAL BCD ABSTRACTION FROM 4 DATA WORDS. ',' PARAMETER ',2A4,'NOT SAVED')
-               IF ( k==-1 ) WRITE (Nout,99020) Uwm , nmvps
+               IF ( k==-1 ) WRITE (nout,99020) uwm , nmvps
             ENDIF
          ENDIF
          spag_nextblock_1 = 15
       CASE (15)
 !
-         IF ( Il8>0 ) THEN
+         IF ( il8>0 ) THEN
 !
 !     OUTPUT REQUEST IN S.P. COMPLEX
 !
             IF ( prt ) THEN
-               IF ( tb1 ) WRITE (Nout,99016) fnm , recno , index
-               IF ( .NOT.tb1 ) WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               IF ( tb1 ) WRITE (nout,99016) fnm , recno , index
+               IF ( .NOT.tb1 ) WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ENDIF
-            nmvps(1) = ivps(Il8-3)
-            nmvps(2) = ivps(Il8-2)
+            nmvps(1) = ivps(il8-3)
+            nmvps(2) = ivps(il8-2)
             k = -1
             j = 0
             IF ( tb4 ) THEN
@@ -485,38 +482,38 @@ USE ISO_FORTRAN_ENV
                sp(3) = z(index+2)
                sp(4) = z(index+3)
 !WKBR SPLX(1) = SNGL(DP(1))
-               Splx(1) = sp(1)
+               splx(1) = sp(1)
 !WKBR SPLX(2) = SNGL(DP(2))
-               Splx(2) = sp(3)
+               splx(2) = sp(3)
             ELSE
-               Splx(1) = z(index)
-               Splx(2) = 0.0
+               splx(1) = z(index)
+               splx(2) = 0.0
                IF ( .NOT.(tb1 .OR. mat) ) THEN
                   IF ( index+1>rl ) GOTO 40
-                  Splx(2) = z(index+1)
+                  splx(2) = z(index+1)
                ENDIF
             ENDIF
-            j = numtyp(Splx(1)) + 1
-            k = numtyp(Splx(2)) + 1
+            j = numtyp(splx(1)) + 1
+            k = numtyp(splx(2)) + 1
             IF ( j/=2 .AND. j/=4 .AND. k/=2 .AND. j/=4 ) THEN
-               Vps(Il8) = Splx(1)
-               Vps(Il8+1) = Splx(2)
-               IF ( prt ) WRITE (Nout,99023) Splx , nmvps
+               vps(il8) = splx(1)
+               vps(il8+1) = splx(2)
+               IF ( prt ) WRITE (nout,99023) splx , nmvps
                spag_nextblock_1 = 16
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
  40         IF ( prt ) THEN
-               WRITE (Nout,99018) nmvps
+               WRITE (nout,99018) nmvps
                IF ( j==2 .OR. j==4 ) k = j
-               IF ( k==0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-               IF ( k==-1 ) WRITE (Nout,99020) Uwm , nmvps
+               IF ( k==0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+               IF ( k==-1 ) WRITE (nout,99020) uwm , nmvps
             ENDIF
          ENDIF
          spag_nextblock_1 = 16
       CASE (16)
 !
-         IF ( Il9<=0 ) THEN
+         IF ( il9<=0 ) THEN
 !
             CALL close(in1,1)
             RETURN
@@ -525,11 +522,11 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT REQUEST IN D.P. COMPLEX
 !
             IF ( prt ) THEN
-               IF ( tb1 ) WRITE (Nout,99016) fnm , recno , index
-               IF ( .NOT.tb1 ) WRITE (Nout,99015) fnm , recno , index , atx , ixp1
+               IF ( tb1 ) WRITE (nout,99016) fnm , recno , index
+               IF ( .NOT.tb1 ) WRITE (nout,99015) fnm , recno , index , atx , ixp1
             ENDIF
-            nmvps(1) = ivps(Il9-3)
-            nmvps(2) = ivps(Il9-2)
+            nmvps(1) = ivps(il9-3)
+            nmvps(2) = ivps(il9-2)
             k = -1
             j = 0
             IF ( tb4 ) THEN
@@ -577,23 +574,23 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 17
       CASE (17)
-         Dplx(1) = dp(1)
-         Dplx(2) = dp(2)
-         Vps(Il9) = sp(1)
-         Vps(Il9+1) = sp(2)
-         Vps(Il9+2) = sp(3)
-         Vps(Il9+3) = sp(4)
-         IF ( prt ) WRITE (Nout,99009) Dplx , nmvps
+         dplx(1) = dp(1)
+         dplx(2) = dp(2)
+         vps(il9) = sp(1)
+         vps(il9+1) = sp(2)
+         vps(il9+2) = sp(3)
+         vps(il9+3) = sp(4)
+         IF ( prt ) WRITE (nout,99009) dplx , nmvps
 99009    FORMAT (1H+,70X,1H(,D15.8,1H,,D15.8,1H),'  = ',2A4)
          CALL close(in1,1)
          RETURN
       CASE (18)
 !
          IF ( prt ) THEN
-            WRITE (Nout,99018) nmvps
+            WRITE (nout,99018) nmvps
             IF ( j==2 .OR. j==4 ) k = j
-            IF ( k>0 ) WRITE (Nout,99019) Uwm , nty(k) , nmvps
-            IF ( k==-1 ) WRITE (Nout,99020) Uwm , nmvps
+            IF ( k>0 ) WRITE (nout,99019) uwm , nty(k) , nmvps
+            IF ( k==-1 ) WRITE (nout,99020) uwm , nmvps
          ENDIF
          CALL close(in1,1)
          RETURN
@@ -602,31 +599,31 @@ USE ISO_FORTRAN_ENV
 !     OP = MATRIX
 !     PROCESS MATRIX TYPE DATA BLOCK
 !
-         row = P1
-         col = P2
-         Ityp = mcb(5)
-         IF ( Il5>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            nmvps(1) = ivps(Il5-3)
-            nmvps(2) = ivps(Il5-2)
+         row = p1
+         col = p2
+         ityp = mcb(5)
+         IF ( il5>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            nmvps(1) = ivps(il5-3)
+            nmvps(2) = ivps(il5-2)
             IF ( prt ) THEN
-               WRITE (Nout,99010) nmvps
+               WRITE (nout,99010) nmvps
 99010          FORMAT (1H+,70X,'(INVALID INTEGER) = ',2A4)
-               WRITE (Nout,99025) Uwm , nmvps
+               WRITE (nout,99025) uwm , nmvps
             ENDIF
          ENDIF
-         IF ( Il7>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            nmvps(1) = ivps(Il7-3)
-            nmvps(2) = ivps(Il7-2)
+         IF ( il7>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            nmvps(1) = ivps(il7-3)
+            nmvps(2) = ivps(il7-2)
             IF ( prt ) THEN
-               WRITE (Nout,99011) nmvps
+               WRITE (nout,99011) nmvps
 99011          FORMAT (1H+,70X,'(INVALID BCD WORD)= ',2A4)
-               WRITE (Nout,99025) Uwm , nmvps
+               WRITE (nout,99025) uwm , nmvps
             ENDIF
          ENDIF
 !
-         IF ( Il4<=0 .AND. Il6<=0 .AND. Il8<=0 .AND. Il9<=0 ) RETURN
+         IF ( il4<=0 .AND. il6<=0 .AND. il8<=0 .AND. il9<=0 ) RETURN
 !
 !     OUTPUT REQUEST - IL4 - S.P. REAL
 !                      IL5 - INTEGER
@@ -639,17 +636,17 @@ USE ISO_FORTRAN_ENV
          tb1 = .FALSE.
          tb2 = .FALSE.
          tb4 = .FALSE.
-         recno = P2
-         index = P1
+         recno = p2
+         index = p1
          rl = 999999
-         Ii = 1
-         Jj = mcb(3)
-         Incr = 1
-         CALL gopen(in1,Iz(ibuf1),0)
+         ii = 1
+         jj = mcb(3)
+         incr = 1
+         CALL gopen(in1,iz(ibuf1),0)
          CALL skprec(in1,col-1)
          CALL unpack(*60,in1,z)
-         IF ( Ityp==2 ) THEN
-         ELSEIF ( Ityp==3 .OR. Ityp==4 ) THEN
+         IF ( ityp==2 ) THEN
+         ELSEIF ( ityp==3 .OR. ityp==4 ) THEN
             spag_nextblock_1 = 21
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -664,93 +661,92 @@ USE ISO_FORTRAN_ENV
 !
 !     MATRIX PRECISION TYPE = 2, D.P. REAL
 !
-         IF ( Il4>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            Rsp = dz(row)
-            Vps(Il4) = Rsp
-            nmvps(1) = ivps(Il4-3)
-            nmvps(2) = ivps(Il4-2)
-            IF ( prt ) WRITE (Nout,99017) Rsp , nmvps
+         IF ( il4>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            rsp = dz(row)
+            vps(il4) = rsp
+            nmvps(1) = ivps(il4-3)
+            nmvps(2) = ivps(il4-2)
+            IF ( prt ) WRITE (nout,99017) rsp , nmvps
          ENDIF
-         IF ( Il6>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            Rdp = dz(row)
-            dp(1) = Rdp
-            Vps(Il6) = sp(1)
-            Vps(Il6+1) = sp(2)
-            nmvps(1) = ivps(Il6-3)
-            nmvps(2) = ivps(Il6-2)
-            IF ( prt ) WRITE (Nout,99022) Rdp , nmvps
+         IF ( il6>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            rdp = dz(row)
+            dp(1) = rdp
+            vps(il6) = sp(1)
+            vps(il6+1) = sp(2)
+            nmvps(1) = ivps(il6-3)
+            nmvps(2) = ivps(il6-2)
+            IF ( prt ) WRITE (nout,99022) rdp , nmvps
          ENDIF
-         IF ( Il8>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            Splx(1) = dz(row)
-            Splx(2) = 0.0
-            Vps(Il8) = Splx(1)
-            Vps(Il8+1) = Splx(2)
-            nmvps(1) = ivps(Il8-3)
-            nmvps(2) = ivps(Il8-2)
-            IF ( prt ) WRITE (Nout,99023) Splx , nmvps
+         IF ( il8>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            splx(1) = dz(row)
+            splx(2) = 0.0
+            vps(il8) = splx(1)
+            vps(il8+1) = splx(2)
+            nmvps(1) = ivps(il8-3)
+            nmvps(2) = ivps(il8-2)
+            IF ( prt ) WRITE (nout,99023) splx , nmvps
          ENDIF
-         IF ( Il9<=0 ) THEN
+         IF ( il9<=0 ) THEN
             CALL close(in1,1)
             RETURN
          ELSE
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
             dp(1) = dz(row)
             dp(2) = 0.D0
-            nmvps(1) = ivps(Il9-3)
-            nmvps(2) = ivps(Il9-2)
+            nmvps(1) = ivps(il9-3)
+            nmvps(2) = ivps(il9-2)
             spag_nextblock_1 = 17
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (21)
 !
 !     INPUT MATRIX PRECISION TYPE = 3 OR 4, COMPLEX
 !
-         IF ( Il4>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            nmvps(1) = ivps(Il4-3)
-            nmvps(2) = ivps(Il4-2)
+         IF ( il4>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            nmvps(1) = ivps(il4-3)
+            nmvps(2) = ivps(il4-2)
             IF ( prt ) THEN
-               WRITE (Nout,99012) nmvps
+               WRITE (nout,99012) nmvps
 99012          FORMAT (1H+,70X,' (INVALID S.P. REAL NUMBER)  = ',2A4)
-               WRITE (Nout,99025) Uwm , nmvps
+               WRITE (nout,99025) uwm , nmvps
             ENDIF
          ENDIF
-         IF ( Il6>0 ) THEN
-            IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-            nmvps(1) = ivps(Il6-3)
-            nmvps(2) = ivps(Il6-2)
-            IF ( prt ) WRITE (Nout,99013) nmvps
+         IF ( il6>0 ) THEN
+            IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+            nmvps(1) = ivps(il6-3)
+            nmvps(2) = ivps(il6-2)
+            IF ( prt ) WRITE (nout,99013) nmvps
 99013       FORMAT (1H+,70X,' (INVALID D.P.REAL NUMBER)  = ',2A4)
          ENDIF
-         IF ( Il8<=0 .AND. Il9<=0 ) THEN
+         IF ( il8<=0 .AND. il9<=0 ) THEN
             CALL close(in1,1)
             RETURN
-         ELSEIF ( Ityp==4 ) THEN
+         ELSEIF ( ityp==4 ) THEN
 !
 !     INPUT MATRIX PRECISION TYPE = 4, D.P.COMPLEX
 !
-            IF ( Il8>0 ) THEN
-               IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-               Splx(1) = sngl(dz(row))
-               Splx(2) = sngl(dz(row+1))
-               Vps(Il8) = Splx(1)
-               Vps(Il8+1) = Splx(2)
-               nmvps(1) = ivps(Il8-3)
-               nmvps(2) = ivps(Il8-2)
-               IF ( prt ) WRITE (Nout,99023) Splx , nmvps
+            IF ( il8>0 ) THEN
+               IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+               splx(1) = sngl(dz(row))
+               splx(2) = sngl(dz(row+1))
+               vps(il8) = splx(1)
+               vps(il8+1) = splx(2)
+               nmvps(1) = ivps(il8-3)
+               nmvps(2) = ivps(il8-2)
+               IF ( prt ) WRITE (nout,99023) splx , nmvps
             ENDIF
-            IF ( Il9<=0 ) THEN
+            IF ( il9<=0 ) THEN
                CALL close(in1,1)
                RETURN
             ELSE
-               IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
+               IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
                dp(1) = dz(row)
                dp(2) = dz(row+1)
-               nmvps(1) = ivps(Il9-3)
-               nmvps(2) = ivps(Il9-2)
+               nmvps(1) = ivps(il9-3)
+               nmvps(2) = ivps(il9-2)
                spag_nextblock_1 = 17
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -758,25 +754,25 @@ USE ISO_FORTRAN_ENV
 !
 !     INPUT MATRIX PRECISION TYPE = 3, S.P.COMPLEX
 !
-            IF ( Il8>0 ) THEN
-               IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
-               Splx(1) = z(row)
-               Splx(2) = z(row+1)
-               Vps(Il8) = Splx(1)
-               Vps(Il8+1) = Splx(2)
-               nmvps(1) = ivps(Il8-3)
-               nmvps(2) = ivps(Il8-2)
-               IF ( prt ) WRITE (Nout,99023) Splx , nmvps
+            IF ( il8>0 ) THEN
+               IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
+               splx(1) = z(row)
+               splx(2) = z(row+1)
+               vps(il8) = splx(1)
+               vps(il8+1) = splx(2)
+               nmvps(1) = ivps(il8-3)
+               nmvps(2) = ivps(il8-2)
+               IF ( prt ) WRITE (nout,99023) splx , nmvps
             ENDIF
-            IF ( Il9<=0 ) THEN
+            IF ( il9<=0 ) THEN
                CALL close(in1,1)
                RETURN
             ELSE
-               IF ( prt ) WRITE (Nout,99024) row , col , type(Ityp) , fnm
+               IF ( prt ) WRITE (nout,99024) row , col , type(ityp) , fnm
                dp(1) = dble(z(row))
                dp(2) = dble(z(row+1))
-               nmvps(1) = ivps(Il9-3)
-               nmvps(2) = ivps(Il9-2)
+               nmvps(1) = ivps(il9-3)
+               nmvps(2) = ivps(il9-2)
                spag_nextblock_1 = 17
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -788,15 +784,15 @@ USE ISO_FORTRAN_ENV
          z(row+1) = 0.
          dz(row) = 0.D0
          dz(row+1) = 0.D0
-         IF ( Ityp==1 ) THEN
+         IF ( ityp==1 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ityp==2 ) THEN
+         IF ( ityp==2 ) THEN
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ityp==3 .OR. Ityp==4 ) THEN
+         IF ( ityp==3 .OR. ityp==4 ) THEN
             spag_nextblock_1 = 21
             CYCLE SPAG_DispatchLoop_1
          ENDIF

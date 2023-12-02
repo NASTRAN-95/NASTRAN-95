@@ -1,11 +1,12 @@
-!*==mesage.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mesage.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mesage(No,Parm,Name)
+   USE c_machin
+   USE c_msgx
+   USE c_system
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_MSGX
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,33 +45,33 @@ SUBROUTINE mesage(No,Parm,Name)
 !     M        =  MAXIMUM NUMBER POSSIBLE
 !     MSG(4,I) =  STORAGE SPACE FOR THE MESSAGE PARAMETERS
 !
-   N = N + 1
-   IF ( N>M ) THEN
-      N = M
+   n = n + 1
+   IF ( n>m ) THEN
+      n = m
       IF ( No>0 ) RETURN
    ENDIF
 !
-   Msg(1,N) = No
-   Msg(2,N) = Parm
-   Msg(3,N) = Name(1)
-   Msg(4,N) = Name(2)
+   msg(1,n) = No
+   msg(2,n) = Parm
+   msg(3,n) = Name(1)
+   msg(4,n) = Name(2)
    IF ( No<=0 ) THEN
 !
 !     MESSAGE IS FATAL, TERMINATE RUN
 !
       CALL sswtch(1,j)
       IF ( j/=0 ) THEN
-         IF ( Mach==5 ) THEN
+         IF ( mach==5 ) THEN
 !
 !     VAX, UNIX (MACHINE TYPE 5 AND HIGHER)
 !
-            IF ( Linkno/=link1 ) THEN
-               i = iabs(Msg(1,N))
+            IF ( linkno/=link1 ) THEN
+               i = iabs(msg(1,n))
                IF ( i/=8 .AND. i/=119 .AND. i/=45 .AND. i/=50 ) THEN
 !             INSUFF. CORE             INSUFFICIENT TIME
 !
                   IF ( i==30 ) THEN
-                     j = Msg(2,N)
+                     j = msg(2,n)
 !
 !     INSUFFECIENT CORE
                      IF ( j==142 .OR. j==289 .OR. j==296 .OR. j==253 .OR. j==365 ) GOTO 50
@@ -79,22 +80,22 @@ SUBROUTINE mesage(No,Parm,Name)
                      IF ( j==234 .OR. j==228 ) GOTO 50
                   ENDIF
 !
-                  WRITE (Nout,99001) N
+                  WRITE (nout,99001) n
 99001             FORMAT ('0*** DUE TO SYSTEM ERROR-TRACEBACK, THE TEXT(S) OF THE ','FOLLOWING',I3,' MSG NO(S). CAN NOT BE PRINTED')
-                  DO k = 1 , N
-                     i = Msg(1,k)
+                  DO k = 1 , n
+                     i = msg(1,k)
                      IF ( iabs(i)==30 ) THEN
-                        i = Msg(2,k)
+                        i = msg(2,k)
                         j = 2000 + iabs(i)
                      ELSE
                         j = 3000 + iabs(i)
                      ENDIF
-                     WRITE (Nout,99002) i , j
+                     WRITE (nout,99002) i , j
 99002                FORMAT (5X,'ERROR',I4,' (or ',I5,1H))
-                     IF ( i/=30 .AND. Msg(2,k)>100 .AND. Msg(2,k)<400 ) WRITE (Nout,99003) Msg(2,k)
+                     IF ( i/=30 .AND. msg(2,k)>100 .AND. msg(2,k)<400 ) WRITE (nout,99003) msg(2,k)
 99003                FORMAT (1H+,30X,'GINO UNIT=',I4)
                   ENDDO
-                  WRITE (Nout,99004)
+                  WRITE (nout,99004)
 99004             FORMAT (/5X,'(SEE MESSAGES IN USER MANUAL SECTIONS 6.4 AND 6.5,',                                                 &
                          &' AND IGNORE ANY COMPUTER FATAL MESSAGE HEREAFTER ','OR IN THE LOG FILE)')
 !

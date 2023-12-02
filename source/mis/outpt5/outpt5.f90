@@ -191,13 +191,13 @@ SUBROUTINE outpt5
 !     WRITTEN BY G.CHAN/UNISYS   1987
 !
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DSNAME
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_dsname
+   USE c_machin
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -220,6 +220,12 @@ SUBROUTINE outpt5
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !WKBNB
 !WKBNE
    !>>>>EQUIVALENCE (Rz(1),Dz(1),Iz(1))
@@ -236,29 +242,29 @@ SUBROUTINE outpt5
 !WKBD IF (MACH .EQ. 3) CALL UNVOPN (P2)
 !WKBD IF (MACH .EQ. 4) CALL CDCOPN (P2)
    bf = binary
-   IF ( P4>=1 ) bf = formtd
+   IF ( p4>=1 ) bf = formtd
    CALL page
    CALL page2(1)
-   WRITE (Nout,99001) Uim , bf , P1
+   WRITE (nout,99001) uim , bf , p1
 99001 FORMAT (A29,', MODULE OUTPUT5 CALLED BY USER DMAP ALTER, ON ',A8,' TAPE,',/5X,'WITH FOLLOWING REQUEST  (P1=',I2,1H))
-   IF ( P1==-9 ) WRITE (Nout,99002)
+   IF ( p1==-9 ) WRITE (nout,99002)
 99002 FORMAT (5X,'WRITE AN INTERNAL E-O-F RECORD, FOLLOWED BY A SYSTEM',' E-O-F MARK, AND REWIND OUTPUT TAPE')
-   IF ( P1==-3 ) WRITE (Nout,99003)
+   IF ( p1==-3 ) WRITE (nout,99003)
 99003 FORMAT (5X,'REWIND TAPE, PRINT DATA BLOCK NAMES AND THEN WRITE ','AFTER THE LAST DATA BLOCK ON TAPE')
-   IF ( P1==-1 ) WRITE (Nout,99004)
+   IF ( p1==-1 ) WRITE (nout,99004)
 99004 FORMAT (5X,'REWIND, WRITE A TAPE HEADER RECORD, THEN FOLLOWED BY ','DATA BLOCKS WRITING.',/5X,'AT END, NO EOF AND NO REWIND')
-   IF ( P1==0 ) WRITE (Nout,99005)
+   IF ( p1==0 ) WRITE (nout,99005)
 99005 FORMAT (5X,'DATA BLOCKS ARE WRITTEN STARTING AT CURRENT TAPE ','POSITION. AT END, NO EOF AND NO REWIND')
-   IF ( P1>0 ) WRITE (Nout,99006) P1
+   IF ( p1>0 ) WRITE (nout,99006) p1
 99006 FORMAT (5X,'SKIP FORWARD',I4,' DATA BLOCKS BEFORE WRITING (TAPE ','HEADER RECORD NOT COUNTED AS A DATA BLOCK).',/5X,          &
              &'NO REWIND BEFORE SKIPPING. AT END, NO EOF AND NO REWIND')
 !
-   buf1 = korsz(rz(1)) - Ibuf - 1
+   buf1 = korsz(rz(1)) - ibuf - 1
    IF ( buf1<=0 ) CALL mesage(-8,0,subnam)
-   out = P2
+   out = p2
    wrt = 0
    lfn = -1
-   IF ( P1==-3 ) lfn = 0
+   IF ( p1==-3 ) lfn = 0
 !
 !     SET P4 FLAGS
 !
@@ -273,15 +279,15 @@ SUBROUTINE outpt5
    p40d = .FALSE.
    p41s = .FALSE.
    p41d = .FALSE.
-   p41c = P4==2 .AND. Nbpw>=60
+   p41c = p4==2 .AND. nbpw>=60
    p41 = .FALSE.
-   IF ( P4>=1 ) p41 = .TRUE.
+   IF ( p4>=1 ) p41 = .TRUE.
 !WKBNB
    CLOSE (UNIT=out)
-   IF ( P4/=0 ) THEN
-      OPEN (UNIT=out,FILE=Dsnames(out),STATUS='UNKNOWN')
+   IF ( p4/=0 ) THEN
+      OPEN (UNIT=out,FILE=dsnames(out),STATUS='UNKNOWN')
    ELSE
-      OPEN (UNIT=out,FILE=Dsnames(out),FORM='UNFORMATTED',STATUS='UNKNOWN')
+      OPEN (UNIT=out,FILE=dsnames(out),FORM='UNFORMATTED',STATUS='UNKNOWN')
    ENDIF
 !WKBNE
    IF ( .NOT.(p41c) ) THEN
@@ -291,7 +297,7 @@ SUBROUTINE outpt5
    p40 = .NOT.p41
    p40s = p40
    IF ( p40 ) p40d = .NOT.p40s
-   IF ( P1==-9 ) THEN
+   IF ( p1==-9 ) THEN
 !
 !     FINAL CALL TO OUTPUT5
 !
@@ -301,39 +307,39 @@ SUBROUTINE outpt5
       REWIND out
       RETURN
 !
-   ELSEIF ( P1==-3 ) THEN
+   ELSEIF ( p1==-3 ) THEN
 !
 !     OLD TAPE. CHECK TAPE ID
 !
       REWIND out
       GOTO 200
-   ELSEIF ( P1==-1 ) THEN
+   ELSEIF ( p1==-1 ) THEN
 !
 !     NEW TAPE (P1=-1)
 !
 !     WRITE A TAPE IDENTIFICATION RECORD (NOTE -THIS IS THE ONLY TIME
 !     A TAPE HEADER RECORD IS WRITTEN)
 !
-      IF ( P1==-1 ) THEN
+      IF ( p1==-1 ) THEN
          REWIND out
-         trl(1) = P3(1)
-         trl(2) = P3(2)
-         trl(3) = Mchnam
+         trl(1) = p3(1)
+         trl(2) = p3(2)
+         trl(3) = mchnam
          trl(4) = blank
-         trl(5) = Date(1)
-         trl(6) = Date(2)
-         trl(7) = Date(3)
-         IF ( p40 ) WRITE (out) (trl(j),j=1,7) , Ibuf , P4
-         IF ( p41 ) WRITE (out,99025) (trl(j),j=1,7) , Ibuf , P4
+         trl(5) = date(1)
+         trl(6) = date(2)
+         trl(7) = date(3)
+         IF ( p40 ) WRITE (out) (trl(j),j=1,7) , ibuf , p4
+         IF ( p41 ) WRITE (out,99025) (trl(j),j=1,7) , ibuf , p4
          lfn = 0
       ENDIF
       GOTO 700
-   ELSEIF ( P1<0 ) THEN
+   ELSEIF ( p1<0 ) THEN
 !
-      WRITE (Nout,99007) Ufm , P1
+      WRITE (nout,99007) ufm , p1
 99007 FORMAT (A23,' 4120, MODULE OUTPUT5 - ILLEGAL VALUE FOR FIRST ','PARAMETER = ',I8)
       err = -37
-   ELSEIF ( P1==0 ) THEN
+   ELSEIF ( p1==0 ) THEN
       lfn = 0
       GOTO 700
    ELSE
@@ -343,15 +349,15 @@ SUBROUTINE outpt5
    RETURN
  200  IF ( p40 ) READ (out,END=500) tapeid , name , dt , i , k
    IF ( p41 ) READ (out,99025,END=500) tapeid , name , dt , i , k
-   IF ( tapeid(1)==P3(1) .AND. tapeid(2)==P3(2) ) THEN
+   IF ( tapeid(1)==p3(1) .AND. tapeid(2)==p3(2) ) THEN
       CALL page2(6)
-      WRITE (Nout,99008) tapeid , name , dt , i
+      WRITE (nout,99008) tapeid , name , dt , i
 99008 FORMAT (/5X,'MODULE OUTPUT5 IS PROCESSING TAPE ',2A4,/5X,'WRITTEN BY ',2A4,/5X,'ON ',I2,1H/,I2,1H/,I2,/5X,'BUFFSIZE USED =',  &
             & I7,/)
-      IF ( k==0 ) WRITE (Nout,99026) binary
-      IF ( k>=1 ) WRITE (Nout,99026) formtd
-      IF ( k/=P4 ) THEN
-         WRITE (Nout,99009) Ufm , P4
+      IF ( k==0 ) WRITE (nout,99026) binary
+      IF ( k>=1 ) WRITE (nout,99026) formtd
+      IF ( k/=p4 ) THEN
+         WRITE (nout,99009) ufm , p4
 99009    FORMAT (A23,', THE 4TH PARAMETER TO OUTPUT5 DOES NOT AGREE WITH ','ORIG. TAPE FORMAT    P4=',I5,/)
          CALL mesage(-37,0,subnam)
       ENDIF
@@ -361,7 +367,7 @@ SUBROUTINE outpt5
 !
       lfn = 0
    ELSE
-      WRITE (Nout,99010) tapeid , P3
+      WRITE (nout,99010) tapeid , p3
 99010 FORMAT ('0*** WRONG TAPE MOUNTED - TAPEID =',2A4,', NOT ',2A4)
       err = -37
       GOTO 100
@@ -375,7 +381,7 @@ SUBROUTINE outpt5
          IF ( p41 ) BACKSPACE out
          EXIT
       ELSEIF ( nc==0 ) THEN
-         DO WHILE ( P1==-3 .OR. lfn<P1 )
+         DO WHILE ( p1==-3 .OR. lfn<p1 )
             lfn = lfn + 1
             BACKSPACE out
             IF ( p41 ) BACKSPACE out
@@ -386,7 +392,7 @@ SUBROUTINE outpt5
                IF ( .NOT.(p40) ) THEN
                   p41s = .FALSE.
                   p41d = .FALSE.
-                  p41c = P4==2 .AND. Nbpw>=60
+                  p41c = p4==2 .AND. nbpw>=60
                   IF ( .NOT.(p41c) ) THEN
                      IF ( j==1 .OR. j==3 ) p41s = .TRUE.
                      p41d = .NOT.p41s
@@ -413,10 +419,10 @@ SUBROUTINE outpt5
       ENDIF
  400  ENDDO
  500  BACKSPACE out
-   IF ( P1==-3 .AND. lfn>0 ) GOTO 900
-   GOTO 700
+   IF ( p1/=-3 .OR. lfn<=0 ) GOTO 700
+   GOTO 900
 !
- 600  WRITE (Nout,99012) Uwm , tapeid
+ 600  WRITE (nout,99012) uwm , tapeid
 99012 FORMAT (A25,' FROM OUTPUT5 MODULE. ERROR WHILE READING ',2A4)
    err = -37
    GOTO 100
@@ -445,7 +451,7 @@ SUBROUTINE outpt5
 !     NULL MATRIX, OR GINO DATA BLOCK IS NOT A MTRIX FILE
 !
                   CALL page2(5)
-                  WRITE (Nout,99013) Uwm , name
+                  WRITE (nout,99013) uwm , name
 99013             FORMAT (A25,' FROM OUTPUT5 MODULE. ',2A4,' IS EITHER A NULL ','MATRIX OR NOT A MATRIX DATA BLOCK',/5X,            &
                          &'NO DATA WERE COPIED TO OUTPUT FILE',/)
                ELSE
@@ -459,7 +465,7 @@ SUBROUTINE outpt5
                   p40d = .FALSE.
                   p41s = .FALSE.
                   p41d = .FALSE.
-                  p41c = P4==2 .AND. Nbpw>=60
+                  p41c = p4==2 .AND. nbpw>=60
                   IF ( .NOT.(p41) ) THEN
                      IF ( type==1 .OR. type==3 ) p40s = .TRUE.
                      p40d = .NOT.p40s
@@ -486,15 +492,15 @@ SUBROUTINE outpt5
 !     UNPACK A MATRIX COLUMN, AND WRITE TO OUTPUT FILE THE BANDED DATA
 !     (FROM FIRST TO LAST NON-ZERO ELEMENTS)
 !
-                  Ityp = type
-                  Incr = 1
+                  ityp = type
+                  incr = 1
                   DO nc = 1 , col
-                     Ii = 0
-                     Jj = 0
+                     ii = 0
+                     jj = 0
                      CALL unpack(*702,input,rz)
-                     jb = Ii
-                     je = Jj
-                     nwds = Jj - Ii + 1
+                     jb = ii
+                     je = jj
+                     nwds = jj - ii + 1
                      IF ( complx ) THEN
                         nwds = nwds + nwds
                         je = nwds + jb - 1
@@ -522,22 +528,22 @@ SUBROUTINE outpt5
 !
                   CALL close(input,1)
                   CALL page2(10)
-                  WRITE (Nout,99014) name , out , (trl(j),j=2,5) , Ibuf
+                  WRITE (nout,99014) name , out , (trl(j),j=2,5) , ibuf
 99014             FORMAT (/5X,'MODULE OUTPUT5 UNPACKED MATRIX DATA BLOCK ',2A4,' AND WROTE IT OUT TO',/5X,'FORTRAN UNIT',I4,        &
                          &', IN BANDED DATA FORM (FIRST TO LAST NON-ZERO ELEMENTS)',/9X,'NO. OF COLS =',I8,/9X,'NO. OF ROWS =',I8,  &
                         & /16X,'FORM =',I8,/16X,'TYPE =',I8,/5X,'SYSTEM BUFFSIZE =',I8)
-                  IF ( p40 ) WRITE (Nout,99015)
+                  IF ( p40 ) WRITE (nout,99015)
 99015             FORMAT (5X,'IN FORTRAN BINARY RECORDS')
-                  IF ( p41s ) WRITE (Nout,99016)
+                  IF ( p41s ) WRITE (nout,99016)
 99016             FORMAT (5X,'IN FORTRAN FORMATTED RECORDS - (3I8,/,(10E13.6))')
-                  IF ( p41c ) WRITE (Nout,99017)
+                  IF ( p41c ) WRITE (nout,99017)
 99017             FORMAT (5X,'IN FORTRAN FORMATTED RECORDS - (3I8,/,(5E26.17))')
-                  IF ( p41d ) WRITE (Nout,99018)
+                  IF ( p41d ) WRITE (nout,99018)
 99018             FORMAT (5X,'IN FORTRAN FORMATTED RECORDS - (3I8,/,(5D26.17))')
                ENDIF
             ELSE
                CALL page2(3)
-               WRITE (Nout,99019) input , name
+               WRITE (nout,99019) input , name
 99019          FORMAT (/5X,'INPUT FILE ',2A4,'(',I3,') IS PURGED. NO DATA ','TRANSFERRED TO OUTPUT FILE')
             ENDIF
             CYCLE
@@ -546,38 +552,38 @@ SUBROUTINE outpt5
 !
       trl(1) = input + 1
       CALL rdtrl(trl)
-      IF ( trl(1)>0 ) WRITE (Nout,99020) Uwm , input , name
+      IF ( trl(1)>0 ) WRITE (nout,99020) uwm , input , name
 99020 FORMAT (A25,' FROM OUTPUT5 MODULE. INPUT DATA BLOCK',I5,2H, ,2A4,' IS EITHER PURGED OR DOES NOT EXIST')
 !
  800  ENDDO
 !
-   IF ( wrt==0 ) WRITE (Nout,99021) Uwm
+   IF ( wrt==0 ) WRITE (nout,99021) uwm
 99021 FORMAT (A25,' FROM OUTPUT5 MODULE. NO DATA BLOCK WRITTEN TO ','OUTPUT FILE')
    ENDFILE out
    BACKSPACE out
-   IF ( P1==-3 ) GOTO 1000
+   IF ( p1==-3 ) GOTO 1000
 !
 !     PRINT LIST OF DATA BLOCKS ON FORTRAN TAPE (P1=-3).
 !
    IF ( lfn<=0 ) RETURN
  900  CALL page2(lfn+10)
-   WRITE (Nout,99022) out , Mchnam , bf , (j,fn(1,j),fn(2,j),fn(3,j),j=1,lfn)
+   WRITE (nout,99022) out , mchnam , bf , (j,fn(1,j),fn(2,j),fn(3,j),j=1,lfn)
 99022 FORMAT (/5X,'SUMMARY FROM OUTPUT5 MODULE',//16X,'DATA BLOCKS ','WRITTEN TO FORTRAN UNIT',I4,/17X,'(BY ',A4,' MACHINE, ',A8,   &
              &' RECORDS)',///22X,'FILE',8X,'NAME',8X,'TYPE'/17X,9(4H----),/,(22X,I3,9X,2A4,4X,A4))
-   IF ( P1==-3 ) GOTO 700
+   IF ( p1==-3 ) GOTO 700
    IF ( .NOT.(p40) ) THEN
       CALL page2(2)
-      WRITE (Nout,99023)
+      WRITE (nout,99023)
 99023 FORMAT (/5X,'THIS FORMATTED OUTPUT FILE CAN BE VIEWED OR EDITED',' VIA SYSTEM EDITOR',/)
    ENDIF
 !
- 1000 IF ( Mach==3 ) CALL unvcls(P2)
-   IF ( Mach==4 ) CALL cdccls(P2)
+ 1000 IF ( mach==3 ) CALL unvcls(p2)
+   IF ( mach==4 ) CALL cdccls(p2)
    RETURN
 !
 !     WRITE ERROR
 !
- 1100 WRITE (Nout,99024) Sfm
+ 1100 WRITE (nout,99024) sfm
 99024 FORMAT (A25,' IN WRITING OUTPUT FILE',/5X,'IBM USER - CHECK FILE',' ASSIGNMENT FOR DCB PARAMETER OF 132 BYTES')
    CALL mesage(-37,0,subnam)
 99025 FORMAT (4A4,5I8)

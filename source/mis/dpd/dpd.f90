@@ -1,12 +1,13 @@
-!*==dpd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dpd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dpd
+   USE c_blank
+   USE c_dpdcom
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DPDCOM
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,38 +23,38 @@ SUBROUTINE dpd
 !
 !     INITIALIZE CONTROL PARAMETERS.
 !
-   Notfl = -1
-   Nodlt = -1
-   Nopsdl = -1
-   Nofrl = -1
-   Nonlft = -1
-   Notrl = -1
-   Noeed = -1
-   Nosdt = -1
-   Noue = -1
-   Nogo = 0
+   notfl = -1
+   nodlt = -1
+   nopsdl = -1
+   nofrl = -1
+   nonlft = -1
+   notrl = -1
+   noeed = -1
+   nosdt = -1
+   noue = -1
+   nogo = 0
    ineq = 0
    DO i = 1 , 7
-      Mcb(i) = 0
+      mcb(i) = 0
    ENDDO
 !
 !     PERFORM BUFFER ALLOCATION
 !
-   Buf1 = korsz(Z) - Sysbuf - 2
-   Buf2 = Buf1 - Sysbuf
-   Buf3 = Buf2 - Sysbuf
-   Buf4 = Buf3 - Sysbuf
+   buf1 = korsz(z) - sysbuf - 2
+   buf2 = buf1 - sysbuf
+   buf3 = buf2 - sysbuf
+   buf4 = buf3 - sysbuf
 !
 !     IF DYNAMICS POOL IS PURGED, EXIT. OTHERWISE, EXECUTE THE PHASES
 !     OF DPD
 !
-   Buf(1) = Dpool
-   CALL rdtrl(Buf)
-   IF ( Buf(1)/=Dpool ) RETURN
+   buf(1) = dpool
+   CALL rdtrl(buf)
+   IF ( buf(1)/=dpool ) RETURN
    CALL dpd1
    CALL dpd2
    CALL dpd3
    CALL dpd4
    CALL dpd5
-   IF ( Nogo/=0 ) CALL mesage(-61,0,0)
+   IF ( nogo/=0 ) CALL mesage(-61,0,0)
 END SUBROUTINE dpd

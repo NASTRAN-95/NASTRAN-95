@@ -1,15 +1,16 @@
-!*==gp2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gp2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp2
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_setup
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SETUP
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,21 +56,21 @@ SUBROUTINE gp2
 !     PERFORM GENERAL INITIALIZATION
 !
          CALL delset
-         buf1 = korsz(Z) - Sysbuf - 2
-         buf2 = buf1 - Sysbuf
-         Noect = -1
-         buf3 = buf2 - Sysbuf
+         buf1 = korsz(z) - sysbuf - 2
+         buf2 = buf1 - sysbuf
+         noect = -1
+         buf3 = buf2 - sysbuf
          mcb(1) = geom2
          CALL rdtrl(mcb)
 !
 !     READ EQEXIN INTO CORE
 !
          file = eqexin
-         CALL open(*180,eqexin,Z(buf1),Rdrew)
+         CALL open(*180,eqexin,z(buf1),rdrew)
          CALL fwdrec(*200,eqexin)
-         CALL read(*200,*20,eqexin,Z,buf2,1,n)
+         CALL read(*200,*20,eqexin,z,buf2,1,n)
          CALL mesage(-8,0,gp2h)
- 20      CALL close(eqexin,Clsrew)
+ 20      CALL close(eqexin,clsrew)
          kn = n/2
          n1 = n + 1
 !
@@ -77,13 +78,13 @@ SUBROUTINE gp2
 !     OTHERWISE, OPEN ECT AND WRITE HEADER RECORD.
 !
          nogeo2 = 0
-         CALL preloc(*40,Z(buf1),geom2)
+         CALL preloc(*40,z(buf1),geom2)
          nogeo2 = 1
 !
-         Noect = 1
+         noect = 1
          nogo = 0
          file = ect
-         CALL open(*180,ect,Z(buf2),Wrtrew)
+         CALL open(*180,ect,z(buf2),wrtrew)
          CALL fname(ect,b)
          CALL write(ect,b,2,1)
          spag_nextblock_1 = 2
@@ -98,8 +99,8 @@ SUBROUTINE gp2
 !     FOUND, SKIP RECORD AND CONTINUE.
 !
             CALL read(*160,*220,geom2,b,3,0,flag)
-            DO i = 1 , Last , Incr
-               IF ( Elem(i+3)==b(1) ) EXIT SPAG_Loop_1_1
+            DO i = 1 , last , incr
+               IF ( elem(i+3)==b(1) ) EXIT SPAG_Loop_1_1
             ENDDO
             IF ( genel(1)==b(1) ) THEN
                k = (i+1)/2
@@ -126,10 +127,10 @@ SUBROUTINE gp2
          ASSIGN 60 TO ret
          ASSIGN 240 TO ret1
          CALL write(ect,b,3,0)
-         m = Elem(i+5)
-         lx = Elem(i+12)
-         mm = lx + Elem(i+9)
-         name = Elem(i)
+         m = elem(i+5)
+         lx = elem(i+12)
+         mm = lx + elem(i+9)
+         name = elem(i)
          ii = n1
          file = geom2
          spag_nextblock_1 = 3
@@ -138,8 +139,8 @@ SUBROUTINE gp2
 !
 !     CHECK LATER TO SEE IF RESTRICTION APPLIES TO AXIF PROBLEMS
 !
-         IF ( Iaxif==0 ) THEN
-            IF ( Nbpw<=32 .AND. b(1)>16777215 ) THEN
+         IF ( iaxif==0 ) THEN
+            IF ( nbpw<=32 .AND. b(1)>16777215 ) THEN
                nogo = 1
                CALL mesage(30,138,b)
             ENDIF
@@ -165,7 +166,6 @@ SUBROUTINE gp2
             ASSIGN 80 TO ret
             l = 8
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( name/=cbar ) THEN
                spag_nextblock_1 = 5
@@ -181,8 +181,8 @@ SUBROUTINE gp2
             ASSIGN 80 TO ret
             l = 5
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  80      ASSIGN 60 TO ret
          spag_nextblock_1 = 5
       CASE (5)
@@ -195,7 +195,6 @@ SUBROUTINE gp2
 !
  100     CALL write(ect,0,0,1)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          ijk = 0
          CALL read(*200,*140,geom2,b,1,0,flag)
@@ -217,8 +216,8 @@ SUBROUTINE gp2
             nread = 0
             DO
                n = min0(ncore,nz-nread)
-               CALL read(*200,*220,geom2,Z(n1),n,0,flag)
-               CALL write(ect,Z(n1),n,0)
+               CALL read(*200,*220,geom2,z(n1),n,0,flag)
+               CALL write(ect,z(n1),n,0)
                nread = nread + n
                IF ( nread>=nz ) THEN
                   CALL read(*200,*220,geom2,ijk,1,0,flag)
@@ -231,8 +230,8 @@ SUBROUTINE gp2
                   nread = 0
                   DO
                      n = min0(ncore,ns-nread)
-                     CALL read(*200,*220,geom2,Z(n1),n,0,flag)
-                     CALL write(ect,Z(n1),n,0)
+                     CALL read(*200,*220,geom2,z(n1),n,0,flag)
+                     CALL write(ect,z(n1),n,0)
                      nread = nread + n
                      IF ( nread>=ns ) THEN
                         spag_nextblock_1 = 6
@@ -254,8 +253,8 @@ SUBROUTINE gp2
 !
 !     CLOSE FILES, WRITE TRAILER AND RETURN.
 !
- 160     CALL close(geom2,Clsrew)
-         CALL close(ect,Clsrew)
+ 160     CALL close(geom2,clsrew)
+         CALL close(ect,clsrew)
          mcb(1) = geom2
          CALL rdtrl(mcb)
          mcb(1) = ect
@@ -275,10 +274,10 @@ SUBROUTINE gp2
       CASE (9)
          k = (klo+khi+1)/2
          DO
-            IF ( igrid<Z(2*k-1) ) THEN
+            IF ( igrid<z(2*k-1) ) THEN
                khi = k
-            ELSEIF ( igrid==Z(2*k-1) ) THEN
-               b(l) = Z(2*k)
+            ELSEIF ( igrid==z(2*k-1) ) THEN
+               b(l) = z(2*k)
                GOTO ret
             ELSE
                klo = k

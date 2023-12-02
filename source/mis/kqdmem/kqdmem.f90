@@ -2,14 +2,14 @@
  
 SUBROUTINE kqdmem
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
-   USE C_SMA1IO
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -20,6 +20,12 @@ SUBROUTINE kqdmem
    INTEGER , DIMENSION(12) , SAVE :: m
    INTEGER , DIMENSION(8) :: necpt
    REAL , SAVE :: piovr3
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -76,51 +82,51 @@ SUBROUTINE kqdmem
 !     COMPUTATION OF SINTH AND COSTH BELOW (ANISOTROPIC MATERIAL
 !     POSSIBILITY)  NOTE  FMMS-46 PAGE -9-
 !
-   angl = Ecpt(6)*degra
-   Cosang = cos(angl)
-   Sinang = sin(angl)
-   Ivec(1) = Ecpt(15) - Ecpt(11)
-   Ivec(2) = Ecpt(16) - Ecpt(12)
-   Ivec(3) = Ecpt(17) - Ecpt(13)
-   Vecl = sqrt(Ivec(1)**2+Ivec(2)**2+Ivec(3)**2)
-   IF ( Vecl/=0.0 ) THEN
-      Ivec(1) = Ivec(1)/Vecl
-      Ivec(2) = Ivec(2)/Vecl
-      Ivec(3) = Ivec(3)/Vecl
-      Vsubk(1) = Ivec(2)*(Ecpt(25)-Ecpt(13)) - Ivec(3)*(Ecpt(24)-Ecpt(12))
-      Vsubk(2) = Ivec(3)*(Ecpt(23)-Ecpt(11)) - Ivec(1)*(Ecpt(25)-Ecpt(13))
-      Vsubk(3) = Ivec(1)*(Ecpt(24)-Ecpt(12)) - Ivec(2)*(Ecpt(23)-Ecpt(11))
-      Vecl = sqrt(Vsubk(1)**2+Vsubk(2)**2+Vsubk(3)**2)
-      IF ( Vecl/=0.0 ) THEN
-         Kvec(1) = Vsubk(1)/Vecl
-         Kvec(2) = Vsubk(2)/Vecl
-         Kvec(3) = Vsubk(3)/Vecl
-         Jvec(1) = Kvec(2)*Ivec(3) - Kvec(3)*Ivec(2)
-         Jvec(2) = Kvec(3)*Ivec(1) - Kvec(1)*Ivec(3)
-         Jvec(3) = Kvec(1)*Ivec(2) - Kvec(2)*Ivec(1)
+   angl = ecpt(6)*degra
+   cosang = cos(angl)
+   sinang = sin(angl)
+   ivec(1) = ecpt(15) - ecpt(11)
+   ivec(2) = ecpt(16) - ecpt(12)
+   ivec(3) = ecpt(17) - ecpt(13)
+   vecl = sqrt(ivec(1)**2+ivec(2)**2+ivec(3)**2)
+   IF ( vecl/=0.0 ) THEN
+      ivec(1) = ivec(1)/vecl
+      ivec(2) = ivec(2)/vecl
+      ivec(3) = ivec(3)/vecl
+      vsubk(1) = ivec(2)*(ecpt(25)-ecpt(13)) - ivec(3)*(ecpt(24)-ecpt(12))
+      vsubk(2) = ivec(3)*(ecpt(23)-ecpt(11)) - ivec(1)*(ecpt(25)-ecpt(13))
+      vsubk(3) = ivec(1)*(ecpt(24)-ecpt(12)) - ivec(2)*(ecpt(23)-ecpt(11))
+      vecl = sqrt(vsubk(1)**2+vsubk(2)**2+vsubk(3)**2)
+      IF ( vecl/=0.0 ) THEN
+         kvec(1) = vsubk(1)/vecl
+         kvec(2) = vsubk(2)/vecl
+         kvec(3) = vsubk(3)/vecl
+         jvec(1) = kvec(2)*ivec(3) - kvec(3)*ivec(2)
+         jvec(2) = kvec(3)*ivec(1) - kvec(1)*ivec(3)
+         jvec(3) = kvec(1)*ivec(2) - kvec(2)*ivec(1)
          DO i = 1 , 3
-            Pvec(i) = Cosang*Ivec(i) + Sinang*Jvec(i)
+            pvec(i) = cosang*ivec(i) + sinang*jvec(i)
          ENDDO
 !
 !
 !     SAVE COORDINATE SYSTEMS AND GRID POINT SIL NUMBERS
 !
-         Ngrid(1) = necpt(2)
-         Ngrid(2) = necpt(3)
-         Ngrid(3) = necpt(4)
-         Ngrid(4) = necpt(5)
+         ngrid(1) = necpt(2)
+         ngrid(2) = necpt(3)
+         ngrid(3) = necpt(4)
+         ngrid(4) = necpt(5)
          DO i = 1 , 16
-            Coord(i) = Ecpt(i+9)
+            coord(i) = ecpt(i+9)
          ENDDO
 !
 !     NOTE. COORD 1, 5, 9, AND 13  ARE INTEGER CSID NUMBERS.
 !
 !     CORRECT ECPT FOR MEMBRANE USE
-         Ecpt(5) = Ecpt(6)
-         Ecpt(6) = Ecpt(7)
-         IF ( .NOT.(hring) ) Ecpt(7) = Ecpt(8)/2.0
-         Ecpt(8) = Ecpt(9)
-         Ecpt(21) = Ecpt(26)
+         ecpt(5) = ecpt(6)
+         ecpt(6) = ecpt(7)
+         IF ( .NOT.(hring) ) ecpt(7) = ecpt(8)/2.0
+         ecpt(8) = ecpt(9)
+         ecpt(21) = ecpt(26)
 !
 !     FOR EACH TRIANGLE THEN THE THREE GRID POINTS AND COORDINATES
 !     ARE INSERTED INTO THE ECPT BEFORE THE CALL TO KTRMEM.
@@ -140,30 +146,30 @@ SUBROUTINE kqdmem
 !     FIND WHICH POINT IS THE PIVOT POINT.
 !
          DO i = 1 , 4
-            IF ( Npvt==Ngrid(i) ) THEN
-               Npivot = i
+            IF ( npvt==ngrid(i) ) THEN
+               npivot = i
                GOTO 20
             ENDIF
          ENDDO
 !
 !     FALL THRU ABOVE LOOP IMPLIES AN ERROR CONDITION.
 !
-         CALL mesage(-30,34,Ecpt(1))
+         CALL mesage(-30,34,ecpt(1))
 !
 !     COMPUTE JNOT WHICH EQUALS THE ONE TRIANGLE OF THE FOUR NOT USED
 !     AND THUS NOT COMPUTED FOR THE PIVOT POINT IN QUESTION.  (NOTE THE
 !     ROWS OF THE MAPPING MATRIX ABOVE AND THE TRIANGLE NUMBERS)
 !
- 20      IF ( Npivot<=2 ) THEN
-            jnot = Npivot + 2
+ 20      IF ( npivot<=2 ) THEN
+            jnot = npivot + 2
          ELSE
-            jnot = Npivot - 2
+            jnot = npivot - 2
          ENDIF
 !
 !     ZERO OUT KSUM FOR 36 WORDS
 !
          DO i = 1 , 36
-            Ksum(i) = 0.0D0
+            ksum(i) = 0.0D0
          ENDDO
 !
 !     LOOP THRU 4 TRIANGLES
@@ -173,24 +179,24 @@ SUBROUTINE kqdmem
 !
 !     FILL IN ECPT FOR TRIANGLE J
 !
-               Mpoint = 3*j - 3
+               mpoint = 3*j - 3
                DO i = 1 , 3
-                  npt1 = Mpoint + i
-                  Nsubsc = m(npt1)
-                  necpt(i+1) = Ngrid(Nsubsc)
+                  npt1 = mpoint + i
+                  nsubsc = m(npt1)
+                  necpt(i+1) = ngrid(nsubsc)
 !
-                  npt1 = 4*Nsubsc - 4
+                  npt1 = 4*nsubsc - 4
                   DO k = 1 , 4
                      npt2 = npt1 + k
                      npt3 = 4*i + 4 + k
-                     Ecpt(npt3) = Coord(npt2)
+                     ecpt(npt3) = coord(npt2)
                   ENDDO
                ENDDO
 !
 !     RECOMPUTE THICKNESS IF THIS IS A SUB-TRIANGLE OF A TRAPRG IN
 !     A -HEAT- PROBLEM.
 !
-               IF ( hring ) Ecpt(7) = piovr3*(Ecpt(10)+Ecpt(14)+Ecpt(18))
+               IF ( hring ) ecpt(7) = piovr3*(ecpt(10)+ecpt(14)+ecpt(18))
 !
 !     ECPT IS COMPLETE FOR TRIANGLE J
 !
@@ -200,27 +206,27 @@ SUBROUTINE kqdmem
 !
 !     NOTE FMMS-46 PAGE-9 FOR FOLLOWING
 !
-                  V(1) = Ecpt(14) - Ecpt(10)
-                  V(2) = Ecpt(15) - Ecpt(11)
-                  V(3) = Ecpt(16) - Ecpt(12)
-                  Vecl = sqrt(V(1)**2+V(2)**2+V(3)**2)
-                  IF ( Vecl==0.0 ) GOTO 100
-                  U1 = (V(1)*Pvec(1)+V(2)*Pvec(2)+V(3)*Pvec(3))/Vecl
-                  Si(1) = V(2)*Pvec(3) - V(3)*Pvec(2)
-                  Si(2) = V(3)*Pvec(1) - V(1)*Pvec(3)
-                  Si(3) = V(1)*Pvec(2) - V(2)*Pvec(1)
-                  U2 = (Si(1)*Kvec(1)+Si(2)*Kvec(2)+Si(3)*Kvec(3))/Vecl
-                  Vecl = sqrt(U1**2+U2**2)
-                  IF ( Vecl==0.0E0 ) GOTO 100
-                  U1 = U1/Vecl
-                  U2 = U2/Vecl
-                  Sinth = U2
-                  Costh = U1
+                  v(1) = ecpt(14) - ecpt(10)
+                  v(2) = ecpt(15) - ecpt(11)
+                  v(3) = ecpt(16) - ecpt(12)
+                  vecl = sqrt(v(1)**2+v(2)**2+v(3)**2)
+                  IF ( vecl==0.0 ) GOTO 100
+                  u1 = (v(1)*pvec(1)+v(2)*pvec(2)+v(3)*pvec(3))/vecl
+                  si(1) = v(2)*pvec(3) - v(3)*pvec(2)
+                  si(2) = v(3)*pvec(1) - v(1)*pvec(3)
+                  si(3) = v(1)*pvec(2) - v(2)*pvec(1)
+                  u2 = (si(1)*kvec(1)+si(2)*kvec(2)+si(3)*kvec(3))/vecl
+                  vecl = sqrt(u1**2+u2**2)
+                  IF ( vecl==0.0E0 ) GOTO 100
+                  u1 = u1/vecl
+                  u2 = u2/vecl
+                  sinth = u2
+                  costh = u1
                ELSE
-                  Sinth = Sinang
-                  Costh = Cosang
+                  sinth = sinang
+                  costh = cosang
                ENDIF
-               IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0
+               IF ( abs(sinth)<1.0E-06 ) sinth = 0.0
 !
                CALL ktrmem(1)
 !
@@ -235,14 +241,14 @@ SUBROUTINE kqdmem
 !     NPT1   POINTS TO THE ZERO POSITION OF THE I-TH K3X3.
 !     MPOINT POINTS TO THE ZERO POSITION OF THE J-TH ROW OF MAP MATRIX
 !
-                  Mi = Mpoint + i
-                  npt2 = 9*m(Mi) - 9
+                  mi = mpoint + i
+                  npt2 = 9*m(mi) - 9
 !     NPT2 NOW POINTS TO THE ZERO POSITION OF THE  M(MI) TH  SUM MATRIX
 !
                   DO k = 1 , 9
                      npt3 = npt2 + k
-                     Mi = npt1 + k
-                     Ksum(npt3) = Ksum(npt3) + k3x3(Mi)
+                     mi = npt1 + k
+                     ksum(npt3) = ksum(npt3) + k3x3(mi)
                   ENDDO
                ENDDO
             ENDIF
@@ -254,42 +260,42 @@ SUBROUTINE kqdmem
 !     NOW INSERT EACH OF THE 4-KSUM (3X3) MATRICES INTO A 6X6 AND
 !     SHIP TO SMA1B
 !
-         IF ( Heat ) THEN
+         IF ( heat ) THEN
 !*****
 !     HEAT FORMULATION.
 !*****
             DO j = 1 , 4
-               CALL sma1b(Ksum(9*j-8),Ngrid(j),Npvt,Ifkgg,0.0D0)
+               CALL sma1b(ksum(9*j-8),ngrid(j),npvt,ifkgg,0.0D0)
             ENDDO
             GOTO 99999
          ELSE
             DO i = 1 , 36
-               Kij(i) = 0.0D0
+               kij(i) = 0.0D0
             ENDDO
 !
             DO j = 1 , 4
-               Mpoint = 9*j - 9
+               mpoint = 9*j - 9
 !
 !     MPOINT POINTS TO THE ZERO POSITION OF THE J-TH KSUM 3X3.
 !
-               Kij(1) = Ksum(Mpoint+1)
-               Kij(2) = Ksum(Mpoint+2)
-               Kij(3) = Ksum(Mpoint+3)
-               Kij(7) = Ksum(Mpoint+4)
-               Kij(8) = Ksum(Mpoint+5)
-               Kij(9) = Ksum(Mpoint+6)
-               Kij(13) = Ksum(Mpoint+7)
-               Kij(14) = Ksum(Mpoint+8)
-               Kij(15) = Ksum(Mpoint+9)
+               kij(1) = ksum(mpoint+1)
+               kij(2) = ksum(mpoint+2)
+               kij(3) = ksum(mpoint+3)
+               kij(7) = ksum(mpoint+4)
+               kij(8) = ksum(mpoint+5)
+               kij(9) = ksum(mpoint+6)
+               kij(13) = ksum(mpoint+7)
+               kij(14) = ksum(mpoint+8)
+               kij(15) = ksum(mpoint+9)
 !
 !     SHIP TO SMA1B
 !
-               CALL sma1b(Kij(1),Ngrid(j),-1,Ifkgg,0.0D0)
+               CALL sma1b(kij(1),ngrid(j),-1,ifkgg,0.0D0)
 !
-               IF ( Iopt4/=0 .AND. Gsube/=0.0 ) THEN
-                  Temp = Gsube
-                  CALL sma1b(Kij(1),Ngrid(j),-1,If4gg,Temp)
-                  K4ggsw = 1
+               IF ( iopt4/=0 .AND. gsube/=0.0 ) THEN
+                  temp = gsube
+                  CALL sma1b(kij(1),ngrid(j),-1,if4gg,temp)
+                  k4ggsw = 1
                ENDIF
             ENDDO
 !
@@ -299,10 +305,9 @@ SUBROUTINE kqdmem
          ENDIF
       ENDIF
    ENDIF
- 100  CALL mesage(30,26,Ecpt(1))
+ 100  CALL mesage(30,26,ecpt(1))
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULA
 !
-   Nogo = 1
-   RETURN
+   nogo = 1
 99999 END SUBROUTINE kqdmem

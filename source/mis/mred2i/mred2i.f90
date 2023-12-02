@@ -1,15 +1,16 @@
-!*==mred2i.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2i.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2i(Kode,Nuf,N2)
-USE C_BLANK
-USE C_CONDAS
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,7 +46,7 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST OPERATION MODE
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
 !
 !     FORM GS MATRIX
 !
@@ -65,10 +66,10 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS MODULE FATAL ERRORS
 !
-            WRITE (Iprntr,99001) Ufm
+            WRITE (iprntr,99001) ufm
 !
 99001       FORMAT (A23,' 6638, IN MODULE MREDUCE WITH USERMODE=2, THE ','CONSTRAINT FORCES MATRIX (QSM) CANNOT BE PURGED.')
-            Dry = -2
+            dry = -2
             RETURN
          ELSE
             qsmrow = itrlr1(2)
@@ -78,50 +79,50 @@ USE ISO_FORTRAN_ENV
 !     FORM K = 1.0 / (M W )
 !                      I I
 !
-            IF ( Korbgn+7+qsmrow>=Korlen ) THEN
+            IF ( korbgn+7+qsmrow>=korlen ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             ifile = lamamr
-            CALL gopen(lamamr,Z(Gbuf1),0)
+            CALL gopen(lamamr,z(gbuf1),0)
             CALL fwdrec(*60,lamamr)
-            Nmodes = 0
+            nmodes = 0
             DO
-               CALL read(*40,*20,lamamr,Z(Korbgn),7,0,nwdsrd)
-               rz(Korbgn+7+Nmodes) = 1.0/(Forpi2*rz(Korbgn+5)*(rz(Korbgn+4)**2))
-               Nmodes = Nmodes + 1
-               IF ( Korbgn+7+Nmodes>=Korlen ) THEN
+               CALL read(*40,*20,lamamr,z(korbgn),7,0,nwdsrd)
+               rz(korbgn+7+nmodes) = 1.0/(forpi2*rz(korbgn+5)*(rz(korbgn+4)**2))
+               nmodes = nmodes + 1
+               IF ( korbgn+7+nmodes>=korlen ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
          ENDIF
  20      CALL close(lamamr,1)
-         IF ( Nmodes/=qsmrow ) THEN
-            WRITE (Iprntr,99002) Ufm , qsmrow , qsmcol , Nmodes
+         IF ( nmodes/=qsmrow ) THEN
+            WRITE (iprntr,99002) ufm , qsmrow , qsmcol , nmodes
 99002       FORMAT (A23,' 6634, IN MODULE MREDUCE WITH USERMODE=2, THE ','CONSTRAINT FORCES MATRIX (',I3,3H X ,I3,1H),/30X,         &
                    &'IS INCOMPATABLE WITH THE NUMBER OF MODES (',I3,2H).)
-            Dry = -2
+            dry = -2
             RETURN
          ELSE
-            Modlen = Nmodes
+            modlen = nmodes
 !
 !     READ QSM INTO CORE
 !
-            kore = Korbgn
-            Korbgn = Korbgn + 7 + itrlr1(2)
-            IF ( Korbgn+qsmrow*(qsmcol+1)>=Korlen ) THEN
+            kore = korbgn
+            korbgn = korbgn + 7 + itrlr1(2)
+            IF ( korbgn+qsmrow*(qsmcol+1)>=korlen ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Typinu = itrlr1(5)
-            Irowu = 1
-            Nrowu = itrlr1(3)
-            Incru = 1
+            typinu = itrlr1(5)
+            irowu = 1
+            nrowu = itrlr1(3)
+            incru = 1
             qsmtyp = itrlr1(5)
-            dblkor = Korbgn/2 + 1
+            dblkor = korbgn/2 + 1
             sglkor = 2*dblkor - 1
-            CALL gopen(qsm,Z(Gbuf1),0)
+            CALL gopen(qsm,z(gbuf1),0)
             IF ( qsmtyp==2 ) THEN
                locqsm = dblkor
                DO i = 1 , qsmrow
@@ -142,7 +143,7 @@ USE ISO_FORTRAN_ENV
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
                ENDDO
-               Korbgn = dblkor
+               korbgn = dblkor
             ELSE
                locqsm = sglkor
                DO i = 1 , qsmrow
@@ -163,21 +164,21 @@ USE ISO_FORTRAN_ENV
                      END SELECT
                   ENDDO SPAG_DispatchLoop_3
                ENDDO
-               Korbgn = sglkor
+               korbgn = sglkor
             ENDIF
             CALL close(qsm,1)
 !
 !     FORM GS MATRIX
 !
-            Typin = itrlr1(5)
-            Typout = itrlr1(5)
-            Irow = 1
-            Nrow = qsmrow
-            Incr = 1
-            CALL makmcb(itrlr1,gs,qsmrow,idiag,Typin)
-            dblkor = Korbgn/2 + 1
+            typin = itrlr1(5)
+            typout = itrlr1(5)
+            irow = 1
+            nrow = qsmrow
+            incr = 1
+            CALL makmcb(itrlr1,gs,qsmrow,idiag,typin)
+            dblkor = korbgn/2 + 1
             sglkor = 2*dblkor - 1
-            CALL gopen(gs,Z(Gbuf1),1)
+            CALL gopen(gs,z(gbuf1),1)
             DO i = 1 , qsmcol
                DO j = 1 , qsmrow
                   k = 3*(j-1)
@@ -189,7 +190,7 @@ USE ISO_FORTRAN_ENV
                ENDDO
                CALL pack(dz(dblkor),gs,itrlr1)
             ENDDO
-            Korbgn = kore
+            korbgn = kore
             CALL close(gs,1)
             CALL wrttrl(itrlr1)
             RETURN
@@ -202,7 +203,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  60      imsg = -3
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          imsg = -8
          ifile = 0

@@ -1,12 +1,13 @@
-!*==linkup.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==linkup.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
 !
+   USE c_lnklst
+   USE c_machin
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_LNKLST
-   USE C_MACHIN
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,18 +28,18 @@ SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
 !
 !     HASH INTO TABLE
 !
-         IF ( Machx==4 ) THEN
+         IF ( machx==4 ) THEN
 !
 !     60-BIT MACHINE
 !
             itotal = rshift(Name(1),18) + rshift(Name(2),18)
-         ELSEIF ( Machx==5 .OR. Machx==6 .OR. Machx==8 .OR. Machx==9 .OR. Machx==10 .OR. Machx==11 .OR. Machx==16 .OR.              &
-                & Machx==17 .OR. Machx==18 .OR. Machx==19 .OR. Machx==20 .OR. Machx==21 .OR. Machx==22 ) THEN
+         ELSEIF ( machx==5 .OR. machx==6 .OR. machx==8 .OR. machx==9 .OR. machx==10 .OR. machx==11 .OR. machx==16 .OR.              &
+                & machx==17 .OR. machx==18 .OR. machx==19 .OR. machx==20 .OR. machx==21 .OR. machx==22 ) THEN
 !
 !     32-BIT MACHINES
 !
             itotal = rshift(Name(1),1) + rshift(Name(2),1)
-         ELSEIF ( Machx==12 .OR. Machx==14 .OR. Machx==15 ) THEN
+         ELSEIF ( machx==12 .OR. machx==14 .OR. machx==15 ) THEN
 !
 !     64-BIT MACHINES
 !
@@ -51,12 +52,12 @@ SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
          ENDIF
 !
          ihash = 4*iabs(mod(itotal,250)) + 4
-         k = andf(Z(ihash),Mask1)
+         k = andf(z(ihash),mask1)
          IF ( k==0 ) THEN
 !
 !     NO HASH CHAIN FOUND - CREATE CHAIN
 !
-            Z(ihash) = Z(ihash) + Itop
+            z(ihash) = z(ihash) + itop
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -65,16 +66,16 @@ SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
 !
 !     HASH CHAIN FOUND - CHECK PRESENCE OF NAME
 !
-         IF ( Z(k)==Name(1) .AND. Z(k+1)==Name(2) ) THEN
-            ikind = rshift(andf(Z(k+3),Mask3),28)
-            IF ( (ikind+1)/2==(Kind+1)/2 ) THEN
+         IF ( z(k)==Name(1) .AND. z(k+1)==Name(2) ) THEN
+            ikind = rshift(andf(z(k+3),mask3),28)
+            IF ( (ikind+1)/2==(kind+1)/2 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         l = andf(Z(k+3),Mask2)
+         l = andf(z(k+3),mask2)
          IF ( l==0 ) THEN
-            Z(k+3) = Z(k+3) + lshift(Itop,14)
+            z(k+3) = z(k+3) + lshift(itop,14)
          ELSE
             k = rshift(l,14)
             spag_nextblock_1 = 2
@@ -85,41 +86,41 @@ SUBROUTINE linkup(Name) !HIDESTARS (*,Name)
 !
 !     NO ENTRY FOUND - CREATE ENTRY
 !
-         Z(Itop) = Name(1)
-         Z(Itop+1) = Name(2)
-         Z(Itop+2) = lshift(Itype,28)
-         Z(Itop+3) = Z(Itop+3) + lshift(iabs(Kind),28)
-         Itop = Itop + 4
-         IF ( Itop>=Ibot ) RETURN 1
-         IF ( Kind<0 ) RETURN
-         k = Itop - 4
+         z(itop) = Name(1)
+         z(itop+1) = Name(2)
+         z(itop+2) = lshift(itype,28)
+         z(itop+3) = z(itop+3) + lshift(iabs(kind),28)
+         itop = itop + 4
+         IF ( itop>=ibot ) RETURN 1
+         IF ( kind<0 ) RETURN
+         k = itop - 4
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     ADD STATEMENT NUMBER TO LIST
 !
-         l = andf(Z(k+2),Mask1)
+         l = andf(z(k+2),mask1)
          IF ( l/=0 ) THEN
 !
 !     CHAIN ENTRY ON LIST
 !
-            l = rshift(andf(Z(k+2),Mask2),14)
-            Z(l) = andf(Z(l),complf(Mask2))
-            Z(l) = orf(Z(l),lshift(Ibot,14))
+            l = rshift(andf(z(k+2),mask2),14)
+            z(l) = andf(z(l),complf(mask2))
+            z(l) = orf(z(l),lshift(ibot,14))
          ELSE
 !
 !     LIST IS EMPTY - START LIST
 !
-            Z(k+2) = Z(k+2) + Ibot
+            z(k+2) = z(k+2) + ibot
          ENDIF
 !
 !     ADD ENTRY TO LIST
 !
-         Z(Ibot) = orf(lshift(Kind,28),Isn)
-         Z(k+2) = andf(Z(k+2),complf(Mask2))
-         Z(k+2) = Z(k+2) + lshift(Ibot,14)
-         Ibot = Ibot - 1
-         IF ( Itop>=Ibot ) RETURN 1
+         z(ibot) = orf(lshift(kind,28),isn)
+         z(k+2) = andf(z(k+2),complf(mask2))
+         z(k+2) = z(k+2) + lshift(ibot,14)
+         ibot = ibot - 1
+         IF ( itop>=ibot ) RETURN 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

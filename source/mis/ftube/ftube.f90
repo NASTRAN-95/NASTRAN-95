@@ -1,14 +1,15 @@
-!*==ftube.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ftube.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ftube
-USE C_CONDAS
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -59,18 +60,18 @@ USE ISO_FORTRAN_ENV
 !
    !>>>>EQUIVALENCE (Iest(1),Est(1)) , (rk(1),k(1)) , (dict(5),dict5)
 !
-         IF ( .NOT.Heat ) RETURN
-         dict(1) = Estid
+         IF ( .NOT.heat ) RETURN
+         dict(1) = estid
          dict(2) = 1
          dict(3) = 2
          dict(4) = 1
          dict5 = 0.0
-         IF ( Kmb(1)==0 ) GOTO 20
+         IF ( kmb(1)==0 ) GOTO 20
 !
 !     CONDUCTIVITY
 !
-         rhocp = Est(4)
-         vdot = Est(5)
+         rhocp = est(4)
+         vdot = est(5)
 !
 !     STORE CONDUCTIVITY BY COLUMNS
 !
@@ -85,7 +86,7 @@ USE ISO_FORTRAN_ENV
          ifil = 1
          isze = 4
          ASSIGN 20 TO irtn
-         IF ( Iprec==2 ) THEN
+         IF ( iprec==2 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -97,37 +98,37 @@ USE ISO_FORTRAN_ENV
          rk(4) = sngl(k(4))
          spag_nextblock_1 = 3
       CASE (3)
-         CALL emgout(rk(1),k(1),isze,1,dict,ifil,Iprec)
+         CALL emgout(rk(1),k(1),isze,1,dict,ifil,iprec)
          GOTO irtn
 !
 !     CAPACITY MATRIX
 !
- 20      IF ( Kmb(3)/=0 ) THEN
-            rhocp = Est(4)
-            vdot = Est(5)
-            id1 = Est(6)
-            IF ( Est(7)/=0 ) THEN
-               id2 = Est(7)
+ 20      IF ( kmb(3)/=0 ) THEN
+            rhocp = est(4)
+            vdot = est(5)
+            id1 = est(6)
+            IF ( est(7)/=0 ) THEN
+               id2 = est(7)
             ELSE
                id2 = id1
             ENDIF
-            xa = Est(9)
-            ya = Est(10)
-            za = Est(11)
-            xb = Est(13)
-            yb = Est(14)
-            zb = Est(15)
+            xa = est(9)
+            ya = est(10)
+            za = est(11)
+            xb = est(13)
+            yb = est(14)
+            zb = est(15)
             length = dble((xb-xa))**2 + dble((yb-ya))**2 + dble((zb-za))**2
             IF ( length<=0.0D0 ) THEN
                length = dsqrt(length)
-               WRITE (Ioutpt,99001) Uim , iest(1)
+               WRITE (ioutpt,99001) uim , iest(1)
 99001          FORMAT (A29,' FROM ELEMENT FTUBE -',/5X,'ELEMENT WITH ID =',I9,' HAS A ZERO LENGTH.')
-               Error = .TRUE.
+               error = .TRUE.
             ENDIF
 !
 !     FILL AND OUTPUT CAPACITY MATRIX BY COLUMNS IN GLOBAL, SYMMETRIC.
 !
-            k(1) = (dble(rhocp*Pi*(id1+id2)))**2*length/32.0D0
+            k(1) = (dble(rhocp*pi*(id1+id2)))**2*length/32.0D0
             k(2) = 0.0D0
             k(3) = 0.0D0
             k(4) = k(1)
@@ -135,8 +136,8 @@ USE ISO_FORTRAN_ENV
             ifil = 3
             isze = 2
             ASSIGN 99999 TO irtn
-            IF ( Iprec<1 ) THEN
-            ELSEIF ( Iprec==1 ) THEN
+            IF ( iprec<1 ) THEN
+            ELSEIF ( iprec==1 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ELSE

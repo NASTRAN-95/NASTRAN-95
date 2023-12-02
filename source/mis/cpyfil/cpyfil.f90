@@ -1,9 +1,10 @@
-!*==cpyfil.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cpyfil.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cpyfil(Infile,Oufile,Area,N,Count)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -63,7 +64,7 @@ SUBROUTINE cpyfil(Infile,Oufile,Area,N,Count)
          CALL read(*99999,*20,Infile,Area,N,0,nwds)
          eor = 0
          nwds = N
- 20      IF ( Count==0 .AND. Iparam==-1111 ) THEN
+ 20      IF ( Count==0 .AND. iparam==-1111 ) THEN
             CALL fname(Infile,Area(nwds+1))
             IF ( Area(nwds+1)==Area(1) .AND. Area(nwds+2)==Area(2) ) CALL fname(Oufile,Area)
          ENDIF
@@ -74,7 +75,6 @@ SUBROUTINE cpyfil(Infile,Oufile,Area,N,Count)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !

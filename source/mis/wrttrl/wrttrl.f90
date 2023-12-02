@@ -1,7 +1,16 @@
-!*==wrttrl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==wrttrl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE wrttrl(Filblk)
+   USE c_l15l8
+   USE c_logout
+   USE c_machin
+   USE c_system
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xsortx
    USE C_L15L8
    USE C_LOGOUT
    USE C_MACHIN

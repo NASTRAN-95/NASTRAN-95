@@ -1,11 +1,12 @@
-!*==biotsv.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==biotsv.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
+   USE c_biot
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BIOT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,19 +70,19 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
          Hcx = 0.
          Hcy = 0.
          Hcz = 0.
-         Scr1 = 301
+         scr1 = 301
          bgpdt = 103
          mcb(1) = bgpdt
          CALL rdtrl(mcb)
          nrowsp = mcb(2)
-         mcb(1) = Scr1
+         mcb(1) = scr1
          CALL rdtrl(mcb)
          n3 = mcb(3)
          ngrids = n3/3
 !
-         alls = Z(Ist+1)
-         nsimp = iz(Ist+2)
-         isimp = Ist + 2*nsimp + 2
+         alls = z(ist+1)
+         nsimp = iz(ist+2)
+         isimp = ist + 2*nsimp + 2
 !
 !     LOOP ON NUMBER OF SIMPLE LOADS
 !
@@ -91,8 +92,8 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
             hc(2) = 0.
             hc(3) = 0.
 !
-            factor = Z(Ist+2*ns+1)
-            ncards = iz(Ist+2*ns+2)
+            factor = z(ist+2*ns+1)
+            ncards = iz(ist+2*ns+2)
             SPAG_Loop_2_1: DO
                nobld = iz(isimp+1)
                ido = iz(isimp+2)
@@ -123,7 +124,7 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
 !     CEMLOOP,GEMLOOP,MDIPOLE
 !
                            DO k = 1 , mwords
-                              buf(k) = Z(isimp+k)
+                              buf(k) = z(isimp+k)
                            ENDDO
                            ltype = ktype - 1
                            IF ( ltype==2 ) THEN
@@ -144,18 +145,18 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
 !     REMFLUX - BRING IN VALUES FROM SCR1 AFTER POSITIONING TO PROPER
 !     CASE
 !
-                           CALL gopen(Scr1,Z(Buf2),0)
-                           ic = Subcas - 1
+                           CALL gopen(scr1,z(buf2),0)
+                           ic = subcas - 1
                            IF ( ic/=0 ) THEN
                               DO i = 1 , ic
-                                 CALL fwdrec(*20,Scr1)
+                                 CALL fwdrec(*20,scr1)
                               ENDDO
                            ENDIF
 !
-                           isimp1 = 6*ngrids + Ntot
-                           CALL fread(Scr1,Z(isimp1+1),n3,1)
+                           isimp1 = 6*ngrids + ntot
+                           CALL fread(scr1,z(isimp1+1),n3,1)
 !
-                           CALL close(Scr1,1)
+                           CALL close(scr1,1)
 !
 !     MUST MATCH NG1 AND NG2 TO SIL-S IN CORE TO LOCATE REMFLUX INFO ON
 !    SCR1
@@ -163,13 +164,13 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
                            ing1 = 0
                            ing2 = 0
                            DO i = 1 , ngrids
-                              IF ( Ng1==iz(i) ) THEN
+                              IF ( ng1==iz(i) ) THEN
                                  ing1 = i
                                  IF ( ing2/=0 ) THEN
                                     spag_nextblock_2 = 3
                                     CYCLE SPAG_DispatchLoop_2
                                  ENDIF
-                              ELSEIF ( Ng2==iz(i) ) THEN
+                              ELSEIF ( ng2==iz(i) ) THEN
                                  ing2 = i
                                  IF ( ing1/=0 ) THEN
                                     spag_nextblock_2 = 3
@@ -190,39 +191,37 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
 !     LINEARLY INTERPOLATE TO (XX,YY,ZZ). THE SILS ARE POINTERS INTO
 !     THE SPCFLD DATA
 !
-                           isub = isimp + 3*Ng1
-                           hc1(1) = Z(isub-2)
-                           hc1(2) = Z(isub-1)
-                           hc1(3) = Z(isub)
-                           isub = isimp + 3*Ng2
-                           hc2(1) = Z(isub-2)
-                           hc2(2) = Z(isub-1)
-                           hc2(3) = Z(isub)
+                           isub = isimp + 3*ng1
+                           hc1(1) = z(isub-2)
+                           hc1(2) = z(isub-1)
+                           hc1(3) = z(isub)
+                           isub = isimp + 3*ng2
+                           hc2(1) = z(isub-2)
+                           hc2(2) = z(isub-1)
+                           hc2(3) = z(isub)
                         ENDIF
                         spag_nextblock_2 = 2
                      CASE (2)
-                        tlen = sqrt((X2-X1)**2+(Y2-Y1)**2+(Z2-Z1)**2)
-                        xlen = sqrt((Xx-X1)**2+(Yy-Y1)**2+(Zz-Z1)**2)
+                        tlen = sqrt((x2-x1)**2+(y2-y1)**2+(z2-z1)**2)
+                        xlen = sqrt((Xx-x1)**2+(Yy-y1)**2+(Zz-z1)**2)
                         ratio = xlen/tlen
                         hc(1) = hc(1) + (1.-ratio)*hc1(1) + ratio*hc2(1)
                         hc(2) = hc(2) + (1.-ratio)*hc1(2) + ratio*hc2(2)
                         hc(3) = hc(3) + (1.-ratio)*hc1(3) + ratio*hc2(3)
                         spag_nextblock_2 = 4
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (3)
                         isub = 3*ing1 + isimp1
-                        hc1(1) = Z(isub-2)
-                        hc1(2) = Z(isub-1)
-                        hc1(3) = Z(isub)
+                        hc1(1) = z(isub-2)
+                        hc1(2) = z(isub-1)
+                        hc1(3) = z(isub)
                         isub = 3*ing2 + isimp1
-                        hc2(1) = Z(isub-2)
-                        hc2(2) = Z(isub-1)
+                        hc2(1) = z(isub-2)
+                        hc2(2) = z(isub-1)
 !
 !     INTERPOLATE AS WITH SPCFLD
 !
-                        hc2(3) = Z(isub)
+                        hc2(3) = z(isub)
                         spag_nextblock_2 = 2
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (4)
 !
 !     DONE FOR ONE CARD OF PRESENT TYPE  - GET ANOTHER
@@ -257,7 +256,7 @@ SUBROUTINE biotsv(Xx,Yy,Zz,Hcx,Hcy,Hcz)
          RETURN
       CASE (2)
 !
-         WRITE (Iout,99001) Ng1 , Ng2
+         WRITE (iout,99001) ng1 , ng2
 99001    FORMAT ('0*** LOGIC ERROR, SILS',2I8,' CANNOT BE FOUND IN PROLATE LIST IN BIOTSV')
          CALL mesage(-61,0,0)
 !

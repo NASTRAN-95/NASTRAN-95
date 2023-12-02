@@ -1,15 +1,16 @@
-!*==mma103.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma103.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mma103(Zi,Zc)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -22,6 +23,7 @@ SUBROUTINE mma103(Zi,Zc)
             & nadens , naform , nanzwd , nar , natype , nbc , nbdens , nbform , nbnzwd , nbr , nbtype , ncc , ncdens , ncform ,     &
             & ncnzwd , ncr , nctype , ndc , nddens , ndform , ndnzwd , ndr , ndtype , nout , nwddnar
    REAL :: sysbuf
+   INTEGER :: spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
@@ -64,79 +66,92 @@ SUBROUTINE mma103(Zi,Zc)
 !
 ! PROCESS ALL OF THE COLUMNS OF "B", ADD "C" DATA ON FIRST PASS
    DO ii = 1 , nbc
-      Iurow1 = -1
-      Typeu = ndtype*Signab
-      CALL unpack(*50,Fileb,Zc(1))
-      irowb1 = Iurow1
-      irowbn = Iurown
-      GOTO 100
- 50   irowb1 = 0
-      irowbn = 0
- 100  IF ( ifile/=0 ) THEN
-         Iurow1 = 1
-         Iurown = ndr
-         Typeu = ndtype
-         IF ( ipass==1 ) Typeu = ndtype*Signc
-         CALL unpack(*150,ifile,Zc(idx2+1))
-         GOTO 200
-      ENDIF
- 150  DO j = 1 , ndr
-         Zc(idx2+j) = (0.0,0.0)
-      ENDDO
- 200  nwddnar = nwdd*nar
+      spag_nextblock_1 = 1
+      SPAG_DispatchLoop_1: DO
+         SELECT CASE (spag_nextblock_1)
+         CASE (1)
+            iurow1 = -1
+            typeu = ndtype*signab
+            CALL unpack(*10,fileb,Zc(1))
+            irowb1 = iurow1
+            irowbn = iurown
+            spag_nextblock_1 = 2
+            CYCLE SPAG_DispatchLoop_1
+ 10         irowb1 = 0
+            irowbn = 0
+            spag_nextblock_1 = 2
+         CASE (2)
+            IF ( ifile/=0 ) THEN
+               iurow1 = 1
+               iurown = ndr
+               typeu = ndtype
+               IF ( ipass==1 ) typeu = ndtype*signc
+               CALL unpack(*20,ifile,Zc(idx2+1))
+               spag_nextblock_1 = 3
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+ 20         DO j = 1 , ndr
+               Zc(idx2+j) = (0.0,0.0)
+            ENDDO
+            spag_nextblock_1 = 3
+         CASE (3)
+            nwddnar = nwdd*nar
 !
 ! CHECK IF COLUMN OF "B" IS NULL
 !
-      IF ( irowb1/=0 ) THEN
-         IF ( T/=0 ) THEN
+            IF ( irowb1/=0 ) THEN
+               IF ( t/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
-            idrow = ibrow
+                  idrow = ibrow
 ! COMPLEX SINGLE PRECISION
-            DO i = 1 , ncolpp
-               indxa = iax + 2*i + (i-1)*nwddnar
-               irowa1 = Zi(indxa-2)
-               IF ( irowa1/=0 ) THEN
-                  irowan = Zi(indxa-1)
-                  irow1 = max0(irowa1,irowb1)
-                  irown = min0(irowan,irowbn)
-                  IF ( irown>=irow1 ) THEN
-                     indxa = ((indxa+1)/2) - irowa1
-                     idx2x = idx2 + idrow
-                     indxb = 1 - irowb1
-                     DO k = irow1 , irown
-                        Zc(idx2x+i) = Zc(idx2x+i) + Zc(indxa+k)*Zc(indxb+k)
-                     ENDDO
-                  ENDIF
-               ENDIF
-            ENDDO
-         ELSE
-!
-! "A" NON-TRANSPOSE CASE    ( A * B  +  C )
-!
-! COMPLEX SINGLE PRECISION
-            DO i = 1 , ncolpp
-               ibrowi = ibrow + i
-               IF ( ibrowi>=irowb1 .AND. ibrowi<=irowbn ) THEN
-                  ibrowi = ibrowi - irowb1 + 1
-                  IF ( Zc(ibrowi)/=(0.0,0.0) ) THEN
+                  DO i = 1 , ncolpp
                      indxa = iax + 2*i + (i-1)*nwddnar
                      irowa1 = Zi(indxa-2)
                      IF ( irowa1/=0 ) THEN
                         irowan = Zi(indxa-1)
-                        indxa = ((indxa+1)/2) - irowa1
-                        DO k = irowa1 , irowan
-                           Zc(idx2+k) = Zc(idx2+k) + Zc(indxa+k)*Zc(ibrowi)
-                        ENDDO
+                        irow1 = max0(irowa1,irowb1)
+                        irown = min0(irowan,irowbn)
+                        IF ( irown>=irow1 ) THEN
+                           indxa = ((indxa+1)/2) - irowa1
+                           idx2x = idx2 + idrow
+                           indxb = 1 - irowb1
+                           DO k = irow1 , irown
+                              Zc(idx2x+i) = Zc(idx2x+i) + Zc(indxa+k)*Zc(indxb+k)
+                           ENDDO
+                        ENDIF
                      ENDIF
-                  ENDIF
+                  ENDDO
+               ELSE
+!
+! "A" NON-TRANSPOSE CASE    ( A * B  +  C )
+!
+! COMPLEX SINGLE PRECISION
+                  DO i = 1 , ncolpp
+                     ibrowi = ibrow + i
+                     IF ( ibrowi>=irowb1 .AND. ibrowi<=irowbn ) THEN
+                        ibrowi = ibrowi - irowb1 + 1
+                        IF ( Zc(ibrowi)/=(0.0,0.0) ) THEN
+                           indxa = iax + 2*i + (i-1)*nwddnar
+                           irowa1 = Zi(indxa-2)
+                           IF ( irowa1/=0 ) THEN
+                              irowan = Zi(indxa-1)
+                              indxa = ((indxa+1)/2) - irowa1
+                              DO k = irowa1 , irowan
+                                 Zc(idx2+k) = Zc(idx2+k) + Zc(indxa+k)*Zc(ibrowi)
+                              ENDDO
+                           ENDIF
+                        ENDIF
+                     ENDIF
+                  ENDDO
                ENDIF
-            ENDDO
-         ENDIF
-      ENDIF
+            ENDIF
 ! END OF PROCESSING THIS COLUMN FOR THIS PASS
 !  NOW SAVE COLUMN
-      CALL pack(Zc(idx2+1),ofile,Filed)
+            CALL pack(Zc(idx2+1),ofile,filed)
+            EXIT SPAG_DispatchLoop_1
+         END SELECT
+      ENDDO SPAG_DispatchLoop_1
    ENDDO
 END SUBROUTINE mma103

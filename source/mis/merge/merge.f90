@@ -1,4 +1,5 @@
-!*==merge.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==merge.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE merge(Irp,Icp,Core)
@@ -9,11 +10,11 @@ SUBROUTINE merge(Irp,Icp,Core)
 !     THE ARGUMENTS ARE EXACTLY THE SAME IN MEANING AND OPTION AS FOR
 !     PARTITION
 !
+   USE c_parmeg
+   USE c_system
+   USE c_two
+   USE c_zblpkx
    IMPLICIT NONE
-   USE C_PARMEG
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZBLPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,37 +43,37 @@ SUBROUTINE merge(Irp,Icp,Core)
 !
 !     CHECK FILES
 !
-         lcore = iabs(Lcare)
-         k = Namea
+         lcore = iabs(lcare)
+         k = namea
          DO i = 1 , 4
             IF ( k/=0 ) THEN
                DO j = i , 4
-                  IF ( Ia11(1,j)==k ) THEN
+                  IF ( ia11(1,j)==k ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
             ENDIF
-            k = Ia11(1,i)
+            k = ia11(1,i)
          ENDDO
 !
 !     PICK UP PARAMETERS AND INITIALIZE
 !
          irew = 0
-         IF ( Lcare<0 ) irew = 2
-         ncola1 = Ncola
-         Ncola = 0
-         Ia(1) = 0
-         Ia(2) = 0
+         IF ( lcare<0 ) irew = 2
+         ncola1 = ncola
+         ncola = 0
+         ia(1) = 0
+         ia(2) = 0
          istor = 0
-         iotp = Itypa
+         iotp = itypa
          nmat = 0
          DO i = 1 , 4
-            IF ( Ia11(1,i)>0 ) THEN
+            IF ( ia11(1,i)>0 ) THEN
 !WKBD 2/94 SPR93025 IF (IA11(5,I) .NE. ITYPA) IOTP = 4
                nmat = nmat + 1
                DO j = 2 , 5
-                  IF ( Ia11(j,i)==0 ) THEN
+                  IF ( ia11(j,i)==0 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -81,16 +82,15 @@ SUBROUTINE merge(Irp,Icp,Core)
          ENDDO
          ntypa = iotp
          IF ( ntypa==3 ) ntypa = 2
-         ibuf = lcore - Sysbuf + 1
-         ibufcp = ibuf - Nrowa
+         ibuf = lcore - sysbuf + 1
+         ibufcp = ibuf - nrowa
          IF ( ibufcp<=0 ) THEN
 !
             mn = -8
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             lcore = ibufcp - 1
-            CALL ruler(Rule,Icp,zcpct,ocpct,Core(ibufcp),Nrowa,Core(ibuf),1)
+            CALL ruler(rule,Icp,zcpct,ocpct,Core(ibufcp),nrowa,Core(ibuf),1)
             IF ( Irp(1)==Icp(1) .AND. Irp(1)/=0 ) THEN
                istor = 1
             ELSE
@@ -100,39 +100,38 @@ SUBROUTINE merge(Irp,Icp,Core)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  CALL ruler(Rule,Irp,zrpct,orpct,Core(ibufrp),ncola1,Core(ibuf),0)
+                  CALL ruler(rule,Irp,zrpct,orpct,Core(ibufrp),ncola1,Core(ibuf),0)
                   lcore = ibufrp - 1
                ENDIF
             ENDIF
 !
 !     OPEN INPUT FILES
 !
-            IF ( lcore<nmat*Sysbuf ) THEN
+            IF ( lcore<nmat*sysbuf ) THEN
                mn = -8
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                DO i = 1 , 4
-                  IF ( Ia11(1,i)>=0 ) THEN
-                     IF ( Ia11(1,i)/=0 ) THEN
-                        lcore = lcore - Sysbuf
-                        CALL open(*2,Ia11(1,i),Core(lcore+1),irew)
-                        CALL skprec(Ia11(1,i),1)
+                  IF ( ia11(1,i)>=0 ) THEN
+                     IF ( ia11(1,i)/=0 ) THEN
+                        lcore = lcore - sysbuf
+                        CALL open(*2,ia11(1,i),Core(lcore+1),irew)
+                        CALL skprec(ia11(1,i),1)
                      ENDIF
                      CYCLE
                   ENDIF
- 2                Ia11(1,i) = 0
+ 2                ia11(1,i) = 0
                ENDDO
 !
 !     OPEN OUTPUT FILE
 !
-               CALL gopen(Namea,Core(ibuf),1)
+               CALL gopen(namea,Core(ibuf),1)
 !
 !     FIX POINTERS -- SORT ON ABS VALUE
 !
                k = ibufcp - 1
                l = ibufcp
-               DO i = 1 , Nrowa
+               DO i = 1 , nrowa
                   k = k + 1
                   IF ( Core(k)<0 ) THEN
                      Core(l) = i
@@ -141,7 +140,7 @@ SUBROUTINE merge(Irp,Icp,Core)
                ENDDO
                m = l - 1
                k = ibufcp
-               SPAG_Loop_1_2: DO i = 1 , Nrowa
+               SPAG_Loop_1_2: DO i = 1 , nrowa
                   SPAG_Loop_2_1: DO
                      IF ( Core(k)<i ) THEN
                         IF ( k==m ) EXIT SPAG_Loop_2_1
@@ -166,13 +165,13 @@ SUBROUTINE merge(Irp,Icp,Core)
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
-                        CALL bldpk(iotp,Itypa,Namea,0,0)
+                        CALL bldpk(iotp,itypa,namea,0,0)
                         IF ( istor/=1 ) THEN
                            j = (loop-1)/32 + ibufrp
                            km = km + 1
                            IF ( km>32 ) km = 1
-                           itemp = andf(Core(j),Two1(km))
-                           IF ( km==1 ) itemp = rshift(andf(Core(j),Two1(km)),1)
+                           itemp = andf(Core(j),two1(km))
+                           IF ( km==1 ) itemp = rshift(andf(Core(j),two1(km)),1)
                            IF ( itemp/=0 ) THEN
                               spag_nextblock_2 = 2
                               CYCLE SPAG_DispatchLoop_2
@@ -194,7 +193,6 @@ SUBROUTINE merge(Irp,Icp,Core)
                         l1 = 0
                         IF ( l2/=l3-1 ) l2 = l2 + 1
                         spag_nextblock_2 = 3
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (2)
 !
 !     IA12 AND IA22 BEING USED
@@ -209,9 +207,9 @@ SUBROUTINE merge(Irp,Icp,Core)
                         io = 0
                         DO j = 1 , 2
                            k = l1 + j
-                           IF ( Ia11(1,k)/=0 ) THEN
+                           IF ( ia11(1,k)/=0 ) THEN
                               m = 20*j - 19
-                              CALL intpk(*4,Ia11(1,k),block(m),iotp,1)
+                              CALL intpk(*4,ia11(1,k),block(m),iotp,1)
                               io = io + j
                            ENDIF
  4                      ENDDO
@@ -228,8 +226,8 @@ SUBROUTINE merge(Irp,Icp,Core)
                         jpos = 9999999
                         iaz = 1
                         ibz = 1
-                        nam1 = Ia11(1,l1+1)
-                        nam2 = Ia11(1,l1+2)
+                        nam1 = ia11(1,l1+1)
+                        nam2 = ia11(1,l1+2)
                         IF ( io/=2 ) THEN
                            iaz = 0
                         ELSE
@@ -287,25 +285,23 @@ SUBROUTINE merge(Irp,Icp,Core)
 !     PUT IN B11
 !
                         DO m = 1 , ntypa
-                           Ic11(m) = b11(m)
+                           ic11(m) = b11(m)
                         ENDDO
-                        Ii = jpos
+                        ii = jpos
                         CALL zblpki
                         spag_nextblock_2 = 5
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (8)
                         DO m = 1 , ntypa
-                           Ic11(m) = a11(m)
+                           ic11(m) = a11(m)
                         ENDDO
-                        Ii = ipos
+                        ii = ipos
                         CALL zblpki
                         spag_nextblock_2 = 4
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (9)
 !
 !     OUTPUT COLUMN
 !
-                        CALL bldpkn(Namea,0,Namea)
+                        CALL bldpkn(namea,0,namea)
                         EXIT SPAG_DispatchLoop_2
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
@@ -315,18 +311,17 @@ SUBROUTINE merge(Irp,Icp,Core)
 !     DONE -- CLOSE OPEN MATRICES
 !
                DO i = 1 , 4
-                  IF ( Ia11(1,i)>0 ) CALL close(Ia11(1,i),1)
+                  IF ( ia11(1,i)>0 ) CALL close(ia11(1,i),1)
                ENDDO
-               CALL close(Namea,1)
+               CALL close(namea,1)
                RETURN
             ENDIF
          ENDIF
       CASE (2)
-         WRITE (Nout,99001) k
+         WRITE (nout,99001) k
 99001    FORMAT ('0*** SYSTEM OR USER ERROR, DUPLICATE GINO FILES AS ','DETECTED BY MERGE ROUTINE - ',I5)
          nm = -37
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          mn = -7
          spag_nextblock_1 = 4

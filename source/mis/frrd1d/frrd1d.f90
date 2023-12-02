@@ -1,7 +1,15 @@
-!*==frrd1d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==frrd1d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    USE C_FBSX
    USE C_GFBSX
    USE C_MACHIN
@@ -92,7 +100,6 @@ SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
                         Ii1 = 1
                         Jj1 = 1
                         spag_nextblock_2 = 2
-                        CYCLE SPAG_DispatchLoop_2
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
                ENDDO
@@ -256,7 +263,6 @@ SUBROUTINE frrd1d(Pd,Ull,Lll,Scr1,Scr2,Udv,Ifr,Nload,Igood,Nfreq)
                      Ii1 = 1
                      Jj1 = 1
                      spag_nextblock_3 = 2
-                     CYCLE SPAG_DispatchLoop_3
                   END SELECT
                ENDDO SPAG_DispatchLoop_3
             ENDDO

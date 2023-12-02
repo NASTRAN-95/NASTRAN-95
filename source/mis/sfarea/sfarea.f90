@@ -1,9 +1,10 @@
-!*==sfarea.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sfarea.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sfarea(Ngpt,V,G)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -114,38 +115,37 @@ CONTAINS
 !
 !     4-GRID ELEMENT (TETRA)
 !
-      a(1) = area(G,1,5,9)
-      a(2) = area(G,1,5,13)
-      a(3) = area(G,5,9,13)
-      a(4) = area(G,1,9,13)
-      narea = 4
+      A(1) = area(G,1,5,9)
+      A(2) = area(G,1,5,13)
+      A(3) = area(G,5,9,13)
+      A(4) = area(G,1,9,13)
+      Narea = 4
       CALL spag_block_10
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     6-GRID ELEMENT (WEDGE)
 !
-      IF ( V(1)==trim6 .OR. V(1)==trpl1 .OR. V(1)==trshl ) THEN
+      IF ( V(1)==Trim6 .OR. V(1)==Trpl1 .OR. V(1)==Trshl ) THEN
 !
 !     6-GRID TRIANGULAR ELEMENTS (TRIM6, TRPLT1, TRSHL)
 !
-         i = 129
-         j = 21
-         k = 9
-         DO l = 1 , 3
-            G(l+i) = G(l+j) + (G(l+k)-G(l+j))*.33333
+         I = 129
+         J = 21
+         K = 9
+         DO L = 1 , 3
+            G(L+I) = G(L+J) + (G(L+K)-G(L+J))*.33333
          ENDDO
-         a(1) = area(G,1,5,129) + area(G,5,9,129) + area(G,9,13,129) + area(G,13,17,129) + area(G,17,21,129) + area(G,21,1,129)
+         A(1) = area(G,1,5,129) + area(G,5,9,129) + area(G,9,13,129) + area(G,13,17,129) + area(G,17,21,129) + area(G,21,1,129)
          CALL spag_block_9
          RETURN
       ELSE
-         a(1) = area(G,1,5,9)
-         a(2) = area(G,1,5,13) + area(G,13,17,5)
-         a(3) = area(G,5,9,17) + area(G,17,21,9)
-         a(4) = area(G,1,9,13) + area(G,9,13,21)
-         a(5) = area(G,13,17,21)
-         narea = 5
+         A(1) = area(G,1,5,9)
+         A(2) = area(G,1,5,13) + area(G,13,17,5)
+         A(3) = area(G,5,9,17) + area(G,17,21,9)
+         A(4) = area(G,1,9,13) + area(G,9,13,21)
+         A(5) = area(G,13,17,21)
+         Narea = 5
          CALL spag_block_10
          RETURN
       ENDIF
@@ -154,21 +154,21 @@ CONTAINS
 !
 !     8-GIRD ELEMENT
 !
-      IF ( V(1)==s2d8 ) THEN
+      IF ( V(1)==S2d8 ) THEN
 !
 !     8-GRID ELEMENT (IS2D8)
 !
-         j = 33
-         a(1) = G(j)
+         J = 33
+         A(1) = G(J)
          CALL spag_block_9
          RETURN
       ELSE
-         a(1) = area(G,1,5,9) + area(G,1,9,13)
-         a(2) = area(G,1,5,17) + area(G,5,17,21)
-         a(3) = area(G,5,21,25) + area(G,5,25,9)
-         a(4) = area(G,9,25,29) + area(G,9,29,13)
-         a(5) = area(G,13,1,29) + area(G,1,29,17)
-         a(6) = area(G,17,21,25) + area(G,17,25,29)
+         A(1) = area(G,1,5,9) + area(G,1,9,13)
+         A(2) = area(G,1,5,17) + area(G,5,17,21)
+         A(3) = area(G,5,21,25) + area(G,5,25,9)
+         A(4) = area(G,9,25,29) + area(G,9,29,13)
+         A(5) = area(G,13,1,29) + area(G,1,29,17)
+         A(6) = area(G,17,21,25) + area(G,17,25,29)
          CALL spag_block_6
          RETURN
       ENDIF
@@ -177,97 +177,94 @@ CONTAINS
 !
 !     20-GRID ELEMENT
 !
-      a(1) = area(G,1,5,29) + area(G,29,5,13) + area(G,13,5,9) + area(G,13,17,21) + area(G,13,21,29) + area(G,29,25,21)
-      a(2) = area(G,1,5,33) + area(G,33,5,53) + area(G,53,33,49) + area(G,37,57,53) + area(G,53,37,5) + area(G,5,9,37)
-      a(3) = area(G,9,37,13) + area(G,13,37,61) + area(G,61,37,57) + area(G,61,65,41) + area(G,41,61,13) + area(G,13,41,17)
-      a(4) = area(G,17,41,21) + area(G,21,69,41) + area(G,41,65,69) + area(G,69,73,45) + area(G,45,69,21) + area(G,21,45,25)
-      a(5) = area(G,1,33,29) + area(G,29,77,33) + area(G,33,49,77) + area(G,77,73,45) + area(G,45,77,29) + area(G,29,45,25)
-      a(6) = area(G,49,53,77) + area(G,77,53,61) + area(G,61,53,57) + area(G,61,65,69) + area(G,69,61,77) + area(G,77,69,73)
+      A(1) = area(G,1,5,29) + area(G,29,5,13) + area(G,13,5,9) + area(G,13,17,21) + area(G,13,21,29) + area(G,29,25,21)
+      A(2) = area(G,1,5,33) + area(G,33,5,53) + area(G,53,33,49) + area(G,37,57,53) + area(G,53,37,5) + area(G,5,9,37)
+      A(3) = area(G,9,37,13) + area(G,13,37,61) + area(G,61,37,57) + area(G,61,65,41) + area(G,41,61,13) + area(G,13,41,17)
+      A(4) = area(G,17,41,21) + area(G,21,69,41) + area(G,41,65,69) + area(G,69,73,45) + area(G,45,69,21) + area(G,21,45,25)
+      A(5) = area(G,1,33,29) + area(G,29,77,33) + area(G,33,49,77) + area(G,77,73,45) + area(G,45,77,29) + area(G,29,45,25)
+      A(6) = area(G,49,53,77) + area(G,77,53,61) + area(G,61,53,57) + area(G,61,65,69) + area(G,69,61,77) + area(G,77,69,73)
       CALL spag_block_6
-      RETURN
    END SUBROUTINE spag_block_4
    SUBROUTINE spag_block_5
 !
 !     32-GRID ELEMENT
 !
-      DO l = 1 , 6
-         a(l) = 0.0
+      DO L = 1 , 6
+         A(L) = 0.0
       ENDDO
-      kk = 1
-      DO l = 129 , 152 , 4
-         m = kx(kk)
-         n = kx(kk+1)
-         DO jj = 1 , 3
-            G(l+jj) = 0.5*(G(m+jj)+G(n+jj))
+      Kk = 1
+      DO L = 129 , 152 , 4
+         M = Kx(Kk)
+         N = Kx(Kk+1)
+         DO Jj = 1 , 3
+            G(L+Jj) = 0.5*(G(M+Jj)+G(N+Jj))
          ENDDO
-         kk = kk + 2
+         Kk = Kk + 2
       ENDDO
-      jj = 2
-      DO l = 1 , 12
-         m = l*4 - 3
-         n = m + 4
-         IF ( n>48 ) n = 1
-         a(1) = a(1) + area(G,m,n,jx(1))
-         a(jj) = a(jj) + area(G,m,n,jx(jj))
-         m = (l+20)*4 - 3
-         n = m + 4
-         IF ( n>128 ) n = 81
-         a(6) = a(6) + area(G,m,n,jx(6))
-         a(jj) = a(jj) + area(G,m,n,jx(jj))
-         IF ( mod(l,3)==0 ) jj = jj + 1
+      Jj = 2
+      DO L = 1 , 12
+         M = L*4 - 3
+         N = M + 4
+         IF ( N>48 ) N = 1
+         A(1) = A(1) + area(G,M,N,Jx(1))
+         A(Jj) = A(Jj) + area(G,M,N,Jx(Jj))
+         M = (L+20)*4 - 3
+         N = M + 4
+         IF ( N>128 ) N = 81
+         A(6) = A(6) + area(G,M,N,Jx(6))
+         A(Jj) = A(Jj) + area(G,M,N,Jx(Jj))
+         IF ( mod(L,3)==0 ) Jj = Jj + 1
       ENDDO
-      a(2) = a(2) + area(G,1,49,133) + area(G,49,65,133) + area(G,65,81,133) + area(G,13,53,133) + area(G,53,69,133)                &
+      A(2) = A(2) + area(G,1,49,133) + area(G,49,65,133) + area(G,65,81,133) + area(G,13,53,133) + area(G,53,69,133)                &
            & + area(G,69,93,133)
-      a(3) = a(3) + area(G,13,53,137) + area(G,53,69,137) + area(G,69,93,137) + area(G,25,57,137) + area(G,57,73,137)               &
+      A(3) = A(3) + area(G,13,53,137) + area(G,53,69,137) + area(G,69,93,137) + area(G,25,57,137) + area(G,57,73,137)               &
            & + area(G,73,105,137)
-      a(4) = a(4) + area(G,25,57,141) + area(G,57,73,141) + area(G,73,105,141) + area(G,37,61,141) + area(G,61,77,141)              &
+      A(4) = A(4) + area(G,25,57,141) + area(G,57,73,141) + area(G,73,105,141) + area(G,37,61,141) + area(G,61,77,141)              &
            & + area(G,77,117,141)
-      a(5) = a(5) + area(G,37,61,145) + area(G,61,77,145) + area(G,77,117,145) + area(G,1,49,145) + area(G,49,65,145)               &
+      A(5) = A(5) + area(G,37,61,145) + area(G,61,77,145) + area(G,77,117,145) + area(G,1,49,145) + area(G,49,65,145)               &
            & + area(G,65,81,145)
       CALL spag_block_6
    END SUBROUTINE spag_block_5
    SUBROUTINE spag_block_6
-      narea = 6
+      Narea = 6
       CALL spag_block_10
-      RETURN
    END SUBROUTINE spag_block_6
    SUBROUTINE spag_block_7
 !
 !     4-GRID ELEMENT (QUAD)
 !
-      IF ( V(1)==tetra ) THEN
+      IF ( V(1)==Tetra ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
-      a(1) = area(G,1,5,9) + area(G,1,5,13)
+      A(1) = area(G,1,5,9) + area(G,1,5,13)
       CALL spag_block_9
-      RETURN
    END SUBROUTINE spag_block_7
    SUBROUTINE spag_block_8
 !
 !     3-GRID ELEMENT
 !
-      a(1) = area(G,1,5,9)
+      A(1) = area(G,1,5,9)
       CALL spag_block_9
    END SUBROUTINE spag_block_8
    SUBROUTINE spag_block_9
-      narea = 1
+      Narea = 1
 !
 !     AT THIS POINT, V(4) AND V(5) ARE THICKNESS AND DENSITY OF THE
 !     PLATE. COMPUTE VOLUME AND MASS AND PUT THEM BACK IN V(4) AND V(5)
 !
-      IF ( Volume>0.0 ) THEN
-         j = 4
-         V(j+1) = a(1)*V(j)*V(j+1)
-         V(j) = a(1)*V(j)*Volume
+      IF ( volume>0.0 ) THEN
+         J = 4
+         V(J+1) = A(1)*V(J)*V(J+1)
+         V(J) = A(1)*V(J)*volume
       ENDIF
       CALL spag_block_10
    END SUBROUTINE spag_block_9
    SUBROUTINE spag_block_10
 !
-      Ngpt = narea
-      DO l = 1 , narea
-         V(l+5) = a(l)*Surfac
+      Ngpt = Narea
+      DO L = 1 , Narea
+         V(L+5) = A(L)*surfac
       ENDDO
    END SUBROUTINE spag_block_10
 END SUBROUTINE sfarea

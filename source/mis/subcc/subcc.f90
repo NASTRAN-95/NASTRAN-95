@@ -1,14 +1,15 @@
-!*==subcc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==subcc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subcc
+   USE c_blk1
+   USE c_blk2
+   USE c_blk3
+   USE c_blk4
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLK1
-   USE C_BLK2
-   USE C_BLK3
-   USE C_BLK4
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -29,217 +30,215 @@ SUBROUTINE subcc
 !     THIS ROUTINE WAS ORIGINALLY CALLED SUBD
 !
 !
-         Am6 = 0.0
-         F5 = 0.0
-         Am5 = 0.0
-         s1 = Sps + Sns
-         s2 = Sigma - Sps*Del
-         s3 = Sps/(Dstr**2)
-         s4 = Sns/Dstr
-         s5 = Del*Sns + Sigma
-         ss = cexp(-Ai*Sigma)
-         DO Iout = 1 , 200
+         am6 = 0.0
+         f5 = 0.0
+         am5 = 0.0
+         s1 = sps + sns
+         s2 = sigma - sps*del
+         s3 = sps/(dstr**2)
+         s4 = sns/dstr
+         s5 = del*sns + sigma
+         ss = cexp(-ai*sigma)
+         DO iout = 1 , 200
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  IF ( Iout>I7 ) THEN
+                  IF ( iout>i7 ) THEN
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  R5 = Iout - 1
-                  Rq1 = sqrt((R5*Pi/Sns)**2+Scrk**2)
-                  Rq2 = -Rq1
-                  C4 = (Rq1*s1+s2)/(2.0*Pi)
-                  C5 = (Rq2*s1+s2)/(2.0*Pi)
-                  Bc2 = Bc/(2.0*Svkl1(Iout))*cexp(-Ai*(-s2)*(Sps+3.0*Sns)/(2.0*s1))/(2.0*Pi*Ai)
-                  Bc3 = Bc2*Svkl1(Iout)/Svkl2(Iout)
-                  Bc4 = Bc/(2.0*Svkl1(Iout))*cexp(Ai*(-s2)*(Sns-Sps)/(2.0*s1))/(2.0*Pi*Ai)
-                  Bc5 = Bc4*Svkl1(Iout)/Svkl2(Iout)
-                  F5t = 0.0
-                  Am5t = 0.0
-                  Am5tt = 0.0
-                  DO Jl = 1 , Nl
-                     Qres4(Jl) = 0.0
+                  r5 = iout - 1
+                  rq1 = sqrt((r5*pi/sns)**2+scrk**2)
+                  rq2 = -rq1
+                  c4 = (rq1*s1+s2)/(2.0*pi)
+                  c5 = (rq2*s1+s2)/(2.0*pi)
+                  bc2 = bc/(2.0*svkl1(iout))*cexp(-ai*(-s2)*(sps+3.0*sns)/(2.0*s1))/(2.0*pi*ai)
+                  bc3 = bc2*svkl1(iout)/svkl2(iout)
+                  bc4 = bc/(2.0*svkl1(iout))*cexp(ai*(-s2)*(sns-sps)/(2.0*s1))/(2.0*pi*ai)
+                  bc5 = bc4*svkl1(iout)/svkl2(iout)
+                  f5t = 0.0
+                  am5t = 0.0
+                  am5tt = 0.0
+                  DO jl = 1 , nl
+                     qres4(jl) = 0.0
                   ENDDO
-                  DO Iner = 1 , 200
-                     R = Iner - 1
-                     Gamp = 2.0*Pi*R - s2
-                     Gamn = -2.0*Pi*R - s2
-                     C1p = (Gamp/Dstr) - Scrk
-                     C2p = (Gamp/Dstr) + Scrk
-                     Alp = Gamp*s3 - s4*csqrt(C1p)*csqrt(C2p)
-                     Bkdel3 = Sbkde1(Iner)
-                     IF ( Iner>I6 ) THEN
-                        CALL akapm(Alp,Bkdel3)
-                        Sbkde1(Iner) = Bkdel3
+                  DO iner = 1 , 200
+                     r = iner - 1
+                     gamp = 2.0*pi*r - s2
+                     gamn = -2.0*pi*r - s2
+                     c1p = (gamp/dstr) - scrk
+                     c2p = (gamp/dstr) + scrk
+                     alp = gamp*s3 - s4*csqrt(c1p)*csqrt(c2p)
+                     bkdel3 = sbkde1(iner)
+                     IF ( iner>i6 ) THEN
+                        CALL akapm(alp,bkdel3)
+                        sbkde1(iner) = bkdel3
                      ENDIF
-                     t1 = Alp*Sps - Gamp
-                     t2 = Alp*Dstr**2 - Gamp*Sps
-                     Sum1 = Sumsv1(Iout)*cexp(Ai*t1)*Bkdel3*t1/(t2*Svkl1(Iout)*(Alp-Rq1))
-                     Sum3 = Sumsv2(Iout)*cexp(Ai*t1)*Bkdel3*t1/(t2*Svkl2(Iout)*(Alp-Rq2))
-                     IF ( Iner/=1 ) THEN
-                        C1n = (Gamn/Dstr) - Scrk
-                        C2n = (Gamn/Dstr) + Scrk
-                        Aln = Gamn*s3 - s4*csqrt(C1n)*csqrt(C2n)
-                        Bkdel3 = Sbkde2(Iner)
-                        IF ( Iner>I6 ) THEN
-                           CALL akapm(Aln,Bkdel3)
-                           Sbkde2(Iner) = Bkdel3
+                     t1 = alp*sps - gamp
+                     t2 = alp*dstr**2 - gamp*sps
+                     sum1 = sumsv1(iout)*cexp(ai*t1)*bkdel3*t1/(t2*svkl1(iout)*(alp-rq1))
+                     sum3 = sumsv2(iout)*cexp(ai*t1)*bkdel3*t1/(t2*svkl2(iout)*(alp-rq2))
+                     IF ( iner/=1 ) THEN
+                        c1n = (gamn/dstr) - scrk
+                        c2n = (gamn/dstr) + scrk
+                        aln = gamn*s3 - s4*csqrt(c1n)*csqrt(c2n)
+                        bkdel3 = sbkde2(iner)
+                        IF ( iner>i6 ) THEN
+                           CALL akapm(aln,bkdel3)
+                           sbkde2(iner) = bkdel3
                         ENDIF
-                        t1 = Aln*Sps - Gamn
-                        t2 = Aln*Dstr**2 - Gamn*Sps
-                        Sum2 = Sumsv1(Iout)*cexp(Ai*t1)*Bkdel3*t1/(t2*Svkl1(Iout)*(Aln-Rq1))
-                        Sum4 = Sumsv2(Iout)*cexp(Ai*t1)*Bkdel3*t1/(t2*Svkl2(Iout)*(Aln-Rq2))
+                        t1 = aln*sps - gamn
+                        t2 = aln*dstr**2 - gamn*sps
+                        sum2 = sumsv1(iout)*cexp(ai*t1)*bkdel3*t1/(t2*svkl1(iout)*(aln-rq1))
+                        sum4 = sumsv2(iout)*cexp(ai*t1)*bkdel3*t1/(t2*svkl2(iout)*(aln-rq2))
                      ENDIF
-                     IF ( Iner==1 ) Sum2 = 0.0
-                     IF ( Iner==1 ) Sum4 = 0.0
-                     C1p = cexp(-Ai*(Alp-Del)*Sps)
-                     C2p = cexp(-Ai*(Alp-Del)*Sns)
-                     C1n = cexp(-Ai*(Aln-Del)*Sps)
-                     C2n = cexp(-Ai*(Aln-Del)*Sns)
-                     F5t = F5t + (Sum1+Sum3)*Ai*ss/(Alp-Del)*(C1p-C2p) + (Sum2+Sum4)*ss*Ai/(Aln-Del)*(C1n-C2n)
-                     Am5t = Am5t + (Sum1+Sum3)*ss*(Ai*Sps*C1p/(Alp-Del)-Ai*Sns*C2p/(Alp-Del)+1.0/((Alp-Del)**2)*(C1p-C2p)           &
-                          & +Ai*(2.0-Sps)/(Alp-Del)*(C1p-C2p)) + (Sum2+Sum4)*ss*(Ai*Sps*C1n/(Aln-Del)-Ai*Sns*C2n/(Aln-Del)          &
-                          & +1.0/((Aln-Del)**2)*(C1n-C2n)+Ai*(2.0-Sps)/(Aln-Del)*(C1n-C2n))
-                     temp = (Sps-Sns)/Rl1
-                     const = (Sum1+Sum3)*ss
-                     const2 = (Sum2+Sum4)*ss
-                     c1a = -Ai*(Alp-Del)
-                     c2a = -Ai*(Aln-Del)
-                     cexp1 = cexp(c1a*Sns)
-                     cexp2 = cexp(c2a*Sns)
+                     IF ( iner==1 ) sum2 = 0.0
+                     IF ( iner==1 ) sum4 = 0.0
+                     c1p = cexp(-ai*(alp-del)*sps)
+                     c2p = cexp(-ai*(alp-del)*sns)
+                     c1n = cexp(-ai*(aln-del)*sps)
+                     c2n = cexp(-ai*(aln-del)*sns)
+                     f5t = f5t + (sum1+sum3)*ai*ss/(alp-del)*(c1p-c2p) + (sum2+sum4)*ss*ai/(aln-del)*(c1n-c2n)
+                     am5t = am5t + (sum1+sum3)*ss*(ai*sps*c1p/(alp-del)-ai*sns*c2p/(alp-del)+1.0/((alp-del)**2)*(c1p-c2p)           &
+                          & +ai*(2.0-sps)/(alp-del)*(c1p-c2p)) + (sum2+sum4)*ss*(ai*sps*c1n/(aln-del)-ai*sns*c2n/(aln-del)          &
+                          & +1.0/((aln-del)**2)*(c1n-c2n)+ai*(2.0-sps)/(aln-del)*(c1n-c2n))
+                     temp = (sps-sns)/rl1
+                     const = (sum1+sum3)*ss
+                     const2 = (sum2+sum4)*ss
+                     c1a = -ai*(alp-del)
+                     c2a = -ai*(aln-del)
+                     cexp1 = cexp(c1a*sns)
+                     cexp2 = cexp(c2a*sns)
                      cexp1a = cexp(c1a*temp)
                      cexp2a = cexp(c2a*temp)
-                     DO Jl = 1 , Nl
-                        Qres4(Jl) = Qres4(Jl) - (const*cexp1+const2*cexp2)
+                     DO jl = 1 , nl
+                        qres4(jl) = qres4(jl) - (const*cexp1+const2*cexp2)
                         cexp1 = cexp1*cexp1a
                         cexp2 = cexp2*cexp2a
                      ENDDO
-                     Betnp = (2.0*R*Pi-s5)/s1
-                     Betnn = (-2.0*R*Pi-s5)/s1
-                     C1p = cexp(-2.0*Pi*R*Ai*Sns/s1)
-                     C2p = cexp(-2.0*Pi*R*Ai*Sps/s1)
-                     C1n = cexp(2.0*Pi*R*Ai*Sns/s1)
-                     C2n = cexp(2.0*Pi*R*Ai*Sps/s1)
-                     t1 = cexp(-Ai*Betnp*Sps)
-                     t2 = cexp(-Ai*Betnp*Sns)
-                     t3 = cexp(-Ai*Betnn*Sps)
-                     t4 = cexp(-Ai*Betnn*Sns)
-                     Ca1 = Ai*ss/Betnp*(t1-t2)
-                     Ca2 = Ai*ss/Betnn*(t3-t4)
-                     Ca3 = ss*(Ai*Sps/Betnp*t1-Ai*Sns*t2/Betnp+(t1-t2)/Betnp**2+(2.0-Sps)*Ai/Betnp*(t1-t2))
-                     Ca4 = ss*(Ai*Sps*t3/Betnn-Ai*Sns*t4/Betnn+(t3-t4)/Betnn**2+(2.0-Sps)*Ai/Betnn*(t3-t4))
-                     IF ( Iner>1 ) THEN
-                        F5t = F5t - Sumsv1(Iout)*((Bc2*C1p-Bc4*C2p)/(R-C4)*Ca1-(Bc2*C1n-Bc4*C2n)/(R+C4)*Ca2) - Sumsv2(Iout)         &
-                            & *((Bc3*C1p-Bc5*C2p)/(R-C5)*Ca1-(Bc3*C1n-Bc5*C2n)/(R+C5)*Ca2)
-                        Am5t = Am5t - Sumsv1(Iout)*((Bc2*C1p-Bc4*C2p)/(R-C4)*Ca3-(Bc2*C1n-Bc4*C2n)/(R+C4)*Ca4) - Sumsv2(Iout)       &
-                             & *((Bc3*C1p-Bc5*C2p)/(R-C5)*Ca3-(Bc3*C1n-Bc5*C2n)/(R+C5)*Ca4)
-                        temp = (Sps-Sns)/Rl1
-                        const = (Bc2*C1p-Bc4*C2p)/(R-C4)
-                        const2 = (Bc2*C1n-Bc4*C2n)/(R+C4)
-                        const3 = (Bc3*C1p-Bc5*C2p)/(R-C5)
-                        const4 = (Bc3*C1n-Bc5*C2n)/(R+C5)
-                        const5 = ss*Sumsv1(Iout)
-                        const6 = ss*Sumsv2(Iout)
-                        c1a = -Ai*Betnp
-                        c2a = -Ai*Betnn
-                        cexp1 = cexp(c1a*Sns)
-                        cexp2 = cexp(c2a*Sns)
+                     betnp = (2.0*r*pi-s5)/s1
+                     betnn = (-2.0*r*pi-s5)/s1
+                     c1p = cexp(-2.0*pi*r*ai*sns/s1)
+                     c2p = cexp(-2.0*pi*r*ai*sps/s1)
+                     c1n = cexp(2.0*pi*r*ai*sns/s1)
+                     c2n = cexp(2.0*pi*r*ai*sps/s1)
+                     t1 = cexp(-ai*betnp*sps)
+                     t2 = cexp(-ai*betnp*sns)
+                     t3 = cexp(-ai*betnn*sps)
+                     t4 = cexp(-ai*betnn*sns)
+                     ca1 = ai*ss/betnp*(t1-t2)
+                     ca2 = ai*ss/betnn*(t3-t4)
+                     ca3 = ss*(ai*sps/betnp*t1-ai*sns*t2/betnp+(t1-t2)/betnp**2+(2.0-sps)*ai/betnp*(t1-t2))
+                     ca4 = ss*(ai*sps*t3/betnn-ai*sns*t4/betnn+(t3-t4)/betnn**2+(2.0-sps)*ai/betnn*(t3-t4))
+                     IF ( iner>1 ) THEN
+                        f5t = f5t - sumsv1(iout)*((bc2*c1p-bc4*c2p)/(r-c4)*ca1-(bc2*c1n-bc4*c2n)/(r+c4)*ca2) - sumsv2(iout)         &
+                            & *((bc3*c1p-bc5*c2p)/(r-c5)*ca1-(bc3*c1n-bc5*c2n)/(r+c5)*ca2)
+                        am5t = am5t - sumsv1(iout)*((bc2*c1p-bc4*c2p)/(r-c4)*ca3-(bc2*c1n-bc4*c2n)/(r+c4)*ca4) - sumsv2(iout)       &
+                             & *((bc3*c1p-bc5*c2p)/(r-c5)*ca3-(bc3*c1n-bc5*c2n)/(r+c5)*ca4)
+                        temp = (sps-sns)/rl1
+                        const = (bc2*c1p-bc4*c2p)/(r-c4)
+                        const2 = (bc2*c1n-bc4*c2n)/(r+c4)
+                        const3 = (bc3*c1p-bc5*c2p)/(r-c5)
+                        const4 = (bc3*c1n-bc5*c2n)/(r+c5)
+                        const5 = ss*sumsv1(iout)
+                        const6 = ss*sumsv2(iout)
+                        c1a = -ai*betnp
+                        c2a = -ai*betnn
+                        cexp1 = cexp(c1a*sns)
+                        cexp2 = cexp(c2a*sns)
                         cexp1a = cexp(c1a*temp)
                         cexp2a = cexp(c2a*temp)
-                        DO Jl = 1 , Nl
-                           Qres4(Jl) = Qres4(Jl) + const5*(const*cexp1-const2*cexp2) + const6*(const3*cexp1-const4*cexp2)
+                        DO jl = 1 , nl
+                           qres4(jl) = qres4(jl) + const5*(const*cexp1-const2*cexp2) + const6*(const3*cexp1-const4*cexp2)
                            cexp1 = cexp1*cexp1a
                            cexp2 = cexp2*cexp2a
                         ENDDO
                      ELSE
-                        F5t = F5t - Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)/(R-C4)*Ca1 - Sumsv2(Iout)*(Bc3*C1p-Bc5*C2p)/(R-C5)*Ca1
-                        Am5t = Am5t - Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)/(R-C4)*Ca3 - Sumsv2(Iout)*(Bc3*C1p-Bc5*C2p)/(R-C5)*Ca3
-                        temp = (Sps-Sns)/Rl1
-                        const = ss*Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)/(R-C4)
-                        const2 = ss*Sumsv2(Iout)*(Bc3*C1p-Bc5*C2p)/(R-C5)
-                        c1a = -Ai*Betnp
-                        cexp1 = cexp(c1a*Sns)
+                        f5t = f5t - sumsv1(iout)*(bc2*c1p-bc4*c2p)/(r-c4)*ca1 - sumsv2(iout)*(bc3*c1p-bc5*c2p)/(r-c5)*ca1
+                        am5t = am5t - sumsv1(iout)*(bc2*c1p-bc4*c2p)/(r-c4)*ca3 - sumsv2(iout)*(bc3*c1p-bc5*c2p)/(r-c5)*ca3
+                        temp = (sps-sns)/rl1
+                        const = ss*sumsv1(iout)*(bc2*c1p-bc4*c2p)/(r-c4)
+                        const2 = ss*sumsv2(iout)*(bc3*c1p-bc5*c2p)/(r-c5)
+                        c1a = -ai*betnp
+                        cexp1 = cexp(c1a*sns)
                         cexp1a = cexp(c1a*temp)
-                        DO Jl = 1 , Nl
-                           Qres4(Jl) = Qres4(Jl) + const*cexp1 + const2*cexp1
+                        DO jl = 1 , nl
+                           qres4(jl) = qres4(jl) + const*cexp1 + const2*cexp1
                            cexp1 = cexp1*cexp1a
                         ENDDO
                      ENDIF
-                     IF ( cabs((Am5tt-Am5t)/Am5t)<0.001 ) THEN
+                     IF ( cabs((am5tt-am5t)/am5t)<0.001 ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
-                     Am5tt = Am5t
+                     am5tt = am5t
                   ENDDO
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                CASE (2)
-                  IF ( Iner>I6 ) I6 = Iner
-                  F5 = F5 + F5t
-                  Am5 = Am5 + Am5t
-                  DO Jl = 1 , Nl
-                     Pres4(Jl) = Pres4(Jl) + Qres4(Jl)
+                  IF ( iner>i6 ) i6 = iner
+                  f5 = f5 + f5t
+                  am5 = am5 + am5t
+                  DO jl = 1 , nl
+                     pres4(jl) = pres4(jl) + qres4(jl)
                   ENDDO
-                  Alp1 = (2.0*Pi*C4-Del*Sns-Sigma)/s1
-                  Alp2 = (2.0*Pi*C5-Del*Sns-Sigma)/s1
-                  t1 = 1.0 - cexp(-2.0*Pi*Ai*C4)
-                  t2 = 1.0 - cexp(-2.0*Pi*Ai*C5)
-                  C1p = cexp(-2.0*Pi*Ai*C4*Sns/s1)/(t1)
-                  C2p = cexp(2.0*Pi*Ai*C4*Sns/s1)/(t1)
-                  C1n = cexp(-2.0*Pi*Ai*C5*Sns/s1)/(t2)
-                  C2n = cexp(2.0*Pi*Ai*C5*Sns/s1)/(t2)
-                  t1 = cexp(-Ai*Sps*Alp1)
-                  t2 = cexp(-Ai*Sns*Alp1)
-                  t3 = cexp(-Ai*Sps*Alp2)
-                  t4 = cexp(-Ai*Sns*Alp2)
-                  Ca1 = Ai*ss/Alp1*(t1-t2)
-                  Ca2 = Ai*ss/Alp2*(t3-t4)
-                  Ca3 = ss*(Ai*Sps*t1/Alp1-Ai*Sns*t2/Alp1+(t1-t2)/Alp1**2+(2.0-Sps)*Ai/Alp1*(t1-t2))
-                  Ca4 = ss*(Ai*Sps*t3/Alp2-Ai*Sns*t4/Alp2+(t3-t4)/Alp2**2+(2.0-Sps)*Ai/Alp2*(t3-t4))
-                  F5 = F5 - 2.0*Pi*Ai*Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)*Ca1 - 2.0*Pi*Ai*Sumsv2(Iout)*(Bc3*C1n-Bc5*C2n)*Ca2
-                  Am5 = Am5 - 2.0*Pi*Ai*Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)*Ca3 - 2.0*Pi*Ai*Sumsv2(Iout)*(Bc3*C1n-Bc5*C2n)*Ca4
-                  temp = (Sps-Sns)/Rl1
-                  const = ss*2.0*Pi*Ai
-                  const2 = const*Sumsv1(Iout)*(Bc2*C1p-Bc4*C2p)
-                  const3 = const*Sumsv2(Iout)*(Bc3*C1n-Bc5*C2n)
-                  c1a = -Ai*Alp1
-                  c2a = -Ai*Alp2
-                  cexp1 = cexp(c1a*Sns)
-                  cexp2 = cexp(c2a*Sns)
+                  alp1 = (2.0*pi*c4-del*sns-sigma)/s1
+                  alp2 = (2.0*pi*c5-del*sns-sigma)/s1
+                  t1 = 1.0 - cexp(-2.0*pi*ai*c4)
+                  t2 = 1.0 - cexp(-2.0*pi*ai*c5)
+                  c1p = cexp(-2.0*pi*ai*c4*sns/s1)/(t1)
+                  c2p = cexp(2.0*pi*ai*c4*sns/s1)/(t1)
+                  c1n = cexp(-2.0*pi*ai*c5*sns/s1)/(t2)
+                  c2n = cexp(2.0*pi*ai*c5*sns/s1)/(t2)
+                  t1 = cexp(-ai*sps*alp1)
+                  t2 = cexp(-ai*sns*alp1)
+                  t3 = cexp(-ai*sps*alp2)
+                  t4 = cexp(-ai*sns*alp2)
+                  ca1 = ai*ss/alp1*(t1-t2)
+                  ca2 = ai*ss/alp2*(t3-t4)
+                  ca3 = ss*(ai*sps*t1/alp1-ai*sns*t2/alp1+(t1-t2)/alp1**2+(2.0-sps)*ai/alp1*(t1-t2))
+                  ca4 = ss*(ai*sps*t3/alp2-ai*sns*t4/alp2+(t3-t4)/alp2**2+(2.0-sps)*ai/alp2*(t3-t4))
+                  f5 = f5 - 2.0*pi*ai*sumsv1(iout)*(bc2*c1p-bc4*c2p)*ca1 - 2.0*pi*ai*sumsv2(iout)*(bc3*c1n-bc5*c2n)*ca2
+                  am5 = am5 - 2.0*pi*ai*sumsv1(iout)*(bc2*c1p-bc4*c2p)*ca3 - 2.0*pi*ai*sumsv2(iout)*(bc3*c1n-bc5*c2n)*ca4
+                  temp = (sps-sns)/rl1
+                  const = ss*2.0*pi*ai
+                  const2 = const*sumsv1(iout)*(bc2*c1p-bc4*c2p)
+                  const3 = const*sumsv2(iout)*(bc3*c1n-bc5*c2n)
+                  c1a = -ai*alp1
+                  c2a = -ai*alp2
+                  cexp1 = cexp(c1a*sns)
+                  cexp2 = cexp(c2a*sns)
                   cexp1a = cexp(c1a*temp)
                   cexp2a = cexp(c2a*temp)
-                  DO Jl = 1 , Nl
-                     Pres4(Jl) = Pres4(Jl) + const2*cexp1 + const3*cexp2
+                  DO jl = 1 , nl
+                     pres4(jl) = pres4(jl) + const2*cexp1 + const3*cexp2
                      cexp1 = cexp1*cexp1a
                      cexp2 = cexp2*cexp2a
                   ENDDO
-                  IF ( cabs((Am5-Am6)/Am5)<0.0009 ) THEN
+                  IF ( cabs((am5-am6)/am5)<0.0009 ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Am6 = Am5
+                  am6 = am5
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         WRITE (Ibbout,99001) Ufm
+         WRITE (ibbout,99001) ufm
 99001    FORMAT (A23,' - AMG MODULE -SUBROUTINE SUBCC.  AM5 LOOP DID NOT',' CONVERGE.')
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         Clift = F1 + F2 - F2p + F4 + F5
-         Cmomt = Am1 + Am2 - Am2p + Am4 + Am5 - Amoaxs*Clift
+         clift = f1 + f2 - f2p + f4 + f5
+         cmomt = am1 + am2 - am2p + am4 + am5 - amoaxs*clift
          RETURN
       CASE (3)
 !
-         WRITE (Ibbout,99002) Ufm
+         WRITE (ibbout,99002) ufm
 99002    FORMAT (A23,' - AMG MODULE -SUBROUTINE SUBCC.  AM5T LOOP DID NOT',' CONVERGE.')
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         WRITE (Ibbout,99003) Ufm , I7
+         WRITE (ibbout,99003) ufm , i7
 99003    FORMAT (A23,' - AMG MODULE -SUBROUTINE SUBCC.  OUTER LOOP OF AM5',' EXCEEDED I7 (',I6,1H))
          spag_nextblock_1 = 5
       CASE (5)

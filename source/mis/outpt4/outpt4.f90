@@ -1,16 +1,17 @@
-!*==outpt4.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==outpt4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE outpt4
-USE C_BLANK
-USE C_DSNAME
-USE C_MACHIN
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_dsname
+   USE c_machin
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -107,25 +108,25 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         sparse = P2<0
-         P2 = iabs(P2)
-         IF ( P2>10 .AND. P2<=24 ) THEN
-            bo = P3/=1
-            Ii = 1
-            Incr = 1
-            lcor = korsz(X(1))
-            buf1 = lcor - Ibuff
+         sparse = p2<0
+         p2 = iabs(p2)
+         IF ( p2>10 .AND. p2<=24 ) THEN
+            bo = p3/=1
+            ii = 1
+            incr = 1
+            lcor = korsz(x(1))
+            buf1 = lcor - ibuff
 !
             fm = unf
             IF ( bo ) fm = fmd
 !WKBNB
             IF ( .NOT.(bo .OR. ifirst/=0) ) THEN
-               CLOSE (UNIT=P2)
-               OPEN (UNIT=P2,STATUS='NEW',ACCESS='SEQUENTIAL',FORM=fm,ERR=20,FILE=Dsnames(P2))
+               CLOSE (UNIT=p2)
+               OPEN (UNIT=p2,STATUS='NEW',ACCESS='SEQUENTIAL',FORM=fm,ERR=20,FILE=dsnames(p2))
             ENDIF
             ifirst = 1
 !WBKNE
-            IF ( P1==-1 .OR. P1==-3 ) REWIND P2
+            IF ( p1==-1 .OR. p1==-3 ) REWIND p2
 !
             DO ipt = 1 , 5
                spag_nextblock_2 = 1
@@ -143,15 +144,15 @@ USE ISO_FORTRAN_ENV
                            IF ( trl(4)>=1 .AND. trl(4)<=8 ) THEN
                               nc = trl(2)
                               nr = trl(3)
-                              Itu = trl(5)
-                              IF ( nc/=0 .AND. nr/=0 .AND. (Itu>=1 .AND. Itu<=4) ) THEN
-                                 nwds = Nwd(Itu)
+                              itu = trl(5)
+                              IF ( nc/=0 .AND. nr/=0 .AND. (itu>=1 .AND. itu<=4) ) THEN
+                                 nwds = nwd(itu)
                                  IF ( nr*nwds>=buf1 ) CALL mesage(-8,lcor,sub)
-                                 dp = Itu==2 .OR. Itu==4
+                                 dp = itu==2 .OR. itu==4
                                  sp = .NOT.dp
-                                 cp = sp .AND. P3==3 .AND. Nbpw>=60
+                                 cp = sp .AND. p3==3 .AND. nbpw>=60
                                  IF ( cp ) sp = .FALSE.
-                                 IF ( bo .AND. sparse .AND. nc>2000 ) WRITE (Nout,99001) Uwm
+                                 IF ( bo .AND. sparse .AND. nc>2000 ) WRITE (nout,99001) uwm
 99001                            FORMAT (A25,' FROM OUTPUT4 MODULE. ON ASCII TAPE AND SPARSE ',                                     &
                                    &'MATRIX OUTPUT, EACH STRING OF DATA IS WRITTEN OUT TO THE',/5X,                                 &
                                    &'OUTPUT TAPE AS A FORTRAN FORMATTED REDORD. FATAL ERROR',                                       &
@@ -159,7 +160,7 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN INPUT DATA BLOCK TO READ WITH REWIND
 !
-                                 CALL open(*40,input,X(buf1),0)
+                                 CALL open(*40,input,x(buf1),0)
                                  CALL fwdrec(*40,input)
 !
                                  block(1) = input
@@ -168,8 +169,8 @@ USE ISO_FORTRAN_ENV
 !     SET FORM (TRL(4)) TO NEGATIVE IF ASCII RECORDS IS REQUESTED
 !
                                  k = -trl(4)
-                                 IF ( .NOT.bo ) WRITE (P2) nc , nr , trl(4) , Itu , name
-                                 IF ( bo ) WRITE (P2,99007) nc , nr , k , Itu , name
+                                 IF ( .NOT.bo ) WRITE (p2) nc , nr , trl(4) , itu , name
+                                 IF ( bo ) WRITE (p2,99007) nc , nr , k , itu , name
 !
                                  IF ( sparse ) THEN
 !
@@ -186,7 +187,7 @@ USE ISO_FORTRAN_ENV
 !     BLOCK(5) = POINTER TO STRING IN XNS ARRAY
 !     BLOCK(6) = NO. OF TERMS IN STRING
 !
-                                       nwords = Nwd(Itu)
+                                       nwords = nwd(itu)
                                        nword1 = nwords - 1
                                        DO k = 1 , nc
                                          block(8) = -1
@@ -209,9 +210,9 @@ USE ISO_FORTRAN_ENV
 !
 !                   ZERO REPLACED   EXACT LENGTH OF XNS, OR DXNS
 !                               /   /
-                                         IF ( sp ) WRITE (P2,99008) k , mrow , ln , (xns(j),j=j1,j2)
-                                         IF ( cp ) WRITE (P2,99009) k , mrow , ln , (xns(j),j=j1,j2)
-                                         IF ( dp ) WRITE (P2,99010) k , mrow , ln , (dxns(j),j=j1,j2)
+                                         IF ( sp ) WRITE (p2,99008) k , mrow , ln , (xns(j),j=j1,j2)
+                                         IF ( cp ) WRITE (p2,99009) k , mrow , ln , (xns(j),j=j1,j2)
+                                         IF ( dp ) WRITE (p2,99010) k , mrow , ln , (dxns(j),j=j1,j2)
                                          ELSE
                                          ln = block(6)*nwords
                                          j1 = block(5)*nwords - nword1
@@ -221,7 +222,7 @@ USE ISO_FORTRAN_ENV
                                          ix(nw) = block(4) + 65536*block(6)
                                          l = 1
                                          DO j = j1 , j2
-                                         X(l+nw) = xns(j)
+                                         x(l+nw) = xns(j)
                                          l = l + 1
                                          ENDDO
                                          nw = nw + ln
@@ -229,7 +230,7 @@ USE ISO_FORTRAN_ENV
                                          ENDIF
                                          CALL endget(block)
                                          ENDDO
- 2                                       IF ( nw>0 ) WRITE (P2) k , zero , nw , (X(j),j=1,nw)
+ 2                                       IF ( nw>0 ) WRITE (p2) k , zero , nw , (x(j),j=1,nw)
 !
                                        ENDDO
                                        GOTO 6
@@ -243,19 +244,19 @@ USE ISO_FORTRAN_ENV
 !     WRITE THE MATRIX COLUMNS FROM FIRST TO LAST NON-ZERO TERMS
 !
                                  DO k = 1 , nc
-                                    Ii = 0
-                                    CALL unpack(*4,input,X)
-                                    Jj = (Jj-Ii+1)*nwds
+                                    ii = 0
+                                    CALL unpack(*4,input,x)
+                                    jj = (jj-ii+1)*nwds
                                     IF ( .NOT.(bo) ) THEN
 !
-                                       WRITE (P2) k , Ii , Jj , (X(l),l=1,Jj)
+                                       WRITE (p2) k , ii , jj , (x(l),l=1,jj)
                                        CYCLE
                                     ENDIF
 !
- 4                                  m = Jj/2
-                                    IF ( sp ) WRITE (P2,99008) k , Ii , Jj , (X(l),l=1,Jj)
-                                    IF ( cp ) WRITE (P2,99009) k , Ii , Jj , (X(l),l=1,Jj)
-                                    IF ( dp ) WRITE (P2,99010) k , Ii , Jj , (dx(l),l=1,m)
+ 4                                  m = jj/2
+                                    IF ( sp ) WRITE (p2,99008) k , ii , jj , (x(l),l=1,jj)
+                                    IF ( cp ) WRITE (p2,99009) k , ii , jj , (x(l),l=1,jj)
+                                    IF ( dp ) WRITE (p2,99010) k , ii , jj , (dx(l),l=1,m)
 !
 !
                                  ENDDO
@@ -266,14 +267,14 @@ USE ISO_FORTRAN_ENV
  6                               m = 1
                                  k = nc + 1
                                  IF ( bo ) THEN
-                                    IF ( sp ) WRITE (P2,99008) k , m , m , rzero
-                                    IF ( cp .OR. dp ) WRITE (P2,99009) k , m , m , rzero
+                                    IF ( sp ) WRITE (p2,99008) k , m , m , rzero
+                                    IF ( cp .OR. dp ) WRITE (p2,99009) k , m , m , rzero
                                  ELSE
-                                    WRITE (P2) k , m , m , rzero
+                                    WRITE (p2) k , m , m , rzero
                                  ENDIF
                                  ds = dns
                                  IF ( sparse ) ds = spa
-                                 WRITE (Nout,99002) Uim , name , P2 , inp(P2-10) , fm , ds , (trl(l),l=2,7)
+                                 WRITE (nout,99002) uim , name , p2 , inp(p2-10) , fm , ds , (trl(l),l=2,7)
 99002                            FORMAT (A29,' FROM OUTPUT4 MODULE. DATA BLOCK ',2A4,' WAS WRITTEN',' OUT TO FORTRAN TAPE',I3,' (', &
                                   & A4,')',/5X,'IN ',A11,' RECORDS. ',A6,' MATRIX FORM.  TRAILER =',5I6,I9)
                                  CALL close(input,1)
@@ -291,34 +292,33 @@ USE ISO_FORTRAN_ENV
                               CYCLE SPAG_DispatchLoop_2
                            ENDIF
                         ENDDO
-                        IF ( bo ) WRITE (P2,99011) Uwm , input , name , (trl(j),j=2,7)
-                        WRITE (Nout,99011) Uwm , input , name , (trl(j),j=2,7)
+                        IF ( bo ) WRITE (p2,99011) uwm , input , name , (trl(j),j=2,7)
+                        WRITE (nout,99011) uwm , input , name , (trl(j),j=2,7)
                         CALL close(input,1)
                      ENDIF
-                     CYCLE
                   CASE (2)
 !
 !     KELM, MELM AND BELM (AND HKELM, HMELM AND HBELM) TALBES
 !
-                     IF ( sparse ) WRITE (Nout,99003) Uwm , name , P2 , P3
+                     IF ( sparse ) WRITE (nout,99003) uwm , name , p2 , p3
 99003                FORMAT (A25,'. PARAMETER P2 FOR SPARSE MATRIX IS MEANINGLESS FOR',' THE ',2A8,' INPUT FILE.   P2,P3 =',2I4,/)
-                     CALL open(*40,input,X(buf1),0)
+                     CALL open(*40,input,x(buf1),0)
                      CALL fwdrec(*40,input)
                      k = -trl(4)
-                     IF ( .NOT.bo ) WRITE (P2) nc , nr , trl(4) , Itu , name
-                     IF ( bo ) WRITE (P2,99007) nc , nr , k , Itu , name
+                     IF ( .NOT.bo ) WRITE (p2) nc , nr , trl(4) , itu , name
+                     IF ( bo ) WRITE (p2,99007) nc , nr , k , itu , name
                      j = 1
                      k = 0
                      IF ( i<4 ) THEN
                         dp = trl(2)==2
                         sp = .NOT.dp
-                        cp = sp .AND. P3==3 .AND. Nbpw>=60
+                        cp = sp .AND. p3==3 .AND. nbpw>=60
                         IF ( cp ) sp = .FALSE.
                      ENDIF
                      spag_nextblock_2 = 3
                   CASE (3)
                      k = k + 1
-                     CALL read(*10,*8,input,X,buf1-1,1,m)
+                     CALL read(*10,*8,input,x,buf1-1,1,m)
                      CALL mesage(-8,0,sub)
  8                   IF ( i>=4 ) THEN
 !
@@ -327,30 +327,30 @@ USE ISO_FORTRAN_ENV
 !
                         ndict = ix(3) + 5
                         DO i = 8 , m , ndict
-                           ix(i) = ifix(X(i)*100000000.)
+                           ix(i) = ifix(x(i)*100000000.)
                         ENDDO
-                        IF ( .NOT.bo ) WRITE (P2) k , j , m , (ix(l),l=1,m)
-                        IF ( bo .AND. .NOT.cp ) WRITE (P2,99012) k , j , m , (ix(l),l=1,m)
-                        IF ( bo .AND. cp ) WRITE (P2,99013) k , j , m , (ix(l),l=1,m)
+                        IF ( .NOT.bo ) WRITE (p2) k , j , m , (ix(l),l=1,m)
+                        IF ( bo .AND. .NOT.cp ) WRITE (p2,99012) k , j , m , (ix(l),l=1,m)
+                        IF ( bo .AND. cp ) WRITE (p2,99013) k , j , m , (ix(l),l=1,m)
                      ELSEIF ( bo ) THEN
 !
                         IF ( dp ) THEN
                            m = m/2
-                           WRITE (P2,99010) k , j , m , (dx(l),l=1,m)
+                           WRITE (p2,99010) k , j , m , (dx(l),l=1,m)
                         ELSE
-                           IF ( sp ) WRITE (P2,99008) k , j , m , (X(l),l=1,m)
-                           IF ( cp ) WRITE (P2,99009) k , j , m , (X(l),l=1,m)
+                           IF ( sp ) WRITE (p2,99008) k , j , m , (x(l),l=1,m)
+                           IF ( cp ) WRITE (p2,99009) k , j , m , (x(l),l=1,m)
                         ENDIF
                      ELSE
-                        WRITE (P2) k , j , m , (X(l),l=1,m)
+                        WRITE (p2) k , j , m , (x(l),l=1,m)
                      ENDIF
                      spag_nextblock_2 = 3
                      CYCLE SPAG_DispatchLoop_2
 !
- 10                  IF ( .NOT.bo ) WRITE (P2) k , j , j , zero
-                     IF ( bo .AND. .NOT.cp ) WRITE (P2,99012) k , j , j , zero
-                     IF ( bo .AND. cp ) WRITE (P2,99013) k , j , j , zero
-                     IF ( ndict/=0 ) WRITE (Nout,99004) Uim , name , inp(P2-10)
+ 10                  IF ( .NOT.bo ) WRITE (p2) k , j , j , zero
+                     IF ( bo .AND. .NOT.cp ) WRITE (p2,99012) k , j , j , zero
+                     IF ( bo .AND. cp ) WRITE (p2,99013) k , j , j , zero
+                     IF ( ndict/=0 ) WRITE (nout,99004) uim , name , inp(p2-10)
 99004                FORMAT (A29,'. THE DAMPING CONSTANT TERMS FROM ',2A4,' WERE ','MULTIPLIED BY 10**8, AND INTEGERIZED',/5X,      &
                             &'BEFORE WRITING OUT TO ',A4,' OUTPUT FILE')
                      CALL close(input,1)
@@ -360,21 +360,21 @@ USE ISO_FORTRAN_ENV
 !
             ENDDO
 !
-            IF ( P1==-2 .OR. P1==-3 ) THEN
-               ENDFILE P2
-               REWIND P2
-               CLOSE (UNIT=P2)
+            IF ( p1==-2 .OR. p1==-3 ) THEN
+               ENDFILE p2
+               REWIND p2
+               CLOSE (UNIT=p2)
             ENDIF
             RETURN
          ENDIF
 !
 !     ERRORS
 !
- 20      WRITE (Nout,99005) Ufm , P2
+ 20      WRITE (nout,99005) ufm , p2
 99005    FORMAT (A23,'. CANNOT OPEN OUTPUT FORTRAN FILE. UNIT =',I4)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 40      WRITE (Nout,99006) Uwm , input
+ 40      WRITE (nout,99006) uwm , input
 99006    FORMAT (A25,'. OUTPT4 CANNOT OPEN INPUT DATA BLOCK',I5)
          spag_nextblock_1 = 2
       CASE (2)

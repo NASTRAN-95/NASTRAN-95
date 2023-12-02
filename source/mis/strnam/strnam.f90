@@ -1,10 +1,11 @@
-!*==strnam.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strnam.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strnam(Ielt,Iscan,Name)
+   USE c_system
+   USE c_xscanx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XSCANX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -125,11 +126,11 @@ SUBROUTINE strnam(Ielt,Iscan,Name)
       IF ( kscan==7 ) Name = 'FLEX-T'
       IF ( kscan==0 ) Name = 'FLEX-C'
    ELSEIF ( Ielt/=64 .AND. Ielt/=83 ) THEN
-      WRITE (Nout,99001) Ielt
+      WRITE (nout,99001) Ielt
 99001 FORMAT (//,' SCAN MODULE PROCESSING UNKNOWN ELEMENT NUMBER ',I8,//)
       CALL mesage(-61,0,0)
 ! QUAD4, TRIA3 WITHOUT LAMINATION
-   ELSEIF ( Layerd ) THEN
+   ELSEIF ( layerd ) THEN
 !   QUAD4 AND TRIA3 WITH LAMINATION
       kscan = mod(Iscan,10)
       IF ( Iscan==5 ) Name = 'NORMAL-1'

@@ -1,13 +1,14 @@
-!*==dtranp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dtranp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dtranp
+   USE c_blank
+   USE c_system
+   USE c_trnspx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TRNSPX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -27,26 +28,26 @@ SUBROUTINE dtranp
 !
    DATA in1 , in2/101 , 201/
 !
-   Ia(1) = in1
-   CALL rdtrl(Ia(1))
-   IF ( Ia(1)>0 ) THEN
-      Iat(1) = in2
-      Iat(2) = Ia(3)
-      Iat(3) = Ia(2)
-      Iat(4) = Ia(4)
-      Iat(5) = Ia(5)
-      Iat(6) = 0
-      Iat(7) = 0
-      Lcore = korsz(Core)
-      Nscr = 8
-      DO i = 1 , Nscr
-         Iscr(i) = 300 + i
+   ia(1) = in1
+   CALL rdtrl(ia(1))
+   IF ( ia(1)>0 ) THEN
+      iat(1) = in2
+      iat(2) = ia(3)
+      iat(3) = ia(2)
+      iat(4) = ia(4)
+      iat(5) = ia(5)
+      iat(6) = 0
+      iat(7) = 0
+      lcore = korsz(core)
+      nscr = 8
+      DO i = 1 , nscr
+         iscr(i) = 300 + i
       ENDDO
-      IF ( Ixx==1 ) Ixx = -123457890
-      CALL trnsp(Core(1))
-      CALL wrttrl(Iat(1))
+      IF ( ixx==1 ) ixx = -123457890
+      CALL trnsp(core(1))
+      CALL wrttrl(iat(1))
    ELSE
-      WRITE (Nout,99001) Uwm
+      WRITE (nout,99001) uwm
 99001 FORMAT (A25,' FROM TRNSP, MISSING INPUT DATA BLOCK FOR MATRIX ','TRANSPOSE')
    ENDIF
 !

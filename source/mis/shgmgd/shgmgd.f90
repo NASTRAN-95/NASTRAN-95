@@ -1,11 +1,12 @@
-!*==shgmgd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shgmgd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shgmgd(Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha) !HIDESTARS (*,Elid,Tem,Mid,Ts,Noalfa,G,Rho,Gsube,Tsub0,Egnor,Alpha)
-USE C_MATIN
-USE C_MATOUT
-USE C_TERMS
-USE ISO_FORTRAN_ENV                 
+   USE c_matin
+   USE c_matout
+   USE c_terms
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -107,7 +108,7 @@ USE ISO_FORTRAN_ENV
    Rho = 0.0D0
    Gsube = 0.0
    Tsub0 = 0.0
-   Inflag = 12
+   inflag = 12
    igobk = 0
    it0 = 0
 !
@@ -130,37 +131,37 @@ USE ISO_FORTRAN_ENV
          igobk = 1
          m = 2
          Mid(3) = 0
-         Shrflx = .FALSE.
+         shrflx = .FALSE.
 !              0.833333333D0 = 5.0D0/6.0D0
          Ts = 0.833333333D0
       ELSE
          IF ( m==4 .AND. igobk==1 ) EXIT SPAG_Loop_1_1
-         Matid = Mid(m)
-         IF ( Matid==0 .AND. m/=3 ) CYCLE
-         IF ( Matid==0 .AND. m==3 .AND. .NOT.Bendng ) CYCLE
-         IF ( Matid==0 .AND. m==3 .AND. Bendng ) Matid = Mid(2)
+         matid = Mid(m)
+         IF ( matid==0 .AND. m/=3 ) CYCLE
+         IF ( matid==0 .AND. m==3 .AND. .NOT.bendng ) CYCLE
+         IF ( matid==0 .AND. m==3 .AND. bendng ) matid = Mid(2)
 !
          IF ( m>=1 ) THEN
             IF ( m/=1 ) THEN
-               IF ( Matid==Mid(m-1) .AND. igobk==0 ) GOTO 20
+               IF ( matid==Mid(m-1) .AND. igobk==0 ) GOTO 20
             ENDIF
             CALL mat(Elid)
-            tmtset = Matset
-            IF ( Matset==8.0 ) tmtset = 3.0
+            tmtset = matset
+            IF ( matset==8.0 ) tmtset = 3.0
             mtype = ifix(tmtset+0.05) - 2
          ENDIF
 !
 !     SET THE MISC ITEMS
 !
- 20      IF ( Membrn .AND. m==1 ) Rho = dble(Rhox)
-         IF ( .NOT.(Membrn .AND. m/=1 .OR. .NOT.Membrn .AND. m/=2) ) THEN
-            Gsube = Ge
-            IF ( mtype>0 ) Gsube = E
+ 20      IF ( membrn .AND. m==1 ) Rho = dble(rhox)
+         IF ( .NOT.(membrn .AND. m/=1 .OR. .NOT.membrn .AND. m/=2) ) THEN
+            Gsube = ge
+            IF ( mtype>0 ) Gsube = e
          ENDIF
          IF ( it0<=0 ) THEN
             it0 = 1
-            Tsub0 = Tref
-            IF ( mtype>0 ) Tsub0 = Alph12
+            Tsub0 = tref
+            IF ( mtype>0 ) Tsub0 = alph12
          ENDIF
 !
 !     BRANCH ON MATERIAL TYPE
@@ -179,10 +180,10 @@ USE ISO_FORTRAN_ENV
 !     G(LPOINT+4) = G(LPOINT+1)
 !     IF (G(LPOINT+1).EQ.0.0 .AND. SHRFLX) GO TO 300
 !
-               G(lpoint+1) = G33
-               G(lpoint+4) = G33
-               IF ( G33==0.0 .AND. Shrflx ) GOTO 40
-               GOTO 60
+               G(lpoint+1) = g33
+               G(lpoint+4) = g33
+               IF ( .NOT.(g33==0.0 .AND. shrflx) ) GOTO 60
+               GOTO 40
             ENDIF
          ELSEIF ( mtype==0 ) THEN
 !
@@ -200,22 +201,22 @@ USE ISO_FORTRAN_ENV
 !
             IF ( m==3 ) THEN
 !
-               IF ( Shrflx ) THEN
+               IF ( shrflx ) THEN
 !
-                  G(lpoint+1) = G11
-                  G(lpoint+2) = G12
-                  G(lpoint+3) = G12
-                  G(lpoint+4) = G22
-                  IF ( G33/=0.0 ) GOTO 40
-                  GOTO 60
+                  G(lpoint+1) = g11
+                  G(lpoint+2) = g12
+                  G(lpoint+3) = g12
+                  G(lpoint+4) = g22
+                  IF ( g33==0.0 ) GOTO 60
+                  GOTO 40
                ELSE
-                  IF ( G11/=0.0 .AND. G22/=0.0 ) THEN
-                     dn21 = G12/G11
-                     dn12 = G12/G22
+                  IF ( g11/=0.0 .AND. g22/=0.0 ) THEN
+                     dn21 = g12/g11
+                     dn12 = g12/g22
                      const = dn21*dn12
                      IF ( const>=0.0D0 ) THEN
-                        ps1 = dble(G11)*(1.0D0-const)
-                        ps2 = dble(G22)*(1.0D0-const)
+                        ps1 = dble(g11)*(1.0D0-const)
+                        ps2 = dble(g22)*(1.0D0-const)
                         IF ( const>0.0D0 ) const = dsqrt(const)
                         const = 2.0D0*(1.0D0+const)
                         G(lpoint+1) = ps1/const
@@ -231,14 +232,14 @@ USE ISO_FORTRAN_ENV
 !
          ELSEIF ( m==3 ) THEN
 !
-            IF ( Shrflx ) THEN
+            IF ( shrflx ) THEN
 !
 ! 270 G(LPOINT+1) = MATOUT(5)        <== COSMIC (5) & (6) INTERCHANGED
 !     G(LPOINT+4) = MATOUT(6)
                G(lpoint+1) = g1z
                G(lpoint+4) = g2z
-               IF ( g1z==0.0 .AND. g2z==0.0 ) GOTO 40
-               GOTO 60
+               IF ( g1z/=0.0 .OR. g2z/=0.0 ) GOTO 60
+               GOTO 40
             ELSE
                IF ( e1/=0.0 ) THEN
                   nu21 = nu12*e2/e1
@@ -266,20 +267,20 @@ USE ISO_FORTRAN_ENV
             ENDIF
             GOTO 60
          ENDIF
-         G(lpoint+1) = G11
-         G(lpoint+2) = G12
-         G(lpoint+3) = G13
-         G(lpoint+4) = G12
-         G(lpoint+5) = G22
-         G(lpoint+6) = G23
-         G(lpoint+7) = G13
-         G(lpoint+8) = G23
-         G(lpoint+9) = G33
+         G(lpoint+1) = g11
+         G(lpoint+2) = g12
+         G(lpoint+3) = g13
+         G(lpoint+4) = g12
+         G(lpoint+5) = g22
+         G(lpoint+6) = g23
+         G(lpoint+7) = g13
+         G(lpoint+8) = g23
+         G(lpoint+9) = g33
          GOTO 60
 !
 !     BAD SHEAR MATERIAL
 !
- 40      IF ( .NOT.(.NOT.Shrflx .AND. Bendng) ) RETURN 1
+ 40      IF ( .NOT.(.NOT.shrflx .AND. bendng) ) RETURN 1
 !
 !     TRANSFORM NON-ISOTROPIC MATERIALS
 !
@@ -317,23 +318,23 @@ USE ISO_FORTRAN_ENV
 !
 !     MAT1
 !
-               Alpha(morb+1) = Alph1
-               Alpha(morb+2) = Alph1
+               Alpha(morb+1) = alph1
+               Alpha(morb+2) = alph1
                Alpha(morb+3) = 0.0D0
                CYCLE
             ELSEIF ( mtype==0 ) THEN
 !
 !     MAT2
 !
-               Alpha(morb+1) = Alph1
-               Alpha(morb+2) = Alph2
-               Alpha(morb+3) = Alph12
+               Alpha(morb+1) = alph1
+               Alpha(morb+2) = alph2
+               Alpha(morb+3) = alph12
             ELSE
 !
 !     MAT8
 !
-               Alpha(morb+1) = Alph1
-               Alpha(morb+2) = Alph2
+               Alpha(morb+1) = alph1
+               Alpha(morb+2) = alph2
                Alpha(morb+3) = 0.0D0
             ENDIF
 !
@@ -352,7 +353,7 @@ USE ISO_FORTRAN_ENV
 !
 !     SAVE PSEUDO E'S AND G'S FOR SHEAR FACTOR CALCULATIONS
 !
-   IF ( Bendng ) THEN
+   IF ( bendng ) THEN
       Egnor(1) = G(10)
       Egnor(2) = G(14)
       Egnor(3) = G(19)

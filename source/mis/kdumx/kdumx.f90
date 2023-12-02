@@ -1,9 +1,10 @@
-!*==kdumx.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==kdumx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kdumx
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -19,74 +20,86 @@ SUBROUTINE kdumx
 !
    DATA ii/9*0/ , jj/4HKDUM/ , kk/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9/
 !
-   GOTO 99999
+   RETURN
 !
 !
    ENTRY kdum9
 !     ===========
 !
    j = 9
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum8
 !     ==========
 !
    j = 8
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum7
 !     ==========
 !
    j = 7
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum6
 !     ==========
 !
    j = 6
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum5
 !     ==========
 !
    j = 5
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum4
 !     ==========
 !
    j = 4
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum3
 !     ==========
 !
    j = 3
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum2
 !     ==========
 !
    j = 2
-   GOTO 100
+   CALL spag_block_1
+   RETURN
 !
 !
    ENTRY kdum1
 !     ==========
 !
    j = 1
+   CALL spag_block_1
+CONTAINS
+   SUBROUTINE spag_block_1
 !     GO TO 10
 !
- 100  IF ( ii(j)==0 ) THEN
-      ii(j) = 1
-      WRITE (Nout,99001) Uwm , jj , kk(j)
-99001 FORMAT (A25,' 2182, SUBROUTINE ',2A4,' IS DUMMY.  ONLY ONE OF ','THESE MESSAGES WILL APPEAR PER OVERLAY OF THIS DECK.')
-   ENDIF
-99999 END SUBROUTINE kdumx
+      IF ( ii(j)==0 ) THEN
+         ii(j) = 1
+         WRITE (nout,99001) uwm , jj , kk(j)
+99001    FORMAT (A25,' 2182, SUBROUTINE ',2A4,' IS DUMMY.  ONLY ONE OF ','THESE MESSAGES WILL APPEAR PER OVERLAY OF THIS DECK.')
+      ENDIF
+   END SUBROUTINE spag_block_1
+END SUBROUTINE kdumx

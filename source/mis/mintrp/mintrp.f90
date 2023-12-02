@@ -1,13 +1,14 @@
-!*==mintrp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mintrp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mintrp(Ni,Xi,Nd,Xd,Type,Symm1,Symk1,Dz,Infile,Outfil,Scr,Scr1,G,Ncore,Nogo,Ipres)
-USE C_MPYADX
-USE C_PACKX
-USE C_SADDX
-USE C_SYSTEM
-USE C_UNPAKX
-USE ISO_FORTRAN_ENV                 
+   USE c_mpyadx
+   USE c_packx
+   USE c_saddx
+   USE c_system
+   USE c_unpakx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -66,7 +67,7 @@ USE ISO_FORTRAN_ENV
          kd = 0
          IF ( ity>3 ) kd = 1
          ncol = (1+kd)*Nd
-         IF ( Sysbuf+ncol*Ni>Ncore ) CALL mesage(-8,0,name)
+         IF ( sysbuf+ncol*Ni>Ncore ) CALL mesage(-8,0,name)
 !
 !     PROTECT AGAINST BAD CALL
          IF ( Symk1<0 ) Symk1 = -1
@@ -112,80 +113,80 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
 !     PUT OUT G
-         buff = Ncore - Sysbuf + 1
+         buff = Ncore - sysbuf + 1
          nimag = .TRUE.
          IF ( ity==3 .OR. ity==6 ) nimag = .FALSE.
          IF ( .NOT.(nimag) ) THEN
-            Iti = Scr
+            iti = Scr
             Scr = Outfil
-            Outfil = Iti
+            Outfil = iti
          ENDIF
-         Ito = 1
+         ito = 1
          jj = ncol
-         Iti = 1
-         Nn = Ni
-         B(3) = Ni
-         B(5) = 1
+         iti = 1
+         nn = Ni
+         b(3) = Ni
+         b(5) = 1
          gpoint = 1
          spag_nextblock_1 = 2
       CASE (2)
-         Incr = 1
+         incr = 1
          j = 1
-         Ii = 1
-         B(1) = Scr
-         B(2) = 0
-         B(4) = 2
-         B(6) = 0
-         B(7) = 0
+         ii = 1
+         b(1) = Scr
+         b(2) = 0
+         b(4) = 2
+         b(6) = 0
+         b(7) = 0
          CALL gopen(Scr,G(buff),1)
          DO i = j , jj
-            CALL pack(G(gpoint),Scr,B)
+            CALL pack(G(gpoint),Scr,b)
             gpoint = gpoint + Ni
          ENDDO
          CALL close(Scr,1)
-         CALL wrttrl(B)
+         CALL wrttrl(b)
          IF ( .NOT.(spec) ) THEN
 !
 !     MULT INFILE BY G
 !
-            C(1) = 0
-            A(1) = Infile
-            CALL rdtrl(A)
-            D(1) = Outfil
-            D(3) = A(3)
-            D(4) = 2
-            D(5) = A(5)
-            IF ( ity==2 .OR. ity==5 ) D(5) = 1
-            IF ( D(5)==1 .AND. A(5)==4 ) D(5) = 2
-            Nwords = Ncore
-            Nt = 0
-            Isab = 1
-            Ipre = Ipres
-            Scrm = Scr1
+            c(1) = 0
+            a(1) = Infile
+            CALL rdtrl(a)
+            d(1) = Outfil
+            d(3) = a(3)
+            d(4) = 2
+            d(5) = a(5)
+            IF ( ity==2 .OR. ity==5 ) d(5) = 1
+            IF ( d(5)==1 .AND. a(5)==4 ) d(5) = 2
+            nwords = Ncore
+            nt = 0
+            isab = 1
+            ipre = Ipres
+            scrm = Scr1
             CALL mpyad(G,G,G)
-            CALL wrttrl(D)
+            CALL wrttrl(d)
             IF ( .NOT.(nimag) ) THEN
 !
 !     IMAG PART ONLY WANTED
 !
-               Nmat = 1
-               Lcore = Ncore
-               Ma(1) = Outfil
-               CALL rdtrl(Ma)
-               Ita = 3
-               Alpha(1) = (0.0,-1.0)
-               Mc(1) = Scr
-               Mc(2) = Ma(2)
-               Mc(3) = Ma(3)
-               Mc(4) = 2
-               Mc(5) = Ma(5)
-               Mc(6) = 0
-               Mc(7) = 0
+               nmat = 1
+               lcore = Ncore
+               ma(1) = Outfil
+               CALL rdtrl(ma)
+               ita = 3
+               alpha(1) = (0.0,-1.0)
+               mc(1) = Scr
+               mc(2) = ma(2)
+               mc(3) = ma(3)
+               mc(4) = 2
+               mc(5) = ma(5)
+               mc(6) = 0
+               mc(7) = 0
                ai = -1.0D0
-               IF ( Ma(5)==4 ) Ita = 4
-               IF ( Ita==4 ) ar = 0.0D0
+               IF ( ma(5)==4 ) ita = 4
+               IF ( ita==4 ) ar = 0.0D0
                CALL sadd(G,G)
-               CALL wrttrl(Mc)
+               CALL wrttrl(mc)
             ENDIF
          ENDIF
          RETURN
@@ -193,14 +194,14 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK OUT COLUMN OF INFILE
 !
-         A(1) = Infile
-         CALL rdtrl(A)
-         buff = Ncore - Sysbuf + 1
+         a(1) = Infile
+         CALL rdtrl(a)
+         buff = Ncore - sysbuf + 1
          CALL gopen(Infile,G(buff),0)
-         Incru = 1
-         In = 1
-         Nnn = A(3)
-         Iout = A(5)
+         incru = 1
+         in = 1
+         nnn = a(3)
+         iout = a(5)
          IF ( k/=1 ) THEN
             k = k - 1
             CALL skprec(Infile,k)
@@ -209,16 +210,16 @@ USE ISO_FORTRAN_ENV
          CALL close(Infile,1)
          spec = .TRUE.
          Scr = Outfil
-         Iti = A(5)
-         Nn = A(3)
+         iti = a(5)
+         nn = a(3)
          jj = 1
          gpoint = 1
          IF ( ity==3 ) gpoint = 2
-         Ito = 1
-         IF ( ity==1 ) Ito = 3
-         IF ( A(5)==4 ) Ito = Ito + 1
-         B(3) = A(3)
-         B(5) = Ito
+         ito = 1
+         IF ( ity==1 ) ito = 3
+         IF ( a(5)==4 ) ito = ito + 1
+         b(3) = a(3)
+         b(5) = ito
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  20      CALL mesage(-7,0,name)

@@ -2,9 +2,9 @@
  
 SUBROUTINE gfsmrg(Filea,File11,File21,File12,File22,Rpart,Cpart)
    IMPLICIT NONE
-   USE C_PARMEG
-   USE C_PATX
-   USE C_ZZZZZZ
+   USE c_parmeg
+   USE c_patx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +21,15 @@ SUBROUTINE gfsmrg(Filea,File11,File21,File12,File22,Rpart,Cpart)
    INTEGER , DIMENSION(7) :: cp , rp
    INTEGER :: i
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -65,45 +74,45 @@ SUBROUTINE gfsmrg(Filea,File11,File21,File12,File22,Rpart,Cpart)
    IF ( Cpart/=0 ) CALL rdtrl(cp)
 !
    DO i = 2 , 7
-      Ia(i) = 0
-      Ia11(i) = 0
-      Ia12(i) = 0
-      Ia21(i) = 0
-      Ia22(i) = 0
+      ia(i) = 0
+      ia11(i) = 0
+      ia12(i) = 0
+      ia21(i) = 0
+      ia22(i) = 0
    ENDDO
 !
-   Ia11(1) = File11
-   IF ( File11/=0 ) CALL rdtrl(Ia11)
-   IF ( Ia11(1)<0 ) Ia11(1) = 0
-   Ia12(1) = File12
-   IF ( File12/=0 ) CALL rdtrl(Ia12)
-   IF ( Ia12(1)<0 ) Ia12(1) = 0
-   Ia21(1) = File21
-   IF ( File21/=0 ) CALL rdtrl(Ia21)
-   IF ( Ia21(1)<0 ) Ia21(1) = 0
-   Ia22(1) = File22
-   IF ( File22/=0 ) CALL rdtrl(Ia22)
-   IF ( Ia22(1)<0 ) Ia22(1) = 0
+   ia11(1) = File11
+   IF ( File11/=0 ) CALL rdtrl(ia11)
+   IF ( ia11(1)<0 ) ia11(1) = 0
+   ia12(1) = File12
+   IF ( File12/=0 ) CALL rdtrl(ia12)
+   IF ( ia12(1)<0 ) ia12(1) = 0
+   ia21(1) = File21
+   IF ( File21/=0 ) CALL rdtrl(ia21)
+   IF ( ia21(1)<0 ) ia21(1) = 0
+   ia22(1) = File22
+   IF ( File22/=0 ) CALL rdtrl(ia22)
+   IF ( ia22(1)<0 ) ia22(1) = 0
 !
 !     SET UP MATRIX CONTROL BLOCK FOR OUTPUT
 !
-   Ia(1) = Filea
-   Ia(4) = 2
-   IF ( Rpart/=0 .AND. Cpart/=0 ) Ia(4) = 1
-   Ia(5) = max0(Ia11(5),Ia12(5),Ia21(5),Ia22(5))
+   ia(1) = Filea
+   ia(4) = 2
+   IF ( Rpart/=0 .AND. Cpart/=0 ) ia(4) = 1
+   ia(5) = max0(ia11(5),ia12(5),ia21(5),ia22(5))
 !
 !     SET UP DUMMY PARTITION VECTOR
 !
    i = 0
-   Core(1) = 0
-   Core(i+2) = 1
-   Core(i+3) = Ia(2)
-   Core(i+4) = 2
-   Core(i+5) = 1
-   Core(i+6) = 0
+   core(1) = 0
+   core(i+2) = 1
+   core(i+3) = ia(2)
+   core(i+4) = 2
+   core(i+5) = 1
+   core(i+6) = 0
 !
-   Rule = 0
-   Lcr = korsz(Core)
+   rule = 0
+   lcr = korsz(core)
 !
    IF ( Rpart==0 ) THEN
 !
@@ -116,29 +125,28 @@ SUBROUTINE gfsmrg(Filea,File11,File21,File12,File22,Rpart,Cpart)
          CALL mesage(-7,0,name)
          GOTO 99999
       ELSE
-         Ia(2) = max0(Ia11(2),Ia21(2))
-         Ia(3) = Nsub0 + Nsub1
-         CALL merge(Core,cp,Core)
+         ia(2) = max0(ia11(2),ia21(2))
+         ia(3) = nsub0 + nsub1
+         CALL merge(core,cp,core)
       ENDIF
    ELSEIF ( Cpart==0 ) THEN
 !
 !     ROW MERGE
 !
-      Ia(2) = Nsub0 + Nsub1
-      Ia(3) = max0(Ia11(3),Ia12(3))
-      CALL merge(rp,Core,Core)
+      ia(2) = nsub0 + nsub1
+      ia(3) = max0(ia11(3),ia12(3))
+      CALL merge(rp,core,core)
    ELSE
 !
 !     FULL MERGE
 !
-      Ia(2) = Nsub0 + Nsub1
-      Ia(3) = Ia(2)
-      CALL merge(rp,cp,Core)
+      ia(2) = nsub0 + nsub1
+      ia(3) = ia(2)
+      CALL merge(rp,cp,core)
    ENDIF
 !
 !     WRITE TRIALER FOR OUTPUT
 !
-   CALL wrttrl(Ia)
+   CALL wrttrl(ia)
 !
-   RETURN
 99999 END SUBROUTINE gfsmrg

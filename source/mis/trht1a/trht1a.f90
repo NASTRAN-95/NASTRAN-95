@@ -1,17 +1,18 @@
-!*==trht1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trht1a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
+   USE c_bitpos
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_trdd1
+   USE c_trhtx
+   USE c_two
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TRDD1
-   USE C_TRHTX
-   USE C_TWO
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,15 +50,15 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
       CASE (1)
 !
 !
-         nz = korsz(Z)
+         nz = korsz(z)
          nx = nz
-         ibuf1 = nz - Sysbuf + 1
-         nz = nz - Sysbuf
+         ibuf1 = nz - sysbuf + 1
+         nz = nz - sysbuf
          CALL gopen(Casexx,iz(ibuf1),0)
          CALL fread(Casexx,iz(1),166,1)
          CALL close(Casexx,1)
          itstep = iz(38)
-         Nlftp1 = iz(160)
+         nlftp1 = iz(160)
          intmp = iz(9)
          inltmp = iz(8)
 !
@@ -95,11 +96,11 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
             k = igroup + i - 2
             iz(k) = iz(i)
          ENDDO
-         ibuf1 = nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
          nz = ibuf2
-         CALL gopen(Iscr5,iz(ibuf1),1)
-         CALL write(Iscr5,iz(igroup),iflag-1,1)
+         CALL gopen(iscr5,iz(ibuf1),1)
+         CALL write(iscr5,iz(igroup),iflag-1,1)
          file = Usetd
 !
 !     BRING IN USETD
@@ -113,8 +114,8 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
 !
 !     BUILD SIL TO SILD CONVERTER TABLE
 !
-         mskue = Two1(Iue)
-         mskud = Two1(Iud)
+         mskue = two1(iue)
+         mskud = two1(iud)
          m = 1
          l = 0
          DO i = 1 , lusetd
@@ -133,7 +134,7 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
 !     FIND STUFF IN GPTT
 !
          its = intmp
-         CALL makmcb(mcb,Iscr5,m-1,2,1)
+         CALL makmcb(mcb,iscr5,m-1,2,1)
          ns = 0
          file = Gptt
          CALL open(*120,Gptt,iz(ibuf2),0)
@@ -179,11 +180,11 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
 !     FOUND TEMP SET
 !
          tdflt = 0.0
-         IF ( iz(k+1)/=-1 ) tdflt = Z(k+1)
+         IF ( iz(k+1)/=-1 ) tdflt = z(k+1)
          m = l + iflag
          DO i = 1 , l
             j = m + i
-            Z(j) = tdflt
+            z(j) = tdflt
          ENDDO
 !
 !     RECORD NUMBER OF TEMP SET FOUND
@@ -202,10 +203,10 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
                ipos = ipos - 1
             ELSEIF ( ns==ipos ) THEN
                DO
-                  CALL read(*140,*100,Gptt,A,2,0,iflg)
+                  CALL read(*140,*100,Gptt,a,2,0,iflg)
                   IF ( ia(1)>0 ) THEN
                      j = ia(1) + m
-                     Z(j) = A(2)
+                     z(j) = a(2)
                   ENDIF
                ENDDO
             ELSE
@@ -222,28 +223,28 @@ SUBROUTINE trht1a(Casexx,Usetd,Gptt,Trl,Ngroup)
          inext = m + 1
          DO i = 1 , l
             j = m + i
-            Ii = iz(i) + m
-            IF ( Ii/=m ) THEN
-               IF ( Ii/=inext ) THEN
-                  DO k = inext , Ii
-                     Z(k) = 0.0
+            ii = iz(i) + m
+            IF ( ii/=m ) THEN
+               IF ( ii/=inext ) THEN
+                  DO k = inext , ii
+                     z(k) = 0.0
                   ENDDO
                ENDIF
-               Z(Ii) = Z(j)
-               inext = Ii + 1
+               z(ii) = z(j)
+               inext = ii + 1
             ENDIF
          ENDDO
          j = inext - (m+1)
-         CALL write(Iscr5,Z(m+1),j,0)
+         CALL write(iscr5,z(m+1),j,0)
          spag_nextblock_1 = 5
       CASE (5)
-         CALL write(Iscr5,Z(1),0,1)
+         CALL write(iscr5,z(1),0,1)
          mcb(2) = mcb(2) + 1
          IF ( mcb(2)==2 ) THEN
 !
 !     ALL DONE
 !
-            CALL close(Iscr5,1)
+            CALL close(iscr5,1)
             CALL close(Gptt,1)
             CALL wrttrl(mcb)
             RETURN

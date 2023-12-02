@@ -2,9 +2,9 @@
  
 SUBROUTINE timts2
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -19,6 +19,12 @@ SUBROUTINE timts2
    INTEGER , DIMENSION(16) , SAVE :: los , med , tig
    INTEGER , SAVE :: m8
    INTEGER , DIMENSION(4) :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -38,34 +44,34 @@ SUBROUTINE timts2
 !     INITIALIZE
 !
    CALL page1
-   WRITE (output,99001) N , M , Type , Opt1
+   WRITE (output,99001) n , m , type , opt1
 99001 FORMAT (1H ,20X,25HNASTRAN TIME TEST D   N =,I4,5H, M =,I4,8H, TYPE =,I4,8H, OPT1 =,I4)
-   buf1 = korsz(A) - sysbuf
+   buf1 = korsz(a) - sysbuf
    buf2 = buf1 - sysbuf
-   end = N*M
+   end = n*m
    IF ( end>=buf1-1 ) CALL mesage(m8,0,isubr)
 !
 !     CPU TIME TESTS
 !
-   p = 4*(Type-1) + 1
-   asq = M + N
+   p = 4*(type-1) + 1
+   asq = m + n
    adno = 1/(asq*asq)
    adnd = adno
    adnc = cmplx(adno,adno)
    end2 = end/2
    end4 = end/4
-   IF ( Type==2 ) THEN
+   IF ( type==2 ) THEN
 !
 !     DOUBLE PRECISION TESTS
 !
 !
-      IF ( M>end2 .OR. N>end2 ) CALL mesage(m8,0,isubr)
+      IF ( m>end2 .OR. n>end2 ) CALL mesage(m8,0,isubr)
       DO i = 1 , end2
          ad(i) = adnd
       ENDDO
       CALL cputim(t1,t1,1)
-      DO i = 1 , N
-         DO j = 1 , M
+      DO i = 1 , n
+         DO j = 1 , m
             dd(j) = ad(j)*bd(j) + cd(j)
          ENDDO
       ENDDO
@@ -75,18 +81,18 @@ SUBROUTINE timts2
       name(2) = tig(p+1)
       name(3) = tig(p+2)
       name(4) = tig(p+3)
-   ELSEIF ( Type==3 ) THEN
+   ELSEIF ( type==3 ) THEN
 !
 !     COMPLEX SINGLE PRECISION TESTS
 !
 !
-      IF ( M>end2 .OR. N>end2 ) CALL mesage(m8,0,isubr)
+      IF ( m>end2 .OR. n>end2 ) CALL mesage(m8,0,isubr)
       DO i = 1 , end2
          ac(i) = adnc
       ENDDO
       CALL cputim(t1,t1,1)
-      DO i = 1 , N
-         DO j = 1 , M
+      DO i = 1 , n
+         DO j = 1 , m
             dc(j) = ac(j)*bc(j) + cc(j)
          ENDDO
       ENDDO
@@ -96,18 +102,18 @@ SUBROUTINE timts2
       name(2) = tig(p+1)
       name(3) = tig(p+2)
       name(4) = tig(p+3)
-   ELSEIF ( Type==4 ) THEN
+   ELSEIF ( type==4 ) THEN
 !
 !     DOUBLE PRECISION COMPLEX TESTS
 !
 !
-      IF ( M>end4 .OR. N>end4 ) CALL mesage(m8,0,isubr)
+      IF ( m>end4 .OR. n>end4 ) CALL mesage(m8,0,isubr)
       DO i = 1 , end2
          ad(i) = adnd
       ENDDO
       CALL cputim(t1,t1,1)
-      DO i = 1 , N
-         DO j = 1 , M
+      DO i = 1 , n
+         DO j = 1 , m
 !
 !     D(J) AND D(J+1) CALCULATIONS WERE REVERSED
 !     IN ORDER TO COUNTERACT THE ITERATIVE BUILD UP
@@ -127,14 +133,14 @@ SUBROUTINE timts2
 !     REAL CPU TIME TESTS
 !
 !
-      IF ( M>end .OR. N>end ) CALL mesage(m8,0,isubr)
+      IF ( m>end .OR. n>end ) CALL mesage(m8,0,isubr)
       DO i = 1 , end
-         A(i) = adno
+         a(i) = adno
       ENDDO
       CALL cputim(t1,t1,1)
-      DO i = 1 , N
-         DO j = 1 , M
-            d(j) = A(j)*b(j) + c(j)
+      DO i = 1 , n
+         DO j = 1 , m
+            d(j) = a(j)*b(j) + c(j)
          ENDDO
       ENDDO
       CALL cputim(t2,t2,1)
@@ -150,7 +156,7 @@ SUBROUTINE timts2
 !     INTERNAL ROUTINE TO WRITE OUTPUT ONTO THE OUTPUT FILE
 !
       time = t2 - t1
-      itot = M*N
+      itot = m*n
       tperop = 1.0E6*time/itot
       IF ( iret==2 .OR. iret==5 .OR. iret==8 .OR. iret==11 ) WRITE (output,99002) name , itot , time , tperop
 !
@@ -165,12 +171,12 @@ SUBROUTINE timts2
       IF ( iret==1 ) THEN
 !
          DO i = 1 , end
-            A(i) = adno
+            a(i) = adno
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
-               d(j) = A(i)*b(j) + c(j)
+         DO i = 1 , n
+            DO j = 1 , m
+               d(j) = a(i)*b(j) + c(j)
             ENDDO
          ENDDO
          CALL cputim(t2,t2,1)
@@ -182,13 +188,13 @@ SUBROUTINE timts2
       ELSEIF ( iret==2 ) THEN
 !
          DO i = 1 , end
-            A(i) = adno
+            a(i) = adno
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                l = i + j - 1
-               d(j) = A(i)*b(l) + c(j)
+               d(j) = a(i)*b(l) + c(j)
             ENDDO
          ENDDO
          CALL cputim(t2,t2,1)
@@ -205,8 +211,8 @@ SUBROUTINE timts2
             ad(i) = adnd
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                dd(j) = ad(i)*bd(j) + cd(j)
             ENDDO
          ENDDO
@@ -222,8 +228,8 @@ SUBROUTINE timts2
             ad(i) = adnd
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                l = i + j - 1
                dd(j) = ad(i)*bd(l) + cd(j)
             ENDDO
@@ -240,8 +246,8 @@ SUBROUTINE timts2
             ac(i) = adnc
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                dc(j) = ac(i)*bc(j) + cc(j)
             ENDDO
          ENDDO
@@ -257,8 +263,8 @@ SUBROUTINE timts2
             ac(i) = adnc
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                l = i + j - 1
                dc(j) = ac(i)*bc(l) + cc(j)
             ENDDO
@@ -275,8 +281,8 @@ SUBROUTINE timts2
             ad(i) = adnd
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                dd(j) = ad(i)*bd(j) - ad(i+1)*bd(j+1) + cd(j)
                dd(j+1) = ad(i)*bd(j+1) + ad(i+1)*bd(j) + cd(j+1)
             ENDDO
@@ -293,8 +299,8 @@ SUBROUTINE timts2
             ad(i) = adnd
          ENDDO
          CALL cputim(t1,t1,1)
-         DO i = 1 , N
-            DO j = 1 , M
+         DO i = 1 , n
+            DO j = 1 , m
                l = i + j - 1
                dd(j) = ad(i)*bd(l) - ad(i+1)*bd(l+1) + cd(j)
                dd(j+1) = ad(i)*bd(l+1) + ad(i+1)*bd(l) + cd(j+1)

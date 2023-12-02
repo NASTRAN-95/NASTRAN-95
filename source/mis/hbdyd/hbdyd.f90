@@ -1,16 +1,17 @@
-!*==hbdyd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hbdyd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hbdyd
-USE C_CONDAD
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_HMTOUT
-USE C_MATIN
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -92,12 +93,12 @@ USE ISO_FORTRAN_ENV
 !
 !     GENERAL INITIALIZATION
 !
-         IF ( .NOT.Heat ) RETURN
+         IF ( .NOT.heat ) RETURN
          imhere = 0
-         IF ( Iflag>=1 .AND. Iflag<=7 ) THEN
-            IF ( Iflag==7 ) Af = Pi*(dble(R1)+dble(R2))
-            n = ngrids(Iflag)
-            dict(1) = Estid
+         IF ( iflag>=1 .AND. iflag<=7 ) THEN
+            IF ( iflag==7 ) af = pi*(dble(r1)+dble(r2))
+            n = ngrids(iflag)
+            dict(1) = estid
             dict(2) = 1
             dict(4) = 1
             dict5 = 0.0
@@ -122,14 +123,14 @@ USE ISO_FORTRAN_ENV
 !
             isize = 0
             SPAG_Loop_1_1: DO i = 1 , 8
-               IF ( Sils(i)>0 ) THEN
+               IF ( sils(i)>0 ) THEN
                   IF ( isize>0 ) THEN
                      DO j = 1 , isize
-                        IF ( Sils(i)==siltab(j) ) CYCLE SPAG_Loop_1_1
+                        IF ( sils(i)==siltab(j) ) CYCLE SPAG_Loop_1_1
                      ENDDO
                   ENDIF
                   isize = isize + 1
-                  siltab(isize) = Sils(i)
+                  siltab(isize) = sils(i)
                ENDIF
             ENDDO SPAG_Loop_1_1
             CALL sort(0,0,1,1,siltab(1),isize)
@@ -144,9 +145,9 @@ USE ISO_FORTRAN_ENV
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
                         j = 8
-                        IF ( Sils(i)>0 ) THEN
+                        IF ( sils(i)>0 ) THEN
                            DO j = 1 , isize
-                              IF ( Sils(i)==siltab(j) ) THEN
+                              IF ( sils(i)==siltab(j) ) THEN
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
                               ENDIF
@@ -166,16 +167,16 @@ USE ISO_FORTRAN_ENV
 !
 !     FORM STIFFNESS -HEAT- IF REQUESTED.
 !
-               IF ( Kmbgg(1)/=0 ) THEN
-                  Inflag = 1
-                  Eltemp = Avgtmp
-                  Matid = Matflg
-                  IF ( Matid/=0 ) THEN
+               IF ( kmbgg(1)/=0 ) THEN
+                  inflag = 1
+                  eltemp = avgtmp
+                  matid = matflg
+                  IF ( matid/=0 ) THEN
                      CALL hmat(necpt)
-                     cp = Cpx
-                     h = Hx
+                     cp = cpx
+                     h = hx
                      IF ( h/=0.0 ) THEN
-                        IF ( Iflag==2 .OR. Iflag==6 .OR. Iflag==7 ) THEN
+                        IF ( iflag==2 .OR. iflag==6 .OR. iflag==7 ) THEN
 !
 !     IFLAG = 2, (LINE OR ELLIPTIC CYL. )    **    **
 !             2 GRID POINTS           H*AF*L * 2  1 *
@@ -184,7 +185,7 @@ USE ISO_FORTRAN_ENV
 !                                            **    **
 !
                            c(1) = h
-                           c(2) = Af
+                           c(2) = af
                            c(3) = ecpt(26) - ecpt(22)
                            c(4) = ecpt(27) - ecpt(23)
                            c(5) = ecpt(28) - ecpt(24)
@@ -192,7 +193,7 @@ USE ISO_FORTRAN_ENV
                            c(2) = c(1)/2.0D0
                            c(5) = c(2)
                            c(6) = c(1)
-                        ELSEIF ( Iflag==3 ) THEN
+                        ELSEIF ( iflag==3 ) THEN
 !
 !     IFLAG = 3, (REVOLUTION), 2 GRID-POINTS     **                **
 !                                                *(3X +X )  (X + X )*
@@ -208,7 +209,7 @@ USE ISO_FORTRAN_ENV
 !     FILL CONDUCTIVITIY MATRIX
 !
                                  c(1) = h
-                                 c(2) = Pi
+                                 c(2) = pi
                                  c(3) = ecpt(26) - ecpt(22)
                                  c(4) = ecpt(28) - ecpt(24)
 !
@@ -222,11 +223,11 @@ USE ISO_FORTRAN_ENV
                                  GOTO 2
                               ENDIF
                            ENDIF
-                           WRITE (outpt,99001) Ufm , necpt(1)
+                           WRITE (outpt,99001) ufm , necpt(1)
 99001                      FORMAT (A23,' 3088, ILLEGAL GEOMETRY FOR REVOLUTION ELEMENT',I14)
-                           Nogo = .TRUE.
+                           nogo = .TRUE.
                            RETURN
-                        ELSEIF ( Iflag==4 ) THEN
+                        ELSEIF ( iflag==4 ) THEN
 !
 !     IFLAG = 4, (TRIANGLE), 3 GRID-POINTS.       **       **
 !                                                 * 2  1  1 *
@@ -251,9 +252,9 @@ USE ISO_FORTRAN_ENV
                            CALL daxb(c(1),c(4),c(1))
                            c(7) = dsqrt(c(1)**2+c(2)**2+c(3)**2)
                            IF ( c(7)<=0.0 ) THEN
-                              WRITE (outpt,99002) Ufm , necpt(1)
+                              WRITE (outpt,99002) ufm , necpt(1)
 99002                         FORMAT (A23,' 3089, ILLEGAL GEOMETRY FOR TRIANGLE ELEMENT',I14)
-                              Nogo = .TRUE.
+                              nogo = .TRUE.
                               RETURN
                            ELSE
                               c(2) = c(7)*dble(h)/24.0D0
@@ -266,7 +267,7 @@ USE ISO_FORTRAN_ENV
                               c(10) = c(2)
                               c(11) = c(1)
                            ENDIF
-                        ELSEIF ( Iflag==5 ) THEN
+                        ELSEIF ( iflag==5 ) THEN
 !
 !     IFLAG = 5, (QUADRILATERAL), 4 GRID-POINTS.
 !
@@ -323,9 +324,9 @@ USE ISO_FORTRAN_ENV
                            c(2) = a1(1)*a3(1) + a1(2)*a3(2) + a1(3)*a3(3)
                            c(3) = a1(1)*a4(1) + a1(2)*a4(2) + a1(3)*a4(3)
                            IF ( c(1)*c(2)*c(3)<=0.0D0 ) THEN
-                              WRITE (outpt,99003) Ufm , necpt(1)
+                              WRITE (outpt,99003) ufm , necpt(1)
 99003                         FORMAT (A23,' 3090, ILLEGAL GEOMETRY FOR QUAD. ELEMENT',I14)
-                              Nogo = .TRUE.
+                              nogo = .TRUE.
                               RETURN
                            ELSE
                               a1(1) = dsqrt(a1(1)**2+a1(2)**2+a1(3)**2)
@@ -351,7 +352,7 @@ USE ISO_FORTRAN_ENV
 !     IFLAG = 1, (POINT), 1 GRID-POINT.  (1 X 1)  C = H * AF
 !
                            c(1) = h
-                           c(2) = Af
+                           c(2) = af
                            c(1) = c(1)*c(2)
                         ENDIF
 !
@@ -389,22 +390,22 @@ USE ISO_FORTRAN_ENV
 !
 !     OUTPUT VIA EMGOUT THE TRIANGLE IN GLOBAL FOR STIFFNESS MATRIX
 !
-                        CALL emgout(mast(1),mast(1),k,1,dict,1,Iprec)
+                        CALL emgout(mast(1),mast(1),k,1,dict,1,iprec)
                      ENDIF
                   ENDIF
                ENDIF
 !
 !     FORM DAMPING -HEAT- IF REQUESTED.
 !
-               IF ( Kmbgg(3)/=0 ) THEN
-                  Inflag = 4
-                  Eltemp = Avgtmp
-                  Matid = Matflg
-                  IF ( Matid/=0 ) THEN
+               IF ( kmbgg(3)/=0 ) THEN
+                  inflag = 4
+                  eltemp = avgtmp
+                  matid = matflg
+                  IF ( matid/=0 ) THEN
                      CALL hmat(necpt)
-                     cp = Hx
+                     cp = hx
                      IF ( cp/=0.0 ) THEN
-                        IF ( Iflag==2 .OR. Iflag==6 .OR. Iflag==7 ) THEN
+                        IF ( iflag==2 .OR. iflag==6 .OR. iflag==7 ) THEN
 !
 !     IFLAG = 2, (LINE OR ELLIPTIC CYL. )
 !             2 GRID POINTS           CP*AF*L*      *
@@ -412,13 +413,13 @@ USE ISO_FORTRAN_ENV
 !                                        2   *      *
 !
                            c(1) = cp
-                           c(2) = Af
+                           c(2) = af
                            c(3) = ecpt(26) - ecpt(22)
                            c(4) = ecpt(27) - ecpt(23)
                            c(5) = ecpt(28) - ecpt(24)
                            c(1) = c(1)*c(2)*dsqrt(c(3)**2+c(4)**2+c(5)**2)/2.0D0
                            c(2) = c(1)
-                        ELSEIF ( Iflag==3 ) THEN
+                        ELSEIF ( iflag==3 ) THEN
 !
 !     IFLAG = 3, (REVOLUTION), 2 GRID-POINTS
 !                                               CP*PI*L *              *
@@ -426,7 +427,7 @@ USE ISO_FORTRAN_ENV
 !                                                  3    *  1  2    2  1*
 !
                            c(1) = cp
-                           c(2) = Pi
+                           c(2) = pi
                            c(3) = ecpt(26) - ecpt(22)
                            c(4) = ecpt(28) - ecpt(24)
 !
@@ -435,7 +436,7 @@ USE ISO_FORTRAN_ENV
                            c(1) = c(1)*c(2)*dsqrt(c(3)**2+c(4)**2)/3.0D0
                            c(2) = c(1)*dble(ecpt(22)+2.0*ecpt(26))
                            c(1) = c(1)*dble(2.0*ecpt(22)+ecpt(26))
-                        ELSEIF ( Iflag==4 ) THEN
+                        ELSEIF ( iflag==4 ) THEN
 !
 !     IFLAG = 4, (TRIANGLE), 3 GRID-POINTS.
 !                                          CP*A *         *
@@ -459,7 +460,7 @@ USE ISO_FORTRAN_ENV
                            c(1) = c(7)*dble(cp)/6.0D0
                            c(2) = c(1)
                            c(3) = c(1)
-                        ELSEIF ( Iflag==5 ) THEN
+                        ELSEIF ( iflag==5 ) THEN
 !
 !     IFLAG = 5, (QUADRILATERAL), 4 GRID-POINTS.
 !
@@ -520,7 +521,7 @@ USE ISO_FORTRAN_ENV
 !     IFLAG = 1, (POINT), 1 GRID-POINT.  (1 X 1)  C = CP* AF
 !
                            c(1) = cp
-                           c(2) = Af
+                           c(2) = af
                            c(1) = c(1)*c(2)
                         ENDIF
 !
@@ -542,7 +543,7 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT VIA EMGOUT THE DIAGONAL MATRIX IN GLOBAL
 !
                         dict(2) = 2
-                        CALL emgout(mast(1),mast(1),isize,1,dict,3,Iprec)
+                        CALL emgout(mast(1),mast(1),isize,1,dict,3,iprec)
                      ENDIF
                   ENDIF
                ENDIF
@@ -554,9 +555,9 @@ USE ISO_FORTRAN_ENV
 !
 !     LOGIC ERROR
 !
-         WRITE (outpt,99004) Sfm , imhere , necpt(1) , Sils
+         WRITE (outpt,99004) sfm , imhere , necpt(1) , sils
 99004    FORMAT (A25,' 3037 FROM HBDYD.',/5X,'LOGIC ERROR,  IMHERE =',I5,'  ELEMENT ID = ',I10,/5X,'SILS =',8I10)
-         Nogo = .TRUE.
+         nogo = .TRUE.
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

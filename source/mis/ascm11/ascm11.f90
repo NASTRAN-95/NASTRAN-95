@@ -1,9 +1,10 @@
-!*==ascm11.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ascm11.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ascm11(Name,Iphase,Isol,Nogo)
+   USE c_asdbd
    IMPLICIT NONE
-   USE C_ASDBD
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,51 +70,50 @@ SUBROUTINE ascm11(Name,Iphase,Isol,Nogo)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      icomnd = i
-      Irdm = 1
-      Nrdm = comnd(2,icomnd)
-      Ixtra = Irdm + 18*Nrdm
-      Nxtra = comnd(3,icomnd)
-      Ioct = Ixtra + Nxtra
-      Noct = comnd(4,icomnd)
-      Iptbs = Ioct + 3*Noct
-      Nptbs = comnd(5,icomnd)
-      Iph = Iptbs + 7*Nptbs
-      Nph = comnd(6,icomnd)
+      Icomnd = I
+      irdm = 1
+      nrdm = Comnd(2,Icomnd)
+      ixtra = irdm + 18*nrdm
+      nxtra = Comnd(3,Icomnd)
+      ioct = ixtra + nxtra
+      noct = Comnd(4,Icomnd)
+      iptbs = ioct + 3*noct
+      nptbs = Comnd(5,Icomnd)
+      iph = iptbs + 7*nptbs
+      nph = Comnd(6,Icomnd)
 !
 !     MOVE RDMAP DATA
 !
-      k = 0
-      IF ( Nrdm/=0 ) THEN
-         DO j = 1 , Nrdm
-            DO i = 1 , 18
-               k = k + 1
-               Idat(k) = rdmap(i,j)
+      K = 0
+      IF ( nrdm/=0 ) THEN
+         DO J = 1 , nrdm
+            DO I = 1 , 18
+               K = K + 1
+               idat(K) = Rdmap(I,J)
             ENDDO
          ENDDO
       ENDIF
 !
 !     MOVE XTRA DATA
 !
-      IF ( Nxtra/=0 ) THEN
-         DO i = 1 , Nxtra
-            k = k + 1
-            Idat(k) = xtra(i)
+      IF ( nxtra/=0 ) THEN
+         DO I = 1 , nxtra
+            K = K + 1
+            idat(K) = Xtra(I)
          ENDDO
       ENDIF
 !
 !     MOVE PTBS DATA
 !
-      IF ( Nptbs/=0 ) THEN
-         DO j = 1 , Nptbs
-            DO i = 1 , 7
-               k = k + 1
-               Idat(k) = ptbs(i,j)
+      IF ( nptbs/=0 ) THEN
+         DO J = 1 , nptbs
+            DO I = 1 , 7
+               K = K + 1
+               idat(K) = Ptbs(I,J)
             ENDDO
          ENDDO
       ENDIF
 !
-      RETURN
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE ascm11

@@ -1,10 +1,11 @@
-!*==dbmstf.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dbmstf.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmstf
+   USE i_dsiof
+   USE c_logout
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_LOGOUT
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -13,11 +14,11 @@ SUBROUTINE dbmstf
 !
 ! End of declarations rewritten by SPAG
 !
-   iblksz = Isysbf - 4
+   iblksz = isysbf - 4
    IF ( maxblk/=0 ) perc1 = maxblk*1.0/maxalc
    iperc1 = perc1*100.
    imemnu = (maxalc-maxblk)*lenalc
-   WRITE (Lout,99001) lenopc , idblen , maxblk , maxalc , iperc1 , maxdsk , iblksz , numopn , numcls , numwri , numrea
+   WRITE (lout,99001) lenopc , idblen , maxblk , maxalc , iperc1 , maxdsk , iblksz , numopn , numcls , numwri , numrea
 99001 FORMAT (1H1,5X,'STATISTICS ON IN-MEMORY DATA BASE AND DISK I/O USAGE',/,/,8X,                                                 &
              &' LENGTH (IN WORDS) OF OPEN CORE ALLOCATED          ',I16,/,8X,' LENGTH (IN WORDS) OF IN-MEMORY DATA BASE ALLOCATED', &
             & I16,/,8X,' NUMBER OF BLOCKS USED IN THE IN-MEMORY DATA BASE  ',I16,/,8X,                                              &
@@ -27,6 +28,6 @@ SUBROUTINE dbmstf
             & I16,/,8X,' NUMBER OF CLOSES TO DISK FILES                    ',I16,/,8X,                                              &
              &' NUMBER OF WRITES TO DISK FILES                    ',I16,/,8X,' NUMBER OF READS FROM DISK FILES                   ', &
             & I16)
-   IF ( idbdir/=0 ) WRITE (Lout,99002) imemnu
+   IF ( idbdir/=0 ) WRITE (lout,99002) imemnu
 99002 FORMAT (8X,' MEMORY (IN WORDS) NOT USED BY IN-MEM. DATA BASE   ',I16)
 END SUBROUTINE dbmstf

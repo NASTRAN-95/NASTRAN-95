@@ -1,11 +1,12 @@
-!*==sdr2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdr2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr2
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_system
    IMPLICIT NONE
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -20,11 +21,11 @@ SUBROUTINE sdr2
 !
 !     EXECUTE THE PHASES OF SDR2.
 !
-   Casecc = 101
+   casecc = 101
    CALL sdr2aa
    CALL sdr2a
-   IF ( Any/=0 ) CALL sdr2b
-   k = Loads + Spcf + Displ + Vel + Acc + Plots
+   IF ( any/=0 ) CALL sdr2b
+   k = loads + spcf + displ + vel + acc + plots
    IF ( k/=0 ) CALL sdr2c
-   IF ( Any/=0 ) CALL sdr2d
+   IF ( any/=0 ) CALL sdr2d
 END SUBROUTINE sdr2

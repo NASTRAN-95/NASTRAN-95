@@ -1,15 +1,16 @@
-!*==frd2i.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==frd2i.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,34 +46,34 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ibuf1 = Ncore - Isys
-         ibuf2 = ibuf1 - Isys
+         ibuf1 = Ncore - isys
+         ibuf2 = ibuf1 - isys
          Nrow = 0
-         Incr = 1
-         Incr1 = 1
-         Ii = 1
-         Inn = 1
+         incr = 1
+         incr1 = 1
+         ii = 1
+         inn = 1
          mcb(1) = Qhhl
          CALL rdtrl(mcb)
          IF ( mcb(1)<0 ) GOTO 40
          Nrow = mcb(3)
          ni = (mcb(2)/mcb(3))*2
-         Nnn = Nrow
-         Nn = Nrow*Nrow
-         Iti = 3
-         Ito = Iti
-         Iout = Iti
-         nwc = Iwc(Iti)
+         nnn = Nrow
+         nn = Nrow*Nrow
+         iti = 3
+         ito = iti
+         iout = iti
+         nwc = iwc(iti)
          iscr = Scr1
          nloop = 1
          indx = 0
-         xm = Rm
-         IF ( Rm<0.0 ) THEN
+         xm = rm
+         IF ( rm<0.0 ) THEN
             iscr = Scr2
             nloop = Nfreq
             indx = 1
          ENDIF
-         CALL makmcb(trl,iscr,Nn,mcb(4),Ito)
+         CALL makmcb(trl,iscr,nn,mcb(4),ito)
 !
 !     MAKE INDEPENDENT FREQ LIST
 !
@@ -82,7 +83,7 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
          icore = ibuf1
          ipi = ipd + nl
          DO i = 1 , Nfreq
-            Fl(nl) = Fl(n-i)*Twopi*Bov
+            Fl(nl) = Fl(n-i)*twopi*bov
             Fl(nl-1) = 0.0
             nl = nl - 2
          ENDDO
@@ -94,18 +95,18 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
          CALL read(*20,*20,Qhhl,Fl(ipi),-3,0,flag)
          CALL read(*20,*20,Qhhl,n,1,0,flag)
          n = n + n
-         IF ( Rm<0.0 .AND. n/=ni ) THEN
-            WRITE (Out,99001) Ufm , n , ni
+         IF ( rm<0.0 .AND. n/=ni ) THEN
+            WRITE (out,99001) ufm , n , ni
 99001       FORMAT (A23,', THE NUMBER OF (M,K) PAIRS SPECIFIED ON MKAEROX ','CARDS (',I5,') IS NOT EQUAL ',/5X,                     &
                    &'TO THE NUMBER OF FREQUENCIES SPECIFIED (',I5,'),')
             CALL mesage(-37,0,name)
          ENDIF
          ni = min0(ni,n)
          CALL read(*20,*20,Qhhl,Fl(ipi),ni,1,flag)
-         IF ( Rm<0.0 ) CALL close(Qhhl,1)
+         IF ( rm<0.0 ) CALL close(Qhhl,1)
 !
          DO kkk = 1 , nloop
-            IF ( Rm<0.0 ) THEN
+            IF ( rm<0.0 ) THEN
                xm = Fl(2*kkk)
                CALL gopen(Qhhl,Fl(ibuf2),0)
             ENDIF
@@ -160,9 +161,9 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
                   DO j = jj , kk , 2
                      Fl(j) = Fl(j)/Fl(ipi+i)
                   ENDDO
-                  IF ( Rm<0.0 ) Fl(ipi+i) = -10000.0
+                  IF ( rm<0.0 ) Fl(ipi+i) = -10000.0
                   CALL pack(Fl(icp),iscr,trl)
-                  IF ( Rm<0.0 ) EXIT SPAG_Loop_2_1
+                  IF ( rm<0.0 ) EXIT SPAG_Loop_2_1
                ELSE
 !
 !     SKIP MATRIX
@@ -178,7 +179,7 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
          CALL bug(nhfrdi,200,k,1)
          CALL bug(nhfrdi,200,Nfreq,1)
          CALL bug(nhfrdi,200,Fl(1),icp)
-         IF ( Rm<0.0 ) RETURN
+         IF ( rm<0.0 ) RETURN
 !
 !     SETUP TO CALL MINTRP
 !
@@ -188,10 +189,10 @@ SUBROUTINE frd2i(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow)
          CALL dmpfil(-Scr1,Fl(icp),nc)
          im = 0
          ik = 1
-         CALL mintrp(ni,Fl(ipi),Nfreq,Fl(ipd),-1,im,ik,0.0,Scr1,Scr2,Scr3,Scr4,Fl(icp),nc,nogo,Iprec)
+         CALL mintrp(ni,Fl(ipi),Nfreq,Fl(ipd),-1,im,ik,0.0,Scr1,Scr2,Scr3,Scr4,Fl(icp),nc,nogo,iprec)
          IF ( nogo==1 ) THEN
 !
-            WRITE (Out,99002) Ufm
+            WRITE (out,99002) ufm
 99002       FORMAT (A23,' 2271, INTERPOLATION MATRIX IS SINGULAR')
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1

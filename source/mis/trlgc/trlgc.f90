@@ -1,15 +1,16 @@
-!*==trlgc.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trlgc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
+   USE c_blank
+   USE c_condas
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_MACHIN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -108,7 +109,7 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         dec = Mach==5 .OR. Mach==6 .OR. Mach==21
+         dec = mach==5 .OR. mach==6 .OR. mach==21
          noload = 0
          mcb(1) = Tmldtb
          CALL rdtrl(mcb)
@@ -116,10 +117,10 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
          mcb(2) = 100
          igroup = 1
          Iflag = -1
-         nz = korsz(Z)
-         ibuf1 = nz - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         nz = korsz(z)
+         ibuf1 = nz - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          nz = ibuf3 - 1
          IF ( nz<=0 ) CALL mesage(-8,0,name)
 !
@@ -245,13 +246,13 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !
 !     SET UP FOR PACK
 !
-            It1 = 1
-            It2 = 1
-            Ii = 1
-            Jj = nterm
-            Incr = 1
-            CALL makmcb(mcb,Fct,nterm,2,It2)
-            CALL makmcb(mcb1,Fco,nterm,2,It2)
+            it1 = 1
+            it2 = 1
+            ii = 1
+            jj = nterm
+            incr = 1
+            CALL makmcb(mcb,Fct,nterm,2,it2)
+            CALL makmcb(mcb1,Fco,nterm,2,it2)
 !
 !     OPEN OUTPUT FILES
 !
@@ -259,18 +260,18 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
          ENDIF
          file = Tol
          to = 0.0
-         IF ( Ncont>2 ) THEN
+         IF ( ncont>2 ) THEN
 !
 !     BRING BACK LAST TIME FOR CONTINUE MODE
 !
             CALL open(*100,Tol,iz(ibuf2),0)
-            CALL fread(Tol,to,-Ncont-1,0)
+            CALL fread(Tol,to,-ncont-1,0)
             CALL fread(Tol,to,1,1)
             CALL close(Tol,1)
          ENDIF
          CALL open(*100,Tol,iz(ibuf2),1)
-         CALL fname(Tol,Za)
-         CALL write(Tol,Za,2,0)
+         CALL fname(Tol,za)
+         CALL write(Tol,za,2,0)
          IF ( noload==0 ) THEN
 !
 !     DETERMINE IF ALL TIME STEPS OUTPUT
@@ -285,7 +286,6 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
             Iflag = -1
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          Iflag = 1
          CALL gopen(Fco,iz(ibuf3),1)
@@ -301,7 +301,7 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
             nstep = iz(k)
             IF ( i==ngroup ) nstep = nstep + 1
             nout = iz(k+2)
-            deltat = Z(k+1)
+            deltat = z(k+1)
             IF ( i==1 ) nstep = nstep + 1
             DO j = 1 , nstep
                spag_nextblock_3 = 1
@@ -316,13 +316,13 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !
 !     TLOAD2  CARD2
 !
-                              tt = t - Z(ip+3) - Z(ip+4)
-                              zrad = Z(ip+7)*degra
+                              tt = t - z(ip+3) - z(ip+4)
+                              zrad = z(ip+7)*degra
                               IF ( tt==0.0 ) THEN
 !
 !     TT = 0.0  TRY  LIMITS OF EXPRESSION
 !
-                                 IF ( Z(ip+9)/=0.0 ) THEN
+                                 IF ( z(ip+9)/=0.0 ) THEN
 !
 !     FT = 0.0
 !
@@ -330,16 +330,16 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
                                  ELSE
                                     ft = cos(zrad)
                                  ENDIF
-                              ELSEIF ( tt<0.0 .OR. tt>Z(ip+5)-Z(ip+4) ) THEN
+                              ELSEIF ( tt<0.0 .OR. tt>z(ip+5)-z(ip+4) ) THEN
                                  ft = 0.0
                               ELSE
-                                 ft = tt**Z(ip+9)*exp(Z(ip+8)*tt)*cos(twopi*Z(ip+6)*tt+zrad)
+                                 ft = tt**z(ip+9)*exp(z(ip+8)*tt)*cos(twopi*z(ip+6)*tt+zrad)
                               ENDIF
                            ELSE
 !
 !     TLOAD1  CARD
 !
-                              tt = t - Z(ip+3)
+                              tt = t - z(ip+3)
                               CALL tab(iz(ip+4),tt,ft)
                            ENDIF
 !
@@ -350,36 +350,36 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !     EVALUATE  QVECT FUNCTION
 !
                               iq = (iz(ip+10)-1)*9 + iqvec
-                              tt = t - Z(ip+3)
+                              tt = t - z(ip+3)
 !
 !     CHECK FOR CONSTANT FLUX VALUE (FLOATING POINT).
 !     IF TIME DEPENDENT, CALL TABLE LOOKUP.
 !
                               iq1 = iz(iq)
-                              q1 = Z(iq)
+                              q1 = z(iq)
                               lx = numtyp(iq1)
                               IF ( dec .AND. iq1>16000 .AND. iq1<=99999999 ) lx = 1
                               IF ( iq1>0 .AND. lx==1 ) CALL tab(iq1,tt,q1)
                               iq2 = iz(iq+1)
-                              q2 = Z(iq+1)
+                              q2 = z(iq+1)
                               lx = numtyp(iq2)
                               IF ( dec .AND. iq2>16000 .AND. iq2<=99999999 ) lx = 1
                               IF ( iq2>0 .AND. lx==1 ) CALL tab(iq2,tt,q2)
                               iq3 = iz(iq+2)
-                              q3 = Z(iq+2)
+                              q3 = z(iq+2)
                               lx = numtyp(iq3)
                               IF ( dec .AND. iq3>16000 .AND. iq3<=99999999 ) lx = 1
                               IF ( iq3>0 .AND. lx==1 ) CALL tab(iq3,tt,q3)
-                              IF ( Z(iq+6)/=0.0 .OR. Z(iq+6)/=0.0 .OR. Z(iq+7)/=0.0 .OR. Z(iq+8)/=0.0 ) THEN
+                              IF ( z(iq+6)/=0.0 .OR. z(iq+6)/=0.0 .OR. z(iq+7)/=0.0 .OR. z(iq+8)/=0.0 ) THEN
 !
 !     V2   0
 !
-                                 ft = sqrt((q1*Z(iq+3)+q2*Z(iq+4)+q3*Z(iq+5))**2+(q1*Z(iq+6)+q2*Z(iq+7)+q3*Z(iq+8))**2)*ft
+                                 ft = sqrt((q1*z(iq+3)+q2*z(iq+4)+q3*z(iq+5))**2+(q1*z(iq+6)+q2*z(iq+7)+q3*z(iq+8))**2)*ft
                               ELSE
 !
 !     V2 = 0
 !
-                                 rt = q1*Z(iq+3) + q2*Z(iq+4) + q3*Z(iq+5)
+                                 rt = q1*z(iq+3) + q2*z(iq+4) + q3*z(iq+5)
                                  IF ( rt>0.0 ) rt = 0.0
                                  ft = -rt*ft
                               ENDIF
@@ -388,12 +388,12 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !     PUT IN FT
 !
                            m = ivs + l - 1
-                           Z(m) = ft
+                           z(m) = ft
                         ENDDO
 !
 !     COLUMN BUILT
 !
-                        CALL pack(Z(ivs),Fct,mcb)
+                        CALL pack(z(ivs),Fct,mcb)
                      ENDIF
                      IF ( i/=ngroup .OR. j/=nstep-1 ) THEN
                         IF ( j/=1 .AND. j/=nstep ) THEN
@@ -407,8 +407,8 @@ SUBROUTINE trlgc(Tmldtb,Trl,Dit,Itrl,Fct,Fco,Tol,Iflag)
 !     OUTPUT TIME
 !
                      CALL write(Tol,t,1,0)
-                     IF ( Iflag/=-1 ) CALL pack(Z(ivs),Fco,mcb1)
-                     IF ( j==nstep ) deltat = Z(k+4)
+                     IF ( Iflag/=-1 ) CALL pack(z(ivs),Fco,mcb1)
+                     IF ( j==nstep ) deltat = z(k+4)
                      spag_nextblock_3 = 2
                   CASE (2)
                      t = t + deltat

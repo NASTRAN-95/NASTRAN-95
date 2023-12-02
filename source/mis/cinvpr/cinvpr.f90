@@ -1,16 +1,17 @@
-!*==cinvpr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cinvpr.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cinvpr(Eed,Method,Nfound)
-USE C_CDCMPX
-USE C_CINVPX
-USE C_CINVXX
-USE C_NAMES
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cdcmpx
+   USE c_cinvpx
+   USE c_cinvxx
+   USE c_names
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -136,53 +137,53 @@ USE ISO_FORTRAN_ENV
 !                EIGENVECTORS
 !
          CALL sswtch(12,idiag)
-         Ind1 = 0
-         nz = korsz(Z)
-         CALL klock(Istart)
+         ind1 = 0
+         nz = korsz(z)
+         CALL klock(istart)
          ibuf = nz - isys - 2
-         ifile = Filelm(1)
-         CALL open(*60,Filelm,Z(ibuf),Wrtrew)
-         CALL close(Filelm,Rew)
-         ifile = Filevc(1)
-         CALL open(*60,Filevc,Z(ibuf),Wrtrew)
-         CALL close(Filevc,Rew)
-         CALL gopen(Dmpfil,Z(ibuf),Wrtrew)
-         CALL close(Dmpfil,Eofnrw)
-         ifile = Scrfil(10)
-         CALL open(*60,ifile,Z(ibuf),Wrtrew)
-         CALL close(ifile,Rew)
+         ifile = filelm(1)
+         CALL open(*60,filelm,z(ibuf),wrtrew)
+         CALL close(filelm,rew)
+         ifile = filevc(1)
+         CALL open(*60,filevc,z(ibuf),wrtrew)
+         CALL close(filevc,rew)
+         CALL gopen(dmpfil,z(ibuf),wrtrew)
+         CALL close(dmpfil,eofnrw)
+         ifile = scrfil(10)
+         CALL open(*60,ifile,z(ibuf),wrtrew)
+         CALL close(ifile,rew)
          noleft = .FALSE.
          iz(1) = 204
          CALL rdtrl(iz)
          IF ( iz(1)<0 ) noleft = .TRUE.
-         Northo = 0
-         nrow = 2*Filek(3)
+         northo = 0
+         nrow = 2*filek(3)
          nrow2 = 2*nrow
-         Isym = 1
-         IF ( Filek(1)==0 .OR. Filek(4)==6 ) THEN
-            IF ( Filem(1)==0 .OR. Filem(4)==6 ) THEN
-               IF ( Fileb(1)==0 .OR. Fileb(4)==6 ) Isym = 0
+         isym = 1
+         IF ( filek(1)==0 .OR. filek(4)==6 ) THEN
+            IF ( filem(1)==0 .OR. filem(4)==6 ) THEN
+               IF ( fileb(1)==0 .OR. fileb(4)==6 ) isym = 0
             ENDIF
          ENDIF
 !
 !     PICK UP REGION PARAMETERS
 !
-         CALL preloc(*60,Z(ibuf),Eed)
-         CALL locate(*60,Z(ibuf),eigc(1),flag)
+         CALL preloc(*60,z(ibuf),Eed)
+         CALL locate(*60,z(ibuf),eigc(1),flag)
          SPAG_Loop_1_2: DO
             CALL fread(Eed,ireg,10,0)
             IF ( Method==ireg(1,1) .OR. Method==-1 ) THEN
                jreg = 1
-               Eps = .0001
-               IF ( Reg(1,2)/=0. ) Eps = Reg(1,2)
+               eps = .0001
+               IF ( reg(1,2)/=0. ) eps = reg(1,2)
                SPAG_Loop_2_1: DO
                   CALL fread(Eed,ireg(1,jreg),7,0)
                   IF ( ireg(6,jreg)==-1 ) EXIT SPAG_Loop_2_1
                   jreg = jreg + 1
                   IF ( jreg>10 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
-               CALL close(Eed,Rew)
-               Noreg = jreg - 1
+               CALL close(Eed,rew)
+               noreg = jreg - 1
                jreg = 0
                EXIT SPAG_Loop_1_2
             ELSE
@@ -198,28 +199,28 @@ USE ISO_FORTRAN_ENV
 !     PICK UP PARAMETERS FOR REGION I
 !
          jreg = jreg + 1
-         Iter = 0
+         iter = 0
          nodcmp = 0
          nostrt = 0
          nomovs = 0
-         x1 = Reg(1,jreg)
-         y1 = Reg(2,jreg)
-         x2 = Reg(3,jreg)
-         y2 = Reg(4,jreg)
-         l = Reg(5,jreg)
-         anoest = Reg(6,jreg)
-         anodes = Reg(7,jreg)
-         IF ( Nodes==0 ) Nodes = 3*Noest
+         x1 = reg(1,jreg)
+         y1 = reg(2,jreg)
+         x2 = reg(3,jreg)
+         y2 = reg(4,jreg)
+         l = reg(5,jreg)
+         anoest = reg(6,jreg)
+         anodes = reg(7,jreg)
+         IF ( nodes==0 ) nodes = 3*noest
          nshift = sqrt((x1-x2)**2+(y1-y2)**2)/l + 1.
          l1 = l*.5
-         Noroot = 0
+         noroot = 0
 !
 !
 !     FIND SHIFT POINT CLOSEST TO THE ORIGIN
 !
          r = sqrt((x1-x2)**2+(y1-y2)**2)
          IF ( r<=0 ) THEN
-            WRITE (nout,99001) Ufm
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 2366, REGION IMPROPERLY DEFINED ON EIGC CARD.')
             CALL mesage(-61,0,0)
          ENDIF
@@ -231,7 +232,7 @@ USE ISO_FORTRAN_ENV
          y2 = y2 + d*(y2-y1)/r
          y1 = yy
          IF ( idiag/=0 ) THEN
-            WRITE (nout,99002) x1 , y1 , x2 , y2 , l1 , Nodes , Noest , nshift
+            WRITE (nout,99002) x1 , y1 , x2 , y2 , l1 , nodes , noest , nshift
 99002       FORMAT (1H1,5F10.2,3I5)
          ENDIF
          deltx = (x1-x2)/float(nshift)
@@ -270,21 +271,21 @@ USE ISO_FORTRAN_ENV
 !
 !     FIND THE MAXIMUM MODULUS OF THE SEARCH REGION
 !
-         Maxmod = xl2**2 + yl2**2
+         maxmod = xl2**2 + yl2**2
          xx = x2 - anum1
          yy = y2 + anum2
-         Maxmod = amax1(Maxmod,xx**2+yy**2)
+         maxmod = amax1(maxmod,xx**2+yy**2)
          xx = x1 + anum1
          yy = y1 - anum2
-         Maxmod = amax1(Maxmod,xx**2+yy**2)
+         maxmod = amax1(maxmod,xx**2+yy**2)
          xx = x1 - anum1
          yy = y1 + anum2
-         Maxmod = amax1(Maxmod,xx**2+yy**2)
+         maxmod = amax1(maxmod,xx**2+yy**2)
 !
 !     INITIALIZE
 !
-         Ind = 0
-         Left = 0
+         ind = 0
+         left = 0
          spag_nextblock_1 = 3
       CASE (3)
          ishift = shift
@@ -292,44 +293,43 @@ USE ISO_FORTRAN_ENV
 !     EVALUATE THE VALUE OF LAMBDA IN THE CENTER OF THE CURRENT SEARCH
 !     REGION
 !
-         Lambda(1) = x2 + (shift-.5)*deltx
-         Lambda(2) = y2 + (shift-.5)*delty
-         IF ( Lambda(2)==0.0D0 ) Lambda(2) = .01*delty
+         lambda(1) = x2 + (shift-.5)*deltx
+         lambda(2) = y2 + (shift-.5)*delty
+         IF ( lambda(2)==0.0D0 ) lambda(2) = .01*delty
 !
 !     COMPUTE DISTANCE TO FARTHEST CORNER OF THE SQUARE SEARCH REGION
 !
          xx = xl2 + shift*deltx
          yy = yl2 + shift*delty
-         Rzero = (Lambda(1)-xx)**2 + (Lambda(2)-yy)**2
-         Rzero = sqrt(Rzero)*1.05
+         rzero = (lambda(1)-xx)**2 + (lambda(2)-yy)**2
+         rzero = sqrt(rzero)*1.05
          IF ( idiag/=0 ) THEN
-            WRITE (nout,99003) Rzero
+            WRITE (nout,99003) rzero
 99003       FORMAT (//,10H RZERO =  ,F10.4)
          ENDIF
          nostrt = nostrt + 1
-         Comflg = 0
+         comflg = 0
          spag_nextblock_1 = 4
       CASE (4)
-         Lmbda(1) = Lambda(1)
-         Lmbda(2) = Lambda(2)
-         Nochng = 0
-         Switch = 0
-         Ivect = 0
-         Kreg = 0
-         Ind = Ind + 1
-         IF ( iabs(Ind)==13 ) Ind = 1
+         lmbda(1) = lambda(1)
+         lmbda(2) = lambda(2)
+         nochng = 0
+         switch = 0
+         ivect = 0
+         kreg = 0
+         ind = ind + 1
+         IF ( iabs(ind)==13 ) ind = 1
          ising = 0
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( Nochng>=4 ) THEN
+         IF ( nochng>=4 ) THEN
 !
 !     4 MOVES WHILE TRACKING ONE ROOT
 !
             iterm = 2
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            Nochng = Nochng + 1
+            nochng = nochng + 1
             CALL klock(t1)
 !
 !     CALL IN ADD LINK TO FORM (LAMBDA**2*M + LAMBDA*B + K)
@@ -338,7 +338,7 @@ USE ISO_FORTRAN_ENV
 !
 !     CALL IN CD COMP TO DECOMPOSE THE MATRIX
 !
-            IF ( idiag/=0 ) WRITE (nout,99007) Lambda
+            IF ( idiag/=0 ) WRITE (nout,99007) lambda
             nodcmp = nodcmp + 1
             CALL cinvp2(*20)
             CALL klock(t2)
@@ -346,55 +346,53 @@ USE ISO_FORTRAN_ENV
 !     DETERMINE THE TIME REQUIRED TO FORM AND DECOMPOSE THE DYNAMIC
 !     MATRIX
 !
-            Timed = t2 - t1
-            IF ( Timed==0 ) Timed = 1
+            timed = t2 - t1
+            IF ( timed==0 ) timed = 1
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      IF ( ising==1 ) THEN
 !
 !     SINGULARITY ENCOUNTERED TWICE IN A ROW
 !
             iterm = 1
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     SINGULAR MATRIX. INCREMENT LAMBDA AND TRY ONCE MORE
 !
             ising = 1
-            Lambda(1) = Lambda(1) + .02*Rzero
-            Lambda(2) = Lambda(2) + .02*Rzero
+            lambda(1) = lambda(1) + .02*rzero
+            lambda(2) = lambda(2) + .02*rzero
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (6)
 !
 !     CALL IN MAIN LINK TO ITERATE FOR EIGENVALUES
 !
          CALL cinvp3
-         IF ( Left==1 ) THEN
+         IF ( left==1 ) THEN
 !
 !     CALL IN LINK TO COMPUTE THE LEFT EIGENVECTOR
 !
-            dtemp(1) = Lambda(1)
-            dtemp(2) = Lambda(2)
-            Lambda(1) = Lam1(1)
-            Lambda(2) = Lam1(2)
-         ELSEIF ( Comflg==2 ) THEN
+            dtemp(1) = lambda(1)
+            dtemp(2) = lambda(2)
+            lambda(1) = lam1(1)
+            lambda(2) = lam1(2)
+         ELSEIF ( comflg==2 ) THEN
             nomovs = nomovs + 1
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Comflg==1 ) THEN
+         ELSEIF ( comflg==1 ) THEN
             ising = 0
-            Switch = 1
+            switch = 1
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Comflg>=3 ) THEN
-            iterm = Comflg
+         ELSEIF ( comflg>=3 ) THEN
+            iterm = comflg
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Comflg==0 ) THEN
+         ELSEIF ( comflg==0 ) THEN
 !
 !     FIND NEXT SHIFT POINT WHICH IS CLOSEST TO THE ORIGIN
 !
@@ -403,18 +401,17 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               xx = Lmbda(1) - deltx
-               yy = Lmbda(2) - delty
+               xx = lmbda(1) - deltx
+               yy = lmbda(2) - delty
                rang = xx**2 + yy**2
-               xx = Lmbda(1) + deltx
-               yy = Lmbda(2) + delty
+               xx = lmbda(1) + deltx
+               yy = lmbda(2) + delty
                range = xx**2 + yy**2
                IF ( range<=rang ) THEN
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                spag_nextblock_1 = 9
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( imax/=nshift ) THEN
                   spag_nextblock_1 = 9
@@ -425,11 +422,11 @@ USE ISO_FORTRAN_ENV
 !
                iterm = 3
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSE
             IF ( idiag/=0 ) THEN
-               WRITE (nout,99004) Noreg , jreg
+               WRITE (nout,99004) noreg , jreg
 99004          FORMAT (2I10)
             ENDIF
             spag_nextblock_1 = 8
@@ -437,110 +434,106 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
-         Switch = -1
+         switch = -1
          CALL cinvp1
 !
 !     DECOMPOSE THE DYNAMIC MATRIX AT THE EIGENVALUE TO OBTAIN THE LEFT
 !     EIGENVECTOR BY THE DETERMINATE METHOD
 !
-         IF ( idiag/=0 ) WRITE (nout,99007) Lambda
+         IF ( idiag/=0 ) WRITE (nout,99007) lambda
          CALL cinvp2(*40)
 !
 !     BUILD LOAD FOR FBS
 !
          d1 = nrow/2
-         d2 = Northo
+         d2 = northo
          DO i = 1 , nrow , 2
             k = (i+1)/2
-            dz(i) = sign*Mindia/(1.D0+(1.D0-float(k)/d1)*d2)
+            dz(i) = sign*mindia/(1.D0+(1.D0-float(k)/d1)*d2)
             dz(i+1) = 0.0D0
          ENDDO
          sign = -sign
-         CALL cdifbs(dz(1),Z(ibuf))
-         Lambda(1) = dtemp(1)
-         Lambda(2) = dtemp(2)
-         Switch = 0
+         CALL cdifbs(dz(1),z(ibuf))
+         lambda(1) = dtemp(1)
+         lambda(2) = dtemp(2)
+         switch = 0
 !
 !     NORMALIZE AND STORE THE LEFT EIGENVECTOR
 !
-         CALL cnorm1(dz(1),Filek(2))
+         CALL cnorm1(dz(1),filek(2))
          IF ( idiag/=0 ) THEN
             WRITE (nout,99005) (dz(i),i=1,nrow)
 99005       FORMAT (///,15H LEFT VECTOR   ,//,(10D12.4))
          ENDIF
-         IF ( .NOT.(noleft .OR. Isym==0) ) THEN
-            ifile = Phidli
-            CALL open(*60,ifile,Z(ibuf),Wrt)
+         IF ( .NOT.(noleft .OR. isym==0) ) THEN
+            ifile = phidli
+            CALL open(*60,ifile,z(ibuf),wrt)
             CALL write(ifile,dz(1),nrow2,1)
-            CALL close(ifile,Norew)
+            CALL close(ifile,norew)
          ENDIF
-         ifile = Scrfil(10)
-         CALL gopen(ifile,Z(ibuf),Rd)
+         ifile = scrfil(10)
+         CALL gopen(ifile,z(ibuf),rd)
          CALL bckrec(ifile)
          CALL fread(ifile,dz(nrow+2),nrow2,1)
          CALL bckrec(ifile)
-         CALL close(ifile,Norew)
+         CALL close(ifile,norew)
 !
 !     COMPUTE REAL LEFT VECTOR SCALED
 !
          CALL cxtrny(dz(1),dz(nrow+2),dtemp)
          CALL cdivid(dz(1),dz(1),dtemp,nrow)
-         CALL open(*60,ifile,Z(ibuf),Wrt)
+         CALL open(*60,ifile,z(ibuf),wrt)
          CALL write(ifile,dz(1),nrow2,1)
-         CALL close(ifile,Rew)
+         CALL close(ifile,rew)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 40      Lambda(1) = 1.01*Lambda(1)
-         Lambda(2) = 1.01*Lambda(2)
+ 40      lambda(1) = 1.01*lambda(1)
+         lambda(2) = 1.01*lambda(2)
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
-         IF ( Noreg==jreg ) RETURN
+         IF ( noreg==jreg ) RETURN
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
          shift = shift + 1.
          imax = imax + 1
-         Lambda(1) = Lmbda(1) + deltx
-         Lambda(2) = Lmbda(2) + delty
+         lambda(1) = lmbda(1) + deltx
+         lambda(2) = lmbda(2) + delty
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          shift = shift - 1.
          imin = imin - 1
-         Lambda(1) = Lmbda(1) - deltx
-         Lambda(2) = Lmbda(2) - delty
+         lambda(1) = lmbda(1) - deltx
+         lambda(2) = lmbda(2) - delty
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     SET UP THE SUMMARY FILE
 !
-         ifile = Dmpfil
-         CALL open(*60,Dmpfil,Z(ibuf),Wrt)
-         CALL write(Dmpfil,ihead(1),10,0)
+         ifile = dmpfil
+         CALL open(*60,dmpfil,z(ibuf),wrt)
+         CALL write(dmpfil,ihead(1),10,0)
          i = 0
-         iz(i+2) = Northo
+         iz(i+2) = northo
          iz(i+3) = nostrt
          iz(i+4) = nomovs
          iz(i+5) = nodcmp
-         iz(i+6) = Iter
+         iz(i+6) = iter
          iz(i+7) = iterm
          DO i = 8 , 12
             iz(i) = 0
          ENDDO
          i = 2
-         CALL write(Dmpfil,iz(i),40,0)
-         CALL write(Dmpfil,Head(1),96,1)
-         CALL write(Dmpfil,iz(1),0,1)
-         CALL close(Dmpfil,Eofnrw)
+         CALL write(dmpfil,iz(i),40,0)
+         CALL write(dmpfil,head(1),96,1)
+         CALL write(dmpfil,iz(1),0,1)
+         CALL close(dmpfil,eofnrw)
 !
 !     WRITE DUMMY TRAILER
-         ixx = Filek(1)
-         Filek(1) = Dmpfil
-         CALL wrttrl(Filek(1))
-         Filek(1) = ixx
-         Nfound = Northo
+         ixx = filek(1)
+         filek(1) = dmpfil
+         CALL wrttrl(filek(1))
+         filek(1) = ixx
+         Nfound = northo
          IF ( idiag/=0 ) THEN
             j = 12
             WRITE (nout,99006) (iz(i),i=1,j)

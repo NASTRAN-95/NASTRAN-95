@@ -1,4 +1,5 @@
-!*==rcard.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcard.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcard(Out,Fmt,Nflag,In)
@@ -6,10 +7,10 @@ SUBROUTINE rcard(Out,Fmt,Nflag,In)
 !
 !     CDIR$ IS CRAY COMPILER DIRECTIVE. 64 BIT INTEGER IS USED LOCALLY
 !
-USE C_LHPWX
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_lhpwx
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -296,7 +297,6 @@ USE ISO_FORTRAN_ENV
             IF ( khrfn3(izero,Out(iout-1),1,0)==seq .AND. khrfn3(izero,Out(iout),0,0)==p ) seqgp = .TRUE.
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          iout = iout + 2
          Out(iout-1) = 0
@@ -304,7 +304,6 @@ USE ISO_FORTRAN_ENV
          ifmt = ifmt + 1
          Fmt(ifmt) = 3
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     **********************************************
@@ -385,7 +384,6 @@ USE ISO_FORTRAN_ENV
          ifmt = ifmt + 1
          Fmt(ifmt) = 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     **********************************************
@@ -477,8 +475,8 @@ USE ISO_FORTRAN_ENV
 !
                      blkon = .TRUE.
                   ELSEIF ( type(n)/=0 ) THEN
-                     WRITE (F6,99011) Ufm
-                     WRITE (F6,99001)
+                     WRITE (f6,99011) ufm
+                     WRITE (f6,99001)
 99001                FORMAT (10X,23HPOSSIBLE IMBEDDED BLANK)
                      spag_nextblock_1 = 23
                      CYCLE SPAG_DispatchLoop_1
@@ -490,7 +488,6 @@ USE ISO_FORTRAN_ENV
             EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 20
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     **********************************************
@@ -529,11 +526,11 @@ USE ISO_FORTRAN_ENV
 !
          ichek = power + it
          IF ( xdoubl/=0.0D0 ) THEN
-            IF ( ichek<Lowpw+1 .OR. ichek>Highpw-1 .OR. power<Lowpw+1 .OR. power>Highpw-1 ) THEN
+            IF ( ichek<lowpw+1 .OR. ichek>highpw-1 .OR. power<lowpw+1 .OR. power>highpw-1 ) THEN
 !
 !
-               WRITE (F6,99011) Ufm
-               WRITE (F6,99002)
+               WRITE (f6,99011) ufm
+               WRITE (f6,99002)
 99002          FORMAT (10X,42HFLOATING POINT NUMBER OUT OF MACHINE RANGE)
                spag_nextblock_1 = 23
                CYCLE SPAG_DispatchLoop_1
@@ -555,7 +552,6 @@ USE ISO_FORTRAN_ENV
             Fmt(ifmt) = 2
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
 !     STORE NUMBER IN NT
@@ -632,40 +628,34 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDIF
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
 !
          deciml = .TRUE.
          npoint = npoint + 1
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
-         WRITE (F6,99011) Ufm
-         WRITE (F6,99003)
+         WRITE (f6,99011) ufm
+         WRITE (f6,99003)
 99003    FORMAT (10X,38HINTEGER MAGNITUDE OUT OF MACHINE RANGE)
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (19)
-         WRITE (F6,99011) Ufm
-         WRITE (F6,99004)
+         WRITE (f6,99011) ufm
+         WRITE (f6,99004)
 99004    FORMAT (10X,22HDATA NOT RECOGNIZEABLE)
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (20)
-         WRITE (F6,99011) Ufm
-         WRITE (F6,99005)
+         WRITE (f6,99011) ufm
+         WRITE (f6,99005)
 99005    FORMAT (10X,26HPOSSIBLE ERROR IN EXPONENT)
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (21)
-         WRITE (F6,99011) Ufm
-         WRITE (F6,99006)
+         WRITE (f6,99011) ufm
+         WRITE (f6,99006)
 99006    FORMAT (10X,30HINCORRECT DEWEY DECIMAL NUMBER)
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (22)
-         WRITE (F6,99011) Ufm
-         WRITE (F6,99007)
+         WRITE (f6,99011) ufm
+         WRITE (f6,99007)
 99007    FORMAT (10X,49HINTERNAL CONVERSION OF DEWEY DECIMAL IS TOO LARGE)
          spag_nextblock_1 = 23
       CASE (23)
@@ -682,26 +672,25 @@ USE ISO_FORTRAN_ENV
          ENDIF
          GOTO iretrn
  20      IF ( nwords==4 ) THEN
-            WRITE (F6,99008)
+            WRITE (f6,99008)
 99008       FORMAT (10X,80H.   1  ..   2  AND  3  ..   4  AND  5  ..   6  AND  7  ..   8  AND  9  ..  10  .)
          ELSE
-            WRITE (F6,99009)
+            WRITE (f6,99009)
 99009       FORMAT (10X,80H.   1  ..   2  ..   3  ..   4  ..   5  ..   6  ..   7  ..   8  ..   9  ..  10  .)
          ENDIF
-         WRITE (F6,99010) (In(i),i=1,20) , line
+         WRITE (f6,99010) (In(i),i=1,20) , line
 99010    FORMAT (10X,20A4)
          ASSIGN 40 TO iretrn
          word2 = blanks
          spag_nextblock_1 = 24
          CYCLE SPAG_DispatchLoop_1
  40      iout = iout + 1
-         Nlines = Nlines + 7
+         nlines = nlines + 7
          Out(iout) = 0
          ifmt = ifmt + 1
          Fmt(ifmt) = -1
-         Nogo = .TRUE.
+         nogo = .TRUE.
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99011 FORMAT (A23,' 300, DATA ERROR IN FIELD UNDERLINED.')

@@ -2,17 +2,17 @@
  
 SUBROUTINE ihexd(Type)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATISO
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_matiso
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,6 +49,15 @@ SUBROUTINE ihexd(Type)
    REAL , DIMENSION(3,2) :: vn
    REAL , DIMENSION(66) :: work
    REAL*8 , DIMENSION(1) :: z
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -119,8 +128,8 @@ SUBROUTINE ihexd(Type)
 !
 !     FOR DOUBLE PRECISION, OPEN CORE POINTERS MUST BE MODIFIED
 !
-   iz = Izs/2 + 1
-   nz = Nzs/2 + 1
+   iz = izs/2 + 1
+   nz = nzs/2 + 1
 !
 !     THIS ROUTINE OPERATES IN DOUBLE PRECISION.
 !     EMGOUT WILL PRODUCE THE REQUIRED MATRIX IN THE REQUESTED PRECISION
@@ -131,15 +140,15 @@ SUBROUTINE ihexd(Type)
    heat = 0
    kgg = 0
    mgg = 0
-   IF ( Heat1 ) heat = 1
-   IF ( Kgg1/=0 ) kgg = 1
-   IF ( Mgg1/=0 ) mgg = 1
-   Ngrids = ngp
+   IF ( heat1 ) heat = 1
+   IF ( kgg1/=0 ) kgg = 1
+   IF ( mgg1/=0 ) mgg = 1
+   ngrids = ngp
    ugv = 0
    ngg = 3*ngp
-   dict(1) = Iestid
+   dict(1) = iestid
    dict(2) = 1
-   IF ( .NOT.Heat1 ) THEN
+   IF ( .NOT.heat1 ) THEN
       dict(3) = ngg
       dict(4) = 7
       IF ( kgg<=0 ) THEN
@@ -174,10 +183,10 @@ SUBROUTINE ihexd(Type)
       nd = id + ngg - 1
    ENDIF
    IF ( nd>nz ) THEN
-      WRITE (Otpt,99001) Ufm , nerr1 , ihex , Type , elno , eid
+      WRITE (otpt,99001) ufm , nerr1 , ihex , Type , elno , eid
 !
 99001 FORMAT (A23,I5,2H, ,A4,I1,3A4,I9,' INSUFFICIENT CORE TO COMPUTE',' ELEMENT MATRIX')
-      Nogo = .TRUE.
+      nogo = .TRUE.
    ENDIF
 !
 !     ***** OPEN CORE MAP *****
@@ -225,15 +234,15 @@ SUBROUTINE ihexd(Type)
 !
 !     FETCH EPT DATA, COMPUTE EST POINTERS
 !
-   Mid = 10 + 12*(Type-1)
-   cid = iest(Mid+1)
-   nip = iest(Mid+2)
-   maxar = Est(Mid+3)
-   alfa = Est(Mid+4)
-   beta = Est(Mid+5)
-   bgpdt = Mid + 6
+   mid = 10 + 12*(Type-1)
+   cid = iest(mid+1)
+   nip = iest(mid+2)
+   maxar = est(mid+3)
+   alfa = est(mid+4)
+   beta = est(mid+5)
+   bgpdt = mid + 6
    gpt = bgpdt + ngp*4
-   Mid = iest(Mid)
+   mid = iest(mid)
    IF ( nip<2 .OR. nip>4 ) nip = Type/2 + 2
    IF ( maxar<=0.0 ) maxar = dmaxar(Type)
    IF ( alfa<0.0 ) alfa = dalfa(Type)
@@ -253,13 +262,13 @@ SUBROUTINE ihexd(Type)
          k = id + 3*i - 3
          IF ( iest(m)==0 ) THEN
             DO l = 1 , 3
-               z(n+l-1) = dble(Rz(j+l-1)*0.25)
+               z(n+l-1) = dble(rz(j+l-1)*0.25)
             ENDDO
             gptld(i) = 0.25*gptld(i)
          ELSE
-            CALL transd(Est(m),tk)
+            CALL transd(est(m),tk)
             DO l = 1 , 3
-               z(iz+l-1) = dble(Rz(j+l-1)*0.25)
+               z(iz+l-1) = dble(rz(j+l-1)*0.25)
             ENDDO
             CALL gmmatd(tk,3,3,0,z(iz),3,1,0,z(n))
             gptld(i) = 0.25*gptld(i)
@@ -270,18 +279,18 @@ SUBROUTINE ihexd(Type)
 !     REARRANGE BGPDT
 !
    DO i = 1 , ngp
-      jz(Izs+i) = iest(bgpdt+i*4-4)
+      jz(izs+i) = iest(bgpdt+i*4-4)
    ENDDO
    bcord = gpt - 3
    DO i = 2 , ngp
       DO j = 1 , 3
          k = bgpdt + 4*(ngp-i) + 4 - j
          bcord = bcord - 1
-         Est(bcord) = Est(k)
+         est(bcord) = est(k)
       ENDDO
    ENDDO
    DO i = 2 , ngp
-      iest(bgpdt+i-1) = jz(Izs+i)
+      iest(bgpdt+i-1) = jz(izs+i)
    ENDDO
 !
 !     IF COMPUTING DIFFERENTIAL STIFFNESS, SKIP CHECKS
@@ -342,7 +351,7 @@ SUBROUTINE ihexd(Type)
          m = nc(j) - 1
  20      tmag = 0.0
          DO k = 1 , 3
-            evec(k,edge) = Est(m+k) - Est(l+k)
+            evec(k,edge) = est(m+k) - est(l+k)
             tmag = tmag + evec(k,edge)**2
          ENDDO
          IF ( tmag<smag ) smag = tmag
@@ -353,8 +362,8 @@ SUBROUTINE ihexd(Type)
 !
       IF ( smag<=0.0 ) smag = 1.0E-10
       IF ( bmag/smag>maxar**2 ) THEN
-         WRITE (Otpt,99002) Ufm , nerr2 , ihex , Type , elno , eid , bar , excd
-         Nogo = .TRUE.
+         WRITE (otpt,99002) ufm , nerr2 , ihex , Type , elno , eid , bar , excd
+         nogo = .TRUE.
       ENDIF
 !
 !     CHECK ANGLES BETWEEN FACE NORMALS
@@ -415,8 +424,8 @@ SUBROUTINE ihexd(Type)
 !     EPSILON INTRODUCED TO OVERCOME ROUNDOUT ERROR
 !
                IF ( tmag/smag<0.99*alfa ) THEN
-                  WRITE (Otpt,99002) Ufm , nerr2 , ihex , Type , elno , eid , balfa , excd
-                  Nogo = .TRUE.
+                  WRITE (otpt,99002) ufm , nerr2 , ihex , Type , elno , eid , balfa , excd
+                  nogo = .TRUE.
                ENDIF
             ENDIF
             m = i
@@ -460,8 +469,8 @@ SUBROUTINE ihexd(Type)
             bmag = 0.0
             tmag = 0.0
             DO n = 1 , 3
-               vn(n,1) = Est(j+n-1) - Est(i+n-1)
-               vn(n,2) = Est(k+n-1) - Est(j+n-1)
+               vn(n,1) = est(j+n-1) - est(i+n-1)
+               vn(n,2) = est(k+n-1) - est(j+n-1)
                tmag = tmag + vn(n,1)*vn(n,2)
                smag = smag + vn(n,1)**2
                bmag = bmag + vn(n,2)**2
@@ -474,15 +483,15 @@ SUBROUTINE ihexd(Type)
             tmag = 0.0
             smag = 0.0
             DO n = 1 , 3
-               vn(n,1) = Est(l+n-1) - Est(k+n-1)
+               vn(n,1) = est(l+n-1) - est(k+n-1)
                tmag = tmag + vn(n,1)*vn(n,2)
                smag = smag + vn(n,1)**2
             ENDDO
             smag = sqrt(smag*bmag)
             IF ( smag==0.0 ) CYCLE
             IF ( tmag/smag>=beta ) CYCLE
- 50         WRITE (Otpt,99002) Ufm , nerr2 , ihex , Type , elno , eid , bbeta , excd
-            Nogo = .TRUE.
+ 50         WRITE (otpt,99002) ufm , nerr2 , ihex , Type , elno , eid , bbeta , excd
+            nogo = .TRUE.
          ENDDO
       ENDIF
 !
@@ -498,8 +507,8 @@ SUBROUTINE ihexd(Type)
          tmag = tmag + evec(i,5)*vn(i,1)
       ENDDO
       IF ( tmag<=0.0 ) THEN
-         WRITE (Otpt,99002) Ufm , nerr2 , ihex , Type , elno , eid , rvrs
-         Nogo = .TRUE.
+         WRITE (otpt,99002) ufm , nerr2 , ihex , Type , elno , eid , rvrs
+         nogo = .TRUE.
       ENDIF
 !
 !     CHECK FOR DUPLICATE COORDINATE VALUES
@@ -510,11 +519,11 @@ SUBROUTINE ihexd(Type)
          k = i + 1
          DO j = k , ngp
             n = bcord + 3*(j-1)
-            IF ( Est(m)==Est(n) ) THEN
-               IF ( Est(m+1)==Est(n+1) ) THEN
-                  IF ( Est(m+2)==Est(n+2) ) THEN
-                     WRITE (Otpt,99002) Ufm , nerr2 , ihex , Type , elno , eid , twins
-                     Nogo = .TRUE.
+            IF ( est(m)==est(n) ) THEN
+               IF ( est(m+1)==est(n+1) ) THEN
+                  IF ( est(m+2)==est(n+2) ) THEN
+                     WRITE (otpt,99002) ufm , nerr2 , ihex , Type , elno , eid , twins
+                     nogo = .TRUE.
                   ENDIF
                ENDIF
             ENDIF
@@ -523,7 +532,7 @@ SUBROUTINE ihexd(Type)
 !
 !     IF NOGO FLAG ON, DON T COMPUTE ELEMENT MATRICES
 !
-      IF ( Nogo ) RETURN
+      IF ( nogo ) RETURN
    ENDIF
 !
 !     INITIALIZE FOR NUMERICAL INTEGRATION
@@ -587,16 +596,16 @@ SUBROUTINE ihexd(Type)
 !
 !     HEAT TRANSFER SECTION
 !
-            Inflag = 3
+            inflag = 3
             CALL hmat(eid)
             anis = .FALSE.
             IF ( kgg<=0 ) GOTO 700
 !
 !     CHECK FOR ANISOTROPY
 !
-            IF ( Kheat(1)/=Kheat(4) .OR. Kheat(1)/=Kheat(6) ) GOTO 600
-            IF ( Kheat(2)/=0.0 .OR. Kheat(3)/=0.0 .OR. Kheat(5)/=0.0 ) GOTO 600
-            GOTO 700
+            IF ( kheat(1)/=kheat(4) .OR. kheat(1)/=kheat(6) ) GOTO 600
+            IF ( kheat(2)==0.0 .AND. kheat(3)==0.0 .AND. kheat(5)==0.0 ) GOTO 700
+            GOTO 600
          ELSE
 !
 !     FETCH MATERIAL PROPERTIES
@@ -607,7 +616,7 @@ SUBROUTINE ihexd(Type)
 !
 !     TEST FOR ANISOTROPIC MATERIAL
 !
-            Inflag = 10
+            inflag = 10
             anis = .FALSE.
 !
 !     TEST FOR RECTANGULAR COORDINATE SYSTEM IN WHICH THE ANISOTROPIC
@@ -620,12 +629,12 @@ SUBROUTINE ihexd(Type)
 !
             tdep = .TRUE.
             DO i = 2 , ngp
-               IF ( Est(gpt)/=Est(gpt+i-1) ) GOTO 60
+               IF ( est(gpt)/=est(gpt+i-1) ) GOTO 60
             ENDDO
             tdep = .FALSE.
- 60         Temp = Est(gpt)
+ 60         temp = est(gpt)
             CALL mat(eid)
-            IF ( .NOT.Mtdep ) tdep = .FALSE.
+            IF ( .NOT.mtdep ) tdep = .FALSE.
             IF ( ib(46)==6 ) anis = .TRUE.
             IF ( kgg>0 ) THEN
 !
@@ -636,12 +645,12 @@ SUBROUTINE ihexd(Type)
 !
 !     SET UP FOR EASY MULTIPLICATION IF MATERIALS ARE ON MAT1
 !
-                     e1 = Bufm6(1)
-                     e2 = Bufm6(2)
-                     e3 = Bufm6(22)
+                     e1 = bufm6(1)
+                     e2 = bufm6(2)
+                     e3 = bufm6(22)
                   ELSE
-                     WRITE (Otpt,99003) Ufm , Mid , eid
-                     Nogo = .TRUE.
+                     WRITE (otpt,99003) ufm , mid , eid
+                     nogo = .TRUE.
                      RETURN
                   ENDIF
                ENDIF
@@ -661,7 +670,7 @@ SUBROUTINE ihexd(Type)
 !
 !     GENERATE SHAPE FUNCTIONS AND JACOBIAN MATRIX INVERSE
 !
-                     CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),Est(bcord))
+                     CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),est(bcord))
                      IF ( detj/=0.0 ) THEN
 !
                         sfact = h(i)*h(j)*h(k)*detj
@@ -694,22 +703,22 @@ SUBROUTINE ihexd(Type)
 !
                            IF ( .NOT.anis ) GOTO 62
                         ELSE
-                           Temp = 0.0
+                           temp = 0.0
                            DO l = 1 , ngp
-                              Temp = Temp + z(in+l-1)*Est(gpt+l-1)
+                              temp = temp + z(in+l-1)*est(gpt+l-1)
                            ENDDO
                            CALL mat(eid)
                            IF ( kgg<=0 ) GOTO 62
                            IF ( .NOT.(anis) ) THEN
                               IF ( ib(46)/=0 ) THEN
 !
-                                 e1 = Bufm6(1)
-                                 e2 = Bufm6(2)
-                                 e3 = Bufm6(22)
+                                 e1 = bufm6(1)
+                                 e2 = bufm6(2)
+                                 e3 = bufm6(22)
                                  GOTO 62
                               ELSE
-                                 WRITE (Otpt,99003) Ufm , Mid , eid
-                                 Nogo = .TRUE.
+                                 WRITE (otpt,99003) ufm , mid , eid
+                                 nogo = .TRUE.
                                  RETURN
                               ENDIF
                            ENDIF
@@ -720,7 +729,7 @@ SUBROUTINE ihexd(Type)
 !     =============+==================================================
 !
                         DO ijk = 1 , 36
-                           gmat(ijk) = Bufm6(ijk)
+                           gmat(ijk) = bufm6(ijk)
                         ENDDO
                         IF ( rect ) THEN
                         ENDIF
@@ -728,7 +737,7 @@ SUBROUTINE ihexd(Type)
 !
 !     BAD ELEMENT IF FALL HERE.  JACOBIAN MATRIX WAS SINGULAR.
 !
-                        Nogo = .TRUE.
+                        nogo = .TRUE.
                         RETURN
                      ENDIF
 !
@@ -747,11 +756,11 @@ SUBROUTINE ihexd(Type)
                               sig(l) = 0.0
                            ENDDO
                         ELSE
-                           Temp = 0.0
+                           temp = 0.0
                            DO l = 1 , ngp
-                              Temp = Temp + z(in+l-1)*dble(gptld(l))
+                              temp = temp + z(in+l-1)*dble(gptld(l))
                            ENDDO
-                           Temp = Temp - dble(Tref)
+                           temp = temp - dble(tref)
                            IF ( anis ) THEN
 !     ===========================================================
 !
@@ -760,15 +769,15 @@ SUBROUTINE ihexd(Type)
 !     STORE ALPHA IN DOUBLE PRECISION
 !
                               DO ijk = 1 , 6
-                                 dalpha(ijk) = Bufm6(ijk+37)
+                                 dalpha(ijk) = bufm6(ijk+37)
                               ENDDO
 !
                               CALL gmmatd(gmat,6,6,0,dalpha,6,1,0,sig)
                               DO ijk = 1 , 6
-                                 sig(ijk) = -sig(ijk)*Temp
+                                 sig(ijk) = -sig(ijk)*temp
                               ENDDO
                            ELSE
-                              sig(1) = -dble(Talpha)*(e1+2.0*e2)*Temp
+                              sig(1) = -dble(talpha)*(e1+2.0*e2)*temp
                               sig(2) = sig(1)
                               sig(3) = sig(1)
                               sig(4) = 0.0
@@ -984,7 +993,7 @@ SUBROUTINE ihexd(Type)
 !
 !     COMPUTE TERM FOR MASS MATRIX
 !
-                              Rho = Bufm6(37)
+                              rho = bufm6(37)
                               mz = sil(m)
                               nz = sil(n)
                               IF ( mz<nz ) THEN
@@ -998,7 +1007,7 @@ SUBROUTINE ihexd(Type)
 !
 !     COMPUTE AND ADD MASS TERM TO ELEMENT MATRIX
 !
-                              z(l) = z(l) + dble(Rho)*sfact*z(in+m-1)*z(in+n-1)
+                              z(l) = z(l) + dble(rho)*sfact*z(in+m-1)*z(in+n-1)
                            ENDIF
                         ENDDO
                      ENDDO
@@ -1028,7 +1037,7 @@ SUBROUTINE ihexd(Type)
  80      k = (in-1)*2 + 1
          j = ngp*4
          DO i = 1 , j
-            Rz(k+i-1) = Est(bgpdt+i-1)
+            rz(k+i-1) = est(bgpdt+i-1)
          ENDDO
 !
 !     NOW MOVE IT BACK AND REARRANGE IT
@@ -1036,7 +1045,7 @@ SUBROUTINE ihexd(Type)
          DO i = 1 , ngp
             iest(bgpdt+4*i-4) = jz(k+i-1)
             DO j = 1 , 3
-               Est(bgpdt+4*i-4+j) = Rz(k+ngp+3*i+j-4)
+               est(bgpdt+4*i-4+j) = rz(k+ngp+3*i+j-4)
             ENDDO
          ENDDO
 !
@@ -1044,7 +1053,7 @@ SUBROUTINE ihexd(Type)
 !
          DO i = 1 , ngp
             j = in + (i-1)*9
-            CALL transd(Est(bgpdt+4*i-4),z(j))
+            CALL transd(est(bgpdt+4*i-4),z(j))
          ENDDO
          IF ( kgg<=0 ) GOTO 400
 !
@@ -1223,26 +1232,26 @@ SUBROUTINE ihexd(Type)
 !     (NOTE - MAKE SURE THE GRID POINT DATA, BGPDT, IS IN ISTS ORIGIANL
 !      FORM)
 !
- 500  IF ( Volume>0.0 .OR. Surfac>0.0 ) THEN
+ 500  IF ( volume>0.0 .OR. surfac>0.0 ) THEN
       il = iz*2
-      Rz(il+1) = bcd1
-      Rz(il+2) = bcd2(Type)
+      rz(il+1) = bcd1
+      rz(il+2) = bcd2(Type)
       jz(il+3) = eid
-      Rz(il+4) = tvol*Volume
-      Rz(il+5) = tvol
-      IF ( Rho>0.0 ) Rz(il+5) = tvol*Rho
+      rz(il+4) = tvol*volume
+      rz(il+5) = tvol
+      IF ( rho>0.0 ) rz(il+5) = tvol*rho
       jz(il+6) = ngp
       k = il + 6
       DO i = 1 , ngp
          k = k + 1
-         Rz(k) = Est(1+i)
+         rz(k) = est(1+i)
       ENDDO
-      IF ( Surfac>0.0 ) THEN
+      IF ( surfac>0.0 ) THEN
          IF ( .NOT.nocstm ) THEN
             j = ngp*4
             DO i = 1 , j
                k = k + 1
-               Rz(k) = Est(bgpdt+i-1)
+               rz(k) = est(bgpdt+i-1)
             ENDDO
          ELSE
             l = bgpdt + ngp
@@ -1251,14 +1260,14 @@ SUBROUTINE ihexd(Type)
                jz(k) = iest(bgpdt+i-1)
                DO j = 1 , 3
                   k = k + 1
-                  Rz(k) = Est(l)
+                  rz(k) = est(l)
                   l = l + 1
                ENDDO
             ENDDO
          ENDIF
       ENDIF
       l = k - il
-      CALL write(scr4,Rz(il+1),l,1)
+      CALL write(scr4,rz(il+1),l,1)
    ENDIF
    GOTO 1500
  600  anis = .TRUE.
@@ -1268,15 +1277,15 @@ SUBROUTINE ihexd(Type)
 !
    rect = .TRUE.
    IF ( cid/=0 ) THEN
-      jz(Izs) = cid
+      jz(izs) = cid
       DO i = 1 , 3
-         Rz(Izs+i) = Est(bcord+i-1)
+         rz(izs+i) = est(bcord+i-1)
       ENDDO
-      CALL transd(Rz(Izs),z(it))
+      CALL transd(rz(izs),z(it))
       DO i = 1 , 3
-         Rz(Izs+i) = -Rz(Izs+i)
+         rz(izs+i) = -rz(izs+i)
       ENDDO
-      CALL transd(Rz(Izs),z(in))
+      CALL transd(rz(izs),z(in))
       DO i = 1 , 9
          IF ( z(it+i-1)/=z(in+i-1) ) rect = .FALSE.
       ENDDO
@@ -1289,7 +1298,7 @@ SUBROUTINE ihexd(Type)
 !     TRANSFORM MATERIAL MATRIX TO BASIC SYSTEM
 !
          DO i = 1 , 6
-            z(iz+i+1) = dble(Kheat(i))
+            z(iz+i+1) = dble(kheat(i))
          ENDDO
          l = iz + 2
          m = l + 3
@@ -1314,7 +1323,7 @@ SUBROUTINE ihexd(Type)
 !
 !     GENERATE SHAPE FUNCTIONS AND JACOBIAN MATRIX INVERSE
 !
-   CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),Est(bcord))
+   CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),est(bcord))
    IF ( detj/=0.0 ) THEN
 !
       sfact = h(i)*h(j)*h(k)*detj
@@ -1335,20 +1344,20 @@ SUBROUTINE ihexd(Type)
 !     COMPUTE BASIC COORDINATES VECTOR AT THIS POINT
 !
             DO l = 1 , 3
-               Rz(Izs+l) = 0.0
+               rz(izs+l) = 0.0
             ENDDO
             DO l = 1 , ngp
                DO m = 1 , 3
-                  Rz(Izs+m) = Rz(Izs+m) + z(in+l-1)*Est(bcord+3*l+m-4)
+                  rz(izs+m) = rz(izs+m) + z(in+l-1)*est(bcord+3*l+m-4)
                ENDDO
             ENDDO
 !
 !     FETCH TRANSFORMATION AND CONDUCTIVITY MATRICES AND PERFORM
 !     TRANSFORMATION OPERATIONS
 !
-            CALL transd(Rz(Izs),z(it))
+            CALL transd(rz(izs),z(it))
             DO l = 1 , 6
-               z(iz+l+1) = dble(Kheat(l))
+               z(iz+l+1) = dble(kheat(l))
             ENDDO
             nz = it
             l = iz + 2
@@ -1362,7 +1371,7 @@ SUBROUTINE ihexd(Type)
 !
 !     FALL HERE IF JACOBIAN MATRIX WAS SINGULAR
 !
-      Nogo = .TRUE.
+      nogo = .TRUE.
       RETURN
    ENDIF
 !
@@ -1398,7 +1407,7 @@ SUBROUTINE ihexd(Type)
                DO l = 1 , 3
                   prt1 = prt1 + z(ix+3*m+l-4)*z(ix+3*n+l-4)
                ENDDO
-               prt1 = sfact*dble(Kheat(1))*prt1
+               prt1 = sfact*dble(kheat(1))*prt1
             ENDIF
 !
 !     COMPUTE INDEX INTO OPEN CORE FOR THIS TERM
@@ -1432,7 +1441,7 @@ SUBROUTINE ihexd(Type)
 !
 !     COMPUTE AND ADD TERM
 !
-            z(l) = z(l) + sfact*dble(Cp)*z(in+m-1)*z(in+n-1)
+            z(l) = z(l) + sfact*dble(cp)*z(in+m-1)*z(in+n-1)
          ENDIF
       ENDDO
    ENDDO

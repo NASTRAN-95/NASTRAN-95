@@ -1,10 +1,11 @@
-!*==dbmrel.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dbmrel.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmrel
+   USE i_dsiof
+   USE i_zzzzzz
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_ZZZZZZ
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -17,7 +18,7 @@ SUBROUTINE dbmrel
 !              ALLOCATED TO AN IN-MEMORY FILE
 !********************************************************************
    IF ( fcb(9,ifilex)==0 .OR. fcb(10,ifilex)==0 ) THEN
-      WRITE (Iwr,99001)
+      WRITE (iwr,99001)
 99001 FORMAT (///,' ERROR IN ATTEMPT TO FREE BLOCKS TO FREE CHAIN',/,' CONTENTS OF THE DIRECTORY ARE AS FOLLOWS')
       CALL dbmdmp
       CALL mesage(-61,0,0)

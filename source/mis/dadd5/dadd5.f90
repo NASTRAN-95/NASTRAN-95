@@ -1,13 +1,14 @@
-!*==dadd5.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dadd5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dadd5
+   USE c_blank
+   USE c_saddx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SADDX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -29,10 +30,10 @@ SUBROUTINE dadd5
    !>>>>EQUIVALENCE (Mcbs(1),Amcbs(1)) , (Mcbs(61),Mc(1))
    DATA inx/101 , 102 , 103 , 104 , 105/ , iout/201/
 !
-   Lcore = korsz(Core)
+   lcore = korsz(core)
 !
    DO i = 1 , 67
-      Mcbs(i) = 0
+      mcbs(i) = 0
    ENDDO
 !
 !     SETUP MATRIX CONTROL BLOCKS OF THE INPUT MATRICES
@@ -42,55 +43,55 @@ SUBROUTINE dadd5
 !
    mc(5) = 1
    DO j = 1 , 5
-      Mcbs(i) = inx(j)
-      CALL rdtrl(Mcbs(i))
+      mcbs(i) = inx(j)
+      CALL rdtrl(mcbs(i))
 !
 !     EXCLUDE NULL MATRICES FROM MCBS ARRAY
 !
-      IF ( Mcbs(i)>0 ) THEN
+      IF ( mcbs(i)>0 ) THEN
 !
 !     MOVE MULTIPLIERS TO MCBS ARRAY
 !
-         Mcbs(i+7) = 1
-         amcbs(i+8) = Alpha(2*j-1)
-         amcbs(i+9) = Alpha(2*j)
-         IF ( amcbs(i+9)/=0.0 ) Mcbs(i+7) = 3
+         mcbs(i+7) = 1
+         amcbs(i+8) = alpha(2*j-1)
+         amcbs(i+9) = alpha(2*j)
+         IF ( amcbs(i+9)/=0.0 ) mcbs(i+7) = 3
 !
 !     DETERMINE THE PRECISION AND TYPE OF THE OUTPUT MATRIX
 !
-         mc(5) = max0(mc(5),Mcbs(i+4),Mcbs(i+7))
-         IF ( Mcbs(i+4)==2 ) k = 1
+         mc(5) = max0(mc(5),mcbs(i+4),mcbs(i+7))
+         IF ( mcbs(i+4)==2 ) k = 1
          i = i + 12
       ENDIF
    ENDDO
 !
    mc(1) = iout
-   Nomat = i/12
-   IF ( Nomat==0 ) RETURN
-   IF ( Nomat/=1 ) THEN
+   nomat = i/12
+   IF ( nomat==0 ) RETURN
+   IF ( nomat/=1 ) THEN
 !
 !     CHECK TO ENSURE THAT THE MATRICES BEING ADDED ARE OF THE SAME
 !     ORDER
 !
       i = 14
-      DO j = 2 , Nomat
-         IF ( Mcbs(2)/=Mcbs(i) .OR. Mcbs(3)/=Mcbs(i+1) ) THEN
-            WRITE (Nout,99001) Ufm
+      DO j = 2 , nomat
+         IF ( mcbs(2)/=mcbs(i) .OR. mcbs(3)/=mcbs(i+1) ) THEN
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 4149, ATTEMPT TO ADD MATRICES OF UNEQUAL ORDER IN ','MODULE ADD5.')
             CALL mesage(-61,0,0)
          ENDIF
          i = i + 12
       ENDDO
    ENDIF
-   mc(2) = Mcbs(2)
-   mc(3) = Mcbs(3)
-   mc(4) = Mcbs(4)
+   mc(2) = mcbs(2)
+   mc(3) = mcbs(3)
+   mc(4) = mcbs(4)
    IF ( mc(5)==3 .AND. k/=0 ) mc(5) = 4
    mc(5) = min0(4,mc(5))
 !
 !     ADD MATRICES
 !
-   CALL sadd(Core,Core)
+   CALL sadd(core,core)
    CALL wrttrl(mc(1))
 !
 END SUBROUTINE dadd5

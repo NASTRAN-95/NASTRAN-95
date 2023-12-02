@@ -1,12 +1,13 @@
-!*==matwrt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==matwrt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE matwrt(Ifile,Xname,Xitem,Lcore)
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_output
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -50,35 +51,35 @@ USE ISO_FORTRAN_ENV
          CALL rdtrl(ia(1))
 !
          DO i = 1 , 96
-            Head2(i) = blank
+            head2(i) = blank
          ENDDO
-         Head2(1) = su
-         Head2(2) = bstr
-         Head2(3) = uctu
-         Head2(4) = re
-         Head2(5) = Xname(1)
-         Head2(6) = Xname(2)
-         Head2(7) = xit
-         Head2(8) = em
-         Head2(9) = Xitem
-         Head2(11) = cont
-         Head2(12) = xinue
-         Head2(13) = dx
+         head2(1) = su
+         head2(2) = bstr
+         head2(3) = uctu
+         head2(4) = re
+         head2(5) = Xname(1)
+         head2(6) = Xname(2)
+         head2(7) = xit
+         head2(8) = em
+         head2(9) = Xitem
+         head2(11) = cont
+         head2(12) = xinue
+         head2(13) = dx
          namea = Ifile
-         lcol = Lcore - Sysbuf
-         Incr = 1
-         CALL gopen(namea,Col(lcol+1),0)
-         It = ia(5)
-         IF ( It<=0 .OR. It>4 ) It = 5
+         lcol = Lcore - sysbuf
+         incr = 1
+         CALL gopen(namea,col(lcol+1),0)
+         it = ia(5)
+         IF ( it<=0 .OR. it>4 ) it = 5
          if = ia(4)
          IF ( if<=0 .OR. if>8 ) if = 9
          ncol = ia(2)
          nrow = ia(3)
          IF ( if==7 ) ncol = ia(3)
          CALL page1
-         WRITE (Otpe,99001) Xname , Xitem , type(2*It-1) , type(2*It) , ncol , nrow , form(2*if-1) , form(2*if)
+         WRITE (otpe,99001) Xname , Xitem , type(2*it-1) , type(2*it) , ncol , nrow , form(2*if-1) , form(2*if)
 99001    FORMAT (1H0,6X,13HSUBSTRUCTURE ,2A4,6H ITEM ,A4,6H IS A ,2A4,1X,I6,10H COLUMN X ,I6,5H ROW ,2A4,8H MATRIX.)
-         IF ( It/=5 .AND. if/=9 .AND. ncol/=0 .AND. nrow/=0 ) THEN
+         IF ( it/=5 .AND. if/=9 .AND. ncol/=0 .AND. nrow/=0 ) THEN
             IF ( if<8 ) THEN
                IF ( if==3 .OR. if==7 ) THEN
                   ncol = 1
@@ -86,14 +87,14 @@ USE ISO_FORTRAN_ENV
                ENDIF
                inull = 0
                it1 = 5
-               IF ( It==1 .OR. It==3 ) it1 = 9
+               IF ( it==1 .OR. it==3 ) it1 = 9
                ASSIGN 20 TO ihop
                jj = 1
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( if==8 ) THEN
 !
-               WRITE (Otpe,99002)
+               WRITE (otpe,99002)
 99002          FORMAT (16H0IDENTITY MATRIX)
             ENDIF
          ENDIF
@@ -103,67 +104,66 @@ USE ISO_FORTRAN_ENV
 !
          CALL tabprt(namea)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         K = 0
-         L = 0
-         CALL unpack(*40,namea,Col)
+         k = 0
+         l = 0
+         CALL unpack(*40,namea,col)
          IF ( inull==1 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 20      nrow = L - K + 1
+ 20      nrow = l - k + 1
          IF ( if==3 ) THEN
-            WRITE (Otpe,99003) K , L
+            WRITE (otpe,99003) k , l
 99003       FORMAT (30H0DIAGONAL ELEMENTS FOR COLUMNS,I6,3H TO,I7,4H ARE,/1H0)
-            Line = Line + 2
+            line = line + 2
          ELSEIF ( if==7 ) THEN
-            WRITE (Otpe,99004) K , L
+            WRITE (otpe,99004) k , l
 99004       FORMAT (25H0ROW ELEMENTS FOR COLUMNS,I6,4H TO ,I6,4H ARE,/1H0)
-            Line = Line + 2
+            line = line + 2
          ELSE
-            WRITE (Otpe,99005) jj , K , L
+            WRITE (otpe,99005) jj , k , l
 99005       FORMAT (8H0COLUMN ,I6,5X,6H ROWS ,I6,6H THRU ,I6,5X,50(1H-),/1H )
-            Line = Line + 3
-            IF ( Line>=Nlpp ) CALL page
-            IF ( It>2 ) nrow = 2*nrow
+            line = line + 3
+            IF ( line>=nlpp ) CALL page
+            IF ( it>2 ) nrow = 2*nrow
          ENDIF
-         K = 0
+         k = 0
          DO
-            j = K + 1
+            j = k + 1
             IF ( j>nrow ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            K = j + it1
-            IF ( K>nrow ) K = nrow
-            IF ( It==2 ) THEN
+            k = j + it1
+            IF ( k>nrow ) k = nrow
+            IF ( it==2 ) THEN
 !
 !     REAL DOUBLE PRECISION
 !
-               WRITE (Otpe,99006) (dcol(i),i=j,K)
+               WRITE (otpe,99006) (dcol(i),i=j,k)
 99006          FORMAT (1P,6D22.14)
-            ELSEIF ( It==3 ) THEN
+            ELSEIF ( it==3 ) THEN
 !
 !     COMPLEX SINGLE
 !
-               WRITE (Otpe,99007) (Col(i),i=j,K)
+               WRITE (otpe,99007) (col(i),i=j,k)
 99007          FORMAT (5(1P,E12.4,1H+,1P,E12.4,1HI))
-            ELSEIF ( It==4 ) THEN
+            ELSEIF ( it==4 ) THEN
 !
 !     COMPLEX DOUBLE
 !
-               WRITE (Otpe,99008) (dcol(i),i=j,K)
+               WRITE (otpe,99008) (dcol(i),i=j,k)
 99008          FORMAT (3(1P,D20.12,1H+,1P,D20.12,2HI ))
             ELSE
 !
 !     REAL SINGLE PRECISION
 !
-               WRITE (Otpe,99009) (Col(i),i=j,K)
+               WRITE (otpe,99009) (col(i),i=j,k)
 99009          FORMAT (1X,1P,10E13.5)
             ENDIF
-            Line = Line + 1
-            IF ( Line>=Nlpp ) CALL page
+            line = line + 1
+            IF ( line>=nlpp ) CALL page
          ENDDO
  40      IF ( inull/=1 ) THEN
             ibegn = jj
@@ -182,24 +182,24 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  60      CALL close(namea,1)
-         WRITE (Otpe,99010) ia(6)
+         WRITE (otpe,99010) ia(6)
 99010    FORMAT (53H0THE NUMBER OF NON-ZERO WORDS IN THE LONGEST RECORD =,I8)
          ia7a = ia(7)/100
          ia7c = ia(7) - 100*ia7a
          ia7b = ia7c/10
          ia7c = ia7c - 10*ia7b
-         WRITE (Otpe,99011) ia7a , ia7b , ia7c
+         WRITE (otpe,99011) ia7a , ia7b , ia7c
 99011    FORMAT (31H0THE DENSITY OF THIS MATRIX IS ,I3,1H.,I1,I1,9H PERCENT.)
          spag_nextblock_1 = 4
       CASE (4)
          RETURN
       CASE (5)
          ifin = jj - 1
-         WRITE (Otpe,99012) ibegn , ifin
+         WRITE (otpe,99012) ibegn , ifin
 99012    FORMAT (9H0COLUMNS ,I7,6H THRU ,I7,10H ARE NULL.)
          inull = 0
-         Line = Line + 2
-         IF ( Line>=Nlpp ) CALL page
+         line = line + 2
+         IF ( line>=nlpp ) CALL page
          GOTO ihop
       END SELECT
    ENDDO SPAG_DispatchLoop_1

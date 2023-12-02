@@ -2,17 +2,17 @@
  
 SUBROUTINE kelbow
    IMPLICIT NONE
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1BK
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
-   USE C_SMA1IO
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -34,6 +34,12 @@ SUBROUTINE kelbow
    REAL*8 , DIMENSION(18) :: ta
    REAL*8 , DIMENSION(9) :: tb
    REAL*8 , DIMENSION(3) :: veci , vecj , veck
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -122,9 +128,9 @@ SUBROUTINE kelbow
 !
    x = 1.
    ipvt = 1
-   IF ( Isilno(1)/=Npvt ) THEN
+   IF ( isilno(1)/=npvt ) THEN
       ipvt = 2
-      IF ( Isilno(2)/=Npvt ) CALL mesage(-30,34,iecpt(1))
+      IF ( isilno(2)/=npvt ) CALL mesage(-30,34,iecpt(1))
    ENDIF
 !
 !     SET UP POINTERS TO COORD. SYSTEM IDS
@@ -185,27 +191,27 @@ SUBROUTINE kelbow
 !
 !     CALCULATE TRUE LENGTH OF ELBOW
 !
-   fl = dble(R*dtr(Betar))
+   fl = dble(r*dtr(betar))
    IF ( fl==0.0D0 ) GOTO 400
 !
 !     NOW THAT LENGTH HAS BEEN COMPUTED, BRANCH IF THIS IS A -HEAT-
 !     FORMULATION.
 !
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
 !
 !
 !     HEAT FORMULATION CONTINUES HERE.  GET MATERIAL PROPERTY -K- FROM
 !     HMAT
 !
-      Matflg = 1
-      Matidc = iecpt(8)
-      Eltemp = ecpt(39)
-      CALL hmat(Ielid)
+      matflg = 1
+      matidc = iecpt(8)
+      eltemp = ecpt(39)
+      CALL hmat(ielid)
 !
-      fl = dble(Fk)*dble(ecpt(9))/(dp(9)*dp(10)*dble(dcr))
-      IF ( Npvt==iecpt(3) ) fl = -fl
+      fl = dble(fk)*dble(ecpt(9))/(dp(9)*dp(10)*dble(dcr))
+      IF ( npvt==iecpt(3) ) fl = -fl
       DO i = 1 , 2
-         CALL sma1b(fl,iecpt(i+1),Npvt,Ifkgg,0.0D0)
+         CALL sma1b(fl,iecpt(i+1),npvt,ifkgg,0.0D0)
          fl = -fl
       ENDDO
       GOTO 99999
@@ -247,49 +253,49 @@ SUBROUTINE kelbow
 !     SEARCH THE MATERIAL PROPERTIES TABLE FOR E,G AND THE DAMPING
 !     CONSTANT.
 !
-      Matidc = Imatid
-      Matflg = 1
-      Eltemp = Tempel
+      matidc = imatid
+      matflg = 1
+      eltemp = tempel
       CALL mat(iecpt(1))
-      dampc = Gsube
+      dampc = gsube
 !
 !     SET UP INTERMEDIATE VARIABLES FOR ELEMENT STIFFNESS MATRIX
 !     CALCULATION
 !
-      IF ( Kx<1.0E-8 ) Kx = 1.0
-      IF ( Ky<1.0E-8 ) Ky = 1.0
-      IF ( Kz<1.0E-8 ) Kz = 1.0
-      fi1 = I1/Kz
-      fi2 = I2/Ky
-      fjk = Fj/Kx
+      IF ( kx<1.0E-8 ) kx = 1.0
+      IF ( ky<1.0E-8 ) ky = 1.0
+      IF ( kz<1.0E-8 ) kz = 1.0
+      fi1 = i1/kz
+      fi2 = i2/ky
+      fjk = fj/kx
 !
 !     AREA FACTORS FOR SHEAR ARE FROM NEAR ZERO TO ONE
 !
-      IF ( K1<1.0E-8 ) K1 = 1.0
-      IF ( K2<1.0E-8 ) K2 = 1.0
-      IF ( K1>1.0 ) K1 = 1.0/K1
-      IF ( K2>1.0 ) K2 = 1.0/K2
+      IF ( k1<1.0E-8 ) k1 = 1.0
+      IF ( k2<1.0E-8 ) k2 = 1.0
+      IF ( k1>1.0 ) k1 = 1.0/k1
+      IF ( k2>1.0 ) k2 = 1.0/k2
 !
 !     THE FOLLOWING CODE WAS TAKEN FROM SAP4 BENDKS ROUTINE
 !     FOR A CURVED PIPE ELEMENT
 !
 !     COMPUTE SECTION PROPERTY CONSTANTS
 !
-      t = dtr(Betar)
-      ra = R/(A*E)
-      rv1 = R/(2.*K1*G*A)
-      rv2 = K1/K2*rv1
-      rt = R/(G*fjk*2.)
-      rb0 = R/(E*fi2*2.)
-      rb1 = R/(E*fi1)
-      r2 = R**2
+      t = dtr(betar)
+      ra = r/(a*e)
+      rv1 = r/(2.*k1*g*a)
+      rv2 = k1/k2*rv1
+      rt = r/(g*fjk*2.)
+      rb0 = r/(e*fi2*2.)
+      rb1 = r/(e*fi1)
+      r2 = r**2
 !
 !     COMPUTE COMMON TRIGONOMETRIC CONSTANTS
 !
-      st = sid(Betar)
-      ct = cod(Betar)
-      s2t = sid(2.0*Betar)
-      c2t = cod(2.0*Betar)
+      st = sid(betar)
+      ct = cod(betar)
+      s2t = sid(2.0*betar)
+      c2t = cod(2.0*betar)
 !
 !     FORM THE NODE FLEXIBILITY MATRIX AT NODE J REFERENCED TO THE
 !     LOCAL (X,Y,Z) COORDINATE SYSTEM AT NODE I.
@@ -330,8 +336,8 @@ SUBROUTINE kelbow
       f(3,3) = f(3,3) + 0.5*rt*r2*(6.0*t+s2t-8.0*st)
       f(4,4) = f(4,4) + 0.5*rt*(2.0*t+s2t)
       f(5,5) = f(5,5) + 0.5*rt*(2.0*t-s2t)
-      f(3,4) = f(3,4) + rt*R*(st-t*ct)
-      f(3,5) = f(3,5) + rt*R*(2.0-2.0*ct-t*st)
+      f(3,4) = f(3,4) + rt*r*(st-t*ct)
+      f(3,5) = f(3,5) + rt*r*(2.0-2.0*ct-t*st)
       f(4,5) = f(4,5) + 0.5*rt*(1.0-c2t)
 !
 !     B E N D I N G
@@ -343,10 +349,10 @@ SUBROUTINE kelbow
       f(5,5) = f(5,5) + 0.50*rb0*(2.0*t+s2t)
       f(6,6) = f(6,6) + rb1*t
       f(1,2) = f(1,2) + 0.25*rb1*r2*(1.0+3.0*c2t+2.0*t*s2t-4.0*ct)
-      f(1,6) = f(1,6) - rb1*R*(st-t*ct)
-      f(2,6) = f(2,6) + rb1*R*(t*st+ct-1.0)
-      f(3,4) = f(3,4) + rb0*R*(st-t*ct)
-      f(3,5) = f(3,5) - rb0*R*t*st
+      f(1,6) = f(1,6) - rb1*r*(st-t*ct)
+      f(2,6) = f(2,6) + rb1*r*(t*st+ct-1.0)
+      f(3,4) = f(3,4) + rb0*r*(st-t*ct)
+      f(3,5) = f(3,5) - rb0*r*t*st
       f(4,5) = f(4,5) - 0.50*rb0*(1.0-c2t)
 !
 !
@@ -383,8 +389,8 @@ SUBROUTINE kelbow
          h(k,k) = -1.0D0
       ENDDO
 !
-      h(4,3) = -dble(R*(1.0-ct))
-      h(5,3) = dble(R*st)
+      h(4,3) = -dble(r*(1.0-ct))
+      h(5,3) = dble(r*st)
       h(6,1) = -h(4,3)
       h(6,2) = -h(5,3)
 !
@@ -436,29 +442,29 @@ SUBROUTINE kelbow
          lim = low + 5
          DO k = low , lim
             j = j + 1
-            Kep(j) = Ke(k)
-            Kep(j+36) = Ke(k+6)
+            kep(j) = ke(k)
+            kep(j+36) = ke(k+6)
          ENDDO
       ENDDO
 !
 !                                                            T
 !     STORE VECI, VECJ, VECK IN KE(1),...,KE(9) FORMING THE A  MATRIX.
 !
-      Ke(1) = veci(1)
-      Ke(2) = veci(2)
-      Ke(3) = veci(3)
-      Ke(4) = vecj(1)
-      Ke(5) = vecj(2)
-      Ke(6) = vecj(3)
-      Ke(7) = veck(1)
-      Ke(8) = veck(2)
-      Ke(9) = veck(3)
+      ke(1) = veci(1)
+      ke(2) = veci(2)
+      ke(3) = veci(3)
+      ke(4) = vecj(1)
+      ke(5) = vecj(2)
+      ke(6) = vecj(3)
+      ke(7) = veck(1)
+      ke(8) = veck(2)
+      ke(9) = veck(3)
 !
 !     ZERO OUT THE ARRAY WHERE THE 3 X 3 MATRIX H AND THE W  AND W
 !     6 X 6  MATRICES WILL RESIDE.                         A      B
 !
       DO i = 28 , 108
-         Ke(i) = 0.0D0
+         ke(i) = 0.0D0
       ENDDO
       ipass = 1
       iwbeg = 0
@@ -470,20 +476,20 @@ SUBROUTINE kelbow
  100  basic = abasic
    jcsid = jcsida
    ikel = 1
-   index = Isilno(1)
+   index = isilno(1)
    GOTO 300
  200  basic = bbasic
    jcsid = jcsidb
    ikel = 37
-   index = Isilno(2)
+   index = isilno(2)
 !
 !     SET UP THE -G- MATRIX.  IG POINTS TO THE BEGINNING OF THE G
 !     MATRIX. G = AT X TI
 !
  300  ig = 1
    IF ( .NOT.(basic) ) THEN
-      CALL transd(ecpt(jcsid),Ke(10))
-      CALL gmmatd(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
+      CALL transd(ecpt(jcsid),ke(10))
+      CALL gmmatd(ke(1),3,3,0,ke(10),3,3,0,ke(19))
       ig = 19
    ENDIF
 !
@@ -493,41 +499,41 @@ SUBROUTINE kelbow
 !     STORED IN THE UPPER LEFT AND LOWER RIGHT CORNERS.  H, IF NON-ZERO,
 !     WILL BE STORED IN THE UPPER RIGHT CORNER.
 !
-   Ke(iwbeg+37) = Ke(ig)
-   Ke(iwbeg+38) = Ke(ig+1)
-   Ke(iwbeg+39) = Ke(ig+2)
-   Ke(iwbeg+43) = Ke(ig+3)
-   Ke(iwbeg+44) = Ke(ig+4)
-   Ke(iwbeg+45) = Ke(ig+5)
-   Ke(iwbeg+49) = Ke(ig+6)
-   Ke(iwbeg+50) = Ke(ig+7)
-   Ke(iwbeg+51) = Ke(ig+8)
-   Ke(iwbeg+58) = Ke(ig)
-   Ke(iwbeg+59) = Ke(ig+1)
-   Ke(iwbeg+60) = Ke(ig+2)
-   Ke(iwbeg+64) = Ke(ig+3)
-   Ke(iwbeg+65) = Ke(ig+4)
-   Ke(iwbeg+66) = Ke(ig+5)
-   Ke(iwbeg+70) = Ke(ig+6)
-   Ke(iwbeg+71) = Ke(ig+7)
-   Ke(iwbeg+72) = Ke(ig+8)
+   ke(iwbeg+37) = ke(ig)
+   ke(iwbeg+38) = ke(ig+1)
+   ke(iwbeg+39) = ke(ig+2)
+   ke(iwbeg+43) = ke(ig+3)
+   ke(iwbeg+44) = ke(ig+4)
+   ke(iwbeg+45) = ke(ig+5)
+   ke(iwbeg+49) = ke(ig+6)
+   ke(iwbeg+50) = ke(ig+7)
+   ke(iwbeg+51) = ke(ig+8)
+   ke(iwbeg+58) = ke(ig)
+   ke(iwbeg+59) = ke(ig+1)
+   ke(iwbeg+60) = ke(ig+2)
+   ke(iwbeg+64) = ke(ig+3)
+   ke(iwbeg+65) = ke(ig+4)
+   ke(iwbeg+66) = ke(ig+5)
+   ke(iwbeg+70) = ke(ig+6)
+   ke(iwbeg+71) = ke(ig+7)
+   ke(iwbeg+72) = ke(ig+8)
 !
 !                       T      E
 !     FORM THE PRODUCT W   X  K   AND STORE IN KEP(73)
 !                       NPVT
 !
-   CALL gmmatd(Ke(37),6,6,1,Kep(ikel),6,6,0,Kep(73))
+   CALL gmmatd(ke(37),6,6,1,kep(ikel),6,6,0,kep(73))
 !
 !     COMPUTE THE FINAL ANSWER AND STORE IN KEP(109)
 !
-   CALL gmmatd(Kep(73),6,6,0,Ke(iwbeg+37),6,6,0,Kep(109))
+   CALL gmmatd(kep(73),6,6,0,ke(iwbeg+37),6,6,0,kep(109))
 !
 !     INSERT THIS 6 X 6
 !
-   CALL sma1b(Kep(109),index,-1,Ifkgg,0.0D0)
-   IF ( Iopt4/=0 .AND. Gsube/=0.0 ) THEN
-      K4ggsw = 1
-      CALL sma1b(Kep(109),index,-1,If4gg,dampc)
+   CALL sma1b(kep(109),index,-1,ifkgg,0.0D0)
+   IF ( iopt4/=0 .AND. gsube/=0.0 ) THEN
+      k4ggsw = 1
+      CALL sma1b(kep(109),index,-1,if4gg,dampc)
    ENDIF
 !
 !     IF IPASS = 2, WE ARE DONE.  OTHERWISE COMPUTE THE OFF-DIAGONAL
@@ -539,10 +545,10 @@ SUBROUTINE kelbow
       iwbeg = 36
       ipass = 2
       DO i = 28 , 36
-         Ke(i) = 0.0D0
+         ke(i) = 0.0D0
       ENDDO
-      IF ( ipvt/=1 ) GOTO 100
-      GOTO 200
+      IF ( ipvt==1 ) GOTO 200
+      GOTO 100
    ENDIF
 !
  400  CALL mesage(30,26,iecpt(1))
@@ -550,6 +556,5 @@ SUBROUTINE kelbow
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-   Nogo = 1
-   RETURN
+   nogo = 1
 99999 END SUBROUTINE kelbow

@@ -1,16 +1,17 @@
-!*==eandm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==eandm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
+   USE c_blank
+   USE c_emecpt
+   USE c_gpta1
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMECPT
-   USE C_GPTA1
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -97,7 +98,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !
             CALL close(scr6,1)
             IF ( Itype==-20 ) CALL hccom(Itype,Lcore,icore,Nextz,kcount)
-            Jj = Nrowsp
+            jj = nrowsp
 !
 !     ITYPE=-20 OR +24--END OF SUBCASE. IF +24, WRITE ZEROS TO HCFLDS
 !     AND HCCENS AND REMFLUX VECTOR TO REMFLS. THEN CONTINUE ON TO
@@ -106,12 +107,12 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !     IN HCCOM). FOR ITYPE=-20, NO FURTHER PROCESSING IS DONE SINCE
 !     LOADS HAVE ALREADY BEEN COMPUTED.
 !
-            Ita = 1
-            Itb = 1
-            Ii = 1
-            Jj = 3*Nrowsp
-            Incur = 1
-            mcb(3) = Jj
+            ita = 1
+            itb = 1
+            ii = 1
+            jj = 3*nrowsp
+            incur = 1
+            mcb(3) = jj
             mcb2(1) = est
             CALL rdtrl(mcb2)
             nel = mcb2(2)
@@ -120,18 +121,18 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !
 !     READ IN THE ONE SPCFLD OR REMFLUX-TYPE CARD
 !
-            nwords = 3*Nrowsp
+            nwords = 3*nrowsp
             IF ( Itype==24 ) THEN
                nwords = 3*nel
-               Jj = nwords
-               jj1 = 3*Nrowsp
+               jj = nwords
+               jj1 = 3*nrowsp
             ENDIF
             istart = Nextz
             IF ( Nextz+nwords-1>icore ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL fread(slt,Z(Nextz),nwords,0)
+            CALL fread(slt,z(Nextz),nwords,0)
 !
 !     CREATE A ZERO VECTOR FOR EITHER REMFLS OR HCFLDS(WHICHEVER IS NOT
 !     USED IN THIS SET ID-REMEMBER THAT SPCFLD AND REMFLUX CANNOT HAVE
@@ -144,16 +145,16 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !     HCFL (SAME HOLDS FOR 3*NEL WORDS OF REMFLS)
 !
             IF ( Itype==24 ) THEN
-               CALL pack(Z(Nextz),remfls,mcb1)
+               CALL pack(z(Nextz),remfls,mcb1)
                CALL wrttrl(mcb1)
-               Jj = jj1
+               jj = jj1
                CALL bldpk(1,1,hcflds,0,0)
                CALL bldpkn(hcflds,0,mcb)
                CALL wrttrl(mcb)
             ELSE
-               CALL pack(Z(Nextz),hcflds,mcb)
+               CALL pack(z(Nextz),hcflds,mcb)
                CALL wrttrl(mcb)
-               Jj = jj1
+               jj = jj1
                CALL bldpk(1,1,remfls,0,0)
                CALL bldpkn(remfls,0,mcb1)
                CALL wrttrl(mcb1)
@@ -161,14 +162,14 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !
 !     RETURN JJ TO VALUE EXPECTED IN EXTERN
 !
-            Jj = Nrowsp
+            jj = nrowsp
             IF ( Itype==-20 ) RETURN
          ENDIF
 !
 !     GET INFO FROM EST
 !
          file = est
-         CALL gopen(est,Z(buf1),0)
+         CALL gopen(est,z(buf1),0)
          ncount = 0
          IF ( .NOT.done ) kcount = 0
 !
@@ -185,7 +186,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
          ELSEIF ( ijk==5 ) THEN
             GOTO 20
          ELSE
-            iwords = 3*Nrowsp
+            iwords = 3*nrowsp
             IF ( Ido/=1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -196,18 +197,18 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL fread(slt,Z(Nextz),nwords,0)
+         CALL fread(slt,z(Nextz),nwords,0)
          istart = Nextz
 !
  20      CALL read(*40,*80,est,eltype,1,0,iflag)
-         idx = (eltype-1)*Incr
-         estwds = Ne(idx+12)
-         ngrids = Ne(idx+10)
-         name(1) = Ne(idx+1)
-         name(2) = Ne(idx+2)
+         idx = (eltype-1)*incr
+         estwds = ne(idx+12)
+         ngrids = ne(idx+10)
+         name(1) = ne(idx+1)
+         name(2) = ne(idx+2)
          SPAG_Loop_1_1: DO
 !
-            CALL read(*60,*20,est,Ecpt,estwds,0,iflag)
+            CALL read(*60,*20,est,ecpt,estwds,0,iflag)
             ncount = ncount + 1
             IF ( .NOT.(done) ) THEN
                IF ( eltype<65 ) kcount = kcount + 3
@@ -238,7 +239,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
-         WRITE (outpt,99001) Ufm , name
+         WRITE (outpt,99001) ufm , name
 99001    FORMAT (A23,', ELEMENT TYPE ',2A4,' WAS USED IN AN E AND M ','PROBLEM. NOT A LEGAL TYPE')
          spag_nextblock_1 = 2
       CASE (2)
@@ -249,7 +250,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
  40      CALL close(est,1)
          IF ( Itype==24 ) THEN
             CALL hccom(Itype,Lcore,icore,Nextz,kcount)
-            Jj = Nrowsp
+            jj = nrowsp
          ELSE
             CALL write(scr6,0,0,1)
          ENDIF
@@ -259,7 +260,7 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
 !
 !     FATAL ERROR MESSAGES
 !
-         WRITE (outpt,99002) Ufm , nam
+         WRITE (outpt,99002) ufm , nam
 99002    FORMAT (A23,', LOGIC ERROR IN SUBROUTINE ',2A4,'. ONLY ONE SPCFLD OR REMFLUX SHOULD NOW EXIST')
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
@@ -269,7 +270,6 @@ SUBROUTINE eandm(Itype,Ido,Nextz,Lcore,Nbdys,All,Nelout)
          CYCLE SPAG_DispatchLoop_1
  80      n = -3
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          n = -8
          file = 0

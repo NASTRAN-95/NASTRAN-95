@@ -1,11 +1,12 @@
-!*==mpy3c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mpy3c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy3c(Z,Iz,Dz)
+   USE c_mpy3cp
+   USE c_mpy3tl
+   USE c_unpakx
    IMPLICIT NONE
-   USE C_MPY3CP
-   USE C_MPY3TL
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,26 +53,26 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
 !*****
 !    INITIALIZATION.
 !*****
-         Utyp = Prec
-         Urow1 = 1
-         Urown = N
-         Uincr = 1
-         precn = Prec*N
-         file = Scr1
+         utyp = prec
+         urow1 = 1
+         urown = n
+         uincr = 1
+         precn = prec*n
+         file = scr1
 !*****
 !    TEST TO SEE IF LESS THAN NK COLUMNS OF B IN CORE.
 !*****
-         IF ( First2 ) THEN
+         IF ( first2 ) THEN
 !*****
 !    LESS THAN NK COLUMNS OF B IN CORE.
 !*****
-            K2 = K2 + 1
-            Ltbc = K2
+            k2 = k2 + 1
+            ltbc = k2
             kk = iktbp - 1
-            SPAG_Loop_1_1: DO Ka = 1 , K
+            SPAG_Loop_1_1: DO ka = 1 , k
                kk = kk + 1
                IF ( Iz(kk)/=0 ) THEN
-                  Ltac = Iz(kk)
+                  ltac = Iz(kk)
                   EXIT SPAG_Loop_1_1
                ENDIF
             ENDDO SPAG_Loop_1_1
@@ -81,13 +82,13 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
 !*****
             lta = 0
             ia = iantu - 1
-            DO i = 1 , K
+            DO i = 1 , k
                ia = ia + 1
                IF ( lta<Iz(ia) ) THEN
                   lta = Iz(ia)
                   ik = iktbp + i - 1
-                  Ltac = Iz(ik)
-                  Ka = i
+                  ltac = Iz(ik)
+                  ka = i
                ENDIF
             ENDDO
 !*****
@@ -95,20 +96,20 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
 !*****
             ltb = 0
             ib = ibntu - 1
-            DO i = 1 , Nk
+            DO i = 1 , nk
                ib = ib + 1
                IF ( ltb<Iz(ib) ) THEN
                   ltb = Iz(ib)
-                  Ltbc = i
+                  ltbc = i
                ENDIF
             ENDDO
          ENDIF
 !*****
 !    ADD OR REPLACE COLUMN OF B INTO CORE.
 !*****
-         CALL filpos(Scr1,Iz(Ltac))
-         kk = ibcols + precn*(Ltbc-1)
-         CALL unpack(*20,Scr1,Z(kk))
+         CALL filpos(scr1,Iz(ltac))
+         kk = ibcols + precn*(ltbc-1)
+         CALL unpack(*20,scr1,Z(kk))
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  20      ik = kk - 1
@@ -118,26 +119,26 @@ SUBROUTINE mpy3c(Z,Iz,Dz)
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( .NOT.(First2) ) THEN
-            IF ( Icore/=1 ) THEN
+         IF ( .NOT.(first2) ) THEN
+            IF ( icore/=1 ) THEN
                CALL mpy3nu(Z)
-               kk = ibntu + Ltbc - 1
-               Iz(kk) = Ntbu
+               kk = ibntu + ltbc - 1
+               Iz(kk) = ntbu
             ENDIF
-            kk = iantu + Ka - 1
+            kk = iantu + ka - 1
             Iz(kk) = 0
          ENDIF
-         kk = ibcid + Ltbc - 1
-         Iz(kk) = Ltac
-         kb = Ltbc
+         kk = ibcid + ltbc - 1
+         Iz(kk) = ltac
+         kb = ltbc
 !*****
 !    PERFORM COMPUTATION.
 !*****
          CALL mpy3p(Z,Z,Z)
-         Ltbc = kb
-         kk = iktbp + Ka - 1
+         ltbc = kb
+         kk = iktbp + ka - 1
          Iz(kk) = 0
-         Kcount = Kcount + 1
+         kcount = kcount + 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

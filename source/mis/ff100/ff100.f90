@@ -1,4 +1,5 @@
-!*==ff100.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ff100.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION ff100(I,A,B,M,N,X)
@@ -17,11 +18,19 @@ FUNCTION ff100(I,A,B,M,N,X)
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: am1f , amn2f , amn2sf , an1 , an1f , an1p1 , an2 , capx , f100 , s , sf , xx
-   INTEGER :: ifac , iret , is , lfac , n1 , n2 , n3 , n4 , nfac
+   INTEGER :: ifac , iret , is , lfac , n1 , n2 , n3 , n4 , nfac , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -51,12 +60,11 @@ FUNCTION ff100(I,A,B,M,N,X)
             nfac = n2
             ASSIGN 40 TO iret
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             f100 = f100 + amn2f*(capx**n4)*((-B)**is)/(amn2sf*sf*(an2-s)*(xx**n4))
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  40      am1f = ifac
          nfac = N - 1
          ASSIGN 60 TO iret
@@ -72,7 +80,6 @@ FUNCTION ff100(I,A,B,M,N,X)
             sf = sf*s
             amn2sf = amn2sf/(an1p1-s)
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             f100 = -f100/(A**n3)
             ff100 = f100

@@ -1,13 +1,14 @@
-!*==scaled.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==scaled.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scaled(Type,Emord)
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -57,13 +58,13 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST IF MATRIX TO BE PRODUCED IS REQUESTED
 !
-   IF ( Imat(Emord)==0 ) RETURN
+   IF ( imat(Emord)==0 ) RETURN
 !
 !     MOVE EST DATA TO LOCAL ARRAYS.  LOCATIONS ARE GIVEN BY DATA //
 !
    eid = iest(1)
    ip = kpt(Type)
-   z(1) = Est(ip)
+   z(1) = est(ip)
    gsube = 0
    icomp(1) = 0
    icomp(2) = 0
@@ -101,19 +102,19 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      IF ( isil(2)>0 ) THEN
+      IF ( Isil(2)>0 ) THEN
 !
-         IF ( isil(2)/=isil(1) ) THEN
-            IF ( icomp(1)==icomp(2) ) THEN
+         IF ( Isil(2)/=Isil(1) ) THEN
+            IF ( Icomp(1)==Icomp(2) ) THEN
 !
 !     COMPONENTS ARE THE SAME FOR BOTH POINTS
 !
-               nterms = 4
-               ncol = 2
-               code = 2**icomp(1)
-               z(2) = -z(1)
-               z(3) = -z(1)
-               z(4) = z(1)
+               Nterms = 4
+               Ncol = 2
+               Code = 2**Icomp(1)
+               Z(2) = -Z(1)
+               Z(3) = -Z(1)
+               Z(4) = Z(1)
                CALL spag_block_2
                RETURN
             ENDIF
@@ -121,9 +122,9 @@ CONTAINS
 !     IF THE ELEMENT CONNECTS TWO COMPONENTS OF THE SAME POINT IT
 !     MUST HAVE SPECIAL TREATMENT
 !
-         ELSEIF ( icomp(2)==icomp(1) ) THEN
+         ELSEIF ( Icomp(2)==Icomp(1) ) THEN
 !
-            WRITE (ioutpt,99001) Uwm , eid
+            WRITE (Ioutpt,99001) uwm , Eid
 99001       FORMAT (A25,' 3120, IMPROPER CONNECTION ON CELAS ELEMENT',I9)
             RETURN
 !
@@ -133,37 +134,37 @@ CONTAINS
 !
          ENDIF
 !
-         nterms = 16
-         code = 2**icomp(1) + 2**icomp(2)
-         ncol = 4
-         DO i = 2 , 16
-            z(i) = 0.0
+         Nterms = 16
+         Code = 2**Icomp(1) + 2**Icomp(2)
+         Ncol = 4
+         DO I = 2 , 16
+            Z(I) = 0.0
          ENDDO
-         IF ( icomp(2)<icomp(1) ) THEN
-            z(6) = z(1)
-            z(7) = -z(1)
-            z(10) = -z(1)
-            z(11) = z(1)
-            z(1) = 0.0
-            IF ( isil(1)==isil(2) ) THEN
-               z(1) = z(11)
-               z(2) = z(10)
-               z(5) = z(7)
-               z(7) = 0.0
-               z(10) = 0.0
-               z(11) = 0.0
+         IF ( Icomp(2)<Icomp(1) ) THEN
+            Z(6) = Z(1)
+            Z(7) = -Z(1)
+            Z(10) = -Z(1)
+            Z(11) = Z(1)
+            Z(1) = 0.0
+            IF ( Isil(1)==Isil(2) ) THEN
+               Z(1) = Z(11)
+               Z(2) = Z(10)
+               Z(5) = Z(7)
+               Z(7) = 0.0
+               Z(10) = 0.0
+               Z(11) = 0.0
             ENDIF
          ELSE
-            z(4) = -z(1)
-            z(13) = -z(1)
-            z(16) = z(1)
-            IF ( isil(1)==isil(2) ) THEN
-               z(2) = z(4)
-               z(5) = z(13)
-               z(6) = z(16)
-               z(4) = 0.0
-               z(13) = 0.0
-               z(16) = 0.0
+            Z(4) = -Z(1)
+            Z(13) = -Z(1)
+            Z(16) = Z(1)
+            IF ( Isil(1)==Isil(2) ) THEN
+               Z(2) = Z(4)
+               Z(5) = Z(13)
+               Z(6) = Z(16)
+               Z(4) = 0.0
+               Z(13) = 0.0
+               Z(16) = 0.0
             ENDIF
          ENDIF
       ELSE
@@ -171,11 +172,11 @@ CONTAINS
 !     IF THE SECOND SIL EQUALS ZERO THE ELEMENT IS GROUNDED
 !     ONLY A SINGLE MATRIX TERM IS PRODUCED
 !
-         ngrids = 1
-         dict(2) = 1
-         nterms = 1
-         code = 2**icomp(1)
-         ncol = 1
+         Ngrids = 1
+         Dict(2) = 1
+         Nterms = 1
+         Code = 2**Icomp(1)
+         Ncol = 1
       ENDIF
       CALL spag_block_2
    END SUBROUTINE spag_block_1
@@ -183,24 +184,23 @@ CONTAINS
 !
 !     OUTPUT THE MATRIX HERE
 !
-      dict(1) = Estid
-      dict(3) = ncol
-      dict(4) = code
-      dict(5) = 0
-      ipg = gspt(Type)
+      Dict(1) = estid
+      Dict(3) = Ncol
+      Dict(4) = Code
+      Dict(5) = 0
+      Ipg = Gspt(Type)
 !
 !     STRUCTURAL DAMPING FOR  STIIFNESS MATRICES IS INSERTED IN DICT
 !
-      IF ( Emord==1 .AND. Type<=3 ) dict(5) = iest(ipg)
-      IF ( Iprec/=1 ) THEN
-         i = nterms
+      IF ( Emord==1 .AND. Type<=3 ) Dict(5) = Iest(Ipg)
+      IF ( iprec/=1 ) THEN
+         I = Nterms
          SPAG_Loop_1_1: DO
-            dz(i) = z(i)
-            i = i - 1
-            IF ( i<=0 ) EXIT SPAG_Loop_1_1
+            Dz(I) = Z(I)
+            I = I - 1
+            IF ( I<=0 ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
       ENDIF
-      CALL emgout(z,dz,nterms,1,dict,Emord,Iprec)
-      RETURN
+      CALL emgout(Z,Dz,Nterms,1,Dict,Emord,iprec)
    END SUBROUTINE spag_block_2
 END SUBROUTINE scaled

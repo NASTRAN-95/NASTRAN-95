@@ -1,12 +1,13 @@
-!*==mfree.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mfree.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mfree
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -40,52 +41,52 @@ USE ISO_FORTRAN_ENV
 !
 !
    !>>>>EQUIVALENCE (Necpt(1),Ecpt(1))
-   ifile = Io(11)
-   IF ( Ecpt(4)==0.0 ) RETURN
+   ifile = io(11)
+   IF ( ecpt(4)==0.0 ) RETURN
    IF ( necpt(2)/=necpt(3) ) THEN
-      Dr = Ecpt(11) - Ecpt(7)
-      IF ( Npvt==necpt(2) ) THEN
+      dr = ecpt(11) - ecpt(7)
+      IF ( npvt==necpt(2) ) THEN
 !
-         Rp = Ecpt(7)
-         Rn = Ecpt(11)
+         rp = ecpt(7)
+         rn = ecpt(11)
          ip = necpt(2)
          in = necpt(3)
       ELSE
-         IF ( Npvt/=necpt(3) ) THEN
+         IF ( npvt/=necpt(3) ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
 !
-         Rp = Ecpt(11)
-         Rn = Ecpt(7)
+         rp = ecpt(11)
+         rn = ecpt(7)
          ip = necpt(3)
 !
          in = necpt(2)
       ENDIF
-      Ct = (0.2617994D0/Ecpt(4))*Dr
-      IF ( necpt(5)==0 ) Ct = 2.0D0*Ct
-      Em = Ct*(3.0D0*Rp+Rn)
-      CALL sma2b(Em,ip,ip,ifile,0.0D0)
-      Em = Ct*(Rp+Rn)
-      CALL sma2b(Em,in,ip,ifile,0.0D0)
+      ct = (0.2617994D0/ecpt(4))*dr
+      IF ( necpt(5)==0 ) ct = 2.0D0*ct
+      em = ct*(3.0D0*rp+rn)
+      CALL sma2b(em,ip,ip,ifile,0.0D0)
+      em = ct*(rp+rn)
+      CALL sma2b(em,in,ip,ifile,0.0D0)
       RETURN
 !
 !      CASE OF CENTER ELEMENT CONNECTED TO ONE POINT
 !
-   ELSEIF ( necpt(2)==Npvt ) THEN
-      Ct = 1.5707963D0/dble(Ecpt(4))
-      Rp = Ecpt(7)
+   ELSEIF ( necpt(2)==npvt ) THEN
+      ct = 1.5707963D0/dble(ecpt(4))
+      rp = ecpt(7)
       IF ( necpt(5)>0 ) THEN
-         Rn = necpt(5)
-         Ct = Ct/(2.0D0*Rn+2.0D0)
+         rn = necpt(5)
+         ct = ct/(2.0D0*rn+2.0D0)
       ENDIF
-      Em = Ct*Rp**2
-      ip = Npvt
-      CALL sma2b(Em,ip,ip,ifile,0.0D0)
+      em = ct*rp**2
+      ip = npvt
+      CALL sma2b(em,ip,ip,ifile,0.0D0)
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
+      USE ISO_FORTRAN_ENV                 
    END SUBROUTINE spag_block_1
 END SUBROUTINE mfree

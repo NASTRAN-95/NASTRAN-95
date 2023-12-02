@@ -1,14 +1,15 @@
-!*==cmrd2e.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmrd2e.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2e(Iter)
-USE C_BLANK
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -72,35 +73,35 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP ROW PARTITION
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          item = itmlst(4)
-         CALL mtrxi(uprt,Oldnam,item,0,itest)
+         CALL mtrxi(uprt,oldnam,item,0,itest)
          IF ( itest/=1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL softrl(Oldnam,item,itrlr1)
-         IF ( Korbgn+itrlr1(3)>=Korlen ) THEN
+         CALL softrl(oldnam,item,itrlr1)
+         IF ( korbgn+itrlr1(3)>=korlen ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Typeu = itrlr1(5)
-         Irowu = 1
-         Nrowu = itrlr1(3)
-         Incru = 1
-         CALL gopen(uprt,Z(Gbuf1),0)
-         CALL unpack(*20,uprt,rz(Korbgn))
+         typeu = itrlr1(5)
+         irowu = 1
+         nrowu = itrlr1(3)
+         incru = 1
+         CALL gopen(uprt,z(gbuf1),0)
+         CALL unpack(*20,uprt,rz(korbgn))
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 20      DO i = 1 , Nrowu
-            rz(Korbgn+i-1) = 0.0
+ 20      DO i = 1 , nrowu
+            rz(korbgn+i-1) = 0.0
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
          CALL close(uprt,1)
-         luprt = Nrowu
-         kore = Korbgn
-         Korbgn = Korbgn + luprt
+         luprt = nrowu
+         kore = korbgn
+         korbgn = korbgn + luprt
 !
 !     GET GIB MATRIX
 !
@@ -110,12 +111,12 @@ USE ISO_FORTRAN_ENV
             gibrl = gibbar
          ELSE
             item = itmlst(3)
-            CALL softrl(Oldnam,item,itrlr1)
+            CALL softrl(oldnam,item,itrlr1)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL mtrxi(gib,Oldnam,item,0,itest)
+            CALL mtrxi(gib,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -151,12 +152,12 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP PACK/UNPACK PARAMETERS
 !
-         Typeop = itrlr3(5)
-         Irowp = 1
-         Nrowp = itrlr1(2) + itrlr1(3)
-         Incrp = 1
-         Incru = 1
-         dblkor = Korbgn/2 + 1
+         typeop = itrlr3(5)
+         irowp = 1
+         nrowp = itrlr1(2) + itrlr1(3)
+         incrp = 1
+         incru = 1
+         dblkor = korbgn/2 + 1
          sglkor = 2*dblkor - 1
 !
 !     FORM HGH MATRIX
@@ -171,23 +172,23 @@ USE ISO_FORTRAN_ENV
 !                  *     .     *
 !                  **         **
 !
-         CALL gopen(hghrl,Z(Gbuf1),1)
+         CALL gopen(hghrl,z(gbuf1),1)
 !
 !     PROCESS GIB MATRIX
 !
-         Typeu = itrlr1(5)
-         Nrowu = itrlr1(3)
-         Typinp = itrlr1(5)
+         typeu = itrlr1(5)
+         nrowu = itrlr1(3)
+         typinp = itrlr1(5)
          nrows = itrlr1(3)
          IF ( itrlr1(5)>2 ) nrows = 2*itrlr1(3)
          IF ( itrlr1(5)==1 .OR. itrlr1(5)==3 ) dicore = (sglkor+nrows)/2 + 1
          IF ( itrlr1(5)==2 .OR. itrlr1(5)==4 ) dicore = dblkor + nrows
          icore = 2*dicore - 1
-         IF ( dicore+nrows>=Korlen ) THEN
+         IF ( dicore+nrows>=korlen ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(gibrl,Z(Gbuf2),0)
+         CALL gopen(gibrl,z(gbuf2),0)
          DO i = 1 , kols1
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
@@ -263,19 +264,19 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS HIM MATRIX
 !
-         Typeu = itrlr2(5)
-         Nrowu = itrlr2(3)
-         Typinp = itrlr2(5)
+         typeu = itrlr2(5)
+         nrowu = itrlr2(3)
+         typinp = itrlr2(5)
          nrows = itrlr2(3)
          IF ( itrlr2(5)>2 ) nrows = 2*itrlr2(3)
          IF ( itrlr2(5)==2 .OR. itrlr2(5)==4 ) dicore = (sglkor+nrows)/2 + 1
          IF ( itrlr2(5)==1 .OR. itrlr2(5)==3 ) dicore = dblkor + nrows
          icore = 2*dicore - 1
-         IF ( dicore+nrows>=Korlen ) THEN
+         IF ( dicore+nrows>=korlen ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(himrl,Z(Gbuf2),0)
+         CALL gopen(himrl,z(gbuf2),0)
          DO i = 1 , kols2
             spag_nextblock_3 = 1
             SPAG_DispatchLoop_3: DO
@@ -344,12 +345,12 @@ USE ISO_FORTRAN_ENV
          CALL close(himrl,1)
          CALL close(hghrl,1)
          CALL wrttrl(itrlr3)
-         Korbgn = kore
+         korbgn = kore
 !
 !     SAVE HGH ON SOF AS H(ORG,LFT) MATRIX
 !
          item = itmlst(Iter)
-         CALL mtrxo(hghrl,Oldnam,item,0,itest)
+         CALL mtrxo(hghrl,oldnam,item,0,itest)
          IF ( itest==3 ) RETURN
          spag_nextblock_1 = 3
       CASE (3)
@@ -363,19 +364,19 @@ USE ISO_FORTRAN_ENV
             imsg = -3
          ELSEIF ( itest==6 ) THEN
 !
-            WRITE (Iprntr,99001) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99001) ufm , modnam , item , oldnam
 99001       FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,             &
                    &', IS PURGED.')
-            Dry = -2
+            dry = -2
             RETURN
          ELSE
-            WRITE (Iprntr,99002) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99002) ufm , modnam , item , oldnam
 !
 99002       FORMAT (A23,' 6211, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          RETURN
       CASE (4)
 !

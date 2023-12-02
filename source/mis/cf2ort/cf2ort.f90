@@ -1,13 +1,14 @@
-!*==cf2ort.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cf2ort.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cf2ort(Sucess,Maxits,Ten2mt,Nzero,Iortho,Vr,Vl,V1,V1l,V2,V2l,Zb)
-USE C_FEERAA
-USE C_FEERXC
-USE C_NAMES
-USE C_SYSTEM
-USE C_UNPAKX
-USE ISO_FORTRAN_ENV                 
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_system
+   USE c_unpakx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -68,18 +69,18 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( Qpr ) WRITE (Nout,99001)
+            IF ( qpr ) WRITE (nout,99001)
 99001       FORMAT (1H0,//26H BEGIN REORTHOGONALIZATION,//)
-            Numort = Numort + 1
+            numort = numort + 1
             k = 0
             Sucess = .FALSE.
-            Nn = Nord2
+            nn = nord2
             critf = 100.D0*dble(Ten2mt)**2
-            DO i = 1 , Nord2
+            DO i = 1 , nord2
                V2(i) = Vr(i)
                V2l(i) = Vl(i)
             ENDDO
-            CALL gopen(Iscr7,Zb(1),Rdrew)
+            CALL gopen(iscr7,Zb(1),rdrew)
          ENDIF
          SPAG_Loop_1_2: DO
             DO i = 1 , 4
@@ -91,22 +92,22 @@ USE ISO_FORTRAN_ENV
 !*******
             DO i = 1 , mortho
                IF ( i==Nzero+1 ) ll = 0
-               IF ( Qpr ) WRITE (Nout,99002) i
+               IF ( qpr ) WRITE (nout,99002) i
 99002          FORMAT (1H ,13HUNPACK VECTOR,I4)
 !     VALUES ARE UNPACKED INTO BOTH V1 AND V1L
-               CALL unpack(*5,Iscr7,V1(1))
-               IF ( Qpr ) THEN
-                  WRITE (Nout,99006) (V1(j),j=1,Nord2)
-                  WRITE (Nout,99006) (V1l(j),j=1,Nord2)
+               CALL unpack(*5,iscr7,V1(1))
+               IF ( qpr ) THEN
+                  WRITE (nout,99006) (V1(j),j=1,nord2)
+                  WRITE (nout,99006) (V1l(j),j=1,nord2)
                ENDIF
 !*******
 !     OBTAIN RIGHT-HAND INNER-PRODUCT TERM
 !*******
-               CALL cfnor2(Vr(1),V1l(1),Nord2,1,a(1))
+               CALL cfnor2(Vr(1),V1l(1),nord2,1,a(1))
 !*******
 !     SUBTRACT OFF RIGHT-HAND INNER-PRODUCT TERM
 !*******
-               DO j = 1 , Nord2 , 2
+               DO j = 1 , nord2 , 2
                   l = j + 1
                   V2(j) = V2(j) - a(1)*V1(j) + a(2)*V1(l)
                   V2(l) = V2(l) - a(1)*V1(l) - a(2)*V1(j)
@@ -119,11 +120,11 @@ USE ISO_FORTRAN_ENV
 !*******
 !     OBTAIN LEFT-HAND INNER-PRODUCT TERM
 !*******
-               CALL cfnor2(Vl(1),V1(1),Nord2,1,a(1))
+               CALL cfnor2(Vl(1),V1(1),nord2,1,a(1))
 !*******
 !     SUBTRACT OFF LEFT-HAND INNER-PRODUCT TERM
 !*******
-               DO j = 1 , Nord2 , 2
+               DO j = 1 , nord2 , 2
                   l = j + 1
                   V2l(j) = V2l(j) - a(1)*V1l(j) + a(2)*V1l(l)
                   V2l(l) = V2l(l) - a(1)*V1l(l) - a(2)*V1l(j)
@@ -134,32 +135,32 @@ USE ISO_FORTRAN_ENV
                a(1) = a(1)**2 + a(2)**2
                IF ( otest(ll+2)<a(1) ) otest(ll+2) = a(1)
                CYCLE
- 5             IF ( Idiag/=0 ) WRITE (Nout,99003) i
+ 5             IF ( idiag/=0 ) WRITE (nout,99003) i
 99003          FORMAT (18H ORTHOGONAL VECTOR,I4,39H IS NULL IN REORTHOGONALIZATION ROUTINE)
             ENDDO
-            DO i = 1 , Nord2
+            DO i = 1 , nord2
                Vr(i) = V2(i)
                Vl(i) = V2l(i)
             ENDDO
             skip = .FALSE.
-            IF ( Qpr ) THEN
-               WRITE (Nout,99006) (Vr(i),i=1,Nord2)
-               WRITE (Nout,99006) (Vl(i),i=1,Nord2)
+            IF ( qpr ) THEN
+               WRITE (nout,99006) (Vr(i),i=1,nord2)
+               WRITE (nout,99006) (Vl(i),i=1,nord2)
             ENDIF
             SPAG_Loop_2_1: DO
 !*******
 !     TEST FOR CONVERGENCE
 !*******
-               IF ( Idiag/=0 ) WRITE (Nout,99004) k , critf , otest
+               IF ( idiag/=0 ) WRITE (nout,99004) k , critf , otest
 99004          FORMAT (32H   REORTHOGONALIZATION ITERATION,I3,9X,14HTARGET VALUE =,D12.4,4X,8HERRORS =,4D12.4)
                IF ( otest(1)<=critf .AND. otest(2)<=critf .AND. otest(3)<=critf .AND. otest(4)<=critf ) THEN
-                  CALL close(Iscr7,Norew)
+                  CALL close(iscr7,norew)
                   Sucess = .TRUE.
                   EXIT SPAG_Loop_2_1
                ELSE
                   IF ( .NOT.(skip) ) THEN
                      IF ( k==1 .OR. k==3 .OR. k==5 ) THEN
-                        IF ( Idiag/=0 ) WRITE (Nout,99005)
+                        IF ( idiag/=0 ) WRITE (nout,99005)
 99005                   FORMAT (52H   REORTHOGONALIZATION TOLERANCE TEMPORARILY RELAXED)
                         critf = 100.D0*critf
                         skip = .TRUE.
@@ -168,11 +169,11 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                   k = k + 1
                   IF ( k>Maxits ) THEN
-                     CALL close(Iscr7,Norew)
+                     CALL close(iscr7,norew)
                      EXIT SPAG_Loop_2_1
                   ELSE
-                     CALL close(Iscr7,Eofnrw)
-                     CALL gopen(Iscr7,Zb(1),Rdrew)
+                     CALL close(iscr7,eofnrw)
+                     CALL gopen(iscr7,Zb(1),rdrew)
                      CYCLE SPAG_Loop_1_2
                   ENDIF
                ENDIF

@@ -1,10 +1,11 @@
-!*==detm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==detm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE detm
-USE C_DETMX
-USE C_REGEAN
-USE ISO_FORTRAN_ENV                 
+   USE c_detmx
+   USE c_regean
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -54,26 +55,26 @@ USE ISO_FORTRAN_ENV
 !
 !     IEV = EIGENVECTOR CONTROL BLOCK
 !
-         Nstart = 0
-         Lcore = 0
-         Ndcmp = 0
-         Nsmove = 0
-         Npole = 0
-         Iterm = 1
-         Iffnd = 0
-         Nfail = 0
+         nstart = 0
+         lcore = 0
+         ndcmp = 0
+         nsmove = 0
+         npole = 0
+         iterm = 1
+         iffnd = 0
+         nfail = 0
 !*****
-         Prec = Ik(5)
+         prec = ik(5)
 !*****
-         iscr7 = Scr7
-         IF ( Mz>Nevm ) GOTO 60
-         IF ( Im(1)<=0 ) THEN
+         iscr7 = scr7
+         IF ( mz>nevm ) GOTO 60
+         IF ( im(1)<=0 ) THEN
 !
 !     MASS MATRIX PURGED -- ASSUME IDENTITY
 !
-            Im(1) = Ik(1)
-            CALL rdtrl(Im(1))
-            Im(4) = 8
+            im(1) = ik(1)
+            CALL rdtrl(im(1))
+            im(4) = 8
          ENDIF
          CALL detm1(*80)
          spag_nextblock_1 = 2
@@ -81,12 +82,12 @@ USE ISO_FORTRAN_ENV
          SPAG_Loop_1_1: DO
             CALL klock(itime1)
             CALL detm3(*40,*60,*20)
-            Nfound = Nfound + 1
-            CALL fdvect(Sml1,P(3))
-            idone = Nfound + 1
-            IF ( Mz>0 ) idone = idone + Mz
+            nfound = nfound + 1
+            CALL fdvect(sml1,p(3))
+            idone = nfound + 1
+            IF ( mz>0 ) idone = idone + mz
             CALL detm4
-            IF ( idone>Nevm ) THEN
+            IF ( idone>nevm ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -97,25 +98,24 @@ USE ISO_FORTRAN_ENV
 !
 !     INSUFFICIENT TIME TO FIND ANOTHER E. V.
 !
- 20      CALL mesage(45,Nevm-idone,name)
-         Iterm = 3
+ 20      CALL mesage(45,nevm-idone,name)
+         iterm = 3
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  40      CALL detm2
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 60      Iterm = 2
+ 60      iterm = 2
          spag_nextblock_1 = 3
       CASE (3)
-         Scr7 = iscr7
+         scr7 = iscr7
          CALL detm5
          RETURN
 !
 !     SINGULAR MATRIX EVERYWHERE
 !
- 80      Iterm = 4
+ 80      iterm = 4
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE detm

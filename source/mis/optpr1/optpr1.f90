@@ -1,15 +1,16 @@
-!*==optpr1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==optpr1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optpr1
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_optpw1
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_OPTPW1
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -91,57 +92,57 @@ SUBROUTINE optpr1
 !
 !     SET UP ELEMENT TYPES
 !
-         Neltyp = numtyp
+         neltyp = numtyp
          DO i = 1 , 21
-            IF ( Ntypes>ltype ) THEN
+            IF ( ntypes>ltype ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Itype(i) = dattyp(i)
+            itype(i) = dattyp(i)
          ENDDO
-         DO i = 1 , Ntypes
+         DO i = 1 , ntypes
             dtyp(i) = datdty(i)
          ENDDO
 !
 !
-         Zcor = 100
-         Mpt = 101
-         Ept = 102
-         Ect = 103
-         Dit = 104
-         Est = 105
-         Optp1 = 201
-         Scrth1 = 301
+         zcor = 100
+         mpt = 101
+         ept = 102
+         ect = 103
+         dit = 104
+         est = 105
+         optp1 = 201
+         scrth1 = 301
 !
 !     STEP 1.  INITIALIZE AND CHECK FOR OUTPUT FILE
 !
-         Count = 0
-         Print = 1
-         CALL fname(Optp1,fnam)
+         count = 0
+         print = 1
+         CALL fname(optp1,fnam)
          IF ( fnam(1)==none(1) .AND. fnam(2)==none(2) ) GOTO 120
 !
-         B1p1 = korsz(Core(1)) - Sysbuf
-         b2 = B1p1 - Sysbuf
-         Ycor = b2 - 7
+         b1p1 = korsz(core(1)) - sysbuf
+         b2 = b1p1 - sysbuf
+         ycor = b2 - 7
          pcor1 = -1
          ecor1 = -1
          prcor1 = -1
          kcor1 = -1
-         Nwdse = 5
-         Nwdsp = 6
-         Npow = Neltyp
+         nwdse = 5
+         nwdsp = 6
+         npow = neltyp
          CALL delset
 !
 !     STEP 2.  FIND POPT CARD
 !
-         CALL preloc(*120,x(B1p1),Mpt)
-         CALL locate(*100,x(B1p1),poph,i)
-         CALL read(*20,*40,Mpt,x,7,1,nwds)
+         CALL preloc(*120,x(b1p1),mpt)
+         CALL locate(*100,x(b1p1),poph,i)
+         CALL read(*20,*40,mpt,x,7,1,nwds)
 !
 !     ILLEGAL NUMBER OF WORDS
 !
  20      CALL page2(-2)
-         WRITE (Outtap,99001) Sfm , name , nwds , hpop
+         WRITE (outtap,99001) sfm , name , nwds , hpop
 99001    FORMAT (A25,' 2288, ',2A4,'READ INCORRECT NUMBER WORDS (',I2,2A4,2H).)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
@@ -150,86 +151,86 @@ SUBROUTINE optpr1
 !
 !     STEP 2A.  PROCESS PLIMIT CARDS ON SCRATCH FILE
 !
-         IF ( Ycor<=11 ) THEN
+         IF ( ycor<=11 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Nklw = 0
-         CALL locate(*60,x(B1p1),plmh,i)
-         CALL gopen(Scrth1,x(b2),Nwrew)
+         nklw = 0
+         CALL locate(*60,x(b1p1),plmh,i)
+         CALL gopen(scrth1,x(b2),nwrew)
          CALL optpx(dtyp)
-         CALL close(Scrth1,Crew)
- 60      CALL close(Mpt,Crew)
-         IF ( Nklw>=0 ) THEN
-            IF ( Count+1==0 ) THEN
+         CALL close(scrth1,crew)
+ 60      CALL close(mpt,crew)
+         IF ( nklw>=0 ) THEN
+            IF ( count+1==0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
 !     STEP 3.  LOAD MATERIAL DATA
 !
-            CALL premat(y(1),y(1),x(B1p1),Ycor,mcor,Mpt,Dit)
+            CALL premat(y(1),y(1),x(b1p1),ycor,mcor,mpt,dit)
             pcor1 = mcor + 1
-            pcor2 = pcor1 + Ntypes
-            ecor1 = pcor2 + 2*(Npow+1)
-            Ycor = Ycor - ecor1
-            IF ( Ycor>=(Nwdse+Nwdsp) ) THEN
+            pcor2 = pcor1 + ntypes
+            ecor1 = pcor2 + 2*(npow+1)
+            ycor = ycor - ecor1
+            IF ( ycor>=(nwdse+nwdsp) ) THEN
 !
 !     STEP 4.  READ ELEMENTS INTO CORE
 !
-               CALL gopen(Est,x(b2),0)
+               CALL gopen(est,x(b2),0)
                CALL optp1a(y(pcor1),y(pcor2),y(ecor1),dtyp)
-               CALL close(Est,Crew)
-               IF ( Count+1==0 ) THEN
+               CALL close(est,crew)
+               IF ( count+1==0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Nelw>0 ) THEN
+               IF ( nelw>0 ) THEN
 !
 !     STEP 5.  READ IN PROPERTIES IDS, SET V1.  SECOND BUFFER NOT NEEDED
 !
-                  prcor1 = ecor1 + Nelw
-                  Ycor = Ycor - Nelw + Sysbuf
-                  IF ( Ycor>=Nwdsp ) THEN
-                     file = Ect
-                     CALL preloc(*80,x(B1p1),Ect)
+                  prcor1 = ecor1 + nelw
+                  ycor = ycor - nelw + sysbuf
+                  IF ( ycor>=nwdsp ) THEN
+                     file = ect
+                     CALL preloc(*80,x(b1p1),ect)
                      CALL optp1b(y(pcor1),y(pcor2),y(ecor1),y(prcor1))
-                     CALL close(Ect,Crew)
-                     IF ( Count+1/=0 ) THEN
-                        IF ( Nprw<=0 ) THEN
+                     CALL close(ect,crew)
+                     IF ( count+1/=0 ) THEN
+                        IF ( nprw<=0 ) THEN
                            spag_nextblock_1 = 3
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
 !
 !     STEP 6.  READ PROPERTY DATA INTO CORE
 !
-                        kcor1 = prcor1 + Nprw
-                        Ycor = Ycor - Nprw
+                        kcor1 = prcor1 + nprw
+                        ycor = ycor - nprw
 !
-                        file = Ept
-                        CALL preloc(*80,x(B1p1),Ept)
+                        file = ept
+                        CALL preloc(*80,x(b1p1),ept)
                         CALL optp1c(y(pcor1),y(pcor2),y(prcor1))
-                        CALL close(Ept,Crew)
-                        IF ( Count+1==0 ) THEN
+                        CALL close(ept,crew)
+                        IF ( count+1==0 ) THEN
                            spag_nextblock_1 = 3
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
 !
 !     STEP 7.  PROCESS PLIMIT CARDS
 !
-                        IF ( Nklw>0 ) THEN
-                           IF ( Ycor<4 ) THEN
+                        IF ( nklw>0 ) THEN
+                           IF ( ycor<4 ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
-                           CALL gopen(Scrth1,x(B1p1),Nrrew)
+                           CALL gopen(scrth1,x(b1p1),nrrew)
                            CALL optp1d(y(pcor2),y(prcor1),y(kcor1))
-                           CALL close(Scrth1,Crew)
-                           IF ( Nklw<0 ) THEN
+                           CALL close(scrth1,crew)
+                           IF ( nklw<0 ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
-                           IF ( Count+1==0 ) THEN
+                           IF ( count+1==0 ) THEN
                               spag_nextblock_1 = 3
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -237,28 +238,28 @@ SUBROUTINE optpr1
 !
 !     STEP 7.  COUNT=0, OUTPUT FILE OPTPR1
 !
-                        file = Optp1
-                        CALL open(*80,Optp1,x(B1p1),Nwrew)
-                        CALL write(Optp1,fnam,2,0)
-                        CALL write(Optp1,x(1),6,1)
+                        file = optp1
+                        CALL open(*80,optp1,x(b1p1),nwrew)
+                        CALL write(optp1,fnam,2,0)
+                        CALL write(optp1,x(1),6,1)
 !
-                        CALL write(Optp1,y(pcor1),Ntypes,0)
-                        CALL write(Optp1,Npow,1,0)
-                        CALL write(Optp1,y(pcor2),2*(Npow+1),1)
-                        CALL write(Optp1,y(ecor1),Nelw,1)
-                        CALL write(Optp1,y(prcor1),Nprw,1)
-                        CALL write(Optp1,y(kcor1),Nklw,1)
-                        CALL eof(Optp1)
+                        CALL write(optp1,y(pcor1),ntypes,0)
+                        CALL write(optp1,npow,1,0)
+                        CALL write(optp1,y(pcor2),2*(npow+1),1)
+                        CALL write(optp1,y(ecor1),nelw,1)
+                        CALL write(optp1,y(prcor1),nprw,1)
+                        CALL write(optp1,y(kcor1),nklw,1)
+                        CALL eof(optp1)
                         j = 0
-                        y(j+1) = Optp1
+                        y(j+1) = optp1
                         y(j+2) = 0
-                        y(j+3) = Nelw
-                        y(j+4) = Nprw
-                        y(j+5) = Nklw
+                        y(j+3) = nelw
+                        y(j+4) = nprw
+                        y(j+5) = nklw
                         y(j+6) = 0
-                        y(j+7) = Ntypes
+                        y(j+7) = ntypes
                         CALL wrttrl(y(1))
-                        CALL close(Optp1,Crew)
+                        CALL close(optp1,crew)
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -274,12 +275,12 @@ SUBROUTINE optpr1
 !     INSUFFICIENT CORE
 !
          CALL page2(-3)
-         WRITE (Outtap,99002) Ufm , name , B1p1 , pcor1 , ecor1 , prcor1 , kcor1
+         WRITE (outtap,99002) ufm , name , b1p1 , pcor1 , ecor1 , prcor1 , kcor1
 99002    FORMAT (A23,' 2289, ',2A4,'INSUFFICIENT CORE (',I10,2H ),/9X,I9,' = MATERIAL',I9,' = POINTERS',I9,' = ELEMENTS',I9,        &
                 &' = PROPERTIES')
          spag_nextblock_1 = 3
       CASE (3)
-         CALL mesage(-61,Ept,name)
+         CALL mesage(-61,ept,name)
 !
 !    INPUT FILE PURGED - ILLEGALLY
 !
@@ -287,20 +288,20 @@ SUBROUTINE optpr1
 !
 !    OPTPR1 NOT CREATED
 !
- 100     CALL close(Mpt,Crew)
- 120     Count = -1
+ 100     CALL close(mpt,crew)
+ 120     count = -1
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     OPTPR1 CREATED
 !
-         CALL klock(Tstart)
+         CALL klock(tstart)
          RETURN
       CASE (5)
 !
 !     ERROR MESSAGE
 !
-         WRITE (Outtap,99003) Sfm
+         WRITE (outtap,99003) sfm
 99003    FORMAT (A25,', DATDTY AND DTYP ARRAYS TOO SMALL')
          CALL mesage(-37,0,name)
          EXIT SPAG_DispatchLoop_1

@@ -1,12 +1,13 @@
-!*==conm1d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==conm1d.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE conm1d
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -51,18 +52,18 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
-   IF ( Ismb(2)==0 ) RETURN
-   dict(1) = Estid
+   IF ( ismb(2)==0 ) RETURN
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 6
    dict(4) = 63
    dict5 = 0
-   ip = Iprec
-   xof = Ecpt(5)
-   yof = Ecpt(6)
-   zof = Ecpt(7)
+   ip = iprec
+   xof = ecpt(5)
+   yof = ecpt(6)
+   zof = ecpt(7)
    DO i = 1 , 21
-      m(i) = Ecpt(i+3)
+      m(i) = ecpt(i+3)
    ENDDO
 !
 ! COMPUTE NON-TRANSFORMED MASS MATRIX. INITIALIZE
@@ -102,7 +103,7 @@ USE ISO_FORTRAN_ENV
          it = 9
       ELSE
 !
-         CALL transd(Ecpt(25),t(1))
+         CALL transd(ecpt(25),t(1))
       ENDIF
       IF ( icidt2==0 ) THEN
 !
@@ -116,7 +117,7 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDDO
       ELSE
-         CALL transd(Ecpt(25),t(10))
+         CALL transd(ecpt(25),t(10))
 !
          IF ( icidt1/=0 ) CALL gmmatd(t(1),3,3,1,t(10),3,3,0,t(19))
       ENDIF

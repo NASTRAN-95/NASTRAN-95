@@ -1,15 +1,16 @@
-!*==optpx.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==optpx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optpx(Dtyp)
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_optpw1
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_OPTPW1
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -54,18 +55,18 @@ SUBROUTINE optpx(Dtyp)
 !     MAKE PRELIMINARY PASS
 !
             imhere = 10
-            CALL read(*80,*40,Mpt,K,9,0,nwds)
-            IF ( K(1)==all ) THEN
+            CALL read(*80,*40,mpt,k,9,0,nwds)
+            IF ( k(1)==all ) THEN
 !
 !     ALL SPECIFIED
 !
                iall = iall + 1
             ELSE
-               DO i = 1 , Ntypes
+               DO i = 1 , ntypes
                   IF ( Dtyp(i)/=0 ) THEN
-                     idx = Incr*(i-1) + 1
-                     IF ( Ne(idx)==K(1) ) THEN
-                        IF ( Ne(idx+1)==K(2) ) GOTO 25
+                     idx = incr*(i-1) + 1
+                     IF ( ne(idx)==k(1) ) THEN
+                        IF ( ne(idx+1)==k(2) ) GOTO 25
                      ENDIF
                   ENDIF
                ENDDO
@@ -75,10 +76,10 @@ SUBROUTINE optpx(Dtyp)
                nogo = nogo + 1
                IF ( nogo<=1 ) THEN
                   CALL page2(-4)
-                  WRITE (Outtap,99005) Ufm
+                  WRITE (outtap,99005) ufm
                ENDIF
-               stor(nx) = K(1)
-               stor(nx+1) = K(2)
+               stor(nx) = k(1)
+               stor(nx+1) = k(2)
                nx = nx + 2
                IF ( nx>=20 ) EXIT SPAG_Loop_1_1
                CYCLE
@@ -95,9 +96,9 @@ SUBROUTINE optpx(Dtyp)
          i = eject(2)
          IF ( i/=0 ) THEN
             CALL page2(-2)
-            WRITE (Outtap,99005) Ufm
+            WRITE (outtap,99005) ufm
          ENDIF
-         WRITE (Outtap,99001) stor
+         WRITE (outtap,99001) stor
 99001    FORMAT (1H0,9X,10(2A4,1X))
          nx = 1
          GOTO iret
@@ -116,23 +117,23 @@ SUBROUTINE optpx(Dtyp)
 !     CONTINUE PROCESSING LEGAL CARDS UNLESS ANY = 0
 !
  60      IF ( any/=0 .OR. iall/=0 ) THEN
-            CALL bckrec(Mpt)
+            CALL bckrec(mpt)
             imhere = 130
-            CALL read(*80,*100,Mpt,stor(1),3,Noeor,nwds)
+            CALL read(*80,*100,mpt,stor(1),3,noeor,nwds)
 !
             loc1 = 1
 !
 !     START OF OUTPUT LOOP
 !
-            DO n = 1 , Ntypes
+            DO n = 1 , ntypes
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
                      ide = Dtyp(n)
                      IF ( ide<=0 ) CYCLE
-                     idx = Entry(ide)
-                     idx = Incr*(idx-1)
+                     idx = entry(ide)
+                     idx = incr*(idx-1)
                      nen = 0
                      nde = etp(ide)
                      IF ( nde>0 ) THEN
@@ -141,18 +142,18 @@ SUBROUTINE optpx(Dtyp)
                         imhere = 140
                         DO m = 1 , nde
                            SPAG_Loop_3_2: DO
-                              CALL read(*80,*100,Mpt,stor(1),9,Noeor,nwds)
-                              IF ( stor(1)==Ne(idx+1) ) THEN
-                                 IF ( stor(2)==Ne(idx+2) ) THEN
+                              CALL read(*80,*100,mpt,stor(1),9,noeor,nwds)
+                              IF ( stor(1)==ne(idx+1) ) THEN
+                                 IF ( stor(2)==ne(idx+2) ) THEN
                                     CALL optpx1(*62,stor,nogo,nen,loc1)
                                     EXIT SPAG_Loop_3_2
                                  ENDIF
                               ENDIF
                            ENDDO SPAG_Loop_3_2
                         ENDDO
-                        CALL bckrec(Mpt)
+                        CALL bckrec(mpt)
                         imhere = 150
-                        CALL read(*80,*100,Mpt,stor(1),3,Noeor,nwds)
+                        CALL read(*80,*100,mpt,stor(1),3,noeor,nwds)
                      ENDIF
 !
 !     CHECK IF ALL SPECIFIED
@@ -161,16 +162,16 @@ SUBROUTINE optpx(Dtyp)
                         imhere = 170
                         DO m = 1 , iall
                            SPAG_Loop_3_3: DO
-                              CALL read(*80,*100,Mpt,stor(1),9,Noeor,nwds)
+                              CALL read(*80,*100,mpt,stor(1),9,noeor,nwds)
                               IF ( stor(1)==all ) THEN
                                  CALL optpx1(*62,stor,nogo,nen,loc1)
                                  EXIT SPAG_Loop_3_3
                               ENDIF
                            ENDDO SPAG_Loop_3_3
                         ENDDO
-                        CALL bckrec(Mpt)
+                        CALL bckrec(mpt)
                         imhere = 180
-                        CALL read(*80,*100,Mpt,stor(1),3,Noeor,nwds)
+                        CALL read(*80,*100,mpt,stor(1),3,noeor,nwds)
                      ENDIF
 !
 !     CONTINUE PROCESSING LEGAL CARDS - SORT ON SECOND WORD
@@ -186,7 +187,7 @@ SUBROUTINE optpx(Dtyp)
                      i4 = iy(loc1+3)
                      loc2 = loc1 + nen
                      l = loc2
-                     IF ( l+4>Ycor ) nwds = 1
+                     IF ( l+4>ycor ) nwds = 1
                      nx = nen - 3
                      IF ( nx>=5 ) THEN
                         SPAG_Loop_2_4: DO m = 5 , nx , 4
@@ -219,7 +220,7 @@ SUBROUTINE optpx(Dtyp)
                                     iy(l+3) = i4
                                  ENDIF
                                  l = l + 4
-                                 IF ( l+3>Ycor ) nwds = nwds + 4
+                                 IF ( l+3>ycor ) nwds = nwds + 4
                                  i1 = j1
                                  i2 = j2
                                  i3 = iy(j+2)
@@ -231,7 +232,7 @@ SUBROUTINE optpx(Dtyp)
 !     OVERLAPPING RANGE ERROR CONDITION
 !
                            CALL page2(-2)
-                           WRITE (Outtap,99002) Ufm , i1 , i2 , j1 , j2
+                           WRITE (outtap,99002) ufm , i1 , i2 , j1 , j2
 99002                      FORMAT (A23,' 2291, PLIMIT RANGE INCORRECT FOR',I8,' THRU',I8,' AND',I8,' THRU',I8,'.')
                            i1 = j1
                            i2 = j2
@@ -241,7 +242,7 @@ SUBROUTINE optpx(Dtyp)
 !
 !     AFTER ELEMENTS THAT MAY BE OPTIMIZED, FLUSH BUFFER.
 !
-                     IF ( l+3<=Ycor ) THEN
+                     IF ( l+3<=ycor ) THEN
                         iy(l) = iy(nx)
                         iy(l+1) = iy(nx+1)
                         iy(l+2) = iy(nx+2)
@@ -256,7 +257,7 @@ SUBROUTINE optpx(Dtyp)
  62                  CALL page2(-2)
                      nocor = 1
                      nwds = nwds + 3
-                     WRITE (Outtap,99003) Ufm , Ne(idx+1) , Ne(idx+2) , nwds
+                     WRITE (outtap,99003) ufm , ne(idx+1) , ne(idx+2) , nwds
 99003                FORMAT (A23,' 2292, INSUFFICIENT CORE FOR PLIMIT DATA, ELEMENT ',2A4,I5,' WORDS SKIPPED.')
                      nogo = nogo + 1
                      spag_nextblock_2 = 2
@@ -268,11 +269,11 @@ SUBROUTINE optpx(Dtyp)
                         maxw = max0(l,maxw)
                         stor(1) = ide
                         stor(2) = (l-loc2+1)/4
-                        CALL write(Scrth1,stor(1),2,Noeor)
+                        CALL write(scrth1,stor(1),2,noeor)
 !
 !     AFTER ELEMENT TYPE, NUMBER WORDS - WRITE DATA
 !
-                        CALL write(Scrth1,iy(loc2),l-loc2+1,Nweor)
+                        CALL write(scrth1,iy(loc2),l-loc2+1,nweor)
                      ENDIF
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
@@ -282,13 +283,13 @@ SUBROUTINE optpx(Dtyp)
 !
 !     END OF OUTPUT LOOP
 !
-            CALL eof(Scrth1)
+            CALL eof(scrth1)
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         IF ( nogo==0 ) Nklw = maxw
-         IF ( nogo>0 ) Count = -1
-         IF ( nocor/=0 ) Nklw = -64
+         IF ( nogo==0 ) nklw = maxw
+         IF ( nogo>0 ) count = -1
+         IF ( nocor/=0 ) nklw = -64
          RETURN
 !
 !     ILLEGAL EOF (310), EOR (320)
@@ -300,11 +301,10 @@ SUBROUTINE optpx(Dtyp)
  100     j = -3
          spag_nextblock_1 = 4
       CASE (4)
-         WRITE (Outtap,99004) imhere , nwds
+         WRITE (outtap,99004) imhere , nwds
 99004    FORMAT ('  ERROR IN OPTPX.  IMHERE=',I4,',  NWDS=',I6)
-         CALL mesage(j,Mpt,name)
+         CALL mesage(j,mpt,name)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99005 FORMAT (A23,' 2290, THE FOLLOWING ILLEGAL ELEMENT TYPES FOUND ON',' PLIMIT CARD')

@@ -1,7 +1,9 @@
-!*==arrm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==arrm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE arrm(P,D,Nd)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -15,6 +17,15 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: dx , px
    INTEGER :: i , nx
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -79,15 +90,15 @@ CONTAINS
          CALL spag_block_2
          RETURN
       ENDIF
-      nx = Nd(1)
-      dx = D(1)
-      px = P(1)
+      Nx = Nd(1)
+      Dx = D(1)
+      Px = P(1)
       Nd(1) = Nd(2)
       D(1) = D(2)
       P(1) = P(2)
-      Nd(2) = nx
-      D(2) = dx
-      P(2) = px
+      Nd(2) = Nx
+      D(2) = Dx
+      P(2) = Px
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
@@ -97,14 +108,14 @@ CONTAINS
       ELSE
          RETURN
       ENDIF
-      nx = Nd(2)
-      dx = D(2)
-      px = P(2)
+      Nx = Nd(2)
+      Dx = D(2)
+      Px = P(2)
       Nd(2) = Nd(3)
       D(2) = D(3)
       P(2) = P(3)
-      Nd(3) = nx
-      D(3) = dx
-      P(3) = px
+      Nd(3) = Nx
+      D(3) = Dx
+      P(3) = Px
    END SUBROUTINE spag_block_2
 END SUBROUTINE arrm

@@ -1,19 +1,20 @@
-!*==ddrmm1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddrmm1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
+   USE c_condas
+   USE c_ddrmc1
+   USE c_gpta1
+   USE c_mpyadx
+   USE c_names
+   USE c_stdata
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_DDRMC1
-   USE C_GPTA1
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_STDATA
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -47,31 +48,31 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !     FORMATION OF DATA-MATRIX AND SUBSEQUENT MULTIPLY BY SOLUTION-
 !     MATRIX AND ULTIMATE OUTPUT OF TRANSIENT OR FREQUENCY SOLUTIONS.
 !
-         Ipass = 1
+         ipass = 1
          spag_nextblock_1 = 2
       CASE (2)
-         Col1 = .TRUE.
-         Frstid = .TRUE.
-         Setid = Sets(1,Ipass)
-         Device = Sets(2,Ipass)
-         Form = Sets(3,Ipass)
-         Istlst = Sets(4,Ipass)
-         Lstlst = Sets(5,Ipass)
+         col1 = .TRUE.
+         frstid = .TRUE.
+         setid = sets(1,ipass)
+         device = sets(2,ipass)
+         form = sets(3,ipass)
+         istlst = sets(4,ipass)
+         lstlst = sets(5,ipass)
 !
 !     GET LIST OF XYPLOT REQUESTED IDS FOR CURRENT SUBCASE AND
 !     OUTFIL TYPE.
 !
-         IF ( Jfile==2 ) THEN
+         IF ( jfile==2 ) THEN
 !
 !     SPCF
 !
             ixytyp = 4
-         ELSEIF ( Jfile==3 ) THEN
+         ELSEIF ( jfile==3 ) THEN
 !
 !     STRESS
 !
             ixytyp = 6
-         ELSEIF ( Jfile==4 ) THEN
+         ELSEIF ( jfile==4 ) THEN
 !
 !     FORCE
 !
@@ -80,12 +81,12 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     DISPLACEMENT, VELOCITY, ACCELERATION
 !
-            ixytyp = Ipass
+            ixytyp = ipass
          ENDIF
 !
-         ixy = Nlist + 1
-         CALL ddrmmp(*200,z(ixy),buf3-ixy,lxy,ixytyp,Subcas,z(buf3),anyxy)
-         IF ( .NOT.anyxy .AND. Setid==0 ) THEN
+         ixy = nlist + 1
+         CALL ddrmmp(*200,z(ixy),buf3-ixy,lxy,ixytyp,subcas,z(buf3),anyxy)
+         IF ( .NOT.anyxy .AND. setid==0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -93,13 +94,13 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     INITIALIZE DATA MATRIX FILE(SCRT5), AND MAPPING TABLE FILE(SCRT4).
 !
-         Ierror = 22
-         File = scrt4
-         CALL open(*140,scrt4,z(buf3),Wrtrew)
-         File = scrt5
-         CALL open(*140,scrt5,z(buf2),Wrtrew)
-         CALL fname(scrt5,Filnam)
-         CALL write(scrt5,Filnam,2,eor)
+         ierror = 22
+         file = scrt4
+         CALL open(*140,scrt4,z(buf3),wrtrew)
+         file = scrt5
+         CALL open(*140,scrt5,z(buf2),wrtrew)
+         CALL fname(scrt5,filnam)
+         CALL write(scrt5,filnam,2,eor)
 !
 !     GENERAL LOGIC TO BUILD SORT1 FORMAT DATA MATRIX.
 !
@@ -122,23 +123,23 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !     READ AN OFP-ID-RECORD AND SET PARAMETERS.
 !     (ON ENTRY TO THIS PROCESSOR THE FIRST ID RECORD IS AT HAND)
 !
-         File = Infile
-         Mcb(1) = scrt5
-         Mcb(2) = 0
-         Mcb(3) = 0
-         Mcb(4) = 2
-         Mcb(5) = 1
-         Mcb(6) = 0
-         Mcb(7) = 0
-         IF ( Ipass==1 .AND. Frstid ) THEN
+         file = infile
+         mcb(1) = scrt5
+         mcb(2) = 0
+         mcb(3) = 0
+         mcb(4) = 2
+         mcb(5) = 1
+         mcb(6) = 0
+         mcb(7) = 0
+         IF ( ipass==1 .AND. frstid ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         CALL read(*80,*80,Infile,Idrec,146,eor,Nwds)
-         majid = mod(Idrec(2),1000)
-         IF ( majid/=Itype1 ) THEN
+         CALL read(*80,*80,infile,idrec,146,eor,nwds)
+         majid = mod(idrec(2),1000)
+         IF ( majid/=itype1 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -147,62 +148,62 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     IF FIRST COLUMN, OFP-ID RECORD IS WRITTEN AS IS TO MAP FILE.
 !
-         IF ( Col1 ) THEN
-            IF ( .NOT.(.NOT.Frstid .AND. ridrec(6)/=Lambda) ) CALL write(scrt4,Idrec,146,eor)
+         IF ( col1 ) THEN
+            IF ( .NOT.(.NOT.frstid .AND. ridrec(6)/=lambda) ) CALL write(scrt4,idrec,146,eor)
          ENDIF
-         lentry = Idrec(10)
-         I1 = Nwords + 1
-         I2 = lentry
-         minor = Idrec(3)
+         lentry = idrec(10)
+         i1 = nwords + 1
+         i2 = lentry
+         minor = idrec(3)
 !
 !     IF SAME EIGENVALUE AS THAT OF LAST OFP-ID RECORD THEN CONTINUE.
 !
-         IF ( .NOT.(Frstid) ) THEN
-            IF ( ridrec(6)==Lambda ) GOTO 20
+         IF ( .NOT.(frstid) ) THEN
+            IF ( ridrec(6)==lambda ) GOTO 20
 !
 !     NEW EIGENVALUE. COMPLETE CURRENT DATA MATRIX COLUMN AND START
 !     NEW COLUMN. PASS ONE IS NOW COMPLETE.
 !
-            CALL bldpkn(scrt5,0,Mcb)
-            IF ( Col1 ) irow1 = Irow
-            IF ( Irow/=irow1 ) THEN
+            CALL bldpkn(scrt5,0,mcb)
+            IF ( col1 ) irow1 = irow
+            IF ( irow/=irow1 ) THEN
 !
 !     DATA INCONSISTENCY ON -INFILE-.
 !
-               WRITE (Outpt,99001) Swm , Infile
+               WRITE (outpt,99001) swm , infile
 99001          FORMAT (A27,' 2335.  (DDRMM1-1) THE AMOUNT OF DATA IS NOT ','CONSISTENT FOR EACH EIGENVALUE IN DATA BLOCK',I5,/5X,   &
                       &'PROCESSING OF THIS DATA BLOCK TERMINATED.')
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               Col1 = .FALSE.
+               col1 = .FALSE.
             ENDIF
          ENDIF
 !
 !     START NEW COLUMN.
 !
          CALL bldpk(1,1,scrt5,0,0)
-         Irow = 0
-         Frstid = .FALSE.
-         Lambda = ridrec(6)
+         irow = 0
+         frstid = .FALSE.
+         lambda = ridrec(6)
 !
 !     READ A POINT OR ELEMENT ENTRY.
 !
- 20      CALL read(*160,*60,Infile,buf,lentry,noeor,Nwds)
+ 20      CALL read(*160,*60,infile,buf,lentry,noeor,nwds)
          id = buf(1)/10
 !
 !     CHECK FOR ID IN OUTPUT REQUEST LIST
 !
-         idvice = Device
-         IF ( Setid<0 ) THEN
-         ELSEIF ( Setid==0 ) THEN
+         idvice = device
+         IF ( setid<0 ) THEN
+         ELSEIF ( setid==0 ) THEN
             GOTO 40
          ELSE
 !
 !//// NEXT MAY NOT NEED TO BE INITIALIZED EVERY TIME.
 !
             next = 1
-            CALL setfnd(*40,z(Istlst),Lstlst,id,next)
+            CALL setfnd(*40,z(istlst),lstlst,id,next)
          ENDIF
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
@@ -214,26 +215,26 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     THIS ID IS TO BE OUTPUT.
 !
-         IF ( Col1 ) THEN
+         IF ( col1 ) THEN
             buf(1) = 10*id + idvice
-            CALL write(scrt4,buf(1),Nwords,noeor)
-            Nstxtr = 0
-            IF ( Itype1==5 .AND. Savdat(minor)/=0 ) THEN
-               Npos = Savdat(minor)/100
-               Nstxtr = Savdat(minor) - Npos*100
-               DO i = 1 , Nstxtr
-                  j = Savpos(Npos+i-1)
-                  Bufsav(i) = buf(j)
+            CALL write(scrt4,buf(1),nwords,noeor)
+            nstxtr = 0
+            IF ( itype1==5 .AND. savdat(minor)/=0 ) THEN
+               npos = savdat(minor)/100
+               nstxtr = savdat(minor) - npos*100
+               DO i = 1 , nstxtr
+                  j = savpos(npos+i-1)
+                  bufsav(i) = buf(j)
                ENDDO
-               CALL write(scrt4,Bufsav(1),Nstxtr,noeor)
+               CALL write(scrt4,bufsav(1),nstxtr,noeor)
             ENDIF
          ENDIF
 !
 !     OUTPUT TO DATA MATRIX THE COMPONENTS OF THIS ENTRY.
 !
-         DO i = I1 , I2
-            Irow = Irow + 1
-            A(1) = Rbuf(i)
+         DO i = i1 , i2
+            irow = irow + 1
+            a(1) = rbuf(i)
 !
 !     GET RID OF INTEGERS.
 !
@@ -243,7 +244,7 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !     OLD LOGIC SHOULD INCLUDE ALPHA MACHINE (MACH=21)
 !
 !     NEW LOGIC BY G.CHAN/UNISYS, 8/91 -
-            IF ( numtyp(ia(1))<=1 ) A(1) = 0.0
+            IF ( numtyp(ia(1))<=1 ) a(1) = 0.0
 !
             CALL zblpki
          ENDDO
@@ -254,27 +255,27 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !     THIS SAME EIGENVALUE (I.E. A CHANGE IN ELEMENT TYPE) THEN
 !     FURTHER CONSTRUCTION OF THE DATA MATRIX COLUMN TAKES PLACE.
 !
- 60      IF ( Col1 ) CALL write(scrt4,0,0,eor)
+ 60      IF ( col1 ) CALL write(scrt4,0,0,eor)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF FILE ENCOUNTERED ON INFILE.
 !     DATA MATRIX AND MAPING FILE ARE COMPLETE.
 !
- 80      CALL close(Infile,Clsrew)
-         CALL close(scrt4,Clsrew)
+ 80      CALL close(infile,clsrew)
+         CALL close(scrt4,clsrew)
 !
 !     COMPLETE LAST COLUMN OF DATA MATRIX WRITTEN.
 !
-         IF ( Col1 ) irow1 = Irow
-         IF ( Irow/=irow1 ) THEN
+         IF ( col1 ) irow1 = irow
+         IF ( irow/=irow1 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL bldpkn(scrt5,0,Mcb)
-         Mcb(3) = Irow
-         CALL wrttrl(Mcb)
-         CALL close(scrt5,Clsrew)
+         CALL bldpkn(scrt5,0,mcb)
+         mcb(3) = irow
+         CALL wrttrl(mcb)
+         CALL close(scrt5,clsrew)
 !
 !     TO GET SOLUTION MATRIX BASED ON SORT-1 INFILE.
 !
@@ -288,44 +289,44 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     MATRIX MULTIPLY SETUP AND CALL.
 !
-         Mcba(1) = scrt5
-         CALL rdtrl(Mcba)
-         Mcbb(1) = Uvsol
-         IF ( Trnsnt ) Mcbb(1) = Scrt(Ipass)
-         CALL rdtrl(Mcbb)
-         Mcbc(1) = 0
-         Mcbd(1) = scrt6
-         Mcbd(2) = 0
-         Mcbd(3) = Irow
-         Mcbd(4) = 2
-         Mcbd(5) = 1
-         Mcbd(6) = 0
-         Mcbd(7) = 0
-         IF ( .NOT.Trnsnt ) Mcbd(5) = 3
+         mcba(1) = scrt5
+         CALL rdtrl(mcba)
+         mcbb(1) = uvsol
+         IF ( trnsnt ) mcbb(1) = scrt(ipass)
+         CALL rdtrl(mcbb)
+         mcbc(1) = 0
+         mcbd(1) = scrt6
+         mcbd(2) = 0
+         mcbd(3) = irow
+         mcbd(4) = 2
+         mcbd(5) = 1
+         mcbd(6) = 0
+         mcbd(7) = 0
+         IF ( .NOT.trnsnt ) mcbd(5) = 3
          nxy1 = nxy + 1
          IF ( mod(nxy1,2)==0 ) nxy1 = nxy1 + 1
-         Lz = korsz(z(nxy1))
-         Itflag = 0
-         Isinab = 1
-         Isinc = 1
-         Iprec = 1
-         Iscrt = scrt7
+         lz = korsz(z(nxy1))
+         itflag = 0
+         isinab = 1
+         isinc = 1
+         iprec = 1
+         iscrt = scrt7
          CALL mpyad(z(nxy1),z(nxy1),z(nxy1))
-         Mcbd(1) = scrt6
-         CALL wrttrl(Mcbd)
+         mcbd(1) = scrt6
+         CALL wrttrl(mcbd)
 !
 !     PRODUCT MATRIX IS NOW OUTPUT, USING THE MAP ON SCRT4 FOR EACH
 !     COLUMN.  (SORT-1)  PRODUCT MATRIX IS ON SCRATCH DATA BLOCK 6.
 !
-         Ierror = 10
-         File = Outfil
-         CALL open(*140,Outfil,z(buf1),Wrt)
-         File = scrt4
-         CALL open(*140,scrt4,z(buf2),Rdrew)
-         File = scrt6
-         CALL open(*140,scrt6,z(buf3),Rdrew)
+         ierror = 10
+         file = outfil
+         CALL open(*140,outfil,z(buf1),wrt)
+         file = scrt4
+         CALL open(*140,scrt4,z(buf2),rdrew)
+         file = scrt6
+         CALL open(*140,scrt6,z(buf3),rdrew)
          CALL fwdrec(*160,scrt6)
-         jlist = Ilist
+         jlist = ilist
          spag_nextblock_1 = 6
       CASE (6)
 !
@@ -335,40 +336,40 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     READ AN OFP-ID-RECORD FROM THE MAP.
 !
-         File = scrt4
+         file = scrt4
          spag_nextblock_1 = 7
       CASE (7)
-         CALL read(*120,*180,scrt4,Idrec,146,eor,Nwds)
+         CALL read(*120,*180,scrt4,idrec,146,eor,nwds)
 !
 !     SET THE FREQUENCY OR TIME AND CLOBBER THE EIGENVALUE.
 !
-         ridrec(5) = Rz(jlist)
+         ridrec(5) = rz(jlist)
          ridrec(6) = 0.0
-         Idout = .FALSE.
-         minor = Idrec(3)
+         idout = .FALSE.
+         minor = idrec(3)
 !
 !     SET NUMBER OF STRESS OR FORCE WORDS AND COMPLEX POINTERS IF
 !     NECESSARY
 !
-         Itype2 = Idrec(3)
-         IF ( Itype1/=3 .AND. Itype1/=7 ) THEN
-            ielem = (Itype2-1)*Incr
-            IF ( Itype1==4 ) THEN
+         itype2 = idrec(3)
+         IF ( itype1/=3 .AND. itype1/=7 ) THEN
+            ielem = (itype2-1)*incr
+            IF ( itype1==4 ) THEN
 !
 !     FORCES ASSUMED.
 !
-               Lsf = Elem(ielem+19)
-               Nptsf = Elem(ielem+21)
-               Nwdsf = Lsf
-            ELSEIF ( Itype1==5 ) THEN
+               lsf = elem(ielem+19)
+               nptsf = elem(ielem+21)
+               nwdsf = lsf
+            ELSEIF ( itype1==5 ) THEN
 !
 !     STRESSES ASSUMED.
 !
-               Lsf = Elem(ielem+18)
-               Nptsf = Elem(ielem+20)
-               Nwdsf = Lsf
+               lsf = elem(ielem+18)
+               nptsf = elem(ielem+20)
+               nwdsf = lsf
             ELSE
-               WRITE (Outpt,99002) Swm , Itype1 , Itype2 , Infile
+               WRITE (outpt,99002) swm , itype1 , itype2 , infile
 99002          FORMAT (A27,' 2334.  (DDRMM-3) ILLEGAL MAJOR OR MINOR OFP-ID ','IDENTIFICATIONS =',2I10,/5X,'DETECTED IN DATA BLOCK',&
                      & I5,'. PROCESSING OF SAID DATA BLOCK DISCONTINUED.')
                spag_nextblock_1 = 11
@@ -377,61 +378,61 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     SPCF OR DISPLACEMENTS ASSUMED
 !
-         ELSEIF ( .NOT.Trnsnt ) THEN
-            Nwdsf = 14
+         ELSEIF ( .NOT.trnsnt ) THEN
+            nwdsf = 14
 !
 !     SET OMEGA IF THIS IS THE VELOCITY OR ACCELERATION PASS
 !
-            IF ( Ipass==1 ) THEN
-            ELSEIF ( Ipass==3 ) THEN
+            IF ( ipass==1 ) THEN
+            ELSEIF ( ipass==3 ) THEN
 !
 !     OMEGA FOR ACCELERATION PASS
 !
-               Omega = -((Twopi*Rz(jlist))**2)
+               omega = -((twopi*rz(jlist))**2)
             ELSE
 !
 !     OMEGA FOR VELOCITY PASS
 !
-               Omega = Twopi*Rz(jlist)
+               omega = twopi*rz(jlist)
             ENDIF
          ELSE
-            Nwdsf = 8
+            nwdsf = 8
          ENDIF
 !
-         lentry = Idrec(10)
-         I1 = Nwords + 1
-         I2 = lentry
+         lentry = idrec(10)
+         i1 = nwords + 1
+         i2 = lentry
 !
 !
 !     SET DISPLACEMENT, VELOCITY, OR ACCELERATION OFP MAJOR ID IF INFILE
 !     IS MODAL DISPLACEMENTS.
 !
-         IF ( Itype1==7 ) Idrec(2) = dvamid(Ipass)
-         IF ( .NOT.Trnsnt ) Idrec(2) = Idrec(2) + 1000
+         IF ( itype1==7 ) idrec(2) = dvamid(ipass)
+         IF ( .NOT.trnsnt ) idrec(2) = idrec(2) + 1000
 !
 !     RESET APPROACH CODE FROM EIGENVALUE TO TRANSIENT OR FREQUENCY
 !
          iapp = 5
-         IF ( Trnsnt ) iapp = 6
-         Idrec(1) = 10*iapp + Device
+         IF ( trnsnt ) iapp = 6
+         idrec(1) = 10*iapp + device
 !
 !     FILL TITLE, SUBTITLE, AND LABEL FROM CASECC FOR THIS SUBCASE.
 !
          DO i = 1 , 96
-            Idrec(i+50) = z(Icc+i+37)
+            idrec(i+50) = z(icc+i+37)
          ENDDO
-         Idrec(4) = Subcas
+         idrec(4) = subcas
          DO
 !
 !     READ FIRST WORDS OF OUTPUT ENTRY FROM MAP.
 !
-            CALL read(*160,*100,scrt4,buf,Nwords,noeor,Nwds)
-            Lminor = .TRUE.
-            IF ( Itype1==5 .AND. Savdat(minor)/=0 ) THEN
-               Npos = Savdat(minor)/100
-               Nstxtr = Savdat(minor) - Npos*100
-               CALL read(*160,*180,scrt4,Bufsav(1),Nstxtr,noeor,Nwds)
-               Lminor = .FALSE.
+            CALL read(*160,*100,scrt4,buf,nwords,noeor,nwds)
+            lminor = .TRUE.
+            IF ( itype1==5 .AND. savdat(minor)/=0 ) THEN
+               npos = savdat(minor)/100
+               nstxtr = savdat(minor) - npos*100
+               CALL read(*160,*180,scrt4,bufsav(1),nstxtr,noeor,nwds)
+               lminor = .FALSE.
             ENDIF
 !
 !     GET BALANCE USING UTILITY WHICH WILL COLLECT AND MAP TOGETHER
@@ -444,30 +445,30 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !     CALL DDRMMS TO RECOMPUTE SOME ELEMENT STRESS QUANTITIES
 !     IN TRANSIENT PROBLEMS ONLY.
 !
-            IF ( Trnsnt .AND. Itype1==5 ) CALL ddrmms(buf,Itype2,buf4,buf5)
-            IF ( .NOT.(Idout) ) THEN
-               Idrec(9) = Form
-               Idrec(10) = Nwdsf
-               CALL write(Outfil,Idrec,146,eor)
-               Idout = .TRUE.
+            IF ( trnsnt .AND. itype1==5 ) CALL ddrmms(buf,itype2,buf4,buf5)
+            IF ( .NOT.(idout) ) THEN
+               idrec(9) = form
+               idrec(10) = nwdsf
+               CALL write(outfil,idrec,146,eor)
+               idout = .TRUE.
             ENDIF
 !
 !     OUTPUT THE COMPLETED ENTRY TO OFP OUTFIL.
 !
-            CALL write(Outfil,buf,Nwdsf,noeor)
+            CALL write(outfil,buf,nwdsf,noeor)
          ENDDO
 !
 !     END OF ENTRIES FOR ONE ID-REC HIT.  IF NO EOF ON MAP WITH
 !     NEXT READ, THEN CONTINUE OUTPUT OF THIS SOLUTION COLUMN.
 !
- 100     CALL write(Outfil,0,0,eor)
+ 100     CALL write(outfil,0,0,eor)
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF FILE ON MAP.  THUS START NEXT COLUMN IF REQUIRED.
 !
  120     jlist = jlist + 1
-         IF ( jlist<=Nlist ) THEN
+         IF ( jlist<=nlist ) THEN
             CALL rewind(scrt4)
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -477,35 +478,33 @@ SUBROUTINE ddrmm1() !HIDESTARS (*,*,*,*)
 !
 !     ALL DATA OF SOLUTION PRODUCT MATRIX HAS NOW BEEN OUTPUT.
 !
-         CALL close(Outfil,Cls)
-         CALL close(Infile,Clsrew)
-         CALL close(scrt4,Clsrew)
-         CALL close(scrt6,Clsrew)
-         Ipass = Ipass + 1
-         IF ( Ipass>Passes ) THEN
+         CALL close(outfil,cls)
+         CALL close(infile,clsrew)
+         CALL close(scrt4,clsrew)
+         CALL close(scrt6,clsrew)
+         ipass = ipass + 1
+         IF ( ipass>passes ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     PREPARE FOR ANOTHER PASS
 !
-         File = Infile
-         CALL open(*140,Infile,z(buf1),Rdrew)
-         CALL fwdrec(*160,Infile)
+         file = infile
+         CALL open(*140,infile,z(buf1),rdrew)
+         CALL fwdrec(*160,infile)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     CHANGE IN MAJOR OFP-ID DETECTED ON -INFILE-.
 !
-         WRITE (Outpt,99003) Swm , Infile
+         WRITE (outpt,99003) swm , infile
 99003    FORMAT (A27,' 2336.  (DDRMM1-2) A CHANGE IN WORD 2 OF THE OFP-ID',' RECORDS OF DATA BLOCK',I5,/5X,'HAS BEEN DETECTED. ',   &
                 &' POOCESSING OF THIS DATA BLOCK HAS BEEN TERMINATED.')
          spag_nextblock_1 = 10
       CASE (10)
-         Ipass = 3
+         ipass = 3
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     COMPLETION OF PASS FOR INPUT MODAL SOLUTION -FILE-.

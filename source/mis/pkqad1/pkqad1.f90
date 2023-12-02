@@ -1,16 +1,17 @@
-!*==pkqad1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pkqad1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pkqad1
+   USE c_matin
+   USE c_matout
+   USE c_pla42c
+   USE c_pla42e
+   USE c_pla42s
+   USE c_pla4es
+   USE c_pla4uv
+   USE c_plagp
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_PLA42C
-   USE C_PLA42E
-   USE C_PLA42S
-   USE C_PLA4ES
-   USE C_PLA4UV
-   USE C_PLAGP
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -89,71 +90,71 @@ SUBROUTINE pkqad1
 ! SETUP GP MATRIX FOR PLAMAT
 !
          istiff = .FALSE.
-         Elid = Ecpt(1)
-         Midgp = matid1
+         elid = ecpt(1)
+         midgp = matid1
          DO i = 1 , 9
-            Gp(i) = 0.0
+            gp(i) = 0.0
          ENDDO
-         Tau0 = sqrt(Sigxs**2-Sigxs*Sigys+Sigys**2+3.0*Sigxys**2)
-         IF ( Estar==0.0 ) THEN
+         tau0 = sqrt(sigxs**2-sigxs*sigys+sigys**2+3.0*sigxys**2)
+         IF ( estar==0.0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ipass==1 ) THEN
-            Matid = matid1
-            Costh = 1.0
-            Sinth = 0.0E0
-            Inflag = 2
+         IF ( ipass==1 ) THEN
+            matid = matid1
+            costh = 1.0
+            sinth = 0.0E0
+            inflag = 2
 !
-            CALL mat(Ecpt(1))
+            CALL mat(ecpt(1))
 !
-            Gp(1) = G11
-            Gp(2) = G12
-            Gp(3) = G13
-            Gp(4) = G12
-            Gp(5) = G22
-            Gp(6) = G23
-            Gp(7) = G13
-            Gp(8) = G23
-            Gp(9) = G33
+            gp(1) = g11
+            gp(2) = g12
+            gp(3) = g13
+            gp(4) = g12
+            gp(5) = g22
+            gp(6) = g23
+            gp(7) = g13
+            gp(8) = g23
+            gp(9) = g33
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Tau0==0.0 ) THEN
+         ELSEIF ( tau0==0.0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Matid = matid1
-         Inflag = 1
+         matid = matid1
+         inflag = 1
 !
-         CALL mat(Ecpt(1))
+         CALL mat(ecpt(1))
 !
-         F = 9.0*(esub0-Estar)/(4.0*Tau0**2*Estar)
-         Sx = (2.0*Sigxs-Sigys)/3.0
-         Sy = (2.0*Sigys-Sigxs)/3.0
-         Gp(1) = (1.0+Sx**2*F)/esub0
-         Gp(2) = (-nu+Sx*Sy*F)/esub0
-         Gp(3) = (2.0*Sigxys*Sx*F)/esub0
-         Gp(4) = Gp(2)
-         Gp(5) = (1.0+Sy**2*F)/esub0
-         Gp(6) = (2.0*Sigxys*Sy*F)/esub0
-         Gp(7) = Gp(3)
-         Gp(8) = Gp(6)
-         Gp(9) = (2.0*(1.0+nu)+4.0*F*Sigxys**2)/esub0
+         f = 9.0*(esub0-estar)/(4.0*tau0**2*estar)
+         sx = (2.0*sigxs-sigys)/3.0
+         sy = (2.0*sigys-sigxs)/3.0
+         gp(1) = (1.0+sx**2*f)/esub0
+         gp(2) = (-nu+sx*sy*f)/esub0
+         gp(3) = (2.0*sigxys*sx*f)/esub0
+         gp(4) = gp(2)
+         gp(5) = (1.0+sy**2*f)/esub0
+         gp(6) = (2.0*sigxys*sy*f)/esub0
+         gp(7) = gp(3)
+         gp(8) = gp(6)
+         gp(9) = (2.0*(1.0+nu)+4.0*f*sigxys**2)/esub0
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
-         Idum2 = -1
-         CALL invers(3,Gp,3,0,0,Dum1,Idum2,Idum3)
+         idum2 = -1
+         CALL invers(3,gp,3,0,0,dum1,idum2,idum3)
 !
 ! CHECK SINGULARITY
 !
-         IF ( Idum2==2 ) THEN
-            CALL mesage(30,38,Ecpt(1))
+         IF ( idum2==2 ) THEN
+            CALL mesage(30,38,ecpt(1))
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
          spag_nextblock_1 = 3
@@ -165,7 +166,7 @@ SUBROUTINE pkqad1
 ! CALCULATE PHASE I STRESSES
 !
             DO i = 1 , 32
-               Ecptsa(i) = Ecpt(i)
+               ecptsa(i) = ecpt(i)
             ENDDO
             necpts(2) = 1
             necpts(3) = 4
@@ -177,66 +178,66 @@ SUBROUTINE pkqad1
 !
 ! CALCULATE PHASE II STRESSES
 !
-            Ivec = 1
+            ivec = 1
             DO i = 1 , 24
-               Z(i) = Ui(i)
+               z(i) = ui(i)
             ENDDO
             DO i = 1 , 200
-               Ecptsa(i) = Ph1out(i)
+               ecptsa(i) = ph1out(i)
             ENDDO
-            S(1) = Sigxs
-            S(2) = Sigys
-            S(3) = Sigxys
+            s(1) = sigxs
+            s(2) = sigys
+            s(3) = sigxys
 !
             CALL pktq2(4)
 !
 !
 !  UPDATE ECPT FOR STRESSES
 !
-            Sigxs = S(1)
-            Sigys = S(2)
-            Sigxys = S(3)
-            Tau1 = sqrt(Sigxs**2-Sigxs*Sigys+Sigys**2+3.0*Sigxys**2)
-            Matid = matid1
-            Inflag = 8
-            Plaarg = Tau1
+            sigxs = s(1)
+            sigys = s(2)
+            sigxys = s(3)
+            tau1 = sqrt(sigxs**2-sigxs*sigys+sigys**2+3.0*sigxys**2)
+            matid = matid1
+            inflag = 8
+            plaarg = tau1
 !
-            CALL mat(Ecpt(1))
+            CALL mat(ecpt(1))
 !
 !
 ! TEST FOR TAU 1 OUTSIDE THE RANGE OF FUNCTION
 !
             IF ( nirof==1 ) THEN
 !
-               Estar = 0.0
+               estar = 0.0
             ELSE
 !
 ! RETURNS EPS SUB 1 GIVEN TAU1
 !
-               Eps1 = plaans
-               Deps = Eps1 - Epss
-               Depss = Epss - Eps0
-               Eps2 = Eps1 + Gamma*Deps
-               Inflag = 6
-               Plaarg = Eps2
+               eps1 = plaans
+               deps = eps1 - epss
+               depss = epss - eps0
+               eps2 = eps1 + gamma*deps
+               inflag = 6
+               plaarg = eps2
 !
-               CALL mat(Ecpt(1))
+               CALL mat(ecpt(1))
 !
 ! RETURNS  TAU2 GIVEN EPS2
 !
-               Tau2 = plaans
-               Estar = 0.0
-               IF ( (Eps2-Eps1)/=0.0 ) Estar = (Tau2-Tau1)/(Eps2-Eps1)
-               Eps0 = Epss
-               Epss = Eps1
+               tau2 = plaans
+               estar = 0.0
+               IF ( (eps2-eps1)/=0.0 ) estar = (tau2-tau1)/(eps2-eps1)
+               eps0 = epss
+               epss = eps1
             ENDIF
 !  SETUP STIFFNESS CALCULATIONS FOR GP
 !
             DO i = 1 , 9
-               Gp(i) = 0.0
+               gp(i) = 0.0
             ENDDO
-            Tau0 = sqrt(Sigxs**2-Sigxs*Sigys+Sigys**2+3.0*Sigxys**2)
-            IF ( Estar/=0.0 .AND. Tau0/=0.0 ) THEN
+            tau0 = sqrt(sigxs**2-sigxs*sigys+sigys**2+3.0*sigxys**2)
+            IF ( estar/=0.0 .AND. tau0/=0.0 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -245,7 +246,7 @@ SUBROUTINE pkqad1
 !  SETUP CALL TO ELEMENT STIFFNESS ROUTINE IT WILL ALSO INSERT
 !
          DO i = 1 , 32
-            Ecptsa(i) = Ecpt(i)
+            ecptsa(i) = ecpt(i)
          ENDDO
          CALL pktrqd(3)
          RETURN

@@ -1,10 +1,11 @@
-!*==xrgdcf.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrgdcf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgdcf(Irestb)
+   USE c_system
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XRGDXX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,19 +70,19 @@ SUBROUTINE xrgdcf(Irestb)
 !     ERRORS - NONE
 !
 !
-   Ierror = 0
-   Icol = 9
+   ierror = 0
+   icol = 9
    CALL xdcode
    SPAG_Loop_1_1: DO
       CALL xrgdev
-      IF ( Ierror/=0 .OR. Icol>80 ) EXIT SPAG_Loop_1_1
-      istr = Num(1)
-      iend = Num(2)
+      IF ( ierror/=0 .OR. icol>80 ) EXIT SPAG_Loop_1_1
+      istr = num(1)
+      iend = num(2)
       DO k = istr , iend
          iword = (k-1)/31
          ibit = 2**(31*iword+31-k)
          Irestb(iword+1) = orf(Irestb(iword+1),ibit)
       ENDDO
-      Icol = Icol + 1
+      icol = icol + 1
    ENDDO SPAG_Loop_1_1
 END SUBROUTINE xrgdcf

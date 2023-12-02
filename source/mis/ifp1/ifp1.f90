@@ -1,19 +1,20 @@
-!*==ifp1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1
 !
 !     READS AND INTERPRETS CASE CONTROL DECK FOR NASTRAN
 !
+   USE c_ifp1a
+   USE c_ifp1hx
+   USE c_output
+   USE c_system
+   USE c_xifp1
+   USE c_xmssg
+   USE c_xsortx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_IFP1HX
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XIFP1
-   USE C_XMSSG
-   USE C_XSORTX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -81,86 +82,86 @@ SUBROUTINE ifp1
 !
 !     INITIALIZE
 !
-         Icc = 1
+         icc = 1
          icnt = 0
-         Nset = 0
-         Nsym = 0
-         Isub = 1
-         Msst = 0
+         nset = 0
+         nsym = 0
+         isub = 1
+         msst = 0
          org = 0
          porg = -1
-         Istr = 1
-         Ncpw4 = 4
-         Nwpc = 20
+         istr = 1
+         ncpw4 = 4
+         nwpc = 20
          jumph = 0
          npch = 0
          nogopc = 0
-         Scr1 = 301
+         scr1 = 301
          setcd = .FALSE.
          plotcd = .FALSE.
-         Blank = blank4
-         Bit64 = Nbpw==64
-         Casecc = name(1)
-         Zzzzbb = 0
-         Zzzzbb = khrfn1(Zzzzbb,1,Zzzzbb,4)
-         Equal = khrfn1(Zzzzbb,1,equal1,1)
-         dol = khrfn1(Zzzzbb,1,dol1,1)
-         Iben = khrfn1(Zzzzbb,1,Blank,1)
-         Is = 9999999
-         Ieor = rshift(complf(0),1)
-         Nmodes = 1
-         Lencc = 200
+         blank = blank4
+         bit64 = nbpw==64
+         casecc = name(1)
+         zzzzbb = 0
+         zzzzbb = khrfn1(zzzzbb,1,zzzzbb,4)
+         equal = khrfn1(zzzzbb,1,equal1,1)
+         dol = khrfn1(zzzzbb,1,dol1,1)
+         iben = khrfn1(zzzzbb,1,blank,1)
+         is = 9999999
+         ieor = rshift(complf(0),1)
+         nmodes = 1
+         lencc = 200
          DO j = 1 , 2
-            DO i = 1 , Lencc
+            DO i = 1 , lencc
                case(i,j) = 0
             ENDDO
          ENDDO
-         case(166,1) = Lencc
+         case(166,1) = lencc
          DO j = 1 , 2
             DO i = 1 , 96
-               case(i+38,j) = Blank
+               case(i+38,j) = blank
             ENDDO
          ENDDO
          DO i = 1 , 5
-            isubc(i) = Blank
+            isubc(i) = blank
          ENDDO
-         nz = korsz(core) - Nwpc - 1
+         nz = korsz(core) - nwpc - 1
 !
 !     BLANK TITLE
 !
          DO i = 1 , 96
-            Title(i) = Blank
+            title(i) = blank
          ENDDO
          DO i = 1 , 11
-            Head1(i+9) = casen(i)
+            head1(i+9) = casen(i)
          ENDDO
-         Head2(4) = card
-         Head3(4) = coun
-         Head3(5) = t
+         head2(4) = card
+         head3(4) = coun
+         head3(5) = t
 !
-         i81 = Nwpc + 1
+         i81 = nwpc + 1
 !
 !     READ IN DATA-- STORE TITLE CARDS
 !
-         nz = nz - Sysbuf
+         nz = nz - sysbuf
          icrq = i81 - nz
          IF ( i81>nz ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*40,Scr1,Corex(nz+1),1)
+         CALL open(*40,scr1,corex(nz+1),1)
  20      SPAG_Loop_1_1: DO
             CALL xread(*300,core(1))
-            CALL write(Scr1,core(1),Nwpc,0)
-            IF ( Ibuf41/=-1 ) THEN
+            CALL write(scr1,core(1),nwpc,0)
+            IF ( ibuf41/=-1 ) THEN
 !
 !     IS THIS A TITLE SUBTITLE,LABEL,ETC CARD
 !
                CALL ifp1f(*20,iword,i2)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+               IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
                ASSIGN 20 TO iret1
-               Istr = 0
-               Isub = 1
+               istr = 0
+               isub = 1
                DO i = 1 , 6
                   IF ( iword==cccd(i) ) THEN
                      IF ( i==1 ) THEN
@@ -197,7 +198,7 @@ SUBROUTINE ifp1
                   ENDDO
                ENDIF
                CYCLE
- 25            IF ( Logfl<=0 ) CALL logfil(core(1))
+ 25            IF ( logfl<=0 ) CALL logfil(core(1))
                EXIT SPAG_Loop_1_1
             ENDIF
          ENDDO SPAG_Loop_1_1
@@ -205,19 +206,15 @@ SUBROUTINE ifp1
       CASE (2)
          itype = 1
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          itype = 2
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          itype = 3
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          itype = 7
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     STOP TITLE SEARCH
@@ -230,14 +227,13 @@ SUBROUTINE ifp1
 !
          CALL xrcard(core(i81),nz,core(1))
          temp = core(i81+5)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp==plot ) THEN
 !
 !     SET PLOT FLAG
 !
             case(135,1) = 1
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( temp==xypl .OR. temp==xyou ) THEN
                spag_nextblock_1 = 6
@@ -249,7 +245,7 @@ SUBROUTINE ifp1
 !
 !     FIND EQUAL SIGN COPY REMAINING DATA ON CARD
 !
-         CALL ifp1g(itype,case(1,1),Isub)
+         CALL ifp1g(itype,case(1,1),isub)
          GOTO iret1
 !
 !     FILE ERRORS
@@ -265,43 +261,41 @@ SUBROUTINE ifp1
          CYCLE SPAG_DispatchLoop_1
  80      ip1 = -3
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
-         CALL close(Scr1,1)
+         CALL close(scr1,1)
 !
 !     START BUILDING RECORDS
 !
          CALL page
-         nwdsc = Nwpc + 1
+         nwdsc = nwpc + 1
          ASSIGN 100 TO iret1
          ihowdy = 1
-         Nsym = 0
+         nsym = 0
          nsyms = 0
          iun = 0
          ixypl = 0
          icasec = 0
-         Istr = 1
+         istr = 1
          nsub = 0
-         Msst = 0
+         msst = 0
          ibuf1 = nz + 1
-         file = Scr1
-         CALL open(*40,Scr1,Corex(ibuf1),0)
-         nz = nz - Sysbuf
+         file = scr1
+         CALL open(*40,scr1,corex(ibuf1),0)
+         nz = nz - sysbuf
          ibuf2 = nz + 1
-         file = Casecc
-         IF ( Isubs==0 ) GOTO 160
+         file = casecc
+         IF ( isubs==0 ) GOTO 160
 !
 !     IN SUBSTRUCTURES, THE CASECC FILE CONTAINS DATA ON THE FRONT.
 !     SKIP FILE BEFORE WRITING.
 !
-         CALL open(*160,file,Corex(ibuf2),3)
+         CALL open(*160,file,corex(ibuf2),3)
          CALL write(file,name,2,1)
- 100     file = Scr1
+ 100     file = scr1
          icont = 0
          icrq = i81 - nz
          IF ( i81>nz ) THEN
@@ -310,18 +304,18 @@ SUBROUTINE ifp1
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
-         CALL read(*60,*80,Scr1,core(1),Nwpc,0,flag)
-         WRITE (Otpe,99001) Icc , (core(i),i=1,Nwpc)
+         CALL read(*60,*80,scr1,core(1),nwpc,0,flag)
+         WRITE (otpe,99001) icc , (core(i),i=1,nwpc)
 99001    FORMAT (11X,I8,6X,20A4)
-         Icc = Icc + 1
-         Line = Line + 1
-         IF ( Line>=Nlpp ) CALL page
-         IF ( dol==khrfn1(Zzzzbb,1,core(1),1) ) GOTO 100
+         icc = icc + 1
+         line = line + 1
+         IF ( line>=nlpp ) CALL page
+         IF ( dol==khrfn1(zzzzbb,1,core(1),1) ) GOTO 100
 !
 !     IS THIS TITLE SUBTITLE OR LABEL CARD
 !
          CALL ifp1f(*100,iword,i2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
          DO i = 1 , 4
             IF ( iword==ttlcd(i) .AND. ibob+ixypl==0 ) THEN
                IF ( i==1 ) THEN
@@ -362,7 +356,7 @@ SUBROUTINE ifp1
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,core(i81+1),0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,core(i81+1),0)
          IF ( core(i81+1)==outp ) THEN
 !
 !     OUTPUT
@@ -372,8 +366,8 @@ SUBROUTINE ifp1
 !     BLANK CHECK
 !
             temp = core(i81+5)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
-            IF ( core(i81+3)==Ieor .AND. core(i81)==1 ) GOTO 100
+            IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
+            IF ( core(i81+3)==ieor .AND. core(i81)==1 ) GOTO 100
             IF ( temp==plot ) THEN
                ibob = 1
 !
@@ -391,12 +385,11 @@ SUBROUTINE ifp1
 !     CHECK FOR PRESENCE OF PLOT TAPE
 !     (SPLOTS COULD BE SET ALREADY BY NASTRAN PLTFLG CARD)
 !
-               IF ( Isubs==0 .AND. .NOT.tapbit(plt1) .AND. .NOT.tapbit(plt2) ) CALL ifp1d(-618)
-               IF ( Splots==0 ) Splots = 1
-               IF ( Splots<0 ) Splots = -Splots
+               IF ( isubs==0 .AND. .NOT.tapbit(plt1) .AND. .NOT.tapbit(plt2) ) CALL ifp1d(-618)
+               IF ( splots==0 ) splots = 1
+               IF ( splots<0 ) splots = -splots
                ASSIGN 140 TO iret3
                spag_nextblock_1 = 48
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( ibob==1 .AND. .NOT.(setcd .AND. plotcd) ) CALL ifp1d(-631)
                IF ( temp==xypl .OR. temp==xyou ) THEN
@@ -405,7 +398,6 @@ SUBROUTINE ifp1
 !
                   ASSIGN 280 TO iret3
                   spag_nextblock_1 = 48
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   il = -617
                   CALL ifp1d(il)
@@ -419,7 +411,6 @@ SUBROUTINE ifp1
 !
                ASSIGN 220 TO iret3
                spag_nextblock_1 = 48
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( ibob==1 ) THEN
 !
@@ -430,8 +421,8 @@ SUBROUTINE ifp1
 !     TEST FOR REQUIRED PLOT AND SET CARDS IN STRUCTURE PLOT OUTPUT PKG
 !
                   temp = core(i81+2)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
-                  IF ( core(i81+1)==plot .AND. temp==Blank ) plotcd = .TRUE.
+                  IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
+                  IF ( core(i81+1)==plot .AND. temp==blank ) plotcd = .TRUE.
                   IF ( core(i81+1)==set ) setcd = .TRUE.
 !
 !     TEST FOR XYPLOT COMMAND CARDS IN STRUCTURE PLOT OUTPUT PACKAGE
@@ -443,11 +434,11 @@ SUBROUTINE ifp1
 !
 !     TEST FORMAT OF PLOT COMMAND CARDS
 !
-                  i = Nogo
-                  Nogo = 0
+                  i = nogo
+                  nogo = 0
                   CALL ifp1pc(i81,icnt,xintcd,org,porg)
-                  IF ( Nogo/=0 ) nogopc = -1
-                  Nogo = i
+                  IF ( nogo/=0 ) nogopc = -1
+                  nogo = i
 !
 !     COMPUTE LENGTH OF RECORD
 !
@@ -458,7 +449,7 @@ SUBROUTINE ifp1
                      ELSEIF ( core(i1)==0 ) THEN
                         CALL write(pcdb,core(i81),ik+1,1)
                         GOTO 100
-                     ELSEIF ( core(i1)==Ieor ) THEN
+                     ELSEIF ( core(i1)==ieor ) THEN
                         CALL write(pcdb,core(i81),ik+1,1)
                         GOTO 100
                      ELSE
@@ -519,7 +510,7 @@ SUBROUTINE ifp1
                      l = 2*iabs(core(i81)) + i81
                      DO i = i81 , l
                         temp = core(i)
-                        IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+                        IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
                         IF ( temp==equal1 ) GOTO 102
                      ENDDO
                      il = -617
@@ -529,7 +520,7 @@ SUBROUTINE ifp1
                      IF ( i==l ) i1 = i1 + 1
 !
                      iword = core(i81+1)
-                     IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+                     IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
                      DO i = 1 , 54
 !
 !               MPC   SPC   LOAD  NLLO  DEFO  TEMP  DLOA  METH  FREQ
@@ -746,14 +737,13 @@ SUBROUTINE ifp1
  105           ik = 2
                IF ( core(i1)<=0 ) CALL ifp1d(-617)
                spag_nextblock_1 = 18
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
 !
 !     MPCFORCE CARD
 !
  110        ik = 173
             spag_nextblock_1 = 39
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (13)
 !
@@ -768,7 +758,6 @@ SUBROUTINE ifp1
          ik = 3
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
 !
 !     LOAD SET SELECTION
@@ -776,31 +765,28 @@ SUBROUTINE ifp1
          ik = 4
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
 !
 !     PNL FOR VDR
 !
          ik = 10
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
 !
 !     OUTPUT LOAD SET
 !
          ik = 17
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
          ASSIGN 120 TO iret
 !
 !     SKIP CHECK FOR HARMONIC AS DEFAULT IS NON-ZERO
 !
-         IF ( case(ik,Isub)/=0 ) THEN
+         IF ( case(ik,isub)/=0 ) THEN
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 120     case(ik,Isub) = core(i1)
+ 120     case(ik,isub) = core(i1)
          spag_nextblock_1 = 19
       CASE (19)
          IF ( core(i1-1)/=-1 ) THEN
@@ -812,7 +798,7 @@ SUBROUTINE ifp1
 !
 !     CHECK FOR END OF DATA
 !
-         ELSEIF ( core(i1+1)/=Ieor ) THEN
+         ELSEIF ( core(i1+1)/=ieor ) THEN
 !
 !     DATA CARD DID NOT END PROPERLY
 !
@@ -827,7 +813,6 @@ SUBROUTINE ifp1
          ik = 6
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (21)
 !
 !     DLOAD CARD
@@ -835,7 +820,6 @@ SUBROUTINE ifp1
          ik = 13
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (22)
 !
 !     FREQUENCY CARD
@@ -843,7 +827,6 @@ SUBROUTINE ifp1
          ik = 14
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (23)
 !
 !     IC CARD
@@ -851,15 +834,14 @@ SUBROUTINE ifp1
          ik = 9
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (24)
 !
 !     SYM CARD
 !
-         Nsym = Nsym + 1
-         IF ( Nsym<361 ) THEN
-            symseq(Nsym) = 1.0
-         ELSEIF ( Nsym==361 ) THEN
+         nsym = nsym + 1
+         IF ( nsym<361 ) THEN
+            symseq(nsym) = 1.0
+         ELSEIF ( nsym==361 ) THEN
             CALL ifp1d(-633)
          ENDIF
          spag_nextblock_1 = 43
@@ -876,7 +858,7 @@ SUBROUTINE ifp1
             CALL close(xycb,1)
             ixypl = 0
          ENDIF
-         CALL close(Casecc,1)
+         CALL close(casecc,1)
 !
 !     OPEN  PCDB
 !
@@ -884,15 +866,14 @@ SUBROUTINE ifp1
 !
 !     OPEN WRITE FILE
 !
- 160     CALL gopen(file,Corex(ibuf2),1)
+ 160     CALL gopen(file,corex(ibuf2),1)
          GOTO 100
       CASE (25)
 !
 !     MAXLINES CARD
 !
-         Maxlin = core(i1)
+         maxlin = core(i1)
          spag_nextblock_1 = 19
-         CYCLE SPAG_DispatchLoop_1
       CASE (26)
 !
 !     TIME STEP CARD
@@ -900,14 +881,13 @@ SUBROUTINE ifp1
          ik = 38
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (27)
 !
 !     SYMSEQ AND SUBSEQ
 !
          IF ( isymcm/=0 ) THEN
             nsymsq = 1
-            Nsym = 1
+            nsym = 1
          ELSE
 !
 !     SYMSEQ  CARD WITHOUT SYMCOM
@@ -919,24 +899,24 @@ SUBROUTINE ifp1
          spag_nextblock_1 = 28
       CASE (28)
          DO
-            IF ( Nsym<361 ) THEN
-               symseq(Nsym) = xcore(i1)
-            ELSEIF ( Nsym==361 ) THEN
+            IF ( nsym<361 ) THEN
+               symseq(nsym) = xcore(i1)
+            ELSEIF ( nsym==361 ) THEN
                CALL ifp1d(-633)
             ENDIF
             IF ( core(i1+1)<0 ) THEN
 !
 !     CHECK FOR END OF DATA
 !
-               IF ( core(i1+1)==Ieor ) GOTO 100
-               Nsym = Nsym + 1
+               IF ( core(i1+1)==ieor ) GOTO 100
+               nsym = nsym + 1
                i1 = i1 + 2
             ELSEIF ( core(i1+1)==0 ) THEN
 !
 !     CONTINUATION CARD
 !
                icont = 1
-               Nsym = Nsym + 1
+               nsym = nsym + 1
                i1 = i81 + 1
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
@@ -957,7 +937,7 @@ SUBROUTINE ifp1
             GOTO 180
          ELSE
             temp = core(i81+5)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
             IF ( temp==both ) THEN
                ASSIGN 180 TO iret
                GOTO 180
@@ -966,8 +946,8 @@ SUBROUTINE ifp1
 !     STIFNESS LOAD
 !
                ik = 8
-               Stftem = core(i1)
-               IF ( Isub/=1 ) THEN
+               stftem = core(i1)
+               IF ( isub/=1 ) THEN
 !
 !     THERMAL REQUEST AT SUBCASE LEVEL
 !
@@ -990,9 +970,9 @@ SUBROUTINE ifp1
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
- 180     case(8,Isub) = core(i1)
-         Stftem = core(i1)
-         IF ( Isub==1 ) THEN
+ 180     case(8,isub) = core(i1)
+         stftem = core(i1)
+         IF ( isub==1 ) THEN
             spag_nextblock_1 = 30
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1006,38 +986,34 @@ SUBROUTINE ifp1
          ik = 5
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (32)
 !
 !     DISP(PLOT,1) CARD
 !
          ik = 20
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (33)
 !
 !     STRESS CARD
 !
          ik = 23
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (34)
 !
 !     ELFORCE CARD
 !
          ik = 26
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (35)
 !
 !     NCHECK CARD
 !
          ik = 146
          IF ( core(i81)==1 ) THEN
-            case(ik,Isub) = 5
+            case(ik,isub) = 5
          ELSEIF ( core(i81+5)==-1 ) THEN
-            case(ik,Isub) = core(i81+6)
-            IF ( core(i81+7)/=Ieor ) THEN
+            case(ik,isub) = core(i81+6)
+            IF ( core(i81+7)/=ieor ) THEN
                il = -603
                CALL ifp1d(il)
             ENDIF
@@ -1052,14 +1028,12 @@ SUBROUTINE ifp1
 !
          ik = 29
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (37)
 !
 !     VEL CARD
 !
          ik = 32
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (38)
 !
 !     SPC FORC
@@ -1072,8 +1046,8 @@ SUBROUTINE ifp1
 !     STRESS AND FORCE FLAGS MAY BE PRE-SET TO 2 (NOPRINT) BY IFP1H
 !
          ASSIGN 200 TO iret
-         IF ( .NOT.((ik==23 .OR. ik==26) .AND. case(ik+1,Isub)==2) ) THEN
-            IF ( case(ik,Isub)/=0 ) THEN
+         IF ( .NOT.((ik==23 .OR. ik==26) .AND. case(ik+1,isub)==2) ) THEN
+            IF ( case(ik,isub)/=0 ) THEN
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -1082,8 +1056,8 @@ SUBROUTINE ifp1
 !     FIND EQUAL SIGN
 !
  200     ido = core(i81)
-         case(ik+1,Isub) = 0
-         case(ik+2,Isub) = 1
+         case(ik+1,isub) = 0
+         case(ik+2,isub) = 1
          SPAG_Loop_1_2: DO i = 1 , ido
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
@@ -1091,88 +1065,82 @@ SUBROUTINE ifp1
                CASE (1)
                   ii = i81 + 2*i
                   temp = core(ii)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+                  IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
                   IF ( temp==equal1 ) EXIT SPAG_Loop_1_2
                   iwrd = core(ii-1)
                   SPAG_Loop_2_3: DO io = 4 , 14
-                     IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+                     IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
                      iop = io - 3
                      IF ( iwrd==outop(io) ) THEN
                         IF ( iop==1 ) THEN
                            spag_nextblock_2 = 9
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==2 ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==3 ) THEN
                            spag_nextblock_2 = 3
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==4 ) THEN
                            spag_nextblock_2 = 5
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==5 ) THEN
                            spag_nextblock_2 = 6
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==6 ) THEN
                            spag_nextblock_2 = 7
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==7 ) THEN
                            spag_nextblock_2 = 4
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==8 .OR. iop==10 ) EXIT SPAG_Loop_2_3
                         IF ( iop==9 ) THEN
                            spag_nextblock_2 = 10
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                         IF ( iop==11 ) THEN
                            spag_nextblock_2 = 11
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_3
                         ENDIF
                      ENDIF
 !         SORT PUNC PRIN REAL IMAG PHAS NOPR MAXS VONM EXTR LAYE
 !
                   ENDDO SPAG_Loop_2_3
-                  CYCLE
                CASE (2)
 !
 !     PUNCH
 !
-                  case(ik+1,Isub) = case(ik+1,Isub) + 4
-                  CYCLE
+                  case(ik+1,isub) = case(ik+1,isub) + 4
                CASE (3)
 !
 !     PRINT
 !
-                  case(ik+1,Isub) = case(ik+1,Isub) + 1
-                  CYCLE
+                  case(ik+1,isub) = case(ik+1,isub) + 1
                CASE (4)
 !
 !     COMPUTE BUT NO PRINT
 !     DEVICE CODE IS 2 (AND SUBPRESS PRINT CODE 1)
 !
-                  case(ik+1,Isub) = case(ik+1,Isub) - mod(case(ik+1,Isub),2) + 2
-                  CYCLE
+                  case(ik+1,isub) = case(ik+1,isub) - mod(case(ik+1,isub),2) + 2
                CASE (5)
 !
 !     REAL PRINT OUT FORMAT
 !
                   ii = 1
                   spag_nextblock_2 = 8
-                  CYCLE SPAG_DispatchLoop_2
                CASE (6)
 !
 !     REAL AND IMAGINARY
 !
                   ii = 2
                   spag_nextblock_2 = 8
-                  CYCLE SPAG_DispatchLoop_2
                CASE (7)
 !
 !     MAGNITUE AND PHASE ANGLE
@@ -1180,8 +1148,7 @@ SUBROUTINE ifp1
                   ii = 3
                   spag_nextblock_2 = 8
                CASE (8)
-                  case(ik+2,Isub) = isign(ii,case(ik+2,Isub))
-                  CYCLE
+                  case(ik+2,isub) = isign(ii,case(ik+2,isub))
                CASE (9)
 !
 !     SORT TWO REQUEST
@@ -1190,19 +1157,17 @@ SUBROUTINE ifp1
 !     STRESS REQUEST ON LAYERED ELEMENTS IS NOT AVAILABLE)
 !
                   temp = core(ii)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+                  IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
                   IF ( temp/=oneb ) THEN
-                     IF ( ik==23 .AND. case(183,Isub)>=2 ) CALL ifp1d(-645)
-                     case(ik+2,Isub) = -iabs(case(ik+2,Isub))
+                     IF ( ik==23 .AND. case(183,isub)>=2 ) CALL ifp1d(-645)
+                     case(ik+2,isub) = -iabs(case(ik+2,isub))
                   ENDIF
-                  CYCLE
                CASE (10)
 !
 !     VON MISES STRESS
 !     (183 WORD ON CASECC, FIRST RIGHT-MOST BIT)
 !
-                  case(183,Isub) = orf(case(183,Isub),1)
-                  CYCLE
+                  case(183,isub) = orf(case(183,isub),1)
                CASE (11)
 !
 !     LAYER STRESSES FOR COMPOSITE ELEMENTS
@@ -1210,36 +1175,36 @@ SUBROUTINE ifp1
 !     (SORT2 STRESS REQUEST ON LAYERED ELEMENTS NOT AVAILABLE)
 !
                   IF ( ik/=23 ) CALL ifp1d(-646)
-                  IF ( ik==23 .AND. case(25,Isub)<0 ) CALL ifp1d(-645)
-                  case(183,Isub) = orf(case(183,Isub),2)
+                  IF ( ik==23 .AND. case(25,isub)<0 ) CALL ifp1d(-645)
+                  case(183,isub) = orf(case(183,isub),2)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
 !
          ENDDO SPAG_Loop_1_2
-         IF ( case(ik+1,Isub)==0 ) case(ik+1,Isub) = 1
+         IF ( case(ik+1,isub)==0 ) case(ik+1,isub) = 1
          IF ( core(ii+1)/=0 ) THEN
             temp = core(ii+1)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
             IF ( temp==all ) THEN
 !
 !     ALL SPECIFIED -- SET SET NO. MINUS
 !
-               case(ik,Isub) = -1
+               case(ik,isub) = -1
             ELSEIF ( temp==none .OR. temp==nono ) THEN
 !
 !     NONE SPECIFIED
 !
-               case(ik,Isub) = none
+               case(ik,isub) = none
             ELSE
                IF ( core(ii+1)==-1 ) THEN
                   i1 = ii + 2
 !
 !     FIND SET NUMBER
 !
-                  IF ( Nset/=0 ) THEN
+                  IF ( nset/=0 ) THEN
                      jj = nwdsc
-                     DO il = 1 , Nset
+                     DO il = 1 , nset
                         IF ( core(jj)==core(i1) ) GOTO 205
                         jj = jj + core(jj+1) + 3
                      ENDDO
@@ -1253,13 +1218,13 @@ SUBROUTINE ifp1
                   CALL ifp1d(il)
                ENDIF
                GOTO 100
- 205           case(ik,Isub) = core(i1)
+ 205           case(ik,isub) = core(i1)
             ENDIF
          ELSE
             CALL ifp1d(610)
-            case(ik,Isub) = -1
+            case(ik,isub) = -1
          ENDIF
-         IF ( core(ii+3)/=Ieor ) THEN
+         IF ( core(ii+3)/=ieor ) THEN
             il = -603
             CALL ifp1d(il)
          ENDIF
@@ -1268,7 +1233,7 @@ SUBROUTINE ifp1
 !
 !     SET CARD
 !
-         Nset = Nset + 1
+         nset = nset + 1
          CALL ifp1c(i81,nz)
          GOTO 100
       CASE (41)
@@ -1282,7 +1247,7 @@ SUBROUTINE ifp1
 !     SUBCASE
 !
          temp = core(i81+2)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp==om ) THEN
             spag_nextblock_1 = 56
             CYCLE SPAG_DispatchLoop_1
@@ -1295,7 +1260,7 @@ SUBROUTINE ifp1
             spag_nextblock_1 = 49
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            Nsym = 0
+            nsym = 0
             nsyms = nsyms + 1
             IF ( nsyms<361 ) THEN
                symseq(nsyms) = 1.0
@@ -1306,11 +1271,11 @@ SUBROUTINE ifp1
          spag_nextblock_1 = 43
       CASE (43)
          ASSIGN 100 TO iret3
-         IF ( Isub/=2 ) THEN
-            Isub = 2
+         IF ( isub/=2 ) THEN
+            isub = 2
             loadn = core(i81+4)
             CALL ifp1f(*100,iword,i2)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iword,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iword,0)
             DO i = 1 , 5
                isubc(i) = core(i2)
                i2 = i2 + 1
@@ -1330,13 +1295,13 @@ SUBROUTINE ifp1
 !
 !     TURN STRESS AND FORCE NO-PRINT FLAGS ON IF INTERACTIVE FLAG IS ON
 !
-         IF ( Intra>=2 ) THEN
-            case(24,Isub) = orf(case(24,Isub),8)
-            case(27,Isub) = orf(case(27,Isub),8)
+         IF ( intra>=2 ) THEN
+            case(24,isub) = orf(case(24,isub),8)
+            case(27,isub) = orf(case(27,isub),8)
          ENDIF
 !
-         case(1,Isub) = loadn
-         IF ( core(i81+4)<=loadn+Nmodes-1 ) THEN
+         case(1,isub) = loadn
+         IF ( core(i81+4)<=loadn+nmodes-1 ) THEN
             spag_nextblock_1 = 47
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1349,8 +1314,8 @@ SUBROUTINE ifp1
       CASE (45)
          IF ( case(137,1)==0 ) case(137,1) = 1
          CALL ifp1e(isubc(1),symseq,nwdsc,i81,icaste)
-         Stftem = icaste
-         nsub = nsub + Nmodes
+         stftem = icaste
+         nsub = nsub + nmodes
 !
 !     CHECK SET NOS. THAT WERE SPECIFIED AFTER SCAN CARDS
 !
@@ -1358,17 +1323,17 @@ SUBROUTINE ifp1
 !     IFP1H IS BY-PASSING THIS NEW CODE HERE (MSST=0) BECAUSE SET DATA
 !     IS NOT AVAILABLE HERE. SAVE THIS CODE FOR FURTHER INVESTIGATION.
 !
-         IF ( Msst/=0 ) THEN
+         IF ( msst/=0 ) THEN
             mm = 0
-            ll = Lencc + case(Lencc,Isub) + 1
-            DO m = 1 , Msst
+            ll = lencc + case(lencc,isub) + 1
+            DO m = 1 , msst
                i = ll
-               mset = Misset(m)
+               mset = misset(m)
                SPAG_Loop_2_4: DO
 !
 !     WRITE (6,2345) MSET,MSST,LL
 !
-                  iset = case(i,Isub)
+                  iset = case(i,isub)
 !
 !     LX1 = I - 3
 !     LX2 = I + 3
@@ -1376,21 +1341,21 @@ SUBROUTINE ifp1
 !
                   IF ( iset==0 ) EXIT SPAG_Loop_2_4
                   IF ( mset/=iset ) THEN
-                     i = i + case(i+1,Isub)
+                     i = i + case(i+1,isub)
                      IF ( i>=400 ) EXIT SPAG_Loop_2_4
                   ELSE
-                     Misset(m) = 0
+                     misset(m) = 0
                      mm = mm + 1
                      EXIT SPAG_Loop_2_4
                   ENDIF
                ENDDO SPAG_Loop_2_4
             ENDDO
-            IF ( mm/=Msst ) THEN
-               DO m = 1 , Msst
-                  IF ( Misset(m)/=0 ) THEN
-                     WRITE (Otpe,99002) Ufm , Misset(m)
+            IF ( mm/=msst ) THEN
+               DO m = 1 , msst
+                  IF ( misset(m)/=0 ) THEN
+                     WRITE (otpe,99002) ufm , misset(m)
 99002                FORMAT (A23,' 608A, UNIDENTIFIED SET',I8,' WAS REQUESTED FOR ','SCAN')
-                     Nogo = 1
+                     nogo = 1
                   ENDIF
                ENDDO
             ENDIF
@@ -1403,7 +1368,6 @@ SUBROUTINE ifp1
          CALL ifp1d(-609)
          loadn = case(1,2)
          spag_nextblock_1 = 45
-         CYCLE SPAG_DispatchLoop_1
       CASE (48)
          core(i81+3) = -1
          core(i81+4) = 9999999
@@ -1415,7 +1379,7 @@ SUBROUTINE ifp1
          IF ( isymcm==1 ) THEN
             isymcm = 0
          ELSE
-            Nsym = 0
+            nsym = 0
             spag_nextblock_1 = 44
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1424,15 +1388,15 @@ SUBROUTINE ifp1
 !
 !     NO SUBSEQ OR SYMSEQ CARD
 !
-         IF ( nsymsq==0 .AND. Nsym==0 ) Nsym = nsyms
+         IF ( nsymsq==0 .AND. nsym==0 ) nsym = nsyms
 !
          nsymsq = 0
-         case(Lencc,2) = max0(Nsym,0)
-         case(16,2) = Nsym
+         case(lencc,2) = max0(nsym,0)
+         case(16,2) = nsym
          spag_nextblock_1 = 44
          CYCLE SPAG_DispatchLoop_1
- 220     CALL close(Scr1,1)
-         IF ( ibob/=1 .AND. ixypl/=1 ) CALL close(Casecc,1)
+ 220     CALL close(scr1,1)
+         IF ( ibob/=1 .AND. ixypl/=1 ) CALL close(casecc,1)
          IF ( ibob==1 ) CALL close(pcdb,1)
          IF ( ibob==1 .AND. .NOT.(setcd .AND. plotcd) ) CALL ifp1d(-631)
          IF ( ixypl==1 ) THEN
@@ -1446,14 +1410,14 @@ SUBROUTINE ifp1
 !
 !     PUT CASECC ON NPTP
 !
-         file = Casecc
-         CALL open(*40,Casecc,Corex(ibuf1),0)
+         file = casecc
+         CALL open(*40,casecc,corex(ibuf1),0)
          file = nptp
          maxcc = 0
-         CALL open(*40,nptp,Corex(ibuf2),3)
+         CALL open(*40,nptp,corex(ibuf2),3)
          spag_nextblock_1 = 50
       CASE (50)
-         CALL read(*260,*240,Casecc,core(1),nz,0,flag)
+         CALL read(*260,*240,casecc,core(1),nz,0,flag)
          icrq = nz
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
@@ -1472,21 +1436,20 @@ SUBROUTINE ifp1
             ENDDO
          ENDIF
          spag_nextblock_1 = 50
-         CYCLE SPAG_DispatchLoop_1
       CASE (51)
          npch = 1
          spag_nextblock_1 = 50
          CYCLE SPAG_DispatchLoop_1
- 260     CALL close(Casecc,1)
+ 260     CALL close(casecc,1)
          CALL eof(nptp)
          CALL close(nptp,2)
-         IF ( Splots<0 ) Splots = 0
+         IF ( splots<0 ) splots = 0
 !
 !     IF THIS IS A RESTART  SET CHANGE FLAGS IN IFP1B
 !
-         IF ( App<0 ) CALL ifp1b
+         IF ( app<0 ) CALL ifp1b
          IF ( iun/=0 ) CALL ifp1d(-612)
-         CALL makmcb(core,Casecc,nsub,0,0)
+         CALL makmcb(core,casecc,nsub,0,0)
          core(2) = nsub
          core(4) = maxcc
          CALL wrttrl(core)
@@ -1497,9 +1460,9 @@ SUBROUTINE ifp1
 !     PUNCH AN IDENTIFICATION CARD IF PUNCH IS REQUESTED ON OUTPUT DATA,
 !     AND PRINT SCAN KEYWORDS IF ERROR FLAG (JUMPH) WAS TURNED ON
 !
-         IF ( Nogo/=0 .AND. nogopc==-1 ) Nogo = -9
-         IF ( Nogo==0 ) Nogo = nogopc
-         IF ( npch==1 ) WRITE (Lpch,99003) (Title(j),j=1,17)
+         IF ( nogo/=0 .AND. nogopc==-1 ) nogo = -9
+         IF ( nogo==0 ) nogo = nogopc
+         IF ( npch==1 ) WRITE (lpch,99003) (title(j),j=1,17)
 99003    FORMAT (2H$ ,17A4)
          IF ( jumph==1 ) CALL ifp1h(0,0,2)
          RETURN
@@ -1507,7 +1470,7 @@ SUBROUTINE ifp1
 !
 !     ECHO REQUEST
 !
-         Iecho = 0
+         iecho = 0
          ido = core(i81) - 2
          DO i = 1 , ido
             spag_nextblock_3 = 1
@@ -1515,7 +1478,7 @@ SUBROUTINE ifp1
                SELECT CASE (spag_nextblock_3)
                CASE (1)
                   iwrd = core(i1)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+                  IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
                   DO io = 1 , 5
                      IF ( iwrd==outop(io) ) THEN
                         IF ( io==1 ) THEN
@@ -1548,40 +1511,36 @@ SUBROUTINE ifp1
                   ENDIF
                   CALL ifp1d(629)
                   spag_nextblock_3 = 3
-                  CYCLE SPAG_DispatchLoop_3
                CASE (2)
 !
 !     SORTED ECHO
 !
-                  IF ( andf(Iecho,2)/=0 ) CALL ifp1d(629)
+                  IF ( andf(iecho,2)/=0 ) CALL ifp1d(629)
                   spag_nextblock_3 = 3
                CASE (3)
-                  Iecho = orf(Iecho,2)
+                  iecho = orf(iecho,2)
                   spag_nextblock_3 = 7
-                  CYCLE SPAG_DispatchLoop_3
                CASE (4)
 !
 !     PUNCH ECHO
 !
-                  IF ( andf(Iecho,4)/=0 ) CALL ifp1d(629)
-                  Iecho = orf(Iecho,4)
+                  IF ( andf(iecho,4)/=0 ) CALL ifp1d(629)
+                  iecho = orf(iecho,4)
                   npch = 1
                   spag_nextblock_3 = 7
-                  CYCLE SPAG_DispatchLoop_3
                CASE (5)
 !
 !     BOTH ECHO
 !
-                  IF ( andf(Iecho,3)/=0 ) CALL ifp1d(629)
-                  Iecho = orf(Iecho,3)
+                  IF ( andf(iecho,3)/=0 ) CALL ifp1d(629)
+                  iecho = orf(iecho,3)
                   spag_nextblock_3 = 7
-                  CYCLE SPAG_DispatchLoop_3
                CASE (6)
 !
 !     UNSORTED ECHO
 !
-                  IF ( andf(Iecho,1)/=0 ) CALL ifp1d(629)
-                  Iecho = orf(Iecho,1)
+                  IF ( andf(iecho,1)/=0 ) CALL ifp1d(629)
+                  iecho = orf(iecho,1)
                   spag_nextblock_3 = 7
                CASE (7)
                   i1 = i1 + 2
@@ -1601,15 +1560,15 @@ SUBROUTINE ifp1
 !
 !     NONE ECHO
 !
-         IF ( Iecho/=0 .OR. i<ido ) CALL ifp1d(630)
-         Iecho = -1
-         IF ( io==16 ) Iecho = -2
+         IF ( iecho/=0 .OR. i<ido ) CALL ifp1d(630)
+         iecho = -1
+         IF ( io==16 ) iecho = -2
          GOTO 100
       CASE (55)
 !
 !     LOOP CONTROL FOR EIGENVALUE
 !
-         Nmodes = core(i1)
+         nmodes = core(i1)
          GOTO 100
       CASE (56)
 !
@@ -1619,11 +1578,9 @@ SUBROUTINE ifp1
             isymcm = 1
             nsymsq = 0
             spag_nextblock_1 = 43
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ASSIGN 100 TO iret3
             spag_nextblock_1 = 49
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (57)
 !
@@ -1633,8 +1590,8 @@ SUBROUTINE ifp1
             il = -604
             CALL ifp1d(il)
          ELSE
-            IF ( iabs(core(i1))>0 ) Nlpp = iabs(core(i1))
-            IF ( Nlpp<10 ) Nlpp = 10
+            IF ( iabs(core(i1))>0 ) nlpp = iabs(core(i1))
+            IF ( nlpp<10 ) nlpp = 10
          ENDIF
          GOTO 100
       CASE (58)
@@ -1643,22 +1600,20 @@ SUBROUTINE ifp1
 !
          ik = 138
          spag_nextblock_1 = 60
-         CYCLE SPAG_DispatchLoop_1
       CASE (59)
          ik = 164
          spag_nextblock_1 = 60
       CASE (60)
          temp = core(i1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp/=defa ) THEN
             IF ( core(i1)<=0 ) CALL ifp1d(-617)
          ELSE
             core(i1) = -1
-            core(i1+1) = Ieor
+            core(i1+1) = ieor
             core(i1-1) = -1
          ENDIF
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (61)
 !
 !     K2PP
@@ -1666,8 +1621,8 @@ SUBROUTINE ifp1
          ik = 139
          spag_nextblock_1 = 62
       CASE (62)
-         case(ik,Isub) = core(i1)
-         case(ik+1,Isub) = core(i1+1)
+         case(ik,isub) = core(i1)
+         case(ik+1,isub) = core(i1+1)
          GOTO 100
       CASE (63)
 !
@@ -1675,22 +1630,19 @@ SUBROUTINE ifp1
 !
          ik = 141
          spag_nextblock_1 = 62
-         CYCLE SPAG_DispatchLoop_1
       CASE (64)
 !
 !     B2PP
 !
          ik = 143
          spag_nextblock_1 = 62
-         CYCLE SPAG_DispatchLoop_1
       CASE (65)
 !
 !     REPRINT OF ABOVE CASE
 !
-         Nsym = -1
-         IF ( Isub/=2 ) CALL ifp1d(-607)
+         nsym = -1
+         IF ( isub/=2 ) CALL ifp1d(-607)
          spag_nextblock_1 = 56
-         CYCLE SPAG_DispatchLoop_1
       CASE (66)
 !
 !     TRANSFER FUNCTION SELECTION
@@ -1698,23 +1650,21 @@ SUBROUTINE ifp1
          ik = 15
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (67)
 !
 !     OUTPUT FREQUENCY LIST SET
 !
          ik = 145
          temp = core(i1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp/=all ) THEN
             spag_nextblock_1 = 39
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          core(i1) = -1
          core(i1-1) = -1
-         core(i1+1) = Ieor
+         core(i1+1) = ieor
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (68)
 !
 !     COMPLEX EIGENVALUE METHOD
@@ -1722,7 +1672,6 @@ SUBROUTINE ifp1
          ik = 148
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (69)
 !
 !     STRUCTURAL DAMPING TABLE
@@ -1730,7 +1679,6 @@ SUBROUTINE ifp1
          ik = 149
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (70)
 !
 !     INERTIA RELIEF SET SELECTION
@@ -1742,21 +1690,18 @@ SUBROUTINE ifp1
 !
          ik = 151
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (71)
 !
 !     ANALYSIS VELOCITY
 !
          ik = 154
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (72)
 !
 !     ANALYSIS ACCELERATION
 !
          ik = 157
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (73)
 !
 !     NON LINEAR FORCE VECTOR FOR TRANSIENT ANALYSIS
@@ -1765,7 +1710,7 @@ SUBROUTINE ifp1
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
- 280     CALL close(Casecc,1)
+ 280     CALL close(casecc,1)
          DO i = 2 , 6
             core(i) = 0
          ENDDO
@@ -1781,7 +1726,7 @@ SUBROUTINE ifp1
          ENDIF
          file = xycb
          ixypl = 1
-         i81 = Nwpc + 1
+         i81 = nwpc + 1
          GOTO 160
       CASE (74)
 !
@@ -1791,7 +1736,7 @@ SUBROUTINE ifp1
          core(1) = iword
          DO i = 1 , 32
             k = i81 + i - 1
-            core(k) = Blank
+            core(k) = blank
          ENDDO
          IF ( ibob==1 ) THEN
 !
@@ -1799,7 +1744,7 @@ SUBROUTINE ifp1
 !
             core(i81) = 10
             core(i81+1) = iword
-            core(i81+2) = Blank
+            core(i81+2) = blank
             CALL ifp1g(itype,core(i81+3),1)
             core(i81+21) = 9999999
             ik = 21
@@ -1819,20 +1764,20 @@ SUBROUTINE ifp1
 !     AXISYM CARD
 !
          temp = core(i1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp==sine ) THEN
-            case(136,Isub) = 1
+            case(136,isub) = 1
             iaxic = 1
          ELSE
             IF ( temp/=cosi ) THEN
                IF ( temp/=flui ) THEN
                   IF ( temp==symm ) THEN
-                     case(136,Isub) = -2
+                     case(136,isub) = -2
                   ELSEIF ( temp==anti ) THEN
-                     case(136,Isub) = -1
+                     case(136,isub) = -1
                   ELSE
                      IF ( temp==anom ) THEN
-                        case(136,Isub) = -30
+                        case(136,isub) = -30
                      ELSE
 !
 !     ILLEGAL  SPECIFICATION
@@ -1843,12 +1788,12 @@ SUBROUTINE ifp1
                      GOTO 100
                   ENDIF
                   temp = core(i1+1)
-                  IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
-                  IF ( temp==anom ) case(136,Isub) = case(136,Isub)*10
+                  IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
+                  IF ( temp==anom ) case(136,isub) = case(136,isub)*10
                   GOTO 100
                ENDIF
             ENDIF
-            case(136,Isub) = 2
+            case(136,isub) = 2
             IF ( temp==cosi ) iaxic = 1
             IF ( temp==flui ) iaxif = 1
          ENDIF
@@ -1859,7 +1804,7 @@ SUBROUTINE ifp1
 !
          ik = 137
          temp = core(i1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,temp,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,temp,0)
          IF ( temp==all ) THEN
             core(i1) = -1
          ELSEIF ( temp==none ) THEN
@@ -1872,9 +1817,8 @@ SUBROUTINE ifp1
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          core(i1-1) = -1
-         core(i1+1) = Ieor
+         core(i1+1) = ieor
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (77)
 !
 !     RANDOM SET SELECTION
@@ -1882,7 +1826,6 @@ SUBROUTINE ifp1
          ik = 163
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (78)
 !
 !     FMETHOD
@@ -1890,28 +1833,24 @@ SUBROUTINE ifp1
          ik = 165
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (79)
 !
 !     GRID POINT FORCE REQUEST
 !
          ik = 167
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (80)
 !
 !     ELEMENT STRAIN ENERGY
 !
          ik = 170
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (81)
 !
 !     AEROFORCE OUTPUT REQUEST
 !
          ik = 176
          spag_nextblock_1 = 39
-         CYCLE SPAG_DispatchLoop_1
       CASE (82)
 !
 !     AEROELASTIC GUST LOAD REQUEST
@@ -1919,7 +1858,6 @@ SUBROUTINE ifp1
          ik = 179
          IF ( core(i1)<=0 ) CALL ifp1d(-617)
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (83)
 !
 !     STRAIN CARD

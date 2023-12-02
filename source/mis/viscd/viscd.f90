@@ -1,14 +1,15 @@
-!*==viscd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==viscd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE viscd
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -61,21 +62,21 @@ USE ISO_FORTRAN_ENV
 !     INITIALIZE EMGOUT PARAMETERS
 !
    idbug = .TRUE.
-   Ngrids = 2
-   Ldict = 5 + Ngrids
-   dict(1) = Estid
+   ngrids = 2
+   ldict = 5 + ngrids
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 12
    dict(4) = 63
    dict5 = 0.
    ifile = 3
-   ip = Iprec
+   ip = iprec
 !
 !     NOW COMPUTE THE LENGTH OF THE ROD AND NORMALIZE
 !
    fl = 0.
    DO i = 1 , 3
-      vec(i) = Ecpt(i+6) - Ecpt(i+10)
+      vec(i) = ecpt(i+6) - ecpt(i+10)
       fl = fl + vec(i)**2
    ENDDO
    fl = dsqrt(fl)
@@ -84,9 +85,9 @@ USE ISO_FORTRAN_ENV
 !
 !     ERROR EXITS
 !
-      WRITE (Ioutpt,99001) Ufm , ielid
+      WRITE (ioutpt,99001) ufm , ielid
 99001 FORMAT (A23,' 31XX, ILLEGAL GEOMETRY OR CONNEC TIONS FOR VISC ','ELEMENT',I10)
-      Nogo = .TRUE.
+      nogo = .TRUE.
       RETURN
    ELSE
       DO i = 1 , 3
@@ -126,7 +127,7 @@ USE ISO_FORTRAN_ENV
       IF ( iecpt(ipa)/=0 ) THEN
          ia = 19
          iab = 10
-         CALL transd(Ecpt(ipa),ta(1))
+         CALL transd(ecpt(ipa),ta(1))
          CALL gmmatd(ta(1),3,3,1,d(1),3,3,0,d(10))
          CALL gmmatd(d(10),3,3,0,ta(1),3,3,0,d(19))
       ENDIF
@@ -136,7 +137,7 @@ USE ISO_FORTRAN_ENV
       IF ( iecpt(ipb)/=0 ) THEN
          ib = 28
          iba = 37
-         CALL transd(Ecpt(ipb),tb(1))
+         CALL transd(ecpt(ipb),tb(1))
          CALL gmmatd(tb(1),3,3,1,d(1),3,3,0,d(37))
          CALL gmmatd(d(37),3,3,0,tb(1),3,3,0,d(28))
 !
@@ -168,8 +169,8 @@ USE ISO_FORTRAN_ENV
 !                       *      /     /      /      *
 !                       ****                    ****
 !
-   c1 = Ecpt(4)
-   c2 = Ecpt(5)
+   c1 = ecpt(4)
+   c2 = ecpt(5)
 !
    DO jtj = 1 , 4
       kb = kx(jtj)
@@ -197,5 +198,4 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT THE MATRIX
 !
    CALL emgout(b,b,144,1,dict,ifile,ip)
-   RETURN
 END SUBROUTINE viscd

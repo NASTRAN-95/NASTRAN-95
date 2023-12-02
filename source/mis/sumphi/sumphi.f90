@@ -1,4 +1,5 @@
-!*==sumphi.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sumphi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION sumphi(Ixr,Iyr,Nd1,Ndn,Capphi,Dss,N,M,Asym)
@@ -21,6 +22,15 @@ FUNCTION sumphi(Ixr,Iyr,Nd1,Ndn,Capphi,Dss,N,M,Asym)
 !
    INTEGER :: i , ijphi , ip , iphi , ixs , iys , j , l , ltot
    REAL :: s
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,10 +1,11 @@
-!*==dbmdia.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dbmdia.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmdia
+   USE i_dsiof
+   USE i_zzzzzz
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_ZZZZZZ
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,10 +23,10 @@ SUBROUTINE dbmdia
 !DME  This should be fixed to remove the HOLLERITH, though!
    DATA scratch/4HSCRA , 4HTCHX/
 !DME  DATA              SCRATCH / 4HSCRA , 4HTCHX /
-   iblksz = Isysbf - 4
+   iblksz = isysbf - 4
    itoti = 0
    itotx = 0
-   WRITE (Iwr,99001)
+   WRITE (iwr,99001)
 99001 FORMAT (///,27X,' MEMORY DATA BASE DIRECTORY',//,'    UNIT    NAME   CURRENT  IN-MEM','   DISK ',/,                           &
              &'                    BLOCK   BLOCKS','  BLOCKS ',/)
    DO i = 1 , 80
@@ -43,13 +44,13 @@ SUBROUTINE dbmdia
                   fcb(13,i) = scratch(1)
                   fcb(14,i) = scratch(2)
                ENDIF
-               WRITE (Iwr,99002) i , fcb(13,i) , fcb(14,i) , fcb(4,i) , iintb , iextb
+               WRITE (iwr,99002) i , fcb(13,i) , fcb(14,i) , fcb(4,i) , iintb , iextb
 99002          FORMAT (I7,3X,2A4,2X,I6,2X,I6,2X,I6)
             ENDIF
          ENDIF
       ENDIF
    ENDDO
-   WRITE (Iwr,99003) itoti , itotx
+   WRITE (iwr,99003) itoti , itotx
 99003 FORMAT (/,' CURRENT IN-MEMORY BLOCKS =',I16,/,' CURRENT DISK BLOCKS      =',I16)
 !      WRITE ( IWR, 906 ) MAXBLK, MAXDSK, MAXALC, IBLKSZ
    RETURN

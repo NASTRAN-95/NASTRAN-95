@@ -1,10 +1,11 @@
-!*==cfe1my.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfe1my.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
+   USE c_names
+   USE c_zntpkx
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -36,7 +37,7 @@ SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
 !     BUF      = INPUT REQUIRED GINO BUFFER
 !*******
    ncol2 = File(2) + File(2)
-   IF ( File(4)==Identy ) THEN
+   IF ( File(4)==identy ) THEN
 !*******
 !     MATRIX IS IDENTITY
 !*******
@@ -45,22 +46,22 @@ SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
       ENDDO
       RETURN
    ELSE
-      CALL gopen(File(1),Buf(1),Rdrew)
+      CALL gopen(File(1),Buf(1),rdrew)
       DO i = 1 , ncol2
          X(i) = 0.
       ENDDO
-      IF ( File(4)==Diag ) THEN
+      IF ( File(4)==diag ) THEN
 !*******
 !     MATRIX IS DIAGONAL
 !*******
-         CALL intpk(*100,File(1),0,Csp,0)
+         CALL intpk(*100,File(1),0,csp,0)
          SPAG_Loop_1_1: DO
             CALL zntpki
-            jj = Ii + Ii
-            Ii = jj - 1
-            X(Ii) = Da(1)*Y(Ii) - Da(2)*Y(jj)
-            X(jj) = Da(1)*Y(jj) + Da(2)*Y(Ii)
-            IF ( Eol/=0 ) EXIT SPAG_Loop_1_1
+            jj = ii + ii
+            ii = jj - 1
+            X(ii) = da(1)*Y(ii) - da(2)*Y(jj)
+            X(jj) = da(1)*Y(jj) + da(2)*Y(ii)
+            IF ( eol/=0 ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
       ELSEIF ( Tpose(1) ) THEN
 !*******
@@ -68,14 +69,14 @@ SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
 !*******
          DO i = 1 , ncol2 , 2
             j = i + 1
-            CALL intpk(*20,File(1),0,Csp,0)
+            CALL intpk(*20,File(1),0,csp,0)
             SPAG_Loop_2_2: DO
                CALL zntpki
-               jj = Ii + Ii
-               Ii = jj - 1
-               X(i) = X(i) + Da(1)*Y(Ii) - Da(2)*Y(jj)
-               X(j) = X(j) + Da(1)*Y(jj) + Da(2)*Y(Ii)
-               IF ( Eol/=0 ) EXIT SPAG_Loop_2_2
+               jj = ii + ii
+               ii = jj - 1
+               X(i) = X(i) + da(1)*Y(ii) - da(2)*Y(jj)
+               X(j) = X(j) + da(1)*Y(jj) + da(2)*Y(ii)
+               IF ( eol/=0 ) EXIT SPAG_Loop_2_2
             ENDDO SPAG_Loop_2_2
  20      ENDDO
       ELSE
@@ -87,18 +88,18 @@ SUBROUTINE cfe1my(Tpose,Y,X,File,Buf)
             IF ( Y(i)==0. .AND. Y(j)==0. ) THEN
                CALL skprec(File(1),1)
             ELSE
-               CALL intpk(*40,File(1),0,Csp,0)
+               CALL intpk(*40,File(1),0,csp,0)
                SPAG_Loop_2_3: DO
                   CALL zntpki
-                  jj = Ii + Ii
-                  Ii = jj - 1
-                  X(Ii) = X(Ii) + Da(1)*Y(i) - Da(2)*Y(j)
-                  X(jj) = X(jj) + Da(1)*Y(j) + Da(2)*Y(i)
-                  IF ( Eol/=0 ) EXIT SPAG_Loop_2_3
+                  jj = ii + ii
+                  ii = jj - 1
+                  X(ii) = X(ii) + da(1)*Y(i) - da(2)*Y(j)
+                  X(jj) = X(jj) + da(1)*Y(j) + da(2)*Y(i)
+                  IF ( eol/=0 ) EXIT SPAG_Loop_2_3
                ENDDO SPAG_Loop_2_3
             ENDIF
  40      ENDDO
       ENDIF
    ENDIF
- 100  CALL close(File(1),Rew)
+ 100  CALL close(File(1),rew)
 END SUBROUTINE cfe1my

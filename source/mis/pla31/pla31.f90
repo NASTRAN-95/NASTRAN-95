@@ -1,12 +1,13 @@
-!*==pla31.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pla31.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla31
+   USE c_blank
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,9 +56,9 @@ SUBROUTINE pla31
 !     DETERMINE SIZE OF CORE, DEFINE BUFFERS AND INITIALIZE CORE
 !     POINTERS AND COUNTERS
 !
-         izmax = korsz(Z)
-         bufr1 = izmax - Bufsz
-         bufr2 = bufr1 - Bufsz
+         izmax = korsz(z)
+         bufr1 = izmax - bufsz
+         bufr2 = bufr1 - bufsz
          left = bufr2 - 1
          idisp = 0
 !
@@ -65,21 +66,21 @@ SUBROUTINE pla31
 !     INTO OPEN CORE.
 !
          file = delugv
-         CALL gopen(delugv,Z(bufr1),0)
+         CALL gopen(delugv,z(bufr1),0)
          mcbugv(1) = delugv
          CALL rdtrl(mcbugv)
          IF ( left<mcbugv(3) ) CALL mesage(-8,0,name)
-         Itypeb = 1
-         Iunpk = 1
-         Junpk = mcbugv(3)
-         Incupk = 1
-         CALL unpack(*100,delugv,Z(idisp+1))
+         itypeb = 1
+         iunpk = 1
+         junpk = mcbugv(3)
+         incupk = 1
+         CALL unpack(*100,delugv,z(idisp+1))
          CALL close(delugv,clsrw)
 !
 !     BUILD THE SCRATCH FILE ESTNLS
 !
-         CALL gopen(estnl,Z(bufr1),0)
-         CALL gopen(estnls,Z(bufr2),1)
+         CALL gopen(estnl,z(bufr1),0)
+         CALL gopen(estnls,z(bufr2),1)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -107,7 +108,7 @@ SUBROUTINE pla31
             DO i = 1 , nogpts
                index = idisp + iestbk(i+1)
                DO k = 1 , nwds
-                  estbk(j) = Z(index)
+                  estbk(j) = z(index)
                   index = index + 1
                   j = j + 1
                ENDDO

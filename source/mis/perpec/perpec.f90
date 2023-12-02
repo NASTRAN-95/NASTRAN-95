@@ -1,11 +1,12 @@
-!*==perpec.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==perpec.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE perpec(X,Stereo)
-USE C_BLANK
-USE C_RSTXXX
-USE C_XXPARM
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_rstxxx
+   USE c_xxparm
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,55 +46,55 @@ USE ISO_FORTRAN_ENV
 !                    /    S0
 !                   R
 !
-   IF ( Prject/=1 ) THEN
-      IF ( Fvp/=0 ) THEN
-         IF ( Prject==3 ) THEN
+   IF ( prject/=1 ) THEN
+      IF ( fvp/=0 ) THEN
+         IF ( prject==3 ) THEN
 !
 !     STEREO PROJECTION...FIND VANTAGE POINT
 !
-            R0 = rdist + Aver(1)*Objmod
-            S0l = Aver(2)*Objmod - S0s/2.
-            S0r = Aver(2)*Objmod + S0s/2.
-            T0 = Aver(3)*Objmod
-            D0 = D03
+            r0 = rdist + aver(1)*objmod
+            s0l = aver(2)*objmod - s0s/2.
+            s0r = aver(2)*objmod + s0s/2.
+            t0 = aver(3)*objmod
+            d0 = d03
             RETURN
          ELSE
 !
 !     PERSPECTIVE PROJECTION...FIND VANTAGE POINT
 !
-            r = D(1)**2 + D(2)**2 + D(3)**2
+            r = d(1)**2 + d(2)**2 + d(3)**2
             diam = dsqrt(r)
-            R0 = 2.*diam + Aver(1)
-            S0l = Aver(2)
-            T0 = diam + Aver(3)
-            D0 = 1.5*diam
+            r0 = 2.*diam + aver(1)
+            s0l = aver(2)
+            t0 = diam + aver(3)
+            d0 = 1.5*diam
          ENDIF
       ENDIF
 !
       scal = 1.
-      IF ( Prject==3 ) scal = Objmod
-      slr = S0l
-      IF ( Stereo/=0 ) slr = S0r
-      DO gp = 1 , Ngpset
-         r = D0/(R0-scal*X(1,gp))
+      IF ( prject==3 ) scal = objmod
+      slr = s0l
+      IF ( Stereo/=0 ) slr = s0r
+      DO gp = 1 , ngpset
+         r = d0/(r0-scal*X(1,gp))
          s = slr + r*(scal*X(2,gp)-slr)
-         t = T0 + r*(scal*X(3,gp)-T0)
+         t = t0 + r*(scal*X(3,gp)-t0)
          X(2,gp) = s
          X(3,gp) = t
-         IF ( Prject/=3 ) THEN
-            Min(2) = amin1(Min(2),s)
-            Min(3) = amin1(Min(3),t)
-            Max(2) = amax1(Max(2),s)
-            Max(3) = amax1(Max(3),t)
+         IF ( prject/=3 ) THEN
+            min(2) = amin1(min(2),s)
+            min(3) = amin1(min(3),t)
+            max(2) = amax1(max(2),s)
+            max(3) = amax1(max(3),t)
          ENDIF
       ENDDO
-      IF ( Prject/=3 ) THEN
+      IF ( prject/=3 ) THEN
 !
 !     FIND MINIMA + MAXIMA DIFFERENCES + AVERAGES
 !
          DO i = 2 , 3
-            D(i) = Max(i) - Min(i)
-            Aver(i) = (Max(i)+Min(i))/2.
+            d(i) = max(i) - min(i)
+            aver(i) = (max(i)+min(i))/2.
          ENDDO
       ENDIF
    ENDIF

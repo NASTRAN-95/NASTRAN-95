@@ -1,12 +1,13 @@
-!*==gust2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gust2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
+   USE c_condas
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,19 +48,19 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         icore = korsz(iz) - Sysbuf - 2
+         icore = korsz(iz) - sysbuf - 2
          buf1 = icore + 1
 !
 !     READ IN FREQUENCYS AND CONVERT TO OMEGA
 !
          file = Fol
-         CALL open(*100,Fol,Z(buf1),0)
-         CALL fread(Fol,Z,-2,0)
-         CALL read(*80,*20,Fol,Z,icore,0,nfreq)
+         CALL open(*100,Fol,z(buf1),0)
+         CALL fread(Fol,z,-2,0)
+         CALL read(*80,*20,Fol,z,icore,0,nfreq)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
  20      DO i = 1 , nfreq
-            Z(i) = Z(i)*Twopi
+            z(i) = z(i)*twopi
          ENDDO
          CALL close(Fol,1)
 !
@@ -78,7 +79,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO i = 1 , nj
-            Z(jap+i) = 0.0
+            z(jap+i) = 0.0
          ENDDO
 !
 !     SET UP WJ
@@ -95,7 +96,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
 !     A =  COS G (CG) FOR DLB  1 FOR Z BODIES  0 FOR ALL ELSE
 !     COEF =   XM  FOR PANELS AND BODIES
 !
-         CALL gopen(Acpt,Z(buf1),0)
+         CALL gopen(Acpt,z(buf1),0)
          nju = 0
          file = Acpt
          DO
@@ -118,7 +119,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
                ib1 = ib + 2*np
                ibs = ib1 + 2*nb
                nr = 3*np + 3*nb
-               CALL read(*80,*60,Acpt,Z(iacpt),nr,0,nwr)
+               CALL read(*80,*60,Acpt,z(iacpt),nr,0,nwr)
                nbei = 0
                nbes = 0
                DO i = 1 , nb
@@ -130,20 +131,20 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
                ixs1 = ix + 4*ntp + 2*nbei + nbes
                ixs2 = ixs1 + nbes
                nr = 11*nb + 4*nstrip
-               CALL read(*80,*60,Acpt,Z(icg),-nr,0,nwr)
+               CALL read(*80,*60,Acpt,z(icg),-nr,0,nwr)
                nr = nstrip + 4*ntp + 2*nbei + 3*nbes
                IF ( icg+nr>icore ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*80,*60,Acpt,Z(icg),nr,1,nwr)
+               CALL read(*80,*60,Acpt,z(icg),nr,1,nwr)
                IF ( ntp/=0 ) THEN
                   k = 0
                   ks = 0
                   nbxr = iz(ic)
                   DO i = 1 , ntp
-                     Z(jap+nju+i) = Z(icg+ks)
-                     Z(jcp+nju+i) = Z(ix+i)
+                     z(jap+nju+i) = z(icg+ks)
+                     z(jcp+nju+i) = z(ix+i)
                      IF ( i/=ntp ) THEN
                         IF ( i==iz(ib+k) ) k = k + 1
                         IF ( i==nbxr ) THEN
@@ -156,8 +157,8 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
                nju = nju + nto
                IF ( ntzs/=0 ) THEN
                   DO i = 1 , ntzs
-                     Z(jap+nju+i) = 1.0
-                     Z(jcp+nju+i) = .5*(Z(ixs1+i)+Z(ixs2+i))
+                     z(jap+nju+i) = 1.0
+                     z(jcp+nju+i) = .5*(z(ixs1+i)+z(ixs2+i))
                   ENDDO
                ENDIF
                nju = nju + ntzs + ntys
@@ -180,7 +181,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*80,*60,Acpt,Z(iacpt),nr,1,nwr)
+               CALL read(*80,*60,Acpt,z(iacpt),nr,1,nwr)
                ixic = iacpt + 2*np + 5*nstrip - 1
                idelx = ixic + njg
                icg = iacpt + 2*np + 4*nstrip
@@ -188,8 +189,8 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
                ks = 0
                nbxr = iz(iacpt)
                DO i = 1 , njg
-                  Z(jap+nju+i) = Z(icg+ks)
-                  Z(jcp+nju+i) = Z(ixic+i) + .5*Z(idelx+i)
+                  z(jap+nju+i) = z(icg+ks)
+                  z(jcp+nju+i) = z(ixic+i) + .5*z(idelx+i)
                   IF ( i/=njg ) THEN
                      IF ( i==iz(iacpt+np+k) ) k = k + 1
                      IF ( i==nbxr ) THEN
@@ -203,7 +204,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
          ENDDO
  40      CALL close(Acpt,1)
          CALL bug(nhnju,100,nju,1)
-         CALL bug(nhacj,100,Z(jap+1),2*nj)
+         CALL bug(nhacj,100,z(jap+1),2*nj)
          IF ( nju/=nj ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
@@ -211,17 +212,17 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
 !
 !     BUILD WJ LOOP OVER ALL FREQUENCIES WITH AN INNER LOOP ON NJ
 !
-         CALL gopen(Wj,Z(buf1),1)
+         CALL gopen(Wj,z(buf1),1)
          DO i = 1 , nfreq
-            freq = Z(i)
+            freq = z(i)
             CALL bldpk(3,3,Wj,0,0)
             DO j = 1 , nj
-               am = Z(jap+j)
+               am = z(jap+j)
                IF ( am/=0.0 ) THEN
-                  Irn = j
-                  temp = freq*((Z(jcp+j)-X0)/V)
-                  A(1) = cos(temp)*am
-                  A(2) = -sin(temp)*am
+                  irn = j
+                  temp = freq*((z(jcp+j)-X0)/V)
+                  a(1) = cos(temp)*am
+                  a(2) = -sin(temp)*am
                   CALL zblpki
                ENDIF
             ENDDO
@@ -229,7 +230,7 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
          ENDDO
          CALL close(Wj,1)
          CALL wrttrl(trl)
-         CALL dmpfil(-Wj,Z,icore)
+         CALL dmpfil(-Wj,z,icore)
          spag_nextblock_1 = 2
       CASE (2)
          RETURN
@@ -246,7 +247,6 @@ SUBROUTINE gust2(Fol,Wj,Acpt,X0,V,Cstm,Qhjl)
  80      CALL mesage(-2,file,nam)
  100     CALL mesage(-1,file,nam)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE gust2

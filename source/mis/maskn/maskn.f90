@@ -1,4 +1,5 @@
-!*==maskn.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==maskn.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION maskn(L2,L1)
@@ -9,7 +10,13 @@ FUNCTION maskn(L2,L1)
    INTEGER :: maskn
    INTEGER :: L2
    INTEGER :: L1
-   EXTERNAL errtrc , lshift , rshift
+   EXTERNAL errtrc
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

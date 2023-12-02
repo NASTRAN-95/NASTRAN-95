@@ -1,11 +1,12 @@
-!*==q4bmgd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==q4bmgd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE q4bmgd(Dshp,Gpth,Bgpdt,Gpnorm,Phi,Bmatrx)
-USE C_Q4COMD
-USE C_Q4DT
-USE C_TERMS
-USE ISO_FORTRAN_ENV                 
+   USE c_q4comd
+   USE c_q4dt
+   USE c_terms
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -36,8 +37,8 @@ USE ISO_FORTRAN_ENV
 !*****
 !     INITIALIZE
 !*****
-   ndof = Nnode*6
-   ndof3 = Nnode*3
+   ndof = nnode*6
+   ndof3 = nnode*3
    nd2 = ndof*2
    nd3 = ndof*3
    nd4 = ndof*4
@@ -50,23 +51,23 @@ USE ISO_FORTRAN_ENV
 !     ROWFLG = 3      THE FIRST SIX (THREE) ROWS         ND6 (ND3)
 !
    nn = nd6
-   IF ( Norpth ) nn = nd3
-   IF ( Rowflg==1 ) nn = nd2
-   IF ( Rowflg==2 ) nn = nd2
+   IF ( norpth ) nn = nd3
+   IF ( rowflg==1 ) nn = nd2
+   IF ( rowflg==2 ) nn = nd2
 !*****
 !     SET UP TERMS TO BE FILLED IN B-MATRIX
 !*****
-   DO k = 1 , Nnode
+   DO k = 1 , nnode
       kpoint = 6*(k-1)
       thick = Gpth(k)
 !
 !     COMPUTE THE TERMS WHICH GO IN THE FIRST 6(3) ROWS.
 !
-      IF ( Rowflg==1 ) THEN
+      IF ( rowflg==1 ) THEN
 !
 !     COMPUTE THE TERMS WHICH GO IN THE LAST 2 ROWS.
 !
-         IF ( .NOT.Bendng ) RETURN
+         IF ( .NOT.bendng ) RETURN
          tee(1) = 0.0D0
          tee(2) = -Gpnorm(4,k)
          tee(3) = Gpnorm(3,k)
@@ -79,28 +80,28 @@ USE ISO_FORTRAN_ENV
 !
          kp1 = kpoint*2
          kp2 = kp1 + 7
-         j = Iorder(k)
+         j = iorder(k)
          i = j - 1
          IF ( i==0 ) i = 4
 !
          ib = 0
          SPAG_Loop_2_1: DO
             ib = ib + 1
-            bb1 = -Unv(ib,j)*Edgshr(1,j)/Edgel(j) + Unv(ib,i)*Edgshr(1,i)/Edgel(i)
-            bb2 = -Unv(ib,j)*Edgshr(2,j)/Edgel(j) + Unv(ib,i)*Edgshr(2,i)/Edgel(i)
-            bb3 = -Unv(ib,j)*Edgshr(3,j)/Edgel(j) + Unv(ib,i)*Edgshr(3,i)/Edgel(i)
-            bsbar(kp1+ib) = Psitrn(1)*bb1 + Psitrn(2)*bb2 + Psitrn(3)*bb3
-            bsbar(kp1+ib+3) = Psitrn(4)*bb1 + Psitrn(5)*bb2 + Psitrn(6)*bb3
+            bb1 = -unv(ib,j)*edgshr(1,j)/edgel(j) + unv(ib,i)*edgshr(1,i)/edgel(i)
+            bb2 = -unv(ib,j)*edgshr(2,j)/edgel(j) + unv(ib,i)*edgshr(2,i)/edgel(i)
+            bb3 = -unv(ib,j)*edgshr(3,j)/edgel(j) + unv(ib,i)*edgshr(3,i)/edgel(i)
+            bsbar(kp1+ib) = psitrn(1)*bb1 + psitrn(2)*bb2 + psitrn(3)*bb3
+            bsbar(kp1+ib+3) = psitrn(4)*bb1 + psitrn(5)*bb2 + psitrn(6)*bb3
             IF ( ib>=3 ) THEN
 !
                ib = 0
                DO
                   ib = ib + 1
-                  bb1 = -(Uev(ib,j)*Edgshr(1,j)+Uev(ib,i)*Edgshr(1,i))*0.5D0
-                  bb2 = -(Uev(ib,j)*Edgshr(2,j)+Uev(ib,i)*Edgshr(2,i))*0.5D0
-                  bb3 = -(Uev(ib,j)*Edgshr(3,j)+Uev(ib,i)*Edgshr(3,i))*0.5D0
-                  bsbar1(ib) = Psitrn(1)*bb1 + Psitrn(2)*bb2 + Psitrn(3)*bb3
-                  bsbar1(ib+3) = Psitrn(4)*bb1 + Psitrn(5)*bb2 + Psitrn(6)*bb3
+                  bb1 = -(uev(ib,j)*edgshr(1,j)+uev(ib,i)*edgshr(1,i))*0.5D0
+                  bb2 = -(uev(ib,j)*edgshr(2,j)+uev(ib,i)*edgshr(2,i))*0.5D0
+                  bb3 = -(uev(ib,j)*edgshr(3,j)+uev(ib,i)*edgshr(3,i))*0.5D0
+                  bsbar1(ib) = psitrn(1)*bb1 + psitrn(2)*bb2 + psitrn(3)*bb3
+                  bsbar1(ib+3) = psitrn(4)*bb1 + psitrn(5)*bb2 + psitrn(6)*bb3
                   IF ( ib>=3 ) THEN
                      CALL gmmatd(bsbar1,2,3,0,tee,3,3,0,bsbar(kp2))
                      EXIT SPAG_Loop_2_1
@@ -109,24 +110,24 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO SPAG_Loop_2_1
       ELSE
-         atrans(1) = -Psitrn(2)*Gpnorm(4,k) + Psitrn(3)*Gpnorm(3,k)
-         atrans(2) = Psitrn(1)*Gpnorm(4,k) - Psitrn(3)*Gpnorm(2,k)
-         atrans(3) = -Psitrn(1)*Gpnorm(3,k) + Psitrn(2)*Gpnorm(2,k)
-         atrans(4) = -Psitrn(5)*Gpnorm(4,k) + Psitrn(6)*Gpnorm(3,k)
-         atrans(5) = Psitrn(4)*Gpnorm(4,k) - Psitrn(6)*Gpnorm(2,k)
-         atrans(6) = -Psitrn(4)*Gpnorm(3,k) + Psitrn(5)*Gpnorm(2,k)
+         atrans(1) = -psitrn(2)*Gpnorm(4,k) + psitrn(3)*Gpnorm(3,k)
+         atrans(2) = psitrn(1)*Gpnorm(4,k) - psitrn(3)*Gpnorm(2,k)
+         atrans(3) = -psitrn(1)*Gpnorm(3,k) + psitrn(2)*Gpnorm(2,k)
+         atrans(4) = -psitrn(5)*Gpnorm(4,k) + psitrn(6)*Gpnorm(3,k)
+         atrans(5) = psitrn(4)*Gpnorm(4,k) - psitrn(6)*Gpnorm(2,k)
+         atrans(6) = -psitrn(4)*Gpnorm(3,k) + psitrn(5)*Gpnorm(2,k)
 !
          DO i = 1 , 2
             ipoint = nd3*(i-1)
             itot = ipoint + kpoint
-            deriv = Dshp(N1*(i-1)+k)
-            bbar(1+itot) = deriv*Psitrn(1)
-            bbar(2+itot) = deriv*Psitrn(2)
-            bbar(3+itot) = deriv*Psitrn(3)
-            bbar(ndof+1+itot) = deriv*Psitrn(4)
-            bbar(ndof+2+itot) = deriv*Psitrn(5)
-            bbar(ndof+3+itot) = deriv*Psitrn(6)
-            term = Hzta*thick*deriv
+            deriv = Dshp(n1*(i-1)+k)
+            bbar(1+itot) = deriv*psitrn(1)
+            bbar(2+itot) = deriv*psitrn(2)
+            bbar(3+itot) = deriv*psitrn(3)
+            bbar(ndof+1+itot) = deriv*psitrn(4)
+            bbar(ndof+2+itot) = deriv*psitrn(5)
+            bbar(ndof+3+itot) = deriv*psitrn(6)
+            term = hzta*thick*deriv
             bbar(4+itot) = term*atrans(1)
             bbar(5+itot) = term*atrans(2)
             bbar(6+itot) = term*atrans(3)
@@ -141,7 +142,7 @@ USE ISO_FORTRAN_ENV
 !*****
 !
    ENDDO
-   IF ( .NOT.Norpth ) THEN
+   IF ( .NOT.norpth ) THEN
 !
 !*****
 !     FILL IN B-MATRIX FOR THE MIDI PATH
@@ -150,11 +151,11 @@ USE ISO_FORTRAN_ENV
       DO iji = 1 , nn
          Bmatrx(iji) = 0.0D0
       ENDDO
-      IF ( Rowflg==1 ) THEN
+      IF ( rowflg==1 ) THEN
 !
 !     ROWFLG = 1       OUT-OF-PLANE SHEAR (LAST 2 ROWS)
 !
-         DO ka = 1 , Nnode
+         DO ka = 1 , nnode
             kk = (ka-1)*6
             DO m = 1 , 3
                n = 3 + m
@@ -165,11 +166,11 @@ USE ISO_FORTRAN_ENV
                Bmatrx(n+kk) = bsbar(n+kkk+6)
             ENDDO
          ENDDO
-      ELSEIF ( Rowflg==2 ) THEN
+      ELSEIF ( rowflg==2 ) THEN
 !
 !     ROWFLG = 2       IN-PLANE SHEAR (3RD AND 6TH ROWS)
 !
-         DO ka = 1 , Nnode
+         DO ka = 1 , nnode
             kk = (ka-1)*6
             DO m = 1 , 3
                n = 3 + m
@@ -181,8 +182,8 @@ USE ISO_FORTRAN_ENV
 !
 !     ROWFLG = 3       FIRST SIX ROWS
 !
-         IF ( Membrn ) THEN
-            DO ka = 1 , Nnode
+         IF ( membrn ) THEN
+            DO ka = 1 , nnode
                kk = (ka-1)*6
                DO m = 1 , 3
                   Bmatrx(m+kk) = Phi(1)*bbar(m+kk) + Phi(2)*bbar(m+kk+nd3)
@@ -191,8 +192,8 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDIF
 !
-         IF ( Bendng ) THEN
-            DO ka = 1 , Nnode
+         IF ( bendng ) THEN
+            DO ka = 1 , nnode
                kk = (ka-1)*6
                DO n = 4 , 6
                   Bmatrx(n+kk+nd3) = Phi(1)*bbar(n+kk) + Phi(2)*bbar(n+kk+nd3)
@@ -201,7 +202,7 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDIF
       ENDIF
-   ELSEIF ( Rowflg==1 ) THEN
+   ELSEIF ( rowflg==1 ) THEN
 !
 !     ROWFLG = 1       OUT-OF-PLANE SHEAR (LAST 2 ROWS)
 !
@@ -210,7 +211,7 @@ USE ISO_FORTRAN_ENV
          Bmatrx(kbar+ndof) = bsbar(ibar)
          Bmatrx(kbar) = bsbar(ibar+3)
       ENDDO
-   ELSEIF ( Rowflg==2 ) THEN
+   ELSEIF ( rowflg==2 ) THEN
 !
 !     ROWFLG = 2       IN-PLANE SHEAR (3RD ROW)
 !

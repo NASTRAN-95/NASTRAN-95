@@ -1,9 +1,10 @@
-!*==mce1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mce1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce1
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
    EXTERNAL mce1a , mce1b , mce1c , mce1d , rdtrl
 !
 ! End of declarations rewritten by SPAG
@@ -16,16 +17,16 @@ SUBROUTINE mce1
 !
 !     SET INPUT, OUTPUT AND SCRATCH FILES
 !
-   Uset = 101
-   Rg = 102
-   Gm = 201
-   Scr1 = 304
-   Scr2 = 305
-   Scr3 = 301
-   Rm = 302
-   Rn = 303
-   L = 306
-   U = 307
+   uset = 101
+   rg = 102
+   gm = 201
+   scr1 = 304
+   scr2 = 305
+   scr3 = 301
+   rm = 302
+   rn = 303
+   l = 306
+   u = 307
 !
 !     PARTITION RG INTO RM AND RN
 !
@@ -33,14 +34,14 @@ SUBROUTINE mce1
 !
 !     TEST FOR RM DIAGONAL
 !
-   Mcb(1) = Rm
-   CALL rdtrl(Mcb)
-   IF ( Mcb(5)==1 .AND. Mcb(6)==1 ) THEN
+   mcb(1) = rm
+   CALL rdtrl(mcb)
+   IF ( mcb(5)==1 .AND. mcb(6)==1 ) THEN
 !
 !     RM IS DIAGONAL, COMPUTE GM = -RM(-1) * RN
 !
       CALL mce1d
-   ELSEIF ( Mcb(5)==2 .AND. Mcb(6)==2 ) THEN
+   ELSEIF ( mcb(5)==2 .AND. mcb(6)==2 ) THEN
       CALL mce1d
    ELSE
 !

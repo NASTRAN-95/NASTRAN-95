@@ -1,9 +1,10 @@
-!*==subpb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==subpb.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas,Nasb,Avr,Zb,Yb,Arb,Xle,Xte,X,Nb)
+   USE c_amgmn
    IMPLICIT NONE
-   USE C_AMGMN
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,11 +59,11 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
 !
 !
          eps = 0.00001
-         m = Fmach
+         m = fmach
          beta = sqrt(1.0-m*m)
-         fl = Refc
-         flnd = float(Nd)
-         flne = float(Ne)
+         fl = refc
+         flnd = float(nd)
+         flne = float(ne)
          sgs = Sg(Ls)
          cgs = Cg(Ls)
          dpur = (0.0,0.0)
@@ -101,7 +102,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
             nobi = 1
             na2 = 0
             CALL snpdf(sl,cl,tl,sgs,cgs,Sgr,Cgr,x0,y0,z0,es,dij,beta,cv)
-            IF ( Kr>eps ) THEN
+            IF ( kr>eps ) THEN
                sdelx = dxs
                dely = 2.0*es
                ax1 = ax + es*tl
@@ -110,7 +111,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                ax2 = ax - es*tl
                ay2 = ay - es*cgs
                az2 = az - es*sgs
-               CALL incro(ax,ay,az,ax1,ay1,az1,ax2,ay2,az2,Sgr,Cgr,sgs,cgs,Kr,fl,beta,sdelx,dely,delr,deli)
+               CALL incro(ax,ay,az,ax1,ay1,az1,ax2,ay2,az2,Sgr,Cgr,sgs,cgs,kr,fl,beta,sdelx,dely,delr,deli)
             ENDIF
             IF ( Nb/=0 ) THEN
                noas = Nas(L)
@@ -181,7 +182,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                            z0i = Zrec - dzetai
                            CALL snpdf(dsl,dcl,dtl,dsgami,dcgami,Sgr,Cgr,x0i,y0i,z0i,deei,dij,beta,cv)
                            diji = diji + dij
-                           IF ( Kr>eps ) THEN
+                           IF ( kr>eps ) THEN
                               delr = 0.0
                               deli = 0.0
                               ayi = y0i
@@ -191,7 +192,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                               ay2i = ayi + deei*dcgami
                               az2i = azi + deei*dsgami
                               deei2 = 2.0*deei
-                              CALL incro(ax,ayi,azi,ax1,ay1i,az1i,ax2,ay2i,az2i,Sgr,Cgr,dsgami,dcgami,Kr,fl,beta,sdelx,deei2,delr,  &
+                              CALL incro(ax,ayi,azi,ax1,ay1i,az1i,ax2,ay2i,az2i,Sgr,Cgr,dsgami,dcgami,kr,fl,beta,sdelx,deei2,delr,  &
                                & deli)
                               delri = delri + delr
                               delii = delii + deli
@@ -213,7 +214,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                EXIT SPAG_Loop_1_1
             ELSEIF ( igo==3 ) THEN
                dplr = dp
-               IF ( Nd==0 ) THEN
+               IF ( nd==0 ) THEN
                   Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
                   RETURN
                ELSE
@@ -233,7 +234,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                RETURN
             ELSE
                dpur = dp
-               IF ( Nd==0 ) EXIT SPAG_Loop_1_1
+               IF ( nd==0 ) EXIT SPAG_Loop_1_1
 !
 !     UPPER LEFT  SENDING POINT
 !
@@ -245,7 +246,7 @@ SUBROUTINE subpb(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs,Nas
                ay = y0
             ENDIF
          ENDDO SPAG_Loop_1_1
-         IF ( Ne==0 ) THEN
+         IF ( ne==0 ) THEN
             Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
          ELSE
 !

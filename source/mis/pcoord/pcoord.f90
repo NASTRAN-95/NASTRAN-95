@@ -1,11 +1,12 @@
-!*==pcoord.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pcoord.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pcoord(Pen)
+   USE c_drwaxs
+   USE c_pltdat
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_DRWAXS
-   USE C_PLTDAT
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,20 +40,20 @@ SUBROUTINE pcoord(Pen)
    y2 = 0.0
    y1 = 0.0
    DO i = 1 , 3
-      IF ( G(2,i)>x2 ) x2 = G(2,i)
-      IF ( G(3,i)<y2 ) y2 = G(3,i)
-      IF ( G(3,i)>y1 ) y1 = G(3,i)
+      IF ( g(2,i)>x2 ) x2 = g(2,i)
+      IF ( g(3,i)<y2 ) y2 = g(3,i)
+      IF ( g(3,i)>y1 ) y1 = g(3,i)
    ENDDO
-   de = 1.8*Cntchr(1)
-   sf = 2.7*Cntchr(2)
-   IF ( Fpltit==0 ) sf = 1.3*sf
+   de = 1.8*cntchr(1)
+   sf = 2.7*cntchr(2)
+   IF ( fpltit==0 ) sf = 1.3*sf
    sf = sf/(y1-y2)
-   x1 = Size - x2*sf - de
+   x1 = size - x2*sf - de
    y1 = -y2*sf
-   IF ( Fpltit/=0 ) y1 = y1 + 0.8*Cntchr(2)
+   IF ( fpltit/=0 ) y1 = y1 + 0.8*cntchr(2)
    ep = 0.0001
    of = -1.
-   IF ( G(2,1)<=ep .AND. G(2,2)<=ep .AND. G(2,3)<=ep ) of = +1.
+   IF ( g(2,1)<=ep .AND. g(2,2)<=ep .AND. g(2,3)<=ep ) of = +1.
    IF ( of==+1. ) x1 = x1 - de
 !
 !     DRAW THE X-Y-Z COORDINATE TRIAD
@@ -60,18 +61,18 @@ SUBROUTINE pcoord(Pen)
 !
    sym(1) = 6
    sym(2) = 0
-   de = 0.8*Cntchr(1)
-   of = 1.3*of*Cntchr(1)
+   de = 0.8*cntchr(1)
+   of = 1.3*of*cntchr(1)
    DO i = 1 , 3
-      x2 = G(2,i)*sf + x1
-      y2 = G(3,i)*sf + y1
+      x2 = g(2,i)*sf + x1
+      y2 = g(3,i)*sf + y1
       CALL line(x1,y1,x2,y2,Pen,0)
-      IF ( abs(G(2,i))+abs(G(3,i))>=ep ) THEN
-         IF ( G(2,i)>0.0 ) CALL tipe(x2+de,y2,1,G(i,4),1,0)
-         IF ( G(2,i)<=0.0 ) CALL tipe(x2-de,y2,1,G(i,4),1,0)
+      IF ( abs(g(2,i))+abs(g(3,i))>=ep ) THEN
+         IF ( g(2,i)>0.0 ) CALL tipe(x2+de,y2,1,g(i,4),1,0)
+         IF ( g(2,i)<=0.0 ) CALL tipe(x2-de,y2,1,g(i,4),1,0)
       ELSE
          CALL symbol(x1,y1,sym,0)
-         CALL tipe(x2+of,y2,1,G(i,4),1,0)
+         CALL tipe(x2+of,y2,1,g(i,4),1,0)
       ENDIF
    ENDDO
 !

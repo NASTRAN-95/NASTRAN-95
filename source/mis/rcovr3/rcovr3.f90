@@ -1,16 +1,17 @@
-!*==rcovr3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovr3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovr3
+   USE c_blank
+   USE c_names
+   USE c_output
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_OUTPUT
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,36 +56,36 @@ SUBROUTINE rcovr3
 !
 !     INITIALIZATION
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Sysbuf + 1
-         buf2 = buf1 - Sysbuf - 1
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
+         lcore = korsz(z)
+         buf1 = lcore - sysbuf + 1
+         buf2 = buf1 - sysbuf - 1
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
          lcore = buf4 - 1
          IF ( lcore<=0 ) CALL mesage(-8,0,subr)
          nogo = 0
-         Itypp = 1
-         Otypp = 1
-         Irowp = 1
-         Incp = 1
-         Otypun = 1
-         Irowun = 1
-         Incun = 1
+         itypp = 1
+         otypp = 1
+         irowp = 1
+         incp = 1
+         otypun = 1
+         irowun = 1
+         incun = 1
          first = .FALSE.
-         CALL sofopn(Z(buf1),Z(buf2),Z(buf3))
+         CALL sofopn(z(buf1),z(buf2),z(buf3))
          DO i = 1 , 6
-            Here(i) = 0
+            here(i) = 0
          ENDDO
 !
 !     CHECK DATA
 !
 !     NO EXTRA POINTS
 !
-         IF ( Noue/=-1 ) THEN
+         IF ( noue/=-1 ) THEN
 !
 !     ABNORMAL MODULE EXITS
 !
-            WRITE (Nout,99001) Ufm
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 6372, NO EXTRA POINTS ALLOWED IN PHASE 3 ','SUBSTRUCTURING.')
             n = -61
             spag_nextblock_1 = 2
@@ -93,30 +94,30 @@ SUBROUTINE rcovr3
 !
 !     SUBSTRUCTURE NAME
 !
-            CALL fdsub(Name,rc)
-            IF ( rc==-1 ) CALL smsg(-2,iblank,Name)
+            CALL fdsub(name,rc)
+            IF ( rc==-1 ) CALL smsg(-2,iblank,name)
 !
 !     PAIRS OF INPUT ITEMS AND OUTPUT BLOCKS
 !
-            CALL sfetch(Name,soln,srd,rc)
-            IF ( rc/=1 ) CALL smsg(2-rc,soln,Name)
-            IF ( Rfno/=1 .AND. Rfno/=2 ) THEN
-               Trl(1) = outdb(1)
-               CALL rdtrl(Trl)
-               IF ( Trl(1)<=0 ) THEN
+            CALL sfetch(name,soln,srd,rc)
+            IF ( rc/=1 ) CALL smsg(2-rc,soln,name)
+            IF ( rfno/=1 .AND. rfno/=2 ) THEN
+               trl(1) = outdb(1)
+               CALL rdtrl(trl)
+               IF ( trl(1)<=0 ) THEN
                   CALL mesage(1,outdb(1),subr)
                   nogo = 1
                ENDIF
             ENDIF
             DO i = 2 , 3
-               IF ( .NOT.(i==1 .AND. (Rfno==1 .OR. Rfno==2)) ) THEN
-                  CALL softrl(Name,initm(i),mcbtrl)
+               IF ( .NOT.(i==1 .AND. (rfno==1 .OR. rfno==2)) ) THEN
+                  CALL softrl(name,initm(i),mcbtrl)
                   rc = mcbtrl(1)
                   IF ( rc==1 ) THEN
-                     Trl(1) = outdb(i)
-                     CALL rdtrl(Trl)
-                     IF ( Trl(1)>0 ) THEN
-                        Here(i-1) = 1
+                     trl(1) = outdb(i)
+                     CALL rdtrl(trl)
+                     IF ( trl(1)>0 ) THEN
+                        here(i-1) = 1
                      ELSE
                         CALL mesage(1,outdb(i),subr)
                         nogo = 1
@@ -127,16 +128,16 @@ SUBROUTINE rcovr3
 !
 !     PAIRS OF DATA BLOCKS
 !
-            IF ( Rfno/=3 .AND. Rfno/=8 ) THEN
+            IF ( rfno/=3 .AND. rfno/=8 ) THEN
                DO i = 1 , 4
-                  Trl(1) = ivec(i)
-                  CALL rdtrl(Trl)
-                  IF ( Trl(1)>=0 ) THEN
-                     IF ( i/=4 .OR. Trl(6)/=0 ) THEN
-                        Trl(1) = ovec(i)
-                        CALL rdtrl(Trl)
-                        IF ( Trl(1)>0 ) THEN
-                           Here(i+2) = 1
+                  trl(1) = ivec(i)
+                  CALL rdtrl(trl)
+                  IF ( trl(1)>=0 ) THEN
+                     IF ( i/=4 .OR. trl(6)/=0 ) THEN
+                        trl(1) = ovec(i)
+                        CALL rdtrl(trl)
+                        IF ( trl(1)>0 ) THEN
+                           here(i+2) = 1
                         ELSE
                            CALL mesage(1,ovec(i),subr)
                            nogo = 1
@@ -156,25 +157,25 @@ SUBROUTINE rcovr3
 !
 !     COPY DISPLACEMENTS AND REACTIONS FROM SOF TO GINO FILES
 !
-               IF ( Here(1)==1 ) CALL mtrxi(uas,Name,uvec,Z(buf4),rc)
-               IF ( Here(2)==1 ) CALL mtrxi(qas,Name,qvec,Z(buf4),rc)
+               IF ( here(1)==1 ) CALL mtrxi(uas,name,uvec,z(buf4),rc)
+               IF ( here(2)==1 ) CALL mtrxi(qas,name,qvec,z(buf4),rc)
 !
 !     BRANCH ON RIGID FORMAT NUMBER
 !
-               IF ( Rfno==3 ) THEN
+               IF ( rfno==3 ) THEN
 !
 !     RIGID FORMAT  3 -- NORMAL MODES
 !     *******************************
 !
 !     WRITE NULL REACTIONS MATRIX TO PREVENT ERROR 3007 IN UMERGE
 !
-                  IF ( Here(2)/=1 ) THEN
-                     Nrowp = 1
-                     CALL makmcb(Trl,qas,1,2,1)
-                     CALL gopen(qas,Z(buf4),Wrtrew)
-                     CALL pack(0,qas,Trl)
-                     CALL close(qas,Rew)
-                     CALL wrttrl(Trl)
+                  IF ( here(2)/=1 ) THEN
+                     nrowp = 1
+                     CALL makmcb(trl,qas,1,2,1)
+                     CALL gopen(qas,z(buf4),wrtrew)
+                     CALL pack(0,qas,trl)
+                     CALL close(qas,rew)
+                     CALL wrttrl(trl)
                   ENDIF
 !
 !     GENERATE OFP ID RECORD FOR LAMA
@@ -184,7 +185,7 @@ SUBROUTINE rcovr3
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     CALL gopen(lama,Z(buf4),Wrtrew)
+                     CALL gopen(lama,z(buf4),wrtrew)
                      DO i = 3 , 50
                         iz(i) = 0
                      ENDDO
@@ -192,37 +193,37 @@ SUBROUTINE rcovr3
                      iz(2) = 6
                      iz(10) = 7
                      DO i = 1 , 96
-                        iz(i+50) = Titles(i)
+                        iz(i+50) = titles(i)
                      ENDDO
-                     CALL write(lama,Z,146,1)
+                     CALL write(lama,z,146,1)
 !
 !     GET SOLN ITEM AND CHECK GROUP 0 DATA
 !
-                     CALL sfetch(Name,soln,srd,rc)
-                     IF ( rc/=1 ) CALL smsg(2-rc,soln,Name)
+                     CALL sfetch(name,soln,srd,rc)
+                     IF ( rc/=1 ) CALL smsg(2-rc,soln,name)
                      CALL suread(fss,2,n,rc)
-                     WRITE (Nout,99005) Uim , fss , Name
-                     CALL suread(Ibuf,-1,n,rc)
-                     IF ( Ibuf(1)/=Rfno ) THEN
-                        WRITE (Nout,99002) Sfm , Ibuf(1) , Rfno
+                     WRITE (nout,99005) uim , fss , name
+                     CALL suread(ibuf,-1,n,rc)
+                     IF ( ibuf(1)/=rfno ) THEN
+                        WRITE (nout,99004) sfm , ibuf(1) , rfno
                         n = -61
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
-                        neigv = Ibuf(2)
+                        neigv = ibuf(2)
                         IF ( neigv>0 ) THEN
                            SPAG_Loop_1_1: DO
 !
 !     COPY SOLN GROUP 1 TO LAMA RECORD 2 AND WRITE NON-ZERO TRAILER
 !
-                              CALL suread(Z,lcore,n,rc)
-                              CALL write(lama,Z,n,0)
+                              CALL suread(z,lcore,n,rc)
+                              CALL write(lama,z,n,0)
                               IF ( rc/=1 ) THEN
                                  CALL write(lama,0,0,1)
-                                 CALL close(lama,Rew)
-                                 CALL makmcb(Trl,lama,0,0,0)
-                                 Trl(2) = 1
-                                 CALL wrttrl(Trl)
+                                 CALL close(lama,rew)
+                                 CALL makmcb(trl,lama,0,0,0)
+                                 trl(2) = 1
+                                 CALL wrttrl(trl)
                                  EXIT SPAG_Loop_1_1
                               ENDIF
                            ENDDO SPAG_Loop_1_1
@@ -230,11 +231,11 @@ SUBROUTINE rcovr3
 !
 !     NO EIGENVALUES.  WRITE ZERO TRAILER TO INDICATE LAMA IS PURGED
 !
-                           CALL close(lama,Rew)
-                           CALL makmcb(Trl,lama,0,0,0)
-                           CALL wrttrl(Trl)
-                           WRITE (Nout,99003) Uwm
-99003                      FORMAT (A25,' 6323, NO EIGENVALUES FOR THIS SOLUTION')
+                           CALL close(lama,rew)
+                           CALL makmcb(trl,lama,0,0,0)
+                           CALL wrttrl(trl)
+                           WRITE (nout,99002) uwm
+99002                      FORMAT (A25,' 6323, NO EIGENVALUES FOR THIS SOLUTION')
                            spag_nextblock_1 = 3
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -250,63 +251,63 @@ SUBROUTINE rcovr3
 !
 !     FETCH SOLN ITEM AND PROCESS GROUP 0 DATA
 !
-                  CALL sfetch(Name,soln,srd,rc)
-                  IF ( rc/=1 ) CALL smsg(2-rc,soln,Name)
+                  CALL sfetch(name,soln,srd,rc)
+                  IF ( rc/=1 ) CALL smsg(2-rc,soln,name)
                   CALL suread(fss,2,n,rc)
-                  WRITE (Nout,99005) Uim , fss , Name
-                  CALL suread(Ibuf,3,n,rc)
-                  IF ( Ibuf(1)/=Rfno ) THEN
-                     WRITE (Nout,99002) Sfm , Ibuf(1) , Rfno
+                  WRITE (nout,99005) uim , fss , name
+                  CALL suread(ibuf,3,n,rc)
+                  IF ( ibuf(1)/=rfno ) THEN
+                     WRITE (nout,99004) sfm , ibuf(1) , rfno
                      n = -61
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Ibuf(2)/=1 ) THEN
-                     WRITE (Nout,99004) Ufm , Name
-99004                FORMAT (A23,' 6324, PHASE 3 RECOVER ATTEMPTED FOR NON-BASIC ','SUBSTRUCTURE ',2A4)
+                  ELSEIF ( ibuf(2)/=1 ) THEN
+                     WRITE (nout,99003) ufm , name
+99003                FORMAT (A23,' 6324, PHASE 3 RECOVER ATTEMPTED FOR NON-BASIC ','SUBSTRUCTURE ',2A4)
                      n = -61
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     nc = Ibuf(3)
+                     nc = ibuf(3)
 !
 !     WRITE NULL REACTIONS MATRIX TO PREVENT ERROR 3007 IN UMERGE
 !
-                     IF ( Here(2)/=1 ) THEN
-                        Nrowp = 1
-                        CALL makmcb(Trl,qas,1,2,1)
-                        CALL gopen(qas,Z(buf4),Wrtrew)
+                     IF ( here(2)/=1 ) THEN
+                        nrowp = 1
+                        CALL makmcb(trl,qas,1,2,1)
+                        CALL gopen(qas,z(buf4),wrtrew)
                         DO i = 1 , nc
-                           CALL pack(0,qas,Trl)
+                           CALL pack(0,qas,trl)
                         ENDDO
-                        CALL close(qas,Rew)
-                        CALL wrttrl(Trl)
+                        CALL close(qas,rew)
+                        CALL wrttrl(trl)
                      ENDIF
 !
 !     COPY FREQUENCIES ONTO PPF OR TIME STEPS ONTO TOL
 !
-                     IF ( Rfno>=8 ) THEN
+                     IF ( rfno>=8 ) THEN
                         j = 1
                         CALL sjump(j)
                         file = lama
-                        CALL open(*20,lama,Z(buf4),Wrtrew)
-                        CALL fname(lama,Ibuf)
-                        CALL write(lama,Ibuf,2,0)
+                        CALL open(*20,lama,z(buf4),wrtrew)
+                        CALL fname(lama,ibuf)
+                        CALL write(lama,ibuf,2,0)
                         SPAG_Loop_1_2: DO
-                           CALL suread(Z,lcore,n,rc)
-                           CALL write(lama,Z,n,0)
+                           CALL suread(z,lcore,n,rc)
+                           CALL write(lama,z,n,0)
                            IF ( rc/=1 ) THEN
                               CALL write(lama,0,0,1)
 !
 !     WRITE NULL DYNAMIC LOADS MATRIX ONTO PPF
 !
-                              CALL makmcb(Trl,lama,1,2,1)
-                              IF ( Rfno/=9 ) THEN
+                              CALL makmcb(trl,lama,1,2,1)
+                              IF ( rfno/=9 ) THEN
                                  DO i = 1 , nc
-                                    CALL pack(0,lama,Trl)
+                                    CALL pack(0,lama,trl)
                                  ENDDO
                               ENDIF
-                              CALL wrttrl(Trl)
-                              CALL close(lama,Rew)
+                              CALL wrttrl(trl)
+                              CALL close(lama,rew)
                               EXIT SPAG_Loop_1_2
                            ENDIF
                         ENDDO SPAG_Loop_1_2
@@ -318,8 +319,8 @@ SUBROUTINE rcovr3
 !
                      lcore = buf3 - 1
                      DO i = 1 , 4
-                        IF ( Here(i+2)/=0 ) THEN
-                           CALL rcovsl(Name,0,ivec(i),scr1,scr2,scr3,ovec(i),Z,Z,lcore,first,Rfno)
+                        IF ( here(i+2)/=0 ) THEN
+                           CALL rcovsl(name,0,ivec(i),scr1,scr2,scr3,ovec(i),z,z,lcore,first,rfno)
                            IF ( ovec(i)/=0 ) first = .TRUE.
                         ENDIF
                      ENDDO
@@ -343,7 +344,7 @@ SUBROUTINE rcovr3
          RETURN
       END SELECT
    ENDDO SPAG_DispatchLoop_1
-99002 FORMAT (A25,' 6322, SOLN HAS INCORRECT RIGID FORMAT NUMBER.',/32X,'PHASE 2 RIGID FORMAT WAS',I3,' AND PHASE 3 IS',I3)
+99004 FORMAT (A25,' 6322, SOLN HAS INCORRECT RIGID FORMAT NUMBER.',/32X,'PHASE 2 RIGID FORMAT WAS',I3,' AND PHASE 3 IS',I3)
 !
 !     FORMAT STATEMENTS FOR DIAGNOSTIC MESSAGES
 !

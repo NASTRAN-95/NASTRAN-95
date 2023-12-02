@@ -1,12 +1,13 @@
-!*==frrd1f.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==frrd1f.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
+   USE c_system
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,17 +43,17 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
       CASE (1)
 !
 !
-         ibuf1 = korsz(Core) - Sysbuf + 1
+         ibuf1 = korsz(core) - sysbuf + 1
 !
 !     PICK UP FREQUENCY LIST
 !
-         CALL gopen(Frl,Core(ibuf1),0)
+         CALL gopen(Frl,core(ibuf1),0)
          CALL skprec(Frl,Frqset-1)
          IF ( ibuf1-1<Nfreq ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL fread(Frl,Core,Nfreq,1)
+         CALL fread(Frl,core,Nfreq,1)
          CALL close(Frl,1)
 !
 !     BRING IN  MODAL MATRICES
@@ -94,12 +95,12 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
 !
 !     READY LOADS
 !
- 60      CALL gopen(Ph,Core(ibuf1),0)
+ 60      CALL gopen(Ph,core(ibuf1),0)
 !
 !     READY SOLUTIONS
 !
-         ibuf2 = ibuf1 - Sysbuf
-         CALL gopen(Uhv,Core(ibuf2),1)
+         ibuf2 = ibuf1 - sysbuf
+         CALL gopen(Uhv,core(ibuf2),1)
          CALL makmcb(mcb,Uhv,lhset,2,3)
 !
 !     COMPUTE  SOLUTIONS
@@ -109,26 +110,26 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
 !
 !     PICK  UP  FREQ
 !
-               w = Core(j)
+               w = core(j)
                w2 = -w*w
                CALL bldpk(3,3,Uhv,0,0)
                CALL intpk(*65,Ph,0,3,0)
-               DO WHILE ( Ieol==0 )
+               DO WHILE ( ieol==0 )
                   CALL zntpki
 !
 !     COMPUTE  REAL AND COMPLEX PARTS OF DENOMINATOR
 !
-                  ik = ikhh + Ii
-                  ib = ibhh + Ii
-                  im = imhh + Ii
-                  rdem = w2*Core(im) + Core(ik)
-                  cdem = Core(ib)*w
+                  ik = ikhh + ii
+                  ib = ibhh + ii
+                  im = imhh + ii
+                  rdem = w2*core(im) + core(ik)
+                  cdem = core(ib)*w
 !IBMD DEM  = RDEM*RDEM + CDEM*CDEM
 !IBMR IF (DEM .NE. 0.0) GO TO 71
                   IF ( rdem==0.0 .AND. cdem==0.0 ) THEN
                      CALL mesage(5,j,name)
-                     B(1) = 0.0
-                     B(2) = 0.0
+                     b(1) = 0.0
+                     b(2) = 0.0
 !
 !     COMPUTE REAL AND COMPLEX PHI-S
 !
@@ -138,16 +139,16 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
                   ELSEIF ( rdem==0.0 ) THEN
                      ratio = rdem/cdem
                      factr = 1.0/(ratio*rdem+cdem)
-                     B(1) = (A(1)*ratio+A(2))*factr
-                     B(2) = (A(2)*ratio-A(1))*factr
+                     b(1) = (a(1)*ratio+a(2))*factr
+                     b(2) = (a(2)*ratio-a(1))*factr
                   ELSE
                      ratio = cdem/rdem
                      factr = 1.0/(rdem+ratio*cdem)
-                     B(1) = (A(1)+A(2)*ratio)*factr
-                     B(2) = (A(2)-A(1)*ratio)*factr
+                     b(1) = (a(1)+a(2)*ratio)*factr
+                     b(2) = (a(2)-a(1)*ratio)*factr
                   ENDIF
 !IBMNE
-                  Jj = Ii
+                  jj = ii
                   CALL zblpki
                ENDDO
 !
@@ -165,22 +166,22 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
 !     INTERNAL SUBROUTINE TO BRING IN  H MATRICES
 !
          file = matnam
-         CALL open(*80,matnam,Core(ibuf1),0)
+         CALL open(*80,matnam,core(ibuf1),0)
          CALL skprec(matnam,1)
          DO i = 1 , lhset
             ipnt = ipnt + 1
             CALL intpk(*70,matnam,0,1,0)
             CALL zntpki
-            IF ( Ii/=i .OR. Ieol/=1 ) THEN
+            IF ( ii/=i .OR. ieol/=1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Core(ipnt) = A(1)
+            core(ipnt) = a(1)
             CYCLE
 !
 !     NULL COLUMN
 !
- 70         Core(ipnt) = 0.0
+ 70         core(ipnt) = 0.0
          ENDDO
          CALL close(matnam,1)
          spag_nextblock_1 = 3
@@ -191,10 +192,9 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
 !
  80      DO i = 1 , lhset
             ipnt = ipnt + 1
-            Core(ipnt) = 0.0
+            core(ipnt) = 0.0
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          DO
             ip1 = -8
@@ -208,7 +208,6 @@ SUBROUTINE frrd1f(Mhh,Bhh,Khh,Frl,Frqset,Nload,Nfreq,Ph,Uhv)
          ip1 = -7
          CALL mesage(ip1,file,name)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE frrd1f

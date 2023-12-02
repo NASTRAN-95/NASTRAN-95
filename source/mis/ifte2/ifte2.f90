@@ -1,4 +1,5 @@
-!*==ifte2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifte2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifte2(Tha,Rp,Cp)
@@ -14,11 +15,19 @@ SUBROUTINE ifte2(Tha,Rp,Cp)
 !
    REAL :: d , rn , rps , sign , t1 , t2 , trm , tsq
    REAL , SAVE :: epsi , thao
-   INTEGER :: i , it
+   INTEGER :: i , it , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    DATA thao , epsi/.1 , 1.E-9/
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO

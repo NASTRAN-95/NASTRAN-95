@@ -2,10 +2,10 @@
  
 SUBROUTINE selbo1
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -25,6 +25,12 @@ SUBROUTINE selbo1
    REAL , DIMENSION(18) :: ta
    REAL , DIMENSION(9) :: tb
    REAL , DIMENSION(3) :: veci , vecj , veck
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -173,22 +179,22 @@ SUBROUTINE selbo1
 !     SEARCH THE MATERIAL PROPERTIES TABLE FOR E,G AND THE DAMPING
 !     CONSTANT.
 !
-   Matidc = Imatid
-   Matflg = 1
-   IF ( isop==3 ) Matflg = 12
-   Eltemp = Tempel
+   matidc = imatid
+   matflg = 1
+   IF ( isop==3 ) matflg = 12
+   eltemp = tempel
    CALL mat(iecpt(1))
-   dampc = Gsube
+   dampc = gsube
 !
 !     SET UP INTERMEDIATE VARIABLES FOR ELEMENT STIFFNESS MATRIX
 !     CALCULATION
 !
-   IF ( Kx<1.0E-8 ) Kx = 1.0
-   IF ( Ky<1.0E-8 ) Ky = 1.0
-   IF ( Kz<1.0E-8 ) Kz = 1.0
-   fi1 = I1/Kz
-   fi2 = I2/Ky
-   fjk = Fj/Kx
+   IF ( kx<1.0E-8 ) kx = 1.0
+   IF ( ky<1.0E-8 ) ky = 1.0
+   IF ( kz<1.0E-8 ) kz = 1.0
+   fi1 = i1/kz
+   fi2 = i2/ky
+   fjk = fj/kx
 !
 !
 !     THE FOLLOWING CODE WAS TAKEN FROM SAP4 BENDKS ROUTINE FOR A CURVED
@@ -197,21 +203,21 @@ SUBROUTINE selbo1
 !
 !     COMPUTE SECTION PROPERTY CONSTANTS
 !
-   t = dtr(Betar)
-   ra = R/(A*E)
-   rv1 = K1*R/(2.*G*A)
-   rv2 = K2/K1*rv1
-   rt = R/(G*fjk*2.)
-   rb0 = R/(E*fi2*2.)
-   rb1 = R/(E*fi1)
-   r2 = R**2
+   t = dtr(betar)
+   ra = r/(a*e)
+   rv1 = k1*r/(2.*g*a)
+   rv2 = k2/k1*rv1
+   rt = r/(g*fjk*2.)
+   rb0 = r/(e*fi2*2.)
+   rb1 = r/(e*fi1)
+   r2 = r**2
 !
 !     COMPUTE COMMON TRIGONOMETRIC CONSTANTS
 !
-   st = sid(Betar)
-   ct = cod(Betar)
-   s2t = sid(2.0*Betar)
-   c2t = cod(2.0*Betar)
+   st = sid(betar)
+   ct = cod(betar)
+   s2t = sid(2.0*betar)
+   c2t = cod(2.0*betar)
 !
 !     FORM THE NODE FLEXIBILITY MATRIX AT NODE J REFERENCED TO THE
 !     LOCAL (X,Y,Z) COORDINATE SYSTEM AT NODE I.
@@ -252,8 +258,8 @@ SUBROUTINE selbo1
    f(3,3) = f(3,3) + 0.5*rt*r2*(6.0*t+s2t-8.0*st)
    f(4,4) = f(4,4) + 0.5*rt*(2.0*t+s2t)
    f(5,5) = f(5,5) + 0.5*rt*(2.0*t-s2t)
-   f(3,4) = f(3,4) + rt*R*(st-t*ct)
-   f(3,5) = f(3,5) + rt*R*(2.0-2.0*ct-t*st)
+   f(3,4) = f(3,4) + rt*r*(st-t*ct)
+   f(3,5) = f(3,5) + rt*r*(2.0-2.0*ct-t*st)
    f(4,5) = f(4,5) + 0.5*rt*(1.0-c2t)
 !
 !     B E N D I N G
@@ -265,10 +271,10 @@ SUBROUTINE selbo1
    f(5,5) = f(5,5) + 0.50*rb0*(2.0*t+s2t)
    f(6,6) = f(6,6) + rb1*t
    f(1,2) = f(1,2) + 0.25*rb1*r2*(1.0+3.0*c2t+2.0*t*s2t-4.0*ct)
-   f(1,6) = f(1,6) - rb1*R*(st-t*ct)
-   f(2,6) = f(2,6) + rb1*R*(t*st+ct-1.0)
-   f(3,4) = f(3,4) + rb0*R*(st-t*ct)
-   f(3,5) = f(3,5) - rb0*R*t*st
+   f(1,6) = f(1,6) - rb1*r*(st-t*ct)
+   f(2,6) = f(2,6) + rb1*r*(t*st+ct-1.0)
+   f(3,4) = f(3,4) + rb0*r*(st-t*ct)
+   f(3,5) = f(3,5) - rb0*r*t*st
    f(4,5) = f(4,5) - 0.50*rb0*(1.0-c2t)
 !
 !
@@ -304,8 +310,8 @@ SUBROUTINE selbo1
       h(k,k) = -1.0
    ENDDO
 !
-   h(4,3) = -(R*(1.0-ct))
-   h(5,3) = (R*st)
+   h(4,3) = -(r*(1.0-ct))
+   h(5,3) = (r*st)
    h(6,1) = -h(4,3)
    h(6,2) = -h(5,3)
 !
@@ -358,8 +364,8 @@ SUBROUTINE selbo1
       lim = low + 5
       DO k = low , lim
          j = j + 1
-         Kep(j) = Ke(k)
-         Kep(j+36) = Ke(k+6)
+         kep(j) = ke(k)
+         kep(j+36) = ke(k+6)
       ENDDO
    ENDDO
 !
@@ -369,24 +375,24 @@ SUBROUTINE selbo1
    DO i = 1 , 6
       hut(i) = 0.0
    ENDDO
-   alphar = Alpha*R
-   hut(1) = -alphar*sid(Betar)
-   hut(2) = -alphar*(1.-cod(Betar))
+   alphar = alpha*r
+   hut(1) = -alphar*sid(betar)
+   hut(2) = -alphar*(1.-cod(betar))
    hut(6) = 0.0
-   CALL gmmats(Kep(1),6,6,0,hut,6,1,0,Therm(1))
+   CALL gmmats(kep(1),6,6,0,hut,6,1,0,therm(1))
 !
 !                                                             T
 !     STORE VECI, VECJ, VECK IN KE(1) THRU KE(9) FORMING THE A  MATRIX.
 !
-   Ke(1) = veci(1)
-   Ke(2) = veci(2)
-   Ke(3) = veci(3)
-   Ke(4) = vecj(1)
-   Ke(5) = vecj(2)
-   Ke(6) = vecj(3)
-   Ke(7) = veck(1)
-   Ke(8) = veck(2)
-   Ke(9) = veck(3)
+   ke(1) = veci(1)
+   ke(2) = veci(2)
+   ke(3) = veci(3)
+   ke(4) = vecj(1)
+   ke(5) = vecj(2)
+   ke(6) = vecj(3)
+   ke(7) = veck(1)
+   ke(8) = veck(2)
+   ke(9) = veck(3)
 !
 !     SET POINTERS SO THAT WE WILL BE WORKING WITH POINT A.
 !
@@ -395,13 +401,13 @@ SUBROUTINE selbo1
    iwbeg = 0
    ikel = 1
    iab = 1
-   index = Isilno(1)
+   index = isilno(1)
 !
 !     ZERO OUT THE ARRAY WHERE THE 3 X 3 MATRIX AND THE W  AND W  6 X 6
 !     MATRICES WILL RESIDE.                              A      B
 !
    DO i = 28 , 108
-      Ke(i) = 0.0
+      ke(i) = 0.0
    ENDDO
    DO
 !
@@ -410,8 +416,8 @@ SUBROUTINE selbo1
 !
       ig = 1
       IF ( .NOT.(basic) ) THEN
-         CALL transs(ecpt(jcsid),Ke(10))
-         CALL gmmats(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
+         CALL transs(ecpt(jcsid),ke(10))
+         CALL gmmats(ke(1),3,3,0,ke(10),3,3,0,ke(19))
          ig = 19
       ENDIF
 !
@@ -422,31 +428,31 @@ SUBROUTINE selbo1
 !     WILL BE STORED IN THE UPPER RIGHT CORNER.
 !
 !
-      Ke(iwbeg+37) = Ke(ig)
-      Ke(iwbeg+38) = Ke(ig+1)
-      Ke(iwbeg+39) = Ke(ig+2)
-      Ke(iwbeg+43) = Ke(ig+3)
-      Ke(iwbeg+44) = Ke(ig+4)
-      Ke(iwbeg+45) = Ke(ig+5)
-      Ke(iwbeg+49) = Ke(ig+6)
-      Ke(iwbeg+50) = Ke(ig+7)
-      Ke(iwbeg+51) = Ke(ig+8)
-      Ke(iwbeg+58) = Ke(ig)
-      Ke(iwbeg+59) = Ke(ig+1)
-      Ke(iwbeg+60) = Ke(ig+2)
-      Ke(iwbeg+64) = Ke(ig+3)
-      Ke(iwbeg+65) = Ke(ig+4)
-      Ke(iwbeg+66) = Ke(ig+5)
-      Ke(iwbeg+70) = Ke(ig+6)
-      Ke(iwbeg+71) = Ke(ig+7)
-      Ke(iwbeg+72) = Ke(ig+8)
+      ke(iwbeg+37) = ke(ig)
+      ke(iwbeg+38) = ke(ig+1)
+      ke(iwbeg+39) = ke(ig+2)
+      ke(iwbeg+43) = ke(ig+3)
+      ke(iwbeg+44) = ke(ig+4)
+      ke(iwbeg+45) = ke(ig+5)
+      ke(iwbeg+49) = ke(ig+6)
+      ke(iwbeg+50) = ke(ig+7)
+      ke(iwbeg+51) = ke(ig+8)
+      ke(iwbeg+58) = ke(ig)
+      ke(iwbeg+59) = ke(ig+1)
+      ke(iwbeg+60) = ke(ig+2)
+      ke(iwbeg+64) = ke(ig+3)
+      ke(iwbeg+65) = ke(ig+4)
+      ke(iwbeg+66) = ke(ig+5)
+      ke(iwbeg+70) = ke(ig+6)
+      ke(iwbeg+71) = ke(ig+7)
+      ke(iwbeg+72) = ke(ig+8)
 !
 !                              E                    E
 !     FORM THE PRODUCT  S  =  K   X  W   OR  S   = K    X  W, DEPENDING
 !                        A     AA     A       B     AB      B
 !     UPON WHICH POINT WE ARE WORKING WITH.
 !
-      CALL gmmats(Kep(ikel),6,6,0,Ke(iwbeg+37),6,6,0,Sa(iab))
+      CALL gmmats(kep(ikel),6,6,0,ke(iwbeg+37),6,6,0,sa(iab))
 !
 !     IF THE POINT UNDER CONSIDERATION IS POINT B WE ARE FINISHED. IF
 !     NOT, SET UP POINTS AND INDICATORS FOR WORKING WITH POINT B.
@@ -455,31 +461,31 @@ SUBROUTINE selbo1
 !
 !     FILL REMAINDER OF OUTPUT BLOCK.
 !
-         Jelid = Ielid
-         Jsilno(1) = Isilno(1)
-         Jsilno(2) = Isilno(2)
+         jelid = ielid
+         jsilno(1) = isilno(1)
+         jsilno(2) = isilno(2)
          i12 = 0.
-         Out(1) = A*E*Alpha
-         Out(2) = A*E/l
-         Out(3) = A
-         Out(4) = Fj
-         Out(5) = I1
-         Out(6) = I2
-         Out(7) = C
-         Out(8) = C1
-         Out(9) = C2
-         Out(10) = D1
-         Out(11) = D2
-         Out(12) = F1
-         Out(13) = F2
-         Out(14) = G1
-         Out(15) = G2
-         Out(16) = Tsub0
-         Out(17) = Sigt
-         Out(18) = Sigc
-         Out(19) = l
-         Out(20) = R
-         Out(21) = Betar
+         out(1) = a*e*alpha
+         out(2) = a*e/l
+         out(3) = a
+         out(4) = fj
+         out(5) = i1
+         out(6) = i2
+         out(7) = c
+         out(8) = c1
+         out(9) = c2
+         out(10) = d1
+         out(11) = d2
+         out(12) = f1
+         out(13) = f2
+         out(14) = g1
+         out(15) = g2
+         out(16) = tsub0
+         out(17) = sigt
+         out(18) = sigc
+         out(19) = l
+         out(20) = r
+         out(21) = betar
          EXIT
       ELSE
          basic = bbasic
@@ -487,9 +493,9 @@ SUBROUTINE selbo1
          iwbeg = 36
          ikel = 37
          iab = 37
-         index = Isilno(2)
+         index = isilno(2)
          DO i = 28 , 36
-            Ke(i) = 0.0
+            ke(i) = 0.0
          ENDDO
       ENDIF
    ENDDO

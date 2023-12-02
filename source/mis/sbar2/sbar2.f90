@@ -1,14 +1,15 @@
-!*==sbar2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sbar2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sbar2(Ti)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -63,105 +64,105 @@ SUBROUTINE sbar2(Ti)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Idisp = Ivec - 1
-         Iua = Idisp + Jsilno(1)
-         CALL smmats(Sa(1),6,6,0,Zz(Iua),6,1,0,Fa,Cfa)
-         Iub = Idisp + Jsilno(2)
-         CALL smmats(Sb(1),6,6,0,Zz(Iub),6,1,0,Fb,Cfb)
-         P1 = Fa(1) + Fb(1)
-         V1 = -Fa(2) - Fb(2)
-         V2 = -Fa(3) - Fb(3)
-         T = -Fa(4) - Fb(4)
-         M2a = Fa(5) + Fb(5)
-         M1a = -Fa(6) - Fb(6)
-         Fx = -P1 - Sdelta*Eldefm
-         Cfrvec(2) = Cfa(6) + Cfb(6)
-         Cfrvec(3) = Cfa(5) + Cfb(5)
-         Cfrvec(9) = Cfa(4) + Cfb(4)
-         Cfrvec(7) = Cfa(3) + Cfb(3)
-         Cfrvec(6) = Cfa(2) + Cfb(2)
-         Cfrvec(8) = Cfa(1) + Cfb(1)
+         idisp = ivec - 1
+         iua = idisp + jsilno(1)
+         CALL smmats(sa(1),6,6,0,zz(iua),6,1,0,fa,cfa)
+         iub = idisp + jsilno(2)
+         CALL smmats(sb(1),6,6,0,zz(iub),6,1,0,fb,cfb)
+         p1 = fa(1) + fb(1)
+         v1 = -fa(2) - fb(2)
+         v2 = -fa(3) - fb(3)
+         t = -fa(4) - fb(4)
+         m2a = fa(5) + fb(5)
+         m1a = -fa(6) - fb(6)
+         fx = -p1 - sdelta*eldefm
+         cfrvec(2) = cfa(6) + cfb(6)
+         cfrvec(3) = cfa(5) + cfb(5)
+         cfrvec(9) = cfa(4) + cfb(4)
+         cfrvec(7) = cfa(3) + cfb(3)
+         cfrvec(6) = cfa(2) + cfb(2)
+         cfrvec(8) = cfa(1) + cfb(1)
 !
 ! IF LDTEMP = -1, THE LOADING TEMPERATURE IS UNDEFINED
 !
-         IF ( Tloads/=0 ) THEN
+         IF ( tloads/=0 ) THEN
             tsave = Ti(2)
-            Ti(2) = (Ti(1)+Ti(2))/2.0 - Tsub0
-            CALL gmmats(Therm,6,5,0,Ti(2),5,1,0,Fa(1))
+            Ti(2) = (Ti(1)+Ti(2))/2.0 - tsub0
+            CALL gmmats(therm,6,5,0,Ti(2),5,1,0,fa(1))
             Ti(2) = tsave
-            Fx = Fx - Fa(1)
-            V1 = V1 - Fa(2)
-            V2 = V2 - Fa(3)
-            T = T - Fa(4)
-            M2a = M2a + Fa(5)
-            M1a = M1a - Fa(6)
+            fx = fx - fa(1)
+            v1 = v1 - fa(2)
+            v2 = v2 - fa(3)
+            t = t - fa(4)
+            m2a = m2a + fa(5)
+            m1a = m1a - fa(6)
          ENDIF
-         M1b = M1a - V1*L
-         M2b = M2a - V2*L
-         Cfrvec(4) = Cfrvec(2) + Cfrvec(6)*L
-         Cfrvec(5) = Cfrvec(3) + Cfrvec(7)*L
-         Frvec(2) = M1a
-         Frvec(3) = M2a
-         Frvec(4) = M1b
-         Frvec(5) = M2b
-         Frvec(6) = V1
-         Frvec(7) = V2
-         Frvec(8) = Fx
-         Frvec(9) = T
+         m1b = m1a - v1*l
+         m2b = m2a - v2*l
+         cfrvec(4) = cfrvec(2) + cfrvec(6)*l
+         cfrvec(5) = cfrvec(3) + cfrvec(7)*l
+         frvec(2) = m1a
+         frvec(3) = m2a
+         frvec(4) = m1b
+         frvec(5) = m2b
+         frvec(6) = v1
+         frvec(7) = v2
+         frvec(8) = fx
+         frvec(9) = t
 !*****
 ! COMPUTE ELEMENT STRESSES AT 4 POINTS
 !*****
 !
 ! COMPUTE K1A AND K2A
 !
-         IF ( I12/=0.0 ) THEN
-            K1a = (M2a*I12-M1a*I2)/(I1*I2-I12**2)
-            K2a = (M1a*I12-M2a*I1)/(I1*I2-I12**2)
+         IF ( i12/=0.0 ) THEN
+            k1a = (m2a*i12-m1a*i2)/(i1*i2-i12**2)
+            k2a = (m1a*i12-m2a*i1)/(i1*i2-i12**2)
          ELSE
-            IF ( I1/=0.0 ) THEN
-               K1a = -M1a/I1
+            IF ( i1/=0.0 ) THEN
+               k1a = -m1a/i1
             ELSE
-               K1a = 0.0
+               k1a = 0.0
             ENDIF
-            IF ( I2/=0.0 ) THEN
-               K2a = -M2a/I2
+            IF ( i2/=0.0 ) THEN
+               k2a = -m2a/i2
             ELSE
-               K2a = 0.0
+               k2a = 0.0
             ENDIF
          ENDIF
 !
 ! COMPUTE SIG1A, SIG2A, SIG3A AND SIG4A
 !
-         Sig1a = K1a*C1 + K2a*C2
-         Sig2a = K1a*D1 + K2a*D2
-         Sig3a = K1a*F1 + K2a*F2
-         Sig4a = K1a*G1 + K2a*G2
+         sig1a = k1a*c1 + k2a*c2
+         sig2a = k1a*d1 + k2a*d2
+         sig3a = k1a*f1 + k2a*f2
+         sig4a = k1a*g1 + k2a*g2
 !
 ! COMPUTE K1B AND K2B
 !
-         IF ( I12/=0.0 ) THEN
-            K1b = (M2b*I12-M1b*I2)/(I1*I2-I12**2)
-            K2b = (M1b*I12-M2b*I1)/(I1*I2-I12**2)
+         IF ( i12/=0.0 ) THEN
+            k1b = (m2b*i12-m1b*i2)/(i1*i2-i12**2)
+            k2b = (m1b*i12-m2b*i1)/(i1*i2-i12**2)
          ELSE
-            IF ( I1/=0.0 ) THEN
-               K1b = -M1b/I1
+            IF ( i1/=0.0 ) THEN
+               k1b = -m1b/i1
             ELSE
-               K1b = 0.0
+               k1b = 0.0
             ENDIF
-            IF ( I2/=0.0 ) THEN
-               K2b = -M2b/I2
+            IF ( i2/=0.0 ) THEN
+               k2b = -m2b/i2
             ELSE
-               K2b = 0.0
+               k2b = 0.0
             ENDIF
          ENDIF
 !
 ! COMPUTE SIG1B, SIG2B, SIG3B AND SIG4B
 !
-         Sig1b = K1b*C1 + K2b*C2
-         Sig2b = K1b*D1 + K2b*D2
-         Sig3b = K1b*F1 + K2b*F2
-         Sig4b = K1b*G1 + K2b*G2
-         IF ( Tloads/=0 ) THEN
+         sig1b = k1b*c1 + k2b*c2
+         sig2b = k1b*d1 + k2b*d2
+         sig3b = k1b*f1 + k2b*f2
+         sig4b = k1b*g1 + k2b*g2
+         IF ( tloads/=0 ) THEN
 !
 !     TEST IF AT LEAST ONE POINT TEMPERATURE IS GIVEN
 !
@@ -173,77 +174,76 @@ SUBROUTINE sbar2(Ti)
             ENDDO
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         IF ( A/=0.0 ) THEN
-            ealf = -St/A
-            Sig1a = Sig1a + ealf*(Ti(7)-Ti(3)*C1-Ti(5)*C2-Ti(1))
-            Sig2a = Sig2a + ealf*(Ti(8)-Ti(3)*D1-Ti(5)*D2-Ti(1))
-            Sig3a = Sig3a + ealf*(Ti(9)-Ti(3)*F1-Ti(5)*F2-Ti(1))
-            Sig4a = Sig4a + ealf*(Ti(10)-Ti(3)*G1-Ti(5)*G2-Ti(1))
-            Sig1b = Sig1b + ealf*(Ti(11)-Ti(4)*C1-Ti(6)*C2-Ti(2))
-            Sig2b = Sig2b + ealf*(Ti(12)-Ti(4)*D1-Ti(6)*D2-Ti(2))
-            Sig3b = Sig3b + ealf*(Ti(13)-Ti(4)*F1-Ti(6)*F2-Ti(2))
-            Sig4b = Sig4b + ealf*(Ti(14)-Ti(4)*G1-Ti(6)*G2-Ti(2))
+         IF ( a/=0.0 ) THEN
+            ealf = -st/a
+            sig1a = sig1a + ealf*(Ti(7)-Ti(3)*c1-Ti(5)*c2-Ti(1))
+            sig2a = sig2a + ealf*(Ti(8)-Ti(3)*d1-Ti(5)*d2-Ti(1))
+            sig3a = sig3a + ealf*(Ti(9)-Ti(3)*f1-Ti(5)*f2-Ti(1))
+            sig4a = sig4a + ealf*(Ti(10)-Ti(3)*g1-Ti(5)*g2-Ti(1))
+            sig1b = sig1b + ealf*(Ti(11)-Ti(4)*c1-Ti(6)*c2-Ti(2))
+            sig2b = sig2b + ealf*(Ti(12)-Ti(4)*d1-Ti(6)*d2-Ti(2))
+            sig3b = sig3b + ealf*(Ti(13)-Ti(4)*f1-Ti(6)*f2-Ti(2))
+            sig4b = sig4b + ealf*(Ti(14)-Ti(4)*g1-Ti(6)*g2-Ti(2))
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
 !
 ! COMPUTE AXIAL STRESS
 !
-         Cfrvec(10) = 0.0
-         Sigax = 0.0
-         IF ( A/=0.0 ) Sigax = Fx/A
-         IF ( A/=0.0 ) Cfrvec(10) = Cfrvec(8)/A
-         Frvec(10) = Sigax
+         cfrvec(10) = 0.0
+         sigax = 0.0
+         IF ( a/=0.0 ) sigax = fx/a
+         IF ( a/=0.0 ) cfrvec(10) = cfrvec(8)/a
+         frvec(10) = sigax
 !
 ! COMPUTE MAXIMA AND MINIMA
 !
-         Sigamx = Sigax + amax1(Sig1a,Sig2a,Sig3a,Sig4a)
-         Sigbmx = Sigax + amax1(Sig1b,Sig2b,Sig3b,Sig4b)
-         Sigamn = Sigax + amin1(Sig1a,Sig2a,Sig3a,Sig4a)
-         Sigbmn = Sigax + amin1(Sig1b,Sig2b,Sig3b,Sig4b)
+         sigamx = sigax + amax1(sig1a,sig2a,sig3a,sig4a)
+         sigbmx = sigax + amax1(sig1b,sig2b,sig3b,sig4b)
+         sigamn = sigax + amin1(sig1a,sig2a,sig3a,sig4a)
+         sigbmn = sigax + amin1(sig1b,sig2b,sig3b,sig4b)
 !
 ! COMPUTE MARGIN OF SAFETY IN TENSION
 !
-         IF ( Sigmat<=0.0 ) THEN
-            Msten = 1
-         ELSEIF ( amax1(Sigamx,Sigbmx)<=0.0 ) THEN
-            Msten = 1
+         IF ( sigmat<=0.0 ) THEN
+            msten = 1
+         ELSEIF ( amax1(sigamx,sigbmx)<=0.0 ) THEN
+            msten = 1
          ELSE
-            Q = Sigmat/amax1(Sigamx,Sigbmx)
-            smten = Q - 1.0
+            q = sigmat/amax1(sigamx,sigbmx)
+            smten = q - 1.0
          ENDIF
 !
 !      COMPUTE MARGIN OF SAFETY IN COMPRESSION
 !
-         IF ( Sigmac<=0.0 ) THEN
-            Mscom = 1
-         ELSEIF ( amin1(Sigamn,Sigbmn)>=0.0 ) THEN
-            Mscom = 1
+         IF ( sigmac<=0.0 ) THEN
+            mscom = 1
+         ELSEIF ( amin1(sigamn,sigbmn)>=0.0 ) THEN
+            mscom = 1
          ELSE
-            W = -Sigmac/amin1(Sigamn,Sigbmn)
-            smcom = W - 1.0
+            w = -sigmac/amin1(sigamn,sigbmn)
+            smcom = w - 1.0
          ENDIF
-         Iselid = Jelid
-         Ifelid = Jelid
+         iselid = jelid
+         ifelid = jelid
 !
 !  . STRESS CHECK...
 !
-         IF ( Nchk>0 ) THEN
-            ieid = Jelid
+         IF ( nchk>0 ) THEN
+            ieid = jelid
             k = 0
-            CALL sdrchk(Frvec(2),Cfrvec(2),9,k)
+            CALL sdrchk(frvec(2),cfrvec(2),9,k)
 !
             IF ( k==0 ) RETURN
 !
 !  . LIMITS EXCEEDED...
             j = 0
-            IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
-               lsub = Isub
-               lld = Ild
-               frlast(1) = Frtmei(1)
-               frlast(2) = Frtmei(2)
+            IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
+               lsub = isub
+               lld = ild
+               frlast(1) = frtmei(1)
+               frlast(2) = frtmei(2)
                j = 1
                CALL page1
 !
@@ -251,10 +251,10 @@ SUBROUTINE sbar2(Ti)
                GOTO 10
             ENDIF
             CALL sd2rhd(ished,j)
-            Line = Line + 1
-            WRITE (Nout,99001)
+            line = line + 1
+            WRITE (nout,99001)
 99001       FORMAT (7X,47HTYPE     EID    M1A    M2A    M1B    M2B     V1,5X,23HV2     FA      T     SA)
- 10         WRITE (Nout,99002) ieid , (Cfrvec(i),i=2,10)
+ 10         WRITE (nout,99002) ieid , (cfrvec(i),i=2,10)
 99002       FORMAT (1H0,7X,3HBAR,I8,9F7.1)
          ENDIF
          EXIT SPAG_DispatchLoop_1

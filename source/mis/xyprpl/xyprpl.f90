@@ -1,12 +1,13 @@
-!*==xyprpl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xyprpl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xyprpl
+   USE c_output
+   USE c_system
+   USE c_xypppp
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XYPPPP
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,39 +52,39 @@ SUBROUTINE xyprpl
       CASE (1)
 !
 !
-         icore = korsz(Z)
-         buff = icore - Sysbuf
+         icore = korsz(z)
+         buff = icore - sysbuf
 !
          icore = buff - 1
-         Maxrow = icore/30
+         maxrow = icore/30
          any = .FALSE.
-         Exceed = .FALSE.
-         CALL open(*99999,xypltt,Z(buff),inprwd)
+         exceed = .FALSE.
+         CALL open(*99999,xypltt,z(buff),inprwd)
          spag_nextblock_1 = 2
       CASE (2)
          CALL fwdrec(*40,xypltt)
 !
 !     READ ID RECORD
 !
- 20      CALL read(*40,*40,xypltt,Id(1),300,eor,nwords)
+ 20      CALL read(*40,*40,xypltt,id(1),300,eor,nwords)
 !
 !     SKIP RECORD IF PLOT ONLY
 !
-         IF ( Id(289)==0 .OR. Id(289)==1 ) THEN
+         IF ( id(289)==0 .OR. id(289)==1 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     SKIP INITIALIZATION IF AXIS AND SCALES ARE COMPLETE
 !
-         icurve = mod(Id(3),10)
+         icurve = mod(id(3),10)
          IF ( icurve==0 ) icurve = 10
          curvch = symbol(icurve)
-         IF ( Id(8)/=0 ) THEN
+         IF ( id(8)/=0 ) THEN
 !
 !     1 = UPPER,  0 = WHOLE,  -1 = LOWER
 !
-            IF ( Id(7)>=0 ) THEN
+            IF ( id(7)>=0 ) THEN
 !
 !     OUTPUT OUR GRAPH IF THERE IS ONE TO OUTPUT
 !
@@ -98,18 +99,18 @@ SUBROUTINE xyprpl
 !
 !     MAX OF 400 LINES PER PLOT
 !
-               Xmin = fid(15)
+               xmin = fid(15)
                xmax = fid(17)
-               temp = amin1(400.,float(Maxrow))
-               temp = amin1(temp,3.0*float(Id(246)))
-               Xinc = fid(minxd)
-               Xinc = amax1(Xinc,(xmax-Xmin)/temp)
-               xratio = 1.0/Xinc
-               Maxplt = abs((xmax-Xmin)/Xinc+1.5)
-               Maxplt = min0(Maxplt,Maxrow)
-               n = 30*Maxplt
+               temp = amin1(400.,float(maxrow))
+               temp = amin1(temp,3.0*float(id(246)))
+               xinc = fid(minxd)
+               xinc = amax1(xinc,(xmax-xmin)/temp)
+               xratio = 1.0/xinc
+               maxplt = abs((xmax-xmin)/xinc+1.5)
+               maxplt = min0(maxplt,maxrow)
+               n = 30*maxplt
                DO i = 1 , n
-                  Z(i) = blank
+                  z(i) = blank
                ENDDO
             ENDIF
 !
@@ -119,37 +120,37 @@ SUBROUTINE xyprpl
 !     (DON'T KNOW WHO PUTS THOSE 0 & 1 HERE)
 !
             DO i = 1 , 32
-               Xtitle(i) = Id(i+178)
-               Titlec(i) = Id(i+145)
+               xtitle(i) = id(i+178)
+               titlec(i) = id(i+145)
             ENDDO
             DO i = 1 , 96
-               Ihead(i) = Id(i+50)
-               IF ( Ihead(i)==0 ) Ihead(i) = blank
+               ihead(i) = id(i+50)
+               IF ( ihead(i)==0 ) ihead(i) = blank
             ENDDO
-            IF ( Ihead(36)==1 ) Ihead(36) = blank
-            Iframe = Id(281)
-            IF ( Id(7)<0 ) THEN
-               I123 = 2
+            IF ( ihead(36)==1 ) ihead(36) = blank
+            iframe = id(281)
+            IF ( id(7)<0 ) THEN
+               i123 = 2
                DO i = 1 , 14
-                  Titlel(i) = Id(i+210)
+                  titlel(i) = id(i+210)
                ENDDO
-            ELSEIF ( Id(7)==0 ) THEN
-               I123 = 1
+            ELSEIF ( id(7)==0 ) THEN
+               i123 = 1
                DO i = 1 , 14
-                  Titlel(i) = Id(i+210)
+                  titlel(i) = id(i+210)
                ENDDO
             ELSE
-               I123 = 3
+               i123 = 3
                DO i = 1 , 14
-                  Titler(i) = Id(i+210)
+                  titler(i) = id(i+210)
                ENDDO
             ENDIF
 !
 !     PLOT GRID  (WHOLE LOWER OR UPPER)
 !
             DO j = 1 , 3
-               DO i = 1 , Maxplt
-                  CALL xychar(i,igraph(I123,j),eye)
+               DO i = 1 , maxplt
+                  CALL xychar(i,igraph(i123,j),eye)
                ENDDO
             ENDDO
 !
@@ -160,12 +161,12 @@ SUBROUTINE xyprpl
             delta = ymax - ymin
             IF ( delta==0.0 ) delta = ymin
             IF ( delta==0.0 ) delta = 1.0
-            yratio = float(igraph(I123,4))/delta
+            yratio = float(igraph(i123,4))/delta
             center = ymin + delta/2.0
-            graph(I123,5) = yratio
-            graph(I123,6) = ymin
-            graph(I123,7) = center
-            graph(I123,8) = ymax
+            graph(i123,5) = yratio
+            graph(i123,6) = ymin
+            graph(i123,7) = center
+            graph(i123,8) = ymax
          ENDIF
          DO
 !
@@ -173,9 +174,9 @@ SUBROUTINE xyprpl
 !
             CALL read(*40,*20,xypltt,buf(1),2,noeor,nwords)
             IF ( ibuf(1)/=1 ) THEN
-               irow = (buf(1)-Xmin)*xratio + 1.5
+               irow = (buf(1)-xmin)*xratio + 1.5
                icol = (buf(2)-ymin)*yratio + 1.5
-               icol = icol + igraph(I123,1) - 1
+               icol = icol + igraph(i123,1) - 1
                CALL xychar(irow,icol,curvch)
             ENDIF
          ENDDO

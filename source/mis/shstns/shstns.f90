@@ -1,11 +1,12 @@
-!*==shstns.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shstns.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
+   USE c_blank
+   USE c_outreq
+   USE c_sdr2x7
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTREQ
-   USE C_SDR2X7
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -104,7 +105,7 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
 !
          istrin = (inplan-1)*17 + 2
          nstrin(istrin) = inplan - 1
-         IF ( .NOT.(.NOT.Gridss .OR. inplan<=1) ) THEN
+         IF ( .NOT.(.NOT.gridss .OR. inplan<=1) ) THEN
             DO inptmp = 1 , nump1
                IF ( Idr(inptmp)==Igrid(inplan) ) GOTO 10
             ENDDO
@@ -122,23 +123,23 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
          SPAG_DispatchLoop_1: DO
             SELECT CASE (spag_nextblock_1)
             CASE (1)
-               IF ( Strcur ) THEN
+               IF ( strcur ) THEN
 !
 !     IF STRAIN/CURVATURE IS REQUESTED, SIMPLY OUTPUT THE AVAILABLE
 !     STRAINS.
 !
-                  Strin(istrin+1) = 0.0
+                  strin(istrin+1) = 0.0
                   DO i = 1 , 3
                      epsil(i) = 0.0
                   ENDDO
 !WKBI 7/94 SPR94004
-                  IF ( .NOT.(Ostrai .AND. iz==2) ) THEN
+                  IF ( .NOT.(ostrai .AND. iz==2) ) THEN
                      IF ( iz==1 ) THEN
                         DO i = 1 , 3
                            epsil(i) = Epslni(i,inplan)
                         ENDDO
 !WKBI 7/94 SPR94004
-                        IF ( Ostrai .AND. iz==1 ) THEN
+                        IF ( ostrai .AND. iz==1 ) THEN
                            spag_nextblock_1 = 3
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -162,7 +163,7 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
 !     DISTANCE
 !
                fiber = Z12(iz,inplan)
-               Strin(istrin+1) = fiber
+               strin(istrin+1) = fiber
                DO i = 1 , 3
                   epsil(i) = Epslni(i,inplan) - Epslni(i+3,inplan)*fiber
                ENDDO
@@ -174,12 +175,12 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
                DO its = 1 , 3
                   IF ( abs(epsil(its))<=epss ) epsil(its) = 0.0
 !WKBR NCL93012 3/94      STRIN(ISTRIN+1+ITS) = EPSIL(ITS)
-                  Stres(istrin+1+its) = epsil(its)
+                  stres(istrin+1+its) = epsil(its)
                ENDDO
 !
 !     CALCULATE PRINCIPAL STRAINS
 !
-               CALL shpsts(epsil(1),Vonmss,epsilp)
+               CALL shpsts(epsil(1),vonmss,epsilp)
 !WKBDB NCL93012 3/94
 !      STRIN(ISTRIN+5) = EPSILP(1)
 !      STRIN(ISTRIN+6) = EPSILP(2)
@@ -189,10 +190,10 @@ SUBROUTINE shstns(Numpx,Elid,Igrid,Z12,Epslni,Bendng,Idr)
 !WKBNB NCL93012 3/94
                nstres(istrin+1) = 0
                IF ( iz==2 ) nstres(istrin+1) = -1
-               Stres(istrin+5) = epsilp(1)
-               Stres(istrin+6) = epsilp(2)
-               Stres(istrin+7) = epsilp(3)
-               Stres(istrin+8) = epsilp(4)*2.
+               stres(istrin+5) = epsilp(1)
+               stres(istrin+6) = epsilp(2)
+               stres(istrin+7) = epsilp(3)
+               stres(istrin+8) = epsilp(4)*2.
 !WKBNE NCL93012 3/94
 !
                istrin = istrin + 8

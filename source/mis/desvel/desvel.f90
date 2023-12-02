@@ -1,14 +1,15 @@
-!*==desvel.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==desvel.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE desvel
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -64,22 +65,22 @@ SUBROUTINE desvel
       CASE (1)
 !
          zero = .FALSE.
-         lcore = korsz(Z)
-         buf1 = lcore - Sysbuf + 1
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
-         buf5 = buf4 - Sysbuf
+         lcore = korsz(z)
+         buf1 = lcore - sysbuf + 1
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         buf5 = buf4 - sysbuf
          lcore = buf5 - 1
          IF ( lcore<=0 ) CALL mesage(-8,0,nam)
 !
-         Jout = 1
-         Iin = 1
-         Iout = 1
-         Incr = 1
-         Jncr = 1
-         Ii = 1
-         Iii = 1
+         jout = 1
+         iin = 1
+         iout = 1
+         incr = 1
+         jncr = 1
+         ii = 1
+         iii = 1
 !
 !     UNPACK AND STORE EFFW AND OMEGA
 !
@@ -87,29 +88,29 @@ SUBROUTINE desvel
          CALL rdtrl(mcb1)
          ncol = mcb1(2)
          nrow = mcb1(3)
-         Nnn = nrow
-         Nn = Nnn
+         nnn = nrow
+         nn = nnn
          ntot = ncol*nrow
-         nall = ntot + Nnn
+         nall = ntot + nnn
 !
-         IF ( lcore<(ncol+6)*Nnn ) CALL mesage(-8,0,nam)
-         CALL gopen(effw,Z(buf1),0)
+         IF ( lcore<(ncol+6)*nnn ) CALL mesage(-8,0,nam)
+         CALL gopen(effw,z(buf1),0)
          DO i = 1 , ncol
-            jj = (i-1)*Nnn
-            CALL unpack(*10,effw,Z(jj+1))
+            jj = (i-1)*nnn
+            CALL unpack(*10,effw,z(jj+1))
             CYCLE
- 10         DO j = 1 , Nnn
-               Z(jj+j) = 0.
+ 10         DO j = 1 , nnn
+               z(jj+j) = 0.
             ENDDO
 !
          ENDDO
          CALL close(effw,1)
-         CALL gopen(omega,Z(buf1),0)
-         CALL unpack(*20,omega,Z(ntot+1))
+         CALL gopen(omega,z(buf1),0)
+         CALL unpack(*20,omega,z(ntot+1))
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 20      DO i = 1 , Nnn
-            Z(ntot+i) = 0.
+ 20      DO i = 1 , nnn
+            z(ntot+i) = 0.
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
@@ -118,11 +119,11 @@ SUBROUTINE desvel
          nmodes = nrow
          ndir = ncol
 !
-         CALL gopen(ssdv,Z(buf1),1)
-         CALL gopen(acc,Z(buf2),1)
-         CALL gopen(vwg,Z(buf3),1)
-         CALL gopen(minac,Z(buf4),1)
-         CALL gopen(minow2,Z(buf5),1)
+         CALL gopen(ssdv,z(buf1),1)
+         CALL gopen(acc,z(buf2),1)
+         CALL gopen(vwg,z(buf3),1)
+         CALL gopen(minac,z(buf4),1)
+         CALL gopen(minow2,z(buf5),1)
 !
          mcb1(1) = ssdv
          mcb1(2) = 0
@@ -161,50 +162,50 @@ SUBROUTINE desvel
          mcb5(7) = 0
 !
          DO i = 1 , ndir
-            ipt = (i-1)*Nnn
+            ipt = (i-1)*nnn
             DO j = 1 , nmodes
 !
 !     EFFECTIVE WEIGHT FOR JTH MODE IN ITH DIRECTION (IN 1000-S)
 !
-               efwt = Z(ipt+j)/1000.
+               efwt = z(ipt+j)/1000.
                IF ( i==2 ) THEN
-                  veli = Vel2
-                  acci = Acc2
+                  veli = vel2
+                  acci = acc2
                ELSEIF ( i==3 ) THEN
-                  veli = Vel3
-                  acci = Acc3
+                  veli = vel3
+                  acci = acc3
                ELSE
-                  veli = Vel1
-                  acci = Acc1
+                  veli = vel1
+                  acci = acc1
                ENDIF
 !
-               vel = veli*Vela*(Velb+efwt)/(Velc+efwt)
-               IF ( Accd/=0. ) THEN
+               vel = veli*vela*(velb+efwt)/(velc+efwt)
+               IF ( accd/=0. ) THEN
 !
-                  acce = acci*Acca*(Accb+efwt)*(Accc+efwt)/(Accd+efwt)**2
+                  acce = acci*acca*(accb+efwt)*(accc+efwt)/(accd+efwt)**2
                ELSE
-                  acce = acci*Acca*(Accb+efwt)/(Accc+efwt)
+                  acce = acci*acca*(accb+efwt)/(accc+efwt)
                ENDIF
 !
-               omeg = Z(ntot+j)
-               vwog = vel*omeg/Gg
+               omeg = z(ntot+j)
+               vwog = vel*omeg/gg
 !
 !     VELOCITIES FOR ITH DIRECTION ARE IN Z(NALL+1)-Z(NALL+NNN)
 !     ACCELERATIONS ARE IN NEXT NNN LOCATIONS, VWOG IN 3RD NNN
 !     MAXIMUM OF VEL*OMEG OR ACCE*GG IS IN 4TH NNN
 !
-               Z(nall+j) = vel
-               Z(nall+Nnn+j) = acce
-               Z(nall+2*Nnn+j) = vwog
-               Z(nall+3*Nnn+j) = Gg*amin1(acce,vwog)
+               z(nall+j) = vel
+               z(nall+nnn+j) = acce
+               z(nall+2*nnn+j) = vwog
+               z(nall+3*nnn+j) = gg*amin1(acce,vwog)
                IF ( abs(omeg)<0.01 ) THEN
 !
 !     IN DDAM, THERE SHOULD BE NO RIGID BODY MODES.ZERO THE RESPONSE.
 !
-                  Z(nall+4*Nnn+j) = 0.
+                  z(nall+4*nnn+j) = 0.
                   zero = .TRUE.
                ELSE
-                  Z(nall+4*Nnn+j) = Z(nall+3*Nnn+j)/omeg**2
+                  z(nall+4*nnn+j) = z(nall+3*nnn+j)/omeg**2
                ENDIF
 !
 !     GET ANOTHER MODE FOR THIS DIRECTION
@@ -213,11 +214,11 @@ SUBROUTINE desvel
 !
 !     PACK RESULTS FOR THIS DIRECTION
 !
-            CALL pack(Z(nall+1),ssdv,mcb1)
-            CALL pack(Z(nall+Nnn+1),acc,mcb2)
-            CALL pack(Z(nall+2*Nnn+1),vwg,mcb3)
-            CALL pack(Z(nall+3*Nnn+1),minac,mcb4)
-            CALL pack(Z(nall+4*Nnn+1),minow2,mcb5)
+            CALL pack(z(nall+1),ssdv,mcb1)
+            CALL pack(z(nall+nnn+1),acc,mcb2)
+            CALL pack(z(nall+2*nnn+1),vwg,mcb3)
+            CALL pack(z(nall+3*nnn+1),minac,mcb4)
+            CALL pack(z(nall+4*nnn+1),minow2,mcb5)
 !
 !     GET ANOTHER DIRECTION
 !
@@ -237,7 +238,7 @@ SUBROUTINE desvel
          CALL wrttrl(mcb5)
 !
          IF ( .NOT.zero ) RETURN
-         WRITE (Iprint,99001) Uim
+         WRITE (iprint,99001) uim
 99001    FORMAT (A29,', CIRCULAR FREQUENCY LESS THAN .01 IS ENCOUNTERED ','IN DDAM.',/5X,'MAXIMUM RESPONSE FOR THAT MODE IS SET TO',&
                 &' ZERO. DDAM SHOULD HAVE NO RIGID BODY MODES.')
          EXIT SPAG_DispatchLoop_1

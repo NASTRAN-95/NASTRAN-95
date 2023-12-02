@@ -1,10 +1,11 @@
-!*==dpdaa.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dpdaa.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dpdaa
+   USE c_dpdcom
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_DPDCOM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -27,30 +28,30 @@ SUBROUTINE dpdaa
 !*****
 ! IF EQDYN IS NOT IN CORE, READ IT IN AND SET FLAG.
 !*****
-   IF ( Ineq==0 ) THEN
-      CALL gopen(Eqdyn,Z(Buf3),0)
-      CALL fread(Eqdyn,Z,Neqdyn+1,1)
-      CALL close(Eqdyn,1)
-      Ineq = 1
+   IF ( ineq==0 ) THEN
+      CALL gopen(eqdyn,z(buf3),0)
+      CALL fread(eqdyn,z,neqdyn+1,1)
+      CALL close(eqdyn,1)
+      ineq = 1
    ENDIF
 !*****
 ! PERFORM SEARCH.
 !*****
    klo = 1
-   khi = Kn
-   ngrid = Buf(L)
+   khi = kn
+   ngrid = buf(l)
    k = (klo+khi+1)/2
    SPAG_Loop_1_1: DO
-      IF ( ngrid<Z(2*k-1) ) THEN
+      IF ( ngrid<z(2*k-1) ) THEN
          khi = k
-      ELSEIF ( ngrid==Z(2*k-1) ) THEN
+      ELSEIF ( ngrid==z(2*k-1) ) THEN
          EXIT SPAG_Loop_1_1
       ELSE
          klo = k
       ENDIF
       IF ( khi-klo<1 ) THEN
-         CALL mesage(30,Msg,Msg(2))
-         Nogo = 1
+         CALL mesage(30,msg,msg(2))
+         nogo = 1
          EXIT SPAG_Loop_1_1
       ELSEIF ( khi-klo==1 ) THEN
          IF ( k==klo ) THEN
@@ -63,6 +64,6 @@ SUBROUTINE dpdaa
          k = (klo+khi+1)/2
       ENDIF
    ENDDO SPAG_Loop_1_1
-   Buf(L) = Z(2*k)
-   IF ( Buf(L+1)/=0 ) Buf(L) = Buf(L) + Buf(L+1) - 1
+   buf(l) = z(2*k)
+   IF ( buf(l+1)/=0 ) buf(l) = buf(l) + buf(l+1) - 1
 END SUBROUTINE dpdaa

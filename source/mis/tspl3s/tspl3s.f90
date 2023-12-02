@@ -1,10 +1,11 @@
-!*==tspl3s.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tspl3s.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tspl3s(Ts6)
+   USE c_matout
+   USE c_sma1io
    IMPLICIT NONE
-   USE C_MATOUT
-   USE C_SMA1IO
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,19 +27,19 @@ SUBROUTINE tspl3s(Ts6)
    DO i = 1 , 40
       Ts6(i) = 0.0E0
    ENDDO
-   thk = A1 + A2*X + A3*Y
+   thk = a1 + a2*x + a3*y
    thk1 = thk**3/12.0E0
-   d11 = Em(1)*thk1
-   d12 = Em(2)*thk1
-   d13 = Em(3)*thk1
-   d22 = Em(4)*thk1
-   d23 = Em(5)*thk1
-   d33 = Em(6)*thk1
+   d11 = em(1)*thk1
+   d12 = em(2)*thk1
+   d13 = em(3)*thk1
+   d22 = em(4)*thk1
+   d23 = em(5)*thk1
+   d33 = em(6)*thk1
    d21 = d12
    d31 = d13
    d32 = d23
-   thkts = Aa1 + Aa2*X + Aa3*Y
-   j11 = 1.0/(Em(6)*thkts)
+   thkts = aa1 + aa2*x + aa3*y
+   j11 = 1.0/(em(6)*thkts)
    j22 = j11
    j12 = 0.0
    a11 = -(j11*d11+j12*d13)
@@ -60,9 +61,9 @@ SUBROUTINE tspl3s(Ts6)
    a35 = a33 + a11
    a36 = a34 + a31
    a37 = a25 + a32
-   x2 = X*X
-   xy = X*Y
-   y2 = Y*Y
+   x2 = x*x
+   xy = x*y
+   y2 = y*y
    a38 = a13 + a14
    a39 = a12 + a16
    a40 = a23 + a24
@@ -71,11 +72,11 @@ SUBROUTINE tspl3s(Ts6)
    Ts6(8) = 2.0*a31
    Ts6(9) = 2.0*a32
    Ts6(10) = 6.0*a15
-   Ts6(11) = 24.0*a11*X
-   Ts6(12) = 6.0*(a31*X+a11*Y)
-   Ts6(13) = 4.0*(a32*X+a31*Y)
-   Ts6(14) = 6.0*(a15*X+a32*Y)
-   Ts6(15) = 24.0*a15*Y
+   Ts6(11) = 24.0*a11*x
+   Ts6(12) = 6.0*(a31*x+a11*y)
+   Ts6(13) = 4.0*(a32*x+a31*y)
+   Ts6(14) = 6.0*(a15*x+a32*y)
+   Ts6(15) = 24.0*a15*y
    Ts6(16) = 120.0*(-a11*a11-a13*a21+0.5*a11*x2)
    Ts6(17) = 12.0*(-a11*a32-a13*a34-a38*a31-a39*a33-a16*a11-a15*a21) + 6.0*(a32*x2+2.0*a31*xy+a11*y2)
    Ts6(18) = 12.0*(-a11*a15-a13*a25-a38*a32-a39*a34-a16*a31-a15*a33) + 6.0*(a15*x2+2.0*a32*xy+a31*y2)
@@ -85,11 +86,11 @@ SUBROUTINE tspl3s(Ts6)
    Ts6(28) = 2.0*a33
    Ts6(29) = 2.0*a34
    Ts6(30) = 6.0*a25
-   Ts6(31) = 24.0*a21*X
-   Ts6(32) = 6.0*(a33*X+a21*Y)
-   Ts6(33) = 4.0*(a34*X+a33*Y)
-   Ts6(34) = 6.0*(a25*X+a34*Y)
-   Ts6(35) = 24.0*a25*Y
+   Ts6(31) = 24.0*a21*x
+   Ts6(32) = 6.0*(a33*x+a21*y)
+   Ts6(33) = 4.0*(a34*x+a33*y)
+   Ts6(34) = 6.0*(a25*x+a34*y)
+   Ts6(35) = 24.0*a25*y
    Ts6(36) = 120.0*(-a21*a11-a23*a21+0.5*a21*x2)
    Ts6(37) = 12.0*(-a21*a32-a23*a34-a40*a31-a41*a33-a26*a11-a25*a21) + 6.0*(a34*x2+2.0*a33*xy+a21*y2)
    Ts6(38) = 12.0*(-a21*a15-a23*a25-a40*a32-a41*a34-a26*a31-a25*a33) + 6.0*(a25*x2+2.0*a34*xy+a33*y2)

@@ -1,10 +1,11 @@
-!*==fndiam.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fndiam.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
+   USE c_bandb
+   USE c_bandg
    IMPLICIT NONE
-   USE C_BANDB
-   USE C_BANDG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -53,7 +54,7 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
 !
 !
          flag = 0
-         mtw2 = N
+         mtw2 = n
          snd = Snd1
          spag_nextblock_1 = 2
       CASE (2)
@@ -61,7 +62,7 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
 !
 !     ZERO LVL TO INDICATE ALL NODES ARE AVAILABLE TO TREE
 !
-            DO i = 1 , N
+            DO i = 1 , n
                Lvl(i) = 0
             ENDDO
             lvln = 1
@@ -72,21 +73,21 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
             IF ( flag<1 ) THEN
                flag = 1
                EXIT SPAG_Loop_1_1
-            ELSEIF ( Idpth>=lvln-1 ) THEN
+            ELSEIF ( idpth>=lvln-1 ) THEN
                IF ( maxlw<mtw2 ) THEN
                   mtw2 = maxlw
                   Snd2 = snd
 !
 !     STORE NARROWEST REVERSE LEVEL STRUCTURE IN LVLS2
 !
-                  DO i = 1 , N
+                  DO i = 1 , n
                      Lvls2(i) = Lvl(i)
                   ENDDO
                ENDIF
                IF ( ndxn==ndxl ) THEN
                   Idflt = 1
                   IF ( mtw2<=mtw1 ) Idflt = 2
-                  IF ( Idpth>Idim ) THEN
+                  IF ( idpth>Idim ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -106,17 +107,17 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
                EXIT SPAG_Loop_1_1
             ENDIF
          ENDDO SPAG_Loop_1_1
-         Idpth = lvln - 1
+         idpth = lvln - 1
          mtw1 = maxlw
 !
 !     COPY LEVEL STRUCTURE INTO LVLS1
 !
-         DO i = 1 , N
+         DO i = 1 , n
             Lvls1(i) = Lvl(i)
          ENDDO
          ndxn = 1
          ndxl = 0
-         mtw2 = N
+         mtw2 = n
 !
 !     SORT LAST LEVEL BY DEGREE  AND STORE IN NDLST
 !
@@ -132,7 +133,7 @@ SUBROUTINE fndiam(Snd1,Snd2,Ndstk,Ndeg,Lvl,Lvls1,Lvls2,Iwk,Idflt,Ndlst,Jwk,Idim)
 !
 !     DIMENSION EXCEEDED  . . .  STOP JOB.
 !
-         Ngrid = -3
+         ngrid = -3
          RETURN
       END SELECT
    ENDDO SPAG_DispatchLoop_1

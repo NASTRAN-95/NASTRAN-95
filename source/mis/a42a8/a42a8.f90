@@ -1,7 +1,9 @@
-!*==a42a8.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==a42a8.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE a42a8(A,B,C)
+   USE c_system
    USE C_SYSTEM
    IMPLICIT NONE
    REAL Dummy(40)

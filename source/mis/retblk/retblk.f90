@@ -1,4 +1,5 @@
-!*==retblk.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==retblk.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE retblk(Ibl)
@@ -9,12 +10,12 @@ SUBROUTINE retblk(Ibl)
 !     SUPERBLOCK, THEY ARE RETURNED TO THE FREE LIST OF THEIR OWN
 !     RESPECTIVE SUPERBLOCKS.
 !
+   USE c_machin
+   USE c_sof
+   USE c_sofcom
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SOFCOM
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,7 +48,7 @@ SUBROUTINE retblk(Ibl)
             CALL errmkn(indsbr,2)
             RETURN
          ELSE
-            lmask = lshift(Jhalf,Ihalf)
+            lmask = lshift(jhalf,ihalf)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -58,9 +59,9 @@ SUBROUTINE retblk(Ibl)
 !     BLOCK NUMBER OVER THE SYSTEM OF THAT SUPERBLOCK.
 !
          left = i
-         DO l = 1 , Nfiles
-            IF ( left>Filsiz(l) ) THEN
-               left = left - Filsiz(l)
+         DO l = 1 , nfiles
+            IF ( left>filsiz(l) ) THEN
+               left = left - filsiz(l)
             ELSE
                filnum = l
                spag_nextblock_1 = 3
@@ -71,60 +72,60 @@ SUBROUTINE retblk(Ibl)
          RETURN
       CASE (3)
          filind = left
-         filsup = (filind-1)/Supsiz
-         IF ( filind-1/=filsup*Supsiz ) filsup = filsup + 1
+         filsup = (filind-1)/supsiz
+         IF ( filind-1/=filsup*supsiz ) filsup = filsup + 1
          ilbn = 0
          max = filnum - 1
          IF ( max>=1 ) THEN
             DO l = 1 , max
-               ilbn = ilbn + Nxtfsz(l)
+               ilbn = ilbn + nxtfsz(l)
             ENDDO
          ENDIF
          ilbn = ilbn + filsup
-         IF ( ilbn/=Nxtlbn ) THEN
+         IF ( ilbn/=nxtlbn ) THEN
 !
 !     THE DESIRED BLOCK OF THE ARRAY NXT IS NOT IN CORE.
 !
-            IF ( Nxtlbn==0 ) THEN
+            IF ( nxtlbn==0 ) THEN
 !
 !     THE IN CORE BUFFER SHARED BY THE DIT AND THE ARRAY NXT IS NOW
 !     OCCUPIED BY A BLOCK OF THE DIT.  IF THAT BLOCK HAS BEEN UPDATED,
 !     MUST WRITE IT OUT BEFORE READING IN THE NEW BLOCK.
 !
-               IF ( Ditup ) THEN
-                  CALL sofio(iwrt,Ditpbn,Buf(Dit-2))
-                  Ditup = .FALSE.
+               IF ( ditup ) THEN
+                  CALL sofio(iwrt,ditpbn,buf(dit-2))
+                  ditup = .FALSE.
                ENDIF
-               Ditpbn = 0
-               Ditlbn = 0
+               ditpbn = 0
+               ditlbn = 0
 !
 !     THE IN CORE BUFFER SHARED BY THE DIT AND THE ARRAY NXT IS NOW
 !     OCCUPIED BY A BLOCK OF NXT.  IF THAT BLOCK HAS BEEN UPDATED,
 !     MUST WRITE IT OUT BEFORE READING IN THE NEW BLOCK.
 !
-            ELSEIF ( Nxtup ) THEN
-               CALL sofio(iwrt,Nxtpbn,Buf(Nxt-2))
-               Nxtup = .FALSE.
+            ELSEIF ( nxtup ) THEN
+               CALL sofio(iwrt,nxtpbn,buf(nxt-2))
+               nxtup = .FALSE.
             ENDIF
 !
 !     READ IN THE DESIRED BLOCK OF NXT.
 !
-            Nxtlbn = ilbn
-            Nxtpbn = 0
+            nxtlbn = ilbn
+            nxtpbn = 0
             max = filnum - 1
             IF ( max>=1 ) THEN
                DO l = 1 , max
-                  Nxtpbn = Nxtpbn + Filsiz(l)
+                  nxtpbn = nxtpbn + filsiz(l)
                ENDDO
             ENDIF
-            Nxtpbn = Nxtpbn + (filsup-1)*Supsiz + 2
-            CALL sofio(ird,Nxtpbn,Buf(Nxt-2))
+            nxtpbn = nxtpbn + (filsup-1)*supsiz + 2
+            CALL sofio(ird,nxtpbn,buf(nxt-2))
          ENDIF
 !
 !     THE DESIRED BLOCK OF NXT IS IN CORE.
 !
-         btfree = andf(Buf(Nxt+1),Jhalf)
-         tpfree = rshift(Buf(Nxt+1),Ihalf)
+         btfree = andf(buf(nxt+1),jhalf)
+         tpfree = rshift(buf(nxt+1),ihalf)
          IF ( btfree/=0 ) THEN
 !
 !     CHECK IF BLOCK I IS ALREADY IN THE LIST OF FREE BLOCKS.
@@ -135,11 +136,11 @@ SUBROUTINE retblk(Ibl)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               ind = (j-Nxtpbn+2)/2 + 1
+               ind = (j-nxtpbn+2)/2 + 1
                IF ( mod(j,2)==1 ) THEN
-                  j = andf(Buf(Nxt+ind),Jhalf)
+                  j = andf(buf(nxt+ind),jhalf)
                ELSE
-                  j = rshift(Buf(Nxt+ind),Ihalf)
+                  j = rshift(buf(nxt+ind),ihalf)
                ENDIF
             ENDDO
             spag_nextblock_1 = 5
@@ -151,26 +152,26 @@ SUBROUTINE retblk(Ibl)
 !     BLOCK I IS NOT IN THE LIST OF FREE BLOCKS.
 !     SET TPFREE TO I
 !
-         Buf(Nxt+1) = lshift(i,Ihalf)
+         buf(nxt+1) = lshift(i,ihalf)
 !
 !     EXAMINE THE BLOCKS THAT ARE LINKED TO BLOCK I.
 !
          repeat = .FALSE.
-         IF ( filsup/=Nxtfsz(filnum) ) THEN
-            lstblk = Nxtpbn + Supsiz - 1
+         IF ( filsup/=nxtfsz(filnum) ) THEN
+            lstblk = nxtpbn + supsiz - 1
          ELSE
-            lstblk = Nxtpbn + Filsiz(filnum) - (filsup-1)*Supsiz - 2
+            lstblk = nxtpbn + filsiz(filnum) - (filsup-1)*supsiz - 2
          ENDIF
          SPAG_Loop_1_1: DO
-            Avblks = Avblks + 1
-            ind = (i-Nxtpbn+2)/2 + 1
+            avblks = avblks + 1
+            ind = (i-nxtpbn+2)/2 + 1
             IF ( mod(i,2)==1 ) THEN
-               isv = andf(Buf(Nxt+ind),Jhalf)
+               isv = andf(buf(nxt+ind),jhalf)
             ELSE
-               isv = rshift(Buf(Nxt+ind),Ihalf)
+               isv = rshift(buf(nxt+ind),ihalf)
             ENDIF
             IF ( isv==0 ) EXIT SPAG_Loop_1_1
-            IF ( isv<Nxtpbn .OR. isv>lstblk ) THEN
+            IF ( isv<nxtpbn .OR. isv>lstblk ) THEN
                repeat = .TRUE.
                EXIT SPAG_Loop_1_1
             ELSE
@@ -182,16 +183,16 @@ SUBROUTINE retblk(Ibl)
 !     SET POINTER OF I TO VALUE OF OLD TPFREE.
 !
          IF ( mod(i,2)==1 ) THEN
-            Buf(Nxt+ind) = orf(andf(Buf(Nxt+ind),lmask),tpfree)
+            buf(nxt+ind) = orf(andf(buf(nxt+ind),lmask),tpfree)
          ELSE
-            Buf(Nxt+ind) = orf(andf(Buf(Nxt+ind),Jhalf),lshift(tpfree,Ihalf))
+            buf(nxt+ind) = orf(andf(buf(nxt+ind),jhalf),lshift(tpfree,ihalf))
          ENDIF
          IF ( btfree==0 ) btfree = i
 !
 !     SET BTFREE TO LAST BLOCK IN CHAIN.
 !
-         Buf(Nxt+1) = orf(andf(Buf(Nxt+1),lmask),btfree)
-         Nxtup = .TRUE.
+         buf(nxt+1) = orf(andf(buf(nxt+1),lmask),btfree)
+         nxtup = .TRUE.
          IF ( repeat ) THEN
 !
 !     ISV BELONGS TO A DIFFERENT SUPERBLOCK, REPEAT

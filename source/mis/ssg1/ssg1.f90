@@ -1,14 +1,15 @@
-!*==ssg1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ssg1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg1
+   USE c_blank
+   USE c_loads
+   USE c_loadx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_LOADS
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -42,27 +43,27 @@ SUBROUTINE ssg1
 !
 !     MODIFY OPEN CORE POINTER IPTR FOR MAGNETICS PROBLEM
 !
-         Iptr = max0(Nrowsp,166)
+         iptr = max0(nrowsp,166)
          mcb(1) = 105
          CALL rdtrl(mcb(1))
-         IF ( mcb(1)>0 ) Iptr = max0(3*Nrowsp,3*mcb(2),166)
+         IF ( mcb(1)>0 ) iptr = max0(3*nrowsp,3*mcb(2),166)
 !
 !     INITIALIZE.
 !
-         Lc = korsz(Icore(1))
-         nllst = Lc - 2*Sysbuf
-         Slt = 101
-         Bgpdt = 102
-         Cstm = 103
-         Sil = 104
-         Ecpt = 105
-         Mpt = 106
-         Gptt = 107
-         Edt = 108
-         Mass = 109
+         lc = korsz(icore(1))
+         nllst = lc - 2*sysbuf
+         slt = 101
+         bgpdt = 102
+         cstm = 103
+         sil = 104
+         ecpt = 105
+         mpt = 106
+         gptt = 107
+         edt = 108
+         mass = 109
          casecc = 110
-         Idit = 111
-         Lodc = 201
+         idit = 111
+         lodc = 201
 !             205 = NEWSLT (THERMAL)
          pg(1) = 301
          icr2 = 302
@@ -70,7 +71,7 @@ SUBROUTINE ssg1
          DO i = 2 , 7
             pg(i) = 0
          ENDDO
-         pg(3) = Nrowsp
+         pg(3) = nrowsp
          pg(4) = 2
          pg(5) = 1
 !
@@ -82,8 +83,8 @@ SUBROUTINE ssg1
 !
          CALL ssg1a(n1,ilist(1),nedt,ntemp,ncent,casecc,iharm)
          n1a = n1 + 1
-         Lc = Lc - Sysbuf
-         CALL open(*80,pg(1),Icore(Lc+1),1)
+         lc = lc - sysbuf
+         CALL open(*80,pg(1),icore(lc+1),1)
          CALL write(pg(1),pg(1),2,1)
          ngrav = 0
          nex = n1 + ntemp + nedt + ncent
@@ -92,15 +93,15 @@ SUBROUTINE ssg1
 !     MODIFY SLT -QVOL-, -QBDY1-, -QBDY2-, AND -QVECT- CARDS.
 !
             newslt = icr3
-            IF ( Itherm/=0 ) newslt = 205
-            islt = Slt
-            CALL ssgslt(Slt,newslt,Ecpt)
-            Slt = newslt
+            IF ( itherm/=0 ) newslt = 205
+            islt = slt
+            CALL ssgslt(slt,newslt,ecpt)
+            slt = newslt
             CALL extern(nex,ngrav,gvect(1),ilist(1),pg(1),n1,iharm)
 !
 !     RESET -SLT- TO ORIGINAL SLT DATA BLOCK
 !
-            Slt = islt
+            slt = islt
             n1 = n1 - ngrav
          ENDIF
          IF ( ntemp/=0 ) THEN
@@ -117,32 +118,32 @@ SUBROUTINE ssg1
 !
 !     CHECK TO SEE IF THE MASS MATRIX IS PURGED
 !
-            mcb(1) = Mass
+            mcb(1) = mass
             CALL rdtrl(mcb(1))
             IF ( mcb(1)<=0 ) CALL mesage(-56,0,iword)
             CALL gravl1(ngrav,gvect(1),icr2,iharm)
 !
 !     USE LOAD FILE AS SCRATCH NOTHING ON IT NOW
 !
-            CALL ssg2b(Mass,icr2,0,icr3,0,1,1,Lodc)
+            CALL ssg2b(mass,icr2,0,icr3,0,1,1,lodc)
             CALL gravl2(ngrav,icr3,pg(1))
             n1 = n1 + ngrav
          ENDIF
-         ipont1 = Iptr + 2
-         ipont = Iptr + 1
-         Nload = 0
+         ipont1 = iptr + 2
+         ipont = iptr + 1
+         nload = 0
          DO i = 1 , nllst
             iary(i) = 0
          ENDDO
-         CALL open(*100,casecc,Icore(Lc+1),0)
-         lc1 = Lc - Sysbuf
+         CALL open(*100,casecc,icore(lc+1),0)
+         lc1 = lc - sysbuf
          islt = 0
-         CALL open(*20,Slt,Icore(lc1+1),0)
+         CALL open(*20,slt,icore(lc1+1),0)
          islt = 1
          DO i = 1 , n1a
-            CALL fwdrec(*60,Slt)
+            CALL fwdrec(*60,slt)
          ENDDO
- 20      DO i = 1 , Loadnn
+ 20      DO i = 1 , loadnn
             CALL fwdrec(*100,casecc)
          ENDDO
          ifrst = 0
@@ -161,7 +162,7 @@ SUBROUTINE ssg1
                inull = 0
                SPAG_Loop_2_2: DO k = 1 , 4
                   i = iword(k)
-                  IF ( Itherm==0 .OR. i/=7 ) THEN
+                  IF ( itherm==0 .OR. i/=7 ) THEN
                      IF ( core(i)==0 ) CYCLE
                      DO j = 1 , n1
                         IF ( core(i)==ilist(j) ) GOTO 22
@@ -171,13 +172,13 @@ SUBROUTINE ssg1
 !
                      inull = 1
                      DO
-                        CALL read(*60,*120,Slt,idefml(1),2,0,iflag)
+                        CALL read(*60,*120,slt,idefml(1),2,0,iflag)
                         IF ( core(i)==idefml(1) ) THEN
                            a = defml(2)
                            DO
-                              CALL read(*60,*120,Slt,idefml(1),2,0,iflag)
+                              CALL read(*60,*120,slt,idefml(1),2,0,iflag)
                               IF ( idefml(2)==-1 ) THEN
-                                 CALL bckrec(Slt)
+                                 CALL bckrec(slt)
                                  CYCLE SPAG_Loop_2_2
                               ELSE
                                  IF ( ipont+1>nllst ) THEN
@@ -192,7 +193,7 @@ SUBROUTINE ssg1
                            ENDDO
                         ELSE
                            SPAG_Loop_4_3: DO
-                              CALL read(*60,*120,Slt,idefml(1),2,0,iflag)
+                              CALL read(*60,*120,slt,idefml(1),2,0,iflag)
                               IF ( idefml(2)==-1 ) EXIT SPAG_Loop_4_3
                            ENDDO SPAG_Loop_4_3
                         ENDIF
@@ -220,16 +221,16 @@ SUBROUTINE ssg1
                   ipont1 = ipont1 + 2
                ENDIF
                ipont = ipont + iary(ipont)*2 + 1
-               Nload = Nload + 1
+               nload = nload + 1
                ipont1 = ipont1 + 1
             ENDIF
          ENDDO SPAG_Loop_1_1
  40      CALL close(casecc,1)
-         IF ( islt==1 ) CALL close(Slt,1)
+         IF ( islt==1 ) CALL close(slt,1)
          CALL combin(pg(1),ilist(1),n1)
          RETURN
 !
- 60      ip1 = Slt
+ 60      ip1 = slt
          spag_nextblock_1 = 2
       CASE (2)
          ip2 = -1
@@ -246,26 +247,24 @@ SUBROUTINE ssg1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  120     ip2 = -2
-         ip1 = Slt
+         ip1 = slt
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
-         i = Icore(i)
+         i = icore(i)
          nwds = 0
          DO
-            CALL read(*120,*140,Slt,core(1),Lc,0,iflag)
-            nwds = nwds + Lc
+            CALL read(*120,*140,slt,core(1),lc,0,iflag)
+            nwds = nwds + lc
          ENDDO
  140     nwds = nwds + iflag
-         WRITE (Iotpe,99001) Ufm , i , nllst , nwds
+         WRITE (iotpe,99001) ufm , i , nllst , nwds
 99001    FORMAT (A23,' 3176, INSUFFICIENT OPEN CORE AVAILABLE TO PROCESS ','ALL LOAD CARD COMBINATIONS IN MODULE SSG1.',/32X,       &
                 &'CURRENT LOAD ID BEING PROCESSED IS',I9,1H.,/32X,'OPEN CORE AVAILABLE IS',I9,' WORDS.',/32X,                       &
                 &'ADDITIONAL OPEN CORE REQUIRED IS',I9,' WORDS.')
          ip1 = 0
          ip2 = -61
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE ssg1

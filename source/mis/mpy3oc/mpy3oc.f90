@@ -2,13 +2,13 @@
  
 SUBROUTINE mpy3oc(Z,Iz,Dz)
    IMPLICIT NONE
-   USE C_MPY3CP
-   USE C_MPY3TL
-   USE C_MPYADX
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZNTPKX
+   USE c_mpy3cp
+   USE c_mpy3tl
+   USE c_mpyadx
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,6 +23,15 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
             & nbntu , nc , nerr , nktbp , nlast , nntbu , nntbu2 , nsavp , precm
    LOGICAL :: first3
    INTEGER , DIMENSION(2) , SAVE :: name , nams
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -52,10 +61,10 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     RECALCULATION OF NUMBER OF COLUMNS OF B ABLE TO BE PUT IN CORE.
 !
-   buf5 = Buf4 - Sysbuf
-   Lcore = buf5 - 1
-   Nk = (Lcore-4*N-Prec*M-(2+Prec)*Maxa)/(2+Prec*N)
-   IF ( Nk<1 ) THEN
+   buf5 = buf4 - sysbuf
+   lcore = buf5 - 1
+   nk = (lcore-4*n-prec*m-(2+prec)*maxa)/(2+prec*n)
+   IF ( nk<1 ) THEN
       nerr = -8
       file = 0
       CALL mesage(nerr,file,name)
@@ -63,35 +72,35 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !    INITIALIZATION.
 !
-      First1 = .TRUE.
-      First2 = .TRUE.
+      first1 = .TRUE.
+      first2 = .TRUE.
       first3 = .FALSE.
-      precm = Prec*M
+      precm = prec*m
 !
 !     OPEN CORE POINTERS
 !
       isavp = 1
-      nsavp = Ncb
+      nsavp = ncb
       intbu = nsavp + 1
-      nntbu = nsavp + Ncb
+      nntbu = nsavp + ncb
       ilast = nntbu + 1
-      nlast = nntbu + Ncb
+      nlast = nntbu + ncb
       intbu2 = nlast + 1
-      nntbu2 = nlast + Ncb
+      nntbu2 = nlast + ncb
       ic = nntbu2 + 1
-      nc = nntbu2 + Prec*M
+      nc = nntbu2 + prec*m
       ibcols = nc + 1
-      nbcols = nc + Prec*N*Nk
+      nbcols = nc + prec*n*nk
       ibcid = nbcols + 1
-      nbcid = nbcols + Nk
+      nbcid = nbcols + nk
       ibntu = nbcid + 1
-      nbntu = nbcid + Nk
+      nbntu = nbcid + nk
       iktbp = nbntu + 1
-      nktbp = nbntu + Maxa
+      nktbp = nbntu + maxa
       iantu = nktbp + 1
-      nantu = nktbp + Maxa
+      nantu = nktbp + maxa
       iakj = nantu + 1
-      nakj = nantu + Prec*Maxa
+      nakj = nantu + prec*maxa
       kf = nsavp
       kl = nntbu
       kn2 = nlast
@@ -102,21 +111,21 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     PACK PARAMETERS
 !
-      Typin = Prec
-      Typout = Prec
-      Row1 = 1
-      Incr = 1
+      typin = prec
+      typout = prec
+      row1 = 1
+      incr = 1
 !
 !     UNPACK PARAMETERS
 !
-      Utyp = Prec
-      Urow1 = 1
-      Uincr = 1
+      utyp = prec
+      urow1 = 1
+      uincr = 1
 !
 !     MATRIX TRAILERS
 !
-      CALL makmcb(Scr3,Scr3(1),N,2,Prec)
-      IF ( M==N ) Scr3(4) = 1
+      CALL makmcb(scr3,scr3(1),n,2,prec)
+      IF ( m==n ) scr3(4) = 1
 !
 !     PUT B ONTO SCRATCH FILE IN UNPACKED FORM.
 !
@@ -124,70 +133,70 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     OPEN FILES AND CHECK EXISTENCE OF MATRIX E.
 !
-      IF ( .NOT.(Code==0 .OR. .NOT.E) ) THEN
-         file = Filee(1)
-         CALL open(*200,Filee,Z(buf5),2)
-         CALL fwdrec(*300,Filee)
+      IF ( .NOT.(code==0 .OR. .NOT.e) ) THEN
+         file = filee(1)
+         CALL open(*200,filee,Z(buf5),2)
+         CALL fwdrec(*300,filee)
       ENDIF
-      file = Filea(1)
-      CALL open(*200,Filea,Z(Buf1),0)
-      CALL fwdrec(*300,Filea)
-      file = Scr1
-      CALL open(*200,Scr1,Z(Buf2),0)
-      file = Scr2
-      CALL open(*200,Scr2,Z(Buf3),1)
-      IF ( Code==0 ) THEN
-         file = Scr3(1)
-         CALL open(*200,Scr3,Z(Buf4),1)
-         CALL write(Scr3,nams,2,1)
-         Rowm = Scr3(3)
+      file = filea(1)
+      CALL open(*200,filea,Z(buf1),0)
+      CALL fwdrec(*300,filea)
+      file = scr1
+      CALL open(*200,scr1,Z(buf2),0)
+      file = scr2
+      CALL open(*200,scr2,Z(buf3),1)
+      IF ( code==0 ) THEN
+         file = scr3(1)
+         CALL open(*200,scr3,Z(buf4),1)
+         CALL write(scr3,nams,2,1)
+         rowm = scr3(3)
       ELSE
-         file = Filec(1)
-         CALL gopen(Filec,Z(Buf4),1)
-         Rowm = Filec(3)
+         file = filec(1)
+         CALL gopen(filec,Z(buf4),1)
+         rowm = filec(3)
       ENDIF
 !
 !     PROCESS SCR2 AND SET FIRST-TIME-USED AND LAST-TIME-USED FOR EACH
 !     ROW OF A.
 !
-      DO K = 1 , Ncb
-         Iz(kf+K) = 0
-         Iz(kl+K) = 0
+      DO k = 1 , ncb
+         Iz(kf+k) = 0
+         Iz(kl+k) = 0
       ENDDO
-      DO J = 1 , M
-         K = 0
-         CALL intpk(*20,Filea,0,Prec,0)
+      DO j = 1 , m
+         k = 0
+         CALL intpk(*20,filea,0,prec,0)
          DO
             CALL zntpki
-            K = K + 1
-            Iz(kt+K) = Irow
-            IF ( Iz(kf+Irow)<=0 ) Iz(kf+Irow) = J
-            Iz(kl+Irow) = J
-            IF ( Eol==1 ) THEN
-               CALL write(Scr2,Iz(iktbp),K,0)
+            k = k + 1
+            Iz(kt+k) = irow
+            IF ( Iz(kf+irow)<=0 ) Iz(kf+irow) = j
+            Iz(kl+irow) = j
+            IF ( eol==1 ) THEN
+               CALL write(scr2,Iz(iktbp),k,0)
                EXIT
             ENDIF
          ENDDO
- 20      CALL write(Scr2,0,0,1)
+ 20      CALL write(scr2,0,0,1)
       ENDDO
-      CALL close(Filea,1)
-      CALL open(*200,Filea,Z(Buf1),2)
-      CALL fwdrec(*300,Filea)
-      CALL close(Scr2,1)
-      CALL open(*200,Scr2,Z(Buf3),0)
+      CALL close(filea,1)
+      CALL open(*200,filea,Z(buf1),2)
+      CALL fwdrec(*300,filea)
+      CALL close(scr2,1)
+      CALL open(*200,scr2,Z(buf3),0)
 !
 !     PROCESS COLUMNS OF A ONE AT A TIME.
 !
-      DO J = 1 , M
+      DO j = 1 , m
 !
 !     INITIALIZE SUM - ACCUMULATION MATRIX TO 0.
 !
          DO i = ic , nc
             Z(i) = 0.
          ENDDO
-         IF ( .NOT.(Code==0 .OR. .NOT.E) ) THEN
-            Urown = N
-            CALL unpack(*40,Filee,Z(ic))
+         IF ( .NOT.(code==0 .OR. .NOT.e) ) THEN
+            urown = n
+            CALL unpack(*40,filee,Z(ic))
          ENDIF
 !
 !     PROCESS A AND PERFORM FIRST PART OF PRODUCT BA(J).
@@ -196,87 +205,87 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     TEST IF PROCESSING IS COMPLETE
 !
-         IF ( Iflag==0 ) GOTO 160
+         IF ( iflag==0 ) GOTO 160
 !
 !     PROCESS REMAINING TERMS OF COLUMN J OF A.
 !
 !     TEST IF BCOLS IS FULL
 !
- 60      IF ( K2<Nk ) GOTO 140
+ 60      IF ( k2<nk ) GOTO 140
 !
 !     CALCULATE NEW NEXT TIME USED VALUES
 !
          IF ( .NOT.(first3) ) THEN
-            First2 = .FALSE.
+            first2 = .FALSE.
             first3 = .TRUE.
-            DO jj = 1 , J
-               CALL fwdrec(*300,Scr2)
+            DO jj = 1 , j
+               CALL fwdrec(*300,scr2)
             ENDDO
          ENDIF
-         file = Scr2
+         file = scr2
          kc = 0
          kn = kf
-         DO Ka = 1 , Ncb
+         DO ka = 1 , ncb
             kn = kn + 1
-            IF ( J<Iz(kn) ) THEN
+            IF ( j<Iz(kn) ) THEN
                kc = kc + 1
-               IF ( J+1<Iz(kn) ) THEN
-                  Iz(kn2+Ka) = Iz(kn)
+               IF ( j+1<Iz(kn) ) THEN
+                  Iz(kn2+ka) = Iz(kn)
                   kc = kc + 1
                   CYCLE
-               ELSEIF ( J+1>=Iz(kl+Ka) ) THEN
-                  Iz(kn2+Ka) = 99999999
+               ELSEIF ( j+1>=Iz(kl+ka) ) THEN
+                  Iz(kn2+ka) = 99999999
                   kc = kc + 1
                   CYCLE
                ENDIF
-            ELSEIF ( J<Iz(kl+Ka) ) THEN
+            ELSEIF ( j<Iz(kl+ka) ) THEN
                Iz(kn) = 0
             ELSE
                Iz(kn) = 99999999
-               Iz(kn2+Ka) = Iz(kn)
+               Iz(kn2+ka) = Iz(kn)
                kc = kc + 2
                CYCLE
             ENDIF
-            Iz(kn2+Ka) = 0
+            Iz(kn2+ka) = 0
          ENDDO
-         IF ( kc==2*Ncb ) THEN
-            IF ( J/=M ) CALL fwdrec(*300,Scr2)
+         IF ( kc==2*ncb ) THEN
+            IF ( j/=m ) CALL fwdrec(*300,scr2)
             GOTO 120
          ELSE
-            jj = J + 1
+            jj = j + 1
          ENDIF
  80      DO
-            CALL read(*300,*100,Scr2,Ka,1,0,kk)
-            IF ( Iz(kn2+Ka)<=0 ) THEN
-               IF ( jj/=J+1 ) THEN
-                  Iz(kn2+Ka) = jj
+            CALL read(*300,*100,scr2,ka,1,0,kk)
+            IF ( Iz(kn2+ka)<=0 ) THEN
+               IF ( jj/=j+1 ) THEN
+                  Iz(kn2+ka) = jj
                   kc = kc + 1
                ENDIF
-               IF ( Iz(kf+Ka)<=0 ) THEN
-                  Iz(kf+Ka) = jj
+               IF ( Iz(kf+ka)<=0 ) THEN
+                  Iz(kf+ka) = jj
                   kc = kc + 1
                ENDIF
-               IF ( kc==2*Ncb ) THEN
-                  mm = M - 1
-                  IF ( J/=mm ) THEN
+               IF ( kc==2*ncb ) THEN
+                  mm = m - 1
+                  IF ( j/=mm ) THEN
 !
 !     POSITION SCRATCH FILE FOR NEXT PASS THROUGH
 !
-                     jj = jj - J
-                     j2 = J + 2
+                     jj = jj - j
+                     j2 = j + 2
                      jj1 = jj - 1
                      IF ( j2<jj1 ) THEN
-                        CALL rewind(Scr2)
-                        j1 = J + 1
+                        CALL rewind(scr2)
+                        j1 = j + 1
                         DO jfwd = 1 , j1
-                           CALL fwdrec(*300,Scr2)
+                           CALL fwdrec(*300,scr2)
                         ENDDO
                      ELSEIF ( jj1>0 ) THEN
                         DO jbck = 1 , jj1
-                           CALL bckrec(Scr2)
+                           CALL bckrec(scr2)
                         ENDDO
                      ELSE
-                        CALL fwdrec(*300,Scr2)
+                        CALL fwdrec(*300,scr2)
                      ENDIF
                   ENDIF
                   GOTO 120
@@ -288,14 +297,14 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     ASSIGN NEXT TIME USED TO COLUMNS OF B IN CORE
 !
- 120     DO kk = 1 , Nk
+ 120     DO kk = 1 , nk
             i = Iz(kbc+kk)
             Iz(kbn+kk) = Iz(kf+i)
          ENDDO
 !
 !     ASSIGN NEXT TIME USED TO NON-ZERO TERMS IN COLUMN OF A
 !
-         DO kk = 1 , K
+         DO kk = 1 , k
             IF ( Iz(kt+kk)==0 ) THEN
                Iz(kan+kk) = 0
             ELSE
@@ -311,46 +320,46 @@ SUBROUTINE mpy3oc(Z,Iz,Dz)
 !
 !     TEST IF PROCESSING OF BA(J) IS COMPLETE
 !
-            IF ( Kcount==K ) EXIT
-            IF ( First2 ) GOTO 60
-            Iz(kbn+Ltbc) = Iz(kn2+Ltac)
+            IF ( kcount==k ) EXIT
+            IF ( first2 ) GOTO 60
+            Iz(kbn+ltbc) = Iz(kn2+ltac)
          ENDDO
 !
 !     PACK COLUMN OF C OR BA.
 !
- 160     IF ( Code==0 ) THEN
-            CALL pack(Z(ic),Scr3,Scr3)
+ 160     IF ( code==0 ) THEN
+            CALL pack(Z(ic),scr3,scr3)
          ELSE
-            CALL pack(Z(ic),Filec,Filec)
+            CALL pack(Z(ic),filec,filec)
          ENDIF
       ENDDO
 !
 !     CLOSE FILES.
 !
-      CALL close(Filea,2)
-      CALL close(Scr1,1)
-      CALL close(Scr2,1)
-      IF ( E ) CALL close(Filee,2)
-      IF ( Code==0 ) THEN
-         CALL close(Scr3,1)
-         CALL wrttrl(Scr3)
+      CALL close(filea,2)
+      CALL close(scr1,1)
+      CALL close(scr2,1)
+      IF ( e ) CALL close(filee,2)
+      IF ( code==0 ) THEN
+         CALL close(scr3,1)
+         CALL wrttrl(scr3)
 !
 !     CALL MPYAD TO FINISH PRODUCT
 !
          DO i = 1 , 7
-            Mfilea(i) = Filea(i)
-            Mfileb(i) = Scr3(i)
-            Mfilee(i) = Filee(i)
-            Mfilec(i) = Filec(i)
+            mfilea(i) = filea(i)
+            mfileb(i) = scr3(i)
+            mfilee(i) = filee(i)
+            mfilec(i) = filec(i)
          ENDDO
-         Mt = 1
-         Signab = 1
-         Signc = 1
-         Mprec = Prec
-         Mscr = Scr1
+         mt = 1
+         signab = 1
+         signc = 1
+         mprec = prec
+         mscr = scr1
          CALL mpyad(Z,Z,Z)
       ELSE
-         CALL close(Filec,1)
+         CALL close(filec,1)
       ENDIF
    ENDIF
    GOTO 99999

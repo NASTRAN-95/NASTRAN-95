@@ -1,9 +1,10 @@
-!*==empcor.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==empcor.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE empcor(Mt1x,Mt2x,Pt,Pc,Frsrow,Midrow,Lasrow,Nx,A,Z)
+   USE c_packx
    IMPLICIT NONE
-   USE C_PACKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,12 +48,12 @@ SUBROUTINE empcor(Mt1x,Mt2x,Pt,Pc,Frsrow,Midrow,Lasrow,Nx,A,Z)
    mt = mt1
    IF ( Frsrow>Midrow .AND. mt2/=0 ) mt = mt2
    na = 1
-   Incr = 1
-   It1 = Pc
-   It2 = Pt
-   Jj = n
+   incr = 1
+   it1 = Pc
+   it2 = Pt
+   jj = n
    DO row = Frsrow , Lasrow
-      Ii = row
+      ii = row
       CALL pack(A(na),mt,mcb)
       IF ( row==n ) THEN
          CALL spag_block_1
@@ -71,6 +72,6 @@ CONTAINS
 !
 !     END OF CORE DUMP
 !
-      CALL close(mt,1)
+      CALL close(Mt,1)
    END SUBROUTINE spag_block_1
 END SUBROUTINE empcor

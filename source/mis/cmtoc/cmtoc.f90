@@ -1,14 +1,15 @@
-!*==cmtoc.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmtoc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmtoc
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_output
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -36,48 +37,48 @@ SUBROUTINE cmtoc
    DATA nheqss/4HEQSS/
 !
    print = .FALSE.
-   IF ( andf(rshift(Iprint,1),1)==1 ) print = .TRUE.
-   Tocopn = .TRUE.
+   IF ( andf(rshift(iprint,1),1)==1 ) print = .TRUE.
+   tocopn = .TRUE.
    itot = 0
    DO i = 1 , 96
-      Ihdr(i) = ihed(i)
+      ihdr(i) = ihed(i)
    ENDDO
    IF ( print ) CALL page
-   CALL open(*100,Sctoc,Z(Buf5),1)
-   DO i = 1 , Npsub
-      name(1) = Combo(i,1)
-      name(2) = Combo(i,2)
+   CALL open(*100,sctoc,z(buf5),1)
+   DO i = 1 , npsub
+      name(1) = combo(i,1)
+      name(2) = combo(i,2)
       CALL sfetch(name,nheqss,1,itest)
-      CALL suread(Z(Score),-1,nwds,itest)
-      Z(Score) = name(1)
-      Z(Score+1) = name(2)
-      CALL write(Sctoc,Z(Score),3,0)
+      CALL suread(z(score),-1,nwds,itest)
+      z(score) = name(1)
+      z(score+1) = name(2)
+      CALL write(sctoc,z(score),3,0)
       itot = itot + 3
-      ia = Score
-      ib = Score + 2
-      IF ( print ) WRITE (Outt,99001) (Z(kdh),kdh=ia,ib)
+      ia = score
+      ib = score + 2
+      IF ( print ) WRITE (outt,99001) (z(kdh),kdh=ia,ib)
 99001 FORMAT (34X,2A4,6X,I4)
-      Combo(i,5) = Z(Score+2)
+      combo(i,5) = z(score+2)
       nwds = nwds - 4
-      ia = Score + 4
+      ia = score + 4
       ib = ia + nwds - 1
       nt = (ib-ia+1)/8
       IF ( nt==0 ) nt = 1
       IF ( print ) CALL page2(nt)
-      IF ( print ) WRITE (Outt,99002) (Z(kdh),kdh=ia,ib)
+      IF ( print ) WRITE (outt,99002) (z(kdh),kdh=ia,ib)
 99002 FORMAT (1H+,57X,2X,2A4,2X,2A4,2X,2A4,2X,2A4,/(58X,2X,2A4,2X,2A4,2X,2A4,2X,2A4))
       itot = itot + nwds
-      CALL write(Sctoc,Z(Score+4),nwds,1)
+      CALL write(sctoc,z(score+4),nwds,1)
    ENDDO
-   CALL close(Sctoc,1)
-   CALL open(*100,Sctoc,Z(Buf5),0)
+   CALL close(sctoc,1)
+   CALL open(*100,sctoc,z(buf5),0)
 !
 !     DETERMINE WHETHER TO CLOSE FILE
 !
-   IF ( itot<=Xxx ) RETURN
-   Tocopn = .FALSE.
-   CALL close(Sctoc,1)
+   IF ( itot<=xxx ) RETURN
+   tocopn = .FALSE.
+   CALL close(sctoc,1)
    RETURN
 !
- 100  CALL mesage(-1,Sctoc,aaa)
+ 100  CALL mesage(-1,sctoc,aaa)
 END SUBROUTINE cmtoc

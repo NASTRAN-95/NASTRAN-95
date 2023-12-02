@@ -1,4 +1,5 @@
-!*==partn3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==partn3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
@@ -12,13 +13,13 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
 !     THE RESPECTIVE POSITIONS OCCUPIED BY NON-ZERO ELEMENTS IN THE
 !     COLUMN VECTOR WHICH IS STORED ON FILE.
 !
+   USE c_blank
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,15 +52,15 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
 !
    IF ( .NOT.(pass) ) THEN
       pass = .TRUE.
-      j = Nbpw - 1
+      j = nbpw - 1
       k = lshift(1,j)
-      DO i = 1 , Nbpw
+      DO i = 1 , nbpw
          bit(i) = k
          k = rshift(k,1)
       ENDDO
    ENDIF
 !
-   CALL open(*200,File,Buf,Rdrew)
+   CALL open(*200,File,Buf,rdrew)
    Here = .TRUE.
    mcb(1) = File
    CALL rdtrl(mcb)
@@ -67,67 +68,67 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
 !     NUMBER OF WORDS IN COLUMN INCLUDING ZEROS
 !
    Size = trl(2)
-   IF ( Ireqcl==0 ) THEN
-      Ireqcl = 1
-   ELSEIF ( Ireqcl<=0 .OR. Ireqcl>trl(1) ) THEN
+   IF ( ireqcl==0 ) THEN
+      ireqcl = 1
+   ELSEIF ( ireqcl<=0 .OR. ireqcl>trl(1) ) THEN
       IF ( trl(1)>0 ) THEN
-         WRITE (Outpt,99001) Swm , File , trl(1) , Ireqcl
+         WRITE (outpt,99001) swm , File , trl(1) , ireqcl
 99001    FORMAT (A27,' 2173, PARTITIONING VECTOR FILE',I5,' CONTAINS',I10,' COLUMNS.',/5X,' THE FIRST COLUMN WILL BE USED, NOT THE',&
                 &' REQUESTED COLUMN',I10)
       ENDIF
-      Ireqcl = 1
+      ireqcl = 1
    ENDIF
-   CALL skprec(File,Ireqcl)
+   CALL skprec(File,ireqcl)
    IF ( trl(4)/=1 .AND. trl(4)/=2 ) THEN
-      WRITE (Outpt,99002) Swm , File
+      WRITE (outpt,99002) swm , File
 99002 FORMAT (A27,' 2174, PARTITIONING VECTOR ON FILE',I5,' IS NOT REAL-SINGLE OR REAL-DOUBLE PRECISION.')
    ENDIF
 !
 !     ZERO THE BIT STRING
 !
-   Nz = Iz + (Size-1)/Nbpw
+   Nz = Iz + (Size-1)/nbpw
    IF ( Nz>Core ) CALL mesage(-8,0,subr)
    DO i = Iz , Nz
-      Z(i) = 0
+      z(i) = 0
    ENDDO
 !
 !     SET UP TO UNPACK THE COLUMN
 !
    Ones = 0
-   Eol = 0
+   eol = 0
    CALL intpk(*100,File,0,1,0)
    SPAG_Loop_1_1: DO
       CALL zntpki
-      IF ( Row>Size ) THEN
+      IF ( row>Size ) THEN
 !
 !     ELEMENT OF COLUMN LIES OUT OF RANGE INDICATED BY TRAILER
 !
-         WRITE (Outpt,99003) Sfm , File
+         WRITE (outpt,99003) sfm , File
 99003    FORMAT (A25,' 2175, THE ROW POSITION OF AN ELEMENT OF A COLUMN ','ON FILE',I5,/5X,'IS GREATER THAN NUMBER OF ROWS ',       &
                 &'SPECIFIED BY TRAILER.')
 !
 !     FATAL ERROR
 !
-         CALL close(File,Clsrew)
+         CALL close(File,clsrew)
          CALL mesage(-61,0,subr)
          RETURN
       ELSE
-         k = Row - 1
-         zword = k/Nbpw + Iz
-         zbit = mod(k,Nbpw) + 1
-         Z(zword) = orf(Z(zword),bit(zbit))
+         k = row - 1
+         zword = k/nbpw + Iz
+         zbit = mod(k,nbpw) + 1
+         z(zword) = orf(z(zword),bit(zbit))
          Ones = Ones + 1
 !
 !     UNPACK THE ELEMENTS AND TURN ON BITS IN THE BIT STRING.  MAINTAIN
 !     COUNT OF BITS IN -ONES-.
 !
-         IF ( Eol>0 ) EXIT SPAG_Loop_1_1
+         IF ( eol>0 ) EXIT SPAG_Loop_1_1
       ENDIF
    ENDDO SPAG_Loop_1_1
 !
 !     BIT STRING IS COMPLETE.
 !
- 100  CALL close(File,Clsrew)
+ 100  CALL close(File,clsrew)
    RETURN
 !
 !     FILE IS PURGED
@@ -135,5 +136,4 @@ SUBROUTINE partn3(File,Size,Ones,Iz,Nz,Here,Buf,Core)
  200  Size = 0
    Ones = 0
    Here = .FALSE.
-   RETURN
 END SUBROUTINE partn3

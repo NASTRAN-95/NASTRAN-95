@@ -1,7 +1,9 @@
-!*==smcomp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==smcomp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE smcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
+   USE i_smcomx
    USE I_SMCOMX
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
@@ -69,7 +71,8 @@ SUBROUTINE smcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      module(3) = end
-      CALL conmsg(module,5,0)
+      USE ISO_FORTRAN_ENV                 
+      Module(3) = End
+      CALL conmsg(Module,5,0)
    END SUBROUTINE spag_block_1
 END SUBROUTINE smcomp

@@ -1,11 +1,12 @@
-!*==close.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==close.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE close(File,Iop)
+   USE i_dsiof
+   USE i_xnstrn
+   USE c_dsunit
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_XNSTRN
-   USE C_DSUNIT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,7 +32,7 @@ SUBROUTINE close(File,Iop)
    CALL dsgefl
    IF ( ifilex/=0 ) THEN
       iretrn = 0
-      IF ( iand(Idiag,2**14)/=0 ) CALL dsmsg(2)
+      IF ( iand(idiag,2**14)/=0 ) CALL dsmsg(2)
       IF ( iocode==1 ) THEN
          IF ( iprvop/=0 ) THEN
             CALL dsefwr
@@ -63,7 +64,7 @@ SUBROUTINE close(File,Iop)
       CALL dssdcb
       fcb(2,ifilex) = 0
       fcb(12,ifilex) = 0
-      IF ( name>=101 .AND. name<=320 ) Iunit(name-100) = 0
+      IF ( name>=101 .AND. name<=320 ) iunit(name-100) = 0
    ENDIF
 !***************************************************************
 !                          NOTICE

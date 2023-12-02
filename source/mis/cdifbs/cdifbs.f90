@@ -2,10 +2,10 @@
  
 SUBROUTINE cdifbs(Dz,Buf)
    IMPLICIT NONE
-   USE C_CDCMPX
-   USE C_CINVPX
-   USE C_NAMES
-   USE C_ZNTPKX
+   USE c_cdcmpx
+   USE c_cinvpx
+   USE c_names
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +21,15 @@ SUBROUTINE cdifbs(Dz,Buf)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     SUBROUTINE TO DO THE FBS PASS TO FIND THE LEFT EIGENVECTOR FOR
 !     THE TRANSPOSED MATRIX
 !
@@ -32,64 +41,64 @@ SUBROUTINE cdifbs(Dz,Buf)
 !
 !     BEGIN THE FORWARD PASS USING THE UPPER TRIANGLE
 !
-   ioff = Iof - 1
-   CALL gopen(uprtri,Buf,Rdrew)
+   ioff = iof - 1
+   CALL gopen(uprtri,Buf,rdrew)
    nrow2 = nrow + nrow
    DO i = 1 , nrow
       j = i + i
-      CALL intpk(*100,uprtri,0,Cdp,0)
+      CALL intpk(*100,uprtri,0,cdp,0)
       DO
          CALL zntpki
-         IF ( Ii<i ) THEN
+         IF ( ii<i ) THEN
 !
 !     SUBTRACT OFF NORMAL TERM
 !
-            Dz(j-1) = Dz(j-1) - Dz(2*Ii-1)*Da(1) + Dz(2*Ii)*Da(2)
-            Dz(j) = Dz(j) - Dz(2*Ii-1)*Da(2) - Dz(2*Ii)*Da(1)
-         ELSEIF ( Ii==i ) THEN
+            Dz(j-1) = Dz(j-1) - Dz(2*ii-1)*da(1) + Dz(2*ii)*da(2)
+            Dz(j) = Dz(j) - Dz(2*ii-1)*da(2) - Dz(2*ii)*da(1)
+         ELSEIF ( ii==i ) THEN
 !
 !     DIVIDE BY THE DIAGONAL
 !
-            dtemp = (Dz(j-1)*Da(1)+Dz(j)*Da(2))/(Da(1)**2+Da(2)**2)
-            Dz(j) = (Dz(j)*Da(1)-Dz(j-1)*Da(2))/(Da(1)**2+Da(2)**2)
+            dtemp = (Dz(j-1)*da(1)+Dz(j)*da(2))/(da(1)**2+da(2)**2)
+            Dz(j) = (Dz(j)*da(1)-Dz(j-1)*da(2))/(da(1)**2+da(2)**2)
             Dz(j-1) = dtemp
          ELSE
 !
 !     SUBTRACT OFF ACTIVE COLUMN TERMS
 !
             k = (i-ioff)*2
-            Dz(2*Ii-1) = Dz(2*Ii-1) - Dz(k-1)*Da(1) + Dz(k)*Da(2)
-            Dz(2*Ii) = Dz(2*Ii) - Dz(k)*Da(1) - Dz(k-1)*Da(2)
+            Dz(2*ii-1) = Dz(2*ii-1) - Dz(k-1)*da(1) + Dz(k)*da(2)
+            Dz(2*ii) = Dz(2*ii) - Dz(k)*da(1) - Dz(k-1)*da(2)
          ENDIF
-         IF ( Eol/=0 ) EXIT
+         IF ( eol/=0 ) EXIT
       ENDDO
  100  ENDDO
-   CALL close(uprtri,Rew)
+   CALL close(uprtri,rew)
 !
 !     BEGIN BACKWARD PASS USING THE LOWER TRIANGLE
 !
-   CALL gopen(lowtri,Buf,Rdrew)
+   CALL gopen(lowtri,Buf,rdrew)
    CALL skprec(lowtri,nrow)
    DO i = 1 , nrow
       CALL bckrec(lowtri)
       intchn = 0
-      CALL intpk(*150,lowtri,0,Cdp,0)
+      CALL intpk(*150,lowtri,0,cdp,0)
       j = (nrow-i+1)*2
       DO
          CALL zntpki
-         IF ( Ii/=nrow-i+1 ) THEN
-            Dz(j-1) = Dz(j-1) - Dz(2*Ii-1)*Da(1) + Dz(2*Ii)*Da(2)
-            Dz(j) = Dz(j) - Dz(2*Ii-1)*Da(2) - Dz(2*Ii)*Da(1)
+         IF ( ii/=nrow-i+1 ) THEN
+            Dz(j-1) = Dz(j-1) - Dz(2*ii-1)*da(1) + Dz(2*ii)*da(2)
+            Dz(j) = Dz(j) - Dz(2*ii-1)*da(2) - Dz(2*ii)*da(1)
          ELSE
-            IF ( Ii<j/2 ) GOTO 200
+            IF ( ii<j/2 ) GOTO 200
 !
 !     PERFORM THE INTERCHANGE
 !
-            intchn = ifix(sngl(Da(1)))*2
+            intchn = ifix(sngl(da(1)))*2
             IF ( idiag/=0 ) WRITE (6,99001) i , intchn
 99001       FORMAT (5H I = ,I5,10HINTCHNG = ,I5)
          ENDIF
-         IF ( Eol/=0 ) THEN
+         IF ( eol/=0 ) THEN
             IF ( intchn>0 ) THEN
                in1 = j + intchn
                dtemp = Dz(j)
@@ -104,7 +113,7 @@ SUBROUTINE cdifbs(Dz,Buf)
       ENDDO
  150  CALL bckrec(lowtri)
    ENDDO
-   CALL close(lowtri,Rew)
+   CALL close(lowtri,rew)
    RETURN
 !
  200  CALL mesage(-7,lowtri,name)

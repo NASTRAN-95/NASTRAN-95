@@ -1,10 +1,11 @@
-!*==sslot1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sslot1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sslot1(Iopt)
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -53,69 +54,69 @@ SUBROUTINE sslot1(Iopt)
    DO i = 1 , 30
       nout(i) = 0
    ENDDO
-   Nc1 = 1
-   Nc2 = 2
-   Nc3 = 3
+   nc1 = 1
+   nc2 = 2
+   nc3 = 3
    IF ( Iopt/=0 ) THEN
 !****
 !     THE CSLOT4 ELEMENT IS CALCULATED AS FOLLOWS
-      Rho = Ecpt(6)*4.0
+      rho = ecpt(6)*4.0
       DO i = 1 , 4
-         Nr = 4*(i-1) + 11
-         R(i) = Ecpt(Nr)
-         Z(i) = Ecpt(Nr+1)
+         nr = 4*(i-1) + 11
+         r(i) = ecpt(nr)
+         z(i) = ecpt(nr+1)
       ENDDO
       ncol = 6
-      Iret = 1
+      iret = 1
    ELSE
 !     SET UP FOR THE SLOT3 ELEMENT
 !****
-      Rho = Ecpt(5)
-      Iret = 4
+      rho = ecpt(5)
+      iret = 4
       DO i = 1 , 3
-         Nr = 4*(i-1) + 10
-         R(i) = Ecpt(Nr)
-         Z(i) = Ecpt(Nr+1)
+         nr = 4*(i-1) + 10
+         r(i) = ecpt(nr)
+         z(i) = ecpt(nr+1)
       ENDDO
    ENDIF
    SPAG_Loop_1_1: DO
-      A = (R(Nc1)*(Z(Nc2)-Z(Nc3))+R(Nc2)*(Z(Nc3)-Z(Nc1))+R(Nc3)*(Z(Nc1)-Z(Nc2)))
-      Fact = -Rho*A
-      sv(Nc1) = (Z(Nc2)-Z(Nc3))/Fact + sv(Nc1)
-      sv(Nc2) = (Z(Nc3)-Z(Nc1))/Fact + sv(Nc2)
-      sv(Nc3) = (Z(Nc1)-Z(Nc2))/Fact + sv(Nc3)
+      a = (r(nc1)*(z(nc2)-z(nc3))+r(nc2)*(z(nc3)-z(nc1))+r(nc3)*(z(nc1)-z(nc2)))
+      fact = -rho*a
+      sv(nc1) = (z(nc2)-z(nc3))/fact + sv(nc1)
+      sv(nc2) = (z(nc3)-z(nc1))/fact + sv(nc2)
+      sv(nc3) = (z(nc1)-z(nc2))/fact + sv(nc3)
 !
-      Nr1 = 3 + Iopt + Nc1
-      Nr2 = 3 + Iopt + Nc2
-      Nr3 = 3 + Iopt + Nc3
+      nr1 = 3 + Iopt + nc1
+      nr2 = 3 + Iopt + nc2
+      nr3 = 3 + Iopt + nc3
 !
-      sv(Nr1) = (R(Nc3)-R(Nc2))/Fact + sv(Nr1)
-      sv(Nr2) = (R(Nc1)-R(Nc3))/Fact + sv(Nr2)
-      sv(Nr3) = (R(Nc2)-R(Nc1))/Fact + sv(Nr3)
+      sv(nr1) = (r(nc3)-r(nc2))/fact + sv(nr1)
+      sv(nr2) = (r(nc1)-r(nc3))/fact + sv(nr2)
+      sv(nr3) = (r(nc2)-r(nc1))/fact + sv(nr3)
 !
-      IF ( Iret==1 ) THEN
-         Nc3 = 4
-         Iret = 2
-      ELSEIF ( Iret==2 ) THEN
-         Nc2 = 3
-         Iret = 3
-      ELSEIF ( Iret==3 ) THEN
-         Nc1 = 2
-         Iret = 4
+      IF ( iret==1 ) THEN
+         nc3 = 4
+         iret = 2
+      ELSEIF ( iret==2 ) THEN
+         nc2 = 3
+         iret = 3
+      ELSEIF ( iret==3 ) THEN
+         nc1 = 2
+         iret = 4
       ELSE
 !
-         Nr = Iopt + 3
-         IF ( Iopt==1 ) Rho = Rho/4.0
-         DO i = 1 , Nr
+         nr = Iopt + 3
+         IF ( Iopt==1 ) rho = rho/4.0
+         DO i = 1 , nr
             j = i + 1
             IF ( j>Iopt+3 ) j = j - Iopt - 3
-            Fact = 1.0/(sqrt((R(j)-R(i))**2+(Z(j)-Z(i))**2)*Rho)
-            Ii = Iopt*(i+1) + 4*i + 3
-            Fact = 1.0/(sqrt((R(j)-R(i))**2+(Z(j)-Z(i))**2)*Rho)
-            Ii = Iopt*(i+1) + 4*i + 3
-            Ij = Ii + j - i
-            sv(Ii) = Fact
-            sv(Ij) = -Fact
+            fact = 1.0/(sqrt((r(j)-r(i))**2+(z(j)-z(i))**2)*rho)
+            ii = Iopt*(i+1) + 4*i + 3
+            fact = 1.0/(sqrt((r(j)-r(i))**2+(z(j)-z(i))**2)*rho)
+            ii = Iopt*(i+1) + 4*i + 3
+            ij = ii + j - i
+            sv(ii) = fact
+            sv(ij) = -fact
          ENDDO
 !
 !*****

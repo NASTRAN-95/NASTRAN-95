@@ -1,4 +1,5 @@
-!*==allmat.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==allmat.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
@@ -22,13 +23,22 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
 !
    REAL :: abig , abssq , aid , ain , ard , arn , big , eps , rho , sum , te , tem , term1 , term2 , term3
    COMPLEX :: cos , sin , temp , temp1 , temp2
-   INTEGER :: i , icount , im1 , index , inter , ip1 , j , k , l , mn1 , n , n1i , ni1 , nm1 , nm2 , nvec , r , rp1 , rp2
+   INTEGER :: i , icount , im1 , index , inter , ip1 , j , k , l , mn1 , n , n1i , ni1 , nm1 , nm2 , nvec , r , rp1 , rp2 ,         &
+            & spag_nextblock_1
    COMPLEX , DIMENSION(3) :: shift
    LOGICAL :: twice
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -153,7 +163,6 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
             Lambda(M-1) = A(1,1) + A(2,2) + shift(1)
          ENDIF
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          IF ( n==1 ) THEN
             Lambda(M) = A(1,1) + shift(1)
@@ -238,11 +247,9 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
                   ENDDO
                   icount = icount + 1
                   spag_nextblock_1 = 5
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   Ncal = M - n
                   spag_nextblock_1 = 7
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSE
                Lambda(mn1) = shift(2) + shift(1)
@@ -250,8 +257,8 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
                icount = 0
                n = n - 2
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
@@ -259,7 +266,6 @@ SUBROUTINE allmat(A,Lambda,H,Hl,Vect,Mult,Inth,Int,M,Ncal,Iopt1)
          icount = 0
          n = n - 1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     CALCULATE VECTORS

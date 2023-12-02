@@ -1,12 +1,13 @@
-!*==ta1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ta1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ta1
+   USE c_blank
+   USE c_system
+   USE c_ta1com
+   USE c_two
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TA1COM
-   USE C_TWO
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -48,38 +49,38 @@ SUBROUTINE ta1
 !     INITIALIZE
 !
    CALL delset
-   Ect = 101
-   Ept = 102
-   Bgpdt = 103
-   Sil = 104
-   Gptt = 105
-   Cstm = 106
-   Mpt = 107
-   Eqexin = 108
+   ect = 101
+   ept = 102
+   bgpdt = 103
+   sil = 104
+   gptt = 105
+   cstm = 106
+   mpt = 107
+   eqexin = 108
 !
-   Est = 201
-   Gei = 202
-   Gpect = 203
-   Ecpt = 204
-   Gpct = 205
-   Mptx = 206
-   Pcomps = 207
-   Eptx = 208
+   est = 201
+   gei = 202
+   gpect = 203
+   ecpt = 204
+   gpct = 205
+   mptx = 206
+   pcomps = 207
+   eptx = 208
 !
-   Scr1 = 301
-   Scr2 = 302
-   Scr3 = 303
-   Scr4 = 304
+   scr1 = 301
+   scr2 = 302
+   scr3 = 303
+   scr4 = 304
 !
 !     TEST FOR PRESENCE OF GENERAL ELEMENTS
 !
-   Nogenl = -1
-   mcb(1) = Ect
+   nogenl = -1
+   mcb(1) = ect
    CALL rdtrl(mcb)
    IF ( mcb(1)>=0 ) THEN
       j = (genel(2)-1)/16
       k = genel(2) - 16*j
-      IF ( andf(mcb(j+2),Two(k+16))/=0 ) Nogenl = 1
+      IF ( andf(mcb(j+2),two(k+16))/=0 ) nogenl = 1
    ENDIF
 !
 !     EXECUTE TA1A FOR ALL PROBLEMS
@@ -88,16 +89,16 @@ SUBROUTINE ta1
 !
 !     EXECUTE TA1CPD/S TO BUILD PCOMPS DATA
 !
-   IF ( Nosup/=0 ) THEN
-      IF ( Comps==-1 ) THEN
-         IF ( Iprec==1 ) CALL ta1cps
-         IF ( Iprec==2 ) CALL ta1cpd
+   IF ( nosup/=0 ) THEN
+      IF ( comps==-1 ) THEN
+         IF ( iprec==1 ) CALL ta1cps
+         IF ( iprec==2 ) CALL ta1cpd
       ENDIF
-      IF ( Nosup==1 ) THEN
+      IF ( nosup==1 ) THEN
 !
 !     CALL TA1H TO GENERATE GPECT
 !
-         IF ( Nosimp>0 ) CALL ta1h
+         IF ( nosimp>0 ) CALL ta1h
          CALL spag_block_1
          RETURN
       ENDIF
@@ -105,9 +106,9 @@ SUBROUTINE ta1
 !
 !     EXECUTE TA1B IF SIMPLE ELEMENTS ARE PRESENT
 !
-   IF ( Nosimp>0 ) CALL ta1b
-   IF ( Nosup/=0 ) THEN
-      IF ( Nosimp>0 ) CALL ta1h
+   IF ( nosimp>0 ) CALL ta1b
+   IF ( nosup/=0 ) THEN
+      IF ( nosimp>0 ) CALL ta1h
    ENDIF
    CALL spag_block_1
 CONTAINS
@@ -116,7 +117,7 @@ CONTAINS
 !     EXECUTE TA1C IF GENERAL ELEMENTS ARE PRESENT
 !
       IF ( Nogenl>0 ) CALL ta1c
-      Genl = -Nogenl
+      genl = -Nogenl
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE ta1

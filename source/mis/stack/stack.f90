@@ -1,10 +1,11 @@
-!*==stack.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==stack.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stack(Ideg,New,Ild,Iw)
+   USE c_bandd
+   USE c_bands
    IMPLICIT NONE
-   USE C_BANDD
-   USE C_BANDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,25 +27,25 @@ SUBROUTINE stack(Ideg,New,Ild,Iw)
 !     IW IS SCRATCH STORAGE.
 !
 !
-   Kt = 0
-   nn1 = Nn - 1
+   kt = 0
+   nn1 = nn - 1
 !
 !     LIST POINTS OF ZERO DEGREE AND INCREMENT COUNTER KT.
 !
-   DO i = 1 , Nn
+   DO i = 1 , nn
       IF ( Ideg(i)<=0 ) THEN
-         Kt = Kt + 1
-         Iw(Kt) = Ild(i)
+         kt = kt + 1
+         Iw(kt) = Ild(i)
       ENDIF
    ENDDO
-   IF ( Kt>0 ) THEN
+   IF ( kt>0 ) THEN
 !
 !     SORT LIST OF RENUMBERED NUMBERS TO BE STACKED.
 !
-      IF ( Kt>1 ) THEN
-         kt1 = Kt - 1
+      IF ( kt>1 ) THEN
+         kt1 = kt - 1
          SPAG_Loop_1_1: DO i = 1 , kt1
-            k = Kt - i
+            k = kt - i
             kflag = 0
             DO j = 1 , k
                j1 = j + 1
@@ -61,21 +62,21 @@ SUBROUTINE stack(Ideg,New,Ild,Iw)
 !
 !     STACK POINTS OF ZERO DEGREE AT END OF NEW.
 !
-      DO l = 1 , Kt
+      DO l = 1 , kt
          i = Iw(l) - l + 1
          k = New(i)
-         IF ( i<Nn ) THEN
+         IF ( i<nn ) THEN
             DO j = i , nn1
                New(j) = New(j+1)
             ENDDO
          ENDIF
-         New(Nn) = k
+         New(nn) = k
       ENDDO
    ENDIF
 !
 !     CORRECT ILD, THE INVERSE OF NEW.
 !
-   DO i = 1 , Nn
+   DO i = 1 , nn
       k = New(i)
       Ild(k) = i
    ENDDO

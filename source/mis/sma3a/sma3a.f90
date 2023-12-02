@@ -2,11 +2,11 @@
  
 SUBROUTINE sma3a(Mcbcur)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GENELY
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_genely
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -22,6 +22,15 @@ SUBROUTINE sma3a(Mcbcur)
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
    LOGICAL :: zonly
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -45,12 +54,12 @@ SUBROUTINE sma3a(Mcbcur)
 !
 ! READ THE UI SET OF SCALAR INDEX NUMBERS INTO OPEN CORE.
 !
-   CALL fread(Ifgei,iq(Iui+1),m,0)
+   CALL fread(ifgei,iq(iui+1),m,0)
 !
 ! IUD POINTS TO THE ZEROTH LOCATION OF THE UD ARRAY.
 !
-   Iud = Iui + m
-   Left = Left - m
+   iud = iui + m
+   left = left - m
 !
 ! SET UP ARITHMETIC CONSTANTS.
 !
@@ -63,22 +72,22 @@ SUBROUTINE sma3a(Mcbcur)
 !
 ! SINCE N .NE. 0, THE UD SET EXISTS.  READ IT INTO CORE.
 !
-      CALL fread(Ifgei,iq(Iud+1),n,0)
-      Left = Left - n
+      CALL fread(ifgei,iq(iud+1),n,0)
+      left = left - n
    ENDIF
 !
 ! BUILD THE ARRAY IQ(IP+1),IQ(IP+2),...,IQ(IP+MPN) SUCH THAT
 ! IQ(IP+K) = L IMPLIES IQ(IUI+L) IS THE K TH SMALLEST NUMBER OF THE
 ! SET OF NUMBERS IQ(IUI+1),...,IQ(IUD+N)
 !
-   ip = Iui + mpn
+   ip = iui + mpn
    k = ip
    limk = ip + mpn
-   low = Iui + 2
-   lim = Iui + mpn
+   low = iui + 2
+   lim = iui + mpn
    DO
-      small = iq(Iui+1)
-      ismall = Iui + 1
+      small = iq(iui+1)
+      ismall = iui + 1
       DO j = low , lim
          IF ( iq(j)<small ) THEN
             small = iq(j)
@@ -86,69 +95,69 @@ SUBROUTINE sma3a(Mcbcur)
          ENDIF
       ENDDO
       k = k + 1
-      idiff = ismall - Iui
+      idiff = ismall - iui
       iq(k) = idiff
-      iq(idiff) = iq(idiff) + Luset
+      iq(idiff) = iq(idiff) + luset
       IF ( k>=limk ) THEN
-         low = Iui + 1
+         low = iui + 1
          DO i = low , lim
-            IF ( iq(i)<=Luset ) CALL mesage(-30,28,5)
-            iq(i) = iq(i) - Luset
+            IF ( iq(i)<=luset ) CALL mesage(-30,28,5)
+            iq(i) = iq(i) - luset
          ENDDO
 !
 ! READ INDICATOR OF Z OR K MATRIX
 !
-         CALL fread(Ifgei,izk,1,0)
+         CALL fread(ifgei,izk,1,0)
 !
 ! SET UP POINTERS TO THE ZEROTH LOCATION OF THE DOUBLE PRECISION ARRAYS
 !       -1
 ! K  ORZ  AND S
 !  E    E      E
 !
-         Izi = (Iui+2*mpn-1)/2 + 2
-         Is = Izi + msq
+         izi = (iui+2*mpn-1)/2 + 2
+         is = izi + msq
 !
 ! READ IN THE M**2 SINGLE PRECISION ELEMENTS OF THE SYMMETRIC Z OR K
 ! INTO A TEMPORARY BUFFER BEGINNING AT Q(IBUFF)
 !
-         ibuff = Iui + 2*(mpn+msq)
+         ibuff = iui + 2*(mpn+msq)
 !
 ! IF ALL OF Z OR K CANNOT FIT INTO THIS BUFFER, READ BLOCKS OF M WORDS
 !
-         IF ( ibuff+msq>Left ) THEN
+         IF ( ibuff+msq>left ) THEN
 !
 ! READ Z OR K INTO THE BUFFER M WORDS AT A TIME AND STORE M WORDS
 ! AT A TIME
 !
-            ind = Neor
+            ind = neor
             DO k = 1 , m
-               IF ( k==m .AND. zonly ) ind = Eor
-               CALL fread(Ifgei,Q(ibuff+1),m,ind)
-               i = Izi + (k-1)*m
+               IF ( k==m .AND. zonly ) ind = eor
+               CALL fread(ifgei,q(ibuff+1),m,ind)
+               i = izi + (k-1)*m
                j = ibuff
                lim = i + m
                DO
                   i = i + 1
                   IF ( i>lim ) EXIT
                   j = j + 1
-                  dq(i) = Q(j)
+                  dq(i) = q(j)
                ENDDO
             ENDDO
          ELSE
-            ind = Neor
-            IF ( zonly ) ind = Eor
-            CALL fread(Ifgei,iq(ibuff+1),msq,ind)
+            ind = neor
+            IF ( zonly ) ind = eor
+            CALL fread(ifgei,iq(ibuff+1),msq,ind)
 !
 ! STORE THE SINGLE PRECISION MATRIX IN ITS DOUBLE PRECISION LOCATION.
 !
-            lim = Izi + msq
-            i = Izi
+            lim = izi + msq
+            i = izi
             j = ibuff
             DO
                i = i + 1
                IF ( i>lim ) EXIT
                j = j + 1
-               dq(i) = Q(j)
+               dq(i) = q(j)
             ENDDO
          ENDIF
 !
@@ -165,11 +174,11 @@ SUBROUTINE sma3a(Mcbcur)
 ! INVERD.  SUBROUTINE INVERD WILL RETURN Z  INVERSE AT DQ(IZI+1)
 !                                         E
 !
-            ibuff = Iui + 2*(mpn+msq) + 5
+            ibuff = iui + 2*(mpn+msq) + 5
             ii = ibuff + 2*m
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
             ising = -1
-            CALL inverd(m,dq(Izi+1),m,iq(ibuff+1),0,det,ising,iq(ii+1))
+            CALL inverd(m,dq(izi+1),m,iq(ibuff+1),0,det,ising,iq(ii+1))
 !
 ! ISING = 2 IMPLIES A SINGULAR Z
 !                               E
@@ -182,38 +191,38 @@ SUBROUTINE sma3a(Mcbcur)
 !
          IF ( .NOT.(zonly) ) THEN
             ibuff = mpn + 2*msq + 2*m*n + 5
-            CALL fread(Ifgei,Q(ibuff+1),m*n,1)
+            CALL fread(ifgei,q(ibuff+1),m*n,1)
 !
 ! STORE THE S  MATRIX AT DQ(IS+1) MAKING S  DOUBLE PRECISION
 !            E                            E
 !
-            low = Is + 1
-            lim = Is + m*n
+            low = is + 1
+            lim = is + m*n
             j = ibuff
             DO i = low , lim
                j = j + 1
-               dq(i) = Q(j)
+               dq(i) = q(j)
             ENDDO
 !                  -1
 ! COMPUTE K S  OR Z  S AND STORE AT DQ(IZIS+1)
 !          E E     E  E
 !
-            Izis = Is + m*n
-            CALL gmmatd(dq(Izi+1),m,m,0,dq(Is+1),m,n,0,dq(Izis+1))
+            izis = is + m*n
+            CALL gmmatd(dq(izi+1),m,m,0,dq(is+1),m,n,0,dq(izis+1))
 !
 !          T        T -1
 ! COMPUTE S K S OR S Z  S AND STORE AT DQ(ISTZIS+1)
 !          E E E    E E  E
 !
-            Istzis = Izis + m*n
-            CALL gmmatd(dq(Is+1),m,n,1,dq(Izis+1),m,n,0,dq(Istzis+1))
+            istzis = izis + m*n
+            CALL gmmatd(dq(is+1),m,n,1,dq(izis+1),m,n,0,dq(istzis+1))
 !
 !              -1
 ! SET K S  OR Z  S  NEGATIVE
 !      E E     E  E
 !
-            low = Izis + 1
-            lim = Izis + m*n
+            low = izis + 1
+            lim = izis + m*n
             DO i = low , lim
                dq(i) = -dq(i)
             ENDDO
@@ -227,10 +236,10 @@ SUBROUTINE sma3a(Mcbcur)
          izrow = 1
          izscol = 1
          icol = 1
-         limjui = Iui + m
-         limjud = Iui + mpn
-         jui = Iui + 1
-         jud = Iud + 1
+         limjui = iui + m
+         limjud = iui + mpn
+         jui = iui + 1
+         jud = iud + 1
          EXIT
       ENDIF
    ENDDO
@@ -278,14 +287,14 @@ SUBROUTINE sma3a(Mcbcur)
 !
       lim = iq(jui) - icol
       DO i = 1 , lim
-         CALL bldpk(2,Iprec,mcb(1),0,0)
+         CALL bldpk(2,iprec,mcb(1),0,0)
          CALL bldpkn(mcb(1),0,mcb)
       ENDDO
    ENDIF
 !
 ! INITIALIZE FOR THE OUTPUT OF THE CURRENT COLUMN BY CALLING BLDPK
 !
-   CALL bldpk(2,Iprec,mcb(1),0,0)
+   CALL bldpk(2,iprec,mcb(1),0,0)
    DO i = 1 , mpn
       ippi = ip + i
       IF ( iq(ippi)>m ) THEN
@@ -297,22 +306,22 @@ SUBROUTINE sma3a(Mcbcur)
 !
          jrow = izrow
          jcol = iq(ippi) - m
-         k = (jrow-1)*n + jcol + Izis
+         k = (jrow-1)*n + jcol + izis
       ELSE
 !
 ! SINCE IQ(IPPI).LE.M,OUTPUT AN ELEMENT OF K OR Z INVERSE
 !
          jrow = izrow
          jcol = iq(ippi)
-         k = (jrow-1)*m + jcol + Izi
+         k = (jrow-1)*m + jcol + izi
       ENDIF
 !
 ! FILL ZBLPKI COMMON BLOCK
 !
       kk = iq(ippi)
-      Index = iq(kk)
-      Dpword = dq(k)
-      IF ( Dpword/=0.0D0 ) CALL zblpki
+      index = iq(kk)
+      dpword = dq(k)
+      IF ( dpword/=0.0D0 ) CALL zblpki
    ENDDO
 !
 ! THE CURRENT COLUMN IS COMPLETE.  CALL BLDPKN TO WRAP UP.
@@ -326,18 +335,18 @@ SUBROUTINE sma3a(Mcbcur)
 !
 ! DETERMINE IF ZERO COLUMNS ARE TO BE OUTPUT.
 !
-   k = Iui + m
-   l = Iud + n
+   k = iui + m
+   l = iud + n
    max = iq(k)
    IF ( iq(l)>max ) max = iq(l)
-   lim = max - Luset
+   lim = max - luset
    IF ( lim<0 ) THEN
 !
 ! OUTPUT LIM ZERO COLUMNS
 !
       lim = iabs(lim)
       DO i = 1 , lim
-         CALL bldpk(2,Iprec,mcb(1),0,0)
+         CALL bldpk(2,iprec,mcb(1),0,0)
          CALL bldpkn(mcb(1),0,mcb)
       ENDDO
    ELSEIF ( lim/=0 ) THEN
@@ -371,11 +380,11 @@ SUBROUTINE sma3a(Mcbcur)
 !
       lim = iq(jud) - icol
       DO i = 1 , lim
-         CALL bldpk(2,Iprec,mcb(1),0,0)
+         CALL bldpk(2,iprec,mcb(1),0,0)
          CALL bldpkn(mcb(1),0,mcb)
       ENDDO
    ENDIF
-   CALL bldpk(2,Iprec,mcb(1),0,0)
+   CALL bldpk(2,iprec,mcb(1),0,0)
 !
 ! OUTPUT A COLUMN WHOSE SIL NO. IS A MEMBER OF THE UD SET.
 !
@@ -389,7 +398,7 @@ SUBROUTINE sma3a(Mcbcur)
 !
          jrow = iq(ippi) - m
          jcol = izscol
-         k = (jrow-1)*n + jcol + Istzis
+         k = (jrow-1)*n + jcol + istzis
       ELSE
 !
 !                                           -1
@@ -397,15 +406,15 @@ SUBROUTINE sma3a(Mcbcur)
 !
          jrow = iq(ippi)
          jcol = izscol
-         k = (jrow-1)*n + jcol + Izis
+         k = (jrow-1)*n + jcol + izis
       ENDIF
 !
 ! SET UP PARAMETERS IN ZBLPKI COMMON BLOCK
 !
       kk = iq(ippi)
-      Index = iq(kk)
-      Dpword = dq(k)
-      IF ( Dpword/=0.0D0 ) CALL zblpki
+      index = iq(kk)
+      dpword = dq(k)
+      IF ( dpword/=0.0D0 ) CALL zblpki
    ENDDO
 !
 ! WRAP UP THIS COLUMN.

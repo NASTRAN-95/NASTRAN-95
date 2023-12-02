@@ -1,4 +1,5 @@
-!*==alg15.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alg15.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
@@ -18,11 +19,19 @@ SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
 !
    REAL , DIMENSION(21) :: a , b , d , m
    REAL :: dx , yprime
-   INTEGER :: i , ii , j , jp , kp , n
+   INTEGER :: i , ii , j , jp , kp , n , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -91,7 +100,6 @@ SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
          IF ( i<Nxy ) THEN
             i = i + 1
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             RETURN
          ENDIF
@@ -120,7 +128,6 @@ SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
          yprime = (Ydata(kp)-Ydata(jp))/(Xdata(kp)-Xdata(jp)) - m(kp)/6.0*(Xdata(kp)-Xdata(jp))
          Yout(i) = Ydata(jp) + (Xin(i)-Xdata(jp))*yprime
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          IF ( Xin(i)>=Xdata(j) ) THEN
             IF ( Xin(i)==Xdata(j) ) THEN
@@ -143,7 +150,6 @@ SUBROUTINE alg15(Xdata,Ydata,Ndata,Xin,Yout,Nxy,Ntype)
          j = j + 1
          IF ( j>=Ndata ) j = 1
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          IF ( i<Nxy ) THEN
             i = i + 1

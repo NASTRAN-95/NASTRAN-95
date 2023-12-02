@@ -1,4 +1,5 @@
-!*==combo.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==combo.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE combo(Cdata,Nx,Extra,Nnam,Name,Nn,Var,Ier)
@@ -18,16 +19,22 @@ SUBROUTINE combo(Cdata,Nx,Extra,Nnam,Name,Nn,Var,Ier)
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , SAVE :: eqsn , lprn , manu , nams , ncno , nnc , nno , nopt , nsort
-   INTEGER :: i , ic , ix , iy , j , jnam , k , kn , lword
+   INTEGER :: i , ic , ix , iy , j , jnam , k , kn , lword , spag_nextblock_1 , spag_nextblock_2
    INTEGER , DIMENSION(7) , SAVE :: inum , nai
    INTEGER , DIMENSION(3) , SAVE :: mopt , msort
    INTEGER , DIMENSION(7) :: numbs
-   EXTERNAL complf , rshift
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
-   INTEGER :: spag_nextblock_2
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     THIS ROUTINE  PROCESSES THE  COMBINE INPUT.
 !        THE  INPUT/ OUTPUTS  ARE
@@ -105,11 +112,9 @@ SUBROUTINE combo(Cdata,Nx,Extra,Nnam,Name,Nn,Var,Ier)
 !
          ENDDO
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          k = k + 2
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     CHECK FOR  EQ SIGN

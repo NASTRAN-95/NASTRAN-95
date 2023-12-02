@@ -1,7 +1,9 @@
-!*==gpwg1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gpwg1c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpwg1c(B,E,Eig,Iflag)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -17,6 +19,15 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) :: bmax , c , detb , epsil , r , s , t
    REAL(REAL64) , DIMENSION(3,3) :: bp , ep
    INTEGER :: i , ii , j , k
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

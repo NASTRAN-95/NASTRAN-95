@@ -1,4 +1,5 @@
-!*==xflszd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xflszd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xflszd(File,Iblock,Filnam)
@@ -9,12 +10,12 @@ SUBROUTINE xflszd(File,Iblock,Filnam)
 !     IF FILE GT 0 IT IS THE INDEX OF THE FILE ON THE DATA POOL FILE
 !     IF FILE = 0 THE NUMBER OF WORDS PER BLOCK IS RETURNED IN IBLOCK
 !
+   USE c_machin
+   USE c_system
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,12 +43,12 @@ SUBROUTINE xflszd(File,Iblock,Filnam)
 !     USED IN FIAT 7TH AND 8TH WORDS. THEREFORE, IBLOCK IS ALWAYS ZERO.
 !
 !
-      lim = 2*Lfist
+      lim = 2*lfist
       SPAG_Loop_1_1: DO i = 1 , lim , 2
-         IF ( Filnam==Ifist(i) ) THEN
-            IF ( Ifist(i+1)<=0 ) EXIT SPAG_Loop_1_1
-            indx = Ifist(i+1)
-            Iblock = rshift(Fiat(indx+7),16) + andf(mask,Fiat(indx+8)) + rshift(Fiat(indx+8),16)
+         IF ( Filnam==ifist(i) ) THEN
+            IF ( ifist(i+1)<=0 ) EXIT SPAG_Loop_1_1
+            indx = ifist(i+1)
+            Iblock = rshift(fiat(indx+7),16) + andf(mask,fiat(indx+8)) + rshift(fiat(indx+8),16)
 !            = BLOCK COUNT ON PRIMARY, SECONDARY AND TERTIARY FILES ??
 !
             RETURN
@@ -58,12 +59,12 @@ SUBROUTINE xflszd(File,Iblock,Filnam)
 !
 !     USER WANTS THE NUMBER OF WORDS PER BLOCK
 !
-      IF ( Mach==2 .OR. Mach>=5 ) Iblock = Kystem - 4
+      IF ( mach==2 .OR. mach>=5 ) Iblock = kystem - 4
    ELSE
 !
 !     FILE IS ON THE DATA POOL FILE
 !
       indx = File*3 + 3
-      Iblock = rshift(Pool(indx),16)
+      Iblock = rshift(pool(indx),16)
    ENDIF
 END SUBROUTINE xflszd

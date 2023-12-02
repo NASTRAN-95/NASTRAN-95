@@ -1,10 +1,11 @@
-!*==alg09.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alg09.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg09
+   USE c_ud300c
+   USE c_ud3prt
    IMPLICIT NONE
-   USE C_UD300C
-   USE C_UD3PRT
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,216 +22,216 @@ SUBROUTINE alg09
 !
 !
    wmax = 0.7
-   l1 = I + Nl1(I)
-   xn = Speed(I)*Spdfac(Icase)*Pi/(30.0*Sclfac)
-   IF ( Iprint/=0 ) THEN
-      l2 = abs(float(Neval(I)))
-      CALL alg03(Lnct,7+Nstrms)
-      Lnct = Lnct - 3
-      IF ( Neval(I)>0 .AND. Iprtc==1 ) WRITE (Log2,99001) l1 , I , l2
+   l1 = i + nl1(i)
+   xn = speed(i)*spdfac(icase)*pi/(30.0*sclfac)
+   IF ( iprint/=0 ) THEN
+      l2 = abs(float(neval(i)))
+      CALL alg03(lnct,7+nstrms)
+      lnct = lnct - 3
+      IF ( neval(i)>0 .AND. iprtc==1 ) WRITE (log2,99001) l1 , i , l2
 99001 FORMAT (2X,/,8X,57HLOSS COEFFICIENT DETERMINATION FOR BLADE BETWEEN STATIONS,I3,4H AND,I3,                                    &
              &47H - AS INCORPORATED IN ABOVE RESULTS  BLADE TYPE,I2,/,8X,116(1H*),/,2X)
-      IF ( Neval(I)<0 .AND. Iprtc==1 ) WRITE (Log2,99002) l1 , I , l2
+      IF ( neval(i)<0 .AND. iprtc==1 ) WRITE (log2,99002) l1 , i , l2
 99002 FORMAT (2X,/,8X,57HLOSS COEFFICIENT DETERMINATION FOR BLADE BETWEEN STATIONS,I3,4H AND,I3,                                    &
              &47H - FOR PURPOSES OF COMPARISON ONLY   BLADE TYPE,I2,/,8X,116(1H*),/,2X)
    ENDIF
-   l2 = Ndimen(I) + 1
+   l2 = ndimen(i) + 1
    IF ( l2==2 ) THEN
-      DO j = 1 , Nstrms
-         xx2(j) = R(j,l1)/R(Nstrms,l1)
-         xx6(j) = R(j,I)/R(Nstrms,I)
+      DO j = 1 , nstrms
+         xx2(j) = r(j,l1)/r(nstrms,l1)
+         xx6(j) = r(j,i)/r(nstrms,i)
       ENDDO
    ELSEIF ( l2==3 ) THEN
-      DO j = 1 , Nstrms
-         xx2(j) = Xl(j,l1)
-         xx6(j) = Xl(j,I)
+      DO j = 1 , nstrms
+         xx2(j) = xl(j,l1)
+         xx6(j) = xl(j,i)
       ENDDO
    ELSEIF ( l2==4 ) THEN
-      DO j = 1 , Nstrms
-         xx2(j) = Xl(j,l1)/Xl(Nstrms,l1)
-         xx6(j) = Xl(j,I)/Xl(Nstrms,I)
+      DO j = 1 , nstrms
+         xx2(j) = xl(j,l1)/xl(nstrms,l1)
+         xx6(j) = xl(j,i)/xl(nstrms,i)
       ENDDO
    ELSE
-      DO j = 1 , Nstrms
-         xx2(j) = R(j,l1)
-         xx6(j) = R(j,I)
+      DO j = 1 , nstrms
+         xx2(j) = r(j,l1)
+         xx6(j) = r(j,i)
       ENDDO
    ENDIF
-   l2 = Is2(I)
-   CALL alg01(Datac(l2),Data5(l2),Ndata(I),xx6,sol,x1,Nstrms,Nterp(I),0)
+   l2 = is2(i)
+   CALL alg01(datac(l2),data5(l2),ndata(i),xx6,sol,x1,nstrms,nterp(i),0)
    q = 1.0
-   IF ( Speed(I)>=0.0 ) THEN
-      IF ( Speed(I)>0.0 ) THEN
+   IF ( speed(i)>=0.0 ) THEN
+      IF ( speed(i)>0.0 ) THEN
          q = -1.0
-      ELSEIF ( I>=3 ) THEN
-         ii = I - 1
-         DO WHILE ( Speed(ii)==0.0 )
+      ELSEIF ( i>=3 ) THEN
+         ii = i - 1
+         DO WHILE ( speed(ii)==0.0 )
             IF ( ii==2 ) THEN
                CALL spag_block_1
                RETURN
             ENDIF
             ii = ii - 1
          ENDDO
-         IF ( Speed(ii)<0.0 ) q = -1.0
+         IF ( speed(ii)<0.0 ) q = -1.0
       ENDIF
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      DO j = 1 , Nstrms
-         talph1(j) = (Vw(j,l1)-xn*R(j,l1))/Vm(j,l1)
-         dif(j) = 1.0 - Vm(j,I)/Vm(j,l1)*sqrt((1.0+Tbeta(j,I)**2)/(1.0+talph1(j)**2)) + (Vm(j,l1)*talph1(j)-Vm(j,I)*Tbeta(j,I))     &
-                & /(2.0*sol(j)*Vm(j,l1)*sqrt(1.0+talph1(j)**2))*q
+      DO J = 1 , Nstrms
+         Talph1(J) = (vw(J,L1)-Xn*r(J,L1))/vm(J,L1)
+         Dif(J) = 1.0 - vm(J,I)/vm(J,L1)*sqrt((1.0+tbeta(J,I)**2)/(1.0+Talph1(J)**2)) + (vm(J,L1)*Talph1(J)-vm(J,I)*tbeta(J,I))     &
+                & /(2.0*Sol(J)*vm(J,L1)*sqrt(1.0+Talph1(J)**2))*Q
       ENDDO
-      l2 = abs(float(Neval(I)))
-      l3 = Ndiff(l2)
-      CALL alg01(Diff(1,l2),Fdhub(1,l2),l3,dif,xx3,x1,Nstrms,0,0)
-      CALL alg01(Diff(1,l2),Fdmid(1,l2),l3,dif,xx4,x1,Nstrms,0,0)
-      CALL alg01(Diff(1,l2),Fdtip(1,l2),l3,dif,xx5,x1,Nstrms,0,0)
-      xx1(1) = 0.1
-      xx1(2) = 0.5
-      xx1(3) = 0.9
-      DO j = 1 , Nstrms
-         xx1(4) = xx3(j)
-         xx1(5) = xx4(j)
-         xx1(6) = xx5(j)
-         x1 = (R(j,I)-R(1,I))/(R(Nstrms,I)-R(1,I))
-         CALL alg01(xx1,xx1(4),3,x1,wpara(j),x1,1,0,0)
+      L2 = abs(float(neval(I)))
+      L3 = ndiff(L2)
+      CALL alg01(diff(1,L2),fdhub(1,L2),L3,Dif,Xx3,X1,Nstrms,0,0)
+      CALL alg01(diff(1,L2),fdmid(1,L2),L3,Dif,Xx4,X1,Nstrms,0,0)
+      CALL alg01(diff(1,L2),fdtip(1,L2),L3,Dif,Xx5,X1,Nstrms,0,0)
+      Xx1(1) = 0.1
+      Xx1(2) = 0.5
+      Xx1(3) = 0.9
+      DO J = 1 , Nstrms
+         Xx1(4) = Xx3(J)
+         Xx1(5) = Xx4(J)
+         Xx1(6) = Xx5(J)
+         X1 = (r(J,I)-r(1,I))/(r(Nstrms,I)-r(1,I))
+         CALL alg01(Xx1,Xx1(4),3,X1,Wpara(J),X1,1,0,0)
       ENDDO
-      DO j = 1 , Nstrms
-         xmr(j) = 0.0
-         highm(j) = 0.0
-         ang(j) = 0.0
-         ws(j) = 0.0
-         xinc(j) = 0.0
-         beta1(j) = 0.0
-         wd(j) = wpara(j)*2.0*sol(j)*sqrt(1.0+Tbeta(j,I)**2)
-         wt(j) = wd(j)
+      DO J = 1 , Nstrms
+         Xmr(J) = 0.0
+         Highm(J) = 0.0
+         Ang(J) = 0.0
+         Ws(J) = 0.0
+         Xinc(J) = 0.0
+         Beta1(J) = 0.0
+         Wd(J) = Wpara(J)*2.0*Sol(J)*sqrt(1.0+tbeta(J,I)**2)
+         Wt(J) = Wd(J)
       ENDDO
-      IF ( Ndel(I)/=0 ) THEN
-         l2 = Is3(I)
-         CALL alg01(Delc(l2),Delta(l2),Ndel(I),xx2,pm1,x1,Nstrms,1,0)
-         IF ( Ndata(l1)/=0 ) THEN
-            CALL alg01(R(1,l1),X(1,l1),Nstrms,R(1,l1),x1,xx1,Nstrms,0,1)
-            l2 = Ndimen(l1) + 1
-            IF ( l2==2 ) THEN
-               DO j = 1 , Nstrms
-                  xx2(j) = R(j,l1)/R(j,Nstrms)
+      IF ( ndel(I)/=0 ) THEN
+         L2 = is3(I)
+         CALL alg01(delc(L2),delta(L2),ndel(I),Xx2,Pm1,X1,Nstrms,1,0)
+         IF ( ndata(L1)/=0 ) THEN
+            CALL alg01(r(1,L1),x(1,L1),Nstrms,r(1,L1),X1,Xx1,Nstrms,0,1)
+            L2 = ndimen(L1) + 1
+            IF ( L2==2 ) THEN
+               DO J = 1 , Nstrms
+                  Xx2(J) = r(J,L1)/r(J,Nstrms)
                ENDDO
-            ELSEIF ( l2==3 ) THEN
-               DO j = 1 , Nstrms
-                  xx2(j) = Xl(j,l1)
+            ELSEIF ( L2==3 ) THEN
+               DO J = 1 , Nstrms
+                  Xx2(J) = xl(J,L1)
                ENDDO
-            ELSEIF ( l2==4 ) THEN
-               DO j = 1 , Nstrms
-                  xx2(j) = Xl(j,l1)/Xl(Nstrms,l1)
+            ELSEIF ( L2==4 ) THEN
+               DO J = 1 , Nstrms
+                  Xx2(J) = xl(J,L1)/xl(Nstrms,L1)
                ENDDO
             ELSE
-               DO j = 1 , Nstrms
-                  xx2(j) = R(j,l1)
+               DO J = 1 , Nstrms
+                  Xx2(J) = r(J,L1)
                ENDDO
             ENDIF
-            l2 = Is2(l1)
-            l3 = Ndata(l1)
-            CALL alg01(Datac(l2),Data1(l2),l3,xx2,xx3,x1,Nstrms,Nterp(l1),0)
-            CALL alg01(Datac(l2),Data3(l2),l3,xx2,xx4,x1,Nstrms,Nterp(l1),0)
-            DO j = 1 , Nstrms
-               x1 = (atan((R(j,l1+1)-R(j,l1))/(X(j,l1+1)-X(j,l1)))+atan((R(j,l1)-R(j,l1-1))/(X(j,l1)-X(j,l1-1))))/2.0
-               beta1(j) = atan((tan(xx3(j)/C1)*(1.0-xx1(j)*tan(x1))-tan(x1)*tan(xx4(j)/C1)*sqrt(1.0+xx1(j)**2))*cos(x1))
-               xinc(j) = (atan(talph1(j))-beta1(j))*q
+            L2 = is2(L1)
+            L3 = ndata(L1)
+            CALL alg01(datac(L2),data1(L2),L3,Xx2,Xx3,X1,Nstrms,nterp(L1),0)
+            CALL alg01(datac(L2),data3(L2),L3,Xx2,Xx4,X1,Nstrms,nterp(L1),0)
+            DO J = 1 , Nstrms
+               X1 = (atan((r(J,L1+1)-r(J,L1))/(x(J,L1+1)-x(J,L1)))+atan((r(J,L1)-r(J,L1-1))/(x(J,L1)-x(J,L1-1))))/2.0
+               Beta1(J) = atan((tan(Xx3(J)/c1)*(1.0-Xx1(J)*tan(X1))-tan(X1)*tan(Xx4(J)/c1)*sqrt(1.0+Xx1(J)**2))*cos(X1))
+               Xinc(J) = (atan(Talph1(J))-Beta1(J))*Q
             ENDDO
          ENDIF
-         DO j = 1 , Nstrms
-            ang(j) = xinc(j) + pm1(j)/C1
-            x1 = H(j,l1) - (Vm(j,l1)**2+Vw(j,l1)**2)/(2.0*G*Ej)
-            IF ( x1<Hmin ) x1 = Hmin
-            x4 = alg8(x1,S(j,l1))
-            x2 = (x4+1.0)/(x4-1.0)
-            x3 = sqrt(x2)
-            x5 = alg9(x1,S(j,l1),Vm(j,l1)**2*(1.0+talph1(j)**2))
-            xmr(j) = sqrt(x5)
-            x6 = x5
-            IF ( x6<1.0 ) x6 = 1.0
-            x7 = x3*atan(sqrt(x6-1.0)/x3) - atan(sqrt(x6-1.0)) + ang(j)
-            x10 = 0.0
-            IF ( x7>0.0 ) THEN
-               x8 = 0.4*Pi*(x3-1.0)
-               IF ( x7>x8 ) THEN
-                  x10 = sqrt(x6-1.0)
+         DO J = 1 , Nstrms
+            Ang(J) = Xinc(J) + Pm1(J)/c1
+            X1 = h(J,L1) - (vm(J,L1)**2+vw(J,L1)**2)/(2.0*g*ej)
+            IF ( X1<hmin ) X1 = hmin
+            X4 = alg8(X1,s(J,L1))
+            X2 = (X4+1.0)/(X4-1.0)
+            X3 = sqrt(X2)
+            X5 = alg9(X1,s(J,L1),vm(J,L1)**2*(1.0+Talph1(J)**2))
+            Xmr(J) = sqrt(X5)
+            X6 = X5
+            IF ( X6<1.0 ) X6 = 1.0
+            X7 = X3*atan(sqrt(X6-1.0)/X3) - atan(sqrt(X6-1.0)) + Ang(J)
+            X10 = 0.0
+            IF ( X7>0.0 ) THEN
+               X8 = 0.4*Pi*(X3-1.0)
+               IF ( X7>X8 ) THEN
+                  X10 = sqrt(X6-1.0)
                ELSE
-                  x9 = 1.0
-                  k = 1
+                  X9 = 1.0
+                  K = 1
                   SPAG_Loop_2_1: DO
-                     x10 = x9 - (x2+x9*x9)*(1.0+x9*x9)/(x9*x9*(x2-1.0))*(x3*atan(x9/x3)-atan(x9)-x7)
-                     IF ( abs(x10-x9)<=0.00001 ) EXIT SPAG_Loop_2_1
-                     IF ( k>20 ) THEN
+                     X10 = X9 - (X2+X9*X9)*(1.0+X9*X9)/(X9*X9*(X2-1.0))*(X3*atan(X9/X3)-atan(X9)-X7)
+                     IF ( abs(X10-X9)<=0.00001 ) EXIT SPAG_Loop_2_1
+                     IF ( K>20 ) THEN
                         IF ( Iprint/=0 ) THEN
                            CALL alg03(Lnct,1)
-                           WRITE (Log2,99003) Ipass , I , j
-99003                      FORMAT (5X,4HPASS,I3,9H  STATION,I3,12H  STREAMLINE,I3,                                                  &
+                           WRITE (Log2,99001) ipass , I , J
+99001                      FORMAT (5X,4HPASS,I3,9H  STATION,I3,12H  STREAMLINE,I3,                                                  &
                                   &58H  PRANDTL-MEYER FUNCTION NOT CONVERGED - USE INLET MACH NO)
                         ENDIF
-                        x10 = sqrt(x6-1.0)
+                        X10 = sqrt(X6-1.0)
                         EXIT SPAG_Loop_2_1
                      ELSE
-                        k = k + 1
-                        x9 = x10
+                        K = K + 1
+                        X9 = X10
                      ENDIF
                   ENDDO SPAG_Loop_2_1
                ENDIF
             ENDIF
-            highm(j) = sqrt(1.0+x10*x10)
-            x1 = (highm(j)+sqrt(x6))/2.0
-            IF ( x5<1.0 ) x1 = x1*sqrt(x5)
-            IF ( x1>1.0 ) THEN
-               x1 = x1*x1
-               ws(j) = (((x4+1.0)*x1/((x4-1.0)*x1+2.0))**(x4/(x4-1.0))*((x4+1.0)/(2.0*x4*x1-x4+1.0))**(1.0/(x4-1.0))-1.0)           &
-                     & /((1.0+(x4-1.0)/2.0*x5)**(x4/(1.0-x4))-1.0)
+            Highm(J) = sqrt(1.0+X10*X10)
+            X1 = (Highm(J)+sqrt(X6))/2.0
+            IF ( X5<1.0 ) X1 = X1*sqrt(X5)
+            IF ( X1>1.0 ) THEN
+               X1 = X1*X1
+               Ws(J) = (((X4+1.0)*X1/((X4-1.0)*X1+2.0))**(X4/(X4-1.0))*((X4+1.0)/(2.0*X4*X1-X4+1.0))**(1.0/(X4-1.0))-1.0)           &
+                     & /((1.0+(X4-1.0)/2.0*X5)**(X4/(1.0-X4))-1.0)
             ENDIF
-            wt(j) = wd(j) + ws(j)
+            Wt(J) = Wd(J) + Ws(J)
          ENDDO
       ENDIF
       IF ( Iprint==1 ) THEN
-         IF ( Lnct+3>Npage ) THEN
-            IF ( Iprtc/=0 ) WRITE (Log2,99004)
-99004       FORMAT (1H1)
+         IF ( Lnct+3>npage ) THEN
+            IF ( Iprtc/=0 ) WRITE (Log2,99002)
+99002       FORMAT (1H1)
             Lnct = 4 + Nstrms
          ENDIF
-         IF ( Iprtc==1 ) WRITE (Log2,99005)
-99005    FORMAT (5X,                                                                                                                &
+         IF ( Iprtc==1 ) WRITE (Log2,99003)
+99003    FORMAT (5X,                                                                                                                &
          &'STREAM  INLET   OUTLET  CASCADE   DIFF       LOSS   DIFFUSION  BLADE  INCIDENCE  EXPANSION INLET  EXPANDED SHOCK   TOTAL'&
         & ,/,5X,                                                                                                                    &
          &'-LINE   RADIUS  RADIUS  SOLIDITY  FACTOR  PARAMETER   LOSS     ANGLE    ANGLE      ANGLE    M.NO  MACH NO   LOSS   LOSS '&
         & ,/,2X)
          Lnct = Lnct + 3
-         DO j = 1 , Nstrms
-            x1 = beta1(j)*C1*q
-            x2 = xinc(j)*C1
-            x3 = ang(j)*C1
-            IF ( Iprtc==1 ) WRITE (Log2,99006) j , R(j,l1) , R(j,I) , sol(j) , dif(j) , wpara(j) , wd(j) , x1 , x2 , x3 , xmr(j) ,  &
-                                 & highm(j) , ws(j) , wt(j)
-99006       FORMAT (I9,F10.3,F8.3,2F9.4,F10.5,F9.5,2F9.3,F10.3,F10.4,F8.4,F8.5,F9.5)
+         DO J = 1 , Nstrms
+            X1 = Beta1(J)*c1*Q
+            X2 = Xinc(J)*c1
+            X3 = Ang(J)*c1
+            IF ( Iprtc==1 ) WRITE (Log2,99004) J , r(J,L1) , r(J,I) , Sol(J) , Dif(J) , Wpara(J) , Wd(J) , X1 , X2 , X3 , Xmr(J) ,  &
+                                 & Highm(J) , Ws(J) , Wt(J)
+99004       FORMAT (I9,F10.3,F8.3,2F9.4,F10.5,F9.5,2F9.3,F10.3,F10.4,F8.4,F8.5,F9.5)
          ENDDO
       ELSE
-         l2 = Is2(I)
-         l3 = Nterp(I)
-         l4 = Ndata(I)
-         IF ( Nwork(I)>=5 ) CALL alg01(Datac(l2),Data6(l2),l4,xx6,xx5,x1,Nstrms,l3,0)
-         CALL alg01(Datac(l2),Data1(l2),l4,xx6,xx1,x1,Nstrms,l3,0)
-         CALL alg01(Datac(l2),Data4(l2),l4,xx6,xx4,x1,Nstrms,l3,0)
-         CALL alg01(Datac(l2),Data3(l2),l4,xx6,xx3,x1,Nstrms,l3,0)
-         Ndata(I) = Nstrms
-         l2 = l2 - 1
-         DO j = 1 , Nstrms
-            k = l2 + j
-            Datac(k) = xx6(j)
-            IF ( Nwork(I)>=5 ) Data6(k) = xx5(j)
-            Data1(k) = xx1(j)
-            IF ( wt(j)>wmax ) wt(j) = wmax
-            Data2(k) = wt(j)
-            Data3(k) = xx3(j)
-            Data4(k) = xx4(j)
-            Data5(k) = sol(j)
+         L2 = is2(I)
+         L3 = nterp(I)
+         L4 = ndata(I)
+         IF ( nwork(I)>=5 ) CALL alg01(datac(L2),data6(L2),L4,Xx6,Xx5,X1,Nstrms,L3,0)
+         CALL alg01(datac(L2),data1(L2),L4,Xx6,Xx1,X1,Nstrms,L3,0)
+         CALL alg01(datac(L2),data4(L2),L4,Xx6,Xx4,X1,Nstrms,L3,0)
+         CALL alg01(datac(L2),data3(L2),L4,Xx6,Xx3,X1,Nstrms,L3,0)
+         ndata(I) = Nstrms
+         L2 = L2 - 1
+         DO J = 1 , Nstrms
+            K = L2 + J
+            datac(K) = Xx6(J)
+            IF ( nwork(I)>=5 ) data6(K) = Xx5(J)
+            data1(K) = Xx1(J)
+            IF ( Wt(J)>Wmax ) Wt(J) = Wmax
+            data2(K) = Wt(J)
+            data3(K) = Xx3(J)
+            data4(K) = Xx4(J)
+            data5(K) = Sol(J)
          ENDDO
       ENDIF
    END SUBROUTINE spag_block_1

@@ -1,16 +1,17 @@
-!*==sdrht.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdrht.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdrht
+   USE c_blank
+   USE c_condas
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -62,7 +63,7 @@ SUBROUTINE sdrht
 !
 !     SET UP CORE AND BUFFERS
 !
-         buf1 = korsz(Z) - sysbuf - 2
+         buf1 = korsz(z) - sysbuf - 2
          buf2 = buf1 - sysbuf - 2
          buf3 = buf2 - sysbuf - 2
          core = buf3 - 1
@@ -71,12 +72,12 @@ SUBROUTINE sdrht
          pass = 0
          havids = .FALSE.
          cardin = .FALSE.
-         mch521 = Mach==5 .OR. Mach==21
+         mch521 = mach==5 .OR. mach==21
 !
 !     OPEN INPUT FORCES -OEF1- AND OUTPUT FORCES -OEF1X-.
 !
-         CALL open(*280,oef1,Z(buf1),Rdrew)
-         CALL open(*300,oef1x,Z(buf2),Wrtrew)
+         CALL open(*280,oef1,z(buf1),rdrew)
+         CALL open(*300,oef1x,z(buf2),wrtrew)
          CALL fname(oef1x,name)
          CALL write(oef1x,name,2,eor)
          CALL fwdrec(*320,oef1)
@@ -89,35 +90,35 @@ SUBROUTINE sdrht
          lcore = core - idrec
          IF ( lcore<300 ) CALL mesage(-8,0,subr)
          file = oef1
-         CALL read(*260,*20,oef1,Z(idrec),lcore,noeor,iflag)
-         WRITE (outpt,99001) Swm
+         CALL read(*260,*20,oef1,z(idrec),lcore,noeor,iflag)
+         WRITE (outpt,99001) swm
 99001    FORMAT (A27,' 3063, INPUT FORCES DATA BLOCK HAS INCORRECT DATA.')
          GOTO 320
 !
 !     MODIFY ID-RECORD IF THIS IS FOR HBDY ELEMENTS.
 !
- 20      IF ( Z(idrec+2)/=hbdytp ) THEN
+ 20      IF ( z(idrec+2)/=hbdytp ) THEN
             lhbdy = .FALSE.
          ELSE
             lhbdy = .TRUE.
 !
 !     SET CONSTANTS FROM OEF1 ID RECORD.
 !
-            IF ( Z(idrec)/10==6 ) THEN
-               loadid = Z(idrec+7)
+            IF ( z(idrec)/10==6 ) THEN
+               loadid = z(idrec+7)
                time = rz(idrec+4)
                transt = .TRUE.
             ELSE
-               loadid = Z(idrec+7)
+               loadid = z(idrec+7)
                transt = .FALSE.
             ENDIF
-            lwords = Z(idrec+9)
-            Z(idrec+9) = 5
+            lwords = z(idrec+9)
+            z(idrec+9) = 5
          ENDIF
 !/////
 !     CALL BUG (4HTRAN ,90,TRANST,1)
 !/////
-         CALL write(oef1x,Z(idrec),iflag,eor)
+         CALL write(oef1x,z(idrec),iflag,eor)
          IF ( lhbdy ) THEN
 !
 !     HBDY ELEMENT DATA ENCOUNTERED.
@@ -153,13 +154,13 @@ SUBROUTINE sdrht
 !             FLUX-Z   (TOTAL OF 9 WORDS)
 !
                CALL read(*360,*60,oef1,buf,lwords,noeor,iflag)
-               IF ( pass<=1 ) Z(jeltab+1) = buf(1)/10
+               IF ( pass<=1 ) z(jeltab+1) = buf(1)/10
 !
 !     STORE (FLUX-X) AND (OUTPUT ID*10 + DEVICE CODE).
 !
-               Z(jeltab+3) = buf(7)
+               z(jeltab+3) = buf(7)
                rz(jeltab+2) = 0.0
-               Z(jeltab+14) = buf(1)
+               z(jeltab+14) = buf(1)
                jeltab = jeltab + lentry
                IF ( jeltab>core ) CALL mesage(-8,0,subr)
             ENDDO
@@ -169,11 +170,11 @@ SUBROUTINE sdrht
 !
 !     NOT AN HBDY ELEMENT TYPE THUS COPY DATA ACROSS.
 !
-               CALL read(*360,*40,oef1,Z(idrec),lcore,noeor,iflag)
-               CALL write(oef1x,Z(idrec),lcore,noeor)
+               CALL read(*360,*40,oef1,z(idrec),lcore,noeor,iflag)
+               CALL write(oef1x,z(idrec),lcore,noeor)
             ENDDO
          ENDIF
- 40      CALL write(oef1x,Z(idrec),iflag,eor)
+ 40      CALL write(oef1x,z(idrec),iflag,eor)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -185,13 +186,13 @@ SUBROUTINE sdrht
 !
 !     OPEN UG FILE FOR INPUT OF UG VECTORS.
 !
-            CALL open(*320,ug,Z(buf3),Rdrew)
+            CALL open(*320,ug,z(buf3),rdrew)
             CALL fwdrec(*320,ug)
             mcbugv(1) = ug
             CALL rdtrl(mcbugv)
             gsize = mcbugv(3)
          ELSEIF ( jeltab/=neltab ) THEN
-            WRITE (outpt,99002) Swm , jeltab , neltab
+            WRITE (outpt,99002) swm , jeltab , neltab
 99002       FORMAT (A27,' 3064, INCONSISTANT HBDY DATA RECORDS.  ',2I20)
             GOTO 320
          ENDIF
@@ -199,8 +200,8 @@ SUBROUTINE sdrht
 !     ALL DATA FROM OEF1 IS AT HAND NOW.
 !     FILES ARE CLOSED WITHOUT REWIND.
 !
-         CALL close(oef1,Cls)
-         CALL close(oef1x,Cls)
+         CALL close(oef1,cls)
+         CALL close(oef1x,cls)
 !
 !     ALLOCATE UG VECTOR SPACE ON FIRST PASS.
 !
@@ -214,15 +215,15 @@ SUBROUTINE sdrht
 !     BRING NEXT DISPLACEMENT VECTOR INTO CORE.
 !
          DO i = iug , nug
-            rz(i) = Tabs
+            rz(i) = tabs
          ENDDO
 !
          CALL intpk(*80,ug,0,1,0)
          SPAG_Loop_1_1: DO
             CALL zntpki
-            kk = iugz + Irow
-            rz(kk) = rz(kk) + Ai(1)
-            IF ( Eol>0 ) EXIT SPAG_Loop_1_1
+            kk = iugz + irow
+            rz(kk) = rz(kk) + ai(1)
+            IF ( eol>0 ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
 !
 !     RAISE VECTOR RESULT TO 4TH POWER
@@ -249,14 +250,14 @@ SUBROUTINE sdrht
 !                    EL-SUBSET      G,EL-SUBSET   G
 !
  100     file = qge
-         CALL open(*120,qge,Z(buf1),Rdrew)
+         CALL open(*120,qge,z(buf1),rdrew)
          IF ( pass==1 ) THEN
             CALL read(*360,*380,qge,buf,-2,noeor,iflag)
 !
 !     ON FIRST PASS PICK UP ELEMENT ID LIST.
 !
             iqgid = nug + 1
-            CALL read(*360,*140,qge,Z(iqgid),core-iqgid,noeor,iflag)
+            CALL read(*360,*140,qge,z(iqgid),core-iqgid,noeor,iflag)
             CALL mesage(-7,0,subr)
             GOTO 140
          ELSE
@@ -286,31 +287,31 @@ SUBROUTINE sdrht
 !
 !     FIND OUT IF ID OF THIS VECTOR IS IN ELEMENT TABLE.
 !
-            kid = Z(i)
-            CALL bisloc(*150,kid,Z(ieltab),lentry,number,jpoint)
+            kid = z(i)
+            CALL bisloc(*150,kid,z(ieltab),lentry,number,jpoint)
             jword = ieltab + jpoint
-            Z(jword) = 0
+            z(jword) = 0
             DO
 !
 !     FORM DOT PRODUCT
 !
                CALL zntpki
-               k = iugz + Irow
-               rz(jword) = rz(jword) - Ai(1)*rz(k)
-               IF ( Eol>0 ) CYCLE SPAG_Loop_1_2
+               k = iugz + irow
+               rz(jword) = rz(jword) - ai(1)*rz(k)
+               IF ( eol>0 ) CYCLE SPAG_Loop_1_2
             ENDDO
  150        SPAG_Loop_2_3: DO
 !
 !     ID OF THIS COLUMN NOT IN ELEMENT TABLE
 !
                CALL zntpki
-               IF ( Eol>0 ) EXIT SPAG_Loop_2_3
+               IF ( eol>0 ) EXIT SPAG_Loop_2_3
             ENDDO SPAG_Loop_2_3
  160     ENDDO SPAG_Loop_1_2
 !/////
 !     CALL BUG (4HELTB ,440,Z(IELTAB),NELTAB-IELTAB+1)
 !/////
-         CALL close(qge,Clsrew)
+         CALL close(qge,clsrew)
          spag_nextblock_1 = 4
       CASE (4)
 !
@@ -321,7 +322,7 @@ SUBROUTINE sdrht
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file = est
-         CALL gopen(est,Z(buf1),Rdrew)
+         CALL gopen(est,z(buf1),rdrew)
          next = ieltab
          SPAG_Loop_1_4: DO
 !
@@ -338,8 +339,8 @@ SUBROUTINE sdrht
 !
 !     CHECK TO SEE IF THIS ELEMENT IS IN OUTPUT SET.
 !
-                  IF ( Z(next)<ecpt(1) ) EXIT SPAG_Loop_1_4
-                  IF ( Z(next)==ecpt(1) ) THEN
+                  IF ( z(next)<ecpt(1) ) EXIT SPAG_Loop_1_4
+                  IF ( z(next)==ecpt(1) ) THEN
 !
 !     THIS ELEMENT IS IN TABLE.
 !
@@ -347,18 +348,18 @@ SUBROUTINE sdrht
 !
 !     PLANT HBDY OUTPUTS INTO TABLE.
 !
-                     Z(next+4) = ecpt(2)
-                     Z(next+5) = buf(2)
-                     Z(next+6) = ecpt(17)
-                     Z(next+7) = buf(11)
-                     Z(next+8) = buf(12)
-                     Z(next+9) = buf(13)
-                     Z(next+10) = buf(14)
-                     Z(next+11) = buf(15)
-                     Z(next+12) = buf(16)
+                     z(next+4) = ecpt(2)
+                     z(next+5) = buf(2)
+                     z(next+6) = ecpt(17)
+                     z(next+7) = buf(11)
+                     z(next+8) = buf(12)
+                     z(next+9) = buf(13)
+                     z(next+10) = buf(14)
+                     z(next+11) = buf(15)
+                     z(next+12) = buf(16)
                      next = next + lentry
                      IF ( next>=neltab ) THEN
-                        CALL close(est,Clsrew)
+                        CALL close(est,clsrew)
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -368,7 +369,7 @@ SUBROUTINE sdrht
                CALL fwdrec(*360,est)
             ENDIF
          ENDDO SPAG_Loop_1_4
- 180     WRITE (outpt,99003) Swm , Z(next)
+ 180     WRITE (outpt,99003) swm , z(next)
 99003    FORMAT (A27,' 3065, THERE IS NO EST DATA FOR HBDY ELEMENT ID =',I10)
          GOTO 320
       CASE (5)
@@ -384,7 +385,7 @@ SUBROUTINE sdrht
 !
 !
          file = slt
-         CALL open(*340,slt,Z(buf1),Rdrew)
+         CALL open(*340,slt,z(buf1),rdrew)
          IF ( havids ) CALL fwdrec(*360,slt)
          IF ( havids ) THEN
             spag_nextblock_1 = 6
@@ -402,12 +403,12 @@ SUBROUTINE sdrht
          CALL read(*360,*380,slt,buf,-2,noeor,iflag)
          DO
             IF ( nldid+5>core ) CALL mesage(-8,0,subr)
-            CALL read(*360,*200,slt,Z(nldid+1),1,noeor,iflag)
+            CALL read(*360,*200,slt,z(nldid+1),1,noeor,iflag)
             nsets = nsets + 1
-            Z(nldid+2) = 1
-            Z(nldid+3) = Z(nldid+1)
+            z(nldid+2) = 1
+            z(nldid+3) = z(nldid+1)
             rz(nldid+4) = 1.0
-            Z(nldid+5) = nsets
+            z(nldid+5) = nsets
             nldid = nldid + 5
          ENDDO
 !
@@ -422,7 +423,7 @@ SUBROUTINE sdrht
             CYCLE SPAG_DispatchLoop_1
          ELSE
             file = dlt
-            CALL open(*340,dlt,Z(buf2),Rdrew)
+            CALL open(*340,dlt,z(buf2),rdrew)
             CALL read(*360,*380,dlt,buf,3,noeor,iflag)
             m = buf(3)
             found = .FALSE.
@@ -436,7 +437,7 @@ SUBROUTINE sdrht
 !     NOW READ RLOAD1, RLOAD2, TLOAD1, AND TLOAD2 IDS.
 !
             irtids = nldid + 1
-            CALL read(*360,*220,dlt,Z(irtids),core-irtids,noeor,iflag)
+            CALL read(*360,*220,dlt,z(irtids),core-irtids,noeor,iflag)
             CALL mesage(-7,0,subr)
             GOTO 320
          ENDIF
@@ -449,19 +450,19 @@ SUBROUTINE sdrht
          jj2 = nldid
          ildid = nrtids + 1
          nldid = nrtids + 2
-         Z(ildid) = loadid
-         Z(ildid+1) = 0
+         z(ildid) = loadid
+         z(ildid+1) = 0
          IF ( .NOT.found ) THEN
 !
 !     LOADID NOT AMONG DLOADS FOR THIS TRANSIENT PROBLEM
 !
-            Z(ildid+1) = 1
+            z(ildid+1) = 1
             IF ( nldid+13<=core ) THEN
-               Z(nldid+1) = Z(ildid)
+               z(nldid+1) = z(ildid)
                rz(nldid+2) = 0.0
-               Z(nldid+3) = 0
+               z(nldid+3) = 0
                rz(nldid+4) = 1.0
-               Z(nldid+5) = 0
+               z(nldid+5) = 0
                nldid = nldid + 11
             ELSE
                CALL mesage(8,0,subr)
@@ -481,12 +482,12 @@ SUBROUTINE sdrht
                   DO WHILE ( nldid+11<=core )
                      CALL read(*360,*380,dlt,buf,2,noeor,iflag)
                      IF ( buf(2)<=0 ) EXIT SPAG_Loop_1_5
-                     Z(ildid+1) = Z(ildid+1) + 1
-                     Z(nldid+1) = buf(2)
+                     z(ildid+1) = z(ildid+1) + 1
+                     z(nldid+1) = buf(2)
                      rz(nldid+2) = 0.0
-                     Z(nldid+3) = 0
+                     z(nldid+3) = 0
                      rz(nldid+4) = rbuf(1)*factor
-                     Z(nldid+5) = 0
+                     z(nldid+5) = 0
                      nldid = nldid + 11
                   ENDDO
                   CALL mesage(8,0,subr)
@@ -526,30 +527,29 @@ SUBROUTINE sdrht
 !     CHECK AND SEE IF THIS TLOAD ID IS AMONG THE SUB-IDS
 !
                      DO j = k1 , k2 , 11
-                        IF ( Z(j)==Z(i) ) THEN
+                        IF ( z(j)==z(i) ) THEN
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
                      ENDDO
                   ENDIF
                   CALL fwdrec(*360,dlt)
-                  CYCLE
                CASE (2)
 !
 !     YES THIS RECORD IS NEEDED.  THUS PUT ITS DATA IN TABLE.
 !
-                  Z(j+4) = buf(1)
+                  z(j+4) = buf(1)
 !
 !     SLT ID INTO TABLE
 !
-                  Z(j) = -buf(2)
+                  z(j) = -buf(2)
 !
 !     SET SLT RECORD NUMBER
 !
                   k = 0
                   DO l = jj1 , jj2 , 5
                      k = k + 1
-                     IF ( Z(l)==buf(2) ) THEN
+                     IF ( z(l)==buf(2) ) THEN
                         spag_nextblock_2 = 3
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -557,9 +557,9 @@ SUBROUTINE sdrht
                   k = 0
                   spag_nextblock_2 = 3
                CASE (3)
-                  Z(j+2) = k
-                  CALL read(*360,*380,dlt,Z(j+5),6,eor,iflag)
-                  IF ( buf(1)==3 ) Z(j+6) = 0
+                  z(j+2) = k
+                  CALL read(*360,*380,dlt,z(j+5),6,eor,iflag)
+                  IF ( buf(1)==3 ) z(j+6) = 0
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
@@ -571,24 +571,24 @@ SUBROUTINE sdrht
 !     SET SLT IDS POSITIVE
 !
          DO i = k1 , k2 , 11
-            Z(i) = iabs(Z(i))
+            z(i) = iabs(z(i))
          ENDDO
          DO i = k1 , k2 , 11
-            IF ( Z(i+4)<=0 ) THEN
+            IF ( z(i+4)<=0 ) THEN
 !
 !     ERROR
 !
-               WRITE (outpt,99004) Uwm , Z(i)
+               WRITE (outpt,99004) uwm , z(i)
 99004          FORMAT (A25,' 3066, THERE IS NO TLOAD1 OR TLOAD2 DATA FOR LOAD-','ID =',I9)
             ENDIF
          ENDDO
 !
-         CALL close(dlt,Clsrew)
+         CALL close(dlt,clsrew)
          nldset = 11
 !
 !     SORT SUB-ID TABLE ON SLT RECORD NUMBERS.
 !
-         CALL sort(0,0,11,3,Z(k1),k2-k1+1)
+         CALL sort(0,0,11,3,z(k1),k2-k1+1)
 !/////
 !     CALL BUG (4HTABL,640,Z(K1),K2-K1+1)
 !
@@ -603,18 +603,18 @@ SUBROUTINE sdrht
 !
 !     CHECK FOR OTHER THAN TLOAD1 TYPE CARD
 !
-            IF ( Z(i+4)==3 ) THEN
+            IF ( z(i+4)==3 ) THEN
 !
 !     CHECK FOR ID IN TABLE.
 !
                IF ( ntabid>itabid ) THEN
                   DO j = itabid , ntabid
-                     IF ( Z(i+5)==Z(j) ) CYCLE SPAG_Loop_1_7
+                     IF ( z(i+5)==z(j) ) CYCLE SPAG_Loop_1_7
                   ENDDO
                ENDIF
                ntabid = ntabid + 1
                IF ( ntabid>core ) CALL mesage(-8,0,subr)
-               Z(ntabid) = Z(i+5)
+               z(ntabid) = z(i+5)
             ENDIF
          ENDDO SPAG_Loop_1_7
 !
@@ -625,7 +625,7 @@ SUBROUTINE sdrht
          sltat = 1
          file = slt
          DO i = k1 , k2 , 11
-            ngo = Z(i+2) - sltat
+            ngo = z(i+2) - sltat
             IF ( ngo<0 ) CYCLE
             IF ( ngo/=0 ) THEN
                DO j = 1 , ngo
@@ -663,12 +663,12 @@ SUBROUTINE sdrht
 !
                            IF ( ntabid>itabid ) THEN
                               DO l = itabid , ntabid
-                                 IF ( buf(k)==Z(l) ) CYCLE SPAG_Loop_4_8
+                                 IF ( buf(k)==z(l) ) CYCLE SPAG_Loop_4_8
                               ENDDO
                            ENDIF
                            ntabid = ntabid + 1
                            IF ( ntabid>core ) CALL mesage(-8,0,subr)
-                           Z(ntabid) = buf(k)
+                           z(ntabid) = buf(k)
                         ENDIF
                      ENDDO SPAG_Loop_4_8
                   ENDDO
@@ -677,8 +677,8 @@ SUBROUTINE sdrht
  230        sltat = sltat + 1
          ENDDO
          numtab = ntabid - itabid
-         Z(itabid) = numtab
-         numtab = Z(itabid)
+         z(itabid) = numtab
+         numtab = z(itabid)
 !
 !     TABLE-ID LIST COMPLETE. NOW SORT IT AND PRIME TAB ROUTINE.
 !
@@ -692,8 +692,8 @@ SUBROUTINE sdrht
          lz = core - idit
          IF ( lz>10 ) THEN
             IF ( numtab/=0 ) THEN
-               CALL sort(0,0,1,1,Z(itabid+1),numtab)
-               CALL pretab(dit,Z(idit),Z(idit),Z(buf2),lz,lused,Z(itabid),tablst)
+               CALL sort(0,0,1,1,z(itabid+1),numtab)
+               CALL pretab(dit,z(idit),z(idit),z(buf2),lz,lused,z(itabid),tablst)
                ndit = idit + lused
             ENDIF
 !/////
@@ -717,11 +717,11 @@ SUBROUTINE sdrht
 !
 !     CONTINUE SEARCH FOR LOADID
 !
-            IF ( loadid==Z(j) ) THEN
+            IF ( loadid==z(j) ) THEN
 !
 !     MATCH ON MASTER ID HAS BEEN FOUND.
 !
-               nloads = Z(j+1)
+               nloads = z(j+1)
                iload = j + 2
                nload = iload + nldset*nloads - 1
 !
@@ -734,7 +734,7 @@ SUBROUTINE sdrht
 !
 !     POSITION -J- TO NEXT LOAD-SET-ID IN TABLE
 !
-               j = j + nldset*Z(j+1) + 2
+               j = j + nldset*z(j+1) + 2
             ENDIF
          ENDDO
 !
@@ -745,7 +745,7 @@ SUBROUTINE sdrht
 !
 !     -LOADID- NOT FOUND ANYWHERE.
 !
-            WRITE (outpt,99005) Uwm , loadid
+            WRITE (outpt,99005) uwm , loadid
 99005       FORMAT (A25,' 3067, LOAD SET ID =',I9,' IS NOT PRESENT.')
             GOTO 320
          ELSE
@@ -789,22 +789,22 @@ SUBROUTINE sdrht
 !     READ AND ENTER MASTER ID INTO TABLE
 !
             IF ( nldid+2>core ) CALL mesage(-8,0,subr)
-            CALL read(*360,*240,slt,Z(nldid+1),2,noeor,iflag)
+            CALL read(*360,*240,slt,z(nldid+1),2,noeor,iflag)
             scale = rz(nldid+2)
             nldid = nldid + 2
             jcount = nldid
-            Z(jcount) = 0
+            z(jcount) = 0
             DO
 !
 !     READ THE (SID, SCALE-FACTOR)  PAIRS FOR THIS ID.
 !
                IF ( nldid+3>core ) CALL mesage(-8,0,subr)
-               CALL read(*360,*380,slt,Z(nldid+1),2,noeor,iflag)
-               IF ( Z(nldid+1)==-1 ) THEN
+               CALL read(*360,*380,slt,z(nldid+1),2,noeor,iflag)
+               IF ( z(nldid+1)==-1 ) THEN
 !
 !     SORT ALL SUB-ID 3 WORD GROUPS ON SLT RECORD NUMBER.
 !
-                  CALL sort(0,0,3,3,Z(jcount+1),nldid-jcount)
+                  CALL sort(0,0,3,3,z(jcount+1),nldid-jcount)
                   CYCLE SPAG_Loop_1_9
                ELSE
 !
@@ -816,13 +816,13 @@ SUBROUTINE sdrht
 !
                   krec = 1
                   DO i = imast , nmast , nldset
-                     IF ( Z(nldid+1)==Z(i) ) GOTO 232
+                     IF ( z(nldid+1)==z(i) ) GOTO 232
                      krec = krec + 1
                   ENDDO
                   krec = 0
- 232              Z(nldid+3) = krec
+ 232              z(nldid+3) = krec
                   nldid = nldid + 3
-                  Z(jcount) = Z(jcount) + 1
+                  z(jcount) = z(jcount) + 1
                ENDIF
             ENDDO
             EXIT SPAG_Loop_1_9
@@ -837,7 +837,6 @@ SUBROUTINE sdrht
          CALL rewind(slt)
          CALL fwdrec(*360,slt)
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !/////
 !     CALL BUG (4HLOAD ,500,Z(ILOAD),NLOAD-ILOAD+1)
@@ -855,7 +854,7 @@ SUBROUTINE sdrht
 !
 !     FACTOR HAS TO BE FOUND AS F(TIME)
 !
-                  IF ( Z(i+4)==4 ) THEN
+                  IF ( z(i+4)==4 ) THEN
                      tt = time - rz(i+5)
                      IF ( tt==0.0 ) THEN
                         IF ( rz(i+9)/=0.0 ) THEN
@@ -869,11 +868,11 @@ SUBROUTINE sdrht
                         factor = rz(i+3)*exp(rz(i+10)*tt)*(tt**rz(i+9))*cos(twopi*rz(i+7)*tt+rz(i+8)/raddeg)
                      ENDIF
                   ELSE
-                     CALL tab(Z(i+5),time,yvalue)
+                     CALL tab(z(i+5),time,yvalue)
                      factor = rz(i+3)*yvalue
                   ENDIF
                ENDIF
-               sltrec = Z(i+2)
+               sltrec = z(i+2)
                IF ( sltrec>0 .AND. factor/=0.0 ) THEN
                   SPAG_Loop_2_10: DO
 !
@@ -923,14 +922,14 @@ SUBROUTINE sdrht
 !
 !     CHECK FOR ID IN THE TABLE (OTHERWISE SKIP).
 !
-                                 CALL bisloc(*242,buf(jid),Z(ieltab),lentry,number,jpoint)
+                                 CALL bisloc(*242,buf(jid),z(ieltab),lentry,number,jpoint)
                                  kk = ieltab + jpoint
 !
 !     THIS ELEMENT IS IN TABLE, THUS COMPUTE AND SUM IN THE LOAD.
 !
                                  IF ( itype==2 ) THEN
 !
-                                    ktype = Z(kk+3)
+                                    ktype = z(kk+3)
                                     rz(kk+2) = rz(kk+2) + factor*rz(kk+4)*(rbuf(2)+rbuf(3)+rbuf(4)+rbuf(5))/grids(ktype)
                                  ELSEIF ( itype==3 ) THEN
 !
@@ -948,7 +947,7 @@ SUBROUTINE sdrht
                                          ENDIF
                                        ENDDO
                                     ENDIF
-                                    ktype = Z(kk+3)
+                                    ktype = z(kk+3)
                                     c = rbuf(2)*rz(kk+6) + rbuf(3)*rz(kk+7) + rbuf(4)*rz(kk+8)
                                     IF ( ktype==6 ) THEN
                                        rz(kk+2) = rz(kk+2) + factor*rz(kk+4)*rbuf(1)*rz(kk+5)                                       &
@@ -968,14 +967,14 @@ SUBROUTINE sdrht
                            ENDIF
                         ENDIF
                      ELSE
-                        WRITE (outpt,99007) Swm , itype
+                        WRITE (outpt,99007) swm , itype
                         GOTO 320
                      ENDIF
                   ENDDO SPAG_Loop_2_11
                ENDIF
 !
  250        ENDDO
-            CALL close(slt,Clsrew)
+            CALL close(slt,clsrew)
          ENDIF
 !/////
 !     CALL BUG (4HTELT,670,Z(IELTAB),NELTAB-IELTAB+1)
@@ -984,9 +983,9 @@ SUBROUTINE sdrht
 !     ELEMENT TABLE IS NOW COMPLETE FOR OUTPUT.
 !
          file = oef1x
-         CALL open(*340,oef1x,Z(buf1),Wrt)
+         CALL open(*340,oef1x,z(buf1),wrt)
          DO i = ieltab , neltab , lentry
-            buf(1) = Z(i+13)
+            buf(1) = z(i+13)
             rbuf(2) = rz(i+3)
             rbuf(3) = rz(i+2)
             rbuf(4) = rz(i+1)
@@ -995,9 +994,8 @@ SUBROUTINE sdrht
          ENDDO
          CALL write(oef1x,0,0,eor)
          file = oef1
-         CALL open(*340,oef1,Z(buf2),Rd)
+         CALL open(*340,oef1,z(buf2),rd)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
          WRITE (outpt,99007) itype
          GOTO 320
@@ -1014,14 +1012,14 @@ SUBROUTINE sdrht
 !
  280     RETURN
 !
- 300     WRITE (outpt,99006) Uwm
+ 300     WRITE (outpt,99006) uwm
 99006    FORMAT (A25,' 3069, OUTPUT DATA BLOCK FOR FORCES IS PURGED.')
- 320     CALL close(oef1,Clsrew)
-         CALL close(oef1x,Clsrew)
-         CALL close(ug,Clsrew)
-         CALL close(est,Clsrew)
-         CALL close(slt,Clsrew)
-         CALL close(dlt,Clsrew)
+ 320     CALL close(oef1,clsrew)
+         CALL close(oef1x,clsrew)
+         CALL close(ug,clsrew)
+         CALL close(est,clsrew)
+         CALL close(slt,clsrew)
+         CALL close(dlt,clsrew)
          GOTO 280
  340     n = 1
          spag_nextblock_1 = 10

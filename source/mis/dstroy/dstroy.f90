@@ -1,12 +1,13 @@
-!*==dstroy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dstroy.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
+   USE c_itemdt
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ITEMDT
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -77,13 +78,13 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         i = Buf(imdi+ps)
+         i = buf(imdi+ps)
          indps = andf(i,1023)
          indss = rshift(andf(i,1048575),10)
 !                           1048575 = 2**20 - 1
          indis = andf(i,1073741824)
 !                    1073741824 = 2**30
-         i = Buf(imdi+ll)
+         i = buf(imdi+ll)
          indhl = andf(i,1023)
          indcs = rshift(andf(i,1048575),10)
          indll = rshift(andf(i,1073741823),20)
@@ -97,8 +98,8 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !     PRIMARY SUBSTRUCTURE.
 !     RETURN THE BLOCKS USED BY ALL ITEMS TO THE LIST OF FREE BLOCKS.
 !
-            DO j = Ifrst , Dirsiz
-               ibl = andf(Buf(imdi+j),65535)
+            DO j = ifrst , dirsiz
+               ibl = andf(buf(imdi+j),65535)
 !                            65535 = 2**16 - 1
                IF ( ibl>0 .AND. ibl/=65535 ) CALL retblk(ibl)
             ENDDO
@@ -114,12 +115,11 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
             ASSIGN 40 TO iret2
             isv = indss
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ASSIGN 20 TO iret1
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     REMOVE INDEX FROM THE LIST OF SUBSTRUCTURES THAT ARE SECONDARY TO
 !     INDPS.
@@ -127,14 +127,14 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
  20      isave = indps
          DO
             CALL fmdi(isave,imdi)
-            isave = rshift(andf(Buf(imdi+ss),1048575),10)
+            isave = rshift(andf(buf(imdi+ss),1048575),10)
             IF ( isave==0 ) THEN
                ASSIGN 60 TO iret2
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( isave==index ) THEN
-               Buf(imdi+ss) = orf(andf(Buf(imdi+ss),maskm),lshift(indss,10))
-               Mdiup = .TRUE.
+               buf(imdi+ss) = orf(andf(buf(imdi+ss),maskm),lshift(indss,10))
+               mdiup = .TRUE.
                IF ( indll==0 ) GOTO 60
                ill = indll
                indll = 0
@@ -148,8 +148,8 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
       CASE (3)
          isave = isv
          CALL fmdi(isave,imdi)
-         isv = rshift(andf(Buf(imdi+ss),1048575),10)
-         iis = andf(Buf(imdi+is),1073741824)
+         isv = rshift(andf(buf(imdi+ss),1048575),10)
+         iis = andf(buf(imdi+is),1073741824)
          IF ( iis>0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -171,12 +171,12 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !     UPDATE THE MDI OF THE SECONDARY SUBSTRUCTURE WITH INDEX ISAVE.
 !
  40      CALL fmdi(isave,imdi)
-         Buf(imdi+ps) = 0
-         Buf(imdi+ll) = andf(Buf(imdi+ll),maskl)
-         DO j = Ifrst , Dirsiz
-            Buf(imdi+j) = 0
+         buf(imdi+ps) = 0
+         buf(imdi+ll) = andf(buf(imdi+ll),maskl)
+         DO j = ifrst , dirsiz
+            buf(imdi+j) = 0
          ENDDO
-         Mdiup = .TRUE.
+         mdiup = .TRUE.
          spag_nextblock_1 = 4
       CASE (4)
          IF ( isv/=0 ) THEN
@@ -190,19 +190,19 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
  60      CALL fmdi(index,imdi)
          spag_nextblock_1 = 5
       CASE (5)
-         DO j = 1 , Dirsiz
-            Buf(imdi+j) = 0
+         DO j = 1 , dirsiz
+            buf(imdi+j) = 0
          ENDDO
-         Mdiup = .TRUE.
+         mdiup = .TRUE.
 !
 !     DELETE SUBSTRUCTURE NAME FROM THE DIT.
 !
          CALL fdit(index,jdit)
-         Buf(jdit) = iempty
-         Buf(jdit+1) = iempty
-         Ditup = .TRUE.
-         IF ( index*2==Ditsiz ) Ditsiz = Ditsiz - 2
-         Ditnsb = Ditnsb - 1
+         buf(jdit) = iempty
+         buf(jdit+1) = iempty
+         ditup = .TRUE.
+         IF ( index*2==ditsiz ) ditsiz = ditsiz - 2
+         ditnsb = ditnsb - 1
          IF ( indcs==0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -219,20 +219,20 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL fmdi(indcs,imdi)
-         indcs = rshift(andf(Buf(imdi+cs),1048575),10)
+         indcs = rshift(andf(buf(imdi+cs),1048575),10)
          spag_nextblock_1 = 7
       CASE (7)
-         Buf(imdi+hl) = andf(Buf(imdi+hl),complf(1023))
-         Buf(imdi+cs) = andf(Buf(imdi+cs),maskm)
-         DO j = 1 , Nitem
-            IF ( Item(6,j)/=0 ) THEN
-               itm = j + Ifrst - 1
-               ibl = andf(Buf(imdi+itm),65535)
+         buf(imdi+hl) = andf(buf(imdi+hl),complf(1023))
+         buf(imdi+cs) = andf(buf(imdi+cs),maskm)
+         DO j = 1 , nitem
+            IF ( item(6,j)/=0 ) THEN
+               itm = j + ifrst - 1
+               ibl = andf(buf(imdi+itm),65535)
                IF ( ibl>0 .AND. ibl/=65535 ) CALL retblk(ibl)
-               Buf(imdi+itm) = 0
+               buf(imdi+itm) = 0
             ENDIF
          ENDDO
-         Mdiup = .TRUE.
+         mdiup = .TRUE.
          IF ( indcs/=0 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -260,23 +260,21 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !
                index = indhl
                CALL fmdi(index,imdi)
-               Buf(imdi+ll) = andf(Buf(imdi+ll),maskl)
-               Mdiup = .TRUE.
+               buf(imdi+ll) = andf(buf(imdi+ll),maskl)
+               mdiup = .TRUE.
             ENDIF
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     SUBSTRUCTURE WAS THE RESULT OF COMBINING LOWER LEVEL SUBSTRUCTURES
 !     TOGETHER.  UPDATE THE MDI ACCORDINGLY.
 !
             CALL fmdi(indll,imdi)
-            indcs = rshift(andf(Buf(imdi+cs),1048575),10)
+            indcs = rshift(andf(buf(imdi+cs),1048575),10)
             index = indll
             indll = 0
             IF ( indcs==0 ) indcs = index
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (9)
 !
@@ -289,12 +287,12 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !     SOLUTION ITEMS
 !     ITEMS PRODUCED BY A COMBINE OR REDUCE OPERATION
 !
-         DO j = 1 , Nitem
-            IF ( Item(5,j)/=0 ) THEN
-               itm = j + Ifrst - 1
-               ibl = andf(Buf(imdi+itm),65535)
+         DO j = 1 , nitem
+            IF ( item(5,j)/=0 ) THEN
+               itm = j + ifrst - 1
+               ibl = andf(buf(imdi+itm),65535)
                IF ( ibl>0 .AND. ibl/=65535 ) CALL retblk(ibl)
-               Buf(imdi+itm) = 0
+               buf(imdi+itm) = 0
             ENDIF
          ENDDO
          GOTO iret1
@@ -306,7 +304,7 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !     BELONGS.
 !
  80      CALL fmdi(isave,imdi)
-         ill = rshift(andf(Buf(imdi+ll),1073741823),20)
+         ill = rshift(andf(buf(imdi+ll),1073741823),20)
          IF ( ill==0 ) GOTO iret2
          spag_nextblock_1 = 10
       CASE (10)
@@ -320,11 +318,11 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   CALL fmdi(ihere,imdi)
-                  i = Buf(imdi+ps)
+                  i = buf(imdi+ps)
                   ips = andf(i,1023)
                   iss = rshift(andf(i,1048575),10)
                   iis = andf(i,1073741824)
-                  i = Buf(imdi+ll)
+                  i = buf(imdi+ll)
                   ill = rshift(andf(i,1073741823),20)
                   ics = rshift(andf(i,1048575),10)
                   IF ( iis==0 ) EXIT SPAG_Loop_1_1
@@ -336,35 +334,35 @@ SUBROUTINE dstroy(Name,Itest,Image,Imore,Lim)
 !     ITEMS COPIED DURING A EQUIV OPERATION
 !     SOLUTION ITEMS
 !
-                  DO j = 1 , Nitem
-                     IF ( Item(4,j)/=0 ) THEN
-                        itm = j + Ifrst - 1
-                        ibl = andf(Buf(imdi+itm),65535)
+                  DO j = 1 , nitem
+                     IF ( item(4,j)/=0 ) THEN
+                        itm = j + ifrst - 1
+                        ibl = andf(buf(imdi+itm),65535)
                         IF ( ibl>0 .AND. ibl/=65535 ) CALL retblk(ibl)
-                        Buf(imdi+itm) = 0
+                        buf(imdi+itm) = 0
                      ENDIF
                   ENDDO
-                  DO j = 1 , Dirsiz
-                     Buf(imdi+j) = 0
+                  DO j = 1 , dirsiz
+                     buf(imdi+j) = 0
                   ENDDO
-                  Mdiup = .TRUE.
+                  mdiup = .TRUE.
                   CALL fdit(ihere,idit)
-                  Buf(idit) = iempty
-                  Buf(idit+1) = iempty
-                  Ditup = .TRUE.
-                  IF ( ihere*2==Ditsiz ) Ditsiz = Ditsiz - 2
-                  Ditnsb = Ditnsb - 1
+                  buf(idit) = iempty
+                  buf(idit+1) = iempty
+                  ditup = .TRUE.
+                  IF ( ihere*2==ditsiz ) ditsiz = ditsiz - 2
+                  ditnsb = ditnsb - 1
 !
 !     DELETE POINTERS TO IHERE.
 !
                   icheck = ips
                   SPAG_Loop_2_2: DO
                      CALL fmdi(icheck,imdi)
-                     icheck = rshift(andf(Buf(imdi+ss),1048575),10)
+                     icheck = rshift(andf(buf(imdi+ss),1048575),10)
                      IF ( icheck==0 ) EXIT SPAG_Loop_2_2
                      IF ( icheck==ihere ) THEN
-                        Buf(imdi+ss) = orf(andf(Buf(imdi+ss),maskm),lshift(iss,10))
-                        Mdiup = .TRUE.
+                        buf(imdi+ss) = orf(andf(buf(imdi+ss),maskm),lshift(iss,10))
+                        mdiup = .TRUE.
                         EXIT SPAG_Loop_2_2
                      ENDIF
                   ENDDO SPAG_Loop_2_2

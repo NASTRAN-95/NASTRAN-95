@@ -1,12 +1,13 @@
-!*==dtrbsc.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dtrbsc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dtrbsc(Iopt,Npivot)
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE ISO_FORTRAN_ENV                 
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -60,52 +61,52 @@ USE ISO_FORTRAN_ENV
 !     IF NO TRANSVERSE SHEAR FLEXIBILITY EXISTS THE H-INVERSE IS
 !     CALCULATED DIRECTLY.  TEST AS FOLLOWS
 !
-   IF ( Ecpt(Iopt+60)/=0.0 .AND. necpt(Iopt+59)/=0 ) THEN
+   IF ( ecpt(Iopt+60)/=0.0 .AND. necpt(Iopt+59)/=0 ) THEN
 !
 !     THE  MATERIAL COEFFICIENTS FOR TRANSVERSE SHEAR ARE CALCULATE HERE
 !     AND THE H-INVERSE MATRIX IS GENERATED THE NORMAL WAY
 !
 !     GET THE G2X2 MATRIX
 !
-      Matid = necpt(Iopt+59)
-      Inflag = 3
-      CALL mat(Ecpt(51))
-      IF ( G2x211/=0. .OR. G2x212/=0. .OR. G2x222/=0. ) THEN
-         T2 = Ecpt(Iopt+60)
-         G2x2(1) = G2x211*T2
-         G2x2(2) = G2x212*T2
-         G2x2(3) = G2x212*T2
-         G2x2(4) = G2x222*T2
+      matid = necpt(Iopt+59)
+      inflag = 3
+      CALL mat(ecpt(51))
+      IF ( g2x211/=0. .OR. g2x212/=0. .OR. g2x222/=0. ) THEN
+         t2 = ecpt(Iopt+60)
+         g2x2(1) = g2x211*t2
+         g2x2(2) = g2x212*t2
+         g2x2(3) = g2x212*t2
+         g2x2(4) = g2x222*t2
 !
-         determ = G2x2(1)*G2x2(4) - G2x2(3)*G2x2(2)
-         j2x2(1) = G2x2(4)/determ
-         j2x2(2) = -G2x2(2)/determ
-         j2x2(3) = -G2x2(3)/determ
-         j2x2(4) = G2x2(1)/determ
+         determ = g2x2(1)*g2x2(4) - g2x2(3)*g2x2(2)
+         j2x2(1) = g2x2(4)/determ
+         j2x2(2) = -g2x2(2)/determ
+         j2x2(3) = -g2x2(3)/determ
+         j2x2(4) = g2x2(1)/determ
 !
 !     SETTING UP G MATRIX
 !
-         Inflag = 2
-         Matid = necpt(Iopt+57)
+         inflag = 2
+         matid = necpt(Iopt+57)
          CALL mat(necpt(51))
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-         G(1) = G11
-         G(2) = G12
-         G(3) = G13
-         G(4) = G12
-         G(5) = G22
-         G(6) = G23
-         G(7) = G13
-         G(8) = G23
-         G(9) = G33
+         g(1) = g11
+         g(2) = g12
+         g(3) = g13
+         g(4) = g12
+         g(5) = g22
+         g(6) = g23
+         g(7) = g13
+         g(8) = g23
+         g(9) = g33
 !
 !     COMPUTATION OF D = I.G-MATRIX (EYE IS INPUT FROM THE ECPT)
 !
-         Eye = Ecpt(Iopt+58)
+         eye = ecpt(Iopt+58)
          DO i = 1 , 9
-            d(i) = G(i)*Eye
+            d(i) = g(i)*eye
          ENDDO
 !
 !     (H  ) IS PARTITIONED INTO A LEFT AND RIGHT PORTION AND ONLY THE
@@ -126,19 +127,19 @@ USE ISO_FORTRAN_ENV
 !     THE ABOVE 6 ELEMENTS NOW REPRESENT THE (H  ) MATRIX (2X3)
 !                                              YQ
 !
-         Xbar = (Xsubb+Xsubc)/3.0D0
-         Ybar = Ysubc/3.0D0
+         xbar = (xsubb+xsubc)/3.0D0
+         ybar = ysubc/3.0D0
 !
-         Xcsq = Xsubc**2
-         Ycsq = Ysubc**2
-         Xbsq = Xsubb**2
-         Xcyc = Xsubc*Ysubc
-         Px2 = (Xbsq+Xsubb*Xsubc+Xcsq)/6.0D0
-         Py2 = Ycsq/6.0D0
-         Pxy2 = Ysubc*(Xsubb+2.0D0*Xsubc)/12.0D0
-         Xbar3 = 3.0D0*Xbar
-         Ybar3 = 3.0D0*Ybar
-         Ybar2 = 2.0D0*Ybar
+         xcsq = xsubc**2
+         ycsq = ysubc**2
+         xbsq = xsubb**2
+         xcyc = xsubc*ysubc
+         px2 = (xbsq+xsubb*xsubc+xcsq)/6.0D0
+         py2 = ycsq/6.0D0
+         pxy2 = ysubc*(xsubb+2.0D0*xsubc)/12.0D0
+         xbar3 = 3.0D0*xbar
+         ybar3 = 3.0D0*ybar
+         ybar2 = 2.0D0*ybar
 !
 !     F1LL (HBAR) MATRIX STORING AT A(37) THRU A(72)
 !
@@ -146,25 +147,25 @@ USE ISO_FORTRAN_ENV
             a(i) = 0.0D0
          ENDDO
 !
-         a(37) = Xbsq
-         a(40) = Xbsq*Xsubb
-         a(44) = Xsubb
-         a(49) = -2.0D0*Xsubb
-         a(52) = -3.0D0*Xbsq
-         a(55) = Xcsq
-         a(56) = Xcyc
-         a(57) = Ycsq
-         a(58) = Xcsq*Xsubc
-         a(59) = Ycsq*Xsubc
-         a(60) = Ycsq*Ysubc
-         a(62) = Xsubc
-         a(63) = Ysubc*2.0D0
-         a(65) = Xcyc*2.0D0
-         a(66) = Ycsq*3.0D0
-         a(67) = -2.0D0*Xsubc
-         a(68) = -Ysubc
-         a(70) = -3.0D0*Xcsq
-         a(71) = -Ycsq
+         a(37) = xbsq
+         a(40) = xbsq*xsubb
+         a(44) = xsubb
+         a(49) = -2.0D0*xsubb
+         a(52) = -3.0D0*xbsq
+         a(55) = xcsq
+         a(56) = xcyc
+         a(57) = ycsq
+         a(58) = xcsq*xsubc
+         a(59) = ycsq*xsubc
+         a(60) = ycsq*ysubc
+         a(62) = xsubc
+         a(63) = ysubc*2.0D0
+         a(65) = xcyc*2.0D0
+         a(66) = ycsq*3.0D0
+         a(67) = -2.0D0*xsubc
+         a(68) = -ysubc
+         a(70) = -3.0D0*xcsq
+         a(71) = -ycsq
 !
 !     ADD TO 6 OF THE (HBAR) ELEMENTS THE RESULT OF (H  )(H  )
 !                                                     UY   YQ
@@ -175,8 +176,8 @@ USE ISO_FORTRAN_ENV
 !     THE FOLLOWING IS THEN PER STEPS 6 AND 7 PAGE -16- MS-17.
 !
          DO i = 1 , 3
-            a(i+39) = a(i+39) + Xsubb*a(i+72)
-            a(i+57) = a(i+57) + Xsubc*a(i+72) + Ysubc*a(i+75)
+            a(i+39) = a(i+39) + xsubb*a(i+72)
+            a(i+57) = a(i+57) + xsubc*a(i+72) + ysubc*a(i+75)
          ENDDO
 !
 !     AT THIS POINT INVERT  (H) WHICH IS STORED AT A(37) THRU A(72)
@@ -200,15 +201,15 @@ USE ISO_FORTRAN_ENV
                DO j = 1 , 3
                   jh = ih + j + 36
                   jc = ic + j + 6
-                  C(jc,2) = a(jh)
-                  C(jc,3) = a(jh+3)
+                  c(jc,2) = a(jh)
+                  c(jc,3) = a(jh+3)
                ENDDO
             ENDDO
             nohyq = 0
             CALL spag_block_1
             RETURN
          ELSE
-            CALL mesage(-30,33,Ecpt(1))
+            CALL mesage(-30,33,ecpt(1))
             RETURN
          ENDIF
       ENDIF
@@ -219,111 +220,112 @@ USE ISO_FORTRAN_ENV
 !         HC IS IN POSITIONS C(7,3) TO C(24,3)
 !
    nohyq = 1
-   R = 1.0/Xsubb
-   Sp = 1.0/Ysubc
-   T = Sp*Xsubc
-   U = R*R*Sp*T
-   R2 = R*R
-   S2 = Sp**2
+   r = 1.0/xsubb
+   sp = 1.0/ysubc
+   t = sp*xsubc
+   u = r*r*sp*t
+   r2 = r*r
+   s2 = sp**2
 !
    DO i = 1 , 72
-      C(i,1) = 0.0D0
+      c(i,1) = 0.0D0
    ENDDO
 !
-   C(7,2) = 3.0D0*R2
-   C(9,2) = R
-   C(11,2) = R
-   C(13,2) = -C(7,2)*T**2
-   C(14,2) = -R*T
-   C(15,2) = C(14,2)*T
-   C(16,2) = -2.0D0*R2*R
-   C(18,2) = -R2
-   C(19,2) = -6.0D0*R*U*(Xsubb-Xsubc)
-   C(20,2) = -R*Sp
-   C(21,2) = U*(3.0D0*Xsubc-2.0D0*Xsubb)
-   C(22,2) = R*T*U*(6.0D0*Xsubb-4.0D0*Xsubc)
-   C(23,2) = R*Sp*T
-   C(24,2) = 2.0D0*T*U*(Xsubb-Xsubc)
+   c(7,2) = 3.0D0*r2
+   c(9,2) = r
+   c(11,2) = r
+   c(13,2) = -c(7,2)*t**2
+   c(14,2) = -r*t
+   c(15,2) = c(14,2)*t
+   c(16,2) = -2.0D0*r2*r
+   c(18,2) = -r2
+   c(19,2) = -6.0D0*r*u*(xsubb-xsubc)
+   c(20,2) = -r*sp
+   c(21,2) = u*(3.0D0*xsubc-2.0D0*xsubb)
+   c(22,2) = r*t*u*(6.0D0*xsubb-4.0D0*xsubc)
+   c(23,2) = r*sp*t
+   c(24,2) = 2.0D0*t*u*(xsubb-xsubc)
 !
-   C(13,3) = 3.0D0*S2
-   C(14,3) = -Sp
-   C(15,3) = Sp*T
-   C(21,3) = -S2
-   C(22,3) = -2.0D0*S2*Sp
-   C(23,3) = S2
+   c(13,3) = 3.0D0*s2
+   c(14,3) = -sp
+   c(15,3) = sp*t
+   c(21,3) = -s2
+   c(22,3) = -2.0D0*s2*sp
+   c(23,3) = s2
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE ISO_FORTRAN_ENV                 
 !
 !     THIS ENDS ADDED COMPUTATION FOR CASE OF T2 NOT ZERO
 !
 !     THE C1, C2, AND C3 MATRICES ARE GENERATED WITH THE FOLLOWING CODE
 !     FIRST GENERATE THE S MATRICES IN POSITIONS 1 THRU 9 AND 10 THRU 18
 !
-      DO i = 1 , 18
-         s(i) = 0.0
+      DO I = 1 , 18
+         S(I) = 0.0
       ENDDO
-      DO i = 1 , 9 , 4
-         s(i) = 1.0
-         s(i+9) = 1.0
+      DO I = 1 , 9 , 4
+         S(I) = 1.0
+         S(I+9) = 1.0
       ENDDO
-      s(3) = -Xsubb
-      s(11) = Ysubc
-      s(12) = -Xsubc
+      S(3) = -Xsubb
+      S(11) = Ysubc
+      S(12) = -Xsubc
 !
 !     COMPUTE HA  AND STORE IN  CA, POSITIONS 7 THRU 24
 !
 !         HA =  -(HB TIMES SB + HC TIMES SC)
 !
-      CALL gmmatd(C(7,2),6,3,0,s(1),3,3,0,a(37))
-      CALL gmmatd(C(7,3),6,3,0,s(10),3,3,0,a(55))
+      CALL gmmatd(c(7,2),6,3,0,S(1),3,3,0,A(37))
+      CALL gmmatd(c(7,3),6,3,0,S(10),3,3,0,A(55))
 !
-      DO i = 1 , 18
+      DO I = 1 , 18
 !
-         C(i+6,1) = -a(i+36) - a(i+54)
+         c(I+6,1) = -A(I+36) - A(I+54)
       ENDDO
 !
 !     COMPUTE  HYQ TIMES HX  AND STORE IN CX POSITIONS 1 THRU 6
 !     (THE FIRST THREE COLUMNS OF HYQ ARE NULL)
 !
-      IF ( nohyq/=1 ) THEN
+      IF ( Nohyq/=1 ) THEN
 !
-         DO i = 1 , 3
-            CALL gmmatd(a(73),2,3,0,C(16,i),3,3,0,C(1,i))
+         DO I = 1 , 3
+            CALL gmmatd(A(73),2,3,0,c(16,I),3,3,0,c(1,I))
          ENDDO
       ENDIF
 !
-      C(3,1) = C(3,1) - 1.0D0
-      C(5,1) = C(5,1) + 1.0D0
+      c(3,1) = c(3,1) - 1.0D0
+      c(5,1) = c(5,1) + 1.0D0
 !
 !     THE INTEGRALS FOR THE  KDQQ MATRIX ARE GENERATED HERE
 !
-      yc2 = Ysubc**2
-      xb2 = Xsubb**2
-      xc2 = Xsubc**2
-      xbc = Xsubb*Xsubc
+      Yc2 = Ysubc**2
+      Xb2 = Xsubb**2
+      Xc2 = Xsubc**2
+      Xbc = Xsubb*Xsubc
 !
-      di(1,1) = 1.0D0
-      di(1,2) = Ysubc/3.0D0
-      di(1,3) = yc2/6.0D0
-      di(1,4) = yc2*Ysubc/10.0D0
-      di(1,5) = yc2**2/15.0D0
-      di(2,1) = (Xsubb+Xsubc)/3.0D0
-      di(2,2) = Ysubc*(Xsubb+2.0D0*Xsubc)/12.0D0
-      di(2,3) = di(1,3)*(Xsubb+3.0D0*Xsubc)/5.0D0
-      di(2,4) = di(1,4)*(Xsubb+4.0D0*Xsubc)/6.0D0
-      di(3,1) = (xb2+xbc+xc2)/6.0D0
-      di(3,2) = di(1,2)*(xb2+2.0D0*xbc+3.0D0*xc2)/10.0D0
-      di(3,3) = di(1,3)*(xb2+3.0D0*xbc+6.0D0*xc2)/15.0D0
-      di(4,1) = (Xsubb+Xsubc)*(xb2+xc2)/10.0D0
-      di(4,2) = di(1,2)*((Xsubb+2.0D0*Xsubc)*xb2+(3.0D0*Xsubb+4.0D0*Xsubc)*xc2)/20.0D0
-      di(5,1) = (xb2*xb2+xb2*xbc+xbc*xbc+xbc*xc2+xc2*xc2)/15.0
+      Di(1,1) = 1.0D0
+      Di(1,2) = Ysubc/3.0D0
+      Di(1,3) = Yc2/6.0D0
+      Di(1,4) = Yc2*Ysubc/10.0D0
+      Di(1,5) = Yc2**2/15.0D0
+      Di(2,1) = (Xsubb+Xsubc)/3.0D0
+      Di(2,2) = Ysubc*(Xsubb+2.0D0*Xsubc)/12.0D0
+      Di(2,3) = Di(1,3)*(Xsubb+3.0D0*Xsubc)/5.0D0
+      Di(2,4) = Di(1,4)*(Xsubb+4.0D0*Xsubc)/6.0D0
+      Di(3,1) = (Xb2+Xbc+Xc2)/6.0D0
+      Di(3,2) = Di(1,2)*(Xb2+2.0D0*Xbc+3.0D0*Xc2)/10.0D0
+      Di(3,3) = Di(1,3)*(Xb2+3.0D0*Xbc+6.0D0*Xc2)/15.0D0
+      Di(4,1) = (Xsubb+Xsubc)*(Xb2+Xc2)/10.0D0
+      Di(4,2) = Di(1,2)*((Xsubb+2.0D0*Xsubc)*Xb2+(3.0D0*Xsubb+4.0D0*Xsubc)*Xc2)/20.0D0
+      Di(5,1) = (Xb2*Xb2+Xb2*Xbc+Xbc*Xbc+Xbc*Xc2+Xc2*Xc2)/15.0
 !
-      Ar = Xsubb*Ysubc*dble(Ecpt(Iopt+56))/2.0D0
-      DO i = 1 , 5
-         ic = 6 - i
-         DO j = 1 , ic
-            di(i,j) = di(i,j)*Ar
+      ar = Xsubb*Ysubc*dble(ecpt(Iopt+56))/2.0D0
+      DO I = 1 , 5
+         Ic = 6 - I
+         DO J = 1 , Ic
+            Di(I,J) = Di(I,J)*ar
          ENDDO
       ENDDO
 !
@@ -333,70 +335,70 @@ CONTAINS
 !     THE DIFFERENTIAL STIFFNESS MATRIX IN GENERALIZED COORDINATES IS
 !     CREATED BELOW AT POSITIONS A(28) TO A(91)
 !
-      a(28) = Sx*di(1,1)
-      a(29) = Sxy*di(1,1)
-      a(30) = 2.0D0*Sx*di(2,1)
-      a(31) = Sx*di(1,2) + Sxy*di(2,1)
-      a(32) = 2.0D0*Sxy*di(1,2)
-      a(33) = 3.0D0*Sx*di(3,1)
-      a(34) = Sx*di(1,3) + 2.0*Sxy*di(2,2)
-      a(35) = 3.0D0*Sxy*di(1,3)
+      A(28) = sx*Di(1,1)
+      A(29) = sxy*Di(1,1)
+      A(30) = 2.0D0*sx*Di(2,1)
+      A(31) = sx*Di(1,2) + sxy*Di(2,1)
+      A(32) = 2.0D0*sxy*Di(1,2)
+      A(33) = 3.0D0*sx*Di(3,1)
+      A(34) = sx*Di(1,3) + 2.0*sxy*Di(2,2)
+      A(35) = 3.0D0*sxy*Di(1,3)
 !
-      a(37) = Sy*di(1,1)
-      a(38) = 2.0D0*Sxy*di(2,1)
-      a(39) = Sxy*di(1,2) + Sy*di(2,1)
-      a(40) = 2.0D0*Sy*di(1,2)
-      a(41) = 3.0D0*Sxy*di(3,1)
-      a(42) = Sxy*di(1,3) + 2.0D0*Sy*di(2,2)
-      a(43) = 3.0D0*Sy*di(1,3)
+      A(37) = sy*Di(1,1)
+      A(38) = 2.0D0*sxy*Di(2,1)
+      A(39) = sxy*Di(1,2) + sy*Di(2,1)
+      A(40) = 2.0D0*sy*Di(1,2)
+      A(41) = 3.0D0*sxy*Di(3,1)
+      A(42) = sxy*Di(1,3) + 2.0D0*sy*Di(2,2)
+      A(43) = 3.0D0*sy*Di(1,3)
 !
-      a(46) = 4.0D0*Sx*di(3,1)
-      a(47) = 2.0D0*(Sx*di(2,2)+Sxy*di(3,1))
-      a(48) = 4.0D0*Sxy*di(2,2)
-      a(49) = 6.0D0*Sx*di(4,1)
-      a(50) = 2.0D0*(Sx*di(2,3)+2.0D0*Sxy*di(3,2))
-      a(51) = 6.0D0*Sxy*di(2,3)
+      A(46) = 4.0D0*sx*Di(3,1)
+      A(47) = 2.0D0*(sx*Di(2,2)+sxy*Di(3,1))
+      A(48) = 4.0D0*sxy*Di(2,2)
+      A(49) = 6.0D0*sx*Di(4,1)
+      A(50) = 2.0D0*(sx*Di(2,3)+2.0D0*sxy*Di(3,2))
+      A(51) = 6.0D0*sxy*Di(2,3)
 !
-      a(55) = Sx*di(1,3) + 2.0D0*Sxy*di(2,2) + Sy*di(3,1)
-      a(56) = 2.0D0*(Sxy*di(1,3)+Sy*di(2,2))
-      a(57) = 3.0D0*(Sx*di(3,2)+Sxy*di(4,1))
-      a(58) = Sx*di(1,4) + 3.0D0*Sxy*di(2,3) + 2.0D0*Sy*di(3,2)
-      a(59) = 3.0D0*(Sxy*di(1,4)+Sy*di(2,3))
+      A(55) = sx*Di(1,3) + 2.0D0*sxy*Di(2,2) + sy*Di(3,1)
+      A(56) = 2.0D0*(sxy*Di(1,3)+sy*Di(2,2))
+      A(57) = 3.0D0*(sx*Di(3,2)+sxy*Di(4,1))
+      A(58) = sx*Di(1,4) + 3.0D0*sxy*Di(2,3) + 2.0D0*sy*Di(3,2)
+      A(59) = 3.0D0*(sxy*Di(1,4)+sy*Di(2,3))
 !
-      a(64) = 4.0D0*Sy*di(1,3)
-      a(65) = 6.0D0*Sxy*di(3,2)
-      a(66) = 2.0D0*(Sxy*di(1,4)+2.0D0*Sy*di(2,3))
-      a(67) = 6.0D0*Sy*di(1,4)
+      A(64) = 4.0D0*sy*Di(1,3)
+      A(65) = 6.0D0*sxy*Di(3,2)
+      A(66) = 2.0D0*(sxy*Di(1,4)+2.0D0*sy*Di(2,3))
+      A(67) = 6.0D0*sy*Di(1,4)
 !
-      a(73) = 9.0D0*Sx*di(5,1)
-      a(74) = 3.0D0*(Sx*di(3,3)+2.0D0*Sxy*di(4,2))
-      a(75) = 9.0D0*Sxy*di(3,3)
+      A(73) = 9.0D0*sx*Di(5,1)
+      A(74) = 3.0D0*(sx*Di(3,3)+2.0D0*sxy*Di(4,2))
+      A(75) = 9.0D0*sxy*Di(3,3)
 !
-      a(82) = Sx*di(1,5) + 4.0D0*Sxy*di(2,4) + 4.0D0*Sy*di(3,3)
-      a(83) = 3.0D0*Sxy*di(1,5) + 6.0D0*Sy*di(2,4)
+      A(82) = sx*Di(1,5) + 4.0D0*sxy*Di(2,4) + 4.0D0*sy*Di(3,3)
+      A(83) = 3.0D0*sxy*Di(1,5) + 6.0D0*sy*Di(2,4)
 !
-      a(91) = 9.0D0*Sy*di(1,5)
+      A(91) = 9.0D0*sy*Di(1,5)
 !
 !     FILL IN SYMMETRIC TERMS
 !
-      DO i = 2 , 8
-         ih = i - 1
-         DO j = 1 , ih
-            ic = 8*(i-1) + j
-            jc = 8*(j-1) + i
-            a(ic+27) = a(jc+27)
+      DO I = 2 , 8
+         Ih = I - 1
+         DO J = 1 , Ih
+            Ic = 8*(I-1) + J
+            Jc = 8*(J-1) + I
+            A(Ic+27) = A(Jc+27)
          ENDDO
       ENDDO
 !
 !     AT THIS STAGE THE 3X3 MATRIX PARTITIONS MAY BE GENERATED
 !     THE ACTUAL MATRICES DEPEND ON IOPT
 !
-      ic = Npivot
-      IF ( ic/=0 ) THEN
-         CALL gmmatd(C(1,ic),8,3,1,a(28),8,8,0,a(92))
-         DO i = 1 , 3
-            ih = 9*(i-1) + 1
-            CALL gmmatd(a(92),3,8,0,C(1,i),8,3,0,a(ih))
+      Ic = Npivot
+      IF ( Ic/=0 ) THEN
+         CALL gmmatd(c(1,Ic),8,3,1,A(28),8,8,0,A(92))
+         DO I = 1 , 3
+            Ih = 9*(I-1) + 1
+            CALL gmmatd(A(92),3,8,0,c(1,I),8,3,0,A(Ih))
          ENDDO
       ENDIF
 !//////
@@ -412,38 +414,38 @@ CONTAINS
 !             S        IN POSITIONS  A(55) THRU A(72)
 !           H-INVERSE  IN POSITIONS  A(73) THRU A(108)
 !
-      CALL gmmatd(a(28),8,8,0,C(1,3),8,3,0,a(92))
-      DO i = 1 , 3
-         ih = 28 + 9*(i-1)
-         CALL gmmatd(C(1,i),8,3,1,a(92),8,3,0,a(ih))
+      CALL gmmatd(A(28),8,8,0,c(1,3),8,3,0,A(92))
+      DO I = 1 , 3
+         Ih = 28 + 9*(I-1)
+         CALL gmmatd(c(1,I),8,3,1,A(92),8,3,0,A(Ih))
       ENDDO
 !
 !     RECALCULATE THE S MATRIX (IT WAS DESTROYED) -
 !     PLACE IN A(55 THRU 72)
 !
-      DO i = 1 , 18
-         a(i+54) = 0.0
+      DO I = 1 , 18
+         A(I+54) = 0.0
       ENDDO
-      DO i = 1 , 9 , 4
-         a(i+54) = 1.0
-         a(i+63) = 1.0
+      DO I = 1 , 9 , 4
+         A(I+54) = 1.0
+         A(I+63) = 1.0
       ENDDO
-      a(57) = -Xsubb
-      a(65) = Ysubc
-      a(66) = -Xsubc
+      A(57) = -Xsubb
+      A(65) = Ysubc
+      A(66) = -Xsubc
 !
 !     EXTRACT THE H-INVERSE MATRIX FROM THE C MATRICES
 !     STORE AT POSITIONS A(73) THRU A(108)
 !
-      DO i = 1 , 6
-         ih = 6*i - 6
-         ic = 3*i - 3
+      DO I = 1 , 6
+         Ih = 6*I - 6
+         Ic = 3*I - 3
 !
-         DO j = 1 , 3
-            jh = ih + j + 72
-            jc = ic + j + 6
-            a(jh) = C(jc,2)
-            a(jh+3) = C(jc,3)
+         DO J = 1 , 3
+            Jh = Ih + J + 72
+            Jc = Ic + J + 6
+            A(Jh) = c(Jc,2)
+            A(Jh+3) = c(Jc,3)
          ENDDO
       ENDDO
    END SUBROUTINE spag_block_1

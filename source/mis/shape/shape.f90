@@ -1,10 +1,11 @@
-!*==shape.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shape.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor)
+   USE c_blank
+   USE c_drwdat
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DRWDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,16 +53,16 @@ SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst
          IF ( Iopt>=0 ) THEN
 !
 !
-            IF ( Pedge/=3 ) CALL suplt(Liplt(1),Liplt(Iptl+1),X,U,Gplst,Pen,Deform)
+            IF ( pedge/=3 ) CALL suplt(Liplt(1),Liplt(Iptl+1),X,U,Gplst,Pen,Deform)
             GOTO 20
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*40,*20,Ect,etyp,1,0,i)
+         CALL read(*40,*20,ect,etyp,1,0,i)
          offset = 0
          IF ( etyp==br ) offset = 6
          IF ( etyp==t3 .OR. etyp==q4 ) offset = 1
-         CALL fread(Ect,i,1,0)
+         CALL fread(ect,i,1,0)
          ngpel = iabs(i)
          IF ( etyp/=te .AND. ngpel<5 ) THEN
 !
@@ -90,18 +91,17 @@ SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         CALL fread(Ect,elid,1,0)
+         CALL fread(ect,elid,1,0)
          IF ( elid<=0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL fread(Ect,lid,1,0)
-         CALL fread(Ect,Liplt,ngpel,0)
+         CALL fread(ect,lid,1,0)
+         CALL fread(ect,Liplt,ngpel,0)
          IF ( l/=ngpel ) Liplt(l) = Liplt(1)
 !
-         IF ( offset/=0 ) CALL fread(Ect,off,offset,0)
+         IF ( offset/=0 ) CALL fread(ect,off,offset,0)
          IF ( offset/=0 .AND. Deform==0 ) THEN
 !
 !     IF THIS IS A BAR, TRIA3 OR QUAD4 ELEMENTS READ IN THE OFFSET
@@ -177,16 +177,16 @@ SUBROUTINE shape(Gplst,X,U,Pen,Deform,Iopt,Iptl,Liplt,Opcor) !HIDESTARS (*,Gplst
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  20      CALL line(0,0,0,0,0,1)
-         IF ( Iopt<0 ) CALL bckrec(Ect)
+         IF ( Iopt<0 ) CALL bckrec(ect)
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
 !     ILLEGAL EOF
 !
- 40      CALL mesage(-2,Ect,name)
+ 40      CALL mesage(-2,ect,name)
          spag_nextblock_1 = 7
       CASE (7)
-         IF ( Pedge==3 ) RETURN 1
+         IF ( pedge==3 ) RETURN 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

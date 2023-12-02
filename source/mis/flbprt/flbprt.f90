@@ -1,14 +1,15 @@
-!*==flbprt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flbprt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
+   USE c_bitpos
+   USE c_flbfil
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_FLBFIL
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -54,42 +55,42 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !
 !     READ EQEXIN INTO CORE
 !
-         file = Eqexin
-         CALL open(*40,Eqexin,Z(Ibuf),0)
-         CALL fwdrec(*60,Eqexin)
-         CALL fwdrec(*60,Eqexin)
+         file = eqexin
+         CALL open(*40,eqexin,z(Ibuf),0)
+         CALL fwdrec(*60,eqexin)
+         CALL fwdrec(*60,eqexin)
          nz = Ibuf - Ieqex
-         CALL read(*60,*20,Eqexin,Z(Ieqex),nz,1,neqex)
-         WRITE (Nout,99001) Uwm
+         CALL read(*60,*20,eqexin,z(Ieqex),nz,1,neqex)
+         WRITE (nout,99001) uwm
 99001    FORMAT (A25,' 8011, INSUFFICIENT CORE TO HOLD CONTENTS OF EQEXIN',' DATA BLOCK',/31X,                                      &
                 &'HYDROELASTIC USET PRINTOUT TERMINATED.')
          RETURN
- 20      CALL close(Eqexin,1)
+ 20      CALL close(eqexin,1)
 !
 !     SORT ON INTERNAL ID
 !
-         CALL sort(0,0,2,2,Z(Ieqex),neqex)
+         CALL sort(0,0,2,2,z(Ieqex),neqex)
 !
 !     SET UP USET MASKS FOR DOF VS. DISP SET PRINTOUT
 !
          IF ( d32/=0 ) THEN
-            msk(1) = Two(Usb)
-            msk(2) = Two(Usg)
-            msk(3) = Two(Ul)
-            msk(4) = Two(Ua)
-            msk(5) = Two(Uf)
-            msk(6) = Two(Un)
-            msk(7) = Two(Ug)
-            msk(8) = Two(Ur)
-            msk(9) = Two(Uo)
-            msk(10) = Two(Us)
-            msk(11) = Two(Um)
-            msk(12) = Two(Ux)
-            msk(13) = Two(Uy)
-            msk(14) = Two(Ufr)
-            msk(15) = Two(Uz)
-            msk(16) = Two(Uab)
-            msk(17) = Two(Ui)
+            msk(1) = two(usb)
+            msk(2) = two(usg)
+            msk(3) = two(ul)
+            msk(4) = two(ua)
+            msk(5) = two(uf)
+            msk(6) = two(un)
+            msk(7) = two(ug)
+            msk(8) = two(ur)
+            msk(9) = two(uo)
+            msk(10) = two(us)
+            msk(11) = two(um)
+            msk(12) = two(ux)
+            msk(13) = two(uy)
+            msk(14) = two(ufr)
+            msk(15) = two(uz)
+            msk(16) = two(uab)
+            msk(17) = two(ui)
 !
             DO i = 1 , 17
                sbit(i) = 0
@@ -99,10 +100,10 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !     POINT
 !
             juset = Iuset - 1
-            Line = Nlpp
+            line = nlpp
             inpnt = 0
             DO k = 1 , neqex , 2
-               itype = mod(Z(Ieqex+k),10)
+               itype = mod(z(Ieqex+k),10)
                ndof = 6
                IF ( itype==2 ) ndof = 1
 !
@@ -110,9 +111,9 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !
                DO kk = 1 , ndof
                   juset = juset + 1
-                  iu = Z(juset)
+                  iu = z(juset)
                   inpnt = inpnt + 1
-                  expnt = Z(Ieqex+k-1)
+                  expnt = z(Ieqex+k-1)
                   idof = kk
                   IF ( ndof==1 ) idof = 0
                   DO ibit = 1 , 17
@@ -126,59 +127,59 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !
 !     PRINT LINE OF OUTPUT
 !
-                  Line = Line + 1
-                  IF ( Line>Nlpp ) THEN
+                  line = line + 1
+                  IF ( line>nlpp ) THEN
                      CALL page1
-                     WRITE (Nout,99002)
+                     WRITE (nout,99002)
 !
 !     FORMAT STATEMENTS
 !
 99002                FORMAT (//12X,'INT DOF  EXT GP. DOF   SB   SG    L    A    F   ',                                              &
                             &'N    G    R    O    S    M    X    Y   FR    Z   AB    I',/1X,131(1H-))
-                     Line = 1
+                     line = 1
                   ENDIF
-                  WRITE (Nout,99003) inpnt , expnt , dash , idof , upbit
+                  WRITE (nout,99003) inpnt , expnt , dash , idof , upbit
 99003             FORMAT (10X,I8,1X,I8,1X,A1,I2,1X,17(4X,A1))
                ENDDO
             ENDDO
 !
 !     PRINT COLUMN TOTALS
 !
-            WRITE (Nout,99004) sbit
+            WRITE (nout,99004) sbit
 99004       FORMAT (1H0,31H-- C O L U M N   T O T A L S --,17I5)
          ENDIF
 !
 !     SET UP MASKS FOR DISP SET VS. DOF PRINTOUT
 !
          IF ( d33==0 ) RETURN
-         msk(1) = Two(Um)
-         msk(2) = Two(Us)
-         msk(3) = Two(Uo)
-         msk(4) = Two(Ua)
-         msk(5) = Two(Usg)
-         msk(6) = Two(Usb)
-         msk(7) = Two(Ux)
-         msk(8) = Two(Uy)
-         msk(9) = Two(Ufr)
+         msk(1) = two(um)
+         msk(2) = two(us)
+         msk(3) = two(uo)
+         msk(4) = two(ua)
+         msk(5) = two(usg)
+         msk(6) = two(usb)
+         msk(7) = two(ux)
+         msk(8) = two(uy)
+         msk(9) = two(ufr)
 !
 !     PASS THROUGH EQEXIN TABLE ONCE FOR EACH DISP SET TO BE PRINTED
 !
          DO imk = 1 , 9
             inum = -9
             icol = 0
-            Line = Nlpp
+            line = nlpp
             juset = Iuset - 1
             DO k = 1 , neqex , 2
-               itype = mod(Z(Ieqex+k),10)
+               itype = mod(z(Ieqex+k),10)
                ndof = 6
                IF ( itype==2 ) ndof = 1
 !
 !     FOR EACH DOF - TEST IF IT IS IN DESIRED SET FOR THIS PASS
 !
-               expnt = Z(Ieqex+k-1)
+               expnt = z(Ieqex+k-1)
                DO kk = 1 , ndof
                   juset = juset + 1
-                  IF ( andf(Z(juset),msk(imk))/=0 ) THEN
+                  IF ( andf(z(juset),msk(imk))/=0 ) THEN
                      idof = kk
                      IF ( ndof==1 ) idof = 0
                      icol = icol + 1
@@ -189,14 +190,14 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !     WE HAVE ACUMULATED 10 POINTS - PRINT THEM
 !
                         icol = 0
-                        Line = Line + 1
-                        IF ( Line>Nlpp ) THEN
+                        line = line + 1
+                        IF ( line>nlpp ) THEN
                            CALL page1
-                           WRITE (Nout,99005) (title(i,imk),i=1,3)
-                           Line = 1
+                           WRITE (nout,99005) (title(i,imk),i=1,3)
+                           line = 1
                         ENDIF
                         inum = inum + 10
-                        WRITE (Nout,99006) inum , (zgrd(i),zdof(i),i=1,10)
+                        WRITE (nout,99006) inum , (zgrd(i),zdof(i),i=1,10)
                      ENDIF
                   ENDIF
 !
@@ -206,14 +207,14 @@ SUBROUTINE flbprt(Iuset,Ieqex,Ibuf)
 !     PRINT ANY REMAINING ENTRIES
 !
             IF ( icol/=0 ) THEN
-               Line = Line + 1
-               IF ( Line>Nlpp ) THEN
+               line = line + 1
+               IF ( line>nlpp ) THEN
                   CALL page1
-                  WRITE (Nout,99005) (title(i,imk),i=1,3)
-                  Line = 1
+                  WRITE (nout,99005) (title(i,imk),i=1,3)
+                  line = 1
                ENDIF
                inum = inum + 10
-               WRITE (Nout,99006) inum , (zgrd(i),zdof(i),i=1,icol)
+               WRITE (nout,99006) inum , (zgrd(i),zdof(i),i=1,icol)
             ENDIF
 !
          ENDDO

@@ -1,12 +1,13 @@
-!*==cmmcon.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmmcon.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmmcon(Nce)
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,40 +34,40 @@ SUBROUTINE cmmcon(Nce)
 !
 !     READ CONNECTION ENTRIES INTO OPEN CORE
 !
-         nwd = 2 + Npsub
-         Mcon = .TRUE.
-         ifile = Scconn
-         CALL open(*60,Scconn,Z(Buf1),0)
+         nwd = 2 + npsub
+         mcon = .TRUE.
+         ifile = scconn
+         CALL open(*60,scconn,z(buf1),0)
          j = 0
          Nce = 0
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*40,*20,Scconn,Z(Score+j),10,1,nnn)
+         CALL read(*40,*20,scconn,z(score+j),10,1,nnn)
  20      Nce = Nce + 1
-         Z(Score+j) = Nce
+         z(score+j) = Nce
          j = j + nwd
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 40      CALL close(Scconn,1)
+ 40      CALL close(scconn,1)
 !
 !     SWEEP THROUGH CONNECTION ENTRIES AND DETERMINE THOSE THAT
 !     REPRESENT MULTIPLE CONNECTIONS.
 !
-         Mcon = .FALSE.
+         mcon = .FALSE.
          ncem1 = Nce - 1
 !
          DO k = 1 , ncem1
-            DO i = 1 , Npsub
-               ist = Score + i + (k-1)*nwd + 1
-               IF ( Z(ist)/=0 ) THEN
+            DO i = 1 , npsub
+               ist = score + i + (k-1)*nwd + 1
+               IF ( z(ist)/=0 ) THEN
                   DO j = 1 , Nce
                      IF ( k/=j ) THEN
-                        isub = Score + 1 + i + (j-1)*nwd
-                        IF ( Z(ist)==Z(isub) ) THEN
+                        isub = score + 1 + i + (j-1)*nwd
+                        IF ( z(ist)==z(isub) ) THEN
                            iloc = i + 1
-                           Z(ist-iloc) = -1*iabs(Z(ist-iloc))
-                           Z(isub-iloc) = -1*iabs(Z(isub-iloc))
-                           Mcon = .TRUE.
+                           z(ist-iloc) = -1*iabs(z(ist-iloc))
+                           z(isub-iloc) = -1*iabs(z(isub-iloc))
+                           mcon = .TRUE.
                         ENDIF
                      ENDIF
                   ENDDO
@@ -74,18 +75,18 @@ SUBROUTINE cmmcon(Nce)
             ENDDO
          ENDDO
 !
-         IF ( .NOT.Mcon ) RETURN
+         IF ( .NOT.mcon ) RETURN
 !
 !     GENERATE OUTPUT FILE OF CONNECTION ENTRY IDS
 !
-         ifile = Scmcon
-         CALL open(*60,Scmcon,Z(Buf1),1)
+         ifile = scmcon
+         CALL open(*60,scmcon,z(buf1),1)
          DO i = 1 , Nce
-            loc = Score + (i-1)*nwd
-            IF ( Z(loc)<0 ) CALL write(Scmcon,iabs(Z(loc)),1,0)
+            loc = score + (i-1)*nwd
+            IF ( z(loc)<0 ) CALL write(scmcon,iabs(z(loc)),1,0)
          ENDDO
-         CALL write(Scmcon,0,0,1)
-         CALL close(Scmcon,1)
+         CALL write(scmcon,0,0,1)
+         CALL close(scmcon,1)
          RETURN
 !
  60      CALL mesage(-1,ifile,aaa)

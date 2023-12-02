@@ -1,10 +1,11 @@
-!*==relabl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==relabl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
+   USE c_bands
+   USE c_system
    IMPLICIT NONE
-   USE C_BANDS
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,7 +44,7 @@ SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
    i = Nodes(1)
    icn = Ic(i)
    nt = Icc(icn) - 1
-   DO i = 1 , Nn
+   DO i = 1 , nn
       IF ( Ic(i)==icn ) Idis(i) = 0
    ENDDO
    DO j = 1 , Ns
@@ -129,8 +130,8 @@ SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
 !         N1 STARTS.
 !
    n1 = Icc(icn) - 1
-   n2 = Nn - Icc(icn+1) + 1
-   IF ( n2>Nn ) n2 = 0
+   n2 = nn - Icc(icn+1) + 1
+   IF ( n2>nn ) n2 = 0
 !
 !     REVERSE THE NODAL CM SEQUENCE, OMITTING THE FIRST N1 AND THE LAST
 !     N2 POINTS.
@@ -144,9 +145,9 @@ SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
 !     NN      = NUMBER OF NODES.
 !     J       = NUMBER OF INTERCHANGES TO MAKE.
 !
-   j = (Nn-n1-n2)/2
+   j = (nn-n1-n2)/2
    IF ( j<=0 ) RETURN
-   ll = Nn - n2 + 1
+   ll = nn - n2 + 1
 !
 !     MAKE INTERCHANGES IN NEW ARRAY.
 !
@@ -161,7 +162,7 @@ SUBROUTINE relabl(Ns,Nodes,Ig,Ic,Ideg,Idis,Iw,New,Icc,Ild,Iaj,Jg,Idim)
 !     CORRECT ILD, THE INVERSE OF NEW.
 !
    l = 1 + n1
-   m = Nn - n2
+   m = nn - n2
    DO i = l , m
       k = New(i)
       Ild(k) = i

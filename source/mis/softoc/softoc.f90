@@ -1,16 +1,17 @@
-!*==softoc.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==softoc.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE softoc
+   USE c_itemdt
+   USE c_machin
+   USE c_sof
+   USE c_sofcom
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ITEMDT
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SOFCOM
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -64,10 +65,10 @@ SUBROUTINE softoc
    DATA ntype/6/
    DATA maxitm/27/
 !
-   nitm = Nitem
+   nitm = nitem
    IF ( nitm>maxitm ) THEN
       nitm = maxitm
-      WRITE (Nout,99001) Swm , maxitm
+      WRITE (nout,99001) swm , maxitm
 99001 FORMAT (A27,' 6237, THE SOFTOC ROUTINE CAN HANDLE ONLY',I4,' ITEMS.',/34X,'ADDITIONAL ITEMS WILL NOT BE SHOWN')
    ENDIF
 !
@@ -76,7 +77,7 @@ SUBROUTINE softoc
    nshft = 0
    DO i = 1 , 4
       DO j = 1 , nitm
-         hdr(j,i) = klshft(Item(1,j),nshft/Nbpc)
+         hdr(j,i) = klshft(item(1,j),nshft/nbpc)
       ENDDO
       k = nitm + 1
       IF ( k<=maxitm ) THEN
@@ -84,10 +85,10 @@ SUBROUTINE softoc
             hdr(j,i) = blank
          ENDDO
       ENDIF
-      nshft = nshft + Nbpc
+      nshft = nshft + nbpc
    ENDDO
 !
-   Line = Nlpp + 1
+   line = nlpp + 1
    m0009 = 1023
    m1019 = lshift(1023,10)
    m2029 = lshift(1023,20)
@@ -95,74 +96,74 @@ SUBROUTINE softoc
 !
 !     LOOP THROUGH DIT
 !
-   DO jmkn = 1 , Ditsiz , 2
+   DO jmkn = 1 , ditsiz , 2
       i = (jmkn-1)/2 + 1
       CALL fdit(i,k)
-      ssname(1) = Buf(k)
-      ssname(2) = Buf(k+1)
+      ssname(1) = buf(k)
+      ssname(2) = buf(k+1)
       IF ( ssname(1)/=blank .OR. ssname(2)/=blank ) THEN
          CALL fmdi(i,k)
 !
 !     TEST TYPE BITS IN MDI
 !
          DO it = 2 , ntype
-            ibit = andf(Buf(k+1),lshift(1,31-it))
+            ibit = andf(buf(k+1),lshift(1,31-it))
             IF ( ibit/=0 ) GOTO 20
          ENDDO
          it = 1
- 20      is = andf(Buf(k+1),imask)
+ 20      is = andf(buf(k+1),imask)
          im = blank
          IF ( is/=0 ) im = image
-         ss = rshift(andf(Buf(k+1),m1019),10)
-         ps = andf(Buf(k+1),m0009)
-         ll = rshift(andf(Buf(k+2),m2029),20)
-         cs = rshift(andf(Buf(k+2),m1019),10)
-         hl = andf(Buf(k+2),m0009)
+         ss = rshift(andf(buf(k+1),m1019),10)
+         ps = andf(buf(k+1),m0009)
+         ll = rshift(andf(buf(k+2),m2029),20)
+         cs = rshift(andf(buf(k+2),m1019),10)
+         hl = andf(buf(k+2),m0009)
 !
 !     LOOP THROUGH MDI ENTRY FOR THIS SUBSTRUCTURE DETERMINING THE
 !     SIZE OF EACH EXISTING ITEM.
 !
          DO j = 1 , nitm
-            jj = j + Ifrst - 1
-            IF ( Buf(k+jj)==0 ) THEN
+            jj = j + ifrst - 1
+            IF ( buf(k+jj)==0 ) THEN
                itm(j) = blank
             ELSE
-               inum = rshift(Buf(k+jj),Ihalf)*Blksiz
+               inum = rshift(buf(k+jj),ihalf)*blksiz
                inum = alog10(float(inum)) + .3
                itm(j) = num(inum)
-               IF ( is/=0 .AND. Item(4,j)==0 ) itm(j) = num(10)
-               IF ( ps/=0 .AND. is==0 .AND. Item(5,j)==0 ) itm(j) = num(10)
+               IF ( is/=0 .AND. item(4,j)==0 ) itm(j) = num(10)
+               IF ( ps/=0 .AND. is==0 .AND. item(5,j)==0 ) itm(j) = num(10)
             ENDIF
          ENDDO
 !
-         Line = Line + 1
-         IF ( Line>Nlpp ) THEN
+         line = line + 1
+         IF ( line>nlpp ) THEN
             CALL page1
-            Line = Line + 9 - 4
-            WRITE (Nout,99002) hdr
+            line = line + 9 - 4
+            WRITE (nout,99002) hdr
 99002       FORMAT (//,26X,90HS U B S T R U C T U R E   O P E R A T I N G   F I L E   T A B L E   O F   C O N T E N T S ,//,1H ,51X,&
                   & 26(A1,2X),A1,/1H ,51X,26(A1,2X),A1,/1H ,51X,26(A1,2X),A1,/,1H ,4X,12HSUBSTRUCTURE,35X,26(A1,2X),A1,/1H ,4X,     &
                   & 3HNO.,3X,4HNAME,4X,4HTYPE,3X,2HSS,3X,2HPS,3X,2HLL,3X,2HCS,3X,2HHL,4X,80(1H-)/)
          ENDIF
 !
-         WRITE (Nout,99003) i , ssname , im , type(it) , ss , ps , ll , cs , hl , (itm(l),l=1,nitm)
+         WRITE (nout,99003) i , ssname , im , type(it) , ss , ps , ll , cs , hl , (itm(l),l=1,nitm)
 99003    FORMAT (2X,I6,2X,2A4,2X,A1,A2,5(1X,I4),4X,26(A1,2X),A1)
       ENDIF
    ENDDO
 !
 !     PRINT SOF SPACE UTILIZATION MESSAGE
 !
-   Line = Line + 8
-   IF ( Line>Nlpp ) CALL page1
+   line = line + 8
+   IF ( line>nlpp ) CALL page1
    k = sofsiz(k)
    nblk = 0
-   DO i = 1 , Nfiles
-      nblk = nblk + Filsiz(i)
+   DO i = 1 , nfiles
+      nblk = nblk + filsiz(i)
    ENDDO
-   iper = (Avblks*100)/nblk
-   WRITE (Nout,99004) k , Avblks , iper , Hiblk
+   iper = (avblks*100)/nblk
+   WRITE (nout,99004) k , avblks , iper , hiblk
 99004 FORMAT (//,51X,80HSIZE OF ITEM IS GIVEN IN POWERS OF TEN   (0 INDICATES DATA IS STORED IN PRIMARY),/,                         &
              &26H0*** UNUSED SPACE ON SOF =,I9,7H WORDS.,/,22X,4HOR =,I9,8H BLOCKS.,/,22X,4HOR =,I9,9H PERCENT.,/,                  &
              &26H0*** HIGHEST BLOCK USED  =,I9)
-   Line = Nlpp
+   line = nlpp
 END SUBROUTINE softoc

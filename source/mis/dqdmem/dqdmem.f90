@@ -1,13 +1,14 @@
-!*==dqdmem.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dqdmem.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dqdmem
+   USE c_condas
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
-   USE C_MATIN
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -86,58 +87,58 @@ SUBROUTINE dqdmem
 !     COMPUTATION OF SINTH AND COSTH BELOW (ANISOTROPIC MATERIAL
 !     POSSIBILITY)  NOTE  FMMS-46 PAGE -9-
 !
-         Angl = Ecpt(6)*degra
-         Cosang = cos(Angl)
-         Sinang = sin(Angl)
-         Ivec(1) = Ecpt(15) - Ecpt(11)
-         Ivec(2) = Ecpt(16) - Ecpt(12)
-         Ivec(3) = Ecpt(17) - Ecpt(13)
-         Vecl = sqrt(Ivec(1)**2+Ivec(2)**2+Ivec(3)**2)
-         IF ( Vecl/=0.0E0 ) THEN
-            Ivec(1) = Ivec(1)/Vecl
-            Ivec(2) = Ivec(2)/Vecl
-            Ivec(3) = Ivec(3)/Vecl
-            Vsubk(1) = Ivec(2)*(Ecpt(25)-Ecpt(13)) - Ivec(3)*(Ecpt(24)-Ecpt(12))
-            Vsubk(2) = Ivec(3)*(Ecpt(23)-Ecpt(11)) - Ivec(1)*(Ecpt(25)-Ecpt(13))
-            Vsubk(3) = Ivec(1)*(Ecpt(24)-Ecpt(12)) - Ivec(2)*(Ecpt(23)-Ecpt(11))
-            Vecl = sqrt(Vsubk(1)**2+Vsubk(2)**2+Vsubk(3)**2)
-            IF ( Vecl/=0.0E0 ) THEN
-               Kvec(1) = Vsubk(1)/Vecl
-               Kvec(2) = Vsubk(2)/Vecl
-               Kvec(3) = Vsubk(3)/Vecl
-               Jvec(1) = Kvec(2)*Ivec(3) - Kvec(3)*Ivec(2)
-               Jvec(2) = Kvec(3)*Ivec(1) - Kvec(1)*Ivec(3)
-               Jvec(3) = Kvec(1)*Ivec(2) - Kvec(2)*Ivec(1)
+         angl = ecpt(6)*degra
+         cosang = cos(angl)
+         sinang = sin(angl)
+         ivec(1) = ecpt(15) - ecpt(11)
+         ivec(2) = ecpt(16) - ecpt(12)
+         ivec(3) = ecpt(17) - ecpt(13)
+         vecl = sqrt(ivec(1)**2+ivec(2)**2+ivec(3)**2)
+         IF ( vecl/=0.0E0 ) THEN
+            ivec(1) = ivec(1)/vecl
+            ivec(2) = ivec(2)/vecl
+            ivec(3) = ivec(3)/vecl
+            vsubk(1) = ivec(2)*(ecpt(25)-ecpt(13)) - ivec(3)*(ecpt(24)-ecpt(12))
+            vsubk(2) = ivec(3)*(ecpt(23)-ecpt(11)) - ivec(1)*(ecpt(25)-ecpt(13))
+            vsubk(3) = ivec(1)*(ecpt(24)-ecpt(12)) - ivec(2)*(ecpt(23)-ecpt(11))
+            vecl = sqrt(vsubk(1)**2+vsubk(2)**2+vsubk(3)**2)
+            IF ( vecl/=0.0E0 ) THEN
+               kvec(1) = vsubk(1)/vecl
+               kvec(2) = vsubk(2)/vecl
+               kvec(3) = vsubk(3)/vecl
+               jvec(1) = kvec(2)*ivec(3) - kvec(3)*ivec(2)
+               jvec(2) = kvec(3)*ivec(1) - kvec(1)*ivec(3)
+               jvec(3) = kvec(1)*ivec(2) - kvec(2)*ivec(1)
                DO i = 1 , 3
-                  Pvec(i) = Cosang*Ivec(i) + Sinang*Jvec(i)
+                  pvec(i) = cosang*ivec(i) + sinang*jvec(i)
                ENDDO
 !
 !
 !     SAVE COORDINATE SYSTEMS, GRID POINT SIL NUMBERS, AND DISP VECTOR.
 !
-               Ngrid(1) = necpt(2)
-               Ngrid(2) = necpt(3)
-               Ngrid(3) = necpt(4)
-               Ngrid(4) = necpt(5)
+               ngrid(1) = necpt(2)
+               ngrid(2) = necpt(3)
+               ngrid(3) = necpt(4)
+               ngrid(4) = necpt(5)
 !
                DO i = 1 , 16
-                  Coord(i) = Ecpt(i+9)
+                  coord(i) = ecpt(i+9)
                ENDDO
 !
                DO i = 1 , 12
-                  Sdisp(i) = Ecpt(i+28)
+                  sdisp(i) = ecpt(i+28)
                ENDDO
 !
 !     NOTE. COORD 1, 5, 9, AND 13  ARE INTEGER CSID NUMBERS.
 !
 !     CORRECT ECPT FOR MEMBRANE USE
-               Ecpt(5) = Ecpt(6)
-               Ecpt(6) = Ecpt(7)
-               Ecpt(7) = Ecpt(8)/2.0E0
-               Ecpt(8) = Ecpt(9)
-               Ecpt(21) = Ecpt(26)
-               Ecpt(22) = Ecpt(27)
-               Ecpt(23) = Ecpt(28)
+               ecpt(5) = ecpt(6)
+               ecpt(6) = ecpt(7)
+               ecpt(7) = ecpt(8)/2.0E0
+               ecpt(8) = ecpt(9)
+               ecpt(21) = ecpt(26)
+               ecpt(22) = ecpt(27)
+               ecpt(23) = ecpt(28)
 !
 !     FOR EACH TRIANGLE THEN THE THREE GRID POINTS AND COORDINATES
 !     ARE INSERTED INTO THE ECPT BEFORE THE CALL TO KTRMEM.
@@ -155,50 +156,50 @@ SUBROUTINE dqdmem
 !     ******************************************************************
 !     FIND WHICH POINT IS THE PIVOT POINT.
                DO i = 1 , 4
-                  IF ( Npvt==Ngrid(i) ) THEN
-                     Npivot = i
+                  IF ( npvt==ngrid(i) ) THEN
+                     npivot = i
                      GOTO 5
                   ENDIF
                ENDDO
 !
 !     FALL THRU ABOVE LOOP IMPLIES AN ERROR CONDITION.
 !
-               CALL mesage(-30,34,Ecpt(1))
+               CALL mesage(-30,34,ecpt(1))
 !
 !     COMPUTE JNOT WHICH EQUALS THE ONE TRIANGLE OF THE FOUR NOT USED
 !     AND THUS NOT COMPUTED FOR THE PIVOT POINT IN QUESTION.  (NOTE THE
 !     ROWS OF THE MAPPING MATRIX ABOVE AND THE TRIANGLE NUMBERS)
 !
- 5             IF ( Npivot<=2 ) THEN
-                  Jnot = Npivot + 2
+ 5             IF ( npivot<=2 ) THEN
+                  jnot = npivot + 2
                ELSE
-                  Jnot = Npivot - 2
+                  jnot = npivot - 2
                ENDIF
 !
 !
                DO j = 1 , 4
-                  IF ( j/=Jnot ) THEN
+                  IF ( j/=jnot ) THEN
 !
 !     FILL IN ECPT FOR TRIANGLE J
-                     Mpoint = 3*j - 3
+                     mpoint = 3*j - 3
                      DO i = 1 , 3
-                        Npt1 = Mpoint + i
-                        Nsubsc = m(Npt1)
-                        necpt(i+1) = Ngrid(Nsubsc)
+                        npt1 = mpoint + i
+                        nsubsc = m(npt1)
+                        necpt(i+1) = ngrid(nsubsc)
 !
-                        Npt1 = 3*Nsubsc - 3
-                        Npt3 = 3*i + 20
+                        npt1 = 3*nsubsc - 3
+                        npt3 = 3*i + 20
                         DO k = 1 , 3
-                           Npt2 = Npt1 + k
-                           Npt3 = Npt3 + 1
-                           Ecpt(Npt3) = Sdisp(Npt2)
+                           npt2 = npt1 + k
+                           npt3 = npt3 + 1
+                           ecpt(npt3) = sdisp(npt2)
                         ENDDO
 !
-                        Npt1 = 4*Nsubsc - 4
+                        npt1 = 4*nsubsc - 4
                         DO k = 1 , 4
-                           Npt2 = Npt1 + k
-                           Npt3 = 4*i + 4 + k
-                           Ecpt(Npt3) = Coord(Npt2)
+                           npt2 = npt1 + k
+                           npt3 = 4*i + 4 + k
+                           ecpt(npt3) = coord(npt2)
                         ENDDO
                      ENDDO
 !
@@ -210,29 +211,29 @@ SUBROUTINE dqdmem
 !
 !     NOTE FMMS-46 PAGE-9 FOR FOLLOWING
 !
-                        V(1) = Ecpt(14) - Ecpt(10)
-                        V(2) = Ecpt(15) - Ecpt(11)
-                        V(3) = Ecpt(16) - Ecpt(12)
-                        Vecl = sqrt(V(1)**2+V(2)**2+V(3)**2)
-                        IF ( Vecl==0.0E0 ) THEN
+                        v(1) = ecpt(14) - ecpt(10)
+                        v(2) = ecpt(15) - ecpt(11)
+                        v(3) = ecpt(16) - ecpt(12)
+                        vecl = sqrt(v(1)**2+v(2)**2+v(3)**2)
+                        IF ( vecl==0.0E0 ) THEN
                            spag_nextblock_1 = 2
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        U1 = (V(1)*Pvec(1)+V(2)*Pvec(2)+V(3)*Pvec(3))/Vecl
-                        Si(1) = V(2)*Pvec(3) - V(3)*Pvec(2)
-                        Si(2) = V(3)*Pvec(1) - V(1)*Pvec(3)
-                        Si(3) = V(1)*Pvec(2) - V(2)*Pvec(1)
-                        U2 = (Si(1)*Kvec(1)+Si(2)*Kvec(2)+Si(3)*Kvec(3))/Vecl
-                        Vecl = sqrt(U1**2+U2**2)
-                        U1 = U1/Vecl
-                        U2 = U2/Vecl
-                        Sinth = Sinang*U1 - Cosang*U2
-                        Costh = Cosang*U1 + Sinang*U2
+                        u1 = (v(1)*pvec(1)+v(2)*pvec(2)+v(3)*pvec(3))/vecl
+                        si(1) = v(2)*pvec(3) - v(3)*pvec(2)
+                        si(2) = v(3)*pvec(1) - v(1)*pvec(3)
+                        si(3) = v(1)*pvec(2) - v(2)*pvec(1)
+                        u2 = (si(1)*kvec(1)+si(2)*kvec(2)+si(3)*kvec(3))/vecl
+                        vecl = sqrt(u1**2+u2**2)
+                        u1 = u1/vecl
+                        u2 = u2/vecl
+                        sinth = sinang*u1 - cosang*u2
+                        costh = cosang*u1 + sinang*u2
                      ELSE
-                        Sinth = Sinang
-                        Costh = Cosang
+                        sinth = sinang
+                        costh = cosang
                      ENDIF
-                     IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+                     IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
 !
                      CALL dtrmem(1)
                   ENDIF
@@ -248,11 +249,11 @@ SUBROUTINE dqdmem
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         CALL mesage(30,26,Ecpt(1))
+         CALL mesage(30,26,ecpt(1))
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

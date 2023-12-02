@@ -1,8 +1,9 @@
-!*==dadotb.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dadotb.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dadotb(A,B)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Function and Dummy argument declarations rewritten by SPAG
@@ -10,6 +11,12 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) :: dadotb
    REAL(REAL64) , DIMENSION(3) :: A
    REAL(REAL64) , DIMENSION(3) :: B
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

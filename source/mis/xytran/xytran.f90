@@ -1,15 +1,16 @@
-!*==xytran.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xytran.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xytran
 !
+   USE c_blank
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_xywork
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XYWORK
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -190,7 +191,7 @@ SUBROUTINE xytran
 !     SAVE OUTPUT HEADING
 !
          DO i = 1 , 96
-            headsv(i) = Ihead(i)
+            headsv(i) = ihead(i)
          ENDDO
 !
 !     ALLOCATE CORE AND OPEN DATA BLOCKS
@@ -198,21 +199,21 @@ SUBROUTINE xytran
          oompp = .FALSE.
          vgp = .FALSE.
          oomcp = .FALSE.
-         Random = .FALSE.
+         random = .FALSE.
          ifle = xycdb
-         core = korsz(Z) - 1
+         core = korsz(z) - 1
          DO i = 1 , 32
-            Tcurve(i) = blank
-            Xaxis(i) = blank
-            Yaxis(i) = blank
-            Ytaxis(i) = blank
-            Ybaxis(i) = blank
+            tcurve(i) = blank
+            xaxis(i) = blank
+            yaxis(i) = blank
+            ytaxis(i) = blank
+            ybaxis(i) = blank
          ENDDO
          DO i = 1 , 5
-            Subc(i) = 1
+            subc(i) = 1
          ENDDO
          nsubs = 0
-         core = core - Sysbuf
+         core = core - sysbuf
          IF ( core<0 ) THEN
 !
 !     INSUFFICIENT CORE
@@ -225,17 +226,17 @@ SUBROUTINE xytran
             GOTO 240
          ELSE
             intrwd = inprwd
-            IF ( Intr>0 ) THEN
+            IF ( intr>0 ) THEN
                intrwd = outrwd
                xycdb = 301
             ENDIF
-            CALL open(*240,xycdb,Z(core+1),intrwd)
-            IF ( Intr<=0 ) THEN
+            CALL open(*240,xycdb,z(core+1),intrwd)
+            IF ( intr<=0 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             card = 1
-            WRITE (L,99001)
+            WRITE (l,99001)
 !
 99001       FORMAT ('  ENTER XYPLOT DEFINITION OR GO TO PLOT OR STOP TO EXIT')
          ENDIF
@@ -249,42 +250,41 @@ SUBROUTINE xytran
 !
 !     INTERACTIVE STOP INITIATED HERE.
 !
-            Nogo = 1
+            nogo = 1
             RETURN
          ELSE
             IF ( xycard(1)==go ) card = -1
             CALL ifp1xy(card,xycard)
             IF ( xycard(1)==go ) THEN
                CALL close(xycdb,rewd)
-               IF ( Intr>10 ) L = 1
-               CALL open(*240,xycdb,Z(core+1),inprwd)
+               IF ( intr>10 ) l = 1
+               CALL open(*240,xycdb,z(core+1),inprwd)
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ELSE
                card = 0
-               IF ( Nogo==0 ) THEN
+               IF ( nogo==0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Nogo = 0
+               nogo = 0
             ENDIF
          ENDIF
- 20      WRITE (L,99002)
+ 20      WRITE (l,99002)
 99002    FORMAT ('  BAD CARD TRY AGAIN')
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (L,99003) xycard
+         WRITE (l,99003) xycard
 99003    FORMAT (20A4)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         IF ( Intr<=0 ) CALL fwdrec(*60,xycdb)
-         Outopn = .FALSE.
-         IF ( Blkcom==rand ) Random = .TRUE.
-         IF ( Blkcom==vg ) vgp = .TRUE.
-         IF ( Blkcom==vg ) namev(5) = namevg
+         IF ( intr<=0 ) CALL fwdrec(*60,xycdb)
+         outopn = .FALSE.
+         IF ( blkcom==rand ) random = .TRUE.
+         IF ( blkcom==vg ) vgp = .TRUE.
+         IF ( blkcom==vg ) namev(5) = namevg
 !
-         core = core - Sysbuf
+         core = core - sysbuf
          DO i = 1 , 5
             openf(i) = -1
             IF ( core<0 ) THEN
@@ -292,13 +292,13 @@ SUBROUTINE xytran
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
-            CALL open(*40,indb(i),Z(core),inprwd)
+            CALL open(*40,indb(i),z(core),inprwd)
             openf(i) = 0
-            Vecid(i) = 0
-            core = core - Sysbuf
+            vecid(i) = 0
+            core = core - sysbuf
  40      ENDDO
 !
-         core = core + Sysbuf - 1
+         core = core + sysbuf - 1
 !
 !     NOTE - OUTPUT DATA BLOCKS WILL BE OPENED WHEN AND IF REQUIRED
 !
@@ -314,7 +314,6 @@ SUBROUTINE xytran
          CYCLE SPAG_DispatchLoop_1
  80      ier = 3
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          ier = 8
          ifle = -core
@@ -328,14 +327,14 @@ SUBROUTINE xytran
          DO i = 1 , 5
             CALL close(indb(i),rewd)
          ENDDO
-         IF ( .NOT.Outopn ) RETURN
+         IF ( .NOT.outopn ) RETURN
 !
 !     NO CAMERA PLOTS SO DONT WRITE TRAILER
 !
          IF ( oomcp ) THEN
-            Buf(1) = outfil
-            Buf(2) = 9999999
-            CALL wrttrl(Buf(1))
+            buf(1) = outfil
+            buf(2) = 9999999
+            CALL wrttrl(buf(1))
          ENDIF
          CALL close(outfil,rewd)
          IF ( oompp ) CALL xyprpl
@@ -344,63 +343,63 @@ SUBROUTINE xytran
 !     ERROR,  PLOTS REQUESTED AND OUTFIL PURGED.  DO ALL ELSE.
 !
  120     CALL page2(2)
-         WRITE (L,99004) Uwm , outfil
+         WRITE (l,99004) uwm , outfil
 99004    FORMAT (A25,' 976, OUTPUT DATA BLOCK',I4,' IS PURGED.','  XYTRAN WILL PROCESS ALL REQUESTS OTHER THAN PLOT')
-         Plot = .FALSE.
+         plot = .FALSE.
          spag_nextblock_1 = 7
       CASE (7)
 !
-         IF ( Buf(3)/=0 ) Punch = .TRUE.
-         type = Buf(4)
-         Vector = Buf(5)
-         nsubs = Buf(7)
-         Knt = 0
+         IF ( buf(3)/=0 ) punch = .TRUE.
+         type = buf(4)
+         vector = buf(5)
+         nsubs = buf(7)
+         knt = 0
          IF ( nsubs>0 ) CALL read(*60,*80,xycdb,subcas(1),nsubs,noeor,flag)
          IF ( nsubs>0 ) CALL sort(0,0,1,1,subcas(1),nsubs)
-         IF ( Random .AND. type/=2 .AND. type/=3 ) THEN
+         IF ( random .AND. type/=2 .AND. type/=3 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( (.NOT.Random) .AND. (type==2 .OR. type==3) ) THEN
+         IF ( (.NOT.random) .AND. (type==2 .OR. type==3) ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( (.NOT.Random) .AND. Ipset==pset .AND. Vector>7 ) THEN
+         IF ( (.NOT.random) .AND. ipset==pset .AND. vector>7 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( (.NOT.Random) .AND. Ipset/=pset .AND. Vector<=7 ) THEN
+         IF ( (.NOT.random) .AND. ipset/=pset .AND. vector<=7 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     INITIALIZE DATA BLOCK POINTERS FOR THIS VECTOR
 !
-         File = files(Vector)
+         file = files(vector)
 !
 !     CHECK FOR RANDOM
 !
-         IF ( Random .AND. type==3 ) File = 2
-         IF ( Random .AND. type==2 ) File = 1
-         Ifile = indb(File)
-         IF ( openf(File)<0 ) THEN
+         IF ( random .AND. type==3 ) file = 2
+         IF ( random .AND. type==2 ) file = 1
+         ifile = indb(file)
+         IF ( openf(file)<0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     CHECK TO SEE IF THIS FILES SUBCASE IS TO BE OUTPUT
 !
-         IF ( openf(File)<0 ) THEN
+         IF ( openf(file)<0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( openf(File)/=0 ) THEN
+         IF ( openf(file)/=0 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL fwdrec(*160,Ifile)
-         CALL read(*160,*140,Ifile,Idin(1),20,eor,flag)
-         CALL read(*160,*180,Ifile,Idin(1),-core,eor,flag)
+         CALL fwdrec(*160,ifile)
+         CALL read(*160,*140,ifile,idin(1),20,eor,flag)
+         CALL read(*160,*180,ifile,idin(1),-core,eor,flag)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
 !
@@ -415,16 +414,16 @@ SUBROUTINE xytran
  160     ier = 2
          spag_nextblock_1 = 8
       CASE (8)
-         CALL mesage(ier,Ifile,routin)
-         openf(File) = -1
+         CALL mesage(ier,ifile,routin)
+         openf(file) = -1
          spag_nextblock_1 = 9
       CASE (9)
 !
 !     FILE IFILE IS NOT SATISFACTORY
 !
-         CALL fname(Ifile,Buf(1))
+         CALL fname(ifile,buf(1))
          CALL page2(3)
-         WRITE (L,99005) Uwm , Buf(1) , Buf(2) , namev(Vector)
+         WRITE (l,99005) uwm , buf(1) , buf(2) , namev(vector)
 99005    FORMAT (A25,' 978',/5X,'XYTRAN MODULE FINDS DATA-BLOCK(',2A4,') PURGED, NULL, OR INADEQUATE, AND IS IGNORING XY-OUTPUT',   &
                 &' REQUEST FOR -',A4,'- CURVES')
          spag_nextblock_1 = 10
@@ -439,22 +438,22 @@ SUBROUTINE xytran
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             SPAG_Loop_2_1: DO
-               CALL read(*60,*80,xycdb,Buf(1),3,noeor,flag)
-               IF ( Buf(1)==-1 ) EXIT SPAG_Loop_2_1
+               CALL read(*60,*80,xycdb,buf(1),3,noeor,flag)
+               IF ( buf(1)==-1 ) EXIT SPAG_Loop_2_1
             ENDDO SPAG_Loop_2_1
          ENDDO
- 180     CALL bckrec(Ifile)
-         CALL bckrec(Ifile)
-         size = flag/Idin(10)
-         ktype = (Idin(2)/1000)*1000
-         openf(File) = 1
+ 180     CALL bckrec(ifile)
+         CALL bckrec(ifile)
+         size = flag/idin(10)
+         ktype = (idin(2)/1000)*1000
+         openf(file) = 1
          spag_nextblock_1 = 11
       CASE (11)
          kasknt = kasknt + 1
          IF ( nsubs==0 ) THEN
-            Subc(File) = 0
+            subc(file) = 0
          ELSE
-            Subc(File) = subcas(kasknt)
+            subc(file) = subcas(kasknt)
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
@@ -469,79 +468,79 @@ SUBROUTINE xytran
 !
 !     READ IN THE ID-COMP-COMP SETS AND SORT ON ID-S.
 !
-         Knt = 0
+         knt = 0
          itry = 0
-         Iat = 0
+         iat = 0
          SPAG_Loop_1_2: DO
-            CALL read(*60,*80,xycdb,Z(Iat+1),3,noeor,flag)
-            IF ( Z(Iat+1)==-1 ) THEN
+            CALL read(*60,*80,xycdb,z(iat+1),3,noeor,flag)
+            IF ( z(iat+1)==-1 ) THEN
 !
 !     SORT ON ID-S
 !
-               CALL sort(0,0,3,1,Z(1),Iat)
+               CALL sort(0,0,3,1,z(1),iat)
                EXIT SPAG_Loop_1_2
             ELSE
-               Iat = Iat + 3
+               iat = iat + 3
             ENDIF
          ENDDO SPAG_Loop_1_2
          spag_nextblock_1 = 13
       CASE (13)
-         icore = core - Iat
+         icore = core - iat
 !
 !     COMPUTE FINAL REGIONS
 !
-         nslots = Iat/3
-         Nat = Iat
-         IF ( Z(i3)>0 .AND. .NOT.Random ) nslots = nslots + nslots
+         nslots = iat/3
+         nat = iat
+         IF ( z(i3)>0 .AND. .NOT.random ) nslots = nslots + nslots
          SPAG_Loop_1_3: DO
-            Steps = size
+            steps = size
             IF ( vgp ) THEN
                itemp = 0
                nuq = 0
-               DO i = 1 , Nat , 3
-                  IF ( Z(i)/=itemp ) THEN
+               DO i = 1 , nat , 3
+                  IF ( z(i)/=itemp ) THEN
                      nuq = nuq + 1
-                     itemp = Z(i)
+                     itemp = z(i)
                   ENDIF
                ENDDO
-               Steps = Steps*nuq
+               steps = steps*nuq
 !
 !     SET CORE TO 1
 !
-               j = Iat + 1
-               n = j + min0(icore,(nslots+1)*Steps)
+               j = iat + 1
+               n = j + min0(icore,(nslots+1)*steps)
                DO i = j , n
-                  Z(i) = 1
+                  z(i) = 1
                ENDDO
             ENDIF
-            IF ( Steps*(nslots+1)<=icore ) THEN
-               Ntops = nslots/2
-               Nbots = Ntops
-               IF ( .NOT.(Z(i3)>0 .AND. .NOT.Random) ) THEN
-                  Ntops = nslots
-                  Nbots = 0
+            IF ( steps*(nslots+1)<=icore ) THEN
+               ntops = nslots/2
+               nbots = ntops
+               IF ( .NOT.(z(i3)>0 .AND. .NOT.random) ) THEN
+                  ntops = nslots
+                  nbots = 0
                ENDIF
-               Center = Iat + Ntops*Steps
+               center = iat + ntops*steps
 !
 !     GET CURVE DATA
 !
-               Major = ktype + majid(Vector)
+               major = ktype + majid(vector)
                i2 = 0
                ifcrv = -1
                istsv = 0
-               idtot = Nat/3
+               idtot = nat/3
                EXIT SPAG_Loop_1_3
             ELSE
                CALL page2(4)
-               WRITE (L,99006) Uwm , Z(Iat-2) , Z(Iat-1) , Z(Iat)
+               WRITE (l,99006) uwm , z(iat-2) , z(iat-1) , z(iat)
 99006          FORMAT (A25,' 980, INSUFFICIENT CORE TO HANDLE ALL DATA FOR ALL ','CURVES OF THIS FRAME',/5X,' ID =',I10,            &
                       &2(' COMPONENT =',I4,5X),' DELETED FROM OUTPUT')
-               icrq = Steps*(nslots+1) - icore
-               WRITE (L,99007) icrq
+               icrq = steps*(nslots+1) - icore
+               WRITE (l,99007) icrq
 99007          FORMAT (5X,'ADDITIONAL CORE NEEDED =',I9,' WORDS.')
                nslots = nslots - 1
-               IF ( Z(i3)>0 .AND. .NOT.Random ) nslots = nslots - 1
-               Nat = Nat - 3
+               IF ( z(i3)>0 .AND. .NOT.random ) nslots = nslots - 1
+               nat = nat - 3
                IF ( nslots<=0 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
@@ -554,44 +553,44 @@ SUBROUTINE xytran
 !
  200     i1 = i2 + 1
          nbeg = 3*i1 - 3
-         IF ( nbeg>=Nat ) THEN
+         IF ( nbeg>=nat ) THEN
 !
 !     ALL DATA IS NOW IN SLOTS. INTEGER 1-S REMAIN IN VACANT SLOTS.
 !
-            IF ( nsubs==0 ) Subc(File) = Idin(4)
+            IF ( nsubs==0 ) subc(file) = idin(4)
             CALL xydump(outfil,type)
-            Knt = 1
+            knt = 1
             IF ( nsubs/=0 ) THEN
                spag_nextblock_1 = 15
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Subc(File) = 0
+            subc(file) = 0
             itry = itry + 1
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ELSE
             idz = nbeg + 1
-            id = Z(idz)
+            id = z(idz)
             i2 = i1
-            SPAG_Loop_1_4: DO WHILE ( .NOT.(i2>=idtot .OR. Random) )
-               IF ( Z(3*i2+1)/=id ) EXIT SPAG_Loop_1_4
+            SPAG_Loop_1_4: DO WHILE ( .NOT.(i2>=idtot .OR. random) )
+               IF ( z(3*i2+1)/=id ) EXIT SPAG_Loop_1_4
                i2 = i2 + 1
             ENDDO SPAG_Loop_1_4
 !
 !     FIND THIS ID ON IFILE
 !
             CALL xyfind(*160,*140,*220,majid(1),idz)
-            Knt = -1
-            IF ( itry==0 .AND. Subc(File)==-1 ) THEN
+            knt = -1
+            IF ( itry==0 .AND. subc(file)==-1 ) THEN
 !
 !     NSUBS = 0 AND POINT NOT FOUND START FRAME OVER
 !
                CALL page2(3)
-               WRITE (L,99011) Uwm , id , namev(Vector) , Ifile
-               CALL rewind(Ifile)
-               Subc(File) = 0
-               Knt = 0
-               IF ( Nat/3>i2 ) THEN
+               WRITE (l,99011) uwm , id , namev(vector) , ifile
+               CALL rewind(ifile)
+               subc(file) = 0
+               knt = 0
+               IF ( nat/3>i2 ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -599,31 +598,31 @@ SUBROUTINE xytran
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Subc(File) = 0
+               subc(file) = 0
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
 !
 !     THIS IS THE WAY OUT FOR ALL SUBCASE REQUEST
 !
-            ELSEIF ( itry/=0 .AND. Subc(File)==-1 ) THEN
-               Subc(File) = 0
+            ELSEIF ( itry/=0 .AND. subc(file)==-1 ) THEN
+               subc(file) = 0
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               ktype = (Idin(2)/1000)*1000
+               ktype = (idin(2)/1000)*1000
                IF ( ktype==2000 .OR. ktype==3000 ) THEN
 !
 !     ID FOUND. READ DATA AND DISTRIBUTE INTO SLOTS.
 !
-                  nwds = Idin(10)
+                  nwds = idin(10)
                   istep = 0
                   ifcrv = ifcrv + 1
                   IF ( vgp ) istep = istsv
                   DO
-                     CALL read(*160,*200,Ifile,Buf(1),nwds,noeor,flag)
+                     CALL read(*160,*200,ifile,buf(1),nwds,noeor,flag)
                      istep = istep + 1
-                     IF ( istep<=Steps ) THEN
-                        itemp = Iat + istep
+                     IF ( istep<=steps ) THEN
+                        itemp = iat + istep
                         istsv = istep
                         IF ( vgp ) THEN
                            IF ( ifcrv/=0 ) THEN
@@ -633,21 +632,21 @@ SUBROUTINE xytran
                               IF ( rbuf(1)<rz(itemp-1) ) THEN
                                  n = istep - 1
                                  DO i = 1 , n
-                                    IF ( rbuf(1)<rz(Iat+i) ) GOTO 202
+                                    IF ( rbuf(1)<rz(iat+i) ) GOTO 202
                                  ENDDO
                               ENDIF
                               GOTO 204
  202                          istep = i
                               j = istep
-                              itemp = Iat + istep
+                              itemp = iat + istep
                               n = nslots + 1
                               jj = istsv - 1
                               DO i = 1 , n
-                                 item = Iat + (i-1)*Steps + j
+                                 item = iat + (i-1)*steps + j
                                  temp1 = rz(item)
-                                 Z(item) = 1
+                                 z(item) = 1
                                  DO ij = j , jj
-                                    item = Iat + (i-1)*Steps + ij + 1
+                                    item = iat + (i-1)*steps + ij + 1
                                     temp = rz(item)
                                     rz(item) = temp1
                                     temp1 = temp
@@ -660,52 +659,52 @@ SUBROUTINE xytran
 !     DISTRIBUTE DATA
 !
                         DO i = i1 , i2
-                           place = i*Steps + istep
+                           place = i*steps + istep
 !
 !     TOP CURVE
 !
-                           comp = Z(3*i-1)
+                           comp = z(3*i-1)
 !
 !     SET MEAN RESPONSE IF RANDOM
 !
-                           IF ( Random ) Z(3*i) = Idin(8)
+                           IF ( random ) z(3*i) = idin(8)
 !
 !     SET NUMBER OF ZERO CROSSINGS IF RANDOM
 !
-                           IF ( Random ) Buf(i+20) = Idin(9)
+                           IF ( random ) buf(i+20) = idin(9)
                            IF ( comp==1000 ) THEN
-                              itemp = Iat + place
-                              Z(itemp) = 1
+                              itemp = iat + place
+                              z(itemp) = 1
                            ELSE
                               IF ( comp==0 ) CYCLE
-                              IF ( Random ) comp = 2
+                              IF ( random ) comp = 2
                               IF ( comp<=nwds ) THEN
 !
-                                 itemp = Iat + place
-                                 Z(itemp) = Buf(comp)
+                                 itemp = iat + place
+                                 z(itemp) = buf(comp)
                               ELSE
-                                 Z(3*i-1) = 0
+                                 z(3*i-1) = 0
                                  CALL page2(2)
-                                 WRITE (L,99012) Uwm , comp , id
+                                 WRITE (l,99012) uwm , comp , id
                               ENDIF
                            ENDIF
 !
 !     BOTTOM CURVE IF DOUBLE FRAME
 !
-                           IF ( .NOT.(Random) ) THEN
-                              comp = Z(3*i)
+                           IF ( .NOT.(random) ) THEN
+                              comp = z(3*i)
                               IF ( comp==1000 ) THEN
-                                 itemp = Center + place
-                                 Z(itemp) = 1
+                                 itemp = center + place
+                                 z(itemp) = 1
                               ELSEIF ( comp/=0 ) THEN
                                  IF ( comp<=nwds ) THEN
 !
-                                    itemp = Center + place
-                                    Z(itemp) = Buf(comp)
+                                    itemp = center + place
+                                    z(itemp) = buf(comp)
                                  ELSE
-                                    Z(3*i) = 0
+                                    z(3*i) = 0
                                     CALL page2(2)
-                                    WRITE (L,99012) Uwm , comp , id
+                                    WRITE (l,99012) uwm , comp , id
                                  ENDIF
                               ENDIF
                            ENDIF
@@ -715,7 +714,7 @@ SUBROUTINE xytran
                   ENDDO
                ELSE
                   CALL page2(2)
-                  WRITE (L,99008) Uwm
+                  WRITE (l,99008) uwm
 99008             FORMAT (A25,' 977, FOLLOWING NAMED DATA-BLOCK IS NOT IN SORT-II',' FORMAT')
                   spag_nextblock_1 = 9
                   CYCLE SPAG_DispatchLoop_1
@@ -728,17 +727,17 @@ SUBROUTINE xytran
 !
 !     SUBCASE REQUEST EITHER SUBCASE NOT FOUND OR POINT NOT FOUND
 !
- 220     IF ( Knt==-1 ) idz = -1
+ 220     IF ( knt==-1 ) idz = -1
          IF ( idz/=-1 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL page2(3)
-         WRITE (L,99011) Uwm , id , namev(Vector) , Ifile
-         WRITE (L,99009) Subc(File)
+         WRITE (l,99011) uwm , id , namev(vector) , ifile
+         WRITE (l,99009) subc(file)
 99009    FORMAT (5X,'SUBCASE',I10)
-         Knt = 0
-         IF ( Nat/3<=i2 .AND. i1==1 ) THEN
+         knt = 0
+         IF ( nat/3<=i2 .AND. i1==1 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -746,43 +745,40 @@ SUBROUTINE xytran
       CASE (14)
          i13 = 3*i1 - 3
          i23 = 3*i2 + 1
-         IF ( i23<Nat ) THEN
-            DO i = i23 , Nat
+         IF ( i23<nat ) THEN
+            DO i = i23 , nat
                i13 = i13 + 1
-               Z(i13) = Z(i)
+               z(i13) = z(i)
             ENDDO
          ENDIF
          idtot = idtot - (i2-i1) - 1
          i2 = i1 - 1
-         Nat = i13
+         nat = i13
          IF ( idz==-1 .AND. i1/=1 .AND. .NOT.vgp ) GOTO 200
-         Iat = Nat
+         iat = nat
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
          IF ( kasknt<nsubs ) THEN
             kasknt = kasknt + 1
-            Subc(File) = subcas(kasknt)
+            subc(file) = subcas(kasknt)
             DO i = 1 , 5
-               Vecid(i) = 0
+               vecid(i) = 0
             ENDDO
             spag_nextblock_1 = 13
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             kasknt = 0
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (16)
 !
 !     INITIALIZE PARAMETERS
 !
-         Plot = .FALSE.
-         Punch = .FALSE.
-         Print = .FALSE.
-         Paplot = .FALSE.
+         plot = .FALSE.
+         punch = .FALSE.
+         print = .FALSE.
+         paplot = .FALSE.
          DO i = 1 , 5
-            Vecid(i) = 0
+            vecid(i) = 0
 !
 !     VALUE DUMP
 !
@@ -799,15 +795,15 @@ SUBROUTINE xytran
 !
 !     SET TITLES
 !
-                     CALL read(*60,*80,xycdb,Tcurve(1),32,noeor,flag)
+                     CALL read(*60,*80,xycdb,tcurve(1),32,noeor,flag)
                   ELSEIF ( bcd==xaxi ) THEN
-                     CALL read(*60,*80,xycdb,Xaxis(1),32,noeor,flag)
+                     CALL read(*60,*80,xycdb,xaxis(1),32,noeor,flag)
                   ELSEIF ( bcd==yaxi ) THEN
-                     CALL read(*60,*80,xycdb,Yaxis(1),32,noeor,flag)
+                     CALL read(*60,*80,xycdb,yaxis(1),32,noeor,flag)
                   ELSEIF ( bcd==ytax ) THEN
-                     CALL read(*60,*80,xycdb,Ytaxis(1),32,noeor,flag)
+                     CALL read(*60,*80,xycdb,ytaxis(1),32,noeor,flag)
                   ELSEIF ( bcd==ybax ) THEN
-                     CALL read(*60,*80,xycdb,Ybaxis(1),32,noeor,flag)
+                     CALL read(*60,*80,xycdb,ybaxis(1),32,noeor,flag)
 !
 !     SET SINGLE VALUE FLAGS. READ IN VALUE
 !
@@ -816,18 +812,18 @@ SUBROUTINE xytran
 !     CLEAR ALL VALUES SET AND RESTORE DEFAULTS
 !
                      DO i = 1 , 12
-                        Ivalue(i) = 1
+                        ivalue(i) = 1
                      ENDDO
                      DO i = 13 , nwords
-                        IF ( i/=47 ) Ivalue(i) = 0
+                        IF ( i/=47 ) ivalue(i) = 0
                      ENDDO
                      DO i = 25 , 32
-                        Ivalue(i) = 1
+                        ivalue(i) = 1
                      ENDDO
 !
 !     DEFAULT CAMERA TO BOTH
 !
-                     Ivalue(46) = 3
+                     ivalue(46) = 3
                   ELSE
                      IF ( bcd/=vdum ) THEN
                         CALL read(*60,*80,xycdb,ival,1,noeor,flag)
@@ -838,7 +834,7 @@ SUBROUTINE xytran
 !     WORD NOT RECOGNIZED
 !
                         CALL page2(2)
-                        WRITE (L,99010) Uwm , bcd
+                        WRITE (l,99010) uwm , bcd
 !
 !
 99010                   FORMAT (A25,' 975, XYTRAN DOES NOT RECOGNIZE ',A4,' AND IS IGNORING')
@@ -849,11 +845,11 @@ SUBROUTINE xytran
 !     KEY WORD FOUND
 !
  222                 IF ( bcd/=word(58) ) THEN
-                        Ivalue(i) = ival
+                        ivalue(i) = ival
                      ELSE
-                        Ivalue(i) = ival
+                        ivalue(i) = ival
                         CALL read(*60,*80,xycdb,ival,1,noeor,flag)
-                        Ivalue(i+1) = ival
+                        ivalue(i+1) = ival
                      ENDIF
                   ENDIF
                   spag_nextblock_2 = 2
@@ -869,41 +865,41 @@ SUBROUTINE xytran
 !
 !     XY-COMMAND OPERATIONS HIT
 !
-         CALL read(*60,*80,xycdb,Buf(1),7,noeor,flag)
-         IF ( Buf(6)/=0 ) Paplot = .TRUE.
-         IF ( Buf(6)/=0 ) oompp = .TRUE.
-         IF ( Buf(2)/=0 ) oomcp = .TRUE.
-         IF ( Buf(1)/=0 ) Print = .TRUE.
-         IF ( Buf(2)/=0 ) Plot = .TRUE.
+         CALL read(*60,*80,xycdb,buf(1),7,noeor,flag)
+         IF ( buf(6)/=0 ) paplot = .TRUE.
+         IF ( buf(6)/=0 ) oompp = .TRUE.
+         IF ( buf(2)/=0 ) oomcp = .TRUE.
+         IF ( buf(1)/=0 ) print = .TRUE.
+         IF ( buf(2)/=0 ) plot = .TRUE.
          kasknt = 0
-         IF ( Outopn ) THEN
+         IF ( outopn ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( .NOT.Plot .AND. .NOT.Paplot ) THEN
+         IF ( .NOT.plot .AND. .NOT.paplot ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     OPEN OUTPUT PLOT DATA BLOCK
 !
-         core = core - Sysbuf
+         core = core - sysbuf
          IF ( core<=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         CALL open(*120,outfil,Z(core+1),outrwd)
+         CALL open(*120,outfil,z(core+1),outrwd)
          CALL fname(outfil,name(1))
          CALL write(outfil,name(1),2,eor)
-         Outopn = .TRUE.
+         outopn = .TRUE.
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
 !     RESTORE OUTPUT HEADING AND RETURN
 !
  240     DO i = 1 , 96
-            Ihead(i) = headsv(i)
+            ihead(i) = headsv(i)
          ENDDO
          RETURN
       END SELECT

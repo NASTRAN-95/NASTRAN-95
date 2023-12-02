@@ -1,13 +1,14 @@
-!*==qdmm1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==qdmm1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qdmm1(Tbar,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_ssgwrk
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SSGWRK
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -73,7 +74,7 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !                         ONTO THE MEAN PLANE
 !
    DO i = 1 , 144
-      Ee(i) = 0.
+      ee(i) = 0.
    ENDDO
 !
 !     E(1), E(4), E(7) WILL BE THE I-VECTOR
@@ -82,18 +83,18 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !
 !     COMPUTE DIFFERENCES OF COORDINATES OF ACTUAL GRID POINTS
 !
-   x21 = X2 - X1
-   y21 = Y2 - Y1
-   z21 = Z2 - Z1
-   x31 = X3 - X1
-   y31 = Y3 - Y1
-   z31 = Z3 - Z1
-   x41 = X4 - X1
-   y41 = Y4 - Y1
-   z41 = Z4 - Z1
-   x42 = X4 - X2
-   y42 = Y4 - Y2
-   z42 = Z4 - Z2
+   x21 = x2 - x1
+   y21 = y2 - y1
+   z21 = z2 - z1
+   x31 = x3 - x1
+   y31 = y3 - y1
+   z31 = z3 - z1
+   x41 = x4 - x1
+   y41 = y4 - y1
+   z41 = z4 - z1
+   x42 = x4 - x2
+   y42 = y4 - y2
+   z42 = z4 - z2
 !
 !     COMPUTE THE ELEMENTS OF THE (3X3) E MATRIX
 !
@@ -154,7 +155,7 @@ SUBROUTINE qdmm1(Tbar,Pg)
          DO kkct = 1 , 3
             nnct = nnct + 1
             ktot = kkct + llct + mmct
-            Ee(ktot) = e(nnct)
+            ee(ktot) = e(nnct)
          ENDDO
       ENDDO
    ENDDO
@@ -203,73 +204,73 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !                        AND ACTUAL GRID POINTS
 !
    DO i = 1 , 96
-      B(i) = 0.
+      b(i) = 0.
    ENDDO
-   B(1) = 1.
-   B(10) = 1.
-   B(17) = -hh/la
-   B(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
-   B(19) = hh/la
-   B(20) = (hh*cth2)/(la*sth2)
-   B(23) = (hh*cth42)/ldd2
-   B(24) = (hh*sth42)/ldd2
-   B(27) = 1.
-   B(36) = 1.
-   B(41) = -B(17)
-   B(42) = -(hh*cth1)/(la*sth1)
-   B(43) = B(17)
-   B(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
-   B(45) = -(hh*sth31)/lbd1
-   B(46) = -(hh*cth31)/lbd1
-   B(53) = 1.
-   B(62) = 1.
-   B(68) = -hh/(lb*sth2)
-   B(69) = hh*((sth31/lbd1)+(cth32/lcd1))
-   B(70) = hh*((cth31/lbd1)+(sth32/lcd1))
-   B(71) = -(hh*sth41)/lcd2
-   B(72) = (hh*cth41)/lcd2
-   B(79) = 1.
-   B(88) = 1.
-   B(90) = hh/(ld*sth1)
-   B(93) = -(hh*cth32)/lcd1
-   B(94) = -(hh*sth32)/lcd1
-   B(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
-   B(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
+   b(1) = 1.
+   b(10) = 1.
+   b(17) = -hh/la
+   b(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
+   b(19) = hh/la
+   b(20) = (hh*cth2)/(la*sth2)
+   b(23) = (hh*cth42)/ldd2
+   b(24) = (hh*sth42)/ldd2
+   b(27) = 1.
+   b(36) = 1.
+   b(41) = -b(17)
+   b(42) = -(hh*cth1)/(la*sth1)
+   b(43) = b(17)
+   b(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
+   b(45) = -(hh*sth31)/lbd1
+   b(46) = -(hh*cth31)/lbd1
+   b(53) = 1.
+   b(62) = 1.
+   b(68) = -hh/(lb*sth2)
+   b(69) = hh*((sth31/lbd1)+(cth32/lcd1))
+   b(70) = hh*((cth31/lbd1)+(sth32/lcd1))
+   b(71) = -(hh*sth41)/lcd2
+   b(72) = (hh*cth41)/lcd2
+   b(79) = 1.
+   b(88) = 1.
+   b(90) = hh/(ld*sth1)
+   b(93) = -(hh*cth32)/lcd1
+   b(94) = -(hh*sth32)/lcd1
+   b(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
+   b(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
    h = ecpt(8)
-   Eltemp = ecpt(26)
+   eltemp = ecpt(26)
 !
 !     SET UP (3X8) C MATRIX (SEE FMMS)
 !
-   C(1) = -(h*y4a)/2.
-   C(2) = 0.
-   C(3) = -(h*x24)/2.
-   C(4) = 0.
-   C(5) = -(h*x24)/2.
-   C(6) = -(h*y4a)/2.
-   C(7) = (h*y3a)/2.
-   C(8) = 0.
-   C(9) = (h*x13)/2.
-   C(10) = 0.
-   C(11) = (h*x13)/2.
-   C(12) = (h*y3a)/2.
-   C(13) = (h*y4a)/2.
-   C(14) = 0.
-   C(15) = (h*x24)/2.
-   C(16) = 0.
-   C(17) = (h*x24)/2.
-   C(18) = (h*y4a)/2.
-   C(19) = -(h*y3a)/2.
-   C(20) = 0.
-   C(21) = -(h*x13)/2.
-   C(22) = 0.
-   C(23) = -(h*x13)/2.
-   C(24) = -(h*y3a)/2.
-   theta = Angle*degra
-   Sinth = sin(theta)
-   Costh = cos(theta)
-   IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0
-   Matid = Matid1
-   Inflag = 2
+   c(1) = -(h*y4a)/2.
+   c(2) = 0.
+   c(3) = -(h*x24)/2.
+   c(4) = 0.
+   c(5) = -(h*x24)/2.
+   c(6) = -(h*y4a)/2.
+   c(7) = (h*y3a)/2.
+   c(8) = 0.
+   c(9) = (h*x13)/2.
+   c(10) = 0.
+   c(11) = (h*x13)/2.
+   c(12) = (h*y3a)/2.
+   c(13) = (h*y4a)/2.
+   c(14) = 0.
+   c(15) = (h*x24)/2.
+   c(16) = 0.
+   c(17) = (h*x24)/2.
+   c(18) = (h*y4a)/2.
+   c(19) = -(h*y3a)/2.
+   c(20) = 0.
+   c(21) = -(h*x13)/2.
+   c(22) = 0.
+   c(23) = -(h*x13)/2.
+   c(24) = -(h*y3a)/2.
+   theta = angle*degra
+   sinth = sin(theta)
+   costh = cos(theta)
+   IF ( abs(sinth)<1.0E-06 ) sinth = 0.0
+   matid = matid1
+   inflag = 2
 !                                                     T
 !     COMPUTE TRANSFORMED MATRIX OF STIFFNESSES  G = P  * G * P
 !
@@ -277,28 +278,28 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !
 !     STORE INTO G MATRIX
 !
-   g(1) = G11
-   g(2) = G12
-   g(3) = G13
-   g(4) = G12
-   g(5) = G22
-   g(6) = G23
-   g(7) = G13
-   g(8) = G23
-   g(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !                   T                            -
 !     COMPUTE PG = T  * E * B * C * G * ALPHA * (T - T )
 !                                                     0
 !
-   temp = Tbar - Tsub0
-   Tempar(1) = Alphas(1)*temp
-   Tempar(2) = Alphas(2)*temp
-   Tempar(3) = Alphas(3)*temp
-   CALL gmmats(g(1),3,3,0,Tempar(1),3,1,0,Tempar(13))
-   CALL gmmats(C(1),8,3,0,Tempar(13),3,1,0,Tempar(1))
-   CALL gmmats(B(1),12,8,0,Tempar(1),8,1,0,Tempar(13))
-   CALL gmmats(Ee(1),12,12,0,Tempar(13),12,1,0,Tempar(1))
+   temp = Tbar - tsub0
+   tempar(1) = alphas(1)*temp
+   tempar(2) = alphas(2)*temp
+   tempar(3) = alphas(3)*temp
+   CALL gmmats(g(1),3,3,0,tempar(1),3,1,0,tempar(13))
+   CALL gmmats(c(1),8,3,0,tempar(13),3,1,0,tempar(1))
+   CALL gmmats(b(1),12,8,0,tempar(1),8,1,0,tempar(13))
+   CALL gmmats(ee(1),12,12,0,tempar(13),12,1,0,tempar(1))
    DO i = 1 , 4
 !
 !     T-SUB-I WILL BE USED BELOW ONLY IF THE PIVOT COORDINATE SYSTEM ID
@@ -310,9 +311,9 @@ SUBROUTINE qdmm1(Tbar,Pg)
 !
       isw = 0
       jj = 3*i - 2
-      IF ( Necpt(ka)/=0 ) THEN
+      IF ( necpt(ka)/=0 ) THEN
          isw = 1
-         CALL basglb(Tempar(jj),Tempar(20),Necpt(ka+1),Necpt(ka))
+         CALL basglb(tempar(jj),tempar(20),necpt(ka+1),necpt(ka))
       ENDIF
 !
 !     COMPUTE PG VECTOR
@@ -320,10 +321,10 @@ SUBROUTINE qdmm1(Tbar,Pg)
       DO k = 1 , 3
          jjk = jj + k - 1
          k19 = k + 19
-         IF ( isw==0 ) Tempar(k19) = Tempar(jjk)
+         IF ( isw==0 ) tempar(k19) = tempar(jjk)
          i1 = i + 1
-         l = Necpt(i1) + k - 1
-         Pg(l) = Pg(l) + Tempar(k19)
+         l = necpt(i1) + k - 1
+         Pg(l) = Pg(l) + tempar(k19)
       ENDDO
    ENDDO
 END SUBROUTINE qdmm1

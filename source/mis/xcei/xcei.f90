@@ -3,13 +3,13 @@
 SUBROUTINE xcei
 !
    IMPLICIT NONE
-   USE C_OSCENT
-   USE C_SYSTEM
-   USE C_XCEITB
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XVPS
-   USE C_ZZZZZZ
+   USE c_oscent
+   USE c_system
+   USE c_xceitb
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xvps
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -20,6 +20,12 @@ SUBROUTINE xcei
    INTEGER , DIMENSION(1) :: idic
    INTEGER , SAVE :: mask1 , nblank , noflgs , noscar , pool
    INTEGER , DIMENSION(2) , SAVE :: nxcei , nxptdc
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -40,12 +46,12 @@ SUBROUTINE xcei
 !
    mask = lshift(mask1,16)
    lpflg = lshift(1,30)
-   CALL open(*1700,pool,Databf,2)
+   CALL open(*1700,pool,databf,2)
 !
 !     DETERMINE WHICH TYPE OF CONTROL REQUEST
 !
    DO j = 1 , 4
-      IF ( Buf(4)==contrl(j) ) THEN
+      IF ( buf(4)==contrl(j) ) THEN
          IF ( j==1 ) GOTO 700
          IF ( j==2 ) GOTO 300
          IF ( j==3 ) GOTO 1200
@@ -56,11 +62,11 @@ SUBROUTINE xcei
 !
 !     PROCESS  JUMP CONTROL REQUEST
 !
- 100  IF ( newsq>Buf(2) ) THEN
+ 100  IF ( newsq>buf(2) ) THEN
 !
 !     MUST FORWARD REC WITHIN OSCAR FILE
 !
-      newsq = newsq - Buf(2) - 1
+      newsq = newsq - buf(2) - 1
       IF ( newsq==0 ) GOTO 1300
    ELSE
 !
@@ -72,12 +78,12 @@ SUBROUTINE xcei
 !
 !     POSITION POOL TAPE AT BEGINNING OF OSCAR FILE
 !
-      jj = Idpl(3)*3 + 1
+      jj = idpl(3)*3 + 1
       DO j = 4 , jj , 3
-         IF ( Idpl(j)==noscar ) GOTO 150
+         IF ( idpl(j)==noscar ) GOTO 150
       ENDDO
       CALL mesage(-61,0,0)
- 150  CALL skpfil(pool,andf(Idpl(j+2),mask1)-1)
+ 150  CALL skpfil(pool,andf(idpl(j+2),mask1)-1)
       newsq = newsq - 1
    ENDIF
    DO i = 1 , newsq
@@ -86,19 +92,19 @@ SUBROUTINE xcei
 !
 !     CHECK FOR REPEAT INSTRUCTION
 !
-   IF ( Buf(4)==contrl(2) ) GOTO 1300
+   IF ( buf(4)==contrl(2) ) GOTO 1300
 !
 !     JUMP REQUEST - CHECK FOR JUMP OUT OF LOOPS
 !
-   newsq = rshift(andf(Buf(7),mask),16)
+   newsq = rshift(andf(buf(7),mask),16)
    kk = 3
    ceitbx = 0
  200  DO
       ceitbx = 4 + ceitbx
-      IF ( ceitbx>Ceitbl(2) ) GOTO 1300
-      IF ( andf(Ceitbl(ceitbx-1),lpflg)/=0 .AND. Ceitbl(ceitbx+1)/=0 ) THEN
-         nbegn = rshift(andf(Ceitbl(ceitbx-1),noflgs),16)
-         nend = andf(mask1,Ceitbl(ceitbx-1))
+      IF ( ceitbx>ceitbl(2) ) GOTO 1300
+      IF ( andf(ceitbl(ceitbx-1),lpflg)/=0 .AND. ceitbl(ceitbx+1)/=0 ) THEN
+         nbegn = rshift(andf(ceitbl(ceitbx-1),noflgs),16)
+         nend = andf(mask1,ceitbl(ceitbx-1))
          IF ( newsq<nbegn .OR. newsq>nend ) GOTO 500
       ENDIF
    ENDDO
@@ -106,28 +112,28 @@ SUBROUTINE xcei
 !     PROCESS  REPEAT CONTROL REQUEST
 !
  300  kk = 1
- 400  ceitbx = andf(Buf(7),mask1)
-   IF ( Ceitbl(ceitbx)<0 ) THEN
+ 400  ceitbx = andf(buf(7),mask1)
+   IF ( ceitbl(ceitbx)<0 ) THEN
 !
 !      NEGATIVE ENTRY IMPLIES VARIABLE REPT INSTRUCTION
 !      FIND VALUE IN VPS AND UPDATE CEITBL
 !
-      ivpspt = rshift(andf(Ceitbl(ceitbx),noflgs),16)
-      loop = andf(Ceitbl(ceitbx),mask1)
-      ivpspt = Vps(ivpspt+3)
-      Ceitbl(ceitbx) = orf(lshift(ivpspt,16),loop)
+      ivpspt = rshift(andf(ceitbl(ceitbx),noflgs),16)
+      loop = andf(ceitbl(ceitbx),mask1)
+      ivpspt = vps(ivpspt+3)
+      ceitbl(ceitbx) = orf(lshift(ivpspt,16),loop)
    ENDIF
 !
 !     CHECK FOR END OF LOOP
 !
-   mxloop = rshift(andf(Ceitbl(ceitbx),noflgs),16)
-   loop = andf(Ceitbl(ceitbx),mask1)
+   mxloop = rshift(andf(ceitbl(ceitbx),noflgs),16)
+   loop = andf(ceitbl(ceitbx),mask1)
    IF ( mxloop>loop ) GOTO 600
 !
 !     REPEATS FINISHED - ZERO LOOP COUNT AND TURN OFF LOOP FLAG
 !
- 500  Ceitbl(ceitbx) = andf(Ceitbl(ceitbx),mask)
-   Ceitbl(ceitbx-1) = andf(Ceitbl(ceitbx-1),noflgs)
+ 500  ceitbl(ceitbx) = andf(ceitbl(ceitbx),mask)
+   ceitbl(ceitbx-1) = andf(ceitbl(ceitbx-1),noflgs)
    IF ( kk==1 ) GOTO 1300
    IF ( kk==2 ) THEN
       CALL pexit
@@ -138,28 +144,28 @@ SUBROUTINE xcei
 !
 !     ANOTHER  TIME THRU - INCREMENT COUNTER BY 1
 !
- 600  Ceitbl(ceitbx) = Ceitbl(ceitbx) + 1
+ 600  ceitbl(ceitbx) = ceitbl(ceitbx) + 1
 !
 !     SET LOOP FLAG IN WORD 1 OF CEITBL ENTRY
 !
-   Ceitbl(ceitbx-1) = orf(Ceitbl(ceitbx-1),lpflg)
+   ceitbl(ceitbx-1) = orf(ceitbl(ceitbx-1),lpflg)
    IF ( kk==2 ) GOTO 1300
- 700  newsq = rshift(andf(Buf(7),mask),16)
+ 700  newsq = rshift(andf(buf(7),mask),16)
 !
 !     MAKE SURE WE ARE LOOPING
 !
-   IF ( newsq>=Buf(2) ) GOTO 100
+   IF ( newsq>=buf(2) ) GOTO 100
 !
 !     IF CHECKPOINTING - BACKUP PROBLEM TAPE DICTIONARY TO BEGINNING OF
 !     LOOP
 !
-   IF ( Icpflg==0 ) GOTO 1100
+   IF ( icpflg==0 ) GOTO 1100
 !
 !     READ IN CHECKPOINT DICTIONARY
 !
-   itop = 2*Bfsz + 1
+   itop = 2*bfsz + 1
    ldic = korsz(idic(itop))
-   CALL open(*1700,nxptdc,Databf(Bfsz+1),0)
+   CALL open(*1700,nxptdc,databf(bfsz+1),0)
    CALL read(*1600,*800,nxptdc,dcparm,2,1,nrecsz)
  800  IF ( nxptdc(1)/=dcparm(1) ) CALL mesage(-61,0,0)
    CALL read(*1600,*900,nxptdc,dcparm,2,1,nrecsz)
@@ -180,7 +186,7 @@ SUBROUTINE xcei
 !
 !     WRITE IDIC ON NEW PROBLEM TAPE
 !
-   CALL open(*1700,nxptdc,Databf(Bfsz+1),1)
+   CALL open(*1700,nxptdc,databf(bfsz+1),1)
    CALL write(nxptdc,nxptdc,2,1)
    CALL write(nxptdc,dcparm,2,1)
    CALL write(nxptdc,idic(itop),ibot+3-itop,1)
@@ -188,42 +194,42 @@ SUBROUTINE xcei
 !
 !     SCAN FIAT FOR FILES REGENERATED NEXT TIME THRU LOOP.
 !
- 1100 j = Ifiat(3)*Icfiat - 2
-   jj = Idpl(3)*3 + 1
-   DO i = 4 , j , Icfiat
-      IF ( rshift(andf(Ifiat(i),noflgs),16)<Buf(2) ) THEN
-         IF ( rshift(andf(Ifiat(i),noflgs),16)/=0 ) THEN
-            IF ( andf(rshift(Ifiat(i),30),1)==0 ) THEN
+ 1100 j = ifiat(3)*icfiat - 2
+   jj = idpl(3)*3 + 1
+   DO i = 4 , j , icfiat
+      IF ( rshift(andf(ifiat(i),noflgs),16)<buf(2) ) THEN
+         IF ( rshift(andf(ifiat(i),noflgs),16)/=0 ) THEN
+            IF ( andf(rshift(ifiat(i),30),1)==0 ) THEN
 !
 !     LTU IS LESS THAN LOOP END - CLEAR FIAT TRAILER
 !
-               Ifiat(i+3) = 0
-               Ifiat(i+4) = 0
-               Ifiat(i+5) = 0
-               IF ( Icfiat/=8 ) THEN
-                  Ifiat(i+8) = 0
-                  Ifiat(i+9) = 0
-                  Ifiat(i+10) = 0
+               ifiat(i+3) = 0
+               ifiat(i+4) = 0
+               ifiat(i+5) = 0
+               IF ( icfiat/=8 ) THEN
+                  ifiat(i+8) = 0
+                  ifiat(i+9) = 0
+                  ifiat(i+10) = 0
                ENDIF
 !
 !     IF EQUIV, REMOVE ENTIRE ENTRY FROM FIAT
 !     REMOVE ENTIRE ENTRY FROM FIAT TO FORCE REALLOCATION
 !
-               ihold = andf(mask1,Ifiat(i))
-               Ifiat(i) = 0
-               Ifiat(i+1) = 0
-               Ifiat(i+2) = 0
-               IF ( i<Ifiat(1)*Icfiat ) Ifiat(i) = ihold
+               ihold = andf(mask1,ifiat(i))
+               ifiat(i) = 0
+               ifiat(i+1) = 0
+               ifiat(i+2) = 0
+               IF ( i<ifiat(1)*icfiat ) ifiat(i) = ihold
 !
 !     ZERO FILE NAME IF IN DPL
 !
                DO ii = 4 , jj , 3
-                  IF ( Idpl(ii)==Ifiat(i+1) .AND. Idpl(ii+1)==Ifiat(i+2) ) GOTO 1110
+                  IF ( idpl(ii)==ifiat(i+1) .AND. idpl(ii+1)==ifiat(i+2) ) GOTO 1110
                ENDDO
             ENDIF
             CYCLE
- 1110       Idpl(ii) = 0
-            Idpl(ii+1) = 0
+ 1110       idpl(ii) = 0
+            idpl(ii+1) = 0
          ENDIF
       ENDIF
    ENDDO
@@ -231,15 +237,15 @@ SUBROUTINE xcei
 !
 !     PROCESS  CONDITIONAL CONTROL REQUEST
 !
- 1200 ceitbx = andf(Buf(7),mask1)
-   IF ( Vps(ceitbx)<0 ) GOTO 700
+ 1200 ceitbx = andf(buf(7),mask1)
+   IF ( vps(ceitbx)<0 ) GOTO 700
  1300 CALL close(pool,2)
    RETURN
 !
 !     PROCESS EXIT  CONTROL REQUESTS
 !
  1400 kk = 2
-   IF ( Buf(7)/=contrl(4) ) GOTO 400
+   IF ( buf(7)/=contrl(4) ) GOTO 400
    CALL pexit
  1500 CALL mesage(-2,pool,nxcei)
  1600 CALL mesage(-2,nxptdc,nxcei)

@@ -1,16 +1,17 @@
-!*==combin.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==combin.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE combin(Pg,Ilist,Nlist)
+   USE c_blank
+   USE c_loads
+   USE c_loadx
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_LOADS
-   USE C_LOADX
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,9 +53,9 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
       CASE (1)
 !
 !
-         Ita = 1
-         Itb = Iprec
-         Ii = 1
+         ita = 1
+         itb = iprec
+         ii = 1
 !
 !     PERFORM CHECKS IN E AND M PROBLEM
 !     IN E AND M PROBLEM, REMFLS AND HCFLDS MUST HAVE THE SAME NUMBER
@@ -89,26 +90,26 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Jj = Nrowsp
-            Incur = 1
-            lcore = Lc
+            jj = nrowsp
+            incur = 1
+            lcore = lc
             ibuf1 = lcore
-            lcore = lcore - Sysbuf
-            CALL open(*40,Lodc,Core(lcore+1),1)
-            CALL fname(Lodc,head)
-            CALL write(Lodc,head,2,1)
-            lcore = lcore - Sysbuf
-            CALL open(*20,Pg,Core(lcore+1),0)
-            CALL makmcb(lodc1,Lodc,Nrowsp,2,Iprec)
-            nlj = Iptr
+            lcore = lcore - sysbuf
+            CALL open(*40,lodc,core(lcore+1),1)
+            CALL fname(lodc,head)
+            CALL write(lodc,head,2,1)
+            lcore = lcore - sysbuf
+            CALL open(*20,Pg,core(lcore+1),0)
+            CALL makmcb(lodc1,lodc,nrowsp,2,iprec)
+            nlj = iptr
             nl1 = 0
-            DO i = 1 , Nload
+            DO i = 1 , nload
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     DO j = 1 , Nrowsp
-                        Core(j) = 0.0
+                     DO j = 1 , nrowsp
+                        core(j) = 0.0
                      ENDDO
                      nlj = nlj + nl1*2 + 1
                      nl1 = iary(nlj)
@@ -130,14 +131,13 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
                            CASE (1)
                               IF ( Ilist(k)/=0 ) THEN
                                  kl = kl + 1
-                                 DO j = 1 , nl1
+                                 SPAG_Loop_7_1: DO j = 1 , nl1
                                     IF ( loadn(j)==Ilist(k) ) THEN
                                        spag_nextblock_3 = 2
-                                       CYCLE SPAG_DispatchLoop_3
+                                       EXIT SPAG_Loop_7_1
                                     ENDIF
-                                 ENDDO
+                                 ENDDO SPAG_Loop_7_1
                               ENDIF
-                              CYCLE
                            CASE (2)
                               loadnn(kk) = kl
                               alpha1(kk) = alpha(j)
@@ -159,28 +159,27 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
                            CASE (2)
                               DO WHILE ( loadnn(j)/=kk )
                                  IF ( inull/=1 ) THEN
-                                    IF ( Ieor==0 ) CALL skprec(Pg,1)
+                                    IF ( ieor==0 ) CALL skprec(Pg,1)
                                  ENDIF
                                  kk = kk + 1
                                  inull = 0
                                  CALL intpk(*2,Pg,0,1,0)
                               ENDDO
                               SPAG_Loop_4_1: DO WHILE ( inull/=1 )
-                                 IF ( Ieol/=0 ) EXIT SPAG_Loop_4_1
+                                 IF ( ieol/=0 ) EXIT SPAG_Loop_4_1
                                  CALL zntpki
-                                 Core(Ll) = Core(Ll) + A(1)*alpha1(j)
+                                 core(ll) = core(ll) + a(1)*alpha1(j)
                               ENDDO SPAG_Loop_4_1
                               kk = kk + 1
                               CYCLE
  2                            inull = 1
                               spag_nextblock_4 = 2
-                              CYCLE SPAG_DispatchLoop_4
                            END SELECT
                         ENDDO SPAG_DispatchLoop_4
                      ENDDO
                      spag_nextblock_2 = 2
                   CASE (2)
-                     CALL pack(Core,lodc1(1),lodc1)
+                     CALL pack(core,lodc1(1),lodc1)
                      CALL rewind(Pg)
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
@@ -197,8 +196,8 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
                CALL rdtrl(lodc1)
                IF ( lodc1(2)<=0 ) RETURN
                Pg = remfls
-               Lodc = remfl
-               Nrowsp = lodc1(3)
+               lodc = remfl
+               nrowsp = lodc1(3)
             ELSEIF ( Pg==remfls ) THEN
 !
 !     HCCENS
@@ -207,8 +206,8 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
                CALL rdtrl(lodc1)
                IF ( lodc1(2)<=0 ) RETURN
                Pg = hccens
-               Lodc = hccen
-               Nrowsp = lodc1(3)
+               lodc = hccen
+               nrowsp = lodc1(3)
             ELSE
                IF ( Pg==hccens ) RETURN
 !
@@ -221,20 +220,19 @@ SUBROUTINE combin(Pg,Ilist,Nlist)
 !
                IF ( lodc1(2)<=0 ) RETURN
                Pg = hcflds
-               Lodc = hcfld
-               Nrowsp = 3*Nrowsp
+               lodc = hcfld
+               nrowsp = 3*nrowsp
             ENDIF
          ENDDO
  20      ip1 = Pg
          spag_nextblock_1 = 2
       CASE (2)
          CALL mesage(-1,ip1,name)
- 40      IF ( Lodc==hcfld ) RETURN
-         ip1 = Lodc
+ 40      IF ( lodc==hcfld ) RETURN
+         ip1 = lodc
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         WRITE (Otpe,99001) Ufm
+         WRITE (otpe,99001) ufm
 99001    FORMAT (A23,', IN AN E AND M PROBLEM, SCRATCH DATA BLOCKS HCFLDS',' AND REMFLS HAVE DIFFERENT NUMBERS OF COLUMNS.',/10X,   &
                 &' THIS MAY RESULT FROM SPCFLD AND REMFLU CARDS HAVING THE',' SAME LOAD SET ID')
          CALL mesage(-61,0,0)

@@ -1,4 +1,5 @@
-!*==totape.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==totape.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE totape(Caller,Z)
@@ -38,12 +39,12 @@ SUBROUTINE totape(Caller,Z)
 !         2 FOR OUTPUT PRINT ONLY
 !      OR 3 FOR BOTH
 !
+   USE c_blank
+   USE c_names
+   USE c_output
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -94,23 +95,23 @@ SUBROUTINE totape(Caller,Z)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         CALL open(*40,file,Z(ibuf2),Rdrew)
+         CALL open(*40,file,Z(ibuf2),rdrew)
          DO
             CALL read(*20,*20,file,Z(1),2,0,m)
             CALL skpfil(file,1)
          ENDDO
- 20      CALL close(file,Norew)
+ 20      CALL close(file,norew)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL open(*40,file,Z(ibuf2),Wrt)
+         CALL open(*40,file,Z(ibuf2),wrt)
          IF ( intra>=0 ) THEN
             DO i = 1 , 2
                IF ( intra==i .OR. intra==3 ) THEN
                   file = tab(3,i+1)
                   CALL write(file,tab(1,Caller),3,0)
                   CALL write(file,date(1),3,0)
-                  CALL write(file,Head(1),96,0)
-                  CALL write(file,Ksystm(1),100,1)
+                  CALL write(file,head(1),96,0)
+                  CALL write(file,ksystm(1),100,1)
                   CALL write(file,mark(1),3,1)
                ENDIF
             ENDDO
@@ -121,7 +122,7 @@ SUBROUTINE totape(Caller,Z)
          Z(2) = nfile
          Z(3) = nparam
          CALL write(file,Z(1),3,1)
-         WRITE (nout,99001) Uim , who , file
+         WRITE (nout,99001) uim , who , file
 99001    FORMAT (A29,', THE FOLLOWING FILES WERE COPIED FROM DMAP ',A4,A2,4H TO ,A4,5H FILE,/)
          DO i = 1 , nfile
             spag_nextblock_2 = 1
@@ -129,7 +130,7 @@ SUBROUTINE totape(Caller,Z)
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   infil = 100 + i
-                  CALL open(*26,infil,Z(ibuf1),Rdrew)
+                  CALL open(*26,infil,Z(ibuf1),rdrew)
                   Z(1) = infil
                   CALL rdtrl(Z(1))
                   CALL write(file,Z(1),7,1)
@@ -141,7 +142,7 @@ SUBROUTINE totape(Caller,Z)
  22               CALL write(file,Z(1),m,1)
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
- 24               CALL close(infil,Rew)
+ 24               CALL close(infil,rew)
                   CALL fname(infil,fn)
                   WRITE (nout,99002) fn
 99002             FORMAT (5X,2A4)
@@ -150,10 +151,10 @@ SUBROUTINE totape(Caller,Z)
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         CALL write(file,Param(1),nparam,1)
+         CALL write(file,param(1),nparam,1)
          CALL write(file,mark(1),3,1)
-         IF ( .NOT.disc ) CALL close(file,Norew)
-         IF ( disc ) CALL close(file,Rew)
+         IF ( .NOT.disc ) CALL close(file,norew)
+         IF ( disc ) CALL close(file,rew)
          RETURN
 !
  40      CALL mesage(-1,file,sub)

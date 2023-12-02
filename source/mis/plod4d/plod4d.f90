@@ -1,13 +1,14 @@
-!*==plod4d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==plod4d.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE plod4d
-USE C_LOADX
-USE C_PINDEX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_loadx
+   USE c_pindex
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -108,10 +109,10 @@ USE ISO_FORTRAN_ENV
 !
    x = 0.0
    DO i = 1 , 4
-      ppp(i) = Slt(i+1)
+      ppp(i) = slt(i+1)
    ENDDO
    DO i = 1 , 3
-      nv(i) = Slt(i+8)
+      nv(i) = slt(i+8)
       x = x + nv(i)*nv(i)
    ENDDO
    cid = islt(8)
@@ -317,9 +318,9 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ELSE
 !
-            WRITE (Nout,99001) Sfm , nest(1)
+            WRITE (nout,99001) sfm , nest(1)
 99001       FORMAT (A25,'.  BAD GEOMETRY DETECTED FOR QUAD4 ELEMENT ',I8,' WHILE PROCESSING PLOAD4 DATA.')
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
 !
@@ -341,10 +342,10 @@ USE ISO_FORTRAN_ENV
    jb = 25
    DO j = 1 , 4
       jb = jb + 4
-      IF ( nest(jb)/=0 ) CALL basglb(pe(1,j),pe(1,j),Best(jb+1),nest(jb))
+      IF ( nest(jb)/=0 ) CALL basglb(pe(1,j),pe(1,j),best(jb+1),nest(jb))
       jp = sil(j) - 1
       DO i = 1 , 3
-         Z(jp+i) = Z(jp+i) + pe(i,j)
+         z(jp+i) = z(jp+i) + pe(i,j)
       ENDDO
    ENDDO
 END SUBROUTINE plod4d

@@ -1,19 +1,20 @@
-!*==rmg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rmg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rmg
-USE C_BLANK
-USE C_DCOMPX
-USE C_GFBSX
-USE C_GPTA1
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_dcompx
+   USE c_gfbsx
+   USE c_gpta1
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -88,7 +89,7 @@ USE ISO_FORTRAN_ENV
          scrt1 = 301
          precis = 2
          IF ( iprec/=2 ) precis = 1
-         core = korsz(Z)
+         core = korsz(z)
          buf1 = core - sysbuf - 2
          buf2 = buf1 - sysbuf - 2
          buf3 = buf2 - sysbuf - 2
@@ -97,17 +98,17 @@ USE ISO_FORTRAN_ENV
          nogo = .FALSE.
          double = .FALSE.
          IF ( precis==2 ) double = .TRUE.
-         IF ( myradm==1 .OR. myradm==2 ) WRITE (outpt,99001) Uwm , radtyp(myradm)
+         IF ( myradm==1 .OR. myradm==2 ) WRITE (outpt,99001) uwm , radtyp(myradm)
 99001    FORMAT (A25,' 2358, ',A4,'SYMMETRIC SCRIPT-AF MATRIX (HREE) ','ASSUMED IN RADMTX')
 !
 !     OPEN MATPOOL DATA BLOCK.
 !
          file = matpol
-         CALL preloc(*240,Z(buf1),matpol)
+         CALL preloc(*240,z(buf1),matpol)
 !
 !     LOCATE RADLST DATA
 !
-         CALL locate(*220,Z(buf1),radlst,flag)
+         CALL locate(*220,z(buf1),radlst,flag)
 !
 !     BUILD ELEMENT DATA TABLE.  -LENTRY- WORDS PER ELEMENT ID PRESENT
 !     IN RADLST.
@@ -134,19 +135,19 @@ USE ISO_FORTRAN_ENV
          neltab = ieltab - 1
          SPAG_Loop_1_1: DO
             IF ( neltab+lentry>core ) CALL mesage(-8,0,subr)
-            CALL read(*260,*280,matpol,Z(neltab+1),1,noeor,words)
-            IF ( Z(neltab+1)<=0 ) THEN
+            CALL read(*260,*280,matpol,z(neltab+1),1,noeor,words)
+            IF ( z(neltab+1)<=0 ) THEN
 !
 !     ALL RADLST DATA NOW IN CORE.
 !     (POSITION TO END OF RECORD ON  MATPOOL)
 !
                CALL read(*260,*20,matpol,buf,1,eor,words)
-               WRITE (outpt,99002) Swm
+               WRITE (outpt,99002) swm
 99002          FORMAT (A27,' 3071, EXTRA DATA IN RADLST RECORD OF MATPOOL DATA ','BLOCK IGNORED.')
                EXIT SPAG_Loop_1_1
             ELSE
-               Z(neltab+2) = 0
-               Z(neltab+3) = 0
+               z(neltab+2) = 0
+               z(neltab+3) = 0
                neltab = neltab + lentry
             ENDIF
          ENDDO SPAG_Loop_1_1
@@ -154,7 +155,7 @@ USE ISO_FORTRAN_ENV
 !     LOCATE RADMTX DATA
 !
  20      ne = (neltab-ieltab+1)/lentry
-         CALL locate(*40,Z(buf1),radmtx,flag)
+         CALL locate(*40,z(buf1),radmtx,flag)
          lrad = .TRUE.
 !
 !     READ IN RADMTX DATA.  FOR LOWER TRIANGLE COLUMNS PRESENT
@@ -183,8 +184,8 @@ USE ISO_FORTRAN_ENV
 !
          n = 0
          SPAG_Loop_1_2: DO
-            CALL read(*260,*280,matpol,Z(irad),1,noeor,words)
-            IF ( Z(irad)==-1 ) EXIT SPAG_Loop_1_2
+            CALL read(*260,*280,matpol,z(irad),1,noeor,words)
+            IF ( z(irad)==-1 ) EXIT SPAG_Loop_1_2
             n = n + 1
             irad = irad + 1
             IF ( irad>core ) CALL mesage(-8,0,subr)
@@ -199,7 +200,7 @@ USE ISO_FORTRAN_ENV
 !
                   CALL read(*260,*280,matpol,idum,1,noeor,words)
                   IF ( idum==-1 ) THEN
-                     WRITE (outpt,99003) Uwm , index , ne
+                     WRITE (outpt,99003) uwm , index , ne
 99003                FORMAT (A25,' 3072, TOO MANY MATRIX VALUES INPUT VIA RADMTX BULK',' DATA FOR COLUMN',I9,1H.,/5X,               &
                             &'EXTRA VALUES IGNORED AS ','MATRIX SIZE IS DETERMINED TO BE OF SIZE',I9,                               &
                             &' FROM RADLST COUNT OF ELEMENT ID-S.')
@@ -213,12 +214,12 @@ USE ISO_FORTRAN_ENV
 !     (BACK UP OVER ANY ZEROS)
 !
          SPAG_Loop_1_3: DO WHILE ( n>0 )
-            IF ( Z(irad-1)/=0 ) THEN
+            IF ( z(irad-1)/=0 ) THEN
 !
 !     SET FIRST AND LAST POINTERS
 !
-               Z(idx+2) = irad - n
-               Z(idx+3) = irad - 1
+               z(idx+2) = irad - n
+               z(idx+3) = irad - 1
 !
 !     GO READ NEXT COLUMN
 !
@@ -239,10 +240,10 @@ USE ISO_FORTRAN_ENV
 !
 !     NOW PACK OUT EACH COLUMN OF MATRIX F TO SCRATCH 1
 !
- 60      CALL close(matpol,Clsrew)
+ 60      CALL close(matpol,clsrew)
          IF ( myradm==1 .OR. myradm==2 ) scrt1 = 303
-         CALL gopen(scrt1,Z(buf1),Wrtrew)
-         CALL makmcb(mcb1,scrt1,ne,Sqr,precis)
+         CALL gopen(scrt1,z(buf1),wrtrew)
+         CALL makmcb(mcb1,scrt1,ne,sqr,precis)
          DO jcol = 1 , ne
 !
 !     INITIALIZE PACKING OF COLUMN -JCOL-
@@ -257,43 +258,43 @@ USE ISO_FORTRAN_ENV
 !
             sumfa = 0.0
             IF ( lrad ) THEN
-               DO Irow = 1 , ne
+               DO irow = 1 , ne
 !
 !     LOCATE ELEMENT ROW-IROWK, COL-JCOL.
 !
-                  IF ( Irow>=jcol .OR. myradm==2 ) THEN
+                  IF ( irow>=jcol .OR. myradm==2 ) THEN
 !
 !     HERE IF BELOW OR ON DIAGONAL.
 !     ELEMENT DESIRED IS IN COLUMN -JCOL- IN POSITION (IROW-JCOL+I1)
 !
                      idx = inxcol
-                     i1 = Z(idx+2)
+                     i1 = z(idx+2)
                      IF ( i1<=0 ) CYCLE
-                     i2 = Z(idx+3)
-                     ipos = Irow - jcol + i1
-                     IF ( myradm==2 ) ipos = Irow + i1 - 1
+                     i2 = z(idx+3)
+                     ipos = irow - jcol + i1
+                     IF ( myradm==2 ) ipos = irow + i1 - 1
                   ELSE
 !
 !     HERE IF ABOVE THE DIAGONAL
 !     ELEMENT DESIRED IS IN COLUMN -IROW- IN CORE AND POSITION
 !     (JCOL-IROW+1) OF THE LOWER TRIANGLE PORTION.
 !
-                     idx = idxm8 + Irow*lentry
-                     i1 = Z(idx+2)
+                     idx = idxm8 + irow*lentry
+                     i1 = z(idx+2)
                      IF ( i1<=0 ) CYCLE
-                     i2 = Z(idx+3)
-                     ipos = jcol - Irow + i1
+                     i2 = z(idx+3)
+                     ipos = jcol - irow + i1
                   ENDIF
                   IF ( ipos<=i2 ) THEN
                      IF ( rz(ipos)<0 ) THEN
-                        WRITE (outpt,99004) Uwm , jcol , Irow , rz(ipos)
+                        WRITE (outpt,99004) uwm , jcol , irow , rz(ipos)
 99004                   FORMAT (A25,' 2359, COL',I6,', ROW',I6,' OF RADMTX IS NEGATIVE (',E14.6,').')
                      ELSEIF ( rz(ipos)==0 ) THEN
                         CYCLE
                      ENDIF
-                     Ao(1) = rz(ipos)
-                     IF ( myradm==1 .OR. myradm==2 ) Ao(1) = -Sigma*rz(ipos)
-                     IF ( .NOT.(jcol==Irow .AND. (myradm==1 .OR. myradm==2)) ) sumfa = sumfa + rz(ipos)
+                     ao(1) = rz(ipos)
+                     IF ( myradm==1 .OR. myradm==2 ) ao(1) = -sigma*rz(ipos)
+                     IF ( .NOT.(jcol==irow .AND. (myradm==1 .OR. myradm==2)) ) sumfa = sumfa + rz(ipos)
                      CALL zblpki
                   ENDIF
 !
@@ -313,7 +314,7 @@ USE ISO_FORTRAN_ENV
 !     PACKED MATRIX IS COMPLETE
 !
          CALL wrttrl(mcb1)
-         CALL close(scrt1,Clsrew)
+         CALL close(scrt1,clsrew)
 !/////
 !     CALL DMPFIL (-SCRT1,Z(NELTAB+1),CORE-NELTAB-2)
 !     CALL BUG (10HF-MATRIX    ,210,0,1)
@@ -323,20 +324,20 @@ USE ISO_FORTRAN_ENV
 !     THIS TIME.
 !
          file = qge
-         CALL open(*300,qge,Z(buf1),Wrtrew)
+         CALL open(*300,qge,z(buf1),wrtrew)
          CALL fname(qge,name)
          CALL write(qge,name,2,noeor)
          DO i = ieltab , neltab , lentry
-            CALL write(qge,Z(i),1,noeor)
+            CALL write(qge,z(i),1,noeor)
          ENDDO
          CALL write(qge,0,0,eor)
-         CALL close(qge,Cls)
+         CALL close(qge,cls)
 !
 !     OPEN EST AND PROCESS EST ELEMENT DATA OF ONLY THE HBDY ELEMENTS
 !     WHOSE ELEMENT ID-S ARE IN THE RADLST.  I.E. NOW IN THE RDLST TABLE
 !
          file = est
-         CALL gopen(est,Z(buf1),Rdrew)
+         CALL gopen(est,z(buf1),rdrew)
          SPAG_Loop_1_4: DO
 !
 !     READ ELEMENT TYPE
@@ -351,8 +352,8 @@ USE ISO_FORTRAN_ENV
 !
 !     NOW POSITIONED TO READ EST DATA FOR HBDY ELEMENT.
 !
-               j = (eltype-1)*Incr
-               estwds = Elem(j+12)
+               j = (eltype-1)*incr
+               estwds = elem(j+12)
                lost = 0
                EXIT SPAG_Loop_1_4
             ENDIF
@@ -368,7 +369,7 @@ USE ISO_FORTRAN_ENV
 !     FIND ID IN LIST
 !
             DO i = ieltab , neltab , lentry
-               IF ( ecpt(1)==Z(i) ) EXIT SPAG_Loop_1_5
+               IF ( ecpt(1)==z(i) ) EXIT SPAG_Loop_1_5
             ENDDO
          ENDDO SPAG_Loop_1_5
 !
@@ -385,7 +386,7 @@ USE ISO_FORTRAN_ENV
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  IF ( ecpt(1)/=Z(j) ) CYCLE
+                  IF ( ecpt(1)/=z(j) ) CYCLE
 !
 !     CHECK TO SEE IF SUM FA/A EQUALS 1.0 FOR THIS ELEMENT.
 !
@@ -400,21 +401,21 @@ USE ISO_FORTRAN_ENV
                   ELSE
                      check = 9999999.
                   ENDIF
-                  WRITE (outpt,99005) Ufm , Z(j) , check , rdata(2)
+                  WRITE (outpt,99005) ufm , z(j) , check , rdata(2)
 99005             FORMAT (A23,' 2360, TOTAL VIEW FACTOR (FA/A), FOR ELEMENT',I9,' IS',1P,E14.6,', (ELEMENT AREA IS ',1P,E14.5,').')
                   nogo = .TRUE.
                   spag_nextblock_2 = 2
                CASE (2)
-                  IF ( check<1.01 .AND. radchk/=0 ) WRITE (outpt,99006) Uim , Z(j) , check , rdata(2)
+                  IF ( check<1.01 .AND. radchk/=0 ) WRITE (outpt,99006) uim , z(j) , check , rdata(2)
 99006             FORMAT (A29,' 2360, TOTAL VIEW FACTOR (FA/A), FOR ELEMENT',I9,' IS ',1P,E14.6,', (ELEMENT AREA IS ',1P,E14.5,')')
-                  Z(j) = idata(1)
-                  Z(j+1) = idata(2)
-                  Z(j+2) = idata(3)
-                  Z(j+3) = idata(4)
-                  Z(j+4) = idata(5)
-                  Z(j+5) = idata(6)
-                  Z(j+6) = idata(7)
-                  Z(j+7) = idata(8)
+                  z(j) = idata(1)
+                  z(j+1) = idata(2)
+                  z(j+2) = idata(3)
+                  z(j+3) = idata(4)
+                  z(j+4) = idata(5)
+                  z(j+5) = idata(6)
+                  z(j+6) = idata(7)
+                  z(j+7) = idata(8)
                   IF ( double ) THEN
                      dx = j/2 + 1
                      dz(dx+4) = rdata(9)
@@ -427,7 +428,7 @@ USE ISO_FORTRAN_ENV
                      rz(j+10) = rdata(11)
                      rz(j+11) = rdata(12)
                   ENDIF
-                  Z(j) = -Z(j)
+                  z(j) = -z(j)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
@@ -437,8 +438,8 @@ USE ISO_FORTRAN_ENV
 !
 !     ALL ELEMENTS PROCESSED.
 !
- 80      CALL close(est,Clsrew)
-         IF ( lost>0 ) WRITE (outpt,99007) Uim , lost
+ 80      CALL close(est,clsrew)
+         IF ( lost>0 ) WRITE (outpt,99007) uim , lost
 99007    FORMAT (A29,' 2361, ',I4,' ELEMENTS HAVE A TOTAL VIEW FACTOR (FA','/A) LESS THAN 0.99 , ENERGY MAY BE LOST TO SPACE.')
 !
 !     CHECK TO SEE IF ALL ELEMENTS WERE PROCESSED.
@@ -447,11 +448,11 @@ USE ISO_FORTRAN_ENV
 !     CALL BUG (4HELTB ,270,Z(IELTAB),NELTAB-IELTAB+1)
 !/////
          DO i = ieltab , neltab , lentry
-            IF ( Z(i)<=0 ) THEN
-               Z(i) = -Z(i)
+            IF ( z(i)<=0 ) THEN
+               z(i) = -z(i)
             ELSE
                nogo = .TRUE.
-               WRITE (outpt,99008) Ufm , Z(i)
+               WRITE (outpt,99008) ufm , z(i)
 99008          FORMAT (A23,' 3073, NO -HBDY- ELEMENT SUMMARY DATA IS PRESENT ','FOR ELEMENT ID =',I9,/5X,                           &
                       &'WHICH APPEARS ON A -RADLST- BULK DATA CARD.')
             ENDIF
@@ -472,12 +473,12 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN SCRATCH 1 FOR MATRIX F COLUMN UNPACKING.
 !
-            CALL gopen(scrt1,Z(buf1),Rdrew)
+            CALL gopen(scrt1,z(buf1),rdrew)
 !
 !     OPEN SCRATCH 2 FOR MATRIX Y COLUMN PACKING
 !
-            CALL gopen(scrt2,Z(buf2),Wrtrew)
-            CALL makmcb(mcb2,scrt2,ne,Sqr,precis)
+            CALL gopen(scrt2,z(buf2),wrtrew)
+            CALL makmcb(mcb2,scrt2,ne,sqr,precis)
          ENDIF
 !
 !     SET UP VECTOR CORE (INSURE EVEN BOUNDARY)
@@ -495,18 +496,18 @@ USE ISO_FORTRAN_ENV
 !
 !     SETUP /PACKX/ FOR PACKING COLUMNS OF Y (SCRATCH 2)
 !
-         Pkin = precis
-         Pkout = precis
-         Pkirow = 1
-         Pknrow = ne
-         Pkincr = 1
+         pkin = precis
+         pkout = precis
+         pkirow = 1
+         pknrow = ne
+         pkincr = 1
 !
 !     SETUP /UNPAKX/ FOR UNPACKING COLUMNS OF F (SCRATCH 1)
 !
-         Unout = precis
-         Unirow = 1
-         Unnrow = ne
-         Unincr = 1
+         unout = precis
+         unirow = 1
+         unnrow = ne
+         unincr = 1
          DO i = 1 , ne
             spag_nextblock_3 = 1
             SPAG_DispatchLoop_3: DO
@@ -518,31 +519,31 @@ USE ISO_FORTRAN_ENV
 !
 !     UNPACK A COLUMN OF F INTO CORE.
 !
-                  CALL unpack(*82,scrt1,Z(icol))
+                  CALL unpack(*82,scrt1,z(icol))
                   spag_nextblock_3 = 2
                   CYCLE SPAG_DispatchLoop_3
  82               DO j = icol , ncol
-                     Z(j) = 0
+                     z(j) = 0
                   ENDDO
                   spag_nextblock_3 = 2
                CASE (2)
 !
 !     COMPUTE THE Y-COLUMN
 !
-                  DO Irow = 1 , ne
+                  DO irow = 1 , ne
                      IF ( double ) THEN
 !
 !     DOUBLE PRECISION COMPUTATION
 !
                         dz(dx) = -dz(dx)*(1.0D0-dble(rz(meltab+3)))
-                        IF ( Irow==i ) dz(dx) = dz(dx) + dble(rz(meltab+2))
+                        IF ( irow==i ) dz(dx) = dz(dx) + dble(rz(meltab+2))
                         dx = dx + 1
                      ELSE
 !
 !     REAL COMPUTATION
 !
                         rz(rx) = -rz(rx)*(1.0E0-rz(meltab+3))
-                        IF ( Irow==i ) rz(rx) = rz(rx) + rz(meltab+2)
+                        IF ( irow==i ) rz(rx) = rz(rx) + rz(meltab+2)
                         rx = rx + 1
                      ENDIF
                   ENDDO
@@ -551,10 +552,10 @@ USE ISO_FORTRAN_ENV
 !
                   mcbsav = mcb2(6)
                   mcb2(6) = 0
-                  CALL pack(Z(icol),scrt2,mcb2)
+                  CALL pack(z(icol),scrt2,mcb2)
                   IF ( mcb2(6)<=0 ) THEN
                      nogo = .TRUE.
-                     WRITE (outpt,99009) Ufm , i
+                     WRITE (outpt,99009) ufm , i
 99009                FORMAT (A23,' 3074, COLUMN',I9,' OF THE Y MATRIX IS NULL.')
                   ENDIF
                   mcb2(6) = max0(mcb2(6),mcbsav)
@@ -564,9 +565,9 @@ USE ISO_FORTRAN_ENV
 !
          ENDDO
          IF ( nogo ) CALL mesage(-61,0,subr)
-         CALL close(scrt1,Clsrew)
+         CALL close(scrt1,clsrew)
          CALL wrttrl(mcb2)
-         CALL close(scrt2,Clsrew)
+         CALL close(scrt2,clsrew)
 !/////
 !     CALL DMPFIL (-SCRT2,Z(ICOL),CORE-ICOL-1)
 !     CALL BUG (10HY-MATRIX    ,400,0,1)
@@ -582,21 +583,21 @@ USE ISO_FORTRAN_ENV
 !
 !     SETUP /DCOMPX/
 !
-         Ia(1) = scrt2
-         Il(1) = 201
-         Iu(1) = 203
-         Il(5) = precis
-         Isr1 = scrt4
-         Isr2 = scrt5
-         Isr3 = scrt6
-         CALL rdtrl(Ia)
-         Nzz = korsz(Z(icol))
-         Ib = 0
-         Ibbar = 0
-         CALL decomp(*100,Z(icol),Z(icol),Z(icol))
+         ia(1) = scrt2
+         il(1) = 201
+         iu(1) = 203
+         il(5) = precis
+         isr1 = scrt4
+         isr2 = scrt5
+         isr3 = scrt6
+         CALL rdtrl(ia)
+         nzz = korsz(z(icol))
+         ib = 0
+         ibbar = 0
+         CALL decomp(*100,z(icol),z(icol),z(icol))
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 100     WRITE (outpt,99010) Ufm
+ 100     WRITE (outpt,99010) ufm
 99010    FORMAT (A23,' 3075, INTERMEDIATE MATRIX Y IS SINGULAR.')
          CALL mesage(-61,0,subr)
          spag_nextblock_1 = 4
@@ -604,23 +605,23 @@ USE ISO_FORTRAN_ENV
 !
 !     SETUP /GFBSX/
 !
-         Jl(5) = Il(5)
-         Ju(7) = Iu(7)
-         Jl(1) = 201
-         Ju(1) = 203
-         Jb(1) = scrt1
-         Jx(1) = scrt3
-         Ipr = precis
+         jl(5) = il(5)
+         ju(7) = iu(7)
+         jl(1) = 201
+         ju(1) = 203
+         jb(1) = scrt1
+         jx(1) = scrt3
+         ipr = precis
 !//// WHAT ABOUT IDET
-         Isgn = 1
-         Nzzz = Nzz
-         Jl(3) = ne
-         Jx(5) = precis
-         CALL rdtrl(Jb(1))
-         CALL gfbs(Z(icol),Z(icol))
-         Jx(3) = ne
-         Jx(4) = Sqr
-         CALL wrttrl(Jx)
+         isgn = 1
+         nzzz = nzz
+         jl(3) = ne
+         jx(5) = precis
+         CALL rdtrl(jb(1))
+         CALL gfbs(z(icol),z(icol))
+         jx(3) = ne
+         jx(4) = sqr
+         CALL wrttrl(jx)
          spag_nextblock_1 = 5
       CASE (5)
 !/////
@@ -641,7 +642,7 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN SCRATCH 3 FOR MATRIX X COLUMN UNPACKING.
 !
-         CALL gopen(scrt3,Z(buf3),Rdrew)
+         CALL gopen(scrt3,z(buf3),rdrew)
 !
 !     THE FOLLOWING CARD IS NEEDED IF DIRECT SCRIPT-F INPUT IS USED
 !
@@ -650,24 +651,24 @@ USE ISO_FORTRAN_ENV
 !     OPEN SCRATCH 1 FOR MATRIX R COLUMN PACKING.
 !
          file = scrt1
-         CALL gopen(scrt1,Z(buf1),Wrtrew)
-         CALL makmcb(mcb1,scrt1,ne,Sqr,precis)
+         CALL gopen(scrt1,z(buf1),wrtrew)
+         CALL makmcb(mcb1,scrt1,ne,sqr,precis)
          meltab = ieltab - lentry - 1
 !
 !     SETUP /PACKX/ FOR PACKING COLUMNS OF R (SCRATCH 1)
 !
-         Pkin = precis
-         Pkout = precis
-         Pkirow = 1
-         Pknrow = ne
-         Pkincr = 1
+         pkin = precis
+         pkout = precis
+         pkirow = 1
+         pknrow = ne
+         pkincr = 1
 !
 !     SETUP /UNPAKX/ FOR UNPACKING COLUMNS OF X (SCRATCH 3)
 !
-         Unout = precis
-         Unirow = 1
-         Unnrow = ne
-         Unincr = 1
+         unout = precis
+         unirow = 1
+         unnrow = ne
+         unincr = 1
 !
          idx1 = ieltab - lentry
          DO icolum = 1 , ne
@@ -684,17 +685,17 @@ USE ISO_FORTRAN_ENV
 !     TEMP1 = SIGMA*E
 !                    J
 !
-                  temp1 = Sigma*rz(meltab+3)
+                  temp1 = sigma*rz(meltab+3)
                   rx = rcol
                   dx = dcol
 !
 !     UNPACK A COLUMN OF X INTO CORE.
 !
-                  CALL unpack(*102,scrt3,Z(icol))
+                  CALL unpack(*102,scrt3,z(icol))
                   spag_nextblock_4 = 2
                   CYCLE SPAG_DispatchLoop_4
  102              DO j = icol , ncol
-                     Z(j) = 0
+                     z(j) = 0
                   ENDDO
                   spag_nextblock_4 = 2
                CASE (2)
@@ -702,7 +703,7 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE THE R-COLUMN
 !
                   idx2 = idx1
-                  DO Irow = 1 , ne
+                  DO irow = 1 , ne
                      idx2 = idx2 + lentry
                      IF ( double ) THEN
 !
@@ -711,9 +712,9 @@ USE ISO_FORTRAN_ENV
                         IF ( myradm/=1 .AND. myradm/=2 ) THEN
                            dtemp2 = dble(temp1)*dble(rz(idx2+1))
                            dz(dx) = -dtemp2*dble(rz(idx2+2))*dz(dx)
-                           IF ( Irow==icolum ) dz(dx) = dz(dx) + dtemp2
+                           IF ( irow==icolum ) dz(dx) = dz(dx) + dtemp2
                         ENDIF
-                        IF ( Irow/=icolum ) dsumfa = dsumfa + dz(dx)
+                        IF ( irow/=icolum ) dsumfa = dsumfa + dz(dx)
                         dx = dx + 1
                      ELSE
 !
@@ -722,9 +723,9 @@ USE ISO_FORTRAN_ENV
                         IF ( myradm/=1 .AND. myradm/=2 ) THEN
                            temp2 = temp1*rz(idx2+1)
                            rz(rx) = -temp2*rz(idx2+2)*rz(rx)
-                           IF ( Irow==icolum ) rz(rx) = rz(rx) + temp2
+                           IF ( irow==icolum ) rz(rx) = rz(rx) + temp2
                         ENDIF
-                        IF ( Irow/=icolum ) sumfa = sumfa + rz(rx)
+                        IF ( irow/=icolum ) sumfa = sumfa + rz(rx)
                         rx = rx + 1
                      ENDIF
 !
@@ -736,14 +737,14 @@ USE ISO_FORTRAN_ENV
                      IF ( double ) dz(dx-1-ne+icolum) = -dsumfa
                      IF ( .NOT.double ) rz(icolum+rx-1-ne) = -sumfa
                   ENDIF
-                  CALL pack(Z(icol),scrt1,mcb1)
+                  CALL pack(z(icol),scrt1,mcb1)
                   EXIT SPAG_DispatchLoop_4
                END SELECT
             ENDDO SPAG_DispatchLoop_4
          ENDDO
          CALL wrttrl(mcb1)
-         CALL close(scrt1,Clsrew)
-         CALL close(scrt3,Clsrew)
+         CALL close(scrt1,clsrew)
+         CALL close(scrt3,clsrew)
 !/////
 !     CALL DMPFIL (-SCRT1,Z(ICOL),CORE-ICOL-1)
 !     CALL BUG (10HR-MATRIX    ,490,0,1)
@@ -762,8 +763,8 @@ USE ISO_FORTRAN_ENV
 !     AS THE X MATRIX STORED ON SCRATCH 3 IS NO LONGER NEEDED
 !     WE WILL USE SCRATCH 3 FOR THE G MATRIX NOW.
 !
-         CALL gopen(scrt3,Z(buf3),Wrtrew)
-         CALL makmcb(mcb3,scrt3,Luset,2,precis)
+         CALL gopen(scrt3,z(buf3),wrtrew)
+         CALL makmcb(mcb3,scrt3,luset,2,precis)
 !
 !     LOOP ON THE RADLST TABLE
 !
@@ -783,11 +784,11 @@ USE ISO_FORTRAN_ENV
 !
                isil = 0
                DO l = i1 , i2
-                  IF ( Z(l)>0 ) THEN
+                  IF ( z(l)>0 ) THEN
                      IF ( isil>0 ) THEN
-                        IF ( Z(l)>isil ) CYCLE
+                        IF ( z(l)>isil ) CYCLE
                      ENDIF
-                     isil = Z(l)
+                     isil = z(l)
                      k = l
                   ENDIF
                ENDDO
@@ -798,15 +799,15 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK OUT TERM  (MAY BE SINGLE OR DOUBLE PRECISON)
 !
-               Irow = Z(k)
-               Z(k) = 0
+               irow = z(k)
+               z(k) = 0
 !
 !     RESET K TO GIJ TERM PTR.
 !
                kk = k + 4
                IF ( double ) kk = kk + k - i1
-               Ao(1) = rz(kk)
-               Ao(2) = rz(kk+1)
+               ao(1) = rz(kk)
+               ao(2) = rz(kk+1)
                CALL zblpki
             ENDDO SPAG_Loop_2_6
 !
@@ -818,7 +819,7 @@ USE ISO_FORTRAN_ENV
 !     G MATRIX IS COMPLETE ON SCRATCH 3.
 !
          CALL wrttrl(mcb3)
-         CALL close(scrt3,Clsrew)
+         CALL close(scrt3,clsrew)
 !/////
 !     CALL DMPFIL (-SCRT3,Z(ICOL),CORE-ICOL-1)
 !     CALL BUG (10HG-MATRIX     ,570,0,1)
@@ -860,16 +861,16 @@ USE ISO_FORTRAN_ENV
 !     RECORD HAS BEEN SPECIALLY PREPARED EARLIER) .
 !
          file = qge
-         CALL open(*300,qge,Z(buf1),Wrt)
+         CALL open(*300,qge,z(buf1),wrt)
          file = scrt5
-         CALL gopen(scrt5,Z(buf2),Rdrew)
-         CALL cpyfil(scrt5,qge,Z,core,icount)
+         CALL gopen(scrt5,z(buf2),rdrew)
+         CALL cpyfil(scrt5,qge,z,core,icount)
          mcb(1) = scrt5
          CALL rdtrl(mcb)
          mcb(1) = qge
          CALL wrttrl(mcb)
-         CALL close(scrt5,Clsrew)
-         CALL close(qge,Clsrew)
+         CALL close(scrt5,clsrew)
+         CALL close(qge,clsrew)
 !
 !                    1      3
 !     FORM  S   = 4(U  + T )  THIS IS ACTUALLY A DIAGONAL MATRIX.
@@ -880,23 +881,23 @@ USE ISO_FORTRAN_ENV
 !
 !
          isgg = 1
-         nsgg = precis*Luset
+         nsgg = precis*luset
          IF ( nsgg>core ) CALL mesage(-8,0,subr)
          IF ( double ) THEN
 !
 !     DOUBLE PRECISION VECTOR
 !
             dx = isgg/2 + 1
-            ndx = dx + Luset - 1
+            ndx = dx + luset - 1
             DO i = dx , ndx
-               dz(i) = Tabs
+               dz(i) = tabs
             ENDDO
          ELSE
 !
 !     REAL VECTOR
 !
             DO i = isgg , nsgg
-               rz(i) = Tabs
+               rz(i) = tabs
             ENDDO
          ENDIF
 !
@@ -911,7 +912,7 @@ USE ISO_FORTRAN_ENV
 !     TSET IS REQUESTED
 !
          file = gptt
-         CALL open(*300,gptt,Z(buf1),Rdrew)
+         CALL open(*300,gptt,z(buf1),rdrew)
 !
 !     DETERMINE NUMBER OF RECORDS IN ELEMENT TEMPERATURE SECTION TO
 !     SKIP OVER. (FIRST SKIP THE NAME IN HEADER)
@@ -969,7 +970,7 @@ USE ISO_FORTRAN_ENV
 !     ADD DEFAULT TEMPERATURE (IF ONE EXISTS) TO THOSE POINTS NOT HAVING
 !     AN EXPLICIT TEMPERATURE DEFINED.
 !
-            buf(1) = Luset + 1
+            buf(1) = luset + 1
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -977,10 +978,10 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 6
       CASE (6)
          IF ( buf(1)<nsil ) THEN
-            WRITE (outpt,99011) Sfm
+            WRITE (outpt,99011) sfm
 99011       FORMAT (A25,' 3076, GPTT DATA IS NOT IN SORT BY INTERNAL ID.')
             CALL mesage(-61,0,subr)
-            buf(1) = Luset + 1
+            buf(1) = luset + 1
          ELSEIF ( buf(1)==nsil ) THEN
             value = rbuf(2)
             spag_nextblock_1 = 8
@@ -997,7 +998,7 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (outpt,99012) Ufm , nsil
+            WRITE (outpt,99012) ufm , nsil
 99012       FORMAT (A23,' 3077, THERE IS NO GRID POINT TEMPERATURE DATA OR ','DEFAULT TEMPERATURE DATA FOR SIL POINT',I9,/5X,       &
                    &'AND POSSIBLY OTHER POINTS.')
             CALL mesage(-61,0,subr)
@@ -1011,7 +1012,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 9
       CASE (9)
          DO i = isil , ksil
-            IF ( i>Luset ) GOTO 200
+            IF ( i>luset ) GOTO 200
             IF ( double ) THEN
                dx = dx + 1
                dz(dx) = dz(dx) + dble(value)
@@ -1022,7 +1023,7 @@ USE ISO_FORTRAN_ENV
          ENDDO
          GOTO iretrn
  160     ASSIGN 200 TO iretrn
-         buf(1) = Luset
+         buf(1) = luset
          value = defalt
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
@@ -1032,7 +1033,7 @@ USE ISO_FORTRAN_ENV
 !
 !     ALL TEMPERATURE DATA HAS BEEN ADDED IN.
 !
- 200     CALL close(gptt,Clsrew)
+ 200     CALL close(gptt,clsrew)
          spag_nextblock_1 = 10
       CASE (10)
 !/////
@@ -1046,7 +1047,7 @@ USE ISO_FORTRAN_ENV
 !     DOUBLE PRECISION COMPUTATION
 !
             dx = isgg/2 + 1
-            ndx = dx + Luset - 1
+            ndx = dx + luset - 1
             DO i = dx , ndx
                dz(i) = 4.0D0*(dz(i)**3)
             ENDDO
@@ -1062,9 +1063,9 @@ USE ISO_FORTRAN_ENV
 !     ALLOCATION OF CORE FOR A COLUMN OF MATRIX RGG.
 !
          irgg = nsgg + 1
-         nrgg = irgg + precis*Luset - 1
+         nrgg = irgg + precis*luset - 1
          dirgg = irgg/2 + 1
-         dnrgg = dirgg + Luset - 1
+         dnrgg = dirgg + luset - 1
          IF ( nrgg>core ) CALL mesage(-8,0,subr)
 !
 !                                   X
@@ -1089,24 +1090,24 @@ USE ISO_FORTRAN_ENV
 !/////
 !     CALL BUG (4HSGG  ,829,Z(ISGG),NSGG-ISGG+1)
 !/////
-         CALL gopen(rgg,Z(buf1),Rdrew)
-         CALL gopen(kggx,Z(buf2),Rdrew)
-         CALL gopen(kgg,Z(buf3),Wrtrew)
-         CALL makmcb(mcb1,kgg,Luset,Sqr,precis)
+         CALL gopen(rgg,z(buf1),rdrew)
+         CALL gopen(kggx,z(buf2),rdrew)
+         CALL gopen(kgg,z(buf3),wrtrew)
+         CALL makmcb(mcb1,kgg,luset,sqr,precis)
 !
 !     SET UP /PACKX/ FOR PACKING COLUMN OF KGG OUT.
 !
-         Pkin = precis
-         Pkout = precis
-         Pkirow = 1
-         Pknrow = Luset
-         Pkincr = 1
+         pkin = precis
+         pkout = precis
+         pkirow = 1
+         pknrow = luset
+         pkincr = 1
          rx = isgg - 1
          dx = isgg/2
 !
 !     LOOP THROUGH -LUSET- COLUMNS TO BE OUTPUT.
 !
-         DO i = 1 , Luset
+         DO i = 1 , luset
             spag_nextblock_5 = 1
             SPAG_DispatchLoop_5: DO
                SELECT CASE (spag_nextblock_5)
@@ -1122,7 +1123,7 @@ USE ISO_FORTRAN_ENV
 !     UNPACK A COLUMN OF R
 !
                   DO j = irgg , nrgg
-                     Z(j) = 0
+                     z(j) = 0
                   ENDDO
 !
 !     -UNPACK- CAN NOT BE USED HERE DUE TO UNPACKING OF KGGX BELOW.
@@ -1173,7 +1174,7 @@ USE ISO_FORTRAN_ENV
 !
 !     ADD VALUE IN
 !
-                     IF ( iirow>Luset ) EXIT SPAG_Loop_2_8
+                     IF ( iirow>luset ) EXIT SPAG_Loop_2_8
                      IF ( double ) THEN
 !
 !     DOUBLE PRECISION ADD IN
@@ -1197,22 +1198,22 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK OUT COMPLETED COLUMN.
 !
- 204              CALL pack(Z(irgg),kgg,mcb1)
+ 204              CALL pack(z(irgg),kgg,mcb1)
                   EXIT SPAG_DispatchLoop_5
                END SELECT
             ENDDO SPAG_DispatchLoop_5
          ENDDO
          CALL wrttrl(mcb1)
-         CALL close(kgg,Clsrew)
-         CALL close(kggx,Clsrew)
-         CALL close(rgg,Clsrew)
+         CALL close(kgg,clsrew)
+         CALL close(kggx,clsrew)
+         CALL close(rgg,clsrew)
 !
 !     ALL PROCESSING COMPLETED.
 !
-         Nlr = +1
+         nlr = +1
          RETURN
- 220     CALL close(matpol,Clsrew)
- 240     Nlr = -1
+ 220     CALL close(matpol,clsrew)
+ 240     nlr = -1
          RETURN
 !
 !     ERROR CONDITIONS
@@ -1241,7 +1242,7 @@ USE ISO_FORTRAN_ENV
 !
 !     GPTT DATA MISSING FOR SET -TSET-.
 !
-         WRITE (outpt,99013) Ufm , tset
+         WRITE (outpt,99013) ufm , tset
 99013    FORMAT (A23,' 3078, NO GPTT DATA IS PRESENT FOR TEMPERATURE SET ',I8,1H.)
          CALL mesage(-61,0,subr)
          EXIT SPAG_DispatchLoop_1

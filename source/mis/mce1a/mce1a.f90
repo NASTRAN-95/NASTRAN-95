@@ -1,13 +1,14 @@
-!*==mce1a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mce1a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce1a
+   USE c_bitpos
+   USE c_blank
+   USE c_parmeg
+   USE c_patx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PARMEG
-   USE C_PATX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -23,45 +24,45 @@ SUBROUTINE mce1a
 !
 !     GENERATE ROW PARTITIONING VECTOR
 !
-   Nz = korsz(Z)
-   Usetxx = Uset
-   CALL calcv(Scr1,Ug,Un,Um,Z)
+   nz = korsz(z)
+   usetxx = uset
+   CALL calcv(scr1,ug,un,um,z)
 !
 !     GENERATE NULL COLUMN PARTITIONING VECTOR
 !
-   Z(i) = 0
-   Z(i+2) = Nsub2
-   Z(i+7) = 1
-   Z(i+8) = 2
-   Z(i+9) = -16777215
+   z(i) = 0
+   z(i+2) = nsub2
+   z(i+7) = 1
+   z(i+8) = 2
+   z(i+9) = -16777215
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS
 !
-   N = Nz
-   Rule = 0
-   A(1) = Rg
-   CALL rdtrl(A)
-   A11(1) = Rn
-   A11(2) = Nsub1
-   A11(3) = Nsub2
-   A11(4) = rect
-   A11(5) = A(5)
-   A12(1) = Rm
-   A12(2) = Nsub2
-   A12(3) = Nsub2
-   A12(4) = square
-   A12(5) = A(5)
-   Mcb(1) = Scr1
-   CALL rdtrl(Mcb)
-   A21(1) = 0
-   A22(1) = 0
+   n = nz
+   rule = 0
+   a(1) = rg
+   CALL rdtrl(a)
+   a11(1) = rn
+   a11(2) = nsub1
+   a11(3) = nsub2
+   a11(4) = rect
+   a11(5) = a(5)
+   a12(1) = rm
+   a12(2) = nsub2
+   a12(3) = nsub2
+   a12(4) = square
+   a12(5) = a(5)
+   mcb(1) = scr1
+   CALL rdtrl(mcb)
+   a21(1) = 0
+   a22(1) = 0
 !
 !     PARTITION RG INTO RM AND RN
 !
-   CALL partn(Mcb,Z,Z)
+   CALL partn(mcb,z,z)
 !
 !     WRITE TRAILERS FOR RM AND RN
 !
-   CALL wrttrl(A12)
-   CALL wrttrl(A11)
+   CALL wrttrl(a12)
+   CALL wrttrl(a11)
 END SUBROUTINE mce1a

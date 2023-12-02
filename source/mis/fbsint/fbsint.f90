@@ -1,10 +1,11 @@
-!*==fbsint.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbsint.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbsint(X,Y)
+   USE c_fbsx
+   USE c_infbsx
    IMPLICIT NONE
-   USE C_FBSX
-   USE C_INFBSX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -30,16 +31,16 @@ SUBROUTINE fbsint(X,Y)
    !>>>>EQUIVALENCE (Filel(3),Nrow)
 !
    nrow2 = nrow
-   IF ( Filel(5)==2 ) nrow2 = 2*nrow
+   IF ( filel(5)==2 ) nrow2 = 2*nrow
    DO i = 1 , nrow2
       Y(i) = X(i)
    ENDDO
    DO i = 1 , 7
-      Lfile(i) = Filel(i)
+      lfile(i) = filel(i)
    ENDDO
-   CALL rewind(Filel)
-   CALL skprec(Filel,1)
-   iblk(1) = Filel(1)
-   IF ( Filel(5)==1 ) CALL fbs1(iblk,Y,Y,nrow2)
-   IF ( Filel(5)==2 ) CALL fbs2(iblk,Y,Y,nrow2)
+   CALL rewind(filel)
+   CALL skprec(filel,1)
+   iblk(1) = filel(1)
+   IF ( filel(5)==1 ) CALL fbs1(iblk,Y,Y,nrow2)
+   IF ( filel(5)==2 ) CALL fbs2(iblk,Y,Y,nrow2)
 END SUBROUTINE fbsint

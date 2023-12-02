@@ -1,10 +1,11 @@
-!*==dupart.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dupart.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dupart
+   USE c_bitpos
+   USE c_blank
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -30,14 +31,14 @@ SUBROUTINE dupart
 !
 !     DECIDE IF CHARACTERS ARE LEGAL BIT NUMBERS
 !
-   ib(1) = Major(1)
-   ib(2) = Sub0(1)
-   ib(3) = Sub1(1)
+   ib(1) = major(1)
+   ib(2) = sub0(1)
+   ib(3) = sub1(1)
 !
    SPAG_Loop_1_1: DO j = 1 , 3
       DO i = 1 , 32
-         IF ( ib(j)==Iabit(i) ) THEN
-            ib(j) = Ibit(i)
+         IF ( ib(j)==iabit(i) ) THEN
+            ib(j) = ibit(i)
             CYCLE SPAG_Loop_1_1
          ENDIF
       ENDDO

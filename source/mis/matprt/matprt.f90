@@ -1,10 +1,11 @@
-!*==matprt.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==matprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
+   USE c_system
+   USE c_unpakx
+   USE c_xxmprt
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XXMPRT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -16,6 +17,7 @@ SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
 !
    INTEGER , SAVE :: cdp , csp , inprew , rdp , rew , rsp
    INTEGER :: file , i , j , type
+   INTEGER :: spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
@@ -33,31 +35,44 @@ SUBROUTINE matprt(A,Option,Column) !HIDESTARS (*,*,A,Option,Column)
 !
    !>>>>EQUIVALENCE (File,Mcb(1)) , (J,Mcb(2)) , (I,Mcb(3)) , (Type,Mcb(5))
    DATA rsp , rdp , csp , cdp , rew , inprew/1 , 2 , 3 , 4 , 1 , 0/
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
 !
-   IF ( i<=0 .OR. j<=0 ) GOTO 99999
-   Utype = type
-   IF ( type==rdp ) Utype = rsp
-   IF ( type==cdp ) Utype = csp
-   Ui = 1
-   Uj = i
-   Uinc = 1
-   CALL gopen(file,A,inprew)
-   Count = Maxlin
+         IF ( i<=0 .OR. j<=0 ) RETURN
+         utype = type
+         IF ( type==rdp ) utype = rsp
+         IF ( type==cdp ) utype = csp
+         ui = 1
+         uj = i
+         uinc = 1
+         CALL gopen(file,A,inprew)
+         count = maxlin
 !
-   Column(1) = 0
- 100  Column(1) = Column(1) + 1
-   CALL unpack(*400,file,A(Bufsiz+1))
-   CALL vecprt(*200,*300,Utype,i,A(Bufsiz+1),Option)
-   GOTO 400
- 200  RETURN 1
- 300  RETURN 2
+         Column(1) = 0
+         spag_nextblock_1 = 2
+      CASE (2)
+         Column(1) = Column(1) + 1
+         CALL unpack(*60,file,A(bufsiz+1))
+         CALL vecprt(*20,*40,utype,i,A(bufsiz+1),Option)
+         GOTO 60
+ 20      RETURN 1
+ 40      RETURN 2
 !
 !
-   ENTRY prtmat(Column) !HIDESTARS (*,*,Column)
+         ENTRY prtmat(Column)
+                        !HIDESTARS (*,*,Column)
 !     =========================
 !
-   CALL prtvec(*200,*300)
- 400  IF ( Column(1)/=j ) GOTO 100
+         CALL prtvec(*20,*40)
+ 60      IF ( Column(1)/=j ) THEN
+            spag_nextblock_1 = 2
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
 !
-   CALL close(file,rew)
-99999 END SUBROUTINE matprt
+         CALL close(file,rew)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
+END SUBROUTINE matprt

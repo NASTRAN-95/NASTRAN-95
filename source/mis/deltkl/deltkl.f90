@@ -1,7 +1,9 @@
-!*==deltkl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==deltkl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE deltkl(Del,R,Z,Kode)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -15,11 +17,19 @@ USE ISO_FORTRAN_ENV
 ! Local variable declarations rewritten by SPAG
 !
    REAL(REAL64) :: a , a2 , a3 , aab , ab , abb , b , b2 , b3 , ln , r1 , r2 , r3 , r4 , r5 , r6 , r7 , ri , rm , si , sm , zi , zm
-   INTEGER :: goback , i , l , m , n
+   INTEGER :: goback , i , l , m , n , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

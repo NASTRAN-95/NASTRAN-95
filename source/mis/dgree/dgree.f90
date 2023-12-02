@@ -1,10 +1,11 @@
-!*==dgree.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dgree.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dgree(Ndstk,Ndeg,Iold,Ibw1,Ipf1,Nu)
+   USE c_bandg
+   USE c_bands
    IMPLICIT NONE
-   USE C_BANDG
-   USE C_BANDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,26 +35,26 @@ SUBROUTINE dgree(Ndstk,Ndeg,Iold,Ibw1,Ipf1,Nu)
 !
    Ibw1 = 0
    Ipf1 = 0
-   Ideg = Mm
-   Mm = 0
-   DO i = 1 , N
+   ideg = mm
+   mm = 0
+   DO i = 1 , n
       Ndeg(i) = 0
       irw = 0
-      CALL bunpak(Ndstk,i,Ideg,Nu)
-      SPAG_Loop_2_1: DO j = 1 , Ideg
+      CALL bunpak(Ndstk,i,ideg,Nu)
+      SPAG_Loop_2_1: DO j = 1 , ideg
          itst = Nu(j)
          IF ( itst<=0 ) EXIT SPAG_Loop_2_1
          Ndeg(i) = Ndeg(i) + 1
          idif = Iold(i) - Iold(itst)
          IF ( irw<idif ) irw = idif
-         Mm = max0(Mm,j)
+         mm = max0(mm,j)
       ENDDO SPAG_Loop_2_1
       Ipf1 = Ipf1 + irw
       IF ( irw>Ibw1 ) Ibw1 = irw
    ENDDO
-   Ideg = Mm
+   ideg = mm
 !
 !     INCLUDE DIAGONAL TERMS IN BANDWIDTH AND PROFILE
    Ibw1 = Ibw1 + 1
-   Ipf1 = Ipf1 + N
+   Ipf1 = Ipf1 + n
 END SUBROUTINE dgree

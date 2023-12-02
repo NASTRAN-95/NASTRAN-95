@@ -1,16 +1,17 @@
-!*==mtrapr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mtrapr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mtrapr
-USE C_CONDAD
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -61,46 +62,46 @@ USE ISO_FORTRAN_ENV
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !
    idel = iecpt(1)
-   Igp(1) = iecpt(2)
-   Igp(2) = iecpt(3)
-   Igp(3) = iecpt(4)
-   Igp(4) = iecpt(5)
+   igp(1) = iecpt(2)
+   igp(2) = iecpt(3)
+   igp(3) = iecpt(4)
+   igp(4) = iecpt(5)
    matid = iecpt(7)
-   Ics(1) = iecpt(8)
-   Ics(2) = iecpt(12)
-   Ics(3) = iecpt(16)
-   Ics(4) = iecpt(20)
-   R(1) = Ecpt(9)
-   D(1) = Ecpt(10)
-   Z(1) = Ecpt(11)
-   R(2) = Ecpt(13)
-   D(2) = Ecpt(14)
-   Z(2) = Ecpt(15)
-   R(3) = Ecpt(17)
-   D(3) = Ecpt(18)
-   Z(3) = Ecpt(19)
-   R(4) = Ecpt(21)
-   D(4) = Ecpt(22)
-   Z(4) = Ecpt(23)
-   Tempe = Ecpt(24)
-   Dgama = Ecpt(6)
+   ics(1) = iecpt(8)
+   ics(2) = iecpt(12)
+   ics(3) = iecpt(16)
+   ics(4) = iecpt(20)
+   r(1) = ecpt(9)
+   d(1) = ecpt(10)
+   z(1) = ecpt(11)
+   r(2) = ecpt(13)
+   d(2) = ecpt(14)
+   z(2) = ecpt(15)
+   r(3) = ecpt(17)
+   d(3) = ecpt(18)
+   z(3) = ecpt(19)
+   r(4) = ecpt(21)
+   d(4) = ecpt(22)
+   z(4) = ecpt(23)
+   tempe = ecpt(24)
+   dgama = ecpt(6)
 !
 !     CHECK INTERNAL GRID POINTS FOR PIVOT POINT
 !
    ipp = 0
    DO i = 1 , 4
-      IF ( Npvt==Igp(i) ) ipp = i
+      IF ( npvt==igp(i) ) ipp = i
    ENDDO
    IF ( ipp==0 ) CALL mesage(-30,34,idel)
 !
 !     TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
    DO i = 1 , 4
-      IF ( R(i)<0.0D0 ) THEN
+      IF ( r(i)<0.0D0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
-      IF ( D(i)/=0.0D0 ) THEN
+      IF ( d(i)/=0.0D0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
@@ -108,11 +109,11 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE THE ELEMENT COORDINATES
 !
-   Zmin = dmin1(z1,z2,z3,z4)
-   z1 = z1 - Zmin
-   z2 = z2 - Zmin
-   z3 = z3 - Zmin
-   z4 = z4 - Zmin
+   zmin = dmin1(z1,z2,z3,z4)
+   z1 = z1 - zmin
+   z2 = z2 - zmin
+   z3 = z3 - zmin
+   z4 = z4 - zmin
 !
 !     FATAL IF RATIO OF RADII IS TO LARGE FOR GUASS QUADRATURE FOR IP=-1
 !
@@ -121,30 +122,30 @@ USE ISO_FORTRAN_ENV
    IF ( rmin/=0.D0 ) THEN
       IF ( rmax/rmin>10.D0 ) THEN
          i = 218
-         Nogo = 1
+         nogo = 1
          RETURN
       ENDIF
    ENDIF
 !
-   D(5) = (r1+r4)/2.0D0
-   D(6) = (r2+r3)/2.0D0
-   IF ( D(5)/=0.0D0 ) THEN
-      IF ( dabs((r1-r4)/D(5))<=0.5D-2 ) THEN
-         r1 = D(5)
-         r4 = D(5)
+   d(5) = (r1+r4)/2.0D0
+   d(6) = (r2+r3)/2.0D0
+   IF ( d(5)/=0.0D0 ) THEN
+      IF ( dabs((r1-r4)/d(5))<=0.5D-2 ) THEN
+         r1 = d(5)
+         r4 = d(5)
       ENDIF
    ENDIF
-   IF ( D(6)/=0.0D0 ) THEN
-      IF ( dabs((r2-r3)/D(6))<=0.5D-2 ) THEN
-         r2 = D(6)
-         r3 = D(6)
+   IF ( d(6)/=0.0D0 ) THEN
+      IF ( dabs((r2-r3)/d(6))<=0.5D-2 ) THEN
+         r2 = d(6)
+         r3 = d(6)
       ENDIF
    ENDIF
 !
    icore = 0
    j = 1
    DO i = 1 , 4
-      IF ( R(i)==0.0D0 ) THEN
+      IF ( r(i)==0.0D0 ) THEN
          icore = icore + 1
          jrz(j) = i
          j = 2
@@ -156,52 +157,52 @@ USE ISO_FORTRAN_ENV
 !     GRID POINT DEGREES OF FREEDOM
 !
       DO i = 1 , 64
-         Gambq(i) = 0.0D0
+         gambq(i) = 0.0D0
       ENDDO
-      Gambq(1) = 1.0D0
-      Gambq(2) = r1
-      Gambq(3) = z1
-      Gambq(4) = r1*z1
-      Gambq(13) = 1.0D0
-      Gambq(14) = r1
-      Gambq(15) = z1
-      Gambq(16) = Gambq(4)
-      Gambq(17) = 1.0D0
-      Gambq(18) = r2
-      Gambq(19) = z2
-      Gambq(20) = r2*z2
-      Gambq(29) = 1.0D0
-      Gambq(30) = r2
-      Gambq(31) = z2
-      Gambq(32) = Gambq(20)
-      Gambq(33) = 1.0D0
-      Gambq(34) = r3
-      Gambq(35) = z3
-      Gambq(36) = r3*z3
-      Gambq(45) = 1.0D0
-      Gambq(46) = r3
-      Gambq(47) = z3
-      Gambq(48) = Gambq(36)
-      Gambq(49) = 1.0D0
-      Gambq(50) = r4
-      Gambq(51) = z4
-      Gambq(52) = r4*z4
-      Gambq(61) = 1.0D0
-      Gambq(62) = r4
-      Gambq(63) = z4
-      Gambq(64) = Gambq(52)
+      gambq(1) = 1.0D0
+      gambq(2) = r1
+      gambq(3) = z1
+      gambq(4) = r1*z1
+      gambq(13) = 1.0D0
+      gambq(14) = r1
+      gambq(15) = z1
+      gambq(16) = gambq(4)
+      gambq(17) = 1.0D0
+      gambq(18) = r2
+      gambq(19) = z2
+      gambq(20) = r2*z2
+      gambq(29) = 1.0D0
+      gambq(30) = r2
+      gambq(31) = z2
+      gambq(32) = gambq(20)
+      gambq(33) = 1.0D0
+      gambq(34) = r3
+      gambq(35) = z3
+      gambq(36) = r3*z3
+      gambq(45) = 1.0D0
+      gambq(46) = r3
+      gambq(47) = z3
+      gambq(48) = gambq(36)
+      gambq(49) = 1.0D0
+      gambq(50) = r4
+      gambq(51) = z4
+      gambq(52) = r4*z4
+      gambq(61) = 1.0D0
+      gambq(62) = r4
+      gambq(63) = z4
+      gambq(64) = gambq(52)
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
       ising = -1
-      CALL inverd(8,Gambq(1),8,D(10),0,D(11),ising,Sp)
+      CALL inverd(8,gambq(1),8,d(10),0,d(11),ising,sp)
       IF ( ising==2 ) THEN
          i = 26
 !
 !     ERROR TYPE 218 HAD BEEN ISSUED BY KTRAPR ALREADY.
 !
          CALL mesage(30,i,idel)
-         Nogo = 1
+         nogo = 1
          RETURN
       ELSE
 !
@@ -213,10 +214,10 @@ USE ISO_FORTRAN_ENV
 !
             DO i = 1 , 8
                j = 8*(i-1)
-               Gambq(i) = 0.0D0
-               Gambq(i+16) = 0.0D0
-               Gambq(j+jj1) = 0.0D0
-               Gambq(j+jj2) = 0.0D0
+               gambq(i) = 0.0D0
+               gambq(i+16) = 0.0D0
+               gambq(j+jj1) = 0.0D0
+               gambq(j+jj2) = 0.0D0
             ENDDO
          ENDIF
 !
@@ -239,43 +240,43 @@ USE ISO_FORTRAN_ENV
             DO j = 1 , 3
                iq = j - 1
                i1 = i1 + 1
-               Delint(i1) = rzintd(ip,iq,R,Z,4)
+               delint(i1) = rzintd(ip,iq,r,z,4)
             ENDDO
          ENDDO
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-         Matidc = matid
-         Matflg = 7
-         Eltemp = Tempe
+         matidc = matid
+         matflg = 7
+         eltemp = tempe
          CALL mat(idel)
 !
 !    SET MATERIAL PROPERTIES IN DOUBLE PRECISION VARIABLES
 !
-         Rhod = Rho
+         rhod = rho
 !
 !     GENERATE THE CONSISTENT MASS MATRIX IN FIELD COORDINATES
 !
          DO i = 1 , 64
             am(i) = 0.0D0
          ENDDO
-         Twopi = d2pi*Rhod
-         am(1) = Twopi*Delint(1)
-         am(2) = Twopi*Delint(4)
-         am(3) = Twopi*Delint(2)
-         am(4) = Twopi*Delint(5)
+         twopi = d2pi*rhod
+         am(1) = twopi*delint(1)
+         am(2) = twopi*delint(4)
+         am(3) = twopi*delint(2)
+         am(4) = twopi*delint(5)
          am(9) = am(2)
-         am(10) = Twopi*Delint(7)
-         am(11) = Twopi*Delint(5)
-         am(12) = Twopi*Delint(8)
+         am(10) = twopi*delint(7)
+         am(11) = twopi*delint(5)
+         am(12) = twopi*delint(8)
          am(17) = am(3)
          am(18) = am(11)
-         am(19) = Twopi*Delint(3)
-         am(20) = Twopi*Delint(6)
+         am(19) = twopi*delint(3)
+         am(20) = twopi*delint(6)
          am(25) = am(4)
          am(26) = am(12)
          am(27) = am(20)
-         am(28) = Twopi*Delint(9)
+         am(28) = twopi*delint(9)
          DO i = 1 , 4
             k = (i-1)*8
             DO j = 1 , 4
@@ -287,21 +288,21 @@ USE ISO_FORTRAN_ENV
 !     TRANSFORM THE ELEMENT MASS MATRIX FROM FIELD COORDINATES TO GRID
 !     POINT DEGREES OF FREEDOM
 !
-         CALL gmmatd(Gambq,8,8,1,Ak,8,8,0,D)
-         CALL gmmatd(D,8,8,0,Gambq,8,8,0,Ak)
+         CALL gmmatd(gambq,8,8,1,ak,8,8,0,d)
+         CALL gmmatd(d,8,8,0,gambq,8,8,0,ak)
 !
 !     ZERO OUT THE (6X6) MATRIX USED AS INPUT TO THE INSERTION ROUTINE
 !
          DO i = 1 , 36
-            Aki(i) = 0.0D0
+            aki(i) = 0.0D0
          ENDDO
 !
 !     LOCATE THE TRANSFORMATION MATRICES FOR THE FOUR  GRID POINTS
 !
          DO i = 1 , 4
-            IF ( Ics(i)/=0 ) THEN
+            IF ( ics(i)/=0 ) THEN
                k = 9*(i-1) + 1
-               CALL transd(Ics(i),D(k))
+               CALL transd(ics(i),d(k))
             ENDIF
          ENDDO
 !
@@ -317,29 +318,29 @@ USE ISO_FORTRAN_ENV
 !
             ic1 = 2*i - 1
             irc = (ir1-1)*8 + ic1
-            Akt(1) = Ak(irc)
-            Akt(2) = 0.0D0
-            Akt(3) = Ak(irc+1)
-            Akt(4) = 0.0D0
-            Akt(5) = 0.0D0
-            Akt(6) = 0.0D0
-            Akt(7) = Ak(irc+8)
-            Akt(8) = 0.0D0
-            Akt(9) = Ak(irc+9)
+            akt(1) = ak(irc)
+            akt(2) = 0.0D0
+            akt(3) = ak(irc+1)
+            akt(4) = 0.0D0
+            akt(5) = 0.0D0
+            akt(6) = 0.0D0
+            akt(7) = ak(irc+8)
+            akt(8) = 0.0D0
+            akt(9) = ak(irc+9)
 !
 !     TRANSFORM THE (3X3) MASS MATRIX
 !
-            IF ( Ics(ipp)/=0 ) THEN
-               CALL gmmatd(D(iapp),3,3,1,Akt(1),3,3,0,D(37))
+            IF ( ics(ipp)/=0 ) THEN
+               CALL gmmatd(d(iapp),3,3,1,akt(1),3,3,0,d(37))
                DO j = 1 , 9
-                  Akt(j) = D(j+36)
+                  akt(j) = d(j+36)
                ENDDO
             ENDIF
-            IF ( Ics(i)/=0 ) THEN
+            IF ( ics(i)/=0 ) THEN
                iai = 9*(i-1) + 1
-               CALL gmmatd(Akt(1),3,3,0,D(iai),3,3,0,D(37))
+               CALL gmmatd(akt(1),3,3,0,d(iai),3,3,0,d(37))
                DO j = 1 , 9
-                  Akt(j) = D(j+36)
+                  akt(j) = d(j+36)
                ENDDO
             ENDIF
 !
@@ -351,13 +352,13 @@ USE ISO_FORTRAN_ENV
                DO j2 = 1 , 3
                   j = j + 1
                   k = j1 + j2 - 1
-                  Aki(k) = Akt(j)
+                  aki(k) = akt(j)
                ENDDO
             ENDDO
 !
 !     CALL THE INSERTION ROUTINE
 !
-            CALL sma2b(Aki(1),Igp(i),-1,Ifmgg,0.0D0)
+            CALL sma2b(aki(1),igp(i),-1,ifmgg,0.0D0)
          ENDDO
          RETURN
       ENDIF
@@ -365,12 +366,13 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE ISO_FORTRAN_ENV                 
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-      i = 37
-      CALL mesage(30,i,idel)
+      I = 37
+      CALL mesage(30,I,Idel)
       Nogo = 1
    END SUBROUTINE spag_block_1
 !

@@ -2,16 +2,16 @@
  
 SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_NAMES
-   USE C_PACKX
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_XMSSG
+   USE c_blank
+   USE c_condas
+   USE c_names
+   USE c_packx
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,6 +37,15 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
    COMPLEX :: scale
    INTEGER , SAVE :: soln , srd
    INTEGER , DIMENSION(4) :: temp
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -75,20 +84,20 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
          ncol = mcb(2)
          nrow = mcb(3)
          iprec = mcb(5)
-         nword = Nwords(iprec)
+         nword = nwords(iprec)
          nwcol = nrow*nword
 !
 !     SET UP PACK UNPACK COMMONS
 !
-         Itinu = iprec
-         Iru = 1
-         Nru = nrow
-         Incru = 1
-         Itinp = iprec
-         Itoutp = iprec
-         Irp = 1
-         Nrp = nrow
-         Incrp = 1
+         itinu = iprec
+         iru = 1
+         nru = nrow
+         incru = 1
+         itinp = iprec
+         itoutp = iprec
+         irp = 1
+         nrp = nrow
+         incrp = 1
 !
 !     BRANCH ON TYPE OF DISPLACEMENTS OR RIGID FORMAT
 !
@@ -98,11 +107,11 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !     THE DISPLACEMENTS, VELOCITIES AND ACCLERATIONS ALREADY EXIST AND
 !     ARE TO BE MERGED TOGETHER
 !
-               IF ( Lcore<0 ) GOTO 300
-               CALL gopen(Outu,Rz(Buf1),Rdrew)
-               CALL gopen(Outv,Rz(Buf2),Rdrew)
-               CALL gopen(Outa,Rz(Buf3),Rdrew)
-               CALL gopen(Outt,Rz(Buf4),Wrtrew)
+               IF ( lcore<0 ) GOTO 300
+               CALL gopen(Outu,Rz(buf1),rdrew)
+               CALL gopen(Outv,Rz(buf2),rdrew)
+               CALL gopen(Outa,Rz(buf3),rdrew)
+               CALL gopen(Outt,Rz(buf4),wrtrew)
 !
                inblk1(1) = Outu
                inblk2(1) = Outv
@@ -119,27 +128,27 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
                   j = j + 1
                ENDDO
 !
-               CALL close(Outu,Rew)
-               CALL close(Outv,Rew)
-               CALL close(Outa,Rew)
-               CALL close(Outt,Rew)
+               CALL close(Outu,rew)
+               CALL close(Outv,rew)
+               CALL close(Outa,rew)
+               CALL close(Outt,rew)
                mcb(1) = Outt
                mcb(2) = ncol*3
                CALL wrttrl(mcb)
                GOTO 50
 !
-            ELSEIF ( Rfno>9 ) THEN
+            ELSEIF ( rfno>9 ) THEN
                n = 7
                CALL mesage(n,file,name)
                GOTO 500
             ELSE
-               IF ( Rfno==1 .OR. Rfno==2 ) GOTO 50
-               IF ( Rfno==4 .OR. Rfno==5 .OR. Rfno==6 .OR. Rfno==7 ) THEN
+               IF ( rfno==1 .OR. rfno==2 ) GOTO 50
+               IF ( rfno==4 .OR. rfno==5 .OR. rfno==6 .OR. rfno==7 ) THEN
                   n = 7
                   CALL mesage(n,file,name)
                   GOTO 500
-               ELSEIF ( Rfno==8 ) THEN
-               ELSEIF ( Rfno==9 ) THEN
+               ELSEIF ( rfno==8 ) THEN
+               ELSEIF ( rfno==9 ) THEN
                   GOTO 20
 !
 !     NORMAL MODES
@@ -153,7 +162,7 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !     V =  U*OMEGA
 !     A = -V*OMEGA
 !
-                  IF ( Lcore<nwcol ) GOTO 300
+                  IF ( lcore<nwcol ) GOTO 300
                   item = soln
                   CALL sfetch(Ssnm,soln,srd,rc)
                   IF ( rc/=1 ) GOTO 100
@@ -164,15 +173,15 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
                      GOTO 500
                   ELSE
 !
-                     CALL gopen(In,Rz(Buf1),Rdrew)
-                     IF ( Outt/=0 ) CALL gopen(Outt,Rz(Buf2),Wrtrew)
-                     IF ( Outu/=0 ) CALL gopen(Outu,Rz(Buf2),Wrtrew)
-                     IF ( Outv/=0 ) CALL gopen(Outv,Rz(Buf3),Wrtrew)
-                     IF ( Outa/=0 ) CALL gopen(Outa,Rz(Buf4),Wrtrew)
-                     CALL makmcb(mcb,Outt,nrow,Rect,iprec)
-                     CALL makmcb(mcbu,Outu,nrow,Rect,iprec)
-                     CALL makmcb(mcbv,Outv,nrow,Rect,iprec)
-                     CALL makmcb(mcba,Outa,nrow,Rect,iprec)
+                     CALL gopen(In,Rz(buf1),rdrew)
+                     IF ( Outt/=0 ) CALL gopen(Outt,Rz(buf2),wrtrew)
+                     IF ( Outu/=0 ) CALL gopen(Outu,Rz(buf2),wrtrew)
+                     IF ( Outv/=0 ) CALL gopen(Outv,Rz(buf3),wrtrew)
+                     IF ( Outa/=0 ) CALL gopen(Outa,Rz(buf4),wrtrew)
+                     CALL makmcb(mcb,Outt,nrow,rect,iprec)
+                     CALL makmcb(mcbu,Outu,nrow,rect,iprec)
+                     CALL makmcb(mcbv,Outv,nrow,rect,iprec)
+                     CALL makmcb(mcba,Outa,nrow,rect,iprec)
 !
 !     LOOP THROUGH EACH COLUMN
 !
@@ -214,11 +223,11 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
                      ENDDO
 !
 !
-                     CALL close(In,Rew)
-                     IF ( Outt/=0 ) CALL close(Outt,Rew)
-                     IF ( Outu/=0 ) CALL close(Outu,Rew)
-                     IF ( Outv/=0 ) CALL close(Outv,Rew)
-                     IF ( Outa/=0 ) CALL close(Outa,Rew)
+                     CALL close(In,rew)
+                     IF ( Outt/=0 ) CALL close(Outt,rew)
+                     IF ( Outu/=0 ) CALL close(Outu,rew)
+                     IF ( Outv/=0 ) CALL close(Outv,rew)
+                     IF ( Outa/=0 ) CALL close(Outa,rew)
                      IF ( Outt/=0 ) CALL wrttrl(mcb)
                      IF ( Outu/=0 ) CALL wrttrl(mcbu)
                      IF ( Outv/=0 ) CALL wrttrl(mcbv)
@@ -237,7 +246,7 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !     V = U*TWOPHI*FREQ*I
 !     A = V*TWOPHI*FREQ*I
 !
-               IF ( Lcore<nwcol ) GOTO 300
+               IF ( lcore<nwcol ) GOTO 300
                item = soln
                CALL sfetch(Ssnm,soln,srd,rc)
                IF ( rc/=1 ) GOTO 100
@@ -248,15 +257,15 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
                   GOTO 500
                ELSE
 !
-                  CALL gopen(In,Rz(Buf1),Rdrew)
-                  IF ( Outt/=0 ) CALL gopen(Outt,Rz(Buf2),Wrtrew)
-                  IF ( Outu/=0 ) CALL gopen(Outu,Rz(Buf2),Wrtrew)
-                  IF ( Outv/=0 ) CALL gopen(Outv,Rz(Buf3),Wrtrew)
-                  IF ( Outa/=0 ) CALL gopen(Outa,Rz(Buf4),Wrtrew)
-                  CALL makmcb(mcb,Outt,nrow,Rect,iprec)
-                  CALL makmcb(mcbu,Outu,nrow,Rect,iprec)
-                  CALL makmcb(mcbv,Outv,nrow,Rect,iprec)
-                  CALL makmcb(mcba,Outa,nrow,Rect,iprec)
+                  CALL gopen(In,Rz(buf1),rdrew)
+                  IF ( Outt/=0 ) CALL gopen(Outt,Rz(buf2),wrtrew)
+                  IF ( Outu/=0 ) CALL gopen(Outu,Rz(buf2),wrtrew)
+                  IF ( Outv/=0 ) CALL gopen(Outv,Rz(buf3),wrtrew)
+                  IF ( Outa/=0 ) CALL gopen(Outa,Rz(buf4),wrtrew)
+                  CALL makmcb(mcb,Outt,nrow,rect,iprec)
+                  CALL makmcb(mcbu,Outu,nrow,rect,iprec)
+                  CALL makmcb(mcbv,Outv,nrow,rect,iprec)
+                  CALL makmcb(mcba,Outa,nrow,rect,iprec)
 !
 !     LOOP THROUGH EACH COLUMN
 !
@@ -264,10 +273,10 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !
 !     GET SCALE FACTOR FOR THIS COLUMN
 !
-                     IF ( Rfno==8 ) THEN
+                     IF ( rfno==8 ) THEN
                         CALL suread(freq,1,nwds,rc)
                         IF ( rc/=1 ) GOTO 200
-                        scale = Twophi*freq*(0.0,1.0)
+                        scale = twophi*freq*(0.0,1.0)
 !
                         CALL unpack(*6,In,Cz(1))
                         GOTO 8
@@ -309,11 +318,11 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !
                   ENDDO
 !
-                  CALL close(In,Rew)
-                  IF ( Outt/=0 ) CALL close(Outt,Rew)
-                  IF ( Outu/=0 ) CALL close(Outu,Rew)
-                  IF ( Outv/=0 ) CALL close(Outv,Rew)
-                  IF ( Outa/=0 ) CALL close(Outa,Rew)
+                  CALL close(In,rew)
+                  IF ( Outt/=0 ) CALL close(Outt,rew)
+                  IF ( Outu/=0 ) CALL close(Outu,rew)
+                  IF ( Outv/=0 ) CALL close(Outv,rew)
+                  IF ( Outa/=0 ) CALL close(Outa,rew)
                   IF ( Outt/=0 ) CALL wrttrl(mcb)
                   IF ( Outu/=0 ) CALL wrttrl(mcbu)
                   IF ( Outv/=0 ) CALL wrttrl(mcbv)
@@ -326,11 +335,11 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
 !     THE DISPLACEMENT FILE ALREADY CONTAINS THE VELOCITIES AND
 !     ACCELERATIONS SO WE JUST SANT TO SPLIT THEM UP
 !
- 20      IF ( Lcore<0 ) GOTO 300
-         CALL gopen(In,Rz(Buf1),Rdrew)
-         IF ( Outu/=0 ) CALL gopen(Outu,Rz(Buf2),Wrtrew)
-         IF ( Outv/=0 ) CALL gopen(Outv,Rz(Buf3),Wrtrew)
-         IF ( Outa/=0 ) CALL gopen(Outa,Rz(Buf4),Wrtrew)
+ 20      IF ( lcore<0 ) GOTO 300
+         CALL gopen(In,Rz(buf1),rdrew)
+         IF ( Outu/=0 ) CALL gopen(Outu,Rz(buf2),wrtrew)
+         IF ( Outv/=0 ) CALL gopen(Outv,Rz(buf3),wrtrew)
+         IF ( Outa/=0 ) CALL gopen(Outa,Rz(buf4),wrtrew)
 !
          inblk(1) = In
          oblk1(1) = Outu
@@ -348,10 +357,10 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
             IF ( Outa==0 ) CALL fwdrec(*400,In)
          ENDDO
 !
-         CALL close(In,Rew)
-         IF ( Outu/=0 ) CALL close(Outu,Rew)
-         IF ( Outv/=0 ) CALL close(Outv,Rew)
-         IF ( Outa/=0 ) CALL close(Outa,Rew)
+         CALL close(In,rew)
+         IF ( Outu/=0 ) CALL close(Outu,rew)
+         IF ( Outv/=0 ) CALL close(Outv,rew)
+         IF ( Outa/=0 ) CALL close(Outa,rew)
          mcb(2) = ncol
          mcb(1) = Outu
          IF ( Outu/=0 ) CALL wrttrl(mcb)
@@ -376,17 +385,17 @@ SUBROUTINE rcovva(In,Intyp,Outt,Outu,Outv,Outa,Ssnm,Rz,Dz,Cz)
    GOTO 500
  200  CALL smsg(rc+4,item,Ssnm)
    GOTO 500
- 300  WRITE (Nout,99001) Swm , Rss
+ 300  WRITE (nout,99001) swm , rss
 99001 FORMAT (A25,' 6313, INSUFFICIENT CORE FOR RCOVR MODULE WHILE ','TRYING TO PROCESS',/34X,'PRINTOUT DATA BLOCKS FOR ',          &
              &'SUBSTRUCTURE ',2A4)
    GOTO 500
  400  n = 2
    CALL mesage(n,file,name)
  500  In = 0
-   CALL close(In,Rew)
-   IF ( Outt/=0 ) CALL close(Outt,Rew)
-   IF ( Outu/=0 ) CALL close(Outu,Rew)
-   IF ( Outv/=0 ) CALL close(Outv,Rew)
-   IF ( Outa/=0 ) CALL close(Outa,Rew)
+   CALL close(In,rew)
+   IF ( Outt/=0 ) CALL close(Outt,rew)
+   IF ( Outu/=0 ) CALL close(Outu,rew)
+   IF ( Outv/=0 ) CALL close(Outv,rew)
+   IF ( Outa/=0 ) CALL close(Outa,rew)
 !
 END SUBROUTINE rcovva

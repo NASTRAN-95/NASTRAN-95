@@ -1,12 +1,25 @@
-!*==sqrtm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sqrtm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sqrtm(A,Ia,B,Ib)
+USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
-   DOUBLE PRECISION A , B
-   INTEGER Ia , Ib
-   DOUBLE PRECISION Detsw(1)
-   INTEGER Ipsw(1)
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   REAL(REAL64) :: A
+   INTEGER :: Ia
+   REAL(REAL64) :: B
+   INTEGER :: Ib
+!
+! Local variable declarations rewritten by SPAG
+!
+   REAL(REAL64) , DIMENSION(1) :: detsw
+   INTEGER , DIMENSION(1) :: ipsw
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     SCALED ARITHMETIC ROUTINES--SQUARE ROOT
 !
@@ -25,18 +38,17 @@ CONTAINS
 !
 !     DCALE OF DETERMINANT BY FACTORS OF 10
 !
-      ENTRY detm6(Detsw,Ipsw)
-      IF ( Detsw(1)/=0.0D0 ) THEN
-         DO WHILE ( dabs(Detsw(1))>10.0D0 )
-            Detsw(1) = Detsw(1)*0.1D0
-            Ipsw(1) = Ipsw(1) + 1
+      ENTRY detm6(detsw,ipsw)
+      IF ( detsw(1)/=0.0D0 ) THEN
+         DO WHILE ( dabs(detsw(1))>10.0D0 )
+            detsw(1) = detsw(1)*0.1D0
+            ipsw(1) = ipsw(1) + 1
          ENDDO
-         DO WHILE ( dabs(Detsw(1))<0.1D0 )
-            Detsw(1) = Detsw(1)*10.0D0
-            Ipsw(1) = Ipsw(1) - 1
+         DO WHILE ( dabs(detsw(1))<0.1D0 )
+            detsw(1) = detsw(1)*10.0D0
+            ipsw(1) = ipsw(1) - 1
          ENDDO
       ENDIF
       CALL spag_block_1
-      RETURN
-   END ENTRY detm6
+   END SUBROUTINE spag_block_1
 END SUBROUTINE sqrtm

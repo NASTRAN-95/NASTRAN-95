@@ -2,9 +2,9 @@
  
 SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    IMPLICIT NONE
-   USE C_GPTA1
-   USE C_SYSTEM
-   USE C_XMSSG
+   USE c_gpta1
+   USE c_system
+   USE c_xmssg
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -20,6 +20,15 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    INTEGER , DIMENSION(3) , SAVE :: pcomp
    INTEGER , SAVE :: pshell , quad4
    INTEGER , DIMENSION(3) :: x
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -52,15 +61,15 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
 !     UPDATE /GPTA1/ IF DUMMY ELEMENTS ARE PRESENT
 !
    DO i = 1 , 9
-      IF ( Kdum(i)/=0 ) THEN
-         k = Kdum(i)
+      IF ( kdum(i)/=0 ) THEN
+         k = kdum(i)
          ng = k/10000000
          nc = (k-ng*10000000)/10000
          np = (k-ng*10000000-nc*10000)/10
-         k = (51+i)*Incr
-         Ne(k+6) = 2 + ng + nc
-         Ne(k+9) = 2 + np
-         Ne(k+10) = ng
+         k = (51+i)*incr
+         ne(k+6) = 2 + ng + nc
+         ne(k+9) = 2 + np
+         ne(k+10) = ng
       ENDIF
    ENDDO
 !
@@ -73,12 +82,12 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
 !       WORD 4, LENGTH OF ELEMENT CARD (ECTWDS), PLUS POINTER TO GPTA1
 !
    ii = 0
-   DO i = 1 , Last , Incr
-      IF ( Ne(i+6)/=0 ) THEN
-         Z(ii+1) = Ne(i+6)
-         Z(ii+2) = -Ne(i+8)
-         Z(ii+3) = Ne(i+3)
-         Z(ii+4) = Ne(i+5)*10000 + i
+   DO i = 1 , last , incr
+      IF ( ne(i+6)/=0 ) THEN
+         Z(ii+1) = ne(i+6)
+         Z(ii+2) = -ne(i+8)
+         Z(ii+3) = ne(i+3)
+         Z(ii+4) = ne(i+5)*10000 + i
          ii = ii + 4
       ENDIF
    ENDDO
@@ -90,13 +99,13 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
 !            ELEMENT CQUAD4 AND ELEMENT CTRIA3 WILL PICK THEM UP VIA
 !            THE PSEHLL DATA LATER.
 !
-   i = (64-1)*Incr + 1
-   IF ( Ne(i+3)/=quad4 ) CALL mesage(-37,0,name)
+   i = (64-1)*incr + 1
+   IF ( ne(i+3)/=quad4 ) CALL mesage(-37,0,name)
    DO j = 1 , 3
       Z(ii+1) = pcomp(j)
       Z(ii+2) = -8888
       Z(ii+3) = quad4 - j
-      Z(ii+4) = Ne(i+5)*10000 + i
+      Z(ii+4) = ne(i+5)*10000 + i
       ii = ii + 4
    ENDDO
 !
@@ -167,7 +176,7 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    CALL bisloc(*500,pshell,Z,4,i4,kp1)
    IF ( Z(kp1+1)==-9999 ) kp1 = kp1 - 4
    IF ( Z(kp1-4)/=pcomp(3) .OR. Z(kp1-8)/=pcomp(2) .OR. Z(kp1-12)/=pcomp(1) ) THEN
-      WRITE (Nout,99001) Z(kp1) , pshell , Z(kp1-4) , pcomp(3) , Z(kp1-8) , pcomp(2) , Z(kp1-12) , pcomp(1)
+      WRITE (nout,99001) Z(kp1) , pshell , Z(kp1-4) , pcomp(3) , Z(kp1-8) , pcomp(2) , Z(kp1-12) , pcomp(1)
 99001 FORMAT ('0*** ERROR IN /GPTA1/ PCOMP ARRANGEMENT',(/3X,2I7))
       j = -37
       CALL mesage(j,0,name)
@@ -216,8 +225,8 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
    j = Z(k+1)
    IF ( j<=0 ) THEN
       j = mod(Z(k+3),10000)
-      CALL mesage(30,11,Ne(j))
-      Abort = .TRUE.
+      CALL mesage(30,11,ne(j))
+      abort = .TRUE.
       GOTO 600
    ELSE
       jb = j/10000
@@ -233,11 +242,11 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
             ENDIF
          ENDDO
          CALL mesage(30,10,Z(kk))
-         Abort = .TRUE.
+         abort = .TRUE.
  750  ENDDO
    ENDIF
  800  CALL rewind(Geom2)
-   IF ( Abort .OR. Nopid/=0 ) THEN
+   IF ( abort .OR. Nopid/=0 ) THEN
 !
 !     SET Z(1) TO ZERO IF NO ACTIVE PROPERTY LIST EXISTS.
 !
@@ -266,9 +275,9 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
       jj1 = jj + 1
       kk = kk - 1
       IF ( kk<jj1 ) RETURN
-      WRITE (Nout,99002) Uim
+      WRITE (nout,99002) uim
 99002 FORMAT (A29,', THE FOLLOWING PROPERTY IDS ARE PRESENT BUT NOT ','USED -')
-      WRITE (Nout,99003) (Z(j),j=jj1,kk)
+      WRITE (nout,99003) (Z(j),j=jj1,kk)
 99003 FORMAT (/5X,12I9)
       RETURN
    ENDIF
@@ -276,7 +285,7 @@ SUBROUTINE pidck(Pfile,Geom2,Nopid,Z)
  900  j = -2
    CALL mesage(j,0,name)
    GOTO 99999
- 1000 WRITE (Nout,99004)
+ 1000 WRITE (nout,99004)
 99004 FORMAT ('0*** CAN NOT LOCATE PSHELL OR PCOMP DATA IN /GPTA1/')
    j = -37
    CALL mesage(j,0,name)

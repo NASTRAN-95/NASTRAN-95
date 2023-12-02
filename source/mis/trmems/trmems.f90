@@ -1,13 +1,14 @@
-!*==trmems.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trmems.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trmems
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_emgtrx
+   USE c_system
    IMPLICIT NONE
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_EMGTRX
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -56,8 +57,8 @@ SUBROUTINE trmems
 !
 !
 !
-   ip = Iprec
-   dict(1) = Estid
+   ip = iprec
+   dict(1) = estid
    SPAG_Loop_1_1: DO
 !
 !     CREATE AN ARRAY POINTING TO GRID POINTS IN INCREASING ORDER
@@ -79,15 +80,15 @@ SUBROUTINE trmems
 !     IF STIFFNESS MATRIX IS REQUESTED CALL EKTRMS. OTHERWISE GO TO
 !     MASS MATRIX CALCULATION SECTION
 !
-      IF ( Ismb(1)/=0 ) THEN
+      IF ( ismb(1)/=0 ) THEN
 !
          CALL ektrms(0)
 !
-         IF ( Nogo ) RETURN
+         IF ( nogo ) RETURN
 !
 !     RE-ORDER  THE STIFFNESS MATRIX BY INCREASING SIL VALUE
 !
-         IF ( Heat ) THEN
+         IF ( heat ) THEN
 !
 !     OUTPUT HEAT MATRIX HERE
 !
@@ -95,7 +96,7 @@ SUBROUTINE trmems
                DO j = 1 , 3
                   iout = (i-1)*3 + j
                   ik = (ipart(i)-1)*3 + ipart(j)
-                  K(iout) = Ksave(ik)
+                  k(iout) = ksave(ik)
                ENDDO
             ENDDO
 !     OUTPUT   HEAT  K
@@ -103,7 +104,7 @@ SUBROUTINE trmems
             dict(3) = 3
             dict(4) = 1
 !
-            CALL emgout(K,K,9,1,dict,1,ip)
+            CALL emgout(k,k,9,1,dict,1,ip)
          ELSE
             DO i = 1 , 3
                ii = ipart(i)
@@ -113,7 +114,7 @@ SUBROUTINE trmems
                      DO l = 1 , 3
                         isave = (ii-1)*27 + (jj-1)*9 + (ka-1)*3 + l
                         iout = (i-1)*27 + (j-1)*3 + (ka-1)*9 + l
-                        K(iout) = Ksave(isave)
+                        k(iout) = ksave(isave)
                      ENDDO
                   ENDDO
                ENDDO
@@ -123,19 +124,19 @@ SUBROUTINE trmems
             dict(3) = 9
             dict(4) = 7
 !
-            CALL emgout(K,K,81,1,dict,1,ip)
+            CALL emgout(k,k,81,1,dict,1,ip)
          ENDIF
       ENDIF
 !
 !     PERFORM MASS MATRIX CALCULATIONS HERE
 !
-      IF ( Ismb(2)==0 ) RETURN
+      IF ( ismb(2)==0 ) RETURN
 !
 !     CONVENTIONAL MASS MATRIX
 !
       CALL emastq(4,m)
 !     REORDER THE MASS MATRIX
-      IF ( .NOT.(Heat) ) EXIT SPAG_Loop_1_1
+      IF ( .NOT.(heat) ) EXIT SPAG_Loop_1_1
 !
 !     HEAT FORMULATION
 !
@@ -166,6 +167,5 @@ SUBROUTINE trmems
    dict(4) = 7
 !
    CALL emgout(mout,mout,9,1,dict,2,ip)
-   RETURN
 !
 END SUBROUTINE trmems

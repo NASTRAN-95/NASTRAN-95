@@ -1,10 +1,11 @@
-!*==dsgefl.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dsgefl.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dsgefl
+   USE i_dsiof
+   USE i_xnstrn
+   USE c_dsunit
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_XNSTRN
-   USE C_DSUNIT
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -13,12 +14,12 @@ SUBROUTINE dsgefl
 ! End of declarations rewritten by SPAG
 !
    IF ( name>=101 .AND. name<=320 ) THEN
-      ifilex = Iunit(name-100)
+      ifilex = iunit(name-100)
    ELSE
       CALL geturn(name)
    ENDIF
    IF ( ifilex==0 ) THEN
-      IF ( iretrn==77 ) GOTO 99999
+      IF ( iretrn==77 ) RETURN
       CALL dsmsg(107)
    ENDIF
    iobuf = fcb(2,ifilex)
@@ -34,4 +35,4 @@ SUBROUTINE dsgefl
       lcw = ibase(indbas+4)
       lasnam = name
    ENDIF
-99999 END SUBROUTINE dsgefl
+END SUBROUTINE dsgefl

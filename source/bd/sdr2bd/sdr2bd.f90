@@ -1,12 +1,13 @@
-!*==sdr2bd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdr2bd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA sdr2bd
 !SDR2BD
+   USE c_sdr2x1
+   USE c_sdr2x2
+   USE c_sdr2x4
    IMPLICIT NONE
-   USE C_SDR2X1
-   USE C_SDR2X2
-   USE C_SDR2X4
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -24,23 +25,23 @@ BLOCKDATA sdr2bd
 !*****
 !     DATA DEFINING POSITIONS OF PARAMETERS IN A CASE CONTROL RECORD.
 !*****
-   DATA Ieigen/5/ , Ieldef/6/ , Itload/7/ , Isymfl/16/ , Iloads/17/ , Idispl/20/ , Istr/23/ , Ielf/26/ , Iacc/29/ , Ivel/32/ ,      &
-      & Ispcf/35/ , Ittl/39/ , Ilsym/200/ , Ifrout/145/ , Isload/4/ , Idload/13/ , Isorc/136/
+   DATA ieigen/5/ , ieldef/6/ , itload/7/ , isymfl/16/ , iloads/17/ , idispl/20/ , istr/23/ , ielf/26/ , iacc/29/ , ivel/32/ ,      &
+      & ispcf/35/ , ittl/39/ , ilsym/200/ , ifrout/145/ , isload/4/ , idload/13/ , isorc/136/
 !*****
 !     DATA DEFINING DATA BLOCK FILE NUMBERS.
 !*****
-   DATA Casecc/101/ , Cstm/102/ , Mpt/103/ , Dit/104/ , Eqexin/105/ , Sil/106/ , Gptt/107/ , Edt/108/ , Bgpdt/109/ , Pg/110/ ,      &
-      & Qg/111/ , Ugv/112/ , Est/113/ , Phig/112/ , Eigr/110/ , Opg1/201/ , Oqg1/202/ , Ougv1/203/ , Oes1/204/ , Oef1/205/ ,        &
-      & Pugv1/206/ , Oeigr/201/ , Ophig/203/ , Pphig/206/ , Esta/301/ , Gptta/302/ , Harms/137/ , Xycdb/114/ , Scr3/303/ ,          &
-      & Pcomps/116/ , Oes1l/207/ , Oef1l/208/
+   DATA casecc/101/ , cstm/102/ , mpt/103/ , dit/104/ , eqexin/105/ , sil/106/ , gptt/107/ , edt/108/ , bgpdt/109/ , pg/110/ ,      &
+      & qg/111/ , ugv/112/ , est/113/ , phig/112/ , eigr/110/ , opg1/201/ , oqg1/202/ , ougv1/203/ , oes1/204/ , oef1/205/ ,        &
+      & pugv1/206/ , oeigr/201/ , ophig/203/ , pphig/206/ , esta/301/ , gptta/302/ , harms/137/ , xycdb/114/ , scr3/303/ ,          &
+      & pcomps/116/ , oes1l/207/ , oef1l/208/
 !*****
 !     DATA DEFINING RIGID FORMATS.
 !*****
-   DATA Nrigds/10/ , rfmts/4HSTAT , 4HICS  , 4HREIG , 4HEN   , 4HDS0  , 4H     , 4HDS1  , 4H     , 4HFREQ , 4H     , 4HTRAN ,       &
+   DATA nrigds/10/ , rfmts/4HSTAT , 4HICS  , 4HREIG , 4HEN   , 4HDS0  , 4H     , 4HDS1  , 4H     , 4HFREQ , 4H     , 4HTRAN ,       &
       & 4HSNT  , 4HBKL0 , 4H     , 4HBKL1 , 4H     , 4HCEIG , 4HEN   , 4HPLA  , 4H     , 20*0/
 !*****
 !     MISC. DATA.
 !*****
-   DATA Nam/4HSDR2 , 4H    / , End/4HEND / , Dtype/2 , 3 , 1 , 5 , 4 , 6 , 7 , 8/ , Mset/1001/ , Isopl8/0/
+   DATA nam/4HSDR2 , 4H    / , end/4HEND / , dtype/2 , 3 , 1 , 5 , 4 , 6 , 7 , 8/ , mset/1001/ , isopl8/0/
 !
 END BLOCKDATA sdr2bd

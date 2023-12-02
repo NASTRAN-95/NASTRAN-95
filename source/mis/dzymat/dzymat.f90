@@ -1,12 +1,13 @@
-!*==dzymat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dzymat.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb,Zb,Nbea)
+   USE c_amgmn
+   USE c_dlbdy
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_DLBDY
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -54,13 +55,13 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
 !
    c1 = 0
    s1 = 0
-   nfyb = Nb - Nby + 1
-   IF ( Np/=0 ) THEN
+   nfyb = nb - nby + 1
+   IF ( np/=0 ) THEN
 !
 !     THIS LOOP IS FOR EACH LIFTING SURF. PANEL
 !
       isn = 0
-      DO p = 1 , Np
+      DO p = 1 , np
          nsp = Ns(p)
          ncp = Nc(p)
          nsp = (nsp-isn)/ncp
@@ -86,8 +87,8 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
 !
 !     - ROWDYC -  CALCULATES ROW -C1- OF DZ OR DY
 !
-               CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,Z(Iarb),Z(Insbea),Z(Ixis1),Z(Ixis2),    &
-                         & Z(Ia0))
+               CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,z(iarb),z(insbea),z(ixis1),z(ixis2),    &
+                         & z(ia0))
 !
             ENDDO
          ENDDO
@@ -97,10 +98,10 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
 !     WE HAVE NOW CALCULATED -C1- ROWS WHICH ARE THE LIFTING SURFACES.
 !     NOW, LOOP FOR THE -Z- ORIENTED BODIES
 !
-   IF ( Nbz>0 .AND. Ntz>0 ) THEN
+   IF ( nbz>0 .AND. ntz>0 ) THEN
       sgr = 0.0
       cgr = 1.0
-      DO bz = 1 , Nbz
+      DO bz = 1 , nbz
          dy = Yb(bz)
          dz = Zb(bz)
          nbez = Nbea(bz)
@@ -111,15 +112,15 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
             c1 = c1 + 1
             dx = Xp(c1)
 !
-            CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,Z(Iarb),Z(Insbea),Z(Ixis1),Z(Ixis2),Z(Ia0))
+            CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,z(iarb),z(insbea),z(ixis1),z(ixis2),z(ia0))
          ENDDO
       ENDDO
    ENDIF
 !
 !     NOW, LOOP FOR THE -Y- ORIENTED BODIES
 !
-   IF ( Nb>=nfyb .AND. Nty>0 ) THEN
-      ixp = Ntp
+   IF ( nb>=nfyb .AND. nty>0 ) THEN
+      ixp = ntp
       IF ( nfyb>1 ) THEN
          nfybm1 = nfyb - 1
          DO i = 1 , nfybm1
@@ -128,7 +129,7 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
       ENDIF
       sgr = -1.0
       cgr = 0.0
-      DO by = nfyb , Nb
+      DO by = nfyb , nb
          dy = Yb(by)
          dz = Zb(by)
          nbey = Nbea(by)
@@ -140,7 +141,7 @@ SUBROUTINE dzymat(D,Nfb,Nlb,Ntzys,Idzdy,Ntape,Xp,Beta,Iprnt,Ns,Nc,Yp,Zp,Sg,Cg,Yb
             ixp = ixp + 1
             dx = Xp(ixp)
 !
-            CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,Z(Iarb),Z(Insbea),Z(Ixis1),Z(Ixis2),Z(Ia0))
+            CALL rowdyz(Nfb,Nlb,c1,Ntzys,D,dx,dy,dz,Beta,Idzdy,Ntape,sgr,cgr,Iprnt,Yb,Zb,z(iarb),z(insbea),z(ixis1),z(ixis2),z(ia0))
 !
          ENDDO
       ENDDO

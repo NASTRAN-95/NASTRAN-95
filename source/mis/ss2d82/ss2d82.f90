@@ -1,12 +1,13 @@
-!*==ss2d82.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ss2d82.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -71,25 +72,25 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
 !
 !     SET UP DISPLACEMENTS FOR THIS ELEMENT
 !
-         Is = 0
+         is = 0
          DO i = 1 , 8
-            Nstrt = Ivec + nsil(i) - 1
+            nstrt = ivec + nsil(i) - 1
             DO j = 1 , 3
-               Is = Is + 1
-               Npt = Nstrt + j - 1
-               Disp(Is) = Z(Npt)
+               is = is + 1
+               npt = nstrt + j - 1
+               disp(is) = z(npt)
             ENDDO
          ENDDO
 !
 !     INITIALIZE SOME MATRICES
 !
          DO i = 1 , 72
-            Bb(i) = 0.
+            bb(i) = 0.
          ENDDO
 !
 !     SET UP INDICATOR FOR GRID POINT TEMPERATURES
 !
-         Idtemp = 0
+         idtemp = 0
          DO i = 1 , 8
             IF ( Tgrid(i)/=0. ) THEN
                spag_nextblock_1 = 2
@@ -97,9 +98,8 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
             ENDIF
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         Idtemp = 1
+         idtemp = 1
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -121,13 +121,13 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
 !
 !     COMPUTE BASE POINTER FOR PICKING UP DERIVATIVES
 !
-               Ibase = 71 + 16*(iii-1)
+               ibase = 71 + 16*(iii-1)
 !
                DO n = 1 , 8
-                  nx = n + Ibase
-                  ny = n + Ibase + 8
-                  Dnx(n) = Ph1out(nx)
-                  Dny(n) = Ph1out(ny)
+                  nx = n + ibase
+                  ny = n + ibase + 8
+                  dnx(n) = ph1out(nx)
+                  dny(n) = ph1out(ny)
                ENDDO
 !
                DO n = 1 , 8
@@ -136,53 +136,53 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
 !
                   DO i = 1 , 9
                      temp(i) = 0.
-                     B(i) = 0.
+                     b(i) = 0.
                   ENDDO
-                  B(1) = Dnx(n)
-                  B(4) = Dny(n)
-                  B(5) = Dny(n)
-                  B(6) = Dnx(n)
+                  b(1) = dnx(n)
+                  b(4) = dny(n)
+                  b(5) = dny(n)
+                  b(6) = dnx(n)
 !
 !     TRANSFORM TO ELEMENT COORDINATES
 !
                   kk = 6*n - 6
                   DO i = 1 , 6
                      k = kk + i
-                     Tb(i) = ta(k)
+                     tb(i) = ta(k)
                   ENDDO
-                  CALL gmmats(B,3,2,0,Tb,2,3,0,temp(1))
+                  CALL gmmats(b,3,2,0,tb,2,3,0,temp(1))
                   n3 = 3*n
-                  Bb(n3-2) = temp(1)
-                  Bb(n3-1) = temp(2)
-                  Bb(n3) = temp(3)
-                  Bb(n3+22) = temp(4)
-                  Bb(n3+23) = temp(5)
-                  Bb(n3+24) = temp(6)
-                  Bb(n3+46) = temp(7)
-                  Bb(n3+47) = temp(8)
-                  Bb(n3+48) = temp(9)
+                  bb(n3-2) = temp(1)
+                  bb(n3-1) = temp(2)
+                  bb(n3) = temp(3)
+                  bb(n3+22) = temp(4)
+                  bb(n3+23) = temp(5)
+                  bb(n3+24) = temp(6)
+                  bb(n3+46) = temp(7)
+                  bb(n3+47) = temp(8)
+                  bb(n3+48) = temp(9)
                ENDDO
 !
 !     BRING IN G MATRIX
 !
-               CALL gmmats(g,3,3,0,Bb,3,24,0,Db)
+               CALL gmmats(g,3,3,0,bb,3,24,0,db)
 !
 !     COMPUTE STRESSES
 !
-               CALL gmmats(Db,3,24,0,Disp,24,1,0,Sig)
+               CALL gmmats(db,3,24,0,disp,24,1,0,sig)
 !
 !     STORE GAUSS POINT STRESSES INTO SIGT
 !
                i3 = 3*(iii-1)
                DO i = 1 , 3
                   isub = i3 + i
-                  sigs(isub) = Sig(i)
+                  sigs(isub) = sig(i)
                ENDDO
 !
 !     COMPUTE GAUSS POINT  TEMPERATURES
 !
-               IF ( Ldtemp/=-1 ) THEN
-                  IF ( Idtemp==1 ) THEN
+               IF ( ldtemp/=-1 ) THEN
+                  IF ( idtemp==1 ) THEN
 !
 !     ALL TEMPERATURES ARE DEFAULT VALUE
 !
@@ -230,7 +230,7 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
                   i3 = 3*(iii-1)
                   DO i = 1 , 3
                      isub = i3 + i
-                     Sig(i) = sigt(isub)
+                     sig(i) = sigt(isub)
                   ENDDO
 !
 !     STORE STRESSES
@@ -252,7 +252,7 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
                   istres(jsub+1) = 0
                   DO i = 1 , 3
                      jjsub = jsub + 1 + i
-                     stress(jjsub) = Sig(i)
+                     stress(jjsub) = sig(i)
                   ENDDO
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -277,7 +277,7 @@ SUBROUTINE ss2d82(Ieqex,Neqex,Tgrid)
          istres(3) = 3
 !
          DO i = 1 , 43
-            Str(i) = stress(i)
+            str(i) = stress(i)
          ENDDO
          EXIT SPAG_DispatchLoop_1
       END SELECT

@@ -1,13 +1,14 @@
-!*==fbs2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbs2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbs2(Block,Y,Yn,Nwds)
-USE C_FBSX
-USE C_MACHIN
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsx
+   USE c_machin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -46,7 +47,7 @@ USE ISO_FORTRAN_ENV
          nbritm = Nwds/2
          j = (locfx(Yn)-locfx(Y)+1)/Nwds
          last = max0(j,1)*nbritm
-         DO j = 1 , N
+         DO j = 1 , n
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -59,7 +60,6 @@ USE ISO_FORTRAN_ENV
                      ENDIF
                   ENDDO
                   CALL skprec(Block(1),1)
-                  CYCLE
                CASE (2)
 !
 !     MAKE 1ST STRING CALL FOR COLUMN AND SAVE DIAGONAL ELEMENT
@@ -68,7 +68,7 @@ USE ISO_FORTRAN_ENV
                   CALL getstr(*40,Block)
                   IF ( Block(4)/=j ) GOTO 40
                   jstr = Block(5)
-                  ljj = 1.0D+0/L(jstr)
+                  ljj = 1.0D+0/l(jstr)
                   IF ( Block(6)==1 ) THEN
                      spag_nextblock_2 = 4
                      CYCLE SPAG_DispatchLoop_2
@@ -87,7 +87,7 @@ USE ISO_FORTRAN_ENV
                      IF ( yjk/=zero ) THEN
                         ik = Block(4) + k - 1
                         DO ij = jstr , nstr
-                           Y(ik) = Y(ik) + L(ij)*yjk
+                           Y(ik) = Y(ik) + l(ij)*yjk
                            ik = ik + 1
                         ENDDO
                      ENDIF
@@ -117,12 +117,12 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE FOR BACKWARD PASS BY SKIPPING THE NTH COLUMN
 !
-         IF ( N==1 ) THEN
+         IF ( n==1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL bckrec(Block)
-         j = N - 1
+         j = n - 1
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -147,7 +147,7 @@ USE ISO_FORTRAN_ENV
                   DO ii = 1 , nterms
                      ji = ji - 1
                      ik = ik - 1
-                     sum = sum + L(ji)*Y(ik)
+                     sum = sum + l(ji)*Y(ik)
                   ENDDO
                   Y(j1+k) = Y(j1+k) + sum
                ENDDO
@@ -175,7 +175,7 @@ USE ISO_FORTRAN_ENV
 !
 !     FATAL ERROR MESSAGE
 !
- 40      WRITE (Nout,99001) Sfm , subnam
+ 40      WRITE (nout,99001) sfm , subnam
 99001    FORMAT (A25,' 2149, SUBROUTINE ',A4,/5X,'FIRST ELEMENT OF A COLU',                                                         &
                 &'MN OF LOWER TRIANGULAR MATRIX IS NOT THE DIAGONAL ELEMENT')
          CALL mesage(-61,0,0)

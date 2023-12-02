@@ -2,14 +2,14 @@
  
 SUBROUTINE dtria(Iopt)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_XMSSG
+   USE c_condas
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,6 +27,15 @@ SUBROUTINE dtria(Iopt)
    INTEGER , DIMENSION(100) :: necpt
    REAL*8 , DIMENSION(8) :: requiv
    REAL , DIMENSION(3) :: v1 , v2 , v3
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -116,20 +125,20 @@ SUBROUTINE dtria(Iopt)
 !
    icid = cid1 - 4
    DO i = 1 , 50
-      Ecpt(i+50) = Ecpt(i)
+      ecpt(i+50) = ecpt(i)
    ENDDO
    IF ( Iopt==2 ) THEN
 !
 !     TRIA2
 !
-      Ecpt(58) = Ecpt(6)
-      Ecpt(59) = (Ecpt(7)**3)/12.0
-      Ecpt(60) = Ecpt(6)
-      Ecpt(61) = Ecpt(7)
+      ecpt(58) = ecpt(6)
+      ecpt(59) = (ecpt(7)**3)/12.0
+      ecpt(60) = ecpt(6)
+      ecpt(61) = ecpt(7)
 !
       j = 9
       DO i = 65 , 88
-         Ecpt(i) = Ecpt(j)
+         ecpt(i) = ecpt(j)
          j = j + 1
       ENDDO
    ELSEIF ( Iopt==3 ) THEN
@@ -145,31 +154,31 @@ SUBROUTINE dtria(Iopt)
 !
 !     COULD NOT DO IT
 !
-         WRITE (Nout,99001) Sfm
+         WRITE (nout,99001) sfm
 99001    FORMAT (A25,', DEFFICIENT SOURCE CODE IN DTRIA TO HANDLE CTRIA3 ','ELEMENT WITH MATERIAL',/5X,                             &
                 &'PROPERTY COORD. SYSTEM. ANGLE MUST BE SPECIFIED')
-         Nogo = 1
+         nogo = 1
          GOTO 99999
       ELSE
-         Ecpt(5) = Ecpt(8)
-         Ecpt(6) = Ecpt(11)
-         Ecpt(7) = Ecpt(12)
+         ecpt(5) = ecpt(8)
+         ecpt(6) = ecpt(11)
+         ecpt(7) = ecpt(12)
          j = 27
          DO i = 9 , 32
-            Ecpt(i) = Ecpt(j)
+            ecpt(i) = ecpt(j)
             j = j + 1
          ENDDO
 !
-         Ecpt(55) = Ecpt(58)
+         ecpt(55) = ecpt(58)
          j = 61
          DO i = 56 , 60
-            Ecpt(i) = Ecpt(j)
+            ecpt(i) = ecpt(j)
             j = j + 1
          ENDDO
-         Ecpt(61) = Ecpt(62)
+         ecpt(61) = ecpt(62)
          j = 77
          DO i = 65 , 88
-            Ecpt(i) = Ecpt(j)
+            ecpt(i) = ecpt(j)
             j = j + 1
          ENDDO
       ENDIF
@@ -179,32 +188,32 @@ SUBROUTINE dtria(Iopt)
 !
       j = 15
       DO i = 9 , 32
-         Ecpt(i) = Ecpt(j)
+         ecpt(i) = ecpt(j)
          j = j + 1
       ENDDO
    ENDIF
 !
-   Theta = Ecpt(5)*Degra
-   Sinang = sin(Theta)
-   Cosang = cos(Theta)
-   Sinth = Sinang
-   Costh = Cosang
+   theta = ecpt(5)*degra
+   sinang = sin(theta)
+   cosang = cos(theta)
+   sinth = sinang
+   costh = cosang
 !
    CALL dtrmem(2)
 !
 !     SIGX, SIGY , SIGXY ARE NOW AVAILABLE. SAVE THEM.
 !
-   Stres(1) = Sigx
-   Stres(2) = Sigy
-   Stres(3) = Sigxy
+   stres(1) = sigx
+   stres(2) = sigy
+   stres(3) = sigxy
 !
-   Eltemp = Ecpt(21)
+   eltemp = ecpt(21)
 !
 !     DETERMINE PIVOT POINT NUMBER
 !
    DO i = 1 , 3
-      IF ( Npvt==necpt(i+1) ) THEN
-         Npivot = i
+      IF ( npvt==necpt(i+1) ) THEN
+         npivot = i
          GOTO 100
       ENDIF
    ENDDO
@@ -230,45 +239,45 @@ SUBROUTINE dtria(Iopt)
 !
 !     X2  GOES IN R(1,2)
 !
-   R(1,2) = dsqrt(d2(1)**2+d2(2)**2+d2(3)**2)
+   r(1,2) = dsqrt(d2(1)**2+d2(2)**2+d2(3)**2)
    DO i = 1 , 3
-      Ivect(i) = d2(i)/R(1,2)
+      ivect(i) = d2(i)/r(1,2)
    ENDDO
 !
 !     NON-NORMALIZED K-VECTOR
 !
-   Kvect(1) = Ivect(2)*d1(3) - d1(2)*Ivect(3)
-   Kvect(2) = Ivect(3)*d1(1) - d1(3)*Ivect(1)
-   Kvect(3) = Ivect(1)*d1(2) - d1(1)*Ivect(2)
+   kvect(1) = ivect(2)*d1(3) - d1(2)*ivect(3)
+   kvect(2) = ivect(3)*d1(1) - d1(3)*ivect(1)
+   kvect(3) = ivect(1)*d1(2) - d1(1)*ivect(2)
 !
 !     Y3 GOES INTO R(2,3)
 !
-   R(2,3) = dsqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
+   r(2,3) = dsqrt(kvect(1)**2+kvect(2)**2+kvect(3)**2)
    DO i = 1 , 3
-      Kvect(i) = Kvect(i)/R(2,3)
+      kvect(i) = kvect(i)/r(2,3)
    ENDDO
 !
 !     J-VECTOR = K X I  VECTORS
 !
-   Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
-   Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
-   Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+   jvect(1) = kvect(2)*ivect(3) - ivect(2)*kvect(3)
+   jvect(2) = kvect(3)*ivect(1) - ivect(3)*kvect(1)
+   jvect(3) = kvect(1)*ivect(2) - ivect(1)*kvect(2)
 !
 !     NORMALIZE J VECTOR TO MAKE SURE
 !
-   Temp = dsqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
+   temp = dsqrt(jvect(1)**2+jvect(2)**2+jvect(3)**2)
    DO i = 1 , 3
-      Jvect(i) = Jvect(i)/Temp
+      jvect(i) = jvect(i)/temp
    ENDDO
 !
 !     X3 GOES INTO R(1,3) = D1 DOT IVECT
 !
-   R(1,3) = d1(1)*Ivect(1) + d1(2)*Ivect(2) + d1(3)*Ivect(3)
+   r(1,3) = d1(1)*ivect(1) + d1(2)*ivect(2) + d1(3)*ivect(3)
 !
 !     CENTROID POINT GOES INTO R(1,4) AND R(2,4)
 !
-   R(1,4) = (R(1,2)+R(1,3))/3.0D0
-   R(2,4) = R(2,3)/3.0D0
+   r(1,4) = (r(1,2)+r(1,3))/3.0D0
+   r(2,4) = r(2,3)/3.0D0
 !
 !
 !     THE COORDINATES AND CENTROID OF THE PLATE IN THE ELEMENT
@@ -282,46 +291,46 @@ SUBROUTINE dtria(Iopt)
 !     ZERO OUT THE KSUM MATRIX FOR 63 AND THE GSUM MATRIX FOR 36
 !
    DO i = 1 , 63
-      Ksum(i) = 0.0D0
+      ksum(i) = 0.0D0
    ENDDO
    DO i = 1 , 36
       g(i) = 0.0D0
    ENDDO
 !
    DO j = 1 , 3
-      Km = 3*j - 3
-      Subsca = m(Km+1)
-      Subscb = m(Km+2)
-      Subscc = m(Km+3)
+      km = 3*j - 3
+      subsca = m(km+1)
+      subscb = m(km+2)
+      subscc = m(km+3)
 !
       DO i = 1 , 2
-         V(i) = R(i,Subscb) - R(i,Subsca)
-         Vv(i) = R(i,Subscc) - R(i,Subsca)
+         v(i) = r(i,subscb) - r(i,subsca)
+         vv(i) = r(i,subscc) - r(i,subsca)
       ENDDO
-      Xsubb = dsqrt(V(1)**2+V(2)**2)
-      U1 = V(1)/Xsubb
-      U2 = V(2)/Xsubb
-      Xsubc = U1*Vv(1) + U2*Vv(2)
-      Ysubc = U1*Vv(2) - U2*Vv(1)
+      xsubb = dsqrt(v(1)**2+v(2)**2)
+      u1 = v(1)/xsubb
+      u2 = v(2)/xsubb
+      xsubc = u1*vv(1) + u2*vv(2)
+      ysubc = u1*vv(2) - u2*vv(1)
 !
-      Sinth = Sinang*U1 - Cosang*U2
-      Costh = Cosang*U1 + Sinang*U2
-      IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0
+      sinth = sinang*u1 - cosang*u2
+      costh = cosang*u1 + sinang*u2
+      IF ( abs(sinth)<1.0E-06 ) sinth = 0.0
 !
 !     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR TRIANGLE -J-
 !
-      C2 = U1**2
-      S2 = U2**2
-      L1 = U1*U2
-      Sigx = C2*Stres(1) + S2*Stres(2) + 2.0D0*L1*Stres(3)
-      Sigy = S2*Stres(1) + C2*Stres(2) - 2.0D0*L1*Stres(3)
-      Sigxy = -L1*Stres(1) + L1*Stres(2) + (C2-S2)*Stres(3)
-      Ipvt = 0
+      c2 = u1**2
+      s2 = u2**2
+      l1 = u1*u2
+      sigx = c2*stres(1) + s2*stres(2) + 2.0D0*l1*stres(3)
+      sigy = s2*stres(1) + c2*stres(2) - 2.0D0*l1*stres(3)
+      sigxy = -l1*stres(1) + l1*stres(2) + (c2-s2)*stres(3)
+      ipvt = 0
       DO i = 1 , 2
-         Npoint = Km + i
-         IF ( m(Npoint)==Npivot ) Ipvt = i
+         npoint = km + i
+         IF ( m(npoint)==npivot ) ipvt = i
       ENDDO
-      CALL dtrbsc(1,Ipvt)
+      CALL dtrbsc(1,ipvt)
 !
 !     NOW WE HAVE 6 MATRICES STORED AT A(1) TO A(54)- HIA,HIB,HIC
 !                                                     HAC,HBC,HCC
@@ -331,76 +340,76 @@ SUBROUTINE dtria(Iopt)
 !
 !     SET UP OF T-MATRIX
 !
-      T(1) = 1.0D0
-      T(2) = 0.0D0
-      T(3) = 0.0D0
-      T(4) = 0.0D0
-      T(5) = U1
-      T(6) = U2
-      T(7) = 0.0D0
-      T(8) = -U2
-      T(9) = U1
+      t(1) = 1.0D0
+      t(2) = 0.0D0
+      t(3) = 0.0D0
+      t(4) = 0.0D0
+      t(5) = u1
+      t(6) = u2
+      t(7) = 0.0D0
+      t(8) = -u2
+      t(9) = u1
 !
       DO i = 1 , 3
-         CALL gmmatd(T(1),3,3,1,A(9*i+19),3,3,0,Temp9(1))
-         CALL gmmatd(Temp9(1),3,3,0,T(1),3,3,0,Prod9(1))
+         CALL gmmatd(t(1),3,3,1,a(9*i+19),3,3,0,temp9(1))
+         CALL gmmatd(temp9(1),3,3,0,t(1),3,3,0,prod9(1))
 !
 !     ADD THIS PRODUCT IN NOW.
 !     COMPUTE POINTER TO KSUM MATRIX DESIRED.  (ZERO POINTER)
 !
-         Npoint = Km + i
-         Npoint = 9*m(Npoint) + 18
+         npoint = km + i
+         npoint = 9*m(npoint) + 18
 !
          DO k = 1 , 9
-            Nsubc = Npoint + k
-            Ksum(Nsubc) = Ksum(Nsubc) + Prod9(k)
+            nsubc = npoint + k
+            ksum(nsubc) = ksum(nsubc) + prod9(k)
          ENDDO
       ENDDO
-      IF ( Ipvt/=0 ) THEN
+      IF ( ipvt/=0 ) THEN
          DO i = 1 , 2
-            Npoint = Km + i
-            Npoint = 9*m(Npoint) - 9
+            npoint = km + i
+            npoint = 9*m(npoint) - 9
 !
 !     TRANSFORM
 !
-            CALL gmmatd(T(1),3,3,1,A(9*i-8),3,3,0,Temp9(1))
-            CALL gmmatd(Temp9(1),3,3,0,T(1),3,3,0,Prod9(1))
+            CALL gmmatd(t(1),3,3,1,a(9*i-8),3,3,0,temp9(1))
+            CALL gmmatd(temp9(1),3,3,0,t(1),3,3,0,prod9(1))
 !
 !     INSERT
 !
             DO k = 1 , 9
-               Nsubc = k + Npoint
-               Ksum(Nsubc) = Ksum(Nsubc) + Prod9(k)
+               nsubc = k + npoint
+               ksum(nsubc) = ksum(nsubc) + prod9(k)
             ENDDO
          ENDDO
       ENDIF
 !
 !     FORM HQ (2X6)
 !
-      Temp1 = Xsubb - Xsubc
-      Temp2 = Ysubc**2
-      L1 = dsqrt(Xsubc**2+Temp2)
-      L2 = dsqrt(Temp1**2+Temp2)
-      S1 = Xsubc/L1
-      S2 = Temp1/L2
-      C1 = Ysubc/L1
-      C2 = Ysubc/L2
-      X1 = Xsubc/2.0D0
-      Y1 = Ysubc/2.0D0
-      X2 = (Xsubb+Xsubc)/2.0D0
-      Y2 = Y1
-      hq(1) = -Xsubc*C1
-      hq(2) = X1*S1 - Y1*C1
-      hq(3) = 2.0D0*Y1*S1
-      hq(4) = -3.0D0*X1*X1*C1
-      hq(5) = Y1*(2.0D0*X1*S1-Y1*C1)
-      hq(6) = 3.0D0*Y1*Y1*S1
-      hq(7) = 2.0D0*X2*C2
-      hq(8) = X2*S2 + Y2*C2
-      hq(9) = 2.0D0*Y2*S2
-      hq(10) = 3.0D0*X2*X2*C2
-      hq(11) = Y2*(2.0D0*X2*S2+Y2*C2)
-      hq(12) = 3.0D0*Y2*Y2*S2
+      temp1 = xsubb - xsubc
+      temp2 = ysubc**2
+      l1 = dsqrt(xsubc**2+temp2)
+      l2 = dsqrt(temp1**2+temp2)
+      s1 = xsubc/l1
+      s2 = temp1/l2
+      c1 = ysubc/l1
+      c2 = ysubc/l2
+      x1 = xsubc/2.0D0
+      y1 = ysubc/2.0D0
+      x2 = (xsubb+xsubc)/2.0D0
+      y2 = y1
+      hq(1) = -xsubc*c1
+      hq(2) = x1*s1 - y1*c1
+      hq(3) = 2.0D0*y1*s1
+      hq(4) = -3.0D0*x1*x1*c1
+      hq(5) = y1*(2.0D0*x1*s1-y1*c1)
+      hq(6) = 3.0D0*y1*y1*s1
+      hq(7) = 2.0D0*x2*c2
+      hq(8) = x2*s2 + y2*c2
+      hq(9) = 2.0D0*y2*s2
+      hq(10) = 3.0D0*x2*x2*c2
+      hq(11) = y2*(2.0D0*x2*s2+y2*c2)
+      hq(12) = 3.0D0*y2*y2*s2
 !
 !                      I                    -1
 !     COMPUTE (H       I  H     )  = (HQ)(H)    STORE IN PROD12
@@ -408,20 +417,20 @@ SUBROUTINE dtria(Iopt)
 !                      I
 !
 !
-      CALL gmmatd(hq(1),2,6,0,Hinv(1),6,6,0,prod12(1))
+      CALL gmmatd(hq(1),2,6,0,hinv(1),6,6,0,prod12(1))
 !
 !
 !     COMPUTE (H     ) = -(PROD12)(S)
 !               PSI,A
 !
-      CALL gmmatd(prod12(1),2,6,0,S(1),6,3,0,habc(1))
+      CALL gmmatd(prod12(1),2,6,0,s(1),6,3,0,habc(1))
 !
       habc(1) = -habc(1)
-      habc(2) = -habc(2) + S1
-      habc(3) = -habc(3) + C1
+      habc(2) = -habc(2) + s1
+      habc(3) = -habc(3) + c1
       habc(4) = -habc(4)
-      habc(5) = -habc(5) + S2
-      habc(6) = -habc(6) - C2
+      habc(5) = -habc(5) + s2
+      habc(6) = -habc(6) - c2
 !
 !     SPLIT (H     ) AND (H     )    PARTITION
 !             PSI,B        PSI,C
@@ -452,11 +461,11 @@ SUBROUTINE dtria(Iopt)
 !
 !     TRANSFORM H SUB I
 !
-         CALL gmmatd(habc(6*i-5),2,3,0,T(1),3,3,0,Temp9(1))
+         CALL gmmatd(habc(6*i-5),2,3,0,t(1),3,3,0,temp9(1))
 !
 !
-         Npoint = Km + i
-         Npoint = 9*m(Npoint) - 9
+         npoint = km + i
+         npoint = 9*m(npoint) - 9
 !
 !     J = 1    ROW 1 OF H INTO ROW 1 OF G.
 !              ROW 2 OF H INTO ROW 2 OF G.
@@ -468,19 +477,19 @@ SUBROUTINE dtria(Iopt)
          IF ( j<2 ) THEN
          ELSEIF ( j==2 ) THEN
 !
-            Npoint = Npoint + 3
+            npoint = npoint + 3
          ELSE
-            g(Npoint+7) = g(Npoint+7) + Temp9(1)
-            g(Npoint+8) = g(Npoint+8) + Temp9(2)
-            g(Npoint+9) = g(Npoint+9) + Temp9(3)
-            g(Npoint+1) = g(Npoint+1) + Temp9(4)
-            g(Npoint+2) = g(Npoint+2) + Temp9(5)
-            g(Npoint+3) = g(Npoint+3) + Temp9(6)
+            g(npoint+7) = g(npoint+7) + temp9(1)
+            g(npoint+8) = g(npoint+8) + temp9(2)
+            g(npoint+9) = g(npoint+9) + temp9(3)
+            g(npoint+1) = g(npoint+1) + temp9(4)
+            g(npoint+2) = g(npoint+2) + temp9(5)
+            g(npoint+3) = g(npoint+3) + temp9(6)
             CYCLE
          ENDIF
          DO k = 1 , 6
-            Npoint = Npoint + 1
-            g(Npoint) = g(Npoint) + Temp9(k)
+            npoint = npoint + 1
+            g(npoint) = g(npoint) + temp9(k)
          ENDDO
 !
       ENDDO
@@ -494,31 +503,31 @@ SUBROUTINE dtria(Iopt)
 !     FILL E-MATRIX
 !
    DO i = 1 , 18
-      E(i) = 0.0D0
+      e(i) = 0.0D0
    ENDDO
-   E(1) = Kvect(1)
-   E(4) = Kvect(2)
-   E(7) = Kvect(3)
-   E(11) = Ivect(1)
-   E(14) = Ivect(2)
-   E(17) = Ivect(3)
-   E(12) = Jvect(1)
-   E(15) = Jvect(2)
-   E(18) = Jvect(3)
+   e(1) = kvect(1)
+   e(4) = kvect(2)
+   e(7) = kvect(3)
+   e(11) = ivect(1)
+   e(14) = ivect(2)
+   e(17) = ivect(3)
+   e(12) = jvect(1)
+   e(15) = jvect(2)
+   e(18) = jvect(3)
 !
 !              T
 !     FORM   T   E      STORE IN TITE-MATRIX (6X3)
 !             I
 !
-   IF ( necpt(4*Npivot+icid)==0 ) THEN
+   IF ( necpt(4*npivot+icid)==0 ) THEN
 !
       DO k = 1 , 18
-         tite(k) = E(k)
+         tite(k) = e(k)
       ENDDO
    ELSE
-      CALL transd(necpt(4*Npivot+icid),T(1))
-      CALL gmmatd(T(1),3,3,1,E(1),3,3,0,tite(1))
-      CALL gmmatd(T(1),3,3,1,E(10),3,3,0,tite(10))
+      CALL transd(necpt(4*npivot+icid),t(1))
+      CALL gmmatd(t(1),3,3,1,e(1),3,3,0,tite(1))
+      CALL gmmatd(t(1),3,3,1,e(10),3,3,0,tite(10))
    ENDIF
 !
 !     SOLVE NOW FOR
@@ -552,19 +561,19 @@ SUBROUTINE dtria(Iopt)
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
-   Ising = -1
-   CALL inverd(3,g(28),3,Prod9,0,Determ,Ising,Temp9)
+   ising = -1
+   CALL inverd(3,g(28),3,prod9,0,determ,ising,temp9)
 !
-   CALL gmmatd(g(28),3,3,0,g(9*Npivot-8),3,3,0,Prod9(1))
+   CALL gmmatd(g(28),3,3,0,g(9*npivot-8),3,3,0,prod9(1))
 !
 !                       T
 !     GET  (TERM        )(K  ) -(K  )  STORE IN TEMP9
 !               I=NPIVOT   44     I4
 !
-   CALL gmmatd(Prod9(1),3,3,1,Ksum(55),3,3,0,Temp9(1))
+   CALL gmmatd(prod9(1),3,3,1,ksum(55),3,3,0,temp9(1))
    DO k = 1 , 9
-      Npoint = 9*Npivot + 18 + k
-      Temp9(k) = Temp9(k) - Ksum(Npoint)
+      npoint = 9*npivot + 18 + k
+      temp9(k) = temp9(k) - ksum(npoint)
    ENDDO
 !
 !
@@ -576,35 +585,35 @@ SUBROUTINE dtria(Iopt)
 !     (TERM        ) (K  )    STORE IN ARR9
 !          I=NPIVOT    J4
 !
-      CALL gmmatd(Prod9(1),3,3,1,Ksum(9*j+19),3,3,1,Arr9(1))
+      CALL gmmatd(prod9(1),3,3,1,ksum(9*j+19),3,3,1,arr9(1))
 !
 !     SUBTRACT FROM (K  )
 !                     IJ
 !
       nbegin = 9*j - 9
       DO i = 1 , 9
-         Npoint = nbegin + i
-         Ksum(Npoint) = Ksum(Npoint) - Arr9(i)
+         npoint = nbegin + i
+         ksum(npoint) = ksum(npoint) - arr9(i)
       ENDDO
 !
 !
 !      COMPUTE  (TERM )  STORE IN ARR9
 !                   J
 !
-      CALL gmmatd(g(28),3,3,0,g(9*j-8),3,3,0,Arr9(1))
+      CALL gmmatd(g(28),3,3,0,g(9*j-8),3,3,0,arr9(1))
 !
 !                            T
 !     COMPUTE ((TERM        )(K  ) -(K  )) (TERM ) = (TEMP9)(ARR9)
 !                   I=NPOINT   44     I4        J
 !
-      CALL gmmatd(Temp9(1),3,3,0,Arr9(1),3,3,0,Array9(1))
+      CALL gmmatd(temp9(1),3,3,0,arr9(1),3,3,0,array9(1))
 !
 !     ADD TO K
 !             IJ
 !
       DO i = 1 , 9
-         Npoint = nbegin + i
-         Ksum(Npoint) = Ksum(Npoint) + Array9(i)
+         npoint = nbegin + i
+         ksum(npoint) = ksum(npoint) + array9(i)
       ENDDO
 !
 !       E
@@ -619,16 +628,15 @@ SUBROUTINE dtria(Iopt)
       IF ( necpt(4*j+icid)==0 ) THEN
 !
          DO k = 1 , 18
-            tjte(k) = E(k)
+            tjte(k) = e(k)
          ENDDO
       ELSE
-         CALL transd(necpt(4*j+icid),T(1))
-         CALL gmmatd(T(1),3,3,1,E(1),3,3,0,tjte(1))
-         CALL gmmatd(T(1),3,3,1,E(10),3,3,0,tjte(10))
+         CALL transd(necpt(4*j+icid),t(1))
+         CALL gmmatd(t(1),3,3,1,e(1),3,3,0,tjte(1))
+         CALL gmmatd(t(1),3,3,1,e(10),3,3,0,tjte(10))
       ENDIF
-      CALL gmmatd(Ksum(nbegin+1),3,3,0,tjte(1),6,3,1,temp18(1))
+      CALL gmmatd(ksum(nbegin+1),3,3,0,tjte(1),6,3,1,temp18(1))
       CALL gmmatd(tite(1),6,3,0,temp18(1),3,6,0,kout(1))
       CALL ds1b(kout(1),necpt(j+1))
    ENDDO
-   RETURN
 99999 END SUBROUTINE dtria

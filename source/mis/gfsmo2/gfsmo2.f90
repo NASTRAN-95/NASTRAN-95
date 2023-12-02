@@ -2,14 +2,14 @@
  
 SUBROUTINE gfsmo2
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_GFSMOX
-   USE C_PACKX
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
+   USE c_bitpos
+   USE c_blank
+   USE c_gfsmox
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -19,6 +19,12 @@ SUBROUTINE gfsmo2
    REAL , DIMENSION(7) :: eigval
    INTEGER , DIMENSION(7) :: mcb
    REAL , DIMENSION(1) :: rz
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -64,20 +70,20 @@ SUBROUTINE gfsmo2
 !     GET THE GENERALIZED STIFFNESS AND MASS FOR THE DESIRED MODES
 !     FROM THE LAMA DATA BLOCK
 !
-   IF ( 2*Lmodes>=Ibuf ) THEN
+   IF ( 2*lmodes>=ibuf ) THEN
       n = -8
 !
-      CALL mesage(n,file,Name)
+      CALL mesage(n,file,name)
       GOTO 99999
    ELSE
-      CALL gopen(Lama,Z(Ibuf),0)
-      file = Lama
-      CALL fwdrec(*200,Lama)
+      CALL gopen(lama,z(ibuf),0)
+      file = lama
+      CALL fwdrec(*200,lama)
       igk = 1
-      igm = Lmodes + 1
-      DO i = 1 , Lmodes
+      igm = lmodes + 1
+      DO i = 1 , lmodes
          DO
-            CALL read(*100,*200,Lama,eigval,7,0,n)
+            CALL read(*100,*200,lama,eigval,7,0,n)
             IF ( eigval(6)/=0.0 ) THEN
                rz(igk) = eigval(7)
                igk = igk + 1
@@ -87,20 +93,20 @@ SUBROUTINE gfsmo2
             ENDIF
          ENDDO
       ENDDO
-      CALL close(Lama,1)
+      CALL close(lama,1)
 !
 !     GENERATE THE DIAGONAL MODAL STIFFNESS MATRIX
 !
       i1 = 1
-      i2 = Lmodes
-      CALL makmcb(mcb,kzz,Lmodes,6,2)
-      CALL gopen(kzz,Z(Ibuf),1)
-      Typin = 1
-      Typout = 2
-      Incr = 1
+      i2 = lmodes
+      CALL makmcb(mcb,kzz,lmodes,6,2)
+      CALL gopen(kzz,z(ibuf),1)
+      typin = 1
+      typout = 2
+      incr = 1
       DO i = i1 , i2
-         Ii = i
-         Nn = i
+         ii = i
+         nn = i
          CALL pack(rz(i),kzz,mcb)
       ENDDO
       CALL close(kzz,1)
@@ -108,13 +114,13 @@ SUBROUTINE gfsmo2
 !
 !     GENERATE THE DIAGANOL MODAL MASS MATRIX
 !
-      i1 = Lmodes + 1
-      i2 = 2*Lmodes
-      CALL makmcb(mcb,mzz,Lmodes,6,2)
-      CALL gopen(mzz,Z(Ibuf),1)
+      i1 = lmodes + 1
+      i2 = 2*lmodes
+      CALL makmcb(mcb,mzz,lmodes,6,2)
+      CALL gopen(mzz,z(ibuf),1)
       DO i = i1 , i2
-         Ii = i - Lmodes
-         Nn = Ii
+         ii = i - lmodes
+         nn = ii
          CALL pack(rz(i),mzz,mcb)
       ENDDO
       CALL close(mzz,1)
@@ -123,88 +129,88 @@ SUBROUTINE gfsmo2
 !     IF A FREE SURFACE EXISTS - EXPAND THE MASS MATRIX
 !     THE PARTITIONING VECTOR WILL BE SAVED FOR DMAP USE
 !
-      IF ( Nofree<0 ) THEN
+      IF ( nofree<0 ) THEN
 !
          CALL gfswch(mhhbar,mzz)
       ELSE
-         Uset = usetd
-         CALL calcv(Pout,Uh,Uz,Ufr,Z(1))
-         nsub0s = Nsub0
-         nsub1s = Nsub1
-         CALL gfsmrg(mhhbar,mzz,0,0,0,Pout,Pout)
+         uset = usetd
+         CALL calcv(pout,uh,uz,ufr,z(1))
+         nsub0s = nsub0
+         nsub1s = nsub1
+         CALL gfsmrg(mhhbar,mzz,0,0,0,pout,pout)
       ENDIF
 !
 !     COMPUTE THE FINAL MASS MATRIX
 !
-      CALL ssg2b(ajh,gjh,mhhbar,Mmat,1,2,1,Scr2)
+      CALL ssg2b(ajh,gjh,mhhbar,mmat,1,2,1,scr2)
 !
 !     IF GRAVITY EXISTS - TRANSFORM THE ADDITIONAL STIFFNESS AND
 !     ADD IT IN.  BE SURE TO USE ONLY THOSE MODES REQUESTED IN
 !     THE TRANSFORMATION FROM PHIA
 !
-      IF ( Nograv<0 ) THEN
+      IF ( nograv<0 ) THEN
 !
          CALL gfswch(kzz,kzzbar)
       ELSE
-         Uset = usetd
-         IF ( Lmodes>=Nmodes ) THEN
+         uset = usetd
+         IF ( lmodes>=nmodes ) THEN
 !
-            phiar = Phia
+            phiar = phia
          ELSE
-            CALL calcv(pvec,Um,Uz,Unz,Z(1))
-            CALL gfsptn(Phia,phiar,0,0,0,pvec,0)
+            CALL calcv(pvec,um,uz,unz,z(1))
+            CALL gfsptn(phia,phiar,0,0,0,pvec,0)
          ENDIF
 !
-         CALL ssg2b(phiar,Dkaa,0,Scr2,1,2,1,Scr5)
-         CALL ssg2b(Scr2,phiar,kzz,kzzbar,0,2,1,scr10)
+         CALL ssg2b(phiar,dkaa,0,scr2,1,2,1,scr5)
+         CALL ssg2b(scr2,phiar,kzz,kzzbar,0,2,1,scr10)
       ENDIF
 !
 !     IF A FREE SURFACE EXISTS - MERGE THE FREE SURFACE STIFFNESS IN
 !
-      IF ( Nofree<0 ) THEN
+      IF ( nofree<0 ) THEN
 !
          CALL gfswch(khhbar,kzzbar)
       ELSE
-         Nsub0 = nsub0s
-         Nsub1 = nsub1s
-         CALL gfsmrg(khhbar,kzzbar,0,0,Dkfrfr,Pout,Pout)
+         nsub0 = nsub0s
+         nsub1 = nsub1s
+         CALL gfsmrg(khhbar,kzzbar,0,0,dkfrfr,pout,pout)
       ENDIF
 !
 !     COMPUTE THE FINAL STIFFNESS MATRIX BY ADDING IN COMPRESSIBILITY
 !     IF IT EXISTS
 !
-      IF ( Sfbit/=0 ) THEN
-         CALL gfswch(khhbar,Kmat)
+      IF ( sfbit/=0 ) THEN
+         CALL gfswch(khhbar,kmat)
       ELSE
-         Badd(1) = 2
+         badd(1) = 2
          dbadd(1) = 1.0D0
-         Badd(7) = 2
+         badd(7) = 2
          dbadd(4) = 1.0D0
 !
-         CALL ssg2c(khhbar,kc,Kmat,0,Badd)
+         CALL ssg2c(khhbar,kc,kmat,0,badd)
       ENDIF
 !
 !     TRANSFORM THE FINAL PRESSURE TRANSFORMATION MATRIX OR IF SPC
 !     POINTS EXIST ON THE FLUID MERGE IN ZEROS
 !
-      Uset = Usetf
-      IF ( Sfbit/=0 ) THEN
+      uset = usetf
+      IF ( sfbit/=0 ) THEN
 !
-         CALL calcv(pvec,Uy,Uf,Us,Z(1))
+         CALL calcv(pvec,uy,uf,us,z(1))
          CALL gfsmrg(gyh,gjh,0,0,0,0,pvec)
       ELSE
-         CALL ssg2b(h,gjh,0,gyh,1,2,1,Scr5)
+         CALL ssg2b(h,gjh,0,gyh,1,2,1,scr5)
       ENDIF
 !
 !     PARTITION OUT THE FREE SURFACE POINTS
 !
-      IF ( Nofree<0 ) THEN
+      IF ( nofree<0 ) THEN
 !
-         CALL gfswch(gyh,Gia)
+         CALL gfswch(gyh,gia)
          RETURN
       ELSE
-         CALL calcv(pvec,Uy,Ufr,Ui,Z(1))
-         CALL gfsptn(gyh,0,Gia,0,0,0,pvec)
+         CALL calcv(pvec,uy,ufr,ui,z(1))
+         CALL gfsptn(gyh,0,gia,0,0,0,pvec)
          RETURN
       ENDIF
    ENDIF
@@ -212,8 +218,8 @@ SUBROUTINE gfsmo2
 !     ERROR EXITS
 !
  100  n = -1
-   CALL mesage(n,file,Name)
+   CALL mesage(n,file,name)
    GOTO 99999
  200  n = -2
-   CALL mesage(n,file,Name)
+   CALL mesage(n,file,name)
 99999 END SUBROUTINE gfsmo2

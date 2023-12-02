@@ -1,10 +1,11 @@
-!*==rotat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rotat.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rotat(Ect2,B1,Gplst,X)
+   USE c_blank
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,23 +46,23 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
          twopi = 8.0*atan(1.0)
          irdect = 0
          sum = 0.0
-         CALL open(*60,Newoes,Gplst(B1),1)
+         CALL open(*60,newoes,Gplst(B1),1)
          irec = 0
          elid = 0
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*60,*60,Oes1,rec1,146,1,m)
-         IF ( isub==Icase ) THEN
-            IF ( Flag==0.0 ) THEN
+         CALL read(*60,*60,oes1,rec1,146,1,m)
+         IF ( isub==icase ) THEN
+            IF ( flag==0.0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Flag==1.0 .AND. time==Data ) THEN
+            IF ( flag==1.0 .AND. time==data ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             figen = sqrt(abs(eigen))/twopi
-            IF ( Flag==2.0 .AND. abs(figen-Data)>1.0E-5 ) THEN
+            IF ( flag==2.0 .AND. abs(figen-data)>1.0E-5 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -87,9 +88,8 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
 !
 !     SKIP SUBCASE
 !
-         CALL fwdrec(*60,Oes1)
+         CALL fwdrec(*60,oes1)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          SPAG_Loop_1_4: DO
 !
@@ -106,18 +106,18 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
 !
 !     PROCESS SUBCASE
 !
-                  CALL write(Newoes,rec1,146,1)
+                  CALL write(newoes,rec1,146,1)
                   nwds = nwds - 1
                   SPAG_Loop_2_3: DO
-                     CALL read(*60,*40,Oes1,ielmt,1,0,m)
-                     CALL fread(Oes1,rec2,nwds,0)
+                     CALL read(*60,*40,oes1,ielmt,1,0,m)
+                     CALL fread(oes1,rec2,nwds,0)
                      SPAG_Loop_3_1: DO
                         CALL fread(Ect2,elid,1,0)
                         IF ( elid==0 ) THEN
 !
 !     CLOSE RECORD
 !
-                           CALL fread(Oes1,0,0,1)
+                           CALL fread(oes1,0,0,1)
                            EXIT SPAG_Loop_3_1
                         ELSE
                            CALL fread(Ect2,0,-1,0)
@@ -128,8 +128,8 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
 !
 !     SKIP ELEMENT
 !
-                              CALL read(*60,*40,Oes1,ielmt,1,0,m)
-                              CALL fread(Oes1,rec2,nwds,0)
+                              CALL read(*60,*40,oes1,ielmt,1,0,m)
+                              CALL fread(oes1,rec2,nwds,0)
                            ENDDO
                            ig1 = gpts(1)
                            ig2 = gpts(2)
@@ -191,8 +191,8 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
                               iel = iel + 8
                               IF ( itype==9 .OR. itype==16 ) EXIT SPAG_Loop_4_2
                            ENDDO SPAG_Loop_4_2
-                           CALL write(Newoes,ielmt,1,0)
-                           CALL write(Newoes,rec2,nwds,0)
+                           CALL write(newoes,ielmt,1,0)
+                           CALL write(newoes,rec2,nwds,0)
                            CYCLE SPAG_Loop_2_3
                         ENDIF
                      ENDDO SPAG_Loop_3_1
@@ -212,12 +212,12 @@ SUBROUTINE rotat(Ect2,B1,Gplst,X)
          irdect = 0
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 40      CALL write(Newoes,0,0,1)
+ 40      CALL write(newoes,0,0,1)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  60      IF ( irdect>0 ) CALL bckrec(Ect2)
-         CALL bckrec(Oes1)
-         CALL close(Newoes,1)
+         CALL bckrec(oes1)
+         CALL close(newoes,1)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

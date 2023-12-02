@@ -1,9 +1,10 @@
-!*==form22.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==form22.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE form22(Uddip1,Udiprm,Uiprm,Piprm,Ibuf)
-USE C_TRDXX
-USE ISO_FORTRAN_ENV                 
+   USE c_trdxx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -27,7 +28,7 @@ USE ISO_FORTRAN_ENV
 !*******
 !     FORM UDOT(I+1), UDDOT(I+1), UDOT-(I), AND U-(I)
 !*******
-   CALL matvc2(Uddip1(1),Piprm(1),Ifilm(1),Ibuf)
-   CALL matvc2(Udiprm(1),Piprm(1),Ifilb(1),Ibuf)
-   CALL matvc2(Uiprm(1),Piprm(1),Ifilk(1),Ibuf)
+   CALL matvc2(Uddip1(1),Piprm(1),ifilm(1),Ibuf)
+   CALL matvc2(Udiprm(1),Piprm(1),ifilb(1),Ibuf)
+   CALL matvc2(Uiprm(1),Piprm(1),ifilk(1),Ibuf)
 END SUBROUTINE form22

@@ -1,12 +1,13 @@
-!*==fndgrd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fndgrd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndgrd(Isub,Icomp,Igrid,Ip,Ic,N)
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmbfnd
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMBFND
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -32,26 +33,26 @@ SUBROUTINE fndgrd(Isub,Icomp,Igrid,Ip,Ic,N)
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
       CASE (1)
-         CALL open(*40,Scsfil,Z(Buf3),0)
+         CALL open(*40,scsfil,z(buf3),0)
          nfil = Isub - 1
-         CALL skpfil(Scsfil,nfil)
+         CALL skpfil(scsfil,nfil)
          nrec = Icomp - 1
          IF ( nrec/=0 ) THEN
             DO i = 1 , nrec
-               CALL fwdrec(*60,Scsfil)
+               CALL fwdrec(*60,scsfil)
             ENDDO
          ENDIF
-         CALL read(*60,*20,Scsfil,Z(Score),Lcore,1,nwd)
+         CALL read(*60,*20,scsfil,z(score),lcore,1,nwd)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 20      CALL gridip(Igrid,Score,nwd,Ip,Ic,N,Z,lloc)
-         CALL close(Scsfil,1)
+ 20      CALL gridip(Igrid,score,nwd,Ip,Ic,N,z,lloc)
+         CALL close(scsfil,1)
          RETURN
- 40      CALL mesage(-1,Scsfil,aaa)
- 60      CALL mesage(-2,Scsfil,aaa)
+ 40      CALL mesage(-1,scsfil,aaa)
+ 60      CALL mesage(-2,scsfil,aaa)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL mesage(-8,Scsfil,aaa)
+         CALL mesage(-8,scsfil,aaa)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

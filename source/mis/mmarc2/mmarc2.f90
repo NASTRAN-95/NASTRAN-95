@@ -1,9 +1,10 @@
-!*==mmarc2.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mmarc2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mmarc2(Zi,Zd)
+   USE i_mmacom
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -62,7 +63,7 @@ SUBROUTINE mmarc2(Zi,Zd)
       IF ( itype==2 ) THEN
          mindex = mem/2 + 1
          DO ii = 1 , ntms
-            Zd(mindex+ii) = sign*Dxl(index+ii-1)
+            Zd(mindex+ii) = sign*dxl(index+ii-1)
          ENDDO
       ELSE
          mindex = mem/2 + 1

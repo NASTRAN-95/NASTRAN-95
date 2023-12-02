@@ -1,4 +1,5 @@
-!*==alg17.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg17.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg17(Istak,Pltsze,Itrig,Title,Ikdum,Ifplot)
@@ -16,6 +17,15 @@ SUBROUTINE alg17(Istak,Pltsze,Itrig,Title,Ikdum,Ifplot)
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: bal , plttit , xback1 , xback2 , xlen1 , xlen2 , yback1 , yback2 , ylen1 , ylen2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -58,14 +68,14 @@ SUBROUTINE alg17(Istak,Pltsze,Itrig,Title,Ikdum,Ifplot)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      bal = .50*Pltsze
-      ylen1 = .15*Pltsze
-      ylen2 = -.50*Pltsze
+      Bal = .50*Pltsze
+      Ylen1 = .15*Pltsze
+      Ylen2 = -.50*Pltsze
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      yback1 = -(.35+bal)
-      yback2 = yback1 - .01*Pltsze - .175
-      IF ( Itrig==2 ) xback1 = xback1 + 0.35
+      Yback1 = -(.35+Bal)
+      Yback2 = Yback1 - .01*Pltsze - .175
+      IF ( Itrig==2 ) Xback1 = Xback1 + 0.35
    END SUBROUTINE spag_block_2
 END SUBROUTINE alg17

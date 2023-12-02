@@ -1,15 +1,16 @@
-!*==normal.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==normal.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE normal
-USE C_BLANK
-USE C_PACKX
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -78,33 +79,33 @@ USE ISO_FORTRAN_ENV
    DATA matin , matout/101 , 201/
    DATA isubnm , max , isrss , iblnk , dzero/4HNORM , 4HAL   , 4HMAX  , 4HSRSS , 4H     , 0.0D+0/
 !
-   IF ( .NOT.(Iopt(2)==iblnk .AND. (iopt1==max .OR. iopt1==isrss)) ) THEN
-      WRITE (Nout,99001) Ufm , Iopt
+   IF ( .NOT.(iopt(2)==iblnk .AND. (iopt1==max .OR. iopt1==isrss)) ) THEN
+      WRITE (nout,99001) ufm , iopt
 99001 FORMAT (A23,', ILLEGAL BCD VALUE (',2A4,') FOR THE 4TH PARAMATER',' IN MODULE NORM')
       CALL mesage(-61,0,0)
    ENDIF
-   Incru = 1
-   Incrp = 1
-   icore = korsz(Iz)
-   ibuf1 = icore - Isysbf + 1
-   ibuf2 = ibuf1 - Isysbf
+   incru = 1
+   incrp = 1
+   icore = korsz(iz)
+   ibuf1 = icore - isysbf + 1
+   ibuf2 = ibuf1 - isysbf
    icore = ibuf2 - 1
-   CALL gopen(matin,Iz(ibuf1),0)
-   CALL gopen(matout,Iz(ibuf2),1)
+   CALL gopen(matin,iz(ibuf1),0)
+   CALL gopen(matout,iz(ibuf2),1)
    mcb(1) = matin
    CALL rdtrl(mcb)
-   Ncol = mcb(2)
-   Nrow = mcb(3)
-   nrow2 = 2*Nrow
+   ncol = mcb(2)
+   nrow = mcb(3)
+   nrow2 = 2*nrow
    itype = mcb(5)
    iprec = itype
    IF ( iprec>2 ) iprec = iprec - 2
-   Iunout = itype
-   Ipkot1 = itype
-   Ipkot2 = itype
-   nrowp = iprec*Nrow
-   nwords = Nwds(itype)
-   mwords = Nrow*nwords
+   iunout = itype
+   ipkot1 = itype
+   ipkot2 = itype
+   nrowp = iprec*nrow
+   nwords = nwds(itype)
+   mwords = nrow*nwords
    kwords = mwords
    IF ( iopt1/=max ) kwords = kwords + nrowp
    icrreq = kwords - icore
@@ -114,8 +115,8 @@ USE ISO_FORTRAN_ENV
    ivec2 = ivec + nrowp
    IF ( iopt1/=max ) THEN
       mcb(5) = iprec
-      Ipkot1 = iprec
-      Ipkot2 = iprec
+      ipkot1 = iprec
+      ipkot2 = iprec
       DO i = ivec1 , ivec2
          z(i) = 0.0
       ENDDO
@@ -124,24 +125,24 @@ USE ISO_FORTRAN_ENV
    mcb(2) = 0
    mcb(6) = 0
    mcb(7) = 0
-   Iu1 = 1
-   Iu2 = Nrow
+   iu1 = 1
+   iu2 = nrow
 !
-   Xxmax = 0.0
-   DO i = 1 , Ncol
+   xxmax = 0.0
+   DO i = 1 , ncol
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
             xx = 0.0
             CALL unpack(*10,matin,z)
-            Ip1 = Iu1
-            Ip2 = Iu2
+            ip1 = iu1
+            ip2 = iu2
             xmax = -1.0
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
- 10         Ip1 = 1
-            Ip2 = 1
+ 10         ip1 = 1
+            ip2 = 1
             xmax = 0.0
             DO j = 1 , nwords
                z(j) = 0.0
@@ -157,17 +158,17 @@ USE ISO_FORTRAN_ENV
                   IF ( itype==2 ) THEN
 !
                      dxmax = dzero
-                     DO j = 1 , Nrow
+                     DO j = 1 , nrow
                         dx = dabs(zd(j))
                         IF ( dx>dxmax ) dxmax = dx
                      ENDDO
                      IF ( dxmax/=dzero ) THEN
                         xx = dxmax
-                        DO j = 1 , Nrow
+                        DO j = 1 , nrow
                            zd(j) = zd(j)/dxmax
                         ENDDO
 !
-                        IF ( xx>Xxmax ) Xxmax = xx
+                        IF ( xx>xxmax ) xxmax = xx
                      ENDIF
                   ELSEIF ( itype==3 ) THEN
 !
@@ -182,7 +183,7 @@ USE ISO_FORTRAN_ENV
                            z(j) = z(j)/xmax
                            z(j+1) = z(j+1)/xmax
                         ENDDO
-                        IF ( xx>Xxmax ) Xxmax = xx
+                        IF ( xx>xxmax ) xxmax = xx
                      ENDIF
                   ELSEIF ( itype==4 ) THEN
 !
@@ -197,21 +198,21 @@ USE ISO_FORTRAN_ENV
                            zd(j) = zd(j)/dxmax
                            zd(j+1) = zd(j+1)/dxmax
                         ENDDO
-                        IF ( xx>Xxmax ) Xxmax = xx
+                        IF ( xx>xxmax ) xxmax = xx
                      ENDIF
                   ELSE
 !
                      xmax = 0.0
-                     DO j = 1 , Nrow
+                     DO j = 1 , nrow
                         x = abs(z(j))
                         IF ( x>xmax ) xmax = x
                      ENDDO
                      IF ( xmax/=0.0 ) THEN
                         xx = xmax
-                        DO j = 1 , Nrow
+                        DO j = 1 , nrow
                            z(j) = z(j)/xmax
                         ENDDO
-                        IF ( xx>Xxmax ) Xxmax = xx
+                        IF ( xx>xxmax ) xxmax = xx
                      ENDIF
                   ENDIF
                ENDIF
@@ -222,7 +223,7 @@ USE ISO_FORTRAN_ENV
             ELSEIF ( xmax/=0.0 ) THEN
                IF ( itype==2 ) THEN
 !
-                  DO j = 1 , Nrow
+                  DO j = 1 , nrow
                      k = ivec + j
                      zd(k) = zd(k) + zd(j)*zd(j)
                   ENDDO
@@ -242,7 +243,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ELSE
 !
-                  DO j = 1 , Nrow
+                  DO j = 1 , nrow
                      k = ivec + j
                      z(k) = z(k) + z(j)*z(j)
                   ENDDO
@@ -256,19 +257,19 @@ USE ISO_FORTRAN_ENV
    CALL close(matin,1)
    IF ( iopt1/=max ) THEN
 !
-      Ip1 = Iu1
-      Ip2 = Iu2
+      ip1 = iu1
+      ip2 = iu2
       IF ( iprec==2 ) THEN
 !
          DO i = ivec1 , ivec2
             zd(i) = dsqrt(zd(i))
-            IF ( zd(i)>Xxmax ) Xxmax = zd(i)
+            IF ( zd(i)>xxmax ) xxmax = zd(i)
          ENDDO
       ELSE
 !
          DO i = ivec1 , ivec2
             z(i) = sqrt(z(i))
-            IF ( z(i)>Xxmax ) Xxmax = z(i)
+            IF ( z(i)>xxmax ) xxmax = z(i)
          ENDDO
       ENDIF
 !

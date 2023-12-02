@@ -1,15 +1,16 @@
-!*==mma302.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma302.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mma302(Zi,Zd)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,6 +24,12 @@ SUBROUTINE mma302(Zi,Zd)
             & iwr , j , k , nac , nadens , naform , nanzwd , nar , natype , nbc , nbdens , nbform , nbnzwd , nbr , nbtype , ncc ,   &
             & ncdens , ncform , ncnzwd , ncr , nctype , ndc , nddens , ndform , ndnzwd , ndr , ndtype , ntms
    REAL :: sysbuf
+   INTEGER :: spag_nextblock_1
+   INTEGER :: spag_nextblock_2
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
 !
 ! End of declarations rewritten by SPAG
 !
@@ -59,112 +66,135 @@ SUBROUTINE mma302(Zi,Zd)
 !     Z( NZ       ) = END OF OPEN CORE THAT IS AVAILABLE
 !
 ! PROCESS ALL OF THE COLUMNS OF "B";  ADD "C" DATA ON FIRST PASS
-   DO ii = 1 , nbc
+         DO ii = 1 , nbc
+            spag_nextblock_2 = 1
+            SPAG_DispatchLoop_2: DO
+               SELECT CASE (spag_nextblock_2)
+               CASE (1)
 !      PRINT *,' PROCESSING B MATRIX COLUMN II=',II
-      Iurow1 = -1
-      Typeu = ndtype
-      CALL unpack(*50,Fileb,Zd(1))
-      irowb1 = Iurow1
-      irowbn = Iurown
-      GOTO 100
- 50   irowb1 = 0
-      irowbn = 0
-      IF ( ifile==0 ) THEN
-         Iprown = 1
-         CALL pack(0.0D0,ofile,Filed)
-         Iprown = ndr
-         CYCLE
-      ENDIF
- 100  IF ( ifile/=0 ) THEN
-         Iurow1 = 1
-         Iurown = ndr
-         Typeu = ndtype
-         IF ( ipass==1 ) Typeu = ndtype*Signc
-         CALL unpack(*150,ifile,Zd(idx2+1))
-         GOTO 200
-      ENDIF
- 150  DO j = 1 , ndr
-         Zd(idx2+j) = 0
-      ENDDO
+                  iurow1 = -1
+                  typeu = ndtype
+                  CALL unpack(*2,fileb,Zd(1))
+                  irowb1 = iurow1
+                  irowbn = iurown
+                  spag_nextblock_2 = 2
+                  CYCLE SPAG_DispatchLoop_2
+ 2                irowb1 = 0
+                  irowbn = 0
+                  IF ( ifile==0 ) THEN
+                     iprown = 1
+                     CALL pack(0.0D0,ofile,filed)
+                     iprown = ndr
+                     CYCLE
+                  ENDIF
+                  spag_nextblock_2 = 2
+               CASE (2)
+                  IF ( ifile/=0 ) THEN
+                     iurow1 = 1
+                     iurown = ndr
+                     typeu = ndtype
+                     IF ( ipass==1 ) typeu = ndtype*signc
+                     CALL unpack(*4,ifile,Zd(idx2+1))
+                     spag_nextblock_2 = 3
+                     CYCLE SPAG_DispatchLoop_2
+                  ENDIF
+ 4                DO j = 1 , ndr
+                     Zd(idx2+j) = 0
+                  ENDDO
+                  spag_nextblock_2 = 3
+               CASE (3)
 !
 ! CHECK IF COLUMN OF "B" IS NULL
 !
- 200  indxa = iax
-      IF ( irowb1/=0 ) THEN
-         IF ( T/=0 ) THEN
+                  indxa = iax
+                  IF ( irowb1/=0 ) THEN
+                     IF ( t/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
 ! DOUBLE PRECISION
-            indxb = 1 - irowb1
-            idxx = idx2 + ibrow
-            DO i = 1 , ncolpp
-               icola = ibrow + i
-               IF ( icola/=iabs(Zi(indxa)) ) GOTO 300
-               indxal = Zi(indxa+1) + iax - 1
-               indxa = indxa + 2
-               DO WHILE ( indxa<indxal )
-                  irowa1 = Zi(indxa)
-                  ntms = Zi(indxa+1)
-                  irowan = irowa1 + ntms - 1
-                  irow1 = max0(irowa1,irowb1)
-                  irown = min0(irowan,irowbn)
-                  IF ( irown>=irow1 ) THEN
-                     indxav = ((indxa+3)/2) - irowa1
+                        indxb = 1 - irowb1
+                        idxx = idx2 + ibrow
+                        DO i = 1 , ncolpp
+                           icola = ibrow + i
+                           IF ( icola/=iabs(Zi(indxa)) ) THEN
+                              spag_nextblock_1 = 2
+                              CYCLE SPAG_DispatchLoop_1
+                           ENDIF
+                           indxal = Zi(indxa+1) + iax - 1
+                           indxa = indxa + 2
+                           DO WHILE ( indxa<indxal )
+                              irowa1 = Zi(indxa)
+                              ntms = Zi(indxa+1)
+                              irowan = irowa1 + ntms - 1
+                              irow1 = max0(irowa1,irowb1)
+                              irown = min0(irowan,irowbn)
+                              IF ( irown>=irow1 ) THEN
+                                 indxav = ((indxa+3)/2) - irowa1
 !
 !         D = C + A*B
 !
-                     dtemp = 0.0
-                     DO k = irow1 , irown
-                        dtemp = dtemp + Zd(indxav+k)*Zd(indxb+k)
-                     ENDDO
-                     Zd(idxx+i) = Zd(idxx+i) + dtemp
-                  ENDIF
-                  indxa = indxa + 2 + ntms*2
-               ENDDO
-               indxa = indxal
-            ENDDO
-         ELSE
+                                 dtemp = 0.0
+                                 DO k = irow1 , irown
+                                    dtemp = dtemp + Zd(indxav+k)*Zd(indxb+k)
+                                 ENDDO
+                                 Zd(idxx+i) = Zd(idxx+i) + dtemp
+                              ENDIF
+                              indxa = indxa + 2 + ntms*2
+                           ENDDO
+                           indxa = indxal
+                        ENDDO
+                     ELSE
 !
 ! "A" NON-TRANSPOSE CASE    ( A * B  +  C )
 !
 ! DOUBLE PRECISION
-            DO i = 1 , ncolpp
-               indxal = Zi(indxa+1) + iax - 1
-               icola = ibrow + i
-               IF ( icola>=irowb1 .AND. icola<=irowbn ) THEN
-                  ibrowi = icola - irowb1 + 1
-                  dtemp = Zd(ibrowi)
-                  IF ( dtemp/=0.0D0 ) THEN
-                     IF ( icola/=iabs(Zi(indxa)) ) GOTO 300
-                     indxa = indxa + 2
-                     DO WHILE ( indxa<indxal )
-                        irowa1 = Zi(indxa)
-                        ntms = Zi(indxa+1)
-                        irowan = irowa1 + ntms - 1
-                        indxav = ((indxa+3)/2) - irowa1
-                        DO k = irowa1 , irowan
+                        DO i = 1 , ncolpp
+                           indxal = Zi(indxa+1) + iax - 1
+                           icola = ibrow + i
+                           IF ( icola>=irowb1 .AND. icola<=irowbn ) THEN
+                              ibrowi = icola - irowb1 + 1
+                              dtemp = Zd(ibrowi)
+                              IF ( dtemp/=0.0D0 ) THEN
+                                 IF ( icola/=iabs(Zi(indxa)) ) THEN
+                                    spag_nextblock_1 = 2
+                                    CYCLE SPAG_DispatchLoop_1
+                                 ENDIF
+                                 indxa = indxa + 2
+                                 DO WHILE ( indxa<indxal )
+                                    irowa1 = Zi(indxa)
+                                    ntms = Zi(indxa+1)
+                                    irowan = irowa1 + ntms - 1
+                                    indxav = ((indxa+3)/2) - irowa1
+                                    DO k = irowa1 , irowan
 !
 !         D = C + A*B
 !
 !      PRINT *,' K,D,A,B=',K,ZD(IDX2+K),ZD(INDXAV+K),ZD(IBROWI)
-                           Zd(idx2+k) = Zd(idx2+k) + Zd(indxav+k)*dtemp
+                                       Zd(idx2+k) = Zd(idx2+k) + Zd(indxav+k)*dtemp
+                                    ENDDO
+                                    indxa = indxa + 2 + ntms*2
+                                 ENDDO
+                              ENDIF
+                           ENDIF
+                           indxa = indxal
                         ENDDO
-                        indxa = indxa + 2 + ntms*2
-                     ENDDO
+                     ENDIF
                   ENDIF
-               ENDIF
-               indxa = indxal
-            ENDDO
-         ENDIF
-      ENDIF
 ! END OF PROCESSING THIS COLUMN FOR THIS PASS
 !  NOW SAVE COLUMN
-      CALL pack(Zd(idx2+1),ofile,Filed)
-   ENDDO
-   GOTO 99999
- 300  WRITE (iwr,99001) icola , Zi(indxa) , iax , indxa
-99001 FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX A',/,' COLUMN EXPECTED:',I6,/,' COLUMN FOUND   :',I6,/,' IAX =',I7,    &
-             &'  INDXA=',I7)
-   CALL mesage(-61,0,0)
-99999 END SUBROUTINE mma302
+                  CALL pack(Zd(idx2+1),ofile,filed)
+                  EXIT SPAG_DispatchLoop_2
+               END SELECT
+            ENDDO SPAG_DispatchLoop_2
+         ENDDO
+         RETURN
+      CASE (2)
+         WRITE (iwr,99001) icola , Zi(indxa) , iax , indxa
+99001    FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX A',/,' COLUMN EXPECTED:',I6,/,' COLUMN FOUND   :',I6,/,' IAX =',I7, &
+                &'  INDXA=',I7)
+         CALL mesage(-61,0,0)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
+END SUBROUTINE mma302

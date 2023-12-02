@@ -1,7 +1,9 @@
-!*==ptintr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ptintr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ptintr(A,Aa,B,Bb,S,K,Eps)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -20,6 +22,15 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) :: aaa , ax , ay , bbb , bx , by , d , pa , paa , pb , pbb , u , v , x , y
    REAL(REAL64) :: dist
    REAL(REAL64) , DIMENSION(2) :: p
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

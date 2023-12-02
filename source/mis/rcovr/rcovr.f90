@@ -1,10 +1,11 @@
-!*==rcovr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovr
+   USE c_blank
+   USE c_rcovcm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_RCOVCM
    EXTERNAL rcova , rcovb , rcovc , rcove , rcovo
 !
 ! End of declarations rewritten by SPAG
@@ -69,14 +70,14 @@ SUBROUTINE rcovr
 !     JUNE 1977
 !
 !
-   Nosort = -1
+   nosort = -1
    CALL rcovo
    CALL rcova
-   IF ( Iopt>=0 ) THEN
+   IF ( iopt>=0 ) THEN
       CALL rcovb
-      IF ( Iopt>0 ) THEN
+      IF ( iopt>0 ) THEN
          CALL rcovc
-         IF ( Energy/=0 ) CALL rcove
+         IF ( energy/=0 ) CALL rcove
       ENDIF
    ENDIF
 END SUBROUTINE rcovr

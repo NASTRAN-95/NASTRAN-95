@@ -1,18 +1,19 @@
-!*==ferxts.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ferxts.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ferxts(V1,V2,V3,V4,V5,Zb,Ifn)
-USE C_FEERCX
-USE C_FEERIM
-USE C_FEERXX
-USE C_NAMES
-USE C_OPINV
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerim
+   USE c_feerxx
+   USE c_names
+   USE c_opinv
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -80,66 +81,66 @@ USE ISO_FORTRAN_ENV
 !     SR7FLE CONTAINS THE ORTHOGONAL  VECTORS
 !     SR8FLE CONTAINS THE CONDITIONED MAA MATRIX
 !
-         IF ( Mcblt(7)<0 ) name(2) = vdot
+         IF ( mcblt(7)<0 ) name(2) = vdot
          name(3) = name(4)
          CALL conmsg(name,3,0)
-         Iter = Iter + 1
-         Iprc = 1
-         Incr = 1
-         Incrp = Incr
-         Itp1 = Iprc
-         Itp2 = Iprc
-         ifg = Mcbrm(1)
-         ifv = Mcbvec(1)
-         depx = Epx
+         iter = iter + 1
+         iprc = 1
+         incr = 1
+         incrp = incr
+         itp1 = iprc
+         itp2 = iprc
+         ifg = mcbrm(1)
+         ifv = mcbvec(1)
+         depx = epx
          depx2 = depx**2
          opdepx = 1.0D0 + depx
          omdepx = 1.0D0 - depx
          d = zero
-         nord1 = Nord - 1
+         nord1 = nord - 1
 !
 !     NORMALIZE START VECTOR
 !
          dsq = zero
-         IF ( Ioptf==1 ) THEN
-            DO i = 1 , Nord
+         IF ( ioptf==1 ) THEN
+            DO i = 1 , nord
                dsq = dsq + dble(V2(i)*V2(i))
             ENDDO
          ELSE
-            CALL ferlts(Mcbsma(1),V2(1),V3(1),V5(1))
-            DO i = 1 , Nord
+            CALL ferlts(mcbsma(1),V2(1),V3(1),V5(1))
+            DO i = 1 , nord
                dsq = dsq + dble(V2(i)*V3(i))
             ENDDO
          ENDIF
          dsq = 1.0D+0/dsqrt(dsq)
          tmp = sngl(dsq)
-         DO i = 1 , Nord
+         DO i = 1 , nord
             V2(i) = V2(i)*tmp
          ENDDO
-         IF ( Northo==0 ) THEN
+         IF ( northo==0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     ORTHOGONALIZE WITH PREVIOUS VECTORS
 !
-         DO i = 1 , Nord
+         DO i = 1 , nord
             V3(i) = V2(i)
          ENDDO
 !
 !     READ ORTHOGONAL VECTORS INTO MEMORY IF SPACE EXISTS
 !
-         IF ( Nidorv/=0 ) THEN
-            IF ( Northo/=0 ) THEN
-               CALL gopen(ifv,Zb(1),Rdrew)
-               Ii = 1
-               Nn = Nord
-               nidx = Nidorv
-               DO ic = 1 , Northo
-                  iloc = (ic-1)*Nord + nidx
-                  CALL unpack(*5,ifv,Zd(iloc))
+         IF ( nidorv/=0 ) THEN
+            IF ( northo/=0 ) THEN
+               CALL gopen(ifv,Zb(1),rdrew)
+               ii = 1
+               nn = nord
+               nidx = nidorv
+               DO ic = 1 , northo
+                  iloc = (ic-1)*nord + nidx
+                  CALL unpack(*5,ifv,zd(iloc))
  5             ENDDO
-               CALL close(ifv,Eofnrw)
+               CALL close(ifv,eofnrw)
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
@@ -148,54 +149,54 @@ USE ISO_FORTRAN_ENV
 !     BEGINNING OF ITERATION LOOP
 !
          SPAG_Loop_1_1: DO ix = 1 , 14
-            Nonul = Nonul + 1
-            IF ( Ioptf==0 ) CALL ferlts(Mcbsma(1),V2(1),V3(1),V5(1))
-            IF ( Nidorv/=0 ) THEN
+            nonul = nonul + 1
+            IF ( ioptf==0 ) CALL ferlts(mcbsma(1),V2(1),V3(1),V5(1))
+            IF ( nidorv/=0 ) THEN
 !
 ! ORTHOGONAL VECTORS ARE IN MEMORY
 !
                sdmax = zero
-               nidx = Nidorv
-               DO iy = 1 , Northo
+               nidx = nidorv
+               DO iy = 1 , northo
                   sd = zero
-                  iloc = (iy-1)*Nord + nidx - 1
-                  DO i = 1 , Nord
-                     sd = sd + V3(i)*Zd(iloc+i)
+                  iloc = (iy-1)*nord + nidx - 1
+                  DO i = 1 , nord
+                     sd = sd + V3(i)*zd(iloc+i)
                   ENDDO
                   IF ( dabs(sd)>sdmax ) sdmax = dabs(sd)
-                  DO i = 1 , Nord
-                     V2(i) = V2(i) - sd*Zd(iloc+i)
+                  DO i = 1 , nord
+                     V2(i) = V2(i) - sd*zd(iloc+i)
                   ENDDO
                ENDDO
             ELSE
 !
 !  READ ORTHOGONAL VECTORS FROM FILE
 !
-               CALL gopen(ifv,Zb(1),Rdrew)
+               CALL gopen(ifv,Zb(1),rdrew)
                sdmax = zero
-               DO iy = 1 , Northo
-                  Ii = 1
-                  Nn = Nord
+               DO iy = 1 , northo
+                  ii = 1
+                  nn = nord
                   sd = zero
                   CALL unpack(*6,ifv,V5(1))
-                  DO i = 1 , Nord
+                  DO i = 1 , nord
                      sd = sd + V3(i)*V5(i)
                   ENDDO
  6                IF ( dabs(sd)>sdmax ) sdmax = dabs(sd)
 !Q 90 IF (QABS(SD) .GT. SDMAX) SDMAX = QABS(SD)
-                  DO i = 1 , Nord
+                  DO i = 1 , nord
                      V2(i) = V2(i) - sd*V5(i)
                   ENDDO
                ENDDO
-               CALL close(ifv,Eofnrw)
+               CALL close(ifv,eofnrw)
             ENDIF
             dsq = zero
-            IF ( Ioptf==1 ) THEN
+            IF ( ioptf==1 ) THEN
                DO i = 1 , nord1
                   dsq = dsq + dble(V2(i)*V2(i))
                ENDDO
             ELSE
-               CALL ferlts(Mcbsma(1),V2(1),V3(1),V5(1))
+               CALL ferlts(mcbsma(1),V2(1),V3(1),V5(1))
                DO i = 1 , nord1
                   dsq = dsq + dble(V2(i)*V3(i))
                ENDDO
@@ -224,9 +225,9 @@ USE ISO_FORTRAN_ENV
 !
 !     NEXT 7 LINES TRY TO SOLVE THE ABOVE DILEMMA.
 !
-            d = dble(V3(Nord))
-            IF ( Ioptf==1 ) d = dble(V2(Nord))
-            d = dble(V2(Nord))*d
+            d = dble(V3(nord))
+            IF ( ioptf==1 ) d = dble(V2(nord))
+            d = dble(V2(nord))*d
             dtmp = dsq
             dsq = dsq + d
             IF ( dsq<depx2 ) EXIT SPAG_Loop_1_1
@@ -235,11 +236,11 @@ USE ISO_FORTRAN_ENV
             d = zero
 !
             dsq = dsqrt(dsq)
-            IF ( L16/=0 ) WRITE (io,99001) ix , sdmax , dsq
+            IF ( l16/=0 ) WRITE (io,99001) ix , sdmax , dsq
 99001       FORMAT (11X,'ORTH ITER (IX)',I5,',  MAX PROJ (SDMAX)',1P,D16.8,',  NORMAL FACT (DSQ)',1P,D16.8)
             dsq = 1.0D+0/dsq
             tmp = sngl(dsq)
-            DO i = 1 , Nord
+            DO i = 1 , nord
                V2(i) = V2(i)*tmp
                V3(i) = V2(i)
             ENDDO
@@ -249,7 +250,6 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
          IF ( Ifn/=0 ) THEN
@@ -257,7 +257,7 @@ USE ISO_FORTRAN_ENV
 !     CALCULATE OFF DIAGONAL TERM OF B
 !
             d = zero
-            DO i = 1 , Nord
+            DO i = 1 , nord
                d = d + dble(V2(i)*V4(i))
             ENDDO
 !
@@ -273,105 +273,105 @@ USE ISO_FORTRAN_ENV
 !     SWEEP START VECTOR FOR ZERO ROOTS
 !
             dsq = zero
-            IF ( Ioptf==1 ) THEN
+            IF ( ioptf==1 ) THEN
                CALL ferfbs(V2(1),V4(1),V3(1),V5(1))
-               DO i = 1 , Nord
+               DO i = 1 , nord
                   dsq = dsq + dble(V3(i)*V3(i))
                ENDDO
             ELSE
                CALL fersws(V2(1),V3(1),V5(1))
-               CALL ferlts(Mcbsma(1),V3(1),V4(1),V5(1))
-               DO i = 1 , Nord
+               CALL ferlts(mcbsma(1),V3(1),V4(1),V5(1))
+               DO i = 1 , nord
                   dsq = dsq + dble(V3(i)*V4(i))
                ENDDO
             ENDIF
             dsq = 1.0D+0/dsqrt(dsq)
             tmp = sngl(dsq)
-            DO i = 1 , Nord
+            DO i = 1 , nord
                V2(i) = V3(i)*tmp
             ENDDO
          ENDIF
-         CALL gopen(ifg,Zb(1),Wrt)
-         Iip = 1
-         Nnp = Nord
-         IF ( Ioptf==1 ) THEN
+         CALL gopen(ifg,Zb(1),wrt)
+         iip = 1
+         nnp = nord
+         IF ( ioptf==1 ) THEN
             CALL ferfbs(V2(1),V4(1),V3(1),V5(1))
-            CALL pack(V4(1),ifg,Mcbrm(1))
-            DO i = 1 , Nord
+            CALL pack(V4(1),ifg,mcbrm(1))
+            DO i = 1 , nord
                V4(i) = V3(i)
             ENDDO
          ELSE
             CALL fersws(V2(1),V3(1),V5(1))
-            CALL ferlts(Mcbsma(1),V3(1),V4(1),V5(1))
-            CALL pack(V2(1),ifg,Mcbrm(1))
+            CALL ferlts(mcbsma(1),V3(1),V4(1),V5(1))
+            CALL pack(V2(1),ifg,mcbrm(1))
          ENDIF
-         CALL close(ifg,Norew)
+         CALL close(ifg,norew)
 !
 !     CALCULATE DIAGONAL TERM OF B
 !
          aii = zero
-         DO i = 1 , Nord
+         DO i = 1 , nord
             aii = aii + dble(V2(i)*V4(i))
          ENDDO
          tmp = sngl(aii)
          IF ( d==zero ) THEN
-            DO i = 1 , Nord
+            DO i = 1 , nord
                V3(i) = V3(i) - tmp*V2(i)
             ENDDO
          ELSE
             xd = sngl(d)
-            DO i = 1 , Nord
+            DO i = 1 , nord
                V3(i) = V3(i) - tmp*V2(i) - xd*V1(i)
             ENDDO
          ENDIF
          db = zero
-         IF ( Ioptf==1 ) THEN
-            DO i = 1 , Nord
+         IF ( ioptf==1 ) THEN
+            DO i = 1 , nord
                db = db + dble(V3(i)*V3(i))
             ENDDO
          ELSE
-            CALL ferlts(Mcbsma(1),V3(1),V4(1),V5(1))
-            DO i = 1 , Nord
+            CALL ferlts(mcbsma(1),V3(1),V4(1),V5(1))
+            DO i = 1 , nord
                db = db + dble(V3(i)*V4(i))
             ENDDO
          ENDIF
          db = dsqrt(db)
-         Errc = sngl(db)
+         errc = sngl(db)
          b(1) = sngl(aii)
          b(2) = sngl(d)
-         CALL write(Sr5fle,b(1),2,1)
-         IF ( Nidorv/=0 ) THEN
-            nidx = Nidorv
-            iloc = Northo*Nord + nidx
-            DO i = Iip , Nnp
-               Zd(iloc+i-1) = V2(i)
+         CALL write(sr5fle,b(1),2,1)
+         IF ( nidorv/=0 ) THEN
+            nidx = nidorv
+            iloc = northo*nord + nidx
+            DO i = iip , nnp
+               zd(iloc+i-1) = V2(i)
             ENDDO
          ELSE
-            CALL gopen(ifv,Zb(1),Wrt)
-            Iip = 1
-            Nnp = Nord
-            CALL pack(V2(1),ifv,Mcbvec(1))
-            CALL close(ifv,Norew)
+            CALL gopen(ifv,Zb(1),wrt)
+            iip = 1
+            nnp = nord
+            CALL pack(V2(1),ifv,mcbvec(1))
+            CALL close(ifv,norew)
          ENDIF
-         Northo = Northo + 1
-         Ifn = Northo - Nzero
-         IF ( L16/=0 ) WRITE (io,99002) Ifn , Mord , aii , db , d
+         northo = northo + 1
+         Ifn = northo - nzero
+         IF ( l16/=0 ) WRITE (io,99002) Ifn , mord , aii , db , d
 99002    FORMAT (5X,'TRIDIAGONAL ELEMENTS ROW (IFN)',I5,/5X,'MORD =',I5,', AII,DB,D = ',1P,3D16.8)
-         IF ( Ifn>=Mord ) THEN
+         IF ( Ifn>=mord ) THEN
 !
 ! NEED TO SAVE ORTHOGONAL VECTORS BACK TO FILE
 !
-            CALL gopen(ifv,Zb(1),Wrt)
-            Iip = 1
-            Nnp = Nord
-            nidx = Nidorv
-            DO i = 1 , Northo
-               iloc = (i-1)*Nord + nidx
-               CALL pack(Zd(iloc),ifv,Mcbvec(1))
+            CALL gopen(ifv,Zb(1),wrt)
+            iip = 1
+            nnp = nord
+            nidx = nidorv
+            DO i = 1 , northo
+               iloc = (i-1)*nord + nidx
+               CALL pack(zd(iloc),ifv,mcbvec(1))
             ENDDO
-            CALL close(ifv,Norew)
+            CALL close(ifv,norew)
          ENDIF
-         IF ( Ifn>=Mord ) THEN
+         IF ( Ifn>=mord ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -388,17 +388,16 @@ USE ISO_FORTRAN_ENV
 !
          dbi = 1.0D+0/db
          tmp = sngl(dbi)
-         DO i = 1 , Nord
+         DO i = 1 , nord
             V1(i) = V2(i)
             V3(i) = V3(i)*tmp
             V2(i) = V3(i)
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
-         Mord = Ifn
-         WRITE (io,99003) Uwm , Mord
+         mord = Ifn
+         WRITE (io,99003) uwm , mord
 !
 99003    FORMAT (A25,' 2387, PROBLEM SIZE REDUCED TO',I5,' DUE TO -',/5X,'ORTHOGONALITY DRIFT OR NULL TRIAL VECTOR',/5X,            &
                 &'ALL EXISTING MODES MAY HAVE BEEN OBTAINED.  USE DIAG 16',' TO DETERMINE ERROR BOUNDS',/)

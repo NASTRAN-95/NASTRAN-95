@@ -1,10 +1,11 @@
-!*==frlgb.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==frlgb.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Scr2,Scr3,Scr4)
+   USE c_bitpos
+   USE c_patx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_PATX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,8 +48,8 @@ SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Sc
 !
 !     SET UP INITIAL VALUES
 !
-   Nz = korsz(Core)
-   Uset = Usetd
+   nz = korsz(core)
+   uset = Usetd
    pnbar = Scr2
    pm = Scr3
    pn = Scr4
@@ -68,7 +69,7 @@ SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Sc
 !     REMOVE MULTIPOINT CONSTRAINTS
 !
       IF ( Single<0 .AND. Omit<0 ) pn = Pd
-      CALL calcv(Scr1,Up,Une,Um,Core(1))
+      CALL calcv(Scr1,up,une,um,core(1))
       CALL ssg2a(Pp,pnbar,pm,Scr1)
       CALL ssg2b(Gmd,pm,pnbar,pn,1,1,1,Scr1)
    ENDIF
@@ -82,7 +83,7 @@ SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Sc
 !     REMOVE SINGLE POINT CONSTRAINTS
 !
       IF ( Omit<0 ) pf = Pd
-      CALL calcv(Scr1,Une,Ufe,Us,Core(1))
+      CALL calcv(Scr1,une,ufe,us,core(1))
       CALL ssg2a(pn,pf,Ps,Scr1)
    ENDIF
    IF ( Omit<0 ) THEN
@@ -91,7 +92,7 @@ SUBROUTINE frlgb(Pp,Usetd,Gmd,God,Multi,Single,Omit,Modal,Phidh,Pd,Ps,Ph,Scr1,Sc
 !
 !     REMOVE OMITS
 !
-      CALL calcv(Scr1,Ufe,Ud,Uo,Core(1))
+      CALL calcv(Scr1,ufe,ud,uo,core(1))
       CALL ssg2a(pf,pdbar,po,Scr1)
       CALL ssg2b(God,po,pdbar,Pd,1,1,1,Scr1)
    ENDIF

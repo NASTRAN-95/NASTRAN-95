@@ -1,4 +1,5 @@
-!*==alg06.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg06.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg06(R1,R2,X1,X2,H,S,Vm,Tb1,Tb2,W,Xk,Sclfac,Speed,Spdfac,G,Ej,Hmin,Nstrms,Pi)
@@ -32,7 +33,16 @@ SUBROUTINE alg06(R1,R2,X1,X2,H,S,Vm,Tb1,Tb2,W,Xk,Sclfac,Speed,Spdfac,G,Ej,Hmin,N
    REAL , DIMENSION(150) :: b , r , w2d , w3d , xx1 , xx2 , xx3
    INTEGER :: j , jj , jjj , l , ll , nkeep , ntub
    REAL , DIMENSION(9,9) :: xx5
-   EXTERNAL alg01 , alg30 , alg4 , alg5
+   EXTERNAL alg01 , alg30
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

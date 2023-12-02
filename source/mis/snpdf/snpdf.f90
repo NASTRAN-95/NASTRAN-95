@@ -1,4 +1,5 @@
-!*==snpdf.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==snpdf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE snpdf(Sl,Cl,Tl,Sgs,Cgs,Sgr,Cgr,X0,Y0,Z0,Ee,Dij,Beta,Cv)
@@ -26,6 +27,15 @@ SUBROUTINE snpdf(Sl,Cl,Tl,Sgs,Cgs,Sgr,Cgr,X0,Y0,Z0,Ee,Dij,Beta,Cv)
    REAL :: acab , acbb , cab , cacb , cao , caoone , cave , cbb , cbi , clb , clcgs , clsgs , db2 , dbx , dby , dbz , di2 , do2 ,   &
          & ex , ey , ez , onecbi , ricab , rimag , rix , riy , riz , romag , rox , roy , roz , slb , sqtlb , test1 , test2 , tlb ,  &
          & vby , vbz , viy , viz , voy , voz , vy , vz , ww , x0b
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -94,37 +104,37 @@ SUBROUTINE snpdf(Sl,Cl,Tl,Sgs,Cgs,Sgr,Cgr,X0,Y0,Z0,Ee,Dij,Beta,Cv)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      vby = cacb*(dbx*clsgs-dbz*slb)
-      vbz = cacb*(dby*slb-dbx*clcgs)
+      Vby = Cacb*(Dbx*Clsgs-Dbz*Slb)
+      Vbz = Cacb*(Dby*Slb-Dbx*Clcgs)
 !
 !     ***  TEST TO SEE IF THE RECEIVING POINT LIES ON OR NEAR THE
 !     INBOARD TRAILING VORTEX  --  IF SO, THE CONTRIBUTION OF THE
 !     INBOARD TRAILING VORTEX IS SET TO ZERO
 !
-      IF ( di2>test2 ) THEN
-         onecbi = (1.0-cbi)/di2
-         viy = onecbi*riz
-         viz = -onecbi*riy
+      IF ( Di2>Test2 ) THEN
+         Onecbi = (1.0-Cbi)/Di2
+         Viy = Onecbi*Riz
+         Viz = -Onecbi*Riy
       ELSE
-         viy = 0.0
-         viz = 0.0
+         Viy = 0.0
+         Viz = 0.0
       ENDIF
 !
 !     ***  TEST TO SEE IF THE RECEIVING POINT LIES ON OR NEAR THE
 !     OUTBOARD TRAILING VORTEX  --  IF SO, THE CONTRIBUTION OF THE
 !     OUTBOARD TRAILING VORTEX IS SET TO ZERO
 !
-      IF ( do2>test2 ) THEN
-         caoone = (1.0+cao)/do2
-         voy = -caoone*roz
-         voz = caoone*roy
+      IF ( Do2>Test2 ) THEN
+         Caoone = (1.0+Cao)/Do2
+         Voy = -Caoone*Roz
+         Voz = Caoone*Roy
       ELSE
-         voy = 0.0
-         voz = 0.0
+         Voy = 0.0
+         Voz = 0.0
       ENDIF
-      vy = vby + viy + voy
-      vz = vbz + viz + voz
-      ww = vy*Sgr - vz*Cgr
-      Dij = ww*cave/25.132741
+      Vy = Vby + Viy + Voy
+      Vz = Vbz + Viz + Voz
+      Ww = Vy*Sgr - Vz*Cgr
+      Dij = Ww*Cave/25.132741
    END SUBROUTINE spag_block_1
 END SUBROUTINE snpdf

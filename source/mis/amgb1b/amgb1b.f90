@@ -1,16 +1,17 @@
-!*==amgb1b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==amgb1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgb1b(Q)
+   USE c_amgmn
+   USE c_bamg1l
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_BAMG1L
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
-   COMPLEX , DIMENSION(Nstns,Nstns) :: Q
+   COMPLEX , DIMENSION(nstns,nstns) :: Q
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,20 +40,20 @@ SUBROUTINE amgb1b(Q)
 !     THEORY DEPENDENT RESTRICTION OF NO MORE THAN 10 COMPUTING
 !     STATIONS PER STREAMLINE IS REFLECTED IN CODING.
 !
-   IF ( Nstns>10 ) THEN
+   IF ( nstns>10 ) THEN
 !
-      WRITE (Iout,99001) Ufm , Sln , Nstns
+      WRITE (iout,99001) ufm , sln , nstns
 99001 FORMAT (A23,' - AMG MODULE - NUMBER OF COMPUTING STATIONS ON ','STREAMLINE',I8,4H IS ,I3,1H.,/39X,'SUBSONIC CASCADE ',        &
              &'ROUTINE AMGB1B ALLOWS ONLY A MAXIMUM OF 10.')
       CALL mesage(-61,0,0)
       RETURN
    ELSE
-      m = Amach
-      omega = Redf
-      ss = 2*Blspc
-      deltm = -Sigma
-      xlam = Stag
-      nm = Nstns
+      m = amach
+      omega = redf
+      ss = 2*blspc
+      deltm = -sigma
+      xlam = stag
+      nm = nstns
       n = 20
       pi = 3.141593
       pi2 = pi*2
@@ -331,6 +332,5 @@ SUBROUTINE amgb1b(Q)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
 END SUBROUTINE amgb1b

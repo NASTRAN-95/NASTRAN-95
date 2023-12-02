@@ -1,4 +1,5 @@
-!*==partn1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==partn1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE partn1
@@ -27,15 +28,15 @@ SUBROUTINE partn1
 !     PARTN A,CP,RP/A11,A21,A12,A22/V,Y,SYM/V,Y,TYPE/V,Y,F11/V,Y,F21/
 !                                   V,Y,F12/V,Y,F22 $
 !
+   USE c_blank
+   USE c_mahcin
+   USE c_names
+   USE c_prtmrg
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MAHCIN
-   USE C_NAMES
-   USE C_PRTMRG
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -60,10 +61,10 @@ SUBROUTINE partn1
    DATA naform/4HFORM/ , natype/4HTYPE/ , refus/2*3H    , 3HREF/
    DATA eor/1/
 !
-   core = korsz(Z)
-   buffs(1) = core - Sysbuf - 2
+   core = korsz(z)
+   buffs(1) = core - sysbuf - 2
    DO i = 2 , 5
-      buffs(i) = buffs(i-1) - Sysbuf - 2
+      buffs(i) = buffs(i-1) - sysbuf - 2
    ENDDO
    core = buffs(5) - 1
    IF ( core<10 ) CALL mesage(-8,0,subr)
@@ -71,7 +72,7 @@ SUBROUTINE partn1
 !     OPEN MATRIX TO BE PARTITIONED.  IF PURGED RETURN IS MADE
 !
    buff = buffs(5)
-   CALL open(*99999,a,Z(buff),Rdrew)
+   CALL open(*99999,a,z(buff),rdrew)
    CALL skprec(a,1)
    mcba(1) = a
    CALL rdtrl(mcba)
@@ -81,39 +82,39 @@ SUBROUTINE partn1
 !     DETERMINE SIZES OF THE PARTITIONS.
 !
    buff = buffs(4)
-   CALL partn2(cp,rp,core,Z(buff))
+   CALL partn2(cp,rp,core,z(buff))
 !
 !     IF RPSIZE OR CPSIZE ARE 0 THEY ARE SET EQUAL TO THE RESPECTIVE
 !     SIZE OF A
 !
-   IF ( Cpsize==0 ) Cpsize = mcba(2)
-   IF ( Rpsize==0 ) Rpsize = mcba(3)
+   IF ( cpsize==0 ) cpsize = mcba(2)
+   IF ( rpsize==0 ) rpsize = mcba(3)
 !
 !     MATRIX COMPATIBILITY CHECKS
 !
-   IF ( Rpsize/=mcba(3) .OR. Cpsize/=mcba(2) ) THEN
-      WRITE (Outpt,99001) Swm , mcba(3) , mcba(2) , Rpsize , Cpsize
+   IF ( rpsize/=mcba(3) .OR. cpsize/=mcba(2) ) THEN
+      WRITE (outpt,99001) swm , mcba(3) , mcba(2) , rpsize , cpsize
 99001 FORMAT (A27,' 2166, MATRIX TO BE PARTITIONED IS OF SIZE',I10,' ROWS BY',I10,' COLUMNS.',/5X,'ROW PARTITION SIZE IS',I10,      &
              &' COLUMN PARTITION SIZE IS',I10,' (INCOMPATIBLE).')
    ENDIF
 !
 !     PREPARE OUTPUT DATA BLOCKS AS REQUIRED.
 !
-   cpzero = mcba(2) - Cpones
-   rpzero = mcba(3) - Rpones
+   cpzero = mcba(2) - cpones
+   rpzero = mcba(3) - rpones
 !
 !     CHECK OF TYPE PARAMETER
 !
    ntype = mcba(5)
-   IF ( ntype/=Type ) THEN
-      IF ( Type==0 ) THEN
-         Type = ntype
-      ELSEIF ( Type<0 .OR. Type>4 ) THEN
-         WRITE (Outpt,99003) Swm , natype , Type , refus(3) , subr , ntype
-         Type = ntype
+   IF ( ntype/=type ) THEN
+      IF ( type==0 ) THEN
+         type = ntype
+      ELSEIF ( type<0 .OR. type>4 ) THEN
+         WRITE (outpt,99003) swm , natype , type , refus(3) , subr , ntype
+         type = ntype
       ELSE
-         WRITE (Outpt,99003) Swm , natype , Type , refus(1) , subr , ntype
-         ntype = Type
+         WRITE (outpt,99003) swm , natype , type , refus(1) , subr , ntype
+         ntype = type
       ENDIF
    ENDIF
 !
@@ -122,20 +123,20 @@ SUBROUTINE partn1
       mcb(1,i) = 0
       cols = cpzero
       rows = rpzero
-      IF ( i==3 .OR. i==4 ) cols = Cpones
-      IF ( i==2 .OR. i==4 ) rows = Rpones
+      IF ( i==3 .OR. i==4 ) cols = cpones
+      IF ( i==2 .OR. i==4 ) rows = rpones
 !
 !     IF ROWS OR COLS EQUAL ZERO NOTHING IS WRITTEN ON THIS PARTITION
 !
       IF ( rows/=0 .AND. cols/=0 ) THEN
          buff = buffs(i)
-         CALL open(*100,file,Z(buff),Wrtrew)
+         CALL open(*100,file,z(buff),wrtrew)
          CALL fname(file,head)
          CALL write(file,head,2,eor)
 !
 !     CHECK OF THE FORM PARAMETER
 !
-         nform = Form(i)
+         nform = form(i)
          IF ( nform<1 .OR. nform>8 ) THEN
 !
 !     NO FORM SPECIFIED THUS IT IS SQUARE IF ROWS = COLS OR RECTANGULAR
@@ -143,14 +144,14 @@ SUBROUTINE partn1
 !
             nform = 2
             IF ( rows==cols ) nform = 1
-            IF ( Sym<0 .AND. inform==6 .AND. nform==1 .AND. (i==1 .OR. i==4) ) nform = 6
-            IF ( Form(i)/=0 ) THEN
+            IF ( sym<0 .AND. inform==6 .AND. nform==1 .AND. (i==1 .OR. i==4) ) nform = 6
+            IF ( form(i)/=0 ) THEN
                jj = 1
-               IF ( Form(i)<1 .OR. Form(i)>8 ) jj = 3
-               WRITE (Outpt,99003) Swm , naform , Form(i) , refus(jj) , subr , nform
-               IF ( jj/=3 ) nform = Form(i)
+               IF ( form(i)<1 .OR. form(i)>8 ) jj = 3
+               WRITE (outpt,99003) swm , naform , form(i) , refus(jj) , subr , nform
+               IF ( jj/=3 ) nform = form(i)
             ENDIF
-            Form(i) = nform
+            form(i) = nform
          ELSEIF ( nform/=2 ) THEN
             IF ( nform==3 .OR. nform==7 ) THEN
 !
@@ -163,7 +164,7 @@ SUBROUTINE partn1
             ELSEIF ( rows==cols ) THEN
                GOTO 20
             ENDIF
-            WRITE (Outpt,99002) Swm , head , nform , rows , cols
+            WRITE (outpt,99002) swm , head , nform , rows , cols
 99002       FORMAT (A27,' 2168, THE FORM PARAMETER AS GIVEN TO THE PARTITION','ING MODULE FOR SUB-PARTITION ',2A4,/5X,              &
                    &'IS INCONSISTANT',' WITH ITS SIZE.  FORM =',I9,' SIZE =',I9,' ROWS BY',I9,' COLUMNS.')
          ENDIF
@@ -181,27 +182,27 @@ SUBROUTINE partn1
 !     AND IF THE NUMBER IS POSITIVE THE ELEMENT IS MOVED TO THE UPPER
 !     PARTITION
 !
-   iz = Nrp + 1
-   nz = iz + Rpsize - 1
-   IF ( nz+Nbpw>core ) CALL mesage(-8,0,subr)
-   IF ( .NOT.Rpnull .AND. Rpones/=0 ) THEN
+   iz = nrp + 1
+   nz = iz + rpsize - 1
+   IF ( nz+nbpw>core ) CALL mesage(-8,0,subr)
+   IF ( .NOT.rpnull .AND. rpones/=0 ) THEN
       jz = iz - 1
       zero = 0
       ones = 0
 !
 !     NOTE THIS LOGIC WORKS ON CRAY WITH 48 OF 64 BIT INTEGER WORD
 !
-      DO i = Irp , Nrp
-         DO j = 1 , Nbpw
-            shift = Nbpw - j
-            bit = rshift(Z(i),shift)
+      DO i = irp , nrp
+         DO j = 1 , nbpw
+            shift = nbpw - j
+            bit = rshift(z(i),shift)
             jz = jz + 1
             IF ( andf(bit,1)/=0 ) THEN
                ones = ones - 1
-               Z(jz) = ones
+               z(jz) = ones
             ELSE
                zero = zero + 1
-               Z(jz) = zero
+               z(jz) = zero
             ENDIF
          ENDDO
       ENDDO
@@ -209,23 +210,23 @@ SUBROUTINE partn1
       k = 0
       DO i = iz , nz
          k = k + 1
-         Z(i) = k
+         z(i) = k
       ENDDO
    ENDIF
 !
 !     LOOP ON ALL THE COLUMNS OF -A-.
 !
    izm1 = iz - 1
-   DO i = 1 , Cpsize
+   DO i = 1 , cpsize
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
-            IF ( .NOT.(Cpnull) ) THEN
+            IF ( .NOT.(cpnull) ) THEN
                il1 = i - 1
-               bitwd = il1/Nbpw + Icp
-               shift = Nbpw - mod(il1,Nbpw) - 1
-               bit = rshift(Z(bitwd),shift)
+               bitwd = il1/nbpw + icp
+               shift = nbpw - mod(il1,nbpw) - 1
+               bit = rshift(z(bitwd),shift)
                IF ( andf(bit,1)/=0 ) THEN
 !
 !     ONE-S COLUMN (RIGHT PARTITIONS A12 AND A22)
@@ -265,7 +266,7 @@ SUBROUTINE partn1
 !
 !     LOOP ON NON-ZEROS OF THE COLUMN
 !
-               DO WHILE ( Eol<=0 )
+               DO WHILE ( eol<=0 )
 !
 !     PICK UP A NON-ZERO ELEMENT
 !
@@ -273,26 +274,26 @@ SUBROUTINE partn1
 !
 !     DETERMINE ROW POSITION AND FILE DESTINATION.
 !
-                  l = izm1 + Row
-                  IF ( Z(l)<0 ) THEN
+                  l = izm1 + row
+                  IF ( z(l)<0 ) THEN
 !
 !     ONE-S ROW PARTITION.
 !
-                     jrow = -Z(l)
+                     jrow = -z(l)
                      kfile = ifile + 1
                      kblock = iblock + 20
                   ELSE
 !
 !     ZERO-S ROW PARTITION.
 !
-                     jrow = Z(l)
+                     jrow = z(l)
                      kfile = ifile
                      kblock = iblock
                   ENDIF
 !
 !     OUTPUT THE ELEMENT.
 !
-                  IF ( mcb(1,kfile)>0 ) CALL bldpki(Elem,jrow,mcb(1,kfile),block(kblock))
+                  IF ( mcb(1,kfile)>0 ) CALL bldpki(elem,jrow,mcb(1,kfile),block(kblock))
                ENDDO
             ELSE
 !
@@ -319,11 +320,11 @@ SUBROUTINE partn1
 !
 !     WRAP UP.
 !
-   CALL close(a,Clsrew)
+   CALL close(a,clsrew)
    DO i = 1 , 4
       IF ( mcb(1,i)>0 ) THEN
          CALL wrttrl(mcb(1,i))
-         CALL close(mcb(1,i),Clsrew)
+         CALL close(mcb(1,i),clsrew)
       ENDIF
    ENDDO
 99003 FORMAT (A27,' 2163, REQUESTED VALUE OF ',A4,I10,2X,A3,'USED BY ',2A4,'. LOGICAL CHOICE IS',I10)

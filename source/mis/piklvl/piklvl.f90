@@ -1,9 +1,10 @@
-!*==piklvl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==piklvl.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) !HIDESTARS (*,Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt)
+   USE c_bandg
    IMPLICIT NONE
-   USE C_BANDG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -81,7 +82,7 @@ SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) 
 !
 !     SET NHIGH AND NLOW EQUAL TO NACUM
 !
-               DO k = 1 , Idpth
+               DO k = 1 , idpth
                   Nhigh(k) = Nacum(k)
                   Nlow(k) = Nacum(k)
                ENDDO
@@ -101,7 +102,7 @@ SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) 
 !     SET MAX1=LARGEST NEW NUMBER IN NHIGH
 !     SET MAX2=LARGEST NEW NUMBER IN NLOW
 !
-               DO k = 1 , Idpth
+               DO k = 1 , idpth
                   IF ( 2*Nacum(k)/=Nlow(k)+Nhigh(k) ) THEN
                      IF ( Nhigh(k)>max1 ) max1 = Nhigh(k)
                      IF ( Nlow(k)>max2 ) max2 = Nlow(k)
@@ -117,7 +118,7 @@ SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) 
 !
 !     UPDATE NACUM TO BE THE SAME AS NLOW
 !
-                  DO k = 1 , Idpth
+                  DO k = 1 , idpth
                      Nacum(k) = Nlow(k)
                   ENDDO
                ELSE
@@ -132,7 +133,7 @@ SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) 
 !
 !     UPDATE NACUM TO BE THE SAME AS NHIGH
 !
-                  DO k = 1 , Idpth
+                  DO k = 1 , idpth
                      Nacum(k) = Nhigh(k)
                   ENDDO
                ENDIF
@@ -164,7 +165,6 @@ SUBROUTINE piklvl(Lvls1,Lvls2,Ccstor,Idflt,Isdir,Xc,Nhigh,Nlow,Nacum,Size,Stpt) 
          ENDIF
          i = j
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE piklvl

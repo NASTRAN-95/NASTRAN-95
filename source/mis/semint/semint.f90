@@ -2,12 +2,12 @@
  
 SUBROUTINE semint(Debug1)
    IMPLICIT NONE
-   USE C_IFPX1
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XECHOX
-   USE C_XMSSG
-   USE C_XXREAD
+   USE c_ifpx1
+   USE c_machin
+   USE c_system
+   USE c_xechox
+   USE c_xmssg
+   USE c_xxread
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,6 +23,15 @@ SUBROUTINE semint(Debug1)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     SEMINT IS THE EXECUTION MONITOR FOR THE PREFACE.
 !     UMF IS NO LONGER SUPPORTED.
 !
@@ -34,7 +43,7 @@ SUBROUTINE semint(Debug1)
       & 'IFP3  ' , 'XGPI  ' , 'BANDIT'/
 !
 !
-   Insave = Intap
+   insave = intap
 !
 !     READ AND PROCESS THE NASTRAN CARD (IF PRESENT).
 !
@@ -47,7 +56,7 @@ SUBROUTINE semint(Debug1)
 !
 !     DEFINE OPEN CORE FOR UNIVAC, VAX, AND UNIX
 !
-   IF ( Mach==3 .OR. Mach>=5 ) CALL defcor
+   IF ( mach==3 .OR. mach>=5 ) CALL defcor
 !
 !     GENERATE INITIAL FILE TABLES.
 !     COMPUTE NASTRAN TIMING CONSTANTS.
@@ -90,19 +99,19 @@ SUBROUTINE semint(Debug1)
 !
 !     PROCESS SUBSTRUCTURING DMAP
 !
-   nogox = Nogo
-   Nogo = 0
-   IF ( Debug1>0 .AND. Isubs/=0 ) WRITE (6,99006) subr(7)
-   IF ( Isubs/=0 ) CALL asdmap
+   nogox = nogo
+   nogo = 0
+   IF ( Debug1>0 .AND. isubs/=0 ) WRITE (6,99006) subr(7)
+   IF ( isubs/=0 ) CALL asdmap
 !
 !     PROCESS CASE CONTROL CARDS
 !
    CALL conmsg(bcd2,1,1)
    IF ( Debug1>0 ) WRITE (6,99006) subr(8)
    CALL ifp1
-   nogo1 = Nogo
-   IF ( Nogo==-9 ) Nogo = 1
-   IF ( Nogo<0 ) Nogo = 0
+   nogo1 = nogo
+   IF ( nogo==-9 ) nogo = 1
+   IF ( nogo<0 ) nogo = 0
    kaxif = 0
 !
 !     REVERT TO OLD XSORT TO PROCESS BULKDATA CARDS IF DIAG 42 IS
@@ -113,18 +122,18 @@ SUBROUTINE semint(Debug1)
    IF ( Debug1>0 ) WRITE (6,99006) subr(9)
    IF ( l42==1 ) CALL xsort
    IF ( l42==0 ) CALL xsort2
-   IF ( Nogo/=-2 ) THEN
+   IF ( nogo/=-2 ) THEN
 !
 !     INPUT FILE PROCESSOR(S) TO CHECK EACH BULKDATA CARD
 !
       IF ( Debug1>0 ) WRITE (6,99006) subr(10)
       CALL ifp
-      IF ( Debug1>0 .AND. Axic/=0 ) WRITE (6,99006) subr(11)
-      IF ( Axic/=0 ) CALL ifp3
+      IF ( Debug1>0 .AND. axic/=0 ) WRITE (6,99006) subr(11)
+      IF ( axic/=0 ) CALL ifp3
 !
 !     SET KAXIF AS IFP4 WILL MODIFY AXIF
 !
-      kaxif = Axif
+      kaxif = axif
       IF ( kaxif==1 .OR. kaxif==3 ) CALL ifp4
       IF ( kaxif==2 .OR. kaxif==3 ) CALL ifp5
    ENDIF
@@ -132,10 +141,10 @@ SUBROUTINE semint(Debug1)
 !     SUPPRESS NOGO FLAG IF USER REQUESTS UNDEFORMED STRUCTURE PLOT VIA
 !     NASTRAN PLOTOPT CARD
 !
-   IF ( Nogo==-2 ) Nogo = 0
-   IF ( Nogo==0 .AND. nogo1<0 ) Nogo = nogo1
-   IF ( Nogo>=1 .AND. nogo1<0 ) Nogo = -9
-   IF ( nogo1==0 ) nogo1 = Nogo
+   IF ( nogo==-2 ) nogo = 0
+   IF ( nogo==0 .AND. nogo1<0 ) nogo = nogo1
+   IF ( nogo>=1 .AND. nogo1<0 ) nogo = -9
+   IF ( nogo1==0 ) nogo1 = nogo
 !
 !     NOGO FLAG CONDITIONS
 !     NOGOX.NE. 0, FATAL ERROR IN EXECUTIVE CONTROL
@@ -147,22 +156,22 @@ SUBROUTINE semint(Debug1)
    IF ( nogox/=0 ) THEN
       CALL mesage(-61,0,0)
    ELSE
-      IF ( Nogo<0 ) THEN
-         IF ( Nogo==-9 .AND. Plotf/=3 ) THEN
+      IF ( nogo<0 ) THEN
+         IF ( nogo==-9 .AND. plotf/=3 ) THEN
             CALL mesage(-61,0,0)
             GOTO 300
-         ELSEIF ( Plotf<=1 ) THEN
-            Nogo = 1
+         ELSEIF ( plotf<=1 ) THEN
+            nogo = 1
          ELSE
-            Nogo = 0
+            nogo = 0
          ENDIF
-      ELSEIF ( Nogo/=0 ) THEN
-         Nogo = 1
+      ELSEIF ( nogo/=0 ) THEN
+         nogo = 1
       ENDIF
 !
 !     EXECUTE GENERAL PROBLEM INITIALIZATION IF DATA PERMITS.
 !
-      IF ( Nogo/=0 ) CALL mesage(-61,0,0)
+      IF ( nogo/=0 ) CALL mesage(-61,0,0)
       CALL conmsg(bcd4,1,0)
       IF ( Debug1>0 ) WRITE (6,99006) subr(12)
       CALL xgpi
@@ -170,18 +179,18 @@ SUBROUTINE semint(Debug1)
 !     CALL BANDIT TO GENERATE GRID-POINT RE-SEQUENCE CARDS IF DATA
 !     PERMITS
 !
-      IF ( Nogo/=0 .AND. nogo1<0 ) Nogo = -9
-      IF ( Nogo==0 .AND. nogo1/=0 ) Nogo = nogo1
-      IF ( Isy77>=0 .AND. Nogo==0 ) THEN
-         IF ( Axic/=0 .OR. kaxif==1 .OR. kaxif==3 ) THEN
-            WRITE (Outtap,99001) Uim
+      IF ( nogo/=0 .AND. nogo1<0 ) nogo = -9
+      IF ( nogo==0 .AND. nogo1/=0 ) nogo = nogo1
+      IF ( isy77>=0 .AND. nogo==0 ) THEN
+         IF ( axic/=0 .OR. kaxif==1 .OR. kaxif==3 ) THEN
+            WRITE (outtap,99001) uim
 !
 99001       FORMAT (A29,' - GRID-POINT RESEQUENCING PROCESSOR BANDIT IS NOT',' USED DUE TO')
             bcdx = bcd10
-            IF ( Axic/=0 ) bcdx = bcd9
-            WRITE (Outtap,99002) bcdx , bcd11
+            IF ( axic/=0 ) bcdx = bcd9
+            WRITE (outtap,99002) bcdx , bcd11
 99002       FORMAT (5X,'THE PRESENCE OF AXISYMMETRIC ',A4,A1,' DATA')
-            WRITE (Outtap,99003)
+            WRITE (outtap,99003)
 99003       FORMAT (1H0,10X,'**NO ERRORS FOUND - EXECUTE NASTRAN PROGRAM**')
          ELSE
             IF ( Debug1>0 ) WRITE (6,99006) subr(13)
@@ -191,20 +200,20 @@ SUBROUTINE semint(Debug1)
 !
 !     TERMINATE NASTRAN IF LINK 1 ONLY IS REQUESTED BY USER
 !
-      IF ( Isy77==-2 ) CALL pexit
+      IF ( isy77==-2 ) CALL pexit
 !
 !     EXIT ACCORDING TO PLOT OPTION REQUEST
 !     SET PLOTF TO NEGATIVE ONLY IF JOB IS TO BE TERMINATED AFTER PLOTS
 !     IN LINK2
 !
-      j = Plotf + 1
-      IF ( Nogo==0 ) THEN
+      j = plotf + 1
+      IF ( nogo==0 ) THEN
          IF ( j==1 .OR. j==2 .OR. j==5 .OR. j==6 ) GOTO 500
          IF ( j==3 .OR. j==4 ) GOTO 400
       ENDIF
-      IF ( Nogo>0 ) THEN
+      IF ( nogo>0 ) THEN
          IF ( j==1 .OR. j==2 ) THEN
-            IF ( Plotf>1 ) WRITE (Outtap,99004)
+            IF ( plotf>1 ) WRITE (outtap,99004)
 99004       FORMAT ('0*** ATTEMPT TO PLOT UNDEFORMED MODEL IS ABANDONED DUE',' TO FATAL ERROR IN BULK DATA')
             CALL mesage(-61,0,0)
          ELSEIF ( j/=3 .AND. j/=4 .AND. j/=5 .AND. j/=6 ) THEN
@@ -212,7 +221,7 @@ SUBROUTINE semint(Debug1)
          ENDIF
          GOTO 300
       ENDIF
- 150  IF ( Nogo<0 ) THEN
+ 150  IF ( nogo<0 ) THEN
          IF ( j==1 .OR. j==2 .OR. j==3 ) THEN
             CALL mesage(-61,0,0)
          ELSEIF ( j/=4 .AND. j/=5 ) THEN
@@ -222,13 +231,13 @@ SUBROUTINE semint(Debug1)
       ENDIF
 !                      PLOTF =   0,   1,   2,   3,   4,   5
 !
- 200  IF ( Nogo+9/=0 ) GOTO 500
+ 200  IF ( nogo+9/=0 ) GOTO 500
       CALL mesage(-61,0,0)
    ENDIF
- 300  WRITE (Outtap,99005) Uwm
+ 300  WRITE (outtap,99005) uwm
 99005 FORMAT (A25,' - FATAL ERRORS ENCOUNTERED IN USER INPUT DECK,',/5X,'HOWEVER, NASTRAN WILL ATTEMPT TO PLOT THE UNDEFORMED',     &
              &' STRUCTURE AS REQUESTED BY USER')
- 400  Plotf = -Plotf
+ 400  plotf = -plotf
  500  RETURN
 99006 FORMAT (/,' -LINK1 DEBUG- SEMINT CALLING ',A6,' NEXT',/)
 !

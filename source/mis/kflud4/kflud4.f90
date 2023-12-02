@@ -1,13 +1,14 @@
-!*==kflud4.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kflud4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kflud4
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -56,52 +57,52 @@ SUBROUTINE kflud4
 !
 !     TEST FOR INTERIOR ANGLES GREATER THAN 180 DEGREES
 !
-   Nneg = 0
+   nneg = 0
    ip = 0
    DO i = 1 , 4
       DO j = 1 , 3
-         Nj = i + j - 1
-         IF ( Nj>4 ) Nj = Nj - 4
-         Nptj = 4*(Nj-1) + 10
-         R(j) = Ecpt(Nptj)
-         Z(j) = Ecpt(Nptj+1)
+         nj = i + j - 1
+         IF ( nj>4 ) nj = nj - 4
+         nptj = 4*(nj-1) + 10
+         r(j) = ecpt(nptj)
+         z(j) = ecpt(nptj+1)
       ENDDO
-      IF ( Npvt==necpt(i+1) ) ip = ip + 1
-      Ki = (R(2)-R(1))*(Z(3)-Z(1)) - (R(3)-R(1))*(Z(2)-Z(1))
-      IF ( Ki<0 ) THEN
-         Nneg = Nneg + 1
-      ELSEIF ( Ki==0 ) THEN
+      IF ( npvt==necpt(i+1) ) ip = ip + 1
+      ki = (r(2)-r(1))*(z(3)-z(1)) - (r(3)-r(1))*(z(2)-z(1))
+      IF ( ki<0 ) THEN
+         nneg = nneg + 1
+      ELSEIF ( ki==0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
    ENDDO
-   IF ( Nneg/=1 .AND. Nneg/=3 ) THEN
+   IF ( nneg/=1 .AND. nneg/=3 ) THEN
       IF ( ip==1 ) THEN
-         Ecpt(6) = Ecpt(6)*2.0
+         ecpt(6) = ecpt(6)*2.0
          DO i = 1 , 24
-            Ecpt(i+50) = Ecpt(i)
+            ecpt(i+50) = ecpt(i)
          ENDDO
          DO i = 5 , 24
-            Ecpt(i) = Ecpt(i+1)
+            ecpt(i) = ecpt(i+1)
          ENDDO
          iret = 1
          DO
 !
-            IF ( necpt(2)==Npvt .OR. necpt(3)==Npvt .OR. necpt(4)==Npvt ) CALL kflud3
+            IF ( necpt(2)==npvt .OR. necpt(3)==npvt .OR. necpt(4)==npvt ) CALL kflud3
             IF ( iret==1 ) THEN
-               Ecpt(4) = Ecpt(55)
-               Ecpt(17) = Ecpt(72)
-               Ecpt(18) = Ecpt(73)
+               ecpt(4) = ecpt(55)
+               ecpt(17) = ecpt(72)
+               ecpt(18) = ecpt(73)
                iret = 2
             ELSEIF ( iret==2 ) THEN
-               Ecpt(13) = Ecpt(68)
-               Ecpt(14) = Ecpt(69)
-               Ecpt(3) = Ecpt(54)
+               ecpt(13) = ecpt(68)
+               ecpt(14) = ecpt(69)
+               ecpt(3) = ecpt(54)
                iret = 3
             ELSEIF ( iret==3 ) THEN
-               Ecpt(9) = Ecpt(64)
-               Ecpt(10) = Ecpt(65)
-               Ecpt(2) = Ecpt(53)
+               ecpt(9) = ecpt(64)
+               ecpt(10) = ecpt(65)
+               ecpt(2) = ecpt(53)
                iret = 4
             ELSE
                RETURN
@@ -113,10 +114,10 @@ SUBROUTINE kflud4
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      Nj = necpt(1)
-      IF ( Iaxif/=0 ) Nj = Nj/1000
-      WRITE (Out,99001) Ufm , Nj
+      Nj = Necpt(1)
+      IF ( iaxif/=0 ) Nj = Nj/1000
+      WRITE (out,99001) ufm , Nj
 99001 FORMAT (A23,' 5002, INTERIOR ANGLE GREATER THAN OR EQUAL TO 180 ','DEGREES FOR ELEMENT',I12)
-      Nogo = .TRUE.
+      nogo = .TRUE.
    END SUBROUTINE spag_block_1
 END SUBROUTINE kflud4

@@ -1,16 +1,17 @@
-!*==ktrm6d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ktrm6d.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ktrm6d
-USE C_BLANK
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -111,14 +112,14 @@ USE ISO_FORTRAN_ENV
          icode = 7
          ndof = 18
          nsq = ndof**2
-         dict(1) = Estid
+         dict(1) = estid
          dict(2) = 1
          dict(3) = ndof
          dict(4) = icode
-         dict(5) = Gsube
+         dict(5) = gsube
          ipass = 1
          imass = .FALSE.
-         IF ( Nom>0 ) imass = .TRUE.
+         IF ( nom>0 ) imass = .TRUE.
 !
 !     ALLOCATE EST VALUES TO RESPECTIVE  LOCAL  VARIABLES
 !
@@ -126,37 +127,37 @@ USE ISO_FORTRAN_ENV
          DO i = 1 , 6
             nl(i) = iest(i+1)
          ENDDO
-         thetam = Est(8)
+         thetam = est(8)
          matid1 = iest(9)
-         tmem1 = Est(10)
-         tmem3 = Est(11)
-         tmem5 = Est(12)
+         tmem1 = est(10)
+         tmem3 = est(11)
+         tmem5 = est(12)
 !
 !     IF  TMEM3 OR TMEM5 IS 0.0 OR BLANK,IT WILL BE SET EQUAL TO TMEM1
 !
          IF ( tmem3==0.0 .OR. tmem3==blank ) tmem3 = tmem1
          IF ( tmem5==0.0 .OR. tmem5==blank ) tmem5 = tmem1
-         nsm = Est(13)
+         nsm = est(13)
          j = 0
          DO i = 14 , 34 , 4
             j = j + 1
             ics(j) = iest(i)
-            xc(j) = Est(i+1)
-            yc(j) = Est(i+2)
-            zc(j) = Est(i+3)
+            xc(j) = est(i+1)
+            yc(j) = est(i+2)
+            zc(j) = est(i+3)
          ENDDO
-         Eltemp = (Est(38)+Est(39)+Est(40)+Est(41)+Est(42)+Est(43))/6.0
+         eltemp = (est(38)+est(39)+est(40)+est(41)+est(42)+est(43))/6.0
          theta1 = thetam*degra
-         Sinth = sin(theta1)
-         Costh = cos(theta1)
-         IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+         sinth = sin(theta1)
+         costh = cos(theta1)
+         IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     START ELEMENT CALCULATIONS FOR STIFFNESS MATRIX
 !
 !     EVALUATE  MATERIAL PROPERTIES
 !
-         Matflg = 2
-         Matid = matid1
+         matflg = 2
+         matid = matid1
          CALL mat(idele)
 !
 !     CALCULATIONS FOR THE  TRIANGLE
@@ -213,12 +214,12 @@ USE ISO_FORTRAN_ENV
 !     KTRM  IS STIFFNESS MATRIX IN ELEMENT CO-ORDINATES
 !     START EXECUTION FOR STIFFNESS MATRIX CALCULATIONS
 !
-         g11 = Em(1)
-         g12 = Em(2)
-         g13 = Em(3)
-         g22 = Em(4)
-         g23 = Em(5)
-         g33 = Em(6)
+         g11 = em(1)
+         g12 = em(2)
+         g13 = em(3)
+         g22 = em(4)
+         g23 = em(5)
+         g33 = em(6)
 !
 !     FORMULATION OF THE STIFFNESS MATRIX (FROM PROG. MANUAL,
 !     PAGE 8.24-7)
@@ -280,7 +281,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         rho = Rhoy*1.0D0
+         rho = rhoy*1.0D0
          DO i = 1 , 12
             DO j = i , 12
                mimj = xu(i) + xu(j)
@@ -429,7 +430,7 @@ USE ISO_FORTRAN_ENV
 !     LUMPED MASS MATRIX, IN THREE DOFS, NOT TWO
 !     (SINCE LUMPED MASS IS AN INVARIANT, TRANSFORMATION IS NOT NEEDED)
 !
-               rho = Rhoy*1.0D0
+               rho = rhoy*1.0D0
                amass = (rho*vol+nsm*area)/6.
                DO i = 1 , 324 , 19
                   ktrmg(i) = amass
@@ -439,7 +440,7 @@ USE ISO_FORTRAN_ENV
 !
 !     CALL INSERTION ROUTINE
 !
-            CALL emgout(ktrmg(1),ktrmg(1),324,1,dict,ipass,Iprec)
+            CALL emgout(ktrmg(1),ktrmg(1),324,1,dict,ipass,iprec)
             IF ( .NOT.imass .OR. ipass>=2 ) RETURN
 !
 !     GO TO 290 TO COMPUTE LUMPED MASS MATRIX
@@ -460,8 +461,8 @@ USE ISO_FORTRAN_ENV
 !
 !     ERRORS
 !
-         Nogo = .TRUE.
-         WRITE (ioutpt,99001) Ufm , iest(1)
+         nogo = .TRUE.
+         WRITE (ioutpt,99001) ufm , iest(1)
 99001    FORMAT (A23,' 2407, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',//26X,            &
                 &'CHECK COORDINATES OF ELEMENT  TRIM6 WITH ID',I9,1H.)
          EXIT SPAG_DispatchLoop_1

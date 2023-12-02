@@ -1,11 +1,12 @@
-!*==shstss.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shstss.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,Idr)
+   USE c_outreq
+   USE c_sdr2x7
+   USE c_tmpdat
    IMPLICIT NONE
-   USE C_OUTREQ
-   USE C_SDR2X7
-   USE C_TMPDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -115,7 +116,7 @@ SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,
 !
          istres = (inplan-1)*17 + 2
          nstres(istres) = inplan - 1
-         IF ( .NOT.(.NOT.Grids .OR. inplan<=1) ) THEN
+         IF ( .NOT.(.NOT.grids .OR. inplan<=1) ) THEN
             DO inptmp = 1 , nump1
                IF ( Idr(inptmp)==Igrid(inplan) ) GOTO 10
             ENDDO
@@ -135,7 +136,7 @@ SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,
             SELECT CASE (spag_nextblock_1)
             CASE (1)
                fiber = Z12(iz,inplan)
-               Stres(istres+1) = fiber
+               stres(istres+1) = fiber
                const = 12.0*fiber/thick
 !
 !     CREATE [S1] AND [S2]
@@ -159,10 +160,10 @@ SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,
 !     IF TEMPERATURES ARE PRESENT, RECORRECT STRESSES FOR THERMAL
 !     STRESSES RESULTING FROM TEMPERATURE VALUES AT FIBER DISTANCES.
 !
-               IF ( .NOT.(.NOT.Temper .OR. .NOT.Bendng) ) THEN
-                  IF ( .NOT.Tempp1 ) THEN
+               IF ( .NOT.(.NOT.temper .OR. .NOT.Bendng) ) THEN
+                  IF ( .NOT.tempp1 ) THEN
 !
-                     IF ( .NOT.Tempp2 ) THEN
+                     IF ( .NOT.tempp2 ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -196,16 +197,16 @@ SUBROUTINE shstss(Numpx,Elid,Igrid,Thikns,Z12,G,Epscsi,Stemp,Tbar,G2alfb,Bendng,
 !
                DO its = 1 , 3
                   IF ( abs(sigma(its))<=epss ) sigma(its) = 0.0
-                  Stres(istres+1+its) = sigma(its)
+                  stres(istres+1+its) = sigma(its)
                ENDDO
 !
 !     CALCULATE PRINCIPAL STRESSES
 !
-               CALL shpsts(sigma,Vonms,sigmap)
-               Stres(istres+5) = sigmap(1)
-               Stres(istres+6) = sigmap(2)
-               Stres(istres+7) = sigmap(3)
-               Stres(istres+8) = sigmap(4)
+               CALL shpsts(sigma,vonms,sigmap)
+               stres(istres+5) = sigmap(1)
+               stres(istres+6) = sigmap(2)
+               stres(istres+7) = sigmap(3)
+               stres(istres+8) = sigmap(4)
 !
                istres = istres + 8
                EXIT SPAG_DispatchLoop_1

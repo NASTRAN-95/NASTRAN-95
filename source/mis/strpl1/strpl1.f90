@@ -2,11 +2,11 @@
  
 SUBROUTINE strpl1
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,6 +21,12 @@ SUBROUTINE strpl1
    REAL , DIMENSION(10) :: tite
    REAL , DIMENSION(25) :: v
    REAL , DIMENSION(3) :: v1 , v2 , v3
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -73,10 +79,10 @@ SUBROUTINE strpl1
 !>>>>    & (V2(1),Ecpt(18)) , (V3(1),Ecpt(22)) , (Tite(1),A(1)) , (V(1),Prod12(1)) , (Hq(1),A(1))
    DATA m/1 , 2 , 4 , 2 , 3 , 4 , 3 , 1 , 4/
 !
-   Eltemp = Ecpt(25)
-   Theta = Ecpt(5)*degra
-   Sinang = sin(Theta)
-   Cosang = cos(Theta)
+   eltemp = ecpt(25)
+   theta = ecpt(5)*degra
+   sinang = sin(theta)
+   cosang = cos(theta)
 !
 !     FORMATION OF THE R-MATRIX CONTAINING COORDINATES OF THE
 !     SUB TRIANGLES. (2X4) FOR THE TRIANGULAR PLATE.
@@ -89,85 +95,85 @@ SUBROUTINE strpl1
    ENDDO
 !
    DO i = 1 , 3
-      D2(i) = v2(i) - v1(i)
-      D1(i) = v3(i) - v1(i)
+      d2(i) = v2(i) - v1(i)
+      d1(i) = v3(i) - v1(i)
    ENDDO
 !
 !     X2  GOES IN R(1,2)
 !
-   R(1,2) = sqrt(D2(1)**2+D2(2)**2+D2(3)**2)
+   r(1,2) = sqrt(d2(1)**2+d2(2)**2+d2(3)**2)
    DO i = 1 , 3
-      Ivect(i) = D2(i)/R(1,2)
+      ivect(i) = d2(i)/r(1,2)
    ENDDO
 !
 !     NON-NORMALIZED K-VECTOR
 !
-   Kvect(1) = Ivect(2)*D1(3) - D1(2)*Ivect(3)
-   Kvect(2) = Ivect(3)*D1(1) - D1(3)*Ivect(1)
-   Kvect(3) = Ivect(1)*D1(2) - D1(1)*Ivect(2)
+   kvect(1) = ivect(2)*d1(3) - d1(2)*ivect(3)
+   kvect(2) = ivect(3)*d1(1) - d1(3)*ivect(1)
+   kvect(3) = ivect(1)*d1(2) - d1(1)*ivect(2)
 !
 !     Y3 GOES INTO R(2,3)
 !
-   R(2,3) = sqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
+   r(2,3) = sqrt(kvect(1)**2+kvect(2)**2+kvect(3)**2)
    DO i = 1 , 3
-      Kvect(i) = Kvect(i)/R(2,3)
+      kvect(i) = kvect(i)/r(2,3)
    ENDDO
 !
 !     J-VECTOR = K X I  VECTORS
 !
-   Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
-   Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
-   Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+   jvect(1) = kvect(2)*ivect(3) - ivect(2)*kvect(3)
+   jvect(2) = kvect(3)*ivect(1) - ivect(3)*kvect(1)
+   jvect(3) = kvect(1)*ivect(2) - ivect(1)*kvect(2)
 !
 !     NORMALIZE J VECTOR TO MAKE SURE
 !
-   Temp = sqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
+   temp = sqrt(jvect(1)**2+jvect(2)**2+jvect(3)**2)
    DO i = 1 , 3
-      Jvect(i) = Jvect(i)/Temp
+      jvect(i) = jvect(i)/temp
    ENDDO
 !
 !     X3 GOES INTO R(1,3) = D1 DOT IVECT
 !
-   R(1,3) = D1(1)*Ivect(1) + D1(2)*Ivect(2) + D1(3)*Ivect(3)
+   r(1,3) = d1(1)*ivect(1) + d1(2)*ivect(2) + d1(3)*ivect(3)
 !
 !     CENTROID POINT GOES INTO R(1,4) AND R(2,4)
 !
-   R(1,4) = (R(1,2)+R(1,3))/3.0
-   R(2,4) = R(2,3)/3.0
+   r(1,4) = (r(1,2)+r(1,3))/3.0
+   r(2,4) = r(2,3)/3.0
 !
 !     COMPUTE SUB-TRIANGLE COORDINATES
 !     CALL BASIC BENDING ROUTINE FOR ALL SUB-TRIANGLES.
 !
    DO i = 1 , 60
-      Ssum(i) = 0.0
+      ssum(i) = 0.0
    ENDDO
    DO i = 1 , 36
       g(i) = 0.0
    ENDDO
 !
    DO j = 1 , 3
-      Km = 3*j - 3
+      km = 3*j - 3
 !
-      Subsca = m(Km+1)
-      Subscb = m(Km+2)
-      Subscc = m(Km+3)
+      subsca = m(km+1)
+      subscb = m(km+2)
+      subscc = m(km+3)
 !
       DO i = 1 , 2
-         Vv1(i) = R(i,Subscb) - R(i,Subsca)
-         Vv2(i) = R(i,Subscc) - R(i,Subsca)
+         vv1(i) = r(i,subscb) - r(i,subsca)
+         vv2(i) = r(i,subscc) - r(i,subsca)
       ENDDO
-      Xsubb = sqrt(Vv1(1)**2+Vv1(2)**2)
-      U1 = Vv1(1)/Xsubb
-      U2 = Vv1(2)/Xsubb
-      Xsubc = U1*Vv2(1) + Vv2(2)*U2
-      Ysubc = U1*Vv2(2) - Vv2(1)*U2
+      xsubb = sqrt(vv1(1)**2+vv1(2)**2)
+      u1 = vv1(1)/xsubb
+      u2 = vv1(2)/xsubb
+      xsubc = u1*vv2(1) + vv2(2)*u2
+      ysubc = u1*vv2(2) - vv2(1)*u2
 !
-      Xc = Xsubc
-      Yc = Ysubc
+      xc = xsubc
+      yc = ysubc
 !
-      Sinth = Sinang*U1 - Cosang*U2
-      Costh = Cosang*U1 + Sinang*U2
-      IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0
+      sinth = sinang*u1 - cosang*u2
+      costh = cosang*u1 + sinang*u2
+      IF ( abs(sinth)<1.0E-06 ) sinth = 0.0
 !
 !     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR TRIANGLE -J-
 !
@@ -183,21 +189,21 @@ SUBROUTINE strpl1
 !
 !     SET UP OF T-MATRIX
 !
-      T(1) = 1.0
-      T(2) = 0.0
-      T(3) = 0.0
-      T(4) = 0.0
-      T(5) = U1
-      T(6) = U2
-      T(7) = 0.0
-      T(8) = -U2
-      T(9) = U1
+      t(1) = 1.0
+      t(2) = 0.0
+      t(3) = 0.0
+      t(4) = 0.0
+      t(5) = u1
+      t(6) = u2
+      t(7) = 0.0
+      t(8) = -u2
+      t(9) = u1
 !
 !     SET UP V-MATRIX PER FMMS 51-A
 !
-      v(1) = U1*U1/3.0
-      v(2) = U2*U2/3.0
-      v(11) = U1*U2/3.0
+      v(1) = u1*u1/3.0
+      v(2) = u2*u2/3.0
+      v(11) = u1*u2/3.0
       v(3) = -v(11)*2.0
       v(4) = 0.0
       v(5) = 0.0
@@ -213,8 +219,8 @@ SUBROUTINE strpl1
       v(16) = 0.0
       v(17) = 0.0
       v(18) = 0.0
-      v(19) = U1/3.0
-      v(20) = -U2/3.0
+      v(19) = u1/3.0
+      v(20) = -u2/3.0
       v(21) = 0.0
       v(22) = 0.0
       v(23) = 0.0
@@ -225,79 +231,79 @@ SUBROUTINE strpl1
 !             A   B   C
 !
       DO i = 1 , 3
-         CALL gmmats(v(1),5,5,0,A(15*i-14),5,3,0,temp15(1))
-         CALL gmmats(temp15(1),5,3,0,T(1),3,3,0,prod15(1))
+         CALL gmmats(v(1),5,5,0,a(15*i-14),5,3,0,temp15(1))
+         CALL gmmats(temp15(1),5,3,0,t(1),3,3,0,prod15(1))
 !
 !     POINTER TO SSUM MATRIX
 !
-         Npoint = Km + i
-         Npoint = 15*m(Npoint) - 15
+         npoint = km + i
+         npoint = 15*m(npoint) - 15
          DO k = 1 , 15
-            Nsubc = Npoint + k
-            Ssum(Nsubc) = Ssum(Nsubc) + prod15(k)
+            nsubc = npoint + k
+            ssum(nsubc) = ssum(nsubc) + prod15(k)
          ENDDO
       ENDDO
 !
 !     FORM HQ (2X6)
 !
-      Temp1 = Xsubb - Xsubc
-      Temp2 = Ysubc**2
-      L1 = sqrt(Xsubc**2+Temp2)
-      L2 = sqrt(Temp1**2+Temp2)
-      S1 = Xsubc/L1
-      S2 = Temp1/L2
-      C1 = Ysubc/L1
-      C2 = Ysubc/L2
-      X1 = Xsubc/2.0
-      Y1 = Ysubc/2.0
-      X2 = (Xsubb+Xsubc)/2.0
-      Y2 = Y1
-      hq(1) = -Xsubc*C1
-      hq(2) = X1*S1 - Y1*C1
-      hq(3) = 2.0*Y1*S1
-      hq(4) = -3.0*X1*X1*C1
-      hq(5) = Y1*(2.0*X1*S1-Y1*C1)
-      hq(6) = 3.0*Y1*Y1*S1
-      hq(7) = 2.0*X2*C2
-      hq(8) = X2*S2 + Y2*C2
-      hq(9) = 2.0*Y2*S2
-      hq(10) = 3.0*X2*X2*C2
-      hq(11) = Y2*(2.0*X2*S2+Y2*C2)
-      hq(12) = 3.0*Y2*Y2*S2
+      temp1 = xsubb - xsubc
+      temp2 = ysubc**2
+      l1 = sqrt(xsubc**2+temp2)
+      l2 = sqrt(temp1**2+temp2)
+      s1 = xsubc/l1
+      s2 = temp1/l2
+      c1 = ysubc/l1
+      c2 = ysubc/l2
+      x1 = xsubc/2.0
+      y1 = ysubc/2.0
+      x2 = (xsubb+xsubc)/2.0
+      y2 = y1
+      hq(1) = -xsubc*c1
+      hq(2) = x1*s1 - y1*c1
+      hq(3) = 2.0*y1*s1
+      hq(4) = -3.0*x1*x1*c1
+      hq(5) = y1*(2.0*x1*s1-y1*c1)
+      hq(6) = 3.0*y1*y1*s1
+      hq(7) = 2.0*x2*c2
+      hq(8) = x2*s2 + y2*c2
+      hq(9) = 2.0*y2*s2
+      hq(10) = 3.0*x2*x2*c2
+      hq(11) = y2*(2.0*x2*s2+y2*c2)
+      hq(12) = 3.0*y2*y2*s2
 !
 !                      I                    -1
 !     COMPUTE (H       I  H     )  = (HQ)(H)    STORE IN PROD12
 !               PSI,B  I   PSI,C
 !                      I
 !
-      CALL gmmats(hq(1),2,6,0,Hinv(1),6,6,0,Prod12(1))
+      CALL gmmats(hq(1),2,6,0,hinv(1),6,6,0,prod12(1))
 !
 !     COMPUTE (H     ) = -(PROD12)(S)
 !               PSI,A
 !
-      CALL gmmats(Prod12(1),2,6,0,S(1),6,3,0,Habc(1))
-      Habc(1) = -Habc(1)
-      Habc(2) = -Habc(2) + S1
-      Habc(3) = -Habc(3) + C1
-      Habc(4) = -Habc(4)
-      Habc(5) = -Habc(5) + S2
-      Habc(6) = -Habc(6) - C2
+      CALL gmmats(prod12(1),2,6,0,s(1),6,3,0,habc(1))
+      habc(1) = -habc(1)
+      habc(2) = -habc(2) + s1
+      habc(3) = -habc(3) + c1
+      habc(4) = -habc(4)
+      habc(5) = -habc(5) + s2
+      habc(6) = -habc(6) - c2
 !
 !     SPLIT(H     ) AND (H     )  PARTITION
 !            PSI,B        PSI,C
 !
-      Habc(7) = Prod12(1)
-      Habc(8) = Prod12(2)
-      Habc(9) = Prod12(3)
-      Habc(10) = Prod12(7)
-      Habc(11) = Prod12(8)
-      Habc(12) = Prod12(9)
-      Habc(13) = Prod12(4)
-      Habc(14) = Prod12(5)
-      Habc(15) = Prod12(6)
-      Habc(16) = Prod12(10)
-      Habc(17) = Prod12(11)
-      Habc(18) = Prod12(12)
+      habc(7) = prod12(1)
+      habc(8) = prod12(2)
+      habc(9) = prod12(3)
+      habc(10) = prod12(7)
+      habc(11) = prod12(8)
+      habc(12) = prod12(9)
+      habc(13) = prod12(4)
+      habc(14) = prod12(5)
+      habc(15) = prod12(6)
+      habc(16) = prod12(10)
+      habc(17) = prod12(11)
+      habc(18) = prod12(12)
 !
 !     MAP  H , H , AND H  INTO THE G-MATRICES.
 !           A   B       C
@@ -311,10 +317,10 @@ SUBROUTINE strpl1
 !
 !     TRANSFORM H SUB I
 !
-         CALL gmmats(Habc(6*i-5),2,3,0,T(1),3,3,0,Temp9(1))
+         CALL gmmats(habc(6*i-5),2,3,0,t(1),3,3,0,temp9(1))
 !
-         Npoint = Km + i
-         Npoint = 9*m(Npoint) - 9
+         npoint = km + i
+         npoint = 9*m(npoint) - 9
 !
 !     J = 1  ROW 1 OF H INTO ROW 1 OF G.
 !            ROW 2 OF H INTO ROW 2 OF G.
@@ -326,19 +332,19 @@ SUBROUTINE strpl1
          IF ( j<2 ) THEN
          ELSEIF ( j==2 ) THEN
 !
-            Npoint = Npoint + 3
+            npoint = npoint + 3
          ELSE
-            g(Npoint+7) = g(Npoint+7) + Temp9(1)
-            g(Npoint+8) = g(Npoint+8) + Temp9(2)
-            g(Npoint+9) = g(Npoint+9) + Temp9(3)
-            g(Npoint+1) = g(Npoint+1) + Temp9(4)
-            g(Npoint+2) = g(Npoint+2) + Temp9(5)
-            g(Npoint+3) = g(Npoint+3) + Temp9(6)
+            g(npoint+7) = g(npoint+7) + temp9(1)
+            g(npoint+8) = g(npoint+8) + temp9(2)
+            g(npoint+9) = g(npoint+9) + temp9(3)
+            g(npoint+1) = g(npoint+1) + temp9(4)
+            g(npoint+2) = g(npoint+2) + temp9(5)
+            g(npoint+3) = g(npoint+3) + temp9(6)
             CYCLE
          ENDIF
          DO k = 1 , 6
-            Npoint = Npoint + 1
-            g(Npoint) = g(Npoint) + Temp9(k)
+            npoint = npoint + 1
+            g(npoint) = g(npoint) + temp9(k)
          ENDDO
 !
       ENDDO
@@ -347,17 +353,17 @@ SUBROUTINE strpl1
 !     FILL E-MATRIX
 !
    DO i = 1 , 18
-      E(i) = 0.0
+      e(i) = 0.0
    ENDDO
-   E(1) = Kvect(1)
-   E(4) = Kvect(2)
-   E(7) = Kvect(3)
-   E(11) = Ivect(1)
-   E(14) = Ivect(2)
-   E(17) = Ivect(3)
-   E(12) = Jvect(1)
-   E(15) = Jvect(2)
-   E(18) = Jvect(3)
+   e(1) = kvect(1)
+   e(4) = kvect(2)
+   e(7) = kvect(3)
+   e(11) = ivect(1)
+   e(14) = ivect(2)
+   e(17) = ivect(3)
+   e(12) = jvect(1)
+   e(15) = jvect(2)
+   e(18) = jvect(3)
 !
 !               *         *     -1
 !     (S ) = (S  )  -  (S  )(G )  (G )        I = A,B,C
@@ -376,14 +382,14 @@ SUBROUTINE strpl1
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
-   Ising = -1
-   CALL invers(3,g(28),3,Prod9(1),0,Determ,Ising,Temp9(1))
+   ising = -1
+   CALL invers(3,g(28),3,prod9(1),0,determ,ising,temp9(1))
 !
 !     CHECK FOR SINGULARITY.  ISING = 2 IMPLIES SINGULARITY
 !
-   IF ( Ising/=1 ) CALL mesage(-30,36,Ecpt(1))
+   IF ( ising/=1 ) CALL mesage(-30,36,ecpt(1))
 !
-   CALL gmmats(Ssum(46),5,3,0,g(28),3,3,0,prod15(1))
+   CALL gmmats(ssum(46),5,3,0,g(28),3,3,0,prod15(1))
 !
    DO i = 1 , 3
 !
@@ -395,58 +401,58 @@ SUBROUTINE strpl1
 !     SUBTRACT TEMP15 FROM S
 !                           I
 !
-      Npoint = 15*i - 15
+      npoint = 15*i - 15
       DO k = 1 , 15
-         Npoint = Npoint + 1
-         Ssum(Npoint) = Ssum(Npoint) - temp15(k)
+         npoint = npoint + 1
+         ssum(npoint) = ssum(npoint) - temp15(k)
       ENDDO
 !
 !     DO WE NEED TRANSFORMATION T
 !                                I
-      Nsubc = 4*i + 9
-      IF ( necpt(Nsubc)==0 ) THEN
+      nsubc = 4*i + 9
+      IF ( necpt(nsubc)==0 ) THEN
 !
          DO k = 1 , 18
-            tite(k) = E(k)
+            tite(k) = e(k)
          ENDDO
       ELSE
-         CALL transs(necpt(Nsubc),T(1))
-         CALL gmmats(T(1),3,3,1,E(1),3,3,0,tite(1))
-         CALL gmmats(T(1),3,3,1,E(10),3,3,0,tite(10))
+         CALL transs(necpt(nsubc),t(1))
+         CALL gmmats(t(1),3,3,1,e(1),3,3,0,tite(1))
+         CALL gmmats(t(1),3,3,1,e(10),3,3,0,tite(10))
       ENDIF
 !
-      CALL gmmats(Ssum(15*i-14),5,3,0,tite(1),6,3,1,Ph1out(30*i-21))
+      CALL gmmats(ssum(15*i-14),5,3,0,tite(1),6,3,1,ph1out(30*i-21))
 !
    ENDDO
 !
 !     I,Z1,Z2,ELEM ID, 3 SILS FOR PHASE 2... PH1OUT(5) IS A DUMMY
 !
-   Ph1out(1) = Ecpt(1)
-   Ph1out(2) = Ecpt(2)
-   Ph1out(3) = Ecpt(3)
-   Ph1out(4) = Ecpt(4)
-   Ph1out(6) = Ecpt(7)
-   Ph1out(7) = Ecpt(11)
-   Ph1out(8) = Ecpt(12)
+   ph1out(1) = ecpt(1)
+   ph1out(2) = ecpt(2)
+   ph1out(3) = ecpt(3)
+   ph1out(4) = ecpt(4)
+   ph1out(6) = ecpt(7)
+   ph1out(7) = ecpt(11)
+   ph1out(8) = ecpt(12)
 !
 !     FORM S SUB T MATRIX
 !
-   Matid = necpt(6)
-   Stress = 0
-   Sinth = Sinang
-   Costh = Cosang
-   Inflag = 2
-   CALL mat(Ecpt(1))
-   d(1) = G11*Ecpt(7)
-   d(2) = G12*Ecpt(7)
-   d(3) = G13*Ecpt(7)
+   matid = necpt(6)
+   stress = 0
+   sinth = sinang
+   costh = cosang
+   inflag = 2
+   CALL mat(ecpt(1))
+   d(1) = g11*ecpt(7)
+   d(2) = g12*ecpt(7)
+   d(3) = g13*ecpt(7)
    d(4) = d(2)
-   d(5) = G22*Ecpt(7)
-   d(6) = G23*Ecpt(7)
+   d(5) = g22*ecpt(7)
+   d(6) = g23*ecpt(7)
    d(7) = d(3)
    d(8) = d(6)
-   d(9) = G33*Ecpt(7)
-   CALL gmmats(d(1),3,3,0,Alpha(1),3,1,0,St(1))
+   d(9) = g33*ecpt(7)
+   CALL gmmats(d(1),3,3,0,alpha(1),3,1,0,st(1))
 !
 !     ALL PHASE ONE COMPLETE
 !

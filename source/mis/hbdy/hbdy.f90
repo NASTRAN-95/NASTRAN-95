@@ -1,10 +1,11 @@
-!*==hbdy.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==hbdy.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hbdy(Ecpt,Necpt,Iopt,Rvect,Ivect)
+   USE c_condas
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -332,11 +333,10 @@ SUBROUTINE hbdy(Ecpt,Necpt,Iopt,Rvect,Ivect)
             RETURN
          ENDIF
 !
- 40      WRITE (6,99001) Uwm , Necpt(1)
+ 40      WRITE (6,99001) uwm , Necpt(1)
 99001    FORMAT (A25,' 2154, ZERO AREA OR ILLEGAL CONNECTION FOR HBDY ','ELEMENT NUMBER',I9)
          area = 1.0
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE hbdy

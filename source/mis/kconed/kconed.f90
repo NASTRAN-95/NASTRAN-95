@@ -1,15 +1,16 @@
-!*==kconed.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kconed.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kconed
-USE C_CONDAD
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1IO
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_matin
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -122,25 +123,25 @@ USE ISO_FORTRAN_ENV
 !
 !     NO MATCH THUS DO ENTIRE COMPUTATION
 !
-         Sinth = 0.0
-         Costh = 1.0
+         sinth = 0.0
+         costh = 1.0
          nint = necpt(1) - (necpt(1)/1000)*1000 - 1
-         N = nint
-         Ra = Ecpt(28)
-         Za = Ecpt(29)
-         Rb = Ecpt(32)
-         Zb = Ecpt(33)
-         Temp1 = Rb - Ra
-         Temp2 = Zb - Za
-         Sl = dsqrt(Temp1**2+Temp2**2)
-         L2 = Sl*Sl
-         IF ( Sl/=0 ) THEN
+         n = nint
+         ra = ecpt(28)
+         za = ecpt(29)
+         rb = ecpt(32)
+         zb = ecpt(33)
+         temp1 = rb - ra
+         temp2 = zb - za
+         sl = dsqrt(temp1**2+temp2**2)
+         l2 = sl*sl
+         IF ( sl/=0 ) THEN
 !
-            Sp = Temp1/Sl
-            Cp = Temp2/Sl
-            A = Ra
-            B = Sp
-            IF ( B/=0 ) THEN
+            sp = temp1/sl
+            cp = temp2/sl
+            a = ra
+            b = sp
+            IF ( b/=0 ) THEN
 !
 !     ABOVE COMPLETES ALL INTEGRALS FOR B = 0
 !
@@ -162,15 +163,15 @@ USE ISO_FORTRAN_ENV
 !     FOR N=2   I    = PI * (LOG RB  -  LOG RA) / B
 !                0,2            E          E
 !
-               Rasq = Ra*Ra
-               Rbsq = Rb*Rb
-               Piovb = pi/B
+               rasq = ra*ra
+               rbsq = rb*rb
+               piovb = pi/b
 !
-               Integ(1) = 0.5D0*Piovb*(Rbsq-Rasq)
-               Integ(2) = Piovb*(Rb-Ra)
-               Integ(3) = Piovb*dlog(Rb/Ra)
-               Integ(4) = -Piovb*(one/Rb-one/Ra)
-               Integ(5) = -0.5D0*Piovb*(one/Rbsq-one/Rasq)
+               integ(1) = 0.5D0*piovb*(rbsq-rasq)
+               integ(2) = piovb*(rb-ra)
+               integ(3) = piovb*dlog(rb/ra)
+               integ(4) = -piovb*(one/rb-one/ra)
+               integ(5) = -0.5D0*piovb*(one/rbsq-one/rasq)
 !
                idx = 5
                DO i = 1 , 6
@@ -206,14 +207,14 @@ USE ISO_FORTRAN_ENV
 !                                 2 FACTORIAL = FAC(3)    ETC.
 !
                      sum = 0.0
-                     Sign = -1.0D0
+                     sign = -1.0D0
                      DO kk = 1 , mplus1
-                        Sign = -Sign
+                        sign = -sign
                         k = kk - 1
                         mn2 = i - j + 3
-                        qq1 = A
-                        qq2 = Rb
-                        qq3 = Ra
+                        qq1 = a
+                        qq2 = rb
+                        qq3 = ra
                         IF ( k==mn2 ) THEN
 !
 !     QQ4 = A**MN2*DLOG(RB/RA)/(FAC(MN2+1)*FAC(J-2))
@@ -225,7 +226,7 @@ USE ISO_FORTRAN_ENV
                         ELSE
                            mnk2 = mn2 - k
                            mk1 = mplus1 - k
-                           Temp = mnk2
+                           temp = mnk2
 !
 !     QQ4  = A**K*(RB**MNK2-RA**MNK2)/(FAC(MK1)*FAC(KK)*TEMP)
 !
@@ -233,18 +234,18 @@ USE ISO_FORTRAN_ENV
                            qq2 = qq2**mnk2
                            qq3 = qq3**mnk2
                            qq2 = qq2 - qq3
-                           qq3 = fac(mk1)*fac(kk)*Temp
+                           qq3 = fac(mk1)*fac(kk)*temp
                         ENDIF
                         qq4 = qq1*qq2/qq3
-                        sum = sum + Sign*qq4
+                        sum = sum + sign*qq4
                      ENDDO
 !
                      qq1 = pi*fac(mplus1)
-                     qq2 = B
+                     qq2 = b
                      qq3 = qq2**mplus1
                      qq4 = sum*qq1/qq3
                      idx = idx + 1
-                     Integ(idx) = dble(qq4)
+                     integ(idx) = dble(qq4)
                   ENDDO
                ENDDO
             ELSE
@@ -267,7 +268,7 @@ USE ISO_FORTRAN_ENV
 !     MPLUS1 THUS EQUALS I
 !
                      idx = idx + 1
-                     Integ(idx) = (pi*Sl**i)/(dble(float(i))*Ra**(j-2))
+                     integ(idx) = (pi*sl**i)/(dble(float(i))*ra**(j-2))
                   ENDDO
                ENDDO
             ENDIF
@@ -285,32 +286,31 @@ USE ISO_FORTRAN_ENV
 !
 !     IF MEMBRANE THICKNESS IS NOT ZERO FORM THE KQE MATRIX
 !
-            T = Ecpt(5)
-            IF ( T==0 ) THEN
+            t = ecpt(5)
+            IF ( t==0 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             ASSIGN 20 TO iretrn
-            Matid = matid1
-            Inflag = 2
+            matid = matid1
+            inflag = 2
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             nerror(1) = necpt(1)/1000
-            nerror(2) = N + .3
+            nerror(2) = n + .3
             CALL mesage(30,39,nerror(1))
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
       CASE (2)
 !
 !     WE HAVE A MATCH ON OLD SIL NUMBER 1
 !
-         IF ( Npvt/=oldpt1 ) THEN
+         IF ( npvt/=oldpt1 ) THEN
 !
 !     WE HAVE A MATCH ON OLD SIL NUMBER 2
 !
@@ -319,169 +319,168 @@ USE ISO_FORTRAN_ENV
             npivot = 1
          ENDIF
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         Eltemp = Ecpt(35)
-         CALL mat(Ecpt(1))
+         eltemp = ecpt(35)
+         CALL mat(ecpt(1))
          GOTO iretrn
- 20      E11 = G11
-         E12 = G12
-         E22 = G22
-         E33 = G33
-         Tn = T*N
-         Cp2 = Cp*Cp
-         Sp2 = Sp*Sp
-         N2 = N*N
-         Cp2e22 = Cp2*E22
-         Sp2e22 = Sp2*E22
-         Cpe22 = Cp*E22
-         Spe22 = Sp*E22
-         Cpe12 = Cp*E12
-         Spe12 = Sp*E12
-         N2e33 = N2*E33
-         N2e22 = N2*E22
-         Sp2e33 = Sp2*E33
-         Spe33 = Sp*E33
+ 20      e11 = g11
+         e12 = g12
+         e22 = g22
+         e33 = g33
+         tn = t*n
+         cp2 = cp*cp
+         sp2 = sp*sp
+         n2 = n*n
+         cp2e22 = cp2*e22
+         sp2e22 = sp2*e22
+         cpe22 = cp*e22
+         spe22 = sp*e22
+         cpe12 = cp*e12
+         spe12 = sp*e12
+         n2e33 = n2*e33
+         n2e22 = n2*e22
+         sp2e33 = sp2*e33
+         spe33 = sp*e33
 !
 ! /// FURTHER REDUCTION IS NEEDED HERE ///
 !
-         kqe(1,1) = T*(N2e22+Sp2e33)*i02
-         kqe(1,2) = T*(N2e22*i12-Spe33*i01+Sp2e33*i12)
-         Temp = E22 + E33
-         Tnsp = Tn*Sp
-         kqe(1,3) = Tnsp*Temp*i02
-         kqe(1,4) = Tn*(E12*i01+Sp*Temp*i12)
-         Temp = Tn*Cp*E22
-         kqe(1,5) = Temp*i02
-         kqe(1,6) = Temp*i12
-         kqe(1,7) = Temp*i22
-         kqe(1,8) = Temp*i32
-         Temp4 = 2.D0*Sp*i11
-         kqe(2,2) = T*(N2e22*i22+E33*(i00-Temp4+Sp2*i22))
-         kqe(2,3) = Tn*(Spe22*i12-E33*i01+Spe33*i12)
-         kqe(2,4) = Tn*(E12*i11+Spe22*i22-E33*i11+Spe33*i22)
+         kqe(1,1) = t*(n2e22+sp2e33)*i02
+         kqe(1,2) = t*(n2e22*i12-spe33*i01+sp2e33*i12)
+         temp = e22 + e33
+         tnsp = tn*sp
+         kqe(1,3) = tnsp*temp*i02
+         kqe(1,4) = tn*(e12*i01+sp*temp*i12)
+         temp = tn*cp*e22
+         kqe(1,5) = temp*i02
+         kqe(1,6) = temp*i12
+         kqe(1,7) = temp*i22
+         kqe(1,8) = temp*i32
+         temp4 = 2.D0*sp*i11
+         kqe(2,2) = t*(n2e22*i22+e33*(i00-temp4+sp2*i22))
+         kqe(2,3) = tn*(spe22*i12-e33*i01+spe33*i12)
+         kqe(2,4) = tn*(e12*i11+spe22*i22-e33*i11+spe33*i22)
          kqe(2,5) = kqe(1,6)
          kqe(2,6) = kqe(1,7)
          kqe(2,7) = kqe(1,8)
-         kqe(2,8) = Tn*Cpe22*i42
-         kqe(3,3) = T*(Sp2e22*i02+N2e33*i02)
-         kqe(3,4) = T*(Spe12*i01+Sp2e22*i12+N2e33*i12)
-         Temp = T*Cp*Spe22
-         kqe(3,5) = Temp*i02
-         kqe(3,6) = Temp*i12
-         kqe(3,7) = Temp*i22
-         kqe(3,8) = Temp*i32
-         kqe(4,4) = T*(E11*i00+Temp4*E12+Sp2e22*i22+N2e33*i22)
-         Temp = Sp*Cpe22
-         kqe(4,5) = T*(Cpe12*i01+Temp*i12)
-         kqe(4,6) = T*(Cpe12*i11+Temp*i22)
-         kqe(4,7) = T*(Cpe12*i21+Temp*i32)
-         kqe(4,8) = T*(Cpe12*i31+Temp*i42)
-         Temp = T*Cp2e22
-         kqe(5,5) = Temp*i02
-         kqe(5,6) = Temp*i12
-         kqe(5,7) = Temp*i22
-         kqe(5,8) = Temp*i32
+         kqe(2,8) = tn*cpe22*i42
+         kqe(3,3) = t*(sp2e22*i02+n2e33*i02)
+         kqe(3,4) = t*(spe12*i01+sp2e22*i12+n2e33*i12)
+         temp = t*cp*spe22
+         kqe(3,5) = temp*i02
+         kqe(3,6) = temp*i12
+         kqe(3,7) = temp*i22
+         kqe(3,8) = temp*i32
+         kqe(4,4) = t*(e11*i00+temp4*e12+sp2e22*i22+n2e33*i22)
+         temp = sp*cpe22
+         kqe(4,5) = t*(cpe12*i01+temp*i12)
+         kqe(4,6) = t*(cpe12*i11+temp*i22)
+         kqe(4,7) = t*(cpe12*i21+temp*i32)
+         kqe(4,8) = t*(cpe12*i31+temp*i42)
+         temp = t*cp2e22
+         kqe(5,5) = temp*i02
+         kqe(5,6) = temp*i12
+         kqe(5,7) = temp*i22
+         kqe(5,8) = temp*i32
          kqe(6,6) = kqe(5,7)
          kqe(6,7) = kqe(5,8)
-         kqe(6,8) = Temp*i42
+         kqe(6,8) = temp*i42
          kqe(7,7) = kqe(6,8)
-         kqe(7,8) = Temp*i52
-         kqe(8,8) = Temp*i62
+         kqe(7,8) = temp*i52
+         kqe(8,8) = temp*i62
          spag_nextblock_1 = 4
       CASE (4)
 !
-         IF ( Ecpt(7)==0.0 ) THEN
+         IF ( ecpt(7)==0.0 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     NOW GET G MATERIAL MATRIX ID = MATID2
 !
-         Matid = matid2
+         matid = matid2
          ASSIGN 40 TO iretrn
-         Inflag = 2
+         inflag = 2
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     NOW FORM D = I DOT G
 !
- 40      D11 = Ecpt(7)*G11
-         D12 = Ecpt(7)*G12
-         D22 = Ecpt(7)*G22
-         D33 = Ecpt(7)*G33
+ 40      d11 = ecpt(7)*g11
+         d12 = ecpt(7)*g12
+         d22 = ecpt(7)*g22
+         d33 = ecpt(7)*g33
 !
 !     IF SHEAR THICKNESS IS NOT ZERO FORM THE HYQ AND KQY MATRICES
 !
-         Ts = Ecpt(9)
-         IF ( Ts==0 ) THEN
+         ts = ecpt(9)
+         IF ( ts==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     GET G FOR MATID3
 !
-         Matid = matid3
-         Inflag = 1
+         matid = matid3
+         inflag = 1
          ASSIGN 60 TO iretrn
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
  60      IF ( g==0.0 ) THEN
-            Ts = 0.0D0
+            ts = 0.0D0
          ELSE
 !
 !     FORMING 1.0/Q DIRECTLY
 !
-            Opi = one/pi
+            opi = one/pi
 !
 ! /// MAKE SURE ALL BASIC PRODUCTS ARE AT TOP BEFORE ANY SKIPS
 !
-            n2d33 = N2*D33
-            sp2d22 = Sp2*D22
-            Oq = Sl*Ts*dble(g)*(Ra+Rb)*0.5D0 + i02*(n2d33+sp2d22)*Opi
-            Oq = one/Oq
-            Nsp = N*Sp
-            Ncp = N*Cp
-            nspopi = Nsp*Opi
-            Twod33 = 2.0D0*D33
-            Temp1 = D12*(one/Rb-one/Ra)
-            Temp2 = nspopi*(D22+D33)
-            Temp3 = N*nspopi*(Twod33+D22)
-            Temp4 = Oq*0.5D0*Ncp*N*D33*Opi
-            Temp5 = Opi*(N2*Twod33+Sp2*D22)
-            Temp6 = D12*N2*L2/Rb
-            Temp7 = nspopi*Cp*0.5D0
-            Hyq(1) = Oq*(Temp1*Ncp-Temp7*i03*(D33+2.0D0*D22))
-            Hyq(2) = Oq*(Ncp*Sl/Rb*D12-Temp7*i13*(3.0D0*D33+D22)+1.5D0*Ncp*Opi*i02*D33)
-            Hyq(3) = Temp4*i03
-            Hyq(4) = Temp4*i13
-            Hyq(5) = Oq*(Temp1*N2-Temp3*i03)
-            Hyq(6) = Oq*(D12*N2*Sl/Rb-Temp3*i13+Temp5*i02)
-            Hyq(7) = Oq*(2.0D0*D11*(Ra-Rb)+Temp6+2.0D0*i12*Temp5-Temp3*i23)
-            Hyq(8) = Oq*(-D11*6.D0*Sl*Rb+Temp6*Sl+3.D0*i22*Temp5-Temp3*i33)
-            Hyq(9) = -Oq*Temp2*i02
-            Hyq(10) = Oq*(N*Sl*(D12+D33)-Temp2*i12)
+            n2d33 = n2*d33
+            sp2d22 = sp2*d22
+            oq = sl*ts*dble(g)*(ra+rb)*0.5D0 + i02*(n2d33+sp2d22)*opi
+            oq = one/oq
+            nsp = n*sp
+            ncp = n*cp
+            nspopi = nsp*opi
+            twod33 = 2.0D0*d33
+            temp1 = d12*(one/rb-one/ra)
+            temp2 = nspopi*(d22+d33)
+            temp3 = n*nspopi*(twod33+d22)
+            temp4 = oq*0.5D0*ncp*n*d33*opi
+            temp5 = opi*(n2*twod33+sp2*d22)
+            temp6 = d12*n2*l2/rb
+            temp7 = nspopi*cp*0.5D0
+            hyq(1) = oq*(temp1*ncp-temp7*i03*(d33+2.0D0*d22))
+            hyq(2) = oq*(ncp*sl/rb*d12-temp7*i13*(3.0D0*d33+d22)+1.5D0*ncp*opi*i02*d33)
+            hyq(3) = temp4*i03
+            hyq(4) = temp4*i13
+            hyq(5) = oq*(temp1*n2-temp3*i03)
+            hyq(6) = oq*(d12*n2*sl/rb-temp3*i13+temp5*i02)
+            hyq(7) = oq*(2.0D0*d11*(ra-rb)+temp6+2.0D0*i12*temp5-temp3*i23)
+            hyq(8) = oq*(-d11*6.D0*sl*rb+temp6*sl+3.D0*i22*temp5-temp3*i33)
+            hyq(9) = -oq*temp2*i02
+            hyq(10) = oq*(n*sl*(d12+d33)-temp2*i12)
 !
-            Temp = Ts*dble(g)*i00
+            temp = ts*dble(g)*i00
             DO i = 1 , 10
-               Hyqf(i) = Hyq(i)*Temp
+               hyqf(i) = hyq(i)*temp
             ENDDO
             DO i = 1 , 10
                DO j = i , 10
-                  kqy(i,j) = kqy(i,j) + Hyq(i)*Hyqf(j)
+                  kqy(i,j) = kqy(i,j) + hyq(i)*hyqf(j)
                ENDDO
             ENDDO
 !
 !     ADD IN TERMS PER EQUATION-90- PAGE -27- MS-28
 !
-            Temp = Ts*dble(g)
-            kqy(9,10) = kqy(9,10) + Temp*i10
-            kqy(10,10) = kqy(10,10) + Temp*i20
+            temp = ts*dble(g)
+            kqy(9,10) = kqy(9,10) + temp*i10
+            kqy(10,10) = kqy(10,10) + temp*i20
 !
 !     END OF KQY COMPUTATION
 !
-            kqy(9,9) = kqy(9,9) + Temp*i00
+            kqy(9,9) = kqy(9,9) + temp*i00
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
@@ -493,176 +492,176 @@ USE ISO_FORTRAN_ENV
 !     (THE FOLLOWING CODE WAS MACHINE GENERATED AND WILL NOT BE SIMPLI-
 !     FIED FURTHER UNTIL FORMULATION VERIFICATION IS COMPLETED)
 !
-         kqx(1,1) = kqx(1,1) + Cp*Cp*i04*(+D22*N**2+2.25D0*D33*Sp**2)
-         kqx(1,2) = kqx(1,2) + Cp*Cp*(D33*Sp*(+2.25D0*Sp*i14-2.25D0*i03)+D22*N*N*i14)
-         kqx(1,3) = kqx(1,3) + D33*Cp*Cp*Sp*N*i04*(-7.5D-1)
-         kqx(1,4) = kqx(1,4) + D33*Cp*Cp*Sp*N*i14*(-7.5D-1)
-         kqx(1,5) = kqx(1,5) + Cp*N*i04*(+D22*N**2+3.0D0*D33*Sp**2)
-         kqx(1,6) = kqx(1,6) + Cp*N*(Sp*(D33*(+3.0D0*Sp*i14-3.0D0*i03)-D22*i03)+D22*N*N*i14)
-         kqx(1,7) = kqx(1,7) + Cp*N*(Sp*(D33*(+3.0D0*Sp*i24-6.0D0*i13)+D22*i13*(-2.0D0))-2.0D0*D12*i02+D22*N**2*i24)
-         kqx(1,8) = kqx(1,8) + Cp*N*(Sp*(D33*(+3.0D0*Sp*i34-9.0D0*i23)+D22*i23*(-3.0D0))-6.0D0*D12*i12+D22*N**2*i34)
-         kqx(1,9) = kqx(1,9) + Cp*i03*(+D22*N**2+1.5D0*D33*Sp**2)
-         kqx(1,10) = kqx(1,10) + Cp*(D33*Sp*(-1.5D0*i02+1.5D0*Sp*i13)+D22*N*N*i13)
-         kqx(2,2) = kqx(2,2) + Cp*Cp*(D33*(Sp*(i13*(-4.5D0)+Sp*i24*2.25D0)+i02*2.25D0)+D22*N*N*i24)
-         kqx(2,3) = kqx(2,3) + D33*Cp*Cp*N*(-7.5D-1*Sp*i14+7.5D-1*i03)
-         kqx(2,4) = kqx(2,4) + D33*Cp*Cp*N*(-7.5D-1*Sp*i24+7.5D-1*i13)
-         kqx(2,5) = kqx(2,5) + Cp*N*(D33*Sp*(+3.0D0*Sp*i14-3.0D0*i03)+D22*N*N*i14)
-         kqx(2,6) = kqx(2,6) + Cp*N*(D33*(Sp*(i13*(-6.0D0)+Sp*i24*3.0D0)+i02*3.0D0)+D22*(-Sp*i13+N**2*i24))
-         kqx(2,7) = kqx(2,7) + Cp*N*(D33*(Sp*(i23*(-9.0D0)+Sp*i34*3.0D0)+i12*6.0D0)+D22*(-2.0D0*Sp*i23+N**2*i34)+D12*i12*(-2.0D0))
-         kqx(2,8) = kqx(2,8) + Cp*N*(D33*(Sp*(i33*(-1.20D01)+Sp*i44*3.0D0)+i22*9.0D0)+D22*(-3.0D0*Sp*i33+N**2*i44)+D12*i22*(-6.0D0))
-         kqx(2,9) = kqx(2,9) + Cp*(D33*Sp*(+1.5D0*Sp*i13-1.5D0*i02)+D22*N*N*i13)
-         kqx(2,10) = kqx(2,10) + Cp*(D33*(Sp*(i12*(-3.0D0)+Sp*i23*1.5D0)+i01*1.5D0)+D22*N*N*i23)
-         kqx(3,3) = kqx(3,3) + D33*Cp*Cp*N*N*i04*2.5D-1
-         kqx(3,4) = kqx(3,4) + D33*Cp*Cp*N*N*i14*2.5D-1
-         kqx(3,5) = kqx(3,5) + D33*Cp*Sp*N*N*i04*(-1.0D0)
-         kqx(3,6) = kqx(3,6) + D33*Cp*N*N*(-Sp*i14+i03)
-         kqx(3,7) = kqx(3,7) + D33*Cp*N*N*(-Sp*i24+2.0D0*i13)
-         kqx(3,8) = kqx(3,8) + D33*Cp*N*N*(-Sp*i34+3.0D0*i23)
-         kqx(3,9) = kqx(3,9) + D33*Cp*Sp*N*i03*(-5.0D-1)
-         kqx(3,10) = kqx(3,10) + D33*Cp*N*(+5.0D-1*i02-5.0D-1*Sp*i13)
-         kqx(4,4) = kqx(4,4) + D33*Cp*Cp*N*N*i24*2.5D-1
-         kqx(4,5) = kqx(4,5) + D33*Cp*Sp*N*N*i14*(-1.0D0)
-         kqx(4,6) = kqx(4,6) + D33*Cp*N*N*(-Sp*i24+i13)
-         kqx(4,7) = kqx(4,7) + D33*Cp*N*N*(-Sp*i34+2.0D0*i23)
-         kqx(4,8) = kqx(4,8) + D33*Cp*N*N*(-Sp*i44+3.0D0*i33)
-         kqx(4,9) = kqx(4,9) + D33*Cp*Sp*N*i13*(-5.0D-1)
-         kqx(4,10) = kqx(4,10) + D33*Cp*N*(+5.0D-1*i12-5.0D-1*Sp*i23)
-         kqx(5,5) = kqx(5,5) + N*N*i04*(+D22*N**2+4.0D0*D33*Sp**2)
-         kqx(5,6) = kqx(5,6) + N*N*(Sp*(D33*(+4.0D0*Sp*i14-4.0D0*i03)+D22*i03*(-1.0D0))+D22*N*N*i14)
-         kqx(5,7) = kqx(5,7) + N*N*(Sp*(D33*(+4.0D0*Sp*i24-8.0D0*i13)+D22*i13*(-2.0D0))-2.0D0*D12*i02+D22*N**2*i24)
-         kqx(5,8) = kqx(5,8) + N*N*(Sp*(D33*(+4.0D0*Sp*i34-1.20D01*i23)+D22*i23*(-3.0D0))-6.0D0*D12*i12+D22*N**2*i34)
-         kqx(5,9) = kqx(5,9) + N*i03*(+D22*N**2+2.0D0*D33*Sp**2)
-         kqx(5,10) = kqx(5,10) + N*(D33*Sp*(-2.0D0*i02+2.0D0*Sp*i13)+D22*N*N*i13)
-         kqx(6,6) = kqx(6,6) + N*N*(Sp*(i13*(D22*(-2.0D0)+D33*(-8.0D0))+D33*Sp*i24*4.0D0)+D22*N**2*i24+4.0D0*D33*i02)               &
-                  & + D22*Sp*Sp*i02
-         kqx(6,7) = kqx(6,7) + N*N*(Sp*(i23*(D22*(-3.0D0)+D33*(-1.20D01))+D33*Sp*i34*4.0D0)+i12*(-2.0D0*D12+8.0D0*D33)+D22*N*N*i34) &
-                  & + Sp*(+2.0D0*D12*i01+2.0D0*D22*Sp*i12)
-         kqx(6,8) = kqx(6,8) + N*N*(Sp*(i33*(D22*(-4.0D0)+D33*(-1.6D01))+D33*Sp*i44*4.0D0)+i22*(-6.0D0*D12+1.20D01*D33)+D22*N*N*i44)&
-                  & + Sp*(+6.0D0*D12*i11+3.0D0*D22*Sp*i22)
-         kqx(6,9) = kqx(6,9) + N*(Sp*(D33*(+2.0D0*Sp*i13-2.0D0*i02)+D22*i02*(-1.0D0))+D22*N*N*i13)
-         kqx(6,10) = kqx(6,10) + N*(D33*(Sp*(i12*(-4.0D0)+Sp*i23*2.0D0)+i01*2.0D0)+D22*(+N**2*i23-Sp*i12))
-         kqx(7,7) = kqx(7,7) + N*N*(Sp*(i33*(D22*(-4.0D0)+D33*(-1.6D01))+D33*Sp*i44*4.0D0)+i22*(D12*(-4.0D0)+D33*1.6D01)            &
-                  & +D22*N*N*i44) + Sp*(D12*i11*8.0D0+D22*Sp*i22*4.0D0) + D11*i00*4.0D0
-         kqx(7,8) = kqx(7,8) + N*N*(Sp*(i43*(D22*(-5.0D0)+D33*(-2.0D01))+D33*Sp*i54*4.0D0)+i32*(D12*(-8.0D0)+D33*2.40D01)           &
-                  & +D22*N*N*i54) + Sp*(D12*i21*1.80D01+D22*Sp*i32*6.0D0) + D11*i10*1.20D01
-         kqx(7,9) = kqx(7,9) + N*(Sp*(D33*(+2.0D0*Sp*i23-4.0D0*i12)+D22*i12*(-2.0D0))-2.0D0*D12*i01+D22*N**2*i23)
-         kqx(7,10) = kqx(7,10) + N*(D33*(Sp*(i22*(-6.0D0)+Sp*i33*2.0D0)+i11*4.0D0)+D22*(+N**2*i33-2.0D0*Sp*i22)+D12*i11*(-2.0D0))
-         kqx(8,8) = kqx(8,8) + N*N*(Sp*(i53*(D22*(-6.0D0)+D33*(-2.40D01))+D33*Sp*i64*4.0D0)+i42*(D12*(-1.20D01)+D33*3.60D01)        &
-                  & +D22*N*N*i64) + Sp*(D12*i31*3.60D01+D22*Sp*i42*9.0D0) + D11*i20*3.60D01
-         kqx(8,9) = kqx(8,9) + N*(Sp*(D33*(+2.0D0*Sp*i33-6.0D0*i22)+D22*i22*(-3.0D0))-6.0D0*D12*i11+D22*N**2*i33)
-         kqx(8,10) = kqx(8,10) + N*(D33*(Sp*(i32*(-8.0D0)+Sp*i43*2.0D0)+i21*6.0D0)+D22*(+N**2*i43-3.0D0*Sp*i32)+D12*i21*(-6.0D0))
-         kqx(9,9) = kqx(9,9) + i02*(+D22*N**2+D33*Sp**2)
-         kqx(9,10) = kqx(9,10) + D33*Sp*(-i01+Sp*i12) + D22*N*N*i12
-         kqx(10,10) = kqx(10,10) + D33*(Sp*(i11*(-2.0D0)+Sp*i22)+i00) + D22*N*N*i22
-         IF ( Ts/=0.0D0 ) THEN
+         kqx(1,1) = kqx(1,1) + cp*cp*i04*(+d22*n**2+2.25D0*d33*sp**2)
+         kqx(1,2) = kqx(1,2) + cp*cp*(d33*sp*(+2.25D0*sp*i14-2.25D0*i03)+d22*n*n*i14)
+         kqx(1,3) = kqx(1,3) + d33*cp*cp*sp*n*i04*(-7.5D-1)
+         kqx(1,4) = kqx(1,4) + d33*cp*cp*sp*n*i14*(-7.5D-1)
+         kqx(1,5) = kqx(1,5) + cp*n*i04*(+d22*n**2+3.0D0*d33*sp**2)
+         kqx(1,6) = kqx(1,6) + cp*n*(sp*(d33*(+3.0D0*sp*i14-3.0D0*i03)-d22*i03)+d22*n*n*i14)
+         kqx(1,7) = kqx(1,7) + cp*n*(sp*(d33*(+3.0D0*sp*i24-6.0D0*i13)+d22*i13*(-2.0D0))-2.0D0*d12*i02+d22*n**2*i24)
+         kqx(1,8) = kqx(1,8) + cp*n*(sp*(d33*(+3.0D0*sp*i34-9.0D0*i23)+d22*i23*(-3.0D0))-6.0D0*d12*i12+d22*n**2*i34)
+         kqx(1,9) = kqx(1,9) + cp*i03*(+d22*n**2+1.5D0*d33*sp**2)
+         kqx(1,10) = kqx(1,10) + cp*(d33*sp*(-1.5D0*i02+1.5D0*sp*i13)+d22*n*n*i13)
+         kqx(2,2) = kqx(2,2) + cp*cp*(d33*(sp*(i13*(-4.5D0)+sp*i24*2.25D0)+i02*2.25D0)+d22*n*n*i24)
+         kqx(2,3) = kqx(2,3) + d33*cp*cp*n*(-7.5D-1*sp*i14+7.5D-1*i03)
+         kqx(2,4) = kqx(2,4) + d33*cp*cp*n*(-7.5D-1*sp*i24+7.5D-1*i13)
+         kqx(2,5) = kqx(2,5) + cp*n*(d33*sp*(+3.0D0*sp*i14-3.0D0*i03)+d22*n*n*i14)
+         kqx(2,6) = kqx(2,6) + cp*n*(d33*(sp*(i13*(-6.0D0)+sp*i24*3.0D0)+i02*3.0D0)+d22*(-sp*i13+n**2*i24))
+         kqx(2,7) = kqx(2,7) + cp*n*(d33*(sp*(i23*(-9.0D0)+sp*i34*3.0D0)+i12*6.0D0)+d22*(-2.0D0*sp*i23+n**2*i34)+d12*i12*(-2.0D0))
+         kqx(2,8) = kqx(2,8) + cp*n*(d33*(sp*(i33*(-1.20D01)+sp*i44*3.0D0)+i22*9.0D0)+d22*(-3.0D0*sp*i33+n**2*i44)+d12*i22*(-6.0D0))
+         kqx(2,9) = kqx(2,9) + cp*(d33*sp*(+1.5D0*sp*i13-1.5D0*i02)+d22*n*n*i13)
+         kqx(2,10) = kqx(2,10) + cp*(d33*(sp*(i12*(-3.0D0)+sp*i23*1.5D0)+i01*1.5D0)+d22*n*n*i23)
+         kqx(3,3) = kqx(3,3) + d33*cp*cp*n*n*i04*2.5D-1
+         kqx(3,4) = kqx(3,4) + d33*cp*cp*n*n*i14*2.5D-1
+         kqx(3,5) = kqx(3,5) + d33*cp*sp*n*n*i04*(-1.0D0)
+         kqx(3,6) = kqx(3,6) + d33*cp*n*n*(-sp*i14+i03)
+         kqx(3,7) = kqx(3,7) + d33*cp*n*n*(-sp*i24+2.0D0*i13)
+         kqx(3,8) = kqx(3,8) + d33*cp*n*n*(-sp*i34+3.0D0*i23)
+         kqx(3,9) = kqx(3,9) + d33*cp*sp*n*i03*(-5.0D-1)
+         kqx(3,10) = kqx(3,10) + d33*cp*n*(+5.0D-1*i02-5.0D-1*sp*i13)
+         kqx(4,4) = kqx(4,4) + d33*cp*cp*n*n*i24*2.5D-1
+         kqx(4,5) = kqx(4,5) + d33*cp*sp*n*n*i14*(-1.0D0)
+         kqx(4,6) = kqx(4,6) + d33*cp*n*n*(-sp*i24+i13)
+         kqx(4,7) = kqx(4,7) + d33*cp*n*n*(-sp*i34+2.0D0*i23)
+         kqx(4,8) = kqx(4,8) + d33*cp*n*n*(-sp*i44+3.0D0*i33)
+         kqx(4,9) = kqx(4,9) + d33*cp*sp*n*i13*(-5.0D-1)
+         kqx(4,10) = kqx(4,10) + d33*cp*n*(+5.0D-1*i12-5.0D-1*sp*i23)
+         kqx(5,5) = kqx(5,5) + n*n*i04*(+d22*n**2+4.0D0*d33*sp**2)
+         kqx(5,6) = kqx(5,6) + n*n*(sp*(d33*(+4.0D0*sp*i14-4.0D0*i03)+d22*i03*(-1.0D0))+d22*n*n*i14)
+         kqx(5,7) = kqx(5,7) + n*n*(sp*(d33*(+4.0D0*sp*i24-8.0D0*i13)+d22*i13*(-2.0D0))-2.0D0*d12*i02+d22*n**2*i24)
+         kqx(5,8) = kqx(5,8) + n*n*(sp*(d33*(+4.0D0*sp*i34-1.20D01*i23)+d22*i23*(-3.0D0))-6.0D0*d12*i12+d22*n**2*i34)
+         kqx(5,9) = kqx(5,9) + n*i03*(+d22*n**2+2.0D0*d33*sp**2)
+         kqx(5,10) = kqx(5,10) + n*(d33*sp*(-2.0D0*i02+2.0D0*sp*i13)+d22*n*n*i13)
+         kqx(6,6) = kqx(6,6) + n*n*(sp*(i13*(d22*(-2.0D0)+d33*(-8.0D0))+d33*sp*i24*4.0D0)+d22*n**2*i24+4.0D0*d33*i02)               &
+                  & + d22*sp*sp*i02
+         kqx(6,7) = kqx(6,7) + n*n*(sp*(i23*(d22*(-3.0D0)+d33*(-1.20D01))+d33*sp*i34*4.0D0)+i12*(-2.0D0*d12+8.0D0*d33)+d22*n*n*i34) &
+                  & + sp*(+2.0D0*d12*i01+2.0D0*d22*sp*i12)
+         kqx(6,8) = kqx(6,8) + n*n*(sp*(i33*(d22*(-4.0D0)+d33*(-1.6D01))+d33*sp*i44*4.0D0)+i22*(-6.0D0*d12+1.20D01*d33)+d22*n*n*i44)&
+                  & + sp*(+6.0D0*d12*i11+3.0D0*d22*sp*i22)
+         kqx(6,9) = kqx(6,9) + n*(sp*(d33*(+2.0D0*sp*i13-2.0D0*i02)+d22*i02*(-1.0D0))+d22*n*n*i13)
+         kqx(6,10) = kqx(6,10) + n*(d33*(sp*(i12*(-4.0D0)+sp*i23*2.0D0)+i01*2.0D0)+d22*(+n**2*i23-sp*i12))
+         kqx(7,7) = kqx(7,7) + n*n*(sp*(i33*(d22*(-4.0D0)+d33*(-1.6D01))+d33*sp*i44*4.0D0)+i22*(d12*(-4.0D0)+d33*1.6D01)            &
+                  & +d22*n*n*i44) + sp*(d12*i11*8.0D0+d22*sp*i22*4.0D0) + d11*i00*4.0D0
+         kqx(7,8) = kqx(7,8) + n*n*(sp*(i43*(d22*(-5.0D0)+d33*(-2.0D01))+d33*sp*i54*4.0D0)+i32*(d12*(-8.0D0)+d33*2.40D01)           &
+                  & +d22*n*n*i54) + sp*(d12*i21*1.80D01+d22*sp*i32*6.0D0) + d11*i10*1.20D01
+         kqx(7,9) = kqx(7,9) + n*(sp*(d33*(+2.0D0*sp*i23-4.0D0*i12)+d22*i12*(-2.0D0))-2.0D0*d12*i01+d22*n**2*i23)
+         kqx(7,10) = kqx(7,10) + n*(d33*(sp*(i22*(-6.0D0)+sp*i33*2.0D0)+i11*4.0D0)+d22*(+n**2*i33-2.0D0*sp*i22)+d12*i11*(-2.0D0))
+         kqx(8,8) = kqx(8,8) + n*n*(sp*(i53*(d22*(-6.0D0)+d33*(-2.40D01))+d33*sp*i64*4.0D0)+i42*(d12*(-1.20D01)+d33*3.60D01)        &
+                  & +d22*n*n*i64) + sp*(d12*i31*3.60D01+d22*sp*i42*9.0D0) + d11*i20*3.60D01
+         kqx(8,9) = kqx(8,9) + n*(sp*(d33*(+2.0D0*sp*i33-6.0D0*i22)+d22*i22*(-3.0D0))-6.0D0*d12*i11+d22*n**2*i33)
+         kqx(8,10) = kqx(8,10) + n*(d33*(sp*(i32*(-8.0D0)+sp*i43*2.0D0)+i21*6.0D0)+d22*(+n**2*i43-3.0D0*sp*i32)+d12*i21*(-6.0D0))
+         kqx(9,9) = kqx(9,9) + i02*(+d22*n**2+d33*sp**2)
+         kqx(9,10) = kqx(9,10) + d33*sp*(-i01+sp*i12) + d22*n*n*i12
+         kqx(10,10) = kqx(10,10) + d33*(sp*(i11*(-2.0D0)+sp*i22)+i00) + d22*n*n*i22
+         IF ( ts/=0.0D0 ) THEN
 !
 !     THE FOLLOWING CODES WERE MOVED HERE FROM KCONEY
 !
-            kqx(1,1) = kqx(1,1) + h11*(Sp*(Cp*N*i03*(D22*2.0D0+D33*3.0D0)+D22*Sp*h11*i02)+D33*N*N*h11*i02)
-            kqx(1,2) = kqx(1,2) + N*(Cp*(Sp*(D22*(+h12*i03+h11*i13)+D33*(+1.5D0*h12*i03+1.5D0*h11*i13))+D33*h11*i02*(-1.5D0))       &
-                     & +D33*N*h11*h12*i02) + D22*Sp*Sp*h11*h12*i02
-            kqx(1,3) = kqx(1,3) + N*(D33*(Cp*i03*(+1.5D0*Sp*h13-5.0D-1*N*h11)+N*h11*h13*i02)+D22*Cp*Sp*h13*i03)                     &
-                     & + D22*Sp*Sp*h11*h13*i02
-            kqx(1,4) = kqx(1,4) + N*(D33*(Cp*(+1.5D0*Sp*h14*i03-5.0D-1*N*h11*i13)+N*h11*h14*i02)+D22*Cp*Sp*h14*i03)                 &
-                     & + D22*Sp*Sp*h11*h14*i02
-            kqx(1,5) = kqx(1,5) + Sp*(N*i03*(D22*(+Cp*h15+N*h11)+D33*(+1.5D0*Cp*h15+2.0D0*N*h11))+D22*Sp*h11*h15*i02)               &
-                     & + D33*N*N*h11*h15*i02
-            kqx(1,6) = kqx(1,6) + Sp*(D22*(h11*(Sp*i02*(-1.0D0+h16)+N*N*i13)+Cp*N*h16*i03)+D33*N*(+1.5D0*Cp*h16*i03+2.0D0*N*h11*i13)&
-                     & ) + D33*N*N*h11*i02*(-2.0D0+h16)
-            kqx(1,7) = kqx(1,7) + Sp*(h11*(D22*(Sp*(-2.0D0*i12+h17*i02)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +Cp*N*h17*i03*(+D22+1.5D0*D33)) + D33*N*N*h11*(-4.0D0*i12+h17*i02)
-            kqx(1,8) = kqx(1,8) + Sp*(h11*(D22*(Sp*(-3.0D0*i22+h18*i02)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +Cp*N*h18*i03*(+D22+1.5D0*D33)) + D33*N*N*h11*(-6.0D0*i22+h18*i02)
-            kqx(1,9) = kqx(1,9) + Sp*(N*(D22*(+Cp*h19*i03+h11*i02)+D33*(+1.5D0*Cp*h19*i03+h11*i02))+D22*Sp*h11*h19*i02)             &
-                     & + D33*N*N*h11*h19*i02
-            kqx(1,10) = kqx(1,10) + N*(D33*(h11*(-i01+Sp*i12+N*h1ten*i02)+Cp*Sp*h1ten*i03*1.5D0)+D22*Sp*(+Cp*h1ten*i03+h11*i12))    &
-                      & + D22*Sp*Sp*h11*h1ten*i02
-            kqx(2,2) = kqx(2,2) + h12*(N*(Cp*(D33*(Sp*i13*3.D0+i02*(-3.D0))+D22*Sp*i13*2.D0)+D33*N*h12*i02)+D22*Sp*Sp*h12*i02)
-            kqx(2,3) = kqx(2,3) + N*(D33*(Cp*(h13*(+1.5D0*Sp*i13-1.5D0*i02)+N*h12*i03*(-5.0D-1))+N*h12*h13*i02)+D22*Cp*Sp*h13*i13)  &
-                     & + D22*Sp*Sp*h12*h13*i02
-            kqx(2,4) = kqx(2,4) + N*(D33*(Cp*(h14*(+1.5D0*Sp*i13-1.5D0*i02)+N*h12*i13*(-5.0D-1))+N*h12*h14*i02)+D22*Cp*Sp*h14*i13)  &
-                     & + D22*Sp*Sp*h12*h14*i02
-            kqx(2,5) = kqx(2,5) + N*(D33*(h15*(Cp*(+1.5D0*Sp*i13-1.5D0*i02)+N*h12*i02)+Sp*N*h12*i03*2.0D0)                          &
-                     & +D22*Sp*(+Cp*h15*i13+N*h12*i03)) + D22*Sp*Sp*h12*h15*i02
-            kqx(2,6) = kqx(2,6) + N*(D33*(N*h12*(i02*(-2.0D0+h16)+Sp*i13*2.0D0)+Cp*h16*(+1.5D0*Sp*i13-1.5D0*i02))                   &
-                     & +D22*Sp*i13*(+Cp*h16+N*h12)) + D22*Sp*Sp*h12*i02*(-1.0D0+h16)
-            kqx(2,7) = kqx(2,7) + Sp*(h12*(D22*(Sp*(-2.0D0*i12+h17*i02)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +Cp*N*h17*i13*(+D22+1.5D0*D33)) + D33*N*(N*h12*(-4.0D0*i12+h17*i02)+Cp*h17*i02*(-1.5D0))
-            kqx(2,8) = kqx(2,8) + Sp*(h12*(D22*(Sp*(-3.0D0*i22+h18*i02)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +Cp*N*h18*i13*(+D22+1.5D0*D33)) + D33*N*(N*h12*(-6.0D0*i22+h18*i02)+Cp*h18*i02*(-1.5D0))
-            kqx(2,9) = kqx(2,9) + N*(D33*(h19*(Cp*(+1.5D0*Sp*i13-1.5D0*i02)+N*h12*i02)+Sp*h12*i02)+D22*Sp*(+Cp*h19*i13+h12*i02))    &
-                     & + D22*Sp*Sp*h12*h19*i02
-            kqx(2,10) = kqx(2,10) + N*(D33*(h12*(-i01+Sp*i12+N*h1ten*i02)+Cp*h1ten*(+1.5D0*Sp*i13-1.5D0*i02))                       &
-                      & +D22*Sp*(+Cp*h1ten*i13+h12*i12)) + D22*Sp*Sp*h12*h1ten*i02
-            kqx(3,3) = kqx(3,3) + h13*(D33*N*N*(Cp*i03*(-1.0D0)+h13*i02)+D22*Sp*Sp*h13*i02)
-            kqx(3,4) = kqx(3,4) + D33*N*N*(Cp*(-5.0D-1*h14*i03-5.0D-1*h13*i13)+h13*h14*i02) + D22*Sp*Sp*h13*h14*i02
-            kqx(3,5) = kqx(3,5) + N*N*(D33*(h13*(+2.0D0*Sp*i03+h15*i02)+Cp*h15*i03*(-5.0D-1))+D22*Sp*h13*i03)                       &
-                     & + D22*Sp*Sp*h13*h15*i02
-            kqx(3,6) = kqx(3,6) + h13*(Sp*(D22*(Sp*i02*(-1.D0+h16)+N*N*i13)+D33*N*N*i13*2.0D0)+D33*N*N*i02*(-2.0D0+h16))            &
-                     & + D33*Cp*N*N*h16*i03*(-5.0D-1)
-            kqx(3,7) = kqx(3,7) + h13*(Sp*(D22*(Sp*(-2.0D0*i12+h17*i02)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +D33*N*N*(-4.0D0*i12+h17*i02)) + D33*Cp*N*N*h17*i03*(-5.0D-1)
-            kqx(3,8) = kqx(3,8) + h13*(Sp*(D22*(Sp*(-3.0D0*i22+h18*i02)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +D33*N*N*(-6.0D0*i22+h18*i02)) + D33*Cp*N*N*h18*i03*(-5.0D-1)
-            kqx(3,9) = kqx(3,9) + N*(D33*(N*h19*(-5.0D-1*Cp*i03+h13*i02)+Sp*h13*i02)+D22*Sp*h13*i02) + D22*Sp*Sp*h13*h19*i02
-            kqx(3,10) = kqx(3,10) + N*(D33*(h13*(-i01+Sp*i12+N*h1ten*i02)+Cp*N*h1ten*i03*(-5.0D-1))+D22*Sp*h13*i12)                 &
-                      & + D22*Sp*Sp*h13*h1ten*i02
-            kqx(4,4) = kqx(4,4) + h14*(D33*N*N*(Cp*i13*(-1.0D0)+h14*i02)+D22*Sp*Sp*h14*i02)
-            kqx(4,5) = kqx(4,5) + N*N*(D33*(h14*(+2.0D0*Sp*i03+h15*i02)+Cp*h15*i13*(-5.0D-1))+D22*Sp*h14*i03)                       &
-                     & + D22*Sp*Sp*h14*h15*i02
+            kqx(1,1) = kqx(1,1) + h11*(sp*(cp*n*i03*(d22*2.0D0+d33*3.0D0)+d22*sp*h11*i02)+d33*n*n*h11*i02)
+            kqx(1,2) = kqx(1,2) + n*(cp*(sp*(d22*(+h12*i03+h11*i13)+d33*(+1.5D0*h12*i03+1.5D0*h11*i13))+d33*h11*i02*(-1.5D0))       &
+                     & +d33*n*h11*h12*i02) + d22*sp*sp*h11*h12*i02
+            kqx(1,3) = kqx(1,3) + n*(d33*(cp*i03*(+1.5D0*sp*h13-5.0D-1*n*h11)+n*h11*h13*i02)+d22*cp*sp*h13*i03)                     &
+                     & + d22*sp*sp*h11*h13*i02
+            kqx(1,4) = kqx(1,4) + n*(d33*(cp*(+1.5D0*sp*h14*i03-5.0D-1*n*h11*i13)+n*h11*h14*i02)+d22*cp*sp*h14*i03)                 &
+                     & + d22*sp*sp*h11*h14*i02
+            kqx(1,5) = kqx(1,5) + sp*(n*i03*(d22*(+cp*h15+n*h11)+d33*(+1.5D0*cp*h15+2.0D0*n*h11))+d22*sp*h11*h15*i02)               &
+                     & + d33*n*n*h11*h15*i02
+            kqx(1,6) = kqx(1,6) + sp*(d22*(h11*(sp*i02*(-1.0D0+h16)+n*n*i13)+cp*n*h16*i03)+d33*n*(+1.5D0*cp*h16*i03+2.0D0*n*h11*i13)&
+                     & ) + d33*n*n*h11*i02*(-2.0D0+h16)
+            kqx(1,7) = kqx(1,7) + sp*(h11*(d22*(sp*(-2.0D0*i12+h17*i02)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +cp*n*h17*i03*(+d22+1.5D0*d33)) + d33*n*n*h11*(-4.0D0*i12+h17*i02)
+            kqx(1,8) = kqx(1,8) + sp*(h11*(d22*(sp*(-3.0D0*i22+h18*i02)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +cp*n*h18*i03*(+d22+1.5D0*d33)) + d33*n*n*h11*(-6.0D0*i22+h18*i02)
+            kqx(1,9) = kqx(1,9) + sp*(n*(d22*(+cp*h19*i03+h11*i02)+d33*(+1.5D0*cp*h19*i03+h11*i02))+d22*sp*h11*h19*i02)             &
+                     & + d33*n*n*h11*h19*i02
+            kqx(1,10) = kqx(1,10) + n*(d33*(h11*(-i01+sp*i12+n*h1ten*i02)+cp*sp*h1ten*i03*1.5D0)+d22*sp*(+cp*h1ten*i03+h11*i12))    &
+                      & + d22*sp*sp*h11*h1ten*i02
+            kqx(2,2) = kqx(2,2) + h12*(n*(cp*(d33*(sp*i13*3.D0+i02*(-3.D0))+d22*sp*i13*2.D0)+d33*n*h12*i02)+d22*sp*sp*h12*i02)
+            kqx(2,3) = kqx(2,3) + n*(d33*(cp*(h13*(+1.5D0*sp*i13-1.5D0*i02)+n*h12*i03*(-5.0D-1))+n*h12*h13*i02)+d22*cp*sp*h13*i13)  &
+                     & + d22*sp*sp*h12*h13*i02
+            kqx(2,4) = kqx(2,4) + n*(d33*(cp*(h14*(+1.5D0*sp*i13-1.5D0*i02)+n*h12*i13*(-5.0D-1))+n*h12*h14*i02)+d22*cp*sp*h14*i13)  &
+                     & + d22*sp*sp*h12*h14*i02
+            kqx(2,5) = kqx(2,5) + n*(d33*(h15*(cp*(+1.5D0*sp*i13-1.5D0*i02)+n*h12*i02)+sp*n*h12*i03*2.0D0)                          &
+                     & +d22*sp*(+cp*h15*i13+n*h12*i03)) + d22*sp*sp*h12*h15*i02
+            kqx(2,6) = kqx(2,6) + n*(d33*(n*h12*(i02*(-2.0D0+h16)+sp*i13*2.0D0)+cp*h16*(+1.5D0*sp*i13-1.5D0*i02))                   &
+                     & +d22*sp*i13*(+cp*h16+n*h12)) + d22*sp*sp*h12*i02*(-1.0D0+h16)
+            kqx(2,7) = kqx(2,7) + sp*(h12*(d22*(sp*(-2.0D0*i12+h17*i02)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +cp*n*h17*i13*(+d22+1.5D0*d33)) + d33*n*(n*h12*(-4.0D0*i12+h17*i02)+cp*h17*i02*(-1.5D0))
+            kqx(2,8) = kqx(2,8) + sp*(h12*(d22*(sp*(-3.0D0*i22+h18*i02)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +cp*n*h18*i13*(+d22+1.5D0*d33)) + d33*n*(n*h12*(-6.0D0*i22+h18*i02)+cp*h18*i02*(-1.5D0))
+            kqx(2,9) = kqx(2,9) + n*(d33*(h19*(cp*(+1.5D0*sp*i13-1.5D0*i02)+n*h12*i02)+sp*h12*i02)+d22*sp*(+cp*h19*i13+h12*i02))    &
+                     & + d22*sp*sp*h12*h19*i02
+            kqx(2,10) = kqx(2,10) + n*(d33*(h12*(-i01+sp*i12+n*h1ten*i02)+cp*h1ten*(+1.5D0*sp*i13-1.5D0*i02))                       &
+                      & +d22*sp*(+cp*h1ten*i13+h12*i12)) + d22*sp*sp*h12*h1ten*i02
+            kqx(3,3) = kqx(3,3) + h13*(d33*n*n*(cp*i03*(-1.0D0)+h13*i02)+d22*sp*sp*h13*i02)
+            kqx(3,4) = kqx(3,4) + d33*n*n*(cp*(-5.0D-1*h14*i03-5.0D-1*h13*i13)+h13*h14*i02) + d22*sp*sp*h13*h14*i02
+            kqx(3,5) = kqx(3,5) + n*n*(d33*(h13*(+2.0D0*sp*i03+h15*i02)+cp*h15*i03*(-5.0D-1))+d22*sp*h13*i03)                       &
+                     & + d22*sp*sp*h13*h15*i02
+            kqx(3,6) = kqx(3,6) + h13*(sp*(d22*(sp*i02*(-1.D0+h16)+n*n*i13)+d33*n*n*i13*2.0D0)+d33*n*n*i02*(-2.0D0+h16))            &
+                     & + d33*cp*n*n*h16*i03*(-5.0D-1)
+            kqx(3,7) = kqx(3,7) + h13*(sp*(d22*(sp*(-2.0D0*i12+h17*i02)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +d33*n*n*(-4.0D0*i12+h17*i02)) + d33*cp*n*n*h17*i03*(-5.0D-1)
+            kqx(3,8) = kqx(3,8) + h13*(sp*(d22*(sp*(-3.0D0*i22+h18*i02)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +d33*n*n*(-6.0D0*i22+h18*i02)) + d33*cp*n*n*h18*i03*(-5.0D-1)
+            kqx(3,9) = kqx(3,9) + n*(d33*(n*h19*(-5.0D-1*cp*i03+h13*i02)+sp*h13*i02)+d22*sp*h13*i02) + d22*sp*sp*h13*h19*i02
+            kqx(3,10) = kqx(3,10) + n*(d33*(h13*(-i01+sp*i12+n*h1ten*i02)+cp*n*h1ten*i03*(-5.0D-1))+d22*sp*h13*i12)                 &
+                      & + d22*sp*sp*h13*h1ten*i02
+            kqx(4,4) = kqx(4,4) + h14*(d33*n*n*(cp*i13*(-1.0D0)+h14*i02)+d22*sp*sp*h14*i02)
+            kqx(4,5) = kqx(4,5) + n*n*(d33*(h14*(+2.0D0*sp*i03+h15*i02)+cp*h15*i13*(-5.0D-1))+d22*sp*h14*i03)                       &
+                     & + d22*sp*sp*h14*h15*i02
 !
 !     THE FOLLOWING CODES, THRU 270, WERE MOVED HERE FROM KCONEZ
 !
-            kqx(4,6) = kqx(4,6) + h14*(Sp*(D22*(Sp*i02*(-1.D0+h16)+N*N*i13)+D33*N*N*i13*2.0D0)+D33*N*N*i02*(-2.0D0+h16))            &
-                     & + D33*Cp*N*N*h16*i13*(-5.0D-1)
-            kqx(4,7) = kqx(4,7) + h14*(Sp*(D22*(Sp*(-2.0D0*i12+h17*i02)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +D33*N*N*(-4.0D0*i12+h17*i02)) + D33*Cp*N*N*h17*i13*(-5.0D-1)
-            kqx(4,8) = kqx(4,8) + h14*(Sp*(D22*(Sp*(-3.0D0*i22+h18*i02)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +D33*N*N*(-6.0D0*i22+h18*i02)) + D33*Cp*N*N*h18*i13*(-5.0D-1)
-            kqx(4,9) = kqx(4,9) + N*(D33*(N*h19*(-5.0D-1*Cp*i13+h14*i02)+Sp*h14*i02)+D22*Sp*h14*i02) + D22*Sp*Sp*h14*h19*i02
-            kqx(4,10) = kqx(4,10) + N*(D33*(h14*(-i01+Sp*i12+N*h1ten*i02)+Cp*N*h1ten*i13*(-5.0D-1))+D22*Sp*h14*i12)                 &
-                      & + D22*Sp*Sp*h14*h1ten*i02
-            kqx(5,5) = kqx(5,5) + h15*(Sp*(N*N*i03*(D22*2.0D0+D33*4.0D0)+D22*Sp*h15*i02)+D33*N*N*h15*i02)
-            kqx(5,6) = kqx(5,6) + Sp*(D22*(h15*(Sp*i02*(-1.D0+h16)+N*N*i13)+N*N*h16*i03)+D33*N*N*(+2.0D0*h16*i03+2.0D0*h15*i13))    &
-                     & + D33*N*N*h15*i02*(-2.0D0+h16)
-            kqx(5,7) = kqx(5,7) + Sp*(h15*(D22*(Sp*(-2.0D0*i12+h17*i02)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +N*N*h17*i03*(+D22+2.0D0*D33)) + D33*N*N*h15*(-4.0D0*i12+h17*i02)
-            kqx(5,8) = kqx(5,8) + Sp*(h15*(D22*(Sp*(-3.0D0*i22+h18*i02)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +N*N*h18*i03*(+D22+2.0D0*D33)) + D33*N*N*h15*(-6.0D0*i22+h18*i02)
-            kqx(5,9) = kqx(5,9) + Sp*(N*(D22*(+N*h19*i03+h15*i02)+D33*(+2.0D0*N*h19*i03+h15*i02))+D22*Sp*h15*h19*i02)               &
-                     & + D33*N*N*h15*h19*i02
-            kqx(5,10) = kqx(5,10) + N*(D33*(h15*(-i01+Sp*i12+N*h1ten*i02)+Sp*N*h1ten*i03*2.D0)+D22*Sp*(+N*h1ten*i03+h15*i12))       &
-                      & + D22*Sp*Sp*h15*h1ten*i02
-            kqx(6,6) = kqx(6,6) + h16*(Sp*(D22*(Sp*i02*(-2.0D0+h16)+N*N*i13*2.0D0)+D33*N*N*i13*4.0D0)+D33*N*N*i02*(-4.0D0+h16))
-            kqx(6,7) = kqx(6,7) + Sp*(D22*(Sp*(h16*(-2.0D0*i12+h17*i02)+h17*i02*(-1.0D0))+N*N*(+h17*i13+h16*i23))                   &
-                     & +D33*N*N*(+2.0D0*h17*i13+2.0D0*h16*i23)+D12*h16*i01*(-2.0D0))                                                &
-                     & + D33*N*N*(h16*(-4.0D0*i12+h17*i02)+h17*i02*(-2.0D0))
-            kqx(6,8) = kqx(6,8) + Sp*(D22*(Sp*(h16*(-3.0D0*i22+h18*i02)+h18*i02*(-1.0D0))+N*N*(+h18*i13+h16*i33))                   &
-                     & +D33*N*N*(+2.0D0*h18*i13+2.0D0*h16*i33)+D12*h16*i11*(-6.0D0))                                                &
-                     & + D33*N*N*(h16*(-6.0D0*i22+h18*i02)+h18*i02*(-2.0D0))
-            kqx(6,9) = kqx(6,9) + Sp*(D22*(h19*(Sp*i02*(-1.D0+h16)+N*N*i13)+N*h16*i02)+D33*N*(+2.0D0*N*h19*i13+h16*i02))            &
-                     & + D33*N*N*h19*i02*(-2.0D0+h16)
-            kqx(6,10) = kqx(6,10) + N*(D33*(N*h1ten*(i02*(-2.0D0+h16)+Sp*i13*2.0D0)+h16*(-i01+Sp*i12))+D22*Sp*(+N*h1ten*i13+h16*i12)&
-                      & ) + D22*Sp*Sp*h1ten*i02*(-1.0D0+h16)
-            kqx(7,7) = kqx(7,7) + h17*(Sp*(D22*(Sp*(i12*(-4.0D0)+h17*i02)+N*N*i23*2.0D0)+D12*i01*(-4.0D0)+D33*N*N*i23*4.0D0)        &
-                     & +D33*N*N*(i12*(-8.0D0)+h17*i02))
-            kqx(7,8) = kqx(7,8) + Sp*(D22*(Sp*(h17*(-3.0D0*i22+h18*i02)+h18*i12*(-2.0D0))+N*N*(+h18*i23+h17*i33))                   &
-                     & +D12*(-6.0D0*h17*i11-2.0D0*h18*i01)+D33*N*N*(+2.0D0*h18*i23+2.0D0*h17*i33))                                  &
-                     & + D33*N*N*(h17*(-6.0D0*i22+h18*i02)+h18*i12*(-4.0D0))
-            kqx(7,9) = kqx(7,9) + Sp*(h19*(D22*(Sp*(+h17*i02-2.0D0*i12)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)                  &
-                     & +N*h17*i02*(+D22+D33)) + D33*N*N*h19*(-4.D0*i12+h17*i02)
-            kqx(7,10) = kqx(7,10) + Sp*(h1ten*(D22*(Sp*(+h17*i02-2.0D0*i12)+N*N*i23)-2.0D0*D12*i01+2.0D0*D33*N**2*i23)              &
-                      & +N*h17*i12*(+D22+D33)) + D33*N*(N*h1ten*(-4.0D0*i12+h17*i02)+h17*i01*(-1.0D0))
-            kqx(8,8) = kqx(8,8) + h18*(Sp*(D22*(Sp*(i22*(-6.0D0)+h18*i02)+N*N*i33*2.0D0)+D12*i11*(-1.2D01)+D33*N*N*i33*4.0D0)       &
-                     & +D33*N*N*(i22*(-1.2D01)+h18*i02))
-            kqx(8,9) = kqx(8,9) + Sp*(h19*(D22*(Sp*(+h18*i02-3.0D0*i22)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)                  &
-                     & +N*h18*i02*(+D22+D33)) + D33*N*N*h19*(-6.D0*i22+h18*i02)
-            kqx(8,10) = kqx(8,10) + Sp*(h1ten*(D22*(Sp*(+h18*i02-3.0D0*i22)+N*N*i33)-6.0D0*D12*i11+2.0D0*D33*N**2*i33)              &
-                      & +N*h18*i12*(+D22+D33)) + D33*N*(N*h1ten*(-6.0D0*i22+h18*i02)+h18*i01*(-1.0D0))
-            kqx(9,9) = kqx(9,9) + h19*i02*(Sp*(N*(D22*2.0D0+D33*2.0D0)+D22*Sp*h19)+D33*N*N*h19)
-            kqx(9,10) = kqx(9,10) + N*(D33*(h19*(-i01+Sp*i12+N*h1ten*i02)+Sp*h1ten*i02)+D22*Sp*(+h1ten*i02+h19*i12))                &
-                      & + D22*Sp*Sp*h19*h1ten*i02
-            kqx(10,10) = kqx(10,10) + h1ten*(N*(D33*(Sp*i12*2.0D0+i01*(-2.0D0)+N*h1ten*i02)+D22*Sp*i12*2.0D0)+D22*Sp*Sp*h1ten*i02)
+            kqx(4,6) = kqx(4,6) + h14*(sp*(d22*(sp*i02*(-1.D0+h16)+n*n*i13)+d33*n*n*i13*2.0D0)+d33*n*n*i02*(-2.0D0+h16))            &
+                     & + d33*cp*n*n*h16*i13*(-5.0D-1)
+            kqx(4,7) = kqx(4,7) + h14*(sp*(d22*(sp*(-2.0D0*i12+h17*i02)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +d33*n*n*(-4.0D0*i12+h17*i02)) + d33*cp*n*n*h17*i13*(-5.0D-1)
+            kqx(4,8) = kqx(4,8) + h14*(sp*(d22*(sp*(-3.0D0*i22+h18*i02)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +d33*n*n*(-6.0D0*i22+h18*i02)) + d33*cp*n*n*h18*i13*(-5.0D-1)
+            kqx(4,9) = kqx(4,9) + n*(d33*(n*h19*(-5.0D-1*cp*i13+h14*i02)+sp*h14*i02)+d22*sp*h14*i02) + d22*sp*sp*h14*h19*i02
+            kqx(4,10) = kqx(4,10) + n*(d33*(h14*(-i01+sp*i12+n*h1ten*i02)+cp*n*h1ten*i13*(-5.0D-1))+d22*sp*h14*i12)                 &
+                      & + d22*sp*sp*h14*h1ten*i02
+            kqx(5,5) = kqx(5,5) + h15*(sp*(n*n*i03*(d22*2.0D0+d33*4.0D0)+d22*sp*h15*i02)+d33*n*n*h15*i02)
+            kqx(5,6) = kqx(5,6) + sp*(d22*(h15*(sp*i02*(-1.D0+h16)+n*n*i13)+n*n*h16*i03)+d33*n*n*(+2.0D0*h16*i03+2.0D0*h15*i13))    &
+                     & + d33*n*n*h15*i02*(-2.0D0+h16)
+            kqx(5,7) = kqx(5,7) + sp*(h15*(d22*(sp*(-2.0D0*i12+h17*i02)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +n*n*h17*i03*(+d22+2.0D0*d33)) + d33*n*n*h15*(-4.0D0*i12+h17*i02)
+            kqx(5,8) = kqx(5,8) + sp*(h15*(d22*(sp*(-3.0D0*i22+h18*i02)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +n*n*h18*i03*(+d22+2.0D0*d33)) + d33*n*n*h15*(-6.0D0*i22+h18*i02)
+            kqx(5,9) = kqx(5,9) + sp*(n*(d22*(+n*h19*i03+h15*i02)+d33*(+2.0D0*n*h19*i03+h15*i02))+d22*sp*h15*h19*i02)               &
+                     & + d33*n*n*h15*h19*i02
+            kqx(5,10) = kqx(5,10) + n*(d33*(h15*(-i01+sp*i12+n*h1ten*i02)+sp*n*h1ten*i03*2.D0)+d22*sp*(+n*h1ten*i03+h15*i12))       &
+                      & + d22*sp*sp*h15*h1ten*i02
+            kqx(6,6) = kqx(6,6) + h16*(sp*(d22*(sp*i02*(-2.0D0+h16)+n*n*i13*2.0D0)+d33*n*n*i13*4.0D0)+d33*n*n*i02*(-4.0D0+h16))
+            kqx(6,7) = kqx(6,7) + sp*(d22*(sp*(h16*(-2.0D0*i12+h17*i02)+h17*i02*(-1.0D0))+n*n*(+h17*i13+h16*i23))                   &
+                     & +d33*n*n*(+2.0D0*h17*i13+2.0D0*h16*i23)+d12*h16*i01*(-2.0D0))                                                &
+                     & + d33*n*n*(h16*(-4.0D0*i12+h17*i02)+h17*i02*(-2.0D0))
+            kqx(6,8) = kqx(6,8) + sp*(d22*(sp*(h16*(-3.0D0*i22+h18*i02)+h18*i02*(-1.0D0))+n*n*(+h18*i13+h16*i33))                   &
+                     & +d33*n*n*(+2.0D0*h18*i13+2.0D0*h16*i33)+d12*h16*i11*(-6.0D0))                                                &
+                     & + d33*n*n*(h16*(-6.0D0*i22+h18*i02)+h18*i02*(-2.0D0))
+            kqx(6,9) = kqx(6,9) + sp*(d22*(h19*(sp*i02*(-1.D0+h16)+n*n*i13)+n*h16*i02)+d33*n*(+2.0D0*n*h19*i13+h16*i02))            &
+                     & + d33*n*n*h19*i02*(-2.0D0+h16)
+            kqx(6,10) = kqx(6,10) + n*(d33*(n*h1ten*(i02*(-2.0D0+h16)+sp*i13*2.0D0)+h16*(-i01+sp*i12))+d22*sp*(+n*h1ten*i13+h16*i12)&
+                      & ) + d22*sp*sp*h1ten*i02*(-1.0D0+h16)
+            kqx(7,7) = kqx(7,7) + h17*(sp*(d22*(sp*(i12*(-4.0D0)+h17*i02)+n*n*i23*2.0D0)+d12*i01*(-4.0D0)+d33*n*n*i23*4.0D0)        &
+                     & +d33*n*n*(i12*(-8.0D0)+h17*i02))
+            kqx(7,8) = kqx(7,8) + sp*(d22*(sp*(h17*(-3.0D0*i22+h18*i02)+h18*i12*(-2.0D0))+n*n*(+h18*i23+h17*i33))                   &
+                     & +d12*(-6.0D0*h17*i11-2.0D0*h18*i01)+d33*n*n*(+2.0D0*h18*i23+2.0D0*h17*i33))                                  &
+                     & + d33*n*n*(h17*(-6.0D0*i22+h18*i02)+h18*i12*(-4.0D0))
+            kqx(7,9) = kqx(7,9) + sp*(h19*(d22*(sp*(+h17*i02-2.0D0*i12)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)                  &
+                     & +n*h17*i02*(+d22+d33)) + d33*n*n*h19*(-4.D0*i12+h17*i02)
+            kqx(7,10) = kqx(7,10) + sp*(h1ten*(d22*(sp*(+h17*i02-2.0D0*i12)+n*n*i23)-2.0D0*d12*i01+2.0D0*d33*n**2*i23)              &
+                      & +n*h17*i12*(+d22+d33)) + d33*n*(n*h1ten*(-4.0D0*i12+h17*i02)+h17*i01*(-1.0D0))
+            kqx(8,8) = kqx(8,8) + h18*(sp*(d22*(sp*(i22*(-6.0D0)+h18*i02)+n*n*i33*2.0D0)+d12*i11*(-1.2D01)+d33*n*n*i33*4.0D0)       &
+                     & +d33*n*n*(i22*(-1.2D01)+h18*i02))
+            kqx(8,9) = kqx(8,9) + sp*(h19*(d22*(sp*(+h18*i02-3.0D0*i22)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)                  &
+                     & +n*h18*i02*(+d22+d33)) + d33*n*n*h19*(-6.D0*i22+h18*i02)
+            kqx(8,10) = kqx(8,10) + sp*(h1ten*(d22*(sp*(+h18*i02-3.0D0*i22)+n*n*i33)-6.0D0*d12*i11+2.0D0*d33*n**2*i33)              &
+                      & +n*h18*i12*(+d22+d33)) + d33*n*(n*h1ten*(-6.0D0*i22+h18*i02)+h18*i01*(-1.0D0))
+            kqx(9,9) = kqx(9,9) + h19*i02*(sp*(n*(d22*2.0D0+d33*2.0D0)+d22*sp*h19)+d33*n*n*h19)
+            kqx(9,10) = kqx(9,10) + n*(d33*(h19*(-i01+sp*i12+n*h1ten*i02)+sp*h1ten*i02)+d22*sp*(+h1ten*i02+h19*i12))                &
+                      & + d22*sp*sp*h19*h1ten*i02
+            kqx(10,10) = kqx(10,10) + h1ten*(n*(d33*(sp*i12*2.0D0+i01*(-2.0D0)+n*h1ten*i02)+d22*sp*i12*2.0D0)+d22*sp*sp*h1ten*i02)
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
@@ -678,58 +677,58 @@ USE ISO_FORTRAN_ENV
 !     FILL HUQ PER PAGE 15 MS-28
 !
          DO i = 1 , 100
-            Huq(i) = 0.0D0
+            huq(i) = 0.0D0
          ENDDO
-         Huq(1) = one
-         Huq(13) = one
-         Huq(25) = one
-         Huq(36) = one
-         Huq(49) = one
-         Huq(51) = one
-         Huq(52) = Sl
-         Huq(63) = one
-         Huq(64) = Sl
-         Huq(75) = one
-         Huq(76) = Sl
-         Huq(77) = L2
-         Huq(78) = Huq(77)*Sl
-         Huq(86) = one
-         Huq(87) = 2.0D0*Sl
-         Huq(88) = 3.0D0*Huq(77)
-         Huq(100) = Sl
+         huq(1) = one
+         huq(13) = one
+         huq(25) = one
+         huq(36) = one
+         huq(49) = one
+         huq(51) = one
+         huq(52) = sl
+         huq(63) = one
+         huq(64) = sl
+         huq(75) = one
+         huq(76) = sl
+         huq(77) = l2
+         huq(78) = huq(77)*sl
+         huq(86) = one
+         huq(87) = 2.0D0*sl
+         huq(88) = 3.0D0*huq(77)
+         huq(100) = sl
 !
-         IF ( Ts/=0 ) THEN
-            Huq(41) = Cp/Ra
-            Huq(45) = N/Ra
-            Huq(91) = Cp/Rb
-            Huq(92) = Huq(91)*Sl
-            Huq(95) = N/Rb
-            Huq(96) = Huq(95)*Sl
-            Huq(97) = Huq(95)*L2
-            Huq(98) = Huq(96)*L2
-            Huq(99) = one
+         IF ( ts/=0 ) THEN
+            huq(41) = cp/ra
+            huq(45) = n/ra
+            huq(91) = cp/rb
+            huq(92) = huq(91)*sl
+            huq(95) = n/rb
+            huq(96) = huq(95)*sl
+            huq(97) = huq(95)*l2
+            huq(98) = huq(96)*l2
+            huq(99) = one
 !
 !     SUBTRACT FROM ROWS 4 AND 9 OF THE ABOVE MATRIX, THE HYQ MATRIX
 !
             DO i = 1 , 10
-               Huq(i+30) = Huq(i+30) - Hyq(i)
-               Huq(i+80) = Huq(i+80) - Hyq(i)
+               huq(i+30) = huq(i+30) - hyq(i)
+               huq(i+80) = huq(i+80) - hyq(i)
             ENDDO
          ENDIF
 !
 !     NO NEED TO CALCULATE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY
 !
          ising = -1
-         CALL inverd(10,Huq(1),10,Dum,0,determ,ising,Temp60(1))
+         CALL inverd(10,huq(1),10,dum,0,determ,ising,temp60(1))
 !     CHECK SINGULARITY
 !
          IF ( ising==1 ) THEN
 !
 !     NOT SINGULAR, CONTINUE ON..
 !
-            IF ( Ts==0.0D0 ) THEN
-               Huq(85) = 0.0D0
-               Huq(100) = 0.0D0
+            IF ( ts==0.0D0 ) THEN
+               huq(85) = 0.0D0
+               huq(100) = 0.0D0
             ENDIF
 !
 !                                 T    N       T
@@ -762,20 +761,20 @@ USE ISO_FORTRAN_ENV
                DO i = 1 , 10
                   idx = i + inc1
                   iten = 10*i - 9 + inc2
-                  h(idx) = Huq(iten+1)*Sp + Huq(iten+2)*Cp
-                  h(idx+10) = Huq(iten)
-                  h(idx+20) = Huq(iten+1)*Cp - Huq(iten+2)*Sp
-                  h(idx+30) = Huq(iten+4)*Sp
-                  h(idx+40) = Huq(iten+3)
-                  h(idx+50) = Huq(iten+4)*Cp
+                  h(idx) = huq(iten+1)*sp + huq(iten+2)*cp
+                  h(idx+10) = huq(iten)
+                  h(idx+20) = huq(iten+1)*cp - huq(iten+2)*sp
+                  h(idx+30) = huq(iten+4)*sp
+                  h(idx+40) = huq(iten+3)
+                  h(idx+50) = huq(iten+4)*cp
                ENDDO
                IF ( inc1/=0 ) THEN
 !
 !     DETERMINE PIVOT POINT NUMBER
 !
-                  IF ( necpt(2)==Npvt ) THEN
+                  IF ( necpt(2)==npvt ) THEN
                      npivot = 1
-                  ELSEIF ( necpt(3)==Npvt ) THEN
+                  ELSEIF ( necpt(3)==npvt ) THEN
                      npivot = 2
                   ELSE
                      CALL mesage(-30,34,necpt(1))
@@ -793,7 +792,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
          spag_nextblock_1 = 7
@@ -802,24 +801,24 @@ USE ISO_FORTRAN_ENV
 !     EHAT(1) IS AT H( 1)
 !     EHBT(1) IS AT H(61)
 !
-         CALL gmmatd(h(60*npivot-59),6,10,0,kqn(1,1),10,10,0,Temp60(1))
+         CALL gmmatd(h(60*npivot-59),6,10,0,kqn(1,1),10,10,0,temp60(1))
 !
 !     IF N = 0 DOUBLE RESULT FOR KIJ
 !
-         IF ( N==0 ) THEN
+         IF ( n==0 ) THEN
             DO i = 1 , 60
-               Temp60(i) = Temp60(i)*2.0D0
+               temp60(i) = temp60(i)*2.0D0
             ENDDO
          ENDIF
 !
          DO j = 1 , 2
-            CALL gmmatd(Temp60(1),6,10,0,h(60*j-59),6,10,1,Kij(1))
-            CALL sma1b(Kij(1),necpt(j+1),-1,Ifkgg,0.0D0)
-            IF ( Iopt4/=0 ) THEN
-               IF ( Gsube/=0 ) THEN
-                  Temp = Gsube
-                  K4ggsw = 1
-                  CALL sma1b(Kij(1),necpt(j+1),-1,If4gg,Temp)
+            CALL gmmatd(temp60(1),6,10,0,h(60*j-59),6,10,1,kij(1))
+            CALL sma1b(kij(1),necpt(j+1),-1,ifkgg,0.0D0)
+            IF ( iopt4/=0 ) THEN
+               IF ( gsube/=0 ) THEN
+                  temp = gsube
+                  k4ggsw = 1
+                  CALL sma1b(kij(1),necpt(j+1),-1,if4gg,temp)
                ENDIF
             ENDIF
          ENDDO

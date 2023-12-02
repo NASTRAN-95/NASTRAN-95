@@ -7,19 +7,19 @@ SUBROUTINE xgpibs
 !     THE MODULE LINK TABLE.
 !
    IMPLICIT NONE
-   USE C_LHPWX
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XGPI2
-   USE C_XGPI2X
-   USE C_XGPI6
-   USE C_XGPIC
-   USE C_XGPID
-   USE C_XLINK
-   USE C_XLKSPC
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_lhpwx
+   USE c_machin
+   USE c_output
+   USE c_system
+   USE c_xgpi2
+   USE c_xgpi2x
+   USE c_xgpi6
+   USE c_xgpic
+   USE c_xgpid
+   USE c_xlink
+   USE c_xlkspc
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -35,6 +35,12 @@ SUBROUTINE xgpibs
    INTEGER , DIMENSION(1) :: lnkspc , opbuff , opncor , utilty
    INTEGER , DIMENSION(6) , SAVE :: nwptyp
    INTEGER , DIMENSION(2) :: os
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -71,13 +77,13 @@ SUBROUTINE xgpibs
 !    MASKHI = MASK FOR LOW ORDER 16 BITS AND SIGN BIT = 32767,
 !             INITIALIZED IN XGPIDD
 !
-   Ncpw = Xsys(41)
-   Nbpc = Xsys(39)
-   Nwpc = Nwpic
-   Masklo = lshift(Maskhi,16)
-   Isgnon = lshift(1,Xsys(40)-1)
-   Nosgn = complf(Isgnon)
-   Iallon = complf(0)
+   ncpw = xsys(41)
+   nbpc = xsys(39)
+   nwpc = nwpic
+   masklo = lshift(maskhi,16)
+   isgnon = lshift(1,xsys(40)-1)
+   nosgn = complf(isgnon)
+   iallon = complf(0)
 !
 !     GENERATE MASKS ARRAY
 !     MASK IS IN 4 PARTS - MASK DESCRIPTION WILL BE GIVEN IN TERMS OF
@@ -87,15 +93,15 @@ SUBROUTINE xgpibs
 !     PART 3 - FFFFFFFF,OOFFFFFF,OOOOFFFF,OOOOOOFF
 !     PART 4 - COMPLEMENT OF PART 3
 !
-   mhibyt = lshift(Iallon,Nbpc*(Ncpw-1))
-   DO j = 1 , Ncpw
-      Masks(j) = rshift(mhibyt,Nbpc*(j-1))
-      j2 = j + Ncpw
-      Masks(j2) = complf(Masks(j))
-      j3 = 2*Ncpw + j
-      Masks(j3) = rshift(Iallon,Nbpc*(j-1))
-      j4 = 3*Ncpw + j
-      Masks(j4) = complf(Masks(j3))
+   mhibyt = lshift(iallon,nbpc*(ncpw-1))
+   DO j = 1 , ncpw
+      masks(j) = rshift(mhibyt,nbpc*(j-1))
+      j2 = j + ncpw
+      masks(j2) = complf(masks(j))
+      j3 = 2*ncpw + j
+      masks(j3) = rshift(iallon,nbpc*(j-1))
+      j4 = 3*ncpw + j
+      masks(j4) = complf(masks(j3))
    ENDDO
 !
 !     INITIALIZE  /XGPID/
@@ -113,14 +119,14 @@ SUBROUTINE xgpibs
 !    NTRY(6)= 400000000001, 80000001, 400000000001, 40000000000000000001
 !    JMP(3) = JUMP MODULE INDEX/TYPE CODE
 !
-   Itape = lshift(1,15)
-   Iappnd = lshift(1,30)
-   Intgr = orf(Isgnon,1)
-   Losgn = lshift(1,15)
-   Noflgs = rshift(Iallon,Xsys(40)-26)
-   Seteor = lshift(1,29)
-   Eotflg = lshift(1,30)
-   Ieqflg = Isgnon
+   itape = lshift(1,15)
+   iappnd = lshift(1,30)
+   intgr = orf(isgnon,1)
+   losgn = lshift(1,15)
+   noflgs = rshift(iallon,xsys(40)-26)
+   seteor = lshift(1,29)
+   eotflg = lshift(1,30)
+   ieqflg = isgnon
 !
 !     PRINT MPL CONTENTS IF DIAG 31 IS ON
 !
@@ -131,72 +137,72 @@ SUBROUTINE xgpibs
 !     GET CHKPNT MODULE INDEX
 !
  100  modidx = 1
-   Mplpnt = 1
+   mplpnt = 1
    DO
-      IF ( Mpl(Mplpnt+1)==modnam(1) .AND. Mpl(Mplpnt+2)==modnam(2) ) GOTO irtn
+      IF ( mpl(mplpnt+1)==modnam(1) .AND. mpl(mplpnt+2)==modnam(2) ) GOTO irtn
       modidx = modidx + 1
-      Mplpnt = Mplpnt + Mpl(Mplpnt)
-      IF ( Mplpnt>Lmpl .OR. Mpl(Mplpnt)<1 ) THEN
+      mplpnt = mplpnt + mpl(mplpnt)
+      IF ( mplpnt>lmpl .OR. mpl(mplpnt)<1 ) THEN
 !
 !     FATAL ERROR IN MPL TABLE
 !
-         CALL xgpidg(49,Mplpnt,Mpl(Mplpnt+1),Mpl(Mplpnt+2))
+         CALL xgpidg(49,mplpnt,mpl(mplpnt+1),mpl(mplpnt+2))
 !
 !     FATAL ERROR EXIT
 !
-         Xsys(3) = 3
+         xsys(3) = 3
          GOTO 99999
       ENDIF
    ENDDO
- 200  Cpntry(3) = lshift(modidx,16) + 4
+ 200  cpntry(3) = lshift(modidx,16) + 4
 !
 !     GET JUMP MODULE INDEX
 !
    ASSIGN 300 TO irtn
-   modnam(1) = Jmp(4)
-   modnam(2) = Jmp(5)
+   modnam(1) = jmp(4)
+   modnam(2) = jmp(5)
    GOTO 100
- 300  Jmp(3) = lshift(modidx,16) + 3
-   Cpntry(6) = orf(Isgnon,1)
-   Jmp(6) = Cpntry(6)
+ 300  jmp(3) = lshift(modidx,16) + 3
+   cpntry(6) = orf(isgnon,1)
+   jmp(6) = cpntry(6)
 !
 !     COMPUTE LENGTH OF OPENCORE (SUBTRACT OFF SOME FOR UTILITY BUFFERS)
 !
-   lopncr = korsz(opncor) - Xsys(1) - 1
+   lopncr = korsz(opncor) - xsys(1) - 1
    utltop = lopncr + 1
-   utlbot = utltop + Xsys(1) - 1
+   utlbot = utltop + xsys(1) - 1
 !
 !     INITIALIZE  /XGPI2/ (I.E. MPL TABLE)
 !
 !     LOAD FLOATING POINT NUMBERS INTO MPL FROM ARRAY IN /XGPI2X/
 !
-   Mplpnt = 1
- 400  IF ( Mpl(Mplpnt)>=4 ) THEN
-      IF ( Mpl(Mplpnt+3)>=1 .AND. Mpl(Mplpnt+3)<=2 ) THEN
+   mplpnt = 1
+ 400  IF ( mpl(mplpnt)>=4 ) THEN
+      IF ( mpl(mplpnt+3)>=1 .AND. mpl(mplpnt+3)<=2 ) THEN
 !
 !     MPL ENTRY HAS MODULE TYPE CODE 1 OR 2 - PROCESS PARAMETER SECTION.
 !
-         i = Mplpnt + 7
+         i = mplpnt + 7
 !
 !     CHECK FOR END OF MPL ENTRY
 !
-         DO WHILE ( i<Mplpnt+Mpl(Mplpnt) )
+         DO WHILE ( i<mplpnt+mpl(mplpnt) )
 !
 !     CHECK VALIDITY OF PARAMETER TYPE CODE
 !
-            j = iabs(Mpl(i))
+            j = iabs(mpl(i))
             IF ( j<1 .OR. j>6 ) THEN
 !
 !     ERROR IN PARAMETER SECTION OF MPL TABLE
 !
-               CALL xgpidg(49,Mplpnt,Mpl(Mplpnt+1),Mpl(Mplpnt+2))
+               CALL xgpidg(49,mplpnt,mpl(mplpnt+1),mpl(mplpnt+2))
                EXIT
             ELSE
                l = 1
 !
 !     SEE IF PARAMETER VALUE FOLLOWS TYPE CODE.
 !
-               IF ( Mpl(i)>=0 ) THEN
+               IF ( mpl(i)>=0 ) THEN
 !
 !     GET LENGTH OF PARAMETER VALUE TO BE LOADED.
 !
@@ -210,11 +216,11 @@ SUBROUTINE xgpibs
 !     GET INDEX INTO VALUE TABLE - NOTE INDEX MUST BE CONVERTED FROM
 !     DOUBLE PRECISION INDEX TO ONE DIMENSIONAL INDEX.
 !
-                     m = Mpl(i+1)*2 - 1
+                     m = mpl(i+1)*2 - 1
                      DO k = 1 , l
                         n = k + m - 1
                         k1 = i + k
-                        Mpl(k1) = Ixx(n)
+                        mpl(k1) = ixx(n)
                      ENDDO
                   ENDIF
                   i = i + 1
@@ -230,7 +236,7 @@ SUBROUTINE xgpibs
 !
 !     GET NEXT MPL ENTRY
 !
-   IF ( Mpl(Mplpnt)+Mplpnt>Lmpl ) THEN
+   IF ( mpl(mplpnt)+mplpnt>lmpl ) THEN
 !
 !     INITIALIZE /XLINK/
 !
@@ -241,9 +247,9 @@ SUBROUTINE xgpibs
 !     MOVE LINK TABLE INTO OPEN CORE
 !
       lnktop = 1
-      lnkbot = Llink + lnktop - 5
-      DO j = 1 , Llink
-         lnkspc(j) = Link(j)
+      lnkbot = llink + lnktop - 5
+      DO j = 1 , llink
+         lnkspc(j) = link(j)
       ENDDO
 !
 !     UPDATE LNKSPC TABLE IF SENSE SWITCH 29 IS ON
@@ -252,10 +258,10 @@ SUBROUTINE xgpibs
       IF ( l==0 ) GOTO 1300
       ASSIGN 800 TO irtn
    ELSE
-      Mplpnt = Mplpnt + Mpl(Mplpnt)
-      IF ( Mpl(Mplpnt)>=1 ) GOTO 400
-      CALL xgpidg(49,Mplpnt,Mpl(Mplpnt+1),Mpl(Mplpnt+2))
-      Xsys(3) = 3
+      mplpnt = mplpnt + mpl(mplpnt)
+      IF ( mpl(mplpnt)>=1 ) GOTO 400
+      CALL xgpidg(49,mplpnt,mpl(mplpnt+1),mpl(mplpnt+2))
+      xsys(3) = 3
       GOTO 99999
    ENDIF
 !
@@ -288,8 +294,8 @@ SUBROUTINE xgpibs
 !     PUNCH OUT LNKSPC TABLE IF SENSE SWITCH 28 IS ON.
 !
                CALL sswtch(28,l)
-               IF ( l==0 ) GOTO 1300
-               GOTO 1100
+               IF ( l/=0 ) GOTO 1100
+               GOTO 1300
             ELSE
                GOTO irtn
             ENDIF
@@ -297,9 +303,9 @@ SUBROUTINE xgpibs
       ENDIF
    ENDDO
  700  CALL page2(2)
-   WRITE (optap,99003) Ufm
+   WRITE (optap,99003) ufm
 99003 FORMAT (A23,' 220, MISSING ENDDATA CARD.')
-   Xsys(3) = 3
+   xsys(3) = 3
    GOTO 99999
 !
 !     CHECK FORMAT OF CARD
@@ -322,7 +328,7 @@ SUBROUTINE xgpibs
 !     NOT ENOUGH OPEN CORE
 !
       CALL xgpidg(51,lnkbot-lopncr,0,0)
-      Xsys(3) = 3
+      xsys(3) = 3
       GOTO 99999
    ELSE
       i = lnkbot
@@ -389,7 +395,7 @@ SUBROUTINE xgpibs
 !
 !     TRANSFER GENERATED LINK WORD TO LNKSPC ENTRY
 !
-         IF ( utilty(k)/=Nosgn ) GOTO 1900
+         IF ( utilty(k)/=nosgn ) GOTO 1900
          j = i + 4
          lnkspc(j) = m
          ASSIGN 800 TO irtn
@@ -405,26 +411,26 @@ SUBROUTINE xgpibs
    CALL page2(2)
    WRITE (optap,99004)
 99004 FORMAT (98H0***USER REQUESTS LINK SPECIFICATION TABLE BE PUNCHED OUT FOR USE IN RECOMPILING SUBROUTINE XLNKDD)
-   WRITE (Lpch,99005)
+   WRITE (lpch,99005)
 99005 FORMAT (70(1H*),/38HLINK SPEC. TABLE FOR SUBROUTINE XLNKDD)
    j = lnkbot - lnktop + 5
    n = j/90
-   WRITE (Lpch,99006) j
+   WRITE (lpch,99006) j
 99006 FORMAT (6X,16HDIMENSION LINK (,I4,1H))
    k = 90
    IF ( n/=0 ) THEN
       DO i = 1 , n
          i10 = i/10
          i1 = i - 10*i10
-         WRITE (Lpch,99026) i10 , i1 , k
+         WRITE (lpch,99026) i10 , i1 , k
       ENDDO
    ENDIF
    k = mod(j,90)
    i = n + 1
    i10 = i/10
    i1 = i - 10*i10
-   IF ( k>0 ) WRITE (Lpch,99026) i10 , i1 , k
-   WRITE (Lpch,99007) j
+   IF ( k>0 ) WRITE (lpch,99026) i10 , i1 , k
+   WRITE (lpch,99007) j
 99007 FORMAT (6X,28HCOMMON/XLKSPC/ LLINK, KLINK(,I4,1H),/,6X,34HEQUIVALENCE (LINK(   1),LINK01(1)))
    IF ( k>0 ) n = n + 1
    IF ( n>=2 ) THEN
@@ -432,7 +438,7 @@ SUBROUTINE xgpibs
          i10 = i/10
          i1 = i - 10*i10
          k = 90*(i-1) + 1
-         WRITE (Lpch,99008) k , i10 , i1
+         WRITE (lpch,99008) k , i10 , i1
 99008    FORMAT (5X,2H1,,11X,6H(LINK(,I4,6H),LINK,2I1,4H(1)))
       ENDDO
    ENDIF
@@ -444,15 +450,15 @@ SUBROUTINE xgpibs
       m10 = m/10
       m1 = m - 10*m10
       k = min0(j+89,lnkbot+4)
-      WRITE (Lpch,99009) m10 , m1 , (lnkspc(i),i=j,k)
+      WRITE (lpch,99009) m10 , m1 , (lnkspc(i),i=j,k)
 99009 FORMAT (6X,9HDATA LINK,2I1,1H/,/,5X,4H1 4H,A4,3H,4H,A4,4H, 4H,A4,3H,4H,A4,1H,,I6,/,(5X,4H1,4H,A4,3H,4H,A4,4H, 4H,A4,3H,4H,A4, &
              &1H,,I6))
-      WRITE (Lpch,99010)
+      WRITE (lpch,99010)
 99010 FORMAT (5X,2H1/)
       j = k
       IF ( j>=lnkbot+4 ) THEN
          j = lnkbot - lnktop + 5
-         WRITE (Lpch,99011) j
+         WRITE (lpch,99011) j
 99011    FORMAT (6X,8HLLINK = ,I4)
          GOTO 1300
       ENDIF
@@ -469,11 +475,11 @@ SUBROUTINE xgpibs
 !     INITIALIZE PAGE HEADING
 !
  1300 DO i = 1 , 32
-      Pghdg(i+96) = hdg1(i)
-      Pghdg(i+128) = hdg2(i)
-      Pghdg(i+160) = nblank
+      pghdg(i+96) = hdg1(i)
+      pghdg(i+128) = hdg2(i)
+      pghdg(i+160) = nblank
    ENDDO
-   Pghdg(113) = Mchnam
+   pghdg(113) = mchnam
    nlines = nlpp
 !
 !     INITIALIZE O/P BUFFER PARAMETERS - O/P BUFFERS ARE IN OPEN CORE
@@ -483,20 +489,20 @@ SUBROUTINE xgpibs
 !
 !     GET FIRST/NEXT MPL ENTRY
 !
-   Mplpnt = 1
+   mplpnt = 1
    modidx = 1
 !
 !     CHECK FOR DECLARATIVE OR NULL ENTRY
 !
- 1400 IF ( Mpl(Mplpnt+3)<=4 .AND. Mpl(Mplpnt+3)>=1 ) THEN
+ 1400 IF ( mpl(mplpnt+3)<=4 .AND. mpl(mplpnt+3)>=1 ) THEN
 !
 !     PREPARE TO GENERATE NEXT LINE OF OUTPUT
 !
       nxtlin = nxtlin + 20
       i = nxtlin + 19
       IF ( i>lopncr ) THEN
-         CALL xgpidg(49,Mplpnt,Mpl(Mplpnt+1),Mpl(Mplpnt+2))
-         Xsys(3) = 3
+         CALL xgpidg(49,mplpnt,mpl(mplpnt+1),mpl(mplpnt+2))
+         xsys(3) = 3
          GOTO 99999
       ELSE
          DO j = nxtlin , i
@@ -509,37 +515,37 @@ SUBROUTINE xgpibs
 !
 !     DMAP NAME TO WORDS 2,3 OF O/P ENTRY
 !
-         opbuff(nxtlin+1) = Mpl(Mplpnt+1)
-         opbuff(nxtlin+2) = Mpl(Mplpnt+2)
+         opbuff(nxtlin+1) = mpl(mplpnt+1)
+         opbuff(nxtlin+2) = mpl(mplpnt+2)
 !
 !     GET ENTRY POINT NAME AND ENTER IN WORDS 4,5 OF O/P ENTRY
 !
          opbuff(nxtlin+3) = none(1)
          opbuff(nxtlin+4) = none(2)
          DO i = lnktop , lnkbot , 5
-            IF ( lnkspc(i)==Mpl(Mplpnt+1) .AND. lnkspc(i+1)==Mpl(Mplpnt+2) ) GOTO 1600
+            IF ( lnkspc(i)==mpl(mplpnt+1) .AND. lnkspc(i+1)==mpl(mplpnt+2) ) GOTO 1600
          ENDDO
       ENDIF
    ENDIF
- 1500 IF ( Mpl(Mplpnt)<1 ) GOTO 1700
-   Mplpnt = Mplpnt + Mpl(Mplpnt)
+ 1500 IF ( mpl(mplpnt)<1 ) GOTO 1700
+   mplpnt = mplpnt + mpl(mplpnt)
    modidx = modidx + 1
-   IF ( Mplpnt<Lmpl ) GOTO 1400
-   GOTO 1700
+   IF ( mplpnt>=lmpl ) GOTO 1700
+   GOTO 1400
  1600 opbuff(nxtlin+3) = lnkspc(i+2)
    opbuff(nxtlin+4) = lnkspc(i+3)
 !
 !     EXAMINE LINK FLAG
 !
    l = lnkspc(i+4)
-   DO j = 1 , Maxlnk
+   DO j = 1 , maxlnk
       IF ( andf(l,lshift(1,j-1))/=0 ) THEN
 !
 !     MODULE IS IN LINK J - SET BIT J IN MAIN LINK TABLE AND O/P BUFFER
 !     MAKE SURE LINK TABLE IS LONG ENOUGH.
 !
-         IF ( Lxlink<modidx ) GOTO 1800
-         Mlink(modidx) = orf(Mlink(modidx),lshift(1,j-1))
+         IF ( lxlink<modidx ) GOTO 1800
+         mlink(modidx) = orf(mlink(modidx),lshift(1,j-1))
          k = nxtlin + j + 4
          opbuff(k) = lnkedt(j)
       ENDIF
@@ -573,16 +579,16 @@ SUBROUTINE xgpibs
    nlines = nlines + 2
    WRITE (optap,99013)
 99013 FORMAT ('0USER REQUESTS PUNCHED OUTPUT FOR THE FOLLOWING LINK ','DRIVER SUBROUTINES')
-   WRITE (Lpch,99014)
+   WRITE (lpch,99014)
 99014 FORMAT (70(1H*),/,' INSERT FOLLOWING FORTRAN CODE IN RESPECTIVE',' LINK DRIVER ROUTINES')
-   DO j = 1 , Maxlnk
+   DO j = 1 , maxlnk
       CALL sswtch(j,l)
       IF ( l/=0 ) THEN
          j10 = j/10
          j1 = j - 10*j10
-         WRITE (Lpch,99015) j10 , j1 , j
+         WRITE (lpch,99015) j10 , j1 , j
 99015    FORMAT (70(1H*),/6X,15HSUBROUTINE XSEM,2I1,/6X,12HDATA THISLK,/,I2,1H/)
-         WRITE (Lpch,99016) j10 , j1
+         WRITE (lpch,99016) j10 , j1
 99016    FORMAT (6X,21HDATA SUBNAM/4HXSEM,4H,2I1,3H  /)
          nlines = nlines + 2
          IF ( nlines>=nlpp ) CALL page
@@ -596,16 +602,16 @@ SUBROUTINE xgpibs
          l = 0
          lastin = 0
          nxtgrp = 1000
-         DO i = 1 , Lxlink
+         DO i = 1 , lxlink
             ll(l+1) = 940
-            IF ( andf(Mlink(i),lshift(1,j-1))/=0 ) ll(l+1) = 2000 + i
+            IF ( andf(mlink(i),lshift(1,j-1))/=0 ) ll(l+1) = 2000 + i
             IF ( i<lastin ) THEN
             ELSEIF ( i==lastin ) THEN
                GOTO 1710
             ELSE
                IF ( frstin<=0 .AND. ll(l+1)==940 ) CYCLE
                frstin = i
-               lastin = min0(i+180,Lxlink)
+               lastin = min0(i+180,lxlink)
                lstgrp = nxtgrp
                nxtgrp = nxtgrp - 5
             ENDIF
@@ -622,13 +628,13 @@ SUBROUTINE xgpibs
                l = max0(0,l-1+lastin-i)
             ENDIF
  1710       ll(15) = ll(l+1)
-            IF ( l<=0 ) GOTO 1740
-            GOTO 1730
+            IF ( l>0 ) GOTO 1730
+            GOTO 1740
  1720       IF ( l<13 ) CYCLE
- 1730       IF ( frstin==ll(1)-2000 ) WRITE (Lpch,99018) nxtgrp
+ 1730       IF ( frstin==ll(1)-2000 ) WRITE (lpch,99018) nxtgrp
 99018       FORMAT (I5,8H GO TO ()
             lk = min0(l,10)
-            WRITE (Lpch,99019) (ll(k),k=1,lk)
+            WRITE (lpch,99019) (ll(k),k=1,lk)
 99019       FORMAT (5X,1H1,10(I5,1H,))
             l = l - lk
             DO k = 1 , l
@@ -636,13 +642,13 @@ SUBROUTINE xgpibs
             ENDDO
             IF ( i<lastin ) CYCLE
  1740       last = nxtgrp + 15
-            IF ( i==Lxlink ) last = 970
+            IF ( i==lxlink ) last = 970
             IF ( frstin==lastin ) THEN
-               WRITE (Lpch,99020) lstgrp , frstin , ll(15) , last
+               WRITE (lpch,99020) lstgrp , frstin , ll(15) , last
 99020          FORMAT (I5,12H IF (MODX - ,I3,7H ) 940,,I5,1H,,I5)
             ELSE
                frstin = frstin - 1
-               WRITE (Lpch,99021) ll(15) , lstgrp , lastin , last , frstin , nxtgrp
+               WRITE (lpch,99021) ll(15) , lstgrp , lastin , last , frstin , nxtgrp
 99021          FORMAT (5X,1H1,I5,4H ),I,/,I5,14H IF (MODX .GT.,I3,8H) GO TO ,I5,/,6X,10HI = MODX -,I3,/,6X,17HIF (I ) 940, 940,,I5)
             ENDIF
             nxtgrp = last
@@ -653,7 +659,7 @@ SUBROUTINE xgpibs
 !     LINK J.
 !
          IF ( frstin/=0 ) THEN
-            IF ( last/=970 ) WRITE (Lpch,99022) nxtgrp
+            IF ( last/=970 ) WRITE (lpch,99022) nxtgrp
 99022       FORMAT (I5,34H IF (MODX - LXLINK ) 940, 940, 970)
 !
 !     SEARCH O/P BUFFER FOR MODULES RESIDING IN LINK J
@@ -665,7 +671,7 @@ SUBROUTINE xgpibs
 !     THIS MODULE IS IN LINK J - PUNCH OUT CALL AND GO TO STATEMENT
 !
                   n = 2000 + opbuff(i)
-                  WRITE (Lpch,99023) n , opbuff(i+3) , opbuff(i+4)
+                  WRITE (lpch,99023) n , opbuff(i+3) , opbuff(i+4)
 99023             FORMAT (I5,1X,5HCALL ,2A4,/6X,8HGO TO 10)
                ENDIF
             ENDDO
@@ -679,14 +685,14 @@ SUBROUTINE xgpibs
          ENDIF
       ENDIF
    ENDDO
-   j = Llink/8
-   IF ( j>Lxlink ) CALL page2(-3)
-   IF ( j>Lxlink ) WRITE (optap,99025) Swm , j , Lxlink
+   j = llink/8
+   IF ( j>lxlink ) CALL page2(-3)
+   IF ( j>lxlink ) WRITE (optap,99025) swm , j , lxlink
 99025 FORMAT (A27,' 54, THE NUMBER OF MODULES SPECIFIED IN THE LINK ','SPECIFICATION TABLE,',I5,/20X,'EXCEEDS THE ALLOWABLE ',      &
              &'NUMBER SPECIFIED BY SEMDBD,',I5,1H.)
    CALL pexit
    CALL xgpidg(51,lnkbot-lopncr,0,0)
-   Xsys(3) = 3
+   xsys(3) = 3
    GOTO 99999
 !
 !     NAMED COMMON /XLINK/ IS TOO SMALL

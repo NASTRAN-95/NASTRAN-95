@@ -1,12 +1,13 @@
-!*==hdlin.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==hdlin.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Zi,Di,Ibeg,Iend,Ict,Icct,Ind,Nind,Xxx,Ccc,In,In1,In2,&
                & Tgm,Tgmt,Tgi,Zm,Zmi,Rv,Rvi,Nno,Noct,Ymin,Zmin,Coord,Sndt,Neh,Keep)
+   USE c_go3
+   USE c_hdsc
+   USE c_hedg
    IMPLICIT NONE
-   USE C_GO3
-   USE C_HDSC
-   USE C_HEDG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -85,59 +86,59 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !
 !
 !
-   IF ( Vp>=0. ) THEN
+   IF ( vp>=0. ) THEN
       hxx = .015
       ava = .0
       hx1 = .001
       lc = 10**6
       ixxx = 0
-      IF ( Scx<0. ) ixxx = 1
-      Scx = abs(Scx)
+      IF ( scx<0. ) ixxx = 1
+      scx = abs(scx)
 !
 !     INITIALIZE VARIABLES.
 !
-      Lz = Lz*5
+      lz = lz*5
       sw1 = 0
       sw = 0
       idav = 0
 !
 !     CALCULATE MAXIMUM ALLOWABLE ELEMENTS.
 !
-      iabc = Icore/(25+Lz+4*Jjj)
+      iabc = icore/(25+lz+4*jjj)
       sct = 1.
-      Vp = Vp/sct
-      vpx = abs(Vp)
+      vp = vp/sct
+      vpx = abs(vp)
       isave = Nc
       Nc = iabc
-      L5 = 0
-      L6 = Nc
-      L7 = 2*Nc
-      L8 = 3*Nc
-      L2 = 4*Nc
-      L3 = 5*Nc
-      L4 = 6*Nc
-      L00 = 7*Nc
-      L01 = 8*Nc
-      L1 = 9*Nc
-      L0 = 10*Nc
-      L9 = 11*Nc
-      L10 = 12*Nc
-      L11 = 13*Nc
+      l5 = 0
+      l6 = Nc
+      l7 = 2*Nc
+      l8 = 3*Nc
+      l2 = 4*Nc
+      l3 = 5*Nc
+      l4 = 6*Nc
+      l00 = 7*Nc
+      l01 = 8*Nc
+      l1 = 9*Nc
+      l0 = 10*Nc
+      l9 = 11*Nc
+      l10 = 12*Nc
+      l11 = 13*Nc
       l15 = 14*Nc
       l16 = 15*Nc
       l17 = 16*Nc
       l18 = 19*Nc
-      L12 = 20*Nc
-      L13 = 25*Nc
-      l14 = L13 + Lz*Nc
+      l12 = 20*Nc
+      l13 = 25*Nc
+      l14 = l13 + lz*Nc
       DO j = 1 , Nc
-         Rvi(L8+j) = 10**6
-         Tgm(L5+j) = 10**6
-         Rv(L7+j) = -Rvi(L8+j)
-         Tgi(L6+j) = -Tgm(L5+j)
-         Noct(L9+j) = 0
-         Zm(L2+j) = Rv(L7+j)
-         Zmi(L3+j) = Rvi(L8+j)
+         Rvi(l8+j) = 10**6
+         Tgm(l5+j) = 10**6
+         Rv(l7+j) = -Rvi(l8+j)
+         Tgi(l6+j) = -Tgm(l5+j)
+         Noct(l9+j) = 0
+         Zm(l2+j) = Rv(l7+j)
+         Zmi(l3+j) = Rvi(l8+j)
          Nind(l16+j) = 0
          Ind(l15+j) = j
          Keep(l18+j) = 0
@@ -145,17 +146,17 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
       Nc = isave
       ik = 0
       ikt = 0
-      kr = Jjj
+      kr = jjj
       pi = 3.1416/180.
-      u(6) = Scx
-      v(6) = Scx
-      Vp = -Vp
+      u(6) = scx
+      v(6) = scx
+      vp = -vp
 !
 !     STORE EULERIAN ANGLES.
 !
-      xx = Yaw*pi
-      yy = Roll*pi
-      zz = Pit*pi
+      xx = yaw*pi
+      yy = roll*pi
+      zz = pit*pi
       cosy = cos(yy)
       siny = sin(yy)
       cosz = cos(zz)
@@ -174,7 +175,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
       idav = 1
       Nc = -sw1
       IF ( sw/=0. ) THEN
-         Icore = (25+Lz+4*Jjj)*ikk
+         icore = (25+lz+4*jjj)*ikk
          Nc = -(sw+sw1)
       ENDIF
    ENDIF
@@ -203,13 +204,13 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
    X21(Np) = X21(nt)
    jxx = ikk
    i = 1
-   vl = abs(Vp)
+   vl = abs(vp)
 !
 !     LOOP THAT DOES THE THREE DIMENSIONAL TRANSFORMATION ON THE
 !     COORDINATES.
 !
-   jv = l14 + (ikk-1)*4*Jjj
-   Jt = 1
+   jv = l14 + (ikk-1)*4*jjj
+   jt = 1
    DO j = 1 , Np
       xj = X21(j)/sct
       yj = Y21(j)/sct
@@ -240,29 +241,29 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !
 !     CALCULATES MAX/MIN VALUES OF EACH ELEMENT ON THE X,Y,Z DIMENSION
 !
-         Rv(L7+jxx) = amax1(Rv(L7+jxx),Y21(j))
-         Rvi(L8+jxx) = amin1(Rvi(L8+jxx),Y21(j))
-         Tgi(L6+jxx) = amax1(Tgi(L6+jxx),X21(j))
-         Tgm(L5+jxx) = amin1(Tgm(L5+jxx),X21(j))
-         Zm(L2+jxx) = amax1(Zm(L2+jxx),Z21(j))
-         Zmi(L3+jxx) = amin1(Zmi(L3+jxx),Z21(j))
-         Coord(Jt+jv) = X21(j)
-         Coord(Jt+jv+1) = Y21(j)
-         Coord(Jt+jv+2) = Z21(j)
-         Coord(Jt+3+jv) = Iia(j)
-         Jt = Jt + 4
+         Rv(l7+jxx) = amax1(Rv(l7+jxx),Y21(j))
+         Rvi(l8+jxx) = amin1(Rvi(l8+jxx),Y21(j))
+         Tgi(l6+jxx) = amax1(Tgi(l6+jxx),X21(j))
+         Tgm(l5+jxx) = amin1(Tgm(l5+jxx),X21(j))
+         Zm(l2+jxx) = amax1(Zm(l2+jxx),Z21(j))
+         Zmi(l3+jxx) = amin1(Zmi(l3+jxx),Z21(j))
+         Coord(jt+jv) = X21(j)
+         Coord(jt+jv+1) = Y21(j)
+         Coord(jt+jv+2) = Z21(j)
+         Coord(jt+3+jv) = Iia(j)
+         jt = jt + 4
       ENDIF
    ENDDO
-   IF ( idav==1 ) Vp = vpx*sct
+   IF ( idav==1 ) vp = vpx*sct
    IF ( t==0. ) THEN
-      Noct(L9+ikk) = Noct(L9+ikk) + Np
+      Noct(l9+ikk) = Noct(l9+ikk) + Np
       ns = Np
-      ava = ava + (Tgi(L6+jxx)-Tgm(L5+jxx))*(Rv(L7+jxx)-Rvi(L8+jxx))
+      ava = ava + (Tgi(l6+jxx)-Tgm(l5+jxx))*(Rv(l7+jxx)-Rvi(l8+jxx))
 !
 !     CALL SUBROUTINE WHICH CALCULATES BOTH THE EQUATIONS OF THE LINE
 !     SEGMENTS AND POLYGONS.
 !
-      IF ( ixxx/=1 ) CALL hdcoef(X21,Y21,Z21,Xxx,jxx,ns,Ccc,Lz)
+      IF ( ixxx/=1 ) CALL hdcoef(X21,Y21,Z21,Xxx,jxx,ns,Ccc,lz)
 !
 !     CHECKS TO SEE IF ALL ELEMENTS(SETS) HAVE BEEN PASSED.
 !
@@ -281,10 +282,10 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
          aminx = 999999.
          aminy = 999999.
          DO j = 1 , ikk
-            amaxx = amax1(amaxx,Tgi(L6+j))
-            amaxy = amax1(amaxy,Rv(L7+j))
-            aminx = amin1(aminx,Tgm(L5+j))
-            aminy = amin1(aminy,Rvi(L8+j))
+            amaxx = amax1(amaxx,Tgi(l6+j))
+            amaxy = amax1(amaxy,Rv(l7+j))
+            aminx = amin1(aminx,Tgm(l5+j))
+            aminy = amin1(aminy,Rvi(l8+j))
          ENDDO
          tmax = (amaxx-aminx)*(amaxy-aminy)
          ibl = tmax/ava
@@ -319,10 +320,10 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !
          DO j = 1 , ikk
             ia = 0
-            xmat = Tgi(L6+j)
-            xmit = Tgm(L5+j)
-            ymat = Rv(L7+j)
-            ymit = Rvi(L8+j)
+            xmat = Tgi(l6+j)
+            xmit = Tgm(l5+j)
+            ymat = Rv(l7+j)
+            ymit = Rvi(l8+j)
             m = 0
             SPAG_Loop_2_1: DO i = 1 , k1
                DO l = 1 , k
@@ -382,17 +383,17 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
          Ibeg(l) = lt
          Iend(l) = lt + Ict(l) - 1
  20      DO j = 1 , ikk
-            Sndt(L4+j) = Ind(l15+j)
+            Sndt(l4+j) = Ind(l15+j)
          ENDDO
-         CALL hdvsr(Sndt(L4+1),ik,Nind(l16+1))
+         CALL hdvsr(Sndt(l4+1),ik,Nind(l16+1))
          en = ikk
          igx = (alog(en)/alog(2.)) + 1.
          DO j = 1 , igx
             rrx(j) = 2**(igx-j)
          ENDDO
-         u(6) = Scx
-         v(6) = Scx
-         w(6) = Scx
+         u(6) = scx
+         v(6) = scx
+         w(6) = scx
          ikt = Nc
          t = aminy
          t1 = aminx
@@ -406,19 +407,19 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
          x1(4) = x1(4)/sct
          y1(4) = y1(4)/sct
          DO j = 1 , ikk
-            In(L11+j) = j
-            In1(L0+j) = j
-            In2(L00+j) = j
-            Tgmt(L10+j) = Tgm(L5+j)
-            Ymin(L1+j) = Rvi(L8+j)
-            Zmin(L01+j) = Zm(L2+j)
+            In(l11+j) = j
+            In1(l0+j) = j
+            In2(l00+j) = j
+            Tgmt(l10+j) = Tgm(l5+j)
+            Ymin(l1+j) = Rvi(l8+j)
+            Zmin(l01+j) = Zm(l2+j)
          ENDDO
 !
 !     CALL SUBROUTINE WHICH WILL SORT ON X,Y AND Z.
 !
-         CALL hdvsr(Tgmt(L10+1),ik,In(L11+1))
-         CALL hdvsr(Ymin(L1+1),ik,In1(L0+1))
-         CALL hdvsr(Zmin(L01+1),ik,In2(L00+1))
+         CALL hdvsr(Tgmt(l10+1),ik,In(l11+1))
+         CALL hdvsr(Ymin(l1+1),ik,In1(l0+1))
+         CALL hdvsr(Zmin(l01+1),ik,In2(l00+1))
          h(8) = 0
          DO j = 1 , ikk
             spag_nextblock_1 = 1
@@ -426,20 +427,20 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                SELECT CASE (spag_nextblock_1)
                CASE (1)
                   ks = ikk
-                  jj = l14 + (j-1)*4*Jjj
+                  jj = l14 + (j-1)*4*jjj
                   jh = 1
                   ii = 0
-                  ixr = Noct(L9+j)
+                  ixr = Noct(l9+j)
                   nit = 0
-                  Jt = L12 + 5*(j-1)
-                  jo = L13 + Lz*(j-1)
+                  jt = l12 + 5*(j-1)
+                  jo = l13 + lz*(j-1)
                   IF ( ixxx/=1 ) THEN
-                     ns = Xxx(5+Jt)
+                     ns = Xxx(5+jt)
                      ng = ns*5
-                     a3 = Xxx(1+Jt)
-                     b3 = Xxx(2+Jt)
-                     c3 = Xxx(3+Jt)
-                     d3 = Xxx(4+Jt)
+                     a3 = Xxx(1+jt)
+                     b3 = Xxx(2+jt)
+                     c3 = Xxx(3+jt)
+                     d3 = Xxx(4+jt)
                      i = 0
                      DO ix = 1 , ng , 5
                         IF ( ixr>3 ) THEN
@@ -469,8 +470,8 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                      DO i = 1 , igx
                         k = k + sign(rrx(i),s)
                         IF ( k>ikk ) k = ikk
-                        s = Tgi(L6+j) - Tgmt(L10+k)
-                        s1 = Tgi(L6+j) - Tgmt(L10+k-1)
+                        s = Tgi(l6+j) - Tgmt(l10+k)
+                        s1 = Tgi(l6+j) - Tgmt(l10+k-1)
                         IF ( s*s1<=0. ) GOTO 22
                      ENDDO
                      k = ikk
@@ -478,8 +479,8 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                      DO i = 1 , igx
                         k1 = k1 + sign(rrx(i),s)
                         IF ( k1>ikk ) k1 = ikk
-                        s = Rv(L7+j) - Ymin(L1+k1)
-                        s1 = Rv(L7+j) - Ymin(L1+k1-1)
+                        s = Rv(l7+j) - Ymin(l1+k1)
+                        s1 = Rv(l7+j) - Ymin(l1+k1-1)
                         IF ( s*s1<=0. ) GOTO 24
                      ENDDO
                      k1 = ikk
@@ -488,8 +489,8 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                         k2 = k2 + sign(rrx(i),s)
                         IF ( k2<=1 ) k2 = 2
                         IF ( k2>ikk ) k2 = ikk
-                        s = Zmi(L3+j) - Zmin(L01+k2)
-                        s1 = Zmi(L3+j) - Zmin(L01+k2-1)
+                        s = Zmi(l3+j) - Zmin(l01+k2)
+                        s1 = Zmi(l3+j) - Zmin(l01+k2-1)
                         IF ( s*s1<=0. ) GOTO 26
                      ENDDO
                      k2 = 1
@@ -499,8 +500,8 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !
                      IF ( Nind(l16+j)/=0 ) THEN
                         ir = Nind(l16+j)
-                        Vx = Nind(l16+j)
-                        t = alog(Vx)
+                        vx = Nind(l16+j)
+                        t = alog(vx)
                         IF ( Nind(l16+j)>lc ) THEN
                            e = lc
                            lg = Nind(l16+j)/lc
@@ -523,7 +524,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                  kv = Neh(i+jtt)
                                  IF ( Keep(l18+kv)/=j ) THEN
                                     il = il + 1
-                                    Nno(L4+ixt+il) = kv
+                                    Nno(l4+ixt+il) = kv
                                     Keep(l18+kv) = j
                                  ENDIF
                               ENDDO
@@ -532,7 +533,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                            ix = Ibeg(iv)
                            ix1 = Iend(iv)
                            DO i = ix , ix1
-                              Nno(L4+ixt+i-ix+1) = Ind(l15+i)
+                              Nno(l4+ixt+i-ix+1) = Ind(l15+i)
                            ENDDO
                            ixt = ixt + ix1 - ix + 1
                         ENDDO
@@ -547,34 +548,34 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                            IF ( im==k ) THEN
                               ks = k
                               DO i = 1 , ks
-                                 Nno(L4+i) = In(L11+i)
+                                 Nno(l4+i) = In(l11+i)
                               ENDDO
                               GOTO 30
                            ELSEIF ( im==k1 ) THEN
                               ks = k1
                               DO i = 1 , ks
-                                 Nno(L4+i) = In1(L0+i)
+                                 Nno(l4+i) = In1(l0+i)
                               ENDDO
                               GOTO 30
                            ENDIF
                         ENDIF
                         ks = i1
                         DO i = 1 , ks
-                           Nno(L4+i) = In2(L00+ikk-i+1)
+                           Nno(l4+i) = In2(l00+ikk-i+1)
                         ENDDO
                      ENDIF
  30                  SPAG_Loop_2_2: DO i = 1 , ks
                         it = 0
-                        jb = Nno(L4+i)
+                        jb = Nno(l4+i)
                         IF ( j/=jb ) THEN
-                           jk = L13 + Lz*(jb-1)
-                           js = L12 + 5*(jb-1)
-                           IF ( Tgm(L5+j)<Tgi(L6+jb) .AND. Tgi(L6+j)>Tgm(L5+jb) ) THEN
-                              IF ( Rv(L7+j)>Rvi(L8+jb) .AND. Rvi(L8+j)<Rv(L7+jb) ) THEN
-                                 IF ( Zmi(L3+j)<Zm(L2+jb) ) THEN
+                           jk = l13 + lz*(jb-1)
+                           js = l12 + 5*(jb-1)
+                           IF ( Tgm(l5+j)<Tgi(l6+jb) .AND. Tgi(l6+j)>Tgm(l5+jb) ) THEN
+                              IF ( Rv(l7+j)>Rvi(l8+jb) .AND. Rvi(l8+j)<Rv(l7+jb) ) THEN
+                                 IF ( Zmi(l3+j)<Zm(l2+jb) ) THEN
                                     nv = Xxx(5+js)
                                     IF ( Xxx(js+3)/=0. ) THEN
-                                       IF ( Xxx(3+Jt)/=0. ) THEN
+                                       IF ( Xxx(3+jt)/=0. ) THEN
                                          nb = 5*nv
 !
 !
@@ -594,14 +595,14 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                          ENDIF
                                          Xu(m) = a
                                          Yu(m) = b
-                                         Vx = Xxx(4+js)
-                                         Vx1 = Xxx(2+js)*b
-                                         Vx2 = Xxx(1+js)*a
-                                         zs = -(Vx+Vx1+Vx2)/Xxx(3+js)
-                                         Vx = Xxx(4+Jt)
-                                         Vx1 = Xxx(2+Jt)*b
-                                         Vx2 = Xxx(1+Jt)*a
-                                         zs1 = -(Vx+Vx1+Vx2)/Xxx(3+Jt)
+                                         vx = Xxx(4+js)
+                                         vx1 = Xxx(2+js)*b
+                                         vx2 = Xxx(1+js)*a
+                                         zs = -(vx+vx1+vx2)/Xxx(3+js)
+                                         vx = Xxx(4+jt)
+                                         vx1 = Xxx(2+jt)*b
+                                         vx2 = Xxx(1+jt)*a
+                                         zs1 = -(vx+vx1+vx2)/Xxx(3+jt)
                                          IF ( abs(zs-zs1)>=hxx ) THEN
                                          it = it + 1
                                          Icount(it) = 0
@@ -630,7 +631,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !     CAN BE SEPARATED BY AN EDGE FROM THE OTHER'S PROJECTION
 !
 !
-                                         c3 = Xxx(3+Jt)
+                                         c3 = Xxx(3+jt)
                                          c4 = Xxx(3+js)
                                          sd = 0
                                          i3(1) = jk
@@ -650,9 +651,9 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                          b = Ccc(l+is+1)
                                          c = Ccc(l+is+2)
                                          ELSE
-                                         a = Xxx(2+Jt)*c4 - Xxx(2+js)*c3
-                                         b = Xxx(1+Jt)*c4 - Xxx(1+js)*c3
-                                         c = Xxx(4+Jt)*c4 - Xxx(4+js)*c3
+                                         a = Xxx(2+jt)*c4 - Xxx(2+js)*c3
+                                         b = Xxx(1+jt)*c4 - Xxx(1+js)*c3
+                                         c = Xxx(4+jt)*c4 - Xxx(4+js)*c3
                                          ENDIF
                                          IF ( a/=0. .OR. b/=0. ) THEN
                                          IF ( a/=0. ) THEN
@@ -721,7 +722,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                          ENDIF
                                        ENDIF
                                        ii = ii + 1
-                                       Nno(L4+ii) = jb
+                                       Nno(l4+ii) = jb
                                     ENDIF
                                  ENDIF
                               ENDIF
@@ -729,19 +730,19 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                         ENDIF
                      ENDDO SPAG_Loop_2_2
                      js = 1
-                     Jat = -4
-                     Jt = L12 + (j-1)*5
-                     Nn = Xxx(Jt+5)
-                     Vx = Xxx(Jt+4)
-                     Vx1 = Xxx(2+Jt)
-                     Vx2 = Xxx(1+Jt)
-                     Vx3 = Xxx(3+Jt)
+                     jat = -4
+                     jt = l12 + (j-1)*5
+                     nn = Xxx(jt+5)
+                     vx = Xxx(jt+4)
+                     vx1 = Xxx(2+jt)
+                     vx2 = Xxx(1+jt)
+                     vx3 = Xxx(3+jt)
                      IF ( ixr>2 ) THEN
 !
 !     CALL SUBROUTINE WHICH SOLVES FOR THE LINES OF INTERSECTION,IF ANY,
 !     OF THE JTH ELEMENT WITH OTHER ELEMENTS.
 !
-                        IF ( ii/=0 ) CALL hdsolv(ixr,j,Xxx,Ccc,ii,Nno,nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,Lz)
+                        IF ( ii/=0 ) CALL hdsolv(ixr,j,Xxx,Ccc,ii,Nno,nit,X21,Y21,Z21,Iia,Nc,Zm,Zmi,lz)
                      ENDIF
                   ENDIF
                   DO jm = 1 , ixr
@@ -760,14 +761,14 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !     PLOTS IF IIA(JX+1) IS EQUAL TO 1.
 !
                            IF ( Iia(jx)==0 .AND. Iia(jx+1)==0 ) THEN
-                              Jat = Jat + 5
-                              Me = 0
+                              jat = jat + 5
+                              me = 0
 !
 !     CALL SUBROUTINE WHICH DETERMINES THE POINTS OF INTERSECTIONS
 !     OF THE LINES OF THE JTH SET WITH THE RELEVANT LINES AND PLANES
 !     OF OTHER ELEMENTS.
 !
-                              CALL hdchk(Xxx,Ccc,Nno,ii,Xi,Yi,ngx,Zm,Zmi,Rv,Rvi,Tgm,Tgi,Zi,Lz,Xcc)
+                              CALL hdchk(Xxx,Ccc,Nno,ii,Xi,Yi,ngx,Zm,Zmi,Rv,Rvi,Tgm,Tgi,Zi,lz,Xcc)
                               IF ( js/=1 ) STOP 'MY GOSH. JS IS NOT 1 /HDLIN'
                               ng = ngx(js) + 2
                               Xi(1) = X21(jx)
@@ -845,7 +846,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                  oj = Xi(l)
                                  tmj = Yi(l)
                                  zj = Zi(l)
-                                 CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,Lz)
+                                 CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,lz)
                                  Di(l) = im
                               ENDDO
                               DO l = 1 , ng , 2
@@ -860,7 +861,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                     oj = Xi(l+1)
                                     tmj = Yi(l+1)
                                     zj = Zi(l+1)
-                                    CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,Lz)
+                                    CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,lz)
                                     Di(l+1) = im
                                  ENDIF
                               ENDDO
@@ -881,7 +882,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
                                        oj = (Xi(l)+Xi(l+1))/2
                                        tmj = (Yi(l)+Yi(l+1))/2
                                        zj = (Zi(l)+Zi(l+1))/2
-                                       CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,Lz)
+                                       CALL hdstus(oj,tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,ii,h,im,jxt,zj,Nc,Zmi,Ccc,lz)
                                        h(8) = 0
                                        x1(2) = oj
                                        y1(2) = tmj
@@ -917,7 +918,7 @@ SUBROUTINE hdlin(X,Y,Z,Np,Nc,Xcc,Icount,Irct,X21,Y21,Z21,Iia,Xe,Ye,Xu,Yu,Xi,Yi,Z
 !     SINCE THE LINES OF INTERSECTIONS WERE ADDED TO THIS ELEMENT
 !     BY THE SUBROUTINE SOLVE.
 !
-                  Xxx(5+Jt) = Xxx(5+Jt) - nit
+                  Xxx(5+jt) = Xxx(5+jt) - nit
                   EXIT SPAG_DispatchLoop_1
                END SELECT
             ENDDO SPAG_DispatchLoop_1

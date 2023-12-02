@@ -1,12 +1,13 @@
-!*==mred1e.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred1e.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred1e
+   USE c_blank
+   USE c_packx
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -73,16 +74,16 @@ SUBROUTINE mred1e
 !
 !     TEST FOR MODULE ERRORS
 !
-         IF ( Dry/=-2 ) THEN
+         IF ( dry/=-2 ) THEN
 !
 !     TEST FOR FREEBODY MODES REQUEST
 !
-            IF ( Rgrid(1)/=-1 ) THEN
+            IF ( rgrid(1)/=-1 ) THEN
 !
 !     READ BGSS DATA
 !
                it = 1
-               CALL sfetch(Oldnam,nhbgss,1,itest)
+               CALL sfetch(oldnam,nhbgss,1,itest)
                IF ( itest==3 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
@@ -96,19 +97,19 @@ SUBROUTINE mred1e
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  CALL suread(Z(Korbgn),-1,nwdsrd,itest)
+                  CALL suread(z(korbgn),-1,nwdsrd,itest)
 !
 !     EXTRACT SUBSTRUCTURE IP DATA
 !
-                  nbgss = Z(Korbgn+2)
-                  locbgs = Korbgn
-                  CALL suread(Z(Korbgn),-2,nwdsrd,itest)
-                  Korbgn = Korbgn + nwdsrd
+                  nbgss = z(korbgn+2)
+                  locbgs = korbgn
+                  CALL suread(z(korbgn),-2,nwdsrd,itest)
+                  korbgn = korbgn + nwdsrd
 !
 !     READ CSTM DATA
 !
-                  locstm = Korbgn
-                  IF ( Korlen<=locstm ) THEN
+                  locstm = korbgn
+                  IF ( korlen<=locstm ) THEN
 !
 !     PROCESS SYSTEM FATAL ERRORS
 !
@@ -118,7 +119,7 @@ SUBROUTINE mred1e
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
                      it = 2
-                     CALL sfetch(Oldnam,nhcstm,1,itest)
+                     CALL sfetch(oldnam,nhcstm,1,itest)
                      IF ( itest/=3 ) THEN
                         IF ( itest==4 ) THEN
                            imsg = -2
@@ -129,23 +130,23 @@ SUBROUTINE mred1e
                            spag_nextblock_1 = 5
                            CYCLE SPAG_DispatchLoop_1
                         ELSE
-                           CALL suread(Z(locstm),-2,nwdsrd,itest)
-                           CALL pretrs(Z(locstm+3),nwdsrd-4)
+                           CALL suread(z(locstm),-2,nwdsrd,itest)
+                           CALL pretrs(z(locstm+3),nwdsrd-4)
                         ENDIF
                      ENDIF
 !
 !     CHECK FOR BASIC COORDINATES
 !
                      DO i = 1 , 3
-                        Rgrid0(i) = 0.0
+                        rgrid0(i) = 0.0
                      ENDDO
-                     IF ( Rgrid(1)/=0 ) THEN
+                     IF ( rgrid(1)/=0 ) THEN
 !
 !     EXTRACT FREEBODY BASIC COORDINATES
 !
-                        locrgr = locbgs + (4*(Rgrid(1)-1))
+                        locrgr = locbgs + (4*(rgrid(1)-1))
                         DO i = 1 , 3
-                           Rgrid0(i) = rz(locrgr+i)
+                           rgrid0(i) = rz(locrgr+i)
                         ENDDO
                      ENDIF
 !
@@ -153,17 +154,17 @@ SUBROUTINE mred1e
 !
                      ifile = scr1
                      itrlr(1) = ifile
-                     CALL open(*20,scr1,Z(Gbuf2),1)
-                     Typin = 1
-                     Typpck = 1
-                     Irowp = 1
-                     Lrowp = 6
-                     Incrp = 1
+                     CALL open(*20,scr1,z(gbuf2),1)
+                     typin = 1
+                     typpck = 1
+                     irowp = 1
+                     lrowp = 6
+                     incrp = 1
 !
 !     OPEN EQSS FILE AND CHECK OPEN CORE LENGTH
 !
                      it = 3
-                     CALL sfetch(Oldnam,nheqss,1,itest)
+                     CALL sfetch(oldnam,nheqss,1,itest)
                      IF ( itest==3 ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
@@ -178,21 +179,21 @@ SUBROUTINE mred1e
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
                         locsil = locstm + nwdsrd
-                        CALL suread(Z(locsil),-1,nwdsrd,itest)
-                        IF ( Korlen<=locsil ) THEN
+                        CALL suread(z(locsil),-1,nwdsrd,itest)
+                        IF ( korlen<=locsil ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
 !
 !     READ UP TO SIL DATA
 !
-                        IF ( Korlen<=2*Nsil ) THEN
+                        IF ( korlen<=2*nsil ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        DO i = 1 , Ncsubs
-                           CALL suread(Z(locsil),-1,nwdsrd,itest)
-                           IF ( Korlen<=locsil+nwdsrd ) THEN
+                        DO i = 1 , ncsubs
+                           CALL suread(z(locsil),-1,nwdsrd,itest)
+                           IF ( korlen<=locsil+nwdsrd ) THEN
                               spag_nextblock_1 = 4
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -213,18 +214,18 @@ SUBROUTINE mred1e
                         DO i = 1 , nbgss
                            ii = 4*(i-1)
                            smald(1) = 0.0
-                           smald(2) = rz(locbgs+ii+3) - Rgrid0(3)
-                           smald(3) = -rz(locbgs+ii+2) + Rgrid0(2)
+                           smald(2) = rz(locbgs+ii+3) - rgrid0(3)
+                           smald(3) = -rz(locbgs+ii+2) + rgrid0(2)
                            smald(4) = -smald(2)
                            smald(5) = 0.0
-                           smald(6) = rz(locbgs+ii+1) - Rgrid0(1)
+                           smald(6) = rz(locbgs+ii+1) - rgrid0(1)
                            smald(7) = -smald(3)
                            smald(8) = -smald(6)
                            smald(9) = 0.0
 !
 !     SELECT TI, TTD MATRIX GENERATION
 !
-                           IF ( Z(locbgs+ii)<0 ) THEN
+                           IF ( z(locbgs+ii)<0 ) THEN
 !
 !     SCALAR POINT ADDS NULL COLUMN TO BIGD
 !     (CID .LT. 0)
@@ -232,10 +233,10 @@ SUBROUTINE mred1e
                               DO j = 1 , 6
                                  bigd(j) = 0.0
                               ENDDO
-                              Irowp = 1
+                              irowp = 1
                               CALL pack(bigd(1),scr1,itrlr)
                               CYCLE
-                           ELSEIF ( Z(locbgs+ii)==0 ) THEN
+                           ELSEIF ( z(locbgs+ii)==0 ) THEN
 !
 !     GENERATE TI, TTD MATRICES (3X3)
 !     (CID .EQ. 0)
@@ -253,7 +254,7 @@ SUBROUTINE mred1e
 !     GENERATE TI, TTD MATRICES (3X3)
 !     (CID .GT. 0)
 !
-                              CALL transs(Z(locbgs+ii),ti)
+                              CALL transs(z(locbgs+ii),ti)
                               CALL gmmats(ti,3,3,0,smald,3,3,1,ttd)
                            ENDIF
 !
@@ -287,8 +288,8 @@ SUBROUTINE mred1e
 !
 !     EXTRACT ROWS OF BIGD CORRESPONDING TO ACTIVE SIL COMPONENTS
 !
-                           CALL suread(Z(locsil),2,nwdsrd,itest)
-                           icode = Z(locsil+1)
+                           CALL suread(z(locsil),2,nwdsrd,itest)
+                           icode = z(locsil+1)
                            CALL decode(icode,kompnt,nwdsd)
                            DO j = 1 , nwdsd
                               irowd = 1 + 6*kompnt(j)
@@ -296,18 +297,18 @@ SUBROUTINE mred1e
                            ENDDO
                         ENDDO
                         CALL close(scr1,1)
-                        itrlr(3) = Lrowp
+                        itrlr(3) = lrowp
 !
 !     READ SCR1 INTO TRANSPOSED FORM
 !
-                        CALL open(*20,scr1,Z(Gbuf1),0)
-                        Typunp = 1
-                        Irowup = 1
-                        Lrowup = 6
-                        Incrup = itrlr(2)
+                        CALL open(*20,scr1,z(gbuf1),0)
+                        typunp = 1
+                        irowup = 1
+                        lrowup = 6
+                        incrup = itrlr(2)
                         kolmns = itrlr(2)
-                        Korbgn = locbgs
-                        IF ( Korlen<=Korbgn+Lrowp*kolmns ) THEN
+                        korbgn = locbgs
+                        IF ( korlen<=korbgn+lrowp*kolmns ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -316,17 +317,17 @@ SUBROUTINE mred1e
                            SPAG_DispatchLoop_2: DO
                               SELECT CASE (spag_nextblock_2)
                               CASE (1)
-                                 CALL unpack(*2,scr1,Z(Korbgn))
+                                 CALL unpack(*2,scr1,z(korbgn))
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
- 2                               j = Korbgn
+ 2                               j = korbgn
                                  DO k = 1 , 6
                                     rz(j) = 0.0
-                                    j = j + Incrup
+                                    j = j + incrup
                                  ENDDO
                                  spag_nextblock_2 = 2
                               CASE (2)
-                                 Korbgn = Korbgn + 1
+                                 korbgn = korbgn + 1
                                  EXIT SPAG_DispatchLoop_2
                               END SELECT
                            ENDDO SPAG_DispatchLoop_2
@@ -336,15 +337,15 @@ SUBROUTINE mred1e
 !     PLACE TRANSPOSED BIGD ONTO DMR OUTPUT FILE
 !
                         ifile = dmr
-                        CALL open(*20,dmr,Z(Gbuf2),1)
+                        CALL open(*20,dmr,z(gbuf2),1)
                         CALL fname(dmr,dmrnam)
                         CALL write(dmr,dmrnam,2,1)
                         locdmr = locbgs
-                        Lrowp = kolmns
+                        lrowp = kolmns
                         iform = 2
-                        CALL makmcb(itrlr,dmr,Lrowp,iform,Typin)
+                        CALL makmcb(itrlr,dmr,lrowp,iform,typin)
                         DO i = 1 , 6
-                           CALL pack(Z(locdmr),dmr,itrlr)
+                           CALL pack(z(locdmr),dmr,itrlr)
                            locdmr = locdmr + kolmns
                         ENDDO
                         CALL close(dmr,1)
@@ -363,7 +364,6 @@ SUBROUTINE mred1e
          CALL sofcls
          CALL mesage(imsg,ifile,modnam)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     PROCESS MODULE FATAL ERRORS
@@ -372,16 +372,15 @@ SUBROUTINE mred1e
          spag_nextblock_1 = 5
       CASE (5)
          IF ( it<2 ) THEN
-            CALL smsg(imsg,nhbgss,Oldnam)
+            CALL smsg(imsg,nhbgss,oldnam)
          ELSEIF ( it==2 ) THEN
 !
-            CALL smsg(imsg,nhcstm,Oldnam)
+            CALL smsg(imsg,nhcstm,oldnam)
          ELSE
 !
-            CALL smsg(imsg,nheqss,Oldnam)
+            CALL smsg(imsg,nheqss,oldnam)
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !

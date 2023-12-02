@@ -1,17 +1,18 @@
-!*==rodd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rodd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rodd
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_HMTOUT
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -73,21 +74,21 @@ USE ISO_FORTRAN_ENV
 !
 !     FOR DOUBLE PRECISION THE POINTERS TO OPEN CORE MUST BE MODIFIED.
 !
-         iz = (Izr-2)/Iprec + 2
-         nz = Nzr/Iprec
+         iz = (izr-2)/iprec + 2
+         nz = nzr/iprec
          IF ( nz-iz<=144 ) THEN
 !
-            Nogo = .TRUE.
-            WRITE (ioutpt,99001) Ufm
+            nogo = .TRUE.
+            WRITE (ioutpt,99001) ufm
 99001       FORMAT (A23,' 3119, INSUFFICIENT CORE TO PROCESS ROD ELEMENTS')
             RETURN
          ELSE
-            dict(1) = Estid
+            dict(1) = estid
 !
 !     SUBTRACT BASIC LOCATIONS TO OBTAIN LENGTH ETC.
 !
             DO i = 1 , 3
-               evect(i) = Bgpdt(i+1,2) - Bgpdt(i+1,1)
+               evect(i) = bgpdt(i+1,2) - bgpdt(i+1,1)
             ENDDO
 !
             el = dsqrt(evect(1)**2+evect(2)**2+evect(3)**2)
@@ -98,46 +99,46 @@ USE ISO_FORTRAN_ENV
 !
 !     IF HEAT TRANSFER PROBLEM TRANSFER.  CALL MATERIAL SUBROUTINE
 !
-            Inflag = 1
-            Matid = Mid
-            Eltemp = Tbar
+            inflag = 1
+            matid = mid
+            eltemp = tbar
             IF ( iheat==1 ) THEN
 !
 !     HEAT TRANSFER CALCULATIONS ARE PERFORMED HERE
 !
-               Inflag = 1
+               inflag = 1
                dict(2) = 1
                dict(3) = 2
                dict(4) = 1
                dict(5) = 0
-               IF ( Kmbgg(1)/=0 ) THEN
-                  CALL hmat(Eid)
-                  K(iz) = dble(Afact*Kcon)/el
-                  IF ( K(iz)/=0.0D0 ) THEN
-                     K(iz+1) = -K(iz)
-                     K(iz+2) = -K(iz)
-                     K(iz+3) = K(iz)
-                     CALL emgout(K(iz),K(iz),4,1,dict,1,Iprec)
+               IF ( kmbgg(1)/=0 ) THEN
+                  CALL hmat(eid)
+                  k(iz) = dble(afact*kcon)/el
+                  IF ( k(iz)/=0.0D0 ) THEN
+                     k(iz+1) = -k(iz)
+                     k(iz+2) = -k(iz)
+                     k(iz+3) = k(iz)
+                     CALL emgout(k(iz),k(iz),4,1,dict,1,iprec)
                   ENDIF
                ENDIF
-               Inflag = 4
-               IF ( Kmbgg(1)==0 ) RETURN
-               CALL hmat(Eid)
-               K(iz) = dble(Afact*cp)*el/2.0D0
-               IF ( K(iz)==0.0D0 ) RETURN
-               K(iz+1) = K(iz)
+               inflag = 4
+               IF ( kmbgg(1)==0 ) RETURN
+               CALL hmat(eid)
+               k(iz) = dble(afact*cp)*el/2.0D0
+               IF ( k(iz)==0.0D0 ) RETURN
+               k(iz+1) = k(iz)
                dict(2) = 2
-               CALL emgout(K(iz),K(iz),2,1,dict,3,Iprec)
+               CALL emgout(k(iz),k(iz),2,1,dict,3,iprec)
                RETURN
             ELSE
-               CALL mat(Eid)
-               ke = dble(E*Afact)/el
-               me = (dble(Rho*Afact+Mu))*el/2.0D0
-               te = dble(G*Jfact)/el
+               CALL mat(eid)
+               ke = dble(e*afact)/el
+               me = (dble(rho*afact+mu))*el/2.0D0
+               te = dble(g*jfact)/el
 !
 !     PROCESS STIFFNESS HERE
 !
-               IF ( Kmbgg(1)==0 ) THEN
+               IF ( kmbgg(1)==0 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -153,7 +154,7 @@ USE ISO_FORTRAN_ENV
                      ha(i) = evect(i)/el
                   ENDDO
                ELSE
-                  CALL transd(Bgpdt(1,1),ta)
+                  CALL transd(bgpdt(1,1),ta)
                   CALL gmmatd(evect,1,3,0,ta,3,3,0,ha)
                   DO i = 1 , 3
                      ha(i) = ha(i)/el
@@ -164,7 +165,7 @@ USE ISO_FORTRAN_ENV
                      hb(i) = evect(i)/el
                   ENDDO
                ELSE
-                  CALL transd(Bgpdt(1,2),tb)
+                  CALL transd(bgpdt(1,2),tb)
                   CALL gmmatd(evect,1,3,0,tb,3,3,0,hb)
                   DO i = 1 , 3
                      hb(i) = hb(i)/el
@@ -205,7 +206,7 @@ USE ISO_FORTRAN_ENV
                ipass = 1
                DO i = 1 , nsq
                   izpi = iz + i - 1
-                  K(izpi) = 0.0D0
+                  k(izpi) = 0.0D0
                ENDDO
 !
 !     EXTENSIONAL STIFFNESS TERMS ARE COMPUTED HERE.
@@ -227,12 +228,12 @@ USE ISO_FORTRAN_ENV
 !     THE MATRIX COLUMNS AND ROWS MUST BE IN THE NUMERICAL ORDER
 !     OF TH SIL VALUES. THE POINTERS INTO THE MATRIX ARE VARIABLES.
 !
-         IF ( Sil2<Sil1 ) THEN
+         IF ( sil2<sil1 ) THEN
             ibbz = izero
             iabz = izero + ng
             ibaz = izero + npart
             iaaz = ibaz + ng
-         ELSEIF ( Sil2==Sil1 ) THEN
+         ELSEIF ( sil2==sil1 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -245,13 +246,13 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , 3
                ij = ndof*(j-1) + i
                iaa = ij + iaaz
-               K(iaa) = kha(i)*ha(j)
+               k(iaa) = kha(i)*ha(j)
                iba = ij + ibaz
-               K(iba) = -khb(i)*ha(j)
+               k(iba) = -khb(i)*ha(j)
                iab = ij + iabz
-               K(iab) = -kha(i)*hb(j)
+               k(iab) = -kha(i)*hb(j)
                ibb = ij + ibbz
-               K(ibb) = khb(i)*hb(j)
+               k(ibb) = khb(i)*hb(j)
             ENDDO
          ENDDO
          spag_nextblock_1 = 3
@@ -273,21 +274,21 @@ USE ISO_FORTRAN_ENV
          dict(2) = 1
          dict(3) = ndof
          dict(4) = icode
-         dict(5) = Ge
-         CALL emgout(K(ipart),K(ipart),nsq,1,dict,1,Iprec)
+         dict(5) = ge
+         CALL emgout(k(ipart),k(ipart),nsq,1,dict,1,iprec)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     THE MASS MATRIX TERMS ARE CALCULATED HERE.
 !
-         IF ( Kmbgg(2)==0 .OR. me==0.0D0 ) RETURN
+         IF ( kmbgg(2)==0 .OR. me==0.0D0 ) RETURN
          dict(3) = 6
          dict(4) = 7
          dict(5) = 0
 !
 !     CHECK TO SEE IF CONVENTIONAL OR CONSISTENT MASS MATRIX IS REQUIRED
 !
-         IF ( Icmbar>0 ) THEN
+         IF ( icmbar>0 ) THEN
 !
 !     CONSISTENT MASS MATRIX TERMS ARE COMPUTED HERE
 !
@@ -310,10 +311,10 @@ USE ISO_FORTRAN_ENV
                mijdum(i) = me/6.0D0
                mjidum(i) = me/6.0D0
             ENDDO
-            IF ( Sil2<Sil1 ) THEN
+            IF ( sil2<sil1 ) THEN
                iti = 13
                itj = 9
-            ELSEIF ( Sil2==Sil1 ) THEN
+            ELSEIF ( sil2==sil1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -322,15 +323,15 @@ USE ISO_FORTRAN_ENV
             ENDIF
             IF ( iest(iti)/=0 ) THEN
                CALL transd(iest(iti),ta)
-               CALL gmmatd(ta,3,3,1,massii,3,3,0,K(iz))
-               CALL gmmatd(K(iz),3,3,0,ta,3,3,0,massii)
+               CALL gmmatd(ta,3,3,1,massii,3,3,0,k(iz))
+               CALL gmmatd(k(iz),3,3,0,ta,3,3,0,massii)
                CALL gmmatd(ta,3,3,1,mijdum,3,3,0,massij)
                CALL gmmatd(mjidum,3,3,0,ta,3,3,0,massji)
             ENDIF
             IF ( iest(itj)/=0 ) THEN
                CALL transd(iest(itj),ta)
-               CALL gmmatd(ta,3,3,1,massjj,3,3,0,K(iz))
-               CALL gmmatd(K(iz),3,3,0,ta,3,3,0,massjj)
+               CALL gmmatd(ta,3,3,1,massjj,3,3,0,k(iz))
+               CALL gmmatd(k(iz),3,3,0,ta,3,3,0,massjj)
                CALL gmmatd(massij,3,3,0,ta,3,3,0,mijdum)
                CALL gmmatd(ta,3,3,1,massji,3,3,0,mjidum)
                DO i = 1 , 9
@@ -340,18 +341,18 @@ USE ISO_FORTRAN_ENV
             ENDIF
             DO i = 1 , 3
                kz = iz + i - 1
-               K(kz) = massii(i)
-               K(kz+6) = massii(i+3)
-               K(kz+12) = massii(i+6)
-               K(kz+3) = massij(i)
-               K(kz+9) = massij(i+3)
-               K(kz+15) = massij(i+6)
-               K(kz+18) = massji(i)
-               K(kz+24) = massji(i+3)
-               K(kz+30) = massji(i+6)
-               K(kz+21) = massjj(i)
-               K(kz+27) = massjj(i+3)
-               K(kz+33) = massjj(i+6)
+               k(kz) = massii(i)
+               k(kz+6) = massii(i+3)
+               k(kz+12) = massii(i+6)
+               k(kz+3) = massij(i)
+               k(kz+9) = massij(i+3)
+               k(kz+15) = massij(i+6)
+               k(kz+18) = massji(i)
+               k(kz+24) = massji(i+3)
+               k(kz+30) = massji(i+6)
+               k(kz+21) = massjj(i)
+               k(kz+27) = massjj(i+3)
+               k(kz+33) = massjj(i+6)
             ENDDO
          ELSE
 !
@@ -361,15 +362,15 @@ USE ISO_FORTRAN_ENV
             ldata = 6
             izp5 = iz + 5
             DO i = iz , izp5
-               K(i) = me
+               k(i) = me
             ENDDO
          ENDIF
-         CALL emgout(K(iz),K(iz),ldata,1,dict,2,Iprec)
+         CALL emgout(k(iz),k(iz),ldata,1,dict,2,iprec)
          RETURN
       CASE (5)
 !
-         Nogo = .TRUE.
-         WRITE (ioutpt,99002) Ufm , Eid
+         nogo = .TRUE.
+         WRITE (ioutpt,99002) ufm , eid
 99002    FORMAT (A23,' 3118, ROD ELEMENT NO.',I9,' HAS ILLEGAL GEOMETRY OR CONNECTIONS.')
          RETURN
       END SELECT

@@ -1,15 +1,16 @@
-!*==dtshld.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dtshld.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dtshld
-USE C_DS1AAA
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -183,27 +184,27 @@ USE ISO_FORTRAN_ENV
          DO i = 1 , 6
             nl(i) = iest(i+1)
          ENDDO
-         thetam = Est(8)
+         thetam = est(8)
          matid1 = iest(9)
-         tmem1 = Est(10)
-         tmem3 = Est(11)
-         tmem5 = Est(12)
+         tmem1 = est(10)
+         tmem3 = est(11)
+         tmem5 = est(12)
          matid2 = iest(13)
-         tbend1 = (Est(14)*12.0)**0.333333333333
-         tbend3 = (Est(15)*12.0)**0.333333333333
-         tbend5 = (Est(16)*12.0)**0.333333333333
+         tbend1 = (est(14)*12.0)**0.333333333333
+         tbend3 = (est(15)*12.0)**0.333333333333
+         tbend5 = (est(16)*12.0)**0.333333333333
          matid3 = iest(17)
-         tshr1 = Est(18)
-         tshr3 = Est(19)
-         tshr5 = Est(20)
-         nsm = Est(21)
+         tshr1 = est(18)
+         tshr3 = est(19)
+         tshr5 = est(20)
+         nsm = est(21)
          j = 0
          DO i = 28 , 48 , 4
             j = j + 1
             ics(j) = iest(i)
-            xc(j) = Est(i+1)
-            yc(j) = Est(i+2)
-            zc(j) = Est(i+3)
+            xc(j) = est(i+1)
+            yc(j) = est(i+2)
+            zc(j) = est(i+3)
          ENDDO
 !
 !     IF TMEM3 OR TMEM5 EQUAL TO ZERO OR BLANK, THEY WILL BE
@@ -217,42 +218,42 @@ USE ISO_FORTRAN_ENV
          IF ( tshr1==0.0 ) nots = .TRUE.
          IF ( tbend3==0.0 .OR. tbend3==blank ) tbend3 = tbend1
          IF ( tbend5==0.0 .OR. tbend5==blank ) tbend5 = tbend1
-         Eltemp = Est(52)
+         eltemp = est(52)
          theta1 = thetam*degra
-         Sinth = sin(theta1)
-         Costh = cos(theta1)
-         IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+         sinth = sin(theta1)
+         costh = cos(theta1)
+         IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUTE MATERIAL PROPERTIES
 !
-         Matflg = 2
-         Matid = matid1
+         matflg = 2
+         matid = matid1
          IF ( matid1<=0 ) THEN
 !
             nogo = .TRUE.
-            WRITE (Ioutpt,99001) Ufm , iest(1)
+            WRITE (ioutpt,99001) ufm , iest(1)
 99001       FORMAT (A23,' 2418, MATERIAL ID FOR MEMBRANE EFFECTS IS LESS ','THAN OR EQUAL TO ZERO FOR TRSHL ELEMENT WITH ID =',I9,  &
                    &1H.)
             RETURN
          ELSE
             CALL mat(idele)
 !
-            Matflg = 2
-            Matid = matid2
+            matflg = 2
+            matid = matid2
             CALL mat(idele)
-            d13 = Em(3)
-            d23 = Em(5)
-            d33 = Em(6)
+            d13 = em(3)
+            d23 = em(5)
+            d33 = em(6)
             j11 = 0.0
             j12 = 0.0
             j22 = 0.0
             IF ( .NOT.(nots) ) THEN
-               Matflg = 3
-               Matid = matid3
+               matflg = 3
+               matid = matid3
                CALL mat(idele)
-               j11 = 1.0/(Rj11*tshr)
+               j11 = 1.0/(rj11*tshr)
                j12 = 0.0
-               j22 = 1.0/(Rj22*tshr)
+               j22 = 1.0/(rj22*tshr)
             ENDIF
 !
 !     CALCULATIONS FOR THE TRIANGLE
@@ -388,23 +389,23 @@ USE ISO_FORTRAN_ENV
                ENDDO
 !
                DO i = 1 , 7
-                  ph1out(i) = Est(i)
+                  ph1out(i) = est(i)
                ENDDO
-               ph1out(8) = Est(10)
-               ph1out(9) = Est(11)
-               ph1out(10) = Est(12)
-               ph1out(11) = Tref
-               emod(1) = Em(1)
-               emod(2) = Em(2)
-               emod(3) = Em(3)
-               emod(4) = Em(2)
-               emod(5) = Em(4)
-               emod(6) = Em(5)
-               emod(7) = Em(3)
-               emod(8) = Em(5)
-               emod(9) = Em(6)
+               ph1out(8) = est(10)
+               ph1out(9) = est(11)
+               ph1out(10) = est(12)
+               ph1out(11) = tref
+               emod(1) = em(1)
+               emod(2) = em(2)
+               emod(3) = em(3)
+               emod(4) = em(2)
+               emod(5) = em(4)
+               emod(6) = em(5)
+               emod(7) = em(3)
+               emod(8) = em(5)
+               emod(9) = em(6)
 !
-               CALL gmmats(emod,3,3,0,Alf(1),3,1,0,ph1out(228))
+               CALL gmmats(emod,3,3,0,alf(1),3,1,0,ph1out(228))
                DO jj = 1 , 3
                   j = 2*jj - 1
                   x = xc(j)
@@ -456,14 +457,14 @@ USE ISO_FORTRAN_ENV
 !
                      npt1 = 12 + (ii-1)*9 + (jj-1)*54
 !
-                     CALL gmmats(ph1out(npt1),3,3,0,Est(npoint),3,1,0,vec(1))
+                     CALL gmmats(ph1out(npt1),3,3,0,est(npoint),3,1,0,vec(1))
                      DO j = 1 , 3
                         stress(j) = stress(j) + vec(j)
                         str(j) = stress(j)
                      ENDDO
                   ENDDO
                   IF ( iest(54)/=-1 ) THEN
-                     tem = Est(54) - ph1out(11)
+                     tem = est(54) - ph1out(11)
                      DO i = 1 , 3
                         stress(i) = stress(i) - ph1out(227+i)*tem
                         str(i) = stress(i)
@@ -491,7 +492,7 @@ USE ISO_FORTRAN_ENV
 !     EVALUATE THE CONSTANTS C1,C2,AND C3 IN THE LINEAR EQUATION FOR
 !     THICKNESS VARIATION
 !
-               CALL af(F,18,a,b,c,cab1,cab2,cab3,tmem1,tmem3,tmem5,0)
+               CALL af(f,18,a,b,c,cab1,cab2,cab3,tmem1,tmem3,tmem5,0)
                cab(1) = cab1
                cab(2) = cab2
                cab(3) = cab3
@@ -505,7 +506,7 @@ USE ISO_FORTRAN_ENV
 !     A1,A2,A3 ARE THE COEFFICIENTS OF LINEAR EQUATION FOR VARIATION
 !     OF BENDING THICKNESSES
 !
-               CALL af(F,18,a,b,c,a1,a2,a3,thk1,thk2,thk3,0)
+               CALL af(f,18,a,b,c,a1,a2,a3,thk1,thk2,thk3,0)
                IF ( abs(cab2)<=1.E-6 .AND. abs(cab3)<=1.E-6 ) unimem = .TRUE.
                IF ( abs(a2)<=1.0E-06 .AND. abs(a3)<=1.0E-06 ) uniben = .TRUE.
                a1sq = a1*a1
@@ -668,46 +669,46 @@ USE ISO_FORTRAN_ENV
                            sb38 = 0.0D0
                            sb39 = 0.0D0
                            sb40 = 0.0D0
-                           IF ( mmrr0>0 ) sb1 = cab(k)*el(l)*rmx*rmy*F(mmrr0,nnss1)
-                           IF ( nnss0>0 ) sb2 = cab(k)*fl(l)*rnx*rny*F(mmrr1,nnss0)
-                           IF ( mmrr>0 .AND. nnss>0 ) sb3 = cab(k)*gl(l)*rnx*rmy*F(mmrr,nnss)
-                           IF ( mmrr>0 .AND. nnss>0 ) sb4 = cab(k)*gl(l)*rmx*rny*F(mmrr,nnss)
-                           IF ( kkrr0>0 ) sb5 = cab(k)*el(l)*rkx*rky*F(kkrr0,llss1)
-                           IF ( jjss0>0 ) sb6 = cab(k)*el(l)*rjx*rjy*F(iirr1,jjss0)
-                           IF ( kirr>0 .AND. ljss>0 ) sb7 = cab(k)*el(l)*rkx*rjy*F(kirr,ljss)
-                           IF ( ikrr>0 .AND. jlss>0 ) sb8 = cab(k)*el(l)*rjx*rky*F(ikrr,jlss)
-                           IF ( kirr>0 .AND. ljss>0 ) sb9 = cab(k)*el(l)*rkx*rjy*F(kirr,ljss)
-                           IF ( kkrr0>0 ) sb10 = cab(k)*el(l)*rkx*rky*F(kkrr0,llss1)
-                           IF ( kmrr>0 ) sb11 = cab(k)*el(l)*rkx*h5*F(kmrr,lnss1)
-                           IF ( jjss0>0 ) sb12 = cab(k)*el(l)*rjx*rjy*F(iirr1,jjss0)
-                           IF ( ikrr>0 .AND. jlss>0 ) sb13 = cab(k)*el(l)*rjx*rky*F(ikrr,jlss)
-                           IF ( jnss>0 ) sb14 = cab(k)*el(l)*rjx*h5*F(imrr1,jnss)
-                           IF ( kkrr0>0 ) sb15 = cab(k)*fl(l)*rkx*rky*F(kkrr0,llss1)
-                           IF ( kirr>0 .AND. ljss>0 ) sb16 = cab(k)*fl(l)*rkx*rjy*F(kirr,ljss)
-                           IF ( jjss0>0 ) sb17 = cab(k)*fl(l)*rjx*rjy*F(iirr1,jjss0)
-                           IF ( ikrr>0 .AND. jlss>0 ) sb18 = cab(k)*fl(l)*rjx*rky*F(ikrr,jlss)
-                           IF ( kirr>0 .AND. ljss>0 ) sb19 = cab(k)*fl(l)*rkx*rjy*F(kirr,ljss)
-                           IF ( kkrr0>0 ) sb20 = cab(k)*fl(l)*rkx*rky*F(kkrr0,llss1)
-                           IF ( kmrr>0 ) sb21 = cab(k)*fl(l)*rkx*h5*F(kmrr,lnss1)
-                           IF ( jjss0>0 ) sb22 = cab(k)*fl(l)*rjx*rjy*F(iirr1,jjss0)
-                           IF ( ikrr>0 .AND. jlss>0 ) sb23 = cab(k)*fl(l)*rjx*rky*F(ikrr,jlss)
-                           IF ( jnss>0 ) sb24 = cab(k)*fl(l)*rjx*h5*F(imrr1,jnss)
-                           IF ( kkrr>0 .AND. llss>0 ) sb25 = cab(k)*gl(l)*rlx*rky*F(kkrr,llss)
-                           IF ( kkrr>0 .AND. llss>0 ) sb26 = cab(k)*gl(l)*rkx*rly*F(kkrr,llss)
-                           IF ( ljss0>0 ) sb27 = cab(k)*gl(l)*rlx*rjy*F(kirr1,ljss0)
-                           IF ( jlss0>0 ) sb28 = cab(k)*gl(l)*rjx*rly*F(ikrr1,jlss0)
-                           IF ( mkrr>0 ) sb29 = cab(k)*gl(l)*rky*h6*F(mkrr,nlss1)
-                           IF ( kmrr>0 ) sb30 = cab(k)*gl(l)*rkx*h6*F(kmrr,lnss1)
-                           IF ( njss>0 ) sb31 = cab(k)*gl(l)*rjy*h6*F(mirr1,njss)
-                           IF ( jnss>0 ) sb32 = cab(k)*gl(l)*rjx*h6*F(imrr1,jnss)
-                           IF ( ikrr0>0 ) sb33 = cab(k)*gl(l)*rix*rky*F(ikrr0,jlss1)
-                           IF ( kirr0>0 ) sb34 = cab(k)*gl(l)*rkx*riy*F(kirr0,ljss1)
-                           IF ( iirr>0 .AND. jjss>0 ) sb35 = cab(k)*gl(l)*rix*rjy*F(iirr,jjss)
-                           IF ( iirr>0 .AND. jjss>0 ) sb36 = cab(k)*gl(l)*rjx*riy*F(iirr,jjss)
-                           IF ( mkrr>0 ) sb37 = cab(k)*gl(l)*rky*h4*F(mkrr,nlss1)
-                           IF ( kmrr>0 ) sb38 = cab(k)*gl(l)*rkx*h4*F(kmrr,lnss1)
-                           IF ( njss>0 ) sb39 = cab(k)*gl(l)*rjy*h4*F(mirr1,njss)
-                           IF ( jnss>0 ) sb40 = cab(k)*gl(l)*rjx*h4*F(imrr1,jnss)
+                           IF ( mmrr0>0 ) sb1 = cab(k)*el(l)*rmx*rmy*f(mmrr0,nnss1)
+                           IF ( nnss0>0 ) sb2 = cab(k)*fl(l)*rnx*rny*f(mmrr1,nnss0)
+                           IF ( mmrr>0 .AND. nnss>0 ) sb3 = cab(k)*gl(l)*rnx*rmy*f(mmrr,nnss)
+                           IF ( mmrr>0 .AND. nnss>0 ) sb4 = cab(k)*gl(l)*rmx*rny*f(mmrr,nnss)
+                           IF ( kkrr0>0 ) sb5 = cab(k)*el(l)*rkx*rky*f(kkrr0,llss1)
+                           IF ( jjss0>0 ) sb6 = cab(k)*el(l)*rjx*rjy*f(iirr1,jjss0)
+                           IF ( kirr>0 .AND. ljss>0 ) sb7 = cab(k)*el(l)*rkx*rjy*f(kirr,ljss)
+                           IF ( ikrr>0 .AND. jlss>0 ) sb8 = cab(k)*el(l)*rjx*rky*f(ikrr,jlss)
+                           IF ( kirr>0 .AND. ljss>0 ) sb9 = cab(k)*el(l)*rkx*rjy*f(kirr,ljss)
+                           IF ( kkrr0>0 ) sb10 = cab(k)*el(l)*rkx*rky*f(kkrr0,llss1)
+                           IF ( kmrr>0 ) sb11 = cab(k)*el(l)*rkx*h5*f(kmrr,lnss1)
+                           IF ( jjss0>0 ) sb12 = cab(k)*el(l)*rjx*rjy*f(iirr1,jjss0)
+                           IF ( ikrr>0 .AND. jlss>0 ) sb13 = cab(k)*el(l)*rjx*rky*f(ikrr,jlss)
+                           IF ( jnss>0 ) sb14 = cab(k)*el(l)*rjx*h5*f(imrr1,jnss)
+                           IF ( kkrr0>0 ) sb15 = cab(k)*fl(l)*rkx*rky*f(kkrr0,llss1)
+                           IF ( kirr>0 .AND. ljss>0 ) sb16 = cab(k)*fl(l)*rkx*rjy*f(kirr,ljss)
+                           IF ( jjss0>0 ) sb17 = cab(k)*fl(l)*rjx*rjy*f(iirr1,jjss0)
+                           IF ( ikrr>0 .AND. jlss>0 ) sb18 = cab(k)*fl(l)*rjx*rky*f(ikrr,jlss)
+                           IF ( kirr>0 .AND. ljss>0 ) sb19 = cab(k)*fl(l)*rkx*rjy*f(kirr,ljss)
+                           IF ( kkrr0>0 ) sb20 = cab(k)*fl(l)*rkx*rky*f(kkrr0,llss1)
+                           IF ( kmrr>0 ) sb21 = cab(k)*fl(l)*rkx*h5*f(kmrr,lnss1)
+                           IF ( jjss0>0 ) sb22 = cab(k)*fl(l)*rjx*rjy*f(iirr1,jjss0)
+                           IF ( ikrr>0 .AND. jlss>0 ) sb23 = cab(k)*fl(l)*rjx*rky*f(ikrr,jlss)
+                           IF ( jnss>0 ) sb24 = cab(k)*fl(l)*rjx*h5*f(imrr1,jnss)
+                           IF ( kkrr>0 .AND. llss>0 ) sb25 = cab(k)*gl(l)*rlx*rky*f(kkrr,llss)
+                           IF ( kkrr>0 .AND. llss>0 ) sb26 = cab(k)*gl(l)*rkx*rly*f(kkrr,llss)
+                           IF ( ljss0>0 ) sb27 = cab(k)*gl(l)*rlx*rjy*f(kirr1,ljss0)
+                           IF ( jlss0>0 ) sb28 = cab(k)*gl(l)*rjx*rly*f(ikrr1,jlss0)
+                           IF ( mkrr>0 ) sb29 = cab(k)*gl(l)*rky*h6*f(mkrr,nlss1)
+                           IF ( kmrr>0 ) sb30 = cab(k)*gl(l)*rkx*h6*f(kmrr,lnss1)
+                           IF ( njss>0 ) sb31 = cab(k)*gl(l)*rjy*h6*f(mirr1,njss)
+                           IF ( jnss>0 ) sb32 = cab(k)*gl(l)*rjx*h6*f(imrr1,jnss)
+                           IF ( ikrr0>0 ) sb33 = cab(k)*gl(l)*rix*rky*f(ikrr0,jlss1)
+                           IF ( kirr0>0 ) sb34 = cab(k)*gl(l)*rkx*riy*f(kirr0,ljss1)
+                           IF ( iirr>0 .AND. jjss>0 ) sb35 = cab(k)*gl(l)*rix*rjy*f(iirr,jjss)
+                           IF ( iirr>0 .AND. jjss>0 ) sb36 = cab(k)*gl(l)*rjx*riy*f(iirr,jjss)
+                           IF ( mkrr>0 ) sb37 = cab(k)*gl(l)*rky*h4*f(mkrr,nlss1)
+                           IF ( kmrr>0 ) sb38 = cab(k)*gl(l)*rkx*h4*f(kmrr,lnss1)
+                           IF ( njss>0 ) sb39 = cab(k)*gl(l)*rjy*h4*f(mirr1,njss)
+                           IF ( jnss>0 ) sb40 = cab(k)*gl(l)*rjx*h4*f(imrr1,jnss)
                            st = st + sb1 + sb2 + sb3 + sb4 + 0.25*(sb5+sb6-sb7-sb8) + (sb9+sb10-sb11-sb12-sb13+sb14)                &
                               & + 0.25*(sb15-sb16+sb17-sb18) + (-sb19-sb20+sb21+sb22+sb23-sb24)                                     &
                               & + 0.5*(sb25+sb26-sb27-sb28-sb29-sb30+sb31+sb32) + 0.5*(-sb33-sb34+sb35+sb36+sb37+sb38-sb39-sb40)
@@ -841,13 +842,13 @@ USE ISO_FORTRAN_ENV
                   sil(i) = i
                ENDDO
                DO i = 1 , 6
-                  IF ( Npvt==iest(i+1) ) THEN
+                  IF ( npvt==iest(i+1) ) THEN
                      npivot = i
                      GOTO 5
                   ENDIF
                ENDDO
                nogo = .TRUE.
-               WRITE (Ioutpt,99002) Sfm , iest(1)
+               WRITE (ioutpt,99002) sfm , iest(1)
 99002          FORMAT (A25,' 2419, PIVOT POINT IS NOT EQUAL TO TRSHL ELEMENT ','GRID POINTS FOR ELEMENT ID =',I9,1H.)
                RETURN
 !
@@ -922,7 +923,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 2
       CASE (2)
          nogo = .TRUE.
-         WRITE (Ioutpt,99003) Ufm , iest(1)
+         WRITE (ioutpt,99003) ufm , iest(1)
 !
 99003    FORMAT (A23,' 2416, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',/26X,             &
                 &'CHECK COORDINATES OF ELEMENT  TRSHL WITH ID =',I9,1H.)

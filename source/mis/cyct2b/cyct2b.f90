@@ -1,10 +1,11 @@
-!*==cyct2b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cyct2b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cyct2b(Input,Outpt,Ncol,Iz,Mcb)
+   USE c_packx
+   USE c_unpakx
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,18 +32,18 @@ SUBROUTINE cyct2b(Input,Outpt,Ncol,Iz,Mcb)
    DATA zero/0.0/
 !
 !
-   Ita = iabs(Itc)
-   Itb = Ita
-   Incr = Incr1
+   ita = iabs(itc)
+   itb = ita
+   incr = incr1
    DO i = 1 , Ncol
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
-            Iik = 0
+            iik = 0
             CALL unpack(*10,Input,Iz)
-            Ii = Iik
-            Jj = Jjk
+            ii = iik
+            jj = jjk
             spag_nextblock_1 = 2
          CASE (2)
             CALL pack(Iz,Outpt,Mcb)
@@ -50,14 +51,13 @@ SUBROUTINE cyct2b(Input,Outpt,Ncol,Iz,Mcb)
 !
 !     NULL COLUMN
 !
- 10         Ii = 1
-            Jj = 1
+ 10         ii = 1
+            jj = 1
             Iz(1) = izero
             Iz(2) = izero
             Iz(3) = izero
             Iz(4) = izero
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1
    ENDDO

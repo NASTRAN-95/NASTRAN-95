@@ -1,9 +1,10 @@
-!*==sinc0s1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sinc0s1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sinc0s1(Row,Sick,D,O,Cos)
+   USE c_givn
    IMPLICIT NONE
-   USE C_GIVN
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,7 +46,7 @@ SUBROUTINE sinc0s1(Row,Sick,D,O,Cos)
 !
    Sick = 0
    rowp2 = Row + 2
-   DO i = rowp2 , N
+   DO i = rowp2 , n
       IF ( D(i)==0.0 ) THEN
 !
 !     NO ROTATION.

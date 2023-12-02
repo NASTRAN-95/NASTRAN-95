@@ -1,4 +1,5 @@
-!*==fzy2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fzy2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fzy2(Xij,X1,X2,Eta,Zeta,Yb,Zb,A,Beta2,Cbar,K,Fzzr,Fzzi,Fzyr,Fzyi,Fyzr,Fyzi,Fyyr,Fyyi)
@@ -33,6 +34,15 @@ SUBROUTINE fzy2(Xij,X1,X2,Eta,Zeta,Yb,Zb,A,Beta2,Cbar,K,Fzzr,Fzzi,Fzyr,Fzyi,Fyzr
          & rwig2 , st2 , tau , tau2 , trm1 , trm2 , xa
    REAL , SAVE :: capdi , capdr , cth , i1 , i10 , i11 , i2 , i3 , i4 , i5 , i6 , i7 , i8 , i9 , raij , raij2 , sth , test1 , test2
    INTEGER , SAVE :: lastbr
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,19 +1,20 @@
-!*==sma2a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sma2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sma2a
-USE C_BLANK
-USE C_GPTA1
-USE C_SMA2BK
-USE C_SMA2CL
-USE C_SMA2ET
-USE C_SMA2HT
-USE C_SMA2IO
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_gpta1
+   USE c_sma2bk
+   USE c_sma2cl
+   USE c_sma2et
+   USE c_sma2ht
+   USE c_sma2io
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -43,7 +44,7 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ipr = Iprec
+         ipr = iprec
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -53,83 +54,83 @@ USE ISO_FORTRAN_ENV
 !     IS A SCALAR POINT.  INPVT(2) IS THE NUMBER OF WORDS IN THE
 !     REMAINDER OF THIS RECORD OF THE GPCT.
 !
-         CALL read(*100,*80,Ifgpct,inpvt(1),2,Neor,iflag)
-         Ngpct = inpvt(2)
-         CALL read(*100,*120,Ifgpct,iz(Igpct+1),Ngpct,Eor,iflag)
+         CALL read(*100,*80,ifgpct,inpvt(1),2,neor,iflag)
+         ngpct = inpvt(2)
+         CALL read(*100,*120,ifgpct,iz(igpct+1),ngpct,eor,iflag)
 !
 !     FROWIC IS THE FIRST ROW IN CORE. (1 .LE. FROWIC .LE. 6)
 !
-         Frowic = 1
+         frowic = 1
 !
 !     DECREMENT THE AMOUNT OF CORE REMAINING.
 !
-         left = Lleft - 2*Ngpct
+         left = lleft - 2*ngpct
          IF ( left<=0 ) THEN
             CALL mesage(-8,ifile,name)
             GOTO 140
          ELSE
-            Ipoint = Igpct + Ngpct
-            Npoint = Ngpct
-            I6x6m = Ipoint + Npoint
-            I6x6m = (I6x6m-1)/2 + 2
+            ipoint = igpct + ngpct
+            npoint = ngpct
+            i6x6m = ipoint + npoint
+            i6x6m = (i6x6m-1)/2 + 2
 !
 !     CONSTRUCT THE POINTER TABLE, WHICH WILL ENABLE SUBROUTINE INSERT
 !     TO ADD THE ELEMENT MASS AND/OR DAMPING MATRICES TO MGG AND/OR BGG.
 !
-            iz(Ipoint+1) = 1
+            iz(ipoint+1) = 1
             i1 = 1
-            i = Igpct
-            j = Ipoint + 1
+            i = igpct
+            j = ipoint + 1
             SPAG_Loop_1_1: DO
                i1 = i1 + 1
-               IF ( i1>Ngpct ) THEN
+               IF ( i1>ngpct ) THEN
 !
 !     JMAX = THE NUMBER OF COLUMNS OF MGG THAT WILL BE GENERATED WITH
 !     THE CURRENT GRID POINT.
 !
                   inc = 5
-                  ilast = Igpct + Ngpct
-                  jlast = Ipoint + Npoint
+                  ilast = igpct + ngpct
+                  jlast = ipoint + npoint
                   IF ( iz(ilast)<0 ) inc = 0
-                  Jmax = iz(jlast) + inc
+                  jmax = iz(jlast) + inc
 !
 !     TNROWS = THE TOTAL NUMBER OF ROWS OF THE MATRIX TO BE GENERATED
 !              FOR THE CURRENT PIVOT POINT.
 !     TNROWS = 6 IF THE CURRENT PIVOT POINT IS A GRID POINT.
 !     TNROWS = 1 IF THE CURRENT PIVOT POINT IS A SCALAR POINT.
 !
-                  Tnrows = 6
-                  IF ( inpvt(1)<0 ) Tnrows = 1
+                  tnrows = 6
+                  IF ( inpvt(1)<0 ) tnrows = 1
 !
 !     IF 2*TNROWS*JMAX .LT. LEFT THERE ARE NO SPILL LOGIC PROBLEMS FOR
 !     THE MGG SINCE THE WHOLE DOUBLE PRECISION SUBMATRIX OF ORDER
 !     TNROWS*JMAX CAN FIT IN CORE.
 !
-                  itemp = Tnrows*Jmax
+                  itemp = tnrows*jmax
                   IF ( 2*itemp<left ) THEN
-                     Nrowsc = Tnrows
+                     nrowsc = tnrows
                   ELSE
                      CALL mesage(30,86,inpvt)
 !
 !     THE WHOLE MATRIX CANNOT FIT IN CORE, DETERMINE HOW MANY ROWS CAN
 !     FIT. IF TNROWS = 1, WE CAN DO NOTHING FURTHER.
 !
-                     IF ( Tnrows==1 ) THEN
+                     IF ( tnrows==1 ) THEN
                         CALL mesage(-8,ifile,name)
                         GOTO 140
                      ELSE
-                        Nrowsc = 3
-                        DO WHILE ( 2*Nrowsc*Jmax>=left )
-                           Nrowsc = Nrowsc - 1
-                           IF ( Nrowsc==0 ) CALL mesage(-8,0,name)
+                        nrowsc = 3
+                        DO WHILE ( 2*nrowsc*jmax>=left )
+                           nrowsc = nrowsc - 1
+                           IF ( nrowsc==0 ) CALL mesage(-8,0,name)
                         ENDDO
                      ENDIF
                   ENDIF
-                  Frowic = 1
+                  frowic = 1
 !
 !     LROWIC IS THE LAST ROW IN CORE. (1 .LE. LROWIC .LE. 6)
 !
-                  Lrowic = Frowic + Nrowsc - 1
+                  lrowic = frowic + nrowsc - 1
                   EXIT SPAG_Loop_1_1
                ELSE
                   i = i + 1
@@ -145,34 +146,34 @@ USE ISO_FORTRAN_ENV
 !
 !     ZERO OUT THE MGG SUBMATRIX IN CORE
 !
-         low = I6x6m + 1
-         lim = I6x6m + Jmax*Nrowsc
+         low = i6x6m + 1
+         lim = i6x6m + jmax*nrowsc
          DO i = low , lim
             dz(i) = 0.0D0
          ENDDO
 !
 !     CHECK TO SEE IF BGG MATRIX IS DESIRED.
 !
-         IF ( Ioptb/=0 ) THEN
+         IF ( ioptb/=0 ) THEN
 !
 !     SINCE THE BGG MATRIX IS TO BE COMPUTED,DETERMINE WHETHER OR NOT IT
 !     TOO CAN FIT IN CORE.
 !
-            IF ( Nrowsc/=Tnrows ) THEN
+            IF ( nrowsc/=tnrows ) THEN
 !
 !     OPEN A SCRATCH FILE FOR BGG
 !
                CALL mesage(-8,0,name)
-            ELSEIF ( 4*Tnrows*Jmax>=left ) THEN
+            ELSEIF ( 4*tnrows*jmax>=left ) THEN
                CALL mesage(-8,0,name)
             ENDIF
 !
 !     THIS CODE TO BE FILLED IN LATER
 !     ===============================
 !
-            I6x6b = I6x6m + Jmax*Tnrows
-            low = I6x6b + 1
-            lim = I6x6b + Jmax*Tnrows
+            i6x6b = i6x6m + jmax*tnrows
+            low = i6x6b + 1
+            lim = i6x6b + jmax*tnrows
             DO i = low , lim
                dz(i) = 0.0D0
             ENDDO
@@ -180,8 +181,8 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE THE LINK VECTOR TO -1.
 !
-         DO i = 1 , Nlinks
-            Link(i) = -1
+         DO i = 1 , nlinks
+            link(i) = -1
          ENDDO
          spag_nextblock_1 = 4
       CASE (4)
@@ -192,20 +193,20 @@ USE ISO_FORTRAN_ENV
 !
 !     READ THE 1ST WORD OF THE ECPT RECORD, THE PIVOT POINT, INTO NPVT.
 !
-         CALL fread(Ifecpt,Npvt,1,0)
+         CALL fread(ifecpt,npvt,1,0)
          DO
 !
 !     READ THE NEXT ELEMENT TYPE INTO THE CELL ITYPE.
 !
-            CALL read(*140,*20,Ifecpt,itype,1,Neor,iflag)
+            CALL read(*140,*20,ifecpt,itype,1,neor,iflag)
             IF ( itype>=53 .AND. itype<=61 ) THEN
 !
 !     READ THE ECPT ENTRY FOR THE CURRENT TYPE INTO THE ECPT ARRAY. THE
 !     NUMBER OF WORDS TO BE READ WILL BE NWORDS(ITYPE).
 !
-               idx = (itype-1)*Incr
-               CALL fread(Ifecpt,Ecpt,Ne(idx+12),0)
-               itemp = Ne(idx+23)
+               idx = (itype-1)*incr
+               CALL fread(ifecpt,ecpt,ne(idx+12),0)
+               itemp = ne(idx+23)
 !
 !     IF THIS IS THE 1ST ELEMENT READ ON THE CURRENT PASS OF THE ECPT
 !     CHECK TO SEE IF THIS ELEMENT IS IN A LINK THAT HAS ALREADY BEEN
@@ -218,7 +219,7 @@ USE ISO_FORTRAN_ENV
 !     IS IN A LINK THAT HAS ALREADY BEEN PROCESSED.  IF IT IS SUCH AN
 !     ELEMENT, WE KEEP IFIRST = 1 AND READ THE NEXT ELEMENT.
 !
-                  IF ( Link(itemp)==1 ) CYCLE
+                  IF ( link(itemp)==1 ) CYCLE
 !
 !     SET THE CURRENT LINK IN CORE = ITEMP AND IFIRST = 0
 !
@@ -239,7 +240,7 @@ USE ISO_FORTRAN_ENV
 !     SET A TO BE PROCESSED LATER FLAG FOR THE LINK IN WHICH THE ELEMENT
 !     RESIDES
 !
-                  IF ( Link(itemp)/=1 ) Link(itemp) = 0
+                  IF ( link(itemp)/=1 ) link(itemp) = 0
                   CYCLE
                ENDIF
 !
@@ -272,11 +273,11 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ELSE
                CALL page2(-3)
-               sysprt = Isew1(1)
-               WRITE (sysprt,99001) Ufm , itype
+               sysprt = isew1(1)
+               WRITE (sysprt,99001) ufm , itype
 99001          FORMAT (A23,' 2202, ELEMENT TYPE',I4,' NO LONGER SUPPORTED BY ','SMA2 MODULE.',/5X,                                  &
                       &'USE EMG AND EMA MODULES FOR ELEMENT MATRIX GENERATION')
-               Nogo = 1
+               nogo = 1
                GOTO 100
             ENDIF
          ENDDO
@@ -284,9 +285,9 @@ USE ISO_FORTRAN_ENV
 !     AT STATEMENT NO. 500 WE HAVE HIT AN EOR ON THE ECPT FILE.  SEARCH
 !     THE LINK VECTOR TO DETERMINE IF THERE ARE LINKS TO BE PROCESSED.
 !
- 20      Link(lincor) = 1
-         DO i = 1 , Nlinks
-            IF ( Link(i)==0 ) THEN
+ 20      link(lincor) = 1
+         DO i = 1 , nlinks
+            IF ( link(i)==0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -294,7 +295,7 @@ USE ISO_FORTRAN_ENV
 !
 !     CHECK NOGO = 1 SKIP BLDPK
 !
-         IF ( Nogo==1 ) THEN
+         IF ( nogo==1 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -305,59 +306,57 @@ USE ISO_FORTRAN_ENV
 !
 !     HEAT TRANSFER PROBLEM, SKIP MGG
 !
-         IF ( Heat ) GOTO 40
+         IF ( heat ) GOTO 40
 !
-         ifile = Ifmgg
+         ifile = ifmgg
          imcb = 1
 !
 !     MULTIPLY THE MASS MATRIX BY THE PARAMETER WTMASS IF IT IS NOT
 !     UNITY
 !
-         IF ( Wtmass/=1.0 ) THEN
-            low = I6x6m + 1
-            lim = I6x6m + Jmax*Nrowsc
+         IF ( wtmass/=1.0 ) THEN
+            low = i6x6m + 1
+            lim = i6x6m + jmax*nrowsc
             DO i = low , lim
-               dz(i) = dz(i)*Wtmass
+               dz(i) = dz(i)*wtmass
             ENDDO
          ENDIF
          i1 = 0
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     SINCE AT LEAST ONE LINK HAS NOT BEEN PROCESSED THE ECPT FILE MUST
 !     BE BACKSPACED.
 !
-         CALL bckrec(Ifecpt)
+         CALL bckrec(ifecpt)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          SPAG_Loop_1_2: DO
             i2 = 0
-            ibeg = I6x6m + i1*Jmax
+            ibeg = i6x6m + i1*jmax
             CALL bldpk(2,ipr,ifile,0,0)
             DO
                i2 = i2 + 1
-               IF ( i2>Ngpct ) THEN
-                  CALL bldpkn(ifile,0,Mcbmgg(imcb))
+               IF ( i2>ngpct ) THEN
+                  CALL bldpkn(ifile,0,mcbmgg(imcb))
                   i1 = i1 + 1
-                  IF ( i1<Nrowsc ) CYCLE SPAG_Loop_1_2
+                  IF ( i1<nrowsc ) CYCLE SPAG_Loop_1_2
                   GOTO iretrn
                ELSE
-                  jj = Igpct + i2
-                  Index = iabs(iz(jj)) - 1
+                  jj = igpct + i2
+                  index = iabs(iz(jj)) - 1
                   lim = 6
                   IF ( iz(jj)<0 ) lim = 1
-                  jjj = Ipoint + i2
+                  jjj = ipoint + i2
                   kkk = ibeg + iz(jjj) - 1
                   i3 = 0
                   SPAG_Loop_3_3: DO
                      i3 = i3 + 1
                      IF ( i3>lim ) EXIT SPAG_Loop_3_3
-                     Index = Index + 1
+                     index = index + 1
                      kkk = kkk + 1
-                     Dpword = dz(kkk)
-                     IF ( Dpword/=0.0D0 ) CALL zblpki
+                     dpword = dz(kkk)
+                     IF ( dpword/=0.0D0 ) CALL zblpki
                   ENDDO SPAG_Loop_3_3
                ENDIF
             ENDDO
@@ -366,14 +365,14 @@ USE ISO_FORTRAN_ENV
 !
 !     IF THE BGG IS CALLED FOR BLDPK IT.
 !
- 40      IF ( Ioptb/=0 ) THEN
-            IF ( Ioptb/=-1 ) THEN
+ 40      IF ( ioptb/=0 ) THEN
+            IF ( ioptb/=-1 ) THEN
 !
 !     THE BGG MATRIX IS IN CORE
 !
                ASSIGN 60 TO iretrn
-               I6x6m = I6x6b
-               ifile = Ifbgg
+               i6x6m = i6x6b
+               ifile = ifbgg
                imcb = 8
                i1 = 0
                spag_nextblock_1 = 6
@@ -388,19 +387,19 @@ USE ISO_FORTRAN_ENV
 !     ROWS TO BE COMPUTED, TNROWS.  IF IT IS, WE ARE DONE.  IF NOT, THE
 !     ECPT MUST BE BACKSPACED.
 !
- 60      IF ( Lrowic==Tnrows ) THEN
+ 60      IF ( lrowic==tnrows ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL bckrec(Ifecpt)
-         Frowic = Frowic + Nrowsc
-         Lrowic = Lrowic + Nrowsc
+         CALL bckrec(ifecpt)
+         frowic = frowic + nrowsc
+         lrowic = lrowic + nrowsc
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     CHECK NOGO = 1 SKIP BLDPK
 !
- 80      IF ( Nogo/=1 ) THEN
+ 80      IF ( nogo/=1 ) THEN
 !
 !     HERE WE HAVE A PIVOT POINT WITH NO ELEMENTS CONNECTED, SO THAT
 !     NULL COLUMNS MUST BE OUTPUT ON THE MGG AND BGG FILES.
@@ -408,32 +407,32 @@ USE ISO_FORTRAN_ENV
             lim = 6
             IF ( inpvt(1)<0 ) lim = 1
             DO i = 1 , lim
-               IF ( .NOT.(Heat) ) THEN
-                  CALL bldpk(2,ipr,Ifmgg,0,0)
-                  CALL bldpkn(Ifmgg,0,Mcbmgg)
+               IF ( .NOT.(heat) ) THEN
+                  CALL bldpk(2,ipr,ifmgg,0,0)
+                  CALL bldpkn(ifmgg,0,mcbmgg)
                ENDIF
-               IF ( Ioptb==1 ) THEN
-                  CALL bldpk(2,ipr,Ifbgg,0,0)
-                  CALL bldpkn(Ifbgg,0,Mcbbgg)
+               IF ( ioptb==1 ) THEN
+                  CALL bldpk(2,ipr,ifbgg,0,0)
+                  CALL bldpkn(ifbgg,0,mcbbgg)
                ENDIF
             ENDDO
-            CALL skprec(Ifecpt,1)
+            CALL skprec(ifecpt,1)
          ENDIF
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     RETURN SINCE AN EOF HAS BEEN HIT ON THE GPCT FILE
 !
- 100     IF ( Nogo==1 ) CALL mesage(-61,0,name)
+ 100     IF ( nogo==1 ) CALL mesage(-61,0,name)
          RETURN
 !
 !     ERROR RETURNS
 !
- 120     ifile = Ifgpct
+ 120     ifile = ifgpct
          iparm = 3
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 140     ifile = Ifecpt
+ 140     ifile = ifecpt
          iparm = 2
          spag_nextblock_1 = 7
       CASE (7)

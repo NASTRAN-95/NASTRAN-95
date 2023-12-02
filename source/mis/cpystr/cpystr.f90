@@ -1,10 +1,11 @@
-!*==cpystr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cpystr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cpystr(Inblk,Outblk,Flag,Col)
-USE C_TYPE
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_type
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -50,8 +51,8 @@ USE ISO_FORTRAN_ENV
    IF ( Col==0 ) Outblk(12) = Inblk(12)
    Outblk(13) = 0
    type = Inblk(2)
-   prec = Prc(type)
-   rc = Rlcmpx(type)
+   prec = prc(type)
+   rc = rlcmpx(type)
    SPAG_Loop_1_1: DO
 !
 !     COPY A STRING
@@ -72,7 +73,7 @@ USE ISO_FORTRAN_ENV
          ELSE
 !
             DO jout = out , nstr
-               Xns(jout) = Xns(in)
+               xns(jout) = xns(in)
                in = in + 1
             ENDDO
          ENDIF
@@ -116,7 +117,7 @@ USE ISO_FORTRAN_ENV
 !
  100  Outblk(8) = 1
    CALL endput(Outblk)
-   Outblk(13) = (Outblk(13)+Outblk(7))*Words(type)
+   Outblk(13) = (Outblk(13)+Outblk(7))*words(type)
    RETURN
 !
 !     HERE IF NO STRINGS IN RECORD - MAKE A NULL RECORD

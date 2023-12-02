@@ -2,10 +2,10 @@
  
 SUBROUTINE intfbs(Dx,Dy,Iobuf)
    IMPLICIT NONE
-   USE C_INFBSX
-   USE C_NAMES
-   USE C_TRDXX
-   USE C_ZNTPKX
+   USE c_infbsx
+   USE c_names
+   USE c_trdxx
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -18,6 +18,15 @@ SUBROUTINE intfbs(Dx,Dy,Iobuf)
    REAL :: da , dtemp
    INTEGER :: i , in1 , in2 , ioff , j , k , nrow , typear
    INTEGER , DIMENSION(4) , SAVE :: parm
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -45,65 +54,65 @@ SUBROUTINE intfbs(Dx,Dy,Iobuf)
    DO i = 1 , nrow
       Dy(i) = Dx(i)
    ENDDO
-   typear = Rsp
+   typear = rsp
 !
 !     OPEN FILE FOR THE LOWER TRIANGLE
 !
-   parm(2) = Filel(1)
-   IF ( Iopen/=-10 ) THEN
-      IF ( Iopen==0 ) CALL open(*700,Filel(1),Iobuf,Rdrew)
-      CALL fwdrec(*800,Filel(1))
+   parm(2) = filel(1)
+   IF ( iopen/=-10 ) THEN
+      IF ( iopen==0 ) CALL open(*700,filel(1),Iobuf,rdrew)
+      CALL fwdrec(*800,filel(1))
    ENDIF
 !
 !     BEGIN FORWARD PASS
 !
    j = 1
-   CALL intpk(*200,Filel(1),0,typear,0)
- 100  DO WHILE ( Eol==0 )
+   CALL intpk(*200,filel(1),0,typear,0)
+ 100  DO WHILE ( eol==0 )
       CALL zntpki
-      IF ( j<Ii ) THEN
-         Dy(Ii) = Dy(Ii) - Dy(j)*da
-      ELSEIF ( j==Ii ) THEN
+      IF ( j<ii ) THEN
+         Dy(ii) = Dy(ii) - Dy(j)*da
+      ELSEIF ( j==ii ) THEN
 !
 !     PERFORM THE REQUIRED ROW INTERCHANGE
 !
-         in1 = j + ifix(A(1))
+         in1 = j + ifix(a(1))
          dtemp = Dy(j)
          Dy(j) = Dy(in1)
          Dy(in1) = dtemp
       ELSE
          CYCLE
       ENDIF
-      DO WHILE ( Eol==0 )
+      DO WHILE ( eol==0 )
          CALL zntpki
-         Dy(Ii) = Dy(Ii) - Dy(j)*da
+         Dy(ii) = Dy(ii) - Dy(j)*da
       ENDDO
       GOTO 200
    ENDDO
    GOTO 900
  200  j = j + 1
    IF ( j<nrow ) THEN
-      CALL intpk(*200,Filel(1),0,typear,0)
+      CALL intpk(*200,filel(1),0,typear,0)
       GOTO 100
    ELSE
-      CALL rewind(Filel(1))
-      IF ( Iopen==0 ) CALL close(Filel(1),Rew)
-      IF ( Iopen==-10 ) CALL skprec(Filel,1)
+      CALL rewind(filel(1))
+      IF ( iopen==0 ) CALL close(filel(1),rew)
+      IF ( iopen==-10 ) CALL skprec(filel,1)
 !
 !     BEGIN BACKWARD PASS
 !
-      ioff = Fileu(7) - 1
-      parm(2) = Fileu(1)
-      IF ( Iopen/=-10 ) THEN
-         IF ( Iopen==0 ) CALL open(*700,Fileu(1),Iobuf,Rdrew)
-         CALL fwdrec(*800,Fileu(1))
+      ioff = fileu(7) - 1
+      parm(2) = fileu(1)
+      IF ( iopen/=-10 ) THEN
+         IF ( iopen==0 ) CALL open(*700,fileu(1),Iobuf,rdrew)
+         CALL fwdrec(*800,fileu(1))
       ENDIF
       j = nrow
    ENDIF
- 300  CALL intpk(*900,Fileu(1),0,typear,0)
-   IF ( Eol/=0 ) GOTO 900
+ 300  CALL intpk(*900,fileu(1),0,typear,0)
+   IF ( eol/=0 ) GOTO 900
  400  CALL zntpki
-   i = nrow - Ii + 1
+   i = nrow - ii + 1
    IF ( i/=j ) GOTO 600
 !
 !     DIVIDE BY THE DIAGONAL
@@ -113,16 +122,16 @@ SUBROUTINE intfbs(Dx,Dy,Iobuf)
 !     SUBTRACT OFF REMAINING TERMS
 !
  500  IF ( i>j ) GOTO 400
-   IF ( Eol/=0 ) THEN
+   IF ( eol/=0 ) THEN
       j = j - 1
       IF ( j>0 ) GOTO 300
-      CALL rewind(Fileu(1))
-      IF ( Iopen==0 ) CALL close(Fileu(1),Rew)
-      IF ( Iopen==-10 ) CALL skprec(Fileu,1)
+      CALL rewind(fileu(1))
+      IF ( iopen==0 ) CALL close(fileu(1),rew)
+      IF ( iopen==-10 ) CALL skprec(fileu,1)
       RETURN
    ELSE
       CALL zntpki
-      i = nrow - Ii + 1
+      i = nrow - ii + 1
    ENDIF
  600  in1 = i
    in2 = j

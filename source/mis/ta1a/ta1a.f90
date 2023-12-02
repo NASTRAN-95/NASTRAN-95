@@ -1,4 +1,5 @@
-!*==ta1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ta1a.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ta1a
@@ -8,17 +9,17 @@ SUBROUTINE ta1a
 !     SIMPLE ELEMENT OF THE STRUCTURE. THE EST CONTAINS ONE LOGICAL
 !     RECORD PER SIMPLE ELEMENT TYPE.
 !
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_ta1acm
+   USE c_ta1com
+   USE c_ta1ett
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TA1ACM
-   USE C_TA1COM
-   USE C_TA1ETT
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -67,27 +68,27 @@ SUBROUTINE ta1a
 !
 !     PERFORM GENERAL INITIALIZATION
 !
-         IF ( Nelem>90 ) THEN
+         IF ( nelem>90 ) THEN
 !
 !     ARRAY IG IS FIRST DIMENSIONED IN TA1ABD
 !
-            WRITE (nout,99001) Sfm
+            WRITE (nout,99001) sfm
 99001       FORMAT (A25,', IG ARRAY IN TA1A TOO SMALL')
             CALL mesage(-61,0,0)
             RETURN
          ELSE
-            buf1 = korsz(Z) - sysbuf - 2
+            buf1 = korsz(z) - sysbuf - 2
             buf2 = buf1 - sysbuf - 3
             buf3 = buf2 - sysbuf
             frstim = .TRUE.
             lstprp = 0
             kscalr = 0
             itabl = 0
-            Nosimp = -1
+            nosimp = -1
             nogox = 0
             nogo = 0
             m8 = -8
-            Comps = 1
+            comps = 1
             nopshl = -1
             npshel = 0
             oldid = 0
@@ -104,30 +105,30 @@ SUBROUTINE ta1a
 !     PCOMP2 BULK DATA ENTRIES, PROPERTY DATA IN THE FORM OF PSHELL
 !     BULK DATA ENTRY IS CALLED AND WRITTEN TO SCR1
 !
-            file = Ect
-            CALL open(*220,Ect,Z(buf1),Rdrew)
-            CALL skprec(Ect,1)
-            file = Scr1
-            CALL open(*360,Scr1,Z(buf3),Wrtrew)
-            buf(1) = Ept
+            file = ect
+            CALL open(*220,ect,z(buf1),rdrew)
+            CALL skprec(ect,1)
+            file = scr1
+            CALL open(*360,scr1,z(buf3),wrtrew)
+            buf(1) = ept
             CALL rdtrl(buf)
             noept = buf(1)
-            IF ( buf(1)>=0 ) CALL preloc(*20,Z(buf2),Ept)
+            IF ( buf(1)>=0 ) CALL preloc(*20,z(buf2),ept)
          ENDIF
 !
 !     LOCATE, ONE AT A TIME, SIMPLE ELEMENT TYPE IN ECT. IF PRESENT,
 !     WRITE POINTER ON  SCR1. SET POINTERS AND, IF DEFINED, LOCATE AND
 !     READ ALL PROPERTY DATA FROM EPT.
 !
- 20      CALL ectloc(*100,Ect,buf,i)
+ 20      CALL ectloc(*100,ect,buf,i)
          id = -1
-         Eltype = Elem(i+2)
-         CALL write(Scr1,i,1,0)
+         eltype = elem(i+2)
+         CALL write(scr1,i,1,0)
          q4t3 = .FALSE.
-         IF ( Eltype==quad4 .OR. Eltype==tria3 ) q4t3 = .TRUE.
-         IF ( Elem(i+10)==0 ) kscalr = 1
-         m = Elem(i+5)
-         mm = Elem(i+8)
+         IF ( eltype==quad4 .OR. eltype==tria3 ) q4t3 = .TRUE.
+         IF ( elem(i+10)==0 ) kscalr = 1
+         m = elem(i+5)
+         mm = elem(i+8)
          IF ( mm==0 ) THEN
 !
 !     EPT DATA NOT DEFINED FOR ELEMENT. COPY ECT DATA ON SCR1.
@@ -135,14 +136,14 @@ SUBROUTINE ta1a
             buf(1) = m
             m1 = m + 1
             DO
-               CALL read(*380,*80,Ect,buf(2),m,0,flag)
-               CALL write(Scr1,buf(1),m1,0)
-               Nosimp = Nosimp + 1
+               CALL read(*380,*80,ect,buf(2),m,0,flag)
+               CALL write(scr1,buf(1),m1,0)
+               nosimp = nosimp + 1
             ENDDO
          ELSE
             mx = mm
             noprop = 0
-            IF ( Elem(i+6)/=lstprp ) THEN
+            IF ( elem(i+6)/=lstprp ) THEN
                IF ( noept<0 ) THEN
                   spag_nextblock_1 = 17
                   CYCLE SPAG_DispatchLoop_1
@@ -151,11 +152,11 @@ SUBROUTINE ta1a
 !     LOCATE PROPERTY CARD
 !
                ll = 0
-               CALL locate(*40,Z(buf2),Elem(i+6),flag)
+               CALL locate(*40,z(buf2),elem(i+6),flag)
                noprop = 1
-               lstprp = Elem(i+6)
+               lstprp = elem(i+6)
             ELSE
-               IF ( Eltype==qdmem2 ) noprop = 1
+               IF ( eltype==qdmem2 ) noprop = 1
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -168,7 +169,7 @@ SUBROUTINE ta1a
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL read(*380,*60,Ept,Z(ll+1),mm,0,flag)
+            CALL read(*380,*60,ept,z(ll+1),mm,0,flag)
             ll = ll + mm
          ENDDO
 !
@@ -184,12 +185,11 @@ SUBROUTINE ta1a
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             nopshl = 1
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     CHECK FOR QUAD4 AND TRIA3 ELEMENTS WITH BOTH PCOMP AND PSHELL
 !     CARDS
@@ -217,7 +217,7 @@ SUBROUTINE ta1a
 !
 !     Z(1) THRU Z(LL) CONTAIN PROPERTY DATA
 !
-         IF ( mm<=4 ) CALL sort(0,0,mm,1,Z(1),ll)
+         IF ( mm<=4 ) CALL sort(0,0,mm,1,z(1),ll)
          kn = ll/mm
          IF ( nopshl==0 ) THEN
             spag_nextblock_1 = 10
@@ -230,8 +230,8 @@ SUBROUTINE ta1a
 !     HAS A PROPERTY ID DIFFERNENT FROM THAT OF THE PREVIOUS ELEMENT.
 !     WRITE ECT + EPT (OR NEW GENERATED PSHELL) DATA ON SCR1.
 !
-         CALL read(*380,*80,Ect,buf,m,0,flag)
-         Nosimp = Nosimp + 1
+         CALL read(*380,*80,ect,buf,m,0,flag)
+         nosimp = nosimp + 1
          IF ( buf(2)/=id ) noprop = 1
          id = buf(2)
          buf(2) = buf(1)
@@ -252,9 +252,9 @@ SUBROUTINE ta1a
             k = (klo+khi+1)/2
             SPAG_Loop_1_1: DO
                kx = (k-1)*mx + itabl
-               IF ( id<Z(kx+1) ) THEN
+               IF ( id<z(kx+1) ) THEN
                   khi = k
-               ELSEIF ( id==Z(kx+1) ) THEN
+               ELSEIF ( id==z(kx+1) ) THEN
                   EXIT SPAG_Loop_1_1
                ELSE
                   klo = k
@@ -280,30 +280,30 @@ SUBROUTINE ta1a
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         CALL write(Scr1,buf(1),m,0)
+         CALL write(scr1,buf(1),m,0)
          IF ( q4t3 ) THEN
             IF ( npshel==1 ) THEN
-               CALL write(Scr1,ipshel(1),mm-1,0)
+               CALL write(scr1,ipshel(1),mm-1,0)
                noprop = 0
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         CALL write(Scr1,Z(kx+2),mm-1,0)
+         CALL write(scr1,z(kx+2),mm-1,0)
          npshel = 0
          noprop = 0
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 80      CALL write(Scr1,0,0,1)
+ 80      CALL write(scr1,0,0,1)
          GOTO 20
 !
 !     HERE WHEN ALL ELEMENTS HAVE BEEN PROCESSED.
 !     IF NONE FOUND, EXIT.
 !
- 100     IF ( noept>=0 ) CALL close(Ept,Clsrew)
-         CALL close(Scr1,Clsrew)
-         IF ( Nosimp==-1 ) RETURN
-         Nosimp = Nosimp + 1
+ 100     IF ( noept>=0 ) CALL close(ept,clsrew)
+         CALL close(scr1,clsrew)
+         IF ( nosimp==-1 ) RETURN
+         nosimp = nosimp + 1
 !
 !     READ THE BGPDT INTO CORE (UNLESS ALL SCALAR PROBLEM).
 !     READ THE SIL INTO CORE.
@@ -313,71 +313,71 @@ SUBROUTINE ta1a
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Bgpdt
-         CALL open(*360,Bgpdt,Z(buf1),Rdrew)
-         CALL fwdrec(*380,Bgpdt)
-         CALL read(*380,*120,Bgpdt,Z(1),buf2,1,nbgp)
+         file = bgpdt
+         CALL open(*360,bgpdt,z(buf1),rdrew)
+         CALL fwdrec(*380,bgpdt)
+         CALL read(*380,*120,bgpdt,z(1),buf2,1,nbgp)
          CALL mesage(m8,0,nam)
- 120     CALL close(Bgpdt,Clsrew)
+ 120     CALL close(bgpdt,clsrew)
          spag_nextblock_1 = 6
       CASE (6)
-         file = Sil
-         CALL open(*360,Sil,Z(buf1),Rdrew)
-         CALL fwdrec(*380,Sil)
-         CALL read(*380,*140,Sil,Z(nbgp+1),buf2-nbgp,1,Nsil)
+         file = sil
+         CALL open(*360,sil,z(buf1),rdrew)
+         CALL fwdrec(*380,sil)
+         CALL read(*380,*140,sil,z(nbgp+1),buf2-nbgp,1,nsil)
          CALL mesage(m8,0,nam)
- 140     CALL close(Sil,Clsrew)
+ 140     CALL close(sil,clsrew)
 !
 !     IF TEMP DEPENDENT MATERIALS IN PROBLEM,
 !     OPEN GPTT AND POSITION TO PROPER THERMAL RECORD
 !
-         Record = .FALSE.
-         Itemp = tempid
+         record = .FALSE.
+         itemp = tempid
          IF ( tempid==0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Gptt
-         CALL open(*420,Gptt,Z(buf3),Rdrew)
-         itmpid = nbgp + Nsil + 3
-         CALL read(*380,*160,Gptt,Z(itmpid-2),buf2-itmpid,1,nid)
+         file = gptt
+         CALL open(*420,gptt,z(buf3),rdrew)
+         itmpid = nbgp + nsil + 3
+         CALL read(*380,*160,gptt,z(itmpid-2),buf2-itmpid,1,nid)
          CALL mesage(-8,0,nam)
  160     ntmpid = itmpid - 5 + nid
          DO i = itmpid , ntmpid , 3
-            IF ( tempid==Z(i) ) THEN
+            IF ( tempid==z(i) ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          GOTO 420
       CASE (7)
-         Idftmp = Z(i+1)
-         IF ( Idftmp/=-1 ) deftmp = zz(i+1)
-         n = Z(i+2)
+         idftmp = z(i+1)
+         IF ( idftmp/=-1 ) deftmp = zz(i+1)
+         n = z(i+2)
          IF ( n/=0 ) THEN
-            Record = .TRUE.
+            record = .TRUE.
             n = n - 1
             IF ( n/=0 ) THEN
                DO i = 1 , n
-                  CALL fwdrec(*380,Gptt)
+                  CALL fwdrec(*380,gptt)
                ENDDO
             ENDIF
 !
 !     READ SET ID AND VERIFY FOR CORRECTNESS
 !
-            CALL read(*380,*400,Gptt,iset,1,0,flag)
+            CALL read(*380,*400,gptt,iset,1,0,flag)
             IF ( iset/=tempid ) THEN
-               WRITE (nout,99002) Sfm , iset , tempid
+               WRITE (nout,99002) sfm , iset , tempid
 99002          FORMAT (A25,' 4020, TA1A HAS PICKED UP TEMPERATURE SET',I9,' AND NOT THE REQUESTED SET',I9)
                CALL mesage(-61,0,0)
             ENDIF
 !
 !     INITIALIZE /TA1ETT/ VARIABLES
 !
-            Oldeid = 0
-            Oldel = 0
-            Eorflg = .FALSE.
-            Endid = .TRUE.
+            oldeid = 0
+            oldel = 0
+            eorflg = .FALSE.
+            endid = .TRUE.
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
@@ -389,10 +389,10 @@ SUBROUTINE ta1a
 !     DATA OR SUBSTITUTE THE DEFAULT TEMP.
 !     WRITE THE RESULT ON THE EST, ONE RECORD PER ELEMENT TYPE
 !
-         CALL open(*360,Scr1,Z(buf1),Rdrew)
-         CALL open(*360,Est,Z(buf2),Wrtrew)
-         CALL fname(Est,buf)
-         CALL write(Est,buf,2,1)
+         CALL open(*360,scr1,z(buf1),rdrew)
+         CALL open(*360,est,z(buf2),wrtrew)
+         CALL fname(est,buf)
+         CALL write(est,buf,2,1)
          locbgp = 1
 !
 !     RESET SOME OF THE /TA1ACM/ VALUES IF IT IS A -HEAT- FORMULATION
@@ -400,16 +400,16 @@ SUBROUTINE ta1a
          IF ( iheat>0 ) THEN
 !
 !     TRIARG ELEMENT (TYPE 36)
-            Ig(36) = 14
+            ig(36) = 14
 !
 !     TRAPRG ELEMENT (TYPE 37)
-            Ig(37) = 14
+            ig(37) = 14
 !
 !     REPLACE QDMEM1 ELEMENT (TYPE 62) BY QDMEM ELEMENT (TYPE 16)
-            Ig(62) = 14
+            ig(62) = 14
 !
 !     REPLACE QDMEM2 ELEMENT (TYPE 63) BY QDMEM ELEMENT (TYPE 16)
-            Ig(63) = 14
+            ig(63) = 14
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
@@ -417,44 +417,44 @@ SUBROUTINE ta1a
 !     READ POINTER FROM SCR1. WRITE ELEMENT TYPE ON EST.
 !     SET POINTERS FOR CONVERSION OF GRID NOS TO SIL VALUES.
 !
-         CALL read(*200,*400,Scr1,i,1,0,flag)
-         Eltype = Elem(i+2)
-         CALL write(Est,Eltype,1,0)
+         CALL read(*200,*400,scr1,i,1,0,flag)
+         eltype = elem(i+2)
+         CALL write(est,eltype,1,0)
 !
 !     ELEMENT TYPE  USED TO INDEX INTO /TA1ACM/
 !     AND SET USED  /OPEN CORE/  BLOCKS NEGATIVE
 !
-         Ig(Eltype) = -Ig(Eltype)
-         name = Elem(i)
-         jscalr = Elem(i+10)
-         mm = Elem(i+9)
-         lx = Elem(i+12)
-         IF ( Elem(i+8)==0 ) lx = lx + 1
+         ig(eltype) = -ig(eltype)
+         name = elem(i)
+         jscalr = elem(i+10)
+         mm = elem(i+9)
+         lx = elem(i+12)
+         IF ( elem(i+8)==0 ) lx = lx + 1
          mm = lx + mm - 1
-         jtemp = Elem(i+13)
+         jtemp = elem(i+13)
          ntemp = 1
-         IF ( jtemp==4 ) ntemp = Elem(i+14) - 1
+         IF ( jtemp==4 ) ntemp = elem(i+14) - 1
          DO
 !         IHEX1/2/3,TRIM6
 !
 !     READ ECT + EPT DATA FOR ELEMENT FROM SCR1.
 !
-            CALL read(*380,*180,Scr1,buf,1,0,flag)
-            CALL read(*380,*400,Scr1,buf(2),buf(1),0,flag)
+            CALL read(*380,*180,scr1,buf,1,0,flag)
+            CALL read(*380,*400,scr1,buf(2),buf(1),0,flag)
 !
             IF ( nogo==0 .AND. nogox==0 ) THEN
-               IF ( Eltype==bar ) THEN
+               IF ( eltype==bar ) THEN
 !
 !     FOR BAR AND BEAM ELEMENTS, STORE COORDINATES AND
 !     COORDINATE SYSTEM ID FOR ORIENTATION VECTOR.
 !
                   kx = 4*(buf(3)-1) + locbgp
                   IF ( buf(8)==1 ) THEN
-                     buf(8) = Z(kx)
+                     buf(8) = z(kx)
                   ELSE
                      buf(8) = buf(5)
                      IF ( buf(8)==0 ) THEN
-                        buf(8) = Z(kx)
+                        buf(8) = z(kx)
                      ELSE
                         k = 4*(buf(8)-1) + locbgp
                         bufr(5) = zz(k+1) - zz(kx+1)
@@ -474,22 +474,22 @@ SUBROUTINE ta1a
                IF ( buf(l)/=0 ) THEN
                   gpsav(l) = buf(l)
                   k = gpsav(l) + nbgp
-                  buf(l) = Z(k)
+                  buf(l) = z(k)
                ENDIF
             ENDDO
-            CALL write(Est,buf(2),buf(1),0)
+            CALL write(est,buf(2),buf(1),0)
 !
 !     IF NOT SCALAR ELEMENT, PICK UP BGPDT DATA AND WRITE ON EST.
 !
             IF ( jscalr==0 ) THEN
                DO l = lx , mm
                   IF ( gpsav(l)==0 ) THEN
-                     CALL write(Est,zeros,4,0)
+                     CALL write(est,zeros,4,0)
                   ELSE
                      k = (gpsav(l)-1)*4
-                     CALL write(Est,Z(k+1),4,0)
-                     IF ( Z(k+1)<0 ) THEN
-                        IF ( Eltype/=hbdy .OR. l<=lx+3 ) THEN
+                     CALL write(est,z(k+1),4,0)
+                     IF ( z(k+1)<0 ) THEN
+                        IF ( eltype/=hbdy .OR. l<=lx+3 ) THEN
                            nogo = 1
                            CALL mesage(30,131,buf(2))
                         ENDIF
@@ -500,31 +500,31 @@ SUBROUTINE ta1a
 !     ELEMENT TEMP. IS NOT USED IN CONM1 AND CONM2 (ELEM TYPES 29 30)
 !
                tgrid(1) = 0.
-               IF ( Eltype/=29 .AND. Eltype/=30 ) THEN
+               IF ( eltype/=29 .AND. eltype/=30 ) THEN
 !
 !     IF NOT SCALAR ELEMENT, COMPUTE AND WRITE ELEMENT TEMP ON EST.
 !
                   CALL ta1etd(buf(2),tgrid,ntemp)
-                  IF ( Eltype==bar ) tgrid(1) = (tgrid(1)+tgrid(2))/2.0
+                  IF ( eltype==bar ) tgrid(1) = (tgrid(1)+tgrid(2))/2.0
                ENDIF
-               CALL write(Est,tgrid,ntemp,0)
+               CALL write(est,tgrid,ntemp,0)
             ENDIF
          ENDDO
 !
 !     CLOSE EST RECORD AND RETURN FOR ANOTHER ELEMENT TYPE.
 !
- 180     CALL write(Est,0,0,1)
+ 180     CALL write(est,0,0,1)
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
 !
 !     ALL ELEMENTS HAVE BEEN PROCESSED-- CLOSE FILES, WRITE TRAILER AND
 !     EXIT
 !
- 200     CALL close(Scr1,Clsrew)
-         CALL close(Est,Clsrew)
-         CALL close(Gptt,Clsrew)
-         buf(1) = Est
-         buf(2) = Nosimp
+ 200     CALL close(scr1,clsrew)
+         CALL close(est,clsrew)
+         CALL close(gptt,clsrew)
+         buf(1) = est
+         buf(2) = nosimp
          IF ( nogox/=0 ) nogo = 1
          IF ( nogo/=0 ) CALL mesage(-61,0,0)
          DO i = 3 , 7
@@ -534,17 +534,17 @@ SUBROUTINE ta1a
 !     PROCESS /TA1ACM/ LOAD EST TRAILER WITH FLAGS
 !     TO THE USED /OPEN CORE/ BLOCKS
 !
-         DO i = 1 , Nelem
-            IF ( Ig(i)<0 ) THEN
-               k = Ig(i)
-               DO j = i , Nelem
-                  IF ( Ig(j)==k ) Ig(j) = -Ig(j)
+         DO i = 1 , nelem
+            IF ( ig(i)<0 ) THEN
+               k = ig(i)
+               DO j = i , nelem
+                  IF ( ig(j)==k ) ig(j) = -ig(j)
                ENDDO
-               j = Ig(i)
+               j = ig(i)
                IF ( j>48 ) CALL mesage(-61,i,j)
                k = (j-1)/16
                j = j - k*16
-               buf(k+5) = buf(k+5) + Ktwo(j+16)
+               buf(k+5) = buf(k+5) + ktwo(j+16)
             ENDIF
          ENDDO
          CALL wrttrl(buf)
@@ -572,8 +572,8 @@ SUBROUTINE ta1a
 !     LOCATE PCOMP DATA AND READ INTO CORE
 !
          ipc = ll + 1
-         CALL locate(*260,Z(buf2),pcomp,flag)
-         CALL read(*380,*240,Ept,Z(ipc),n,0,npc)
+         CALL locate(*260,z(buf2),pcomp,flag)
+         CALL read(*380,*240,ept,z(ipc),n,0,npc)
          CALL mesage(-8,0,nam)
  240     IF ( npc>0 ) typc = 1
          n = n - npc
@@ -581,8 +581,8 @@ SUBROUTINE ta1a
 !     LOCATE PCOMP1 DATA AND READ INTO CORE
 !
  260     ipc1 = ipc + npc
-         CALL locate(*300,Z(buf2),pcomp1,flag)
-         CALL read(*380,*280,Ept,Z(ipc1),n,0,npc1)
+         CALL locate(*300,z(buf2),pcomp1,flag)
+         CALL read(*380,*280,ept,z(ipc1),n,0,npc1)
          CALL mesage(-8,0,nam)
  280     IF ( npc1>0 ) typc1 = 1
          n = n - npc1
@@ -590,26 +590,25 @@ SUBROUTINE ta1a
 !     LOCATE PCOMP2 DATA AND READ INTO CORE
 !
  300     ipc2 = ipc1 + npc1
-         CALL locate(*340,Z(buf2),pcomp2,flag)
-         CALL read(*380,*320,Ept,Z(ipc2),n,0,npc2)
+         CALL locate(*340,z(buf2),pcomp2,flag)
+         CALL read(*380,*320,ept,z(ipc2),n,0,npc2)
          CALL mesage(-8,0,nam)
  320     IF ( npc2>0 ) typc2 = 1
 !
 !     SET SIZE OF LPCOMP. NUMBER OF WORDS READ INTO CORE
 !
  340     lpcomp = ipc2 + npc2
-         IF ( lpcomp-1>ll ) Comps = -1
+         IF ( lpcomp-1>ll ) comps = -1
 !
 !     CHECK FOR NO PCOMP, PCOMP1 OR PCOMP2 DATA
 !     SET NOPSHL TO 2 IF BOTH 'PCOMP' AND PSHELL DATA ARE PRESENT
 !
-         IF ( nopshl==1 .AND. Comps==1 ) THEN
+         IF ( nopshl==1 .AND. comps==1 ) THEN
             spag_nextblock_1 = 17
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( nopshl==0 .AND. Comps==-1 ) nopshl = 2
+         IF ( nopshl==0 .AND. comps==-1 ) nopshl = 2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     ***************************************************************
@@ -633,16 +632,16 @@ SUBROUTINE ta1a
 !     SEARCH FOR PID IN PCOMP DATA
 !
          IF ( typc/=0 ) THEN
-            Z(lpcomp+1) = ipc
+            z(lpcomp+1) = ipc
             npcomp = 0
             n = 2
 !
             lpc = ipc1 - 1
             DO iip = ipc , lpc
-               IF ( Z(iip)==-1 ) THEN
-                  Z(lpcomp+n) = iip
-                  Z(lpcomp+n+1) = iip + 1
-                  IF ( iip==lpc ) Z(lpcomp+n+1) = 0
+               IF ( z(iip)==-1 ) THEN
+                  z(lpcomp+n) = iip
+                  z(lpcomp+n+1) = iip + 1
+                  IF ( iip==lpc ) z(lpcomp+n+1) = 0
                   n = n + 2
                   npcomp = npcomp + 1
                ENDIF
@@ -652,9 +651,9 @@ SUBROUTINE ta1a
 !     LOCATE PARTICULAR PID
 !
             DO iip = 1 , npcomp
-               eoeloc = Z(lpcomp+2*iip)
-               pidloc = Z(lpcomp+2*iip-1)
-               IF ( Z(pidloc)==id ) THEN
+               eoeloc = z(lpcomp+2*iip)
+               pidloc = z(lpcomp+2*iip-1)
+               IF ( z(pidloc)==id ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -665,16 +664,16 @@ SUBROUTINE ta1a
 !
          IF ( typc1/=0 ) THEN
 !
-            Z(lpcomp+1) = ipc1
+            z(lpcomp+1) = ipc1
             npcomp = 0
             n = 2
 !
             lpc1 = ipc2 - 1
             DO iip1 = ipc1 , lpc1
-               IF ( Z(iip1)==-1 ) THEN
-                  Z(lpcomp+n) = iip1
-                  Z(lpcomp+n+1) = iip1 + 1
-                  IF ( iip1==lpc1 ) Z(lpcomp+n+1) = 0
+               IF ( z(iip1)==-1 ) THEN
+                  z(lpcomp+n) = iip1
+                  z(lpcomp+n+1) = iip1 + 1
+                  IF ( iip1==lpc1 ) z(lpcomp+n+1) = 0
                   npcomp = npcomp + 1
                   n = n + 2
                ENDIF
@@ -684,9 +683,9 @@ SUBROUTINE ta1a
 !     LOCATE PARTICULAR PID
 !
             DO iip1 = 1 , npcomp
-               eoeloc = Z(lpcomp+2*iip1)
-               pidloc = Z(lpcomp+2*iip1-1)
-               IF ( Z(pidloc)==id ) THEN
+               eoeloc = z(lpcomp+2*iip1)
+               pidloc = z(lpcomp+2*iip1-1)
+               IF ( z(pidloc)==id ) THEN
                   spag_nextblock_1 = 13
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -697,16 +696,16 @@ SUBROUTINE ta1a
 !
          IF ( typc2/=0 ) THEN
 !
-            Z(lpcomp+1) = ipc2
+            z(lpcomp+1) = ipc2
             npcomp = 0
             n = 2
 !
             lpc2 = lpcomp - 1
             DO iip2 = ipc2 , lpc2
-               IF ( Z(iip2)==-1 ) THEN
-                  Z(lpcomp+n) = iip2
-                  Z(lpcomp+n+1) = iip2 + 1
-                  IF ( iip2==lpc2 ) Z(lpcomp+n+1) = 0
+               IF ( z(iip2)==-1 ) THEN
+                  z(lpcomp+n) = iip2
+                  z(lpcomp+n+1) = iip2 + 1
+                  IF ( iip2==lpc2 ) z(lpcomp+n+1) = 0
                   npcomp = npcomp + 1
                   n = n + 2
                ENDIF
@@ -716,9 +715,9 @@ SUBROUTINE ta1a
 !     LOCATE PARTICULAR PID
 !
             DO iip2 = 1 , npcomp
-               eoeloc = Z(lpcomp+2*iip2)
-               pidloc = Z(lpcomp+2*iip2-1)
-               IF ( Z(pidloc)==id ) THEN
+               eoeloc = z(lpcomp+2*iip2)
+               pidloc = z(lpcomp+2*iip2-1)
+               IF ( z(pidloc)==id ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -732,21 +731,18 @@ SUBROUTINE ta1a
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 15
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
          len = eoeloc - pidloc
          nlay = (len-8)/kpc
          itype = 0
          spag_nextblock_1 = 15
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
          len = eoeloc - pidloc
          nlay = len - 8
          itype = 1
          spag_nextblock_1 = 15
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
          len = eoeloc - pidloc
@@ -773,7 +769,7 @@ SUBROUTINE ta1a
 !
 !     SET LAMOPT
 !
-         lamopt = Z(pidloc+7)
+         lamopt = z(pidloc+7)
 !
 !     PCOMP DATA
 !
@@ -828,8 +824,8 @@ SUBROUTINE ta1a
 !
 !     CALCULATE ZOFFS
 !
-         IF ( Z(pidloc+1)/=0 ) zoffs = zz(pidloc+1) + 0.5*tlam
-         IF ( Z(pidloc+1)==0 ) zoffs = 0.0
+         IF ( z(pidloc+1)/=0 ) zoffs = zz(pidloc+1) + 0.5*tlam
+         IF ( z(pidloc+1)==0 ) zoffs = 0.0
          IF ( abs(zoffs)<=0.001 ) zoffs = 0.0
 !
 !     SET POINTER TO INDICATE NEW PSHELL DATA CREATED
@@ -903,14 +899,13 @@ SUBROUTINE ta1a
          CALL mesage(j,file,nam)
          GOTO 420
       CASE (17)
-         buf(1) = Elem(i)
-         buf(2) = Elem(i+1)
+         buf(1) = elem(i)
+         buf(2) = elem(i+1)
          nogox = 1
          CALL mesage(30,11,buf)
          kx = itabl
-         lstprp = Elem(i+6)
+         lstprp = elem(i+6)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
          ksavew = buf(3)
          buf(3) = id

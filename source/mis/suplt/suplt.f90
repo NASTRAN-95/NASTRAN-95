@@ -1,10 +1,11 @@
-!*==suplt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==suplt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
+   USE c_blank
+   USE c_system
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -74,7 +75,7 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
 !
          id2 = 0
          id1 = 0
-         SPAG_Loop_1_1: DO i = 1 , Ngrid
+         SPAG_Loop_1_1: DO i = 1 , ngrid
             ll = Iy(i+1) - Iy(i)
             IF ( ll/=0 ) THEN
 !
@@ -90,7 +91,7 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
-         ntab = Iy(Ngrid+1) - Iy(1)
+         ntab = Iy(ngrid+1) - Iy(1)
 !
 !     NO ELEMENTS IN THE SET
 !
@@ -98,20 +99,18 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
             err(1) = 0
             k = 5
             spag_nextblock_1 = 12
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     SEE IF ANY ODD ENTRIES FOUND
 !
             limt(1) = 0
-            limt(2) = Ngrid + 1
+            limt(2) = ngrid + 1
             IF ( id1==0 ) THEN
                id1 = id2
                i1 = Iy(id1)
                id2 = Iz(i1)
             ENDIF
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
 !
@@ -140,7 +139,6 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
             ENDIF
          ENDDO SPAG_Loop_1_2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
          ih = Iz(i)
@@ -264,7 +262,7 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
 !
 !     ID3 AND ID4 ARE NULL.  GO TO CLOSEST END OF TABLE FROM ID4
 !
-                  i = Ngrid - id4
+                  i = ngrid - id4
                   j = 1
                   IF ( i>id4 ) j = -1
                   l = (j+2)/2 + 1
@@ -327,7 +325,6 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
          IF ( mod(ipar,2)==1 ) THEN
             id1 = kk
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     NOT AN ODD NUMBER OF ENTRIES FOR ID4.  CHECK GPCT ENTRIES
@@ -338,8 +335,8 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
             ih = j2
             il = j1 - 1
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     THAT END OF TABLE FAILED - TRY OTHER END
 !
@@ -350,23 +347,20 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
          kk = id4
          ASSIGN 80 TO iret1
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          il = il + 1
          kk = Iz(il)
          IF ( kk<=0 ) THEN
             id1 = id4
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ipar = 1
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  60      IF ( ipar==1 ) THEN
             id1 = kk
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( il<ih ) THEN
                spag_nextblock_1 = 8
@@ -374,7 +368,6 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
             ENDIF
             id1 = id4
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
 !
 !     PIVOT NOW DETERMINED
 !
@@ -419,7 +412,6 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
          err(2) = id1
          k = 1
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
          err(1) = 2
          err(2) = n3
@@ -434,21 +426,21 @@ SUBROUTINE suplt(Iz,Iy,X,U,Gplst,Pen,Deform)
       CASE (12)
 !
          i = lm(k)
-         CALL wrtprt(Merr,err,m(i),nm(k))
+         CALL wrtprt(merr,err,m(i),nm(k))
          IF ( k==5 ) RETURN
          spag_nextblock_1 = 13
       CASE (13)
 !
 !     CONVERT TABLE TO ORIGINAL VALUES UNLESS THIS IS THE LAST CALL
 !
-         il = Ngrid + 1
+         il = ngrid + 1
          i = Iy(il) - 1
          IF ( Deform==0 ) THEN
             DO j = 1 , i
                Iz(j) = iabs(Iz(j))
             ENDDO
 !
-            DO j1 = 1 , Ngrid
+            DO j1 = 1 , ngrid
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)

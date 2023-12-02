@@ -1,12 +1,13 @@
-!*==eqout1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==eqout1.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE eqout1(Ia,Len1,Ns,Len2,Isil)
+   USE c_cmb002
+   USE c_cmb003
+   USE c_machin
+   USE c_system
    IMPLICIT NONE
-   USE C_CMB002
-   USE C_CMB003
-   USE C_MACHIN
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,9 +51,9 @@ SUBROUTINE eqout1(Ia,Len1,Ns,Len2,Isil)
       n1(i+1) = ibits(i)
    ENDDO
    SPAG_Loop_1_1: DO
-      ips = rshift(Ia(j),Ihalf)
+      ips = rshift(Ia(j),ihalf)
       isub = 2*(ips-1) + 4
-      idbas = Ia(j) - lshift(ips,Ihalf)
+      idbas = Ia(j) - lshift(ips,ihalf)
       n1(isub) = Ns(2*idbas-1)
       n1(isub+1) = Ns(2*idbas)
       Ia(j) = -Ia(j)
@@ -61,7 +62,7 @@ SUBROUTINE eqout1(Ia,Len1,Ns,Len2,Isil)
       DO WHILE ( jj+4<=Len1 )
          IF ( Ia(jj+4)<=0 ) THEN
             jj = jj + 4
-         ELSEIF ( rshift(iabs(Ia(j)),Ihalf)/=rshift(Ia(jj+4),Ihalf) ) THEN
+         ELSEIF ( rshift(iabs(Ia(j)),ihalf)/=rshift(Ia(jj+4),ihalf) ) THEN
             j = jj + 4
             CYCLE SPAG_Loop_1_1
          ELSE
@@ -71,24 +72,24 @@ SUBROUTINE eqout1(Ia,Len1,Ns,Len2,Isil)
 !
 !     WRITE OUTPUT
 !
-      Nline = Nline + 3
-      IF ( Nline>Nlpp ) THEN
+      nline = nline + 3
+      IF ( nline>nlpp ) THEN
          CALL page
-         Nline = Nline + 3
+         nline = nline + 3
       ENDIF
-      j = 3 + 2*Npsub
-      IF ( ifirst==1 ) WRITE (Outt,99001) n1(1) , Isil , (n1(k),k=2,j)
+      j = 3 + 2*npsub
+      IF ( ifirst==1 ) WRITE (outt,99001) n1(1) , Isil , (n1(k),k=2,j)
 99001 FORMAT (8X,I6,6X,I6,8X,A4,A2,7(3X,2A4))
-      IF ( ifirst==0 ) WRITE (Outt,99002) (n1(k),k=4,j)
+      IF ( ifirst==0 ) WRITE (outt,99002) (n1(k),k=4,j)
 99002 FORMAT (/40X,7(3X,2A4))
-      WRITE (Outt,99003) (n2(k),k=1,14)
+      WRITE (outt,99003) (n2(k),k=1,14)
 99003 FORMAT (40X,7(3X,2A4))
       ifirst = 0
       j = -3
       SPAG_Loop_2_2: DO
          j = j + 4
          IF ( j>Len1 ) THEN
-            WRITE (Outt,99004)
+            WRITE (outt,99004)
 99004       FORMAT (7X,4H  --,27(4H----),4H-   )
             EXIT SPAG_Loop_2_2
          ELSEIF ( Ia(j)>0 ) THEN

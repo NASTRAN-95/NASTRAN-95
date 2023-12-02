@@ -1,9 +1,10 @@
-!*==typflt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==typflt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE typflt(X,Y,Xyd,V,Field,Opt)
-USE C_PLTDAT
-USE ISO_FORTRAN_ENV                 
+   USE c_pltdat
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -259,8 +260,8 @@ USE ISO_FORTRAN_ENV
             xy = fw/2
             IF ( fw/2==(fw+1)/2 ) xy = xy - .5
             dir = max0(1,iabs(Xyd))
-            IF ( dir==1 ) xx = X - xy*Cntx
-            IF ( dir==2 ) yy = Y - xy*Cnty
+            IF ( dir==1 ) xx = X - xy*cntx
+            IF ( dir==2 ) yy = Y - xy*cnty
          ELSE
 !
 !     THE TYPED NUMBER IS NOT TO BE CENTERED AT (X,Y).

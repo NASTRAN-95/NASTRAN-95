@@ -1,12 +1,13 @@
-!*==read6.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==read6.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE read6(Irig,Gphia,Nr,Phia)
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -30,18 +31,18 @@ SUBROUTINE read6(Irig,Gphia,Nr,Phia)
    !>>>>EQUIVALENCE (Iz(1),Z(1))
 !
 !
-   ibuf1 = korsz(z) - Sysbuf + 1
-   ibuf2 = ibuf1 - Sysbuf
+   ibuf1 = korsz(z) - sysbuf + 1
+   ibuf2 = ibuf1 - sysbuf
    mcb(1) = Gphia
    CALL rdtrl(mcb)
    ncol = mcb(2) - Nr
-   Ii = 1
-   Jj = mcb(3)
-   It1 = mcb(5)
-   It2 = mcb(5)
-   It2u = mcb(5)
-   CALL makmcb(mcb,Phia,Jj,mcb(4),It1)
-   Incr1 = 1
+   ii = 1
+   jj = mcb(3)
+   it1 = mcb(5)
+   it2 = mcb(5)
+   it2u = mcb(5)
+   CALL makmcb(mcb,Phia,jj,mcb(4),it1)
+   incr1 = 1
    CALL gopen(Phia,z(ibuf1),1)
    IF ( Nr/=0 ) THEN
       file = Irig
@@ -49,14 +50,14 @@ SUBROUTINE read6(Irig,Gphia,Nr,Phia)
       z(1) = 0.0
       z(2) = 0.0
       DO i = 1 , Nr
-         Iiu = 0
+         iiu = 0
          CALL unpack(*20,Irig,z(3))
-         Ii = Iiu
-         Jj = Jju
+         ii = iiu
+         jj = jju
          CALL pack(z(3),Phia,mcb)
          CYCLE
- 20      Ii = 1
-         Jj = 1
+ 20      ii = 1
+         jj = 1
          CALL pack(z,Phia,mcb)
       ENDDO
       CALL close(Irig,1)
@@ -64,19 +65,19 @@ SUBROUTINE read6(Irig,Gphia,Nr,Phia)
    IF ( ncol>0 ) THEN
       CALL gopen(Gphia,z(ibuf2),0)
       file = Gphia
-      Incr1u = 1
+      incr1u = 1
       z(1) = 0.0
       z(2) = 0.0
       CALL skprec(Gphia,Nr)
       DO i = 1 , ncol
-         Iiu = 0
+         iiu = 0
          CALL unpack(*40,Gphia,z(3))
-         Ii = Iiu
-         Jj = Jju
+         ii = iiu
+         jj = jju
          CALL pack(z(3),Phia,mcb)
          CYCLE
- 40      Ii = 1
-         Jj = 1
+ 40      ii = 1
+         jj = 1
          CALL pack(z,Phia,mcb)
       ENDDO
       CALL close(Gphia,1)

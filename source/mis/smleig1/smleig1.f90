@@ -1,12 +1,13 @@
-!*==smleig1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==smleig1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE smleig1(D,O,Val)
+   USE c_givn
+   USE c_packx
+   USE c_system
+   USE c_unpakx
    IMPLICIT NONE
-   USE C_GIVN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,7 +51,7 @@ SUBROUTINE smleig1(D,O,Val)
 !     NFOUND   NUMBER OF EIGENVALUES/VECTOR PREVIOUSLY FOUND
 !
 !WKBR 2/94      IBUF1 =(KORSZ(O) - SYSBUF +1 )/2  -1
-         ibuf1 = (korsz(O)-Sysbuf+1) - 1
+         ibuf1 = (korsz(O)-sysbuf+1) - 1
 !
 !     OPEN INPUT MATRIX
 !
@@ -58,10 +59,10 @@ SUBROUTINE smleig1(D,O,Val)
 !
 !     SETUP FOR UNPACK
 !
-         It3 = 1
-         Iii = 1
-         Jjj = n
-         Incr1 = 1
+         it3 = 1
+         iii = 1
+         jjj = n
+         incr1 = 1
          ASSIGN 20 TO itra
          CALL unpack(*60,md,D)
  20      IF ( n==2 ) THEN
@@ -71,7 +72,7 @@ SUBROUTINE smleig1(D,O,Val)
             O(1) = D(2)
             O(2) = 0.0
             ASSIGN 40 TO itra
-            Iii = 2
+            iii = 2
             CALL unpack(*60,md,D(2))
          ELSE
 !
@@ -102,11 +103,11 @@ SUBROUTINE smleig1(D,O,Val)
 !     SETUP FOR PACK
 !
          im1 = 1
-         It1 = 1
-         It2 = 1
-         Ii = 1
-         Jj = n
-         Incr = 1
+         it1 = 1
+         it2 = 1
+         ii = 1
+         jj = n
+         incr = 1
          CALL pack(D,mo,mcb)
          CALL pack(O,mo,mcb)
          CALL write(mo,loc,1,1)
@@ -122,7 +123,7 @@ SUBROUTINE smleig1(D,O,Val)
             mcb(5) = 2
             mcb(6) = 0
             CALL gopen(phia,O(ibuf1),1)
-            Jj = 1
+            jj = 1
             CALL pack(1.0,phia,mcb)
             CALL close(phia,1)
             CALL wrttrl(mcb(1))
@@ -146,7 +147,7 @@ SUBROUTINE smleig1(D,O,Val)
          ENDIF
          xentry = -entry
          RETURN
- 60      DO i = Iii , Jjj
+ 60      DO i = iii , jjj
             D(i) = 0.0
          ENDDO
          GOTO itra

@@ -1,14 +1,15 @@
-!*==gp3c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gp3c.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp3c
+   USE c_gp3com
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GP3COM
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -65,18 +66,18 @@ SUBROUTINE gp3c
          nogo = 0
          pl2 = 0
          pl3 = 0
-         j = (Pload2(2)-1)/16
-         k = Pload2(2) - 16*j
-         IF ( andf(Buf(j+2),Two(k+16))/=0 ) pl2 = 1
-         j = (Pload3(2)-1)/16
-         k = Pload3(2) - 16*j
-         IF ( andf(Buf(j+2),Two(k+16))/=0 ) pl3 = 1 - 2*pl2
-         file = Scr2
-         IF ( pl2/=pl3 ) CALL open(*120,Scr2,Z(Buf2),Wrtrew)
+         j = (pload2(2)-1)/16
+         k = pload2(2) - 16*j
+         IF ( andf(buf(j+2),two(k+16))/=0 ) pl2 = 1
+         j = (pload3(2)-1)/16
+         k = pload3(2) - 16*j
+         IF ( andf(buf(j+2),two(k+16))/=0 ) pl3 = 1 - 2*pl2
+         file = scr2
+         IF ( pl2/=pl3 ) CALL open(*120,scr2,z(buf2),wrtrew)
          IF ( pl2/=0 ) THEN
-            Nopld2 = 1
-            pld(1) = Pload2(1)
-            pld(2) = Pload2(2)
+            nopld2 = 1
+            pld(1) = pload2(1)
+            pld(2) = pload2(2)
             pld(3) = 24
             incrd = 3
             incl = 6
@@ -90,9 +91,9 @@ SUBROUTINE gp3c
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Nopld2 = Nopld2 + 2
-         pld(1) = Pload3(1)
-         pld(2) = Pload3(2)
+         nopld2 = nopld2 + 2
+         pld(1) = pload3(1)
+         pld(2) = pload3(2)
          pld(3) = 255
          incrd = 5
          incl = 39
@@ -104,17 +105,17 @@ SUBROUTINE gp3c
 !     SET THE SET ID NEGATIVE TO INDICATE THE CARD IS NOT YET CONVERTED.
 !
          i = 1
-         file = Geom3
-         CALL preloc(*120,Z(Buf1),Geom3)
-         CALL locate(*160,Z(Buf1),pld,flag)
+         file = geom3
+         CALL preloc(*120,z(buf1),geom3)
+         CALL locate(*160,z(buf1),pld,flag)
          IF ( pl2==1 ) THEN
-            pld(1) = Cardid(Ipload)
-            pld(2) = Cardid(Ipload+1)
+            pld(1) = cardid(ipload)
+            pld(2) = cardid(ipload+1)
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
-         CALL read(*140,*20,Geom3,Z(i),incrd,0,flag)
-         Z(i) = -Z(i)
+         CALL read(*140,*20,geom3,z(i),incrd,0,flag)
+         z(i) = -z(i)
          IF ( pl2==1 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
@@ -122,8 +123,8 @@ SUBROUTINE gp3c
          IF ( i>=incl ) THEN
             DO j = 2 , i , incl
                k = j
-               IF ( Z(j)==Z(i+2) ) THEN
-                  IF ( Z(j-1)==Z(i) ) THEN
+               IF ( z(j)==z(i+2) ) THEN
+                  IF ( z(j-1)==z(i) ) THEN
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -133,16 +134,15 @@ SUBROUTINE gp3c
          spag_nextblock_1 = 5
       CASE (5)
          p(1) = rz(i+1)
-         Z(i+1) = Z(i+2)
+         z(i+1) = z(i+2)
          rz(i+2) = p(1)
-         Z(i+14) = Z(i+3)
-         Z(i+15) = Z(i+4)
-         Z(i+3) = -1
+         z(i+14) = z(i+3)
+         z(i+15) = z(i+4)
+         z(i+3) = -1
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          j = k + 2
-         DO WHILE ( Z(j)/=-1 )
+         DO WHILE ( z(j)/=-1 )
             j = j + 1
             IF ( j>k+12 ) THEN
                spag_nextblock_1 = 5
@@ -150,29 +150,28 @@ SUBROUTINE gp3c
             ENDIF
          ENDDO
          rz(j) = rz(i+1)
-         IF ( j<k+12 ) Z(j+1) = -1
+         IF ( j<k+12 ) z(j+1) = -1
          j = k + 15 + 2*(j-k-2)
-         Z(j) = Z(i+3)
-         Z(j+1) = Z(i+4)
+         z(j) = z(i+3)
+         z(j+1) = z(i+4)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         Z(i+incl-1) = 0
+         z(i+incl-1) = 0
          i = i + incl
-         IF ( i<Buf2 ) THEN
+         IF ( i<buf2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL mesage(-8,0,nam)
- 20      CALL close(Geom3,Clsrew)
+ 20      CALL close(geom3,clsrew)
          npld2 = i - incl
          nwds = i - 1
 !
 !     POSITION TO FIRST DATA RECORD ON GEOM2.
 !
-         file = Geom2
-         CALL open(*60,Geom2,Z(Buf1),Rdrew)
-         CALL fwdrec(*140,Geom2)
+         file = geom2
+         CALL open(*60,geom2,z(buf1),rdrew)
+         CALL fwdrec(*140,geom2)
 !
 !     READ 3-WORD RECORD ID. LOOK FOR ID IN ELEM TABLE.
 !     IF NOT THERE, SKIP RECORD.
@@ -180,20 +179,20 @@ SUBROUTINE gp3c
 !     IF PROCESSING PLOAD3, AND NOT AN ISOPARAMETRIC ELEMENT, SKIP REC.
 !     OTHERWISE,  INITIALIZE PARAMETERS.
 !
- 40      CALL read(*60,*40,Geom2,Buf,3,0,flag)
-         DO i = 1 , Last , Incr
-            IF ( Buf(1)==Elem(i+3) ) THEN
+ 40      CALL read(*60,*40,geom2,buf,3,0,flag)
+         DO i = 1 , last , incr
+            IF ( buf(1)==elem(i+3) ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 8
       CASE (8)
-         CALL fwdrec(*140,Geom2)
+         CALL fwdrec(*140,geom2)
          GOTO 40
       CASE (9)
-         ngps = Elem(i+9)
-         itype = Elem(i+2)
+         ngps = elem(i+9)
+         itype = elem(i+2)
 !
 !   . IF ELEMENT TYPE IS 68 (QUADTS) THEN USE FIRST FOUR  GRID POINTS
 !   . IF ELEMENT TYPE IS 69 (TRIATS) THEN USE FIRST THREE GRID POINTS
@@ -208,8 +207,8 @@ SUBROUTINE gp3c
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          itype = 2*(itype-64) - 1
-         nwdect = Elem(i+5)
-         j1 = Elem(i+12)
+         nwdect = elem(i+5)
+         j1 = elem(i+12)
          j2 = j1 + ngps - 1
          DO
 !
@@ -217,11 +216,11 @@ SUBROUTINE gp3c
 !     OR PLOAD3 LIST.  IF FOUND, SET THE SET ID POSITIVE TO INDICATE
 !     ENTRY IS CONVERTED.
 !
-            CALL read(*140,*40,Geom2,Buf,nwdect,0,flag)
+            CALL read(*140,*40,geom2,buf,nwdect,0,flag)
             DO i = 1 , npld2 , incl
-               IF ( Z(i)<=0 ) THEN
-                  IF ( Z(i+idl)==Buf(1) ) THEN
-                     Z(i) = -Z(i)
+               IF ( z(i)<=0 ) THEN
+                  IF ( z(i+idl)==buf(1) ) THEN
+                     z(i) = -z(i)
                      ix = i
                      IF ( pl3==1 ) THEN
 !
@@ -232,7 +231,7 @@ SUBROUTINE gp3c
 !
                         np = 0
                         SPAG_Loop_3_1: DO j = 1 , 12
-                           IF ( Z(i+j+1)==-1 ) EXIT SPAG_Loop_3_1
+                           IF ( z(i+j+1)==-1 ) EXIT SPAG_Loop_3_1
                            np = np + 1
                            p(j) = rz(i+j+1)
                         ENDDO SPAG_Loop_3_1
@@ -245,26 +244,24 @@ SUBROUTINE gp3c
                               SELECT CASE (spag_nextblock_2)
                               CASE (1)
                                  k = i + 14 + 2*(j-1)
-                                 id1 = Z(k)
-                                 id2 = Z(k+1)
+                                 id1 = z(k)
+                                 id2 = z(k+1)
                                  DO k = j1 , j2
-                                    IF ( id1==Buf(k) ) THEN
+                                    IF ( id1==buf(k) ) THEN
                                        spag_nextblock_2 = 2
                                        CYCLE SPAG_DispatchLoop_2
                                     ENDIF
                                  ENDDO
                                  spag_nextblock_2 = 4
-                                 CYCLE SPAG_DispatchLoop_2
                               CASE (2)
                                  id1 = k - j1 + 1
                                  DO k = j1 , j2
-                                    IF ( id2==Buf(k) ) THEN
+                                    IF ( id2==buf(k) ) THEN
                                        spag_nextblock_2 = 3
                                        CYCLE SPAG_DispatchLoop_2
                                     ENDIF
                                  ENDDO
                                  spag_nextblock_2 = 4
-                                 CYCLE SPAG_DispatchLoop_2
                               CASE (3)
                                  id2 = k - j1 + 1
                                  d1 = min0(id1,id2)
@@ -282,9 +279,8 @@ SUBROUTINE gp3c
                               CASE (4)
                                  nogo = 1
                                  pl3err(7) = n3305
-                                 WRITE (Nout,99001) pl3err , Z(i) , Buf(1)
+                                 WRITE (nout,99001) pl3err , z(i) , buf(1)
 99001                            FORMAT (14A4,I9,' HAS INVALID GRID POINT NUMBERS FOR ELEMENT',I9)
-                                 CYCLE
                               CASE (5)
                                  rz(i+nface) = rz(i+nface) + p(j)
                                  EXIT SPAG_DispatchLoop_2
@@ -293,13 +289,13 @@ SUBROUTINE gp3c
                         ENDDO
                         ix = ix + 7
                         DO j = j1 , j2
-                           Z(ix) = Buf(j)
+                           z(ix) = buf(j)
                            ix = ix + 1
                         ENDDO
                         IF ( ix+1-i<=39 ) THEN
                            k = i + 38
                            DO j = ix , k
-                              Z(j) = 0
+                              z(j) = 0
                            ENDDO
                         ENDIF
                      ELSE
@@ -308,7 +304,7 @@ SUBROUTINE gp3c
 !     MAKE IT LOOK LIKE PLOAD CARD.
 !
                         DO j = j1 , j2
-                           Z(ix+2) = Buf(j)
+                           z(ix+2) = buf(j)
                            ix = ix + 1
                         ENDDO
                      ENDIF
@@ -320,15 +316,15 @@ SUBROUTINE gp3c
 !     HERE WHEN END-OF-FILE ON GEOM2 IS ENCOUNTERED.
 !     MAKE SURE ALL PLOAD2 OR PLOAD3 ENTRIES HAVE BEEN CONVERTED.
 !
- 60      CALL close(Geom2,Clsrew)
+ 60      CALL close(geom2,clsrew)
          DO i = 1 , npld2 , incl
-            IF ( Z(i)<=0 ) THEN
+            IF ( z(i)<=0 ) THEN
                nogo = 1
-               Buf(1) = -Z(i)
-               Buf(2) = Z(i+idl)
-               IF ( pl2==1 ) CALL mesage(30,105,Buf)
+               buf(1) = -z(i)
+               buf(2) = z(i+idl)
+               IF ( pl2==1 ) CALL mesage(30,105,buf)
                pl3err(7) = n3304
-               IF ( pl3==1 ) WRITE (Nout,99002) pl3err , Buf(1) , Buf(2)
+               IF ( pl3==1 ) WRITE (nout,99002) pl3err , buf(1) , buf(2)
 !
 !     PLOAD3 CARD ERRORS
 !
@@ -344,28 +340,28 @@ SUBROUTINE gp3c
 !     LOCATE PLOAD RECORD ON GEOM3. IF PRESENT, READ PLOAD DATA INTO
 !     CORE (AFTER PLOAD2 DATA) AND SORT COMBINED DATA ON SET ID.
 !
-         CALL preloc(*120,Z(Buf1),Geom3)
-         CALL locate(*100,Z(Buf1),Cardid(Ipload),flag)
+         CALL preloc(*120,z(buf1),geom3)
+         CALL locate(*100,z(buf1),cardid(ipload),flag)
          i = npld2 + 6
          SPAG_Loop_1_2: DO
-            CALL read(*140,*80,Geom3,Z(i),6,0,flag)
+            CALL read(*140,*80,geom3,z(i),6,0,flag)
             i = i + 6
-            IF ( i>=Buf2 ) THEN
+            IF ( i>=buf2 ) THEN
                CALL mesage(-8,0,nam)
                EXIT SPAG_Loop_1_2
             ENDIF
          ENDDO SPAG_Loop_1_2
  80      npld2 = i - 6
          nwds = i - 1
-         CALL sort(0,0,6,1,Z,nwds)
- 100     CALL close(Geom3,Clsrew)
+         CALL sort(0,0,6,1,z,nwds)
+ 100     CALL close(geom3,clsrew)
          spag_nextblock_1 = 10
       CASE (10)
 !
 !     WRITE DATA ON SCR2, SET FLAG TO INDICATE AND RETURN.
 !
-         CALL write(Scr2,pld,3,0)
-         CALL write(Scr2,Z,nwds,1)
+         CALL write(scr2,pld,3,0)
+         CALL write(scr2,z,nwds,1)
          IF ( pl2/=1 ) THEN
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
@@ -375,9 +371,8 @@ SUBROUTINE gp3c
          pl2 = -pl2
          pl3 = -pl3
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
-         CALL close(Scr2,Clsrew)
+         CALL close(scr2,clsrew)
          RETURN
  120     DO
             n = -1
@@ -396,7 +391,7 @@ SUBROUTINE gp3c
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL close(Geom3,Clsrew)
+         CALL close(geom3,clsrew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

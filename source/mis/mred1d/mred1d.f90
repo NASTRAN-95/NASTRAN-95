@@ -1,13 +1,14 @@
-!*==mred1d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred1d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred1d
+   USE c_blank
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -72,13 +73,13 @@ SUBROUTINE mred1d
 !
 !     OPEN DYNAMICS, EEDX DATA BLOCKS
 !
-         IF ( Dry==-2 ) RETURN
-         IF ( Usrmod ) THEN
+         IF ( dry==-2 ) RETURN
+         IF ( usrmod ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL preloc(*40,Z(Gbuf1),dnamic)
-         CALL gopen(eedx,Z(Gbuf2),1)
+         CALL preloc(*40,z(gbuf1),dnamic)
+         CALL gopen(eedx,z(gbuf2),1)
 !
 !     SET PROCESSING FLAGS
 !
@@ -109,10 +110,10 @@ SUBROUTINE mred1d
 !
 !     PROCESS MODULE FATAL ERRORS
 !
-                  WRITE (Iprntr,99001) Ufm , Ieig , Oldnam
+                  WRITE (iprntr,99001) ufm , ieig , oldnam
 99001             FORMAT (A23,' 6628, NO EIGC OR EIGR CARD SPECIFIED FOR SET ID',I9,', SUBSTRUCTURE ',2A4,1H.)
                ELSEIF ( eigcp==2 ) THEN
-                  WRITE (Iprntr,99002) Ufm , Ieig , Oldnam
+                  WRITE (iprntr,99002) ufm , ieig , oldnam
 99002             FORMAT (A23,' 6629, NO EIGC DATA CARD SPECIFHIED WITH EIGP DATA ','CARD SET ID',I9,', SUBSTRUCTURE ',2A4,1H.)
                ELSE
 !
@@ -126,20 +127,20 @@ SUBROUTINE mred1d
 !
 !     SELECT EIG MODE
 !
-            ELSEIF ( Type(1)/=kreal .OR. eigtyp>=3 ) THEN
-               IF ( Type(1)/=komplx .OR. eigtyp/=3 ) THEN
+            ELSEIF ( type(1)/=kreal .OR. eigtyp>=3 ) THEN
+               IF ( type(1)/=komplx .OR. eigtyp/=3 ) THEN
                   DO i = 1 , 3
                      eigcpr(i) = eig(i,eigtyp)
                   ENDDO
 !
 !     LOCATE EIG(C,P,R) DATA CARD
 !
-                  CALL locate(*20,Z(Gbuf1),eigcpr,itest)
+                  CALL locate(*20,z(gbuf1),eigcpr,itest)
 !
 !     SET UP EEDX DATA RECORD
 !
                   DO i = 1 , 3
-                     Z(Korbgn+i-1) = eigcpr(i)
+                     z(korbgn+i-1) = eigcpr(i)
                   ENDDO
 !
 !     FIND CORRECT EIG(C,P,R) DATA CARD
@@ -152,8 +153,8 @@ SUBROUTINE mred1d
                      nwds2r = 10
                   ENDIF
                   SPAG_Loop_2_3: DO
-                     CALL read(*60,*80,dnamic,Z(Korbgn+3),nwds2r,0,nowdsr)
-                     IF ( Z(Korbgn+3)==Ieig ) THEN
+                     CALL read(*60,*80,dnamic,z(korbgn+3),nwds2r,0,nowdsr)
+                     IF ( z(korbgn+3)==ieig ) THEN
 !
 !     SELECT EIG PROCESSING MODE
 !
@@ -161,29 +162,29 @@ SUBROUTINE mred1d
 !
 !     WRITE EIGP DATA ONTO EEDX DATA BLOCK
 !
-                           CALL write(eedx,Z(Korbgn),7,1)
+                           CALL write(eedx,z(korbgn),7,1)
                            eigcp = eigcp + 2
                            eigtrl(2) = orf(eigtrl(2),4096)
                         ELSEIF ( eigtyp==3 ) THEN
 !
 !     WRITE EIGR DATA ONTO EEDX DATA BLOCK
 !
-                           CALL write(eedx,Z(Korbgn),21,1)
+                           CALL write(eedx,z(korbgn),21,1)
                            eigtrl(2) = orf(eigtrl(2),8192)
                         ELSE
 !
 !     WRITE EIGC DATA ONTO EEDX DATA BLOCK
 !
-                           CALL write(eedx,Z(Korbgn),13,0)
+                           CALL write(eedx,z(korbgn),13,0)
                            eigtrl(2) = orf(eigtrl(2),16384)
                            eigcp = eigcp + 1
                            SPAG_Loop_3_2: DO
-                              CALL read(*60,*80,dnamic,Z(Korbgn),7,0,nowdsr)
-                              IF ( Z(Korbgn)==-1 ) THEN
-                                 CALL write(eedx,Z(Korbgn),7,1)
+                              CALL read(*60,*80,dnamic,z(korbgn),7,0,nowdsr)
+                              IF ( z(korbgn)==-1 ) THEN
+                                 CALL write(eedx,z(korbgn),7,1)
                                  EXIT SPAG_Loop_3_2
                               ELSE
-                                 CALL write(eedx,Z(Korbgn),7,0)
+                                 CALL write(eedx,z(korbgn),7,0)
                               ENDIF
                            ENDDO SPAG_Loop_3_2
                         ENDIF
@@ -193,8 +194,8 @@ SUBROUTINE mred1d
 !
 !     READ REST OF EIGC DATA
 !
-                           CALL read(*60,*80,dnamic,Z(Korbgn+3),7,0,nowdsr)
-                           IF ( Z(Korbgn+3)==-1 ) EXIT SPAG_Loop_3_4
+                           CALL read(*60,*80,dnamic,z(korbgn+3),7,0,nowdsr)
+                           IF ( z(korbgn+3)==-1 ) EXIT SPAG_Loop_3_4
                         ENDDO SPAG_Loop_3_4
                      ENDIF
                   ENDDO SPAG_Loop_2_3
@@ -212,19 +213,19 @@ SUBROUTINE mred1d
          CYCLE SPAG_DispatchLoop_1
  60      imsg = -2
          IF ( eigtyp==2 ) GOTO 20
-         WRITE (Iprntr,99003) Ufm , letr(eigtyp) , Ieig , Oldnam
+         WRITE (iprntr,99003) ufm , letr(eigtyp) , ieig , oldnam
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  80      imsg = -3
          IF ( eigtyp==2 ) GOTO 20
-         WRITE (Iprntr,99003) Ufm , letr(eigtyp) , Ieig , Oldnam
+         WRITE (iprntr,99003) ufm , letr(eigtyp) , ieig , oldnam
          spag_nextblock_1 = 3
       CASE (3)
          CALL sofcls
          CALL mesage(imsg,dnamic,modnam)
          RETURN
       CASE (4)
-         Dry = -2
+         dry = -2
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

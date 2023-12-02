@@ -1,11 +1,12 @@
-!*==gust.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gust.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gust
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -40,8 +41,8 @@ SUBROUTINE gust
 !                        A IMAGE OF GUST CARDS  SID,DLOAD,WG,X0,V(SCR4)
 !                      AND SUPPLIES NFREQ,NLOAD,XO,V,NOGUST
 !
-   CALL gust1(casecc,dit,dlt,frl,scr1,scr2,scr4,nfreq,nload,xo,v,Nogust,scr3)
-   IF ( Nogust<0 ) RETURN
+   CALL gust1(casecc,dit,dlt,frl,scr1,scr2,scr4,nfreq,nload,xo,v,nogust,scr3)
+   IF ( nogust<0 ) RETURN
 !
 !     GUST2 COMPUTES WJ MATRIX(SCR3)
 !
@@ -49,33 +50,33 @@ SUBROUTINE gust
 !
 !     SET UP FOR ADRI
 !
-   nz = korsz(Iz)
-   ibuf1 = nz - Sysbuf + 1
-   xm(1) = Bov
-   xm(2) = Rmach
-   CALL gopen(scr2,Iz(ibuf1),0)
+   nz = korsz(iz)
+   ibuf1 = nz - sysbuf + 1
+   xm(1) = bov
+   xm(2) = rmach
+   CALL gopen(scr2,iz(ibuf1),0)
    CALL bckrec(scr2)
-   CALL fread(scr2,Iz,-2,0)
-   CALL fread(scr2,Iz,nfreq,1)
+   CALL fread(scr2,iz,-2,0)
+   CALL fread(scr2,iz,nfreq,1)
    CALL close(scr2,1)
    nz = nz - nfreq
 !
 !     ADRI INTERPOLATES ON QHJL PUTTING OUTPUT ON SCR2 (QHJK)
 !
-   CALL adri(Iz,nfreq,nz,qhjl,scr2,scr5,scr6,scr7,nrowj,ncolw,nogo)
+   CALL adri(iz,nfreq,nz,qhjl,scr2,scr5,scr6,scr7,nrowj,ncolw,nogo)
    IF ( nogo==1 ) CALL mesage(-61,0,name)
 !
 !     GUST3  MULTIPLIES QHJK BY WJ ONTO SCR5
 !             SCR5 IS MULTIPLIED BY LOAD FUNCTION,WG,AND Q ONTO
 !             SCR6
 !
-   CALL gust3(scr2,scr3,scr1,scr4,scr5,scr6,Q,nfreq,nload,nrowj,ncolw)
+   CALL gust3(scr2,scr3,scr1,scr4,scr5,scr6,q,nfreq,nload,nrowj,ncolw)
 !                QHJK  WJ  P    GUST POEL
 !
 !
 !     SET UP TO ADD LOADS
 !
-   Nogust = 1
+   nogust = 1
    iblock(1) = 1
    rblock(2) = 1.0
    iblock(7) = 1

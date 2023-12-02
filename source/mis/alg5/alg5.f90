@@ -1,9 +1,10 @@
-!*==alg5.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alg5.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION alg5(H,S)
+   USE c_gas
    IMPLICIT NONE
-   USE C_GAS
 !
 ! Function and Dummy argument declarations rewritten by SPAG
 !
@@ -16,5 +17,5 @@ FUNCTION alg5(H,S)
 !
 !
 !
-   alg5 = alg4(H,S)/(R*H)*Cp
+   alg5 = alg4(H,S)/(r*H)*cp
 END FUNCTION alg5

@@ -2,11 +2,11 @@
  
 SUBROUTINE sadd(Z,Dz)
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SADDX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_ZNTPKX
+   USE c_packx
+   USE c_saddx
+   USE c_system
+   USE c_type
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +21,15 @@ SUBROUTINE sadd(Z,Dz)
    REAL*8 , DIMENSION(1) :: dmcb
    INTEGER :: end , hop , i , ibuf , j , jj , k , ll , ncol1 , nrow , ntype , num , prec , type
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -47,9 +56,9 @@ SUBROUTINE sadd(Z,Dz)
    DATA name/4HSADD , 4H    /
 !
 !
-   end = (Nomat-1)*12 + 1
-   prec = -Nomat*2
-   type = -Nomat*2
+   end = (nomat-1)*12 + 1
+   prec = -nomat*2
+   type = -nomat*2
 !
 !     DETERMINE PRECISION TO BE USED FOR CALCULATIONS
 !
@@ -60,23 +69,23 @@ SUBROUTINE sadd(Z,Dz)
 !          - RC ARRAY = 1,1,2,2, WHERE 1 MEANS REAL, 2 COMPLEX
 !
    DO i = 1 , end , 12
-      IF ( Mcbs(i)/=0 ) THEN
-         j = Mcbs(i+4)
-         prec = prec + Prc(j)
-         type = type + Rc(j)
-         j = Mcbs(i+7)
-         prec = prec + Prc(j)
-         type = type + Rc(j)
+      IF ( mcbs(i)/=0 ) THEN
+         j = mcbs(i+4)
+         prec = prec + prc(j)
+         type = type + rc(j)
+         j = mcbs(i+7)
+         prec = prec + prc(j)
+         type = type + rc(j)
       ELSE
          prec = prec + 2
          type = type + 2
       ENDIF
    ENDDO
-   Typin = 1
-   IF ( type>0 ) Typin = 3
-   IF ( prec>0 ) Typin = Typin + 1
-   num = nrow*Nwds(Typin)
-   IF ( Lcore<(Nomat+1)*Sysbuf+num+1 ) CALL mesage(-8,0,name)
+   typin = 1
+   IF ( type>0 ) typin = 3
+   IF ( prec>0 ) typin = typin + 1
+   num = nrow*nwds(typin)
+   IF ( lcore<(nomat+1)*sysbuf+num+1 ) CALL mesage(-8,0,name)
 !
 !     MOVE AND CONVERT MULTIPLIERS
 !
@@ -86,8 +95,8 @@ SUBROUTINE sadd(Z,Dz)
 !
       j = 1
       DO i = 1 , end , 12
-         k = Mcbs(i+7)
-         IF ( Prc(k)==2 ) THEN
+         k = mcbs(i+7)
+         IF ( prc(k)==2 ) THEN
             k = i/2 + 1
             dalph(j) = dmcb(k)
             dalph(j+1) = dmcb(k+1)
@@ -105,8 +114,8 @@ SUBROUTINE sadd(Z,Dz)
 !
       j = 1
       DO i = 1 , end , 12
-         k = Mcbs(i+7)
-         IF ( Prc(k)==2 ) THEN
+         k = mcbs(i+7)
+         IF ( prc(k)==2 ) THEN
             k = i/2 + 1
             alph(j) = dmcb(k)
             alph(j+1) = dmcb(k+1)
@@ -120,11 +129,11 @@ SUBROUTINE sadd(Z,Dz)
       IF ( type<=0 ) alph(j+1) = 0.0
    ENDIF
 !
-   IF ( Typin==2 ) THEN
+   IF ( typin==2 ) THEN
       ASSIGN 60 TO hop
-   ELSEIF ( Typin==3 ) THEN
+   ELSEIF ( typin==3 ) THEN
       ASSIGN 80 TO hop
-   ELSEIF ( Typin==4 ) THEN
+   ELSEIF ( typin==4 ) THEN
       ASSIGN 100 TO hop
    ELSE
       ASSIGN 40 TO hop
@@ -132,24 +141,24 @@ SUBROUTINE sadd(Z,Dz)
 !
 !     OPEN AND ASSIGN FILES
 !
-   ibuf = Lcore
+   ibuf = lcore
    DO i = 1 , end , 12
-      ibuf = ibuf - Sysbuf
-      IF ( Mcbs(i)/=0 ) CALL gopen(Mcbs(i),Z(ibuf),0)
+      ibuf = ibuf - sysbuf
+      IF ( mcbs(i)/=0 ) CALL gopen(mcbs(i),Z(ibuf),0)
    ENDDO
-   ibuf = ibuf - Sysbuf
-   CALL gopen(Mc,Z(ibuf),1)
+   ibuf = ibuf - sysbuf
+   CALL gopen(mc,Z(ibuf),1)
 !
 !     SETUP PACK PARAMETERS
 !
-   One = 1
-   N = nrow
-   Typout = ntype
-   Incr = 1
-   ncol1 = Mc(2)
-   Mc(2) = 0
-   Mc(6) = 0
-   Mc(7) = 0
+   one = 1
+   n = nrow
+   typout = ntype
+   incr = 1
+   ncol1 = mc(2)
+   mc(2) = 0
+   mc(6) = 0
+   mc(7) = 0
 !
 !     ADD MATRICES
 !
@@ -161,48 +170,48 @@ SUBROUTINE sadd(Z,Dz)
          Z(j) = 0.0
       ENDDO
 !
-      One = N
-      N = 1
-      DO j = 1 , Nomat
+      one = n
+      n = 1
+      DO j = 1 , nomat
          k = 12*(j-1) + 1
-         IF ( Mcbs(k)==0 ) CYCLE
-         IF ( Mcbs(k+1)<i ) CYCLE
-         CALL intpk(*150,Mcbs(k),0,Typin,0)
+         IF ( mcbs(k)==0 ) CYCLE
+         IF ( mcbs(k+1)<i ) CYCLE
+         CALL intpk(*150,mcbs(k),0,typin,0)
 !
 !     READ IN NON ZERO ELEMENT
 !
  20      CALL zntpki
-         IF ( Ii>nrow ) GOTO 120
-         One = min0(One,Ii)
-         N = max0(N,Ii)
+         IF ( ii>nrow ) GOTO 120
+         one = min0(one,ii)
+         n = max0(n,ii)
          GOTO hop
- 40      Z(Ii) = Z(Ii) + alph(j)*A(1)
+ 40      Z(ii) = Z(ii) + alph(j)*a(1)
          GOTO 120
- 60      Dz(Ii) = Dz(Ii) + dalph(j)*da(1)
+ 60      Dz(ii) = Dz(ii) + dalph(j)*da(1)
          GOTO 120
- 80      Ii = Ii + Ii - 1
+ 80      ii = ii + ii - 1
          jj = j + j - 1
-         Z(Ii) = Z(Ii) + alph(jj)*A(1) - alph(jj+1)*A(2)
-         Z(Ii+1) = Z(Ii+1) + alph(jj)*A(2) + alph(jj+1)*A(1)
+         Z(ii) = Z(ii) + alph(jj)*a(1) - alph(jj+1)*a(2)
+         Z(ii+1) = Z(ii+1) + alph(jj)*a(2) + alph(jj+1)*a(1)
          GOTO 120
- 100     Ii = Ii + Ii - 1
+ 100     ii = ii + ii - 1
          jj = j + j - 1
-         Dz(Ii) = Dz(Ii) + dalph(jj)*da(1) - dalph(jj+1)*da(2)
-         Dz(Ii+1) = Dz(Ii+1) + dalph(jj)*da(2) + dalph(jj+1)*da(1)
- 120     IF ( Eol==0 ) GOTO 20
+         Dz(ii) = Dz(ii) + dalph(jj)*da(1) - dalph(jj+1)*da(2)
+         Dz(ii+1) = Dz(ii+1) + dalph(jj)*da(2) + dalph(jj+1)*da(1)
+ 120     IF ( eol==0 ) GOTO 20
  150  ENDDO
 !
 !     END OF COLUMN
 !
-      One = min0(One,N)
-      ll = (One-1)*Nwds(Typin) + 1
-      CALL pack(Z(ll),Mc(1),Mc)
+      one = min0(one,n)
+      ll = (one-1)*nwds(typin) + 1
+      CALL pack(Z(ll),mc(1),mc)
    ENDDO
 !
 !     DONE - CLOSE FILES AND RETURN
 !
    DO i = 1 , end , 12
-      IF ( Mcbs(i)/=0 ) CALL close(Mcbs(i),1)
+      IF ( mcbs(i)/=0 ) CALL close(mcbs(i),1)
    ENDDO
-   CALL close(Mc,1)
+   CALL close(mc,1)
 END SUBROUTINE sadd

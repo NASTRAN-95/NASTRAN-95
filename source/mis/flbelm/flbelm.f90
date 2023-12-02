@@ -1,14 +1,15 @@
-!*==flbelm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==flbelm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flbelm
+   USE c_blank
+   USE c_flbfil
+   USE c_flbptr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FLBFIL
-   USE C_FLBPTR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,17 +58,17 @@ SUBROUTINE flbelm
 !
 !     READ BGPDT INTO OPEN CORE
 !
-   Ibgpdt = 1
-   file = Bgpdt
-   CALL gopen(Bgpdt,Z(Ibuf1),0)
-   nz = Ibuf3 - 1
-   CALL read(*1200,*100,Bgpdt,Z(Ibgpdt),nz,1,Nbgpdt)
+   ibgpdt = 1
+   file = bgpdt
+   CALL gopen(bgpdt,z(ibuf1),0)
+   nz = ibuf3 - 1
+   CALL read(*1200,*100,bgpdt,z(ibgpdt),nz,1,nbgpdt)
    n = -8
    CALL mesage(n,file,name)
    GOTO 1400
- 100  Icore = Ibgpdt + Nbgpdt
-   ngrdt = Nbgpdt/4
-   CALL close(Bgpdt,1)
+ 100  icore = ibgpdt + nbgpdt
+   ngrdt = nbgpdt/4
+   CALL close(bgpdt,1)
 !
 !     LOCATE CFLSTR CARDS ON GEOM2 AND READ THEM INTO ELEMENT TABLE
 !     IN CORE.   ONE ELEMENT TABLE RECORD WILL LOOK AS FOLLOWS -
@@ -79,53 +80,53 @@ SUBROUTINE flbelm
 !                  3-6       ZERO
 !                  7         GRAV LOAD ID
 !
-   file = Geom2
-   CALL preloc(*1100,Z(Ibuf1),Geom2)
-   CALL locate(*1400,Z(Ibuf1),cflstr,id)
-   ielmt = Icore
+   file = geom2
+   CALL preloc(*1100,z(ibuf1),geom2)
+   CALL locate(*1400,z(ibuf1),cflstr,id)
+   ielmt = icore
    SPAG_Loop_1_1: DO
-      CALL read(*1200,*200,Geom2,id,2,0,n)
+      CALL read(*1200,*200,geom2,id,2,0,n)
       DO
-         CALL read(*1200,*1300,Geom2,ids,1,0,n)
+         CALL read(*1200,*1300,geom2,ids,1,0,n)
          IF ( ids<0 ) CYCLE SPAG_Loop_1_1
-         IF ( Icore+7>=Ibuf3 ) THEN
+         IF ( icore+7>=ibuf3 ) THEN
             n = -8
             CALL mesage(n,file,name)
             GOTO 1400
          ELSE
-            Z(Icore) = ids
-            Z(Icore+1) = id(1)
-            Z(Icore+2) = 0
-            Z(Icore+3) = 0
-            Z(Icore+4) = 0
-            Z(Icore+5) = 0
-            Z(Icore+6) = id(2)
-            Icore = Icore + 7
+            z(icore) = ids
+            z(icore+1) = id(1)
+            z(icore+2) = 0
+            z(icore+3) = 0
+            z(icore+4) = 0
+            z(icore+5) = 0
+            z(icore+6) = id(2)
+            icore = icore + 7
          ENDIF
       ENDDO
       EXIT SPAG_Loop_1_1
    ENDDO SPAG_Loop_1_1
 !
- 200  nelmt = Icore - ielmt
+ 200  nelmt = icore - ielmt
    nelm = nelmt/7
 !
 !     SORT ELEMENT TABLE BY STRUCTUREAL ELEMENT ID
 !
-   CALL sort(0,0,7,1,Z(ielmt),nelmt)
+   CALL sort(0,0,7,1,z(ielmt),nelmt)
 !
 !     READ ECT AND PROCESS 2D STRUCTURAL ELEMENTS
 !
-   file = Ect
-   CALL gopen(Ect,Z(Ibuf2),0)
+   file = ect
+   CALL gopen(ect,z(ibuf2),0)
  300  SPAG_Loop_1_2: DO
-      CALL read(*500,*1200,Ect,card,3,0,n)
+      CALL read(*500,*1200,ect,card,3,0,n)
       DO i = 1 , n2d
          IF ( card(3)==elm2d(i,1) ) EXIT SPAG_Loop_1_2
       ENDDO
 !
 !     SKIP RECORD BECAUSE NOT ACCEPTABLE 2D ELEMENT TYPE
 !
-      CALL fwdrec(*1100,Ect)
+      CALL fwdrec(*1100,ect)
    ENDDO SPAG_Loop_1_2
 !
 !     PROCESS THE 2D ELEMENT
@@ -136,13 +137,13 @@ SUBROUTINE flbelm
 !
 !     READ DATA FOR ONE 2D ELEMENT
 !
-      CALL read(*1100,*300,Ect,card,nwds,0,n)
+      CALL read(*1100,*300,ect,card,nwds,0,n)
 !
 !     CHECK IF STRUCTURAL ELEMENT IS CONNECTED TO ANY FLUID ELEMENT
 !     MAKE SURE BISLOC FINDS FIRST OF SEVERAL POSSIBLE ENTRIES
 !
-      CALL bisloc(*400,card(1),Z(ielmt),7,nelm,jloc)
-      DO WHILE ( jloc/=1 .AND. Z(ielmt+jloc-8)==card(1) )
+      CALL bisloc(*400,card(1),z(ielmt),7,nelm,jloc)
+      DO WHILE ( jloc/=1 .AND. z(ielmt+jloc-8)==card(1) )
          jloc = jloc - 7
       ENDDO
       DO
@@ -150,13 +151,13 @@ SUBROUTINE flbelm
 !     INSERT ELEMENT GRID POINTS INTO ELEMENT TABLE WORDS 3-6
 !
          DO i = 1 , ngrds
-            Z(ielmt+jloc+i) = card(i+2)
+            z(ielmt+jloc+i) = card(i+2)
          ENDDO
-         IF ( ngrds==3 ) Z(ielmt+jloc+4) = -1
+         IF ( ngrds==3 ) z(ielmt+jloc+4) = -1
 !
 !     CHECK IF NEXT ENTRY IS FOR THE SAME STRUCTURAL ELEMENT
 !
-         IF ( jloc+7>=nelmt .OR. Z(ielmt+jloc+6)/=card(1) ) CYCLE SPAG_Loop_1_3
+         IF ( jloc+7>=nelmt .OR. z(ielmt+jloc+6)/=card(1) ) CYCLE SPAG_Loop_1_3
          jloc = jloc + 7
       ENDDO
       EXIT SPAG_Loop_1_3
@@ -169,15 +170,15 @@ SUBROUTINE flbelm
 !
  500  lelmt = ielmt + nelmt - 1
    DO i = ielmt , lelmt , 7
-      ids = Z(i)
-      Z(i) = Z(i+1)
-      IF ( Z(i+2)==0 ) THEN
-         Error = .TRUE.
-         WRITE (Nout,99001) Ufm , ids
+      ids = z(i)
+      z(i) = z(i+1)
+      IF ( z(i+2)==0 ) THEN
+         error = .TRUE.
+         WRITE (nout,99001) ufm , ids
 99001    FORMAT (A23,' 8002, ELEMENT ID',I9,' ON A CFLSTR CARD DOES NOT ','REFERENCE A VALID 2D STRUCTURAL ELEMENT.')
          ids = 0
       ENDIF
-      Z(i+1) = ids
+      z(i+1) = ids
    ENDDO
 !
 !     ALLOCATE AND ZERO THE GRID POINT CONNECTIVE TABLE AT THE BOTTOM
@@ -193,16 +194,16 @@ SUBROUTINE flbelm
 !                                     CONNECTED TO THIS STRUCTURAL
 !                                     POINT
 !
-   Igrid = Ibuf3 - ngrdt - 1
-   IF ( Igrid<Icore ) THEN
+   igrid = ibuf3 - ngrdt - 1
+   IF ( igrid<icore ) THEN
       n = -8
       CALL mesage(n,file,name)
       GOTO 1400
    ELSE
-      Ngrid = ngrdt
-      lgrid = Ibuf3 - 1
-      DO i = Igrid , lgrid
-         Z(i) = 0
+      ngrid = ngrdt
+      lgrid = ibuf3 - 1
+      DO i = igrid , lgrid
+         z(i) = 0
       ENDDO
 !
 !     LOCATE CFREE CARDS ON GEOM2 AND ADD THEM TO THE ELEMENT TABLE.
@@ -216,61 +217,61 @@ SUBROUTINE flbelm
 !                  4-6       ZERO
 !                  7         GRAV ID
 !
-      file = Geom2
-      CALL locate(*600,Z(Ibuf1),cfree,id)
-      Nofree = 1
+      file = geom2
+      CALL locate(*600,z(ibuf1),cfree,id)
+      nofree = 1
       DO
-         CALL read(*1200,*700,Geom2,id,3,0,n)
-         IF ( Icore+7>=Igrid ) THEN
+         CALL read(*1200,*700,geom2,id,3,0,n)
+         IF ( icore+7>=igrid ) THEN
             n = -8
             CALL mesage(n,file,name)
             GOTO 1400
          ELSE
-            Z(Icore) = id(1)
-            Z(Icore+1) = -1
-            Z(Icore+2) = id(3)
-            Z(Icore+3) = 0
-            Z(Icore+4) = 0
-            Z(Icore+5) = 0
-            Z(Icore+6) = id(2)
-            Icore = Icore + 7
+            z(icore) = id(1)
+            z(icore+1) = -1
+            z(icore+2) = id(3)
+            z(icore+3) = 0
+            z(icore+4) = 0
+            z(icore+5) = 0
+            z(icore+6) = id(2)
+            icore = icore + 7
          ENDIF
       ENDDO
    ENDIF
 !
 !     NO CFREE CARDS - THIS IMPLIES THAT THERE WILL BE NO FREE SURFACE
 !
- 600  Nofree = -1
+ 600  nofree = -1
 !
 !     COMPLETE CORE ALLOCATION FOR THIS PHASE
 !
- 700  nelmt = Icore - ielmt
+ 700  nelmt = icore - ielmt
    nelm = nelmt/7
-   CALL close(Geom2,1)
+   CALL close(geom2,1)
 !
 !     SORT ELEMENT TABLE BY FLUID ID
 !
-   CALL sort(0,0,7,1,Z(ielmt),nelmt)
+   CALL sort(0,0,7,1,z(ielmt),nelmt)
 !
 !     OPEN FBELM AND FRELM SCRATCH FILES
 !
-   CALL gopen(Fbelm,Z(Ibuf1),1)
-   CALL gopen(Frelm,Z(Ibuf3),1)
+   CALL gopen(fbelm,z(ibuf1),1)
+   CALL gopen(frelm,z(ibuf3),1)
 !
 !     READ ECT AND PROCESS FLUID ELEMENTS
 !
-   file = Ect
-   CALL rewind(Ect)
-   CALL fwdrec(*1200,Ect)
+   file = ect
+   CALL rewind(ect)
+   CALL fwdrec(*1200,ect)
  800  SPAG_Loop_1_4: DO
-      CALL read(*1000,*1300,Ect,card,3,0,n)
+      CALL read(*1000,*1300,ect,card,3,0,n)
       DO i = 1 , nfl
          IF ( card(3)==elmfl(i,1) ) EXIT SPAG_Loop_1_4
       ENDDO
 !
 !     SKIP RECORD BECAUSE NOT FLUID ELEMENT TYPE
 !
-      CALL fwdrec(*1100,Ect)
+      CALL fwdrec(*1100,ect)
    ENDDO SPAG_Loop_1_4
 !
 !     PRECESS FLUID ELEMENT
@@ -281,13 +282,13 @@ SUBROUTINE flbelm
 !
 !     READ DATA FOR ONE FLUID ELEMENT
 !
-      CALL read(*1100,*800,Ect,card,nwds,0,n)
+      CALL read(*1100,*800,ect,card,nwds,0,n)
 !
 !     FIND IF FLUID ELEMENT IS ON FREE SURFACE OR STRUCTURAL BOUNDARY.
 !     MAKE SURE BISLOC FINDS THE FIRST OF SEVERAL POSSIBLE ENTRIES.
 !
-      CALL bisloc(*900,card(1),Z(ielmt),7,nelm,jloc)
-      DO WHILE ( jloc/=1 .AND. Z(ielmt+jloc-8)==card(1) )
+      CALL bisloc(*900,card(1),z(ielmt),7,nelm,jloc)
+      DO WHILE ( jloc/=1 .AND. z(ielmt+jloc-8)==card(1) )
          jloc = jloc - 7
       ENDDO
       DO
@@ -296,13 +297,13 @@ SUBROUTINE flbelm
 !     DESCRIPTION - IGNORE ENTRY IF IT WAS IN ERROR DURING STRUCTURAL
 !     ELEMENT PROCESSING
 !
-         IF ( Z(ielmt+jloc)>0 ) THEN
+         IF ( z(ielmt+jloc)>0 ) THEN
 !
 !     THIS ENTRY DESCRIBES THE FLUID / STRUCTURE BOUNDARY - FIND THE
 !     FLUID GRID POINTS WHICH COINCIDE WITH THE STRUCTURAL POINTS
 !
-            CALL flface(ntype,card,Z(ielmt+jloc-1),grid)
-            IF ( .NOT.(Error) ) THEN
+            CALL flface(ntype,card,z(ielmt+jloc-1),grid)
+            IF ( .NOT.(error) ) THEN
 !
 !     INCLUDE CONNECTIONS IN GRID POINT CONNECTIVITY TABLE
 !        1) NUMBER OF STRUCTURE GRID POINTS CONNECTED TO EACH FLUID
@@ -312,14 +313,14 @@ SUBROUTINE flbelm
                ngrdf = 4
                IF ( grid(4)<0 ) ngrdf = 3
                ngrds = 4
-               IF ( Z(ielmt+jloc+4)<0 ) ngrds = 3
+               IF ( z(ielmt+jloc+4)<0 ) ngrds = 3
                DO i = 1 , ngrdf
                   j = grid(i) - 1
-                  Z(Igrid+j) = Z(Igrid+j) + ngrds
+                  z(igrid+j) = z(igrid+j) + ngrds
                ENDDO
                DO i = 1 , ngrds
-                  j = Z(ielmt+jloc+i) - 1
-                  Z(Igrid+j) = Z(Igrid+j) - ngrds
+                  j = z(ielmt+jloc+i) - 1
+                  z(igrid+j) = z(igrid+j) - ngrds
                ENDDO
 !
 !     WRITE 12 WORD RECORD FOR THIS ENTRY ON FBELM
@@ -333,17 +334,17 @@ SUBROUTINE flbelm
 !                  8         MATERIAL ID
 !                  9-12      FLUID GRID POINTS
 !
-               CALL write(Fbelm,Z(ielmt+jloc-1),7,0)
-               CALL write(Fbelm,card(2),1,0)
-               CALL write(Fbelm,grid,4,0)
+               CALL write(fbelm,z(ielmt+jloc-1),7,0)
+               CALL write(fbelm,card(2),1,0)
+               CALL write(fbelm,grid,4,0)
             ENDIF
-         ELSEIF ( Z(ielmt+jloc)==-1 ) THEN
+         ELSEIF ( z(ielmt+jloc)==-1 ) THEN
 !
 !     THIS ENTRY DESCRIBES THE FREE SURFACE - FIND THE FLUIDS GRID
 !     POINTS WHICH DEFINE THE FACE ID GIVEN
 !
-            CALL flface(ntype,card,Z(ielmt+jloc-1),grid)
-            IF ( .NOT.(Error) ) THEN
+            CALL flface(ntype,card,z(ielmt+jloc-1),grid)
+            IF ( .NOT.(error) ) THEN
 !
 !     INCLUDE CONNECTIONS IN GRID POINT CONNECTIVITY TABLE
 !        1) NUMBER OF FREE SURFACE POINTS CONNECTED TO THIS FREE
@@ -353,7 +354,7 @@ SUBROUTINE flbelm
                IF ( grid(4)<0 ) ngrdf = 3
                DO i = 1 , ngrdf
                   j = grid(i) - 1
-                  Z(Igrid+j) = Z(Igrid+j) + ngrdf*1000000
+                  z(igrid+j) = z(igrid+j) + ngrdf*1000000
                ENDDO
 !
 !     WRITE 7 WORD RECORD ON FRELM FILE
@@ -365,31 +366,31 @@ SUBROUTINE flbelm
 !                  3-6       FLUID GRID POINTS
 !                  7         GRAVITY LOAD ID
 !
-               Z(ielmt+jloc) = card(2)
-               CALL write(Frelm,Z(ielmt+jloc-1),2,0)
-               CALL write(Frelm,grid,4,0)
-               CALL write(Frelm,Z(ielmt+jloc+5),1,0)
+               z(ielmt+jloc) = card(2)
+               CALL write(frelm,z(ielmt+jloc-1),2,0)
+               CALL write(frelm,grid,4,0)
+               CALL write(frelm,z(ielmt+jloc+5),1,0)
             ENDIF
          ENDIF
 !
 !     FLAG THE ELEMENT TABLE ENTRY AS BEEN PROCESSED AND CHECK IF
 !     THE NEXT ENTRY IS FOR THE SAME FLUID ELEMENT
 !
-         Z(ielmt+jloc) = -2
-         IF ( jloc+7>=nelmt .OR. Z(ielmt+jloc+6)/=card(1) ) CYCLE SPAG_Loop_1_5
+         z(ielmt+jloc) = -2
+         IF ( jloc+7>=nelmt .OR. z(ielmt+jloc+6)/=card(1) ) CYCLE SPAG_Loop_1_5
          jloc = jloc + 7
       ENDDO
       EXIT SPAG_Loop_1_5
    ENDDO SPAG_Loop_1_5
 !
- 1000 CALL close(Ect,1)
-   CALL close(Fbelm,1)
-   CALL close(Frelm,1)
-   mcb(1) = Fbelm
+ 1000 CALL close(ect,1)
+   CALL close(fbelm,1)
+   CALL close(frelm,1)
+   mcb(1) = fbelm
    mcb(2) = ngrdt
    mcb(3) = nelm
    CALL wrttrl(mcb)
-   mcb(1) = Frelm
+   mcb(1) = frelm
    CALL wrttrl(mcb)
 !
 !     MAKE ONE FINAL PASS THROUGH ELEMENT TABLE AND VERIFY THAT
@@ -397,15 +398,15 @@ SUBROUTINE flbelm
 !
    lelmt = ielmt + nelmt - 1
    DO i = ielmt , lelmt , 7
-      IF ( Z(i+1)/=-2 ) THEN
-         IF ( Z(i+1)==-1 ) THEN
+      IF ( z(i+1)/=-2 ) THEN
+         IF ( z(i+1)==-1 ) THEN
 !
-            Error = .TRUE.
-            WRITE (Nout,99002) Ufm , Z(i)
+            error = .TRUE.
+            WRITE (nout,99002) ufm , z(i)
 99002       FORMAT (A23,' 8004. ELEMENT ID',I9,' ON A CFFREE CARD DOES NOT ','REFERENCE A VALID FLUID ELEMENT.')
          ELSE
-            Error = .TRUE.
-            WRITE (Nout,99003) Ufm , Z(i)
+            error = .TRUE.
+            WRITE (nout,99003) ufm , z(i)
 99003       FORMAT (A23,' 8003. ELEMENT ID',I9,' ON A CFLSTR CARD DOES NOT ','REFERENCE A VALID FLUID ELEMENT.')
          ENDIF
       ENDIF
@@ -414,7 +415,7 @@ SUBROUTINE flbelm
 !
 !     ELEMENT TABLE IS NO LONGER NEEDED SO DELETE IT AND RETURN
 !
-   Icore = ielmt
+   icore = ielmt
    RETURN
 !
 !     ERROR CONDITIONS
@@ -431,8 +432,8 @@ SUBROUTINE flbelm
 !     NO FLUID / STRUCTURE BOUNDARY DEFINED.  FATAL ERROR BECAUSE DMAP
 !     CANNOT HANDLE THIS CONDITION
 !
- 1400 Error = .TRUE.
-   WRITE (Nout,99004) Ufm
+ 1400 error = .TRUE.
+   WRITE (nout,99004) ufm
 !
 !     ERROR FORMATS
 !

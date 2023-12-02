@@ -1,11 +1,12 @@
-!*==ploadx.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ploadx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ploadx
+   USE c_condsa
+   USE c_loadx
+   USE c_ssg1ax
    IMPLICIT NONE
-   USE C_CONDSA
-   USE C_LOADX
-   USE C_SSG1AX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -32,7 +33,7 @@ SUBROUTINE ploadx
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         CALL read(*20,*40,Slt,slc,5,0,flag)
+         CALL read(*20,*40,slt,slc,5,0,flag)
          j = 1
          DO i = 1 , 3
             CALL fndpnt(gd(j),islc(i+2))
@@ -43,9 +44,9 @@ SUBROUTINE ploadx
 !
 !     LOADS IN NORMAL DIRECTION
 !
-         pn(1) = Pi/30.*(9.0*gd(2)*p1+gd(2)*p3+gd(10)*p1-gd(10)*p3)
-         pn(2) = Pi/7.5*(3.*(gd(2)*p1+gd(10)*p3)+2.*(gd(2)*p3+gd(10)*p1))
-         pn(3) = Pi/30.*(9.0*gd(10)*p3+gd(2)*p3+gd(10)*p1-gd(2)*p1)
+         pn(1) = pi/30.*(9.0*gd(2)*p1+gd(2)*p3+gd(10)*p1-gd(10)*p3)
+         pn(2) = pi/7.5*(3.*(gd(2)*p1+gd(10)*p3)+2.*(gd(2)*p3+gd(10)*p1))
+         pn(3) = pi/30.*(9.0*gd(10)*p3+gd(2)*p3+gd(10)*p1-gd(2)*p1)
 !
          j = 1
          DO i = 1 , 3
@@ -58,9 +59,9 @@ SUBROUTINE ploadx
             IF ( igd(j)/=0 ) CALL basglb(p,p,gd(j+1),igd(j))
             CALL fndsil(islc(i+2))
             k = islc(i+2)
-            Z(k) = Z(k) + p(1)
-            Z(k+1) = Z(k+1) + p(2)
-            Z(k+2) = Z(k+2) + p(3)
+            z(k) = z(k) + p(1)
+            z(k+1) = z(k+1) + p(2)
+            z(k+2) = z(k+2) + p(3)
             j = j + 4
          ENDDO
          RETURN
@@ -73,7 +74,7 @@ SUBROUTINE ploadx
  40      j = -2
          spag_nextblock_1 = 2
       CASE (2)
-         CALL mesage(j,Slt,nam)
+         CALL mesage(j,slt,nam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

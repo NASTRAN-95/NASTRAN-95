@@ -2,22 +2,22 @@
  
 SUBROUTINE quad4s
    IMPLICIT NONE
-   USE C_CJACOB
-   USE C_COMJAC
-   USE C_CONDAS
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_Q4COMS
-   USE C_Q4DT
-   USE C_SYSTEM
-   USE C_TERMS
-   USE C_TRPLM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_cjacob
+   USE c_comjac
+   USE c_condas
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_q4coms
+   USE c_q4dt
+   USE c_system
+   USE c_terms
+   USE c_trplm
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -61,6 +61,12 @@ SUBROUTINE quad4s
    REAL , DIMENSION(20) :: save
    REAL :: x42 , xm , xmasso , y31 , y42 , ym , zoff , zoff1 , zta
    REAL , DIMENSION(96) :: xybmat
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -124,37 +130,37 @@ SUBROUTINE quad4s
    DATA const/0.57735026918962/
    DATA nam/4HQUAD , 4H4S  /
 !
-   Elid = nest(1)
-   Ltypfl = 1
+   elid = nest(1)
+   ltypfl = 1
    offset = zoff
    IF ( zoff==0.0 ) offset = zoff1
 !
 !     CHECK FOR SUFFICIENT OPEN CORE FOR ELEMENT STIFFNESS
 !
-   jcored = Jcore
-   ncored = Ncore - 1
-   IF ( jcored+576<=ncored .OR. Heat .OR. kgg1==0 ) THEN
+   jcored = jcore
+   ncored = ncore - 1
+   IF ( jcored+576<=ncored .OR. heat .OR. kgg1==0 ) THEN
 !
 !     COPY THE SILS AND BGPDT DATA INTO SAVE ARRAY SINCE THE DATA
 !     WILL BE REORDERED BASED ON INCREASING SILS.
 !
       j = 1
       DO i = 1 , 20
-         save(i) = Est(i+j)
+         save(i) = est(i+j)
          IF ( i==4 ) j = 24
       ENDDO
 !
-      Nnode = 4
-      N1 = 4
-      nodesq = Nnode*Nnode
-      Ndof = Nnode*6
-      ndof3 = Nnode*3
-      nd2 = Ndof*2
-      nd3 = Ndof*3
-      nd4 = Ndof*4
-      nd5 = Ndof*5
-      nd6 = Ndof*6
-      nd7 = Ndof*7
+      nnode = 4
+      n1 = 4
+      nodesq = nnode*nnode
+      ndof = nnode*6
+      ndof3 = nnode*3
+      nd2 = ndof*2
+      nd3 = ndof*3
+      nd4 = ndof*4
+      nd5 = ndof*5
+      nd6 = ndof*6
+      nd7 = ndof*7
 !
 !     FILL IN ARRAY GGU WITH THE COORDINATES OF GRID POINTS
 !     1, 2 AND 4. THIS ARRAY WILL BE USED LATER TO DEFINE
@@ -260,7 +266,7 @@ SUBROUTINE quad4s
       DO j = 1 , 3
          cent(j) = 0.0
          DO i = 1 , 4
-            cent(j) = cent(j) + ugpdm(j,i)/Nnode
+            cent(j) = cent(j) + ugpdm(j,i)/nnode
          ENDDO
       ENDDO
 !
@@ -309,7 +315,7 @@ SUBROUTINE quad4s
 !     BULK DATA CARD DESCRIPTION.
 !
       DO i = 1 , 4
-         Iorder(i) = 0
+         iorder(i) = 0
          horder(i) = 0
          ksil(i) = sil(i)
          hsil(i) = sil(i)
@@ -324,7 +330,7 @@ SUBROUTINE quad4s
                isil = ksil(j)
             ENDIF
          ENDDO
-         Iorder(i) = itemp
+         iorder(i) = itemp
          horder(i) = itemp
          ksil(itemp) = 99999999
       ENDDO
@@ -345,7 +351,7 @@ SUBROUTINE quad4s
          ENDDO
       ENDDO
       DO i = 1 , 4
-         ipoint = Iorder(i)
+         ipoint = iorder(i)
          sil(i) = ksil(ipoint)
          gpth(i) = tmpthk(ipoint)
          igpdt(1,i) = kcid(ipoint)
@@ -356,14 +362,14 @@ SUBROUTINE quad4s
 !
 !     COMPUTE NODE NORMALS
 !
-      CALL q4nrms(bgpdt,gpnorm,Iorder,iflag)
+      CALL q4nrms(bgpdt,gpnorm,iorder,iflag)
       IF ( iflag/=0 ) GOTO 300
 !
 !     DETERMINE NODAL THICKNESSES
 !
       avgthk = 0.0
-      DO i = 1 , Nnode
-         iord = Iorder(i)
+      DO i = 1 , nnode
+         iord = iorder(i)
          DO ic = 1 , 3
             curvtr(ic,iord) = gpnorm(ic+1,i)
          ENDDO
@@ -372,9 +378,9 @@ SUBROUTINE quad4s
          IF ( nest(13)==0 .AND. elth==0. ) gpth(i) = 1.0E-14
          IF ( gpth(i)>0.0 ) THEN
             dgpth(i) = gpth(i)
-            avgthk = avgthk + dgpth(i)/Nnode
+            avgthk = avgthk + dgpth(i)/nnode
          ELSE
-            WRITE (nout,99001) Ufm , Elid
+            WRITE (nout,99001) ufm , elid
 !
 99001       FORMAT (A23,', THE ELEMENT THICKNESS FOR QUAD4 EID =',I9,' IS NOT COMPLETELY DEFINED.')
             nogo = .TRUE.
@@ -398,9 +404,9 @@ SUBROUTINE quad4s
       mominr = 0.0
       tsfact = .8333333
       nocsub = .FALSE.
-      IF ( nest(15)/=0 ) mominr = Est(16)
-      IF ( nest(17)/=0 ) ts = Est(18)
-      IF ( Est(18)==0. ) ts = .8333333
+      IF ( nest(15)/=0 ) mominr = est(16)
+      IF ( nest(17)/=0 ) ts = est(18)
+      IF ( est(18)==0. ) ts = .8333333
 !
 !     FIX FOR LAMINATED COMPOSITE WITH MEMBRANE BEHAVIOUR ONLY.
 !     REQUIRED TO PREVENT ZERO DIVIDE ERRORS.
@@ -422,7 +428,7 @@ SUBROUTINE quad4s
 !
 !     SET IDENTT FLAG TO 1 IF TEB IS AN IDENTITY MATRIX
 !
-      CALL betrns(teu,gge,0,Elid)
+      CALL betrns(teu,gge,0,elid)
       CALL gmmats(teu,3,3,0,tub,3,3,0,teb)
       CALL gmmats(tub,3,3,1,cent,3,1,0,cente)
       identt = 0
@@ -431,7 +437,7 @@ SUBROUTINE quad4s
       ip = -3
       DO ii = 2 , 4
          ip = ip + 3
-         DO j = 1 , Nnode
+         DO j = 1 , nnode
             epnorm(ii,j) = 0.0
             egpdt(ii,j) = 0.0
             DO k = 1 , 3
@@ -451,31 +457,31 @@ SUBROUTINE quad4s
 !     ORTHOTROPIC MATERIAL PROPERTIES AMONG THE MAT8 CARDS, AND
 !     ANISOTROPIC MATERIAL PROPERTIES AMONG THE MAT2 CARDS.
 !
-      Inflag = 12
+      inflag = 12
       rho = 0.0
-      Eltemp = Est(45)
+      eltemp = est(45)
       mid(1) = nest(13)
       mid(2) = nest(15)
       mid(3) = nest(17)
       mid(4) = nest(22)
-      Membrn = mid(1)>0
-      Bendng = mid(2)>0 .AND. mominr>0.0
-      Shrflx = mid(3)>0
-      Mbcoup = mid(4)>0
+      membrn = mid(1)>0
+      bendng = mid(2)>0 .AND. mominr>0.0
+      shrflx = mid(3)>0
+      mbcoup = mid(4)>0
 !
 !     FIGURE OUT PATH OF THE TRIPLE MULTIPLY AND THE NO. OF ROWS
 !     IN B-MATRIX
 !
 !     NORPTH = MID(1).EQ.MID(2).AND.MID(1).EQ.MID(3).AND.MID(4).EQ.0
 !    1        .AND. ABS(MOMINR-1.0).LE.EPS1
-      Norpth = .FALSE.
+      norpth = .FALSE.
 !
 !     DETERMINE FACTORS TO BE USED IN CSUBB CALCULATIONS
 !
 !     IF (.NOT.BENDNG) GO TO 290
       DO i = 1 , 4
-         DO j = 1 , Nnode
-            jo = Iorder(j)
+         DO j = 1 , nnode
+            jo = iorder(j)
             IF ( i==jo ) THEN
                xa(i) = egpdt(2,j)
                yb(i) = egpdt(3,j)
@@ -542,25 +548,25 @@ SUBROUTINE quad4s
          DO i = 1 , 4
             j = i + 1
             IF ( j==5 ) j = 1
-            Uev(1,i) = xa(j) - xa(i)
-            Uev(2,i) = yb(j) - yb(i)
-            Uev(3,i) = zc(j) - zc(i)
-            Unv(1,i) = (vnt(1,j)+vnt(1,i))*0.50
-            Unv(2,i) = (vnt(2,j)+vnt(2,i))*0.50
-            Unv(3,i) = (vnt(3,j)+vnt(3,i))*0.50
-            cc = Uev(1,i)**2 + Uev(2,i)**2 + Uev(3,i)**2
+            uev(1,i) = xa(j) - xa(i)
+            uev(2,i) = yb(j) - yb(i)
+            uev(3,i) = zc(j) - zc(i)
+            unv(1,i) = (vnt(1,j)+vnt(1,i))*0.50
+            unv(2,i) = (vnt(2,j)+vnt(2,i))*0.50
+            unv(3,i) = (vnt(3,j)+vnt(3,i))*0.50
+            cc = uev(1,i)**2 + uev(2,i)**2 + uev(3,i)**2
             IF ( cc==0.0 ) GOTO 300
             IF ( cc>=eps1 ) cc = sqrt(cc)
-            Edgel(i) = cc
-            Uev(1,i) = Uev(1,i)/cc
-            Uev(2,i) = Uev(2,i)/cc
-            Uev(3,i) = Uev(3,i)/cc
-            cc = Unv(1,i)**2 + Unv(2,i)**2 + Unv(3,i)**2
+            edgel(i) = cc
+            uev(1,i) = uev(1,i)/cc
+            uev(2,i) = uev(2,i)/cc
+            uev(3,i) = uev(3,i)/cc
+            cc = unv(1,i)**2 + unv(2,i)**2 + unv(3,i)**2
             IF ( cc==0.0 ) GOTO 300
             IF ( cc>=eps1 ) cc = sqrt(cc)
-            Unv(1,i) = Unv(1,i)/cc
-            Unv(2,i) = Unv(2,i)/cc
-            Unv(3,i) = Unv(3,i)/cc
+            unv(1,i) = unv(1,i)/cc
+            unv(2,i) = unv(2,i)/cc
+            unv(3,i) = unv(3,i)/cc
          ENDDO
 !
 !     CALCULATE INTERNAL NODAL ANGLES
@@ -568,8 +574,8 @@ SUBROUTINE quad4s
          DO i = 1 , 4
             j = i - 1
             IF ( j==0 ) j = 4
-            Anglei(i) = -Uev(1,i)*Uev(1,j) - Uev(2,i)*Uev(2,j) - Uev(3,i)*Uev(3,j)
-            IF ( abs(Anglei(i))<eps1 ) Anglei(i) = 0.0
+            anglei(i) = -uev(1,i)*uev(1,j) - uev(2,i)*uev(2,j) - uev(3,i)*uev(3,j)
+            IF ( abs(anglei(i))<eps1 ) anglei(i) = 0.0
          ENDDO
 ! 290 CONTINUE
 !
@@ -580,7 +586,7 @@ SUBROUTINE quad4s
 !     JZTA = 2
 !     IF (.NOT.BENDNG) PTINTZ(1) = 0.0
 !     IF (.NOT.BENDNG) JZTA = 1
-         IF ( Heat ) GOTO 600
+         IF ( heat ) GOTO 600
 !
 !     TRIPLE LOOP TO SAVE THE LAST 2 ROWS OF B-MATRIX AT 2X2X2
 !     INTEGRATION POINTS FOR LATER MANIPULATION.
@@ -591,12 +597,12 @@ SUBROUTINE quad4s
             kpt = 1
 !
             DO ixsi = 1 , 2
-               Xi = ptint(ixsi)
+               xi = ptint(ixsi)
 !
                DO ieta = 1 , 2
-                  Eta = ptint(ieta)
+                  eta = ptint(ieta)
 !
-                  CALL q4shps(Xi,Eta,shp,dshp)
+                  CALL q4shps(xi,eta,shp,dshp)
 !
 !     IRREGULAR 4-NODE CODE-  CALCULATION OF NODAL EDGE SHEARS
 !                             AT THIS INTEGRATION POINT
@@ -610,8 +616,8 @@ SUBROUTINE quad4s
                      bb = shp(ik)
 !
                      DO is = 1 , 3
-                        Edgshr(is,ij) = (Uev(is,ij)+Anglei(ij)*Uev(is,ii))*aa/(1.0-Anglei(ij)*Anglei(ij))                           &
-                                      & + (Uev(is,ij)+Anglei(ik)*Uev(is,ik))*bb/(1.0-Anglei(ik)*Anglei(ik))
+                        edgshr(is,ij) = (uev(is,ij)+anglei(ij)*uev(is,ii))*aa/(1.0-anglei(ij)*anglei(ij))                           &
+                                      & + (uev(is,ij)+anglei(ik)*uev(is,ik))*bb/(1.0-anglei(ik)*anglei(ik))
                      ENDDO
                   ENDDO
 !
@@ -623,7 +629,7 @@ SUBROUTINE quad4s
                      dshptp(is+4) = dshp(is+4)
                   ENDDO
                   DO is = 1 , 4
-                     kk = Iorder(is)
+                     kk = iorder(is)
                      shp(is) = tmpshp(kk)
                      dshp(is) = dshptp(kk)
                      dshp(is+4) = dshptp(kk+4)
@@ -635,21 +641,21 @@ SUBROUTINE quad4s
 !     COMPUTE THE JACOBIAN AT THIS GAUSS POINT,
 !     ITS INVERSE AND ITS DETERMINANT.
 !
-                     Hzta = zta/2.0
-                     CALL jacobs(Elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
-                     IF ( Badjac ) GOTO 400
+                     hzta = zta/2.0
+                     CALL jacobs(elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
+                     IF ( badjac ) GOTO 400
 !
 !     COMPUTE PSI TRANSPOSE X JACOBIAN INVERSE.
 !     HERE IS THE PLACE WHERE THE INVERSE JACOBIAN IS FLAGED TO BE
 !     TRANSPOSED BECAUSE OF OPPOSITE MATRIX LOADING CONVENTION
 !     BETWEEN INVER AND GMMAT.
 !
-                     CALL gmmats(Psitrn,3,3,0,jacob,3,3,1,phi)
+                     CALL gmmats(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGS TO GET B MATRIX
 !     SET THE ROW FLAG TO 1. IT SIGNALS SAVING THE LAST 2 ROWS.
 !
-                     Rowflg = 1
+                     rowflg = 1
                      CALL q4bmgs(dshp,dgpth,egpdt,epnorm,phi,bmat1(kpt))
                      kpt = kpt + nd2
                   ENDDO
@@ -660,13 +666,13 @@ SUBROUTINE quad4s
 !
 !     IF (.NOT.MEMBRN) GO TO 400
 ! 360 CONTINUE
-            Xi = 0.0
-            Eta = 0.0
+            xi = 0.0
+            eta = 0.0
             kpt = 1
             kpnt = nd2
 !     IF (NORPTH) KPNT = NDOF
 !
-            CALL q4shps(Xi,Eta,shp,dshp)
+            CALL q4shps(xi,eta,shp,dshp)
 !
 !     SORT THE SHAPE FUNCTIONS AND THEIR DERIVATIVES INTO SIL ORDER.
 !
@@ -676,7 +682,7 @@ SUBROUTINE quad4s
                dshptp(i+4) = dshp(i+4)
             ENDDO
             DO i = 1 , 4
-               kk = Iorder(i)
+               kk = iorder(i)
                shp(i) = tmpshp(kk)
                dshp(i) = dshptp(kk)
                dshp(i+4) = dshptp(kk+4)
@@ -685,17 +691,17 @@ SUBROUTINE quad4s
 !     DO 390 IZTA = 1,JZTA
             DO izta = 1 , 2
                zta = ptint(izta)
-               Hzta = zta/2.0
-               CALL jacobs(Elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
-               IF ( Badjac ) GOTO 400
+               hzta = zta/2.0
+               CALL jacobs(elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
+               IF ( badjac ) GOTO 400
 !
-               CALL gmmats(Psitrn,3,3,0,jacob,3,3,1,phi)
+               CALL gmmats(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGS TO GET B-MATRIX
 !     SET THE ROW FLAG TO 2. IT WILL SAVE THE 3RD ROW OF B-MATRIX AT
 !     THE TWO INTEGRATION POINTS.
 !
-               Rowflg = 2
+               rowflg = 2
                CALL q4bmgs(dshp,dgpth,egpdt,epnorm,phi,xybmat(kpt))
                kpt = kpt + kpnt
             ENDDO
@@ -741,7 +747,7 @@ SUBROUTINE quad4s
 !
 !     CALCULATE TEM-MATRIX USING THETAM
 !
-      thetam = Est(10)*Degrad
+      thetam = est(10)*degrad
       IF ( thetam/=0.0 ) GOTO 200
 !
 !     DEFAULT IS CHOSEN, LOOK FOR VALUES OF MCSID AND/OR THETAM
@@ -749,7 +755,7 @@ SUBROUTINE quad4s
 !
       IF ( nest(24)==0 ) THEN
 !
-         thetam = Est(23)*Degrad
+         thetam = est(23)*degrad
          GOTO 200
       ELSE
          mcsid = nest(23)
@@ -788,7 +794,7 @@ SUBROUTINE quad4s
  200  CALL angtrs(thetam,1,tum)
    CALL gmmats(teu,3,3,0,tum,3,3,0,tem)
 !
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
       tem(3) = tem(4)
       tem(4) = tem(5)
       CALL gmmats(tem,2,2,0,gi,2,2,0,gt)
@@ -799,8 +805,8 @@ SUBROUTINE quad4s
       DO m = 1 , 36
          gi(m) = 0.0
       ENDDO
-      Sinmat = 0.0
-      Cosmat = 0.0
+      sinmat = 0.0
+      cosmat = 0.0
       igobk = 0
 !
 !     BEGIN M-LOOP TO FETCH PROPERTIES FOR EACH MATERIAL ID
@@ -819,29 +825,29 @@ SUBROUTINE quad4s
             mid(3) = mid(2)
          ELSE
             IF ( m==4 .AND. igobk==1 ) EXIT
-            Matid = mid(m)
-            IF ( Matid/=0 .OR. m==3 ) THEN
-               IF ( .NOT.(Matid==0 .AND. m==3 .AND. .NOT.Bendng) ) THEN
-                  IF ( Matid==0 .AND. m==3 .AND. Bendng ) Matid = mid(2)
+            matid = mid(m)
+            IF ( matid/=0 .OR. m==3 ) THEN
+               IF ( .NOT.(matid==0 .AND. m==3 .AND. .NOT.bendng) ) THEN
+                  IF ( matid==0 .AND. m==3 .AND. bendng ) matid = mid(2)
 !
                   IF ( m<1 ) THEN
                   ELSEIF ( m==1 ) THEN
-                     CALL mat(Elid)
-                  ELSEIF ( Matid/=mid(m-1) .OR. igobk/=0 ) THEN
-                     CALL mat(Elid)
+                     CALL mat(elid)
+                  ELSEIF ( matid/=mid(m-1) .OR. igobk/=0 ) THEN
+                     CALL mat(elid)
                   ENDIF
 !
-                  IF ( Membrn .AND. m==1 ) rho = Matout(7)
+                  IF ( membrn .AND. m==1 ) rho = matout(7)
                   rhox = rho
                   IF ( rho==0.0 ) rhox = 1.0
                   IF ( kgg1/=0 ) THEN
 !
-                     IF ( .NOT.(Membrn .AND. m/=1 .OR. .NOT.Membrn .AND. m/=2) ) THEN
-                        gsube = Matout(12)
-                        IF ( matset==8. ) gsube = Matout(16)
+                     IF ( .NOT.(membrn .AND. m/=1 .OR. .NOT.membrn .AND. m/=2) ) THEN
+                        gsube = matout(12)
+                        IF ( matset==8. ) gsube = matout(16)
                      ENDIF
 !
-                     IF ( .NOT.(m==2 .AND. Norpth) ) THEN
+                     IF ( .NOT.(m==2 .AND. norpth) ) THEN
                         coeff = 1.0
                         lpoint = (m-1)*9 + 1
 !
@@ -914,10 +920,10 @@ SUBROUTINE quad4s
                         CALL gmmats(gt(1),l,l,0,u(1),l,l,0,gi(lpoint))
 !WKBNB 11/93 SPR93020
                         IF ( m<=0 ) THEN
-                           IF ( .NOT.Shrflx .AND. Bendng ) THEN
+                           IF ( .NOT.shrflx .AND. bendng ) THEN
                               m = -m
                            ELSE
-                              nest(2) = Matid
+                              nest(2) = matid
                               j = 232
                               GOTO 500
                            ENDIF
@@ -928,39 +934,39 @@ SUBROUTINE quad4s
                         IF ( m==1 .OR. m==4 ) THEN
                         ELSEIF ( m==3 ) THEN
                            IF ( mtype<0 ) THEN
-                              gnorx = Matout(6)
-                              gnory = Matout(6)
+                              gnorx = matout(6)
+                              gnory = matout(6)
                            ELSEIF ( mtype==0 ) THEN
-                              gnorx = Matout(1)
-                              gnory = Matout(4)
+                              gnorx = matout(1)
+                              gnory = matout(4)
                            ELSE
-                              gnorx = Matout(6)
-                              gnory = Matout(5)
+                              gnorx = matout(6)
+                              gnory = matout(5)
 !WKBDB 9/94
 !      IF ( GNORX .EQ. 0.0D0 ) GNORX = MATOUT(4)
 !      IF ( GNORY .EQ. 0.0D0 ) GNORY = MATOUT(4)
 !WKBDE 9/94
 !WKBNB 9/94
-                              IF ( gnorx==0.0 ) gnorx = Matout(4)
+                              IF ( gnorx==0.0 ) gnorx = matout(4)
 !WKBNE 9/94
 !WKBNE 2/94 SPR93020
-                              IF ( gnory==0.0 ) gnory = Matout(4)
+                              IF ( gnory==0.0 ) gnory = matout(4)
                            ENDIF
 !WKBNE 11/93 SPR93020
 !WKBNB 2/94 SPR93020
                         ELSEIF ( mtype<0 ) THEN
-                           enorx = Matout(16)
-                           enory = Matout(16)
+                           enorx = matout(16)
+                           enory = matout(16)
                            dnux = gi(lpoint+1)/gi(lpoint)
                            dnuy = gi(lpoint+3)/gi(lpoint+4)
                         ELSEIF ( mtype==0 ) THEN
-                           enorx = Matout(1)
-                           enory = Matout(4)
+                           enorx = matout(1)
+                           enory = matout(4)
                            dnux = gi(lpoint+1)/gi(lpoint)
                            dnuy = gi(lpoint+3)/gi(lpoint+4)
                         ELSE
-                           enorx = Matout(1)
-                           enory = Matout(3)
+                           enorx = matout(1)
+                           enory = matout(3)
                            dnux = gi(lpoint+1)/gi(lpoint)
                            dnuy = gi(lpoint+3)/gi(lpoint+4)
                         ENDIF
@@ -985,9 +991,9 @@ SUBROUTINE quad4s
          ENDIF
       ENDIF
 !
-      limit = jcored + Ndof*Ndof
+      limit = jcored + ndof*ndof
       DO i = jcored , limit
-         Akgg(i) = 0.0
+         akgg(i) = 0.0
       ENDDO
       DO i = 1 , nodesq
          xmass(i) = 0.0
@@ -1002,10 +1008,10 @@ SUBROUTINE quad4s
 !     -----------------------------------------------------------
 !
       DO ixsi = 1 , 2
-         Xi = ptint(ixsi)
+         xi = ptint(ixsi)
          DO ieta = 1 , 2
-            Eta = ptint(ieta)
-            CALL q4shps(Xi,Eta,shp,dshp)
+            eta = ptint(ieta)
+            CALL q4shps(xi,eta,shp,dshp)
 !
 !     SORT THE SHAPE FUNCTIONS AND THEIR DERIVATIVES INTO SIL ORDER.
 !
@@ -1015,12 +1021,12 @@ SUBROUTINE quad4s
                dshptp(i+4) = dshp(i+4)
             ENDDO
             DO i = 1 , 4
-               kk = Iorder(i)
+               kk = iorder(i)
                shp(i) = tmpshp(kk)
                dshp(i) = dshptp(kk)
                dshp(i+4) = dshptp(kk+4)
             ENDDO
-            CALL gmmats(shp,1,Nnode,0,dgpth,1,Nnode,1,thk)
+            CALL gmmats(shp,1,nnode,0,dgpth,1,nnode,1,thk)
             reali = mominr*thk*thk*thk/12.0
 !     REALI =        THK*THK*THK/12.0
             tsi = ts*thk
@@ -1031,7 +1037,7 @@ SUBROUTINE quad4s
                IF ( mgg1==0 ) GOTO 210
                IF ( rho==0. ) GOTO 210
                IF ( rho<=0. ) THEN
-                  WRITE (nout,99002) Uwm , rho , mid(1) , nest(1)
+                  WRITE (nout,99002) uwm , rho , mid(1) , nest(1)
 99002             FORMAT (A25,', RHO = ',1PD12.4,' IS ILLEGAL FROM MATERIAL ID =',I9,' FOR QUAD4 EID =',I9)
                ENDIF
             ENDIF
@@ -1045,7 +1051,7 @@ SUBROUTINE quad4s
                ipoint = 4*(i-1)
                DO j = 1 , 3
                   v(i,j) = 0.0
-                  DO k = 1 , Nnode
+                  DO k = 1 , nnode
                      ktemp = k + ipoint
                      jtemp = j + 1
                      v(i,j) = v(i,j) + dshp(ktemp)*bgpdt(jtemp,k)
@@ -1072,14 +1078,14 @@ SUBROUTINE quad4s
             vol = vol + voli
 !
             IF ( mgg1/=0 ) THEN
-               IF ( Cpmass>0 ) THEN
+               IF ( cpmass>0 ) THEN
 !
 !     COMPUTE CONSISTENT MASS MATRIX
 !
 !     COMPUTE THE CONTRIBUTION TO THE MASS MATRIX
 !     FROM THIS INTEGRATION POINT.
 !
-                  CALL gmmats(shp,1,Nnode,1,shp,1,Nnode,0,xmtmp)
+                  CALL gmmats(shp,1,nnode,1,shp,1,nnode,0,xmtmp)
 !
 !     ADD MASS CONTRIBUTION FROM THIS INTEGRATION POINT
 !     TO THE ELEMENT MASS MATRIX.
@@ -1089,9 +1095,9 @@ SUBROUTINE quad4s
                   ENDDO
                ELSE
                   i4 = 1
-                  DO j4 = 1 , Nnode
+                  DO j4 = 1 , nnode
                      xmass(i4) = xmass(i4) + voli*rhox*shp(j4)
-                     i4 = i4 + Nnode + 1
+                     i4 = i4 + nnode + 1
                   ENDDO
                ENDIF
             ENDIF
@@ -1109,7 +1115,7 @@ SUBROUTINE quad4s
             tsmfx = 1.0
             tsmfy = 1.0
             IF ( .NOT.(nocsub) ) THEN
-               IF ( Bendng ) THEN
+               IF ( bendng ) THEN
 !      NUNORX = MOMINR*ENORX/(2.0*GNORX) - 1.0
 !      NUNORY = MOMINR*ENORY/(2.0*GNORY) - 1.0
 !WKBNB 2/94 SPR93020
@@ -1172,16 +1178,16 @@ SUBROUTINE quad4s
                   dsub = dsub4
                   coeft = const
                   ax = a
-                  IF ( Eta<0.0 ) ax = a + coeft*(xa(2)-xa(1)-a)
-                  IF ( Eta>0.0 ) ax = a + coeft*(xa(3)-xa(4)-a)
+                  IF ( eta<0.0 ) ax = a + coeft*(xa(2)-xa(1)-a)
+                  IF ( eta>0.0 ) ax = a + coeft*(xa(3)-xa(4)-a)
                   psiinx = 20.0*dsub*reali*sineax*(1.0+aspect*aspect)/(tsi*(1.0-nunorx)*ax*ax)
                   dsub = dsub4
                   coeft = const
                   by = b
-                  IF ( Xi<0.0 ) by = b + coeft*(yb(4)-yb(1)-b)
-                  IF ( Xi>0.0 ) by = b + coeft*(yb(3)-yb(2)-b)
+                  IF ( xi<0.0 ) by = b + coeft*(yb(4)-yb(1)-b)
+                  IF ( xi>0.0 ) by = b + coeft*(yb(3)-yb(2)-b)
                   psiiny = 20.0*dsub*reali*sineay*(1.0+aspect*aspect)/(tsi*(1.0-nunory)*by*by)
-                  IF ( .NOT.Shrflx ) THEN
+                  IF ( .NOT.shrflx ) THEN
                      tsmfx = psiinx
                      tsmfy = psiiny
                   ELSE
@@ -1194,7 +1200,7 @@ SUBROUTINE quad4s
 !
 !     FILL IN THE 7X7 MATERIAL PROPERTY MATRIX D FOR NORPTH
 !
-                  IF ( Norpth ) THEN
+                  IF ( norpth ) THEN
                      DO ig = 1 , 7
                         DO jg = 1 , 7
                            dfour(ig,jg) = 0.0
@@ -1220,9 +1226,9 @@ SUBROUTINE quad4s
                   gfour(ig,jg) = 0.0
                ENDDO
             ENDDO
-            IF ( .NOT.(Mbcoup) ) THEN
+            IF ( .NOT.(mbcoup) ) THEN
 !
-               IF ( Membrn ) THEN
+               IF ( membrn ) THEN
                   DO ig = 1 , 3
                      ig1 = (ig-1)*3
                      DO jg = 1 , 3
@@ -1232,7 +1238,7 @@ SUBROUTINE quad4s
                   ENDDO
                ENDIF
 !
-               IF ( .NOT.Bendng ) GOTO 230
+               IF ( .NOT.bendng ) GOTO 230
                DO ig = 4 , 6
                   ig2 = (ig-2)*3
                   DO jg = 4 , 6
@@ -1241,7 +1247,7 @@ SUBROUTINE quad4s
                   ENDDO
                ENDDO
 !
-               IF ( Membrn ) THEN
+               IF ( membrn ) THEN
                   DO ig = 1 , 3
                      ig1 = (ig-1)*3
                      kg = ig + 3
@@ -1265,13 +1271,13 @@ SUBROUTINE quad4s
                IF ( ik==5 ) ik = 1
 !
                DO ir = 1 , 4
-                  IF ( ij==Iorder(ir) ) THEN
+                  IF ( ij==iorder(ir) ) THEN
                      ioj = ir
                      EXIT
                   ENDIF
                ENDDO
                DO ir = 1 , 4
-                  IF ( ik==Iorder(ir) ) THEN
+                  IF ( ik==iorder(ir) ) THEN
                      iok = ir
                      EXIT
                   ENDIF
@@ -1280,8 +1286,8 @@ SUBROUTINE quad4s
                bb = shp(iok)
 !
                DO is = 1 , 3
-                  Edgshr(is,ij) = (Uev(is,ij)+Anglei(ij)*Uev(is,ii))*aa/(1.0-Anglei(ij)*Anglei(ij))                                 &
-                                & + (Uev(is,ij)+Anglei(ik)*Uev(is,ik))*bb/(1.0-Anglei(ik)*Anglei(ik))
+                  edgshr(is,ij) = (uev(is,ij)+anglei(ij)*uev(is,ii))*aa/(1.0-anglei(ij)*anglei(ij))                                 &
+                                & + (uev(is,ij)+anglei(ik)*uev(is,ik))*bb/(1.0-anglei(ik)*anglei(ik))
                ENDDO
             ENDDO
 !
@@ -1292,7 +1298,7 @@ SUBROUTINE quad4s
             csuby = 20.0*reali/(tsi*(1.0-nunory)*b*b)
             sfctr1 = csubb4*csubx
             sfctr2 = csubtx*csubx
-            IF ( Shrflx ) THEN
+            IF ( shrflx ) THEN
                sfctr1 = sfctr1/(1.0+sfctr1)
                sfctr2 = sfctr2/(1.0+sfctr2)
             ENDIF
@@ -1300,7 +1306,7 @@ SUBROUTINE quad4s
             sfctx2 = sfctr1 - sfctr2
             sfctr1 = csubb4*csuby
             sfctr2 = csubty*csuby
-            IF ( Shrflx ) THEN
+            IF ( shrflx ) THEN
                sfctr1 = sfctr1/(1.0+sfctr1)
                sfctr2 = sfctr2/(1.0+sfctr2)
             ENDIF
@@ -1309,7 +1315,7 @@ SUBROUTINE quad4s
 !
 !     FILL IN THE EXPANDED MATERIAL PROPERTY MATRIX
 !
-            IF ( Norpth ) THEN
+            IF ( norpth ) THEN
 !
                dfour(4,4) = 0.25*sfcty1*ts*gi(19)
                dfour(5,5) = 0.25*sfcty1*ts*gi(19)
@@ -1337,22 +1343,22 @@ SUBROUTINE quad4s
 !     DO 1300 IZTA = 1,JZTA
  230        DO izta = 1 , 2
                zta = ptint(izta)
-               Ibot = (izta-1)*nd2
+               ibot = (izta-1)*nd2
 !
-               Hzta = zta/2.0
+               hzta = zta/2.0
 !
 !     TORSION-RELATED SHEAR CORRECTION FOR 4-NODE-
 !     SET-UP OF POINTERS TO THE SAVED B-MATRIX
 !
-               Iptx1 = ((ixsi-1)*2+ieta-1)*2*nd2 + Ibot
-               Iptx2 = ((ixsi-1)*2+2-ieta)*2*nd2 + Ibot
-               Ipty1 = ((ixsi-1)*2+ieta-1)*2*nd2 + Ibot
-               Ipty2 = ((2-ixsi)*2+ieta-1)*2*nd2 + Ibot
+               iptx1 = ((ixsi-1)*2+ieta-1)*2*nd2 + ibot
+               iptx2 = ((ixsi-1)*2+2-ieta)*2*nd2 + ibot
+               ipty1 = ((ixsi-1)*2+ieta-1)*2*nd2 + ibot
+               ipty2 = ((2-ixsi)*2+ieta-1)*2*nd2 + ibot
 !     IF (NORPTH) IBOT = IBOT/2
 !
 !     FILL IN THE 10X10 G-MATRIX IF MID4 IS PRESENT
 !
-               IF ( Mbcoup ) THEN
+               IF ( mbcoup ) THEN
                   DO ig = 1 , 3
                      ig1 = (ig-1)*3
                      DO jg = 1 , 3
@@ -1387,25 +1393,25 @@ SUBROUTINE quad4s
 !     COMPUTE THE JACOBIAN AT THIS GAUSS POINT,
 !     ITS INVERSE AND ITS DETERMINANT.
 !
-               CALL jacobs(Elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
-               IF ( Badjac ) GOTO 400
+               CALL jacobs(elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
+               IF ( badjac ) GOTO 400
 !
 !     COMPUTE PSI TRANSPOSE X JACOBIAN INVERSE.
 !     HERE IS THE PLACE WHERE THE INVERSE JACOBIAN IS FLAGED TO BE
 !     TRANSPOSED BECAUSE OF OPPOSITE MATRIX LOADING CONVENTION
 !     BETWEEN INVER AND GMMAT.
 !
-               CALL gmmats(Psitrn,3,3,0,jacob,3,3,1,phi)
+               CALL gmmats(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGS TO GET B-MATRIX.  SET THE ROW FLAG TO 3.
 !     IT WILL RETURN THE FIRST 6 ROWS OF B-MATRIX.
 !
-               Rowflg = 3
+               rowflg = 3
                CALL q4bmgs(dshp,dgpth,egpdt,epnorm,phi,bfour(1))
 !
 !     SET-UP OF B-MATRIX AND TRIPLE MULTIPLY
 !
-               CALL trplms(gfour,dfour,bfour,bmat1,xybmat,mattyp,jcored,Detj)
+               CALL trplms(gfour,dfour,bfour,bmat1,xybmat,mattyp,jcored,detj)
             ENDDO
          ENDDO
       ENDDO
@@ -1415,17 +1421,17 @@ SUBROUTINE quad4s
 !
       IF ( gsube==0.0 ) THEN
          ij = jcored - 1
-         ndofm1 = Ndof - 1
+         ndofm1 = ndof - 1
          DO ii = 1 , ndofm1
             ip1 = ii + 1
-            im1 = (ii-1)*Ndof + ij
-            DO jj = ip1 , Ndof
+            im1 = (ii-1)*ndof + ij
+            DO jj = ip1 , ndof
                i = im1 + jj
-               j = (jj-1)*Ndof + ii + ij
-               temp = (Akgg(i)+Akgg(j))*.5
+               j = (jj-1)*ndof + ii + ij
+               temp = (akgg(i)+akgg(j))*.5
                IF ( abs(temp)<1.0E-17 ) temp = 0.0
-               Akgg(i) = temp
-               Akgg(j) = temp
+               akgg(i) = temp
+               akgg(j) = temp
             ENDDO
          ENDDO
       ENDIF
@@ -1438,7 +1444,7 @@ SUBROUTINE quad4s
          IF ( rho/=0.0 .OR. nsm/=0.0 ) THEN
 !     IF (CPMASS .GT. 0) GO TO 1410
             IF ( nsm/=0.0 ) THEN
-               IF ( vol==0. .OR. rhox==0. ) WRITE (nout,99003) Sfm , Elid , area , vol , rhox , mgg1 , kgg1
+               IF ( vol==0. .OR. rhox==0. ) WRITE (nout,99003) sfm , elid , area , vol , rhox , mgg1 , kgg1
 99003          FORMAT (A25,', ZERO VOLUME OR DENSITY FOR QUAD4 ELEMENT ID =',I9,', AREA,VOL,RHO=',3E12.3,/70X,'MGG1,KGG1=',2I8)
                factor = (vol*rho+nsm*area)/(vol*rhox)
                DO i = 1 , nodesq
@@ -1459,7 +1465,7 @@ SUBROUTINE quad4s
 !     TRANS1(5) = 1.0
 !     TRANS1(9) = 1.0
 !
-      DO i = 1 , Nnode
+      DO i = 1 , nnode
          notran(i) = 0
          ipoint = 9*(i-1) + 1
          IF ( igpdt(1,i)>0 ) THEN
@@ -1506,21 +1512,21 @@ SUBROUTINE quad4s
 !     6.8.3.5.1 OF THE PROGRAMMER MANUAL)
 !
 !
-         dict(1) = Estid
+         dict(1) = estid
          dict(2) = 1
-         dict(3) = Ndof
+         dict(3) = ndof
          dict(4) = 63
-         npart = Ndof*6
-         DO i = 1 , Nnode
+         npart = ndof*6
+         DO i = 1 , nnode
             ibegin = 6*(i-1) + jcored - 1
 !
 !     DUMP AN UNTRANSFORMED NODAL COLUMN PARTITION.
 !
-            DO j = 1 , Ndof
-               kpoint = Ndof*(j-1) + ibegin
+            DO j = 1 , ndof
+               kpoint = ndof*(j-1) + ibegin
                lpoint = 6*(j-1)
                DO k = 1 , 6
-                  colstf(lpoint+k) = Akgg(kpoint+k)
+                  colstf(lpoint+k) = akgg(kpoint+k)
                ENDDO
             ENDDO
             IF ( notran(i)/=1 ) THEN
@@ -1534,7 +1540,7 @@ SUBROUTINE quad4s
 !
 !     TRANSFORM THE NODAL COLUMN PARTITION.
 !
-               CALL gmmats(colstf,Ndof,6,0,trans1,6,6,0,coltmp)
+               CALL gmmats(colstf,ndof,6,0,trans1,6,6,0,coltmp)
                DO ii = 1 , npart
                   colstf(ii) = coltmp(ii)
                ENDDO
@@ -1542,7 +1548,7 @@ SUBROUTINE quad4s
 !
 !     NOW TRANSFORM THE ROWS OF THIS PARTITION.
 !
-            DO m = 1 , Nnode
+            DO m = 1 , nnode
                IF ( notran(m)/=1 ) THEN
                   mpoint = 36*(m-1) + 1
 !
@@ -1564,8 +1570,8 @@ SUBROUTINE quad4s
 !     FOR GMMATS TO THE COLUMN LOADING CONVENTION FOR EMGOUT.
 !
             DO ii = 1 , 6
-               ipoint = Ndof*(ii-1)
-               DO jj = 1 , Ndof
+               ipoint = ndof*(ii-1)
+               DO jj = 1 , ndof
                   jpoint = 6*(jj-1)
                   coltmp(ipoint+jj) = colstf(jpoint+ii)
                ENDDO
@@ -1574,7 +1580,7 @@ SUBROUTINE quad4s
 !     DUMP THE TRANSFORMED NODAL COLUMN PARTITION
 !
             ieoe = 0
-            IF ( i==Nnode ) ieoe = 1
+            IF ( i==nnode ) ieoe = 1
             adamp = gsube
 !
 !     INTEGER 1 IN THE NEXT TO LAST FORMAL PARAMETER OF
@@ -1590,26 +1596,26 @@ SUBROUTINE quad4s
 !
       IF ( mgg1/=0 ) THEN
 !
-         Ndof = Nnode*3
-         npart = Ndof*3
-         dict(3) = Ndof
+         ndof = nnode*3
+         npart = ndof*3
+         dict(3) = ndof
          dict(4) = 7
          adamp = 0.0
 !
 !     SET UP I-LOOP TO PROCESS AND DUMP THE NODAL COLUMN PARTITIONS.
 !
-         DO i = 1 , Nnode
+         DO i = 1 , nnode
             DO ijk = 1 , npart
                amgg(jcored-1+ijk) = 0.0
             ENDDO
 !
 !     SET UP J-LOOP TO LOAD THE UNTRANSFORMED NODAL COLUMN PARTITION.
 !
-            DO j = 1 , Nnode
+            DO j = 1 , nnode
                ipoint = 9*(j-1) + jcored
                jpoint = ipoint + 4
                kpoint = ipoint + 8
-               ifrom = Nnode*(j-1) + i
+               ifrom = nnode*(j-1) + i
                xmasso = xmass(ifrom)
                amgg(ipoint) = xmasso
                amgg(jpoint) = xmasso
@@ -1620,7 +1626,7 @@ SUBROUTINE quad4s
 !     THIS COLUMN PARTITION NEEDS TO BE TRANSFORMED
 !     TO GLOBAL COORDINATES.
 !
-               DO m = 1 , Nnode
+               DO m = 1 , nnode
                   mpoint = 9*(m-1) + jcored
                   CALL gmmats(amgg(mpoint),3,3,0,trans(9*i-8),3,3,0,tmpmas)
                   iicore = mpoint - 1
@@ -1632,7 +1638,7 @@ SUBROUTINE quad4s
 !     SET UP M-LOOP TO TRANSFORM THE NODAL ROW PARTITIONS
 !     OF THIS NODAL COLUMN PARTITION.
 !
-               DO m = 1 , Nnode
+               DO m = 1 , nnode
                   mpoint = 9*(m-1) + jcored
 !
 !     TRANSFORM THE 3 ROWS FOR THIS SUBPARTITION.  THIS IS CORRECT
@@ -1653,8 +1659,8 @@ SUBROUTINE quad4s
 !     FOR GMMATS TO THE COLUMN LOADING CONVENTION FOR EMGOUT.
 !
             DO ii = 1 , 3
-               ipoint = Ndof*(ii-1)
-               DO jj = 1 , Ndof
+               ipoint = ndof*(ii-1)
+               DO jj = 1 , ndof
                   jpoint = 3*(jj-1) + jcored - 1
                   coltmp(ipoint+jj) = amgg(jpoint+ii)
                ENDDO
@@ -1663,7 +1669,7 @@ SUBROUTINE quad4s
 !     DUMP THIS TRANSFORMED MASS NODAL COLUMN PARTITION.
 !
             ieoe = 0
-            IF ( i==Nnode ) ieoe = 1
+            IF ( i==nnode ) ieoe = 1
 !
 !     INTEGER 2 IN THE NEXT TO LAST FORMAL PARAMETER OF
 !     EMGOUT MEANS WE ARE SENDING MASS DATA.
@@ -1680,7 +1686,7 @@ SUBROUTINE quad4s
  400  RETURN
 !
  500  CALL mesage(30,j,nest)
-   IF ( L38==1 ) CALL mesage(-61,0,0)
+   IF ( l38==1 ) CALL mesage(-61,0,0)
    nogo = .TRUE.
    GOTO 400
 !
@@ -1691,20 +1697,20 @@ SUBROUTINE quad4s
 !
  600  j = 1
    DO i = 1 , 20
-      Est(i+j) = save(i)
+      est(i+j) = save(i)
       IF ( i==4 ) j = 24
    ENDDO
 !
-   Inflag = 2
-   Cosmat = 1.0
-   Sinmat = 0.0
-   Matid = nest(13)
-   CALL hmat(Elid)
-   gi(1) = Kheat(1)
-   gi(2) = Kheat(2)
+   inflag = 2
+   cosmat = 1.0
+   sinmat = 0.0
+   matid = nest(13)
+   CALL hmat(elid)
+   gi(1) = kheat(1)
+   gi(2) = kheat(2)
    gi(3) = gi(2)
-   gi(4) = Kheat(3)
-   anis = Type/=4 .AND. Type/= - 1
+   gi(4) = kheat(3)
+   anis = type/=4 .AND. type/= - 1
 !     OMMENT . ANIS = .FALSE. MEANS ISOTROPIC THERMAL CONDUCTIVITY.
    IF ( anis ) GOTO 100
  700  DO i = 1 , 16
@@ -1717,15 +1723,15 @@ SUBROUTINE quad4s
    ENDDO
 !
    DO ixsi = 1 , 2
-      Xi = ptint(ixsi)
+      xi = ptint(ixsi)
       DO ieta = 1 , 2
-         Eta = ptint(ieta)
+         eta = ptint(ieta)
 !
          DO izta = 1 , 2
-            Zeta = ptint(izta)
+            zeta = ptint(izta)
 !
-            CALL termss(Nnode,dgpth,epnorm,egpdt,horder,hsil,bterms)
-            dvol = Determ
+            CALL termss(nnode,dgpth,epnorm,egpdt,horder,hsil,bterms)
+            dvol = determ
 !
             DO i = 1 , 4
                ecpt(i) = gi(i)*dvol
@@ -1733,20 +1739,20 @@ SUBROUTINE quad4s
             weitc = dvol*htcp
 !
             ip = 1
-            DO i = 1 , Nnode
-               idn = i + Nnode
+            DO i = 1 , nnode
+               idn = i + nnode
                htflx(ip+1) = ecpt(3)*bterms(i) + ecpt(4)*bterms(idn)
                htflx(ip) = ecpt(1)*bterms(i) + ecpt(2)*bterms(idn)
                ip = ip + 2
             ENDDO
-            CALL gmmats(bterms,2,Nnode,-1,htflx,Nnode,2,1,htcon)
+            CALL gmmats(bterms,2,nnode,-1,htflx,nnode,2,1,htcon)
 !
          ENDDO
          IF ( htcp/=0.0 ) THEN
             ip = 0
-            DO i = 1 , Nnode
+            DO i = 1 , nnode
                dheat = weitc*shp(i)
-               DO j = 1 , Nnode
+               DO j = 1 , nnode
                   ip = ip + 1
                   htcap(ip) = htcap(ip) + dheat*shp(j)
                ENDDO
@@ -1754,9 +1760,9 @@ SUBROUTINE quad4s
          ENDIF
       ENDDO
    ENDDO
-   dict(1) = Estid
+   dict(1) = estid
    dict(2) = 1
-   dict(3) = Nnode
+   dict(3) = nnode
    dict(4) = 1
    IF ( htcp/=0.0 ) THEN
       adamp = 1.0

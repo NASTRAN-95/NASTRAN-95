@@ -1,15 +1,16 @@
-!*==oscxrf.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==oscxrf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE oscxrf(Iop,Avail)
 !
+   USE c_lnklst
+   USE c_moddmp
+   USE c_output
+   USE c_system
+   USE c_xvps
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_LNKLST
-   USE C_MODDMP
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XVPS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,32 +49,32 @@ SUBROUTINE oscxrf(Iop,Avail)
 !
 !     RESTRICT OPEN CORE DUE TO LIMITED FIELD SIZE FOR POINTERS
 !
-         Nvail = Avail
-         IF ( Nvail>16350 ) Nvail = 16350
+         nvail = Avail
+         IF ( nvail>16350 ) nvail = 16350
 !
 !     PROCESS VARAIABLE PARAMETER LIST
 !
          mask2 = lshift(1,16) - 1
          mask1 = andf(lshift(1,20)-1,complf(mask2))
-         Mask3 = lshift(1,14) - 1
-         Mask4 = lshift(Mask3,14)
-         Mask5 = complf(orf(Mask3,Mask4))
-         nosgn = complf(lshift(1,Ksys(40)-1))
+         mask3 = lshift(1,14) - 1
+         mask4 = lshift(mask3,14)
+         mask5 = complf(orf(mask3,mask4))
+         nosgn = complf(lshift(1,ksys(40)-1))
 !
-         DO I = 1 , 1600
-            Z(I) = 0
+         DO i = 1 , 1600
+            z(i) = 0
          ENDDO
          k = 3
-         I = 1
-         Kind = -5
+         i = 1
+         kind = -5
          nparam = 1
          SPAG_Loop_1_1: DO
-            Itype = andf(Vps(k+2),mask1)
-            Itype = rshift(Itype,16)
-            len = andf(Vps(k+2),mask2)
-            CALL linkup(*80,Vps(k))
+            itype = andf(vps(k+2),mask1)
+            itype = rshift(itype,16)
+            len = andf(vps(k+2),mask2)
+            CALL linkup(*80,vps(k))
             k = k + len + 3
-            IF ( k>Vps(2) ) THEN
+            IF ( k>vps(2) ) THEN
 !
 !     PROCESS NAMES OF MODULES AND DATA BLOCKS
 !
@@ -87,23 +88,23 @@ SUBROUTINE oscxrf(Iop,Avail)
             CALL read(*40,*60,pool,block,6,0,q)
             iauto = 0
             mi = rshift(block(3),16)
-            Itype = andf(mask2,block(3))
-            Iseqn = andf(nosgn,block(6))
-            Kind = 1
-            IF ( pseq==Iseqn .AND. (mi==3 .OR. mi==8) ) iauto = 1
-            IF ( iauto==1 ) Kind = 2
-            pseq = Iseqn
+            itype = andf(mask2,block(3))
+            iseqn = andf(nosgn,block(6))
+            kind = 1
+            IF ( pseq==iseqn .AND. (mi==3 .OR. mi==8) ) iauto = 1
+            IF ( iauto==1 ) kind = 2
+            pseq = iseqn
             CALL linkup(*80,block(4))
-            Kind = 3
-            IF ( Itype==3 ) THEN
+            kind = 3
+            IF ( itype==3 ) THEN
                IF ( mi==7 ) THEN
-                  Kind = 5
+                  kind = 5
                   CALL read(*60,*60,pool,il,1,0,q)
                   il = andf(mask2,il)
-                  CALL linkup(*80,Vps(il-3))
+                  CALL linkup(*80,vps(il-3))
                ENDIF
                CALL fwdrec(*60,pool)
-            ELSEIF ( Itype==4 ) THEN
+            ELSEIF ( itype==4 ) THEN
                mi = mi - 7
                IF ( mi<0 ) mi = 4
                IF ( mi==2 .OR. mi==4 ) EXIT SPAG_Loop_1_2
@@ -112,12 +113,12 @@ SUBROUTINE oscxrf(Iop,Avail)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                CALL read(*60,*60,pool,ndb,1,0,q)
-               Kind = 5
-               IF ( iauto==1 ) Kind = 6
+               kind = 5
+               IF ( iauto==1 ) kind = 6
                DO j = 1 , ndb
                   CALL read(*60,*60,pool,dbent,2,0,q)
                   il = dbent(1)
-                  CALL linkup(*80,Vps(il-3))
+                  CALL linkup(*80,vps(il-3))
                ENDDO
                CALL fwdrec(*60,pool)
             ELSE
@@ -132,9 +133,9 @@ SUBROUTINE oscxrf(Iop,Avail)
                      CALL read(*60,*60,pool,dbent,3,0,q)
                      IF ( dbent(1)/=0 ) CALL linkup(*80,dbent)
                   ENDDO
-                  Kind = 4
-                  IF ( Itype/=1 .OR. irlh/=1 ) THEN
-                     Kind = 5
+                  kind = 4
+                  IF ( itype/=1 .OR. irlh/=1 ) THEN
+                     kind = 5
                      CALL read(*60,*60,pool,ndb,-1,0,q)
                      CALL read(*60,*60,pool,nparm,1,0,q)
                      IF ( nparm/=0 ) THEN
@@ -142,7 +143,7 @@ SUBROUTINE oscxrf(Iop,Avail)
                            CALL read(*60,*60,pool,il,1,0,q)
                            IF ( il<0 ) THEN
                               il = andf(nosgn,il)
-                              CALL linkup(*80,Vps(il-3))
+                              CALL linkup(*80,vps(il-3))
                            ELSE
                               CALL read(*60,*60,pool,dbent,-il,0,q)
                            ENDIF
@@ -157,7 +158,7 @@ SUBROUTINE oscxrf(Iop,Avail)
          spag_nextblock_1 = 2
       CASE (2)
          CALL read(*60,*20,pool,ndb,1,0,q)
-         Kind = 3
+         kind = 3
          spag_nextblock_1 = 3
       CASE (3)
          DO j = 1 , ndb
@@ -170,8 +171,8 @@ SUBROUTINE oscxrf(Iop,Avail)
          ELSE
             CALL read(*60,*60,pool,il,1,0,q)
             IF ( il>0 ) THEN
-               Kind = 5
-               CALL linkup(*80,Vps(il-3))
+               kind = 5
+               CALL linkup(*80,vps(il-3))
             ENDIF
             IF ( mi==2 ) THEN
                spag_nextblock_1 = 2
@@ -181,7 +182,7 @@ SUBROUTINE oscxrf(Iop,Avail)
          spag_nextblock_1 = 4
       CASE (4)
          CALL read(*60,*20,pool,ndb,1,0,q)
-         Kind = 3
+         kind = 3
          CALL read(*60,*60,pool,dbent,3,0,q)
          IF ( dbent(1)/=0 ) CALL linkup(*80,dbent)
          ndb = ndb - 1
@@ -191,20 +192,20 @@ SUBROUTINE oscxrf(Iop,Avail)
 !     SORT PARAMETER AND MODULE NAMES, 8-BCD WORD SORT
 !
  40      nwds = 4*nparam
-         CALL sorta8(0,0,4,1,Z(1),nwds)
+         CALL sorta8(0,0,4,1,z(1),nwds)
          ist = nwds + 1
-         j = I - 1 - nwds
-         CALL sorta8(0,0,4,1,Z(ist),j)
-         nwds = I - 1
+         j = i - 1 - nwds
+         CALL sorta8(0,0,4,1,z(ist),j)
+         nwds = i - 1
 !
 !     TRAVERSE LINKED LISTS AND GENERATE OUTPUT
 !
          k = 1
          kdh = 0
          DO j = 1 , 32
-            Ihead(j) = ihd1(j)
-            Ihead(j+32) = ihd2(j)
-            Ihead(j+64) = ihd5(j)
+            ihead(j) = ihd1(j)
+            ihead(j+32) = ihd2(j)
+            ihead(j+64) = ihd5(j)
          ENDDO
          CALL page
          WRITE (op,99005)
@@ -214,9 +215,9 @@ SUBROUTINE oscxrf(Iop,Avail)
 !
 !     PROCESS PARAMETER NAMES
 !
-         iout(2) = Z(k)
-         iout(3) = Z(k+1)
-         ntype = rshift(Z(k+2),28)
+         iout(2) = z(k)
+         iout(3) = z(k+1)
+         ntype = rshift(z(k+2),28)
          iout(4) = nblank
          iout(5) = lab(ntype)
          IF ( ntype==0 .OR. ntype>6 ) iout(5) = notapp
@@ -227,14 +228,14 @@ SUBROUTINE oscxrf(Iop,Avail)
          ii = 7
          spag_nextblock_1 = 6
       CASE (6)
-         link = andf(Mask3,Z(k+2))
+         link = andf(mask3,z(k+2))
          SPAG_Loop_1_4: DO
-            isn = andf(Mask3,Z(link))
+            isn = andf(mask3,z(link))
             IF ( kdh==0 ) isn = -isn
             CALL outpak(ii,iout,isn)
-            itemp = rshift(Z(link),28)
+            itemp = rshift(z(link),28)
             IF ( itemp==2 .OR. itemp==4 .OR. itemp==6 ) iout(ii+1) = nastk
-            link = rshift(andf(Z(link),Mask4),14)
+            link = rshift(andf(z(link),mask4),14)
             IF ( link==0 ) THEN
 !
 !     PRINT OUTPUT
@@ -267,7 +268,7 @@ SUBROUTINE oscxrf(Iop,Avail)
                IF ( kdh<=0 ) THEN
                   kdh = 1
                   DO j = 1 , 32
-                     Ihead(j+64) = ihd3(j)
+                     ihead(j+64) = ihd3(j)
                   ENDDO
                   WRITE (op,99002)
 99002             FORMAT (//6X,'* DENOTES APPEARANCE OF PARAMETER IN AUTOMATICALLY',' GENERATED SAVE INSTRUCTION')
@@ -290,7 +291,7 @@ SUBROUTINE oscxrf(Iop,Avail)
                ELSE
                   kdh = 2
                   DO j = 1 , 32
-                     Ihead(j+64) = ihd4(j)
+                     ihead(j+64) = ihd4(j)
                   ENDDO
                   WRITE (op,99004)
 99004             FORMAT (//6X,'* DENOTES AUTOMATICALLY GENERATED INSTRUCTIONS',/8X,                                                &
@@ -311,18 +312,17 @@ SUBROUTINE oscxrf(Iop,Avail)
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( rshift(Z(k+3),28)<3 ) EXIT SPAG_Loop_1_5
+            IF ( rshift(z(k+3),28)<3 ) EXIT SPAG_Loop_1_5
          ENDDO SPAG_Loop_1_5
          spag_nextblock_1 = 8
       CASE (8)
-         iout(2) = Z(k)
-         iout(3) = Z(k+1)
+         iout(2) = z(k)
+         iout(3) = z(k+1)
          iout(4) = nblank
          ii = 5
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
-         IF ( rshift(Z(k+3),28)>=3 ) THEN
+         IF ( rshift(z(k+3),28)>=3 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF

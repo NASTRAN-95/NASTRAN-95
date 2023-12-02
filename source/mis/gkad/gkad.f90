@@ -1,10 +1,11 @@
-!*==gkad.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gkad.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkad
-USE C_BITPOS
-USE C_BLANK
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -52,7 +53,7 @@ USE ISO_FORTRAN_ENV
    k41dd = 305
    scr3 = 303
    scr4 = 304
-   IF ( Noue<=0 ) THEN
+   IF ( noue<=0 ) THEN
 !
 !     NO E-S A = 1DD
 !
@@ -61,68 +62,68 @@ USE ISO_FORTRAN_ENV
       m1dd = maa
       k41dd = k4aa
    ENDIF
-   IF ( Type(1)==tran ) THEN
+   IF ( type(1)==tran ) THEN
 !
 !     TRANSIENT ANALYSIS - SETUP FOR FINAL ADD
 !
-      IF ( Ik2pp<0 ) k1dd = kdd
-      IF ( Im2pp<0 ) m1dd = mdd
-      IF ( W3==0.0 ) THEN
-         G = 0.0
-         W3 = 1.0
+      IF ( ik2pp<0 ) k1dd = kdd
+      IF ( im2pp<0 ) m1dd = mdd
+      IF ( w3==0.0 ) THEN
+         g = 0.0
+         w3 = 1.0
       ENDIF
-      IF ( W4==0.0 ) THEN
-         W4 = 1.0
+      IF ( w4==0.0 ) THEN
+         w4 = 1.0
          xnum = 0.0
       ENDIF
    ELSE
 !
 !     COMPLEX EIGENVALUE OR FREQUENCY RESPONSE - SET UP FOR FINAL ADD
 !
-      IF ( Ib2pp<0 ) b1dd = bdd
-      IF ( Im2pp<0 ) m1dd = mdd
+      IF ( ib2pp<0 ) b1dd = bdd
+      IF ( im2pp<0 ) m1dd = mdd
    ENDIF
-   IF ( App(1)/=forc ) THEN
+   IF ( app(1)/=forc ) THEN
 !
 !     DISPLACEMENT APPROACH - REDUCE P TO D
 !
 !     IF MODAL DO NOT MAKE KDD AND BDD
 !
-      IF ( Form(1)==modal ) THEN
+      IF ( form(1)==modal ) THEN
          kdd = 0
          k1dd = 0
          bdd = 0
          b1dd = 0
       ENDIF
-      IF ( Noue>=0 ) THEN
+      IF ( noue>=0 ) THEN
 !
 !     BUILD GMD AND GOD
 !
 !     M-S PRESENT
 !
-         IF ( Multi>=0 ) CALL gkad1a(usetd,gm,gmd,scr1,Ue,Un,Une)
+         IF ( multi>=0 ) CALL gkad1a(usetd,gm,gmd,scr1,ue,un,une)
 !
 !     0-S PRESENT
 !
-         IF ( Omit>=0 ) CALL gkad1a(usetd,go,god,scr1,Ue,Ua,Ud)
+         IF ( omit>=0 ) CALL gkad1a(usetd,go,god,scr1,ue,ua,ud)
       ENDIF
 !
-      IF ( Multi>=0 .OR. Single>=0 .OR. Omit>=0 ) THEN
-         IF ( Im2pp>=0 .OR. Ib2pp>=0 .OR. Ik2pp>=0 ) THEN
+      IF ( multi>=0 .OR. single>=0 .OR. omit>=0 ) THEN
+         IF ( im2pp>=0 .OR. ib2pp>=0 .OR. ik2pp>=0 ) THEN
 !
 !     REDUCE 2PP-S TO 2DD-S
 !
             CALL gkad1c(gmd,god,scr1,scr2,scr3,scr4,scr5,scr6,usetd)
-            IF ( Ik2pp>=0 ) CALL gkad1d(k2pp,k2dd)
-            IF ( Im2pp>=0 ) CALL gkad1d(m2pp,m2dd)
-            IF ( Ib2pp>=0 ) CALL gkad1d(b2pp,b2dd)
+            IF ( ik2pp>=0 ) CALL gkad1d(k2pp,k2dd)
+            IF ( im2pp>=0 ) CALL gkad1d(m2pp,m2dd)
+            IF ( ib2pp>=0 ) CALL gkad1d(b2pp,b2dd)
          ENDIF
       ENDIF
-      IF ( Form(1)==modal .AND. Modacc<0 ) RETURN
+      IF ( form(1)==modal .AND. modacc<0 ) RETURN
 !
 !     EXPAND AA-S TO DD SET
 !
-      IF ( Noue>=0 ) CALL gkad1b(usetd,maa,baa,k4aa,m1dd,b1dd,k41dd,Ua,Ue,Ud,scr1)
+      IF ( noue>=0 ) CALL gkad1b(usetd,maa,baa,k4aa,m1dd,b1dd,k41dd,ua,ue,ud,scr1)
    ELSE
 !
 !     FORCE APPROACH P = D
@@ -131,19 +132,19 @@ USE ISO_FORTRAN_ENV
       b2dd = b2pp
       m2dd = m2pp
    ENDIF
-   IF ( Type(1)==tran ) THEN
+   IF ( type(1)==tran ) THEN
 !
 !     TRANSIENT ANALYSIS
 !
       iblock(1) = 2
       iblock(7) = 2
-      IF ( k1dd/=kdd .AND. Nokmgg>=0 ) CALL ssg2c(k1dd,k2dd,kdd,1,iblock(1))
-      IF ( m1dd/=mdd .AND. Nokmgg>=0 ) CALL ssg2c(m1dd,m2dd,mdd,1,iblock(1))
+      IF ( k1dd/=kdd .AND. nokmgg>=0 ) CALL ssg2c(k1dd,k2dd,kdd,1,iblock(1))
+      IF ( m1dd/=mdd .AND. nokmgg>=0 ) CALL ssg2c(m1dd,m2dd,mdd,1,iblock(1))
       IF ( b1dd/=bdd ) THEN
-         block(1) = G/W3
-         block(4) = xnum/W4
-         IF ( G/=0.0 .OR. xnum/=0.0 .OR. Nobgg>=0 .OR. Ib2pp>=0 ) THEN
-            IF ( Nobgg<0 .AND. Ib2pp<0 ) scr3 = bdd
+         block(1) = g/w3
+         block(4) = xnum/w4
+         IF ( g/=0.0 .OR. xnum/=0.0 .OR. nobgg>=0 .OR. ib2pp>=0 ) THEN
+            IF ( nobgg<0 .AND. ib2pp<0 ) scr3 = bdd
             CALL ssg2c(k1dd,k41dd,scr3,1,iblock(1))
             IF ( scr3/=bdd ) THEN
                block(1) = 1.0D0
@@ -157,23 +158,23 @@ USE ISO_FORTRAN_ENV
 !
 !     FREQUENCY RESPONSE OR COMPLEX EIGENVALUE
 !
-      IF ( b1dd/=bdd .AND. Nobgg>=0 .AND. Form(1)/=modal ) CALL ssg2c(b1dd,b2dd,bdd,1,iblock(1))
-      IF ( m1dd/=mdd .AND. Nokmgg>=0 ) CALL ssg2c(m1dd,m2dd,mdd,1,iblock(1))
-      IF ( k1dd/=kdd .AND. Form(1)/=modal .AND. Nokmgg>=0 ) THEN
+      IF ( b1dd/=bdd .AND. nobgg>=0 .AND. form(1)/=modal ) CALL ssg2c(b1dd,b2dd,bdd,1,iblock(1))
+      IF ( m1dd/=mdd .AND. nokmgg>=0 ) CALL ssg2c(m1dd,m2dd,mdd,1,iblock(1))
+      IF ( k1dd/=kdd .AND. form(1)/=modal .AND. nokmgg>=0 ) THEN
          iblock(1) = 4
-         block(2) = G
-         IF ( Nok4gg<0 ) scr4 = kdd
+         block(2) = g
+         IF ( nok4gg<0 ) scr4 = kdd
 !
 !     DETERMINE IF KDD IS REAL OR IMAGINARY  (COMPLEX EIGEN)
 !
          mcb(1) = k2dd
          CALL rdtrl(mcb(1))
-         IF ( G==0.0 .AND. Nok4gg<=0 .AND. mcb(5)<=2 ) THEN
+         IF ( g==0.0 .AND. nok4gg<=0 .AND. mcb(5)<=2 ) THEN
             iblock(1) = 2
             iblock(7) = 2
          ENDIF
          CALL ssg2c(k1dd,k2dd,scr4,1,iblock)
-         IF ( Nok4gg>=0 ) THEN
+         IF ( nok4gg>=0 ) THEN
             block(1) = 0.0D0
             block(2) = 1.0D0
             CALL ssg2c(k41dd,scr4,kdd,1,iblock(1))

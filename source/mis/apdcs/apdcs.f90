@@ -1,11 +1,12 @@
-!*==apdcs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==apdcs.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apdcs
+   USE c_apd1c
+   USE c_apd1d
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_APD1C
-   USE C_APD1D
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,112 +23,112 @@ SUBROUTINE apdcs
    !>>>>EQUIVALENCE (Z(1),Iz(1))
    !>>>>EQUIVALENCE (Icpl(3),Rb1(1)) , (Icpl(6),Acpl(1,1)) , (v1(1),rcp1(1)) , (v2(1),rcp4(1))
    DATA degr/.017453293/
-   Icpl(2) = 1
+   icpl(2) = 1
 ! CREATE PANEL COORDINATE SYSTEM
 ! FIND CP TRANSFORMATION AND CONVERT POINT 1 AND 4 TO BASIC
-   IF ( Cp==0 ) THEN
+   IF ( cp==0 ) THEN
 ! COORDS ARE IN BASIC
-      rb1(1) = X1
-      rb1(2) = Y1
-      rb1(3) = Z1
-      rb4(1) = X4
-      rb4(2) = Y4
-      rb4(3) = Z4
+      rb1(1) = x1
+      rb1(2) = y1
+      rb1(3) = z1
+      rb4(1) = x4
+      rb4(2) = y4
+      rb4(3) = z4
    ELSE
-      IF ( Ncst1/=0 ) THEN
-         DO icp = Ncst1 , Ncst2 , 14
-            IF ( iz(icp)==Cp ) GOTO 50
+      IF ( ncst1/=0 ) THEN
+         DO icp = ncst1 , ncst2 , 14
+            IF ( iz(icp)==cp ) GOTO 50
          ENDDO
       ENDIF
-      CALL mesage(-30,25,Cp)
+      CALL mesage(-30,25,cp)
       RETURN
  50   IF ( iz(icp+1)<2 ) THEN
 ! CP RECTANGULAR
-         rcp1(1) = X1
-         rcp1(2) = Y1
-         rcp1(3) = Z1
-         rcp4(1) = X4
-         rcp4(2) = Y4
-         rcp4(3) = Z4
+         rcp1(1) = x1
+         rcp1(2) = y1
+         rcp1(3) = z1
+         rcp4(1) = x4
+         rcp4(2) = y4
+         rcp4(3) = z4
       ELSEIF ( iz(icp+1)==2 ) THEN
 ! CP CYLINDRICAL
-         rcp1(1) = X1*cos(Y1*degr)
-         rcp1(2) = X1*sin(Y1*degr)
-         rcp1(3) = Z1
-         rcp4(1) = X4*cos(Y4*degr)
-         rcp4(2) = X4*sin(Y4*degr)
-         rcp4(3) = Z4
+         rcp1(1) = x1*cos(y1*degr)
+         rcp1(2) = x1*sin(y1*degr)
+         rcp1(3) = z1
+         rcp4(1) = x4*cos(y4*degr)
+         rcp4(2) = x4*sin(y4*degr)
+         rcp4(3) = z4
       ELSE
 ! CP SPHERICAL
-         rcp1(1) = X1*sin(Y1*degr)*cos(Z1*degr)
-         rcp1(2) = X1*sin(Y1*degr)*sin(Z1*degr)
-         rcp1(3) = X1*cos(Y1*degr)
-         rcp4(1) = X4*sin(Y4*degr)*cos(Z4*degr)
-         rcp4(2) = X4*sin(Y4*degr)*sin(Z4*degr)
-         rcp4(3) = X4*cos(Y4*degr)
+         rcp1(1) = x1*sin(y1*degr)*cos(z1*degr)
+         rcp1(2) = x1*sin(y1*degr)*sin(z1*degr)
+         rcp1(3) = x1*cos(y1*degr)
+         rcp4(1) = x4*sin(y4*degr)*cos(z4*degr)
+         rcp4(2) = x4*sin(y4*degr)*sin(z4*degr)
+         rcp4(3) = x4*cos(y4*degr)
       ENDIF
 ! CONVERT TO BASIC
-      CALL gmmats(Z(icp+5),3,3,0,rcp1,3,1,0,rb1)
-      CALL gmmats(Z(icp+5),3,3,0,rcp4,3,1,0,rb4)
+      CALL gmmats(z(icp+5),3,3,0,rcp1,3,1,0,rb1)
+      CALL gmmats(z(icp+5),3,3,0,rcp4,3,1,0,rb4)
       j = icp + 1
       DO i = 1 , 3
          k = j + i
-         rb1(i) = rb1(i) + Z(k)
+         rb1(i) = rb1(i) + z(k)
       ENDDO
       DO i = 1 , 3
          k = j + i
-         rb4(i) = rb4(i) + Z(k)
+         rb4(i) = rb4(i) + z(k)
       ENDDO
    ENDIF
 ! FIND R1 THRU IN R4 AERO CS
-   IF ( Acsid==0 ) THEN
+   IF ( acsid==0 ) THEN
       DO i = 1 , 3
-         Ra1(i) = rb1(i)
+         ra1(i) = rb1(i)
          ra4(i) = rb4(i)
       ENDDO
 !
 !     STOP IF BODY
 !
-      IF ( Igid<0 ) RETURN
+      IF ( igid<0 ) RETURN
    ELSE
-      j = Iacs + 1
+      j = iacs + 1
       DO i = 1 , 3
          k = j + i
-         rx1(i) = rb1(i) - Z(k)
-         rx4(i) = rb4(i) - Z(k)
+         rx1(i) = rb1(i) - z(k)
+         rx4(i) = rb4(i) - z(k)
       ENDDO
-      CALL gmmats(Z(Iacs+5),3,3,1,rx1,3,1,0,Ra1)
-      CALL gmmats(Z(Iacs+5),3,3,1,rx4,3,1,0,ra4)
+      CALL gmmats(z(iacs+5),3,3,1,rx1,3,1,0,ra1)
+      CALL gmmats(z(iacs+5),3,3,1,rx4,3,1,0,ra4)
    ENDIF
 ! CALCULATE R2 AND R3 IN AC CS
    DO i = 2 , 3
-      ra2(i) = Ra1(i)
+      ra2(i) = ra1(i)
       ra3(i) = ra4(i)
    ENDDO
-   ra2(1) = Ra1(1) + X12
-   ra3(1) = ra4(1) + X43
-   ee = sqrt((ra4(3)-Ra1(3))**2+(ra4(2)-Ra1(2))**2)
-   Sg = (ra4(3)-Ra1(3))/ee
-   Cg = (ra4(2)-Ra1(2))/ee
+   ra2(1) = ra1(1) + x12
+   ra3(1) = ra4(1) + x43
+   ee = sqrt((ra4(3)-ra1(3))**2+(ra4(2)-ra1(2))**2)
+   sg = (ra4(3)-ra1(3))/ee
+   cg = (ra4(2)-ra1(2))/ee
 ! LOCATE POINTS 2,3,4 IN PANEL CORDINATE SYSTEM
-   Xp2 = X12
-   Xp4 = ra4(1) - Ra1(1)
-   Xp3 = ra3(1) - Ra1(1)
-   Yp4 = ee
+   xp2 = x12
+   xp4 = ra4(1) - ra1(1)
+   xp3 = ra3(1) - ra1(1)
+   yp4 = ee
 ! TRANSFORM R2 AND R3 INTO BASIC
-   IF ( Acsid==0 ) THEN
+   IF ( acsid==0 ) THEN
       DO i = 1 , 3
          rb2(i) = ra2(i)
          rb3(i) = ra3(i)
       ENDDO
    ELSE
-      CALL gmmats(Z(Iacs+5),3,3,0,ra2,3,1,0,rb2)
-      CALL gmmats(Z(Iacs+5),3,3,0,ra3,3,1,0,rb3)
-      j = Iacs + 1
+      CALL gmmats(z(iacs+5),3,3,0,ra2,3,1,0,rb2)
+      CALL gmmats(z(iacs+5),3,3,0,ra3,3,1,0,rb3)
+      j = iacs + 1
       DO i = 1 , 3
          k = j + i
-         rb2(i) = rb2(i) + Z(k)
-         rb3(i) = rb3(i) + Z(k)
+         rb2(i) = rb2(i) + z(k)
+         rb3(i) = rb3(i) + z(k)
       ENDDO
    ENDIF
 ! FIND PANEL COORDINATE SYSTEM
@@ -135,7 +136,7 @@ SUBROUTINE apdcs
       vx1(i) = rb2(i) - rb1(i)
       vx2(i) = rb4(i) - rb1(i)
       vx3(i) = rb3(i) - rb1(i)
-      IF ( X12==0.0 ) vx1(i) = vx3(i)
+      IF ( x12==0.0 ) vx1(i) = vx3(i)
    ENDDO
    CALL saxb(vx1,vx2,v1)
    sx1 = sadotb(v1,v1)
@@ -152,11 +153,11 @@ SUBROUTINE apdcs
          vx3(i) = v1(i)*sx1
       ENDDO
    ENDIF
-   IF ( Acsid/=0 ) THEN
-      j = Iacs + 5
+   IF ( acsid/=0 ) THEN
+      j = iacs + 5
       DO i = 1 , 3
          k = j + 3*(i-1)
-         vx1(i) = Z(k)
+         vx1(i) = z(k)
       ENDDO
    ELSE
       vx1(1) = 1.0
@@ -170,6 +171,6 @@ SUBROUTINE apdcs
       acpl(3,i) = vx3(i)
    ENDDO
 ! WRITE TRANSFORMATION ON CSTMA
-   Icpl(1) = Mcstm
-   CALL write(Cstma,Icpl(1),14,0)
+   icpl(1) = mcstm
+   CALL write(cstma,icpl(1),14,0)
 END SUBROUTINE apdcs

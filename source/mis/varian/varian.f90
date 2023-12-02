@@ -1,11 +1,12 @@
-!*==varian.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==varian.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE varian
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -47,20 +48,20 @@ SUBROUTINE varian
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ibuf1 = korsz(z(1)) - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         ibuf1 = korsz(z(1)) - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          nz = ibuf3 - 1
          IF ( nz<=0 ) CALL mesage(-8,0,name)
          IF ( .NOT.tapbit(inpt) ) CALL mesage(-7,0,name)
-         CALL int2a8(*20,Jrun,iz)
+         CALL int2a8(*20,jrun,iz)
  20      njrun = iz(1)
          nw = 1
-         IF ( Iop(1)==var ) THEN
+         IF ( iop(1)==var ) THEN
 !
 !     VARIANCE SECTION
 !
-            IF ( Jrun==0 ) RETURN
+            IF ( jrun==0 ) RETURN
 !
 !     SEE IF VARIANCE IS TO BE COMPUTED
 !
@@ -73,11 +74,11 @@ SUBROUTINE varian
             CALL mesage(-8,0,name)
             GOTO 100
          ELSE
-            IF ( Iop(1)/=der ) RETURN
+            IF ( iop(1)/=der ) RETURN
 !
 !     DERIVATIVES SECTION
 !
-            IF ( Jrun/=0 ) THEN
+            IF ( jrun/=0 ) THEN
 !
 !     COMPUTE DERIVATIVES  DJ = (OJ - O0)/DELTA
 !
@@ -151,7 +152,6 @@ SUBROUTINE varian
                         CALL fwdrec(*220,inpt)
                         ASSIGN 24 TO irtn
                         spag_nextblock_2 = 3
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (4)
                         CALL read(*220,*30,inpt,iz(1),nrec,0,iflag)
                         id1 = iz(1)/10
@@ -166,7 +166,7 @@ SUBROUTINE varian
 !
                            DO j = 2 , nrec
                               itype = numtyp(iz(j))
-                              IF ( itype==2 .OR. itype==0 ) z(nrec+j) = (z(nrec+j)-z(j))/Delta
+                              IF ( itype==2 .OR. itype==0 ) z(nrec+j) = (z(nrec+j)-z(j))/delta
                            ENDDO
                            CALL write(ito(i),iz(nrec+1),nrec,0)
                            ASSIGN 26 TO irtn1
@@ -206,14 +206,13 @@ SUBROUTINE varian
 !
 !     SKIP OVER OLD DERIVATIVES
 !
-               i = 5*Jrun - 5
+               i = 5*jrun - 5
                CALL skpfil(inpt,i)
                CALL close(inpt,2)
                CALL gopen(inpt,iz(ibuf1),3)
                i = 1
                ASSIGN 60 TO iret
                spag_nextblock_1 = 2
-               CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 !     COPY INPUT FILES TO INPT TAPE
@@ -227,15 +226,14 @@ SUBROUTINE varian
 !
                CALL open(*180,file,iz(ibuf2),0)
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
  40      i = i + 1
          IF ( i<=5 ) THEN
             file = itf(i)
             CALL open(*180,file,iz(ibuf2),0)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL close(inpt,2)
             RETURN
@@ -258,7 +256,7 @@ SUBROUTINE varian
          ENDIF
          CALL close(inpt,2)
  80      RETURN
- 100     IF ( iflag-1==Jrun ) THEN
+ 100     IF ( iflag-1==jrun ) THEN
 !
 !     SET UP FOR VARIANCES
 !
@@ -267,15 +265,15 @@ SUBROUTINE varian
             CALL skpfil(inpt,5)
             in1 = inpt
             io1 = scr1
-            DO i = 1 , Jrun
-               IF ( i/=Jrun ) CALL open(*200,io1,iz(ibuf2),1)
+            DO i = 1 , jrun
+               IF ( i/=jrun ) CALL open(*200,io1,iz(ibuf2),1)
                IF ( i/=1 ) CALL open(*200,in1,iz(ibuf3),0)
                DO j = 1 , 5
                   spag_nextblock_3 = 1
                   SPAG_DispatchLoop_3: DO
                      SELECT CASE (spag_nextblock_3)
                      CASE (1)
-                        IF ( i==Jrun ) THEN
+                        IF ( i==jrun ) THEN
 !
 !     FIX UP FOR WRITING ON OUTPUT FILES
 !
@@ -289,27 +287,27 @@ SUBROUTINE varian
                         ASSIGN 102 TO irtn2
                         spag_nextblock_3 = 2
                      CASE (2)
-                        CALL read(*118,*240,in1,iz(Jrun+1),146,1,iflag)
+                        CALL read(*118,*240,in1,iz(jrun+1),146,1,iflag)
                         IF ( i/=1 ) THEN
 !
 !     CHECK FOR MATCH
 !
                            GOTO irtn2
                         ELSE
-                           iz(Jrun+111) = varl(1)
-                           iz(Jrun+112) = varl(2)
-                           iz(Jrun+113) = varl(3)
-                           iz(Jrun+114) = iblnk
+                           iz(jrun+111) = varl(1)
+                           iz(jrun+112) = varl(2)
+                           iz(jrun+113) = varl(3)
+                           iz(jrun+114) = iblnk
                            spag_nextblock_3 = 3
                            CYCLE SPAG_DispatchLoop_3
                         ENDIF
- 102                    CALL read(*114,*240,inpt,iz(Jrun+147),146,1,iflag)
- 104                    IF ( iz(Jrun+4)<iz(Jrun+150) ) THEN
-                        ELSEIF ( iz(Jrun+4)==iz(Jrun+150) ) THEN
-                           IF ( z(Jrun+5)<z(Jrun+151) ) THEN
-                           ELSEIF ( z(Jrun+5)==z(Jrun+151) ) THEN
-                              IF ( iz(Jrun+3)<iz(Jrun+149) ) THEN
-                              ELSEIF ( iz(Jrun+3)==iz(Jrun+149) ) THEN
+ 102                    CALL read(*114,*240,inpt,iz(jrun+147),146,1,iflag)
+ 104                    IF ( iz(jrun+4)<iz(jrun+150) ) THEN
+                        ELSEIF ( iz(jrun+4)==iz(jrun+150) ) THEN
+                           IF ( z(jrun+5)<z(jrun+151) ) THEN
+                           ELSEIF ( z(jrun+5)==z(jrun+151) ) THEN
+                              IF ( iz(jrun+3)<iz(jrun+149) ) THEN
+                              ELSEIF ( iz(jrun+3)==iz(jrun+149) ) THEN
                                  spag_nextblock_3 = 3
                                  CYCLE SPAG_DispatchLoop_3
                               ELSE
@@ -327,25 +325,24 @@ SUBROUTINE varian
                         CALL fwdrec(*220,in1)
                         ASSIGN 104 TO irtn2
                         spag_nextblock_3 = 2
-                        CYCLE SPAG_DispatchLoop_3
                      CASE (3)
 !
 !     MATCH
 !
-                        CALL write(io1,iz(Jrun+1),146,1)
-                        nrec = iz(Jrun+10)
-                        m = Jrun + nrec
+                        CALL write(io1,iz(jrun+1),146,1)
+                        nrec = iz(jrun+10)
+                        m = jrun + nrec
                         spag_nextblock_3 = 4
                      CASE (4)
                         ASSIGN 106 TO irtn3
                         spag_nextblock_3 = 5
                      CASE (5)
-                        CALL read(*220,*110,in1,iz(Jrun+1),nrec,0,iflag)
+                        CALL read(*220,*110,in1,iz(jrun+1),nrec,0,iflag)
                         IF ( i==1 ) THEN
                            spag_nextblock_3 = 6
                            CYCLE SPAG_DispatchLoop_3
                         ENDIF
-                        id1 = iz(Jrun+1)/10
+                        id1 = iz(jrun+1)/10
                         GOTO irtn3
  106                    CALL read(*220,*112,inpt,iz(m+1),nrec,0,iflag)
                         id2 = iz(m+1)/10
@@ -360,19 +357,19 @@ SUBROUTINE varian
 !
 !     POINT MATCH
 !
-                        IF ( i==Jrun ) ifound = ifound + 1
+                        IF ( i==jrun ) ifound = ifound + 1
                         DO k = 2 , nrec
-                           itype = numtyp(iz(Jrun+k))
+                           itype = numtyp(iz(jrun+k))
                            IF ( itype==2 .OR. itype==0 ) THEN
                               IF ( i/=1 ) THEN
-                                 z(Jrun+k) = z(Jrun+k) + (z(m+k)*z(i))**2
+                                 z(jrun+k) = z(jrun+k) + (z(m+k)*z(i))**2
                               ELSE
-                                 z(Jrun+k) = (z(Jrun+k)*z(1))**2
+                                 z(jrun+k) = (z(jrun+k)*z(1))**2
                               ENDIF
-                              IF ( i==Jrun ) z(Jrun+k) = sqrt(z(Jrun+k))
+                              IF ( i==jrun ) z(jrun+k) = sqrt(z(jrun+k))
                            ENDIF
                         ENDDO
-                        CALL write(io1,iz(Jrun+1),nrec,0)
+                        CALL write(io1,iz(jrun+1),nrec,0)
                         spag_nextblock_3 = 4
                         CYCLE SPAG_DispatchLoop_3
 !
@@ -393,7 +390,7 @@ SUBROUTINE varian
 !
  114                    CALL skpfil(in1,1)
  116                    CALL eof(io1)
-                        IF ( i==Jrun ) THEN
+                        IF ( i==jrun ) THEN
                            CALL close(io1,1)
                            mcb(1) = io1
                            mcb(2) = ifound
@@ -408,7 +405,7 @@ SUBROUTINE varian
 !
 !     SWITCH FILES
 !
-               IF ( i/=Jrun ) CALL close(io1,1)
+               IF ( i/=jrun ) CALL close(io1,1)
                IF ( i/=1 ) CALL close(in1,1)
                j = in1
                in1 = io1
@@ -416,7 +413,7 @@ SUBROUTINE varian
                IF ( i==1 ) io1 = scr2
             ENDDO
             CALL close(inpt,1)
-            Jrun = 9999999
+            jrun = 9999999
             RETURN
          ENDIF
  140     CALL close(it1,1)

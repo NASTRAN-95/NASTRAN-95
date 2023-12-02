@@ -2,13 +2,13 @@
  
 SUBROUTINE btstrp
    IMPLICIT NONE
-   USE C_CHMACH
-   USE C_LHPWX
-   USE C_MACHIN
-   USE C_SEM
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XXREAD
+   USE c_chmach
+   USE c_lhpwx
+   USE c_machin
+   USE c_sem
+   USE c_system
+   USE c_two
+   USE c_xxread
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,6 +21,12 @@ SUBROUTINE btstrp
    INTEGER , DIMENSION(110) , SAVE :: m1 , m2
    INTEGER , DIMENSION(220) :: mconst
    REAL , SAVE :: xx , yy
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -149,11 +155,11 @@ SUBROUTINE btstrp
 !     MACHINE TYPE IS SET HERE
 !     +++++++++++++++++++++++++++++++
    mach = 7
-   Mchnam = comput(mach)
-   Machos = compos(mach)
+   mchnam = comput(mach)
+   machos = compos(mach)
    sysbuf = mconst(mach)
-   Ibmcdc = 1
-   IF ( mach==2 .OR. mach==4 ) Ibmcdc = 0
+   ibmcdc = 1
+   IF ( mach==2 .OR. mach==4 ) ibmcdc = 0
 !
    i = mach + nmach
    intp = mconst(i)/100
@@ -161,7 +167,7 @@ SUBROUTINE btstrp
 !
    i = i + nmach
    nlpp = mconst(i)/100
-   Nwpic = mod(mconst(i),100)
+   nwpic = mod(mconst(i),100)
 !
    i = i + nmach
    nbpc = mconst(i)/100
@@ -180,35 +186,35 @@ SUBROUTINE btstrp
 !     MACHINE S.P. RANGE
 !
    i = i + nmach
-   Highpw = mconst(i)
-   Lowpw = 1 - Highpw
-   IF ( mach==2 ) Lowpw = -78
-   IF ( mach==4 ) Lowpw = -292
+   highpw = mconst(i)
+   lowpw = 1 - highpw
+   IF ( mach==2 ) lowpw = -78
+   IF ( mach==4 ) lowpw = -292
 !
 !     FLOATING NUMBER UNDERFLOW CONTROL
 !     MAXINUM FILES FOR MAXFIL CHECK
 !
    i = i + nmach
-   Nudflw = mconst(i)/100
-   Mxfl = mod(mconst(i),100)
+   nudflw = mconst(i)/100
+   mxfl = mod(mconst(i),100)
 !
 !     SHIFT COUNTER FOR EMA SUBROUTINE
 !
    i = i + nmach
-   Kshift = mconst(i)
+   kshift = mconst(i)
 !
 !     MANTISSA BITS
 !
    i = i + nmach
-   Mtisa = mconst(i)/100
-   IF ( iprec==2 ) Mtisa = mod(mconst(i),100)
+   mtisa = mconst(i)/100
+   IF ( iprec==2 ) mtisa = mod(mconst(i),100)
 !
 !     NUMBER OF BITS PER HALF WORD, USED MAINLY FOR INTEGER PACKING
 !
 !     IHALF = NBPW/2
 !     JHALF = 2**IHALF - 1
-   Ihalf = 16
-   Jhalf = 65535
+   ihalf = 16
+   jhalf = 65535
 !
 !     NUMBER OF CHARACTERS PER WORD
 !
@@ -233,13 +239,13 @@ SUBROUTINE btstrp
 !     IF SYSTEM LOC FUNCTION IS WORD COUNT, SET LOCF TO 1
 !     IF SYSTEM LOC FUNCTION IS BYTE COUNT, SET LOCF TO NCPW
 !
-   Lqro = 1000
-   i = locfx(B(11)) - locfx(B(1))
+   lqro = 1000
+   i = locfx(b(11)) - locfx(b(1))
    locf = i/10
 !
 !     MERGE LOCF, QP, RECL, AND ORDER INTO LQRO
 !
-   Lqro = locf*1000 + qp*100 + recl*10 + order
+   lqro = locf*1000 + qp*100 + recl*10 + order
 !
 !
 !     GENERATE MASKS
@@ -248,10 +254,10 @@ SUBROUTINE btstrp
 !     MASK3  = 377777777777,7FFFFFFF,377777777777,37777777777777777777
 !     TWO(1) = 020000000000,80000000,020000000000,00000000020000000000
 !
-   Mask2 = complf(lshift(2**nbpc-1,nbpw-4*nbpc))
-   Mask3 = rshift(complf(0),1)
-   Mzero = lshift(1,nbpw-1)
-   Two(1) = lshift(1,31)
+   mask2 = complf(lshift(2**nbpc-1,nbpw-4*nbpc))
+   mask3 = rshift(complf(0),1)
+   mzero = lshift(1,nbpw-1)
+   two(1) = lshift(1,31)
 !
 !     TWO(1) = LSHIFT(1,31) = 2**31
 !            = +2147483648   IN MACHINES WITH MORE THAN 32-BIT WORD
@@ -263,6 +269,6 @@ SUBROUTINE btstrp
 !     DEFINE COMMONLY USED PHYSICAL CONSTANTS
 !
    CALL cnstdd
-   linkno = Lnknos(1)
+   linkno = lnknos(1)
 !
 END SUBROUTINE btstrp

@@ -1,15 +1,16 @@
-!*==algpr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==algpr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE algpr(Ierr)
+   USE c_blank
+   USE c_condas
+   USE c_names
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -63,14 +64,14 @@ SUBROUTINE algpr(Ierr)
          debug = .FALSE.
          CALL sswtch(20,j)
          IF ( j==1 ) debug = .TRUE.
-         buf1 = korsz(Iz) - Sysbuf
-         buf2 = buf1 - Sysbuf
-         left = corwds(Iz(1),Iz(buf2-1))
+         buf1 = korsz(iz) - sysbuf
+         buf2 = buf1 - sysbuf
+         left = corwds(iz(1),iz(buf2-1))
          m8 = -8
          IF ( left<=0 ) CALL mesage(m8,0,name)
-         Ir1 = 1
-         Incr = 1
-         Typout = 1
+         ir1 = 1
+         incr = 1
+         typout = 1
          Ierr = 0
 !
          ifill(1) = iblk
@@ -80,8 +81,8 @@ SUBROUTINE algpr(Ierr)
 !     CREATE ALGDB WITH CORRECT LENGTH RECORDS -
 !     BCD(18 WORDS), INTEGER(24 WORDS), REAL(6 WORDS)
 !
-         CALL gopen(algdd,Iz(buf1),Rdrew)
-         CALL gopen(scr2,Iz(buf2),Wrtrew)
+         CALL gopen(algdd,iz(buf1),rdrew)
+         CALL gopen(scr2,iz(buf2),wrtrew)
          itrl(1) = algdd
          CALL rdtrl(itrl)
          itrl(1) = scr2
@@ -109,8 +110,8 @@ SUBROUTINE algpr(Ierr)
          CALL write(scr2,idata,length,1)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 40      CALL close(algdd,Clsrew)
-         CALL close(scr2,Clsrew)
+ 40      CALL close(algdd,clsrew)
+         CALL close(scr2,clsrew)
          algdb = scr2
 !
 !     IF UGV IS NOT IN FIST (PURGED) THEN THERE WILL BE NO DATA
@@ -126,31 +127,31 @@ SUBROUTINE algpr(Ierr)
 !     READ EQEXIN INTO CORE
 !
             file = eqexin
-            CALL gopen(eqexin,Iz(buf1),Rdrew)
-            CALL read(*480,*60,eqexin,Iz(1),left,1,neqex)
+            CALL gopen(eqexin,iz(buf1),rdrew)
+            CALL read(*480,*60,eqexin,iz(1),left,1,neqex)
             CALL mesage(m8,0,name)
          ENDIF
- 60      CALL fread(eqexin,Iz(neqex+1),neqex,1)
-         CALL close(eqexin,Clsrew)
+ 60      CALL fread(eqexin,iz(neqex+1),neqex,1)
+         CALL close(eqexin,clsrew)
          kn = neqex/2
-         IF ( debug ) CALL bug1('EQEX    ',10,Iz(1),neqex)
-         IF ( debug ) CALL bug1('EQEX    ',10,Iz(neqex+1),neqex)
+         IF ( debug ) CALL bug1('EQEX    ',10,iz(1),neqex)
+         IF ( debug ) CALL bug1('EQEX    ',10,iz(neqex+1),neqex)
 !
 !     READ CSTM INTO CORE (CSTM MAY BE PURGED)
 !
          file = cstm
          icstm = 2*neqex + 1
          ncstm = 0
-         CALL open(*100,cstm,z(buf1),Rdrew)
+         CALL open(*100,cstm,z(buf1),rdrew)
          CALL fwdrec(*480,cstm)
-         CALL read(*480,*80,cstm,Iz(icstm),buf1-icstm,1,ncstm)
+         CALL read(*480,*80,cstm,iz(icstm),buf1-icstm,1,ncstm)
          CALL mesage(m8,0,name)
- 80      CALL close(cstm,Clsrew)
-         IF ( debug ) CALL bug1('CSTM    ',20,Iz(icstm),ncstm)
+ 80      CALL close(cstm,clsrew)
+         IF ( debug ) CALL bug1('CSTM    ',20,iz(icstm),ncstm)
 !
 !     SET-UP FOR CALLS TO TRANSS
 !
-         CALL pretrs(Iz(icstm),ncstm)
+         CALL pretrs(iz(icstm),ncstm)
 !
 !     UNPACK UGV DISPLACEMENT VECTOR (SUBCASE 2) INTO CORE
 !
@@ -169,7 +170,7 @@ SUBROUTINE algpr(Ierr)
          kform = itrl(4)
          ktype = itrl(5)
          IF ( nvects/=2 .OR. kform/=2 ) THEN
-            WRITE (Nout,99001) Ufm
+            WRITE (nout,99001) ufm
 !
 99001       FORMAT (A23,' - ALG MODULE - UGV DATA BLOCK IS NOT A REAL S.P. ','RECTANGULAR MATRIX OF ORDER G BY 2.')
             Ierr = -1
@@ -180,10 +181,10 @@ SUBROUTINE algpr(Ierr)
 !
 !     OPEN UGV AND SKIP FIRST COLUMN (SUBCASE 1)
 !
-            CALL gopen(ugv,Iz(buf1),Rdrew)
+            CALL gopen(ugv,iz(buf1),rdrew)
             CALL fwdrec(*480,ugv)
-            Ir2 = itrl(3)
-            CALL unpack(*120,ugv,Iz(ivec))
+            ir2 = itrl(3)
+            CALL unpack(*120,ugv,iz(ivec))
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -195,30 +196,30 @@ SUBROUTINE algpr(Ierr)
          ENDDO
          spag_nextblock_1 = 3
       CASE (3)
-         CALL close(ugv,Clsrew)
-         IF ( debug ) CALL bug1('UGV     ',60,Iz(ivec),Ir2)
+         CALL close(ugv,clsrew)
+         IF ( debug ) CALL bug1('UGV     ',60,iz(ivec),ir2)
 !
 !     LOCATE STREAML1 CARDS ON EDT AND STORE IN CORE
 !
          file = edt
          ichord = ivecn + 1
-         CALL preloc(*500,Iz(buf1),edt)
-         CALL locate(*520,Iz(buf1),stream,idx)
-         CALL read(*480,*140,edt,Iz(ichord),buf1-ichord,1,nchord)
+         CALL preloc(*500,iz(buf1),edt)
+         CALL locate(*520,iz(buf1),stream,idx)
+         CALL read(*480,*140,edt,iz(ichord),buf1-ichord,1,nchord)
          CALL mesage(m8,0,name)
- 140     CALL close(edt,Clsrew)
-         IF ( debug ) CALL bug1('CHOR    ',70,Iz(ichord),nchord)
+ 140     CALL close(edt,clsrew)
+         IF ( debug ) CALL bug1('CHOR    ',70,iz(ichord),nchord)
          lchord = ichord + nchord - 1
 !
 !     READ THE BGPDT INTO CORE
 !
          ibgpdt = lchord + 1
          file = bgpdt
-         CALL gopen(bgpdt,Iz(buf1),Rdrew)
-         CALL read(*480,*160,bgpdt,Iz(ibgpdt),buf1-ibgpdt,1,nbgpdt)
+         CALL gopen(bgpdt,iz(buf1),rdrew)
+         CALL read(*480,*160,bgpdt,iz(ibgpdt),buf1-ibgpdt,1,nbgpdt)
          CALL mesage(m8,0,name)
- 160     CALL close(bgpdt,Clsrew)
-         IF ( debug ) CALL bug1('BGPD    ',80,Iz(ibgpdt),nbgpdt)
+ 160     CALL close(bgpdt,clsrew)
+         IF ( debug ) CALL bug1('BGPD    ',80,iz(ibgpdt),nbgpdt)
 !
 !     FOR EACH STREAML1 CARD -
 !     (1) FIND BLADE NODES
@@ -234,7 +235,7 @@ SUBROUTINE algpr(Ierr)
          SPAG_Loop_1_3: DO
             istatn = 0
             DO
-               id = Iz(ic)
+               id = iz(ic)
                IF ( id/=-1 ) THEN
                   istatn = istatn + 1
 !
@@ -247,12 +248,12 @@ SUBROUTINE algpr(Ierr)
                   khi = kn
                   k = (klo+khi+1)/2
                   SPAG_Loop_3_2: DO
-                     IF ( id<Iz(2*k-1) ) THEN
+                     IF ( id<iz(2*k-1) ) THEN
                         khi = k
-                     ELSEIF ( id==Iz(2*k-1) ) THEN
-                        intn = Iz(2*k)
-                        isil = Iz(2*k+neqex)/10
-                        kode = Iz(2*k+neqex) - 10*isil
+                     ELSEIF ( id==iz(2*k-1) ) THEN
+                        intn = iz(2*k)
+                        isil = iz(2*k+neqex)/10
+                        kode = iz(2*k+neqex) - 10*isil
                         IF ( debug ) CALL bug1('ISTL    ',1090,isil,1)
                         IF ( debug ) CALL bug1('KODE    ',1090,kode,1)
 !
@@ -262,12 +263,12 @@ SUBROUTINE algpr(Ierr)
 !
 !     SET-UP COORDINATE SYSTEM TRANSFORMATION FOR DISPLACEMENTS.
 !
-                        IF ( Iz(icid)>0 ) CALL transs(Iz(icid),ta)
+                        IF ( iz(icid)>0 ) CALL transs(iz(icid),ta)
 !
 !     COMPUTE POINTER INTO UGV
 !     JVEC = IVEC + KTYPE *(ISIL-1)
 !
-                        jvec = ivec + Typout*(isil-1)
+                        jvec = ivec + typout*(isil-1)
 !
 !     PICK-UP DISPLACEMENTS
 !
@@ -284,7 +285,7 @@ SUBROUTINE algpr(Ierr)
 !
 !     GRID POINT
 !
-                        ELSEIF ( Iz(icid)>0 ) THEN
+                        ELSEIF ( iz(icid)>0 ) THEN
 !
 !     DISPLACEMENTS MUST BE TRANSFORMED TO BASIC
 !
@@ -322,7 +323,7 @@ SUBROUTINE algpr(Ierr)
                         klo = k
                      ENDIF
                      IF ( khi-klo<1 ) THEN
-                        WRITE (Nout,99002) Ufm , Iz(icc) , id
+                        WRITE (nout,99002) ufm , iz(icc) , id
 99002                   FORMAT (A23,' - ALG MODULE - STREAML1 BULK DATA CARD (SLN NO. =',I3,') REFERENCES UNDEFINED NODE NO.',I8)
                         Ierr = -1
                         RETURN
@@ -345,14 +346,14 @@ SUBROUTINE algpr(Ierr)
                   IF ( ic<lchord ) CYCLE SPAG_Loop_1_3
                   jchord = jchord - 1
                   IF ( jchord>21 ) THEN
-                     WRITE (Nout,99003) Uwm
+                     WRITE (nout,99003) uwm
 99003                FORMAT (A25,' - ALG MODULE - MORE THAN 21 STREAML1 CARDS READ. ','FIRST 21 WILL BE USED.')
                   ELSE
 !
 !     MODIFY AERODYNAMIC INPUT  (OPEN ALGDB DATA BLOCK)
 !
                      file = algdb
-                     CALL gopen(algdb,Iz(buf1),Rdrew)
+                     CALL gopen(algdb,iz(buf1),rdrew)
                      CALL fwdrec(*540,algdb)
                      CALL read(*480,*560,algdb,idata,2,1,nwar)
                      naero = idata(2)
@@ -397,16 +398,16 @@ SUBROUTINE algpr(Ierr)
                         dely(isk) = rdata(6)
                         IF ( isecn==1 .OR. isecn==3 ) CALL skprec(algdb,1)
                      ENDDO
-                     CALL close(algdb,Clsrew)
+                     CALL close(algdb,clsrew)
 !
 !     NUMBER OF BLADE STATIONS
 !
                      nblstn = irte - irle + 1
                      IF ( nlines/=jchord ) THEN
-                        WRITE (Nout,99004) Ufm
+                        WRITE (nout,99008) ufm
                         Ierr = -1
                      ELSEIF ( nnodes/=nlines*nblstn ) THEN
-                        WRITE (Nout,99004) Ufm
+                        WRITE (nout,99008) ufm
                         Ierr = -1
                      ELSE
 !
@@ -424,11 +425,11 @@ SUBROUTINE algpr(Ierr)
 !     GENERATE XSTA, RSTA AND R , SET KPTS = NLINES
                         DO i = 1 , nlines
                            DO j = 1 , nblstn
-                              xb(i,j) = xb(i,j) + Sign*dispt1(i,j)*Fxcoor
-                              yb(i,j) = yb(i,j) + Sign*dispt2(i,j)*Fycoor
-                              zb(i,j) = zb(i,j) + Sign*dispt3(i,j)*Fzcoor
+                              xb(i,j) = xb(i,j) + sign*dispt1(i,j)*fxcoor
+                              yb(i,j) = yb(i,j) + sign*dispt2(i,j)*fycoor
+                              zb(i,j) = zb(i,j) + sign*dispt3(i,j)*fzcoor
                               xsta(i,j) = xb(i,j)
-                              rsta(i,j) = zb(i,j) + Zorign
+                              rsta(i,j) = zb(i,j) + zorign
                               r(i,j) = rsta(i,j)
                            ENDDO
                         ENDDO
@@ -449,21 +450,21 @@ SUBROUTINE algpr(Ierr)
                         IF ( i1*2/=nblstn+1 ) i2 = i2 + 1
                         DO k = 1 , nspec
                            j = jz(k)
-                           b1(k) = b1(k) - nsign*Sign*Radeg*(dispr3(j,1)*cos(phi(1,k))-dispr1(j,1)*sin(phi(1,k)))
-                           b2(k) = b2(k) - nsign*Sign*Radeg*(dispr3(j,nblstn)*cos(phi(2,k))-dispr1(j,nblstn)*sin(phi(2,k)))
+                           b1(k) = b1(k) - nsign*sign*radeg*(dispr3(j,1)*cos(phi(1,k))-dispr1(j,1)*sin(phi(1,k)))
+                           b2(k) = b2(k) - nsign*sign*radeg*(dispr3(j,nblstn)*cos(phi(2,k))-dispr1(j,nblstn)*sin(phi(2,k)))
                            temp = cord(k)/cord2(k)
                            rle(k) = rle(k)*temp
                            tc(k) = tc(k)*temp
                            te(k) = te(k)*temp
                            cord(k) = cord2(k)
-                           delx(k) = delx(k) + 0.5*Sign*Fxcoor*(dispt1(j,i1)+dispt1(j,i2))
-                           dely(k) = dely(k) + 0.5*Sign*Fycoor*(dispt2(j,i1)+dispt2(j,i2))
+                           delx(k) = delx(k) + 0.5*sign*fxcoor*(dispt1(j,i1)+dispt1(j,i2))
+                           dely(k) = dely(k) + 0.5*sign*fycoor*(dispt2(j,i1)+dispt2(j,i2))
                         ENDDO
 !
 !     GENERATE NEW ALGDB DATA BLOCK
 !
-                        CALL gopen(algdb,Iz(buf1),Rdrew)
-                        CALL gopen(scr1,Iz(buf2),Wrtrew)
+                        CALL gopen(algdb,iz(buf1),rdrew)
+                        CALL gopen(scr1,iz(buf2),wrtrew)
                         itrl(1) = algdb
                         CALL rdtrl(itrl)
 !
@@ -695,12 +696,12 @@ SUBROUTINE algpr(Ierr)
 !
 !     CLOSE ALGDB AND SCR1
 !
- 440     CALL close(algdb,Clsrew)
-         CALL close(scr1,Clsrew)
+ 440     CALL close(algdb,clsrew)
+         CALL close(scr1,clsrew)
 !
 !     PUNCH NEW ALGDB TABLE INTO DTI CARDS IF PGEOM=3.
 !
-         IF ( Pgeom==3 ) CALL algap(algdd,scr1)
+         IF ( pgeom==3 ) CALL algap(algdd,scr1)
          RETURN
       CASE (8)
          DO icopy = 1 , nrec
@@ -709,8 +710,8 @@ SUBROUTINE algpr(Ierr)
             IF ( debug ) CALL bug1('ALGPR   ',1302,idata,nwar)
          ENDDO
          IF ( nrec>=65000 ) THEN
-            WRITE (Nout,99005)
-99005       FORMAT (/,' *** NO. OF RECORDS EXCEEDS HARDWARE LIMIT/ALGPR')
+            WRITE (nout,99004)
+99004       FORMAT (/,' *** NO. OF RECORDS EXCEEDS HARDWARE LIMIT/ALGPR')
             CALL mesage(-37,0,0)
          ENDIF
  460     GOTO ret2
@@ -718,16 +719,16 @@ SUBROUTINE algpr(Ierr)
  480     CALL mesage(-2,file,name)
          Ierr = -1
          RETURN
- 500     WRITE (Nout,99006) Ufm
-99006    FORMAT (A23,' - ALG MODULE - EDT DATA BLOCK MAY NOT BE PURGED.')
+ 500     WRITE (nout,99005) ufm
+99005    FORMAT (A23,' - ALG MODULE - EDT DATA BLOCK MAY NOT BE PURGED.')
          Ierr = -1
          RETURN
- 520     WRITE (Nout,99007) Ufm
-99007    FORMAT (A23,' - ALG MODULE - STREAML1 BULK DATA CARD MISSING ','FROM BULK DATA DECK.')
+ 520     WRITE (nout,99006) ufm
+99006    FORMAT (A23,' - ALG MODULE - STREAML1 BULK DATA CARD MISSING ','FROM BULK DATA DECK.')
          Ierr = -1
          RETURN
- 540     WRITE (Nout,99008) Ufm
-99008    FORMAT (A23,' - ALG MODULE - ALGDB DATA BLOCK (FILE 105) DOES ','NOT HAVE ENOUGH RECORDS.')
+ 540     WRITE (nout,99007) ufm
+99007    FORMAT (A23,' - ALG MODULE - ALGDB DATA BLOCK (FILE 105) DOES ','NOT HAVE ENOUGH RECORDS.')
          Ierr = -1
          RETURN
  560     CALL mesage(-3,file,name)
@@ -735,6 +736,6 @@ SUBROUTINE algpr(Ierr)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
-99004 FORMAT (A23,' - ALG MODULE - INPUT IN ALGDB DATA BLOCK (FILE 105',') INCONSISTENT WITH DATA ON STREAML1 BULK DATA CARDS.',    &
+99008 FORMAT (A23,' - ALG MODULE - INPUT IN ALGDB DATA BLOCK (FILE 105',') INCONSISTENT WITH DATA ON STREAML1 BULK DATA CARDS.',    &
             & /39X,'CHECK THE NUMBER OF COMPUTING STATIONS AND THE ','NUMBER OF STREAMSURFACES ON THE BLADE.')
 END SUBROUTINE algpr

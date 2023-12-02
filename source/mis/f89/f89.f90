@@ -1,4 +1,5 @@
-!*==f89.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==f89.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION f89(I,A,B,M,N,X)
@@ -17,11 +18,19 @@ FUNCTION f89(I,A,B,M,N,X)
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: amf , ammsf , amn1f , an1 , an2 , anm1f , capx , s , sf
-   INTEGER :: ifac , iret , is , lfac , n1 , n2 , n3 , nfac
+   INTEGER :: ifac , iret , is , lfac , n1 , n2 , n3 , nfac , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -50,12 +59,11 @@ FUNCTION f89(I,A,B,M,N,X)
             nfac = n2
             ASSIGN 40 TO iret
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             f89 = f89 + amf*((-A)**is)*(capx**n3)/(ammsf*sf*(an2-s))
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  40      amn1f = ifac
          nfac = N - 1
          ASSIGN 60 TO iret
@@ -71,7 +79,6 @@ FUNCTION f89(I,A,B,M,N,X)
             sf = sf*s
             ammsf = ammsf/(an1-s)
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( B==0.0 ) THEN
 !
             f89 = 0.0

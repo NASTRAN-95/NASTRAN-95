@@ -1,14 +1,15 @@
-!*==mpy3ic.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpy3ic.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy3ic(Z,Iz,Dz)
-USE C_MPY3CP
-USE C_MPY3TL
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_mpy3cp
+   USE c_mpy3tl
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -44,54 +45,54 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZATION.
 !
-         First1 = .TRUE.
-         First2 = .TRUE.
-         dd = D
-         nn = Ncb
-         mm = M
-         pp = Prec
+         first1 = .TRUE.
+         first2 = .TRUE.
+         dd = d
+         nn = ncb
+         mm = m
+         pp = prec
 !
 !     OPEN CORE POINTERS
 !
          isavp = 1
-         nsavp = Ncb
+         nsavp = ncb
          ipoint = nsavp + 1
-         npoint = nsavp + Ncb
+         npoint = nsavp + ncb
          iacols = npoint + 1
 !     NACOLS = NPOINT + D*NCB*M/10000
          nacols = npoint + (dd*nn*mm/10000.D0+0.5D0)
          itrans = nacols + 1
-         IF ( Prec/=1 .AND. mod(itrans,2)/=1 ) itrans = itrans + 1
+         IF ( prec/=1 .AND. mod(itrans,2)/=1 ) itrans = itrans + 1
 !     NTRANS = ITRANS + PREC*D*NCB*M/10000 - 1
          ntrans = itrans + (pp*dd*nn*mm/10000.D0+0.5D0) - 1
          ic = ntrans + 1
-         IF ( Prec/=1 .AND. mod(ic,2)/=1 ) ic = ic + 1
-         nc = ic + Prec*M - 1
+         IF ( prec/=1 .AND. mod(ic,2)/=1 ) ic = ic + 1
+         nc = ic + prec*m - 1
          ibcols = nc + 1
-         nbcols = nc + Prec*N*Nk
+         nbcols = nc + prec*n*nk
          ibcid = nbcols + 1
-         nbcid = nbcols + Nk
+         nbcid = nbcols + nk
          ibntu = nbcid + 1
-         nbntu = nbcid + Nk
+         nbntu = nbcid + nk
          iktbp = nbntu + 1
-         nktbp = nbntu + Maxa
+         nktbp = nbntu + maxa
          iantu = nktbp + 1
-         nantu = nktbp + Maxa
+         nantu = nktbp + maxa
          iakj = nantu + 1
-         nakj = nantu + Prec*Maxa
+         nakj = nantu + prec*maxa
 !
 !     PACK PARAMETERS
 !
-         Typin = Prec
-         Typout = Prec
-         Row1 = 1
-         Incr = 1
+         typin = prec
+         typout = prec
+         row1 = 1
+         incr = 1
 !
 !     UNPACK PARAMETERS
 !
-         Utyp = Prec
-         Urow1 = 1
-         Uincr = 1
+         utyp = prec
+         urow1 = 1
+         uincr = 1
 !
 !     PREPARE B AND A(T).
 !
@@ -99,34 +100,34 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN FILES AND CHECK EXISTENCE OF MATRIX E.
 !
-         IF ( E ) THEN
-            file = Filee(1)
-            CALL open(*20,Filee,Z(Buf4),2)
-            CALL fwdrec(*40,Filee)
+         IF ( e ) THEN
+            file = filee(1)
+            CALL open(*20,filee,Z(buf4),2)
+            CALL fwdrec(*40,filee)
          ENDIF
-         file = Filea(1)
-         CALL open(*20,Filea,Z(Buf1),2)
-         CALL fwdrec(*40,Filea)
-         file = Scr1
-         CALL open(*20,Scr1,Z(Buf2),0)
-         file = Filec(1)
-         CALL gopen(Filec,Z(Buf3),1)
-         Rowm = Filec(3)
+         file = filea(1)
+         CALL open(*20,filea,Z(buf1),2)
+         CALL fwdrec(*40,filea)
+         file = scr1
+         CALL open(*20,scr1,Z(buf2),0)
+         file = filec(1)
+         CALL gopen(filec,Z(buf3),1)
+         rowm = filec(3)
 !
 !     PROCESS COLUMNS OF C ONE BY ONE.
 !
-         DO J = 1 , M
+         DO j = 1 , m
 !
 !     INITIALIZE COLUMN OF C.
 !
             DO ix = ic , nc
                Z(ix) = 0.
             ENDDO
-            IF ( E ) THEN
-               Urown = M
-               CALL unpack(*10,Filee,Z(ic))
+            IF ( e ) THEN
+               urown = m
+               CALL unpack(*10,filee,Z(ic))
             ENDIF
- 10         precm = Prec*M
+ 10         precm = prec*m
 !
 !     PROCESS A AND PERFORM FIRST PART OF PRODUCT.
 !
@@ -134,40 +135,40 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST IF PROCESSING IS COMPLETE
 !
-            IF ( Iflag/=0 ) THEN
+            IF ( iflag/=0 ) THEN
                SPAG_Loop_2_2: DO
 !
 !     PROCESS REMAINING TERMS OF COLUMN J OF A.
 !
 !     TEST IF BCOLS IS FULL
 !
-                  IF ( K2>=Nk ) THEN
+                  IF ( k2>=nk ) THEN
 !
 !     CALCULATE NEXT TIME USED FOR COLUMNS OF B AND/OR TERMS OF A
 !
-                     IF ( First2 ) THEN
-                        First2 = .FALSE.
+                     IF ( first2 ) THEN
+                        first2 = .FALSE.
                         ibc = ibcid - 1
                         ib = ibntu - 1
-                        DO ii = 1 , Nk
+                        DO ii = 1 , nk
                            ibc = ibc + 1
-                           I = Iz(ibc)
+                           i = Iz(ibc)
                            CALL mpy3nu(Z)
                            ib = ib + 1
-                           Iz(ib) = Ntbu
+                           Iz(ib) = ntbu
                         ENDDO
                      ENDIF
                      ik = iktbp - 1
                      ia = iantu - 1
-                     DO ii = 1 , K
+                     DO ii = 1 , k
                         ik = ik + 1
                         ia = ia + 1
                         IF ( Iz(ik)==0 ) THEN
                            Iz(ia) = 0
                         ELSE
-                           I = Iz(ik)
+                           i = Iz(ik)
                            CALL mpy3nu(Z)
-                           Iz(ia) = Ntbu
+                           Iz(ia) = ntbu
                         ENDIF
                      ENDDO
                   ENDIF
@@ -176,8 +177,8 @@ USE ISO_FORTRAN_ENV
 !     ADD OR REPLACE COLUMN OF B INTO CORE AND PERFORM COMPUTATION
 !
                      CALL mpy3c(Z,Z,Z)
-                     IF ( Kcount==K ) EXIT SPAG_Loop_3_1
-                     IF ( First2 ) CYCLE SPAG_Loop_2_2
+                     IF ( kcount==k ) EXIT SPAG_Loop_3_1
+                     IF ( first2 ) CYCLE SPAG_Loop_2_2
                   ENDDO SPAG_Loop_3_1
                   EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
@@ -185,15 +186,15 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK COLUMN OF C.
 !
-            CALL pack(Z(ic),Filec,Filec)
+            CALL pack(Z(ic),filec,filec)
          ENDDO
 !
 !     CLOSE FILES.
 !
-         CALL close(Filea,2)
-         CALL close(Scr1,1)
-         CALL close(Filec,1)
-         IF ( E ) CALL close(Filee,2)
+         CALL close(filea,2)
+         CALL close(scr1,1)
+         CALL close(filec,1)
+         IF ( e ) CALL close(filee,2)
          RETURN
 !
 !     ERROR MESSAGES.

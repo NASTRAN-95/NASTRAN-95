@@ -1,9 +1,10 @@
-!*==mmarc4.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mmarc4.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mmarc4(Zi,Zd)
+   USE i_mmacom
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -70,7 +71,7 @@ SUBROUTINE mmarc4(Zi,Zd)
          mindex = mem/2 + 1
          ntms2 = ntms*2
          DO ii = 1 , ntms2
-            Zd(mindex+ii) = sign*Rxl(index+ii-1)
+            Zd(mindex+ii) = sign*rxl(index+ii-1)
          ENDDO
       ELSEIF ( itype==4 ) THEN
          mindex = mem/2 + 1
@@ -81,7 +82,7 @@ SUBROUTINE mmarc4(Zi,Zd)
       ELSE
          mindex = mem/2 + 1
          DO ii = 1 , ntms
-            Zd(mindex+1) = sign*Rxl(index+ii-1)
+            Zd(mindex+1) = sign*rxl(index+ii-1)
             Zd(mindex+2) = 0.D0
             mindex = mindex + 2
          ENDDO

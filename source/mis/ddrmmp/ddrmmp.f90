@@ -1,11 +1,12 @@
-!*==ddrmmp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddrmmp.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddrmmp(Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy) !HIDESTARS (*,Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy)
+   USE c_ddrmc1
+   USE c_names
+   USE c_system
    IMPLICIT NONE
-   USE C_DDRMC1
-   USE C_NAMES
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,7 +44,7 @@ SUBROUTINE ddrmmp(Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy) !HIDESTARS (*,Z,Ncore,L
 !
          Lused = 0
          Anyxy = .FALSE.
-         CALL open(*40,xycdb,Buff,Rdrew)
+         CALL open(*40,xycdb,Buff,rdrew)
          CALL fwdrec(*20,xycdb)
          CALL fwdrec(*20,xycdb)
          SPAG_Loop_1_1: DO
@@ -97,7 +98,7 @@ SUBROUTINE ddrmmp(Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy) !HIDESTARS (*,Z,Ncore,L
 !
 !     LIST IS NOW COMPLETE THUS SORT IT, AND REMOVE REPEATED IDS.
 !
- 20      CALL close(xycdb,Clsrew)
+ 20      CALL close(xycdb,clsrew)
          IF ( Lused>0 ) THEN
             CALL sort(0,0,1,1,Z(1),Lused)
             Anyxy = .TRUE.
@@ -119,7 +120,7 @@ SUBROUTINE ddrmmp(Z,Ncore,Lused,Ixytyp,Icase,Buff,Anyxy) !HIDESTARS (*,Z,Ncore,L
 !
 !     INSUFFICIENT CORE ALTERNATE RETURN.
 !
-         Ierror = 859
+         ierror = 859
          RETURN 1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

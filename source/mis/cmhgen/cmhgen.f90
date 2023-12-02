@@ -1,14 +1,15 @@
-!*==cmhgen.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmhgen.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmhgen
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_packx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_PACKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -48,38 +49,38 @@ SUBROUTINE cmhgen
 !
 !     READ SIL,C FROM SOF FOR COMBINED STRUCTURE
 !
-         Incr = 1
-         bufex = Lcore - Buf2 + Buf3
-         Lcore = bufex - 1
-         IF ( Lcore<0 ) THEN
+         incr = 1
+         bufex = lcore - buf2 + buf3
+         lcore = bufex - 1
+         IF ( lcore<0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ioefil = 310
-         CALL open(*20,ioefil,Z(bufex),0)
-         mcb(1) = Scr1
+         CALL open(*20,ioefil,z(bufex),0)
+         mcb(1) = scr1
          mcb(4) = 2
          mcb(5) = 1
-         Iin = 1
-         Iout = 1
-         CALL sfetch(Cnam,nheqss,1,itest)
+         iin = 1
+         iout = 1
+         CALL sfetch(cnam,nheqss,1,itest)
          nsub = 0
-         DO i = 1 , Npsub
-            nsub = nsub + Combo(i,5)
+         DO i = 1 , npsub
+            nsub = nsub + combo(i,5)
          ENDDO
          CALL sjump(nsub+1)
-         CALL suread(Z(Score),-1,nsilnw,itest)
+         CALL suread(z(score),-1,nsilnw,itest)
 !
 !     LOOP ON NUMBER OF PSEUDO-STRUCTURES BEING COMBINED
 !
-         ssil = Score + nsilnw
-         Lcore = Lcore - nsilnw
-         ifile = Scr3
-         CALL open(*20,Scr3,Z(Buf1),0)
-         ifile = Scsfil
-         CALL open(*20,Scsfil,Z(Buf2),0)
+         ssil = score + nsilnw
+         lcore = lcore - nsilnw
+         ifile = scr3
+         CALL open(*20,scr3,z(buf1),0)
+         ifile = scsfil
+         CALL open(*20,scsfil,z(buf2),0)
 !
-         DO i = 1 , Npsub
+         DO i = 1 , npsub
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -91,66 +92,65 @@ SUBROUTINE cmhgen
 !
 !     READ SIL,C FOR COMPONENT SUBSTRUCTURE
 !
-                  ncs = Combo(i,5) + 2
+                  ncs = combo(i,5) + 2
                   DO j = 1 , ncs
-                     CALL fwdrec(*40,Scsfil)
+                     CALL fwdrec(*40,scsfil)
                   ENDDO
                   ifile = ioefil
-                  CALL read(*40,*2,ioefil,Z(ssil),Lcore,1,nslold)
+                  CALL read(*40,*2,ioefil,z(ssil),lcore,1,nslold)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
  2                ishptr = ssil + nslold
-                  ifile = Scsfil
-                  CALL read(*40,*4,Scsfil,Z(ishptr),Lcore,1,lhptr)
+                  ifile = scsfil
+                  CALL read(*40,*4,scsfil,z(ishptr),lcore,1,lhptr)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
- 4                CALL skpfil(Scsfil,1)
+ 4                CALL skpfil(scsfil,1)
 !
 !     COMPUTE NUMBER OF ROWS IN MATRIX
 !
-                  icode = Z(ssil+nslold-1)
+                  icode = z(ssil+nslold-1)
                   CALL decode(icode,listo,ncom)
-                  mcb(3) = Z(ssil+nslold-2) + ncom - 1
+                  mcb(3) = z(ssil+nslold-2) + ncom - 1
 !
 !     READ CONNECTION ENTRIES
 !
 !     READ TRANSFORMATION MATRIX FOR PSEUDOSTRUCTURE
 !
-                  ifile = Scr3
-                  CALL read(*40,*6,Scr3,ttran,37,1,nnn)
- 6                CALL skpfil(Scr3,-1)
-                  IF ( i/=1 ) CALL skpfil(Scr3,1)
-                  ifile = Scconn
-                  CALL open(*20,Scconn,Z(Buf3),0)
-                  ifile = Scr1
-                  CALL open(*20,Scr1,Z(Buf4),1)
-                  CALL write(Scr1,ihead,2,1)
+                  ifile = scr3
+                  CALL read(*40,*6,scr3,ttran,37,1,nnn)
+ 6                CALL skpfil(scr3,-1)
+                  IF ( i/=1 ) CALL skpfil(scr3,1)
+                  ifile = scconn
+                  CALL open(*20,scconn,z(buf3),0)
+                  ifile = scr1
+                  CALL open(*20,scr1,z(buf4),1)
+                  CALL write(scr1,ihead,2,1)
                   ipnew = 0
                   spag_nextblock_2 = 2
                CASE (2)
-                  CALL read(*12,*8,Scconn,ce,10,1,nnn)
+                  CALL read(*12,*8,scconn,ce,10,1,nnn)
  8                ipnew = ipnew + 1
-                  locipn = Score + 2*(ipnew-1) + 1
+                  locipn = score + 2*(ipnew-1) + 1
                   IF ( ce(i+2)==0 ) THEN
-                     Iiii = 1
-                     Nnnn = 1
-                     icode = Z(locipn)
+                     iiii = 1
+                     nnnn = 1
+                     icode = z(locipn)
                      CALL decode(icode,listn,ncn)
                      DO i1 = 1 , ncn
-                        CALL pack(zero,Scr1,mcb)
+                        CALL pack(zero,scr1,mcb)
                      ENDDO
                      spag_nextblock_2 = 2
-                     CYCLE SPAG_DispatchLoop_2
                   ELSE
                      ipold = ce(i+2)
                      locipo = ssil + 2*(ipold-1) + 1
-                     icode = Z(locipn)
+                     icode = z(locipn)
                      CALL decode(icode,listn,ncn)
-                     icode = Z(locipo)
+                     icode = z(locipo)
                      CALL decode(icode,listo,nco)
 !
                      iaddh = ishptr + ipold - 1
-                     idh = Z(iaddh)
+                     idh = z(iaddh)
                      IF ( idh<1 ) THEN
 !
 !     IDENTITY MATRIX
@@ -175,16 +175,16 @@ SUBROUTINE cmhgen
 !
                         idhm1 = idh - 1
                         DO i1 = 1 , idhm1
-                           CALL fwdrec(*40,Scr3)
+                           CALL fwdrec(*40,scr3)
                         ENDDO
-                        CALL read(*40,*10,Scr3,t,37,1,nnn)
+                        CALL read(*40,*10,scr3,t,37,1,nnn)
                         GOTO 10
                      ENDIF
                      spag_nextblock_2 = 3
-                     CYCLE SPAG_DispatchLoop_2
                   ENDIF
+                  CYCLE
  10               DO i1 = 1 , idh
-                     CALL bckrec(Scr3)
+                     CALL bckrec(scr3)
                   ENDDO
                   spag_nextblock_2 = 3
                CASE (3)
@@ -212,28 +212,28 @@ SUBROUTINE cmhgen
                      DO i2 = 1 , nrow
                         colout(i2) = tpp(i2,i1)
                      ENDDO
-                     Iiii = Z(locipo-1)
-                     Nnnn = Iiii + nrow - 1
-                     CALL pack(colout,Scr1,mcb)
+                     iiii = z(locipo-1)
+                     nnnn = iiii + nrow - 1
+                     CALL pack(colout,scr1,mcb)
                   ENDDO
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
- 12               CALL close(Scconn,1)
+ 12               CALL close(scconn,1)
                   CALL wrttrl(mcb)
-                  CALL close(Scr1,1)
-                  nam(1) = Combo(i,1)
-                  nam(2) = Combo(i,2)
-                  CALL mtrxo(Scr1,nam,ihead(1),Z(Buf4),itest)
-                  CALL skpfil(Scr3,1)
+                  CALL close(scr1,1)
+                  nam(1) = combo(i,1)
+                  nam(2) = combo(i,2)
+                  CALL mtrxo(scr1,nam,ihead(1),z(buf4),itest)
+                  CALL skpfil(scr3,1)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
 !
-         CALL close(Scsfil,1)
-         CALL close(Scr3,1)
+         CALL close(scsfil,1)
+         CALL close(scr3,1)
          CALL close(ioefil,1)
-         Lcore = bufex + Buf2 - Buf3
+         lcore = bufex + buf2 - buf3
          RETURN
 !
  20      imsg = -1
@@ -241,7 +241,6 @@ SUBROUTINE cmhgen
          CYCLE SPAG_DispatchLoop_1
  40      imsg = -2
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          imsg = -8
          spag_nextblock_1 = 3

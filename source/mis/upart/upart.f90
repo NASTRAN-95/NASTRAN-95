@@ -1,7 +1,11 @@
-!*==upart.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==upart.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE upart(Uset,Scr1,Major,Sub0,Sub1)
+   USE c_parmeg
+   USE c_patx
+   USE c_zzzzzz
    USE C_PARMEG
    USE C_PATX
    USE C_ZZZZZZ
@@ -11,7 +15,7 @@ SUBROUTINE upart(Uset,Scr1,Major,Sub0,Sub1)
    COMMON /parmeg/ Ia , Ia11 , Ia12 , Ia21 , Ia22 , Lcore , Rule
    COMMON /patx  / Lc , N1 , N2 , N3 , Uset1 , Pvect
    COMMON /zzzzzz/ Core
-   INTEGER Ia1 , Ia111 , Ia121 , Ia211 , Ia221 , Major , Scr1 , Sub0 , Sub1 , Uset
+   INTEGER ia1 , ia111 , ia121 , ia211 , ia221 , Major , Scr1 , Sub0 , Sub1 , Uset
    INTEGER i , j , n4
    INTEGER korsz
 !
@@ -43,6 +47,9 @@ SUBROUTINE upart(Uset,Scr1,Major,Sub0,Sub1)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_PARMEG
+      USE C_PATX
+      USE C_ZZZZZZ
       RETURN
 !
 !
@@ -63,12 +70,11 @@ CONTAINS
          Ia22(4) = Ia(4)
          Ia22(5) = Ia(5)
          CALL partn(Pvect,Pvect,Core)
-         DO i = 1 , 4
-            j = (i-1)*7 + 1
-            IF ( Ia11(j)/=0 ) CALL wrttrl(Ia11(j))
+         DO I = 1 , 4
+            J = (I-1)*7 + 1
+            IF ( Ia11(J)/=0 ) CALL wrttrl(Ia11(J))
          ENDDO
       ENDIF
       CALL spag_block_1
-      RETURN
-   END ENTRY mpart
+   END SUBROUTINE spag_block_1
 END SUBROUTINE upart

@@ -1,9 +1,10 @@
-!*==order.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==order.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,17 +52,17 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
          Idtab(1) = 0
          jspill = 1
          lcorx = Lcor
-         newin = Scr4
-         newout = Scr2
+         newin = scr4
+         newout = scr2
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*80,*20,Est,tp,1,0,m)
+         CALL read(*80,*20,est,tp,1,0,m)
          offset = 0
          IF ( tp==kbar ) offset = 6
          IF ( tp==kt3 .OR. tp==kq4 ) offset = 1
          spag_nextblock_1 = 3
       CASE (3)
-         CALL fread(Est,ngppe,1,0)
+         CALL fread(est,ngppe,1,0)
          Idtab(i-1) = ngppe
 !
 !     SKIP PAST THE NON-CONTOUR ELEMENTS
@@ -73,13 +74,13 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
             ENDIF
          ENDDO
          DO
-            CALL fread(Est,elid,1,0)
+            CALL fread(est,elid,1,0)
             IF ( elid==0 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             j = 1 + ngppe + offset
-            CALL fread(Est,0,-j,0)
+            CALL fread(est,0,-j,0)
          ENDDO
          spag_nextblock_1 = 4
       CASE (4)
@@ -90,12 +91,12 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !     THE SET. CONSTRUCT GRIDS  1-NGPPE. GRIDS FOR 1ST ELEMENT, NEXT.
 !     REPEAT 1ST FOR ALL ELEMENTS IN THE IDTAB
 !
-            CALL read(*20,*20,Est,Idtab(i),2,0,m)
+            CALL read(*20,*20,est,Idtab(i),2,0,m)
             i = i + 2
             IF ( Idtab(i-2)/=0 ) THEN
 !
-               CALL fread(Est,Grids(j),ngppe,0)
-               IF ( offset/=0 ) CALL fread(Est,0,-offset,0)
+               CALL fread(est,Grids(j),ngppe,0)
+               IF ( offset/=0 ) CALL fread(est,0,-offset,0)
                j = j + ngppe
                IF ( i>=lcorx ) THEN
 !
@@ -117,7 +118,7 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !
 !     TABLE FIT INTO CORE
 !
- 20      CALL bckrec(Est)
+ 20      CALL bckrec(est)
          spag_nextblock_1 = 5
       CASE (5)
 !
@@ -137,9 +138,9 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
             spag_nextblock_1 = 18
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*80,Ecpt,Gplst(B2),0)
-         CALL gopen(Scr2,Gplst(B1),1)
-         CALL fwdrec(*60,Ecpt)
+         CALL open(*80,ecpt,Gplst(B2),0)
+         CALL gopen(scr2,Gplst(B1),1)
+         CALL fwdrec(*60,ecpt)
          igdpt = 0
          spag_nextblock_1 = 6
       CASE (6)
@@ -147,7 +148,7 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
             igdpt = igdpt + 1
             ieor = 0
             IF ( Gplst(igdpt)/=0 ) EXIT SPAG_Loop_1_1
-            CALL fwdrec(*60,Ecpt)
+            CALL fwdrec(*60,ecpt)
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 7
       CASE (7)
@@ -159,12 +160,12 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !      (3-6) FOR ALL ELEMENTS ATTACHED TO PIVOT, 8. EOR, 9. REPEAT ITEMS
 !      (1-8) FOR ALL GRIDS IN THE PROBLEM.
 !
-         CALL read(*60,*60,Ecpt,igrd,2,0,m)
+         CALL read(*60,*60,ecpt,igrd,2,0,m)
          spag_nextblock_1 = 8
       CASE (8)
          SPAG_Loop_1_2: DO
-            CALL read(*60,*40,Ecpt,length,1,0,m)
-            CALL fread(Ecpt,sils,-length,0)
+            CALL read(*60,*40,ecpt,length,1,0,m)
+            CALL fread(ecpt,sils,-length,0)
             tp = sils(2)
             DO i = 1 , ntype
                IF ( tp==itype(i) ) EXIT SPAG_Loop_1_2
@@ -204,7 +205,6 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
          elid = -sils(1)
          nelmt = nelmt + 1
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     FOUND ELEMENT IN THE TABLE
@@ -282,7 +282,6 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
          ENDDO
          iflag = -2
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
          IF ( i/=index ) THEN
             j = (index+1)/2
@@ -315,7 +314,7 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !
          CALL write(newout,three,3,0)
          CALL write(newout,Id,nelmt,1)
-         IF ( igdpt<Ngp ) THEN
+         IF ( igdpt<ngp ) THEN
             IF ( jspill==1 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
@@ -344,11 +343,11 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( igdpt<Ngp ) THEN
+         IF ( igdpt<ngp ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 60      CALL close(Ecpt,1)
+ 60      CALL close(ecpt,1)
          spag_nextblock_1 = 17
       CASE (17)
          CALL write(newout,0,1,1)
@@ -360,11 +359,11 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
 !
 !     OUTPUT FILE MUST BE SCRATCH 2
 !
-            IF ( newout==Scr2 ) RETURN
+            IF ( newout==scr2 ) RETURN
             CALL gopen(newout,Gplst(B1),0)
-            CALL gopen(Scr2,Gplst(B2),1)
-            CALL cpyfil(newout,Scr2,Rest,Lcor,m)
-            CALL close(Scr2,1)
+            CALL gopen(scr2,Gplst(B2),1)
+            CALL cpyfil(newout,scr2,Rest,Lcor,m)
+            CALL close(scr2,1)
             CALL close(newout,1)
             RETURN
          ELSE
@@ -384,7 +383,6 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
             j = 1
             spill = .FALSE.
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (18)
 !
@@ -398,21 +396,19 @@ SUBROUTINE order(Gplst,Id,Rest,Grids,Idtab,Lcor,B1,B2,B3)
          IF ( sils(1)<=0 ) THEN
             sils(1) = -sils(1)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             elid = sils(1)
             nelmt = nelmt + 1
             Rest(2*nelmt-1) = sils(2)
             Rest(2*nelmt) = sils(3)
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     END OF FILE
 !
  100     CALL close(newin,1)
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE order

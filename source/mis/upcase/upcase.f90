@@ -1,11 +1,12 @@
-!*==upcase.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==upcase.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE upcase(Byte,N)
+   USE c_machin
+   USE c_upcasx
+   USE c_xechox
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_UPCASX
-   USE C_XECHOX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -46,7 +47,7 @@ SUBROUTINE upcase(Byte,N)
        &'           =''''=  ABCDEFGHI       JKLMNOPQR        STUVWX' , 'YZ                       ABCDEFGHI       JKLMNOPQR      ' , &
        &'  STUVWXYZ      0123456789      WRITTEN BY G.CHAN/UNISYS'/
 !
-   IF ( Machx==2 ) THEN
+   IF ( machx==2 ) THEN
 !
 !     IBM MACHINE ONLY, WHICH USES EBCDIC CODE
 !
@@ -58,23 +59,22 @@ SUBROUTINE upcase(Byte,N)
 !     THE % SIGN MAY BE CHANGED TO ( IN BCD-EBCDIC CONVERSION,
 !     CHANGE IT BACK TO %
 !
-      IF ( Ffflag/=1234 .OR. N<5 ) RETURN
+      IF ( ffflag/=1234 .OR. N<5 ) RETURN
       DO i = 5 , N
          IF ( Byte(i)==il .AND. Byte(i+1)==il .AND. (Byte(i-1)==ic .OR. Byte(i-1)==bk1) ) Byte(i) = ip
       ENDDO
       RETURN
-   ELSEIF ( .NOT.(Flag) ) THEN
-      Flag = .TRUE.
-      Id = tab(Machx)
-      Ia = ichar(la) + Id
-      Iz = ichar(lz) + Id
+   ELSEIF ( .NOT.(flag) ) THEN
+      flag = .TRUE.
+      id = tab(machx)
+      ia = ichar(la) + id
+      iz = ichar(lz) + id
    ENDIF
 !
    DO i = 1 , N
       IF ( Byte(i)/=bk1 ) THEN
          j = ichar(Byte(i))
-         IF ( j>=Ia .AND. j<=Iz ) Byte(i) = char(j-Id)
+         IF ( j>=ia .AND. j<=iz ) Byte(i) = char(j-id)
       ENDIF
    ENDDO
-   RETURN
 END SUBROUTINE upcase

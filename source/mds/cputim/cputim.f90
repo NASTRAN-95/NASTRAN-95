@@ -17,6 +17,15 @@ SUBROUTINE cputim(Icpusc,Rcpusc,Iflag)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     THIS ROUTINE IS MACHINE DEPENDENT
 !
 !     THIS ROUTINE OBTAINS THE CURRENT CPU TIME IN SECONDS.

@@ -2,12 +2,12 @@
  
 SUBROUTINE sdhtf1(Type,Reject)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_GPTA1
-   USE C_MATIN
-   USE C_SDR2X4
-   USE C_SDR2X5
-   USE C_SDR2X6
+   USE c_condas
+   USE c_gpta1
+   USE c_matin
+   USE c_sdr2x4
+   USE c_sdr2x5
+   USE c_sdr2x6
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -28,6 +28,15 @@ SUBROUTINE sdhtf1(Type,Reject)
    INTEGER , DIMENSION(8,3) , SAVE :: point2
    INTEGER , DIMENSION(8,23) :: pointr
    REAL , DIMENSION(3,3) :: xjacob
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -68,8 +77,8 @@ SUBROUTINE sdhtf1(Type,Reject)
       nest(i+101) = nestsc(1)
       nest(i+102) = nestsc(2)
       nest(i+103) = nestsc(3)
-      Est(i+104) = Estscr(4)*Estscr(5)
-      Est(i+105) = 0.0
+      est(i+104) = estscr(4)*estscr(5)
+      est(i+105) = 0.0
       GOTO 99999
    ELSE
       IF ( Type==typold ) GOTO 100
@@ -84,54 +93,54 @@ SUBROUTINE sdhtf1(Type,Reject)
 !
  50   Reject = .FALSE.
    ENDIF
- 100  IF ( (Type>=65 .AND. Type<=67) .AND. Strspt==0 ) Strspt = Strspt + 1
-   ip = (Type-1)*Incr
-   estwds = Elem(ip+12)
+ 100  IF ( (Type>=65 .AND. Type<=67) .AND. strspt==0 ) strspt = strspt + 1
+   ip = (Type-1)*incr
+   estwds = elem(ip+12)
 !
 !     THE LOCATIONS OF DATA FOR EACH PARTICULAR ELEMENT ARE ZEROED OUT
 !
-   Nq = 0
+   nq = 0
    DO i = 1 , 100
       nesto(i) = 0
    ENDDO
-   Name(1) = Elem(ip+1)
-   Name(2) = Elem(ip+2)
-   Elid = nest(1)
+   name(1) = elem(ip+1)
+   name(2) = elem(ip+2)
+   elid = nest(1)
    DO i = 1 , 32
       nest(i+101) = 0
    ENDDO
    DO i = 1 , 201
       nest(i+137) = 0
    ENDDO
-   IF ( Type==tube ) Est(5) = pi*Estscr(6)*(Estscr(5)-Estscr(6))
-   IF ( Type==chbdy .AND. nestsc(2)==7 ) Est(16) = pi*(Estscr(19)+Estscr(20))
+   IF ( Type==tube ) est(5) = pi*estscr(6)*(estscr(5)-estscr(6))
+   IF ( Type==chbdy .AND. nestsc(2)==7 ) est(16) = pi*(estscr(19)+estscr(20))
    is = pointr(2,iel)
    ith = pointr(3,iel)
    im = pointr(4,iel)
    ia = pointr(5,iel)
    ig = pointr(6,iel)
-   Sub = pointr(8,iel)
-   Np = pointr(7,iel)
+   sub = pointr(8,iel)
+   np = pointr(7,iel)
 !
-   IF ( Sub==10 ) Sub = Sub + nestsc(2) - 1
-   Inflag = 1
-   IF ( Sub>=16 ) Inflag = 3
-   IF ( Sub>=2 .AND. Sub<=5 ) THEN
-      Inflag = 2
-   ELSEIF ( Sub>=6 .AND. Sub<=9 ) THEN
-      Inflag = 3
+   IF ( sub==10 ) sub = sub + nestsc(2) - 1
+   inflag = 1
+   IF ( sub>=16 ) inflag = 3
+   IF ( sub>=2 .AND. sub<=5 ) THEN
+      inflag = 2
+   ELSEIF ( sub>=6 .AND. sub<=9 ) THEN
+      inflag = 3
    ENDIF
-   IF ( Sub/=16 ) GOTO 400
+   IF ( sub/=16 ) GOTO 400
 !
 !     GET SHAPE FUNCTIONS ETC. FOR STRESS POINT(ALSO DETERMINE THE
 !     STRESS POINT, WHICH WILL BE THE GRID POINTS PLUS CENTROID IN
 !     ELEMENT COORDINATES
 !
    itype = Type - 64
-   DO i = 1 , Np
-      gpt(i) = Estscr(5*Np+7+i)
+   DO i = 1 , np
+      gpt(i) = estscr(5*np+7+i)
       DO j = 1 , 3
-         bxyz(j,i) = Estscr(Np+4+4*i+j)
+         bxyz(j,i) = estscr(np+4+4*i+j)
       ENDDO
    ENDDO
 !
@@ -147,29 +156,29 @@ SUBROUTINE sdhtf1(Type,Reject)
       x = 1.
    ENDIF
    IF ( itype>1 ) THEN
-      IF ( Strspt==1 .OR. Strspt==6 .OR. Strspt==7 .OR. Strspt==12 .OR. Strspt==18 .OR. Strspt==19 ) THEN
+      IF ( strspt==1 .OR. strspt==6 .OR. strspt==7 .OR. strspt==12 .OR. strspt==18 .OR. strspt==19 ) THEN
          x = x - d
-      ELSEIF ( Strspt==2 .OR. Strspt==3 .OR. Strspt==10 .OR. Strspt==14 .OR. Strspt==15 ) THEN
+      ELSEIF ( strspt==2 .OR. strspt==3 .OR. strspt==10 .OR. strspt==14 .OR. strspt==15 ) THEN
          x = x + d
-      ELSEIF ( Strspt==4 .OR. Strspt==5 .OR. Strspt==11 .OR. Strspt==16 .OR. Strspt==17 ) THEN
+      ELSEIF ( strspt==4 .OR. strspt==5 .OR. strspt==11 .OR. strspt==16 .OR. strspt==17 ) THEN
          y = y + d
-      ELSEIF ( Strspt==9 .OR. Strspt==13 ) THEN
+      ELSEIF ( strspt==9 .OR. strspt==13 ) THEN
          z = z + 1.
          y = -1.
          d = 3. - d
-      ELSEIF ( Strspt==21 ) THEN
+      ELSEIF ( strspt==21 ) THEN
          GOTO 200
       ELSE
          y = y - d
       ENDIF
-   ELSEIF ( Strspt==2 .OR. Strspt==6 ) THEN
+   ELSEIF ( strspt==2 .OR. strspt==6 ) THEN
       x = x + d
-   ELSEIF ( Strspt==3 .OR. Strspt==7 ) THEN
+   ELSEIF ( strspt==3 .OR. strspt==7 ) THEN
       y = y + d
-   ELSEIF ( Strspt==5 ) THEN
+   ELSEIF ( strspt==5 ) THEN
       z = z + d
       y = -1.
-   ELSEIF ( Strspt==9 ) THEN
+   ELSEIF ( strspt==9 ) THEN
       GOTO 200
    ELSE
       x = x - d
@@ -178,46 +187,46 @@ SUBROUTINE sdhtf1(Type,Reject)
  200  x = 0.
    y = 0.
    z = 0.
- 300  CALL ihexss(itype,shp,dshp,xjacob,detj,Elid,x,y,z,bxyz)
+ 300  CALL ihexss(itype,shp,dshp,xjacob,detj,elid,x,y,z,bxyz)
 !
 !     GET DERIVATIVES W.R.T.X,Y,Z(REVERSE CALLING SEQUENCE BECAUSE
 !     COLUMN-STORED
 !
-   CALL gmmats(dshp,Np,3,0,xjacob,3,3,0,Dshpb)
+   CALL gmmats(dshp,np,3,0,xjacob,3,3,0,dshpb)
 !
 !
- 400  IF ( ia>0 ) Af = Estscr(ia)
-   Matid = nestsc(im)
-   IF ( Matid<=0 ) RETURN
-   Sinth = 0.0
-   Costh = 1.0
-   IF ( Inflag==2 ) THEN
-      Theta = Estscr(ith)*pi/180.
-      IF ( Theta/=0.0 ) THEN
-         Sinth = sin(Theta)
-         Costh = cos(Theta)
+ 400  IF ( ia>0 ) af = estscr(ia)
+   matid = nestsc(im)
+   IF ( matid<=0 ) RETURN
+   sinth = 0.0
+   costh = 1.0
+   IF ( inflag==2 ) THEN
+      theta = estscr(ith)*pi/180.
+      IF ( theta/=0.0 ) THEN
+         sinth = sin(theta)
+         costh = cos(theta)
       ENDIF
    ENDIF
-   itemp = ig + 4*Np
-   Eltemp = Estscr(itemp)
-   IF ( Sub==16 ) THEN
-      Isopl8 = 8
-      Eltemp = 0.
-      DO i = 1 , Np
-         Eltemp = Eltemp + gpt(i)*shp(i)
+   itemp = ig + 4*np
+   eltemp = estscr(itemp)
+   IF ( sub==16 ) THEN
+      isopl8 = 8
+      eltemp = 0.
+      DO i = 1 , np
+         eltemp = eltemp + gpt(i)*shp(i)
       ENDDO
    ENDIF
-   Imat = Matid
-   CALL hmat(Elid)
+   imat = matid
+   CALL hmat(elid)
 !
-   DO i = 1 , Np
+   DO i = 1 , np
       ip = 4*(i-1) + ig
       DO j = 1 , 3
          iloc = ip + j
-         R(j,i) = Estscr(iloc)
+         r(j,i) = estscr(iloc)
       ENDDO
       isil = is + i + 1
-      Sil(i) = nestsc(isil)
+      sil(i) = nestsc(isil)
    ENDDO
 !
    CALL sdhtff

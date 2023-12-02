@@ -1,11 +1,12 @@
-!*==factru.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==factru.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE factru(A,Lll,Ull,Scr1,Scr2,Scr3) !HIDESTARS (*,A,Lll,Ull,Scr1,Scr2,Scr3)
-USE C_DCOMPX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_dcompx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -25,25 +26,25 @@ USE ISO_FORTRAN_ENV
 !
 ! ----------------------------------------------------------------------
 !
-   Ib = 0
-   Ibb = 0
-   Ia(1) = A
-   CALL rdtrl(Ia)
-   Il(1) = Lll
-   Iu(1) = Ull
-   Iscr1 = Scr1
-   Iscr2 = Scr2
-   Iscr3 = Scr3
-   Nz = korsz(Xx)
-   Il(3) = Ia(3)
-   Iu(3) = Ia(3)
-   Il(4) = 4
-   Iu(4) = 5
-   Iu(5) = Iprec
-   Il(5) = Iprec
-   CALL decomp(*100,Xx,Xx,Xx)
-   CALL wrttrl(Il)
-   CALL wrttrl(Iu)
+   ib = 0
+   ibb = 0
+   ia(1) = A
+   CALL rdtrl(ia)
+   il(1) = Lll
+   iu(1) = Ull
+   iscr1 = Scr1
+   iscr2 = Scr2
+   iscr3 = Scr3
+   nz = korsz(xx)
+   il(3) = ia(3)
+   iu(3) = ia(3)
+   il(4) = 4
+   iu(4) = 5
+   iu(5) = iprec
+   il(5) = iprec
+   CALL decomp(*100,xx,xx,xx)
+   CALL wrttrl(il)
+   CALL wrttrl(iu)
    RETURN
  100  RETURN 1
 !

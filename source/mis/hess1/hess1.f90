@@ -1,14 +1,15 @@
-!*==hess1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==hess1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hess1(Kdd,Mdd,Lamd,Phid,Oeigs,Nfound,Nvecd,Bdd,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Eed,Method)
-USE C_CDCMPX
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cdcmpx
+   USE c_output
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -118,7 +119,7 @@ USE ISO_FORTRAN_ENV
 !
 !     DECOMPOSE  MASS MATRIX
 !
-      Ib = 0
+      ib = 0
       CALL cfactr(Mdd,Scr1,Scr2,Scr3,Scr4,Scr5,iopt)
 !
 !     SOLVE FOR AMATRIX
@@ -149,7 +150,7 @@ USE ISO_FORTRAN_ENV
 !     TRY WITHOUT 2ND CALL TO CFACTR, AND MAKE SURE SCR1 AND SCR2 ARE
 !     STILL GINO UNITS 301 AND 302
 !
-         Ib = 0
+         ib = 0
          CALL cfactr(Mdd,Scr1,Scr2,Scr3,Scr4,Scr5,iopt)
 !
          CALL cfbsor(Scr1,Scr2,Bdd,Scr4,iopt)
@@ -194,22 +195,22 @@ USE ISO_FORTRAN_ENV
          IF ( iz(4)/=poin ) inorm = 1
          isil = iz(6)
          epsi = 1.0E-6
-         IF ( Z(iz0+8)/=0.0 ) epsi = Z(iz0+8)
+         IF ( z(iz0+8)/=0.0 ) epsi = z(iz0+8)
 !
 !     PROCESS  REGION  DEFINITION
 !
          CALL fread(Eed,iz,7,0)
-         alph1 = Z(1)
-         alph2 = Z(iz0+3)
-         w1 = Z(iz0+2)
-         w2 = Z(iz0+4)
+         alph1 = z(1)
+         alph2 = z(iz0+3)
+         w1 = z(iz0+2)
+         w2 = z(iz0+4)
          Nvecd = iz(7)
          IF ( Nvecd<=0 ) THEN
 !
 !     ---- SET DEFAULT TO ONE SOLUTION VECTOR ----
 !
             Nvecd = 1
-            WRITE (mout,99001) Uwm
+            WRITE (mout,99001) uwm
 99001       FORMAT (A25,' 2357, ONE VECTOR (DEFAULT) WILL BE COMPUTED IN THE',' COMPLEX REGION.')
          ENDIF
          CALL close(Eed,1)
@@ -218,16 +219,16 @@ USE ISO_FORTRAN_ENV
 !     BRING IN  TERMS OF MATRIX
 !
          CALL gopen(amat,iz(ibuf1),0)
-         Itc = -3
-         Ii = 1
-         Jj = nrow
-         Incr = 1
+         itc = -3
+         ii = 1
+         jj = nrow
+         incr = 1
          DO i = ia , il
-            Z(i) = 0.0
+            z(i) = 0.0
          ENDDO
          j = ia
          DO i = 1 , nrow
-            CALL unpack(*10,amat,Z(j))
+            CALL unpack(*10,amat,z(j))
  10         j = j + 2*nrow
          ENDDO
          CALL close(amat,1)
@@ -235,7 +236,7 @@ USE ISO_FORTRAN_ENV
 !     DO IT
 !
          ncount = Nvecd
-         CALL allmat(Z(ia),Z(il),Z(ih),Z(ihl),Z(iv),Z(im),Z(inth),Z(int),nrow,ncount,iopt1)
+         CALL allmat(z(ia),z(il),z(ih),z(ihl),z(iv),z(im),z(inth),z(int),nrow,ncount,iopt1)
          Nfound = ncount/iprec
          file = Lamd
          CALL open(*100,Lamd,iz(ibuf1),1)
@@ -271,31 +272,31 @@ USE ISO_FORTRAN_ENV
          DO m = 1 , Nvecd
             d1 = 0.0
             DO i = 1 , nout , 2
-               Ii = j + i
-               Jj = k + i
-               dz(Ii) = Z(Jj)
-               dz(Ii+1) = Z(Jj+1)
-               d2 = dz(Ii)*dz(Ii) + dz(Ii+1)*dz(Ii+1)
+               ii = j + i
+               jj = k + i
+               dz(ii) = z(jj)
+               dz(ii+1) = z(jj+1)
+               d2 = dz(ii)*dz(ii) + dz(ii+1)*dz(ii+1)
                IF ( d2>=d1 ) THEN
-                  d3 = dz(Ii)
-                  d4 = dz(Ii+1)
+                  d3 = dz(ii)
+                  d4 = dz(ii+1)
                   d1 = d2
                ENDIF
             ENDDO
             IF ( inorm==0 ) THEN
-               Jj = 2*isil + j
-               d2 = dz(Jj)*dz(Jj) + dz(Jj-1)*dz(Jj-1)
+               jj = 2*isil + j
+               d2 = dz(jj)*dz(jj) + dz(jj-1)*dz(jj-1)
                IF ( d2/=0.0D0 .AND. d1/d2<=1.0D6 ) THEN
-                  d3 = dz(Jj-1)
-                  d4 = dz(Jj)
+                  d3 = dz(jj-1)
+                  d4 = dz(jj)
                   d1 = d2
                ENDIF
             ENDIF
             DO i = 1 , nout , 2
-               Jj = j + i
-               d5 = (dz(Jj)*d3+dz(Jj+1)*d4)/d1
-               dz(Jj+1) = (d3*dz(Jj+1)-d4*dz(Jj))/d1
-               dz(Jj) = d5
+               jj = j + i
+               d5 = (dz(jj)*d3+dz(jj+1)*d4)/d1
+               dz(jj+1) = (d3*dz(jj+1)-d4*dz(jj))/d1
+               dz(jj) = d5
             ENDDO
             CALL write(Phid,dz(j+1),nout*2,1)
             k = k + nrow*2
@@ -315,7 +316,7 @@ USE ISO_FORTRAN_ENV
          iz(7) = 0
          iz(8) = 1
          CALL write(Oeigs,iz,40,0)
-         CALL write(Oeigs,Head,96,1)
+         CALL write(Oeigs,head,96,1)
          CALL close(Oeigs,1)
          mcb(1) = Oeigs
          mcb(2) = Nfound

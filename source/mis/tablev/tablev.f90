@@ -1,10 +1,11 @@
-!*==tablev.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tablev.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tablev(In,Ll,Trl,Name,P4,Ibuf,Z5) !HIDESTARS (*,In,Ll,Trl,Name,P4,Ibuf,Z5)
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -62,7 +63,7 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( debug ) WRITE (Nout,99001)
+         IF ( debug ) WRITE (nout,99001)
 99001    FORMAT (///,' *** IN TABLE-V, DEBUG ***')
          kore = Ibuf - 1
          kore9 = (kore/9)*9
@@ -72,10 +73,10 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN GINO OUTPUT FILE AND WRITE A FILE HEADER
 !
-         CALL open(*60,out,Z(Ibuf),1)
+         CALL open(*60,out,z(Ibuf),1)
          CALL fname(out,namex)
          CALL write(out,namex,2,1)
-         IF ( debug ) WRITE (Nout,99002) namex
+         IF ( debug ) WRITE (nout,99002) namex
 99002    FORMAT (/5X,'GENERATING...',2A4,/)
          Name(3) = tble
          IF ( P4==1 ) THEN
@@ -100,7 +101,7 @@ USE ISO_FORTRAN_ENV
                      z5l = Z5(l)
                      IF ( z1==i1 ) THEN
                         WRITE (z10,99012) Z5(l) , Z5(l+1)
-                        READ (z10,99004) Z(lb+k)
+                        READ (z10,99004) z(lb+k)
 99004                   FORMAT (1X,I9)
                         l = l + 2
                      ELSEIF ( z1==r1 ) THEN
@@ -116,7 +117,7 @@ USE ISO_FORTRAN_ENV
 !
 !     BCD
 !
-                           READ (z5l,99006) Z(lb+k)
+                           READ (z5l,99006) z(lb+k)
 99006                      FORMAT (1X,A4)
                         ELSEIF ( z1/=f1 ) THEN
                            IF ( z1==d1 ) THEN
@@ -132,7 +133,7 @@ USE ISO_FORTRAN_ENV
                               l = l + 3
                               CYCLE
                            ELSE
-                              WRITE (Nout,99008) z5l
+                              WRITE (nout,99008) z5l
 99008                         FORMAT (/,' SYSTEM ERROR/TABLEV @65  Z5L=',A5)
                               GOTO 40
                            ENDIF
@@ -145,7 +146,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
 !
                   IF ( k>0 ) THEN
-                     CALL write(out,Z(lb+1),k,1)
+                     CALL write(out,z(lb+1),k,1)
                      kount = kount + 1
                   ENDIF
                ENDIF
@@ -155,14 +156,14 @@ USE ISO_FORTRAN_ENV
 !
 !     UNFORMATED READ
 !
-               READ (In,ERR=40,END=20) ln , (Z(j),j=1,ln)
+               READ (In,ERR=40,END=20) ln , (z(j),j=1,ln)
                IF ( ln>kore ) THEN
                   CALL mesage(8,0,sub)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  IF ( ln==1 .AND. Z(1)==end ) EXIT SPAG_Loop_1_2
-                  CALL write(out,Z(1),ln,1)
+                  IF ( ln==1 .AND. z(1)==end ) EXIT SPAG_Loop_1_2
+                  CALL write(out,z(1),ln,1)
                   kount = kount + 1
                ENDIF
             ENDDO SPAG_Loop_1_2
@@ -172,14 +173,14 @@ USE ISO_FORTRAN_ENV
 !     CLOSE OUTPUT GINO FILE AND WRITE TRAILER
 !
  20      CALL close(out,1)
-         IF ( debug ) WRITE (Nout,99009) Trl(2) , kount
+         IF ( debug ) WRITE (nout,99009) Trl(2) , kount
 99009    FORMAT (/,' DEBUG ECHO - OLD AND NEW COLUMN COUNTS =',2I5)
          Trl(1) = out
          Trl(2) = kount
          CALL wrttrl(Trl)
          fuf = fu(1)
          IF ( P4==0 ) fuf = fu(2)
-         WRITE (Nout,99010) fuf , namex
+         WRITE (nout,99010) fuf , namex
 99010    FORMAT (/5X,'DATA TRANSFERED SUCCESSFULLY FROM ',A2,'FORMATTED ','TAPE TO GINO OUTPUT FILE ',2A4)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
@@ -187,7 +188,7 @@ USE ISO_FORTRAN_ENV
 !     ERROR
 !
  40      CALL close(out,1)
-         WRITE (Nout,99011) namex
+         WRITE (nout,99011) namex
 99011    FORMAT (//5X,'ERROR IN READING INPUT TAPE IN TABLEV. NO ',2A4,/5X,'FILE GENERATED')
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1

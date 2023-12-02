@@ -1,13 +1,14 @@
-!*==stpax3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==stpax3.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stpax3(Again)
+   USE c_isave
+   USE c_sdr2de
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
    IMPLICIT NONE
-   USE C_ISAVE
-   USE C_SDR2DE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,12 +38,12 @@ SUBROUTINE stpax3(Again)
 !
    IF ( .NOT.(Again) ) THEN
       Again = .TRUE.
-      Kangle = 0
+      kangle = 0
    ENDIF
-   Nangle = Kangle
-   Elemid = Klemid
-   Nangle = Nangle + 1
-   Kangle = Nangle
+   nangle = kangle
+   elemid = klemid
+   nangle = nangle + 1
+   kangle = nangle
 !
 !
 !  BRANCH TO INSERT STRESSES AND FORCES INTO FORCE AND STRESS OR
@@ -56,49 +57,49 @@ SUBROUTINE stpax3(Again)
 !    IPART=2 - REAL PART OF COMPLEX OUTPUT FROM CLOCK STORED IN
 !              FORCE AND STRESS
 !
-   IF ( Ktype/=2 ) THEN
+   IF ( ktype/=2 ) THEN
       DO i = 1 , 62
          DO j = 1 , 14
-            Clock(i,j) = Block(i,j)
+            clock(i,j) = block(i,j)
          ENDDO
       ENDDO
    ENDIF
 !
 !  OUTPUT FORCES FOR THIS ANGLE
-   iforce(1) = Elemid
-   Force(2) = Clock(1,cangle)
+   iforce(1) = elemid
+   force(2) = clock(1,cangle)
    DO i = 1 , 16
-      Force(2+i) = Clock(46+i,cangle)
+      force(2+i) = clock(46+i,cangle)
    ENDDO
 !
 ! OUTPUT STRESSES
-   istres(1) = Elemid
-   Stress(2) = Clock(1,cangle)
+   istres(1) = elemid
+   stress(2) = clock(1,cangle)
    DO i = 1 , 45
-      Stress(2+i) = Clock(i+1,cangle)
+      stress(2+i) = clock(i+1,cangle)
    ENDDO
 !
-   IF ( Ktype==2 ) THEN
+   IF ( ktype==2 ) THEN
 !
 !
 !  OUTPUT FORCES FOR THIS ANGLE
-      Isavef(1) = Elemid
-      savef(2) = Block(1,Nangle)
+      isavef(1) = elemid
+      savef(2) = block(1,nangle)
       DO i = 1 , 16
-         savef(2+i) = Block(46+i,Nangle)
+         savef(2+i) = block(46+i,nangle)
       ENDDO
 !
 ! OUTPUT STRESSES
-      Isaves(1) = Elemid
-      saves(2) = Block(1,Nangle)
+      isaves(1) = elemid
+      saves(2) = block(1,nangle)
       DO i = 1 , 45
-         saves(2+i) = Block(i+1,Nangle)
+         saves(2+i) = block(i+1,nangle)
       ENDDO
 !
-      IF ( Nangle==14 ) THEN
+      IF ( nangle==14 ) THEN
          Again = .FALSE.
          RETURN
-      ELSEIF ( iblock(1,Nangle+1)==1 ) THEN
+      ELSEIF ( iblock(1,nangle+1)==1 ) THEN
          Again = .FALSE.
          RETURN
       ENDIF
@@ -110,5 +111,4 @@ SUBROUTINE stpax3(Again)
       RETURN
    ENDIF
 !
-   RETURN
 END SUBROUTINE stpax3

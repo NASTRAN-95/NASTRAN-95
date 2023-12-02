@@ -1,9 +1,10 @@
-!*==of9pbd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==of9pbd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA of9pbd
+   USE c_ofpb9
    IMPLICIT NONE
-   USE C_OFPB9
 !OF9PBD
 !
 !     BLOCK DATA FOR ALL NON-STRESS AND NON-FORCE C ARRAYS
@@ -28,7 +29,7 @@ BLOCKDATA of9pbd
 ! ACCELERATION COMPLEX SORT 1
 ! ACCELERATION COMPLEX SORT 2
 ! EIGENVALUE SUMMARY REAL SORT 1       EIGENVALUE SUMMARY COMPLEX SORT 1
-   DATA C1/1 , 0 , 1 , -1 , 0 , 2 , 0 , 0 , 0 , -1 , 0 , 0 , 311 , 107 , 1 , -1 , 0 , 315 , 354 , 107 , 1 , -1 , 0 , 112 , 374 ,    &
+   DATA c1/1 , 0 , 1 , -1 , 0 , 2 , 0 , 0 , 0 , -1 , 0 , 0 , 311 , 107 , 1 , -1 , 0 , 315 , 354 , 107 , 1 , -1 , 0 , 112 , 374 ,    &
       & 104 , 119 , 125 , 0 , 2 , 411 , 104 , 119 , 126 , 0 , 2 , 392 , 107 , 119 , 125 , 0 , 111 , 429 , 107 , 119 , 126 , 0 ,     &
       & 111 , 1 , 0 , 33 , -1 , 0 , 2 , 0 , 0 , 0 , -1 , 0 , 0 , 311 , 107 , 33 , -1 , 0 , 315 , 354 , 107 , 33 , -1 , 0 , 112 ,    &
       & 374 , 104 , 123 , 125 , 0 , 2 , 411 , 104 , 123 , 126 , 0 , 2 , 392 , 107 , 123 , 125 , 0 , 111 , 429 , 107 , 123 , 126 ,   &
@@ -58,7 +59,7 @@ BLOCKDATA of9pbd
 ! ELEMENT STRAIN ENERGY
 ! GRID POINT FORCE BALANCE
 ! MPCFORCE VECTOR REAL SORT 1
-   DATA C41/374 , 0 , 124 , 125 , 0 , 2 , 411 , 0 , 124 , 126 , 0 , 2 , 1 , 0 , 212 , -1 , 0 , 2 , 354 , 107 , 212 , -1 , 0 , 112 , &
+   DATA c41/374 , 0 , 124 , 125 , 0 , 2 , 411 , 0 , 124 , 126 , 0 , 2 , 1 , 0 , 212 , -1 , 0 , 2 , 354 , 107 , 212 , -1 , 0 , 112 , &
       & 374 , 104 , 208 , 125 , 0 , 2 , 411 , 104 , 208 , 126 , 0 , 2 , 392 , 107 , 208 , 125 , 0 , 111 , 429 , 107 , 208 , 126 ,   &
       & 0 , 111 , 1 , 0 , 211 , -1 , 0 , 2 , 354 , 107 , 211 , -1 , 0 , 112 , 374 , 104 , 209 , 125 , 0 , 2 , 411 , 104 , 209 ,     &
       & 126 , 0 , 2 , 392 , 107 , 209 , 125 , 0 , 111 , 429 , 107 , 209 , 126 , 0 , 111 , 1 , 0 , 213 , -1 , 0 , 2 , 354 , 107 ,    &

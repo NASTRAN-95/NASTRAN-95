@@ -1,11 +1,12 @@
-!*==stpaic.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==stpaic.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stpaic(Bloc,Dy,Nsize,Gap,Bm,Gm,Pm,Ns,Cla,Ajjl)
+   USE c_amgmn
+   USE c_packx
+   USE c_stripc
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_PACKX
-   USE C_STRIPC
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,17 +32,17 @@ SUBROUTINE stpaic(Bloc,Dy,Nsize,Gap,Bm,Gm,Pm,Ns,Cla,Ajjl)
 ! End of declarations rewritten by SPAG
 !
    k = 1
-   Ii = Nrow + 1
-   Nn = Nrow
-   IF ( Ekr(1)<=.00001 ) Ekr(1) = 0.0
+   ii = nrow + 1
+   nn = nrow
+   IF ( ekr(1)<=.00001 ) ekr(1) = 0.0
    nsted = 0
-   IF ( Ekr(k)==0.0 ) nsted = 1
+   IF ( ekr(k)==0.0 ) nsted = 1
    DO n = 1 , Ns
-      bob = Bloc(n)/Bref
-      ekl = Ekr(k)*bob
-      const = Cla(n)*Dy(n)*Clam
-      cr = Fm
-      IF ( Ncirc/=0 ) cr = Bb(1)
+      bob = Bloc(n)/bref
+      ekl = ekr(k)*bob
+      const = Cla(n)*Dy(n)*clam
+      cr = fm
+      IF ( ncirc/=0 ) cr = bb(1)
       ci = 0.
       nopen = 0
       IF ( Nsize(n)==3 .AND. Gap(n)==0.0 ) nopen = 1
@@ -59,7 +60,7 @@ SUBROUTINE stpaic(Bloc,Dy,Nsize,Gap,Bm,Gm,Pm,Ns,Cla,Ajjl)
          DO j = 1 , jm
             cdum(i,j) = cmplx(0.0,0.0)
             DO m = 1 , jm
-               cdum(i,j) = cdum(i,j) + Bm(i,m,n)*Ekm(m,j)
+               cdum(i,j) = cdum(i,j) + Bm(i,m,n)*ekm(m,j)
             ENDDO
          ENDDO
       ENDDO
@@ -72,10 +73,10 @@ SUBROUTINE stpaic(Bloc,Dy,Nsize,Gap,Bm,Gm,Pm,Ns,Cla,Ajjl)
             ch(i,j) = const*ch(i,j)
          ENDDO
       ENDDO
-      Nn = Nn + im
+      nn = nn + im
       DO i = 1 , im
-         CALL pack(ch(1,i),Ajjl,Mcb)
+         CALL pack(ch(1,i),Ajjl,mcb)
       ENDDO
-      Ii = Ii + im
+      ii = ii + im
    ENDDO
 END SUBROUTINE stpaic

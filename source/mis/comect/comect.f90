@@ -1,12 +1,13 @@
-!*==comect.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==comect.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE comect(Ele,Max)
+   USE c_blank
+   USE c_gpta1
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -56,8 +57,8 @@ SUBROUTINE comect(Ele,Max)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         b1 = korsz(X) - (3*Bufsiz+2)
-         b2 = b1 + Bufsiz + 3
+         b1 = korsz(x) - (3*bufsiz+2)
+         b2 = b1 + bufsiz + 3
          err(1) = 4
          err(2) = name(1)
          err(3) = name(2)
@@ -68,23 +69,23 @@ SUBROUTINE comect(Ele,Max)
 !
          jcomp = b1
          ept = 104
-         CALL open(*40,ept,X(b1),inrew)
+         CALL open(*40,ept,x(b1),inrew)
          CALL read(*20,*20,ept,ix,2,1,m)
          CALL close(ept,rew)
-         CALL preloc(*40,X(b1),ept)
+         CALL preloc(*40,x(b1),ept)
          n = 1
          DO i = 1 , 12 , 3
             idrec(1) = pcomp(i)
             idrec(2) = idrec(1)/100
-            CALL locate(*10,X(b1),idrec,j)
+            CALL locate(*10,x(b1),idrec,j)
             k = pcomp(i+1)
             j = pcomp(i+2)
             DO
-               CALL read(*10,*10,ept,X,k,0,m)
-               IF ( X(j)/=0.0 ) THEN
+               CALL read(*10,*10,ept,x,k,0,m)
+               IF ( x(j)/=0.0 ) THEN
                   jcomp = jcomp - 2
                   ix(jcomp) = ix(1)
-                  X(jcomp+1) = X(j)
+                  x(jcomp+1) = x(j)
                ENDIF
             ENDDO
  10         n = n + 1
@@ -95,75 +96,75 @@ SUBROUTINE comect(Ele,Max)
 !     CONSTRUCT A LIST OF INDICES IN THE ECT FOR USE WITH GPECT IN THE
 !     PLOT MODULE BY CONTOUR PLOTTING
 !
- 40      CALL gopen(Ect1,X(b1),inrew)
+ 40      CALL gopen(ect1,x(b1),inrew)
          DO j = 1 , Max
             Ele(j) = 0
          ENDDO
          i = 1
  60      DO
-            CALL read(*140,*80,Ect1,idrec,3,0,m)
-            DO j = 1 , Nel
-               idx = (j-1)*Incr
-               IF ( Ne(idx+4)==idrec(1) ) THEN
+            CALL read(*140,*80,ect1,idrec,3,0,m)
+            DO j = 1 , nel
+               idx = (j-1)*incr
+               IF ( ne(idx+4)==idrec(1) ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            CALL skprec(Ect1,1)
+            CALL skprec(ect1,1)
          ENDDO
- 80      CALL mesage(-3,Ect1,name)
- 100     CALL mesage(-2,Ect1,name)
+ 80      CALL mesage(-3,ect1,name)
+ 100     CALL mesage(-2,ect1,name)
          spag_nextblock_1 = 2
       CASE (2)
-         lect = Ne(idx+6) - 1
+         lect = ne(idx+6) - 1
          DO
-            CALL read(*100,*60,Ect1,Ele(i),1,0,m)
-            CALL fread(Ect1,0,-lect,0)
+            CALL read(*100,*60,ect1,Ele(i),1,0,m)
+            CALL fread(ect1,0,-lect,0)
             i = i + 1
             IF ( i>Max ) CALL mesage(-8,0,name)
          ENDDO
 !
- 120     CALL mesage(-1,Ect1,name)
+ 120     CALL mesage(-1,ect1,name)
 !
  140     lele = i - 1
-         CALL close(Ect1,rew)
+         CALL close(ect1,rew)
 !
-         CALL preloc(*120,X(b1),Ect1)
-         CALL gopen(Ect2,X(b2),outrew)
-         DO n = 1 , Nel
+         CALL preloc(*120,x(b1),ect1)
+         CALL gopen(ect2,x(b2),outrew)
+         DO n = 1 , nel
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  idx = (n-1)*Incr
+                  idx = (n-1)*incr
 !
 !     IF SCALAR CONNECTION POSSIBLE FOR ELEMENT THEN SKIP IT
 !
-                  IF ( Ne(idx+11)/=0 ) CYCLE
+                  IF ( ne(idx+11)/=0 ) CYCLE
 !
 !     SKIP DUMMY ELEMENTS AND POINT ELEMENTS
 !
-                  IF ( Ne(idx+10)<=1 ) CYCLE
-                  IF ( Ne(idx+16)==ilxx ) CYCLE
-                  CALL locate(*160,X(b1),Ne(idx+4),i)
-                  ngpel = Ne(idx+10)
+                  IF ( ne(idx+10)<=1 ) CYCLE
+                  IF ( ne(idx+16)==ilxx ) CYCLE
+                  CALL locate(*160,x(b1),ne(idx+4),i)
+                  ngpel = ne(idx+10)
                   IF ( ngpel>32 ) THEN
 !
 !     ELEMENT TYPE WITH MORE THAN 32 CONNECTIONS
 !
-                     err(4) = Ne(idx+1)
-                     err(5) = Ne(idx+2)
-                     CALL wrtprt(Merr,err,m1,nm1)
-                     CALL skprec(Ect1,1)
+                     err(4) = ne(idx+1)
+                     err(5) = ne(idx+2)
+                     CALL wrtprt(merr,err,m1,nm1)
+                     CALL skprec(ect1,1)
                      CYCLE
                   ELSE
 !
-                     CALL write(Ect2,n,1,0)
-                     CALL write(Ect2,ngpel,1,0)
+                     CALL write(ect2,n,1,0)
+                     CALL write(ect2,ngpel,1,0)
                   ENDIF
                   spag_nextblock_2 = 2
                CASE (2)
-                  CALL read(*142,*142,Ect1,elid,1,0,i)
+                  CALL read(*142,*142,ect1,elid,1,0,i)
 !
 !     FIND THIS ELEMENTS POINTER IN THE ECT
 !
@@ -180,16 +181,16 @@ SUBROUTINE comect(Ele,Max)
 !
 !     DETERMINE NUMBER ENTRIES FOR SKIPPING TO GRID ENTRIES
 !
-                  i = Ne(idx+13) - 2
+                  i = ne(idx+13) - 2
                   IF ( n==52 ) THEN
 !
 !     SPECIAL HANDLING FOR CHBDY
 !     IF TYPE IS NEGATIVE, SAVE TYPE FLAG AFTER GRIDS.
 !
-                     CALL fread(Ect1,0,-1,0)
-                     CALL fread(Ect1,type,1,0)
-                     CALL fread(Ect1,gp,8,0)
-                     CALL fread(Ect1,0,-(Ne(idx+6)-ngpel-i-1),0)
+                     CALL fread(ect1,0,-1,0)
+                     CALL fread(ect1,type,1,0)
+                     CALL fread(ect1,gp,8,0)
+                     CALL fread(ect1,0,-(ne(idx+6)-ngpel-i-1),0)
                      IF ( type<0 ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
@@ -204,33 +205,33 @@ SUBROUTINE comect(Ele,Max)
 !         OFFSET DATA COULD BE ON ELEMENT CARD OR ON PSHELL OR PCOMPI
 !         CARDS
 !
-                     CALL fread(Ect1,pid,1,0)
-                     CALL fread(Ect1,gp,ngpel,0)
-                     CALL write(Ect2,elid,2,0)
-                     CALL write(Ect2,gp,ngpel,0)
+                     CALL fread(ect1,pid,1,0)
+                     CALL fread(ect1,gp,ngpel,0)
+                     CALL write(ect2,elid,2,0)
+                     CALL write(ect2,gp,ngpel,0)
                      j = 5
                      IF ( n==64 ) j = 6
-                     CALL fread(Ect1,0,-j,0)
-                     CALL fread(Ect1,offset,1,0)
+                     CALL fread(ect1,0,-j,0)
+                     CALL fread(ect1,offset,1,0)
                      IF ( offset(1)==0.0 ) THEN
                         IF ( jcomp/=b1 ) THEN
                            SPAG_Loop_2_1: DO i = jcomp , kcomp , 2
                               IF ( ix(i)==pid ) THEN
-                                 offset(1) = X(i+1)
+                                 offset(1) = x(i+1)
                                  EXIT SPAG_Loop_2_1
                               ENDIF
                            ENDDO SPAG_Loop_2_1
                         ENDIF
                      ENDIF
-                     CALL write(Ect2,offset,1,0)
+                     CALL write(ect2,offset,1,0)
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
                   ELSE
 !           CQUAD4        CTRIA3
                      IF ( i<0 ) GOTO 120
 !
-                     IF ( i/=0 ) CALL fread(Ect1,0,-i,0)
-                     CALL fread(Ect1,gp,ngpel,0)
+                     IF ( i/=0 ) CALL fread(ect1,0,-i,0)
+                     CALL fread(ect1,gp,ngpel,0)
                      IF ( n==34 ) THEN
 !
 !     SPECIAL HANDLING OF THOSE ELEMENTS HAVING GRID OFFSET.
@@ -238,17 +239,17 @@ SUBROUTINE comect(Ele,Max)
 !
 !     (1) CBAR ELEMENT, 2 OFFSET VECTORS (6 VALUES)
 !
-                        CALL write(Ect2,elid,2,0)
-                        CALL write(Ect2,gp,ngpel,0)
-                        CALL fread(Ect1,0,-6,0)
-                        CALL fread(Ect1,offset,6,0)
-                        CALL write(Ect2,offset,6,0)
+                        CALL write(ect2,elid,2,0)
+                        CALL write(ect2,gp,ngpel,0)
+                        CALL fread(ect1,0,-6,0)
+                        CALL fread(ect1,offset,6,0)
+                        CALL write(ect2,offset,6,0)
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ELSE
 !               CBAR
 !
-                        CALL fread(Ect1,0,-(Ne(idx+6)-ngpel-i-1),0)
+                        CALL fread(ect1,0,-(ne(idx+6)-ngpel-i-1),0)
 !
 !     SPCIAL HANDLING OF IHEX2 AND IHEX3 WITH ZERO GRIDS
 !
@@ -264,19 +265,19 @@ SUBROUTINE comect(Ele,Max)
                      ENDIF
                   ENDIF
 !
-                  CALL write(Ect2,elid,2,0)
-                  CALL write(Ect2,gp,ngpel,0)
+                  CALL write(ect2,elid,2,0)
+                  CALL write(ect2,gp,ngpel,0)
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
 !
- 142              CALL write(Ect2,0,0,1)
+ 142              CALL write(ect2,0,0,1)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
  160     ENDDO
 !
-         CALL clstab(Ect2,rew)
-         CALL close(Ect1,rew)
+         CALL clstab(ect2,rew)
+         CALL close(ect1,rew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

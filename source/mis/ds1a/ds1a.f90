@@ -2,16 +2,16 @@
  
 SUBROUTINE ds1a
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
-   USE C_GPTA1
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_condas
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_gpta1
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -31,6 +31,12 @@ SUBROUTINE ds1a
 ! End of declarations rewritten by SPAG
 !
 !
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     THIS ROUTINE GENERATES THE MATRIX KGGD WHICH IS THE SECOND ORDER
 !     APPROXIMATION TO THE STIFFNESS MATRIX KGG.
 !
@@ -40,29 +46,29 @@ SUBROUTINE ds1a
 !
 !     DEFINE VARIABLES IN COMMON /DS1AAA/
 !
-   Cstm = 106
-   Mpt = 107
-   Dit = 110
-   Ecptds = 301
-   Gpct = 109
-   Kggd = 201
-   Inrw = 0
-   Outrw = 1
-   Eor = 1
-   Neor = 0
-   Clsrw = 1
-   Nlinks = 10
-   Nogo = 0
+   cstm = 106
+   mpt = 107
+   dit = 110
+   ecptds = 301
+   gpct = 109
+   kggd = 201
+   inrw = 0
+   outrw = 1
+   eor = 1
+   neor = 0
+   clsrw = 1
+   nlinks = 10
+   nogo = 0
    iityp = 0
    j = 26
-   Ne(j) = bar
+   ne(j) = bar
    CALL sswtch(38,l38)
 !
 !     DETERMINE SIZE OF VARIABLE CORE, AND SET UP BUFFERS
 !
    ipr = iprec
    CALL delset
-   izmax = korsz(Z)
+   izmax = korsz(z)
    buffr1 = izmax - isys
    buffr2 = buffr1 - isys
    buffr3 = buffr2 - isys
@@ -70,34 +76,34 @@ SUBROUTINE ds1a
 !
 !     READ THE CSTM INTO CORE
 !
-   ifile = Cstm
-   Ncstm = 0
-   Icstm = 0
-   CALL open(*200,Cstm,Z(buffr1),Inrw)
-   CALL fwdrec(*1400,Cstm)
-   CALL read(*1500,*100,Cstm,Z(Icstm+1),leftt,Eor,Ncstm)
+   ifile = cstm
+   ncstm = 0
+   icstm = 0
+   CALL open(*200,cstm,z(buffr1),inrw)
+   CALL fwdrec(*1400,cstm)
+   CALL read(*1500,*100,cstm,z(icstm+1),leftt,eor,ncstm)
    CALL mesage(-8,0,name)
- 100  leftt = leftt - Ncstm
+ 100  leftt = leftt - ncstm
 !
 !     PRETRD SETS UP SUBSEQUENT CALLS TO TRANSD.
 !
-   CALL pretrs(Z(Icstm+1),Ncstm)
-   CALL pretrd(Z(Icstm+1),Ncstm)
-   CALL close(Cstm,Clsrw)
- 200  imat1 = Ncstm
+   CALL pretrs(z(icstm+1),ncstm)
+   CALL pretrd(z(icstm+1),ncstm)
+   CALL close(cstm,clsrw)
+ 200  imat1 = ncstm
 !
 !     CALL PREMAT TO READ MPT AND DIT INTO CORE.
 !
-   CALL premat(Z(imat1+1),Z(imat1+1),Z(buffr1),leftt,matcr,Mpt,Dit)
+   CALL premat(z(imat1+1),z(imat1+1),z(buffr1),leftt,matcr,mpt,dit)
    leftt = leftt - matcr
-   Igpct = Ncstm + matcr
+   igpct = ncstm + matcr
 !
 !     OPEN KGGD, ECPTDS AND GPCT
 !
-   CALL gopen(Kggd,Z(buffr1),Outrw)
-   CALL makmcb(mcbkgg,Kggd,0,6,ipr)
-   CALL gopen(Ecptds,Z(buffr2),Inrw)
-   CALL gopen(Gpct,Z(buffr3),Inrw)
+   CALL gopen(kggd,z(buffr1),outrw)
+   CALL makmcb(mcbkgg,kggd,0,6,ipr)
+   CALL gopen(ecptds,z(buffr2),inrw)
+   CALL gopen(gpct,z(buffr3),inrw)
 !
 !     READ THE FIRST TWO WORDS OF NEXT GPCT RECORD INTO INPVT(1).
 !     INPVT(1) IS THE PIVOT POINT.  INPVT(1) .GT. 0 IMPLIES THE PIVOT
@@ -105,65 +111,65 @@ SUBROUTINE ds1a
 !     A SCALAR POINT.  INPVT(2) IS THE NUMBER OF WORDS IN THE REMAINDER
 !     OF THIS RECORD OF THE GPCT.
 !
- 300  file = Gpct
-   CALL read(*1300,*1200,Gpct,inpvt(1),2,Neor,iflag)
-   Ngpct = inpvt(2)
-   CALL fread(Gpct,iz(Igpct+1),Ngpct,Eor)
+ 300  file = gpct
+   CALL read(*1300,*1200,gpct,inpvt(1),2,neor,iflag)
+   ngpct = inpvt(2)
+   CALL fread(gpct,iz(igpct+1),ngpct,eor)
    IF ( inpvt(1)<0 ) GOTO 1200
 !
 !     FROWIC IS THE FIRST ROW IN CORE. (1 .LE. FROWIC .LE. 6)
 !
-   Frowic = 1
+   frowic = 1
 !
 !     DECREMENT THE AMOUNT OF CORE REMAINING.
 !
-   left = leftt - 2*Ngpct
+   left = leftt - 2*ngpct
    IF ( left<=0 ) CALL mesage(-8,0,name)
-   Ipoint = Igpct + Ngpct
-   Npoint = Ngpct
-   I6x6k = Ipoint + Npoint
-   I6x6k = (I6x6k-1)/2 + 2
+   ipoint = igpct + ngpct
+   npoint = ngpct
+   i6x6k = ipoint + npoint
+   i6x6k = (i6x6k-1)/2 + 2
 !
 !     CONSTRUCT THE POINTER TABLE, WHICH WILL ENABLE SUBROUTINE DS1B TO
 !     INSERT THE 6 X 6 MATRICES INTO KGGD.
 !
-   iz(Ipoint+1) = 1
+   iz(ipoint+1) = 1
    i1 = 1
-   i = Igpct
-   j = Ipoint + 1
+   i = igpct
+   j = ipoint + 1
    DO
       i1 = i1 + 1
-      IF ( i1>Ngpct ) THEN
+      IF ( i1>ngpct ) THEN
 !
 !     JMAX = NO. OF COLUMNS OF KGGD THAT WILL BE GENERATED WITH THE
 !     CURRENT GRID POINT.
 !
          inc = 5
-         ilast = Igpct + Ngpct
-         jlast = Ipoint + Npoint
+         ilast = igpct + ngpct
+         jlast = ipoint + npoint
          IF ( iz(ilast)<0 ) inc = 0
-         Jmax = iz(jlast) + inc
+         jmax = iz(jlast) + inc
 !
 !     IF 2*6*JMAX .LT. LEFT THERE ARE NO SPILL LOGIC PROBLEMS FOR
 !     KGGD SINCE THE WHOLE DOUBLE PRECISION SUBMATRIX OF ORDER 6 X JMAX
 !     CAN FIT IN CORE.
 !
-         itemp = 6*Jmax
+         itemp = 6*jmax
          IF ( 2*itemp<left ) THEN
-            Nrowsc = 6
+            nrowsc = 6
 !
 !     LROWIC IS THE LAST ROW IN CORE. (1 .LE. LROWIC .LE. 6)
 !
-            Lrowic = Frowic + Nrowsc - 1
+            lrowic = frowic + nrowsc - 1
          ELSE
             name(2) = inpvt(1)
             CALL mesage(30,85,name)
-            Nrowsc = 3
-            DO WHILE ( 2*Nrowsc*Jmax>=left )
-               Nrowsc = Nrowsc - 1
-               IF ( Nrowsc==0 ) CALL mesage(-8,0,name)
+            nrowsc = 3
+            DO WHILE ( 2*nrowsc*jmax>=left )
+               nrowsc = nrowsc - 1
+               IF ( nrowsc==0 ) CALL mesage(-8,0,name)
             ENDDO
-            Lrowic = Frowic + Nrowsc - 1
+            lrowic = frowic + nrowsc - 1
          ENDIF
          EXIT
       ELSE
@@ -177,16 +183,16 @@ SUBROUTINE ds1a
 !
 !     ZERO OUT THE KGGD SUBMATRIX IN CORE.
 !
- 400  low = I6x6k + 1
-   lim = I6x6k + Jmax*Nrowsc
+ 400  low = i6x6k + 1
+   lim = i6x6k + jmax*nrowsc
    DO i = low , lim
       dz(i) = 0.0D0
    ENDDO
 !
 !     INITIALIZE THE LINK VECTOR TO -1.
 !
-   DO i = 1 , Nlinks
-      Link(i) = -1
+   DO i = 1 , nlinks
+      link(i) = -1
    ENDDO
 !
 !     TURN FIRST PASS INDICATOR ON.
@@ -197,14 +203,14 @@ SUBROUTINE ds1a
 !     IF NPVT .LT. 0, THE REMAINDER OF THE ECPT RECORD IS NULL SO THAT
 !     1 OR 6 NULL COLUMNS MUST BE GENERATED
 !
-   file = Ecptds
-   CALL fread(Ecptds,Npvt,1,Neor)
-   IF ( Npvt<0 ) GOTO 1200
+   file = ecptds
+   CALL fread(ecptds,npvt,1,neor)
+   IF ( npvt<0 ) GOTO 1200
  600  DO
 !
 !     READ THE NEXT ELEMENT TYPE INTO THE CELL ITYPE.
 !
-      CALL read(*1400,*900,Ecptds,itype,1,Neor,iflag)
+      CALL read(*1400,*900,ecptds,itype,1,neor,iflag)
 !
 !     READ THE ECPT ENTRY FOR THE CURRENT TYPE INTO THE ECPT ARRAY. THE
 !     NUMBER OF WORDS TO BE READ WILL BE NWORDS(ITYPE).
@@ -217,17 +223,17 @@ SUBROUTINE ds1a
 !               BEAM             CONEAX           TRSHL
       IF ( itype>=53 .AND. itype<=61 ) nfree = mod(ndum(itype-52),10)
 !                DUM1              DUM9
-      idx = (itype-1)*Incr
-      nwords = Ne(idx+12) + 2 + nfree*Ne(idx+10)
-      IF ( itype>=65 .AND. itype<=67 ) nwords = nwords + Ne(idx+10) - 1
+      idx = (itype-1)*incr
+      nwords = ne(idx+12) + 2 + nfree*ne(idx+10)
+      IF ( itype>=65 .AND. itype<=67 ) nwords = nwords + ne(idx+10) - 1
 !               IHEX1             IHEX3
-      IF ( itype==80 ) nwords = nwords + Ne(idx+10)
+      IF ( itype==80 ) nwords = nwords + ne(idx+10)
 !                 IS2D8
       IF ( itype==35 ) nwords = nwords + 1
 !                CONEAX
-      IF ( Ne(idx+12)<=0 ) CALL mesage(-61,0,name)
-      CALL fread(Ecptds,Ecpt,nwords,Neor)
-      itemp = Ne(idx+24)
+      IF ( ne(idx+12)<=0 ) CALL mesage(-61,0,name)
+      CALL fread(ecptds,ecpt,nwords,neor)
+      itemp = ne(idx+24)
 !
 !     IF THIS IS THE 1ST ELEMENT READ ON THE CURRENT PASS OF THE ECPT
 !     CHECK TO SEE IF THIS ELEMENT IS IN A LINK THAT HAS ALREADY BEEN
@@ -248,14 +254,14 @@ SUBROUTINE ds1a
 !     SET A TO BE PROCESSED LATER FLAG FOR THE LINK IN WHICH THE ELEMENT
 !     RESIDES
 !
-         IF ( Link(itemp)/=1 ) Link(itemp) = 0
+         IF ( link(itemp)/=1 ) link(itemp) = 0
 !
 !     SINCE THIS IS THE FIRST ELEMENT TYPE TO BE PROCESSED ON THIS PASS
 !     OF THE ECPT RECORD, A CHECK MUST BE MADE TO SEE IF THIS ELEMENT
 !     IS IN A LINK THAT HAS ALREADY BEEN PROCESSED.  IF IT IS SUCH AN
 !     ELEMENT, WE KEEP IFIRST = 1 AND READ THE NEXT ELEMENT.
 !
-      ELSEIF ( Link(itemp)/=1 ) THEN
+      ELSEIF ( link(itemp)/=1 ) THEN
 !
 !     SET THE CURRENT LINK IN CORE = ITEMP AND IFIRST = 0
 !
@@ -267,7 +273,7 @@ SUBROUTINE ds1a
 !
 !     CALL THE PROPER ELEMENT ROUTINE.
 !
-   IF ( itype<=0 .OR. itype>Nelems ) CALL mesage(-7,0,name)
+   IF ( itype<=0 .OR. itype>nelems ) CALL mesage(-7,0,name)
 !
 !     IF DIAG 38 IS ON, ECHO TYPE OF ELEMENT BEING PROCESSED
 !
@@ -280,7 +286,7 @@ SUBROUTINE ds1a
       ENDIF
       iityp = iityp + 1
       itypi(iityp) = itype
-      WRITE (ioutpt,99001) Ne(idx+1) , Ne(idx+2) , itype
+      WRITE (ioutpt,99001) ne(idx+1) , ne(idx+2) , itype
 99001 FORMAT ('0*** DS1 MODULE PROCESSING ',2A4,' ELEMENTS (ELEM.TYPE',I4,1H))
    ENDIF
 !
@@ -321,14 +327,14 @@ SUBROUTINE ds1a
 !
 !     TUBE
 !
-         temp = Ecpt(5) - Ecpt(6)
-         a = temp*Ecpt(6)*Pi
-         fj = .25*a*(temp**2+Ecpt(6)**2)
-         c = .5*Ecpt(5)
+         temp = ecpt(5) - ecpt(6)
+         a = temp*ecpt(6)*pi
+         fj = .25*a*(temp**2+ecpt(6)**2)
+         c = .5*ecpt(5)
          m = 26
          DO i = 1 , 18
             m = m - 1
-            Ecpt(m) = Ecpt(m-1)
+            ecpt(m) = ecpt(m-1)
          ENDDO
          CALL drod
       ELSEIF ( jtyp==7 .OR. jtyp==8 ) THEN
@@ -476,55 +482,55 @@ SUBROUTINE ds1a
 !     AT STATEMENT NO. 500 WE HAVE HIT AN EOR ON THE ECPT FILE.  SEARCH
 !     THE LINK VECTOR TO DETERMINE IF THERE ARE LINKS TO BE PROCESSED.
 !
- 900  Link(lincor) = 1
-   DO i = 1 , Nlinks
-      IF ( Link(i)==0 ) GOTO 1100
+ 900  link(lincor) = 1
+   DO i = 1 , nlinks
+      IF ( link(i)==0 ) GOTO 1100
    ENDDO
 !
 !     CHECK NOGO FLAG. IF NOGO=1, SKIP BLDPK AND PROCESS ANOTHER RECORD
 !     FROM THE GPCT TABLE
 !
-   IF ( Nogo==1 ) GOTO 300
+   IF ( nogo==1 ) GOTO 300
 !
 !     AT THIS POINT BLDPK THE NUMBER OF ROWS IN CORE UNTO THE KGG FILE.
 !
-   ifile = Kggd
+   ifile = kggd
    i1 = 0
    DO
       i2 = 0
-      ibeg = I6x6k + i1*Jmax
+      ibeg = i6x6k + i1*jmax
       CALL bldpk(2,ipr,ifile,0,0)
       DO
          i2 = i2 + 1
-         IF ( i2>Ngpct ) THEN
+         IF ( i2>ngpct ) THEN
             CALL bldpkn(ifile,0,mcbkgg)
             i1 = i1 + 1
-            IF ( i1<Nrowsc ) GOTO 1000
+            IF ( i1<nrowsc ) GOTO 1000
 !
 !     TEST TO SEE IF THE LAST ROW IN CORE, LROWIC, = THE TOTAL NO. OF
 !     ROWS TO BE COMPUTED = 6.  IF IT IS, WE ARE DONE.  IF NOT, THE
 !     ECPTDS MUST BE BACKSPACED.
 !
-            IF ( Lrowic==6 ) GOTO 300
-            CALL bckrec(Ecptds)
-            Frowic = Frowic + Nrowsc
-            Lrowic = Lrowic + Nrowsc
+            IF ( lrowic==6 ) GOTO 300
+            CALL bckrec(ecptds)
+            frowic = frowic + nrowsc
+            lrowic = lrowic + nrowsc
             GOTO 400
          ELSE
-            jj = Igpct + i2
-            Index = iabs(iz(jj)) - 1
+            jj = igpct + i2
+            index = iabs(iz(jj)) - 1
             lim = 6
             IF ( iz(jj)<0 ) lim = 1
-            jjj = Ipoint + i2
+            jjj = ipoint + i2
             kkk = ibeg + iz(jjj) - 1
             i3 = 0
             DO
                i3 = i3 + 1
                IF ( i3>lim ) EXIT
-               Index = Index + 1
+               index = index + 1
                kkk = kkk + 1
-               Dpword = dz(kkk)
-               IF ( Dpword/=0.0D0 ) CALL zblpki
+               dpword = dz(kkk)
+               IF ( dpword/=0.0D0 ) CALL zblpki
             ENDDO
          ENDIF
       ENDDO
@@ -534,38 +540,38 @@ SUBROUTINE ds1a
 !     SINCE AT LEAST ONE LINK HAS NOT BEEN PROCESSED THE ECPT FILE MUST
 !     BE BACKSPACED.
 !
- 1100 CALL bckrec(Ecptds)
+ 1100 CALL bckrec(ecptds)
    GOTO 500
- 1200 IF ( Nogo/=1 ) THEN
+ 1200 IF ( nogo/=1 ) THEN
 !
 !     HERE WE HAVE A PIVOT POINT WITH NO ELEMENTS CONNECTED, SO THAT
 !     NULL COLUMNS MUST BE OUTPUT ON THE KGGD FILE.
 !
-      file = Ecptds
+      file = ecptds
       lim = 6
       IF ( inpvt(1)<0 ) lim = 1
       DO i = 1 , lim
-         CALL bldpk(2,ipr,Kggd,0,0)
-         CALL bldpkn(Kggd,0,mcbkgg)
+         CALL bldpk(2,ipr,kggd,0,0)
+         CALL bldpkn(kggd,0,mcbkgg)
       ENDDO
-      CALL fwdrec(*1400,Ecptds)
+      CALL fwdrec(*1400,ecptds)
    ENDIF
    GOTO 300
 !
 !     CHECK NOGO FLAG. IF NOGO=1, TERMINATE EXECUTION
 !
- 1300 IF ( Nogo==1 ) CALL mesage(-61,0,0)
+ 1300 IF ( nogo==1 ) CALL mesage(-61,0,0)
 !
 !     WRAP UP BEFORE RETURN
 !
-   CALL close(Ecptds,Clsrw)
-   CALL close(Gpct,Clsrw)
-   CALL close(Kggd,Clsrw)
+   CALL close(ecptds,clsrw)
+   CALL close(gpct,clsrw)
+   CALL close(kggd,clsrw)
    mcbkgg(3) = mcbkgg(2)
    IF ( mcbkgg(6)==0 ) GOTO 1700
    CALL wrttrl(mcbkgg)
    j = 26
-   Ne(j) = beam
+   ne(j) = beam
    RETURN
 !
 !     ERROR RETURNS
@@ -573,7 +579,7 @@ SUBROUTINE ds1a
  1400 CALL mesage(-2,file,name)
  1500 CALL mesage(-3,file,name)
  1600 CALL mesage(-7,file,name)
- 1700 WRITE (ioutpt,99002) Ufm
+ 1700 WRITE (ioutpt,99002) ufm
 99002 FORMAT (A23,' 2402, NULL DIFFERENTIAL STIFFNESS MATRIX ','GENERATED IN SUBROUTINE DS1A.')
    CALL mesage(-61,0,0)
 END SUBROUTINE ds1a

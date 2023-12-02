@@ -1,13 +1,14 @@
-!*==amp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==amp.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amp
+   USE c_ampcom
+   USE c_blank
+   USE c_cdcmpx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMPCOM
-   USE C_BLANK
-   USE C_CDCMPX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -83,13 +84,13 @@ SUBROUTINE amp
 !
 !     INITIALIZE
 !
-   ibuf1 = korsz(Iz) - Sysbuf + 1
+   ibuf1 = korsz(iz) - sysbuf + 1
    mcb(1) = phidh
    CALL rdtrl(mcb(1))
-   Noh = mcb(2)
-   Mcbrjh(1) = qhjl
-   Ib = 0
-   Ibbar = 0
+   noh = mcb(2)
+   mcbrjh(1) = qhjl
+   ib = 0
+   ibbar = 0
 !
 !     BUILD INDEXES
 !
@@ -109,21 +110,21 @@ SUBROUTINE amp
    itl = 0
    DO i = 1 , imax
       CALL klock(its)
-      CALL gopen(scr3,Iz(ibuf1),iop)
+      CALL gopen(scr3,iz(ibuf1),iop)
       iop = 2
-      CALL fread(scr3,Xm,4,1)
+      CALL fread(scr3,xm,4,1)
       CALL close(scr3,2)
 !
 !     COMPUTE QJH
 !
-      Idjh = 0
-      IF ( Xk==xko ) Idjh = 1
+      idjh = 0
+      IF ( xk==xko ) idjh = 1
       CALL ampc(scr4,scr5,scr7,ajjl,qjhl,scr2,scr8,scr9,scr10,scr11,scr12,scr13,scr14)
-      IF ( Qhhcol==0 ) xko = Xk
+      IF ( qhhcol==0 ) xko = xk
 !
 !     COMPUTE QHH
 !
-      IF ( Mcbqhh(1)>0 ) CALL ampd(scr8,scr1,skj,scr6,qhhl,scr9,scr10,scr11,scr12)
+      IF ( mcbqhh(1)>0 ) CALL ampd(scr8,scr1,skj,scr6,qhhl,scr9,scr10,scr11,scr12)
       IF ( i/=imax ) THEN
 !
 !     CHECK TIME
@@ -143,10 +144,10 @@ CONTAINS
 !
 !     FINISH UP
 !
-      IF ( Mcbqhh(1)>0 ) CALL wrttrl(Mcbqhh)
-      IF ( Mcbqjh(1)>0 ) CALL wrttrl(Mcbqjh)
-      Xqhhl = -1
-      IF ( Igust<=0 ) RETURN
+      IF ( mcbqhh(1)>0 ) CALL wrttrl(mcbqhh)
+      IF ( mcbqjh(1)>0 ) CALL wrttrl(mcbqjh)
+      xqhhl = -1
+      IF ( igust<=0 ) RETURN
 !
 !     COMPUTE QHJL
 !          NOTE  QHJL IS REALLY QJHL
@@ -154,19 +155,17 @@ CONTAINS
 !     FIRST COMPUTE GKH ONTO SCR4
 !
 !
-      CALL ampe(phidh,gtka,scr4,scr5,scr6,useta)
+      CALL ampe(Phidh,Gtka,Scr4,Scr5,Scr6,Useta)
 !
 !     LOOP ON GROUPS WITHIN MK PAIRS FOR QHJL
 !
-      CALL ampf(skj,scr4,ajjl,qhjl,scr3,imax,scr5,scr6,scr7,scr8,scr9,scr10,scr11,scr12,scr13,scr1)
-      RETURN
+      CALL ampf(Skj,Scr4,Ajjl,Qhjl,Scr3,Imax,Scr5,Scr6,Scr7,Scr8,Scr9,Scr10,Scr11,Scr12,Scr13,Scr1)
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     INSUFFICIENT TIME TO COMPLETE
 !
-      CALL mesage(45,imax-i,name)
+      CALL mesage(45,Imax-I,Name)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_2
 END SUBROUTINE amp

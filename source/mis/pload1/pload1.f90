@@ -1,9 +1,10 @@
-!*==pload1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pload1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pload1(Opt,Islt,V,Sa,Sb,Ba,Bb,Pa,Pb,Ta,Tb,Slt,Ept)
-USE C_MATOUT
-USE ISO_FORTRAN_ENV                 
+   USE c_matout
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -88,14 +89,14 @@ USE ISO_FORTRAN_ENV
 !
 !     TRANSVERSE SHEAR
 !
-            temp = Ept(31)*Ept(17)*G*len**2
-            tmp = 12.0*F*Ept(18)
+            temp = Ept(31)*Ept(17)*g*len**2
+            tmp = 12.0*f*Ept(18)
             aly = 0.0
             IF ( abs(temp+tmp)>1.0E-14 ) aly = tmp/(tmp+temp)
             omaly = 1.0 - aly
 !
             temp = (temp/Ept(31))*Ept(32)
-            tmp = 12.0*F*Ept(19)
+            tmp = 12.0*f*Ept(19)
             alz = 0.0
             IF ( abs(temp+tmp)>1.0E-14 ) alz = tmp/(tmp+temp)
             omalz = 1.0 - alz
@@ -147,130 +148,130 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      fx1 = 0.0
-      fy1 = 0.0
-      fz1 = f1
-      fx2 = 0.0
-      fy2 = 0.0
-      fz2 = f2
+      Fx1 = 0.0
+      Fy1 = 0.0
+      Fz1 = F1
+      Fx2 = 0.0
+      Fy2 = 0.0
+      Fz2 = F2
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      j = 4
+      J = 4
       CALL spag_block_3
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3
 !
 !     SCALED
 !
-      IF ( scale/=2 .AND. scale/=4 ) THEN
-         x1 = x1/len
-         x2 = x2/len
+      IF ( Scale/=2 .AND. Scale/=4 ) THEN
+         X1 = X1/Len
+         X2 = X2/Len
       ENDIF
 !
 !     DISTRIBUTED SCALED LOADS
 !
-      IF ( x1==x2 ) THEN
+      IF ( X1==X2 ) THEN
 !
 !     CONCENTRATED LOADS
 !
-         tmp = 1.0 - x1
-         IF ( i==2 ) THEN
+         Tmp = 1.0 - X1
+         IF ( I==2 ) THEN
 !
 !     MOMENTS
 !
-            temp = -(6.0/len*x1)*tmp
+            Temp = -(6.0/Len*X1)*Tmp
             Pa(1) = 0.0
-            Pa(2) = temp*fz1*omaly
-            Pa(3) = -temp*fy1*omalz
-            Pa(4) = tmp*fx1
-            temp = 1.0 - 4.0*x1 + 3.0*x1**2
-            Pa(5) = temp*fy1*omalz + fy1*tmp*alz
-            Pa(6) = temp*fz1*omaly + fz1*tmp*aly
+            Pa(2) = Temp*Fz1*Omaly
+            Pa(3) = -Temp*Fy1*Omalz
+            Pa(4) = Tmp*Fx1
+            Temp = 1.0 - 4.0*X1 + 3.0*X1**2
+            Pa(5) = Temp*Fy1*Omalz + Fy1*Tmp*Alz
+            Pa(6) = Temp*Fz1*Omaly + Fz1*Tmp*Aly
             Pb(1) = 0.0
             Pb(2) = -Pa(2)
             Pb(3) = -Pa(3)
-            Pb(4) = x1*fx1
-            temp = 3.0*x1**2 - 2.0*x1
-            Pb(5) = temp*fy1*omalz + fy1*x1*alz
-            Pb(6) = temp*fz1*omaly + fz1*x1*aly
+            Pb(4) = X1*Fx1
+            Temp = 3.0*X1**2 - 2.0*X1
+            Pb(5) = Temp*Fy1*Omalz + Fy1*X1*Alz
+            Pb(6) = Temp*Fz1*Omaly + Fz1*X1*Aly
          ELSE
 !
 !     FORCES
 !
-            temp = 1.0 - 3.0*x1**2 + 2.0*x1**3
-            Pa(1) = tmp*fx1
-            Pa(2) = temp*fy1*omaly + fy1*tmp*aly
-            Pa(3) = temp*fz1*omalz + fz1*tmp*alz
+            Temp = 1.0 - 3.0*X1**2 + 2.0*X1**3
+            Pa(1) = Tmp*Fx1
+            Pa(2) = Temp*Fy1*Omaly + Fy1*Tmp*Aly
+            Pa(3) = Temp*Fz1*Omalz + Fz1*Tmp*Alz
             Pa(4) = 0.0
-            temp = -len*x1*tmp**2
-            tmp = tmp*len*x1*.50
-            Pa(5) = temp*fz1*omalz - fz1*tmp*alz
-            Pa(6) = -temp*fy1*omaly + fy1*tmp*aly
-            temp = 3.0*x1**2 - 2.0*x1**3
-            Pb(1) = x1*fx1
-            Pb(2) = temp*fy1*omaly + fy1*x1*aly
-            Pb(3) = temp*fz1*omalz + fz1*x1*alz
+            Temp = -Len*X1*Tmp**2
+            Tmp = Tmp*Len*X1*.50
+            Pa(5) = Temp*Fz1*Omalz - Fz1*Tmp*Alz
+            Pa(6) = -Temp*Fy1*Omaly + Fy1*Tmp*Aly
+            Temp = 3.0*X1**2 - 2.0*X1**3
+            Pb(1) = X1*Fx1
+            Pb(2) = Temp*Fy1*Omaly + Fy1*X1*Aly
+            Pb(3) = Temp*Fz1*Omalz + Fz1*X1*Alz
             Pb(4) = 0.0
-            temp = (1.0-x1)*len*x1**2
-            Pb(5) = temp*fz1*omalz + fz1*tmp*alz
-            Pb(6) = -temp*fy1*omaly - fy1*tmp*aly
+            Temp = (1.0-X1)*Len*X1**2
+            Pb(5) = Temp*Fz1*Omalz + Fz1*Tmp*Alz
+            Pb(6) = -Temp*Fy1*Omaly - Fy1*Tmp*Aly
          ENDIF
          CALL spag_block_5
          RETURN
       ELSE
-         IF ( scale>2 .AND. j/=4 ) THEN
-            fscale = sqrt(1.0-a(j)**2)
-            fx1 = fscale*fx1
-            fy1 = fscale*fy1
-            fz1 = fscale*fz1
-            fx2 = fscale*fx2
-            fy2 = fscale*fy2
-            fz2 = fscale*fz2
+         IF ( Scale>2 .AND. J/=4 ) THEN
+            Fscale = sqrt(1.0-A(J)**2)
+            Fx1 = Fscale*Fx1
+            Fy1 = Fscale*Fy1
+            Fz1 = Fscale*Fz1
+            Fx2 = Fscale*Fx2
+            Fy2 = Fscale*Fy2
+            Fz2 = Fscale*Fz2
          ENDIF
 !
 !     DISTRIBUTED LOADS
 !
-         dx1 = x1
-         dx2 = x2
-         dl = len
-         dfx1 = fx1
-         dfy1 = fy1
-         dfz1 = fz1
-         dfx2 = fx2
-         dfy2 = fy2
-         dfz2 = fz2
-         s1 = dx2 - dx1
-         s2 = .5000000D0*(dx2**2-dx1**2)
-         s3 = .3333333D0*(dx2**3-dx1**3)
-         s4 = .2500000D0*(dx2**4-dx1**4)
-         s5 = .2000000D0*(dx2**5-dx1**5)
-         IF ( i==2 ) THEN
+         Dx1 = X1
+         Dx2 = X2
+         Dl = Len
+         Dfx1 = Fx1
+         Dfy1 = Fy1
+         Dfz1 = Fz1
+         Dfx2 = Fx2
+         Dfy2 = Fy2
+         Dfz2 = Fz2
+         S1 = Dx2 - Dx1
+         S2 = .5000000D0*(Dx2**2-Dx1**2)
+         S3 = .3333333D0*(Dx2**3-Dx1**3)
+         S4 = .2500000D0*(Dx2**4-Dx1**4)
+         S5 = .2000000D0*(Dx2**5-Dx1**5)
+         IF ( I==2 ) THEN
 !
 !     MOMENTS
 !
-            i01 = dl*(s1-s2)
-            i11 = -6.0D0*(s2-s3)
-            i21 = -i11
-            i31 = s1 - 4.0D0*s2 + 3.0D0*s3
-            i41 = -2.0D0*s2 + 3.0D0*s3
-            IF ( f1==f2 ) THEN
-               ax = dfx1
-               ay = dfz1
-               az = -dfy1
+            I01 = Dl*(S1-S2)
+            I11 = -6.0D0*(S2-S3)
+            I21 = -I11
+            I31 = S1 - 4.0D0*S2 + 3.0D0*S3
+            I41 = -2.0D0*S2 + 3.0D0*S3
+            IF ( F1==F2 ) THEN
+               Ax = Dfx1
+               Ay = Dfz1
+               Az = -Dfy1
             ELSE
-               i02 = (s2-s3)*dl**2
-               i12 = -6.0D0*dl*(s3-s4)
-               i22 = -i12
-               i32 = dl*(s2-4.0D0*s3+3.0D0*s4)
-               i42 = -dl*(2.0D0*s3-3.0D0*s4)
-               dt = (dx2-dx1)*dl
-               bx = (dfx2-dfx1)/dt
-               by = (dfz2-dfz1)/dt
-               bz = -(dfy2-dfy1)/dt
-               ax = dfx1 + dx1*bx*dl
-               ay = dfz1 + dx1*by*dl
-               az = -dfy1 + dx1*bz*dl
+               I02 = (S2-S3)*Dl**2
+               I12 = -6.0D0*Dl*(S3-S4)
+               I22 = -I12
+               I32 = Dl*(S2-4.0D0*S3+3.0D0*S4)
+               I42 = -Dl*(2.0D0*S3-3.0D0*S4)
+               Dt = (Dx2-Dx1)*Dl
+               Bx = (Dfx2-Dfx1)/Dt
+               By = (Dfz2-Dfz1)/Dt
+               Bz = -(Dfy2-Dfy1)/Dt
+               Ax = Dfx1 + Dx1*Bx*Dl
+               Ay = Dfz1 + Dx1*By*Dl
+               Az = -Dfy1 + Dx1*Bz*Dl
                CALL spag_block_4
                RETURN
             ENDIF
@@ -278,40 +279,40 @@ CONTAINS
 !
 !     FORCES
 !
-            i01 = dl*(s1-s2)
-            i11 = dl*(s1-3.0D0*s3+2.0D0*s4)
-            i21 = dl*(3.0D0*s3-2.0D0*s4)
-            i31 = dl*(s2-2.0D0*s3+s4)
-            i41 = dl*(s4-s3)
-            dt = dl*dl
-            i02 = dt*(s2-s3)
-            IF ( f1==f2 ) THEN
-               ax = dfx1
-               ay = dfy1
-               az = dfz1
+            I01 = Dl*(S1-S2)
+            I11 = Dl*(S1-3.0D0*S3+2.0D0*S4)
+            I21 = Dl*(3.0D0*S3-2.0D0*S4)
+            I31 = Dl*(S2-2.0D0*S3+S4)
+            I41 = Dl*(S4-S3)
+            Dt = Dl*Dl
+            I02 = Dt*(S2-S3)
+            IF ( F1==F2 ) THEN
+               Ax = Dfx1
+               Ay = Dfy1
+               Az = Dfz1
             ELSE
-               i12 = dt*(s2-3.0D0*s4+2.0D0*s5)
-               i22 = dt*(3.0D0*s4-2.0D0*s5)
-               i32 = dt*(s3-2.0D0*s4+s5)
-               i42 = dt*(s5-s4)
-               dt = dl*(dx2-dx1)
-               bx = (dfx2-dfx1)/dt
-               by = (dfy2-dfy1)/dt
-               bz = (dfz2-dfz1)/dt
-               ax = dfx1 - dx1*bx*dl
-               ay = dfy1 - dx1*by*dl
-               az = dfz1 - dx1*bz*dl
+               I12 = Dt*(S2-3.0D0*S4+2.0D0*S5)
+               I22 = Dt*(3.0D0*S4-2.0D0*S5)
+               I32 = Dt*(S3-2.0D0*S4+S5)
+               I42 = Dt*(S5-S4)
+               Dt = Dl*(Dx2-Dx1)
+               Bx = (Dfx2-Dfx1)/Dt
+               By = (Dfy2-Dfy1)/Dt
+               Bz = (Dfz2-Dfz1)/Dt
+               Ax = Dfx1 - Dx1*Bx*Dl
+               Ay = Dfy1 - Dx1*By*Dl
+               Az = Dfz1 - Dx1*Bz*Dl
                CALL spag_block_4
                RETURN
             ENDIF
          ENDIF
-         bx = 0.0D0
-         by = 0.0D0
-         bz = 0.0D0
-         i12 = 0.0D0
-         i22 = 0.0D0
-         i32 = 0.0D0
-         i42 = 0.0D0
+         Bx = 0.0D0
+         By = 0.0D0
+         Bz = 0.0D0
+         I12 = 0.0D0
+         I22 = 0.0D0
+         I32 = 0.0D0
+         I42 = 0.0D0
       ENDIF
       CALL spag_block_4
    END SUBROUTINE spag_block_3
@@ -319,50 +320,50 @@ CONTAINS
 !
 !     LOADS
 !
-      Pa(1) = i01*ax + i02*bx
-      Pa(2) = i11*ay + i12*by
-      Pa(3) = i11*az + i22*bz
+      Pa(1) = I01*Ax + I02*Bx
+      Pa(2) = I11*Ay + I12*By
+      Pa(3) = I11*Az + I22*Bz
       Pa(4) = 0.0
-      Pa(5) = -dl*(i31*az+i32*bz)
-      Pa(6) = dl*(i31*ay+i32*by)
-      dt = dl*dl
-      Pb(1) = dl*s2*ax + dt*s3*bx
-      Pb(2) = i21*ay + i22*by
-      Pb(3) = i21*az + i22*bz
+      Pa(5) = -Dl*(I31*Az+I32*Bz)
+      Pa(6) = Dl*(I31*Ay+I32*By)
+      Dt = Dl*Dl
+      Pb(1) = Dl*S2*Ax + Dt*S3*Bx
+      Pb(2) = I21*Ay + I22*By
+      Pb(3) = I21*Az + I22*Bz
       Pb(4) = 0.0
-      Pb(5) = -dl*(i41*az+i42*bz)
-      Pb(6) = dl*(i41*ay+i42*by)
-      IF ( i==2 ) THEN
-         temp = Pa(1)
+      Pb(5) = -Dl*(I41*Az+I42*Bz)
+      Pb(6) = Dl*(I41*Ay+I42*By)
+      IF ( I==2 ) THEN
+         Temp = Pa(1)
          Pa(1) = Pa(4)
-         Pa(4) = temp
-         temp = Pb(1)
+         Pa(4) = Temp
+         Temp = Pb(1)
          Pb(1) = Pb(4)
-         Pb(4) = temp
-         IF ( aly/=0.0 ) THEN
-            Pa(2) = omaly*Pa(2)
-            Pa(6) = omaly*Pa(6) + aly*(i01*ay+i02*by)
-            Pb(2) = omaly*Pb(2)
-            Pb(6) = omaly*Pb(6) + aly*(dl*s2*ay+s3*by*dt)
+         Pb(4) = Temp
+         IF ( Aly/=0.0 ) THEN
+            Pa(2) = Omaly*Pa(2)
+            Pa(6) = Omaly*Pa(6) + Aly*(I01*Ay+I02*By)
+            Pb(2) = Omaly*Pb(2)
+            Pb(6) = Omaly*Pb(6) + Aly*(Dl*S2*Ay+S3*By*Dt)
          ENDIF
-         IF ( alz/=0.0 ) THEN
-            Pa(3) = omalz*Pa(3)
-            Pa(5) = omalz*Pa(5) + alz*(i01*az+i02*bz)
-            Pb(3) = omalz*Pb(3)
-            Pb(5) = omalz*Pb(5) + alz*(dl*s2*az+s3*bz*dt)
+         IF ( Alz/=0.0 ) THEN
+            Pa(3) = Omalz*Pa(3)
+            Pa(5) = Omalz*Pa(5) + Alz*(I01*Az+I02*Bz)
+            Pb(3) = Omalz*Pb(3)
+            Pb(5) = Omalz*Pb(5) + Alz*(Dl*S2*Az+S3*Bz*Dt)
          ENDIF
       ELSE
-         IF ( aly/=0.0 ) THEN
-            Pa(2) = omaly*Pa(2) + aly*(i01*ay+i02*by)
-            Pa(6) = omaly*Pa(6) + aly*(i02*ay-i41*by*dt)*.50
-            Pb(2) = omaly*Pb(2) + aly*(dl*s2*ay+s3*by*dt)
-            Pb(6) = omaly*Pb(6) - aly*(i02*ay-i41*by*dt)*.50
+         IF ( Aly/=0.0 ) THEN
+            Pa(2) = Omaly*Pa(2) + Aly*(I01*Ay+I02*By)
+            Pa(6) = Omaly*Pa(6) + Aly*(I02*Ay-I41*By*Dt)*.50
+            Pb(2) = Omaly*Pb(2) + Aly*(Dl*S2*Ay+S3*By*Dt)
+            Pb(6) = Omaly*Pb(6) - Aly*(I02*Ay-I41*By*Dt)*.50
          ENDIF
-         IF ( alz/=0.0 ) THEN
-            Pa(3) = omalz*Pa(3) + alz*(i01*az+i02*bz)
-            Pa(5) = omalz*Pa(5) - alz*(i02*az-i41*bz*dt)*.50
-            Pb(3) = omalz*Pb(3) + alz*(dl*s2*az+s3*bz*dt)
-            Pb(5) = omalz*Pb(5) + alz*(i02*az-i41*bz*dt)*.50
+         IF ( Alz/=0.0 ) THEN
+            Pa(3) = Omalz*Pa(3) + Alz*(I01*Az+I02*Bz)
+            Pa(5) = Omalz*Pa(5) - Alz*(I02*Az-I41*Bz*Dt)*.50
+            Pb(3) = Omalz*Pb(3) + Alz*(Dl*S2*Az+S3*Bz*Dt)
+            Pb(5) = Omalz*Pb(5) + Alz*(I02*Az-I41*Bz*Dt)*.50
          ENDIF
       ENDIF
       CALL spag_block_5
@@ -371,7 +372,7 @@ CONTAINS
 !
 !     PIN FLAGS
 !
-      CALL ploapf(Ept,Ept,len,Pa,Pb)
+      CALL ploapf(Ept,Ept,Len,Pa,Pb)
 !
 !     LOAD VECTORS DONE FOR SDRX
 !
@@ -379,58 +380,56 @@ CONTAINS
 !
 !     TRANSFORM LOAD VECTOR TO GLOBAL
 !
-      CALL gmmats(e,3,3,1,Pa(1),3,1,0,tp)
-      CALL gmmats(Ta,3,3,1,tp,3,1,0,Pa(1))
-      CALL gmmats(e,3,3,1,Pb(1),3,1,0,tp)
-      CALL gmmats(Tb,3,3,1,tp,3,1,0,Pb(1))
-      CALL gmmats(e,3,3,1,Pa(4),3,1,0,tp)
-      CALL gmmats(Ta,3,3,1,tp,3,1,0,Pa(4))
-      CALL gmmats(e,3,3,1,Pb(4),3,1,0,tp)
-      CALL gmmats(Tb,3,3,1,tp,3,1,0,Pb(4))
+      CALL gmmats(E,3,3,1,Pa(1),3,1,0,Tp)
+      CALL gmmats(Ta,3,3,1,Tp,3,1,0,Pa(1))
+      CALL gmmats(E,3,3,1,Pb(1),3,1,0,Tp)
+      CALL gmmats(Tb,3,3,1,Tp,3,1,0,Pb(1))
+      CALL gmmats(E,3,3,1,Pa(4),3,1,0,Tp)
+      CALL gmmats(Ta,3,3,1,Tp,3,1,0,Pa(4))
+      CALL gmmats(E,3,3,1,Pb(4),3,1,0,Tp)
+      CALL gmmats(Tb,3,3,1,Tp,3,1,0,Pb(4))
 !
-      DO i = 1 , 3
-         IF ( Sa(i)/=0.0 ) THEN
+      DO I = 1 , 3
+         IF ( Sa(I)/=0.0 ) THEN
             CALL spag_block_6
             RETURN
          ENDIF
       ENDDO
       CALL spag_block_7
-      RETURN
    END SUBROUTINE spag_block_5
    SUBROUTINE spag_block_6
-      d(2) = -Sa(3)
-      d(3) = Sa(2)
-      d(4) = Sa(3)
-      d(6) = -Sa(1)
-      d(7) = -Sa(2)
-      d(8) = Sa(1)
-      CALL gmmats(d,3,3,0,Pa(1),3,1,0,tp)
-      Pa(4) = Pa(4) + tp(1)
-      Pa(5) = Pa(5) + tp(2)
-      Pa(6) = Pa(6) + tp(3)
+      D(2) = -Sa(3)
+      D(3) = Sa(2)
+      D(4) = Sa(3)
+      D(6) = -Sa(1)
+      D(7) = -Sa(2)
+      D(8) = Sa(1)
+      CALL gmmats(D,3,3,0,Pa(1),3,1,0,Tp)
+      Pa(4) = Pa(4) + Tp(1)
+      Pa(5) = Pa(5) + Tp(2)
+      Pa(6) = Pa(6) + Tp(3)
       CALL spag_block_7
    END SUBROUTINE spag_block_6
    SUBROUTINE spag_block_7
 !
-      DO i = 1 , 3
-         IF ( Sb(i)/=0.0 ) THEN
+      DO I = 1 , 3
+         IF ( Sb(I)/=0.0 ) THEN
             CALL spag_block_8
             RETURN
          ENDIF
       ENDDO
-      RETURN
    END SUBROUTINE spag_block_7
    SUBROUTINE spag_block_8
-      d(2) = -Sb(3)
-      d(3) = Sb(2)
-      d(4) = Sb(3)
-      d(6) = -Sb(1)
-      d(7) = -Sb(2)
-      d(8) = Sb(1)
-      CALL gmmats(d,3,3,0,Pb(1),3,1,0,tp)
-      Pb(4) = Pb(4) + tp(1)
-      Pb(5) = Pb(5) + tp(2)
-      Pb(6) = Pb(6) + tp(3)
+      D(2) = -Sb(3)
+      D(3) = Sb(2)
+      D(4) = Sb(3)
+      D(6) = -Sb(1)
+      D(7) = -Sb(2)
+      D(8) = Sb(1)
+      CALL gmmats(D,3,3,0,Pb(1),3,1,0,Tp)
+      Pb(4) = Pb(4) + Tp(1)
+      Pb(5) = Pb(5) + Tp(2)
+      Pb(6) = Pb(6) + Tp(3)
    END SUBROUTINE spag_block_8
 !
 END SUBROUTINE pload1

@@ -1,16 +1,17 @@
-!*==cdetm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cdetm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cdetm(Method,Eed,Mdd,Bdd,Kdd,Lama,Phid,Oceigs,Nfound,Scr1,Scr2,Scr3,Scr4,Scr5,Scr6,Scr7,Scr8)
-USE C_CDCMPX
-USE C_CONDAD
-USE C_MACHIN
-USE C_MSGX
-USE C_OUTPUT
-USE C_SADDX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cdcmpx
+   USE c_condad
+   USE c_machin
+   USE c_msgx
+   USE c_output
+   USE c_saddx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -141,23 +142,23 @@ USE ISO_FORTRAN_ENV
 !     DEFINE EPSI (CONVERGENCE CRITERION)
 !
          epsi = 1.0E-16
-         IF ( Mach==5 .OR. Mach==21 ) epsi = 1.0E-12
+         IF ( mach==5 .OR. mach==21 ) epsi = 1.0E-12
 !
-         lc = korsz(Z)
+         lc = korsz(z)
          ibuf = lc - sysbuf - 1
          lc = (ibuf/2)*2 - 1
          nosing = 1
          CALL sswtch(7,iprt)
          ising = 0
-         Fa(1) = Kdd
-         CALL rdtrl(Fa(1))
-         IF ( Fa(1)<=0 ) THEN
-            Fa(1) = Mdd
-            CALL rdtrl(Fa(1))
-            IF ( Fa(1)<=0 ) THEN
-               Fa(1) = Bdd
-               CALL rdtrl(Fa(1))
-               IF ( Fa(1)<=0 ) GOTO 180
+         fa(1) = Kdd
+         CALL rdtrl(fa(1))
+         IF ( fa(1)<=0 ) THEN
+            fa(1) = Mdd
+            CALL rdtrl(fa(1))
+            IF ( fa(1)<=0 ) THEN
+               fa(1) = Bdd
+               CALL rdtrl(fa(1))
+               IF ( fa(1)<=0 ) GOTO 180
                idd = Bdd
             ELSE
                idd = Mdd
@@ -165,53 +166,53 @@ USE ISO_FORTRAN_ENV
          ELSE
             idd = Kdd
          ENDIF
-         Fa(1) = -Scr2
-         Fa(5) = 4
-         Fl(1) = idd
-         CALL rdtrl(Fl(1))
-         Fl(4) = 4
-         Fl(5) = 4
-         Fu(1) = idd
-         CALL rdtrl(Fu(1))
-         Fu(4) = 5
-         Fu(5) = 4
-         Sr1 = Scr3
-         Sr2 = Scr4
-         Sr3 = Scr5
-         Fl(1) = Scr6
-         Fu(1) = Scr7
+         fa(1) = -Scr2
+         fa(5) = 4
+         fl(1) = idd
+         CALL rdtrl(fl(1))
+         fl(4) = 4
+         fl(5) = 4
+         fu(1) = idd
+         CALL rdtrl(fu(1))
+         fu(4) = 5
+         fu(5) = 4
+         sr1 = Scr3
+         sr2 = Scr4
+         sr3 = Scr5
+         fl(1) = Scr6
+         fu(1) = Scr7
          DO i = 1 , 7
-            Mcba(i) = 0
-            Mcbb(i) = 0
-            Mcbc(i) = 0
-            Mc(i) = 0
+            mcba(i) = 0
+            mcbb(i) = 0
+            mcbc(i) = 0
+            mc(i) = 0
          ENDDO
-         Mcba(1) = Kdd
-         Mcbb(1) = Bdd
-         Mcbc(1) = Mdd
-         CALL rdtrl(Mcba(1))
-         CALL rdtrl(Mcbb(1))
-         CALL rdtrl(Mcbc(1))
+         mcba(1) = Kdd
+         mcbb(1) = Bdd
+         mcbc(1) = Mdd
+         CALL rdtrl(mcba(1))
+         CALL rdtrl(mcbb(1))
+         CALL rdtrl(mcbc(1))
 !
 !     MUST HAVE  B OR M MATRICES
 !
-         IF ( Mcbb(1)<0 ) Mcbb(1) = 0
-         IF ( Mcbc(1)<0 ) Mcbc(1) = 0
-         IF ( Mcbb(1)+Mcbc(1)==0 ) GOTO 180
-         nrow = max0(Mcba(3),Mcbb(3),Mcbc(3))
+         IF ( mcbb(1)<0 ) mcbb(1) = 0
+         IF ( mcbc(1)<0 ) mcbc(1) = 0
+         IF ( mcbb(1)+mcbc(1)==0 ) GOTO 180
+         nrow = max0(mcba(3),mcbb(3),mcbc(3))
          icmpx = 0
-         IF ( Mcba(5)>2 .OR. Mcbb(5)>2 .OR. Mcbc(5)>2 ) icmpx = 1
+         IF ( mcba(5)>2 .OR. mcbb(5)>2 .OR. mcbc(5)>2 ) icmpx = 1
          amcb(1) = 1.0D0
          amcb(2) = 0.D0
-         Mc(2) = Mcba(2)
-         Mc(3) = Mcba(3)
-         Mc(4) = Mcba(4)
-         Mc(5) = 4
-         Mcba(8) = 4
-         Mcbc(8) = 4
-         Mcbb(8) = 4
-         Nomat = 3
-         Mc(1) = Scr2
+         mc(2) = mcba(2)
+         mc(3) = mcba(3)
+         mc(4) = mcba(4)
+         mc(5) = 4
+         mcba(8) = 4
+         mcbc(8) = 4
+         mcbb(8) = 4
+         nomat = 3
+         mc(1) = Scr2
          ndesrd = 0
 !
 !     PICK UP AND STORE ANY POLES
@@ -246,15 +247,15 @@ USE ISO_FORTRAN_ENV
                inorm = 0
                IF ( iz(iz4)/=poin ) inorm = 1
                isil = iz(iz6)
-               IF ( Z(iz8)/=0.0 ) epsi = Z(iz8)
+               IF ( z(iz8)/=0.0 ) epsi = z(iz8)
                DO
 !
 !     PROCESS EACH REGION DEFINITION
 !
-                  CALL read(*140,*160,Eed,Z(1),7,0,iflag)
+                  CALL read(*140,*160,Eed,z(1),7,0,iflag)
                   IF ( iz(iz7)<0 ) THEN
-                     Lcadd = lc - 1
-                     Nx = Lcadd
+                     lcadd = lc - 1
+                     nx = lcadd
                      iz(lc+8) = 0
                      CALL close(Eed,1)
                      IF ( lc<=4*nrow ) THEN
@@ -278,11 +279,11 @@ USE ISO_FORTRAN_ENV
                      ENDIF
                   ELSE
                      nregn = nregn + 1
-                     alph1 = Z(1)
-                     w1 = Z(iz2)
-                     alph2 = Z(iz3)
-                     w2 = Z(iz4)
-                     xl = Z(iz5)
+                     alph1 = z(1)
+                     w1 = z(iz2)
+                     alph2 = z(iz3)
+                     w2 = z(iz4)
+                     xl = z(iz5)
                      ne = iz(iz6)
                      nd = iz(iz7)
                      IF ( nd==0 ) nd = 3*ne
@@ -306,11 +307,11 @@ USE ISO_FORTRAN_ENV
                         ENDDO
 !
 !     STORE CONSTANTS
-                        Z(lc) = alph1
-                        Z(lc+1) = w1
-                        Z(lc+2) = alph2
-                        Z(lc+3) = w2
-                        Z(lc+4) = xl
+                        z(lc) = alph1
+                        z(lc+1) = w1
+                        z(lc+2) = alph2
+                        z(lc+3) = w2
+                        z(lc+4) = xl
                         iz(lc+5) = ne
                         iz(lc+6) = nd
 !
@@ -319,7 +320,7 @@ USE ISO_FORTRAN_ENV
                         d1 = alph2 - alph1
                         d2 = w2 - w1
                         rl = dsqrt(d1*d1+d2*d2)
-                        Z(lc+9) = rl
+                        z(lc+9) = rl
                         d1 = d1/rl
                         d2 = d2/rl
                         j = (lc+1)/2 + 6
@@ -374,20 +375,19 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDIF
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     PICK UP REGION POINTERS AND PARAMETERS
 !
-         alph1 = Z(irgp)
-         w1 = Z(irgp+1)
-         alph2 = Z(irgp+2)
-         w2 = Z(irgp+3)
-         xl = Z(irgp+4)
+         alph1 = z(irgp)
+         w1 = z(irgp+1)
+         alph2 = z(irgp+2)
+         w2 = z(irgp+3)
+         xl = z(irgp+4)
          ne = iz(irgp+5)
          nd = iz(irgp+6)
          nf = iz(irgp+7)
-         rl = Z(irgp+9)
+         rl = z(irgp+9)
          xvr = (alph2-alph1)/rl
          yvr = (w2-w1)/rl
          ipoint = 0
@@ -439,7 +439,6 @@ USE ISO_FORTRAN_ENV
             ilusp(1) = isp(1)
             ilusp(2) = isp(2) - 2
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     ONLY ONE SUBREGION
@@ -463,7 +462,6 @@ USE ISO_FORTRAN_ENV
             ipoint = 0
             ispnt = (irgp+1)/2 + 4
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (5)
 !
@@ -522,7 +520,6 @@ USE ISO_FORTRAN_ENV
          ENDIF
          ipoint = (ispnt-ispt1)/2 + 1
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     PROCESS SUBREGION 2
@@ -545,7 +542,6 @@ USE ISO_FORTRAN_ENV
          ENDIF
          ipoint = (ispnt-ispt1)/2 + 1
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     ONLY ONE SUBREGION PROCESS FROM END TO END
@@ -593,10 +589,10 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 25
          CYCLE SPAG_DispatchLoop_1
  40      iz(k) = 1
-         iz(k+1) = Powr
+         iz(k+1) = powr
          m = 4*ne + 2 + ispnt + 2*i
-         zd(m) = Dr
-         zd(m+1) = Di
+         zd(m) = dr
+         zd(m+1) = di
          spag_nextblock_1 = 12
       CASE (12)
          i = i + 1
@@ -779,7 +775,6 @@ USE ISO_FORTRAN_ENV
 !
             ASSIGN 60 TO dretn
             spag_nextblock_1 = 25
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             xu = xu/lu
             yu = yu/lu
@@ -791,8 +786,8 @@ USE ISO_FORTRAN_ENV
             ENDIF
             ASSIGN 60 TO dretn
             spag_nextblock_1 = 25
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     BEGIN CONVERGENCE TESTS
 !
@@ -850,11 +845,10 @@ USE ISO_FORTRAN_ENV
          ENDDO
          pkr(3) = pr
          pki(3) = pi
-         detr(3) = Dr
-         deti(3) = Di
-         ipdet(3) = Powr
+         detr(3) = dr
+         deti(3) = di
+         ipdet(3) = powr
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
 !
 !     ACCEPT CURRENT EIGENVALUE
@@ -871,18 +865,18 @@ USE ISO_FORTRAN_ENV
 !
 !     BUILD LOAD FOR FBS
 !
-         IF ( Minda==0.0D0 ) Minda = 1.0D-8
+         IF ( minda==0.0D0 ) minda = 1.0D-8
          sign = -sign
          d1 = nrow
          d2 = Nfound
          j = 2*nrow
          DO i = 1 , j , 2
             k = (i+1)/2
-            zd(i) = sign*Minda/(1.0D0+(1.0D0-float(k)/d1)*d2)
+            zd(i) = sign*minda/(1.0D0+(1.0D0-float(k)/d1)*d2)
             zd(i+1) = 0.0D0
          ENDDO
-         iscr2(1) = Sr2
-         iscr2(7) = Fu(7)
+         iscr2(1) = sr2
+         iscr2(7) = fu(7)
          CALL cdtfbs(zd(1),zd(j+1),iz(ibuf),iscr2,nrow)
 !
 !     NORMALIZE
@@ -933,7 +927,7 @@ USE ISO_FORTRAN_ENV
          i = 1
          spag_nextblock_1 = 18
       CASE (18)
-         dt1 = 200.0*epsi*epsi*Z(j+9)
+         dt1 = 200.0*epsi*epsi*z(j+9)
          m = 2*iz(j+5) + 2
          k = (j+1)/2 + 5
          l = 1
@@ -955,7 +949,7 @@ USE ISO_FORTRAN_ENV
 !
 !     SWEEP CONJUGATES S
 !
-            IF ( icmpx/=1 .AND. dabs(pi)>=1000.0*Z(j+9)*epsi ) THEN
+            IF ( icmpx/=1 .AND. dabs(pi)>=1000.0*z(j+9)*epsi ) THEN
                d3 = zd(k) + pi
                d4 = d2*d2 + d3*d3
                d5 = (zd(kk-1)*d2+zd(kk)*d3)/d4
@@ -963,14 +957,13 @@ USE ISO_FORTRAN_ENV
                zd(kk-1) = d5
             ENDIF
             spag_nextblock_1 = 20
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     SHIFT STARTING POINT
 !
-            d2 = 1000.0*epsi*epsi*Z(j+9)
-            zd(k-1) = dsign((Z(j+2)-Z(j))/Z(j+9)*d2+zd(k-1),zd(k-1))
-            zd(k) = dsign((Z(j+3)-Z(j+1))/Z(j+9)*d2+zd(k),zd(k))
+            d2 = 1000.0*epsi*epsi*z(j+9)
+            zd(k-1) = dsign((z(j+2)-z(j))/z(j+9)*d2+zd(k-1),zd(k-1))
+            zd(k) = dsign((z(j+3)-z(j+1))/z(j+9)*d2+zd(k),zd(k))
             nmoves = nmoves + 1
 !
 !     IF  DETERMINANT EVALUATED - REEVALUATE FOR SHIFT
@@ -985,14 +978,14 @@ USE ISO_FORTRAN_ENV
             pi = zd(k)
             ASSIGN 80 TO dretn
             spag_nextblock_1 = 25
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  80      pr = dt2
          pi = dt3
          kk = k + 4*iz(j+5) + 4
-         zd(kk) = Di
-         zd(kk-1) = Dr
-         iz(kkk+1) = Powr
+         zd(kk) = di
+         zd(kk-1) = dr
+         iz(kkk+1) = powr
          spag_nextblock_1 = 20
       CASE (20)
          zdkm1 = zd(kk-1)
@@ -1038,12 +1031,11 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (23)
 !
 !     INSUFFICIENT TIME
 !
-         IF ( Nmsgx>=Maxgx ) Nmsgx = Maxgx - 1
+         IF ( nmsgx>=maxgx ) nmsgx = maxgx - 1
          CALL mesage(45,ndesrd-Nfound,name)
          iterm = 3
          spag_nextblock_1 = 24
@@ -1062,11 +1054,11 @@ USE ISO_FORTRAN_ENV
          iz(iz7) = noutsd
          iz(iz8) = iterm
          CALL write(Oceigs,iz(1),40,0)
-         CALL write(Oceigs,Head(1),96,1)
+         CALL write(Oceigs,head(1),96,1)
          ihead(3) = 3
          ihead(10) = 6
          CALL write(Oceigs,ihead,50,0)
-         CALL write(Oceigs,Head,96,1)
+         CALL write(Oceigs,head,96,1)
          j = ireg1
          DO i = 1 , nregn
             ne = iz(j+5)
@@ -1076,8 +1068,8 @@ USE ISO_FORTRAN_ENV
             ne = 2*ne + 2
             DO l = 1 , ne
                iz(1) = l
-               Z(iz2) = zd(k)
-               Z(iz3) = zd(k+1)
+               z(iz2) = zd(k)
+               z(iz3) = zd(k+1)
                m = k + kk
                kd = kd + 2
                iz(iz6) = iz(kd)
@@ -1090,8 +1082,8 @@ USE ISO_FORTRAN_ENV
 !
 !     NOT  EVALUATED
 !
-                  Z(iz4) = 0.0
-                  Z(iz5) = 0.0
+                  z(iz4) = 0.0
+                  z(iz5) = 0.0
                ELSE
                   DO WHILE ( d1>10.0D0 )
                      d1 = d1*0.1D0
@@ -1101,15 +1093,15 @@ USE ISO_FORTRAN_ENV
                      d1 = d1*10.0D0
                      iz(iz6) = iz(iz6) - 1
                   ENDDO
-                  Z(iz4) = d1
+                  z(iz4) = d1
 !
 !     COMPUTE PHASE
 !
-                  Z(iz5) = datan2(zd(m+1),zd(m))*Raddeg
+                  z(iz5) = datan2(zd(m+1),zd(m))*raddeg
 !
 !     DETERMINE QUADRANT
 !
-                  IF ( Z(iz5)<0. ) Z(iz5) = Z(iz5) + 360.0
+                  IF ( z(iz5)<0. ) z(iz5) = z(iz5) + 360.0
                ENDIF
                CALL write(Oceigs,iz(1),6,0)
                k = k + 2
@@ -1117,8 +1109,8 @@ USE ISO_FORTRAN_ENV
             j = iz(j+8)
          ENDDO
          CALL close(Oceigs,1)
-         Fa(1) = Oceigs
-         CALL wrttrl(Fa(1))
+         fa(1) = Oceigs
+         CALL wrttrl(fa(1))
          RETURN
       CASE (25)
 !
@@ -1132,11 +1124,11 @@ USE ISO_FORTRAN_ENV
          bmcb(2) = pi
          cmcb(1) = pr*pr - pi*pi
          cmcb(2) = 2.*pr*pi
-         CALL sadd(Z(1),Z(1))
-         Fa(1) = -iabs(Fa(1))
+         CALL sadd(z(1),z(1))
+         fa(1) = -iabs(fa(1))
          IF ( nosing/=0 ) THEN
-            isave = Sr2
-            Sr2 = Scr8
+            isave = sr2
+            sr2 = Scr8
             Scr8 = isave
          ENDIF
          CALL tmtogo(kk)
@@ -1144,10 +1136,10 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Ib = 0
-         CALL cdcomp(*100,Z(1),Z(1),Z(1))
+         ib = 0
+         CALL cdcomp(*100,z(1),z(1),z(1))
          nosing = 1
-         IF ( iprt/=0 ) WRITE (otpe,99001) pr , pi , Dr , Di , Powr
+         IF ( iprt/=0 ) WRITE (otpe,99001) pr , pi , dr , di , powr
 !
 !     SCALE DETERMINANT BY POLES AND EIGENVALUES PREVIOUSLY FOUND
 !
@@ -1162,24 +1154,24 @@ USE ISO_FORTRAN_ENV
                   d1 = pr - zd(kd)
                   d2 = pi - zd(kd+1)
                   d3 = d1*d1 + d2*d2
-                  d4 = (Dr*d1+Di*d2)/d3
-                  d5 = (Di*d1-Dr*d2)/d3
-                  Dr = d4
-                  Di = d5
+                  d4 = (dr*d1+di*d2)/d3
+                  d5 = (di*d1-dr*d2)/d3
+                  dr = d4
+                  di = d5
                   IF ( icmpx/=1 ) THEN
 !
 !     SWEEP COMPLEX CONJUGATE ROOTS
 !
-                     IF ( dabs(zd(kd+1))>=1000.0*Z(id1+9)*epsi ) THEN
+                     IF ( dabs(zd(kd+1))>=1000.0*z(id1+9)*epsi ) THEN
                         d2 = pi + zd(kd+1)
                         d3 = d1*d1 + d2*d2
-                        d4 = (Dr*d1+Di*d2)/d3
-                        d5 = (Di*d1-Dr*d2)/d3
-                        Dr = d4
-                        Di = d5
+                        d4 = (dr*d1+di*d2)/d3
+                        d5 = (di*d1-dr*d2)/d3
+                        dr = d4
+                        di = d5
                      ENDIF
                   ENDIF
-                  CALL cdetm3(Dr,Di,Powr)
+                  CALL cdetm3(dr,di,powr)
                ENDDO
             ENDIF
             id1 = iz(id1+8)
@@ -1190,8 +1182,8 @@ USE ISO_FORTRAN_ENV
          IF ( npole/=0 ) THEN
             id1 = ipoles
             DO id = 1 , npole
-               d1 = pr - Z(id1+1)
-               d2 = pi - Z(id1+2)
+               d1 = pr - z(id1+1)
+               d2 = pi - z(id1+2)
                d3 = 1.0D0
                d4 = 0.0D0
                kd = iz(id1+3)
@@ -1202,15 +1194,15 @@ USE ISO_FORTRAN_ENV
                   d4 = d6
                ENDDO
                d1 = d3*d3 + d4*d4
-               d2 = (Dr*d3+Di*d4)/d1
-               d5 = (Di*d3-Dr*d4)/d1
-               Dr = d2
-               Di = d5
+               d2 = (dr*d3+di*d4)/d1
+               d5 = (di*d3-dr*d4)/d1
+               dr = d2
+               di = d5
                id1 = id1 + 4
 !
 !     SCALE AGAIN
 !
-               CALL cdetm3(Dr,Di,Powr)
+               CALL cdetm3(dr,di,powr)
             ENDDO
          ENDIF
          spag_nextblock_1 = 26
@@ -1218,15 +1210,15 @@ USE ISO_FORTRAN_ENV
 !
 !     SINGLULAR MATRIX
 !
- 100     Dr = 0.0D0
-         Di = 0.0D0
-         Powr = 0
+ 100     dr = 0.0D0
+         di = 0.0D0
+         powr = 0
          ising = ising + 1
-         Minda = 1.0E-11
+         minda = 1.0E-11
          IF ( nosing/=0 ) THEN
             nosing = 0
-            isave = Sr2
-            Sr2 = Scr8
+            isave = sr2
+            sr2 = Scr8
             Scr8 = isave
          ENDIF
          spag_nextblock_1 = 26
@@ -1234,7 +1226,7 @@ USE ISO_FORTRAN_ENV
 !
 !     RETURN
 !
-         IF ( iprt/=0 ) WRITE (otpe,99001) pr , pi , Dr , Di , Powr
+         IF ( iprt/=0 ) WRITE (otpe,99001) pr , pi , dr , di , powr
          GOTO dretn
 !
 !     ERROR  MESAGES
@@ -1251,7 +1243,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  180     ip1 = -7
          spag_nextblock_1 = 27
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99001 FORMAT (10X,4D16.7,I8)

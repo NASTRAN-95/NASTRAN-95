@@ -1,9 +1,10 @@
-!*==trlgd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trlgd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trlgd(Fct,Fco,Ap,As,Ad,Ah,Ppo,Pso,Pdo,Pdt,Pht,Iflag1,Scr1,Iflag)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -56,7 +57,7 @@ SUBROUTINE trlgd(Fct,Fco,Ap,As,Ad,Ah,Ppo,Pso,Pdo,Pdt,Pht,Iflag1,Scr1,Iflag)
 !
    sign = +1
    trnsp = 0
-   prec = Iprec
+   prec = iprec
 !
 !     FORM PPO
 !

@@ -1,17 +1,18 @@
-!*==bard.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bard.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bard
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_EMGTRX
-USE C_HMTOUT
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_emgtrx
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -100,7 +101,7 @@ USE ISO_FORTRAN_ENV
       CASE (1)
 !
 !
-         dict(1) = Estid
+         dict(1) = estid
 !
 !     SET UP POINTERS TO COOR. SYS. IDS., OFFSET VECTORS, AND PIN FLAGS.
 !     ICSIDA AND ICSIDB ARE COOR. SYS. IDS.
@@ -120,7 +121,7 @@ USE ISO_FORTRAN_ENV
 !
          fl = 0.D0
          DO i = 1 , 3
-            smallv(i) = Smalv(i)
+            smallv(i) = smalv(i)
             fl = fl + smallv(i)**2
          ENDDO
          fl = dsqrt(fl)
@@ -129,14 +130,14 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO i = 1 , 3
-            Smalvn(i) = smallv(i)/fl
+            smalvn(i) = smallv(i)/fl
          ENDDO
 !
 !     DETERMINE IF POINT A AND B ARE IN BASIC COORDINATES OR NOT.
 !     COMPUTE THE TRANSFORMATION MATRICES TA AND TB IF NECESSARY
 !
-         IF ( icsida/=0 ) CALL transd(ecpt(jcsida),Ta)
-         IF ( icsidb/=0 ) CALL transd(ecpt(jcsidb),Tb)
+         IF ( icsida/=0 ) CALL transd(ecpt(jcsida),ta)
+         IF ( icsidb/=0 ) CALL transd(ecpt(jcsidb),tb)
 !
 !     DETERMINE IF WE HAVE NON-ZERO OFFSET VECTORS.
 !
@@ -188,11 +189,11 @@ USE ISO_FORTRAN_ENV
             j = jofsta - 1
             DO i = 1 , 3
                j = j + 1
-               Dela(i) = ecpt(j)
+               dela(i) = ecpt(j)
             ENDDO
             IF ( icsida/=0 ) THEN
                idela = 4
-               CALL gmmatd(Ta,3,3,0,Dela(1),3,1,0,Dela(4))
+               CALL gmmatd(ta,3,3,0,dela(1),3,1,0,dela(4))
             ENDIF
 !
 !     TRANSFORM THE OFFSET VECTOR FOR POINT B IF NECESSARY
@@ -201,11 +202,11 @@ USE ISO_FORTRAN_ENV
             j = jofstb - 1
             DO i = 1 , 3
                j = j + 1
-               Delb(i) = ecpt(j)
+               delb(i) = ecpt(j)
             ENDDO
             IF ( icsidb/=0 ) THEN
                idelb = 4
-               CALL gmmatd(Tb,3,3,0,Delb(1),3,1,0,Delb(4))
+               CALL gmmatd(tb,3,3,0,delb(1),3,1,0,delb(4))
             ENDIF
 !
 !     SINCE THERE WAS AT LEAST ONE NON-ZERO OFFSET VECTOR RECOMPUTE VECI
@@ -213,7 +214,7 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , 3
                jta = i - 1 + idela
                jtb = i - 1 + idelb
-               veci(i) = veci(i) + Dela(jta) - Delb(jtb)
+               veci(i) = veci(i) + dela(jta) - delb(jtb)
             ENDDO
          ENDIF
 !
@@ -238,7 +239,7 @@ USE ISO_FORTRAN_ENV
 !     (DEFAULT IS 15 PERCENT, KSYSTM(87) WORD)
 !
          IF ( dabs(fl-a2b)/a2b>limit ) THEN
-            WRITE (ioutpt,99001) Uwm , Ielid
+            WRITE (ioutpt,99001) uwm , ielid
 99001       FORMAT (A25,' - UNUSUALLY LARGE OFFSET IS DETECTED FOR CBAR ','ELEMENT ID =',I8)
             IF ( ksy87>0 ) THEN
                WRITE (ioutpt,99002) ksy87
@@ -254,36 +255,36 @@ USE ISO_FORTRAN_ENV
 !     HEAT FORMULATION CONTINUES HERE.  GET MATERIAL PROPERTY -K- FROM
 !     HMAT
 !
-            Matflg = 1
-            Matidc = iecpt(16)
-            Eltemp = ecpt(42)
+            matflg = 1
+            matidc = iecpt(16)
+            eltemp = ecpt(42)
             dict(2) = 1
             dict(3) = 2
             dict(4) = 1
             dict(5) = 0
-            IF ( Istif/=0 ) THEN
-               CALL hmat(Ielid)
+            IF ( istif/=0 ) THEN
+               CALL hmat(ielid)
 !
-               Kk(1) = dble(Fk)*dble(ecpt(17))/fl
-               IF ( Kk(1)/=0.D0 ) THEN
-                  Kk(2) = -Kk(1)
-                  Kk(3) = Kk(2)
-                  Kk(4) = Kk(1)
-                  CALL emgout(Kk(1),Kk(1),4,1,dict,1,Iprec)
+               kk(1) = dble(fk)*dble(ecpt(17))/fl
+               IF ( kk(1)/=0.D0 ) THEN
+                  kk(2) = -kk(1)
+                  kk(3) = kk(2)
+                  kk(4) = kk(1)
+                  CALL emgout(kk(1),kk(1),4,1,dict,1,iprec)
                ENDIF
 !
-               Matflg = 4
+               matflg = 4
 !
 !     ERROR IN NEXT CARD FOR HEAT FORMULATION. REMOVED BY G.CHAN/SPERRY,
 !     1984.   ALSO, CHANGE  GO TO 520 TO 540, 11-TH CARD ABOVE, AND
 !     CALL EMGOUT BELOW AND WRITE TO THE 3-RD FILE INSTEAD OF THE 2-ND.
 !
-               CALL hmat(Ielid)
-               Kk(1) = (dble(Fk)*dble(ecpt(17)))*fl/2.D0
-               IF ( Kk(1)==0.D0 ) RETURN
-               Kk(2) = Kk(1)
+               CALL hmat(ielid)
+               kk(1) = (dble(fk)*dble(ecpt(17)))*fl/2.D0
+               IF ( kk(1)==0.D0 ) RETURN
+               kk(2) = kk(1)
                dict(2) = 2
-               CALL emgout(Kk(1),Kk(1),2,1,dict,3,Iprec)
+               CALL emgout(kk(1),kk(1),2,1,dict,3,iprec)
             ENDIF
             RETURN
          ELSE
@@ -291,16 +292,16 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE THE  SMALV0  VECTOR
 !
             isv = 1
-            IF ( Icssv/=0 ) THEN
+            IF ( icssv/=0 ) THEN
                isv = 4
-               CALL gmmatd(Ta,3,3,0,Smalvn(1),3,1,0,Smalvn(4))
+               CALL gmmatd(ta,3,3,0,smalvn(1),3,1,0,smalvn(4))
             ENDIF
 !
 !     COMPUTE THE K VECTOR, VECK = VECI  X  SMALV0, AND NORMALIZE
 !
-            veck(1) = veci(2)*Smalvn(isv+2) - veci(3)*Smalvn(isv+1)
-            veck(2) = veci(3)*Smalvn(isv) - veci(1)*Smalvn(isv+2)
-            veck(3) = veci(1)*Smalvn(isv+1) - veci(2)*Smalvn(isv)
+            veck(1) = veci(2)*smalvn(isv+2) - veci(3)*smalvn(isv+1)
+            veck(2) = veci(3)*smalvn(isv) - veci(1)*smalvn(isv+2)
+            veck(3) = veci(1)*smalvn(isv+1) - veci(2)*smalvn(isv)
             fll = dsqrt(veck(1)**2+veck(2)**2+veck(3)**2)
             IF ( dabs(fll)<epsi2 ) THEN
                spag_nextblock_1 = 8
@@ -327,12 +328,12 @@ USE ISO_FORTRAN_ENV
 !     SEARCH THE MATERIAL PROPERTIES TABLE FOR E,G AND THE DAMPING
 !     CONSTANT.
 !
-            Matidc = Imatid
-            Matflg = 1
-            Eltemp = Tempel
+            matidc = imatid
+            matflg = 1
+            eltemp = tempel
             CALL mat(iecpt(1))
 !
-            IF ( Istif==0 ) THEN
+            IF ( istif==0 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -340,7 +341,7 @@ USE ISO_FORTRAN_ENV
 !     IF ELASTICITY AND SHEAR MODULES BOTH ZERO, SKIP STIFFNESS
 !     CALCULATION
 !
-            IF ( E==0. .AND. G==0. ) THEN
+            IF ( e==0. .AND. g==0. ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -358,18 +359,18 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE SOME TERMS TO BE USED IN STIFFNESS MATRIX KE
 !
-         ei1 = dble(E)*dble(I1)
-         ei2 = dble(E)*dble(I2)
-         IF ( K1==0.0 .OR. I12/=0.0 ) THEN
+         ei1 = dble(e)*dble(i1)
+         ei2 = dble(e)*dble(i2)
+         IF ( k1==0.0 .OR. i12/=0.0 ) THEN
             r1 = 12.D0*ei1/blcube
          ELSE
-            gak1 = dble(G)*dble(A)*dble(K1)
+            gak1 = dble(g)*dble(a)*dble(k1)
             r1 = (12.D0*ei1*gak1)/(gak1*blcube+12.D0*bl*ei1)
          ENDIF
-         IF ( K2==0.0 .OR. I12/=0.0 ) THEN
+         IF ( k2==0.0 .OR. i12/=0.0 ) THEN
             r2 = 12.D0*ei2/blcube
          ELSE
-            gak2 = dble(G)*dble(A)*dble(K2)
+            gak2 = dble(g)*dble(a)*dble(k2)
             r2 = (12.D0*ei2*gak2)/(gak2*blcube+12.D0*bl*ei2)
          ENDIF
 !
@@ -378,10 +379,10 @@ USE ISO_FORTRAN_ENV
          sk3 = .25D0*r1*blsq - ei1/bl
          sk4 = .25D0*r2*blsq - ei2/bl
 !
-         ael = dble(A)*dble(E)/bl
+         ael = dble(a)*dble(e)/bl
          lr1 = bl*r1/2.D0
          lr2 = bl*r2/2.D0
-         gjl = dble(G)*dble(Fj)/bl
+         gjl = dble(g)*dble(fj)/bl
 !
 !
 !     CONSTRUCT  THE GENERAL 12X12 MATRIX FOR THE BAR ELEMENT
@@ -420,85 +421,85 @@ USE ISO_FORTRAN_ENV
 !     **                                    **
 !
          DO i = 1 , 144
-            Ke(i) = 0.D0
+            ke(i) = 0.D0
          ENDDO
-         Ke(1) = ael
-         Ke(7) = -ael
-         Ke(14) = r1
-         Ke(18) = lr1
-         Ke(20) = -r1
-         Ke(24) = lr1
-         Ke(27) = r2
-         Ke(29) = -lr2
-         Ke(33) = -r2
-         Ke(35) = -lr2
-         Ke(40) = gjl
-         Ke(46) = -gjl
-         Ke(51) = -lr2
-         Ke(53) = sk2
-         Ke(57) = lr2
-         Ke(59) = sk4
-         Ke(62) = lr1
-         Ke(66) = sk1
-         Ke(68) = -lr1
-         Ke(72) = sk3
-         Ke(73) = -ael
-         Ke(79) = ael
-         Ke(86) = -r1
-         Ke(90) = -lr1
-         Ke(92) = r1
-         Ke(96) = -lr1
-         Ke(99) = -r2
-         Ke(101) = lr2
-         Ke(105) = r2
-         Ke(107) = lr2
-         Ke(112) = -gjl
-         Ke(118) = gjl
-         Ke(123) = -lr2
-         Ke(125) = sk4
-         Ke(129) = lr2
-         Ke(131) = sk2
-         Ke(134) = lr1
-         Ke(138) = sk3
-         Ke(140) = -lr1
-         Ke(144) = sk1
-         IF ( I12/=0. ) THEN
-            beta = 12.D0*dble(E)*dble(I12)/blcube
+         ke(1) = ael
+         ke(7) = -ael
+         ke(14) = r1
+         ke(18) = lr1
+         ke(20) = -r1
+         ke(24) = lr1
+         ke(27) = r2
+         ke(29) = -lr2
+         ke(33) = -r2
+         ke(35) = -lr2
+         ke(40) = gjl
+         ke(46) = -gjl
+         ke(51) = -lr2
+         ke(53) = sk2
+         ke(57) = lr2
+         ke(59) = sk4
+         ke(62) = lr1
+         ke(66) = sk1
+         ke(68) = -lr1
+         ke(72) = sk3
+         ke(73) = -ael
+         ke(79) = ael
+         ke(86) = -r1
+         ke(90) = -lr1
+         ke(92) = r1
+         ke(96) = -lr1
+         ke(99) = -r2
+         ke(101) = lr2
+         ke(105) = r2
+         ke(107) = lr2
+         ke(112) = -gjl
+         ke(118) = gjl
+         ke(123) = -lr2
+         ke(125) = sk4
+         ke(129) = lr2
+         ke(131) = sk2
+         ke(134) = lr1
+         ke(138) = sk3
+         ke(140) = -lr1
+         ke(144) = sk1
+         IF ( i12/=0. ) THEN
+            beta = 12.D0*dble(e)*dble(i12)/blcube
             lb = bl*beta/2.0D0
             l2b3 = blsq*beta/3.0D0
             l2b6 = blsq*beta/6.0D0
-            Ke(15) = beta
-            Ke(17) = -lb
-            Ke(21) = -beta
-            Ke(23) = -lb
-            Ke(26) = beta
-            Ke(30) = lb
-            Ke(32) = -beta
-            Ke(36) = lb
-            Ke(50) = -lb
-            Ke(54) = -l2b3
-            Ke(56) = lb
-            Ke(60) = -l2b6
-            Ke(63) = lb
-            Ke(65) = -l2b3
-            Ke(69) = -lb
-            Ke(71) = -l2b6
-            Ke(87) = -beta
-            Ke(89) = lb
-            Ke(93) = beta
-            Ke(95) = lb
-            Ke(98) = -beta
-            Ke(102) = -lb
-            Ke(104) = beta
-            Ke(108) = -lb
-            Ke(122) = -lb
-            Ke(126) = -l2b6
-            Ke(128) = lb
-            Ke(132) = -l2b3
-            Ke(135) = lb
-            Ke(137) = -l2b6
-            Ke(141) = -lb
-            Ke(143) = -l2b3
+            ke(15) = beta
+            ke(17) = -lb
+            ke(21) = -beta
+            ke(23) = -lb
+            ke(26) = beta
+            ke(30) = lb
+            ke(32) = -beta
+            ke(36) = lb
+            ke(50) = -lb
+            ke(54) = -l2b3
+            ke(56) = lb
+            ke(60) = -l2b6
+            ke(63) = lb
+            ke(65) = -l2b3
+            ke(69) = -lb
+            ke(71) = -l2b6
+            ke(87) = -beta
+            ke(89) = lb
+            ke(93) = beta
+            ke(95) = lb
+            ke(98) = -beta
+            ke(102) = -lb
+            ke(104) = beta
+            ke(108) = -lb
+            ke(122) = -lb
+            ke(126) = -l2b6
+            ke(128) = lb
+            ke(132) = -l2b3
+            ke(135) = lb
+            ke(137) = -l2b6
+            ke(141) = -lb
+            ke(143) = -l2b3
          ENDIF
          GOTO korm
 !
@@ -523,28 +524,28 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , 10
                IF ( ipin(i)/=0 ) THEN
                   ii = 13*ipin(i) - 12
-                  IF ( Ke(ii)/=0.D0 ) THEN
+                  IF ( ke(ii)/=0.D0 ) THEN
                      DO j = 1 , 12
                         ji = 12*(j-1) + ipin(i)
                         ij = 12*(ipin(i)-1) + j
                         DO ll = 1 , 12
                            jll = 12*(j-1) + ll
                            ill = 12*(ipin(i)-1) + ll
-                           Kep(jll) = Ke(jll) - (Ke(ill)/Ke(ii))*Ke(ji)
+                           kep(jll) = ke(jll) - (ke(ill)/ke(ii))*ke(ji)
                         ENDDO
-                        Kep(ij) = 0.D0
-                        Kep(ji) = 0.D0
+                        kep(ij) = 0.D0
+                        kep(ji) = 0.D0
                      ENDDO
                      DO k = 1 , 144
-                        Ke(k) = Kep(k)
+                        ke(k) = kep(k)
                      ENDDO
                   ELSE
                      il = ipin(i)
                      ii = ii - il
                      DO j = 1 , 12
                         ii = ii + 1
-                        Ke(ii) = 0.D0
-                        Ke(il) = 0.D0
+                        ke(ii) = 0.D0
+                        ke(il) = 0.D0
                         il = il + 12
                      ENDDO
                   ENDIF
@@ -569,10 +570,10 @@ USE ISO_FORTRAN_ENV
             lim = i + 5
             DO k = low , lim
                j = j + 1
-               Kk(j) = Ke(k)
-               Kk(j+36) = Ke(k+6)
-               Kk(j+72) = Ke(k+72)
-               Kk(j+108) = Ke(k+78)
+               kk(j) = ke(k)
+               kk(j+36) = ke(k+6)
+               kk(j+72) = ke(k+72)
+               kk(j+108) = ke(k+78)
             ENDDO
          ENDDO
 !
@@ -586,11 +587,11 @@ USE ISO_FORTRAN_ENV
 !     A   MATRIX NOW STORED IN KE
 !
          DO i = 1 , 9
-            Ke(i) = Vec(i)
+            ke(i) = vec(i)
          ENDDO
 !
          DO i = 28 , 144
-            Ke(i) = 0.D0
+            ke(i) = 0.D0
          ENDDO
 !
 !
@@ -608,8 +609,8 @@ USE ISO_FORTRAN_ENV
 !
             ig = 1
             IF ( .NOT.(basic) ) THEN
-               CALL transd(ecpt(jcsid),Ke(10))
-               CALL gmmatd(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
+               CALL transd(ecpt(jcsid),ke(10))
+               CALL gmmatd(ke(1),3,3,0,ke(10),3,3,0,ke(19))
                ig = 19
             ENDIF
 !
@@ -617,53 +618,53 @@ USE ISO_FORTRAN_ENV
 !     MATRIX.
 !
             IF ( offset ) THEN
-               Ke(10) = 0.D0
-               Ke(11) = ecpt(jofset+2)
-               Ke(12) = -ecpt(jofset+1)
-               Ke(13) = -Ke(11)
-               Ke(14) = 0.D0
-               Ke(15) = ecpt(jofset)
-               Ke(16) = -Ke(12)
-               Ke(17) = -Ke(15)
-               Ke(18) = 0.D0
+               ke(10) = 0.D0
+               ke(11) = ecpt(jofset+2)
+               ke(12) = -ecpt(jofset+1)
+               ke(13) = -ke(11)
+               ke(14) = 0.D0
+               ke(15) = ecpt(jofset)
+               ke(16) = -ke(12)
+               ke(17) = -ke(15)
+               ke(18) = 0.D0
 !
 !     FORM THE 3X3 PRODUCT H = G X D, I.E., KE(28) = KE(IG) X KE(10)
 !
-               CALL gmmatd(Ke(ig),3,3,0,Ke(10),3,3,0,Ke(28))
+               CALL gmmatd(ke(ig),3,3,0,ke(10),3,3,0,ke(28))
             ENDIF
 !
 !
 !     FORM THE W SUBMATRICES IN KE(37) AND KE(73)
 !
 !
-            Ke(iwbeg+1) = Ke(ig)
-            Ke(iwbeg+2) = Ke(ig+1)
-            Ke(iwbeg+3) = Ke(ig+2)
-            Ke(iwbeg+7) = Ke(ig+3)
-            Ke(iwbeg+8) = Ke(ig+4)
-            Ke(iwbeg+9) = Ke(ig+5)
-            Ke(iwbeg+13) = Ke(ig+6)
-            Ke(iwbeg+14) = Ke(ig+7)
-            Ke(iwbeg+15) = Ke(ig+8)
-            Ke(iwbeg+22) = Ke(ig)
-            Ke(iwbeg+23) = Ke(ig+1)
-            Ke(iwbeg+24) = Ke(ig+2)
-            Ke(iwbeg+28) = Ke(ig+3)
-            Ke(iwbeg+29) = Ke(ig+4)
-            Ke(iwbeg+30) = Ke(ig+5)
-            Ke(iwbeg+34) = Ke(ig+6)
-            Ke(iwbeg+35) = Ke(ig+7)
-            Ke(iwbeg+36) = Ke(ig+8)
+            ke(iwbeg+1) = ke(ig)
+            ke(iwbeg+2) = ke(ig+1)
+            ke(iwbeg+3) = ke(ig+2)
+            ke(iwbeg+7) = ke(ig+3)
+            ke(iwbeg+8) = ke(ig+4)
+            ke(iwbeg+9) = ke(ig+5)
+            ke(iwbeg+13) = ke(ig+6)
+            ke(iwbeg+14) = ke(ig+7)
+            ke(iwbeg+15) = ke(ig+8)
+            ke(iwbeg+22) = ke(ig)
+            ke(iwbeg+23) = ke(ig+1)
+            ke(iwbeg+24) = ke(ig+2)
+            ke(iwbeg+28) = ke(ig+3)
+            ke(iwbeg+29) = ke(ig+4)
+            ke(iwbeg+30) = ke(ig+5)
+            ke(iwbeg+34) = ke(ig+6)
+            ke(iwbeg+35) = ke(ig+7)
+            ke(iwbeg+36) = ke(ig+8)
             IF ( offset ) THEN
-               Ke(iwbeg+4) = Ke(28)
-               Ke(iwbeg+5) = Ke(29)
-               Ke(iwbeg+6) = Ke(30)
-               Ke(iwbeg+10) = Ke(31)
-               Ke(iwbeg+11) = Ke(32)
-               Ke(iwbeg+12) = Ke(33)
-               Ke(iwbeg+16) = Ke(34)
-               Ke(iwbeg+17) = Ke(35)
-               Ke(iwbeg+18) = Ke(36)
+               ke(iwbeg+4) = ke(28)
+               ke(iwbeg+5) = ke(29)
+               ke(iwbeg+6) = ke(30)
+               ke(iwbeg+10) = ke(31)
+               ke(iwbeg+11) = ke(32)
+               ke(iwbeg+12) = ke(33)
+               ke(iwbeg+16) = ke(34)
+               ke(iwbeg+17) = ke(35)
+               ke(iwbeg+18) = ke(36)
             ENDIF
             basic = icsidb==0
             jcsid = jcsidb
@@ -679,8 +680,8 @@ USE ISO_FORTRAN_ENV
             ik = ikx
             IF ( i>=3 ) ikx = (7-i-1)*36 + 1
             ifore = ((i-1)/2)*36 + 37
-            CALL gmmatd(Ke(ifore),6,6,1,Kk(ikx),6,6,0,Ke(109))
-            CALL gmmatd(Ke(109),6,6,0,Ke(iaft),6,6,0,Kep(ik))
+            CALL gmmatd(ke(ifore),6,6,1,kk(ikx),6,6,0,ke(109))
+            CALL gmmatd(ke(109),6,6,0,ke(iaft),6,6,0,kep(ik))
             iaft = 73
             IF ( i==3 ) iaft = 37
          ENDDO
@@ -692,11 +693,11 @@ USE ISO_FORTRAN_ENV
             ix1 = ikk(ii)
             ix2 = ix1 + 60
             is = is12or(ii)
-            IF ( Isilno(1)>Isilno(2) ) is = is21or(ii)
+            IF ( isilno(1)>isilno(2) ) is = is21or(ii)
             DO i = ix1 , ix2 , 12
                ip5 = i + 5
                DO j = i , ip5
-                  Ke(j) = Kep(is)
+                  ke(j) = kep(is)
                   is = is + 1
                ENDDO
             ENDDO
@@ -709,8 +710,8 @@ USE ISO_FORTRAN_ENV
  40      dict(2) = 1
          dict(3) = ndof
          dict(4) = icode
-         dict(5) = Gsube
-         CALL emgout(Ke(1),Ke(1),nsq,1,dict,1,Iprec)
+         dict(5) = gsube
+         CALL emgout(ke(1),ke(1),nsq,1,dict,1,iprec)
          spag_nextblock_1 = 6
       CASE (6)
 !
@@ -719,23 +720,23 @@ USE ISO_FORTRAN_ENV
 !     THE BAR.  OTHERWISE CALL THE ROUTINE TO GENERATE CONSISTENT MASS
 !     MATRICES FOR THE BAR.
 !
-         const = (fl*(dble(Rho)*dble(A)+dble(Nsm)))/420.D0
-         IF ( Imass==0 .OR. const==0.D0 ) RETURN
-         IF ( Icmbar<0 ) THEN
+         const = (fl*(dble(rho)*dble(a)+dble(nsm)))/420.D0
+         IF ( imass==0 .OR. const==0.D0 ) RETURN
+         IF ( icmbar<0 ) THEN
 !
 !     CALCULATE THE CONVENTIONAL MASS MATRIX HERE
 !
 !
 !     GET RHO FROM MPT BY CALLING MAT
 !
-            Matidc = Imatid
-            Matflg = 4
-            Eltemp = Tempel
+            matidc = imatid
+            matflg = 4
+            eltemp = tempel
             CALL mat(ecpt(1))
             DO i = 1 , 72
-               Mep(i) = 0.D0
+               mep(i) = 0.D0
             ENDDO
-            fm = .5D0*fl*(dble(Rho)*dble(A)+dble(Nsm))
+            fm = .5D0*fl*(dble(rho)*dble(a)+dble(nsm))
 !
 !     DETERMINE IF THE GRID POINT IS ASSOCIATED WITH A NON-ZERO OFFSET.
 !
@@ -757,45 +758,44 @@ USE ISO_FORTRAN_ENV
 !
 !     HERE WE HAVE A ZERO OFFSET VECTOR
 !
-                     Mep(ix+1) = fm
-                     Mep(ix+8) = fm
-                     Mep(ix+15) = fm
+                     mep(ix+1) = fm
+                     mep(ix+8) = fm
+                     mep(ix+15) = fm
                      spag_nextblock_2 = 3
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (2)
 !
 !     FORM UPPER RIGHT CORNER OF THE MATRIX
 !
-                     Mep(ix+1) = 1.D0
-                     Mep(ix+8) = 1.D0
-                     Mep(ix+15) = 1.D0
-                     Mep(ix+5) = ecpt(jofset+3)
-                     Mep(ix+6) = -ecpt(jofset+2)
-                     Mep(ix+12) = ecpt(jofset+1)
-                     Mep(ix+10) = -Mep(ix+5)
-                     Mep(ix+16) = -Mep(ix+6)
-                     Mep(ix+17) = -Mep(ix+12)
-                     Mep(ix+20) = -Mep(ix+5)
-                     Mep(ix+21) = -Mep(ix+6)
-                     Mep(ix+25) = -Mep(ix+10)
-                     Mep(ix+27) = -Mep(ix+12)
-                     Mep(ix+31) = -Mep(ix+16)
-                     Mep(ix+32) = -Mep(ix+17)
-                     Mep(ix+22) = ecpt(jofset+3)**2 + ecpt(jofset+2)**2
-                     Mep(ix+29) = ecpt(jofset+3)**2 + ecpt(jofset+1)**2
-                     Mep(ix+36) = ecpt(jofset+2)**2 + ecpt(jofset+1)**2
-                     Mep(ix+23) = -ecpt(jofset+1)*ecpt(jofset+2)
-                     Mep(ix+24) = -ecpt(jofset+1)*ecpt(jofset+3)
-                     Mep(ix+30) = -ecpt(jofset+2)*ecpt(jofset+3)
-                     Mep(ix+28) = Mep(ix+23)
-                     Mep(ix+34) = Mep(ix+24)
-                     Mep(ix+35) = Mep(ix+30)
+                     mep(ix+1) = 1.D0
+                     mep(ix+8) = 1.D0
+                     mep(ix+15) = 1.D0
+                     mep(ix+5) = ecpt(jofset+3)
+                     mep(ix+6) = -ecpt(jofset+2)
+                     mep(ix+12) = ecpt(jofset+1)
+                     mep(ix+10) = -mep(ix+5)
+                     mep(ix+16) = -mep(ix+6)
+                     mep(ix+17) = -mep(ix+12)
+                     mep(ix+20) = -mep(ix+5)
+                     mep(ix+21) = -mep(ix+6)
+                     mep(ix+25) = -mep(ix+10)
+                     mep(ix+27) = -mep(ix+12)
+                     mep(ix+31) = -mep(ix+16)
+                     mep(ix+32) = -mep(ix+17)
+                     mep(ix+22) = ecpt(jofset+3)**2 + ecpt(jofset+2)**2
+                     mep(ix+29) = ecpt(jofset+3)**2 + ecpt(jofset+1)**2
+                     mep(ix+36) = ecpt(jofset+2)**2 + ecpt(jofset+1)**2
+                     mep(ix+23) = -ecpt(jofset+1)*ecpt(jofset+2)
+                     mep(ix+24) = -ecpt(jofset+1)*ecpt(jofset+3)
+                     mep(ix+30) = -ecpt(jofset+2)*ecpt(jofset+3)
+                     mep(ix+28) = mep(ix+23)
+                     mep(ix+34) = mep(ix+24)
+                     mep(ix+35) = mep(ix+30)
 !
 !     MULTIPLY M BY THE CONSTANT FL
 !
                      DO i = 1 , 36
                         is = ix + i
-                        Mep(is) = Mep(is)*fm
+                        mep(is) = mep(is)*fm
                      ENDDO
                      spag_nextblock_2 = 3
                   CASE (3)
@@ -809,10 +809,10 @@ USE ISO_FORTRAN_ENV
 !     SIL          A       B
 !
             DO i = 1 , 144
-               Me(i) = 0.D0
+               me(i) = 0.D0
             ENDDO
 !
-            IF ( Isilno(1)<=Isilno(2) ) THEN
+            IF ( isilno(1)<=isilno(2) ) THEN
                ix1 = 1
                ix2 = 37
             ELSE
@@ -824,8 +824,8 @@ USE ISO_FORTRAN_ENV
                IF ( mm==0 ) mm = 6
                i = ((jj-1)/6)*12 + mm
                j = i + 78
-               Me(i) = Mep(ix1)
-               Me(j) = Mep(ix2)
+               me(i) = mep(ix1)
+               me(j) = mep(ix2)
                ix1 = ix1 + 1
                ix2 = ix2 + 1
             ENDDO
@@ -837,7 +837,7 @@ USE ISO_FORTRAN_ENV
             dict(4) = icode
             dict(5) = 0
 !
-            CALL emgout(Me,Me,144,1,dict,2,Iprec)
+            CALL emgout(me,me,144,1,dict,2,iprec)
 !
             RETURN
          ELSE
@@ -846,9 +846,9 @@ USE ISO_FORTRAN_ENV
 !
 !     CALL THE MAT ROUTINE TO FETCH SINGLE PRECISION MATERIAL PROPERTIES
 !
-            Matidc = Imatid
-            Matflg = 1
-            Eltemp = Tempel
+            matidc = imatid
+            matflg = 1
+            eltemp = tempel
             CALL mat(iecpt(1))
 !
 !     COMPUTE TERMS OF THE ELEMENT MASS MATRIX
@@ -862,39 +862,39 @@ USE ISO_FORTRAN_ENV
 !
             DO i = 1 , 12
                DO j = 1 , 12
-                  M(i,j) = 0.D0
+                  m(i,j) = 0.D0
                ENDDO
             ENDDO
-            M(1,1) = 175.D0
-            M(1,7) = 35.D0
-            M(2,2) = 156.D0
-            M(2,6) = bl22
-            M(2,8) = 54.D0
-            M(2,12) = -bl13
-            M(3,3) = 156.D0
-            M(3,5) = -bl22
-            M(3,9) = 54.D0
-            M(3,11) = bl13
-            M(5,5) = blsq4
-            M(5,9) = -bl13
-            M(5,11) = -blsq3
-            M(6,6) = blsq4
-            M(6,8) = bl13
-            M(6,12) = -blsq3
-            M(7,7) = 175.D0
-            M(8,8) = 156.D0
-            M(8,12) = -bl22
-            M(9,9) = 156.D0
-            M(9,11) = bl22
-            M(11,11) = blsq4
-            M(12,12) = blsq4
+            m(1,1) = 175.D0
+            m(1,7) = 35.D0
+            m(2,2) = 156.D0
+            m(2,6) = bl22
+            m(2,8) = 54.D0
+            m(2,12) = -bl13
+            m(3,3) = 156.D0
+            m(3,5) = -bl22
+            m(3,9) = 54.D0
+            m(3,11) = bl13
+            m(5,5) = blsq4
+            m(5,9) = -bl13
+            m(5,11) = -blsq3
+            m(6,6) = blsq4
+            m(6,8) = bl13
+            m(6,12) = -blsq3
+            m(7,7) = 175.D0
+            m(8,8) = 156.D0
+            m(8,12) = -bl22
+            m(9,9) = 156.D0
+            m(9,11) = bl22
+            m(11,11) = blsq4
+            m(12,12) = blsq4
 !
 !     STORE THE UPPER TRIANGULAR PART OF THE MATRIX IN THE LOWER PART.
 !
             DO i = 1 , 10
                low = i + 1
                DO j = low , 12
-                  M(j,i) = M(i,j)
+                  m(j,i) = m(i,j)
                ENDDO
             ENDDO
 !
@@ -904,7 +904,7 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , 12
                DO j = 1 , 12
                   k = k + 1
-                  Me(k) = const*M(i,j)
+                  me(k) = const*m(i,j)
                ENDDO
             ENDDO
 !
@@ -946,18 +946,18 @@ USE ISO_FORTRAN_ENV
          DO j = 1 , 10
             IF ( ipin(j)/=0 ) THEN
                jj = 12*(ipin(j)-1) + ipin(j)
-               IF ( Ke(jj)/=0. ) THEN
+               IF ( ke(jj)/=0. ) THEN
                   DO i = 1 , 12
                      ji = 12*(ipin(j)-1) + i
                      ij = 12*(i-1) + ipin(j)
                      DO l1 = 1 , 12
                         il = 12*(i-1) + l1
                         lj = 12*(l1-1) + ipin(j)
-                        Mep(il) = Me(il) - Ke(lj)*Me(ji)/Ke(jj) - Ke(ji)*Me(lj)/Ke(jj) + Ke(lj)*Ke(ji)*Me(jj)/Ke(jj)**2
+                        mep(il) = me(il) - ke(lj)*me(ji)/ke(jj) - ke(ji)*me(lj)/ke(jj) + ke(lj)*ke(ji)*me(jj)/ke(jj)**2
                      ENDDO
                   ENDDO
                   DO k = 1 , 144
-                     Me(k) = Mep(k)
+                     me(k) = mep(k)
                   ENDDO
                ENDIF
 !
@@ -967,8 +967,8 @@ USE ISO_FORTRAN_ENV
                j2 = ipin(j)
                DO k = 1 , 12
                   j1 = j1 + 1
-                  Me(j1) = 0.D0
-                  Me(j2) = 0.D0
+                  me(j1) = 0.D0
+                  me(j2) = 0.D0
                   j2 = j2 + 12
                ENDDO
             ENDIF
@@ -990,10 +990,10 @@ USE ISO_FORTRAN_ENV
             lim = low + 5
             DO k = low , lim
                j = j + 1
-               Kk(j) = Me(k)
-               Kk(j+36) = Me(k+6)
-               Kk(j+72) = Me(k+72)
-               Kk(j+108) = Me(k+78)
+               kk(j) = me(k)
+               kk(j+36) = me(k+6)
+               kk(j+72) = me(k+72)
+               kk(j+108) = me(k+78)
             ENDDO
          ENDDO
 !
@@ -1009,15 +1009,15 @@ USE ISO_FORTRAN_ENV
          dict(3) = ndof
          dict(4) = icode
          dict(5) = 0
-         CALL emgout(Ke(1),Ke(1),144,1,dict,2,Iprec)
+         CALL emgout(ke(1),ke(1),144,1,dict,2,iprec)
          RETURN
       CASE (8)
 !
 !     ERROR RETURNS
 !
-         WRITE (ioutpt,99003) Ufm , Ielid
+         WRITE (ioutpt,99003) ufm , ielid
 99003    FORMAT (A23,' 3176, BAR ELEMENT ID',I9,' HAS ILLEGAL GEOMETRY OR CONNECTIONS.')
-         Nogo = .TRUE.
+         nogo = .TRUE.
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

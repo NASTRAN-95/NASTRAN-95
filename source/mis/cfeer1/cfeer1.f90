@@ -1,15 +1,16 @@
-!*==cfeer1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfeer1.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfeer1
-USE C_FEERAA
-USE C_FEERXC
-USE C_NAMES
-USE C_SADDX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_saddx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -34,19 +35,19 @@ USE ISO_FORTRAN_ENV
 !     FORM   -(B + LAMBDA*M)  ON SCR2
 !
    itype = iprec + 2
-   Nomat = 2
+   nomat = 2
    DO i = 1 , 7
-      ifila(i) = Im(i)
-      ifilb(i) = Ib(i)
+      ifila(i) = im(i)
+      ifilb(i) = ib(i)
    ENDDO
    IF ( iprec==2 ) THEN
-      alpha(1) = -Lambda(1)
-      alpha(2) = -Lambda(2)
+      alpha(1) = -lambda(1)
+      alpha(2) = -lambda(2)
       beta(1) = -1.D0
       beta(2) = 0.D0
    ELSE
-      salpha(1) = -sngl(Lambda(1))
-      salpha(2) = -sngl(Lambda(2))
+      salpha(1) = -sngl(lambda(1))
+      salpha(2) = -sngl(lambda(2))
       salpha(3) = 0.
       salpha(4) = 0.
       sbeta(1) = -1.
@@ -56,61 +57,61 @@ USE ISO_FORTRAN_ENV
    ENDIF
    itypal = itype
    itypbt = itype
-   Nz = korsz(Z)
-   ifilc(1) = Scr2
-   ifilc(2) = Ik(2)
-   ifilc(3) = Ik(3)
+   nz = korsz(z)
+   ifilc(1) = scr2
+   ifilc(2) = ik(2)
+   ifilc(3) = ik(3)
    ifilc(4) = 1
    ifilc(5) = itype
-   IF ( Nob ) THEN
+   IF ( nob ) THEN
 !
 !     DAMPING MATRIX ABSENT
 !
       DO i = 1 , 7
-         ifilb(i) = Ik(i)
+         ifilb(i) = ik(i)
       ENDDO
       IF ( iprec==2 ) THEN
-         alpha(1) = Lambda(1)**2 - Lambda(2)**2
-         alpha(2) = 2.D0*Lambda(1)*Lambda(2)
+         alpha(1) = lambda(1)**2 - lambda(2)**2
+         alpha(2) = 2.D0*lambda(1)*lambda(2)
          beta(1) = 1.D0
       ELSE
-         salpha(1) = sngl(Lambda(1)**2-Lambda(2)**2)
-         salpha(2) = 2.*sngl(Lambda(1)*Lambda(2))
+         salpha(1) = sngl(lambda(1)**2-lambda(2)**2)
+         salpha(2) = 2.*sngl(lambda(1)*lambda(2))
          sbeta(1) = 1.
       ENDIF
 !
 !----------- LOGIC FOR SPECIAL PRINT -------------------------
 !
-      IF ( Qpr ) THEN
-         Typout = itype
-         Irow = 1
-         Nlast = Ik(2)
-         limit = 2*Nlast
-         Incr = 1
+      IF ( qpr ) THEN
+         typout = itype
+         irow = 1
+         nlast = ik(2)
+         limit = 2*nlast
+         incr = 1
 !-------------------------------------------------------------
 !
-         ibuf = Nz - Ksystm(1) - 2
+         ibuf = nz - ksystm(1) - 2
       ENDIF
    ELSE
-      CALL sadd(Z,Z)
+      CALL sadd(z,z)
 !
 !---------- SPECIAL PRINT ------------------------------
 !
-      IF ( Qpr ) THEN
+      IF ( qpr ) THEN
          WRITE (nout,99001)
 99001    FORMAT (1H0,//7H CFEER1,//)
-         Typout = itype
-         Irow = 1
-         Nlast = Ik(2)
-         limit = 2*Nlast
-         Incr = 1
-         ibuf = Nz - Ksystm(1) - 2
-         CALL gopen(ifilc(1),Z(ibuf),0)
-         DO i = 1 , Nlast
+         typout = itype
+         irow = 1
+         nlast = ik(2)
+         limit = 2*nlast
+         incr = 1
+         ibuf = nz - ksystm(1) - 2
+         CALL gopen(ifilc(1),z(ibuf),0)
+         DO i = 1 , nlast
             WRITE (nout,99003) i
-            CALL unpack(*20,ifilc(1),Z)
+            CALL unpack(*20,ifilc(1),z)
             IF ( iprec==2 ) WRITE (nout,99004) (dz(j),j=1,limit)
-            IF ( iprec/=2 ) WRITE (nout,99005) (Z(j),j=1,limit)
+            IF ( iprec/=2 ) WRITE (nout,99005) (z(j),j=1,limit)
  20      ENDDO
          CALL close(ifilc(1),1)
       ENDIF
@@ -119,43 +120,43 @@ USE ISO_FORTRAN_ENV
 !     FORM  (LAMBDA**2*M + LAMBDA*B + K)  ON SCR1
 !
       DO i = 1 , 7
-         ifila(i) = Ik(i)
+         ifila(i) = ik(i)
       ENDDO
       ifilb(1) = ifilc(1)
-      ifilb(2) = Ik(2)
-      ifilb(3) = Ik(3)
-      ifilb(4) = Sqr
+      ifilb(2) = ik(2)
+      ifilb(3) = ik(3)
+      ifilb(4) = sqr
       ifilb(5) = itype
       IF ( iprec==2 ) THEN
          alpha(1) = 1.D0
          alpha(2) = 0.D0
-         beta(1) = -Lambda(1)
-         beta(2) = -Lambda(2)
+         beta(1) = -lambda(1)
+         beta(2) = -lambda(2)
       ELSE
          salpha(1) = 1.
          salpha(2) = 0.
          salpha(3) = 0.
          salpha(4) = 0.
-         sbeta(1) = -sngl(Lambda(1))
-         sbeta(2) = -sngl(Lambda(2))
+         sbeta(1) = -sngl(lambda(1))
+         sbeta(2) = -sngl(lambda(2))
          sbeta(3) = 0.
          sbeta(4) = 0.
       ENDIF
    ENDIF
-   ifilc(1) = Scr1
-   CALL sadd(Z,Z)
+   ifilc(1) = scr1
+   CALL sadd(z,z)
 !
 !---------- SPECIAL PRINT ------------------------------
 !
-   IF ( Qpr ) THEN
+   IF ( qpr ) THEN
       WRITE (nout,99002)
 99002 FORMAT (1H ,13(10H----------),//,19H THE DYNAMIC MATRIX,//)
-      CALL gopen(ifilc(1),Z(ibuf),0)
-      DO i = 1 , Nlast
+      CALL gopen(ifilc(1),z(ibuf),0)
+      DO i = 1 , nlast
          WRITE (nout,99003) i
-         CALL unpack(*50,ifilc(1),Z)
+         CALL unpack(*50,ifilc(1),z)
          IF ( iprec==2 ) WRITE (nout,99004) (dz(j),j=1,limit)
-         IF ( iprec/=2 ) WRITE (nout,99005) (Z(j),j=1,limit)
+         IF ( iprec/=2 ) WRITE (nout,99005) (z(j),j=1,limit)
  50   ENDDO
       CALL close(ifilc(1),1)
    ENDIF
@@ -164,7 +165,7 @@ USE ISO_FORTRAN_ENV
 !     MCBLMB NOT USED WHEN DAMPING MATRIX ABSENT
 !
    DO i = 1 , 7
-      Mcblmb(i) = ifilb(i)
+      mcblmb(i) = ifilb(i)
    ENDDO
 99003 FORMAT (7H COLUMN,I4)
 99004 FORMAT (1H ,13(10H----------)/(1H ,4D25.16))

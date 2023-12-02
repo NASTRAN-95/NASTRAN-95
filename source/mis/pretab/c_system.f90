@@ -1,4 +1,4 @@
-!*==/home/marcusmae/nasa/nastran/SPAGged/C_SYSTEM.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+!*==/home/marcusmae/nasa/nastran/source/mis/pretab/SPAGged/C_SYSTEM.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
 MODULE C_SYSTEM
-   INTEGER :: Ibuf, Nout
+INTEGER :: Ibuf , Nout
 END MODULE C_SYSTEM

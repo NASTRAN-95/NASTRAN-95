@@ -1,9 +1,10 @@
-!*==matck.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==matck.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE matck(Mfile,Pfile,A,Z)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -70,7 +71,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
 !
 !     ARRAY A CONTAINS A LIST OF ACTIVE PROPERTY IDS - SET UP BY PIDCK
 !
-         IF ( Abort ) GOTO 80
+         IF ( abort ) GOTO 80
          nomat = Z(1)
          IF ( nomat==0 ) THEN
             CALL fwdrec(*80,Pfile)
@@ -80,8 +81,8 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
 !     UPDATE EPTI ARRAY IF DUMMY ELEMENT IS PRESENT
 !
             DO j = 1 , 9
-               IF ( Kdum(j)/=0 ) THEN
-                  k = mod(Kdum(j),1000)/10
+               IF ( kdum(j)/=0 ) THEN
+                  k = mod(kdum(j),1000)/10
                   epti(2,28+j) = k*10 + 1
                ENDIF
             ENDDO
@@ -150,7 +151,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
                      IF ( j==Z(i) ) THEN
                         IF ( k>=k4 .OR. i<k4 ) THEN
                            CALL mesage(30,213,j)
-                           Abort = .TRUE.
+                           abort = .TRUE.
                            EXIT SPAG_Loop_2_2
                         ENDIF
                      ENDIF
@@ -180,7 +181,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
                      k1 = 217
                      IF ( k==15 ) k1 = 17
                      CALL mesage(30,k1,ih)
-                     Abort = .TRUE.
+                     abort = .TRUE.
                   ENDDO SPAG_Loop_2_3
                ENDIF
             ENDDO
@@ -201,7 +202,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
                   SPAG_Loop_2_4: DO i = ib , kk
                      IF ( j==Z(i) ) THEN
                         CALL mesage(30,213,j)
-                        Abort = .TRUE.
+                        abort = .TRUE.
                         EXIT SPAG_Loop_2_4
                      ENDIF
                   ENDDO SPAG_Loop_2_4
@@ -226,7 +227,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
          IF ( nomat==0 ) THEN
 !
             CALL mesage(30,16,ih)
-            Abort = .TRUE.
+            abort = .TRUE.
             RETURN
          ELSE
             nwds = epti(2,k)/10
@@ -273,7 +274,6 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
             ENDIF
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          SPAG_Loop_1_7: DO i = ib , ie , ic
             kk = Z(jx+i)
@@ -287,7 +287,7 @@ SUBROUTINE matck(Mfile,Pfile,A,Z)
                ih(1) = kk
                ih(2) = Z(jx)
                CALL mesage(30,215,ih)
-               Abort = .TRUE.
+               abort = .TRUE.
             ENDIF
          ENDDO SPAG_Loop_1_7
          spag_nextblock_1 = 2

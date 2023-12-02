@@ -1,9 +1,10 @@
-!*==xtrny1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xtrny1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xtrny1(X,Y,Alpha1)
-USE C_INVPWX
-USE ISO_FORTRAN_ENV                 
+   USE c_invpwx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -25,7 +26,7 @@ USE ISO_FORTRAN_ENV
 !*******
 !     DOUBLE PRECISION   X(1)      ,Y(1)     ,ALPHA
    alpha = 0.0
-   DO i = 1 , Ncol
+   DO i = 1 , ncol
       alpha = alpha + X(i)*Y(i)
    ENDDO
    Alpha1 = alpha

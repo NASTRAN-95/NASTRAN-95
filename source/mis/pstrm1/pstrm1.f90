@@ -1,13 +1,14 @@
-!*==pstrm1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pstrm1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pstrm1(Ntype)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_pla32s
+   USE c_pla3es
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_PLA32S
-   USE C_PLA3ES
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -82,66 +83,66 @@ SUBROUTINE pstrm1(Ntype)
 !     E(7), E(8), E(9) WILL BE THE K-VECTOR NOT USED IN E FOR MEMBRANE
 !
 !     FIRST FIND I-VECTOR = RSUBB - RSUBA  (NON-NORMALIZED)
-   E(1) = X2 - X1
-   E(3) = Y2 - Y1
-   E(5) = Z2 - Z1
+   e(1) = x2 - x1
+   e(3) = y2 - y1
+   e(5) = z2 - z1
 !
 !     NOW FIND LENGTH = X-SUB-B   COORD. IN ELEMENT SYSTEM
-   Xsubb = sqrt(E(1)**2+E(3)**2+E(5)**2)
-   IF ( Xsubb<=1.0E-06 ) CALL mesage(-30,31,ecpt(1))
+   xsubb = sqrt(e(1)**2+e(3)**2+e(5)**2)
+   IF ( xsubb<=1.0E-06 ) CALL mesage(-30,31,ecpt(1))
 !
 !     NOW NORMALIZE I-VECTOR WITH X-SUB-B
-   E(1) = E(1)/Xsubb
-   E(3) = E(3)/Xsubb
-   E(5) = E(5)/Xsubb
+   e(1) = e(1)/xsubb
+   e(3) = e(3)/xsubb
+   e(5) = e(5)/xsubb
 !
 !     HERE WE NOW TAKE RSUBC - RSUBA AND STORE TEMPORARILY IN
 !     E(2), E(4), E(6) WHICH IS WHERE THE J-VECTOR WILL FIT LATER
 !
-   E(2) = X3 - X1
-   E(4) = Y3 - Y1
-   E(6) = Z3 - Z1
+   e(2) = x3 - x1
+   e(4) = y3 - y1
+   e(6) = z3 - z1
 !
 !     X-SUB-C  =  I . (RSUBC - RSUBA) ,  THUS
-   Xsubc = E(1)*E(2) + E(3)*E(4) + E(5)*E(6)
+   xsubc = e(1)*e(2) + e(3)*e(4) + e(5)*e(6)
 !
 !     AND CROSSING THE I-VECTOR TO (RSUBC-RSUBA) GIVES THE K-VECTOR
 !     (NON-NORMALIZED)
 !
-   E(7) = E(3)*E(6) - E(5)*E(4)
-   E(8) = E(5)*E(2) - E(1)*E(6)
-   E(9) = E(1)*E(4) - E(3)*E(2)
+   e(7) = e(3)*e(6) - e(5)*e(4)
+   e(8) = e(5)*e(2) - e(1)*e(6)
+   e(9) = e(1)*e(4) - e(3)*e(2)
 !
 !
 !     THE LENGTH OF THE K-VECTOR IS NOW FOUND AND EQUALS Y-SUB-C
 !     COORD. IN ELEMENT SYSTEM
-   Ysubc = sqrt(E(7)**2+E(8)**2+E(9)**2)
-   IF ( Ysubc<=1.0E-06 ) CALL mesage(-30,32,ecpt(1))
+   ysubc = sqrt(e(7)**2+e(8)**2+e(9)**2)
+   IF ( ysubc<=1.0E-06 ) CALL mesage(-30,32,ecpt(1))
 !
 !     NOW NORMALIZE K-VECTOR WITH YSUBC JUST FOUND
 !
-   E(7) = E(7)/Ysubc
-   E(8) = E(8)/Ysubc
-   E(9) = E(9)/Ysubc
+   e(7) = e(7)/ysubc
+   e(8) = e(8)/ysubc
+   e(9) = e(9)/ysubc
 !
 !     NOW HAVING I AND K VECTORS.GET J = I CROSS K AND
 !     STORE IN THE SPOT FOR J
 !
-   E(2) = E(5)*E(8) - E(3)*E(9)
-   E(4) = E(1)*E(9) - E(5)*E(7)
-   E(6) = E(3)*E(7) - E(1)*E(8)
+   e(2) = e(5)*e(8) - e(3)*e(9)
+   e(4) = e(1)*e(9) - e(5)*e(7)
+   e(6) = e(3)*e(7) - e(1)*e(8)
 !
 !     AND JUST FOR COMPUTER EXACTNESS NORMALIZE J-VECTOR TO MAKE SURE.
-   Temp = sqrt(E(2)**2+E(4)**2+E(6)**2)
-   E(2) = E(2)/Temp
-   E(4) = E(4)/Temp
-   E(6) = E(6)/Temp
+   temp = sqrt(e(2)**2+e(4)**2+e(6)**2)
+   e(2) = e(2)/temp
+   e(4) = e(4)/temp
+   e(6) = e(6)/temp
 !
 !     VOLUME OF ELEMENT, THETA, MU, LAMDA, AND DELTA
 !
-   Reelmu = 1.0E0/Xsubb
-   Flamda = 1.0E0/Ysubc
-   Delta = Xsubc/Xsubb - 1.0E0
+   reelmu = 1.0E0/xsubb
+   flamda = 1.0E0/ysubc
+   delta = xsubc/xsubb - 1.0E0
 !
 !     ******************************************************************
 !
@@ -150,46 +151,46 @@ SUBROUTINE pstrm1(Ntype)
 !                 CSUBB = (3X2) STORED IN C(7) . . .C(12) BY ROWS
 !                 CSUBC = (3X2) STORED IN C(13). . .C(18) BY ROWS
 !
-   C(1) = -Reelmu
-   C(2) = 0.0E0
-   C(3) = 0.0E0
-   C(4) = Flamda*Delta
-   C(5) = C(4)
-   C(6) = -Reelmu
-   C(7) = Reelmu
-   C(8) = 0.0E0
-   C(9) = 0.0E0
-   C(10) = -Flamda*Reelmu*Xsubc
-   C(11) = C(10)
-   C(12) = Reelmu
-   C(13) = 0.0E0
-   C(14) = 0.0E0
-   C(15) = 0.0E0
-   C(16) = Flamda
-   C(17) = Flamda
-   C(18) = 0.0E0
+   c(1) = -reelmu
+   c(2) = 0.0E0
+   c(3) = 0.0E0
+   c(4) = flamda*delta
+   c(5) = c(4)
+   c(6) = -reelmu
+   c(7) = reelmu
+   c(8) = 0.0E0
+   c(9) = 0.0E0
+   c(10) = -flamda*reelmu*xsubc
+   c(11) = c(10)
+   c(12) = reelmu
+   c(13) = 0.0E0
+   c(14) = 0.0E0
+   c(15) = 0.0E0
+   c(16) = flamda
+   c(17) = flamda
+   c(18) = 0.0E0
 !
    IF ( Ntype/=1 ) THEN
-      Theta = Angle*degra
-      Sinth = sin(Theta)
-      Costh = cos(Theta)
+      theta = angle*degra
+      sinth = sin(theta)
+      costh = cos(theta)
    ENDIF
-   IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
-   Matid = Matid1
-   Inflag = -1
+   IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
+   matid = matid1
+   inflag = -1
    CALL plamat
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-   g(1) = G11
-   g(2) = G12
-   g(3) = G13
-   g(4) = G12
-   g(5) = G22
-   g(6) = G23
-   g(7) = G13
-   g(8) = G23
-   g(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     ******************************************************************
 !
@@ -206,26 +207,26 @@ SUBROUTINE pstrm1(Ntype)
 !     POINTER TO C   = 6*I - 5
 !                 I
 !
-      CALL gmmats(g,3,3,0,C(6*i-5),3,2,0,Tempar(1))
-      CALL gmmats(Tempar(1),3,2,0,E,3,2,1,Tempar(10))
+      CALL gmmats(g,3,3,0,c(6*i-5),3,2,0,tempar(1))
+      CALL gmmats(tempar(1),3,2,0,e,3,2,1,tempar(10))
 !
 !     DO WE NEED TRANSFORMATION TI
 !
-      IF ( Necpt(4*i+5)==0 ) THEN
+      IF ( necpt(4*i+5)==0 ) THEN
          npt1 = 9*i
          DO j = 10 , 18
             npt1 = npt1 + 1
-            Ph1out(npt1) = Tempar(j)
+            ph1out(npt1) = tempar(j)
          ENDDO
       ELSE
-         CALL transs(Necpt(4*i+5),Ti)
-         CALL gmmats(Tempar(10),3,3,0,Ti,3,3,0,Ph1out(9*i+1))
+         CALL transs(necpt(4*i+5),ti)
+         CALL gmmats(tempar(10),3,3,0,ti,3,3,0,ph1out(9*i+1))
       ENDIF
    ENDDO
-   Ph1out(1) = ecpt(1)
-   Ph1out(2) = ecpt(2)
-   Ph1out(3) = ecpt(3)
-   Ph1out(4) = ecpt(4)
+   ph1out(1) = ecpt(1)
+   ph1out(2) = ecpt(2)
+   ph1out(3) = ecpt(3)
+   ph1out(4) = ecpt(4)
 !
 !     THIS CONCLUDES PHASE 1 FOR TRIANGULAR MEMBRANE OR SUB CALCULATION
 !     TO ANOTHER ROUTINE...

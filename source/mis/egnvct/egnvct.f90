@@ -1,4 +1,5 @@
-!*==egnvct.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==egnvct.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE egnvct(C1,C2,Eigen,C3,N1,N2,N)
@@ -19,6 +20,15 @@ SUBROUTINE egnvct(C1,C2,Eigen,C3,N1,N2,N)
    COMPLEX :: d1 , d2 , d3 , d4 , d5 , d6 , d8
    INTEGER :: i , i1 , ii2 , ii3 , ii4 , j , j1 , k , k5 , k6
    REAL :: x1 , x2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

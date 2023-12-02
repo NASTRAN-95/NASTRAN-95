@@ -1,10 +1,11 @@
-!*==sdcout.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdcout.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcout(Block,Irw,Ac,N,Vecs,Vecd)
-USE C_TYPE
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_type
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -50,8 +51,8 @@ USE ISO_FORTRAN_ENV
          IF ( Irw==0 ) Block(12) = iabs(Ac(1))
          ii = 0
          type = Block(2)
-         rc = Rlcmpx(type)
-         prec = Prc(type)
+         rc = rlcmpx(type)
+         prec = prc(type)
          i = 1
          spag_nextblock_1 = 2
       CASE (2)
@@ -85,7 +86,7 @@ USE ISO_FORTRAN_ENV
 !
                DO jj = jstr , nstr
                   ii = ii + 1
-                  Xnd(jj) = Vecd(ii)
+                  xnd(jj) = Vecd(ii)
                ENDDO
             ELSE
 !

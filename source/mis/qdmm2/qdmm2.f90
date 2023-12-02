@@ -1,14 +1,15 @@
-!*==qdmm2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==qdmm2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qdmm2(Temps,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,35 +70,35 @@ SUBROUTINE qdmm2(Temps,Pg)
 !
 !     COMPUTE BASIC SIN AND COSINE OF ELEMENT MATERIAL ANGLE.
 !
-   angl = Est(6)*Degra
+   angl = est(6)*degra
    isinth = sin(angl)
    icosth = cos(angl)
 !
 !     COMPUTE GSUBE MATRIX
 !
-   Inflag = 2
-   Matid = nest(7)
-   Eltemp = Est(26)
-   Sinth = 0.0
-   Costh = 1.0
+   inflag = 2
+   matid = nest(7)
+   eltemp = est(26)
+   sinth = 0.0
+   costh = 1.0
    CALL mat(nest(1))
-   gsube(1) = G11
-   gsube(2) = G12
-   gsube(3) = G13
-   gsube(4) = G12
-   gsube(5) = G22
-   gsube(6) = G23
-   gsube(7) = G13
-   gsube(8) = G23
-   gsube(9) = G33
+   gsube(1) = g11
+   gsube(2) = g12
+   gsube(3) = g13
+   gsube(4) = g12
+   gsube(5) = g22
+   gsube(6) = g23
+   gsube(7) = g13
+   gsube(8) = g23
+   gsube(9) = g33
 !
 !     FORM  ALPHA = ALPS *(T-T )  3X1 VECTOR USED IN SUB-TRIANGLE CALCS
 !                       E     0
 !
-   tbar = Temps(1) - Tsub0
-   alpha(1) = Alps(1)*tbar
-   alpha(2) = Alps(2)*tbar
-   alpha(3) = Alps(3)*tbar
+   tbar = Temps(1) - tsub0
+   alpha(1) = alps(1)*tbar
+   alpha(2) = alps(2)*tbar
+   alpha(3) = alps(3)*tbar
 !
 !     NOTE THE ABOVE MAY BE MOVED TO BELOW AND COMPUTED USING THE
 !     GRID TEMPS OF SUB-TRIANGLE.  (I.E. TOTAL AVERAGE FOR CENTER POINT
@@ -105,7 +106,7 @@ SUBROUTINE qdmm2(Temps,Pg)
 !
 !     BASIC WHOLE-ELEMENT CALCULATIONS
 !
-   CALL q2bcs(Est,planar,rmat,et,ierror)
+   CALL q2bcs(est,planar,rmat,et,ierror)
    IF ( ierror<=0 ) THEN
 !
 !     ZERO SUMMATION ARRAYS
@@ -125,7 +126,7 @@ SUBROUTINE qdmm2(Temps,Pg)
          ia = map(i,1)
          ib = map(i,2)
          ic = map(i,3)
-         it = Est(8)
+         it = est(8)
          CALL q2trms(rmat(1,ia),rmat(1,ib),rmat(1,ic),alpha(1),isinth,icosth,gsube,it,ierror,2,kmat,pmat,dummy,dummy)
          IF ( ierror>0 ) THEN
             CALL spag_block_1
@@ -213,7 +214,7 @@ CONTAINS
 !
 !     ERROR CONDITIONS
 !
-      WRITE (ioutpt,99001) Uwm , nest(1)
+      WRITE (Ioutpt,99001) uwm , Nest(1)
 99001 FORMAT (A25,' 3100, ELEMENT THERMAL LOAD COMPUTATION FOR QDMEM2 ','ELEMENT ID =',I9,/5X,'FINDS ILLEGAL GEOMETRY THUS NO ',    &
              &'LOADS OUTPUT FOR ELEMENT-ID NOTED.')
    END SUBROUTINE spag_block_1

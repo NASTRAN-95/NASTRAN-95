@@ -1,14 +1,15 @@
-!*==ssg3a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssg3a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg3a(A,Lll,B,X,Sr1,Sr2,Itr1,Res)
-USE C_BLANK
-USE C_FBSX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_fbsx
+   USE c_system
+   USE c_unpakx
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -43,32 +44,32 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
    DATA name/4HSSG3 , 4HA   /
 !
-   Fill(1) = Lll
-   CALL rdtrl(Fill)
-   IF ( Fill(1)<=0 ) CALL mesage(-1,Lll,name)
-   Filb(1) = B
-   CALL rdtrl(Filb)
-   nload = Filb(2)
-   nlen = Filb(3)
-   Isign = 1
-   Prec = 2
-   Nz = korsz(Core)
-   DO I = 2 , 7
-      Filx(I) = Filb(I)
+   fill(1) = Lll
+   CALL rdtrl(fill)
+   IF ( fill(1)<=0 ) CALL mesage(-1,Lll,name)
+   filb(1) = B
+   CALL rdtrl(filb)
+   nload = filb(2)
+   nlen = filb(3)
+   isign = 1
+   prec = 2
+   nz = korsz(core)
+   DO i = 2 , 7
+      filx(i) = filb(i)
    ENDDO
-   Filx(1) = X
+   filx(1) = X
 !
 !     SAVE DISPLACEMENT VECTOR IN DOUBLE PRECISION
 !
-   Filx(5) = 1
-   IF ( Filb(5)>2 ) Filx(5) = 3
-   Filx(5) = Filx(5) + iprec - 1
-   CALL fbs(Core,Core)
-   CALL wrttrl(Filx)
+   filx(5) = 1
+   IF ( filb(5)>2 ) filx(5) = 3
+   filx(5) = filx(5) + iprec - 1
+   CALL fbs(core,core)
+   CALL wrttrl(filx)
    IF ( Itr1>=0 ) THEN
-      Fill(1) = Res
-      CALL rdtrl(Fill)
-      IF ( Fill(1)>0 ) THEN
+      fill(1) = Res
+      CALL rdtrl(fill)
+      IF ( fill(1)>0 ) THEN
 !
 !     COMPUTE RESIDUAL VECTOR
 !
@@ -76,37 +77,37 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE EPSI
 !
-         Nz = Nz - sysbuf
-         CALL gopen(X,Core(Nz+1),0)
-         Nz = Nz - sysbuf
-         CALL gopen(Res,Core(Nz+1),0)
-         Nz = Nz - sysbuf
-         CALL gopen(B,Core(Nz+1),0)
-         IF ( Nz<2*nlen ) THEN
+         nz = nz - sysbuf
+         CALL gopen(X,core(nz+1),0)
+         nz = nz - sysbuf
+         CALL gopen(Res,core(nz+1),0)
+         nz = nz - sysbuf
+         CALL gopen(B,core(nz+1),0)
+         IF ( nz<2*nlen ) THEN
             CALL mesage(-8,0,name)
             RETURN
          ELSE
-            Itb = 2
-            Incur = 1
-            I = 1
-            J = nlen
+            itb = 2
+            incur = 1
+            i = 1
+            j = nlen
             DO l = 1 , nload
                spag_nextblock_1 = 1
                SPAG_DispatchLoop_1: DO
                   SELECT CASE (spag_nextblock_1)
                   CASE (1)
-                     CALL unpack(*2,X,Core)
+                     CALL unpack(*2,X,core)
                      dnum = 0.0D0
                      dnom = 0.0D0
                      CALL intpk(*4,Res,0,2,0)
-                     DO WHILE ( Ieol==0 )
+                     DO WHILE ( ieol==0 )
                         CALL zntpki
-                        dnum = dnum + Dx(1)*dcore(Ik)
+                        dnum = dnum + dx(1)*dcore(ik)
                      ENDDO
                      CALL intpk(*6,B,0,2,0)
-                     DO WHILE ( Ieol==0 )
+                     DO WHILE ( ieol==0 )
                         CALL zntpki
-                        dnom = dnom + Dx(1)*dcore(Ik)
+                        dnom = dnom + dx(1)*dcore(ik)
                      ENDDO
                      epsi = dnum/dnom
                      spag_nextblock_1 = 2
@@ -116,10 +117,10 @@ USE ISO_FORTRAN_ENV
  6                   epsi = 0.0
                      spag_nextblock_1 = 2
                   CASE (2)
-                     CALL mesage(35,Nskip+l-1,epsi)
+                     CALL mesage(35,nskip+l-1,epsi)
                      IF ( abs(epsi)>=1.0E-3 ) THEN
-                        Iepsi = -1
-                        CALL mesage(58,1.0E-3,Nskip+l-1)
+                        iepsi = -1
+                        CALL mesage(58,1.0E-3,nskip+l-1)
                      ENDIF
                      EXIT SPAG_DispatchLoop_1
                   END SELECT

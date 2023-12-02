@@ -2,11 +2,17 @@
  
 SUBROUTINE xsfadd
    IMPLICIT NONE
-   USE C_XSFA1
+   USE c_xsfa1
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: apndmk , entn1 , entn2 , entn3 , entn4 , flag , i , lmsk , lxmsk , rmsk , rxmsk , scornt , tapmsk , zap
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -39,7 +45,7 @@ SUBROUTINE xsfadd
    entn4 = 3
    flag = 0
    DO i = 1 , 1320
-      Xfiat(i) = 0
+      xfiat(i) = 0
    ENDDO
    tapmsk = 32768
 !            TAPMSK = O 000000100000  = Z 00008000

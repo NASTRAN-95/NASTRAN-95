@@ -1,7 +1,9 @@
-!*==dki.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dki.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dki(I,J,K,L,M,N,Ip,Iq,R,Z)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -23,7 +25,15 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: abs1 , ai , akkl , akmn , amkl , amm , ammn , arr , rd , xx
    INTEGER :: irr , iss , mm , nn
-   EXTERNAL dk100 , dk211 , dk89 , dkint
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -3,9 +3,9 @@
 SUBROUTINE factor(Input,Lower,Scr1,Scr2,Scr3,Scr4)
 !
    IMPLICIT NONE
-   USE C_SFACT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_sfact
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,29 +23,38 @@ SUBROUTINE factor(Input,Lower,Scr1,Scr2,Scr3,Scr4)
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    DATA lowtri/4/
    DATA bcd/4HFACT , 4HOR  /
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS AND SFACT COMMON
 !
-   Nz = korsz(Z)
-   Filea(1) = Input
-   CALL rdtrl(Filea)
-   CALL makmcb(Filel,Lower,Filea(3),lowtri,Filea(5))
-   Fileu(1) = iabs(Scr1)
-   Scr1fl = Scr2
-   Scr2fl = Scr3
-   Scr3fl = Scr4
-   Chl = 0
-   IF ( Scr1<0 ) Chl = 1
+   nz = korsz(z)
+   filea(1) = Input
+   CALL rdtrl(filea)
+   CALL makmcb(filel,Lower,filea(3),lowtri,filea(5))
+   fileu(1) = iabs(Scr1)
+   scr1fl = Scr2
+   scr2fl = Scr3
+   scr3fl = Scr4
+   chl = 0
+   IF ( Scr1<0 ) chl = 1
 !
 !     DECOMPOSE INPUT MATRIX INTO LOWER TRIANGULAR FACTOR.
 !
-   CALL sdcomp(*100,Z,Z,Z)
+   CALL sdcomp(*100,z,z,z)
 !
 !     WRITE TRAILER FOR LOWER TRIANGULAR FACTOR.
 !
-   CALL wrttrl(Filel)
+   CALL wrttrl(filel)
    RETURN
 !
 !     FATAL ERROR MESSAGE FOR SINGULAR INPUT MATRIX

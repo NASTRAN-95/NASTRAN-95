@@ -1,13 +1,14 @@
-!*==rcova.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rcova.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcova
+   USE c_blank
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,30 +34,30 @@ SUBROUTINE rcova
 !
 !     INITIALIZE
 !
-   Sof1 = korsz(Z) - Lreq - Sysbuf + 1
-   Sof2 = Sof1 - Sysbuf - 1
-   Sof3 = Sof2 - Sysbuf
-   Buf1 = Sof3 - Sysbuf
-   Buf2 = Buf1 - Sysbuf
-   Buf3 = Buf2 - Sysbuf
-   Icore = 1
-   Lcore = Buf3 - 1
-   IF ( Lcore<=0 ) CALL mesage(-8,0,name)
-   CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+   sof1 = korsz(z) - lreq - sysbuf + 1
+   sof2 = sof1 - sysbuf - 1
+   sof3 = sof2 - sysbuf
+   buf1 = sof3 - sysbuf
+   buf2 = buf1 - sysbuf
+   buf3 = buf2 - sysbuf
+   icore = 1
+   lcore = buf3 - 1
+   IF ( lcore<=0 ) CALL mesage(-8,0,name)
+   CALL sofopn(z(sof1),z(sof2),z(sof3))
 !
 !     COPY KGG, MGG, UVEC, BGG AND K4GG TO THE SOF IF THEY ARNT THERE
 !
    SPAG_Loop_1_2: DO i = 1 , 5
-      IF ( .NOT.(km(i)==uvec .AND. Mrecvr) ) THEN
-         IF ( Dry>=0 ) THEN
+      IF ( .NOT.(km(i)==uvec .AND. mrecvr) ) THEN
+         IF ( dry>=0 ) THEN
             SPAG_Loop_2_1: DO
-               CALL mtrxo(kmu(i),Fss,km(i),Z(Buf1),rc)
+               CALL mtrxo(kmu(i),fss,km(i),z(buf1),rc)
                IF ( rc==1 .OR. rc==3 .OR. rc==6 ) THEN
                ELSEIF ( rc==2 ) THEN
-                  CALL delete(Fss,km(i),rc)
+                  CALL delete(fss,km(i),rc)
                   CYCLE
                ELSEIF ( rc==4 .OR. rc==5 ) THEN
-                  CALL smsg(rc-2,km(i),Fss)
+                  CALL smsg(rc-2,km(i),fss)
                ELSE
                   EXIT SPAG_Loop_2_1
                ENDIF
@@ -64,20 +65,20 @@ SUBROUTINE rcova
             ENDDO SPAG_Loop_2_1
          ENDIF
          rc = 2
-         CALL mtrxo(-1,Fss,km(i),0,rc)
+         CALL mtrxo(-1,fss,km(i),0,rc)
       ENDIF
    ENDDO SPAG_Loop_1_2
-   IF ( Dry>=0 ) THEN
+   IF ( dry>=0 ) THEN
 !
 !     IF MODAL RECOVER, COPY PHIS ITEM TO UVEC
 !
-      IF ( Mrecvr ) THEN
-         Rfno = 3
-         CALL mtrxi(scr1,Fss,phis,0,rc)
+      IF ( mrecvr ) THEN
+         rfno = 3
+         CALL mtrxi(scr1,fss,phis,0,rc)
          IF ( rc==1 ) THEN
-            CALL mtrxo(scr1,Fss,uvec,0,rc)
+            CALL mtrxo(scr1,fss,uvec,0,rc)
          ELSE
-            CALL smsg(rc-2,phis,Fss)
+            CALL smsg(rc-2,phis,fss)
             CALL spag_block_1
             RETURN
          ENDIF
@@ -85,30 +86,30 @@ SUBROUTINE rcova
 !
 !     ATTEMPT TO FETCH SOLN ITEM FOR FSS.  IF IT ALREADY EXISTS, RETURN
 !
-      CALL sfetch(Fss,soln,schk,rc)
+      CALL sfetch(fss,soln,schk,rc)
       IF ( rc/=1 ) THEN
          IF ( rc/=3 ) THEN
-            CALL smsg(rc-2,soln,Fss)
+            CALL smsg(rc-2,soln,fss)
 !
 !     CREATE SOLN ITEM FOR PROPER RIGID FORMAT
 !
-         ELSEIF ( Rfno<0 .OR. Rfno>9 ) THEN
+         ELSEIF ( rfno<0 .OR. rfno>9 ) THEN
 !
 !     DIAGNOSTICS
 !
             CALL mesage(7,0,name)
             CALL spag_block_1
             RETURN
-         ELSEIF ( Rfno==3 ) THEN
+         ELSEIF ( rfno==3 ) THEN
 !
 !     MODAL SOLUTION - R.F. 3
 !
             CALL rcovms
-         ELSEIF ( Rfno==4 .OR. Rfno==5 .OR. Rfno==6 .OR. Rfno==7 ) THEN
+         ELSEIF ( rfno==4 .OR. rfno==5 .OR. rfno==6 .OR. rfno==7 ) THEN
             CALL mesage(7,0,name)
             CALL spag_block_1
             RETURN
-         ELSEIF ( Rfno==8 .OR. Rfno==9 ) THEN
+         ELSEIF ( rfno==8 .OR. rfno==9 ) THEN
 !
 !     DYNAMIC SOLUTION - R.F. 8 AND 9
 !
@@ -128,7 +129,7 @@ SUBROUTINE rcova
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      Iopt = -1
+      iopt = -1
       CALL sofcls
    END SUBROUTINE spag_block_1
 END SUBROUTINE rcova

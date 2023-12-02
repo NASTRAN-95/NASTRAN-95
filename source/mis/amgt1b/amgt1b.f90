@@ -1,12 +1,13 @@
-!*==amgt1b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==amgt1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
+   USE c_amgmn
+   USE c_system
+   USE c_tamg1l
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_SYSTEM
-   USE C_TAMG1L
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,25 +46,25 @@ SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
 !     THEORY DEPENDENT RESTRICTION OF NO MORE THAN 10 COMPUTING
 !     STATIONS PER STREAMLINE IS REFLECTED IN CODING.
 !
-   IF ( Nstns>10 ) THEN
+   IF ( nstns>10 ) THEN
 !
-      WRITE (Iout,99001) Ufm , Sln , Nstns
+      WRITE (iout,99001) ufm , sln , nstns
 99001 FORMAT (A23,' - AMG MODULE - NUMBER OF COMPUTING STATIONS ON ','STREAMLINE',I8,4H IS ,I3,1H.,/39X,'SUBSONIC CASCADE ',        &
              &'ROUTINE AMGT1B ALLOWS ONLY A MAXIMUM OF 10.')
       CALL mesage(-61,0,0)
       RETURN
    ELSE
 !
-      m = Amach
-      omega = Redf
-      ss = 2*Blspc
-      deltm = -Sigma
-      xlam = Stag
-      nm = Nstns
+      m = amach
+      omega = redf
+      ss = 2*blspc
+      deltm = -sigma
+      xlam = stag
+      nm = nstns
       nnm = Nstns2
-      csbar = .25*(Den*Vel**2*Chord**2)/(Refden*Refvel**2)
-      csbar1 = 2.0/Chord
-      m2sbar = -Dcbdzb/Chord
+      csbar = .25*(den*vel**2*chord**2)/(refden*refvel**2)
+      csbar1 = 2.0/chord
+      m2sbar = -dcbdzb/chord
       c2ssch = csbar1*C2sbar
       csblsb = csbar*csbar1
       csbm2s = csbar*m2sbar
@@ -265,8 +266,8 @@ SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
          n22 = n + 2
          nn22 = nn + 2
          fo = ff*omega
-         tanlam = tan(Sweep*pi/180.0)
-         dlsdzb = Dcbdzb/2.0
+         tanlam = tan(sweep*pi/180.0)
+         dlsdzb = dcbdzb/2.0
          td = tanlam*dlsdzb
          DO i = 1 , n
             disp(i,1) = -1.0
@@ -367,6 +368,5 @@ SUBROUTINE amgt1b(Q,Nstns2,C1sbar,C2sbar)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
 END SUBROUTINE amgt1b

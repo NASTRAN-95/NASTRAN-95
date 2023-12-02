@@ -1,4 +1,5 @@
-!*==unpscr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==unpscr.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
@@ -72,12 +73,12 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
 !     TERMS IN STRING FORMS SIMILAR TO OUTPUT4 MODULE. THIS IMPROVEMENT
 !     WILL BE LEFT FOR NEXT PROJECT.
 !
+   USE c_names
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -113,7 +114,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
       CASE (1)
 !
          IF ( Flag<1 .OR. Flag>3 .OR. In(1)==Out ) THEN
-            WRITE (Nout,99001) Sfm , Flag , In(1) , Out
+            WRITE (nout,99001) sfm , Flag , In(1) , Out
 99001       FORMAT (A25,',  FLAG,IN(1),OUT =',3I5)
             j = -37
             CALL mesage(j,file,nam)
@@ -126,7 +127,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
             IF ( i+j>=1 ) debug = .TRUE.
             max = Maxz
             IF ( max<=0 ) max = 1073741824
-            IF ( debug ) WRITE (Nout,99002) Uim
+            IF ( debug ) WRITE (nout,99002) uim
 99002       FORMAT (A29,', UNPSCR DEBUG, ACTIVATED BY DIAG 11 AND/OR 16')
             IF ( max<5000 ) THEN
                spag_nextblock_1 = 6
@@ -136,17 +137,17 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
             DO i = 1 , 4
                save(i) = tyiijj(i)
             ENDDO
-            Type = In(5)
+            type = In(5)
             nl = In(2)
-            IF ( Tysign/=0 .AND. iabs(Tysign)<=4 ) Type = Tysign
-            nwds = Words(iabs(Type))
-            IF ( debug ) WRITE (Nout,99003) In(1) , Out , Maxz , max , Flag , nl , Type , nwds
+            IF ( Tysign/=0 .AND. iabs(Tysign)<=4 ) type = Tysign
+            nwds = words(iabs(type))
+            IF ( debug ) WRITE (nout,99003) In(1) , Out , Maxz , max , Flag , nl , type , nwds
 99003       FORMAT (5X,'UNPSCR/@15  IN,OUT,MAXZ,MAX,FLAG,NL,TYPE,NWDS = ',2I5,2I12,I4,I7,2I4)
-            Incr = 1
+            incr = 1
             form = In(4)
             IF ( flag23 .AND. form/=4 .AND. form/=5 ) THEN
                CALL fname(In(1),In(2))
-               WRITE (Nout,99004) In(2) , In(3) , form , Flag
+               WRITE (nout,99004) In(2) , In(3) , form , Flag
 99004          FORMAT ('0*** INPUT MATRTIX ',2A4,' IS NOT A TRIANGULAR FACTOR.','   FORM,FLAG =',2I4)
                CALL errtrc('UNPSCR  ',270)
                spag_nextblock_1 = 6
@@ -155,9 +156,9 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
 !                          LOWER  AND      UPPER  TRIANGULAR FACTORS
 !
                file = Out
-               CALL gopen(Out,Z(Buf2),Wrtrew)
+               CALL gopen(Out,Z(Buf2),wrtrew)
                file = In(1)
-               CALL open(*20,In,Z(Buf1),Rdrew)
+               CALL open(*20,In,Z(Buf1),rdrew)
                nrec = 0
                IF ( Flag==3 ) THEN
 !
@@ -181,42 +182,41 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  Ii = 0
+                  ii = 0
                   CALL unpack(*2,In,Z(3))
-                  IF ( flag23 .AND. Ii/=i ) THEN
+                  IF ( flag23 .AND. ii/=i ) THEN
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   spag_nextblock_2 = 2
                CASE (2)
-                  Z(1) = Ii
-                  Z(2) = Jj
-                  ll = (Jj-Ii+1)*nwds + 2
+                  Z(1) = ii
+                  Z(2) = jj
+                  ll = (jj-ii+1)*nwds + 2
                   tot = tot + ll
                   sum = sum + ll
                   IF ( sum>max ) THEN
                      nrec = nrec + 1
                      CALL write(Out,0,0,1)
                      sum = sum - ll
-                     IF ( debug ) WRITE (Nout,99010) nrec , sum , fbwd
+                     IF ( debug ) WRITE (nout,99010) nrec , sum , fbwd
                      sum = ll
                   ENDIF
                   CALL write(Out,Z(1),ll,0)
                   CYCLE
  2                IF ( flag23 ) GOTO 60
-                  Ii = i
-                  Jj = i
+                  ii = i
+                  jj = i
                   DO k = 3 , 6
                      Z(k) = 0
                   ENDDO
                   spag_nextblock_2 = 2
-                  CYCLE SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
          nrec = nrec + 1
          CALL write(Out,0,0,1)
-         IF ( debug ) WRITE (Nout,99010) nrec , sum , fbwd
+         IF ( debug ) WRITE (nout,99010) nrec , sum , fbwd
          IF ( Flag/=2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -231,21 +231,21 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
          sum = 0
          i = nl
          DO j = 1 , nl
-            Ii = 0
+            ii = 0
             CALL unpack(*60,In,Z(3))
-            IF ( Ii/=i ) THEN
+            IF ( ii/=i ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Z(1) = Ii
-            Z(2) = Jj
-            ll = (Jj-Ii+1)*nwds + 2
+            Z(1) = ii
+            Z(2) = jj
+            ll = (jj-ii+1)*nwds + 2
             sum = sum + ll
             IF ( sum>max ) THEN
                nrec = nrec + 1
                CALL write(Out,0,0,1)
                sum = sum - ll
-               IF ( debug ) WRITE (Nout,99010) nrec , sum , fbwd
+               IF ( debug ) WRITE (nout,99010) nrec , sum , fbwd
                sum = ll
             ENDIF
             CALL write(Out,Z(1),ll,0)
@@ -255,7 +255,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
          ENDDO
          nrec = nrec + 1
          CALL write(Out,0,0,1)
-         IF ( debug ) WRITE (Nout,99010) nrec , sum , fbwd
+         IF ( debug ) WRITE (nout,99010) nrec , sum , fbwd
          IF ( Flag==3 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -274,8 +274,8 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
 !     LASTLY, WE NEED TO RESTORE ORIGINAL WORDS IN /UNPAKX/ PREVIOUSLY
 !     SAVED.
 !
-         CALL close(In,Rew)
-         CALL close(Out,Rew)
+         CALL close(In,rew)
+         CALL close(Out,rew)
          In(7) = -Out
          In(6) = tot
          In(5) = nwds
@@ -289,7 +289,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
             tyiijj(i) = save(i)
          ENDDO
          IF ( debug ) THEN
-            WRITE (Nout,99005) Uim , tot , nrec , nl , In(3)
+            WRITE (nout,99005) uim , tot , nrec , nl , In(3)
 99005       FORMAT (A29,1H,,I10,' S.P. WORDS MOVED TO SCRATCH FILE BY UNPSCR',/5X,'IN',I5,' RECORDS.',5X,'INPUT MATRIX =',I8,3H BY, &
                   & I7)
          ENDIF
@@ -303,22 +303,20 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
  40      j = -2
          CALL mesage(j,file,nam)
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
-         WRITE (Nout,99006) Sfm , i , Ii , Jj , fbwd , Flag
+         WRITE (nout,99006) sfm , i , ii , jj , fbwd , Flag
 99006    FORMAT (A25,',  I & II MISMATCH ',3I6,3H  /,A8,I9)
          j = -37
          CALL mesage(j,file,nam)
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 60      WRITE (Nout,99007) i , fbwd , Flag
+ 60      WRITE (nout,99007) i , fbwd , Flag
 99007    FORMAT ('0*** NULL COLUMN ENCOUNTERED IN TRIANGULAR FACTOR.  ','COLUMN',I7,3X,A8,I9)
          j = -37
          CALL mesage(j,file,nam)
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
-         WRITE (Nout,99008) Maxz
+         WRITE (nout,99008) Maxz
 99008    FORMAT ('0*** MAXZ ERROR ',I9,'  (TOO SMALL)')
          CALL errtrc('UNPSCR  ',290)
          j = -37
@@ -326,7 +324,7 @@ SUBROUTINE unpscr(In,Out,Z,Buf1,Buf2,Maxz,Tysign,Flag)
          spag_nextblock_1 = 7
       CASE (7)
 !
-         IF ( debug ) WRITE (Nout,99009)
+         IF ( debug ) WRITE (nout,99009)
 99009    FORMAT (' ... UNPSCR DEBUG ENDS',/)
          EXIT SPAG_DispatchLoop_1
       END SELECT

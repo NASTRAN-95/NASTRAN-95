@@ -1,4 +1,5 @@
-!*==inptt3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==inptt3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE inptt3
@@ -25,13 +26,13 @@ SUBROUTINE inptt3
 !             TEST  = 0, NO CHECK ON FILE NAMES ON TAPE AND DMAP NAMES
 !                   = 1, NAMES CHECK, WILL SEARCH TAPE FOR MATCH.
 !
-USE C_BLANK
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -49,15 +50,15 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Z(1),Dz(1))
    DATA end , head , subnam/ - 999 , -111 , 4HINPT , 4HT3  /
 !
-   core = korsz(Z(1))
-   buf1 = core - Ibuf + 1
+   core = korsz(z(1))
+   buf1 = core - ibuf + 1
    core = buf1 - 1
-   Typin = 2
-   Typout = 2
-   Incr = 1
+   typin = 2
+   typout = 2
+   incr = 1
 !
-   iu = Unit
-   IF ( Unit==0 .OR. Unit==-1 ) iu = -11
+   iu = unit
+   IF ( unit==0 .OR. unit==-1 ) iu = -11
    IF ( iu<=0 ) THEN
       iu = -iu
       irew = 0
@@ -69,7 +70,7 @@ USE ISO_FORTRAN_ENV
       mcb(1) = file
       CALL rdtrl(mcb)
       IF ( mcb(1)>0 ) THEN
-         CALL gopen(file,Z(buf1),Wrtrew)
+         CALL gopen(file,z(buf1),wrtrew)
          CALL fname(file,name)
          SPAG_Loop_2_1: DO
             READ (iu,99001,ERR=100,END=200) i , namx
@@ -87,34 +88,34 @@ USE ISO_FORTRAN_ENV
 !
 !     FOUND
 !
-                     WRITE (Nout,99002) Uim , name
+                     WRITE (nout,99002) uim , name
 99002                FORMAT (A29,', DATA BLOCK ',2A4,' FOUND')
                   ELSE
-                     WRITE (Nout,99003) Uim , namx , name
+                     WRITE (nout,99003) uim , namx , name
 99003                FORMAT (A29,', DATA BLOCK ',2A4,' FOUND WHILE SEARCHING FOR ',2A4)
-                     IF ( Test/=0 ) CYCLE
+                     IF ( test/=0 ) CYCLE
                   ENDIF
                   READ (iu,99004) nr , nc , type
 99004             FORMAT (3I6)
-                  WRITE (Nout,99005) name , nc , nr , type
+                  WRITE (nout,99005) name , nc , nr , type
 99005             FORMAT (/5X,'MATRIX BLOCK ',2A4,' IS OF SIZE ',I6,'(COL) BY',I5,'(ROW),  AND TYPE =',I6)
                   IF ( nr>core ) CALL mesage(-8,nr-core,subnam)
                   irew = 1
-                  Ii = 1
-                  Jj = nr
+                  ii = 1
+                  jj = nr
                   CALL makmcb(mcb,file,nr,type,2)
                   DO i = 1 , nc
                      READ (iu,99006,ERR=100,END=200) (dz(j),j=1,nr)
 99006                FORMAT (12X,1P,5D24.16)
-                     CALL pack(Z,file,mcb)
+                     CALL pack(z,file,mcb)
                   ENDDO
-                  CALL close(file,Rew)
+                  CALL close(file,rew)
                   CALL wrttrl(mcb)
                   EXIT SPAG_Loop_2_1
                ENDIF
-               WRITE (Nout,99007) Uwm , name
+               WRITE (nout,99007) uwm , name
 99007          FORMAT (A25,', INPTT3 FAILED TO LOCATE DATA BLOCK ',2A4,' ON ','TAPE')
-               IF ( Errflg/=0 ) CALL mesage(-61,0,subnam)
+               IF ( errflg/=0 ) CALL mesage(-61,0,subnam)
                REWIND iu
                irew = 0
                EXIT SPAG_Loop_2_1
@@ -124,12 +125,12 @@ USE ISO_FORTRAN_ENV
    ENDDO
    RETURN
 !
- 100  WRITE (Nout,99008) iu
+ 100  WRITE (nout,99008) iu
 99008 FORMAT ('0*** ERROR DUING READ.  TAPE UNIT',I5)
-   CALL close(file,Rew)
+   CALL close(file,rew)
    CALL mesage(-61,0,subnam)
- 200  WRITE (Nout,99009) Uwm , iu
+ 200  WRITE (nout,99009) uwm , iu
 99009 FORMAT (A25,' FROM INPTT3, EOF ENCOUNTERED ON INPUT TAPE',I4)
-   CALL close(file,Rew)
+   CALL close(file,rew)
    CALL wrttrl(mcb)
 END SUBROUTINE inptt3

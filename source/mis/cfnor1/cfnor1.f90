@@ -1,11 +1,12 @@
-!*==cfnor1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cfnor1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfnor1(Right,Left,Size2,Option,Ri)
+   USE c_feerxc
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_FEERXC
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -108,12 +109,12 @@ SUBROUTINE cfnor1(Right,Left,Size2,Option,Ri)
                ENDDO
 !
 !     ----------- SPECIAL PRINT ----------------------------------------
-               IF ( Qpr ) THEN
+               IF ( qpr ) THEN
                   skip = .TRUE.
                   CYCLE
                ENDIF
             ELSE
-               WRITE (nout,99002) Uwm
+               WRITE (nout,99002) uwm
 99002          FORMAT (A25,' 3162',//5X,'ATTEMPT TO NORMALIZE NULL VECTOR. ','NO ACTION TAKEN.'//)
                EXIT SPAG_Loop_1_1
             ENDIF

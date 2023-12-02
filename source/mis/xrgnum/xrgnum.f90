@@ -1,11 +1,12 @@
-!*==xrgnum.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrgnum.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgnum
+   USE c_system
+   USE c_xmssg
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XRGDXX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -50,35 +51,34 @@ SUBROUTINE xrgnum
    DATA nums/1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H0/
    DATA blank/1H /
 !
-   ifrcol = Icol
-   Number = 0
-   SPAG_Loop_1_1: DO WHILE ( Icol<80 )
+   ifrcol = icol
+   number = 0
+   SPAG_Loop_1_1: DO WHILE ( icol<80 )
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
-            IF ( Ichar(Icol)==blank ) THEN
-               Icol = Icol + 1
-               IF ( Number/=0 ) EXIT SPAG_Loop_1_1
-               CYCLE
+            IF ( ichar(icol)==blank ) THEN
+               icol = icol + 1
+               IF ( number/=0 ) EXIT SPAG_Loop_1_1
             ELSE
                DO k = 1 , 10
-                  IF ( Ichar(Icol)==nums(k) ) THEN
+                  IF ( ichar(icol)==nums(k) ) THEN
                      newnum = mod(k,10)
-                     Number = Number*10 + newnum
+                     number = number*10 + newnum
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
-               Number = 0
+               number = 0
                j = 0
                k = 1
-               WRITE (Optape,99001) Ufm , ifrcol , Record , j , (i,i=1,8) , k , (j,i=1,8)
+               WRITE (optape,99001) ufm , ifrcol , record , j , (i,i=1,8) , k , (j,i=1,8)
 99001          FORMAT (A23,' 8030, EXPECTED AN INTEGER NEAR COLUMN',I3,' IN THE FOLLOWING CARD',//20X,20A4,/,(20X,I1,I9,7I10))
                EXIT SPAG_Loop_1_1
             ENDIF
          CASE (2)
-            Icol = Icol + 1
+            icol = icol + 1
             EXIT SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1

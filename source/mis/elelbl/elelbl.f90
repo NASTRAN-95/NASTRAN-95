@@ -1,16 +1,17 @@
-!*==elelbl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==elelbl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
+   USE c_blank
+   USE c_char94
+   USE c_drwdat
+   USE c_gpta1
+   USE c_names
+   USE c_pltdat
+   USE c_pltscr
+   USE c_system
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CHAR94
-   USE C_DRWDAT
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_PLTDAT
-   USE C_PLTSCR
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,32 +46,32 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
          np = 0
          CALL tipe(0,0,0,0,0,-1)
-         cntx = Cntchr(1)
-         cnty = Cntchr(1) + (Cntchr(2)-Cntchr(1))/2.
+         cntx = cntchr(1)
+         cnty = cntchr(1) + (cntchr(2)-cntchr(1))/2.
 !
 !   . CHECK IF PROPERTY ID IS TO BE TYPED NEXT TO ELEMENT ID
 !
-         IF ( Plabel/=pid ) GOTO 40
-         IF ( Pltflg>=0 ) THEN
-            CALL preloc(*20,Gplst(Buf1),Ect)
-            CALL fname(Ect,Gpts(1))
-            IF ( Gpts(1)==iect ) THEN
+         IF ( plabel/=pid ) GOTO 40
+         IF ( pltflg>=0 ) THEN
+            CALL preloc(*20,Gplst(Buf1),ect)
+            CALL fname(ect,gpts(1))
+            IF ( gpts(1)==iect ) THEN
                CALL delset
                lpid = 0
 !
 !   . READ THE ELEMENT TYPE + NUMBER OF GRID POINTS / ELEMENT OF THIS
 !     TYPE.
 !
-               IF ( lpid>0 ) CALL fwdrec(*40,Ect)
+               IF ( lpid>0 ) CALL fwdrec(*40,ect)
                GOTO 40
             ELSE
-               CALL close(Ect,Crew)
+               CALL close(ect,crew)
             ENDIF
          ENDIF
- 20      Plabel = pid - 1
+ 20      plabel = pid - 1
  40      SPAG_Loop_1_1: DO
-            CALL read(*100,*100,Elsets,eltype,1,0,i)
-            CALL fread(Elsets,ngpel,1,0)
+            CALL read(*100,*100,elsets,eltype,1,0,i)
+            CALL fread(elsets,ngpel,1,0)
             twod = 0
             IF ( ngpel>2 ) twod = 1
             ngpel = iabs(ngpel)
@@ -79,29 +80,29 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !-----
 !   . REJECT ELEMENTS WITH 0 OR MORE THAN --NCOR-16-- GRID POINTS
 !
-            IF ( ngpel>1 .AND. ngpel<Ncor-13 ) THEN
+            IF ( ngpel>1 .AND. ngpel<ncor-13 ) THEN
 !-----
-               IF ( Plabel==pid ) THEN
+               IF ( plabel==pid ) THEN
                   j = 16
-                  DO i = 1 , Ntyps
-                     IF ( Ne(j)==eltype ) EXIT SPAG_Loop_1_1
-                     j = j + Incr
+                  DO i = 1 , ntyps
+                     IF ( ne(j)==eltype ) EXIT SPAG_Loop_1_1
+                     j = j + incr
                   ENDDO
                ENDIF
                GOTO 60
             ELSE
                SPAG_Loop_2_2: DO
-                  CALL fread(Elsets,elid,1,0)
+                  CALL fread(elsets,elid,1,0)
                   IF ( elid<=0 ) EXIT SPAG_Loop_2_2
-                  CALL fread(Elsets,0,-1,0)
-                  CALL fread(Elsets,0,-ngpel,0)
+                  CALL fread(elsets,0,-1,0)
+                  CALL fread(elsets,0,-ngpel,0)
                ENDDO SPAG_Loop_2_2
             ENDIF
          ENDDO SPAG_Loop_1_1
          lpid = j - 12
-         IF ( Ne(lpid+2)>0 ) THEN
-            npid = Ne(lpid+2)
-            CALL locate(*60,Gplst(Buf1),Ne(lpid),Gpts(1))
+         IF ( ne(lpid+2)>0 ) THEN
+            npid = ne(lpid+2)
+            CALL locate(*60,Gplst(Buf1),ne(lpid),gpts(1))
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -118,18 +119,18 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
 !     READ AN ELEMENT ID + ITS GRID POINTS.
 !
-         CALL fread(Elsets,elid,1,0)
+         CALL fread(elsets,elid,1,0)
          IF ( eltype==hb ) ngpel = 8
          IF ( elid<=0 ) THEN
-            IF ( lpid>0 ) CALL fwdrec(*40,Ect)
+            IF ( lpid>0 ) CALL fwdrec(*40,ect)
             GOTO 40
          ELSE
-            CALL fread(Elsets,0,-1,0)
-            CALL fread(Elsets,Gpts(1),ngpel,0)
-            IF ( offset>0 ) CALL fread(Elsets,0,-offset,0)
+            CALL fread(elsets,0,-1,0)
+            CALL fread(elsets,gpts(1),ngpel,0)
+            IF ( offset>0 ) CALL fread(elsets,0,-offset,0)
             IF ( eltype==hb ) THEN
                DO i = 2 , 4
-                  IF ( Gpts(i)==0 ) GOTO 65
+                  IF ( gpts(i)==0 ) GOTO 65
                ENDDO
                i = 5
  65            ngpel = i - 1
@@ -140,7 +141,7 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
                j = elid/10**(8-i)
                IF ( j/=0 .OR. nl/=0 ) THEN
                   nl = nl + 1
-                  lbl(nl) = Chr(j+1)
+                  lbl(nl) = chr(j+1)
                   elid = elid - j*10**(8-i)
                ENDIF
             ENDDO
@@ -155,8 +156,8 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             DO
-               CALL read(*80,*80,Ect,elidp,2,0,i)
-               CALL fread(Ect,0,-(npid-2),0)
+               CALL read(*80,*80,ect,elidp,2,0,i)
+               CALL fread(ect,0,-(npid-2),0)
                IF ( elidp(1)==k ) THEN
 !
 !   . ELEMENT PROPERTY FOUND
@@ -167,7 +168,7 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
                      j = elidp(2)/k
                      IF ( j/=0 .OR. np/=0 ) THEN
                         np = np + 1
-                        lblp(np) = Chr(j+1)
+                        lblp(np) = chr(j+1)
                         elidp(2) = elidp(2) - j*k
                      ENDIF
                      k = k/10
@@ -185,7 +186,7 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !   . SET UP THE COORDINATES OF THE GRID POINTS
 !
          DO i = 1 , ngpel
-            j = Gpts(i)
+            j = gpts(i)
             j = iabs(Gplst(j))
             IF ( Deform/=0 ) THEN
                xx = U(1,j)
@@ -196,21 +197,21 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
             ENDIF
             IF ( solid ) THEN
                IF ( i<=2 ) THEN
-                  Xy(1,i) = xx
-                  Xy(2,i) = yy
+                  xy(1,i) = xx
+                  xy(2,i) = yy
                   IF ( i==1 ) THEN
-                     Xy(1,3) = 0.0
-                     Xy(2,3) = 0.0
+                     xy(1,3) = 0.0
+                     xy(2,3) = 0.0
                   ENDIF
                ENDIF
-               Xy(1,3) = xx + Xy(1,3)
-               Xy(2,3) = yy + Xy(2,3)
+               xy(1,3) = xx + xy(1,3)
+               xy(2,3) = yy + xy(2,3)
             ELSE
-               Xy(1,i) = xx
-               Xy(2,i) = yy
+               xy(1,i) = xx
+               xy(2,i) = yy
                j = ngpel + i
-               Xy(1,j) = xx
-               Xy(2,j) = yy
+               xy(1,j) = xx
+               xy(2,j) = yy
             ENDIF
          ENDDO
 !
@@ -218,8 +219,8 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
 !   . ELEMENTS WITH MORE THAN FOUR GRIDS
 !
-            xc = Xy(1,3)/float(ngpel)
-            yc = Xy(2,3)/float(ngpel)
+            xc = xy(1,3)/float(ngpel)
+            yc = xy(2,3)/float(ngpel)
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -230,8 +231,8 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
                maxlen = 0.
                DO i = 1 , ngpel
-                  xx = Xy(1,i+1) - Xy(1,i)
-                  yy = Xy(2,i+1) - Xy(2,i)
+                  xx = xy(1,i+1) - xy(1,i)
+                  yy = xy(2,i+1) - xy(2,i)
                   len = xx**2 + yy**2
                   IF ( xx/=0. ) THEN
                      slp = abs(yy/xx)
@@ -261,8 +262,8 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
                k = 3
             ENDIF
             DO i = 1 , ngpel1
-               Xy(1,i) = Xy(1,k)
-               Xy(2,i) = Xy(2,k)
+               xy(1,i) = xy(1,k)
+               xy(2,i) = xy(2,k)
                k = k + 1
             ENDDO
          ENDIF
@@ -280,32 +281,32 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
 !     QUADRILATERAL ELEMENT.
 !
-            xx = (Xy(1,3)+Xy(1,4)) - (Xy(1,1)+Xy(1,2))
+            xx = (xy(1,3)+xy(1,4)) - (xy(1,1)+xy(1,2))
             IF ( xx/=0. ) THEN
-               yy = (Xy(2,3)+Xy(2,4)) - (Xy(2,1)+Xy(2,2))
+               yy = (xy(2,3)+xy(2,4)) - (xy(2,1)+xy(2,2))
                ma = yy/xx
-               ba = (Xy(2,1)+Xy(2,2))/2. - ma*(Xy(1,1)+Xy(1,2))/2.
+               ba = (xy(2,1)+xy(2,2))/2. - ma*(xy(1,1)+xy(1,2))/2.
             ELSE
                ma = infnty
             ENDIF
-            xx = (Xy(1,2)+Xy(1,3)) - (Xy(1,1)+Xy(1,4))
+            xx = (xy(1,2)+xy(1,3)) - (xy(1,1)+xy(1,4))
             IF ( xx/=0. ) THEN
-               yy = (Xy(2,2)+Xy(2,3)) - (Xy(2,1)+Xy(2,4))
+               yy = (xy(2,2)+xy(2,3)) - (xy(2,1)+xy(2,4))
                mb = yy/xx
-               bb = (Xy(2,1)+Xy(2,4))/2. - mb*(Xy(1,1)+Xy(1,4))/2.
+               bb = (xy(2,1)+xy(2,4))/2. - mb*(xy(1,1)+xy(1,4))/2.
             ELSE
                mb = infnty
             ENDIF
 !
             IF ( abs(ma)>=infnty ) THEN
-               xc = (Xy(1,1)+Xy(1,2))/2.
+               xc = (xy(1,1)+xy(1,2))/2.
                yc = mb*xc + bb
             ELSEIF ( abs(mb)>=infnty ) THEN
-               xc = (Xy(1,1)+Xy(1,4))/2.
+               xc = (xy(1,1)+xy(1,4))/2.
                yc = ma*xc + ba
             ELSEIF ( mb==ma ) THEN
-               xc = (Xy(1,3)+Xy(1,4)+Xy(1,2)+Xy(1,1))/4.0
-               yc = (Xy(2,3)+Xy(2,4)+Xy(2,2)+Xy(2,1))/4.0
+               xc = (xy(1,3)+xy(1,4)+xy(1,2)+xy(1,1))/4.0
+               yc = (xy(2,3)+xy(2,4)+xy(2,2)+xy(2,1))/4.0
             ELSE
                xc = (ba-bb)/(mb-ma)
                yc = ma*xc + ba
@@ -318,15 +319,15 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
 !
 !     LINE ELEMENT.
 !
-         xx = Xy(1,2) - Xy(1,1)
+         xx = xy(1,2) - xy(1,1)
          IF ( xx==0. ) THEN
             slp = infnty
          ELSE
-            yy = Xy(2,2) - Xy(2,1)
+            yy = xy(2,2) - xy(2,1)
             slp = yy/xx
          ENDIF
-         xc = (Xy(1,1)+Xy(1,2))/2.
-         yc = (Xy(2,1)+Xy(2,2))/2.
+         xc = (xy(1,1)+xy(1,2))/2.
+         yc = (xy(2,1)+xy(2,2))/2.
 !
          IF ( abs(slp)<=1. ) THEN
             yc = yc + cnty
@@ -336,24 +337,23 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
             xc = xc + cntx
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     TRIANGULAR ELEMENT.  POINTS 1+2 ARE THE BASE - POINT 3 THE APEX.
 !
-         xc = (Xy(1,1)+Xy(1,2)+Xy(1,3))/3.
-         yc = (Xy(2,1)+Xy(2,2)+Xy(2,3))/3.
+         xc = (xy(1,1)+xy(1,2)+xy(1,3))/3.
+         yc = (xy(2,1)+xy(2,2)+xy(2,3))/3.
          spag_nextblock_1 = 8
       CASE (8)
 !
 !     SETUP THE STRAIGHT LINE EQUATION OF THE LINE ON WHICH THE ELEMENT
 !     LABEL IS TO BE TYPED - Y=MX+B.
 !
-         xx = Xy(1,2) - Xy(1,1)
+         xx = xy(1,2) - xy(1,1)
          IF ( xx==0. ) THEN
             slp = infnty
          ELSE
-            yy = Xy(2,2) - Xy(2,1)
+            yy = xy(2,2) - xy(2,1)
             slp = yy/xx
             b = yc - xc*slp
          ENDIF
@@ -407,7 +407,7 @@ SUBROUTINE elelbl(Gplst,X,U,Deform,Buf1)
          CYCLE SPAG_DispatchLoop_1
 !
  100     CALL tipe(0,0,0,0,0,1)
-         IF ( Plabel==pid ) CALL close(Ect,Crew)
+         IF ( plabel==pid ) CALL close(ect,crew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

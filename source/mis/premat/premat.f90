@@ -1,7 +1,15 @@
-!*==premat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==premat.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
+   USE c_matin
+   USE c_matiso
+   USE c_matout
+   USE c_matpz
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    USE C_MATIN
    USE C_MATISO
    USE C_MATOUT
@@ -1171,7 +1179,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
             plaans = zz(kxx)
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     YY IS OUT OF THE RANGE OF THE FUNCTION, SET THE SECOND CELL OF
@@ -1554,7 +1561,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          IF ( qmatx==0 ) THEN
             prop = zz(i)
             spag_nextblock_1 = 17
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             flag = 0
             tablid = Z(i+1)
@@ -1569,28 +1575,23 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
                IF ( pla ) THEN
                   buf(1) = Elemid
                   spag_nextblock_1 = 28
-                  CYCLE SPAG_DispatchLoop_1
                ELSEIF ( Elemid>0 ) THEN
                   prop = zz(i)
                   spag_nextblock_1 = 17
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   tablid = Z(i+2)
                   IF ( tablid==0 ) THEN
                      IF ( flag==0 ) prop = zz(i)
                      spag_nextblock_1 = 17
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      ASSIGN 1580 TO ret
                      ASSIGN 1860 TO ret1
                      spag_nextblock_1 = 14
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
             ELSEIF ( tablid==0 ) THEN
                prop = zz(i)
                spag_nextblock_1 = 17
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                xx = Temp
                Tdep = .TRUE.
@@ -1598,9 +1599,9 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
                ASSIGN 1540 TO ret
                ASSIGN 1860 TO ret1
                spag_nextblock_1 = 14
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
+         CYCLE
  1540    ASSIGN 1560 TO ret
          spag_nextblock_1 = 16
       CASE (16)
@@ -1656,7 +1657,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
             IF ( xx<=(zz(l+6)-zz(l+4))/zz(l+5) ) THEN
                prop = zz(l+8)
                spag_nextblock_1 = 21
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( xx<(zz(l+7)-zz(l+4))/zz(l+5) ) THEN
                   spag_nextblock_1 = 20
@@ -1664,8 +1664,8 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
                ENDIF
                prop = zz(l+9)
                spag_nextblock_1 = 21
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
  1560    propt = prop
          spag_nextblock_1 = 17
@@ -1770,7 +1770,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          CYCLE SPAG_DispatchLoop_1
  1760    n = -3
          spag_nextblock_1 = 23
-         CYCLE SPAG_DispatchLoop_1
       CASE (22)
          IF ( Nimat<=2*Sysbuf+4 ) THEN
             WRITE (Nout,99002) imhere , i , n1mat , offset , Nimat
@@ -1803,7 +1802,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          CYCLE SPAG_DispatchLoop_1
  1820    n = 20
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (25)
 !
          CALL sswtch(20,j)
@@ -1827,7 +1825,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          CYCLE SPAG_DispatchLoop_1
  1880    n = 113
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (26)
          n = 116
          buf(1) = Matid
@@ -1836,13 +1833,11 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          CYCLE SPAG_DispatchLoop_1
  1900    n = 114
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (27)
          n = 115
          buf(1) = tablid
          buf(2) = itype
          spag_nextblock_1 = 25
-         CYCLE SPAG_DispatchLoop_1
       CASE (28)
          buf(2) = 0
          n = 117
@@ -1862,7 +1857,6 @@ SUBROUTINE premat(Iz,Rz,Bfr,Nimat,N2mat,Mptf,Ditf)
          CYCLE SPAG_DispatchLoop_1
  1960    n = 217
          spag_nextblock_1 = 30
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE premat

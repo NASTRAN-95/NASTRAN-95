@@ -5,26 +5,26 @@ SUBROUTINE xcsa
 !     XCSA READS AND PROCESSES THE NASTRAN EXECUTIVE CONTROL DECK.
 !
    IMPLICIT NONE
-   USE C_ALTRXX
-   USE C_BLANK
-   USE C_L15L8
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_RESDIC
-   USE C_SEM
-   USE C_STAPID
-   USE C_STIME
-   USE C_SYSTEM
-   USE C_XECHOX
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XLINK
-   USE C_XMSSG
-   USE C_XOLDPT
-   USE C_XPFIST
-   USE C_XRGDXX
-   USE C_XXFIAT
-   USE C_ZZZZZZ
+   USE c_altrxx
+   USE c_blank
+   USE c_l15l8
+   USE c_machin
+   USE c_output
+   USE c_resdic
+   USE c_sem
+   USE c_stapid
+   USE c_stime
+   USE c_system
+   USE c_xechox
+   USE c_xfiat
+   USE c_xfist
+   USE c_xlink
+   USE c_xmssg
+   USE c_xoldpt
+   USE c_xpfist
+   USE c_xrgdxx
+   USE c_xxfiat
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,6 +52,12 @@ SUBROUTINE xcsa
    INTEGER , DIMENSION(6) , SAVE :: solrec
    INTEGER , DIMENSION(12) :: solu
    INTEGER , DIMENSION(100) :: xsys
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -96,18 +102,18 @@ SUBROUTINE xcsa
 !
 !     SET UP DATA IN COMMON
 !
-   Itop = 0
-   Ibot = 0
-   Ldic = 0
-   Nrlfl = 0
-   Iseqno = 0
-   Altfil = 301
-   Newalt = 0
-   Alnogo = 0
+   itop = 0
+   ibot = 0
+   ldic = 0
+   nrlfl = 0
+   iseqno = 0
+   altfil = 301
+   newalt = 0
+   alnogo = 0
    erralt = 0
    nscr = 315
-   Irestr = 0
-   Nsubst = 0
+   irestr = 0
+   nsubst = 0
    nwpc = 18
    drecsz = 0
 !
@@ -120,21 +126,21 @@ SUBROUTINE xcsa
 !     ENDCD  = O377777777777  ALL BITS ON EXCEPT SIGN
 !     MHIBYT = O770000000000  MASK IN HIGH ORDER BYTE
 !
-   isign = lshift(1,Nbpw-1)
+   isign = lshift(1,nbpw-1)
    mask5 = orf(isign,rshift(isign,1))
    allon = complf(0)
-   mhibyt = lshift(allon,(Ncpw-1)*Nbpc)
+   mhibyt = lshift(allon,(ncpw-1)*nbpc)
    endcd = rshift(allon,1)
    j = diagx(2)*5 - 1
-   Card(j) = xsys(j)
-   Card(j+1) = khrfn1(bnk,1,xsys(j),2)
-   CALL na12if(*6400,Card(j),2,s7,1)
-   IF ( s7/=0 ) i7 = Mach*100
+   card(j) = xsys(j)
+   card(j+1) = khrfn1(bnk,1,xsys(j),2)
+   CALL na12if(*6400,card(j),2,s7,1)
+   IF ( s7/=0 ) i7 = mach*100
 !
 !     DETERMINE OPEN CORE SIZE AND ALLOCATE BUFFER AREA
 !
-   dmapbs = korsz(Gbuff) - 2*Ibufsz
-   altrbs = dmapbs + Ibufsz
+   dmapbs = korsz(gbuff) - 2*ibufsz
+   altrbs = dmapbs + ibufsz
    CALL waltim(timew)
    timew = mod(timew,10000000)
 !
@@ -142,15 +148,15 @@ SUBROUTINE xcsa
 !
    j = 32
    DO i = 1 , j
-      Pghdg1(i) = blank
-      Pghdg2(i) = blank
-      Pghdg3(i) = blank
-      Pghdg4(i) = blank
-      Pghdg5(i) = blank
-      Pghdg6(i) = blank
+      pghdg1(i) = blank
+      pghdg2(i) = blank
+      pghdg3(i) = blank
+      pghdg4(i) = blank
+      pghdg5(i) = blank
+      pghdg6(i) = blank
    ENDDO
    DO i = 1 , 19
-      Pghdg3(i+1) = hdg(i)
+      pghdg3(i+1) = hdg(i)
    ENDDO
    CALL page
 !
@@ -159,44 +165,44 @@ SUBROUTINE xcsa
    n7 = i7 + s7
    i7 = i7/100
    n7 = n7 - 2*i7
-   m7 = Card(lectt+9)
+   m7 = card(lectt+9)
    j = iabs(m7)
    i = 3
    IF ( m7<0 .AND. mod(j,10)==7 ) i = 4
-   IF ( j/10==n7 .AND. xsys(17)-i<=s7 ) Card(lectt+2) = icold
-   Card(lectt+11) = khrfn1(Card(lectt+11),2,xalt(1),3)
-   Card(lectt+13) = khrfn1(Card(lectt+13),1,nxcsa(1),1)
-   Card(lectt+14) = khrfn1(Card(lectt+14),2,idisk,1)
+   IF ( j/10==n7 .AND. xsys(17)-i<=s7 ) card(lectt+2) = icold
+   card(lectt+11) = khrfn1(card(lectt+11),2,xalt(1),3)
+   card(lectt+13) = khrfn1(card(lectt+13),1,nxcsa(1),1)
+   card(lectt+14) = khrfn1(card(lectt+14),2,idisk,1)
 !
 !     WRITE DUMMY ID FILE ON PROBLEM TAPE IN CASE OF ID CONTROL CARD
 !     ERROR.
 !
-   nogo = Xnogo
-   Xnogo = 0
+   nogo = xnogo
+   xnogo = 0
    oldalt = 0
 !
 !     READ CONTROL CARD AND PROCESS
 !
  100  IF ( altopn<=0 ) ASSIGN 300 TO irtn1
  200  DO
-      Nlines = Nlines + 1
-      IF ( Nlines>=Nlpp ) CALL page
-      IF ( Zcom==0 ) CALL xread(*5300,Card)
+      nlines = nlines + 1
+      IF ( nlines>=nlpp ) CALL page
+      IF ( zcom==0 ) CALL xread(*5300,card)
 !
 !     ECHO CARD
 !     (NOECHO IS SET BY SEMDBD AND READFILE OF FFREAD)
 !
-      Zcom = 0
-      IF ( Noecho/=0 ) THEN
-         Noecho = Noecho + 1
-         Nlines = Nlines - 1
+      zcom = 0
+      IF ( noecho/=0 ) THEN
+         noecho = noecho + 1
+         nlines = nlines - 1
       ELSE
-         WRITE (Outtap,99028) Card
+         WRITE (outtap,99028) card
       ENDIF
 !
 !     CHECK FOR COMMENT CARD
 !
-      IF ( khrfn1(blank,1,Card(1),1)/=dolsin ) THEN
+      IF ( khrfn1(blank,1,card(1),1)/=dolsin ) THEN
 !
 !     CALL RMVEQ TO REPLACE ONE EQUAL SIGN BY ONE BLANK
 !     IF CARD IS NOT WITHIN ALTER RANGE
@@ -205,13 +211,13 @@ SUBROUTINE xcsa
 !CCCC   PROBLEM
 !CCCC
 !CCCC      IF (NOTALT .EQ. 0) CALL RMVEQ (CARD)
-         CALL xrcard(outcrd,200,Card)
+         CALL xrcard(outcrd,200,card)
 !
 !     CHECK FOR ERROR DETECTED BY XRCARD
 !
-         IF ( Xnogo/=0 ) THEN
+         IF ( xnogo/=0 ) THEN
             IF ( nogo==0 ) nogo = 1
-            Xnogo = 0
+            xnogo = 0
 !
 !     CHECK FOR BLANK CARD
 !
@@ -245,7 +251,7 @@ SUBROUTINE xcsa
 !     NOW PROCESS APPROACH CARD
 !
       DO jj = 1 , numapp
-         Apprch = jj
+         apprch = jj
          apprec = jj
          IF ( outcrd(4)==apptyp(jj) ) GOTO 500
       ENDDO
@@ -266,7 +272,7 @@ SUBROUTINE xcsa
          erralt = 1
          GOTO 3600
       ELSE
-         Icpflg = 1
+         icpflg = 1
          IF ( outcrd(6)==idisk ) GOTO 100
          ASSIGN 600 TO l
 !
@@ -297,14 +303,14 @@ SUBROUTINE xcsa
 !     NOW PROCESS RESTART CARD
 !
       ngino = optape
-      Irestr = 1
+      irestr = 1
 !
 !     SET UNSORTED AND SORTED BULK DATA OUTPUT (ECHO = BOTH)
 !     AS THE DEFAULT FOR RESTART RUNS
 !
-      Iecho = 3
-      CALL open(*4100,optape,Gbuff(dmapbs+1),0)
-      CALL read(*6100,*6100,optape,Otapid,6,0,flgwrd)
+      iecho = 3
+      CALL open(*4100,optape,gbuff(dmapbs+1),0)
+      CALL read(*6100,*6100,optape,otapid,6,0,flgwrd)
       CALL read(*6100,*700,optape,timex,1,1,flgwrd)
       GOTO 800
    ELSEIF ( j==5 ) THEN
@@ -318,12 +324,12 @@ SUBROUTINE xcsa
       IF ( ectt(27)<0 ) GOTO 200
       notalt = 1
       imhere = 330
-      ngino = Altfil
-      CALL open(*5900,Altfil,Gbuff(altrbs+1),1)
+      ngino = altfil
+      CALL open(*5900,altfil,gbuff(altrbs+1),1)
       altopn = 1
       IF ( j==16 ) GOTO 1300
-      IF ( j==17 ) GOTO 1500
-      GOTO 1200
+      IF ( j/=17 ) GOTO 1200
+      GOTO 1500
    ELSEIF ( j==7 ) THEN
 !
 !
@@ -437,7 +443,7 @@ SUBROUTINE xcsa
 !     NOW PROCESS UMF CARD
 !     CHECK FORMAT
 !
-      WRITE (Outtap,99029) Uwm , ectt(i) , ectt(i+1)
+      WRITE (outtap,99029) uwm , ectt(i) , ectt(i+1)
       GOTO 100
    ELSEIF ( j==12 ) THEN
 !
@@ -454,7 +460,7 @@ SUBROUTINE xcsa
 !
 !     UMFEDIT CARD FOUND - SET EDTUMF FLAG
 !
-      WRITE (Outtap,99029) Uwm , ectt(i) , ectt(i+1)
+      WRITE (outtap,99029) uwm , ectt(i) , ectt(i+1)
 !     EDTUMF = 1
       GOTO 100
    ELSEIF ( j==14 ) THEN
@@ -467,7 +473,7 @@ SUBROUTINE xcsa
          erralt = 1
          GOTO 3600
       ELSE
-         Prec = outcrd(5)
+         prec = outcrd(5)
          GOTO 100
       ENDIF
    ELSEIF ( j==15 ) THEN
@@ -479,16 +485,16 @@ SUBROUTINE xcsa
 !
 !     CHECK FORMAT AND FILE ASSIGNMENT
 !
-      Intra = 0
+      intra = 0
       DO jj = 4 , 9
-         IF ( outcrd(jj)==plot ) Intra = orf(Intra,1)
-         IF ( outcrd(jj)==prnt ) Intra = orf(Intra,2)
-         IF ( outcrd(jj)==both ) Intra = orf(Intra,3)
+         IF ( outcrd(jj)==plot ) intra = orf(intra,1)
+         IF ( outcrd(jj)==prnt ) intra = orf(intra,2)
+         IF ( outcrd(jj)==both ) intra = orf(intra,3)
       ENDDO
-      IF ( Intra==0 ) GOTO 3300
-      Intra = -Intra
+      IF ( intra==0 ) GOTO 3300
+      intra = -intra
       jj = 1
-      IF ( Mach==3 ) CALL facil(inp9,jj)
+      IF ( mach==3 ) CALL facil(inp9,jj)
       IF ( jj/=2 ) GOTO 100
 !
       ASSIGN 5600 TO irtn3
@@ -501,15 +507,15 @@ SUBROUTINE xcsa
 !
       imhere = 110
       IF ( outcrd(4)/=-1 .OR. outcrd(5)<=0 ) GOTO 3600
-      Time = outcrd(5)*60
+      time = outcrd(5)*60
       GOTO 100
    ENDIF
 !
 !     CHECK FOR SUBSTRUCTURE ANALYSIS
 !
  500  IF ( outcrd(6)==nsubs ) THEN
-      Isubs = Apprch
-      IF ( outcrd(8)==-1 ) Isubs = Isubs + 10*outcrd(9)
+      isubs = apprch
+      IF ( outcrd(8)==-1 ) isubs = isubs + 10*outcrd(9)
    ENDIF
    GOTO 100
  600  IF ( nostup==0 ) GOTO 100
@@ -526,7 +532,7 @@ SUBROUTINE xcsa
 !
 !     UNPACK DATE
 !
-   i = lshift(Otapid(5),7)
+   i = lshift(otapid(5),7)
    iyear = rshift(andf(i,maskhi),7)
    i = rshift(i,6)
    iday = rshift(andf(i,maskhi),9)
@@ -534,7 +540,7 @@ SUBROUTINE xcsa
    imnth = rshift(andf(i,maskhi),10)
    jj = outcrd(1)*2 - 2
    DO jk = 1 , jj
-      IF ( Otapid(jk)/=outcrd(jk+3) ) GOTO 3900
+      IF ( otapid(jk)/=outcrd(jk+3) ) GOTO 3900
    ENDDO
    IF ( outcrd(9)/=0 .OR. outcrd(14)/=0 .OR. outcrd(19)/=0 ) THEN
       IF ( imnth/=outcrd(9) .OR. iday/=outcrd(14) .OR. iyear/=outcrd(19) ) GOTO 3900
@@ -544,7 +550,7 @@ SUBROUTINE xcsa
 !
 !     MAKE SURE CORRCET REEL IS MOUNTED
 !
-   IF ( Otapid(6)/=1 ) GOTO 3900
+   IF ( otapid(6)/=1 ) GOTO 3900
    DO
 !
 !     GET OLD SOLUTION NUMBER
@@ -563,20 +569,20 @@ SUBROUTINE xcsa
 !     LOAD PROBLEM TAPE DICTIONARY
 !
          icrdct = 0
-         Iseqno = 0
-         Itop = drecsz + 1
-         Ldic = korsz(iptdic(Itop)) - Ibufsz
-         Ibot = Itop - 3
+         iseqno = 0
+         itop = drecsz + 1
+         ldic = korsz(iptdic(itop)) - ibufsz
+         ibot = itop - 3
 !
 !     ZERO FIRST PTDIC ENTRY IN CASE THERE ARE NO ENTRIES
 !
-         iptdic(Itop) = 0
-         iptdic(Itop+1) = 0
-         iptdic(Itop+2) = 0
+         iptdic(itop) = 0
+         iptdic(itop+1) = 0
+         iptdic(itop+2) = 0
 !
 !     SET ITOPX SO THAT FIRST XVPS ENTRY IN PTDIC WILL BE PRESERVED
 !
-         itopx = Itop + 3
+         itopx = itop + 3
          EXIT
       ENDIF
    ENDDO
@@ -612,24 +618,24 @@ SUBROUTINE xcsa
 !     SEE IF FILE IS ALREADY IN PTDIC - IF IT IS, PUT LATEST REEL/FILE
 !     NO. IN EXISTING ENTRY
 !
-               IF ( Ibot>=itopx ) THEN
-                  DO k = itopx , Ibot , 3
+               IF ( ibot>=itopx ) THEN
+                  DO k = itopx , ibot , 3
                      IF ( iptdic(k)==outcrd(4) .AND. iptdic(k+1)==outcrd(5) ) GOTO 1005
                   ENDDO
                ENDIF
 !
 !     FILE NOT IN PTDIC - MAKE NEW ENTRY
 !
-               Ibot = Ibot + 3
+               ibot = ibot + 3
 !
 !     CHECK FOR OVERFLOW
 !
-               IF ( Ibot+3-Itop>Ldic ) THEN
+               IF ( ibot+3-itop>ldic ) THEN
                   ASSIGN 5700 TO irtn3
                   msgnum = 510
                   GOTO 5500
                ELSE
-                  k = Ibot
+                  k = ibot
                   iptdic(k) = outcrd(4)
                   iptdic(k+1) = outcrd(5)
                ENDIF
@@ -642,7 +648,7 @@ SUBROUTINE xcsa
 !
          imhere = 310
          IF ( outcrd(4)/=renter .OR. outcrd(14)/=-1 ) GOTO 3600
-         Iseqno = lshift(outcrd(15),16)
+         iseqno = lshift(outcrd(15),16)
          GOTO 900
       ENDIF
    ENDIF
@@ -650,10 +656,10 @@ SUBROUTINE xcsa
 !     DICTIONARY PROCESSED - COPY ONTO NEW PROBLEM TAPE.
 !     THERE MUST ALWAYS BE AT LEAST ONE ENTRY IN PTDIC
 !
- 1100 IF ( Ibot<Itop ) Ibot = Itop
+ 1100 IF ( ibot<itop ) ibot = itop
    ngino = ptape
    imhere = 320
-   CALL open(*5900,ptape,Gbuff(dmapbs+1),3)
+   CALL open(*5900,ptape,gbuff(dmapbs+1),3)
 !
 !     RECORD 1 = ID
 !
@@ -661,11 +667,11 @@ SUBROUTINE xcsa
 !
 !     RECORD 2 = CONTENTS OF IPTDIC
 !
-   CALL write(ptape,iptdic(Itop),Ibot+3-Itop,1)
+   CALL write(ptape,iptdic(itop),ibot+3-itop,1)
    CALL eof(ptape)
    CALL close(ptape,2)
-   IF ( outcrd(3)==endcd ) GOTO 100
-   GOTO 300
+   IF ( outcrd(3)/=endcd ) GOTO 300
+   GOTO 100
  1200 IF ( outcrd(6)==endcd ) THEN
       outcrd(6) = intgr
       outcrd(7) = 0
@@ -685,8 +691,8 @@ SUBROUTINE xcsa
 !     WRITE ALTER PARAMETERS ONTO THE ALTER SCRATCH FILE
 !     AND FOLLOW IT BY THE CARD IMAGE
 !
-      CALL write(Altfil,alter,2,1)
-      CALL write(Altfil,Card,18,1)
+      CALL write(altfil,alter,2,1)
+      CALL write(altfil,card,18,1)
 !
 !     READ NEXT CARD INTO CORE
 !
@@ -728,9 +734,9 @@ SUBROUTINE xcsa
 !     WRITE INSERT PARAMETERS ONTO THE ALTER SCRATCH FILE
 !     AND FOLLOW IT BY THE CARD IMAGE
 !
- 1400 CALL write(Altfil,insert,4,1)
-   CALL write(Altfil,Card,18,1)
-   Newalt = 1
+ 1400 CALL write(altfil,insert,4,1)
+   CALL write(altfil,card,18,1)
+   newalt = 1
    GOTO 200
 !
 !     PROCESS DELETE CONTROL CARDS HERE
@@ -774,9 +780,9 @@ SUBROUTINE xcsa
 !     WRITE DELETE PARAMETERS ONTO THE ALTER SCRATCH FILE
 !     AND FOLLOW IT BY THE CARD IMAGE
 !
- 1600 CALL write(Altfil,delete,5,1)
-   CALL write(Altfil,Card,18,1)
-   Newalt = 1
+ 1600 CALL write(altfil,delete,5,1)
+   CALL write(altfil,card,18,1)
+   newalt = 1
    GOTO 200
 !
  1700 jn = jnx
@@ -819,9 +825,9 @@ SUBROUTINE xcsa
 !     WRITE DELETE PARAMETERS ONTO THE ALTER SCRATCH FILE
 !     AND FOLLOW IT BY THE CARD IMAGE
 !
- 1800 CALL write(Altfil,delete,9,1)
-   CALL write(Altfil,Card,18,1)
-   Newalt = 1
+ 1800 CALL write(altfil,delete,9,1)
+   CALL write(altfil,card,18,1)
+   newalt = 1
    GOTO 200
 !
 !     CHECK FOR CEND CARD TO PREVENT STREAMING THRU BULK DATA
@@ -854,7 +860,7 @@ SUBROUTINE xcsa
 !
 !     WRITE DMAP INSTRUCTION ON THE ALTER SCRATCH FILE
 !
-         IF ( ectt(27)>=0 ) CALL write(Altfil,Card,18,1)
+         IF ( ectt(27)>=0 ) CALL write(altfil,card,18,1)
          GOTO 200
       ELSE
 !
@@ -862,15 +868,15 @@ SUBROUTINE xcsa
 !
          IF ( ectt(27)<0 ) GOTO 3400
          ectt(27) = orf(ectt(27),mask5)
-         CALL eof(Altfil)
-         CALL close(Altfil,2)
+         CALL eof(altfil)
+         CALL close(altfil,2)
          altopn = -1
          notalt = 0
          GOTO 100
       ENDIF
    ENDIF
 !
- 2000 Rfflag = solu(1)
+ 2000 rfflag = solu(1)
    IF ( outcrd(jk-1)==endcd ) GOTO 100
    imhere = 397
    jj = 1
@@ -883,7 +889,7 @@ SUBROUTINE xcsa
          erralt = 1
          GOTO 3600
       ELSE
-         Nsubst = jj
+         nsubst = jj
          solu(jj) = outcrd(jk)
          IF ( outcrd(jk+1)==endcd ) GOTO 100
 !
@@ -910,17 +916,17 @@ SUBROUTINE xcsa
 !     PROCESS DMAP SEQUENCE
 !
  2100 jj = 0
-   WRITE (Outtap,99001)
+   WRITE (outtap,99001)
 99001 FORMAT (5X,'(SEE NASTRAN SOURCE PROGRAM COMPILATION FOR LISTING ','OF DMAP SEQUENCE)')
    DO jk = 1 , nwpc
       jj = jj + 1
-      dmapbf(jj) = Card(jk)
+      dmapbf(jj) = card(jk)
    ENDDO
    DO
-      CALL xread(*5300,Card)
+      CALL xread(*5300,card)
       DO jk = 1 , nwpc
          jj = jj + 1
-         dmapbf(jj) = Card(jk)
+         dmapbf(jj) = card(jk)
       ENDDO
       IF ( jj>dmapbs ) THEN
 !
@@ -931,21 +937,21 @@ SUBROUTINE xcsa
 !
 !     CHECK FOR END OR CEND CARD
 !
-         CALL xrcard(outcrd,200,Card)
+         CALL xrcard(outcrd,200,card)
 !
 !     CHECK FOR ERROR DETECTED BY XRCARD
 !
-         IF ( Xnogo/=0 ) THEN
-            WRITE (Outtap,99028) Card
+         IF ( xnogo/=0 ) THEN
+            WRITE (outtap,99028) card
             IF ( nogo==0 ) nogo = 1
-            Xnogo = 0
+            xnogo = 0
          ELSEIF ( outcrd(2)==cend(1) .AND. outcrd(3)==cend(2) ) THEN
 !
             ASSIGN 4400 TO irtn2
             msgnum = 515
             GOTO 3200
          ELSEIF ( outcrd(2)==dmend ) THEN
-            WRITE (Outtap,99028) Card
+            WRITE (outtap,99028) card
             drecsz = jj
             GOTO 100
          ENDIF
@@ -982,9 +988,9 @@ SUBROUTINE xcsa
 !  525 CONTINUE
 !      IF (SWITCH(1) .NE. SWITCH(3)) CALL PRESSW (RENTER,I)
 !IBMDE 5/95
-            CALL sswtch(15,L15)
-            CALL sswtch(8,L8)
-            CALL sswtch(13,L13)
+            CALL sswtch(15,l15)
+            CALL sswtch(8,l8)
+            CALL sswtch(13,l13)
             GOTO 100
          ENDIF
       ELSE
@@ -996,16 +1002,16 @@ SUBROUTINE xcsa
 !WKBD IF (JJ .GT. 63-MAXLNK) GO TO 503
 !WKBD IF (JJ.GE.-MAXLNK .AND. JJ.LE.-1) JJ = 63 - MAXLNK - JJ
          IF ( jj>31 ) THEN
-            IF ( jj==42 .AND. Mach>5 ) WRITE (Outtap,99002) Uwm , Mchnam
+            IF ( jj==42 .AND. mach>5 ) WRITE (outtap,99002) uwm , mchnam
 99002       FORMAT (A25,', DIAG 42 IS UNSUPPORTED IN ALL UNIX MACHINES, ','INCLUDING ',A6,' ***')
             jj = jj - 31
-            Switch(2) = orf(lshift(1,jj-1),Switch(2))
+            switch(2) = orf(lshift(1,jj-1),switch(2))
          ELSE
-            Switch(1) = orf(lshift(1,jj-1),Switch(1))
+            switch(1) = orf(lshift(1,jj-1),switch(1))
 !
 !     TURN ON DIAG 14 IF DIAG 25 HAS BEEN REQUESTED
 !
-            IF ( jj==25 ) Switch(1) = orf(lshift(1,13),Switch(1))
+            IF ( jj==25 ) switch(1) = orf(lshift(1,13),switch(1))
          ENDIF
       ENDIF
    ENDDO
@@ -1019,27 +1025,27 @@ SUBROUTINE xcsa
  2400 DO i = 1 , lectt , 3
       IF ( ectt(i+2)<0 .AND. ectt(i)/=id ) GOTO 4500
    ENDDO
-   IF ( Logfl<=0 ) CALL logfil(Card)
+   IF ( logfl<=0 ) CALL logfil(card)
    DO jj = 1 , 4
-      Tapid(jj) = outcrd(jj+3)
+      tapid(jj) = outcrd(jj+3)
    ENDDO
 !
 !      PACK DATE -
 !
-   imnth = lshift(Idate(1),14)
-   iday = lshift(Idate(2),8)
-   iyear = Idate(3)
-   Tapid(5) = orf(imnth,orf(iday,iyear))
+   imnth = lshift(idate(1),14)
+   iday = lshift(idate(2),8)
+   iyear = idate(3)
+   tapid(5) = orf(imnth,orf(iday,iyear))
 !
 !     REEL NO. TO TAPID
 !
-   Tapid(6) = 1
+   tapid(6) = 1
 !
 !     OUTPUT IF ON NEW PROBLEM TAPE
 !
    ngino = ptape
-   CALL open(*5900,ptape,Gbuff(dmapbs+1),1)
-   CALL write(ptape,Tapid,6,0)
+   CALL open(*5900,ptape,gbuff(dmapbs+1),1)
+   CALL write(ptape,tapid,6,0)
    CALL write(ptape,timew,1,1)
    CALL eof(ptape)
    CALL close(ptape,2)
@@ -1050,15 +1056,15 @@ SUBROUTINE xcsa
 !
 !     SET APP DEFAULT TO 'DISPLACEMENT' AND TIME TO 10 MINUTES
 !
- 2500 IF ( Apprch==0 ) THEN
-      Apprch = 2
+ 2500 IF ( apprch==0 ) THEN
+      apprch = 2
       apprec = 2
-      WRITE (Outtap,99003)
+      WRITE (outtap,99003)
 99003 FORMAT ('0*** APP  DECLARATION CARD MISSING.  DISPLACEMENT IS ','SELECTED BY DEFAULT')
    ENDIF
-   IF ( Time<=0 ) THEN
-      Time = 300
-      WRITE (Outtap,99004)
+   IF ( time<=0 ) THEN
+      time = 300
+      WRITE (outtap,99004)
 99004 FORMAT ('0*** TIME  CARD MISSING. MAXIMUM EXECUTION TIME IS SET ','TO 5 MINUTES BY DEFAULT')
    ENDIF
 !
@@ -1071,22 +1077,22 @@ SUBROUTINE xcsa
 !
    CALL sswtch(48,jj)
    IF ( jj/=1 ) THEN
-      jj = Idate(3)
+      jj = idate(3)
       jj = mod(jj,100)
       CALL int2a8(*2600,jj,iz(1))
    ELSE
       CALL nsinfo(4)
       GOTO 2700
    ENDIF
- 2600 IF ( iz(1)==Sy42(3) ) WRITE (Outtap,99005) Uim
+ 2600 IF ( iz(1)==sy42(3) ) WRITE (outtap,99005) uim
 99005 FORMAT (//,A29,', TURN DIAG 48 ON FOR NASTRAN RELEASE NEWS, ','DIAG DEFINITION, NEW DMAP',/9X,                                &
              &'MODULES AND NEW BULKDATA CARDS INFORMATION')
 !
 !     CLOSE NASINFO FILE IF IT EXISTS
 !     AND RESET THE 37TH WORD OF /SYSTEM/ BACK TO ZERO
 !
- 2700 IF ( Lu/=0 ) CLOSE (UNIT=Lu)
-   Lu = 0
+ 2700 IF ( lu/=0 ) CLOSE (UNIT=lu)
+   lu = 0
 !
 !     NOW MAKE SURE ALL NECESSARY CARDS HAVE BEEN FOUND
 !
@@ -1099,7 +1105,7 @@ SUBROUTINE xcsa
 !
 !     SET APPRCH NEGATIVE FOR RESTART
 !
-   IF ( rstrt/=icold ) Apprch = -Apprch
+   IF ( rstrt/=icold ) apprch = -apprch
    IF ( soluf==1 .AND. drecsz/=0 ) THEN
 !
       ASSIGN 4900 TO irtn2
@@ -1132,7 +1138,7 @@ SUBROUTINE xcsa
    ENDIF
  2900 ngino = ptape
    imhere = 610
-   CALL open(*5900,ptape,Gbuff(dmapbs+1),3)
+   CALL open(*5900,ptape,gbuff(dmapbs+1),3)
    CALL write(ptape,nxcsa,2,1)
 !
 !     DIS OLD PT HAVE AN ALTER FILE AND/OR CKPT DIST
@@ -1147,7 +1153,7 @@ SUBROUTINE xcsa
    IF ( apprec/=appdmp ) GOTO 3100
  3000 ngino = nscr
    imhere = 612
-   CALL open(*5900,nscr,Gbuff(dmapbs+1),1)
+   CALL open(*5900,nscr,gbuff(dmapbs+1),1)
    IF ( apprec==appdmp ) THEN
 !
 !     APPROACH IS DMAP
@@ -1160,19 +1166,19 @@ SUBROUTINE xcsa
 !     APPROACH IS RIGID FORMAT
 !     WRITE RIGID FORMAT AND MED TABLES ONTO SCRATCH FILE
 !
-      isize = korsz(dmapbf(1)) - Ibufsz
+      isize = korsz(dmapbf(1)) - ibufsz
       IF ( altopn/=0 ) THEN
-         IF ( erralt/=0 ) Newalt = 0
-         IF ( Newalt/=0 ) THEN
-            isize = isize - Ibufsz
-            ngino = Altfil
-            CALL open(*5900,Altfil,Gbuff(altrbs+1),3)
+         IF ( erralt/=0 ) newalt = 0
+         IF ( newalt/=0 ) THEN
+            isize = isize - ibufsz
+            ngino = altfil
+            CALL open(*5900,altfil,gbuff(altrbs+1),3)
          ENDIF
       ENDIF
       CALL xrgdfm(solu,osolu,apprec,iufile,dmapbf,isize,nscr,nogo)
-      IF ( Xnogo/=0 ) THEN
+      IF ( xnogo/=0 ) THEN
          IF ( nogo==0 ) nogo = 1
-         Xnogo = 0
+         xnogo = 0
       ENDIF
       IF ( nogo>1 ) GOTO 6300
       CALL close(nscr,1)
@@ -1181,14 +1187,14 @@ SUBROUTINE xcsa
          IF ( erralt/=1 ) THEN
             solrec(3) = 1
             ngino = ptape
-            CALL open(*5900,ptape,Gbuff(dmapbs+1),3)
-            ngino = Altfil
-            CALL open(*5900,Altfil,Gbuff(altrbs+1),0)
+            CALL open(*5900,ptape,gbuff(dmapbs+1),3)
+            ngino = altfil
+            CALL open(*5900,altfil,gbuff(altrbs+1),0)
             CALL dmpalt(isize,dmapbf,ptape)
             CALL eof(ptape)
             CALL close(ptape,2)
-            CALL close(Altfil,1)
-            IF ( Alnogo/=0 ) THEN
+            CALL close(altfil,1)
+            IF ( alnogo/=0 ) THEN
                IF ( nogo<2 ) nogo = 2
             ENDIF
          ENDIF
@@ -1198,80 +1204,80 @@ SUBROUTINE xcsa
 !
 !     PUNCH RESTART CARD IF CHECKPOINT FLAG IS SET.
 !
- 3100 IF ( Icpflg/=0 ) THEN
+ 3100 IF ( icpflg/=0 ) THEN
 !      IF (IROPEN .EQ. 1) GO TO 6405
 !      OPEN (UNIT=4, FILE=DSNAMES(4), STATUS='UNKNOWN')
 !      IROPEN = 1
-      WRITE (Irdict,99006) (Tapid(i),i=1,4) , (Idate(j),j=1,3) , timew
+      WRITE (irdict,99006) (tapid(i),i=1,4) , (idate(j),j=1,3) , timew
 99006 FORMAT (9HRESTART  ,2A4,1H,,2A4,1H,,I2,1H/,I2,1H/,I2,1H,,I8,1H,)
       CALL sswtch(9,diag09)
       IF ( diag09/=1 ) THEN
          CALL page
-         WRITE (Outtap,99007) (Tapid(i),i=1,4) , (Idate(j),j=1,3) , timew
+         WRITE (outtap,99007) (tapid(i),i=1,4) , (idate(j),j=1,3) , timew
 99007    FORMAT ('0ECHO OF FIRST CARD IN CHECKPOINT DICTIONARY TO BE ','PUNCHED OUT FOR THIS PROBLEM',/14H0   RESTART   ,2A4,1H,,   &
                & 2A4,1H,,I2,1H/,I2,1H/,I2,1H,,I8,1H,)
       ENDIF
    ENDIF
-   Xnogo = nogo
+   xnogo = nogo
    RETURN
 !
 !     ERROR MESSAGES
 !
 !     USER  FATAL MESSAGES
 !
- 3200 Nlines = Nlines + 2
-   IF ( Nlines>=Nlpp ) CALL page
+ 3200 nlines = nlines + 2
+   IF ( nlines>=nlpp ) CALL page
    IF ( nogo<1 ) nogo = 1
    ignore = 1
    GOTO irtn2
- 3300 WRITE (Outtap,99008) Ufm , msgnum , outcrd(2) , outcrd(3)
+ 3300 WRITE (outtap,99008) ufm , msgnum , outcrd(2) , outcrd(3)
 99008 FORMAT (A23,I5,', CONTROL CARD ',2A4,11H IS ILLEGAL)
    GOTO 100
 !
  3400 ASSIGN 3500 TO irtn2
    msgnum = 506
    GOTO 3200
- 3500 WRITE (Outtap,99009) Ufm , msgnum , outcrd(2) , outcrd(3)
+ 3500 WRITE (outtap,99009) ufm , msgnum , outcrd(2) , outcrd(3)
 99009 FORMAT (A23,I5,', CONTROL CARD ',2A4,11H DUPLICATED)
    GOTO 100
  3600 ASSIGN 3700 TO irtn2
    msgnum = 507
    GOTO 3200
- 3700 WRITE (Outtap,99010) Ufm , msgnum , imhere
+ 3700 WRITE (outtap,99010) ufm , msgnum , imhere
 99010 FORMAT (A23,I5,', ILLEGAL SPECIFICATION OR FORMAT ON PRECEDING ','CARD.',/5X,'IMHERE =',I5)
-   IF ( outcrd(2)==ectt(34) .AND. outcrd(3)==ectt(35) ) GOTO 2400
-   GOTO 100
- 3800 WRITE (Outtap,99011) Ufm , msgnum
+   IF ( outcrd(2)/=ectt(34) .OR. outcrd(3)/=ectt(35) ) GOTO 100
+   GOTO 2400
+ 3800 WRITE (outtap,99011) ufm , msgnum
 99011 FORMAT (A23,I5,', PROBLEM TAPE MUST BE ON PHYSICAL TAPE FOR ','CHECK POINTING')
    ignore = 0
-   Icpflg = 0
+   icpflg = 0
    GOTO 100
 !
  3900 ASSIGN 4000 TO irtn2
    msgnum = 509
    GOTO 3200
- 4000 WRITE (Outtap,99012) Ufm , msgnum , (Otapid(i),i=1,4) , imnth , iday , iyear , timex , Otapid(6)
+ 4000 WRITE (outtap,99012) ufm , msgnum , (otapid(i),i=1,4) , imnth , iday , iyear , timex , otapid(6)
 99012 FORMAT (A23,I5,', WRONG OLD TAPE MOUNTED.',/30X,23H OLD PROBLEM TAPE ID = ,2A4,1H,,2A4,1H,,I2,1H/,I2,1H/,I2,1H,,2X,I8,1H,,5X, &
              &10HREEL NO. =,I4)
 !
 !
 !     XCSA HAS BEEN DISASTERED - GET DUMP AND QUIT.
 !
-   Icpflg = 0
+   icpflg = 0
    GOTO 6400
 !
  4100 ASSIGN 4200 TO irtn2
    msgnum = 512
    GOTO 3200
- 4200 WRITE (Outtap,99013) Ufm , msgnum
+ 4200 WRITE (outtap,99013) ufm , msgnum
 99013 FORMAT (A23,I5,', OLD PROBLEM TAPE IS MISSING AND IS NEEDED FOR ','RESTART')
    nogo = 3
    GOTO 100
- 4300 WRITE (Outtap,99014) Ufm , msgnum
+ 4300 WRITE (outtap,99014) ufm , msgnum
 99014 FORMAT (A23,I5,', ENDALTER CARD IS MISSING')
    IF ( nogo<2 ) nogo = 2
    GOTO 2500
- 4400 WRITE (Outtap,99015) Ufm , msgnum
+ 4400 WRITE (outtap,99015) ufm , msgnum
 99015 FORMAT (A23,I5,', END INSTRUCTION MISSING IN DMAP SEQUENCE')
    IF ( nogo<2 ) nogo = 2
    GOTO 2500
@@ -1304,7 +1310,7 @@ SUBROUTINE xcsa
  4500 ASSIGN 4600 TO irtn2
    msgnum = 519
    GOTO 3200
- 4600 WRITE (Outtap,99016) Ufm , msgnum
+ 4600 WRITE (outtap,99016) ufm , msgnum
 99016 FORMAT (A23,I5,', ID CARD MUST PRECEDE ALL OTHER CONTROL CARDS')
    nogo = 3
    GOTO 100
@@ -1312,7 +1318,7 @@ SUBROUTINE xcsa
  4700 ASSIGN 4800 TO irtn2
    msgnum = 520
    GOTO 3200
- 4800 WRITE (Outtap,99017) Ufm , msgnum , ectt(i) , ectt(i+1)
+ 4800 WRITE (outtap,99017) ufm , msgnum , ectt(i) , ectt(i+1)
 99017 FORMAT (A23,I5,', CONTROL CARD ',2A4,' IS MISSING')
    ectt(i+2) = orf(ectt(i+2),mask5)
    IF ( ectt(i)==ectt(4) ) THEN
@@ -1322,42 +1328,42 @@ SUBROUTINE xcsa
       IF ( nogo<2 ) nogo = 2
    ENDIF
    GOTO 2500
- 4900 WRITE (Outtap,99018) Ufm , msgnum
+ 4900 WRITE (outtap,99018) ufm , msgnum
 99018 FORMAT (A23,I5,', SPECIFY A SOLUTION OR A DMAP SEQUENCE BUT NOT ','BOTH')
    IF ( nogo<2 ) nogo = 2
    GOTO 6300
- 5000 WRITE (Outtap,99019) Ufm , msgnum
+ 5000 WRITE (outtap,99019) ufm , msgnum
 99019 FORMAT (A23,I5,', NEITHER A SOL CARD NOR A DMAP SEQUENCE WAS ','INCLUDED')
    IF ( nogo<2 ) nogo = 2
    GOTO 6300
- 5100 WRITE (Outtap,99020) Ufm , msgnum
+ 5100 WRITE (outtap,99020) ufm , msgnum
 99020 FORMAT (A23,I5,', ENDALTER CARD OUT OF ORDER')
    GOTO 100
- 5200 WRITE (Outtap,99021) Ufm , msgnum
+ 5200 WRITE (outtap,99021) ufm , msgnum
 99021 FORMAT (A23,I5,', CHECKPOINT DICTIONARY OUT OF SEQUENCE - ','REMAINING RESTART CARDS IGNORED')
    GOTO 100
  5300 ASSIGN 5400 TO irtn2
    msgnum = 529
    GOTO 3200
- 5400 WRITE (Outtap,99022) Ufm , msgnum
+ 5400 WRITE (outtap,99022) ufm , msgnum
 99022 FORMAT (A23,I5,', MISSING CEND CARD.')
    nogo = 3
    GOTO 6300
 !
 !     SYSTEM FATAL MESSAGES
 !
- 5500 Nlines = Nlines + 2
-   IF ( Nlines>=Nlpp ) CALL page
+ 5500 nlines = nlines + 2
+   IF ( nlines>=nlpp ) CALL page
    IF ( nogo<2 ) nogo = 2
    ignore = 1
    GOTO irtn3
- 5600 WRITE (Outtap,99023) Sfm , msgnum
+ 5600 WRITE (outtap,99023) sfm , msgnum
 99023 FORMAT (A25,I5,2H, ,/5X,'INP9 FILE WAS NOT ASSIGNED FOR ','NASTRAN INTERACTIVE POST-PROCESSOR',/)
    GOTO 100
- 5700 WRITE (Outtap,99024) Sfm , msgnum
+ 5700 WRITE (outtap,99024) sfm , msgnum
 99024 FORMAT (A25,I5,', CHECKPOINT DICTIONARY EXCEEDS CORE SIZE - ','REMAINING RESTART CARDS IGNORED')
    GOTO 100
- 5800 WRITE (Outtap,99025) Sfm , msgnum
+ 5800 WRITE (outtap,99025) sfm , msgnum
 99025 FORMAT (A25,I5,', DMAP SEQUENCE EXCEEDS CORE SIZE - ','REMAINING DMAP INSTRUCTIONS IGNORED')
    IF ( nogo<2 ) nogo = 2
    GOTO 100
@@ -1365,19 +1371,19 @@ SUBROUTINE xcsa
  5900 ASSIGN 6000 TO irtn3
    msgnum = 524
    GOTO 5500
- 6000 WRITE (Outtap,99026) Sfm , msgnum , ngino , imhere
+ 6000 WRITE (outtap,99026) sfm , msgnum , ngino , imhere
 99026 FORMAT (A25,I5,', ALTERNATE RETURN TAKEN WHEN OPENING FILE ',A4,3X,1H-,I3)
    nogo = 3
-   Icpflg = 0
+   icpflg = 0
    GOTO 6400
 !
  6100 ASSIGN 6200 TO irtn3
    msgnum = 525
    GOTO 5500
- 6200 WRITE (Outtap,99027) Sfm , msgnum , ngino
+ 6200 WRITE (outtap,99027) sfm , msgnum , ngino
 99027 FORMAT (A25,I5,', ILLEGAL FORMAT ENCOUNTERED WHILE READING FILE ',A4)
    nogo = 3
-   Icpflg = 0
+   icpflg = 0
    GOTO 6400
 !
  6300 IF ( nogo==1 ) GOTO 2800
@@ -1385,7 +1391,7 @@ SUBROUTINE xcsa
 !
 !     NOGO = 3 - TERMINATE JOB HERE
 !
-      Icpflg = 0
+      icpflg = 0
       CALL mesage(-61,0,0)
    ENDIF
 !
@@ -1393,15 +1399,15 @@ SUBROUTINE xcsa
 !
    ngino = ptape
    CALL close(ptape,1)
-   CALL open(*5900,ptape,Gbuff(dmapbs+1),0)
+   CALL open(*5900,ptape,gbuff(dmapbs+1),0)
    CALL skpfil(ptape,1)
    CALL close(ptape,2)
-   CALL open(*5900,ptape,Gbuff(dmapbs+1),3)
+   CALL open(*5900,ptape,gbuff(dmapbs+1),3)
    CALL write(ptape,nxcsa,2,1)
    solu(1) = 0
    solu(2) = 0
-   Apprch = appdmp
-   IF ( rstrt/=icold ) Apprch = -Apprch
+   apprch = appdmp
+   IF ( rstrt/=icold ) apprch = -apprch
    CALL write(ptape,solrec,6,1)
    CALL eof(ptape)
    CALL close(ptape,3)

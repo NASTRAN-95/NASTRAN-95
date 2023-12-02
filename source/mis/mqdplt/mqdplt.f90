@@ -1,15 +1,16 @@
-!*==mqdplt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mqdplt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mqdplt
-USE C_CONDAS
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -86,8 +87,8 @@ USE ISO_FORTRAN_ENV
 !     DETERMINE PIVOT POINT NUMBER
 !
    DO i = 1 , 4
-      IF ( Npvt==necpt(i+1) ) THEN
-         Npivot = i
+      IF ( npvt==necpt(i+1) ) THEN
+         npivot = i
          CALL spag_block_1
          RETURN
       ENDIF
@@ -95,19 +96,20 @@ USE ISO_FORTRAN_ENV
 !
 !     FALL THRU ABOVE LOOP IMPLIES ERROR CONDITION
 !
-   CALL mesage(-30,34,Ecpt(1))
+   CALL mesage(-30,34,ecpt(1))
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE ISO_FORTRAN_ENV                 
 !
-      Theta = Ecpt(6)*degra
-      Sinang = sin(Theta)
-      Cosang = cos(Theta)
+      theta = ecpt(6)*Degra
+      sinang = sin(theta)
+      cosang = cos(theta)
 !
       IF ( Npivot<=2 ) THEN
-         Jnot = Npivot + 2
+         jnot = Npivot + 2
       ELSE
-         Jnot = Npivot - 2
+         jnot = Npivot - 2
       ENDIF
 !
 !     FORMATION OF THE R-MATRIX CONTAINING COORDINATES OF THE
@@ -116,39 +118,39 @@ CONTAINS
 !
 !     ZERO OUT R-MATRIX
 !
-      DO i = 1 , 8
-         requiv(i) = 0.0D0
+      DO I = 1 , 8
+         Requiv(I) = 0.0D0
       ENDDO
 !
 !     SHIFT ECPT UP TO MATCH MTRBSC FOR CERTAIN VARIABLES.
 !
-      DO i = 6 , 12
-         Ecpt(i) = Ecpt(i+1)
+      DO I = 6 , 12
+         ecpt(I) = ecpt(I+1)
       ENDDO
 !
-      DO i = 1 , 3
-         D1(i) = dble(vq3(i)) - dble(vq1(i))
-         D2(i) = dble(vq4(i)) - dble(vq2(i))
-         A1(i) = dble(vq2(i)) - dble(vq1(i))
+      DO I = 1 , 3
+         d1(I) = dble(Vq3(I)) - dble(Vq1(I))
+         d2(I) = dble(Vq4(I)) - dble(Vq2(I))
+         a1(I) = dble(Vq2(I)) - dble(Vq1(I))
       ENDDO
 !
 !     NON-NORMALIZED K-VECTOR = D1 CROSS D2
 !
-      Kvect(1) = D1(2)*D2(3) - D2(2)*D1(3)
-      Kvect(2) = D1(3)*D2(1) - D2(3)*D1(1)
-      Kvect(3) = D1(1)*D2(2) - D2(1)*D1(2)
+      kvect(1) = d1(2)*d2(3) - d2(2)*d1(3)
+      kvect(2) = d1(3)*d2(1) - d2(3)*d1(1)
+      kvect(3) = d1(1)*d2(2) - d2(1)*d1(2)
 !
 !     NORMALIZE K-VECTOR
 !
-      Temp = dsqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
-      IF ( Temp/=0.0D0 ) THEN
-         DO i = 1 , 3
-            Kvect(i) = Kvect(i)/Temp
+      temp = dsqrt(kvect(1)**2+kvect(2)**2+kvect(3)**2)
+      IF ( temp/=0.0D0 ) THEN
+         DO I = 1 , 3
+            kvect(I) = kvect(I)/temp
          ENDDO
 !
 !     COMPUTE H = A1 DOT KVECT
 !
-         H = A1(1)*Kvect(1) + A1(2)*Kvect(2) + A1(3)*Kvect(3)
+         h = a1(1)*kvect(1) + a1(2)*kvect(2) + a1(3)*kvect(3)
 !
 !     WRITE (6,109)
 !     WRITE (6,119)
@@ -156,56 +158,56 @@ CONTAINS
 !
 !     I-VECTOR = (A1) - H*(KVECT)  NON-NORMALIZED
 !
-         DO i = 1 , 3
-            Ivect(i) = A1(i) - H*Kvect(i)
+         DO I = 1 , 3
+            ivect(I) = a1(I) - h*kvect(I)
          ENDDO
 !
 !     NORMALIZE I-VECTOR
 !
-         Temp = dsqrt(Ivect(1)**2+Ivect(2)**2+Ivect(3)**2)
-         IF ( Temp/=0.0D0 ) THEN
-            DO i = 1 , 3
-               Ivect(i) = Ivect(i)/Temp
+         temp = dsqrt(ivect(1)**2+ivect(2)**2+ivect(3)**2)
+         IF ( temp/=0.0D0 ) THEN
+            DO I = 1 , 3
+               ivect(I) = ivect(I)/temp
             ENDDO
 !
 !     J-VECTOR = K CROSS I, AND X3 CALCULATION
 !
-            Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
-            Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
-            Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+            jvect(1) = kvect(2)*ivect(3) - ivect(2)*kvect(3)
+            jvect(2) = kvect(3)*ivect(1) - ivect(3)*kvect(1)
+            jvect(3) = kvect(1)*ivect(2) - ivect(1)*kvect(2)
 !
 !     NORMALIZE J VECTOR TO MAKE SURE
 !
-            Temp = dsqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
-            IF ( Temp/=0.0D0 ) THEN
-               DO i = 1 , 3
-                  Jvect(i) = Jvect(i)/Temp
+            temp = dsqrt(jvect(1)**2+jvect(2)**2+jvect(3)**2)
+            IF ( temp/=0.0D0 ) THEN
+               DO I = 1 , 3
+                  jvect(I) = jvect(I)/temp
                ENDDO
 !
 !     X3 GOES INTO R(1,3) = D1 DOT IVECT
 !
-               R(1,3) = D1(1)*Ivect(1) + D1(2)*Ivect(2) + D1(3)*Ivect(3)
+               r(1,3) = d1(1)*ivect(1) + d1(2)*ivect(2) + d1(3)*ivect(3)
 !
 !     X2 GOES INTO R(1,2) AND Y3 GOES INTO R(2,3)
 !
-               R(1,2) = A1(1)*Ivect(1) + A1(2)*Ivect(2) + A1(3)*Ivect(3)
-               R(2,3) = D1(1)*Jvect(1) + D1(2)*Jvect(2) + D1(3)*Jvect(3)
+               r(1,2) = a1(1)*ivect(1) + a1(2)*ivect(2) + a1(3)*ivect(3)
+               r(2,3) = d1(1)*jvect(1) + d1(2)*jvect(2) + d1(3)*jvect(3)
 !
 !     X4 GOES INTO R(1,4) AND Y4 GOES INTO R(2,4)
 !
-               R(1,4) = D2(1)*Ivect(1) + D2(2)*Ivect(2) + D2(3)*Ivect(3) + R(1,2)
-               R(2,4) = D2(1)*Jvect(1) + D2(2)*Jvect(2) + D2(3)*Jvect(3)
+               r(1,4) = d2(1)*ivect(1) + d2(2)*ivect(2) + d2(3)*ivect(3) + r(1,2)
+               r(2,4) = d2(1)*jvect(1) + d2(2)*jvect(2) + d2(3)*jvect(3)
 !
 !     WRITE (6,129) (IVECT(I),I=1,3),(JVECT(I),I=1,3),(KVECT(I),I=1,3),
 !    1              ((R(I,J),J=1,4),I=1,2)
 !
 !     CHECK OF 4 POINTS FOR ANGLE GREATER THAN OR EQUAL TO 180 DEGREES.
 !
-               IF ( R(2,3)>0.0D0 .AND. R(2,4)>0.0D0 ) THEN
-                  Temp = R(1,2) - (R(1,2)-R(1,3))*R(2,4)/R(2,3)
-                  IF ( R(1,4)<Temp ) THEN
-                     Temp = R(2,3)*R(1,4)/R(2,4)
-                     IF ( R(1,3)>Temp ) THEN
+               IF ( r(2,3)>0.0D0 .AND. r(2,4)>0.0D0 ) THEN
+                  temp = r(1,2) - (r(1,2)-r(1,3))*r(2,4)/r(2,3)
+                  IF ( r(1,4)<temp ) THEN
+                     temp = r(2,3)*r(1,4)/r(2,4)
+                     IF ( r(1,3)>temp ) THEN
 !
 !     AT 140 THE COORDINATES OF THE PLATE IN THE ELEMENT
 !     SYSTEM ARE STORED IN THE R-MATRIX WHERE THE COLUMN DENOTES THE
@@ -218,32 +220,32 @@ CONTAINS
 !
 !     ZERO OUT MSUM MATRICES
 !
-                        DO i = 1 , 36
-                           msum(i) = 0.0D0
+                        DO I = 1 , 36
+                           Msum(I) = 0.0D0
                         ENDDO
-                        Ptmass = 0.0D0
-                        Eltemp = Ecpt(30)
+                        ptmass = 0.0D0
+                        eltemp = ecpt(30)
 !
-                        DO j = 1 , 4
-                           IF ( j/=Jnot ) THEN
-                              Km = 3*j - 3
-                              Subsca = m(Km+1)
-                              Subscb = m(Km+2)
-                              Subscc = m(Km+3)
+                        DO J = 1 , 4
+                           IF ( J/=jnot ) THEN
+                              km = 3*J - 3
+                              subsca = M(km+1)
+                              subscb = M(km+2)
+                              subscc = M(km+3)
 !
-                              DO i = 1 , 2
-                                 V(i) = R(i,Subscb) - R(i,Subsca)
-                                 Vv(i) = R(i,Subscc) - R(i,Subsca)
+                              DO I = 1 , 2
+                                 v(I) = r(I,subscb) - r(I,subsca)
+                                 vv(I) = r(I,subscc) - r(I,subsca)
                               ENDDO
-                              Xsubb = dsqrt(V(1)**2+V(2)**2)
-                              U1 = V(1)/Xsubb
-                              U2 = V(2)/Xsubb
-                              Xsubc = U1*Vv(1) + U2*Vv(2)
-                              Ysubc = U1*Vv(2) - U2*Vv(1)
+                              xsubb = dsqrt(v(1)**2+v(2)**2)
+                              u1 = v(1)/xsubb
+                              u2 = v(2)/xsubb
+                              xsubc = u1*vv(1) + u2*vv(2)
+                              ysubc = u1*vv(2) - u2*vv(1)
 !
-                              Sinth = Sinang*U1 - Cosang*U2
-                              Costh = Cosang*U1 + Sinang*U2
-                              IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+                              sinth = sinang*u1 - cosang*u2
+                              costh = cosang*u1 + sinang*u2
+                              IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
 !
 !     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR
 !     TRIANGLE -J-
@@ -259,64 +261,64 @@ CONTAINS
 !
 !     SET UP OF T-MATRIX
 !
-                              T(1) = 1.0D0
-                              T(2) = 0.0D0
-                              T(3) = 0.0D0
-                              T(4) = 0.0D0
-                              T(5) = U1
-                              T(6) = U2
-                              T(7) = 0.0D0
-                              T(8) = -U2
-                              T(9) = U1
+                              t(1) = 1.0D0
+                              t(2) = 0.0D0
+                              t(3) = 0.0D0
+                              t(4) = 0.0D0
+                              t(5) = u1
+                              t(6) = u2
+                              t(7) = 0.0D0
+                              t(8) = -u2
+                              t(9) = u1
 !
 !
 !     FIND WHICH POINT OF THE SUBTRIANGLE IS ALSO THE PIVOT OF THE
 !     QUADRILATERAL
 !
-                              SPAG_Loop_2_1: DO i = 1 , 3
-                                 Npoint = Km + i
-                                 IF ( m(Npoint)==Npivot ) THEN
-                                    Nbegin = 27*i - 27
+                              SPAG_Loop_2_1: DO I = 1 , 3
+                                 npoint = km + I
+                                 IF ( M(npoint)==Npivot ) THEN
+                                    nbegin = 27*I - 27
                                     EXIT SPAG_Loop_2_1
                                  ENDIF
                               ENDDO SPAG_Loop_2_1
 !
-                              DO i = 1 , 3
-                                 Npoint = Nbegin + 9*i - 8
-                                 CALL gmmatd(T,3,3,1,a(Npoint),3,3,0,Temp9)
-                                 CALL gmmatd(Temp9,3,3,0,T,3,3,0,Prod9)
+                              DO I = 1 , 3
+                                 npoint = nbegin + 9*I - 8
+                                 CALL gmmatd(t,3,3,1,A(npoint),3,3,0,temp9)
+                                 CALL gmmatd(temp9,3,3,0,t,3,3,0,prod9)
 !
 !     ADD THIS PRODUCT IN NOW.
 !
-                                 Npoint = Km + i
-                                 Npoint = 9*m(Npoint) - 9
-                                 DO k = 1 , 9
-                                    Npoint = Npoint + 1
-                                    msum(Npoint) = msum(Npoint) + Prod9(k)/2.0D0
+                                 npoint = km + I
+                                 npoint = 9*M(npoint) - 9
+                                 DO K = 1 , 9
+                                    npoint = npoint + 1
+                                    Msum(npoint) = Msum(npoint) + prod9(K)/2.0D0
                                  ENDDO
 !
 !
                               ENDDO
 !
-                              Ptmass = Ptmass + dble(Ecpt(10))/4.0D0*Xsubb*Ysubc
+                              ptmass = ptmass + dble(ecpt(10))/4.0D0*xsubb*ysubc
                            ENDIF
                         ENDDO
-                        Ptmass = Ptmass/3.0D0
+                        ptmass = ptmass/3.0D0
 !
-                        DO i = 1 , 36
-                           Tjte(i) = 0.0D0
+                        DO I = 1 , 36
+                           tjte(I) = 0.0D0
                         ENDDO
 !
 !     FILL E-MATRIX
 !
-                        DO i = 1 , 9
-                           E(i) = 0.0D0
+                        DO I = 1 , 9
+                           e(I) = 0.0D0
                         ENDDO
-                        DO i = 1 , 3
-                           Npoint = 3*i - 2
-                           E(Npoint) = Ivect(i)
-                           E(Npoint+1) = Jvect(i)
-                           E(Npoint+2) = Kvect(i)
+                        DO I = 1 , 3
+                           npoint = 3*I - 2
+                           e(npoint) = ivect(I)
+                           e(npoint+1) = jvect(I)
+                           e(npoint+2) = kvect(I)
                         ENDDO
 !
 !
@@ -324,112 +326,112 @@ CONTAINS
 !     FORM   T   E      STORE IN TITE-MATRIX (6X3)
 !             I
 !
-                        IF ( necpt(4*Npivot+10)==0 ) THEN
+                        IF ( Necpt(4*Npivot+10)==0 ) THEN
 !
-                           DO k = 1 , 9
-                              Tite(k) = E(k)
+                           DO K = 1 , 9
+                              tite(K) = e(K)
                            ENDDO
                         ELSE
-                           CALL transd(necpt(4*Npivot+10),T)
+                           CALL transd(Necpt(4*Npivot+10),t)
 !
 !
-                           CALL gmmatd(T,3,3,1,E(1),3,3,0,Tite(1))
+                           CALL gmmatd(t,3,3,1,e(1),3,3,0,tite(1))
                         ENDIF
 !
 !
 !     TRANSFORMATIONS AND INSERTION
 !
-                        DO j = 1 , 4
-                           Nbegin = 9*j - 9
-                           DO i = 1 , 36
-                              M6x6(i) = 0.0D0
+                        DO J = 1 , 4
+                           nbegin = 9*J - 9
+                           DO I = 1 , 36
+                              m6x6(I) = 0.0D0
                            ENDDO
-                           DO i = 1 , 3
-                              Npoint = Nbegin + i
-                              M6x6(i+14) = msum(Npoint)
-                              M6x6(i+20) = msum(Npoint+3)
-                              M6x6(i+26) = msum(Npoint+6)
+                           DO I = 1 , 3
+                              npoint = nbegin + I
+                              m6x6(I+14) = Msum(npoint)
+                              m6x6(I+20) = Msum(npoint+3)
+                              m6x6(I+26) = Msum(npoint+6)
                            ENDDO
 !
 !
-                           IF ( Npivot==j ) THEN
+                           IF ( Npivot==J ) THEN
 !
-                              Sign = (-1)**j
-                              Temp = Ptmass*H
-                              Miz = Temp/2.0D0*Sign
-                              Iiz = Temp*H/2.0D0
-                              M6x6(1) = Ptmass
-                              M6x6(5) = Miz
-                              M6x6(8) = M6x6(1)
-                              M6x6(10) = -Miz
-                              M6x6(20) = M6x6(10)
-                              M6x6(22) = M6x6(22) + Iiz
-                              M6x6(25) = Miz
-                              M6x6(29) = M6x6(29) + Iiz
+                              sign = (-1)**J
+                              temp = ptmass*h
+                              miz = temp/2.0D0*sign
+                              iiz = temp*h/2.0D0
+                              m6x6(1) = ptmass
+                              m6x6(5) = miz
+                              m6x6(8) = m6x6(1)
+                              m6x6(10) = -miz
+                              m6x6(20) = m6x6(10)
+                              m6x6(22) = m6x6(22) + iiz
+                              m6x6(25) = miz
+                              m6x6(29) = m6x6(29) + iiz
                            ENDIF
 !
 !
-                           IF ( necpt(4*j+10)==0 ) THEN
+                           IF ( Necpt(4*J+10)==0 ) THEN
 !
-                              DO i = 1 , 3
-                                 Npoint = 6*i - 5
-                                 npt = Npoint + 21
-                                 Tjte(Npoint) = E(i)
-                                 Tjte(Npoint+1) = E(i+3)
-                                 Tjte(Npoint+2) = E(i+6)
-                                 Tjte(npt) = E(i)
-                                 Tjte(npt+1) = E(i+3)
-                                 Tjte(npt+2) = E(i+6)
+                              DO I = 1 , 3
+                                 npoint = 6*I - 5
+                                 Npt = npoint + 21
+                                 tjte(npoint) = e(I)
+                                 tjte(npoint+1) = e(I+3)
+                                 tjte(npoint+2) = e(I+6)
+                                 tjte(Npt) = e(I)
+                                 tjte(Npt+1) = e(I+3)
+                                 tjte(Npt+2) = e(I+6)
                               ENDDO
                            ELSE
-                              CALL transd(necpt(4*j+10),T)
-                              CALL gmmatd(E(1),3,3,1,T(1),3,3,0,Tjte(1))
-                              DO i = 1 , 3
-                                 Npoint = i + 21
-                                 Tjte(Npoint) = Tjte(i)
-                                 Tjte(Npoint+6) = Tjte(i+3)
-                                 Tjte(Npoint+12) = Tjte(i+6)
+                              CALL transd(Necpt(4*J+10),t)
+                              CALL gmmatd(e(1),3,3,1,t(1),3,3,0,tjte(1))
+                              DO I = 1 , 3
+                                 npoint = I + 21
+                                 tjte(npoint) = tjte(I)
+                                 tjte(npoint+6) = tjte(I+3)
+                                 tjte(npoint+12) = tjte(I+6)
                               ENDDO
-                              DO i = 1 , 3
-                                 Npoint = i + 21
-                                 Tjte(i) = Tjte(Npoint)
-                                 Tjte(i+6) = Tjte(Npoint+6)
-                                 Tjte(i+12) = Tjte(Npoint+12)
-                                 Tjte(i+3) = 0.0D0
+                              DO I = 1 , 3
+                                 npoint = I + 21
+                                 tjte(I) = tjte(npoint)
+                                 tjte(I+6) = tjte(npoint+6)
+                                 tjte(I+12) = tjte(npoint+12)
+                                 tjte(I+3) = 0.0D0
 !
                               ENDDO
                            ENDIF
 !
 !
-                           CALL gmmatd(M6x6(1),6,6,0,Tjte(1),6,6,0,Temp36(1))
-                           CALL gmmatd(Tite(1),3,3,0,Temp36(1),3,6,0,Mout(1))
-                           CALL gmmatd(Tite(1),3,3,0,Temp36(19),3,6,0,Mout(19))
+                           CALL gmmatd(m6x6(1),6,6,0,tjte(1),6,6,0,temp36(1))
+                           CALL gmmatd(tite(1),3,3,0,temp36(1),3,6,0,mout(1))
+                           CALL gmmatd(tite(1),3,3,0,temp36(19),3,6,0,mout(19))
 !
 !
-                           CALL sma2b(Mout(1),necpt(j+1),-1,Ifmgg,0.0D0)
+                           CALL sma2b(mout(1),Necpt(J+1),-1,ifmgg,0.0D0)
 !
                         ENDDO
                         RETURN
                      ENDIF
                   ENDIF
                ENDIF
-               CALL mesage(30,35,Ecpt(1))
+               CALL mesage(30,35,ecpt(1))
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-               Nogo = 1
+               nogo = 1
                RETURN
             ENDIF
          ENDIF
       ENDIF
 !
 !
-      CALL mesage(30,26,Ecpt(1))
+      CALL mesage(30,26,ecpt(1))
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
    END SUBROUTINE spag_block_1
 END SUBROUTINE mqdplt

@@ -1,9 +1,10 @@
-!*==cxtrny.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cxtrny.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cxtrny(X,Y,Alpha)
-USE C_CINVPX
-USE ISO_FORTRAN_ENV                 
+   USE c_cinvpx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -22,7 +23,7 @@ USE ISO_FORTRAN_ENV
 !     CX TRN Y FORMS THE DOT PRODUCT X TRANSPOSE * Y = ALPHA WHERE
 !     X AND Y ARE COMPLEX
 !*******
-   ncol2 = Ncol + Ncol
+   ncol2 = ncol + ncol
    Alpha(1) = 0.D0
    Alpha(2) = 0.D0
    DO i = 1 , ncol2 , 2

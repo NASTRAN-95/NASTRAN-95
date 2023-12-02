@@ -1,14 +1,15 @@
-!*==psbar.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==psbar.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE psbar
+   USE c_matin
+   USE c_matout
+   USE c_pla32c
+   USE c_pla32e
+   USE c_pla32s
+   USE c_sout
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_PLA32C
-   USE C_PLA32E
-   USE C_PLA32S
-   USE C_SOUT
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -126,11 +127,11 @@ SUBROUTINE psbar
 !
    fl = 0.0
    DO i = 1 , 3
-      fl = fl + Smallv(i)**2
+      fl = fl + smallv(i)**2
    ENDDO
    fl = sqrt(fl)
    DO i = 1 , 3
-      Smallv(i) = Smallv(i)/fl
+      smallv(i) = smallv(i)/fl
    ENDDO
 !
 ! DETERMINE IF POINT A AND B ARE IN BASIC COORDINATES OR NOT.
@@ -160,377 +161,377 @@ SUBROUTINE psbar
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      bofset = .TRUE.
-      j = jofstb - 1
-      DO i = 1 , 3
-         j = j + 1
-         IF ( ecpt(j)/=0.0 ) THEN
+      Bofset = .TRUE.
+      J = Jofstb - 1
+      DO I = 1 , 3
+         J = J + 1
+         IF ( Ecpt(J)/=0.0 ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
       ENDDO
-      bofset = .FALSE.
+      Bofset = .FALSE.
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 ! FORM THE CENTER AXIS OF THE BEAM WITHOUT OFFSETS.
 !
-      veci(1) = ecpt(jcsida+1) - ecpt(jcsidb+1)
-      veci(2) = ecpt(jcsida+2) - ecpt(jcsidb+2)
-      veci(3) = ecpt(jcsida+3) - ecpt(jcsidb+3)
+      Veci(1) = Ecpt(Jcsida+1) - Ecpt(Jcsidb+1)
+      Veci(2) = Ecpt(Jcsida+2) - Ecpt(Jcsidb+2)
+      Veci(3) = Ecpt(Jcsida+3) - Ecpt(Jcsidb+3)
 !
 ! TRANSFORM THE OFFSET VECTORS IF NECESSARY
 !
-      IF ( .NOT.(.NOT.aofset .AND. .NOT.bofset) ) THEN
+      IF ( .NOT.(.NOT.Aofset .AND. .NOT.Bofset) ) THEN
 !
 ! TRANSFORM THE OFFSET VECTOR FOR POINT A IF NECESSARY.
 !
-         idela = 1
-         j = jofsta - 1
-         DO i = 1 , 3
-            j = j + 1
-            Dela(i) = ecpt(j)
+         Idela = 1
+         J = Jofsta - 1
+         DO I = 1 , 3
+            J = J + 1
+            dela(I) = Ecpt(J)
          ENDDO
-         IF ( .NOT.(abasic) ) THEN
-            idela = 4
-            CALL gmmats(ta,3,3,0,Dela(1),3,1,0,Dela(4))
+         IF ( .NOT.(Abasic) ) THEN
+            Idela = 4
+            CALL gmmats(Ta,3,3,0,dela(1),3,1,0,dela(4))
          ENDIF
 !
 ! TRANSFORM THE OFFSET VECTOR FOR POINT B IF NECESSARY
 !
-         idelb = 1
-         j = jofstb - 1
-         DO i = 1 , 3
-            j = j + 1
-            Delb(i) = ecpt(j)
+         Idelb = 1
+         J = Jofstb - 1
+         DO I = 1 , 3
+            J = J + 1
+            delb(I) = Ecpt(J)
          ENDDO
-         IF ( .NOT.(bbasic) ) THEN
-            idelb = 4
-            CALL gmmats(tb,3,3,0,Delb(1),3,1,0,Delb(4))
+         IF ( .NOT.(Bbasic) ) THEN
+            Idelb = 4
+            CALL gmmats(Tb,3,3,0,delb(1),3,1,0,delb(4))
          ENDIF
 !
 ! SINCE THERE WAS AT LEAST ONE NON-ZERO OFFSET VECTOR RECOMPUTE VECI
 !
-         veci(1) = veci(1) + Dela(idela) - Delb(idelb)
-         veci(2) = veci(2) + Dela(idela+1) - Delb(idelb+1)
-         veci(3) = veci(3) + Dela(idela+2) - Delb(idelb+2)
+         Veci(1) = Veci(1) + dela(Idela) - delb(Idelb)
+         Veci(2) = Veci(2) + dela(Idela+1) - delb(Idelb+1)
+         Veci(3) = Veci(3) + dela(Idela+2) - delb(Idelb+2)
       ENDIF
 !
 ! COMPUTE THE LENGTH OF THE BIG V (VECI) VECTOR AND NORMALIZE
 !
-      veci(1) = -veci(1)
-      veci(2) = -veci(2)
-      veci(3) = -veci(3)
-      fl = sqrt(veci(1)**2+veci(2)**2+veci(3)**2)
-      DO i = 1 , 3
-         veci(i) = veci(i)/fl
+      Veci(1) = -Veci(1)
+      Veci(2) = -Veci(2)
+      Veci(3) = -Veci(3)
+      Fl = sqrt(Veci(1)**2+Veci(2)**2+Veci(3)**2)
+      DO I = 1 , 3
+         Veci(I) = Veci(I)/Fl
       ENDDO
 !
 ! COMPUTE THE SMALL V SUB 0 VECTOR, SMALV0.  ****CHECK THIS LOGIC****
 !
-      DO i = 1 , 3
-         smalv0(i) = Smallv(i)
+      DO I = 1 , 3
+         Smalv0(I) = smallv(I)
       ENDDO
-      isv = 1
-      IF ( Icssv/=0 ) THEN
-         isv = 4
-         CALL gmmats(ta,3,3,0,smalv0(1),3,1,0,smalv0(4))
+      Isv = 1
+      IF ( icssv/=0 ) THEN
+         Isv = 4
+         CALL gmmats(Ta,3,3,0,Smalv0(1),3,1,0,Smalv0(4))
       ENDIF
 !
 ! COMPUTE THE K VECTOR, VECK = VECI  X  SMALV0, AND NORMALIZE
 !
-      veck(1) = veci(2)*smalv0(isv+2) - veci(3)*smalv0(isv+1)
-      veck(2) = veci(3)*smalv0(isv) - veci(1)*smalv0(isv+2)
-      veck(3) = veci(1)*smalv0(isv+1) - veci(2)*smalv0(isv)
-      fll = sqrt(veck(1)**2+veck(2)**2+veck(3)**2)
-      veck(1) = veck(1)/fll
-      veck(2) = veck(2)/fll
-      veck(3) = veck(3)/fll
+      Veck(1) = Veci(2)*Smalv0(Isv+2) - Veci(3)*Smalv0(Isv+1)
+      Veck(2) = Veci(3)*Smalv0(Isv) - Veci(1)*Smalv0(Isv+2)
+      Veck(3) = Veci(1)*Smalv0(Isv+1) - Veci(2)*Smalv0(Isv)
+      Fll = sqrt(Veck(1)**2+Veck(2)**2+Veck(3)**2)
+      Veck(1) = Veck(1)/Fll
+      Veck(2) = Veck(2)/Fll
+      Veck(3) = Veck(3)/Fll
 !
 ! COMPUTE THE J VECTOR, VECJ = VECK  X  VECI, AND NORMALIZE
 !
-      vecj(1) = veck(2)*veci(3) - veck(3)*veci(2)
-      vecj(2) = veck(3)*veci(1) - veck(1)*veci(3)
-      vecj(3) = veck(1)*veci(2) - veck(2)*veci(1)
-      fll = sqrt(vecj(1)**2+vecj(2)**2+vecj(3)**2)
-      vecj(1) = vecj(1)/fll
-      vecj(2) = vecj(2)/fll
-      vecj(3) = vecj(3)/fll
+      Vecj(1) = Veck(2)*Veci(3) - Veck(3)*Veci(2)
+      Vecj(2) = Veck(3)*Veci(1) - Veck(1)*Veci(3)
+      Vecj(3) = Veck(1)*Veci(2) - Veck(2)*Veci(1)
+      Fll = sqrt(Vecj(1)**2+Vecj(2)**2+Vecj(3)**2)
+      Vecj(1) = Vecj(1)/Fll
+      Vecj(2) = Vecj(2)/Fll
+      Vecj(3) = Vecj(3)/Fll
 !
 ! SET UP INTERMEDIATE VARIABLES FOR ELEMENT STIFFNESS MATRIX CALCULATION
 !
-      l = fl
-      lsq = l**2
-      lcube = lsq*l
+      L = Fl
+      Lsq = L**2
+      Lcube = Lsq*L
 !
 ! STORE INCREMENTAL DISPLACEMENT VECTORS IN DOUBLE PRECISION LOCATIONS
 !
-      DO i = 1 , 6
-         u(i) = Uain(i)
-         u(i+12) = Ubin(i)
+      DO I = 1 , 6
+         U(I) = uain(I)
+         U(I+12) = ubin(I)
       ENDDO
 !*****
 ! COMPUTE ON FIRST PASS C  * E  * U   AND C  * E  * U  ON SECOND PASS
 !                        B    B    B       A    A    A
 !*****
-      ipass = 1
-      basic = bbasic
-      offset = bofset
-      jofset = jofstb
-      jcsid = 10
-      index = 13
+      Ipass = 1
+      Basic = Bbasic
+      Offset = Bofset
+      Jofset = Jofstb
+      Jcsid = 10
+      Index = 13
       SPAG_Loop_1_1: DO
 !
 ! IF THERE ARE OFFSETS FOR THIS POINT, CONSTRUCT THE 3 X 3 MATRIX D.
 !
-         IF ( offset ) THEN
-            d(1) = 0.0
-            d(2) = ecpt(jofset+2)
-            d(3) = -ecpt(jofset+1)
-            d(4) = -d(2)
-            d(5) = 0.0
-            d(6) = ecpt(jofset)
-            d(7) = -d(3)
-            d(8) = -d(6)
-            d(9) = 0.0
+         IF ( Offset ) THEN
+            D(1) = 0.0
+            D(2) = Ecpt(Jofset+2)
+            D(3) = -Ecpt(Jofset+1)
+            D(4) = -D(2)
+            D(5) = 0.0
+            D(6) = Ecpt(Jofset)
+            D(7) = -D(3)
+            D(8) = -D(6)
+            D(9) = 0.0
 !
 ! COMPUTE THE 3 VECTOR  D * U , WHERE U  IS THE VECTOR OF THE 3
 !                            R         R
 ! ROTATIONAL DISPLACEMENTS
 !
-            CALL gmmats(d,3,3,0,u(index+3),3,1,0,u(index+6))
+            CALL gmmats(D,3,3,0,U(Index+3),3,1,0,U(Index+6))
 !
 ! ADD OFFSET CONTRIBUTION TO THE TRANSLATION COMPONENTS OF THE DISPLACE-
 ! MENT VECTOR
 !
-            j = index
-            DO i = 1 , 3
-               u(j) = u(j) + u(j+6)
-               j = j + 1
+            J = Index
+            DO I = 1 , 3
+               U(J) = U(J) + U(J+6)
+               J = J + 1
             ENDDO
          ENDIF
 !
 ! TRANSFORM TRANSLATIONAL COMPONENTS TO BASIC COORDINATES IF NECESSARY
 !
-         IF ( .NOT.(basic) ) THEN
-            CALL gmmats(ta(jcsid),3,3,0,u(index),3,1,0,u(index+3))
+         IF ( .NOT.(Basic) ) THEN
+            CALL gmmats(Ta(Jcsid),3,3,0,U(Index),3,1,0,U(Index+3))
 !
 ! STORE TRANSFORMED VECTOR BACK INTO ITS ORIGINAL D.P. LOCATION
 !
-            u(index) = u(index+3)
-            u(index+1) = u(index+4)
-            u(index+2) = u(index+5)
+            U(Index) = U(Index+3)
+            U(Index+1) = U(Index+4)
+            U(Index+2) = U(Index+5)
          ENDIF
-         IF ( ipass==2 ) THEN
+         IF ( Ipass==2 ) THEN
 !
 ! FORM THE DIFFERENCE OF THE TRANSLATIONAL COMPONENTS OF THE TRANSFORMED
 ! DISPLACEMENT VECTORS
 !
-            DO i = 1 , 3
-               u(i+12) = u(i+12) - u(i)
+            DO I = 1 , 3
+               U(I+12) = U(I+12) - U(I)
             ENDDO
 !
 ! FORM DOT PRODUCT
 !
-            CALL gmmats(veci,3,1,1,u(13),3,1,0,d(1))
+            CALL gmmats(Veci,3,1,1,U(13),3,1,0,D(1))
 !
 ! CALCULATE THE INCREMENTAL ELEMENT STRAIN
 !
-            deps1 = d(1)/l
+            Deps1 = D(1)/L
 !
 ! PERFORM EXTENSIONAL STRAIN CALCULATIONS
 !
-            deps2 = Epsin2 - Epsin1
-            eps1 = Epsin2 + deps1
-            eps2 = Epsin2 + (deps1+Gammas**2*deps2)*(Gamma+1.0E0)/(Gammas+1.0E0) + Gammas*(deps1-Gammas*deps2)*(Gamma+1.0E0)        &
-                 & **2/(Gammas+1.0E0)
+            Deps2 = epsin2 - epsin1
+            Eps1 = epsin2 + Deps1
+            Eps2 = epsin2 + (Deps1+gammas**2*Deps2)*(gamma+1.0E0)/(gammas+1.0E0) + gammas*(Deps1-gammas*Deps2)*(gamma+1.0E0)        &
+                 & **2/(gammas+1.0E0)
 !
 ! CALL MAT ROUTINE TO GET SIGMA1 AND SIGMA2 AS FUNCTIONS OF EPS1,EPS2
 !
-            Matidc = Imatid
-            Matflg = 1
-            CALL mat(iecpt(1))
-            esub0l = Esub0
-            gsub0l = Gsub0
-            Matflg = 6
-            Plaarg = eps1
-            CALL mat(iecpt(1))
-            sigma1 = plaans
-            Plaarg = eps2
-            CALL mat(iecpt(1))
-            sigma2 = plaans
+            matidc = imatid
+            matflg = 1
+            CALL mat(Iecpt(1))
+            Esub0l = esub0
+            Gsub0l = gsub0
+            matflg = 6
+            plaarg = Eps1
+            CALL mat(Iecpt(1))
+            Sigma1 = Plaans
+            plaarg = Eps2
+            CALL mat(Iecpt(1))
+            Sigma2 = Plaans
 !
 ! NOTE THAT E1 IS USED IN THIS ROUTINE ONLY TO UPDATE THE EST (ECPT)
 ! ENTRY
 !
-            IF ( eps1==eps2 ) THEN
-               e1 = Estar
+            IF ( Eps1==Eps2 ) THEN
+               E1 = estar
             ELSE
-               e1 = (sigma2-sigma1)/(eps2-eps1)
+               E1 = (Sigma2-Sigma1)/(Eps2-Eps1)
             ENDIF
 !
 ! BEGIN ELEMENT STRESS MATRIX CALCULATIONS.
 !
-            e = Estar
-            g = Estar*gsub0l/esub0l
-            ei1 = e*I1
-            ei2 = e*I2
-            IF ( K1==0.0 .OR. I12/=0.0 ) THEN
-               r1 = 12.0*ei1/lcube
+            E = estar
+            G = estar*Gsub0l/Esub0l
+            Ei1 = E*i1
+            Ei2 = E*i2
+            IF ( k1==0.0 .OR. i12/=0.0 ) THEN
+               R1 = 12.0*Ei1/Lcube
             ELSE
-               gak1 = g*A*K1
-               r1 = (12.0*ei1*gak1)/(gak1*lcube+12.0*l*ei1)
+               Gak1 = G*a*k1
+               R1 = (12.0*Ei1*Gak1)/(Gak1*Lcube+12.0*L*Ei1)
             ENDIF
-            IF ( K2==0.0 .OR. I12/=0.0 ) THEN
-               r2 = 12.0*ei2/lcube
+            IF ( k2==0.0 .OR. i12/=0.0 ) THEN
+               R2 = 12.0*Ei2/Lcube
             ELSE
-               gak2 = g*A*K2
-               r2 = (12.0*ei2*gak2)/(gak2*lcube+12.0*l*ei2)
+               Gak2 = G*a*k2
+               R2 = (12.0*Ei2*Gak2)/(Gak2*Lcube+12.0*L*Ei2)
             ENDIF
 !
 ! COMPUTE THE -SMALL- K-S, SK1, SK2, SK3 AND SK4
 !
-            sk1 = 0.25*r1*lsq + ei1/l
-            sk2 = 0.25*r2*lsq + ei2/l
-            sk3 = 0.25*r1*lsq - ei1/l
-            sk4 = 0.25*r2*lsq - ei2/l
+            Sk1 = 0.25*R1*Lsq + Ei1/L
+            Sk2 = 0.25*R2*Lsq + Ei2/L
+            Sk3 = 0.25*R1*Lsq - Ei1/L
+            Sk4 = 0.25*R2*Lsq - Ei2/L
 !
 ! COMPUTE THE TERMS THAT WILL BE NEEDED FOR THE 12 X 12 MATRIX KE
 !
-            ael = A*e/l
-            lr1 = l*r1/2.0
-            lr2 = l*r2/2.0
-            gjl = g*Fj/l
+            Ael = a*E/L
+            Lr1 = L*R1/2.0
+            Lr2 = L*R2/2.0
+            Gjl = G*fj/L
 !
 ! CONSTRUCT THE 12 X 12 MATRIX KE
 !
-            DO i = 1 , 144
-               Ke(i) = 0.0
+            DO I = 1 , 144
+               ke(I) = 0.0
             ENDDO
-            Ke(1) = ael
-            Ke(7) = -ael
-            Ke(14) = r1
-            Ke(18) = lr1
-            Ke(20) = -r1
-            Ke(24) = lr1
-            Ke(27) = r2
-            Ke(29) = -lr2
-            Ke(33) = -r2
-            Ke(35) = -lr2
-            Ke(40) = gjl
-            Ke(46) = -gjl
-            Ke(51) = -lr2
-            Ke(53) = sk2
-            Ke(57) = lr2
-            Ke(59) = sk4
-            Ke(62) = lr1
-            Ke(66) = sk1
-            Ke(68) = -lr1
-            Ke(72) = sk3
-            Ke(73) = -ael
-            Ke(79) = ael
-            Ke(86) = -r1
-            Ke(90) = -lr1
-            Ke(92) = r1
-            Ke(96) = -lr1
-            Ke(99) = -r2
-            Ke(101) = lr2
-            Ke(105) = r2
-            Ke(107) = lr2
-            Ke(112) = -gjl
-            Ke(118) = gjl
-            Ke(123) = -lr2
-            Ke(125) = sk4
-            Ke(129) = lr2
-            Ke(131) = sk2
-            Ke(134) = lr1
-            Ke(138) = sk3
-            Ke(140) = -lr1
-            Ke(144) = sk1
-            IF ( I12/=0.0 ) THEN
-               beta = 12.0*e*I12/lcube
-               lb = l*beta/2.0
-               l2b3 = lsq*beta/3.0
-               l2b6 = lsq*beta/6.0
-               Ke(15) = beta
-               Ke(17) = -lb
-               Ke(21) = -beta
-               Ke(23) = -lb
-               Ke(26) = beta
-               Ke(30) = lb
-               Ke(32) = -beta
-               Ke(36) = lb
-               Ke(50) = -lb
-               Ke(54) = -l2b3
-               Ke(56) = lb
-               Ke(60) = -l2b6
-               Ke(63) = lb
-               Ke(65) = -l2b3
-               Ke(69) = -lb
-               Ke(71) = -l2b6
-               Ke(87) = -beta
-               Ke(89) = lb
-               Ke(93) = beta
-               Ke(95) = lb
-               Ke(98) = -beta
-               Ke(102) = -lb
-               Ke(104) = beta
-               Ke(108) = -lb
-               Ke(122) = -lb
-               Ke(126) = -l2b6
-               Ke(128) = lb
-               Ke(132) = -l2b3
-               Ke(135) = lb
-               Ke(137) = -l2b6
-               Ke(141) = -lb
-               Ke(143) = -l2b3
+            ke(1) = Ael
+            ke(7) = -Ael
+            ke(14) = R1
+            ke(18) = Lr1
+            ke(20) = -R1
+            ke(24) = Lr1
+            ke(27) = R2
+            ke(29) = -Lr2
+            ke(33) = -R2
+            ke(35) = -Lr2
+            ke(40) = Gjl
+            ke(46) = -Gjl
+            ke(51) = -Lr2
+            ke(53) = Sk2
+            ke(57) = Lr2
+            ke(59) = Sk4
+            ke(62) = Lr1
+            ke(66) = Sk1
+            ke(68) = -Lr1
+            ke(72) = Sk3
+            ke(73) = -Ael
+            ke(79) = Ael
+            ke(86) = -R1
+            ke(90) = -Lr1
+            ke(92) = R1
+            ke(96) = -Lr1
+            ke(99) = -R2
+            ke(101) = Lr2
+            ke(105) = R2
+            ke(107) = Lr2
+            ke(112) = -Gjl
+            ke(118) = Gjl
+            ke(123) = -Lr2
+            ke(125) = Sk4
+            ke(129) = Lr2
+            ke(131) = Sk2
+            ke(134) = Lr1
+            ke(138) = Sk3
+            ke(140) = -Lr1
+            ke(144) = Sk1
+            IF ( i12/=0.0 ) THEN
+               Beta = 12.0*E*i12/Lcube
+               Lb = L*Beta/2.0
+               L2b3 = Lsq*Beta/3.0
+               L2b6 = Lsq*Beta/6.0
+               ke(15) = Beta
+               ke(17) = -Lb
+               ke(21) = -Beta
+               ke(23) = -Lb
+               ke(26) = Beta
+               ke(30) = Lb
+               ke(32) = -Beta
+               ke(36) = Lb
+               ke(50) = -Lb
+               ke(54) = -L2b3
+               ke(56) = Lb
+               ke(60) = -L2b6
+               ke(63) = Lb
+               ke(65) = -L2b3
+               ke(69) = -Lb
+               ke(71) = -L2b6
+               ke(87) = -Beta
+               ke(89) = Lb
+               ke(93) = Beta
+               ke(95) = Lb
+               ke(98) = -Beta
+               ke(102) = -Lb
+               ke(104) = Beta
+               ke(108) = -Lb
+               ke(122) = -Lb
+               ke(126) = -L2b6
+               ke(128) = Lb
+               ke(132) = -L2b3
+               ke(135) = Lb
+               ke(137) = -L2b6
+               ke(141) = -Lb
+               ke(143) = -L2b3
             ENDIF
 !
 ! DETERMINE IF THERE ARE NON-ZERO PIN FLAGS.
 !
-            ka = iecpt(jpina)
-            kb = iecpt(jpinb)
-            IF ( ka/=0 .OR. kb/=0 ) THEN
+            Ka = Iecpt(Jpina)
+            Kb = Iecpt(Jpinb)
+            IF ( Ka/=0 .OR. Kb/=0 ) THEN
 !
 ! SET UP THE IPIN ARRAY
 !
-               DO i = 1 , 5
-                  ipin(i) = mod(ka,10)
-                  ipin(i+5) = mod(kb,10) + 6
-                  IF ( ipin(i+5)==6 ) ipin(i+5) = 0
-                  ka = ka/10
-                  kb = kb/10
+               DO I = 1 , 5
+                  Ipin(I) = mod(Ka,10)
+                  Ipin(I+5) = mod(Kb,10) + 6
+                  IF ( Ipin(I+5)==6 ) Ipin(I+5) = 0
+                  Ka = Ka/10
+                  Kb = Kb/10
                ENDDO
 !
 ! ALTER KE MATRIX DUE TO PIN FLAGS.
 !
-               DO i = 1 , 10
-                  IF ( ipin(i)/=0 ) THEN
-                     ii = 13*ipin(i) - 12
-                     IF ( Ke(ii)/=0.0 ) THEN
-                        DO j = 1 , 12
-                           ji = 12*(j-1) + ipin(i)
-                           ij = 12*(ipin(i)-1) + j
-                           DO ll = 1 , 12
-                              jll = 12*(j-1) + ll
-                              ill = 12*(ipin(i)-1) + ll
-                              Kep(jll) = Ke(jll) - (Ke(ill)/Ke(ii))*Ke(ji)
+               DO I = 1 , 10
+                  IF ( Ipin(I)/=0 ) THEN
+                     Ii = 13*Ipin(I) - 12
+                     IF ( ke(Ii)/=0.0 ) THEN
+                        DO J = 1 , 12
+                           Ji = 12*(J-1) + Ipin(I)
+                           Ij = 12*(Ipin(I)-1) + J
+                           DO Ll = 1 , 12
+                              Jll = 12*(J-1) + Ll
+                              Ill = 12*(Ipin(I)-1) + Ll
+                              kep(Jll) = ke(Jll) - (ke(Ill)/ke(Ii))*ke(Ji)
                            ENDDO
-                           Kep(ij) = 0.0
-                           Kep(ji) = 0.0
+                           kep(Ij) = 0.0
+                           kep(Ji) = 0.0
                         ENDDO
-                        DO k = 1 , 144
-                           Ke(k) = Kep(k)
+                        DO K = 1 , 144
+                           ke(K) = kep(K)
                         ENDDO
                      ELSE
-                        il = ipin(i)
-                        ii = ii - il
-                        DO j = 1 , 12
-                           ii = ii + 1
-                           Ke(ii) = 0.0
-                           Ke(il) = 0.0
-                           il = il + 12
+                        Il = Ipin(I)
+                        Ii = Ii - Il
+                        DO J = 1 , 12
+                           Ii = Ii + 1
+                           ke(Ii) = 0.0
+                           ke(Il) = 0.0
+                           Il = Il + 12
                         ENDDO
                      ENDIF
                   ENDIF
@@ -545,55 +546,55 @@ CONTAINS
 ! STORE K   IN KEP(37),...,KEP(72)
 !        AB
 !
-            j = 0
-            DO i = 1 , 72 , 12
-               low = i
-               lim = low + 5
-               DO k = low , lim
-                  j = j + 1
-                  Kep(j) = Ke(k)
-                  Kep(j+36) = Ke(k+6)
+            J = 0
+            DO I = 1 , 72 , 12
+               Low = I
+               Lim = Low + 5
+               DO K = Low , Lim
+                  J = J + 1
+                  kep(J) = ke(K)
+                  kep(J+36) = ke(K+6)
                ENDDO
             ENDDO
 !
 !                                                        T
 ! STORE VECI, VECJ, VECK IN KE(1),...,KE(9) FORMING THE A  MATRIX.
 !
-            Ke(1) = veci(1)
-            Ke(2) = veci(2)
-            Ke(3) = veci(3)
-            Ke(4) = vecj(1)
-            Ke(5) = vecj(2)
-            Ke(6) = vecj(3)
-            Ke(7) = veck(1)
-            Ke(8) = veck(2)
-            Ke(9) = veck(3)
+            ke(1) = Veci(1)
+            ke(2) = Veci(2)
+            ke(3) = Veci(3)
+            ke(4) = Vecj(1)
+            ke(5) = Vecj(2)
+            ke(6) = Vecj(3)
+            ke(7) = Veck(1)
+            ke(8) = Veck(2)
+            ke(9) = Veck(3)
 !
 ! SET POINTERS SO THAT WE WILL BE WORKING WITH POINT A.
 !
-            basic = abasic
-            jcsid = jcsida
-            offset = aofset
-            jofset = jofsta
-            iwbeg = 0
-            ikel = 1
-            iab = 1
-            index = Isilno(1)
+            Basic = Abasic
+            Jcsid = Jcsida
+            Offset = Aofset
+            Jofset = Jofsta
+            Iwbeg = 0
+            Ikel = 1
+            Iab = 1
+            Index = isilno(1)
 !
 ! ZERO OUT THE ARRAY WHERE THE 3 X 3 MATRIX AND THE W  AND W  6 X 6
 ! MATRICES WILL RESIDE.                              A      B
 !
-            DO i = 28 , 108
-               Ke(i) = 0.0
+            DO I = 28 , 108
+               ke(I) = 0.0
             ENDDO
             EXIT SPAG_Loop_1_1
          ELSE
-            ipass = 2
-            basic = abasic
-            offset = aofset
-            jofset = jofsta
-            jcsid = 1
-            index = 1
+            Ipass = 2
+            Basic = Abasic
+            Offset = Aofset
+            Jofset = Jofsta
+            Jcsid = 1
+            Index = 1
          ENDIF
       ENDDO SPAG_Loop_1_1
       SPAG_Loop_1_2: DO
@@ -601,29 +602,29 @@ CONTAINS
 ! SET UP THE -G- MATRIX.  IG POINTS TO THE BEGINNING OF THE G MATRIX.
 ! G = AT X TI
 !
-         ig = 1
-         IF ( .NOT.(basic) ) THEN
-            CALL transs(ecpt(jcsid),Ke(10))
-            CALL gmmats(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
-            ig = 19
+         Ig = 1
+         IF ( .NOT.(Basic) ) THEN
+            CALL transs(Ecpt(Jcsid),ke(10))
+            CALL gmmats(ke(1),3,3,0,ke(10),3,3,0,ke(19))
+            Ig = 19
          ENDIF
 !
 ! IF THERE IS A NON-ZERO OFFSET FOR THE POINT, SET UP THE D 3 X3 MATRIX.
 !
-         IF ( offset ) THEN
-            Ke(10) = 0.0
-            Ke(11) = ecpt(jofset+2)
-            Ke(12) = -ecpt(jofset+1)
-            Ke(13) = -Ke(11)
-            Ke(14) = 0.0
-            Ke(15) = ecpt(jofset)
-            Ke(16) = -Ke(12)
-            Ke(17) = -Ke(15)
-            Ke(18) = 0.0
+         IF ( Offset ) THEN
+            ke(10) = 0.0
+            ke(11) = Ecpt(Jofset+2)
+            ke(12) = -Ecpt(Jofset+1)
+            ke(13) = -ke(11)
+            ke(14) = 0.0
+            ke(15) = Ecpt(Jofset)
+            ke(16) = -ke(12)
+            ke(17) = -ke(15)
+            ke(18) = 0.0
 !
 ! FORM THE 3 X 3 PRODUCT H = G X D, I.E., KE(28) = KE(IG) X KE(10)
 !
-            CALL gmmats(Ke(ig),3,3,0,Ke(10),3,3,0,Ke(28))
+            CALL gmmats(ke(Ig),3,3,0,ke(10),3,3,0,ke(28))
          ENDIF
 !
 !
@@ -634,34 +635,34 @@ CONTAINS
 ! STORED IN THE UPPER RIGHT CORNER.
 !
 !
-         Ke(iwbeg+37) = Ke(ig)
-         Ke(iwbeg+38) = Ke(ig+1)
-         Ke(iwbeg+39) = Ke(ig+2)
-         Ke(iwbeg+43) = Ke(ig+3)
-         Ke(iwbeg+44) = Ke(ig+4)
-         Ke(iwbeg+45) = Ke(ig+5)
-         Ke(iwbeg+49) = Ke(ig+6)
-         Ke(iwbeg+50) = Ke(ig+7)
-         Ke(iwbeg+51) = Ke(ig+8)
-         Ke(iwbeg+58) = Ke(ig)
-         Ke(iwbeg+59) = Ke(ig+1)
-         Ke(iwbeg+60) = Ke(ig+2)
-         Ke(iwbeg+64) = Ke(ig+3)
-         Ke(iwbeg+65) = Ke(ig+4)
-         Ke(iwbeg+66) = Ke(ig+5)
-         Ke(iwbeg+70) = Ke(ig+6)
-         Ke(iwbeg+71) = Ke(ig+7)
-         Ke(iwbeg+72) = Ke(ig+8)
-         IF ( offset ) THEN
-            Ke(iwbeg+40) = Ke(28)
-            Ke(iwbeg+41) = Ke(29)
-            Ke(iwbeg+42) = Ke(30)
-            Ke(iwbeg+46) = Ke(31)
-            Ke(iwbeg+47) = Ke(32)
-            Ke(iwbeg+48) = Ke(33)
-            Ke(iwbeg+52) = Ke(34)
-            Ke(iwbeg+53) = Ke(35)
-            Ke(iwbeg+54) = Ke(36)
+         ke(Iwbeg+37) = ke(Ig)
+         ke(Iwbeg+38) = ke(Ig+1)
+         ke(Iwbeg+39) = ke(Ig+2)
+         ke(Iwbeg+43) = ke(Ig+3)
+         ke(Iwbeg+44) = ke(Ig+4)
+         ke(Iwbeg+45) = ke(Ig+5)
+         ke(Iwbeg+49) = ke(Ig+6)
+         ke(Iwbeg+50) = ke(Ig+7)
+         ke(Iwbeg+51) = ke(Ig+8)
+         ke(Iwbeg+58) = ke(Ig)
+         ke(Iwbeg+59) = ke(Ig+1)
+         ke(Iwbeg+60) = ke(Ig+2)
+         ke(Iwbeg+64) = ke(Ig+3)
+         ke(Iwbeg+65) = ke(Ig+4)
+         ke(Iwbeg+66) = ke(Ig+5)
+         ke(Iwbeg+70) = ke(Ig+6)
+         ke(Iwbeg+71) = ke(Ig+7)
+         ke(Iwbeg+72) = ke(Ig+8)
+         IF ( Offset ) THEN
+            ke(Iwbeg+40) = ke(28)
+            ke(Iwbeg+41) = ke(29)
+            ke(Iwbeg+42) = ke(30)
+            ke(Iwbeg+46) = ke(31)
+            ke(Iwbeg+47) = ke(32)
+            ke(Iwbeg+48) = ke(33)
+            ke(Iwbeg+52) = ke(34)
+            ke(Iwbeg+53) = ke(35)
+            ke(Iwbeg+54) = ke(36)
          ENDIF
 !
 !                          E                      E
@@ -669,137 +670,137 @@ CONTAINS
 !                    A     AA      A       B     AB      B
 ! UPON WHICH POINT WE ARE WORKING WITH.
 !
-         CALL gmmats(Kep(ikel),6,6,0,Ke(iwbeg+37),6,6,0,sa(iab))
+         CALL gmmats(kep(Ikel),6,6,0,ke(Iwbeg+37),6,6,0,Sa(Iab))
 !
 ! IF THE POINT UNDER CONSIDERATION IS POINT B WE ARE FINISHED.  IF NOT,
 ! SET UP POINTS AND INDICATORS FOR WORKING WITH POINT B.
 !
-         IF ( iwbeg==36 ) THEN
+         IF ( Iwbeg==36 ) THEN
 !
 ! COMPUTE FORCES AND MOMENTS FROM  S   AND   S   AND DISPLACEMENT
 !                                   A         B
 ! VECTORS
 !
-            CALL gmmats(sa,6,6,0,Uain,6,1,0,fa)
-            CALL gmmats(sb,6,6,0,Ubin,6,1,0,fb)
-            fx = A*sigma1
-            v1 = -fa(2) - fb(2) + V1star
-            v2 = -fa(3) - fb(3) + V2star
-            t = -fa(4) - fb(4) + Tstar
-            m2a = fa(5) + fb(5) + M2astr
-            m1a = -fa(6) - fb(6) + M1astr
-            m1b = m1a - v1*l
-            m2b = m2a - v2*l
+            CALL gmmats(Sa,6,6,0,uain,6,1,0,Fa)
+            CALL gmmats(Sb,6,6,0,ubin,6,1,0,Fb)
+            Fx = a*Sigma1
+            V1 = -Fa(2) - Fb(2) + v1star
+            V2 = -Fa(3) - Fb(3) + v2star
+            T = -Fa(4) - Fb(4) + tstar
+            M2a = Fa(5) + Fb(5) + m2astr
+            M1a = -Fa(6) - Fb(6) + m1astr
+            M1b = M1a - V1*L
+            M2b = M2a - V2*L
 !*****
 ! COMPUTE ELEMENT STRESSES AT 4 POINTS
 !*****
 !
 ! COMPUTE K1A AND K2A
 !
-            IF ( I12/=0.0 ) THEN
-               k1a = (m2a*I12-m1a*I2)/(I1*I2-I12**2)
-               k2a = (m1a*I12-m2a*I1)/(I1*I2-I12**2)
+            IF ( i12/=0.0 ) THEN
+               K1a = (M2a*i12-M1a*i2)/(i1*i2-i12**2)
+               K2a = (M1a*i12-M2a*i1)/(i1*i2-i12**2)
             ELSE
-               IF ( I1/=0.0 ) THEN
-                  k1a = -m1a/I1
+               IF ( i1/=0.0 ) THEN
+                  K1a = -M1a/i1
                ELSE
-                  k1a = 0.0
+                  K1a = 0.0
                ENDIF
-               IF ( I2/=0.0 ) THEN
-                  k2a = -m2a/I2
+               IF ( i2/=0.0 ) THEN
+                  K2a = -M2a/i2
                ELSE
-                  k2a = 0.0
+                  K2a = 0.0
                ENDIF
             ENDIF
 !
 ! COMPUTE SIG1A, SIG2A, SIG3A AND SIG4A
 !
-            Sig1a = k1a*C1 + k2a*C2
-            Sig2a = k1a*D1 + k2a*D2
-            Sig3a = k1a*F1 + k2a*F2
-            Sig4a = k1a*G1 + k2a*G2
+            sig1a = K1a*c1 + K2a*c2
+            sig2a = K1a*d1 + K2a*d2
+            sig3a = K1a*f1 + K2a*f2
+            sig4a = K1a*g1 + K2a*g2
 !
 ! COMPUTE K1B AND K2B
 !
-            IF ( I12/=0.0 ) THEN
-               k1b = (m2b*I12-m1b*I2)/(I1*I2-I12**2)
-               k2b = (m1b*I12-m2b*I1)/(I1*I2-I12**2)
+            IF ( i12/=0.0 ) THEN
+               K1b = (M2b*i12-M1b*i2)/(i1*i2-i12**2)
+               K2b = (M1b*i12-M2b*i1)/(i1*i2-i12**2)
             ELSE
-               IF ( I1/=0.0 ) THEN
-                  k1b = -m1b/I1
+               IF ( i1/=0.0 ) THEN
+                  K1b = -M1b/i1
                ELSE
-                  k1b = 0.0
+                  K1b = 0.0
                ENDIF
-               IF ( I2/=0.0 ) THEN
-                  k2b = -m2b/I2
+               IF ( i2/=0.0 ) THEN
+                  K2b = -M2b/i2
                ELSE
-                  k2b = 0.0
+                  K2b = 0.0
                ENDIF
             ENDIF
 !
 ! COMPUTE SIG1B, SIG2B, SIG3B AND SIG4B
 !
-            Sig1b = k1b*C1 + k2b*C2
-            Sig2b = k1b*D1 + k2b*D2
-            Sig3b = k1b*F1 + k2b*F2
-            Sig4b = k1b*G1 + k2b*G2
+            sig1b = K1b*c1 + K2b*c2
+            sig2b = K1b*d1 + K2b*d2
+            sig3b = K1b*f1 + K2b*f2
+            sig4b = K1b*g1 + K2b*g2
 !
 ! COMPUTE AXIAL STRESS
 !
-            Sigax = 0.0
-            IF ( A/=0.0 ) Sigax = fx/A
+            sigax = 0.0
+            IF ( a/=0.0 ) sigax = Fx/a
 !
 ! COMPUTE MAXIMA AND MINIMA
 !
-            Sigamx = Sigax + amax1(Sig1a,Sig2a,Sig3a,Sig4a)
-            Sigbmx = Sigax + amax1(Sig1b,Sig2b,Sig3b,Sig4b)
-            Sigamn = Sigax + amin1(Sig1a,Sig2a,Sig3a,Sig4a)
-            Sigbmn = Sigax + amin1(Sig1b,Sig2b,Sig3b,Sig4b)
+            sigamx = sigax + amax1(sig1a,sig2a,sig3a,sig4a)
+            sigbmx = sigax + amax1(sig1b,sig2b,sig3b,sig4b)
+            sigamn = sigax + amin1(sig1a,sig2a,sig3a,sig4a)
+            sigbmn = sigax + amin1(sig1b,sig2b,sig3b,sig4b)
 !
 ! COMPUTE MARGIN OF SAFETY IN TENSION
 !
-            IF ( Sigmat<=0.0 ) THEN
-               Msten = 1
-            ELSEIF ( amax1(Sigamx,Sigbmx)<=0.0 ) THEN
-               Msten = 1
+            IF ( sigmat<=0.0 ) THEN
+               msten = 1
+            ELSEIF ( amax1(sigamx,sigbmx)<=0.0 ) THEN
+               msten = 1
             ELSE
-               q = Sigmat/amax1(Sigamx,Sigbmx)
-               smten = q - 1.0
+               Q = sigmat/amax1(sigamx,sigbmx)
+               Smten = Q - 1.0
             ENDIF
 !
 !      COMPUTE MARGIN OF SAFETY IN COMPRESSION
 !
-            Sigmac = -abs(Sigmac)
-            IF ( amin1(Sigamn,Sigbmn)>=0.0 ) THEN
-               Mscom = 1
+            sigmac = -abs(sigmac)
+            IF ( amin1(sigamn,sigbmn)>=0.0 ) THEN
+               mscom = 1
             ELSE
-               w = Sigmac/amin1(Sigamn,Sigbmn)
-               smcom = w - 1.0
+               W = sigmac/amin1(sigamn,sigbmn)
+               Smcom = W - 1.0
             ENDIF
-            Iselid = Ielid
+            iselid = ielid
 !
 ! UPDATE EST (ECPT) ENTRIES
 !
-            Epsin1 = Epsin2
-            Epsin2 = eps1
-            Estar = e1
-            V1star = v1
-            V2star = v2
-            Tstar = t
-            M1astr = m1a
-            M2astr = m2a
+            epsin1 = epsin2
+            epsin2 = Eps1
+            estar = E1
+            v1star = V1
+            v2star = V2
+            tstar = T
+            m1astr = M1a
+            m2astr = M2a
             EXIT SPAG_Loop_1_2
          ELSE
-            basic = bbasic
-            jcsid = jcsidb
-            offset = bofset
-            jofset = jofstb
-            iwbeg = 36
-            ikel = 37
-            iab = 37
-            index = Isilno(2)
-            DO i = 28 , 36
-               Ke(i) = 0.0
+            Basic = Bbasic
+            Jcsid = Jcsidb
+            Offset = Bofset
+            Jofset = Jofstb
+            Iwbeg = 36
+            Ikel = 37
+            Iab = 37
+            Index = isilno(2)
+            DO I = 28 , 36
+               ke(I) = 0.0
             ENDDO
          ENDIF
       ENDDO SPAG_Loop_1_2

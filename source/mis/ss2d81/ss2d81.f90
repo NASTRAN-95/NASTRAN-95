@@ -1,13 +1,14 @@
-!*==ss2d81.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ss2d81.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ss2d81
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x4
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X4
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -108,9 +109,9 @@ SUBROUTINE ss2d81
 !     K VECTOR IS OBTAINED BY CROSSING I INTO VECTOR FROM GRID PT. 1 TO
 !     GRID
 !
-      veck(1) = veci(2)*(Z4-Z1) - veci(3)*(Y4-Y1)
-      veck(2) = veci(3)*(X4-X1) - veci(1)*(Z4-Z1)
-      veck(3) = veci(1)*(Y4-Y1) - veci(2)*(X4-X1)
+      veck(1) = veci(2)*(z4-z1) - veci(3)*(y4-y1)
+      veck(2) = veci(3)*(x4-x1) - veci(1)*(z4-z1)
+      veck(3) = veci(1)*(y4-y1) - veci(2)*(x4-x1)
       veckl = sqrt(veck(1)**2+veck(2)**2+veck(3)**2)
       IF ( veckl==0.0 ) THEN
          CALL mesage(-30,31,ecpt(1))
@@ -147,9 +148,9 @@ SUBROUTINE ss2d81
          DO i = 3 , 8
             ixx = 2*i - 1
             isub = 4*i + 11
-            vec(1) = ecpt(isub) - X1
-            vec(2) = ecpt(isub+1) - Y1
-            vec(3) = ecpt(isub+2) - Z1
+            vec(1) = ecpt(isub) - x1
+            vec(2) = ecpt(isub+1) - y1
+            vec(3) = ecpt(isub+2) - z1
             xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
             vvec(1) = veci(2)*vec(3) - veci(3)*vec(2)
             vvec(2) = veci(3)*vec(1) - veci(1)*vec(3)
@@ -162,12 +163,12 @@ SUBROUTINE ss2d81
 !
 !     COMPUTE MATERIAL PROPERTIES
 !
-   tth = Th*3.1415927/180.
-   Sinth = sin(tth)
-   Costh = cos(tth)
-   Eltemp = Ttemp
-   Inflag = 2
-   Matid = Matid1
+   tth = th*3.1415927/180.
+   sinth = sin(tth)
+   costh = cos(tth)
+   eltemp = ttemp
+   inflag = 2
+   matid = matid1
    CALL mat(ecpt(1))
    DO i = 1 , 3
       g(i) = qq(i)
@@ -182,25 +183,25 @@ SUBROUTINE ss2d81
 !     STORE G MATRIX IN PH1OUT
 !
    DO i = 1 , 9
-      Ph1out(i+62) = g(i)
+      ph1out(i+62) = g(i)
    ENDDO
 !
 !     COMPUTE AND STORE TRANSFORMATION MATRICES IF NECESSARY
 !
    DO i = 1 , 8
       isub = 4*i + 10
-      IF ( Necpt(isub)==0 ) THEN
+      IF ( necpt(isub)==0 ) THEN
          DO j = 1 , 6
-            Tsave(j) = e1t(j)
+            tsave(j) = e1t(j)
          ENDDO
       ELSE
-         CALL transs(Necpt(isub),Tb)
-         CALL gmmats(e1t,2,3,0,Tb,3,3,0,Tsave)
+         CALL transs(necpt(isub),tb)
+         CALL gmmats(e1t,2,3,0,tb,3,3,0,tsave)
       ENDIF
       k = 6*i + 7
       DO j = 1 , 6
          kk = k + j
-         Ph1out(kk) = Tsave(j)
+         ph1out(kk) = tsave(j)
       ENDDO
    ENDDO
 !
@@ -208,14 +209,14 @@ SUBROUTINE ss2d81
 !
    pt(1) = -0.57735027
    pt(2) = -pt(1)
-   IF ( Id1/=2 ) THEN
+   IF ( id1/=2 ) THEN
       pt(1) = -0.77459667
       pt(2) = 0.
       pt(3) = -pt(1)
    ENDIF
    l = 0
-   DO iii = 1 , Id1
-      DO jjj = 1 , Id1
+   DO iii = 1 , id1
+      DO jjj = 1 , id1
          l = l + 1
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO X AND Y EACH GRID POINT
@@ -249,7 +250,7 @@ SUBROUTINE ss2d81
 !          X7  Y7
 !          X8  Y8
 !
-         CALL gmmats(Dnc,2,8,0,xx,8,2,0,Xjb)
+         CALL gmmats(dnc,2,8,0,xx,8,2,0,xjb)
 !
 !     XJB IS ROW-STORED-IT MUST BE COLUMN-STORED AND DOUBLY DIMENSIONED
 !     FOR INVERSION
@@ -258,13 +259,13 @@ SUBROUTINE ss2d81
          DO i = 1 , 2
             DO j = 1 , 2
                k = k + 1
-               Xxjb(i,j) = Xjb(k)
+               xxjb(i,j) = xjb(k)
             ENDDO
          ENDDO
 !
 !     COMPUTE INVERSE AND DETERMINANT OF JACOBEAN
 !
-         CALL invers(2,Xxjb,2,Dumarg,0,Determ,ising,iws)
+         CALL invers(2,xxjb,2,dumarg,0,determ,ising,iws)
          IF ( ising==2 ) CALL mesage(-30,143,ecpt(1))
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO X,Y,AND Z
@@ -273,10 +274,10 @@ SUBROUTINE ss2d81
          DO i = 1 , 2
             DO j = 1 , 2
                k = k + 1
-               Xjb(k) = Xxjb(i,j)
+               xjb(k) = xxjb(i,j)
             ENDDO
          ENDDO
-         CALL gmmats(Xjb,2,2,0,Dnc,2,8,0,Dnl)
+         CALL gmmats(xjb,2,2,0,dnc,2,8,0,dnl)
 !
 !           N1X N2X N3X N4X N5X N6X N7X N8X
 !     DNL = N1Y N2Y N3Y N4Y N5Y N6Y N7Y N8Y
@@ -287,27 +288,27 @@ SUBROUTINE ss2d81
          k = 16*l + 55
          DO i = 1 , 16
             kk = k + i
-            Ph1out(kk) = Dnl(i)
+            ph1out(kk) = dnl(i)
          ENDDO
 !
 !     LOOP FOR OTHER GRID POINTS
 !
       ENDDO
    ENDDO
-   Ph1out(1) = ecpt(1)
+   ph1out(1) = ecpt(1)
    DO i = 1 , 8
-      Ph1out(i+1) = ecpt(i+1)
+      ph1out(i+1) = ecpt(i+1)
    ENDDO
-   Ph1out(10) = Tref
+   ph1out(10) = tref
 !
 !     COMPUTE VECTOR FOR THERMAL EXPANSION
 !
-   Alphas(1) = Alpha1
-   Alphas(2) = Alpha2
-   Alphas(3) = Alp12
+   alphas(1) = alpha1
+   alphas(2) = alpha2
+   alphas(3) = alp12
 !
-   CALL gmmats(g,3,3,0,Alphas,3,1,0,Ph1out(11))
+   CALL gmmats(g,3,3,0,alphas,3,1,0,ph1out(11))
 !
-   nph1(62) = Id1
+   nph1(62) = id1
 !
 END SUBROUTINE ss2d81

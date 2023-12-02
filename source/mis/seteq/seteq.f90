@@ -1,4 +1,5 @@
-!*==seteq.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==seteq.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
@@ -13,15 +14,15 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !            DOES NOT EXIST
 !         1  OTHERWISE
 !
+   USE c_itemdt
+   USE c_machin
+   USE c_output
+   USE c_sof
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ITEMDT
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SOF
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,7 +59,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
       CASE (1)
 !
          CALL chkopn(nmsbr(1))
-         IF ( Nitem+Ifrst-1>50 ) THEN
+         IF ( nitem+ifrst-1>50 ) THEN
             CALL errmkn(indsbr,10)
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
@@ -73,7 +74,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
                Itest = 4
                RETURN
             ELSE
-               mask = andf(mask,2**(Nbpw-4*Nbpc)-1)
+               mask = andf(mask,2**(nbpw-4*nbpc)-1)
                maskss = complf(lshift(1023,10))
                maskll = complf(lshift(1023,20))
                maskbb = lshift(1023,20)
@@ -86,13 +87,13 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
                   dry = 0
 !
                   CALL fmdi(ind2,imdi)
-                  ips = andf(Buf(imdi+ps),1023)
+                  ips = andf(buf(imdi+ps),1023)
                   IF ( ips==0 ) THEN
                      Itest = 8
                      RETURN
                   ELSEIF ( ips/=ind1 ) THEN
                      CALL fmdi(ind1,imdi)
-                     ipp = andf(Buf(imdi+ps),1023)
+                     ipp = andf(buf(imdi+ps),1023)
                      IF ( ips/=ipp ) THEN
                         Itest = 8
                         RETURN
@@ -111,7 +112,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          spag_nextblock_1 = 2
       CASE (2)
          CALL fmdi(ind1,imdi)
-         i = Buf(imdi+ll)
+         i = buf(imdi+ll)
          indll = rshift(andf(i,1073741823),20)
          indcs = rshift(andf(i,1048575),10)
          IF ( indll/=0 ) THEN
@@ -167,13 +168,13 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !
             IF ( iptr/=1 ) THEN
                CALL fdit(ind1,idit)
-               first = klshft(krshft(Prefx,Ncpw-1),Ncpw-1)
-               rest = klshft(krshft(Buf(idit),Ncpw-3),Ncpw-4)
+               first = klshft(krshft(Prefx,ncpw-1),ncpw-1)
+               rest = klshft(krshft(buf(idit),ncpw-3),ncpw-4)
                namnew(1) = orf(orf(first,rest),mask)
-               first = klshft(krshft(Buf(idit),Ncpw-4),Ncpw-1)
-               rest = klshft(krshft(Buf(idit+1),Ncpw-3),Ncpw-4)
+               first = klshft(krshft(buf(idit),ncpw-4),ncpw-1)
+               rest = klshft(krshft(buf(idit+1),ncpw-3),ncpw-4)
                namnew(2) = orf(orf(first,rest),mask)
-               IF ( khrfn1(iempty,4,Buf(idit+1),4)/=iempty ) WRITE (Nout,99001) Uwm , namnew , Buf(idit) , Buf(idit+1)
+               IF ( khrfn1(iempty,4,buf(idit+1),4)/=iempty ) WRITE (nout,99001) uwm , namnew , buf(idit) , buf(idit+1)
 99001          FORMAT (A25,' 6236, DURING THE CREATION OF A NEW IMAGE SUBSTRUC','TURE NAMED ',2A4,' THE LAST CHARACTER ',/5X,       &
                       &'OF SUBSTRUCTURE NAMED ',2A4,' WAS TRUNCATED TO MAKE ROOM',' FOR THE PREFIX.')
                CALL fdsub(namnew(1),i)
@@ -187,9 +188,9 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
                      DO i = iptr , itop
                         image = Imore(Lim+i)
                         CALL fdit(image,idit)
-                        Buf(idit) = iempty
-                        Buf(idit+1) = iempty
-                        Ditup = .TRUE.
+                        buf(idit) = iempty
+                        buf(idit+1) = iempty
+                        ditup = .TRUE.
                      ENDDO
                   ENDIF
                   Itest = 8
@@ -219,15 +220,15 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          spag_nextblock_1 = 5
       CASE (5)
          CALL fmdi(ind1,imdi)
-         DO j = 1 , Dirsiz
-            isave(j) = Buf(imdi+j)
+         DO j = 1 , dirsiz
+            isave(j) = buf(imdi+j)
          ENDDO
 !
 !     SET THE SS ENTRY FOR THE SUBSTRUCTURE WITH INDEX IND1
 !
          IF ( dry/=0 ) THEN
-            Buf(imdi+ss) = orf(andf(Buf(imdi+ss),maskss),lshift(ind2,10))
-            Mdiup = .TRUE.
+            buf(imdi+ss) = orf(andf(buf(imdi+ss),maskss),lshift(ind2,10))
+            mdiup = .TRUE.
          ENDIF
          CALL fmdi(ind2,imdi)
          IF ( dry==0 ) THEN
@@ -240,20 +241,20 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !
          ips = andf(i,1023)
          IF ( ips==0 ) THEN
-            Buf(imdi+ps) = ind1
+            buf(imdi+ps) = ind1
          ELSE
-            Buf(imdi+ps) = ips
+            buf(imdi+ps) = ips
          ENDIF
 !
 !     SET THE SS ENTRY FOR THE SUBSTRUCTURE WITH INDEX IND2
 !
          iss = rshift(andf(i,1048575),10)
-         IF ( iss/=0 ) Buf(imdi+ss) = orf(andf(Buf(imdi+ss),maskss),lshift(iss,10))
+         IF ( iss/=0 ) buf(imdi+ss) = orf(andf(buf(imdi+ss),maskss),lshift(iss,10))
 !
 !     SET THE BB ENTRY FOR THE SUBSTRUCTURE WITH INDEX IND2
 !
          ibs = andf(i,maskbb)
-         Buf(imdi+bb) = orf(andf(Buf(imdi+bb),maskll),ibs)
+         buf(imdi+bb) = orf(andf(buf(imdi+bb),maskll),ibs)
          i = isave(ll)
 !
 !     SET THE HL ENTRY FOR THE SUBSTRUCTURE WITH INDEX IND2
@@ -271,7 +272,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          iwant = ihl
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 20      Buf(imdi+hl) = ifnd
+ 20      buf(imdi+hl) = ifnd
          spag_nextblock_1 = 6
       CASE (6)
 !
@@ -286,7 +287,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          iwant = ics
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 40      Buf(imdi+cs) = orf(andf(Buf(imdi+cs),maskss),lshift(ifnd,10))
+ 40      buf(imdi+cs) = orf(andf(buf(imdi+cs),maskss),lshift(ifnd,10))
          spag_nextblock_1 = 7
       CASE (7)
 !
@@ -301,9 +302,8 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          iwant = ill
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
- 60      Buf(imdi+ll) = orf(andf(Buf(imdi+ll),maskll),lshift(ifnd,20))
+ 60      buf(imdi+ll) = orf(andf(buf(imdi+ll),maskll),lshift(ifnd,20))
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     FIND THE INDEX OF THE IMAGE SUBSTRUCTURE TO THE SUBSTRUCTURE WITH
@@ -317,14 +317,13 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          ENDDO
          CALL errmkn(indsbr,3)
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     SET THE POINTERS OF THE ITEMS BELONGING TO THE SUBSTRUCTURE WITH
 !     INDEX IND2
 !
-         DO j = Ifrst , Dirsiz
-            Buf(imdi+j) = 0
+         DO j = ifrst , dirsiz
+            buf(imdi+j) = 0
          ENDDO
          spag_nextblock_1 = 10
       CASE (10)
@@ -332,65 +331,65 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !
 !     SECONDARY SUBSTRUCTURE - SET POINTERS TO SHARED ITEMS
 !
-            DO j = 1 , Nitem
-               IF ( Item(5,j)==0 ) THEN
-                  itm = j + Ifrst - 1
-                  IF ( Buf(imdi+itm)==0 ) Buf(imdi+itm) = isave(itm)
+            DO j = 1 , nitem
+               IF ( item(5,j)==0 ) THEN
+                  itm = j + ifrst - 1
+                  IF ( buf(imdi+itm)==0 ) buf(imdi+itm) = isave(itm)
                ENDIF
             ENDDO
          ELSE
 !
 !     IMAGE SUBSTRUCTURE - SET POINTERS TO SHARED ITEMS AND SET IB BIT
 !
-            DO j = 1 , Nitem
-               IF ( Item(4,j)==0 ) THEN
-                  itm = j + Ifrst - 1
-                  IF ( Buf(imdi+itm)==0 ) Buf(imdi+itm) = isave(itm)
+            DO j = 1 , nitem
+               IF ( item(4,j)==0 ) THEN
+                  itm = j + ifrst - 1
+                  IF ( buf(imdi+itm)==0 ) buf(imdi+itm) = isave(itm)
                ENDIF
             ENDDO
-            Buf(imdi+ib) = orf(Buf(imdi+ib),lshift(1,30))
+            buf(imdi+ib) = orf(buf(imdi+ib),lshift(1,30))
          ENDIF
 !
 !     COPY APPROPRIATE ITEMS OF NAME1 AND WRITE THEM FOR
 !     NAME2 AFTER CHANGING NAME1 TO NAME2 AND INSERTING THE NEW PREFIX
 !     TO THE NAMES OF ALL CONTRIBUTING SUBSTRUCTURES
 !
-         DO j = 1 , Nitem
+         DO j = 1 , nitem
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  IF ( Item(3,j)==0 ) CYCLE
-                  kk = j + Ifrst - 1
-                  IF ( Buf(imdi+kk)/=0 ) CYCLE
-                  irdbl = andf(isave(kk),Jhalf)
-                  IF ( irdbl/=0 .AND. irdbl/=Jhalf ) THEN
-                     CALL sofio(ird,irdbl,Buf(Io-2))
+                  IF ( item(3,j)==0 ) CYCLE
+                  kk = j + ifrst - 1
+                  IF ( buf(imdi+kk)/=0 ) CYCLE
+                  irdbl = andf(isave(kk),jhalf)
+                  IF ( irdbl/=0 .AND. irdbl/=jhalf ) THEN
+                     CALL sofio(ird,irdbl,buf(io-2))
                      CALL fdit(ind2,idit)
-                     Buf(Io+1) = Buf(idit)
-                     Buf(Io+2) = Buf(idit+1)
+                     buf(io+1) = buf(idit)
+                     buf(io+2) = buf(idit+1)
                      CALL getblk(0,iwrtbl)
                      IF ( iwrtbl==-1 ) THEN
                         spag_nextblock_1 = 12
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      newblk = iwrtbl
-                     numb = Item(3,j)/1000000
-                     min = (Item(3,j)-numb*1000000)/1000
-                     inc = Item(3,j) - numb*1000000 - min*1000
-                     numb = Buf(Io+numb)
+                     numb = item(3,j)/1000000
+                     min = (item(3,j)-numb*1000000)/1000
+                     inc = item(3,j) - numb*1000000 - min*1000
+                     numb = buf(io+numb)
                      IF ( numb<=1 .AND. ill==0 .AND. iptr==1 ) THEN
 !
 !     BASIC SUBSTRUCTURE
 !
-                        Buf(Io+min) = Name2(1)
-                        Buf(Io+min+1) = Name2(2)
+                        buf(io+min) = Name2(1)
+                        buf(io+min+1) = Name2(2)
                         more = .FALSE.
                         spag_nextblock_2 = 3
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   ELSE
-                     Buf(imdi+kk) = isave(kk)
+                     buf(imdi+kk) = isave(kk)
                      CYCLE
                   ENDIF
                   spag_nextblock_2 = 2
@@ -398,12 +397,12 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !
 !     NOT A BASIC SUBSTRUCTURE
 !
-                  IF ( numb<=(Blksiz-min+1)/inc ) THEN
+                  IF ( numb<=(blksiz-min+1)/inc ) THEN
                      max = min + inc*numb - 1
                      more = .FALSE.
                   ELSE
-                     numb = numb - (Blksiz-min+1)/inc
-                     max = Blksiz
+                     numb = numb - (blksiz-min+1)/inc
+                     max = blksiz
                      more = .TRUE.
                   ENDIF
 !
@@ -413,17 +412,17 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !     USE THE ACTUAL NAME INSTEAD OF ADDING A PREFIX
 !
                   DO k = min , max , inc
-                     IF ( Buf(Io+k)==Name1(1) .AND. Buf(Io+k+1)==Name1(2) ) THEN
+                     IF ( buf(io+k)==Name1(1) .AND. buf(io+k+1)==Name1(2) ) THEN
 !
-                        Buf(Io+k) = Name2(1)
-                        Buf(Io+k+1) = Name2(2)
+                        buf(io+k) = Name2(1)
+                        buf(io+k+1) = Name2(2)
                      ELSE
-                        first = klshft(krshft(Prefx,Ncpw-1),Ncpw-1)
-                        rest = klshft(krshft(Buf(Io+k),Ncpw-3),Ncpw-4)
-                        first2 = klshft(krshft(Buf(Io+k),Ncpw-4),Ncpw-1)
-                        rest2 = klshft(krshft(Buf(Io+k+1),Ncpw-3),Ncpw-4)
-                        Buf(Io+k) = orf(orf(first,rest),mask)
-                        Buf(Io+k+1) = orf(orf(first2,rest2),mask)
+                        first = klshft(krshft(Prefx,ncpw-1),ncpw-1)
+                        rest = klshft(krshft(buf(io+k),ncpw-3),ncpw-4)
+                        first2 = klshft(krshft(buf(io+k),ncpw-4),ncpw-1)
+                        rest2 = klshft(krshft(buf(io+k+1),ncpw-3),ncpw-4)
+                        buf(io+k) = orf(orf(first,rest),mask)
+                        buf(io+k+1) = orf(orf(first2,rest2),mask)
                      ENDIF
                   ENDDO
                   spag_nextblock_2 = 3
@@ -432,18 +431,18 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !
 !     WRITE OUT UPDATED DATA BLOCK
 !
-                     CALL sofio(iwrt,iwrtbl,Buf(Io-2))
+                     CALL sofio(iwrt,iwrtbl,buf(io-2))
                      CALL fnxt(irdbl,inxt)
                      IF ( mod(irdbl,2)==1 ) THEN
-                        next = andf(Buf(inxt),Jhalf)
+                        next = andf(buf(inxt),jhalf)
                      ELSE
-                        next = andf(rshift(Buf(inxt),Ihalf),Jhalf)
+                        next = andf(rshift(buf(inxt),ihalf),jhalf)
                      ENDIF
                      IF ( next==0 ) THEN
 !
 !     NO MORE BLOCKS TO COPY.  UPDATE MDI OF NAME2
 !
-                        Buf(imdi+kk) = orf(lshift(rshift(isave(kk),Ihalf),Ihalf),newblk)
+                        buf(imdi+kk) = orf(lshift(rshift(isave(kk),ihalf),ihalf),newblk)
                         EXIT SPAG_Loop_2_2
                      ELSE
 !
@@ -453,7 +452,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
                         CALL getblk(iwrtbl,next)
                         IF ( next/=-1 ) THEN
                            iwrtbl = next
-                           CALL sofio(ird,irdbl,Buf(Io-2))
+                           CALL sofio(ird,irdbl,buf(io-2))
                            min = 1
                            IF ( more ) THEN
                               spag_nextblock_2 = 2
@@ -471,7 +470,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
             ENDDO SPAG_DispatchLoop_2
          ENDDO
 !
-         Mdiup = .TRUE.
+         mdiup = .TRUE.
          IF ( iptr/=itop ) THEN
             iptr = iptr + 1
             ind1 = Imore(iptr)
@@ -486,31 +485,31 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
 !     DRY RUN - PRINT MESSAGE INDICATING ONLY ADDITIONS MADE
 !
             CALL page2(-3)
-            WRITE (Nout,99002) Uim , Name2 , Name1 , Name2
+            WRITE (nout,99002) uim , Name2 , Name1 , Name2
 99002       FORMAT (A29,' 6228, SUBSTRUCTURE ',2A4,' IS ALREADY AN EQUIVALENT',' SUBSTRUCTURE TO ',2A4,/36X,                        &
                    &'ONLY ITEMS NOT PREVIOUSLY ','EXISTING FOR ',2A4,' HAVE BEEN MADE EQUIVALENT.')
             RETURN
          ELSE
             DO i = 1 , 96
-               Subtit(i) = iempty
+               subtit(i) = iempty
             ENDDO
             CALL page
             CALL page2(-4)
-            WRITE (Nout,99003) Name2 , Name1
+            WRITE (nout,99003) Name2 , Name1
 !
 99003       FORMAT (32X,67HS U B S T R U C T U R E   E Q U I V A L E N C E   O P E R A T I O N,///23X,13HSUBSTRUCTURE ,2A4,         &
                    &56H HAS BEEN CREATED AND MARKED EQUIVALENT TO SUBSTRUCTURE ,2A4)
             image = Imore(Lim+1)
             CALL fmdi(image,imdi)
-            ips = andf(Buf(imdi+1),1023)
+            ips = andf(buf(imdi+1),1023)
             CALL fdit(ips,i)
             CALL page2(-2)
-            WRITE (Nout,99004) Name2 , Buf(i) , Buf(i+1)
+            WRITE (nout,99004) Name2 , buf(i) , buf(i+1)
 99004       FORMAT (1H0,22X,28HTHE PRIMARY SUBSTRUCTURE OF ,2A4,4H IS ,2A4)
             iptr = 2
             IF ( iptr>itop ) RETURN
             CALL page2(-2)
-            WRITE (Nout,99005)
+            WRITE (nout,99005)
 99005       FORMAT (1H0,22X,56HTHE FOLLOWING IMAGE SUBSTRUCTURES HAVE BEEN GENERATED --)
          ENDIF
          spag_nextblock_1 = 11
@@ -522,15 +521,15 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          SPAG_Loop_1_3: DO
             image = Imore(iptr+Lim)
             CALL fdit(image,i)
-            Imore(j) = Buf(i)
-            Imore(j+1) = Buf(i+1)
+            Imore(j) = buf(i)
+            Imore(j+1) = buf(i+1)
             iptr = iptr + 1
             IF ( iptr>itop ) EXIT SPAG_Loop_1_3
             j = j + 2
             IF ( j>=16 ) EXIT SPAG_Loop_1_3
          ENDDO SPAG_Loop_1_3
          CALL page2(-2)
-         WRITE (Nout,99006) (Imore(j),j=1,16)
+         WRITE (nout,99006) (Imore(j),j=1,16)
 99006    FORMAT (1H0,22X,10(2A4,2X))
          IF ( iptr<=itop ) THEN
             spag_nextblock_1 = 11
@@ -538,7 +537,7 @@ SUBROUTINE seteq(Name1,Name2,Prefx,Dry2,Itest,Imore,Lim)
          ENDIF
          RETURN
       CASE (12)
-         WRITE (Nout,99007) Ufm
+         WRITE (nout,99007) ufm
 99007    FORMAT (A23,' 6223, SUBROUTINE SETEQ - THERE ARE NO MORE FREE ','BLOCKS AVAILABLE ON THE SOF.')
          k = -37
          spag_nextblock_1 = 13

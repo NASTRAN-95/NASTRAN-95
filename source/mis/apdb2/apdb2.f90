@@ -1,16 +1,17 @@
-!*==apdb2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==apdb2.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Nodei,Isilc,Xyzb)
+   USE c_apdbug
+   USE c_bitpos
+   USE c_names
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_APDBUG
-   USE C_BITPOS
-   USE C_NAMES
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,9 +65,9 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
    itrl(1) = uset
    CALL rdtrl(itrl)
    gsize = itrl(3)
-   IF ( andf(itrl(5),Itwo(Um))==0 ) multi = .FALSE.
-   IF ( andf(itrl(5),Itwo(Us))==0 ) single = .FALSE.
-   IF ( andf(itrl(5),Itwo(Uo))==0 ) omit = .FALSE.
+   IF ( andf(itrl(5),itwo(um))==0 ) multi = .FALSE.
+   IF ( andf(itrl(5),itwo(us))==0 ) single = .FALSE.
+   IF ( andf(itrl(5),itwo(uo))==0 ) omit = .FALSE.
    IF ( .NOT.(multi .OR. single .OR. omit) ) scr2 = gtka
    gtkg = scr2
 !
@@ -76,8 +77,8 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
 !     OPEN SCR2 TO WRITE G   MATRIX OF ORDER (GSIZE X KSIZE)
 !                         KG
 !
-   CALL gopen(scr1,z(Ibuf1),Rdrew)
-   CALL gopen(gtkg,z(Ibuf2),Wrtrew)
+   CALL gopen(scr1,z(Ibuf1),rdrew)
+   CALL gopen(gtkg,z(Ibuf2),wrtrew)
    tgkg(1) = gtkg
    tgkg(2) = 0
    tgkg(3) = gsize
@@ -98,7 +99,7 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
 !
       DO nst = 1 , Nstns
          CALL fread(scr1,idata,7,0)
-         IF ( Debug ) CALL bug1('SCR1 IDATA',10,idata,7)
+         IF ( debug ) CALL bug1('SCR1 IDATA',10,idata,7)
          Nodex(nst) = idata(1)
          Nodei(nst) = idata(2)
          Isilc(nst) = idata(3)
@@ -122,7 +123,7 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
 !
       ndeg = 0
       DO nloop = 1 , 2
-         IF ( Debug ) CALL bug1('MAT-TBL   ',18,tbl,3)
+         IF ( debug ) CALL bug1('MAT-TBL   ',18,tbl,3)
 !
 !     LOOP ON COMPUTING STATIONS
 !
@@ -139,7 +140,7 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
                CALL transs(Xyzb(1,ncs),ta)
                CALL gmmats(tbl,1,3,0,ta,3,3,0,tbla)
             ENDIF
-            IF ( Debug ) CALL bug1('MAT-TBLA  ',25,tbla,3)
+            IF ( debug ) CALL bug1('MAT-TBLA  ',25,tbla,3)
 !
 !     COMPUTE LOCATION IN G-SET USING SIL
 !     KODE = 1 FOR GRID POINT
@@ -152,10 +153,10 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
 !     II IS ROW POSITION
 !
             DO icol = 1 , 3
-               Ii = isil + ndeg
-               Ap(1) = tbla(icol)
-               IF ( Debug ) CALL bug1('ISIL      ',28,isil,1)
-               IF ( Debug ) CALL bug1('MAT-AP    ',29,Ap,1)
+               ii = isil + ndeg
+               ap(1) = tbla(icol)
+               IF ( debug ) CALL bug1('ISIL      ',28,isil,1)
+               IF ( debug ) CALL bug1('MAT-AP    ',29,ap,1)
                CALL zblpki
                isil = isil + 1
             ENDDO
@@ -170,27 +171,27 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
          ndeg = 3
       ENDDO
    ENDDO
-   CALL close(scr1,Clsrew)
-   CALL close(gtkg,Clsrew)
+   CALL close(scr1,clsrew)
+   CALL close(gtkg,clsrew)
    CALL wrttrl(tgkg)
 !
 !     CREATE GTKA MATRIX
 !
    IF ( multi .OR. single .OR. omit ) THEN
-      Lc = korsz(Core)
+      lc = korsz(core)
       gkf = gknb
       gks = gkm
       gko = gks
-      Uset1 = uset
+      uset1 = uset
 !
 !     REDUCE TO N-SET IF MULTI POINT CONSTRAINTS
 !
       gkn = gtkg
       IF ( multi ) THEN
          IF ( .NOT.single .AND. .NOT.omit ) gkn = gtka
-         CALL calcv(scr1,Ug,Un,Um,Core)
+         CALL calcv(scr1,ug,un,um,core)
          CALL ssg2a(gtkg,gknb,gkm,scr1)
-         CALL ssg2b(gm,gkm,gknb,gkn,1,Iprec,1,scr1)
+         CALL ssg2b(gm,gkm,gknb,gkn,1,iprec,1,scr1)
       ENDIF
 !
 !     PARTITION INTO F-SET IF SINGLE POINT CONSTRAINTS
@@ -202,13 +203,13 @@ SUBROUTINE apdb2(Ibuf1,Ibuf2,Next,Left,Nstns,Nlines,Xsign,Lcstm,Acstm,Nodex,Node
          gkf = gkn
       ELSE
          IF ( .NOT.omit ) gkf = gtka
-         CALL calcv(scr1,Un,Uf,Us,Core)
+         CALL calcv(scr1,un,uf,us,core)
          CALL ssg2a(gkn,gkf,0,scr1)
       ENDIF
       IF ( omit ) THEN
-         CALL calcv(scr1,Uf,Ua,Uo,Core)
+         CALL calcv(scr1,uf,ua,uo,core)
          CALL ssg2a(gkf,gkab,gko,scr1)
-         CALL ssg2b(go,gko,gkab,gtka,1,Iprec,1,scr1)
+         CALL ssg2b(go,gko,gkab,gtka,1,iprec,1,scr1)
       ENDIF
    ENDIF
 END SUBROUTINE apdb2

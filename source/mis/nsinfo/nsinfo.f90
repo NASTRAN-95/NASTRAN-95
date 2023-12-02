@@ -1,4 +1,5 @@
-!*==nsinfo.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==nsinfo.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE nsinfo(Jump)
@@ -19,14 +20,14 @@ SUBROUTINE nsinfo(Jump)
 !
 !     WRITTEN BY G.CHAN/UNISYS    6/1990
 !
+   USE c_blank
+   USE c_machin
+   USE c_ntime
+   USE c_numtpx
+   USE c_output
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_NTIME
-   USE C_NUMTPX
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -105,17 +106,17 @@ SUBROUTINE nsinfo(Jump)
             CALL sswtch(20,l20)
             IF ( lu==0 ) THEN
 !
-               WRITE (nout,99001) Uim
+               WRITE (nout,99001) uim
 99001          FORMAT (A29,', DIAG48 MESSAGES ARE NOT AVAILABLE DUE TO ABSENCE ','OF THE NASINFO FILE')
                GOTO 80
             ELSE
                DO i = 10 , 20
-                  Pghdg3(i) = bnk
+                  pghdg3(i) = bnk
                ENDDO
-               Pghdg3(6) = diag48(1)
-               Pghdg3(7) = diag48(2)
-               Pghdg3(8) = diag48(3)
-               Pghdg3(9) = diag48(4)
+               pghdg3(6) = diag48(1)
+               pghdg3(7) = diag48(2)
+               pghdg3(8) = diag48(3)
+               pghdg3(9) = diag48(4)
                line = nlpp + 1
                count = 0
 !
@@ -158,11 +159,11 @@ SUBROUTINE nsinfo(Jump)
 !
 !     READ IN 16 GINO TIME CONSTANTS (NT=16)
 !
-                           IF ( value/=Nt ) THEN
+                           IF ( value/=nt ) THEN
                               READ (lu,99010,END=60) symbol
                               READ (lu,99010,END=60) symbol
                            ELSE
-                              READ (lu,99003,END=60) Time
+                              READ (lu,99003,END=60) time
 99003                         FORMAT (12X,8F7.2,/12X,8F7.2)
                            ENDIF
                         ELSEIF ( symbol==end ) THEN
@@ -189,14 +190,14 @@ SUBROUTINE nsinfo(Jump)
                                  READ (lu,99009)
                                  DO
 !
-                                    READ (lu,99004,END=60) machx , Nbcd
+                                    READ (lu,99004,END=60) machx , nbcd
 99004                               FORMAT (I2,I3)
-                                    IF ( machx==Mach ) THEN
-                                       IF ( Nbcd/=0 ) THEN
+                                    IF ( machx==mach ) THEN
+                                       IF ( nbcd/=0 ) THEN
                                          jb = 1
-                                         DO i = 1 , Nbcd , 19
+                                         DO i = 1 , nbcd , 19
                                          je = jb + 18
-                                         READ (lu,99011) (Bcd(j),j=jb,je)
+                                         READ (lu,99011) (bcd(j),j=jb,je)
                                          ENDDO
                                        ENDIF
                                        DO
@@ -209,8 +210,8 @@ SUBROUTINE nsinfo(Jump)
                                          RETURN
                                          ENDIF
                                        ENDDO
-                                    ELSEIF ( Nbcd/=0 ) THEN
-                                       DO i = 1 , Nbcd , 19
+                                    ELSEIF ( nbcd/=0 ) THEN
+                                       DO i = 1 , nbcd , 19
                                          READ (lu,99011)
                                        ENDDO
                                     ENDIF
@@ -241,15 +242,15 @@ SUBROUTINE nsinfo(Jump)
                               IF ( symbol==key ) key = value
                               symb1 = khrfn1(bnk,1,symbol,1)
                               IF ( symb1==s ) THEN
-                                 IF ( symbol==s88 ) Sys(88) = value
-                                 IF ( symbol==s89 ) Sys(89) = value
-                                 IF ( symbol==s90 ) Sys(90) = value
-                                 IF ( symbol==s92 ) Sys(92) = value
-                                 IF ( symbol==s94 ) Sys(94) = value
-                                 IF ( symbol==s96 ) Sys(96) = value
-                                 IF ( symbol==s97 ) Sys(97) = value
-                                 IF ( symbol==s98 ) Sys(98) = value
-                                 IF ( symbol==s99 ) Sys(99) = value
+                                 IF ( symbol==s88 ) sys(88) = value
+                                 IF ( symbol==s89 ) sys(89) = value
+                                 IF ( symbol==s90 ) sys(90) = value
+                                 IF ( symbol==s92 ) sys(92) = value
+                                 IF ( symbol==s94 ) sys(94) = value
+                                 IF ( symbol==s96 ) sys(96) = value
+                                 IF ( symbol==s97 ) sys(97) = value
+                                 IF ( symbol==s98 ) sys(98) = value
+                                 IF ( symbol==s99 ) sys(99) = value
                               ENDIF
                            ENDIF
                         ENDIF
@@ -306,7 +307,7 @@ SUBROUTINE nsinfo(Jump)
 !
 !     ERROR
 !
- 60      WRITE (nout,99006) Sfm
+ 60      WRITE (nout,99006) sfm
 99006    FORMAT (A25,' 3002, EOF ENCOUNTERED WHILE READING NASINFO FILE')
          STOP 'JOB TERMINATED IN SUBROUTINE NSINFO'
 !

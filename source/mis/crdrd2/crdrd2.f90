@@ -1,11 +1,12 @@
-!*==crdrd2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==crdrd2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE crdrd2(Mu,Indcom,N23) !HIDESTARS (*,*,Mu,Indcom,N23)
-USE C_GP4FIL
-USE C_GP4PRM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_gp4fil
+   USE c_gp4prm
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,24 +46,24 @@ USE ISO_FORTRAN_ENV
 !
 !     OBTAIN TRANSFORMATION MATRIX
 !
-   IF ( Z(Knkl1+3)/=0 ) THEN
+   IF ( z(knkl1+3)/=0 ) THEN
       DO i = 1 , 4
-         Buf(i) = Z(Knkl1+2+i)
+         buf(i) = z(knkl1+2+i)
       ENDDO
-      CALL transd(Buf,indtfm)
+      CALL transd(buf,indtfm)
    ENDIF
-   IF ( Z(Knkl1+10)/=0 ) THEN
+   IF ( z(knkl1+10)/=0 ) THEN
       DO i = 1 , 4
-         Buf(i) = Z(Knkl1+9+i)
+         buf(i) = z(knkl1+9+i)
       ENDDO
-      CALL transd(Buf,deptfm)
+      CALL transd(buf,deptfm)
    ENDIF
 !
 !     COMPUTE THE LENGTH OF THE RIGID ROD ELEMENT
 !
-   xd = rz(Knkl1+11) - rz(Knkl1+4)
-   yd = rz(Knkl1+12) - rz(Knkl1+5)
-   zd = rz(Knkl1+13) - rz(Knkl1+6)
+   xd = rz(knkl1+11) - rz(knkl1+4)
+   yd = rz(knkl1+12) - rz(knkl1+5)
+   zd = rz(knkl1+13) - rz(knkl1+6)
 !
 !     CHECK TO SEE IF LENGTH OF ROD IS ZERO
 !
@@ -78,7 +79,7 @@ USE ISO_FORTRAN_ENV
 !     OBTAIN THE DIRECTION COSINES ASSOCIATED WITH
 !     THE INDEPENDENT GRID POINT
 !
-   IF ( Z(Knkl1+3)/=0 ) THEN
+   IF ( z(knkl1+3)/=0 ) THEN
       CALL gmmatd(rodcos,1,3,0,indtfm,3,3,0,idrcos)
    ELSE
       DO i = 1 , 3
@@ -89,7 +90,7 @@ USE ISO_FORTRAN_ENV
 !     OBTAIN THE DIRECTION COSINES ASSOCIATED WITH
 !     THE DEPENDENT GRID POINT
 !
-   IF ( Z(Knkl1+10)/=0 ) THEN
+   IF ( z(knkl1+10)/=0 ) THEN
       CALL gmmatd(rodcos,1,3,0,deptfm,3,3,0,ddrcos)
    ELSE
       DO i = 1 , 3
@@ -101,7 +102,7 @@ USE ISO_FORTRAN_ENV
 !
    SPAG_Loop_1_1: DO i = 1 , 3
       IF ( Indcom==i ) THEN
-         idep = Z(Knkl1+6+i)
+         idep = z(knkl1+6+i)
          cdep = rodcos(i)
          EXIT SPAG_Loop_1_1
       ENDIF
@@ -113,17 +114,17 @@ USE ISO_FORTRAN_ENV
    mcode(2) = idep
    IF ( idep>mask15 ) N23 = 3
    DO i = 1 , 3
-      mcode(1) = Z(Knkl1+i-1)
+      mcode(1) = z(knkl1+i-1)
       IF ( mcode(1)>mask15 ) N23 = 3
       coeff = -idrcos(i)/cdep
-      CALL write(Rgt,mcode,2,0)
-      CALL write(Rgt,coeff,1,0)
-      mcode(1) = Z(Knkl1+6+i)
+      CALL write(rgt,mcode,2,0)
+      CALL write(rgt,coeff,1,0)
+      mcode(1) = z(knkl1+6+i)
       IF ( mcode(1)>mask15 ) N23 = 3
       coeff = ddrcos(i)/cdep
-      CALL write(Rgt,mcode,2,0)
-      CALL write(Rgt,coeff,1,0)
+      CALL write(rgt,mcode,2,0)
+      CALL write(rgt,coeff,1,0)
    ENDDO
-   Z(Mu) = idep
+   z(Mu) = idep
    Mu = Mu - 1
 END SUBROUTINE crdrd2

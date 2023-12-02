@@ -1,11 +1,12 @@
-!*==fdsub.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fdsub.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fdsub(Name,I)
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,23 +34,23 @@ SUBROUTINE fdsub(Name,I)
 !     THE SIZE OF THE DIT IN NUMBER OF BLOCKS.
 !
    CALL chkopn(nmsbr(1))
-   IF ( Ditnsb/=0 ) THEN
-      nnms = Blksiz/2
-      nblks = Ditsiz/Blksiz
-      IF ( Ditsiz/=nblks*Blksiz ) nblks = nblks + 1
+   IF ( ditnsb/=0 ) THEN
+      nnms = blksiz/2
+      nblks = ditsiz/blksiz
+      IF ( ditsiz/=nblks*blksiz ) nblks = nblks + 1
 !
 !     START LOOKING FOR THE SUBSTRUCTURE NAME.
 !
-      max = Blksiz
+      max = blksiz
       DO j = 1 , nblks
          I = 1 + (j-1)*nnms
          CALL fdit(I,dummy)
-         IF ( j==nblks ) max = Ditsiz - (nblks-1)*Blksiz
+         IF ( j==nblks ) max = ditsiz - (nblks-1)*blksiz
 !
 !     SEARCH THE BLOCK OF THE DIT WHICH IS PRESENTLY IN CORE.
 !
          DO k = 1 , max , 2
-            IF ( Buf(Dit+k)==Name(1) .AND. Buf(Dit+k+1)==Name(2) ) THEN
+            IF ( buf(dit+k)==Name(1) .AND. buf(dit+k+1)==Name(2) ) THEN
                kk = k
                CALL spag_block_1
                RETURN
@@ -67,6 +68,6 @@ CONTAINS
 !
 !     DID FIND NAME IN THE DIT.  RETURN NAME INDEX NUMBER
 !
-      I = (Ditlbn-1)*nnms + (kk+1)/2
+      I = (ditlbn-1)*Nnms + (Kk+1)/2
    END SUBROUTINE spag_block_1
 END SUBROUTINE fdsub

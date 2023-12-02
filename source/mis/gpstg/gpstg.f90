@@ -1,12 +1,13 @@
-!*==gpstg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gpstg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpstg
-USE C_GPSTGX
-USE C_GPSTGY
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_gpstgx
+   USE c_gpstgy
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -41,21 +42,21 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         dtol = Tolel
+         dtol = tolel
 !
 ! AT THIS POINT, BOTH TRANSLATIONAL AND ROTATIONAL DIAGONAL 3X3 S ARE
 ! STORED IN THE D ARRAY.  HENCE WE PROCESS THEM.
 !
-         ip = Npvt - 1
+         ip = npvt - 1
          ASSIGN 40 TO igoto
          ASSIGN 20 TO iback
          DO i = 1 , 9
-            b(i) = D(i)
+            b(i) = d(i)
          ENDDO
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  20      DO i = 1 , 9
-            b(i) = D(i+9)
+            b(i) = d(i+9)
          ENDDO
 !
 ! INSURE THE SYMMETRY OF THE B MATRIX
@@ -124,7 +125,6 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDDO
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( iorder==0 ) THEN
 !
@@ -241,7 +241,6 @@ USE ISO_FORTRAN_ENV
                   ENDDO SPAG_Loop_1_1
                ENDIF
                spag_nextblock_1 = 7
-               CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 ! AT THIS POINT ONE AND ONLY ONE FL(I) IS ZERO.
@@ -261,12 +260,11 @@ USE ISO_FORTRAN_ENV
  25            fm = b(5)*b(9) - b(6)*b(8)
                fr = dsqrt((b(5)**2+b(6)**2)*(b(8)**2+b(9)**2))
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
  30         fm = b(1)*b(9) - b(3)*b(7)
             fr = dsqrt((b(1)**2+b(3)**2)*(b(7)**2+b(9)**2))
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (3)
          fm = b(1)*b(5) - b(2)*b(4)
@@ -328,7 +326,6 @@ USE ISO_FORTRAN_ENV
             iarray(ipoint+1) = ip + inc3
          ENDIF
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 ! AT THIS POINT WE HAVE THAT ONE AND ONLY ONE FL IS ZERO BUT THAT ORDER
@@ -339,7 +336,6 @@ USE ISO_FORTRAN_ENV
          ttlwds = 3
          iarray(3) = ip + isave
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 ! THE SINGULARITY IS OF ORDER 3
@@ -355,12 +351,12 @@ USE ISO_FORTRAN_ENV
 !
 ! WRITE IARRAY ON THE GPST FILE.
 !
-         IF ( Igpst/=1 ) THEN
-            Igpst = 1
-            CALL gopen(Gpst,Iz(Ibuf2),1)
+         IF ( igpst/=1 ) THEN
+            igpst = 1
+            CALL gopen(gpst,iz(ibuf2),1)
          ENDIF
-         Nsing = Nsing + 1
-         CALL write(Gpst,iarray,ttlwds,0)
+         nsing = nsing + 1
+         CALL write(gpst,iarray,ttlwds,0)
          spag_nextblock_1 = 8
       CASE (8)
          GOTO igoto

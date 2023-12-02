@@ -1,14 +1,15 @@
-!*==emastq.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==emastq.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emastq(Narg,Mass)
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_system
    IMPLICIT NONE
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -107,49 +108,49 @@ SUBROUTINE emastq(Narg,Mass)
 !
       ncsid = 16
       ngrids = 4
-      Matid = necpt(7)
-      t = Ecpt(8)
-      fmu = Ecpt(13)
+      matid = necpt(7)
+      t = ecpt(8)
+      fmu = ecpt(13)
    ELSEIF ( ntype==3 ) THEN
 !
       ncsid = 13
       ngrids = 3
-      Matid = necpt(6)
+      matid = necpt(6)
       t = 0.0E0
-      fmu = Ecpt(10)
+      fmu = ecpt(10)
    ELSEIF ( ntype==4 ) THEN
 !
       ncsid = 9
       ngrids = 3
-      Matid = necpt(6)
-      t = Ecpt(7)
-      fmu = Ecpt(8)
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(8)
    ELSEIF ( ntype==5 ) THEN
 !
       ncsid = 15
       ngrids = 3
-      Matid = necpt(6)
-      t = Ecpt(7)
-      fmu = Ecpt(12)
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(12)
    ELSEIF ( ntype==6 ) THEN
       ncsid = 9
       ngrids = 4
-      Matid = necpt(6)
-      t = Ecpt(7)
-      fmu = Ecpt(8)
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(8)
    ELSEIF ( ntype==7 ) THEN
       ncsid = 14
       ngrids = 4
-      Matid = necpt(7)
+      matid = necpt(7)
       t = 0.0E0
-      fmu = Ecpt(11)
+      fmu = ecpt(11)
    ELSE
 !
       ncsid = 10
       ngrids = 4
-      Matid = necpt(7)
-      t = Ecpt(8)
-      fmu = Ecpt(9)
+      matid = necpt(7)
+      t = ecpt(8)
+      fmu = ecpt(9)
    ENDIF
 !
 !  30 COMPUTE PIVOT TRIANGLE AREA
@@ -178,8 +179,8 @@ SUBROUTINE emastq(Narg,Mass)
          isub1 = ncsid + npt1 + i
          isub2 = ncsid + npt2 + i
          isub3 = ncsid + npt3 + i
-         v1(i) = Ecpt(isub3) - Ecpt(isub1)
-         v2(i) = Ecpt(isub3) - Ecpt(isub2)
+         v1(i) = ecpt(isub3) - ecpt(isub1)
+         v2(i) = ecpt(isub3) - ecpt(isub2)
       ENDDO
 !
 !     COMPUTE AREA OF QUAD OR TRI USING V1 AND V2
@@ -201,7 +202,7 @@ SUBROUTINE emastq(Narg,Mass)
             isub1 = ncsid + npt1 + 1
             isub2 = ncsid + npt2 + 1
             isub3 = ncsid + npt3 + 1
-            t = pi23*(Ecpt(isub1)+Ecpt(isub2)+Ecpt(isub3))
+            t = pi23*(ecpt(isub1)+ecpt(isub2)+ecpt(isub3))
          ENDIF
          npt1 = ncsid
          npt2 = ncsid + 4
@@ -212,8 +213,8 @@ SUBROUTINE emastq(Narg,Mass)
             npt2 = npt2 + 1
             npt3 = npt3 + 1
             npt4 = npt4 + 1
-            v1(i) = Ecpt(npt1) - Ecpt(npt3)
-            v2(i) = Ecpt(npt2) - Ecpt(npt4)
+            v1(i) = ecpt(npt1) - ecpt(npt3)
+            v2(i) = ecpt(npt2) - ecpt(npt4)
          ENDDO
 !
          ichek = 0
@@ -224,22 +225,22 @@ SUBROUTINE emastq(Narg,Mass)
       IF ( t/=0 ) THEN
 !     RHO NOT NEEDED IF T = 0
 !
-         Inflag = 4
-         IF ( Heat==1 ) THEN
+         inflag = 4
+         IF ( heat==1 ) THEN
 !
 !      HEAT FORMULATION
 !
-            CALL hmat(Ecpt)
-            Mass(npvt) = (Cp*t)*area/3.
+            CALL hmat(ecpt)
+            Mass(npvt) = (cp*t)*area/3.
             IF ( ngrids==4 ) Mass(npvt) = Mass(npvt)/2.
             CYCLE
          ELSE
-            CALL mat(Ecpt(1))
+            CALL mat(ecpt(1))
          ENDIF
       ENDIF
 !
 !
-      term = (fmu+Rho*t)*area/3.0E0
+      term = (fmu+rho*t)*area/3.0E0
       IF ( ngrids==4 ) term = term/2.
       i1 = (npvt-1)*3 + 1
       i2 = i1 + 2

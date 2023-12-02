@@ -1,17 +1,18 @@
-!*==ddcmps.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ddcmps.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddcmps
-USE C_BLANK
-USE C_CDCMPX
-USE C_DCOMPX
-USE C_NAMES
-USE C_SDCQ
-USE C_SFACT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_cdcmpx
+   USE c_dcompx
+   USE c_names
+   USE c_sdcq
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -72,102 +73,102 @@ USE ISO_FORTRAN_ENV
 !     NOTE SYM DECOMP DOES NOT OUTPUT  ULL
 !
 !
-         Opnscr = .FALSE.
-         First = .TRUE.
-         Sing = 1
-         Ja(1) = kaa
-         CALL rdtrl(Ja)
-         IF ( Ja(1)<0 ) THEN
+         opnscr = .FALSE.
+         first = .TRUE.
+         sing = 1
+         ja(1) = kaa
+         CALL rdtrl(ja)
+         IF ( ja(1)<0 ) THEN
 !
 !     ERROR  MESSAGES
 !
 !     PURGED INPUT
 !
-            Parm(1) = -1
-            Parm(2) = kaa
+            parm(1) = -1
+            parm(2) = kaa
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            iform = Ja(4)
-            IF ( Isym<0 ) THEN
+            iform = ja(4)
+            IF ( isym<0 ) THEN
                IF ( iform==sym ) THEN
                   CALL page2(2)
-                  WRITE (outpt,99001) Swm , nam
+                  WRITE (outpt,99001) swm , nam
 99001             FORMAT (A27,' 2340, MODULE ',2A4,' HAS BEEN REQUESTED TO DO ','UNSYMETRIC DECOMPOSITION OF A SYMETRIC MATRIX')
                ENDIF
                iform = rect
-               IF ( Ja(2)==Ja(3) ) iform = sqr
-            ELSEIF ( Isym/=0 ) THEN
+               IF ( ja(2)==ja(3) ) iform = sqr
+            ELSEIF ( isym/=0 ) THEN
 !
                IF ( iform/=sym ) THEN
                   CALL page2(2)
-                  WRITE (outpt,99002) Swm , nam
+                  WRITE (outpt,99002) swm , nam
 99002             FORMAT (A27,' 2341, MODULE ',2A4,' HAS BEEN FURNISHED A SQUARE ',                                                 &
                          &'MATRIX MARKED UNSYMETRIC FOR SYMETRIC DECOMPOSITION.')
                   iform = sym
                ENDIF
             ENDIF
-            Isym = -1
-            IF ( iform==sym ) Isym = 1
-            Ja(4) = iform
+            isym = -1
+            IF ( iform==sym ) isym = 1
+            ja(4) = iform
             i = 0
-            IF ( Ja(2)/=Ja(3) ) THEN
+            IF ( ja(2)/=ja(3) ) THEN
                CALL page2(2)
                i = 1
-               WRITE (outpt,99003) Swm , nam
+               WRITE (outpt,99003) swm , nam
 99003          FORMAT (A27,' 2375, MODULE ',2A4,' HAS BEEN REQUESTED TO ','DECOMPOSE A RECTANGULAR MATRIX')
             ENDIF
-            IF ( Isym<0 ) THEN
+            IF ( isym<0 ) THEN
 !
 !     SET UP CALL TO DECOMP
 !
-               IF ( Ja(5)>2 ) THEN
+               IF ( ja(5)>2 ) THEN
 !
 !     SET UP CALL TO CDCOMP
 !
-                  Jl(1) = lll
-                  Ju(1) = ull
-                  Jscr1 = lscr1
-                  Jscr2 = lscr2
-                  Jscr3 = lscr3
-                  Nzzz = korsz(zzz)
-                  Jl(5) = 4
-                  Jb = 0
+                  jl(1) = lll
+                  ju(1) = ull
+                  jscr1 = lscr1
+                  jscr2 = lscr2
+                  jscr3 = lscr3
+                  nzzz = korsz(zzz)
+                  jl(5) = 4
+                  jb = 0
                   CALL cdcomp(*20,zzz,zzz,zzz)
-                  Ju(5) = 4
-                  Jl(4) = 4
-                  Ju(4) = 5
-                  Jl(3) = Jl(2)
-                  Ju(3) = Ju(2)
-                  Det(1) = Cdet(1)
-                  Det(2) = Cdet(2)
-                  Mindia = Cmndia
-                  Power = Jpow
-                  CALL wrttrl(Jl)
-                  CALL wrttrl(Ju)
+                  ju(5) = 4
+                  jl(4) = 4
+                  ju(4) = 5
+                  jl(3) = jl(2)
+                  ju(3) = ju(2)
+                  det(1) = cdet(1)
+                  det(2) = cdet(2)
+                  mindia = cmndia
+                  power = jpow
+                  CALL wrttrl(jl)
+                  CALL wrttrl(ju)
                ELSE
-                  Ia(1) = kaa
-                  CALL rdtrl(Ia)
-                  Il(1) = lll
-                  Iu(1) = ull
-                  Nzz = korsz(zz)
-                  Iscr1 = lscr1
-                  Iscr2 = lscr2
-                  Iscr3 = lscr3
-                  Ib = 0
-                  Il(5) = 2
+                  ia(1) = kaa
+                  CALL rdtrl(ia)
+                  il(1) = lll
+                  iu(1) = ull
+                  nzz = korsz(zz)
+                  iscr1 = lscr1
+                  iscr2 = lscr2
+                  iscr3 = lscr3
+                  ib = 0
+                  il(5) = 2
                   CALL decomp(*20,zz,zz,zz)
-                  Iu(5) = 2
-                  Il(4) = 4
-                  Iu(4) = 5
-                  Il(3) = Il(2)
-                  Iu(3) = Iu(2)
-                  Det(1) = Ddet
-                  Det(2) = 0.0
-                  Power = Ipow
-                  Mindia = Dmndia
-                  CALL wrttrl(Iu)
-                  CALL wrttrl(Il)
+                  iu(5) = 2
+                  il(4) = 4
+                  iu(4) = 5
+                  il(3) = il(2)
+                  iu(3) = iu(2)
+                  det(1) = ddet
+                  det(2) = 0.0
+                  power = ipow
+                  mindia = dmndia
+                  CALL wrttrl(iu)
+                  CALL wrttrl(il)
                ENDIF
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -178,84 +179,83 @@ USE ISO_FORTRAN_ENV
 !
 !     NUMBER ROWS.NE.COLUMNS
 !
-               Parm(1) = -16
-               Parm(2) = kaa
+               parm(1) = -16
+               parm(2) = kaa
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               Ifila(1) = kaa
-               CALL rdtrl(Ifila)
-               Ifill(1) = lll
-               Ifilu(1) = lscr4
-               Kscr1 = lscr1
-               Kscr2 = lscr2
-               Kscr3 = lscr3
-               Ifill(5) = Ifila(5)
-               Ichlk = Chlsky
-               IF ( Ifila(5)<=2 ) THEN
-                  Nz = korsz(zzzz)
-                  Iscmsg = lscr5
-                  Iscdia = lscr6
-                  Kpdfck = Pdefck
-                  Kdgck = Diagck
-                  Kdget = Diaget
+               ifila(1) = kaa
+               CALL rdtrl(ifila)
+               ifill(1) = lll
+               ifilu(1) = lscr4
+               kscr1 = lscr1
+               kscr2 = lscr2
+               kscr3 = lscr3
+               ifill(5) = ifila(5)
+               ichlk = chlsky
+               IF ( ifila(5)<=2 ) THEN
+                  nz = korsz(zzzz)
+                  iscmsg = lscr5
+                  iscdia = lscr6
+                  kpdfck = pdefck
+                  kdgck = diagck
+                  kdget = diaget
                   CALL sdcmps(zzzz,zzzz,zzzz)
-                  IF ( Nerr(1)+Nerr(2)==0 ) THEN
-                     IF ( Parm(1)/=0 ) CALL mesage(Parm(1),Parm(2),Parm(3))
+                  IF ( nerr(1)+nerr(2)==0 ) THEN
+                     IF ( parm(1)/=0 ) CALL mesage(parm(1),parm(2),parm(3))
                   ELSE
-                     Buf6 = korsz(zm) - 2*nbufsz + 1
-                     IF ( Buf6+nbufsz<=0 ) THEN
+                     buf6 = korsz(zm) - 2*nbufsz + 1
+                     IF ( buf6+nbufsz<=0 ) THEN
 !
 !     INSUFFICIENT CORE
 !
-                        Parm(1) = -8
-                        Parm(2) = -Buf6 - nbufsz
+                        parm(1) = -8
+                        parm(2) = -buf6 - nbufsz
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
-                        CALL sdcmm(zm,Set(1),Ifila(2),Ifila(1),luset,lgpl,lsil,Subnam)
-                        Sing = 0
+                        CALL sdcmm(zm,set(1),ifila(2),ifila(1),luset,lgpl,lsil,subnam)
+                        sing = 0
 !
 !     ONLY ES CHECK AND NONCONSERVATIVE COLUMN CAN EXIT WITH SING = 1
 !     OR IF USER DESIRES TO CONTINUE
 !
-                        IF ( Noglev>0 ) Sing = -1
-                        IF ( Parm(1)/=0 ) CALL mesage(Parm(1),Parm(2),Parm(3))
+                        IF ( noglev>0 ) sing = -1
+                        IF ( parm(1)/=0 ) CALL mesage(parm(1),parm(2),parm(3))
                      ENDIF
                   ENDIF
                ELSE
-                  Nz = korsz(Z)
-                  CALL sdcomp(*20,Z,Z,Z)
+                  nz = korsz(z)
+                  CALL sdcomp(*20,z,z,z)
                ENDIF
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Det(1) = Sdet
-         Det(2) = Sdetc
-         Mindia = Minds
-         Power = Kpow
-         Ifill(2) = Ifila(2)
-         Ifill(3) = Ifila(3)
-         Ifill(4) = 4
-         IF ( Sing>=0 ) CALL wrttrl(Ifill)
+         det(1) = sdet
+         det(2) = sdetc
+         mindia = minds
+         power = kpow
+         ifill(2) = ifila(2)
+         ifill(3) = ifila(3)
+         ifill(4) = 4
+         IF ( sing>=0 ) CALL wrttrl(ifill)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 20      Sing = -1
-         Det(1) = 0.0
-         Det(2) = 0.0
-         Power = 0
-         Mindia = 0.0
+ 20      sing = -1
+         det(1) = 0.0
+         det(2) = 0.0
+         power = 0
+         mindia = 0.0
          spag_nextblock_1 = 3
       CASE (3)
          RETURN
       CASE (4)
-         Parm(3) = name(1)
-         Parm(4) = name(2)
-         IF ( Parm(1)/=0 ) CALL mesage(Parm(1),Parm(2),Parm(3))
+         parm(3) = name(1)
+         parm(4) = name(2)
+         IF ( parm(1)/=0 ) CALL mesage(parm(1),parm(2),parm(3))
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE ddcmps

@@ -1,12 +1,13 @@
-!*==mred2o.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mred2o.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2o(Nus)
-USE C_BLANK
-USE C_MPY3TL
-USE C_PACKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_mpy3tl
+   USE c_packx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -47,7 +48,7 @@ USE ISO_FORTRAN_ENV
 !        *    *   *    *   *    .   .   *
 !        **  **   **  **   **          **
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          IF ( Nus==0 ) THEN
 !
 !     IF NO US POINTS
@@ -68,19 +69,19 @@ USE ISO_FORTRAN_ENV
             CALL rdtrl(itrlr1)
             itrlr2(1) = gs
             CALL rdtrl(itrlr2)
-            Typin = 1
-            Typout = 1
-            Irow = 1
-            Nrow = itrlr1(2)
-            Incr = 1
-            DO i = 1 , Nrow
-               rz(Korbgn+i-1) = 0.0
-               IF ( i>itrlr2(2) ) rz(Korbgn+i-1) = 1.0
+            typin = 1
+            typout = 1
+            irow = 1
+            nrow = itrlr1(2)
+            incr = 1
+            DO i = 1 , nrow
+               rz(korbgn+i-1) = 0.0
+               IF ( i>itrlr2(2) ) rz(korbgn+i-1) = 1.0
             ENDDO
             iform = 7
-            CALL makmcb(itrlr2,rprtn,Nrow,iform,Typin)
-            CALL gopen(rprtn,Z(Gbuf1),1)
-            CALL pack(Z(Korbgn),rprtn,itrlr2)
+            CALL makmcb(itrlr2,rprtn,nrow,iform,typin)
+            CALL gopen(rprtn,z(gbuf1),1)
+            CALL pack(z(korbgn),rprtn,itrlr2)
             CALL close(rprtn,1)
             CALL wrttrl(itrlr2)
 !
@@ -88,7 +89,7 @@ USE ISO_FORTRAN_ENV
 !
             isub(1) = itrlr2(2)
             isub(2) = itrlr1(2) - itrlr2(2)
-            CALL gmmerg(gszero,gs,0,0,0,rprtn,0,isub,itrlr2(5),Z(Korbgn),Korlen)
+            CALL gmmerg(gszero,gs,0,0,0,rprtn,0,isub,itrlr2(5),z(korbgn),korlen)
 !
 !     FORM HM MATRIX
 !
@@ -110,24 +111,24 @@ USE ISO_FORTRAN_ENV
 !                  I
 !
          ifile = lamamr
-         CALL gopen(lamamr,Z(Gbuf1),0)
+         CALL gopen(lamamr,z(gbuf1),0)
          CALL fwdrec(*40,lamamr)
          iform = 3
          itype = 1
-         CALL makmcb(itrlr1,kmw2,Nmodes,iform,itype)
-         Typin = 1
-         Typout = 1
-         Irow = 1
-         Nrow = Nmodes
-         Incr = 1
-         CALL gopen(kmw2,Z(Gbuf2),1)
-         DO i = 1 , Nmodes
-            CALL read(*20,*40,lamamr,Z(Korbgn),7,0,nwdsrd)
-            DO j = 1 , Nmodes
-               rz(Korbgn+7+j-1) = 0.0
-               IF ( j==i ) rz(Korbgn+7+j-1) = rz(Korbgn+5)
+         CALL makmcb(itrlr1,kmw2,nmodes,iform,itype)
+         typin = 1
+         typout = 1
+         irow = 1
+         nrow = nmodes
+         incr = 1
+         CALL gopen(kmw2,z(gbuf2),1)
+         DO i = 1 , nmodes
+            CALL read(*20,*40,lamamr,z(korbgn),7,0,nwdsrd)
+            DO j = 1 , nmodes
+               rz(korbgn+7+j-1) = 0.0
+               IF ( j==i ) rz(korbgn+7+j-1) = rz(korbgn+5)
             ENDDO
-            CALL pack(Z(Korbgn+7),kmw2,itrlr1)
+            CALL pack(z(korbgn+7),kmw2,itrlr1)
          ENDDO
          CALL close(lamamr,1)
          CALL close(kmw2,1)
@@ -149,29 +150,29 @@ USE ISO_FORTRAN_ENV
          CALL rdtrl(itrlr1)
          CALL rdtrl(itrlr2)
          DO i = 1 , 7
-            Itrlra(i) = itrlr1(i)
-            Itrlrb(i) = itrlr2(i)
-            Itrlre(i) = 0
+            itrlra(i) = itrlr1(i)
+            itrlrb(i) = itrlr2(i)
+            itrlre(i) = 0
          ENDDO
          iprc = 1
          ityp = 0
-         IF ( (Itrlra(5)==2) .OR. (Itrlra(5)==4) ) iprc = 2
-         IF ( (Itrlrb(5)==2) .OR. (Itrlrb(5)==4) ) iprc = 2
-         IF ( Itrlra(5)>=3 ) ityp = 2
-         IF ( Itrlrb(5)>=3 ) ityp = 2
+         IF ( (itrlra(5)==2) .OR. (itrlra(5)==4) ) iprc = 2
+         IF ( (itrlrb(5)==2) .OR. (itrlrb(5)==4) ) iprc = 2
+         IF ( itrlra(5)>=3 ) ityp = 2
+         IF ( itrlrb(5)>=3 ) ityp = 2
          itype = iprc + ityp
          iform = 6
-         CALL makmcb(Itrlrc,m,itrlr1(3),iform,itype)
-         Jscr(1) = Iscr(7)
-         Jscr(2) = Iscr(8)
-         Jscr(3) = Iscr(6)
-         Icode = 0
-         Prec = 0
-         dblkor = (Korbgn/2) + 1
-         Lkore = Lstzwd - (2*dblkor-1)
+         CALL makmcb(itrlrc,m,itrlr1(3),iform,itype)
+         jscr(1) = iscr(7)
+         jscr(2) = iscr(8)
+         jscr(3) = iscr(6)
+         icode = 0
+         prec = 0
+         dblkor = (korbgn/2) + 1
+         lkore = lstzwd - (2*dblkor-1)
          CALL mpy3dr(dz(dblkor))
-         CALL wrttrl(Itrlrc)
-         CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         CALL wrttrl(itrlrc)
+         CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
          RETURN
 !
 !     PROCESS SYSTEM FATAL ERRORS

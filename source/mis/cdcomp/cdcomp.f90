@@ -2,14 +2,14 @@
  
 SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
    IMPLICIT NONE
-   USE C_CDCMPX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZNTPKX
+   USE c_cdcmpx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,6 +29,15 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
    INTEGER , DIMENSION(6) :: itran
    REAL*8 , SAVE :: limit
    INTEGER , DIMENSION(5) , SAVE :: parm
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -67,54 +76,54 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     BUFFER ALLOCATION
 !
-   bufa = Nx - Sysbuf
-   ibufl = bufa - Sysbuf
-   outbuf = ibufl - Sysbuf
-   sr1buf = outbuf - Sysbuf
-   sr2buf = sr1buf - Sysbuf
-   sr3buf = sr2buf - Sysbuf
+   bufa = nx - sysbuf
+   ibufl = bufa - sysbuf
+   outbuf = ibufl - sysbuf
+   sr1buf = outbuf - sysbuf
+   sr2buf = sr1buf - sysbuf
+   sr3buf = sr2buf - sysbuf
    icrq = -sr3buf
    IF ( icrq>0 ) GOTO 2800
-   Det(1) = 1.D0
-   Det(2) = 0.D0
-   Power = 0
-   Mindia = 1.D+25
+   det(1) = 1.D0
+   det(2) = 0.D0
+   power = 0
+   mindia = 1.D+25
    iterm = 0
-   IF ( Filea(1)<0 ) iterm = 1
-   Filea(1) = iabs(Filea(1))
+   IF ( filea(1)<0 ) iterm = 1
+   filea(1) = iabs(filea(1))
 !
 !     WRITE THE HEADER RECORD ON THE OUTPUT TAPES AND INITIALIZE THE
 !     TRAILER RECORDS.
 !
-   CALL gopen(Filel,Ix(ibufl),Wrtrew)
-   parm(2) = Sr2fil
-   CALL open(*2500,Sr2fil,Ix(outbuf),Wrtrew)
-   CALL fname(Fileu(1),X(1))
-   CALL write(Sr2fil,X(1),2,1)
-   Filel(2) = 0
-   Filel(3) = ncol
-   Filel(4) = 4
-   Filel(6) = 0
-   Filel(7) = 0
-   Fileu(2) = 0
-   Fileu(3) = ncol
-   Fileu(4) = 5
-   Fileu(6) = 0
-   Fileu(7) = 0
+   CALL gopen(filel,Ix(ibufl),wrtrew)
+   parm(2) = sr2fil
+   CALL open(*2500,sr2fil,Ix(outbuf),wrtrew)
+   CALL fname(fileu(1),X(1))
+   CALL write(sr2fil,X(1),2,1)
+   filel(2) = 0
+   filel(3) = ncol
+   filel(4) = 4
+   filel(6) = 0
+   filel(7) = 0
+   fileu(2) = 0
+   fileu(3) = ncol
+   fileu(4) = 5
+   fileu(6) = 0
+   fileu(7) = 0
    IF ( ncol>2 ) THEN
 !
 !     CALL GENVEC TO PICK B, BBAR, C, CBAR, AND R
 !
-      IF ( B<=0 .OR. Bbar<=0 ) CALL genvec(*2900,Ix(bufa),Filea(1),Nx,Ix(1),ncol,B,Bbar,C,Cbar,R,2)
-      bbar1 = Bbar + 1
-      bbbar = min0(B+Bbar,ncol)
+      IF ( b<=0 .OR. bbar<=0 ) CALL genvec(*2900,Ix(bufa),filea(1),nx,Ix(1),ncol,b,bbar,c,cbar,r,2)
+      bbar1 = bbar + 1
+      bbbar = min0(b+bbar,ncol)
       bbbar1 = bbbar - 1
       scrflg = 0
-      IF ( R<bbbar1 ) scrflg = 1
+      IF ( r<bbbar1 ) scrflg = 1
       IF ( scrflg/=0 ) THEN
-         icrq = (bbbar1-R)*4*Bbar
+         icrq = (bbbar1-r)*4*bbar
          CALL page2(2)
-         WRITE (Nout,99001) Uim , icrq
+         WRITE (nout,99001) uim , icrq
 99001    FORMAT (A29,' 2177, SPILL WILL OCCUR IN COMPLEX UNSYMMETRIC ','DECOMPOSITION.',/I10,                                       &
                 &' ADDITIONAL WORDS NEEDED TO STAY IN CORE.')
       ENDIF
@@ -122,19 +131,19 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     INITIALIZE POINTERS TO SPECIFIC AREAS OF CORE
 !
       i1 = 1
-      ipak = i1 + 2*Bbar*R + bbbar/2 + 1
-      i1sp = Bbar*R*4 + 1
+      ipak = i1 + 2*bbar*r + bbbar/2 + 1
+      i1sp = bbar*r*4 + 1
       i2 = ipak
-      i3sp = (i2+2*min0(ncol,bbbar+Bbar))*2 - 1
-      i3 = i2 + 2*min0(ncol,bbbar+Bbar) + C
-      i4sp = i3sp + (Bbar+2)*C*4 - 2*C
-      i4 = i3 + 2*bbar1*C + Cbar
-      i5 = i4 + 2*bbbar*Cbar
-      i6sp = (i5+2*C*Cbar)*2 - 1
-      i7sp = i6sp + Cbar
+      i3sp = (i2+2*min0(ncol,bbbar+bbar))*2 - 1
+      i3 = i2 + 2*min0(ncol,bbbar+bbar) + c
+      i4sp = i3sp + (bbar+2)*c*4 - 2*c
+      i4 = i3 + 2*bbar1*c + cbar
+      i5 = i4 + 2*bbbar*cbar
+      i6sp = (i5+2*c*cbar)*2 - 1
+      i7sp = i6sp + cbar
       parm(5) = ibegn
       CALL conmsg(parm(3),3,0)
-      end = i7sp + C
+      end = i7sp + c
 !
 !     DEFINITION OF KEY PROGRAM PARAMETERS
 !
@@ -173,26 +182,26 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     RE-WRITE THE UPPER TRIANGLE OF ACTIVE ELEMENTS IN THE TRANSPOSED
 !     ORDER
 !
-      parm(2) = Filea(1)
-      CALL open(*2500,Filea(1),Ix(bufa),Rdrew)
+      parm(2) = filea(1)
+      CALL open(*2500,filea(1),Ix(bufa),rdrew)
       ccount = 0
-      IF ( C/=0 ) CALL ctrnsp(Ix(1),X(1),Nx,Filea(1),B,Sr1fil)
+      IF ( c/=0 ) CALL ctrnsp(Ix(1),X(1),nx,filea(1),b,sr1fil)
 !
 !     ZERO CORE
 !
       DO i = 1 , end
          X(i) = 0.
       ENDDO
-      IF ( C==0 ) GOTO 200
+      IF ( c==0 ) GOTO 200
 !
 !     OPEN THE FILE CONTAINING THE TRANSPOSED ACTIVE ELEMENTS AND READ I
 !     THE FIRST BBAR + 1 ROWS
 !
-      parm(2) = Sr1fil
-      CALL open(*2500,Sr1fil,Ix(sr1buf),Rd)
+      parm(2) = sr1fil
+      CALL open(*2500,sr1fil,Ix(sr1buf),rd)
       k = 0
       DO
-         CALL read(*2600,*2700,Sr1fil,itran(1),6,0,flag)
+         CALL read(*2600,*2700,sr1fil,itran(1),6,0,flag)
          IF ( itrn>0 ) THEN
             DO WHILE ( itrn>k+1 )
                k = k + 1
@@ -227,8 +236,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                      EXIT
                   ELSE
                      kk = kk + 1
-                     IF ( kk<C ) THEN
-                     ELSEIF ( kk==C ) THEN
+                     IF ( kk<c ) THEN
+                     ELSEIF ( kk==c ) THEN
 !
 !     CREATE NEW ACTIVE COLUMN
 !
@@ -238,7 +247,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                            in1 = i3sp + kk
                            IF ( Ix(in1)==0 ) THEN
                               Ix(in1) = jtrn
-                              in1 = in1 + C
+                              in1 = in1 + c
                               Ix(in1) = k + 1
                               in1 = i3 + 2*kk*bbar1 + k + k
                               Dx(in1) = dtrn(1)
@@ -246,7 +255,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                               GOTO 50
                            ELSE
                               kk = kk + 1
-                              IF ( kk>=C ) THEN
+                              IF ( kk>=c ) THEN
                                  parm(1) = -25
                                  CALL mesage(parm(1),parm(2),parm(3))
                                  GOTO 99999
@@ -262,7 +271,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                ENDDO
             ENDIF
          ELSE
-            CALL close(Sr1fil,Rew)
+            CALL close(sr1fil,rew)
             ASSIGN 200 TO kk
             EXIT
          ENDIF
@@ -310,8 +319,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          in1 = in1 + 1
       ENDIF
       k = k + 1
-      IF ( k<C ) THEN
-      ELSEIF ( k==C ) THEN
+      IF ( k<c ) THEN
+      ELSEIF ( k==c ) THEN
          GOTO kk
       ELSE
          parm(1) = -25
@@ -322,11 +331,11 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     INITIALIZE
 !
- 200  sr2fl = Fileu(1)
-   sr3fl = Sr3fil
+ 200  sr2fl = fileu(1)
+   sr3fl = sr3fil
    jpos = 1
-   parm(2) = Filea(1)
-   CALL fwdrec(*2600,Filea(1))
+   parm(2) = filea(1)
+   CALL fwdrec(*2600,filea(1))
    lcol = 0
    cbcnt = 0
    jposl = 0
@@ -334,13 +343,13 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     FINISH WRITING OUT THE COMPLETED COLUMNS OF L
 !
-      CALL close(Sr1fil,Rew)
-      CALL close(Filel,Norew)
-      CALL close(Sr2fil,Norew)
-      CALL comfin(iterm,scrflg,sr2fl,jposl,i1sp,Bbar,i1,cbcnt,ipak,R,bbbar1,bbbar,i6sp,i4,i4sp,Ix,Dx,X,lcol)
+      CALL close(sr1fil,rew)
+      CALL close(filel,norew)
+      CALL close(sr2fil,norew)
+      CALL comfin(iterm,scrflg,sr2fl,jposl,i1sp,bbar,i1,cbcnt,ipak,r,bbbar1,bbbar,i6sp,i4,i4sp,Ix,Dx,X,lcol)
       parm(5) = iend
       CALL conmsg(parm(3),3,0)
-      Fileu(7) = bbbar
+      fileu(7) = bbbar
       RETURN
    ELSE
 !
@@ -348,29 +357,29 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
       ioff = max0(1,jpos-bbbar1)
       count = cbcnt
-      CALL intpk(*2900,Filea(1),0,Cdp,0)
+      CALL intpk(*2900,filea(1),0,cdp,0)
       k = 1
-      IF ( jpos>bbbar ) k = jpos - B + 1
-      DO WHILE ( Eol==0 )
+      IF ( jpos>bbbar ) k = jpos - b + 1
+      DO WHILE ( eol==0 )
          CALL zntpki
-         IF ( Ii>=k ) THEN
-            k = jpos + Bbar
+         IF ( ii>=k ) THEN
+            k = jpos + bbar
             GOTO 400
          ENDIF
       ENDDO
       GOTO 600
    ENDIF
- 400  IF ( Ii>k ) THEN
+ 400  IF ( ii>k ) THEN
 !
 !     TAKE CARE OF ACTIVE ELEMENTS BELOW THE BAND
 !
       kk = 0
       DO
          in1 = i4sp + kk
-         IF ( Ix(in1)/=Ii ) THEN
+         IF ( Ix(in1)/=ii ) THEN
             kk = kk + 1
-            IF ( kk<Cbar ) THEN
-            ELSEIF ( kk==Cbar ) THEN
+            IF ( kk<cbar ) THEN
+            ELSEIF ( kk==cbar ) THEN
 !
 !     CREATE NEW ACTIVE ROW
 !
@@ -378,8 +387,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                DO
                   in1 = i4sp + kk
                   IF ( Ix(in1)==0 ) THEN
-                     Ix(in1) = Ii
-                     in1 = in1 + Cbar
+                     Ix(in1) = ii
+                     in1 = in1 + cbar
                      Ix(in1) = jpos
                      in1 = i4 + (kk+1)*bbbar*2 - 2
                      Dx(in1) = da(1)
@@ -388,7 +397,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                      GOTO 500
                   ELSE
                      kk = kk + 1
-                     IF ( kk>=Cbar ) THEN
+                     IF ( kk>=cbar ) THEN
                         parm(1) = -25
                         CALL mesage(parm(1),parm(2),parm(3))
                         GOTO 99999
@@ -414,11 +423,11 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     READ ELEMENTS WITHIN THE BAND INTO AREA II
 !
-      in1 = i2 + 2*(Ii-ioff)
+      in1 = i2 + 2*(ii-ioff)
       Dx(in1) = da(1)
       Dx(in1+1) = da(2)
    ENDIF
- 500  IF ( Eol==0 ) THEN
+ 500  IF ( eol==0 ) THEN
       CALL zntpki
       GOTO 400
    ENDIF
@@ -463,8 +472,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
             in1 = in1 + 1
          ENDIF
          k = k + 1
-         IF ( k<Cbar ) THEN
-         ELSEIF ( k==Cbar ) THEN
+         IF ( k<cbar ) THEN
+         ELSEIF ( k==cbar ) THEN
             EXIT
          ELSE
             parm(1) = -25
@@ -489,7 +498,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     ACTIVE COLUMN IN AREA III
 !
       Ix(in1) = 0
-      in1 = in1 + C
+      in1 = in1 + c
       Ix(in1) = 0
       in1 = i3 + Ix(i7sp)*bbar1*2
       ccount = ccount - 1
@@ -508,7 +517,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     MERGE INTERACTION ELEMENTS
 !
             IF ( cbcnt==0 ) GOTO 700
-            in1 = i5 + 2*Ix(i7sp)*Cbar
+            in1 = i5 + 2*Ix(i7sp)*cbar
             k = 0
             EXIT
          ELSE
@@ -525,7 +534,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       IF ( Ix(in2)/=0 ) THEN
          in3 = in1 + 2*k
          IF ( Dx(in3)/=0.D0 .OR. Dx(in3+1)/=0.D0 ) THEN
-            IF ( Ix(in2)>jpos+Bbar ) THEN
+            IF ( Ix(in2)>jpos+bbar ) THEN
 !
 !     STORE ELEMENT IN THE ACTIVE ROW
 !
@@ -547,8 +556,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          ENDIF
       ENDIF
       k = k + 1
-      IF ( k>=Cbar ) THEN
-         IF ( k/=Cbar ) THEN
+      IF ( k>=cbar ) THEN
+         IF ( k/=cbar ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             GOTO 99999
@@ -570,13 +579,13 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     MAKING NOTED INTERCHANGES AS YOU GO
 !
    IF ( scrflg/=0 ) THEN
-      IF ( lcol>=(R-1) ) THEN
-         IF ( lcol/=(R-1) ) THEN
+      IF ( lcol>=(r-1) ) THEN
+         IF ( lcol/=(r-1) ) THEN
             parm(2) = sr2fl
-            CALL open(*2500,sr2fl,Ix(sr2buf),Rd)
+            CALL open(*2500,sr2fl,Ix(sr2buf),rd)
          ENDIF
          parm(2) = sr3fl
-         CALL open(*2500,sr3fl,Ix(sr3buf),Wrtrew)
+         CALL open(*2500,sr3fl,Ix(sr3buf),wrtrew)
       ENDIF
    ENDIF
    ll = 0
@@ -605,7 +614,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
    end = min0(bbar1,ncol-(jposl+ll))
    IF ( Dx(in2)/=0.D0 .OR. Dx(in2+1)/=0.D0 ) THEN
-      in1 = i1 + 2*lll*Bbar
+      in1 = i1 + 2*lll*bbar
       CALL cloop(Dx(in2+2),Dx(in1),Dx(in2),end-1)
       IF ( cbcnt/=0 ) THEN
 !
@@ -616,8 +625,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          DO
             in3 = i6sp + kkk
             in1 = Ix(in3) + i4sp
-            IF ( Ix(in1)>jpos+Bbar ) EXIT
-            kk = in1 + Cbar
+            IF ( Ix(in1)>jpos+bbar ) EXIT
+            kk = in1 + cbar
             IF ( Ix(kk)<=jposl+ll+1 ) THEN
                IF ( Ix(in1)-jposl-bbar1>ll ) THEN
 !
@@ -643,24 +652,24 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       IF ( cbcnt==0 ) GOTO 1100
       k = 0
    ELSE
-      IF ( ll-R+1<0 ) GOTO 900
-      IF ( ll-R+1==0 ) THEN
-         IF ( R==bbbar1 ) GOTO 900
-         in1 = i1 + 2*ll*Bbar
+      IF ( ll-r+1<0 ) GOTO 900
+      IF ( ll-r+1==0 ) THEN
+         IF ( r==bbbar1 ) GOTO 900
+         in1 = i1 + 2*ll*bbar
       ELSE
-         in1 = i1 + (lll-1)*Bbar*2
-         IF ( ll/=R .OR. lcol/=bbbar1 ) CALL write(sr3fl,Dx(in1),4*Bbar,0)
+         in1 = i1 + (lll-1)*bbar*2
+         IF ( ll/=r .OR. lcol/=bbbar1 ) CALL write(sr3fl,Dx(in1),4*bbar,0)
          lll = lll - 1
       ENDIF
-      icrq = in1 + Bbar*4 - 1 - sr3buf
+      icrq = in1 + bbar*4 - 1 - sr3buf
       IF ( icrq>0 ) GOTO 2800
-      ibbar4 = Bbar*4
+      ibbar4 = bbar*4
       CALL read(*2600,*2700,sr2fl,Dx(in1),ibbar4,0,flag)
       GOTO 900
    ENDIF
  1000 in1 = i4sp + k
-   IF ( Ix(in1)>jpos+Bbar ) THEN
-      in1 = in1 + Cbar
+   IF ( Ix(in1)>jpos+bbar ) THEN
+      in1 = in1 + cbar
       IF ( Ix(in1)/=jpos ) THEN
          kkk = max0(0,bbbar-jpos+Ix(in1)-1)
          in2 = i4 + 2*k*bbbar - 2
@@ -685,8 +694,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDIF
    ENDIF
    k = k + 1
-   IF ( k<Cbar ) GOTO 1000
-   IF ( k/=Cbar ) THEN
+   IF ( k<cbar ) GOTO 1000
+   IF ( k/=cbar ) THEN
       parm(1) = -25
       CALL mesage(parm(1),parm(2),parm(3))
       GOTO 99999
@@ -732,8 +741,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     INTERCHANGE ROWS IN AREA II
 !
-      Det(1) = -Det(1)
-      Det(2) = -Det(2)
+      det(1) = -det(1)
+      det(2) = -det(2)
 !
       max(1) = Dx(in1)
       in2 = in1 + 2*intchn
@@ -759,23 +768,23 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
    IF ( da(1)==0.D0 ) GOTO 2900
    max(1) = Dx(in1)/da(1)
    max(2) = -Dx(in1+1)/da(1)
-   Mindia = dmin1(dsqrt(da(1)),Mindia)
-   da(1) = dmax1(dabs(Det(1)),dabs(Det(2)))
+   mindia = dmin1(dsqrt(da(1)),mindia)
+   da(1) = dmax1(dabs(det(1)),dabs(det(2)))
    DO WHILE ( da(1)>10.D0 )
-      Det(1) = Det(1)*.1D0
-      Det(2) = Det(2)*.1D0
+      det(1) = det(1)*.1D0
+      det(2) = det(2)*.1D0
       da(1) = da(1)*.1D0
-      Power = Power + 1
+      power = power + 1
    ENDDO
    DO WHILE ( da(1)<.1D0 )
-      Det(1) = Det(1)*10.D0
-      Det(2) = Det(2)*10.D0
+      det(1) = det(1)*10.D0
+      det(2) = det(2)*10.D0
       da(1) = da(1)*10.D0
-      Power = Power - 1
+      power = power - 1
    ENDDO
-   da(1) = Det(1)*Dx(in1) - Det(2)*Dx(in1+1)
-   Det(2) = Det(2)*Dx(in1) + Det(1)*Dx(in1+1)
-   Det(1) = da(1)
+   da(1) = det(1)*Dx(in1) - det(2)*Dx(in1+1)
+   det(2) = det(2)*Dx(in1) + det(1)*Dx(in1+1)
+   det(1) = da(1)
    k = 1
    end = min0(bbar1,ncol-jpos+1)
    IF ( end/=1 ) THEN
@@ -807,8 +816,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          Dx(in1) = da(1)
          in1 = in1 + 2*bbbar
          k = k + 1
-         IF ( k<Cbar ) THEN
-         ELSEIF ( k==Cbar ) THEN
+         IF ( k<cbar ) THEN
+         ELSEIF ( k==cbar ) THEN
             EXIT
          ELSE
             parm(1) = -25
@@ -856,8 +865,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDDO
    ENDIF
    k = k + 1
-   IF ( k<C ) GOTO 1200
-   IF ( k/=C ) THEN
+   IF ( k<c ) GOTO 1200
+   IF ( k/=c ) THEN
       parm(1) = -25
       CALL mesage(parm(1),parm(2),parm(3))
       GOTO 99999
@@ -865,17 +874,17 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     WRITE OUT THE NEXT COLUMN OF U AND THE ROW OF ACTIVE ELEMENTS
 !
- 1300 parm(2) = Sr2fil
-   CALL bldpk(Cdp,typel,Sr2fil,0,0)
+ 1300 parm(2) = sr2fil
+   CALL bldpk(cdp,typel,sr2fil,0,0)
    in1 = i2
-   Jj = ioff
+   jj = ioff
    DO
       dz(1) = Dx(in1)
       dz(2) = Dx(in1+1)
       IF ( dz(1)/=0.D0 .OR. dz(2)/=0.D0 ) CALL zblpki
       in1 = in1 + 2
-      Jj = Jj + 1
-      IF ( Jj>jpos ) THEN
+      jj = jj + 1
+      IF ( jj>jpos ) THEN
          IF ( Dx(in1-2)==0.D0 .AND. Dx(in1-1)==0.D0 ) GOTO 2900
 !
 !     PACK ACTIVE COLUMN ELEMENTS ALSO
@@ -893,7 +902,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       dz(1) = Dx(in3)
       dz(2) = Dx(in3+1)
       IF ( dz(1)/=0.D0 .OR. dz(2)/=0.D0 ) THEN
-         Jj = Ix(in2)
+         jj = Ix(in2)
          CALL zblpki
       ENDIF
       k = k + 1
@@ -906,7 +915,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          GOTO 99999
       ENDIF
    ENDDO
- 1400 CALL bldpkn(Sr2fil,0,Fileu)
+ 1400 CALL bldpkn(sr2fil,0,fileu)
 !
 !     COMPUTE ACTIVE ROW-COLUMN INTERACTION
 !
@@ -919,13 +928,13 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       DO
          in2 = i4 + 2*kk*bbbar
          IF ( Dx(in2)/=0.D0 .OR. Dx(in2+1)/=0.D0 ) THEN
-            in3 = i5 + 2*(k*Cbar+kk)
+            in3 = i5 + 2*(k*cbar+kk)
             Dx(in3) = Dx(in3) + Dx(in2)*Dx(in1) - Dx(in2+1)*Dx(in1+1)
             Dx(in3+1) = Dx(in3+1) + Dx(in2)*Dx(in1+1) + Dx(in2+1)*Dx(in1)
          ENDIF
          kk = kk + 1
-         IF ( kk<Cbar ) THEN
-         ELSEIF ( kk==Cbar ) THEN
+         IF ( kk<cbar ) THEN
+         ELSEIF ( kk==cbar ) THEN
             EXIT
          ELSE
             parm(1) = -25
@@ -935,8 +944,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDDO
    ENDIF
    k = k + 1
-   IF ( k<C ) GOTO 1500
-   IF ( k/=C ) THEN
+   IF ( k<c ) GOTO 1500
+   IF ( k/=c ) THEN
       parm(1) = -25
       CALL mesage(parm(1),parm(2),parm(3))
       GOTO 99999
@@ -956,8 +965,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          Dx(in2) = Dx(in2+2)
          Dx(in2+1) = Dx(in2+3)
          kk = kk + 1
-         IF ( kk<Bbar ) THEN
-         ELSEIF ( kk==Bbar ) THEN
+         IF ( kk<bbar ) THEN
+         ELSEIF ( kk==bbar ) THEN
             Dx(in2+2) = 0.D0
             Dx(in2+3) = 0.D0
             EXIT
@@ -969,8 +978,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDDO
    ENDIF
    k = k + 1
-   IF ( k<C ) GOTO 1700
-   IF ( k/=C ) THEN
+   IF ( k<c ) GOTO 1700
+   IF ( k/=c ) THEN
       parm(1) = -25
       CALL mesage(parm(1),parm(2),parm(3))
       GOTO 99999
@@ -983,26 +992,26 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     OUTPUT A COLUMN OF L
 !
-   parm(2) = Filel(1)
+   parm(2) = filel(1)
    jposl = jposl + 1
-   CALL bldpk(Cdp,typel,Filel(1),0,0)
+   CALL bldpk(cdp,typel,filel(1),0,0)
 !
 !     STORE THE PERMUTATION INDEX AS THE DIAGONAL ELEMENT
 !
-   Jj = jposl
+   jj = jposl
    dz(1) = Ix(i1sp)
    dz(2) = 0.D0
    CALL zblpki
    k = 0
    DO
-      Jj = jposl + k + 1
+      jj = jposl + k + 1
       in2 = i1 + k + k
       dz(1) = Dx(in2)
       dz(2) = Dx(in2+1)
       IF ( dz(1)/=0.D0 .OR. dz(2)/=0.D0 ) CALL zblpki
       k = k + 1
-      IF ( k<Bbar ) THEN
-      ELSEIF ( k==Bbar ) THEN
+      IF ( k<bbar ) THEN
+      ELSEIF ( k==bbar ) THEN
 !
 !     PACK ACTIVE ROW ELEMENTS ALSO
 !
@@ -1019,7 +1028,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       in1 = i6sp + k
       in2 = i4 + (Ix(in1)*bbbar)*2
       in1 = Ix(in1) + i4sp
-      Jj = Ix(in1)
+      jj = Ix(in1)
       dz(1) = Dx(in2)
       dz(2) = Dx(in2+1)
       IF ( dz(1)/=0.D0 .OR. dz(2)/=0.D0 ) CALL zblpki
@@ -1033,7 +1042,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          GOTO 99999
       ENDIF
    ENDDO
- 1900 CALL bldpkn(Filel,0,Filel)
+ 1900 CALL bldpkn(filel,0,filel)
 !
 !     MOVE PERMUTATION INDICES OVER ONE ELEMENT
 !
@@ -1046,32 +1055,32 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
    k = 0
    IF ( scrflg/=0 ) THEN
-      CALL close(sr2fl,Rew)
-      CALL open(*2500,sr2fl,Ix(sr2buf),Rd)
-      IF ( R<=2 ) THEN
-         icrq = i1 + Bbar*4 - 1 - sr3buf
+      CALL close(sr2fl,rew)
+      CALL open(*2500,sr2fl,Ix(sr2buf),rd)
+      IF ( r<=2 ) THEN
+         icrq = i1 + bbar*4 - 1 - sr3buf
          IF ( icrq>0 ) GOTO 2800
-         ibbar4 = Bbar*4
+         ibbar4 = bbar*4
          CALL read(*2600,*2700,sr2fl,Dx(i1),ibbar4,0,flag)
          lcol = lcol - 1
          GOTO 2000
       ENDIF
    ENDIF
    DO
-      in1 = i1 + k*Bbar*2
-      in2 = in1 + Bbar + Bbar
-      CALL cxloop(Dx(in1),Dx(in2),Bbar)
+      in1 = i1 + k*bbar*2
+      in2 = in1 + bbar + bbar
+      CALL cxloop(Dx(in1),Dx(in2),bbar)
       k = k + 1
-      IF ( k-R+2<0 ) THEN
-      ELSEIF ( k-R+2==0 ) THEN
-         IF ( R<bbbar1 ) THEN
-            icrq = in2 + Bbar*4 - 1 - sr3buf
+      IF ( k-r+2<0 ) THEN
+      ELSEIF ( k-r+2==0 ) THEN
+         IF ( r<bbbar1 ) THEN
+            icrq = in2 + bbar*4 - 1 - sr3buf
             IF ( icrq>0 ) GOTO 2800
-            ibbar4 = Bbar*4
+            ibbar4 = bbar*4
             CALL read(*2600,*2700,sr2fl,Dx(in2),ibbar4,0,flag)
             lcol = lcol - 1
             EXIT
-         ELSEIF ( R/=bbbar1 ) THEN
+         ELSEIF ( r/=bbbar1 ) THEN
             parm(1) = -25
             CALL mesage(parm(1),parm(2),parm(3))
             GOTO 99999
@@ -1111,8 +1120,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDDO
    ENDIF
    k = k + 1
-   IF ( k<Cbar ) GOTO 2100
-   IF ( k/=Cbar ) THEN
+   IF ( k<cbar ) GOTO 2100
+   IF ( k/=cbar ) THEN
       parm(1) = -25
       CALL mesage(parm(1),parm(2),parm(3))
       GOTO 99999
@@ -1121,18 +1130,18 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     STORE COLUMN ON THE SCRATCH FILE
 !
-      IF ( lcol-R+1>=0 ) THEN
-         IF ( lcol-R+1/=0 ) THEN
-            in1 = i1 + (lll-1)*Bbar*2
-            CALL write(sr3fl,Dx(in1),Bbar*4,0)
+      IF ( lcol-r+1>=0 ) THEN
+         IF ( lcol-r+1/=0 ) THEN
+            in1 = i1 + (lll-1)*bbar*2
+            CALL write(sr3fl,Dx(in1),bbar*4,0)
          ENDIF
          in1 = i2 + 2*(jpos-ioff+1)
-         CALL write(sr3fl,Dx(in1),Bbar*4,0)
+         CALL write(sr3fl,Dx(in1),bbar*4,0)
 !
 !     CLOSE SCRATCH FILES AND SWITCH THE POINTERS TO THEM
 !
-         CALL close(sr3fl,Rew)
-         CALL close(sr2fl,Rew)
+         CALL close(sr3fl,rew)
+         CALL close(sr2fl,rew)
          in1 = sr2fl
          sr2fl = sr3fl
          sr3fl = in1
@@ -1142,8 +1151,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     STORE COLUMN IN CORE
 !
-   in1 = i1 + 2*lcol*Bbar
-   end = min0(Bbar,ncol-jpos)
+   in1 = i1 + 2*lcol*bbar
+   end = min0(bbar,ncol-jpos)
    IF ( end/=0 ) THEN
       k = 0
       in3 = i2 + 2*(jpos-ioff+1)
@@ -1164,14 +1173,14 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
       ENDDO
    ENDIF
  2300 lcol = lcol + 1
-   IF ( C/=0 ) THEN
+   IF ( c/=0 ) THEN
       IF ( jpos>=bbbar ) THEN
 !
 !     READ IN THE NEXT ROW OF ACTIVE COLUMN ELEMENTS
 !
          count = ccount
          IF ( itrn>=0 ) THEN
-            DO WHILE ( itrn<=jpos-B+2 )
+            DO WHILE ( itrn<=jpos-b+2 )
 !
 !     TEST TO SEE IF COLUMN IS ALREADY ACTIVE
 !
@@ -1188,8 +1197,8 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                      EXIT
                   ELSE
                      k = k + 1
-                     IF ( k<C ) THEN
-                     ELSEIF ( k==C ) THEN
+                     IF ( k<c ) THEN
+                     ELSEIF ( k==c ) THEN
 !
 !     CREATE A NEW ACTIVE COLUMN
 !
@@ -1198,7 +1207,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                            in1 = i3sp + k
                            IF ( Ix(in1)==0 ) THEN
                               Ix(in1) = jtrn
-                              in1 = in1 + C
+                              in1 = in1 + c
                               Ix(in1) = itrn
                               in1 = i3 + 2*(k+1)*bbar1 - 2
                               Dx(in1) = dtrn(1)
@@ -1207,7 +1216,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                               GOTO 2305
                            ELSE
                               k = k + 1
-                              IF ( k>=C ) THEN
+                              IF ( k>=c ) THEN
                                  parm(1) = -25
                                  CALL mesage(parm(1),parm(2),parm(3))
                                  GOTO 99999
@@ -1221,9 +1230,9 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                      ENDIF
                   ENDIF
                ENDDO
- 2305          CALL read(*2600,*2700,Sr1fil,itran(1),6,0,flag)
+ 2305          CALL read(*2600,*2700,sr1fil,itran(1),6,0,flag)
                IF ( itrn<=0 ) THEN
-                  CALL close(Sr1fil,Rew)
+                  CALL close(sr1fil,rew)
                   EXIT
                ENDIF
             ENDDO
@@ -1241,7 +1250,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     ZERO AREA II
 !
-   end = i2 + 2*min0(jpos-ioff+Bbar-1,ncol-1) + 1
+   end = i2 + 2*min0(jpos-ioff+bbar-1,ncol-1) + 1
    DO i = i2 , end
       Dx(i) = 0.D0
    ENDDO
@@ -1255,9 +1264,9 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
          k = 0
          DO
             in2 = in1 + k
-            IF ( Ix(in2)==jpos-B+1 ) THEN
+            IF ( Ix(in2)==jpos-b+1 ) THEN
                in1 = i5 + k + k
-               in2 = i3 + Bbar + Bbar
+               in2 = i3 + bbar + bbar
                k = 0
                DO
                   Dx(in2) = Dx(in2) - Dx(in1)
@@ -1265,13 +1274,13 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
                   Dx(in1) = 0.D0
                   Dx(in1+1) = 0.D0
                   in2 = in2 + bbar1 + bbar1
-                  in1 = in1 + Cbar + Cbar
+                  in1 = in1 + cbar + cbar
                   k = k + 1
-                  IF ( k>=C ) GOTO 2450
+                  IF ( k>=c ) GOTO 2450
                ENDDO
             ELSE
                k = k + 1
-               IF ( k>=Cbar ) GOTO 300
+               IF ( k>=cbar ) GOTO 300
             ENDIF
          ENDDO
       ENDIF
@@ -1284,7 +1293,7 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !     ELIMINATE THE ACTIVE ROW
 !
          Ix(in1) = 0
-         in1 = in1 + Cbar
+         in1 = in1 + cbar
          Ix(in1) = 0
          cbcnt = cbcnt - 1
 !
@@ -1317,13 +1326,13 @@ SUBROUTINE cdcomp(Ix,X,Dx) !HIDESTARS (*,Ix,X,Dx)
 !
 !     SINGULAR MATRIX - CLOSE ALL FILES AND RETURN TO USER
 !
- 2900 CALL close(Filea(1),Rew)
-   CALL close(Filel(1),Rew)
-   CALL close(Fileu(1),Rew)
-   CALL close(Sr1fil,Rew)
-   CALL close(Sr2fil,Rew)
-   CALL close(Sr3fil,Rew)
+ 2900 CALL close(filea(1),rew)
+   CALL close(filel(1),rew)
+   CALL close(fileu(1),rew)
+   CALL close(sr1fil,rew)
+   CALL close(sr2fil,rew)
+   CALL close(sr3fil,rew)
 !WKBR SPR94018 4/95      FILEU(2) = BBBAR
-   Fileu(7) = bbbar
+   fileu(7) = bbbar
    RETURN 1
 99999 END SUBROUTINE cdcomp

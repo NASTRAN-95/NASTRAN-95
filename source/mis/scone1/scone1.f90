@@ -1,13 +1,14 @@
-!*==scone1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==scone1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scone1
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -134,8 +135,8 @@ SUBROUTINE scone1
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Costh = 1.0
-         Sinth = 0.0
+         costh = 1.0
+         sinth = 0.0
          n = necpt(1) - ((necpt(1)/1000)*1000) - 1
          temp1 = rb - ra
          temp2 = zb - za
@@ -172,7 +173,7 @@ SUBROUTINE scone1
 !
             rasq = ra*ra
             rbsq = rb*rb
-            piovb = Pi/b
+            piovb = pi/b
 !
             integ(1) = 0.5E0*piovb*(rbsq-rasq)
             integ(2) = piovb*(rb-ra)
@@ -232,7 +233,7 @@ SUBROUTINE scone1
                      ENDIF
                   ENDDO
 !
-                  integ(isub) = sum*Pi*fac(mplus1)/b**mplus1
+                  integ(isub) = sum*pi*fac(mplus1)/b**mplus1
                ENDDO
             ENDDO
          ELSE
@@ -255,7 +256,7 @@ SUBROUTINE scone1
 !     N = J - 1
 !     MPLUS1 THUS EQUALS I
                   isub = isub + 1
-                  integ(isub) = (Pi*sl**i)/(float(i)*ra**(j-2))
+                  integ(isub) = (pi*sl**i)/(float(i)*ra**(j-2))
                ENDDO
 !
 !     ABOVE COMPLETES ALL INTEGRALS FOR B = 0...
@@ -267,7 +268,7 @@ SUBROUTINE scone1
 !
 !
          DO i = 1 , 80
-            Ks(i) = 0.0E0
+            ks(i) = 0.0E0
          ENDDO
 !
          r = 0.50E0*(ra+rb)
@@ -278,23 +279,23 @@ SUBROUTINE scone1
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          var = 1.0
-         Matid = matid1
+         matid = matid1
          ASSIGN 20 TO icont
          spag_nextblock_1 = 2
       CASE (2)
 !
-         Eltemp = Ecpt(35)
-         Inflag = 2
-         CALL mat(Ecpt(1))
-         g(1) = G11*var
-         g(2) = G12*var
-         g(3) = G13*var
-         g(4) = G12*var
-         g(5) = G22*var
-         g(6) = G23*var
-         g(7) = G13*var
-         g(8) = G23*var
-         g(9) = G33*var
+         eltemp = ecpt(35)
+         inflag = 2
+         CALL mat(ecpt(1))
+         g(1) = g11*var
+         g(2) = g12*var
+         g(3) = g13*var
+         g(4) = g12*var
+         g(5) = g22*var
+         g(6) = g23*var
+         g(7) = g13*var
+         g(8) = g23*var
+         g(9) = g33*var
 !
          GOTO icont
 !
@@ -316,7 +317,7 @@ SUBROUTINE scone1
          t30(23) = -t30(11)
          t30(24) = -t30(12)
 !
-         CALL gmmats(g(1),3,3,0,t30(1),3,10,0,Ks(1))
+         CALL gmmats(g(1),3,3,0,t30(1),3,10,0,ks(1))
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -326,7 +327,7 @@ SUBROUTINE scone1
 !     THIS THEN IS THE D 3X3 MATRIX BY EQUIVALENCE...
 !
             var = iii
-            Matid = matid2
+            matid = matid2
             ASSIGN 40 TO icont
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -338,23 +339,23 @@ SUBROUTINE scone1
 !
 !     FORMING 1.0/Q DIRECTLY
 !
- 40      opi = one/Pi
+ 40      opi = one/pi
          DO i = 1 , 20
             hyq(i) = 0.0E0
          ENDDO
          IF ( ts/=0 ) THEN
 !
-            Eltemp = Ecpt(35)
-            Inflag = 1
-            Matid = matid3
+            eltemp = ecpt(35)
+            inflag = 1
+            matid = matid3
             CALL mat(necpt(1))
 !
-            IF ( G12==0.0 ) THEN
+            IF ( g12==0.0 ) THEN
                ts = 0.0
             ELSE
                n2d33 = n2*d33
                sp2d22 = sp2*d22
-               oq = sl*ts*G12*(ra+rb)*0.5E0 + i02*(n2d33+sp2d22)*opi
+               oq = sl*ts*g12*(ra+rb)*0.5E0 + i02*(n2d33+sp2d22)*opi
                oq = one/oq
                nspopi = nsp*opi
                twod33 = 2.0E0*d33
@@ -379,9 +380,9 @@ SUBROUTINE scone1
                hyq(19) = 1.0E0
                hyq(20) = s
 !
-               tsg3 = ts*G12
+               tsg3 = ts*g12
                DO i = 1 , 20
-                  Ks(i+60) = hyq(i)*tsg3
+                  ks(i+60) = hyq(i)*tsg3
 !     FILL HXQ MATIX
 !
                ENDDO
@@ -420,7 +421,7 @@ SUBROUTINE scone1
             t30(29) = spovr + novr*h19
             t30(30) = -1.0E0 + spovr*s + novr*h1ten
 !
-            CALL gmmats(g(1),3,3,0,t30(1),3,10,0,Ks(31))
+            CALL gmmats(g(1),3,3,0,t30(1),3,10,0,ks(31))
          ENDIF
 !
 !
@@ -428,50 +429,50 @@ SUBROUTINE scone1
 !     FILL HUQ PER PAGE 15 MS-28
 !
          DO i = 1 , 100
-            Huq(i) = 0.0E0
+            huq(i) = 0.0E0
          ENDDO
-         Huq(1) = one
-         Huq(13) = one
-         Huq(25) = one
-         Huq(36) = one
-         Huq(49) = one
-         Huq(51) = one
-         Huq(52) = sl
-         Huq(63) = one
-         Huq(64) = sl
-         Huq(75) = one
-         Huq(76) = sl
-         Huq(77) = l2
-         Huq(78) = Huq(77)*sl
-         Huq(86) = one
-         Huq(87) = 2.0E0*sl
-         Huq(88) = 3.0E0*Huq(77)
-         Huq(100) = sl
+         huq(1) = one
+         huq(13) = one
+         huq(25) = one
+         huq(36) = one
+         huq(49) = one
+         huq(51) = one
+         huq(52) = sl
+         huq(63) = one
+         huq(64) = sl
+         huq(75) = one
+         huq(76) = sl
+         huq(77) = l2
+         huq(78) = huq(77)*sl
+         huq(86) = one
+         huq(87) = 2.0E0*sl
+         huq(88) = 3.0E0*huq(77)
+         huq(100) = sl
 !
          IF ( ts/=0 ) THEN
 !
-            Huq(41) = cp/ra
-            Huq(45) = n/ra
-            Huq(91) = cp/rb
-            Huq(92) = Huq(91)*sl
-            Huq(95) = n/rb
-            Huq(96) = Huq(95)*sl
-            Huq(97) = Huq(95)*l2
-            Huq(98) = Huq(96)*l2
-            Huq(99) = one
-            Huq(100) = sl
+            huq(41) = cp/ra
+            huq(45) = n/ra
+            huq(91) = cp/rb
+            huq(92) = huq(91)*sl
+            huq(95) = n/rb
+            huq(96) = huq(95)*sl
+            huq(97) = huq(95)*l2
+            huq(98) = huq(96)*l2
+            huq(99) = one
+            huq(100) = sl
 !
 !     SUBTRACT FROM ROWS 4 AND 9 OF THE ABOVE MATRIX, THE HYQ MATRIX...
 !
             DO i = 1 , 10
-               Huq(i+30) = Huq(i+30) - hyq(i)
-               Huq(i+80) = Huq(i+80) - hyq(i)
+               huq(i+30) = huq(i+30) - hyq(i)
+               huq(i+80) = huq(i+80) - hyq(i)
             ENDDO
          ENDIF
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
          ising = -1
-         CALL invers(10,Huq(1),10,dum,0,determ,ising,t30(1))
+         CALL invers(10,huq(1),10,dum,0,determ,ising,t30(1))
 !
 !     CHECK SINGULARITY
          IF ( ising/=1 ) CALL mesage(-30,40,necpt(1))
@@ -479,8 +480,8 @@ SUBROUTINE scone1
 !
 !     NOT SINGULAR, CONTINUE ON..
          IF ( ts==0.0 ) THEN
-            Huq(85) = 0.0
-            Huq(100) = 0.0
+            huq(85) = 0.0
+            huq(100) = 0.0
          ENDIF
 !                            T                      T
 !           GET EHAT = (E)(H  ),  AND  EHBT = (E)(H  )
@@ -505,40 +506,40 @@ SUBROUTINE scone1
             DO i = 1 , 10
                isub = i + inc1
                iten = 10*i - 9 + inc2
-               H(isub) = Huq(iten+1)*sp + Huq(iten+2)*cp
-               H(isub+10) = Huq(iten)
-               H(isub+20) = Huq(iten+1)*cp - Huq(iten+2)*sp
-               H(isub+30) = Huq(iten+4)*sp
-               H(isub+40) = Huq(iten+3)
-               H(isub+50) = Huq(iten+4)*cp
+               h(isub) = huq(iten+1)*sp + huq(iten+2)*cp
+               h(isub+10) = huq(iten)
+               h(isub+20) = huq(iten+1)*cp - huq(iten+2)*sp
+               h(isub+30) = huq(iten+4)*sp
+               h(isub+40) = huq(iten+3)
+               h(isub+50) = huq(iten+4)*cp
             ENDDO
             IF ( inc1/=0 ) THEN
 !
                DO i = 1 , 2
-                  CALL gmmats(Ks(1),8,10,0,H(60*i-59),6,10,1,Ph1out(48*i-25))
+                  CALL gmmats(ks(1),8,10,0,h(60*i-59),6,10,1,ph1out(48*i-25))
                ENDDO
                ssubt = 0.0E0
                IF ( matid1/=0 ) THEN
 !     COMPUTE S SUB T
 !
-                  Inflag = 1
-                  Matid = matid1
-                  Eltemp = Ecpt(35)
-                  CALL mat(Ecpt(1))
-                  ssubt = G11*Pi*Alpha/(1.0E0-G13)
+                  inflag = 1
+                  matid = matid1
+                  eltemp = ecpt(35)
+                  CALL mat(ecpt(1))
+                  ssubt = g11*pi*alpha/(1.0E0-g13)
                   IF ( n==0.0E0 ) ssubt = 2.0E0*ssubt
                ENDIF
 !
-               Ph1out(1) = Ecpt(1)
-               Ph1out(2) = Ecpt(2)
-               Ph1out(3) = Ecpt(3)
-               Ph1out(4) = ssubt
-               Ph1out(5) = n
-               Ph1out(6) = iii
-               Ph1out(7) = z1
-               Ph1out(8) = z2
+               ph1out(1) = ecpt(1)
+               ph1out(2) = ecpt(2)
+               ph1out(3) = ecpt(3)
+               ph1out(4) = ssubt
+               ph1out(5) = n
+               ph1out(6) = iii
+               ph1out(7) = z1
+               ph1out(8) = z2
                DO i = 9 , 22
-                  Ph1out(i) = Ecpt(i+4)
+                  ph1out(i) = ecpt(i+4)
                ENDDO
                EXIT SPAG_Loop_1_1
             ELSE

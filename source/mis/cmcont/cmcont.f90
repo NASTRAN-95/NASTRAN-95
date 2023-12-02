@@ -1,15 +1,16 @@
-!*==cmcont.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmcont.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmcont
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmbfnd
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMBFND
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -35,43 +36,43 @@ SUBROUTINE cmcont
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         icor = Score
-         iclen = Lcore
-         mfile = Scsfil
-         CALL open(*20,Scsfil,Z(Buf3),0)
-         ofile = Scr2
-         ifile = Scr1
-         nwd = 2 + Npsub
+         icor = score
+         iclen = lcore
+         mfile = scsfil
+         CALL open(*20,scsfil,z(buf3),0)
+         ofile = scr2
+         ifile = scr1
+         nwd = 2 + npsub
          odd = .FALSE.
 !
-         DO i = 1 , Npsub
+         DO i = 1 , npsub
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   odd = .NOT.odd
-                  ncsub = Combo(i,5)
+                  ncsub = combo(i,5)
 !
 !     READ IN EQSS FOR ITH PSEUDO-STRUCTURE
 !
                   mfile = ifile
-                  CALL open(*20,ifile,Z(Buf1),0)
+                  CALL open(*20,ifile,z(buf1),0)
                   mfile = ofile
-                  CALL open(*20,ofile,Z(Buf2),1)
+                  CALL open(*20,ofile,z(buf2),1)
 !
 !     MOVE TO FIRST COMPONENT EQSS
 !
                   DO j = 1 , ncsub
-                     mfile = Scsfil
-                     CALL read(*40,*2,Scsfil,Z(Score),Lcore,1,nnn)
+                     mfile = scsfil
+                     CALL read(*40,*2,scsfil,z(score),lcore,1,nnn)
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
- 2                   istrt(j) = Score
+ 2                   istrt(j) = score
                      ilen(j) = nnn
-                     Score = Score + nnn
-                     Lcore = Lcore - nnn
+                     score = score + nnn
+                     lcore = lcore - nnn
                   ENDDO
-                  CALL skpfil(Scsfil,1)
+                  CALL skpfil(scsfil,1)
 !
 !     CONNECTION ENTRIES IN TERMS OF GRID POINT ID ARE ON SCR1
 !     IN THE FORM...
@@ -93,8 +94,8 @@ SUBROUTINE cmcont
 !     IF IT HAS SEVERAL IP NO.
 !
                      IF ( ilen(icomp)/=0 ) THEN
-                        CALL gridip(igrid,istrt(icomp),ilen(icomp),ip,dof,nip,Z,nnn)
-                        IF ( Ierr/=1 ) THEN
+                        CALL gridip(igrid,istrt(icomp),ilen(icomp),ip,dof,nip,z,nnn)
+                        IF ( ierr/=1 ) THEN
                            DO j = 1 , nip
                               ii2 = rshift(dof(j),26)
                               ii2 = lshift(ii2,26)
@@ -113,16 +114,16 @@ SUBROUTINE cmcont
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
                      ENDIF
-                     Idry = -2
-                     WRITE (Outt,99001) Ufm , igrid , Combo(i,1) , Combo(i,2) , icomp
+                     idry = -2
+                     WRITE (outt,99001) ufm , igrid , combo(i,1) , combo(i,2) , icomp
 99001                FORMAT (A23,' 6535, A MANUAL CONNECTION SPECIFIES GRID ID ',I8,' OF PSEUDOSTRUCTURE ',2A4,/30X,                &
                             &'COMPONENT STRUCTURE,I4,22H WHICH DOES NOT EXIST.')
                   ENDIF
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
  6                CALL close(ifile,1)
-                  IF ( i==Npsub ) CALL close(ofile,2)
-                  IF ( i<Npsub ) CALL close(ofile,1)
+                  IF ( i==npsub ) CALL close(ofile,2)
+                  IF ( i<npsub ) CALL close(ofile,1)
                   isave = ifile
                   ifile = ofile
                   ofile = isave
@@ -130,13 +131,13 @@ SUBROUTINE cmcont
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         Scconn = Scr1
-         IF ( odd ) Scconn = Scr2
-         IF ( Scconn==Scr1 ) Scr1 = 305
-         IF ( Scconn==Scr2 ) Scr2 = 305
-         Score = icor
-         Lcore = iclen
-         CALL close(Scsfil,1)
+         scconn = scr1
+         IF ( odd ) scconn = scr2
+         IF ( scconn==scr1 ) scr1 = 305
+         IF ( scconn==scr2 ) scr2 = 305
+         score = icor
+         lcore = iclen
+         CALL close(scsfil,1)
          RETURN
 !
  20      imsg = -1
@@ -144,7 +145,6 @@ SUBROUTINE cmcont
          CYCLE SPAG_DispatchLoop_1
  40      imsg = -2
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          imsg = -8
          spag_nextblock_1 = 3

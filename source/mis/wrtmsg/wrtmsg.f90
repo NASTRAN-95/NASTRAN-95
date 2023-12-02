@@ -1,11 +1,12 @@
-!*==wrtmsg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==wrtmsg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE wrtmsg(Filex)
+   USE c_machin
+   USE c_output
+   USE c_system
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,7 +49,7 @@ SUBROUTINE wrtmsg(Filex)
 !
    DO j = 1 , 6
       DO i = 1 , 32
-         ttlsav(i,j) = Title(i,j)
+         ttlsav(i,j) = title(i,j)
       ENDDO
    ENDDO
 !
@@ -60,7 +61,7 @@ SUBROUTINE wrtmsg(Filex)
 !     A TITLE OR SUBTITLE FOLLOWS.
 !
          n = -n
-         IF ( n<=6 ) CALL fread(file,Title(1,n),32,0)
+         IF ( n<=6 ) CALL fread(file,title(1,n),32,0)
          IF ( n>6 ) CALL fread(file,0,-32,0)
          GOTO 100
       ELSEIF ( n/=0 ) THEN
@@ -132,15 +133,14 @@ SUBROUTINE wrtmsg(Filex)
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
                         DO i = 1 , 32
-                           IF ( Title(i,j)/=blank ) THEN
+                           IF ( title(i,j)/=blank ) THEN
                               spag_nextblock_2 = 2
                               CYCLE SPAG_DispatchLoop_2
                            ENDIF
                         ENDDO
                         count = count - 1
-                        CYCLE
                      CASE (2)
-                        WRITE (mo,99001) (Title(i,j),i=1,32)
+                        WRITE (mo,99001) (title(i,j),i=1,32)
                         EXIT SPAG_DispatchLoop_2
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
@@ -149,9 +149,9 @@ SUBROUTINE wrtmsg(Filex)
                count = count + 1
             ENDIF
 !
-            IF ( n==0 .AND. (Mach==5 .OR. Mach==12) ) THEN
+            IF ( n==0 .AND. (mach==5 .OR. mach==12) ) THEN
                WRITE (mo,for)
-            ELSEIF ( Mach==5 .OR. Mach==12 ) THEN
+            ELSEIF ( mach==5 .OR. mach==12 ) THEN
                WRITE (mo,for,ERR=200) (lst(j),j=1,n)
             ELSE
                CALL forwrt(formt,lst,n)
@@ -170,7 +170,7 @@ SUBROUTINE wrtmsg(Filex)
  300  CALL close(file,rew)
    DO j = 1 , 6
       DO i = 1 , 32
-         Title(i,j) = ttlsav(i,j)
+         title(i,j) = ttlsav(i,j)
       ENDDO
    ENDDO
 99001 FORMAT (2X,32A4)

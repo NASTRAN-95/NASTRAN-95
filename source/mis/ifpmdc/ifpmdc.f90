@@ -1,17 +1,18 @@
-!*==ifpmdc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifpmdc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifpmdc
+   USE c_ifpdta
+   USE c_ifpx0
+   USE c_ifpx1
+   USE c_machin
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_xsrtcm
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFPDTA
-   USE C_IFPX0
-   USE C_IFPX1
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_XSRTCM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -56,13 +57,13 @@ SUBROUTINE ifpmdc
 !
 !     FIRST CALL INITIALIZE OPEN FILE ADJUST CORE
 !
-         ibuf1 = Nopen + 2*Ibuf
-         Nopen = Nopen - Ibuf
+         ibuf1 = nopen + 2*ibuf
+         nopen = nopen - ibuf
          DO i = 1 , 38
-            con(i) = andf(con(i),Im3(4))
+            con(i) = andf(con(i),im3(4))
          ENDDO
-         IF ( Nopen<=0 ) THEN
-            WRITE (Nout,99001) Ufm
+         IF ( nopen<=0 ) THEN
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 303, NO OPEN CORE IFP')
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
@@ -74,7 +75,7 @@ SUBROUTINE ifpmdc
             ionf = 0
             ilst = 0
             ieof = 1
-            CALL open(*140,ifil,Kor(ibuf1+1),0)
+            CALL open(*140,ifil,kor(ibuf1+1),0)
          ENDIF
  20      CALL read(*120,*120,ifil,ick,6,0,nw)
          spag_nextblock_1 = 2
@@ -82,21 +83,20 @@ SUBROUTINE ifpmdc
 !
 !     CHECK INCOMING  CALL FOR VARY MATCH SORT, UNSORT AND/OR CONT
 !
-         IF ( k/=Kn ) THEN
+         IF ( k/=kn ) THEN
 !
 !     NOT CARD WE ARE WORKING ON CHECK ALPH POSITION
 !
-            IF ( cf .OR. iod==Kn ) THEN
+            IF ( cf .OR. iod==kn ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            iod = Kn
+            iod = kn
             isc = 0
             ASSIGN 40 TO exi
-            xi(1) = T1(1,k)
-            xi(2) = T1(2,k)
+            xi(1) = t1(1,k)
+            xi(2) = t1(2,k)
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
 !
 !     CARD TYPE FOUND TRY ID
 !
@@ -132,7 +132,6 @@ SUBROUTINE ifpmdc
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( cf .AND. nf/=0 .AND. ilst==ick(2) .AND. cnt==1 ) THEN
                spag_nextblock_1 = 5
@@ -149,28 +148,28 @@ SUBROUTINE ifpmdc
             nf = 0
             ionf = 0
             ASSIGN 20 TO ret
-            IF ( M(1)<ick(2) ) THEN
+            IF ( m(1)<ick(2) ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( M(1)>ick(2) ) THEN
+            IF ( m(1)>ick(2) ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             ilst = ick(2)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  40      ivc(1) = xi(1)
          ivc(2) = xi(2)
          ASSIGN 60 TO exi
-         xi(1) = T1(1,Kn)
-         xi(i) = T1(2,Kn)
+         xi(1) = t1(1,kn)
+         xi(i) = t1(2,kn)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  60      inc(1) = xi(1)
          inc(2) = xi(2)
-         IF ( Mach/=2 ) THEN
+         IF ( mach/=2 ) THEN
             inc(1) = rshift(inc(1),1)
             ivc(1) = rshift(ivc(1),1)
          ENDIF
@@ -185,20 +184,19 @@ SUBROUTINE ifpmdc
 !
 !     SHIFT IN CASE OF STAR
 !
-         inc(2) = rshift(inc(2),Nbits)
-         ivc(2) = rshift(ivc(2),Nbits)
+         inc(2) = rshift(inc(2),nbits)
+         ivc(2) = rshift(ivc(2),nbits)
          IF ( inc(2)<ivc(2) ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     FIND FIELD FORMAT DOES NOT COUNT FOR FIELD  1 OR 10 K1=COUNT
 !
          DO i = 1 , 50
-            IF ( Mf(i)==iefm ) THEN
+            IF ( mf(i)==iefm ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -220,7 +218,7 @@ SUBROUTINE ifpmdc
 !     CHECK TO SEE IF WE HAVE IT NOW
 !
          IF ( k1>nf ) THEN
-            IF ( M1(1)/=0 .AND. M1(2)/=0 ) THEN
+            IF ( m1(1)/=0 .AND. m1(2)/=0 ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -231,50 +229,50 @@ SUBROUTINE ifpmdc
 !     CHECK FORMAT FIELD FOR TYPE
 !
             k1 = k1 - ionf
-            IF ( Mf(k1)/=2 .AND. Mf(k1)/=0 ) THEN
-               WRITE (Nout,99002) Ufm , T1(1,k) , T1(2,k) , Knt , ick(2) , ick(3)
+            IF ( mf(k1)/=2 .AND. mf(k1)/=0 ) THEN
+               WRITE (nout,99002) ufm , t1(1,k) , t1(2,k) , knt , ick(2) , ick(3)
 99002          FORMAT (A23,' 0301, FIELD TO VARY IS NOT A REAL NUMBER. CARD ',2A4,'SORTED',I9,' ID',I9,' FIELD',I9)
-               Abort = .TRUE.
+               abort = .TRUE.
                GOTO ret
             ELSE
                j = 0
                DO i = 1 , k1
                   j = j + 1
-                  IF ( Mf(i)>2 ) j = j + 1
+                  IF ( mf(i)>2 ) j = j + 1
                ENDDO
 !
 !     PERFORM VARY
 !
                IF ( cd(6)==0.0 ) THEN
                   rm(j) = rm(j) + cd(4)*cd(5)
-                  Mf(k1) = 2
-                  IF ( diag ) WRITE (Nout,99004) Uim , T1(1,k) , T1(2,k) , Knt , ick(2) , ick(3) , rm(j)
+                  mf(k1) = 2
+                  IF ( diag ) WRITE (nout,99004) uim , t1(1,k) , t1(2,k) , knt , ick(2) , ick(3) , rm(j)
                ELSE
                   rm(j) = rm(j)*(1.0+cd(4)*cd(5))**cd(6)
-                  IF ( diag ) WRITE (Nout,99004) Uim , T1(1,k) , T1(2,k) , Knt , ick(2) , ick(3) , rm(j)
+                  IF ( diag ) WRITE (nout,99004) uim , t1(1,k) , t1(2,k) , knt , ick(2) , ick(3) , rm(j)
                ENDIF
 !
 !     SET RESTART BITS
 !
-               IF ( Apprch>=0 ) GOTO 80
+               IF ( apprch>=0 ) GOTO 80
 !
 !     CHECK FOR PARAM CARDS (82)
 !
-               IF ( Kn/=82 ) THEN
-                  j = Kn - 1
+               IF ( kn/=82 ) THEN
+                  j = kn - 1
                   GOTO 70
                ELSE
-                  DO i = Iparpt , Ncds
-                     IF ( M(1)==T1(1,i) .AND. M(2)==T1(2,i) ) GOTO 65
+                  DO i = iparpt , ncds
+                     IF ( m(1)==t1(1,i) .AND. m(2)==t1(2,i) ) GOTO 65
                   ENDDO
                   GOTO 80
                ENDIF
  65            j = i - 1
  70            karl = 1
-               IF ( icycl==0 ) Ibits(karl) = orf(Ibits(karl),rshift(1,(X-1)))
+               IF ( icycl==0 ) ibits(karl) = orf(ibits(karl),rshift(1,(x-1)))
                icycl = (j/31) + karl
                ipos = mod(j,31) + 2
-               Ibits(icycl) = orf(Ibits(icycl),Itwo(ipos))
+               ibits(icycl) = orf(ibits(icycl),itwo(ipos))
             ENDIF
  80         GOTO ret
          ENDIF
@@ -282,12 +280,11 @@ SUBROUTINE ifpmdc
 !     FOUND ID FIND FIELD
 !
  100     CALL read(*120,*120,ifil,ick,6,0,nw)
-         IF ( k==Kn .AND. nf/=0 .AND. isc==ick(2) ) THEN
+         IF ( k==kn .AND. nf/=0 .AND. isc==ick(2) ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     CHANGE EXTERNAL BCD TO INTERNAL BCD FOR SORT TEST
@@ -300,8 +297,8 @@ SUBROUTINE ifpmdc
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
                      ji = 5 - j
-                     ists = Isft(ji)
-                     test = rshift(andf(itm,Im3(j)),ists)
+                     ists = isft(ji)
+                     test = rshift(andf(itm,im3(j)),ists)
                      DO l = 1 , 37
                         IF ( test==con(l) ) THEN
                            spag_nextblock_2 = 2
@@ -311,7 +308,7 @@ SUBROUTINE ifpmdc
                      l = 1
                      EXIT SPAG_Loop_2_1
                   CASE (2)
-                     itm = orf(andf(itm,Im4(j)),lshift(l,ists+Isfim))
+                     itm = orf(andf(itm,im4(j)),lshift(l,ists+isfim))
                      IF ( l==1 ) EXIT SPAG_Loop_2_1
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
@@ -326,14 +323,14 @@ SUBROUTINE ifpmdc
 !
  120     CALL close(ifil,1)
          ieof = -1
-         ncore = ncore + Ibuf
+         ncore = ncore + ibuf
          spag_nextblock_1 = 7
       CASE (7)
 !
          cf = .FALSE.
          ionf = nf
-         IF ( M1(1)==0 .AND. M1(2)==0 ) cf = .TRUE.
-         IF ( M1(1)==iend ) THEN
+         IF ( m1(1)==0 .AND. m1(2)==0 ) cf = .TRUE.
+         IF ( m1(1)==iend ) THEN
 !
 !     LAST TIME ENTERED MAKE SURE FILE IS USED UP
 !
@@ -342,25 +339,23 @@ SUBROUTINE ifpmdc
 !
 !     IFP IS DONE BUT VARY IS NOT   MESSAGES FOR ANY LEFT
 !
-                  WRITE (Nout,99005) Ufm , T1(1,k) , T1(2,k) , ick(2) , ick(3)
+                  WRITE (nout,99005) ufm , t1(1,k) , t1(2,k) , ick(2) , ick(3)
                   CALL read(*120,*120,ifil,ick,6,0,nw)
                ENDDO
             ENDIF
          ENDIF
          RETURN
- 140     WRITE (Nout,99003) Sfm
+ 140     WRITE (nout,99003) sfm
 99003    FORMAT (A25,' 3037, ERROR IN IFPMDC')
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
-         WRITE (Nout,99005) Ufm , T1(1,k) , T1(2,k) , ick(2) , ick(3)
+         WRITE (nout,99005) ufm , t1(1,k) , t1(2,k) , ick(2) , ick(3)
          GOTO ret
       CASE (9)
-         Abort = .TRUE.
-         Nopen = Nopen + Ibuf
+         abort = .TRUE.
+         nopen = nopen + ibuf
          ieof = -1
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !

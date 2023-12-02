@@ -1,4 +1,5 @@
-!*==csumm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==csumm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE csumm(D1,D2,Id1,D3,D4,Id2,D5,D6,Id5)
@@ -96,7 +97,6 @@ SUBROUTINE csumm(D1,D2,Id1,D3,D4,Id2,D5,D6,Id5)
             ENDDO
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE csumm

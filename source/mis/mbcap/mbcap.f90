@@ -1,9 +1,10 @@
-!*==mbcap.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mbcap.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbcap(Nphi,Capphi)
+   USE c_mboxc
    IMPLICIT NONE
-   USE C_MBOXC
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,7 +38,7 @@ SUBROUTINE mbcap(Nphi,Capphi)
       DO i = 1 , 8
          j = 9 - i
          arg = kbar*p(j)/2.0
-         arg1 = w(i)*zj(arg/Mach)/2.0
+         arg1 = w(i)*zj(arg/mach)/2.0
          Capphi(1) = Capphi(1) + cmplx(-cos(arg)*arg1,sin(arg)*arg1)
       ENDDO
    ENDIF
@@ -47,7 +48,7 @@ SUBROUTINE mbcap(Nphi,Capphi)
    Nphi = 1
    xb = 0.5
    xu = xb + 1.0
-   DO i = 2 , Ncb
+   DO i = 2 , ncb
       xl = -0.5
       xr = xl + 1.0
       DO j = 1 , i
@@ -67,6 +68,6 @@ SUBROUTINE mbcap(Nphi,Capphi)
    ENDDO
 !
    DO i = 1 , Nphi
-      Capphi(i) = Boxw*Capphi(i)
+      Capphi(i) = boxw*Capphi(i)
    ENDDO
 END SUBROUTINE mbcap

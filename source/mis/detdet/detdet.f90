@@ -1,16 +1,17 @@
-!*==detdet.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==detdet.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE detdet(Deta,Ipowr1,P,Sml1,Oldd,Iold)
-USE C_DCOMPX
-USE C_DETMX
-USE C_MACHIN
-USE C_REGEAN
-USE C_REIGKR
-USE C_SFACT
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_dcompx
+   USE c_detmx
+   USE c_machin
+   USE c_regean
+   USE c_reigkr
+   USE c_sfact
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -49,43 +50,43 @@ USE ISO_FORTRAN_ENV
 ! ----------------------------------------------------------------------
 !
          CALL sswtch(7,iprt)
-         isave = In(4)
-         In(4) = Il2
-         Il2 = isave
-         nzz = (korsz(Core)/2)*2 - Lc
-         Ndcmp = Ndcmp + 1
-         IF ( Option==sdet ) THEN
+         isave = in(4)
+         in(4) = il2
+         il2 = isave
+         nzz = (korsz(core)/2)*2 - lc
+         ndcmp = ndcmp + 1
+         IF ( option==sdet ) THEN
 !
 !     SET UP FOR SYMMETRIC DECOMPOSITION
 !
-            Fa1(1) = Ia
-            CALL rdtrl(Fa1)
-            Fl1(1) = In(1)
-            Fc1(1) = In(4)
-            Ichol = 0
-            IF ( Ndcmp==1 ) B = 0
-            Nz1 = nzz
+            fa1(1) = ia
+            CALL rdtrl(fa1)
+            fl1(1) = in(1)
+            fc1(1) = in(4)
+            ichol = 0
+            IF ( ndcmp==1 ) b = 0
+            nz1 = nzz
             DO i = 2 , 5
-               Fl1(i) = Fa1(i)
-               Fc1(i) = Fa1(i)
+               fl1(i) = fa1(i)
+               fc1(i) = fa1(i)
             ENDDO
-            Sr11 = In(3)
-            Sr21 = In(2)
-            Sr31 = Il1
-            IF ( Mach==4 .OR. Mach==12 ) Fl1(5) = 1
-            CALL sdcomp(*20,Core,Core,Core)
-            Fc1(5) = Fl1(5)
-            CALL wrttrl(Fc1)
-            Ipowr = Ipowra
-            Det = Det1(1)
-            Sml1 = Sml21
+            sr11 = in(3)
+            sr21 = in(2)
+            sr31 = il1
+            IF ( mach==4 .OR. mach==12 ) fl1(5) = 1
+            CALL sdcomp(*20,core,core,core)
+            fc1(5) = fl1(5)
+            CALL wrttrl(fc1)
+            ipowr = ipowra
+            det = det1(1)
+            Sml1 = sml21
          ELSE
-            Fa(1) = Ia
-            CALL rdtrl(Fa)
+            fa(1) = ia
+            CALL rdtrl(fa)
 !
 !     SET UP FOR UNSYMMETRIC
 !
-            Nz = nzz
+            nz = nzz
 !
 !
 !     PUT IN TO PREVENT REWRITE
@@ -93,24 +94,24 @@ USE ISO_FORTRAN_ENV
 !     FA1(1) = -FA1(1)
 !
 !WKBD 10/94 SPR94011 FA(1) = -FA(1)
-            Fl(1) = In(1)
-            Fc(1) = In(2)
+            fl(1) = in(1)
+            fc(1) = in(2)
             DO i = 2 , 5
-               Fl(i) = Fa(i)
-               Fc(i) = Fa(i)
+               fl(i) = fa(i)
+               fc(i) = fa(i)
             ENDDO
-            Sr1 = In(3)
-            Sr2 = In(4)
-            Sr3 = Il1
-            CALL decomp(*20,Core,Core,Core)
+            sr1 = in(3)
+            sr2 = in(4)
+            sr3 = il1
+            CALL decomp(*20,core,core,core)
 !WKBD 10/94 SPR94011     FC(1) = SR2
-            CALL wrttrl(Fc)
+            CALL wrttrl(fc)
          ENDIF
          prod = 1.0D0
-         IF ( iprt/=0 ) WRITE (otpe,99001) P(1) , Det , Ipowr
+         IF ( iprt/=0 ) WRITE (otpe,99001) P(1) , det , ipowr
          iprod = 0
-         IF ( Mz/=0 ) THEN
-            ii = iabs(Mz)
+         IF ( mz/=0 ) THEN
+            ii = iabs(mz)
             DO i = 1 , ii
                prod = prod*P(1)
                CALL detm6(prod,iprod)
@@ -119,26 +120,26 @@ USE ISO_FORTRAN_ENV
 !
 !     TAKE OUT  POLE AT  RMINR
 !
-         IF ( Npole/=0 ) THEN
-            DO i = 1 , Npole
-               prod = prod*(P(1)-Rminr)
+         IF ( npole/=0 ) THEN
+            DO i = 1 , npole
+               prod = prod*(P(1)-rminr)
                CALL detm6(prod,iprod)
             ENDDO
          ENDIF
-         IF ( Nfound/=0 ) THEN
-            DO i = 1 , Nfound
-               ii = Ipaav + i
-               IF ( P(1)==Core(ii) ) THEN
+         IF ( nfound/=0 ) THEN
+            DO i = 1 , nfound
+               ii = ipaav + i
+               IF ( P(1)==core(ii) ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               prod = prod*(P(1)-Core(ii))
+               prod = prod*(P(1)-core(ii))
                CALL detm6(prod,iprod)
             ENDDO
          ENDIF
-         Deta(1) = Det/prod
-         Sml1 = Sml2
-         Ipowr1(1) = Ipowr - iprod
+         Deta(1) = det/prod
+         Sml1 = sml2
+         Ipowr1(1) = ipowr - iprod
          CALL detm6(Deta(1),Ipowr1(1))
          spag_nextblock_1 = 2
       CASE (2)
@@ -147,21 +148,19 @@ USE ISO_FORTRAN_ENV
  20      Deta(1) = 0.0D0
          Ipowr1(1) = 1
          Sml1 = 1.0E-8
-         Ising = Ising + 1
-         isave = In(4)
-         In(4) = Il2
-         Il2 = isave
+         ising = ising + 1
+         isave = in(4)
+         in(4) = il2
+         il2 = isave
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     SET DK = DK-1
 !
          Deta(1) = Oldd
-         Sml1 = Sml2
+         Sml1 = sml2
          Ipowr1(1) = Iold
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99001 FORMAT (2D16.7,I8)

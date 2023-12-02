@@ -1,4 +1,5 @@
-!*==mpydri.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpydri.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
@@ -24,15 +25,15 @@ SUBROUTINE mpydri(A,Da,B,Db,C,Dc)
 !     LAST MODIFIED FOR SPECIAL CASES THAT INVOLVE B MATRIX IS ALSO
 !     A DIAGONAL MATRIX OR A ROW-VECOTR,  2/93                 ----
 !
-USE C_MPYADX
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_TRNSPX
-USE C_TYPE
-USE C_UNPAKX
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_trnspx
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -69,12 +70,12 @@ USE ISO_FORTRAN_ENV
 !
 !     MOVE TRUE ROWS AND COLUMNS INTO ROWA/B/C AND COLA/B/C
 !
-         cola = Filea(2)
-         rowa = Filea(3)
-         colb = Fileb(2)
-         rowb = Fileb(3)
-         colc = Filec(2)
-         rowc = Filec(3)
+         cola = filea(2)
+         rowa = filea(3)
+         colb = fileb(2)
+         rowb = fileb(3)
+         colc = filec(2)
+         rowc = filec(3)
          IF ( forma==diagnl .OR. forma==rowvec ) cola = rowa
          IF ( forma==rowvec ) rowa = 1
          IF ( formb==diagnl .OR. formb==rowvec ) colb = rowb
@@ -82,38 +83,38 @@ USE ISO_FORTRAN_ENV
          IF ( formc==diagnl .OR. formc==rowvec ) colc = rowc
          IF ( formc==rowvec ) rowc = 1
 !
-         IF ( Signab==0 .AND. fc==0 ) RETURN
-         IF ( Signab==0 .AND. fc/=0 ) THEN
+         IF ( signab==0 .AND. fc==0 ) RETURN
+         IF ( signab==0 .AND. fc/=0 ) THEN
 !
 !     NULL MATRIX PRODUCT A*B, COPY FILEC TO FILED
 !
             file = fc
-            CALL open(*40,fc,A(buf1),Rdrew)
+            CALL open(*40,fc,A(buf1),rdrew)
             file = fd
-            CALL open(*40,fd,A(buf2),Wrtrew)
+            CALL open(*40,fd,A(buf2),wrtrew)
             CALL cpyfil(fc,fd,A(1),nz,k)
-            CALL close(fc,Clsrew)
-            CALL close(fd,Clsrew)
+            CALL close(fc,clsrew)
+            CALL close(fd,clsrew)
             DO i = 2 , 7
-               Filed(i) = Filec(i)
+               filed(i) = filec(i)
             ENDDO
             RETURN
          ELSE
-            buf1 = Nzz - Sysbuf
-            buf2 = buf1 - Sysbuf
-            buf3 = buf2 - Sysbuf
+            buf1 = nzz - sysbuf
+            buf2 = buf1 - sysbuf
+            buf3 = buf2 - sysbuf
             cold = 0
             rowd = rowa
-            IF ( T==1 ) rowd = cola
-            IF ( Prec==1 .AND. (typed==2 .OR. typed==4) ) typed = typed - 1
-            Typout = typed
-            nwds = Words(typed)
+            IF ( t==1 ) rowd = cola
+            IF ( prec==1 .AND. (typed==2 .OR. typed==4) ) typed = typed - 1
+            typout = typed
+            nwds = words(typed)
             rowa2 = rowa*nwds
             rowb2 = rowb*nwds
             rowd2 = rowd*nwds
             colb2 = colb*2
             nz = buf3 - 1
-            sd(1) = Scr
+            sd(1) = scr
             IF ( fc==0 ) THEN
                sd(1) = fd
                nz = buf2 - 1
@@ -128,28 +129,28 @@ USE ISO_FORTRAN_ENV
 !     AD(1) IS EITHER FILEA OR FILED, AND
 !     SD(1) IS EITHER SCRATCH FILE OR FILED
 !
-            IF ( T==1 ) THEN
+            IF ( t==1 ) THEN
                DO i = 1 , 7
-                  ad(i) = Filed(i)
+                  ad(i) = filed(i)
                ENDDO
             ELSE
                DO i = 1 , 7
-                  ad(i) = Filea(i)
+                  ad(i) = filea(i)
                ENDDO
             ENDIF
-            Ip = 1
-            Jp = rowd
-            Incrp = 1
-            Iu = 1
-            Incru = 1
+            ip = 1
+            jp = rowd
+            incrp = 1
+            iu = 1
+            incru = 1
             IF ( fa>0 ) THEN
                file = fa
-               CALL open(*40,fa,A(buf1),Rdrew)
+               CALL open(*40,fa,A(buf1),rdrew)
                CALL fwdrec(*60,fa)
             ENDIF
             IF ( fb>0 ) THEN
                file = fb
-               CALL open(*40,fb,A(buf2),Rdrew)
+               CALL open(*40,fb,A(buf2),rdrew)
                CALL fwdrec(*60,fb)
             ENDIF
 !
@@ -167,14 +168,14 @@ USE ISO_FORTRAN_ENV
 !     FILEB IS ALSO A DIAGONAL MATRIX. (FILEB CANNOT BE A ROW VECTOR)
 !
                   file = fa
-                  Ju = rowa
-                  Typeu = typed*Signab
+                  ju = rowa
+                  typeu = typed*signab
                   CALL unpack(*100,fa,A)
-                  CALL close(fa,Clsrew)
-                  CALL gopen(sd,A(buf1),Wrtrew)
+                  CALL close(fa,clsrew)
+                  CALL gopen(sd,A(buf1),wrtrew)
                   file = fb
-                  Ju = rowb
-                  Typeu = typed
+                  ju = rowb
+                  typeu = typed
                   IF ( formb==diagnl ) THEN
 !
 !     SPECIAL CASE - FILEB IS ALSO A DIAGONAL MATRIX
@@ -238,8 +239,8 @@ USE ISO_FORTRAN_ENV
                      ENDDO
                   ENDIF
 !
-                  CALL close(fb,Clsrew)
-                  CALL close(sd,Clsrew)
+                  CALL close(fb,clsrew)
+                  CALL close(sd,clsrew)
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( forma==rowvec ) THEN
@@ -265,19 +266,19 @@ USE ISO_FORTRAN_ENV
 !     FILEB MUST BE A (Nx1) RECTANGULAR MATRIX, OR A ROW VECTOR
 !
                   file = fa
-                  Ju = rowa
-                  Typeu = typed*Signab
+                  ju = rowa
+                  typeu = typed*signab
                   CALL unpack(*100,fa,A)
-                  CALL close(fa,Clsrew)
-                  CALL gopen(sd,A(buf1),Wrtrew)
+                  CALL close(fa,clsrew)
+                  CALL gopen(sd,A(buf1),wrtrew)
                   file = fb
-                  Typeu = typed
-                  IF ( T/=1 ) THEN
+                  typeu = typed
+                  IF ( t/=1 ) THEN
 !
 !     FILEA IS A ROW-VECTOR, RESULT IS ALSO A ROW-VECTOR, OR A
 !     (Nx1) RECTANGULAR MATRIX
 !
-                     Ju = rowb
+                     ju = rowb
                      IF ( formb==diagnl ) THEN
 !
 !     SPECIAL CASE - FILEB IS A DIAGONAL MATRIX.
@@ -338,14 +339,14 @@ USE ISO_FORTRAN_ENV
 !     SPECAIL CASE - FILE B IS A ROW VECTOR
 !
                      IF ( rowb/=1 ) GOTO 80
-                     Ju = colb
+                     ju = colb
                      CALL unpack(*80,fb,B(1))
-                     CALL close(fb,Clsrew)
+                     CALL close(fb,clsrew)
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
                      IF ( rowb/=1 ) GOTO 80
-                     Iu = 0
+                     iu = 0
                      j = 1
                      DO i = 1 , rowb
                         spag_nextblock_2 = 1
@@ -353,7 +354,7 @@ USE ISO_FORTRAN_ENV
                            SELECT CASE (spag_nextblock_2)
                            CASE (1)
                               CALL unpack(*2,fb,B(j))
-                              IF ( Iu/=i ) GOTO 80
+                              IF ( iu/=i ) GOTO 80
                               spag_nextblock_2 = 2
                               CYCLE SPAG_DispatchLoop_2
  2                            je = j + nwds
@@ -367,8 +368,8 @@ USE ISO_FORTRAN_ENV
                            END SELECT
                         ENDDO SPAG_DispatchLoop_2
                      ENDDO
-                     CALL close(fb,Clsrew)
-                     Iu = 1
+                     CALL close(fb,clsrew)
+                     iu = 1
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -380,16 +381,16 @@ USE ISO_FORTRAN_ENV
 !     SIGNAB IS NEGATIVE, OR FILEB IS A DIAGONAL MATRIX
 !     (FILEB CANNOT BE A ROW-VECTOR)
 !
-                  CALL close(fa,Clsrew)
-                  IF ( formb==diagnl .OR. Signab<0 ) THEN
+                  CALL close(fa,clsrew)
+                  IF ( formb==diagnl .OR. signab<0 ) THEN
 !
 !     SPECIAL CASE - FILEB IS A DIAGONAL MATRIX
 !                    OR SIGNAB IS NEGATIVE
 !
-                     CALL gopen(sd,A(buf1),Wrtrew)
-                     Ju = rowb
+                     CALL gopen(sd,A(buf1),wrtrew)
+                     ju = rowb
                      file = fb
-                     Typeu = typed*Signab
+                     typeu = typed*signab
                      IF ( formb/=diagnl ) THEN
 !
 !     SPECIAL CASE - SIGNAB IS NEGATIVE
@@ -399,47 +400,46 @@ USE ISO_FORTRAN_ENV
                            CALL unpack(*100,fb,B)
                            CALL pack(B,sd,sd)
                         ENDDO
-                        CALL close(sd,Clsrew)
-                        CALL close(fb,Clsrew)
+                        CALL close(sd,clsrew)
+                        CALL close(fb,clsrew)
                         IF ( fc/=0 ) THEN
                            spag_nextblock_1 = 6
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         spag_nextblock_1 = 7
-                        CYCLE SPAG_DispatchLoop_1
                      ELSE
                         CALL unpack(*100,fb,B)
-                        CALL close(fb,Clsrew)
+                        CALL close(fb,clsrew)
                         j = 1
                         DO i = 1 , rowa
-                           Ip = i
-                           Jp = i
+                           ip = i
+                           jp = i
                            CALL pack(B(j),sd,sd)
                            j = j + nwds
                         ENDDO
-                        CALL close(sd,Clsrew)
+                        CALL close(sd,clsrew)
                         IF ( fc/=0 ) THEN
                            spag_nextblock_1 = 6
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         spag_nextblock_1 = 7
-                        CYCLE SPAG_DispatchLoop_1
                      ENDIF
+                     CYCLE
                   ELSE
                      file = sd(1)
-                     CALL open(*40,fa,A(buf1),Wrtrew)
+                     CALL open(*40,fa,A(buf1),wrtrew)
                      CALL rewind(fb)
                      CALL cpyfil(fb,sd,A(1),nz,k)
-                     CALL close(fb,Clsrew)
-                     CALL close(sd,Clsrew)
+                     CALL close(fb,clsrew)
+                     CALL close(sd,clsrew)
                      IF ( fc==0 ) THEN
                         DO i = 2 , 7
-                           Filed(i) = Fileb(i)
+                           filed(i) = fileb(i)
                         ENDDO
                         RETURN
                      ELSE
                         DO i = 2 , 7
-                           sd(i) = Fileb(i)
+                           sd(i) = fileb(i)
                         ENDDO
                         spag_nextblock_1 = 6
                         CYCLE SPAG_DispatchLoop_1
@@ -447,11 +447,11 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                ENDIF
             ENDIF
-            IF ( T==1 ) THEN
+            IF ( t==1 ) THEN
 !
 !     ERROR
 !
-               WRITE (Nout,99001) Sfm
+               WRITE (nout,99001) sfm
 99001          FORMAT (A25,'. MPYDRI DOES NOT HANDLE A-TRANSPOSE. SHOULD NOT BE',' CALLED BY MPYAD')
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
@@ -478,14 +478,14 @@ USE ISO_FORTRAN_ENV
 !                             d  h  l    dX  hY  lZ
 !
                file = fb
-               Ju = colb
-               Typeu = typed*Signab
+               ju = colb
+               typeu = typed*signab
                CALL unpack(*100,fb,B)
-               CALL close(fb,Clsrew)
-               CALL gopen(sd,A(buf2),Wrtrew)
+               CALL close(fb,clsrew)
+               CALL gopen(sd,A(buf2),wrtrew)
                file = fa
-               Ju = rowa
-               Typeu = typed
+               ju = rowa
+               typeu = typed
                DO i = 1 , cola
                   CALL unpack(*100,fa,A)
                   IF ( typeb==2 ) THEN
@@ -509,8 +509,8 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                   CALL pack(C,sd,sd)
                ENDDO
-               CALL close(ad,Clsrew)
-               CALL close(sd,Clsrew)
+               CALL close(ad,clsrew)
+               CALL close(sd,clsrew)
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( formb==rowvec ) THEN
@@ -526,9 +526,9 @@ USE ISO_FORTRAN_ENV
 !     WHERE FILEA IS A ROW-VECTOR TRANSPOSE IN 200
 !
                file = fb
-               Ju = colb
-               Typeu = typed*Signab
-               IF ( T==1 ) THEN
+               ju = colb
+               typeu = typed*signab
+               IF ( t==1 ) THEN
                   IF ( rowa/=1 ) GOTO 80
                   j = cola*nwds
                   DO i = 1 , j
@@ -554,13 +554,13 @@ USE ISO_FORTRAN_ENV
 !     SPECIAL CASE NEEDS TO BE CONSIDERED -
 !     NEGATIVE SIGNAB
 !
-               CALL close(fb,Clsrew)
+               CALL close(fb,clsrew)
                file = sd(1)
-               CALL open(*40,sd,A(buf2),Wrtrew)
-               IF ( Signab<0 ) THEN
+               CALL open(*40,sd,A(buf2),wrtrew)
+               IF ( signab<0 ) THEN
 !
-                  Typeu = typed*Signab
-                  Ju = rowa
+                  typeu = typed*signab
+                  ju = rowa
                   file = fa
                   DO i = 1 , cola
                      CALL unpack(*100,fa,A)
@@ -570,8 +570,8 @@ USE ISO_FORTRAN_ENV
                   CALL rewind(fa)
                   CALL cpyfil(fa,sd,A(1),nz,k)
                ENDIF
-               CALL close(fa,Clsrew)
-               CALL close(sd,Clsrew)
+               CALL close(fa,clsrew)
+               CALL close(sd,clsrew)
                IF ( fc/=0 ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
@@ -589,7 +589,6 @@ USE ISO_FORTRAN_ENV
             C(j+1) = A(j)*B(j+1) + A(j+1)*B(j)
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          DO j = 1 , colb2 , 2
             Dc(j) = Da(j)*Db(j) - Da(j+1)*Db(j+1)
@@ -598,14 +597,14 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 3
       CASE (3)
 !
-         CALL close(fb,Clsrew)
+         CALL close(fb,clsrew)
          IF ( fc/=0 ) THEN
             file = fc
-            Typeu = typec*Signc
-            CALL gopen(fc,A(buf2),Rdrew)
+            typeu = typec*signc
+            CALL gopen(fc,A(buf2),rdrew)
             IF ( formc/=rowvec ) THEN
-               Ip = 1
-               Jp = 1
+               ip = 1
+               jp = 1
                DO j = 1 , colc
                   CALL unpack(*22,fc,A(j*nwds-1))
                   CYCLE
@@ -616,7 +615,7 @@ USE ISO_FORTRAN_ENV
                CALL unpack(*100,fc,A(1))
             ENDIF
 !
-            CALL close(fc,Clsrew)
+            CALL close(fc,clsrew)
             IF ( typed==2 ) THEN
                DO j = 1 , rowd2
                   Dc(j) = Dc(j) + Da(j)
@@ -631,15 +630,14 @@ USE ISO_FORTRAN_ENV
          CALL pack(C,sd,sd)
          formd = rowvec
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         CALL close(fb,Clsrew)
+         CALL close(fb,clsrew)
          file = fa
-         Ju = rowa
-         Typeu = typed
+         ju = rowa
+         typeu = typed
          CALL unpack(*100,fa,A)
-         CALL close(ad,Clsrew)
-         CALL gopen(fd,A(buf1),Wrtrew)
+         CALL close(ad,clsrew)
+         CALL gopen(fd,A(buf1),wrtrew)
          spag_nextblock_1 = 5
       CASE (5)
          DO j = 1 , colb
@@ -663,30 +661,30 @@ USE ISO_FORTRAN_ENV
                   C(i) = A(i)*B(j)
                ENDDO
             ENDIF
-            CALL pack(C,fd,Filed)
+            CALL pack(C,fd,filed)
          ENDDO
-         CALL close(fd,Clsrew)
+         CALL close(fd,clsrew)
          spag_nextblock_1 = 6
       CASE (6)
 !
 !     ADD PRODUCT OF A*B TO C
 !
          IF ( fc/=0 ) THEN
-            CALL gopen(fd,A(buf3),Wrtrew)
+            CALL gopen(fd,A(buf3),wrtrew)
             file = fc
-            CALL open(*40,fc,A(buf2),Rdrew)
+            CALL open(*40,fc,A(buf2),rdrew)
             CALL fwdrec(*60,fc)
             file = sd(1)
-            CALL open(*40,sd,A(buf1),Rdrew)
+            CALL open(*40,sd,A(buf1),rdrew)
             CALL fwdrec(*60,sd)
-            Ju = rowc
-            Typep = typed
+            ju = rowc
+            typep = typed
             DO i = 1 , colc
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
                   CASE (1)
-                     Typeu = typed*Signc
+                     typeu = typed*signc
                      CALL unpack(*24,fc,C)
                      spag_nextblock_3 = 2
                      CYCLE SPAG_DispatchLoop_3
@@ -695,7 +693,7 @@ USE ISO_FORTRAN_ENV
                      ENDDO
                      spag_nextblock_3 = 2
                   CASE (2)
-                     Typeu = typed
+                     typeu = typed
                      CALL unpack(*26,sd,B)
                      spag_nextblock_3 = 3
                      CYCLE SPAG_DispatchLoop_3
@@ -713,26 +711,26 @@ USE ISO_FORTRAN_ENV
                            A(j) = B(j) + C(j)
                         ENDDO
                      ENDIF
-                     CALL pack(A,fd,Filed)
+                     CALL pack(A,fd,filed)
                      EXIT SPAG_DispatchLoop_3
                   END SELECT
                ENDDO SPAG_DispatchLoop_3
             ENDDO
-            CALL close(fc,Clsrew)
-            CALL close(sd,Clsrew)
+            CALL close(fc,clsrew)
+            CALL close(sd,clsrew)
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
 !
          IF ( cold==0 ) THEN
             DO i = 2 , 7
-               Filed(i) = sd(i)
+               filed(i) = sd(i)
             ENDDO
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
-         CALL close(fd,Clsrew)
-         CALL wrttrl(Filed)
+         CALL close(fd,clsrew)
+         CALL wrttrl(filed)
          RETURN
  40      j = -1
          spag_nextblock_1 = 10
@@ -740,11 +738,11 @@ USE ISO_FORTRAN_ENV
  60      j = -2
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 80      WRITE (Nout,99002) Ufm
+ 80      WRITE (nout,99002) ufm
 99002    FORMAT (A23,' FROM MPYAD/MPYDRI.  FILES NOT COMPATIBLE')
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
- 100     WRITE (Nout,99003) Ufm
+ 100     WRITE (nout,99003) ufm
 99003    FORMAT (A23,' FROM MPYAD/MPYDRI.  NULL COLUMN ENCOUNTERED DURING',' MATRIX UNPACK')
          spag_nextblock_1 = 9
       CASE (9)

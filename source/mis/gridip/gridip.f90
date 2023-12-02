@@ -1,9 +1,10 @@
-!*==gridip.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gridip.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gridip(Grid,Seqss,Len,Ipset,Cset,No,Z,Lloc)
+   USE c_cmbfnd
    IMPLICIT NONE
-   USE C_CMBFND
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,7 +40,7 @@ SUBROUTINE gridip(Grid,Seqss,Len,Ipset,Cset,No,Z,Lloc)
 !
 !
 !
-   Ierr = 0
+   ierr = 0
    nent = Len/3
 !
 !     SEARCH FOR THE GRID ID IN THE EQSS
@@ -82,5 +83,5 @@ SUBROUTINE gridip(Grid,Seqss,Len,Ipset,Cset,No,Z,Lloc)
 !
    No = noapp
    RETURN
- 100  Ierr = 1
+ 100  ierr = 1
 END SUBROUTINE gridip

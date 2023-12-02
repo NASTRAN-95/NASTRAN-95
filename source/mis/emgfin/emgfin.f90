@@ -1,17 +1,18 @@
-!*==emgfin.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==emgfin.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emgfin
+   USE c_blank
+   USE c_emgfil
+   USE c_emgprm
+   USE c_hmatdd
+   USE c_machin
+   USE c_names
+   USE c_output
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGFIL
-   USE C_EMGPRM
-   USE C_HMATDD
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -47,25 +48,25 @@ SUBROUTINE emgfin
 !     CLOSE ALL FILES, EXCEPT SCR4
 !
          DO i = 1 , 3
-            Nokmb(i) = -Flags(i) - 1
-            IF ( Flags(i)+1==0 ) Flags(i) = 0
-            IF ( Flags(i)==0 ) Nokmb(i) = -1
-            CALL close(Matrix(i),Clsrew)
-            CALL close(Dictn(i),Clsrew)
+            nokmb(i) = -flags(i) - 1
+            IF ( flags(i)+1==0 ) flags(i) = 0
+            IF ( flags(i)==0 ) nokmb(i) = -1
+            CALL close(matrix(i),clsrew)
+            CALL close(dictn(i),clsrew)
          ENDDO
-         CALL close(Est,Clsrew)
+         CALL close(est,clsrew)
 !
 !     HEAT ONLY - SET NONILINEAR FLAG BASED ON VALUE PREVIOUSLY SET BY
 !     HMAT ROUTINE
 !
-         IF ( Heat .AND. .NOT.Linear ) nokdgg = +1
-         IF ( Heat .AND. Linear ) nokdgg = -1
+         IF ( heat .AND. .NOT.linear ) nokdgg = +1
+         IF ( heat .AND. linear ) nokdgg = -1
 !
 !  WRITE TRAILERS FOR FILES PREPARED.
 !
-         IF ( Error ) THEN
+         IF ( error ) THEN
 !
-            IF ( Volume/=0. .OR. Surfac/=0. ) CALL close(scr4,Clsrew)
+            IF ( volume/=0. .OR. surfac/=0. ) CALL close(scr4,clsrew)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -73,11 +74,11 @@ SUBROUTINE emgfin
 !
 !     PRECISION IS STORED IN FIRST DATA WORD OF TRAILER.
 !
-               IF ( Flags(i)/=0 ) THEN
-                  mcb(1) = Matrix(i)
+               IF ( flags(i)/=0 ) THEN
+                  mcb(1) = matrix(i)
                   CALL rdtrl(mcb)
                   IF ( mcb(1)>0 ) THEN
-                     mcb(2) = Precis
+                     mcb(2) = precis
                      mcb(3) = 0
                      mcb(4) = 0
                      mcb(5) = 0
@@ -85,10 +86,10 @@ SUBROUTINE emgfin
                      mcb(7) = 0
                      CALL wrttrl(mcb)
 !
-                     mcb(1) = Dictn(i)
+                     mcb(1) = dictn(i)
                      CALL rdtrl(mcb)
                      IF ( mcb(1)>0 ) THEN
-                        mcb(2) = Precis
+                        mcb(2) = precis
                         mcb(3) = 0
                         mcb(4) = 0
                         mcb(5) = 0
@@ -99,7 +100,7 @@ SUBROUTINE emgfin
                   ENDIF
                ENDIF
             ENDDO
-            IF ( Volume<=0.0 .AND. Surfac<=0.0 ) THEN
+            IF ( volume<=0.0 .AND. surfac<=0.0 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -107,16 +108,16 @@ SUBROUTINE emgfin
 !     COMPUTE AND PRINT VOLUMES AND SURFACE AREAS FOR THE 2-D AND 3-D
 !     ELEM. IF USER REQUESTED VIA PARAM CARD.
 !
-            CALL close(scr4,Clsrew)
-            ibuf1 = Icore + 200
-            ibuf2 = ibuf1 + Ibuf
-            CALL open(*120,scr4,z(ibuf1),Rdrew)
+            CALL close(scr4,clsrew)
+            ibuf1 = icore + 200
+            ibuf2 = ibuf1 + ibuf
+            CALL open(*120,scr4,z(ibuf1),rdrew)
             tvol2 = 0.0
             tvol3 = 0.0
             tmas2 = 0.0
             tmas3 = 0.0
             nrec = 0
-            Line = Nlpp
+            line = nlpp
             inp = 0
 !
 !     CHECK ANY REQUEST TO SAVE VOLUME AND AREA COMPUTATIONS ON OUTPUT
@@ -134,34 +135,34 @@ SUBROUTINE emgfin
             ENDDO
             GOTO 20
  10         inp = i + 13
-            IF ( inp==14 .AND. Mach==2 ) inp = 24
+            IF ( inp==14 .AND. mach==2 ) inp = 24
             vafile = scr3
             mcb(1) = scr3
- 20         CALL open(*140,vafile,z(ibuf2),Wrtrew)
+ 20         CALL open(*140,vafile,z(ibuf2),wrtrew)
             CALL write(vafile,z(1),2,0)
-            CALL write(vafile,Head(1),96,0)
-            CALL write(vafile,Date(1),3,1)
+            CALL write(vafile,head(1),96,0)
+            CALL write(vafile,date(1),3,1)
             nrec = 1
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
          CALL read(*60,*40,scr4,rx,201,1,i)
-         WRITE (Nout,99001)
+         WRITE (nout,99001)
 99001    FORMAT (' *** WARNING,   RX TOO SMALL IN EMGFIN ***')
  40      ngpt = ix(6)
          IF ( ngpt>=3 ) THEN
-            IF ( Line>=Nlpp ) THEN
-               Line = 5
+            IF ( line>=nlpp ) THEN
+               line = 5
                CALL page1
-               WRITE (Nout,99002) (i,i=1,6)
+               WRITE (nout,99002) (i,i=1,6)
 99002          FORMAT (17X,'V O L U M E S,  M A S S E S,  A N D  S U R F A C E ',                                                   &
                       &' A R E A S  O F  2-  A N D  3-  D  E L E M E N T S',///10X,7HELEMENT,8X,3HEID,8X,6HVOLUME,7X,4HMASS,1X,     &
                       &6(3X,7HSURFACE,I2),/10X,29(4H----),/)
-               IF ( Volume<=0.0 ) WRITE (Nout,99003)
+               IF ( volume<=0.0 ) WRITE (nout,99003)
 99003          FORMAT (10X,42H(NO MASS AND VOLUME COMPUTATION REQUESTED),/)
-               IF ( Surfac<=0.0 ) WRITE (Nout,99004)
+               IF ( surfac<=0.0 ) WRITE (nout,99004)
 99004          FORMAT (10X,39H(NO SURFACE AREA COMPUTATION REQUESTED),/)
-               IF ( Volume<=0.0 .OR. Surfac<=0.0 ) Line = Line + 2
+               IF ( volume<=0.0 .OR. surfac<=0.0 ) line = line + 2
             ENDIF
             l = 5
 !
@@ -189,12 +190,12 @@ SUBROUTINE emgfin
             ln = ngpt
             CALL sfarea(ln,rx,ix(ngpt+7))
             l = 5
-            IF ( Surfac>0.0 ) l = 5 + ln
-            IF ( Volume>0.0 ) WRITE (Nout,99005) (ix(i),i=1,3) , (rx(i),i=4,l)
+            IF ( surfac>0.0 ) l = 5 + ln
+            IF ( volume>0.0 ) WRITE (nout,99005) (ix(i),i=1,3) , (rx(i),i=4,l)
 99005       FORMAT (10X,2A4,I10,2X,8E12.4)
-            IF ( Volume<=0.0 ) WRITE (Nout,99006) (ix(i),i=1,3) , (rx(i),i=6,l)
+            IF ( volume<=0.0 ) WRITE (nout,99006) (ix(i),i=1,3) , (rx(i),i=6,l)
 99006       FORMAT (10X,2A4,I10,26X,6E12.4)
-            Line = Line + 1
+            line = line + 1
 !
             IF ( nrec/=0 ) THEN
                nrec = nrec + 1
@@ -223,7 +224,7 @@ SUBROUTINE emgfin
 !         5+N+2,3,4 X,Y,Z COORDINATES OF THE FIRST GRID POINT, REAL
 !               ... REPEAT LAST 4 WORDS FOR OTHER GRID POINTS, REAL
 !
-            IF ( Volume>0.0 ) THEN
+            IF ( volume>0.0 ) THEN
                IF ( ngpt>1 ) THEN
                   tvol3 = tvol3 + rx(4)
                   tmas3 = tmas3 + rx(5)
@@ -235,21 +236,21 @@ SUBROUTINE emgfin
          ENDIF
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 60      CALL close(scr4,Clsrew)
+ 60      CALL close(scr4,clsrew)
          IF ( nrec/=0 ) THEN
-            CALL close(vafile,Clsrew)
+            CALL close(vafile,clsrew)
             mcb(2) = nrec
             DO i = 3 , 7
                mcb(i) = 0
             ENDDO
             CALL wrttrl(mcb(1))
          ENDIF
-         IF ( Volume<=0.0 ) THEN
+         IF ( volume<=0.0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( tvol2>0.0 ) WRITE (Nout,99010) tvol2 , tmas2 , d2
-         IF ( tvol3>0.0 ) WRITE (Nout,99010) tvol3 , tmas3 , d3
+         IF ( tvol2>0.0 ) WRITE (nout,99010) tvol2 , tmas2 , d2
+         IF ( tvol3>0.0 ) WRITE (nout,99010) tvol3 , tmas3 , d3
          IF ( nrec<=0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -259,7 +260,7 @@ SUBROUTINE emgfin
 !     TO INPI, A FORTRAN WRITTEN BINARY FILE
 !
          IF ( inp==0 ) GOTO 100
-         CALL open(*140,vafile,z(ibuf2),Rdrew)
+         CALL open(*140,vafile,z(ibuf2),rdrew)
          spag_nextblock_1 = 3
       CASE (3)
          CALL read(*100,*80,vafile,z(1),ibuf2,1,j)
@@ -269,18 +270,18 @@ SUBROUTINE emgfin
  80      WRITE (inp) (z(i),i=1,j)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 100     CALL close(vafile,Clsrew)
+ 100     CALL close(vafile,clsrew)
          CALL fname(207,z(1))
-         WRITE (Nout,99007) z(1) , z(2) , Date
+         WRITE (nout,99007) z(1) , z(2) , date
 99007    FORMAT ('0*** VOLUMES AND EXTERNAL SURFACE AREAS WERE SAVED IN ','OUTPUT FILE ',2A4,4H ON ,I2,1H/,I2,3H/19,I2)
-         IF ( inp==0 ) WRITE (Nout,99008)
+         IF ( inp==0 ) WRITE (nout,99008)
 99008    FORMAT (1H+,91X,21H(A GINO WRITTEN FILE))
-         IF ( inp/=0 ) WRITE (Nout,99009) inp
+         IF ( inp/=0 ) WRITE (nout,99009) inp
 99009    FORMAT (1H+,91X,28H(A FORTRAN BINARY FILE, UNIT,I3,1H))
          spag_nextblock_1 = 4
       CASE (4)
-         Volume = 0.0
-         Surfac = 0.0
+         volume = 0.0
+         surfac = 0.0
          RETURN
  120     CALL mesage(-1,scr4,sub)
  140     j = -1

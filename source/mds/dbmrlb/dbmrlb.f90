@@ -1,10 +1,11 @@
-!*==dbmrlb.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dbmrlb.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmrlb(Index)
+   USE i_dsiof
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,29 +28,29 @@ SUBROUTINE dbmrlb(Index)
 !********************************************************************
    indexl = Index
 ! CHECK IF OTHER BLOCKS ARE CHAINED TO THE END OF THIS BLOCK
-   IF ( Mem(Index+1)/=0 ) THEN
+   IF ( mem(Index+1)/=0 ) THEN
 ! MORE THAN ONE BLOCK IN THIS CHAIN TO RELEASE BACK TO FREE CHAIN
-      DO WHILE ( Mem(indexl+1)/=0 )
+      DO WHILE ( mem(indexl+1)/=0 )
 !WKBR SPR94012 10/94      INDEXL = MEM( INDEX+1 )
-         indexl = Mem(indexl+1)
+         indexl = mem(indexl+1)
       ENDDO
    ENDIF
 ! SET "NEXT" OF PREVIOUS BLOCK TO ZERO, IF IT EXISTS
-   lindex = Mem(Index)
-   IF ( lindex/=0 ) Mem(lindex+1) = 0
+   lindex = mem(Index)
+   IF ( lindex/=0 ) mem(lindex+1) = 0
    IF ( idbfre/=0 ) THEN
 ! SET BLOCKS TO BE FREED AT FIRST OF FREE CHAIN AND
 ! THEN CONNECT FREE CHAIN TO THIS BLOCK
       isave = idbfre
       idbfre = Index
-      Mem(isave) = indexl
-      Mem(Index) = 0
-      Mem(indexl+1) = isave
+      mem(isave) = indexl
+      mem(Index) = 0
+      mem(indexl+1) = isave
    ELSE
 ! FREE CHAIN IS EMPTY, THIS BLOCK BECOMES FREE CHAIN
       idbfre = Index
 ! SET "NEXT" AND "PREVIOUS" OF THIS CHAIN TO ZERO
-      Mem(Index) = 0
-      Mem(indexl+1) = 0
+      mem(Index) = 0
+      mem(indexl+1) = 0
    ENDIF
 END SUBROUTINE dbmrlb

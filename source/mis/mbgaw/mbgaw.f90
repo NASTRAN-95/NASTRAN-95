@@ -1,4 +1,5 @@
-!*==mbgaw.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mbgaw.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbgaw(Boxl,Dphi,Ws,Paw,Paf1,Paf2,Q,Q1,Q2,M,Kc,Kc1,Kc2)
@@ -19,6 +20,12 @@ SUBROUTINE mbgaw(Boxl,Dphi,Ws,Paw,Paf1,Paf2,Q,Q1,Q2,M,Kc,Kc1,Kc2)
    INTEGER :: Kc
    INTEGER :: Kc1
    INTEGER :: Kc2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

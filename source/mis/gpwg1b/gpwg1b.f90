@@ -1,12 +1,13 @@
-!*==gpwg1b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gpwg1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpwg1b(Mo,Ogpwg,Wtmass,Ipoint)
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_output
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -56,15 +57,15 @@ USE ISO_FORTRAN_ENV
 !     ASSIGN BUFFER
 !     OPEN OGPWG, PUT ON OFP HEADER
 !
-         ibuf = korsz(z) - Sysbuf + 1
+         ibuf = korsz(z) - sysbuf + 1
          CALL gopen(Mo,z(ibuf),0)
 !
 !     UNPACK MO  + MOVE TO PARTITIONS
 !
-         It1 = 2
-         Incr = 1
-         Jj = 6
-         Ii = 1
+         it1 = 2
+         incr = 1
+         jj = 6
+         ii = 1
          k = 1
          DO i = 1 , 6
             spag_nextblock_2 = 1
@@ -102,7 +103,7 @@ USE ISO_FORTRAN_ENV
          z(103) = Ipoint
          z(110) = 78*2
          CALL write(Ogpwg,z(101),50,0)
-         CALL write(Ogpwg,Head,96,1)
+         CALL write(Ogpwg,head,96,1)
 !
 !     PUT MO  ON OGPWG
 !

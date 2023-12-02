@@ -27,6 +27,15 @@ SUBROUTINE polypt(Loctof,Stedge,Tr,Ngridf,Fledge,Fl,Locfos,Eps,Npoly,P)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     POLYPT DETERMINES PERIMETER POINTS OF AREA COMMON TO STRUCTURAL
 !        TRIANGLE BOUNDED BY TR POINTS AND FLUID ELEMENT BOUNDED BY
 !        (3 OR 4) FL POINTS

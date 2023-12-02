@@ -1,8 +1,10 @@
-!*==smc2cs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==smc2cs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE smc2cs(Zi,Zcs,Zil,Zol,Nar,Lasrow,Rtemp,I1,I2,I3)
+   USE i_smcomx
    USE I_SMCOMX
    IMPLICIT NONE
    INCLUDE 'SMCOMX.COM'
@@ -431,7 +433,7 @@ SUBROUTINE smc2cs(Zi,Zcs,Zil,Zol,Nar,Lasrow,Rtemp,I1,I2,I3)
 !
 ! IF THERE ARE NO MORE ROWS FOR THIS COLUMN, THEN COLUMN IS COMPLETE
 !
-                           IF ( kridx>=kridxn ) CYCLE SPAG_Loop_2_2
+                           IF ( kridx>=kridxn ) EXIT SPAG_DispatchLoop_2
                            krow = Zi(kridx)
                            krows = Zi(kridx+1)
                            krown = krow + krows - 1

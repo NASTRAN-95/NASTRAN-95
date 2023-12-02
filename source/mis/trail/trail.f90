@@ -1,13 +1,14 @@
-!*==trail.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trail.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trail
+   USE c_blank
+   USE c_system
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -69,32 +70,32 @@ SUBROUTINE trail
 !
 !     TEST ILLEGAL PARAMETER VALUES AND BRANCH ON OPT
 !
-            IF ( Word<1 .OR. Word>6 ) THEN
+            IF ( word<1 .OR. word>6 ) THEN
 !
 !     ERROR CONDITIONS
 !
-               WRITE (Nout,99001) Ufm , Word
+               WRITE (nout,99001) ufm , word
 99001          FORMAT (A23,' 2202.  PARAMETER, WORD, HAS ILLEGAL VALUE OF',I9)
 !
                CALL mesage(-37,0,modnam)
                RETURN
-            ELSEIF ( Opt(1)==return(1) .AND. Opt(2)==return(2) ) THEN
+            ELSEIF ( opt(1)==return(1) .AND. opt(2)==return(2) ) THEN
 !
 !     RETURN OPTION
 !
-               Value = mcb(Word+1)
+               value = mcb(word+1)
                RETURN
             ELSE
-               IF ( Opt(1)==store(1) .AND. Opt(2)==store(2) ) THEN
+               IF ( opt(1)==store(1) .AND. opt(2)==store(2) ) THEN
 !
 !     STORE OPTION
 !
 !     SEARCH FIST FOR THE FILE
 !
-                  n = Fist(2)*2 + 1
+                  n = fist(2)*2 + 1
                   DO i = 3 , n , 2
-                     IF ( Fist(i)==db ) THEN
-                        index = Fist(i+1) + 1
+                     IF ( fist(i)==db ) THEN
+                        index = fist(i+1) + 1
                         GOTO 5
                      ENDIF
                   ENDDO
@@ -102,7 +103,7 @@ SUBROUTINE trail
                   CYCLE SPAG_DispatchLoop_1
                ELSE
 !
-                  WRITE (Nout,99002) Ufm , Opt
+                  WRITE (nout,99002) ufm , opt
 99002             FORMAT (A23,' 2202.  PARAMETER, OPT, HAS ILLEGAL VALUE OF ',2A4)
                   CALL mesage(-37,0,modnam)
                   RETURN
@@ -111,37 +112,37 @@ SUBROUTINE trail
 !     PACK THE TRAILER INFORMATION INTO THE REQUESTED WORD.
 !     MAKE SURE THE NUMBER IS POSITIVE AND .LE. 16 BITS IF ICFIAT=8
 !
- 5             IF ( Value<0 ) THEN
+ 5             IF ( value<0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Icfiat==11 ) THEN
+               IF ( icfiat==11 ) THEN
 !
 !     ICFIAT = 11, TRAILER WORDS ARE NOT PACKED
 !
                   iw = 2
-                  IF ( Word>=4 ) iw = 4
-                  Fiat(index+iw+Word) = Value
+                  IF ( word>=4 ) iw = 4
+                  fiat(index+iw+word) = value
                   RETURN
                ELSE
-                  IF ( Value>65535 ) THEN
+                  IF ( value>65535 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  iw = (Word+1)/2 + 2
-                  IF ( Word==(Word/2*2) ) THEN
+                  iw = (word+1)/2 + 2
+                  IF ( word==(word/2*2) ) THEN
 !
 !     WORD IS EVEN
 !
                      mask = lshift(65535,16)
-                     Fiat(index+iw) = orf(andf(Fiat(index+iw),mask),Value)
+                     fiat(index+iw) = orf(andf(fiat(index+iw),mask),value)
                      RETURN
                   ELSE
 !
 !     WORD IS ODD
 !
                      mask = 65535
-                     Fiat(index+iw) = orf(andf(Fiat(index+iw),mask),lshift(Value,16))
+                     fiat(index+iw) = orf(andf(fiat(index+iw),mask),lshift(value,16))
                      RETURN
                   ENDIF
                ENDIF
@@ -152,11 +153,11 @@ SUBROUTINE trail
 !
 !     PURGED DATA BLOCK
 !
-         Value = -1
+         value = -1
          RETURN
       CASE (3)
 !
-         WRITE (6,99003) Ufm , Value
+         WRITE (6,99003) ufm , value
 99003    FORMAT (A23,' 2202.  PARAMETER, VALUE, HAS ILLEGAL VALUE OF',I9)
          CALL mesage(-37,0,modnam)
          EXIT SPAG_DispatchLoop_1

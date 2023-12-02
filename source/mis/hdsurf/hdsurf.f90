@@ -1,12 +1,13 @@
-!*==hdsurf.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdsurf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
+   USE c_blank
+   USE c_hdrec
+   USE c_pltscr
+   USE c_system
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_HDREC
-   USE C_PLTSCR
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -116,7 +117,7 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
          ls = 0
          lsmax = Iopcor/14
          IF ( Pedge>200 ) lsmax = 0
-         Nofsur = 0
+         nofsur = 0
          shk = 1.0
          shrink = .FALSE.
          IF ( Pedge>=10 ) THEN
@@ -127,13 +128,13 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
          hidden = .FALSE.
          IF ( Pedge==2 .OR. Pedge>=200 ) THEN
             hidden = .TRUE.
-            CALL gopen(Nscr2,Gplst(Ib),1)
+            CALL gopen(nscr2,Gplst(Ib),1)
             nwds = 3*letsz2 + 5
          ENDIF
  20      SPAG_Loop_1_1: DO
 !
-            CALL read(*80,*60,Elset,etyp,1,0,i)
-            CALL fread(Elset,i,1,0)
+            CALL read(*80,*60,elset,etyp,1,0,i)
+            CALL fread(elset,i,1,0)
             ngpel = iabs(i)
             ngpelx = ngpel
             solid = 0
@@ -185,18 +186,18 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
 !
 !     READ THE ELEMENT DATA
 !
-               CALL fread(Elset,Elid,1,0)
-               IF ( Elid<=0 ) CYCLE SPAG_Loop_1_1
-               CALL fread(Elset,Lid,1,0)
-               CALL fread(Elset,G,ngpel,0)
-               IF ( offset/=0 ) CALL fread(Elset,0,-offset,0)
-               IF ( ngpel/=ngpelx ) G(ngpelx) = G(1)
+               CALL fread(elset,elid,1,0)
+               IF ( elid<=0 ) CYCLE SPAG_Loop_1_1
+               CALL fread(elset,lid,1,0)
+               CALL fread(elset,g,ngpel,0)
+               IF ( offset/=0 ) CALL fread(elset,0,-offset,0)
+               IF ( ngpel/=ngpelx ) g(ngpelx) = g(1)
                IF ( .NOT.(hidden .AND. .NOT.shrink) ) THEN
                   xc = 0.
                   yc = 0.
                   zc = 0.
                   DO i = 1 , ngpel
-                     gp = G(i)
+                     gp = g(i)
                      gp = iabs(Gplst(gp))
                      xc = xc + X(2,gp)
                      yc = yc + X(3,gp)
@@ -210,42 +211,42 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
                nelsrf = letsz(1,itype)
                is = letsz(3,itype)
 !
-               DO Ns = 1 , nelsrf
+               DO ns = 1 , nelsrf
                   nn = 0
-                  mm = (Ns-1)*npts + is - 1
-                  Npers = npts
+                  mm = (ns-1)*npts + is - 1
+                  npers = npts
                   DO i = 1 , npts
                      m = mm + i
                      n = let(m)
                      IF ( n/=0 ) THEN
-                        gp = G(n)
+                        gp = g(n)
                         IF ( gp/=0 ) THEN
                            nn = nn + 1
                            gp = iabs(Gplst(gp))
-                           P(3,nn) = X(1,gp)
+                           p(3,nn) = X(1,gp)
                            IF ( Deform/=0 ) THEN
-                              P(1,nn) = U(1,gp)
-                              P(2,nn) = U(2,gp)
+                              p(1,nn) = U(1,gp)
+                              p(2,nn) = U(2,gp)
                            ELSE
-                              P(1,nn) = X(2,gp)
-                              P(2,nn) = X(3,gp)
+                              p(1,nn) = X(2,gp)
+                              p(2,nn) = X(3,gp)
                            ENDIF
                            IF ( shrink ) THEN
                               IF ( hidden ) THEN
-                                 P(3,nn) = X(1,gp) - (X(1,gp)-zc)*shk
-                                 P(1,nn) = X(2,gp) - (X(2,gp)-xc)*shk
-                                 P(2,nn) = X(3,gp) - (X(3,gp)-yc)*shk
+                                 p(3,nn) = X(1,gp) - (X(1,gp)-zc)*shk
+                                 p(1,nn) = X(2,gp) - (X(2,gp)-xc)*shk
+                                 p(2,nn) = X(3,gp) - (X(3,gp)-yc)*shk
                                  IF ( Deform/=0 ) THEN
-                                    P(1,nn) = U(1,gp) - (X(2,gp)-xc)*shk
-                                    P(2,nn) = U(2,gp) - (X(3,gp)-yc)*shk
+                                    p(1,nn) = U(1,gp) - (X(2,gp)-xc)*shk
+                                    p(2,nn) = U(2,gp) - (X(3,gp)-yc)*shk
                                  ENDIF
                               ELSEIF ( nn/=1 ) THEN
-                                 x1 = P(1,nn-1) - (P(1,nn-1)-xc)*shk
-                                 y1 = P(2,nn-1) - (P(2,nn-1)-yc)*shk
-                                 x2 = P(1,nn) - (P(1,nn)-xc)*shk
-                                 y2 = P(2,nn) - (P(2,nn)-yc)*shk
+                                 x1 = p(1,nn-1) - (p(1,nn-1)-xc)*shk
+                                 y1 = p(2,nn-1) - (p(2,nn-1)-yc)*shk
+                                 x2 = p(1,nn) - (p(1,nn)-xc)*shk
+                                 y2 = p(2,nn) - (p(2,nn)-yc)*shk
                                  ipen = Pen
-                                 IF ( ipedge==100 .AND. Pen>31 .AND. i==Npers ) Pen = 0
+                                 IF ( ipedge==100 .AND. Pen>31 .AND. i==npers ) Pen = 0
                                  IF ( shrink ) CALL line(x1,y1,x2,y2,Pen,0)
                                  IF ( Pen==0 ) Pen = ipen
                               ENDIF
@@ -253,11 +254,11 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
                            CYCLE
                         ENDIF
                      ENDIF
-                     Npers = Npers - 1
+                     npers = npers - 1
                   ENDDO
                   IF ( .NOT.(shrink .AND. .NOT.hidden) ) THEN
-                     CALL write(Nscr2,Nofsur,nwds,0)
-                     Nofsur = Nofsur + 1
+                     CALL write(nscr2,nofsur,nwds,0)
+                     nofsur = nofsur + 1
                      IF ( .NOT.(solid==0 .OR. .NOT.hidden) ) THEN
 !
 !     SAVE SOLID SURFACE DATA IN IZ SPACE FOR SECOND PROCESSING, HIDDEN
@@ -265,11 +266,11 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
 !
                         IF ( ls<lsmax ) THEN
                            ls = ls + 1
-                           nps1 = Npers - 1
+                           nps1 = npers - 1
                            DO i = 1 , nps1
                               m = mm + i
                               n = let(m)
-                              gp = G(n)
+                              gp = g(n)
                               temp(i) = gp
                               temp(i+nps1) = gp
                            ENDDO
@@ -290,7 +291,7 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
                               Iz(i,ls) = temp(m)
                               m = m + n
                            ENDDO
-                           Iz(1,ls) = Nofsur
+                           Iz(1,ls) = nofsur
                            Iz(2,ls) = nps1
                         ENDIF
                      ENDIF
@@ -305,32 +306,32 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
 !
 !     ILLEGAL ELEMENT, NO CORE FOR 1 ELEMENT
 !
-         G(1) = 2
-         G(2) = etyp
-         G(3) = ngpel
-         CALL wrtprt(Merr,G,m1,nm1)
+         g(1) = 2
+         g(2) = etyp
+         g(3) = ngpel
+         CALL wrtprt(merr,g,m1,nm1)
          DO
 !
 !     READ TO THE END OF THIS ELEMENT
 !
-            CALL read(*40,*20,Elset,Elid,1,0,m)
-            IF ( Elid<=0 ) GOTO 20
+            CALL read(*40,*20,elset,elid,1,0,m)
+            IF ( elid<=0 ) GOTO 20
             j = 1 + ngpel + offset
-            CALL fread(Elset,0,-j,0)
+            CALL fread(elset,0,-j,0)
          ENDDO
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (Iout,99001) i
+         WRITE (iout,99001) i
 99001    FORMAT ('0*** MISSING PDUM',I1,' SUBROUTINE/HDSURF')
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 40      CALL mesage(-8,Elset,name)
+ 40      CALL mesage(-8,elset,name)
 !
- 60      Maxsf = Nofsur
-         CALL bckrec(Elset)
+ 60      Maxsf = nofsur
+         CALL bckrec(elset)
          IF ( shrink ) CALL line(0.,0.,0.,0.,1.,+1)
          IF ( hidden ) THEN
-            CALL write(Nscr2,0,0,1)
+            CALL write(nscr2,0,0,1)
             IF ( ls>=60 ) THEN
 !
 !     REPROCESS NSCR2 TO REMOVE DUPLICATE SURFACES (INTERIOR-INTERFACES)
@@ -350,7 +351,7 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
                         IF ( nps2==nps1 ) THEN
                            im1 = i - 1
                            DO j = 3 , nps1
-                              IF ( Iz(j,i)/=Iz(j,im1) ) CYCLE SPAG_Loop_1_2
+                              IF ( Iz(j,i)/=Iz(j,im1) ) EXIT SPAG_DispatchLoop_2
                            ENDDO
                            IF ( m/=0 ) THEN
                               IF ( Iz(m,1)==Iz(1,im1) ) THEN
@@ -376,35 +377,35 @@ SUBROUTINE hdsurf(Gplst,X,U,Pen,Deform,Nmax,Maxsf,Iz,Ib,Pedge,Iopcor)
                IF ( m>=20 ) THEN
                   CALL sort(0,0,1,1,Iz,m)
                   Iz(m+1,1) = 999999999
-                  file = Nscr1
-                  CALL gopen(Nscr1,Gplst(Ib+Ibuf),1)
-                  file = Nscr2
-                  CALL close(Nscr2,1)
-                  CALL gopen(Nscr2,Gplst(Ib),0)
+                  file = nscr1
+                  CALL gopen(nscr1,Gplst(Ib+ibuf),1)
+                  file = nscr2
+                  CALL close(nscr2,1)
+                  CALL gopen(nscr2,Gplst(Ib),0)
                   n = 1
                   DO i = 1 , Maxsf
-                     CALL read(*100,*120,Nscr2,Nofsur,nwds,0,j)
+                     CALL read(*100,*120,nscr2,nofsur,nwds,0,j)
                      IF ( i<Iz(n,1) ) THEN
-                        CALL write(Nscr1,Nofsur,nwds,0)
+                        CALL write(nscr1,nofsur,nwds,0)
                      ELSE
                         n = n + 1
                      ENDIF
                   ENDDO
 !
-                  CALL close(Nscr2,1)
-                  j = Nscr2
-                  Nscr2 = Nscr1
-                  Nscr1 = j
+                  CALL close(nscr2,1)
+                  j = nscr2
+                  nscr2 = nscr1
+                  nscr1 = j
                   Maxsf = Maxsf - m
-                  CALL write(Nscr2,0,0,1)
+                  CALL write(nscr2,0,0,1)
                ENDIF
             ENDIF
-            CALL close(Nscr2,1)
+            CALL close(nscr2,1)
          ENDIF
          RETURN
 !
  80      j = -1
-         file = Elset
+         file = elset
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
  100     j = -2

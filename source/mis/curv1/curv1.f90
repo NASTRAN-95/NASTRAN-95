@@ -1,16 +1,17 @@
-!*==curv1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==curv1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE curv1
+   USE c_blank
+   USE c_curvc1
+   USE c_curvc2
+   USE c_curvc3
+   USE c_curvtb
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CURVC1
-   USE C_CURVC2
-   USE C_CURVC3
-   USE C_CURVTB
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -119,48 +120,48 @@ SUBROUTINE curv1
 !  IF EITHER OF THESE PARAMS IS EXCEEDED RESET AND RE-DIMENSION
 !  SBUF OR BUF.
 !
-         Lsbuf = 10
-         Lbuf = 100
-         Nelems = 4
-         Logerr = 37
+         lsbuf = 10
+         lbuf = 100
+         nelems = 4
+         logerr = 37
 !*****
 !  INITIALIZATION OF CORE AND FLAGS
 !*****
-         Foes1g = .TRUE.
-         IF ( Ip1>0 ) Foes1g = .FALSE.
-         Any1m = .FALSE.
-         Any1g = .FALSE.
-         Lmcsid = 0
+         foes1g = .TRUE.
+         IF ( ip1>0 ) foes1g = .FALSE.
+         any1m = .FALSE.
+         any1g = .FALSE.
+         lmcsid = 0
 !
-         Lcore = korsz(Iz(1))
-         DO I = 1 , Lcore
-            Iz(I) = 0
+         lcore = korsz(iz(1))
+         DO i = 1 , lcore
+            iz(i) = 0
          ENDDO
-         Ibuf1 = Lcore - Sysbuf
-         Ibuf2 = Ibuf1 - Sysbuf
-         Ibuf3 = Ibuf2 - Sysbuf
-         Ibuf4 = Ibuf3 - Sysbuf
+         ibuf1 = lcore - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         ibuf4 = ibuf3 - sysbuf
 !
 !  SET FILE NUMBERS EXPLICITYLY.  ALL OVERLAYS REFERENCE /CURVTB/
 !
-         Oes1 = 101
-         Mpt = 102
-         Cstm = 103
-         Est = 104
-         Sil = 105
-         Gpl = 106
-         Oes1m = 201
-         Oes1g = 202
-         Scr1 = 301
-         Scr2 = 302
-         Scr3 = 303
-         Scr4 = 304
-         Scr5 = 305
-         Jcore = Ibuf4 - 1
-         File = 0
-         Loc = 300
-         icrq = -Ibuf4
-         IF ( Ibuf4<=0 ) THEN
+         oes1 = 101
+         mpt = 102
+         cstm = 103
+         est = 104
+         sil = 105
+         gpl = 106
+         oes1m = 201
+         oes1g = 202
+         scr1 = 301
+         scr2 = 302
+         scr3 = 303
+         scr4 = 304
+         scr5 = 305
+         jcore = ibuf4 - 1
+         file = 0
+         loc = 300
+         icrq = -ibuf4
+         IF ( ibuf4<=0 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -168,9 +169,9 @@ SUBROUTINE curv1
 !  ALLOCATE TABLE OF ELEMENT TYPES PLACED ON ESTX(SCR1).  MAXIMUM
 !  SIZE NOW AND REDUCED LATER TO ACTUAL SIZE.
 !*****
-         Ieltyp = 1
-         Jeltyp = Ieltyp
-         Neltyp = Nelems
+         ieltyp = 1
+         jeltyp = ieltyp
+         neltyp = nelems
 !*****
 !  CONSTRUCTION OF TABLE CONTAINING ENTRIES OF,
 !
@@ -182,33 +183,33 @@ SUBROUTINE curv1
 !  RESULT IN AN ENTRY BEING ADDED TO THIS TABLE. TABLE IS THEN SORTED
 !  ON -MID-.
 !*****
-         Imid = Neltyp + 1
-         Nmid = Imid - 1
+         imid = neltyp + 1
+         nmid = imid - 1
 !
 !  OPEN MPT USING -PRELOC- FUNCTION.
 !
-         File = Mpt
-         Loc = 400
-         CALL preloc(*200,Iz(Ibuf1),Mpt)
+         file = mpt
+         loc = 400
+         CALL preloc(*200,iz(ibuf1),mpt)
 !
 !  PASS MAT1 AND MAT2 DATA IF ANY.
 !
-         DO I = 1 , 6 , 3
-            Iwords = mat(I+2)
-            IF ( Iwords>Lbuf ) GOTO 180
-            CALL locate(*20,Iz(Ibuf1),mat(I),idum)
+         DO i = 1 , 6 , 3
+            iwords = mat(i+2)
+            IF ( iwords>lbuf ) GOTO 180
+            CALL locate(*20,iz(ibuf1),mat(i),idum)
             DO
-               CALL read(*220,*20,Mpt,Buf(1),Iwords,noeor,Nwords)
-               IF ( Buf(Iwords)>0 ) THEN
-                  icrq = Nmid + 3 - Jcore
-                  IF ( Nmid+3>Jcore ) THEN
+               CALL read(*220,*20,mpt,buf(1),iwords,noeor,nwords)
+               IF ( buf(iwords)>0 ) THEN
+                  icrq = nmid + 3 - jcore
+                  IF ( nmid+3>jcore ) THEN
                      spag_nextblock_1 = 7
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Iz(Nmid+1) = Buf(1)
-                  Iz(Nmid+2) = Buf(Iwords)
-                  Iz(Nmid+3) = 0
-                  Nmid = Nmid + 3
+                  iz(nmid+1) = buf(1)
+                  iz(nmid+2) = buf(iwords)
+                  iz(nmid+3) = 0
+                  nmid = nmid + 3
                ENDIF
             ENDDO
 !
@@ -218,48 +219,48 @@ SUBROUTINE curv1
 !
 !  TABLE COMPLETE, THUS NOW SORT IT. IF TABLE IS EMPTY WE ARE THROUGH
 !
-         CALL close(Mpt,Clsrew)
-         Lmid = Nmid - Imid + 1
-         Nmids = Lmid/3
-         Loc = 570
-         IF ( Lmid<0 ) GOTO 180
-         IF ( Lmid==0 ) THEN
+         CALL close(mpt,clsrew)
+         lmid = nmid - imid + 1
+         nmids = lmid/3
+         loc = 570
+         IF ( lmid<0 ) GOTO 180
+         IF ( lmid==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL sort(0,0,3,1,Iz(Imid),Lmid)
+         CALL sort(0,0,3,1,iz(imid),lmid)
 !*****
 !  LOAD LIST OF SILS INTO CORE, FOLLOWED BY LIST OF EXTERNAL IDS.
 !  THIS IS REQUIRED ONLY IF OES1G IS TO BE FORMED.
 !*****
-         IF ( .NOT.Foes1g ) THEN
+         IF ( .NOT.foes1g ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         File = Sil
-         Loc = 580
-         Isil = Nmid + 1
-         CALL gopen(Sil,Iz(Ibuf1),0)
-         CALL read(*220,*40,Sil,Iz(Isil),Jcore-Isil,noeor,Lsil)
-         icrq = Jcore - Isil
+         file = sil
+         loc = 580
+         isil = nmid + 1
+         CALL gopen(sil,iz(ibuf1),0)
+         CALL read(*220,*40,sil,iz(isil),jcore-isil,noeor,lsil)
+         icrq = jcore - isil
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
- 40      Nsil = Isil + Lsil - 1
-         CALL close(Sil,Clsrew)
+ 40      nsil = isil + lsil - 1
+         CALL close(sil,clsrew)
 !
-         File = Gpl
-         Loc = 590
-         Iext = Nsil + 1
-         CALL gopen(Gpl,Iz(Ibuf1),0)
-         CALL read(*220,*60,Gpl,Iz(Iext),Jcore-Iext,noeor,Lext)
-         icrq = Jcore - Iext
+         file = gpl
+         loc = 590
+         iext = nsil + 1
+         CALL gopen(gpl,iz(ibuf1),0)
+         CALL read(*220,*60,gpl,iz(iext),jcore-iext,noeor,lext)
+         icrq = jcore - iext
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
- 60      Next = Iext + Lext - 1
-         CALL close(Gpl,Clsrew)
-         IF ( Lsil/=Lext ) GOTO 180
+ 60      next = iext + lext - 1
+         CALL close(gpl,clsrew)
+         IF ( lsil/=lext ) GOTO 180
          spag_nextblock_1 = 2
       CASE (2)
 !*****
@@ -283,13 +284,13 @@ SUBROUTINE curv1
 !             REFERENCING A MAT1 OR MAT2 CARD HAVING A NON-ZERO MCSID.)
 !
 !*****
-         Loc = 630
-         File = Scr1
-         CALL open(*200,Scr1,Iz(Ibuf2),Wrtrew)
-         File = Est
-         CALL gopen(Est,Iz(Ibuf1),0)
+         loc = 630
+         file = scr1
+         CALL open(*200,scr1,iz(ibuf2),wrtrew)
+         file = est
+         CALL gopen(est,iz(ibuf1),0)
 !
-         Oldid = -99999998
+         oldid = -99999998
          spag_nextblock_1 = 3
       CASE (3)
          SPAG_Loop_1_1: DO
@@ -297,81 +298,81 @@ SUBROUTINE curv1
 !  READ ELEMENT TYPE OF NEXT EST RECORD AND DETERMINE IF IT IS
 !  AMONG ELEMENT TYPES TO BE EVEN CONSIDERED.
 !
-            Loc = 645
-            CALL read(*120,*240,Est,Eltype,1,noeor,Nwords)
-            DO I = 1 , Nelems
-               IF ( Eltype==elem(1,I) ) EXIT SPAG_Loop_1_1
+            loc = 645
+            CALL read(*120,*240,est,eltype,1,noeor,nwords)
+            DO i = 1 , nelems
+               IF ( eltype==elem(1,i) ) EXIT SPAG_Loop_1_1
             ENDDO
-            CALL fwdrec(*220,Est)
+            CALL fwdrec(*220,est)
          ENDDO SPAG_Loop_1_1
 !
 !  OK THIS  ELEMENT TYPE RECORD IS TO BE CONSIDERED.
 !
-         Estwds = elem(2,I)
-         Loc = 670
-         IF ( Estwds>Lbuf ) GOTO 180
-         Any = .FALSE.
-         Npts = elem(3,I)
-         Imatid = elem(4,I)
-         Ixyz1 = elem(5,I)
-         Ixyz2 = Ixyz1 + 4*Npts - 1
-         K1 = 2 + Npts
-         Loc = 680
-         IF ( K1>Lsbuf ) GOTO 180
+         estwds = elem(2,i)
+         loc = 670
+         IF ( estwds>lbuf ) GOTO 180
+         any = .FALSE.
+         npts = elem(3,i)
+         imatid = elem(4,i)
+         ixyz1 = elem(5,i)
+         ixyz2 = ixyz1 + 4*npts - 1
+         k1 = 2 + npts
+         loc = 680
+         IF ( k1>lsbuf ) GOTO 180
  80      DO
 !
 !  READ AN ELEMENT ENTRY AND CHECK TO DETERMINE IF IT IS TO BE USED.
 !
-            Loc = 690
-            CALL read(*220,*100,Est,Buf(1),Estwds,noeor,Nwords)
-            Matid = Buf(Imatid)
-            IF ( Matid/=Oldid ) THEN
-               CALL bisloc(*80,Matid,Iz(Imid),3,Nmids,Jp)
-               Mcsid = Iz(Imid+Jp)
-               Oldid = Matid
-               Iz(Imid+Jp+1) = 7
+            loc = 690
+            CALL read(*220,*100,est,buf(1),estwds,noeor,nwords)
+            matid = buf(imatid)
+            IF ( matid/=oldid ) THEN
+               CALL bisloc(*80,matid,iz(imid),3,nmids,jp)
+               mcsid = iz(imid+jp)
+               oldid = matid
+               iz(imid+jp+1) = 7
             ENDIF
 !
 !  DEVELOP AND OUTPUT ABBREVIATED ENTRY TO SCRATCH1.
 !  (INITIALIZE RECORD WITH THREE-WORD-HEADER ENTRY.)
 !
-            IF ( .NOT.(Any) ) THEN
-               Sbuf(1) = Eltype
-               Sbuf(2) = 4*Npts + 2
-               Sbuf(3) = Npts
-               CALL write(Scr1,Sbuf(1),3,noeor)
-               Iz(Jeltyp) = Eltype
-               Jeltyp = Jeltyp + 1
-               Any = .TRUE.
+            IF ( .NOT.(any) ) THEN
+               sbuf(1) = eltype
+               sbuf(2) = 4*npts + 2
+               sbuf(3) = npts
+               CALL write(scr1,sbuf(1),3,noeor)
+               iz(jeltyp) = eltype
+               jeltyp = jeltyp + 1
+               any = .TRUE.
             ENDIF
 !
-            Sbuf(1) = Buf(1)
-            Sbuf(2) = Mcsid
+            sbuf(1) = buf(1)
+            sbuf(2) = mcsid
 !
 !  CONVERT SILS TO EXTERNAL-IDS IF OES1G IS TO BE BUILT
 !
-            IF ( Foes1g ) THEN
+            IF ( foes1g ) THEN
 !
-               Jsil = 2
-               Loc = 740
-               DO I = 3 , K1
-                  CALL bisloc(*180,Buf(Jsil),Iz(Isil),1,Lsil,Jp)
-                  Sbuf(I) = Iz(Iext+Jp-1)
-                  Jsil = Jsil + 1
+               jsil = 2
+               loc = 740
+               DO i = 3 , k1
+                  CALL bisloc(*180,buf(jsil),iz(isil),1,lsil,jp)
+                  sbuf(i) = iz(iext+jp-1)
+                  jsil = jsil + 1
                ENDDO
             ELSE
-               DO I = 3 , K1
-                  Sbuf(I) = 0
+               DO i = 3 , k1
+                  sbuf(i) = 0
                ENDDO
             ENDIF
 !
 !  OUTPUT THIS PORTION OF ENTRY AND THEN XYZ COMPONENTS OF CONNECTED
 !  POINTS
 !
-            CALL write(Scr1,Sbuf(1),Npts+2,noeor)
+            CALL write(scr1,sbuf(1),npts+2,noeor)
 !
-            DO I = Ixyz1 , Ixyz2 , 4
-               CALL write(Scr1,Buf(I+1),3,noeor)
+            DO i = ixyz1 , ixyz2 , 4
+               CALL write(scr1,buf(i+1),3,noeor)
 !
 !  GO FOR NEXT ELEMENT OF THIS TYPE
 !
@@ -380,51 +381,51 @@ SUBROUTINE curv1
 !
 !  END OF ENTRIES FUR CURRENT ELEMENT TYPE.
 !
- 100     Loc = 780
-         IF ( Nwords/=0 ) GOTO 180
-         IF ( Any ) CALL write(Scr1,0,0,eor)
+ 100     loc = 780
+         IF ( nwords/=0 ) GOTO 180
+         IF ( any ) CALL write(scr1,0,0,eor)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !  END OF ALL ELEMENT TYPES IN EST
 !
- 120     CALL close(Est,Clsrew)
-         CALL close(Scr1,Clsrew)
+ 120     CALL close(est,clsrew)
+         CALL close(scr1,clsrew)
 !*****
 !  REDUCTION OF MATERIAL-ID AND COORDINATE-SYSTEM-ID TO THOSE
 !  ACTUALLY REFERENCED BY ELEMENTS BEING CONSIDERED.
 !*****
-         Neltyp = Jeltyp - 1
+         neltyp = jeltyp - 1
 !
 !  RESORT MID-MCSID TABLE ON MCSID.
 !
-         CALL sort(0,0,3,2,Iz(Imid),Lmid)
-         Imcsid = Neltyp + 1
-         Nmcsid = Neltyp
-         Loc = 820
-         Oldid = 0
-         DO I = Imid , Nmid , 3
-            IF ( Iz(I+2)<0 ) GOTO 180
-            IF ( Iz(I+2)/=0 ) THEN
+         CALL sort(0,0,3,2,iz(imid),lmid)
+         imcsid = neltyp + 1
+         nmcsid = neltyp
+         loc = 820
+         oldid = 0
+         DO i = imid , nmid , 3
+            IF ( iz(i+2)<0 ) GOTO 180
+            IF ( iz(i+2)/=0 ) THEN
 !
 !  ELIMINATE DUPLICATE MCSIDS.
 !
-               IF ( Iz(I+1)/=Oldid ) THEN
-                  Oldid = Iz(I+1)
-                  Nmcsid = Nmcsid + 2
-                  Iz(Nmcsid-1) = Iz(I+1)
-                  Iz(Nmcsid) = 0
+               IF ( iz(i+1)/=oldid ) THEN
+                  oldid = iz(i+1)
+                  nmcsid = nmcsid + 2
+                  iz(nmcsid-1) = iz(i+1)
+                  iz(nmcsid) = 0
                ENDIF
             ENDIF
          ENDDO
-         Lmcsid = Nmcsid - Imcsid + 1
-         Mcsids = Lmcsid/2
+         lmcsid = nmcsid - imcsid + 1
+         mcsids = lmcsid/2
 !
 !  IF TABLE IS NOW EMPTY THERE IS NOTHING MORE TO DO
 !
-         Loc = 860
-         IF ( Lmcsid<0 ) GOTO 180
-         IF ( Lmcsid==0 ) THEN
+         loc = 860
+         IF ( lmcsid<0 ) GOTO 180
+         IF ( lmcsid==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -433,60 +434,60 @@ SUBROUTINE curv1
 !  PULLED INTO CORE FROM THE -CSTM- DATA BLOCK. (SILS AND EXTERNAL-IDS
 !  TABLES IF IN CORE ARE NO LONGER REQUIRED.)
 !*****
-         Icstm = Nmcsid + 1
-         Ncstm = Nmcsid
-         File = Cstm
-         CALL gopen(Cstm,Iz(Ibuf1),0)
+         icstm = nmcsid + 1
+         ncstm = nmcsid
+         file = cstm
+         CALL gopen(cstm,iz(ibuf1),0)
          spag_nextblock_1 = 4
       CASE (4)
-         icrq = Ncstm + 14 - Jcore
-         IF ( Ncstm+14>Jcore ) THEN
+         icrq = ncstm + 14 - jcore
+         IF ( ncstm+14>jcore ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 140     CALL read(*220,*160,Cstm,Iz(Ncstm+1),14,noeor,Nwords)
-         kid = Iz(Ncstm+1)
-         CALL bisloc(*140,kid,Iz(Imcsid),2,Mcsids,Jp)
-         Ncstm = Ncstm + 14
+ 140     CALL read(*220,*160,cstm,iz(ncstm+1),14,noeor,nwords)
+         kid = iz(ncstm+1)
+         CALL bisloc(*140,kid,iz(imcsid),2,mcsids,jp)
+         ncstm = ncstm + 14
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
 !  END OF COORDINATE SYSTEM DATA
 !
- 160     CALL close(Cstm,Clsrew)
-         Lcstm = Ncstm - Icstm + 1
-         Cstms = Lcstm/14
-         CALL sort(0,0,14,1,z(Icstm),Lcstm)
-         CALL pretrs(Iz(Icstm),Lcstm)
+ 160     CALL close(cstm,clsrew)
+         lcstm = ncstm - icstm + 1
+         cstms = lcstm/14
+         CALL sort(0,0,14,1,z(icstm),lcstm)
+         CALL pretrs(iz(icstm),lcstm)
          spag_nextblock_1 = 5
       CASE (5)
 !*****
 !  INITIALIZE INPUT AND OUTPUT FILE POSITIONS.
 !*****
-         CALL gopen(Oes1,Iz(Ibuf1),0)
+         CALL gopen(oes1,iz(ibuf1),0)
 !
 !  CHECK FOR STRAIN OPTION
 !
-         File = Oes1
-         Loc = 910
-         CALL read(*220,*240,Oes1,Idrec(1),2,0,flag)
-         I = Idrec(2)
-         IF ( I/=5 .AND. I/=21 .AND. I/=1005 ) GOTO 180
-         Strain = .FALSE.
-         IF ( I==21 ) Strain = .TRUE.
-         Icmplx = 0
-         IF ( I==1005 ) Icmplx = 1
-         CALL bckrec(Oes1)
+         file = oes1
+         loc = 910
+         CALL read(*220,*240,oes1,idrec(1),2,0,flag)
+         i = idrec(2)
+         IF ( i/=5 .AND. i/=21 .AND. i/=1005 ) GOTO 180
+         strain = .FALSE.
+         IF ( i==21 ) strain = .TRUE.
+         icmplx = 0
+         IF ( i==1005 ) icmplx = 1
+         CALL bckrec(oes1)
 !
-         CALL close(Oes1,Cls)
-         Eofos1 = .FALSE.
+         CALL close(oes1,cls)
+         eofos1 = .FALSE.
 !
-         CALL gopen(Oes1m,Iz(Ibuf1),1)
-         CALL close(Oes1m,Cls)
+         CALL gopen(oes1m,iz(ibuf1),1)
+         CALL close(oes1m,cls)
 !
-         IF ( Foes1g ) THEN
-            CALL gopen(Oes1g,Iz(Ibuf1),1)
-            CALL close(Oes1g,Cls)
+         IF ( foes1g ) THEN
+            CALL gopen(oes1g,iz(ibuf1),1)
+            CALL close(oes1g,cls)
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
@@ -497,23 +498,21 @@ SUBROUTINE curv1
 !*****
 !  ERROR CONDITION ENCOUNTERED.
 !*****
- 180     Imsg = -Logerr
+ 180     imsg = -logerr
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 200     Imsg = -1
+ 200     imsg = -1
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 220     Imsg = -2
+ 220     imsg = -2
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 240     Imsg = -3
+ 240     imsg = -3
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         Imsg = -8
-         Lcore = icrq
+         imsg = -8
+         lcore = icrq
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE curv1

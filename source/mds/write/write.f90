@@ -1,10 +1,11 @@
-!*==write.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==write.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE write(File,Idata,N,Eorflg)
+   USE i_dsiof
+   USE i_xnstrn
+   USE c_ddiosv
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_XNSTRN
-   USE C_DDIOSV
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,8 +30,8 @@ SUBROUTINE write(File,Idata,N,Eorflg)
       IF ( indclr/=indcbp ) THEN
          iblock = ibase(indbas+nbuff+2)
       ELSE
-         Iflpos(1,ifilex) = fcb(3,ifilex)
-         Iflpos(2,ifilex) = fcb(4,ifilex)
+         iflpos(1,ifilex) = fcb(3,ifilex)
+         iflpos(2,ifilex) = fcb(4,ifilex)
          ibase(indclr) = idsrh + idsc
          iblock = nblock
          ibase(indbas+nbuff+2) = nblock
@@ -47,7 +48,7 @@ SUBROUTINE write(File,Idata,N,Eorflg)
 !WKBI SPR94013 11/94
          ibase(indbas+nbuff+2) = iblock
          CALL dssdcb
-         GOTO 99999
+         RETURN
       ENDIF
    ELSEIF ( indcbp==indclr ) THEN
       lwords = nbuff - (indclr-indbas) - 2
@@ -59,20 +60,20 @@ SUBROUTINE write(File,Idata,N,Eorflg)
          indcbp = indcbp + 2
          indclr = indcbp
          CALL dssdcb
-         GOTO 99999
+         RETURN
       ENDIF
    ENDIF
    IF ( ieor/=0 ) THEN
       IF ( indcbp==indclr ) THEN
          ibase(indcbp) = idsrh + idsc
-         Iflpos(1,ifilex) = fcb(3,ifilex)
-         Iflpos(2,ifilex) = fcb(4,ifilex)
+         iflpos(1,ifilex) = fcb(3,ifilex)
+         iflpos(2,ifilex) = fcb(4,ifilex)
       ENDIF
       ibase(indcbp+1) = idsrt + idsc + (indclr-indbas+1)
       indcbp = indcbp + 2
       indclr = indcbp
       CALL dssdcb
-      GOTO 99999
+      RETURN
    ENDIF
    CALL dssdcb
-99999 END SUBROUTINE write
+END SUBROUTINE write

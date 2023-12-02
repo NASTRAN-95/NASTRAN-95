@@ -1,14 +1,15 @@
-!*==cmckcd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmckcd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmckcd
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -38,32 +39,32 @@ SUBROUTINE cmckcd
 !
          it = 2
          ierr = 0
-         llco = Lcore
+         llco = lcore
          j = 0
-         ifile = Scsfil
-         CALL open(*60,Scsfil,Z(Buf2),0)
-         DO i = 1 , Npsub
-            nrec = Combo(i,5) + 1
+         ifile = scsfil
+         CALL open(*60,scsfil,z(buf2),0)
+         DO i = 1 , npsub
+            nrec = combo(i,5) + 1
             DO jj = 1 , nrec
-               CALL fwdrec(*80,Scsfil)
+               CALL fwdrec(*80,scsfil)
             ENDDO
-            CALL read(*80,*10,Scsfil,Z(Score+j),llco,1,nnn)
+            CALL read(*80,*10,scsfil,z(score+j),llco,1,nnn)
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
- 10         ist(i) = Score + j
+ 10         ist(i) = score + j
             j = j + nnn
             llco = llco - nnn
-            CALL skpfil(Scsfil,1)
+            CALL skpfil(scsfil,1)
          ENDDO
-         CALL close(Scsfil,1)
+         CALL close(scsfil,1)
 !
 !     READ CONNECTION ENTRIES AND LOAD INTO COORD ARRAY
 !
-         ifile = Scconn
-         CALL open(*60,Scconn,Z(Buf2),0)
+         ifile = scconn
+         CALL open(*60,scconn,z(buf2),0)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*40,*20,Scconn,ce,10,1,nnn)
+         CALL read(*40,*20,scconn,ce,10,1,nnn)
 !
 !     LOAD COORD ARRAY
 !     CE(3)... UP TO CE(9) ARE INTERNAL POINT NO.
@@ -71,13 +72,13 @@ SUBROUTINE cmckcd
 !     Z(IADD+1,+2,+3) ARE THE COORD. ORIGINS
 !
  20      npt = 0
-         DO i = 1 , Npsub
+         DO i = 1 , npsub
             IF ( ce(i+2)>0 ) THEN
                npt = npt + 1
                iadd = 4*(ce(i+2)-1) + ist(i)
                ipnum(npt) = ce(i+2)
                DO j = 1 , 3
-                  coord(npt,j) = Z(iadd+j)
+                  coord(npt,j) = z(iadd+j)
                ENDDO
             ENDIF
          ENDDO
@@ -97,20 +98,20 @@ SUBROUTINE cmckcd
                   sum = sum + diff2(kk)
                ENDDO
                dist = sqrt(sum)
-               IF ( dist>Toler ) THEN
+               IF ( dist>toler ) THEN
                   IF ( it<=1 ) THEN
-                     WRITE (Outt,99001) Ufm
+                     WRITE (outt,99001) ufm
 99001                FORMAT (A23,' 6514, ERRORS HAVE BEEN FOUND IN MANUALLY SPECIFIED',' CONNECTION ENTRIES. SUMMARY FOLLOWS')
                      ierr = 1
-                     Idry = -2
+                     idry = -2
                      it = 2
                   ENDIF
                   IF ( it<=2 ) THEN
-                     WRITE (Outt,99002) (ce(kdh),kdh=1,nnn)
+                     WRITE (outt,99002) (ce(kdh),kdh=1,nnn)
 99002                FORMAT ('0*** GEOMETRIC ERRORS HAVE BEEN FOUND IN THE FOLLOWING',' CONNECTION ENTRY',/5X,9I10)
                      it = 3
                   ENDIF
-                  WRITE (Outt,99003) ipnum(i) , (coord(i,mm),mm=1,3) , ipnum(j) , (coord(j,mm),mm=1,3)
+                  WRITE (outt,99003) ipnum(i) , (coord(i,mm),mm=1,3) , ipnum(j) , (coord(j,mm),mm=1,3)
 99003             FORMAT ('0*** IP NUMBER',I10,13H COORDINATES ,3E16.6,4H AND,/,'     IP NUMBER',I10,13H COORDINATES ,3E16.6,       &
                          &' ARE NOT WITHIN TOLER UNITS.')
                ENDIF
@@ -119,9 +120,9 @@ SUBROUTINE cmckcd
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
- 40      IF ( ierr==0 ) WRITE (Outt,99004) Uim
+ 40      IF ( ierr==0 ) WRITE (outt,99004) uim
 99004    FORMAT (A29,' 6516, ALL MANUAL CONNECTIONS SPECIFIED ARE ','ALLOWABLE WITH RESPECT TO TOLERANCE')
-         CALL close(Scconn,1)
+         CALL close(scconn,1)
          RETURN
 !
  60      imsg = -1
@@ -129,7 +130,6 @@ SUBROUTINE cmckcd
          CYCLE SPAG_DispatchLoop_1
  80      imsg = -2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          imsg = -8
          spag_nextblock_1 = 4

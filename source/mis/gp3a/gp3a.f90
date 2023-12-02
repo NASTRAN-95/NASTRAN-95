@@ -1,14 +1,15 @@
-!*==gp3a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gp3a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp3a
+   USE c_blank
+   USE c_gp3com
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GP3COM
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -45,50 +46,50 @@ SUBROUTINE gp3a
 !
 !     READ EQEXIN INTO CORE. INITIALIZE BINARY SEARCH ROUTINE.
 !
-         file = Eqexin
-         CALL open(*140,Eqexin,Z(Buf1),Rdrew)
-         CALL fwdrec(*160,Eqexin)
-         CALL read(*160,*20,Eqexin,Z,Buf2,1,neqx)
+         file = eqexin
+         CALL open(*140,eqexin,z(buf1),rdrew)
+         CALL fwdrec(*160,eqexin)
+         CALL read(*160,*20,eqexin,z,buf2,1,neqx)
          CALL mesage(-8,0,nam)
- 20      CALL close(Eqexin,Clsrew)
+ 20      CALL close(eqexin,clsrew)
          kn = neqx/2
          nogo = 0
 !
 !     INITIALIZE POINTERS AND OPEN SCR1 AND GEOM3.
 !
-         iset = Buf2 - 2
+         iset = buf2 - 2
          kset = iset
          ilist = neqx + 1
          klist = ilist
          ktabl = 1
          first = 1
-         file = Scr1
-         CALL open(*140,Scr1,Z(Buf2),Wrtrew)
+         file = scr1
+         CALL open(*140,scr1,z(buf2),wrtrew)
 !
 !     IF PLOAD2 CARDS PRESENT, INITIALIZE TO READ PLOAD DATA FROM SCR2
 !     INSTEAD OF GEOM3.
 !
-         IF ( Nopld2==0 ) THEN
+         IF ( nopld2==0 ) THEN
             first = 0
          ELSE
-            file = Scr2
-            CALL open(*140,Scr2,Z(Buf1),Rdrew)
+            file = scr2
+            CALL open(*140,scr2,z(buf1),rdrew)
             GOTO 40
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         file = Geom3
-         CALL open(*140,Geom3,Z(Buf1),Rdrew)
-         CALL fwdrec(*160,Geom3)
+         file = geom3
+         CALL open(*140,geom3,z(buf1),rdrew)
+         CALL fwdrec(*160,geom3)
 !
 !     READ 3-WORD RECORD ID. IF ID BELONGS TO LOAD SET, TURN NOLOAD FLAG
 !     OFF.
 !     SET 1ST WORD IN STATUS ENTRY TO CURRENT POINTER IN LIST TABLE.
 !     SET PARAMETERS FOR CONVERSION OF GRID NOS. TO INTERNAL INDICES.
 !
- 40      CALL read(*80,*40,file,Buf,3,0,flag)
-         DO i = 1 , Ntypes , 2
-            IF ( Buf(1)==Cardid(i) .AND. Buf(2)==Cardid(i+1) ) THEN
+ 40      CALL read(*80,*40,file,buf,3,0,flag)
+         DO i = 1 , ntypes , 2
+            IF ( buf(1)==cardid(i) .AND. buf(2)==cardid(i+1) ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -98,28 +99,28 @@ SUBROUTINE gp3a
          CALL fwdrec(*80,file)
          GOTO 40
       CASE (4)
-         Noload = 1
+         noload = 1
          IF ( first/=1 ) THEN
 !
 !     IF I POINTS TO PLOAD RECORD AND PLOAD2 CARDS ARE PRESENT, THEN
 !     PLOAD DATA IS ALREADY PROCESSED. IN THIS CASE, SKIP PLOAD RECORD.
 !     IF I POINTS TO PLOAD3 RECORD ON GEOM3, SKIP RECORD.
 !
-            IF ( i==Ipload .AND. Nopld2/=0 .AND. Nopld2/=2 ) THEN
+            IF ( i==ipload .AND. nopld2/=0 .AND. nopld2/=2 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( i==Ipld3 ) THEN
+            IF ( i==ipld3 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         Status(i) = klist - ilist + 1
-         nwds = Carddt(i)
+         status(i) = klist - ilist + 1
+         nwds = carddt(i)
          nwds1 = nwds - 1
-         jx = Carddt(i+1)
+         jx = carddt(i+1)
          jj1 = jx + 1
-         jjn = jx + Mask(jx)
+         jjn = jx + mask(jx)
          id = 0
          spag_nextblock_1 = 5
       CASE (5)
@@ -129,15 +130,15 @@ SUBROUTINE gp3a
 !     IN POINTER LIST. IF NOT FIRST CARD OF TYPE, STORE WORD COUNT IN
 !     POINTER LIST.
 !
-         CALL read(*160,*60,file,Buf,nwds,0,flag)
-         IF ( Buf(1)/=id ) THEN
-            Z(klist) = Buf(1)
-            Z(klist+1) = ktabl
-            IF ( id/=0 ) Z(klist-1) = n
-            id = Buf(1)
+         CALL read(*160,*60,file,buf,nwds,0,flag)
+         IF ( buf(1)/=id ) THEN
+            z(klist) = buf(1)
+            z(klist+1) = ktabl
+            IF ( id/=0 ) z(klist-1) = n
+            id = buf(1)
             n = 0
             klist = klist + 3
-            Z(kset) = Buf(1)
+            z(kset) = buf(1)
             kset = kset - 1
          ENDIF
 !
@@ -153,7 +154,7 @@ SUBROUTINE gp3a
          spag_nextblock_1 = 6
       CASE (6)
          IF ( jstop==0 ) THEN
-            jx = Mask(jj)
+            jx = mask(jj)
             IF ( jx<=0 ) THEN
                jx = -jx
                jstop = 1
@@ -161,11 +162,11 @@ SUBROUTINE gp3a
          ELSE
             jx = jx + 1
          ENDIF
-         gpoint = Buf(jx)
+         gpoint = buf(jx)
          piez = .FALSE.
          IF ( gpoint<0 .AND. ksystm(78)==1 ) piez = .TRUE.
          IF ( piez ) gpoint = -gpoint
-         IF ( .NOT.(gpoint==-1 .AND. (Cardid(i)==3209 .OR. Cardid(i)==3409)) ) THEN
+         IF ( .NOT.(gpoint==-1 .AND. (cardid(i)==3209 .OR. cardid(i)==3409)) ) THEN
             IF ( gpoint/=0 ) THEN
                spag_nextblock_1 = 15
                CYCLE SPAG_DispatchLoop_1
@@ -174,7 +175,7 @@ SUBROUTINE gp3a
          spag_nextblock_1 = 7
       CASE (7)
          IF ( piez ) gpoint = -gpoint
-         Buf(jx) = gpoint
+         buf(jx) = gpoint
          jj = jj + 1
          IF ( jj<=jjn ) THEN
             spag_nextblock_1 = 6
@@ -189,17 +190,17 @@ SUBROUTINE gp3a
 !
 !     CHECK FOR THRU OPTION ON PLOAD4 CARD
 !
-            IF ( Buf(7)==0 ) THEN
+            IF ( buf(7)==0 ) THEN
 !
 !     PROCESS PLOAD4 DATA FOR ALL ELEMENT IDS IMPLIED BY THE THRU OPTION
 !
-               iii = Buf(2)
-               jjj = Buf(8)
-               Buf(7) = -1
-               Buf(8) = 0
+               iii = buf(2)
+               jjj = buf(8)
+               buf(7) = -1
+               buf(8) = 0
                DO kkk = iii , jjj
-                  Buf(2) = kkk
-                  CALL write(Scr1,Buf(2),nwds1,0)
+                  buf(2) = kkk
+                  CALL write(scr1,buf(2),nwds1,0)
                   n = n + nwds1
                   ktabl = ktabl + nwds1
                ENDDO
@@ -208,7 +209,7 @@ SUBROUTINE gp3a
             ENDIF
          ENDIF
 !
-         CALL write(Scr1,Buf(2),nwds1,0)
+         CALL write(scr1,buf(2),nwds1,0)
 !
          n = n + nwds1
          ktabl = ktabl + nwds1
@@ -220,8 +221,8 @@ SUBROUTINE gp3a
 !     TO LAST ENTRY FOR CARD TYPE IN 2ND WORD OF STATUS ENTRY.
 !     LOOP BACK TO READ NEXT CARD TYPE.
 !
- 60      Z(klist-1) = n
-         Status(i+1) = klist - ilist - 2
+ 60      z(klist-1) = n
+         status(i+1) = klist - ilist - 2
          GOTO 40
  80      IF ( first==0 ) THEN
 !
@@ -229,33 +230,33 @@ SUBROUTINE gp3a
 !     NOTED, CALL PEXIT. IF NO LOAD CARDS FOUND, CLOSE FILES AND RETURN.
 !
             IF ( nogo/=0 ) CALL mesage(-61,0,0)
-            IF ( Noload/=-1 ) THEN
+            IF ( noload/=-1 ) THEN
 !
 !     IF GRAVITY LOADS WERE READ, TURN NOGRAV FLAG OFF.
 !     CLOSE FILES AND MOVE POINTER LIST TO BEGINNING OF CORE.
 !
-               IF ( Status(Igrav)>0 .OR. Status(irfrc)>0 ) Nograv = +1
-               CALL write(Scr1,0,0,1)
-               CALL close(Geom3,Clsrew)
-               CALL close(Scr1,Clsrew)
+               IF ( status(igrav)>0 .OR. status(irfrc)>0 ) nograv = +1
+               CALL write(scr1,0,0,1)
+               CALL close(geom3,clsrew)
+               CALL close(scr1,clsrew)
                n = klist - ilist
                DO i = 1 , n
                   k = ilist + i
-                  Z(i) = Z(k-1)
+                  z(i) = z(k-1)
                ENDDO
                ilist = 1
                nlist = n - 2
 !
 !     CHECK UNIQUENESS OF LOAD SETS WITTH RESPECT TO GRAVITY LOAD SETS
 !
-               IF ( Status(Igrav)>=0 ) THEN
-                  k1 = Status(Igrav)
-                  k2 = Status(Igrav+1)
+               IF ( status(igrav)>=0 ) THEN
+                  k1 = status(igrav)
+                  k2 = status(igrav+1)
                   DO i = ilist , nlist , 3
                      IF ( i<k1 .OR. i>k2 ) THEN
-                        setid = Z(i)
+                        setid = z(i)
                         DO k = k1 , k2 , 3
-                           IF ( Z(k)==setid ) THEN
+                           IF ( z(k)==setid ) THEN
                               nogo = 1
                               CALL mesage(30,134,setid)
                            ENDIF
@@ -268,12 +269,12 @@ SUBROUTINE gp3a
 !
                n = iset - kset
                kset = kset + 1
-               CALL sort(0,0,1,1,Z(kset),n)
-               Z(iset+1) = 0
+               CALL sort(0,0,1,1,z(kset),n)
+               z(iset+1) = 0
                k = nlist + 3
                DO i = kset , iset
-                  IF ( Z(i)/=Z(i+1) ) THEN
-                     Z(k) = Z(i)
+                  IF ( z(i)/=z(i+1) ) THEN
+                     z(k) = z(i)
                      k = k + 1
                   ENDIF
                ENDDO
@@ -284,19 +285,19 @@ SUBROUTINE gp3a
 !     OPEN SCRATCH FILE AND SLT FILE.
 !     WRITE SET LIST IN HEADER RECORD OF THE SLT.
 !
-               CALL open(*140,Scr1,Z(Buf1),Rdrew)
-               file = Slt
-               CALL open(*140,Slt,Z(Buf2),Wrtrew)
-               CALL fname(Slt,Buf)
-               CALL write(Slt,Buf,2,0)
+               CALL open(*140,scr1,z(buf1),rdrew)
+               file = slt
+               CALL open(*140,slt,z(buf2),wrtrew)
+               CALL fname(slt,buf)
+               CALL write(slt,buf,2,0)
                n = nset - iset + 1
-               CALL write(Slt,Z(iset),n,1)
+               CALL write(slt,z(iset),n,1)
 !
 !     IF ALL LOAD CARDS WILL FIT IN CORE, READ THEM IN.
 !
                nwds = ktabl - 1
                ncore = itabl + ktabl
-               IF ( ncore>=Buf2 ) THEN
+               IF ( ncore>=buf2 ) THEN
 !
 !     HERE IF CORE WILL NOT HOLD ALL LOAD CARDS.
 !     CODE IS SIMILAR TO THAT ABOVE EXCEPT THAT POINTER LIST NOW POINTS
@@ -304,50 +305,49 @@ SUBROUTINE gp3a
 !     SCRATCH FILE WILL HAVE TO BE PASSED ONCE FOR EACH SET IN THE SET
 !     LIST.
 !
-                  file = Scr1
+                  file = scr1
                   DO k = iset , nset
-                     setid = Z(k)
+                     setid = z(k)
                      ii = 1
                      nread = 0
-                     DO i = 1 , Ntypes , 2
+                     DO i = 1 , ntypes , 2
                         spag_nextblock_2 = 1
                         SPAG_DispatchLoop_2: DO
                            SELECT CASE (spag_nextblock_2)
                            CASE (1)
-                              IF ( Status(i)>=0 ) THEN
-                                 jj1 = Status(i)
-                                 jjn = Status(i+1)
+                              IF ( status(i)>=0 ) THEN
+                                 jj1 = status(i)
+                                 jjn = status(i+1)
                                  DO jj = jj1 , jjn , 3
-                                    IF ( Z(jj)==setid ) THEN
+                                    IF ( z(jj)==setid ) THEN
                                        spag_nextblock_2 = 2
                                        CYCLE SPAG_DispatchLoop_2
                                     ENDIF
                                  ENDDO
                               ENDIF
                               spag_nextblock_2 = 3
-                              CYCLE SPAG_DispatchLoop_2
                            CASE (2)
-                              nskip = Z(jj+1) - nread - 1
-                              nwds = Z(jj+2)
-                              n = Carddt(i) - 1
+                              nskip = z(jj+1) - nread - 1
+                              nwds = z(jj+2)
+                              n = carddt(i) - 1
                               IF ( nskip<0 ) THEN
                                  spag_nextblock_1 = 14
                                  CYCLE SPAG_DispatchLoop_1
                               ENDIF
-                              IF ( nskip/=0 ) CALL read(*160,*180,Scr1,0,-nskip,0,flag)
-                              CALL read(*160,*180,Scr1,Z(itabl+1),nwds,0,flag)
-                              nread = Z(jj+1) + nwds - 1
+                              IF ( nskip/=0 ) CALL read(*160,*180,scr1,0,-nskip,0,flag)
+                              CALL read(*160,*180,scr1,z(itabl+1),nwds,0,flag)
+                              nread = z(jj+1) + nwds - 1
                               nkey = 1
-                              IF ( Idno(ii)==20 ) nkey = 5
-                              IF ( Idno(ii)/=21 ) THEN
-                                 IF ( Idno(ii)<22 .OR. Idno(ii)>24 ) THEN
-                                    IF ( i/=Ipload .AND. i/=Ipld3 .AND. i/=Igrav ) CALL sort(0,0,n,nkey,Z(itabl+1),nwds)
+                              IF ( idno(ii)==20 ) nkey = 5
+                              IF ( idno(ii)/=21 ) THEN
+                                 IF ( idno(ii)<22 .OR. idno(ii)>24 ) THEN
+                                    IF ( i/=ipload .AND. i/=ipld3 .AND. i/=igrav ) CALL sort(0,0,n,nkey,z(itabl+1),nwds)
                                  ENDIF
                               ENDIF
-                              Buf(1) = Idno(ii)
-                              Buf(2) = nwds/n
-                              CALL write(Slt,Buf,2,0)
-                              CALL write(Slt,Z(itabl+1),nwds,0)
+                              buf(1) = idno(ii)
+                              buf(2) = nwds/n
+                              CALL write(slt,buf,2,0)
+                              CALL write(slt,z(itabl+1),nwds,0)
                               spag_nextblock_2 = 3
                            CASE (3)
                               ii = ii + 1
@@ -355,14 +355,14 @@ SUBROUTINE gp3a
                            END SELECT
                         ENDDO SPAG_DispatchLoop_2
                      ENDDO
-                     CALL write(Slt,0,0,1)
-                     CALL rewind(Scr1)
+                     CALL write(slt,0,0,1)
+                     CALL rewind(scr1)
                   ENDDO
-                  CALL close(Scr1,Clsrew)
+                  CALL close(scr1,clsrew)
                ELSE
-                  file = Scr1
-                  CALL read(*160,*180,Scr1,Z(itabl+1),nwds,1,flag)
-                  CALL close(Scr1,Clsrew)
+                  file = scr1
+                  CALL read(*160,*180,scr1,z(itabl+1),nwds,1,flag)
+                  CALL close(scr1,clsrew)
 !
 !     FOR EACH LOAD SET IN THE SET LIST, LOOP THRU THE STATUS TABLE.
 !     FOR EACH CARD TYPE PRESENT IN THE STATUS TABLE, PICK UP POINTERS
@@ -375,41 +375,40 @@ SUBROUTINE gp3a
 !     THE GROUP, IS SORTED BY INTERNAL INDEX (WHERE DEFINED).
 !
                   DO k = iset , nset
-                     setid = Z(k)
+                     setid = z(k)
                      ii = 1
-                     DO i = 1 , Ntypes , 2
+                     DO i = 1 , ntypes , 2
                         spag_nextblock_3 = 1
                         SPAG_DispatchLoop_3: DO
                            SELECT CASE (spag_nextblock_3)
                            CASE (1)
-                              IF ( Status(i)>=0 ) THEN
-                                 jj1 = Status(i)
-                                 jjn = Status(i+1)
+                              IF ( status(i)>=0 ) THEN
+                                 jj1 = status(i)
+                                 jjn = status(i+1)
                                  DO jj = jj1 , jjn , 3
-                                    IF ( Z(jj)==setid ) THEN
+                                    IF ( z(jj)==setid ) THEN
                                        spag_nextblock_3 = 2
                                        CYCLE SPAG_DispatchLoop_3
                                     ENDIF
                                  ENDDO
                               ENDIF
                               spag_nextblock_3 = 3
-                              CYCLE SPAG_DispatchLoop_3
                            CASE (2)
 !
-                              jx = itabl + Z(jj+1)
-                              nwds = Z(jj+2)
-                              n = Carddt(i) - 1
+                              jx = itabl + z(jj+1)
+                              nwds = z(jj+2)
+                              n = carddt(i) - 1
                               nkey = 1
-                              IF ( Idno(ii)==20 ) nkey = 5
-                              IF ( Idno(ii)/=21 ) THEN
-                                 IF ( Idno(ii)<22 .OR. Idno(ii)>24 ) THEN
-                                    IF ( i/=Ipload .AND. i/=Ipld3 .AND. i/=Igrav ) CALL sort(0,0,n,nkey,Z(jx),nwds)
+                              IF ( idno(ii)==20 ) nkey = 5
+                              IF ( idno(ii)/=21 ) THEN
+                                 IF ( idno(ii)<22 .OR. idno(ii)>24 ) THEN
+                                    IF ( i/=ipload .AND. i/=ipld3 .AND. i/=igrav ) CALL sort(0,0,n,nkey,z(jx),nwds)
                                  ENDIF
                               ENDIF
-                              Buf(1) = Idno(ii)
-                              Buf(2) = nwds/n
-                              CALL write(Slt,Buf,2,0)
-                              CALL write(Slt,Z(jx),nwds,0)
+                              buf(1) = idno(ii)
+                              buf(2) = nwds/n
+                              CALL write(slt,buf,2,0)
+                              CALL write(slt,z(jx),nwds,0)
                               spag_nextblock_3 = 3
                            CASE (3)
                               ii = ii + 1
@@ -417,7 +416,7 @@ SUBROUTINE gp3a
                            END SELECT
                         ENDDO SPAG_DispatchLoop_3
                      ENDDO
-                     CALL write(Slt,0,0,1)
+                     CALL write(slt,0,0,1)
                   ENDDO
                ENDIF
 !
@@ -428,87 +427,85 @@ SUBROUTINE gp3a
 !     TO ENSURE THAT NO DUPLICATE SPECIFICATIONS EXIST.  THE COMBINATION
 !     LOADS ARE WRITTEN AS THE LAST LOGICAL RECORD OF THE SLT.
 !
-               file = Geom3
-               CALL preloc(*140,Z(Buf1),Geom3)
-               CALL locate(*120,Z(Buf1),Load,flag)
+               file = geom3
+               CALL preloc(*140,z(buf1),geom3)
+               CALL locate(*120,z(buf1),load,flag)
             ELSE
-               CALL close(Geom3,Clsrew)
-               CALL close(Scr1,Clsrew)
+               CALL close(geom3,clsrew)
+               CALL close(scr1,clsrew)
                RETURN
             ENDIF
          ELSE
             first = 0
-            CALL close(Scr2,Clsrew)
+            CALL close(scr2,clsrew)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
-         CALL read(*160,*100,Geom3,Buf,2,0,flag)
-         CALL write(Slt,Buf,2,0)
+         CALL read(*160,*100,geom3,buf,2,0,flag)
+         CALL write(slt,buf,2,0)
          DO i = iset , nset
-            IF ( Buf(1)==Z(i) ) THEN
+            IF ( buf(1)==z(i) ) THEN
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          nogo = 1
-         CALL mesage(30,106,Buf)
+         CALL mesage(30,106,buf)
          spag_nextblock_1 = 11
       CASE (11)
          lset = nset + 1
          mset = nset
-         idcmld = Buf(1)
+         idcmld = buf(1)
          spag_nextblock_1 = 12
       CASE (12)
          SPAG_Loop_1_1: DO
-            CALL read(*160,*100,Geom3,Buf,2,0,flag)
-            CALL write(Slt,Buf,2,0)
-            IF ( Buf(1)==-1 ) THEN
+            CALL read(*160,*100,geom3,buf,2,0,flag)
+            CALL write(slt,buf,2,0)
+            IF ( buf(1)==-1 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             DO i = iset , nset
-               IF ( Buf(2)==Z(i) ) EXIT SPAG_Loop_1_1
+               IF ( buf(2)==z(i) ) EXIT SPAG_Loop_1_1
             ENDDO
             nogo = 1
-            WRITE (Iptr,99001) Ufm , Buf(2) , idcmld
+            WRITE (iptr,99001) ufm , buf(2) , idcmld
 99001       FORMAT (A23,' 3178, LOAD SET',I9,' NOT FOUND.  REQUIRED FOR ','DEFINITION OF COMBINATION LOAD',I9)
-            Lines = Lines + 2
-            IF ( Lines>=Nlpp ) CALL page
+            lines = lines + 2
+            IF ( lines>=nlpp ) CALL page
          ENDDO SPAG_Loop_1_1
          IF ( mset/=nset ) THEN
             DO i = lset , mset
-               IF ( Buf(2)==Z(i) ) THEN
+               IF ( buf(2)==z(i) ) THEN
                   spag_nextblock_1 = 13
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
          ENDIF
          mset = mset + 1
-         Z(mset) = Buf(2)
+         z(mset) = buf(2)
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
          nogo = 1
-         WRITE (Iptr,99002) Ufm , Buf(2) , idcmld
+         WRITE (iptr,99002) ufm , buf(2) , idcmld
 99002    FORMAT (A23,' 3179, DUPLICATE LOAD SET',I9,' FOUND IN DEFINITION',' OF COMBINATION LOAD',I9)
-         Lines = Lines + 2
-         IF ( Lines>=Nlpp ) CALL page
+         lines = lines + 2
+         IF ( lines>=nlpp ) CALL page
          spag_nextblock_1 = 12
          CYCLE SPAG_DispatchLoop_1
- 100     CALL write(Slt,0,0,1)
- 120     CALL close(Geom3,Clsrew)
-         CALL close(Slt,Clsrew)
-         Buf(1) = Slt
-         Buf(2) = nset - iset + 1
+ 100     CALL write(slt,0,0,1)
+ 120     CALL close(geom3,clsrew)
+         CALL close(slt,clsrew)
+         buf(1) = slt
+         buf(2) = nset - iset + 1
          DO i = 3 , 7
-            Buf(i) = 0
+            buf(i) = 0
          ENDDO
-         CALL wrttrl(Buf)
+         CALL wrttrl(buf)
          IF ( nogo/=0 ) CALL mesage(-61,0,0)
          RETURN
       CASE (14)
@@ -523,19 +520,19 @@ SUBROUTINE gp3a
          SPAG_Loop_1_2: DO
             k = (klo+khi+1)/2
             DO
-               IF ( gpoint<Z(2*k-1) ) THEN
+               IF ( gpoint<z(2*k-1) ) THEN
                   khi = k
-               ELSEIF ( gpoint==Z(2*k-1) ) THEN
-                  gpoint = Z(2*k)
+               ELSEIF ( gpoint==z(2*k-1) ) THEN
+                  gpoint = z(2*k)
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ELSE
                   klo = k
                ENDIF
                IF ( khi-klo<1 ) THEN
-                  Buf(2) = gpoint
+                  buf(2) = gpoint
                   nogo = 1
-                  CALL mesage(30,8,Buf)
+                  CALL mesage(30,8,buf)
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( khi-klo==1 ) THEN

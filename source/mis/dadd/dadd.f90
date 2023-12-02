@@ -1,13 +1,14 @@
-!*==dadd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dadd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dadd
-USE C_BLANK
-USE C_SADDX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_saddx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -55,21 +56,21 @@ USE ISO_FORTRAN_ENV
 !     USED FOR D.P. A AND B MATRICES, AND VISE VERSA)
 !
    CALL fname(iout1,fn(1))
-   Lcore = korsz(Core)
+   lcore = korsz(core)
    DO i = 1 , 7
-      Ia(i) = 0
-      Ib(i) = 0
-      Ic(i) = 0
+      ia(i) = 0
+      ib(i) = 0
+      ic(i) = 0
    ENDDO
-   Ia(1) = in1
-   Ib(1) = in2
-   CALL rdtrl(Ia)
-   CALL rdtrl(Ib)
-   IF ( Ia(1)<0 ) Ia(1) = 0
-   IF ( Ib(1)<0 ) Ib(1) = 0
-   IF ( Ia(1)+Ib(1)==0 ) THEN
+   ia(1) = in1
+   ib(1) = in2
+   CALL rdtrl(ia)
+   CALL rdtrl(ib)
+   IF ( ia(1)<0 ) ia(1) = 0
+   IF ( ib(1)<0 ) ib(1) = 0
+   IF ( ia(1)+ib(1)==0 ) THEN
 !
-      WRITE (Nout,99001) Ufm , fn
+      WRITE (nout,99001) ufm , fn
 99001 FORMAT (A23,', INPUT MATRICES NOT SPECIFIED IN ADD MODULE.',' INTENDED OUTPUT DATA BLOCK NAME =',2A4)
       CALL spag_block_3
       RETURN
@@ -81,18 +82,18 @@ USE ISO_FORTRAN_ENV
 !
       dblea = .TRUE.
       dbleb = .TRUE.
-      IF ( Alpha(1)>=x .AND. Alpha(2)>=x .AND. Dalpha(1)>=xx .AND. Dalpha(2)>=xx ) THEN
-         Alp(1) = 1.0
-         Alp(2) = 0.0
-         Alpha(1) = 1.0
-         Alpha(2) = 0.0
+      IF ( alpha(1)>=x .AND. alpha(2)>=x .AND. dalpha(1)>=xx .AND. dalpha(2)>=xx ) THEN
+         alp(1) = 1.0
+         alp(2) = 0.0
+         alpha(1) = 1.0
+         alpha(2) = 0.0
          dblea = .FALSE.
       ENDIF
-      IF ( Beta(1)>=x .AND. Beta(2)>=x .AND. Dbeta(1)>=xx .AND. Dbeta(2)>=xx ) THEN
-         Bta(1) = 1.0
-         Bta(2) = 0.0
-         Beta(1) = 1.0
-         Beta(2) = 0.0
+      IF ( beta(1)>=x .AND. beta(2)>=x .AND. dbeta(1)>=xx .AND. dbeta(2)>=xx ) THEN
+         bta(1) = 1.0
+         bta(2) = 0.0
+         beta(1) = 1.0
+         beta(2) = 0.0
          dbleb = .FALSE.
          IF ( .NOT.dblea ) THEN
             CALL spag_block_1
@@ -100,111 +101,110 @@ USE ISO_FORTRAN_ENV
          ENDIF
       ENDIF
 !
-      IF ( (Alpha(1)<x .OR. Alpha(2)<x) .AND. (Dalpha(1)<xx .OR. Dalpha(2)<xx) ) THEN
+      IF ( (alpha(1)<x .OR. alpha(2)<x) .AND. (dalpha(1)<xx .OR. dalpha(2)<xx) ) THEN
          CALL spag_block_2
          RETURN
       ENDIF
-      IF ( (Beta(1)<x .OR. Beta(2)<x) .AND. (Dbeta(1)<xx .OR. Dbeta(2)<xx) ) THEN
+      IF ( (beta(1)<x .OR. beta(2)<x) .AND. (dbeta(1)<xx .OR. dbeta(2)<xx) ) THEN
          CALL spag_block_2
          RETURN
       ENDIF
 !
-      IF ( Dalpha(1)>xx .AND. Dalpha(2)>xx ) dblea = .FALSE.
-      IF ( Dbeta(1)>xx .AND. Dbeta(2)>xx ) dbleb = .FALSE.
+      IF ( dalpha(1)>xx .AND. dalpha(2)>xx ) dblea = .FALSE.
+      IF ( dbeta(1)>xx .AND. dbeta(2)>xx ) dbleb = .FALSE.
 !
       DO i = 1 , 2
-         IF ( Alpha(i)>x ) Alpha(i) = 0.0
-         IF ( Dalpha(i)>xx ) Dalpha(i) = zero
-         IF ( Beta(i)>x ) Beta(i) = 0.0
-         IF ( Dbeta(i)>xx ) Dbeta(i) = zero
+         IF ( alpha(i)>x ) alpha(i) = 0.0
+         IF ( dalpha(i)>xx ) dalpha(i) = zero
+         IF ( beta(i)>x ) beta(i) = 0.0
+         IF ( dbeta(i)>xx ) dbeta(i) = zero
       ENDDO
 !
 !     MOVE ALPHA, BETA, DALPHA AND DBETA INTO ALP AND BTA ARRAYS FOR
 !     MATRIX MULTIPLICATION TO BE PERFORMED IN SADD.
 !
       DO i = 1 , 2
-         IF ( .NOT.dblea ) Alp(i) = Alpha(i)
-         IF ( .NOT.dbleb ) Bta(i) = Beta(i)
-         IF ( dblea ) dalp(i) = Dalpha(i)
-         IF ( dbleb ) dbta(i) = Dbeta(i)
+         IF ( .NOT.dblea ) alp(i) = alpha(i)
+         IF ( .NOT.dbleb ) bta(i) = beta(i)
+         IF ( dblea ) dalp(i) = dalpha(i)
+         IF ( dbleb ) dbta(i) = dbeta(i)
       ENDDO
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      IF ( Echo/=0 ) THEN
-         WRITE (Nout,99002) Uim , fn
-99002    FORMAT (A29,', SCALE FACTORS FOR THE OUTOUT DATA BLOCK ',2A4,', IN ADD MODULE ARE -')
-         IF ( .NOT.dblea ) WRITE (Nout,99003) Alp(1) , Alp(2)
-99003    FORMAT (5X,'1ST S.F. = (',E12.5,1H,,E12.5,1H))
-         IF ( dblea ) WRITE (Nout,99004) dalp(1) , dalp(2)
-99004    FORMAT (5X,'3RD S.F. = (',D12.5,1H,,D12.5,1H))
-         IF ( .NOT.dbleb ) WRITE (Nout,99005) Bta(1) , Bta(2)
-99005    FORMAT (1H+,48X,'2ND S.F. = (',E12.5,1H,,E12.5,1H))
-         IF ( dbleb ) WRITE (Nout,99006) dbta(1) , dbta(2)
-99006    FORMAT (1H+,48X,'4TH S.F. = (',D12.5,1H,,D12.5,1H))
+      IF ( echo/=0 ) THEN
+         WRITE (Nout,99001) uim , Fn
+99001    FORMAT (A29,', SCALE FACTORS FOR THE OUTOUT DATA BLOCK ',2A4,', IN ADD MODULE ARE -')
+         IF ( .NOT.Dblea ) WRITE (Nout,99002) alp(1) , alp(2)
+99002    FORMAT (5X,'1ST S.F. = (',E12.5,1H,,E12.5,1H))
+         IF ( Dblea ) WRITE (Nout,99003) Dalp(1) , Dalp(2)
+99003    FORMAT (5X,'3RD S.F. = (',D12.5,1H,,D12.5,1H))
+         IF ( .NOT.Dbleb ) WRITE (Nout,99004) bta(1) , bta(2)
+99004    FORMAT (1H+,48X,'2ND S.F. = (',E12.5,1H,,E12.5,1H))
+         IF ( Dbleb ) WRITE (Nout,99005) Dbta(1) , Dbta(2)
+99005    FORMAT (1H+,48X,'4TH S.F. = (',D12.5,1H,,D12.5,1H))
       ENDIF
 !
 !     ENSURE THAT THE MATRICES BEING ADDED ARE OF THE SAME ORDER
 !
-      IF ( Ia(1)/=0 .AND. Ib(1)/=0 ) THEN
-         IF ( Ia(2)/=Ib(2) .OR. Ia(3)/=Ib(3) ) THEN
-            CALL fname(Ia(1),aa)
-            CALL fname(Ib(1),bb)
-            WRITE (Nout,99007) Ufm , aa , bb , fn , Ia(2) , Ia(3) , Ib(2) , Ib(3)
-99007       FORMAT (A23,' 4149, ATTEMPT TO ADD MATRICES OF UNEQUAL ORDER IN',' MODULE ADD, ',2A4,' TO ',2A4,/5X,                    &
+      IF ( ia(1)/=0 .AND. ib(1)/=0 ) THEN
+         IF ( ia(2)/=ib(2) .OR. ia(3)/=ib(3) ) THEN
+            CALL fname(ia(1),Aa)
+            CALL fname(ib(1),Bb)
+            WRITE (Nout,99006) Ufm , Aa , Bb , Fn , ia(2) , ia(3) , ib(2) , ib(3)
+99006       FORMAT (A23,' 4149, ATTEMPT TO ADD MATRICES OF UNEQUAL ORDER IN',' MODULE ADD, ',2A4,' TO ',2A4,/5X,                    &
                    &'INTENDED OUTOUT DATA',' BLOCK NAME =',2A4,I7,' BY',I6,' TO',I7,' BY',I6)
             CALL spag_block_3
             RETURN
          ENDIF
       ENDIF
-      Ic(1) = iout1
-      Ic(2) = Ia(2)
-      Ic(3) = Ia(3)
-      IF ( Ia(4)==3 ) Ic(2) = Ia(3)
-      IF ( Ia(1)==0 ) THEN
-         Ic(2) = Ib(2)
-         Ic(3) = Ib(3)
+      ic(1) = Iout1
+      ic(2) = ia(2)
+      ic(3) = ia(3)
+      IF ( ia(4)==3 ) ic(2) = ia(3)
+      IF ( ia(1)==0 ) THEN
+         ic(2) = ib(2)
+         ic(3) = ib(3)
       ENDIF
 !
 !     DETERMINE TYPE
 !
-      Ita = 3
-      Itb = 3
-      IF ( Alp(2)==0.0 .AND. Alp(4)==0.0 ) Ita = 1
-      IF ( Bta(2)==0.0 .AND. Bta(4)==0.0 ) Itb = 1
-      Ic(5) = max0(Ia(5),Ib(5),Ita,Itb)
-      IF ( Ic(5)==3 .AND. (Ia(5)==2 .OR. Ib(5)==2) ) Ic(5) = 4
+      ita = 3
+      itb = 3
+      IF ( alp(2)==0.0 .AND. alp(4)==0.0 ) ita = 1
+      IF ( bta(2)==0.0 .AND. bta(4)==0.0 ) itb = 1
+      ic(5) = max0(ia(5),ib(5),ita,itb)
+      IF ( ic(5)==3 .AND. (ia(5)==2 .OR. ib(5)==2) ) ic(5) = 4
 !
 !     DETERMINE FORM
 !
-      Ic(4) = Ia(4)
-      IF ( Ia(1)==0 ) Ic(4) = Ib(4)
-      IF ( Ic(4)==1 .AND. Ic(4)==6 ) THEN
-         Ic(4) = 6
-         IF ( Ia(1)/=0 .AND. Ia(4)/=6 ) Ic(4) = 1
-         IF ( Ib(1)/=0 .AND. Ib(4)/=6 ) Ic(4) = 1
-         IF ( Ic(2)/=Ic(3) ) Ic(4) = 2
+      ic(4) = ia(4)
+      IF ( ia(1)==0 ) ic(4) = ib(4)
+      IF ( ic(4)==1 .AND. ic(4)==6 ) THEN
+         ic(4) = 6
+         IF ( ia(1)/=0 .AND. ia(4)/=6 ) ic(4) = 1
+         IF ( ib(1)/=0 .AND. ib(4)/=6 ) ic(4) = 1
+         IF ( ic(2)/=ic(3) ) ic(4) = 2
       ENDIF
-      IF ( Ia(4)==3 .AND. Ib(1)/=0 ) Ic(4) = Ib(4)
-      IF ( Ia(4)==3 .AND. Ib(1)==0 ) Ic(4) = Ia(4)
+      IF ( ia(4)==3 .AND. ib(1)/=0 ) ic(4) = ib(4)
+      IF ( ia(4)==3 .AND. ib(1)==0 ) ic(4) = ia(4)
 !
-      Nomat = 2
+      nomat = 2
       CALL sadd(Core,Core)
-      CALL wrttrl(Ic)
-      RETURN
+      CALL wrttrl(ic)
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
-      DO i = 1 , 2
-         IF ( Alpha(i)>x ) Alpha(i) = 0.0
-         IF ( Dalpha(i)>xx ) Dalpha(i) = zero
-         IF ( Beta(i)>x ) Beta(i) = 0.0
-         IF ( Dbeta(i)>xx ) Dbeta(i) = zero
+      DO I = 1 , 2
+         IF ( alpha(I)>X ) alpha(I) = 0.0
+         IF ( dalpha(I)>Xx ) dalpha(I) = Zero
+         IF ( beta(I)>X ) beta(I) = 0.0
+         IF ( dbeta(I)>Xx ) dbeta(I) = Zero
       ENDDO
-      WRITE (Nout,99008) Ufm , fn , Alpha , Beta , Dalpha , Dbeta
-99008 FORMAT (A23,' IN ADD MODULE. INTENDED OUTPUT DATA BLOCK =',2A4,/5X,'SCALE FACTORS ARE ERRONEOUS =',4E9.2,2X,4D10.3)
+      WRITE (Nout,99001) Ufm , Fn , alpha , beta , dalpha , dbeta
+99001 FORMAT (A23,' IN ADD MODULE. INTENDED OUTPUT DATA BLOCK =',2A4,/5X,'SCALE FACTORS ARE ERRONEOUS =',4E9.2,2X,4D10.3)
       CALL spag_block_3
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3

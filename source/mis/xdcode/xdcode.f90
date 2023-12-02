@@ -1,9 +1,10 @@
-!*==xdcode.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==xdcode.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xdcode
+   USE c_system
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XRGDXX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -23,9 +24,9 @@ SUBROUTINE xdcode
 !
    DATA iblank/4H    /
 !
-   WRITE (temp,99001) Record
+   WRITE (temp,99001) record
 99001 FORMAT (20A4)
-   READ (temp,99002) Ichar
+   READ (temp,99002) ichar
 99002 FORMAT (80A1)
    RETURN
 !
@@ -44,24 +45,24 @@ SUBROUTINE xdcode
 !
 !     XECODE IS CALL ONLY BY XRGDTB
 !
-   IF ( Nbpw>=60 .AND. Icount/=8 ) THEN
-      DO k = Icount , 7
-         Ichar(Icol+k) = iblank
+   IF ( nbpw>=60 .AND. icount/=8 ) THEN
+      DO k = icount , 7
+         ichar(icol+k) = iblank
       ENDDO
    ENDIF
-   CALL na12a8(*100,Ichar(Icol),8,Name,notuse)
-   IF ( Nbpw/=60 ) RETURN
+   CALL na12a8(*100,ichar(icol),8,name,notuse)
+   IF ( nbpw/=60 ) RETURN
 !
 !     BLANK OUT 2ND WORD (CDC ONLY)
 !
-   WRITE (temp8,99003) Name(1)
+   WRITE (temp8,99003) name(1)
 99003 FORMAT (A8)
-   Name(1) = iblank
-   Name(2) = iblank
-   READ (temp8,99004) Name
+   name(1) = iblank
+   name(2) = iblank
+   READ (temp8,99004) name
 99004 FORMAT (2A4)
    RETURN
 !
- 100  WRITE (Nout,99005)
+ 100  WRITE (nout,99005)
 99005 FORMAT ('0BAD DATA/XECODE')
 END SUBROUTINE xdcode

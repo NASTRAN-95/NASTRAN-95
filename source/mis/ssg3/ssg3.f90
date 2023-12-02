@@ -1,9 +1,10 @@
-!*==ssg3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssg3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg3
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,5 +23,5 @@ SUBROUTINE ssg3
    DATA sr1 , sr2/301 , 302/
 !
    CALL ssg3a(kll,lll,pl,ulv,sr1,sr2,0,rulv)
-   IF ( Omit>=0 ) CALL ssg3a(koob,loo,po,uov,sr1,sr2,0,ruov)
+   IF ( omit>=0 ) CALL ssg3a(koob,loo,po,uov,sr1,sr2,0,ruov)
 END SUBROUTINE ssg3

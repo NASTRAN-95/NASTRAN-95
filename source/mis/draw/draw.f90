@@ -1,13 +1,14 @@
-!*==draw.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==draw.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE draw(Gplst,X,U,S,Disp,Stereo,Opcor,Buf1)
-USE C_BLANK
-USE C_DRWDAT
-USE C_PLTDAT
-USE C_RSTXXX
-USE C_XXPARM
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_drwdat
+   USE c_pltdat
+   USE c_rstxxx
+   USE c_xxparm
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -92,61 +93,61 @@ USE ISO_FORTRAN_ENV
 !     S      = SCRATCH AREA
 !
          scalex = 1.0
-         IF ( Prject==3 ) scalex = Objmod
+         IF ( prject==3 ) scalex = objmod
 !
 !     SETUP THE PLOTTER REGION.
 !
-         IF ( Psymm(1)<0 .OR. Psymm(2)<0 .OR. Psymm(3)<0 ) THEN
-            Reg(1) = 0.0
-            Reg(2) = 0.0
-            Reg(3) = Axymax(1)
-            Reg(4) = Axymax(2)
+         IF ( psymm(1)<0 .OR. psymm(2)<0 .OR. psymm(3)<0 ) THEN
+            reg(1) = 0.0
+            reg(2) = 0.0
+            reg(3) = axymax(1)
+            reg(4) = axymax(2)
          ELSE
-            Reg(1) = Edge(Porig,1)*Axymax(1)
-            Reg(2) = Edge(Porig,2)*Axymax(2)
-            Reg(3) = Edge(Porig,3)*Axymax(1)
-            Reg(4) = Edge(Porig,4)*Axymax(2)
+            reg(1) = edge(porig,1)*axymax(1)
+            reg(2) = edge(porig,2)*axymax(2)
+            reg(3) = edge(porig,3)*axymax(1)
+            reg(4) = edge(porig,4)*axymax(2)
          ENDIF
 !
 !     REDUCE THE GRID POINT CO-ORDINATES TO PLOT SIZE + TRANSLATE TO
 !     THE SELECTED ORIGIN.
 !
          DO i = 1 , 3
-            Min(i) = +1.E+20
-            Max(i) = -1.E+20
-            IF ( Psymm(i)<0 ) THEN
-               DO gp = 1 , Ngpset
+            min(i) = +1.E+20
+            max(i) = -1.E+20
+            IF ( psymm(i)<0 ) THEN
+               DO gp = 1 , ngpset
                   X(i,gp) = -X(i,gp)
                ENDDO
             ENDIF
          ENDDO
          CALL proces(X)
          CALL perpec(X,Stereo)
-         xorig = Xy(Porig,1)
-         IF ( Stereo/=0 ) xorig = Xy(Porig,2)
-         DO gp = 1 , Ngpset
-            X(2,gp) = Scale*X(2,gp) - xorig
-            X(3,gp) = Scale*X(3,gp) - Xy(Porig,3)
+         xorig = xy(porig,1)
+         IF ( Stereo/=0 ) xorig = xy(porig,2)
+         DO gp = 1 , ngpset
+            X(2,gp) = scale*X(2,gp) - xorig
+            X(3,gp) = scale*X(3,gp) - xy(porig,3)
          ENDDO
 !
-         IF ( .NOT.(.NOT.Disp .OR. Maxdef==0 .OR. Defmax==0) ) THEN
+         IF ( .NOT.(.NOT.Disp .OR. maxdef==0 .OR. defmax==0) ) THEN
 !
 !     PROCESS THE DEFORMATIONS.
 !     EXCHANGE AXES, REDUCE THE MAXIMUM DEFORMATION TO -MAXDEF-.
 !
             DO i = 1 , 3
-               axis(i) = iabs(Daxis(i))
+               axis(i) = iabs(daxis(i))
                sign(i) = 1.
-               IF ( Daxis(i)<0 ) sign(i) = -1.
+               IF ( daxis(i)<0 ) sign(i) = -1.
             ENDDO
             i = axis(1)
             j = axis(2)
             k = axis(3)
-            d = Maxdef/Defmax
-            DO gp = 1 , Ngpset
-               IF ( Psymm(4)<0 ) U(1,gp) = -U(1,gp)
-               IF ( Psymm(5)<0 ) U(2,gp) = -U(2,gp)
-               IF ( Psymm(6)<0 ) U(3,gp) = -U(3,gp)
+            d = maxdef/defmax
+            DO gp = 1 , ngpset
+               IF ( psymm(4)<0 ) U(1,gp) = -U(1,gp)
+               IF ( psymm(5)<0 ) U(2,gp) = -U(2,gp)
+               IF ( psymm(6)<0 ) U(3,gp) = -U(3,gp)
                a(1) = U(i,gp)
                a(2) = U(j,gp)
                a(3) = U(k,gp)
@@ -154,14 +155,14 @@ USE ISO_FORTRAN_ENV
                U(2,gp) = a(2)*sign(2)*d
                U(3,gp) = a(3)*sign(3)*d
             ENDDO
-            CALL intvec(Pvectr)
+            CALL intvec(pvectr)
          ENDIF
 !
 !     IF PVECTR .LT. 0 NO SHAPE WILL BE DRAWN
 !     ATTEMPT TO REMOVE DUPLICATE LINES
 !
          iopt = -1
-         sucor = 2*Ngpset + 1
+         sucor = 2*ngpset + 1
          IF ( .NOT.Disp ) sucor = 1
 !
 !     FIRST DETERMINE OPTIONS - UNIQUE LINES FOR PSHAPE=3 MAY ONLY BE
@@ -169,19 +170,19 @@ USE ISO_FORTRAN_ENV
 !
          ishape = -1
          later = 0
-         IF ( .NOT.(Pvectr<0 .OR. (Pedge/=0 .AND. Pedge/=3)) ) THEN
+         IF ( .NOT.(pvectr<0 .OR. (pedge/=0 .AND. pedge/=3)) ) THEN
             ishape = 0
-            IF ( Opcor>=Ngpset+Ngp+1 ) THEN
+            IF ( Opcor>=ngpset+ngp+1 ) THEN
                iopt = 0
                defm = 0
-               IF ( Pshape>=2 ) defm = 1
-               CALL linel(S(sucor,1),iptl,Opcor,iopt,X,Ppen,defm,Gplst)
-               IF ( Pedge==3 ) GOTO 20
+               IF ( pshape>=2 ) defm = 1
+               CALL linel(S(sucor,1),iptl,Opcor,iopt,X,ppen,defm,Gplst)
+               IF ( pedge==3 ) GOTO 20
                IF ( iptl<=0 ) iopt = -1
-               CALL bckrec(Elset)
+               CALL bckrec(elset)
             ENDIF
          ENDIF
-         IF ( Pshape==2 .AND. Disp ) THEN
+         IF ( pshape==2 .AND. Disp ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -189,26 +190,26 @@ USE ISO_FORTRAN_ENV
 !     DRAW UNDEFORMED SHAPE (USE PEN1 + SYMBOL 2 IF THE DEFORMED SHAPE
 !     OR DEFORMATION VECTORS ARE ALSO TO BE DRAWN).
 !
-         pen = Ppen
-         IF ( Disp .AND. Pshape>2 ) pen = 1
+         pen = ppen
+         IF ( Disp .AND. pshape>2 ) pen = 1
          IF ( ishape==0 ) CALL shape(*20,Gplst,X,0,pen,0,iopt,iptl,S(sucor,1),Opcor)
-         IF ( Pedge>=2 ) THEN
-            CALL hdsurf(Gplst,X,0,pen,0,nmax,maxsf,S(sucor,1),Buf1,Pedge,Opcor)
-            IF ( Pedge==2 .OR. Pedge>=200 ) THEN
+         IF ( pedge>=2 ) THEN
+            CALL hdsurf(Gplst,X,0,pen,0,nmax,maxsf,S(sucor,1),Buf1,pedge,Opcor)
+            IF ( pedge==2 .OR. pedge>=200 ) THEN
                CALL hdplot(Gplst,nmax,maxsf,Opcor,Buf1)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Pcon/=0 ) THEN
-            IF ( .NOT.Disp .OR. Pshape<3 ) THEN
+         IF ( pcon/=0 ) THEN
+            IF ( .NOT.Disp .OR. pshape<3 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            later = Pcon
-            Pcon = 0
+            later = pcon
+            pcon = 0
          ENDIF
-         IF ( Pedge==0 .OR. Pedge>=2 ) THEN
+         IF ( pedge==0 .OR. pedge>=2 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -216,100 +217,100 @@ USE ISO_FORTRAN_ENV
       CASE (2)
          iopt = -1
          CALL contor(Gplst,X,0,U,S(sucor,1),S(sucor,1),pen,0,Buf1,Opcor)
-         IF ( Pedge==1 ) CALL border(Gplst,X,0,S(sucor,1),0,Buf1,Opcor)
-         IF ( Pedge/=1 .AND. Color<0 ) THEN
-            CALL gopen(Elset,Gplst(Buf1),0)
+         IF ( pedge==1 ) CALL border(Gplst,X,0,S(sucor,1),0,Buf1,Opcor)
+         IF ( pedge/=1 .AND. color<0 ) THEN
+            CALL gopen(elset,Gplst(Buf1),0)
             CALL shape(*20,Gplst,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         Pcon = max0(Pcon,later)
-         IF ( Ppen>31 ) CALL shape(*20,Gplst,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
-         IF ( Pshape==1 ) Pcon = 0
-         IF ( Psymbl(1)/=0 ) THEN
+         pcon = max0(pcon,later)
+         IF ( ppen>31 ) CALL shape(*20,Gplst,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
+         IF ( pshape==1 ) pcon = 0
+         IF ( psymbl(1)/=0 ) THEN
             IF ( Disp ) THEN
                sym(1) = 2
                sym(2) = 0
             ELSE
-               sym(1) = Psymbl(1)
-               sym(2) = Psymbl(2)
+               sym(1) = psymbl(1)
+               sym(2) = psymbl(2)
             ENDIF
             CALL gptsym(Gplst,X,0,sym,0)
          ENDIF
-         IF ( Plabel>=0 ) THEN
-            i = Plabel/3
+         IF ( plabel>=0 ) THEN
+            i = plabel/3
             IF ( i/=1 ) CALL gptlbl(Gplst,X,0,0,Buf1)
             IF ( i>=1 ) THEN
                CALL elelbl(Gplst,X,0,0,Buf1)
-               CALL bckrec(Elset)
+               CALL bckrec(elset)
             ENDIF
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
-         IF ( .NOT.(.NOT.Disp .OR. Maxdef==0.0 .OR. Defmax==0.0) ) THEN
-            IF ( Pedge/=3 ) THEN
-               IF ( Pshape>=2 .OR. later/=0 ) THEN
+         IF ( .NOT.(.NOT.Disp .OR. maxdef==0.0 .OR. defmax==0.0) ) THEN
+            IF ( pedge/=3 ) THEN
+               IF ( pshape>=2 .OR. later/=0 ) THEN
 !
 !     ROTATE THE DEFORMATIONS
 !
-                  DO gp = 1 , Ngpset
+                  DO gp = 1 , ngpset
                      DO j = 1 , 3
-                        sum = Cstm(j,1)*U(1,gp) + Cstm(j,2)*U(2,gp) + Cstm(j,3)*U(3,gp)
+                        sum = cstm(j,1)*U(1,gp) + cstm(j,2)*U(2,gp) + cstm(j,3)*U(3,gp)
                         IF ( j/=1 ) THEN
-                           IF ( Prject/=1 ) sum = scalex*dr*sum
-                           S(j-1,gp) = X(j,gp) + Scale*sum
+                           IF ( prject/=1 ) sum = scalex*dr*sum
+                           S(j-1,gp) = X(j,gp) + scale*sum
                         ELSE
-                           IF ( Prject/=1 ) dr = D0/(R0-scalex*(X(1,gp)+sum))
+                           IF ( prject/=1 ) dr = d0/(r0-scalex*(X(1,gp)+sum))
                         ENDIF
                      ENDDO
                   ENDDO
 !
 !     DRAW THE DEFORMED SHAPE
 !
-                  IF ( Pvectr>=0 ) THEN
-                     pen = Ppen
-                     IF ( Pshape==2 .AND. Pvectr/=0 ) pen = 1
-                     IF ( Pedge==0 ) CALL shape(*20,Gplst,X,S,pen,1,iopt,iptl,S(sucor,1),Opcor)
-                     IF ( Pedge>=2 ) THEN
-                        CALL hdsurf(Gplst,X,S,pen,1,nmax,maxsf,S(sucor,1),Buf1,Pedge,Opcor)
-                        IF ( Pedge==2 .OR. Pedge>200 ) CALL hdplot(Gplst,nmax,maxsf,Opcor,Buf1)
+                  IF ( pvectr>=0 ) THEN
+                     pen = ppen
+                     IF ( pshape==2 .AND. pvectr/=0 ) pen = 1
+                     IF ( pedge==0 ) CALL shape(*20,Gplst,X,S,pen,1,iopt,iptl,S(sucor,1),Opcor)
+                     IF ( pedge>=2 ) THEN
+                        CALL hdsurf(Gplst,X,S,pen,1,nmax,maxsf,S(sucor,1),Buf1,pedge,Opcor)
+                        IF ( pedge==2 .OR. pedge>200 ) CALL hdplot(Gplst,nmax,maxsf,Opcor,Buf1)
                      ENDIF
                   ENDIF
-                  IF ( Pcon/=0 .AND. Pedge/=2 .AND. Pedge<=200 ) THEN
-                     IF ( Icntvl>9 .OR. Pshape/=1 ) THEN
-                        IF ( Icntvl<=13 .OR. Pshape/=1 ) THEN
+                  IF ( pcon/=0 .AND. pedge/=2 .AND. pedge<=200 ) THEN
+                     IF ( icntvl>9 .OR. pshape/=1 ) THEN
+                        IF ( icntvl<=13 .OR. pshape/=1 ) THEN
                            CALL contor(Gplst,X,S,U,S(sucor,1),S(sucor,1),pen,0,Buf1,Opcor)
-                           IF ( Pedge/=1 .AND. Color<0 ) THEN
-                              CALL gopen(Elset,Gplst(Buf1),0)
+                           IF ( pedge/=1 .AND. color<0 ) THEN
+                              CALL gopen(elset,Gplst(Buf1),0)
                               CALL shape(*20,Gplst,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
                            ENDIF
                         ENDIF
                      ENDIF
                   ENDIF
-                  IF ( Pedge==1 ) CALL border(Gplst,X,S,S(sucor,1),1,Buf1,Opcor)
-                  IF ( Ppen>31 ) CALL shape(*20,gpl,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
-                  IF ( Psymbl(1)/=0 ) THEN
-                     IF ( Pshape==2 .AND. Pvectr/=0 ) THEN
+                  IF ( pedge==1 ) CALL border(Gplst,X,S,S(sucor,1),1,Buf1,Opcor)
+                  IF ( ppen>31 ) CALL shape(*20,gpl,X,0,1,0,iopt,iptl,S(sucor,1),Opcor)
+                  IF ( psymbl(1)/=0 ) THEN
+                     IF ( pshape==2 .AND. pvectr/=0 ) THEN
                         sym(1) = 2
                         sym(2) = 0
                      ELSE
-                        sym(1) = Psymbl(1)
-                        sym(2) = Psymbl(2)
+                        sym(1) = psymbl(1)
+                        sym(2) = psymbl(2)
                      ENDIF
                      CALL gptsym(Gplst,X,S,sym,1)
                   ENDIF
-                  IF ( Plabel>=0 .AND. Pshape==2 ) THEN
-                     i = Plabel/3
+                  IF ( plabel>=0 .AND. pshape==2 ) THEN
+                     i = plabel/3
                      IF ( i/=1 ) CALL gptlbl(Gplst,X,S,1,Buf1)
                      IF ( i>=1 ) CALL elelbl(Gplst,X,S,1,Buf1)
                   ENDIF
                ENDIF
-               IF ( Pvectr/=0 ) THEN
-                  Pvectr = iabs(Pvectr)
+               IF ( pvectr/=0 ) THEN
+                  pvectr = iabs(pvectr)
 !
 !     PROCESS THE DEFORMATION VECTORS
 !
-                  IF ( Pvectr<=7 ) THEN
+                  IF ( pvectr<=7 ) THEN
                      nv = 3
                   ELSE
                      nv = 1
@@ -317,7 +318,7 @@ USE ISO_FORTRAN_ENV
                      vec(2) = 0
                      vec(3) = 0
                      DO v = 1 , 3
-                        IF ( andf(Pvectr,2**(v-1))/=0 ) THEN
+                        IF ( andf(pvectr,2**(v-1))/=0 ) THEN
                            IF ( axis(1)==v ) vec(1) = 1
                            IF ( axis(2)==v ) vec(2) = 1
                            IF ( axis(3)==v ) vec(3) = 1
@@ -325,8 +326,8 @@ USE ISO_FORTRAN_ENV
                      ENDDO
                   ENDIF
                   DO v = 1 , nv
-                     IF ( Pvectr<=7 ) THEN
-                        IF ( andf(Pvectr,2**(v-1))==0 ) CYCLE
+                     IF ( pvectr<=7 ) THEN
+                        IF ( andf(pvectr,2**(v-1))==0 ) CYCLE
                         DO i = 1 , 3
                            vec(i) = 0
                            IF ( axis(i)==v ) vec(i) = 1
@@ -335,28 +336,28 @@ USE ISO_FORTRAN_ENV
 !
 !     ROTATE THE DEFORMATIONS (VEC = VECTOR DIRECTION TO BE DRAWN)
 !
-                     DO gp = 1 , Ngpset
+                     DO gp = 1 , ngpset
                         DO j = 1 , 3
                            sum = 0.D0
                            DO i = 1 , 3
-                              IF ( vec(i)/=0 ) sum = sum + Cstm(j,i)*U(i,gp)
+                              IF ( vec(i)/=0 ) sum = sum + cstm(j,i)*U(i,gp)
                            ENDDO
                            IF ( j/=1 ) THEN
-                              IF ( Prject/=1 ) sum = scalex*dr*sum
-                              S(j-1,gp) = X(j,gp) + Scale*sum
+                              IF ( prject/=1 ) sum = scalex*dr*sum
+                              S(j-1,gp) = X(j,gp) + scale*sum
                            ELSE
-                              IF ( Prject/=1 ) dr = D0/(R0-scalex*(X(1,gp)+sum))
+                              IF ( prject/=1 ) dr = d0/(r0-scalex*(X(1,gp)+sum))
                            ENDIF
                         ENDDO
                      ENDDO
 !
 !     DRAW THE DEFORMATION VECTOR
 !
-                     CALL dvectr(Gplst,X,S,Ppen)
-                     IF ( Psymbl(1)/=0 .AND. Pshape/=3 ) THEN
+                     CALL dvectr(Gplst,X,S,ppen)
+                     IF ( psymbl(1)/=0 .AND. pshape/=3 ) THEN
                         j = 0
-                        IF ( Pshape==1 ) j = 1
-                        CALL gptsym(Gplst,X,S,Psymbl,j)
+                        IF ( pshape==1 ) j = 1
+                        CALL gptsym(Gplst,X,S,psymbl,j)
                      ENDIF
                   ENDDO
                ENDIF
@@ -368,7 +369,7 @@ USE ISO_FORTRAN_ENV
 !     IF NOT CONTOUR PLOT, CALL PCOORD TO DRAW A SMALL X-Y-Z COORDINATE
 !     TRIAD AT THE LOWER RIGHT CORNER OF PLOT
 !
- 20      IF ( Pedge/=1 ) CALL pcoord(pen)
+ 20      IF ( pedge/=1 ) CALL pcoord(pen)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

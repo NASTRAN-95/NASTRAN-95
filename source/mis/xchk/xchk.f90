@@ -46,20 +46,20 @@ SUBROUTINE xchk
 !     LPTDIC = LENGTH (IN WORDS) OF PTDIC
 !
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_OSCENT
-   USE C_OUTPUT
-   USE C_RESDIC
-   USE C_STAPID
-   USE C_SYSTEM
-   USE C_XCEITB
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
-   USE C_XPFIST
-   USE C_XVPS
-   USE C_ZZZZZZ
+   USE c_machin
+   USE c_oscent
+   USE c_output
+   USE c_resdic
+   USE c_stapid
+   USE c_system
+   USE c_xceitb
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xpfist
+   USE c_xvps
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -75,6 +75,12 @@ SUBROUTINE xchk
    INTEGER , DIMENSION(2) :: head , svfst
    INTEGER , DIMENSION(1) :: iobuf , ptdic
    INTEGER , DIMENSION(100) :: purge
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -103,7 +109,7 @@ SUBROUTINE xchk
    recsz = 0
    prgpnt = -1
    CALL sswtch(9,diag09)
-   IF ( Mach<5 ) CALL xflszd(0,blksiz,0)
+   IF ( mach<5 ) CALL xflszd(0,blksiz,0)
 !
 !     MASKHI - O000000077777
    maskhi = 32767
@@ -135,16 +141,16 @@ SUBROUTINE xchk
 !
 !     FIND OSCAR FILE NUMBER IN DPL
 !
-   j1 = Dpl(3)*3 + 1
+   j1 = dpl(3)*3 + 1
    DO j = 4 , j1 , 3
-      IF ( Dpl(j)==noscar ) EXIT
+      IF ( dpl(j)==noscar ) EXIT
    ENDDO
-   oscfn = andf(Dpl(j+2),maskhi)
+   oscfn = andf(dpl(j+2),maskhi)
    dpfct = oscfn
 !
 !     ALLOCATE CORE FOR GINO BUFFERS
 !
-   nptpnt = korsz(Gbuf) - bufsz - 1
+   nptpnt = korsz(gbuf) - bufsz - 1
    dppnt = nptpnt - bufsz
    fpnt = dppnt - bufsz
    IF ( fpnt<1 ) CALL mesage(-8,0,nxchk)
@@ -152,7 +158,7 @@ SUBROUTINE xchk
 !     INITIALIZE PTDIC PARAMETERS AND LOAD CHECKPOINT DICTIONARY
 !
    ngino = nxptdc(1)
-   CALL open(*1200,nxptdc,Gbuf(nptpnt),0)
+   CALL open(*1200,nxptdc,gbuf(nptpnt),0)
    CALL read(*2400,*100,nxptdc,dcparm,2,1,recsz)
  100  IF ( dcparm(1)/=nxptdc(1) ) GOTO 2400
    CALL read(*2400,*200,nxptdc,dcparm,2,1,recsz)
@@ -171,58 +177,58 @@ SUBROUTINE xchk
 !
    ptdic(lcptp) = nblank
    ptdic(lcptp+1) = nblank
-   ptdic(lcptp+2) = orf(Oscar(2),lshift(andf(maskhi,Oscar(6))+1,16))
+   ptdic(lcptp+2) = orf(oscar(2),lshift(andf(maskhi,oscar(6))+1,16))
    nptfn = nrlfl
 !
 !     GET FIRST/NEXT FILE NAME FROM OSCAR ENTRY
 !
-   i1 = Oscar(7)*2 + 6
+   i1 = oscar(7)*2 + 6
    DO i = 8 , i1 , 2
 !
 !     SEE IF FILE IS ALREADY IN DICT
 !
-      IF ( Oscar(i)==nvps(1) .AND. Oscar(i+1)==nvps(2) ) CYCLE
+      IF ( oscar(i)==nvps(1) .AND. oscar(i+1)==nvps(2) ) CYCLE
       IF ( ldc>=0 ) THEN
          DO j = 1 , ldc , 3
-            IF ( dict(j)==Oscar(i) .AND. dict(j+1)==Oscar(i+1) ) GOTO 500
+            IF ( dict(j)==oscar(i) .AND. dict(j+1)==oscar(i+1) ) GOTO 500
          ENDDO
       ENDIF
 !
 !     CHECK FIAT TABLE FOR FILE NAME
 !
-      j1 = Fiat(3)*icfiat - 2
+      j1 = fiat(3)*icfiat - 2
       DO j = 4 , j1 , icfiat
-         IF ( Oscar(i)==Fiat(j+1) .AND. Oscar(i+1)==Fiat(j+2) ) GOTO 350
+         IF ( oscar(i)==fiat(j+1) .AND. oscar(i+1)==fiat(j+2) ) GOTO 350
       ENDDO
 !
 !     SEE IF FILE IS IN DPL
 !
-      j1 = Dpl(3)*3 + 1
+      j1 = dpl(3)*3 + 1
       DO j = 4 , j1 , 3
-         IF ( Oscar(i)==Dpl(j) .AND. Oscar(i+1)==Dpl(j+1) ) GOTO 450
+         IF ( oscar(i)==dpl(j) .AND. oscar(i+1)==dpl(j+1) ) GOTO 450
       ENDDO
       GOTO 400
 !
 !     FILE IS IN FIAT - ENTER FILE AND ALL EQUIVALENCED FILES IN DICT
 !
- 350  IF ( andf(Fiat(j),maskhi)/=maskhi ) THEN
+ 350  IF ( andf(fiat(j),maskhi)/=maskhi ) THEN
 !
 !     FILE NOT PURGED - CHECK FIAT TRAILER WORDS TO INSURE THAT FILE HAS
 !     BEEN GENERATED
 !
-         IF ( Fiat(j+3)==0 .AND. Fiat(j+4)==0 .AND. Fiat(j+5)==0 ) THEN
-            IF ( .NOT.(icfiat==11 .AND. (Fiat(j+8)/=0 .OR. Fiat(j+9)/=0 .OR. Fiat(j+10)/=0)) ) GOTO 400
+         IF ( fiat(j+3)==0 .AND. fiat(j+4)==0 .AND. fiat(j+5)==0 ) THEN
+            IF ( .NOT.(icfiat==11 .AND. (fiat(j+8)/=0 .OR. fiat(j+9)/=0 .OR. fiat(j+10)/=0)) ) GOTO 400
          ENDIF
-         IF ( Fiat(j)<0 ) THEN
-            k = andf(Fiat(j),orf(maskhi,eqflg))
+         IF ( fiat(j)<0 ) THEN
+            k = andf(fiat(j),orf(maskhi,eqflg))
             DO j = 4 , j1 , icfiat
-               IF ( andf(Fiat(j),orf(maskhi,eqflg))==k ) THEN
+               IF ( andf(fiat(j),orf(maskhi,eqflg))==k ) THEN
                   ldc = ldc + 3
 !
 !     EQUIVALENCED FILE FOUND
 !
-                  dict(ldc) = Fiat(j+1)
-                  dict(ldc+1) = Fiat(j+2)
+                  dict(ldc) = fiat(j+1)
+                  dict(ldc+1) = fiat(j+2)
 !
 !     ENTER EQUIVALENCE FLAG, FIAT POINTER AND UCB POINTER IN DICT
 !
@@ -231,9 +237,9 @@ SUBROUTINE xchk
             ENDDO
          ELSE
             ldc = ldc + 3
-            dict(ldc) = Fiat(j+1)
-            dict(ldc+1) = Fiat(j+2)
-            dict(ldc+2) = orf(lshift(j,16),andf(Fiat(j),maskhi))
+            dict(ldc) = fiat(j+1)
+            dict(ldc+1) = fiat(j+2)
+            dict(ldc+2) = orf(lshift(j,16),andf(fiat(j),maskhi))
 !
 !     DESTROY ANY EQUIVS TO THIS FILE
 !
@@ -273,26 +279,26 @@ SUBROUTINE xchk
 !
  400  prgpnt = prgpnt + 2
       IF ( lpurge<prgpnt+1 ) GOTO 2200
-      purge(prgpnt) = Oscar(i)
-      purge(prgpnt+1) = Oscar(i+1)
+      purge(prgpnt) = oscar(i)
+      purge(prgpnt+1) = oscar(i+1)
       CYCLE
 !
 !     FILE IS IN DPL - ENTER FILE AND ALL EQUIVALENCED FILES IN DICT
 !
- 450  k = andf(Dpl(j+2),maskhi)
+ 450  k = andf(dpl(j+2),maskhi)
       dpfct = min0(oscfn,k)
       DO j = 4 , j1 , 3
-         IF ( andf(Dpl(j+2),maskhi)==k ) THEN
+         IF ( andf(dpl(j+2),maskhi)==k ) THEN
             ldc = ldc + 3
 !
 !     EQUIVALENCED FILE FOUND
 !
-            dict(ldc) = Dpl(j)
-            dict(ldc+1) = Dpl(j+1)
+            dict(ldc) = dpl(j)
+            dict(ldc+1) = dpl(j+1)
 !
 !     ENTER EQUIVALENCE FLAG, DPLFLG AND FILE NO. IN DICT
 !
-            dict(ldc+2) = orf(dplflg,andf(Dpl(j+2),orf(maskhi,eqflg)))
+            dict(ldc+2) = orf(dplflg,andf(dpl(j+2),orf(maskhi,eqflg)))
          ENDIF
       ENDDO
  500  ENDDO
@@ -408,20 +414,20 @@ SUBROUTINE xchk
       dpfct = oscfn
    ENDIF
    name = dpt
-   CALL open(*1200,dpt,Gbuf(dppnt),j)
+   CALL open(*1200,dpt,gbuf(dppnt),j)
    name = nptp
 !
 !     OPEN NEW PROBELM NPTP TAPE FOR WRITE
 !
-   CALL open(*1200,nptp,Gbuf(nptpnt),3)
+   CALL open(*1200,nptp,gbuf(nptpnt),3)
 !
 !     MAKE TEMPORARY ENTRY IN FIST FOR FIAT FILES
 !
-   ifstmp = 2*Ipfst + 3
-   svfst(1) = Fist(ifstmp)
-   svfst(2) = Fist(ifstmp+1)
-   Fist(2) = Ipfst + 1
-   Fist(ifstmp) = 301
+   ifstmp = 2*ipfst + 3
+   svfst(1) = fist(ifstmp)
+   svfst(2) = fist(ifstmp+1)
+   fist(2) = ipfst + 1
+   fist(ifstmp) = 301
 !
 !     WRITE FILES ON NEW PROBLEM NPTP TAPE AS SPECIFIED IN FDICT.
 !
@@ -475,14 +481,14 @@ SUBROUTINE xchk
 !
 !     INSERT FIAT POINTER IN TEMPORARY FIST ENTRY
 !
-      Fist(ifstmp+1) = k - 1
+      fist(ifstmp+1) = k - 1
 !
 !     READ FIRST 2 WORDS OF DATA BLOCK, CHECK NAME AND WRITE TO NEW
 !     PROBLEM NPTP TAPE SPECIAL HEADER AND 3 OR 6 TRAILER WORDS
 !     (TOTAL OF 5 OR 8 WORDS IN THIS NPTP RECORD)
 !
-      ngino = Fist(ifstmp)
-      CALL open(*1000,ngino,Gbuf(fpnt),0)
+      ngino = fist(ifstmp)
+      CALL open(*1000,ngino,gbuf(fpnt),0)
       filcnt = filcnt + 1
       IF ( filcnt>limit ) GOTO 2900
       CALL xflszd(-1,blkcnt(filcnt),ngino)
@@ -493,10 +499,10 @@ SUBROUTINE xchk
       GOTO 1800
  750  CALL write(nptp,head,2,0)
       IF ( icfiat==11 ) THEN
-         CALL write(nptp,Fiat(k+3),3,0)
-         CALL write(nptp,Fiat(k+8),3,1)
+         CALL write(nptp,fiat(k+3),3,0)
+         CALL write(nptp,fiat(k+8),3,1)
       ELSE
-         CALL write(nptp,Fiat(k+3),3,1)
+         CALL write(nptp,fiat(k+3),3,1)
       ENDIF
 !
 !     COPY ENTIRE FILE ONTO NEW PROBLEM NPTP TAPE USING CPYFIL
@@ -514,8 +520,8 @@ SUBROUTINE xchk
 !
 !     RESTORE FIST ENTRY
 !
-   Fist(ifstmp) = svfst(1)
-   Fist(ifstmp+1) = svfst(2)
+   fist(ifstmp) = svfst(1)
+   fist(ifstmp+1) = svfst(2)
 !
 !     WRITE VPS TABLE ONTO NEW PROBLEM NPTP TAPE
 !     MAKE ENTRY IN FDICT FOR VPS TABLE
@@ -527,11 +533,11 @@ SUBROUTINE xchk
    eorflg = seteor
    i = ldc
    CALL write(nptp,nvps,5,1)
-   CALL write(nptp,Vps,Vps(2),1)
+   CALL write(nptp,vps,vps(2),1)
 !
 !     WRITE CEITBL TABLE ONTO PROBLEM TAPE
 !
-   CALL write(nptp,Ceitbl,Ceitbl(2),1)
+   CALL write(nptp,ceitbl,ceitbl(2),1)
 !
 !     WRITE /SYSTEM/ ONTO PROBLEM TAPE
 !
@@ -544,7 +550,7 @@ SUBROUTINE xchk
    IF ( dpfct/=oscfn ) THEN
       CALL rewind(dpt)
       IF ( oscfn>1 ) CALL skpfil(dpt,oscfn-1)
-      j1 = Oscar(2)
+      j1 = oscar(2)
       DO j = 1 , j1
          CALL fwdrec(*1400,dpt)
       ENDDO
@@ -595,9 +601,9 @@ SUBROUTINE xchk
 !
    IF ( diag09/=1 ) THEN
       DO i = 1 , 32
-         Pghdg(i+96) = hdg(i)
-         Pghdg(i+128) = nblank
-         Pghdg(i+160) = nblank
+         pghdg(i+96) = hdg(i)
+         pghdg(i+128) = nblank
+         pghdg(i+160) = nblank
       ENDDO
       IF ( cppgct/=npages ) CALL page
    ENDIF
@@ -620,7 +626,7 @@ SUBROUTINE xchk
 !      OPEN (UNIT=4, FILE=DIC, STATUS='UNKNOWN')
 !      IROPEN = 1
 !8055  CONTINUE
-         WRITE (Irdict,99001) seqno , nreel
+         WRITE (irdict,99001) seqno , nreel
 99001    FORMAT (I10,36H,   REENTER AT DMAP SEQUENCE NUMBER ,I5)
          IF ( diag09/=1 ) THEN
             nlines = nlines + 2
@@ -632,15 +638,15 @@ SUBROUTINE xchk
 !      IF (IROPEN .EQ. 1) GO TO 815
 !      OPEN (UNIT=4, FILE=DIC, STATUS='UNKNOWN')
 !      IROPEN = 1
-         WRITE (Irdict,99003) seqno , ptdic(j1) , ptdic(j1+1) , nflags , nreel , nfile
+         WRITE (irdict,99003) seqno , ptdic(j1) , ptdic(j1+1) , nflags , nreel , nfile
 99003    FORMAT (I10,4H,   ,2A4,12H,   FLAGS = ,I1,11H,   REEL = ,I2,11H,   FILE = ,I6)
          IF ( diag09/=1 ) THEN
             nlines = nlines + 1
-            IF ( Mach<5 .AND. nfile/=0 .AND. ptdic(j1)/=nvps(1) ) nlines = nlines + 1
+            IF ( mach<5 .AND. nfile/=0 .AND. ptdic(j1)/=nvps(1) ) nlines = nlines + 1
             IF ( nlines>=nlpp ) CALL page
             WRITE (otpe,99004) seqno , ptdic(j1) , ptdic(j1+1) , nflags , nreel , nfile
 99004       FORMAT (1H ,I9,4H,   ,2A4,12H,   FLAGS = ,I1,11H,   REEL = ,I2,11H,   FILE = ,I6)
-            IF ( Mach<5 .AND. nfile/=0 .AND. ptdic(j1)/=nvps(1) ) WRITE (otpe,99005) ptdic(j1) , ptdic(j1+1) , blkcnt(i-i1) , blksiz
+            IF ( mach<5 .AND. nfile/=0 .AND. ptdic(j1)/=nvps(1) ) WRITE (otpe,99005) ptdic(j1) , ptdic(j1+1) , blkcnt(i-i1) , blksiz
 99005       FORMAT (13X,6H FILE ,2A4,9H CONTAINS,I10,28H BLOCKS, EACH BLOCK CONTAINS,I5,7H WORDS.)
          ENDIF
       ENDIF
@@ -649,14 +655,14 @@ SUBROUTINE xchk
 !     WRITE PTDIC ONTO XPTD
 !
    ngino = nxptdc(1)
-   CALL open(*1200,nxptdc,Gbuf(nptpnt),1)
+   CALL open(*1200,nxptdc,gbuf(nptpnt),1)
    CALL write(nxptdc,nxptdc,2,1)
    CALL write(nxptdc,dcparm,2,1)
    CALL write(nxptdc,ptdic(ptdtop),ptdbot+3-ptdtop,1)
    CALL close(nxptdc,1)
    cppgct = npages
 !
-   Fist(2) = Ipfst
+   fist(2) = ipfst
    RETURN
 !
 !
@@ -716,18 +722,18 @@ SUBROUTINE xchk
 !
 !     USER FATAL ERROR
 !
- 2600 WRITE (otpe,99010) Ufm , n
+ 2600 WRITE (otpe,99010) ufm , n
 99010 FORMAT (A23,I5)
    GOTO 2800
 !
 !     SYSTEM FATAL ERROR
 !
  2700 CALL page2(3)
-   WRITE (otpe,99011) Sfm , n
+   WRITE (otpe,99011) sfm , n
 99011 FORMAT (A25,I5)
  2800 GOTO return
 !
- 2900 WRITE (otpe,99012) Sfm
+ 2900 WRITE (otpe,99012) sfm
 99012 FORMAT (A25,', BLKCNT ARRAY EXCEEDED IN XCHK')
 !
  3000 CALL mesage(-37,0,nxchk)

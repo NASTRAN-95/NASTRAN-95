@@ -2,14 +2,14 @@
  
 SUBROUTINE triaax
    IMPLICIT NONE
-   USE C_CONDAD
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_MATPZ
-   USE C_SYSTEM
+   USE c_condad
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_matpz
+   USE c_system
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -36,6 +36,12 @@ SUBROUTINE triaax
    LOGICAL :: lsys78 , pzmat
    REAL , DIMENSION(3) :: r , z
    REAL , DIMENSION(45) :: teo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -95,8 +101,8 @@ SUBROUTINE triaax
    DATA idel2 , jax/0 , 4HTRIA/
 !
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
-   idel1 = Idel/1000
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
+   idel1 = idel/1000
 !
 !     INITALIZE
 !
@@ -106,13 +112,13 @@ SUBROUTINE triaax
       ics(i) = iecpt(4*i+18)
    ENDDO
 !
-   dict(1) = Estid
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 12
    dict(4) = 15
-   ipr = Iprec
+   ipr = iprec
 !
-   IF ( R1<=0. .OR. R2<=0. .OR. R3<=0. ) THEN
+   IF ( r1<=0. .OR. r2<=0. .OR. r3<=0. ) THEN
 !
 !     ERROR EXITS
 !
@@ -136,10 +142,10 @@ SUBROUTINE triaax
          ENDDO
       ENDDO
 !
-      aa = 1./(R2*z3+R1*z2+z1*R3-z2*R3-R1*z3-R2*z1)
-      c1 = aa*(R2*z3-z2*R3)
+      aa = 1./(r2*z3+r1*z2+z1*r3-z2*r3-r1*z3-r2*z1)
+      c1 = aa*(r2*z3-z2*r3)
       c2 = -aa*(z3-z2)
-      c3 = aa*(R3-R2)
+      c3 = aa*(r3-r2)
       gababq(1,1) = c1
       gababq(1,2) = c2
       gababq(1,3) = c3
@@ -154,9 +160,9 @@ SUBROUTINE triaax
          gababp(1,2) = c2
          gababp(1,3) = c3
       ENDIF
-      c1 = -aa*(R1*z3-z1*R3)
+      c1 = -aa*(r1*z3-z1*r3)
       c2 = aa*(z3-z1)
-      c3 = -aa*(R3-R1)
+      c3 = -aa*(r3-r1)
       gababq(4,1) = c1
       gababq(4,2) = c2
       gababq(4,3) = c3
@@ -171,9 +177,9 @@ SUBROUTINE triaax
          gababp(2,2) = c2
          gababp(2,3) = c3
       ENDIF
-      c1 = aa*(R1*z2-z1*R2)
+      c1 = aa*(r1*z2-z1*r2)
       c2 = -aa*(z2-z1)
-      c3 = aa*(R2-R1)
+      c3 = aa*(r2-r1)
       gababq(7,1) = c1
       gababq(7,2) = c2
       gababq(7,3) = c3
@@ -209,12 +215,12 @@ SUBROUTINE triaax
 !     DELINT(7)  =  (3,0)
 !
 !
-      IF ( Ismb(1)/=0 ) THEN
-         ra = (R1+R2+R3)/3.0
+      IF ( ismb(1)/=0 ) THEN
+         ra = (r1+r2+r3)/3.0
          za = (z1+z2+z3)/3.0
-         rh = amin1(R1,R2,R3)/10.0
-         dr = amax1(abs(R1-R2),abs(R2-R3),abs(R3-R1))
-         area = (R1*(z2-z3)+R2*(z3-z1)+R3*(z1-z2))/2.0
+         rh = amin1(r1,r2,r3)/10.0
+         dr = amax1(abs(r1-r2),abs(r2-r3),abs(r3-r1))
+         area = (r1*(z2-z3)+r2*(z3-z1)+r3*(z1-z2))/2.0
 !
          i1 = 0
          DO i = 1 , 2
@@ -237,7 +243,7 @@ SUBROUTINE triaax
 !
 !     MASS MATRIX
 !
-         IF ( Ismb(2)==0 ) GOTO 100
+         IF ( ismb(2)==0 ) GOTO 100
       ENDIF
       CALL delkls(akj,r,z,0)
       delm(1) = akj(2)
@@ -250,48 +256,48 @@ SUBROUTINE triaax
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3
 !
- 100  dgamr = Dgama*degrad
+ 100  dgamr = dgama*degrad
    cosg = cos(dgamr)
    sing = sin(dgamr)
-   Sinth = sing
-   Costh = cosg
-   Matidc = Matid
-   Matflg = 7
-   IF ( Ksys78>0 ) Matflg = 9
-   Eltemp = Tempe
-   CALL mat(Idel)
+   sinth = sing
+   costh = cosg
+   matidc = matid
+   matflg = 7
+   IF ( ksys78>0 ) matflg = 9
+   eltemp = tempe
+   CALL mat(idel)
    pzmat = .FALSE.
-   IF ( Setmat==4. .OR. Setmat==5. ) pzmat = .TRUE.
+   IF ( setmat==4. .OR. setmat==5. ) pzmat = .TRUE.
    IF ( pzmat ) THEN
-      Rho = Pzout(46)
-      Alf(1) = Pzout(47)
-      Alf(2) = Pzout(48)
-      Alf(3) = Pzout(49)
-      Tzero = Pzout(50)
-      Gsube = Pzout(51)
+      rho = pzout(46)
+      alf(1) = pzout(47)
+      alf(2) = pzout(48)
+      alf(3) = pzout(49)
+      tzero = pzout(50)
+      gsube = pzout(51)
    ELSE
-      ksave = Ksys78
-      Ksys78 = 0
+      ksave = ksys78
+      ksys78 = 0
       lsys78 = .TRUE.
    ENDIF
-   IF ( Setmat==2. ) THEN
+   IF ( setmat==2. ) THEN
       i = 126
       GOTO 400
    ELSE
-      dict5 = Gsube
-      IF ( Ksys78<=0 ) THEN
+      dict5 = gsube
+      IF ( ksys78<=0 ) THEN
 !
 !     SET MATERIAL PROPERTIES IN DOUBLE PRECISION VARIABLES
 !
-         er = E(1)
-         et = E(2)
-         ez = E(3)
-         vro = Anu(1)
-         voz = Anu(2)
-         vzr = Anu(3)
-         gor = G(1)
-         gzo = G(2)
-         grz = G(3)
+         er = e(1)
+         et = e(2)
+         ez = e(3)
+         vro = anu(1)
+         voz = anu(2)
+         vzr = anu(3)
+         gor = g(1)
+         gzo = g(2)
+         grz = g(3)
          vor = vro*et/er
          vzo = voz*ez/et
          vrz = vzr*er/ez
@@ -304,58 +310,58 @@ SUBROUTINE triaax
          teo(i) = 0.
       ENDDO
 !
-      IF ( Ksys78>0 ) THEN
+      IF ( ksys78>0 ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES STORED IN TEO(22-39)
 !     DIELECTRIC MATERIAL PROPERTIES STORED IN TEO(40-45)
 !     TEO(22-39) CONTAINS E-TRANSPOSE
 !
-         teo(1) = Pzout(1)
-         teo(2) = Pzout(2)
-         teo(3) = Pzout(7)
-         teo(4) = Pzout(3)
-         teo(5) = Pzout(8)
-         teo(6) = Pzout(12)
-         teo(7) = Pzout(4)
-         teo(8) = Pzout(9)
-         teo(9) = Pzout(13)
-         teo(10) = Pzout(16)
-         teo(11) = Pzout(5)
-         teo(12) = Pzout(10)
-         teo(13) = Pzout(14)
-         teo(14) = Pzout(17)
-         teo(15) = Pzout(19)
-         teo(16) = Pzout(6)
-         teo(17) = Pzout(11)
-         teo(18) = Pzout(15)
-         teo(19) = Pzout(18)
-         teo(20) = Pzout(20)
-         teo(21) = Pzout(21)
-         IF ( Ksys78/=2 ) THEN
-            teo(22) = Pzout(22)
-            teo(23) = Pzout(28)
-            teo(24) = Pzout(34)
-            teo(25) = Pzout(23)
-            teo(26) = Pzout(29)
-            teo(27) = Pzout(35)
-            teo(28) = Pzout(24)
-            teo(29) = Pzout(30)
-            teo(30) = Pzout(36)
-            teo(31) = Pzout(25)
-            teo(32) = Pzout(31)
-            teo(33) = Pzout(37)
-            teo(34) = Pzout(26)
-            teo(35) = Pzout(32)
-            teo(36) = Pzout(38)
-            teo(37) = Pzout(27)
-            teo(38) = Pzout(33)
-            teo(39) = Pzout(39)
-            teo(40) = -Pzout(40)
-            teo(41) = -Pzout(41)
-            teo(42) = -Pzout(42)
-            teo(43) = -Pzout(43)
-            teo(44) = -Pzout(44)
-            teo(45) = -Pzout(45)
+         teo(1) = pzout(1)
+         teo(2) = pzout(2)
+         teo(3) = pzout(7)
+         teo(4) = pzout(3)
+         teo(5) = pzout(8)
+         teo(6) = pzout(12)
+         teo(7) = pzout(4)
+         teo(8) = pzout(9)
+         teo(9) = pzout(13)
+         teo(10) = pzout(16)
+         teo(11) = pzout(5)
+         teo(12) = pzout(10)
+         teo(13) = pzout(14)
+         teo(14) = pzout(17)
+         teo(15) = pzout(19)
+         teo(16) = pzout(6)
+         teo(17) = pzout(11)
+         teo(18) = pzout(15)
+         teo(19) = pzout(18)
+         teo(20) = pzout(20)
+         teo(21) = pzout(21)
+         IF ( ksys78/=2 ) THEN
+            teo(22) = pzout(22)
+            teo(23) = pzout(28)
+            teo(24) = pzout(34)
+            teo(25) = pzout(23)
+            teo(26) = pzout(29)
+            teo(27) = pzout(35)
+            teo(28) = pzout(24)
+            teo(29) = pzout(30)
+            teo(30) = pzout(36)
+            teo(31) = pzout(25)
+            teo(32) = pzout(31)
+            teo(33) = pzout(37)
+            teo(34) = pzout(26)
+            teo(35) = pzout(32)
+            teo(36) = pzout(38)
+            teo(37) = pzout(27)
+            teo(38) = pzout(33)
+            teo(39) = pzout(39)
+            teo(40) = -pzout(40)
+            teo(41) = -pzout(41)
+            teo(42) = -pzout(42)
+            teo(43) = -pzout(43)
+            teo(44) = -pzout(44)
+            teo(45) = -pzout(45)
          ENDIF
       ELSE
          teo(1) = er*(1.-voz*vzo)*del
@@ -438,9 +444,9 @@ SUBROUTINE triaax
       mjho = mod(iecpt(1),1000) - 1
       ajho = mjho
       ajjho = ajho*ajho
-      rhod = Rho*pi
+      rhod = rho*pi
       IF ( ajho==0. ) rhod = 2.*rhod
-      IF ( Ismb(1)/=0 ) THEN
+      IF ( ismb(1)/=0 ) THEN
 !
 !     FORM THE ELEMENT STIFFNESS MATRIX IN FIELD SYSTEM
 !
@@ -539,23 +545,23 @@ SUBROUTINE triaax
                acurl(ic) = acurl(i)
             ENDDO
          ENDDO
-         Dgama = pi
-         IF ( ajho==0. ) Dgama = twopi
+         dgama = pi
+         IF ( ajho==0. ) dgama = twopi
          DO i = 1 , 81
-            acurl(i) = acurl(i)*Dgama
+            acurl(i) = acurl(i)*dgama
          ENDDO
          IF ( .NOT.(lsys78) ) THEN
 !
             DO i = 82 , 117
-               acurl(i) = acurl(i)*Dgama
+               acurl(i) = acurl(i)*dgama
             ENDDO
          ENDIF
       ENDIF
 !
-      IF ( Ismb(2)/=0 ) THEN
-         IF ( Icmbar<0 ) THEN
-            area = (R1*(z2-z3)+R2*(z3-z1)+R3*(z1-z2))/2.
-            convm = rhod*(R1+R2+R3)/3.*area
+      IF ( ismb(2)/=0 ) THEN
+         IF ( icmbar<0 ) THEN
+            area = (r1*(z2-z3)+r2*(z3-z1)+r3*(z1-z2))/2.
+            convm = rhod*(r1+r2+r3)/3.*area
          ELSE
 !
 !     CONSISTENT MASS IN FIELD COORDINATES
@@ -598,7 +604,7 @@ SUBROUTINE triaax
 !     TRANSFORM THE ELEMENT STIFFNESS MATRIX FROM FIELD SYSTEM
 !     TO GRID POINT DEGREES OF FREEDOM
 !
-      IF ( Ismb(1)/=0 ) THEN
+      IF ( ismb(1)/=0 ) THEN
          CALL gmmats(aki,9,9,1,acurl,9,9,0,d)
          CALL gmmats(d,9,9,0,aki,9,9,0,ak)
          IF ( .NOT.(lsys78) ) THEN
@@ -608,7 +614,7 @@ SUBROUTINE triaax
             CALL gmmats(d2,3,3,0,akip,3,3,0,akph2)
          ENDIF
 !
-         IF ( Ismb(2)==0 .OR. Icmbar<0 ) GOTO 200
+         IF ( ismb(2)==0 .OR. icmbar<0 ) GOTO 200
       ENDIF
       CALL gmmats(aki,9,9,1,bmass,9,9,0,d)
       CALL gmmats(d,9,9,0,aki,9,9,0,akm)
@@ -635,7 +641,7 @@ SUBROUTINE triaax
 !     CREATE AN ARRAY OF SORTED GRID POINTS
 !
    DO i = 1 , 3
-      isort(i) = Igp(i)
+      isort(i) = igp(i)
    ENDDO
    i = -3
    DO
@@ -666,7 +672,7 @@ SUBROUTINE triaax
                DO j = 1 , 3
                   j1 = (j-1)*4 + 1
                   ircc = irc + (j-1)*9
-                  IF ( Ismb(1)/=0 ) THEN
+                  IF ( ismb(1)/=0 ) THEN
                      akt(j1) = ak(ircc)
                      akt(j1+1) = ak(ircc+1)
                      akt(j1+2) = ak(ircc+2)
@@ -679,7 +685,7 @@ SUBROUTINE triaax
                      ENDIF
                   ENDIF
 !
-                  IF ( Ismb(2)/=0 .AND. Icmbar>=1 ) THEN
+                  IF ( ismb(2)/=0 .AND. icmbar>=1 ) THEN
                      j1 = (j-1)*3 + 1
                      amt(j1) = akm(ircc)
                      amt(j1+1) = akm(ircc+1)
@@ -731,12 +737,12 @@ SUBROUTINE triaax
 !     NOW OUTPUT THE MATRIX VIA EMG OUT
 !
          dict(2) = 1
-         IF ( Ismb(1)/=0 ) CALL emgout(akj,akj,144,1,dict,1,ipr)
-         IF ( Ismb(2)==0 .AND. .NOT.pzmat ) Ksys78 = ksave
-         IF ( Ismb(2)==0 ) RETURN
+         IF ( ismb(1)/=0 ) CALL emgout(akj,akj,144,1,dict,1,ipr)
+         IF ( ismb(2)==0 .AND. .NOT.pzmat ) ksys78 = ksave
+         IF ( ismb(2)==0 ) RETURN
          dict(3) = 9
          dict(4) = 7
-         IF ( Icmbar<0 ) THEN
+         IF ( icmbar<0 ) THEN
 !
 !     GENERATE LUMPED MASS MATRIX HERE
 !
@@ -751,14 +757,14 @@ SUBROUTINE triaax
          EXIT
       ENDIF
    ENDDO
- 300  IF ( .NOT.pzmat ) Ksys78 = ksave
+ 300  IF ( .NOT.pzmat ) ksys78 = ksave
    RETURN
- 400  IF ( idel1/=Idel ) THEN
+ 400  IF ( idel1/=idel ) THEN
       idel2 = idel1
       ics(1) = idel1
       ics(2) = jax
       CALL mesage(30,i,ics)
    ENDIF
-   Nogo = .TRUE.
+   nogo = .TRUE.
    GOTO 300
 END SUBROUTINE triaax

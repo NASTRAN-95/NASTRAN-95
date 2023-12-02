@@ -1,20 +1,21 @@
-!*==bgrid.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bgrid.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bgrid
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bands
+   USE c_bandw
+   USE c_geomx
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDS
-   USE C_BANDW
-   USE C_GEOMX
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -41,30 +42,30 @@ SUBROUTINE bgrid
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Irept==2 ) THEN
+         IF ( irept==2 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Geom1 = igeom1
-         Geom2 = igeom2
-         Geom4 = igeom4
-         Scr1 = iscr1
-         Nel = nelx
-         Neq = neqx
-         Neqr = neqrx
-         Ngrid = 0
+         geom1 = igeom1
+         geom2 = igeom2
+         geom4 = igeom4
+         scr1 = iscr1
+         nel = nelx
+         neq = neqx
+         neqr = neqrx
+         ngrid = 0
 !
 !     BANDIT QUITS IF DMI CARDS ARE PRESENT. (CHK WAS DONE IN IFS2P)
 !     RE-SET PROGRAM PARAMETERS IF USER REQUESTED VIA NASTRAN CARD.
 !
-         k = Isys(I77)
+         k = isys(i77)
          IF ( k<0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          IF ( k/=0 ) THEN
             IF ( k==+9 ) THEN
-               WRITE (nout,99006) Uim
+               WRITE (nout,99006) uim
                WRITE (nout,99001)
 99001          FORMAT (5X,25HTHE PRESENCE OF DMI CARDS)
                spag_nextblock_1 = 5
@@ -74,18 +75,18 @@ SUBROUTINE bgrid
                   itrl(i) = mod(k,10)
                   k = k/10
                ENDDO
-               IF ( itrl(1)>0 .AND. itrl(1)<=4 ) Icrit = itrl(1)
-               IF ( itrl(2)>0 .AND. itrl(2)<=3 ) Method = itrl(2) - 2
-               Nompc = itrl(3)
-               IF ( itrl(4)==1 ) Nodep = -Nodep
-               IF ( itrl(5)==1 ) Nopch = -Nopch
-               IF ( itrl(5)==9 ) Nopch = +9
-               IF ( itrl(6)==1 ) Norun = -Norun
-               IF ( itrl(7)>=2 .AND. itrl(7)<=9 ) Kdim = itrl(7)
+               IF ( itrl(1)>0 .AND. itrl(1)<=4 ) icrit = itrl(1)
+               IF ( itrl(2)>0 .AND. itrl(2)<=3 ) method = itrl(2) - 2
+               nompc = itrl(3)
+               IF ( itrl(4)==1 ) nodep = -nodep
+               IF ( itrl(5)==1 ) nopch = -nopch
+               IF ( itrl(5)==9 ) nopch = +9
+               IF ( itrl(6)==1 ) norun = -norun
+               IF ( itrl(7)>=2 .AND. itrl(7)<=9 ) kdim = itrl(7)
             ENDIF
          ENDIF
 !
-         IF ( Norun/=+1 ) THEN
+         IF ( norun/=+1 ) THEN
 !
 !     OPEN GEOM1 FILE AND CHECK THE PRESENCE OF ANY SEQGP CARD.  IF
 !     ONE OR MORE IS PRESENT, ABORT BANDIT JOB.  OTHERWISE CONTINUE TO
@@ -100,7 +101,7 @@ SUBROUTINE bgrid
 !     BY A SIMPLE BINARY SEARCH. ROUTINES SCAT, BRIGIT, AND INTERN
 !     COULD BE ELIMINATED.
 !
-            itrl(1) = Geom1
+            itrl(1) = geom1
             CALL rdtrl(itrl)
             j = itrl(2) + itrl(3) + itrl(4) + itrl(5) + itrl(6) + itrl(7)
             IF ( itrl(1)<0 .OR. j==0 ) THEN
@@ -110,7 +111,7 @@ SUBROUTINE bgrid
             k = seqgp
             k1 = (k-1)/16
             k2 = k - 16*k1
-            k = andf(itrl(k1+2),Two(k2+16))
+            k = andf(itrl(k1+2),two(k2+16))
             IF ( k/=0 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
@@ -121,42 +122,42 @@ SUBROUTINE bgrid
 !     SORTED. IF IT IS, WE CAN BLAST READ THE GRID POINT RECORD AND
 !     TAKE THE LAST GRID POINT TO BE THE LARGEST GRID EXTERNAL NUMBER.
 !
-         CALL preloc(*100,Z(Ibuf1),Geom1)
-         CALL locate(*40,Z(Ibuf1),grid,k)
+         CALL preloc(*100,z(ibuf1),geom1)
+         CALL locate(*40,z(ibuf1),grid,k)
          max = 0
          DO
-            CALL read(*20,*20,Geom1,itrl,8,0,k)
-            Ngrid = Ngrid + 1
+            CALL read(*20,*20,geom1,itrl,8,0,k)
+            ngrid = ngrid + 1
             IF ( itrl(1)>max ) max = itrl(1)
          ENDDO
- 20      CALL bckrec(Geom1)
- 40      CALL close(Geom1,Norew)
+ 20      CALL bckrec(geom1)
+ 40      CALL close(geom1,norew)
 !
 !     IF SPOINTS ARE PRESENT, ADD THEM TO THE GRID COUNT
 !
          n = 0
-         CALL preloc(*80,Z(Ibuf1),Geom2)
-         Ngpts(1) = 5551
-         Ngpts(2) = 49
-         CALL locate(*60,Z(Ibuf1),Ngpts,k)
-         CALL read(*60,*60,Geom2,Z(1),Ibuf1,1,n)
- 60      CALL close(Geom2,Rew)
- 80      Ngpts(1) = Ngrid
-         Ngpts(2) = n
-         Ngrid = Ngrid + n
+         CALL preloc(*80,z(ibuf1),geom2)
+         ngpts(1) = 5551
+         ngpts(2) = 49
+         CALL locate(*60,z(ibuf1),ngpts,k)
+         CALL read(*60,*60,geom2,z(1),ibuf1,1,n)
+ 60      CALL close(geom2,rew)
+ 80      ngpts(1) = ngrid
+         ngpts(2) = n
+         ngrid = ngrid + n
 !
-         IF ( Nopch==9 .AND. Ngrid==1 ) Ngrid = max
+         IF ( nopch==9 .AND. ngrid==1 ) ngrid = max
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( Ngrid<=0 ) THEN
+         IF ( ngrid<=0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Ngrid<15 ) THEN
+         IF ( ngrid<15 ) THEN
 !
 !     ERROR OR QUIT
 !
-            WRITE (nout,99006) Uim
+            WRITE (nout,99006) uim
             WRITE (nout,99002)
 99002       FORMAT (5X,'SMALL PROBLEM SIZE')
             spag_nextblock_1 = 5
@@ -171,86 +172,85 @@ SUBROUTINE bgrid
 !           = 17 AMDAHL   = 18 PRIME        = 19 486,         = 20 DUMMY
 !           = 21 ALPHA    = 22 RESERVED
 !
-            IF ( Machx==1 .OR. Machx==3 ) THEN
-               Nw = 4
-               IF ( Ngrid>508 ) Nw = 3
-               IF ( Ngrid>4095 ) Nw = 2
-            ELSEIF ( Machx==2 .OR. Machx==5 .OR. Machx==6 .OR. Machx==7 .OR. Machx==8 .OR. Machx==9 .OR. Machx==10 .OR.             &
-                   & Machx==11 .OR. Machx==13 .OR. Machx==16 .OR. Machx==17 .OR. Machx==18 .OR. Machx==19 .OR. Machx==20 .OR.       &
-                   & Machx==21 .OR. Machx==22 ) THEN
-               Nw = 2
-            ELSEIF ( Machx==12 ) THEN
-               Nw = 8
-               IF ( Ngrid>255 ) Nw = 4
+            IF ( machx==1 .OR. machx==3 ) THEN
+               nw = 4
+               IF ( ngrid>508 ) nw = 3
+               IF ( ngrid>4095 ) nw = 2
+            ELSEIF ( machx==2 .OR. machx==5 .OR. machx==6 .OR. machx==7 .OR. machx==8 .OR. machx==9 .OR. machx==10 .OR.             &
+                   & machx==11 .OR. machx==13 .OR. machx==16 .OR. machx==17 .OR. machx==18 .OR. machx==19 .OR. machx==20 .OR.       &
+                   & machx==21 .OR. machx==22 ) THEN
+               nw = 2
+            ELSEIF ( machx==12 ) THEN
+               nw = 8
+               IF ( ngrid>255 ) nw = 4
             ELSE
-               Nw = 6
-               IF ( Ngrid>510 ) Nw = 5
-               IF ( Ngrid>2045 ) Nw = 4
-               IF ( Ngrid>16380 ) Nw = 3
-               IF ( Ngrid>524288 ) Nw = 2
+               nw = 6
+               IF ( ngrid>510 ) nw = 5
+               IF ( ngrid>2045 ) nw = 4
+               IF ( ngrid>16380 ) nw = 3
+               IF ( ngrid>524288 ) nw = 2
             ENDIF
 !
-            Nbitin = Nbpw/Nw
-            Mask = 2**Nbitin - 1
+            nbitin = nbpw/nw
+            mask = 2**nbitin - 1
 !
 !     KDIM IS THE ARRAY DIMENSNION OF A SCRATCH ARRAY USED ONLY BY GPS
 !     METHOD. IT IS 150 WORDS OR 10% OF TOTAL GRID POINT NUMBER. IF
 !     USER SPECIFIED BANDTDIM = N, (WHERE N IS FROM 1 THRU 9), THE ARRAY
 !     DIMENSION WILL BE N*10 PERCENT INSTEAD OF THE DEFAULT OF 10%.
 !
-            Kdim = Ngrid*Kdim/10
-            IF ( Method/=-1 ) Kdim = max0(Kdim,kdimx,Ngrid/10)
-            IF ( Method==-1 ) Kdim = min0(Kdim,kdimx,Ngrid/10)
-            n = Ngrid
+            kdim = ngrid*kdim/10
+            IF ( method/=-1 ) kdim = max0(kdim,kdimx,ngrid/10)
+            IF ( method==-1 ) kdim = min0(kdim,kdimx,ngrid/10)
+            n = ngrid
             IF ( n<10 ) n = 10
 !
 !     CALCULATE WIDTH MAXDEG AND EFFECTIVE LENGTH MAXGRD OF IG MATRIX.
 !
-            Maxgrd = n
-            kore = Kor
+            maxgrd = n
+            kore = kor
             DO
-               Maxdeg = ((((kore-4*Kdim-8*Maxgrd-5)*Nw)/(Maxgrd+Nw))/Nw)*Nw
-               Maxdeg = min0(Maxdeg,Maxgrd-1)
-               IF ( Maxdeg<=0 ) THEN
+               maxdeg = ((((kore-4*kdim-8*maxgrd-5)*nw)/(maxgrd+nw))/nw)*nw
+               maxdeg = min0(maxdeg,maxgrd-1)
+               IF ( maxdeg<=0 ) THEN
                   CALL mesage(-8,0,sub)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  j = Maxdeg*2.2
+                  j = maxdeg*2.2
                   kore = kore - j
-                  IF ( Kor-j/=kore ) THEN
+                  IF ( kor-j/=kore ) THEN
 !
 !     INITIALIZE VARIABLES
 !
-                     Nn = 0
-                     Mm = 0
-                     Nedge = 0
-                     Ipass = 0
-                     Kmod = 2*Maxgrd - ifix(2.3715*sqrt(float(Maxgrd)))
-                     Mindeg = 500000
+                     nn = 0
+                     mm = 0
+                     nedge = 0
+                     ipass = 0
+                     kmod = 2*maxgrd - ifix(2.3715*sqrt(float(maxgrd)))
+                     mindeg = 500000
                      RETURN
                   ENDIF
                ENDIF
             ENDDO
          ENDIF
- 100     CALL mesage(-1,Geom1,sub)
+ 100     CALL mesage(-1,geom1,sub)
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (nout,99006) Uim
+         WRITE (nout,99006) uim
          WRITE (nout,99003)
 99003    FORMAT (5X,25HTHE ABSENCE OF GRID CARDS)
-         CALL close(Geom1,Rew)
+         CALL close(geom1,rew)
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         WRITE (nout,99006) Uim
+         WRITE (nout,99006) uim
          WRITE (nout,99004)
 99004    FORMAT (5X,27HTHE PRESENCE OF SEQGP CARDS)
          spag_nextblock_1 = 5
       CASE (5)
-         Isys(I77) = 0
-         IF ( Nopch>0 ) Isys(I77) = -2
-         IF ( Isys(I77)/=-2 ) WRITE (nout,99005)
+         isys(i77) = 0
+         IF ( nopch>0 ) isys(i77) = -2
+         IF ( isys(i77)/=-2 ) WRITE (nout,99005)
 99005    FORMAT (1H0,10X,'**NO ERRORS FOUND - EXECUTE NASTRAN PROGRAM**')
          EXIT SPAG_DispatchLoop_1
       END SELECT

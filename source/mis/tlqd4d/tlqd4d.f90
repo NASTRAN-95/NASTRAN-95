@@ -2,18 +2,18 @@
  
 SUBROUTINE tlqd4d
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_COMPST
-   USE C_CONDAD
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_Q4COMD
-   USE C_Q4DT
-   USE C_SGTMPD
-   USE C_SYSTEM
-   USE C_TERMS
-   USE C_TRIMEX
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_compst
+   USE c_condad
+   USE c_matin
+   USE c_matout
+   USE c_q4comd
+   USE c_q4dt
+   USE c_sgtmpd
+   USE c_system
+   USE c_terms
+   USE c_trimex
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -54,6 +54,12 @@ SUBROUTINE tlqd4d
    REAL*8 , DIMENSION(2) :: ptint
    REAL*8 , DIMENSION(3,4) :: ugpdm
    REAL*8 , DIMENSION(96) :: xybmat
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -143,7 +149,7 @@ SUBROUTINE tlqd4d
    compos = .FALSE.
 !
    pid = nest(13) - 100000000
-   compos = Comps== - 1 .AND. pid>0
+   compos = comps== - 1 .AND. pid>0
 !
 !     CHECK FOR THE TYPE OF TEMPERATURE DATA
 !     NOTES-  1- TYPE TEMPP1 ALSO INCLUDES TYPE TEMPP3
@@ -153,9 +159,9 @@ SUBROUTINE tlqd4d
    tempp1 = flag==13
    tempp2 = flag==2
 !
-   N1 = 4
-   Nnode = 4
-   ndof = Nnode*6
+   n1 = 4
+   nnode = 4
+   ndof = nnode*6
    nd2 = ndof*2
    nd3 = ndof*3
    nd4 = ndof*4
@@ -194,7 +200,7 @@ SUBROUTINE tlqd4d
    vkn(2) = vd1(3)*vd2(1) - vd1(1)*vd2(3)
    vkn(3) = vd1(1)*vd2(2) - vd1(2)*vd2(1)
    vkl = dsqrt(vkn(1)**2+vkn(2)**2+vkn(3)**2)
-   IF ( vkl==0. ) WRITE (nout,99002) Est(1)
+   IF ( vkl==0. ) WRITE (nout,99002) est(1)
    vks(1) = vkn(1)/vkl
    vks(2) = vkn(2)/vkl
    vks(3) = vkn(3)/vkl
@@ -214,7 +220,7 @@ SUBROUTINE tlqd4d
    vp12(2) = v12(2) - v12dk*vks(2)
    vp12(3) = v12(3) - v12dk*vks(3)
    vp12l = dsqrt(vp12(1)**2+vp12(2)**2+vp12(3)**2)
-   IF ( vp12l==0. ) WRITE (nout,99002) Est(1)
+   IF ( vp12l==0. ) WRITE (nout,99002) est(1)
    vis(1) = vp12(1)/vp12l
    vis(2) = vp12(2)/vp12l
    vis(3) = vp12(3)/vp12l
@@ -225,7 +231,7 @@ SUBROUTINE tlqd4d
 !   NORMALIZE J FOR GOOD MEASURE
 !
    vjl = dsqrt(vjs(1)**2+vjs(2)**2+vjs(3)**2)
-   IF ( vjl==0. ) WRITE (nout,99002) Est(1)
+   IF ( vjl==0. ) WRITE (nout,99002) est(1)
    vjs(1) = vjs(1)/vjl
    vjs(2) = vjs(2)/vjl
    vjs(3) = vjs(3)/vjl
@@ -264,7 +270,7 @@ SUBROUTINE tlqd4d
    DO j = 1 , 3
       cent(j) = 0.0D0
       DO i = 1 , 4
-         cent(j) = cent(j) + ugpdm(j,i)/Nnode
+         cent(j) = cent(j) + ugpdm(j,i)/nnode
       ENDDO
    ENDDO
 !
@@ -314,7 +320,7 @@ SUBROUTINE tlqd4d
 !
 !
    DO i = 1 , 4
-      Iorder(i) = 0
+      iorder(i) = 0
       ksil(i) = sil(i)
    ENDDO
 !
@@ -327,7 +333,7 @@ SUBROUTINE tlqd4d
             isil = ksil(j)
          ENDIF
       ENDDO
-      Iorder(i) = itemp
+      iorder(i) = itemp
       ksil(itemp) = 99999999
    ENDDO
 !
@@ -349,7 +355,7 @@ SUBROUTINE tlqd4d
       ENDDO
    ENDDO
    DO i = 1 , 4
-      ipoint = Iorder(i)
+      ipoint = iorder(i)
       sil(i) = ksil(ipoint)
       gpth(i) = tmpthk(ipoint)
       igpdt(1,i) = kcid(ipoint)
@@ -366,32 +372,32 @@ SUBROUTINE tlqd4d
 !
       tempel = 0.0D0
       DO i = 1 , 4
-         ipnt = Iorder(i)
-         gtemps(i) = Stemp(ipnt)
+         ipnt = iorder(i)
+         gtemps(i) = stemp(ipnt)
          tempel = tempel + gtemps(i)
       ENDDO
       tempel = tempel*0.25D0
 !
    ELSEIF ( tempp2 ) THEN
 !
-      tbar = Stemp(1)
-      thrmom(1) = Stemp(2)
-      thrmom(2) = Stemp(3)
-      thrmom(3) = Stemp(4)
+      tbar = stemp(1)
+      thrmom(1) = stemp(2)
+      thrmom(2) = stemp(3)
+      thrmom(3) = stemp(4)
    ELSE
 !
-      tbar = Stemp(1)
-      tgrad = Stemp(2)
+      tbar = stemp(1)
+      tgrad = stemp(2)
    ENDIF
 !
 !     COMPUTE NODE NORMALS
 !
-   CALL q4nrmd(bgpdt,gpnorm,Iorder,iflag)
+   CALL q4nrmd(bgpdt,gpnorm,iorder,iflag)
    IF ( iflag==0 ) THEN
 !
 !     DETERMINE NODAL THICKNESSES
 !
-      DO i = 1 , Nnode
+      DO i = 1 , nnode
          IF ( gpth(i)==0.0 ) gpth(i) = elth
          IF ( gpth(i)>0.0 ) THEN
             dgpth(i) = gpth(i)
@@ -405,7 +411,7 @@ SUBROUTINE tlqd4d
       ENDDO
 !
       mominr = 0.0D0
-      IF ( nest(15)/=0 ) mominr = Est(16)
+      IF ( nest(15)/=0 ) mominr = est(16)
 !
 !     THE COORDINATES OF THE ELEMENT GRID POINTS HAVE TO BE
 !     TRANSFORMED FROM THE BASIC C.S. TO THE ELEMENT C.S.
@@ -417,7 +423,7 @@ SUBROUTINE tlqd4d
       ip = -3
       DO ii = 2 , 4
          ip = ip + 3
-         DO j = 1 , Nnode
+         DO j = 1 , nnode
             epnorm(ii,j) = 0.0
             egpdt(ii,j) = 0.0
             DO k = 1 , 3
@@ -442,17 +448,17 @@ SUBROUTINE tlqd4d
 !     ORTHOTROPIC MATERIAL PROPERTIES AMONG THE MAT8 CARDS, AND
 !     ANISOTROPIC MATERIAL PROPERTIES AMONG THE MAT2 CARDS.
 !
-      Inflag = 12
-      Eltemp = Est(45)
+      inflag = 12
+      eltemp = est(45)
       mid(1) = nest(13)
       mid(2) = nest(15)
       mid(3) = 0
       mid(4) = nest(22)
-      Membrn = mid(1)>0
-      Bendng = mid(2)>0 .AND. mominr>0.0D0
-      Shrflx = mid(3)>0
-      Mbcoup = mid(4)>0
-      Norpth = .FALSE.
+      membrn = mid(1)>0
+      bendng = mid(2)>0 .AND. mominr>0.0D0
+      shrflx = mid(3)>0
+      mbcoup = mid(4)>0
+      norpth = .FALSE.
 !
 !     SET THE INTEGRATION POINTS
 !
@@ -476,7 +482,7 @@ SUBROUTINE tlqd4d
          dshptp(i+4) = dshp(i+4)
       ENDDO
       DO i = 1 , 4
-         kk = Iorder(i)
+         kk = iorder(i)
          shp(i) = tmpshp(kk)
          dshp(i) = dshptp(kk)
          dshp(i+4) = dshptp(kk+4)
@@ -484,17 +490,17 @@ SUBROUTINE tlqd4d
 !
       DO izta = 1 , 2
          zta = ptint(izta)
-         Hzta = zta/2.0D0
+         hzta = zta/2.0D0
          CALL jacob2(elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
-         IF ( Badjac ) GOTO 300
+         IF ( badjac ) GOTO 300
 !
-         CALL gmmatd(Psitrn,3,3,0,jacob,3,3,1,phi)
+         CALL gmmatd(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGD TO GET B MATRIX
 !     SET THE ROW FLAG TO 2. IT WILL SAVE THE 3RD ROW OF B AT
 !     THE TWO INTEGRATION POINTS.
 !
-         Rowflg = 2
+         rowflg = 2
          CALL q4bmgd(dshp,dgpth,egpdt,epnorm,phi,xybmat(kpt))
          kpt = kpt + kpt1
       ENDDO
@@ -533,7 +539,7 @@ SUBROUTINE tlqd4d
 !
 !     CALCULATE TEM USING THETAM
 !
-         thetam = dble(Est(10))*Degrad
+         thetam = dble(est(10))*degrad
          IF ( thetam/=0.0D0 ) GOTO 100
 !
 !     DEFAULT IS CHOSEN, LOOK FOR VALUES OF MCSID AND/OR THETAM
@@ -541,7 +547,7 @@ SUBROUTINE tlqd4d
 !
          IF ( nest(24)==0 ) THEN
 !
-            thetam = dble(Est(23))*Degrad
+            thetam = dble(est(23))*degrad
             GOTO 100
          ELSE
             mcsid = nest(23)
@@ -624,7 +630,7 @@ SUBROUTINE tlqd4d
 !
 !
 !     SET POINTER LPCOMP
-            lpcomp = Ipcmp + Npcmp + Npcmp1 + Npcmp2
+            lpcomp = ipcmp + npcmp + npcmp1 + npcmp2
 !
 !     SET POINTERS
 !
@@ -634,9 +640,9 @@ SUBROUTINE tlqd4d
             pcmp1 = .FALSE.
             pcmp2 = .FALSE.
 !
-            pcmp = Npcmp>0
-            pcmp1 = Npcmp1>0
-            pcmp2 = Npcmp2>0
+            pcmp = npcmp>0
+            pcmp1 = npcmp1>0
+            pcmp2 = npcmp2>0
 !
 !     CHECK IF NO 'PCOMP' DATA HAS BEEN READ INTO CORE
 !
@@ -646,14 +652,14 @@ SUBROUTINE tlqd4d
 !
                IF ( pcmp ) THEN
 !
-                  ip = Ipcmp
+                  ip = ipcmp
                   IF ( intz(ip)==pid ) THEN
                      itype = pcomp
                      GOTO 120
                   ELSE
-                     ipc11 = Ipcmp1 - 1
-                     DO ip = Ipcmp , ipc11
-                        IF ( intz(ip)==-1 .AND. ip<(Ipcmp1-1) ) THEN
+                     ipc11 = ipcmp1 - 1
+                     DO ip = ipcmp , ipc11
+                        IF ( intz(ip)==-1 .AND. ip<(ipcmp1-1) ) THEN
                            IF ( intz(ip+1)==pid ) GOTO 102
                         ENDIF
                      ENDDO
@@ -668,14 +674,14 @@ SUBROUTINE tlqd4d
 !     SEARCH FOR PID IN PCOMP1 DATA
 !
  105           IF ( pcmp1 ) THEN
-                  ip = Ipcmp1
+                  ip = ipcmp1
                   IF ( intz(ip)==pid ) THEN
                      itype = pcomp1
                      GOTO 120
                   ELSE
-                     ipc21 = Ipcmp2 - 1
-                     DO ip = Ipcmp1 , ipc21
-                        IF ( intz(ip)==-1 .AND. ip<(Ipcmp2-1) ) THEN
+                     ipc21 = ipcmp2 - 1
+                     DO ip = ipcmp1 , ipc21
+                        IF ( intz(ip)==-1 .AND. ip<(ipcmp2-1) ) THEN
                            IF ( intz(ip+1)==pid ) GOTO 106
                         ENDIF
                      ENDDO
@@ -689,10 +695,10 @@ SUBROUTINE tlqd4d
 !
 !     SEARCH FOR PID IN PCOMP2 DATA
 !
- 110           ip = Ipcmp2
+ 110           ip = ipcmp2
                IF ( intz(ip)/=pid ) THEN
                   lpc11 = lpcomp - 1
-                  DO ip = Ipcmp2 , lpc11
+                  DO ip = ipcmp2 , lpc11
                      IF ( intz(ip)==-1 .AND. ip<(lpcomp-1) ) THEN
                         IF ( intz(ip+1)==pid ) GOTO 112
                      ENDIF
@@ -733,7 +739,7 @@ SUBROUTINE tlqd4d
 !
 !     EXTENSIONAL
 !
-            Matid = mid(1)
+            matid = mid(1)
             CALL mat(elid)
 !
             CALL lpropd(gprop)
@@ -749,7 +755,7 @@ SUBROUTINE tlqd4d
 !
 !     BENDING
 !
-               Matid = mid(2)
+               matid = mid(2)
                CALL mat(elid)
 !
                CALL lpropd(gprop)
@@ -769,7 +775,7 @@ SUBROUTINE tlqd4d
 !
 !     MEMBRANE-BENDING
 !
-                  Matid = mid(4)
+                  matid = mid(4)
                   CALL mat(elid)
 !
                   CALL lpropd(gprop)
@@ -802,15 +808,15 @@ SUBROUTINE tlqd4d
 !     THE ELEMENT AXIS
 !
             thetae = datan(tem(2)/tem(1))
-            thetae = thetae*Degrad
+            thetae = thetae*degrad
 !
 !     LAMINATE REFERENCE (OR LAMINATION) TEMPERATURE
 !
-            tsubo = Z(ipoint+24)
+            tsubo = z(ipoint+24)
 !
             IF ( tempp1 .OR. tempp2 ) THEN
 !
-               tmean = Stemp(1)
+               tmean = stemp(1)
             ELSE
                tmean = tempel
             ENDIF
@@ -836,9 +842,9 @@ SUBROUTINE tlqd4d
 !
                zk1 = zk
                IF ( k==1 ) zk1 = zref
-               IF ( itype==pcomp ) zk = zk1 + Z(pidloc+6+4*k)
-               IF ( itype==pcomp1 ) zk = zk1 + Z(pidloc+7)
-               IF ( itype==pcomp2 ) zk = zk1 + Z(pidloc+7+2*k)
+               IF ( itype==pcomp ) zk = zk1 + z(pidloc+6+4*k)
+               IF ( itype==pcomp1 ) zk = zk1 + z(pidloc+7)
+               IF ( itype==pcomp2 ) zk = zk1 + z(pidloc+7+2*k)
 !
                zsubi = (zk+zk1)/2.0D0
 !
@@ -848,12 +854,12 @@ SUBROUTINE tlqd4d
 !
 !     LAYER ORIENTATION
 !
-               IF ( itype==pcomp ) theta = Z(pidloc+7+4*k)
-               IF ( itype==pcomp1 ) theta = Z(pidloc+8+k)
-               IF ( itype==pcomp2 ) theta = Z(pidloc+8+2*k)
+               IF ( itype==pcomp ) theta = z(pidloc+7+4*k)
+               IF ( itype==pcomp1 ) theta = z(pidloc+8+k)
+               IF ( itype==pcomp2 ) theta = z(pidloc+8+2*k)
 !
 !
-               theta = theta*Degrad
+               theta = theta*degrad
 !
                IF ( thetae>0.0D0 ) theta = theta + thetae
 !
@@ -875,7 +881,7 @@ SUBROUTINE tlqd4d
 !     CALCULATE GBAR = TRANST X GLAY X TRANS
 !
                DO ir = 1 , 9
-                  glay(ir) = Z(ipoint+ir)
+                  glay(ir) = z(ipoint+ir)
                ENDDO
 !
                CALL gmmatd(glay(1),3,3,0,transl(1),3,3,0,glayt(1))
@@ -891,7 +897,7 @@ SUBROUTINE tlqd4d
                transl(8) = -transl(8)
 !
                DO ir = 1 , 3
-                  alphal(ir) = Z(ipoint+13+ir)
+                  alphal(ir) = z(ipoint+13+ir)
                ENDDO
 !
                CALL gmmatd(transl(1),3,3,0,alphal(1),3,1,0,alphae(1))
@@ -966,7 +972,7 @@ SUBROUTINE tlqd4d
             ENDDO
          ENDDO
 !
-         IF ( Membrn ) THEN
+         IF ( membrn ) THEN
             DO ig = 1 , 3
                ig1 = (ig-1)*3
                DO jg = 1 , 3
@@ -976,7 +982,7 @@ SUBROUTINE tlqd4d
             ENDDO
          ENDIF
 !
-         IF ( Bendng ) THEN
+         IF ( bendng ) THEN
             i = 0
             DO ig = 4 , 6
                ig2 = (ig-2)*3
@@ -991,8 +997,8 @@ SUBROUTINE tlqd4d
                ENDDO
             ENDDO
 !
-            IF ( Membrn ) THEN
-               IF ( .NOT.(Mbcoup) ) THEN
+            IF ( membrn ) THEN
+               IF ( .NOT.(mbcoup) ) THEN
                   DO ig = 1 , 3
                      ig1 = (ig-1)*3
                      kg = ig + 3
@@ -1026,7 +1032,7 @@ SUBROUTINE tlqd4d
                   dshptp(i+4) = dshp(i+4)
                ENDDO
                DO i = 1 , 4
-                  kk = Iorder(i)
+                  kk = iorder(i)
                   shp(i) = tmpshp(kk)
                   dshp(i) = dshptp(kk)
                   dshp(i+4) = dshptp(kk+4)
@@ -1035,7 +1041,7 @@ SUBROUTINE tlqd4d
 !     CALCULATE THE ELEMENT THICKNESS AT THIS POINT
 !
                thk = 0.0D0
-               DO i = 1 , Nnode
+               DO i = 1 , nnode
                   thk = thk + dgpth(i)*shp(i)
                ENDDO
                reali = thk*thk*thk/12.0D0
@@ -1047,19 +1053,19 @@ SUBROUTINE tlqd4d
 !
                   IF ( .NOT.(tempp1 .OR. tempp2) ) THEN
                      tbar = 0.0D0
-                     DO i = 1 , Nnode
+                     DO i = 1 , nnode
                         tbar = tbar + shp(i)*gtemps(i)
                      ENDDO
                   ENDIF
 !
                   ttbar = tbar - tsub0
-                  IF ( Membrn ) THEN
+                  IF ( membrn ) THEN
                      DO i = 1 , 3
                         talfam(i) = ttbar*alfam(i)
                      ENDDO
                   ENDIF
 !
-                  IF ( Bendng ) THEN
+                  IF ( bendng ) THEN
                      IF ( .NOT.(.NOT.tempp1 .AND. .NOT.tempp2) ) THEN
                         IF ( tempp2 ) THEN
 !
@@ -1081,31 +1087,31 @@ SUBROUTINE tlqd4d
 !
                DO izta = 1 , 2
                   zta = ptint(izta)
-                  Hzta = zta/2.0D0
+                  hzta = zta/2.0D0
                   ibot = (izta-1)*nd2
 !
                   CALL jacob2(elid,shp,dshp,dgpth,egpdt,epnorm,jacob)
-                  IF ( Badjac ) GOTO 300
+                  IF ( badjac ) GOTO 300
 !
-                  CALL gmmatd(Psitrn,3,3,0,jacob,3,3,1,phi)
+                  CALL gmmatd(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGD TO GET B MATRIX
 !     SET THE ROW FLAG TO 3. IT WILL RETURN THE FIRST 6 ROWS.
 !
-                  Rowflg = 3
+                  rowflg = 3
                   CALL q4bmgd(dshp,dgpth,egpdt,epnorm,phi,bmatrx(1))
                   DO ix = 1 , ndof
                      bmatrx(ix+nd2) = xybmat(ibot+ix)
                   ENDDO
 !
-                  IF ( Bendng ) THEN
+                  IF ( bendng ) THEN
                      DO ix = 1 , ndof
                         bmatrx(ix+nd5) = xybmat(ibot+ix+ndof)
                      ENDDO
 !
 !     NOW COMPLETE THE G-MATRIX IF COUPLING EXISTS.
 !
-                     IF ( Mbcoup ) THEN
+                     IF ( mbcoup ) THEN
                         DO ig = 1 , 3
                            ig4 = (ig+8)*3
                            kg = ig + 3
@@ -1129,13 +1135,13 @@ SUBROUTINE tlqd4d
                   IF ( compos ) THEN
 !
                      DO ir = 1 , 3
-                        epsubt(ir) = Detj*epslnt(ir)
-                        epsubt(ir+3) = -Detj*epslnt(ir+3)*thk*Hzta
+                        epsubt(ir) = detj*epslnt(ir)
+                        epsubt(ir+3) = -detj*epslnt(ir+3)*thk*hzta
                      ENDDO
                   ELSE
                      DO i = 1 , 3
-                        epsubt(i) = Detj*talfam(i)
-                        epsubt(i+3) = -Detj*talfab(i)*Hzta*thk
+                        epsubt(i) = detj*talfam(i)
+                        epsubt(i+3) = -detj*talfab(i)*hzta*thk
                      ENDDO
                   ENDIF
 !
@@ -1154,7 +1160,7 @@ SUBROUTINE tlqd4d
             trans(i) = 0.0D0
          ENDDO
 !
-         DO i = 1 , Nnode
+         DO i = 1 , nnode
             ipoint = 9*(i-1) + 1
             IF ( igpdt(1,i)<=0 ) THEN
                DO j = 1 , 9
@@ -1181,7 +1187,7 @@ SUBROUTINE tlqd4d
 !              PT  =  TEG   *  PT
 !                G               E
 !
-         DO i = 1 , Nnode
+         DO i = 1 , nnode
             ipt = (i-1)*9 + 1
             jpt1 = (i-1)*6 + 1
             jpt2 = jpt1 + 3
@@ -1194,27 +1200,27 @@ SUBROUTINE tlqd4d
 !     SYSTEM LOAD VECTOR CONTAINED IN Z.
 !
          l = 0
-         DO i = 1 , Nnode
+         DO i = 1 , nnode
             k = sil(i) - 1
             DO j = 1 , 6
                k = k + 1
                l = l + 1
-               Z(k) = Z(k) + sngl(ptg(l))
+               z(k) = z(k) + sngl(ptg(l))
             ENDDO
          ENDDO
          GOTO 300
       ELSE
-         Matid = mid(m)
-         IF ( Matid/=0 ) THEN
+         matid = mid(m)
+         IF ( matid/=0 ) THEN
             IF ( m<1 ) THEN
             ELSEIF ( m==1 ) THEN
                CALL mat(elid)
-            ELSEIF ( Matid/=mid(m-1) ) THEN
+            ELSEIF ( matid/=mid(m-1) ) THEN
                CALL mat(elid)
             ENDIF
 !
-            tsub0 = Rmtout(11)
-            IF ( matset==8.0 ) tsub0 = Rmtout(10)
+            tsub0 = rmtout(11)
+            IF ( matset==8.0 ) tsub0 = rmtout(10)
 !
             coeff = 1.0D0
             lpoint = (m-1)*9 + 1
@@ -1249,21 +1255,21 @@ SUBROUTINE tlqd4d
 !     MAT2
 !
                      DO imat = 1 , 3
-                        alpham(imat+morb) = Rmtout(7+imat)
+                        alpham(imat+morb) = rmtout(7+imat)
                      ENDDO
                   ELSEIF ( matset==8.0 ) THEN
 !
 !     MAT8
 !
-                     alpham(morb+1) = Rmtout(8)
-                     alpham(morb+2) = Rmtout(9)
+                     alpham(morb+1) = rmtout(8)
+                     alpham(morb+2) = rmtout(9)
                      alpham(morb+3) = 0.0
                   ELSE
 !
 !     MAT1
 !
                      DO imat = 1 , 2
-                        alpham(imat+morb) = Rmtout(8)
+                        alpham(imat+morb) = rmtout(8)
                      ENDDO
                      alpham(3+morb) = 0.0
                   ENDIF

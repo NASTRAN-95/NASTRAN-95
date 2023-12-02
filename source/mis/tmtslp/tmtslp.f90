@@ -2,10 +2,10 @@
  
 SUBROUTINE tmtslp
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_NTIME
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_machin
+   USE c_ntime
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -18,6 +18,12 @@ SUBROUTINE tmtslp
    INTEGER :: buf1 , buf2 , end , end2 , end4 , i , iret , itot , j , l , m , n , type
    REAL , DIMENSION(16) :: e
    INTEGER , DIMENSION(2) , SAVE :: isubr
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -37,11 +43,11 @@ SUBROUTINE tmtslp
 !     DOUBLE N SIZE SINCE VAX (AND UNIX) CLOCK MAY NOT TICK FAST ENOUGH
 !
    n = 50
-   IF ( Mach>=5 ) n = 100
+   IF ( mach>=5 ) n = 100
    m = n
 !
-   buf1 = korsz(A) - Sysbuf
-   buf2 = buf1 - Sysbuf
+   buf1 = korsz(a) - sysbuf
+   buf2 = buf1 - sysbuf
    end = n*m
    IF ( end>=buf1-1 ) CALL mesage(-8,0,isubr)
 !
@@ -117,12 +123,12 @@ SUBROUTINE tmtslp
 !
          IF ( m>end .OR. n>end ) CALL mesage(-8,0,isubr)
          DO i = 1 , end
-            A(i) = adno
+            a(i) = adno
          ENDDO
          CALL cputim(t1,t1,1)
          DO i = 1 , n
             DO j = 1 , m
-               d(j) = A(j)*b(j) + c(j)
+               d(j) = a(j)*b(j) + c(j)
             ENDDO
          ENDDO
          CALL cputim(t2,t2,1)
@@ -136,24 +142,24 @@ SUBROUTINE tmtslp
       itot = m*n
       tperop = 1.0E6*time/itot
       GOTO iret
- 100  Ttlrsp = tperop
+ 100  ttlrsp = tperop
 !
       DO i = 1 , end
-         A(i) = adno
+         a(i) = adno
       ENDDO
       CALL cputim(t1,t1,1)
       DO i = 1 , n
          DO j = 1 , m
             l = i + j - 1
-            d(j) = A(i)*b(l) + c(j)
+            d(j) = a(i)*b(l) + c(j)
          ENDDO
       ENDDO
       CALL cputim(t2,t2,1)
       ASSIGN 150 TO iret
       GOTO 50
- 150  Tllrsp = tperop
+ 150  tllrsp = tperop
       CYCLE
- 200  Ttlrdp = tperop
+ 200  ttlrdp = tperop
 !
       DO i = 1 , end2
          ad(i) = adnd
@@ -168,9 +174,9 @@ SUBROUTINE tmtslp
       CALL cputim(t2,t2,1)
       ASSIGN 250 TO iret
       GOTO 50
- 250  Tllrdp = tperop
+ 250  tllrdp = tperop
       CYCLE
- 300  Ttlcsp = tperop
+ 300  ttlcsp = tperop
 !
       DO i = 1 , end2
          ac(i) = adnc
@@ -185,9 +191,9 @@ SUBROUTINE tmtslp
       CALL cputim(t2,t2,1)
       ASSIGN 350 TO iret
       GOTO 50
- 350  Tllcsp = tperop
+ 350  tllcsp = tperop
       CYCLE
- 400  Ttlcdp = tperop
+ 400  ttlcdp = tperop
 !
       DO i = 1 , end2
          ad(i) = adnd
@@ -203,17 +209,17 @@ SUBROUTINE tmtslp
       CALL cputim(t2,t2,1)
       ASSIGN 450 TO iret
       GOTO 50
- 450  Tllcdp = tperop
+ 450  tllcdp = tperop
    ENDDO
 !
 !     MAKE SURE ALL TIME CONTSTANTS ARE OK
 !
-   DO i = 1 , Nitems
-      IF ( Isy77==-3 .AND. e(i)<0.001 ) e(i) = 0.001
-      IF ( Isy77/=-3 .AND. e(i)<1.E-7 ) e(i) = 1.E-7
+   DO i = 1 , nitems
+      IF ( isy77==-3 .AND. e(i)<0.001 ) e(i) = 0.001
+      IF ( isy77/=-3 .AND. e(i)<1.E-7 ) e(i) = 1.E-7
    ENDDO
-   IF ( Isy77==-3 ) THEN
-      WRITE (Nout,99001) Nitems , Nitems , e
+   IF ( isy77==-3 ) THEN
+      WRITE (nout,99001) nitems , nitems , e
 99001 FORMAT ('0*** NASTRAN SYSTEM MESSAGE. IF THESE',I4,' NEW TIMING',' CONSTANTS ARE HARD-CODED INTO THE LABEL COMMON /NTIME/ OF',&
             & /5X,'SUBROUTINE SEMDBD, COMPILE, AND RE-LINKE LINK 1, THE ','COMPUTATIONS OF THESE CONSTANTS IN ALL NASTRAN JOBS WILL'&
             & ,/5X,'BE ELIMINATED.',/5X,'OR TO ACCOMPLISH THE SAME RESULT, ',                                                       &

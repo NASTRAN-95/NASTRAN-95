@@ -1,9 +1,10 @@
-!*==typint.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==typint.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE typint(X,Y,Xyd,Num,Field,Opt)
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -77,8 +78,8 @@ SUBROUTINE typint(X,Y,Xyd,Num,Field,Opt)
          xy = nd/2
          IF ( nd/2==(nd+1)/2 ) xy = xy - .5
          dir = max0(iabs(Xyd),1)
-         IF ( dir==1 ) xx = X - xy*Cntx
-         IF ( dir==2 ) yy = Y - xy*Cnty
+         IF ( dir==1 ) xx = X - xy*cntx
+         IF ( dir==2 ) yy = Y - xy*cnty
       ELSE
 !
 !     THE TYPED NUMBER IS NOT TO BE CENTERED AT (X,Y).

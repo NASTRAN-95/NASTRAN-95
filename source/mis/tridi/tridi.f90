@@ -1,13 +1,14 @@
-!*==tridi.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tridi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tridi(D,O,C,A,B,Aa)
-USE C_GIVN
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_givn
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -74,20 +75,20 @@ USE ISO_FORTRAN_ENV
 !     INITIALIZATION
 !
          nz = korsz(A)
-         ibuf1 = nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         nz = nz - 2*Sysbuf
-         nzz = nz/Iprec
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         nz = nz - 2*sysbuf
+         nzz = nz/iprec
          nzsq = sqrt(float((nzz-1)*2))
          im1 = 1
          nm1 = n - 1
          nm2 = n - 2
-         M3 = 305
-         mss = Mr1
-         ms1 = M1
-         ms2 = M2
-         ms3 = M3
-         ms4 = M4
+         m3 = 305
+         mss = mr1
+         ms1 = m1
+         ms2 = m2
+         ms3 = m3
+         ms4 = m4
 !
 !     INITIALIZE  TRANSFORMATION ROUTINES
 !
@@ -97,68 +98,67 @@ USE ISO_FORTRAN_ENV
 !     CALL ROTAX (O,D,C)
 !
          midin = n
-         mr = Mr1
+         mr = mr1
 !
 !     START AT THE BEGINNING
 !
-         Row = 0
+         row = 0
 !
 !     OPEN MD
 !
-         CALL gopen(Md,A(ibuf1),0)
+         CALL gopen(md,A(ibuf1),0)
          CALL gopen(mr,A(ibuf2),1)
 !
 !     SET UP FOR UNPACK
 !
-         It3 = 2
-         Iii = 1
-         Jjj = n
-         Incr1 = 1
-         CALL unpack(*20,Md,D)
+         it3 = 2
+         iii = 1
+         jjj = n
+         incr1 = 1
+         CALL unpack(*20,md,D)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     COPY REST OF MD ONTO MR
 !
-         It1 = 2
-         It2 = 2
-         Incr = 1
+         it1 = 2
+         it2 = 2
+         incr = 1
          k = n - 1
          DO i = 1 , k
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  Iii = 0
-                  CALL unpack(*2,Md,A)
-                  Ii = Iii
-                  Jj = Jjj
+                  iii = 0
+                  CALL unpack(*2,md,A)
+                  ii = iii
+                  jj = jjj
                   spag_nextblock_2 = 2
                CASE (2)
                   CALL pack(A,mr,mcb)
                   CYCLE
- 2                Ii = 1
-                  Jj = 1
+ 2                ii = 1
+                  jj = 1
                   A(1) = 0.0
                   A(2) = 0.0
                   spag_nextblock_2 = 2
-                  CYCLE SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         Iii = 1
-         Jjj = n
-         Ii = 1
-         Jj = n
+         iii = 1
+         jjj = n
+         ii = 1
+         jj = n
 !
 !     END OF MATRIX MD
 !
-         CALL write(mr,Row,1,1)
+         CALL write(mr,row,1,1)
 !
 !     ATTACH DIAGONALS
 !
          CALL pack(D,mr,mcb)
-         CALL close(Md,1)
+         CALL close(md,1)
          CALL close(mr,1)
          ms = mr
          CALL gopen(ms,A(ibuf1),0)
@@ -168,16 +168,15 @@ USE ISO_FORTRAN_ENV
             D(i) = 0.0D0
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     TRIDIAGONALIZATION PROCEDURE UNTIL THE MATRIX FITS IN CORE
 !
-         Row = Row + 1
-         rowp1 = Row + 1
-         rowp2 = Row + 2
-         It3 = 2
-         Iii = rowp1
+         row = row + 1
+         rowp1 = row + 1
+         rowp2 = row + 2
+         it3 = 2
+         iii = rowp1
          CALL unpack(*40,ms,O(rowp1))
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
@@ -189,14 +188,14 @@ USE ISO_FORTRAN_ENV
 !
 !     FIND SINES AND COSINES
 !
-         CALL sinc0s(Row,rot,D,O,C)
-         CALL gopen(Mo,A(ibuf2),im1)
+         CALL sinc0s(row,rot,D,O,C)
+         CALL gopen(mo,A(ibuf2),im1)
          im1 = 3
-         Ii = rowp2
-         It1 = 2
-         It2 = 2
-         CALL pack(D(rowp2),Mo,mcb)
-         CALL close(Mo,2)
+         ii = rowp2
+         it1 = 2
+         it2 = 2
+         CALL pack(D(rowp2),mo,mcb)
+         CALL close(mo,2)
 !
 !     WILL THE REST OF MATRIX FIT IN CORE
 !
@@ -207,9 +206,9 @@ USE ISO_FORTRAN_ENV
 !
 !     FILL CORE WITH THE REST OF THE MATRIX
 !
-            row2 = filcor(mss,ms2,Iprec,rowp2,midin,n,A,nz,A(ibuf1))
+            row2 = filcor(mss,ms2,iprec,rowp2,midin,n,A,nz,A(ibuf1))
             na = 1
-            CALL gopen(Mo,A(ibuf2),3)
+            CALL gopen(mo,A(ibuf2),3)
          ELSE
 !
 !         (N-ROWP1)*(N-ROWP1  )     < (NZZ-1)*2
@@ -236,8 +235,8 @@ USE ISO_FORTRAN_ENV
 !
                i = n - nzsq
                IF ( i>25 ) THEN
-                  j = (n*n-nzsq*nzsq)*Iprec
-                  WRITE (Nout,99001) Ufm , n , n , i , j
+                  j = (n*n-nzsq*nzsq)*iprec
+                  WRITE (nout,99001) ufm , n , n , i , j
 99001             FORMAT (A23,' FROM GIVENS EIGENSOLVER - EXCESSIVE CPU TIME IS ','NEEDED FOR TRIDIAGONALIZE THE DYNAMIC',/5X,      &
                          &'MATRIX, WHICH IS',I6,' BY',I6,15X,1H(,I6,' LOOPS)',/5X,'RERUN JOB WITH',I8,                              &
                          &' ADDITIONAL CORE WORDS, OR USE FEER,',' OR OTHER METHOD')
@@ -247,15 +246,15 @@ USE ISO_FORTRAN_ENV
 !
 !     FILL CORE WITH AS MUCH OF MATRIX AS POSSIBLE--UP TO ROW -ROW2-
 !
-                  row2 = filcor(mss,ms2,Iprec,row1,midin,n,A,nz,A(ibuf1))
+                  row2 = filcor(mss,ms2,iprec,row1,midin,n,A,nz,A(ibuf1))
 !
 !     ROTATE ROWS ROW1 TO ROW2
 !
-                  CALL rotate(Aa,Row,row1,row2,O,D,C)
+                  CALL rotate(Aa,row,row1,row2,O,D,C)
 !
 !     EMPTY THE ROTATED ROWS ONTO MS3 AND MS4
 !
-                  CALL empcor(ms3,ms4,Iprec,Iprec,row1,midout,row2,n,A,A(ibuf2))
+                  CALL empcor(ms3,ms4,iprec,iprec,row1,midout,row2,n,A,A(ibuf2))
                   row1 = row2 + 1
                   IF ( row2>=n ) THEN
 !
@@ -277,7 +276,7 @@ USE ISO_FORTRAN_ENV
                D(i) = O(i)
             ENDDO
             ms = mss
-            IF ( Row>midin ) THEN
+            IF ( row>midin ) THEN
                ms = ms2
                CALL gopen(ms,A(ibuf1),0)
             ELSEIF ( rot/=0 ) THEN
@@ -289,27 +288,27 @@ USE ISO_FORTRAN_ENV
          SPAG_Loop_1_2: DO
             IF ( rot/=0 ) THEN
                row1 = rowp2
-               CALL rotate(Aa(na),Row,row1,row2,O,D,C)
+               CALL rotate(Aa(na),row,row1,row2,O,D,C)
             ENDIF
             DO i = rowp1 , n
                D(i) = O(i)
             ENDDO
-            IF ( Row/=nm2 ) THEN
-               Row = Row + 1
-               rowp1 = Row + 1
-               rowp2 = Row + 2
+            IF ( row/=nm2 ) THEN
+               row = row + 1
+               rowp1 = row + 1
+               rowp2 = row + 2
                DO i = rowp1 , n
                   O(i) = Aa(na)
                   na = na + 1
                ENDDO
-               CALL sinc0s(Row,rot,D,O,C)
+               CALL sinc0s(row,rot,D,O,C)
 !
 !     WRITE SINES ON MO
 !
-               Ii = rowp2
-               It1 = 2
-               It2 = 2
-               CALL pack(D(rowp2),Mo,mcb)
+               ii = rowp2
+               it1 = 2
+               it2 = 2
+               CALL pack(D(rowp2),mo,mcb)
             ELSE
 !
 !     ALL DONE.
@@ -317,14 +316,14 @@ USE ISO_FORTRAN_ENV
                D(n) = Aa(na)
                O(n-1) = O(n)
                O(n) = 0.0D0
-               CALL close(Mo,3)
+               CALL close(mo,3)
                DO i = 1 , n
                   C(i) = D(i)
                   B(i) = O(i)**2
                ENDDO
-               Xentry = -Entry
-               Rstrt = 0
-               Savemr = 0
+               xentry = -entry
+               rstrt = 0
+               savemr = 0
                EXIT SPAG_Loop_1_2
             ENDIF
          ENDDO SPAG_Loop_1_2

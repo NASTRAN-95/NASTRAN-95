@@ -1,12 +1,13 @@
-!*==fvrst2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fvrst2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fvrst2
-USE C_BLANK
-USE C_CONDAD
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condad
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -113,8 +114,8 @@ USE ISO_FORTRAN_ENV
 !
 !     DETERMINE LENGTH OF OPEN CORE AND ALLOCATE BUFFERS.
 !
-         nz = korsz(Z)
-         ibuf1 = nz - Sysbuf
+         nz = korsz(z)
+         ibuf1 = nz - sysbuf
          nz = ibuf1 - 1
          IF ( nz>0 ) THEN
 !
@@ -124,12 +125,12 @@ USE ISO_FORTRAN_ENV
             file = tol
             itol = 1
             CALL fname(file,fnam)
-            CALL open(*40,file,Z(ibuf1),0)
+            CALL open(*40,file,z(ibuf1),0)
             CALL fread(file,dum,2,0)
 !
 !     INSUFFICIENT CORE TO HOLD ALL TIMES.
 !
-            CALL read(*60,*20,file,Z(itol),nz,1,ntimes)
+            CALL read(*60,*20,file,z(itol),nz,1,ntimes)
          ENDIF
 !
 !     E-O-L ENCOUNTERED
@@ -153,34 +154,34 @@ USE ISO_FORTRAN_ENV
 !     IF (CYCIO .EQ. -1) NTSTEPS = (NTIMES*FKMAX)/FKMAX
 !     IF (CYCIO .EQ. +1) NTSTEPS = (NTIMES*NSEGS)/NSEGS
 !
-            Ntstps = ntimes
+            ntstps = ntimes
 !
 !     SET DEFAULT VALUE OF PARAMETER LMAX.
 !
-            IF ( Lmax<0 ) Lmax = Ntstps/2
+            IF ( lmax<0 ) lmax = ntstps/2
 !
 !     DEFINE PARAMETER FLMAX
 !
-            kk = (Ntstps/2)*2
-            IF ( kk/=Ntstps ) THEN
+            kk = (ntstps/2)*2
+            IF ( kk/=ntstps ) THEN
 !
 !     NTSTPS IS ODD.
 !
-               Flmax = 2*Lmax + 1
+               flmax = 2*lmax + 1
 !
 !     NTSTPS IS EVEN.
 !
-            ELSEIF ( Lmax/=Ntstps/2 ) THEN
-               Flmax = 2*Lmax + 1
+            ELSEIF ( lmax/=ntstps/2 ) THEN
+               flmax = 2*lmax + 1
             ELSE
-               Flmax = Ntstps
+               flmax = ntstps
             ENDIF
 !
 !
 !     GENERATE DATA BLOCKS FRL AND FOL BY CONVERTING TOL TIMES
 !     TO THE FREQUENCY DOMAIN.
 !
-            nfreq = Flmax
+            nfreq = flmax
             ifol = next
             next = ifol + nfreq
             nz = nz - nfreq
@@ -192,10 +193,10 @@ USE ISO_FORTRAN_ENV
 !
 !     GENERATE FREQUENCY LIST FROM TOL TIME LIST.
 !
-               Z(ifol) = 0.0
+               z(ifol) = 0.0
                IF ( nfreq>1 ) THEN
 !
-                  period = dble(Z(itol+1)) + dble(Z(itol+ntimes-1))
+                  period = dble(z(itol+1)) + dble(z(itol+ntimes-1))
                   freq = 1.0D0/period
                   fact = 1.0D0
 !
@@ -203,13 +204,13 @@ USE ISO_FORTRAN_ENV
                   ifreq2 = ifol + nfreq - 1
 !
                   DO ifreq = ifreq1 , ifreq2 , 2
-                     Z(ifreq) = fact*freq
-                     Z(ifreq+1) = Z(ifreq)
+                     z(ifreq) = fact*freq
+                     z(ifreq+1) = z(ifreq)
                      fact = fact + 1.0D0
                   ENDDO
 !
                   kk = (nfreq/2)*2
-                  IF ( kk==nfreq ) Z(ifreq2) = fact*freq
+                  IF ( kk==nfreq ) z(ifreq2) = fact*freq
                ENDIF
 !
 !
@@ -217,9 +218,9 @@ USE ISO_FORTRAN_ENV
 !
                file = fol
                CALL fname(file,fnam)
-               CALL open(*40,file,Z(ibuf1),1)
+               CALL open(*40,file,z(ibuf1),1)
                CALL write(file,fnam,2,0)
-               CALL write(file,Z(ifol),nfreq,1)
+               CALL write(file,z(ifol),nfreq,1)
                CALL close(file,1)
 !
                trl(1) = file
@@ -235,17 +236,17 @@ USE ISO_FORTRAN_ENV
 !     USE SAME CORE WHERE FOL IS STORED.
 !
                DO ifreq = ifreq1 , ifreq2
-                  Z(ifreq) = Z(ifreq)*Dtwopi
+                  z(ifreq) = z(ifreq)*dtwopi
                ENDDO
 !
 !     OUTPUT FRL TABLE (FREQUENCY RESPONSE LIST).
 !
                file = frl
                CALL fname(file,fnam)
-               CALL open(*40,file,Z(ibuf1),1)
+               CALL open(*40,file,z(ibuf1),1)
                CALL write(file,fnam,2,0)
                CALL write(file,1,1,1)
-               CALL write(file,Z(ifol),nfreq,1)
+               CALL write(file,z(ifol),nfreq,1)
                CALL close(file,1)
 !
                trl(1) = file
@@ -261,18 +262,18 @@ USE ISO_FORTRAN_ENV
 !     REORDERING COLUMNS OF A MATRIX BY POST-MULTIPLYING THE MATRIX
 !     WHOSE COLUMNS ARE TO BE REORDERED.
 !
-               k1 = Ntstps
-               k3 = Flmax
-               IF ( Cycio==-1 ) k2 = Fkmax
-               IF ( Cycio==+1 ) k2 = Nsegs
+               k1 = ntstps
+               k3 = flmax
+               IF ( cycio==-1 ) k2 = fkmax
+               IF ( cycio==+1 ) k2 = nsegs
 !
 !     GENERATE MATRIX REORDER1
 !
-               CALL fvrs2a(reord1,k1,k2,Noro1,Z(ibuf1))
+               CALL fvrs2a(reord1,k1,k2,noro1,z(ibuf1))
 !
 !     GENERATE MATRIX REORDER2
 !
-               CALL fvrs2a(reord2,k2,k3,Noro2,Z(ibuf1))
+               CALL fvrs2a(reord2,k2,k3,noro2,z(ibuf1))
 !
                RETURN
             ENDIF

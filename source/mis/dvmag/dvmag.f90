@@ -1,7 +1,9 @@
-!*==dvmag.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dvmag.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dvmag(V1,Eps)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -14,7 +16,15 @@ USE ISO_FORTRAN_ENV
 ! Local variable declarations rewritten by SPAG
 !
    REAL(REAL64) :: a
-   EXTERNAL dadotb
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,9 +1,10 @@
-!*==t3bmgs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==t3bmgs.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3bmgs(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bmatrx)
+   USE c_terms
    IMPLICIT NONE
-   USE C_TERMS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -176,7 +177,7 @@ SUBROUTINE t3bmgs(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bm
          Bterms(i) = dnx
          Bterms(i+nnode) = dny
 !
-         IF ( Membrn ) THEN
+         IF ( membrn ) THEN
 !
 !     ROW 1
 !
@@ -192,7 +193,7 @@ SUBROUTINE t3bmgs(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bm
             Bmatrx(ip+2+nd2) = dnx
          ENDIF
 !
-         IF ( Bendng ) THEN
+         IF ( bendng ) THEN
 !
 !     ROW 4
 !
@@ -251,6 +252,5 @@ SUBROUTINE t3bmgs(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bm
       RETURN
    ENDIF
    Ierr = 1
-   RETURN
 !
 END SUBROUTINE t3bmgs

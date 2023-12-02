@@ -1,4 +1,5 @@
-!*==cidck.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cidck.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cidck(Z,Buf,Nopen)
@@ -41,10 +42,10 @@ SUBROUTINE cidck(Z,Buf,Nopen)
 !       WERE CHECKED ALREADY IN IFS4P. THEREFORE THEY ARE NOT CHECKED
 !       HERE.
 !
+   USE c_system
+   USE c_two
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -113,7 +114,7 @@ SUBROUTINE cidck(Z,Buf,Nopen)
                   Z(j) = Z(i)
                ELSE
                   CALL page2(-2)
-                  WRITE (Nout,99001) Ufm , Z(i)
+                  WRITE (nout,99001) ufm , Z(i)
 99001             FORMAT (A23,' 328, DUPLICATE COORDINATE ID',I9)
                ENDIF
             ENDDO
@@ -132,8 +133,8 @@ SUBROUTINE cidck(Z,Buf,Nopen)
                   ENDDO
                ENDIF
                CALL page2(-2)
-               WRITE (Nout,99002) Ufm , cid , cc
-               Abort = .TRUE.
+               WRITE (nout,99002) ufm , cid , cc
+               abort = .TRUE.
             ENDDO SPAG_Loop_1_1
          ENDIF
 !
@@ -473,14 +474,13 @@ SUBROUTINE cidck(Z,Buf,Nopen)
             ENDIF
             IF ( cc/=pcc .OR. cid/=pcd ) THEN
                CALL page2(-2)
-               WRITE (Nout,99002) Ufm , cid , cc
+               WRITE (nout,99002) ufm , cid , cc
                pcc = cc
                pcd = cid
-               Abort = .TRUE.
+               abort = .TRUE.
             ENDIF
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          ii = j
          IF ( ii>im ) ii = ii - ncord
@@ -502,7 +502,7 @@ SUBROUTINE cidck(Z,Buf,Nopen)
          ELSE
             j = (k-1)/16
             l = k - 16*j
-            IF ( andf(trl(j+2),Two(l+16))==0 ) k = 0
+            IF ( andf(trl(j+2),two(l+16))==0 ) k = 0
          ENDIF
          GOTO jrtn
 !

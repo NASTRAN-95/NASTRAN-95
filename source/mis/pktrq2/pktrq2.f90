@@ -1,11 +1,12 @@
-!*==pktrq2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pktrq2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pktrq2(Ntype)
+   USE c_pla42s
+   USE c_pla4es
+   USE c_pla4uv
    IMPLICIT NONE
-   USE C_PLA42S
-   USE C_PLA4ES
-   USE C_PLA4UV
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,15 +48,15 @@ SUBROUTINE pktrq2(Ntype)
 !     STRESS VECTOR = (SUMMATION  (S ) (U ))
 !                        I=1        I    I
 !
-   Nsize = Ntype + 2
-   DO i = 1 , Nsize
+   nsize = Ntype + 2
+   DO i = 1 , nsize
 !     POINTER TO DISPLACEMENT VECTOR
-      Npoint = Ivec + nsil(i) - 1
+      npoint = ivec + nsil(i) - 1
 !
-      CALL gmmats(si(9*i-8),3,3,0,Z(Npoint),3,1,0,Vec(1))
+      CALL gmmats(si(9*i-8),3,3,0,z(npoint),3,1,0,vec(1))
 !
       DO j = 1 , 3
-         Stress(j) = Stress(j) + Vec(j)
+         stress(j) = stress(j) + vec(j)
       ENDDO
    ENDDO
 !

@@ -1,9 +1,10 @@
-!*==sdr3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdr3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr3
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -23,7 +24,7 @@ SUBROUTINE sdr3
 !*****
    DO i = 1 , 6
       IF ( ofpfil(i)/=0 ) THEN
-         WRITE (L,99001) i , ofpfil(i)
+         WRITE (l,99001) i , ofpfil(i)
 99001    FORMAT (1H1,20(131(1H*)/),                                                                                                 &
                 &95H0DUE TO ERRORS MENTIONED PREVIOUSLY, SDR3 IS CALLING THE -OFP- TO OUTPUT SDR3-INPUT-DATA-BLOCK-,I2,             &
                 &17H IN SORT-I FORMAT/28H THE SDR3 TRACEBACK NUMBER =,I3//20(131(1H*)/))

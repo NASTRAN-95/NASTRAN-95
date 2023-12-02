@@ -1,15 +1,16 @@
-!*==mma214.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma214.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mma214(Zi,Zd,Zdc)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -75,7 +76,7 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
 ! CHECK IF COLUMN FROM "A" IS NULL
 !
       IF ( Zi(1)/=0 ) THEN
-         IF ( T/=0 ) THEN
+         IF ( t/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
@@ -88,7 +89,7 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
                indx = 1
                irowa1 = Zi(indx)
                indxd = idx4 + (i-1)*ndr + ii
-               DO
+               SPAG_Loop_3_1: DO
                   irows = Zi(indx+1)
                   irowan = irowa1 + irows - 1
                   irow1 = max0(irowa1,irowb1)
@@ -102,9 +103,9 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
                      ENDDO
                   ENDIF
                   indx = indx + 2 + irows*nwdd
-                  IF ( indx>=lasind ) EXIT
+                  IF ( indx>=lasind ) EXIT SPAG_Loop_3_1
                   irowa1 = Zi(indx)
-               ENDDO
+               ENDDO SPAG_Loop_3_1
             ENDDO
          ELSE
 !
@@ -121,7 +122,7 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
                   indxb = ((indxb+1)/2) + 2*(ii-irowb1)
                   IF ( Zd(indxb)/=0.0D0 .OR. Zd(indxb+1)/=0.0D0 ) THEN
                      indxd = idx4 + (i-1)*ndr
-                     DO
+                     SPAG_Loop_3_2: DO
                         irows = Zi(indx+1)
                         irowan = irowa1 + irows - 1
                         indxa = (indx+3)/2
@@ -130,9 +131,9 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
                            indxa = indxa + 2
                         ENDDO
                         indx = indx + 2 + irows*nwdd
-                        IF ( indx>=lasind ) EXIT
+                        IF ( indx>=lasind ) EXIT SPAG_Loop_3_2
                         irowa1 = Zi(indx)
-                     ENDDO
+                     ENDDO SPAG_Loop_3_2
                   ENDIF
                ENDIF
             ENDDO
@@ -143,6 +144,6 @@ SUBROUTINE mma214(Zi,Zd,Zdc)
 !  NOW SAVE COLUMNS COMPLETED
    DO k = 1 , ncolpp
       indx = idx4 + (k-1)*ndr
-      CALL pack(Zdc(indx+1),Filed,Filed)
+      CALL pack(Zdc(indx+1),filed,filed)
    ENDDO
 END SUBROUTINE mma214

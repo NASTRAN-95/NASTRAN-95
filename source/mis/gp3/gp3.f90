@@ -1,13 +1,14 @@
-!*==gp3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gp3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp3
+   USE c_blank
+   USE c_gp3com
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GP3COM
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -31,38 +32,38 @@ SUBROUTINE gp3
 !
    CALL delset
 !
-   IF ( Sperlk/=0 ) THEN
+   IF ( sperlk/=0 ) THEN
       DO i = 1 , 60 , 2
-         Status(i) = -1
-         Status(i+1) = 0
+         status(i) = -1
+         status(i+1) = 0
       ENDDO
    ENDIF
-   Noload = -1
-   Nograv = -1
-   Notemp = -1
-   Buf1 = korsz(Z) - Sysbuf - 2
-   Buf2 = Buf1 - Sysbuf
-   Buf3 = Buf2 - Sysbuf - 2
-   Buf(1) = Geom3
-   CALL rdtrl(Buf)
-   IF ( Buf(1)/=Geom3 ) RETURN
+   noload = -1
+   nograv = -1
+   notemp = -1
+   buf1 = korsz(z) - sysbuf - 2
+   buf2 = buf1 - sysbuf
+   buf3 = buf2 - sysbuf - 2
+   buf(1) = geom3
+   CALL rdtrl(buf)
+   IF ( buf(1)/=geom3 ) RETURN
 !
 !     IF THE SLT IS PURGED, BYPASS THE SLT PHASE OF GP3.
 !     OTHERWISE, IF PLOAD2 CARDS PRESENT, EXECUTE GP3C.
 !     EXECUTE GP3A TO COMPLETE SLT PHASE.
 !
-   Buf(7) = Slt
-   CALL rdtrl(Buf(7))
-   IF ( Buf(7)==Slt ) THEN
+   buf(7) = slt
+   CALL rdtrl(buf(7))
+   IF ( buf(7)==slt ) THEN
       CALL gp3c
       CALL gp3a
    ENDIF
 !
 !     IF THE GPTT IS NOT PURGED, EXECUTE GP3B TO BUILD IT.
 !
-   Buf(7) = Gptt
-   CALL rdtrl(Buf(7))
-   IF ( Buf(7)/=Gptt ) RETURN
+   buf(7) = gptt
+   CALL rdtrl(buf(7))
+   IF ( buf(7)/=gptt ) RETURN
 !
 !     GP3B WILL FORM A GPTT ON SCR1 AND THEN GP3D WILL READ SCR1 AND
 !     THE TEMPP1,TEMPP2,TEMPP3, AND TEMPRB DATA FROM GEOM3 TO FORM THE

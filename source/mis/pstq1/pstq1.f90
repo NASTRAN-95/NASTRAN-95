@@ -1,9 +1,10 @@
-!*==pstq1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pstq1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pstq1(Ntype)
+   USE c_pla3es
    IMPLICIT NONE
-   USE C_PLA3ES
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -74,7 +75,7 @@ SUBROUTINE pstq1(Ntype)
 !     SAVE THE INCOMING ECPT
 !
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO OPERATIONS DESIRED
@@ -87,10 +88,10 @@ SUBROUTINE pstq1(Ntype)
 !     **************
       IF ( save(7)==0.0E0 ) THEN
 !
-         Ph1out(1) = Ecpt(1)
-         Ph1out(2) = 0.0E0
-         Ph1out(99) = Ecpt(1)
-         Ph1out(100) = 0.0E0
+         ph1out(1) = ecpt(1)
+         ph1out(2) = 0.0E0
+         ph1out(99) = ecpt(1)
+         ph1out(100) = 0.0E0
          RETURN
       ELSE
 !     SET UP CALL TO PSTRM1
@@ -103,22 +104,22 @@ SUBROUTINE pstq1(Ntype)
 !     WORDS (1 THRU 36) DOWN TO (99 THRU 134)
 !
          DO i = 1 , 36
-            Ph1out(i+98) = Ph1out(i)
+            ph1out(i+98) = ph1out(i)
          ENDDO
 !
 !     SET UP CALL TO PSTPL1
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
-         Ecpt(7) = save(7)**3/12.0E0
-         Ecpt(8) = save(6)
-         Ecpt(9) = save(7)
-         Ecpt(10) = save(8)
-         Ecpt(11) = save(7)/2.0E0
-         Ecpt(12) = -Ecpt(11)
+         ecpt(7) = save(7)**3/12.0E0
+         ecpt(8) = save(6)
+         ecpt(9) = save(7)
+         ecpt(10) = save(8)
+         ecpt(11) = save(7)/2.0E0
+         ecpt(12) = -ecpt(11)
          DO i = 13 , 25
-            Ecpt(i) = save(i-4)
+            ecpt(i) = save(i-4)
          ENDDO
 !
          CALL pstpl1
@@ -131,15 +132,15 @@ SUBROUTINE pstq1(Ntype)
 !     **************
 !
       IF ( save(8)==0.0E0 ) THEN
-         Ph1out(129) = Ecpt(1)
-         Ph1out(130) = 0.0E0
+         ph1out(129) = ecpt(1)
+         ph1out(130) = 0.0E0
       ELSE
 !
 !     SET UP CALL TO PSQDM1
 !
-         Ecpt(9) = save(13)
+         ecpt(9) = save(13)
          DO i = 10 , 26
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL psqdm1
@@ -148,25 +149,25 @@ SUBROUTINE pstq1(Ntype)
 !     WORDS (1 THRU 45) DOWN TO (129 THRU 173)
 !
          DO i = 1 , 45
-            Ph1out(i+128) = Ph1out(i)
+            ph1out(i+128) = ph1out(i)
 !
          ENDDO
       ENDIF
 !
       IF ( save(10)==0.0E0 ) THEN
 !
-         Ph1out(1) = Ecpt(1)
-         Ph1out(2) = 0.0E0
+         ph1out(1) = ecpt(1)
+         ph1out(2) = 0.0E0
          RETURN
       ELSE
 !
 !     SET UP CALL TO PSQPL1
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
          DO i = 7 , 30
-            Ecpt(i) = save(i+2)
+            ecpt(i) = save(i+2)
          ENDDO
 !
          CALL psqpl1
@@ -180,10 +181,10 @@ SUBROUTINE pstq1(Ntype)
 !
       IF ( save(8)==0.0E0 ) THEN
 !
-         Ph1out(1) = Ecpt(1)
-         Ph1out(2) = 0.0E0
-         Ph1out(129) = Ecpt(1)
-         Ph1out(130) = 0.0E0
+         ph1out(1) = ecpt(1)
+         ph1out(2) = 0.0E0
+         ph1out(129) = ecpt(1)
+         ph1out(130) = 0.0E0
          RETURN
       ENDIF
    ELSE
@@ -195,11 +196,11 @@ SUBROUTINE pstq1(Ntype)
 !     SET UP ECPT FOR PSTRM1, FIRST CHECK T1 FOR ZERO
       IF ( save(7)==0.0E0 ) THEN
 !
-         Ph1out(99) = Ecpt(1)
-         Ph1out(100) = 0.0E0
+         ph1out(99) = ecpt(1)
+         ph1out(100) = 0.0E0
       ELSE
          DO i = 9 , 21
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL pstrm1(0)
@@ -209,22 +210,22 @@ SUBROUTINE pstq1(Ntype)
 !
 !
          DO i = 1 , 36
-            Ph1out(i+98) = Ph1out(i)
+            ph1out(i+98) = ph1out(i)
          ENDDO
       ENDIF
 !
 !     SET UP CALL TO PSTPL1, CHECK I EQUAL TO ZERO
       IF ( save(9)==0.0E0 ) THEN
 !
-         Ph1out(1) = Ecpt(1)
-         Ph1out(2) = 0.0E0
+         ph1out(1) = ecpt(1)
+         ph1out(2) = 0.0E0
          RETURN
       ELSE
          DO i = 1 , 5
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
          DO i = 6 , 25
-            Ecpt(i) = save(i+2)
+            ecpt(i) = save(i+2)
          ENDDO
 !
          CALL pstpl1
@@ -242,26 +243,25 @@ SUBROUTINE pstq1(Ntype)
 !     WORDS (1 THRU 45) DOWN TO (129 THRU 173)
 !
    DO i = 1 , 45
-      Ph1out(i+128) = Ph1out(i)
+      ph1out(i+128) = ph1out(i)
    ENDDO
 !
 !
 !     SET UP CALL TO PSQPL1
 !
    DO i = 1 , 7
-      Ecpt(i) = save(i)
+      ecpt(i) = save(i)
    ENDDO
-   Ecpt(8) = save(8)**3/12.0E0
-   Ecpt(9) = save(7)
-   Ecpt(10) = save(8)
-   Ecpt(11) = save(9)
-   Ecpt(12) = save(8)/2.0E0
-   Ecpt(13) = -Ecpt(12)
+   ecpt(8) = save(8)**3/12.0E0
+   ecpt(9) = save(7)
+   ecpt(10) = save(8)
+   ecpt(11) = save(9)
+   ecpt(12) = save(8)/2.0E0
+   ecpt(13) = -ecpt(12)
    DO i = 14 , 30
-      Ecpt(i) = save(i-4)
+      ecpt(i) = save(i-4)
    ENDDO
 !
    CALL psqpl1
 !
-   RETURN
 END SUBROUTINE pstq1

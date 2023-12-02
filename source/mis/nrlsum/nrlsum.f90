@@ -1,11 +1,12 @@
-!*==nrlsum.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==nrlsum.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE nrlsum
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -65,12 +66,12 @@ SUBROUTINE nrlsum
       CASE (1)
 !
          lcore = korsz(z)
-         buf1 = lcore - Sysbuf + 1
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
-         IF ( Nshock/=3 ) THEN
-            IF ( Nshock==2 ) THEN
+         buf1 = lcore - sysbuf + 1
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         IF ( nshock/=3 ) THEN
+            IF ( nshock==2 ) THEN
 !
                buf4 = buf3
             ELSE
@@ -84,20 +85,20 @@ SUBROUTINE nrlsum
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         ndir = Nshock
+         ndir = nshock
          IF ( ndir<=1 ) THEN
-            nsub(1) = Direct
+            nsub(1) = direct
          ELSEIF ( ndir>2 ) THEN
             nsub(1) = 1
             nsub(2) = 2
             nsub(3) = 3
-         ELSEIF ( Direct==23 ) THEN
+         ELSEIF ( direct==23 ) THEN
             nsub(1) = 2
             nsub(2) = 3
          ELSE
             nsub(1) = 1
             nsub(2) = 2
-            IF ( Direct==13 ) nsub(2) = 3
+            IF ( direct==13 ) nsub(2) = 3
          ENDIF
          ifil = oes2
          ofil = nrlstr
@@ -109,8 +110,8 @@ SUBROUTINE nrlsum
          CALL open(*60,ifil,z(buf1),0)
          CALL fwdrec(*80,ifil)
          CALL gopen(scr1,z(buf2),1)
-         IF ( Nshock>1 ) CALL gopen(scr2,z(buf3),1)
-         IF ( Nshock==3 ) CALL gopen(scr3,z(buf4),1)
+         IF ( nshock>1 ) CALL gopen(scr2,z(buf3),1)
+         IF ( nshock==3 ) CALL gopen(scr3,z(buf4),1)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -130,7 +131,7 @@ SUBROUTINE nrlsum
 !     WRITE ONTO SCRATCH ONLY FOR NEW ELEMENT TYPE
 !
          IF ( eltype/=oldtyp ) THEN
-            DO i = 1 , Nshock
+            DO i = 1 , nshock
                istres(4) = i
                istres(5) = i
                istres(8) = i
@@ -144,19 +145,19 @@ SUBROUTINE nrlsum
 !
 !     READ STRESS INFO FOR NUMBER OF MODES AND SHOCK DIRECTIONS
 !
-            IF ( Nmodes*nwds>lcore ) THEN
+            IF ( nmodes*nwds>lcore ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         DO ns = 1 , Nshock
+         DO ns = 1 , nshock
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   iscr = 300 + ns
 !
-                  CALL fread(ifil,z(1),nwds*Nmodes,0)
+                  CALL fread(ifil,z(1),nwds*nmodes,0)
 !
 !     GO TO PROPER SECTION FOR EACH ELEMENT TYPE
 !
@@ -248,7 +249,7 @@ SUBROUTINE nrlsum
                      i1 = 2
                      i2 = 5
                      i3 = 1
-                     DO j = 1 , Nmodes
+                     DO j = 1 , nmodes
                         isub = nwds*(j-1)
                         DO i = 2 , 5
                            z(isub+i) = z(isub+i) + z(isub+6)
@@ -374,12 +375,12 @@ SUBROUTINE nrlsum
 !
 !     IGNORE MARGINS OF SAFETY
 !
- 2                Iz(i0+3) = 1
-                  Iz(i0+5) = 1
+ 2                iz(i0+3) = 1
+                  iz(i0+5) = 1
                   GOTO 28
  4                z(6) = z(5) + amax1(z(2),z(3),z(4))
                   z(7) = z(5) + amin1(z(2),z(3),z(4))
-                  Iz(i0+8) = 1
+                  iz(i0+8) = 1
                   i1 = 9
                   i2 = 11
                   i3 = 1
@@ -388,9 +389,9 @@ SUBROUTINE nrlsum
                   CYCLE SPAG_DispatchLoop_2
  6                z(12) = z(5) + amax1(z(9),z(10),z(11))
                   z(13) = z(5) + amin1(z(9),z(10),z(11))
-                  Iz(i0+14) = 1
+                  iz(i0+14) = 1
                   GOTO 28
- 8                Iz(i0+4) = 1
+ 8                iz(i0+4) = 1
                   GOTO 28
  10               ss = .5*(z(j3)+z(j4))
                   st = z(j3) - z(j4)
@@ -441,7 +442,7 @@ SUBROUTINE nrlsum
  12               z(6) = 0.
                   z(7) = 0.
                   z(8) = 0.
-                  Iz(i0+9) = 1
+                  iz(i0+9) = 1
                   i1 = 10
                   i2 = 13
                   i3 = 1
@@ -450,7 +451,7 @@ SUBROUTINE nrlsum
                   CYCLE SPAG_DispatchLoop_2
  14               z(14) = 0.
                   z(15) = 0.
-                  Iz(i0+16) = 1
+                  iz(i0+16) = 1
                   GOTO 28
  16               z(8) = sqrt((z(2)-z(3))**2+(z(3)-z(4))**2+(z(4)-z(2))**2+6.*(z(5)**2+z(6)**2+z(7)**2))/3.
                   z(9) = -(z(2)+z(3)+z(4))/3.
@@ -585,7 +586,6 @@ SUBROUTINE nrlsum
                   sb = 0.0
                   sc = 0.0
                   spag_nextblock_2 = 5
-                  CYCLE SPAG_DispatchLoop_2
                CASE (4)
                   sa = (x*cos(phi/3.0)-p/3.0)*rm
                   sb = (x*cos(phi/3.0+120.0*dtor)-p/3.0)*rm
@@ -679,15 +679,14 @@ SUBROUTINE nrlsum
                                     dcos(1,i) = 0.0
                                     dcos(2,i) = 0.0
                                     dcos(3,i) = 1.0
-                                    CYCLE
                                  ELSE
                                     rz = -t/v
                                     x = 1.0 + rz*rz
                                     dcos(1,i) = 0.0
                                     dcos(2,i) = 1.0/sqrt(x)
                                     dcos(3,i) = rz*dcos(2,i)
-                                    CYCLE
                                  ENDIF
+                                 CYCLE
                               ELSE
                                  rz = -p/r
                                  IF ( abs(t)<=rm ) THEN
@@ -739,12 +738,12 @@ SUBROUTINE nrlsum
                   DO i = i1 , i2 , i3
                      sum = 0.
                      rmax = 0.
-                     DO j = 1 , Nmodes
+                     DO j = 1 , nmodes
                         isub = nwds*(j-1) + i
                         sum = sum + z(isub)**2
                         IF ( abs(z(isub))>rmax ) rmax = abs(z(isub))
                      ENDDO
-                     IF ( Sqrss==1 ) rmax = 0.
+                     IF ( sqrss==1 ) rmax = 0.
                      sum = sum - rmax**2
                      sum = rmax + sqrt(sum)
                      z(i) = sum
@@ -754,7 +753,7 @@ SUBROUTINE nrlsum
 !
 !     WRITE NRL SUMS TO APPROPRIATE SCRATCH FILE
 !
- 28               Iz(1) = i5
+ 28               iz(1) = i5
                   CALL write(iscr,z,nwds,0)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -779,7 +778,7 @@ SUBROUTINE nrlsum
          DO i = 2 , 7
             mcb(i) = 1
          ENDDO
-         DO i = 1 , Nshock
+         DO i = 1 , nshock
             CALL write(scr(i),0,0,1)
             CALL close(scr(i),1)
             mcb(1) = scr(i)
@@ -788,7 +787,7 @@ SUBROUTINE nrlsum
 !
          lcore = buf2 - 1
          CALL gopen(ofil,z(buf1),1)
-         DO i = 1 , Nshock
+         DO i = 1 , nshock
             spag_nextblock_4 = 1
             SPAG_DispatchLoop_4: DO
                SELECT CASE (spag_nextblock_4)
@@ -834,7 +833,6 @@ SUBROUTINE nrlsum
          CYCLE SPAG_DispatchLoop_1
  100     n = -3
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          n = -8
          file = 0

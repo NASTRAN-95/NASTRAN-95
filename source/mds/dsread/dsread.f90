@@ -1,9 +1,10 @@
-!*==dsread.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dsread.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dsread(Iunit,Buff,Len,Irec)
+   USE i_dsiof
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,24 +25,24 @@ SUBROUTINE dsread(Iunit,Buff,Len,Irec)
       READ (Iunit,REC=Irec,ERR=100,IOSTAT=istat) Buff
       IF ( istat==0 ) THEN
          numrea = numrea + 1
-         GOTO 99999
+         RETURN
       ELSE
          ioerr = istat
          CALL dsmsg(101)
          CALL mesage(-61,0,0)
       ENDIF
    ENDIF
-   WRITE (Iwr,99001) Iunit , Irec , mdsnam(Iunit)
+   WRITE (iwr,99001) Iunit , Irec , mdsnam(Iunit)
 99001 FORMAT (//' ERROR IN DSREAD-BAD REC NO., UNIT=',I4,' REC=',I4,/,' FILE NAME=',A72)
    iccerr = 0
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
    numrea = numrea + 1
-   GOTO 99999
- 100  WRITE (Iwr,99002) Iunit , Irec , istat , mdsnam(Iunit)
+   RETURN
+ 100  WRITE (iwr,99002) Iunit , Irec , istat , mdsnam(Iunit)
 99002 FORMAT (//', ERROR ENCOUNTERED IN DSREAD, UNIT=',I5,' RECORD=',I5,' STATUS=',I9,/' DSNAME=',A72)
    iccerr = istat
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
    numrea = numrea + 1
-99999 END SUBROUTINE dsread
+END SUBROUTINE dsread

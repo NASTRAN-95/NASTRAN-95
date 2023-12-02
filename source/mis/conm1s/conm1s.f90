@@ -1,12 +1,13 @@
-!*==conm1s.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==conm1s.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE conm1s
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_system
    IMPLICIT NONE
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,13 +53,13 @@ SUBROUTINE conm1s
 !
 !     INITIALIZE
 !
-   IF ( Ismb(2)==0 ) RETURN
-   dict(1) = Estid
+   IF ( ismb(2)==0 ) RETURN
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 6
    dict(4) = 63
    dict5 = 0
-   ip = Iprec
+   ip = iprec
 !
 ! COMPUTE NON-TRANSFORMED MASS MATRIX. INITIALIZE
 ! TO ZERO THEN FILL IN NON-ZERO TERMS
@@ -97,7 +98,7 @@ SUBROUTINE conm1s
          it = 9
       ELSE
 !
-         CALL transs(Ecpt(25),t(1))
+         CALL transs(ecpt(25),t(1))
       ENDIF
       IF ( icidt2==0 ) THEN
 !
@@ -111,7 +112,7 @@ SUBROUTINE conm1s
             ENDDO
          ENDDO
       ELSE
-         CALL transs(Ecpt(25),t(10))
+         CALL transs(ecpt(25),t(10))
 !
          IF ( icidt1/=0 ) CALL gmmats(t(1),3,3,1,t(10),3,3,0,t(19))
       ENDIF

@@ -1,9 +1,10 @@
-!*==sdcom1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdcom1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcom1(P,Ac,Wa,Wb)
+   USE c_sdcomx
    IMPLICIT NONE
-   USE C_SDCOMX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,34 +24,34 @@ SUBROUTINE sdcom1(P,Ac,Wa,Wb)
 !
    j = 1
    l = 1
-   k1 = Lastpl + 1
-   iend = min0(Lastpl,Lasti)
-   istart = max0(k1,Start)
-   IF ( C==Lastpl ) THEN
+   k1 = lastpl + 1
+   iend = min0(lastpl,lasti)
+   istart = max0(k1,start)
+   IF ( c==lastpl ) THEN
 !
-      IF ( Start<=Lastpl ) THEN
-         DO i = Start , iend
+      IF ( start<=lastpl ) THEN
+         DO i = start , iend
             pi = -P(i)/P(1)
             ijmk = j - i
             ilmk = l - i
-            DO k = i , Lastpl
+            DO k = i , lastpl
                Wb(k+ijmk) = pi*P(k) + Wa(k+ilmk)
             ENDDO
             j = ijmk + k1
             l = ilmk + k1
             P(i) = pi
          ENDDO
-         IF ( Lastpl>=Lasti ) RETURN
+         IF ( lastpl>=lasti ) RETURN
       ENDIF
-      DO i = istart , Lasti
+      DO i = istart , lasti
          pi = -P(i)/P(1)
          ijmk = j - i
          IF ( Ac(i)<0 ) THEN
-            DO k = i , C
+            DO k = i , c
                Wb(k+ijmk) = pi*P(k)
             ENDDO
          ELSE
-            DO k = i , C
+            DO k = i , c
                IF ( Ac(k)>0 ) THEN
                   Wb(k+ijmk) = pi*P(k) + Wa(l)
                   l = l + 1
@@ -59,20 +60,20 @@ SUBROUTINE sdcom1(P,Ac,Wa,Wb)
                ENDIF
             ENDDO
          ENDIF
-         j = ijmk + C + 1
+         j = ijmk + c + 1
          P(i) = pi
       ENDDO
    ELSE
-      IF ( Start<=Lastpl ) THEN
-         DO i = Start , iend
+      IF ( start<=lastpl ) THEN
+         DO i = start , iend
             pi = -P(i)/P(1)
             ijmk = j - i
             ilmk = l - i
-            DO k = i , Lastpl
+            DO k = i , lastpl
                Wb(k+ijmk) = pi*P(k) + Wa(k+ilmk)
             ENDDO
             l = ilmk + k1
-            DO k = k1 , C
+            DO k = k1 , c
                IF ( Ac(k)>0 ) THEN
                   Wb(k+ijmk) = pi*P(k) + Wa(l)
                   l = l + 1
@@ -80,20 +81,20 @@ SUBROUTINE sdcom1(P,Ac,Wa,Wb)
                   Wb(k+ijmk) = pi*P(k)
                ENDIF
             ENDDO
-            j = ijmk + C + 1
+            j = ijmk + c + 1
             P(i) = pi
          ENDDO
-         IF ( Lastpl>=Lasti ) RETURN
+         IF ( lastpl>=lasti ) RETURN
       ENDIF
-      DO i = istart , Lasti
+      DO i = istart , lasti
          pi = -P(i)/P(1)
          ijmk = j - i
          IF ( Ac(i)<0 ) THEN
-            DO k = i , C
+            DO k = i , c
                Wb(k+ijmk) = pi*P(k)
             ENDDO
          ELSE
-            DO k = i , C
+            DO k = i , c
                IF ( Ac(k)>0 ) THEN
                   Wb(k+ijmk) = pi*P(k) + Wa(l)
                   l = l + 1
@@ -102,7 +103,7 @@ SUBROUTINE sdcom1(P,Ac,Wa,Wb)
                ENDIF
             ENDDO
          ENDIF
-         j = ijmk + C + 1
+         j = ijmk + c + 1
          P(i) = pi
       ENDDO
       RETURN

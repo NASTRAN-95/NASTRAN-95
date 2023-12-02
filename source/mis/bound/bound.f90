@@ -2,13 +2,13 @@
  
 SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FLBPTR
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_flbptr
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,6 +48,15 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
    REAL*8 , DIMENSION(48) :: s
    INTEGER , DIMENSION(2,3) , SAVE :: stedge
    REAL*8 , DIMENSION(3,3) :: t , tfst , tr
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -105,44 +114,44 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !
    grav = .FALSE.
    IF ( Fbrec(7)/=0 ) THEN
-      Inflag = 11
-      Matid = Fbrec(8)
+      inflag = 11
+      matid = Fbrec(8)
       CALL mat(Fbrec(1))
 !
-      IF ( Ngrav/=0 ) THEN
-         lgrav = Igrav + Ngrav - 1
-         DO i = Igrav , lgrav , 6
+      IF ( ngrav/=0 ) THEN
+         lgrav = igrav + ngrav - 1
+         DO i = igrav , lgrav , 6
             IF ( iz(i)==Fbrec(7) ) GOTO 50
 !
          ENDDO
       ENDIF
-      WRITE (Nout,99001) Ufm , Fbrec(1) , Fbrec(7)
+      WRITE (nout,99001) ufm , Fbrec(1) , Fbrec(7)
 !
 99001 FORMAT (A23,' 8013, FLUID ELEMENT',I9,' ON A CFLSTR CARD ','REFERENCES UNDEFINED GRAVITY ID',I9)
-      Error = .TRUE.
+      error = .TRUE.
       GOTO 99999
 !
- 50   g = sqrt(Z(i+3)**2+Z(i+4)**2+Z(i+5)**2)
-      g = g*Z(i+2)
-      rhoxg = dble(Rho)*dble(g)
+ 50   g = sqrt(z(i+3)**2+z(i+4)**2+z(i+5)**2)
+      g = g*z(i+2)
+      rhoxg = dble(rho)*dble(g)
       Nkge = nrow*nrow*2
-      Nograv = 1
+      nograv = 1
       grav = .TRUE.
 !
 !     NORMILIZE THE GRAVITY VECTOR
 !
-      e(1,2) = dble(Z(i+3))
-      e(2,2) = dble(Z(i+4))
-      e(3,2) = dble(Z(i+5))
+      e(1,2) = dble(z(i+3))
+      e(2,2) = dble(z(i+4))
+      e(3,2) = dble(z(i+5))
       CALL dnorm(e(1,2),mag)
       IF ( iz(i+1)/=0 ) THEN
 !
 !     TRANSFORM GRAVITY VECTOR TO BASIC
 !
-         j = iz(Ibgpdt)
-         iz(Ibgpdt) = iz(i+1)
-         CALL transd(iz(Ibgpdt),tr)
-         iz(Ibgpdt) = j
+         j = iz(ibgpdt)
+         iz(ibgpdt) = iz(i+1)
+         CALL transd(iz(ibgpdt),tr)
+         iz(ibgpdt) = j
          CALL gmmatd(tr,3,3,0,e(1,2),3,1,0,vtemp)
          DO j = 1 , 3
             e(j,2) = vtemp(j)
@@ -169,21 +178,21 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !     LOCATE GRID POINTS COORDINATES FOR THE FLUID GRID POINTS IN THE
 !     BGPDT TABLE
 !
-   gf1 = Ibgpdt + (Fbrec(9)-1)*4
-   gf2 = Ibgpdt + (Fbrec(10)-1)*4
-   gf3 = Ibgpdt + (Fbrec(11)-1)*4
+   gf1 = ibgpdt + (Fbrec(9)-1)*4
+   gf2 = ibgpdt + (Fbrec(10)-1)*4
+   gf3 = ibgpdt + (Fbrec(11)-1)*4
    gf4 = -1
-   IF ( ngridf==4 ) gf4 = Ibgpdt + (Fbrec(12)-1)*4
+   IF ( ngridf==4 ) gf4 = ibgpdt + (Fbrec(12)-1)*4
 !
    IF ( ngridf==4 ) THEN
 !
 !     QUADRATIC FLUID FACE
 !
       DO i = 1 , 3
-         r12(i) = Z(gf2+i) - Z(gf1+i)
-         r13(i) = Z(gf3+i) - Z(gf1+i)
-         r14(i) = Z(gf4+i) - Z(gf1+i)
-         r24(i) = Z(gf4+i) - Z(gf2+i)
+         r12(i) = z(gf2+i) - z(gf1+i)
+         r13(i) = z(gf3+i) - z(gf1+i)
+         r14(i) = z(gf4+i) - z(gf1+i)
+         r24(i) = z(gf4+i) - z(gf2+i)
       ENDDO
 !
       CALL daxb(r13,r24,kn)
@@ -209,9 +218,9 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !     TRIANGULAR FLUID FACE
 !
       DO i = 1 , 3
-         r12(i) = Z(gf2+i) - Z(gf1+i)
+         r12(i) = z(gf2+i) - z(gf1+i)
          in(i) = r12(i)
-         r13(i) = Z(gf3+i) - Z(gf1+i)
+         r13(i) = z(gf3+i) - z(gf1+i)
       ENDDO
 !
       CALL dnorm(in,mag)
@@ -291,18 +300,18 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !
 !     TRANSFORM STRUCTURE COORDINATES TO FLUID COORDINATE SYSTEM
 !
-   gs1 = Ibgpdt + (Fbrec(3)-1)*4
-   gs2 = Ibgpdt + (Fbrec(4)-1)*4
-   gs3 = Ibgpdt + (Fbrec(5)-1)*4
+   gs1 = ibgpdt + (Fbrec(3)-1)*4
+   gs2 = ibgpdt + (Fbrec(4)-1)*4
+   gs3 = ibgpdt + (Fbrec(5)-1)*4
    gs4 = -1
-   IF ( ngrids==4 ) gs4 = Ibgpdt + (Fbrec(6)-1)*4
+   IF ( ngrids==4 ) gs4 = ibgpdt + (Fbrec(6)-1)*4
 !
    DO n = 1 , 3
-      pt(n,1) = Z(gs1+n) - Z(gf1+n)
-      pt(n,2) = Z(gs2+n) - Z(gf1+n)
-      pt(n,3) = Z(gs3+n) - Z(gf1+n)
+      pt(n,1) = z(gs1+n) - z(gf1+n)
+      pt(n,2) = z(gs2+n) - z(gf1+n)
+      pt(n,3) = z(gs3+n) - z(gf1+n)
       pt(n,4) = dz
-      IF ( ngrids==4 ) pt(n,4) = Z(gs4+n) - Z(gf1+n)
+      IF ( ngrids==4 ) pt(n,4) = z(gs4+n) - z(gf1+n)
       DO k = 1 , 4
          st(n,k) = dz
       ENDDO
@@ -593,7 +602,7 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !     WARNING MESSAGE WHEN FLUID AND STRUCTURE ELEMENTS ARE DISJOINT
 !
    IF ( aflstr<=dz ) THEN
-      WRITE (Nout,99002) Uwm , Fbrec(1) , Fbrec(2)
+      WRITE (nout,99002) uwm , Fbrec(1) , Fbrec(2)
 !
 99002 FORMAT (A25,' 8014, FLUID ELEMENT',I9,' AND STRUCTURE ELEMENT',I9,' ARE DISJOINT. CHECK CFLSTR CARDS.')
       GOTO 99999
@@ -603,8 +612,8 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !     REQUIRED
 !
       DO irow = 1 , ngrids
-         gsi = Ibgpdt + (Fbrec(irow+2)-1)*4
-         CALL transd(Z(gsi),t)
+         gsi = ibgpdt + (Fbrec(irow+2)-1)*4
+         CALL transd(z(gsi),t)
 !
 !     AREA FACTOR MATRIX
 !
@@ -642,7 +651,7 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
                   CALL gmmatd(t,3,3,1,Kge(iloc+1),3,3,0,kik)
                ENDIF
 !
-               gsj = Ibgpdt + (Fbrec(icol+2)-1)*4
+               gsj = ibgpdt + (Fbrec(icol+2)-1)*4
                IF ( iz(gsj)==0 ) THEN
 !
                   kloc = iloc
@@ -650,7 +659,7 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
                      kii(kloc+i) = kik(i)
                   ENDDO
                ELSE
-                  CALL transd(Z(gsj),t)
+                  CALL transd(z(gsj),t)
                   CALL gmmatd(kik,3,3,0,t,3,3,0,kii(iloc+1))
                ENDIF
             ENDDO
@@ -683,8 +692,8 @@ SUBROUTINE bound(Fbrec,Afe,Nafe,Kge,Nkge)
 !
 !     ERROR CONDITIONS
 !
- 200  WRITE (Nout,99003) Ufm , Fbrec(2)
+ 200  WRITE (nout,99003) ufm , Fbrec(2)
 !
 99003 FORMAT (A23,' 8005. BAD GEOMETRY DEFINED FOR STRUCTURAL ELEMENT ',I8)
-   Error = .TRUE.
+   error = .TRUE.
 99999 END SUBROUTINE bound

@@ -1,14 +1,15 @@
-!*==gipsst.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gipsst.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gipsst
+   USE c_gicom
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GICOM
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -59,25 +60,25 @@ SUBROUTINE gipsst
          oldid = -1
          lc = -1
          nwds = korsz(iz)
-         buff = nwds - Sysbuf
-         buff1 = buff - Sysbuf
-         buff2 = buff1 - Sysbuf
-         trl(1) = Cstm
+         buff = nwds - sysbuf
+         buff1 = buff - sysbuf
+         buff2 = buff1 - sysbuf
+         trl(1) = cstm
          CALL rdtrl(trl)
          IF ( trl(1)<0 ) trl(3) = 0
          ncstm = (trl(3)+1)*14
          pcstm = buff2 - ncstm
-         trl(1) = Bagpdt
+         trl(1) = bagpdt
          CALL rdtrl(trl)
          nbg = trl(2)*4
          pbgpt = pcstm - nbg
-         trl(1) = Scr1
+         trl(1) = scr1
          CALL rdtrl(trl)
          max = trl(2)
          IF ( trl(3)==0 ) RETURN
-         i = Scr2
-         Scr2 = Scr3
-         Scr3 = i
+         i = scr2
+         scr2 = scr3
+         scr3 = i
          ipass = 0
 !
 !     INITIAL CORE CHECK
@@ -89,7 +90,7 @@ SUBROUTINE gipsst
 !
 !     OPEN SCR1 TO LOOP ON G AND K SET RECORDS
 !
-         CALL gopen(Scr1,iz(buff+1),0)
+         CALL gopen(scr1,iz(buff+1),0)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -104,27 +105,27 @@ SUBROUTINE gipsst
          z(pcstm+9) = 1.0
          z(pcstm+13) = 1.0
          IF ( ncstm/=14 ) THEN
-            ifil = Cstm
-            CALL gopen(Cstm,iz(buff1+1),0)
-            CALL read(*60,*60,Cstm,iz(pcstm+14),ncstm-14,1,nwr)
-            CALL close(Cstm,1)
+            ifil = cstm
+            CALL gopen(cstm,iz(buff1+1),0)
+            CALL read(*60,*60,cstm,iz(pcstm+14),ncstm-14,1,nwr)
+            CALL close(cstm,1)
          ENDIF
          CALL pretrs(iz(pcstm),ncstm)
 !
 !     READ IN BAGPDT AT PBGPT
 !
-         ifil = Bagpdt
-         CALL gopen(Bagpdt,iz(buff1+1),0)
-         CALL read(*60,*60,Bagpdt,iz(pbgpt),nbg,1,nwr)
-         CALL close(Bagpdt,1)
+         ifil = bagpdt
+         CALL gopen(bagpdt,iz(buff1+1),0)
+         CALL read(*60,*60,bagpdt,iz(pbgpt),nbg,1,nwr)
+         CALL close(bagpdt,1)
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     READ SCR1 AND PROCESS A SPLINE DEPENDING ON TYPE
 !
          n1 = max + 1
-         ifil = Scr1
-         CALL read(*40,*20,Scr1,iz(1),n1,1,nwr)
+         ifil = scr1
+         CALL read(*40,*20,scr1,iz(1),n1,1,nwr)
  20      j = 2
          type = iz(j)
          pg = pendc
@@ -212,7 +213,7 @@ SUBROUTINE gipsst
                t3 = z(ptl+1)*z(pte+5) - z(ptl+4)*z(pte+2)
                t4 = sqrt(t1*t1+t2*t2+t3*t3)
                IF ( t4==0.0 ) THEN
-                  WRITE (Out,99001) Ufm , scard(1) , ccard(1)
+                  WRITE (out,99001) ufm , scard(1) , ccard(1)
 99001             FORMAT (A23,' 2261, PLANE OF LINEAR SPLINE',I9,' PERPENDICULAR TO PLANE OF AERO ELEMENT',I9)
                   spag_nextblock_1 = 9
                   CYCLE SPAG_DispatchLoop_1
@@ -406,12 +407,12 @@ SUBROUTINE gipsst
 !     OPEN SCR2 TO WRITE G   MATRIX
 !                         KG
 !
-         CALL gopen(Scr2,iz(buff1+1),1)
-         CALL gopen(Scr3,iz(buff2+1),0)
-         tgkg(3) = Gsize
+         CALL gopen(scr2,iz(buff1+1),1)
+         CALL gopen(scr3,iz(buff2+1),0)
+         tgkg(3) = gsize
          tgkg(4) = 2
          tgkg(5) = 1
-         tgkg(1) = Scr2
+         tgkg(1) = scr2
          tgkg(2) = 0
          tgkg(6) = 0
          tgkg(7) = 0
@@ -429,25 +430,25 @@ SUBROUTINE gipsst
 !
 !     LOOP THROUGH COLUMNS OF GKT
 !
-         DO i = 1 , Ksize
+         DO i = 1 , ksize
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  CALL bldpk(1,1,Scr2,block,1)
+                  CALL bldpk(1,1,scr2,block,1)
                   IF ( kcoln==i ) kcol = .TRUE.
 !
 !     COPY A COLUMN OR OUTPUT A NULL COLUMN
 !
-                  CALL intpk(*32,Scr3,0,1,0)
+                  CALL intpk(*32,scr3,0,1,0)
                   IF ( kcol ) THEN
                      spag_nextblock_1 = 7
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   DO
                      CALL zntpki
-                     CALL bldpki(A,Nr,Scr2,block)
-                     IF ( Ieol/=0 ) THEN
+                     CALL bldpki(a,nr,scr2,block)
+                     IF ( ieol/=0 ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -461,7 +462,7 @@ SUBROUTINE gipsst
                         SPAG_DispatchLoop_3: DO
                            SELECT CASE (spag_nextblock_3)
                            CASE (1)
-                              Nr = iz(psil+j)
+                              nr = iz(psil+j)
                               k = (iz(pg+j)-1)*4
                               CALL transs(iz(pbgpt+k),tt)
                               CALL gmmats(tt,3,3,1,tl,3,3,0,tg)
@@ -505,12 +506,11 @@ SUBROUTINE gipsst
 !     TERMS OF SURFACE SPLINE
 !
                               DO jj = 3 , 9 , 3
-                                 A = tg(jj)*z(n1)
-                                 CALL bldpki(A,Nr,Scr2,block)
-                                 Nr = Nr + 1
+                                 a = tg(jj)*z(n1)
+                                 CALL bldpki(a,nr,scr2,block)
+                                 nr = nr + 1
                               ENDDO
                               n1 = n1 + 1
-                              CYCLE
                            CASE (2)
                               tgs(1) = tg(3)*sign
                               tgs(4) = tg(6)*sign
@@ -522,7 +522,6 @@ SUBROUTINE gipsst
                               tgs(17) = -tg(8)*sign
                               tgs(18) = tg(7)*sign
                               spag_nextblock_3 = 4
-                              CYCLE SPAG_DispatchLoop_3
                            CASE (3)
                               tgs(1) = tg(2)
                               tgs(4) = tg(5)
@@ -549,8 +548,8 @@ SUBROUTINE gipsst
                               ENDIF
                               CALL gmmats(tgs,6,3,0,t,3,1,0,an)
                               DO jj = 1 , 6
-                                 CALL bldpki(an(jj),Nr,Scr2,block)
-                                 Nr = Nr + 1
+                                 CALL bldpki(an(jj),nr,scr2,block)
+                                 nr = nr + 1
                               ENDDO
                               EXIT SPAG_DispatchLoop_3
                            END SELECT
@@ -591,7 +590,7 @@ SUBROUTINE gipsst
                   ENDIF
                   spag_nextblock_2 = 2
                CASE (2)
-                  CALL bldpkn(Scr2,block,tgkg)
+                  CALL bldpkn(scr2,block,tgkg)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
@@ -599,12 +598,12 @@ SUBROUTINE gipsst
 !
 !     SWITCH FILES FOR ANOTHER SPLINE
 !
-         CALL close(Scr2,1)
+         CALL close(scr2,1)
          CALL wrttrl(tgkg)
-         CALL close(Scr3,1)
-         i = Scr2
-         Scr2 = Scr3
-         Scr3 = i
+         CALL close(scr3,1)
+         i = scr2
+         scr2 = scr3
+         scr3 = i
          ipass = ipass + 1
          IF ( zap ) THEN
             spag_nextblock_1 = 2
@@ -618,27 +617,27 @@ SUBROUTINE gipsst
 !
 !     IF ALL DONE BE SURE SCR2 IS GTKA
 !
- 40      i = Scr2
-         Scr2 = Scr3
-         Scr3 = i
-         IF ( Scr3==201 ) THEN
-            CALL gopen(Scr2,z(buff1),0)
-            CALL gopen(Scr3,z(buff2),1)
-            tgkg(1) = Scr2
+ 40      i = scr2
+         scr2 = scr3
+         scr3 = i
+         IF ( scr3==201 ) THEN
+            CALL gopen(scr2,z(buff1),0)
+            CALL gopen(scr3,z(buff2),1)
+            tgkg(1) = scr2
             CALL rdtrl(tgkg)
             n = tgkg(2)
-            tgkg(1) = Scr3
+            tgkg(1) = scr3
             tgkg(2) = 0
             tgkg(6) = 0
             tgkg(7) = 0
-            Incr = 1
-            Itc = 1
-            CALL cyct2b(Scr2,Scr3,n,z,tgkg)
-            CALL close(Scr2,1)
-            CALL close(Scr3,1)
+            incr = 1
+            itc = 1
+            CALL cyct2b(scr2,scr3,n,z,tgkg)
+            CALL close(scr2,1)
+            CALL close(scr3,1)
             CALL wrttrl(tgkg)
          ENDIF
-         CALL close(Scr1,1)
+         CALL close(scr1,1)
          IF ( nogo==0 ) RETURN
 !
 !     ERROR MESSAGES
@@ -650,23 +649,20 @@ SUBROUTINE gipsst
          CALL mesage(-8,0,ns)
          spag_nextblock_1 = 6
       CASE (6)
-         WRITE (Out,99002) Ufm , scard(1)
+         WRITE (out,99002) ufm , scard(1)
 99002    FORMAT (A23,' 2260, SINGULAR MATRIX DEVELOPED WHILE PROCESSING ','SPLINE',I9)
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         WRITE (Out,99003) Ufm , scard(1)
+         WRITE (out,99003) ufm , scard(1)
 99003    FORMAT (A23,' 2262, SPLINE',I9,' INCLUDES AERO BOX INCLUDED ON A',' EARLIER SPLINE')
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
-         WRITE (Out,99004) Ufm , scard(1)
+         WRITE (out,99004) ufm , scard(1)
 99004    FORMAT (A23,' 2263, INSUFFICIENT CORE TO PROCESS SPLINE',I9)
          spag_nextblock_1 = 9
       CASE (9)
          nogo = 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE gipsst

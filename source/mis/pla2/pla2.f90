@@ -1,14 +1,15 @@
-!*==pla2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pla2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla2
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -67,9 +68,9 @@ SUBROUTINE pla2
 !
 ! INITIALIZE
 !
-         izmax = korsz(Z)
-         buffr1 = izmax - Bufsz
-         buffr2 = buffr1 - Bufsz
+         izmax = korsz(z)
+         buffr1 = izmax - bufsz
+         buffr2 = buffr1 - bufsz
          left = buffr2 - 1
          iloop = 1
          ifile = 101
@@ -87,20 +88,20 @@ SUBROUTINE pla2
             mcb(i) = 0
          ENDDO
          mcb(1) = ofile
-         IF ( Placnt==1 ) mcb(1) = ifile
+         IF ( placnt==1 ) mcb(1) = ifile
          CALL rdtrl(mcb)
-         CALL open(*20,ifile,Z(buffr1),inrw)
+         CALL open(*20,ifile,z(buffr1),inrw)
          CALL fwdrec(*80,ifile)
          iopt = inrw
-         IF ( Placnt==1 ) iopt = outrw
-         CALL open(*40,ofile,Z(buffr2),iopt)
-         IF ( Placnt/=1 ) THEN
+         IF ( placnt==1 ) iopt = outrw
+         CALL open(*40,ofile,z(buffr2),iopt)
+         IF ( placnt/=1 ) THEN
 !
 ! THIS IS NOT THE FIRST PASS
 !
             jfile = ofile
             CALL fwdrec(*80,ofile)
-            nrecs = Placnt - 2
+            nrecs = placnt - 2
             IF ( nrecs>0 ) THEN
                DO i = 1 , nrecs
                   CALL fwdrec(*80,ofile)
@@ -111,13 +112,13 @@ SUBROUTINE pla2
             mcb(6) = 0
             mcb(7) = 0
             IF ( left<mcb(3) ) CALL mesage(-8,0,name)
-            Iunpkb = 1
-            Iunpk = 1
-            Junpk = mcb(3)
-            Incupk = 1
-            CALL unpack(*100,ofile,Z)
+            iunpkb = 1
+            iunpk = 1
+            junpk = mcb(3)
+            incupk = 1
+            CALL unpack(*100,ofile,z)
             CALL close(ofile,clsnrw)
-            CALL open(*60,ofile,Z(buffr2),outnrw)
+            CALL open(*60,ofile,z(buffr2),outnrw)
 !
 ! READ THE INCREMENTAL VECTOR.  INTPK INITIALIZES AND ZNTPKI RETURNS
 ! ONE ELEMENT AT A TIME
@@ -129,8 +130,8 @@ SUBROUTINE pla2
 ! READ AND ADD LOOP.
 !
                CALL zntpki
-               Z(Index) = Z(Index) + A(1)
-               IF ( Eol/=0 ) THEN
+               z(index) = z(index) + a(1)
+               IF ( eol/=0 ) THEN
 !
 ! ADDITION HAS BEEN COMPLETED
 !
@@ -138,12 +139,12 @@ SUBROUTINE pla2
 !
 ! WRITE VECTOR ON OUTPUT FILE IN PACKED FORMAT.
 !
-                  Typea = 1
-                  Typeb = 1
-                  Ipack = 1
-                  Jpack = mcb(3)
-                  Incpk = 1
-                  CALL pack(Z,ofile,mcb)
+                  typea = 1
+                  typeb = 1
+                  ipack = 1
+                  jpack = mcb(3)
+                  incpk = 1
+                  CALL pack(z,ofile,mcb)
                   CALL close(ofile,clsrw)
                   EXIT SPAG_Loop_1_1
                ENDIF
@@ -171,7 +172,7 @@ SUBROUTINE pla2
 !
 ! INCREMENT THE PLA DMAP LOOP COUNTER
 !
-            Placnt = Placnt + 1
+            placnt = placnt + 1
             RETURN
          ELSE
             ifile = ifile + 1

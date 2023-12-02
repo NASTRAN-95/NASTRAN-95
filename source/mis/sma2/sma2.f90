@@ -2,23 +2,29 @@
  
 SUBROUTINE sma2
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_SMA2BK
-   USE C_SMA2CL
-   USE C_SMA2DP
-   USE C_SMA2ET
-   USE C_SMA2HT
-   USE C_SMA2IO
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_sma2bk
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2ht
+   USE c_sma2io
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i , ifile , imat1 , imat11 , iparm , izmax , matcr , nmat1 , nmat2 , nmat3 , nmat4
    INTEGER , DIMENSION(1) :: iz
    INTEGER , DIMENSION(2) , SAVE :: nmsma2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -76,83 +82,83 @@ SUBROUTINE sma2
 !*****
 !  SET HEAT FLAG
 !*****
-   Heat = .FALSE.
-   IF ( Itherm/=0 ) Heat = .TRUE.
+   heat = .FALSE.
+   IF ( itherm/=0 ) heat = .TRUE.
 !
 !
    CALL delset
-   izmax = korsz(Z)
+   izmax = korsz(z)
 !
 ! SET PURGE FLAGS FOR BGG AND NO PURGE FLAG FOR MGG.
 !
-   Bggind = -1
-   Nobgg = -1
-   Nomgg = 1
+   bggind = -1
+   nobgg = -1
+   nomgg = 1
 !
 ! ATTEMPT TO OPEN THE OUTPUT FILE FOR THE MASS MATRIX.  IF IT IS NOT
 ! IN THE OSCAR, EXECUTION WILL BE TERMINATED SINCE WE DO NOT ALLOW
 ! THE USER TO GENERATE ONLY A BGG. (EXCEPT IN A HEAT TRANSER PROBLEM)
 !
-   Igmgg = izmax - Isys
-   IF ( .NOT.(Heat) ) THEN
-      CALL open(*400,Ifmgg,Z(Igmgg),Outrw)
+   igmgg = izmax - isys
+   IF ( .NOT.(heat) ) THEN
+      CALL open(*400,ifmgg,z(igmgg),outrw)
 !
 ! WRITE A TWO WORD BCD HEADER AND CLOSE THE MGG FILE WITHOUT REWIND.
 !
-      CALL fname(Ifmgg,Z(1))
-      CALL write(Ifmgg,Z(1),2,Eor)
-      CALL close(Ifmgg,Clsnrw)
+      CALL fname(ifmgg,z(1))
+      CALL write(ifmgg,z(1),2,eor)
+      CALL close(ifmgg,clsnrw)
    ENDIF
 !
 ! ATTEMPT TO OPEN THE BGG FILE.
 !
-   Igbgg = Igmgg
-   Ioptb = 0
-   CALL open(*100,Ifbgg,Z(Igbgg),Outrw)
-   Ioptb = 1
-   Igbgg = Igbgg - Isys
-   CALL fname(Ifbgg,Z(1))
-   CALL write(Ifbgg,Z(1),2,Eor)
-   CALL close(Ifbgg,Clsnrw)
+   igbgg = igmgg
+   ioptb = 0
+   CALL open(*100,ifbgg,z(igbgg),outrw)
+   ioptb = 1
+   igbgg = igbgg - isys
+   CALL fname(ifbgg,z(1))
+   CALL write(ifbgg,z(1),2,eor)
+   CALL close(ifbgg,clsnrw)
 !
 ! SET UP POINTERS TO GINO BUFFERS AND SET UP MATRIX CONTROL BLOCKS.
 !
- 100  Igecpt = Igbgg - Isys
-   Iggpct = Igecpt - Isys
-   Mcbmgg(1) = Ifmgg
-   Mcbmgg(2) = 0
-   Mcbmgg(3) = 0
-   Mcbmgg(4) = 6
-   Mcbmgg(5) = Iprec
-   Mcbmgg(6) = 0
-   Mcbmgg(7) = 0
-   IF ( Ioptb/=0 ) THEN
-      Mcbbgg(1) = Ifbgg
+ 100  igecpt = igbgg - isys
+   iggpct = igecpt - isys
+   mcbmgg(1) = ifmgg
+   mcbmgg(2) = 0
+   mcbmgg(3) = 0
+   mcbmgg(4) = 6
+   mcbmgg(5) = iprec
+   mcbmgg(6) = 0
+   mcbmgg(7) = 0
+   IF ( ioptb/=0 ) THEN
+      mcbbgg(1) = ifbgg
       DO i = 2 , 7
-         Mcbbgg(i) = Mcbmgg(i)
+         mcbbgg(i) = mcbmgg(i)
       ENDDO
    ENDIF
 !
 ! ATTEMPT TO READ THE CSTM INTO CORE.
 !
-   Ncstm = 0
-   Icstm = 0
-   Left = Iggpct - 1
-   CALL open(*300,Ifcstm,Z(Igmgg),Inrw)
-   CALL fwdrec(*500,Ifcstm)
-   CALL read(*600,*200,Ifcstm,Z(1),Left,Eor,Ncstm)
+   ncstm = 0
+   icstm = 0
+   left = iggpct - 1
+   CALL open(*300,ifcstm,z(igmgg),inrw)
+   CALL fwdrec(*500,ifcstm)
+   CALL read(*600,*200,ifcstm,z(1),left,eor,ncstm)
 !
 ! IF CORE WAS FILLED WITHOUT HITTING AN EOR CALL MESAGE
 !
-   CALL mesage(-8,Ifcstm,Ifcstm)
- 200  Left = Left - Ncstm
+   CALL mesage(-8,ifcstm,ifcstm)
+ 200  left = left - ncstm
 !
 ! PRETRD SETS UP FUTURE CALLS TO TRANSD.
 !
-   CALL pretrd(Z(Icstm+1),Ncstm)
-   CALL pretrs(Z(Icstm+1),Ncstm)
-   CALL close(Ifcstm,Clsrw)
- 300  imat1 = Ncstm
+   CALL pretrd(z(icstm+1),ncstm)
+   CALL pretrs(z(icstm+1),ncstm)
+   CALL close(ifcstm,clsrw)
+ 300  imat1 = ncstm
    nmat1 = 0
    nmat2 = 0
    nmat3 = 0
@@ -161,31 +167,31 @@ SUBROUTINE sma2
 !*****
 !  IF -HEAT- PROBLEM THEN HMAT IS USED FOR MAT4 AND MAT5 CARDS.
 !*****
-   IF ( .NOT.Heat ) THEN
-      CALL premat(iz(imat11),Z(imat11),Z(Igmgg),Left,matcr,Ifmpt,Ifdit)
-      Left = Left - matcr
-      Igpct = Ncstm + matcr
+   IF ( .NOT.heat ) THEN
+      CALL premat(iz(imat11),z(imat11),z(igmgg),left,matcr,ifmpt,ifdit)
+      left = left - matcr
+      igpct = ncstm + matcr
    ELSE
-      Ihmat = imat11 + 1
-      Nhmat = imat11 + Left - 2
-      Mptmpt = Ifmpt
-      Idit = Ifdit
+      ihmat = imat11 + 1
+      nhmat = imat11 + left - 2
+      mptmpt = ifmpt
+      idit = ifdit
       CALL hmat(0)
-      Left = Left - Nhmat + Ihmat
-      Igpct = Nhmat + 1
+      left = left - nhmat + ihmat
+      igpct = nhmat + 1
    ENDIF
 !
 ! OPEN THE ECPT INPUT FILE AND THE GPCT INPUT FILE.
 !
-   CALL open(*700,Ifecpt,Z(Igecpt),Inrw)
-   CALL fwdrec(*800,Ifecpt)
-   CALL open(*900,Ifgpct,Z(Iggpct),Inrw)
-   CALL fwdrec(*1000,Ifgpct)
+   CALL open(*700,ifecpt,z(igecpt),inrw)
+   CALL fwdrec(*800,ifecpt)
+   CALL open(*900,ifgpct,z(iggpct),inrw)
+   CALL fwdrec(*1000,ifgpct)
 !
 ! REOPEN THE MGG OUTPUT FILE WITHOUT REWIND, AND THE BGG, IF CALLED FOR.
 !
-   IF ( .NOT.Heat ) CALL open(*1100,Ifmgg,Z(Igmgg),3)
-   IF ( Ioptb/=0 ) CALL open(*1200,Ifbgg,Z(Igbgg),3)
+   IF ( .NOT.heat ) CALL open(*1100,ifmgg,z(igmgg),3)
+   IF ( ioptb/=0 ) CALL open(*1200,ifbgg,z(igbgg),3)
 !
 ! CALL SUBROUTINE SMA2A WHICH WILL PERFORM ALL THE COMPUTATIONS.
 !
@@ -193,63 +199,63 @@ SUBROUTINE sma2
 !
 ! CLOSE FILES AND WRITE TRAILERS.
 !
-   CALL close(Ifgpct,Clsrw)
-   CALL close(Ifecpt,Clsrw)
-   CALL close(Ifmgg,Clsrw)
-   Mcbmgg(3) = Mcbmgg(2)
-   IF ( Mcbmgg(6)==0 ) THEN
+   CALL close(ifgpct,clsrw)
+   CALL close(ifecpt,clsrw)
+   CALL close(ifmgg,clsrw)
+   mcbmgg(3) = mcbmgg(2)
+   IF ( mcbmgg(6)==0 ) THEN
       DO i = 2 , 7
-         Mcbmgg(i) = 0
+         mcbmgg(i) = 0
       ENDDO
-      Nomgg = -1
+      nomgg = -1
    ENDIF
-   IF ( .NOT.Heat ) CALL wrttrl(Mcbmgg)
-   IF ( Ioptb/=0 ) THEN
-      CALL close(Ifbgg,Clsrw)
-      IF ( Mcbbgg(6)==0 ) THEN
+   IF ( .NOT.heat ) CALL wrttrl(mcbmgg)
+   IF ( ioptb/=0 ) THEN
+      CALL close(ifbgg,clsrw)
+      IF ( mcbbgg(6)==0 ) THEN
          DO i = 2 , 7
-            Mcbbgg(i) = 0
+            mcbbgg(i) = 0
          ENDDO
-         Nobgg = -1
+         nobgg = -1
       ELSE
-         Mcbbgg(3) = Mcbbgg(2)
-         CALL wrttrl(Mcbbgg(1))
-         Nobgg = 1
+         mcbbgg(3) = mcbbgg(2)
+         CALL wrttrl(mcbbgg(1))
+         nobgg = 1
       ENDIF
    ENDIF
  400  RETURN
 !
 ! SUBROUTINE SMA2 ERROR EXITS.
 !
- 500  ifile = Ifcstm
+ 500  ifile = ifcstm
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 600  ifile = -Ifcstm
+ 600  ifile = -ifcstm
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 700  ifile = Ifecpt
+ 700  ifile = ifecpt
    iparm = -1
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 800  ifile = Ifecpt
+ 800  ifile = ifecpt
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 900  ifile = Ifgpct
+ 900  ifile = ifgpct
    iparm = -1
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 1000 ifile = Ifgpct
+ 1000 ifile = ifgpct
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 1100 ifile = Ifmgg
+ 1100 ifile = ifmgg
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
    GOTO 99999
- 1200 ifile = Ifbgg
+ 1200 ifile = ifbgg
    iparm = -2
    CALL mesage(iparm,ifile,nmsma2(1))
 99999 END SUBROUTINE sma2

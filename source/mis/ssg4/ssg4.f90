@@ -1,10 +1,11 @@
-!*==ssg4.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssg4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg4
+   USE c_bitpos
+   USE c_blank
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -36,7 +37,7 @@ SUBROUTINE ssg4
 !     COMPUTE  TEMP1*TEMP2+PL=PLI
 !
    CALL ssg2b(scr4,scr3,pl,pli,0,2,1,scr1)
-   IF ( Iomt>0 ) THEN
+   IF ( iomt>0 ) THEN
 !
 !     COMPUTE  MOOB*GO+MOAB=SCR4
 !
@@ -45,7 +46,7 @@ SUBROUTINE ssg4
 !     COMPUTE DI*TEMP2  =SCR2
 !
       CALL ssg2b(d,scr3,0,scr2,0,2,1,scr1)
-      CALL sdr1b(scr5,scr2,scr3,scr1,Ua,Ul,Uo,uset,0,0)
+      CALL sdr1b(scr5,scr2,scr3,scr1,ua,ul,uo,uset,0,0)
 !
 !     COMPUTE  SCR4*SCR1+PO=POI
 !

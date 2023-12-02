@@ -1,7 +1,10 @@
-!*==gtmat1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gtmat1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gtmat1(Sym,Tt)
+   USE c_gtmatx
+   USE c_zzzzzz
    USE C_GTMATX
    USE C_ZZZZZZ
    IMPLICIT NONE
@@ -177,13 +180,15 @@ SUBROUTINE gtmat1(Sym,Tt)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_GTMATX
+      USE C_ZZZZZZ
 !
-      DO i = 1 , 3
-         DO j = 1 , 3
-            Tg6(i,j) = Tg(i,j)
-            Tg6(i+3,j+3) = Tg(i,j)
+      DO I = 1 , 3
+         DO J = 1 , 3
+            Tg6(I,J) = Tg(I,J)
+            Tg6(I+3,J+3) = Tg(I,J)
          ENDDO
       ENDDO
-      Ihelp = ikind
+      Ihelp = Ikind
    END SUBROUTINE spag_block_1
 END SUBROUTINE gtmat1

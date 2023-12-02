@@ -1,11 +1,12 @@
-!*==bpack.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bpack.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bpack(Ig,I,J,L)
 !
-USE C_BANDB
-USE C_BANDS
-USE ISO_FORTRAN_ENV                 
+   USE c_bandb
+   USE c_bands
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -40,7 +41,7 @@ USE ISO_FORTRAN_ENV
 !            BEFORE PACKING.
 !            L IS ASSUMED TO BE A POSITIVE INTEGER, NBIT BITS OR LESS
 !
-   Ipass = Ipass + 1
+   ipass = ipass + 1
    loc = J - 1
 !
 !     ********************************************
@@ -61,6 +62,6 @@ USE ISO_FORTRAN_ENV
 !     INTEGER*2     IG(1)
 !     ********************************************
 !
-   n1 = Ii1*loc + I
+   n1 = ii1*loc + I
    Ig(n1) = L
 END SUBROUTINE bpack

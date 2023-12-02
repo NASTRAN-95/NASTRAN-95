@@ -1,11 +1,12 @@
-!*==modacc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==modacc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE modacc
+   USE c_blank
+   USE c_modac3
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MODAC3
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,20 +34,20 @@ SUBROUTINE modacc
    DATA ireig/4HREIG/
    DATA istat/4HSTAT/
 !
-   Id = 1
-   IF ( Iop(1)==iceign ) Id = 2
-   IF ( Iop(1)==itran ) Id = 3
-   IF ( Iop(1)==ireig ) Id = 4
-   IF ( Iop(1)==istat ) Id = 5
+   id = 1
+   IF ( iop(1)==iceign ) id = 2
+   IF ( iop(1)==itran ) id = 3
+   IF ( iop(1)==ireig ) id = 4
+   IF ( iop(1)==istat ) id = 5
 !
 !     FOR EIGENVALUES STOP LIST AT NUMBER OF VECTORS
 !
-   Nfo = 0
-   Iz(1) = udv1t
-   CALL rdtrl(Iz)
+   nfo = 0
+   iz(1) = udv1t
+   CALL rdtrl(iz)
    j = 2
-   Nfo = 2*Iz(j)
-   Nz = korsz(Iz(1))
+   nfo = 2*iz(j)
+   nz = korsz(iz(1))
 !
 !     BUILD LIST OF NEW TIMES, KEEP/REMOVE LIST
 !
@@ -55,9 +56,9 @@ SUBROUTINE modacc
 !     COPY DISPLACEMENTS
 !
    id1 = 1
-   IF ( Id==3 ) id1 = 3
+   IF ( id==3 ) id1 = 3
    CALL modac2(id1,udv1t,udv3t)
-   IF ( Id==2 .OR. Id==4 ) RETURN
+   IF ( id==2 .OR. id==4 ) RETURN
 !
 !     COPY P LOAD S  (+ HEAD STUFF FOR NOW)
 !

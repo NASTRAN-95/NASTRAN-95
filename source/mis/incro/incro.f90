@@ -1,10 +1,11 @@
-!*==incro.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==incro.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE incro(Ax,Ay,Az,Ax1,Ay1,Az1,Ax2,Ay2,Az2,Sgr,Cgr,Sgs,Cgs,Kr,Fl,Beta,Sdelx,Dely,Delr,Deli)
+   USE c_dlm
+   USE c_kds
    IMPLICIT NONE
-   USE C_DLM
-   USE C_KDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,7 +53,7 @@ SUBROUTINE incro(Ax,Ay,Az,Ax1,Ay1,Az1,Ax2,Ay2,Az2,Sgr,Cgr,Sgs,Cgs,Kr,Fl,Beta,Sde
 !     XKRI = REAL PART OF THE NONPLANAR KERNEL  *   INBOARD POINT
 !     XKII = IMAGINARY PART OF THE NONPLANAR KERNEL  *   INBOARD POINT
 !
-   Ind = 1
+   ind = 1
    m = sqrt(1.0-Beta**2)
    br = Fl/2.
    eps = 0.00001
@@ -78,29 +79,29 @@ SUBROUTINE incro(Ax,Ay,Az,Ax1,Ay1,Az1,Ax2,Ay2,Az2,Sgr,Cgr,Sgs,Cgs,Kr,Fl,Beta,Sde
       IF ( at1>at1s ) at1s = at1
       IF ( at2>at2s ) at2s = at2
       IF ( count<0 ) THEN
-         dkri = K1rt1 - K10t1
-         dkii = K1it1
-         xkri = K2rt2p - K20t2p
-         xkii = K2it2p
+         dkri = k1rt1 - k10t1
+         dkii = k1it1
+         xkri = k2rt2p - k20t2p
+         xkii = k2it2p
          count = 1.
          x0 = Ax2
          y0 = Ay2
          z0 = Az2
       ELSEIF ( count==0 ) THEN
-         dkrc = K1rt1 - K10t1
-         dkic = K1it1
-         xkrc = K2rt2p - K20t2p
-         xkic = K2it2p
+         dkrc = k1rt1 - k10t1
+         dkic = k1it1
+         xkrc = k2rt2p - k20t2p
+         xkic = k2it2p
          at2 = abs(t2)
          count = -1.
          x0 = Ax1
          y0 = Ay1
          z0 = Az1
       ELSE
-         dkro = K1rt1 - K10t1
-         dkio = K1it1
-         xkro = K2rt2p - K20t2p
-         xkio = K2it2p
+         dkro = k1rt1 - k10t1
+         dkio = k1it1
+         xkro = k2rt2p - k20t2p
+         xkio = k2it2p
          x0 = Ax
          y0 = Ay
          z0 = Az

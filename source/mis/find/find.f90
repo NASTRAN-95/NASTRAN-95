@@ -1,14 +1,15 @@
-!*==find.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==find.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE find(Mode,Buf1,Buf4,Setid,X)
-USE C_BLANK
-USE C_PLTDAT
-USE C_RSTXXX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_XXPARM
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_pltdat
+   USE c_rstxxx
+   USE c_system
+   USE c_xmssg
+   USE c_xxparm
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -52,13 +53,13 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         CALL rdmodx(Parm,Mode,word)
-         set = Setd
+         CALL rdmodx(parm,Mode,word)
+         set = setd
          region = 0
-         Reg(1) = 0.
-         Reg(2) = 0.
-         Reg(3) = 1.
-         Reg(4) = 1.
+         reg(1) = 0.
+         reg(2) = 0.
+         reg(3) = 1.
+         reg(4) = 1.
          ratio = 0.
          nogo = 0
          IF ( Mode<0 ) GOTO 200
@@ -92,7 +93,7 @@ USE ISO_FORTRAN_ENV
 !     IS THE SCALE TO BE FOUND
 !
          ELSEIF ( word==scal ) THEN
-            Fscale = 1
+            fscale = 1
             IF ( Mode/=0 ) GOTO 20
             ASSIGN 100 TO tra
 !
@@ -118,59 +119,59 @@ USE ISO_FORTRAN_ENV
 !
 !     UNRECOGNIZABLE OPTION ON THE FIND CARD
 !
-            IF ( Prnt>=0 ) THEN
+            IF ( prnt>=0 ) THEN
                err(1) = 2
                err(2) = awrd(1)
                err(3) = awrd(2)
-               CALL wrtprt(Merr,err,msg3,nmsg3)
+               CALL wrtprt(merr,err,msg3,nmsg3)
             ENDIF
             GOTO 20
          ELSE
             IF ( Mode==0 ) CALL rdmode(*20,*140,*200,Mode,word)
             GOTO 140
          ENDIF
- 60      IF ( Org/=0 ) THEN
-            DO j = 1 , Org
-               IF ( Origin(j)==iwrd ) THEN
+ 60      IF ( org/=0 ) THEN
+            DO j = 1 , org
+               IF ( origin(j)==iwrd ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            IF ( Org>=Norg ) THEN
-               IF ( Prnt>=0 ) THEN
+            IF ( org>=norg ) THEN
+               IF ( prnt>=0 ) THEN
                   err(1) = 1
-                  err(2) = Norg
-                  CALL wrtprt(Merr,err,msg1,nmsg1)
+                  err(2) = norg
+                  CALL wrtprt(merr,err,msg1,nmsg1)
                ENDIF
-               Org = Norg
-               i = Org + 1
-               Edge(i,1) = 0.0
-               Edge(i,2) = 0.0
-               Edge(i,3) = 1.0
-               Edge(i,4) = 1.0
+               org = norg
+               i = org + 1
+               edge(i,1) = 0.0
+               edge(i,2) = 0.0
+               edge(i,3) = 1.0
+               edge(i,4) = 1.0
             ENDIF
          ENDIF
-         Org = Org + 1
-         Origin(Org) = iwrd
-         j = Org
+         org = org + 1
+         origin(org) = iwrd
+         j = org
          spag_nextblock_1 = 3
       CASE (3)
-         For = j
+         for = j
          GOTO 20
- 80      Reg(j) = amin1(1.,abs(fwrd))
+ 80      reg(j) = amin1(1.,abs(fwrd))
          IF ( j>=4 ) GOTO 20
          j = j + 1
          CALL rdmode(*180,*20,*200,Mode,word)
          GOTO 180
  100     ratio = fwrd
          GOTO 20
- 120     DO j = 1 , Nsets
+ 120     DO j = 1 , nsets
             IF ( iwrd==Setid(j) ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         WRITE (Nout,99001) Uwm , iwrd
+         WRITE (nout,99001) uwm , iwrd
 99001    FORMAT (A25,' 700, SET',I9,' REQUESTED ON FIND CARD HAS NOT BEEN',' DEFINED. DEFAULT SET',I9,' USED')
          nogo = 1
          GOTO 20
@@ -182,7 +183,7 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Fvp = 1
+         fvp = 1
          GOTO 20
  160     IF ( Mode/=-1 ) THEN
             IF ( Mode==-4 ) THEN
@@ -201,106 +202,106 @@ USE ISO_FORTRAN_ENV
 !
 !     END OF THE FIND CARD
 !
- 200     IF ( Org<=0 ) THEN
+ 200     IF ( org<=0 ) THEN
 !
 !     ALLOW NO ORIGIN REQUEST ON FIRST FIND CARD
 !     ORIGIN ID IS ZERO
 !
-            Org = 1
-            Origin(1) = 0
+            org = 1
+            origin(1) = 0
             region = 1
          ENDIF
-         IF ( For/=0 ) THEN
+         IF ( for/=0 ) THEN
             IF ( region==0 ) THEN
-               Reg(1) = Edge(For,1)
-               Reg(2) = Edge(For,2)
-               Reg(3) = Edge(For,3)
-               Reg(4) = Edge(For,4)
+               reg(1) = edge(for,1)
+               reg(2) = edge(for,2)
+               reg(3) = edge(for,3)
+               reg(4) = edge(for,4)
             ELSE
-               Edge(For,1) = Reg(1)
-               Edge(For,2) = Reg(2)
-               Edge(For,3) = Reg(3)
-               Edge(For,4) = Reg(4)
+               edge(for,1) = reg(1)
+               edge(for,2) = reg(2)
+               edge(for,3) = reg(3)
+               edge(for,4) = reg(4)
             ENDIF
          ENDIF
-         Reg(1) = Reg(1)*Axymax(1)
-         IF ( Reg(2)/=0. ) THEN
-            Reg(2) = Reg(2)*Axymax(2)
+         reg(1) = reg(1)*axymax(1)
+         IF ( reg(2)/=0. ) THEN
+            reg(2) = reg(2)*axymax(2)
          ELSE
-            Reg(2) = 4.*Cntchr(2)
+            reg(2) = 4.*cntchr(2)
          ENDIF
-         Reg(3) = Reg(3)*Axymax(1) - Cntchr(1)*8.
-         Reg(4) = Reg(4)*Axymax(2) - Cntchr(2)
+         reg(3) = reg(3)*axymax(1) - cntchr(1)*8.
+         reg(4) = reg(4)*axymax(2) - cntchr(2)
 !
 !     CALCULATE THE ROTATION MATRIX + ROTATE THE CO-ORDINATES OF THE SET
 !
-         CALL gopen(Gpset,X(Buf4),0)
+         CALL gopen(gpset,X(Buf4),0)
          i = 1
-         CALL fwdrec(*220,Gpset)
+         CALL fwdrec(*220,gpset)
          IF ( set/=1 ) THEN
             DO i = 2 , set
-               CALL fwdrec(*220,Gpset)
+               CALL fwdrec(*220,gpset)
             ENDDO
          ENDIF
 !
 !     READ NGPSET
 !
-         CALL fread(Gpset,Ngpset,1,0)
+         CALL fread(gpset,ngpset,1,0)
 !
 !     CHECK CORE
 !
-         icrq = 3*Ngpset + Ngp - Buf4 - Bufsiz - 1
+         icrq = 3*ngpset + ngp - Buf4 - bufsiz - 1
          IF ( icrq>0 ) THEN
 !
             CALL mesage(-8,icrq,name)
          ELSE
-            CALL fread(Gpset,X,Ngp,0)
-            CALL close(Gpset,1)
-            CALL fndset(X,X(Ngp+1),Buf1,0)
+            CALL fread(gpset,X,ngp,0)
+            CALL close(gpset,1)
+            CALL fndset(X,X(ngp+1),Buf1,0)
             DO i = 1 , 3
-               Min(i) = +1.E+20
-               Max(i) = -1.E+20
+               min(i) = +1.E+20
+               max(i) = -1.E+20
             ENDDO
-            CALL proces(X(Ngp+1))
-            IF ( Maxdef==0.0 .AND. Prnt<0 ) THEN
+            CALL proces(X(ngp+1))
+            IF ( maxdef==0.0 .AND. prnt<0 ) THEN
 !
 !     DEFORMED PLOTS AND MAXDEF WAS NOT SPECIFIED
 !
                err(1) = 0
-               CALL wrtprt(Merr,err,msg6,nmsg6)
-               Maxdef = amax1(D(2),D(3))
-               IF ( Maxdef<=0.0 ) Maxdef = 1.0
-               Maxdef = 0.05*Maxdef
+               CALL wrtprt(merr,err,msg6,nmsg6)
+               maxdef = amax1(d(2),d(3))
+               IF ( maxdef<=0.0 ) maxdef = 1.0
+               maxdef = 0.05*maxdef
             ENDIF
-            IF ( Prject==1 ) THEN
-            ELSEIF ( Prject==3 ) THEN
+            IF ( prject==1 ) THEN
+            ELSEIF ( prject==3 ) THEN
 !
 !     STEREO PROJECTION
 !
 !     FIND SCALE FACTORS (IF REQUESTED).
 !
-               IF ( Fscale/=0 ) THEN
-                  diam = sqrt(D(1)**2+D(2)**2+D(3)**2)
-                  a = sqrt3*Maxdef
-                  IF ( D(2)+a>=diam .OR. D(3)+a>=diam ) diam = diam + Maxdef
+               IF ( fscale/=0 ) THEN
+                  diam = sqrt(d(1)**2+d(2)**2+d(3)**2)
+                  a = sqrt3*maxdef
+                  IF ( d(2)+a>=diam .OR. d(3)+a>=diam ) diam = diam + maxdef
                   IF ( diam==0.0 ) diam = 1.E-5
-                  Objmod = 10./diam
-                  Scale = amin1(Reg(3)-Reg(1),Reg(4)-Reg(2))/mm17p5
-                  IF ( ratio/=0. ) Scale = ratio*Scale
+                  objmod = 10./diam
+                  scale = amin1(reg(3)-reg(1),reg(4)-reg(2))/mm17p5
+                  IF ( ratio/=0. ) scale = ratio*scale
                ENDIF
 !
 !     FIND VANTAGE POINT (IF REQUESTED)
 !
-               CALL perpec(X(Ngp+1),0)
-               Fvp = 0
+               CALL perpec(X(ngp+1),0)
+               fvp = 0
 !
 !     FIND ORIGIN -FOR- IF REQUESTED
 !
-               IF ( For/=0 ) THEN
-                  imsep = S0s*(rdist-D0)/(2.*rdist)
-                  Xy(For,1) = Scale*(Aver(2)*Objmod-imsep) - (Reg(1)+Reg(3))/2.
-                  Xy(For,2) = Scale*(Aver(2)*Objmod+imsep) - (Reg(1)+Reg(3))/2.
-                  Xy(For,3) = Scale*(Aver(3)*Objmod) - (Reg(2)+Reg(4))/2.
+               IF ( for/=0 ) THEN
+                  imsep = s0s*(rdist-d0)/(2.*rdist)
+                  xy(for,1) = scale*(aver(2)*objmod-imsep) - (reg(1)+reg(3))/2.
+                  xy(for,2) = scale*(aver(2)*objmod+imsep) - (reg(1)+reg(3))/2.
+                  xy(for,3) = scale*(aver(3)*objmod) - (reg(2)+reg(4))/2.
                ENDIF
                GOTO 210
             ELSE
@@ -308,45 +309,45 @@ USE ISO_FORTRAN_ENV
 !     PERSPECTIVE PROJECTION (FIND VANTAGE POINT IF REQUESTED)
 !
                DO i = 1 , 3
-                  Min(i) = +1.E+20
-                  Max(i) = -1.E+20
+                  min(i) = +1.E+20
+                  max(i) = -1.E+20
                ENDDO
-               CALL perpec(X(Ngp+1),0)
-               Fvp = 0
+               CALL perpec(X(ngp+1),0)
+               fvp = 0
             ENDIF
 !
 !     ORTHOGRAPHIC OR PERSPECTIVE PROJECTION
 !
 !     FIND SCALE FACTOR (IF REQUESTED).
 !
-            IF ( Fscale/=0 ) THEN
-               a = D(2) + 2.*Maxdef*sqrt3
-               IF ( a/=0.0 ) a = (Reg(3)-Reg(1))/a
-               b = D(3) + 2.*Maxdef*sqrt3
-               IF ( b/=0.0 ) b = (Reg(4)-Reg(2))/b
-               Scale = amin1(a,b)
-               IF ( Scale<=0. ) Scale = amax1(a,b)
-               IF ( Scale<=0. ) Scale = 1.
-               IF ( ratio/=0. ) Scale = ratio*Scale
+            IF ( fscale/=0 ) THEN
+               a = d(2) + 2.*maxdef*sqrt3
+               IF ( a/=0.0 ) a = (reg(3)-reg(1))/a
+               b = d(3) + 2.*maxdef*sqrt3
+               IF ( b/=0.0 ) b = (reg(4)-reg(2))/b
+               scale = amin1(a,b)
+               IF ( scale<=0. ) scale = amax1(a,b)
+               IF ( scale<=0. ) scale = 1.
+               IF ( ratio/=0. ) scale = ratio*scale
             ENDIF
 !
 !     FIND ORIGIN -FOR- IF REQUESTED
 !
-            IF ( For/=0 ) THEN
-               Xy(For,1) = Aver(2)*Scale - (Reg(1)+Reg(3))/2.
-               Xy(For,3) = Aver(3)*Scale - (Reg(2)+Reg(4))/2.
+            IF ( for/=0 ) THEN
+               xy(for,1) = aver(2)*scale - (reg(1)+reg(3))/2.
+               xy(for,3) = aver(3)*scale - (reg(2)+reg(4))/2.
             ENDIF
 !
- 210        Fscale = 0
-            For = 0
+ 210        fscale = 0
+            for = 0
             IF ( nogo/=0 ) CALL mesage(-37,0,name)
             RETURN
          ENDIF
 !
- 220     WRITE (Nout,99002) Ufm , Setid(set)
+ 220     WRITE (nout,99002) ufm , Setid(set)
 99002    FORMAT (A23,' 703, SET',I9,' REQUESTED ON FIND CARD NOT IN ','GPSETS FILE.')
          nogo = 1
-         CALL close(Gpset,1)
+         CALL close(gpset,1)
          IF ( nogo/=0 ) CALL mesage(-37,0,name)
          EXIT SPAG_DispatchLoop_1
       END SELECT

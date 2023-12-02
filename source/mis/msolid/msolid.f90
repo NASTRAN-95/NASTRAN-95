@@ -1,16 +1,17 @@
-!*==msolid.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==msolid.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE msolid(Itype)
-USE C_HMTOUT
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2HT
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2ht
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -108,93 +109,93 @@ USE ISO_FORTRAN_ENV
 !                                       MATRIX
 !
    IF ( Itype==2 ) THEN
-      Npts = 6
-      Nel = 3
-      Mfirst = 2
+      npts = 6
+      nel = 3
+      mfirst = 2
    ELSEIF ( Itype==3 ) THEN
-      Npts = 8
-      Nel = 5
-      Mfirst = 5
+      npts = 8
+      nel = 5
+      mfirst = 5
    ELSEIF ( Itype==4 ) THEN
-      Npts = 8
-      Nel = 10
-      Mfirst = 5
+      npts = 8
+      nel = 10
+      mfirst = 5
    ELSE
-      Npts = 4
-      Nel = 1
-      Mfirst = 1
+      npts = 4
+      nel = 1
+      mfirst = 1
    ENDIF
 !
 !     FETCH THE MATERIAL ID AND THE DENSITY, RHO
 !
-   Matidc = necpt(2)
-   Matflg = 4
-   ntemp = 5*Npts + 3
-   Eltemp = Ecpt(ntemp)
-   IF ( .NOT.Heat ) CALL mat(Ecpt(1))
-   IF ( Heat ) CALL hmat(Ecpt)
-   IF ( Heat ) Rho = Cp
-   IF ( Rho/=0.0 ) THEN
+   matidc = necpt(2)
+   matflg = 4
+   ntemp = 5*npts + 3
+   eltemp = ecpt(ntemp)
+   IF ( .NOT.heat ) CALL mat(ecpt(1))
+   IF ( heat ) CALL hmat(ecpt)
+   IF ( heat ) rho = cp
+   IF ( rho/=0.0 ) THEN
 !
 !     ZERO OUT POINT MASS
 !
-      Ptmass = 0.0D0
+      ptmass = 0.0D0
 !
 !     LOOP ON SUBELEMENTS
 !
-      DO me = 1 , Nel
-         Nrow = Mfirst + me - 1
+      DO me = 1 , nel
+         nrow = mfirst + me - 1
 !
 !     SET UP POINTERS TO LOCATION VECTORS AND TEST IF ELEMENT IS
 !     CONNECTED
 !
-         Itest = 0
+         itest = 0
          DO i = 1 , 4
-            Kpt = m(Nrow,i)
-            IF ( necpt(Kpt+2)==Npvt ) Itest = 1
+            kpt = m(nrow,i)
+            IF ( necpt(kpt+2)==npvt ) itest = 1
 !
 !     THE LOCATION OF THE VECTOR DATA IN THE ECPT IS
 !
-            Iloc(i) = 4*Kpt + Npts
+            iloc(i) = 4*kpt + npts
          ENDDO
-         IF ( Itest/=0 ) THEN
+         IF ( itest/=0 ) THEN
 !
 !     CALCULATE DIFFERENCE VECTORS FROM THE FIRST VECTOR
 !
             DO i = 2 , 4
                DO j = 1 , 3
-                  Jloc = Iloc(i) + j - 1
-                  J1 = Iloc(1) + j - 1
-                  R(i-1,j) = Ecpt(Jloc) - Ecpt(J1)
+                  jloc = iloc(i) + j - 1
+                  j1 = iloc(1) + j - 1
+                  r(i-1,j) = ecpt(jloc) - ecpt(j1)
                ENDDO
             ENDDO
 !
 !     THE MASS ON EACH POINT DUE TO THE TETRAHEDRON IS
 !     (NEGATIVE VALUE OF RHO IS ALLOWED)
 !
-            Emass = Rho/24.D0*dabs((R(3,1)*(R(1,2)*R(2,3)-R(1,3)*R(2,2))+R(3,2)*(R(1,3)*R(2,1)-R(1,1)*R(2,3))+R(3,3)                &
-                  & *(R(1,1)*R(2,2)-R(1,2)*R(2,1))))
-            IF ( Itype==4 ) Emass = Emass/2.0D0
+            emass = rho/24.D0*dabs((r(3,1)*(r(1,2)*r(2,3)-r(1,3)*r(2,2))+r(3,2)*(r(1,3)*r(2,1)-r(1,1)*r(2,3))+r(3,3)                &
+                  & *(r(1,1)*r(2,2)-r(1,2)*r(2,1))))
+            IF ( Itype==4 ) emass = emass/2.0D0
 !
 !     THE MASS IS NOW ADDED TO THE APPROPRIATE POINT
 !
-            Ptmass = Ptmass + Emass
+            ptmass = ptmass + emass
          ENDIF
       ENDDO
 !
 !     THE MASSES ARE EXPANDED AND INSERTED
 !
-      IF ( Heat ) THEN
-         CALL sma2b(Ptmass,Npvt,Npvt,Ifbgg,0.0D0)
+      IF ( heat ) THEN
+         CALL sma2b(ptmass,npvt,npvt,ifbgg,0.0D0)
       ELSE
          DO i = 1 , 36
-            Mge(i) = 0.0D0
+            mge(i) = 0.0D0
          ENDDO
-         M1 = -1
-         Mge(1) = Ptmass
-         Mge(8) = Mge(1)
-         Mge(15) = Mge(1)
-         CALL sma2b(Mge(1),Npvt,M1,Ifmgg,0.0D0)
+         m1 = -1
+         mge(1) = ptmass
+         mge(8) = mge(1)
+         mge(15) = mge(1)
+         CALL sma2b(mge(1),npvt,m1,ifmgg,0.0D0)
       ENDIF
    ENDIF
 !

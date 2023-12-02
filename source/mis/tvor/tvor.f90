@@ -1,4 +1,5 @@
-!*==tvor.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tvor.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tvor(Sl1,Cl1,Tl1,Sl2,Cl2,Tl2,Sgs,Cgs,Sgr,Cgr,X01,X02,Y0,Z0,E,Beta,Cbar,Fmach,Kr,Bre,Bim)
@@ -33,13 +34,21 @@ SUBROUTINE tvor(Sl1,Cl1,Tl1,Sl2,Cl2,Tl2,Sgs,Cgs,Sgr,Cgr,X01,X02,Y0,Z0,E,Beta,Cba
    REAL :: bs , cl , coef , cv , dij , dx01 , dx02 , dy0 , dz0 , ecgs , ee , eps , esgs , etl1 , etl2 , fb , fc , r2 , r4 , sl ,    &
          & te , tl , x0
    REAL , DIMENSION(2) :: dkc , dki , dko , kd1 , kd2
-   INTEGER :: ib , iflld , isnp , l
+   INTEGER :: ib , iflld , isnp , l , spag_nextblock_1
    REAL , SAVE :: pi48
    EXTERNAL flld , snpdf
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     NORMALWASH AT A POINT (X,Y,Z) - OF A SURFACE DIHEDRAL -
 !     DUE TO A TRAPEZOIDAL UNSTEADY VORTEX RING OF UNIT STRENGTH.

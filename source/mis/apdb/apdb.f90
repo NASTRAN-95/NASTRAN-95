@@ -1,15 +1,16 @@
-!*==apdb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==apdb.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apdb
+   USE c_apdbug
+   USE c_blank
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_APDBUG
-   USE C_BLANK
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -72,9 +73,9 @@ SUBROUTINE apdb
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Debug = .FALSE.
+         debug = .FALSE.
          CALL sswtch(20,j)
-         IF ( j==1 ) Debug = .TRUE.
+         IF ( j==1 ) debug = .TRUE.
 !
 !     SELECT AERODYNAMIC THEORY
 !
@@ -88,40 +89,40 @@ SUBROUTINE apdb
 !     FOR EXAMPLE, TO SELECT THEORY 7, USE THE FOLLOWING CARD -
 !     NASTRAN SYSTEM(93)=1
 !
-         IF ( Nsys(91)==0 ) mthd = 6
-         IF ( Nsys(91)==1 ) mthd = 7
+         IF ( nsys(91)==0 ) mthd = 6
+         IF ( nsys(91)==1 ) mthd = 7
 !
-         IF ( Debug ) CALL bug1('BLANK COMM',1,Nk,9)
+         IF ( debug ) CALL bug1('BLANK COMM',1,nk,9)
          nogo = 0
          maxsl = 100
-         ibuf1 = korsz(Z) - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
-         last = ibuf3 - Sysbuf - 1
+         ibuf1 = korsz(z) - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         last = ibuf3 - sysbuf - 1
          IF ( last>0 ) THEN
-            left = corwds(Z(1),Z(last))
+            left = corwds(z(1),z(last))
 !
 !     CREATE AEROB DATA BLOCK
 !
-            CALL gopen(aerob,Z(ibuf2),Wrtrew)
+            CALL gopen(aerob,z(ibuf2),wrtrew)
 !
 !     READ AERO CARD VALUES - BREF, SYMXZ AND SYMXY
 !
             file = edt
-            CALL preloc(*420,Z(ibuf1),edt)
-            CALL locate(*320,Z(ibuf1),aero,flag)
-            CALL read(*440,*460,edt,Z(1),6,1,flag)
-            IF ( Debug ) CALL bug1('AERO CARD ',2,Z,6)
+            CALL preloc(*420,z(ibuf1),edt)
+            CALL locate(*320,z(ibuf1),aero,flag)
+            CALL read(*440,*460,edt,z(1),6,1,flag)
+            IF ( debug ) CALL bug1('AERO CARD ',2,z,6)
             iz(1) = iz(5)
             iz(2) = iz(6)
-            CALL write(aerob,Z,3,1)
+            CALL write(aerob,z,3,1)
 !
 !     READ IN MKAERO1 CARDS
 !
             lmkaer = .FALSE.
             next = 1
-            CALL locate(*40,Z(ibuf1),mkaer1,flag)
-            CALL read(*440,*20,edt,Z(next),left,1,nx)
+            CALL locate(*40,z(ibuf1),mkaer1,flag)
+            CALL read(*440,*20,edt,z(next),left,1,nx)
          ENDIF
 !
 !     NOT ENOUGH CORE
@@ -130,7 +131,7 @@ SUBROUTINE apdb
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  20      n1 = next
-         IF ( Debug ) CALL bug1('MKAERO1   ',10,Z(n1),nx)
+         IF ( debug ) CALL bug1('MKAERO1   ',10,z(n1),nx)
          lmkaer = .TRUE.
          spag_nextblock_1 = 2
       CASE (2)
@@ -154,22 +155,22 @@ SUBROUTINE apdb
 !
 !     READ IN MKAERO2 CARDS
 !
- 40      CALL locate(*80,Z(ibuf1),mkaer2,flag)
-         CALL read(*440,*60,edt,Z(next),left,1,nx)
+ 40      CALL locate(*80,z(ibuf1),mkaer2,flag)
+         CALL read(*440,*60,edt,z(next),left,1,nx)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 60      CALL write(aerob,Z(next),nx,0)
-         IF ( Debug ) CALL bug1('MKAERO2   ',70,Z(next),nx)
+ 60      CALL write(aerob,z(next),nx,0)
+         IF ( debug ) CALL bug1('MKAERO2   ',70,z(next),nx)
          lmkaer = .TRUE.
  80      CALL write(aerob,0,0,1)
-         CALL close(aerob,Clsrew)
+         CALL close(aerob,clsrew)
          IF ( .NOT.lmkaer ) THEN
 !
 !     NO MKAERO1 OR MKAERO2 CARDS FOUND
 !
             kode = 2
-            WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+            WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
             CALL mesage(-37,0,name)
             RETURN
          ELSE
@@ -179,11 +180,11 @@ SUBROUTINE apdb
 !
 !     CREATE FLIST TABLE
 !
-            CALL open(*100,flist,Z(ibuf2),Wrtrew)
+            CALL open(*100,flist,z(ibuf2),wrtrew)
             CALL fname(flist,iz(next))
             CALL write(flist,iz(next),2,1)
-            CALL locate(*320,Z(ibuf1),aero,flag)
-            CALL read(*440,*120,edt,Z(next),left,1,nx)
+            CALL locate(*320,z(ibuf1),aero,flag)
+            CALL read(*440,*120,edt,z(next),left,1,nx)
             ip1 = -8
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
@@ -191,32 +192,32 @@ SUBROUTINE apdb
 !
 !     FLIST CAN BE PURGED IF THE APPROACH IS NOT AERO
 !
- 100     IF ( iabs(Nsys(19))/=4 ) THEN
+ 100     IF ( iabs(nsys(19))/=4 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file = flist
          GOTO 420
  120     CALL write(flist,aero,3,0)
-         CALL write(flist,Z(next),nx,1)
-         IF ( Debug ) CALL bug1('FLIST AERO',90,Z(next),nx)
-         CALL locate(*340,Z(ibuf1),flfact,flag)
-         CALL read(*440,*140,edt,Z(next),left,1,nx)
+         CALL write(flist,z(next),nx,1)
+         IF ( debug ) CALL bug1('FLIST AERO',90,z(next),nx)
+         CALL locate(*340,z(ibuf1),flfact,flag)
+         CALL read(*440,*140,edt,z(next),left,1,nx)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  140     CALL write(flist,flfact,3,0)
-         CALL write(flist,Z(next),nx,1)
-         IF ( Debug ) CALL bug1('FLIST FLFA',100,Z(next),nx)
-         CALL locate(*360,Z(ibuf1),fluttr,flag)
-         CALL read(*440,*160,edt,Z(next),left,1,nx)
+         CALL write(flist,z(next),nx,1)
+         IF ( debug ) CALL bug1('FLIST FLFA',100,z(next),nx)
+         CALL locate(*360,z(ibuf1),fluttr,flag)
+         CALL read(*440,*160,edt,z(next),left,1,nx)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  160     CALL write(flist,fluttr,3,0)
-         CALL write(flist,Z(next),nx,1)
-         IF ( Debug ) CALL bug1('FLIST FLUT',110,Z(next),nx)
-         CALL close(flist,Clsrew)
+         CALL write(flist,z(next),nx,1)
+         IF ( debug ) CALL bug1('FLIST FLUT',110,z(next),nx)
+         CALL close(flist,clsrew)
          itrl(1) = edt
          CALL rdtrl(itrl)
          itrl(1) = flist
@@ -226,33 +227,33 @@ SUBROUTINE apdb
 !
 !     CREATE ACPT TABLE
 !
-         CALL gopen(acpt,Z(ibuf2),Wrtrew)
+         CALL gopen(acpt,z(ibuf2),wrtrew)
 !
 !     STORE EXTERNAL NODE NUMBER, INTERNAL NODE NUMBER AND BASIC
 !     COORDINATES OF ALL NODES ON BLADE ON SCR1
 !
-         CALL gopen(scr1,Z(ibuf3),Wrtrew)
+         CALL gopen(scr1,z(ibuf3),wrtrew)
 !
 !     READ STREAML1 AND STREAML2 CARDS. STORE IN-CORE
 !
          nsl1a = next
-         CALL locate(*380,Z(ibuf1),strml1,flag)
-         CALL read(*440,*180,edt,Z(nsl1a),left,1,nsl1l)
+         CALL locate(*380,z(ibuf1),strml1,flag)
+         CALL read(*440,*180,edt,z(nsl1a),left,1,nsl1l)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  180     nsl1b = nsl1a + nsl1l - 1
-         IF ( Debug ) CALL bug1('STREAML1  ',120,Z(nsl1a),nsl1l)
+         IF ( debug ) CALL bug1('STREAML1  ',120,z(nsl1a),nsl1l)
          nsl2a = nsl1b + 1
-         left = corwds(Z(nsl2a),Z(last))
-         CALL locate(*400,Z(ibuf1),strml2,flag)
-         CALL read(*440,*200,edt,Z(nsl2a),left,1,nsl2l)
+         left = corwds(z(nsl2a),z(last))
+         CALL locate(*400,z(ibuf1),strml2,flag)
+         CALL read(*440,*200,edt,z(nsl2a),left,1,nsl2l)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  200     nsl2b = nsl2a + nsl2l - 1
-         IF ( Debug ) CALL bug1('STREAML2  ',130,Z(nsl2a),nsl2l)
-         CALL close(edt,Clsrew)
+         IF ( debug ) CALL bug1('STREAML2  ',130,z(nsl2a),nsl2l)
+         CALL close(edt,clsrew)
 !
 !     INPUT CHECKS  (ALL ARE THEORY DEPENDENT RESTRICTIONS)
 !     STREAML1 - ALL CARDS MUST HAVE THE SAME NUMBER OF NODES
@@ -265,11 +266,11 @@ SUBROUTINE apdb
 !     COUNT THE NUMBER OF STREAML2 CARDS
 !
          nlines = nsl2l/10
-         IF ( Debug ) CALL bug1('NLINES    ',131,nlines,1)
+         IF ( debug ) CALL bug1('NLINES    ',131,nlines,1)
          IF ( nlines<3 ) THEN
             nogo = 1
-            WRITE (Iout,99002) Ufm , nlines
-99002       FORMAT (A23,' - APDB MODULE - THE NO. OF STREAML2 CARDS INPUT =',I3,/40X,                                               &
+            WRITE (iout,99001) ufm , nlines
+99001       FORMAT (A23,' - APDB MODULE - THE NO. OF STREAML2 CARDS INPUT =',I3,/40X,                                               &
                    &'THERE MUST BE AT LEAST THREE(3) STREAML2 CARDS',' INPUT.')
          ENDIF
          IF ( nlines>maxsl ) THEN
@@ -277,8 +278,8 @@ SUBROUTINE apdb
 !     MAXIMUM NUMBER OF STREAML2 CARDS EXCEEDED FOR
 !     LOCAL ARRAY PSTRM. SEE ERROR MESSAGE FOR FIX.
 !
-            WRITE (Iout,99003) Ufm , maxsl
-99003       FORMAT (A23,' - APDB MODULE - MAXIMUM NUMBER OF STREAML2 CARDS ','EXCEEDED FOR LOCAL ARRAY PSTRM.',/40X,                &
+            WRITE (iout,99002) ufm , maxsl
+99002       FORMAT (A23,' - APDB MODULE - MAXIMUM NUMBER OF STREAML2 CARDS ','EXCEEDED FOR LOCAL ARRAY PSTRM.',/40X,                &
                    &'UPDATE VARABLE MAXSL AND ARRAY PSTRM IN ROUTINE APDB.',/40X,'CURRENT VALUE OF MAXSL AND DIMENSION OF PSTRM =', &
                   & I4)
             CALL mesage(-37,0,name)
@@ -313,7 +314,6 @@ SUBROUTINE apdb
             ENDIF
          ENDDO
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          pstrm(nline) = ipos
          nstnsx = ns - ipos - 1
@@ -325,8 +325,8 @@ SUBROUTINE apdb
 !
          ELSEIF ( nstnsx/=nstns ) THEN
             nogo = 2
-            WRITE (Iout,99004) Ufm , iz(ipos)
-99004       FORMAT (A23,' - APDB MODULE - ILLEGAL NO. OF NODES ON STREAML1 ','CARD WITH SLN =',I8,/40X,                             &
+            WRITE (iout,99003) ufm , iz(ipos)
+99003       FORMAT (A23,' - APDB MODULE - ILLEGAL NO. OF NODES ON STREAML1 ','CARD WITH SLN =',I8,/40X,                             &
                    &'ALL STREAML1 CARDS MUST HAVE THE SAME NUMBER OF NODES.')
          ENDIF
          spag_nextblock_1 = 6
@@ -343,8 +343,8 @@ SUBROUTINE apdb
             IF ( pstrm(nline)<=0 ) THEN
                nogo = 3
                isln = -pstrm(nline)
-               WRITE (Iout,99005) Ufm , isln
-99005          FORMAT (A23,' - APDB MODULE - NO STREAML1 CARD FOR THE STREAML2',' WITH SLN =',I8)
+               WRITE (iout,99004) ufm , isln
+99004          FORMAT (A23,' - APDB MODULE - NO STREAML1 CARD FOR THE STREAML2',' WITH SLN =',I8)
             ENDIF
          ENDDO
          IF ( nogo>0 ) THEN
@@ -355,41 +355,41 @@ SUBROUTINE apdb
 !     READ BGPDT
 !
          nbg1 = nsl2b + 1
-         left = corwds(Z(nbg1),Z(last))
+         left = corwds(z(nbg1),z(last))
          file = bgpdt
-         CALL gopen(bgpdt,Z(ibuf1),Rdrew)
-         CALL read(*440,*220,bgpdt,Z(nbg1),left,1,nbgl)
+         CALL gopen(bgpdt,z(ibuf1),rdrew)
+         CALL read(*440,*220,bgpdt,z(nbg1),left,1,nbgl)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 220     CALL close(bgpdt,Clsrew)
-         IF ( Debug ) CALL bug1('BGPDT     ',200,Z(nbg1),nbgl)
+ 220     CALL close(bgpdt,clsrew)
+         IF ( debug ) CALL bug1('BGPDT     ',200,z(nbg1),nbgl)
          nbg2 = nbg1 + nbgl - 1
 !
 !     READ EQEXIN (RECORD 1)
 !
          neq1 = nbg2 + 1
-         left = corwds(Z(neq1),Z(last))
+         left = corwds(z(neq1),z(last))
          file = eqexin
-         CALL gopen(eqexin,Z(ibuf1),Rdrew)
-         CALL read(*440,*240,eqexin,Z(neq1),left,1,neql)
+         CALL gopen(eqexin,z(ibuf1),rdrew)
+         CALL read(*440,*240,eqexin,z(neq1),left,1,neql)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  240     neq2 = neq1 + neql - 1
-         IF ( Debug ) CALL bug1('EQEXIN R1 ',210,Z(neq1),neql)
+         IF ( debug ) CALL bug1('EQEXIN R1 ',210,z(neq1),neql)
 !
 !     READ EQEXIN (RECORD 2)
 !
          neq21 = neq2 + 1
-         left = corwds(Z(neq21),Z(last))
-         CALL read(*440,*260,eqexin,Z(neq21),left,1,neq2l)
+         left = corwds(z(neq21),z(last))
+         CALL read(*440,*260,eqexin,z(neq21),left,1,neq2l)
          ip1 = -8
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  260     neq22 = neq2 + neq2l - 1
-         IF ( Debug ) CALL bug1('EQEXIN R2 ',212,Z(neq21),neq2l)
-         CALL close(eqexin,Clsrew)
+         IF ( debug ) CALL bug1('EQEXIN R2 ',212,z(neq21),neq2l)
+         CALL close(eqexin,clsrew)
 !
 !     WRITE ACPT
 !
@@ -399,13 +399,13 @@ SUBROUTINE apdb
 !     WRITE CONSTANT PARAMETERS, WORDS 1 - 6
 !
          buf(1) = mthd
-         buf(2) = Iref
+         buf(2) = iref
          buf(3) = macmin
          buf(4) = macmax
          buf(5) = nlines
          buf(6) = nstns
          CALL write(acpt,buf,6,0)
-         IF ( Debug ) CALL bug1('ACPT WRT 1',216,buf,6)
+         IF ( debug ) CALL bug1('ACPT WRT 1',216,buf,6)
 !
 !     WRITE STREAMLINE DATA
 !
@@ -416,16 +416,16 @@ SUBROUTINE apdb
 !     MAKE SURE NSTNS ON ALL STREAML2 CARDS IS THE SAME
 !
             IF ( iz(nsl+1)/=nstns ) THEN
-               WRITE (Iout,99006) Uwm , iz(nsl)
-99006          FORMAT (A25,' - APDB MODULE - STREAML2 WITH SLN =',I8,/42X,'NSTNS INCONSISTENT WITH NO. OF NODES ON STREAML2 CARD ', &
+               WRITE (iout,99005) uwm , iz(nsl)
+99005          FORMAT (A25,' - APDB MODULE - STREAML2 WITH SLN =',I8,/42X,'NSTNS INCONSISTENT WITH NO. OF NODES ON STREAML2 CARD ', &
                       &'FOR BLADE ROOT.',/42X,'CORRECT VALUE OF NSTNS WILL BE ','SUBSTITUTED ON STREAML2 CARD.')
                iz(nsl+1) = nstns
             ENDIF
 !
 !     WRITE STREAML2 DATA
 !
-            CALL write(acpt,Z(nsl),10,0)
-            IF ( Debug ) CALL bug1('ACPT WRT 2',217,Z(nsl),10)
+            CALL write(acpt,z(nsl),10,0)
+            IF ( debug ) CALL bug1('ACPT WRT 2',217,z(nsl),10)
 !
 !     WRITE BASIC X, Y AND Z FOR EACH NODE ON STREAML1 CARD
 !
@@ -456,37 +456,37 @@ SUBROUTINE apdb
 !
                IF ( buf(4)<0 ) THEN
                   nogo = 6
-                  WRITE (Iout,99007) Ufm , iz(ipos) , iz(igdp)
-99007             FORMAT (A23,' - APDB MODULE - STREAML1 CARD WITH SLN =',I8,' REFERENCES A SCALAR POINT WITH EXTERNAL ID =',I8,    &
+                  WRITE (iout,99006) ufm , iz(ipos) , iz(igdp)
+99006             FORMAT (A23,' - APDB MODULE - STREAML1 CARD WITH SLN =',I8,' REFERENCES A SCALAR POINT WITH EXTERNAL ID =',I8,    &
                         & /40X,'SCALAR POINTS ARE ILLEGAL. USE A GRID POINT.')
                ENDIF
                CALL write(acpt,buf(5),3,0)
                CALL write(scr1,buf,7,0)
-               IF ( Debug ) CALL bug1('ACPT WRT 3',227,buf,7)
+               IF ( debug ) CALL bug1('ACPT WRT 3',227,buf,7)
 !
 !-----DETERMINE DIRECTION OF BLADE ROTATION VIA Y-COORDINATES AT TIP
 !-----STREAMLINE. USE COORDINATES OF FIRST 2 NODES ON STREAMLINE.
 !
-               IF ( nline==nlines .AND. igdp==ipos1 ) ytip1 = Z(jloc+2)
-               IF ( nline==nlines .AND. igdp==ipos1+1 ) ytip2 = Z(jloc+2)
+               IF ( nline==nlines .AND. igdp==ipos1 ) ytip1 = z(jloc+2)
+               IF ( nline==nlines .AND. igdp==ipos1+1 ) ytip2 = z(jloc+2)
                CYCLE
 !
 !     STREAML1 REFERNCES AN EXTERNAL ID THAT DOES NOT EXIST
 !
  265           nogo = 5
-               WRITE (Iout,99008) Ufm , iz(ipos) , iz(igdp)
-99008          FORMAT (A23,' - APDB MODULE - STREAML1 CARD WITH SLN =',I8,' REFERENCES NON-EXISTENT EXTERNAL NODE =',I8)
+               WRITE (iout,99007) ufm , iz(ipos) , iz(igdp)
+99007          FORMAT (A23,' - APDB MODULE - STREAML1 CARD WITH SLN =',I8,' REFERENCES NON-EXISTENT EXTERNAL NODE =',I8)
 !
             ENDDO
          ENDDO
 !
          xsign = 1.0
          IF ( ytip2<ytip1 ) xsign = -1.0
-         IF ( Debug ) CALL bug1('XSIN      ',240,xsign,1)
+         IF ( debug ) CALL bug1('XSIN      ',240,xsign,1)
          CALL write(acpt,0,0,1)
          CALL write(scr1,0,0,1)
-         CALL close(acpt,Clsrew)
-         CALL close(scr1,Clsrew)
+         CALL close(acpt,clsrew)
+         CALL close(scr1,clsrew)
          itrl(1) = acpt
          itrl(2) = 1
          itrl(3) = 0
@@ -505,10 +505,10 @@ SUBROUTINE apdb
 !     COMPRESSOR BLADES (THEORY 6) - NK = NJ = NSTNS*NLINES.
 !     SWEPT TURBOPROPS  (THEORY 7) - NK = NJ = 2*NSTNS*NLINES.
 !
-         IF ( mthd==6 ) Nk = nstns*nlines
-         IF ( mthd==7 ) Nk = 2*nstns*nlines
-         Nj = Nk
-         IF ( Debug ) CALL bug1('BLANK COM ',241,Nk,9)
+         IF ( mthd==6 ) nk = nstns*nlines
+         IF ( mthd==7 ) nk = 2*nstns*nlines
+         nj = nk
+         IF ( debug ) CALL bug1('BLANK COM ',241,nk,9)
 !
 !     CREATE PVECT PARTITIONING VECTOR     (PVECT MAY BE PURGED)
 !     PVECT IS A COLUMN PARTITIONING VECTOR TO BE USED BY MODULE PARTN
@@ -519,17 +519,17 @@ SUBROUTINE apdb
 !
 !     OPEN PVECT AND WRITE HEADER
 !
-         CALL open(*280,pvect,Z(ibuf2),Wrtrew)
+         CALL open(*280,pvect,z(ibuf2),wrtrew)
 !
 !     TEST FOR VALID NEIGV AND KINDEX
 !
-         IF ( Neigv<=0 .OR. Kindex<0 ) THEN
+         IF ( neigv<=0 .OR. kindex<0 ) THEN
 !
 !     NEIGV OR KINDEX INVALID
 !
-            WRITE (Iout,99009) Ufm , Neigv , Kindex
+            WRITE (iout,99008) ufm , neigv , kindex
 !
-99009       FORMAT (A23,' - APDB MODULE - INVALID PARAMETER NEIGV OR KINDEX',' INPUT.',/40X,                                        &
+99008       FORMAT (A23,' - APDB MODULE - INVALID PARAMETER NEIGV OR KINDEX',' INPUT.',/40X,                                        &
                    &'DATA BLOCK PVECT (FILE 205) CANNOT BE GENERATED.',/40X,7HNEIGV =,I8,10H, KINDEX =,I8)
             CALL mesage(-37,0,name)
             RETURN
@@ -541,29 +541,29 @@ SUBROUTINE apdb
 !     PVECT IS TO BE GENERATED
 !
             left = left - neq2
-            ncol = Neigv
-            IF ( Kindex>0 ) ncol = 2*ncol
+            ncol = neigv
+            IF ( kindex>0 ) ncol = 2*ncol
             ipos1 = neq2 + 1
             ipos2 = neq2 + ncol
             DO ipv = ipos1 , ipos2
-               Z(ipv) = 0.0
+               z(ipv) = 0.0
             ENDDO
-            IF ( Kindex/=0 ) THEN
+            IF ( kindex/=0 ) THEN
                ipos3 = ipos1
-               IF ( Mtype(1)/=sine ) ipos3 = ipos1 + 1
+               IF ( mtype(1)/=sine ) ipos3 = ipos1 + 1
                DO ipv = ipos3 , ipos2 , 2
-                  Z(ipv) = 1.0
+                  z(ipv) = 1.0
                ENDDO
             ENDIF
-            Typin = 1
-            Typout = 1
-            Ii = 1
-            Nn = ncol
-            Incr = 1
+            typin = 1
+            typout = 1
+            ii = 1
+            nn = ncol
+            incr = 1
             CALL makmcb(itrl,pvect,ncol,2,1)
-            CALL pack(Z(ipos1),pvect,itrl)
-            IF ( Debug ) CALL bug1('PVECT     ',260,Z(ipos1),ncol)
-            CALL close(pvect,Clsrew)
+            CALL pack(z(ipos1),pvect,itrl)
+            IF ( debug ) CALL bug1('PVECT     ',260,z(ipos1),ncol)
+            CALL close(pvect,clsrew)
             CALL wrttrl(itrl)
          ENDIF
 !
@@ -577,16 +577,16 @@ SUBROUTINE apdb
          itrl(1) = cstm
          CALL rdtrl(itrl)
          IF ( itrl(1)==cstm ) THEN
-            left = corwds(Z(ncstm1),Z(last))
-            CALL gopen(cstm,Z(ibuf1),Rdrew)
-            CALL read(*440,*300,cstm,Z(ncstm1),left,1,ncstml)
+            left = corwds(z(ncstm1),z(last))
+            CALL gopen(cstm,z(ibuf1),rdrew)
+            CALL read(*440,*300,cstm,z(ncstm1),left,1,ncstml)
             ip1 = -8
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  300     ncstm2 = ncstm1 + ncstml - 1
-         IF ( Debug ) CALL bug1('CSTM      ',300,Z(ncstm1),ncstml)
-         CALL close(cstm,Clsrew)
+         IF ( debug ) CALL bug1('CSTM      ',300,z(ncstm1),ncstml)
+         CALL close(cstm,clsrew)
 !
 !     ALLOCATE WORK STORAGE
 !
@@ -599,55 +599,54 @@ SUBROUTINE apdb
          IF ( left<=0 ) THEN
             ip1 = -8
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     GENERATE GTKA TRANSFORMATION MATRIX FOR APPROPRIATE THEORY.
 !
 !     COMPRESSOR BLADES (AERODYNAMIC THEORY 6).
 !
-            IF ( mthd==6 ) CALL apdb1(ibuf1,ibuf2,next,left,nstns,nlines,xsign,ncstml,Z(ncstm1),Z(ip1),Z(ip2),Z(ip3),Z(ip4))
+            IF ( mthd==6 ) CALL apdb1(ibuf1,ibuf2,next,left,nstns,nlines,xsign,ncstml,z(ncstm1),z(ip1),z(ip2),z(ip3),z(ip4))
 !
 !     SWEPT TURBOPROPS (AERODYNAMIC THEORY 7).
 !
-            IF ( mthd==7 ) CALL apdb2(ibuf1,ibuf2,next,left,nstns,nlines,xsign,ncstml,Z(ncstm1),Z(ip1),Z(ip2),Z(ip3),Z(ip4))
+            IF ( mthd==7 ) CALL apdb2(ibuf1,ibuf2,next,left,nstns,nlines,xsign,ncstml,z(ncstm1),z(ip1),z(ip2),z(ip3),z(ip4))
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     ERROR MESSAGES
 !
 !     NO AERO CARD FOUND
  320     kode = 1
-         WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+         WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
          CALL mesage(-37,0,name)
          RETURN
 !
 !     NO FLFACT CARD FOUND
 !
  340     kode = 3
-         WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+         WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
          CALL mesage(-37,0,name)
          RETURN
 !
 !     NO FLUTTER CARD FOUND
 !
  360     kode = 4
-         WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+         WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
          CALL mesage(-37,0,name)
          RETURN
 !
 !     NO STREAML1 CARD FOUND
 !
  380     kode = 5
-         WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+         WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
          CALL mesage(-37,0,name)
          RETURN
 !
 !     NO STREAML2 CARD FOUND
 !
  400     kode = 6
-         WRITE (Iout,99001) Ufm , name1(kode,1) , name1(kode,2)
+         WRITE (iout,99009) ufm , name1(kode,1) , name1(kode,2)
          CALL mesage(-37,0,name)
          RETURN
 !
@@ -676,5 +675,5 @@ SUBROUTINE apdb
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
-99001 FORMAT (A23,' - MODULE APDB - BULK DATA CARD ',2A4,' MISSING FROM INPUT DECK.')
+99009 FORMAT (A23,' - MODULE APDB - BULK DATA CARD ',2A4,' MISSING FROM INPUT DECK.')
 END SUBROUTINE apdb

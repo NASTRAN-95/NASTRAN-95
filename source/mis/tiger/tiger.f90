@@ -1,16 +1,17 @@
-!*==tiger.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tiger.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bands
+   USE c_geomx
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDS
-   USE C_GEOMX
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,26 +46,26 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Neq+Neqr==0 ) THEN
+         IF ( neq+neqr==0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         kdim4 = Kdim*4
-         CALL open(*20,Scr1,Iz(Ibuf1),Rdrew)
+         kdim4 = kdim*4
+         CALL open(*20,scr1,iz(ibuf1),rdrew)
 !
 !     GENERATE NEW CONNECTIONS.
 !     TWO PASSES.   FIRST PASS FOR MPC CARDS, AND SECOND FOR RIGID ELEM.
 !
          DO jj = 1 , 2
-            IF ( jj==1 ) nq = Neq
-            IF ( jj==2 ) nq = Neqr
+            IF ( jj==1 ) nq = neq
+            IF ( jj==2 ) nq = neqr
             IF ( nq/=0 ) THEN
 !
 !     READ MPC EQUATIONS AND RIGID ELEMENT GRIDS
 !     AND CONVERT ORIGINAL GRID NOS. TO INTERNAL LABELS.
 !
                DO ii = 1 , nq
-                  CALL read(*40,*40,Scr1,nterm,1,0,m)
+                  CALL read(*40,*40,scr1,nterm,1,0,m)
                   kk = 1
                   j2 = 2
                   IF ( jj/=1 ) THEN
@@ -77,17 +78,17 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL read(*40,*40,Scr1,Kg,nterm,1,m)
+                  CALL read(*40,*40,scr1,Kg,nterm,1,m)
                   CALL scat(Kg,nterm,Inv,Ii3,Norig)
 !
                   DO k = 1 , kk
                      igrid = Kg(k)
-                     IF ( Nodep==+1 ) List(igrid) = igrid
+                     IF ( nodep==+1 ) List(igrid) = igrid
 !
 !     IGRID=DEPENDENT GRID POINT IN AN MPC EQUATION.
 !
-                     CALL bunpak(Ig,igrid,Maxdeg,Jg)
-                     SPAG_Loop_4_1: DO i = 1 , Maxdeg
+                     CALL bunpak(Ig,igrid,maxdeg,Jg)
+                     SPAG_Loop_4_1: DO i = 1 , maxdeg
                         l = Jg(i)
                         IF ( l<=0 ) EXIT SPAG_Loop_4_1
 !
@@ -104,26 +105,25 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
             ENDIF
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
-         WRITE (Nout,99001)
+         WRITE (nout,99001)
 99001    FORMAT (72H0*** MPC CARDS NOT PROCESSED IN BANDIT DUE TO INSUFFICIENT SCRATCH SPACE,//)
-         Neq = 0
-         Neqr = 0
+         neq = 0
+         neqr = 0
          spag_nextblock_1 = 3
       CASE (3)
-         CALL close(Scr1,Rew)
+         CALL close(scr1,rew)
 !
 !     QUIT HERE IF MPC DEPENDENT POINTS ARE NOT TO BE DELETED FROM THE
 !     CONNECTION TABLE IG.
 !
-         IF ( Nodep==+1 ) THEN
+         IF ( nodep==+1 ) THEN
 !
 !     COMPRESS OUT ZEROS FORM LIST
 !
             n = 0
-            DO i = 1 , Nn
+            DO i = 1 , nn
                IF ( List(i)/=0 ) THEN
                   n = n + 1
                   List(n) = List(i)
@@ -134,20 +134,20 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
 !     IN LIST
 !
             IF ( n>0 ) THEN
-               mm1 = Mm - 1
+               mm1 = mm - 1
                DO ii = 1 , n
                   i = List(ii)
-                  CALL bunpak(Ig,i,Mm,Jg)
-                  SPAG_Loop_2_2: DO j = 1 , Mm
+                  CALL bunpak(Ig,i,mm,Jg)
+                  SPAG_Loop_2_2: DO j = 1 , mm
                      l = Jg(j)
                      IF ( l==0 ) EXIT SPAG_Loop_2_2
-                     Nedge = Nedge - 1
+                     nedge = nedge - 1
                      k = 0
                      SPAG_Loop_3_3: DO
                         k = k + 1
                         m = bunpk(Ig,l,k)
                         IF ( m==i ) THEN
-                           IF ( k<Mm ) THEN
+                           IF ( k<mm ) THEN
                               DO np = k , mm1
                                  is = bunpk(Ig,l,np+1)
                                  CALL bpack(Ig,l,np,is)
@@ -174,7 +174,7 @@ SUBROUTINE tiger(Ig,List,Inv,Ii3,Norig,Kg,Jg)
  40      k = -2
          spag_nextblock_1 = 5
       CASE (5)
-         CALL mesage(k,Scr1,sub)
+         CALL mesage(k,scr1,sub)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

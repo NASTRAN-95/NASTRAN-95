@@ -1,4 +1,5 @@
-!*==dzy.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dzy.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dzy(X,Y,Z,Sgr,Cgr,Xi1,Xi2,Eta,Zeta,Ar,Ao,Kr,Cbar,Beta,Fmach,Lsh,Idzdy,Dzdyr,Dzdyi)
@@ -32,7 +33,16 @@ SUBROUTINE dzy(X,Y,Z,Sgr,Cgr,Xi1,Xi2,Eta,Zeta,Ar,Ao,Kr,Cbar,Beta,Fmach,Lsh,Idzdy
          & sgs , sl1 , sl2 , tl1 , tl2 , x01 , x02 , y0 , y01 , y02 , z0 , z01 , z02
    INTEGER :: l
    REAL , SAVE :: pi16
-   EXTERNAL flld , tvor
+   EXTERNAL flld
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -155,16 +165,16 @@ CONTAINS
 !     ****   DZ-AR .LT. 1   ****
 !     ****   DY-AR .GT. 1   ****
 !
-      sl1 = 0.0
-      tl1 = 0.0
-      sl2 = 0.0
-      tl2 = 0.0
-      cl1 = 1.0
-      cl2 = 1.0
-      e = 1.732051*e
-      y0 = Y - Eta
-      z0 = Z - Zeta
+      Sl1 = 0.0
+      Tl1 = 0.0
+      Sl2 = 0.0
+      Tl2 = 0.0
+      Cl1 = 1.0
+      Cl2 = 1.0
+      E = 1.732051*E
+      Y0 = Y - Eta
+      Z0 = Z - Zeta
 !
-      CALL tvor(sl1,cl1,tl1,sl2,cl2,tl2,sgs,cgs,Sgr,Cgr,x01,x02,y0,z0,e,Beta,Cbar,Fmach,Kr,Dzdyr,Dzdyi)
+      CALL tvor(Sl1,Cl1,Tl1,Sl2,Cl2,Tl2,Sgs,Cgs,Sgr,Cgr,X01,X02,Y0,Z0,E,Beta,Cbar,Fmach,Kr,Dzdyr,Dzdyi)
    END SUBROUTINE spag_block_1
 END SUBROUTINE dzy

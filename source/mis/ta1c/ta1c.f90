@@ -1,15 +1,16 @@
-!*==ta1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ta1c.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ta1c
+   USE c_blank
+   USE c_names
+   USE c_setup
+   USE c_system
+   USE c_ta1com
+   USE c_tac1ax
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SETUP
-   USE C_SYSTEM
-   USE C_TA1COM
-   USE C_TAC1AX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -40,112 +41,112 @@ SUBROUTINE ta1c
 !
 !     ADD MORE BITS TO HALF IF MACHINE WORD IS LARGER THAN 32
 !
-         IF ( Nbpw>=36 ) half = 4*half
-         IF ( Nbpw>36 ) half = 4*half
+         IF ( nbpw>=36 ) half = 4*half
+         IF ( nbpw>36 ) half = 4*half
 !
 !     SET BUFFER POINTERS, ETC.
 !
-         Buf1 = korsz(Z) - Sysbuf - 2
-         Buf2 = Buf1 - Sysbuf
-         Buf3 = Buf2 - Sysbuf
-         Nogo = 0
-         Nogenl = 0
+         buf1 = korsz(z) - sysbuf - 2
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         nogo = 0
+         nogenl = 0
 !
 !     READ THE SIL INTO CORE
 !
-         file = Sil
-         CALL open(*100,Sil,Z(Buf1),Rdrew)
-         CALL fwdrec(*120,Sil)
-         CALL read(*120,*20,Sil,Z,Buf2,1,Nsil)
+         file = sil
+         CALL open(*100,sil,z(buf1),rdrew)
+         CALL fwdrec(*120,sil)
+         CALL read(*120,*20,sil,z,buf2,1,nsil)
          CALL mesage(-8,0,nam)
- 20      CALL close(Sil,Clsrew)
+ 20      CALL close(sil,clsrew)
 !
 !     OPEN THE GEI. WRITE HEADER RECORD.
 !
-         file = Gei
-         CALL open(*100,Gei,Z(Buf2),Wrtrew)
-         CALL fname(Gei,buf)
-         CALL write(Gei,buf,2,1)
+         file = gei
+         CALL open(*100,gei,z(buf2),wrtrew)
+         CALL fname(gei,buf)
+         CALL write(gei,buf,2,1)
 !
 !     OPEN THE ECT. READ ELEMENT ID.
 !
-         file = Ect
-         CALL preloc(*100,Z(Buf1),Ect)
-         CALL locate(*160,Z(Buf1),genel,flag)
+         file = ect
+         CALL preloc(*100,z(buf1),ect)
+         CALL locate(*160,z(buf1),genel,flag)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*120,*80,Ect,buf,1,0,flag)
-         Idgenl = buf(1)
-         Nogenl = Nogenl + 1
+         CALL read(*120,*80,ect,buf,1,0,flag)
+         idgenl = buf(1)
+         nogenl = nogenl + 1
 !
 !     READ THE UI LIST. STORE POSITION IN UI LIST, SIL NO.,
 !     INTERNAL GRID NO., AND COMPONENT CODE.
 !
-         Iui = Nsil + 1
-         i = Iui
+         iui = nsil + 1
+         i = iui
          j = 1
          DO
-            CALL read(*120,*140,Ect,Z(i+2),2,0,flag)
-            IF ( Z(i+2)==-1 ) THEN
-               Nui = i - 4
+            CALL read(*120,*140,ect,z(i+2),2,0,flag)
+            IF ( z(i+2)==-1 ) THEN
+               nui = i - 4
                nbrui = j - 1
                nwdui = 4*nbrui
 !
 !     READ THE UD LIST (IF PRESENT). STORE POSITION IN UD LIST, SIL NO.,
 !     INTERNAL GRID NO., AND COMPONENT CODE.
 !
-               Iud = i
+               iud = i
                j = 1
                DO
-                  CALL read(*120,*140,Ect,Z(i+2),2,0,flag)
-                  IF ( Z(i+2)==-1 ) THEN
-                     Nud = i - 4
+                  CALL read(*120,*140,ect,z(i+2),2,0,flag)
+                  IF ( z(i+2)==-1 ) THEN
+                     nud = i - 4
                      nbrud = j - 1
                      nwdud = 4*nbrud
-                     Iz = i
+                     iz = i
 !
 !     SORT UI AND UD LISTS ON SIL NO.
 !     STORE INTERNAL POSITION IN UI AND UD LISTS.
 !     WRITE ELEMENT ID, NO. OF UI-S, NO. OF UD-S.
 !     WRITE SIL NOS. FOR UI LIST AND SIL NOS. FOR UD LIST.
 !
-                     CALL sorti(0,0,4,2,Z(Iui),nwdui)
+                     CALL sorti(0,0,4,2,z(iui),nwdui)
                      buf(2) = nbrui
                      buf(3) = nbrud
-                     CALL write(Gei,buf,3,0)
+                     CALL write(gei,buf,3,0)
                      k = 1
-                     DO i = Iui , Nui , 4
-                        silno = Z(i+1)
-                        Z(i+1) = k
-                        CALL write(Gei,silno,1,0)
+                     DO i = iui , nui , 4
+                        silno = z(i+1)
+                        z(i+1) = k
+                        CALL write(gei,silno,1,0)
                         k = k + 1
                      ENDDO
                      IF ( nbrud/=0 ) THEN
-                        CALL sorti(0,0,4,2,Z(Iud),nwdud)
+                        CALL sorti(0,0,4,2,z(iud),nwdud)
                         k = 1
-                        DO i = Iud , Nud , 4
-                           silno = Z(i+1)
-                           Z(i+1) = k
-                           CALL write(Gei,silno,1,0)
+                        DO i = iud , nud , 4
+                           silno = z(i+1)
+                           z(i+1) = k
+                           CALL write(gei,silno,1,0)
                            k = k + 1
                         ENDDO
                      ENDIF
 !
 !     SORT UI LIST ON EXTERNAL POSITION.
 !
-                     CALL sorti(0,0,4,1,Z(Iui),nwdui)
+                     CALL sorti(0,0,4,1,z(iui),nwdui)
 !
 !     DETERMINE IF CORE WILL HOLD THE FULL Z OR K MATRIX
 !
-                     ncore = Buf2 - Iz
+                     ncore = buf2 - iz
                      nwdz = nbrui**2
                      nocore = 0
                      IF ( nwdz>ncore ) nocore = 1
 !
 !     READ INDICATOR OF INPUT OF Z OR K MATRIX
 !
-                     CALL read(*120,*140,Ect,ijk,1,0,flag)
-                     CALL write(Gei,ijk,1,0)
+                     CALL read(*120,*140,ect,ijk,1,0,flag)
+                     CALL write(gei,ijk,1,0)
                      koz = 0
                      IF ( ijk==2 ) koz = 1
 !
@@ -154,14 +155,14 @@ SUBROUTINE ta1c
 !     NOS.  IF CORE WILL HOLD Z OR K, STORE THE ELEMENTS IN CORE
 !     OTHERWISE, WRITE CODED ROW/COL NOS AND ELEMENTS ON SCRATCH FILE.
 !
-                     IF ( nocore/=0 ) CALL open(*100,Scr4,Z(Buf3),Wrtrew)
-                     DO i = Iui , Nui , 4
-                        introw = Z(i+1)
-                        krow = Iz + (introw-1)*nbrui - 1
-                        DO j = i , Nui , 4
-                           intcol = Z(j+1)
-                           kcol = Iz + (intcol-1)*nbrui - 1
-                           CALL read(*120,*140,Ect,buf(3),1,0,flag)
+                     IF ( nocore/=0 ) CALL open(*100,scr4,z(buf3),wrtrew)
+                     DO i = iui , nui , 4
+                        introw = z(i+1)
+                        krow = iz + (introw-1)*nbrui - 1
+                        DO j = i , nui , 4
+                           intcol = z(j+1)
+                           kcol = iz + (intcol-1)*nbrui - 1
+                           CALL read(*120,*140,ect,buf(3),1,0,flag)
                            IF ( nocore/=0 ) THEN
                               m = 3
                               buf(1) = intcol
@@ -172,63 +173,63 @@ SUBROUTINE ta1c
                                  buf(6) = buf(3)
                                  m = 6
                               ENDIF
-                              CALL write(Scr4,buf,m,0)
+                              CALL write(scr4,buf,m,0)
                            ELSE
                               k = krow + intcol
-                              Z(k) = buf(3)
+                              z(k) = buf(3)
                               k = kcol + introw
-                              Z(k) = buf(3)
+                              z(k) = buf(3)
                            ENDIF
                         ENDDO
                      ENDDO
-                     IF ( nocore/=0 ) CALL close(Scr4,Clsrew)
+                     IF ( nocore/=0 ) CALL close(scr4,clsrew)
 !
 !     IF Z OR K MATRIX IS IN CORE,WRITE IT OUT
 !     OTHERWISE,SORT THE MATRIX AND THEN WRITE IT.
 !
                      IF ( nocore==0 ) THEN
-                        CALL write(Gei,Z(Iz),nwdz,0)
+                        CALL write(gei,z(iz),nwdz,0)
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
-                        CALL open(*100,Scr4,Z(Buf3),Rdrew)
-                        Nfile(1) = Scr1
-                        Nfile(2) = Scr2
-                        Nfile(3) = Scr3
-                        CALL sorti(Scr4,0,3,2,Z(Iz),ncore-Sysbuf)
-                        CALL close(Scr4,Clsrew)
-                        IF ( Nfile(6)==Nfile(1) ) Nfile(1) = Scr4
-                        IF ( Nfile(6)==Nfile(2) ) Nfile(2) = Scr4
-                        IF ( Nfile(6)==Nfile(3) ) Nfile(3) = Scr4
-                        jfile = Nfile(6)
-                        CALL open(*100,jfile,Z(Buf3),Rdrew)
-                        CALL sorti(jfile,0,3,-1,Z(Iz),ncore-Sysbuf)
-                        CALL close(jfile,Clsrew)
-                        CALL open(*100,Nfile(6),Z(Buf3),Rdrew)
+                        CALL open(*100,scr4,z(buf3),rdrew)
+                        nfile(1) = scr1
+                        nfile(2) = scr2
+                        nfile(3) = scr3
+                        CALL sorti(scr4,0,3,2,z(iz),ncore-sysbuf)
+                        CALL close(scr4,clsrew)
+                        IF ( nfile(6)==nfile(1) ) nfile(1) = scr4
+                        IF ( nfile(6)==nfile(2) ) nfile(2) = scr4
+                        IF ( nfile(6)==nfile(3) ) nfile(3) = scr4
+                        jfile = nfile(6)
+                        CALL open(*100,jfile,z(buf3),rdrew)
+                        CALL sorti(jfile,0,3,-1,z(iz),ncore-sysbuf)
+                        CALL close(jfile,clsrew)
+                        CALL open(*100,nfile(6),z(buf3),rdrew)
                         DO
-                           CALL read(*120,*40,Nfile(6),buf,3,0,flag)
-                           CALL write(Gei,buf(3),1,0)
+                           CALL read(*120,*40,nfile(6),buf,3,0,flag)
+                           CALL write(gei,buf(3),1,0)
                         ENDDO
                      ENDIF
                   ELSE
-                     Z(i) = j
-                     k = Z(i+2)
-                     Z(i+1) = Z(k)
-                     IF ( Z(i+3)/=0 ) Z(i+1) = Z(i+1) + Z(i+3) - 1
+                     z(i) = j
+                     k = z(i+2)
+                     z(i+1) = z(k)
+                     IF ( z(i+3)/=0 ) z(i+1) = z(i+1) + z(i+3) - 1
                      i = i + 4
                      j = j + 1
                   ENDIF
                ENDDO
             ELSE
-               Z(i) = j
-               k = Z(i+2)
-               Z(i+1) = Z(k)
-               IF ( Z(i+3)/=0 ) Z(i+1) = Z(i+1) + Z(i+3) - 1
+               z(i) = j
+               k = z(i+2)
+               z(i+1) = z(k)
+               IF ( z(i+3)/=0 ) z(i+1) = z(i+1) + z(i+3) - 1
                i = i + 4
                j = j + 1
             ENDIF
          ENDDO
- 40      CALL close(Nfile(6),Clsrew)
+ 40      CALL close(nfile(6),clsrew)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -238,14 +239,14 @@ SUBROUTINE ta1c
 !     IF S MATRIX AND UD BOTH NOT PRESENT, CLOSE GEI RECORD AND LOOP
 !     BACK
 !
-         CALL read(*120,*140,Ect,buf,1,0,flag)
+         CALL read(*120,*140,ect,buf,1,0,flag)
          IF ( buf(1)/=0 ) THEN
 !
 !     S MATRIX IS PRESENT.
 !     DETERMINE IF CORE WILL HOLD THE FULL S MATRIX
 !
             nwds = nbrud*nbrui
-            CALL sorti(0,0,4,1,Z(Iud),nwdud)
+            CALL sorti(0,0,4,1,z(iud),nwdud)
             nocore = 0
             IF ( nwds>ncore ) nocore = 1
 !
@@ -254,71 +255,71 @@ SUBROUTINE ta1c
 !     IF CORE WILL HOLD S, STORE THE ELEMENTS IN CORE.
 !     OTHERWISE, WRITE CODED ROW/COL NOS AND ELEMENTS ON SCRATCH FILE.
 !
-            IF ( nocore/=0 ) CALL open(*100,Scr4,Z(Buf3),Wrtrew)
-            DO i = Iui , Nui , 4
-               introw = Z(i+1)
-               krow = Iz + (introw-1)*nbrud - 1
-               DO j = Iud , Nud , 4
-                  intcol = Z(j+1)
+            IF ( nocore/=0 ) CALL open(*100,scr4,z(buf3),wrtrew)
+            DO i = iui , nui , 4
+               introw = z(i+1)
+               krow = iz + (introw-1)*nbrud - 1
+               DO j = iud , nud , 4
+                  intcol = z(j+1)
                   k = krow + intcol
-                  CALL read(*120,*140,Ect,buf(3),1,0,flag)
+                  CALL read(*120,*140,ect,buf(3),1,0,flag)
                   IF ( nocore/=0 ) THEN
                      buf(1) = introw
                      buf(2) = intcol
-                     CALL write(Scr4,buf,3,1)
+                     CALL write(scr4,buf,3,1)
                   ELSE
-                     Z(k) = buf(3)
+                     z(k) = buf(3)
                   ENDIF
                ENDDO
             ENDDO
-            IF ( nocore/=0 ) CALL close(Scr4,Clsrew)
+            IF ( nocore/=0 ) CALL close(scr4,clsrew)
 !
 !     IF S MATRIX IS IN CORE, WRITE IT OUT.
 !     OTHERWISE, SORT THE MATRIX AND THEN WRITE IT.
 !
             IF ( nocore==0 ) THEN
-               CALL write(Gei,Z(Iz),nwds,0)
+               CALL write(gei,z(iz),nwds,0)
             ELSE
-               CALL open(*100,Scr4,Z(Buf3),Rdrew)
-               Nfile(1) = Scr1
-               Nfile(2) = Scr2
-               Nfile(3) = Scr3
-               CALL sorti(Scr4,0,3,2,Z(Iz),ncore-Sysbuf)
-               CALL close(Scr4,Clsrew)
-               IF ( Nfile(6)==Nfile(1) ) Nfile(1) = Scr4
-               IF ( Nfile(6)==Nfile(2) ) Nfile(2) = Scr4
-               IF ( Nfile(6)==Nfile(3) ) Nfile(3) = Scr4
-               jfile = Nfile(6)
-               CALL open(*100,jfile,Z(Buf3),Rdrew)
-               CALL sorti(jfile,0,3,-1,Z(Iz),ncore-Sysbuf)
-               CALL close(jfile,Clsrew)
-               CALL open(*100,Nfile(6),Z(Buf3),Rdrew)
+               CALL open(*100,scr4,z(buf3),rdrew)
+               nfile(1) = scr1
+               nfile(2) = scr2
+               nfile(3) = scr3
+               CALL sorti(scr4,0,3,2,z(iz),ncore-sysbuf)
+               CALL close(scr4,clsrew)
+               IF ( nfile(6)==nfile(1) ) nfile(1) = scr4
+               IF ( nfile(6)==nfile(2) ) nfile(2) = scr4
+               IF ( nfile(6)==nfile(3) ) nfile(3) = scr4
+               jfile = nfile(6)
+               CALL open(*100,jfile,z(buf3),rdrew)
+               CALL sorti(jfile,0,3,-1,z(iz),ncore-sysbuf)
+               CALL close(jfile,clsrew)
+               CALL open(*100,nfile(6),z(buf3),rdrew)
                DO
-                  CALL read(*120,*60,Nfile(6),buf,3,0,file)
-                  CALL write(Gei,buf(3),1,0)
+                  CALL read(*120,*60,nfile(6),buf,3,0,file)
+                  CALL write(gei,buf(3),1,0)
                ENDDO
             ENDIF
          ELSE
             IF ( nbrud/=0 ) THEN
-               CALL sorti(0,0,4,2,Z(Iui),nwdui)
+               CALL sorti(0,0,4,2,z(iui),nwdui)
                CALL ta1ca(koz)
             ENDIF
-            CALL write(Gei,0,0,1)
+            CALL write(gei,0,0,1)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 60      CALL write(Gei,0,0,1)
+ 60      CALL write(gei,0,0,1)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     HERE WHEN NO MORE GENERAL ELEMENTS
 !
- 80      CALL close(Ect,Clsrew)
-         CALL close(Gei,Clsrew)
-         buf(1) = Gei
-         buf(2) = Nogenl
+ 80      CALL close(ect,clsrew)
+         CALL close(gei,clsrew)
+         buf(1) = gei
+         buf(2) = nogenl
          CALL wrttrl(buf)
-         IF ( Nogo/=0 ) CALL mesage(-61,0,nam)
+         IF ( nogo/=0 ) CALL mesage(-61,0,nam)
          RETURN
 !
 !     FATAL ERRORS

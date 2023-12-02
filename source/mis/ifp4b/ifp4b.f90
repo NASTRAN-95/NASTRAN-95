@@ -1,11 +1,12 @@
-!*==ifp4b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp4b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
+   USE c_names
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -96,7 +97,6 @@ SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
          ENDDO
  20      CALL write(Scrt,Space,flag,eor)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          DO
             CALL read(*60,*40,File,Space,Lspace,noeor,flag)
@@ -109,20 +109,20 @@ SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
 !     FILE IS ALL COPIED TO SCRT.  REWIND AND RETURN.
 !
  60      Eof = .TRUE.
-         CALL close(Scrt,Clsrew)
-         CALL close(File,Clsrew)
+         CALL close(Scrt,clsrew)
+         CALL close(File,clsrew)
 !
 !     COPY DATA FROM SCRT TO FILE.
 !
          buf1 = 1
-         buf2 = Sysbuf + 2
-         i = 2*Sysbuf + 4
+         buf2 = sysbuf + 2
+         i = 2*sysbuf + 4
          j = Lspace - i
          IF ( i>Lspace ) CALL mesage(-8,0,name)
          ifile = File
-         CALL open(*180,File,Space(buf1),Wrtrew)
+         CALL open(*180,File,Space(buf1),wrtrew)
          ifile = Scrt
-         CALL open(*180,Scrt,Space(buf2),Rdrew)
+         CALL open(*180,Scrt,Space(buf2),rdrew)
          spag_nextblock_1 = 4
       CASE (4)
          DO
@@ -132,14 +132,14 @@ SUBROUTINE ifp4b(File,Scrt,Any,Space,Lspace,Recid,Eof)
  80      CALL write(File,Space(i),flag,eor)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 100     CALL close(Scrt,Clsrew)
-         CALL close(File,Clsrew)
+ 100     CALL close(Scrt,clsrew)
+         CALL close(File,clsrew)
          RETURN
 !
 !     ERROR CONDITIONS
 !
- 120     Nogo = .TRUE.
-         WRITE (Output,99001) Ufm , Recid(1) , Recid(2) , File
+ 120     nogo = .TRUE.
+         WRITE (output,99001) ufm , Recid(1) , Recid(2) , File
 99001    FORMAT (A23,' 4056, RECORD ID =',2I10,' IS OUT OF SYNC ON DATA ','BLOCK NUMBER',I10,/5X,'AN IFP4 SYSTEM ERROR.')
          Eof = .TRUE.
          RETURN

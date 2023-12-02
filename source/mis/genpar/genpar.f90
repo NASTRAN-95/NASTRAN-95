@@ -1,13 +1,14 @@
-!*==genpar.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==genpar.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE genpar
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,46 +34,46 @@ SUBROUTINE genpar
    DATA pf , rplamb , cplamb , rppf , cpmp/101 , 201 , 202 , 203 , 204/
    DATA nam/4HGENP , 4HART /
 !
-   lcore = korsz(Z)
-   buf1 = lcore - Sysbuf + 1
+   lcore = korsz(z)
+   buf1 = lcore - sysbuf + 1
    lcore = buf1 - 1
    IF ( lcore<5 ) THEN
 !
       CALL mesage(-8,0,nam)
    ELSE
 !
-      In = 1
-      Iout = 1
-      Ii = 1
-      Incr = 1
+      in = 1
+      iout = 1
+      ii = 1
+      incr = 1
 !
-      IF ( Lmodes<=0 ) THEN
-         WRITE (Otpe,99001) Ufm
+      IF ( lmodes<=0 ) THEN
+         WRITE (otpe,99001) ufm
 99001    FORMAT (A23,', LMODES PARAMETER MUST POSITIVE')
          CALL mesage(-61,0,0)
          CALL mesage(-8,0,nam)
       ELSE
          mcb(1) = pf
          CALL rdtrl(mcb)
-         Nmodes = mcb(3)
+         nmodes = mcb(3)
          ndir = mcb(2)
-         IF ( Lmodes>Nmodes ) Lmodes = Nmodes
+         IF ( lmodes>nmodes ) lmodes = nmodes
 !
 !     GENERATE ROW PARTITIONING VECTOR FOR LAMB MATRIX TO PICK OFF THE
 !     2ND COLUMN, WHICH IS THE COLUMN OF RADIAN FREQUENCIES. THEN
 !     TRUNCATE THE COLUMN TO LMODES SIZE
 !
-         IF ( lcore<Nmodes ) THEN
+         IF ( lcore<nmodes ) THEN
             CALL mesage(-8,0,nam)
          ELSE
-            CALL gopen(cplamb,Z(buf1),1)
-            Nn = 0
-            Z(1) = 0.
-            Z(Nn+2) = 1.
-            Z(Nn+3) = 0.
-            Z(Nn+4) = 0.
-            Z(Nn+5) = 0.
-            Nn = 5
+            CALL gopen(cplamb,z(buf1),1)
+            nn = 0
+            z(1) = 0.
+            z(nn+2) = 1.
+            z(nn+3) = 0.
+            z(nn+4) = 0.
+            z(nn+5) = 0.
+            nn = 5
             mcb(1) = cplamb
             mcb(2) = 0
             mcb(3) = 5
@@ -80,51 +81,51 @@ SUBROUTINE genpar
             mcb(5) = 1
             mcb(6) = 0
             mcb(7) = 0
-            CALL pack(Z,cplamb,mcb)
+            CALL pack(z,cplamb,mcb)
             CALL close(cplamb,1)
             CALL wrttrl(mcb)
 !
-            CALL gopen(rplamb,Z(buf1),1)
-            DO i = 1 , Lmodes
-               Z(i) = 1.
+            CALL gopen(rplamb,z(buf1),1)
+            DO i = 1 , lmodes
+               z(i) = 1.
             ENDDO
-            IF ( Lmodes/=Nmodes ) THEN
-               l1 = Lmodes + 1
-               DO i = l1 , Nmodes
-                  Z(i) = 0.
+            IF ( lmodes/=nmodes ) THEN
+               l1 = lmodes + 1
+               DO i = l1 , nmodes
+                  z(i) = 0.
                ENDDO
             ENDIF
-            Nn = Nmodes
+            nn = nmodes
             mcb(1) = rplamb
             mcb(2) = 0
-            mcb(3) = Nmodes
+            mcb(3) = nmodes
             mcb(4) = 2
             mcb(5) = 1
             mcb(6) = 0
             mcb(7) = 0
-            CALL pack(Z,rplamb,mcb)
+            CALL pack(z,rplamb,mcb)
             CALL close(rplamb,1)
             CALL wrttrl(mcb)
 !
 !     ROW PARTITION FOR PF
 !
-            CALL gopen(rppf,Z(buf1),1)
+            CALL gopen(rppf,z(buf1),1)
             mcb(1) = rppf
             mcb(2) = 0
             mcb(6) = 0
             mcb(7) = 0
-            CALL pack(Z,rppf,mcb)
+            CALL pack(z,rppf,mcb)
             CALL close(rppf,1)
             CALL wrttrl(mcb)
 !
 !     COLUMN PARTITION FOR MP-SAME AS ROW PARTITION FOR PREVIOUS FILES
 !
-            CALL gopen(cpmp,Z(buf1),1)
+            CALL gopen(cpmp,z(buf1),1)
             mcb(1) = cpmp
             mcb(2) = 0
             mcb(6) = 0
             mcb(7) = 0
-            CALL pack(Z,cpmp,mcb)
+            CALL pack(z,cpmp,mcb)
             CALL close(cpmp,1)
             CALL wrttrl(mcb)
 !

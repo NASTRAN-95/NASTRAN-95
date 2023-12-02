@@ -1,12 +1,13 @@
-!*==fersws.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fersws.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fersws(V1,V3,Vb)
+   USE c_feerim
+   USE c_opinv
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FEERIM
-   USE C_OPINV
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,18 +40,17 @@ SUBROUTINE fersws(V1,V3,Vb)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         nrow = Mcblt(2)
-         CALL ferlts(Mcbsma(1),V1(1),V3(1),Vb(1))
+         nrow = mcblt(2)
+         CALL ferlts(mcbsma(1),V1(1),V3(1),Vb(1))
 !   FORWARD SWEEP DIRECTLY ON V3
          icrow = 1
-         IF ( Nidlt==0 ) THEN
-            CALL rewind(Mcblt)
-            CALL skprec(Mcblt,1)
+         IF ( nidlt==0 ) THEN
+            CALL rewind(mcblt)
+            CALL skprec(mcblt,1)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            ilrow = Ltpos(1)
-            mem = Nidlt
+            ilrow = ltpos(1)
+            mem = nidlt
             DO j = 1 , nrow
                icrow = j
                IF ( icrow>ilrow ) THEN
@@ -58,15 +58,15 @@ SUBROUTINE fersws(V1,V3,Vb)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                SPAG_Loop_2_1: DO
-                  icol = Icore(mem)
+                  icol = icore(mem)
                   IF ( icol/=j ) THEN
                      V3(j) = V3(j)/xljj
                      EXIT SPAG_Loop_2_1
                   ELSE
                      ji = mem + 2
-                     ntms = Icore(mem+1)
+                     ntms = icore(mem+1)
                      ntmss = ntms
-                     ik = Icore(mem+2+ntms)
+                     ik = icore(mem+2+ntms)
                      IF ( ik==j ) THEN
                         ntms = ntms - 1
                         xljj = dcore(ji)
@@ -86,14 +86,13 @@ SUBROUTINE fersws(V1,V3,Vb)
                ENDDO SPAG_Loop_2_1
             ENDDO
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
 ! POSITION FILE TO APPROPRIATE COLUMN
-         CALL dsspos(Mcblt,Ltpos(2),Ltpos(3),Ltpos(4))
+         CALL dsspos(mcblt,ltpos(2),ltpos(3),ltpos(4))
          spag_nextblock_1 = 3
       CASE (3)
-         iblk(1) = Mcblt(1)
+         iblk(1) = mcblt(1)
 !
 ! CONTINUE WITH FORWARD SWEEP
 !
@@ -131,7 +130,7 @@ SUBROUTINE fersws(V1,V3,Vb)
 !
          icrow = nrow
          IF ( j==1 ) RETURN
-         IF ( ilrow==nrow .AND. Nidlt/=0 ) THEN
+         IF ( ilrow==nrow .AND. nidlt/=0 ) THEN
 !  CONTINUE BACKWARD SUBSTITUTION USING DATA FROM MEMORY
             mem = mem - ntmss - 4
             spag_nextblock_1 = 6
@@ -171,15 +170,15 @@ SUBROUTINE fersws(V1,V3,Vb)
          spag_nextblock_1 = 6
       CASE (6)
          SPAG_Loop_1_2: DO
-            icol = Icore(mem)
+            icol = icore(mem)
             IF ( icol/=j ) THEN
                IF ( j==1 ) EXIT SPAG_Loop_1_2
                j = j - 1
             ELSE
-               ntms = Icore(mem+1)
+               ntms = icore(mem+1)
                ntmss = ntms
                ji = mem + 1 + ntms
-               ik = Icore(mem+2+ntms) + ntms - 1
+               ik = icore(mem+2+ntms) + ntms - 1
                IF ( ik-ntms+1==j ) ntms = ntms - 1
                IF ( ntms/=0 ) THEN
                   v3j = V3(j)
@@ -190,8 +189,8 @@ SUBROUTINE fersws(V1,V3,Vb)
                   ENDDO
                   V3(j) = v3j
                ENDIF
-               IF ( mem==Nidlt ) EXIT SPAG_Loop_1_2
-               ntmsnx = Icore(mem-1)
+               IF ( mem==nidlt ) EXIT SPAG_Loop_1_2
+               ntmsnx = icore(mem-1)
                mem = mem - ntmsnx - 4
             ENDIF
          ENDDO SPAG_Loop_1_2

@@ -11,37 +11,37 @@ BLOCKDATA semdbd
 !     OR MISSING INITIALIZED DATA MAY CAUSE PROBLEMS IN SOME MACHINES.
 !
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_GINOX
-   USE C_LHPWX
-   USE C_MACHIN
-   USE C_MSGX
-   USE C_NAMES
-   USE C_NTIME
-   USE C_NUMTPX
-   USE C_OSCENT
-   USE C_OUTPUT
-   USE C_SEM
-   USE C_SOFCOM
-   USE C_STAPID
-   USE C_STIME
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_TYPE
-   USE C_XCEITB
-   USE C_XDPL
-   USE C_XECHOX
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XLINK
-   USE C_XMDMSK
-   USE C_XMSSG
-   USE C_XPFIST
-   USE C_XREADX
-   USE C_XVPS
-   USE C_XXFIAT
-   USE C_XXREAD
+   USE c_bitpos
+   USE c_blank
+   USE c_ginox
+   USE c_lhpwx
+   USE c_machin
+   USE c_msgx
+   USE c_names
+   USE c_ntime
+   USE c_numtpx
+   USE c_oscent
+   USE c_output
+   USE c_sem
+   USE c_sofcom
+   USE c_stapid
+   USE c_stime
+   USE c_system
+   USE c_two
+   USE c_type
+   USE c_xceitb
+   USE c_xdpl
+   USE c_xechox
+   USE c_xfiat
+   USE c_xfist
+   USE c_xlink
+   USE c_xmdmsk
+   USE c_xmssg
+   USE c_xpfist
+   USE c_xreadx
+   USE c_xvps
+   USE c_xxfiat
+   USE c_xxread
    !>>>>EQUIVALENCE (ksystm(1),Sysbuf)
 !
 !
@@ -442,36 +442,36 @@ BLOCKDATA semdbd
 !
 !     -------------------     / GINOX  /     ---------------------------
 !
-   DATA Cdc/244*0/
-   DATA Others/392*0/
+   DATA cdc/244*0/
+   DATA others/392*0/
 !
 !     -------------------     / XMSSG  /     ---------------------------
 !                               1         2         3
 !                      1234567890123456789012345678901
-   DATA Ufm/'0*** USER FATAL MESSAGE'/
-   DATA Uwm/'0*** USER WARNING MESSAGE'/
-   DATA Uim/'0*** USER INFORMATION MESSAGE'/
-   DATA Sfm/'0*** SYSTEM FATAL MESSAGE'/
-   DATA Swm/'0*** SYSTEM WARNING MESSAGE'/
-   DATA Sim/'0*** SYSTEM INFORMATION MESSAGE'/
+   DATA ufm/'0*** USER FATAL MESSAGE'/
+   DATA uwm/'0*** USER WARNING MESSAGE'/
+   DATA uim/'0*** USER INFORMATION MESSAGE'/
+   DATA sfm/'0*** SYSTEM FATAL MESSAGE'/
+   DATA swm/'0*** SYSTEM WARNING MESSAGE'/
+   DATA sim/'0*** SYSTEM INFORMATION MESSAGE'/
 !
 !     -------------------     /NUMTPX  /     --------------------------
 !
-   DATA Nbcd/0/
-   DATA Bcd/19*0/
+   DATA nbcd/0/
+   DATA bcd/19*0/
 !
 !     -------------------     /BLANK  /     --------------------------
 !
 !WKBR DATA    IBLNK /  56*0, 4H CEA, 4HSE E, 4HMPIR, 4HE >  /
-   DATA Iblnk/96*0 , 4H CEA , 4HSE E , 4HMPIR , 4HE > /
+   DATA iblnk/96*0 , 4H CEA , 4HSE E , 4HMPIR , 4HE > /
 !
 !     -------------------     / NTIME  /     ---------------------------
 !
 !WKBR DATA    LNTIME/ 16      /
 !WKBR 9/94 SPR94009      DATA    LNTIME/ 23      /
-   DATA Lntime/16/
+   DATA lntime/16/
 !WKBR DATA    TIMDTA/ 16*0.   /
-   DATA Timdta/23*0./
+   DATA timdta/23*0./
 !
 !     USE A NASTRAN BULKDATA=-3 CARD TO ACTIVATE TIME CONSTANTS COMPUTA-
 !     TION AND PRINT OUT FROM SUBROUTINES TMTSIO AND TMTSLP.
@@ -514,11 +514,11 @@ BLOCKDATA semdbd
 !
 !     -------------------     / XLINK  /     ---------------------------
 !
-   DATA Lxlink/220/ , Maxlnk/15/ , Mxlink/220*0/
+   DATA lxlink/220/ , maxlnk/15/ , mxlink/220*0/
 !
 !     -------------------     / SEM    /     ---------------------------
 !
-   DATA Mask/65535/ , Mask2 , Mask3/2*0/ , Name/4HNS01 , 4HNS02 , 4HNS03 , 4HNS04 , 4HNS05 , 4HNS06 , 4HNS07 , 4HNS08 , 4HNS09 ,    &
+   DATA mask/65535/ , mask2 , mask3/2*0/ , name/4HNS01 , 4HNS02 , 4HNS03 , 4HNS04 , 4HNS05 , 4HNS06 , 4HNS07 , 4HNS08 , 4HNS09 ,    &
        &4HNS10 , 4HNS11 , 4HNS12 , 4HNS13 , 4HNS14 , 4HNS15 , 4HNS16 , 4HNS17 , 4HNS18 , 4HNS19 , 4HNS20 , 4HNS21 , 4HNS22 ,        &
       & 4HNS23 , 4HNS24 , 4HNS25 , 4HNS26 , 4HNS27 , 4HNS28 , 4HNS29 , 4HNS30/
 !
@@ -526,15 +526,15 @@ BLOCKDATA semdbd
 !
 !                   USED ONLY IN MSFC, UNIVAC VERSION - LOGFL = 190
 !        VAX: HICORE IS SET TO 50,000 BY BTSTRP
-   DATA Sysbuf , Outtap , Nogo , Intp , Mpc , Spc , Logfl/0 , 0 , 0 , 0 , 0 , 0 , 0/ , Load , Nlpp , Mtemp , Npages , Nlines ,      &
-      & Tlines , Mxlins/1 , 0 , 0 , 0 , 0 , 0 , 20000/ , Date , Timez , Echof , Plotf , Apprch , Linkno , Lsystm/3*0 , 0 , 2 , 0 ,  &
-      & 0 , 0 , 180/ , Icfiat , Rfflag , Cppgct , Mn , Dummyi , Maxfil , Maxopn/11 , 0 , 0 , 0 , 0 , 35 , 16/ , Hicore , Timew ,    &
-      & Ofpflg , Nbrcbu , Lprus , Nprus , Ksys37/85000 , 0 , 0 , 15 , 64 , 0 , 0/ , Qq , Nbpc , Nbpw , Ncpw , Sysdat , Tapflg ,     &
-      & Adumel/0 , 0 , 0 , 0 , 3*0 , 0 , 9*0/ , Iprec , Ithrml , Modcom , Hdy , Sscell , Tolel , Mesday/0 , 0 , 9*0 , 3*0 , 0 ,     &
+   DATA sysbuf , outtap , nogo , intp , mpc , spc , logfl/0 , 0 , 0 , 0 , 0 , 0 , 0/ , load , nlpp , mtemp , npages , nlines ,      &
+      & tlines , mxlins/1 , 0 , 0 , 0 , 0 , 0 , 20000/ , date , timez , echof , plotf , apprch , linkno , lsystm/3*0 , 0 , 2 , 0 ,  &
+      & 0 , 0 , 180/ , icfiat , rfflag , cppgct , mn , dummyi , maxfil , maxopn/11 , 0 , 0 , 0 , 0 , 35 , 16/ , hicore , timew ,    &
+      & ofpflg , nbrcbu , lprus , nprus , ksys37/85000 , 0 , 0 , 15 , 64 , 0 , 0/ , qq , nbpc , nbpw , ncpw , sysdat , tapflg ,     &
+      & adumel/0 , 0 , 0 , 0 , 3*0 , 0 , 9*0/ , iprec , ithrml , modcom , hdy , sscell , tolel , mesday/0 , 0 , 9*0 , 3*0 , 0 ,     &
       & 0.01 , 0/
-   DATA Bitpas , Pass , Itime , Ctime , Nosbe , Bandit , Pzel/2*.FALSE. , 0 , 0 , 0 , 0 , 0/ , Switch , Icpflg , Jrun , Jmax ,      &
-      & Lintc , Intra , Ospcnt/3*0 , 0 , 0 , 0 , 800 , 0 , 15/ , K8890 , Lpch , Ldict , Iaerot , Ksys94 , Sperlk , Left , Loglin ,  &
-      & Left2/3*0 , 0 , 0 , 0 , 0 , 0 , 56*0 , 0 , 28*0/
+   DATA bitpas , pass , itime , ctime , nosbe , bandit , pzel/2*.FALSE. , 0 , 0 , 0 , 0 , 0/ , switch , icpflg , jrun , jmax ,      &
+      & lintc , intra , ospcnt/3*0 , 0 , 0 , 0 , 800 , 0 , 15/ , k8890 , lpch , ldict , iaerot , ksys94 , sperlk , left , loglin ,  &
+      & left2/3*0 , 0 , 0 , 0 , 0 , 0 , 56*0 , 0 , 28*0/
 !
 !     -------------------     / XFIST  /     ---------------------------
 !
@@ -549,7 +549,7 @@ BLOCKDATA semdbd
 !    2           314,123,   315,147/
 !
 !     USE VALUES BELOW WHEN ICFIAT (24TH WORD OF /SYSTEM/) IS 11
-   DATA Nfist/56/ , Lfist/56/ , Fist/4HPOOL , 0 , 4HOPTP , -1 , 4HNPTP , -2 , 4HUMF  , -3 , 4HNUMF , -4 , 4HPLT1 , -5 , 4HPLT2 ,    &
+   DATA nfist/56/ , lfist/56/ , fist/4HPOOL , 0 , 4HOPTP , -1 , 4HNPTP , -2 , 4HUMF  , -3 , 4HNUMF , -4 , 4HPLT1 , -5 , 4HPLT2 ,    &
       & -6 , 4HINPT , -7 , 4HINP1 , -8 , 4HINP2 , -9 , 4HINP3 , -10 , 4HINP4 , -11 , 4HINP5 , -12 , 4HINP6 , -13 , 4HINP7 , -14 ,   &
        &4HINP8 , -15 , 4HINP9 , -16 , 4HXPTD , -17 , 4HSOF  , -18 , 4HUT1  , -19 , 4HUT2  , -20 , 4HUT3  , -21 , 4HUT4  , -22 ,     &
        &4HUT5  , -23 , 201 , 3 , 202 , 14 , 203 , 25 , 204 , 36 , 205 , 47 , 4HCASE , 58 , 207 , 69 , 4HPCDB , 80 , 208 , 91 , 209 ,&
@@ -559,11 +559,11 @@ BLOCKDATA semdbd
 !
 !     -------------------     / XPFIST /     ---------------------------
 !
-   DATA Npfist/24/
+   DATA npfist/24/
 !
 !     -------------------     / XXFIAT /     ---------------------------
 !
-   DATA Xxfiat/24*0/
+   DATA xxfiat/24*0/
 !
 !     -------------------     / XFIAT  /     ---------------------------
 !
@@ -571,7 +571,7 @@ BLOCKDATA semdbd
 !
 !WKBR DATA    MFIAT / 0 /, NFIAT / 80 /, LFIAT / 0 /, FIAT /
 !WKBR9                0, 4HSCRA, 4HTC15, 8*0 , 671*0 /
-   DATA Mfiat/0/ , Nfiat/100/ , Lfiat/0/ , Fiat/0 , 4HGEOM , 4H1    , 8*0 , 0 , 4HEPT  , 4H     , 8*0 , 0 , 4HMPT  , 4H     , 8*0 , &
+   DATA mfiat/0/ , nfiat/100/ , lfiat/0/ , fiat/0 , 4HGEOM , 4H1    , 8*0 , 0 , 4HEPT  , 4H     , 8*0 , 0 , 4HMPT  , 4H     , 8*0 , &
       & 0 , 4HEDT  , 4H     , 8*0 , 0 , 4HDIT  , 4H     , 8*0 , 0 , 4HCASE , 4HCC   , 3*7 , 2*0 , 3*7 , 0 , 4HDYNA , 4HMICS , 8*0 , &
       & 0 , 4HPCDB , 4H     , 8*0 , 0 , 4HGEOM , 4H2    , 8*0 , 0 , 4HGEOM , 4H3    , 8*0 , 0 , 4HGEOM , 4H4    , 8*0 , 0 , 4HGEOM ,&
        &4H5    , 8*0 , 0 , 4HFORC , 4HE    , 8*0 , 0 , 4HMATP , 4HOOL  , 8*0 , 0 , 4HAXIC , 4H     , 8*0 , 0 , 4HIFPF , 4HILE  ,    &
@@ -579,40 +579,40 @@ BLOCKDATA semdbd
 !
 !     -------------------     / OSCENT /     ---------------------------
 !
-   DATA Oscar/200*4H    /
+   DATA oscar/200*4H    /
 !
 !     -------------------     / OUTPUT /     ---------------------------
 !
-   DATA Output/224*4H    /
+   DATA output/224*4H    /
 !
 !     -------------------     / XDPL   /     ---------------------------
 !
-   DATA Mdpl/1/ , Ndpl/80/ , Ldpl/0/ , Dpl/240*0/
+   DATA mdpl/1/ , ndpl/80/ , ldpl/0/ , dpl/240*0/
 !
 !     -------------------     / XVPS   /     ---------------------------
 !
-   DATA Vps/600 , 2 , 598*0/
+   DATA vps/600 , 2 , 598*0/
 !
 !     -------------------     / STAPID /     ---------------------------
 !
-   DATA Tapid/6*0.0/ , Otapid/6*0.0/
-   DATA Idumf/0/
+   DATA tapid/6*0.0/ , otapid/6*0.0/
+   DATA idumf/0/
 !
 !     -------------------     / STIME  /     ---------------------------
 !
-   DATA Time/2*0.0/
+   DATA time/2*0.0/
 !
 !     -------------------     / XCEITB /     ---------------------------
 !
-   DATA Cei/42 , 2 , 40*0/
+   DATA cei/42 , 2 , 40*0/
 !
 !     -------------------     / XMDMSK /     ---------------------------
 !
-   DATA Nmskcd , Nmskfl , Nmskrf , Msk/3 , 3 , 1 , 7*0/
+   DATA nmskcd , nmskfl , nmskrf , msk/3 , 3 , 1 , 7*0/
 !
 !     -------------------     / MSGX   /     ---------------------------
 !
-   DATA Nmsg/0/ , Msglg/40/ , Msg/160*0/
+   DATA nmsg/0/ , msglg/40/ , msg/160*0/
 !
 !     -------------------     / DESCRP /     ---------------------------
 !
@@ -623,51 +623,51 @@ BLOCKDATA semdbd
 !     TWO(1)  = LSHIFT(1,31), IS MACHINE DEPENDENT (SET BY BTSTRP)
 !     MZERO   = WILL BE SET TO LSHIFT(1,NBPW-1) BY BTSTRP
 !
-   DATA Two/0 , 1073741824 , 536870912 , 268435456 , 134217728 , 67108864 , 33554432 , 16777216 , 8388608 , 4194304 , 2097152 ,     &
+   DATA two/0 , 1073741824 , 536870912 , 268435456 , 134217728 , 67108864 , 33554432 , 16777216 , 8388608 , 4194304 , 2097152 ,     &
       & 1048576 , 524288 , 262144 , 131072 , 65536 , 32768 , 16384 , 8192 , 4096 , 2048 , 1024 , 512 , 256 , 128 , 64 , 32 , 16 ,   &
       & 8 , 4 , 2 , 1/
-   DATA Mzero/0/
+   DATA mzero/0/
 !
 !     -------------------     / NAMES  /     ---------------------------
 !
-   DATA Rd/2/ , Rdrew/0/ , Wrt/3/ , Wrtrew/1/ , Rew/1/ , Norew/2/ , Eofnrw/3/ , Rsp/1/ , Rdp/2/ , Csp/3/ , Cdp/4/ , Square/1/ ,     &
-      & Rect/2/ , Diag/3/ , Lower/4/ , Upper/5/ , Sym/6/ , Row/7/ , Ident/8/
+   DATA rd/2/ , rdrew/0/ , wrt/3/ , wrtrew/1/ , rew/1/ , norew/2/ , eofnrw/3/ , rsp/1/ , rdp/2/ , csp/3/ , cdp/4/ , square/1/ ,     &
+      & rect/2/ , diag/3/ , lower/4/ , upper/5/ , sym/6/ , row/7/ , ident/8/
 !
 !     -------------------     / TYPE   /     ---------------------------
 !
-   DATA Prc/1 , 2/ , Nwds/1 , 2 , 2 , 4/ , Rc/1 , 1 , 2 , 2/ , X/6*0.0/
+   DATA prc/1 , 2/ , nwds/1 , 2 , 2 , 4/ , rc/1 , 1 , 2 , 2/ , x/6*0.0/
 !
 !     -------------------     / BITPOS /     ---------------------------
 !
-   DATA Um/32/ , Hm/2HM / , Ups/16/ , Hps/2HPS/ , Uo/30/ , Ho/2HO / , Usa/15/ , Hsa/2HSA/ , Ur/29/ , Hr/2HR / , Uk/14/ , Hk/2HK / , &
-      & Usg/23/ , Hsg/2HSG/ , Upa/13/ , Hpa/2HPA/ , Usb/22/ , Hsb/2HSB/ , U21/10/ , H21/4HXXXX/ , Ul/24/ , Hl/2HL / , U22/11/ ,     &
-       &H22/4HYYYY/ , Ua/25/ , Ha/2HA / , U23/12/ , H23/4HZZZZ/ , Uf/26/ , Hf/2HF / , Ux/9/ , Hx/2HX / , Us/31/ , Hs/2HS / , Uy/8/ ,&
-      & Hy/2HY / , Un/27/ , Hn/2HN / , Ufr/7/ , Hfr/2HFR/ , Ug/28/ , Hg/2HG / , Uz/6/ , Hz/2HZ / , Ue/21/ , He/2HE / , Uab/5/ ,     &
-       &Hab/2HAB/ , Up/20/ , Hp/2HP / , Ui/4/ , Hi/2HI / , Une/19/ , Hne/2HNE/ , U30/3/ , H30/2HU3/ , Ufe/18/ , Hfe/2HFE/ , U31/2/ ,&
-      & H31/2HU2/ , Ud/17/ , Hd/2HD / , U32/1/ , H32/2HU1/
+   DATA um/32/ , hm/2HM / , ups/16/ , hps/2HPS/ , uo/30/ , ho/2HO / , usa/15/ , hsa/2HSA/ , ur/29/ , hr/2HR / , uk/14/ , hk/2HK / , &
+      & usg/23/ , hsg/2HSG/ , upa/13/ , hpa/2HPA/ , usb/22/ , hsb/2HSB/ , u21/10/ , h21/4HXXXX/ , ul/24/ , hl/2HL / , u22/11/ ,     &
+       &h22/4HYYYY/ , ua/25/ , ha/2HA / , u23/12/ , h23/4HZZZZ/ , uf/26/ , hf/2HF / , ux/9/ , hx/2HX / , us/31/ , hs/2HS / , uy/8/ ,&
+      & hy/2HY / , un/27/ , hn/2HN / , ufr/7/ , hfr/2HFR/ , ug/28/ , hg/2HG / , uz/6/ , hz/2HZ / , ue/21/ , he/2HE / , uab/5/ ,     &
+       &hab/2HAB/ , up/20/ , hp/2HP / , ui/4/ , hi/2HI / , une/19/ , hne/2HNE/ , u30/3/ , h30/2HU3/ , ufe/18/ , hfe/2HFE/ , u31/2/ ,&
+      & h31/2HU2/ , ud/17/ , hd/2HD / , u32/1/ , h32/2HU1/
 !
 !     -------------------     / SOFCOM /     ---------------------------
 !
-   DATA Nfiles/1/
-   DATA Filnam/4HINPT , 9*0/
-   DATA Filsiz/100 , 9*0/
-   DATA Status/1/
-   DATA Psswrd/2*4H    /
-   DATA First/.TRUE./
-   DATA Opnsof/.FALSE./
-   DATA Asofcb/0/
+   DATA nfiles/1/
+   DATA filnam/4HINPT , 9*0/
+   DATA filsiz/100 , 9*0/
+   DATA status/1/
+   DATA psswrd/2*4H    /
+   DATA first/.TRUE./
+   DATA opnsof/.FALSE./
+   DATA asofcb/0/
 !
 !     --------------------    / XXREAD /     ---------------------------
 !
-   DATA Inflag , Insave , Ixxr/5*0/
+   DATA inflag , insave , ixxr/5*0/
 !
 !     --------------     /XECHOX/ AND /XREADX/     ---------------------
 !
-   DATA Iecho , Ixsort , Iwasff , Ncard , Noecho/4*0 , 0 , 0 , 3*0 , 0/
-   DATA Screen , Loop , Kount , Prom , Notyet , Star , Pct , Icont/6 , -1 , 0 , 0 , 3*.FALSE. , 36*0/
+   DATA iecho , ixsort , iwasff , ncard , noecho/4*0 , 0 , 0 , 3*0 , 0/
+   DATA screen , loop , kount , prom , notyet , star , pct , icont/6 , -1 , 0 , 0 , 3*.FALSE. , 36*0/
 !
 !     --------------     /MACHIN/ AND /LHPWX/     ---------------------
 !
-   DATA Ma/6*0/ , Lh/7*0/
+   DATA ma/6*0/ , lh/7*0/
 !
 END BLOCKDATA semdbd

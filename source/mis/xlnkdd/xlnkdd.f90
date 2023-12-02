@@ -1,9 +1,10 @@
-!*==xlnkdd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xlnkdd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xlnkdd
+   USE c_xlkspc
    IMPLICIT NONE
-   USE C_XLKSPC
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -113,8 +114,8 @@ SUBROUTINE xlnkdd
 !
 !     INITIALIZE /XLKSPC/
 !
-   Llink = llinkx
-   DO i = 1 , Llink
-      Klink(i) = link(i)
+   llink = llinkx
+   DO i = 1 , llink
+      klink(i) = link(i)
    ENDDO
 END SUBROUTINE xlnkdd

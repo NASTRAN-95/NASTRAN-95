@@ -1,9 +1,10 @@
-!*==cyct2a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cyct2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cyct2a(Kaa,Kxx,G1,G2,Scr1,Scr2,Scr3)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,8 +53,8 @@ SUBROUTINE cyct2a(Kaa,Kxx,G1,G2,Scr1,Scr2,Scr3)
 !
 !     COMPUTE FIRST TERM
 !
-            CALL ssg2b(Kaa,G1,0,Scr1,0,Iprec,1,Scr2)
-            CALL ssg2b(G1,Scr1,0,isc,1,Iprec,1,isc1)
+            CALL ssg2b(Kaa,G1,0,Scr1,0,iprec,1,Scr2)
+            CALL ssg2b(G1,Scr1,0,isc,1,iprec,1,isc1)
          ENDIF
 !
 !     COMPUTE SECOND TERM
@@ -61,8 +62,8 @@ SUBROUTINE cyct2a(Kaa,Kxx,G1,G2,Scr1,Scr2,Scr3)
 !     COMPUTE SECOND TERM
 !
          IF ( iout/=0 ) THEN
-            CALL ssg2b(Kaa,G2,0,Scr1,0,Iprec,1,Kxx)
-            CALL ssg2b(G2,Scr1,isc2,Kxx,1,Iprec,1,Scr3)
+            CALL ssg2b(Kaa,G2,0,Scr1,0,iprec,1,Kxx)
+            CALL ssg2b(G2,Scr1,isc2,Kxx,1,iprec,1,Scr3)
          ENDIF
          mcb(1) = Kxx
       ENDIF

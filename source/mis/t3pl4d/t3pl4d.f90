@@ -1,11 +1,12 @@
-!*==t3pl4d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==t3pl4d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3pl4d
-USE C_PINDEX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_pindex
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -144,7 +145,7 @@ USE ISO_FORTRAN_ENV
    ELSE
       normal = .TRUE.
       constp = .TRUE.
-      p = dble(Slt(2))
+      p = dble(slt(2))
    ENDIF
 !
 !     SET UP THE ELEMENT FORMULATION
@@ -225,7 +226,7 @@ USE ISO_FORTRAN_ENV
          IF ( igpdt(1,j)/=0 ) CALL basglb(pe(1,j),pe(1,j),bgpdt(2,j),igpdt(1,j))
          jp = sil(j) - 1
          DO i = 1 , ndof
-            Loadvc(jp+i) = Loadvc(jp+i) + pe(i,j)
+            loadvc(jp+i) = loadvc(jp+i) + pe(i,j)
          ENDDO
       ENDDO
       RETURN
@@ -233,12 +234,13 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE ISO_FORTRAN_ENV                 
 !
 !     FATAL ERROR
 !
-      islt(1) = iabs(islt(1))
-      CALL mesage(30,224,islt(1))
-      Nogo = 1
+      Islt(1) = iabs(Islt(1))
+      CALL mesage(30,224,Islt(1))
+      nogo = 1
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE t3pl4d

@@ -1,7 +1,10 @@
-!*==rand2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rand2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
+   USE c_system
+   USE c_xmssg
    USE C_SYSTEM
    USE C_XMSSG
    IMPLICIT NONE
@@ -78,7 +81,6 @@ SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
          ENDDO
          ip1 = -7
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     CHECK FOR  MID
@@ -97,7 +99,6 @@ SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
             ENDDO SPAG_Loop_1_1
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     ID IS IN  LIST
@@ -268,7 +269,6 @@ SUBROUTINE rand2(File,Ilist,Load,If,Len,Llist)
                 &' THERE WAS A PLOT REQUEST FOR A POINT THAT DOES NOT EXIST.')
          CALL mesage(-2,File,name)
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE rand2

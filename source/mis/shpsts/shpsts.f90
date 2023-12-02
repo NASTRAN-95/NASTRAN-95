@@ -1,9 +1,10 @@
-!*==shpsts.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==shpsts.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shpsts(Sigma,Vonms,Sigp)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,7 +43,7 @@ SUBROUTINE shpsts(Sigma,Vonms,Sigp)
    proj = 0.5*(Sigma(1)-Sigma(2))
    taumax = proj*proj + Sigma(3)*Sigma(3)
 !WKBI 7/94 SPR94004
-   IF ( Ostrai ) taumax = proj*proj + Sigma(3)*Sigma(3)/4.
+   IF ( ostrai ) taumax = proj*proj + Sigma(3)*Sigma(3)/4.
    IF ( taumax/=0.0 ) taumax = sqrt(taumax)
    IF ( taumax<=eps ) taumax = 0.0
 !

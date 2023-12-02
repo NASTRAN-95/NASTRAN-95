@@ -1,4 +1,5 @@
-!*==scalar.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==scalar.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scalar
@@ -27,13 +28,13 @@ SUBROUTINE scalar
 !     CORRECTLY.) PLUS IMPROVED MESSAGES (WHICH CAN BE SUPPRESSED BY
 !     DIAG 37)
 !
-USE C_BLANK
-USE C_SYSTEM
-USE C_XMSSG
-USE C_XVPS
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_xvps
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -68,14 +69,14 @@ USE ISO_FORTRAN_ENV
 !
    j = 12
    DO i = 1 , 11
-      Bk(j) = Bk(j-1)
+      bk(j) = bk(j-1)
       j = j - 1
    ENDDO
 !
 !     INITIALIZATION
 !
-   lcore = korsz(Core)
-   ibuf = lcore - Sysbuf + 1
+   lcore = korsz(core)
+   ibuf = lcore - sysbuf + 1
    IF ( ibuf<1 ) THEN
 !
 !     ERROR MESSAGES, SET THEM ALL TO NON-FATAL
@@ -87,9 +88,9 @@ USE ISO_FORTRAN_ENV
       CALL mesage(j,in1,name)
       RETURN
    ELSE
-      Rsp = 0.
-      Splx(1) = 0.
-      Splx(2) = 0.
+      rsp = 0.
+      splx(1) = 0.
+      splx(2) = 0.
       rdp = 0.D0
       dplx(1) = 0.D0
       dplx(2) = 0.D0
@@ -105,7 +106,7 @@ USE ISO_FORTRAN_ENV
       ia(1) = in1
       CALL rdtrl(ia)
       IF ( ia(1)<0 ) GOTO 200
-      IF ( Row>nrow ) THEN
+      IF ( row>nrow ) THEN
 !
 !     INVALID ROW OR COLUMN NUMBER
 !
@@ -118,46 +119,46 @@ USE ISO_FORTRAN_ENV
 !
 !     DIAGONAL MATRIX
 !
-            IF ( Row/=Col ) GOTO 100
-            IF ( Col>nrow ) THEN
+            IF ( row/=col ) GOTO 100
+            IF ( col>nrow ) THEN
                j = 7
                CALL mesage(j,in1,name)
                RETURN
             ELSE
 !     SET COL TO 1 FOR SPECIAL DIAGONAL FORMAT
-               Col = 1
+               col = 1
             ENDIF
          ELSEIF ( form==4 ) THEN
 !
 !     LOWER TRIANGULAR MATRIX (UPPER HALF= 0)
 !
-            IF ( Col>Row ) GOTO 100
+            IF ( col>row ) GOTO 100
          ELSEIF ( form==5 ) THEN
 !
 !     UPPER TRIANGULAR MATRIX (LOWER HALF= 0)
 !
-            IF ( Row>Col ) GOTO 100
+            IF ( row>col ) GOTO 100
          ELSEIF ( form==7 ) THEN
 !
 !     ROW VECTOR
 !     SWITCH ROW AND COLUMN FOR PROPER INDEXING
 !
-            Row = Col
-            Col = 1
+            row = col
+            col = 1
          ELSEIF ( form==8 ) THEN
 !
 !     IDENTITY MATRIX
 !
-            IF ( Row==Col ) THEN
-               Rsp = 1.0
+            IF ( row==col ) THEN
+               rsp = 1.0
                rdp = 1.D0
-               Splx(1) = 1.
+               splx(1) = 1.
                dplx(1) = 1.D0
             ENDIF
             GOTO 100
 !     SQUARE, RECTANGULAR OR SYMMETRIC MATRIX
 !
-         ELSEIF ( Col>ncol ) THEN
+         ELSEIF ( col>ncol ) THEN
             j = 7
             CALL mesage(j,in1,name)
             RETURN
@@ -165,8 +166,8 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN INPUT FILE AND SKIP HEADER RECORD AND UNINTERSTING COLUMNS
 !
-         CALL open(*200,in1,Core(ibuf),0)
-         CALL skprec(in1,Col)
+         CALL open(*200,in1,core(ibuf),0)
+         CALL skprec(in1,col)
 !
 !     READ AND SEARCH COLUMN CONTAINING DESIRED ELEMENT.
 !     RECALL THAT DEFAULT VALUE WAS SET TO ZERO
@@ -179,12 +180,12 @@ USE ISO_FORTRAN_ENV
 !     IF INDEX HIGHER, IT MEANS ELEMENT WAS 0.
 !
             CALL zntpki
-            IF ( Ii<Row ) THEN
+            IF ( ii<row ) THEN
 !
 !     CHECK FOR LAST NON-ZERO ELEMENT IN COLUMN.
 !
-               IF ( Eol>0 ) GOTO 100
-            ELSEIF ( Ii==Row ) THEN
+               IF ( eol>0 ) GOTO 100
+            ELSEIF ( ii==row ) THEN
 !
 !     MOVE VALUES TO OUTPUT PARAMETER AREA.
 !     CHECK PRECISION OF INPUT VALUE.
@@ -192,34 +193,34 @@ USE ISO_FORTRAN_ENV
                IF ( prec==2 ) THEN
 !
                   rdp = da(1)
-                  Rsp = sngl(rdp)
+                  rsp = sngl(rdp)
                ELSEIF ( prec==3 ) THEN
 !
-                  Splx(1) = A(1)
-                  Splx(2) = A(2)
-                  dplx(1) = dble(Splx(1))
-                  dplx(2) = dble(Splx(2))
+                  splx(1) = a(1)
+                  splx(2) = a(2)
+                  dplx(1) = dble(splx(1))
+                  dplx(2) = dble(splx(2))
                   EXIT SPAG_Loop_1_1
                ELSEIF ( prec==4 ) THEN
 !
                   dplx(1) = da(1)
                   dplx(2) = da(2)
-                  Splx(1) = sngl(dplx(1))
-                  Splx(2) = sngl(dplx(2))
+                  splx(1) = sngl(dplx(1))
+                  splx(2) = sngl(dplx(2))
                   EXIT SPAG_Loop_1_1
                ELSE
 !
-                  Rsp = A(1)
-                  rdp = dble(Rsp)
+                  rsp = a(1)
+                  rdp = dble(rsp)
                ENDIF
-               Splx(1) = Rsp
+               splx(1) = rsp
                dplx(1) = rdp
                GOTO 100
             ELSE
                GOTO 100
             ENDIF
          ENDDO SPAG_Loop_1_1
-         Rsp = 0.0
+         rsp = 0.0
          rdp = 0.D0
       ENDIF
    ENDIF
@@ -229,51 +230,51 @@ USE ISO_FORTRAN_ENV
 !
  100  IF ( .NOT.(noprt) ) THEN
       CALL page2(3)
-      WRITE (Nout,99001) Uim
+      WRITE (nout,99001) uim
 99001 FORMAT (A29,' FROM SCALAR MODULE -',/5X,'(ALL SCALAR MESSAGES CAN BE SUPPRESSED BY DIAG 37)')
    ENDIF
    CALL fndpar(-3,j)
    IF ( j>0 ) THEN
-      pnm(1) = Ivps(j-3)
-      pnm(2) = Ivps(j-2)
+      pnm(1) = ivps(j-3)
+      pnm(2) = ivps(j-2)
       IF ( prec>=3 ) THEN
-         WRITE (Nout,99006) Uwm , pnm
+         WRITE (nout,99006) uwm , pnm
       ELSE
-         vps(j) = Rsp
+         vps(j) = rsp
          IF ( .NOT.(noprt) ) THEN
-            WRITE (Nout,99002) Rsp , pnm
+            WRITE (nout,99002) rsp , pnm
 99002       FORMAT (73X,E15.8,4H  = ,2A4)
-            WRITE (Nout,99007) Row , Col , type(prec) , fnm
+            WRITE (nout,99007) row , col , type(prec) , fnm
          ENDIF
       ENDIF
    ENDIF
    CALL fndpar(-4,j)
    IF ( j>0 ) THEN
-      pnm(1) = Ivps(j-3)
-      pnm(2) = Ivps(j-2)
+      pnm(1) = ivps(j-3)
+      pnm(2) = ivps(j-2)
       IF ( prec>=3 ) THEN
-         WRITE (Nout,99006) Uwm , pnm
+         WRITE (nout,99006) uwm , pnm
       ELSE
          dp(1) = rdp
          vps(j) = sp(1)
          vps(j+1) = sp(2)
          IF ( .NOT.(noprt) ) THEN
-            WRITE (Nout,99003) rdp , pnm
+            WRITE (nout,99003) rdp , pnm
 99003       FORMAT (73X,D15.8,4H  = ,2A4)
-            WRITE (Nout,99007) Row , Col , type(prec) , fnm
+            WRITE (nout,99007) row , col , type(prec) , fnm
          ENDIF
       ENDIF
    ENDIF
    CALL fndpar(-5,j)
    IF ( j>0 ) THEN
-      vps(j) = Splx(1)
-      vps(j+1) = Splx(2)
-      pnm(1) = Ivps(j-3)
-      pnm(2) = Ivps(j-2)
+      vps(j) = splx(1)
+      vps(j+1) = splx(2)
+      pnm(1) = ivps(j-3)
+      pnm(2) = ivps(j-2)
       IF ( .NOT.(noprt) ) THEN
-         WRITE (Nout,99004) Splx , pnm
+         WRITE (nout,99004) splx , pnm
 99004    FORMAT (73X,1H(,E15.8,1H,,E15.8,1H),4H  = ,2A4)
-         WRITE (Nout,99007) Row , Col , type(prec) , fnm
+         WRITE (nout,99007) row , col , type(prec) , fnm
       ENDIF
    ENDIF
    CALL fndpar(-6,j)
@@ -284,12 +285,12 @@ USE ISO_FORTRAN_ENV
       vps(j+1) = sp(2)
       vps(j+2) = sp(3)
       vps(j+3) = sp(4)
-      pnm(1) = Ivps(j-3)
-      pnm(2) = Ivps(j-2)
+      pnm(1) = ivps(j-3)
+      pnm(2) = ivps(j-2)
       IF ( .NOT.(noprt) ) THEN
-         WRITE (Nout,99005) dplx , pnm
+         WRITE (nout,99005) dplx , pnm
 99005    FORMAT (73X,1H(,D15.8,1H,,D15.8,1H),4H  = ,2A4)
-         WRITE (Nout,99007) Row , Col , type(prec) , fnm
+         WRITE (nout,99007) row , col , type(prec) , fnm
       ENDIF
    ENDIF
 !

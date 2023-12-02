@@ -1,12 +1,13 @@
-!*==filswi.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==filswi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE filswi(Name1,Name2)
+   USE c_system
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -32,13 +33,13 @@ SUBROUTINE filswi(Name1,Name2)
    IF ( Name1==Name2 ) RETURN
    k1 = 0
    k2 = 0
-   n = 2*Lfist - 1
+   n = 2*lfist - 1
    DO i = 1 , n , 2
-      IF ( Fist(i)==Name1 ) k1 = Fist(i+1)
-      IF ( Fist(i)==Name2 ) k2 = Fist(i+1)
+      IF ( fist(i)==Name1 ) k1 = fist(i+1)
+      IF ( fist(i)==Name2 ) k2 = fist(i+1)
    ENDDO
    IF ( k1<=0 .OR. k2<=0 ) THEN
-      WRITE (Nout,99001) Sfm
+      WRITE (nout,99001) sfm
 99001 FORMAT (A23,' 2178, GINO REFERENCE NAMES, IMPROPER FOR ','SUBROUTINE FILSWI.')
       CALL mesage(-61,0,0)
    ENDIF
@@ -46,12 +47,12 @@ SUBROUTINE filswi(Name1,Name2)
 !     SWITCH UNIT REFERENCE NUMBERS IN FIAT.
 !
    mask2 = complf(mask1)
-   unit1 = andf(Fiat(k1+1),mask1)
-   unit2 = andf(Fiat(k2+1),mask1)
-   n = Icfiat*Fiat(3) - 2
-   DO i = 4 , n , Icfiat
-      unit = andf(Fiat(i),mask1)
-      IF ( unit==unit1 ) Fiat(i) = orf(andf(Fiat(i),mask2),unit2)
-      IF ( unit==unit2 ) Fiat(i) = orf(andf(Fiat(i),mask2),unit1)
+   unit1 = andf(fiat(k1+1),mask1)
+   unit2 = andf(fiat(k2+1),mask1)
+   n = icfiat*fiat(3) - 2
+   DO i = 4 , n , icfiat
+      unit = andf(fiat(i),mask1)
+      IF ( unit==unit1 ) fiat(i) = orf(andf(fiat(i),mask2),unit2)
+      IF ( unit==unit2 ) fiat(i) = orf(andf(fiat(i),mask2),unit1)
    ENDDO
 END SUBROUTINE filswi

@@ -1,10 +1,11 @@
-!*==drwchr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==drwchr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
+   USE c_chrdrw
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_CHRDRW
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,19 +45,19 @@ SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
       n = Nn
       IF ( n<=0 ) n = 1
       d = max0(iabs(Xyd),1)
-      s = Cntchr(d)
+      s = cntchr(d)
       IF ( Xyd==-1 .OR. Xyd==2 ) s = -s
-      xyc(1,1) = 3.0*Cscale
-      xyc(2,1) = 3.0*Cscale
+      xyc(1,1) = 3.0*cscale
+      xyc(2,1) = 3.0*cscale
       xy(1,1) = X - xyc(1,1)
       xy(2,1) = Y - xyc(2,1)
       xy(1,2) = xy(1,1)
       xy(2,2) = xy(2,1)
       DO i = 1 , 2
-         save(i,1) = Reg(i,1)
-         Reg(i,1) = amax1(-Edge(i),Reg(i,1)-xyc(i,1))
-         save(i,2) = Reg(i,2)
-         Reg(i,2) = amin1(Xymax(i)+Edge(i),Reg(i,2)+xyc(i,1))
+         save(i,1) = reg(i,1)
+         reg(i,1) = amax1(-edge(i),reg(i,1)-xyc(i,1))
+         save(i,2) = reg(i,2)
+         reg(i,2) = amin1(xymax(i)+edge(i),reg(i,2)+xyc(i,1))
       ENDDO
 !
 !     TYPE THE LINE.
@@ -70,24 +71,24 @@ SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
          IF ( Xyd<0 ) i = n - j + 1
          k = Chr(i)
          IF ( Nn==0 .OR. k<lstchr ) THEN
-            IF ( k<=Lstind ) THEN
+            IF ( k<=lstind ) THEN
                SPAG_Loop_2_1: DO
 !
 !     DRAW THE CHARACTER.
 !
-                  n1 = Chrind(k)
+                  n1 = chrind(k)
                   IF ( n1>0 ) THEN
                      DO
-                        n2 = Chrind(k+1)
+                        n2 = chrind(k+1)
                         IF ( n2>0 ) THEN
 !
                            n2 = n2 - 1
                            DO l = n1 , n2
                               DO i = 1 , 2
                                  xyc(i,1) = xyc(i,2)
-                                 xyc(i,2) = xy(i,2) + Cscale*float(iabs(Xychr(i,l)))
+                                 xyc(i,2) = xy(i,2) + cscale*float(iabs(xychr(i,l)))
                               ENDDO
-                              IF ( l/=n1 .AND. Xychr(1,l)>=0 .AND. Xychr(2,l)>=0 ) CALL line(xyc(1,1),xyc(2,1),xyc(1,2),xyc(2,2),1, &
+                              IF ( l/=n1 .AND. xychr(1,l)>=0 .AND. xychr(2,l)>=0 ) CALL line(xyc(1,1),xyc(2,1),xyc(1,2),xyc(2,2),1, &
                                  & 0)
                            ENDDO
                            EXIT SPAG_Loop_2_1
@@ -104,8 +105,8 @@ SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
       ENDDO
 !
       DO i = 1 , 2
-         Reg(i,1) = save(i,1)
-         Reg(i,2) = save(i,2)
+         reg(i,1) = save(i,1)
+         reg(i,2) = save(i,2)
       ENDDO
    ELSE
       CALL line(0,0,0,0,0,Opt)

@@ -2,13 +2,13 @@
  
 SUBROUTINE mtrplt
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA2CL
-   USE C_SMA2DP
-   USE C_SMA2ET
-   USE C_SMA2IO
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -26,6 +26,12 @@ SUBROUTINE mtrplt
    REAL*8 , DIMENSION(8) :: requiv
    REAL*8 , DIMENSION(9) :: tite
    REAL , DIMENSION(3) :: v1 , v2 , v3
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -95,23 +101,23 @@ SUBROUTINE mtrplt
 !
    DATA m/1 , 2 , 4 , 2 , 3 , 4 , 3 , 1 , 4/
 !
-   Eltemp = Ecpt(25)
+   eltemp = ecpt(25)
 !     DETERMINE PIVOT POINT NUMBER
 !
    DO i = 1 , 3
-      IF ( Npvt==necpt(i+1) ) THEN
-         Npivot = i
+      IF ( npvt==necpt(i+1) ) THEN
+         npivot = i
          GOTO 100
       ENDIF
    ENDDO
 !
 !
 !     FALL THRU ABOVE LOOP IMPLIES ERROR CONDITION
-   CALL mesage(-30,34,Ecpt(1))
+   CALL mesage(-30,34,ecpt(1))
 !
- 100  Theta = Ecpt(5)*degra
-   Sinang = sin(Theta)
-   Cosang = cos(Theta)
+ 100  theta = ecpt(5)*degra
+   sinang = sin(theta)
+   cosang = cos(theta)
 !     FORMATION OF THE R-MATRIX CONTAINING COORDINATES OF THE
 !     SUB TRIANGLES. (2X4) FOR TRIANGULAR PLATE. (COLUMN 4 BLANK)
 !     FORMATION ALSO OF THE I,J, AND K VECTORS USED IN THE E-MATRIX.
@@ -130,33 +136,33 @@ SUBROUTINE mtrplt
    r(1,2) = dsqrt(d2(1)**2+d2(2)**2+d2(3)**2)
    IF ( r(1,2)/=0.0D0 ) THEN
       DO i = 1 , 3
-         Ivect(i) = d2(i)/r(1,2)
+         ivect(i) = d2(i)/r(1,2)
       ENDDO
 !
 !     NON-NORMALIZED K-VECTOR
-      Kvect(1) = Ivect(2)*d1(3) - d1(2)*Ivect(3)
-      Kvect(2) = Ivect(3)*d1(1) - d1(3)*Ivect(1)
-      Kvect(3) = Ivect(1)*d1(2) - d1(1)*Ivect(2)
+      kvect(1) = ivect(2)*d1(3) - d1(2)*ivect(3)
+      kvect(2) = ivect(3)*d1(1) - d1(3)*ivect(1)
+      kvect(3) = ivect(1)*d1(2) - d1(1)*ivect(2)
 !
 !     Y3 GOES INTO R(2,3)
-      r(2,3) = dsqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
+      r(2,3) = dsqrt(kvect(1)**2+kvect(2)**2+kvect(3)**2)
       IF ( r(2,3)/=0.0D0 ) THEN
          DO i = 1 , 3
-            Kvect(i) = Kvect(i)/r(2,3)
+            kvect(i) = kvect(i)/r(2,3)
          ENDDO
 !
 !     J-VECTOR = K X I  VECTORS
-         Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
-         Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
-         Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+         jvect(1) = kvect(2)*ivect(3) - ivect(2)*kvect(3)
+         jvect(2) = kvect(3)*ivect(1) - ivect(3)*kvect(1)
+         jvect(3) = kvect(1)*ivect(2) - ivect(1)*kvect(2)
 !     NORMALIZE J VECTOR TO MAKE SURE
-         Temp = dsqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
-         IF ( Temp/=0.0D0 ) THEN
+         temp = dsqrt(jvect(1)**2+jvect(2)**2+jvect(3)**2)
+         IF ( temp/=0.0D0 ) THEN
             DO i = 1 , 3
-               Jvect(i) = Jvect(i)/Temp
+               jvect(i) = jvect(i)/temp
             ENDDO
 !     X3 GOES INTO R(1,3) = D1 DOT IVECT
-            r(1,3) = d1(1)*Ivect(1) + d1(2)*Ivect(2) + d1(3)*Ivect(3)
+            r(1,3) = d1(1)*ivect(1) + d1(2)*ivect(2) + d1(3)*ivect(3)
 !
 !     CENTROID POINT GOES INTO R(1,4) AND R(2,4)
             r(1,4) = (r(1,2)+r(1,3))/3.0D0
@@ -189,25 +195,25 @@ SUBROUTINE mtrplt
 !HOOSE APPROPRIATE COORDINATE POINTS FOR EACH SUBTRIANGLE J = 1,2,3
 !
             DO j = 1 , 3
-               Km = 3*j - 3
+               km = 3*j - 3
 !
-               Subsca = m(Km+1)
-               Subscb = m(Km+2)
-               Subscc = m(Km+3)
+               subsca = m(km+1)
+               subscb = m(km+2)
+               subscc = m(km+3)
 !
                DO i = 1 , 2
-                  V(i) = r(i,Subscb) - r(i,Subsca)
-                  Vv(i) = r(i,Subscc) - r(i,Subsca)
+                  v(i) = r(i,subscb) - r(i,subsca)
+                  vv(i) = r(i,subscc) - r(i,subsca)
                ENDDO
-               Xsubb = dsqrt(V(1)**2+V(2)**2)
-               U1 = V(1)/Xsubb
-               U2 = V(2)/Xsubb
-               Xsubc = U1*Vv(1) + U2*Vv(2)
-               Ysubc = U1*Vv(2) - U2*Vv(1)
+               xsubb = dsqrt(v(1)**2+v(2)**2)
+               u1 = v(1)/xsubb
+               u2 = v(2)/xsubb
+               xsubc = u1*vv(1) + u2*vv(2)
+               ysubc = u1*vv(2) - u2*vv(1)
 !
-               Sinth = Sinang*U1 - Cosang*U2
-               Costh = Cosang*U1 + Sinang*U2
-               IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+               sinth = sinang*u1 - cosang*u2
+               costh = cosang*u1 + sinang*u2
+               IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
 !
 !
 !     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR
@@ -249,57 +255,57 @@ SUBROUTINE mtrplt
 !
 !     SET UP OF T-MATRIX
 !
-               T(1) = 1.0D0
-               T(2) = 0.0D0
-               T(3) = 0.0D0
-               T(4) = 0.0D0
-               T(5) = U1
-               T(6) = U2
-               T(7) = 0.0D0
-               T(8) = -U2
-               T(9) = U1
+               t(1) = 1.0D0
+               t(2) = 0.0D0
+               t(3) = 0.0D0
+               t(4) = 0.0D0
+               t(5) = u1
+               t(6) = u2
+               t(7) = 0.0D0
+               t(8) = -u2
+               t(9) = u1
 !
 !
                DO i = 1 , 3
-                  CALL gmmatd(T(1),3,3,1,A(27*i-8),3,3,0,Temp9(1))
-                  CALL gmmatd(Temp9(1),3,3,0,T(1),3,3,0,Prod9(1))
+                  CALL gmmatd(t(1),3,3,1,a(27*i-8),3,3,0,temp9(1))
+                  CALL gmmatd(temp9(1),3,3,0,t(1),3,3,0,prod9(1))
 !
 !     ADD THIS PRODUCT IN NOW.
 !     COMPUTE POINTER TO MSUM MATRIX DESIRED.  (ZERO POINTER)
-                  Npoint = Km + i
-                  Npoint = 9*m(Npoint) + 18
+                  npoint = km + i
+                  npoint = 9*m(npoint) + 18
 !
                   DO k = 1 , 9
-                     Nsubc = Npoint + k
-                     msum(Nsubc) = msum(Nsubc) + Prod9(k)
+                     nsubc = npoint + k
+                     msum(nsubc) = msum(nsubc) + prod9(k)
                   ENDDO
                ENDDO
 !
 !
                DO k = 1 , 2
-                  Npoint = Km + k
-                  IF ( m(Npoint)==Npivot ) THEN
-                     CALL gmmatd(T(1),3,3,1,A(36*k-35),3,3,0,Temp9(1))
-                     CALL gmmatd(Temp9(1),3,3,0,T(1),3,3,0,Prod9(1))
+                  npoint = km + k
+                  IF ( m(npoint)==npivot ) THEN
+                     CALL gmmatd(t(1),3,3,1,a(36*k-35),3,3,0,temp9(1))
+                     CALL gmmatd(temp9(1),3,3,0,t(1),3,3,0,prod9(1))
 !
 !     COMPUTE POINTER TO MSUM MATRIX (ZERO POINTER)
 !
-                     Npoint = 9*Npivot - 9
+                     npoint = 9*npivot - 9
                      DO i = 1 , 9
-                        Nsubc = Npoint + i
-                        msum(Nsubc) = msum(Nsubc) + Prod9(i)
+                        nsubc = npoint + i
+                        msum(nsubc) = msum(nsubc) + prod9(i)
                      ENDDO
 !
-                     CALL gmmatd(T(1),3,3,1,A(18*k-8),3,3,0,Temp9(1))
-                     CALL gmmatd(Temp9(1),3,3,0,T(1),3,3,0,Prod9(1))
+                     CALL gmmatd(t(1),3,3,1,a(18*k-8),3,3,0,temp9(1))
+                     CALL gmmatd(temp9(1),3,3,0,t(1),3,3,0,prod9(1))
 !
 !     COMPUTE ZERO POINTER TO MSUM MATRIX DESIRED
 !
-                     Npoint = Km + 3 - k
-                     Npoint = 9*m(Npoint) - 9
+                     npoint = km + 3 - k
+                     npoint = 9*m(npoint) - 9
                      DO i = 1 , 9
-                        Nsubc = Npoint + i
-                        msum(Nsubc) = msum(Nsubc) + Prod9(i)
+                        nsubc = npoint + i
+                        msum(nsubc) = msum(nsubc) + prod9(i)
                      ENDDO
                   ENDIF
                ENDDO
@@ -317,30 +323,30 @@ SUBROUTINE mtrplt
 !
 !     FORM HQ (2X6)
 !
-               Temp1 = Xsubb - Xsubc
-               Temp2 = Ysubc**2
-               L1 = dsqrt(Xsubc**2+Temp2)
-               L2 = dsqrt(Temp1**2+Temp2)
-               S1 = Xsubc/L1
-               S2 = Temp1/L2
-               C1 = Ysubc/L1
-               C2 = Ysubc/L2
-               X1 = Xsubc/2.0D0
-               Y1 = Ysubc/2.0D0
-               X2 = (Xsubb+Xsubc)/2.0D0
-               Y2 = Y1
-               hq(1) = -Xsubc*C1
-               hq(2) = X1*S1 - Y1*C1
-               hq(3) = Ysubc*S1
-               hq(4) = -3.0D0*X1*X1*C1
-               hq(5) = Y1*(Xsubc*S1-Y1*C1)
-               hq(6) = 3.0D0*Y1*Y1*S1
-               hq(7) = 2.0D0*X2*C2
-               hq(8) = X2*S2 + Y2*C2
-               hq(9) = Ysubc*S2
-               hq(10) = 3.0D0*X2*X2*C2
-               hq(11) = Y2*(2.0D0*X2*S2+Y2*C2)
-               hq(12) = 3.0D0*Y2*Y2*S2
+               temp1 = xsubb - xsubc
+               temp2 = ysubc**2
+               l1 = dsqrt(xsubc**2+temp2)
+               l2 = dsqrt(temp1**2+temp2)
+               s1 = xsubc/l1
+               s2 = temp1/l2
+               c1 = ysubc/l1
+               c2 = ysubc/l2
+               x1 = xsubc/2.0D0
+               y1 = ysubc/2.0D0
+               x2 = (xsubb+xsubc)/2.0D0
+               y2 = y1
+               hq(1) = -xsubc*c1
+               hq(2) = x1*s1 - y1*c1
+               hq(3) = ysubc*s1
+               hq(4) = -3.0D0*x1*x1*c1
+               hq(5) = y1*(xsubc*s1-y1*c1)
+               hq(6) = 3.0D0*y1*y1*s1
+               hq(7) = 2.0D0*x2*c2
+               hq(8) = x2*s2 + y2*c2
+               hq(9) = ysubc*s2
+               hq(10) = 3.0D0*x2*x2*c2
+               hq(11) = y2*(2.0D0*x2*s2+y2*c2)
+               hq(12) = 3.0D0*y2*y2*s2
 !
 !
 !
@@ -350,20 +356,20 @@ SUBROUTINE mtrplt
 !                      I
 !
 !
-               CALL gmmatd(hq(1),2,6,0,Hinv(1),6,6,0,prod12(1))
+               CALL gmmatd(hq(1),2,6,0,hinv(1),6,6,0,prod12(1))
 !
 !
 !     COMPUTE (H     ) = -(PROD12)(S)
 !               PSI,A
 !
-               CALL gmmatd(prod12(1),2,6,0,S(1),6,3,0,habc(1))
+               CALL gmmatd(prod12(1),2,6,0,s(1),6,3,0,habc(1))
 !
                habc(1) = -habc(1)
-               habc(2) = -habc(2) + S1
-               habc(3) = -habc(3) + C1
+               habc(2) = -habc(2) + s1
+               habc(3) = -habc(3) + c1
                habc(4) = -habc(4)
-               habc(5) = -habc(5) + S2
-               habc(6) = -habc(6) - C2
+               habc(5) = -habc(5) + s2
+               habc(6) = -habc(6) - c2
 !
 !     SPLIT (H     ) AND (H     )    PARTITION
 !             PSI,B        PSI,C
@@ -395,11 +401,11 @@ SUBROUTINE mtrplt
 !
 !     TRANSFORM H SUB I
 !
-                  CALL gmmatd(habc(6*i-5),2,3,0,T(1),3,3,0,Temp9(1))
+                  CALL gmmatd(habc(6*i-5),2,3,0,t(1),3,3,0,temp9(1))
 !
 !
-                  Npoint = Km + i
-                  Npoint = 9*m(Npoint) - 9
+                  npoint = km + i
+                  npoint = 9*m(npoint) - 9
 !
 !     J = 1    ROW 1 OF H INTO ROW 1 OF G.
 !              ROW 2 OF H INTO ROW 2 OF G.
@@ -411,19 +417,19 @@ SUBROUTINE mtrplt
                   IF ( j<2 ) THEN
                   ELSEIF ( j==2 ) THEN
 !
-                     Npoint = Npoint + 3
+                     npoint = npoint + 3
                   ELSE
-                     g(Npoint+7) = g(Npoint+7) + Temp9(1)
-                     g(Npoint+8) = g(Npoint+8) + Temp9(2)
-                     g(Npoint+9) = g(Npoint+9) + Temp9(3)
-                     g(Npoint+1) = g(Npoint+1) + Temp9(4)
-                     g(Npoint+2) = g(Npoint+2) + Temp9(5)
-                     g(Npoint+3) = g(Npoint+3) + Temp9(6)
+                     g(npoint+7) = g(npoint+7) + temp9(1)
+                     g(npoint+8) = g(npoint+8) + temp9(2)
+                     g(npoint+9) = g(npoint+9) + temp9(3)
+                     g(npoint+1) = g(npoint+1) + temp9(4)
+                     g(npoint+2) = g(npoint+2) + temp9(5)
+                     g(npoint+3) = g(npoint+3) + temp9(6)
                      CYCLE
                   ENDIF
                   DO k = 1 , 6
-                     Npoint = Npoint + 1
-                     g(Npoint) = g(Npoint) + Temp9(k)
+                     npoint = npoint + 1
+                     g(npoint) = g(npoint) + temp9(k)
                   ENDDO
 !
                ENDDO
@@ -445,18 +451,18 @@ SUBROUTINE mtrplt
             DO i = 1 , 36
                tjte(i) = 0.0D0
             ENDDO
-            em3 = dble(Ecpt(10))/6.0D0*r(1,2)*r(2,3)
+            em3 = dble(ecpt(10))/6.0D0*r(1,2)*r(2,3)
 !
 !     FILL E-MATRIX
 !
             DO i = 1 , 9
-               E(i) = 0.0D0
+               e(i) = 0.0D0
             ENDDO
             DO i = 1 , 3
-               Npoint = 3*i - 2
-               E(Npoint) = Ivect(i)
-               E(Npoint+1) = Jvect(i)
-               E(Npoint+2) = Kvect(i)
+               npoint = 3*i - 2
+               e(npoint) = ivect(i)
+               e(npoint+1) = jvect(i)
+               e(npoint+2) = kvect(i)
             ENDDO
 !
 !
@@ -464,15 +470,15 @@ SUBROUTINE mtrplt
 !     FORM   T   E      STORE IN TITE-MATRIX (6X3)
 !             I
 !
-            IF ( necpt(4*Npivot+9)==0 ) THEN
+            IF ( necpt(4*npivot+9)==0 ) THEN
 !
                DO k = 1 , 9
-                  tite(k) = E(k)
+                  tite(k) = e(k)
                ENDDO
             ELSE
-               CALL transd(necpt(4*Npivot+9),T(1))
+               CALL transd(necpt(4*npivot+9),t(1))
 !
-               CALL gmmatd(T(1),3,3,1,E(1),3,3,0,tite(1))
+               CALL gmmatd(t(1),3,3,1,e(1),3,3,0,tite(1))
             ENDIF
 !
 !
@@ -505,19 +511,19 @@ SUBROUTINE mtrplt
 !                 4
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USES SUBSEQUENTLY.
-            Ising = -1
-            CALL inverd(3,g(28),3,Prod9,0,Determ,Ising,Temp9)
+            ising = -1
+            CALL inverd(3,g(28),3,prod9,0,determ,ising,temp9)
 !
 !     CHECK FOR SINGULARITY. ISING=2 IMPLIES SINGULARITY.
-            IF ( Ising==1 ) THEN
+            IF ( ising==1 ) THEN
 !
-               CALL gmmatd(g(28),3,3,0,g(9*Npivot-8),3,3,0,Prod9(1))
+               CALL gmmatd(g(28),3,3,0,g(9*npivot-8),3,3,0,prod9(1))
 !
 !                       T
 !     GET  (TERM        )(M  )  STORE IN TEMP9
 !               I=NPIVOT   44
 !
-               CALL gmmatd(Prod9(1),3,3,1,msum(55),3,3,0,Temp9(1))
+               CALL gmmatd(prod9(1),3,3,1,msum(55),3,3,0,temp9(1))
 !
 !
 !
@@ -529,51 +535,51 @@ SUBROUTINE mtrplt
 !     (TERM        ) (M  )    STORE IN ARR9
 !          I=NPIVOT    J4
 !
-                  CALL gmmatd(Prod9(1),3,3,1,msum(9*j+19),3,3,1,Arr9(1))
+                  CALL gmmatd(prod9(1),3,3,1,msum(9*j+19),3,3,1,arr9(1))
 !
 !     SUBTRACT FROM (M  )
 !                     IJ
 !
                   nbegin = 9*j - 9
                   DO i = 1 , 36
-                     M6x6(i) = 0.0D0
+                     m6x6(i) = 0.0D0
                   ENDDO
                   DO i = 1 , 9
-                     Npoint = nbegin + i
-                     msum(Npoint) = msum(Npoint) - Arr9(i)
+                     npoint = nbegin + i
+                     msum(npoint) = msum(npoint) - arr9(i)
                   ENDDO
 !
 !
 !      COMPUTE  (TERM )  STORE IN ARR9
 !                   J
 !
-                  CALL gmmatd(g(28),3,3,0,g(9*j-8),3,3,0,Arr9(1))
+                  CALL gmmatd(g(28),3,3,0,g(9*j-8),3,3,0,arr9(1))
 !
 !
 !     GET  (M  )(TERM )  STORE IN ARRAY9
 !            I4      J
 !
-                  CALL gmmatd(msum(9*Npivot+19),3,3,0,Arr9(1),3,3,0,Array9(1))
+                  CALL gmmatd(msum(9*npivot+19),3,3,0,arr9(1),3,3,0,array9(1))
 !
 !     SUBTRACT FROM MIJ
 !
                   DO i = 1 , 9
-                     Npoint = nbegin + i
-                     msum(Npoint) = msum(Npoint) - Array9(i)
+                     npoint = nbegin + i
+                     msum(npoint) = msum(npoint) - array9(i)
                   ENDDO
 !
 !                           T
 !     COMPUTE  (TERM        )(M  )(TERM ) = (TEMP9)(ARR9)
 !                   I=NPOINT   44      J
 !
-                  CALL gmmatd(Temp9(1),3,3,0,Arr9(1),3,3,0,Array9(1))
+                  CALL gmmatd(temp9(1),3,3,0,arr9(1),3,3,0,array9(1))
 !
 !     ADD TO M
 !             IJ
 !
                   DO i = 1 , 9
-                     Npoint = nbegin + i
-                     msum(Npoint) = msum(Npoint) + Array9(i)
+                     npoint = nbegin + i
+                     msum(npoint) = msum(npoint) + array9(i)
                   ENDDO
 !
 !
@@ -589,29 +595,29 @@ SUBROUTINE mtrplt
                   IF ( necpt(4*j+9)==0 ) THEN
 !
                      DO i = 1 , 3
-                        Npoint = 6*i - 5
-                        npt = Npoint + 21
-                        tjte(Npoint) = E(i)
-                        tjte(Npoint+1) = E(i+3)
-                        tjte(Npoint+2) = E(i+6)
-                        tjte(npt) = E(i)
-                        tjte(npt+1) = E(i+3)
-                        tjte(npt+2) = E(i+6)
+                        npoint = 6*i - 5
+                        npt = npoint + 21
+                        tjte(npoint) = e(i)
+                        tjte(npoint+1) = e(i+3)
+                        tjte(npoint+2) = e(i+6)
+                        tjte(npt) = e(i)
+                        tjte(npt+1) = e(i+3)
+                        tjte(npt+2) = e(i+6)
                      ENDDO
                   ELSE
-                     CALL transd(necpt(4*j+9),T(1))
-                     CALL gmmatd(E(1),3,3,1,T(1),3,3,0,tjte(1))
+                     CALL transd(necpt(4*j+9),t(1))
+                     CALL gmmatd(e(1),3,3,1,t(1),3,3,0,tjte(1))
                      DO i = 1 , 3
-                        Npoint = i + 21
-                        tjte(Npoint) = tjte(i)
-                        tjte(Npoint+6) = tjte(i+3)
-                        tjte(Npoint+12) = tjte(i+6)
+                        npoint = i + 21
+                        tjte(npoint) = tjte(i)
+                        tjte(npoint+6) = tjte(i+3)
+                        tjte(npoint+12) = tjte(i+6)
                      ENDDO
                      DO i = 1 , 3
-                        Npoint = i + 21
-                        tjte(i) = tjte(Npoint)
-                        tjte(i+6) = tjte(Npoint+6)
-                        tjte(i+12) = tjte(Npoint+12)
+                        npoint = i + 21
+                        tjte(i) = tjte(npoint)
+                        tjte(i+6) = tjte(npoint+6)
+                        tjte(i+12) = tjte(npoint+12)
                         tjte(i+3) = 0.0D0
 !
                      ENDDO
@@ -619,33 +625,33 @@ SUBROUTINE mtrplt
 !
 !
 !  EXPAND THE MSUM MATRIX (3X3) TO M6X6 MATRIX (6X6)
-                  IF ( Npivot==j ) THEN
-                     M6x6(1) = em3
-                     M6x6(8) = em3
+                  IF ( npivot==j ) THEN
+                     m6x6(1) = em3
+                     m6x6(8) = em3
                   ENDIF
                   DO i = 1 , 3
-                     Npoint = nbegin + i
-                     M6x6(i+14) = msum(Npoint)
-                     M6x6(i+20) = msum(Npoint+3)
-                     M6x6(i+26) = msum(Npoint+6)
+                     npoint = nbegin + i
+                     m6x6(i+14) = msum(npoint)
+                     m6x6(i+20) = msum(npoint+3)
+                     m6x6(i+26) = msum(npoint+6)
                   ENDDO
 !
 !
-                  CALL gmmatd(M6x6(1),6,6,0,tjte(1),6,6,0,temp36(1))
+                  CALL gmmatd(m6x6(1),6,6,0,tjte(1),6,6,0,temp36(1))
                   CALL gmmatd(tite(1),3,3,0,temp36(1),3,6,0,mout(1))
                   CALL gmmatd(tite(1),3,3,0,temp36(19),3,6,0,mout(19))
 !
 !
-                  CALL sma2b(mout(1),necpt(j+1),-1,Ifmgg,0.0D0)
+                  CALL sma2b(mout(1),necpt(j+1),-1,ifmgg,0.0D0)
 !
                ENDDO
                RETURN
             ELSE
-               CALL mesage(30,36,Ecpt(1))
+               CALL mesage(30,36,ecpt(1))
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-               Nogo = 1
+               nogo = 1
                RETURN
             ENDIF
          ENDIF
@@ -653,9 +659,9 @@ SUBROUTINE mtrplt
    ENDIF
 !
 !
-   CALL mesage(30,26,Ecpt(1))
+   CALL mesage(30,26,ecpt(1))
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-   Nogo = 1
+   nogo = 1
 END SUBROUTINE mtrplt

@@ -1,15 +1,16 @@
-!*==cfeer4.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfeer4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfeer4
-USE C_FEERAA
-USE C_FEERXC
-USE C_NAMES
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -85,10 +86,10 @@ USE ISO_FORTRAN_ENV
 !                ERROR TEST
 !     NOTE.....SEE LISTING OF CFCNTL FOR ADDITIONAL DEFINITIONS
 !
-         IF ( Qpr ) WRITE (nout,99001)
+         IF ( qpr ) WRITE (nout,99001)
 99001    FORMAT (1H0,//7H CFEER4,//)
          dpmach = iprec==2
-         nord8 = 2*Nord4
+         nord8 = 2*nord4
          decrem = .FALSE.
          SPAG_Loop_1_1: DO
             nrow2 = 2*nrow
@@ -114,23 +115,23 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FOR INSUFFICIENT CORE
 !
-            nz = korsz(Z(1))
-            ibuf1 = nz - Ksystm(1)
-            ibuf2 = ibuf1 - Ksystm(1)
+            nz = korsz(z(1))
+            ibuf1 = nz - ksystm(1)
+            ibuf2 = ibuf1 - ksystm(1)
             iopn = ibuf2 - (iv2+nord8)
-            IF ( Idiag/=0 ) WRITE (nout,99002) iopn
+            IF ( idiag/=0 ) WRITE (nout,99002) iopn
 99002       FORMAT (1H ,I10,36H SINGLE PRECISION WORDS OF OPEN CORE,29H NOT USED (SUBROUTINE CFEER4))
             IF ( iopn<=0 ) CALL mesage(-8,0,name(1))
-            IF ( iopn<Minopn ) Minopn = iopn
-            IF ( Nswp(2)<0 ) EXIT SPAG_Loop_1_1
+            IF ( iopn<minopn ) minopn = iopn
+            IF ( nswp(2)<0 ) EXIT SPAG_Loop_1_1
 !
 !     CONSTRUCT REDUCED TRIDIAGONAL MATRIX
 !
             DO i = ia , il
-               Z(i) = 0.
+               z(i) = 0.
             ENDDO
             nrow22 = nrow2 + 2
-            CALL gopen(Iscr(5),Z(ibuf1),Rdrew)
+            CALL gopen(iscr(5),z(ibuf1),rdrew)
             nw = 4*iprec
             eor = 1
             m = 0
@@ -140,10 +141,10 @@ USE ISO_FORTRAN_ENV
 !
             DO i = 1 , nrow
                i1 = i - 1
-               CALL read(*40,*60,Iscr(5),s(1),nw,eor,m)
-               IF ( Qpr .AND. .NOT.dpmach ) WRITE (nout,99003) i , (s(j),j=1,4)
+               CALL read(*40,*60,iscr(5),s(1),nw,eor,m)
+               IF ( qpr .AND. .NOT.dpmach ) WRITE (nout,99003) i , (s(j),j=1,4)
 99003          FORMAT (4H ROW,I5,2(4X,2E16.8))
-               IF ( Qpr .AND. dpmach ) WRITE (nout,99004) i , (d(j),j=1,4)
+               IF ( qpr .AND. dpmach ) WRITE (nout,99004) i , (d(j),j=1,4)
 99004          FORMAT (4H ROW,I5,2(4X,2D16.8))
 !
 !     ALLMAT ACCEPTS ONLY SINGLE PRECISION ARRAY
@@ -153,8 +154,8 @@ USE ISO_FORTRAN_ENV
 !
 !     LOAD MAIN DIAGONAL ELEMENT
 !
-                  Z(j) = s(3)
-                  Z(j+1) = s(4)
+                  z(j) = s(3)
+                  z(j+1) = s(4)
                   IF ( i==nrow1 ) THEN
 !
 !     SAVE LAST OFF-DIAGONAL ELEMENT
@@ -166,18 +167,18 @@ USE ISO_FORTRAN_ENV
 !
 !     LOAD OFF-DIAGONAL ELEMENTS
 !
-                     Z(j+2) = s(1)
-                     Z(j+3) = s(2)
+                     z(j+2) = s(1)
+                     z(j+3) = s(2)
                      j = j + nrow2
-                     Z(j) = s(1)
-                     Z(j+1) = s(2)
+                     z(j) = s(1)
+                     z(j+1) = s(2)
                   ENDIF
                ELSE
 !
 !     LOAD MAIN DIAGONAL ELEMENT
 !
-                  Z(j) = d(3)
-                  Z(j+1) = d(4)
+                  z(j) = d(3)
+                  z(j+1) = d(4)
                   IF ( i==nrow1 ) THEN
 !
 !     SAVE LAST OFF-DIAGONAL ELEMENT
@@ -189,11 +190,11 @@ USE ISO_FORTRAN_ENV
 !
 !     LOAD OFF-DIAGONAL ELEMENTS
 !
-                     Z(j+2) = d(1)
-                     Z(j+3) = d(2)
+                     z(j+2) = d(1)
+                     z(j+3) = d(2)
                      j = j + nrow2
-                     Z(j) = d(1)
-                     Z(j+1) = d(2)
+                     z(j) = d(1)
+                     z(j+1) = d(2)
                   ENDIF
                ENDIF
             ENDDO
@@ -207,21 +208,21 @@ USE ISO_FORTRAN_ENV
                dmp1(1) = d(1)
                dmp1(2) = d(2)
             ENDIF
-            IF ( Qpr ) WRITE (nout,99005) (Z(i),i=1,nrowsq)
+            IF ( qpr ) WRITE (nout,99005) (z(i),i=1,nrowsq)
 99005       FORMAT (1H0,26HREDUCED TRIDIAGONAL MATRIX,/(1H ,6E16.8))
-            CALL close(Iscr(5),Rew)
+            CALL close(iscr(5),rew)
             IF ( .NOT.(decrem) ) THEN
 !
 !     DECREMENT THE REDUCED PROBLEM SIZE IF THE ERROR ELEMENT IS NULL
 !
                IF ( dmp1(1)==0. .AND. dmp1(2)==0. ) THEN
-                  Mreduc = Mreduc - 1
-                  WRITE (nout,99006) Uwm , Mreduc
+                  mreduc = mreduc - 1
+                  WRITE (nout,99006) uwm , mreduc
 99006             FORMAT (A25,' 3154',//5X,'SIZE OF REDUCED PROBLEM DECREMENTED ','ONCE (NOW',I6,') DUE TO NULL ERROR ELEMENT.',//)
-                  IF ( Mreduc==0 ) THEN
-                     WRITE (nout,99007) Uwm
+                  IF ( mreduc==0 ) THEN
+                     WRITE (nout,99007) uwm
 99007                FORMAT (A25,' 3155',//5X,'REDUCED PROBLEM HAS VANISHED. NO ','ROOTS FOUND.',//)
-                     IF ( Nzero>0 .AND. Jreg==Noreg ) Nswp(2) = -1
+                     IF ( nzero>0 .AND. jreg==noreg ) nswp(2) = -1
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ELSEIF ( dm(1)/=0. .OR. dm(2)/=0. ) THEN
@@ -231,29 +232,29 @@ USE ISO_FORTRAN_ENV
 !
 !     NEW ERROR ELEMENT IS ALSO NULL. RESTORE ORIGINAL REDUCED SIZE.
 !
-                     Mreduc = Mreduc + 1
-                     dmp1(1) = sngl(Eps)
-                     WRITE (nout,99008) Uwm , Mreduc , dmp1
+                     mreduc = mreduc + 1
+                     dmp1(1) = sngl(eps)
+                     WRITE (nout,99008) uwm , mreduc , dmp1
 99008                FORMAT (A25,' 3156',//5X,'SIZE OF REDUCED PROBLEM RESTORED TO',I8,' BECAUSE NEXT ERROR ELEMENT WAS ALSO NULL.',&
                            & /5X,'ERROR ELEMENT SET = ',2E16.8,//)
                   ENDIF
                ENDIF
             ENDIF
 !
-            CALL allmat(Z(ia),Z(il),Z(ih),Z(ihl),Z(iv),Z(im),Z(inth),Z(intq),nrow,nrow,inidum)
+            CALL allmat(z(ia),z(il),z(ih),z(ihl),z(iv),z(im),z(inth),z(intq),nrow,nrow,inidum)
 !
 !     --------------- SPECIAL PRINT -------------------------
 !
-            IF ( Qpr ) THEN
+            IF ( qpr ) THEN
                WRITE (nout,99009)
 99009          FORMAT (1H0,10X,15HALLMAT EXECUTED,/,1H0)
                j = ih - 1
-               WRITE (nout,99025) (Z(i),i=il,j)
+               WRITE (nout,99025) (z(i),i=il,j)
                WRITE (nout,99026)
                DO i = 1 , nrow
                   l = ia + nrow2*(i-1)
                   k = l + nrow2 - 1
-                  WRITE (nout,99028) (Z(j),j=l,k)
+                  WRITE (nout,99028) (z(j),j=l,k)
 !
 !     CHECK NORMALITY
 !
@@ -261,8 +262,8 @@ USE ISO_FORTRAN_ENV
                   sumi = 0.
                   DO j = l , k , 2
                      jj = j + 1
-                     sumr = sumr + Z(j)**2 - Z(jj)**2
-                     sumi = sumi + 2.*Z(j)*Z(jj)
+                     sumr = sumr + z(j)**2 - z(jj)**2
+                     sumi = sumi + 2.*z(j)*z(jj)
                   ENDDO
                   WRITE (nout,99027) sumr , sumi
                ENDDO
@@ -271,7 +272,7 @@ USE ISO_FORTRAN_ENV
 !
 !     NORMALIZE THE EIGENVECTORS OUTPUT FROM ALLMAT
 !
-            IF ( Qpr ) WRITE (nout,99026)
+            IF ( qpr ) WRITE (nout,99026)
             DO i = 1 , nrow
                l = ia + nrow2*(i-1)
                k = l + nrow2 - 1
@@ -279,8 +280,8 @@ USE ISO_FORTRAN_ENV
                sumi = 0.
                DO j = l , k , 2
                   jj = j + 1
-                  sumr = sumr + Z(j)**2 - Z(jj)**2
-                  sumi = sumi + 2.*Z(j)*Z(jj)
+                  sumr = sumr + z(j)**2 - z(jj)**2
+                  sumi = sumi + 2.*z(j)*z(jj)
                ENDDO
                rsqrt = sqrt(sqrt(sumr**2+sumi**2))
                IF ( rsqrt>0. ) THEN
@@ -292,15 +293,15 @@ USE ISO_FORTRAN_ENV
                   sumi = -sumi*theta2
                   DO j = l , k , 2
                      jj = j + 1
-                     theta2 = Z(j)
-                     Z(j) = sumr*Z(j) - sumi*Z(jj)
-                     Z(jj) = sumi*theta2 + sumr*Z(jj)
+                     theta2 = z(j)
+                     z(j) = sumr*z(j) - sumi*z(jj)
+                     z(jj) = sumi*theta2 + sumr*z(jj)
                   ENDDO
 !
 !     -------------- SPECIAL PRINT --------------------------
 !
-                  IF ( Qpr ) THEN
-                     WRITE (nout,99028) (Z(j),j=l,k)
+                  IF ( qpr ) THEN
+                     WRITE (nout,99028) (z(j),j=l,k)
 !
 !     CHECK NORMALITY
 !
@@ -308,13 +309,13 @@ USE ISO_FORTRAN_ENV
                      sumi = 0.
                      DO j = l , k , 2
                         jj = j + 1
-                        sumr = sumr + Z(j)**2 - Z(jj)**2
-                        sumi = sumi + 2.*Z(j)*Z(jj)
+                        sumr = sumr + z(j)**2 - z(jj)**2
+                        sumi = sumi + 2.*z(j)*z(jj)
                      ENDDO
                      WRITE (nout,99027) sumr , sumi
                   ENDIF
                ELSE
-                  WRITE (nout,99010) Uwm , name
+                  WRITE (nout,99010) uwm , name
 99010             FORMAT (A25,' 3153',//5X,'ATTEMPT TO NORMALIZE NULL VECTOR IN ','SUBROUTINE ',A4,A2,'. NO ACTION TAKEN.',//)
                ENDIF
 !     -------------------------------------------------------
@@ -323,14 +324,14 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE THEORETICAL EIGENVALUE ERRORS
 !
-            IF ( Qpr ) WRITE (nout,99011) dmp1
+            IF ( qpr ) WRITE (nout,99011) dmp1
 99011       FORMAT (1H0,//30H THEORETICAL EIGENVALUE ERRORS,20X,18HD-SUB-M-PLUS-ONE =,2E16.8,/)
             ihl1 = ihl - 1
             DO i = 1 , nrow
                k = il + 2*(i-1)
-               denom = sqrt(Z(k)**2+Z(k+1)**2)
+               denom = sqrt(z(k)**2+z(k+1)**2)
                IF ( denom<=0. ) THEN
-                  WRITE (nout,99012) Uim , i
+                  WRITE (nout,99012) uim , i
 99012             FORMAT (A29,' 3152',//5X,'SUBROUTINE ALLMAT OUTPUT EIGENVALUE',I4,' IS NULL.',//)
                   denom = 1.E-10
                ENDIF
@@ -338,52 +339,52 @@ USE ISO_FORTRAN_ENV
                k = ia + nrow2*i - 2
                kk = k + 1
                j = ihl1 + i
-               Z(j) = denom*sqrt((dmp1(1)*Z(k)-dmp1(2)*Z(kk))**2+(dmp1(1)*Z(kk)+dmp1(2)*Z(k))**2)
-               IF ( Qpr ) WRITE (nout,99013) i , Z(j) , Z(k) , Z(kk) , denom
+               z(j) = denom*sqrt((dmp1(1)*z(k)-dmp1(2)*z(kk))**2+(dmp1(1)*z(kk)+dmp1(2)*z(k))**2)
+               IF ( qpr ) WRITE (nout,99013) i , z(j) , z(k) , z(kk) , denom
 99013          FORMAT (1H ,I5,E16.8,20X,2E16.8,10X,E16.8)
             ENDDO
 !
 !     RECOVER PHYSICAL EIGENVALUES
 !
             rms = 0.
-            IF ( Nob ) THEN
-               alam(1) = Lambda(1)**2 - Lambda(2)**2
-               alam(2) = 2.D0*Lambda(1)*Lambda(2)
+            IF ( nob ) THEN
+               alam(1) = lambda(1)**2 - lambda(2)**2
+               alam(2) = 2.D0*lambda(1)*lambda(2)
             ELSE
-               alam(1) = Lambda(1)
-               alam(2) = Lambda(2)
+               alam(1) = lambda(1)
+               alam(2) = lambda(2)
             ENDIF
             DO i = 1 , nrow
                k = il + 2*(i-1)
                kk = k + 1
-               denom = Z(k)**2 + Z(kk)**2
+               denom = z(k)**2 + z(kk)**2
                IF ( denom==0. ) denom = 1.E-20
                denom = 1./denom
-               Z(k) = denom*Z(k) + alam(1)
-               Z(kk) = -denom*Z(kk) + alam(2)
-               IF ( Nob ) THEN
+               z(k) = denom*z(k) + alam(1)
+               z(kk) = -denom*z(kk) + alam(2)
+               IF ( nob ) THEN
 !
 !     DAMPING MATRIX ABSENT
 !
-                  rsqrt = sqrt(sqrt(Z(k)**2+Z(kk)**2))
-                  theta2 = .5*atan2(Z(kk),Z(k))
-                  Z(k) = rsqrt*cos(theta2)
-                  Z(kk) = rsqrt*sin(theta2)
-                  IF ( Z(kk)<0. ) THEN
-                     Z(k) = -Z(k)
-                     Z(kk) = -Z(kk)
+                  rsqrt = sqrt(sqrt(z(k)**2+z(kk)**2))
+                  theta2 = .5*atan2(z(kk),z(k))
+                  z(k) = rsqrt*cos(theta2)
+                  z(kk) = rsqrt*sin(theta2)
+                  IF ( z(kk)<0. ) THEN
+                     z(k) = -z(k)
+                     z(kk) = -z(kk)
                   ENDIF
                ENDIF
 !
 !     COMPUTE RMS FOR RIGID-BODY ERROR TEST
 !
-               rms = rms + sqrt((Z(k)**2-Z(kk)**2)**2+4.*(Z(k)*Z(kk))**2)
+               rms = rms + sqrt((z(k)**2-z(kk)**2)**2+4.*(z(k)*z(kk))**2)
             ENDDO
             rms = sqrt(rms)/float(nrow)
-            IF ( Qpr ) WRITE (nout,99014) rms
+            IF ( qpr ) WRITE (nout,99014) rms
 99014       FORMAT (1H ,10X,5HRMS =,E16.8)
             j = ih - 1
-            IF ( Qpr ) WRITE (nout,99025) (Z(i),i=il,j)
+            IF ( qpr ) WRITE (nout,99025) (z(i),i=il,j)
 !
 !     PERFORM RIGID-BODY ERROR TEST
 !
@@ -392,20 +393,20 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , nrow
                k = il + 2*(i-1)
                j = ihl1 + i
-               IF ( rms*sqrt(Z(k)**2+Z(k+1)**2)<=Tenmtt ) Z(j) = 0.
+               IF ( rms*sqrt(z(k)**2+z(k+1)**2)<=tenmtt ) z(j) = 0.
             ENDDO
 !
 !     COMPUTE DISTANCES OF EIGENVALUES TO CENTER OF NEIGHBORHOOD
 !
-            alam(1) = Lambda(1)
-            alam(2) = Lambda(2)
+            alam(1) = lambda(1)
+            alam(2) = lambda(2)
             jj = intq - 1
             kk = ih - 1
             ll = inth - 1
             DO i = 1 , nrow
                j = jj + i
                k = il + 2*(i-1)
-               Z(j) = sqrt((alam(1)-Z(k))**2+(alam(2)-Z(k+1))**2)
+               z(j) = sqrt((alam(1)-z(k))**2+(alam(2)-z(k+1))**2)
 !
 !     LOAD ORDER OF EXTRACTION
 !
@@ -417,7 +418,7 @@ USE ISO_FORTRAN_ENV
                k = ll + i
                lz(k) = .FALSE.
                j = ihl1 + i
-               IF ( Z(j)<sngl(Eps) ) lz(k) = .TRUE.
+               IF ( z(j)<sngl(eps) ) lz(k) = .TRUE.
             ENDDO
 !
 !     SORT EIGENVALUES ACCORDING TO DISTANCE FROM CURRENT CENTER
@@ -430,10 +431,10 @@ USE ISO_FORTRAN_ENV
                   lll = i + 1
                   DO j = lll , nrow
                      l = jj + j
-                     IF ( Z(k)>=Z(l) ) THEN
-                        unidum = Z(l)
-                        Z(l) = Z(k)
-                        Z(k) = unidum
+                     IF ( z(k)>=z(l) ) THEN
+                        unidum = z(l)
+                        z(l) = z(k)
+                        z(k) = unidum
                         i2 = kk + j
                         inidum = iz(i1)
                         iz(i1) = iz(i2)
@@ -444,11 +445,11 @@ USE ISO_FORTRAN_ENV
             ENDIF
             lll = il - 1
             ll = inth - 1
-            IF ( Idiag/=0 ) THEN
+            IF ( idiag/=0 ) THEN
 !
 !     PRINT OUT FULL SUMMARY FOR CURRENT NEIGHBORHOOD
 !
-               WRITE (nout,99029) Jreg , Noreg , alam
+               WRITE (nout,99029) jreg , noreg , alam
                WRITE (nout,99015)
 99015          FORMAT (4X,43HALL SOLUTIONS FOUND IN CURRENT NEIGHBORHOOD,12H ARE LISTED.,/)
                WRITE (nout,99030)
@@ -459,7 +460,7 @@ USE ISO_FORTRAN_ENV
                   l = lll + izz
                   l1 = l + 1
                   i1 = ihl1 + iz(k)
-                  Z(i1) = 100.*Z(i1)
+                  z(i1) = 100.*z(i1)
                   i2 = ll + iz(k)
                   status(1) = accept(1)
                   status(2) = accept(2)
@@ -467,7 +468,7 @@ USE ISO_FORTRAN_ENV
                      status(1) = reject(1)
                      status(2) = reject(2)
                   ENDIF
-                  WRITE (nout,99031) i , iz(k) , Z(j) , Z(l) , Z(l1) , Z(i1) , status
+                  WRITE (nout,99031) i , iz(k) , z(j) , z(l) , z(l1) , z(i1) , status
                ENDDO
             ENDIF
 !
@@ -478,21 +479,21 @@ USE ISO_FORTRAN_ENV
                i2 = ll + i
                IF ( .NOT.(lz(i2)) ) THEN
                   nrow = nrow - 1
-                  Northo = Northo - 1
+                  northo = northo - 1
                   IF ( nrow==0 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
             ENDDO
-            nfound = Nzero + nrow
-            IF ( nrow==msave ) WRITE (nout,99016) Uim , msave
+            nfound = nzero + nrow
+            IF ( nrow==msave ) WRITE (nout,99016) uim , msave
 99016       FORMAT (A29,' 3164',//5X,'ALL',I6,' SOLUTIONS ARE ACCEPTABLE.',//)
-            IF ( Idiag/=0 .AND. nrow/=msave ) THEN
+            IF ( idiag/=0 .AND. nrow/=msave ) THEN
 !
 !     PRINT OUT SUMMARY WITH REJECTED SOLUTIONS DELETED
 !
-               WRITE (nout,99029) Jreg , Noreg , alam
+               WRITE (nout,99029) jreg , noreg , alam
                WRITE (nout,99017)
 99017          FORMAT (4X,37HREJECTED SOLUTIONS HAVE BEEN DELETED.,/)
                WRITE (nout,99030)
@@ -507,31 +508,31 @@ USE ISO_FORTRAN_ENV
                      l = lll + izz
                      l1 = l + 1
                      i1 = ihl1 + iz(k)
-                     WRITE (nout,99031) m , iz(k) , Z(j) , Z(l) , Z(l1) , Z(i1) , accept
+                     WRITE (nout,99031) m , iz(k) , z(j) , z(l) , z(l1) , z(i1) , accept
                   ENDIF
                ENDDO
             ENDIF
             m = msave - nrow
-            IF ( m>0 ) WRITE (nout,99018) Uim , nrow , m
+            IF ( m>0 ) WRITE (nout,99018) uim , nrow , m
 99018       FORMAT (A29,' 3165',//4X,I6,' SOLUTIONS HAVE BEEN ACCEPTED AND',I4,' SOLUTIONS HAVE BEEN REJECTED.',//)
 !
 !     WRITE EIGENVALUES TO OUTPUT FILE
 !
-            CALL gopen(Ilam(1),Z(ibuf1),Wrt)
+            CALL gopen(ilam(1),z(ibuf1),wrt)
             DO i = 1 , msave
                k = kk + i
                i2 = ll + iz(k)
                IF ( lz(i2) ) THEN
                   izz = 2*iz(k) - 1
                   l = lll + izz
-                  lam1(1) = dble(Z(l))
-                  lam1(2) = dble(Z(l+1))
-                  CALL write(Ilam(1),lam1(1),4,1)
+                  lam1(1) = dble(z(l))
+                  lam1(2) = dble(z(l+1))
+                  CALL write(ilam(1),lam1(1),4,1)
                ENDIF
             ENDDO
-            CALL close(Ilam(1),Eofnrw)
-            IF ( Jreg>=Noreg .OR. nfound>=Nord ) THEN
-               IF ( Nzero/=0 ) EXIT SPAG_Loop_1_1
+            CALL close(ilam(1),eofnrw)
+            IF ( jreg>=noreg .OR. nfound>=nord ) THEN
+               IF ( nzero/=0 ) EXIT SPAG_Loop_1_1
             ENDIF
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -541,38 +542,38 @@ USE ISO_FORTRAN_ENV
 !     RE-WRITE THE EIGENVECTOR FILE PERTAINING TO ALL PRIOR
 !     NEIGHBORHOODS (ELIMINATE LEFT-HAND VECTORS)
 !
-         IF ( Idiag/=0 ) WRITE (nout,99019) Nzero , Northo
+         IF ( idiag/=0 ) WRITE (nout,99019) nzero , northo
 99019    FORMAT (1H ,33HLEFT-HAND EIGENVECTORS ELIMINATED,20X,2I8)
-         inidum = Iscr(10)
-         CALL open(*80,Iscr(10),Z(ibuf2),Wrtrew)
-         CALL close(Iscr(10),Rew)
-         j = Nord2
-         IF ( Nob ) j = 2*j
-         inidum = Iphi(1)
-         CALL open(*80,Iphi(1),Z(ibuf1),0)
-         DO i = 1 , Nzero
-            CALL read(*100,*10,Iphi(1),Z(iv2),nord8+10,0,n3)
+         inidum = iscr(10)
+         CALL open(*80,iscr(10),z(ibuf2),wrtrew)
+         CALL close(iscr(10),rew)
+         j = nord2
+         IF ( nob ) j = 2*j
+         inidum = iphi(1)
+         CALL open(*80,iphi(1),z(ibuf1),0)
+         DO i = 1 , nzero
+            CALL read(*100,*10,iphi(1),z(iv2),nord8+10,0,n3)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
- 10         CALL gopen(Iscr(10),Z(ibuf2),Wrt)
-            CALL write(Iscr(10),Z(iv2),j,1)
-            CALL close(Iscr(10),Norew)
+ 10         CALL gopen(iscr(10),z(ibuf2),wrt)
+            CALL write(iscr(10),z(iv2),j,1)
+            CALL close(iscr(10),norew)
          ENDDO
-         CALL close(Iphi(1),Norew)
-         CALL open(*80,Iphi(1),Z(ibuf1),Wrtrew)
-         CALL close(Iphi(1),Rew)
-         inidum = Iscr(10)
-         CALL open(*80,Iscr(10),Z(ibuf2),0)
-         DO i = 1 , Nzero
-            CALL read(*100,*20,Iscr(10),Z(iv2),j+10,0,n3)
+         CALL close(iphi(1),norew)
+         CALL open(*80,iphi(1),z(ibuf1),wrtrew)
+         CALL close(iphi(1),rew)
+         inidum = iscr(10)
+         CALL open(*80,iscr(10),z(ibuf2),0)
+         DO i = 1 , nzero
+            CALL read(*100,*20,iscr(10),z(iv2),j+10,0,n3)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
- 20         CALL gopen(Iphi(1),Z(ibuf1),Wrt)
-            CALL write(Iphi(1),Z(iv2),j,1)
-            CALL close(Iphi(1),Eofnrw)
+ 20         CALL gopen(iphi(1),z(ibuf1),wrt)
+            CALL write(iphi(1),z(iv2),j,1)
+            CALL close(iphi(1),eofnrw)
          ENDDO
-         CALL close(Iscr(10),Norew)
-         IF ( Nswp(2)<0 ) THEN
+         CALL close(iscr(10),norew)
+         IF ( nswp(2)<0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -581,15 +582,15 @@ USE ISO_FORTRAN_ENV
 !
 !     RECOVER PHYSICAL EIGENVECTORS, PRINT, AND WRITE TO OUTPUT FILE
 !
-         Iprc = iprec + 2
-         Ii = 1
-         Nn = Nord2
-         Incr = 1
+         iprc = iprec + 2
+         ii = 1
+         nn = nord2
+         incr = 1
          ia1 = ia - 1
-         IF ( Qpr ) WRITE (nout,99020)
+         IF ( qpr ) WRITE (nout,99020)
 99020    FORMAT (1H1,27X,39H*****  F E E R  *****  (FAST EIGENVALUE,27H EXTRACTION ROUTINE)  *****,//42X,                           &
                 &37HE I G E N V E C T O R   S U M M A R Y,//1H ,32(4H----),2H--)
-         ishft = Nord2*iprec
+         ishft = nord2*iprec
          i1 = 0
 !
 !     ENTER LOOP
@@ -598,11 +599,11 @@ USE ISO_FORTRAN_ENV
             k = kk + i
             i2 = ll + iz(k)
             IF ( lz(i2) ) THEN
-               CALL gopen(Iscr(7),Z(ibuf2),Rdrew)
-               IF ( Nzero>0 ) CALL skprec(Iscr(7),Nzero)
+               CALL gopen(iscr(7),z(ibuf2),rdrew)
+               IF ( nzero>0 ) CALL skprec(iscr(7),nzero)
                DO j = 1 , nord8
                   m = iv1x + j
-                  Z(m) = 0.
+                  z(m) = 0.
                ENDDO
 !
 !     SET POINTER TO ALLMAT OUTPUT VECTOR
@@ -617,61 +618,61 @@ USE ISO_FORTRAN_ENV
 !              ARE NOT USED
 !     (HIGHER DIGITS MUST BE INCLUDED FOR THE D.P.MACHINES.  G.C/UNISYS)
 !
-                  CALL unpack(*25,Iscr(7),Z(iv2))
+                  CALL unpack(*25,iscr(7),z(iv2))
                   kr = ib + 2*j - 1
                   ki = kr + 1
-                  DO mm = 1 , Nord2 , 2
+                  DO mm = 1 , nord2 , 2
                      mr = iv2 + (mm-1)*iprec
                      mi = mr + iprec
                      jr = iv1x + mm
                      ji = jr + 1
                      IF ( .NOT.dpmach ) THEN
-                        Z(jr) = Z(jr) + Z(mr)*Z(kr) - Z(mi)*Z(ki)
-                        Z(ji) = Z(ji) + Z(mi)*Z(kr) + Z(mr)*Z(ki)
+                        z(jr) = z(jr) + z(mr)*z(kr) - z(mi)*z(ki)
+                        z(ji) = z(ji) + z(mi)*z(kr) + z(mr)*z(ki)
                      ELSE
                         mrd = (mr+1)/2
                         mid = mrd + 1
 !
 !     RECOVER RIGHT-HAND PHYSICAL EIGENVECTOR
 !
-                        Z(jr) = Z(jr) + dz(mrd)*Z(kr) - dz(mid)*Z(ki)
-                        Z(ji) = Z(ji) + dz(mid)*Z(kr) + dz(mrd)*Z(ki)
+                        z(jr) = z(jr) + dz(mrd)*z(kr) - dz(mid)*z(ki)
+                        z(ji) = z(ji) + dz(mid)*z(kr) + dz(mrd)*z(ki)
                      ENDIF
                      mr = mr + ishft
                      mi = mr + iprec
-                     jr = jr + Nord4
+                     jr = jr + nord4
                      ji = jr + 1
                      IF ( .NOT.dpmach ) THEN
-                        Z(jr) = Z(jr) + Z(mr)*Z(kr) - Z(mi)*Z(ki)
-                        Z(ji) = Z(ji) + Z(mi)*Z(kr) + Z(mr)*Z(ki)
+                        z(jr) = z(jr) + z(mr)*z(kr) - z(mi)*z(ki)
+                        z(ji) = z(ji) + z(mi)*z(kr) + z(mr)*z(ki)
                      ELSE
                         mrd = (mr+1)/2
                         mid = mrd + 1
 !
 !     RECOVER LEFT-HAND PHYSICAL EIGENVECTOR
 !
-                        Z(jr) = Z(jr) + dz(mrd)*Z(kr) - dz(mid)*Z(ki)
-                        Z(ji) = Z(ji) + dz(mid)*Z(kr) + dz(mrd)*Z(ki)
+                        z(jr) = z(jr) + dz(mrd)*z(kr) - dz(mid)*z(ki)
+                        z(ji) = z(ji) + dz(mid)*z(kr) + dz(mrd)*z(ki)
                      ENDIF
                   ENDDO
  25            ENDDO
-               CALL close(Iscr(7),Eofnrw)
-               IF ( Qpr ) THEN
+               CALL close(iscr(7),eofnrw)
+               IF ( qpr ) THEN
                   i1 = i1 + 1
                   izz = 2*iz(k) - 1
                   l = lll + izz
                   mm = iv1x + nord8
-                  WRITE (nout,99021) i1 , iz(k) , Z(l) , Z(l+1) , (Z(j),j=iv1,mm)
+                  WRITE (nout,99021) i1 , iz(k) , z(l) , z(l+1) , (z(j),j=iv1,mm)
 99021             FORMAT (1H ,8HSOLUTION,I4,8X,16HEXTRACTION ORDER,I4,10X,10HEIGENVALUE,2X,1P,2E16.8,/(1H ,3(4X,1P,2E16.8)))
                   WRITE (nout,99032)
                ENDIF
 !
 !     EXPAND PHYSICAL EIGENVECTORS TO DOUBLE PRECISION FOR OUTPUT
 !
-               lim1 = iv1 + Nord2
-               lim2 = lim1 + Nord4
-               inidum = iv1x + Nord4
-               DO j = 1 , Nord2
+               lim1 = iv1 + nord2
+               lim2 = lim1 + nord4
+               inidum = iv1x + nord4
+               DO j = 1 , nord2
                   ki = lim1 - j
                   mi = 2*ki - iv1x
                   mr = mi - 1
@@ -679,9 +680,9 @@ USE ISO_FORTRAN_ENV
 !
 !     EXPAND RIGHT-HAND VECTOR
 !
-                  Z(mi) = 0.
-                  Z(mr) = Z(ki)
-                  IF ( dpmach ) dz(mrd) = Z(ki)
+                  z(mi) = 0.
+                  z(mr) = z(ki)
+                  IF ( dpmach ) dz(mrd) = z(ki)
                   ki = lim2 - j
                   mi = 2*ki - inidum
                   mr = mi - 1
@@ -689,40 +690,40 @@ USE ISO_FORTRAN_ENV
 !
 !     EXPAND LEFT -HAND VECTOR
 !
-                  Z(mi) = 0.
-                  Z(mr) = Z(ki)
-                  IF ( dpmach ) dz(mrd) = Z(ki)
+                  z(mi) = 0.
+                  z(mr) = z(ki)
+                  IF ( dpmach ) dz(mrd) = z(ki)
                ENDDO
-               IF ( Qpr ) THEN
+               IF ( qpr ) THEN
                   WRITE (nout,99032)
-                  lim1 = iv1x + Nord4
-                  WRITE (nout,99033) (Z(j),j=iv1,lim1)
+                  lim1 = iv1x + nord4
+                  WRITE (nout,99033) (z(j),j=iv1,lim1)
                   WRITE (nout,99032)
-                  lim2 = lim1 + Nord4
+                  lim2 = lim1 + nord4
                   lim1 = lim1 + 1
-                  WRITE (nout,99033) (Z(j),j=lim1,lim2)
+                  WRITE (nout,99033) (z(j),j=lim1,lim2)
                   WRITE (nout,99032)
                ENDIF
 !
 !     PERFORM SPECIAL NORMALIZATION OF VECTORS FOR OUTPUT
 !
-               CALL cnorm1(Z(iv1),Ikmb(2))
-               IF ( Qpr ) WRITE (nout,99034)
+               CALL cnorm1(z(iv1),ikmb(2))
+               IF ( qpr ) WRITE (nout,99034)
                inidum = inidum + 1
-               CALL cnorm1(Z(inidum),Ikmb(2))
-               IF ( Qpr ) WRITE (nout,99034)
-               CALL gopen(Iphi(1),Z(ibuf1),Wrt)
-               IF ( Jreg<Noreg .AND. nfound<Nord ) THEN
+               CALL cnorm1(z(inidum),ikmb(2))
+               IF ( qpr ) WRITE (nout,99034)
+               CALL gopen(iphi(1),z(ibuf1),wrt)
+               IF ( jreg<noreg .AND. nfound<nord ) THEN
 !
 !     MUST USE NORD8 TO WRITE FULL RIGHT AND LEFT EIGENVECTORS
 !
-                  CALL write(Iphi(1),Z(iv1),nord8,1)
-                  CALL close(Iphi(1),Norew)
+                  CALL write(iphi(1),z(iv1),nord8,1)
+                  CALL close(iphi(1),norew)
                ELSE
-                  j = Nord2
-                  IF ( Nob ) j = 2*j
-                  CALL write(Iphi(1),Z(iv1),j,1)
-                  CALL close(Iphi(1),Eofnrw)
+                  j = nord2
+                  IF ( nob ) j = 2*j
+                  CALL write(iphi(1),z(iv1),j,1)
+                  CALL close(iphi(1),eofnrw)
                ENDIF
             ENDIF
          ENDDO
@@ -736,9 +737,8 @@ USE ISO_FORTRAN_ENV
  60      WRITE (nout,99023) m , name
 99023    FORMAT (22H UNEXPECTED WORD COUNT,I5,2X,2A4)
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         WRITE (nout,99024) Uwm , msave
+         WRITE (nout,99024) uwm , msave
 99024    FORMAT (A25,' 3163',//5X,'ALL',I6,' SOLUTIONS HAVE FAILED ','ACCURACY TEST. NO ROOTS FOUND.',//)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1

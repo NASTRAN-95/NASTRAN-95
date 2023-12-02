@@ -1,9 +1,10 @@
-!*==krshft.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==krshft.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION krshft(Iword,N)
+   USE c_machin
+   USE c_system
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SYSTEM
    INTEGER :: krshft
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -29,21 +30,20 @@ FUNCTION krshft(Iword,N)
 !     LSHFIT, AND KLSFHT TO RSHIFT.
 !
 !
-   IF ( mod(Lqro,10)==1 ) THEN
-      krshft = lshift(Iword(1),N*Nbpc)
+   IF ( mod(lqro,10)==1 ) THEN
+      krshft = lshift(Iword(1),N*nbpc)
       RETURN
    ELSE
-      krshft = rshift(Iword(1),N*Nbpc)
+      krshft = rshift(Iword(1),N*nbpc)
       RETURN
    ENDIF
 !
    ENTRY klshft(Iword,N)
 !     ======================
 !
-   IF ( mod(Lqro,10)==1 ) THEN
-      klshft = rshift(Iword(1),N*Nbpc)
-      GOTO 99999
+   IF ( mod(lqro,10)==1 ) THEN
+      klshft = rshift(Iword(1),N*nbpc)
+      RETURN
    ENDIF
-   klshft = lshift(Iword(1),N*Nbpc)
-   RETURN
-99999 END FUNCTION krshft
+   klshft = lshift(Iword(1),N*nbpc)
+END FUNCTION krshft

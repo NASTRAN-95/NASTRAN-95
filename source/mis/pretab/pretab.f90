@@ -1,32 +1,50 @@
-!*==pretab.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pretab.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+USE c_condas
+USE c_system
+USE c_xmssg
+USE c_zzzzzz
+USE C_CONDAS
+USE C_SYSTEM
+USE C_XMSSG
+USE C_ZZZZZZ
    IMPLICIT NONE
-   REAL Degra , Pi , Radeg , S4pisq , Twopi , z(1)
-   INTEGER Ibuf , Iz(1) , Nout
-   CHARACTER*23 Ufm
-   COMMON /condas/ Pi , Twopi , Radeg , Degra , S4pisq
-   COMMON /system/ Ibuf , Nout
-   COMMON /xmssg / Ufm
-   COMMON /zzzzzz/ Iz
-   INTEGER Ditf , Lcrgvn , Lcused , Tabid
-   REAL X
-   REAL Buf(1) , Rz(1) , Y(2)
-   INTEGER Inz(1) , List(1) , Tabnol(1)
-   COMPLEX a , b , sum , term
-   INTEGER clsrw , dit , i , iary(8) , icheck , icrq , idic , idich , idicl , iflag , igoto , ihop , ii , index , itabl , itable ,  &
-         & itype , j , jj , jj3 , jlim , jlow , k , khi , klo , kx , kxx , kxx1 , l , lim , limjj , lnth , lx , mn , name(2) ,      &
-         & neor , nn , ntabl , nwds , nwdsrd , offset , sctyp , tabido , tabno , tabtyp
-   REAL cp , flag , omega , omegax , p , prop , px(2,2) , rp , tr , up , wsq , x1 , x2 , xi , xip1 , xksq , xlu , xo , xx , yi ,    &
-      & yip1 , yo
-   INTEGER locfx
-   LOGICAL part1
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   INTEGER :: Ditf
+   REAL , DIMENSION(1) :: Rz
+   INTEGER , DIMENSION(1) :: Inz
+   REAL , DIMENSION(1) :: Buf
+   INTEGER :: Lcrgvn
+   INTEGER :: Lcused
+   INTEGER , DIMENSION(1) :: Tabnol
+   INTEGER , DIMENSION(1) :: List
+   *0() :: 
+   *0() :: 
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
+   COMPLEX :: a , b , sum , term
+   INTEGER , SAVE :: clsrw , lnth , neor
+   REAL :: cp , flag , omega , omegax , p , prop , rp , tr , up , wsq , x1 , x2 , xi , xip1 , xksq , xlu , xo , xx , yi , yip1 , yo
+   INTEGER :: dit , i , icheck , icrq , idic , idich , idicl , iflag , igoto , ihop , ii , index , itabl , itable , itype , j , jj ,&
+            & jj3 , jlim , jlow , k , khi , klo , kx , kxx , kxx1 , l , lim , limjj , lx , mn , nn , ntabl , nwds , nwdsrd ,        &
+            & offset , sctyp , spag_nextblock_1 , tabido , tabno , tabtyp
+   INTEGER , DIMENSION(8) :: iary
+   INTEGER , DIMENSION(2) , SAVE :: name
+   LOGICAL :: part1
+   REAL , DIMENSION(2,2) , SAVE :: px
+   INTEGER :: Tabid
+   REAL :: X
+   REAL , DIMENSION(2) :: Y
+   REAL , DIMENSION(1) :: z
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     SUBROUTINE PRETAB READS TABLES INTO OPEN CORE, SETS UP TABLE
 !     DICTIONARIES WHICH ARE LATER USED WHEN THE CALLING ROUTINE
@@ -63,7 +81,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
    !>>>>EQUIVALENCE (Z(1),Iz(1))
    DATA clsrw , neor , name , px , lnth/1 , 0 , 4HPRET , 4HAB   , 3. , 2. , 1.339 , 1.0 , 12/
    spag_nextblock_1 = 1
-   SPAG_DispatchLoop_1: DO
+   SPAG_DISPATCHLOOP_1:DO
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
@@ -78,7 +96,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
          icrq = lnth*lim - Lcrgvn
          IF ( icrq>=0 ) THEN
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
 !
 !     SET UP TABLE NUMBERS IN DICTIONARY
@@ -114,21 +132,21 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !     READ THE CARDS REFERENCED VIA THE TABNOL AND LIST ARRAY.
 !
          itable = idic
-         CALL preloc(*120,Buf,dit)
+         CALL preloc(*160,Buf,dit)
          limjj = Tabnol(1)
          lim = List(1)
          jj = 1
          spag_nextblock_1 = 2
       CASE (2)
          jj3 = 3*jj - 1
-         CALL locate(*20,Buf,List(jj3),flag)
+         CALL locate(*60,Buf,List(jj3),flag)
          spag_nextblock_1 = 3
       CASE (3)
-         SPAG_Loop_1_1: DO
+         SPAG_LOOP_1_1:DO
 !
 !     READ 8 WORDS INTO THE ARRAY IARY
 !
-            CALL read(*140,*20,dit,iary,8,neor,flag)
+            CALL read(*180,*60,dit,iary,8,neor,flag)
             tabno = iary(1)
             sctyp = iary(8)
 !
@@ -137,9 +155,9 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !
             DO j = 1 , limjj
                IF ( tabno==iabs(Tabnol(j+1)) ) THEN
-                  IF ( tabno/=Tabnol(j+1) ) EXIT SPAG_Loop_1_1
+                  IF ( tabno/=Tabnol(j+1) ) GOTO 40
                   spag_nextblock_1 = 4
-                  CYCLE SPAG_DispatchLoop_1
+                  GOTO 300
                ENDIF
             ENDDO
 !
@@ -150,15 +168,15 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             nwds = 2
             IF ( List(3*jj+1)==4 ) nwds = 1
             DO
-               CALL read(*140,*160,dit,iary(2),nwds,neor,iflag)
-               IF ( iary(2)==-1 ) CYCLE SPAG_Loop_1_1
+               CALL read(*180,*200,dit,iary(2),nwds,neor,iflag)
+               IF ( iary(2)==-1 ) GOTO 20
             ENDDO
-            EXIT SPAG_Loop_1_1
-         ENDDO SPAG_Loop_1_1
+            EXIT SPAG_LOOP_1_1
+ 20      ENDDO SPAG_LOOP_1_1
 !
 !     THERE ARE TWO DIFFERENT TABLES WITH THE SAME NUMBER -- FATAL ERROR
 !
-         iary(1) = tabno
+ 40      iary(1) = tabno
          iary(2) = List(3*jj-1)
          CALL mesage(-30,88,iary)
          spag_nextblock_1 = 4
@@ -179,7 +197,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
          IF ( tabtyp==4 ) nwdsrd = 1
          ii = itable + 1
          DO
-            CALL read(*140,*160,dit,z(ii),nwdsrd,neor,flag)
+            CALL read(*180,*200,dit,z(ii),nwdsrd,neor,flag)
             IF ( Iz(ii)==-1 ) THEN
 !
 !     STORE THE LAST LOCATION OF THE TABLE IN IZ(INDEX+4)
@@ -205,20 +223,19 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
                IF ( tabtyp/=4 ) THEN
                   itable = itable + 1
                   spag_nextblock_1 = 3
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   l = index + 1
                   xx = (z(l+6)-z(l+4))/z(l+5)
-                  ASSIGN 60 TO igoto
+                  ASSIGN 100 TO igoto
                   spag_nextblock_1 = 8
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               GOTO 300
             ELSE
                ii = ii + nwdsrd
                icrq = ii - Lcrgvn - offset
                IF ( icrq>=0 ) THEN
                   spag_nextblock_1 = 11
-                  CYCLE SPAG_DispatchLoop_1
+                  GOTO 300
                ENDIF
             ENDIF
          ENDDO
@@ -226,11 +243,11 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !     TEST TO SEE IF ALL OF THE REQUESTED TABLES HAVE BEEN FOUND. IF
 !     ALL TABLES HAVE NOT BEEN FOUND, GO TO NEXT TRIPLE IN LIST ARRAY
 !
- 20      IF ( jj<lim ) THEN
+ 60      IF ( jj<lim ) THEN
             DO i = 1 , limjj
                IF ( Tabnol(i+1)>0 ) THEN
                   spag_nextblock_1 = 5
-                  CYCLE SPAG_DispatchLoop_1
+                  GOTO 300
                ENDIF
             ENDDO
          ENDIF
@@ -262,7 +279,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
       CASE (5)
          jj = jj + 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
+         CYCLE SPAG_DISPATCHLOOP_1
 !
 !     ENTRY TAB COMPUTES THE FUNCTIONAL VALUE Y AT THE ABSCISSA X FOR
 !     THE FUNCTION DEFINED BY THE TABLE WHOSE NUMBER IS TABID
@@ -272,7 +289,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !     =====================
 !
          IF ( icheck/=123456789 ) CALL errtrc('PRETAB  ',200)
-         ASSIGN 40 TO ihop
+         ASSIGN 80 TO ihop
 !
          IF ( Tabid==tabido .AND. X==xo ) THEN
             Y(1) = yo
@@ -288,13 +305,13 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !     SEARCH THE TABLE DICTIONARY TO FIND THE TABLE NUMBER
 !
             DO ii = idicl , idich , lnth
-               IF ( Tabid==Iz(ii) ) GOTO 30
+               IF ( Tabid==Iz(ii) ) GOTO 70
             ENDDO
 !
 !     TABID COULD NOT BE FOUND IN THE DICTIONARY - FATAL ERROR
 !
             CALL mesage(-30,90,Tabid)
- 30         l = ii
+ 70         l = ii
             itype = Iz(l+1)
             sctyp = Iz(l+11) + 1
             GOTO ihop
@@ -303,7 +320,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             yo = 0.0
             RETURN
          ENDIF
- 40      IF ( itype==2 ) THEN
+ 80      IF ( itype==2 ) THEN
 !
 !     TABLE TYPE = 2
 !
@@ -330,16 +347,15 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             IF ( xx<=(z(l+6)-z(l+4))/z(l+5) ) THEN
                prop = z(l+8)
                spag_nextblock_1 = 9
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( xx<(z(l+7)-z(l+4))/z(l+5) ) THEN
                   spag_nextblock_1 = 8
-                  CYCLE SPAG_DispatchLoop_1
+                  CYCLE SPAG_DISPATCHLOOP_1
                ENDIF
                prop = z(l+9)
                spag_nextblock_1 = 9
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE SPAG_DISPATCHLOOP_1
          ELSEIF ( itype==5 ) THEN
 !
 !     TABLE TYPE = 5
@@ -368,7 +384,7 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             tr = xksq*xlu*wsq
             prop = xx*(1.+2.*(p+1.)*tr)/(1.+tr)**(p+1.5)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ELSE
 !
 !     TABLE TYPE = 1
@@ -396,26 +412,26 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             IF ( (xx-z(ntabl))*up<0.0 ) THEN
                klo = 1
                khi = (ntabl-itabl)/2 + 1
-               SPAG_Loop_1_2: DO
+               SPAG_LOOP_1_2:DO
                   kx = (klo+khi+1)/2
                   kxx = (kx-1)*2 + itabl
                   IF ( (xx-z(kxx))*up<0 ) THEN
                      khi = kx
                   ELSEIF ( (xx-z(kxx))*up==0 ) THEN
                      spag_nextblock_1 = 7
-                     CYCLE SPAG_DispatchLoop_1
+                     GOTO 300
                   ELSE
                      klo = kx
                   ENDIF
                   IF ( khi-klo==1 ) THEN
                      kxx1 = (klo-1)*2 + itabl
-                     IF ( kxx==kxx1 ) EXIT SPAG_Loop_1_2
-                     IF ( xx/=z(kxx1+2) ) EXIT SPAG_Loop_1_2
+                     IF ( kxx==kxx1 ) EXIT SPAG_LOOP_1_2
+                     IF ( xx/=z(kxx1+2) ) EXIT SPAG_LOOP_1_2
                      kxx = kxx1 + 2
                      spag_nextblock_1 = 7
-                     CYCLE SPAG_DispatchLoop_1
+                     GOTO 300
                   ENDIF
-               ENDDO SPAG_Loop_1_2
+               ENDDO SPAG_LOOP_1_2
             ENDIF
          ENDIF
          IF ( sctyp==1 ) THEN
@@ -423,30 +439,26 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             IF ( abs(prop)<1.0E-36 ) prop = 0.0
             IF ( abs(prop)<1.0E+36 ) THEN
                spag_nextblock_1 = 9
-               CYCLE SPAG_DispatchLoop_1
+               CYCLE SPAG_DISPATCHLOOP_1
             ENDIF
             IF ( up>0. .AND. (xx<z(itabl) .OR. xx>z(ntabl)) ) THEN
                spag_nextblock_1 = 10
-               CYCLE SPAG_DispatchLoop_1
+               CYCLE SPAG_DISPATCHLOOP_1
             ENDIF
             IF ( up<0. .AND. (xx>z(itabl) .OR. xx<z(ntabl)) ) THEN
                spag_nextblock_1 = 10
-               CYCLE SPAG_DispatchLoop_1
+               CYCLE SPAG_DISPATCHLOOP_1
             ENDIF
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( sctyp==3 ) THEN
             CALL smilog(z(kxx1),z(kxx1+1),z(kxx1+2),z(kxx1+3),xx,prop)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( sctyp==4 ) THEN
             CALL logsmi(z(kxx1),z(kxx1+1),z(kxx1+2),z(kxx1+3),xx,prop)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL loglog(z(kxx1),z(kxx1+1),z(kxx1+2),z(kxx1+3),xx,prop)
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (7)
          IF ( xx==z(kxx-2) ) THEN
@@ -457,7 +469,6 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
             prop = z(kxx+1)
          ENDIF
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          nn = Iz(l+3)
          prop = z(nn)
@@ -467,15 +478,14 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
          ENDDO
          IF ( part1 ) GOTO igoto
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
- 60      z(l+8) = prop
-         ASSIGN 80 TO igoto
+         CYCLE SPAG_DISPATCHLOOP_1
+ 100     z(l+8) = prop
+         ASSIGN 120 TO igoto
          xx = (z(l+7)-z(l+4))/z(l+5)
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
- 80      z(l+9) = prop
+         CYCLE SPAG_DISPATCHLOOP_1
+ 120     z(l+9) = prop
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     TAB WRAP-UP
@@ -490,14 +500,14 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !
 !     ENRTY FOR TABLE TRANSFORM
 !
-         ASSIGN 100 TO ihop
+         ASSIGN 140 TO ihop
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
+         CYCLE SPAG_DISPATCHLOOP_1
 !
 !     L  POINTS  TO TABLE
 !     ITYPE IS THE TABLE TYPE
 !
- 100     itabl = Iz(l+2)
+ 140     itabl = Iz(l+2)
          ntabl = Iz(l+3)
          omega = Twopi*X
          IF ( itype==2 ) THEN
@@ -558,29 +568,27 @@ SUBROUTINE pretab(Ditf,Rz,Inz,Buf,Lcrgvn,Lcused,Tabnol,List)
 !
 !     FATAL ERROR MESSAGES
 !
- 120     mn = -1
+ 160     mn = -1
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
- 140     mn = -2
+         CYCLE SPAG_DISPATCHLOOP_1
+ 180     mn = -2
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
- 160     mn = -3
+         CYCLE SPAG_DISPATCHLOOP_1
+ 200     mn = -3
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          WRITE (Nout,99001) Ufm , Iz(l)
 99001    FORMAT (A23,' 3308, TABLE',I9,' INTERPOLATION ERROR',/5X,'FUNCTION OVERFLOWED WHEN EXTRAPOLATION WAS MADE OUTSIDE ',       &
                 &'TABLE GIVEN RANGE.')
          mn = -37
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
          mn = -8
          dit = icrq
          spag_nextblock_1 = 12
       CASE (12)
          CALL mesage(mn,dit,name)
-         EXIT SPAG_DispatchLoop_1
+         EXIT SPAG_DISPATCHLOOP_1
       END SELECT
-   ENDDO SPAG_DispatchLoop_1
+ 300  ENDDO SPAG_DISPATCHLOOP_1
 END SUBROUTINE pretab

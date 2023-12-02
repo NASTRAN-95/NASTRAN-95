@@ -1,11 +1,12 @@
-!*==mflud4.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mflud4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mflud4
+   USE c_sma2cl
+   USE c_sma2et
+   USE c_sma2io
    IMPLICIT NONE
-   USE C_SMA2CL
-   USE C_SMA2ET
-   USE C_SMA2IO
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -49,34 +50,34 @@ SUBROUTINE mflud4
 !          25            -
 !****
    !>>>>EQUIVALENCE (Ecpt(1),Necpt(1))
-   IF ( Ecpt(7)/=0.0 ) THEN
-      Ecpt(7) = Ecpt(7)*2.0
+   IF ( ecpt(7)/=0.0 ) THEN
+      ecpt(7) = ecpt(7)*2.0
       DO i = 1 , 24
-         Ecpt(i+50) = Ecpt(i)
+         ecpt(i+50) = ecpt(i)
       ENDDO
       DO i = 5 , 19
-         Ecpt(i) = Ecpt(i+1)
+         ecpt(i) = ecpt(i+1)
       ENDDO
       iret = 1
       SPAG_Loop_1_1: DO
 !*****
 !
 !*****
-         IF ( (necpt(2)==Npvt) .OR. (necpt(3)==Npvt) .OR. (necpt(4)==Npvt) ) CALL mflud3
+         IF ( (necpt(2)==npvt) .OR. (necpt(3)==npvt) .OR. (necpt(4)==npvt) ) CALL mflud3
          IF ( iret==1 ) THEN
-            Ecpt(4) = Ecpt(55)
-            Ecpt(17) = Ecpt(72)
-            Ecpt(18) = Ecpt(73)
+            ecpt(4) = ecpt(55)
+            ecpt(17) = ecpt(72)
+            ecpt(18) = ecpt(73)
             iret = 2
          ELSEIF ( iret==2 ) THEN
-            Ecpt(13) = Ecpt(68)
-            Ecpt(14) = Ecpt(69)
-            Ecpt(3) = Ecpt(54)
+            ecpt(13) = ecpt(68)
+            ecpt(14) = ecpt(69)
+            ecpt(3) = ecpt(54)
             iret = 3
          ELSEIF ( iret==3 ) THEN
-            Ecpt(9) = Ecpt(64)
-            Ecpt(10) = Ecpt(65)
-            Ecpt(2) = Ecpt(53)
+            ecpt(9) = ecpt(64)
+            ecpt(10) = ecpt(65)
+            ecpt(2) = ecpt(53)
             iret = 4
          ELSE
             EXIT SPAG_Loop_1_1

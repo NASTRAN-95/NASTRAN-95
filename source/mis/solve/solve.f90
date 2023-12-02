@@ -1,18 +1,19 @@
-!*==solve.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==solve.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE solve
-USE C_BLANK
-USE C_CDCMPX
-USE C_DCOMPX
-USE C_FBSX
-USE C_GFBSX
-USE C_NAMES
-USE C_SFACT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_cdcmpx
+   USE c_dcompx
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_names
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -55,24 +56,24 @@ USE ISO_FORTRAN_ENV
       CASE (1)
 !
 !
-         Ja(1) = a
-         CALL rdtrl(Ja)
+         ja(1) = a
+         CALL rdtrl(ja)
 !
-         iform = Ja(4)
-         IF ( Isym<0 ) THEN
-            IF ( iform==Sym ) WRITE (outpt,99001) Uwm , name
+         iform = ja(4)
+         IF ( isym<0 ) THEN
+            IF ( iform==sym ) WRITE (outpt,99001) uwm , name
 99001       FORMAT (A25,' 2340, MODULE ',2A4,' HAS BEEN REQUESTED TO DO ','UNSYMETRIC DECOMPOSITION OF A SYMETRIC MATRIX.')
-            iform = Rect
-            IF ( Ja(2)==Ja(3) ) iform = Sqr
-         ELSEIF ( Isym/=0 ) THEN
-            IF ( Ja(2)==Ja(3) .AND. iform/=Sym ) WRITE (outpt,99002) Swm , name
+            iform = rect
+            IF ( ja(2)==ja(3) ) iform = sqr
+         ELSEIF ( isym/=0 ) THEN
+            IF ( ja(2)==ja(3) .AND. iform/=sym ) WRITE (outpt,99002) swm , name
 99002       FORMAT (A27,' 2341, MODULE ',2A4,' HAS BEEN FURNISHED A SQUARE ','MATRIX MARKED UNSYMETRIC FOR SYMETRIC DECOMPOSITION.')
-            iform = Sym
+            iform = sym
          ENDIF
-         Isym = -1
-         IF ( iform==Sym ) Isym = 1
-         Ja(4) = iform
-         IF ( Isym<0 ) THEN
+         isym = -1
+         IF ( iform==sym ) isym = 1
+         ja(4) = iform
+         IF ( isym<0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -80,87 +81,87 @@ USE ISO_FORTRAN_ENV
 !     SET UP CALL TO SDCOMP AND FBS
 !
          index = 1
-         Ichol = 0
+         ichol = 0
          DO i = 1 , 7
-            Ifila(i) = Ja(i)
+            ifila(i) = ja(i)
          ENDDO
-         n = Ifila(2)
-         Ifill1(1) = iscr1
-         Ifilc(1) = iscr2
-         Iscr11 = iscr3
-         Iscr22 = iscr4
-         Iscr33 = iscr5
-         Nz = korsz(Z)
-         Ifill1(5) = Ifila(5)
-         CALL sdcomp(*20,Z,Z,Z)
-         Ifill1(3) = Ifill1(2)
-         Ifill1(4) = Lower
-         CALL wrttrl(Ifill1)
-         Ifill(1) = iscr1
-         CALL rdtrl(Ifill)
-         Ifilb(1) = b
-         CALL rdtrl(Ifilb)
+         n = ifila(2)
+         ifill1(1) = iscr1
+         ifilc(1) = iscr2
+         iscr11 = iscr3
+         iscr22 = iscr4
+         iscr33 = iscr5
+         nz = korsz(z)
+         ifill1(5) = ifila(5)
+         CALL sdcomp(*20,z,z,z)
+         ifill1(3) = ifill1(2)
+         ifill1(4) = lower
+         CALL wrttrl(ifill1)
+         ifill(1) = iscr1
+         CALL rdtrl(ifill)
+         ifilb(1) = b
+         CALL rdtrl(ifilb)
 !
 !     IF THE B MATRIX IS PURGED, ASSUME AN IDENTITY MATRIX IN ITS PLACE
 !
-         IF ( Ifilb(1)<=0 ) CALL makmcb(Ifilb,b,n,Identy,Ja(5))
-         Isign1 = Ksign
-         ia5 = Ifila(5)
-         ib5 = Ifilb(5)
+         IF ( ifilb(1)<=0 ) CALL makmcb(ifilb,b,n,identy,ja(5))
+         isign1 = ksign
+         ia5 = ifila(5)
+         ib5 = ifilb(5)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     DETERMINE THE PRECISION FOR THE CALCULATIONS
 !     AND THE TYPE OF THE OUTPUT MATRIX
 !
-         Iprec1 = kprec
-         IF ( (ia5>0 .AND. ia5<=4) .OR. (ib5>0 .AND. ib5<=4) ) Iprec1 = 1
-         IF ( ia5==2 .OR. ia5==4 .OR. ib5==2 .OR. ib5==4 ) Iprec1 = 2
-         IF ( Iprec/=Iprec1 .AND. Iprec/=0 ) THEN
-            IF ( Iprec<1 .OR. Iprec>2 ) Iprec = 3
-            WRITE (outpt,99003) Swm , dosi(Iprec) , refus(Iprec) , name , dosi(Iprec1)
+         iprec1 = kprec
+         IF ( (ia5>0 .AND. ia5<=4) .OR. (ib5>0 .AND. ib5<=4) ) iprec1 = 1
+         IF ( ia5==2 .OR. ia5==4 .OR. ib5==2 .OR. ib5==4 ) iprec1 = 2
+         IF ( iprec/=iprec1 .AND. iprec/=0 ) THEN
+            IF ( iprec<1 .OR. iprec>2 ) iprec = 3
+            WRITE (outpt,99003) swm , dosi(iprec) , refus(iprec) , name , dosi(iprec1)
 99003       FORMAT (A27,' 2163, REQUESTED ',A4,'LE PRECISION ',A3,'USED BY ',2A4,2H. ,A4,'LE PRECISION IS LOGICAL CHOICE')
-            IF ( Iprec/=3 ) Iprec1 = Iprec
+            IF ( iprec/=3 ) iprec1 = iprec
          ENDIF
-         Iprec = Iprec1
-         ltype = Iprec1
-         IF ( ia5==3 .OR. ia5==4 .OR. ib5==3 .OR. ib5==4 ) ltype = Iprec1 + 2
-         IF ( Itype/=0 .AND. Itype/=ltype ) THEN
+         iprec = iprec1
+         ltype = iprec1
+         IF ( ia5==3 .OR. ia5==4 .OR. ib5==3 .OR. ib5==4 ) ltype = iprec1 + 2
+         IF ( itype/=0 .AND. itype/=ltype ) THEN
             jj = 1
-            IF ( Itype<1 .OR. Itype>4 ) jj = 3
-            WRITE (outpt,99004) Sfm , Itype , refus(jj) , name , ltype
+            IF ( itype<1 .OR. itype>4 ) jj = 3
+            WRITE (outpt,99004) sfm , itype , refus(jj) , name , ltype
 99004       FORMAT (A27,' 2164, REQUESTED TYPE ',I4,2H, ,A3,'USED BY ',2A4,'. TYPE ',I4,' IS LOGICAL CHOICE.')
-            IF ( jj/=3 ) ltype = Itype
+            IF ( jj/=3 ) ltype = itype
          ENDIF
-         Itype = ltype
+         itype = ltype
          IF ( index==2 ) THEN
-            Ipr = Iprec
+            ipr = iprec
 !
 !     DEFINE THE MATRIX CONTROL BLOCK FOR THE OUTPUT MATRIX
 !
-            CALL makmcb(Jx,x,n,Rect,Itype)
-            Nzzz = korsz(zzzz)
-            IF ( Jb(4)==Identy ) Jb(5) = Iprec
+            CALL makmcb(jx,x,n,rect,itype)
+            nzzz = korsz(zzzz)
+            IF ( jb(4)==identy ) jb(5) = iprec
             CALL gfbs(zzzz,zzzz)
-            IF ( Jx(2)==n ) Jx(4) = Sqr
-            CALL wrttrl(Jx)
+            IF ( jx(2)==n ) jx(4) = sqr
+            CALL wrttrl(jx)
             RETURN
          ELSE
 !
 !     DEFINE THE MATRIX CONTROL BLOCK FOR THE OUTPUT MATRIX
 !
-            CALL makmcb(Ifilx,x,n,Rect,Itype)
-            Nx = korsz(zz)
-            IF ( Ifilb(4)==Identy ) Ifilb(5) = Iprec
-            Iscr = iscr1
+            CALL makmcb(ifilx,x,n,rect,itype)
+            nx = korsz(zz)
+            IF ( ifilb(4)==identy ) ifilb(5) = iprec
+            iscr = iscr1
             CALL fbs(zz,zz)
-            IF ( Ifilx(2)==n ) Ifilx(4) = Sqr
-            CALL wrttrl(Ifilx)
+            IF ( ifilx(2)==n ) ifilx(4) = sqr
+            CALL wrttrl(ifilx)
             RETURN
          ENDIF
 !
- 20      no = isign(5,Isym)
-         Isym = -1
+ 20      no = isign(5,isym)
+         isym = -1
          CALL mesage(no,a,name)
          spag_nextblock_1 = 3
       CASE (3)
@@ -168,61 +169,60 @@ USE ISO_FORTRAN_ENV
 !     SET UP THE CALL TO DECOMP AND GFBS
 !
          index = 2
-         IF ( Ja(5)>2 ) THEN
+         IF ( ja(5)>2 ) THEN
 !
 !     SET UP CALL TO CDCOMP AND GFBS
 !
-            Kl(1) = iscr1
-            Ku(1) = iscr2
-            Jscr1 = iscr3
-            Jscr2 = iscr4
-            Jscr3 = iscr5
-            Nzzzz = korsz(zzzzz)
-            Ja(4) = Sqr
-            n = Ja(2)
-            Kl(5) = Ja(5)
-            Jbb = 0
-            Jbbar = 0
+            kl(1) = iscr1
+            ku(1) = iscr2
+            jscr1 = iscr3
+            jscr2 = iscr4
+            jscr3 = iscr5
+            nzzzz = korsz(zzzzz)
+            ja(4) = sqr
+            n = ja(2)
+            kl(5) = ja(5)
+            jbb = 0
+            jbbar = 0
             CALL cdcomp(*20,zzzzz,zzzzz,zzzzz)
             DO i = 1 , 7
-               Jl(i) = Kl(i)
-               Ju(i) = Ku(i)
+               jl(i) = kl(i)
+               ju(i) = ku(i)
             ENDDO
          ELSE
-            Ia(1) = a
-            Il(1) = iscr1
-            Iu(1) = iscr2
-            Isr1 = iscr3
-            Isr3 = iscr5
-            Isr2 = iscr4
-            Nzz = korsz(zzz)
-            CALL rdtrl(Ia)
-            Ia(4) = Sqr
-            n = Ia(2)
-            Il(5) = Ja(5)
-            Ib = 0
-            Ibbar = 0
+            ia(1) = a
+            il(1) = iscr1
+            iu(1) = iscr2
+            isr1 = iscr3
+            isr3 = iscr5
+            isr2 = iscr4
+            nzz = korsz(zzz)
+            CALL rdtrl(ia)
+            ia(4) = sqr
+            n = ia(2)
+            il(5) = ja(5)
+            ib = 0
+            ibbar = 0
             CALL decomp(*20,zzz,zzz,zzz)
             DO i = 1 , 7
-               Jl(i) = Il(i)
-               Ju(i) = Iu(i)
+               jl(i) = il(i)
+               ju(i) = iu(i)
             ENDDO
          ENDIF
-         Jb(1) = b
-         CALL rdtrl(Jb)
+         jb(1) = b
+         CALL rdtrl(jb)
 !
 !     IF THE B MATRIX IS PURGED, ASSUME AN IDENTITY MATRIX IN ITS PLACE
 !
-         IF ( Jb(1)<=0 ) CALL makmcb(Jb,b,n,Identy,Ja(5))
-         ia5 = Ja(5)
-         ib5 = Jb(5)
+         IF ( jb(1)<=0 ) CALL makmcb(jb,b,n,identy,ja(5))
+         ia5 = ja(5)
+         ib5 = jb(5)
 !
 !     DETERMINE THE PRECISION FOR THE CALCULATIONS
 !     AND THE TYPE OF THE OUTPUT MATRIX
 !
-         Isgn = Ksign
+         isgn = ksign
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE solve

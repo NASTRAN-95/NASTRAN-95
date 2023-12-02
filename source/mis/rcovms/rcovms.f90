@@ -1,13 +1,14 @@
-!*==rcovms.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rcovms.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovms
+   USE c_blank
+   USE c_names
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -34,28 +35,28 @@ SUBROUTINE rcovms
 !
 !     CREATE SOLN FOR RIGID FORMAT 3
 !
-         IF ( Mrecvr ) THEN
+         IF ( mrecvr ) THEN
 !
 !     FOR MODAL RECOVER COPY THE LAMS ITEM TO SOLN
 !
-            CALL sfetch(Fss,lams,srd,rc)
+            CALL sfetch(fss,lams,srd,rc)
             IF ( rc/=1 ) THEN
 !
 !     ERROR RETURNS
 !
-               CALL smsg(rc-2,lams,Fss)
+               CALL smsg(rc-2,lams,fss)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               CALL suread(Z(1),-2,n,rc)
-               IF ( n>Sof3 ) THEN
+               CALL suread(z(1),-2,n,rc)
+               IF ( n>sof3 ) THEN
                   n = 8
                   CALL mesage(n,file,name)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  CALL sfetch(Fss,soln,swrt,rc)
-                  CALL suwrt(Z(1),n,eoi)
+                  CALL sfetch(fss,soln,swrt,rc)
+                  CALL suwrt(z(1),n,eoi)
                   RETURN
                ENDIF
             ENDIF
@@ -64,14 +65,14 @@ SUBROUTINE rcovms
 !     WRITE GROUP 0
 !
             rc = 3
-            CALL sfetch(Fss,soln,swrt,rc)
-            CALL suwrt(Fss,2,1)
-            CALL suwrt(Rfno,1,1)
-            CALL suwrt(Neigv,1,eog)
+            CALL sfetch(fss,soln,swrt,rc)
+            CALL suwrt(fss,2,1)
+            CALL suwrt(rfno,1,1)
+            CALL suwrt(neigv,1,eog)
 !
 !     IF NO EIGENVALUES, GO HOME
 !
-            IF ( Neigv<=0 ) THEN
+            IF ( neigv<=0 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -79,20 +80,20 @@ SUBROUTINE rcovms
 !     COPY RECORD 2 OF LAMA OR CLAMA TO GROUP 1 OF SOLN
 !
             file = lama
-            CALL open(*40,lama,Z(Buf1),Rdrew)
+            CALL open(*40,lama,z(buf1),rdrew)
             CALL fwdrec(*60,lama)
             CALL fread(lama,itype,1,1)
             nw = 7
             IF ( itype==90 ) nw = 6
-            Z(i7) = 0
+            z(i7) = 0
             i = 1
             DO
-               CALL read(*60,*20,lama,Z(1),nw,0,nwds)
-               CALL suwrt(Z,7,i)
+               CALL read(*60,*20,lama,z(1),nw,0,nwds)
+               CALL suwrt(z,7,i)
             ENDDO
          ENDIF
  20      CALL suwrt(0,0,eog)
-         CALL close(lama,Rew)
+         CALL close(lama,rew)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -109,8 +110,8 @@ SUBROUTINE rcovms
          spag_nextblock_1 = 3
       CASE (3)
          CALL sofcls
-         Iopt = -1
-         CALL close(lama,Rew)
+         iopt = -1
+         CALL close(lama,rew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

@@ -1,14 +1,15 @@
-!*==itmprt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==itmprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE itmprt(Name,Item,Nz,Iopt)
+   USE c_machin
+   USE c_output
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,13 +59,13 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
                CALL sfetch(Name,Item,1,rc)
                IF ( rc/=1 ) RETURN
-               CALL suread(Core(1),4,nout,rc)
+               CALL suread(core(1),4,nout,rc)
                IF ( rc/=1 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                nsub = icore(3)
-               CALL suread(Core(1),Nz,nout,rc)
+               CALL suread(core(1),Nz,nout,rc)
                IF ( rc/=2 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
@@ -72,20 +73,20 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
                ist = 1 + nout
                left = Nz - nout
                DO i = 1 , nsub
-                  CALL suread(Core(ist),left,nout,rc)
+                  CALL suread(core(ist),left,nout,rc)
                   IF ( rc/=2 .AND. rc/=3 ) THEN
                      spag_nextblock_1 = 12
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   icomp = 1 + 2*(i-1)
-                  CALL cmiwrt(1,Name,Core(icomp),ist,nout,Core,icore)
+                  CALL cmiwrt(1,Name,core(icomp),ist,nout,core,icore)
                ENDDO
-               CALL suread(Core(ist),left,nout,rc)
+               CALL suread(core(ist),left,nout,rc)
                IF ( rc/=2 .AND. rc/=3 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL cmiwrt(8,Name,0,ist,nout,Core,icore)
+               CALL cmiwrt(8,Name,0,ist,nout,core,icore)
                RETURN
             ELSEIF ( Item==bgss ) THEN
 !
@@ -100,12 +101,12 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                ist = 1
-               CALL suread(Core(ist),Nz,nout,rc)
+               CALL suread(core(ist),Nz,nout,rc)
                IF ( rc/=2 .AND. rc/=3 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL cmiwrt(2,Name,Name,ist,nout,Core,icore)
+               CALL cmiwrt(2,Name,Name,ist,nout,core,icore)
                RETURN
             ELSEIF ( Item==cstm ) THEN
 !
@@ -120,12 +121,12 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                ist = 1
-               CALL suread(Core(ist),Nz,nout,rc)
+               CALL suread(core(ist),Nz,nout,rc)
                IF ( rc/=2 .OR. rc/=3 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL cmiwrt(3,Name,Name,ist,nout,Core,icore)
+               CALL cmiwrt(3,Name,Name,ist,nout,core,icore)
                RETURN
             ELSEIF ( Item==plts ) THEN
 !
@@ -133,18 +134,18 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
                CALL sfetch(Name,Item,1,rc)
                IF ( rc/=1 ) RETURN
-               CALL suread(Core(1),3,nout,rc)
+               CALL suread(core(1),3,nout,rc)
                IF ( rc/=1 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                ist = 1
-               CALL suread(Core(ist),Nz,nout,rc)
+               CALL suread(core(ist),Nz,nout,rc)
                IF ( rc/=2 .AND. rc/=3 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL cmiwrt(4,Name,Name,ist,nout,Core,icore)
+               CALL cmiwrt(4,Name,Name,ist,nout,core,icore)
                RETURN
             ELSEIF ( Item==lods ) THEN
 !
@@ -173,31 +174,31 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO i = 1 , 96
-            Head2(i) = blank
+            head2(i) = blank
          ENDDO
          DO i = 1 , 3
-            Head2(i) = subs(i)
+            head2(i) = subs(i)
          ENDDO
-         Head2(5) = Name(1)
-         Head2(6) = Name(2)
-         Head2(8) = itm
-         Head2(10) = Item
+         head2(5) = Name(1)
+         head2(6) = Name(2)
+         head2(8) = itm
+         head2(10) = Item
          CALL page
-         Head2(12) = cont
-         Head2(13) = uned
-         Head2(14) = d
+         head2(12) = cont
+         head2(13) = uned
+         head2(14) = d
          inum = Nz/2 - 1
          ns = inum + 1
          llen = 0
-         Core(1) = oparen
+         core(1) = oparen
          irec = 0
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (Otpe,99001) irec
+         WRITE (otpe,99001) irec
 99001    FORMAT ('0GROUP NO.',I4)
          irec = irec + 1
-         Line = Line + 2
-         IF ( Line>=Nlpp ) CALL page
+         line = line + 2
+         IF ( line>=nlpp ) CALL page
          ix = inum
          nred = 0
          np = inum - 1
@@ -208,9 +209,9 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
          iout = 4
          nred = nred + 1
          np = np + 1
-         CALL suread(Core(ix),1,flag,rc)
+         CALL suread(core(ix),1,flag,rc)
          IF ( rc<2 ) THEN
-            i = numtyp(Core(ix)) + 1
+            i = numtyp(core(ix)) + 1
             IF ( i==1 .AND. iv/=4 ) i = iv
             iv = i
             IF ( i==1 .OR. i==2 ) THEN
@@ -255,38 +256,36 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         Core(nred+1) = ec
-         Core(nred+2) = ec1
-         Core(nred+3) = ec2
+         core(nred+1) = ec
+         core(nred+2) = ec1
+         core(nred+3) = ec2
          nred = nred + 2
          spag_nextblock_1 = 6
       CASE (6)
          llen = llen + 13
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         Core(nred+1) = alphc
-         Core(nred+2) = alphc1
+         core(nred+1) = alphc
+         core(nred+2) = alphc1
          nred = nred + 1
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     BUFFER FULL - END RECORD   PRINT LINE
 !
-         Core(nred+1) = cparen
-         IF ( nred==1 ) WRITE (Otpe,99002)
+         core(nred+1) = cparen
+         IF ( nred==1 ) WRITE (otpe,99002)
 99002    FORMAT ('0END OF GROUP - NULL GROUP')
          IF ( nred/=1 ) THEN
-            IF ( Machx==2 .OR. Machx==5 ) WRITE (Otpe,Core) (icore(i),i=ns,np)
-            IF ( Machx/=2 .AND. Machx/=5 ) CALL wrtfmt(icore(ns),np-ns+1,ccore)
+            IF ( machx==2 .OR. machx==5 ) WRITE (otpe,core) (icore(i),i=ns,np)
+            IF ( machx/=2 .AND. machx/=5 ) CALL wrtfmt(icore(ns),np-ns+1,ccore)
          ENDIF
-         Line = Line + 1
-         IF ( Line>=Nlpp ) CALL page
+         line = line + 1
+         IF ( line>=nlpp ) CALL page
          llen = 0
          nred = 1
          np = inum
-         Core(inum+1) = Core(ix)
+         core(inum+1) = core(ix)
          ix = inum + 1
          IF ( iout==1 ) THEN
             spag_nextblock_1 = 5
@@ -309,7 +308,7 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
 !     END OF ITEM
 !
-         WRITE (Otpe,99003)
+         WRITE (otpe,99003)
 99003    FORMAT ('0END OF ITEM')
          spag_nextblock_1 = 10
       CASE (10)
@@ -318,21 +317,21 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
          CALL sfetch(Name,Item,1,rc)
          IF ( rc/=1 ) RETURN
-         CALL suread(Core(1),4,nout,rc)
+         CALL suread(core(1),4,nout,rc)
          IF ( rc==1 ) THEN
             nsub = icore(4)
-            CALL suread(Core(1),Nz,nout,rc)
+            CALL suread(core(1),Nz,nout,rc)
             IF ( rc==2 ) THEN
                ist = 1 + nout
                left = Nz - nout
                DO i = 1 , nsub
-                  CALL suread(Core(ist),left,nout,rc)
+                  CALL suread(core(ist),left,nout,rc)
                   IF ( rc/=2 .AND. rc/=3 ) THEN
                      spag_nextblock_1 = 12
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   icomp = 1 + 2*(i-1)
-                  CALL cmiwrt(icode,Name,Core(icomp),ist,nout,Core,icore)
+                  CALL cmiwrt(icode,Name,core(icomp),ist,nout,core,icore)
                   icode = 6
                ENDDO
                RETURN
@@ -343,11 +342,10 @@ SUBROUTINE itmprt(Name,Item,Nz,Iopt)
 !
 !     INSUFFICIENT CORE OR ILLEGAL ITEM FORMAT - FORCE PHYSICAL DUMP
 !
-         WRITE (Otpe,99004) Uwm , Item , Name
+         WRITE (otpe,99004) uwm , Item , Name
 99004    FORMAT (A25,' 6231, INSUFFICIENT CORE AVAILABLE OR ILLEGAL ITEM ','FORMAT REQUIRES AN UNFORMATED',/31X,                    &
                 &'DUMP TO BE PERFORM FOR ITEM ',A4,' OF SUBSTRUCTURE ',2A4)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE itmprt

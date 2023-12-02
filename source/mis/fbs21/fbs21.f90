@@ -1,12 +1,13 @@
-!*==fbs21.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fbs21.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbs21(Block,Y,Yn,Nwds)
-USE C_FBSX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -47,7 +48,7 @@ USE ISO_FORTRAN_ENV
          nbritm = Nwds/2
          nbrvec = (locfx(Yn)-locfx(Y))/Nwds + 1
          last = 1 + (nbrvec-1)*nbritm
-         DO j = 1 , N
+         DO j = 1 , n
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -59,7 +60,7 @@ USE ISO_FORTRAN_ENV
                   CALL getstr(*40,Block)
                   IF ( Block(4)/=j ) GOTO 40
                   jstr = Block(5)
-                  ljj = L(jstr)
+                  ljj = l(jstr)
 !WKBI
                   xljj = ljj
                   IF ( Block(6)==1 ) THEN
@@ -80,7 +81,7 @@ USE ISO_FORTRAN_ENV
                      ik = Block(4) + k - 1
                      DO ij = jstr , nstr
 !WKBI
-                        xlij = L(ij)
+                        xlij = l(ij)
 !WKBR Y(IK) = Y(IK) + L(IJ)*YJK
                         Y(ik) = Y(ik) + xlij*yjk
                         ik = ik + 1
@@ -111,12 +112,12 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE FOR BACKWARD PASS BY SKIPPING THE NTH COLUMN
 !
-         IF ( N==1 ) THEN
+         IF ( n==1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL bckrec(Block)
-         j = N - 1
+         j = n - 1
 !
 !     GET A STRING IN CURRENT COLUMN. IF STRING INCLUDES DIAGONAL,
 !     ADJUST STRING TO SKIP IT.
@@ -138,7 +139,7 @@ USE ISO_FORTRAN_ENV
                   ik = Block(4) + k - 1
                   jk = j + k - 1
                   DO ii = 1 , nterms
-                     Y(jk) = Y(jk) + L(ji)*Y(ik)
+                     Y(jk) = Y(jk) + l(ji)*Y(ik)
                      ji = ji - 1
                      ik = ik - 1
                   ENDDO
@@ -167,7 +168,7 @@ USE ISO_FORTRAN_ENV
 !
 !     FATAL ERROR MESSAGE
 !
- 40      WRITE (Nout,99001) Sfm , subnam
+ 40      WRITE (nout,99001) sfm , subnam
 99001    FORMAT (A25,' 2149, SUBROUTINE ',2A4,/5X,'FIRST ELEMENT OF A COL',                                                         &
                 &'UMN OF LOWER TRIANGULAR MATRIX IS NOT THE DIAGONAL ELEMENT')
          CALL mesage(-61,0,0)

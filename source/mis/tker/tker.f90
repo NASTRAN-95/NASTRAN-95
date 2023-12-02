@@ -1,10 +1,11 @@
-!*==tker.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tker.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
+   USE c_dlm
+   USE c_kds
    IMPLICIT NONE
-   USE C_DLM
-   USE C_KDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,14 +45,14 @@ SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
 !
 !
          eps = 0.00001
-         K10 = 0.0
-         K20 = 0.0
-         K1rt1 = 0.0
-         K1it1 = 0.0
-         K2rt2p = 0.0
-         K2it2p = 0.0
-         K10t1 = 0.0
-         K20t2p = 0.0
+         k10 = 0.0
+         k20 = 0.0
+         k1rt1 = 0.0
+         k1it1 = 0.0
+         k2rt2p = 0.0
+         k2it2p = 0.0
+         k10t1 = 0.0
+         k20t2p = 0.0
          r1 = sqrt(Y0*Y0+Z0*Z0)
          r1s = r1
          IF ( abs(r1)>eps ) THEN
@@ -244,10 +245,10 @@ SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
             IF ( X0>=0 ) THEN
                c1 = Kr*X0/Br
                T1 = Cgr*Cgs + Sgr*Sgs
-               K10 = 2.0
-               K1rt1 = 2.0*T1*cos(c1)
-               K1it1 = -2.0*T1*sin(c1)
-               K10t1 = 2.0*T1
+               k10 = 2.0
+               k1rt1 = 2.0*T1*cos(c1)
+               k1it1 = -2.0*T1*sin(c1)
+               k10t1 = 2.0*T1
             ENDIF
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
@@ -295,7 +296,7 @@ SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
       CASE (4)
          ck1r = i1ur + c3*c1/c4
          ck1i = i1ui - c3*c2/c4
-         K10 = 1.0 + X0/bigr
+         k10 = 1.0 + X0/bigr
          dk1r = ck1r*c6 + ck1i*c7
          dk1i = ck1i*c6 - ck1r*c7
          IF ( ichuz==1 .OR. ichuz==4 .OR. ichuz==7 ) THEN
@@ -308,23 +309,23 @@ SUBROUTINE tker(X0,Y0,Z0,Kr,Br,Sgr,Cgr,Sgs,Cgs,T1,T2,M)
          c9 = (k1*c3)*(c3/c4)
          ck2r = -i2ur3 + c8*c1 - c9*c2
          ck2i = -i2ui3 - c9*c1 - c8*c2
-         K20 = -2.0 - X0*(2.0+beta2*(r1/bigr)**2)/bigr
+         k20 = -2.0 - X0*(2.0+beta2*(r1/bigr)**2)/bigr
          dk2r = ck2r*c6 + ck2i*c7
          dk2i = ck2i*c6 - ck2r*c7
          spag_nextblock_1 = 6
       CASE (6)
-         K1rt1 = T1*dk1r
-         K1it1 = T1*dk1i
-         K2rt2p = t2p*dk2r
-         K2it2p = t2p*dk2i
-         K10t1 = K10*T1
-         K20t2p = K20*t2p
+         k1rt1 = T1*dk1r
+         k1it1 = T1*dk1i
+         k2rt2p = t2p*dk2r
+         k2it2p = t2p*dk2i
+         k10t1 = k10*T1
+         k20t2p = k20*t2p
          spag_nextblock_1 = 7
       CASE (7)
-         Kd1r = K1rt1 - K10t1*float(Ind)
-         Kd1i = K1it1
-         Kd2r = K2rt2p - K20t2p*float(Ind)
-         Kd2i = K2it2p
+         kd1r = k1rt1 - k10t1*float(ind)
+         kd1i = k1it1
+         kd2r = k2rt2p - k20t2p*float(ind)
+         kd2i = k2it2p
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

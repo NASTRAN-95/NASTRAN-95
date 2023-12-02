@@ -2,12 +2,12 @@
  
 SUBROUTINE dfbs
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FBSX
-   USE C_GFBSX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -16,6 +16,12 @@ SUBROUTINE dfbs
    INTEGER :: iprec1 , jj , kprec , ltype , n , nogo , outpt
    INTEGER , DIMENSION(2) , SAVE :: sbnm
    REAL , DIMENSION(1) :: zz
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -43,102 +49,102 @@ SUBROUTINE dfbs
    DATA dosi/4HSING , 4HDOUB , 4HMLTP/ , refus/2*3H    , 3HREF/
 !
 !
-   Ju(1) = u
-   CALL rdtrl(Ju)
+   ju(1) = u
+   CALL rdtrl(ju)
    DO
-      IF ( Isym<0 ) THEN
+      IF ( isym<0 ) THEN
 !
 !     SET UP CALL TO GFBS
 !
-         Jl(1) = l
-         CALL rdtrl(Jl)
-         n = Jl(2)
-         Jb(1) = b
-         CALL rdtrl(Jb)
-         Jnx = korsz(zz)
-         iprec1 = max0(Jl(5),Jb(5),Ju(5))
+         jl(1) = l
+         CALL rdtrl(jl)
+         n = jl(2)
+         jb(1) = b
+         CALL rdtrl(jb)
+         jnx = korsz(zz)
+         iprec1 = max0(jl(5),jb(5),ju(5))
          IF ( iprec1>2 ) iprec1 = iprec1 - 2
          IF ( iprec1<1 .OR. iprec1>2 ) iprec1 = kprec
-         IF ( Iprec/=iprec1 .AND. Iprec/=0 ) THEN
-            IF ( Iprec<1 .OR. Iprec>2 ) Iprec = 3
-            WRITE (outpt,99002) Swm , dosi(Iprec) , refus(Iprec) , sbnm , dosi(iprec1)
-            IF ( Iprec/=3 ) iprec1 = Iprec
+         IF ( iprec/=iprec1 .AND. iprec/=0 ) THEN
+            IF ( iprec<1 .OR. iprec>2 ) iprec = 3
+            WRITE (outpt,99002) swm , dosi(iprec) , refus(iprec) , sbnm , dosi(iprec1)
+            IF ( iprec/=3 ) iprec1 = iprec
          ENDIF
-         Iprec = iprec1
-         Jp1 = iprec1
-         Js1 = Ksign
-         Jx(1) = x
+         iprec = iprec1
+         jp1 = iprec1
+         js1 = ksign
+         jx(1) = x
          ltype = iprec1
-         IF ( Jl(5)==3 .OR. Jl(5)==4 .OR. Ju(5)==3 .OR. Ju(5)==4 .OR. Jl(5)==3 .OR. Jl(5)==4 ) ltype = iprec1 + 2
-         IF ( Itype/=0 .AND. Itype/=ltype ) THEN
+         IF ( jl(5)==3 .OR. jl(5)==4 .OR. ju(5)==3 .OR. ju(5)==4 .OR. jl(5)==3 .OR. jl(5)==4 ) ltype = iprec1 + 2
+         IF ( itype/=0 .AND. itype/=ltype ) THEN
             jj = 1
-            IF ( Itype<1 .OR. Itype>4 ) jj = 3
-            WRITE (outpt,99003) Swm , Itype , refus(jj) , sbnm , ltype
-            IF ( jj/=3 ) ltype = Itype
+            IF ( itype<1 .OR. itype>4 ) jj = 3
+            WRITE (outpt,99003) swm , itype , refus(jj) , sbnm , ltype
+            IF ( jj/=3 ) ltype = itype
          ENDIF
-         Itype = ltype
-         Jx(5) = Itype
+         itype = ltype
+         jx(5) = itype
          CALL gfbs(zz,zz)
-         Jx(3) = n
-         Jx(4) = 2
-         IF ( Jx(3)==Jx(2) ) Jx(4) = 1
-         CALL wrttrl(Jx)
-      ELSEIF ( Isym==0 ) THEN
-         Isym = -1
-         IF ( Ju(1)<0 ) Isym = 1
+         jx(3) = n
+         jx(4) = 2
+         IF ( jx(3)==jx(2) ) jx(4) = 1
+         CALL wrttrl(jx)
+      ELSEIF ( isym==0 ) THEN
+         isym = -1
+         IF ( ju(1)<0 ) isym = 1
          CYCLE
       ELSE
 !
 !     SET UP CALL TO FBS
 !
          nogo = 0
-         Il(1) = l
-         CALL rdtrl(Il)
-         IF ( Il(1)<=0 ) THEN
+         il(1) = l
+         CALL rdtrl(il)
+         IF ( il(1)<=0 ) THEN
             CALL mesage(30,198,l)
             nogo = 1
          ENDIF
-         IF ( Il(4)/=4 ) THEN
+         IF ( il(4)/=4 ) THEN
 !
-            CALL fname(Il(1),Il(2))
-            WRITE (outpt,99001) Il(2) , Il(3) , Il(4)
+            CALL fname(il(1),il(2))
+            WRITE (outpt,99001) il(2) , il(3) , il(4)
 99001       FORMAT ('0*** INPUT MATRIX ',2A4,' TO FBS MODULE IS NOT A LOWER ','TRIANGULAR FACTOR.  FORM =',I4)
             CALL errtrc('DFBS    ',110)
          ELSE
-            n = Il(2)
-            Ib(1) = b
-            CALL rdtrl(Ib)
+            n = il(2)
+            ib(1) = b
+            CALL rdtrl(ib)
             IF ( nogo/=0 ) CALL mesage(-30,199,sbnm)
-            Inx = korsz(Z)
-            iprec1 = max0(Il(5),Ib(5),Iu(5))
+            inx = korsz(z)
+            iprec1 = max0(il(5),ib(5),iu(5))
             IF ( iprec1>2 ) iprec1 = iprec1 - 2
             IF ( iprec1<1 .OR. iprec1>2 ) iprec1 = kprec
-            IF ( Iprec/=iprec1 .AND. Iprec/=0 ) THEN
-               IF ( Iprec<1 .OR. Iprec>2 ) Iprec = 3
-               WRITE (outpt,99002) Swm , dosi(Iprec) , refus(Iprec) , sbnm , dosi(iprec1)
-               IF ( Iprec/=3 ) iprec1 = Iprec
+            IF ( iprec/=iprec1 .AND. iprec/=0 ) THEN
+               IF ( iprec<1 .OR. iprec>2 ) iprec = 3
+               WRITE (outpt,99002) swm , dosi(iprec) , refus(iprec) , sbnm , dosi(iprec1)
+               IF ( iprec/=3 ) iprec1 = iprec
             ENDIF
-            Iprec = iprec1
-            Ip1 = iprec1
-            Is1 = Ksign
+            iprec = iprec1
+            ip1 = iprec1
+            is1 = ksign
             ltype = iprec1
 !WKBR spr 93014  1   .IL(5).EQ.3 .OR. IL(5).EQ.4)  LTYPE = IPREC1 + 2
-            IF ( Il(5)==3 .OR. Il(5)==4 .OR. Iu(5)==3 .OR. Iu(5)==4 .OR. Ib(5)==3 .OR. Ib(5)==4 ) ltype = iprec1 + 2
-            IF ( Itype/=0 .AND. Itype/=ltype ) THEN
+            IF ( il(5)==3 .OR. il(5)==4 .OR. iu(5)==3 .OR. iu(5)==4 .OR. ib(5)==3 .OR. ib(5)==4 ) ltype = iprec1 + 2
+            IF ( itype/=0 .AND. itype/=ltype ) THEN
                jj = 1
-               IF ( Itype<1 .OR. Itype>4 ) jj = 3
-               WRITE (outpt,99003) Swm , Itype , refus(jj) , sbnm , ltype
-               IF ( jj/=3 ) ltype = Itype
+               IF ( itype<1 .OR. itype>4 ) jj = 3
+               WRITE (outpt,99003) swm , itype , refus(jj) , sbnm , ltype
+               IF ( jj/=3 ) ltype = itype
             ENDIF
-            Itype = ltype
-            Ix(5) = Itype
-            Ix(1) = x
-            Iscr = scr
-            CALL fbs(Z,Z)
-            Ix(3) = n
-            Ix(4) = 2
-            IF ( Ix(3)==Ix(2) ) Ix(4) = 1
-            CALL wrttrl(Ix)
+            itype = ltype
+            ix(5) = itype
+            ix(1) = x
+            iscr = scr
+            CALL fbs(z,z)
+            ix(3) = n
+            ix(4) = 2
+            IF ( ix(3)==ix(2) ) ix(4) = 1
+            CALL wrttrl(ix)
          ENDIF
       ENDIF
       EXIT

@@ -1,11 +1,12 @@
-!*==hdsket.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdsket.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdsket(X,Y,Z,Np,Nc)
+   USE c_hdptrs
+   USE c_hdsc
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_HDPTRS
-   USE C_HDSC
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -95,11 +96,11 @@ SUBROUTINE hdsket(X,Y,Z,Np,Nc)
                         ix = j + 2 - m
                         ix1skt = j - is + 1
                         DO ik = 1 , ix
-                           Rz(X1skt+m1-2+ik) = X(m-1+ik)
-                           Rz(Y1skt+m1-2+ik) = Y(m-1+ik)
-                           Rz(Z1skt+m1-2+ik) = Z(m-1+ik)
+                           rz(x1skt+m1-2+ik) = X(m-1+ik)
+                           rz(y1skt+m1-2+ik) = Y(m-1+ik)
+                           rz(z1skt+m1-2+ik) = Z(m-1+ik)
                         ENDDO
-                        Rz(Z1skt-1+m1+ix) = -isign(1,ix1skt)*9999.
+                        rz(z1skt-1+m1+ix) = -isign(1,ix1skt)*9999.
                         CYCLE SPAG_Loop_1_3
                      ENDIF
                   ENDIF
@@ -110,22 +111,22 @@ SUBROUTINE hdsket(X,Y,Z,Np,Nc)
       ENDIF
    ENDIF
    DO j = 1 , li
-      Rz(X1skt-1+j) = X(j)
-      Rz(Y1skt-1+j) = Y(j)
-      Rz(Z1skt-1+j) = Z(j)
+      rz(x1skt-1+j) = X(j)
+      rz(y1skt-1+j) = Y(j)
+      rz(z1skt-1+j) = Z(j)
    ENDDO
    Np = Np + 1
-   Rz(Z1skt-1+Np) = -9999.
+   rz(z1skt-1+Np) = -9999.
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      CALL hdlin(Rz(X1skt),Rz(Y1skt),Rz(Z1skt),Np,Nc,Rz(Xcc),iz(Icount),iz(Irct),Rz(X21),Rz(Y21),Rz(Z21),iz(Iia),Rz(Xe),Rz(Ye),     &
-               & Rz(Xu),Rz(Yu),Rz(Xi),Rz(Yi),Rz(Zi),Rz(Di),iz(Ibeg),iz(Iend),iz(Ict),iz(Icct),iz(W),iz(W),Rz(W),Rz(W),iz(W),iz(W),  &
-               & iz(W),Rz(W),Rz(W),Rz(W),Rz(W),Rz(W),Rz(W),Rz(W),iz(W),iz(W),Rz(W),Rz(W),Rz(W),Rz(W),iz(W),iz(W))
-      Np = l
+      CALL hdlin(rz(X1skt),rz(Y1skt),rz(Z1skt),Np,Nc,rz(xcc),Iz(icount),Iz(irct),rz(x21),rz(y21),rz(z21),Iz(iia),rz(xe),rz(ye),     &
+               & rz(xu),rz(yu),rz(xi),rz(yi),rz(zi),rz(di),Iz(ibeg),Iz(iend),Iz(ict),Iz(icct),Iz(w),Iz(w),rz(w),rz(w),Iz(w),Iz(w),  &
+               & Iz(w),rz(w),rz(w),rz(w),rz(w),rz(w),rz(w),rz(w),Iz(w),Iz(w),rz(w),rz(w),rz(w),rz(w),Iz(w),Iz(w))
+      Np = L
 !
 !     RESET VALUE FOR MAXIMUM NUMBER OF EDGES IF ARGUMENT IS COMPLETED.
 !
-      IF ( Vp>0. ) Lz = Lz/5
+      IF ( vp>0. ) lz = lz/5
    END SUBROUTINE spag_block_1
 END SUBROUTINE hdsket

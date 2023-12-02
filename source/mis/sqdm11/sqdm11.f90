@@ -1,14 +1,15 @@
-!*==sqdm11.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sqdm11.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sqdm11
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -85,18 +86,18 @@ SUBROUTINE sqdm11
 !
 !     COMPUTE DIFFERENCES OF COORDINATES OF ACTUAL GRID POINTS
 !
-   x21 = X2 - X1
-   y21 = Y2 - Y1
-   z21 = Z2 - Z1
-   x31 = X3 - X1
-   y31 = Y3 - Y1
-   z31 = Z3 - Z1
-   x41 = X4 - X1
-   y41 = Y4 - Y1
-   z41 = Z4 - Z1
-   x42 = X4 - X2
-   y42 = Y4 - Y2
-   z42 = Z4 - Z2
+   x21 = x2 - x1
+   y21 = y2 - y1
+   z21 = z2 - z1
+   x31 = x3 - x1
+   y31 = y3 - y1
+   z31 = z3 - z1
+   x41 = x4 - x1
+   y41 = y4 - y1
+   z41 = z4 - z1
+   x42 = x4 - x2
+   y42 = y4 - y2
+   z42 = z4 - z2
 !
 !     COMPUTE ELEMENTS OF THE E MATRIX (3X3)
 !
@@ -132,15 +133,15 @@ SUBROUTINE sqdm11
    pj1 = pj1/magj
    pj2 = pj2/magj
    pj3 = pj3/magj
-   E(1) = pi1
-   E(2) = pj1
-   E(3) = pk1
-   E(4) = pi2
-   E(5) = pj2
-   E(6) = pk2
-   E(7) = pi3
-   E(8) = pj3
-   E(9) = pk3
+   e(1) = pi1
+   e(2) = pj1
+   e(3) = pk1
+   e(4) = pi2
+   e(5) = pj2
+   e(6) = pk2
+   e(7) = pi3
+   e(8) = pj3
+   e(9) = pk3
 !
 !     STORE FOUR (3X3) E MATRICES INTO (12X12) E MATRIX
 !
@@ -154,18 +155,18 @@ SUBROUTINE sqdm11
          DO kkct = 1 , 3
             nnct = nnct + 1
             ktot = kkct + llct + mmct
-            ee(ktot) = E(nnct)
+            ee(ktot) = e(nnct)
          ENDDO
       ENDDO
    ENDDO
 !
 !     COMPUTE DIFFERENCES OF COORDINATES OF GRID POINTS IN THE MEAN PLAN
 !
-   x12 = -(x21*E(1)+y21*E(4)+z21*E(7))
-   x13 = -(x31*E(1)+y31*E(4)+z31*E(7))
-   x14 = -(x41*E(1)+y41*E(4)+z41*E(7))
-   y3a = (x31*E(2)+y31*E(5)+z31*E(8))
-   y4a = (x42*E(2)+y42*E(5)+z42*E(8))
+   x12 = -(x21*e(1)+y21*e(4)+z21*e(7))
+   x13 = -(x31*e(1)+y31*e(4)+z31*e(7))
+   x14 = -(x41*e(1)+y41*e(4)+z41*e(7))
+   y3a = (x31*e(2)+y31*e(5)+z31*e(8))
+   y4a = (x42*e(2)+y42*e(5)+z42*e(8))
    x24 = x14 - x12
    x23 = x13 - x12
    x34 = x14 - x13
@@ -206,9 +207,9 @@ SUBROUTINE sqdm11
 !     THE ELEMENTS IN THE MEAN PLANE
 !
    tol = 1.0E-3*(-x12)
-   IF ( Nbpw>=60 ) tol = 1.0E-5*(-x12)
+   IF ( nbpw>=60 ) tol = 1.0E-5*(-x12)
    tol2 = 1.0E-3*x12*x12
-   IF ( Nbpw>=60 ) tol2 = 1.0E-5*x12*x12
+   IF ( nbpw>=60 ) tol2 = 1.0E-5*x12*x12
    IF ( abs(x34+x12)>tol .OR. abs(y34)>tol ) THEN
       IF ( abs(x24)>=tol .AND. abs(x13)>=tol ) THEN
          xstar = (y4a*x13*x12)/((y3a*x24)-(y4a*x13))
@@ -259,98 +260,98 @@ SUBROUTINE sqdm11
 !                        AND ACTUAL GRID POINTS
 !
    DO i = 2 , 92
-      B(i) = 0.
+      b(i) = 0.
    ENDDO
-   B(1) = 1.
-   B(10) = 1.
-   B(17) = -hh/la
-   B(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
-   B(19) = hh/la
-   B(20) = (hh*cth2)/(la*sth2)
-   B(23) = (hh*cth42)/ldd2
-   B(24) = (hh*sth42)/ldd2
-   B(27) = 1.
-   B(36) = 1.
-   B(41) = -B(17)
-   B(42) = (-hh*cth1)/(la*sth1)
-   B(43) = B(17)
-   B(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
-   B(45) = (-hh*sth31)/lbd1
-   B(46) = (-hh*cth31)/lbd1
-   B(53) = 1.
-   B(62) = 1.
-   B(68) = -hh/(lb*sth2)
-   B(69) = hh*((sth31/lbd1)+(cth32/lcd1))
-   B(70) = hh*((cth31/lbd1)+(sth32/lcd1))
-   B(71) = (-hh*sth41)/lcd2
-   B(72) = (hh*cth41)/lcd2
-   B(79) = 1.
-   B(88) = 1.
-   B(90) = hh/(ld*sth1)
-   B(93) = (-hh*cth32)/lcd1
-   B(94) = (-hh*sth32)/lcd1
-   B(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
-   B(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
+   b(1) = 1.
+   b(10) = 1.
+   b(17) = -hh/la
+   b(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
+   b(19) = hh/la
+   b(20) = (hh*cth2)/(la*sth2)
+   b(23) = (hh*cth42)/ldd2
+   b(24) = (hh*sth42)/ldd2
+   b(27) = 1.
+   b(36) = 1.
+   b(41) = -b(17)
+   b(42) = (-hh*cth1)/(la*sth1)
+   b(43) = b(17)
+   b(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
+   b(45) = (-hh*sth31)/lbd1
+   b(46) = (-hh*cth31)/lbd1
+   b(53) = 1.
+   b(62) = 1.
+   b(68) = -hh/(lb*sth2)
+   b(69) = hh*((sth31/lbd1)+(cth32/lcd1))
+   b(70) = hh*((cth31/lbd1)+(sth32/lcd1))
+   b(71) = (-hh*sth41)/lcd2
+   b(72) = (hh*cth41)/lcd2
+   b(79) = 1.
+   b(88) = 1.
+   b(90) = hh/(ld*sth1)
+   b(93) = (-hh*cth32)/lcd1
+   b(94) = (-hh*sth32)/lcd1
+   b(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
+   b(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
    DO i = 1 , 24
-      A(i) = 0.
+      a(i) = 0.
    ENDDO
 !                                                     T
 !     COMPUTE TRANSFORMED MATRIX OF STIFFNESSES  G = P  * G * P
 !
-   Theta = Angle*degra
-   Sinth = sin(Theta)
-   Costh = cos(Theta)
-   IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
-   Matid = Matid1
-   Inflag = 2
-   Eltemp = ecpt(26)
+   theta = angle*degra
+   sinth = sin(theta)
+   costh = cos(theta)
+   IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
+   matid = matid1
+   inflag = 2
+   eltemp = ecpt(26)
    CALL mat(ecpt(1))
 !
 !     STORE INTO G MATRIX
 !
-   G(1) = G11
-   G(2) = G12
-   G(3) = G13
-   G(4) = G12
-   G(5) = G22
-   G(6) = G23
-   G(7) = G13
-   G(8) = G23
-   G(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     COMPUTE MATRIX A TO RELATE DISPLACEMENTS TO STRAINS
 !
    aj = (-y4a*x12) + (-y34*x12*xis) + etas*((-y4a*x23)+(y3a*x14))
-   A(1) = (-y4a+(y3a*etas)-(y34*xis))/aj
-   A(3) = (y4a-(y4a*etas)+(y34*xis))/aj
-   A(5) = (y4a*etas)/aj
-   A(7) = (-y3a*etas)/aj
-   A(10) = (-x24+(x23*etas)+(x34*xis))/aj
-   A(12) = (x14-(x14*etas)-(x34*xis))/aj
-   A(14) = ((x14*etas)-(x12*xis))/aj
-   A(16) = (-x12-(x23*etas)+(x12*xis))/aj
-   A(17) = (-x24+(x23*etas)+(x34*xis))/aj
-   A(18) = (-y4a+(y3a*etas)-(y34*xis))/aj
-   A(19) = (x14-(x14*etas)-(x34*xis))/aj
-   A(20) = (y4a-(y4a*etas)+(y34*xis))/aj
-   A(21) = ((x14*etas)-(x12*xis))/aj
-   A(22) = (y4a*etas)/aj
-   A(23) = (-x12-(x23*etas)+(x12*xis))/aj
-   A(24) = (-y3a*etas)/aj
+   a(1) = (-y4a+(y3a*etas)-(y34*xis))/aj
+   a(3) = (y4a-(y4a*etas)+(y34*xis))/aj
+   a(5) = (y4a*etas)/aj
+   a(7) = (-y3a*etas)/aj
+   a(10) = (-x24+(x23*etas)+(x34*xis))/aj
+   a(12) = (x14-(x14*etas)-(x34*xis))/aj
+   a(14) = ((x14*etas)-(x12*xis))/aj
+   a(16) = (-x12-(x23*etas)+(x12*xis))/aj
+   a(17) = (-x24+(x23*etas)+(x34*xis))/aj
+   a(18) = (-y4a+(y3a*etas)-(y34*xis))/aj
+   a(19) = (x14-(x14*etas)-(x34*xis))/aj
+   a(20) = (y4a-(y4a*etas)+(y34*xis))/aj
+   a(21) = ((x14*etas)-(x12*xis))/aj
+   a(22) = (y4a*etas)/aj
+   a(23) = (-x12-(x23*etas)+(x12*xis))/aj
+   a(24) = (-y3a*etas)/aj
 !
 !                          T    T
 !     COMPUTE S = G * A * B  * E
 !
-   CALL gmmats(B(1),12,8,1,ee(1),12,12,1,Tempar(1))
-   CALL gmmats(A(1),3,8,0,Tempar(1),8,12,0,Tempar(100))
-   CALL gmmats(G(1),3,3,0,Tempar(100),3,12,0,Tempar(1))
+   CALL gmmats(b(1),12,8,1,ee(1),12,12,1,tempar(1))
+   CALL gmmats(a(1),3,8,0,tempar(1),8,12,0,tempar(100))
+   CALL gmmats(g(1),3,3,0,tempar(100),3,12,0,tempar(1))
    DO l = 1 , 4
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
             DO n = 2 , 5
-               IF ( Necpt(n)==Ngrid(l) ) THEN
+               IF ( necpt(n)==ngrid(l) ) THEN
                   ka = 4*n + 2
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
@@ -359,15 +360,15 @@ SUBROUTINE sqdm11
             CALL mesage(-30,34,ecpt(1))
             spag_nextblock_1 = 2
          CASE (2)
-            IF ( Necpt(ka)==0 ) THEN
+            IF ( necpt(ka)==0 ) THEN
                DO ii = 1 , 9
-                  Ti(ii) = 0.
+                  ti(ii) = 0.
                ENDDO
-               Ti(1) = 1.
-               Ti(5) = 1.
-               Ti(9) = 1.
+               ti(1) = 1.
+               ti(5) = 1.
+               ti(9) = 1.
             ELSE
-               CALL transs(Necpt(ka),Ti)
+               CALL transs(necpt(ka),ti)
             ENDIF
             lcnt = 3*(l-1)
             irowct = -12
@@ -378,10 +379,10 @@ SUBROUTINE sqdm11
                   nn = nn + 1
                   ktot = kk + irowct + lcnt
                   nn49 = nn + 49
-                  Tempar(nn49) = Tempar(ktot)
+                  tempar(nn49) = tempar(ktot)
                ENDDO
             ENDDO
-            CALL gmmats(Tempar(50),3,3,0,Ti,3,3,0,Tempar(60))
+            CALL gmmats(tempar(50),3,3,0,ti,3,3,0,tempar(60))
 !
 !                                                          TH
 !     MATRICES S  RELATE DISPLACEMENTS TO STRESSES AT THE I   GRIDPOINT
@@ -390,17 +391,17 @@ SUBROUTINE sqdm11
             DO il = 1 , 9
                ktot = il + 9*l
                il59 = il + 59
-               Ph1out(ktot) = Tempar(il59)
+               ph1out(ktot) = tempar(il59)
             ENDDO
             EXIT SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1
    ENDDO
-   CALL gmmats(G(1),3,3,0,Alphas(1),3,1,0,Ph1out(7))
-   Ph1out(1) = ecpt(1)
-   Ph1out(2) = ecpt(2)
-   Ph1out(3) = ecpt(3)
-   Ph1out(4) = ecpt(4)
-   Ph1out(5) = ecpt(5)
-   Ph1out(6) = Tsub0
+   CALL gmmats(g(1),3,3,0,alphas(1),3,1,0,ph1out(7))
+   ph1out(1) = ecpt(1)
+   ph1out(2) = ecpt(2)
+   ph1out(3) = ecpt(3)
+   ph1out(4) = ecpt(4)
+   ph1out(5) = ecpt(5)
+   ph1out(6) = tsub0
 END SUBROUTINE sqdm11

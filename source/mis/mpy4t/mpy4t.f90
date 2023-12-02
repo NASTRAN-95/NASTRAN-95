@@ -1,4 +1,5 @@
-!*==mpy4t.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpy4t.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy4t(Iz,Z,Dz)
@@ -24,13 +25,13 @@ SUBROUTINE mpy4t(Iz,Z,Dz)
 !
 !     WRITTEN BY G.CHAN/UNISYS   1/92
 !
-USE C_MACHIN
-USE C_MPYADX
-USE C_MPYADZ
-USE C_MPYQT4
-USE C_TYPE
-USE C_UNPAKX
-USE ISO_FORTRAN_ENV                 
+   USE c_machin
+   USE c_mpyadx
+   USE c_mpyadz
+   USE c_mpyqt4
+   USE c_type
+   USE c_unpakx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -130,272 +131,272 @@ USE ISO_FORTRAN_ENV
 !
 !     WE START FROM FIRST ROW AROW1, AND WILL RUN THRU TO LAST ROW AROWN
 !
-         Arow = Arow1
-         l = Firstl
+         arow = arow1
+         l = firstl
          spag_nextblock_1 = 2
       CASE (2)
-         Apoint = Iz(l)
-         IF ( Apoint==0 ) THEN
+         apoint = Iz(l)
+         IF ( apoint==0 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         last = rshift(Iz(l-1),Ihalf)
-         init = andf(Iz(Apoint),Jhalf)
-         IF ( init>Jj .OR. last<Ii ) THEN
+         last = rshift(Iz(l-1),ihalf)
+         init = andf(Iz(apoint),jhalf)
+         IF ( init>jj .OR. last<ii ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         nbrstr = andf(Iz(l-1),Jhalf)
+         nbrstr = andf(Iz(l-1),jhalf)
          spag_nextblock_1 = 3
       CASE (3)
-         nbr = rshift(Iz(Apoint),Ihalf)
-         IF ( init>Jj ) THEN
+         nbr = rshift(Iz(apoint),ihalf)
+         IF ( init>jj ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( init+nbr>=Ii ) THEN
-            jb = max0(init,Ii)
-            je = min0(init+nbr-1,Jj)
+         IF ( init+nbr>=ii ) THEN
+            jb = max0(init,ii)
+            je = min0(init+nbr-1,jj)
             IF ( jb<=je ) THEN
-               ipoint = Apoint + (jb-init+1)*Prca
-               ja = (ipoint-1)/Prca + 1
-               kb = (jb-Ii)*Rcb + Jbb
+               ipoint = apoint + (jb-init+1)*prca
+               ja = (ipoint-1)/prca + 1
+               kb = (jb-ii)*rcb + jbb
                dsumr = dzero
-               IF ( All==2 ) THEN
+               IF ( all==2 ) THEN
 !
                   DO j = jb , je
                      dsumr = dsumr + Dz(ja)*Dz(kb)
-                     ja = ja + Rca
-                     kb = kb + Rcb
+                     ja = ja + rca
+                     kb = kb + rcb
                   ENDDO
-                  Dz(Arow) = Dz(Arow) + dsumr
-               ELSEIF ( All==3 ) THEN
+                  Dz(arow) = Dz(arow) + dsumr
+               ELSEIF ( all==3 ) THEN
 !
                   sumi = 0.0
                   DO j = jb , je
                      sumr = sumr + Z(ja)*Z(kb) - Z(ja+1)*Z(kb+1)
                      sumi = sumi + Z(ja)*Z(kb+1) + Z(ja+1)*Z(kb)
-                     ja = ja + Rca
-                     kb = kb + Rcb
+                     ja = ja + rca
+                     kb = kb + rcb
                   ENDDO
-                  Z(Arow) = Z(Arow) + sumr
-                  Z(Arow+1) = Z(Arow+1) + sumi
-               ELSEIF ( All==4 ) THEN
+                  Z(arow) = Z(arow) + sumr
+                  Z(arow+1) = Z(arow+1) + sumi
+               ELSEIF ( all==4 ) THEN
 !
                   dsumi = dzero
                   DO j = jb , je
                      dsumr = dsumr + Dz(ja)*Dz(kb) - Dz(ja+1)*Dz(kb+1)
                      dsumi = dsumi + Dz(ja)*Dz(kb+1) + Dz(ja+1)*Dz(kb)
-                     ja = ja + Rca
-                     kb = kb + Rcb
+                     ja = ja + rca
+                     kb = kb + rcb
                   ENDDO
-                  Dz(Arow) = Dz(Arow) + dsumr
-                  Dz(Arow+1) = Dz(Arow+1) + dsumi
-               ELSEIF ( All==5 ) THEN
+                  Dz(arow) = Dz(arow) + dsumr
+                  Dz(arow+1) = Dz(arow+1) + dsumi
+               ELSEIF ( all==5 ) THEN
 !
 !
-                  IF ( Jump==2 ) THEN
+                  IF ( jump==2 ) THEN
 !
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja))*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
-                        Z(Arow) = Z(Arow) + sngl(dsumr)
+                     IF ( prcd<=0 ) THEN
+                        Z(arow) = Z(arow) + sngl(dsumr)
                      ELSE
 !
-                        Dz(Arow) = Dz(Arow) + dsumr
+                        Dz(arow) = Dz(arow) + dsumr
                      ENDIF
-                  ELSEIF ( Jump==3 ) THEN
+                  ELSEIF ( jump==3 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja)*Z(kb))
                         dsumi = dsumi + dble(Z(ja)*Z(kb+1))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==4 ) THEN
+                  ELSEIF ( jump==4 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja))*Dz(kb)
                         dsumi = dsumi + dble(Z(ja))*Dz(kb+1)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==5 ) THEN
+                  ELSEIF ( jump==5 ) THEN
 !
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*dble(Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
-                        Z(Arow) = Z(Arow) + sngl(dsumr)
+                     IF ( prcd<=0 ) THEN
+                        Z(arow) = Z(arow) + sngl(dsumr)
                      ELSE
-                        Dz(Arow) = Dz(Arow) + dsumr
+                        Dz(arow) = Dz(arow) + dsumr
                      ENDIF
-                  ELSEIF ( Jump==6 ) THEN
+                  ELSEIF ( jump==6 ) THEN
 !
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     Z(Arow) = Z(Arow) + sngl(dsumr)
-                  ELSEIF ( Jump==7 ) THEN
+                     Z(arow) = Z(arow) + sngl(dsumr)
+                  ELSEIF ( jump==7 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*dble(Dz(kb))
                         dsumi = dsumi + Dz(ja)*dble(Dz(kb+1))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==8 ) THEN
+                  ELSEIF ( jump==8 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*Dz(kb)
                         dsumi = dsumi + Dz(ja)*Dz(kb+1)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==9 ) THEN
+                  ELSEIF ( jump==9 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja)*Z(kb))
                         dsumi = dsumi + dble(Z(ja+1)*Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==10 ) THEN
+                  ELSEIF ( jump==10 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja))*Dz(kb)
                         dsumi = dsumi + dble(Z(ja+1))*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==11 ) THEN
+                  ELSEIF ( jump==11 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja)*Z(kb)) - dble(Z(ja+1)*Z(kb+1))
                         dsumi = dsumi + dble(Z(ja)*Z(kb+1)) + dble(Z(ja+1)*Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==12 ) THEN
+                  ELSEIF ( jump==12 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja))*Dz(kb)
                         dsumi = dsumi + dble(Z(ja+1))*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==13 ) THEN
+                  ELSEIF ( jump==13 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*dble(Z(kb))
                         dsumi = dsumi + Dz(ja+1)*dble(Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==14 ) THEN
+                  ELSEIF ( jump==14 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*Dz(kb)
                         dsumi = dsumi + Dz(ja+1)*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==15 ) THEN
+                  ELSEIF ( jump==15 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*dble(Z(kb)) - Dz(ja+1)*dble(Z(kb+1))
                         dsumi = dsumi + Dz(ja)*dble(Z(kb+1)) + Dz(ja+1)*dble(Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     IF ( Prcd<=0 ) THEN
+                     IF ( prcd<=0 ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Jump==16 ) THEN
+                  ELSEIF ( jump==16 ) THEN
 !
                      dsumi = dzero
                      DO j = jb , je
                         dsumr = dsumr + Dz(ja)*Dz(kb) - Dz(ja+1)*Dz(kb+1)
                         dsumi = dsumi + Dz(ja)*Dz(kb+1) + Dz(ja+1)*Dz(kb)
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
@@ -413,12 +414,12 @@ USE ISO_FORTRAN_ENV
 !
                      DO j = jb , je
                         dsumr = dsumr + dble(Z(ja)*Z(kb))
-                        ja = ja + Rca
-                        kb = kb + Rcb
+                        ja = ja + rca
+                        kb = kb + rcb
                      ENDDO
-                     Dz(Arow) = Dz(Arow) + dsumr
+                     Dz(arow) = Dz(arow) + dsumr
                   ENDIF
-               ELSEIF ( All==6 ) THEN
+               ELSEIF ( all==6 ) THEN
 !
                   CALL mesage(-37,0,nam)
                   RETURN
@@ -430,23 +431,21 @@ USE ISO_FORTRAN_ENV
 !     DON'T BE SUPRISED TO SEE SOME Z(JA) ARE ZEROS
 !     (VAX PACKING ROUTINE ALLOWS UP TO 3 ZEROS BETWEEN STRINGS)
 !
-                     ja = ja + Rca
-                     kb = kb + Rcb
+                     ja = ja + rca
+                     kb = kb + rcb
                   ENDDO
-                  Z(Arow) = Z(Arow) + sumr
+                  Z(arow) = Z(arow) + sumr
                ENDIF
             ENDIF
          ENDIF
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         Dz(Arow) = Dz(Arow) + dsumr
-         Dz(Arow+1) = Dz(Arow+1) + dsumi
+         Dz(arow) = Dz(arow) + dsumr
+         Dz(arow+1) = Dz(arow+1) + dsumi
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
-         Z(Arow) = Z(Arow) + sngl(dsumr)
-         Z(Arow+1) = Z(Arow+1) + sngl(dsumi)
+         Z(arow) = Z(arow) + sngl(dsumr)
+         Z(arow+1) = Z(arow+1) + sngl(dsumi)
          spag_nextblock_1 = 6
       CASE (6)
 !
@@ -455,9 +454,9 @@ USE ISO_FORTRAN_ENV
 !     ROW OF A, RETURN FOR NEXT STRING
 !
          nbrstr = nbrstr - 1
-         Apoint = Apoint + nbr*Nwda + Prca
+         apoint = apoint + nbr*nwda + prca
          IF ( nbrstr>0 ) THEN
-            init = andf(Iz(Apoint),Jhalf)
+            init = andf(Iz(apoint),jhalf)
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -470,8 +469,8 @@ USE ISO_FORTRAN_ENV
 !     CURRENT COLUMN OF MATRIX D (IN C ARRAY)
 !
          l = l - 2
-         Arow = Arow + 1
-         IF ( Arow<=Arown ) THEN
+         arow = arow + 1
+         IF ( arow<=arown ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF

@@ -1,10 +1,11 @@
-!*==ihexss.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ihexss.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ihexss(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -248,7 +249,7 @@ SUBROUTINE ihexss(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
 !
 !     JACOBIAN MATRIX WAS SINGULAR.
 !
-      WRITE (Op,99001) Ufm , Eid
+      WRITE (op,99001) ufm , Eid
 99001 FORMAT (A23,' 3306, SINGULAR JACOBIAN MATRIX FOR ISOPARAMETRIC ','ELEMENT NO.',I9)
       RETURN
    ENDIF
@@ -257,5 +258,4 @@ SUBROUTINE ihexss(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
          Jacob(i,j) = work(i,j)/Detj
       ENDDO
    ENDDO
-   RETURN
 END SUBROUTINE ihexss

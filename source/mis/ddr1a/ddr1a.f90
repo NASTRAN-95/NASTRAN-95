@@ -1,12 +1,13 @@
-!*==ddr1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ddr1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,Scr5)
+   USE c_condas
+   USE c_system
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,7 +58,7 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !
          sr1 = Scr1
          sr3 = Scr3
-         ibuf = korsz(Core) - Sysbuf + 1
+         ibuf = korsz(core) - sysbuf + 1
          nok2dd = 1
          mcb(1) = K2dd
          CALL rdtrl(mcb)
@@ -84,19 +85,18 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !
             it = 1
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     BRING IN FRL
 !
             file = Frl
-            CALL open(*40,Frl,Core(ibuf),0)
+            CALL open(*40,Frl,core(ibuf),0)
             CALL fread(Frl,0,-2,0)
-            CALL read(*60,*20,Frl,Core(1),ibuf,0,nfreq)
+            CALL read(*60,*20,Frl,core(1),ibuf,0,nfreq)
             ip1 = -8
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      CALL close(Frl,1)
          nload = mcb(2)/nfreq
          it = 3
@@ -105,19 +105,19 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !
 !     BUILD  ACCELERATION AND VELOCITY IF NEEDED
 !
-         CALL gopen(Vud,Core(ibuf),0)
+         CALL gopen(Vud,core(ibuf),0)
 !
 !     PUT  ACCELERATION VECTOR ON SCR1
 !
-         nz = ibuf - Sysbuf
-         CALL gopen(Scr1,Core(nz),1)
+         nz = ibuf - sysbuf
+         CALL gopen(Scr1,core(nz),1)
          CALL makmcb(mcb1,Scr1,mcb(3),2,it)
          IF ( nob2dd>=0 ) THEN
 !
 !     PUT VELOCITY VECTOR ON SCR2
 !
-            nz = nz - Sysbuf
-            CALL gopen(Scr2,Core(nz),1)
+            nz = nz - sysbuf
+            CALL gopen(Scr2,core(nz),1)
             CALL makmcb(mcb2,Scr2,mcb(3),2,it)
          ENDIF
          IF ( Itype/=freq ) THEN
@@ -125,8 +125,8 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !     PUT DISPLACEMENT ON SCR5
 !
             file = Scr5
-            nz = nz - Sysbuf
-            CALL gopen(Scr5,Core(nz),1)
+            nz = nz - sysbuf
+            CALL gopen(Scr5,core(nz),1)
             mcb(1) = Scr5
             mcb(2) = 0
             mcb(4) = 2
@@ -151,9 +151,9 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
                      CYCLE
                   ELSE
                      CALL intpk(*22,Vud,0,1,0)
-                     DO WHILE ( Ieol==0 )
+                     DO WHILE ( ieol==0 )
                         CALL zntpki
-                        CALL bldpki(A,Ii,file,iblk(k))
+                        CALL bldpki(a,ii,file,iblk(k))
                      ENDDO
                   ENDIF
 !
@@ -172,24 +172,24 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
 !     COMPUTE  VECTORS
 !
             DO i = 1 , nfreq
-               Core(i) = Core(i)*twopi
+               core(i) = core(i)*twopi
             ENDDO
             DO j = 1 , nload
                DO i = 1 , nfreq
-                  w = Core(i)
+                  w = core(i)
                   w2 = -w*w
                   CALL bldpk(3,3,Scr1,iblk(1),1)
                   IF ( nob2dd>=0 ) CALL bldpk(3,3,Scr2,iblk(21),1)
                   CALL intpk(*24,Vud,0,3,0)
-                  DO WHILE ( Ieol==0 )
+                  DO WHILE ( ieol==0 )
                      CALL zntpki
-                     b(1) = w2*A(1)
-                     b(2) = w2*A(2)
-                     CALL bldpki(b(1),Ii,Scr1,iblk(1))
+                     b(1) = w2*a(1)
+                     b(2) = w2*a(2)
+                     CALL bldpki(b(1),ii,Scr1,iblk(1))
                      IF ( nob2dd>=0 ) THEN
-                        b(1) = -w*A(2)
-                        b(2) = w*A(1)
-                        CALL bldpki(b(1),Ii,Scr2,iblk(21))
+                        b(1) = -w*a(2)
+                        b(2) = w*a(1)
+                        CALL bldpki(b(1),ii,Scr2,iblk(21))
                      ENDIF
                   ENDDO
 !
@@ -238,7 +238,6 @@ SUBROUTINE ddr1a(Pd,K2dd,B2dd,Mdd,Vud,Pad,Frl,Frqset,Scr1,Scr2,Scr3,Scr4,Itype,S
          CALL mesage(ip1,file,name)
  60      ip1 = -2
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE ddr1a

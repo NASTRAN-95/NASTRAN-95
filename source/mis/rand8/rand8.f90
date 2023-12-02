@@ -1,11 +1,12 @@
-!*==rand8.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rand8.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
+   USE c_condas
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -126,13 +127,13 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
          mcb1(1) = Psdf
          mcb2(1) = Auto
-         lcore = korsz(Z)
-         ibuf1 = lcore - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         lcore = korsz(z)
+         ibuf1 = lcore - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          itau = Nfreq + 5*Npsdl
          isaa = Ntau + Ltab + itau
-         lcore = lcore - (isaa+Nfreq+3*Sysbuf)
+         lcore = lcore - (isaa+Nfreq+3*sysbuf)
          icrq = -lcore
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 7
@@ -150,7 +151,6 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
          jj = itau + 1
          j = 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
 !         SEARCH LIST OF UNIQUE ID-S
@@ -203,8 +203,8 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !         OPEN OUTPUT FILES
 !
-            CALL gopen(Psdf,Z(ibuf2),1)
-            CALL gopen(Auto,Z(ibuf3),1)
+            CALL gopen(Psdf,z(ibuf2),1)
+            CALL gopen(Auto,z(ibuf3),1)
 !
 !         BEGIN LOOP ON EACH FILE
 !
@@ -216,7 +216,7 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !         BUILD POINT LIST FOR FILE(I)
 !
-                     CALL rand6(Xycb,Z(ibuf1),npoint,iz(icore+1),Ifile(i),lcore)
+                     CALL rand6(Xycb,z(ibuf1),npoint,iz(icore+1),Ifile(i),lcore)
                      IF ( npoint==0 ) CYCLE
                      nz = lcore - 5*npoint
                      icrq = -nz
@@ -228,7 +228,7 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !         OPEN INPUT FILE
 !
                      file = Ifile(i)
-                     CALL open(*10,file,Z(ibuf1),0)
+                     CALL open(*10,file,z(ibuf1),0)
                      ip = icore + 1
                      ndone = 0
                      oldld = 0
@@ -270,17 +270,16 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !         NEW LOAD -- SEE IF WANTED
 !
-                              DO kk = 1 , nunq
+                              SPAG_Loop_6_1: DO kk = 1 , nunq
                                  l = iload + kk
                                  IF ( load==iz(l) ) THEN
                                     spag_nextblock_3 = 2
-                                    CYCLE SPAG_DispatchLoop_3
+                                    EXIT SPAG_Loop_6_1
                                  ENDIF
-                              ENDDO
 !
 !         REJECT LOAD -- NOT NEEDED
 !
-                              CYCLE
+                              ENDDO SPAG_Loop_6_1
                            CASE (2)
 !
 !         GOOD LOAD -- SAVE DATA
@@ -319,13 +318,13 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
                            jj = iz(ip1+2) + 2
                            k = jj + len/2 - 1
                            IF ( if>0 ) THEN
-                              x = data(jj)*cos(Degrad*data(k))
-                              data(k) = data(jj)*sin(Degrad*data(k))
+                              x = data(jj)*cos(degrad*data(k))
+                              data(k) = data(jj)*sin(degrad*data(k))
                               data(jj) = x
                            ENDIF
                            l = kk + j*2 - 1 + ii*mincr
-                           Z(l) = data(jj)
-                           Z(l+1) = data(k)
+                           z(l) = data(jj)
+                           z(l+1) = data(k)
 !
 !         TEST FOR CORE OVERFLOW
 !
@@ -363,7 +362,7 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
                            k = ics + j*mincr - Nfreq
                            DO l = 1 , Nfreq
                               jj = k + l
-                              Z(jj) = 0.0
+                              z(jj) = 0.0
                            ENDDO
                         ENDDO
 !
@@ -379,15 +378,15 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
                            two = 2.0
                            l = Nfreq + (j-1)*5
                            IF ( iz(l+1)==iz(l+2) ) two = 1.0
-                           q(1) = Z(l+3)
-                           r = Z(l+4)
+                           q(1) = z(l+3)
+                           r = z(l+4)
                            DO k = 1 , Nfreq
                               jj = isaa + k
 !
 !
 !                TAB     X    F(X)
-                              CALL tab(iz(l+5),Z(k),Z(jj))
-                              IF ( iz(l+5)==0 ) Z(jj) = 1.0
+                              CALL tab(iz(l+5),z(k),z(jj))
+                              IF ( iz(l+5)==0 ) z(jj) = 1.0
                            ENDDO
 !
 !         FOR EACH POINT IN CORE
@@ -400,7 +399,7 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
                                  ih2 = iz(l+2)*Nfreq*2 + l1 + 2*m
                                  jj = isaa + m
                                  isj = l2 + m
-                                 Z(isj) = Z(isj) + Z(jj)*two*((Z(ih1)*q(1)-Z(ih1+1)*r)*Z(ih2)+(Z(ih1+1)*q(1)+Z(ih1)*r)*Z(ih2+1))
+                                 z(isj) = z(isj) + z(jj)*two*((z(ih1)*q(1)-z(ih1+1)*r)*z(ih2)+(z(ih1+1)*q(1)+z(ih1)*r)*z(ih2+1))
                               ENDDO
                            ENDDO
                         ENDDO
@@ -417,12 +416,12 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                            DO ll = 1 , Nfreq
                               kk = l + ll
-                              Z(kk) = abs(Z(kk))
+                              z(kk) = abs(z(kk))
                            ENDDO
 !
 !         COMPUTE MEAN RESPONSE
 !
-                           CALL rand3(Z(1),Z(l+1),q,Nfreq)
+                           CALL rand3(z(1),z(l+1),q,Nfreq)
                            IF ( iz(k+3)/=2 ) THEN
 !
 !         PSDF REQUESTED -- PUT OUT ID
@@ -434,8 +433,8 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                               DO ll = 1 , Nfreq
                                  kk = l + ll
-                                 CALL write(Psdf,Z(ll),1,0)
-                                 CALL write(Psdf,Z(kk),1,0)
+                                 CALL write(Psdf,z(ll),1,0)
+                                 CALL write(Psdf,z(kk),1,0)
                               ENDDO
                               CALL write(Psdf,0,0,1)
                            ENDIF
@@ -451,11 +450,11 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                                  DO ll = 1 , Ntau
                                     kk = itau + ll
-                                    CALL write(Auto,Z(kk),1,0)
+                                    CALL write(Auto,z(kk),1,0)
 !
 !         COMPUTE AUTO
 !
-                                    CALL rand4(Z(1),Z(l+1),Z(kk),r,Nfreq)
+                                    CALL rand4(z(1),z(l+1),z(kk),r,Nfreq)
                                     CALL write(Auto,r,1,0)
                                  ENDDO
                                  CALL write(Auto,0,0,1)
@@ -507,7 +506,6 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
             i = i + 1
             j = 0
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (5)
 !
@@ -518,12 +516,10 @@ SUBROUTINE rand8(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
       CASE (6)
          ip1 = -7
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE rand8

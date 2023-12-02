@@ -1,11 +1,12 @@
-!*==curvit.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==curvit.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale)
+   USE c_names
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -72,7 +73,7 @@ SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale
 !
 !     ALLOCATE BUFFER FOR -IFILE- AND OPEN -IFILE-.
 !
-         ibuf = Lz - Sysbuf
+         ibuf = Lz - sysbuf
          jz = ibuf - 1
          icrq = -jz
          IF ( jz>0 ) THEN
@@ -114,7 +115,7 @@ SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale
                      ENDDO
                   ELSE
                      n = 0
-                     WRITE (Ioutpt,99001) Uwm , n , Mcsid
+                     WRITE (ioutpt,99001) uwm , n , Mcsid
 !
 !     OUTPUT NULL ROW FOR EACH DEPENDENT POINT.
 !
@@ -255,7 +256,7 @@ SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale
 !     ILL-CONDITION FOR THIS DEPENDENT POINT - NO SOLUTION POSSIBLE.
 !
                   CALL page2(4)
-                  WRITE (Ioutpt,99001) Uwm , i , Mcsid
+                  WRITE (ioutpt,99001) uwm , i , Mcsid
                   ipts = 0
                ENDIF
 !
@@ -268,7 +269,7 @@ SUBROUTINE curvit(Indep,Ni,Dep,Nd,Ifile,Z,Iz,Lz,Mclose,Toler,Mcsid,Xscale,Yscale
 !     ALL G-MATRIX ROWS COMPLETE. (ROWS SINGULAR ARE EMPTY LOGICAL
 !     RECORDS IN -IFILE- )
 !
- 10         CALL close(Ifile,Clsrew)
+ 10         CALL close(Ifile,clsrew)
             RETURN
          ENDIF
          spag_nextblock_1 = 2

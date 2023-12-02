@@ -1,10 +1,11 @@
-!*==pktrqd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pktrqd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pktrqd(Ntype)
+   USE c_pla42d
+   USE c_pla4es
    IMPLICIT NONE
-   USE C_PLA42D
-   USE C_PLA4ES
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -76,7 +77,7 @@ SUBROUTINE pktrqd(Ntype)
 !     SAVE THE INCOMING ECPT
 !
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO OPERATIONS DESIRED
@@ -96,14 +97,14 @@ SUBROUTINE pktrqd(Ntype)
 !     SET UP CALL TO PKTRPL
 !
       DO i = 1 , 6
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
-      Ecpt(7) = save(7)**3/12.0E0
-      Ecpt(8) = save(6)
-      Ecpt(9) = save(7)
-      Ecpt(10) = save(8)
+      ecpt(7) = save(7)**3/12.0E0
+      ecpt(8) = save(6)
+      ecpt(9) = save(7)
+      ecpt(10) = save(8)
       DO i = 13 , 25
-         Ecpt(i) = save(i-4)
+         ecpt(i) = save(i-4)
       ENDDO
 !
       CALL pktrpl
@@ -116,9 +117,9 @@ SUBROUTINE pktrqd(Ntype)
 !
 !     SET UP CALL TO PKQDMS
 !
-         Ecpt(9) = save(13)
+         ecpt(9) = save(13)
          DO i = 10 , 26
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL pkqdms
@@ -138,14 +139,14 @@ SUBROUTINE pktrqd(Ntype)
 !     SET UP CALL TO PKQDPL
 !
       DO i = 1 , 7
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
-      Ecpt(8) = save(8)**3/12.0E0
-      Ecpt(9) = save(7)
-      Ecpt(10) = save(8)
-      Ecpt(11) = save(9)
+      ecpt(8) = save(8)**3/12.0E0
+      ecpt(9) = save(7)
+      ecpt(10) = save(8)
+      ecpt(11) = save(9)
       DO i = 14 , 30
-         Ecpt(i) = save(i-4)
+         ecpt(i) = save(i-4)
       ENDDO
 !
       CALL pkqdpl
@@ -157,7 +158,7 @@ SUBROUTINE pktrqd(Ntype)
 !     SET UP ECPT FOR CALL TO PKTRMS
       IF ( save(7)/=0.0E0 ) THEN
          DO i = 9 , 21
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL pktrms(0)
@@ -166,10 +167,10 @@ SUBROUTINE pktrqd(Ntype)
 !     SET UP CALL TO PKTRPL
       IF ( save(9)==0.0E0 ) RETURN
       DO i = 1 , 5
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
       DO i = 6 , 25
-         Ecpt(i) = save(i+2)
+         ecpt(i) = save(i+2)
       ENDDO
 !
       CALL pktrpl
@@ -181,13 +182,12 @@ SUBROUTINE pktrqd(Ntype)
 !     SET UP CALL TO PKQDPL
 !
    DO i = 1 , 6
-      Ecpt(i) = save(i)
+      ecpt(i) = save(i)
    ENDDO
    DO i = 7 , 30
-      Ecpt(i) = save(i+2)
+      ecpt(i) = save(i+2)
    ENDDO
 !
    CALL pkqdpl
-   RETURN
 !
 END SUBROUTINE pktrqd

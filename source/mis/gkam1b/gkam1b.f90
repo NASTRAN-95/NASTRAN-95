@@ -1,13 +1,14 @@
-!*==gkam1b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gkam1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkam1b(Usetd,Scr1,Scr2,Phidh,Phidh1,Modes,Core,Lhset,Noue,Scr3)
+   USE c_bitpos
+   USE c_parmeg
+   USE c_patx
+   USE c_system
+   USE c_zblpkx
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_PARMEG
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_ZBLPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,20 +40,20 @@ SUBROUTINE gkam1b(Usetd,Scr1,Scr2,Phidh,Phidh1,Modes,Core,Lhset,Noue,Scr3)
 !
 !     BUILD  MERGE  VECTOR
 !
-   Uset = Usetd
-   Lc = korsz(Core(Modes))
-   Lcore = Lc
-   CALL calcv(Scr1,Ud,Ua,Ue,Core(Modes))
+   uset = Usetd
+   lc = korsz(Core(Modes))
+   lcore = lc
+   CALL calcv(Scr1,ud,ua,ue,Core(Modes))
 !
 !     BUILD  EXE  IDENTY   MATRIX
 !
-   nz = Lc - Sysbuf
+   nz = lc - sysbuf
    CALL gopen(Scr2,Core(nz+1),1)
    CALL makmcb(mcb,Scr2,Noue,6,1)
-   A(1) = 1.0
+   a(1) = 1.0
    DO i = 1 , Noue
       CALL bldpk(1,1,Scr2,0,0)
-      Ii = i
+      ii = i
       CALL zblpki
       CALL bldpkn(Scr2,0,mcb)
    ENDDO
@@ -61,32 +62,32 @@ SUBROUTINE gkam1b(Usetd,Scr1,Scr2,Phidh,Phidh1,Modes,Core,Lhset,Noue,Scr3)
 !
 !     SET  UP  FOR  MERGE
 !
-   Irule = 0
-   Ia22(1) = Scr2
-   CALL rdtrl(Ia22)
-   Ia(1) = Phidh
-   Ia(2) = Lhset
-   Ia(3) = N1 + N2 + N3
-   Ia(4) = 2
-   Ia(5) = 1
-   Ia21(1) = 0
-   Ia12(1) = 0
-   Ia11(1) = Phidh1
+   irule = 0
+   ia22(1) = Scr2
+   CALL rdtrl(ia22)
+   ia(1) = Phidh
+   ia(2) = Lhset
+   ia(3) = n1 + n2 + n3
+   ia(4) = 2
+   ia(5) = 1
+   ia21(1) = 0
+   ia12(1) = 0
+   ia11(1) = Phidh1
    CALL makmcb(Core(Modes),Scr3,Lhset,2,1)
-   CALL rdtrl(Ia11)
+   CALL rdtrl(ia11)
 !
 !     BUILD  VECTOR IN CORE
 !
    CALL gopen(Scr3,Core(nz+1),1)
    CALL bldpk(1,1,Scr3,0,0)
-   Ii = Modes - 1
+   ii = Modes - 1
    DO i = 1 , Noue
-      Ii = Ii + 1
+      ii = ii + 1
       CALL zblpki
    ENDDO
    CALL bldpkn(Scr3,0,Core(Modes))
    CALL close(Scr3,1)
    CALL wrttrl(Core(Modes))
    CALL merge(Scr3,Scr1,Core(Modes))
-   CALL wrttrl(Ia)
+   CALL wrttrl(ia)
 END SUBROUTINE gkam1b

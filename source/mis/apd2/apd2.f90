@@ -2,13 +2,13 @@
  
 SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IMPLICIT NONE
-   USE C_APD12C
-   USE C_APD1C
-   USE C_APD1D
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_apd12c
+   USE c_apd1c
+   USE c_apd1d
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,6 +37,15 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    REAL , DIMENSION(3) :: rb1 , vx1 , vx2
    INTEGER , DIMENSION(2) :: sildx
    INTEGER , DIMENSION(3) , SAVE :: type
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -110,10 +119,10 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    nt122 = nt122 + nth2
    nfl = nfl + kt1
    k = k + 2
-   IF ( k<=Ncam2*2 ) GOTO 300
+   IF ( k<=ncam2*2 ) GOTO 300
  600  ids = Cao2(k)
    nto = ntp + ntz + nty
-   nas = Nasb
+   nas = nasb
 !
 !     NOW SET UP POINTERS TO BUILD ACPT IN CORE
 !
@@ -169,25 +178,25 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    nwr = ith2a + nt122 - Ncore
    na = ith2a + nt122 - 1
    i = na + np*6 + 1
-   IF ( i>Left ) CALL mesage(-8,0,nam)
+   IF ( i>left ) CALL mesage(-8,0,nam)
 !
 !     IF PANELS EXIST INSERT DATA FROM SCRATCH FILES
 !
    IF ( np/=0 ) THEN
       nass = na
-      CALL write(Scr3,0,0,1)
-      CALL write(Scr4,0,0,1)
-      CALL write(Scr5,0,0,1)
-      CALL close(Scr3,1)
-      CALL close(Scr4,1)
-      CALL close(Scr5,1)
-      CALL gopen(Scr3,Z(Buf10),0)
-      CALL gopen(Scr4,Z(Buf11),0)
-      CALL gopen(Scr5,Z(Buf12),0)
+      CALL write(scr3,0,0,1)
+      CALL write(scr4,0,0,1)
+      CALL write(scr5,0,0,1)
+      CALL close(scr3,1)
+      CALL close(scr4,1)
+      CALL close(scr5,1)
+      CALL gopen(scr3,z(buf10),0)
+      CALL gopen(scr4,z(buf11),0)
+      CALL gopen(scr5,z(buf12),0)
       DO i = 1 , np
-         CALL fread(Scr5,iz(inc),1,0)
-         CALL fread(Scr5,iz(inb),1,0)
-         CALL fread(Scr5,k,1,0)
+         CALL fread(scr5,iz(inc),1,0)
+         CALL fread(scr5,iz(inb),1,0)
+         CALL fread(scr5,k,1,0)
          DO j = 1 , 6
             iz(na+j) = iz(k+j)
          ENDDO
@@ -196,11 +205,11 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
          na = na + 6
       ENDDO
       DO i = 1 , nstrip
-         CALL fread(Scr3,iz(iys),1,0)
-         CALL fread(Scr3,iz(izs),1,0)
-         CALL fread(Scr3,iz(iee),1,0)
-         CALL fread(Scr3,iz(isg),1,0)
-         CALL fread(Scr3,iz(icg),1,0)
+         CALL fread(scr3,iz(iys),1,0)
+         CALL fread(scr3,iz(izs),1,0)
+         CALL fread(scr3,iz(iee),1,0)
+         CALL fread(scr3,iz(isg),1,0)
+         CALL fread(scr3,iz(icg),1,0)
          iys = iys + 1
          izs = izs + 1
          iee = iee + 1
@@ -208,18 +217,18 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
          icg = icg + 1
       ENDDO
       DO i = 1 , ntp
-         CALL fread(Scr4,iz(ixic),1,0)
-         CALL fread(Scr4,iz(idelx),1,0)
-         CALL fread(Scr4,iz(ixlam),1,0)
-         Z(ix) = Z(ixic) + .5*Z(idelx)
+         CALL fread(scr4,iz(ixic),1,0)
+         CALL fread(scr4,iz(idelx),1,0)
+         CALL fread(scr4,iz(ixlam),1,0)
+         z(ix) = z(ixic) + .5*z(idelx)
          ixic = ixic + 1
          idelx = idelx + 1
          ixlam = ixlam + 1
          ix = ix + 1
       ENDDO
-      CALL close(Scr3,1)
-      CALL close(Scr4,1)
-      CALL close(Scr5,1)
+      CALL close(scr3,1)
+      CALL close(scr4,1)
+      CALL close(scr5,1)
 !
 !     FILL IN ASSOCIATED BODIES
 !
@@ -255,34 +264,34 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    DO j = 1 , 16
       iax(j) = iz(j+pc)
    ENDDO
-   iz(pc+2) = Acsid
-   acsib = Acsid
-   X4 = X1
-   Y4 = Y1 + 1.0
-   Z4 = Z1
-   X43 = X12
-   Igid = -Igid
+   iz(pc+2) = acsid
+   acsib = acsid
+   x4 = x1
+   y4 = y1 + 1.0
+   z4 = z1
+   x43 = x12
+   igid = -igid
    CALL apdcs
-   Igid = -Igid
+   igid = -igid
 !
 !     MOVE AERO CORD SYS TO ICPL
 !
-   IF ( Acsid/=0 ) THEN
+   IF ( acsid/=0 ) THEN
       DO i = 1 , 14
-         Icpl(i) = iz(Iacs+i-1)
+         icpl(i) = iz(iacs+i-1)
       ENDDO
    ENDIF
    ASSIGN 1000 TO iret
 !
 !     FIND PAERO2 CARD
 !
- 800  IF ( Pa2s/=0 ) THEN
-      DO j = Pa2s , Pa2e , 15
-         IF ( Pid==iz(j) ) GOTO 900
+ 800  IF ( pa2s/=0 ) THEN
+      DO j = pa2s , pa2e , 15
+         IF ( pid==iz(j) ) GOTO 900
       ENDDO
    ENDIF
    CALL emsg(0,2323,1,2,0)
-   WRITE (Not,99001) Pid , Eid
+   WRITE (not,99001) pid , eid
 99001 FORMAT (10X,'PAERO2 CARD NO.',I9,' REFERENCED BY CAERO2 CARD NO.',I9,' BUT DOES NOT EXIST.')
 !
 !     ERROR MESSAGES
@@ -293,8 +302,8 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
 !     GET BODY TYPE AND NUMBER OF ELEMENTS
 !
-   nsb = Nspan
-   nint = Nchord
+   nsb = nspan
+   nint = nchord
    bet = iz(ppc+1)
    DO j = 1 , 3
       IF ( bet==type(j) ) EXIT
@@ -305,22 +314,22 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    nth1 = 0
    nth2 = 0
    kt1 = 0
-   IF ( Lspan/=0 ) THEN
-      CALL apdoe(Lspan,iz,Naef1,Naef2,ispan,jspan)
+   IF ( lspan/=0 ) THEN
+      CALL apdoe(lspan,iz,naef1,naef2,ispan,jspan)
       IF ( ispan==0 ) THEN
          CALL emsg(0,2326,1,2,0)
-         WRITE (Not,99008) Eid , Lspan
+         WRITE (not,99008) eid , lspan
          CALL mesage(-61,0,nam)
          GOTO 2000
       ELSE
          nsb = jspan - 1
       ENDIF
    ENDIF
-   IF ( Lchord/=0 ) THEN
-      CALL apdoe(Lchord,iz,Naef1,Naef2,ichord,jchord)
+   IF ( lchord/=0 ) THEN
+      CALL apdoe(lchord,iz,naef1,naef2,ichord,jchord)
       IF ( ichord==0 ) THEN
          CALL emsg(0,2327,1,2,0)
-         WRITE (Not,99008) Eid , Lchord
+         WRITE (not,99008) eid , lchord
          CALL mesage(-61,0,nam)
          GOTO 2000
       ELSE
@@ -330,7 +339,7 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IF ( nint/=0 ) THEN
       kt1 = kt1 + 1
       IF ( iz(ppc+9)==0 ) THEN
-         WRITE (Not,99002) Ufm , Eid
+         WRITE (not,99002) ufm , eid
 99002    FORMAT (A23,' 2276, THI1 AND THN1 REQUIRED FOR CAERO2',I9,1H.)
          CALL mesage(-61,0,nam)
          GOTO 2000
@@ -343,12 +352,12 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
             j = lth1
             GOTO 2300
          ELSE
-            CALL apdoe(lth1,iz,Naef1,Naef2,ith1,nth1)
+            CALL apdoe(lth1,iz,naef1,naef2,ith1,nth1)
             IF ( ith1==0 ) THEN
                j = lth1
                GOTO 2300
             ELSEIF ( lth2/=0 ) THEN
-               CALL apdoe(lth2,iz,Naef1,Naef2,ith2,nth2)
+               CALL apdoe(lth2,iz,naef1,naef2,ith2,nth2)
                IF ( ith2==0 ) THEN
                   j = lth2
                   GOTO 2300
@@ -358,7 +367,7 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
       ENDIF
    ENDIF
    IF ( nsb<2 ) THEN
-      WRITE (Not,99003) Ufm , Eid
+      WRITE (not,99003) ufm , eid
 99003 FORMAT (A23,' 2277, CAERO2 BODY',I9,' DOES NOT HAVE ENOUGH ','SLENDER ELEMENTS.')
       CALL mesage(-61,0,nam)
       GOTO 2000
@@ -372,12 +381,12 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IF ( ibc>1 .AND. bet<iz(inbea2-1) ) GOTO 2000
    iz(inbea2) = bet
    iz(insbea) = nsb
-   Z(izb) = Ra1(3)
-   Z(iyb) = Ra1(2)
-   Z(izs) = Ra1(3)
-   Z(iys) = Ra1(2)
-   Z(iavr) = Z(ppc+3)
-   Z(iarb) = Z(ppc+4)
+   z(izb) = ra1(3)
+   z(iyb) = ra1(2)
+   z(izs) = ra1(3)
+   z(iys) = ra1(2)
+   z(iavr) = z(ppc+3)
+   z(iarb) = z(ppc+4)
    iz(infl) = kt1
    iz(int121) = nth1
    iz(int122) = nth2
@@ -398,12 +407,12 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
    IF ( nth1/=0 ) THEN
       DO i = 1 , nth1
-         Z(ith1a) = Z(ith1+i)*pio180
+         z(ith1a) = z(ith1+i)*pio180
          ith1a = ith1a + 1
       ENDDO
       IF ( nth2/=0 ) THEN
          DO i = 1 , nth2
-            Z(ith2a) = Z(ith2+i)*pio180
+            z(ith2a) = z(ith2+i)*pio180
             ith2a = ith2a + 1
          ENDDO
       ENDIF
@@ -425,7 +434,7 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    lrsb = iz(ppc+5)
    lrib = iz(ppc+6)
    IF ( lrsb/=0 ) THEN
-      CALL apdoe(lrsb,iz,Naef1,Naef2,irsb,nrsb)
+      CALL apdoe(lrsb,iz,naef1,naef2,irsb,nrsb)
       IF ( irsb==0 ) THEN
          j = lrsb
          GOTO 2300
@@ -435,7 +444,7 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
       ENDIF
    ENDIF
    IF ( lrib/=0 ) THEN
-      CALL apdoe(lrib,iz,Naef1,Naef2,irib,nrib)
+      CALL apdoe(lrib,iz,naef1,naef2,irib,nrib)
       IF ( irib==0 ) THEN
          j = lrib
          GOTO 2300
@@ -444,23 +453,23 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
          GOTO 2300
       ENDIF
    ENDIF
-   width = Z(ppc+3)
+   width = z(ppc+3)
 !
 !     GENERATE ELEMENTS
 !
-   eidb = Eid - 1
-   Cidbx = Cidbx + 1
-   vx1(2) = Ra1(2)
-   vx1(3) = Ra1(3)
+   eidb = eid - 1
+   cidbx = cidbx + 1
+   vx1(2) = ra1(2)
+   vx1(3) = ra1(3)
 !
 !     PUT IN PROPER MASKS FOR USET
 !
    IF ( bet/=1 ) THEN
-      Auset(2,2) = Uk
-      Auset(6,2) = Uk
+      auset(2,2) = uk
+      auset(6,2) = uk
       IF ( bet/=2 ) THEN
-         Auset(3,2) = Usa
-         Auset(5,2) = Usa
+         auset(3,2) = usa
+         auset(5,2) = usa
       ENDIF
    ENDIF
 !
@@ -468,21 +477,21 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
    nja = nsb + nint
    nka = nsb*2
-   Nj = Nj + nja
-   Nk = Nk + nka
+   nj = nj + nja
+   nk = nk + nka
    iz(Ncore+1) = iz(Ncore+1) + nja
    iz(Ncore+2) = iz(Ncore+2) + nka
    IF ( bet==2 ) THEN
-      Nj = Nj + nja
-      Nk = Nk + nka
+      nj = nj + nja
+      nk = nk + nka
       iz(Ncore+1) = iz(Ncore+1) + nja
       iz(Ncore+2) = iz(Ncore+2) + nka
    ENDIF
    i = 1
  1100 eidb = eidb + 1
-   cid(1) = Cidbx
-   Cidbx = Cidbx + 1
-   cid(2) = Cidbx
+   cid(1) = cidbx
+   cidbx = cidbx + 1
+   cid(2) = cidbx
    cid(5) = eidb
 !
 !     GRID POINTS IN AERO SYSTEM
@@ -490,23 +499,23 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IF ( i==1 ) THEN
       ASSIGN 1200 TO back
       icid = cid(1)
-      IF ( Lspan==0 ) vx1(1) = Ra1(1) + (X12/nsb)*(i-1)
-      IF ( Lspan/=0 ) vx1(1) = Ra1(1) + Z(ispan+i)*X12
+      IF ( lspan==0 ) vx1(1) = ra1(1) + (x12/nsb)*(i-1)
+      IF ( lspan/=0 ) vx1(1) = ra1(1) + z(ispan+i)*x12
       oldx = vx1(1)
-      Z(ixle) = oldx
-      Z(ixis1) = oldx
+      z(ixle) = oldx
+      z(ixis1) = oldx
       ixis1 = ixis1 + 1
       kk = 1
       GOTO 1400
    ENDIF
  1200 ASSIGN 1300 TO back
    icid = cid(2)
-   IF ( Lspan==0 ) vx1(1) = Ra1(1) + (X12/nsb)*i
-   IF ( Lspan/=0 ) vx1(1) = Ra1(1) + Z(ispan+i+1)*X12
-   Z(ixte) = vx1(1)
-   Z(ixis2) = vx1(1)
+   IF ( lspan==0 ) vx1(1) = ra1(1) + (x12/nsb)*i
+   IF ( lspan/=0 ) vx1(1) = ra1(1) + z(ispan+i+1)*x12
+   z(ixte) = vx1(1)
+   z(ixis2) = vx1(1)
    ixis2 = ixis2 + 1
-   IF ( i/=1 ) Z(ixis1) = oldx
+   IF ( i/=1 ) z(ixis1) = oldx
    IF ( i/=1 ) ixis1 = ixis1 + 1
    kk = 1
    GOTO 1400
@@ -514,11 +523,11 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
 !     A0 AND AOP
 !
-   Z(iao) = width
-   Z(iaop) = 0.0
+   z(iao) = width
+   z(iaop) = 0.0
    IF ( lrsb/=0 ) THEN
-      Z(iao) = (Z(irsb+i)+Z(irsb+i+1))*.5
-      Z(iaop) = (Z(irsb+i+1)-Z(irsb+i))/(vx1(1)-oldx)
+      z(iao) = (z(irsb+i)+z(irsb+i+1))*.5
+      z(iaop) = (z(irsb+i+1)-z(irsb+i))/(vx1(1)-oldx)
    ENDIF
    iao = iao + 1
    iaop = iaop + 1
@@ -530,7 +539,7 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
 !     CONVERT TO BASIC
 !
- 1400 IF ( Acsid==0 ) THEN
+ 1400 IF ( acsid==0 ) THEN
       DO k = 1 , 3
          vx2(k) = vx1(k)
       ENDDO
@@ -543,33 +552,33 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
 !
 !     PUT OUT BGPDT GPL USET
 !
-   CALL write(Bgpa,acsix,4,0)
-   CALL write(Gpla,icid,1,0)
-   CALL write(Useta,Auset(1,kk),6,0)
+   CALL write(bgpa,acsix,4,0)
+   CALL write(gpla,icid,1,0)
+   CALL write(useta,auset(1,kk),6,0)
 !
 !     BUMP POINTERS
 !     PUT OUT SIL EQEXIN SILGA
 !
-   Ncrd = Ncrd + 1
-   Silb = Silb + 6
-   Isiln = Isiln + 6
-   Luseta = Silb
-   sildx(2) = 10*Silb + 1
-   CALL write(Sila,Silb,1,0)
-   CALL write(Scr2,Isiln,1,0)
-   CALL write(Scr2,Silb,1,0)
-   CALL write(Scr1,icid,2,0)
+   ncrd = ncrd + 1
+   silb = silb + 6
+   isiln = isiln + 6
+   luseta = silb
+   sildx(2) = 10*silb + 1
+   CALL write(sila,silb,1,0)
+   CALL write(scr2,isiln,1,0)
+   CALL write(scr2,silb,1,0)
+   CALL write(scr1,icid,2,0)
    GOTO back
 !
 !     PUT OUT ECT
 !
- 1500 cid(1) = Ncrd - 3
+ 1500 cid(1) = ncrd - 3
    IF ( i==1 ) cid(1) = cid(1) + 1
-   cid(2) = Ncrd - 1
+   cid(2) = ncrd - 1
    cid(3) = cid(1)
    cid(4) = cid(2)
-   cid(5) = Ncrd
-   CALL write(Ecta,necta,6,0)
+   cid(5) = ncrd
+   CALL write(ecta,necta,6,0)
    i = i + 1
    IF ( i<=nsb ) GOTO 1100
 !
@@ -578,17 +587,17 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    IF ( nint/=0 ) THEN
       p1 = 1.0/nint
       DO j = 1 , nint
-         Z(iria) = width
-         IF ( lrib/=0 ) Z(iria) = .5*(Z(irib+j)+Z(irib+j+1))
+         z(iria) = width
+         IF ( lrib/=0 ) z(iria) = .5*(z(irib+j)+z(irib+j+1))
          iria = iria + 1
          d1 = p1*(j-1)
          d2 = p1*j
-         IF ( Lchord/=0 ) d1 = Z(ichord+j)
-         IF ( Lchord/=0 ) d2 = Z(ichord+j+1)
-         Z(idelx) = X12*(d2-d1)
-         Z(ix) = Ra1(1) + X12*(d1+d2)/2.0
-         IF ( j==1 ) Z(ixle) = Ra1(1) + d1*X12
-         IF ( j==nint ) Z(ixte) = Ra1(1) + d2*X12
+         IF ( lchord/=0 ) d1 = z(ichord+j)
+         IF ( lchord/=0 ) d2 = z(ichord+j+1)
+         z(idelx) = x12*(d2-d1)
+         z(ix) = ra1(1) + x12*(d1+d2)/2.0
+         IF ( j==1 ) z(ixle) = ra1(1) + d1*x12
+         IF ( j==nint ) z(ixte) = ra1(1) + d2*x12
          idelx = idelx + 1
          ix = ix + 1
       ENDDO
@@ -600,38 +609,38 @@ SUBROUTINE apd2(Iopt,Cao1,Cao2,Ncore,Id)
    iz(pc+8) = 2
    iz(pc+16) = bet
    IF ( bet/=1 ) THEN
-      Auset(2,2) = Usa
-      Auset(6,2) = Usa
-      Auset(3,2) = Uk
-      Auset(5,2) = Uk
+      auset(2,2) = usa
+      auset(6,2) = usa
+      auset(3,2) = uk
+      auset(5,2) = uk
    ENDIF
-   IF ( ibc==nb ) CALL write(Acpt,iz(Ncore),nwr,1)
+   IF ( ibc==nb ) CALL write(acpt,iz(Ncore),nwr,1)
  1600 IF ( Iopt==1 ) THEN
       Cao2(ipc) = -Cao2(ipc)
       GOTO 1800
    ELSE
       ipc = ipc + 2
-      IF ( ipc<Ncam2*2 ) GOTO 100
-      GOTO 1900
+      IF ( ipc>=ncam2*2 ) GOTO 1900
+      GOTO 100
    ENDIF
  1700 IF ( Cao2(ipc)==Id ) GOTO 200
  1800 ipc = ipc + 2
-   IF ( ipc<Ncam2*2 ) GOTO 1700
+   IF ( ipc<ncam2*2 ) GOTO 1700
  1900 RETURN
  2000 DO
-      WRITE (Not,99004) Ufm , Eid
+      WRITE (not,99004) ufm , eid
 99004 FORMAT (A23,' 2273, CAERO2',I9,' NOT INPUT IN Z, ZY, Y SEQUENCE.')
       CALL mesage(-61,0,nam)
    ENDDO
- 2100 WRITE (Not,99005) Ufm , iz(na+j) , Cao2(ibt)
+ 2100 WRITE (not,99005) ufm , iz(na+j) , Cao2(ibt)
 99005 FORMAT (A23,' 2274, ASSOCIATED BODY',I9,' WAS NOT FOUND WITH ','CAERO2 GROUP',I9,1H.)
    CALL mesage(-61,0,nam)
    GOTO 2000
- 2200 WRITE (Not,99006) Ufm , Eid
+ 2200 WRITE (not,99006) ufm , eid
 99006 FORMAT (A23,' 2275, CAERO2',I9,' HAS INCONSISTENT USE FOR THI OR',' THN, OR LTH2 IS REQUIRED.')
    CALL mesage(-61,0,nam)
    GOTO 2000
- 2300 WRITE (Not,99007) Ufm , j , Eid
+ 2300 WRITE (not,99007) ufm , j , eid
 99007 FORMAT (A23,' 2429, WRONG NUMBER OF WORDS OR CARD NOT FOUND FOR',' CARD ID',I9,/28X,'ASSOCIATED WITH CAERO2 ID',I9)
    CALL mesage(-61,0,nam)
    GOTO 2000

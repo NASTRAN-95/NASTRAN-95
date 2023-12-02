@@ -1,12 +1,13 @@
-!*==read7.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==read7.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE read7(Nr1,Olama,Ophia,Nlama,Nphia)
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -46,51 +47,51 @@ USE ISO_FORTRAN_ENV
 !     GET ORGANIZED
 !
          nr = Nr1
-         lc = korsz(Core)
-         ibuf1 = lc - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
-         ibuf4 = ibuf3 - Sysbuf
+         lc = korsz(core)
+         ibuf1 = lc - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         ibuf4 = ibuf3 - sysbuf
          ix(1) = Ophia
          CALL rdtrl(ix)
          nrow = ix(3)
-         Ii = 1
-         Jj = nrow
-         It1 = ix(5)
-         It2 = It1
-         Itb = It1
+         ii = 1
+         jj = nrow
+         it1 = ix(5)
+         it2 = it1
+         itb = it1
          dcore(1) = 0.0D0
-         Incrp = 1
+         incrp = 1
          ASSIGN 2 TO sgldbl
-         IF ( Itb==2 ) ASSIGN 4 TO sgldbl
-         Incur = 1
+         IF ( itb==2 ) ASSIGN 4 TO sgldbl
+         incur = 1
 !
 !     OPEN OLD FILES
 !
-         CALL gopen(Olama,Core(ibuf1),0)
+         CALL gopen(Olama,core(ibuf1),0)
          CALL fwdrec(*20,Olama)
-         CALL gopen(Ophia,Core(ibuf2),0)
+         CALL gopen(Ophia,core(ibuf2),0)
 !
 !     OPEN NEW FILES TO WRITE
 !
-         CALL gopen(Nlama,Core(ibuf3),1)
-         CALL gopen(Nphia,Core(ibuf4),1)
+         CALL gopen(Nlama,core(ibuf3),1)
+         CALL gopen(Nphia,core(ibuf4),1)
 !
 !     START COPY LOOP
 !
-         CALL makmcb(ix,Nphia,nrow,ix(4),It2)
+         CALL makmcb(ix,Nphia,nrow,ix(4),it2)
          DO i = 1 , nr
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   CALL read(*20,*40,Olama,x,7,0,ifl)
-                  Ii = 0
+                  ii = 0
                   CALL unpack(*6,Ophia,dcore(2))
                   GOTO sgldbl
  2                x(1) = sqrt(x(6))
                   DO j = 1 , nrow
-                     Core(j+2) = Core(j+2)/x(1)
+                     core(j+2) = core(j+2)/x(1)
                   ENDDO
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
@@ -100,8 +101,8 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                   spag_nextblock_2 = 2
                CASE (2)
-                  Iip = Ii
-                  Jjp = Jj
+                  iip = ii
+                  jjp = jj
                   CALL pack(dcore(2),Nphia,ix)
                   spag_nextblock_2 = 3
                CASE (3)
@@ -111,11 +112,10 @@ USE ISO_FORTRAN_ENV
 !
 !     NULL COLUMN
 !
- 6                Iip = 1
-                  Jjp = 1
+ 6                iip = 1
+                  jjp = 1
                   CALL pack(dcore,Nphia,ix)
                   spag_nextblock_2 = 3
-                  CYCLE SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
@@ -135,7 +135,6 @@ USE ISO_FORTRAN_ENV
          RETURN
  40      nn = -3
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE read7

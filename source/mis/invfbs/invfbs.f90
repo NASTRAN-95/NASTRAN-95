@@ -2,14 +2,14 @@
  
 SUBROUTINE invfbs(Dx,Dy,Iobuf)
    IMPLICIT NONE
-   USE C_INFBSX
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TRDXX
-   USE C_TYPE
-   USE C_XMSSG
-   USE C_ZNTPKX
+   USE c_infbsx
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_trdxx
+   USE c_type
+   USE c_xmssg
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -25,6 +25,15 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
    INTEGER , DIMENSION(2) :: ijj
    INTEGER , DIMENSION(4) , SAVE :: parm
    REAL :: x1 , x2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -59,14 +68,14 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
    DO i = 1 , nrow
       Dy(i) = Dx(i)
    ENDDO
-   typear = Rdp
+   typear = rdp
 !
 !     OPEN FILE FOR THE LOWER TRIANGLE
 !     IOPEN WAS SET TO -20 BY STEP2
 !
-   parm(2) = Filel(1)
-   IF ( Iopen==-20 ) CALL fwdrec(*1100,Filel(1))
-   IF ( Filel(7)<0 ) THEN
+   parm(2) = filel(1)
+   IF ( iopen==-20 ) CALL fwdrec(*1100,filel(1))
+   IF ( filel(7)<0 ) THEN
 !
 !
 !     NEW METHOD
@@ -77,11 +86,11 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
 !
 !     FORWARD SWEEP DIRECTLY ON SOLUTION VECTOR DY
 !
-      ifile = -Filel(7)
+      ifile = -filel(7)
       parm(2) = ifile
-      nwd = Nwds(Filel(5))
-      IF ( Filel(4)/=2 ) THEN
-         WRITE (Nout,99001) Filel(4)
+      nwd = nwds(filel(5))
+      IF ( filel(4)/=2 ) THEN
+         WRITE (nout,99001) filel(4)
 99001    FORMAT ('0*** FILEL MATRIX IN WRONG FORMAT. UNPSCR FLAG =',I3)
          parm(1) = -37
          CALL mesage(parm(1),parm(2),parm(3))
@@ -93,18 +102,18 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
          ntms = 0
          DO j = 1 , nrow
             djj = Dx(ntms+1)
-            Ii = ijj(1)
+            ii = ijj(1)
             jj = ijj(2)
-            IF ( Ii/=j ) GOTO 1300
-            ntms = jj - Ii + 1
+            IF ( ii/=j ) GOTO 1300
+            ntms = jj - ii + 1
             ji = ntms*nwd + 2
             CALL read(*1100,*1200,ifile,Dx,ji,0,i)
             IF ( ntms>1 ) THEN
                dyj = Dy(j)
                IF ( dabs(dyj)>=epsi ) THEN
                   DO i = 2 , ntms
-                     Ii = Ii + 1
-                     Dy(Ii) = Dy(Ii) + Dx(i)*dyj
+                     ii = ii + 1
+                     Dy(ii) = Dy(ii) + Dx(i)*dyj
                   ENDDO
                ENDIF
             ENDIF
@@ -118,16 +127,16 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
             j = nrow
             DO jx = 1 , nrow
                djj = Dx(ntms+1)
-               Ii = ijj(1)
+               ii = ijj(1)
                jj = ijj(2)
-               IF ( Ii/=j ) GOTO 1300
-               ntms = jj - Ii + 1
+               IF ( ii/=j ) GOTO 1300
+               ntms = jj - ii + 1
                ji = ntms*nwd + 2
                CALL read(*1100,*1200,ifile,Dx,ji,0,i)
                IF ( ntms>1 ) THEN
                   DO i = 2 , ntms
-                     Ii = Ii + 1
-                     Dy(j) = Dy(j) + Dx(i)*Dy(Ii)
+                     ii = ii + 1
+                     Dy(j) = Dy(j) + Dx(i)*Dy(ii)
                   ENDDO
                ENDIF
                j = j - 1
@@ -142,12 +151,12 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
 !     BEGIN FORWARD PASS
 !
       j = 1
-      CALL intpk(*400,Filel(1),0,typear,0)
+      CALL intpk(*400,filel(1),0,typear,0)
    ENDIF
- 100  DO WHILE ( Eol==0 )
+ 100  DO WHILE ( eol==0 )
       CALL zntpki
-      IF ( j<Ii ) GOTO 300
-      IF ( j==Ii ) THEN
+      IF ( j<ii ) GOTO 300
+      IF ( j==ii ) THEN
 !
 !     PERFORM THE REQUIRED ROW INTERCHANGE
 !
@@ -159,37 +168,37 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
       ENDIF
    ENDDO
    GOTO 1000
- 200  IF ( Eol/=0 ) GOTO 400
+ 200  IF ( eol/=0 ) GOTO 400
    CALL zntpki
- 300  IF ( Mach/=5 .OR. (dabs(da)<1.D+19 .AND. dabs(Dy(j))<1.D+19) ) THEN
-      Dy(Ii) = Dy(Ii) - Dy(j)*da
+ 300  IF ( mach/=5 .OR. (dabs(da)<1.D+19 .AND. dabs(Dy(j))<1.D+19) ) THEN
+      Dy(ii) = Dy(ii) - Dy(j)*da
       GOTO 200
    ELSE
       x1 = alog10(abs(sngl(da)))
       x2 = alog10(abs(sngl(Dy(j))))
       IF ( x1+x2>38. ) GOTO 900
-      Dy(Ii) = Dy(Ii) - Dy(j)*da
+      Dy(ii) = Dy(ii) - Dy(j)*da
       GOTO 200
    ENDIF
  400  j = j + 1
    IF ( j<nrow ) THEN
-      CALL intpk(*400,Filel(1),0,typear,0)
+      CALL intpk(*400,filel(1),0,typear,0)
       GOTO 100
    ELSE
-      CALL rewind(Filel(1))
-      IF ( Iopen/=-20 ) CALL skprec(Filel,1)
+      CALL rewind(filel(1))
+      IF ( iopen/=-20 ) CALL skprec(filel,1)
 !
 !     BEGIN BACKWARD PASS
 !
-      ioff = Fileu(7) - 1
-      parm(2) = Fileu(1)
-      IF ( Iopen==-20 ) CALL fwdrec(*1100,Fileu(1))
+      ioff = fileu(7) - 1
+      parm(2) = fileu(1)
+      IF ( iopen==-20 ) CALL fwdrec(*1100,fileu(1))
       j = nrow
    ENDIF
- 500  CALL intpk(*1000,Fileu(1),0,typear,0)
-   IF ( Eol/=0 ) GOTO 1000
+ 500  CALL intpk(*1000,fileu(1),0,typear,0)
+   IF ( eol/=0 ) GOTO 1000
  600  CALL zntpki
-   i = nrow - Ii + 1
+   i = nrow - ii + 1
    IF ( i/=j ) GOTO 800
 !
 !     DIVIDE BY THE DIAGONAL
@@ -199,16 +208,16 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
 !     SUBTRACT OFF REMAINING TERMS
 !
  700  IF ( i>j ) GOTO 600
-   IF ( Eol/=0 ) THEN
+   IF ( eol/=0 ) THEN
       j = j - 1
       IF ( j>0 ) GOTO 500
-      CALL rewind(Fileu)
-      IF ( Iopen==-20 ) RETURN
-      CALL skprec(Fileu,1)
+      CALL rewind(fileu)
+      IF ( iopen==-20 ) RETURN
+      CALL skprec(fileu,1)
       GOTO 99999
    ELSE
       CALL zntpki
-      i = nrow - Ii + 1
+      i = nrow - ii + 1
    ENDIF
  800  in1 = i
    in2 = j
@@ -217,7 +226,7 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
       in1 = in2 - ioff
       in2 = k
    ENDIF
-   IF ( Mach/=5 .OR. (dabs(da)<1.D+19 .AND. dabs(Dy(in2))<1.D+19) ) THEN
+   IF ( mach/=5 .OR. (dabs(da)<1.D+19 .AND. dabs(Dy(in2))<1.D+19) ) THEN
       Dy(in1) = Dy(in1) - Dy(in2)*da
       GOTO 700
    ELSE
@@ -229,7 +238,7 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
       ENDIF
    ENDIF
 !
- 900  WRITE (Nout,99002) Sfm , parm(1) , parm(2)
+ 900  WRITE (nout,99002) sfm , parm(1) , parm(2)
 99002 FORMAT (A25,' FROM ',2A4,'- SOLUTION VECTOR VALUE OVERFLOWS,',/5X,'POSSIBLY DUE TO SUDDEN INCREASE OF LARGE LOAD VECTOR OR ', &
              &'OTHER INPUT CONDITION')
    parm(1) = -37
@@ -247,7 +256,7 @@ SUBROUTINE invfbs(Dx,Dy,Iobuf)
  1200 parm(1) = -3
    CALL mesage(parm(1),parm(2),parm(3))
    GOTO 99999
- 1300 WRITE (Nout,99003) ifw , Ii , j
+ 1300 WRITE (nout,99003) ifw , ii , j
 99003 FORMAT ('   ERROR IN INVFBS.   IFW),II,J =',I3,1H),2I6)
    parm(1) = -37
    CALL mesage(parm(1),parm(2),parm(3))

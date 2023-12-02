@@ -1,11 +1,12 @@
-!*==conmsg.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==conmsg.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE conmsg(Mesage,Nwords,Idummy)
+   USE c_chmach
+   USE c_logout
+   USE c_system
    IMPLICIT NONE
-   USE C_CHMACH
-   USE C_LOGOUT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,9 +46,9 @@ SUBROUTINE conmsg(Mesage,Nwords,Idummy)
 !   ASSEMBLE PAGE HEADING
 !
    ahead = ' '
-   ncmnam = index(Mchnam,' ') - 1
+   ncmnam = index(mchnam,' ') - 1
    IF ( ncmnam<=-1 ) ncmnam = 11
-   ncmos = index(Machos,' ') - 1
+   ncmos = index(machos,' ') - 1
    IF ( ncmos<=-1 ) ncmos = 7
    fchar = (18-ncmnam-ncmos) + 1
    ahead(fchar:fchar+6) = 'LOG OF '
@@ -55,15 +56,15 @@ SUBROUTINE conmsg(Mesage,Nwords,Idummy)
    WRITE (ahead(fchar:fchar+1),99001) icrdat(3)
 99001 FORMAT (A2)
    fchar = fchar + 3
-   ahead(fchar:41) = Mchnam(1:ncmnam)//' '//Machos(1:ncmos)//' NASTRAN JOB'
+   ahead(fchar:41) = mchnam(1:ncmnam)//' '//machos(1:ncmos)//' NASTRAN JOB'
 !
    imodtm = 0
    IF ( Idummy==111111 .OR. Idummy==222222 ) imodtm = Idummy/111111
    IF ( loglin>=nllog .OR. loglin<=0 ) THEN
-      IF ( loglin==0 ) WRITE (Lout,99002) idate , ahead
+      IF ( loglin==0 ) WRITE (lout,99002) idate , ahead
 !
 99002 FORMAT (1H1,77(1H*)/1X,1H*,75X,1H*/1X,1H*,7X,'DATE ',2(I2,'/'),I2,7X,A41,7X,1H*/1X,1H*,75X,1H*/1X,77(1H*)/)
-      IF ( loglin==0 ) WRITE (Lout,99003)
+      IF ( loglin==0 ) WRITE (lout,99003)
 99003 FORMAT (1X,2X,'WALL',15X,'TOTAL',7X,'INCREMENTAL',6X,'MODULE',14X,'MODULE/'/1X,2X,'CLOCK',15X,'CPU',12X,'CPU',12X,'CPU',13X,  &
              &'SUBROUTINE'/1X,2X,'TIME',14X,'SECONDS',8X,'SECONDS',8X,'SECONDS',13X,'STATUS'//1X,78(1H-)/)
       IF ( Mesage(1)==idsms .AND. Nwords==1 ) RETURN
@@ -84,9 +85,9 @@ SUBROUTINE conmsg(Mesage,Nwords,Idummy)
    IF ( imodtm==1 ) modtim = 0.0
    IF ( imodtm==2 ) modtim = cputmm - modtim
    mwords = min0(Nwords,15)
-   IF ( imodtm/=2 ) WRITE (Lout,99005) time(1:2) , time(3:4) , time(5:10) , cputmm , inctim , (Mesage(i),i=1,mwords)
+   IF ( imodtm/=2 ) WRITE (lout,99005) time(1:2) , time(3:4) , time(5:10) , cputmm , inctim , (Mesage(i),i=1,mwords)
 99005 FORMAT (1X,a2,':',a2,':',a6,4X,F10.3,5X,F10.3,15X,5X,A4,2X,2A4,2X,12A4)
-   IF ( imodtm==2 ) WRITE (Lout,99006) time(1:2) , time(3:4) , time(5:10) , cputmm , inctim , modtim , (Mesage(i),i=1,mwords)
+   IF ( imodtm==2 ) WRITE (lout,99006) time(1:2) , time(3:4) , time(5:10) , cputmm , inctim , modtim , (Mesage(i),i=1,mwords)
 99006 FORMAT (1X,a2,':',a2,':',a6,4X,F10.3,5X,F10.3,5X,F10.3,5X,A4,2X,2A4,2X,12A4)
    CALL flush(4)
 !

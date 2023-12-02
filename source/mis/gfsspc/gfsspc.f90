@@ -2,9 +2,9 @@
  
 SUBROUTINE gfsspc(Nuy,Pvec)
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -16,6 +16,15 @@ SUBROUTINE gfsspc(Nuy,Pvec)
    INTEGER :: ibuf , nuy1 , nz
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -38,8 +47,8 @@ SUBROUTINE gfsspc(Nuy,Pvec)
 !
 !     ALLOCATE CORE
 !
-   nz = korsz(Z(1))
-   ibuf = nz - Sysbuf
+   nz = korsz(z(1))
+   ibuf = nz - sysbuf
    nz = ibuf - 1
    IF ( nz<0 ) THEN
 !
@@ -51,13 +60,12 @@ SUBROUTINE gfsspc(Nuy,Pvec)
 !
    nuy1 = Nuy - 1
    CALL makmcb(mcb,Pvec,Nuy,2,1)
-   CALL gopen(Pvec,Z(ibuf),1)
+   CALL gopen(Pvec,z(ibuf),1)
    CALL bldpk(1,1,Pvec,0,0)
-   A(1) = 1.0
-   Irow = 1
+   a(1) = 1.0
+   irow = 1
    CALL zblpki
    CALL bldpkn(Pvec,0,mcb)
    CALL close(Pvec,1)
    CALL wrttrl(mcb)
-   RETURN
 99999 END SUBROUTINE gfsspc

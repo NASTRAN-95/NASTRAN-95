@@ -1,11 +1,12 @@
-!*==t3pl4s.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==t3pl4s.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3pl4s
+   USE c_pindex
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PINDEX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -142,7 +143,7 @@ SUBROUTINE t3pl4s
    ELSE
       normal = .TRUE.
       constp = .TRUE.
-      p = Slt(2)
+      p = slt(2)
    ENDIF
 !
 !     SET UP THE ELEMENT FORMULATION
@@ -224,7 +225,7 @@ SUBROUTINE t3pl4s
 !
          jp = sil(j) - 1
          DO i = 1 , ndof
-            Loadvc(jp+i) = Loadvc(jp+i) + pe(i,j)
+            loadvc(jp+i) = loadvc(jp+i) + pe(i,j)
          ENDDO
       ENDDO
       RETURN
@@ -235,9 +236,9 @@ CONTAINS
 !
 !     FATAL ERROR
 !
-      islt(1) = iabs(islt(1))
-      CALL mesage(30,224,islt(1))
-      Nogo = 1
+      Islt(1) = iabs(Islt(1))
+      CALL mesage(30,224,Islt(1))
+      nogo = 1
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE t3pl4s

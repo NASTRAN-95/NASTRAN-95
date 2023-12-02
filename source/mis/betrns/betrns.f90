@@ -1,4 +1,5 @@
-!*==betrns.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==betrns.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE betrns(Tbe,Gg,Kflag,Elid)
@@ -160,6 +161,6 @@ SUBROUTINE betrns(Tbe,Gg,Kflag,Elid)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
+      USE ISO_FORTRAN_ENV                 
    END SUBROUTINE spag_block_1
 END SUBROUTINE betrns

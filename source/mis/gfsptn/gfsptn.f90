@@ -2,9 +2,9 @@
  
 SUBROUTINE gfsptn(Filea,File11,File21,File12,File22,Rpart,Cpart)
    IMPLICIT NONE
-   USE C_PARMEG
-   USE C_PATX
-   USE C_ZZZZZZ
+   USE c_parmeg
+   USE c_patx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +21,15 @@ SUBROUTINE gfsptn(Filea,File11,File21,File12,File22,Rpart,Cpart)
    INTEGER , DIMENSION(7) :: cp , rp
    INTEGER :: i
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -62,35 +71,35 @@ SUBROUTINE gfsptn(Filea,File11,File21,File12,File22,Rpart,Cpart)
    IF ( Rpart/=0 ) CALL rdtrl(rp)
    cp(1) = Cpart
    IF ( Cpart/=0 ) CALL rdtrl(cp)
-   Ia(1) = Filea
-   CALL rdtrl(Ia)
+   ia(1) = Filea
+   CALL rdtrl(ia)
 !
 !     SET UP MATRIX CONTROL BLOCKS FOR OUTPUTS
 !
-   Ia11(1) = File11
-   Ia12(1) = File12
-   Ia21(1) = File21
-   Ia22(1) = File22
+   ia11(1) = File11
+   ia12(1) = File12
+   ia21(1) = File21
+   ia22(1) = File22
 !
    DO i = 2 , 5
-      Ia11(i) = Ia(i)
-      Ia12(i) = Ia(i)
-      Ia21(i) = Ia(i)
-      Ia22(i) = Ia(i)
+      ia11(i) = ia(i)
+      ia12(i) = ia(i)
+      ia21(i) = ia(i)
+      ia22(i) = ia(i)
    ENDDO
 !
 !     SET UP DUMMY PARTITION VECTOR
 !
    i = 0
-   Core(1) = 0
-   Core(i+2) = 1
-   Core(i+3) = Ia(2)
-   Core(i+4) = 2
-   Core(i+5) = 1
-   Core(i+6) = 0
+   core(1) = 0
+   core(i+2) = 1
+   core(i+3) = ia(2)
+   core(i+4) = 2
+   core(i+5) = 1
+   core(i+6) = 0
 !
-   Rule = 0
-   Lcr = korsz(Core)
+   rule = 0
+   lcr = korsz(core)
 !
    IF ( Rpart==0 ) THEN
 !
@@ -103,34 +112,33 @@ SUBROUTINE gfsptn(Filea,File11,File21,File12,File22,Rpart,Cpart)
          CALL mesage(-7,0,name)
          GOTO 99999
       ELSE
-         Ia11(3) = Nsub0
-         Ia12(3) = Nsub0
-         Ia21(3) = Nsub1
-         Ia22(3) = Nsub1
-         CALL partn(Core,cp,Core)
+         ia11(3) = nsub0
+         ia12(3) = nsub0
+         ia21(3) = nsub1
+         ia22(3) = nsub1
+         CALL partn(core,cp,core)
       ENDIF
    ELSEIF ( Cpart==0 ) THEN
 !
 !     ROW PARTITION
 !
-      CALL partn(rp,Core,Core)
+      CALL partn(rp,core,core)
    ELSE
 !
 !     FULL PARTITION
 !
-      Ia11(3) = Nsub0
-      Ia12(3) = Nsub0
-      Ia21(3) = Nsub1
-      Ia22(3) = Nsub1
-      CALL partn(rp,cp,Core)
+      ia11(3) = nsub0
+      ia12(3) = nsub0
+      ia21(3) = nsub1
+      ia22(3) = nsub1
+      CALL partn(rp,cp,core)
    ENDIF
 !
 !     WRITE TRAILERS FOR OUTPUTS
 !
-   IF ( Ia11(1)/=0 ) CALL wrttrl(Ia11)
-   IF ( Ia12(1)/=0 ) CALL wrttrl(Ia12)
-   IF ( Ia21(1)/=0 ) CALL wrttrl(Ia21)
-   IF ( Ia22(1)/=0 ) CALL wrttrl(Ia22)
+   IF ( ia11(1)/=0 ) CALL wrttrl(ia11)
+   IF ( ia12(1)/=0 ) CALL wrttrl(ia12)
+   IF ( ia21(1)/=0 ) CALL wrttrl(ia21)
+   IF ( ia22(1)/=0 ) CALL wrttrl(ia22)
 !
-   RETURN
 99999 END SUBROUTINE gfsptn

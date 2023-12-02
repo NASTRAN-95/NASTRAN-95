@@ -1,12 +1,13 @@
-!*==stplot.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==stplot.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stplot(Pltnum)
+   USE c_char94
+   USE c_pltdat
+   USE c_system
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_CHAR94
-   USE C_PLTDAT
-   USE C_SYSTEM
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,45 +34,45 @@ SUBROUTINE stplot(Pltnum)
 !
       CALL skpfrm(1)
       CALL typint(0,0,0,0,0,1)
-      IF ( Eof==0 ) CALL seof(Pltape)
-      CALL sclose(Pltape)
+      IF ( eof==0 ) CALL seof(pltape)
+      CALL sclose(pltape)
    ELSE
 !
 !     SELECT THE PROPER CAMERA
 !
-      CALL selcam(Camera,Pltnum,0)
+      CALL selcam(camera,Pltnum,0)
 !
 !     GENERATE THE ID PLOT
 !
-      IF ( Ploter/=lstplt ) CALL skpfrm(1)
-      lstplt = Ploter
+      IF ( ploter/=lstplt ) CALL skpfrm(1)
+      lstplt = ploter
       CALL idplot(id)
       IF ( id/=0 ) THEN
-         CALL selcam(Camera,Pltnum,0)
+         CALL selcam(camera,Pltnum,0)
          CALL skpfrm(1)
       ENDIF
 !
 !     INSERT THE BLANK FRAMES ON FILM ONLY
 !
-      IF ( Camera/=2 .AND. iabs(Pltype)==1 ) THEN
-         IF ( Bframs/=0 ) THEN
+      IF ( camera/=2 .AND. iabs(pltype)==1 ) THEN
+         IF ( bframs/=0 ) THEN
             CALL selcam(1,0,1)
-            CALL skpfrm(max0(Bframs,1))
+            CALL skpfrm(max0(bframs,1))
          ENDIF
       ENDIF
-      CALL selcam(Camera,0,1)
+      CALL selcam(camera,0,1)
 !
 !     TYPE THE PLOT NUMBER IN UPPER LEFT AND RIGHT CORNERS OF THE PLOT
 !
       IF ( Pltnum/=0 ) THEN
          DO i = 1 , 2
-            save(i,1) = Reg(i,1)
-            Reg(i,1) = 0.
-            save(i,2) = Reg(i,2)
-            Reg(i,2) = Xymax(i)
+            save(i,1) = reg(i,1)
+            reg(i,1) = 0.
+            save(i,2) = reg(i,2)
+            reg(i,2) = xymax(i)
          ENDDO
          CALL typint(0,0,0,0,0,-1)
-         CALL typint(Reg(1,1)+Chrscl,Reg(2,2)-Chrscl,+1,Pltnum,0,0)
+         CALL typint(reg(1,1)+chrscl,reg(2,2)-chrscl,+1,Pltnum,0,0)
 !
 !     PRINT THE DATE
 !
@@ -81,17 +82,17 @@ SUBROUTINE stplot(Pltnum)
                i = date(m)/10 + 1
                j = date(m) - (i-1)*10 + 1
                IF ( i==1 ) i = 48
-               idte(n) = Char(i)
-               idte(n+1) = Char(j)
+               idte(n) = char(i)
+               idte(n+1) = char(j)
             ENDDO
          ENDIF
 !
-         CALL tipe(8.*Cntx,Reg(2,2)-Chrscl,1,idte(1),8,0)
+         CALL tipe(8.*cntx,reg(2,2)-chrscl,1,idte(1),8,0)
 !
-         CALL typint(Reg(1,2)-Chrscl,Reg(2,2)-Chrscl,-1,Pltnum,0,0)
+         CALL typint(reg(1,2)-chrscl,reg(2,2)-chrscl,-1,Pltnum,0,0)
          DO i = 1 , 2
-            Reg(i,1) = save(i,1)
-            Reg(i,2) = save(i,2)
+            reg(i,1) = save(i,1)
+            reg(i,2) = save(i,2)
          ENDDO
       ENDIF
       CALL typint(0,0,0,0,0,1)

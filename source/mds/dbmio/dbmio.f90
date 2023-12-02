@@ -1,7 +1,11 @@
-!*==dbmio.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dbmio.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmio(Opcode)
+   USE i_dsiof
+   USE i_ginox
+   USE i_xnstrn
    USE I_DSIOF
    USE I_GINOX
    USE I_XNSTRN
@@ -109,18 +113,17 @@ SUBROUTINE dbmio(Opcode)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      fcb(4,ifilex) = nblock
-      fcb(5,ifilex) = nblock
-      fcb(6,ifilex) = nblock
-      RETURN
+      fcb(4,Ifilex) = Nblock
+      fcb(5,Ifilex) = Nblock
+      fcb(6,Ifilex) = Nblock
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      nblock = fcb(4,ifilex)
-      IF ( fcb(5,ifilex)/=0 ) THEN
+      Nblock = fcb(4,Ifilex)
+      IF ( fcb(5,Ifilex)/=0 ) THEN
          CALL dsgnrd
          RETURN
       ELSE
-         nblock = 1
+         Nblock = 1
          CALL spag_block_1
          RETURN
       ENDIF

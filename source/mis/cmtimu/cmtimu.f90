@@ -2,10 +2,10 @@
  
 SUBROUTINE cmtimu(Y,X,File,Buf)
    IMPLICIT NONE
-   USE C_CINVPX
-   USE C_CINVXX
-   USE C_NAMES
-   USE C_ZNTPKX
+   USE c_cinvpx
+   USE c_cinvxx
+   USE c_names
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,6 +23,15 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     CM TIM U FORMS THE MATRIX PRODUCT X = M*Y WHERE ALL MAY BE COMPLEX
 !
 !     COMMON   /DESCRP/  LENGTH    ,MAJOR(1)
@@ -34,7 +43,7 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
 !     USE MASS MATRIX
 !
       DO i = 1 , 7
-         filem(i) = Filemm(i)
+         filem(i) = filemm(i)
       ENDDO
    ELSE
 !
@@ -45,22 +54,22 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
       ENDDO
    ENDIF
    ncol2 = ncol + ncol
-   IF ( filem(4)==Identy ) THEN
+   IF ( filem(4)==identy ) THEN
 !
 !     MASS MATRIX IS THE IDENTY
 !
       DO i = 1 , ncol2
          X(i) = Y(i)
       ENDDO
-      Nzero = 0
+      nzero = 0
       RETURN
    ELSE
-      Nzero = 0
-      CALL gopen(filem(1),Buf,Rdrew)
+      nzero = 0
+      CALL gopen(filem(1),Buf,rdrew)
       DO i = 1 , ncol2
          X(i) = 0.D0
       ENDDO
-      IF ( filem(4)==Diag ) THEN
+      IF ( filem(4)==diag ) THEN
 !
 !     FILE ERROR
 !
@@ -71,15 +80,15 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
 !
 !     MASS MATRIX IS DIAGONAL
 !
-         CALL intpk(*100,filem(1),0,Cdp,0)
+         CALL intpk(*100,filem(1),0,cdp,0)
          DO
             CALL zntpki
-            Ii = Ii + Ii - 1
-            X(Ii) = Y(Ii)*Da(1) - Y(Ii+1)*Da(2)
-            X(Ii+1) = Y(Ii)*Da(2) + Y(Ii+1)*Da(1)
-            Nzero = Nzero + 1
-            IF ( Eol/=0 ) EXIT
-            IF ( Eor/=0 ) EXIT
+            ii = ii + ii - 1
+            X(ii) = Y(ii)*da(1) - Y(ii+1)*da(2)
+            X(ii+1) = Y(ii)*da(2) + Y(ii+1)*da(1)
+            nzero = nzero + 1
+            IF ( eol/=0 ) EXIT
+            IF ( eor/=0 ) EXIT
          ENDDO
       ELSE
 !
@@ -89,21 +98,21 @@ SUBROUTINE cmtimu(Y,X,File,Buf)
             IF ( Y(i)==0.D0 .AND. Y(i+1)==0.D0 ) THEN
                CALL fwdrec(*100,filem(1))
             ELSE
-               CALL intpk(*20,filem(1),0,Cdp,0)
+               CALL intpk(*20,filem(1),0,cdp,0)
                DO
                   CALL zntpki
-                  IF ( Ii==i ) Nzero = Nzero + 1
-                  Ii = Ii + Ii - 1
-                  X(Ii) = X(Ii) + Da(1)*Y(i) - Da(2)*Y(i+1)
-                  X(Ii+1) = X(Ii+1) + Da(1)*Y(i+1) + Da(2)*Y(i)
-                  IF ( Eol/=0 ) EXIT
-                  IF ( Eor/=0 ) EXIT
+                  IF ( ii==i ) nzero = nzero + 1
+                  ii = ii + ii - 1
+                  X(ii) = X(ii) + da(1)*Y(i) - da(2)*Y(i+1)
+                  X(ii+1) = X(ii+1) + da(1)*Y(i+1) + da(2)*Y(i)
+                  IF ( eol/=0 ) EXIT
+                  IF ( eor/=0 ) EXIT
                ENDDO
             ENDIF
  20      ENDDO
       ENDIF
    ENDIF
 !
- 100  CALL close(filem(1),Rew)
-   Nzero = 0
+ 100  CALL close(filem(1),rew)
+   nzero = 0
 END SUBROUTINE cmtimu

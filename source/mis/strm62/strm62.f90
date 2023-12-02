@@ -1,12 +1,13 @@
-!*==strm62.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==strm62.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strm62(Ti)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,24 +70,24 @@ SUBROUTINE strm62(Ti)
 !
 !     POINTER TO I-TH SIL IN PH1OUT
 !
-            Npoint = Ivec + nph1ou(i+1) - 1
+            npoint = ivec + nph1ou(i+1) - 1
 !
 !     POINTER TO  3X3 S SUB I MATRIX
 !
-            Npt1 = 12 + (i-1)*9 + (ii-1)*54
+            npt1 = 12 + (i-1)*9 + (ii-1)*54
 !
-            CALL gmmats(Ph1out(Npt1),3,3,0,Z(Npoint),3,1,0,Vec(1))
+            CALL gmmats(ph1out(npt1),3,3,0,z(npoint),3,1,0,vec(1))
             DO j = 1 , 3
-               stress(j) = stress(j) + Vec(j)
+               stress(j) = stress(j) + vec(j)
                str(j) = stress(j)
             ENDDO
          ENDDO
-         IF ( Ldtemp/=(-1) ) THEN
+         IF ( ldtemp/=(-1) ) THEN
             ii12 = ii*2 - 1
-            IF ( ii/=4 ) Tem = Ti(ii12) - Ph1out(11)
-            IF ( ii==4 ) Tem = (Ti(1)+Ti(2)+Ti(3)+Ti(4)+Ti(5)+Ti(6))/6.0 - Ph1out(11)
+            IF ( ii/=4 ) tem = Ti(ii12) - ph1out(11)
+            IF ( ii==4 ) tem = (Ti(1)+Ti(2)+Ti(3)+Ti(4)+Ti(5)+Ti(6))/6.0 - ph1out(11)
             DO i = 1 , 3
-               stress(i) = stress(i) - Ph1out(227+i)*Tem
+               stress(i) = stress(i) - ph1out(227+i)*tem
                str(i) = stress(i)
             ENDDO
          ENDIF
@@ -116,33 +117,33 @@ SUBROUTINE strm62(Ti)
 !     FINALLY, THESE VALUES ARE STORED IN PH1OUT(101-108,109-115,
 !     116-122,123-129)
 !
-         Temp = stress(1) - stress(2)
-         temp1 = sqrt((Temp/2.0E0)**2+stress(3)**2)
+         temp = stress(1) - stress(2)
+         temp1 = sqrt((temp/2.0E0)**2+stress(3)**2)
          str(7) = temp1
-         Delta = (stress(1)+stress(2))/2.0
-         str(5) = Delta + temp1
-         str(6) = Delta - temp1
-         Delta = 2.0E0*stress(3)
-         IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
+         delta = (stress(1)+stress(2))/2.0
+         str(5) = delta + temp1
+         str(6) = delta - temp1
+         delta = 2.0E0*stress(3)
+         IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
             str(4) = 0.0
          ELSE
-            str(4) = atan2(Delta,Temp)*28.6478898E0
+            str(4) = atan2(delta,temp)*28.6478898E0
          ENDIF
       ENDIF
       ijk = (ii-1)*8
-      stout(ijk+1) = Ph1out(1)
+      stout(ijk+1) = ph1out(1)
       DO i = 2 , 8
          stout(ijk+i) = str(i-1)
       ENDDO
    ENDDO
    DO i = 1 , 8
-      Ph1out(100+i) = stout(i)
+      ph1out(100+i) = stout(i)
    ENDDO
    DO j = 1 , 3
       DO i = 1 , 7
          j1 = 108 + (j-1)*7 + i
          j2 = j*8 + i + 1
-         Ph1out(j1) = stout(j2)
+         ph1out(j1) = stout(j2)
       ENDDO
    ENDDO
 END SUBROUTINE strm62

@@ -2,17 +2,17 @@
  
 SUBROUTINE sma1
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_SMA1BK
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
-   USE C_SMA1IO
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -20,6 +20,12 @@ SUBROUTINE sma1
    INTEGER , DIMENSION(7) :: ibuf
    INTEGER , DIMENSION(1) :: iz
    INTEGER , DIMENSION(2) , SAVE :: nmsma1
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -66,91 +72,91 @@ SUBROUTINE sma1
 !  SET THE LOGICAL HEAT FLAG IF THIS IS A -HEAT- FORMULATION
 !*****
    CALL delset
-   Linear = .TRUE.
-   Option(1) = -1
-   Heat = .FALSE.
-   IF ( Itherm/=0 ) Heat = .TRUE.
+   linear = .TRUE.
+   option(1) = -1
+   heat = .FALSE.
+   IF ( itherm/=0 ) heat = .TRUE.
 !
-   izmax = korsz(Z)
+   izmax = korsz(z)
 !
 ! IF NOGENL .GT. 0, GENERAL ELEMENTS EXIST AND HENCE THE GPST IS NOT
 ! CREATED AND SO DETCK WILL NOT BE CALLED.
 !
-   Dodet = .TRUE.
-   IF ( Nogenl>0 ) Dodet = .FALSE.
-   ibuf(1) = Ifecpt
+   dodet = .TRUE.
+   IF ( nogenl>0 ) dodet = .FALSE.
+   ibuf(1) = ifecpt
    CALL rdtrl(ibuf(1))
-   IF ( ibuf(3)==1 ) Dodet = .FALSE.
+   IF ( ibuf(3)==1 ) dodet = .FALSE.
 !
 ! SET K4GG PURGE FLAGS
 !
-   Nok4gg = -1
-   K4ggsw = -1
+   nok4gg = -1
+   k4ggsw = -1
 !
 ! ATTEMPT TO OPEN THE OUTPUT FILE FOR THE KGG  MATRIX.  IF IT IS NOT
 ! IN THE OSCAR, EXECUTION WILL BE TERMINATED SINCE WE DO NOT ALLOW
 ! THE USER TO GENERATE ONLY A K4GG.
 !
-   Igkgg = izmax - Isys
-   CALL open(*400,Ifkgg,Z(Igkgg),Outrw)
+   igkgg = izmax - isys
+   CALL open(*400,ifkgg,z(igkgg),outrw)
 !
 ! WRITE A TWO WORD BCD HEADER AND CLOSE THE KGG FILE WITHOUT REWIND.
 !
-   CALL fname(Ifkgg,Z(1))
-   CALL write(Ifkgg,Z(1),2,Eor)
-   CALL close(Ifkgg,Clsnrw)
+   CALL fname(ifkgg,z(1))
+   CALL write(ifkgg,z(1),2,eor)
+   CALL close(ifkgg,clsnrw)
 !
 ! ATTEMPT TO OPEN THE K4GG FILE.
 !
-   Ig4gg = Igkgg
-   Iopt4 = 0
-   CALL open(*100,If4gg,Z(Ig4gg),Outrw)
-   Iopt4 = 1
-   Ig4gg = Ig4gg - Isys
-   CALL fname(If4gg,Z(1))
-   CALL write(If4gg,Z(1),2,Eor)
-   CALL close(If4gg,Clsnrw)
+   ig4gg = igkgg
+   iopt4 = 0
+   CALL open(*100,if4gg,z(ig4gg),outrw)
+   iopt4 = 1
+   ig4gg = ig4gg - isys
+   CALL fname(if4gg,z(1))
+   CALL write(if4gg,z(1),2,eor)
+   CALL close(if4gg,clsnrw)
 !
 ! SET UP POINTERS TO GINO BUFFERS AND SET UP MATRIX CONTROL BLOCKS.
 !
- 100  Igecpt = Ig4gg - Isys
-   Iggpct = Igecpt - Isys
-   Iggpst = Iggpct - Isys
-   IF ( .NOT.Dodet ) Iggpst = Iggpst + Isys
-   Mcbkgg(1) = Ifkgg
-   Mcbkgg(2) = 0
-   Mcbkgg(3) = 0
-   Mcbkgg(4) = 6
-   Mcbkgg(5) = Iprec
-   Mcbkgg(6) = 0
-   Mcbkgg(7) = 0
-   IF ( Iopt4/=0 ) THEN
-      Mcb4gg(1) = If4gg
+ 100  igecpt = ig4gg - isys
+   iggpct = igecpt - isys
+   iggpst = iggpct - isys
+   IF ( .NOT.dodet ) iggpst = iggpst + isys
+   mcbkgg(1) = ifkgg
+   mcbkgg(2) = 0
+   mcbkgg(3) = 0
+   mcbkgg(4) = 6
+   mcbkgg(5) = iprec
+   mcbkgg(6) = 0
+   mcbkgg(7) = 0
+   IF ( iopt4/=0 ) THEN
+      mcb4gg(1) = if4gg
       DO i = 2 , 7
-         Mcb4gg(i) = Mcbkgg(i)
+         mcb4gg(i) = mcbkgg(i)
       ENDDO
    ENDIF
 !
 ! ATTEMPT TO READ THE CSTM INTO CORE.
 !
-   Ncstm = 0
-   Icstm = 0
-   Left = Iggpst - 1
-   CALL open(*300,Ifcstm,Z(Igkgg),Inrw)
-   CALL fwdrec(*500,Ifcstm)
-   CALL read(*600,*200,Ifcstm,Z(1),Left,Eor,Ncstm)
+   ncstm = 0
+   icstm = 0
+   left = iggpst - 1
+   CALL open(*300,ifcstm,z(igkgg),inrw)
+   CALL fwdrec(*500,ifcstm)
+   CALL read(*600,*200,ifcstm,z(1),left,eor,ncstm)
 !
 ! IF CORE WAS FILLED WITHOUT HITTING AN EOR CALL MESAGE
 !
-   CALL mesage(-8,Ifcstm,Ifcstm)
- 200  Left = Left - Ncstm
+   CALL mesage(-8,ifcstm,ifcstm)
+ 200  left = left - ncstm
 !
 ! PRETRD SETS UP FUTURE CALLS TO TRANSD.
 !
-   CALL pretrd(Z(Icstm+1),Ncstm)
-   CALL pretrs(Z(Icstm+1),Ncstm)
-   CALL close(Ifcstm,Clsrw)
- 300  imat1 = Ncstm
+   CALL pretrd(z(icstm+1),ncstm)
+   CALL pretrs(z(icstm+1),ncstm)
+   CALL close(ifcstm,clsrw)
+ 300  imat1 = ncstm
    nmat1 = 0
    nmat2 = 0
    nmat3 = 0
@@ -163,98 +169,98 @@ SUBROUTINE sma1
 !  IF THIS IS A -HEAT- PROBLEM THE HMAT ROUTINE IS USED TO READ MAT4 AND
 !  MAT5 CARDS INTO CORE.
 !*****
-   IF ( .NOT.Heat ) THEN
+   IF ( .NOT.heat ) THEN
 !*****
 !  NORMAL PREMAT PROCESSING.
 !*****
-      CALL premat(iz(imat11),Z(imat11),Z(Igkgg),Left,matcr,Ifmpt,Ifdit)
-      Left = Left - matcr
-      Igpct = Ncstm + matcr
+      CALL premat(iz(imat11),z(imat11),z(igkgg),left,matcr,ifmpt,ifdit)
+      left = left - matcr
+      igpct = ncstm + matcr
    ELSE
-      Ihmat = imat11 + 1
-      Nhmat = imat11 + Left - 2
-      Mptmpt = Ifmpt
-      Idit = Ifdit
+      ihmat = imat11 + 1
+      nhmat = imat11 + left - 2
+      mptmpt = ifmpt
+      idit = ifdit
       CALL hmat(0)
-      Left = Left - Nhmat + Ihmat
-      Igpct = Nhmat + 1
+      left = left - nhmat + ihmat
+      igpct = nhmat + 1
    ENDIF
 !
 ! OPEN THE ECPT AND GPCT INPUT FILES AND THE GPST OUTPUT FILE.
 !
-   CALL open(*700,Ifecpt,Z(Igecpt),Inrw)
-   CALL fwdrec(*800,Ifecpt)
-   CALL open(*900,Ifgpct,Z(Iggpct),Inrw)
-   CALL fwdrec(*1000,Ifgpct)
-   IF ( Dodet ) THEN
-      CALL open(*1100,Ifgpst,Z(Iggpst),Outrw)
-      CALL fname(Ifgpst,Ecpt(1))
-      CALL write(Ifgpst,Ecpt(1),2,Eor)
+   CALL open(*700,ifecpt,z(igecpt),inrw)
+   CALL fwdrec(*800,ifecpt)
+   CALL open(*900,ifgpct,z(iggpct),inrw)
+   CALL fwdrec(*1000,ifgpct)
+   IF ( dodet ) THEN
+      CALL open(*1100,ifgpst,z(iggpst),outrw)
+      CALL fname(ifgpst,ecpt(1))
+      CALL write(ifgpst,ecpt(1),2,eor)
    ENDIF
 !
 ! REOPEN THE KGG OUTPUT FILE WITHOUT REWIND, AND THE K4GG, IF CALLED FOR
 !
-   CALL open(*1200,Ifkgg,Z(Igkgg),3)
-   IF ( Iopt4/=0 ) CALL open(*1300,If4gg,Z(Ig4gg),3)
+   CALL open(*1200,ifkgg,z(igkgg),3)
+   IF ( iopt4/=0 ) CALL open(*1300,if4gg,z(ig4gg),3)
 !
 ! CALL SUBROUTINE SMA1A WHICH WILL PERFORM ALL THE COMPUTATIONS.
 !
    CALL sma1a
-   IF ( .NOT.Linear ) Option(1) = 1
+   IF ( .NOT.linear ) option(1) = 1
 !
 ! CLOSE FILES AND WRITE TRAILERS.
 !
-   CALL close(Ifecpt,Clsrw)
-   CALL close(Ifgpct,Clsrw)
-   IF ( Dodet ) THEN
-      CALL close(Ifgpst,Clsrw)
-      CALL wrttrl(Ifgpst)
+   CALL close(ifecpt,clsrw)
+   CALL close(ifgpct,clsrw)
+   IF ( dodet ) THEN
+      CALL close(ifgpst,clsrw)
+      CALL wrttrl(ifgpst)
    ENDIF
-   CALL close(Ifkgg,Clsrw)
-   Mcbkgg(3) = Mcbkgg(2)
-   CALL wrttrl(Mcbkgg(1))
-   IF ( Iopt4/=0 ) THEN
-      CALL close(If4gg,Clsrw)
-      IF ( Mcb4gg(6)==0 ) THEN
+   CALL close(ifkgg,clsrw)
+   mcbkgg(3) = mcbkgg(2)
+   CALL wrttrl(mcbkgg(1))
+   IF ( iopt4/=0 ) THEN
+      CALL close(if4gg,clsrw)
+      IF ( mcb4gg(6)==0 ) THEN
          DO i = 2 , 7
-            Mcb4gg(i) = 0
+            mcb4gg(i) = 0
          ENDDO
-         Nok4gg = -1
+         nok4gg = -1
       ELSE
-         Mcb4gg(3) = Mcb4gg(2)
-         CALL wrttrl(Mcb4gg(1))
-         Nok4gg = 1
+         mcb4gg(3) = mcb4gg(2)
+         CALL wrttrl(mcb4gg(1))
+         nok4gg = 1
       ENDIF
    ENDIF
  400  RETURN
 !
 ! SUBROUTINE SMA1 ERROR EXITS.
 !
- 500  ifile = Ifcstm
+ 500  ifile = ifcstm
    iparm = -2
    CALL mesage(iparm,ifile,nmsma1(1))
    GOTO 99999
- 600  ifile = -Ifcstm
+ 600  ifile = -ifcstm
    iparm = -2
    CALL mesage(iparm,ifile,nmsma1(1))
    GOTO 99999
- 700  ifile = Ifecpt
+ 700  ifile = ifecpt
    GOTO 1400
- 800  ifile = Ifecpt
+ 800  ifile = ifecpt
    iparm = -2
    CALL mesage(iparm,ifile,nmsma1(1))
    GOTO 99999
- 900  ifile = Ifgpct
+ 900  ifile = ifgpct
    GOTO 1400
- 1000 ifile = Ifgpct
+ 1000 ifile = ifgpct
    iparm = -2
    CALL mesage(iparm,ifile,nmsma1(1))
    GOTO 99999
- 1100 ifile = Ifgpst
+ 1100 ifile = ifgpst
    GOTO 1400
- 1200 ifile = Ifkgg
+ 1200 ifile = ifkgg
    GOTO 1400
- 1300 ifile = If4gg
+ 1300 ifile = if4gg
  1400 iparm = -1
    CALL mesage(iparm,ifile,nmsma1(1))
 99999 END SUBROUTINE sma1

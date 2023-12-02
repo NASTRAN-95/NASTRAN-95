@@ -1,10 +1,11 @@
-!*==amgt1d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==amgt1d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgt1d(Ajj,Tsonx,Tamach,Tredf,Nstns2)
+   USE c_amgmn
+   USE c_tamg1l
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_TAMG1L
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -30,7 +31,7 @@ SUBROUTINE amgt1d(Ajj,Tsonx,Tamach,Tredf,Nstns2)
 !
 !
    numm = 2*Nstns2*Nstns2
-   DO nline = 1 , Nlines
+   DO nline = 1 , nlines
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
@@ -44,7 +45,7 @@ SUBROUTINE amgt1d(Ajj,Tsonx,Tamach,Tredf,Nstns2)
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( Tamach(nline)>=1.0 ) THEN
 !        SUPERSONIC
-               IF ( nline/=Nlines ) THEN
+               IF ( nline/=nlines ) THEN
                   ns = 1
                   nline1 = 0
                   spag_nextblock_1 = 3
@@ -63,11 +64,10 @@ SUBROUTINE amgt1d(Ajj,Tsonx,Tamach,Tredf,Nstns2)
             nline1 = nline - 2
             nline2 = nline - 1
             CALL intert(nline,nline1,nline2,numm,Ajj,Tamach)
-            CYCLE
          CASE (3)
             nline2 = 0
             nnline = nline + 1
-            SPAG_Loop_2_1: DO i = nnline , Nlines
+            SPAG_Loop_2_1: DO i = nnline , nlines
                IF ( nline2/=0 ) EXIT SPAG_Loop_2_1
                IF ( Tsonx(i)==0 ) THEN
                   IF ( nline1==0 ) nline1 = i

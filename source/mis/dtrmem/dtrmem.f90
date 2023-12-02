@@ -1,14 +1,15 @@
-!*==dtrmem.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dtrmem.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dtrmem(Iopt)
-USE C_CONDAS
-USE C_DS1AAA
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -97,10 +98,10 @@ USE ISO_FORTRAN_ENV
 !     CALL BUG(4HTMET,0,ECPT,32)
 !//////
 !
-   Sigx = 0.0D0
-   Sigy = 0.0D0
-   Sigxy = 0.0D0
-   IF ( Ecpt(7)==0.0 .OR. necpt(6)==0 ) RETURN
+   sigx = 0.0D0
+   sigy = 0.0D0
+   sigxy = 0.0D0
+   IF ( ecpt(7)==0.0 .OR. necpt(6)==0 ) RETURN
 !     FILL ELEMENT TO GLOBAL E-TRANSFORMATION MATRIX
 !
 !     IVEC = E(1). . .E(3)
@@ -108,60 +109,60 @@ USE ISO_FORTRAN_ENV
 !     KVEC = E(7). . .E(9)
 !
    DO i = 1 , 3
-      E(i) = dble(Ecpt(i+13)) - dble(Ecpt(i+9))
+      e(i) = dble(ecpt(i+13)) - dble(ecpt(i+9))
    ENDDO
 !
 !     LENGTH THEN = XSUBB
 !
-   Xsubb = dsqrt(E(1)**2+E(2)**2+E(3)**2)
+   xsubb = dsqrt(e(1)**2+e(2)**2+e(3)**2)
 !
 !     R  - R   (INTERMEDIATE STEP) AND NOMALIZE IVECTOR = E(1). . .E(3)
 !      C    A
 !
    DO i = 1 , 3
-      E(i+3) = dble(Ecpt(i+17)) - dble(Ecpt(i+9))
-      E(i) = E(i)/Xsubb
+      e(i+3) = dble(ecpt(i+17)) - dble(ecpt(i+9))
+      e(i) = e(i)/xsubb
    ENDDO
 !
 !     XSUBC = I DOT (R  - R )
 !                     C    A
 !
-   Xsubc = E(1)*E(4) + E(2)*E(5) + E(3)*E(6)
+   xsubc = e(1)*e(4) + e(2)*e(5) + e(3)*e(6)
 !
 !     KVEC = IVEC CROSS (R  - R )
 !                         C    A
 !
-   E(7) = E(2)*E(6) - E(3)*E(5)
-   E(8) = E(3)*E(4) - E(1)*E(6)
-   E(9) = E(1)*E(5) - E(2)*E(4)
+   e(7) = e(2)*e(6) - e(3)*e(5)
+   e(8) = e(3)*e(4) - e(1)*e(6)
+   e(9) = e(1)*e(5) - e(2)*e(4)
 !
 !     LENGTH = YSUBC
 !
-   Ysubc = dsqrt(E(7)**2+E(8)**2+E(9)**2)
+   ysubc = dsqrt(e(7)**2+e(8)**2+e(9)**2)
 !
 !     NORMALIZE KVECTOR
-   E(7) = E(7)/Ysubc
-   E(8) = E(8)/Ysubc
-   E(9) = E(9)/Ysubc
+   e(7) = e(7)/ysubc
+   e(8) = e(8)/ysubc
+   e(9) = e(9)/ysubc
 !
 !     JVECTOR = I CROSS K
 !
-   E(4) = E(3)*E(8) - E(2)*E(9)
-   E(5) = E(1)*E(9) - E(3)*E(7)
-   E(6) = E(2)*E(7) - E(1)*E(8)
+   e(4) = e(3)*e(8) - e(2)*e(9)
+   e(5) = e(1)*e(9) - e(3)*e(7)
+   e(6) = e(2)*e(7) - e(1)*e(8)
 !
 !     NORMALIZE JVECTOR TO MAKE SURE
-   Temp = dsqrt(E(4)**2+E(5)**2+E(6)**2)
-   E(4) = E(4)/Temp
-   E(5) = E(5)/Temp
-   E(6) = E(6)/Temp
+   temp = dsqrt(e(4)**2+e(5)**2+e(6)**2)
+   e(4) = e(4)/temp
+   e(5) = e(5)/temp
+   e(6) = e(6)/temp
 !
 !     MU, LAMDA, AND DELTA
 !
-   Mu = 1.0D0/Xsubb
-   Lamda = 1.0D0/Ysubc
-   Delta = (Xsubc/Xsubb) - 1.0D0
-   Areat = Xsubb*Ysubc*0.50D0*dble(Ecpt(7))
+   mu = 1.0D0/xsubb
+   lamda = 1.0D0/ysubc
+   delta = (xsubc/xsubb) - 1.0D0
+   areat = xsubb*ysubc*0.50D0*dble(ecpt(7))
 !
 !     C MATRIX    C  =(3X2) STORED C( 1). . .C( 6)
 !                  A
@@ -170,51 +171,51 @@ USE ISO_FORTRAN_ENV
 !                 C  =(3X2) STORED C(13). . .C(18)
 !                  C
 !
-   C(1) = -Mu
-   C(2) = 0.0D0
-   C(3) = 0.0D0
-   C(4) = Lamda*Delta
-   C(5) = C(4)
-   C(6) = -Mu
-   C(7) = Mu
-   C(8) = 0.0D0
-   C(9) = 0.0D0
-   C(10) = -Lamda*Mu*Xsubc
-   C(11) = C(10)
-   C(12) = Mu
-   C(13) = 0.0D0
-   C(14) = 0.0D0
-   C(15) = 0.0D0
-   C(16) = Lamda
-   C(17) = Lamda
-   C(18) = 0.0D0
+   c(1) = -mu
+   c(2) = 0.0D0
+   c(3) = 0.0D0
+   c(4) = lamda*delta
+   c(5) = c(4)
+   c(6) = -mu
+   c(7) = mu
+   c(8) = 0.0D0
+   c(9) = 0.0D0
+   c(10) = -lamda*mu*xsubc
+   c(11) = c(10)
+   c(12) = mu
+   c(13) = 0.0D0
+   c(14) = 0.0D0
+   c(15) = 0.0D0
+   c(16) = lamda
+   c(17) = lamda
+   c(18) = 0.0D0
 !
    IF ( Iopt<1 ) THEN
 !     THE REASON FOR THIS IS THAT IF THE DQDMEM ROUTINE IS CALLING,
 !     EACH INDIVIDUAL SUBTRIANGLE WILL ALREADY HAVE A SINTH AND COSTH.
 !
-      Theta = Ecpt(5)*degra
-      Sinth = sin(Theta)
-      Costh = cos(Theta)
+      theta = ecpt(5)*degra
+      sinth = sin(theta)
+      costh = cos(theta)
    ENDIF
-   IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+   IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
 !
-   Eltemp = Ecpt(21)
-   Matid = necpt(6)
-   Inflag = 2
-   CALL mat(Ecpt(1))
+   eltemp = ecpt(21)
+   matid = necpt(6)
+   inflag = 2
+   CALL mat(ecpt(1))
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE.
 !
-   G(1) = G11
-   G(2) = G12
-   G(3) = G13
-   G(4) = G12
-   G(5) = G22
-   G(6) = G23
-   G(7) = G13
-   G(8) = G23
-   G(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     G, E, C MATRICES ARE COMPLETE
 !
@@ -235,46 +236,46 @@ USE ISO_FORTRAN_ENV
 !     MAKE DISPLACEMENT VECTOR DOUBLE PRECISION
 !
    DO i = 1 , 9
-      Disp(i) = Sdisp(i)
+      disp(i) = sdisp(i)
    ENDDO
 !
    DO i = 1 , 3
 !     DO WE NEED TRANSFORMATIONS
 !
       IF ( necpt(4*i+5)/=0 ) THEN
-         CALL transd(necpt(4*i+5),T(1))
-         CALL gmmatd(T(1),3,3,0,Disp(3*i-2),3,1,0,Temp1(1))
+         CALL transd(necpt(4*i+5),t(1))
+         CALL gmmatd(t(1),3,3,0,disp(3*i-2),3,1,0,temp1(1))
       ELSE
 !
          DO j = 1 , 3
-            Idum = 3*(i-1) + j
-            Temp1(j) = Disp(Idum)
+            idum = 3*(i-1) + j
+            temp1(j) = disp(idum)
          ENDDO
       ENDIF
 !
-      CALL gmmatd(E(1),2,3,0,Temp1(1),3,1,0,Temp2(1))
-      CALL gmmatd(C(6*i-5),3,2,0,Temp2(1),2,1,0,Temp1(1))
-      CALL gmmatd(G(1),3,3,0,Temp1(1),3,1,0,Temp2(1))
+      CALL gmmatd(e(1),2,3,0,temp1(1),3,1,0,temp2(1))
+      CALL gmmatd(c(6*i-5),3,2,0,temp2(1),2,1,0,temp1(1))
+      CALL gmmatd(g(1),3,3,0,temp1(1),3,1,0,temp2(1))
 !
-      sum(1) = sum(1) + Temp2(1)
-      sum(2) = sum(2) + Temp2(2)
-      sum(3) = sum(3) + Temp2(3)
+      sum(1) = sum(1) + temp2(1)
+      sum(2) = sum(2) + temp2(2)
+      sum(3) = sum(3) + temp2(3)
 !
    ENDDO
 !
-   IF ( Ldtemp/=(-1) ) THEN
+   IF ( ldtemp/=(-1) ) THEN
 !     COMPUTE S MATRIX
 !               T
 !
-      Temp2(1) = Alpha1
-      Temp2(2) = Alpha2
-      Temp2(3) = Alph12
+      temp2(1) = alpha1
+      temp2(2) = alpha2
+      temp2(3) = alph12
 !     ABOVE IS FOR SINGLE TO DOUBLE PRECISION.
 !
-      CALL gmmatd(G(1),3,3,0,Temp2(1),3,1,0,Temp1(1))
-      Temp = ftemp - Tsub0
+      CALL gmmatd(g(1),3,3,0,temp2(1),3,1,0,temp1(1))
+      temp = ftemp - tsub0
       DO i = 1 , 3
-         sum(i) = sum(i) - Temp1(i)*Temp
+         sum(i) = sum(i) - temp1(i)*temp
       ENDDO
    ENDIF
 !
@@ -288,62 +289,62 @@ USE ISO_FORTRAN_ENV
 !     FROM ABOVE THE E MATRIX (3X3), AND THE SUM (3X1) MATRIX ALONG WITH
 !     XSUBB, XSUBC, AND YSUBC ARE NOW USED...
    DO i = 1 , 36
-      Kd(i) = 0.0D0
+      kd(i) = 0.0D0
    ENDDO
 !
-   IF ( Iopt==3 ) Areat = Areat/2.0D0
+   IF ( Iopt==3 ) areat = areat/2.0D0
 !
-   Mu = Sigx*Areat
-   Lamda = Sigy*Areat
-   Delta = Sigxy*Areat
+   mu = sigx*areat
+   lamda = sigy*areat
+   delta = sigxy*areat
 !
    IF ( Iopt<2 ) THEN
-      Kd(1) = Lamda
-      Kd(2) = -Delta
-      Kd(7) = Kd(2)
-      Kd(8) = Mu
+      kd(1) = lamda
+      kd(2) = -delta
+      kd(7) = kd(2)
+      kd(8) = mu
    ENDIF
-   Kd(15) = Mu + Lamda
-   Kd(16) = -Delta
-   Kd(17) = Delta
-   Kd(18) = Mu - Lamda
-   Kd(21) = Kd(16)
-   Kd(27) = Kd(17)
-   Kd(33) = Kd(18)
+   kd(15) = mu + lamda
+   kd(16) = -delta
+   kd(17) = delta
+   kd(18) = mu - lamda
+   kd(21) = kd(16)
+   kd(27) = kd(17)
+   kd(33) = kd(18)
 !
 !     GENERATE C MATRICES
 !
    DO i = 1 , 54
-      C(i) = 0.0D0
+      c(i) = 0.0D0
    ENDDO
 !
 !     FILL NON ZERO TERMS
 !
-   Gamma1 = 1.0D0/Xsubb
-   Gamma2 = 1.0D0/Ysubc
-   Gamma3 = Xsubc/(Xsubb*Ysubc)
-   C(3) = Gamma3 - Gamma2
-   C(6) = Gamma1
-   C(7) = -C(3)/2.0D0
-   C(8) = -Gamma1/2.0D0
-   C(10) = -Gamma1
-   C(14) = C(3)
-   C(16) = -C(7)
-   C(17) = C(8)
+   gamma1 = 1.0D0/xsubb
+   gamma2 = 1.0D0/ysubc
+   gamma3 = xsubc/(xsubb*ysubc)
+   c(3) = gamma3 - gamma2
+   c(6) = gamma1
+   c(7) = -c(3)/2.0D0
+   c(8) = -gamma1/2.0D0
+   c(10) = -gamma1
+   c(14) = c(3)
+   c(16) = -c(7)
+   c(17) = c(8)
 !
-   C(21) = -Gamma3
-   C(24) = -Gamma1
-   C(25) = Gamma3/2.0D0
-   C(26) = -C(8)
-   C(28) = Gamma1
-   C(32) = -Gamma3
-   C(34) = -C(25)
-   C(35) = C(26)
+   c(21) = -gamma3
+   c(24) = -gamma1
+   c(25) = gamma3/2.0D0
+   c(26) = -c(8)
+   c(28) = gamma1
+   c(32) = -gamma3
+   c(34) = -c(25)
+   c(35) = c(26)
 !
-   C(39) = Gamma2
-   C(43) = -Gamma2/2.0D0
-   C(50) = Gamma2
-   C(52) = -C(43)
+   c(39) = gamma2
+   c(43) = -gamma2/2.0D0
+   c(50) = gamma2
+   c(52) = -c(43)
 !
 !     REPLACE C MATRICES BY  (C)(E )(T) FOR EACH POINT
    DO i = 1 , 3
@@ -351,25 +352,25 @@ USE ISO_FORTRAN_ENV
 !
 !     GLOBAL TO BASIC MATRIX T IS GENERATED AGAIN HERE
 !
-         CALL transd(necpt(4*i+5),T(1))
-         CALL gmmatd(E(1),3,3,0,T(1),3,3,0,Temp1(1))
+         CALL transd(necpt(4*i+5),t(1))
+         CALL gmmatd(e(1),3,3,0,t(1),3,3,0,temp1(1))
       ELSE
          DO j = 1 , 9
-            Temp1(j) = E(j)
+            temp1(j) = e(j)
          ENDDO
       ENDIF
 !
-      CALL gmmatd(C(18*i-17),6,3,0,Temp1(1),3,3,0,Temp2(1))
+      CALL gmmatd(c(18*i-17),6,3,0,temp1(1),3,3,0,temp2(1))
       DO j = 1 , 18
-         Idum = 18*(i-1) + j
-         C(Idum) = Temp2(j)
+         idum = 18*(i-1) + j
+         c(idum) = temp2(j)
       ENDDO
 !
    ENDDO
 !
    DO i = 1 , 3
-      IF ( necpt(i+1)==Npvt ) THEN
-         Npivot = i
+      IF ( necpt(i+1)==npvt ) THEN
+         npivot = i
          CALL spag_block_1
          RETURN
       ENDIF
@@ -377,7 +378,8 @@ USE ISO_FORTRAN_ENV
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      CALL gmmatd(C(18*Npivot-17),6,3,1,Kd(1),6,6,0,Temp1(1))
+      USE ISO_FORTRAN_ENV                 
+      CALL gmmatd(c(18*Npivot-17),6,3,1,kd(1),6,6,0,temp1(1))
 !
 !     TEMP1 NOW CONTAINS                   T
 !                           ( (C )(E)(T ) ) ( KD)
@@ -386,25 +388,25 @@ CONTAINS
 !
 !     GENERATE THE THREE BY THREE PARTITIONS IN GLOBAL COORDINATES HERE
 !
-      DO i = 1 , 3
-         CALL gmmatd(Temp1,3,6,0,C(18*i-17),6,3,0,Temp2(1))
+      DO I = 1 , 3
+         CALL gmmatd(temp1,3,6,0,c(18*I-17),6,3,0,temp2(1))
 !//////
 !     CALL BUG(4HTRMK,260,TEMP2,18)
 !//////
-         DO j = 1 , 36
-            kij(j) = 0.0D0
+         DO J = 1 , 36
+            Kij(J) = 0.0D0
          ENDDO
-         kij(1) = Temp2(1)
-         kij(2) = Temp2(2)
-         kij(3) = Temp2(3)
-         kij(7) = Temp2(4)
-         kij(8) = Temp2(5)
-         kij(9) = Temp2(6)
-         kij(13) = Temp2(7)
-         kij(14) = Temp2(8)
-         kij(15) = Temp2(9)
+         Kij(1) = temp2(1)
+         Kij(2) = temp2(2)
+         Kij(3) = temp2(3)
+         Kij(7) = temp2(4)
+         Kij(8) = temp2(5)
+         Kij(9) = temp2(6)
+         Kij(13) = temp2(7)
+         Kij(14) = temp2(8)
+         Kij(15) = temp2(9)
 !
-         CALL ds1b(kij(1),necpt(i+1))
+         CALL ds1b(Kij(1),Necpt(I+1))
 !
       ENDDO
    END SUBROUTINE spag_block_1

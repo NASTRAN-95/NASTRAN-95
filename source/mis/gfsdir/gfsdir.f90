@@ -2,14 +2,14 @@
  
 SUBROUTINE gfsdir
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PACKX
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_bitpos
+   USE c_blank
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,6 +21,12 @@ SUBROUTINE gfsdir
    REAL*8 , DIMENSION(5) :: dbadd
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -69,8 +75,8 @@ SUBROUTINE gfsdir
    kaabar = scr2
    mwwbar = scr6
 !
-   Lcore = korsz(Z(1))
-   ibuf = Lcore - Sysbuf - 1
+   lcore = korsz(z(1))
+   ibuf = lcore - sysbuf - 1
    IF ( ibuf<0 ) THEN
 !
 !     ERROR CONDITIONS
@@ -85,16 +91,16 @@ SUBROUTINE gfsdir
 !
       mcb(1) = usets
       CALL rdtrl(mcb)
-      mbit = andf(mcb(5),Two(Um))
-      sbit = andf(mcb(5),Two(Us))
-      obit = andf(mcb(5),Two(Uo))
+      mbit = andf(mcb(5),two(um))
+      sbit = andf(mcb(5),two(us))
+      obit = andf(mcb(5),two(uo))
 !
-      Uset = usets
+      uset = usets
 !
 !     PARTITION OUT MULTIPOINT CONSTRAINTS
 !
       IF ( mbit/=0 ) THEN
-         CALL calcv(pvec,Ug,Un,Um,Z(1))
+         CALL calcv(pvec,ug,un,um,z(1))
          CALL gfsptn(axy,anybar,amy,0,0,0,pvec)
          CALL ssg2b(gm,amy,anybar,any,1,2,1,scr1)
       ELSE
@@ -105,7 +111,7 @@ SUBROUTINE gfsdir
 !     PARTITION OUT SINGLE POINT CONSTRAINTS
 !
       IF ( sbit/=0 ) THEN
-         CALL calcv(pvec,Un,Uf,Us,Z(1))
+         CALL calcv(pvec,un,uf,us,z(1))
          CALL gfsptn(any,afy,0,0,0,0,pvec)
       ELSE
 !
@@ -115,7 +121,7 @@ SUBROUTINE gfsdir
 !     PARTITION OUT OMITS
 !
       IF ( obit/=0 ) THEN
-         CALL calcv(pvec,Uf,Ua,Uo,Z(1))
+         CALL calcv(pvec,uf,ua,uo,z(1))
          CALL gfsptn(afy,aaybar,aoy,0,0,0,pvec)
          CALL ssg2b(go,aoy,aaybar,aay,1,2,1,scr1)
       ELSE
@@ -126,21 +132,21 @@ SUBROUTINE gfsdir
 !     IF FREE SURFACE POINTS EXIST - MERGE THEM WITH THE REDUCED
 !     AREA MATRIX
 !
-      Uset = usetf
-      IF ( Nofree<0 ) THEN
+      uset = usetf
+      IF ( nofree<0 ) THEN
 !
          CALL gfswch(awy,aay)
       ELSE
-         CALL calcv(pvec,Ua,Uab,Ufr,Z(1))
+         CALL calcv(pvec,ua,uab,ufr,z(1))
          CALL gfsmrg(awy,aay,afry,0,0,0,pvec)
       ENDIF
 !
 !     DETERMINE IF ANY SINGLE POINT CONSTRAINTS EXIST ON THE FLUID
 !
-      CALL calcv(pvec,Uy,Uf,Us,Z(1))
-      nuy = Nsub0 + Nsub1
+      CALL calcv(pvec,uy,uf,us,z(1))
+      nuy = nsub0 + nsub1
       sfbit = 1
-      IF ( Nsub1==0 ) sfbit = 0
+      IF ( nsub1==0 ) sfbit = 0
 !
 !     IF SPC POINTS EXIST ON THE FLUID - PARTITION THEM OUT OF
 !     THE FLUID AREA AND STIFFNESS MATRIX
@@ -157,8 +163,8 @@ SUBROUTINE gfsdir
 !     SINGULARITIES
 !
          CALL gfsspc(nuy,pvec)
-         Nsub0 = nuy - 1
-         Nsub1 = 1
+         nsub0 = nuy - 1
+         nsub1 = 1
          CALL gfsptn(kyy,kjj,0,0,0,pvec,pvec)
 !
 !     GENERATE THE H TRANSFORMATION MATRIX
@@ -169,7 +175,7 @@ SUBROUTINE gfsdir
 !
 !     CHECK COMPRESSIBLITY TYPE
 !
-         IF ( Comptp>0 ) THEN
+         IF ( comptp>0 ) THEN
 !
 !     PURELY INCOMPRESSIBLE APPROACH - A CONSTRAINT EQUATION IS
 !     GENERATED TO RESTRICT VOLUME CHANGE
@@ -195,7 +201,7 @@ SUBROUTINE gfsdir
 !
 !     IF GRAVITY EXISTS - ADD THE ADDITIONAL STIFFNESS
 !
-      IF ( Nograv<0 ) THEN
+      IF ( nograv<0 ) THEN
 !
          kaabar = kaa
       ELSE
@@ -209,12 +215,12 @@ SUBROUTINE gfsdir
 !     IF FREE SURFACE EXISTS - MERGE THE STIFFNESS TO SOLUTION SIZE
 !     AND EXPAND THE MASS MATRIX
 !
-      IF ( Nofree<0 ) THEN
+      IF ( nofree<0 ) THEN
 !
          CALL gfswch(kwwbar,kaabar)
          mwwbar = maa
       ELSE
-         CALL calcv(pvec,Ua,Uab,Ufr,Z(1))
+         CALL calcv(pvec,ua,uab,ufr,z(1))
          CALL gfsmrg(kwwbar,kaabar,0,0,dkfrfr,pvec,pvec)
          CALL gfsmrg(mwwbar,maa,0,0,0,pvec,pvec)
       ENDIF
@@ -229,7 +235,7 @@ SUBROUTINE gfsdir
       IF ( sfbit/=0 ) THEN
 !
          CALL gfswch(kmat,kwwbar)
-      ELSEIF ( Comptp>0 ) THEN
+      ELSEIF ( comptp>0 ) THEN
 !
 !     APPLY THE CONSTRAINT EQUATION TO STIFFNESS AND MASS FOR
 !     THE INCOMPRESSIBLE APPROACH
@@ -259,7 +265,7 @@ SUBROUTINE gfsdir
 !
       IF ( sfbit/=0 ) THEN
 !
-         CALL calcv(pvec,Uy,Uf,Us,Z(1))
+         CALL calcv(pvec,uy,uf,us,z(1))
          CALL gfsmrg(gyw,gjw,0,0,0,0,pvec)
       ELSE
          CALL ssg2b(h,gjw,0,gyw,1,2,1,scr5)
@@ -267,13 +273,12 @@ SUBROUTINE gfsdir
 !
 !     PARTITON OUT THE FREE SURFACE POINTS
 !
-      IF ( Nofree>=0 ) THEN
-         CALL calcv(pvec,Uy,Ufr,Ui,Z(1))
+      IF ( nofree>=0 ) THEN
+         CALL calcv(pvec,uy,ufr,ui,z(1))
          CALL gfsptn(gyw,0,gia,0,0,0,pvec)
          RETURN
       ENDIF
    ENDIF
 !
    CALL gfswch(gia,gyw)
-   RETURN
 99999 END SUBROUTINE gfsdir

@@ -1,4 +1,5 @@
-!*==xparam.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xparam.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xparam
@@ -28,16 +29,16 @@ SUBROUTINE xparam
 !        4  END OF CARD
 !        5  ERROR ENCOUNTERED
 !
+   USE c_autosm
+   USE c_system
+   USE c_xgpi2
+   USE c_xgpi3
+   USE c_xgpi4
+   USE c_xgpic
+   USE c_xgpid
+   USE c_xvps
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AUTOSM
-   USE C_SYSTEM
-   USE C_XGPI2
-   USE C_XGPI3
-   USE C_XGPI4
-   USE C_XGPIC
-   USE C_XGPID
-   USE C_XVPS
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -70,11 +71,11 @@ SUBROUTINE xparam
       SELECT CASE (spag_nextblock_1)
       CASE (1)
          endcrd = 0
-         iprvop = Islsh
+         iprvop = islsh
          nospnt = oscar(ospnt) + ospnt
          iospnt = nospnt + 1
          oscar(nospnt) = 0
-         mplbot = Mpl(Mplpnt-7) + Mplpnt - 7
+         mplbot = mpl(mplpnt-7) + mplpnt - 7
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -84,22 +85,19 @@ SUBROUTINE xparam
          isave = 0
          SPAG_Loop_1_1: DO
             CALL xscndm
-            IF ( Irturn==1 ) THEN
+            IF ( irturn==1 ) THEN
 !
 !     PROCESS POSSIBLE DELIMITERS - SLASH AND ASTERISK
 !
-               IF ( Dmap(Dmppnt+1)==iastk ) THEN
+               IF ( dmap(dmppnt+1)==iastk ) THEN
                   CALL xscndm
-                  IF ( Irturn==1 .OR. Irturn==3 ) THEN
+                  IF ( irturn==1 .OR. irturn==3 ) THEN
                      CALL xgpidg(3,ospnt,oscar(nospnt),0)
                      spag_nextblock_1 = 13
-                     CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Irturn==4 ) THEN
+                  ELSEIF ( irturn==4 ) THEN
                      spag_nextblock_1 = 11
-                     CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Irturn==5 ) THEN
+                  ELSEIF ( irturn==5 ) THEN
                      spag_nextblock_1 = 16
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      i = 2
                      j = 2
@@ -110,7 +108,7 @@ SUBROUTINE xparam
 !
 !     PROCESS MPL DEFAULTS IF // IS ENCOUNTERED
 !
-               ELSEIF ( Dmap(Dmppnt+1)/=Islsh ) THEN
+               ELSEIF ( dmap(dmppnt+1)/=islsh ) THEN
 !
 !     ERROR MESSAGES -
 !
@@ -118,7 +116,6 @@ SUBROUTINE xparam
 !
                   CALL xgpidg(3,ospnt,oscar(nospnt),0)
                   spag_nextblock_1 = 13
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   i = 2
                   j = 2
@@ -126,7 +123,8 @@ SUBROUTINE xparam
                   oscar(nospnt) = oscar(nospnt) + 1
                   EXIT SPAG_Loop_1_1
                ENDIF
-            ELSEIF ( Irturn==3 ) THEN
+               CYCLE SPAG_DispatchLoop_1
+            ELSEIF ( irturn==3 ) THEN
 !
 !     PROCESS ANY INTEGER, REAL, OR COMPLEX CONSTANTS
 !
@@ -135,15 +133,15 @@ SUBROUTINE xparam
                newtyp = 1
                oscar(nospnt) = oscar(nospnt) + 1
                EXIT SPAG_Loop_1_1
-            ELSEIF ( Irturn==4 ) THEN
+            ELSEIF ( irturn==4 ) THEN
                spag_nextblock_1 = 11
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Irturn==5 ) THEN
+            ELSEIF ( irturn==5 ) THEN
                spag_nextblock_1 = 16
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Dmap(Dmppnt)/=Nblank ) THEN
+            ELSEIF ( dmap(dmppnt)/=nblank ) THEN
                oscar(nospnt) = 1 + oscar(nospnt)
-               j = Dmap(Dmppnt)
+               j = dmap(dmppnt)
                IF ( j/=ic .AND. j/=iv .AND. j/=is ) THEN
 !
 !     PROCESS V,N,NAME PARAMETER TYPES AS /NAME/
@@ -157,15 +155,15 @@ SUBROUTINE xparam
                   i = 1
                   IF ( j==ic ) i = 2
                   CALL xscndm
-                  IF ( Irturn==1 .OR. Irturn==3 .OR. Irturn==4 ) THEN
+                  IF ( irturn==1 .OR. irturn==3 .OR. irturn==4 ) THEN
                      CALL xgpidg(3,ospnt,oscar(nospnt),0)
                      spag_nextblock_1 = 13
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Irturn==5 ) THEN
+                  ELSEIF ( irturn==5 ) THEN
                      spag_nextblock_1 = 16
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     k = Dmap(Dmppnt)
+                     k = dmap(dmppnt)
                      IF ( k/=iy .AND. k/=in ) THEN
                         CALL xgpidg(3,ospnt,oscar(nospnt),0)
                         spag_nextblock_1 = 13
@@ -186,7 +184,7 @@ SUBROUTINE xparam
 !
 !     INITIALIZE IPVAL,AND ITMP WITH MPL DATA
 !
-         IF ( Mplpnt>=mplbot ) THEN
+         IF ( mplpnt>=mplbot ) THEN
 !
 !     TOO MANY PARAMETERS IN DMAP PARAMETER LIST.
 !
@@ -197,30 +195,29 @@ SUBROUTINE xparam
             DO k = 1 , 7
                itmp(k) = 0
             ENDDO
-            itmp(3) = iabs(Mpl(Mplpnt))
+            itmp(3) = iabs(mpl(mplpnt))
 !
 !     CONVERT PARAMETER TYPE CODE TO WORD LENGTH
 !
             k = itmp(3)
             mplln = itype(k)
             ipval = none
-            IF ( Mpl(Mplpnt)>=0 ) THEN
+            IF ( mpl(mplpnt)>=0 ) THEN
                DO k = 1 , mplln
-                  Mplpnt = Mplpnt + 1
-                  itmp(k+3) = Mpl(Mplpnt)
+                  mplpnt = mplpnt + 1
+                  itmp(k+3) = mpl(mplpnt)
                ENDDO
                ipval = impl
             ENDIF
-            Mplpnt = Mplpnt + 1
+            mplpnt = mplpnt + 1
             IF ( newtyp==1 ) THEN
-               IF ( Irturn==1 ) THEN
+               IF ( irturn==1 ) THEN
 !
 !     USE DEFAULT MPL VALUE FOR PARAMETER
 !
                   IF ( ipval==none ) THEN
                      CALL xgpidg(3,ospnt,oscar(nospnt),0)
                      spag_nextblock_1 = 13
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      oscar(iospnt) = mplln
                      DO m = 1 , mplln
@@ -229,20 +226,20 @@ SUBROUTINE xparam
                      ENDDO
                      iospnt = iospnt + mplln + 1
                      spag_nextblock_1 = 2
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
-               ELSEIF ( Irturn==2 ) THEN
+                  CYCLE
+               ELSEIF ( irturn==2 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Irturn==3 ) THEN
+               ELSEIF ( irturn==3 ) THEN
                   j = 3
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Irturn==4 ) THEN
+               ELSEIF ( irturn==4 ) THEN
                   j = 5
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
-               ELSEIF ( Irturn==5 ) THEN
+               ELSEIF ( irturn==5 ) THEN
                   spag_nextblock_1 = 16
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -256,25 +253,25 @@ SUBROUTINE xparam
 !     FOR USE AS COLUMN INDEX IN SYNTAX TABLE.
 !
             CALL xscndm
-            IF ( Irturn==2 ) EXIT SPAG_Loop_1_2
-            IF ( Irturn==3 ) THEN
+            IF ( irturn==2 ) EXIT SPAG_Loop_1_2
+            IF ( irturn==3 ) THEN
                j = 3
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Irturn==4 ) THEN
+            ELSEIF ( irturn==4 ) THEN
                j = 5
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Irturn==5 ) THEN
+            ELSEIF ( irturn==5 ) THEN
                spag_nextblock_1 = 16
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Dmap(Dmppnt+1)/=Iequl .AND. Dmap(Dmppnt+1)/=Islsh .AND. Dmap(Dmppnt+1)/=iastk ) THEN
+            ELSEIF ( dmap(dmppnt+1)/=iequl .AND. dmap(dmppnt+1)/=islsh .AND. dmap(dmppnt+1)/=iastk ) THEN
                CALL xgpidg(3,ospnt,oscar(nospnt),0)
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Dmap(Dmppnt+1)/=iastk ) THEN
+            ELSEIF ( dmap(dmppnt+1)/=iastk ) THEN
                j = 2
-               IF ( Dmap(Dmppnt+1)==Islsh ) j = 4
+               IF ( dmap(dmppnt+1)==islsh ) j = 4
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -285,7 +282,7 @@ SUBROUTINE xparam
 !
 !     CHECK FOR BLANK
 !
-         IF ( Dmap(Dmppnt)==Nblank ) THEN
+         IF ( dmap(dmppnt)==nblank ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -302,12 +299,11 @@ SUBROUTINE xparam
             IF ( iprvop/=name ) THEN
                CALL xgpidg(3,ospnt,oscar(nospnt),0)
                spag_nextblock_1 = 13
-               CYCLE SPAG_DispatchLoop_1
             ELSE
-               iprvop = Iequl
+               iprvop = iequl
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSEIF ( k==3 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -315,20 +311,19 @@ SUBROUTINE xparam
 !
 !     DMAP ENTRY IS / OPERATOR
 !
-            IF ( iprvop==Iequl ) THEN
+            IF ( iprvop==iequl ) THEN
                CALL xgpidg(3,ospnt,oscar(nospnt),0)
                spag_nextblock_1 = 13
-               CYCLE SPAG_DispatchLoop_1
             ELSE
-               iprvop = Islsh
+               iprvop = islsh
                spag_nextblock_1 = 8
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSEIF ( k==5 ) THEN
 !
 !     DMAP ENTRY IS BINARY VALUE
 !
-            IF ( iprvop==Islsh ) THEN
+            IF ( iprvop==islsh ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -338,7 +333,7 @@ SUBROUTINE xparam
 !
 !     END OF DMAP INSTRUCTION
 !
-            IF ( iprvop/=Iequl ) THEN
+            IF ( iprvop/=iequl ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -353,28 +348,28 @@ SUBROUTINE xparam
 !
 !     NAME FOUND. NAME TO TEMP,UPDATE PREVOP AND SEARCH PVT FOR VALUE.
 !
-            IF ( iprvop/=Iequl ) THEN
-               IF ( iprvop/=Islsh ) THEN
+            IF ( iprvop/=iequl ) THEN
+               IF ( iprvop/=islsh ) THEN
                   CALL xgpidg(3,ospnt,oscar(nospnt),0)
                   spag_nextblock_1 = 13
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  itmp(1) = Dmap(Dmppnt)
-                  itmp(2) = Dmap(Dmppnt+1)
+                  itmp(1) = dmap(dmppnt)
+                  itmp(2) = dmap(dmppnt+1)
                   iprvop = name
 !
 !     SCAN PVT
                   k = 3
                   DO
-                     l = andf(Pvt(k+2),Nosgn)
+                     l = andf(pvt(k+2),nosgn)
                      l = itype(l)
-                     IF ( Dmap(Dmppnt)==Pvt(k) .AND. Dmap(Dmppnt+1)==Pvt(k+1) ) THEN
+                     IF ( dmap(dmppnt)==pvt(k) .AND. dmap(dmppnt+1)==pvt(k+1) ) THEN
 !
 !     CHECK LENGTH OF PVT VALUE
 !
                         ipval = ipvt
-                        Pvt(k+2) = orf(Pvt(k+2),Isgnon)
-                        IF ( andf(Pvt(k+2),Nosgn)/=itmp(3) ) THEN
+                        pvt(k+2) = orf(pvt(k+2),isgnon)
+                        IF ( andf(pvt(k+2),nosgn)/=itmp(3) ) THEN
 !
 !     PARA CARD ERROR
 !
@@ -385,14 +380,14 @@ SUBROUTINE xparam
 !
                            DO m = 1 , l
                               j = k + m + 2
-                              itmp(m+3) = Pvt(j)
+                              itmp(m+3) = pvt(j)
                            ENDDO
                         ENDIF
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
                         k = k + 3 + l
-                        IF ( k>=Pvt(2) ) THEN
+                        IF ( k>=pvt(2) ) THEN
                            spag_nextblock_1 = 3
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -410,16 +405,14 @@ SUBROUTINE xparam
 !
             CALL xgpidg(6,ospnt,oscar(nospnt),0)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            Length = 2
-            Dmppnt = Dmppnt - 1
-            Dmap(Dmppnt) = itmp(3)
+            length = 2
+            dmppnt = dmppnt - 1
+            dmap(dmppnt) = itmp(3)
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (6)
-         IF ( iprvop/=Iequl ) THEN
+         IF ( iprvop/=iequl ) THEN
             CALL xgpidg(3,ospnt,oscar(nospnt),0)
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
@@ -432,20 +425,19 @@ SUBROUTINE xparam
 !     DMAP VALUE IS HIGHEST PRIORITY
 !
             ipval = idmap
-            IF ( andf(Dmap(Dmppnt),Nosgn)/=itmp(3) ) THEN
+            IF ( andf(dmap(dmppnt),nosgn)/=itmp(3) ) THEN
                CALL xgpidg(6,ospnt,oscar(nospnt),0)
             ELSE
 !
 ! TRANSFER DMAP VALUE TO ITMP
 !
-               DO m = 1 , Length
-                  j = Dmppnt + m
-                  itmp(m+3) = Dmap(j)
+               DO m = 1 , length
+                  j = dmppnt + m
+                  itmp(m+3) = dmap(j)
                ENDDO
             ENDIF
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     PARAMETER SCANNED,CHECK CORRECTNESS OF NAME AND VALUE AND
@@ -483,19 +475,19 @@ SUBROUTINE xparam
             ELSE
                k = 3
             ENDIF
-            DO WHILE ( itmp(1)/=Vps(k) .OR. itmp(2)/=Vps(k+1) )
-               k = k + and(Vps(k+2),Maskhi) + 3
-               IF ( k>=Vps(2) ) THEN
+            DO WHILE ( itmp(1)/=vps(k) .OR. itmp(2)/=vps(k+1) )
+               k = k + and(vps(k+2),maskhi) + 3
+               IF ( k>=vps(2) ) THEN
 !
 !     NAME NOT IN VPS,MAKE NEW ENTRY
 !
-                  k = Vps(2) + 1
-                  Vps(2) = k + 2 + mplln
-                  IF ( Vps(2)<=Vps(1) ) GOTO 10
+                  k = vps(2) + 1
+                  vps(2) = k + 2 + mplln
+                  IF ( vps(2)<=vps(1) ) GOTO 10
 !
 !     VPS TABLE OVERFLOW
 !
-                  CALL xgpidg(14,nvps,Nblank,Dmpcnt)
+                  CALL xgpidg(14,nvps,nblank,dmpcnt)
                   spag_nextblock_1 = 16
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -503,7 +495,7 @@ SUBROUTINE xparam
 !
 !     PARAMETER IS ALREADY IN VPS - MAKE SURE TYPES AGREE.
 !
-            l = andf(rshift(Vps(k+2),16),15)
+            l = andf(rshift(vps(k+2),16),15)
             IF ( l/=0 ) THEN
                IF ( l/=andf(itmp(3),15) ) THEN
 !
@@ -520,19 +512,19 @@ SUBROUTINE xparam
 !
 !     VALUE HAS BEEN MODIFIED FOR RESTART - DO NOT CHANGE.
 !
-            IF ( andf(Modflg,Vps(k+2))/=0 ) THEN
+            IF ( andf(modflg,vps(k+2))/=0 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
 !     CHECK IF PREVIOUSLY DEFINED
 !
-            IF ( Vps(k+2)<0 ) THEN
+            IF ( vps(k+2)<0 ) THEN
 !
 !     WARNING - PARAMETER ALREADY HAD VALUE ASSIGNED PREVIOUSLY
 !
                IF ( ipval==idmap ) CALL xgpidg(-42,ospnt,itmp(1),itmp(2))
-               IF ( and(rshift(Vps(k+2),16),15)/=and(itmp(3),15) ) CALL xgpidg(15,ospnt,itmp(1),itmp(2))
+               IF ( and(rshift(vps(k+2),16),15)/=and(itmp(3),15) ) CALL xgpidg(15,ospnt,itmp(1),itmp(2))
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -542,10 +534,10 @@ SUBROUTINE xparam
  10         l = mplln + 3
             DO m = 1 , l
                j = k + m - 1
-               Vps(j) = itmp(m)
+               vps(j) = itmp(m)
             ENDDO
-            Vps(k+2) = or(mplln,lshift(itmp(3),16))
-            IF ( ipval==idmap ) Vps(k+2) = or(Vps(k+2),Isgnon)
+            vps(k+2) = or(mplln,lshift(itmp(3),16))
+            IF ( ipval==idmap ) vps(k+2) = or(vps(k+2),isgnon)
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
@@ -554,13 +546,12 @@ SUBROUTINE xparam
 !
          oscar(iospnt) = k + 3
          IF ( isave==1 ) THEN
-            Nwords = Nwords + 1
-            Savnam(Nwords) = k + 3
+            nwords = nwords + 1
+            savnam(nwords) = k + 3
          ENDIF
-         oscar(iospnt) = or(oscar(iospnt),Isgnon)
+         oscar(iospnt) = or(oscar(iospnt),isgnon)
          iospnt = iospnt + 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     CONSTANT PARAMETER,VALUE TO OSCAR
@@ -572,25 +563,24 @@ SUBROUTINE xparam
          ENDDO
          iospnt = iospnt + mplln + 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !     ALL PARAMETERS ON DMAP CARD PROCESSED,PROCESS ANY REMAINING ON
 !     MPL
 !
-         IF ( Mplpnt>=mplbot ) THEN
+         IF ( mplpnt>=mplbot ) THEN
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          endcrd = 1
-         Length = iabs(Mpl(Mplpnt))
-         Length = itype(Length)
+         length = iabs(mpl(mplpnt))
+         length = itype(length)
          oscar(nospnt) = 1 + oscar(nospnt)
-         IF ( Mpl(Mplpnt)<0 ) THEN
+         IF ( mpl(mplpnt)<0 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Mpl(Mplpnt)==0 ) THEN
+         IF ( mpl(mplpnt)==0 ) THEN
 !
 !     MPL PARAMETER ERROR
 !
@@ -598,25 +588,24 @@ SUBROUTINE xparam
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            oscar(iospnt) = Length
-            DO m = 1 , Length
+            oscar(iospnt) = length
+            DO m = 1 , length
                j = iospnt + m
-               Mplpnt = Mplpnt + 1
-               oscar(j) = Mpl(Mplpnt)
+               mplpnt = mplpnt + 1
+               oscar(j) = mpl(mplpnt)
             ENDDO
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
-         Mplpnt = Mplpnt + 1
-         iospnt = iospnt + Length + 1
+         mplpnt = mplpnt + 1
+         iospnt = iospnt + length + 1
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     RETURN TO XOSGEN
 !
          oscar(ospnt) = iospnt - ospnt
-         Irturn = 1
+         irturn = 1
          spag_nextblock_1 = 14
       CASE (14)
          RETURN
@@ -630,12 +619,10 @@ SUBROUTINE xparam
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
-         Nogo = 2
-         Irturn = 2
+         nogo = 2
+         irturn = 2
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE xparam

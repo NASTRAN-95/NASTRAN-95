@@ -2,11 +2,11 @@
  
 SUBROUTINE curv
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CURVTB
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_curvtb
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -14,6 +14,12 @@ SUBROUTINE curv
    INTEGER :: file , i , imsg , j , jsub , lcore , lmcsid , loc , logerr
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(6) , SAVE :: subr
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -35,7 +41,7 @@ SUBROUTINE curv
 !
 !     CHECK TO SEE IF COMPUTATIONS NEED TO BE DONE
 !
-   IF ( Ip1<0 ) RETURN
+   IF ( ip1<0 ) RETURN
 !
 !     CHECK TO SEE IF THE INPUT FILE EXISTS
 !
@@ -46,7 +52,7 @@ SUBROUTINE curv
 !     PERFORM INITIALIZATION AND CREATE ESTX ON SCRATCH FILE 1.
 !
    DO i = 1 , 107
-      Indexs(i) = 777777777
+      indexs(i) = 777777777
    ENDDO
    imsg = 0
    jsub = 1
@@ -58,11 +64,11 @@ SUBROUTINE curv
 !     NO NON-ZERO MATERIAL COORDINATE SYSTEM IDS ENCOUNTERED
 !
       CALL page2(3)
-      WRITE (Ioutpt,99001) Uwm
+      WRITE (ioutpt,99001) uwm
 99001 FORMAT (A25,' 3173, NO NON-ZERO MATERIAL COORDINATE SYSTEM IDS ','ENCOUNTERED IN MODULE CURV.')
-      IF ( .NOT.strain ) WRITE (Ioutpt,99002)
+      IF ( .NOT.strain ) WRITE (ioutpt,99002)
 99002 FORMAT (39H STRESSES IN MATERIAL COORDINATE SYSTEM,14H NOT COMPUTED.)
-      IF ( strain ) WRITE (Ioutpt,99003)
+      IF ( strain ) WRITE (ioutpt,99003)
 99003 FORMAT (49H STRAINS/CURVATURES IN MATERIAL COORDINATE SYSTEM,14H NOT COMPUTED.)
    ELSE
 !
@@ -93,8 +99,8 @@ SUBROUTINE curv
 !     ERROR CONDITION IN CURV1, CURV2, OR CURV3.
 !
  200  IF ( imsg==-37 ) THEN
-      WRITE (Ioutpt,99005) Sfm , jsub , imsg , loc , jsub , file
-      WRITE (Ioutpt,99004) Indexs
+      WRITE (ioutpt,99005) sfm , jsub , imsg , loc , jsub , file
+      WRITE (ioutpt,99004) indexs
 99004 FORMAT (/5X,29H CONSTANTS IN COMMON /CURVTB/,/,(3X,4I15))
    ENDIF
 !
@@ -105,7 +111,7 @@ SUBROUTINE curv
          CALL close(i+j,1)
       ENDDO
    ENDDO
- 300  WRITE (Ioutpt,99005) Sfm , jsub , imsg , loc , jsub , file
+ 300  WRITE (ioutpt,99005) sfm , jsub , imsg , loc , jsub , file
    jsub = 2*jsub - 1
    IF ( imsg==-8 ) file = lcore
    CALL mesage(imsg,file,subr(jsub))

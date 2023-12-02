@@ -1,4 +1,5 @@
-!*==ifb2ar.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifb2ar.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifb2ar(Type,Ifb,Ar,L)
@@ -19,14 +20,22 @@ SUBROUTINE ifb2ar(Type,Ifb,Ar,L)
    CHARACTER(7) :: fmtx
    CHARACTER(10) :: fmty
    CHARACTER(10) , DIMENSION(9) , SAVE :: fnt
-   INTEGER :: i , ia , j , k
+   INTEGER :: i , ia , j , k , spag_nextblock_1
    REAL :: ra , x , xl
    INTEGER , DIMENSION(2) , SAVE :: sub , zero
    EXTERNAL mesage
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     THIS ROUTINE STORES IN ARRAY AR(L+1) THE BCD VALUE OF IFB, AND
 !     UPDATE THE L COUNTER

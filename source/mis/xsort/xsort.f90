@@ -1,4 +1,5 @@
-!*==xsort.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xsort.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xsort
@@ -9,15 +10,15 @@ SUBROUTINE xsort
 !     POSITION, AND PLACES THE RESULTING SORTED IMAGES ON THE NEW
 !     PROBLEM TAPE.
 !
+   USE c_machin
+   USE c_output
+   USE c_stapid
+   USE c_system
+   USE c_xechox
+   USE c_xmssg
+   USE c_xsrtcm
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_STAPID
-   USE C_SYSTEM
-   USE C_XECHOX
-   USE C_XMSSG
-   USE C_XSRTCM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -76,36 +77,36 @@ SUBROUTINE xsort
 !     XSORT MAY NOT WORK PROPERLY IN ALL UNIX MACHINES, WHICH FOLLOW
 !     THE VAX LINE.
 !
-         dec = Mach==5 .OR. Mach==6 .OR. Mach==21
-         IF ( dec .AND. Lpch/=77 ) WRITE (Outtap,99001) Uwm
+         dec = mach==5 .OR. mach==6 .OR. mach==21
+         IF ( dec .AND. lpch/=77 ) WRITE (outtap,99001) uwm
 99001    FORMAT (A25,', SWITCHING TO OLD XSORT VIA DIAG 42 HAS NOT BEEN ','THOROUGHLY TESTED',/5X,'FOR THE UNIX MACHINES.')
 !
 !     INITIALIZE XSORT AND TURN ON FREE-FIELD FLAG FOR XREAD
 !
-         Ffflag = 1234
-         Echou = 0
-         Echos = 0
-         Echop = 0
+         ffflag = 1234
+         echou = 0
+         echos = 0
+         echop = 0
          iend = 0
          iseq = 0
          iccbrk = 0
          notsor = 0
          optp = iptp
          kin = 0
-         irestr = -Iapprc
-         IF ( Kumf<=0 ) THEN
+         irestr = -iapprc
+         IF ( kumf<=0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          kin = 1
-         CALL open(*40,umf,Buf(1),2)
+         CALL open(*40,umf,buf(1),2)
          SPAG_Loop_1_1: DO
 !
 !     FIND PARTICULAR BULK DATA FILE ON UMF AS REQUESTED BY USER
 !
             CALL read(*20,*60,umf,pid,1,1,iflg)
-            IF ( Kumf<pid ) EXIT SPAG_Loop_1_1
-            IF ( Kumf==pid ) THEN
+            IF ( kumf<pid ) EXIT SPAG_Loop_1_1
+            IF ( kumf==pid ) THEN
                CALL close(umf,2)
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
@@ -113,29 +114,28 @@ SUBROUTINE xsort
                CALL skpfil(umf,1)
             ENDIF
          ENDDO SPAG_Loop_1_1
- 20      WRITE (Outtap,99002) Ufm , Kumf
+ 20      WRITE (outtap,99002) ufm , kumf
 99002    FORMAT (A23,' 201, REQUESTED BULK DATA DECK',I8,' NOT ON USER ','MASTER FILE.')
          CALL page2(2)
-         Nogo = -1
+         nogo = -1
          CALL close(umf,1)
          RETURN
 !
- 40      WRITE (Outtap,99003) Sfm
+ 40      WRITE (outtap,99003) sfm
 99003    FORMAT (A25,' 202, UMF COULD NOT BE OPENED')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 60      WRITE (Outtap,99004) Sfm
+ 60      WRITE (outtap,99004) sfm
 99004    FORMAT (A25,' 203, ILLEGAL EOR ON UMF')
          spag_nextblock_1 = 22
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
          CALL initco
-         IF ( Iecho>=0 ) THEN
-            Echou = andf(Iecho,1)
-            Echos = andf(Iecho,2)
-            Echop = andf(Iecho,4)
-            IF ( Icpflg/=0 ) Echos = 1
+         IF ( iecho>=0 ) THEN
+            echou = andf(iecho,1)
+            echos = andf(iecho,2)
+            echop = andf(iecho,4)
+            IF ( icpflg/=0 ) echos = 1
          ENDIF
          ASSIGN 540 TO ibrana
          ASSIGN 160 TO ibranb
@@ -148,7 +148,7 @@ SUBROUTINE xsort
 !     OF ONE MUST BE DONE TO REMOVE A POSSIBLE BIT FROM THE SIGN
 !     POSITION THE FOLLOWING ASSIGNS SET THOSE BRANCHES BASED ON MACHINE
 !
-         IF ( Mach==2 .OR. dec ) THEN
+         IF ( mach==2 .OR. dec ) THEN
             ASSIGN 68 TO mx3
             ASSIGN 140 TO my1
             ASSIGN 360 TO my2
@@ -157,7 +157,7 @@ SUBROUTINE xsort
             ASSIGN 420 TO my5
             ASSIGN 240 TO my6
             ASSIGN 100 TO mz1
-            linf = orf(Is,1)
+            linf = orf(is,1)
          ELSE
             ASSIGN 66 TO mx3
             ASSIGN 120 TO my1
@@ -172,14 +172,14 @@ SUBROUTINE xsort
 !
 !     SET NSHIFT TO ZERO FOR UNIVAC ASCII VERSION ONLY (NOT FORTRAN 5)
 !
-            IF ( Mach==3 ) nshift = 0
+            IF ( mach==3 ) nshift = 0
          ENDIF
 !
 !     START WORKING SORT BUFFER BELOW GINO I/O BUFFERS
 !
-         ii = 5*Ibufsz + 1
+         ii = 5*ibufsz + 1
          ibufbg = ii + 42
-         ibuflg = korsz(Buf) - 21
+         ibuflg = korsz(buf) - 21
          IF ( ibuflg-ibufbg<210 ) CALL mesage(-8,ibufbg+210-ibuflg,nsort)
          itape = itape1
          jtape = itape2
@@ -187,10 +187,10 @@ SUBROUTINE xsort
 !     OPEN ITAPE4 AND ITAPE5
 !     (4 CONTAINS CONTINUATIONS, 5 CONTAINS ALTERS)
 !
-         nbuf3 = 3*Ibufsz + 1
-         CALL open(*660,itape4,Buf(nbuf3),1)
-         nbuf4 = 4*Ibufsz + 1
-         CALL open(*660,itape5,Buf(nbuf4),1)
+         nbuf3 = 3*ibufsz + 1
+         CALL open(*660,itape4,buf(nbuf3),1)
+         nbuf4 = 4*ibufsz + 1
+         CALL open(*660,itape5,buf(nbuf4),1)
 !
 !     A BUFFER LINE IS 20 WORDS OF CARD IMAGE PLUS A 1 WORD POINTER TO
 !     THE NEXT IMAGE IN THE SORT SEQUENCE - A ZERO POINTER INDICATES
@@ -199,28 +199,28 @@ SUBROUTINE xsort
 !
          k = ii + 19
          DO j = ii , k
-            Buf(j) = linf
-            Buf(j+21) = inf
+            buf(j) = linf
+            buf(j+21) = inf
          ENDDO
-         Buf(ii+41) = 0
+         buf(ii+41) = 0
 !
 !     SET UP UNSORTED HEADING
 !
          DO j = 1 , 32
-            Head1(j) = headu(j)
-            Head3(j) = headn(j)
+            head1(j) = headu(j)
+            head3(j) = headn(j)
          ENDDO
-         Head2(4) = headn(1)
+         head2(4) = headn(1)
          iccnt = 0
-         IF ( Echou/=0 ) CALL page
+         IF ( echou/=0 ) CALL page
 !
 !     OPEN ITAPE (LOCATION FOR EACH SORTED CORE LOAD AS ITS FORCED TO
 !     EMPTY
 !
-         CALL open(*660,itape,Buf(1),1)
+         CALL open(*660,itape,buf(1),1)
          spag_nextblock_1 = 3
       CASE (3)
-         Buf(ii+20) = 1
+         buf(ii+20) = 1
          k = ii
          ncnt = 2
 !
@@ -235,86 +235,86 @@ SUBROUTINE xsort
                   n2 = n1 + 19
                   n3 = n2 + 1
                   SPAG_Loop_2_2: DO
-                     CALL xread(*780,Buf(n1))
+                     CALL xread(*780,buf(n1))
                      iccnt = iccnt + 1
-                     IF ( Echou/=0 ) THEN
+                     IF ( echou/=0 ) THEN
                         CALL page2(-1)
-                        WRITE (Outtap,99022) (Buf(i),i=n1,n2)
+                        WRITE (outtap,99022) (buf(i),i=n1,n2)
                      ENDIF
 !
 !     IGNORE BLANK CARDS
 !
-                     IF ( Buf(n1)/=blanx .OR. Buf(n1+1)/=blanx ) THEN
+                     IF ( buf(n1)/=blanx .OR. buf(n1+1)/=blanx ) THEN
 !
 !     LEFT ADJUST FIELD 1
 !
-                        CALL xfadj1(Buf(n1),lshift,0)
+                        CALL xfadj1(buf(n1),lshift,0)
 !
 !     TEST FOR END OF INPUT DATA STREAM (ENDDATA)
 !
                         iiend(1) = iend1
                         iiend(2) = iend2
-                        IF ( Buf(n1)==iend1 .AND. Buf(n1+1)==iend2 ) THEN
+                        IF ( buf(n1)==iend1 .AND. buf(n1+1)==iend2 ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         iiend(1) = iend3
                         iiend(2) = iend4
-                        IF ( Buf(n1)==iend3 .AND. Buf(n1+1)==iend4 ) THEN
+                        IF ( buf(n1)==iend3 .AND. buf(n1+1)==iend4 ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         iiend(1) = iend5
                         iiend(2) = iend6
-                        IF ( Buf(n1)==iend5 .AND. Buf(n1+1)==iend6 ) THEN
+                        IF ( buf(n1)==iend5 .AND. buf(n1+1)==iend6 ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
 !
 !     IS THIS A CONTINUATION, COMMENT, OR DELETE CARD
 !
-                        IF ( .NOT.dec ) tst = andf(mk(3),Buf(n1))
-                        IF ( dec ) tst = khrfn1(Bkmsk2,1,Buf(n1),1)
+                        IF ( .NOT.dec ) tst = andf(mk(3),buf(n1))
+                        IF ( dec ) tst = khrfn1(bkmsk2,1,buf(n1),1)
 !
 !     WRITE CONTINUATIONS ON ITAPE4
 !
-                        IF ( tst==Starl .OR. tst==Plus ) THEN
+                        IF ( tst==starl .OR. tst==plus ) THEN
 !
 !     CONTINUATION CARD - PUT ON ITAPE4
 !
-                           CALL write(itape4,Buf(n1),20,1)
+                           CALL write(itape4,buf(n1),20,1)
                         ELSE
 !
 !     IGNORE COMMENT CARDS
 !
-                           IF ( tst==Dollar ) CYCLE
+                           IF ( tst==dollar ) CYCLE
 !
 !     WRITE DELETES ON ITAPE5
 !
-                           IF ( tst==Slash ) THEN
+                           IF ( tst==slash ) THEN
 !
 !     BULK DATA DELETE CARD - PUT ON ITAPE5
 !
 !     TEST FOR EXTRANEOUS DATA IN FIELD 1 OF DELETE CARD
 !     AND WRITE OUT TO SCRATCH FILE
 !
-                              IF ( .NOT.dec ) itst1 = andf(Buf(n1),Bimsk1(6))
-                              IF ( dec ) itst1 = andf(Buf(n1),Bimsk1(1))
-                              itst2 = andf(Buf(n1+1),Mbit4)
-                              ibk3 = andf(bk(3),Mbit4)
-                              ibk4 = andf(bk(4),Mbit4)
+                              IF ( .NOT.dec ) itst1 = andf(buf(n1),bimsk1(6))
+                              IF ( dec ) itst1 = andf(buf(n1),bimsk1(1))
+                              itst2 = andf(buf(n1+1),mbit4)
+                              ibk3 = andf(bk(3),mbit4)
+                              ibk4 = andf(bk(4),mbit4)
                               IF ( itst1/=ibk3 .OR. itst2/=ibk4 ) THEN
                                  CALL page2(2)
-                                 WRITE (Outtap,99005) Ufm
+                                 WRITE (outtap,99005) ufm
 99005                            FORMAT (A23,' 221, EXTRANEOUS DATA IN FIELD 1 OF BULK DATA ','DELETE CARD.')
-                                 Nogo = -2
+                                 nogo = -2
                               ENDIF
-                              CALL xfadj1(Buf(n1+2),rshift,0)
-                              CALL xbcdbi(Buf(n1+2))
-                              CALL xfadj1(Buf(n1+4),rshift,0)
-                              CALL xbcdbi(Buf(n1+4))
-                              Buf(n1+4) = Buf(n1+5)
-                              CALL write(itape5,Buf(n1+3),2,1)
+                              CALL xfadj1(buf(n1+2),rshift,0)
+                              CALL xbcdbi(buf(n1+2))
+                              CALL xfadj1(buf(n1+4),rshift,0)
+                              CALL xbcdbi(buf(n1+4))
+                              buf(n1+4) = buf(n1+5)
+                              CALL write(itape5,buf(n1+3),2,1)
                               CYCLE
                            ELSE
 !
@@ -323,13 +323,13 @@ SUBROUTINE xsort
                               ny = 4
                               DO j = 1 , 2
                                  nx = n1 + 2 - j
-                                 tst = Buf(nx)
+                                 tst = buf(nx)
                                  DO i = 1 , ny
-                                    IF ( .NOT.dec ) ptst = andf(Mka,tst)
-                                    IF ( dec ) ptst = khrfn1(Bkmsk2,4,tst,4)
+                                    IF ( .NOT.dec ) ptst = andf(mka,tst)
+                                    IF ( dec ) ptst = khrfn1(bkmsk2,4,tst,4)
                                     IF ( ptst/=bk(1) ) GOTO 62
                                     IF ( .NOT.dec ) tst = rshift(tst,sfta)
-                                    IF ( dec ) tst = khrfn3(Bkmsk2,tst,1,0)
+                                    IF ( dec ) tst = khrfn3(bkmsk2,tst,1,0)
                                  ENDDO
                                  ny = 3
                               ENDDO
@@ -340,20 +340,20 @@ SUBROUTINE xsort
 !            = 1 FOR A DOUBLE FIELD CARD (W/ STAR)
 !
  62                        starsw = 0
-                           IF ( ptst==Star ) THEN
+                           IF ( ptst==star ) THEN
                               starsw = 1
                               IF ( j/=1 .OR. i/=1 ) THEN
                                  IF ( dec ) THEN
-                                    Buf(nx) = khrfn1(Buf(nx),5-i,bk(i),5-i)
-                                    Buf(n1+1) = khrfn1(Buf(n1+1),4,Star,4)
+                                    buf(nx) = khrfn1(buf(nx),5-i,bk(i),5-i)
+                                    buf(n1+1) = khrfn1(buf(n1+1),4,star,4)
                                  ELSE
-                                    Buf(nx) = orf(andf(mk(i),Buf(nx)),bk(i))
-                                    Buf(n1+1) = orf(andf(mk(1),Buf(n1+1)),Star)
+                                    buf(nx) = orf(andf(mk(i),buf(nx)),bk(i))
+                                    buf(n1+1) = orf(andf(mk(1),buf(n1+1)),star)
                                  ENDIF
                               ENDIF
                            ENDIF
- 64                        CALL xfadj(Buf(n1+2),starsw,ny)
-                           CALL extint(Buf(n1))
+ 64                        CALL xfadj(buf(n1+2),starsw,ny)
+                           CALL extint(buf(n1))
 !
 !
 !     START SORT LOGIC
@@ -390,54 +390,53 @@ SUBROUTINE xsort
 !
                   kx = k
                   spag_nextblock_2 = 5
-                  CYCLE SPAG_DispatchLoop_2
                CASE (4)
-                  IF ( Buf(nx)==Buf(kx) ) THEN
+                  IF ( buf(nx)==buf(kx) ) THEN
                      spag_nextblock_2 = 8
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
-                  IF ( Buf(nx)==bk(4) ) THEN
+                  IF ( buf(nx)==bk(4) ) THEN
                      spag_nextblock_2 = 7
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
-                  IF ( Buf(kx)==bk(4) ) THEN
+                  IF ( buf(kx)==bk(4) ) THEN
                      spag_nextblock_2 = 6
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   spag_nextblock_2 = 5
                CASE (5)
                   GOTO mx3
- 66               IF ( rshift(Buf(nx),nshift)<rshift(Buf(kx),nshift) ) THEN
+ 66               IF ( rshift(buf(nx),nshift)<rshift(buf(kx),nshift) ) THEN
                      spag_nextblock_2 = 7
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
-                  IF ( rshift(Buf(nx),nshift)/=rshift(Buf(kx),nshift) ) THEN
+                  IF ( rshift(buf(nx),nshift)/=rshift(buf(kx),nshift) ) THEN
                      spag_nextblock_2 = 6
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   spag_nextblock_2 = 8
                   CYCLE SPAG_DispatchLoop_2
  68               IF ( dec ) THEN
-                     IF ( rshift(khrfn4(Buf(nx)),1)<rshift(khrfn4(Buf(kx)),1) ) THEN
+                     IF ( rshift(khrfn4(buf(nx)),1)<rshift(khrfn4(buf(kx)),1) ) THEN
                         spag_nextblock_2 = 7
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
-                     IF ( rshift(khrfn4(Buf(nx)),1)==rshift(khrfn4(Buf(kx)),1) ) THEN
-                        IF ( rshift(lshift(khrfn4(Buf(nx)),1),1)<rshift(lshift(khrfn4(Buf(kx)),1),1) ) THEN
+                     IF ( rshift(khrfn4(buf(nx)),1)==rshift(khrfn4(buf(kx)),1) ) THEN
+                        IF ( rshift(lshift(khrfn4(buf(nx)),1),1)<rshift(lshift(khrfn4(buf(kx)),1),1) ) THEN
                            spag_nextblock_2 = 7
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
-                        IF ( rshift(lshift(khrfn4(Buf(nx)),1),1)==rshift(lshift(khrfn4(Buf(kx)),1),1) ) THEN
+                        IF ( rshift(lshift(khrfn4(buf(nx)),1),1)==rshift(lshift(khrfn4(buf(kx)),1),1) ) THEN
                            spag_nextblock_2 = 8
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
                      ENDIF
                   ELSE
-                     IF ( Buf(nx)<Buf(kx) ) THEN
+                     IF ( buf(nx)<buf(kx) ) THEN
                         spag_nextblock_2 = 7
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
-                     IF ( Buf(nx)<=Buf(kx) ) THEN
+                     IF ( buf(nx)<=buf(kx) ) THEN
                         spag_nextblock_2 = 8
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -448,13 +447,12 @@ SUBROUTINE xsort
 !     GO ON, LOOK AT NEXT ITEM IN THE SORTED TABLE
 !
                   kp = k
-                  k = Buf(k+20)*21 + ii
+                  k = buf(k+20)*21 + ii
                   IF ( nx==n1 ) THEN
                      spag_nextblock_2 = 3
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   spag_nextblock_2 = 2
-                  CYCLE SPAG_DispatchLoop_2
                CASE (7)
 !
 !     CARD POSITION FOUND IN SORT, SET THE CHAINING POINTER
@@ -462,13 +460,11 @@ SUBROUTINE xsort
                   IF ( kp==0 ) THEN
                      k = ii
                      spag_nextblock_2 = 2
-                     CYCLE SPAG_DispatchLoop_2
                   ELSE
-                     Buf(n3) = Buf(kp+20)
-                     Buf(kp+20) = ncnt
+                     buf(n3) = buf(kp+20)
+                     buf(kp+20) = ncnt
                      k = kp
                      ncnt = ncnt + 1
-                     CYCLE
                   ENDIF
                CASE (8)
                   SPAG_Loop_2_3: DO
@@ -490,37 +486,32 @@ SUBROUTINE xsort
                         k1 = 0
                         k2 = 0
                         IF ( dec ) THEN
-                           IF ( khrfn1(Bkmsk2,1,Buf(nx),1)/=Bkmsk1(4) ) k1 = 1
-                           IF ( khrfn1(Bkmsk2,1,Buf(kx),1)/=Bkmsk1(4) ) k2 = 1
+                           IF ( khrfn1(bkmsk2,1,buf(nx),1)/=bkmsk1(4) ) k1 = 1
+                           IF ( khrfn1(bkmsk2,1,buf(kx),1)/=bkmsk1(4) ) k2 = 1
                         ELSE
-                           IF ( andf(mk(3),Buf(nx))/=Bkmsk1(4) ) k1 = 1
-                           IF ( andf(mk(3),Buf(kx))/=Bkmsk1(4) ) k2 = 1
+                           IF ( andf(mk(3),buf(nx))/=bkmsk1(4) ) k1 = 1
+                           IF ( andf(mk(3),buf(kx))/=bkmsk1(4) ) k2 = 1
                         ENDIF
                         spag_nextblock_2 = 9
-                        CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( fcnt==4 .OR. fcnt==6 .OR. fcnt==8 .OR. fcnt==10 .OR. fcnt==12 .OR. fcnt==14 .OR. fcnt==16 .OR.        &
                             & fcnt==18 ) THEN
                         spag_nextblock_2 = 4
-                        CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( fcnt==5 .OR. fcnt==9 .OR. fcnt==13 .OR. fcnt==17 ) THEN
                         IF ( starsw/=ktarsw ) EXIT SPAG_Loop_2_3
                         IF ( starsw==0 ) EXIT SPAG_Loop_2_3
                         spag_nextblock_2 = 4
-                        CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( fcnt==7 .OR. fcnt==15 ) THEN
                         EXIT SPAG_Loop_2_3
                      ELSEIF ( fcnt==11 ) THEN
                         IF ( starsw==ktarsw ) EXIT SPAG_Loop_2_3
                         spag_nextblock_2 = 7
-                        CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( fcnt==19 ) THEN
                         spag_nextblock_2 = 7
-                        CYCLE SPAG_DispatchLoop_2
                      ELSE
                         ktarsw = 0
-                        IF ( .NOT.dec ) itst = andf(Mka,Buf(k+1))
-                        IF ( dec ) itst = khrfn1(Bkmsk2,4,Buf(k+1),4)
-                        IF ( itst==Star ) ktarsw = 1
+                        IF ( .NOT.dec ) itst = andf(mka,buf(k+1))
+                        IF ( dec ) itst = khrfn1(bkmsk2,4,buf(k+1),4)
+                        IF ( itst==star ) ktarsw = 1
                         IF ( starsw==ktarsw ) THEN
                            spag_nextblock_2 = 5
                            CYCLE SPAG_DispatchLoop_2
@@ -530,19 +521,19 @@ SUBROUTINE xsort
 !     DELETE STARS FOR THE COMPARE
 !
                         IF ( dec ) THEN
-                           in1 = rshift(khrfn4(khrfn1(Buf(nx),4,Bkmsk2,1)),1)
-                           ik2 = rshift(khrfn4(khrfn1(Buf(kx),4,Bkmsk2,1)),1)
+                           in1 = rshift(khrfn4(khrfn1(buf(nx),4,bkmsk2,1)),1)
+                           ik2 = rshift(khrfn4(khrfn1(buf(kx),4,bkmsk2,1)),1)
                         ELSE
-                           in1 = rshift(andf(mkd,Buf(nx)),1)
-                           ik2 = rshift(andf(mkd,Buf(kx)),1)
+                           in1 = rshift(andf(mkd,buf(nx)),1)
+                           ik2 = rshift(andf(mkd,buf(kx)),1)
                         ENDIF
                         IF ( in1==ik2 ) THEN
                            IF ( dec ) THEN
-                              in1 = rshift(lshift(khrfn4(khrfn1(Buf(nx),4,Bkmsk2,1)),1),1)
-                              ik2 = rshift(lshift(khrfn4(khrfn1(Buf(kx),4,Bkmsk2,1)),1),1)
+                              in1 = rshift(lshift(khrfn4(khrfn1(buf(nx),4,bkmsk2,1)),1),1)
+                              ik2 = rshift(lshift(khrfn4(khrfn1(buf(kx),4,bkmsk2,1)),1),1)
                            ELSE
-                              in1 = andf(mke,Buf(nx))
-                              ik2 = andf(mke,Buf(kx))
+                              in1 = andf(mke,buf(nx))
+                              ik2 = andf(mke,buf(kx))
                            ENDIF
                            IF ( in1==ik2 ) CYCLE
                         ENDIF
@@ -551,8 +542,8 @@ SUBROUTINE xsort
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
                         spag_nextblock_2 = 6
-                        CYCLE SPAG_DispatchLoop_2
                      ENDIF
+                     CYCLE SPAG_DispatchLoop_2
                   ENDDO SPAG_Loop_2_3
 !
 !     INCREMENT FIELD LOCATIONS IF FIELD TYPES DID NOT MATCH
@@ -567,8 +558,8 @@ SUBROUTINE xsort
 !
 !     ADJUST FIELDS RIGHT OR LEFT AS REQUIRED
 !
-                  CALL xfadj(Buf(nx),starsw,k1)
-                  CALL xfadj(Buf(kx),ktarsw,k2)
+                  CALL xfadj(buf(nx),starsw,k1)
+                  CALL xfadj(buf(kx),ktarsw,k2)
                   spag_nextblock_2 = 9
                CASE (9)
                   IF ( starsw<ktarsw ) THEN
@@ -585,7 +576,6 @@ SUBROUTINE xsort
                      ENDIF
                   ENDIF
                   spag_nextblock_2 = 4
-                  CYCLE SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
 !
@@ -593,28 +583,27 @@ SUBROUTINE xsort
 !
          ENDDO
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !
 !     SET (ENDDATA) CARD FOUND FLAG
 !
          iend = -1
-         IF ( Echou==1 ) THEN
+         IF ( echou==1 ) THEN
             CALL page2(2)
-            WRITE (Outtap,99006) iccnt
+            WRITE (outtap,99006) iccnt
 99006       FORMAT (//24X,12HTOTAL COUNT=,I5)
          ENDIF
 !
 !     TEST FOR COLD-START WITH NO BULK DATA
 !
-         IF ( iccnt<=1 .AND. irestr<=0 .AND. Kumf<=0 ) THEN
-            IF ( Iapprc/=1 ) THEN
-               IF ( Isubs==0 ) THEN
+         IF ( iccnt<=1 .AND. irestr<=0 .AND. kumf<=0 ) THEN
+            IF ( iapprc/=1 ) THEN
+               IF ( isubs==0 ) THEN
                   CALL page2(2)
-                  WRITE (Outtap,99007) Ufm
+                  WRITE (outtap,99007) ufm
 99007             FORMAT (A23,' 204, COLD START NO BULK DATA.')
-                  Nogo = -2
+                  nogo = -2
                   RETURN
                ENDIF
             ENDIF
@@ -629,12 +618,12 @@ SUBROUTINE xsort
 !     THIS SECTION UNCHAINS THE SORTED TABLE AND WRITES A CORE LOAD,
 !     IN ITS ACTUAL ORDER, ONTO A MERGE SCRATCH TAPE.
 !
-         j = Buf(ii+20)
+         j = buf(ii+20)
          j1st = j*21 + ii
          keep = 1
          SPAG_Loop_1_4: DO
             j = j*21 + ii
-            j1 = Buf(j+20)
+            j1 = buf(j+20)
             IF ( j1==0 ) THEN
                iseq = iseq + 1
                IF ( iseq==2 ) THEN
@@ -655,7 +644,7 @@ SUBROUTINE xsort
                      GOTO 540
                   ELSE
                      itape = itape2
-                     CALL open(*660,itape,Buf(Ibufsz+1),1)
+                     CALL open(*660,itape,buf(ibufsz+1),1)
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -675,7 +664,7 @@ SUBROUTINE xsort
 !     SPECIAL LOGIC TO AVOID MERGE IF NEW CORE LOAD FOLLOWS ALL PREVIOUS
 !
                IF ( kop<1 ) THEN
-                  CALL open(*660,itape,Buf(1),0)
+                  CALL open(*660,itape,buf(1),0)
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( kop/=1 ) THEN
@@ -684,24 +673,24 @@ SUBROUTINE xsort
                   ENDDO
                ENDIF
                DO j = 1 , 18
-                  IF ( Buf(j1st)/=ibuf1(j) ) EXIT SPAG_Loop_1_4
+                  IF ( buf(j1st)/=ibuf1(j) ) EXIT SPAG_Loop_1_4
                   j1st = j1st + 1
                ENDDO
-               CALL open(*660,itape,Buf(1),0)
+               CALL open(*660,itape,buf(1),0)
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 !     ITAPE IS PRIMARY CORE UNLOAD TAPE
 !
-               CALL write(itape,Buf(j),20,1)
+               CALL write(itape,buf(j),20,1)
                IF ( j<keep ) notsor = 1
                keep = j
                j = j1
             ENDIF
          ENDDO SPAG_Loop_1_4
          GOTO mz1
- 80      IF ( rshift(Buf(j1st),nshift)>=rshift(ibuf1(j),nshift) ) THEN
+ 80      IF ( rshift(buf(j1st),nshift)>=rshift(ibuf1(j),nshift) ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -711,19 +700,19 @@ SUBROUTINE xsort
 !     SAME BASIC LOGIC AS ORIGINAL SORT COMPARES (COMMENT CARDS OMITTED)
 !
          notsor = 1
-         CALL open(*660,itape,Buf(1),0)
+         CALL open(*660,itape,buf(1),0)
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
  100     IF ( dec ) THEN
-            IF ( khrfn4(Buf(j1st))<khrfn4(ibuf1(j)) ) THEN
+            IF ( khrfn4(buf(j1st))<khrfn4(ibuf1(j)) ) THEN
                notsor = 1
-               CALL open(*660,itape,Buf(1),0)
+               CALL open(*660,itape,buf(1),0)
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-         ELSEIF ( Buf(j1st)<ibuf1(j) ) THEN
+         ELSEIF ( buf(j1st)<ibuf1(j) ) THEN
             notsor = 1
-            CALL open(*660,itape,Buf(1),0)
+            CALL open(*660,itape,buf(1),0)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -733,35 +722,35 @@ SUBROUTINE xsort
          ktape = jtape
          jtape = trial
          iseq = iseq - 1
-         CALL open(*660,itape,Buf(1),0)
-         CALL open(*660,ktape,Buf(Ibufsz+1),3)
+         CALL open(*660,itape,buf(1),0)
+         CALL open(*660,ktape,buf(ibufsz+1),3)
          GOTO 460
       CASE (7)
-         CALL open(*660,jtape,Buf(Ibufsz+1),0)
-         nbuf2 = 2*Ibufsz + 1
-         CALL open(*660,ktape,Buf(nbuf2),1)
+         CALL open(*660,jtape,buf(ibufsz+1),0)
+         nbuf2 = 2*ibufsz + 1
+         CALL open(*660,ktape,buf(nbuf2),1)
          ccnt = 0
          spag_nextblock_1 = 8
       CASE (8)
          CALL read(*440,*680,jtape,ibuf2,20,1,iflg)
-         IF ( Mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
-         IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+         IF ( mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
+         IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
          ldup = 0
          IF ( itape==optp ) CALL crdflg(ibuf2)
          ktarsw = 0
-         IF ( .NOT.dec ) itst = andf(Mka,ibuf2(2))
-         IF ( dec ) itst = khrfn1(Bkmsk2,4,ibuf2(2),4)
-         IF ( itst==Star ) ktarsw = 1
+         IF ( .NOT.dec ) itst = andf(mka,ibuf2(2))
+         IF ( dec ) itst = khrfn1(bkmsk2,4,ibuf2(2),4)
+         IF ( itst==star ) ktarsw = 1
          GOTO my1
  120     ibuf2a(1) = rshift(ibuf2(1),nshift)
          ibuf2a(2) = rshift(ibuf2(2),nshift)
  140     CALL read(*500,*680,itape,ibuf1,20,1,iflg)
-         IF ( Mach==2 .AND. (itape==umf .OR. itape==iptp) ) CALL umftrn(ibuf1)
-         IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
+         IF ( mach==2 .AND. (itape==umf .OR. itape==iptp) ) CALL umftrn(ibuf1)
+         IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
          starsw = 0
-         IF ( .NOT.dec ) itst = andf(Mka,ibuf1(2))
-         IF ( dec ) itst = khrfn1(Bkmsk2,4,ibuf1(2),4)
-         IF ( itst==Star ) starsw = 1
+         IF ( .NOT.dec ) itst = andf(mka,ibuf1(2))
+         IF ( dec ) itst = khrfn1(bkmsk2,4,ibuf1(2),4)
+         IF ( itst==star ) starsw = 1
          GOTO ibranb
  160     GOTO my2
  180     ibuf1a(1) = rshift(ibuf1(1),nshift)
@@ -772,9 +761,9 @@ SUBROUTINE xsort
 !
  200     ccnt = ccnt + 1
          IF ( .NOT.dec ) tst = andf(mk(3),ibuf1(1))
-         IF ( dec ) tst = khrfn1(Bkmsk2,1,ibuf1(1),1)
+         IF ( dec ) tst = khrfn1(bkmsk2,1,ibuf1(1),1)
          iccflg = -1
-         IF ( tst==Plus .OR. tst==Starl ) THEN
+         IF ( tst==plus .OR. tst==starl ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -847,7 +836,6 @@ SUBROUTINE xsort
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
          IF ( ibuf1(j1)==ibuf2(j2) ) THEN
             spag_nextblock_1 = 16
@@ -898,13 +886,13 @@ SUBROUTINE xsort
          CALL write(ktape,ibuf2,20,1)
          kop = 2
          CALL read(*440,*680,jtape,ibuf2,20,1,iflg)
-         IF ( Mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
-         IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+         IF ( mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
+         IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
          IF ( itape==optp ) CALL crdflg(ibuf2)
          ktarsw = 0
-         IF ( .NOT.dec ) itst = andf(Mka,ibuf2(2))
-         IF ( dec ) itst = khrfn1(Bkmsk2,4,ibuf2(2),4)
-         IF ( itst==Star ) ktarsw = 1
+         IF ( .NOT.dec ) itst = andf(mka,ibuf2(2))
+         IF ( dec ) itst = khrfn1(bkmsk2,4,ibuf2(2),4)
+         IF ( itst==star ) ktarsw = 1
          GOTO my3
       CASE (16)
          SPAG_Loop_1_6: DO
@@ -921,16 +909,16 @@ SUBROUTINE xsort
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                IF ( dec ) THEN
-                  in1 = rshift(khrfn4(khrfn1(ibuf1(j1),4,Bkmsk2,1)),1)
-                  ik2 = rshift(khrfn4(khrfn1(ibuf2(j2),4,Bkmsk2,1)),1)
+                  in1 = rshift(khrfn4(khrfn1(ibuf1(j1),4,bkmsk2,1)),1)
+                  ik2 = rshift(khrfn4(khrfn1(ibuf2(j2),4,bkmsk2,1)),1)
                ELSE
                   in1 = rshift(andf(mkd,ibuf1(j1)),1)
                   ik2 = rshift(andf(mkd,ibuf2(j2)),1)
                ENDIF
                IF ( in1==ik2 ) THEN
                   IF ( dec ) THEN
-                     in1 = rshift(lshift(khrfn4(khrfn1(ibuf1(j1),4,Bkmsk2,1)),1),1)
-                     ik2 = rshift(lshift(khrfn4(khrfn1(ibuf2(j2),4,Bkmsk2,1)),1),1)
+                     in1 = rshift(lshift(khrfn4(khrfn1(ibuf1(j1),4,bkmsk2,1)),1),1)
+                     ik2 = rshift(lshift(khrfn4(khrfn1(ibuf2(j2),4,bkmsk2,1)),1),1)
                   ELSE
                      in1 = andf(mke,ibuf1(j1))
                      ik2 = andf(mke,ibuf2(j2))
@@ -942,7 +930,6 @@ SUBROUTINE xsort
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                spag_nextblock_1 = 15
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( j==3 ) THEN
                IF ( starsw==ktarsw ) THEN
                   spag_nextblock_1 = 13
@@ -951,35 +938,31 @@ SUBROUTINE xsort
                k1 = 0
                k2 = 0
                IF ( dec ) THEN
-                  IF ( khrfn1(Bkmsk2,1,ibuf1(j1),1)/=Bkmsk1(4) ) k1 = 1
-                  IF ( khrfn1(Bkmsk2,1,ibuf2(j2),1)/=Bkmsk1(4) ) k2 = 1
+                  IF ( khrfn1(bkmsk2,1,ibuf1(j1),1)/=bkmsk1(4) ) k1 = 1
+                  IF ( khrfn1(bkmsk2,1,ibuf2(j2),1)/=bkmsk1(4) ) k2 = 1
                ELSE
-                  IF ( andf(mk(3),ibuf1(j1))/=Bkmsk1(4) ) k1 = 1
-                  IF ( andf(mk(3),ibuf2(j2))/=Bkmsk1(4) ) k2 = 1
+                  IF ( andf(mk(3),ibuf1(j1))/=bkmsk1(4) ) k1 = 1
+                  IF ( andf(mk(3),ibuf2(j2))/=bkmsk1(4) ) k2 = 1
                ENDIF
                spag_nextblock_1 = 17
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( j==4 .OR. j==6 .OR. j==8 .OR. j==10 .OR. j==12 .OR. j==14 .OR. j==16 .OR. j==18 ) THEN
                spag_nextblock_1 = 13
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( j==5 .OR. j==9 .OR. j==13 .OR. j==17 ) THEN
                IF ( starsw/=ktarsw ) EXIT SPAG_Loop_1_6
                IF ( starsw==0 ) EXIT SPAG_Loop_1_6
                spag_nextblock_1 = 13
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( j==11 ) THEN
 !
 !     DUPLICATE CARD
 !
                IF ( starsw==ktarsw ) EXIT SPAG_Loop_1_6
                spag_nextblock_1 = 18
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( j==19 ) THEN
                spag_nextblock_1 = 18
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                EXIT SPAG_Loop_1_6
             ENDIF
+            CYCLE SPAG_DispatchLoop_1
          ENDDO SPAG_Loop_1_6
          IF ( ni<ki ) THEN
             j2 = j2 + ki
@@ -1006,7 +989,6 @@ SUBROUTINE xsort
             ENDIF
          ENDIF
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
          CALL write(ktape,ibuf1,20,1)
          CALL write(ktape,ibuf2,20,1)
@@ -1025,8 +1007,8 @@ SUBROUTINE xsort
          ENDIF
          IF ( ldup>=0 ) GOTO 480
  460     CALL read(*520,*680,itape,ibuf1,20,1,iflg)
-         IF ( Mach==2 .AND. (itape==umf .OR. itape==iptp) ) CALL umftrn(ibuf1)
-         IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
+         IF ( mach==2 .AND. (itape==umf .OR. itape==iptp) ) CALL umftrn(ibuf1)
+         IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
          GOTO ibranf
  480     CALL write(ktape,ibuf1,20,1)
          kop = 1
@@ -1035,10 +1017,10 @@ SUBROUTINE xsort
             CALL write(ktape,ibuf2,20,1)
             kop = 2
             CALL read(*520,*680,jtape,ibuf2,20,1,iflg)
-            IF ( Mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
-            IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+            IF ( mach==2 .AND. (jtape==umf .OR. jtape==iptp) ) CALL umftrn(ibuf2)
+            IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
          ENDDO
- 520     IF ( Iuedit==1 ) THEN
+ 520     IF ( iuedit==1 ) THEN
 !
 !     CLOSE TAPES ENVOLVED IN MERGE
 !
@@ -1055,18 +1037,18 @@ SUBROUTINE xsort
 !     WAS THIS THE FINAL MERGE (LAST CORE LOAD OF CARDS)
 !
  540     IF ( iend==0 ) THEN
-            CALL open(*660,itape,Buf(1),1)
+            CALL open(*660,itape,buf(1),1)
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL page2(2)
-            WRITE (Outtap,99025)
+            WRITE (outtap,99025)
             CALL close(itape5,1)
 !
 !     PROCESS DELETE CARDS (IF ANY)
 !
-            nbuf4 = 4*Ibufsz + 1
-            CALL open(*660,itape5,Buf(nbuf4),0)
+            nbuf4 = 4*ibufsz + 1
+            CALL open(*660,itape5,buf(nbuf4),0)
 !
 !     IF NOT RESTART - NO DELETES SHOULD EXIST
 !
@@ -1075,12 +1057,12 @@ SUBROUTINE xsort
 !     FORM DELETE CARD LIST
 !
                ibuf3(1) = inf
-               Buf(ii) = mkb
-               Buf(ii+1) = mkb
+               buf(ii) = mkb
+               buf(ii+1) = mkb
                DO j = ii , ibuflg , 2
                   CALL read(*560,*680,itape5,ibuf3,2,1,iflg)
                   SPAG_Loop_2_7: DO i = ii , j , 2
-                     IF ( ibuf3(1)<=Buf(i) ) EXIT SPAG_Loop_2_7
+                     IF ( ibuf3(1)<=buf(i) ) EXIT SPAG_Loop_2_7
                   ENDDO SPAG_Loop_2_7
 !
 !     PUSH DOWN LIST - MAKE DOUBLE WORD SLOT
@@ -1088,12 +1070,12 @@ SUBROUTINE xsort
                   kk = j + 2
                   k1 = (j-i)/2 + 1
                   DO k = 1 , k1
-                     Buf(kk+1) = Buf(kk-1)
-                     Buf(kk) = Buf(kk-2)
+                     buf(kk+1) = buf(kk-1)
+                     buf(kk) = buf(kk-2)
                      kk = kk - 2
                   ENDDO
-                  Buf(i) = ibuf3(1)
-                  Buf(i+1) = ibuf3(2)
+                  buf(i) = ibuf3(1)
+                  buf(i+1) = ibuf3(2)
                ENDDO
 !
 !     IF DELETE CARD LIST WILL NOT FIT
@@ -1107,7 +1089,7 @@ SUBROUTINE xsort
 !
                CALL close(itape5,1)
                CALL page2(2)
-               WRITE (Outtap,99008) Uwm
+               WRITE (outtap,99008) uwm
 99008          FORMAT (A25,' 205, COLD START,DELETE CARDS IGNORED.')
                GOTO 580
             ENDIF
@@ -1126,30 +1108,29 @@ SUBROUTINE xsort
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
                   CASE (1)
-                     IF ( Buf(i)/=0 ) THEN
-                        IF ( Buf(i)<Buf(i+1) ) THEN
+                     IF ( buf(i)/=0 ) THEN
+                        IF ( buf(i)<buf(i+1) ) THEN
                            IF ( imin==0 ) THEN
                               spag_nextblock_3 = 2
                               CYCLE SPAG_DispatchLoop_3
                            ENDIF
-                           IF ( Buf(i)>Buf(imax) ) THEN
+                           IF ( buf(i)>buf(imax) ) THEN
                               spag_nextblock_3 = 2
                               CYCLE SPAG_DispatchLoop_3
                            ENDIF
-                           IF ( Buf(i+1)>=Buf(imax) ) Buf(imax) = Buf(i+1)
+                           IF ( buf(i+1)>=buf(imax) ) buf(imax) = buf(i+1)
                         ELSE
-                           Buf(i+1) = 0
-                           IF ( Buf(i)/=Buf(i+2) ) THEN
+                           buf(i+1) = 0
+                           IF ( buf(i)/=buf(i+2) ) THEN
                               IF ( imin==0 ) CYCLE
-                              IF ( Buf(i)>Buf(imax) ) THEN
+                              IF ( buf(i)>buf(imax) ) THEN
                                  imin = 0
                                  CYCLE
                               ENDIF
                            ENDIF
                         ENDIF
-                        Buf(i) = 0
+                        buf(i) = 0
                      ENDIF
-                     CYCLE
                   CASE (2)
                      imin = i
                      imax = i + 1
@@ -1161,10 +1142,10 @@ SUBROUTINE xsort
 !
 !     PUT OUT SORTED DELETE CARD LIST
 !
-            nbuf4 = 4*Ibufsz + 1
-            CALL open(*660,itape5,Buf(nbuf4),1)
+            nbuf4 = 4*ibufsz + 1
+            CALL open(*660,itape5,buf(nbuf4),1)
             DO i = ii , j , 2
-               IF ( Buf(i)/=0 ) CALL write(itape5,Buf(i),2,1)
+               IF ( buf(i)/=0 ) CALL write(itape5,buf(i),2,1)
             ENDDO
          ENDIF
          CALL close(itape5,1)
@@ -1177,16 +1158,16 @@ SUBROUTINE xsort
          ASSIGN 260 TO ibranc
          ASSIGN 140 TO ibrand
          ASSIGN 360 TO ibrane
-         nbuf4 = 4*Ibufsz + 1
-         CALL open(*660,itape5,Buf(nbuf4),0)
+         nbuf4 = 4*ibufsz + 1
+         CALL open(*660,itape5,buf(nbuf4),0)
 !
          IF ( kin>0 ) THEN
 !
             optp = umf
-            CALL open(*40,umf,Buf(1),2)
+            CALL open(*40,umf,buf(1),2)
          ELSE
 !
-            CALL open(*740,optp,Buf(1),0)
+            CALL open(*740,optp,buf(1),0)
             SPAG_Loop_1_8: DO
                CALL read(*720,*680,optp,ibuf3,2,1,iflg)
                IF ( ibuf3(1)==iblkda(1) .AND. ibuf3(2)==iblkda(2) ) EXIT SPAG_Loop_1_8
@@ -1206,12 +1187,12 @@ SUBROUTINE xsort
 !     PROCESS CONTINUATION CARDS (IF ANY)
 !
  580     CALL close(itape4,1)
-         nbuf3 = 3*Ibufsz + 1
-         CALL open(*660,itape4,Buf(nbuf3),0)
+         nbuf3 = 3*ibufsz + 1
+         CALL open(*660,itape4,buf(nbuf3),0)
          IF ( iccnt==1 .AND. (irestr>0 .OR. kin>0) ) ktape = optp
          IF ( .NOT.(iccnt==1 .AND. (irestr>0 .OR. kin>0)) ) THEN
-            nbuf2 = 2*Ibufsz + 1
-            CALL open(*660,ktape,Buf(nbuf2),0)
+            nbuf2 = 2*ibufsz + 1
+            CALL open(*660,ktape,buf(nbuf2),0)
          ENDIF
 !
 !     FORM CONTINUATION CARD DICTIONARY
@@ -1219,19 +1200,19 @@ SUBROUTINE xsort
          ibuf1(1) = 0
          DO j = ii , ibuflg , 4
             CALL read(*600,*680,itape4,ibuf1,20,1,iflg)
-            IF ( Mach==2 .AND. ibuf1(1)/=mkb ) CALL umftrn(ibuf1)
-            IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
+            IF ( mach==2 .AND. ibuf1(1)/=mkb ) CALL umftrn(ibuf1)
+            IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
             IF ( ibuf1(1)/=mkb ) THEN
-               IF ( .NOT.dec ) Buf(j) = andf(mkc,ibuf1(1))
-               IF ( dec ) Buf(j) = khrfn1(ibuf1(1),1,Bkmsk2,1)
+               IF ( .NOT.dec ) buf(j) = andf(mkc,ibuf1(1))
+               IF ( dec ) buf(j) = khrfn1(ibuf1(1),1,bkmsk2,1)
             ELSE
                IF ( j/=ii ) iccbrk = j
-               Buf(j) = Dollar
+               buf(j) = dollar
             ENDIF
-            Buf(j+1) = ibuf1(2)
-            IF ( .NOT.dec ) Buf(j+2) = andf(mkc,ibuf1(19))
-            IF ( dec ) Buf(j+2) = khrfn1(ibuf1(19),1,Bkmsk2,1)
-            Buf(j+3) = ibuf1(20)
+            buf(j+1) = ibuf1(2)
+            IF ( .NOT.dec ) buf(j+2) = andf(mkc,ibuf1(19))
+            IF ( dec ) buf(j+2) = khrfn1(ibuf1(19),1,bkmsk2,1)
+            buf(j+3) = ibuf1(20)
          ENDDO
 !
 !
@@ -1252,20 +1233,20 @@ SUBROUTINE xsort
             k = iconlg - 4
             IF ( k>ii ) THEN
                DO j = ii , k , 4
-                  IF ( Buf(j)/=idup ) THEN
+                  IF ( buf(j)/=idup ) THEN
                      index = 0
                      m = j + 4
                      DO jj = m , iconlg , 4
-                        IF ( Buf(jj)/=idup ) THEN
-                           IF ( Buf(j)==Buf(jj) ) THEN
-                              IF ( Buf(j+1)==Buf(jj+1) ) THEN
-                                 Buf(jj) = idup
+                        IF ( buf(jj)/=idup ) THEN
+                           IF ( buf(j)==buf(jj) ) THEN
+                              IF ( buf(j+1)==buf(jj+1) ) THEN
+                                 buf(jj) = idup
                                  index = 1
                               ENDIF
                            ENDIF
                         ENDIF
                      ENDDO
-                     IF ( index==1 ) Buf(j) = idup
+                     IF ( index==1 ) buf(j) = idup
                   ENDIF
                ENDDO
             ENDIF
@@ -1275,23 +1256,23 @@ SUBROUTINE xsort
 !
          IF ( notsor/=0 ) THEN
             CALL page2(2)
-            WRITE (Outtap,99009) Uim
+            WRITE (outtap,99009) uim
 99009       FORMAT (A29,' 207, BULK DATA NOT SORTED, XSORT WILL RE-ORDER ','DECK.')
          ENDIF
-         IF ( Echos/=0 ) THEN
+         IF ( echos/=0 ) THEN
             DO j = 1 , 32
-               Head1(j) = heads(j)
+               head1(j) = heads(j)
             ENDDO
-            Head2(4) = cdcnt(1)
-            Head3(4) = cdcnt(2)
-            Head3(5) = cdcnt(3)
+            head2(4) = cdcnt(1)
+            head3(4) = cdcnt(2)
+            head3(5) = cdcnt(3)
             CALL page
             ccnt = 0
          ENDIF
          CALL close(itape5,1)
          j = ii
-         nbuf4 = 4*Ibufsz + 1
-         CALL open(*760,nptp,Buf(nbuf4),3)
+         nbuf4 = 4*ibufsz + 1
+         CALL open(*760,nptp,buf(nbuf4),3)
          CALL write(nptp,iblkda,2,1)
          IF ( ibuf1(1)==0 ) THEN
             DO
@@ -1300,18 +1281,18 @@ SUBROUTINE xsort
 !
                CALL read(*620,*680,ktape,ibuf2,20,1,iflg)
                IF ( iccnt/=1 ) CALL intext(ibuf2(1))
-               IF ( Mach==2 ) CALL umftrn(ibuf2)
-               IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+               IF ( mach==2 ) CALL umftrn(ibuf2)
+               IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
                CALL write(nptp,ibuf2,20,1)
-               IF ( Echos/=0 ) THEN
+               IF ( echos/=0 ) THEN
                   CALL page2(-1)
                   ccnt = ccnt + 1
                   CALL xprety(ibuf2)
-                  WRITE (Outtap,99023) ccnt , ibuf2
+                  WRITE (outtap,99023) ccnt , ibuf2
                ENDIF
-               IF ( Echop/=0 ) THEN
-                  IF ( Echos==0 ) CALL xprety(ibuf2)
-                  WRITE (Lpch,99024) ibuf2
+               IF ( echop/=0 ) THEN
+                  IF ( echos==0 ) CALL xprety(ibuf2)
+                  WRITE (lpch,99024) ibuf2
                ENDIF
             ENDDO
             GOTO 620
@@ -1328,21 +1309,21 @@ SUBROUTINE xsort
                kparnt(2) = ibuf1(2)
             ENDIF
             CALL intext(ibuf1(1))
-            IF ( Mach==2 ) CALL umftrn(ibuf1)
-            IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
+            IF ( mach==2 ) CALL umftrn(ibuf1)
+            IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
             CALL write(nptp,ibuf1,20,1)
-            IF ( Echos/=0 ) THEN
+            IF ( echos/=0 ) THEN
                CALL page2(-1)
                ccnt = ccnt + 1
                CALL xprety(ibuf1)
-               WRITE (Outtap,99023) ccnt , ibuf1
+               WRITE (outtap,99023) ccnt , ibuf1
             ENDIF
 !
 !      PUNCH OUT DECK
 !
-            IF ( Echop/=0 ) THEN
-               IF ( Echos==0 ) CALL xprety(ibuf1)
-               WRITE (Lpch,99024) ibuf1
+            IF ( echop/=0 ) THEN
+               IF ( echos==0 ) CALL xprety(ibuf1)
+               WRITE (lpch,99024) ibuf1
             ENDIF
 !
 !     SEE IF PREVIOUS CARD HAS A CONTINUATION
@@ -1350,7 +1331,7 @@ SUBROUTINE xsort
 !
             IF ( ibuf1(19)/=bk(4) .OR. ibuf1(20)/=bk(4) ) THEN
                IF ( .NOT.dec ) trial = andf(mkc,ibuf1(19))
-               IF ( dec ) trial = khrfn1(ibuf1(19),1,Bkmsk2,1)
+               IF ( dec ) trial = khrfn1(ibuf1(19),1,bkmsk2,1)
                jn = 0
                SPAG_Loop_2_11: DO
 !
@@ -1358,34 +1339,34 @@ SUBROUTINE xsort
 !
 !     IGNORE DUPLICATE CONTINUATION CARDS
 !
-                     IF ( Buf(j)/=idup ) THEN
-                        IF ( ibuf1(20)==Buf(j+1) ) THEN
-                           IF ( .NOT.dec ) itst = andf(mkc,Buf(j))
-                           IF ( dec ) itst = khrfn1(Buf(j),1,Bkmsk2,1)
+                     IF ( buf(j)/=idup ) THEN
+                        IF ( ibuf1(20)==buf(j+1) ) THEN
+                           IF ( .NOT.dec ) itst = andf(mkc,buf(j))
+                           IF ( dec ) itst = khrfn1(buf(j),1,bkmsk2,1)
                            IF ( itst==trial ) THEN
 !
 !     A CONTINUATION EXISTS, HAS IT ALREADY BEEN USED
 !
-                              IF ( .NOT.dec ) itst = andf(mk(3),Buf(j))
-                              IF ( dec ) itst = khrfn1(Bkmsk2,1,Buf(j),1)
-                              IF ( itst==Dollar ) EXIT SPAG_Loop_1_9
+                              IF ( .NOT.dec ) itst = andf(mk(3),buf(j))
+                              IF ( dec ) itst = khrfn1(bkmsk2,1,buf(j),1)
+                              IF ( itst==dollar ) EXIT SPAG_Loop_1_9
                               IF ( j<=iccbrk ) CALL crdflg(kparnt)
-                              IF ( .NOT.dec ) Buf(j) = orf(Buf(j),Dollar)
-                              IF ( dec ) Buf(j) = khrfn1(Buf(j),1,Dollar,1)
+                              IF ( .NOT.dec ) buf(j) = orf(buf(j),dollar)
+                              IF ( dec ) buf(j) = khrfn1(buf(j),1,dollar,1)
                               jn = (j-ii)/4 + 1
                               CALL xrecps(jn,jo)
                               CALL read(*700,*680,itape4,ibuf1,20,1,iflg)
-                              IF ( Mach==2 ) CALL umftrn(ibuf1)
-                              IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
+                              IF ( mach==2 ) CALL umftrn(ibuf1)
+                              IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf1)
                               CALL write(nptp,ibuf1,20,1)
-                              IF ( Echos/=0 ) THEN
+                              IF ( echos/=0 ) THEN
                                  CALL page2(-1)
                                  ccnt = ccnt + 1
-                                 WRITE (Outtap,99023) ccnt , ibuf1
+                                 WRITE (outtap,99023) ccnt , ibuf1
                               ENDIF
-                              IF ( Echop/=0 ) WRITE (Lpch,99024) ibuf1
+                              IF ( echop/=0 ) WRITE (lpch,99024) ibuf1
                               IF ( .NOT.dec ) trial = andf(mkc,ibuf1(19))
-                              IF ( dec ) trial = khrfn1(ibuf1(19),1,Bkmsk2,1)
+                              IF ( dec ) trial = khrfn1(ibuf1(19),1,bkmsk2,1)
                               IF ( ibuf1(19)==bk(4) .AND. ibuf1(20)==bk(4) ) EXIT SPAG_Loop_3_10
                               CYCLE SPAG_Loop_2_11
                            ENDIF
@@ -1402,15 +1383,15 @@ SUBROUTINE xsort
 !     DUPLICATE PARENT - ERROR
 !
          nl = 0
-         IF ( Echos==0 ) THEN
+         IF ( echos==0 ) THEN
             nl = 1
-            WRITE (Outtap,99022) ibuf1
+            WRITE (outtap,99022) ibuf1
          ENDIF
          nl = nl + 2
          CALL page2(-nl)
-         WRITE (Outtap,99010) Ufm
+         WRITE (outtap,99010) ufm
 99010    FORMAT (A23,' 208, PREVIOUS CARD IS A DUPLICATE PARENT.')
-         Nogo = -1
+         nogo = -1
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
 !
@@ -1419,13 +1400,13 @@ SUBROUTINE xsort
  620     CALL close(ktape,2)
          CALL eof(nptp)
          CALL close(nptp,1)
-         IF ( Echos/=0 ) THEN
+         IF ( echos/=0 ) THEN
             CALL page2(-1)
-            WRITE (Outtap,99022) iiend
+            WRITE (outtap,99022) iiend
          ENDIF
          IF ( ibuf1(1)/=0 ) THEN
             CALL page2(2)
-            WRITE (Outtap,99025)
+            WRITE (outtap,99025)
 !
 !     IDENTIFY DUPLICATE OR PARENTLESS CONTINUATION CARDS
 !
@@ -1435,19 +1416,19 @@ SUBROUTINE xsort
                SPAG_DispatchLoop_4: DO
                   SELECT CASE (spag_nextblock_4)
                   CASE (1)
-                     IF ( .NOT.dec ) itst = andf(mk(3),Buf(j))
-                     IF ( dec ) itst = khrfn1(Bkmsk2,1,Buf(j),1)
-                     IF ( itst/=Dollar ) THEN
+                     IF ( .NOT.dec ) itst = andf(mk(3),buf(j))
+                     IF ( dec ) itst = khrfn1(bkmsk2,1,buf(j),1)
+                     IF ( itst/=dollar ) THEN
 !
 !     CHECK FOR DUPLICATE CONTINUATION CARDS
 !
-                        IF ( Buf(j)/=idup ) THEN
+                        IF ( buf(j)/=idup ) THEN
 !
 !     CHECK FOR PARENTLESS CONTINUATION CARDS
 !
                            DO jj = ii , iconlg , 4
                               IF ( j/=jj ) THEN
-                                 IF ( Buf(j)==Buf(jj+2) .AND. Buf(j+1)==Buf(jj+3) ) THEN
+                                 IF ( buf(j)==buf(jj+2) .AND. buf(j+1)==buf(jj+3) ) THEN
                                     spag_nextblock_4 = 2
                                     CYCLE SPAG_DispatchLoop_4
                                  ENDIF
@@ -1458,43 +1439,42 @@ SUBROUTINE xsort
                         jn = (j-ii)/4 + 1
                         CALL xrecps(jn,jo)
                         CALL read(*700,*680,itape4,ibuf2,20,1,iflg)
-                        IF ( Mach==2 ) CALL umftrn(ibuf2)
-                        IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+                        IF ( mach==2 ) CALL umftrn(ibuf2)
+                        IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
                         CALL page2(-1)
-                        WRITE (Outtap,99022) ibuf2
+                        WRITE (outtap,99022) ibuf2
                      ENDIF
-                     CYCLE
                   CASE (2)
-                     Buf(j) = iok
+                     buf(j) = iok
                      EXIT SPAG_DispatchLoop_4
                   END SELECT
                ENDDO SPAG_DispatchLoop_4
             ENDDO
             IF ( ncnt/=0 ) THEN
                CALL page2(3)
-               WRITE (Outtap,99011) Ufm , ncnt
+               WRITE (outtap,99011) ufm , ncnt
 99011          FORMAT (A23,' 209, PREVIOUS',I7,' CONTINUATION MNEMONICS HAVE NO',' PARENTS AND/OR ARE DUPLICATES.',/)
-               Nogo = -1
+               nogo = -1
 !
 !     IDENTIFY THOSE CONTINUATION CARDS THAT ARE VALID, BUT YET CANNOT
 !     BE PROCESSED BECAUSE OF ERRORS ON OTHER RELATED CONTINUATION CARDS
 !
                ncnt = 0
                DO j = ii , iconlg , 4
-                  IF ( Buf(j)==iok ) THEN
+                  IF ( buf(j)==iok ) THEN
                      ncnt = ncnt + 1
                      jn = (j-ii)/4 + 1
                      CALL xrecps(jn,jo)
                      CALL read(*700,*680,itape4,ibuf2,20,1,iflg)
-                     IF ( Mach==2 ) CALL umftrn(ibuf2)
-                     IF ( Mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
+                     IF ( mach==2 ) CALL umftrn(ibuf2)
+                     IF ( mach==3 .AND. kin==1 ) CALL umffd(ibuf2)
                      CALL page2(-1)
-                     WRITE (Outtap,99022) ibuf2
+                     WRITE (outtap,99022) ibuf2
                   ENDIF
                ENDDO
                IF ( ncnt/=0 ) THEN
                   CALL page2(4)
-                  WRITE (Outtap,99012) Ufm , ncnt
+                  WRITE (outtap,99012) ufm , ncnt
 99012             FORMAT (A23,' 206, PREVIOUS',I7,' CONTINUATION CARDS, THOUGH ','VALID, CANNOT BE PROCESSED',/5X,                  &
                          &'BECAUSE OF ERRORS ON OTHER RELATED CONTINUATION CARDS.',/)
                ENDIF
@@ -1509,14 +1489,14 @@ SUBROUTINE xsort
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL open(*760,nptp,Buf(1),0)
+         CALL open(*760,nptp,buf(1),0)
          DO
             CALL skpfil(nptp,+1)
             CALL read(*640,*640,nptp,ibuf1(1),2,1,j)
             IF ( ibuf1(1)==iblkda(1) .AND. ibuf1(2)==iblkda(2) ) THEN
                DO
                   CALL read(*640,*640,nptp,ibuf1(1),20,1,j)
-                  WRITE (Outtap,99013) (ibuf1(j),j=1,10) , (ibuf1(j),j=17,20)
+                  WRITE (outtap,99013) (ibuf1(j),j=1,10) , (ibuf1(j),j=17,20)
 99013             FORMAT (' ==NPTP==>',5(1X,2A4),'...',2(1X,2A4))
                ENDDO
             ENDIF
@@ -1527,41 +1507,40 @@ SUBROUTINE xsort
 !
 !     DISABLE FREE-FIELD INPUT OPTION IN XREAD.
 !
-         Ffflag = 0
+         ffflag = 0
          RETURN
 !
 !     ERROR MESSAGES
 !
- 660     WRITE (Outtap,99014) Sfm
+ 660     WRITE (outtap,99014) sfm
 99014    FORMAT (A25,' 210, SCRATCH COULD NOT BE OPENED')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 680     WRITE (Outtap,99015) Sfm
+ 680     WRITE (outtap,99015) sfm
 99015    FORMAT (A25,' 211, ILLEGAL EOR ON SCRATCH')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 700     WRITE (Outtap,99016) Sfm
+ 700     WRITE (outtap,99016) sfm
 99016    FORMAT (A25,' 212, ILLEGAL EOF ON ITAPE4')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 720     WRITE (Outtap,99017) Sfm
+ 720     WRITE (outtap,99017) sfm
 99017    FORMAT (A25,' 213, ILLEGAL EOF ON OPTP')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 740     WRITE (Outtap,99018) Sfm
+ 740     WRITE (outtap,99018) sfm
 99018    FORMAT (A25,' 214, OPTP COULD NOT BE OPENED')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 760     WRITE (Outtap,99019) Sfm
+ 760     WRITE (outtap,99019) sfm
 99019    FORMAT (A25,' 215, NPTP COULD NOT BE OPENED')
          spag_nextblock_1 = 22
-         CYCLE SPAG_DispatchLoop_1
       CASE (21)
-         WRITE (Outtap,99020) Sfm
+         WRITE (outtap,99020) sfm
 99020    FORMAT (A25,' 216, ILLEGAL INDEX')
          spag_nextblock_1 = 22
          CYCLE SPAG_DispatchLoop_1
- 780     WRITE (Outtap,99021) Sfm
+ 780     WRITE (outtap,99021) sfm
 99021    FORMAT (A25,' 219, MISSING ENDDATA CARD.')
          spag_nextblock_1 = 22
       CASE (22)

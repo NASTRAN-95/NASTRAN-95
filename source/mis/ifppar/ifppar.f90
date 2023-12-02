@@ -1,12 +1,13 @@
-!*==ifppar.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifppar.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifppar
+   USE c_ifpdta
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFPDTA
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -38,19 +39,19 @@ SUBROUTINE ifppar
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         app = iabs(Iapp)
+         app = iabs(iapp)
 !
 !     NO PARAMS REQD FOR HEAT APPROACH,
 !     DMAPS DISP 1 THRU 9, DISP 13, AND DISP 16 THRU 19, AND
 !     AERO RF 9
 !
          IF ( app==1 .OR. app==3 ) RETURN
-         IF ( app==2 .AND. (Rf<=9 .OR. Rf==13 .OR. Rf>=16) ) RETURN
-         IF ( app==4 .AND. Rf==9 ) RETURN
+         IF ( app==2 .AND. (rf<=9 .OR. rf==13 .OR. rf>=16) ) RETURN
+         IF ( app==4 .AND. rf==9 ) RETURN
 !
 !     FATAL ERROR IF NO PARAMS ENTERED AS REQUIRED
 !
-         IF ( Nparam==0 ) THEN
+         IF ( nparam==0 ) THEN
 !
 !     SET UP ERROR MESSAGE
 !
@@ -65,35 +66,35 @@ SUBROUTINE ifppar
             ipm = 1
          ENDIF
          SPAG_Loop_1_1: DO
-            ipn = 2*N1 + ipm
+            ipn = 2*n1 + ipm
 !
-            IF ( Rf>=14 ) THEN
+            IF ( rf>=14 ) THEN
 !
-               IF ( Ibuff(ipn)==ctyp .AND. Ibuff(ipn+2)/=0 ) ctype = .TRUE.
-               IF ( Ibuff(ipn)==nseg .AND. Ibuff(ipn+2)/=0 ) nsegs = .TRUE.
-               IF ( Ibuff(ipn)==kind .AND. Ibuff(ipn+2)/=0 ) kindx = .TRUE.
+               IF ( ibuff(ipn)==ctyp .AND. ibuff(ipn+2)/=0 ) ctype = .TRUE.
+               IF ( ibuff(ipn)==nseg .AND. ibuff(ipn+2)/=0 ) nsegs = .TRUE.
+               IF ( ibuff(ipn)==kind .AND. ibuff(ipn+2)/=0 ) kindx = .TRUE.
             ELSE
-               IF ( Ibuff(ipn)==hfre ) hfreq = .TRUE.
-               IF ( Ibuff(ipn)==lfre ) lfreq = .TRUE.
-               IF ( Ibuff(ipn)==lmod .AND. Ibuff(ipn+2)/=0 ) lmode = .TRUE.
+               IF ( ibuff(ipn)==hfre ) hfreq = .TRUE.
+               IF ( ibuff(ipn)==lfre ) lfreq = .TRUE.
+               IF ( ibuff(ipn)==lmod .AND. ibuff(ipn+2)/=0 ) lmode = .TRUE.
 !
                IF ( app==4 ) THEN
-                  IF ( Ibuff(ipn)==nodj .AND. Ibuff(ipn+2)/=0 ) nodje = .TRUE.
-                  IF ( Ibuff(ipn)==ip1 ) p1 = .TRUE.
-                  IF ( Ibuff(ipn)==ip2 ) p2 = .TRUE.
-                  IF ( Ibuff(ipn)==ip3 ) p3 = .TRUE.
-                  IF ( Ibuff(ipn)==que .AND. Ibuff(ipn+2)/=0 ) queue = .TRUE.
+                  IF ( ibuff(ipn)==nodj .AND. ibuff(ipn+2)/=0 ) nodje = .TRUE.
+                  IF ( ibuff(ipn)==ip1 ) p1 = .TRUE.
+                  IF ( ibuff(ipn)==ip2 ) p2 = .TRUE.
+                  IF ( ibuff(ipn)==ip3 ) p3 = .TRUE.
+                  IF ( ibuff(ipn)==que .AND. ibuff(ipn+2)/=0 ) queue = .TRUE.
                ENDIF
             ENDIF
 !
             ipm = ipm + 4
-            IF ( Ibuff(ipn+2)>=3 .AND. Ibuff(ipn+2)<=5 ) ipm = ipm + 1
-            IF ( Ibuff(ipn+2)>=6 ) ipm = ipm + 3
-            IF ( ipm>=Nparam ) THEN
+            IF ( ibuff(ipn+2)>=3 .AND. ibuff(ipn+2)<=5 ) ipm = ipm + 1
+            IF ( ibuff(ipn+2)>=6 ) ipm = ipm + 3
+            IF ( ipm>=nparam ) THEN
 !
 !     TEST TO VERIFY THAT ALL REQUIRED PARAMS ARE PRESENT
 !
-               IF ( Rf==14 .OR. Rf==15 ) THEN
+               IF ( rf==14 .OR. rf==15 ) THEN
 !
 !     TEST FOR CTYPE, NSEGS, OR KINDEX REQD BY DISP RF 14 AND 15.
 !
@@ -105,7 +106,6 @@ SUBROUTINE ifppar
                   ASSIGN 120 TO ierr
                   msgno = 345
                   spag_nextblock_1 = 5
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   IF ( lmode .AND. .NOT.(hfreq .OR. lfreq) ) EXIT SPAG_Loop_1_1
                   IF ( hfreq .AND. lfreq .AND. .NOT.lmode ) EXIT SPAG_Loop_1_1
@@ -116,7 +116,6 @@ SUBROUTINE ifppar
                      ASSIGN 40 TO ierr
                      msgno = 341
                      spag_nextblock_1 = 5
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
 !
 !     IS LMODES PRESENT WITH HFREQ AND/OR LFREQ
@@ -125,9 +124,9 @@ SUBROUTINE ifppar
                      ASSIGN 60 TO ierr
                      msgno = 342
                      spag_nextblock_1 = 6
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 2
@@ -156,14 +155,13 @@ SUBROUTINE ifppar
 !
 !     TEST FOR Q REQUIRED BY AERO RF 11
 !
-         IF ( Rf==10 ) RETURN
+         IF ( rf==10 ) RETURN
          IF ( queue ) RETURN
          ASSIGN 160 TO ierr
          msgno = 347
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         IF ( Rf==14 ) RETURN
+         IF ( rf==14 ) RETURN
 !
          IF ( kindx ) RETURN
          ASSIGN 140 TO ierr
@@ -172,53 +170,52 @@ SUBROUTINE ifppar
       CASE (5)
 !
          CALL page2(3)
-         WRITE (Nout,99001) Ufm , msgno
+         WRITE (nout,99001) ufm , msgno
 99001    FORMAT (A23,I4)
-         Abort = .TRUE.
+         abort = .TRUE.
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          CALL page2(3)
-         WRITE (Nout,99002) Uwm , msgno
+         WRITE (nout,99002) uwm , msgno
 99002    FORMAT (A25,I4)
          spag_nextblock_1 = 7
       CASE (7)
          GOTO ierr
 !
- 20      WRITE (Nout,99003) appr(app) , Rf
+ 20      WRITE (nout,99003) appr(app) , rf
 99003    FORMAT (' PARAM CARDS REQUIRED BY ',A4,' RIGID FORMAT',I3,' NOT FOUND IN BULK DATA.')
          RETURN
 !
- 40      WRITE (Nout,99004) appr(app) , Rf
+ 40      WRITE (nout,99004) appr(app) , rf
 99004    FORMAT (' LMODES OR HFREQ/LFREQ PARAM REQUIRED BY ',A4,' RIGID FORMAT',I3,' NOT IN BULK DATA OR TURNED OFF.')
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
- 60      WRITE (Nout,99005)
+ 60      WRITE (nout,99005)
 99005    FORMAT (' LMODES PARAM FOUND IN BULK DATA WITH HFREQ OR LFREQ.','  LMODES TAKES PRECEDENCE.')
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
- 80      WRITE (Nout,99006) Rf
+ 80      WRITE (nout,99006) rf
 99006    FORMAT (' NODJE PARAM SPECIFIED FOR AERO RIGID FORMAT',I3,' BUT P1, P2, OR P3 OMITTED.')
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 100     WRITE (Nout,99007)
+ 100     WRITE (nout,99007)
 99007    FORMAT (' P1, P2, OR P3 PARAM FOUND IN BULK DATA BUT NODJE ','MISSING OR TURNED OFF.')
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 120     WRITE (Nout,99008) Rf
+ 120     WRITE (nout,99008) rf
 99008    FORMAT (' CTYPE OR NSEGS PARAM REQUIRED BY DISPLACEMENT RIGID ','FORMAT',I3,' MISSING OR INCORRECT.')
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
- 140     WRITE (Nout,99009)
+ 140     WRITE (nout,99009)
 99009    FORMAT (' KINDEX PARAM REQUIRED BY DISPLACEMENT RIGID FORMAT 15',' MISSING OR TURNED OFF.')
          RETURN
 !
- 160     WRITE (Nout,99010)
+ 160     WRITE (nout,99010)
 99010    FORMAT (' DYNAMIC PRESSURE (Q) PARAM REQUIRED BY AERO RIGID FORM','AT 11 NOT IN BULK DATA.')
          EXIT SPAG_DispatchLoop_1
       END SELECT

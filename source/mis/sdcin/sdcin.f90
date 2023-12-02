@@ -1,11 +1,12 @@
-!*==sdcin.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdcin.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcin(Block,Ac,N,Vecs,Vecd)
-USE C_SYSTEM
-USE C_TYPE
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE c_type
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,8 +46,8 @@ USE ISO_FORTRAN_ENV
 !     PERFORM GENERAL INITIALIZATION
 !
          type = Block(2)
-         prec = Prc(type)
-         rc = Rlcmpx(type)
+         prec = prc(type)
+         rc = rlcmpx(type)
          i = 1
          spag_nextblock_1 = 2
       CASE (2)
@@ -68,7 +69,6 @@ USE ISO_FORTRAN_ENV
             kerr = 1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          i = j + Block(6)
          nn = Block(4) + Block(6) - 1
@@ -85,7 +85,7 @@ USE ISO_FORTRAN_ENV
 !
                DO jj = jstr , nstr
                   ii = ii + 1
-                  Vecd(ii) = Vecd(ii) + Xnd(jj)
+                  Vecd(ii) = Vecd(ii) + xnd(jj)
                ENDDO
             ELSE
 !
@@ -104,7 +104,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
-         WRITE (Nout,99001) kerr
+         WRITE (nout,99001) kerr
 99001    FORMAT (22H0*** SDCIN FATAL ERROR,I2)
          CALL mesage(-61,0,0)
          EXIT SPAG_DispatchLoop_1

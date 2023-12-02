@@ -1,19 +1,20 @@
-!*==xpunp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xpunp.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xpunp
 !
 !     THIS SUBROUTINE POOLS AND UNPOOLS FILES AS PRESCRIBED BY XFIAT
 !
+   USE c_system
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xpfist
+   USE c_xsfa1
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
-   USE C_XPFIST
-   USE C_XSFA1
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,16 +53,16 @@ SUBROUTINE xpunp
          isw1 = 0
          isw2 = 0
          entn1x = entn1 - 1
-         Fist(2) = 1 + Pfist
+         fist(2) = 1 + pfist
 !
 !     COMPUTE INDEX FOR DUMMY ENTRY IN FIST
 !
-         fstidx = Fist(2)*2 + 1
+         fstidx = fist(2)*2 + 1
          lmt3 = fculg*entn1
 !
 !     CHECK FOR ANY FILES TO POOL
 !
-         Fist(fstidx) = 101
+         fist(fstidx) = 101
          SPAG_Loop_1_1: DO i = 1 , lmt3 , entn1
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
@@ -81,14 +82,14 @@ SUBROUTINE xpunp
                   IF ( fn==0 ) THEN
                      IF ( isw1==0 ) THEN
                         isw1 = 1
-                        CALL open(*20,pool,Buf1,2)
+                        CALL open(*20,pool,buf1,2)
                         CALL xfilps(dnaf)
                         CALL close(pool,2)
-                        CALL open(*20,pool,Buf1,3)
+                        CALL open(*20,pool,buf1,3)
                         fnx = dnaf
                      ENDIF
-                     Fist(fstidx+1) = i + entn5
-                     CALL open(*20,101,Buf1(Ibufsz+1),0)
+                     fist(fstidx+1) = i + entn5
+                     CALL open(*20,101,buf1(ibufsz+1),0)
                      ncnt = 0
 !
 !     WRITE SPECIAL FILE HEADER RECORD -- XPOOL DICT NAME    ( 2 WORDS )
@@ -127,7 +128,7 @@ SUBROUTINE xpunp
                      CALL sswtch(3,l)
                      IF ( l==1 ) THEN
                         CALL page2(-2)
-                        WRITE (Outtap,99001) ddbn(j) , ddbn(j+1) , head(1) , head(2)
+                        WRITE (outtap,99001) ddbn(j) , ddbn(j+1) , head(1) , head(2)
 99001                   FORMAT (16H0POOL FILE NAME ,2A4,17H DATA BLOCK NAME ,2A4)
                      ENDIF
                      dnaf = dnaf + 1
@@ -179,7 +180,7 @@ SUBROUTINE xpunp
                               file(kk) = 0
                            ENDDO
  2                         nn = nn - 1
-                           IF ( nn==1 ) CYCLE SPAG_Loop_1_1
+                           IF ( nn==1 ) EXIT SPAG_DispatchLoop_2
                         ENDIF
                      ENDDO
                      spag_nextblock_1 = 3
@@ -196,7 +197,7 @@ SUBROUTINE xpunp
 !
 !     CHECK FOR ANY FILES TO UNPOOL
 !
-         Fist(fstidx) = 201
+         fist(fstidx) = 201
          DO
             fn = dnaf
             DO i = 1 , lmt3 , entn1
@@ -215,13 +216,13 @@ SUBROUTINE xpunp
                fpun(ii) = 0
                IF ( isw2==0 ) THEN
                   isw2 = 1
-                  CALL open(*20,pool,Buf1,0)
+                  CALL open(*20,pool,buf1,0)
                   fnx = 1
                ENDIF
                CALL xfilps(fn)
                fnx = fn
-               Fist(fstidx+1) = ii + entn5
-               CALL open(*20,201,Buf1(Ibufsz+1),1)
+               fist(fstidx+1) = ii + entn5
+               CALL open(*20,201,buf1(ibufsz+1),1)
 !
 !     READ SPECIAL FILE HEADER RECORD AND, IF DIAG 3 IS ON, PRINT MSG
 !
@@ -229,7 +230,7 @@ SUBROUTINE xpunp
                CALL sswtch(3,l)
                IF ( l==1 ) THEN
                   CALL page2(-2)
-                  WRITE (Outtap,99002) fdbn(ii) , fdbn(ii+1) , header(1) , header(2)
+                  WRITE (outtap,99002) fdbn(ii) , fdbn(ii+1) , header(1) , header(2)
 99002             FORMAT (17H0XUNPL-DICT NAME ,2A4,16H POOL FILE NAME ,2A4)
                ENDIF
 !
@@ -275,29 +276,28 @@ SUBROUTINE xpunp
       CASE (2)
 !
 !
-         WRITE (Outtap,99003)
+         WRITE (outtap,99003)
 99003    FORMAT (1H0,23X,19H 1031, DPL OVERFLOW)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 20      WRITE (Outtap,99004)
+ 20      WRITE (outtap,99004)
 99004    FORMAT (1H0,23X,62H 1032, POOL OR FILE BEING POOLED/UN-POOLED COULD NOT BE OPENED)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 40      WRITE (Outtap,99005)
+ 40      WRITE (outtap,99005)
 99005    FORMAT (1H0,23X,39H 1033, ILLEGAL EOF ON FILE BEING POOLED)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 60      WRITE (Outtap,99006)
+ 60      WRITE (outtap,99006)
 99006    FORMAT (1H0,23X,39H 1034, ILLEGAL EOR ON FILE BEING POOLED)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         WRITE (Outtap,99007)
+         WRITE (outtap,99007)
 99007    FORMAT (1H0,23X,33H 1035, EQUIV INDICATED,NONE FOUND)
          spag_nextblock_1 = 4
       CASE (4)
          CALL page2(-4)
-         WRITE (Outtap,99008) Sfm
+         WRITE (outtap,99008) sfm
 99008    FORMAT (A25,1H.)
          CALL mesage(-37,0,npunp)
          EXIT SPAG_DispatchLoop_1

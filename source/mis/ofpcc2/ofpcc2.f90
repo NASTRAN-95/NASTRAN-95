@@ -1,4 +1,5 @@
-!*==ofpcc2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ofpcc2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ofpcc2(Ix,L1,L2,L3,L4,L5,Ipoint)
@@ -17,6 +18,15 @@ SUBROUTINE ofpcc2(Ix,L1,L2,L3,L4,L5,Ipoint)
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , DIMENSION(48) , SAVE :: idata
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

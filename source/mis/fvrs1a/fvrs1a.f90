@@ -1,9 +1,10 @@
-!*==fvrs1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fvrs1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fvrs1a(Base,Base1,Z,W,Buf,Index,Modfrl,Basexg,Nrow,Nf,Nfx,Fkmax,Omega)
+   USE c_packx
    IMPLICIT NONE
-   USE C_PACKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,11 +66,11 @@ SUBROUTINE fvrs1a(Base,Base1,Z,W,Buf,Index,Modfrl,Basexg,Nrow,Nf,Nfx,Fkmax,Omega
    mcb(7) = 0
 !-------------------------------
 !     DEFINE PACKING CONSTANTS
-   In = 3
-   Iout = 3
-   Ns = 1
-   Nl = Nrow
-   Incr = 1
+   in = 3
+   iout = 3
+   ns = 1
+   nl = Nrow
+   incr = 1
 !-----------------------------------------------------------------------
 !     GENERATE AND PACK 1ST NF COLUMNS OF BASEXG
 !     BASEXG-1
@@ -118,8 +119,8 @@ SUBROUTINE fvrs1a(Base,Base1,Z,W,Buf,Index,Modfrl,Basexg,Nrow,Nf,Nfx,Fkmax,Omega
 !-----------------------------------------------------------------------
 !     GENERATE 4TH THRU FKMAX NF COLUMN GROUPS-(NULL)INTO BASEXG
          IF ( Fkmax>=4 ) THEN
-            Ns = 1
-            Nl = 1
+            ns = 1
+            nl = 1
             Z(1) = (0.0,0.0)
             DO i = 4 , Fkmax
                DO k = 1 , Nfx

@@ -1,16 +1,17 @@
-!*==strqd2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strqd2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strqd2(Npts,Ti)
+   USE c_blank
+   USE c_sdr2de
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SDR2DE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -108,12 +109,12 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !  . ZERO FORVEC AND PRECISION CHECK STORAGE...
 !
-         DO I = 1 , 6
-            Forvec(I) = 0.0E0
-            Cfrvec(I) = 0.0E0
-            Cfrvec(I+6) = 0.0E0
+         DO i = 1 , 6
+            forvec(i) = 0.0E0
+            cfrvec(i) = 0.0E0
+            cfrvec(i+6) = 0.0E0
          ENDDO
-         Forvec(1) = Ph1out(1)
+         forvec(1) = ph1out(1)
 !
 !     ZERO OUT LOCAL STRESSES
 !
@@ -128,88 +129,86 @@ SUBROUTINE strqd2(Npts,Ti)
             z1 = 0.0E0
             z2 = 0.0E0
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     FORM SUMMATION
 !
-            DO I = 1 , Npts
+            DO i = 1 , Npts
 !
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
 !
-               Npoint = Ivec + nsil(I) - 1
+               npoint = ivec + nsil(i) - 1
 !
-               CALL smmats(si(30*I-29),5,6,0,Z(Npoint),6,1,0,Vec(1),Cvec(1))
-               DO J = 2 , 6
-                  Cfrvec(J) = Cfrvec(J) + Cvec(J-1)
-                  Forvec(J) = Forvec(J) + Vec(J-1)
+               CALL smmats(si(30*i-29),5,6,0,z(npoint),6,1,0,vec(1),cvec(1))
+               DO j = 2 , 6
+                  cfrvec(j) = cfrvec(j) + cvec(j-1)
+                  forvec(j) = forvec(j) + vec(j-1)
                ENDDO
 !
             ENDDO
-            IF ( Strain ) THEN
+            IF ( strain ) THEN
 !
 !     SPECIAL CALCULATIONS FOR STRAINS.
 !
-               sigx2 = Forvec(2)
-               sigy2 = Forvec(3)
-               sigxy2 = Forvec(4)
+               sigx2 = forvec(2)
+               sigy2 = forvec(3)
+               sigxy2 = forvec(4)
                spag_nextblock_1 = 2
-               CYCLE SPAG_DispatchLoop_1
             ELSE
-               IF ( Tloads/=0 ) THEN
+               IF ( tloads/=0 ) THEN
                   jst = 30*Npts + 8
                   flag = .FALSE.
                   f1 = Ti(6)
                   IF ( n1==1 ) THEN
-                     Forvec(2) = Forvec(2) + Ti(2)*Ph1out(jst+1)
-                     Forvec(3) = Forvec(3) + Ti(2)*Ph1out(jst+2)
-                     Forvec(4) = Forvec(4) + Ti(2)*Ph1out(jst+3)
+                     forvec(2) = forvec(2) + Ti(2)*ph1out(jst+1)
+                     forvec(3) = forvec(3) + Ti(2)*ph1out(jst+2)
+                     forvec(4) = forvec(4) + Ti(2)*ph1out(jst+3)
                      IF ( Ti(3)==0.0 .AND. Ti(4)==0.0 ) flag = .TRUE.
                   ELSE
-                     Forvec(2) = Forvec(2) - Ti(2)
-                     Forvec(3) = Forvec(3) - Ti(3)
-                     Forvec(4) = Forvec(4) - Ti(4)
+                     forvec(2) = forvec(2) - Ti(2)
+                     forvec(3) = forvec(3) - Ti(3)
+                     forvec(4) = forvec(4) - Ti(4)
                      IF ( Ti(5)==0.0 .AND. Ti(6)==0.0 ) flag = .TRUE.
                   ENDIF
                ENDIF
 !
 !     FORCE VECTOR IS NOW COMPLETE
 !
-               z1 = Ph1out(7)
-               z2 = Ph1out(8)
+               z1 = ph1out(7)
+               z2 = ph1out(8)
 !
-               Z1ovri = -Ph1out(7)/Ph1out(6)
-               Z2ovri = -Ph1out(8)/Ph1out(6)
-               z1i = abs(Z1ovri)
-               z2i = abs(Z2ovri)
+               z1ovri = -ph1out(7)/ph1out(6)
+               z2ovri = -ph1out(8)/ph1out(6)
+               z1i = abs(z1ovri)
+               z2i = abs(z2ovri)
 !
                k1 = 0
                ASSIGN 20 TO iretrn
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
+         CYCLE
 !
- 20      sigx1 = Forvec(2)*Z1ovri - sdelta(1)
-         sigy1 = Forvec(3)*Z1ovri - sdelta(2)
-         sigxy1 = Forvec(4)*Z1ovri - sdelta(3)
-         Cfrvec(7) = Cfrvec(2)*z1i
-         Cfrvec(8) = Cfrvec(3)*z1i
-         Cfrvec(9) = Cfrvec(4)*z1i
+ 20      sigx1 = forvec(2)*z1ovri - sdelta(1)
+         sigy1 = forvec(3)*z1ovri - sdelta(2)
+         sigxy1 = forvec(4)*z1ovri - sdelta(3)
+         cfrvec(7) = cfrvec(2)*z1i
+         cfrvec(8) = cfrvec(3)*z1i
+         cfrvec(9) = cfrvec(4)*z1i
 !
          k1 = 1
          ASSIGN 40 TO iretrn
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 40      sigx2 = Forvec(2)*Z2ovri - sdelta(1)
-         sigy2 = Forvec(3)*Z2ovri - sdelta(2)
-         sigxy2 = Forvec(4)*Z2ovri - sdelta(3)
-         Cfrvec(10) = Cfrvec(2)*z2i
-         Cfrvec(11) = Cfrvec(3)*z2i
+ 40      sigx2 = forvec(2)*z2ovri - sdelta(1)
+         sigy2 = forvec(3)*z2ovri - sdelta(2)
+         sigxy2 = forvec(4)*z2ovri - sdelta(3)
+         cfrvec(10) = cfrvec(2)*z2i
+         cfrvec(11) = cfrvec(3)*z2i
 !     *******************************
 !
-         Cfrvec(12) = Cfrvec(4)*z2i
+         cfrvec(12) = cfrvec(4)*z2i
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -218,9 +217,9 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !     ZERO STRESS VECTOR STORAGE
 !
-            Stress(1) = 0.0E0
-            Stress(2) = 0.0E0
-            Stress(3) = 0.0E0
+            stress(1) = 0.0E0
+            stress(2) = 0.0E0
+            stress(3) = 0.0E0
             sstrss(1) = 0.0E0
             sstrss(2) = 0.0E0
             sstrss(3) = 0.0E0
@@ -229,55 +228,55 @@ SUBROUTINE strqd2(Npts,Ti)
 !        STRESS VECTOR = (  SUMMATION(S )(U )  ) - (S )(LDTEMP - T )
 !                            I=1       I   I         T            0
 !
-            DO I = 1 , Npts
+            DO i = 1 , Npts
 !
 !     POINTER TO I-TH SIL IN PH1OUT
-               Npoint = 30*Npts + 12 + I
+               npoint = 30*Npts + 12 + i
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
-               Npoint = Ivec + nph1ou(Npoint) - 1
+               npoint = ivec + nph1ou(npoint) - 1
 !
 !     POINTER TO S SUB I 3X3
-               Npt1 = 30*Npts + 12 + 9*I
+               npt1 = 30*Npts + 12 + 9*i
 !
-               CALL smmats(Ph1out(Npt1),3,3,0,Z(Npoint),3,1,0,Vec(1),Cvec(1))
-               DO J = 1 , 3
-                  sstrss(J) = sstrss(J) + Cvec(J)
-                  Stress(J) = Stress(J) + Vec(J)
+               CALL smmats(ph1out(npt1),3,3,0,z(npoint),3,1,0,vec(1),cvec(1))
+               DO j = 1 , 3
+                  sstrss(j) = sstrss(j) + cvec(j)
+                  stress(j) = stress(j) + vec(j)
                ENDDO
 !
             ENDDO
 !
-            IF ( Strain ) THEN
+            IF ( strain ) THEN
 !
-               sigx1 = Stress(1)
-               sigy1 = Stress(2)
-               sigxy1 = Stress(3)
+               sigx1 = stress(1)
+               sigy1 = stress(2)
+               sigxy1 = stress(3)
             ELSE
-               IF ( Ldtemp/=(-1) ) THEN
+               IF ( ldtemp/=(-1) ) THEN
 !
 !     POINTER TO T SUB 0 = 30*NPTS + 17
 !
-                  Tem = ftemp - Ph1out(30*Npts+17)
-                  DO I = 1 , 3
-                     Npoint = 30*Npts + 17 + I
-                     Stress(I) = Stress(I) - Ph1out(Npoint)*Tem
+                  tem = ftemp - ph1out(30*Npts+17)
+                  DO i = 1 , 3
+                     npoint = 30*Npts + 17 + i
+                     stress(i) = stress(i) - ph1out(npoint)*tem
                   ENDDO
                ENDIF
 !
 !     ADD MEMBRANE STRESSES TO PLATE STRESSES
 !
-               sigx1 = sigx1 + Stress(1)
-               sigy1 = sigy1 + Stress(2)
-               sigxy1 = sigxy1 + Stress(3)
-               sigx2 = sigx2 + Stress(1)
-               sigy2 = sigy2 + Stress(2)
-               sigxy2 = sigxy2 + Stress(3)
-               Cfrvec(7) = Cfrvec(7) + sstrss(1)
-               Cfrvec(8) = Cfrvec(8) + sstrss(2)
-               Cfrvec(9) = Cfrvec(9) + sstrss(3)
-               Cfrvec(10) = Cfrvec(10) + sstrss(1)
-               Cfrvec(11) = Cfrvec(11) + sstrss(2)
-               Cfrvec(12) = Cfrvec(12) + sstrss(3)
+               sigx1 = sigx1 + stress(1)
+               sigy1 = sigy1 + stress(2)
+               sigxy1 = sigxy1 + stress(3)
+               sigx2 = sigx2 + stress(1)
+               sigy2 = sigy2 + stress(2)
+               sigxy2 = sigxy2 + stress(3)
+               cfrvec(7) = cfrvec(7) + sstrss(1)
+               cfrvec(8) = cfrvec(8) + sstrss(2)
+               cfrvec(9) = cfrvec(9) + sstrss(3)
+               cfrvec(10) = cfrvec(10) + sstrss(1)
+               cfrvec(11) = cfrvec(11) + sstrss(2)
+               cfrvec(12) = cfrvec(12) + sstrss(3)
             ENDIF
          ENDIF
 !
@@ -306,49 +305,49 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !
          IF ( nph1ou(2)==0 .AND. nph1ou(30*Npts+13)==0 ) THEN
-            DO I = 2 , 18
-               str(I) = 0.0E0
+            DO i = 2 , 18
+               str(i) = 0.0E0
             ENDDO
          ELSE
 !
 !     COMPUTE PRINCIPAL STRESSES
 !
-            str(1) = Ph1out(1)
+            str(1) = ph1out(1)
             str(2) = z1
             str(3) = sigx1
             str(4) = sigy1
             str(5) = sigxy1
-            str(10) = Ph1out(1)
+            str(10) = ph1out(1)
             str(11) = z2
             str(12) = sigx2
             str(13) = sigy2
             str(14) = sigxy2
 !
-            DO I = 3 , 12 , 9
-               Temp = str(I) - str(I+1)
-               str(I+6) = sqrt((Temp/2.0E0)**2+str(I+2)**2)
-               Delta = (str(I)+str(I+1))/2.0E0
-               str(I+4) = Delta + str(I+6)
-               str(I+5) = Delta - str(I+6)
-               Delta = 2.0E0*str(I+2)
-               IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
-                  str(I+3) = 0.0E0
+            DO i = 3 , 12 , 9
+               temp = str(i) - str(i+1)
+               str(i+6) = sqrt((temp/2.0E0)**2+str(i+2)**2)
+               delta = (str(i)+str(i+1))/2.0E0
+               str(i+4) = delta + str(i+6)
+               str(i+5) = delta - str(i+6)
+               delta = 2.0E0*str(i+2)
+               IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
+                  str(i+3) = 0.0E0
                ELSE
-                  str(I+3) = atan2(Delta,Temp)*28.6478898E0
+                  str(i+3) = atan2(delta,temp)*28.6478898E0
                ENDIF
 !
             ENDDO
          ENDIF
-         str(1) = Ph1out(1)
-         str(10) = Ph1out(1)
+         str(1) = ph1out(1)
+         str(10) = ph1out(1)
 !
 !
 !     ADDITION TO ELIMINATE 2ND ELEMENT ID IN OUTPUT
 !
-         DO I = 10 , 17
-            str(I) = str(I+1)
+         DO i = 10 , 17
+            str(i) = str(i+1)
          ENDDO
-         IF ( Strain ) THEN
+         IF ( strain ) THEN
             ist(2) = iblank
             str(5) = 2.0*str(5)
             str(9) = 2.0*str(9)
@@ -359,42 +358,42 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !  . STRESS CHECK...
 !
-         IF ( Nchk>0 ) THEN
-            Cfrvec(1) = Ph1out(1)
+         IF ( nchk>0 ) THEN
+            cfrvec(1) = ph1out(1)
             k = 0
 !  . FORCES...
-            CALL sdrchk(Forvec(2),Cfrvec(2),5,k)
+            CALL sdrchk(forvec(2),cfrvec(2),5,k)
 !  . STRESSES...
-            CALL sdrchk(str(3),Cfrvec(7),3,k)
-            CALL sdrchk(str(11),Cfrvec(10),3,k)
+            CALL sdrchk(str(3),cfrvec(7),3,k)
+            CALL sdrchk(str(11),cfrvec(10),3,k)
 !
             IF ( k==0 ) RETURN
 !
 !  . LIMITS EXCEEDED...
-            J = 0
+            j = 0
             istyp(1) = tr
             istyp(2) = ontw(1)
-            IF ( Ieltyp>17 ) istyp(1) = qu
-            IF ( iabs(Ieltyp-17)<2 ) istyp(2) = ontw(2)
+            IF ( ieltyp>17 ) istyp(1) = qu
+            IF ( iabs(ieltyp-17)<2 ) istyp(2) = ontw(2)
 !
-            IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
+            IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
 !
-               lsub = Isub
-               lld = Ild
-               frlast(1) = Frtmei(1)
-               frlast(2) = Frtmei(2)
-               J = 1
+               lsub = isub
+               lld = ild
+               frlast(1) = frtmei(1)
+               frlast(2) = frtmei(2)
+               j = 1
                CALL page1
 !
             ELSEIF ( eject(2)==0 ) THEN
                GOTO 50
             ENDIF
-            CALL sd2rhd(ished,J)
-            Line = Line + 1
-            WRITE (Nout,99001)
+            CALL sd2rhd(ished,j)
+            line = line + 1
+            WRITE (nout,99001)
 99001       FORMAT (7X,51HTYPE     EID     MX     MY    MXY     VX     VY    ,38HSX1    SY1   SXY1    SX2    SY2   SXY2)
 !
- 50         WRITE (Nout,99002) istyp , ifrvec(1) , (Cfrvec(ii),ii=2,12)
+ 50         WRITE (nout,99002) istyp , ifrvec(1) , (cfrvec(ii),ii=2,12)
 !
 99002       FORMAT (1H0,5X,A4,A2,I7,11F7.1)
          ENDIF
@@ -403,22 +402,22 @@ SUBROUTINE strqd2(Npts,Ti)
 !
 !     INTERNAL SUBROUTINE
 !
-         IF ( Tloads==0 .OR. flag ) THEN
+         IF ( tloads==0 .OR. flag ) THEN
             sdelta(1) = 0.0
             sdelta(2) = 0.0
             sdelta(3) = 0.0
          ELSE
             jst = 30*Npts + 8
             IF ( n1==1 ) THEN
-               ff = (Ti(k1+3)-Ph1out(k1+7)*Ti(2)-Ti(1))/Ph1out(6)
-               sdelta(1) = Ph1out(jst+1)*ff
-               sdelta(2) = Ph1out(jst+2)*ff
-               sdelta(3) = Ph1out(jst+3)*ff
+               ff = (Ti(k1+3)-ph1out(k1+7)*Ti(2)-Ti(1))/ph1out(6)
+               sdelta(1) = ph1out(jst+1)*ff
+               sdelta(2) = ph1out(jst+2)*ff
+               sdelta(3) = ph1out(jst+3)*ff
             ELSE
                ff = Ti(k1+5) - Ti(1)
-               sdelta(1) = (Ph1out(jst+1)*ff+Ti(2)*Ph1out(k1+7))/Ph1out(6)
-               sdelta(2) = (Ph1out(jst+2)*ff+Ti(3)*Ph1out(k1+7))/Ph1out(6)
-               sdelta(3) = (Ph1out(jst+3)*ff+Ti(4)*Ph1out(k1+7))/Ph1out(6)
+               sdelta(1) = (ph1out(jst+1)*ff+Ti(2)*ph1out(k1+7))/ph1out(6)
+               sdelta(2) = (ph1out(jst+2)*ff+Ti(3)*ph1out(k1+7))/ph1out(6)
+               sdelta(3) = (ph1out(jst+3)*ff+Ti(4)*ph1out(k1+7))/ph1out(6)
             ENDIF
          ENDIF
          GOTO iretrn

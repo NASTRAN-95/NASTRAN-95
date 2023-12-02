@@ -1,12 +1,13 @@
-!*==fdvect.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fdvect.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fdvect(Delta,Pk)
-USE C_PACKX
-USE C_REGEAN
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_packx
+   USE c_regean
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -31,30 +32,30 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Icore(1),Core(1),Dcore(1)) , (Ksystm(1),Sysbuf) , (Ksystm(55),Iprec)
 !     DATA    NAME  /  4HFDVE,4HCT  /
 !
-   nprob = Ia(3)
-   kprec = Ia(5)
+   nprob = ia(3)
+   kprec = ia(5)
    IF ( kprec/=1 .AND. kprec/=2 ) kprec = iprec
    npro2 = nprob
-   icnt = Ivect(2)
+   icnt = ivect(2)
    im1 = 1
-   lcore = (korsz(Core)/2)*2 - Lc1 - sysbuf
+   lcore = (korsz(core)/2)*2 - lc1 - sysbuf
    x = nprob
-   y = Icount
-   mcb(1) = Ib(5)
+   y = icount
+   mcb(1) = ib(5)
    CALL rdtrl(mcb(1))
 !
-   CALL detfbs(npro2+1,icore(lcore+1),mcb,nprob,Icount)
+   CALL detfbs(npro2+1,icore(lcore+1),mcb,nprob,icount)
 !
 !     COPY FX ONTO IVECT + NORMALIZE
 !
-   ipm1 = Ivect(1)
+   ipm1 = ivect(1)
    IF ( icnt/=0 ) THEN
-      CALL gopen(Ivect(1),icore(lcore+1),0)
-      CALL skprec(Ivect(1),icnt)
-      CALL close(Ivect(1),2)
+      CALL gopen(ivect(1),icore(lcore+1),0)
+      CALL skprec(ivect(1),icnt)
+      CALL close(ivect(1),2)
       im1 = 3
    ENDIF
-   CALL gopen(Ivect,icore(lcore+1),im1)
+   CALL gopen(ivect,icore(lcore+1),im1)
    lcore = lcore - sysbuf
    IF ( kprec==2 ) THEN
       dmax = 0.0D0
@@ -67,22 +68,22 @@ USE ISO_FORTRAN_ENV
    ELSE
       xmax = 0.0
       DO i = 1 , nprob
-         xmax = amax1(xmax,abs(Core(i)))
+         xmax = amax1(xmax,abs(core(i)))
       ENDDO
       DO i = 1 , nprob
-         Core(i) = Core(i)/xmax
+         core(i) = core(i)/xmax
       ENDDO
    ENDIF
-   It1p = kprec
-   It2p = iprec
-   Iip = 1
-   Jjp = nprob
-   Incrp = 1
-   CALL pack(Core,Ivect,Ivect)
-   CALL close(Ivect(1),1)
-   ipm1 = Lama
-   CALL gopen(Lama,icore(lcore+1),3)
+   it1p = kprec
+   it2p = iprec
+   iip = 1
+   jjp = nprob
+   incrp = 1
+   CALL pack(core,ivect,ivect)
+   CALL close(ivect(1),1)
+   ipm1 = lama
+   CALL gopen(lama,icore(lcore+1),3)
    dcore(1) = Pk
-   CALL write(Lama,Core,iprec,1)
-   CALL close(Lama,2)
+   CALL write(lama,core,iprec,1)
+   CALL close(lama,2)
 END SUBROUTINE fdvect

@@ -1,4 +1,5 @@
-!*==outpt1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==outpt1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE outpt1
@@ -45,12 +46,12 @@ SUBROUTINE outpt1
 !                    DEFAULT VALUE FOR P3 IS XXXXXXXX
 !
 !
+   USE c_blank
+   USE c_machin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -82,7 +83,7 @@ SUBROUTINE outpt1
       CASE (1)
 !
 !
-         lcor = korsz(X) - 2*nb
+         lcor = korsz(x) - 2*nb
          IF ( lcor<=0 ) THEN
             mm = -8
             input = -lcor
@@ -91,10 +92,10 @@ SUBROUTINE outpt1
          ELSE
             inbuf = lcor + 1
             oubuf = inbuf + nb
-            tapcod(1) = P3(1)
-            tapcod(2) = P3(2)
-            IF ( P2<0 .OR. P2>9 ) THEN
-               WRITE (nout,99001) Ufm , P2
+            tapcod(1) = p3(1)
+            tapcod(2) = p3(2)
+            IF ( p2<0 .OR. p2>9 ) THEN
+               WRITE (nout,99001) ufm , p2
 99001          FORMAT (A23,' 4119, MODULE OUTPUT1 - ILLEGAL VALUE FOR SECOND ','PARAMETER =',I20)
                line = line + 2
 !
@@ -102,11 +103,11 @@ SUBROUTINE outpt1
                CALL mesage(mm,input,subnam)
                RETURN
             ELSE
-               out = ott(P2+1)
-               IF ( Mach<5 ) THEN
+               out = ott(p2+1)
+               IF ( mach<5 ) THEN
                   tapeup = tapbit(out)
                   IF ( .NOT.tapeup ) THEN
-                     WRITE (nout,99002) Ufm , out
+                     WRITE (nout,99002) ufm , out
 99002                FORMAT (A23,' 4127, USER TAPE ',A4,' NOT SET UP.')
                      line = line + 2
                      mm = -37
@@ -114,25 +115,25 @@ SUBROUTINE outpt1
                      RETURN
                   ENDIF
                ENDIF
-               IF ( P1<mnin ) THEN
+               IF ( p1<mnin ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( P1>mnin .AND. P1<mfor ) THEN
+               IF ( p1>mnin .AND. p1<mfor ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
 !
-               IF ( P1==mnin ) THEN
+               IF ( p1==mnin ) THEN
 !
                   CALL eof(out)
                   CALL unload(out)
                   RETURN
-               ELSEIF ( P1==mtre ) THEN
+               ELSEIF ( p1==mtre ) THEN
 !
 !     OBTAIN LIST OF DATA BLOCKS ON USER TAPE.
 !
-                  CALL open(*60,out,X(oubuf),0)
+                  CALL open(*60,out,x(oubuf),0)
                   CALL read(*100,*120,out,dx,3,0,nf)
                   CALL read(*100,*120,out,idhdrx,7,0,nf)
                   DO kf = 1 , 7
@@ -142,8 +143,8 @@ SUBROUTINE outpt1
                      ENDIF
                   ENDDO
                   CALL read(*100,*120,out,p3x,2,1,nf)
-                  IF ( p3x(1)/=P3(1) .OR. p3x(2)/=P3(2) ) THEN
-                     WRITE (nout,99003) Uwm , p3x , P3
+                  IF ( p3x(1)/=p3(1) .OR. p3x(2)/=p3(2) ) THEN
+                     WRITE (nout,99003) uwm , p3x , p3
 99003                FORMAT (A25,' 4131, USER TAPE ID CODE -',2A4,'- DOES NOT MATCH ','THIRD OUTPUT1 DMAP PARAMETER -',2A4,2H-.)
                      line = line + 2
                   ENDIF
@@ -166,37 +167,37 @@ SUBROUTINE outpt1
                      GOTO 20
                   ENDDO SPAG_Loop_1_1
                ELSE
-                  IF ( P1>zero ) THEN
+                  IF ( p1>zero ) THEN
 !
-                     CALL gopen(out,X(oubuf),2)
-                     DO i = 1 , P1
+                     CALL gopen(out,x(oubuf),2)
+                     DO i = 1 , p1
                         CALL read(*80,*80,out,namex,2,1,nf)
                         CALL skpfil(out,1)
                      ENDDO
                      CALL close(out,2)
 !
-                  ELSEIF ( P1==mtwo .OR. P1==mfor ) THEN
+                  ELSEIF ( p1==mtwo .OR. p1==mfor ) THEN
 !
 !     P1 = -2 OR P1 = -4 IS ACCEPTABLE ONLY ON IBM OR UNIVAC
 !
-                     IF ( Mach/=2 .AND. Mach/=3 ) THEN
+                     IF ( mach/=2 .AND. mach/=3 ) THEN
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
 !
-                     iold = 3 + P1/2
-                     CALL gopen(out,X(oubuf),3)
+                     iold = 3 + p1/2
+                     CALL gopen(out,x(oubuf),3)
                      CALL tpswit(out,iold,2,tapcod)
                   ENDIF
 !
 !     OPEN USER TAPE TO WRITE WITHOUT REWIND
 !
-                  CALL gopen(out,X(oubuf),3)
-                  IF ( P1==mone .OR. P1==mtwo .OR. P1==mfor ) THEN
+                  CALL gopen(out,x(oubuf),3)
+                  IF ( p1==mone .OR. p1==mtwo .OR. p1==mfor ) THEN
                      CALL rewind(out)
                      CALL write(out,d,3,0)
                      CALL write(out,idhdr,7,0)
-                     CALL write(out,P3,2,1)
+                     CALL write(out,p3,2,1)
                      CALL eof(out)
                   ENDIF
                ENDIF
@@ -214,7 +215,7 @@ SUBROUTINE outpt1
 !
 !     OPEN INPUT DATA BLOCK TO READ WITH REWIND.
 !
-               CALL open(*40,input,X(inbuf),0)
+               CALL open(*40,input,x(inbuf),0)
                CALL write(out,name,2,0)
                CALL write(out,trl(2),6,1)
 !
@@ -223,7 +224,7 @@ SUBROUTINE outpt1
 !
 !     COPY CONTENTS OF INPUT DATA BLOCK ONTO USER TAPE.
 !
-               CALL cpyfil(input,out,X,lcor,nf)
+               CALL cpyfil(input,out,x,lcor,nf)
 !
 !     CLOSE INPUT DATA BLOCK WITH REWIND
 !
@@ -231,7 +232,7 @@ SUBROUTINE outpt1
 !
                CALL eof(out)
                CALL page2(-4)
-               WRITE (nout,99006) Uim , name , out , (trl(ii),ii=2,7)
+               WRITE (nout,99006) uim , name , out , (trl(ii),ii=2,7)
 99006          FORMAT (A29,' 4114',//5X,'DATA BLOCK ',2A4,' WRITTEN ON NASTRAN FILE ',A4,', TRLR  =',6I10)
             ENDIF
 !
@@ -244,7 +245,7 @@ SUBROUTINE outpt1
  20      CALL skpfil(out,-1)
 !
          CALL close(out,2)
-         CALL gopen(out,X(oubuf),3)
+         CALL gopen(out,x(oubuf),3)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -253,13 +254,13 @@ SUBROUTINE outpt1
  40      mm = -1
          CALL mesage(mm,input,subnam)
          RETURN
- 60      WRITE (nout,99007) Sfm , out
+ 60      WRITE (nout,99007) sfm , out
 99007    FORMAT (A25,' 4117, SUBROUTINE OUTPT1 UNABLE TO OPEN NASTRAN FILE',A4,1H.)
          line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
- 80      WRITE (nout,99008) Ufm , P1 , out , i
+ 80      WRITE (nout,99008) ufm , p1 , out , i
 99008    FORMAT (A23,' 4118, MODULE OUTPUT1 IS UNABLE TO SKIP FORWARD',I10,' DATA BLOCKS ON PERMANENT NASTRAN FILE ',A4,1H.,/5X,    &
                 &'NUMBER OF DATA BLOCKS SKIPPED =',I6)
          line = line + 3
@@ -267,32 +268,32 @@ SUBROUTINE outpt1
          CALL mesage(mm,input,subnam)
          RETURN
       CASE (3)
-         WRITE (nout,99009) Ufm , P1
+         WRITE (nout,99009) ufm , p1
 99009    FORMAT (A23,' 4120, MODULE OUTPUT1 - ILLEGAL VALUE FOR FIRST ','PARAMETER =',I20)
          line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
- 100     WRITE (nout,99010) Ufm , out
+ 100     WRITE (nout,99010) ufm , out
 99010    FORMAT (A23,' 4128, MODULE OUTPUT1 - END-OF-FILE ENCOUNTERED ','WHILE ATTEMPTING TO READ TAPE ID CODE ON USER TAPE ',A4)
          line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
- 120     WRITE (nout,99011) Ufm , out
+ 120     WRITE (nout,99011) ufm , out
 99011    FORMAT (A23,' 4129, MODULE OUTPUT1 - END-OF-RECORD ENCOUNTERED ','WHILE ATTEMPTING TO READ TAPE ID CODE ON USER TAPE ',A4)
          line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
       CASE (4)
-         WRITE (nout,99012) Ufm , (idhdrx(kf),kf=1,7)
+         WRITE (nout,99012) ufm , (idhdrx(kf),kf=1,7)
 99012    FORMAT (A23,' 4130, MODULE OUTPUT1 - ILLEGAL TAPE CODE HEADER = ',7A4)
          line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
- 140     WRITE (nout,99013) Sfm
+ 140     WRITE (nout,99013) sfm
 99013    FORMAT (A25,' 4115, MODULE OUTPUT1 - SHORT RECORD.')
          line = line + 2
          mm = -37

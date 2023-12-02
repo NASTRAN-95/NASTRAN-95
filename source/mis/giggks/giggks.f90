@@ -1,13 +1,14 @@
-!*==giggks.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==giggks.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE giggks
+   USE c_condas
+   USE c_gicom
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_GICOM
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,7 +58,7 @@ SUBROUTINE giggks
 !     INITILIZE
 !
          CALL sswtch(18,i18)
-         nwds = korsz(Iz)
+         nwds = korsz(iz)
          nogo = 0
          ns1 = 0
          ns2 = 0
@@ -67,23 +68,23 @@ SUBROUTINE giggks
 !     BUFF1 HAS CSTM,BGPT,EQAERO,SILA,SCR1
 !     BUFF2 HAS SCR2
 !
-         buff = nwds - Sysbuf - 1
-         buff1 = buff - Sysbuf - 1
-         buff2 = buff1 - Sysbuf
+         buff = nwds - sysbuf - 1
+         buff1 = buff - sysbuf - 1
+         buff2 = buff1 - sysbuf
 !
 !     PROCESS SET CARDS AND WRITE G LISTS ON SCR2
 !
-         ifil = Scr2
-         CALL open(*340,Scr2,Iz(buff2+1),1)
-         ifil = Spline
-         CALL preloc(*340,Iz(buff+1),Spline)
+         ifil = scr2
+         CALL open(*340,scr2,iz(buff2+1),1)
+         ifil = spline
+         CALL preloc(*340,iz(buff+1),spline)
 !
 !     SET1 CARDS
 !
-         CALL locate(*60,Iz(buff+1),set1,idum)
+         CALL locate(*60,iz(buff+1),set1,idum)
          n = 1
          nco = buff2 - n
-         CALL read(*360,*20,Spline,Iz(n),nco,1,nwr)
+         CALL read(*360,*20,spline,iz(n),nco,1,nwr)
          spag_nextblock_1 = 13
          CYCLE SPAG_DispatchLoop_1
  20      i = n - 1
@@ -93,12 +94,12 @@ SUBROUTINE giggks
       CASE (2)
          SPAG_Loop_1_1: DO
             i = i + 1
-            IF ( Iz(i)==-1 ) THEN
+            IF ( iz(i)==-1 ) THEN
                IF ( n1<2 ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL write(Scr2,Iz(n),n1,1)
+               CALL write(scr2,iz(n),n1,1)
                EXIT SPAG_Loop_1_1
             ELSE
                IF ( i==nwr ) GOTO 380
@@ -114,17 +115,17 @@ SUBROUTINE giggks
 !
 !     SET 2 CARDS
 !
- 60      CALL locate(*100,Iz(buff+1),st2,idum)
+ 60      CALL locate(*100,iz(buff+1),st2,idum)
 !
 !     READ IN BAGPDT AND CSTM
 !
          n = ls2(3) + caero(3) + 1
-         trl(1) = Cstm
+         trl(1) = cstm
          CALL rdtrl(trl)
          IF ( trl(1)<0 ) trl(3) = 0
          ncstm = (trl(3)+1)*14
          pcstm = buff2 - ncstm
-         trl(1) = Bagpdt
+         trl(1) = bagpdt
          CALL rdtrl(trl)
          nbg = (trl(2)-trl(3))*4
          pbgpt = pcstm - nbg
@@ -135,8 +136,8 @@ SUBROUTINE giggks
 !
 !     READ IN CSTM AT PCSTM + 14 ADD BASIC COORD SYSTEM
 !
-         Iz(pcstm) = 0
-         Iz(pcstm+1) = 1
+         iz(pcstm) = 0
+         iz(pcstm+1) = 1
          DO i = 2 , 13
             z(pcstm+i) = 0.0
          ENDDO
@@ -144,25 +145,25 @@ SUBROUTINE giggks
          z(pcstm+9) = 1.0
          z(pcstm+13) = 1.0
          IF ( ncstm/=14 ) THEN
-            ifil = Cstm
-            CALL gopen(Cstm,Iz(buff1+1),0)
-            CALL read(*360,*360,Cstm,Iz(pcstm+14),ncstm-14,1,nwr)
-            CALL close(Cstm,1)
+            ifil = cstm
+            CALL gopen(cstm,iz(buff1+1),0)
+            CALL read(*360,*360,cstm,iz(pcstm+14),ncstm-14,1,nwr)
+            CALL close(cstm,1)
          ENDIF
 !
 !     READ IN BAGPDT AT PBGPT
 !
-         ifil = Bagpdt
-         CALL gopen(Bagpdt,Iz(buff1+1),0)
-         CALL read(*360,*360,Bagpdt,Iz(pbgpt),nbg,1,nwr)
-         CALL close(Bagpdt,1)
+         ifil = bagpdt
+         CALL gopen(bagpdt,iz(buff1+1),0)
+         CALL read(*360,*360,bagpdt,iz(pbgpt),nbg,1,nwr)
+         CALL close(bagpdt,1)
 !
 !     READ IN SET2 CARDS WITH CAERO1 APPENDED
 !
-         ifil = Spline
+         ifil = spline
          lca = 0
          ASSIGN 80 TO type
- 80      CALL read(*360,*100,Spline,Iz(1),n-1,0,nwr)
+ 80      CALL read(*360,*100,spline,iz(1),n-1,0,nwr)
          n1 = 1
          IF ( ccard(1)==lca ) THEN
             spag_nextblock_1 = 9
@@ -176,7 +177,7 @@ SUBROUTINE giggks
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO i = k , j , 14
-            IF ( ccard(3)==Iz(i) ) THEN
+            IF ( ccard(3)==iz(i) ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -185,30 +186,29 @@ SUBROUTINE giggks
       CASE (3)
          prcp = i + 2
          ptcp = i + 5
-         ctyp = Iz(i+1)
+         ctyp = iz(i+1)
 !
 !     LOCATE POINTS 1 AND 4 AS INPUT
 !
          IF ( ctyp==2 ) THEN
-            x1b(1) = crard(9)*cos(crard(10)*Degra)
-            x1b(2) = crard(9)*sin(crard(10)*Degra)
+            x1b(1) = crard(9)*cos(crard(10)*degra)
+            x1b(2) = crard(9)*sin(crard(10)*degra)
             x1b(3) = crard(11)
-            x4b(1) = crard(13)*cos(crard(14)*Degra)
-            x4b(2) = crard(13)*sin(crard(14)*Degra)
+            x4b(1) = crard(13)*cos(crard(14)*degra)
+            x4b(2) = crard(13)*sin(crard(14)*degra)
             x4b(3) = crard(15)
          ELSEIF ( ctyp==3 ) THEN
-            x1b(1) = crard(9)*sin(crard(10)*Degra)*cos(crard(11)*Degra)
-            x1b(2) = crard(9)*sin(crard(10)*Degra)*sin(crard(11)*Degra)
-            x1b(3) = crard(9)*cos(crard(10)*Degra)
-            x4b(1) = crard(13)*sin(crard(14)*Degra)*cos(crard(15)*Degra)
-            x4b(2) = crard(13)*sin(crard(14)*Degra)*sin(crard(15)*Degra)
-            x4b(3) = crard(13)*cos(crard(14)*Degra)
+            x1b(1) = crard(9)*sin(crard(10)*degra)*cos(crard(11)*degra)
+            x1b(2) = crard(9)*sin(crard(10)*degra)*sin(crard(11)*degra)
+            x1b(3) = crard(9)*cos(crard(10)*degra)
+            x4b(1) = crard(13)*sin(crard(14)*degra)*cos(crard(15)*degra)
+            x4b(2) = crard(13)*sin(crard(14)*degra)*sin(crard(15)*degra)
+            x4b(3) = crard(13)*cos(crard(14)*degra)
          ELSE
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          x1b(1) = crard(9)
          x1b(2) = crard(10)
@@ -238,13 +238,12 @@ SUBROUTINE giggks
             x4e(1) = x4b(1)
             x4e(2) = x4b(2)
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     FIND ELEMENT COORDINATE SYSTEM
 !
             DO i = k , j , 14
-               IF ( ccard(2)==Iz(i) ) THEN
+               IF ( ccard(2)==iz(i) ) THEN
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -348,7 +347,7 @@ SUBROUTINE giggks
          kk = pbgpt
          kkk = kk + nbg - 1
          SPAG_Loop_1_2: DO k = kk , kkk , 4
-            IF ( Iz(k)/=-1 ) THEN
+            IF ( iz(k)/=-1 ) THEN
                jj = 0
                DO i = 1 , nr
                   sum = 0.0
@@ -362,7 +361,7 @@ SUBROUTINE giggks
 !     FOUND ONE
 !
                n1 = n1 + 1
-               Iz(n1) = (k-pbgpt)/4 + 1
+               iz(n1) = (k-pbgpt)/4 + 1
             ENDIF
          ENDDO SPAG_Loop_1_2
          IF ( n1<2 ) THEN
@@ -370,15 +369,15 @@ SUBROUTINE giggks
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          IF ( i18/=0 ) THEN
-            WRITE (Out,99001) (Iz(ii),ii=1,n1)
+            WRITE (out,99001) (iz(ii),ii=1,n1)
 99001       FORMAT (5H0SET2,I8,2X,(/,10I9))
          ENDIF
-         CALL write(Scr2,Iz(1),n1,1)
+         CALL write(scr2,iz(1),n1,1)
          GOTO 80
- 100     CALL close(Scr2,1)
-         CALL open(*340,Scr2,Iz(buff2+1),0)
-         neq = Ksize*3
-         eqt(1) = Sila
+ 100     CALL close(scr2,1)
+         CALL open(*340,scr2,iz(buff2+1),0)
+         neq = ksize*3
+         eqt(1) = sila
          CALL rdtrl(eqt)
          nsil = eqt(2)
          ieq = buff2 - neq - nsil
@@ -394,18 +393,18 @@ SUBROUTINE giggks
 !
 !     READ SILA
 !
-         CALL locate(*380,Iz(buff+1),atab,idum)
-         CALL read(*360,*120,Spline,Iz(ieq),neq+1,0,nwr)
+         CALL locate(*380,iz(buff+1),atab,idum)
+         CALL read(*360,*120,spline,iz(ieq),neq+1,0,nwr)
          GOTO 380
  120     neq = nwr
-         ifil = Sila
-         CALL gopen(Sila,Iz(buff1+1),0)
-         CALL read(*360,*360,Sila,Iz(ieq+neq),nsil,1,nwr)
-         CALL close(Sila,1)
-         ifil = Spline
-         trl(1) = Scr1
+         ifil = sila
+         CALL gopen(sila,iz(buff1+1),0)
+         CALL read(*360,*360,sila,iz(ieq+neq),nsil,1,nwr)
+         CALL close(sila,1)
+         ifil = spline
+         trl(1) = scr1
          max = 0
-         CALL gopen(Scr1,Iz(buff1+1),1)
+         CALL gopen(scr1,iz(buff1+1),1)
 !
 !     N = LENGTH OF LONGEST SPLINE CARD + CAERO1 CARD + 3
 !     N  POINTS TO 1 ST LOCATION OF CORE AVAILABLE SEE EQIV
@@ -415,10 +414,10 @@ SUBROUTINE giggks
 !
 !     READ SPLINE1 CARDS
 !
-         CALL locate(*180,Iz(buff+1),ss1,idum)
+         CALL locate(*180,iz(buff+1),ss1,idum)
          ASSIGN 140 TO type
          nr = ls2(3) + caero(3)
- 140     CALL read(*360,*180,Spline,Iz(1),nr,0,nwr)
+ 140     CALL read(*360,*180,spline,iz(1),nr,0,nwr)
          ns1 = ns1 + 1
          ASSIGN 160 TO gkset
          spag_nextblock_1 = 12
@@ -436,10 +435,10 @@ SUBROUTINE giggks
 !     WRITE ALL SPLINE1 DATA ON SCR1 AS PROCESSED
 !     ID OF SPLINE1 = 1
 !
-            Iz(iz2) = 1
+            iz(iz2) = 1
             nw = n1 - 1
             max = max0(max,nw)
-            CALL write(Scr1,Iz(1),nw,1)
+            CALL write(scr1,iz(1),nw,1)
          ENDIF
          GOTO 140
 !
@@ -447,10 +446,10 @@ SUBROUTINE giggks
 !
 !     READ SPLINE2 CARDS
 !
- 180     CALL locate(*240,Iz(buff+1),ls2,idum)
+ 180     CALL locate(*240,iz(buff+1),ls2,idum)
          ASSIGN 200 TO type
          nr = ls2(3) + caero(3)
- 200     CALL read(*360,*240,Spline,Iz(1),nr,0,nwr)
+ 200     CALL read(*360,*240,spline,iz(1),nr,0,nwr)
          ns2 = ns2 + 1
          ASSIGN 220 TO gkset
          spag_nextblock_1 = 12
@@ -459,23 +458,23 @@ SUBROUTINE giggks
 !     ID OF SPLINE2 = 2
 !
  220     IF ( nogo/=1 ) THEN
-            Iz(iz2) = 2
+            iz(iz2) = 2
             nw = n1 - 1
             max = max0(max,nw)
-            CALL write(Scr1,Iz(1),nw,1)
+            CALL write(scr1,iz(1),nw,1)
          ENDIF
          GOTO 200
 !
 !     END OF SPLINE2 CARDS
 !
- 240     CALL close(Scr1,1)
-         CALL close(Scr2,1)
-         CALL gopen(Scr3,Iz(buff1+1),1)
+ 240     CALL close(scr1,1)
+         CALL close(scr2,1)
+         CALL gopen(scr3,iz(buff1+1),1)
 !
 !     SPLINE 3 CARDS TO SCR3
 !
-         CALL locate(*300,Iz(buff+1),spl3,idum)
-         CALL read(*360,*260,Spline,Iz,ieq,0,ns3)
+         CALL locate(*300,iz(buff+1),spl3,idum)
+         CALL read(*360,*260,spline,iz,ieq,0,ns3)
          spag_nextblock_1 = 13
          CYCLE SPAG_DispatchLoop_1
  260     n = ns3 + 1
@@ -490,23 +489,22 @@ SUBROUTINE giggks
          i = n
          spag_nextblock_1 = 10
       CASE (10)
-         k = Iz(n1+3)
+         k = iz(n1+3)
          DO j = 1 , neq , 3
-            IF ( k==Iz(nw+j) ) THEN
+            IF ( k==iz(nw+j) ) THEN
                spag_nextblock_1 = 11
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         WRITE (Out,99004) k , Iz(n1+2)
+         WRITE (out,99004) k , iz(n1+2)
          nogo = 1
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
-         Iz(n1+3) = Iz(nw+j+2)
-         Iz(i) = n1
-         Iz(i+1) = Iz(n1+3)
+         iz(n1+3) = iz(nw+j+2)
+         iz(i) = n1
+         iz(i+1) = iz(n1+3)
          i = i + 2
- 280     n1 = n1 + Iz(n1) + 1
+ 280     n1 = n1 + iz(n1) + 1
          IF ( n1<ns3 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
@@ -519,7 +517,7 @@ SUBROUTINE giggks
             spag_nextblock_1 = 17
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( ns3/=1 ) CALL sort(0,0,2,2,Iz(n),nw)
+            IF ( ns3/=1 ) CALL sort(0,0,2,2,iz(n),nw)
 !
 !     PROCESS BY SORTED ORDER
 !
@@ -527,19 +525,19 @@ SUBROUTINE giggks
             j = ieq + neq - 1
             jj = 5
             DO i = 1 , nw , 2
-               n1 = Iz(n+i)
-               jjj = Iz(n1) - caero(3)
+               n1 = iz(n+i)
+               jjj = iz(n1) - caero(3)
                DO k = jj , jjj , 3
-                  l = Iz(n1+k)
-                  Iz(n1+k) = Iz(j+l)
+                  l = iz(n1+k)
+                  iz(n1+k) = iz(j+l)
                ENDDO
-               CALL write(Scr3,Iz(n1+1),Iz(n1),1)
+               CALL write(scr3,iz(n1+1),iz(n1),1)
             ENDDO
          ENDIF
- 300     CALL close(Spline,1)
-         CALL close(Scr3,1)
-         CALL dmpfil(Scr1,z,nwds)
-         CALL dmpfil(Scr3,z,nwds)
+ 300     CALL close(spline,1)
+         CALL close(scr3,1)
+         CALL dmpfil(scr1,z,nwds)
+         CALL dmpfil(scr3,z,nwds)
          trl(2) = max
          trl(3) = ns1 + ns2
          CALL wrttrl(trl)
@@ -547,7 +545,6 @@ SUBROUTINE giggks
             CALL mesage(-61,0,ns)
             nogo = 1
             spag_nextblock_1 = 17
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( ns1==0 .AND. ns2==0 .AND. ns3==0 ) GOTO 380
             RETURN
@@ -558,22 +555,22 @@ SUBROUTINE giggks
 !     SET 2 CARDS
 !
          ngset = 0
-         ifil = Scr2
+         ifil = scr2
          DO
-            CALL read(*400,*400,Scr2,Iz(n),1,0,nwr)
-            IF ( scard(5)==Iz(n) ) THEN
-               CALL read(*360,*320,Scr2,Iz(n),nco,1,nwr)
+            CALL read(*400,*400,scr2,iz(n),1,0,nwr)
+            IF ( scard(5)==iz(n) ) THEN
+               CALL read(*360,*320,scr2,iz(n),nco,1,nwr)
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               CALL fwdrec(*360,Scr2)
+               CALL fwdrec(*360,scr2)
             ENDIF
          ENDDO
- 320     CALL rewind(Scr2)
-         ifil = Spline
+ 320     CALL rewind(scr2)
+         ifil = spline
          ngset = nwr
          n1 = n + ngset
-         CALL sort(0,0,1,1,Iz(n),ngset)
+         CALL sort(0,0,1,1,iz(n),ngset)
 !
 !     GET K SET
 !
@@ -592,7 +589,7 @@ SUBROUTINE giggks
          il = (nmax-ifrst) - ncord*(jl-1) + 1
          DO j = j1 , jl
             DO i = i1 , il
-               Iz(n1) = ifrst + (i-1) + ncord*(j-1)
+               iz(n1) = ifrst + (i-1) + ncord*(j-1)
                n1 = n1 + 1
                nkset = nkset + 1
             ENDDO
@@ -603,8 +600,8 @@ SUBROUTINE giggks
          nw = ngset
          j = ieq + neq - 1
          DO i = 1 , nw
-            k = Iz(n+i-1)
-            Iz(n1) = Iz(k+j)
+            k = iz(n+i-1)
+            iz(n1) = iz(k+j)
             n1 = n1 + 1
          ENDDO
 !
@@ -618,7 +615,7 @@ SUBROUTINE giggks
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   DO j = jj , neq , 3
-                     IF ( Iz(nk+i)==Iz(nw+j) ) THEN
+                     IF ( iz(nk+i)==iz(nw+j) ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -627,8 +624,8 @@ SUBROUTINE giggks
                   CYCLE SPAG_DispatchLoop_1
                CASE (2)
                   jj = j
-                  Iz(nk+i) = Iz(nw+j+1)
-                  Iz(n1) = Iz(nw+j+2)
+                  iz(nk+i) = iz(nw+j+1)
+                  iz(n1) = iz(nw+j+2)
                   n1 = n1 + 1
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -646,21 +643,20 @@ SUBROUTINE giggks
  380     CALL mesage(-7,0,ns)
          spag_nextblock_1 = 14
       CASE (14)
-         scard(1) = Iz(n)
+         scard(1) = iz(n)
          spag_nextblock_1 = 15
       CASE (15)
-         WRITE (Out,99002) Uwm , scard(5) , scard(1)
+         WRITE (out,99002) uwm , scard(5) , scard(1)
 99002    FORMAT (A25,' 2257, SET',I9,' REFERENCED ON SPLINE CARD',I9,' IS EMPTY.')
          spag_nextblock_1 = 17
          CYCLE SPAG_DispatchLoop_1
- 400     WRITE (Out,99003) Ufm , scard(5) , scard(1)
+ 400     WRITE (out,99003) ufm , scard(5) , scard(1)
 99003    FORMAT (A23,' 2258, SET',I9,' REFERENCED ON SPLINE CARD',I9,' NOT FOUND OR IT IS EMPTY.')
-         CALL rewind(Scr2)
+         CALL rewind(scr2)
          nogo = 1
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
-         WRITE (Out,99004) Sfm , Iz(nk+i-1) , ccard(1)
+         WRITE (out,99004) sfm , iz(nk+i-1) , ccard(1)
          nogo = 1
          spag_nextblock_1 = 17
       CASE (17)

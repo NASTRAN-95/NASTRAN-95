@@ -1,12 +1,13 @@
-!*==srod1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==srod1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE srod1
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -44,69 +45,69 @@ SUBROUTINE srod1
 !
 ! CALL MAT TO GET MATERIAL PROPERTIES
 !
-   Matidc = iecpt(4)
-   Matflg = 1
-   Eltemp = Ecpt(17)
+   matidc = iecpt(4)
+   matflg = 1
+   eltemp = ecpt(17)
    CALL mat(iecpt(1))
 !
 ! SET UP VECTOR ALONG THE ROD, COMPUTE LENGTH AND NORMALIZE
 !
-   Xn(1) = Ecpt(10) - Ecpt(14)
-   Xn(2) = Ecpt(11) - Ecpt(15)
-   Xn(3) = Ecpt(12) - Ecpt(16)
-   Xl = Xn(1)**2 + Xn(2)**2 + Xn(3)**2
-   Xl = sqrt(Xl)
-   Xn(1) = Xn(1)/Xl
-   Xn(2) = Xn(2)/Xl
-   Xn(3) = Xn(3)/Xl
-   Eoverl = E/Xl
-   gcovrl = G*Ecpt(6)/Xl
-   Ibase = 0
+   xn(1) = ecpt(10) - ecpt(14)
+   xn(2) = ecpt(11) - ecpt(15)
+   xn(3) = ecpt(12) - ecpt(16)
+   xl = xn(1)**2 + xn(2)**2 + xn(3)**2
+   xl = sqrt(xl)
+   xn(1) = xn(1)/xl
+   xn(2) = xn(2)/xl
+   xn(3) = xn(3)/xl
+   eoverl = e/xl
+   gcovrl = g*ecpt(6)/xl
+   ibase = 0
 !
 ! TRANSFORM XN VECTOR IF POINT A IS NOT IN BASIC COORDINATES.
 !
    IF ( iecpt(9)/=0 ) THEN
-      Ibase = 3
-      CALL transs(iecpt(9),Ti)
-      CALL gmmats(Xn(1),3,1,1,Ti(1),3,3,0,Xn(4))
+      ibase = 3
+      CALL transs(iecpt(9),ti)
+      CALL gmmats(xn(1),3,1,1,ti(1),3,3,0,xn(4))
    ENDIF
-   Sat(1) = Xn(Ibase+1)*Eoverl
-   Sat(2) = Xn(Ibase+2)*Eoverl
-   Sat(3) = Xn(Ibase+3)*Eoverl
-   Sar(1) = Xn(Ibase+1)*gcovrl
-   Sar(2) = Xn(Ibase+2)*gcovrl
-   Sar(3) = Xn(Ibase+3)*gcovrl
+   sat(1) = xn(ibase+1)*eoverl
+   sat(2) = xn(ibase+2)*eoverl
+   sat(3) = xn(ibase+3)*eoverl
+   sar(1) = xn(ibase+1)*gcovrl
+   sar(2) = xn(ibase+2)*gcovrl
+   sar(3) = xn(ibase+3)*gcovrl
 !
 ! TRANSFORM XN VECTOR IF POINT B IS NOT IN BASIC COORDINATES.
 !
-   Ibase = 0
+   ibase = 0
    IF ( iecpt(13)/=0 ) THEN
-      Ibase = 3
-      CALL transs(iecpt(13),Ti)
-      CALL gmmats(Xn(1),3,1,1,Ti(1),3,3,0,Xn(4))
+      ibase = 3
+      CALL transs(iecpt(13),ti)
+      CALL gmmats(xn(1),3,1,1,ti(1),3,3,0,xn(4))
    ENDIF
-   Sbt(1) = -Xn(Ibase+1)*Eoverl
-   Sbt(2) = -Xn(Ibase+2)*Eoverl
-   Sbt(3) = -Xn(Ibase+3)*Eoverl
-   Sbr(1) = -Xn(Ibase+1)*gcovrl
-   Sbr(2) = -Xn(Ibase+2)*gcovrl
-   Sbr(3) = -Xn(Ibase+3)*gcovrl
+   sbt(1) = -xn(ibase+1)*eoverl
+   sbt(2) = -xn(ibase+2)*eoverl
+   sbt(3) = -xn(ibase+3)*eoverl
+   sbr(1) = -xn(ibase+1)*gcovrl
+   sbr(2) = -xn(ibase+2)*gcovrl
+   sbr(3) = -xn(ibase+3)*gcovrl
 !
 ! FILL REMAINDER OF OUTPUT BLOCK
 !
-   St = -Alpha*E
-   Sdelta = -Eoverl
-   Area = Ecpt(5)
-   IF ( Ecpt(6)/=0 ) THEN
-      Fjovrc = Ecpt(7)/Ecpt(6)
+   st = -alpha*e
+   sdelta = -eoverl
+   area = ecpt(5)
+   IF ( ecpt(6)/=0 ) THEN
+      fjovrc = ecpt(7)/ecpt(6)
    ELSE
-      Fjovrc = 0.0
+      fjovrc = 0.0
    ENDIF
-   Tsubc0 = Tsub0
-   Sigmat = Sigt
-   Sigmac = Sigc
-   Sigmas = Sigs
-   Ielid = iecpt(1)
-   Isilno(1) = iecpt(2)
-   Isilno(2) = iecpt(3)
+   tsubc0 = tsub0
+   sigmat = sigt
+   sigmac = sigc
+   sigmas = sigs
+   ielid = iecpt(1)
+   isilno(1) = iecpt(2)
+   isilno(2) = iecpt(3)
 END SUBROUTINE srod1

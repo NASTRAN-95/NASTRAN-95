@@ -2,13 +2,13 @@
  
 SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    IMPLICIT NONE
-   USE C_EMECPT
-   USE C_GPTA1
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_emecpt
+   USE c_gpta1
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,6 +40,15 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    REAL , DIMENSION(5) :: sc
    INTEGER , SAVE :: scr6
    REAL , DIMENSION(3) :: xlacc , zi
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -101,11 +110,11 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    xi(2) = -xi(1)
    w(1) = 1.
    w(2) = 1.
-   idx = (Eltype-1)*Incr
-   estwds = Ne(idx+12)
-   ngrids = Ne(idx+10)
-   name(1) = Ne(idx+1)
-   name(2) = Ne(idx+2)
+   idx = (Eltype-1)*incr
+   estwds = ne(idx+12)
+   ngrids = ne(idx+10)
+   name(1) = ne(idx+1)
+   name(2) = ne(idx+2)
 !
 !     CHECK TO SEE IF THIS ELEMENT CONTAINS A GRID POINT ON A PERMBDY
 !     CARD. IF SO, OR IF NO PERMBDY CARD EXISTS, COMPUTE LOADS FOR THE
@@ -152,9 +161,9 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
    DO i = 1 , 2
       isub = Istart + 3*nsil(i) - 3
       IF ( Itype==24 ) isub = Istart + 3*Ncount - 3
-      h1 = h1 + abs(Z(isub))
-      h2 = h2 + abs(Z(isub+1))
-      h3 = h3 + abs(Z(isub+2))
+      h1 = h1 + abs(z(isub))
+      h2 = h2 + abs(z(isub+1))
+      h3 = h3 + abs(z(isub+2))
       IF ( Itype==24 ) EXIT
    ENDDO
    hl = h1 + h2 + h3
@@ -178,7 +187,7 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     ONED  SOLVES LOAD DUE TO MAGNETIC FILED
 !
  400  pi = 3.14159
-   Inflag = 1
+   inflag = 1
    IF ( Eltype==1 .OR. Eltype==10 ) THEN
       mid = 4
       itemp = 17
@@ -201,13 +210,13 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
 !     COMPUTE AREA
 !
-      dia = Ecpt(5)
-      th = Ecpt(6)
+      dia = ecpt(5)
+      th = ecpt(6)
       rad = dia - 2.*th
       arrod = pi*((dia/2)**2-(rad/2.)**2)
    ELSEIF ( Eltype/=34 ) THEN
 !
-      WRITE (outpt,99001) Ufm
+      WRITE (outpt,99001) ufm
 99001 FORMAT (A23,', ELEMENT TYPE ',2A4,' WAS USED IN AN E AND M ','PROBLEM.')
       CALL mesage(-37,0,nam)
       GOTO 99999
@@ -223,20 +232,20 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
       iar = 17
    ENDIF
    IF ( .NOT.(onlyc) ) THEN
-      xl = Ecpt(ix2) - Ecpt(ix1)
-      yl = Ecpt(iy2) - Ecpt(iy1)
-      zl = Ecpt(iz2) - Ecpt(iz1)
+      xl = ecpt(ix2) - ecpt(ix1)
+      yl = ecpt(iy2) - ecpt(iy1)
+      zl = ecpt(iz2) - ecpt(iz1)
       xlen = sqrt(xl**2+yl**2+zl**2)
       xn(1) = -1./xlen
       xn(2) = 1./xlen
-      IF ( Eltype/=3 ) arrod = Ecpt(iar)
-      Eltemp = Ecpt(itemp)
-      Matid = necpt(mid)
+      IF ( Eltype/=3 ) arrod = ecpt(iar)
+      eltemp = ecpt(itemp)
+      matid = necpt(mid)
 !
 !     ARROD = AREA OF CROSS SECTION OF ROD
 !
       IF ( Itype/=24 ) CALL hmat(necpt(1))
-      gnu = Xmat
+      gnu = xmat
       IF ( Itype==24 ) gnu = 1.
 !
 !     HC   FROM Z(ISTART)
@@ -264,9 +273,9 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     REMFLUX
 !
          is = Istart + 3*Ncount - 3
-         ahcx = Z(is)
-         ahcy = Z(is+1)
-         ahcz = Z(is+2)
+         ahcx = z(is)
+         ahcy = z(is+1)
+         ahcz = z(is+2)
 !
          xload(1) = gnu*vol*(dndx(1)*ahcx+dndy(1)*ahcy+dndz(1)*ahcz)
          xload(2) = gnu*vol*(dndx(2)*ahcx+dndy(2)*ahcy+dndz(2)*ahcz)
@@ -292,13 +301,13 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
 !     COMPUTE BASIC COORDS FOR XLOCAL
 !
-         xx = xlxp*Ecpt(ix1) + xlx*Ecpt(ix2)
-         yy = xlxp*Ecpt(iy1) + xlx*Ecpt(iy2)
-         zz = xlxp*Ecpt(iz1) + xlx*Ecpt(iz2)
+         xx = xlxp*ecpt(ix1) + xlx*ecpt(ix2)
+         yy = xlxp*ecpt(iy1) + xlx*ecpt(iy2)
+         zz = xlxp*ecpt(iz1) + xlx*ecpt(iz2)
       ELSE
-         xx = .5*(Ecpt(ix1)+Ecpt(ix2))
-         yy = .5*(Ecpt(iy1)+Ecpt(iy2))
-         zz = .5*(Ecpt(iz1)+Ecpt(iz2))
+         xx = .5*(ecpt(ix1)+ecpt(ix2))
+         yy = .5*(ecpt(iy1)+ecpt(iy2))
+         zz = .5*(ecpt(iz1)+ecpt(iz2))
 !
 !     AVERAGE SPCFLD
 !
@@ -315,7 +324,7 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
          IF ( Itype/=20 ) THEN
             isub = Istart + (ijk-1)*Iwords - 1
             DO i = 1 , Iwords
-               buf(i) = Z(isub+i)
+               buf(i) = z(isub+i)
             ENDDO
             IF ( jtype==2 ) THEN
                CALL axloop(buf,ibuf,xx,yy,zz,hc1,hc2,hc3)
@@ -333,9 +342,9 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
  420     DO i = 1 , 2
             is = Istart + 3*nsil(i) - 3
-            hcx(i) = Z(is)
-            hcy(i) = Z(is+1)
-            hcz(i) = Z(is+2)
+            hcx(i) = z(is)
+            hcy(i) = z(is+1)
+            hcz(i) = z(is+2)
          ENDDO
 !
 !     INTERPOLATE GRID VALUES TO INTEGRATION POINT
@@ -378,7 +387,6 @@ SUBROUTINE em1d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             IF ( j==iz(Istart-Nbdys-Nelout+k-1) ) EXIT
          ENDDO
       ENDIF
-      Z(j) = Z(j) - xload(i)
+      z(j) = z(j) - xload(i)
    ENDDO
-   RETURN
 99999 END SUBROUTINE em1d

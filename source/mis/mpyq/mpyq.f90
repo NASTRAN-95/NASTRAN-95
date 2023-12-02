@@ -1,4 +1,5 @@
-!*==mpyq.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpyq.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpyq(Z)
@@ -35,6 +36,17 @@ SUBROUTINE mpyq(Z)
 !     (2) TO IMPROVE MPYAD INNER LOOP LOGIC FOR THE COMMON CASES
 !
 !
+   USE c_mpyadx
+   USE c_mpyadz
+   USE c_mpyqt4
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    USE C_MPYADX
    USE C_MPYADZ
    USE C_MPYQT4
@@ -689,7 +701,6 @@ SUBROUTINE mpyq(Z)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          IF ( Eol/=0 ) THEN
             spag_nextblock_1 = 11

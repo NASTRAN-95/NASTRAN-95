@@ -2,15 +2,21 @@
  
 SUBROUTINE dpse4
    IMPLICIT NONE
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i , ias , j , k , k1 , k2 , k3 , npivot
    INTEGER , DIMENSION(6) :: necpt
    REAL :: sg
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -72,12 +78,12 @@ SUBROUTINE dpse4
 !
 !     STORE ECPT IN DOUBLE PRECISION
 !
-   Dp(6) = Ecpt(6)
+   dp(6) = ecpt(6)
    k = 10
    DO i = 1 , 4
       DO j = 1 , 3
          k = k + 1
-         Dp(k) = Ecpt(k)
+         dp(k) = ecpt(k)
       ENDDO
       k = k + 1
    ENDDO
@@ -95,24 +101,24 @@ SUBROUTINE dpse4
 !     GAD STORED IN C( 7), C( 8), C( 9)
 !     GBD STORED IN C(10), C(11), C(12)
 !
-   C(1) = Dp(11) + Dp(15) - Dp(19) - Dp(23)
-   C(2) = Dp(12) + Dp(16) - Dp(20) - Dp(24)
-   C(3) = Dp(13) + Dp(17) - Dp(21) - Dp(25)
+   c(1) = dp(11) + dp(15) - dp(19) - dp(23)
+   c(2) = dp(12) + dp(16) - dp(20) - dp(24)
+   c(3) = dp(13) + dp(17) - dp(21) - dp(25)
 !
-   C(4) = Dp(15) - Dp(23)
-   C(5) = Dp(16) - Dp(24)
-   C(6) = Dp(17) - Dp(25)
+   c(4) = dp(15) - dp(23)
+   c(5) = dp(16) - dp(24)
+   c(6) = dp(17) - dp(25)
 !
-   C(7) = -Dp(11) + Dp(15) + Dp(19) - Dp(23)
-   C(8) = -Dp(12) + Dp(16) + Dp(20) - Dp(24)
-   C(9) = -Dp(13) + Dp(17) + Dp(21) - Dp(25)
+   c(7) = -dp(11) + dp(15) + dp(19) - dp(23)
+   c(8) = -dp(12) + dp(16) + dp(20) - dp(24)
+   c(9) = -dp(13) + dp(17) + dp(21) - dp(25)
 !
-   C(10) = -Dp(11) + Dp(19)
-   C(11) = -Dp(12) + Dp(20)
-   C(12) = -Dp(13) + Dp(21)
+   c(10) = -dp(11) + dp(19)
+   c(11) = -dp(12) + dp(20)
+   c(12) = -dp(13) + dp(21)
 !
    DO i = 1 , 4
-      IF ( necpt(i+1)==Npvt ) THEN
+      IF ( necpt(i+1)==npvt ) THEN
          npivot = i
          GOTO 100
       ENDIF
@@ -125,78 +131,78 @@ SUBROUTINE dpse4
 !
  100  IF ( npivot==4 ) THEN
 !
-      Nk(1) = 1
-      Nk(2) = 2
-      Nk(3) = 3
-      Ik(1) = 7
-      Ik(2) = 10
-      Ik(3) = 1
-      Sign(1) = -1.0D0
-      Sign(2) = -1.0D0
-      Sign(3) = 1.0D0
+      nk(1) = 1
+      nk(2) = 2
+      nk(3) = 3
+      ik(1) = 7
+      ik(2) = 10
+      ik(3) = 1
+      sign(1) = -1.0D0
+      sign(2) = -1.0D0
+      sign(3) = 1.0D0
    ELSEIF ( npivot<2 ) THEN
 !
 !     SET COUNTERS AND POINTERS FOR CALCULATING KAB, KAC, KAD
 !
-      Nk(1) = 2
-      Nk(2) = 3
-      Nk(3) = 4
-      Ik(1) = 1
-      Ik(2) = 4
-      Ik(3) = 7
-      Sign(1) = 1.0D0
-      Sign(2) = 1.0D0
-      Sign(3) = 1.0D0
+      nk(1) = 2
+      nk(2) = 3
+      nk(3) = 4
+      ik(1) = 1
+      ik(2) = 4
+      ik(3) = 7
+      sign(1) = 1.0D0
+      sign(2) = 1.0D0
+      sign(3) = 1.0D0
    ELSEIF ( npivot==2 ) THEN
 !
 !     SET COUNTERS AND POINTERS FOR CALCULATING KBA, KBC, KBD
 !     NOTE THAT KBA = -KAB
 !
-      Nk(1) = 1
-      Nk(2) = 3
-      Nk(3) = 4
-      Ik(1) = 1
-      Ik(2) = 7
-      Ik(3) = 10
-      Sign(1) = -1.0D0
-      Sign(2) = 1.0D0
-      Sign(3) = 1.0D0
+      nk(1) = 1
+      nk(2) = 3
+      nk(3) = 4
+      ik(1) = 1
+      ik(2) = 7
+      ik(3) = 10
+      sign(1) = -1.0D0
+      sign(2) = 1.0D0
+      sign(3) = 1.0D0
    ELSE
 !
 !     SET COUNTERS AND POINTERS FOR CALCULATING KCA, KCB, KCD
 !     NOTE THAT KCA = -KAC, KCB = -KBC
 !
-      Nk(1) = 1
-      Nk(2) = 2
-      Nk(3) = 4
-      Ik(1) = 4
-      Ik(2) = 7
-      Ik(3) = 1
-      Sign(1) = -1.0D0
-      Sign(2) = -1.0D0
-      Sign(3) = -1.0D0
+      nk(1) = 1
+      nk(2) = 2
+      nk(3) = 4
+      ik(1) = 4
+      ik(2) = 7
+      ik(3) = 1
+      sign(1) = -1.0D0
+      sign(2) = -1.0D0
+      sign(3) = -1.0D0
    ENDIF
 !
-   Gamma = -Dp(6)/12.0D0
+   gamma = -dp(6)/12.0D0
    DO i = 1 , 3
       DO j = 1 , 36
-         Kij(j) = 0.0D0
+         kij(j) = 0.0D0
       ENDDO
-      k1 = Ik(i)
+      k1 = ik(i)
       k2 = k1 + 1
       k3 = k1 + 2
-      sg = Gamma*Sign(i)
-      Kij(2) = -C(k3)*sg
-      Kij(3) = C(k2)*sg
-      Kij(7) = C(k3)*sg
-      Kij(9) = -C(k1)*sg
-      Kij(13) = -C(k2)*sg
-      Kij(14) = C(k1)*sg
+      sg = gamma*sign(i)
+      kij(2) = -c(k3)*sg
+      kij(3) = c(k2)*sg
+      kij(7) = c(k3)*sg
+      kij(9) = -c(k1)*sg
+      kij(13) = -c(k2)*sg
+      kij(14) = c(k1)*sg
 !
 !     ASSEMBLE INTO THE GLOBAL STIFFNESS MATRIX
 !
-      ias = Nk(i)
-      CALL ds1b(Kij(1),necpt(ias+1))
+      ias = nk(i)
+      CALL ds1b(kij(1),necpt(ias+1))
    ENDDO
 !
 END SUBROUTINE dpse4

@@ -1,12 +1,13 @@
-!*==cfbsor.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfbsor.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfbsor(Ll,Ul,Bx,Xx,Iopt)
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FBSX
-   USE C_GFBSX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,46 +27,46 @@ SUBROUTINE cfbsor(Ll,Ul,Bx,Xx,Iopt)
 !
 !
 !
-   nz = korsz(Iz)
+   nz = korsz(iz)
    mcb(1) = iabs(Bx)
    CALL rdtrl(mcb)
    IF ( Iopt==1 ) THEN
 !
 !     UNSYMETRIC FBS
 !
-      Jfl(1) = Ll
-      CALL rdtrl(Jfl)
-      Jfu(1) = Ul
-      CALL rdtrl(Jfu)
+      jfl(1) = Ll
+      CALL rdtrl(jfl)
+      jfu(1) = Ul
+      CALL rdtrl(jfu)
       DO i = 1 , 7
-         Jfb(i) = mcb(i)
-         Jfx(i) = mcb(i)
+         jfb(i) = mcb(i)
+         jfx(i) = mcb(i)
       ENDDO
-      Jfx(1) = Xx
-      Jx = nz
-      Jprec = Iprec
-      Jfx(5) = max0(Jfl(5),Jfb(5))
-      Jsign = +1
-      IF ( Bx<0 ) Jsign = -1
-      CALL gfbs(Iz,Iz)
-      CALL wrttrl(Jfx)
+      jfx(1) = Xx
+      jx = nz
+      jprec = iprec
+      jfx(5) = max0(jfl(5),jfb(5))
+      jsign = +1
+      IF ( Bx<0 ) jsign = -1
+      CALL gfbs(iz,iz)
+      CALL wrttrl(jfx)
    ELSE
 !
 !     SYMETRIC FBS
 !
-      Mfl(1) = Ll
-      CALL rdtrl(Mfl)
+      mfl(1) = Ll
+      CALL rdtrl(mfl)
       DO i = 1 , 7
-         Mfb(i) = mcb(i)
-         Mfx(i) = mcb(i)
+         mfb(i) = mcb(i)
+         mfx(i) = mcb(i)
       ENDDO
-      Mfx(1) = Xx
-      Mx = nz
-      Mfx(5) = max0(Mfl(5),Mfb(5))
-      Mprec = Iprec
-      Msign = +1
-      IF ( Bx<0 ) Msign = -1
-      CALL fbs(Iz,Iz)
-      CALL wrttrl(Mfx)
+      mfx(1) = Xx
+      mx = nz
+      mfx(5) = max0(mfl(5),mfb(5))
+      mprec = iprec
+      msign = +1
+      IF ( Bx<0 ) msign = -1
+      CALL fbs(iz,iz)
+      CALL wrttrl(mfx)
    ENDIF
 END SUBROUTINE cfbsor

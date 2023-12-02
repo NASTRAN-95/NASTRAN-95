@@ -2,14 +2,14 @@
  
 SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
    IMPLICIT NONE
-   USE C_MODDMP
-   USE C_STAPID
-   USE C_SYSTEM
-   USE C_XGPI2
-   USE C_XGPI4
-   USE C_XGPIC
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_moddmp
+   USE c_stapid
+   USE c_system
+   USE c_xgpi2
+   USE c_xgpi4
+   USE c_xgpic
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,6 +27,15 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
    INTEGER , DIMENSION(1) :: med , oscar
    INTEGER , SAVE :: nlabl1 , nlabl2
    REAL , DIMENSION(5) :: os
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -456,11 +465,11 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
 !
 !     STANDARD ERROR MESSAGES
 !
-   nodmap = andf(oscar(i+5),Nosgn)
+   nodmap = andf(oscar(i+5),nosgn)
    ASSIGN 200 TO lx
  100  IF ( Ncode<0 ) GOTO 600
-   IF ( Ncode/=0 ) GOTO 700
-   GOTO 7800
+   IF ( Ncode==0 ) GOTO 7800
+   GOTO 700
  200  nme1 = oscar(i+3)
    IF ( Ncode<0 ) THEN
       WRITE (op,99001) nme1 , oscar(i+4) , nodmap
@@ -472,7 +481,7 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
 !
  400  ASSIGN 300 TO lx
    IF ( Ncode<0 ) THEN
-      WRITE (op,99002) Swm , icode
+      WRITE (op,99002) swm , icode
 99002 FORMAT (A27,I4,1H,)
       GOTO 900
    ELSEIF ( Ncode==0 ) THEN
@@ -487,16 +496,16 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
  600  IF ( kdhcod==1 ) THEN
       WRITE (op,99004) icode
 99004 FORMAT (/,' *** USER POTENTIALLY FATAL MESSAGE',I4,1H,)
-      IF ( Iflg(2)<2 ) nogo = 1
+      IF ( iflg(2)<2 ) nogo = 1
    ELSE
-      WRITE (op,99005) Uwm , icode
+      WRITE (op,99005) uwm , icode
 99005 FORMAT (A25,I5,1H,)
    ENDIF
    GOTO 900
- 700  WRITE (op,99006) Ufm , icode
+ 700  WRITE (op,99006) ufm , icode
 99006 FORMAT (A23,I4,1H,)
    GOTO 900
- 800  WRITE (op,99007) Sfm , icode
+ 800  WRITE (op,99007) sfm , icode
 99007 FORMAT (A25,I4,1H,)
 !
  900  GOTO lx
@@ -536,7 +545,7 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
  2100 WRITE (op,99019) j
 99019 FORMAT (30X,'ERROR IN DMAP INSTRUCTION NO.',I4,', ILLEGAL CHARACTER IN DMAP INSTRUCTION NAME.')
    GOTO 99999
- 2200 WRITE (op,99079) Dmap(j) , Dmap(j+1) , K
+ 2200 WRITE (op,99079) dmap(j) , dmap(j+1) , K
    WRITE (op,99020)
 99020 FORMAT (30X,'DMAP INSTRUCTION NOT IN MODULE LIBRARY.')
    GOTO 99999
@@ -560,7 +569,7 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
 99026 FORMAT (5X,'TOO MANY PARAMETERS IN DMAP PARAMETER LIST')
    GOTO 99999
  2800 WRITE (op,99079) nlabl1 , nlabl2 , i
-   WRITE (op,99027) Dmap(j) , Dmap(j+1)
+   WRITE (op,99027) dmap(j) , dmap(j+1)
 99027 FORMAT (30X,'LABEL NAMED ',2A4,' IS MULTIPLY DEFINED.')
    GOTO 99999
  2900 WRITE (op,99028) j
@@ -609,18 +618,18 @@ SUBROUTINE xgpidg(Ncode,Ix,Jx,K)
 99042 FORMAT (5X,'CANNOT TRANSLATE DMAP INSTRUCTION NO.',I3)
    GOTO 99999
  4400 m = lshift(ibf(5),7)
-   iyear = rshift(andf(m,Maskhi),7)
+   iyear = rshift(andf(m,maskhi),7)
    m = rshift(m,6)
-   iday = rshift(andf(m,Maskhi),9)
+   iday = rshift(andf(m,maskhi),9)
    m = rshift(m,5)
-   imnth = rshift(andf(m,Maskhi),10)
-   n = lshift(Otapid(5),7)
-   jyear = rshift(andf(n,Maskhi),7)
+   imnth = rshift(andf(m,maskhi),10)
+   n = lshift(otapid(5),7)
+   jyear = rshift(andf(n,maskhi),7)
    n = rshift(n,6)
-   jday = rshift(andf(n,Maskhi),9)
+   jday = rshift(andf(n,maskhi),9)
    n = rshift(n,5)
-   jmnth = rshift(andf(n,Maskhi),10)
-   WRITE (op,99043) (ibf(i),m=1,4) , imnth , iday , iyear , ibf(6) , (Otapid(j),n=1,4) , jmnth , jday , jyear , Otapid(6)
+   jmnth = rshift(andf(n,maskhi),10)
+   WRITE (op,99043) (ibf(i),m=1,4) , imnth , iday , iyear , ibf(6) , (otapid(j),n=1,4) , jmnth , jday , jyear , otapid(6)
 99043 FORMAT (30X,'INCORRECT OLD PROBLEM TAPE MOUNTED -',/5X,'ID OF TAPE MOUNTED= ',2A4,1H,,2A4,1H,,I3,1H/,I2,1H/,I2,'REEL=',I2,/5X,&
              &'ID OF TAPE DESIRED= ',2A4,1H,,2A4,1H,,I3,1H/,I2,1H/,I2,'REEL=',I2)
    GOTO 99999

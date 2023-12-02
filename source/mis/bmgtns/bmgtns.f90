@@ -1,8 +1,9 @@
-!*==bmgtns.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bmgtns.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bmgtns(Cstm,Ncstm,Ecpt,Ta)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -19,7 +20,16 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) , DIMENSION(9) :: ke , tl
    REAL(REAL64) :: r , x , xl , y , z
    REAL(REAL64) , DIMENSION(3) :: xn
-   EXTERNAL gmmatd , mesage
+   EXTERNAL mesage
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -82,57 +92,56 @@ CONTAINS
 !
 ! THE COORDINATE SYSTEM IS RECTANGULAR.
 !
-      DO j = 1 , 9
-         k = kk + 4 + j
-         Ta(j) = Cstm(k)
+      DO J = 1 , 9
+         K = Kk + 4 + J
+         Ta(J) = Cstm(K)
       ENDDO
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      xn(1) = Ecpt(2) - Cstm(kk+2)
-      xn(2) = Ecpt(3) - Cstm(kk+3)
-      xn(3) = Ecpt(4) - Cstm(kk+4)
-      x = Cstm(kk+5)*xn(1) + Cstm(kk+8)*xn(2) + Cstm(kk+11)*xn(3)
-      y = Cstm(kk+6)*xn(1) + Cstm(kk+9)*xn(2) + Cstm(kk+12)*xn(3)
-      z = Cstm(kk+7)*xn(1) + Cstm(kk+10)*xn(2) + Cstm(kk+13)*xn(3)
-      r = dsqrt(x**2+y**2)
-      IF ( r==0.0D0 ) THEN
+      USE ISO_FORTRAN_ENV                 
+      Xn(1) = Ecpt(2) - Cstm(Kk+2)
+      Xn(2) = Ecpt(3) - Cstm(Kk+3)
+      Xn(3) = Ecpt(4) - Cstm(Kk+4)
+      X = Cstm(Kk+5)*Xn(1) + Cstm(Kk+8)*Xn(2) + Cstm(Kk+11)*Xn(3)
+      Y = Cstm(Kk+6)*Xn(1) + Cstm(Kk+9)*Xn(2) + Cstm(Kk+12)*Xn(3)
+      Z = Cstm(Kk+7)*Xn(1) + Cstm(Kk+10)*Xn(2) + Cstm(Kk+13)*Xn(3)
+      R = dsqrt(X**2+Y**2)
+      IF ( R==0.0D0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
-      DO j = 1 , 9
-         k = kk + 4 + j
-         ke(j) = Cstm(k)
+      DO J = 1 , 9
+         K = Kk + 4 + J
+         Ke(J) = Cstm(K)
       ENDDO
-      IF ( int2==3 ) THEN
+      IF ( Int2==3 ) THEN
 !
 ! THE COORDINATE SYSTEM IS SPHERICAL.
 !
-         xl = dsqrt(x*x+y*y+z*z)
-         tl(1) = x/xl
-         tl(2) = (x*z)/(r*xl)
-         tl(3) = -y/r
-         tl(4) = y/xl
-         tl(5) = (y*z)/(r*xl)
-         tl(6) = x/r
-         tl(7) = z/xl
-         tl(8) = -r/xl
-         tl(9) = 0.0D0
+         Xl = dsqrt(X*X+Y*Y+Z*Z)
+         Tl(1) = X/Xl
+         Tl(2) = (X*Z)/(R*Xl)
+         Tl(3) = -Y/R
+         Tl(4) = Y/Xl
+         Tl(5) = (Y*Z)/(R*Xl)
+         Tl(6) = X/R
+         Tl(7) = Z/Xl
+         Tl(8) = -R/Xl
+         Tl(9) = 0.0D0
       ELSE
 !
 ! THE COORDINATE SYSTEM IS CYLINDRICAL.
 !
-         tl(1) = x/r
-         tl(2) = -y/r
-         tl(3) = 0.0D0
-         tl(4) = -tl(2)
-         tl(5) = tl(1)
-         tl(6) = 0.0D0
-         tl(7) = 0.0D0
-         tl(8) = 0.0D0
-         tl(9) = 1.0D0
+         Tl(1) = X/R
+         Tl(2) = -Y/R
+         Tl(3) = 0.0D0
+         Tl(4) = -Tl(2)
+         Tl(5) = Tl(1)
+         Tl(6) = 0.0D0
+         Tl(7) = 0.0D0
+         Tl(8) = 0.0D0
+         Tl(9) = 1.0D0
       ENDIF
-      CALL gmmatd(ke(1),3,3,0,tl(1),3,3,0,Ta(1))
-      RETURN
+      CALL gmmatd(Ke(1),3,3,0,Tl(1),3,3,0,Ta(1))
    END SUBROUTINE spag_block_2
 END SUBROUTINE bmgtns

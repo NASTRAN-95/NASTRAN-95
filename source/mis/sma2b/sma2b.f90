@@ -2,14 +2,14 @@
  
 SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SEM
-   USE C_SMA2BK
-   USE C_SMA2CL
-   USE C_SMA2ET
-   USE C_SMA2IO
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_sem
+   USE c_sma2bk
+   USE c_sma2cl
+   USE c_sma2et
+   USE c_sma2io
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,6 +24,15 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
    REAL*8 , DIMENSION(1) :: dz
    INTEGER :: i , i1 , ibase , index , isave , j1 , j2 , j3 , jj , k , k1 , l , l1 , lim , low , nrow
    INTEGER , DIMENSION(1) :: iz
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -69,21 +78,21 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
 !     CALL EMG1B AND THEN RETURN IF THIS IS LINK 8.
 !     PROCEED NORMALLY FOR OTHER LINKS.
 !
-   IF ( Linkno/=Lnknos(8) ) THEN
+   IF ( linkno/=lnknos(8) ) THEN
 !
 ! DETERMINE WHICH MATRIX IS BEING COMPUTED.
 !
-      ibase = I6x6m
-      IF ( Ifile/=Ifmgg ) THEN
-         IF ( Ioptb<0 ) RETURN
-         ibase = I6x6b
+      ibase = i6x6m
+      IF ( Ifile/=ifmgg ) THEN
+         IF ( ioptb<0 ) RETURN
+         ibase = i6x6b
       ENDIF
 !
 ! SEARCH THE GPCT AND FIND AN INDEX M SUCH THAT
 ! IABS(GPCT(M)) .LE. J .LT. IABS(GPCT(M+1))
 !
-      low = Igpct + 1
-      lim = Ngpct + low - 2
+      low = igpct + 1
+      lim = ngpct + low - 2
       IF ( low>lim ) THEN
 !
 ! IF II .GT. 0, WE ARE DEALING WITH A SCALAR POINT.
@@ -103,21 +112,21 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
 ! AT THIS POINT WE ARE DEALING WITH A 1 X 1.
 ! FIRST COMPUTE THE ROW NUMBER, NROW
 !
-         nrow = Ii - Npvt + 1
+         nrow = Ii - npvt + 1
 !
 ! THE FOLLOWING 2 FORTRAN STATEMENTS ARE MERELY TO CHECK THE PROGRAM
 ! LOGIC.  EVENTUALLY THEY CAN BE DELETED.
 !
-         IF ( nrow<1 .OR. nrow>Tnrows ) CALL mesage(-30,22,Ecpt(1))
-         Lrowic = Frowic + Nrowsc - 1
+         IF ( nrow<1 .OR. nrow>tnrows ) CALL mesage(-30,22,ecpt(1))
+         lrowic = frowic + nrowsc - 1
 !
 ! IF NROW, THE ROW INTO WHICH THE NUMBER KE(1) IS TO BE ADDED IS NOT
 ! IN CORE IT CANNOT BE ADDED AT THIS TIME.
 !
-         IF ( nrow<Frowic .OR. nrow>Lrowic ) RETURN
+         IF ( nrow<frowic .OR. nrow>lrowic ) RETURN
          j2 = isave
-         j3 = Ipoint + isave - Igpct
-         index = ibase + (nrow-1)*Jmax + iz(j3) + J - iabs(iz(j2))
+         j3 = ipoint + isave - igpct
+         index = ibase + (nrow-1)*jmax + iz(j3) + J - iabs(iz(j2))
          dz(index) = dz(index) + Ke(1)
          GOTO 99999
       ELSE
@@ -126,11 +135,11 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
 ! WHICH CORRESPONDS TO A GRID POINT.  HENCE THE DOUBLE PRECISION 6 X 6
 ! MATRIX, KE, WILL BE ADDED TO THE MATRIX.
 !
-         l1 = Frowic - 1
-         jj = Ipoint + isave - Igpct
+         l1 = frowic - 1
+         jj = ipoint + isave - igpct
          j2 = iz(jj) - 1
          i1 = 0
-         lim = Nrowsc - 1
+         lim = nrowsc - 1
       ENDIF
    ELSE
       CALL emg1b(Ke,J,Ii,Ifile,Dumdp)
@@ -138,7 +147,7 @@ SUBROUTINE sma2b(Ke,J,Ii,Ifile,Dumdp)
    ENDIF
    DO
       IF ( i1>lim ) RETURN
-      k1 = ibase + i1*Jmax + j2
+      k1 = ibase + i1*jmax + j2
       j1 = 0
       l = 6*l1
       k = k1

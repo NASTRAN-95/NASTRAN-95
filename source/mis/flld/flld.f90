@@ -1,10 +1,11 @@
-!*==flld.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flld.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flld(X01,X02,Y0,Z0,Sgr,Cgr,Sgs,Cgs,Kr,Cbar,Fmach,E,L,Kd1r,Kd1i,Kd2r,Kd2i)
+   USE c_dlm
+   USE c_kds
    IMPLICIT NONE
-   USE C_DLM
-   USE C_KDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -67,7 +68,7 @@ SUBROUTINE flld(X01,X02,Y0,Z0,Sgr,Cgr,Sgs,Cgs,Kr,Cbar,Fmach,E,L,Kd1r,Kd1i,Kd2r,K
 !
 !     FULL KERNEL FROM -TKER-
 !
-   Ind = 0
+   ind = 0
    Kd1r = 0.0
    Kd2r = 0.0
    t1 = Kr*delxi/Cbar
@@ -82,11 +83,11 @@ SUBROUTINE flld(X01,X02,Y0,Z0,Sgr,Cgr,Sgs,Cgs,Kr,Cbar,Fmach,E,L,Kd1r,Kd1i,Kd2r,K
 !
       IF ( i==2 ) THEN
 !
-         k1xi2 = cmplx(Kk1r,Kk1i)
-         k2xi2 = cmplx(Kk2r,Kk2i)
+         k1xi2 = cmplx(kk1r,kk1i)
+         k2xi2 = cmplx(kk2r,kk2i)
          IF ( L/=0 ) THEN
-            Kd1r = Kd1r + K10t1
-            Kd2r = Kd2r + K20t2p
+            Kd1r = Kd1r + k10t1
+            Kd2r = Kd2r + k20t2p
          ENDIF
 !
          temp1 = cmplx(ct1,st1)
@@ -105,11 +106,11 @@ SUBROUTINE flld(X01,X02,Y0,Z0,Sgr,Cgr,Sgs,Cgs,Kr,Cbar,Fmach,E,L,Kd1r,Kd1i,Kd2r,K
          Kd2i = aimag(kd2)
          EXIT SPAG_Loop_1_1
       ELSE
-         k1xi1 = cmplx(Kk1r,Kk1i)
-         k2xi1 = cmplx(Kk2r,Kk2i)
+         k1xi1 = cmplx(kk1r,kk1i)
+         k2xi1 = cmplx(kk2r,kk2i)
          IF ( L/=0 ) THEN
-            Kd1r = Kd1r - K10t1
-            Kd2r = Kd2r - K20t2p
+            Kd1r = Kd1r - k10t1
+            Kd2r = Kd2r - k20t2p
          ENDIF
 !
 !     NOW GO CALCULATE FOR XI = XI2

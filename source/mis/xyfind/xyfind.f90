@@ -1,10 +1,11 @@
-!*==xyfind.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xyfind.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xyfind(Majid,Idz) !HIDESTARS (*,*,*,Majid,Idz)
+   USE c_xywork
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_XYWORK
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,71 +35,70 @@ SUBROUTINE xyfind(Majid,Idz) !HIDESTARS (*,*,*,Majid,Idz)
          k = 1
          retry = .FALSE.
          itemp = Idz
-         IF ( Subc(File)>=0 ) THEN
-            IF ( Knt<0 ) THEN
-               isav = Idin(4)
+         IF ( subc(file)>=0 ) THEN
+            IF ( knt<0 ) THEN
+               isav = idin(4)
                DO
-                  CALL read(*20,*60,Ifile,Idin(1),146,1,flag)
-                  IF ( isav==Idin(4) ) THEN
+                  CALL read(*20,*60,ifile,idin(1),146,1,flag)
+                  IF ( isav==idin(4) ) THEN
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL fwdrec(*40,Ifile)
+                  CALL fwdrec(*40,ifile)
                ENDDO
-            ELSEIF ( Knt/=0 ) THEN
-               isav = Idin(4)
+            ELSEIF ( knt/=0 ) THEN
+               isav = idin(4)
                DO
-                  CALL read(*20,*60,Ifile,Idin(1),146,1,flag)
-                  IF ( Idin(4)/=isav ) THEN
+                  CALL read(*20,*60,ifile,idin(1),146,1,flag)
+                  IF ( idin(4)/=isav ) THEN
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL fwdrec(*40,Ifile)
+                  CALL fwdrec(*40,ifile)
                ENDDO
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         CALL rewind(Ifile)
-         CALL fwdrec(*40,Ifile)
-         Vecid(File) = 0
+         CALL rewind(ifile)
+         CALL fwdrec(*40,ifile)
+         vecid(file) = 0
          spag_nextblock_1 = 3
       CASE (3)
-         CALL read(*20,*60,Ifile,Idin(1),146,eor,flag)
+         CALL read(*20,*60,ifile,idin(1),146,eor,flag)
          spag_nextblock_1 = 4
       CASE (4)
-         IF ( Major==Idin(2) ) THEN
-            IF ( Subc(File)==0 ) THEN
+         IF ( major==idin(2) ) THEN
+            IF ( subc(file)==0 ) THEN
 !
 !     MATCH ON MAJOR ID MADE
 !
-               Vecid(File) = Vector
+               vecid(file) = vector
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Subc(File)==Idin(4) ) THEN
-               Vecid(File) = Vector
+            ELSEIF ( subc(file)==idin(4) ) THEN
+               vecid(file) = vector
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         CALL fwdrec(*40,Ifile)
+         CALL fwdrec(*40,ifile)
          k = k + 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          SPAG_Loop_1_1: DO
-            IF ( Idin(5)/10/=Z(Idz) ) THEN
+            IF ( idin(5)/10/=z(Idz) ) THEN
                itemp = -1
 !
 !     IF RANDOM CHECK COMPONENT FOR MATCH
 !
-            ELSEIF ( .NOT.(Z(Idz+1)/=Idin(6) .AND. Random) ) THEN
-               IF ( Subc(File)==0 ) RETURN
-               IF ( Subc(File)==Idin(4) ) RETURN
+            ELSEIF ( .NOT.(z(Idz+1)/=idin(6) .AND. random) ) THEN
+               IF ( subc(file)==0 ) RETURN
+               IF ( subc(file)==idin(4) ) RETURN
             ENDIF
-            CALL fwdrec(*40,Ifile)
-            CALL read(*20,*60,Ifile,Idin(1),146,eor,flag)
-            IF ( Major/=Idin(2) ) EXIT SPAG_Loop_1_1
+            CALL fwdrec(*40,ifile)
+            CALL read(*20,*60,ifile,idin(1),146,eor,flag)
+            IF ( major/=idin(2) ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
 !
 !     ELEMENT DATA ARE NOT IN ASCENDING SORT LIKE GRID DATA, BUT ARE
@@ -107,19 +107,19 @@ SUBROUTINE xyfind(Majid,Idz) !HIDESTARS (*,*,*,Majid,Idz)
 !     CURRENT POSITION OF FILE, REWIND AND TRY AGAIN TO FIND MISSING
 !     ELEMENT DATA FOR FORCES AND STRESSES.
 !
- 20      IF ( .NOT.(Knt==0 .OR. retry .OR. Subc(File)==0) ) THEN
+ 20      IF ( .NOT.(knt==0 .OR. retry .OR. subc(file)==0) ) THEN
             retry = .TRUE.
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Subc(File)/=0 ) THEN
+         ELSEIF ( subc(file)/=0 ) THEN
 !
-            Vecid(File) = 0
+            vecid(file) = 0
             Idz = itemp
-            CALL rewind(Ifile)
-            CALL fwdrec(*40,Ifile)
+            CALL rewind(ifile)
+            CALL fwdrec(*40,ifile)
             RETURN 3
          ELSE
-            Subc(File) = -1
+            subc(file) = -1
             RETURN
          ENDIF
 !

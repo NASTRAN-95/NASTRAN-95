@@ -1,12 +1,13 @@
-!*==eadd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==eadd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE eadd(P,Prec)
-USE C_BLANK
-USE C_REGEAN
-USE C_SADDX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_regean
+   USE c_saddx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -27,20 +28,20 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Mcbs(1),Ia(1)) , (Mcbs(8),Ialp) , (Mcbs(9),Alpha(1)) , (Mcbs(13),Ib(1)) , (Mcbs(20),Ibeta) , (Mcbs(21),Beta(1)) ,   &
 !>>>>    & (Mcbs(61),Ic(1))
 !
-   Nz = (korsz(Core)/2)*2 - Lc
+   nz = (korsz(core)/2)*2 - lc
    DO i = 1 , 7
-      ia(i) = Im(i)
-      ib(i) = Ik(i)
-      ic(i) = Ik(i)
+      ia(i) = im(i)
+      ib(i) = ik(i)
+      ic(i) = ik(i)
    ENDDO
-   ic(1) = Ka(1)
-   kprec = Ik(5)
+   ic(1) = ka(1)
+   kprec = ik(5)
    IF ( Prec>=1 .AND. Prec<=4 ) kprec = Prec
    ialp = kprec
    alpha(1) = P(1)
    ibeta = kprec
    beta(1) = 1.0D0
-   Nomat = 2
-   CALL sadd(Core,Core)
+   nomat = 2
+   CALL sadd(core,core)
    CALL wrttrl(ic)
 END SUBROUTINE eadd

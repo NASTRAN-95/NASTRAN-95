@@ -1,17 +1,18 @@
-!*==cmcase.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmcase.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmcase
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -58,40 +59,40 @@ SUBROUTINE cmcase
          srch = .FALSE.
          ierr = 0
          DO i = 1 , 96
-            Ihead(i) = ihd(i)
+            ihead(i) = ihd(i)
          ENDDO
-         ifile = Casecc
-         CALL open(*60,Casecc,Z(Buf2),0)
-         nrec = Step
+         ifile = casecc
+         CALL open(*60,casecc,z(buf2),0)
+         nrec = step
          IF ( nrec/=0 ) THEN
             DO i = 1 , nrec
-               CALL fwdrec(*60,Casecc)
+               CALL fwdrec(*60,casecc)
             ENDDO
          ENDIF
-         CALL read(*40,*80,Casecc,Z(1),5,0,nnn)
+         CALL read(*40,*80,casecc,z(1),5,0,nnn)
          i = 2
-         nwdscc = Z(i)
-         Npsub = Z(i+1)
-         CALL read(*40,*20,Casecc,Z(1),nwdscc,1,nnn)
+         nwdscc = z(i)
+         npsub = z(i+1)
+         CALL read(*40,*20,casecc,z(1),nwdscc,1,nnn)
  20      jj = 0
          kk = 0
-         Iprint = 0
+         iprint = 0
 !
 !     INITIALIZE COMBO AND RESTCT ARRAYS
 !
          DO i = 1 , 7
             DO j = 1 , 5
-               Combo(i,j) = 0
+               combo(i,j) = 0
             ENDDO
             DO j = 1 , 7
-               Restct(i,j) = 0
+               restct(i,j) = 0
             ENDDO
          ENDDO
 !
 !     INITIALIZE COMP,TRANS,AND SYMT ARRAYS
 !
-         Conect = .FALSE.
-         Tran = .FALSE.
+         conect = .FALSE.
+         tran = .FALSE.
          DO i = 1 , 7
             symt(i) = 0
             trans(i) = 0
@@ -102,8 +103,8 @@ SUBROUTINE cmcase
          DO i = 1 , 3
             lf(i) = .FALSE.
          ENDDO
-         Cnam(1) = 0
-         Cnam(2) = 0
+         cnam(1) = 0
+         cnam(2) = 0
 !
 !     PROCESS CASE CONTROL MNEMONICS
 !
@@ -112,72 +113,68 @@ SUBROUTINE cmcase
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  DO j = 1 , nmnem
-                     IF ( Z(i)==mnem(j) ) THEN
+                  SPAG_Loop_4_1: DO j = 1 , nmnem
+                     IF ( z(i)==mnem(j) ) THEN
                         IF ( j==1 ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==2 ) THEN
                            spag_nextblock_2 = 3
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==3 ) THEN
                            spag_nextblock_2 = 5
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==4 ) THEN
                            spag_nextblock_2 = 6
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==5 ) THEN
                            spag_nextblock_2 = 7
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==6 ) THEN
                            spag_nextblock_2 = 8
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==7 ) THEN
                            spag_nextblock_2 = 9
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==8 ) THEN
                            spag_nextblock_2 = 10
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==9 ) THEN
                            spag_nextblock_2 = 11
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==10 ) THEN
                            spag_nextblock_2 = 13
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                         IF ( j==11 ) THEN
                            spag_nextblock_2 = 15
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
                      ENDIF
-                  ENDDO
-                  CYCLE
+                  ENDDO SPAG_Loop_4_1
                CASE (2)
-                  Iauto = .FALSE.
-                  IF ( Z(i+1)==auto ) Iauto = .TRUE.
-                  CYCLE
+                  iauto = .FALSE.
+                  IF ( z(i+1)==auto ) iauto = .TRUE.
                CASE (3)
 !
                   DO l = 1 , 3
-                     IF ( Z(i+1)==idir(l) ) THEN
+                     IF ( z(i+1)==idir(l) ) THEN
                         spag_nextblock_2 = 4
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   ENDDO
-                  Isort = 1
-                  CYCLE
+                  isort = 1
                CASE (4)
-                  Isort = l
-                  CYCLE
+                  isort = l
                CASE (5)
 !
                   IF ( lf(1) ) THEN
@@ -185,15 +182,13 @@ SUBROUTINE cmcase
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   lf(1) = .TRUE.
-                  Cnam(1) = Z(i+1)
-                  Cnam(2) = Z(i+2)
-                  CYCLE
+                  cnam(1) = z(i+1)
+                  cnam(2) = z(i+2)
                CASE (6)
 !
                   jj = jj + 1
-                  snam(jj,1) = Z(i+1)
-                  snam(jj,2) = Z(i+2)
-                  CYCLE
+                  snam(jj,1) = z(i+1)
+                  snam(jj,2) = z(i+2)
                CASE (7)
 !
                   IF ( lf(2) ) THEN
@@ -201,8 +196,7 @@ SUBROUTINE cmcase
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   lf(2) = .TRUE.
-                  Toler = az(i+2)
-                  CYCLE
+                  toler = az(i+2)
                CASE (8)
 !
                   IF ( lf(3) ) THEN
@@ -210,72 +204,64 @@ SUBROUTINE cmcase
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   lf(3) = .TRUE.
-                  Conset = Z(i+2)
-                  Conect = .TRUE.
-                  CYCLE
+                  conset = z(i+2)
+                  conect = .TRUE.
                CASE (9)
 !
                   kk = kk + 1
-                  comp(kk,1) = Z(i+1)
-                  comp(kk,2) = Z(i+2)
-                  DO lindx = 1 , Npsub
-                     IF ( Z(i+1)==snam(lindx,1) .AND. Z(i+2)==snam(lindx,2) ) CYCLE SPAG_Loop_1_1
+                  comp(kk,1) = z(i+1)
+                  comp(kk,2) = z(i+2)
+                  DO lindx = 1 , npsub
+                     IF ( z(i+1)==snam(lindx,1) .AND. z(i+2)==snam(lindx,2) ) EXIT SPAG_DispatchLoop_2
                   ENDDO
-                  WRITE (Outt,99022) Ufm , Z(i+1) , Z(i+2)
+                  WRITE (outt,99022) ufm , z(i+1) , z(i+2)
                   ierr = 1
-                  CYCLE
                CASE (10)
 !
-                  trans(kk) = Z(i+2)
-                  Tran = .TRUE.
-                  CYCLE
+                  trans(kk) = z(i+2)
+                  tran = .TRUE.
                CASE (11)
 !
                   DO l = 1 , 15
-                     IF ( Z(i+1)==isym(l,2) ) THEN
+                     IF ( z(i+1)==isym(l,2) ) THEN
                         spag_nextblock_2 = 12
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   ENDDO
                   ierr = 1
-                  WRITE (Outt,99001) Ufm , Z(i+1) , comp(kk,1) , comp(kk,2)
+                  WRITE (outt,99001) ufm , z(i+1) , comp(kk,1) , comp(kk,2)
 !
 99001             FORMAT (A23,' 6505, THE SYMMETRY OPTION ',A4,' CONTAINS AN INVALID SYMBOL.')
-                  CYCLE
                CASE (12)
                   symt(kk) = isym(l,1)
-                  CYCLE
                CASE (13)
 !
-                  DO l = 1 , Npsub
-                     IF ( Z(i+1)==snam(l,1) .AND. Z(i+2)==snam(l,2) ) THEN
+                  DO l = 1 , npsub
+                     IF ( z(i+1)==snam(l,1) .AND. z(i+2)==snam(l,2) ) THEN
                         spag_nextblock_2 = 14
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   ENDDO
-                  WRITE (Outt,99022) Ufm , Z(i+1) , Z(i+2)
+                  WRITE (outt,99022) ufm , z(i+1) , z(i+2)
                   ierr = 1
-                  CYCLE
                CASE (14)
                   srch = .TRUE.
-                  Restct(lindx,l) = 1
-                  Restct(l,lindx) = 1
-                  CYCLE
+                  restct(lindx,l) = 1
+                  restct(l,lindx) = 1
                CASE (15)
 !
-                  Iprint = orf(Iprint,Z(i+2))
-                  CYCLE
+                  iprint = orf(iprint,z(i+2))
                CASE (16)
 !
                   IF ( j==1 .OR. j==2 .OR. j==4 ) CYCLE
                   IF ( j==5 ) THEN
-                     WRITE (Outt,99002) Ufm
+                     WRITE (outt,99002) ufm
 99002                FORMAT (A23,' 6520, REDUNDANT VALUES FOR TOLER HAVE BEEN ','SPECIFIED.')
                   ELSEIF ( j==6 ) THEN
-                     WRITE (Outt,99003) Ufm
+                     WRITE (outt,99003) ufm
 99003                FORMAT (A23,' 6512, REDUNDANT CONNECTION SET ID S HAVE BEEN ','SPECIFIED.')
                   ELSE
-                     WRITE (Outt,99004) Ufm
+                     WRITE (outt,99004) ufm
 99004                FORMAT (A23,' 6519, REDUNDANT NAMES FOR RESULTANT PSEUDOSTRUCTURE',' HAVE BEEN SPECIFIED.')
                   ENDIF
                   ierr = 1
@@ -289,88 +275,87 @@ SUBROUTINE cmcase
          IF ( .NOT.(srch) ) THEN
             DO i = 1 , 7
                DO j = 1 , 7
-                  Restct(i,j) = 1
+                  restct(i,j) = 1
                ENDDO
             ENDDO
          ENDIF
-         DO i = 1 , Npsub
+         DO i = 1 , npsub
             spag_nextblock_3 = 1
             SPAG_DispatchLoop_3: DO
                SELECT CASE (spag_nextblock_3)
                CASE (1)
-                  DO j = 1 , Npsub
+                  DO j = 1 , npsub
                      IF ( snam(i,1)==comp(j,1) .AND. snam(i,2)==comp(j,2) ) THEN
                         spag_nextblock_3 = 2
                         CYCLE SPAG_DispatchLoop_3
                      ENDIF
                   ENDDO
-                  Combo(i,1) = snam(i,1)
-                  Combo(i,2) = snam(i,2)
-                  Combo(i,3) = 0
-                  Combo(i,4) = 0
-                  CYCLE
+                  combo(i,1) = snam(i,1)
+                  combo(i,2) = snam(i,2)
+                  combo(i,3) = 0
+                  combo(i,4) = 0
                CASE (2)
-                  Combo(i,1) = snam(i,1)
-                  Combo(i,2) = snam(i,2)
-                  Combo(i,3) = trans(j)
-                  Combo(i,4) = symt(j)
+                  combo(i,1) = snam(i,1)
+                  combo(i,2) = snam(i,2)
+                  combo(i,3) = trans(j)
+                  combo(i,4) = symt(j)
                   EXIT SPAG_DispatchLoop_3
                END SELECT
             ENDDO SPAG_DispatchLoop_3
          ENDDO
-         CALL close(Casecc,1)
+         CALL close(casecc,1)
          CALL page
-         WRITE (Outt,99005) Npsub
+         WRITE (outt,99005) npsub
 99005    FORMAT (/10X,'THIS JOB STEP WILL COMBINE ',I1,' PSEUDOSTRUCTURES')
-         IF ( Iauto ) WRITE (Outt,99006)
+         IF ( iauto ) WRITE (outt,99006)
 99006    FORMAT (/10X,40HCONNECTIONS ARE GENERATED AUTOMATICALLY.)
-         IF ( .NOT.Iauto ) WRITE (Outt,99007)
+         IF ( .NOT.iauto ) WRITE (outt,99007)
 99007    FORMAT (/10X,35HCONNECTIONS ARE SPECIFIED MANUALLY.)
-         IF ( .NOT.(Iauto .OR. Conect) ) THEN
-            WRITE (Outt,99008) Ufm
+         IF ( .NOT.(iauto .OR. conect) ) THEN
+            WRITE (outt,99008) ufm
 99008       FORMAT (A23,' 6501, THE MANUAL COMBINE OPTION HAS BEEN SPECIFIED',', BUT NO CONNECTION SET WAS GIVEN.')
             ierr = 1
          ENDIF
-         IF ( Conect ) WRITE (Outt,99009) Conset
+         IF ( conect ) WRITE (outt,99009) conset
 99009    FORMAT (/10X,25HTHE CONNECTION SET ID IS ,I8)
-         IF ( Cnam(1)==0 .AND. Cnam(2)==0 ) THEN
-            WRITE (Outt,99010) Ufm
+         IF ( cnam(1)==0 .AND. cnam(2)==0 ) THEN
+            WRITE (outt,99010) ufm
 99010       FORMAT (A23,' 6502, NO NAME HAS BEEN SPECIFIED FOR THE RESULTANT',' COMBINED PSEUDOSTRUCTURE.')
             ierr = 1
          ELSE
-            WRITE (Outt,99011) Cnam
+            WRITE (outt,99011) cnam
 99011       FORMAT (/10X,38HTHE RESULTANT PSEUDOSTRUCTURE NAME IS ,2A4)
-            CALL fdsub(Cnam,itest)
+            CALL fdsub(cnam,itest)
             IF ( itest/=-1 ) THEN
                litm = lods
-               IF ( Pora==papp ) litm = loap
-               CALL sfetch(Cnam,litm,3,itest)
-               Lonly = .FALSE.
+               IF ( pora==papp ) litm = loap
+               CALL sfetch(cnam,litm,3,itest)
+               lonly = .FALSE.
                IF ( itest==3 ) THEN
 !
 !     NEW LODS ONLY DEFINED
 !
-                  Lonly = .TRUE.
+                  lonly = .TRUE.
                   RETURN
-               ELSEIF ( Pora==papp ) THEN
+               ELSEIF ( pora==papp ) THEN
 !
 !     OPTIONS PA YET LOAP ITEM ALREADY EXISTS
 !
-                  WRITE (Outt,99012) Ufm , Cnam
+                  WRITE (outt,99012) ufm , cnam
 99012             FORMAT (A23,' 6533, OPTIONS PA HAS BEEN SPECIFIED BUT THE LOAP ','ITEM ALREADY EXISTS FOR SUBSTRUCTURE ',2A4)
                   ierr = 1
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  WRITE (Outt,99013) Ufm
+                  WRITE (outt,99013) ufm
 99013             FORMAT (A23,' 6508, THE NAME SPECIFIED FOR THE RESULTANT ','PSEUDOSTRUCTURE',/32X,'ALREADY EXISTS ON THE SOF.')
                   ierr = 1
                ENDIF
-            ELSEIF ( Pora==papp ) THEN
+            ELSEIF ( pora==papp ) THEN
 !
 !     OPTIONS PA YET SUBSTRUCTURE DOES NOT EXIST
 !
-               WRITE (Outt,99014) Ufm , Cnam
+               WRITE (outt,99014) ufm , cnam
 99014          FORMAT (A23,' 6534, OPTIONS PA HAS BEEN SPECIFIED BUT THE ','SUBSTRUCTURE ',2A4,' DOES NOT EXIST.',/30X,             &
                       &'YOU CANNOT APPEND SOMETHING TO NOTHING.')
                ierr = 1
@@ -379,45 +364,45 @@ SUBROUTINE cmcase
             ENDIF
             IF ( .NOT.lf(2) ) THEN
 !
-               WRITE (Outt,99015) Ufm
+               WRITE (outt,99015) ufm
 99015          FORMAT (A23,' 6504, A TOLERANCE MUST BE SPECIFIED FOR A COMBINE ','OPERATION.')
                ierr = 1
             ELSE
-               WRITE (Outt,99016) Toler
+               WRITE (outt,99016) toler
 99016          FORMAT (/10X,32HTHE TOLERANCE ON CONNECTIONS IS ,E15.6)
-               CALL decode(Iprint,ibits,nflg)
+               CALL decode(iprint,ibits,nflg)
                IF ( nflg==0 ) ibits(1) = 0
                IF ( nflg/=0 ) THEN
                   DO i = 1 , nflg
                      ibits(i) = ibits(i) + 1
                   ENDDO
                ENDIF
-               WRITE (Outt,99017) (ibits(kdh),kdh=1,nflg)
+               WRITE (outt,99017) (ibits(kdh),kdh=1,nflg)
 99017          FORMAT (/10X,30HTHE PRINT CONTROL OPTIONS ARE ,25I3)
             ENDIF
-            DO i = 1 , Npsub
-               WRITE (Outt,99018) i , Combo(i,1) , Combo(i,2)
+            DO i = 1 , npsub
+               WRITE (outt,99018) i , combo(i,1) , combo(i,2)
 99018          FORMAT (/10X,27HCOMPONENT SUBSTRUCTURE NO. ,I1,8H NAME = ,2A4)
-               ncnam(1) = Combo(i,1)
-               ncnam(2) = Combo(i,2)
+               ncnam(1) = combo(i,1)
+               ncnam(2) = combo(i,2)
                CALL sfetch(ncnam,nheqss,3,itest)
-               IF ( itest==4 ) WRITE (Outt,99019) Ufm , ncnam
+               IF ( itest==4 ) WRITE (outt,99019) ufm , ncnam
 99019          FORMAT (A23,' 6507, THE SUBSTRUCTURE ',2A4,' DOES NOT EXIST ON ','THE SOF FILE')
-               IF ( itest==4 ) Idry = -2
-               IF ( Combo(i,3)/=0 ) WRITE (Outt,99020) Combo(i,3)
+               IF ( itest==4 ) idry = -2
+               IF ( combo(i,3)/=0 ) WRITE (outt,99020) combo(i,3)
 99020          FORMAT (/15X,15HTRANS SET ID = ,I8)
-               IF ( Combo(i,4)/=0 ) THEN
+               IF ( combo(i,4)/=0 ) THEN
                   SPAG_Loop_2_2: DO mj = 1 , 15
-                     IF ( Combo(i,4)==isym(mj,1) ) EXIT SPAG_Loop_2_2
+                     IF ( combo(i,4)==isym(mj,1) ) EXIT SPAG_Loop_2_2
                   ENDDO SPAG_Loop_2_2
-                  WRITE (Outt,99021) isym(mj,2)
+                  WRITE (outt,99021) isym(mj,2)
 99021             FORMAT (15X,22HSYMMETRY DIRECTIONS = ,A4)
                ENDIF
             ENDDO
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( ierr==1 ) Idry = -2
+         IF ( ierr==1 ) idry = -2
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
  40      imsg = -2

@@ -1,17 +1,18 @@
-!*==gfsmod.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gfsmod.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gfsmod
-USE C_BITPOS
-USE C_BLANK
-USE C_GFSMOX
-USE C_PACKX
-USE C_PATX
-USE C_SYSTEM
-USE C_TWO
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_gfsmox
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -50,43 +51,43 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Axy = 101
-         Afry = 102
-         Kyy = 103
-         Dkaa = 104
-         Dkfrfr = 105
-         Usetf = 111
-         Phia = 112
-         Phix = 113
-         Lama = 114
-         Kmat = 201
-         Mmat = 202
-         Gia = 203
-         Pout = 204
-         Scr1 = 301
-         Scr2 = 302
-         Scr3 = 303
-         Scr4 = 304
-         Scr5 = 305
-         Scr6 = 306
-         Scr7 = 307
-         Scr8 = 308
-         Name(1) = namex(1)
-         Name(2) = namex(2)
+         axy = 101
+         afry = 102
+         kyy = 103
+         dkaa = 104
+         dkfrfr = 105
+         usetf = 111
+         phia = 112
+         phix = 113
+         lama = 114
+         kmat = 201
+         mmat = 202
+         gia = 203
+         pout = 204
+         scr1 = 301
+         scr2 = 302
+         scr3 = 303
+         scr4 = 304
+         scr5 = 305
+         scr6 = 306
+         scr7 = 307
+         scr8 = 308
+         name(1) = namex(1)
+         name(2) = namex(2)
          DO i = 1 , 11
-            Badd(i) = 0
+            badd(i) = 0
          ENDDO
 !
 !
-         phiar = Scr4
-         phixr = Scr2
+         phiar = scr4
+         phixr = scr2
 !
-         Lcore = korsz(Z(1))
-         Ibuf = Lcore - Sysbuf - 1
-         IF ( Ibuf<0 ) THEN
+         lcore = korsz(z(1))
+         ibuf = lcore - sysbuf - 1
+         IF ( ibuf<0 ) THEN
             n = -8
 !
-            CALL mesage(n,file,Name)
+            CALL mesage(n,file,name)
             RETURN
          ELSE
 !
@@ -102,53 +103,53 @@ USE ISO_FORTRAN_ENV
 !
 !     SET MODAL DISPLACEMENTS
 !
-            file = Phix
-            mcb(1) = Phix
+            file = phix
+            mcb(1) = phix
             CALL rdtrl(mcb)
             IF ( mcb(1)<0 ) THEN
 !
 !     ERROR EXITS
 !
                n = -1
-               CALL mesage(n,file,Name)
+               CALL mesage(n,file,name)
                RETURN
             ELSE
-               Nmodes = mcb(2)
-               IF ( Llmode>Nmodes .OR. Llmode==0 ) Llmode = -1
-               Lmodes = Llmode
-               IF ( Lmodes<=0 ) Lmodes = Nmodes
-               IF ( Lmodes<=0 .OR. Lmodes>Nmodes ) Lmodes = Nmodes
-               izm = Two(Uz) + Two(Um) + Two(Uh)
-               inzm = Two(Unz) + Two(Um)
-               IF ( Ibuf<=Nmodes ) THEN
+               nmodes = mcb(2)
+               IF ( llmode>nmodes .OR. llmode==0 ) llmode = -1
+               lmodes = llmode
+               IF ( lmodes<=0 ) lmodes = nmodes
+               IF ( lmodes<=0 .OR. lmodes>nmodes ) lmodes = nmodes
+               izm = two(uz) + two(um) + two(uh)
+               inzm = two(unz) + two(um)
+               IF ( ibuf<=nmodes ) THEN
                   n = -8
-                  CALL mesage(n,file,Name)
+                  CALL mesage(n,file,name)
                   RETURN
                ELSE
-                  DO i = 1 , Nmodes
-                     Z(i) = izm
-                     IF ( i>Lmodes ) Z(i) = inzm
+                  DO i = 1 , nmodes
+                     z(i) = izm
+                     IF ( i>lmodes ) z(i) = inzm
                   ENDDO
 !
 !     SET FREE SURFACE DISPLACEMENTS
 !
-                  ifr = Two(Ufr) + Two(Uh)
-                  lvec = Nmodes
-                  IF ( Nofree<0 ) THEN
+                  ifr = two(ufr) + two(uh)
+                  lvec = nmodes
+                  IF ( nofree<0 ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL gopen(Usetf,Z(Ibuf),0)
+                  CALL gopen(usetf,z(ibuf),0)
                   DO
-                     CALL read(*20,*20,Usetf,ibit,1,0,n)
-                     IF ( andf(ibit,Two(Ufr))/=0 ) THEN
+                     CALL read(*20,*20,usetf,ibit,1,0,n)
+                     IF ( andf(ibit,two(ufr))/=0 ) THEN
                         lvec = lvec + 1
-                        IF ( lvec>=Ibuf ) THEN
+                        IF ( lvec>=ibuf ) THEN
                            n = -8
-                           CALL mesage(n,file,Name)
+                           CALL mesage(n,file,name)
                            RETURN
                         ELSE
-                           Z(lvec) = ifr
+                           z(lvec) = ifr
                         ENDIF
                      ENDIF
                   ENDDO
@@ -156,14 +157,14 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
 !
- 20      CALL close(Usetf,1)
+ 20      CALL close(usetf,1)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     WRITE DUMMY USETD FILE
 !
-         CALL gopen(usetd,Z(Ibuf),1)
-         CALL write(usetd,Z(1),lvec,1)
+         CALL gopen(usetd,z(ibuf),1)
+         CALL write(usetd,z(1),lvec,1)
          CALL close(usetd,1)
          mcb(1) = usetd
          mcb(2) = lvec
@@ -174,72 +175,72 @@ USE ISO_FORTRAN_ENV
 !
 !     EXTRACT THE DESIRED MODES FORM THE PHIX MATRIX
 !
-         Uset = usetd
-         IF ( Lmodes>=Nmodes ) THEN
+         uset = usetd
+         IF ( lmodes>=nmodes ) THEN
 !
-            phixr = Phix
+            phixr = phix
          ELSE
-            CALL calcv(pvec,Um,Uz,Unz,Z(1))
-            CALL gfsptn(Phix,phixr,0,0,0,pvec,0)
+            CALL calcv(pvec,um,uz,unz,z(1))
+            CALL gfsptn(phix,phixr,0,0,0,pvec,0)
          ENDIF
 !
 !     TRANSFORM THE FLUID STRUCTURE AREA MATRIX
 !
-         CALL ssg2b(phixr,Axy,0,azy,1,2,1,Scr5)
+         CALL ssg2b(phixr,axy,0,azy,1,2,1,scr5)
 !
 !     IF FREE SURFACE POINTS EXIST - MERGE THEM WITH THE TRANSFORMED
 !     AREA MATRIX
 !
-         IF ( Nofree<0 ) THEN
+         IF ( nofree<0 ) THEN
 !
             CALL gfswch(ahy,azy)
          ELSE
-            CALL calcv(pvec,Uh,Uz,Ufr,Z(1))
-            CALL gfsmrg(ahy,azy,Afry,0,0,0,pvec)
+            CALL calcv(pvec,uh,uz,ufr,z(1))
+            CALL gfsmrg(ahy,azy,afry,0,0,0,pvec)
          ENDIF
 !
 !     DETERMINE IF ANY SINGLE POINT CONSTRAINTS EXIST ON THE FLUID
 !
-         Uset = Usetf
-         CALL calcv(pvec,Uy,Uf,Us,Z(1))
-         nuy = Nsub0 + Nsub1
-         Sfbit = 1
-         IF ( Nsub1==0 ) Sfbit = 0
+         uset = usetf
+         CALL calcv(pvec,uy,uf,us,z(1))
+         nuy = nsub0 + nsub1
+         sfbit = 1
+         IF ( nsub1==0 ) sfbit = 0
 !
 !     IF SPC POINTS EXIST ON THE FLUID - PARTITION THEM OUT OF THE
 !     FLUID AREA AND STIFFNESS MATRICES
 !
-         IF ( Sfbit/=0 ) THEN
+         IF ( sfbit/=0 ) THEN
             CALL gfsptn(ahy,ahj,0,0,0,pvec,0)
-            CALL gfstrn(ahj,ajh,Scr5,Scr6)
-            CALL gfsptn(Kyy,kjj,0,0,0,pvec,pvec)
+            CALL gfstrn(ahj,ajh,scr5,scr6)
+            CALL gfsptn(kyy,kjj,0,0,0,pvec,pvec)
          ELSE
 !
 !     IF NO SPC POINTS EXIST ON THE FLUID, CONSTRAIN THE FIRST FLUID
 !     POINT TO REMOVE POTENTIAL SINGULARITIES
 !
-            IF ( Comptp>0 ) WRITE (Nout,99001) Uwm
+            IF ( comptp>0 ) WRITE (nout,99001) uwm
 99001       FORMAT (A25,' 8015. THE PURELY INCOMPRESSIBLE METHOD IS AVAIL','ABLE ONLY WITH THE DIRECT FORMULATION.')
             CALL gfsspc(nuy,pvec)
-            Nsub0 = nuy - 1
-            Nsub1 = 1
-            CALL gfsptn(Kyy,kjj,0,0,0,pvec,pvec)
+            nsub0 = nuy - 1
+            nsub1 = 1
+            CALL gfsptn(kyy,kjj,0,0,0,pvec,pvec)
 !
 !     GENERATE THE H TRANSFORMATION MATRIX
 !
             CALL gfsh(nuy,h)
-            CALL gfstrn(ahy,ayh,Scr2,Scr6)
-            CALL ssg2b(h,ayh,0,ajh,0,2,1,Scr6)
+            CALL gfstrn(ahy,ayh,scr2,scr6)
+            CALL ssg2b(h,ayh,0,ajh,0,2,1,scr6)
 !
 !     GENERATE THE COMPRESSIBLITY MATRIX
 !
-            CALL gfscom(ahy,nuy,kc,ident,ac,Scr6)
+            CALL gfscom(ahy,nuy,kc,ident,ac,scr6)
          ENDIF
 !
 !     SOLVE FOR THE INITIAL PRESSURE TRANSFORMATION MATRIX
 !
-         CALL factor(kjj,kjjl,Scr5,Scr6,scr9,scr10)
-         CALL ssg3a(0,kjjl,ajh,gjh,Scr5,Scr6,-1,0)
+         CALL factor(kjj,kjjl,scr5,scr6,scr9,scr10)
+         CALL ssg3a(0,kjjl,ajh,gjh,scr5,scr6,-1,0)
 !
 !     FOR COMPUTER CORE CONSERVATION REASON, THE REST OF GFSMOD IS
 !     MOVED TO GFSMO2, WHICH CAN BE SEGMENTED IN PARALLEL WITH GFSMOD.

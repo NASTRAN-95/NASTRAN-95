@@ -1,8 +1,15 @@
-!*==xpolck.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xpolck.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xpolck(Dbn1,Dbn2,Fn,L)
 !
+   USE c_system
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xsfa1
    USE C_SYSTEM
    USE C_XDPL
    USE C_XFIAT
@@ -138,7 +145,6 @@ SUBROUTINE xpolck(Dbn1,Dbn2,Fn,L)
  2                   file(j) = orf(andf(rmsk,file(Ny)),andf(lmsk,file(j)))
                      fequ(j) = orf(s,fequ(j))
                   ENDIF
-                  CYCLE
                CASE (2)
                   ford(nfculg) = orf(andf(lmsk,sord(j)),andf(rmsk,file(nfculg)))
                   fequ(nfculg) = orf(s,fequ(nfculg))

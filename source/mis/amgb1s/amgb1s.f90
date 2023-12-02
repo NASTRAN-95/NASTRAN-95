@@ -1,20 +1,21 @@
-!*==amgb1s.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==amgb1s.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
+   USE c_amgbug
+   USE c_amgmn
+   USE c_bamg1l
+   USE c_condas
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_AMGBUG
-   USE C_AMGMN
-   USE C_BAMG1L
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
    INTEGER :: Input
-   REAL , DIMENSION(Nstns,Nstns) :: Fmat
-   REAL , DIMENSION(3,Nstns) :: Xyzb
+   REAL , DIMENSION(nstns,nstns) :: Fmat
+   REAL , DIMENSION(3,nstns) :: Xyzb
    INTEGER , DIMENSION(1) :: Index
    REAL , DIMENSION(1) :: Radii
    REAL :: Wfact
@@ -35,18 +36,18 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
 !
 !     READ STREAMLINE DATA
 !
-   nstns3 = 3*Nstns
-   CALL fread(Input,Sln,10,0)
+   nstns3 = 3*nstns
+   CALL fread(Input,sln,10,0)
    CALL fread(Input,Xyzb,nstns3,0)
-   IF ( Debug ) CALL bug1('ACPT-SLN  ',11,Sln,10)
-   IF ( Debug ) CALL bug1('XYZB      ',12,Xyzb,nstns3)
+   IF ( debug ) CALL bug1('ACPT-SLN  ',11,sln,10)
+   IF ( debug ) CALL bug1('XYZB      ',12,Xyzb,nstns3)
 !
 !     COMPUTE PARAMETERS
 !
-   Amach = Mach*cos(Degra*(Flowa-Stager))
-   Amachr = Refmac*cos(Degra*(Refflo-Refstg))
-   IF ( Debug ) CALL bug1('AMACH     ',13,Amach,1)
-   IF ( Debug ) CALL bug1('AMACHR    ',14,Amachr,1)
+   amach = mach*cos(degra*(flowa-stager))
+   amachr = refmac*cos(degra*(refflo-refstg))
+   IF ( debug ) CALL bug1('AMACH     ',13,amach,1)
+   IF ( debug ) CALL bug1('AMACHR    ',14,amachr,1)
 !
 !     (1) COMPUTE BASIC TO LOCAL TRANSFORMATION
 !         XYZB ARRAY CONTAINS X,Y,Z COORDINATES IN BASIC SYSTEM
@@ -61,9 +62,9 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
    xa = Xyzb(1,1)
    ya = Xyzb(2,1)
    za = Xyzb(3,1)
-   xb = Xyzb(1,Nstns)
-   yb = Xyzb(2,Nstns)
-   zb = Xyzb(3,Nstns)
+   xb = Xyzb(1,nstns)
+   yb = Xyzb(2,nstns)
+   zb = Xyzb(3,nstns)
 !
 !     EVALUATE  TBL  ROW 2
 !
@@ -74,8 +75,8 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
    al2 = sqrt(al2sq)
    al1sq = al2sq + zba**2
    al1 = sqrt(al1sq)
-   tbl(2,1) = -Xsign*(yba/al2)
-   tbl(2,2) = Xsign*(xba/al2)
+   tbl(2,1) = -xsign*(yba/al2)
+   tbl(2,2) = xsign*(xba/al2)
    tbl(2,3) = 0.0
 !
 !     EVAL  TBL  ROW 1
@@ -90,28 +91,28 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
    tbl(3,2) = -tbl(1,3)*(yba/al2)
    tbl(3,3) = al2/al1
    Fmat(1,1) = 1.0
-   pic = Pi/Chord
-   ch2 = 2.0/Chord
-   DO i = 2 , Nstns
+   pic = pi/chord
+   ch2 = 2.0/chord
+   DO i = 2 , nstns
       x = tbl(1,1)*(Xyzb(1,i)-Xyzb(1,1)) + tbl(1,2)*(Xyzb(2,i)-Xyzb(2,1)) + tbl(1,3)*(Xyzb(3,i)-Xyzb(3,1))
       Fmat(1,i) = 0.0
       Fmat(i,1) = 1.0
       Fmat(i,2) = ch2*x
-      DO j = 3 , Nstns
+      DO j = 3 , nstns
          an = j - 2
          arg = pic*an*x
          Fmat(i,j) = sin(arg)
       ENDDO
    ENDDO
-   IF ( Debug ) CALL bug1('FMAT      ',50,Fmat,Nstns*Nstns)
+   IF ( debug ) CALL bug1('FMAT      ',50,Fmat,nstns*nstns)
    ising = -1
-   CALL invers(Nstns,Fmat,Nstns,dum1,0,determ,ising,Index)
-   IF ( Debug ) CALL bug1('FMAT-INV  ',60,Fmat,Nstns*Nstns)
+   CALL invers(nstns,Fmat,nstns,dum1,0,determ,ising,Index)
+   IF ( debug ) CALL bug1('FMAT-INV  ',60,Fmat,nstns*nstns)
    IF ( ising==2 ) THEN
 !
 !     ERROR MESSAGE, SINGULAR MATRIX
 !
-      WRITE (Iout,99001) Ufm , Sln
+      WRITE (iout,99001) ufm , sln
 99001 FORMAT (A23,' -AMG MODULE- SINGULAR MATRIX IN ROUTINE AMGB1S FOR',' STREAML2, SLN =',I3,/39X,'CHECK STREAML2 BULK DATA CARD.')
       CALL mesage(-61,0,0)
       RETURN
@@ -119,11 +120,10 @@ SUBROUTINE amgb1s(Input,Fmat,Xyzb,Index,Radii,Wfact,Nline)
    k = Nline + 1
    l = k - 2
    IF ( Nline==1 ) l = 1
-   IF ( Nline==Nlines ) k = Nlines
+   IF ( Nline==nlines ) k = nlines
 !
 !     COMPUT WFACT FOR THIS STREAMLINE
 !
-   Wfact = (Den/Refden)*(Vel/Refvel)**2*((Amach*Refmac)/(Mach*Amachr))**2*(Radii(k)-Radii(l))*0.5
-   IF ( Debug ) CALL bug1('WFACT     ',70,Wfact,1)
-   RETURN
+   Wfact = (den/refden)*(vel/refvel)**2*((amach*refmac)/(mach*amachr))**2*(Radii(k)-Radii(l))*0.5
+   IF ( debug ) CALL bug1('WFACT     ',70,Wfact,1)
 END SUBROUTINE amgb1s

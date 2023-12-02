@@ -1,11 +1,12 @@
-!*==alg13.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg13.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,Yzero,T,Yone,Xdel,Ydel,Z,Axialc,Lnct,Ifcord,Sq,Sb,  &
                & Isecn,Xsemj,Ysemj,Istak,Xhere,X,Ss,Nstns,R,Dx,Y,Dy,Ss1,Bx,Sigma,Ccord,Isplit,Yzeros,Ts,Yones,Zspmxt,Perspj,Inast,  &
                & Irle,Irte,Tharr)
+   USE c_udstr2
    IMPLICIT NONE
-   USE C_UDSTR2
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -384,7 +385,6 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                      yprime = f5(a1,b1,cc1)
                   ENDIF
                   spag_nextblock_3 = 4
-                  CYCLE SPAG_DispatchLoop_3
                CASE (2)
                   ym(j) = f6(xm(j))
                   yprime = f8(xm(j))
@@ -394,7 +394,6 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                      IF ( j==i3 ) delx = delxx
                   ENDIF
                   spag_nextblock_3 = 4
-                  CYCLE SPAG_DispatchLoop_3
                CASE (3)
                   yprime = tan(beta3/c1)
                   IF ( j/=1 ) xmm = xm(j-1)/fcslmn - Yzero
@@ -412,7 +411,7 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                   am(j) = atan(yprime)*c1
                   xxm(j) = xm(j)
                   IF ( j==N ) stager = atan(ym(N)/xm(N))*c1
-                  IF ( j==N ) Stag(Ibl) = stager
+                  IF ( j==N ) stag(Ibl) = stager
                   xm(j) = (xm(j)+Yzero)*fcslmn
                   ym(j) = ym(j)*fcslmn
                   thick2(j) = thick2(j)*fcslmn
@@ -618,7 +617,6 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                               bta1 = beta3
                               bta2 = Beta2
                               spag_nextblock_4 = 2
-                              CYCLE SPAG_DispatchLoop_4
                            ELSE
                               IF ( Beta1==beta3 ) THEN
                                  spag_nextblock_4 = 3
@@ -630,22 +628,20 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                               bta1 = Beta1
                               bta2 = beta3
                               spag_nextblock_4 = 2
-                              CYCLE SPAG_DispatchLoop_4
                            ENDIF
+                           CYCLE
                         ENDIF
                      ENDIF
                   ENDIF
                   Y(ik) = (oa48*(xab-h)**4+xab**2*xk2+b*xab+c)*fcslmn
                   Ss1(ik,1) = oa/12.*(xab-h)**3 + xk2*2.*xab + b
                   spag_nextblock_4 = 4
-                  CYCLE SPAG_DispatchLoop_4
                CASE (2)
                   Y(ik) = f6(xab)*fcslmn
                   Ss1(ik,1) = f8(xab)
                   IF ( bta1-bta2<0.0 ) Ss1(ik,1) = -Ss1(ik,1)
                   IF ( bta1-bta2<0.0 ) Y(ik) = f7(xab)*fcslmn
                   spag_nextblock_4 = 4
-                  CYCLE SPAG_DispatchLoop_4
                CASE (3)
                   Ss1(ik,1) = tan(beta3/c1)
                   IF ( ik/=1 ) ymm = Y(ik-1)/fcslmn
@@ -840,7 +836,7 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
                ENDIF
             ENDIF
          ENDDO
-         Chordd(Ibl) = chord
+         chordd(Ibl) = chord
          IF ( Isplit>1 ) Isecn = Isplit
          IF ( Iprint<2 ) THEN
             IF ( Lnct>24 ) WRITE (Log2,99012)
@@ -945,7 +941,6 @@ SUBROUTINE alg13(Ibl,Ys,Yp,Xs,Xp,Ysemi,Xsemi,Log1,Log2,N,Iprint,Beta1,Beta2,P,Q,
          Sigma(ik) = sigmao
          kl = ik + 1
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          kl = ik
          Sigma(ik-1) = sigmao

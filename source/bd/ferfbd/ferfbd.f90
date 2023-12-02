@@ -1,12 +1,13 @@
-!*==ferfbd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ferfbd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ferfbd(V1,V2,V3,Vb)
-USE C_FEERIM
-USE C_OPINV
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feerim
+   USE c_opinv
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -39,15 +40,15 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Ksystm(02),Nout)
    !>>>>EQUIVALENCE (Dcore(1),Icore(1),Xl)
 !
-         nrow = Mcblt(2)
+         nrow = mcblt(2)
          DO i = 1 , nrow
             V2(i) = V1(i)
          ENDDO
-         ilrow = Ltpos(1)
+         ilrow = ltpos(1)
          icrow = nrow
 !      PRINT *,' FERFBD,ILROW,NIDLT=',ILROW,NIDLT
 !      PRINT *,' LTPOS=',LTPOS
-         IF ( ilrow==nrow .AND. Nidlt/=0 ) THEN
+         IF ( ilrow==nrow .AND. nidlt/=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -56,19 +57,19 @@ USE ISO_FORTRAN_ENV
 !
 !     POSITION FILE TO LAST COLUMN
 !
-         IF ( Nidlt/=0 ) THEN
-            CALL dsspos(Mcblt,Ltpos(5),Ltpos(6),Ltpos(7))
-         ELSEIF ( Ltpos(5)/=-1 ) THEN
-            CALL dsspos(Mcblt,Ltpos(5),Ltpos(6),Ltpos(7))
+         IF ( nidlt/=0 ) THEN
+            CALL dsspos(mcblt,ltpos(5),ltpos(6),ltpos(7))
+         ELSEIF ( ltpos(5)/=-1 ) THEN
+            CALL dsspos(mcblt,ltpos(5),ltpos(6),ltpos(7))
          ELSE
-            CALL rewind(Mcblt)
-            CALL skprec(Mcblt,nrow+1)
-            CALL dscpos(Mcblt,iblock,iclr,icbp)
-            Ltpos(5) = iblock
-            Ltpos(6) = iclr
-            Ltpos(7) = icbp
+            CALL rewind(mcblt)
+            CALL skprec(mcblt,nrow+1)
+            CALL dscpos(mcblt,iblock,iclr,icbp)
+            ltpos(5) = iblock
+            ltpos(6) = iclr
+            ltpos(7) = icbp
          ENDIF
-         iblk(1) = Mcblt(1)
+         iblk(1) = mcblt(1)
          j = nrow
          spag_nextblock_1 = 2
       CASE (2)
@@ -111,20 +112,19 @@ USE ISO_FORTRAN_ENV
          ENDIF
          j = j - 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     CONTINUE BACKWARD SUBSTITUTION WITH DATA IN MEMORY
 !
-         mem = Nltli
+         mem = nltli
 !      PRINT *,' AT 1000,NLTLI=',NLTLI
-         ntms = Icore(mem)
+         ntms = icore(mem)
 !      PRINT *,' ICORE(NLTLI,-1=',ICORE(NLTLI),ICORE(NLTLI-1)
          mem = mem - 2*ntms - 3
          j = icrow
          spag_nextblock_1 = 6
       CASE (6)
-         icol = Icore(mem)
+         icol = icore(mem)
 !      PRINT *,' MEM,ICORE(MEM-1,0,+1=',MEM,ICORE(MEM-1),ICORE(MEM),
 !     & ICORE(MEM+1)
 !      PRINT *,' ICOL,MEM,NTMS,ICROW,J=',ICOL,MEM,NTMS,ICROW,J
@@ -132,11 +132,11 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         ntms = Icore(mem+1)
+         ntms = icore(mem+1)
 !      PRINT *,' FERFBD,A1015,J,NTMS,ICOL=',J,NTMS,ICOL
          ntmss = ntms
          ji = mem/2 + 1 + ntms
-         ik = Icore(mem+2+2*ntms) + ntms - 1
+         ik = icore(mem+2+2*ntms) + ntms - 1
 !      PRINT *,' FERFBD,IK=',IK
          IF ( ik-ntms+1==j ) THEN
             ntms = ntms - 1
@@ -156,8 +156,8 @@ USE ISO_FORTRAN_ENV
          V2(j) = v2j
          spag_nextblock_1 = 7
       CASE (7)
-         IF ( mem/=Nidlt ) THEN
-            ntmsnx = Icore(mem-1)
+         IF ( mem/=nidlt ) THEN
+            ntmsnx = icore(mem-1)
             mem = mem - 2*ntmsnx - 4
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -172,18 +172,17 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
-         CALL ferltd(Mcbsma(1),V2(1),V3(1),Vb(1))
+         CALL ferltd(mcbsma(1),V2(1),V3(1),Vb(1))
 !
 ! BEGIN FORWARD SWEEP DIRECTLY ON V3
 !
          icrow = 1
-         IF ( Nidlt==0 ) THEN
-            CALL rewind(Mcblt)
-            CALL skprec(Mcblt,1)
+         IF ( nidlt==0 ) THEN
+            CALL rewind(mcblt)
+            CALL skprec(mcblt,1)
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            mem = Nidlt
+            mem = nidlt
             DO j = 1 , nrow
                icrow = j
                IF ( j>ilrow ) THEN
@@ -191,12 +190,12 @@ USE ISO_FORTRAN_ENV
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                SPAG_Loop_2_1: DO
-                  icol = Icore(mem)
+                  icol = icore(mem)
                   IF ( icol/=j ) EXIT SPAG_Loop_2_1
                   ji = mem/2 + 2
-                  ntms = Icore(mem+1)
+                  ntms = icore(mem+1)
                   ntmss = ntms
-                  ik = Icore(mem+2+2*ntms)
+                  ik = icore(mem+2+2*ntms)
                   IF ( ik==j ) THEN
                      ntms = ntms - 1
                      V3(j) = V3(j)/dcore(ji)
@@ -222,7 +221,7 @@ USE ISO_FORTRAN_ENV
 !
 !     POSITION FILE TO CONTINUE READING COLUMN DATA NOT IN MEMORY
 !
-         CALL dsspos(Mcblt,Ltpos(2),Ltpos(3),Ltpos(4))
+         CALL dsspos(mcblt,ltpos(2),ltpos(3),ltpos(4))
          spag_nextblock_1 = 11
       CASE (11)
          DO j = icrow , nrow

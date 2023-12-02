@@ -1,7 +1,10 @@
-!*==rdmodx.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rdmodx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rdmodx(File,Mode,Word)
+   USE c_xrdmod
+   USE c_zzzzzz
    USE C_XRDMOD
    USE C_ZZZZZZ
    IMPLICIT NONE
@@ -52,11 +55,13 @@ SUBROUTINE rdmodx(File,Mode,Word)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_XRDMOD
+      USE C_ZZZZZZ
       Bitson = complf(0)
       RETURN
 !
 !
-      ENTRY rdmode(Mode,Word)
+      ENTRY rdmode(mode,word)
                            !HIDESTARS (*,*,*,Mode,Word)
 !     ==============================
 !
@@ -76,83 +81,83 @@ CONTAINS
       IF ( Entry/=0 ) THEN
          DO
 !
-            IF ( Check2/=24680 ) CALL mesage(-37,0,name)
-            Mode(1) = Z(Entry+Refptr)
+            IF ( Check2/=24680 ) CALL mesage(-37,0,Name)
+            mode(1) = Z(Entry+Refptr)
             Entry = Entry + 1
-            IF ( Mode(1)<0 ) THEN
+            IF ( mode(1)<0 ) THEN
 !
-               Word(1) = Z(Entry+Refptr)
+               word(1) = Z(Entry+Refptr)
                Entry = Entry + 1
-               IF ( Mode(1)/=-4 ) RETURN 1
-               Word(2) = Z(Entry+Refptr)
+               IF ( mode(1)/=-4 ) RETURN 1
+               word(2) = Z(Entry+Refptr)
                Entry = Entry + 1
                RETURN 1
-            ELSEIF ( Mode(1)/=0 ) THEN
-               IF ( Mode(1)>=eor ) THEN
+            ELSEIF ( mode(1)/=0 ) THEN
+               IF ( mode(1)>=Eor ) THEN
                   Entry = Entry + 1
                   RETURN 3
                ELSE
                   SPAG_Loop_2_1: DO
-                     next(1) = Z(Entry+0+Refptr)
-                     next(2) = Z(Entry+1+Refptr)
+                     Next(1) = Z(Entry+0+Refptr)
+                     Next(2) = Z(Entry+1+Refptr)
                      Entry = Entry + 2
-                     IF ( next(1)/=Bitson .AND. next(1)/=blank ) RETURN 2
-                     Mode(1) = Mode(1) - 1
-                     IF ( Mode(1)<=0 ) EXIT SPAG_Loop_2_1
+                     IF ( Next(1)/=Bitson .AND. Next(1)/=Blank ) RETURN 2
+                     mode(1) = mode(1) - 1
+                     IF ( mode(1)<=0 ) EXIT SPAG_Loop_2_1
                   ENDDO SPAG_Loop_2_1
                ENDIF
             ENDIF
          ENDDO
       ELSE
-         IF ( Check1/=13579 ) CALL mesage(-37,0,name)
+         IF ( Check1/=13579 ) CALL mesage(-37,0,Name)
          DO
 !
-            CALL fread(Filex,Mode,1,0)
-            IF ( Mode(1)<0 ) THEN
+            CALL fread(Filex,mode,1,0)
+            IF ( mode(1)<0 ) THEN
 !
-               i = 1
-               IF ( Mode(1)==-4 ) i = 2
-               CALL fread(Filex,Word,i,0)
+               I = 1
+               IF ( mode(1)==-4 ) I = 2
+               CALL fread(Filex,word,I,0)
                RETURN 1
-            ELSEIF ( Mode(1)==0 ) THEN
+            ELSEIF ( mode(1)==0 ) THEN
                CALL fread(Filex,0,0,1)
-            ELSEIF ( Mode(1)>=eor ) THEN
+            ELSEIF ( mode(1)>=Eor ) THEN
                CALL fread(Filex,0,0,1)
                RETURN 3
             ELSE
                SPAG_Loop_2_2: DO
-                  CALL fread(Filex,next,2,0)
-                  IF ( next(1)/=Bitson .AND. next(1)/=blank ) RETURN 2
-                  Mode(1) = Mode(1) - 1
-                  IF ( Mode(1)<=0 ) EXIT SPAG_Loop_2_2
+                  CALL fread(Filex,Next,2,0)
+                  IF ( Next(1)/=Bitson .AND. Next(1)/=Blank ) RETURN 2
+                  mode(1) = mode(1) - 1
+                  IF ( mode(1)<=0 ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
             ENDIF
          ENDDO
       ENDIF
 !
 !
-      ENTRY rdword(Mode,Word)
+      ENTRY rdword(mode,word)
 !     ========================
 !
 !     -RDWORD- IS CALLED TO READ TWO BCD WORDS INTO -WORD-
 !     NOTE - ALL DATA FIELD DELIMITERS ARE SKIPPED
 !
-      Word(1) = next(1)
-      Word(2) = next(2)
+      word(1) = Next(1)
+      word(2) = Next(2)
       SPAG_Loop_1_3: DO
-         Mode(1) = Mode(1) - 1
-         IF ( Mode(1)<=0 ) EXIT SPAG_Loop_1_3
+         mode(1) = mode(1) - 1
+         IF ( mode(1)<=0 ) EXIT SPAG_Loop_1_3
          IF ( Entry/=0 ) THEN
 !
-            IF ( Check2/=24680 ) CALL mesage(-37,0,name)
-            next(1) = Z(Entry+Refptr)
-            next(2) = Z(Entry+1+Refptr)
+            IF ( Check2/=24680 ) CALL mesage(-37,0,Name)
+            Next(1) = Z(Entry+Refptr)
+            Next(2) = Z(Entry+1+Refptr)
             Entry = Entry + 2
          ELSE
-            IF ( Check1/=13579 ) CALL mesage(-37,0,name)
-            CALL fread(Filex,next,2,0)
+            IF ( Check1/=13579 ) CALL mesage(-37,0,Name)
+            CALL fread(Filex,Next,2,0)
          ENDIF
-         IF ( next(1)/=Bitson .AND. next(1)/=blank ) EXIT SPAG_Loop_1_3
+         IF ( Next(1)/=Bitson .AND. Next(1)/=Blank ) EXIT SPAG_Loop_1_3
       ENDDO SPAG_Loop_1_3
-   END ENTRY rdword
+   END SUBROUTINE spag_block_1
 END SUBROUTINE rdmodx

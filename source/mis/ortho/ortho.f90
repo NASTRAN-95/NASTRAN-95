@@ -1,11 +1,12 @@
-!*==ortho.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ortho.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ortho(U,V,X1,X2,X3,X4,X5,Nz,Ibuf1,Ibuf2,Ibuf3,Ibuf4)
-USE C_CINVPX
-USE C_CINVXX
-USE C_NAMES
-USE ISO_FORTRAN_ENV                 
+   USE c_cinvpx
+   USE c_cinvxx
+   USE c_names
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -47,13 +48,13 @@ USE ISO_FORTRAN_ENV
 !
          ncol2 = ncol + ncol
          ncol4 = ncol2 + ncol2
-         IF ( Fileb(1)==0 ) THEN
+         IF ( fileb(1)==0 ) THEN
             DO i = 1 , ncol2
                X2(i) = 0.D0
             ENDDO
          ELSE
             CALL cmtimu(V,X1,0,Ibuf4)
-            CALL cmtimu(U,X2,Fileb,Ibuf4)
+            CALL cmtimu(U,X2,fileb,Ibuf4)
          ENDIF
          CALL cmtimu(U,X3,0,Ibuf4)
          CALL sswtch(12,l7)
@@ -65,17 +66,17 @@ USE ISO_FORTRAN_ENV
 !
 !     REWIND EIGENVALUE AND EIGENVECTOR FILES
 !
-         ifile = Filelm(1)
-         CALL open(*20,ifile,Ibuf1,Rdrew)
-         ifile = Filevc(1)
-         CALL open(*20,ifile,Ibuf2,Rdrew)
+         ifile = filelm(1)
+         CALL open(*20,ifile,Ibuf1,rdrew)
+         ifile = filevc(1)
+         CALL open(*20,ifile,Ibuf2,rdrew)
          ifile = sr0fil
-         CALL open(*20,ifile,Ibuf3,Rdrew)
-         DO k = 1 , Northo
+         CALL open(*20,ifile,Ibuf3,rdrew)
+         DO k = 1 , northo
 !
 !     READ AN EIGENVALUE
 !
-            ifile = Filelm(1)
+            ifile = filelm(1)
             CALL read(*40,*60,ifile,pj(1),4,1,flag)
             const1(1) = -1.D0
             const1(2) = 0.
@@ -83,7 +84,7 @@ USE ISO_FORTRAN_ENV
 !
 !     READ THE RIGHT EIGENVECTOR
 !
-            ifile = Filevc(1)
+            ifile = filevc(1)
             CALL read(*40,*60,ifile,X1(1),ncol4,1,flag)
 !
 !     READ THE LEFT EIGENVECTOR
@@ -91,7 +92,7 @@ USE ISO_FORTRAN_ENV
             ifile = sr0fil
             CALL read(*40,*60,ifile,X4(1),ncol4,1,flag)
 !
-            IF ( Fileb(1)/=0 ) THEN
+            IF ( fileb(1)/=0 ) THEN
                CALL cxtrny(X4(1),X5(1),const1(1))
             ELSE
 !
@@ -110,15 +111,15 @@ USE ISO_FORTRAN_ENV
             DO i = 1 , ncol2 , 2
                U(i) = U(i) - alpha(1)*X1(i) + alpha(2)*X1(i+1)
                U(i+1) = U(i+1) - alpha(2)*X1(i) - alpha(1)*X1(i+1)
-               IF ( Fileb(1)/=0 ) THEN
+               IF ( fileb(1)/=0 ) THEN
                   V(i) = V(i) - beta(1)*X1(i) + beta(2)*X1(i+1)
                   V(i+1) = V(i+1) - beta(1)*X1(i+1) - beta(2)*X1(i)
                ENDIF
             ENDDO
          ENDDO
-         CALL close(Filelm,Norew)
-         CALL close(Filevc,Norew)
-         CALL close(sr0fil,Norew)
+         CALL close(filelm,norew)
+         CALL close(filevc,norew)
+         CALL close(sr0fil,norew)
          RETURN
 !
  20      no = -1

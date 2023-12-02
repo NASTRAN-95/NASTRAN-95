@@ -1,12 +1,13 @@
-!*==mtrxi.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mtrxi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,14 +65,14 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
 !     ADUST SOF BUFFER TO COINCIDE WITH GINO
 !     ALSO DETERMINE PLACEMENT OF MATRIX NAME IN FIRST BUFFER
 !
-            idisp = locfx(buf(Io-2)) - locfx(Nstrn)
-            IF ( andf(idisp,1)/=0 ) Io = Io + 1
+            idisp = locfx(buf(io-2)) - locfx(nstrn)
+            IF ( andf(idisp,1)/=0 ) io = io + 1
             iopt = 1
-            CALL open(*60,File,buf(Io-2),iopt)
-            oldbuf = Io
+            CALL open(*60,File,buf(io-2),iopt)
+            oldbuf = io
 !
             in = 4
-            IF ( Mach<=2 ) in = 7
+            IF ( mach<=2 ) in = 7
 !IBMD 6/93 IF (BUF(IO-2) .EQ. FILE) GO TO 40
 !IBMD 6/93 IO = IO + 1
 !IBMD 6/93 IF (BUF(IO-2) .NE. FILE) GO TO 1010
@@ -84,13 +85,13 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
 !     ERROR IN SFETCH CALL
 !
                CALL close(File,1)
-               Io = oldbuf
+               io = oldbuf
                RETURN
             ELSE
 !
 !     INSERT CORRECT MATRIX NAME INTO BUFFER
 !
-               CALL fname(File,buf(Io+in))
+               CALL fname(File,buf(io+in))
 !
 !     WRITE BLOCK ON NASTRAN FILE
 !
@@ -98,16 +99,16 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
                eof = 0
             ENDIF
          ENDIF
- 20      IF ( buf(Io+1)<=0 ) THEN
+ 20      IF ( buf(io+1)<=0 ) THEN
 !
 !     LAST DATA BLOCK HAS BEEN READ FROM SOF
 !
-            itrail = buf(Io+1)
-            buf(Io+1) = Iolbn
+            itrail = buf(io+1)
+            buf(io+1) = iolbn
             IF ( itrail<0 ) THEN
                trail(1) = File
                DO i = 2 , 7
-                  trail(i) = buf(Io+Blksiz-7+i)
+                  trail(i) = buf(io+blksiz-7+i)
                ENDDO
                CALL wrttrl(trail)
             ENDIF
@@ -128,32 +129,32 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
 !
 !     READ NEXT SOF BLOCK
 !
-         CALL fnxt(Iopbn,inxt)
-         IF ( mod(Iopbn,2)==1 ) THEN
-            next = andf(buf(inxt),Jhalf)
+         CALL fnxt(iopbn,inxt)
+         IF ( mod(iopbn,2)==1 ) THEN
+            next = andf(buf(inxt),jhalf)
          ELSE
-            next = andf(rshift(buf(inxt),Ihalf),Jhalf)
+            next = andf(rshift(buf(inxt),ihalf),jhalf)
          ENDIF
          IF ( next==0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Iopbn = next
-         Iolbn = Iolbn + 1
-         CALL sofio(ird,Iopbn,buf(Io-2))
+         iopbn = next
+         iolbn = iolbn + 1
+         CALL sofio(ird,iopbn,buf(io-2))
          GOTO ijump
 !
 !     WRITE TRAILER OF NASTRAN DATA BLOCK
 !
  40      trail(1) = File
          DO i = 2 , 7
-            trail(i) = buf(Io+Blksiz-7+i)
+            trail(i) = buf(io+blksiz-7+i)
          ENDDO
          CALL wrttrl(trail)
          spag_nextblock_1 = 2
       CASE (2)
          Itest = 1
-         Io = oldbuf
+         io = oldbuf
          RETURN
 !
 !     ERROR RETURNS
@@ -162,7 +163,7 @@ SUBROUTINE mtrxi(File,Name,Item,Dumbuf,Itest)
 !     NASTRAN FILE PURGED
 !
  60      Itest = 6
-         Iomode = idle
+         iomode = idle
          RETURN
       CASE (3)
 !

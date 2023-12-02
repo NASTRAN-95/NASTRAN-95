@@ -1,4 +1,5 @@
-!*==wplt10.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==wplt10.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE wplt10(A,Opt)
@@ -44,8 +45,8 @@ SUBROUTINE wplt10(A,Opt)
 !              PER WORD ON THE COMPUTER ON WHICH THE PLOT TAPE IS
 !              BEING READ)
 !
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,7 +66,7 @@ SUBROUTINE wplt10(A,Opt)
    !>>>>EQUIVALENCE (c1,c(1))
    DATA nchr , ten , pzero/0 , 10000 , 1000 , 100 , 10 , 1 , +0/ , plt2 , nc , zero , c/4HPLT2 , 30 , 30*0 , 30*0/
 !
-   IF ( Plot/=plt2 ) THEN
+   IF ( plot/=plt2 ) THEN
 !
 !     PLT1 FILE - NON BYTE PACKING LOGIC
 !     A FORMAT OF (5(2I3,4I5)) IS COMPOSED IN SGINO
@@ -77,8 +78,8 @@ SUBROUTINE wplt10(A,Opt)
 !     TERMINATE A SET OF PLOT COMMANDS
 !     SEND A RECORD OF ALL ZERO-S TO SWRITE
 !
-         CALL swrite(Plot,zero,nc,0)
-         CALL swrite(Plot,0,0,1)
+         CALL swrite(plot,zero,nc,0)
+         CALL swrite(plot,0,0,1)
       ELSE
 !
 !     SET UP THE MODE AND CONTROL CHARACTERS IN THE COMMAND.
@@ -86,8 +87,8 @@ SUBROUTINE wplt10(A,Opt)
          c1 = A(1)
          c(2) = A(2)
 !
-         i3 = ifix(Edge(1)+.1)
-         i4 = ifix(Edge(2)+.1)
+         i3 = ifix(edge(1)+.1)
+         i4 = ifix(edge(2)+.1)
          c(3) = A(3) + i3
          c(4) = A(4) + i4
          c(5) = A(5)
@@ -96,7 +97,7 @@ SUBROUTINE wplt10(A,Opt)
             c(5) = A(5) + i3
             c(6) = A(6) + i4
          ENDIF
-         CALL swrite(Plot,c,nc,0)
+         CALL swrite(plot,c,nc,0)
       ENDIF
 !
 !     PLT2 FILE - WITH BYTE PACKING LOGIC
@@ -116,7 +117,7 @@ SUBROUTINE wplt10(A,Opt)
          i = 1
          IF ( j==2 .OR. j==4 ) i = 2
          n = A(j+2)
-         IF ( j<3 .OR. (c1/=4 .AND. c1/=14) ) n = n + ifix(Edge(i)+.1)
+         IF ( j<3 .OR. (c1/=4 .AND. c1/=14) ) n = n + ifix(edge(i)+.1)
          k = 5*(j-1)
          DO i = 1 , 5
             m = n/ten(i)
@@ -130,21 +131,21 @@ SUBROUTINE wplt10(A,Opt)
          ENDDO
       ENDDO
 !
-      CALL swrite(Plot,c,nc,0)
+      CALL swrite(plot,c,nc,0)
       nchr = nchr + nc
-      IF ( nchr==Maxchr ) nchr = 0
+      IF ( nchr==maxchr ) nchr = 0
 !
 !     TERMINATE A SET OF PLOT COMMANDS (FILL THE RECORD WITH ZERO-S).
 !
    ELSEIF ( nchr==0 ) THEN
-      CALL swrite(Plot,0,0,1)
+      CALL swrite(plot,0,0,1)
    ELSE
       SPAG_Loop_1_1: DO
-         CALL swrite(Plot,zero,nc,0)
+         CALL swrite(plot,zero,nc,0)
          nchr = nchr + nc
-         IF ( nchr==Maxchr ) THEN
+         IF ( nchr==maxchr ) THEN
             nchr = 0
-            CALL swrite(Plot,0,0,1)
+            CALL swrite(plot,0,0,1)
             EXIT SPAG_Loop_1_1
          ENDIF
       ENDDO SPAG_Loop_1_1

@@ -1,12 +1,13 @@
-!*==asycon.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==asycon.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE asycon
+   USE c_blk1
+   USE c_blk2
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLK1
-   USE C_BLK2
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,22 +23,22 @@ SUBROUTINE asycon
 !
 !
    c1 = 1.0
-   pi2 = 2.0*Pi
-   a1 = pi2/(Sps-Sns)
-   gam0 = Sps*Del - Sigma
+   pi2 = 2.0*pi
+   a1 = pi2/(sps-sns)
+   gam0 = sps*del - sigma
    a2 = -a1
-   b1 = gam0/(Sps-Sns)
-   s1 = Sps/(Dstr**2)
-   s2 = Sns/Dstr
+   b1 = gam0/(sps-sns)
+   s1 = sps/(dstr**2)
+   s2 = sns/dstr
    c1test = 0.0
    DO i = 1 , 200
       r = i
       gamp = pi2*r + gam0
       gamn = -pi2*r + gam0
-      c2p = gamp/Dstr - Scrk
-      c2q = gamp/Dstr + Scrk
-      c2n = gamn/Dstr - Scrk
-      c3q = gamn/Dstr + Scrk
+      c2p = gamp/dstr - scrk
+      c2q = gamp/dstr + scrk
+      c2n = gamn/dstr - scrk
+      c3q = gamn/dstr + scrk
       nn = 0
       csec = c2p*c2q
       IF ( csec<0.0 ) nn = 1
@@ -64,13 +65,12 @@ SUBROUTINE asycon
       c1test = c1
    ENDDO
 !
-   WRITE (Ibbout,99001) Ufm
+   WRITE (ibbout,99001) ufm
 99001 FORMAT (A23,' - AMG MODULE - SUBROUTINE ASYCON')
    CALL mesage(-61,0,0)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      Bsycon = c1
-      RETURN
+      bsycon = C1
    END SUBROUTINE spag_block_1
 END SUBROUTINE asycon

@@ -1,4 +1,5 @@
-!*==idf2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==idf2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE idf2(Ee,E2,Eta01,Zet01,A2r,A2i,B2r,B2i,C2r,C2i,R1sqx,Diijr,Diiji)
@@ -25,6 +26,15 @@ SUBROUTINE idf2(Ee,E2,Eta01,Zet01,A2r,A2i,B2r,B2i,C2r,C2i,R1sqx,Diijr,Diiji)
    REAL :: alpha , arga , argt , atana , azet , coef , den2 , den3 , dena , denb , deno , eps , eta02 , fac2a , fac2b , fac3a ,     &
          & fac3b , faci , facr , funct , parn , s , ser , test , test0 , trm1i , trm1r , trm2i , trm2r , trm3i , trm3r , up1i ,     &
          & up1r , up2i , up2r , zet02
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

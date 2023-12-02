@@ -1,7 +1,9 @@
-!*==dk89.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dk89.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dk89(I,A,B,M,N,X)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -18,11 +20,19 @@ USE ISO_FORTRAN_ENV
 ! Local variable declarations rewritten by SPAG
 !
    REAL(REAL64) :: amf , ammsf , amn1f , an1 , an2 , anm1f , capx , f89 , s , sf
-   INTEGER :: iret , is , kfac , lfac , n1 , n2 , n3 , nfac
+   INTEGER :: iret , is , kfac , lfac , n1 , n2 , n3 , nfac , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -49,12 +59,11 @@ USE ISO_FORTRAN_ENV
             nfac = n2
             ASSIGN 40 TO iret
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             f89 = f89 + amf*((-A)**is)*(capx**n3)/(ammsf*sf*(an2-s))
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  40      amn1f = kfac
          nfac = N - 1
          ASSIGN 60 TO iret
@@ -70,7 +79,6 @@ USE ISO_FORTRAN_ENV
             sf = sf*s
             ammsf = ammsf/(an1-s)
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( B==0.0D0 ) THEN
             dk89 = 0.0D0
             RETURN

@@ -1,17 +1,18 @@
-!*==bdat06.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bdat06.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bdat06
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_cmbfnd
+   USE c_output
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_CMBFND
-   USE C_OUTPUT
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,65 +40,65 @@ SUBROUTINE bdat06
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ifile = Scr1
+         ifile = scr1
          kk = 0
          print = .FALSE.
-         IF ( andf(rshift(Iprint,5),1)==1 ) print = .TRUE.
+         IF ( andf(rshift(iprint,5),1)==1 ) print = .TRUE.
          DO i = 1 , 96
-            Ihead(i) = ihd(i)
+            ihead(i) = ihd(i)
          ENDDO
-         CALL open(*80,Scr2,Z(Buf3),1)
-         ifile = Scbdat
-         CALL locate(*60,Z(Buf1),gtran,flag)
+         CALL open(*80,scr2,z(buf3),1)
+         ifile = scbdat
+         CALL locate(*60,z(buf1),gtran,flag)
          IF ( print ) CALL page
-         ifile = Geom4
+         ifile = geom4
          spag_nextblock_1 = 2
       CASE (2)
          SPAG_Loop_1_1: DO
-            CALL read(*100,*20,Geom4,id,1,0,n)
-            DO i = 1 , Npsub
-               IF ( id(1)==Combo(i,3) ) EXIT SPAG_Loop_1_1
+            CALL read(*100,*20,geom4,id,1,0,n)
+            DO i = 1 , npsub
+               IF ( id(1)==combo(i,3) ) EXIT SPAG_Loop_1_1
             ENDDO
-            CALL read(*100,*120,Geom4,id,-4,0,n)
+            CALL read(*100,*120,geom4,id,-4,0,n)
          ENDDO SPAG_Loop_1_1
-         Tdat(6) = .TRUE.
+         tdat(6) = .TRUE.
          kk = kk + 1
-         CALL read(*100,*120,Geom4,id(2),4,0,n)
+         CALL read(*100,*120,geom4,id(2),4,0,n)
          CALL finder(id(2),is,ic)
-         IF ( Ierr==1 ) THEN
-            WRITE (Outt,99001) Ufm , id(2) , id(3)
+         IF ( ierr==1 ) THEN
+            WRITE (outt,99001) ufm , id(2) , id(3)
 99001       FORMAT (A23,' 6530, THE BASIC SUBSTRUCTURE ',2A4,/30X,'REFERED TO BY A GTRAN BULK DATA CARD WHICH CANNOT BE ',          &
                    &'FOUNDD IN THE PROBLEM TABLE OF CONTENTS.')
-            Idry = -2
+            idry = -2
          ENDIF
          IF ( print ) CALL page2(1)
-         IF ( print ) WRITE (Outt,99002) is , ic , id(1) , id(4) , id(5)
+         IF ( print ) WRITE (outt,99002) is , ic , id(1) , id(4) , id(5)
 !
 99002    FORMAT (36X,I1,14X,I5,8X,I8,4X,I8,4X,I8)
          id(3) = id(1)
          id(1) = is
          id(2) = ic
          id(4) = ic*1000000 + id(4)
-         Z(Buf4+kk) = id(5)
-         CALL write(Scr2,id,5,0)
+         z(buf4+kk) = id(5)
+         CALL write(scr2,id,5,0)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 20      CALL write(Scr2,id,0,1)
-         CALL close(Scr2,1)
-         IF ( .NOT.Tdat(6) ) GOTO 60
-         ifile = Scr2
-         CALL open(*80,Scr2,Z(Buf3),2)
-         CALL read(*100,*40,Scr2,Z(Score),Lcore,0,nn)
+ 20      CALL write(scr2,id,0,1)
+         CALL close(scr2,1)
+         IF ( .NOT.tdat(6) ) GOTO 60
+         ifile = scr2
+         CALL open(*80,scr2,z(buf3),2)
+         CALL read(*100,*40,scr2,z(score),lcore,0,nn)
          imsg = -8
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 40      CALL sort(0,0,5,1,Z(Score),nn)
-         CALL write(Scbdat,Z(Score),nn,1)
- 60      CALL eof(Scbdat)
-         Z(Buf4) = kk
-         CALL close(Scr2,1)
+ 40      CALL sort(0,0,5,1,z(score),nn)
+         CALL write(scbdat,z(score),nn,1)
+ 60      CALL eof(scbdat)
+         z(buf4) = kk
+         CALL close(scr2,1)
          IF ( print ) CALL page2(3)
-         IF ( print ) WRITE (Outt,99003)
+         IF ( print ) WRITE (outt,99003)
 99003    FORMAT (/5X,'NOTE - THE PSEUDOSTRUCTURE AND COMPONENT NUMBERS RE',                                                         &
                 &'FER TO THEIR POSITIONS IN THE PROBLEM TABLE OF CONTENTS.')
          RETURN

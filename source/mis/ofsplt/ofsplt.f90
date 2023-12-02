@@ -1,4 +1,5 @@
-!*==ofsplt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ofsplt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,Offset,X,Deform,Gplst)
@@ -63,13 +64,13 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
 !     GIRD POINT XYZ COORDINATES AT HAND IN GLOBAL ALREADY?
 !     THE OFFSET PLOT IS QUESTIONABLE.
 !
+   USE c_blank
+   USE c_drwdat
+   USE c_pltdat
+   USE c_rstxxx
+   USE c_system
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DRWDAT
-   USE C_PLTDAT
-   USE C_RSTXXX
-   USE C_SYSTEM
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -97,26 +98,26 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
    DATA kbar , kt3 , kq4/2HBR , 2HT3 , 2HQ4/ , sym/2 , 0/
    DATA offhdg/4H OFF , 4HSET  , 4HSCAL , 4HE =  , 4H   X/
 !
-   CALL fread(Elset,off,Offset,0)
+   CALL fread(elset,off,Offset,0)
 !
-   IF ( Deform==0 .AND. Offscl>=0 ) THEN
-      IF ( Pedge==3 .AND. Offlag/=1 ) THEN
-         Offlag = 1
-         cnty4 = 4.*Cnty
-         ymax1 = Ymax - Cnty
+   IF ( Deform==0 .AND. offscl>=0 ) THEN
+      IF ( pedge==3 .AND. offlag/=1 ) THEN
+         offlag = 1
+         cnty4 = 4.*cnty
+         ymax1 = ymax - cnty
          scale = 1.0
-         IF ( Pedge/=3 ) scale = 20.0
-         IF ( Pedge==3 ) scale = float(Offscl)
-         mpen = mod(Pen,31)
+         IF ( pedge/=3 ) scale = 20.0
+         IF ( pedge==3 ) scale = float(offscl)
+         mpen = mod(pen,31)
          IF ( mpen>1 ) pn1 = mpen - 1
          IF ( mpen<=1 ) pn1 = mpen + 1
 !
 !     ADD OFFSET HEADER LINE
 !
-         CALL print(30.*Cntx,Ymax,1,offhdg,5,0)
+         CALL print(30.*cntx,ymax,1,offhdg,5,0)
          x1 = 48.
-         IF ( Offscl>=100 ) x1 = 47.
-         CALL typint(x1*Cntx,Ymax,1,Offscl,1,0)
+         IF ( offscl>=100 ) x1 = 47.
+         CALL typint(x1*cntx,ymax,1,offscl,1,0)
       ENDIF
 !
       x1 = 0.0
@@ -129,7 +130,7 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
          nl = 1
          IF ( Esym==kt3 ) nl = 3
          IF ( Esym==kq4 ) nl = 4
-         IF ( Pedge/=3 ) THEN
+         IF ( pedge/=3 ) THEN
 !
 !     PLOT OFFSET WITHOUT CONSIDERING ITS TRUE OFFSET DIRECTION IN
 !     GENERAL PLOT. (SEE 130 LOOP FOR ELEMENTS WITH COLOR FILL)
@@ -156,8 +157,8 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
                y1 = X(3,i) + v(1)
                x2 = X(2,j) + v(2)
                y2 = X(3,j) + v(2)
-               ipen = Pen
-               IF ( Pen>31 .AND. nl>=3 .AND. l==nl ) ipen = 0
+               ipen = pen
+               IF ( pen>31 .AND. nl>=3 .AND. l==nl ) ipen = 0
                CALL line(x1,y1,x2,y2,ipen,0)
                CALL symbol(x1,y1,sym,0)
                IF ( nl==1 ) CALL symbol(x2,y2,sym,0)
@@ -165,7 +166,7 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
          ELSE
 !
             j = alog10(float(Elid)) + 1.0
-            delx = (j+.03)*Cntx
+            delx = (j+.03)*cntx
 !
 !     COMPUTE THE TRUE OFFSET DIRECTION IF PEDGE = 3,
 !     OTHERWISE, JUST PLOT OFFSET AT 45 DEGREE
@@ -201,14 +202,14 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
 !
                DO k = 1 , 2
                   DO i = 1 , 3
-                     j = Axis(i)
-                     v(j) = Sign(i)*ofv(j,k)
+                     j = axis(i)
+                     v(j) = sign(i)*ofv(j,k)
                   ENDDO
                   DO j = 1 , 3
-                     l = Axis(j)
+                     l = axis(j)
                      x1 = 0.0
                      DO i = 1 , 3
-                        x1 = x1 + Cstm(l,i)*v(i)
+                        x1 = x1 + cstm(l,i)*v(i)
                      ENDDO
                      off(j,k) = x1*scale
                   ENDDO
@@ -229,7 +230,7 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
                x2 = X(2,i) + off(2,1)
                y2 = X(3,i) + off(3,1)
                IF ( x2<0.1 ) x2 = 0.1
-               IF ( x2>Xmax ) x2 = Xmax
+               IF ( x2>xmax ) x2 = xmax
                IF ( y2<cnty4 ) y2 = cnty4
                IF ( y2>ymax1 ) y2 = ymax1
                CALL line(x1,y1,x2,y2,pn1,0)
@@ -237,15 +238,15 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
                x3 = X(2,j) + off(2,2)
                y3 = X(3,j) + off(3,2)
                IF ( x3<0.1 ) x3 = 0.1
-               IF ( x3>Xmax ) x3 = Xmax
+               IF ( x3>xmax ) x3 = xmax
                IF ( y3<cnty4 ) y3 = cnty4
                IF ( y3>ymax1 ) y3 = ymax1
-               ipen = Pen
-               IF ( Pen>31 .AND. nl>=3 .AND. l==nl ) ipen = 0
+               ipen = pen
+               IF ( pen>31 .AND. nl>=3 .AND. l==nl ) ipen = 0
                CALL line(x2,y2,x3,y3,ipen,0)
 !
                IF ( l<=1 ) THEN
-                  IF ( Plabel==3 .OR. Plabel==6 ) THEN
+                  IF ( plabel==3 .OR. plabel==6 ) THEN
                      IF ( x2>=x1 ) delx = -delx
                      x1 = 0.5*(x3+x2) + delx
                      y1 = 0.5*(y3+y2)
@@ -255,7 +256,7 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
                      CALL symbol(x3,y3,sym,0)
                      x2 = X(2,j)
                      y2 = X(3,j)
-                     CALL line(x3,y3,x2,y2,Pen,0)
+                     CALL line(x3,y3,x2,y2,pen,0)
                   ENDIF
                ENDIF
             ENDDO
@@ -265,7 +266,7 @@ SUBROUTINE ofsplt(Esym,Elid,G,Offset,X,Deform,Gplst) !HIDESTARS (*,Esym,Elid,G,O
       ENDIF
    ENDIF
 !
-   IF ( Pedge/=3 .OR. Offscl<0 ) RETURN
+   IF ( pedge/=3 .OR. offscl<0 ) RETURN
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1

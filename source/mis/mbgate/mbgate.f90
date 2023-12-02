@@ -1,10 +1,11 @@
-!*==mbgate.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mbgate.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbgate(Ntote,Dphite,N,Ywte,Q,Q1,Q2,Kte,Kte1,Kte2)
+   USE c_mboxa
+   USE c_mboxc
    IMPLICIT NONE
-   USE C_MBOXA
-   USE C_MBOXC
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,10 +32,10 @@ SUBROUTINE mbgate(Ntote,Dphite,N,Ywte,Q,Q1,Q2,Kte,Kte1,Kte2)
 !
    DO j = 1 , Ntote
       dphi = Dphite(1,j)*0.5*amin0(j,2)
-      IF ( Cntrl1 .AND. Ywte(j)>=Y(7) .AND. Ywte(j)<=Y(11) ) THEN
+      IF ( cntrl1 .AND. Ywte(j)>=y(7) .AND. Ywte(j)<=y(11) ) THEN
          isp = Kte1(j)
          Q1(isp) = dphi
-      ELSEIF ( Cntrl2 .AND. Ywte(j)>Y(11) .AND. Ywte(j)<=Y(12) ) THEN
+      ELSEIF ( cntrl2 .AND. Ywte(j)>y(11) .AND. Ywte(j)<=y(12) ) THEN
          isp = Kte2(j)
          Q2(isp) = dphi
       ELSE

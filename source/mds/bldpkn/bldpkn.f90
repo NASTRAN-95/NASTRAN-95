@@ -1,7 +1,10 @@
-!*==bldpkn.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bldpkn.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bldpkn(File,Block,Mcb)
+   USE i_pakblk
+   USE i_dsiof
    USE I_PAKBLK
    USE I_DSIOF
    IMPLICIT NONE

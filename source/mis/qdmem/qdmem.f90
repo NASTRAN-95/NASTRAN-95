@@ -1,11 +1,12 @@
-!*==qdmem.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==qdmem.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qdmem(T,Core)
+   USE c_condas
+   USE c_matin
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -68,12 +69,12 @@ SUBROUTINE qdmem(T,Core)
 !     A1 A2 A3 A4
 !
    DO i = 1 , 3
-      d1(i) = Ecpt(i+18) - Ecpt(i+10)
-      d2(i) = Ecpt(i+22) - Ecpt(i+14)
-      a1(i) = Ecpt(i+14) - Ecpt(i+10)
-      a2(i) = Ecpt(i+18) - Ecpt(i+14)
-      a3(i) = Ecpt(i+22) - Ecpt(i+18)
-      a4(i) = Ecpt(i+10) - Ecpt(i+22)
+      d1(i) = ecpt(i+18) - ecpt(i+10)
+      d2(i) = ecpt(i+22) - ecpt(i+14)
+      a1(i) = ecpt(i+14) - ecpt(i+10)
+      a2(i) = ecpt(i+18) - ecpt(i+14)
+      a3(i) = ecpt(i+22) - ecpt(i+18)
+      a4(i) = ecpt(i+10) - ecpt(i+22)
    ENDDO
 !
 !     K-VECTOR = NORMALIZED D1 CROSS D2
@@ -82,7 +83,7 @@ SUBROUTINE qdmem(T,Core)
    kvec(2) = d1(3)*d2(1) - d1(1)*d2(3)
    kvec(3) = d1(1)*d2(2) - d1(2)*d2(1)
    vecl = sqrt(kvec(1)**2+kvec(2)**2+kvec(3)**2)
-   IF ( vecl==0.0 ) CALL mesage(-30,26,Ecpt(1))
+   IF ( vecl==0.0 ) CALL mesage(-30,26,ecpt(1))
    kvec(1) = kvec(1)/vecl
    kvec(2) = kvec(2)/vecl
    kvec(3) = kvec(3)/vecl
@@ -96,7 +97,7 @@ SUBROUTINE qdmem(T,Core)
    ivec(2) = a1(2) - h*kvec(2)
    ivec(3) = a1(3) - h*kvec(3)
    vecl = sqrt(ivec(1)**2+ivec(2)**2+ivec(3)**2)
-   IF ( vecl==0.0 ) CALL mesage(-30,26,Ecpt(1))
+   IF ( vecl==0.0 ) CALL mesage(-30,26,ecpt(1))
    ivec(1) = ivec(1)/vecl
    ivec(2) = ivec(2)/vecl
    ivec(3) = ivec(3)/vecl
@@ -112,7 +113,7 @@ SUBROUTINE qdmem(T,Core)
    jvec(2) = jvec(2)/vecl
    jvec(3) = jvec(3)/vecl
 !
-   theta = Ecpt(6)*Degra
+   theta = ecpt(6)*degra
    sinang = sin(theta)
    cosang = cos(theta)
 !
@@ -129,7 +130,7 @@ SUBROUTINE qdmem(T,Core)
 !
    DO i = 1 , 4
       vecl = sqrt(v(2*i-1)**2+v(2*i)**2)
-      IF ( vecl==0.0 ) CALL mesage(-30,26,Ecpt(1))
+      IF ( vecl==0.0 ) CALL mesage(-30,26,ecpt(1))
       v(2*i-1) = v(2*i-1)/vecl
       v(2*i) = v(2*i)/vecl
    ENDDO
@@ -143,16 +144,16 @@ SUBROUTINE qdmem(T,Core)
 !
 !     REDUCE THICKNESS BY 0.5
 !
-   Ecpt(8) = Ecpt(8)/2.0
+   ecpt(8) = ecpt(8)/2.0
    DO i = 1 , 36
-      ecptsa(i) = Ecpt(i)
+      ecptsa(i) = ecpt(i)
    ENDDO
 !
-   Ecpt(6) = Ecpt(7)
-   Ecpt(7) = Ecpt(8)
-   Ecpt(8) = Ecpt(9)
+   ecpt(6) = ecpt(7)
+   ecpt(7) = ecpt(8)
+   ecpt(8) = ecpt(9)
 !
-   Ecpt(21) = Ecpt(26)
+   ecpt(21) = ecpt(26)
 !
    DO i = 1 , 4
 !
@@ -166,9 +167,9 @@ SUBROUTINE qdmem(T,Core)
          DO k = 1 , 4
             nsub3 = 4*nsub1 - 4 + k
             ncoord = ncoord + 1
-            Ecpt(ncoord) = coord(nsub3)
+            ecpt(ncoord) = coord(nsub3)
          ENDDO
-         Ecpt(j) = ngrid(nsub1)
+         ecpt(j) = ngrid(nsub1)
       ENDDO
 !
 !     SET UP T MATRIX FOR THIS TRIANGLE.  T IS 3X3
@@ -179,8 +180,8 @@ SUBROUTINE qdmem(T,Core)
 !
 !     COMPUTE NET SINTH AND COSTH FOR ANISOTROPIC POSSIBILITY
 !
-      Sinth = sinang*u1 - cosang*u2
-      Costh = cosang*u1 + sinang*u2
+      sinth = sinang*u1 - cosang*u2
+      costh = cosang*u1 + sinang*u2
 !
       CALL trimem(1,tbar,Core)
    ENDDO

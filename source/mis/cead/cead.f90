@@ -1,4 +1,5 @@
-!*==cead.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cead.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cead
@@ -10,12 +11,12 @@ SUBROUTINE cead
 !     12 SCRATCHES FILES
 !     1  PARAMETER
 !
+   USE c_blank
+   USE c_cinvpx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CINVPX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -49,13 +50,13 @@ SUBROUTINE cead
 !
 !     FIND SELECTED EIGC CARD IN CASECC
 !
-         ibuf = korsz(Iz) - Sysbuf
-         CALL open(*20,casecc,Iz(ibuf),0)
+         ibuf = korsz(iz) - sysbuf
+         CALL open(*20,casecc,iz(ibuf),0)
          CALL skprec(casecc,1)
-         CALL fread(casecc,Iz,166,1)
+         CALL fread(casecc,iz,166,1)
          CALL close(casecc,1)
          j = 148
-         method = Iz(j)
+         method = iz(j)
          scr10 = 310
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
@@ -63,23 +64,23 @@ SUBROUTINE cead
          spag_nextblock_1 = 2
       CASE (2)
          file = eed
-         CALL preloc(*40,Iz(ibuf),eed)
-         CALL locate(*80,Iz(ibuf),eigc(1),iflag)
+         CALL preloc(*40,iz(ibuf),eed)
+         CALL locate(*80,iz(ibuf),eigc(1),iflag)
          DO
-            CALL read(*60,*100,eed,Iz(1),10,0,iflag)
-            IF ( method==Iz(1) .OR. method==-1 ) THEN
+            CALL read(*60,*100,eed,iz(1),10,0,iflag)
+            IF ( method==iz(1) .OR. method==-1 ) THEN
 !
 !     FOUND DESIRED  EIGC CARD
 !
                CALL close(eed,1)
                j = 2
-               capp = Iz(j)
+               capp = iz(j)
                IF ( capp==det ) THEN
 !
 !     DETERMINANT
 !
-                  CALL cdetm(method,eed,mdd,bdd,kdd,scr8,scr9,oceigs,Nfound,scr1,scr2,scr3,scr4,scr5,scr6,scr7,scr10)
-                  nvect = Nfound
+                  CALL cdetm(method,eed,mdd,bdd,kdd,scr8,scr9,oceigs,nfound,scr1,scr2,scr3,scr4,scr5,scr6,scr7,scr10)
+                  nvect = nfound
                ELSE
                   IF ( capp/=inv ) THEN
                      IF ( capp==hes ) THEN
@@ -101,11 +102,11 @@ SUBROUTINE cead
 !
 !     SUFFICIENT CORE.  PROCEED WITH HESSENBURG METHOD
 !
-                           CALL hess1(kdd,mdd,scr8,scr9,oceigs,Nfound,nvect,bdd,scr1,scr2,scr3,scr4,scr5,scr6,scr7,eed,method)
-                           Nfound = nvect
+                           CALL hess1(kdd,mdd,scr8,scr9,oceigs,nfound,nvect,bdd,scr1,scr2,scr3,scr4,scr5,scr6,scr7,eed,method)
+                           nfound = nvect
                            GOTO 25
                         ELSE
-                           WRITE (Nout,99001) Uim
+                           WRITE (nout,99001) uim
 99001                      FORMAT (A29,' 2365, INSUFFICIENT CORE EXISTS FOR HESSENBURG ',                                           &
                                   &'METHOD.  CHANGING TO INVERSE POWER OR FEER.')
                         ENDIF
@@ -114,58 +115,58 @@ SUBROUTINE cead
 !
 !     FEER METHOD
 !
-                        CALL cfeer(eed,method,Nfound)
-                        nvect = Nfound
+                        CALL cfeer(eed,method,nfound)
+                        nvect = nfound
                         GOTO 25
                      ENDIF
                   ENDIF
 !
 !     INVERSE POWER--
 !
-                  Ik(1) = kdd
+                  ik(1) = kdd
                   CALL close(eed,1)
-                  CALL rdtrl(Ik)
-                  Im(1) = mdd
-                  CALL rdtrl(Im)
-                  Ib(1) = bdd
-                  CALL rdtrl(Ib)
-                  IF ( Ib(1)<0 ) Ib(1) = 0
-                  IF ( Ib(6)==0 ) Ib(1) = 0
-                  Ilam(1) = scr8
-                  Iphi(1) = scr9
-                  Idmpfl = oceigs
-                  Iscr(1) = scr1
-                  Iscr(2) = scr2
-                  Iscr(3) = scr3
-                  Iscr(4) = scr4
-                  Iscr(5) = scr5
-                  Iscr(6) = scr6
-                  Iscr(7) = scr7
-                  Iscr(8) = lamd
-                  Iscr(9) = phid
-                  Iscr(10) = scr10
-                  Iscr(11) = scr11
-                  Phidli = scr12
-                  Eps = .0001
-                  CALL cinvpr(eed,method,Nfound)
-                  nvect = Nfound
+                  CALL rdtrl(ik)
+                  im(1) = mdd
+                  CALL rdtrl(im)
+                  ib(1) = bdd
+                  CALL rdtrl(ib)
+                  IF ( ib(1)<0 ) ib(1) = 0
+                  IF ( ib(6)==0 ) ib(1) = 0
+                  ilam(1) = scr8
+                  iphi(1) = scr9
+                  idmpfl = oceigs
+                  iscr(1) = scr1
+                  iscr(2) = scr2
+                  iscr(3) = scr3
+                  iscr(4) = scr4
+                  iscr(5) = scr5
+                  iscr(6) = scr6
+                  iscr(7) = scr7
+                  iscr(8) = lamd
+                  iscr(9) = phid
+                  iscr(10) = scr10
+                  iscr(11) = scr11
+                  phidli = scr12
+                  eps = .0001
+                  CALL cinvpr(eed,method,nfound)
+                  nvect = nfound
                ENDIF
 !
 !     LAMD ON SCR8, PHID ON SCR9
 !
 !     SORT EIGENVALUES AND PREPARE OUTPUT FILES
 !
- 25            IF ( Nfound/=0 ) THEN
-                  CALL cead1a(scr8,scr9,Phidli,lamd,phid,phidl,Nfound,nvect,capp)
+ 25            IF ( nfound/=0 ) THEN
+                  CALL cead1a(scr8,scr9,phidli,lamd,phid,phidl,nfound,nvect,capp)
                ELSE
-                  Nfound = -1
+                  nfound = -1
                ENDIF
                RETURN
             ELSE
                SPAG_Loop_2_1: DO
-                  CALL fread(eed,Iz,7,0)
+                  CALL fread(eed,iz,7,0)
                   j = 6
-                  IF ( Iz(j)==-1 ) EXIT SPAG_Loop_2_1
+                  IF ( iz(j)==-1 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
             ENDIF
          ENDDO

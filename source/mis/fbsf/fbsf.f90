@@ -1,4 +1,5 @@
-!*==fbsf.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbsf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbsf(Zs,Zd)
@@ -27,17 +28,17 @@ SUBROUTINE fbsf(Zs,Zd)
 !                         AND FOR SOLUTION VECTORS
 !     ZS( BUF2        ) - BUFFER FOR FILE WITH TRIANGULAR MATRIX
 !
-USE C_FBSX
-USE C_LOGOUT
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsx
+   USE c_logout
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -71,20 +72,20 @@ USE ISO_FORTRAN_ENV
 !
 !     GENERAL INITIALIZATION
 !
-         buf2 = Lcore - Sysbuf
-         buf1 = buf2 - Sysbuf
-         rc = Rlcmpx(typeb)
-         typel = Dbl(5)
-         wds = Words(typel)
+         buf2 = lcore - sysbuf
+         buf1 = buf2 - sysbuf
+         rc = rlcmpx(typeb)
+         typel = dbl(5)
+         wds = words(typel)
          nwds = wds*nl
-         nbrlod = Dbb(2)
+         nbrlod = dbb(2)
          ident = .FALSE.
-         IF ( Dbb(4)==8 ) ident = .TRUE.
+         IF ( dbb(4)==8 ) ident = .TRUE.
          IF ( ident ) nbrlod = nl
          switch = 1
-         IF ( typel==Rsp .AND. rc==2 ) switch = 2
-         IF ( typel==Rdp .AND. rc==2 ) switch = 3
-         dbl1 = Dbl(1)
+         IF ( typel==rsp .AND. rc==2 ) switch = 2
+         IF ( typel==rdp .AND. rc==2 ) switch = 3
+         dbl1 = dbl(1)
          nnn = buf1 - 1
          nvecs = nnn/nwds
          IF ( nvecs==0 ) CALL mesage(-8,nwds-nnn,subnam)
@@ -94,40 +95,40 @@ USE ISO_FORTRAN_ENV
          CALL conmsg(subnam,2,0)
          npass = (nbrlod+nvecs-1)/nvecs
          IF ( npass/=1 ) THEN
-            need = nwds*nbrlod + 2*Sysbuf
-            WRITE (Lout,99001) npass , need
+            need = nwds*nbrlod + 2*sysbuf
+            WRITE (lout,99001) npass , need
 99001       FORMAT (I4,' PASSES REQUIRED, OPEN CORE NEEDS TO BE ',I7,' TO ELIMINATE THIS')
          ENDIF
-         I2 = 1
-         J2 = nl
-         Incr2 = 1
-         I1 = 1
-         J1 = nl
-         Incr1 = 1
-         Itype1 = typel
-         Itype2 = typex
-         Itype3 = Sign*typel
-         Dbx(2) = 0
-         Dbx(6) = 0
-         Dbx(7) = 0
+         i2 = 1
+         j2 = nl
+         incr2 = 1
+         i1 = 1
+         j1 = nl
+         incr1 = 1
+         itype1 = typel
+         itype2 = typex
+         itype3 = sign*typel
+         dbx(2) = 0
+         dbx(6) = 0
+         dbx(7) = 0
          nnndbl = nnn/2
-         nterms = Rlcmpx(typel)*nl
+         nterms = rlcmpx(typel)*nl
          k1 = 1
-         oprd = Rdrew
-         opwrt = Wrtrew
-         block(1) = Dbl(1)
+         oprd = rdrew
+         opwrt = wrtrew
+         block(1) = dbl(1)
 !
 !     OPEN LOWER TRIANGULAR FACTOR FILE (DBL1)
 !
-         CALL gopen(dbl1,Zs(buf2),Rdrew)
+         CALL gopen(dbl1,Zs(buf2),rdrew)
          DO
 !
 !     OPEN RIGHT HAND VECTORS FILE (DBB) AND COMPUTE EXTENT OF THIS PASS
 !
             kn = min0(k1+nvecs-1,nbrlod)
             last = (kn-k1+1)*nwds
-            opcls = Norew
-            IF ( kn==nbrlod ) opcls = Rew
+            opcls = norew
+            IF ( kn==nbrlod ) opcls = rew
             IF ( ident ) THEN
 !
 !     SPECIAL CASE - GENERATE IDENTITY MATRIX
@@ -158,7 +159,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDIF
             ELSE
-               CALL gopen(Dbb,Zs(buf1),oprd)
+               CALL gopen(dbb,Zs(buf1),oprd)
                IF ( switch==2 ) THEN
 !
 !     SPECIAL CASE - FACTOR IS RSP AND VECTORS ARE CSP
@@ -169,13 +170,13 @@ USE ISO_FORTRAN_ENV
                      Zd(k) = 0.0D+0
                   ENDDO
                   DO k = k1 , kn
-                     icspsg = Csp*Sign
-                     CALL intpk(*2,Dbb,0,icspsg,0)
+                     icspsg = csp*sign
+                     CALL intpk(*2,dbb,0,icspsg,0)
                      SPAG_Loop_3_1: DO
                         CALL zntpki
-                        Zs(l+Ix) = xs(1)
-                        Zs(l+Ix+nl) = xs(2)
-                        IF ( Eol/=0 ) EXIT SPAG_Loop_3_1
+                        Zs(l+ix) = xs(1)
+                        Zs(l+ix+nl) = xs(2)
+                        IF ( eol/=0 ) EXIT SPAG_Loop_3_1
                      ENDDO SPAG_Loop_3_1
  2                   l = l + 2*nl
                   ENDDO
@@ -189,13 +190,13 @@ USE ISO_FORTRAN_ENV
                      Zd(k) = 0.0D+0
                   ENDDO
                   DO k = k1 , kn
-                     icdpsg = Cdp*Sign
-                     CALL intpk(*4,Dbb,0,icdpsg,0)
+                     icdpsg = cdp*sign
+                     CALL intpk(*4,dbb,0,icdpsg,0)
                      SPAG_Loop_3_2: DO
                         CALL zntpki
-                        Zd(l+Ix) = Xd(1)
-                        Zd(l+Ix+nl) = Xd(2)
-                        IF ( Eol/=0 ) EXIT SPAG_Loop_3_2
+                        Zd(l+ix) = xd(1)
+                        Zd(l+ix+nl) = xd(2)
+                        IF ( eol/=0 ) EXIT SPAG_Loop_3_2
                      ENDDO SPAG_Loop_3_2
  4                   l = l + 2*nl
                   ENDDO
@@ -204,7 +205,7 @@ USE ISO_FORTRAN_ENV
 !     NORMAL CASE - FILL CORE WITH RIGHT HAND VECTORS
 !
                   DO l = 1 , last , nwds
-                     CALL unpack(*6,Dbb,Zs(l))
+                     CALL unpack(*6,dbb,Zs(l))
                      CYCLE
  6                   ln = l + nwds - 1
                      DO ll = l , ln
@@ -216,7 +217,7 @@ USE ISO_FORTRAN_ENV
 !    CLOSE RIGHT HAND VECTORS FILE (DBB).
 !    START FORWARD-BACKWARD SUBSTITUTION ON RIGHT HAND VECTORS NOW IN CORE
 !
-               CALL close(Dbb,opcls)
+               CALL close(dbb,opcls)
             ENDIF
             CALL rewind(dbl1)
             CALL fwdrec(*20,dbl1)
@@ -234,21 +235,21 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN AND PACK SOLUTION VECTORS ONTO OUTPUT FILE (DBX)
 !
-            CALL gopen(Dbx,Zs(buf1),opwrt)
+            CALL gopen(dbx,Zs(buf1),opwrt)
             IF ( switch==2 ) THEN
 !
 !     SPECIAL CASE - FACTOR IS RSP AND VECTORS ARE CSP, CALL BLDPK
 !
                l = 0
                DO k = k1 , kn
-                  CALL bldpk(Csp,typex,Dbx,0,0)
+                  CALL bldpk(csp,typex,dbx,0,0)
                   DO i = 1 , nl
                      ys(1) = Zs(l+i)
                      ys(2) = Zs(l+i+nl)
-                     Iy = i
+                     iy = i
                      CALL zblpki
                   ENDDO
-                  CALL bldpkn(Dbx,0,Dbx)
+                  CALL bldpkn(dbx,0,dbx)
                   l = l + 2*nl
                ENDDO
             ELSEIF ( switch==3 ) THEN
@@ -257,14 +258,14 @@ USE ISO_FORTRAN_ENV
 !
                l = 0
                DO k = k1 , kn
-                  CALL bldpk(Cdp,typex,Dbx,0,0)
+                  CALL bldpk(cdp,typex,dbx,0,0)
                   DO i = 1 , nl
-                     Yd(1) = Zd(l+i)
-                     Yd(2) = Zd(l+i+nl)
-                     Iy = i
+                     yd(1) = Zd(l+i)
+                     yd(2) = Zd(l+i+nl)
+                     iy = i
                      CALL zblpki
                   ENDDO
-                  CALL bldpkn(Dbx,0,Dbx)
+                  CALL bldpkn(dbx,0,dbx)
                   l = l + 2*nl
                ENDDO
             ELSE
@@ -272,20 +273,20 @@ USE ISO_FORTRAN_ENV
 !     NORMAL CASE - CALL PACK
 !
                DO l = 1 , last , nwds
-                  CALL pack(Zs(l),Dbx,Dbx)
+                  CALL pack(Zs(l),dbx,dbx)
                ENDDO
             ENDIF
 !
 !     CLOSE OUTPUT FILE, AND TEST FOR MORE PASSES
 !
-            CALL close(Dbx,opcls)
+            CALL close(dbx,opcls)
             IF ( kn==nbrlod ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             k1 = kn + 1
-            oprd = Rd
-            opwrt = Wrt
+            oprd = rd
+            opwrt = wrt
          ENDDO
 !
 !     ERROR
@@ -296,7 +297,7 @@ USE ISO_FORTRAN_ENV
 !
 !     JOB DONE. CLOSE TRIANGULAR FACTOR FILE.
 !
-         CALL close(dbl1,Rew)
+         CALL close(dbl1,rew)
          subnam(2) = end
          CALL conmsg(subnam,2,0)
          EXIT SPAG_DispatchLoop_1

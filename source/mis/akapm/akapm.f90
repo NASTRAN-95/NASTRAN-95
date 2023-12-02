@@ -1,12 +1,13 @@
-!*==akapm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==akapm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE akapm(Arg,Bkpm)
+   USE c_blk1
+   USE c_blk2
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLK1
-   USE C_BLK2
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,13 +27,13 @@ SUBROUTINE akapm(Arg,Bkpm)
 !     SUBROUTINE FOR COMPUTING KAPPA MINUS
 !
 !
-   c1 = cexp(-Ai*Arg/2.0*(Sps-Sns))
-   gam0 = Sps*Del - Sigma
-   pi2 = 2.0*Pi
-   s1 = Sps/(Dstr**2)
-   s2 = Sns/Dstr
-   c2q = gam0/Dstr - Scrk
-   c3q = gam0/Dstr + Scrk
+   c1 = cexp(-ai*Arg/2.0*(sps-sns))
+   gam0 = sps*del - sigma
+   pi2 = 2.0*pi
+   s1 = sps/(dstr**2)
+   s2 = sns/dstr
+   c2q = gam0/dstr - scrk
+   c3q = gam0/dstr + scrk
    nn = 0
    csec = c2q*c3q
    IF ( csec<0.0 ) nn = 1
@@ -42,18 +43,18 @@ SUBROUTINE akapm(Arg,Bkpm)
    IF ( nn==0 ) alp0 = t1 + t2
    IF ( nn==1 ) alp0 = cmplx(t1,t2)
    c1 = c1*(1.0-Arg/alp0)
-   a1 = pi2/(Sps-Sns)
+   a1 = pi2/(sps-sns)
    a2 = -a1
-   b1 = gam0/(Sps-Sns)
+   b1 = gam0/(sps-sns)
    c1test = 0.0
    DO i = 1 , 200
       r = i
       gamp = pi2*r + gam0
       gamn = -pi2*r + gam0
-      c2p = gamp/Dstr - Scrk
-      c2q = gamp/Dstr + Scrk
-      c2n = gamn/Dstr - Scrk
-      c3q = gamn/Dstr + Scrk
+      c2p = gamp/dstr - scrk
+      c2q = gamp/dstr + scrk
+      c2n = gamn/dstr - scrk
+      c3q = gamn/dstr + scrk
       nn = 0
       csec = c2p*c2q
       IF ( csec<0.0 ) nn = 1
@@ -80,15 +81,14 @@ SUBROUTINE akapm(Arg,Bkpm)
       c1test = c1
    ENDDO
 !
-   WRITE (Ibbout,99001) Ufm
+   WRITE (ibbout,99001) ufm
 99001 FORMAT (A23,' - AMG MODULE -SUBROUTINE AKAPM')
    CALL mesage(-61,0,0)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      c1 = c1*b1/(Arg-b1)*csin(Pi/a1*(Arg-b1))/(sin(Pi*b1/a1))
-      c1 = c1*Bsycon
-      Bkpm = c1
-      RETURN
+      C1 = C1*B1/(Arg-B1)*csin(Pi/A1*(Arg-B1))/(sin(Pi*B1/A1))
+      C1 = C1*bsycon
+      Bkpm = C1
    END SUBROUTINE spag_block_1
 END SUBROUTINE akapm

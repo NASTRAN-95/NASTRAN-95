@@ -1,14 +1,15 @@
-!*==gkam1a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gkam1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkam1a(Mi,Phidh,Sdt,Scr1,Scr2,Iopt,Iout,Nopp,W,Nw,Nosdt,Lhset,I2dd,Iws,Scr3)
-USE C_BLANK
-USE C_CONDAS
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -107,16 +108,16 @@ USE ISO_FORTRAN_ENV
          ELSE
             CALL gopen(mii,W(nz+1),1)
             CALL makmcb(mcb,mii,Lhset,6,iprec)
-            IF ( Kdamp==1 ) mcb(5) = mcb(5) + 2
+            IF ( kdamp==1 ) mcb(5) = mcb(5) + 2
 !
 !     SET UP FOR  PACK  AND  UNPACK
 !
-            It1 = 2
-            IF ( Kdamp==1 ) It1 = 4
-            It2 = mcb(5)
-            Incr = 1
-            It11 = 2
-            Incr1 = 1
+            it1 = 2
+            IF ( kdamp==1 ) it1 = 4
+            it2 = mcb(5)
+            incr = 1
+            it11 = 2
+            incr1 = 1
             DO i = 1 , Nw
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
@@ -124,10 +125,10 @@ USE ISO_FORTRAN_ENV
                   CASE (1)
                      mc = 0.0
                      k = Iws + i - 1
-                     Ii = i
-                     Jj = i
-                     Iii = k
-                     Jjj = k
+                     ii = i
+                     jj = i
+                     iii = k
+                     jjj = k
                      IF ( imi/=0 ) THEN
 !
 !     PICK UP MODAL MASS FROM LAMA
@@ -143,7 +144,7 @@ USE ISO_FORTRAN_ENV
 !
 !     BUILDING  BHH
 !
-                        IF ( Kdamp==1 ) THEN
+                        IF ( kdamp==1 ) THEN
                            md = 0.0
 !
 !     BUILDING  MHH
@@ -163,7 +164,7 @@ USE ISO_FORTRAN_ENV
 !     BUILDING  KHH
 !
                         md = md*W(i)*W(i)
-                        IF ( Kdamp/=1 ) THEN
+                        IF ( kdamp/=1 ) THEN
                            CALL pack(md,mii,mcb)
                            CYCLE
                         ELSE
@@ -182,7 +183,6 @@ USE ISO_FORTRAN_ENV
                      CYCLE
  4                   md = md*W(i)*g
                      CALL pack(md,mii,mcb)
-                     CYCLE
                   CASE (2)
 !
 !     LOOK UP G(W)  IN  SDT
@@ -192,7 +192,7 @@ USE ISO_FORTRAN_ENV
                         itab(2) = Nosdt
                         CALL pretab(Sdt,W(Nw+1),W(Nw+1),W(ibuf),ibuf-1,iz,itab(1),itabt)
                      ENDIF
-                     CALL tab(itab(2),W(i)/Twophi,g)
+                     CALL tab(itab(2),W(i)/twophi,g)
                      GOTO iret
                   END SELECT
                ENDDO SPAG_DispatchLoop_2
@@ -220,7 +220,7 @@ USE ISO_FORTRAN_ENV
       CASE (3)
          CALL mesage(ip1,file,name)
          RETURN
- 40      WRITE (nout,99001) Sfm , ihh(Iopt)
+ 40      WRITE (nout,99001) sfm , ihh(Iopt)
 99001    FORMAT (A25,' 2203, NULL COLUMN FOUND IN MI FILE DURING ASSEMBLY',' OF ',A4,' MATRIX BY GKAM MODULE.')
          ip1 = -37
          spag_nextblock_1 = 3
@@ -233,7 +233,6 @@ USE ISO_FORTRAN_ENV
          CALL fread(Mi+1,mcb,-7*(Iws-1),0)
          imi = 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE gkam1a

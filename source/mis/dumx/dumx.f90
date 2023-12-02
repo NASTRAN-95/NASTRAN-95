@@ -1,17 +1,26 @@
-!*==dumx.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dumx.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dumx
-   USE C_SYSTEM
-   USE C_XMSSG
+USE c_system
+USE c_xmssg
+USE C_SYSTEM
+USE C_XMSSG
    IMPLICIT NONE
-   INTEGER Ibuf , Nout
-   CHARACTER*23 Ufm
-   CHARACTER*25 Uwm
-   COMMON /system/ Ibuf , Nout
-   COMMON /xmssg / Ufm , Uwm
-   INTEGER Icore
-   INTEGER ii(9) , j , jj , kk(9)
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
+   INTEGER :: Icore
+   INTEGER , DIMENSION(9) , SAVE :: ii , kk
+   INTEGER :: j
+   INTEGER , SAVE :: jj
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     DELETE ANY OF THE FOLLOW ENTRY POINT IF A SUBROUTINE OF THE SAME
 !     NAME ALREADY EXISTS
@@ -92,11 +101,13 @@ SUBROUTINE dumx
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_SYSTEM
+      USE C_XMSSG
 !     GO TO 10
 !
-      IF ( ii(j)==0 ) THEN
-         ii(j) = 1
-         WRITE (Nout,99001) Uwm , jj , kk(j)
+      IF ( Ii(J)==0 ) THEN
+         Ii(J) = 1
+         WRITE (Nout,99001) Uwm , Jj , Kk(J)
 99001    FORMAT (A25,' 2182, SUBROUTINE ',2A4,' IS DUMMY.  ONLY ONE OF ','THESE MESSAGES WILL APPEAR PER OVERLAY OF THIS DECK.')
       ENDIF
    END SUBROUTINE spag_block_1

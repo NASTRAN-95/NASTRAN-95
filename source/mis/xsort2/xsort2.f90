@@ -92,18 +92,18 @@ SUBROUTINE xsort2
 !     WRITTEN BY G.CHAN/UNISYS   10/1987
 !
    IMPLICIT NONE
-   USE C_IFPX0
-   USE C_IFPX1
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_OUTPUT
-   USE C_STAPID
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XECHOX
-   USE C_XMSSG
-   USE C_XSORTX
-   USE C_ZZZZZZ
+   USE c_ifpx0
+   USE c_ifpx1
+   USE c_machin
+   USE c_names
+   USE c_output
+   USE c_stapid
+   USE c_system
+   USE c_two
+   USE c_xechox
+   USE c_xmssg
+   USE c_xsortx
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -127,6 +127,12 @@ SUBROUTINE xsort2
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !ZZ   COMMON /ZZXST2/ Z(1)
    !>>>>EQUIVALENCE (Y(1,1),Z(1)) , (Buf41,Buf4(1)) , (ibufx(1),buf(26)) , (itape(1),buf(38))
    DATA head , head4/' I N P U T   B U L K   D A T A   D E C K   E C H O      ' ,                                                   &
@@ -143,13 +149,13 @@ SUBROUTINE xsort2
 !
 !     TURN ON XSORT FLAG AND FREE-FIELD FLAG FOR XREAD AND FFREAD
 !
-   Ixsort = 1
-   Ffflag = 1234
+   ixsort = 1
+   ffflag = 1234
 !
 !     CHECK UMF REQUEST
 !
-   IF ( Kumf>0 ) THEN
-      WRITE (Nout,99001) Ufm
+   IF ( kumf>0 ) THEN
+      WRITE (nout,99001) ufm
 99001 FORMAT (A23,' - USER MASTER FILE, UMF, IS  NOT SUPPORTED BY NEW ','XSORT ROUTINE',/5X,                                        &
              &'ADD A ''DIAG 42'' CARD AND RESUBMIT YOUR NASTRAN JOB')
 ! 100 FORMAT (A23,' - USER MASTER FILE, UMF, IS NO LONGER SUPPORTED BY',
@@ -160,10 +166,10 @@ SUBROUTINE xsort2
 !
 !     INITIALIZE XSORT2
 !
-   Echou = 0
-   Echos = 0
-   Echop = 0
-   Ncard = 0
+   echou = 0
+   echos = 0
+   echop = 0
+   ncard = 0
    cmmt = 0
    ncont = 0
    ndele = 0
@@ -175,17 +181,17 @@ SUBROUTINE xsort2
    case = 1
    kontn = 10010000
    ksmbi = ksmb(1)
-   IF ( Apprc<0 ) restr = 1
-   IF ( restr==1 ) ksmbi = khrfn3(ksmb(1),Date(2),-2,0)
+   IF ( apprc<0 ) restr = 1
+   IF ( restr==1 ) ksmbi = khrfn3(ksmb(1),date(2),-2,0)
    j = complf(0)
    large = rshift(j,1)
-   les1b = rshift(j,Nbpc)
-   IF ( mod(Lqro,10)==1 ) les1b = lshift(j,Nbpc)
-   IF ( Echo>=0 ) THEN
-      Echou = andf(Echo,1)
-      Echos = andf(Echo,2)
-      Echop = andf(Echo,4)
-      IF ( Cpflg/=0 ) Echos = 1
+   les1b = rshift(j,nbpc)
+   IF ( mod(lqro,10)==1 ) les1b = lshift(j,nbpc)
+   IF ( echo>=0 ) THEN
+      echou = andf(echo,1)
+      echos = andf(echo,2)
+      echop = andf(echo,4)
+      IF ( cpflg/=0 ) echos = 1
    ENDIF
 !
 !     SET UP UNSORTED HEADING
@@ -195,30 +201,30 @@ SUBROUTINE xsort2
 !      ADJUSTED)
 !
    DO j = 1 , 32
-      Head2(j) = blank
-      Head3(j) = blank
-      Head1(j) = blank
+      head2(j) = blank
+      head3(j) = blank
+      head1(j) = blank
    ENDDO
    imhere = 130
-   IF ( debug ) WRITE (Nout,99048) imhere , restr , Apprc , Subs
-   READ (head(1),99049) (Head1(j),j=11,24)
+   IF ( debug ) WRITE (nout,99048) imhere , restr , apprc , subs
+   READ (head(1),99049) (head1(j),j=11,24)
 !WKBR 9/93 READ (HEAD(3),150) (HEAD3(J),J= 7,20)
-   READ (head(3),99049) (Head3(j),j=8,21)
+   READ (head(3),99049) (head3(j),j=8,21)
 !WKBR 9/93 READ (HEAD 4 ,150) (HEAD3(J),J=21,27)
-   READ (head4,99049) (Head3(j),j=22,28)
-   IF ( Echou/=0 ) CALL page
+   READ (head4,99049) (head3(j),j=22,28)
+   IF ( echou/=0 ) CALL page
 !
 !     GET AVAILABLE CORE
 !     IF IBM MACHINE, LIMIT AVAILABLE CORE SIZE TO 1,000,000 WORDS, SUCH
 !     THAT DATA WILL BE SAVED IN PRIMARY FILES ONLY, AND NO SPILL INTO
 !     SECONDARY FILES.
 !
-   nzz = korsz(Z)
-   ibuf1 = nzz - Bufsz
-   ibuf2 = ibuf1 - Bufsz
-   ibuf3 = ibuf2 - Bufsz
+   nzz = korsz(z)
+   ibuf1 = nzz - bufsz
+   ibuf2 = ibuf1 - bufsz
+   ibuf3 = ibuf2 - bufsz
    nz = ibuf3 - 1
-   IF ( Mach==2 ) nz = min0(nz,1000000)
+   IF ( mach==2 ) nz = min0(nz,1000000)
    IF ( nz<2500 ) CALL mesage(-8,2500,name)
    nz25 = nz/25
 !
@@ -231,16 +237,16 @@ SUBROUTINE xsort2
 !     FILES CAN BE USED HERE)
 !
    imhere = 170
-   IF ( debug ) WRITE (Nout,99048) imhere , nz25
-   CALL open(*5600,tape1,Z(ibuf1),Wrtrew)
-   CALL open(*5700,tape2,Z(ibuf2),Wrtrew)
+   IF ( debug ) WRITE (nout,99048) imhere , nz25
+   CALL open(*5600,tape1,z(ibuf1),wrtrew)
+   CALL open(*5700,tape2,z(ibuf2),wrtrew)
    tape = tape3 - 1
  100  tape = tape + 1
    IF ( tape>314 ) THEN
-      IF ( debug ) WRITE (Nout,99056)
+      IF ( debug ) WRITE (nout,99056)
       CALL mesage(-8,-nzz,name)
    ENDIF
-   CALL open(*6200,tape,Z(ibuf3),Wrtrew)
+   CALL open(*6200,tape,z(ibuf3),wrtrew)
    wrttn = 0
 !
 !
@@ -318,14 +324,14 @@ SUBROUTINE xsort2
          ELSE
 !
             case = 6
-            IF ( buf41==-9 ) GOTO 900
-            GOTO 400
+            IF ( buf41/=-9 ) GOTO 400
+            GOTO 900
          ENDIF
       ENDIF
    ENDIF
 !                                   1,  2,  3,  4,  5,  6 = CASE
    case = 1
-   IF ( Wasff<=0 ) THEN
+   IF ( wasff<=0 ) THEN
 !
 !     OPEN CORE BUFFER FULL, ENDDATA CARD HAS NOT BEEN ENCOUNTERED
 !
@@ -387,7 +393,7 @@ SUBROUTINE xsort2
    IF ( kontn==10020000 ) ksmbi = ksmb(2)
    IF ( kontn==10030000 ) ksmbi = ksmb(3)
    imhere = 205
-   IF ( debug ) WRITE (Nout,99048) imhere , kontn , count , nz25 , case
+   IF ( debug ) WRITE (nout,99048) imhere , kontn , count , nz25 , case
    CALL int2a8(*7100,kontn,buf(1))
    buf(1) = ksmbi
    IF ( count<=0 ) GOTO 500
@@ -410,7 +416,7 @@ SUBROUTINE xsort2
          IF ( kontn==10020000 ) ksmbi = ksmb(2)
          IF ( kontn==10030000 ) ksmbi = ksmb(3)
          imhere = 207
-         IF ( debug ) WRITE (Nout,99048) imhere , kontn , count , nz25 , case
+         IF ( debug ) WRITE (nout,99048) imhere , kontn , count , nz25 , case
          CALL int2a8(*7100,kontn,fub(1))
          fub(1) = ksmbi
          buf(19) = ksmbi
@@ -419,8 +425,8 @@ SUBROUTINE xsort2
       ENDIF
    ENDDO
 !
- 500  Nogo = 1
-   WRITE (Nout,99002) Sfm , imhere
+ 500  nogo = 1
+   WRITE (nout,99002) sfm , imhere
 99002 FORMAT (A25,'.  IMHERE =',I6)
    case = 1
    GOTO 700
@@ -431,7 +437,7 @@ SUBROUTINE xsort2
 ! ... CASES 4 AND 5 -
 !     CORE IS NOT FULL, A SPECIAL CONTINUATION CARD WAS JUST READ
 !
-   ELSEIF ( Wasff<=0 ) THEN
+   ELSEIF ( wasff<=0 ) THEN
       case = 1
    ELSE
       case = 4
@@ -471,10 +477,10 @@ SUBROUTINE xsort2
                y(i,count) = buf(i)
             ENDDO
             DO i = 1 , 4
-               y(i+20,count) = Buf4(i)
+               y(i+20,count) = buf4(i)
             ENDDO
             y(25,count) = count
-            IF ( debug ) WRITE (Nout,99003) count , y(1,count) , y(2,count)
+            IF ( debug ) WRITE (nout,99003) count , y(1,count) , y(2,count)
 99003       FORMAT (5X,'SAVED IN CORE   COUNT=',I5,3X,2A4)
             IF ( restr==0 ) GOTO 200
             ASSIGN 200 TO crdflg
@@ -482,23 +488,23 @@ SUBROUTINE xsort2
             GOTO 5400
          ELSE
             cmmt = cmmt + 1
-            IF ( Buf4(4)==-4 ) THEN
+            IF ( buf4(4)==-4 ) THEN
                CALL page2(2)
-               WRITE (Nout,99004) Ufm
+               WRITE (nout,99004) ufm
 99004          FORMAT (A23,' 221, EXTRANEOUS DATA IN FIELD 1 OF BULK DATA ','DELETE CARD.')
-               Nogo = -2
+               nogo = -2
             ENDIF
 !
-            IF ( Buf4(3)==-3 ) THEN
-               WRITE (Nout,99005) Ufm
+            IF ( buf4(3)==-3 ) THEN
+               WRITE (nout,99005) ufm
 99005          FORMAT (A23,' 221, NO DATA IN FIELD 2 OF BULK DATA DELETE CARD')
-               Nogo = -1
+               nogo = -1
             ELSE
-               IF ( Buf4(4)==-3 ) Buf4(4) = Buf4(3)
-               Buf4(3) = Buf4(3) - 2000000000
-               Buf4(4) = Buf4(4) - 2000000000
-               CALL write(tape1,Buf4(3),2,0)
-               IF ( debug ) WRITE (Nout,99006) Buf4(3) , Buf4(4)
+               IF ( buf4(4)==-3 ) buf4(4) = buf4(3)
+               buf4(3) = buf4(3) - 2000000000
+               buf4(4) = buf4(4) - 2000000000
+               CALL write(tape1,buf4(3),2,0)
+               IF ( debug ) WRITE (nout,99006) buf4(3) , buf4(4)
 99006          FORMAT (5X,'A DELETE CARD -',I11,1H,,I11)
                ndele = ndele + 1
             ENDIF
@@ -511,7 +517,7 @@ SUBROUTINE xsort2
    ENDIF
  800  buf(21) = restr
    CALL write(tape2,buf(1),21,0)
-   IF ( debug ) WRITE (Nout,99007) buf(1) , buf(2) , buf(21)
+   IF ( debug ) WRITE (nout,99007) buf(1) , buf(2) , buf(21)
 99007 FORMAT (5X,'A CONTINUATION CARD - ',2A4,',  CONT.FLAG=',I9)
    ncont = ncont + 1
    GOTO 200
@@ -520,15 +526,15 @@ SUBROUTINE xsort2
 !
  900  full = -1
    imhere = 350
-   Ncard = Ncard - 1
-   nbulk = Ncard - cmmt
-   IF ( debug ) WRITE (Nout,99048) imhere , Ncard , ncont , ndele
+   ncard = ncard - 1
+   nbulk = ncard - cmmt
+   IF ( debug ) WRITE (nout,99048) imhere , ncard , ncont , ndele
    CALL page2(2)
-   IF ( Echou/=1 ) THEN
-      WRITE (Nout,99008) Ncard , cmmt
+   IF ( echou/=1 ) THEN
+      WRITE (nout,99008) ncard , cmmt
 99008 FORMAT (//24X,'(NO. OF UNSORTED BULK DATA CARDS READ =',I6,', INCLUDING',I4,' COMMENT CARDS)')
    ELSE
-      WRITE (Nout,99009) Ncard
+      WRITE (nout,99009) ncard
 99009 FORMAT (//24X,'TOTAL COUNT=',I7)
    ENDIF
 !
@@ -542,7 +548,7 @@ SUBROUTINE xsort2
    IF ( count>nz25 ) CALL mesage(-37,0,name)
    m = count
    imhere = 400
-   IF ( debug ) WRITE (Nout,99048) imhere , count
+   IF ( debug ) WRITE (nout,99048) imhere , count
  1100 m = m/2
    IF ( m==0 ) THEN
 !
@@ -553,7 +559,7 @@ SUBROUTINE xsort2
 !     CHECK ANY DUPLICATE CARD.
 !
       imhere = 500
-      IF ( debug ) WRITE (Nout,99048) imhere , count , maxc
+      IF ( debug ) WRITE (nout,99048) imhere , count , maxc
       only1 = .FALSE.
       IF ( full==-1 .AND. tape==tape3 ) only1 = .TRUE.
       base = 25
@@ -577,7 +583,7 @@ SUBROUTINE xsort2
  1110       obase = base
          ENDIF
          CALL write(tape,buf(base+1),24,0)
-         IF ( debug ) WRITE (Nout,99010) tape , (buf(k+base),k=1,8) , (buf(k+base),k=21,24)
+         IF ( debug ) WRITE (nout,99010) tape , (buf(k+base),k=1,8) , (buf(k+base),k=21,24)
 99010    FORMAT (5X,'WRITE TO ',I3,4(2X,2A4),/9X,'INT.CODE=',4I12)
       ENDDO
       CALL write(tape,0,0,1)
@@ -611,9 +617,9 @@ SUBROUTINE xsort2
    IF ( j>k ) GOTO 1100
    i = j
    GOTO 1200
- 1300 CALL close(tape,Rew)
+ 1300 CALL close(tape,rew)
    imhere = 580
-   IF ( debug ) WRITE (Nout,99048) imhere
+   IF ( debug ) WRITE (nout,99048) imhere
 !
 !     REPEAT READING BULKDATA CARDS INTO CORE IF NECESSARY
 !
@@ -627,7 +633,7 @@ SUBROUTINE xsort2
 !     CONTINUATION CARD FILE, TAPE 2, IS STILL IN USE
 !
    CALL write(tape1,0,0,1)
-   CALL close(tape1,Rew)
+   CALL close(tape1,rew)
 !
 !     TEST FOR COLD-START WITH NO BULKDATA
 !
@@ -635,15 +641,15 @@ SUBROUTINE xsort2
 !     SUBS  = SUBSTRUCTURING FLAG
 !
    imhere = 585
-   IF ( debug ) WRITE (Nout,99048) imhere , count , Apprc , wrttn , restr , Subs
-   IF ( wrttn==1 .OR. restr==1 .OR. Subs/=0 ) THEN
+   IF ( debug ) WRITE (nout,99048) imhere , count , apprc , wrttn , restr , subs
+   IF ( wrttn==1 .OR. restr==1 .OR. subs/=0 ) THEN
 !
 !     IF MODIFIED RESTART - TURN ON SORT ECHO FLAG IF ECHO IS NOT 'NONO'
 !     IF NOT A RESTART JOB - JUMP TO 1000
 !
-      IF ( nbulk>1 .AND. restr==1 ) Echos = 1
+      IF ( nbulk>1 .AND. restr==1 ) echos = 1
 !     IF (APPRC.EQ.1 .OR.  SUBS .NE.0) ECHOS = 1
-      IF ( Echo==-2 ) Echos = 0
+      IF ( echo==-2 ) echos = 0
       IF ( restr==0 ) GOTO 2100
 !
 !     THIS IS A RESTART JOB, PROCESS OPTP FILE -
@@ -651,8 +657,8 @@ SUBROUTINE xsort2
 !     OPEN OPTP AND LOCATE WHERE BULK DATA BEGINS
 !
       imhere = 610
-      IF ( debug ) WRITE (Nout,99048) imhere
-      CALL open(*6800,optp,Z(ibuf3),Rdrew)
+      IF ( debug ) WRITE (nout,99048) imhere
+      CALL open(*6800,optp,z(ibuf3),rdrew)
       DO
          CALL skpfil(optp,+1)
          CALL read(*6600,*6600,optp,buf(1),2,1,j)
@@ -662,7 +668,7 @@ SUBROUTINE xsort2
 !     MODIFIED RESTART WITH NEW BULKDATA CARDS, WITH OR WITHOUT DELETE
 !
                imhere = 640
-               IF ( debug ) WRITE (Nout,99048) imhere
+               IF ( debug ) WRITE (nout,99048) imhere
                ic = 1
                left = nz
                IF ( ndele==0 ) GOTO 1600
@@ -673,13 +679,13 @@ SUBROUTINE xsort2
 !     SORT THE DELETE CARDS, CHECK FOR AND ELIMINATE OVERLAPS AND
 !     REDUNDANCIES
 !
-                  CALL open(*5600,tape1,Z(ibuf1),Rdrew)
-                  CALL read(*5600,*1500,tape1,Z(1),left,1,len)
+                  CALL open(*5600,tape1,z(ibuf1),rdrew)
+                  CALL read(*5600,*1500,tape1,z(1),left,1,len)
                   CALL mesage(-8,tape1,name)
                   GOTO 1500
                ELSE
                   CALL page2(-1)
-                  WRITE (Nout,99011) Uwm
+                  WRITE (nout,99011) uwm
 99011             FORMAT (A25,' 205, COLD START, DELETE CARDS IGNORED.')
                   GOTO 1600
                ENDIF
@@ -691,88 +697,88 @@ SUBROUTINE xsort2
 !
 !
                imhere = 620
-               IF ( debug ) WRITE (Nout,99048) imhere
-               CALL open(*6900,nptp,Z(ibuf1),Wrt)
+               IF ( debug ) WRITE (nout,99048) imhere
+               CALL open(*6900,nptp,z(ibuf1),wrt)
                CALL write(nptp,bulkda,2,1)
-               Ncard = 0
-               IF ( Echos/=0 ) THEN
-                  READ (head(2),99049) (Head1(j),j=11,24)
+               ncard = 0
+               IF ( echos/=0 ) THEN
+                  READ (head(2),99049) (head1(j),j=11,24)
 !WKBR 9/93 HEAD2(4) = CDCNT(1)
-                  Head2(5) = cdcnt(1)
+                  head2(5) = cdcnt(1)
 !WKBR 9/93 HEAD3(4) = CDCNT(2)
-                  Head3(5) = cdcnt(2)
+                  head3(5) = cdcnt(2)
 !WKBR 9/93 HEAD3(5) = CDCNT(3)
-                  Head3(6) = cdcnt(3)
+                  head3(6) = cdcnt(3)
                   CALL page
                ENDIF
                DO
                   CALL read(*1400,*1400,optp,buf(1),20,1,j)
                   CALL write(nptp,buf(1),20,1)
-                  Ncard = Ncard + 1
-                  IF ( Echop/=0 ) WRITE (Lpch,99052) (buf(j),j=1,20)
-                  IF ( Echos/=0 ) THEN
+                  ncard = ncard + 1
+                  IF ( echop/=0 ) WRITE (lpch,99052) (buf(j),j=1,20)
+                  IF ( echos/=0 ) THEN
                      CALL page2(-1)
-                     WRITE (Nout,99051) Ncard , (buf(j),j=1,20)
+                     WRITE (nout,99051) ncard , (buf(j),j=1,20)
                   ENDIF
                ENDDO
             ENDIF
          ENDIF
       ENDDO
    ELSE
-      CALL close(tape2,Rew)
-      Echos = 1
-      IF ( Apprc==1 ) GOTO 3000
+      CALL close(tape2,rew)
+      echos = 1
+      IF ( apprc==1 ) GOTO 3000
       CALL page2(2)
-      WRITE (Nout,99012) Ufm
+      WRITE (nout,99012) ufm
 99012 FORMAT (A23,' 204, COLD START NO BULK DATA.')
-      Nogo = -2
+      nogo = -2
       GOTO 7200
    ENDIF
  1400 CALL eof(nptp)
-   CALL close(nptp,Rew)
-   CALL close(optp,Norew)
-   CALL close(tape2,Rew)
-   IF ( Echop/=0 ) WRITE (Lpch,99054)
+   CALL close(nptp,rew)
+   CALL close(optp,norew)
+   CALL close(tape2,rew)
+   IF ( echop/=0 ) WRITE (lpch,99054)
    CALL page2(-1)
-   IF ( Echos/=0 ) WRITE (Nout,99053)
-   IF ( Echos==0 ) WRITE (Nout,99013) Uim , Ncard
+   IF ( echos/=0 ) WRITE (nout,99053)
+   IF ( echos==0 ) WRITE (nout,99013) uim , ncard
 99013 FORMAT (A29,1H,,I8,' SORTED BULKD DATA CARDS PROCESSED FROM OPTP',' FILE TO NPTP, UN-MODIFIED')
    GOTO 5200
- 1500 CALL close(tape1,Rew)
+ 1500 CALL close(tape1,rew)
 !
-   CALL sort(0,0,2,1,Z(1),len)
-   Z(len+1) = large
+   CALL sort(0,0,2,1,z(1),len)
+   z(len+1) = large
    DO i = 2 , len , 2
-      Z(i) = Z(i) + 1
-      IF ( Z(i)<Z(i-1) ) Z(i) = Z(i-1)
-      IF ( Z(i)>=Z(i+1) ) THEN
-         Z(i) = -1
-         Z(i+1) = -1
+      z(i) = z(i) + 1
+      IF ( z(i)<z(i-1) ) z(i) = z(i-1)
+      IF ( z(i)>=z(i+1) ) THEN
+         z(i) = -1
+         z(i+1) = -1
       ENDIF
    ENDDO
    j = 0
    DO i = 1 , len
-      IF ( Z(i)>=0 ) THEN
+      IF ( z(i)>=0 ) THEN
          j = j + 1
-         Z(j) = Z(i)
+         z(j) = z(i)
       ENDIF
    ENDDO
    IF ( j>0 ) len = j
    left = nz - len
    ic = len + 1
-   Z(ic) = large
+   z(ic) = large
    imhere = 700
-   IF ( debug ) WRITE (Nout,99014) imhere , (Z(i),i=1,len)
+   IF ( debug ) WRITE (nout,99014) imhere , (z(i),i=1,len)
 99014 FORMAT (/,' *** IMHERE =',I5,(/,3X,10(I7,I5)))
-   IF ( mod(len,2)/=0 ) GOTO 7100
-   GOTO 1700
+   IF ( mod(len,2)==0 ) GOTO 1700
+   GOTO 7100
 !
 !     IF MODIFIED RESTART WITH NO DELETE, SET DELETE RANGE BEGINNING AT
 !     INFINITY
 !
- 1600 Z(1) = large
+ 1600 z(1) = large
    imhere = 710
-   IF ( debug ) WRITE (Nout,99048) imhere
+   IF ( debug ) WRITE (nout,99048) imhere
 !
 !     WE ARE STILL IN PROCESSING RESTART - COPY OPTP TO TAPE1, SKIP
 !     APPROPRIATE RECORDS AS SPECIFIED BY THE DELETE CARDS NOW IN
@@ -790,12 +796,12 @@ SUBROUTINE xsort2
 !     PARENT CARD SHOULD BE FLAGGED
 !
  1700 imhere = 800
-   IF ( debug ) WRITE (Nout,99048) imhere , restr , tape1
-   CALL open(*5600,tape1,Z(ibuf1),Wrtrew)
+   IF ( debug ) WRITE (nout,99048) imhere , restr , tape1
+   CALL open(*5600,tape1,z(ibuf1),wrtrew)
    kount = 0
    point = 1
    onoff = 1
-   zpoint = Z(point)
+   zpoint = z(point)
    buf(19) = 0
  1800 DO
       temp(1) = buf(19)
@@ -804,12 +810,12 @@ SUBROUTINE xsort2
       kount = kount + 1
       IF ( kount>=zpoint ) THEN
          point = point + 1
-         zpoint = Z(point)
+         zpoint = z(point)
          onoff = onoff*(-1)
       ENDIF
       CALL yread(*6700,buf)
       imhere = 830
-      IF ( debug .AND. onoff==-1 ) WRITE (Nout,99015) imhere , kount , (buf(j),j=1,6)
+      IF ( debug .AND. onoff==-1 ) WRITE (nout,99015) imhere , kount , (buf(j),j=1,6)
 99015 FORMAT (' IMHERE=',I5,'.  DELETED FROM OPTP ==>',I5,2H- ,6A4)
       IF ( buf41==-2 ) THEN
 !
@@ -842,10 +848,10 @@ SUBROUTINE xsort2
 !     NOTE- CARDS FROM OPTP ARE IN SORTED ORDER, AND NO CARD COUNT HERE
 !
          DO j = 1 , 4
-            buf(j+20) = Buf4(j)
+            buf(j+20) = buf4(j)
          ENDDO
          CALL write(tape1,buf(1),24,0)
-         IF ( debug ) WRITE (Nout,99016) (buf(j),j=1,6) , buf(21)
+         IF ( debug ) WRITE (nout,99016) (buf(j),j=1,6) , buf(21)
 99016    FORMAT (' IMHERE=860, OPTP==>TAPE1  ',6A4,'==>',I9)
          kard1 = buf(1)
          kard2 = buf(2)
@@ -868,10 +874,10 @@ SUBROUTINE xsort2
 !
 !     OPTP IS SUCCESSFULLY MOVED TO TAPT1 AND TAPE2. CLOSE FILES
 !
- 2000 CALL close(optp,Norew)
+ 2000 CALL close(optp,norew)
    CALL write(tape1,0,0,1)
    CALL write(tape2,0,0,1)
-   CALL close(tape1,Rew)
+   CALL close(tape1,rew)
 !
 !     PREPARE FOR FILE MERGE -
 !
@@ -888,7 +894,7 @@ SUBROUTINE xsort2
 !                REDUCED GINO BUFFERS, FIT INTO CORE
 !     METHOD 4 - FATAL, INSUFFICIENT CORE
 !
- 2100 CALL close(tape2,Rew)
+ 2100 CALL close(tape2,rew)
    method = 1
    n23 = 1
    nfiles = tape - tape3 + 1
@@ -897,22 +903,22 @@ SUBROUTINE xsort2
    IF ( nfiles>17 ) reduce = 3
    j = 0
    IF ( restr==1 ) j = 1
-   maxc = (nzz-(Bufsz+25)*(nfiles+j))/21
+   maxc = (nzz-(bufsz+25)*(nfiles+j))/21
    IF ( ncont<=maxc ) reduce = 1
    nfiler = (nfiles+reduce-1)/reduce + j
    imhere = 1010
-   IF ( debug ) WRITE (Nout,99048) imhere , reduce , nfiles , nfiler
+   IF ( debug ) WRITE (nout,99048) imhere , reduce , nfiles , nfiler
    IF ( ncont/=0 ) THEN
       DO
          method = 2
          n23 = 23
          DO
-            size = (nfiler+1)*Bufsz + nfiler*25
-            size = size + Bufsz
+            size = (nfiler+1)*bufsz + nfiler*25
+            size = size + bufsz
             left = nzz - size
             maxc = left/n23
             imhere = 1020
-            IF ( debug ) WRITE (Nout,99048) imhere , method , nfiles , nfiler , n23 , ncont
+            IF ( debug ) WRITE (nout,99048) imhere , method , nfiles , nfiler , n23 , ncont
             IF ( ncont<=maxc ) EXIT
             IF ( method==2 ) THEN
                method = 3
@@ -946,15 +952,15 @@ SUBROUTINE xsort2
 !              IN NFILES AND NFILER)
 !
    imhere = 1100
-   IF ( debug .OR. nfiles>10 .OR. ncont>1000 ) WRITE (Nout,99017) Uim , method , nfiler , Hicore , ncont
+   IF ( debug .OR. nfiles>10 .OR. ncont>1000 ) WRITE (nout,99017) uim , method , nfiler , hicore , ncont
 99017 FORMAT (A29,' FROM XSORT -  METHOD',I3,' WAS SELECTED TO PROCESS',' CONTINUATION CARDS',/5X,'NO. OF FILES USED =',I4,4X,      &
              &'HICORE =',I7,' WORDS',4X,'NO. OF CONT. CARDS =',I7)
    nz = ibuf1
    DO i = 1 , nfiler
-      nz = nz - Bufsz
+      nz = nz - bufsz
       ibufx(i) = nz
    ENDDO
-   IF ( ncont>0 ) nz = nz - Bufsz
+   IF ( ncont>0 ) nz = nz - bufsz
    ibufc = nz
    nz = nz - 1
    ic = nfiler*25 + 1
@@ -986,8 +992,8 @@ SUBROUTINE xsort2
 !       MERGE                            (PART 2 AREA)
 !
    imhere = 1125
-   IF ( debug ) WRITE (Nout,99048) imhere , method , n23
-   CALL open(*5700,tape2,Z(ibuf2),Rdrew)
+   IF ( debug ) WRITE (nout,99048) imhere , method , n23
+   CALL open(*5700,tape2,z(ibuf2),rdrew)
    IF ( method==3 ) THEN
 !
 !     METHOD 3 -
@@ -1007,20 +1013,20 @@ SUBROUTINE xsort2
       nzib = ncci*21
       tapecc = nfiles + tape3
       imhere = 1200
-      IF ( debug ) WRITE (Nout,99048) imhere , method , tapecc , ncci
+      IF ( debug ) WRITE (nout,99048) imhere , method , tapecc , ncci
       IF ( tapecc>maxscr ) THEN
-         WRITE (Nout,99056) Sfm
+         WRITE (nout,99056) sfm
          GOTO 7100
       ELSE
-         CALL open(*6100,tapecc,Z(ibufc),Wrtrew)
+         CALL open(*6100,tapecc,z(ibufc),wrtrew)
          bk = 0
          i = ic
-         IF ( ncci<750 .AND. Mach>2 .AND. Nbpw/=64 ) THEN
+         IF ( ncci<750 .AND. mach>2 .AND. nbpw/=64 ) THEN
             j = ((ncont*23-nz+ic+999)/1000)*1000
-            WRITE (Nout,99018) Uim , j , Hicore
+            WRITE (nout,99018) uim , j , hicore
 99018       FORMAT (A29,', DUE TO UNUSUAL LARGE NUMBER OF CONTINUATION CARDS',' PRESENT IN THE BULKDATA DECK',/5X,'AN ADDITION OF', &
                   & I7,' WORDS TO OPEN CORE SPACE COULD MAKE LINK1 MORE EFFICIENT',/5X,'CURRENTLY NASTRAN HICORE IS',I7,' WORDS')
-            IF ( ncci<100 ) Nogo = -3
+            IF ( ncci<100 ) nogo = -3
          ENDIF
          GOTO 2300
       ENDIF
@@ -1037,41 +1043,41 @@ SUBROUTINE xsort2
 !     CARD IMAGES SAVED EITHER IN PART 2, OR IN TAPECC FILE.
 !
       imhere = 1130
-      IF ( debug ) WRITE (Nout,99048) imhere , method , ncont , ic , ib
-      CALL read(*6400,*2200,tape2,Z(ib),nzib,1,len)
+      IF ( debug ) WRITE (nout,99048) imhere , method , ncont , ic , ib
+      CALL read(*6400,*2200,tape2,z(ib),nzib,1,len)
       CALL mesage(-8,0,name)
    ENDIF
  2200 k = len + ib - 1
    i = ic
    DO j = ib , k , 21
-      Z(i) = andf(Z(j),les1b)
-      Z(i+1) = Z(j+1)
-      Z(i+2) = j
+      z(i) = andf(z(j),les1b)
+      z(i+1) = z(j+1)
+      z(i+2) = j
       i = i + 3
    ENDDO
    GOTO 2700
  2300 bk = bk + 10000000
    j = ib
    top = nzib
-   CALL read(*2600,*2400,tape2,Z(ib),top,0,len)
+   CALL read(*2600,*2400,tape2,z(ib),top,0,len)
    GOTO 2500
  2400 top = len
  2500 top = top + ib - 1
    DO
-      Z(i) = andf(Z(j),les1b)
-      Z(i+1) = Z(j+1)
-      Z(i+2) = j + bk
+      z(i) = andf(z(j),les1b)
+      z(i+1) = z(j+1)
+      z(i+2) = j + bk
       i = i + 3
       j = j + 21
       IF ( j>=top ) THEN
-         CALL write(tapecc,Z(ib),nzib,1)
+         CALL write(tapecc,z(ib),nzib,1)
          GOTO 2300
       ENDIF
    ENDDO
- 2600 CALL close(tapecc,Rew)
- 2700 CALL close(tape2,Rew)
+ 2600 CALL close(tapecc,rew)
+ 2700 CALL close(tape2,rew)
    len = i - ic
-   IF ( len>3 ) CALL sort2k(0,0,3,1,Z(ic),len)
+   IF ( len>3 ) CALL sort2k(0,0,3,1,z(ic),len)
 !
 !     NO PRE-MERGING FILES IF REDUCE IS 1 (I.E. LESS THAN 10 SCRATCH
 !     FILES WERE USED TO HOLD THE RAW BULKDATA, OR ENOUGH CORE TO HOLD
@@ -1105,7 +1111,7 @@ SUBROUTINE xsort2
 !     NOTE - 301 IS EITHER NOT USED, OR USED BY THE 'MODIFIED' OPTP
 !
       imhere = 1290
-      IF ( debug ) WRITE (Nout,99048) imhere , nfiles , nfiler , reduce
+      IF ( debug ) WRITE (nout,99048) imhere , nfiles , nfiler , reduce
       filea = 301
       file = 302 - reduce
 !
@@ -1120,15 +1126,15 @@ SUBROUTINE xsort2
          IF ( nfiles<=iii ) GOTO 2860
 !
          filea = filea + 1
-         CALL open(*5900,filea,Z(ibuf1),Wrtrew)
+         CALL open(*5900,filea,z(ibuf1),wrtrew)
          imhere = 1300
          exh = 0
          DO l = 1 , reduce
             filex = file + l
             ibufl = ibufx(l)
             itape(l) = 1
-            IF ( debug ) WRITE (Nout,99048) imhere , filex , j
-            CALL open(*6000,filex,Z(ibufl),Rdrew)
+            IF ( debug ) WRITE (nout,99048) imhere , filex , j
+            CALL open(*6000,filex,z(ibufl),rdrew)
             CALL read(*6400,*6300,filex,y(1,l),24,0,i)
          ENDDO
  2820    DO
@@ -1155,7 +1161,7 @@ SUBROUTINE xsort2
                            ENDDO
                            y(21,ii) = -6
                            y(22,ii) = -6
-                           Nogo = -1
+                           nogo = -1
                         ELSE
                            CYCLE
                         ENDIF
@@ -1172,13 +1178,13 @@ SUBROUTINE xsort2
                ii = l
  2830       ENDDO
             imhere = 1380
-            IF ( debug ) WRITE (Nout,99048) imhere , ii
+            IF ( debug ) WRITE (nout,99048) imhere , ii
 !
             IF ( y(1,ii)==large ) CALL mesage(-61,0,name)
             CALL write(filea,y(1,ii),24,0)
             filex = ii + file
             CALL read(*6300,*2840,filex,y(1,ii),24,0,j)
-            IF ( debug ) WRITE (Nout,99019) filex , y(1,ii) , y(2,ii)
+            IF ( debug ) WRITE (nout,99019) filex , y(1,ii) , y(2,ii)
 99019       FORMAT (5X,'TO PRE-MERGE FILE',I5,3X,2A4)
          ENDDO
 !
@@ -1191,7 +1197,7 @@ SUBROUTINE xsort2
                y(j,ii) = large
             ENDDO
             imhere = 1410
-            IF ( debug ) WRITE (Nout,99048) imhere , exh
+            IF ( debug ) WRITE (nout,99048) imhere , exh
             GOTO 2820
          ENDIF
 !
@@ -1201,16 +1207,16 @@ SUBROUTINE xsort2
          IF ( itape(2)==1 ) filex = file + 2
          IF ( itape(3)==1 ) filex = file + 3
          imhere = 1420
-         IF ( debug ) WRITE (Nout,99048) imhere , filex
+         IF ( debug ) WRITE (nout,99048) imhere , filex
          DO j = 1 , 24
-            Z(j) = y(j,filex)
+            z(j) = y(j,filex)
          ENDDO
 !
 !     THIS REMAINING FILE COULD BE VERY BIG. IT COULD BE OPTP
 !
          left24 = ((left-24)/24)*24
  2880    full = 1
-         CALL read(*6400,*2900,filex,Z(i25),left24,0,len)
+         CALL read(*6400,*2900,filex,z(i25),left24,0,len)
          full = 0
          len = left24
  2900    IF ( len>=24 ) THEN
@@ -1223,32 +1229,32 @@ SUBROUTINE xsort2
                i = l - 1
                k = i + 24
                DO j = 21 , 24
-                  IF ( Z(i+j)/=Z(k+j) ) GOTO 2905
+                  IF ( z(i+j)/=z(k+j) ) GOTO 2905
                ENDDO
                DO j = 7 , 20
-                  IF ( Z(i+j)/=Z(k+j) ) GOTO 2905
+                  IF ( z(i+j)/=z(k+j) ) GOTO 2905
                ENDDO
-               Z(i+21) = -6
-               Z(i+22) = -6
- 2905          CALL write(filea,Z(l),24,0)
-               IF ( debug ) WRITE (Nout,99050) filea , Z(l) , Z(l+1)
+               z(i+21) = -6
+               z(i+22) = -6
+ 2905          CALL write(filea,z(l),24,0)
+               IF ( debug ) WRITE (nout,99050) filea , z(l) , z(l+1)
             ENDDO
 !
 !     IF FILE HAS NOT BEEN EXHAUSTED, GO BACK FOR MORE
 !
             IF ( full/=1 ) THEN
                DO j = 1 , 24
-                  Z(j) = Z(len+j)
+                  z(j) = z(len+j)
                ENDDO
                GOTO 2880
             ENDIF
          ENDIF
 !
-         CALL write(filea,Z(len+1),24,1)
-         IF ( debug ) WRITE (Nout,99050) filea , Z(len+1) , Z(len+2)
+         CALL write(filea,z(len+1),24,1)
+         IF ( debug ) WRITE (nout,99050) filea , z(len+1) , z(len+2)
          DO l = 1 , reduce
             filex = file + l
-            CALL close(filex,Rew)
+            CALL close(filex,rew)
          ENDDO
 !
          file = file + reduce
@@ -1262,22 +1268,22 @@ SUBROUTINE xsort2
 !
  3000 IF ( nbulk>1 ) THEN
       CALL page2(2)
-      WRITE (Nout,99020) Uim
+      WRITE (nout,99020) uim
 99020 FORMAT (A29,' 207, BULK DATA DECK IS NOT SORTED. NASTRAN WILL ','RE-ORDER THE INPUT DECK.')
    ENDIF
-   IF ( F3long/=0 .AND. Echos/=0 ) THEN
+   IF ( f3long/=0 .AND. echos/=0 ) THEN
       CALL page2(2)
-      WRITE (Nout,99021) Uim
+      WRITE (nout,99021) uim
 99021 FORMAT (A29,' 207A, SIX CHARACTERS OF NASTRAN BCD NAME IN THE ','THIRD FIELD WERE USED DURING RE-ORDERING DECK')
    ENDIF
-   IF ( Echos/=0 ) THEN
-      READ (head(2),99049) (Head1(j),j=11,24)
+   IF ( echos/=0 ) THEN
+      READ (head(2),99049) (head1(j),j=11,24)
 !WKBR 9/93 HEAD2(4) = CDCNT(1)
-      Head2(5) = cdcnt(1)
+      head2(5) = cdcnt(1)
 !WKBR 9/93 HEAD3(4) = CDCNT(2)
-      Head3(5) = cdcnt(2)
+      head3(5) = cdcnt(2)
 !WKBR 9/93 HEAD3(5) = CDCNT(3)
-      Head3(6) = cdcnt(3)
+      head3(6) = cdcnt(3)
       CALL page
    ENDIF
 !
@@ -1295,15 +1301,15 @@ SUBROUTINE xsort2
 !     OPEN NPTP FOR MERGED RESULT
 !
 !
-   CALL open(*6900,nptp,Z(ibuf1),Wrt)
+   CALL open(*6900,nptp,z(ibuf1),wrt)
    CALL write(nptp,bulkda,2,1)
    IF ( nbulk+ndele==0 ) GOTO 4900
-   IF ( tapecc/=0 ) CALL open(*6100,tapecc,Z(ibufc),Rd)
+   IF ( tapecc/=0 ) CALL open(*6100,tapecc,z(ibufc),rd)
    recx = large
-   Ncard = 0
+   ncard = 0
    exh = 0
    imhere = 1700
-   IF ( debug ) WRITE (Nout,99048) imhere , ncont , nfiler
+   IF ( debug ) WRITE (nout,99048) imhere , ncont , nfiler
 !
 !     IF NO CONTINUATION CARDS, AND ONLY ONE FILE IS USED TO STORE
 !     BULKDATA INPUT CARDS, MOVE DATA FROM TAPE3 (COLD START JOB), OR
@@ -1317,20 +1323,20 @@ SUBROUTINE xsort2
       imhere = 1760
       tape = tape2
       IF ( reduce>1 ) tape = tape2 - 1
-      IF ( debug ) WRITE (Nout,99048) imhere , reduce , nfiler , tape
+      IF ( debug ) WRITE (nout,99048) imhere , reduce , nfiler , tape
       empty = 0
       DO ii = 1 , nfiler
          tape = tape + 1
          IF ( ii==nfiler .AND. restr==1 ) tape = tape1
          itape(ii) = tape
          iibuf = ibufx(ii)
-         CALL open(*6200,tape,Z(iibuf),Rdrew)
+         CALL open(*6200,tape,z(iibuf),rdrew)
          CALL read(*6400,*3020,tape,y(1,ii),24,0,j)
-         IF ( debug ) WRITE (Nout,99022) tape , ii , y(1,ii) , y(2,ii)
+         IF ( debug ) WRITE (nout,99022) tape , ii , y(1,ii) , y(2,ii)
 99022    FORMAT (5X,'SETTING MERGE TABLE.  TAPE,II =',2I4,2X,2A4)
          CYCLE
  3020    empty = empty + 1
-         CALL close(tape,Rew)
+         CALL close(tape,rew)
          DO i = 1 , 24
             y(i,ii) = large
          ENDDO
@@ -1343,45 +1349,45 @@ SUBROUTINE xsort2
    ELSE
       tape = tape3
       IF ( restr==1 ) tape = tape1
-      CALL open(*5800,tape,Z(ibuf2),Rdrew)
+      CALL open(*5800,tape,z(ibuf2),rdrew)
       left24 = ((ibuf2-1)/24)*24
    ENDIF
  3100 full = 1
    k = 1
-   CALL read(*6400,*3200,tape,Z(1),left24,0,j)
+   CALL read(*6400,*3200,tape,z(1),left24,0,j)
    full = 0
    j = left24
  3200 DO
-      CALL write(nptp,Z(k),20,1)
-      IF ( debug ) WRITE (Nout,99023) Z(k) , Z(k+1)
+      CALL write(nptp,z(k),20,1)
+      IF ( debug ) WRITE (nout,99023) z(k) , z(k+1)
 99023 FORMAT (5X,'WRITE TO NPTP',4X,2A4)
-      Ncard = Ncard + 1
+      ncard = ncard + 1
       l = k + 19
-      IF ( Echos/=0 ) THEN
+      IF ( echos/=0 ) THEN
          CALL page2(-1)
-         WRITE (Nout,99051) Ncard , (Z(i),i=k,l)
+         WRITE (nout,99051) ncard , (z(i),i=k,l)
       ENDIF
-      IF ( Echop/=0 ) WRITE (Lpch,99052) (Z(i),i=k,l)
+      IF ( echop/=0 ) WRITE (lpch,99052) (z(i),i=k,l)
       k = k + 24
       IF ( k>=j ) THEN
          imhere = 1750
-         IF ( debug ) WRITE (Nout,99048) imhere , full , j
+         IF ( debug ) WRITE (nout,99048) imhere , full , j
          IF ( full==0 ) GOTO 3100
          CALL eof(nptp)
-         CALL close(nptp,Rew)
-         CALL close(tape,Rew)
-         IF ( Echop/=0 ) WRITE (Lpch,99054)
-         IF ( Echos/=0 ) THEN
+         CALL close(nptp,rew)
+         CALL close(tape,rew)
+         IF ( echop/=0 ) WRITE (lpch,99054)
+         IF ( echos/=0 ) THEN
             CALL page2(-1)
-            WRITE (Nout,99053)
+            WRITE (nout,99053)
          ENDIF
          GOTO 5200
       ENDIF
    ENDDO
  3300 exh = empty
    ii = 1
-   IF ( nfiler<=1 ) GOTO 3700
-   GOTO 3500
+   IF ( nfiler>1 ) GOTO 3500
+   GOTO 3700
  3400 l = ii
    GOTO 4700
 !
@@ -1427,12 +1433,12 @@ SUBROUTINE xsort2
  3600 ENDDO
 !
  3700 CALL write(nptp,y(1,ii),20,1)
-   Ncard = Ncard + 1
-   IF ( Echos/=0 ) THEN
+   ncard = ncard + 1
+   IF ( echos/=0 ) THEN
       CALL page2(-1)
-      WRITE (Nout,99051) Ncard , (y(j,ii),j=1,20)
+      WRITE (nout,99051) ncard , (y(j,ii),j=1,20)
    ENDIF
-   IF ( Echop/=0 ) WRITE (Lpch,99052) (y(j,ii),j=1,20)
+   IF ( echop/=0 ) WRITE (lpch,99052) (y(j,ii),j=1,20)
    IF ( ncont==0 ) GOTO 4600
    IF ( restr/=0 ) THEN
 !
@@ -1449,32 +1455,32 @@ SUBROUTINE xsort2
 !
 !     INSERT CONTINUATION CARD IF NEEDED
 !
-   IF ( Nogo==-3 ) GOTO 4600
+   IF ( nogo==-3 ) GOTO 4600
    tempx = y(19,ii)
    temp(1) = andf(tempx,les1b)
    temp(2) = y(20,ii)
  3800 IF ( tempx==blank .AND. temp(2)==blank ) GOTO 4600
-   CALL bislc2(*4600,temp(1),Z(ic),ncont,bsize,loc)
+   CALL bislc2(*4600,temp(1),z(ic),ncont,bsize,loc)
    k = loc*bsize + ic - 1
-   l = Z(k)
+   l = z(k)
    IF ( l<0 ) THEN
 !
 !     DUPLICATE PARENT - ERROR
 !
       CALL page2(-1)
-      IF ( Echos/=0 ) THEN
-         WRITE (Nout,99024) Ufm
+      IF ( echos/=0 ) THEN
+         WRITE (nout,99024) ufm
 99024    FORMAT (A23,' 208, PREVIOUS CARD IS A DUPLICATE PARENT.')
-         IF ( debug ) WRITE (Nout,99025) loc , bsize , ic , k , l , tempx , temp(2)
+         IF ( debug ) WRITE (nout,99025) loc , bsize , ic , k , l , tempx , temp(2)
 99025    FORMAT ('  LOC,BSIZE,IC,K,L =',5I8,2(2H /,A4),1H/)
       ELSE
-         WRITE (Nout,99026) Ufm , Z(-l) , Z(-l+1)
+         WRITE (nout,99026) ufm , z(-l) , z(-l+1)
 99026    FORMAT (A23,' 208A, ',2A4,' IS DUPLECATE CONTINUATION MARK.')
       ENDIF
-      Nogo = -1
+      nogo = -1
       GOTO 4600
    ELSE
-      Z(k) = -l
+      z(k) = -l
       IF ( l>10000000 ) THEN
 !
 !     READ IN CONTINUATION CARD IMAGE FROM TAPECC FILE
@@ -1492,10 +1498,10 @@ SUBROUTINE xsort2
       ENDIF
    ENDIF
  3900 DO i = 1 , 20
-      buf(i) = Z(l)
+      buf(i) = z(l)
       l = l + 1
    ENDDO
-   IF ( restr==0 .OR. kard1==-1 .OR. Z(l)==0 ) GOTO 4500
+   IF ( restr==0 .OR. kard1==-1 .OR. z(l)==0 ) GOTO 4500
 !         ----------     -------------    -----------
 !    I.E. NO RESTART     ALREADY DONE     BULKDATA CARD
 !                                         NOT FLAGGED
@@ -1510,25 +1516,25 @@ SUBROUTINE xsort2
  4100 DO j = 1 , skip
       CALL fwdrec(*6500,tapecc)
    ENDDO
- 4200 CALL read(*6500,*4300,tapecc,Z(ib),nzib,1,len)
+ 4200 CALL read(*6500,*4300,tapecc,z(ib),nzib,1,len)
    recx = rec
    GOTO 3900
  4300 CALL mesage(-37,0,name)
  4400 skip = rec - recx - 1
    IF ( skip<0 ) GOTO 4300
-   IF ( skip/=0 ) GOTO 4100
-   GOTO 4200
+   IF ( skip==0 ) GOTO 4200
+   GOTO 4100
 !
 !     GOT THE CONTINUATION CARD, WRITE IT OUT TO NPTP
 !     CHECK WHETHER IT ASKS FOR MORE CONTINUATION CARD
 !
  4500 CALL write(nptp,buf,20,1)
-   Ncard = Ncard + 1
-   IF ( Echos/=0 ) THEN
+   ncard = ncard + 1
+   IF ( echos/=0 ) THEN
       CALL page2(-1)
-      WRITE (Nout,99051) Ncard , (buf(j),j=1,20)
+      WRITE (nout,99051) ncard , (buf(j),j=1,20)
    ENDIF
-   IF ( Echop/=0 ) WRITE (Lpch,99052) (buf(j),j=1,20)
+   IF ( echop/=0 ) WRITE (lpch,99052) (buf(j),j=1,20)
    tempx = buf(19)
    temp(1) = andf(tempx,les1b)
    temp(2) = buf(20)
@@ -1542,27 +1548,27 @@ SUBROUTINE xsort2
 !
  4600 tape = itape(ii)
    imhere = 2200
-   IF ( debug ) WRITE (Nout,99048) imhere , tape , ii
+   IF ( debug ) WRITE (nout,99048) imhere , tape , ii
    CALL read(*6400,*4800,tape,y(1,ii),24,0,j)
-   IF ( debug ) WRITE (Nout,99027) tape , ii , y(1,ii) , y(2,ii) , (y(j,ii),j=21,24)
+   IF ( debug ) WRITE (nout,99027) tape , ii , y(1,ii) , y(2,ii) , (y(j,ii),j=21,24)
 99027 FORMAT (5X,'REPLACING - TAPE,II=',2I4,3X,2A4,4I12)
    IF ( y(21,ii)/=-6 ) THEN
-      IF ( exh<0 ) GOTO 3300
-      GOTO 3500
+      IF ( exh>=0 ) GOTO 3500
+      GOTO 3300
    ENDIF
  4700 CALL page2(-2)
-   Ncard = Ncard + 1
+   ncard = ncard + 1
    CALL write(nptp,y(1,ii),20,1)
-   WRITE (Nout,99051) Ncard , (y(j,ii),j=1,20)
-   WRITE (Nout,99028) Uwm
+   WRITE (nout,99051) ncard , (y(j,ii),j=1,20)
+   WRITE (nout,99028) uwm
 99028 FORMAT (A25,' 208, PREVIOUS CARD IS A DUPLICATE')
 !     NOGO = -1
    IF ( debug ) THEN
       DO k = 1 , nfiler
-         WRITE (Nout,99029) k , (y(j,k),j=1,24)
+         WRITE (nout,99029) k , (y(j,k),j=1,24)
 99029    FORMAT (1X,I2,3H)  ,20A4,2H /,4I8)
       ENDDO
-      WRITE (Nout,99030) ii , l
+      WRITE (nout,99030) ii , l
 99030 FORMAT (//5X,'DUPLICATE  II,L=',2I8)
    ENDIF
    GOTO 4600
@@ -1572,9 +1578,9 @@ SUBROUTINE xsort2
 !     IF ALL FILES ARE EXHAUSTED, MERGING DONE
 !
  4800 exh = exh + 1
-   CALL close(tape,Rew)
+   CALL close(tape,rew)
    imhere = 2270
-   IF ( debug ) WRITE (Nout,99048) imhere , tape , exh , nfiler , Ncard
+   IF ( debug ) WRITE (nout,99048) imhere , tape , exh , nfiler , ncard
    IF ( exh<nfiler ) THEN
       DO i = 1 , 24
          y(i,ii) = large
@@ -1585,30 +1591,30 @@ SUBROUTINE xsort2
 !     MERGING DONE. EVERY THING IN NPTP.
 !
  4900 CALL eof(nptp)
-   CALL close(nptp,Rew)
+   CALL close(nptp,rew)
    imhere = 2290
-   IF ( debug ) WRITE (Nout,99048) imhere , exh , nfiler
-   IF ( Echos/=0 ) THEN
+   IF ( debug ) WRITE (nout,99048) imhere , exh , nfiler
+   IF ( echos/=0 ) THEN
       CALL page2(-1)
-      WRITE (Nout,99053)
+      WRITE (nout,99053)
    ENDIF
-   IF ( Echop/=0 ) WRITE (Lpch,99054)
+   IF ( echop/=0 ) WRITE (lpch,99054)
 !
 !     CHECK AND IDENTIFY PARENTLESS CONTINUATION CARDS
 !     MAKE SURE TO EXCLUDE ANY BROKEN CONTINUATION CARDS SUPPOSEDLY
 !     CONNECTED TO ONE PARENT
 !
-   IF ( ncont/=0 .AND. Nogo/=-3 ) THEN
+   IF ( ncont/=0 .AND. nogo/=-3 ) THEN
       imhere = 2330
-      IF ( debug ) WRITE (Nout,99048) imhere , ncont , ic
+      IF ( debug ) WRITE (nout,99048) imhere , ncont , ic
       recx = large
       j = ic + bsize - 1
       DO i = 1 , ncont
-         l = Z(j)
+         l = z(j)
          DO
             IF ( l>=0 ) THEN
                imhere = 2400
-               IF ( debug ) WRITE (Nout,99055) imhere , Z(j-2) , Z(j-1) , l
+               IF ( debug ) WRITE (nout,99055) imhere , z(j-2) , z(j-1) , l
                IF ( l>10000000 ) THEN
                   rec = l/10000000
                   l = l - rec*10000000
@@ -1630,19 +1636,19 @@ SUBROUTINE xsort2
                   DO k = 1 , skip
                      CALL fwdrec(*6500,tapecc)
                   ENDDO
- 4902             CALL read(*6500,*5100,tapecc,Z(ib),nzib,1,len)
+ 4902             CALL read(*6500,*5100,tapecc,z(ib),nzib,1,len)
                   recx = rec
                ENDIF
- 4905          temp(1) = andf(Z(l+18),les1b)
-               temp(2) = Z(l+19)
+ 4905          temp(1) = andf(z(l+18),les1b)
+               temp(2) = z(l+19)
                imhere = 2470
-               IF ( debug ) WRITE (Nout,99055) imhere , temp , l
+               IF ( debug ) WRITE (nout,99055) imhere , temp , l
                IF ( temp(1)/=blank .OR. temp(2)/=blank ) THEN
                   loc = loc + 1
-                  IF ( temp(1)/=Z(loc+ic) .OR. temp(2)/=Z(loc*ncont+ic) ) CALL bislc2(*4920,temp(1),Z(ic),ncont,bsize,loc)
+                  IF ( temp(1)/=z(loc+ic) .OR. temp(2)/=z(loc*ncont+ic) ) CALL bislc2(*4920,temp(1),z(ic),ncont,bsize,loc)
                   k = loc*bsize + ic - 1
-                  l = Z(k)
-                  Z(k) = -iabs(Z(k))
+                  l = z(k)
+                  z(k) = -iabs(z(k))
                   CYCLE
                ENDIF
             ENDIF
@@ -1656,16 +1662,16 @@ SUBROUTINE xsort2
       recx = large
       imhere = 2600
       DO i = 1 , ncont
-         IF ( Z(j)<0 ) GOTO 5000
+         IF ( z(j)<0 ) GOTO 5000
          IF ( ii/=1 ) THEN
             ii = 1
             CALL page1
-            WRITE (Nout,99031) Ufm
+            WRITE (nout,99031) ufm
 99031       FORMAT (A23,' 209, THE FOLLOWING CONTINUATION INPUT CARDS HAVE ','NO PARENTS',//)
-            Nogo = -1
+            nogo = -1
          ENDIF
          CALL page2(1)
-         l = Z(j)
+         l = z(j)
          IF ( l>10000000 ) THEN
 !
             rec = l/10000000
@@ -1678,18 +1684,18 @@ SUBROUTINE xsort2
             ELSEIF ( rec/=recx ) THEN
                skip = rec - recx - 1
                IF ( skip<0 ) GOTO 5100
-               IF ( skip/=0 ) GOTO 4960
-               GOTO 4980
+               IF ( skip==0 ) GOTO 4980
+               GOTO 4960
             ENDIF
          ENDIF
  4940    m = l + 19
-         WRITE (Nout,99032) (Z(k),k=l,m)
+         WRITE (nout,99032) (z(k),k=l,m)
 99032    FORMAT (10X,20A4)
          GOTO 5000
  4960    DO k = 1 , skip
             CALL fwdrec(*6500,tapecc)
          ENDDO
- 4980    CALL read(*6500,*5100,tapecc,Z(ib),nzib,1,len)
+ 4980    CALL read(*6500,*5100,tapecc,z(ib),nzib,1,len)
          recx = rec
          GOTO 4940
  5000    j = j + bsize
@@ -1701,36 +1707,36 @@ SUBROUTINE xsort2
 !     CLOSE CONTINUAION CARD FILE TAPECC, IF IT WAS OPENED
 !     DISABLE FREE-FIELD INPUT OPTION IN XREAD.
 !
- 5200 IF ( tapecc>0 ) CALL close(tapecc,Rew)
-   Ffflag = 0
-   Wasff = 0
-   IF ( Nogo==-3 ) THEN
-      WRITE (Nout,99033) Ufm
+ 5200 IF ( tapecc>0 ) CALL close(tapecc,rew)
+   ffflag = 0
+   wasff = 0
+   IF ( nogo==-3 ) THEN
+      WRITE (nout,99033) ufm
 99033 FORMAT (A23,' 3008, CONTINUATION CARDS WERE NOT ADDED TO SORTED ','BULKDATA DECK DUE TO INSUFFICIENT CORE CONDITION.')
-      IF ( Cpflg/=0 ) WRITE (Nout,99034)
+      IF ( cpflg/=0 ) WRITE (nout,99034)
 99034 FORMAT (5X,'THE NPTP FILE OR TAPE GENERATED IN THIS RUN IS NOT ','SUITABLE FOR RESTART')
       CALL mesage(-61,0,0)
    ENDIF
-   IF ( Nogo/=0 ) Nogo = 1
+   IF ( nogo/=0 ) nogo = 1
    IF ( .NOT.debug ) GOTO 7200
 !
 !     DEBUG NPTP ECHO
 !
    imhere = 2730
-   WRITE (Nout,99048) imhere , Ffflag , Wasff
-   CALL open(*6900,nptp,Z(ibuf1),Rdrew)
+   WRITE (nout,99048) imhere , ffflag , wasff
+   CALL open(*6900,nptp,z(ibuf1),rdrew)
    DO
       CALL skpfil(nptp,+1)
       CALL read(*5300,*5300,nptp,buf(1),2,1,j)
       IF ( buf(1)==bulkda(1) .AND. buf(2)==bulkda(2) ) THEN
          DO
             CALL read(*5300,*5300,nptp,buf(1),20,1,j)
-            WRITE (Nout,99035) (buf(j),j=1,10) , (buf(j),j=17,20)
+            WRITE (nout,99035) (buf(j),j=1,10) , (buf(j),j=17,20)
 99035       FORMAT (' ==NPTP==>',5(1X,2A4),'...',2(1X,2A4))
          ENDDO
       ENDIF
    ENDDO
- 5300 CALL close(nptp,Rew)
+ 5300 CALL close(nptp,rew)
    GOTO 7200
 !
 !
@@ -1748,17 +1754,17 @@ SUBROUTINE xsort2
       kard2 = buf(4)
    ENDIF
  5500 imhere = 2810
-   IF ( debug ) WRITE (Nout,99036) imhere , from , Nogo , kard1 , kard2
+   IF ( debug ) WRITE (nout,99036) imhere , from , nogo , kard1 , kard2
 99036 FORMAT (/,' *** IMHERE',I5,', FROM',I5,', NOGO=',I3,3X,2A4)
-   IF ( Nogo==0 ) THEN
-      k = Numx1*2
+   IF ( nogo==0 ) THEN
+      k = numx1*2
       DO i = 1 , k , 2
-         IF ( kard1==Icards(i) .AND. kard2==Icards(i+1) ) THEN
+         IF ( kard1==icards(i) .AND. kard2==icards(i+1) ) THEN
             j = i/2
             m = (j/31) + 1
             n = mod(j,31) + 2
-            Ibits(m) = orf(Ibits(m),Itwo(n))
-            IF ( debug ) WRITE (Nout,99037) kard1 , kard2
+            ibits(m) = orf(ibits(m),itwo(n))
+            IF ( debug ) WRITE (nout,99037) kard1 , kard2
 99037       FORMAT (5X,'BITS SET SUCCESSFULLY FOR ',2A4)
             EXIT
          ENDIF
@@ -1780,46 +1786,46 @@ SUBROUTINE xsort2
    GOTO 6200
  6100 tape = tapecc
    IF ( tapecc>maxscr ) THEN
-      WRITE (Nout,99056) Sfm
+      WRITE (nout,99056) sfm
       GOTO 7100
    ENDIF
- 6200 WRITE (Nout,99038) Sfm , tape
+ 6200 WRITE (nout,99038) sfm , tape
 99038 FORMAT (A25,' 210, COULD NOT OPEN SCRATCH FILE',I5)
    GOTO 7100
- 6300 WRITE (Nout,99039) Sfm
+ 6300 WRITE (nout,99039) sfm
 99039 FORMAT (A25,' 211, ILLEGAL EOR ON SCRATCH')
    GOTO 7100
- 6400 WRITE (Nout,99040) Sfm , tape
+ 6400 WRITE (nout,99040) sfm , tape
 99040 FORMAT (A25,' 212, ILLEGAL EOF ON SCRATCH',I5)
    GOTO 7100
- 6500 WRITE (Nout,99041)
+ 6500 WRITE (nout,99041)
 99041 FORMAT (//26X,'212, TAPECC ERROR')
    tape = tapecc
    GOTO 6400
- 6600 WRITE (Nout,99042) Sfm
+ 6600 WRITE (nout,99042) sfm
 99042 FORMAT (A25,' 213, ILLEGAL EOF ON OPTP')
    GOTO 7100
- 6700 WRITE (Nout,99043) Sfm , imhere
+ 6700 WRITE (nout,99043) sfm , imhere
 99043 FORMAT (A25,' 213X, ILLEGAL DATA ON OPTP.  IMHERE =',I7)
-   Nogo = 1
+   nogo = 1
    GOTO 1800
- 6800 WRITE (Nout,99044) Sfm
+ 6800 WRITE (nout,99044) sfm
 99044 FORMAT (A25,' 214, OPTP COULD NOT BE OPENED')
    GOTO 7100
- 6900 WRITE (Nout,99045) Sfm
+ 6900 WRITE (nout,99045) sfm
 99045 FORMAT (A25,' 215, NPTP COULD NOT BE OPENED')
    GOTO 7100
- 7000 WRITE (Nout,99046) Sfm , imhere
+ 7000 WRITE (nout,99046) sfm , imhere
 99046 FORMAT (A25,' 219, MISSING ENDDATA CARD.  IMHERE =',I7)
-   Nogo = 1
+   nogo = 1
    GOTO 900
- 7100 WRITE (Nout,99047) imhere
+ 7100 WRITE (nout,99047) imhere
 99047 FORMAT (5X,'IMHERE =',I6)
    CALL mesage(-37,0,name)
 !
 !     TURN OFF XSORT FLAG AND FREE-FIELD FLAG
 !
- 7200 Ixsort = 0
+ 7200 ixsort = 0
 99048 FORMAT (//,' *** XSORT2/IMHERE =',6I5)
 99049 FORMAT (14A4)
 99050 FORMAT (5X,'TO FILEA',I5,3X,2A4)

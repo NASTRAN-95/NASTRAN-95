@@ -1,10 +1,11 @@
-!*==trif.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trif.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,7 +50,7 @@ SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
 !
 !     GEOMETRY ERRORS
 !
-      WRITE (Nout,99001) Ufm , Elem , Id
+      WRITE (nout,99001) ufm , Elem , Id
 !
 99001 FORMAT (A23,' 2404, GRID POINTS 1 AND 3 OF ',A4,A2,' WITH ELEMENT ID =',I9,' HAVE SAME COORDINATES.')
    ELSE
@@ -69,7 +70,7 @@ SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
       Kvect(3) = Ivect(1)*y2 - x2*Ivect(2)
       temp = sqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
       IF ( temp<=1.0E-10 ) THEN
-         WRITE (Nout,99002) Ufm , Elem , Id
+         WRITE (nout,99002) ufm , Elem , Id
 99002    FORMAT (A23,' 2405, GRID POINTS 1, 3, AND 5 OF ',A4,A2,' WITH ','ELEMENT ID =',I9,' APPEAR TO BE ON A STRAIGHT LINE.')
       ELSE
 !
@@ -88,7 +89,7 @@ SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
          Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
          temp = sqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
          IF ( temp<=1.0E-10 ) THEN
-            WRITE (Nout,99003) Ufm , Elem , Id
+            WRITE (nout,99003) ufm , Elem , Id
 99003       FORMAT (A23,' 2406, GRID POINTS 1 AND 5 OF ',A4,A2,' WITH ELEMENT ID =',I9,' HAVE SAME COORDINATES.')
          ELSE
 !
@@ -139,5 +140,5 @@ SUBROUTINE trif(Xc,Yc,Zc,Ivect,Jvect,Kvect,A,B,C,Id,Elem)
          ENDIF
       ENDIF
    ENDIF
-   Nogo = .TRUE.
+   nogo = .TRUE.
 END SUBROUTINE trif

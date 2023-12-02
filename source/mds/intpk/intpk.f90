@@ -1,10 +1,11 @@
-!*==intpk.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==intpk.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE intpk(File,Block,Itypot,Iflag) !HIDESTARS (*,File,Block,Itypot,Iflag)
+   USE i_dsiof
+   USE i_pakblk
+   USE c_zntpkx
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_PAKBLK
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -17,8 +18,8 @@ SUBROUTINE intpk(File,Block,Itypot,Iflag) !HIDESTARS (*,File,Block,Itypot,Iflag)
 !
    name = File
    IF ( Iflag==0 ) THEN
-      Ieol = 0
-      Iendrc = 0
+      ieol = 0
+      iendrc = 0
       CALL dsipk1(iblkb,Itypot)
    ELSE
       CALL dsipk1(Block,Itypot)

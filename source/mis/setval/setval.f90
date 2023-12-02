@@ -1,12 +1,13 @@
-!*==setval.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==setval.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE setval
+   USE c_blank
+   USE c_oscent
+   USE c_system
+   USE c_xvps
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OSCENT
-   USE C_SYSTEM
-   USE C_XVPS
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -25,24 +26,24 @@ SUBROUTINE setval
 !
 !     CHECK ODD PARAMETERS TO FIND VARIABLE ONES
 !
-      IF ( andf(rshift(Oscar(j+1),nbpw-1),1)==0 ) THEN
+      IF ( andf(rshift(oscar(j+1),nbpw-1),1)==0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
 !
 !     PARAMETER IS VARIABLE
 !
-      k = andf(Oscar(j+1),65535)
-      P(1,i) = P(2,i)
-      Vps(k) = P(1,i)
+      k = andf(oscar(j+1),65535)
+      p(1,i) = p(2,i)
+      vps(k) = p(1,i)
       j = j + 2
-      IF ( andf(rshift(Oscar(j),nbpw-1),1)==0 ) j = j + 1
+      IF ( andf(rshift(oscar(j),nbpw-1),1)==0 ) j = j + 1
    ENDDO
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      IF ( i<=1 ) CALL mesage(-7,0,subnam)
+      IF ( I<=1 ) CALL mesage(-7,0,Subnam)
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE setval

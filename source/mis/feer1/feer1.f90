@@ -1,14 +1,15 @@
-!*==feer1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==feer1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer1
-USE C_FEERCX
-USE C_FEERXX
-USE C_NAMES
-USE C_SADDX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerxx
+   USE c_names
+   USE c_saddx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -26,21 +27,21 @@ USE ISO_FORTRAN_ENV
 !     SET UP CALL TO ADD
 !
    DO i = 1 , 7
-      Filea(i) = Filem(i)
-      Fileb(i) = Filek(i)
+      filea(i) = filem(i)
+      fileb(i) = filek(i)
    ENDDO
-   Dalpha(1) = Lambda
-   Dbeta(1) = 1.0D+0
-   Typalp = iprec
-   Typbta = iprec
-   Nz = korsz(Z)
-   Filec(1) = Scr1
-   Filec(2) = Filek(2)
-   Filec(3) = Filek(3)
-   Filec(4) = Sqr
-   Filec(5) = iprec
-   Nomat = 2
-   IF ( Fileb(1)==0 ) Nomat = 1
-   CALL sadd(Z,Z)
-   CALL wrttrl(Filec)
+   dalpha(1) = lambda
+   dbeta(1) = 1.0D+0
+   typalp = iprec
+   typbta = iprec
+   nz = korsz(z)
+   filec(1) = scr1
+   filec(2) = filek(2)
+   filec(3) = filek(3)
+   filec(4) = sqr
+   filec(5) = iprec
+   nomat = 2
+   IF ( fileb(1)==0 ) nomat = 1
+   CALL sadd(z,z)
+   CALL wrttrl(filec)
 END SUBROUTINE feer1

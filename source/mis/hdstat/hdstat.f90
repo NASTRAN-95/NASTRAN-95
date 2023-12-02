@@ -1,11 +1,12 @@
-!*==hdstat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdstat.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
+   USE c_go3
+   USE c_hdptrs
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GO3
-   USE C_HDPTRS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -56,8 +57,8 @@ SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
             d = ei*Xa(jx) - Ya(jx)
             SPAG_Loop_3_1: DO jo = 1 , 2
                m = Iv(jo)
-               jc = L13 + (m-1)*Lz
-               jxc = L12 + (m-1)*5
+               jc = l13 + (m-1)*Lz
+               jxc = l12 + (m-1)*5
                nk = Xxx(5+jxc)
                i = 0
                ib = nk*5
@@ -114,7 +115,7 @@ SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
          aminx = -amaxx
          amaxy = amaxx
          aminy = aminx
-         is = 5 + (Ik-1)*5 + L12
+         is = 5 + (Ik-1)*5 + l12
          is = Xxx(is)
          DO ji = 1 , nx
             IF ( A==0. ) THEN
@@ -143,20 +144,20 @@ SUBROUTINE hdstat(Mt,Nit,Ixr,X21,Y21,Z21,Iia,Iv,A,B,C,Ik,Xa,Ya,Za,Ccc,Xxx,Lz)
          ENDDO
          Nit = Nit + 1
          k = 5*(Nit-1+is) + 1
-         Rz(Xcc+k-1) = A
-         Rz(Xcc+k) = B
-         Rz(Xcc+k+1) = C
+         rz(xcc+k-1) = A
+         rz(xcc+k) = B
+         rz(xcc+k+1) = C
          IF ( A==0. ) THEN
-            Rz(Xcc+k+2) = aminy
-            Rz(Xcc+k+3) = amaxy
+            rz(xcc+k+2) = aminy
+            rz(xcc+k+3) = amaxy
             amin = xi
             amax = xii
             yi = aminy
             ye = amaxy
             ze = zii
          ELSE
-            Rz(Xcc+k+2) = aminx
-            Rz(Xcc+k+3) = amaxx
+            rz(xcc+k+2) = aminx
+            rz(xcc+k+3) = amaxx
             amin = aminx
             amax = amaxx
             ye = yii

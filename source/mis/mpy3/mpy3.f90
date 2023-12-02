@@ -1,11 +1,12 @@
-!*==mpy3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpy3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy3
+   USE c_blank
+   USE c_mpy3tl
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MPY3TL
-   USE C_ZZZZZZ
    EXTERNAL korsz , makmcb , mpy3dr , rdtrl , wrttrl
 !
 ! End of declarations rewritten by SPAG
@@ -38,33 +39,33 @@ SUBROUTINE mpy3
 !*****
 !     ASSIGN GINO FILE NUMBERS.
 !*****
-   Filea(1) = 101
-   Fileb(1) = 102
-   Filee(1) = 103
-   Scr1 = 301
-   Scr2 = 302
-   Scr3 = 303
-   Code = Ibcc
-   Prec = Ibcp
-   Lcore = korsz(Z)
+   filea(1) = 101
+   fileb(1) = 102
+   filee(1) = 103
+   scr1 = 301
+   scr2 = 302
+   scr3 = 303
+   code = ibcc
+   prec = ibcp
+   lcore = korsz(z)
 !*****
 !     GET MATRIX TRAILERS
 !*****
-   CALL rdtrl(Filea)
-   CALL rdtrl(Fileb)
-   CALL rdtrl(Filee)
-   IF ( Filee(1)<0 ) Filee(1) = 0
+   CALL rdtrl(filea)
+   CALL rdtrl(fileb)
+   CALL rdtrl(filee)
+   IF ( filee(1)<0 ) filee(1) = 0
 !
-   CALL makmcb(Filec,201,Filea(2),1,Prec)
-   IF ( Code/=0 ) THEN
-      IF ( Code==2 ) Filec(3) = Fileb(3)
-      IF ( Code==1 .AND. Filea(2)/=Fileb(2) ) Filec(4) = 2
-      IF ( Code==2 .AND. Fileb(3)/=Filea(2) ) Filec(4) = 2
+   CALL makmcb(filec,201,filea(2),1,prec)
+   IF ( code/=0 ) THEN
+      IF ( code==2 ) filec(3) = fileb(3)
+      IF ( code==1 .AND. filea(2)/=fileb(2) ) filec(4) = 2
+      IF ( code==2 .AND. fileb(3)/=filea(2) ) filec(4) = 2
    ENDIF
 !*****
 !     PERFORM MULTIPLY
 !*****
-   CALL mpy3dr(Z)
-   CALL wrttrl(Filec)
+   CALL mpy3dr(z)
+   CALL wrttrl(filec)
 !
 END SUBROUTINE mpy3

@@ -1,4 +1,5 @@
-!*==sgen.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sgen.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sgen
@@ -17,14 +18,14 @@ SUBROUTINE sgen
 !         BGPDT, CSTM, AND SIL.
 !
 !
+   USE c_blank
+   USE c_sgencm
+   USE c_system
+   USE c_two
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SGENCM
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -102,32 +103,32 @@ SUBROUTINE sgen
 !
 !     INITIALIZE
 !
-         Ity = 1
-         Incr = 1
-         Nono = 0
-         large = Two(2)
-         Nz = korsz(z(1))
-         ibs1 = Nz - Ibuf + 1
-         ibs2 = ibs1 - Ibuf - 1
-         ibs3 = ibs2 - Ibuf
-         Buf1 = ibs3 - Ibuf
-         Buf2 = Buf1 - Ibuf
-         Buf3 = Buf2 - Ibuf
-         buf4 = Buf3 - Ibuf
-         Nz = buf4 - 1
-         IF ( Nz<=0 ) THEN
+         ity = 1
+         incr = 1
+         nono = 0
+         large = two(2)
+         nz = korsz(z(1))
+         ibs1 = nz - ibuf + 1
+         ibs2 = ibs1 - ibuf - 1
+         ibs3 = ibs2 - ibuf
+         buf1 = ibs3 - ibuf
+         buf2 = buf1 - ibuf
+         buf3 = buf2 - ibuf
+         buf4 = buf3 - ibuf
+         nz = buf4 - 1
+         IF ( nz<=0 ) THEN
             spag_nextblock_1 = 21
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Name(1)==xxxx .AND. Name(2)==xxxx ) THEN
+         IF ( name(1)==xxxx .AND. name(2)==xxxx ) THEN
             spag_nextblock_1 = 17
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     INITIALIZE LUSET AND NOGPDT FLAGS
 !
-         Luset = 0
-         Nogpdt = -1
+         luset = 0
+         nogpdt = -1
 !
 !     FORM TABLES OF REFERENCED SID-S FOR LOAD, MPC, AND SPC
 !     CASE CONTROL CARDS.
@@ -136,7 +137,7 @@ SUBROUTINE sgen
 !     OPEN  SOF , GET EQSS ITEM , READ  SIL DATA INTO CORE
 !
          CALL sofopn(z(ibs1),z(ibs2),z(ibs3))
-         CALL sfetch(Name,eqss,1,flag)
+         CALL sfetch(name,eqss,1,flag)
          item = eqss
          IF ( flag/=1 ) THEN
 !
@@ -146,18 +147,18 @@ SUBROUTINE sgen
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL suread(z(1),Nz,nwds,flag)
+            CALL suread(z(1),nz,nwds,flag)
             IF ( flag/=2 ) THEN
                spag_nextblock_1 = 21
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Nss = z(3)
+            nss = z(3)
             iz = nwds + 1
 !
 !     READ SIL GROUP INTO CORE
 !
-            CALL sjump(Nss)
-            CALL suread(z(iz),Nz-iz+1,nsil,flag)
+            CALL sjump(nss)
+            CALL suread(z(iz),nz-iz+1,nsil,flag)
             IF ( flag/=2 ) THEN
                spag_nextblock_1 = 21
                CYCLE SPAG_DispatchLoop_1
@@ -168,16 +169,16 @@ SUBROUTINE sgen
 !
             ic = z(ipt+1)
             CALL decode(ic,icomp,nc)
-            Luset = z(ipt) + nc - 1
-            Nogpdt = Luset
+            luset = z(ipt) + nc - 1
+            nogpdt = luset
 !
 !     READ EQSS ( G ,IP, AND C AT A TIME) AND CONVERT IP TO SIL .
 !     WRITE ON SCRT
 !
             is = 0
             file = scrt
-            CALL gopen(scrt,z(Buf2),1)
-            CALL sfetch(Name,eqss,1,flag)
+            CALL gopen(scrt,z(buf2),1)
+            CALL sfetch(name,eqss,1,flag)
             nj = 1
             CALL sjump(nj)
             SPAG_Loop_1_1: DO
@@ -186,7 +187,7 @@ SUBROUTINE sgen
                IF ( flag/=1 ) THEN
                   is = is + 1
                   CALL write(scrt,temp,0,1)
-                  IF ( is>=Nss ) THEN
+                  IF ( is>=nss ) THEN
                      CALL close(scrt,1)
 !
 !     READ CONVERTED EQSS INTO CORE, STORE POINTERS TO THE BASIC  SUBS
@@ -199,13 +200,13 @@ SUBROUTINE sgen
 !       5. NZB LEFT OVER
 !
 !
-                     Iptr = iz
-                     nptr = Iptr
-                     isub = Iptr + Nss + 1
-                     nzb = Nz - isub + 1
+                     iptr = iz
+                     nptr = iptr
+                     isub = iptr + nss + 1
+                     nzb = nz - isub + 1
                      file = scrt
-                     CALL gopen(scrt,z(Buf2),0)
-                     DO i = 1 , Nss
+                     CALL gopen(scrt,z(buf2),0)
+                     DO i = 1 , nss
                         z(nptr) = isub
                         nptr = nptr + 1
                         CALL read(*420,*2,scrt,z(isub),nzb,1,nwds)
@@ -228,10 +229,10 @@ SUBROUTINE sgen
 !
                      file = geom4
                      nog4 = 0
-                     CALL preloc(*80,z(Buf1),geom4)
+                     CALL preloc(*80,z(buf1),geom4)
                      mcb(1) = geom4
                      CALL rdtrl(mcb)
-                     CALL gopen(scrt,z(Buf2),1)
+                     CALL gopen(scrt,z(buf2),1)
                      stest = .FALSE.
 !
 !     ***  MPCS CARDS  ***
@@ -239,7 +240,7 @@ SUBROUTINE sgen
 !          IN  - NAME(2), G, C, F
 !          OUT - SIL, 0, F
 !
-                     CALL locate(*60,z(Buf1),icode(1,1),idx)
+                     CALL locate(*60,z(buf1),icode(1,1),idx)
                      CALL write(scrt,icode(1,1),3,0)
                      stest = .TRUE.
                      icode(4,1) = 1
@@ -279,20 +280,20 @@ SUBROUTINE sgen
 !
 !     FIND  REQUESTED SUBSTRUCTURE
 !
-                  DO i = 1 , Nss
+                  DO i = 1 , nss
                      inam = 2*i + 3
                      IF ( z(inam)==temp(1) .AND. z(inam+1)==temp(2) ) GOTO 5
                   ENDDO
 !
 !     SUBSTRUCTURE NOT FOUND
 !
-                  WRITE (Outt,99005) Uwm , temp(1) , temp(2) , type , Name
+                  WRITE (outt,99005) uwm , temp(1) , temp(2) , type , name
                ENDIF
                CYCLE
 !
 !     FOUND SUBSTRUCTURE NAME
 !
- 5             ipt = Iptr + i - 1
+ 5             ipt = iptr + i - 1
                igrd = z(ipt)
                ngrd = (z(ipt+1)-z(ipt))/3
 !
@@ -327,15 +328,14 @@ SUBROUTINE sgen
 !
 !     BAD COMPONENT
 !
- 20      Nono = 1
-         WRITE (Outt,99001) Ufm , (temp(i),i=1,4) , type , Name
+ 20      nono = 1
+         WRITE (outt,99001) ufm , (temp(i),i=1,4) , type , name
 !
 !     MESSAGE FORMATS
 !
 99001    FORMAT (A23,' 6022, SUBSTRUCTURE ',2A4,', GRID POINT',I9,', COMPONENTS',I9,1H,,/30X,'REFERENCED ON ',2A4,                  &
                 &' CARD, DO NOT EXIST ON SOLUTION STRUCTURE ',2A4)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     WRITE CONVERTED DATA ON SCRT
@@ -351,8 +351,8 @@ SUBROUTINE sgen
             IF ( nsild/=0 ) THEN
                DO i = 1 , nsild
                   IF ( z(isub+i-1)==temp(6) ) THEN
-                     Nono = 1
-                     WRITE (Outt,99002) Ufm , j , temp(1) , temp(2) , temp(3) , temp(4)
+                     nono = 1
+                     WRITE (outt,99002) ufm , j , temp(1) , temp(2) , temp(3) , temp(4)
 99002                FORMAT (A23,' 6362, MPCS SET',I9,' IS ILLEGAL.',//5X,'SUBSTRUCTURE ',2A4,' GRID POINT',I9,' COMPONENT',I5,     &
                             &' SPECIFIES A NON-UNIQUE DEPENDENT DEGREE OF FREEDOM')
                   ENDIF
@@ -377,34 +377,34 @@ SUBROUTINE sgen
 !
          j = (icode(2,1)-1)/16
          i = icode(2,1) - 16*j
-         mcb(j+2) = andf(complf(Two(i+16)),mcb(j+2))
+         mcb(j+2) = andf(complf(two(i+16)),mcb(j+2))
 !
 !     TURN ON MPC BIT
 !
          j = (ltab(2,1)-1)/16
          i = ltab(2,1) - 16*j
-         mcb(j+2) = orf(Two(i+16),mcb(j+2))
+         mcb(j+2) = orf(two(i+16),mcb(j+2))
 !
 !     ***  SPCS CARDS  ***
 !
 !          IN  - SID, NAME(2), G, C, G, C, G, C, ..., -1, -1
 !          OUT - SID, SIL, 0, 0 - REPEATED FOR EACH GRID
 !
- 60      CALL sgena(spcs,z(Buf1),mcb,geom4,icode(1,2),0,scrt,ltab(1,2),1)
+ 60      CALL sgena(spcs,z(buf1),mcb,geom4,icode(1,2),0,scrt,ltab(1,2),1)
 !
 !     ***  SPCS1 CARDS  ***
 !
 !          IN  - SID, NAME(2), C, G, G, G, ..., -1
 !          OUT - SID, 0, SIL, -1 - REPEATED FOR EACH GRID
 !
-         CALL sgenb(spcs1,z(Buf1),mcb,geom4,icode(1,3),0,scrt,ltab(1,3),1)
+         CALL sgenb(spcs1,z(buf1),mcb,geom4,icode(1,3),0,scrt,ltab(1,3),1)
 !
 !     ***  SPCSD CARDS  ***
 !
 !          IN  - SID, NAME(2), G, C, Y, ..., -1, -1, -1
 !          OUT - SID, SIL, 0, Y - REPEATED FOR EACH GRID
 !
-         CALL sgena(spcsd,z(Buf1),mcb,geom4,icode(1,4),1,scrt,ltab(1,4),1)
+         CALL sgena(spcsd,z(buf1),mcb,geom4,icode(1,4),1,scrt,ltab(1,4),1)
 !
 !     END OF CONSTRAINT CARD CONVERSION
 !
@@ -425,38 +425,38 @@ SUBROUTINE sgen
 !
          file = dynam
          nodyn = 0
-         CALL preloc(*100,z(Buf1),dynam)
+         CALL preloc(*100,z(buf1),dynam)
          mcb(1) = dynam
          CALL rdtrl(mcb)
-         CALL gopen(scrt2,z(Buf2),1)
+         CALL gopen(scrt2,z(buf2),1)
 !
 !     ***  DAREAS  CARDS ***
 !
 !          IN  - SID, NAME(2), G, C, A, ..., -1, -1, -1
 !          OUT - SID, SIL, 0, A - REPEATED FOR EACH GRID
 !
-         CALL sgena(dareas,z(Buf1),mcb,dynam,icode(1,6),1,scrt2,ltab(1,6),1)
+         CALL sgena(dareas,z(buf1),mcb,dynam,icode(1,6),1,scrt2,ltab(1,6),1)
 !
 !     ***  DELAYS CARDS  ***
 !
 !          IN  - SID, NAME(2), G, C, T, ..., -1, -1, -1
 !          OUT - SID, SIL, 0, T - REPEATED FOR EACH GRID
 !
-         CALL sgena(delays,z(Buf1),mcb,dynam,icode(1,7),1,scrt2,ltab(1,7),1)
+         CALL sgena(delays,z(buf1),mcb,dynam,icode(1,7),1,scrt2,ltab(1,7),1)
 !
 !    ***  DPHASES CARDS  ***
 !
 !         IN  - SID, NAME(2), G, C, TH, ..., -1, -1, -1
 !         OUT - SID, SIL, 0, TH - REPEATED FOR EACH GRID
 !
-         CALL sgena(dphses,z(Buf1),mcb,dynam,icode(1,8),1,scrt2,ltab(1,8),1)
+         CALL sgena(dphses,z(buf1),mcb,dynam,icode(1,8),1,scrt2,ltab(1,8),1)
 !
 !     ***  TICS CARDS  ***
 !
 !          IN  - SID, NAME(2), G, C, U, V, ..., -1, -1, -1, -1
 !          OUT - SID, SIL, 0, U, V - REPEATED FOR EACH GRID
 !
-         CALL sgena(tics,z(Buf1),mcb,dynam,icode(1,9),2,scrt2,ltab(1,9),2)
+         CALL sgena(tics,z(buf1),mcb,dynam,icode(1,9),2,scrt2,ltab(1,9),2)
 !
 !     END OF DYNAMICS CONVERSION
 !
@@ -486,15 +486,15 @@ SUBROUTINE sgen
 !
          nolc = .TRUE.
          nols = .TRUE.
-         CALL preloc(*140,z(Buf1),geom4)
-         CALL locate(*140,z(Buf1),icode(1,5),idx)
+         CALL preloc(*140,z(buf1),geom4)
+         CALL locate(*140,z(buf1),icode(1,5),idx)
 !
 !     READ FIRST GROUP OF LODS ITEM FOR SOLUTION STRUCTURE
 !
          item = lods
-         CALL sfetch(Name,lods,1,flag)
+         CALL sfetch(name,lods,1,flag)
          IF ( flag==1 ) THEN
-            CALL suread(z(1),Nz,nwds,itest)
+            CALL suread(z(1),nz,nwds,itest)
             IF ( itest==1 ) THEN
                spag_nextblock_1 = 21
                CYCLE SPAG_DispatchLoop_1
@@ -503,19 +503,19 @@ SUBROUTINE sgen
                spag_nextblock_1 = 19
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Nss = z(4)
+            nss = z(4)
             iss1 = 5
             nl = z(3)
-            ipt = 2*Nss + 5
-            izl = 2*Nss + ipt + 2
+            ipt = 2*nss + 5
+            izl = 2*nss + ipt + 2
             z(ipt) = izl
             z(ipt+1) = 0
-            IF ( izl+Nss+nl<=Nz ) THEN
+            IF ( izl+nss+nl<=nz ) THEN
 !
 !     READ REMAINDER OF LODS INTO OPEN CORE AT Z(IZL)
 !
-               DO i = 1 , Nss
-                  CALL suread(z(izl),Nz-izl+1,nwds,itest)
+               DO i = 1 , nss
+                  CALL suread(z(izl),nz-izl+1,nwds,itest)
                   IF ( itest==1 ) THEN
                      spag_nextblock_1 = 21
                      CYCLE SPAG_DispatchLoop_1
@@ -547,7 +547,7 @@ SUBROUTINE sgen
 !
                type(1) = loadc(1)
                type(2) = loadc(2)
-               CALL open(*400,scrt,z(Buf2),1)
+               CALL open(*400,scrt,z(buf2),1)
             ELSE
 !
 !     INSUFFICIENT CORE
@@ -591,14 +591,14 @@ SUBROUTINE sgen
 !
 !     FIND SUBSTRUCTURE AND SET
 !
-               DO i = 1 , Nss
+               DO i = 1 , nss
                   inam = iss1 + 2*(i-1)
                   IF ( z(inam)==temp(1) .AND. z(inam+1)==temp(2) ) EXIT SPAG_Loop_1_4
                ENDDO
 !
 !     SUBSTRUCTURE NOT FOUND
 !
-               WRITE (Outt,99005) Uwm , temp(1) , temp(2) , type , Name
+               WRITE (outt,99005) uwm , temp(1) , temp(2) , type , name
             ENDIF
          ENDDO SPAG_Loop_1_4
 !
@@ -629,12 +629,11 @@ SUBROUTINE sgen
 !
 !     SET NOT FOUND
 !
-         Nono = 1
-         WRITE (Outt,99003) Ufm , Name , lid , temp(3) , temp(1) , temp(2)
+         nono = 1
+         WRITE (outt,99003) ufm , name , lid , temp(3) , temp(1) , temp(2)
 99003    FORMAT (A23,' 6331, SOLUTION SUBSTRUCTURE ',2A4,' - LOADC SET',I9,' REFERENCES UNDEFINED LOAD',/30X,'SET',I9,              &
                 &' OF BASIC SUBSTRUCTURE ',2A4)
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
          temp(1) = lvec
          temp(2) = temp(4)
@@ -652,7 +651,7 @@ SUBROUTINE sgen
 !
 !     IF ANY ERRORS WERE DETECTED, SKIP LOAD COMPUTATION
 !
-         IF ( Nono/=0 ) THEN
+         IF ( nono/=0 ) THEN
             spag_nextblock_1 = 17
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -660,20 +659,20 @@ SUBROUTINE sgen
 !
 !     COPY LOAD CARDS TO GP3S
 !
-         CALL preloc(*200,z(Buf1),geom3)
+         CALL preloc(*200,z(buf1),geom3)
          ldcd = 0
-         CALL locate(*180,z(Buf1),lload,idx)
+         CALL locate(*180,z(buf1),lload,idx)
          ldcd = 1
          CALL write(gp3s,lload,3,0)
          DO
-            CALL read(*420,*160,geom3,z(1),Nz,0,nwds)
-            CALL write(gp3s,z(1),Nz,0)
+            CALL read(*420,*160,geom3,z(1),nz,0,nwds)
+            CALL write(gp3s,z(1),nz,0)
          ENDDO
  160     CALL write(gp3s,z(1),nwds,1)
 !
 !     POSITION TO SLOAD CARDS
 !
- 180     CALL locate(*200,z(Buf1),lsload,idx)
+ 180     CALL locate(*200,z(buf1),lsload,idx)
          nols = .FALSE.
  200     IF ( nols ) CALL close(geom3,1)
          IF ( .NOT.(nols .AND. nolc) ) CALL write(gp3s,lsload,3,0)
@@ -683,25 +682,25 @@ SUBROUTINE sgen
 !
             file = scrt2
             item = pvec
-            IF ( Dry<0 ) THEN
+            IF ( dry<0 ) THEN
 !
 !     IN DRY RUN MODE, LOADS PSEUDO-EXIST
 !
                psuedo = .TRUE.
             ELSE
-               CALL mtrxi(scrt2,Name,pvec,z(Buf3),flag)
+               CALL mtrxi(scrt2,name,pvec,z(buf3),flag)
                IF ( flag==1 ) THEN
 !
 !     LOADS EXIST
 !
                   psuedo = .FALSE.
-                  CALL gopen(scrt2,z(Buf3),0)
+                  CALL gopen(scrt2,z(buf3),0)
                   irec = 1
                   mcb(1) = scrt2
                   CALL rdtrl(mcb)
                   nvec = mcb(2)
-                  Luset = mcb(3)
-                  IF ( 2*Luset>=Nz ) THEN
+                  luset = mcb(3)
+                  IF ( 2*luset>=nz ) THEN
 !
 !     INSUFFICIENT CORE
 !
@@ -729,9 +728,9 @@ SUBROUTINE sgen
 !     MERGE REAL AND ARTIFICIAL SLOAD CARDS
 !
          sidc = 0
-         Irow = 1
-         Nrow = Luset
-         IF ( .NOT.nolc ) CALL open(*400,scrt,z(Buf2),0)
+         irow = 1
+         nrow = luset
+         IF ( .NOT.nolc ) CALL open(*400,scrt,z(buf2),0)
          spag_nextblock_1 = 10
       CASE (10)
          IF ( .NOT.(nols) ) THEN
@@ -770,28 +769,25 @@ SUBROUTINE sgen
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
-         DO i = 1 , Luset
-            Rz(i) = 0.0
+         DO i = 1 , luset
+            rz(i) = 0.0
          ENDDO
          sidc = temp(1)
          fact = rtemp(2)
          IF ( .NOT.nolc ) THEN
-            IF ( .NOT.nols ) THEN
-!
-!     BOTH LOADC AND SLOAD CARDS ARE PRESENT
-!
-               IF ( sids<sidc ) THEN
-                  spag_nextblock_1 = 14
-                  CYCLE SPAG_DispatchLoop_1
-               ENDIF
-               GOTO 280
-            ELSE
+            IF ( nols ) THEN
 !
 !     NO MORE SLOAD CARDS ARE PRESENT
 !
                sids = large
-               GOTO 280
+!
+!     BOTH LOADC AND SLOAD CARDS ARE PRESENT
+!
+            ELSEIF ( sids<sidc ) THEN
+               spag_nextblock_1 = 14
+               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            GOTO 280
          ENDIF
          spag_nextblock_1 = 13
       CASE (13)
@@ -805,8 +801,8 @@ SUBROUTINE sgen
          CALL write(gp3s,temp2,3,0)
          file = geom3
          DO
-            CALL read(*420,*260,geom3,z(1),Nz,0,nwds)
-            CALL write(gp3s,z(1),Nz,0)
+            CALL read(*420,*260,geom3,z(1),nz,0,nwds)
+            CALL write(gp3s,z(1),nz,0)
          ENDDO
  260     CALL write(gp3s,z(1),nwds,1)
          spag_nextblock_1 = 16
@@ -835,19 +831,19 @@ SUBROUTINE sgen
 !     FACTOR AND ADD IT TO VECTOR AT TOP OF OPEN CORE
 !
                irec = temp(1) + 1
-               CALL unpack(*280,scrt2,Rz(Luset+1))
-               DO i = 1 , Luset
-                  Rz(i) = rtemp(2)*fact*Rz(Luset+i) + Rz(i)
+               CALL unpack(*280,scrt2,rz(luset+1))
+               DO i = 1 , luset
+                  rz(i) = rtemp(2)*fact*rz(luset+i) + rz(i)
                ENDDO
             ENDIF
          ENDDO
 !
 !     CANT FIND LOAD VECTOR
 !
- 300     WRITE (Outt,99004) Sfm , temp(1) , nvec , Luset , Name
+ 300     WRITE (outt,99004) sfm , temp(1) , nvec , luset , name
 99004    FORMAT (A25,' 6332, CANT FIND LOAD VECTOR NUMBER',I9,' IN LOAD ','MATRIX OF',I9,' COLUMNS',/32X,'BY',I9,                   &
                 &' ROWS FOR SOLUTION STRUCTURE ',2A4)
-         Nono = 1
+         nono = 1
          spag_nextblock_1 = 16
          CYCLE SPAG_DispatchLoop_1
 !
@@ -861,7 +857,7 @@ SUBROUTINE sgen
       CASE (14)
          DO
             iz = temp2(2)
-            Rz(iz) = Rz(iz) + rtemp2(3)
+            rz(iz) = rz(iz) + rtemp2(3)
             file = geom3
             CALL read(*420,*340,geom3,temp2,3,0,nwds)
             IF ( temp2(1)/=sids ) THEN
@@ -877,10 +873,10 @@ SUBROUTINE sgen
 !     WRITE OUT LOAD VECTOR IN SLOAD FORMAT
 !
          temp(1) = min0(sids,sidc)
-         DO i = 1 , Luset
-            IF ( Rz(i)/=0.0 ) THEN
+         DO i = 1 , luset
+            IF ( rz(i)/=0.0 ) THEN
                temp(2) = i
-               rtemp(3) = Rz(i)
+               rtemp(3) = rz(i)
                CALL write(gp3s,temp,3,0)
             ENDIF
          ENDDO
@@ -889,7 +885,6 @@ SUBROUTINE sgen
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
 !
 !     ALL LOADS PROCESSED
@@ -910,11 +905,11 @@ SUBROUTINE sgen
          ENDDO
          j = (lsload(2)-1)/16
          i = lsload(2) - 16*j
-         mcb(j+2) = Two(i+16)
+         mcb(j+2) = two(i+16)
          IF ( ldcd/=0 ) THEN
             j = (lload(2)-1)/16
             i = lload(2) - 16*j
-            mcb(j+2) = orf(mcb(j+2),Two(i+16))
+            mcb(j+2) = orf(mcb(j+2),two(i+16))
          ENDIF
          CALL wrttrl(mcb)
          spag_nextblock_1 = 17
@@ -922,13 +917,13 @@ SUBROUTINE sgen
 !
 !     SPLIT CASE CONTROL  INTO SUBSTRUCTURE AND NORMAL NASTRAN
 !
-         CALL open(*400,casec,z(Buf1),0)
-         CALL open(*400,cases,z(Buf2),1)
-         CALL open(*400,casei,z(Buf3),1)
+         CALL open(*400,casec,z(buf1),0)
+         CALL open(*400,cases,z(buf2),1)
+         CALL open(*400,casei,z(buf3),1)
          file = cases
          spag_nextblock_1 = 18
       CASE (18)
-         CALL read(*380,*360,casec,z(1),Nz,0,nwds)
+         CALL read(*380,*360,casec,z(1),nz,0,nwds)
  360     IF ( z(1)==ncasec(1) .AND. z(2)==ncasec(2) ) file = casei
          CALL write(cases,z,nwds,1)
          IF ( file==casei ) CALL write(casei,z(1),nwds,1)
@@ -943,8 +938,8 @@ SUBROUTINE sgen
          CALL close(casec,1)
          CALL close(casei,1)
          CALL close(cases,1)
-         IF ( Name(1)==xxxx .AND. Name(2)==xxxx ) RETURN
-         IF ( Nono==0 ) THEN
+         IF ( name(1)==xxxx .AND. name(2)==xxxx ) RETURN
+         IF ( nono==0 ) THEN
 !
 !     GENERATE  FICTITIOUS GP1 DATA BLOCKS
 !
@@ -960,43 +955,43 @@ SUBROUTINE sgen
             mcb(1) = gpl
             file = gpl
             n = -1
-            CALL open(*460,gpl,z(Buf1),1)
+            CALL open(*460,gpl,z(buf1),1)
             CALL fname(gpl,temp(1))
             temp(3) = 1000
             CALL write(gpl,temp(1),3,1)
-            DO i = 1 , Luset
+            DO i = 1 , luset
                CALL write(gpl,i,1,0)
             ENDDO
             CALL write(gpl,i,0,1)
-            DO i = 1 , Luset
+            DO i = 1 , luset
                temp(1) = i
                temp(2) = 1000*i
                CALL write(gpl,temp,2,0)
             ENDDO
             CALL write(gpl,i,0,1)
             CALL close(gpl,1)
-            mcb(2) = Luset
+            mcb(2) = luset
             CALL wrttrl(mcb)
          ENDIF
 !
 !     ***  EQEXIN FILE  ***
 !
          mcb(1) = eqex
-         CALL gopen(eqex,z(Buf1),1)
-         DO i = 1 , Luset
+         CALL gopen(eqex,z(buf1),1)
+         DO i = 1 , luset
             temp(1) = i
             temp(2) = i
             CALL write(eqex,temp,2,0)
          ENDDO
          CALL write(eqex,temp,0,1)
-         DO i = 1 , Luset
+         DO i = 1 , luset
             temp(1) = i
             temp(2) = 10*i + 2
             CALL write(eqex,temp,2,0)
          ENDDO
          CALL write(eqex,temp,0,1)
          CALL close(eqex,1)
-         mcb(2) = Luset
+         mcb(2) = luset
          CALL wrttrl(mcb)
 !
 !     ***  GPDT FILE  ***
@@ -1006,16 +1001,16 @@ SUBROUTINE sgen
             temp(i) = 0
          ENDDO
          temp(2) = -1
-         CALL gopen(gpdt,z(Buf1),1)
-         DO i = 1 , Luset
+         CALL gopen(gpdt,z(buf1),1)
+         DO i = 1 , luset
             temp(1) = i
             CALL write(gpdt,temp,7,0)
          ENDDO
          CALL write(gpdt,temp,0,1)
          CALL close(gpdt,1)
-         mcb(2) = Luset
+         mcb(2) = luset
          CALL wrttrl(mcb)
-         IF ( Nono==0 ) THEN
+         IF ( nono==0 ) THEN
 !
 !     ***  BGPDT FILE  ***
 !
@@ -1024,40 +1019,40 @@ SUBROUTINE sgen
                temp(i) = 0
             ENDDO
             temp(1) = -1
-            CALL gopen(bgpdt,z(Buf1),1)
-            DO i = 1 , Luset
+            CALL gopen(bgpdt,z(buf1),1)
+            DO i = 1 , luset
                CALL write(bgpdt,temp,4,0)
             ENDDO
             CALL write(bgpdt,temp,0,1)
             CALL close(bgpdt,1)
-            mcb(2) = Luset
+            mcb(2) = luset
             CALL wrttrl(mcb)
          ENDIF
 !
 !     ***  SIL FILE  ***
 !
          mcb(1) = sil
-         CALL gopen(sil,z(Buf1),1)
-         DO i = 1 , Luset
+         CALL gopen(sil,z(buf1),1)
+         DO i = 1 , luset
             CALL write(sil,i,1,0)
          ENDDO
          CALL write(sil,i,0,1)
          CALL close(sil,1)
 !
 !
-         mcb(2) = Luset
-         mcb(3) = Luset
+         mcb(2) = luset
+         mcb(3) = luset
          CALL wrttrl(mcb)
-         IF ( Nono/=0 ) Dry = -2
+         IF ( nono/=0 ) dry = -2
          CALL sofcls
          RETURN
       CASE (19)
          n = -itest - 4
          spag_nextblock_1 = 20
       CASE (20)
-         IF ( Dry<0 ) n = iabs(n)
-         Dry = -2
-         CALL smsg(n,item,Name)
+         IF ( dry<0 ) n = iabs(n)
+         dry = -2
+         CALL smsg(n,item,name)
          RETURN
       CASE (21)
          n = -8
@@ -1073,8 +1068,8 @@ SUBROUTINE sgen
          spag_nextblock_1 = 22
       CASE (22)
          CALL sofcls
-         IF ( Dry<0 ) n = iabs(n)
-         Dry = -2
+         IF ( dry<0 ) n = iabs(n)
+         dry = -2
  460     CALL mesage(n,file,nsgen)
          RETURN
       END SELECT

@@ -1,4 +1,5 @@
-!*==eqscod.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==eqscod.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE eqscod(Loc,N,Z)
@@ -12,12 +13,19 @@ SUBROUTINE eqscod(Loc,N,Z)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   INTEGER :: i , icode , iloc , inew , ist , j , mend , ng
-   EXTERNAL lshift , orf
+   INTEGER :: i , icode , iloc , inew , ist , j , mend , ng , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

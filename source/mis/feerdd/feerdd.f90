@@ -2,7 +2,7 @@
  
 SUBROUTINE feerdd
    IMPLICIT NONE
-   USE C_FEERCX
+   USE c_feercx
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -10,6 +10,12 @@ SUBROUTINE feerdd
    INTEGER , DIMENSION(28) , SAVE :: jfrcx
    INTEGER , DIMENSION(4) , SAVE :: kfrcx , lfrcx
    INTEGER , SAVE :: mfrcx
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -26,12 +32,12 @@ SUBROUTINE feerdd
    DATA mfrcx/204/
 !
    DO i = 1 , 28
-      Ifrcx(i) = jfrcx(i)
+      ifrcx(i) = jfrcx(i)
    ENDDO
    DO i = 1 , 4
-      Ifrcx(i+28) = kfrcx(i)
-      Ifrcx(i+32) = lfrcx(i)
+      ifrcx(i+28) = kfrcx(i)
+      ifrcx(i+32) = lfrcx(i)
    ENDDO
-   Ifrcx(37) = mfrcx
+   ifrcx(37) = mfrcx
 !
 END SUBROUTINE feerdd

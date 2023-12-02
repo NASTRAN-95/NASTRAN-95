@@ -2,13 +2,13 @@
  
 SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    IMPLICIT NONE
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,6 +51,15 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    REAL , DIMENSION(384) :: store
    REAL , DIMENSION(10) :: stress
    INTEGER , DIMENSION(4) , SAVE :: typ
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -341,10 +350,10 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !
       Strspt = Strspt + 1
       ipoint = 6*(Strspt-nip3-2)
-      DO I = 1 , 6
-         Isub = ipoint + I
-         Sig(I) = sigs(Isub)
-         csig(I) = csigs(Isub)
+      DO i = 1 , 6
+         isub = ipoint + i
+         sig(i) = sigs(isub)
+         csig(i) = csigs(isub)
       ENDDO
 !
       isave = Strspt
@@ -353,7 +362,7 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !     SKIP PRINCIPAL STRESS COMPUTATIONS IF FINAL STRESS VECTOR
 !     WILL BE COMPLEX.
 !
-      IF ( Ktype==2 ) GOTO 600
+      IF ( ktype==2 ) GOTO 600
 !*****
 !     SOLVE CUBIC EQUATION FOR PRINCIPAL STRESSES
 !*****
@@ -362,47 +371,47 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !
 !     REF. -- CRC STANDARD MATH TABLES 14TH ED., PP. 392,3
 !
-      Rm = 0.0
-      DO I = 1 , 6
-         IF ( abs(Sig(I))>Rm ) Rm = abs(Sig(I))
+      rm = 0.0
+      DO i = 1 , 6
+         IF ( abs(sig(i))>rm ) rm = abs(sig(i))
       ENDDO
-      IF ( Rm<=0.0 ) GOTO 300
+      IF ( rm<=0.0 ) GOTO 300
       thresh = 1.0E-5
       DO
-         DO I = 1 , 6
-            IF ( abs(Sig(I)/Rm)<thresh ) Sig(I) = 0.0
+         DO i = 1 , 6
+            IF ( abs(sig(i)/rm)<thresh ) sig(i) = 0.0
          ENDDO
-         Rx = sx/Rm
-         Ry = sy/Rm
-         Rz = sz/Rm
-         Rxy = sxy/Rm
-         Ryz = syz/Rm
-         Rzx = szx/Rm
-         P = -Rx - Ry - Rz
-         Q = Rx*Ry + Ry*Rz + Rz*Rx - Rxy**2 - Ryz**2 - Rzx**2
-         R = -(Rx*Ry*Rz+2.0*Rxy*Ryz*Rzx-Rx*Ryz**2-Ry*Rzx**2-Rz*Rxy**2)
-         A = (3.0*Q-P**2)/3.0
-         B = (2.0*P**3-9.0*P*Q+27.0*R)/27.0
-         X = -A**3/27.0
-         IF ( X>1.0E-16 ) THEN
-            Cosphi = -(B/2.0)/sqrt(X)
-            ax = abs(Cosphi)
-            IF ( ax>0.9999 .AND. ax<1.0001 ) Cosphi = sign(1.0,Cosphi)
-            IF ( abs(Cosphi)<=1.0 ) THEN
-               Phi = acos(Cosphi)
-               X = 2.0*sqrt(-A/3.0)
+         rx = sx/rm
+         ry = sy/rm
+         rz = sz/rm
+         rxy = sxy/rm
+         ryz = syz/rm
+         rzx = szx/rm
+         p = -rx - ry - rz
+         q = rx*ry + ry*rz + rz*rx - rxy**2 - ryz**2 - rzx**2
+         r = -(rx*ry*rz+2.0*rxy*ryz*rzx-rx*ryz**2-ry*rzx**2-rz*rxy**2)
+         a = (3.0*q-p**2)/3.0
+         b = (2.0*p**3-9.0*p*q+27.0*r)/27.0
+         x = -a**3/27.0
+         IF ( x>1.0E-16 ) THEN
+            cosphi = -(b/2.0)/sqrt(x)
+            ax = abs(cosphi)
+            IF ( ax>0.9999 .AND. ax<1.0001 ) cosphi = sign(1.0,cosphi)
+            IF ( abs(cosphi)<=1.0 ) THEN
+               phi = acos(cosphi)
+               x = 2.0*sqrt(-a/3.0)
                GOTO 400
             ENDIF
 !
 !     CHECK FOR IMAGINARY ROOTS
 !
-         ELSEIF ( abs(X)<=Rm*1.0E-6 ) THEN
+         ELSEIF ( abs(x)<=rm*1.0E-6 ) THEN
 !
 !     CHECK FOR 3 EQUAL ROOTS
 !
-            IF ( abs(B)<=1.0E-6 ) THEN
-               X = 0.0
-               Phi = 0.0
+            IF ( abs(b)<=1.0E-6 ) THEN
+               x = 0.0
+               phi = 0.0
                GOTO 400
             ENDIF
          ENDIF
@@ -412,96 +421,96 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    ELSE
       IF ( oldeid/=iesta(1) ) THEN
          Strspt = 0
-         Ipts = (Type-1)/2
-         Ngp = 12*Type - 4
-         ngp1 = Ngp + 1
+         ipts = (Type-1)/2
+         ngp = 12*Type - 4
+         ngp1 = ngp + 1
          IF ( Type==3 ) ngp1 = 21
-         Nip = iesta(20*Ngp+9)
+         Nip = iesta(20*ngp+9)
 !
 !     IF EQEXIN NOT YET READ IN, READ IT.
 !
-         IF ( Isopl==Eqexin .OR. oldeid==0 ) THEN
-            Isopl = -1
-            Itrl(1) = Eqexin
-            CALL rdtrl(Itrl)
-            Leqx = Itrl(2)*2
-            Mxleq = (nequ/2)*2
-            Neqx = (Leqx-1)/Mxleq + 1
-            L = Leqx
-            IF ( Neqx>1 ) L = Mxleq
-            Iend = 0
-            CALL read(*100,*100,Eqexin,Equ,L,0,I)
-            DO I = 2 , L , 2
-               Equ(I) = iabs(Equ(I))
+         IF ( isopl==eqexin .OR. oldeid==0 ) THEN
+            isopl = -1
+            itrl(1) = eqexin
+            CALL rdtrl(itrl)
+            leqx = itrl(2)*2
+            mxleq = (nequ/2)*2
+            neqx = (leqx-1)/mxleq + 1
+            l = leqx
+            IF ( neqx>1 ) l = mxleq
+            iend = 0
+            CALL read(*100,*100,eqexin,equ,l,0,i)
+            DO i = 2 , l , 2
+               equ(i) = iabs(equ(i))
             ENDDO
-            CALL sort(0,0,2,2,Equ,L)
-            L = L/2
+            CALL sort(0,0,2,2,equ,l)
+            l = l/2
          ENDIF
 !
 !     CONVERT SIL NUMBERS TO EXTERNAL GRID POINT NUMBERS
 !
          oldeid = iesta(1)
-         DO I = 1 , Ngp
-            extrnl(I) = -iesta(I+1)
+         DO i = 1 , ngp
+            extrnl(i) = -iesta(i+1)
          ENDDO
-         DO J = 1 , Neqx
- 10         DO I = 1 , Ngp
-               IF ( extrnl(I)<=0 ) THEN
-                  Sil = iesta(I+1)*10 + 1
+         DO j = 1 , neqx
+ 10         DO i = 1 , ngp
+               IF ( extrnl(i)<=0 ) THEN
+                  sil = iesta(i+1)*10 + 1
 !
 !     BINARY SEARCH FOR MATCH ON SIL NUMBER
 !
-                  Klo = 1
-                  Khi = L
-                  K = (Khi+Klo+1)/2
+                  klo = 1
+                  khi = l
+                  k = (khi+klo+1)/2
                   DO
-                     Kx = 2*K
-                     IF ( Sil<Equ(Kx) ) THEN
-                        Khi = K
-                     ELSEIF ( Sil==Equ(Kx) ) THEN
-                        extrnl(I) = Equ(Kx-1)
+                     kx = 2*k
+                     IF ( sil<equ(kx) ) THEN
+                        khi = k
+                     ELSEIF ( sil==equ(kx) ) THEN
+                        extrnl(i) = equ(kx-1)
                         EXIT
                      ELSE
-                        Klo = K
+                        klo = k
                      ENDIF
-                     IF ( Khi-Klo<1 ) EXIT
-                     IF ( Khi-Klo==1 ) THEN
-                        IF ( K==Klo ) THEN
-                           K = Khi
+                     IF ( khi-klo<1 ) EXIT
+                     IF ( khi-klo==1 ) THEN
+                        IF ( k==klo ) THEN
+                           k = khi
                         ELSE
-                           K = Klo
+                           k = klo
                         ENDIF
-                        Klo = Khi
+                        klo = khi
                      ELSE
-                        K = (Khi+Klo+1)/2
+                        k = (khi+klo+1)/2
                      ENDIF
                   ENDDO
                ENDIF
             ENDDO
-            IF ( Neqx==1 ) CYCLE
-            DO I = 1 , Ngp
-               IF ( extrnl(I)<0 ) GOTO 20
+            IF ( neqx==1 ) CYCLE
+            DO i = 1 , ngp
+               IF ( extrnl(i)<0 ) GOTO 20
             ENDDO
             EXIT
- 20         L = Mxleq
-            Iend = 0
-            CALL read(*100,*40,Eqexin,Equ,L,0,I)
- 30         DO I = 2 , L , 2
-               Equ(I) = iabs(Equ(I))
+ 20         l = mxleq
+            iend = 0
+            CALL read(*100,*40,eqexin,equ,l,0,i)
+ 30         DO i = 2 , l , 2
+               equ(i) = iabs(equ(i))
             ENDDO
-            CALL sort(0,0,2,2,Equ,L)
-            L = L/2
-            IF ( Iend/=1 ) CYCLE
+            CALL sort(0,0,2,2,equ,l)
+            l = l/2
+            IF ( iend/=1 ) CYCLE
             GOTO 10
- 40         CALL bckrec(Eqexin)
-            L = I
-            Iend = 1
-            IF ( L==0 ) GOTO 20
-            GOTO 30
+ 40         CALL bckrec(eqexin)
+            l = i
+            iend = 1
+            IF ( l/=0 ) GOTO 30
+            GOTO 20
          ENDDO
-         IF ( Type/=3 ) extrnl(Ngp+1) = 0
-         IF ( Iend==0 ) CALL bckrec(Eqexin)
-         Iend = 1
+         IF ( Type/=3 ) extrnl(ngp+1) = 0
+         IF ( iend==0 ) CALL bckrec(eqexin)
+         iend = 1
       ENDIF
       GOTO 200
    ENDIF
@@ -516,32 +525,32 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !*****
 !     THERMAL EFFECTS
 !*****
-   IF ( Jtemp==-1 ) THEN
-      DO I = 1 , 6
-         Sig(I) = 0.0
-         csig(I) = 0.0
+   IF ( jtemp==-1 ) THEN
+      DO i = 1 , 6
+         sig(i) = 0.0
+         csig(i) = 0.0
       ENDDO
    ELSE
 !
 !     COMPUTE TEMPERATURE AT THIS POINT
 !
-      Temp = 0.0
-      DO I = 1 , Ngp
-         Temp = Temp + Esta(Ngp+1+I)*Gpt(I)
+      temp = 0.0
+      DO i = 1 , ngp
+         temp = temp + esta(ngp+1+i)*Gpt(i)
       ENDDO
-      Temp = Temp - Esta(2*Ngp+2)
-      DO I = 1 , 6
-         Sig(I) = Temp*Esta(2*Ngp+2+I)
-         csig(I) = abs(Sig(I))
+      temp = temp - esta(2*ngp+2)
+      DO i = 1 , 6
+         sig(i) = temp*esta(2*ngp+2+i)
+         csig(i) = abs(sig(i))
       ENDDO
    ENDIF
 !*****
 !     DISPLACEMENT EFFECTS.  LOOP OVER GRID POINTS.
 !*****
-   DO I = 1 , Ngp
-      J = Ivec + iesta(I+1) - 1
-      K = Ngp*2 + 18*(I-1) + 9
-      CALL smmats(Esta(K),6,3,-2,Z(J),3,1,0,Sig,csig)
+   DO i = 1 , ngp
+      j = ivec + iesta(i+1) - 1
+      k = ngp*2 + 18*(i-1) + 9
+      CALL smmats(esta(k),6,3,-2,z(j),3,1,0,sig,csig)
    ENDDO
 !
 !     STORE THE GAUSS POINT STRESSES UNTIL WE HAVE THEM ALL
@@ -552,9 +561,9 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
    nip3 = Nip**3
    IF ( Strspt/=nip3+1 ) THEN
       ipoint = 6*(Strspt-1)
-      DO I = 1 , 6
-         Isub = ipoint + I
-         store(Isub) = Sig(I)
+      DO i = 1 , 6
+         isub = ipoint + i
+         store(isub) = sig(i)
       ENDDO
    ENDIF
 !
@@ -562,7 +571,7 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
 !
    IF ( oldeid/=0 ) RETURN
 !
-   IF ( Ngp<20 ) THEN
+   IF ( ngp<20 ) THEN
 !
 !     8 GRIDS
 !
@@ -584,117 +593,117 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
       CALL smmats(ex20g4,21,64,0,store,64,6,0,sigs,csigs)
    ENDIF
    RETURN
- 300  Sa = 0.0
-   Sb = 0.0
-   Sc = 0.0
+ 300  sa = 0.0
+   sb = 0.0
+   sc = 0.0
    GOTO 500
- 400  Sa = (X*cos(Phi/3.0)-P/3.0)*Rm
-   Sb = (X*cos(Phi/3.0+120.0*dtor)-P/3.0)*Rm
-   Sc = (X*cos(Phi/3.0+240.0*dtor)-P/3.0)*Rm
-   Rm = 0.0
-   DO I = 1 , 3
-      IF ( abs(sigp(I))>Rm ) Rm = abs(sigp(I))
+ 400  sa = (x*cos(phi/3.0)-p/3.0)*rm
+   sb = (x*cos(phi/3.0+120.0*dtor)-p/3.0)*rm
+   sc = (x*cos(phi/3.0+240.0*dtor)-p/3.0)*rm
+   rm = 0.0
+   DO i = 1 , 3
+      IF ( abs(sigp(i))>rm ) rm = abs(sigp(i))
    ENDDO
-   DO I = 1 , 3
-      IF ( abs(sigp(I)/Rm)<1.0E-5 ) sigp(I) = 0.0
+   DO i = 1 , 3
+      IF ( abs(sigp(i)/rm)<1.0E-5 ) sigp(i) = 0.0
    ENDDO
 !*****
 !     COMPUTE MEAN STRESS OR PRESSURE
 !*****
- 500  Sn = -(Sa+Sb+Sc)/3.0
+ 500  sn = -(sa+sb+sc)/3.0
 !*****
 !     COMPUTE OCTAHEDRAL SHEAR STRESS
 !*****
-   So = sqrt(((Sa+Sn)**2+(Sb+Sn)**2+(Sc+Sn)**2)/3.0)
+   so = sqrt(((sa+sn)**2+(sb+sn)**2+(sc+sn)**2)/3.0)
 !*****
 !     COMPUTE DIRECTION COSINES OF THE PRINCIPAL PLANES
 !*****
-   Rm = 1.0E-6
-   DO I = 1 , 3
-      IF ( sigp(I)/=0.0 ) THEN
-         smat(1,1) = 1.0 - sx/sigp(I)
-         smat(2,1) = -sxy/sigp(I)
-         smat(3,1) = -szx/sigp(I)
+   rm = 1.0E-6
+   DO i = 1 , 3
+      IF ( sigp(i)/=0.0 ) THEN
+         smat(1,1) = 1.0 - sx/sigp(i)
+         smat(2,1) = -sxy/sigp(i)
+         smat(3,1) = -szx/sigp(i)
          smat(1,2) = smat(2,1)
-         smat(2,2) = 1.0 - sy/sigp(I)
-         smat(3,2) = -syz/sigp(I)
+         smat(2,2) = 1.0 - sy/sigp(i)
+         smat(3,2) = -syz/sigp(i)
          smat(1,3) = smat(3,1)
          smat(2,3) = smat(3,2)
-         smat(3,3) = 1.0 - sz/sigp(I)
-         CALL saxb(smat(1,1),smat(1,2),Dcos(1,I))
-         Rx = sadotb(Dcos(1,I),Dcos(1,I))
-         J = 1
-         CALL saxb(smat(1,2),smat(1,3),Dcos(1,I))
-         Ry = sadotb(Dcos(1,I),Dcos(1,I))
-         IF ( Ry>Rx ) J = 2
-         CALL saxb(smat(1,3),smat(1,1),Dcos(1,I))
-         Rz = sadotb(Dcos(1,I),Dcos(1,I))
-         IF ( Rz>Ry .AND. Rz>Rx ) J = 3
-         P = smat(1,J)
-         Q = smat(2,J)
-         R = smat(3,J)
-         IF ( J<2 ) THEN
-            J = 2
-         ELSEIF ( J==2 ) THEN
-            J = 3
+         smat(3,3) = 1.0 - sz/sigp(i)
+         CALL saxb(smat(1,1),smat(1,2),dcos(1,i))
+         rx = sadotb(dcos(1,i),dcos(1,i))
+         j = 1
+         CALL saxb(smat(1,2),smat(1,3),dcos(1,i))
+         ry = sadotb(dcos(1,i),dcos(1,i))
+         IF ( ry>rx ) j = 2
+         CALL saxb(smat(1,3),smat(1,1),dcos(1,i))
+         rz = sadotb(dcos(1,i),dcos(1,i))
+         IF ( rz>ry .AND. rz>rx ) j = 3
+         p = smat(1,j)
+         q = smat(2,j)
+         r = smat(3,j)
+         IF ( j<2 ) THEN
+            j = 2
+         ELSEIF ( j==2 ) THEN
+            j = 3
          ELSE
-            J = 1
+            j = 1
          ENDIF
-         S = smat(1,J)
-         T = smat(2,J)
-         V = smat(3,J)
-         IF ( abs(Q)>Rm ) THEN
-            Rx = V - T*R/Q
-            IF ( abs(Rx)<=Rm ) THEN
-               Rx = S - T*P/Q
-               IF ( abs(Rx)<=Rm ) GOTO 550
-               Ry = -R/Q
-               X = 1.0 + Ry*Ry
-               Dcos(1,I) = 0.0
-               Dcos(3,I) = 1.0/sqrt(X)
-               Dcos(2,I) = Ry*Dcos(3,I)
+         s = smat(1,j)
+         t = smat(2,j)
+         v = smat(3,j)
+         IF ( abs(q)>rm ) THEN
+            rx = v - t*r/q
+            IF ( abs(rx)<=rm ) THEN
+               rx = s - t*p/q
+               IF ( abs(rx)<=rm ) GOTO 550
+               ry = -r/q
+               x = 1.0 + ry*ry
+               dcos(1,i) = 0.0
+               dcos(3,i) = 1.0/sqrt(x)
+               dcos(2,i) = ry*dcos(3,i)
                CYCLE
             ELSE
-               Rz = -(S-T*P/Q)/Rx
-               Ry = -(P+R*Rz)/Q
+               rz = -(s-t*p/q)/rx
+               ry = -(p+r*rz)/q
             ENDIF
-         ELSEIF ( abs(R)<=Rm ) THEN
-            IF ( abs(P)<=Rm ) GOTO 550
-            IF ( abs(V)<=Rm ) THEN
-               IF ( abs(T)<=Rm ) GOTO 550
-               Dcos(1,I) = 0.0
-               Dcos(2,I) = 0.0
-               Dcos(3,I) = 1.0
+         ELSEIF ( abs(r)<=rm ) THEN
+            IF ( abs(p)<=rm ) GOTO 550
+            IF ( abs(v)<=rm ) THEN
+               IF ( abs(t)<=rm ) GOTO 550
+               dcos(1,i) = 0.0
+               dcos(2,i) = 0.0
+               dcos(3,i) = 1.0
                CYCLE
             ELSE
-               Rz = -T/V
-               X = 1.0 + Rz*Rz
-               Dcos(1,I) = 0.0
-               Dcos(2,I) = 1.0/sqrt(X)
-               Dcos(3,I) = Rz*Dcos(2,I)
+               rz = -t/v
+               x = 1.0 + rz*rz
+               dcos(1,i) = 0.0
+               dcos(2,i) = 1.0/sqrt(x)
+               dcos(3,i) = rz*dcos(2,i)
                CYCLE
             ENDIF
          ELSE
-            Rz = -P/R
-            IF ( abs(T)<=Rm ) THEN
-               IF ( abs(S-V*P/R)<=Rm ) GOTO 550
-               Dcos(1,I) = 0.0
-               Dcos(2,I) = 1.0
-               Dcos(3,I) = 0.0
+            rz = -p/r
+            IF ( abs(t)<=rm ) THEN
+               IF ( abs(s-v*p/r)<=rm ) GOTO 550
+               dcos(1,i) = 0.0
+               dcos(2,i) = 1.0
+               dcos(3,i) = 0.0
                CYCLE
             ELSE
-               Ry = -(S-V*P/R)/T
+               ry = -(s-v*p/r)/t
             ENDIF
          ENDIF
-         X = 1.0 + Rz*Rz + Ry*Ry
-         Dcos(1,I) = 1.0/sqrt(X)
-         Dcos(2,I) = Ry*Dcos(1,I)
-         Dcos(3,I) = Rz*Dcos(1,I)
+         x = 1.0 + rz*rz + ry*ry
+         dcos(1,i) = 1.0/sqrt(x)
+         dcos(2,i) = ry*dcos(1,i)
+         dcos(3,i) = rz*dcos(1,i)
          CYCLE
       ENDIF
- 550  Dcos(1,I) = 0.0
-      Dcos(2,I) = 0.0
-      Dcos(3,I) = 0.0
+ 550  dcos(1,i) = 0.0
+      dcos(2,i) = 0.0
+      dcos(3,i) = 0.0
    ENDDO
 !*****
 !     PUT IT AWAY IN THE STRESS ARRAY
@@ -704,58 +713,58 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
       istrs(11) = 0
 !            1   2   3   4   5   6   7   8   9   10
       IF ( Strspt==2 .OR. Strspt==4 .OR. Strspt==6 ) THEN
-         J = (Strspt-1)/2 + Strspt - 1
-         K = J + 3
+         j = (Strspt-1)/2 + Strspt - 1
+         k = j + 3
       ELSEIF ( Strspt==8 ) THEN
-         J = (Strspt-1)/2 + Strspt - 1
-         K = J - 9
+         j = (Strspt-1)/2 + Strspt - 1
+         k = j - 9
       ELSEIF ( Strspt==9 .OR. Strspt==10 .OR. Strspt==11 .OR. Strspt==12 ) THEN
-         J = (Strspt-9)*3 + 1
-         K = J + 20
+         j = (Strspt-9)*3 + 1
+         k = j + 20
       ELSEIF ( Strspt==13 .OR. Strspt==15 .OR. Strspt==17 .OR. Strspt==19 ) THEN
-         J = Strspt/2 + Strspt + 2
+         j = Strspt/2 + Strspt + 2
          GOTO 650
       ELSEIF ( Strspt==14 .OR. Strspt==16 .OR. Strspt==18 ) THEN
-         J = (Strspt-1)/2 + Strspt + 1
-         K = J + 3
+         j = (Strspt-1)/2 + Strspt + 1
+         k = j + 3
       ELSEIF ( Strspt==20 ) THEN
-         J = (Strspt-1)/2 + Strspt + 1
-         K = J - 9
+         j = (Strspt-1)/2 + Strspt + 1
+         k = j - 9
       ELSEIF ( Strspt==21 ) THEN
          istrs(2) = 0
          GOTO 700
       ELSE
-         J = Strspt/2 + Strspt
+         j = Strspt/2 + Strspt
          GOTO 650
       ENDIF
-      istrs(11) = extrnl(K)
- 650  istrs(2) = extrnl(J)
+      istrs(11) = extrnl(k)
+ 650  istrs(2) = extrnl(j)
    ELSE
       istrs(2) = extrnl(Strspt)
    ENDIF
  700  stress(3) = sx
    stress(4) = sxy
-   stress(5) = Sa
-   stress(9) = Sn
-   stress(10) = So
-   stress(Ipts+11) = sy
-   stress(Ipts+12) = syz
-   stress(Ipts+13) = Sb
-   stress(Ipts+17) = sz
-   stress(Ipts+18) = szx
-   stress(Ipts+19) = Sc
-   DO I = 1 , 3
-      stress(5+I) = Dcos(1,I)
-      stress(Ipts+13+I) = Dcos(2,I)
-      stress(Ipts+19+I) = Dcos(3,I)
+   stress(5) = sa
+   stress(9) = sn
+   stress(10) = so
+   stress(ipts+11) = sy
+   stress(ipts+12) = syz
+   stress(ipts+13) = sb
+   stress(ipts+17) = sz
+   stress(ipts+18) = szx
+   stress(ipts+19) = sc
+   DO i = 1 , 3
+      stress(5+i) = dcos(1,i)
+      stress(ipts+13+i) = dcos(2,i)
+      stress(ipts+19+i) = dcos(3,i)
    ENDDO
    Strspt = isave
-   IF ( Nchk>0 ) THEN
+   IF ( nchk>0 ) THEN
 !
 !   . CHECK PRECISION...
 !
       kk = 0
-      CALL sdrchk(Sig,csig,6,kk)
+      CALL sdrchk(sig,csig,6,kk)
 !
       IF ( kk/=0 ) THEN
 !
@@ -771,12 +780,12 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
          ifrvec(5) = istrs(11)
          IF ( Type/=3 ) ifrvec(5) = -1
 !
-         IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
+         IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
 !
-            lsub = Isub
-            lld = Ild
-            frlast(1) = Frtmei(1)
-            frlast(2) = Frtmei(2)
+            lsub = isub
+            lld = ild
+            frlast(1) = frtmei(1)
+            frlast(2) = frtmei(2)
             jj = 1
             CALL page1
 !
@@ -785,10 +794,10 @@ SUBROUTINE sihex2(Type,Gpt,Nip,Strspt,Istore)
          ENDIF
 !
          CALL sd2rhd(ishd,jj)
-         Line = Line + 1
-         WRITE (Nout,99001)
+         line = line + 1
+         WRITE (nout,99001)
 99001    FORMAT (7X,4HTYPE,5X,3HEID,4X,4HGRD1,4X,4HGRD2,5X,2HSX,5X,2HSY,5X,2HSZ,4X,3HSXY,4X,3HSYZ,4X,3HSZX)
- 720     WRITE (Nout,99002) ifrvec
+ 720     WRITE (nout,99002) ifrvec
 99002    FORMAT (1H0,3X,2A4,I7,2I8,6F7.1)
       ENDIF
    ENDIF

@@ -2,13 +2,13 @@
  
 SUBROUTINE tlodt1(Treal,Tint)
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SSGWRK
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_matin
+   USE c_matout
+   USE c_ssgwrk
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,6 +41,15 @@ SUBROUTINE tlodt1(Treal,Tint)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     THERMAL LOAD VECTOR FOR TRPLT1 (HIGHER ORDER PLATE BENDING ELEMENT
 !
 !     ECPT ENTRIES
@@ -68,23 +77,23 @@ SUBROUTINE tlodt1(Treal,Tint)
    nots = .FALSE.
    idele = iest(1)
    DO i = 1 , 6
-      Nl(i) = iest(i+1)
+      nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = (Est(10)*12.0)**0.333333333333
-   tmem3 = (Est(11)*12.0)**0.333333333333
-   tmem5 = (Est(12)*12.0)**0.333333333333
-   tshr1 = Est(14)
-   tshr3 = Est(15)
-   tshr5 = Est(16)
+   tmem1 = (est(10)*12.0)**0.333333333333
+   tmem3 = (est(11)*12.0)**0.333333333333
+   tmem5 = (est(12)*12.0)**0.333333333333
+   tshr1 = est(14)
+   tshr3 = est(15)
+   tshr5 = est(16)
    j = 0
    DO i = 24 , 44 , 4
       j = j + 1
       ics(j) = iest(i)
-      xc(j) = Est(i+1)
-      yc(j) = Est(i+2)
-      zc(j) = Est(i+3)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
    temp1 = Treal(1)
    temp3 = Treal(1)
@@ -104,78 +113,78 @@ SUBROUTINE tlodt1(Treal,Tint)
    IF ( t5prim==.0 .OR. t5prim==blank ) t5prim = t1prim
    IF ( tshr3==0.0 .OR. tshr3==blank ) tshr3 = tshr1
    IF ( tshr5==0.0 .OR. tshr5==blank ) tshr5 = tshr1
-   Eltemp = Est(48)
+   eltemp = est(48)
    avthk = (tmem1+tmem3+tmem5)/3.0
    aviner = avthk**3/12.0
    IF ( tshr1==0.0 ) nots = .TRUE.
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUATE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    CALL mat(idele)
 !
-   G(1) = Em(1)
-   G(2) = Em(2)
-   G(3) = Em(3)
-   G(4) = Em(2)
-   G(5) = Em(4)
-   G(6) = Em(5)
-   G(7) = Em(3)
-   G(8) = Em(5)
-   G(9) = Em(6)
+   g(1) = em(1)
+   g(2) = em(2)
+   g(3) = em(3)
+   g(4) = em(2)
+   g(5) = em(4)
+   g(6) = em(5)
+   g(7) = em(3)
+   g(8) = em(5)
+   g(9) = em(6)
 !
 !     IF TINT(6).NE.1,G1 IS G AND T1PRIME IS ALPHA TIMES T1PRIME
 !     IF TINT(6).EQ.1,G1 IS G TIMES ALPHA AND T1PRIME IS T1PRIME
 !
    IF ( Tint(6)/=1 ) THEN
       DO i = 1 , 9
-         ge1(i) = G(i)*aviner
+         ge1(i) = g(i)*aviner
       ENDDO
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
       ising = -1
-      CALL invers(3,ge1(1),3,ts1(1),0,determ,ising,Index)
+      CALL invers(3,ge1(1),3,ts1(1),0,determ,ising,index)
       IF ( ising==2 ) THEN
 !
-         WRITE (Iout,99001) Ufm , iest(1)
+         WRITE (iout,99001) ufm , iest(1)
 99001    FORMAT (A23,' 2412, A SINGULAR MATERIAL MATRIX FOR ELEMENT ID =',I9,' HAS BEEN DETECTED BY SUBROUTINE TLODT1',/26X,'WHILE',&
                 &' TRYING TO COMPUTE THERMAL LOADS WITH TEMPP2 CARD DATA.')
          nogo = .TRUE.
          GOTO 99999
       ELSE
-         CALL gmmats(ge1,3,3,0,Treal(2),3,1,0,Tl(1))
+         CALL gmmats(ge1,3,3,0,Treal(2),3,1,0,tl(1))
       ENDIF
    ELSE
 !
 !     G1 IS G TIMES ALPHA
 !
-      CALL gmmats(G,3,3,0,Alf,3,1,0,G1)
+      CALL gmmats(g,3,3,0,alf,3,1,0,g1)
    ENDIF
 !
 !     CALCULATIONS FOR THE TRIANGLE
 !
-   CALL trif(xc,yc,zc,Ivect,Jvect,Kvect,a,b,c,iest(1),nam)
+   CALL trif(xc,yc,zc,ivect,jvect,kvect,a,b,c,iest(1),nam)
 !
 !     FILL E-MATRIX
 !
    DO i = 1 , 18
-      E(i) = 0.0
+      e(i) = 0.0
    ENDDO
-   E(1) = Kvect(1)
-   E(4) = Kvect(2)
-   E(7) = Kvect(3)
-   E(11) = Ivect(1)
-   E(14) = Ivect(2)
-   E(17) = Ivect(3)
-   E(12) = Jvect(1)
-   E(15) = Jvect(2)
-   E(18) = Jvect(3)
+   e(1) = kvect(1)
+   e(4) = kvect(2)
+   e(7) = kvect(3)
+   e(11) = ivect(1)
+   e(14) = ivect(2)
+   e(17) = ivect(3)
+   e(12) = jvect(1)
+   e(15) = jvect(2)
+   e(18) = jvect(3)
 !
 !     EVALUATE CONSTANTS D1,D2,D3 IN THE LINEAR EQUATION FOR TEMPERATURE
 !     GRADIENT VARIATION OVER THE ELEMENT
@@ -184,26 +193,26 @@ SUBROUTINE tlodt1(Treal,Tint)
    unitem = .FALSE.
    IF ( abs(d2)<=1.0E-06 .AND. abs(d3)<=1.0E-06 ) unitem = .TRUE.
 !
-   distab = Dista + Distb
-   A1 = (thk1*Dista+thk2*Distb)/distab
-   A2 = (thk2-thk1)/distab
-   A3 = (thk3-A1)/Distc
-   a1sq = A1*A1
-   a2sq = A2*A2
-   a3sq = A3*A3
-   c1 = a1sq*A1
-   c2 = 3.0*a1sq*A2
-   c3 = 3.0*a1sq*A3
-   c4 = 3.0*A1*a2sq
-   c5 = 6.0*A1*A2*A3
-   c6 = 3.0*a3sq*A1
-   c7 = a2sq*A2
-   c8 = 3.0*a2sq*A3
-   c9 = 3.0*A2*a3sq
-   c10 = A3*a3sq
-   CALL af(f,10,a,b,c,B1,B2,B3,tshr1,tshr3,tshr5,1)
+   distab = dista + distb
+   a1 = (thk1*dista+thk2*distb)/distab
+   a2 = (thk2-thk1)/distab
+   a3 = (thk3-a1)/distc
+   a1sq = a1*a1
+   a2sq = a2*a2
+   a3sq = a3*a3
+   c1 = a1sq*a1
+   c2 = 3.0*a1sq*a2
+   c3 = 3.0*a1sq*a3
+   c4 = 3.0*a1*a2sq
+   c5 = 6.0*a1*a2*a3
+   c6 = 3.0*a3sq*a1
+   c7 = a2sq*a2
+   c8 = 3.0*a2sq*a3
+   c9 = 3.0*a2*a3sq
+   c10 = a3*a3sq
+   CALL af(f,10,a,b,c,b1,b2,b3,tshr1,tshr3,tshr5,1)
    uniben = .FALSE.
-   IF ( abs(A2)<=1.0E-06 .AND. abs(A3)<=1.0E-06 ) uniben = .TRUE.
+   IF ( abs(a2)<=1.0E-06 .AND. abs(a3)<=1.0E-06 ) uniben = .TRUE.
 !
 !     COMPUTE THE AREA INTEGRATION FUNCTION F
 !
@@ -270,12 +279,12 @@ SUBROUTINE tlodt1(Treal,Tint)
 !     IF NO TRANSVERSE SHEAR GO TO 113
 !
       IF ( .NOT.(nots) ) THEN
-         X = xc(i)
-         Y = yc(i)
-         CALL tlodt3(Ts6,nots)
+         x = xc(i)
+         y = yc(i)
+         CALL tlodt3(ts6,nots)
          DO jj = 1 , 20
-            qqq(i2,jj) = qqq(i2,jj) - Ts6(20+jj)
-            qqq(i3,jj) = qqq(i3,jj) + Ts6(jj)
+            qqq(i2,jj) = qqq(i2,jj) - ts6(20+jj)
+            qqq(i3,jj) = qqq(i3,jj) + ts6(jj)
          ENDDO
       ENDIF
    ENDDO
@@ -297,7 +306,7 @@ SUBROUTINE tlodt1(Treal,Tint)
 !     AGAIN SET ISING = -1
 !
    ising = -1
-   CALL invers(20,qqq,20,ts1(1),0,determ,ising,Index)
+   CALL invers(20,qqq,20,ts1(1),0,determ,ising,index)
 !
 !     ISING EQUAL TO 2 IMPLIES THAT QQQ IS SINGULAR
 !
@@ -339,22 +348,22 @@ SUBROUTINE tlodt1(Treal,Tint)
                nx01yq = nx01y + qt(l)
                mxxp = mxx + pt(l)
                nxyq = nxy + qt(l)
-               IF ( mx01xp>0 .AND. nx1yq>0 ) ptemp = ptemp + Cc(k)*dd(l)*G1(1)*rmx1*f(mx01xp,nx1yq)
-               IF ( mx1xp>0 .AND. nx01yq>0 ) ptemp = ptemp + Cc(k)*dd(l)*G1(2)*rnx1*f(mx1xp,nx01yq)
-               IF ( mxxp>0 .AND. nxyq>0 ) ptemp = ptemp + Cc(k)*dd(l)*G1(3)*rmnx*f(mxxp,nxyq)
+               IF ( mx01xp>0 .AND. nx1yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(1)*rmx1*f(mx01xp,nx1yq)
+               IF ( mx1xp>0 .AND. nx01yq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(2)*rnx1*f(mx1xp,nx01yq)
+               IF ( mxxp>0 .AND. nxyq>0 ) ptemp = ptemp + cc(k)*dd(l)*g1(3)*rmnx*f(mxxp,nxyq)
                IF ( unitem ) EXIT
             ENDDO
          ENDIF
 !
          IF ( Tint(6)/=1 ) THEN
-            IF ( mx01x>0 ) ptemp = ptemp + Cc(k)*rmx1*(Tl(1)*G(1)+Tl(2)*G(2)+Tl(3)*G(3))*f(mx01x,nx1y)
-            IF ( nx01y>0 ) ptemp = ptemp + Cc(k)*rnx1*(Tl(1)*G(4)+Tl(2)*G(5)+Tl(3)*G(6))*f(mx1x,nx01y)
-            IF ( mxx>0 .AND. nxy>0 ) ptemp = ptemp + Cc(k)*rmnx*(Tl(1)*G(7)+Tl(2)*G(8)+Tl(3)*G(9))*f(mxx,nxy)
+            IF ( mx01x>0 ) ptemp = ptemp + cc(k)*rmx1*(tl(1)*g(1)+tl(2)*g(2)+tl(3)*g(3))*f(mx01x,nx1y)
+            IF ( nx01y>0 ) ptemp = ptemp + cc(k)*rnx1*(tl(1)*g(4)+tl(2)*g(5)+tl(3)*g(6))*f(mx1x,nx01y)
+            IF ( mxx>0 .AND. nxy>0 ) ptemp = ptemp + cc(k)*rmnx*(tl(1)*g(7)+tl(2)*g(8)+tl(3)*g(9))*f(mxx,nxy)
          ENDIF
          IF ( uniben ) EXIT
       ENDDO
 !
-      Ptem(i) = ptemp/12.0
+      ptem(i) = ptemp/12.0
    ENDDO
 !
 !     IF NO TRANSVERSE SHEAR GO TO 230
@@ -366,53 +375,53 @@ SUBROUTINE tlodt1(Treal,Tint)
 !
       CALL tlodt2(ts1,ts2)
       DO i = 1 , 20
-         Ptem(i) = Ptem(i) + ts2(i)
+         ptem(i) = ptem(i) + ts2(i)
       ENDDO
    ENDIF
 !
 !     (QQQINV) TRANSPOSE (KTR3)  (QQQINV)
 !
-   CALL gmmats(qqinv,20,18,+1,Ptem,20,1,0,Ptele)
+   CALL gmmats(qqinv,20,18,+1,ptem,20,1,0,ptele)
 !
 !     LOCATE THE TRANSFORMATION MATRICES FROM BASIC TO LOCAL (THAT IS
 !     COORDINATE AT ANY GRID POINT IN WHICH DISPLACEMENT AND STRESSES
 !     ARE R - NOT NEEDED IF FIELD 7 IN GRID CARD IS ZERO)
 !
    DO i = 1 , 36
-      Ptglb(i) = 0.0
+      ptglb(i) = 0.0
    ENDDO
    DO i = 1 , 6
       sil(i) = i
    ENDDO
    DO i = 1 , 6
       DO ii = 1 , 36
-         Balotr(ii) = 0.0D0
+         balotr(ii) = 0.0D0
       ENDDO
       sil1 = sil(i)
       DO k = 1 , 3
          k1 = (sil1-1)*3 + k
-         Psub(k) = Ptele(k1)
+         psub(k) = ptele(k1)
       ENDDO
-      CALL gmmats(E,6,3,0,Psub,3,1,0,Psubt)
+      CALL gmmats(e,6,3,0,psub,3,1,0,psubt)
 !
 !     TRANSFORM THE PSUBT(6) FROM BASIC TO DISPLACEMENT COORDINATES
 !
-      IF ( Nl(i)/=0 .AND. ics(i)/=0 ) THEN
+      IF ( nl(i)/=0 .AND. ics(i)/=0 ) THEN
          jj = 4*i + 20
          CALL transs(iest(jj),trand)
          DO jj = 1 , 3
             l = 6*(jj-1) + 1
             m = 3*(jj-1) + 1
-            Balotr(l) = trand(m)
-            Balotr(l+1) = trand(m+1)
-            Balotr(l+2) = trand(m+2)
-            Balotr(l+21) = trand(m)
-            Balotr(l+22) = trand(m+1)
-            Balotr(l+23) = trand(m+2)
+            balotr(l) = trand(m)
+            balotr(l+1) = trand(m+1)
+            balotr(l+2) = trand(m+2)
+            balotr(l+21) = trand(m)
+            balotr(l+22) = trand(m+1)
+            balotr(l+23) = trand(m+2)
          ENDDO
-         CALL gmmats(Balotr(1),6,6,1,Psubt,6,1,0,Psubt1)
+         CALL gmmats(balotr(1),6,6,1,psubt,6,1,0,psubt1)
          DO k = 1 , 6
-            Psubt(k) = Psubt1(k)
+            psubt(k) = psubt1(k)
          ENDDO
       ENDIF
 !
@@ -421,8 +430,8 @@ SUBROUTINE tlodt1(Treal,Tint)
       DO ii = 1 , 6
          i1 = (i-1)*6 + ii
          i2 = iest(i+1) + ii - 1
-         Ptglb(i1) = Psubt(ii)
-         Pg(i2) = Pg(i2) + Psubt(ii)
+         ptglb(i1) = psubt(ii)
+         pg(i2) = pg(i2) + psubt(ii)
       ENDDO
    ENDDO
 99999 END SUBROUTINE tlodt1

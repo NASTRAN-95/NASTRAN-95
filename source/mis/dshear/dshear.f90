@@ -1,14 +1,15 @@
-!*==dshear.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dshear.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dshear
-USE C_DS1AAA
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -76,95 +77,95 @@ USE ISO_FORTRAN_ENV
 !
 !     CALL MAT TO GET MATERIAL PROPERTIES.
 !
-         Matidc = Matid
-         Matflg = 1
-         Eltemp = Tempel
+         matidc = matid
+         matflg = 1
+         eltemp = tempel
          CALL mat(iecpt(1))
 !
 !     STORE ECPT AND MPT VARIABLES IN DOUBLE PRECISION LOCATIONS
 !
-         E = Esp
-         G = Gsp
-         Nu = Nusp
-         T = Tsp
-         C23 = 2.0D0/3.0D0
-         Nuc = 1.0D0/(1.0D0+Nu)
+         e = esp
+         g = gsp
+         nu = nusp
+         t = tsp
+         c23 = 2.0D0/3.0D0
+         nuc = 1.0D0/(1.0D0+nu)
 !
 !     COMPUTE DIAGONAL VECTORS.
 !
          DO i = 1 , 3
-            Vd1(i) = Gp3(i) - Gp1(i)
-            Vd2(i) = Gp4(i) - Gp2(i)
+            vd1(i) = gp3(i) - gp1(i)
+            vd2(i) = gp4(i) - gp2(i)
          ENDDO
 !
 !     COMPUTE THE NORMAL VECTOR VKN, NORMALIZE, AND COMPUTE THE
 !     PROJECTED AREA, PA
 !
-         Vkn(1) = Vd1(2)*Vd2(3) - Vd1(3)*Vd2(2)
-         Vkn(2) = Vd1(3)*Vd2(1) - Vd1(1)*Vd2(3)
-         Vkn(3) = Vd1(1)*Vd2(2) - Vd1(2)*Vd2(1)
-         Vkl = dsqrt(Vkn(1)**2+Vkn(2)**2+Vkn(3)**2)
-         IF ( Vkl/=0.0D0 ) THEN
-            Vk(1) = Vkn(1)/Vkl
-            Vk(2) = Vkn(2)/Vkl
-            Vk(3) = Vkn(3)/Vkl
-            Pa = .5D0*Vkl
+         vkn(1) = vd1(2)*vd2(3) - vd1(3)*vd2(2)
+         vkn(2) = vd1(3)*vd2(1) - vd1(1)*vd2(3)
+         vkn(3) = vd1(1)*vd2(2) - vd1(2)*vd2(1)
+         vkl = dsqrt(vkn(1)**2+vkn(2)**2+vkn(3)**2)
+         IF ( vkl/=0.0D0 ) THEN
+            vk(1) = vkn(1)/vkl
+            vk(2) = vkn(2)/vkl
+            vk(3) = vkn(3)/vkl
+            pa = .5D0*vkl
 !
 !     COMPUTE  SIDES -12- AND -41-
 !
             DO i = 1 , 3
-               V12(i) = Gp2(i) - Gp1(i)
-               V41(i) = Gp1(i) - Gp4(i)
+               v12(i) = gp2(i) - gp1(i)
+               v41(i) = gp1(i) - gp4(i)
             ENDDO
 !
 !     COMPUTE DOT PRODUCT, V12DK, OF V12 AND VK, THE VECTORS VP12,VI,VJ
 !
-            V12dk = V12(1)*Vk(1) + V12(2)*Vk(2) + V12(3)*Vk(3)
-            Vp12(1) = V12(1) - V12dk*Vk(1)
-            Vp12(2) = V12(2) - V12dk*Vk(2)
-            Vp12(3) = V12(3) - V12dk*Vk(3)
-            Vp12l = dsqrt(Vp12(1)**2+Vp12(2)**2+Vp12(3)**2)
-            IF ( Vp12l/=0.0D0 ) THEN
-               Vi(1) = Vp12(1)/Vp12l
-               Vi(2) = Vp12(2)/Vp12l
-               Vi(3) = Vp12(3)/Vp12l
-               Vj(1) = Vk(2)*Vi(3) - Vk(3)*Vi(2)
-               Vj(2) = Vk(3)*Vi(1) - Vk(1)*Vi(3)
-               Vj(3) = Vk(1)*Vi(2) - Vk(2)*Vi(1)
+            v12dk = v12(1)*vk(1) + v12(2)*vk(2) + v12(3)*vk(3)
+            vp12(1) = v12(1) - v12dk*vk(1)
+            vp12(2) = v12(2) - v12dk*vk(2)
+            vp12(3) = v12(3) - v12dk*vk(3)
+            vp12l = dsqrt(vp12(1)**2+vp12(2)**2+vp12(3)**2)
+            IF ( vp12l/=0.0D0 ) THEN
+               vi(1) = vp12(1)/vp12l
+               vi(2) = vp12(2)/vp12l
+               vi(3) = vp12(3)/vp12l
+               vj(1) = vk(2)*vi(3) - vk(3)*vi(2)
+               vj(2) = vk(3)*vi(1) - vk(1)*vi(3)
+               vj(3) = vk(1)*vi(2) - vk(2)*vi(1)
 !
 !     NORMALIZE J FOR GOOD MEASURE
 !
-               Vjl = dsqrt(Vj(1)**2+Vj(2)**2+Vj(3)**2)
-               IF ( Vjl/=0.0D0 ) THEN
-                  Vj(1) = Vj(1)/Vjl
-                  Vj(2) = Vj(2)/Vjl
-                  Vj(3) = Vj(3)/Vjl
-                  X1 = 0.0D0
-                  Y1 = 0.0D0
-                  X2 = Vp12l
-                  Y2 = 0.0D0
-                  X3 = Vi(1)*Vd1(1) + Vi(2)*Vd1(2) + Vi(3)*Vd1(3)
-                  Y3 = Vj(1)*Vd1(1) + Vj(2)*Vd1(2) + Vj(3)*Vd1(3)
-                  X4 = -Vi(1)*V41(1) - Vi(2)*V41(2) - Vi(3)*V41(3)
-                  Y4 = -Vj(1)*V41(1) - Vj(2)*V41(2) - Vj(3)*V41(3)
+               vjl = dsqrt(vj(1)**2+vj(2)**2+vj(3)**2)
+               IF ( vjl/=0.0D0 ) THEN
+                  vj(1) = vj(1)/vjl
+                  vj(2) = vj(2)/vjl
+                  vj(3) = vj(3)/vjl
+                  x1 = 0.0D0
+                  y1 = 0.0D0
+                  x2 = vp12l
+                  y2 = 0.0D0
+                  x3 = vi(1)*vd1(1) + vi(2)*vd1(2) + vi(3)*vd1(3)
+                  y3 = vj(1)*vd1(1) + vj(2)*vd1(2) + vj(3)*vd1(3)
+                  x4 = -vi(1)*v41(1) - vi(2)*v41(2) - vi(3)*v41(3)
+                  y4 = -vj(1)*v41(1) - vj(2)*v41(2) - vj(3)*v41(3)
 !
 !     CHECK TO SEE IF INTERIOR ANGLES ARE LESS THAN 180 DEGREES.
 !     IF NOT, CALL FATAL ERROR MESSAGE.
 !
-                  IF ( Y3<=0.0D0 ) THEN
+                  IF ( y3<=0.0D0 ) THEN
 !
                      iecpt(2) = 2
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( X3<=Y3*X4/Y4 ) THEN
+                  ELSEIF ( x3<=y3*x4/y4 ) THEN
                      iecpt(2) = 4
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( Y4<=0.0D0 ) THEN
+                  ELSEIF ( y4<=0.0D0 ) THEN
                      iecpt(2) = 1
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( X4>=X2-(X2-X3)*Y4/Y3 ) THEN
+                  ELSEIF ( x4>=x2-(x2-x3)*y4/y3 ) THEN
                      iecpt(2) = 3
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
@@ -172,166 +173,166 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FOR PARALLEL EFFECTS.
 !
-                     Cep1 = dabs((Y3-Y4)/(X3-X4))
-                     Temp = X3 - X2
-                     Cep2 = dabs((Y4*Temp-Y3*X4)/(X4*Temp+Y4*Y3))
-                     Ep = 1.0D-1
-                     IF ( Cep1<Ep ) THEN
-                        IF ( Cep2<Ep ) THEN
+                     cep1 = dabs((y3-y4)/(x3-x4))
+                     temp = x3 - x2
+                     cep2 = dabs((y4*temp-y3*x4)/(x4*temp+y4*y3))
+                     ep = 1.0D-1
+                     IF ( cep1<ep ) THEN
+                        IF ( cep2<ep ) THEN
 !
 !     IN THIS CASE THE PANEL APPROXIMATES A PARALLELOGRAM.
 !
                            DO i = 1 , 4
-                              P(i) = 1.0D0
+                              p(i) = 1.0D0
                            ENDDO
-                           D = -.5D0*(X4/Y4+(X3-X2)/Y3+(Y3-Y4)/(X3-X4))
-                           Z = Pa/(2.0D0*G*T)*(1.0D0+2.0D0*D**2*Nuc)
+                           d = -.5D0*(x4/y4+(x3-x2)/y3+(y3-y4)/(x3-x4))
+                           z = pa/(2.0D0*g*t)*(1.0D0+2.0D0*d**2*nuc)
                         ELSE
 !
 !     AT THIS POINT THE LINE CONNECTING POINTS 3 AND 4 IS -PARALLEL- TO
 !     THE LINE CONNECTING POINTS 1 AND 2.
 !
-                           Temp = Y3*X4 - Y4*(X3-X2)
-                           Yp = X2*Y3*Y4/Temp
-                           P(1) = Yp - Y1
-                           P(2) = Yp - Y2
-                           P(3) = Yp - Y3
-                           P(4) = Yp - Y4
-                           Xp = X2*Y3*X4/Temp
-                           Sa = (X2-Xp)/Yp
-                           C = (X1-Xp)/Yp
-                           Z = ((P(1)*P(2)*Pa)/(P(3)*P(4)*2.0D0*G*T))*(1.0D0+C23*Nuc*(Sa**2+Sa*C+C**2))
+                           temp = y3*x4 - y4*(x3-x2)
+                           yp = x2*y3*y4/temp
+                           p(1) = yp - y1
+                           p(2) = yp - y2
+                           p(3) = yp - y3
+                           p(4) = yp - y4
+                           xp = x2*y3*x4/temp
+                           sa = (x2-xp)/yp
+                           c = (x1-xp)/yp
+                           z = ((p(1)*p(2)*pa)/(p(3)*p(4)*2.0D0*g*t))*(1.0D0+c23*nuc*(sa**2+sa*c+c**2))
                         ENDIF
-                     ELSEIF ( Cep2<Ep ) THEN
+                     ELSEIF ( cep2<ep ) THEN
 !
 !     AT THIS POINT THE LINE CONNECTING POINTS 1 AND 4 IS -PARALLEL- TO
 !     THE LINE CONNECTING POINTS 2 AND 3.
 !
-                        D = -.5D0*(X4/Y4+(X3-X2)/Y3)
-                        Xq = X4 - Y4*(X3-X4)/(Y3-Y4)
-                        Temp = 1.0D0/dsqrt(1.0D0+D**2)
-                        P(1) = (Xq-X1-D*Y1)*Temp
-                        P(2) = (Xq-X2-D*Y2)*Temp
-                        P(3) = (Xq-X3-D*Y3)*Temp
-                        P(4) = (Xq-X4-D*Y4)*Temp
-                        Temp = Xq - X4
-                        B = (Temp*D+Y4)/(Temp-Y4*D)
-                        Z = ((P(1)*P(2)*Pa)/(P(3)*P(4)*2.0D0*G*T))*(1.0D0+C23*Nuc*(B**2+B*D+D**2))
+                        d = -.5D0*(x4/y4+(x3-x2)/y3)
+                        xq = x4 - y4*(x3-x4)/(y3-y4)
+                        temp = 1.0D0/dsqrt(1.0D0+d**2)
+                        p(1) = (xq-x1-d*y1)*temp
+                        p(2) = (xq-x2-d*y2)*temp
+                        p(3) = (xq-x3-d*y3)*temp
+                        p(4) = (xq-x4-d*y4)*temp
+                        temp = xq - x4
+                        b = (temp*d+y4)/(temp-y4*d)
+                        z = ((p(1)*p(2)*pa)/(p(3)*p(4)*2.0D0*g*t))*(1.0D0+c23*nuc*(b**2+b*d+d**2))
                      ELSE
 !
 !     IN THIS CASE NO PARALLEL EFFECTS EXIST.
 !
-                        Xq = X4 - (X3-X4)/(Y3-Y4)*Y4
-                        Temp = Y3*X4 - Y4*(X3-X2)
-                        Xp = X2*Y3*X4/Temp
-                        Yp = X2*Y3*Y4/Temp
-                        Xl = dsqrt((Xq-Xp)**2+Yp**2)
-                        D = (Xq-Xp)/Yp
-                        Temp = Yp/Xl
-                        P(1) = Temp*(Xq-X1-D*Y1)
-                        P(2) = Temp*(Xq-X2-D*Y2)
-                        P(3) = Temp*(Xq-X3-D*Y3)
-                        P(4) = Temp*(Xq-X4-D*Y4)
-                        C = Xl/P(1) - D
-                        B = Xl/P(4) - C
-                        A = Xl/P(2) - D
-                        A2 = A**2
-                        B2 = B**2
-                        C2 = C**2
-                        D2 = D**2
-                        A3 = A2*A
-                        B3 = B2*B
-                        C3 = C2*C
-                        D3 = D2*D
-                        A4 = A3*A
-                        B4 = B3*B
-                        C4 = C3*C
-                        D4 = D3*D
-                        A5 = A4*A
-                        B5 = B4*B
-                        C5 = C4*C
-                        D5 = D4*D
-                        Temp = .5D0*P(1)*P(2)*P(3)*P(4)/Xl**2
-                        Term = A + B + C23*(A3+B3) + .2D0*(A5+B5)
-                        Term1 = C + D + C23*(C3+D3) + .2D0*(C5+D5)
-                        Term2 = B + C + C23*(B3+C3) + .2D0*(B5+C5)
-                        Term3 = D + A + C23*(D3+A3) + .2D0*(D5+A5)
-                        Term = Term*dlog(dabs(A+B))
-                        Term1 = Term1*dlog(dabs(C+D))
-                        Term2 = Term2*dlog(dabs(B+C))
-                        Term3 = Term3*dlog(dabs(D+A))
-                        Term4 = .1D0*((A2-C2)*(B3-D3)+(B2-D2)*(A3-C3))
-                        Term5 = .2D0*((A-C)*(B4-D4)+(B-D)*(A4-C4))
-                        F = Temp*(Term+Term1-Term2-Term3+Term4-Term5)
-                        Z = P(1)*P(2)/(P(3)*P(4)*2.0D0*G*T)*(Pa+4.0D0*Nuc*(F-C23*Pa))
+                        xq = x4 - (x3-x4)/(y3-y4)*y4
+                        temp = y3*x4 - y4*(x3-x2)
+                        xp = x2*y3*x4/temp
+                        yp = x2*y3*y4/temp
+                        xl = dsqrt((xq-xp)**2+yp**2)
+                        d = (xq-xp)/yp
+                        temp = yp/xl
+                        p(1) = temp*(xq-x1-d*y1)
+                        p(2) = temp*(xq-x2-d*y2)
+                        p(3) = temp*(xq-x3-d*y3)
+                        p(4) = temp*(xq-x4-d*y4)
+                        c = xl/p(1) - d
+                        b = xl/p(4) - c
+                        a = xl/p(2) - d
+                        a2 = a**2
+                        b2 = b**2
+                        c2 = c**2
+                        d2 = d**2
+                        a3 = a2*a
+                        b3 = b2*b
+                        c3 = c2*c
+                        d3 = d2*d
+                        a4 = a3*a
+                        b4 = b3*b
+                        c4 = c3*c
+                        d4 = d3*d
+                        a5 = a4*a
+                        b5 = b4*b
+                        c5 = c4*c
+                        d5 = d4*d
+                        temp = .5D0*p(1)*p(2)*p(3)*p(4)/xl**2
+                        term = a + b + c23*(a3+b3) + .2D0*(a5+b5)
+                        term1 = c + d + c23*(c3+d3) + .2D0*(c5+d5)
+                        term2 = b + c + c23*(b3+c3) + .2D0*(b5+c5)
+                        term3 = d + a + c23*(d3+a3) + .2D0*(d5+a5)
+                        term = term*dlog(dabs(a+b))
+                        term1 = term1*dlog(dabs(c+d))
+                        term2 = term2*dlog(dabs(b+c))
+                        term3 = term3*dlog(dabs(d+a))
+                        term4 = .1D0*((a2-c2)*(b3-d3)+(b2-d2)*(a3-c3))
+                        term5 = .2D0*((a-c)*(b4-d4)+(b-d)*(a4-c4))
+                        f = temp*(term+term1-term2-term3+term4-term5)
+                        z = p(1)*p(2)/(p(3)*p(4)*2.0D0*g*t)*(pa+4.0D0*nuc*(f-c23*pa))
                      ENDIF
-                     Xl13 = dsqrt(X3**2+Y3**2)
-                     Xl24 = dsqrt((X4-X2)**2+Y4**2)
-                     Smallu(1) = X3/Xl13
-                     Smallu(2) = (X4-X2)/Xl24
-                     Smallu(3) = Smallu(1)
-                     Smallu(4) = Smallu(2)
-                     Smallv(1) = Y3/Xl13
-                     Smallv(2) = Y4/Xl24
-                     Smallv(3) = Smallv(1)
-                     Smallv(4) = Smallv(2)
-                     Temp = X4*Y3 - X3*Y4
-                     Avec(1) = -.5D0*X2*Y4*Xl13/Temp
-                     Avec(2) = .5D0*X2*Y3*Xl24/(Temp-X2*(Y3-Y4))
-                     Avec(3) = -Avec(1)
-                     Avec(4) = -Avec(2)
+                     xl13 = dsqrt(x3**2+y3**2)
+                     xl24 = dsqrt((x4-x2)**2+y4**2)
+                     smallu(1) = x3/xl13
+                     smallu(2) = (x4-x2)/xl24
+                     smallu(3) = smallu(1)
+                     smallu(4) = smallu(2)
+                     smallv(1) = y3/xl13
+                     smallv(2) = y4/xl24
+                     smallv(3) = smallv(1)
+                     smallv(4) = smallv(2)
+                     temp = x4*y3 - x3*y4
+                     avec(1) = -.5D0*x2*y4*xl13/temp
+                     avec(2) = .5D0*x2*y3*xl24/(temp-x2*(y3-y4))
+                     avec(3) = -avec(1)
+                     avec(4) = -avec(2)
 !
 !     COMPUTE THE SUM GIVEN ON P. 16 OF FMMS-39
 !
-                     Sum = 0.0D0
+                     sum = 0.0D0
                      DO i = 1 , 4
                         ivlbeg = 1
-                        Vleft(1) = Smallu(i)*Vi(1) + Smallv(i)*Vj(1)
-                        Vleft(2) = Smallu(i)*Vi(2) + Smallv(i)*Vj(2)
-                        Vleft(3) = Smallu(i)*Vi(3) + Smallv(i)*Vj(3)
+                        vleft(1) = smallu(i)*vi(1) + smallv(i)*vj(1)
+                        vleft(2) = smallu(i)*vi(2) + smallv(i)*vj(2)
+                        vleft(3) = smallu(i)*vi(3) + smallv(i)*vj(3)
                         IF ( iecpt(4*i+5)/=0 ) THEN
-                           CALL transd(iecpt(4*i+5),Ti)
+                           CALL transd(iecpt(4*i+5),ti)
                            ivlbeg = 4
-                           CALL gmmatd(Vleft(1),3,1,1,Ti,3,3,0,Vleft(4))
+                           CALL gmmatd(vleft(1),3,1,1,ti,3,3,0,vleft(4))
                         ENDIF
                         k = 24 + 3*i
-                        Ui(1) = ecpt(k+1)
-                        Ui(2) = ecpt(k+2)
-                        Ui(3) = ecpt(k+3)
-                        CALL gmmatd(Vleft(ivlbeg),3,1,1,Ui,3,1,0,Dpterm)
-                        Sum = Sum + Avec(i)*Dpterm
+                        ui(1) = ecpt(k+1)
+                        ui(2) = ecpt(k+2)
+                        ui(3) = ecpt(k+3)
+                        CALL gmmatd(vleft(ivlbeg),3,1,1,ui,3,1,0,dpterm)
+                        sum = sum + avec(i)*dpterm
                      ENDDO
-                     F13 = -Avec(1)*Sum/(2.0D0*Z)
-                     F24 = Avec(2)*F13/Avec(1)
+                     f13 = -avec(1)*sum/(2.0D0*z)
+                     f24 = avec(2)*f13/avec(1)
 !
 !     SEARCH LIST OF SIL NOS. IN THE ECPT FOR THE PIVOT POINT.
 !
                      DO i = 1 , 4
                         ii = i
-                        IF ( Npvt==iecpt(i+1) ) GOTO 2
+                        IF ( npvt==iecpt(i+1) ) GOTO 2
                      ENDDO
                      CALL mesage(-30,34,iecpt(1))
  2                   IF ( ii==2 .OR. ii==4 ) THEN
-                        Fxx = F24/Xl24
+                        fxx = f24/xl24
                         i = 2
                      ELSE
-                        Fxx = F13/Xl13
+                        fxx = f13/xl13
                         i = 1
                      ENDIF
-                     Jj(1) = -Vi(1)*Smallv(i) + Vj(1)*Smallu(i)
-                     Jj(2) = -Vi(2)*Smallv(i) + Vj(2)*Smallu(i)
-                     Jj(3) = -Vi(3)*Smallv(i) + Vj(3)*Smallu(i)
+                     jj(1) = -vi(1)*smallv(i) + vj(1)*smallu(i)
+                     jj(2) = -vi(2)*smallv(i) + vj(2)*smallu(i)
+                     jj(3) = -vi(3)*smallv(i) + vj(3)*smallu(i)
 !
 !                     T            T
 !     COMPUTE  JJ X JJ  AND VK X VK
 !
-                     CALL gmmatd(Jj,3,1,0,Jj,3,1,1,J3x3)
-                     CALL gmmatd(Vk,3,1,0,Vk,3,1,1,K3x3)
+                     CALL gmmatd(jj,3,1,0,jj,3,1,1,j3x3)
+                     CALL gmmatd(vk,3,1,0,vk,3,1,1,k3x3)
 !
 !     SUM THE TWO IN J3X3
 !
                      DO j = 1 , 9
-                        J3x3(j) = J3x3(j) + K3x3(j)
+                        j3x3(j) = j3x3(j) + k3x3(j)
                      ENDDO
                      IF ( ii==2 ) THEN
                         kk = 4
@@ -346,7 +347,7 @@ USE ISO_FORTRAN_ENV
 !     ZERO OUT KE
 !
                      DO i = 1 , 36
-                        Ke(i) = 0.0D0
+                        ke(i) = 0.0D0
                      ENDDO
 !
 !                 D
@@ -355,25 +356,25 @@ USE ISO_FORTRAN_ENV
 !
                      mpoint = 1
                      IF ( iecpt(4*ii+5)/=0 ) THEN
-                        CALL transd(ecpt(4*ii+5),Ti)
+                        CALL transd(ecpt(4*ii+5),ti)
                         mpoint = 10
-                        CALL gmmatd(Ti,3,3,1,J3x3(1),3,3,0,K3x3(1))
-                        CALL gmmatd(K3x3(1),3,3,0,Ti,3,3,0,J3x3(1))
+                        CALL gmmatd(ti,3,3,1,j3x3(1),3,3,0,k3x3(1))
+                        CALL gmmatd(k3x3(1),3,3,0,ti,3,3,0,j3x3(1))
                      ENDIF
                      k = 1
                      j = ii
                   ENDIF
                   DO
-                     Ke(1) = Fxx*J3x3(k)
-                     Ke(2) = Fxx*J3x3(k+1)
-                     Ke(3) = Fxx*J3x3(k+2)
-                     Ke(7) = Fxx*J3x3(k+3)
-                     Ke(8) = Fxx*J3x3(k+4)
-                     Ke(9) = Fxx*J3x3(k+5)
-                     Ke(13) = Fxx*J3x3(k+6)
-                     Ke(14) = Fxx*J3x3(k+7)
-                     Ke(15) = Fxx*J3x3(k+8)
-                     CALL ds1b(Ke,iecpt(j+1))
+                     ke(1) = fxx*j3x3(k)
+                     ke(2) = fxx*j3x3(k+1)
+                     ke(3) = fxx*j3x3(k+2)
+                     ke(7) = fxx*j3x3(k+3)
+                     ke(8) = fxx*j3x3(k+4)
+                     ke(9) = fxx*j3x3(k+5)
+                     ke(13) = fxx*j3x3(k+6)
+                     ke(14) = fxx*j3x3(k+7)
+                     ke(15) = fxx*j3x3(k+8)
+                     CALL ds1b(ke,iecpt(j+1))
                      IF ( j==kk ) RETURN
 !
 !                 D
@@ -384,13 +385,13 @@ USE ISO_FORTRAN_ENV
                      IF ( iecpt(4*j+5)==0 ) THEN
                         k = mpoint
                      ELSE
-                        CALL transd(ecpt(4*j+5),Ti)
+                        CALL transd(ecpt(4*j+5),ti)
                         npoint = 10
                         IF ( mpoint==10 ) npoint = 1
-                        CALL gmmatd(J3x3(mpoint),3,3,0,Ti,3,3,0,J3x3(npoint))
+                        CALL gmmatd(j3x3(mpoint),3,3,0,ti,3,3,0,j3x3(npoint))
                         k = npoint
                      ENDIF
-                     Fxx = -Fxx
+                     fxx = -fxx
                   ENDDO
                ENDIF
             ENDIF
@@ -403,7 +404,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          RETURN
       CASE (2)
          CALL mesage(30,27,iecpt(1))
@@ -411,7 +412,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

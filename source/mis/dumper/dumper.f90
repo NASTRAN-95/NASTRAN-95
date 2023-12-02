@@ -1,15 +1,16 @@
-!*==dumper.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dumper.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dumper
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_XCEITB
-USE C_XGPI2
-USE C_XGPIC
-USE C_XVPS
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_output
+   USE c_system
+   USE c_xceitb
+   USE c_xgpi2
+   USE c_xgpic
+   USE c_xvps
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -52,16 +53,16 @@ USE ISO_FORTRAN_ENV
          i = 1
          SPAG_Loop_1_1: DO
             loco(i) = j
-            j = j + Mpl(j)
-            IF ( j>Lmpl ) THEN
+            j = j + mpl(j)
+            IF ( j>lmpl ) THEN
 !
                i = 1
                DO k = 1 , 96
-                  Ihead(k) = ihd(k)
+                  ihead(k) = ihd(k)
                ENDDO
                CALL page
                DO k = 1 , 3
-                  Ihead(k+14) = ixtra(k)
+                  ihead(k+14) = ixtra(k)
                ENDDO
                EXIT SPAG_Loop_1_1
             ELSE
@@ -82,15 +83,15 @@ USE ISO_FORTRAN_ENV
                itype = oscar(i+2) - lshift(rshift(oscar(i+2),16),16)
                iexflg = ioff
                IF ( oscar(i+5)<0 ) iexflg = ion
-               dmapno = andf(Nosgn,oscar(i+5))
-               Nlines = Nlines + 4
-               IF ( Nlines>=Nlpp ) THEN
+               dmapno = andf(nosgn,oscar(i+5))
+               nlines = nlines + 4
+               IF ( nlines>=nlpp ) THEN
                   CALL page
-                  Nlines = Nlines + 4
+                  nlines = nlines + 4
                ENDIF
-               WRITE (Op,99001)
+               WRITE (op,99001)
 99001          FORMAT (/1X,18(4H****))
-               WRITE (Op,99002) recno , itype , iexflg , oscar(i+3) , oscar(i+4) , dmapno
+               WRITE (op,99002) recno , itype , iexflg , oscar(i+3) , oscar(i+4) , dmapno
 99002          FORMAT (2X,20HOSCAR RECORD NUMBER ,I3,5X,14HMODULE TYPE = ,I2,5X,16HEXECUTE FLAG -- ,A4,/2X,15HMODULE NAME -  ,2A4,  &
                      & 5X,21HDMAP INSTRUCTION NO. ,I3)
                i = i + 6
@@ -101,40 +102,40 @@ USE ISO_FORTRAN_ENV
 !
                   irn = rshift(oscar(i),16)
                   IF ( mi/=11 .AND. mi/=12 ) THEN
-                     Nlines = Nlines + 2
-                     IF ( Nlines>=Nlpp ) THEN
+                     nlines = nlines + 2
+                     IF ( nlines>=nlpp ) THEN
                         CALL page
-                        Nlines = Nlines + 2
+                        nlines = nlines + 2
                      ENDIF
                   ENDIF
-                  IF ( mi/=11 .AND. mi/=12 ) WRITE (Op,99003) irn
+                  IF ( mi/=11 .AND. mi/=12 ) WRITE (op,99003) irn
 99003             FORMAT (/10X,25HRE-ENTRY RECORD NUMBER = ,I4)
                   IF ( mi/=6 ) THEN
                      iw = oscar(i) - lshift(irn,16)
                      IF ( mi/=7 ) THEN
-                        bl = rshift(Ceitbl(iw-1),16)
-                        el = Ceitbl(iw-1) - lshift(bl,16)
-                        ml = rshift(Ceitbl(iw),16)
-                        cl = Ceitbl(iw) - lshift(ml,16)
-                        Nlines = Nlines + 2
-                        IF ( Nlines>=Nlpp ) THEN
+                        bl = rshift(ceitbl(iw-1),16)
+                        el = ceitbl(iw-1) - lshift(bl,16)
+                        ml = rshift(ceitbl(iw),16)
+                        cl = ceitbl(iw) - lshift(ml,16)
+                        nlines = nlines + 2
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 2
+                           nlines = nlines + 2
                         ENDIF
-                        IF ( mi==5 ) WRITE (Op,99004) bl , el , ml , cl , Ceitbl(iw+1) , Ceitbl(iw+2)
+                        IF ( mi==5 ) WRITE (op,99004) bl , el , ml , cl , ceitbl(iw+1) , ceitbl(iw+2)
 99004                   FORMAT (/20X,I5,1H/,I5,5X,I5,1H/,I5,5X,2A4)
-                        IF ( mi==11 .OR. mi==12 ) WRITE (Op,99005) el , ml , cl
+                        IF ( mi==11 .OR. mi==12 ) WRITE (op,99005) el , ml , cl
 99005                   FORMAT (/20X,5X,1H/,I5,5X,I5,1H/,I5)
                      ELSE
 !
 !     CONDITIONAL INSTRUCTION
 !
-                        Nlines = Nlines + 2
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 2
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 2
+                           nlines = nlines + 2
                         ENDIF
-                        WRITE (Op,99006) Vps(iw-3) , Vps(iw-2)
+                        WRITE (op,99006) vps(iw-3) , vps(iw-2)
 99006                   FORMAT (/10X,21HPARAMETER FOR COND = ,2A4)
                      ENDIF
                   ENDIF
@@ -148,22 +149,22 @@ USE ISO_FORTRAN_ENV
 !     PROCESS CHKPNT
 !
                      ndb = oscar(i)
-                     Nlines = Nlines + 2
-                     IF ( Nlines>=Nlpp ) THEN
+                     nlines = nlines + 2
+                     IF ( nlines>=nlpp ) THEN
                         CALL page
-                        Nlines = Nlines + 2
+                        nlines = nlines + 2
                      ENDIF
-                     WRITE (Op,99007) ndb
+                     WRITE (op,99007) ndb
 99007                FORMAT (/10X,31HDATA BLOCKS TO BE CHECKPOINTED(,I2,2H ))
                      ist = i + 1
                      ifin = ist + 2*ndb - 1
                      npage = (10+ndb)/10 + 1
-                     Nlines = Nlines + npage
-                     IF ( Nlines>=Nlpp ) THEN
+                     nlines = nlines + npage
+                     IF ( nlines>=nlpp ) THEN
                         CALL page
-                        Nlines = Nlines + npage
+                        nlines = nlines + npage
                      ENDIF
-                     IF ( ndb/=0 ) WRITE (Op,99008) (oscar(k),k=ist,ifin)
+                     IF ( ndb/=0 ) WRITE (op,99008) (oscar(k),k=ist,ifin)
 99008                FORMAT ((20X,10(2A4,2X)),/)
                      i = i + 2*ndb + 1
                   ELSE
@@ -172,24 +173,24 @@ USE ISO_FORTRAN_ENV
 !     PROCESS SAVE
 !
                         nparm = oscar(i)
-                        Nlines = Nlines + 2
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 2
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 2
+                           nlines = nlines + 2
                         ENDIF
-                        WRITE (Op,99009) nparm
+                        WRITE (op,99009) nparm
 99009                   FORMAT (/10X,23HPARAMETERS TO BE SAVED(,I2,2H ))
                         j = 1
                         DO
                            ivps = oscar(i+1)
-                           iname(1) = Vps(ivps-3)
-                           iname(2) = Vps(ivps-2)
-                           Nlines = Nlines + 1
-                           IF ( Nlines>=Nlpp ) THEN
+                           iname(1) = vps(ivps-3)
+                           iname(2) = vps(ivps-2)
+                           nlines = nlines + 1
+                           IF ( nlines>=nlpp ) THEN
                               CALL page
-                              Nlines = Nlines + 1
+                              nlines = nlines + 1
                            ENDIF
-                           WRITE (Op,99010) iname(1) , iname(2) , oscar(i+2)
+                           WRITE (op,99010) iname(1) , iname(2) , oscar(i+2)
 99010                      FORMAT (20X,2A4,2X,I5)
                            j = j + 1
                            i = i + 2
@@ -202,51 +203,51 @@ USE ISO_FORTRAN_ENV
                      DO
                         ndb = oscar(i)
                         nwe = nwe - 1
-                        Nlines = Nlines + 2
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 2
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 2
+                           nlines = nlines + 2
                         ENDIF
-                        IF ( mi==9 ) WRITE (Op,99011) ndb
+                        IF ( mi==9 ) WRITE (op,99011) ndb
 99011                   FORMAT (/10X,25HDATA BLOCKS TO BE PURGED(,I2,2H ))
-                        IF ( mi==10 ) WRITE (Op,99012) ndb
+                        IF ( mi==10 ) WRITE (op,99012) ndb
 99012                   FORMAT (/10X,26HDATA BLOCKS TO BE EQUIVED(,I2,2H ))
                         ist = i + 1
                         ifin = ist + 2*ndb - 1
                         IF ( mi==10 ) THEN
                            ntu = rshift(oscar(ist+2),16)
                            ltu = oscar(ist+2) - lshift(ntu,16)
-                           Nlines = Nlines + 1
-                           IF ( Nlines>=Nlpp ) THEN
+                           nlines = nlines + 1
+                           IF ( nlines>=nlpp ) THEN
                               CALL page
-                              Nlines = Nlines + 1
+                              nlines = nlines + 1
                            ENDIF
-                           WRITE (Op,99013) oscar(ist) , oscar(ist+1) , ntu , ltu
+                           WRITE (op,99013) oscar(ist) , oscar(ist+1) , ntu , ltu
 99013                      FORMAT (20X,19HPRIMARY DATA BLOCK ,2A4,3X,I5,1H/,I5)
                            ist = ist + 3
                            ifin = ifin + 1
                            nwe = nwe - 3
                         ENDIF
                         npage = (10+ndb)/10 + 1
-                        Nlines = Nlines + npage
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + npage
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + npage
+                           nlines = nlines + npage
                         ENDIF
-                        WRITE (Op,99014) (oscar(k),k=ist,ifin)
+                        WRITE (op,99014) (oscar(k),k=ist,ifin)
 99014                   FORMAT ((20X,10(2A4,2X)),/)
                         nwe = nwe - 2*ndb + 2
                         IF ( mi==9 ) nwe = nwe - 2
                         ivps = oscar(ifin+1)
-                        Nlines = Nlines + 1
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 1
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 1
+                           nlines = nlines + 1
                         ENDIF
-                        IF ( ivps<0 ) WRITE (Op,99015)
+                        IF ( ivps<0 ) WRITE (op,99015)
 99015                   FORMAT (20X,35HDEFAULT PARAMETER - ALWAYS NEGATIVE)
                         IF ( ivps>=0 ) THEN
-                           WRITE (Op,99016) Vps(ivps-3) , Vps(ivps-2)
+                           WRITE (op,99016) vps(ivps-3) , vps(ivps-2)
 99016                      FORMAT (20X,21HCONTROL PARAMETER IS ,2A4)
                         ENDIF
                         i = i + 2*ndb + 2
@@ -258,13 +259,13 @@ USE ISO_FORTRAN_ENV
                ELSE
                   io = 1
                   nip = oscar(i)
-                  Nlines = Nlines + 2
-                  IF ( Nlines>=Nlpp ) THEN
+                  nlines = nlines + 2
+                  IF ( nlines>=nlpp ) THEN
                      CALL page
-                     Nlines = Nlines + 2
+                     nlines = nlines + 2
                   ENDIF
-                  WRITE (Op,99023) nip
-99023             FORMAT (/10X,29HSUMMARY OF INPUT DATA BLOCKS(,I2,2H ))
+                  WRITE (op,99017) nip
+99017             FORMAT (/10X,29HSUMMARY OF INPUT DATA BLOCKS(,I2,2H ))
                   j = 1
                   SPAG_Loop_3_3: DO
                      iname(1) = oscar(i+1)
@@ -274,29 +275,29 @@ USE ISO_FORTRAN_ENV
                      ltu = rshift(andf(oscar(i+3),mask3),16)
                      ap = rshift(andf(oscar(i+3),mask4),30)
                      IF ( iname(1)==0 .AND. io==1 ) THEN
-                        Nlines = Nlines + 1
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 1
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 1
+                           nlines = nlines + 1
                         ENDIF
-                        WRITE (Op,99024) j
-99024                   FORMAT (20X,24H********INPUT DATA BLOCK,I3,8H IS NULL)
+                        WRITE (op,99018) j
+99018                   FORMAT (20X,24H********INPUT DATA BLOCK,I3,8H IS NULL)
                      ELSEIF ( iname(1)==0 .AND. io==0 ) THEN
-                        Nlines = Nlines + 1
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 1
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 1
+                           nlines = nlines + 1
                         ENDIF
-                        WRITE (Op,99025) j
-99025                   FORMAT (20X,25H********OUTPUT DATA BLOCK,I3,8H IS NULL)
+                        WRITE (op,99019) j
+99019                   FORMAT (20X,25H********OUTPUT DATA BLOCK,I3,8H IS NULL)
                      ELSE
-                        Nlines = Nlines + 1
-                        IF ( Nlines>=Nlpp ) THEN
+                        nlines = nlines + 1
+                        IF ( nlines>=nlpp ) THEN
                            CALL page
-                           Nlines = Nlines + 1
+                           nlines = nlines + 1
                         ENDIF
-                        WRITE (Op,99026) iname(1) , iname(2) , ap , ltu , tp , ntu
-99026                   FORMAT (20X,2A4,3X,I1,1H/,I5,1H/,I1,1H/,I5)
+                        WRITE (op,99020) iname(1) , iname(2) , ap , ltu , tp , ntu
+99020                   FORMAT (20X,2A4,3X,I1,1H/,I5,1H/,I1,1H/,I5)
                      ENDIF
                      i = i + 3
                      j = j + 1
@@ -317,25 +318,25 @@ USE ISO_FORTRAN_ENV
                            ENDIF
                            j = 1
                            mplp = msave + 7
-                           Nlines = Nlines + 2
-                           IF ( Nlines>=Nlpp ) THEN
+                           nlines = nlines + 2
+                           IF ( nlines>=nlpp ) THEN
                               CALL page
-                              Nlines = Nlines + 2
+                              nlines = nlines + 2
                            ENDIF
-                           WRITE (Op,99027) nparm
-99027                      FORMAT (/10X,22HSUMMARY OF PARAMETERS(,I2,2H ))
+                           WRITE (op,99021) nparm
+99021                      FORMAT (/10X,22HSUMMARY OF PARAMETERS(,I2,2H ))
                            EXIT SPAG_Loop_3_3
                         ELSE
                            io = 0
                            i = i + 1
                            nip = oscar(i)
-                           Nlines = Nlines + 2
-                           IF ( Nlines>=Nlpp ) THEN
+                           nlines = nlines + 2
+                           IF ( nlines>=nlpp ) THEN
                               CALL page
-                              Nlines = Nlines + 2
+                              nlines = nlines + 2
                            ENDIF
-                           WRITE (Op,99028) nip
-99028                      FORMAT (/10X,30HSUMMARY OF OUTPUT DATA BLOCKS(,I2,2H ))
+                           WRITE (op,99022) nip
+99022                      FORMAT (/10X,30HSUMMARY OF OUTPUT DATA BLOCKS(,I2,2H ))
                            j = 1
                         ENDIF
                      ENDIF
@@ -349,37 +350,37 @@ USE ISO_FORTRAN_ENV
       CASE (3)
          SPAG_Loop_1_4: DO
             IF ( oscar(i+1)<=0 ) THEN
-               ivps = andf(Nosgn,oscar(i+1))
-               iname(1) = Vps(ivps-3)
-               iname(2) = Vps(ivps-2)
-               ptype = rshift(andf(Vps(ivps-1),mask5),16)
-               Nlines = Nlines + 1
-               IF ( Nlines>=Nlpp ) THEN
+               ivps = andf(nosgn,oscar(i+1))
+               iname(1) = vps(ivps-3)
+               iname(2) = vps(ivps-2)
+               ptype = rshift(andf(vps(ivps-1),mask5),16)
+               nlines = nlines + 1
+               IF ( nlines>=nlpp ) THEN
                   CALL page
-                  Nlines = Nlines + 1
+                  nlines = nlines + 1
                ENDIF
                IF ( ptype==2 ) THEN
-                  WRITE (Op,99018) iname(1) , iname(2) , avps(ivps)
+                  WRITE (op,99024) iname(1) , iname(2) , avps(ivps)
                ELSEIF ( ptype==3 ) THEN
-                  WRITE (Op,99019) iname(1) , iname(2) , Vps(ivps) , Vps(ivps+1)
+                  WRITE (op,99025) iname(1) , iname(2) , vps(ivps) , vps(ivps+1)
                ELSEIF ( ptype==4 ) THEN
                   ra(1) = avps(ivps)
                   ra(2) = avps(ivps+1)
-                  WRITE (Op,99020) iname(1) , iname(2) , dprec
+                  WRITE (op,99026) iname(1) , iname(2) , dprec
                ELSEIF ( ptype==5 ) THEN
-                  WRITE (Op,99021) iname(1) , iname(2) , avps(ivps) , avps(ivps+1)
+                  WRITE (op,99027) iname(1) , iname(2) , avps(ivps) , avps(ivps+1)
                ELSEIF ( ptype==6 ) THEN
                   ra(1) = avps(ivps)
                   ra(2) = avps(ivps+1)
                   ra(3) = avps(ivps+2)
                   ra(4) = avps(ivps+3)
-                  WRITE (Op,99022) iname(1) , iname(2) , dprec , dprec1
+                  WRITE (op,99028) iname(1) , iname(2) , dprec , dprec1
                ELSE
-                  WRITE (Op,99017) iname(1) , iname(2) , Vps(ivps)
+                  WRITE (op,99023) iname(1) , iname(2) , vps(ivps)
                ENDIF
                i = i + 1
                j = j + 1
-               IF ( Mpl(mplp)>0 ) mplp = mplp + ptype/3 + 1
+               IF ( mpl(mplp)>0 ) mplp = mplp + ptype/3 + 1
                IF ( ptype==6 ) mplp = mplp + 1
                mplp = mplp + 1
                IF ( j>nparm ) THEN
@@ -392,43 +393,43 @@ USE ISO_FORTRAN_ENV
 !
                iname(1) = con1
                iname(2) = con2
-               kk = iabs(Mpl(mplp))
-               Nlines = Nlines + 1
-               IF ( Nlines>=Nlpp ) THEN
+               kk = iabs(mpl(mplp))
+               nlines = nlines + 1
+               IF ( nlines>=nlpp ) THEN
                   CALL page
-                  Nlines = Nlines + 1
+                  nlines = nlines + 1
                ENDIF
                IF ( kk==2 ) THEN
-                  WRITE (Op,99018) iname(1) , iname(2) , roscar(i+2)
+                  WRITE (op,99024) iname(1) , iname(2) , roscar(i+2)
                ELSEIF ( kk==3 ) THEN
-                  WRITE (Op,99019) iname(1) , iname(2) , oscar(i+2) , oscar(i+3)
+                  WRITE (op,99025) iname(1) , iname(2) , oscar(i+2) , oscar(i+3)
                   EXIT SPAG_Loop_1_4
                ELSEIF ( kk==4 ) THEN
                   ra(1) = roscar(i+2)
                   ra(2) = roscar(i+3)
-                  WRITE (Op,99020) iname(1) , iname(2) , dprec
+                  WRITE (op,99026) iname(1) , iname(2) , dprec
                   EXIT SPAG_Loop_1_4
                ELSEIF ( kk==5 ) THEN
-                  WRITE (Op,99021) iname(1) , iname(2) , roscar(i+2) , roscar(i+3)
+                  WRITE (op,99027) iname(1) , iname(2) , roscar(i+2) , roscar(i+3)
                   EXIT SPAG_Loop_1_4
                ELSEIF ( kk==6 ) THEN
                   ra(1) = roscar(i+2)
                   ra(2) = roscar(i+3)
                   ra(3) = roscar(i+4)
                   ra(4) = roscar(i+5)
-                  WRITE (Op,99022) iname(1) , iname(2) , dprec , dprec1
+                  WRITE (op,99028) iname(1) , iname(2) , dprec , dprec1
                   i = i + 5
-                  IF ( Mpl(mplp)>0 ) mplp = mplp + 4
+                  IF ( mpl(mplp)>0 ) mplp = mplp + 4
                   mplp = mplp + 1
                   j = j + 1
                   IF ( j<=nparm ) CYCLE
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  WRITE (Op,99017) iname(1) , iname(2) , oscar(i+2)
+                  WRITE (op,99023) iname(1) , iname(2) , oscar(i+2)
                ENDIF
                i = i + 2
-               IF ( Mpl(mplp)>0 ) mplp = mplp + 1
+               IF ( mpl(mplp)>0 ) mplp = mplp + 1
                mplp = mplp + 1
                j = j + 1
                IF ( j>nparm ) THEN
@@ -438,7 +439,7 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO SPAG_Loop_1_4
          i = i + 3
-         IF ( Mpl(mplp)>0 ) mplp = mplp + 2
+         IF ( mpl(mplp)>0 ) mplp = mplp + 2
          mplp = mplp + 1
          j = j + 1
          IF ( j<=nparm ) THEN
@@ -453,14 +454,13 @@ USE ISO_FORTRAN_ENV
          i = i + 2
          IF ( itype==2 ) i = i - 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !
-99017 FORMAT (20X,2A4,5H(I  ),2X,I10)
-99018 FORMAT (20X,2A4,5H(R  ),2X,E15.6)
-99019 FORMAT (20X,2A4,5H(BCD),5X,2A4)
-99020 FORMAT (20X,2A4,5H(RDP),2X,D24.15)
-99021 FORMAT (20X,2A4,5H(CSP),2X,2E15.6)
-99022 FORMAT (20X,2A4,5H(CDP),2X,2D24.15)
+99023 FORMAT (20X,2A4,5H(I  ),2X,I10)
+99024 FORMAT (20X,2A4,5H(R  ),2X,E15.6)
+99025 FORMAT (20X,2A4,5H(BCD),5X,2A4)
+99026 FORMAT (20X,2A4,5H(RDP),2X,D24.15)
+99027 FORMAT (20X,2A4,5H(CSP),2X,2E15.6)
+99028 FORMAT (20X,2A4,5H(CDP),2X,2D24.15)
 END SUBROUTINE dumper

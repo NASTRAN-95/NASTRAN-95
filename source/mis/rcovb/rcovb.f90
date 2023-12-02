@@ -1,16 +1,17 @@
-!*==rcovb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovb.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovb
-USE C_BLANK
-USE C_MPYADX
-USE C_NAMES
-USE C_RCOVCM
-USE C_RCOVCR
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_mpyadx
+   USE c_names
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -58,35 +59,35 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
-         lcorez = korsz(Z) - Lreq
-         Sof1 = lcorez - Sysbuf + 1
-         Sof2 = Sof1 - Sysbuf - 1
-         Sof3 = Sof2 - Sysbuf
-         Buf1 = Sof3 - Sysbuf
-         Buf2 = Buf1 - Sysbuf
-         Buf3 = Buf2 - Sysbuf
-         Buf4 = Buf3 - Sysbuf
-         Lcore = Buf4 - 1
-         IF ( Lcore<=0 ) THEN
+         lcorez = korsz(z) - lreq
+         sof1 = lcorez - sysbuf + 1
+         sof2 = sof1 - sysbuf - 1
+         sof3 = sof2 - sysbuf
+         buf1 = sof3 - sysbuf
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         lcore = buf4 - 1
+         IF ( lcore<=0 ) THEN
             n = 8
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
-            Ua = 0
+            CALL sofopn(z(sof1),z(sof2),z(sof3))
+            ua = 0
             pao = 0
-            Tflag = 0
-            Signab = 1
-            Signc = 1
-            Mprec = 0
-            Scrm = scr5
+            tflag = 0
+            signab = 1
+            signc = 1
+            mprec = 0
+            scrm = scr5
 !
 !     FIND OUT HOW MANY UI FILES THERE ARE AND WHICH ONES
 !
             DO i = 1 , 5
                iz(1) = ui(i)
                CALL rdtrl(iz)
-               IF ( iz(1)<0 ) Uinms(1,i) = 0
+               IF ( iz(1)<0 ) uinms(1,i) = 0
             ENDDO
 !
 !     IF UINMS(1,I) = 0         THEN  FILE UI(I) IS PURGED
@@ -95,13 +96,13 @@ USE ISO_FORTRAN_ENV
 !     IF UINMS(1,I) = OTHER     THEN  FILE UI(I) CONTAINS UGV FOR
 !                                     SUBSTRUCTURE -OTHER-
 !
-            ssnm(1) = Ssnm1(1)
-            ssnm(2) = Ssnm1(2)
+            ssnm(1) = ssnm1(1)
+            ssnm(2) = ssnm1(2)
 !
 !     IF SSNM IS THE FINAL SOLUTION STRUCTURE (FSS), NO RECOVERY IS
 !     NECESSARY.
 !
-            IF ( ssnm(1)/=Fss(1) .OR. ssnm(2)/=Fss(2) ) THEN
+            IF ( ssnm(1)/=fss(1) .OR. ssnm(2)/=fss(2) ) THEN
 !
 !     SEARCH THE SOF FOR A DISPLACEMENT MATRIX OF SSNM OR A HIGHER
 !     LEVEL SUBSTRUCTURE FROM WHICH THE REQUESTED DISPLACEMENTS CAN BE
@@ -112,7 +113,7 @@ USE ISO_FORTRAN_ENV
                   CALL softrl(ssnm,uvec,mcbtrl)
                   rc = mcbtrl(1)
                   IF ( rc==1 ) EXIT SPAG_Loop_1_1
-                  IF ( rc==2 .AND. Dry<0 ) EXIT SPAG_Loop_1_1
+                  IF ( rc==2 .AND. dry<0 ) EXIT SPAG_Loop_1_1
                   IF ( rc==3 ) THEN
 !
 !     NO UVEC AT THIS LEVEL.  SAVE SSNM IN A STACK AT TOP OF OPEN CORE
@@ -122,9 +123,9 @@ USE ISO_FORTRAN_ENV
                      iz(lastss) = ssnm(1)
                      iz(lastss+1) = ssnm(2)
                      jlvl = jlvl + 1
-                     CALL fndnxl(Z(lastss),ssnm)
+                     CALL fndnxl(z(lastss),ssnm)
                      IF ( ssnm(1)==blank ) THEN
-                        WRITE (Nout,99001) Uwm , iz(lastss) , iz(lastss+1)
+                        WRITE (nout,99001) uwm , iz(lastss) , iz(lastss+1)
 !
 !     FORMAT STATEMENTS
 !
@@ -132,7 +133,7 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_1 = 6
                         CYCLE SPAG_DispatchLoop_1
                      ELSEIF ( ssnm(1)==iz(lastss) .AND. ssnm(2)==iz(lastss+1) ) THEN
-                        WRITE (Nout,99002) Uwm , Ssnm1 , ssnm
+                        WRITE (nout,99002) uwm , ssnm1 , ssnm
 99002                   FORMAT (A25,' 6308, NO SOLUTION AVAILABLE FROM WHICH DISPLACE','MENTS FOR SUBSTRUCTURE ',2A4,/32X,          &
                                &'CAN BE RECOVERED.  ','HIGHEST LEVEL SUBSTRUCTURE FOUND WAS ',2A4)
                         spag_nextblock_1 = 6
@@ -143,13 +144,13 @@ USE ISO_FORTRAN_ENV
 !     BEGIN BACK-SUBSTITUTION.  OTHERWISE, GIVE IT THE SAME TREATMENT
 !     AS IF IT WERE NOT THE FSS.
 !
-                     ELSEIF ( ssnm(1)==Fss(1) .AND. ssnm(2)==Fss(2) ) THEN
-                        IF ( Dry<0 ) THEN
+                     ELSEIF ( ssnm(1)==fss(1) .AND. ssnm(2)==fss(2) ) THEN
+                        IF ( dry<0 ) THEN
                            spag_nextblock_1 = 2
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        Ua = ugv
-                        mcbtrl(1) = Ua
+                        ua = ugv
+                        mcbtrl(1) = ua
                         CALL rdtrl(mcbtrl)
                         IF ( mcbtrl(1)>0 ) GOTO 10
                      ENDIF
@@ -159,7 +160,7 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     WRITE (Nout,99003) Uwm , Ssnm1 , ssnm
+                     WRITE (nout,99003) uwm , ssnm1 , ssnm
 99003                FORMAT (A25,' 6307, WHILE ATTEMPTING TO RECOVER DISPLACEMENTS ','FOR SUBSTRUCTURE ',2A4,1H,,/32X,              &
                             &'THE DISPLACEMENTS FOR ','SUBSTRUCTURE ',2A4,' WERE FOUND TO EXIST IN DRY RUN ','FORM ONLY.')
                      spag_nextblock_1 = 6
@@ -170,13 +171,13 @@ USE ISO_FORTRAN_ENV
 !     FOUND A UVEC ON SOF FOR THIS LEVEL.  SEE IF IT HAS ALREADY BEEN
 !     PUT ON A UI FILE.  (IF DRY RUN, EXIT)
 !
-               IF ( Dry<0 .OR. jlvl==1 ) THEN
+               IF ( dry<0 .OR. jlvl==1 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                DO i = 1 , 5
-                  Ua = ui(i)
-                  IF ( ssnm(1)==Uinms(1,i) .AND. ssnm(2)==Uinms(2,i) ) GOTO 10
+                  ua = ui(i)
+                  IF ( ssnm(1)==uinms(1,i) .AND. ssnm(2)==uinms(2,i) ) GOTO 10
                ENDDO
 !
 !     DATA BLANK /4H    /
@@ -185,9 +186,9 @@ USE ISO_FORTRAN_ENV
 !
                j = 0
                DO i = 1 , 5
-                  IF ( Uinms(1,i)/=0 ) THEN
+                  IF ( uinms(1,i)/=0 ) THEN
                      j = j + 1
-                     IF ( Uinms(1,i)==blank ) GOTO 5
+                     IF ( uinms(1,i)==blank ) GOTO 5
                   ENDIF
                ENDDO
 !
@@ -197,28 +198,28 @@ USE ISO_FORTRAN_ENV
 !
 !     ALL UI FILES ARE PURGED.  USE SCR1 INSTEAD
 !
-                  Ua = scr1
+                  ua = scr1
 !
 !     COPY UVEC FROM SOF TO UA
 !
-                  CALL mtrxi(Ua,ssnm,uvec,0,rc)
+                  CALL mtrxi(ua,ssnm,uvec,0,rc)
                   GOTO 10
                ELSE
 !
 !     AT LEAST ONE EXISTS.  RE-USE THE ONE WITH OLDEST DATA
 !
-                  i = Lui + 1
+                  i = lui + 1
                   IF ( i>5 ) i = 1
                   j = i
-                  DO WHILE ( Uinms(1,i)==0 )
+                  DO WHILE ( uinms(1,i)==0 )
 !
 !     NO FILE THERE.  TRY NEXT ONE.
 !
                      i = i + 1
                      IF ( i>5 ) i = 1
                      IF ( i==j ) THEN
-                        Ua = scr1
-                        CALL mtrxi(Ua,ssnm,uvec,0,rc)
+                        ua = scr1
+                        CALL mtrxi(ua,ssnm,uvec,0,rc)
                         GOTO 10
                      ENDIF
                   ENDDO
@@ -226,13 +227,13 @@ USE ISO_FORTRAN_ENV
 !
 !     FOUND A UI FILE TO USE
 !
- 5             Lui = i
-               Ua = ui(i)
-               Uinms(1,i) = ssnm(1)
-               Uinms(2,i) = ssnm(2)
-               CALL mtrxi(Ua,ssnm,uvec,0,rc)
+ 5             lui = i
+               ua = ui(i)
+               uinms(1,i) = ssnm(1)
+               uinms(2,i) = ssnm(2)
+               CALL mtrxi(ua,ssnm,uvec,0,rc)
             ELSE
-               Ua = ugv
+               ua = ugv
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -240,14 +241,14 @@ USE ISO_FORTRAN_ENV
 !
 !     TOP OF BACK-SUBSTITUTION LOOP
 !
-               ub = Ua
-               Uaomcb(1) = 0
-               Icore = lastss + 2
-               idpcor = Icore/2 + 1
+               ub = ua
+               uaomcb(1) = 0
+               icore = lastss + 2
+               idpcor = icore/2 + 1
 !
 !     CHECK IF THE EQSS ITEM IS THERE FOR THIS SUBSTRUCTURE
 !
-               CALL sfetch(Z(lastss),eqss,schk,rc)
+               CALL sfetch(z(lastss),eqss,schk,rc)
                IF ( rc/=1 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -263,7 +264,7 @@ USE ISO_FORTRAN_ENV
 !
 !     ERROR PROCESSING
 !
-                  WRITE (Nout,99004) Sfm , iz(lastss) , iz(lastss+1) , ssnm , Ssnm1
+                  WRITE (nout,99004) sfm , iz(lastss) , iz(lastss+1) , ssnm , ssnm1
 99004             FORMAT (A25,' 6309, INSUFFICIENT TIME REMAINING TO RECOVER DIS','PLACEMENTS OF SUBSTRUCTURE ',2A4,/32X,           &
                          &'FROM THOSE OF ','SUBSTRUCTURE ',2A4,'.  (PROCESSING USER RECOVER REQUEST',/32X,'FOR SUBSTRUCTURE ',2A4,  &
                          &1H))
@@ -281,7 +282,7 @@ USE ISO_FORTRAN_ENV
 !
 !     NO. OF COLUMNS IN DISPLACEMENT MATRIX IN I
 !
-                  CALL softrl(Z(lastss),horg,mcbtrl)
+                  CALL softrl(z(lastss),horg,mcbtrl)
                   rc = mcbtrl(1)
                   item = horg
                   IF ( rc>1 ) THEN
@@ -294,7 +295,7 @@ USE ISO_FORTRAN_ENV
 !     NOW CHECK SPACE
 !
                   IF ( sofsiz(i)<j ) THEN
-                     WRITE (Nout,99005) Swm , iz(lastss) , iz(lastss+1) , ssnm , Ssnm1
+                     WRITE (nout,99005) swm , iz(lastss) , iz(lastss+1) , ssnm , ssnm1
 99005                FORMAT (A27,' 6310, INSUFFICIENT SPACE ON SOF TO RECOVER DIS','PLACEMENTS OF SUBSTRUCTURE ',2A4,/32X,          &
                             &' FROM THOSE OF ','SUBSTRUCTURE ',2A4,' WHILE PROCESSING USER RECOVER ','REQUEST',/32X,                &
                             &'FOR SUBSTRUCTURE ',2A4)
@@ -304,8 +305,8 @@ USE ISO_FORTRAN_ENV
 !
 !     CREATE THE SOLUTION ITEM FOR THE RECOVERED SUBSTRUCTURE.
 !
-                     CALL rcovls(Z(lastss))
-                     IF ( Iopt<0 ) THEN
+                     CALL rcovls(z(lastss))
+                     IF ( iopt<0 ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -314,9 +315,9 @@ USE ISO_FORTRAN_ENV
 !
                      j = 0
                      DO i = 1 , 5
-                        IF ( Uinms(1,i)/=0 ) THEN
+                        IF ( uinms(1,i)/=0 ) THEN
                            j = j + 1
-                           IF ( Uinms(1,i)==blank ) GOTO 12
+                           IF ( uinms(1,i)==blank ) GOTO 12
                         ENDIF
                      ENDDO
 !
@@ -326,17 +327,17 @@ USE ISO_FORTRAN_ENV
 !     LEVEL DISPLACEMENTS ARE ON (UB)
 !
                      IF ( j<2 ) THEN
-                        Ua = scr2
+                        ua = scr2
                         GOTO 14
                      ELSE
-                        i = Lui + 1
+                        i = lui + 1
                         IF ( i>5 ) i = 1
                         j = i
-                        DO WHILE ( Uinms(1,i)==0 .OR. ui(i)==ub )
+                        DO WHILE ( uinms(1,i)==0 .OR. ui(i)==ub )
                            i = i + 1
                            IF ( i>5 ) i = 1
                            IF ( i==j ) THEN
-                              Ua = scr2
+                              ua = scr2
                               GOTO 14
                            ENDIF
                         ENDDO
@@ -344,10 +345,10 @@ USE ISO_FORTRAN_ENV
 !
 !     FOUND A UI FILE
 !
- 12                  Lui = i
-                     Ua = ui(i)
-                     Uinms(1,i) = iz(lastss)
-                     Uinms(2,i) = iz(lastss+1)
+ 12                  lui = i
+                     ua = ui(i)
+                     uinms(1,i) = iz(lastss)
+                     uinms(2,i) = iz(lastss+1)
 !
 !     IF THE RECOVERED SUBSTRUCTURE WAS NOT REDUCED GENERATE THE
 !     DISPLACEMENTS DIRECTLY.
@@ -359,7 +360,7 @@ USE ISO_FORTRAN_ENV
 !     INCLUDE THE CHECK ON THE POVE ITEM ALSO TO BE COMPATABLE WITH
 !     PREVIOUS SOFS WITH NO TYPE BITS
 !
- 14                  CALL softrl(Z(lastss),pove,mcbtrl)
+ 14                  CALL softrl(z(lastss),pove,mcbtrl)
                      ipove = mcbtrl(1)
                      CALL fdsub(ssnm,idit)
                      rc = 4
@@ -370,27 +371,27 @@ USE ISO_FORTRAN_ENV
                      CALL fmdi(idit,imdi)
                      modal = .FALSE.
                      IF ( andf(buf(imdi+ib),mmask)/=0 ) modal = .TRUE.
-                     IF ( andf(buf(imdi+ib),rmask)/=0 .AND. Uimpro/=0 .AND. Rfno>2 ) THEN
+                     IF ( andf(buf(imdi+ib),rmask)/=0 .AND. uimpro/=0 .AND. rfno>2 ) THEN
 !
 !     IF THE USER REQUESTED AN IMPROVED VECTOR AND THIS IS A NONSTATICS
 !     RUN THEN GENERATE IT.
 !
-                        CALL rcovui(ub,Z(lastss),modal)
-                        IF ( Iopt<0 ) THEN
+                        CALL rcovui(ub,z(lastss),modal)
+                        IF ( iopt<0 ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         GOTO 18
                      ELSE
-                        IF ( andf(buf(imdi+ib),gmask)==0 .OR. Rfno>2 ) THEN
-                           IF ( andf(buf(imdi+ib),rmask)/=0 .OR. ipove/=1 .OR. Rfno>2 ) GOTO 16
+                        IF ( andf(buf(imdi+ib),gmask)==0 .OR. rfno>2 ) THEN
+                           IF ( andf(buf(imdi+ib),rmask)/=0 .OR. ipove/=1 .OR. rfno>2 ) GOTO 16
                         ENDIF
 !
 !     GENERATE THE LOADS ON THE OMITED POINTS FOR REDUCED SUBSTRUCTURES
 !     IF THIS IS A STATICS RUN
 !
-                        CALL rcovuo(0,Uaomcb(1),Z(lastss))
-                        IF ( Iopt<0 ) THEN
+                        CALL rcovuo(0,uaomcb(1),z(lastss))
+                        IF ( iopt<0 ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -399,10 +400,10 @@ USE ISO_FORTRAN_ENV
 !
 !     COPY H OR G TRANSFORMATION MATRIX TO SCR3
 !
-                        CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+                        CALL sofopn(z(sof1),z(sof2),z(sof3))
                      ENDIF
  16                  item = horg
-                     CALL mtrxi(scr3,Z(lastss),horg,0,rc)
+                     CALL mtrxi(scr3,z(lastss),horg,0,rc)
                      IF ( rc/=1 ) THEN
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
@@ -411,32 +412,32 @@ USE ISO_FORTRAN_ENV
 !     SETUP FOR MPYAD
 !
                      CALL sofcls
-                     Hmcb(1) = scr3
-                     Ubmcb(1) = ub
-                     CALL rdtrl(Hmcb)
-                     CALL rdtrl(Ubmcb)
-                     IF ( Uaomcb(1)/=0 ) CALL rdtrl(Uaomcb)
-                     CALL makmcb(Uamcb,Ua,Hmcb(3),Rect,Ubmcb(5))
-                     Mpyz = lcorez - Icore - 7
+                     hmcb(1) = scr3
+                     ubmcb(1) = ub
+                     CALL rdtrl(hmcb)
+                     CALL rdtrl(ubmcb)
+                     IF ( uaomcb(1)/=0 ) CALL rdtrl(uaomcb)
+                     CALL makmcb(uamcb,ua,hmcb(3),rect,ubmcb(5))
+                     mpyz = lcorez - icore - 7
                      CALL mpyad(dz(idpcor),dz(idpcor),dz(idpcor))
-                     CALL wrttrl(Uamcb)
+                     CALL wrttrl(uamcb)
 !
 !     COPY RECOVERED DISPLACEMENTS TO SOF
 !
- 18                  CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
-                     CALL mtrxo(Ua,Z(lastss),uvec,0,rc)
+ 18                  CALL sofopn(z(sof1),z(sof2),z(sof3))
+                     CALL mtrxo(ua,z(lastss),uvec,0,rc)
 !
 !     END OF BACK-SUBSTITUTION LOOP
 !     CLOSE AND REOPEN THE SOF TO GET ANY CONTROL BLOCKS WRITTEN TO
 !     FILE
 !
                      CALL sofcls
-                     CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+                     CALL sofopn(z(sof1),z(sof2),z(sof3))
                      ssnm(1) = iz(lastss)
                      ssnm(2) = iz(lastss+1)
                      lastss = lastss - 2
                      jlvl = jlvl - 1
-                     WRITE (Nout,99006) Uim , jlvl , ssnm
+                     WRITE (nout,99006) uim , jlvl , ssnm
 99006                FORMAT (A29,' 6312, LEVEL',I4,' DISPLACEMENTS FOR SUBSTRUCTURE ',2A4,/36X,                                     &
                             &'HAVE BEEN RECOVERED AND SAVED ON THE SOF.')
                      IF ( jlvl<=1 ) EXIT SPAG_Loop_1_2
@@ -450,27 +451,25 @@ USE ISO_FORTRAN_ENV
 !     NORMAL COMPLETION OF MODULE EXECUTION
 !
          DO i = 1 , 5
-            IF ( Uinms(1,i)==0 ) Uinms(1,i) = blank
+            IF ( uinms(1,i)==0 ) uinms(1,i) = blank
          ENDDO
          CALL sofcls
          RETURN
       CASE (3)
          IF ( rc==2 ) rc = 3
-         CALL smsg(rc-2,item,Z(lastss))
+         CALL smsg(rc-2,item,z(lastss))
          spag_nextblock_1 = 4
       CASE (4)
-         WRITE (Nout,99007) Swm , Ssnm1
+         WRITE (nout,99007) swm , ssnm1
 99007    FORMAT (A25,' 6317, RECOVER OF DISPLACEMENTS FOR SUBSTRUCTURE ',2A4,' ABORTED.')
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          CALL sofcls
          CALL mesage(n,file,name)
          spag_nextblock_1 = 6
       CASE (6)
-         Iopt = -1
+         iopt = -1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE rcovb

@@ -1,17 +1,39 @@
-!*==dummy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dummy.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dummy
-   USE C_MACHIN
-   USE C_SYSTEM
+USE c_machin
+USE c_system
+USE C_MACHIN
+USE C_SYSTEM
    IMPLICIT NONE
-   INTEGER Isysbf , Mach , Nout
-   COMMON /machin/ Mach
-   COMMON /system/ Isysbf , Nout
-   REAL Code , O
-   INTEGER I , I1 , I2 , I3 , I4 , I5 , J , K , Key , L , M
-   INTEGER N(1)
-   CHARACTER*8 name
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
+   REAL :: Code , O
+   INTEGER :: I , I1 , I2 , I3 , I4 , I5 , J , K , Key , L , M
+   INTEGER , DIMENSION(1) :: N
+   CHARACTER(8) :: name
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     NOTE:
 !     THIS DUMMY.MIS ROUTINE CONTAINS 4 MACHINE VERSIONS (IBM,CDC,VAX,
@@ -1010,6 +1032,8 @@ SUBROUTINE dummy
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_MACHIN
+      USE C_SYSTEM
 !
 ! ****
 !     DUMMY ROUTINES REFERENCED ONLY IN LINK 5, ALL MACHINES
@@ -1029,19 +1053,21 @@ CONTAINS
 !
 !WKBD GO TO 220
 !
-      WRITE (Nout,99003) name
-99003 FORMAT ('0*** SYSTEM FATAL ERROR  ---  JOB TERMINATED',' DUE TO CALL TO DUMMY SUBROUTINE.  ENTRY NAME IS ',A8)
+      WRITE (Nout,99001) Name
+99001 FORMAT ('0*** SYSTEM FATAL ERROR  ---  JOB TERMINATED',' DUE TO CALL TO DUMMY SUBROUTINE.  ENTRY NAME IS ',A8)
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
+      USE C_MACHIN
+      USE C_SYSTEM
 !
 ! ****
 !     TO FORCE A SYSTEM FATAL ERROR FOR TRACEBACK (VAX ONLY, NOT UNIX)
 ! ****
 !
       IF ( Mach==5 ) THEN
-         WRITE (Nout,99004)
-99004    FORMAT ('0*** ERROR TRACEBACK IN SYSTEM LOG FILE')
+         WRITE (Nout,99001)
+99001    FORMAT ('0*** ERROR TRACEBACK IN SYSTEM LOG FILE')
          I = 987654321
          N(I) = 0
       ENDIF

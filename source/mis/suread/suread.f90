@@ -1,12 +1,13 @@
-!*==suread.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==suread.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE suread(Ia,Nd,Nout,Itest)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,22 +39,22 @@ SUBROUTINE suread(Ia,Nd,Nout,Itest)
 !
    CALL chkopn(nmsbr(1))
    icount = 0
-   IF ( Iomode/=ird ) THEN
+   IF ( iomode/=ird ) THEN
       Itest = 4
       Nout = 0
       RETURN
    ENDIF
    SPAG_Loop_1_1: DO
-      IF ( Ioptr>Blksiz+Io ) THEN
+      IF ( ioptr>blksiz+io ) THEN
 !
 !     REACHED END OF BLOCK.  REPLACE THE BLOCK CURRENTLY IN CORE BY ITS
 !     LINK BLOCK.
 !
-         CALL fnxt(Iopbn,inxt)
-         IF ( mod(Iopbn,2)==1 ) THEN
-            next = andf(Buf(inxt),Jhalf)
+         CALL fnxt(iopbn,inxt)
+         IF ( mod(iopbn,2)==1 ) THEN
+            next = andf(buf(inxt),jhalf)
          ELSE
-            next = andf(rshift(Buf(inxt),Ihalf),Jhalf)
+            next = andf(rshift(buf(inxt),ihalf),jhalf)
          ENDIF
          IF ( next==0 ) THEN
 !
@@ -62,33 +63,33 @@ SUBROUTINE suread(Ia,Nd,Nout,Itest)
             CALL errmkn(indsbr,9)
             EXIT SPAG_Loop_1_1
          ELSE
-            Iopbn = next
-            Iolbn = Iolbn + 1
-            CALL sofio(ird,Iopbn,Buf(Io-2))
-            Ioptr = Io + 1
+            iopbn = next
+            iolbn = iolbn + 1
+            CALL sofio(ird,iopbn,buf(io-2))
+            ioptr = io + 1
          ENDIF
       ENDIF
 !
 !     READ SOF INTO ARRAY IA, BUT WATCH FOR END OF GROUP AND END OF ITEM
 !
-      IF ( Buf(Ioptr)==ieoi ) THEN
+      IF ( buf(ioptr)==ieoi ) THEN
 !
 !    REACHED END OF ITEM.
 !
          Itest = 3
-         Iomode = idle
-         Ioptr = Ioptr + 1
-      ELSEIF ( Buf(Ioptr)==ieog .AND. Nd/=-2 ) THEN
+         iomode = idle
+         ioptr = ioptr + 1
+      ELSEIF ( buf(ioptr)==ieog .AND. Nd/=-2 ) THEN
 !
 !    REACHED END OF GROUP.
 !
          Itest = 2
-         Ioptr = Ioptr + 1
+         ioptr = ioptr + 1
       ELSE
 !
          icount = icount + 1
-         Ia(icount) = Buf(Ioptr)
-         Ioptr = Ioptr + 1
+         Ia(icount) = buf(ioptr)
+         ioptr = ioptr + 1
          IF ( icount/=Nd ) CYCLE
 !
 !     READ THE REQUIRED NUMBER OF WORDS.

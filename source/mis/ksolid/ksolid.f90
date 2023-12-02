@@ -1,13 +1,14 @@
-!*==ksolid.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ksolid.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ksolid(Itype)
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -148,32 +149,32 @@ SUBROUTINE ksolid(Itype)
       ENDIF
       idelem = necpt(1)
       igflag = 1
-      R12(1) = Ecpt(14) - Ecpt(10)
-      R12(2) = Ecpt(15) - Ecpt(11)
-      R12(3) = Ecpt(16) - Ecpt(12)
-      R13(1) = Ecpt(18) - Ecpt(10)
-      R13(2) = Ecpt(19) - Ecpt(11)
-      R13(3) = Ecpt(20) - Ecpt(12)
-      CALL saxb(R12,R13,Rxr)
+      r12(1) = ecpt(14) - ecpt(10)
+      r12(2) = ecpt(15) - ecpt(11)
+      r12(3) = ecpt(16) - ecpt(12)
+      r13(1) = ecpt(18) - ecpt(10)
+      r13(2) = ecpt(19) - ecpt(11)
+      r13(3) = ecpt(20) - ecpt(12)
+      CALL saxb(r12,r13,rxr)
 !
 !     IN THE ABOVE, THE WEDGE IS NUMBERED 1,2,3 COUNTERCLOCKWISE AT THE
 !     BASE AND 4,5,6 COUNTER CLOCKWISE AT THE TOP. (LOOKING DOWN ON WED)
 !
-      R12(1) = Ecpt(26) - Ecpt(22)
-      R12(2) = Ecpt(27) - Ecpt(23)
-      R12(3) = Ecpt(28) - Ecpt(24)
-      R13(1) = Ecpt(30) - Ecpt(22)
-      R13(2) = Ecpt(31) - Ecpt(23)
-      R13(3) = Ecpt(32) - Ecpt(24)
-      CALL saxb(R12,R13,R)
+      r12(1) = ecpt(26) - ecpt(22)
+      r12(2) = ecpt(27) - ecpt(23)
+      r12(3) = ecpt(28) - ecpt(24)
+      r13(1) = ecpt(30) - ecpt(22)
+      r13(2) = ecpt(31) - ecpt(23)
+      r13(3) = ecpt(32) - ecpt(24)
+      CALL saxb(r12,r13,r)
 !
-      IF ( sadotb(R,Rxr)>0 ) THEN
+      IF ( sadotb(r,rxr)>0 ) THEN
 !
 !     PLANER CHECKS FOR WEDGE
 !
-         CALL kpltst(Ecpt(10),Ecpt(14),Ecpt(26),Ecpt(22))
-         CALL kpltst(Ecpt(10),Ecpt(22),Ecpt(30),Ecpt(18))
-         CALL kpltst(Ecpt(14),Ecpt(18),Ecpt(30),Ecpt(26))
+         CALL kpltst(ecpt(10),ecpt(14),ecpt(26),ecpt(22))
+         CALL kpltst(ecpt(10),ecpt(22),ecpt(30),ecpt(18))
+         CALL kpltst(ecpt(14),ecpt(18),ecpt(30),ecpt(26))
          CALL spag_block_2
          RETURN
       ENDIF
@@ -184,38 +185,36 @@ CONTAINS
 !
 !     ERROR CONDITION - BAD GEOMETRY
 !
-      WRITE (Out,99001) Ufm , necpt(1)
+      WRITE (out,99001) ufm , Necpt(1)
 99001 FORMAT (A23,' 4001, ELEMENT',I10,' HAS BAD GEOMETRY.')
-      Nogoo = 1
-      RETURN
+      nogoo = 1
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      IF ( Nogoo==1 ) RETURN
+      IF ( nogoo==1 ) RETURN
       CALL spag_block_4
-      RETURN
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3
 !
 !     CHECK GEOMETRY OF 6-SIDED SOLID AT THIS POINT
 !
-      IF ( necpt(1)/=idelem ) THEN
-         idelem = necpt(1)
-         igflag = 1
-         R13(1) = Ecpt(20) - Ecpt(12)
-         R13(2) = Ecpt(21) - Ecpt(13)
-         R13(3) = Ecpt(22) - Ecpt(14)
-         R24(1) = Ecpt(24) - Ecpt(16)
-         R24(2) = Ecpt(25) - Ecpt(17)
-         R24(3) = Ecpt(26) - Ecpt(18)
-         CALL saxb(R13,R24,Rxr)
+      IF ( Necpt(1)/=Idelem ) THEN
+         Idelem = Necpt(1)
+         Igflag = 1
+         r13(1) = ecpt(20) - ecpt(12)
+         r13(2) = ecpt(21) - ecpt(13)
+         r13(3) = ecpt(22) - ecpt(14)
+         r24(1) = ecpt(24) - ecpt(16)
+         r24(2) = ecpt(25) - ecpt(17)
+         r24(3) = ecpt(26) - ecpt(18)
+         CALL saxb(r13,r24,Rxr)
 !
-         R12(1) = Ecpt(36) - Ecpt(28)
-         R12(2) = Ecpt(37) - Ecpt(29)
-         R12(3) = Ecpt(38) - Ecpt(30)
-         R13(1) = Ecpt(40) - Ecpt(32)
-         R13(2) = Ecpt(41) - Ecpt(33)
-         R13(3) = Ecpt(42) - Ecpt(34)
-         CALL saxb(R12,R13,R)
+         r12(1) = ecpt(36) - ecpt(28)
+         r12(2) = ecpt(37) - ecpt(29)
+         r12(3) = ecpt(38) - ecpt(30)
+         r13(1) = ecpt(40) - ecpt(32)
+         r13(2) = ecpt(41) - ecpt(33)
+         r13(3) = ecpt(42) - ecpt(34)
+         CALL saxb(r12,r13,R)
 !
          IF ( sadotb(Rxr,R)<=0 ) THEN
             CALL spag_block_1
@@ -224,14 +223,14 @@ CONTAINS
 !
 !     PLANER CHECKS FOR HEXA-5 OR HEXA-10
 !
-         CALL kpltst(Ecpt(12),Ecpt(16),Ecpt(20),Ecpt(24))
-         CALL kpltst(Ecpt(12),Ecpt(16),Ecpt(32),Ecpt(28))
-         CALL kpltst(Ecpt(16),Ecpt(20),Ecpt(36),Ecpt(32))
-         CALL kpltst(Ecpt(20),Ecpt(24),Ecpt(40),Ecpt(36))
-         CALL kpltst(Ecpt(24),Ecpt(12),Ecpt(28),Ecpt(40))
-         CALL kpltst(Ecpt(28),Ecpt(32),Ecpt(36),Ecpt(40))
+         CALL kpltst(ecpt(12),ecpt(16),ecpt(20),ecpt(24))
+         CALL kpltst(ecpt(12),ecpt(16),ecpt(32),ecpt(28))
+         CALL kpltst(ecpt(16),ecpt(20),ecpt(36),ecpt(32))
+         CALL kpltst(ecpt(20),ecpt(24),ecpt(40),ecpt(36))
+         CALL kpltst(ecpt(24),ecpt(12),ecpt(28),ecpt(40))
+         CALL kpltst(ecpt(28),ecpt(32),ecpt(36),ecpt(40))
       ENDIF
-      IF ( Nogoo==1 ) RETURN
+      IF ( nogoo==1 ) RETURN
       CALL spag_block_4
    END SUBROUTINE spag_block_3
    SUBROUTINE spag_block_4
@@ -240,36 +239,36 @@ CONTAINS
 !     EACH TETRAHEDRON AND CALL KTETRA(IOPT). IOPT = 1 IMPLIES TO COMPUT
 !     HALF STIFFNESS. IOPT = 0 IMPLIES COMPUTE FULL STIFFNESS.
 !
-      DO j = 1 , 50
-         Ecpt(j+50) = Ecpt(j)
+      DO J = 1 , 50
+         ecpt(J+50) = ecpt(J)
       ENDDO
 !
 !     FILL MAT ID AND EL TEMP
 !
-      necpt(2) = necpt(52)
-      necpt(23) = necpt(itemp+50)
-      jtype = Itype
-      DO i = itet , ntet
-         IF ( i==ntet ) jtype = -Itype
-         IF ( Itype==1 ) iopt = i + 10
+      Necpt(2) = Necpt(52)
+      Necpt(23) = Necpt(Itemp+50)
+      Jtype = Itype
+      DO I = Itet , Ntet
+         IF ( I==Ntet ) Jtype = -Itype
+         IF ( Itype==1 ) Iopt = I + 10
 !
 !     FILL IN GRID SIL-S AND COORDINATE SETS
 !
-         DO j = 1 , 4
-            kpoint = m(i,j)
-            necpt(j+2) = necpt(kpoint+52)
-            kpoint = 4*kpoint + ngrids - 3
-            jpoint = 4*j + 2
-            necpt(jpoint+1) = necpt(kpoint+52)
-            necpt(jpoint+2) = necpt(kpoint+53)
-            necpt(jpoint+3) = necpt(kpoint+54)
-            necpt(jpoint+4) = necpt(kpoint+55)
+         DO J = 1 , 4
+            Kpoint = M(I,J)
+            Necpt(J+2) = Necpt(Kpoint+52)
+            Kpoint = 4*Kpoint + Ngrids - 3
+            Jpoint = 4*J + 2
+            Necpt(Jpoint+1) = Necpt(Kpoint+52)
+            Necpt(Jpoint+2) = Necpt(Kpoint+53)
+            Necpt(Jpoint+3) = Necpt(Kpoint+54)
+            Necpt(Jpoint+4) = Necpt(Kpoint+55)
          ENDDO
 !
 !     BUMP IOPT IF GEOMETRY TESTS ARE TO BE MADE
 !
-         IF ( igflag==1 ) iopt = iopt + 100
-         CALL ktetra(iopt,jtype)
+         IF ( Igflag==1 ) Iopt = Iopt + 100
+         CALL ktetra(Iopt,Jtype)
       ENDDO
    END SUBROUTINE spag_block_4
 !

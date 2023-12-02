@@ -1,11 +1,12 @@
-!*==getdef.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==getdef.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
+   USE c_blank
+   USE c_xxparm
+   USE c_zntpkx
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_XXPARM
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,8 +38,8 @@ SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Last = 0
-         k = 3*Ngpset
+         last = 0
+         k = 3*ngpset
          DO i = 1 , k
             D(i,1) = 0.0
          ENDDO
@@ -72,31 +73,30 @@ SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
                ENDIF
             ENDIF
          ENDIF
-         Maxdef = 0.
+         maxdef = 0.
          CALL intpk(*99999,Dfrm,0,sp,0)
          gp = 0
-         Siln = 0
-         CALL gopen(Msil,Buf(1),inprew)
-         CALL fread(Msil,sil2,1,0)
+         siln = 0
+         CALL gopen(msil,Buf(1),inprew)
+         CALL fread(msil,sil2,1,0)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     -GP- = PREVIOUS EXISTENT GRID POINT IN THIS SET. FIND NEXT ONE.
 !
          k = gp + 1
-         DO gpx = k , Ngp
+         DO gpx = k , ngp
             IF ( Gpt(gpx)/=0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         sil1 = Lsil + 1
+         sil1 = lsil + 1
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          DO WHILE ( gpx/=gp+1 )
             gp = gp + 1
-            CALL fread(Msil,sil2,1,0)
+            CALL fread(msil,sil2,1,0)
          ENDDO
          sil1 = sil2
 !
@@ -105,44 +105,43 @@ SUBROUTINE getdef(Dfrm,Ph,Mag,Conv,Plttyp,Buf,Gpt,D)
 !
          gp = gpx
          gpx = iabs(Gpt(gp))
-         IF ( gp==Ngp ) sil2 = Lsil + 1
-         IF ( gp/=Ngp ) CALL fread(Msil,sil2,1,0)
+         IF ( gp==ngp ) sil2 = lsil + 1
+         IF ( gp/=ngp ) CALL fread(msil,sil2,1,0)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     READ NEXT DEFORMATION VALUE AT THIS EXISTING GRID POINT.
 !
-         IF ( Siln<=Lsil .AND. Siln>=sil1 ) THEN
-            IF ( Siln>sil1+2 .OR. Siln>=sil2 ) THEN
+         IF ( siln<=lsil .AND. siln>=sil1 ) THEN
+            IF ( siln>sil1+2 .OR. siln>=sil2 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            k = Siln - sil1 + 1
+            k = siln - sil1 + 1
             D(k,gpx) = defval
-            IF ( Last==0 ) THEN
+            IF ( last==0 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
-            CALL close(Msil,rew)
+            CALL close(msil,rew)
             RETURN
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( Last/=0 ) THEN
-            CALL close(Msil,rew)
+         IF ( last/=0 ) THEN
+            CALL close(msil,rew)
             RETURN
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
          CALL zntpki
          GOTO type
- 20      defval = Defc(i1)*cn - Defc(i2)*sn
+ 20      defval = defc(i1)*cn - defc(i2)*sn
          GOTO 60
- 40      defval = Conv*sqrt(Defc(1)**2+Defc(sp-1)**2)
- 60      IF ( abs(defval)>Maxdef ) Maxdef = abs(defval)
+ 40      defval = Conv*sqrt(defc(1)**2+defc(sp-1)**2)
+ 60      IF ( abs(defval)>maxdef ) maxdef = abs(defval)
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99999 END SUBROUTINE getdef

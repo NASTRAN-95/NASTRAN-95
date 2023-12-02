@@ -1,10 +1,11 @@
-!*==crsub.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==crsub.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE crsub(Name,I)
+   USE c_sof
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SOF
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,13 +30,13 @@ SUBROUTINE crsub(Name,I)
    DATA indsbr/1/ , nmsbr/4HCRSU , 4HB   /
 !
    CALL chkopn(nmsbr(1))
-   IF ( Ditsiz==Ditnsb*2 ) THEN
+   IF ( ditsiz==ditnsb*2 ) THEN
 !
 !     NO INTERNAL EMPTY SPACE IN THE MDI.  DIRECTORY FOR THE NEW
 !     SUBSTRUCTURE
 !
-      Ditsiz = Ditsiz + 2
-      I = Ditsiz/2
+      ditsiz = ditsiz + 2
+      I = ditsiz/2
    ELSE
 !
 !     THERE IS AN EMPTY INTERNAL DIRECTORY SPACE IN THE MDI.
@@ -52,10 +53,9 @@ SUBROUTINE crsub(Name,I)
 !
 !     UPDATE DIT.
 !
-   Ditnsb = Ditnsb + 1
+   ditnsb = ditnsb + 1
    CALL fdit(I,jdit)
-   Buf(jdit) = Name(1)
-   Buf(jdit+1) = Name(2)
-   Ditup = .TRUE.
-   RETURN
+   buf(jdit) = Name(1)
+   buf(jdit+1) = Name(2)
+   ditup = .TRUE.
 END SUBROUTINE crsub

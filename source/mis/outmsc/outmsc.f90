@@ -1,14 +1,15 @@
-!*==outmsc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==outmsc.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE outmsc() !HIDESTARS (*,*)
-USE C_BLANK
-USE C_MACHIN
-USE C_SYSTEM
-USE C_TYPE
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_machin
+   USE c_system
+   USE c_type
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -57,24 +58,24 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         WRITE (Nout,99001) Uim
+         WRITE (nout,99001) uim
 99001    FORMAT (A29,'. USER REQUESTED RECORDS IN MSC/OUTPUT2 COMPATIBLE',' RECORDS')
          endfil = 0
          endrec = 0
-         lcor = korsz(Z(1))
-         buf1 = lcor - Ibuf + 1
+         lcor = korsz(z(1))
+         buf1 = lcor - ibuf + 1
          IF ( buf1<=0 ) CALL mesage(-8,lcor,sub)
          lend = buf1 - 1
-         out = P2
-         tapcod(1) = P3(1)
-         tapcod(2) = P3(2)
-         IF ( P1==-9 ) THEN
+         out = p2
+         tapcod(1) = p3(1)
+         tapcod(2) = p3(2)
+         IF ( p1==-9 ) THEN
 !
 !     FINAL CALL TO OUTPUT2, P1 = -9
 !
             WRITE (out) endfil
             RETURN 2
-         ELSEIF ( P1==-3 ) THEN
+         ELSEIF ( p1==-3 ) THEN
 !
 !     OBTAIN LIST OF DATA BLOCKS ON FORTRAN TAPE, P1 = -3
 !
@@ -106,21 +107,21 @@ USE ISO_FORTRAN_ENV
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             READ (out) tmp
-            IF ( tmp(1)/=P3(1) .OR. tmp(2)/=P3(2) ) THEN
-               WRITE (Nout,99002) Uwm , tmp , P3
+            IF ( tmp(1)/=p3(1) .OR. tmp(2)/=p3(2) ) THEN
+               WRITE (nout,99002) uwm , tmp , p3
 99002          FORMAT (A25,' 4141. FORTRAN TAPE ID CODE - ',2A4,' DOES NOT MATCH OUTPUT2 THIRD PARAMETER NAME - ',2A4)
             ENDIF
             ASSIGN 60 TO iret
             nskip = 1
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( P1<=-2 ) THEN
-            WRITE (Nout,99003) Ufm , mo2 , P1
+         ELSEIF ( p1<=-2 ) THEN
+            WRITE (nout,99003) ufm , mo2 , p1
 99003       FORMAT (A23,' 4120',A19,'ILLEGAL FIRST PARAMETER ',I3)
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( P1<=0 ) THEN
+            IF ( p1<=0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -140,40 +141,39 @@ USE ISO_FORTRAN_ENV
          READ (out) tmp
          READ (out) key
          IF ( key>=0 ) THEN
-            WRITE (Nout,99004) Sfm , key
+            WRITE (nout,99004) sfm , key
 99004       FORMAT (A25,' 2190. ILLEGAL VALUE FOR KEY =',I10)
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ASSIGN 20 TO iret
             nskip = 1
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      i = i + 1
-         IF ( i<=P1 ) THEN
+         IF ( i<=p1 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
 !
-         IF ( P1==-1 ) THEN
+         IF ( p1==-1 ) THEN
             REWIND out
             key = 3
             WRITE (out) key
-            WRITE (out) D
+            WRITE (out) d
             key = 7
             WRITE (out) key
             WRITE (out) hdr
             key = 2
             WRITE (out) key
-            WRITE (out) P3
+            WRITE (out) p3
             endrec = endrec - 1
             WRITE (out) endrec
             WRITE (out) endfil
             endrec = 0
-            WRITE (Nout,99005) Uim , P3
+            WRITE (nout,99005) uim , p3
 99005       FORMAT (A29,' FROM OUPUT2 MODULE.  THE LABEL IS ',2A4)
          ENDIF
 !
@@ -189,12 +189,12 @@ USE ISO_FORTRAN_ENV
                   CALL fname(input,name)
                   IF ( name(1)==none(1) .AND. name(2)==none(2) ) CYCLE
                   block(1) = input
-                  nwd = Nwds(mcb(5))
+                  nwd = nwds(mcb(5))
                   dp = mcb(5)==2 .OR. mcb(5)==4
 !
 !     OPEN INPUT DATA BLOCK TO READ WITH REWIND
 !
-                  CALL open(*100,input,Z(buf1),0)
+                  CALL open(*100,input,z(buf1),0)
                   key = 2
                   WRITE (out) key
                   WRITE (out) name
@@ -220,13 +220,13 @@ USE ISO_FORTRAN_ENV
 !     NON-STRING RECORD
 !     MAKE SURE EACH RECORD IS NOT LONGER THAN P4 WORDS
 !
-                        CALL read(*46,*42,input,Z(1),lend,0,k1)
-                        DO i = 1 , lend , P4
+                        CALL read(*46,*42,input,z(1),lend,0,k1)
+                        DO i = 1 , lend , p4
                            key = lend - i + 1
-                           IF ( key>=P4 ) key = P4
+                           IF ( key>=p4 ) key = p4
                            k2 = i + key - 1
                            WRITE (out) key
-                           WRITE (out) (Z(k),k=i,k2)
+                           WRITE (out) (z(k),k=i,k2)
                         ENDDO
                      ENDDO
                   ELSE
@@ -265,12 +265,12 @@ USE ISO_FORTRAN_ENV
 !
                      CALL endget(block)
                   ENDDO
- 42               DO i = 1 , k1 , P4
+ 42               DO i = 1 , k1 , p4
                      key = k1 - i + 1
-                     IF ( key>=P4 ) key = P4
+                     IF ( key>=p4 ) key = p4
                      k2 = i + key - 1
                      WRITE (out) key
-                     WRITE (out) (Z(k),k=i,k2)
+                     WRITE (out) (z(k),k=i,k2)
                   ENDDO
 !
  44               endrec = endrec - 1
@@ -283,7 +283,7 @@ USE ISO_FORTRAN_ENV
  46               CALL close(input,1)
                   WRITE (out) endfil
                   endrec = 0
-                  WRITE (Nout,99006) Uim , name , out , inp(P2-10) , mcb
+                  WRITE (nout,99006) uim , name , out , inp(p2-10) , mcb
 99006             FORMAT (A29,' 4144. DATA BLOCK ',2A4,' WRITTEN ON FORTRAN UNIT ',I3,2H (,A4,1H),/5X,'TRAILER =',6I7,I11)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -298,13 +298,13 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 4
       CASE (4)
          CALL page1
-         WRITE (Nout,99007) inp(P2-10) , out
+         WRITE (nout,99007) inp(p2-10) , out
 99007    FORMAT (//42X,'CONTENTS OF ',A4,', FORTRAN UNIT',I3,/46X,'FILE',18X,'NAME',/)
          spag_nextblock_1 = 5
       CASE (5)
          READ (out) key
          IF ( key<0 ) THEN
-            WRITE (Nout,99008) Sfm , mo2
+            WRITE (nout,99008) sfm , mo2
 99008       FORMAT (A25,' 4415',A19,'SHORT RECORD ENCOUNTERED')
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
@@ -320,14 +320,13 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  80      k = k + 1
-         WRITE (Nout,99009) k , tmp
+         WRITE (nout,99009) k , tmp
 99009    FORMAT (45X,I5,18X,2A4)
-         IF ( mod(k,Nlpp)/=0 ) THEN
+         IF ( mod(k,nlpp)/=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     SKIP NSKIP FILES ON FORTRAN TAPE
@@ -344,7 +343,7 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_1 = 8
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     READ (out) (Z(l),l=1,keyx)
+                     READ (out) (z(l),l=1,keyx)
                   ENDIF
                ENDDO SPAG_Loop_2_1
             ENDDO
@@ -354,23 +353,20 @@ USE ISO_FORTRAN_ENV
 !     ERRORS
 !
  100     CALL fname(input,tmp)
-         WRITE (Nout,99010) Sfm , mo2 , tmp
+         WRITE (nout,99010) sfm , mo2 , tmp
 99010    FORMAT (A25,' 4116',A19,'UNABLE TO OPEN INPUT DATA BLOCK ',2A4)
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         WRITE (Nout,99011) Ufm , mo2 , hdrx
+         WRITE (nout,99011) ufm , mo2 , hdrx
 99011    FORMAT (A23,' 4130',A19,'ILLEGAL TAPE HEADER CODE ',7A4)
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
-         WRITE (Nout,99012) Ufm , lcor , key
+         WRITE (nout,99012) ufm , lcor , key
 99012    FORMAT (A23,' 2187. INSUFFICIENT WORKING CORE TO HOLD FORTRAN ','LOGICAL RECORD.',/5X,'LENGHT OF WORKING CORE =',I11,      &
                 &'.   LENGTH OF FORTRAN LOGICAL RECORD =',I11)
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
-         WRITE (Nout,99013) Sfm , key , keyx
+         WRITE (nout,99013) sfm , key , keyx
 99013    FORMAT (A25,' 2190. ILLEGAL VLUE FOR KEY =',I10,1H.,5X,'EXPECTED VALUE =',I10)
          spag_nextblock_1 = 10
       CASE (10)

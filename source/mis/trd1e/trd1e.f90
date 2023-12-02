@@ -1,13 +1,14 @@
-!*==trd1e.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trd1e.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -84,29 +85,28 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
 !********    HERE WE GO --GET LOTS OF PAPER
 !
-         lc = korsz(Z)
+         lc = korsz(z)
          lc = lc - Ngroup*3
          igroup = lc + 1
          ist = -1
-         ibuf1 = lc - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         lc = lc - 2*Sysbuf
+         ibuf1 = lc - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         lc = lc - 2*sysbuf
          iuhv(1) = Mhh
          CALL rdtrl(iuhv)
          nmodes = iuhv(2)
-         It1 = 1
-         It2 = 1
-         It3 = 1
-         Incur = 1
-         Incur1 = 1
-         Ii = 1
-         Jj = nmodes
+         it1 = 1
+         it2 = 1
+         it3 = 1
+         incur = 1
+         incur1 = 1
+         ii = 1
+         jj = nmodes
          icrq = 17*nmodes - lc
          IF ( icrq>0 ) THEN
             ip1 = -8
             file = icrq
             spag_nextblock_1 = 14
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     BRING IN H MATRICES
@@ -118,12 +118,12 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
             kk = imii
             ASSIGN 20 TO iretn
             spag_nextblock_1 = 12
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     BRING IN BHH
  20      DO j = 1 , nmodes
-            IF ( Z(j)==0.0 ) THEN
+            IF ( z(j)==0.0 ) THEN
                spag_nextblock_1 = 15
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -145,8 +145,8 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
 !     ASSIGN ADDITIONAL POINTERS
 !
- 60      Iii = 1
-         Jjj = nmodes
+ 60      iii = 1
+         jjj = nmodes
          if = ikii + nmodes
          ig = if + nmodes
          ia = ig + nmodes
@@ -162,7 +162,7 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
          iphj = iudj1 + nmodes
          iphj1 = iphj + nmodes
 !RLBNB SPR94003 9/94
-         IF ( Ncol<=2 ) THEN
+         IF ( ncol<=2 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -171,29 +171,29 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !     FROM A PREVIOUSLY CHECKPOINTED RUN
 !
          CALL gopen(Uhv,iz(ibuf1),0)
-         i = 3*(Ncol-1)
+         i = 3*(ncol-1)
          CALL skprec(Uhv,i)
 !
 !     RETRIEVE OLD DISPLACEMENT
 !
-         CALL unpack(*80,Uhv,Z(iuj1+1))
+         CALL unpack(*80,Uhv,z(iuj1+1))
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  80      DO i = 1 , nmodes
             k = iuj1 + i
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     RETRIEVE OLD VELOCITY
 !
-         CALL unpack(*100,Uhv,Z(iudj1+1))
+         CALL unpack(*100,Uhv,z(iudj1+1))
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  100     DO i = 1 , nmodes
             k = iudj1 + i
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          spag_nextblock_1 = 3
       CASE (3)
@@ -211,7 +211,7 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !     READY LOADS
 !
          CALL gopen(Ph,iz(ibuf2),0)
-         CALL unpack(*120,Ph,Z(iphj1+1))
+         CALL unpack(*120,Ph,z(iphj1+1))
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
 !
@@ -219,12 +219,12 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
  120     DO i = 1 , nmodes
             k = iphj1 + i
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          spag_nextblock_1 = 5
       CASE (5)
 !RLBNB SPR94003 9/94
-         IF ( Ncol<=2 ) THEN
+         IF ( ncol<=2 ) THEN
 !RLBNE
 !
 !     ZERO INITIAL DISPLACEMENT AND VELOCITY
@@ -232,9 +232,9 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !RLBR SPR 94003 9/94   60 DO 70 I=1,NMODES
             DO i = 1 , nmodes
                k = iuj1 + i
-               Z(k) = 0.0
+               z(k) = 0.0
                k = iudj1 + i
-               Z(k) = 0.0
+               z(k) = 0.0
             ENDDO
          ENDIF
 !
@@ -246,7 +246,7 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
       CASE (6)
          nstep = iz(igroup)
          IF ( i==1 ) nstep = nstep + 1
-         h = Z(igroup+1)
+         h = z(igroup+1)
          nout = iz(igroup+2)
          igroup = igroup + 3
          jk = 1
@@ -265,15 +265,15 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
          DO j = 1 , nmodes
             k = imii + j
-            mi = Z(k)
+            mi = z(k)
             IF ( mi==0.0 ) THEN
                spag_nextblock_1 = 15
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             k = ibii + j
-            bi = Z(k)
+            bi = z(k)
             k = ikii + j
-            ki = Z(k)
+            ki = z(k)
             wosq = ki/mi
             beta = bi/(2.0*mi)
             betasq = beta*beta
@@ -284,22 +284,22 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !     CASE  4   W0 = BETA =0.0
 !
                k = if + j
-               Z(k) = 1.0
+               z(k) = 1.0
                k = ig + j
-               Z(k) = h
+               z(k) = h
                k = ia + j
-               Z(k) = h*h/(3.0*mi)
+               z(k) = h*h/(3.0*mi)
                k = ib + j
-               Z(k) = h*h/(6.0*mi)
+               z(k) = h*h/(6.0*mi)
                k = ifpr + j
-               Z(k) = 0.0
+               z(k) = 0.0
                k = igpr + j
-               Z(k) = 1.0
+               z(k) = 1.0
                t1 = h/(2.0*mi)
                k = iapr + j
-               Z(k) = t1
+               z(k) = t1
                k = ibpr + j
-               Z(k) = t1
+               z(k) = t1
             ELSE
                t1 = (wosq-betasq)/wosq
                IF ( t1>epsi ) THEN
@@ -330,54 +330,54 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
 !     COMPUTE F
 !
-                  Z(k) = expbh*(1.0+bh)
+                  z(k) = expbh*(1.0+bh)
 !
 !     COMPUTE  G
 !
                   k = ig + j
-                  Z(k) = h*expbh
+                  z(k) = h*expbh
 !
 !     COMPUTE A
 !
                   k = ia + j
-                  Z(k) = (2.0/beta-expbh/beta*(2.0+2.0*bh+bh*bh))/t1
+                  z(k) = (2.0/beta-expbh/beta*(2.0+2.0*bh+bh*bh))/t1
 !
 !     COMPUTE B
 !
                   k = ib + j
-                  Z(k) = (-2.0+bh+expbh*(2.0+bh))/(bh*ki)
+                  z(k) = (-2.0+bh+expbh*(2.0+bh))/(bh*ki)
 !
 !     COMPUTE  F PRIME
 !
                   k = ifpr + j
-                  Z(k) = -betasq*h*expbh
+                  z(k) = -betasq*h*expbh
 !
 !     COMPUTE  G PRIME
 !
                   k = igpr + j
-                  Z(k) = expbh*(1.0-bh)
+                  z(k) = expbh*(1.0-bh)
 !
 !     COMPUTE A PRIME
 !
                   k = iapr + j
-                  Z(k) = (expbh*(1.0+bh+bh*bh)-1.0)/t1
+                  z(k) = (expbh*(1.0+bh+bh*bh)-1.0)/t1
 !
 !     COMPUTE  B PRIME
 !
                   k = ibpr + j
-                  Z(k) = (1.0-expbh*(bh+1.0))/t1
+                  z(k) = (1.0-expbh*(bh+1.0))/t1
                   CYCLE
                ENDIF
 !
 !     COMPUTE F
 !
                k = if + j
-               Z(k) = expbh*(coswh+beta/w*sinwh)
+               z(k) = expbh*(coswh+beta/w*sinwh)
 !
 !     COMPUTE G
 !
                k = ig + j
-               Z(k) = expbh/w*sinwh
+               z(k) = expbh/w*sinwh
 !
 !     COMPUTE A
 !
@@ -385,32 +385,32 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
                t1 = (wsq-betasq)/wosq
                t2 = 2.0*w*beta/wosq
                t3 = wh*ki
-               Z(k) = (expbh*((t1-beta*h)*sinwh-(t2+wh)*coswh)+t2)/t3
+               z(k) = (expbh*((t1-beta*h)*sinwh-(t2+wh)*coswh)+t2)/t3
 !
 !     COMPUTE  B
 !
                k = ib + j
-               Z(k) = (expbh*(-t1*sinwh+t2*coswh)+wh-t2)/t3
+               z(k) = (expbh*(-t1*sinwh+t2*coswh)+wh-t2)/t3
 !
 !     COMPUTE  FPRIME
 !
                k = ifpr + j
-               Z(k) = -wosq/w*expbh*sinwh
+               z(k) = -wosq/w*expbh*sinwh
 !
 !     COMPUTE G PRIME
 !
                k = igpr + j
-               Z(k) = expbh*(coswh-beta/w*sinwh)
+               z(k) = expbh*(coswh-beta/w*sinwh)
 !
 !     COMPUTE A PRIME
 !
                k = iapr + j
-               Z(k) = (expbh*((beta+wosq*h)*sinwh+w*coswh)-w)/t3
+               z(k) = (expbh*((beta+wosq*h)*sinwh+w*coswh)-w)/t3
 !
 !     COMPUTE B PRIME
 !
                k = ibpr + j
-               Z(k) = (-expbh*(beta*sinwh+w*coswh)+w)/t3
+               z(k) = (-expbh*(beta*sinwh+w*coswh)+w)/t3
             ENDIF
          ENDDO
          spag_nextblock_1 = 8
@@ -426,28 +426,28 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
          DO l = 1 , nmodes
             k = k + 1
             kk = kk + 1
-            Z(k) = 0.0
-            Z(kk) = 0.0
+            z(k) = 0.0
+            z(kk) = 0.0
             kkk = if + l
             kd = iuj + l
-            Z(k) = Z(kkk)*Z(kd) + Z(k)
+            z(k) = z(kkk)*z(kd) + z(k)
             kkk = ifpr + l
-            Z(kk) = Z(kkk)*Z(kd) + Z(kk)
+            z(kk) = z(kkk)*z(kd) + z(kk)
             kd = iudj + l
             kkk = ig + l
-            Z(k) = Z(kkk)*Z(kd) + Z(k)
+            z(k) = z(kkk)*z(kd) + z(k)
             kkk = igpr + l
-            Z(kk) = Z(kkk)*Z(kd) + Z(kk)
+            z(kk) = z(kkk)*z(kd) + z(kk)
             kd = iphj + l
             kkk = ia + l
-            Z(k) = Z(kkk)*Z(kd) + Z(k)
+            z(k) = z(kkk)*z(kd) + z(k)
             kkk = iapr + l
-            Z(kk) = Z(kkk)*Z(kd) + Z(kk)
+            z(kk) = z(kkk)*z(kd) + z(kk)
             kd = iphj1 + l
             kkk = ib + l
-            Z(k) = Z(kkk)*Z(kd) + Z(k)
+            z(k) = z(kkk)*z(kd) + z(k)
             kkk = ibpr + l
-            Z(kk) = Z(kkk)*Z(kd) + Z(kk)
+            z(kk) = z(kkk)*z(kd) + z(kk)
          ENDDO
          IF ( jk==nstep ) THEN
             ASSIGN 160 TO iretn
@@ -486,8 +486,8 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
 !     INTERNAL SUBROUTINE FOR OUTPUT AND VELOCITY COMPUTE
 !
-         CALL pack(Z(iuj1+1),Uhv,iuhv)
-         CALL pack(Z(iudj1+1),Uhv,iuhv)
+         CALL pack(z(iuj1+1),Uhv,iuhv)
+         CALL pack(z(iudj1+1),Uhv,iuhv)
 !
 !     COMPUTE  ACCELERATIONS
 !
@@ -499,9 +499,9 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
             kd1 = iudj1 + l
             kd2 = iuj1 + l
             kd3 = ikii + l
-            Z(k) = Z(kk)/Z(kkk) - Z(kd)*Z(kd1)/Z(kkk) - Z(kd3)*Z(kd2)/Z(kkk)
+            z(k) = z(kk)/z(kkk) - z(kd)*z(kd1)/z(kkk) - z(kd3)*z(kd2)/z(kkk)
          ENDDO
-         CALL pack(Z(iudj+1),Uhv,iuhv)
+         CALL pack(z(iudj+1),Uhv,iuhv)
          spag_nextblock_1 = 10
       CASE (10)
 !
@@ -519,16 +519,15 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
 !     BRING IN NEXT LOAD VECTOR
 !
-         CALL unpack(*180,Ph,Z(iphj1+1))
+         CALL unpack(*180,Ph,z(iphj1+1))
          spag_nextblock_1 = 11
       CASE (11)
          GOTO iretn
  180     DO kd = 1 , nmodes
             k = iphj1 + kd
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
 !     INTERNAL SUBROUTINE TO BRING  IN H MATRICES
@@ -536,12 +535,12 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
          CALL open(*200,file,iz(ibuf1),0)
          CALL skprec(file,1)
          DO kd = 1 , nmodes
-            Iii = kd
-            Jjj = kd
+            iii = kd
+            jjj = kd
             kd1 = kk + kd
-            CALL unpack(*190,file,Z(kd1))
+            CALL unpack(*190,file,z(kd1))
             CYCLE
- 190        Z(kd1) = 0.0
+ 190        z(kd1) = 0.0
          ENDDO
          CALL close(file,1)
          spag_nextblock_1 = 13
@@ -552,10 +551,9 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
 !
  200     DO kd = 1 , nmodes
             kd1 = kk + kd
-            Z(kd1) = 0.0
+            z(kd1) = 0.0
          ENDDO
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
 !     ERROR MESAGES
@@ -566,7 +564,6 @@ SUBROUTINE trd1e(Mhh,Bhh,Khh,Ph,Uhv,Ngroup)
          ip1 = -43
          file = j
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE trd1e

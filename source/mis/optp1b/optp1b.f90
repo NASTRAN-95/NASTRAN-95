@@ -1,15 +1,16 @@
-!*==optp1b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==optp1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_optpw1
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_OPTPW1
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -46,29 +47,29 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
 !
 !     IN CASE OF ERROR SET PRC(1)
 !
-         Prc(1) = -1
+         prc(1) = -1
 !
-         SPAG_Loop_1_2: DO k = 1 , Numelm
+         SPAG_Loop_1_2: DO k = 1 , numelm
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  nele = (idee-ides)/Nwdse
+                  nele = (idee-ides)/nwdse
                   IF ( nele<0 ) GOTO 2
                   IF ( nele==0 ) THEN
                      spag_nextblock_2 = 3
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
 !
-                  idx = Incr*(Itype(k)-1)
+                  idx = incr*(itype(k)-1)
                   idp = idx + 4
-                  card(1) = Ne(idp)
-                  card(2) = Ne(idp+1)
-                  IF ( Ne(idp+2)>Prcor ) THEN
+                  card(1) = ne(idp)
+                  card(2) = ne(idp+1)
+                  IF ( ne(idp+2)>prcor ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL locate(*20,X(B1p1),card(1),i)
+                  CALL locate(*20,x(b1p1),card(1),i)
 !
 !     SEQUENTIAL ELEMENT SEARCH
 !
@@ -79,19 +80,19 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
                CASE (2)
                   SPAG_Loop_2_1: DO
 !
-                     CALL read(*20,*20,Ect,Prc,Ne(idp+2),Noeor,i)
-                     IF ( Prc(1)<elcr ) THEN
-                     ELSEIF ( Prc(1)==elcr ) THEN
+                     CALL read(*20,*20,ect,prc,ne(idp+2),noeor,i)
+                     IF ( prc(1)<elcr ) THEN
+                     ELSEIF ( prc(1)==elcr ) THEN
 !
 !     ELEMENT ID IN CORE .EQ. ECT ID - ELEMENT TO BE OPTIMIZED
 !
-                        pid = Prc(2)
+                        pid = prc(2)
                         card(1) = pid
                         card(2) = Ele(elpt+4)
 !
 !     TEST FOR CORE NEEDED AFTER EXPANDING TO NWDSP WORDS
 !
-                        IF ( prpt1+Nwdsp*(npr/2+1)>Ycor ) THEN
+                        IF ( prpt1+nwdsp*(npr/2+1)>ycor ) THEN
                            spag_nextblock_1 = 5
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -105,17 +106,17 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
 !     LOGIC OR FILE FAILURE
 !
  2                CALL page2(-2)
-                  WRITE (Outtap,99001) Sfm , Itype(k) , Prc(1) , name
+                  WRITE (outtap,99001) sfm , itype(k) , prc(1) , name
 99001             FORMAT (A25,' 2297, INCORRECT LOGIC FOR ELEMENT TYPE',I4,', ELEMENT',I8,2H (,2A4,2H).)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
  4                Ele(elpt+4) = pid
-                  elpt = elpt + Nwdse
+                  elpt = elpt + nwdse
                   IF ( elpt>=idee ) THEN
 !
 !     NEW ELEMENT TYPE COMING
 !
-                     CALL fread(Ect,0,0,Nweor)
+                     CALL fread(ect,0,0,nweor)
 !
 !     EXPAND PROPERTIES TO NWDSP WORDS/PROPERTY
 !
@@ -124,21 +125,21 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
                      IF ( nx/=1 ) THEN
                         DO i = 1 , nx
                            j = nx - i
-                           l = prpt1 + j*Nwdsp
+                           l = prpt1 + j*nwdsp
                            m = prpt1 + j*2
                            Pr(l) = Pr(m)
                            Pr(l+1) = Pr(m+1)
                         ENDDO
                      ENDIF
 !
-                     prpt = prpt1 + nx*Nwdsp
+                     prpt = prpt1 + nx*nwdsp
 !
 !     PLACE POINTERS IN ELEMENT ARRAY
 !
                      l = idee - 1
-                     DO i = ides , l , Nwdse
+                     DO i = ides , l , nwdse
                         kid = Ele(i+4)
-                        CALL bisloc(*2,kid,Pr(prpt1),Nwdsp,nx,j)
+                        CALL bisloc(*2,kid,Pr(prpt1),nwdsp,nx,j)
                         Ele(i+4) = j
                      ENDDO
                   ELSE
@@ -155,7 +156,7 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
                   Elop(2,ieop) = prpt
                   prpt1 = prpt
                   ides = idee
-                  IF ( ieop>Npow ) EXIT SPAG_Loop_1_2
+                  IF ( ieop>npow ) EXIT SPAG_Loop_1_2
                   idee = Elop(1,ieop+1)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -165,7 +166,7 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
       CASE (2)
 !
 !
-         Nprw = prpt - 1
+         nprw = prpt - 1
          RETURN
       CASE (3)
 !
@@ -173,27 +174,25 @@ SUBROUTINE optp1b(Elt,Elop,Ele,Pr)
 !
 !     INSUFFICIENT CORE IN /OPTPW1/ OR /XXOPT1/
 !
-         Count = -1
+         count = -1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     FILE ERRORS
 !
- 20      CALL mesage(-7,Ect,name)
+ 20      CALL mesage(-7,ect,name)
          spag_nextblock_1 = 4
       CASE (4)
          prpt = 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     INSUFFICIENT CORE
 !
          CALL page2(-2)
-         WRITE (Outtap,99002) Ufm , name , B1p1 , pid
+         WRITE (outtap,99002) ufm , name , b1p1 , pid
 99002    FORMAT (A23,' 2298, INSUFFICIENT CORE ',2A4,1H(,I10,'), PROPERTY',I9)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE optp1b

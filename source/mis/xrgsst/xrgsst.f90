@@ -2,14 +2,14 @@
  
 SUBROUTINE xrgsst(Newsol)
    IMPLICIT NONE
-   USE C_PHAS11
-   USE C_PHAS25
-   USE C_PHAS28
-   USE C_PHAS31
-   USE C_PHAS37
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XRGDXX
+   USE c_phas11
+   USE c_phas25
+   USE c_phas28
+   USE c_phas31
+   USE c_phas37
+   USE c_system
+   USE c_xmssg
+   USE c_xrgdxx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +21,15 @@ SUBROUTINE xrgsst(Newsol)
    INTEGER :: i , icflag , iflag , j , k , nmap
    INTEGER , DIMENSION(2) :: imap
    INTEGER , DIMENSION(5) , SAVE :: lflag
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -113,95 +122,95 @@ SUBROUTINE xrgsst(Newsol)
    DATA ind37/0/ , insert/1HI/
 !
    CALL xdcode
-   Icol = 9
-   DO WHILE ( Ichar(Icol)==blank )
-      IF ( Icol>=80 ) GOTO 99999
-      Icol = Icol + 1
+   icol = 9
+   DO WHILE ( ichar(icol)==blank )
+      IF ( icol>=80 ) GOTO 99999
+      icol = icol + 1
    ENDDO
-   IF ( Ichar(Icol)/=insert ) THEN
-      IF ( Ichar(Icol)/=delete ) GOTO 100
-      Icol = Icol + 1
-      IF ( Ichar(Icol)==begin ) THEN
+   IF ( ichar(icol)/=insert ) THEN
+      IF ( ichar(icol)/=delete ) GOTO 100
+      icol = icol + 1
+      IF ( ichar(icol)==begin ) THEN
          iflag = 3
          nmap = 1
-         imap(1) = Idmap
-         Icol = Icol + 1
-      ELSEIF ( Ichar(Icol)==end ) THEN
+         imap(1) = idmap
+         icol = icol + 1
+      ELSEIF ( ichar(icol)==end ) THEN
          iflag = 4
          nmap = 1
-         imap(1) = Idmap
-         Icol = Icol + 1
+         imap(1) = idmap
+         icol = icol + 1
       ELSE
          iflag = 2
          nmap = 2
-         imap(1) = Idmap
-         imap(2) = Idmap
+         imap(1) = idmap
+         imap(2) = idmap
       ENDIF
    ELSE
       iflag = 1
       nmap = 2
-      imap(1) = Idmap
+      imap(1) = idmap
       imap(2) = 0
-      Icol = Icol + 1
+      icol = icol + 1
    ENDIF
-   IF ( Iphase==1 ) THEN
-      IF ( Ichar(Icol)/=one ) GOTO 100
+   IF ( iphase==1 ) THEN
+      IF ( ichar(icol)/=one ) GOTO 100
       icflag = 1
-   ELSEIF ( Iphase/=2 ) THEN
-      IF ( Ichar(Icol)/=one ) THEN
-         IF ( Ichar(Icol)/=seven ) GOTO 100
+   ELSEIF ( iphase/=2 ) THEN
+      IF ( ichar(icol)/=one ) THEN
+         IF ( ichar(icol)/=seven ) GOTO 100
          icflag = 5
       ELSE
          icflag = 4
       ENDIF
-   ELSEIF ( Ichar(Icol)/=five ) THEN
-      IF ( Ichar(Icol)/=eight ) GOTO 100
+   ELSEIF ( ichar(icol)/=five ) THEN
+      IF ( ichar(icol)/=eight ) GOTO 100
       icflag = 3
    ELSE
       icflag = 2
    ENDIF
    IF ( iflag==4 .AND. lflag(icflag)/=3 ) THEN
-      WRITE (Optape,99001) Ufm , Record
+      WRITE (optape,99001) ufm , record
 99001 FORMAT (A23,' 8033, ',34H A 'DE' ENTRY HAS NO MATCHING 'DB',' ENTRY - ERROR ON CARD',//20X,20A4)
       GOTO 400
    ELSE
       IF ( iflag==3 .AND. lflag(icflag)==3 ) GOTO 300
       IF ( iflag<=2 .AND. lflag(icflag)==3 ) GOTO 300
       lflag(icflag) = iflag
-      Icol = Icol + 1
+      icol = icol + 1
       IF ( icflag==2 ) THEN
          IF ( ind25+nmap>14 ) GOTO 200
          DO k = 1 , nmap
             ind25 = ind25 + 1
-            Ipas25(ind25) = imap(k)
+            ipas25(ind25) = imap(k)
          ENDDO
          GOTO 99999
       ELSEIF ( icflag==3 ) THEN
          IF ( ind28+nmap>14 ) GOTO 200
          DO k = 1 , nmap
             ind28 = ind28 + 1
-            Ipas28(ind28) = imap(k)
+            ipas28(ind28) = imap(k)
          ENDDO
          GOTO 99999
       ELSEIF ( icflag==4 ) THEN
          IF ( ind31+nmap>2 ) GOTO 200
          DO k = 1 , nmap
             ind31 = ind31 + 1
-            Ipas31(ind31) = imap(k)
+            ipas31(ind31) = imap(k)
          ENDDO
          GOTO 99999
       ELSEIF ( icflag==5 ) THEN
          IF ( ind37+nmap>6 ) GOTO 200
          DO k = 1 , nmap
             ind37 = ind37 + 1
-            Ipas37(ind37) = imap(k)
+            ipas37(ind37) = imap(k)
          ENDDO
          GOTO 99999
       ELSE
          IF ( ind11+nmap>8 ) GOTO 200
          DO k = 1 , nmap
             ind11 = ind11 + 1
-            Ipas11(ind11) = imap(k)
+            ipas11(ind11) = imap(k)
          ENDDO
          GOTO 99999
       ENDIF
@@ -211,14 +220,14 @@ SUBROUTINE xrgsst(Newsol)
 !
  100  j = 0
    k = 1
-   WRITE (Optape,99002) Ufm , Icol , Record , j , (i,i=1,8) , k , (j,i=1,8)
+   WRITE (optape,99002) ufm , icol , record , j , (i,i=1,8) , k , (j,i=1,8)
 99002 FORMAT (A23,' 8031, INVALID PARAMETER NEAR COLUMN ',I3,' IN THE FOLLOWING CARD',//20X,20A4,/,(20X,I1,I9,7I10))
-   Ierror = 1
+   ierror = 1
    GOTO 400
- 200  WRITE (Optape,99003) Ufm , Iphase , Record
+ 200  WRITE (optape,99003) ufm , iphase , record
 99003 FORMAT (A23,' 8032, ',19H' TOO MANY '****PHS,I1,9H' ENTRIES,' ERROR OCCURRED ON CARD',//20X,20A4)
    GOTO 400
- 300  WRITE (Optape,99004) Ufm , Record
+ 300  WRITE (optape,99004) ufm , record
 99004 FORMAT (A23,' 8035, ',41H ATTEMP TO NEST 'DB'S OR NO MATCHING 'DE',' - ERROR OCCURRED ON THE FOLLOWING CARD',/20X,20A4)
- 400  Ierror = 1
+ 400  ierror = 1
 99999 END SUBROUTINE xrgsst

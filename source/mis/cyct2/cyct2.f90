@@ -1,15 +1,16 @@
-!*==cyct2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cyct2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cyct2
-USE C_BLANK
-USE C_CONDAD
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condad
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -93,7 +94,7 @@ USE ISO_FORTRAN_ENV
          scr6 = 306
 !IBMNE
          nz = korsz(iz)
-         Nogo = 1
+         nogo = 1
          v1i = 104
          v1o = 203
          scr3 = 303
@@ -102,13 +103,13 @@ USE ISO_FORTRAN_ENV
          lua = mcb(3)
          ityp = mcb(2) - 1
          idir = 1
-         IF ( Cdir(1)==fore ) idir = 0
+         IF ( cdir(1)==fore ) idir = 0
          nx = nz
          ibuf1 = nz - sysbuf + 1
          ibuf2 = ibuf1 - sysbuf
          ibuf3 = ibuf2 - sysbuf
          nz = ibuf3 - 1
-         IF ( 2*Kseg>Nseg .OR. Kseg<0 .OR. Nseg<=0 ) THEN
+         IF ( 2*kseg>nseg .OR. kseg<0 .OR. nseg<=0 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -118,7 +119,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PRODUCE GC AND GS MATRICES (ON SCR1 AND SCR2)
 !
-         arg = float(Kseg)/float(Nseg)
+         arg = float(kseg)/float(nseg)
          arg = arg*pi
          IF ( ityp==0 ) arg = 2.0D0*arg
 !
@@ -132,8 +133,8 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE COS AND SIN
 !
          IF ( ityp==0 ) THEN
-            IF ( Kseg/=0 ) THEN
-               IF ( 2*Kseg/=Nseg ) THEN
+            IF ( kseg/=0 ) THEN
+               IF ( 2*kseg/=nseg ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -142,8 +143,8 @@ USE ISO_FORTRAN_ENV
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-         ELSEIF ( Kseg/=0 ) THEN
-            IF ( 2*Kseg/=Nseg ) THEN
+         ELSEIF ( kseg/=0 ) THEN
+            IF ( 2*kseg/=nseg ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -155,20 +156,19 @@ USE ISO_FORTRAN_ENV
          cos = 1.0
          sin = 0.0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          cos = dcos(arg)
          sin = dsin(arg)
          spag_nextblock_1 = 3
       CASE (3)
          iflag = 0
-         IF ( Kseg==0 .OR. 2*Kseg==Nseg ) iflag = 1
+         IF ( kseg==0 .OR. 2*kseg==nseg ) iflag = 1
          IF ( ityp/=0 .OR. iflag==0 ) CALL gopen(scr2,iz(ibuf2),1)
-         Ita = 2
-         Itb = 1
-         Incr = 1
-         Ii = 1
-         Jj = lua
+         ita = 2
+         itb = 1
+         incr = 1
+         ii = 1
+         jj = lua
          CALL makmcb(mcb1,scr1,lua,2,iprec)
          CALL makmcb(mcb2,scr2,lua,2,iprec)
          CALL wrttrl(mcb1)
@@ -221,8 +221,8 @@ USE ISO_FORTRAN_ENV
 !
 !     MATRIX IS GS
 !
-                           Iii = mm
-                           Dz(1) = -sin
+                           iii = mm
+                           dz(1) = -sin
                            CALL zblpki
 !
 !     MATRIX IS GC
@@ -236,8 +236,8 @@ USE ISO_FORTRAN_ENV
 !
 !     MATRIX IS GC
 !
-                        Iii = mm
-                        Dz(1) = sin
+                        iii = mm
+                        dz(1) = sin
                         CALL zblpki
                         GOTO 2
                      ENDIF
@@ -245,30 +245,30 @@ USE ISO_FORTRAN_ENV
 !     MATRIX IS GS
 !
                      IF ( l>mm ) THEN
-                        Iii = mm
-                        Dz(1) = cos
+                        iii = mm
+                        dz(1) = cos
                         CALL zblpki
-                        Iii = l
-                        Dz(1) = 1.0
+                        iii = l
+                        dz(1) = 1.0
                         CALL zblpki
                      ELSE
-                        Dz(1) = 1.0
-                        Iii = l
+                        dz(1) = 1.0
+                        iii = l
                         CALL zblpki
-                        Dz(1) = cos
-                        Iii = mm
+                        dz(1) = cos
+                        iii = mm
                         CALL zblpki
                      ENDIF
 !
 !     INTERIOR POINT
 !
                   ELSEIF ( .NOT.((ics==0 .AND. igc==1) .OR. (ics==1 .AND. igc==0)) ) THEN
-                     Iii = l
-                     Dz(1) = 1.0
+                     iii = l
+                     dz(1) = 1.0
                      CALL zblpki
                   ENDIF
  2                CALL bldpkn(file,0,mcb(ip))
-                  IF ( Cycseq/=1 ) THEN
+                  IF ( cycseq/=1 ) THEN
 !
 !     NOW DO SINE COLUMN
 !
@@ -303,7 +303,7 @@ USE ISO_FORTRAN_ENV
 !
 !     GONE THRU CYCD ONCE. DONE IF CYCSEQ = -1
 !
-         IF ( Cycseq==-1 ) THEN
+         IF ( cycseq==-1 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -321,7 +321,6 @@ USE ISO_FORTRAN_ENV
          ipass = 1
          l = 1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          ip = 1
          igc = 1
@@ -347,35 +346,35 @@ USE ISO_FORTRAN_ENV
 !
 !     MATRIX IS GA
 !
-               Iii = l
+               iii = l
                IF ( mm==2 ) THEN
-                  Dz(1) = cos
+                  dz(1) = cos
                   CALL zblpki
                ELSEIF ( mm==3 ) THEN
                ELSEIF ( mm==4 ) THEN
                   GOTO 10
                ELSE
-                  Dz(1) = sin
+                  dz(1) = sin
                   CALL zblpki
                ENDIF
 !
 !     MATRIX IS GS
 !
             ELSEIF ( mm==2 ) THEN
-               Iii = l
-               Dz(1) = -sin
+               iii = l
+               dz(1) = -sin
                CALL zblpki
             ELSEIF ( mm==3 ) THEN
-               Iii = l
+               iii = l
                GOTO 10
             ELSEIF ( mm/=4 ) THEN
-               Iii = l
-               Dz(1) = cos
+               iii = l
+               dz(1) = cos
                CALL zblpki
             ENDIF
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
- 10         Dz(1) = 1.0
+ 10         dz(1) = 1.0
             CALL zblpki
          ELSE
 !
@@ -405,8 +404,8 @@ USE ISO_FORTRAN_ENV
 !
 !     MATRIX IS GA  - COLUMN IS A
 !
-            Dz(1) = 1.0
-            Iii = l
+            dz(1) = 1.0
+            iii = l
 !
 !     MATRIX IS GS - COLUMN IS A
 !
@@ -415,7 +414,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 7
       CASE (7)
          CALL bldpkn(file,0,mcb(ip))
-         IF ( Cycseq/=1 .AND. mm<=0 ) THEN
+         IF ( cycseq/=1 .AND. mm<=0 ) THEN
 !
 !     NOW DO A COLUMN
 !
@@ -449,7 +448,7 @@ USE ISO_FORTRAN_ENV
 !
 !     GONE THRU CYCD ONCE - DONE IF CYCSEQ = -1
 !
-         IF ( Cycseq/=-1 ) THEN
+         IF ( cycseq/=-1 ) THEN
 !
 !     NOW DO A COLUMNS
 !
@@ -469,10 +468,10 @@ USE ISO_FORTRAN_ENV
          CALL close(scr2,1)
          CALL wrttrl(mcb1)
          IF ( iflag==0 .OR. ityp/=0 ) CALL wrttrl(mcb2)
-         Itc = 1
-         Iik = 1
-         Jjk = lua
-         Incr1 = 1
+         itc = 1
+         iik = 1
+         jjk = lua
+         incr1 = 1
          IF ( idir/=0 ) THEN
 !
 !     DIRECTION IS BACK
@@ -484,8 +483,8 @@ USE ISO_FORTRAN_ENV
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             iks = mcb(3)
-            Itc = mcb(5)
-            IF ( Itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
+            itc = mcb(5)
+            IF ( itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
 !
 !     POSITION V1O
 !
@@ -540,8 +539,8 @@ USE ISO_FORTRAN_ENV
                spag_nextblock_1 = 11
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Itc = mcb(5)
-            IF ( Itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
+            itc = mcb(5)
+            IF ( itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
             CALL gopen(v1i,iz(ibuf1),0)
             CALL gopen(scr3,iz(ibuf2),1)
             CALL gopen(scr4,iz(ibuf3),1)
@@ -550,41 +549,41 @@ USE ISO_FORTRAN_ENV
 !
             CALL makmcb(mcb1,scr3,lua,2,mcb(5))
             CALL makmcb(mcb2,scr4,lua,2,mcb(5))
-            IF ( Kseg/=0 ) THEN
-               nskip = Nload*Kseg*(ityp+1)*2 - Nload*(ityp+1)
+            IF ( kseg/=0 ) THEN
+               nskip = nload*kseg*(ityp+1)*2 - nload*(ityp+1)
                file = v1i
                DO i = 1 , nskip
                   CALL fwdrec(*20,v1i)
                ENDDO
             ENDIF
-            CALL cyct2b(v1i,scr3,Nload,iz,mcb1)
+            CALL cyct2b(v1i,scr3,nload,iz,mcb1)
             IF ( ityp/=0 ) THEN
                IF ( iflag==0 ) THEN
 !
 !     COPY - PCA
 !
-                  DO j = 1 , Nload
+                  DO j = 1 , nload
                      CALL fwdrec(*20,v1i)
                   ENDDO
-                  CALL cyct2b(v1i,scr3,Nload,iz,mcb1)
+                  CALL cyct2b(v1i,scr3,nload,iz,mcb1)
                ENDIF
             ENDIF
 !
 !     NOW COPY ONTO PS
 !
             IF ( ityp/=0 .OR. iflag==0 ) THEN
-               CALL cyct2b(v1i,scr4,Nload,iz,mcb2)
+               CALL cyct2b(v1i,scr4,nload,iz,mcb2)
                IF ( iflag==0 ) THEN
                   IF ( ityp/=0 ) THEN
                      CALL rewind(v1i)
                      CALL fwdrec(*20,v1i)
-                     nlps = nskip + Nload
+                     nlps = nskip + nload
                      DO j = 1 , nlps
                         CALL fwdrec(*20,v1i)
                      ENDDO
-                     Itc = -mcb(5)
-                     CALL cyct2b(v1i,scr4,Nload,iz,mcb2)
-                     Itc = mcb(5)
+                     itc = -mcb(5)
+                     CALL cyct2b(v1i,scr4,nload,iz,mcb2)
+                     itc = mcb(5)
                   ENDIF
                ENDIF
             ENDIF
@@ -618,8 +617,8 @@ USE ISO_FORTRAN_ENV
             mcb(1) = v2i
             CALL rdtrl(mcb)
             IF ( mcb(1)<=0 ) RETURN
-            Itc = mcb(5)
-            IF ( Itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
+            itc = mcb(5)
+            IF ( itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
             IF ( mod(mcb(2),2)/=2 ) CALL mesage(-7,0,name)
             IF ( iflag/=1 .OR. ityp/=0 ) THEN
                CALL gopen(v2i,iz(ibuf1),0)
@@ -672,8 +671,8 @@ USE ISO_FORTRAN_ENV
             CALL gopen(v1i,iz(ibuf1),0)
             CALL gopen(scr3,iz(ibuf2),1)
             CALL gopen(scr4,iz(ibuf3),1)
-            CALL cyct2b(v1i,scr3,Nload,iz(1),mcb1)
-            CALL cyct2b(v1i,scr4,Nload,iz(1),mcb2)
+            CALL cyct2b(v1i,scr3,nload,iz(1),mcb1)
+            CALL cyct2b(v1i,scr4,nload,iz(1),mcb2)
             CALL close(scr3,1)
             CALL wrttrl(mcb1)
             CALL close(scr4,1)
@@ -688,7 +687,7 @@ USE ISO_FORTRAN_ENV
          CALL gopen(scr5,iz(ibuf2),0)
          mcb(1) = v1o
          CALL rdtrl(mcb(1))
-         CALL cyct2b(scr5,v1o,Nload,iz(1),mcb)
+         CALL cyct2b(scr5,v1o,nload,iz(1),mcb)
          IF ( ityp/=0 .OR. iflag==0 ) THEN
             CALL close(v1o,2)
             CALL close(scr5,1)
@@ -699,7 +698,7 @@ USE ISO_FORTRAN_ENV
                CALL ssg2b(scr2,scr4,0,scr5,0,iprec,0,scr6)
                CALL gopen(v1o,iz(ibuf1),3)
                CALL gopen(scr5,iz(ibuf2),0)
-               CALL cyct2b(scr5,v1o,Nload,iz(1),mcb)
+               CALL cyct2b(scr5,v1o,nload,iz(1),mcb)
                CALL close(v1o,2)
                CALL close(scr5,1)
 !
@@ -708,7 +707,7 @@ USE ISO_FORTRAN_ENV
                CALL ssg2b(scr1,scr4,0,scr5,0,iprec,1,scr6)
                CALL gopen(v1o,iz(ibuf1),3)
                CALL gopen(scr5,iz(ibuf2),0)
-               CALL cyct2b(scr5,v1o,Nload,iz(1),mcb)
+               CALL cyct2b(scr5,v1o,nload,iz(1),mcb)
                CALL close(scr5,1)
                CALL close(v1o,2)
             ENDIF
@@ -718,7 +717,7 @@ USE ISO_FORTRAN_ENV
             CALL ssg2b(scr2,scr3,0,scr5,0,iprec,1,scr6)
             CALL gopen(v1o,iz(ibuf1),3)
             CALL gopen(scr5,iz(ibuf2),0)
-            CALL cyct2b(scr5,v1o,Nload,iz(1),mcb)
+            CALL cyct2b(scr5,v1o,nload,iz(1),mcb)
          ENDIF
          CALL close(scr5,1)
          CALL close(v1o,1)
@@ -732,8 +731,8 @@ USE ISO_FORTRAN_ENV
          CALL rdtrl(mcb)
          IF ( mcb(1)<=0 ) RETURN
          scr3 = 303
-         Itc = mcb(5)
-         IF ( Itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
+         itc = mcb(5)
+         IF ( itc==4 .AND. nz<4*lua ) CALL mesage(-8,0,name)
 !
 !     NOW DO EIGENVECTORS
 !
@@ -762,7 +761,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
          mcb(1) = v2i
          CALL rdtrl(mcb)
-         Nload = mcb(2)
+         nload = mcb(2)
          CALL makmcb(mcb,v2o,lua,2,mcb(5))
          ibuf4 = ibuf3 - sysbuf
          CALL gopen(scr3,iz(ibuf4),0)
@@ -770,7 +769,7 @@ USE ISO_FORTRAN_ENV
             ibuf5 = ibuf4 - sysbuf
             CALL gopen(scr4,iz(ibuf5),0)
          ENDIF
-         DO i = 1 , Nload
+         DO i = 1 , nload
             CALL cyct2b(scr3,v2o,1,iz(1),mcb)
             IF ( ilama==0 ) THEN
                CALL read(*20,*40,lamx,iz(1),7,0,iflag)
@@ -808,7 +807,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 15
       CASE (15)
          CALL mesage(7,0,name)
-         Nogo = -1
+         nogo = -1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

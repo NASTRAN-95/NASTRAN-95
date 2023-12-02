@@ -1,12 +1,13 @@
-!*==delete.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==delete.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE delete(Name,Itemx,Itest)
+   USE c_itemdt
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ITEMDT
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -59,13 +60,13 @@ SUBROUTINE delete(Name,Itemx,Itest)
 !
          Itest = 5
       ELSE
-         itm = ii - Ifrst + 1
-         ibl = andf(Buf(imdi+ii),65535)
+         itm = ii - ifrst + 1
+         ibl = andf(buf(imdi+ii),65535)
 !                             55535 = 2**16 - 1
          IF ( ibl/=0 ) THEN
 !
-            Buf(imdi+ii) = 0
-            Mdiup = .TRUE.
+            buf(imdi+ii) = 0
+            mdiup = .TRUE.
             IF ( ibl/=65535 ) THEN
 !
 !     ITEM DOES EXIST.
@@ -77,11 +78,11 @@ SUBROUTINE delete(Name,Itemx,Itest)
 !
                Itest = 2
             ENDIF
-            IF ( andf(Buf(imdi+is),1073741824)==0 ) THEN
+            IF ( andf(buf(imdi+is),1073741824)==0 ) THEN
 !
 !     NAME IS A SECONDARY OR A PRIMARY SUBSTRUCTURE
 !
-               isvps = andf(Buf(imdi+ps),1023)
+               isvps = andf(buf(imdi+ps),1023)
 !                               1023 = 2**10 - 1
                IF ( isvps==0 ) THEN
 !
@@ -89,13 +90,13 @@ SUBROUTINE delete(Name,Itemx,Itest)
 !
                   IF ( Itest==1 ) CALL retblk(ibl)
                   DO
-                     isvss = rshift(andf(Buf(imdi+ss),1048575),10)
+                     isvss = rshift(andf(buf(imdi+ss),1048575),10)
 !                                      1048575 = 2*20 - 1
                      IF ( isvss==0 ) RETURN
                      CALL fmdi(isvss,imdi)
-                     IF ( andf(Buf(imdi+ii),65535)==ibl ) THEN
-                        Buf(imdi+ii) = 0
-                        Mdiup = .TRUE.
+                     IF ( andf(buf(imdi+ii),65535)==ibl ) THEN
+                        buf(imdi+ii) = 0
+                        mdiup = .TRUE.
                      ENDIF
                   ENDDO
                ELSE
@@ -103,7 +104,7 @@ SUBROUTINE delete(Name,Itemx,Itest)
 !     SECONDARY SUBSTRUCTURE
 !
                   IF ( Itest/=1 ) RETURN
-                  IF ( Item(5,itm)/=0 ) CALL retblk(ibl)
+                  IF ( item(5,itm)/=0 ) CALL retblk(ibl)
                   RETURN
                ENDIF
             ELSE
@@ -112,7 +113,7 @@ SUBROUTINE delete(Name,Itemx,Itest)
 !     IMAGE SUBSTRUCTURE
 !
                IF ( Itest/=1 ) RETURN
-               IF ( Item(4,itm)/=0 ) CALL retblk(ibl)
+               IF ( item(4,itm)/=0 ) CALL retblk(ibl)
                RETURN
             ENDIF
          ELSE

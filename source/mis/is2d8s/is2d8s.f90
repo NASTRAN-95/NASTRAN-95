@@ -1,16 +1,17 @@
-!*==is2d8s.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==is2d8s.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE is2d8s
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -111,10 +112,10 @@ SUBROUTINE is2d8s
 !     ECPT(45) = Z8                    Z8             REAL
 !     ECPT(46) = ELEMENT TEMP          TTEMP          REAL
 !
-   IF ( Jcore+576>Ncore ) CALL mesage(-8,0,nam)
-   dict(1) = Iestid
+   IF ( jcore+576>ncore ) CALL mesage(-8,0,nam)
+   dict(1) = iestid
    dict(2) = 1
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
       dict(3) = 8
       dict(4) = 1
       nsq = 64
@@ -127,7 +128,7 @@ SUBROUTINE is2d8s
 !     SAVE NGRID IN DUMB
 !
    DO i = 1 , 9
-      Dumb(i) = ecpt(i)
+      dumb(i) = ecpt(i)
    ENDDO
    area = 0.0
 !
@@ -151,7 +152,7 @@ SUBROUTINE is2d8s
          ENDDO
 !
          DO i = 1 , nsq
-            Z(Jcore+i) = 0.0
+            z(jcore+i) = 0.0
          ENDDO
 !
 !     UNIT I VECTOR IS FROM GRID POINT 1 TO GRID POINT 2
@@ -168,9 +169,9 @@ SUBROUTINE is2d8s
 !     K VECTOR IS OBTAINED BY CROSSING I INTO VECTOR FROM GRID PT. 1 TO
 !     GRID
 !
-            veck(1) = veci(2)*(Z4-Z1) - veci(3)*(Y4-Y1)
-            veck(2) = veci(3)*(X4-X1) - veci(1)*(Z4-Z1)
-            veck(3) = veci(1)*(Y4-Y1) - veci(2)*(X4-X1)
+            veck(1) = veci(2)*(z4-z1) - veci(3)*(y4-y1)
+            veck(2) = veci(3)*(x4-x1) - veci(1)*(z4-z1)
+            veck(3) = veci(1)*(y4-y1) - veci(2)*(x4-x1)
             veckl = sqrt(veck(1)**2+veck(2)**2+veck(3)**2)
             IF ( veckl/=0.0 ) THEN
                veck(1) = veck(1)/veckl
@@ -205,9 +206,9 @@ SUBROUTINE is2d8s
                DO i = 3 , 8
                   ixx = 2*i - 1
                   isub = 4*i + 11
-                  vec(1) = ecpt(isub) - X1
-                  vec(2) = ecpt(isub+1) - Y1
-                  vec(3) = ecpt(isub+2) - Z1
+                  vec(1) = ecpt(isub) - x1
+                  vec(2) = ecpt(isub+1) - y1
+                  vec(3) = ecpt(isub+2) - z1
                   xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
                   vvec(1) = veci(2)*vec(3) - veci(3)*vec(2)
                   vvec(2) = veci(3)*vec(1) - veci(1)*vec(3)
@@ -221,12 +222,12 @@ SUBROUTINE is2d8s
 !     INAPPROPRIATE GEOMETRY
 !
          CALL mesage(30,31,ecpt(1))
-         Error = .TRUE.
+         error = .TRUE.
          EXIT SPAG_Loop_1_1
       ENDIF
    ENDDO SPAG_Loop_1_1
 !
-   IF ( Error ) RETURN
+   IF ( error ) RETURN
 !
 !     SET UP QUADRATURE POINTS AND WEIGHTS
 !
@@ -234,7 +235,7 @@ SUBROUTINE is2d8s
    pt(2) = -pt(1)
    h(1) = 1.0
    h(2) = 1.0
-   IF ( Id1/=2 ) THEN
+   IF ( id1/=2 ) THEN
       pt(1) = -0.77459667
       pt(2) = 0.0
       pt(3) = -pt(1)
@@ -243,20 +244,20 @@ SUBROUTINE is2d8s
       h(3) = h(1)
    ENDIF
 !
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
 !
 !     HEAT FORMULATION
 !
 !     COMPUTE MATERIAL PROPERTIES
 !
-      Sinth = 0.
-      Costh = 0.
-      Eltemp = Ttemp
-      Inflag = 2
-      Matid = Matid1
+      sinth = 0.
+      costh = 0.
+      eltemp = ttemp
+      inflag = 2
+      matid = matid1
       CALL hmat(ecpt(1))
-      thick = T
-      dc = C*T
+      thick = t
+      dc = c*t
 !
 !     ZERO OUT THE SAVE MATRIX
 !
@@ -265,26 +266,26 @@ SUBROUTINE is2d8s
          save(i) = 0.0
       ENDDO
 !
-      DO iii = 1 , Id1
-         DO jjj = 1 , Id1
+      DO iii = 1 , id1
+         DO jjj = 1 , id1
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO XI AND ETA
 !     EACH GRID POINT
 !
             DO n = 1 , 4
-               IF ( Kmbgg(3)/=0 ) dn(n) = .25*(1.0+pt(iii)*xi(n))*(1.0+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.0)
+               IF ( kmbgg(3)/=0 ) dn(n) = .25*(1.0+pt(iii)*xi(n))*(1.0+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.0)
                dnxi(n) = .25*xi(n)*(1.0+pt(jjj)*eta(n))*(2.0*pt(iii)*xi(n)+pt(jjj)*eta(n))
                dneta(n) = .25*eta(n)*(1.0+pt(iii)*xi(n))*(pt(iii)*xi(n)+2.0*pt(jjj)*eta(n))
             ENDDO
 !
             DO n = 5 , 7 , 2
-               IF ( Kmbgg(3)/=0 ) dn(n) = .50*(1.0-pt(iii)*pt(iii))*(1.0+pt(jjj)*eta(n))
+               IF ( kmbgg(3)/=0 ) dn(n) = .50*(1.0-pt(iii)*pt(iii))*(1.0+pt(jjj)*eta(n))
                dnxi(n) = -pt(iii)*(1.0+pt(jjj)*eta(n))
                dneta(n) = .50*(1.0-pt(iii)*pt(iii))*eta(n)
             ENDDO
 !
             DO n = 6 , 8 , 2
-               IF ( Kmbgg(3)/=0 ) dn(n) = .50*(1.0+pt(iii)*xi(n))*(1.0-pt(jjj)*pt(jjj))
+               IF ( kmbgg(3)/=0 ) dn(n) = .50*(1.0+pt(iii)*xi(n))*(1.0-pt(jjj)*pt(jjj))
                dnxi(n) = .50*xi(n)*(1.0-pt(jjj)*pt(jjj))
                dneta(n) = -pt(jjj)*(1.0+pt(iii)*xi(n))
             ENDDO
@@ -341,9 +342,9 @@ SUBROUTINE is2d8s
 !
                ic = 0
                DO kk = 1 , 8
-                  IF ( Kmbgg(1)/=0 ) THEN
-                     bt(1) = Kx*dnx(kk) + Kxy*dny(kk)
-                     bt(2) = Kxy*dnx(kk) + Ky*dny(kk)
+                  IF ( kmbgg(1)/=0 ) THEN
+                     bt(1) = kx*dnx(kk) + kxy*dny(kk)
+                     bt(2) = kxy*dnx(kk) + ky*dny(kk)
                   ENDIF
 !
 !     DO NOT TRANSFORM FROM MATERIAL COORD SYSTEM TO BASIC AND GLOBAL
@@ -354,7 +355,7 @@ SUBROUTINE is2d8s
 !
 !     SET UP THE B MATRIX
 !
-                     IF ( Kmbgg(1)/=0 ) THEN
+                     IF ( kmbgg(1)/=0 ) THEN
                         b(1) = dnx(n)
                         b(2) = dny(n)
 !
@@ -370,7 +371,7 @@ SUBROUTINE is2d8s
 !
                         save(ic) = save(ic) + kij
                      ENDIF
-                     IF ( Kmbgg(3)/=0 ) THEN
+                     IF ( kmbgg(3)/=0 ) THEN
                         bij = dn(kk)*dn(n)*dhh
                         savm(ic) = savm(ic) + bij
                      ENDIF
@@ -381,7 +382,7 @@ SUBROUTINE is2d8s
                ENDDO
             ELSE
                CALL mesage(30,143,ecpt(1))
-               Error = .TRUE.
+               error = .TRUE.
                RETURN
             ENDIF
 !
@@ -391,8 +392,8 @@ SUBROUTINE is2d8s
       ENDDO
 !
       DO i = 1 , 36
-         IF ( Kmbgg(1)/=0 ) save(i) = save(i)*thick
-         IF ( Kmbgg(3)/=0 ) savm(i) = savm(i)*dc
+         IF ( kmbgg(1)/=0 ) save(i) = save(i)*thick
+         IF ( kmbgg(3)/=0 ) savm(i) = savm(i)*dc
       ENDDO
 !
 !     INSERT INTO OVERALL STIFFNESS MATRIX
@@ -403,23 +404,23 @@ SUBROUTINE is2d8s
             ic = ic + 1
             nrow = isil(i)
             ncol = isil(j)
-            IF ( Kmbgg(1)/=0 ) CALL insert(ncol,nrow,1,8,Jcore,Z,Z,save(ic),save(ic),Iprec)
-            IF ( Kmbgg(3)/=0 ) CALL insert(ncol,nrow,1,8,Jcore+64,Z,Z,savm(ic),savm(ic),Iprec)
+            IF ( kmbgg(1)/=0 ) CALL insert(ncol,nrow,1,8,jcore,z,z,save(ic),save(ic),iprec)
+            IF ( kmbgg(3)/=0 ) CALL insert(ncol,nrow,1,8,jcore+64,z,z,savm(ic),savm(ic),iprec)
          ENDDO
       ENDDO
 !
-      IF ( Kmbgg(1)/=0 ) CALL emgout(Z(Jcore),Z(Jcore),nsq,1,dict,1,Iprec)
-      IF ( Kmbgg(3)/=0 ) CALL emgout(Z(Jcore+64),Z(Jcore+64),nsq,1,dict,3,Iprec)
+      IF ( kmbgg(1)/=0 ) CALL emgout(z(jcore),z(jcore),nsq,1,dict,1,iprec)
+      IF ( kmbgg(3)/=0 ) CALL emgout(z(jcore+64),z(jcore+64),nsq,1,dict,3,iprec)
    ELSE
 !
 !     COMPUTE MATERIAL PROPERTIES
 !
-      tth = Th*3.1415927/180.
-      Sinth = sin(tth)
-      Costh = cos(tth)
-      Eltemp = Ttemp
-      Inflag = 2
-      Matid = Matid1
+      tth = th*3.1415927/180.
+      sinth = sin(tth)
+      costh = cos(tth)
+      eltemp = ttemp
+      inflag = 2
+      matid = matid1
       CALL mat(ecpt(1))
       DO i = 1 , 3
          g(i) = qq(i)
@@ -430,8 +431,8 @@ SUBROUTINE is2d8s
       g(7) = qq(3)
       g(8) = qq(5)
       g(9) = qq(6)
-      thick = T
-      drho = Rho*T
+      thick = t
+      drho = rho*t
 !
 !     ZERO THE SAVE MATRICES TO COLLECT INTEGRATIONS
 !
@@ -444,26 +445,26 @@ SUBROUTINE is2d8s
 !
 !     2 OR 3 QUADRATURE POINTS
 !
-      DO iii = 1 , Id1
-         DO jjj = 1 , Id1
+      DO iii = 1 , id1
+         DO jjj = 1 , id1
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO XI AND ETA
 !     EACH GRID POINT
 !
             DO n = 1 , 4
-               IF ( Kmbgg(2)/=0 ) dn(n) = .25*(1.0+pt(iii)*xi(n))*(1.0+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.0)
+               IF ( kmbgg(2)/=0 ) dn(n) = .25*(1.0+pt(iii)*xi(n))*(1.0+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.0)
                dnxi(n) = .25*xi(n)*(1.0+pt(jjj)*eta(n))*(2.0*pt(iii)*xi(n)+pt(jjj)*eta(n))
                dneta(n) = .25*eta(n)*(1.0+pt(iii)*xi(n))*(pt(iii)*xi(n)+2.0*pt(jjj)*eta(n))
             ENDDO
 !
             DO n = 5 , 7 , 2
-               IF ( Kmbgg(2)/=0 ) dn(n) = .50*(1.0-pt(iii)*pt(iii))*(1.0+pt(jjj)*eta(n))
+               IF ( kmbgg(2)/=0 ) dn(n) = .50*(1.0-pt(iii)*pt(iii))*(1.0+pt(jjj)*eta(n))
                dnxi(n) = -pt(iii)*(1.0+pt(jjj)*eta(n))
                dneta(n) = .50*(1.0-pt(iii)*pt(iii))*eta(n)
             ENDDO
 !
             DO n = 6 , 8 , 2
-               IF ( Kmbgg(2)/=0 ) dn(n) = .50*(1.0+pt(iii)*xi(n))*(1.0-pt(jjj)*pt(jjj))
+               IF ( kmbgg(2)/=0 ) dn(n) = .50*(1.0+pt(iii)*xi(n))*(1.0-pt(jjj)*pt(jjj))
                dnxi(n) = .50*xi(n)*(1.0-pt(jjj)*pt(jjj))
                dneta(n) = -pt(jjj)*(1.0+pt(iii)*xi(n))
             ENDDO
@@ -521,7 +522,7 @@ SUBROUTINE is2d8s
 !
                ic = 0
                DO kk = 1 , 8
-                  IF ( Kmbgg(1)/=0 ) THEN
+                  IF ( kmbgg(1)/=0 ) THEN
 !
                      DO i = 1 , 12
                         bt(i) = 0.0
@@ -541,7 +542,7 @@ SUBROUTINE is2d8s
 !
                   DO n = kk , 8
                      ic = ic + 1
-                     IF ( Kmbgg(1)/=0 ) THEN
+                     IF ( kmbgg(1)/=0 ) THEN
 !
 !     SET UP THE B MATRIX
 !
@@ -572,7 +573,7 @@ SUBROUTINE is2d8s
                         ENDDO
                      ENDIF
 !
-                     IF ( Kmbgg(2)/=0 ) THEN
+                     IF ( kmbgg(2)/=0 ) THEN
 !
                         mij = dn(kk)*dn(n)*dhh
                         savm(ic) = savm(ic) + mij
@@ -584,7 +585,7 @@ SUBROUTINE is2d8s
                ENDDO
             ELSE
                CALL mesage(30,143,ecpt(1))
-               Error = .TRUE.
+               error = .TRUE.
                RETURN
             ENDIF
 !
@@ -592,7 +593,7 @@ SUBROUTINE is2d8s
 !
          ENDDO
       ENDDO
-      IF ( Kmbgg(2)/=0 ) THEN
+      IF ( kmbgg(2)/=0 ) THEN
          DO i = 1 , 36
             savm(i) = savm(i)*drho
          ENDDO
@@ -600,11 +601,11 @@ SUBROUTINE is2d8s
 !
 !     CHECK ON NECESSITY OF PRE-MULTIPLYING COORDINATE TRANSFORMATIONS
 !
-      IF ( Kmbgg(1)/=0 ) THEN
+      IF ( kmbgg(1)/=0 ) THEN
          ic = 0
          DO kk = 1 , 8
             isub = 4*kk + 10
-            IF ( Necpt(isub)==0 ) THEN
+            IF ( necpt(isub)==0 ) THEN
                DO i = 1 , 6
                   premul(i) = e1t(i)
                ENDDO
@@ -612,7 +613,7 @@ SUBROUTINE is2d8s
 !
 !     ELEMENT TO GLOBAL
 !
-               CALL transs(Necpt(isub),tb)
+               CALL transs(necpt(isub),tb)
                CALL gmmats(e1t,2,3,0,tb,3,3,0,premul)
             ENDIF
             DO n = kk , 8
@@ -635,7 +636,7 @@ SUBROUTINE is2d8s
          ic = 0
          DO n = 1 , 8
             isub = 4*n + 10
-            IF ( Necpt(isub)==0 ) THEN
+            IF ( necpt(isub)==0 ) THEN
                DO i = 1 , 6
                   pstmul(i) = e1t(i)
                ENDDO
@@ -643,7 +644,7 @@ SUBROUTINE is2d8s
 !
 !     GLOBAL TO ELEMENT
 !
-               CALL transs(Necpt(isub),tb)
+               CALL transs(necpt(isub),tb)
                CALL gmmats(e1t,2,3,0,tb,3,3,0,pstmul)
             ENDIF
 !
@@ -666,7 +667,7 @@ SUBROUTINE is2d8s
 !
                ncol = isil(n)
                nrow = isil(m)
-               CALL insert(ncol,nrow,3,8,Jcore,Z,Z,temp,temp,Iprec)
+               CALL insert(ncol,nrow,3,8,jcore,z,z,temp,temp,iprec)
 !
 !     LOOP FOR ANOTHER PARTITION FOR THIS POST-MULTIPLIER
 !
@@ -678,11 +679,11 @@ SUBROUTINE is2d8s
 !
 !     ADD TO DICTIONARY
 !
-         dict(5) = Ge
-         CALL emgout(Z(Jcore),Z(Jcore),nsq,1,dict,1,Iprec)
+         dict(5) = ge
+         CALL emgout(z(jcore),z(jcore),nsq,1,dict,1,iprec)
       ENDIF
 !
-      IF ( Kmbgg(2)/=0 ) THEN
+      IF ( kmbgg(2)/=0 ) THEN
 !
          ic = 0
          DO kk = 1 , 8
@@ -707,10 +708,10 @@ SUBROUTINE is2d8s
                      IF ( kk/=n ) THEN
                         isub = 4*kk + 10
                         isub1 = 4*n + 10
-                        IF ( Necpt(isub)/=0 .OR. Necpt(isub1)/=0 ) THEN
-                           IF ( Necpt(isub)/=0 ) THEN
-                              CALL transs(Necpt(isub),temp1)
-                              IF ( Necpt(isub1)==0 ) THEN
+                        IF ( necpt(isub)/=0 .OR. necpt(isub1)/=0 ) THEN
+                           IF ( necpt(isub)/=0 ) THEN
+                              CALL transs(necpt(isub),temp1)
+                              IF ( necpt(isub1)==0 ) THEN
                                  temp3(1) = temp1(1)
                                  temp3(2) = temp1(4)
                                  temp3(3) = temp1(7)
@@ -723,8 +724,8 @@ SUBROUTINE is2d8s
                                  GOTO 2
                               ENDIF
                            ENDIF
-                           CALL transs(Necpt(isub1),temp2)
-                           IF ( Necpt(isub)==0 ) THEN
+                           CALL transs(necpt(isub1),temp2)
+                           IF ( necpt(isub)==0 ) THEN
                               DO i = 1 , 9
                                  temp3(i) = temp2(i)
                               ENDDO
@@ -750,29 +751,29 @@ SUBROUTINE is2d8s
 !
                      nrow = isil(kk)
                      ncol = isil(n)
-                     CALL insert(ncol,nrow,3,8,Jcore,Z,Z,temp,temp,Iprec)
+                     CALL insert(ncol,nrow,3,8,jcore,z,z,temp,temp,iprec)
                      EXIT SPAG_DispatchLoop_1
                   END SELECT
                ENDDO SPAG_DispatchLoop_1
             ENDDO
          ENDDO
 !
-         CALL emgout(Z(Jcore),Z(Jcore),nsq,1,dict,2,Iprec)
+         CALL emgout(z(jcore),z(jcore),nsq,1,dict,2,iprec)
       ENDIF
 !
 !     SAVE ELEMENT NAME, ID, THICKNESS, DENSITY, NO. OF GRID POINTS,
 !     GRID POINT DATA, AND AREA IF USER REQUESTED VOLUME AND AREA
 !     COMPUTATION
 !
-      IF ( Volume>0.0 .OR. Surfac>0.0 ) THEN
+      IF ( volume>0.0 .OR. surfac>0.0 ) THEN
          ecpt(2) = ecpt(13)
-         ecpt(3) = Rho
+         ecpt(3) = rho
          j = 4
-         Necpt(j) = 8
+         necpt(j) = 8
          ecpt(46) = area
          CALL write(scr4,bcd,2,0)
          CALL write(scr4,ecpt(1),4,0)
-         CALL write(scr4,Dumb(2),8,0)
+         CALL write(scr4,dumb(2),8,0)
          CALL write(scr4,ecpt(14),33,1)
       ENDIF
    ENDIF

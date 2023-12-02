@@ -1,12 +1,13 @@
-!*==sdcmm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdcmm.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
+   USE c_names
+   USE c_sdcq
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SDCQ
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -71,7 +72,7 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         buf2 = Buf + nbufsz
+         buf2 = buf + nbufsz
          n(1) = 0
          n(2) = 0
          n(3) = 0
@@ -79,7 +80,7 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
          n(5) = 0
          n(6) = 0
          n(7) = 0
-         IF ( Buf<=0 ) GOTO 60
+         IF ( buf<=0 ) GOTO 60
 !
 !     GENERATE EXTERNAL ID
 !
@@ -90,23 +91,23 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !
 !     2 BUFFERS NEEDED
 !
-            CALL mxcid(*60,Z,Mset,Msze,nwds,Uset,Gpl,Sil,Buf)
+            CALL mxcid(*60,Z,Mset,Msze,nwds,Uset,Gpl,Sil,buf)
          ELSE
 !
 !     SUBSTRUCTURING - READ EQSS FILE ON THE SOF
 !
 !     4 BUFFERS NEEDED
 !
-            i = Buf - 2*nbufsz
+            i = buf - 2*nbufsz
             IF ( i<=3*Msze ) GOTO 60
             nwds = 2
             CALL mxcids(*60,Z,Mset,Msze,nwds,Uset,i,Subnam)
             nstart = i - 1
          ENDIF
 !
-         CALL open(*100,Filmsg,Z(buf2),Krr0)
+         CALL open(*100,filmsg,Z(buf2),krr0)
          CALL page2(3)
-         WRITE (iout,99001) Uwm
+         WRITE (iout,99001) uwm
 99001    FORMAT (A25,' 2377A, MATRIX CONDITIONING ERRORS GIVEN WITH ','EXTERNAL ID',/5X,'GID - C  INPUT-DIAG.   DECOMP-DIAG.',6X,   &
                 &'TYPE',17X,'SUBSTRUCTURE')
 !
@@ -119,7 +120,7 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !
 !     LOOP ON MESSAGES - 0 COLUMN IS FLAG TO QUIT
 !
-         CALL fread(Filmsg,in,3,1)
+         CALL fread(filmsg,in,3,1)
          IF ( in(1)==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
@@ -140,7 +141,7 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !
 !     ILLEGAL DATA
 !
-            CALL mesage(7,Filmsg,name)
+            CALL mesage(7,filmsg,name)
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -167,18 +168,18 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !     INSUFFICIENT CORE IN -MATCID-
 !
  60      CALL page2(3)
-         WRITE (iout,99003) Uwm
+         WRITE (iout,99003) uwm
 99003    FORMAT (A25,' 2377B, MATRIX CONDITIONING ERRORS GIVEN WITH ','INTERNAL ID',/,5X,'COLUMN  INPUT DIAG.   DECOMP-DIAG.',6X,   &
                 &'TYPE')
 !
-         CALL open(*100,Filmsg,Z(buf2),Krr0)
+         CALL open(*100,filmsg,Z(buf2),krr0)
          ASSIGN 80 TO iret
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     LOOP
 !
-         CALL fread(Filmsg,in,3,1)
+         CALL fread(filmsg,in,3,1)
          IF ( in(1)==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
@@ -197,7 +198,7 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !
 !     SCRATCH FILE NOT AVAILABLE
 !
- 100     CALL mesage(1,Filmsg,name)
+ 100     CALL mesage(1,filmsg,name)
          spag_nextblock_1 = 5
       CASE (5)
 !
@@ -211,15 +212,15 @@ SUBROUTINE sdcmm(Z,Mset,Msze,Matrix,Uset,Gpl,Sil,Subnam)
 !
 !     CHECK FOR EXIT CONDITIONS
 !
-         i = 2*Noglev + 1
+         i = 2*noglev + 1
 !
 !     NOTE - NOGLEV OF 4 ALSO HAS NEGATIVE PARM(1)
 !
-         IF ( Noglev==4 ) i = 7
+         IF ( noglev==4 ) i = 7
          j = i + 1
          WRITE (iout,99006) exit(i) , exit(j)
 99006    FORMAT (1H0,3X,13HABORT CODE = ,2A4)
-         CALL close(Filmsg,Kcl2)
+         CALL close(filmsg,kcl2)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

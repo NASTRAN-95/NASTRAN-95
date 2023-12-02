@@ -1,13 +1,14 @@
-!*==mce1d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mce1d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce1d
-USE C_BLANK
-USE C_SYSTEM
-USE C_ZBLPKX
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_system
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -36,73 +37,72 @@ USE ISO_FORTRAN_ENV
 !     OPEN RM MATRIX,SKIP HEADER RECORD AND READ MATRIX CONTROL BLOCK
 !
          nz = korsz(z)
-         n = nz - Sysbuf
-         CALL gopen(Rm,z(n+1),0)
-         Mcb(1) = Rm
-         CALL rdtrl(Mcb)
+         n = nz - sysbuf
+         CALL gopen(rm,z(n+1),0)
+         mcb(1) = rm
+         CALL rdtrl(mcb)
 !
 !     FORM -RM
 !
-         ncol = Mcb(2)
+         ncol = mcb(2)
          DO k = 1 , ncol
-            CALL intpk(*20,Rm,0,rdp,0)
+            CALL intpk(*20,rm,0,rdp,0)
             CALL zntpki
-            IF ( I/=k ) THEN
+            IF ( i/=k ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Zd(k) = -Ad(1)
+            zd(k) = -ad(1)
          ENDDO
-         CALL close(Rm,1)
+         CALL close(rm,1)
 !
 !     OPEN RN MATRIX,SKIP HEADER RECORD AND READ MATRIX CONTROL BLOCK
 !
-         CALL gopen(Rn,z(n+1),0)
-         mcb1(1) = Rn
+         CALL gopen(rn,z(n+1),0)
+         mcb1(1) = rn
          CALL rdtrl(mcb1)
 !
 !     SET UP MATRIX CONTROL BLOCK BLOCK FOR GM
 !
-         CALL makmcb(mcb2,Gm,mcb1(3),mcb1(4),Ipr)
+         CALL makmcb(mcb2,gm,mcb1(3),mcb1(4),ipr)
 !
 !     OPEN OUTPUT FILE FOR GM AND WRITE HEADER RECORD
 !
-         n1 = n - Sysbuf
-         CALL gopen(Gm,z(n1+1),1)
+         n1 = n - sysbuf
+         CALL gopen(gm,z(n1+1),1)
 !
 !     FORM GM = -RM(-1)*RN
 !
          ncol1 = mcb1(2)
          DO k = 1 , ncol1
-            CALL bldpk(rdp,Ipr,Gm,0,0)
-            CALL intpk(*10,Rn,0,rdp,0)
+            CALL bldpk(rdp,ipr,gm,0,0)
+            CALL intpk(*10,rn,0,rdp,0)
             SPAG_Loop_2_1: DO
                CALL zntpki
-               J = I
-               Bd(1) = Ad(1)/Zd(J)
+               j = i
+               bd(1) = ad(1)/zd(j)
                CALL zblpki
-               IF ( Eol/=0 ) EXIT SPAG_Loop_2_1
+               IF ( eol/=0 ) EXIT SPAG_Loop_2_1
             ENDDO SPAG_Loop_2_1
- 10         CALL bldpkn(Gm,0,mcb2)
+ 10         CALL bldpkn(gm,0,mcb2)
          ENDDO
 !
 !     CLOSE GM AND RM FILES AND WRITE TRAILER FOR GM
 !
-         CALL close(Gm,1)
-         CALL close(Rn,1)
+         CALL close(gm,1)
+         CALL close(rn,1)
          CALL wrttrl(mcb2)
          RETURN
 !
 !     CALL MESSAGE WRITER IF FATAL ERROR DETECTED
 !
- 20      L = -5
+ 20      l = -5
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         L = -16
+         l = -16
          spag_nextblock_1 = 3
       CASE (3)
-         CALL mesage(L,Rm,bcd)
+         CALL mesage(l,rm,bcd)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

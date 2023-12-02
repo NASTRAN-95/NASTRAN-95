@@ -1,9 +1,10 @@
-!*==type10.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==type10.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,7 +39,7 @@ SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
 !
    DATA a(6) , type , lstchr/0 , 4 , 48/
 !
-   IF ( Pltype<0 ) THEN
+   IF ( pltype<0 ) THEN
 !
 !     DRAW THE LINE OF CHARACTERS
 !
@@ -47,7 +48,7 @@ SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
       optx = -1
       IF ( Opt<0 ) THEN
       ELSEIF ( Opt==0 ) THEN
-         a(5) = ifix(Cscale+.44)
+         a(5) = ifix(cscale+.44)
          xy(1,1) = X
          xy(2,1) = Y
          xy(1,2) = X
@@ -62,7 +63,7 @@ SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
          ENDDO
          IF ( n==1 .AND. iabs(Chr(1))==48 ) RETURN
          d = max0(iabs(Xyd),1)
-         s = Cntchr(d)
+         s = cntchr(d)
          IF ( Xyd==-1 .OR. Xyd==2 ) s = -s
 !
 !     TYPE THE LINE
@@ -70,7 +71,7 @@ SUBROUTINE type10(X,Y,Xyd,Chr,Nn,Opt)
          SPAG_Loop_1_1: DO j = 1 , n
             xy(d,2) = xy(d,1) + s*float(j-1)
             DO i = 1 , 2
-               IF ( xy(i,2)+.1<Xymin(i) .OR. xy(i,2)-.1>Xymax(i) ) CYCLE SPAG_Loop_1_1
+               IF ( xy(i,2)+.1<xymin(i) .OR. xy(i,2)-.1>xymax(i) ) CYCLE SPAG_Loop_1_1
                a(i+2) = xy(i,2) + .1
             ENDDO
 !

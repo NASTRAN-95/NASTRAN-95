@@ -1,15 +1,16 @@
-!*==adr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==adr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE adr
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -56,12 +57,12 @@ SUBROUTINE adr
 !
 !     INITIALIZE  - LOOK FOR A REQUEST
 !
-         IF ( App/=flut .AND. App/=freq ) GOTO 80
-         ncore = korsz(Z)
-         ibuf1 = ncore - Sysbuf
+         IF ( app/=flut .AND. app/=freq ) GOTO 80
+         ncore = korsz(z)
+         ibuf1 = ncore - sysbuf
          CALL open(*80,casecc,iz(ibuf1),0)
          CALL fwdrec(*80,casecc)
-         CALL read(*80,*20,casecc,Z,ibuf1,0,nw)
+         CALL read(*80,*20,casecc,z,ibuf1,0,nw)
  20      IF ( iz(iaero)/=0 ) THEN
             CALL close(casecc,1)
 !
@@ -72,7 +73,7 @@ SUBROUTINE adr
 !     INDEPENDENT LIST ON QKHL
 !
             CALL open(*80,load,iz(ibuf1),0)
-            IF ( App==flut ) THEN
+            IF ( app==flut ) THEN
 !
 !     CLAMAL1 = LOAD
 !
@@ -98,14 +99,14 @@ SUBROUTINE adr
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  60      nfreq = nfreq/6
-         IF ( Bov==0.0 ) THEN
-            WRITE (Out,99001) Uim
+         IF ( bov==0.0 ) THEN
+            WRITE (out,99001) uim
 99001       FORMAT (A29,' 2272, NO FLUTTER CALCULATIONS CAN BE MADE IN ','MODULE ADR SINCE BOV = 0.0.')
             GOTO 80
          ELSE
             DO i = 1 , nfreq
                k = i*6 - 1
-               Z(i) = Z(k)/(Twopi*Bov)
+               z(i) = z(k)/(twopi*bov)
             ENDDO
             nload = 1
          ENDIF
@@ -116,7 +117,7 @@ SUBROUTINE adr
 !     OTHER SLOT 0.0 ,W FOR NFREQ*2
 !
          CALL close(load,1)
-         CALL adri(Z,nfreq,ncore,qkhl,scr1,scr2,scr3,scr4,nrow,ncol,nogo)
+         CALL adri(z,nfreq,ncore,qkhl,scr1,scr2,scr3,scr4,nrow,ncol,nogo)
          IF ( nogo==0 ) THEN
 !
 !     SCR1 NOW HAS QKH INTERPOLATED    NROW*NCOL(ROW5)  NFREQ(COLUMNS)
@@ -125,11 +126,11 @@ SUBROUTINE adr
 !
 !     BUILD PKF
 !
-            Iout = 3
-            Iti = 3
-            Ito = 3
-            Incr = 1
-            Incr1 = 1
+            iout = 3
+            iti = 3
+            ito = 3
+            incr = 1
+            incr1 = 1
             mcb(1) = disp
             CALL rdtrl(mcb)
             IF ( mcb(1)>=0 ) THEN
@@ -137,17 +138,17 @@ SUBROUTINE adr
                   CALL mesage(7,0,nam)
                ELSE
                   nns1 = nrow*ncol
-                  Ii = 1
-                  Nn = nrow
-                  Inn = 1
-                  ibuf2 = ibuf1 - Sysbuf
-                  CALL gopen(pkf,Z(ibuf2),1)
-                  ibuf3 = ibuf2 - Sysbuf
-                  CALL gopen(disp,Z(ibuf3),0)
-                  CALL gopen(scr1,Z(ibuf1),0)
+                  ii = 1
+                  nn = nrow
+                  inn = 1
+                  ibuf2 = ibuf1 - sysbuf
+                  CALL gopen(pkf,z(ibuf2),1)
+                  ibuf3 = ibuf2 - sysbuf
+                  CALL gopen(disp,z(ibuf3),0)
+                  CALL gopen(scr1,z(ibuf1),0)
                   mcb(1) = pkf
                   mcb(2) = 0
-                  mcb(3) = Nn
+                  mcb(3) = nn
                   mcb(6) = 0
                   mcb(7) = 0
                   nterms = nns1*2
@@ -169,29 +170,29 @@ SUBROUTINE adr
 !     UNPACK INTERPOLATED MATRIX COLUMN THEN DISP VECTOR  MULTIPLY AND
 !     PACK OUT
 !
-                                 Nnn = nns1
-                                 CALL unpack(*62,scr1,Z(ipq))
+                                 nnn = nns1
+                                 CALL unpack(*62,scr1,z(ipq))
 !
 !     MULTIPLY BACK BY FREQUENCY (K)
 !
                                  DO l = 1 , nterms , 2
                                     m = j*2
-                                    Z(ipq+l) = Z(ipq+l)*Z(m)
+                                    z(ipq+l) = z(ipq+l)*z(m)
                                  ENDDO
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
- 62                              CALL zeroc(Z(ipq),nterms)
+ 62                              CALL zeroc(z(ipq),nterms)
                                  spag_nextblock_2 = 2
                               CASE (2)
-                                 Nnn = ncol
-                                 CALL unpack(*64,disp,Z(ipd))
+                                 nnn = ncol
+                                 CALL unpack(*64,disp,z(ipd))
                                  spag_nextblock_2 = 3
                                  CYCLE SPAG_DispatchLoop_2
- 64                              CALL zeroc(Z(ipd),ntermd)
+ 64                              CALL zeroc(z(ipd),ntermd)
                                  spag_nextblock_2 = 3
                               CASE (3)
-                                 CALL gmmatc(Z(ipd),1,ncol,0,Z(ipq),ncol,nrow,0,Z(ipa))
-                                 CALL pack(Z(ipa),pkf,mcb)
+                                 CALL gmmatc(z(ipd),1,ncol,0,z(ipq),ncol,nrow,0,z(ipa))
+                                 CALL pack(z(ipa),pkf,mcb)
                                  EXIT SPAG_DispatchLoop_2
                               END SELECT
                            ENDDO SPAG_DispatchLoop_2
@@ -205,17 +206,17 @@ SUBROUTINE adr
                      CALL close(disp,1)
                      CALL close(pkf,1)
                      CALL wrttrl(mcb)
-                     CALL dmpfil(-pkf,Z(ipq),ibuf3-ipq)
+                     CALL dmpfil(-pkf,z(ipq),ibuf3-ipq)
 !
 !     PUT FREQUENCY BACK TO ORIGINAL VALUE
 !
                      DO i = 1 , nfreq
-                        Z(i) = Z(i*2)/(Twopi*Bov)
+                        z(i) = z(i*2)/(twopi*bov)
                      ENDDO
 !
 !     PRINT RESULTS
 !
-                     CALL adrprt(casecc,pkf,spline,sila,useta,Z,nfreq,ncore,nload)
+                     CALL adrprt(casecc,pkf,spline,sila,useta,z,nfreq,ncore,nload)
                   ENDIF
                ENDIF
             ENDIF

@@ -1,15 +1,16 @@
-!*==optp1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==optp1c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optp1c(Elt,Elop,Pr)
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_optpw1
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_OPTPW1
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,42 +52,42 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
          idps = Elop(2,1)
          idpe = Elop(2,2) - 1
 !
-         SPAG_Loop_1_2: DO ietyp = 1 , Ntypes
+         SPAG_Loop_1_2: DO ietyp = 1 , ntypes
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   IF ( Elt(ietyp)<=0 ) CYCLE
-                  npr = (idpe+1-idps)/Nwdsp
+                  npr = (idpe+1-idps)/nwdsp
                   IF ( npr<0 ) THEN
                   ELSEIF ( npr==0 ) THEN
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
                   ELSE
 !
-                     idx = Entry(jetyp)
-                     idx = Incr*(idx-1)
+                     idx = entry(jetyp)
+                     idx = incr*(idx-1)
                      idp = idx + 7
-                     card(1) = Ne(idp)
-                     card(2) = Ne(idp+1)
-                     IF ( Ne(idp+2)>Prcor ) THEN
+                     card(1) = ne(idp)
+                     card(2) = ne(idp+1)
+                     IF ( ne(idp+2)>prcor ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
 !
-                     CALL locate(*20,X(B1p1),card,i)
+                     CALL locate(*20,x(b1p1),card,i)
                      icpr = Pr(idps)
                      icpt = idps
                      SPAG_Loop_2_1: DO
 !
-                        CALL read(*40,*60,Ept,Prc,Ne(idp+2),Noeor,i)
+                        CALL read(*40,*60,ept,prc,ne(idp+2),noeor,i)
 !
 !     SEQUENTIAL PROPERTY SEARCH.  PROPERTIES THAT ARE UNSORTED ON EPT
 !     WILL FAIL.  THIS MAY OCCUR FOR 2 PID/CARD (E.G., QDMEM, QUAD2,
 !     SHEAR, TRIA2, TRMEM).
 !
-                        IF ( Prc(1)<icpr ) THEN
-                        ELSEIF ( Prc(1)==icpr ) THEN
+                        IF ( prc(1)<icpr ) THEN
+                        ELSEIF ( prc(1)==icpr ) THEN
 !
 !     PROPERTY IN CORE LOCATED.
 !
@@ -98,18 +99,18 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
 !
                            j1 = Pr(icpt+1)/100
                            j2 = j1 + dtyp(jetyp)
-                           Pr(icpt+3) = Prc(j2)
-                           Pr(icpt+2) = Prc(j2)
+                           Pr(icpt+3) = prc(j2)
+                           Pr(icpt+2) = prc(j2)
 !
 !     ICPT+0, +1 SET BY OPTP1A
 !
-                           icpt = icpt + Nwdsp
+                           icpt = icpt + nwdsp
                            IF ( icpt>idpe ) THEN
 !
 !     NEW ELEMENT TYPE COMING
 !
                               IF ( npr>0 ) EXIT SPAG_Loop_2_1
-                              CALL fread(Ept,0,0,Nweor)
+                              CALL fread(ept,0,0,nweor)
                               spag_nextblock_2 = 2
                               CYCLE SPAG_DispatchLoop_2
                            ELSE
@@ -124,14 +125,14 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
 !     LOGIC OR UNSORTED FILE ERROR
 !
                   CALL page2(-2)
-                  WRITE (Outtap,99001) Sfm , ietyp , Prc(1) , name
+                  WRITE (outtap,99001) sfm , ietyp , prc(1) , name
 99001             FORMAT (A25,' 2299, INCORRECT LOGIC FOR ELEMENT TYPE',I4,', PROPERTY',I9,2H (,2A4,2H).)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                CASE (2)
                   idps = idpe + 1
                   jetyp = jetyp + 1
-                  IF ( jetyp>Npow ) EXIT SPAG_Loop_1_2
+                  IF ( jetyp>npow ) EXIT SPAG_Loop_1_2
                   idpe = Elop(2,jetyp+1) - 1
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -146,35 +147,33 @@ SUBROUTINE optp1c(Elt,Elop,Pr)
 !
 !     ERRORS
 !
-         Count = -1
+         count = -1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     UNABLE TO LOCATE SORTED PID
 !
- 20      WRITE (Outtap,99002) Sfm , name , Prc(1)
+ 20      WRITE (outtap,99002) sfm , name , prc(1)
 99002    FORMAT (A25,' 2300, ',2A4,'UNABLE TO LOCATE PROPERTY',I10,' ON EPT OR IN CORE.')
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     INSUFFICIENT CORE /OPTPW1/
 !
          CALL page2(-2)
-         WRITE (Outtap,99003) Ufm , name , Prcor , ietyp
+         WRITE (outtap,99003) ufm , name , prcor , ietyp
 99003    FORMAT (A23,' 2296. INSUFFICIENT CORE ',2A4,1H(,I10,' ), ELEMENT',I9)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     ILLEGAL EOF
 !
- 40      CALL mesage(-2,Ept,name)
+ 40      CALL mesage(-2,ept,name)
 !
 !     ILLEGAL EOR
 !
- 60      CALL mesage(-3,Ept,name)
+ 60      CALL mesage(-3,ept,name)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE optp1c

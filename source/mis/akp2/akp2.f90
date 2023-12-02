@@ -1,9 +1,10 @@
-!*==akp2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==akp2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE akp2
+   USE c_blk1
    IMPLICIT NONE
-   USE C_BLK1
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -14,14 +15,14 @@ SUBROUTINE akp2
 !
 !
 !
-   gam = sqrt(Del**2-Scrk**2)
-   s1 = Sns*gam
-   c1 = (Sigma-s1)/2.0
-   c2 = (Sigma+s1)/2.0
-   dgda = Del/gam
-   d1 = Sps/2.0
-   d2 = Sns/2.0*dgda
+   gam = sqrt(del**2-scrk**2)
+   s1 = sns*gam
+   c1 = (sigma-s1)/2.0
+   c2 = (sigma+s1)/2.0
+   dgda = del/gam
+   d1 = sps/2.0
+   d2 = sns/2.0*dgda
    dc1da = d1 - d2
    dc2da = d1 + d2
-   Res = 1.0/gam*dgda + Sns*cos(s1)/sin(s1)*dgda - cos(c1)/sin(c1)*dc1da - cos(c2)/sin(c2)*dc2da
+   res = 1.0/gam*dgda + sns*cos(s1)/sin(s1)*dgda - cos(c1)/sin(c1)*dc1da - cos(c2)/sin(c2)*dc2da
 END SUBROUTINE akp2

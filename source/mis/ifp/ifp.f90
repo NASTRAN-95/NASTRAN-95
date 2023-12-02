@@ -3,20 +3,20 @@
 SUBROUTINE ifp
 !
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_IFPDTA
-   USE C_IFPX0
-   USE C_IFPX1
-   USE C_IFPX2
-   USE C_IFPX3
-   USE C_IFPX4
-   USE C_IFPX5
-   USE C_IFPX6
-   USE C_IFPX7
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_ifpdta
+   USE c_ifpx0
+   USE c_ifpx1
+   USE c_ifpx2
+   USE c_ifpx3
+   USE c_ifpx4
+   USE c_ifpx5
+   USE c_ifpx6
+   USE c_ifpx7
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,6 +39,12 @@ SUBROUTINE ifp
    INTEGER , DIMENSION(40) , SAVE :: kkl , mentry
    INTEGER , DIMENSION(80) , SAVE :: nentry
    INTEGER , DIMENSION(5) , SAVE :: ooo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -118,62 +124,62 @@ SUBROUTINE ifp
    kick = 0
    ipvs = 0
    eofflg = .FALSE.
-   Baddat = .FALSE.
-   Badfor = .FALSE.
-   Nparam = 0
-   Kn = 0
-   Iax = .FALSE.
-   Nax = -1
-   Iaxf = 0
-   Naxf = -1
-   Lharm = .TRUE.
-   Kslot1 = 0
-   Kslot2 = 0
-   Kslot3 = 0
-   Kslot4 = 0
-   Kslot5 = 0
+   baddat = .FALSE.
+   badfor = .FALSE.
+   nparam = 0
+   kn = 0
+   iax = .FALSE.
+   nax = -1
+   iaxf = 0
+   naxf = -1
+   lharm = .TRUE.
+   kslot1 = 0
+   kslot2 = 0
+   kslot3 = 0
+   kslot4 = 0
+   kslot5 = 0
    CALL conmsg(ifpna1,2,0)
-   iap = iabs(Iapp)
+   iap = iabs(iapp)
    jap = kap(iap)
-   Knt = -1
-   iaxic = Axiccc
-   iaxif = Axifcc
-   Axiccc = 0
-   Axifcc = 0
+   knt = -1
+   iaxic = axiccc
+   iaxif = axifcc
+   axiccc = 0
+   axifcc = 0
    DO j = 1 , nfls
       ii(j) = 0
    ENDDO
    DO j = 1 , 40
-      Endara(j) = 0
+      endara(j) = 0
    ENDDO
-   Nopen = korsz(Ibuff) - 3*N1
+   nopen = korsz(ibuff) - 3*n1
    CALL sswtch(42,l42)
-   IF ( Nopen>=0 ) THEN
+   IF ( nopen>=0 ) THEN
 !
 !     OPEN NPTP AND LOCATE BULK DATA
 !
       kfil = ifle(6)
-      CALL open(*100,kfil,Ibuff(N1+1),0)
+      CALL open(*100,kfil,ibuff(n1+1),0)
       DO
          CALL skpfil(kfil,1)
          CALL read(*4400,*300,kfil,jr,2,1,kdum)
          IF ( jr(1)==iblkda(1) .AND. jr(2)==iblkda(2) ) THEN
             CALL read(*4300,*300,ifle(6),jr,20,1,kdum)
-            Knt = Knt + 1
+            knt = knt + 1
 !
 !     CHECK FOR 1PARM OR 1VARY CARDS
 !
             IF ( jr(1)==iparm .OR. jr(1)==ivary ) CALL ifppvc(*400,ipvs,jr)
-            IF ( l42==0 ) CALL rcard2(M1,M1f,nw,jr)
-            IF ( l42/=0 ) CALL rcard(M1,M1f,nw,jr)
-            IF ( M1(1)/=0 .OR. M1(2)/=0 ) GOTO 700
+            IF ( l42==0 ) CALL rcard2(m1,m1f,nw,jr)
+            IF ( l42/=0 ) CALL rcard(m1,m1f,nw,jr)
+            IF ( m1(1)/=0 .OR. m1(2)/=0 ) GOTO 600
             kerror = 1430
             GOTO 4500
          ELSE
             kick = kick + 1
             IF ( kick>=5 ) THEN
                CALL page2(2)
-               WRITE (Nout,99001) Sfm , jr(1) , jr(2)
+               WRITE (nout,99001) sfm , jr(1) , jr(2)
 99001          FORMAT (A25,' 304, IFP NOT READING NPTP. FILE BEING READ = ',2A4)
                GOTO 200
             ENDIF
@@ -181,95 +187,94 @@ SUBROUTINE ifp
       ENDDO
    ELSE
       CALL page2(2)
-      WRITE (Nout,99002) Sfm
+      WRITE (nout,99002) sfm
 99002 FORMAT (A25,' 303, NO OPEN CORE FOR IFP.')
-      Abort = .TRUE.
+      abort = .TRUE.
       RETURN
    ENDIF
  100  CALL page2(2)
-   WRITE (Nout,99003) Sfm , kfil
+   WRITE (nout,99003) sfm , kfil
 99003 FORMAT (A25,' 305, IFP CANNOT OPEN GINO FILE',I10)
- 200  Abort = .TRUE.
+ 200  abort = .TRUE.
    GOTO 5300
  300  CALL page2(2)
-   WRITE (Nout,99004) Sfm
+   WRITE (nout,99004) sfm
 99004 FORMAT (A25,' 306, READ LOGICAL RECORD ERROR')
    GOTO 200
  400  CALL close(ifle(6),1)
    GOTO 5400
-!
-!     READ AND DECODE ONE PHYSICAL CARD
-!
- 500  DO WHILE ( .NOT.(eofflg) )
-      CALL read(*4600,*300,ifle(6),jr,20,1,kdum)
-      Knt = Knt + 1
-      IF ( l42==0 ) CALL rcard2(M1,M1f,nw,jr)
-      IF ( l42/=0 ) CALL rcard(M1,M1f,nw,jr)
-      IF ( M1(1)/=0 .OR. M1(2)/=0 ) GOTO 600
-   ENDDO
-   kerror = 1410
-   GOTO 4500
- 600  IF ( eofflg ) GOTO 4600
+ 500  IF ( eofflg ) GOTO 4600
 !
 !     IDENTIFY CARD NAME
 !
- 700  DO j = 1 , ncdsmx
-      K = j
-      IF ( M1(1)==T1(1,K) .AND. M1(2)==T1(2,K) ) GOTO 800
+ 600  DO j = 1 , ncdsmx
+      k = j
+      IF ( m1(1)==t1(1,k) .AND. m1(2)==t1(2,k) ) GOTO 800
    ENDDO
-   IF ( kt1k/=T1(1,K) .OR. kt2k/=T1(2,K) ) THEN
-      kt1k = T1(1,K)
-      kt2k = T1(2,K)
+   IF ( kt1k/=t1(1,k) .OR. kt2k/=t1(2,k) ) THEN
+      kt1k = t1(1,k)
+      kt2k = t1(2,k)
    ELSE
       kcount = kcount + 1
       IF ( kcount>=7 ) THEN
          IF ( kcount==7 ) THEN
             CALL page2(3)
-            WRITE (Nout,99024)
+            WRITE (nout,99024)
          ENDIF
-         GOTO 500
+         GOTO 700
       ENDIF
    ENDIF
    CALL page2(2)
-   WRITE (Nout,99005) Ufm , M1(1) , M1(2)
+   WRITE (nout,99005) ufm , m1(1) , m1(2)
 99005 FORMAT (A23,' 307, ILLEGAL NAME FOR BULK DATA CARD ',2A4)
-   Abort = .TRUE.
-   GOTO 500
+   abort = .TRUE.
+!
+!     READ AND DECODE ONE PHYSICAL CARD
+!
+ 700  DO WHILE ( .NOT.(eofflg) )
+      CALL read(*4600,*300,ifle(6),jr,20,1,kdum)
+      knt = knt + 1
+      IF ( l42==0 ) CALL rcard2(m1,m1f,nw,jr)
+      IF ( l42/=0 ) CALL rcard(m1,m1f,nw,jr)
+      IF ( m1(1)/=0 .OR. m1(2)/=0 ) GOTO 500
+   ENDDO
+   kerror = 1410
+   GOTO 4500
  800  kcount = 0
    cl = .FALSE.
    cf = .TRUE.
-   Kx = K - 100
-   Ky = Kx - 100
+   kx = k - 100
+   ky = kx - 100
 !
 !     CHECK APPROACH ACCEPTABILITY
 !
-   IF ( T3(2,K)*jap+1<0 ) THEN
-      WRITE (Nout,99006) Ufm , T1(1,K) , T1(2,K) , ap(3*iap-2) , ap(3*iap-1) , ap(3*iap)
+   IF ( t3(2,k)*jap+1<0 ) THEN
+      WRITE (nout,99006) ufm , t1(1,k) , t1(2,k) , ap(3*iap-2) , ap(3*iap-1) , ap(3*iap)
 99006 FORMAT (A23,' 308, CARD ',2A4,' NOT ALLOWED IN ',3A4,' APPROACH.')
       CALL page2(2)
-      Abort = .TRUE.
-   ELSEIF ( T3(2,K)*jap+1==0 ) THEN
-      WRITE (Nout,99007) Uwm , T1(1,K) , T1(2,K) , ap(3*iap-2) , ap(3*iap-1) , ap(3*iap)
+      abort = .TRUE.
+   ELSEIF ( t3(2,k)*jap+1==0 ) THEN
+      WRITE (nout,99007) uwm , t1(1,k) , t1(2,k) , ap(3*iap-2) , ap(3*iap-1) , ap(3*iap)
 99007 FORMAT (A25,' 309, CARD ',2A4,' IMPROPER IN ',3A4,' APPROACH.')
       CALL page2(2)
    ENDIF
-   IF ( .NOT.(.NOT.Iax .OR. T4(1,K)>=0) ) THEN
+   IF ( .NOT.(.NOT.iax .OR. t4(1,k)>=0) ) THEN
       CALL page2(2)
-      WRITE (Nout,99008) Ufm , T1(1,K) , T1(2,K)
+      WRITE (nout,99008) ufm , t1(1,k) , t1(2,k)
 99008 FORMAT (A23,' 310, CARD ',2A4,' NOT ALLOWED IN SAME DECK WITH ','AXIC CARD.')
-      Abort = .TRUE.
+      abort = .TRUE.
    ENDIF
 !
 !     ESTABLISH PROPER OUTPUT FILES FOR THIS CARD
 !
-   indx = T3(1,K)
+   indx = t3(1,k)
    IF ( indx/=curfil .AND. indx/=6 ) THEN
       IF ( curfil/=0 .AND. status(curfil)/=1 ) THEN
          CALL close(ifle(curfil),2)
          status(curfil) = 3
       ENDIF
       kfil = ifle(indx)
-      CALL open(*100,kfil,Ibuff,status(indx))
+      CALL open(*100,kfil,ibuff,status(indx))
       curfil = indx
       status(curfil) = -status(curfil)
       IF ( status(curfil)==-1 ) THEN
@@ -278,30 +283,30 @@ SUBROUTINE ifp
          status(curfil) = -3
       ENDIF
    ENDIF
-   Id = M1(3)
+   id = m1(3)
  900  jf = nw - 2
    DO l = jf , lm
-      M(l) = 0
+      m(l) = 0
    ENDDO
    DO l = 1 , jf
-      M(l) = M1(l+2)
+      m(l) = m1(l+2)
    ENDDO
 !
 !     TEST UNIQUENESS OF FIELD 2 IF APPLICABLE
 !
-   IF ( .NOT.(M1(1)==0 .AND. M1(2)==0 .OR. cf .OR. T6(2,K)/=1) ) THEN
-      IF ( Id==M(1) ) THEN
-         knt1 = Knt + 1
+   IF ( .NOT.(m1(1)==0 .AND. m1(2)==0 .OR. cf .OR. t6(2,k)/=1) ) THEN
+      IF ( id==m(1) ) THEN
+         knt1 = knt + 1
          CALL page2(2)
-         WRITE (Nout,99009) Ufm , T1(1,K) , T1(2,K) , M(1) , knt1
+         WRITE (nout,99009) ufm , t1(1,k) , t1(2,k) , m(1) , knt1
 99009    FORMAT (A23,' 311, NON-UNIQUE FIELD 2 ON BULK DATA CARD ',2A4,I8,10X,'H SORTED CARD COUNT =',I7)
-         Abort = .TRUE.
+         abort = .TRUE.
       ELSE
-         Id = M(1)
+         id = m(1)
       ENDIF
    ENDIF
    DO l = 1 , lm
-      Mf(l) = 0
+      mf(l) = 0
    ENDDO
    lf = 0
    DO l = 1 , jf
@@ -309,39 +314,39 @@ SUBROUTINE ifp
 !     =========================================
 !     THIS SHOULD BE CHANGED WHEN RCARD CHANGES
 !
-      IF ( M1f(l+1)<0 ) EXIT
+      IF ( m1f(l+1)<0 ) EXIT
 !     ========================================
       lf = lf + 1
-      Mf(l) = M1f(l+1)
+      mf(l) = m1f(l+1)
    ENDDO
    DO
-      Mf(lf+1) = -32767
+      mf(lf+1) = -32767
       DO WHILE ( .NOT.(eofflg) )
 !
 !     READ ANOTHER CARD (TO BE PROCESSED NEXT)
 !
-         Knt = Knt + 1
+         knt = knt + 1
          CALL read(*1100,*300,ifle(6),jr,20,1,kdum)
-         IF ( l42==0 ) CALL rcard2(M1,M1f,nw,jr)
-         IF ( l42/=0 ) CALL rcard(M1,M1f,nw,jr)
-         IF ( M1(1)/=0 .OR. M1(2)/=0 ) THEN
-            IF ( M1(1)/=T1(1,K) .OR. M1(2)/=T1(2,K) ) cl = .TRUE.
+         IF ( l42==0 ) CALL rcard2(m1,m1f,nw,jr)
+         IF ( l42/=0 ) CALL rcard(m1,m1f,nw,jr)
+         IF ( m1(1)/=0 .OR. m1(2)/=0 ) THEN
+            IF ( m1(1)/=t1(1,k) .OR. m1(2)/=t1(2,k) ) cl = .TRUE.
             GOTO 1200
          ELSE
 !
 !     CHECK FOR TOO MANY CONTINUATIONS
 !
-            IF ( T6(1,K)<0 .AND. lf>4 ) GOTO 1200
+            IF ( t6(1,k)<0 .AND. lf>4 ) GOTO 1200
             IF ( jf+nw-2>lm ) THEN
-               WRITE (Nout,99010) Ufm , T1(1,K) , T1(2,K) , M(1) , Knt
+               WRITE (nout,99010) ufm , t1(1,k) , t1(2,k) , m(1) , knt
 99010          FORMAT (A23,' 312, TOO MANY CONTINUATIONS FOR BULK DATA CARD ',2A4,I8,6X,'SORTED CARD COUNT =',I7)
                CALL page2(2)
-               Abort = .TRUE.
+               abort = .TRUE.
             ELSE
                k1 = nw - 2
                DO l = 1 , k1
                   k2 = jf + l
-                  M(k2) = M1(l+2)
+                  m(k2) = m1(l+2)
                ENDDO
                jf = jf + nw - 2
                DO l = 1 , k1
@@ -349,10 +354,10 @@ SUBROUTINE ifp
 !     =========================================
 !     THIS SHOULD BE CHANGED WHEN RCARD CHANGES
 !
-                  IF ( M1f(l+1)<0 ) EXIT
+                  IF ( m1f(l+1)<0 ) EXIT
 !     =========================================
                   lf = lf + 1
-                  Mf(lf) = M1f(l+1)
+                  mf(lf) = m1f(l+1)
                ENDDO
                GOTO 1000
             ENDIF
@@ -362,79 +367,79 @@ SUBROUTINE ifp
       GOTO 4500
  1000 ENDDO
  1100 eofflg = .TRUE.
-   M1(1) = eofz
-   M1(2) = eofz
+   m1(1) = eofz
+   m1(2) = eofz
    cl = .TRUE.
- 1200 IF ( .NOT.(.NOT.cf .OR. T6(2,K)==2) ) THEN
-      kkk = T3(1,K)
+ 1200 IF ( .NOT.(.NOT.cf .OR. t6(2,k)==2) ) THEN
+      kkk = t3(1,k)
       ii(kkk) = ii(kkk) + 1
       cf = .FALSE.
       IF ( kkk==6 .OR. kkk==12 ) GOTO 1300
-      itrl(1) = T7(1,K)
-      itrl(2) = T7(2,K)
-      itrl(3) = K
+      itrl(1) = t7(1,k)
+      itrl(2) = t7(2,k)
+      itrl(3) = k
       CALL write(ifle(curfil),itrl,3,0)
    ENDIF
 !
 !     CHECK FOR MIN-MAX NO. OF WORDS
 !
-   IF ( T5(1,K)>=0 ) THEN
+   IF ( t5(1,k)>=0 ) THEN
       l = jf
-      IF ( T5(1,K)<l ) THEN
+      IF ( t5(1,k)<l ) THEN
          DO
-            IF ( T5(2,K)<l ) GOTO 1400
-            IF ( T5(2,K)==l ) GOTO 1600
+            IF ( t5(2,k)<l ) GOTO 1400
+            IF ( t5(2,k)==l ) GOTO 1600
             l = l + 4
          ENDDO
-      ELSEIF ( T5(1,K)==l ) THEN
+      ELSEIF ( t5(1,k)==l ) THEN
          GOTO 1600
       ELSE
          GOTO 1400
       ENDIF
    ENDIF
- 1300 l = -T5(1,K)
-   IF ( jf>=l .AND. jf<=T5(2,K) ) GOTO 1600
- 1400 WRITE (Nout,99011) Ufm , T1(1,K) , T1(2,K) , M(1) , Knt
+ 1300 l = -t5(1,k)
+   IF ( jf>=l .AND. jf<=t5(2,k) ) GOTO 1600
+ 1400 WRITE (nout,99011) ufm , t1(1,k) , t1(2,k) , m(1) , knt
 99011 FORMAT (A23,' 313, ILLEGAL NUMBER OF WORDS ON BULK DATA CARD ',2A4,I8,6X,'SORTED CARD COUNT =',I7)
-   WRITE (Nout,99012) T5(1,K) , T5(2,K) , K , l , jf
+   WRITE (nout,99012) t5(1,k) , t5(2,k) , k , l , jf
 99012 FORMAT ('   T5(1&2,K),K,L,JF =',5I4)
    CALL page2(2)
-   Abort = .TRUE.
-   IF ( T6(1,K)<0 ) GOTO 1700
+   abort = .TRUE.
+   IF ( t6(1,k)<0 ) GOTO 1700
  1500 IF ( .NOT.cl ) GOTO 900
-   IF ( T6(2,K)/=2 ) THEN
-      CALL write(ifle(curfil),M,0,1)
-      IF ( T4(2,K)<=0 ) THEN
+   IF ( t6(2,k)/=2 ) THEN
+      CALL write(ifle(curfil),m,0,1)
+      IF ( t4(2,k)<=0 ) THEN
          ii(kkk) = ii(kkk) - 1
          CALL bckrec(ifle(curfil))
       ENDIF
    ENDIF
-   GOTO 600
+   GOTO 500
 !
 !     CHECK FOR PROPER FORMAT
 !
- 1600 IF ( T6(1,K)>=0 ) THEN
-      l = T6(1,K)
+ 1600 IF ( t6(1,k)>=0 ) THEN
+      l = t6(1,k)
       l1 = 0
       DO k1 = 1 , lf
          l1 = l1 + 1
-         IF ( Mf(k1)==3 ) l1 = l1 + 1
+         IF ( mf(k1)==3 ) l1 = l1 + 1
          k2 = l + k1 - 1
-         IF ( F(k2)/=Mf(k1) .AND. F(k2)/=5 ) THEN
-            IF ( Mf(k1)/=1 .OR. M(l1)/=0 ) THEN
-               IF ( Mf(k1)/=0 .OR. F(k2)/=1 .AND. F(k2)/=2 ) GOTO 4100
+         IF ( f(k2)/=mf(k1) .AND. f(k2)/=5 ) THEN
+            IF ( mf(k1)/=1 .OR. m(l1)/=0 ) THEN
+               IF ( mf(k1)/=0 .OR. f(k2)/=1 .AND. f(k2)/=2 ) GOTO 4100
             ENDIF
          ENDIF
       ENDDO
    ENDIF
- 1700 N = 0
-   Baddat = .FALSE.
-   Badfor = .FALSE.
+ 1700 n = 0
+   baddat = .FALSE.
+   badfor = .FALSE.
    IF ( ipvs/=0 ) CALL ifpmdc
 !
 !     CALL SECONDARY ROUTINE TO EXAMINE EACH TYPE OF CARD
 !
-   kb = (K-1)/20 + 1
+   kb = (k-1)/20 + 1
    IF ( kb>18 ) GOTO 3500
    IF ( kb==2 ) THEN
    ELSEIF ( kb==3 ) THEN
@@ -470,7 +475,7 @@ SUBROUTINE ifp
    ELSEIF ( kb==18 ) THEN
       GOTO 3400
    ELSE
-      kb = K
+      kb = k
       IF ( kb==1 .OR. kb==2 .OR. kb==12 .OR. kb==13 .OR. kb==17 ) THEN
          CALL ifs3p(*4200,*1500,*3600)
       ELSEIF ( kb==3 ) THEN
@@ -483,7 +488,7 @@ SUBROUTINE ifp
       ENDIF
       GOTO 3800
    ENDIF
- 1800 kb = K - 20
+ 1800 kb = k - 20
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==13 .OR. &
       & kb==14 .OR. kb==15 .OR. kb==16 .OR. kb==17 .OR. kb==18 .OR. kb==19 .OR. kb==20 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
@@ -495,7 +500,7 @@ SUBROUTINE ifp
       GOTO 1900
    ENDIF
    GOTO 3800
- 1900 kb = K - 40
+ 1900 kb = k - 40
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==12 .OR.  &
       & kb==13 .OR. kb==14 .OR. kb==15 .OR. kb==16 .OR. kb==17 .OR. kb==18 .OR. kb==19 .OR. kb==20 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
@@ -505,7 +510,7 @@ SUBROUTINE ifp
       GOTO 2000
    ENDIF
    GOTO 3800
- 2000 kb = K - 60
+ 2000 kb = k - 60
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR.  &
       & kb==12 .OR. kb==13 .OR. kb==14 .OR. kb==15 .OR. kb==16 .OR. kb==17 .OR. kb==18 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
@@ -515,7 +520,7 @@ SUBROUTINE ifp
       GOTO 2100
    ENDIF
    GOTO 3800
- 2100 kb = K - 80
+ 2100 kb = k - 80
    IF ( kb==1 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
    ELSEIF ( kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==12 ) THEN
@@ -530,7 +535,7 @@ SUBROUTINE ifp
       GOTO 2200
    ENDIF
    GOTO 3800
- 2200 kb = K - 100
+ 2200 kb = k - 100
    IF ( kb==1 .OR. kb==3 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==12 .OR. kb==13 .OR.           &
       & kb==14 .OR. kb==15 .OR. kb==16 .OR. kb==17 .OR. kb==18 ) THEN
       CALL ifs5p(*4200,*1500,*3600)
@@ -542,7 +547,7 @@ SUBROUTINE ifp
       GOTO 2300
    ENDIF
    GOTO 3800
- 2300 kb = K - 120
+ 2300 kb = k - 120
    IF ( kb==1 .OR. kb==5 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==15 .OR. kb==16 .OR. kb==17 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
    ELSEIF ( kb==2 .OR. kb==4 ) THEN
@@ -555,7 +560,7 @@ SUBROUTINE ifp
       GOTO 2400
    ENDIF
    GOTO 3800
- 2400 kb = K - 140
+ 2400 kb = k - 140
    IF ( kb==1 ) THEN
       CALL ifs2p(*4200,*1500,*3600)
    ELSEIF ( kb==2 .OR. kb==18 ) THEN
@@ -569,7 +574,7 @@ SUBROUTINE ifp
       GOTO 2500
    ENDIF
    GOTO 3800
- 2500 kb = K - 160
+ 2500 kb = k - 160
    IF ( kb==1 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==12 .OR. kb==13 .OR.&
       & kb==14 .OR. kb==15 .OR. kb==16 .OR. kb==17 .OR. kb==18 ) THEN
       CALL ifs5p(*4200,*1500,*3600)
@@ -581,7 +586,7 @@ SUBROUTINE ifp
       GOTO 2600
    ENDIF
    GOTO 3800
- 2600 kb = K - 180
+ 2600 kb = k - 180
    IF ( kb==1 .OR. kb==10 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
    ELSEIF ( kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 ) THEN
@@ -598,7 +603,7 @@ SUBROUTINE ifp
       GOTO 2700
    ENDIF
    GOTO 3800
- 2700 kb = K - 200
+ 2700 kb = k - 200
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR.  &
       & kb==12 .OR. kb==13 .OR. kb==14 .OR. kb==17 .OR. kb==18 .OR. kb==19 .OR. kb==20 ) THEN
       CALL ifs4p(*4200,*1500,*3600)
@@ -610,7 +615,7 @@ SUBROUTINE ifp
       GOTO 2800
    ENDIF
    GOTO 3800
- 2800 kb = K - 220
+ 2800 kb = k - 220
    IF ( kb==1 .OR. kb==2 .OR. kb==19 ) THEN
       CALL ifs4p(*4200,*1500,*3600)
    ELSEIF ( kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==12 .OR.        &
@@ -620,7 +625,7 @@ SUBROUTINE ifp
       GOTO 2900
    ENDIF
    GOTO 3800
- 2900 kb = K - 240
+ 2900 kb = k - 240
    IF ( kb==1 .OR. kb==3 .OR. kb==9 .OR. kb==10 .OR. kb==16 .OR. kb==17 .OR. kb==18 .OR. kb==19 .OR. kb==20 ) THEN
       CALL ifs1p(*4200,*1500,*3600)
    ELSEIF ( kb==2 ) THEN
@@ -633,7 +638,7 @@ SUBROUTINE ifp
       GOTO 3000
    ENDIF
    GOTO 3800
- 3000 kb = K - 260
+ 3000 kb = k - 260
    IF ( kb==1 .OR. kb==2 .OR. kb==20 ) THEN
       CALL ifs2p(*4200,*1500,*3600)
    ELSEIF ( kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==12 .OR. kb==15 .OR.       &
@@ -647,7 +652,7 @@ SUBROUTINE ifp
       GOTO 3100
    ENDIF
    GOTO 3800
- 3100 kb = K - 280
+ 3100 kb = k - 280
    IF ( kb==1 .OR. kb==2 .OR. kb==3 ) THEN
       CALL ifs2p(*4200,*1500,*3600)
    ELSEIF ( kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==10 .OR. kb==17 .OR. kb==18 ) THEN
@@ -660,7 +665,7 @@ SUBROUTINE ifp
       GOTO 3200
    ENDIF
    GOTO 3800
- 3200 kb = K - 300
+ 3200 kb = k - 300
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR.  &
       & kb==12 .OR. kb==13 .OR. kb==14 ) THEN
       CALL ifs5p(*4200,*1500,*3600)
@@ -670,7 +675,7 @@ SUBROUTINE ifp
       GOTO 3300
    ENDIF
    GOTO 3800
- 3300 kb = K - 320
+ 3300 kb = k - 320
    IF ( kb==1 .OR. kb==2 .OR. kb==3 .OR. kb==4 .OR. kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==13 .OR. kb==14 .OR. kb==15 .OR. &
       & kb==16 ) THEN
       CALL ifs4p(*4200,*1500,*3600)
@@ -684,7 +689,7 @@ SUBROUTINE ifp
       GOTO 3400
    ENDIF
    GOTO 3800
- 3400 kb = K - 340
+ 3400 kb = k - 340
    IF ( kb==5 .OR. kb==6 .OR. kb==7 .OR. kb==8 .OR. kb==9 .OR. kb==10 .OR. kb==11 .OR. kb==12 .OR. kb==13 ) THEN
       CALL ifs3p(*4200,*1500,*3600)
    ELSEIF ( kb==14 ) THEN
@@ -696,98 +701,98 @@ SUBROUTINE ifp
    ENDIF
    GOTO 3800
  3500 CALL page2(2)
-   WRITE (Nout,99013) Sfm , K
+   WRITE (nout,99013) sfm , k
 99013 FORMAT (A25,' 314, INVALID CALL FROM IFP.  K =',I10)
-   Abort = .TRUE.
+   abort = .TRUE.
    GOTO 5300
 !
- 3600 IF ( .NOT.Badfor ) THEN
-      IF ( .NOT.Baddat ) icount = 0
+ 3600 IF ( .NOT.badfor ) THEN
+      IF ( .NOT.baddat ) icount = 0
    ELSE
-      IF ( it1k/=T1(1,K) .OR. it2k/=T1(2,K) ) THEN
-         it1k = T1(1,K)
-         it2k = T1(2,K)
+      IF ( it1k/=t1(1,k) .OR. it2k/=t1(2,k) ) THEN
+         it1k = t1(1,k)
+         it2k = t1(2,k)
       ELSE
          icount = icount + 1
          IF ( icount>=7 ) THEN
             IF ( icount==7 ) THEN
                CALL page2(3)
-               WRITE (Nout,99024)
+               WRITE (nout,99024)
             ENDIF
             GOTO 3700
          ENDIF
       ENDIF
       CALL page2(2)
-      IF ( Id==0 ) Id = M(1)
-      WRITE (Nout,99025) Ufm , T1(1,K) , T1(2,K) , Id , Knt
+      IF ( id==0 ) id = m(1)
+      WRITE (nout,99025) ufm , t1(1,k) , t1(2,k) , id , knt
    ENDIF
- 3700 IF ( .NOT.Baddat ) THEN
-      IF ( .NOT.Badfor ) jcount = 0
+ 3700 IF ( .NOT.baddat ) THEN
+      IF ( .NOT.badfor ) jcount = 0
    ELSE
-      IF ( jt1k/=T1(1,K) .OR. jt2k/=T1(2,K) ) THEN
-         jt1k = T1(1,K)
-         jt2k = T1(2,K)
+      IF ( jt1k/=t1(1,k) .OR. jt2k/=t1(2,k) ) THEN
+         jt1k = t1(1,k)
+         jt2k = t1(2,k)
       ELSE
          jcount = jcount + 1
          IF ( jcount>=7 ) THEN
             IF ( jcount==7 ) THEN
                CALL page2(3)
-               WRITE (Nout,99024)
+               WRITE (nout,99024)
             ENDIF
             GOTO 3800
          ENDIF
       ENDIF
       CALL page2(2)
-      IF ( Id==0 ) Id = M(1)
-      WRITE (Nout,99026) Ufm , T1(1,K) , T1(2,K) , Id , Knt
+      IF ( id==0 ) id = m(1)
+      WRITE (nout,99026) ufm , t1(1,k) , t1(2,k) , id , knt
    ENDIF
- 3800 IF ( .NOT.(.NOT.Badfor .AND. .NOT.Baddat) ) THEN
-      N = 0
-      Abort = .TRUE.
+ 3800 IF ( .NOT.(.NOT.badfor .AND. .NOT.baddat) ) THEN
+      n = 0
+      abort = .TRUE.
 !
 !     WRITE OUT CARD DATA ON APPROPRIATE IFP OUTPUT FILE
 !
-   ELSEIF ( N/=0 ) THEN
-      T4(2,K) = T4(2,K) + N
+   ELSEIF ( n/=0 ) THEN
+      t4(2,k) = t4(2,k) + n
       DO l = 1 , 40
-         IF ( K==kkl(l) ) GOTO 3900
+         IF ( k==kkl(l) ) GOTO 3900
       ENDDO
-      IF ( indx/=6 .AND. .NOT.Abort .OR. indx==15 ) CALL write(ifle(curfil),I,N,0)
+      IF ( indx/=6 .AND. .NOT.abort .OR. indx==15 ) CALL write(ifle(curfil),i,n,0)
    ENDIF
    GOTO 4000
- 3900 CALL write(ifle(curfil),I,N,0)
- 4000 IF ( Kn==0 ) GOTO 1500
-   Kn = 0
+ 3900 CALL write(ifle(curfil),i,n,0)
+ 4000 IF ( kn==0 ) GOTO 1500
+   kn = 0
    GOTO 900
- 4100 Badfor = .TRUE.
- 4200 IF ( Badfor ) THEN
+ 4100 badfor = .TRUE.
+ 4200 IF ( badfor ) THEN
       CALL page2(2)
-      WRITE (Nout,99025) Ufm , T1(1,K) , T1(2,K) , M(1) , Knt
-      Abort = .TRUE.
+      WRITE (nout,99025) ufm , t1(1,k) , t1(2,k) , m(1) , knt
+      abort = .TRUE.
    ENDIF
-   IF ( Baddat ) THEN
+   IF ( baddat ) THEN
       CALL page2(2)
-      WRITE (Nout,99026) Ufm , T1(1,K) , T1(2,K) , M(1) , Knt
-      Abort = .TRUE.
+      WRITE (nout,99026) ufm , t1(1,k) , t1(2,k) , m(1) , knt
+      abort = .TRUE.
       GOTO 1500
    ENDIF
- 4300 IF ( Iapp==1 ) GOTO 5300
-   IF ( Isubs/=0 ) GOTO 5300
- 4400 WRITE (Nout,99014) Sfm
+ 4300 IF ( iapp==1 ) GOTO 5300
+   IF ( isubs/=0 ) GOTO 5300
+ 4400 WRITE (nout,99014) sfm
 99014 FORMAT (A25,' 319, IFP READING EOF ON NPTP.')
    CALL page2(2)
-   Abort = .TRUE.
+   abort = .TRUE.
    GOTO 5300
  4500 CALL page2(6)
-   WRITE (Nout,99015) Sfm , kerror , (jr(l),l=1,20) , Knt
+   WRITE (nout,99015) sfm , kerror , (jr(l),l=1,20) , knt
 99015 FORMAT (A25,' 320, IFP ERROR',I5,/5X,'LAST CARD PROCESSED IS -',20A4,1H-,/5X,'SORTED CARD COUNT =',I7)
-   Abort = .TRUE.
+   abort = .TRUE.
    GOTO 5300
  4600 IF ( curfil/=0 ) CALL close(ifle(curfil),2)
    DO l = 1 , nfls
       IF ( l/=6 .AND. l/=12 .AND. status(l)/=1 ) THEN
          kfil = ifle(l)
-         CALL open(*100,kfil,Ibuff,3)
+         CALL open(*100,kfil,ibuff,3)
          CALL write(ifle(l),iend,3,1)
          ii(l) = ii(l) + 1
          CALL close(ifle(l),1)
@@ -798,7 +803,7 @@ SUBROUTINE ifp
 !     ARE SORTED ON THEIR ELEMENT/PROPERTY IDS
 !
    DO l = 1 , 40
-      IF ( Endara(l)<0 ) GOTO 4700
+      IF ( endara(l)<0 ) GOTO 4700
    ENDDO
 !
 !     EITHER NO MULTI-ENTRY CARD DATA EXIST OR, IF THEY DO,
@@ -839,43 +844,43 @@ SUBROUTINE ifp
          jmax = 20
       ENDIF
       DO l = jmin , jmax
-         IF ( Endara(l)<0 ) GOTO 4750
+         IF ( endara(l)<0 ) GOTO 4750
       ENDDO
       CYCLE
- 4750 ileft = Nopen - Nparam - 2
-      istrt = 2*N1 + Nparam + 2
-      CALL gopen(ifile,Ibuff,0)
+ 4750 ileft = nopen - nparam - 2
+      istrt = 2*n1 + nparam + 2
+      CALL gopen(ifile,ibuff,0)
       kfil = ifle(16)
-      CALL open(*100,ifle(16),Ibuff(N1+1),1)
+      CALL open(*100,ifle(16),ibuff(n1+1),1)
       CALL write(ifle(16),inam,2,1)
       index = jmin
- 4800 CALL read(*5100,*5050,ifile,Ibuff(istrt),3,0,iflag)
-      CALL write(ifle(16),Ibuff(istrt),3,0)
+ 4800 CALL read(*5100,*5050,ifile,ibuff(istrt),3,0,iflag)
+      CALL write(ifle(16),ibuff(istrt),3,0)
       IF ( index<=jmax ) THEN
          DO l = jmin , jmax
-            IF ( Ibuff(istrt)==mentry(l) .AND. Endara(l)<0 ) GOTO 4900
+            IF ( ibuff(istrt)==mentry(l) .AND. endara(l)<0 ) GOTO 4900
          ENDDO
       ENDIF
       DO
-         CALL read(*5000,*4850,ifile,Ibuff(istrt),ileft,0,iflag)
-         CALL write(ifle(16),Ibuff(istrt),ileft,0)
+         CALL read(*5000,*4850,ifile,ibuff(istrt),ileft,0,iflag)
+         CALL write(ifle(16),ibuff(istrt),ileft,0)
       ENDDO
- 4850 CALL write(ifle(16),Ibuff(istrt),iflag,1)
+ 4850 CALL write(ifle(16),ibuff(istrt),iflag,1)
       GOTO 4800
  4900 index = index + 1
       CALL page2(3)
-      WRITE (Nout,99016) Uim , nentry(2*l-1) , nentry(2*l) , itype
+      WRITE (nout,99016) uim , nentry(2*l-1) , nentry(2*l) , itype
 99016 FORMAT (A29,' 334, ',2A4,' MULTI-ENTRY CARD DATA ARE NOT SORTED ','ON THEIR ',2A4,' IDS.',/5X,                                &
              &'SUBROUTINE IFP WILL SORT THE DATA.')
       ifail = 0
       DO
-         CALL read(*5000,*4950,ifile,Ibuff(istrt),ileft,0,iflag)
+         CALL read(*5000,*4950,ifile,ibuff(istrt),ileft,0,iflag)
          ifail = ifail + 1
       ENDDO
  4950 IF ( ifail/=0 ) THEN
          nwds = (ifail-1)*ileft + iflag
          CALL page2(4)
-         WRITE (Nout,99017) Ufm , nentry(2*l-1) , nentry(2*l) , nwds
+         WRITE (nout,99017) ufm , nentry(2*l-1) , nentry(2*l) , nwds
 99017    FORMAT (A23,' 333, UNABLE TO SORT ',2A4,' MULTI-ENTRY CARD DATA ','IN SUBROUTINE IFP DUE TO INSUFFICIENT CORE.',/5X,       &
                 &'ADDITIONAL CORE REQUIRED =',I10,7H  WORDS)
          CALL mesage(-61,0,0)
@@ -883,8 +888,8 @@ SUBROUTINE ifp
       nwds = 4
       IF ( l==10 .OR. l==33 ) nwds = 3
       IF ( l==21 .OR. l==23 ) nwds = 2
-      CALL sort(0,0,nwds,1,Ibuff(istrt),iflag)
-      CALL write(ifle(16),Ibuff(istrt),iflag,1)
+      CALL sort(0,0,nwds,1,ibuff(istrt),iflag)
+      CALL write(ifle(16),ibuff(istrt),iflag,1)
 !
 !     CHECK SORTED MULTI-ENTRY CARD DATA FOR NON-UNIQUE
 !     ELEMENT/PROPERTY IDS
@@ -892,14 +897,14 @@ SUBROUTINE ifp
       irept = -10000000
       nidsm1 = iflag/nwds - 1
       DO kk = 1 , nidsm1
-         eid = Ibuff(istrt+kk*nwds)
-         eidm1 = Ibuff(istrt+kk*nwds-nwds)
+         eid = ibuff(istrt+kk*nwds)
+         eidm1 = ibuff(istrt+kk*nwds-nwds)
          IF ( eid==eidm1 ) THEN
             IF ( eid/=irept ) THEN
                irept = eid
-               Abort = .TRUE.
+               abort = .TRUE.
                CALL page2(2)
-               WRITE (Nout,99018) Ufm , itype , eid , nentry(2*l-1) , nentry(2*l)
+               WRITE (nout,99018) ufm , itype , eid , nentry(2*l-1) , nentry(2*l)
 99018          FORMAT (A23,' 335, NON-UNIQUE ',2A4,' ID',I9,' ENCOUNTERED IN ',2A4,' MULTI-ENTRY CARD DATA.')
             ENDIF
          ENDIF
@@ -913,10 +918,10 @@ SUBROUTINE ifp
 !     COPY DATA BACK FROM SCRATCH FILE (FILE 16) TO GEOM2/EPT FILE
 !
       kfil = ifle(16)
-      CALL open(*100,ifle(16),Ibuff,0)
+      CALL open(*100,ifle(16),ibuff,0)
       kfil = ifile
-      CALL open(*100,ifile,Ibuff(N1+1),1)
-      CALL cpyfil(ifle(16),ifile,Ibuff(istrt),ileft,iflag)
+      CALL open(*100,ifile,ibuff(n1+1),1)
+      CALL cpyfil(ifle(16),ifile,ibuff(istrt),ileft,iflag)
       CALL close(ifle(16),1)
       CALL close(ifile,1)
    ENDDO
@@ -924,7 +929,7 @@ SUBROUTINE ifp
 !     RE-OPEN SCRATCH FILE (FILE 6) TO WRITE WITHOUT REWIND
 !
    kfil = ifle(6)
-   CALL open(*100,ifle(6),Ibuff(N1+1),3)
+   CALL open(*100,ifle(6),ibuff(n1+1),3)
 !
 !     WRITE TRAILERS
 !
@@ -934,13 +939,13 @@ SUBROUTINE ifp
             itrl(l) = 0
          ENDDO
          itrl(1) = ifle(j)
-         IF ( .NOT.(ii(j)<=2 .OR. Abort) ) THEN
+         IF ( .NOT.(ii(j)<=2 .OR. abort) ) THEN
             DO l = 1 , ncdsmx
-               IF ( T3(1,l)==j .AND. T4(2,l)>0 ) THEN
-                  kt721 = andf(T7(2,l),511)
+               IF ( t3(1,l)==j .AND. t4(2,l)>0 ) THEN
+                  kt721 = andf(t7(2,l),511)
                   k1 = (kt721-1)/16 + 2
                   k2 = kt721 - (k1-2)*16 + 16
-                  itrl(k1) = orf(itrl(k1),Two(k2))
+                  itrl(k1) = orf(itrl(k1),two(k2))
                ENDIF
             ENDDO
          ENDIF
@@ -952,35 +957,35 @@ SUBROUTINE ifp
 !
    kfil = ifle(16)
    CALL ifppar
-   IF ( .NOT.(Nparam<=0 .OR. Abort) ) THEN
-      CALL open(*100,kfil,Ibuff,1)
+   IF ( .NOT.(nparam<=0 .OR. abort) ) THEN
+      CALL open(*100,kfil,ibuff,1)
       itrl(1) = kfil
-      itrl(2) = Nparam
+      itrl(2) = nparam
       CALL wrttrl(itrl(1))
       CALL write(kfil,fnm(1,6),2,1)
-      CALL write(kfil,Ibuff(2*N1+1),Nparam,1)
+      CALL write(kfil,ibuff(2*n1+1),nparam,1)
       ipm = 1
-      ipn = 2*N1 + ipm
+      ipn = 2*n1 + ipm
       DO
          ipm = ipm + 4
-         IF ( Ibuff(ipn+2)>2 ) ipm = ipm + 1
-         IF ( Ibuff(ipn+2)>5 ) ipm = ipm + 2
-         IF ( ipm<Nparam ) THEN
-            ipn = 2*N1 + ipm
-            nm(1) = Ibuff(ipn)
-            nm(2) = Ibuff(ipn+1)
+         IF ( ibuff(ipn+2)>2 ) ipm = ipm + 1
+         IF ( ibuff(ipn+2)>5 ) ipm = ipm + 2
+         IF ( ipm<nparam ) THEN
+            ipn = 2*n1 + ipm
+            nm(1) = ibuff(ipn)
+            nm(2) = ibuff(ipn+1)
             jpm = 1
             DO
-               jpn = 2*N1 + jpm
-               IF ( nm(1)==Ibuff(jpn) .AND. nm(2)==Ibuff(jpn+1) ) THEN
+               jpn = 2*n1 + jpm
+               IF ( nm(1)==ibuff(jpn) .AND. nm(2)==ibuff(jpn+1) ) THEN
                   CALL page2(2)
-                  WRITE (Nout,99019) Ufm , nm(1) , nm(2)
+                  WRITE (nout,99019) ufm , nm(1) , nm(2)
 99019             FORMAT (A23,' 321, NON-UNIQUE PARAM NAME - ',2A4,1H-)
-                  Abort = .TRUE.
+                  abort = .TRUE.
                ENDIF
                jpm = jpm + 4
-               IF ( Ibuff(jpn+2)>2 ) jpm = jpm + 1
-               IF ( Ibuff(jpn+2)>5 ) jpm = jpm + 2
+               IF ( ibuff(jpn+2)>2 ) jpm = jpm + 1
+               IF ( ibuff(jpn+2)>5 ) jpm = jpm + 2
                IF ( jpm>=ipm ) EXIT
             ENDDO
             CYCLE
@@ -1005,21 +1010,21 @@ SUBROUTINE ifp
       jj1 = 1
       IF ( itrl(1)>=0 .AND. j/=0 ) THEN
          jj1 = 0
-         CALL open(*100,kfil,Ibuff,0)
+         CALL open(*100,kfil,ibuff,0)
       ENDIF
       kfil = ifle(8)
       itrl(1) = kfil
       CALL rdtrl(itrl)
       j = itrl(2) + itrl(3) + itrl(4) + itrl(5) + itrl(6) + itrl(7)
       IF ( itrl(1)>=0 .AND. j/=0 ) THEN
-         CALL open(*100,kfil,Ibuff(N1+1),0)
-         jj = N1*2 + 1
-         CALL pidck(ifle(2),kfil,jj1,Ibuff(jj))
+         CALL open(*100,kfil,ibuff(n1+1),0)
+         jj = n1*2 + 1
+         CALL pidck(ifle(2),kfil,jj1,ibuff(jj))
          CALL close(kfil,1)
          IF ( jj1<0 ) THEN
          ELSEIF ( jj1==0 ) THEN
-            IF ( Ibuff(jj)/=0 ) THEN
-               jj1 = jj + Ibuff(jj) + 1
+            IF ( ibuff(jj)/=0 ) THEN
+               jj1 = jj + ibuff(jj) + 1
 !
 !     CHECK FOR MATERIAL ID UNIQUENESS IN MPT FILE
 !     AND MATERIAL ID SPECIFIED IN PROPERTY CARDS
@@ -1028,11 +1033,11 @@ SUBROUTINE ifp
                itrl(1) = kfil
                CALL rdtrl(itrl)
                j = itrl(2) + itrl(3) + itrl(4) + itrl(5) + itrl(6) + itrl(7)
-               Ibuff(jj1) = 1
-               IF ( itrl(1)<0 .OR. j==0 ) Ibuff(jj1) = 0
-               IF ( Ibuff(jj1)==1 ) CALL open(*100,kfil,Ibuff(N1+1),0)
-               CALL matck(kfil,ifle(2),Ibuff(jj),Ibuff(jj1))
-               IF ( Ibuff(jj1)/=0 ) CALL close(kfil,1)
+               ibuff(jj1) = 1
+               IF ( itrl(1)<0 .OR. j==0 ) ibuff(jj1) = 0
+               IF ( ibuff(jj1)==1 ) CALL open(*100,kfil,ibuff(n1+1),0)
+               CALL matck(kfil,ifle(2),ibuff(jj),ibuff(jj1))
+               IF ( ibuff(jj1)/=0 ) CALL close(kfil,1)
             ENDIF
          ELSE
             GOTO 5350
@@ -1043,67 +1048,67 @@ SUBROUTINE ifp
 !     CHECK COORDINATE ID'S AND THEIR REFERENCES FROM
 !     OTHER BULK DATA CARDS
 !
- 5350 jj = Nopen + N1 - 2
+ 5350 jj = nopen + n1 - 2
 !                + N1 - 2 = 2*N1 - (N1+2)
-      CALL cidck(Ibuff(N1+2),Ibuff,jj)
+      CALL cidck(ibuff(n1+2),ibuff,jj)
    ENDIF
 !
 !     CHECK FOR ERRORS IN AXISYMMETRIC DATA
 !
- 5400 IF ( Iax ) Axiccc = 1
-   Axifcc = Iaxf
-   IF ( Axiccc<=0 .OR. Axifcc<=0 ) THEN
-      IF ( Axiccc>0 ) THEN
+ 5400 IF ( iax ) axiccc = 1
+   axifcc = iaxf
+   IF ( axiccc<=0 .OR. axifcc<=0 ) THEN
+      IF ( axiccc>0 ) THEN
          IF ( iaxic>0 ) GOTO 5500
-         Axiccc = 0
-      ELSEIF ( Axifcc<=0 ) THEN
+         axiccc = 0
+      ELSEIF ( axifcc<=0 ) THEN
          IF ( iaxic>0 .OR. iaxif>0 ) THEN
-            Axiccc = 0
-            Axifcc = 0
+            axiccc = 0
+            axifcc = 0
 !
 !     SUPPRESS ABORT IF IT IS A UMFEDIT RUN
 !
             IF ( iumfed==0 ) THEN
-               Abort = .TRUE.
+               abort = .TRUE.
                CALL page2(2)
-               WRITE (Nout,99020) Ufm
+               WRITE (nout,99020) ufm
 99020          FORMAT (A23,' 339, ILLEGAL USE OF AXISYMMETRIC CARD IN CASE ','CONTROL DECK.')
             ENDIF
          ENDIF
          GOTO 5500
       ELSE
-         IF ( iaxif>0 .OR. Axifcc==2 ) GOTO 5500
-         Axifcc = 0
+         IF ( iaxif>0 .OR. axifcc==2 ) GOTO 5500
+         axifcc = 0
       ENDIF
 !
 !     SUPPRESS ABORT IF IT IS A UMFEDIT RUN
 !
       IF ( iumfed==0 ) THEN
-         Abort = .TRUE.
+         abort = .TRUE.
          CALL page2(2)
-         WRITE (Nout,99021) Ufm
+         WRITE (nout,99021) ufm
 99021    FORMAT (A23,' 338, AXISYMMETRIC CARD REQUIRED IN CASE CONTROL')
       ENDIF
    ELSE
-      Axiccc = 0
-      Axifcc = 0
-      Abort = .TRUE.
+      axiccc = 0
+      axifcc = 0
+      abort = .TRUE.
       CALL page2(2)
-      WRITE (Nout,99022) Ufm
+      WRITE (nout,99022) ufm
 99022 FORMAT (A23,' 337, BOTH AXIC AND AXIF CARDS USED IN BULK DATA.')
    ENDIF
 !
- 5500 IF ( Iapp<0 ) THEN
+ 5500 IF ( iapp<0 ) THEN
 !
 !     CHECK CERTAIN RESTART FLAGS BASED ON BULK DATA
 !
-      mn = Lbd + 1
+      mn = lbd + 1
 !
 !     TURN ON TEMPMX$ IF MATERIALS USE TEMPS
 !
-      IF ( T4(2,91)+T4(2,102)+T4(2,189)/=0 ) THEN
-         IF ( andf(Ib(1),Two(28))/=0 .OR. andf(Ib(5),Two(32))/=0 .OR. andf(Ib(4),Two(6))/=0 .OR. andf(Ib(3),Two(32))/=0 .OR.        &
-            & andf(Ib(4),Two(2))/=0 .OR. andf(Ib(4),Two(3))/=0 .OR. andf(Ib(4),Two(4))/=0 ) Ib(mn) = orf(Ib(mn),Two(19))
+      IF ( t4(2,91)+t4(2,102)+t4(2,189)/=0 ) THEN
+         IF ( andf(ib(1),two(28))/=0 .OR. andf(ib(5),two(32))/=0 .OR. andf(ib(4),two(6))/=0 .OR. andf(ib(3),two(32))/=0 .OR.        &
+            & andf(ib(4),two(2))/=0 .OR. andf(ib(4),two(3))/=0 .OR. andf(ib(4),two(4))/=0 ) ib(mn) = orf(ib(mn),two(19))
       ENDIF
    ENDIF
    CALL conmsg(ifpna2,2,0)
@@ -1112,31 +1117,31 @@ SUBROUTINE ifp
    IF ( l27/=0 ) THEN
       CALL page1
       line = line + 8
-      WRITE (Nout,99027)
+      WRITE (nout,99027)
       DO j = 1 , ncdsmx
-         Id = T3(1,j)
-         IF ( Id<=0 ) THEN
+         id = t3(1,j)
+         IF ( id<=0 ) THEN
             lf = blank
             lm = blank
          ELSE
-            lf = fnm(1,Id)
-            lm = fnm(2,Id)
+            lf = fnm(1,id)
+            lm = fnm(2,id)
          ENDIF
-         N = j
-         K = N/90 + min0(1,mod(N,90))
-         N = N - 90*(K-1)
-         Kx = N/30 + min0(1,mod(N,30))
-         N = N - 30*(Kx-1)
-         Ky = N/6 + min0(1,mod(N,6))
-         l = N - 6*(Ky-1)
+         n = j
+         k = n/90 + min0(1,mod(n,90))
+         n = n - 90*(k-1)
+         kx = n/30 + min0(1,mod(n,30))
+         n = n - 30*(kx-1)
+         ky = n/6 + min0(1,mod(n,6))
+         l = n - 6*(ky-1)
          iflag = 0
          IF ( eject(1)/=0 ) THEN
-            WRITE (Nout,99027)
+            WRITE (nout,99027)
             line = line + 8
          ENDIF
          line = line + 1
-         WRITE (Nout,99023) j , T1(1,j) , T1(2,j) , T3(1,j) , lf , lm , T3(2,j) , T4(1,j) , T4(2,j) , T5(1,j) , T5(2,j) , T6(1,j) , &
-                          & T6(2,j) , T7(1,j) , T7(2,j) , K , Kx , ooo(Ky) , l , iflag
+         WRITE (nout,99023) j , t1(1,j) , t1(2,j) , t3(1,j) , lf , lm , t3(2,j) , t4(1,j) , t4(2,j) , t5(1,j) , t5(2,j) , t6(1,j) , &
+                          & t6(2,j) , t7(1,j) , t7(2,j) , k , kx , ooo(ky) , l , iflag
 99023    FORMAT (1H ,I4,1X,2A4,I4,1X,1H(,2A4,1H),I3,I5,I4,I4,I4,I6,I3,I7,I8,16X,I1,I1,A1,I1,4X,I2)
       ENDDO
    ENDIF

@@ -1,12 +1,13 @@
-!*==exio.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==exio.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE exio
+   USE c_blank
+   USE c_output
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,7 +52,7 @@ SUBROUTINE exio
        &4HRNAL , 4HEXTE , 4HRNAL , 4HREWI , 4HND   , 4HNORE , 4HWIND/
 !
    DO i = 1 , 96
-      Head2(i) = blank
+      head2(i) = blank
    ENDDO
    DO i = 1 , 5
       SPAG_Loop_2_1: DO j = 1 , 10
@@ -63,28 +64,28 @@ SUBROUTINE exio
    ENDDO
 !
    DO i = 1 , 2
-      Head2(i) = Mode(i)
-      Head2(i+3) = Format(i)
-      Head2(i+6) = Device(i)
-      Head2(i+9) = Uname(i)
-      Head2(i+12) = Pos(i)
+      head2(i) = mode(i)
+      head2(i+3) = format(i)
+      head2(i+6) = device(i)
+      head2(i+9) = uname(i)
+      head2(i+12) = pos(i)
    ENDDO
 !
 !     INTERNAL FORMAT - GINO I/O IS USED FOR DATA WHICH WILL BE READ OR
 !                       WAS WRITTEN ON THE SAME HARDWARE.
 !
-   IF ( Format(1)==inte ) CALL exio1
+   IF ( format(1)==inte ) CALL exio1
 !
 !     EXTERNAL FORMAT - FORTRAN I/O IS USED FOR DATA WHICH WILL BE READ
 !                       OR WAS WRITTEN ON A DIFFERENT MACHINE.
 !
-   IF ( Format(1)==exte ) CALL exio2
+   IF ( format(1)==exte ) CALL exio2
 !
 !     CHECK VALIDITY OF FORMAT TO ASCERTAIN WHETHER EITHER EXIO1 OR
 !     EXIO2 WAS CALLED.
 !
-   IF ( Format(1)==inte .OR. Format(1)==exte ) RETURN
-   WRITE (Nout,99001) Uwm , Format
+   IF ( format(1)==inte .OR. format(1)==exte ) RETURN
+   WRITE (nout,99001) uwm , format
 99001 FORMAT (A25,' 6333, ',2A4,' IS AN INVALID FORMAT PARAMETER FOR ','MODULE EXIO.')
-   Dry = -2
+   dry = -2
 END SUBROUTINE exio

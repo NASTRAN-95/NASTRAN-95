@@ -1,11 +1,12 @@
-!*==qhbdy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==qhbdy.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qhbdy
+   USE c_condas
+   USE c_loadx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_LOADX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -54,7 +55,7 @@ SUBROUTINE qhbdy
 !*****
 !  READ AND PROCESS ONE QHBDY IMAGE PER CALL TO THIS ROUTINE.
 !*****
-         CALL read(*20,*40,Slt,card(1),7,0,flag)
+         CALL read(*20,*40,slt,card(1),7,0,flag)
          ngrids = igrids(iflag)
 !*****
 !  OBTAIN A GRID (INTERNAL) POINT SORT VECTOR SO AS TO CALL FOR BGPDT
@@ -63,7 +64,7 @@ SUBROUTINE qhbdy
          IF ( ngrids<=1 ) THEN
             order(1) = 1
          ELSE
-            CALL permut(grids(1),order(1),ngrids,Old)
+            CALL permut(grids(1),order(1),ngrids,old)
          ENDIF
 !*****
 !  PICK UP BGPDT FOR THE 1 TO 4 POINTS AND OBTAIN THE SILS.
@@ -120,7 +121,6 @@ SUBROUTINE qhbdy
             p(1) = af
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !*****
 !  MAP 1 OR 4 TRIANGLES INTO 3 OR 4 POINTS.
@@ -152,14 +152,14 @@ SUBROUTINE qhbdy
 !*****
          DO i = 1 , ngrids
             isil = sils(i)
-            Core(isil) = Core(isil) + p(i)
+            core(isil) = core(isil) + p(i)
          ENDDO
          RETURN
 !*****
 !  END OF FILE OR END OF RECORD HIT ERROR.
 !*****
- 20      CALL mesage(-2,Slt,subr)
- 40      CALL mesage(-3,Slt,subr)
+ 20      CALL mesage(-2,slt,subr)
+ 40      CALL mesage(-3,slt,subr)
          GOTO 20
       END SELECT
    ENDDO SPAG_DispatchLoop_1

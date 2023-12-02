@@ -1,12 +1,13 @@
-!*==loadsu.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==loadsu.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE loadsu
+   USE c_biot
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BIOT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -43,13 +44,13 @@ SUBROUTINE loadsu
          mcb(1) = bgpdt
          CALL rdtrl(mcb)
          nrowsp = mcb(2)
-         mcb(1) = Hest
+         mcb(1) = hest
          CALL rdtrl(mcb)
          nel = mcb(2)
          nsimp = 0
-         file = Nslt
-         CALL open(*60,Nslt,Z(Buf2),0)
-         CALL read(*80,*20,Nslt,Z(Ist+1),Mcore,0,iwords)
+         file = nslt
+         CALL open(*60,nslt,z(buf2),0)
+         CALL read(*80,*20,nslt,z(ist+1),mcore,0,iwords)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
  20      nloads = iwords - 2
@@ -58,7 +59,7 @@ SUBROUTINE loadsu
 !
          IF ( nloads/=0 ) THEN
             DO i = 1 , nloads
-               IF ( iz(Ist+2+i)==Load ) THEN
+               IF ( iz(ist+2+i)==load ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -68,33 +69,33 @@ SUBROUTINE loadsu
 !     AND SEARCH FOR PROPER LOAD ID
 !
             DO i = 1 , nloads
-               CALL fwdrec(*80,Nslt)
+               CALL fwdrec(*80,nslt)
             ENDDO
          ENDIF
 !
 !     READ 2 WORDS AT A TIME -1,-1 SIGNIFIES END OF LOAD CARD
 !
-         iload = Ist + iwords
+         iload = ist + iwords
          DO
-            CALL read(*80,*40,Nslt,l,2,0,iflag)
-            IF ( l(1)==Load ) THEN
+            CALL read(*80,*40,nslt,l,2,0,iflag)
+            IF ( l(1)==load ) THEN
 !
 !     MATCH
 !
                alls = zl(2)
                DO
-                  CALL fread(Nslt,l,2,0)
+                  CALL fread(nslt,l,2,0)
                   IF ( l(1)==-1 .AND. l(2)==-1 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   nsimp = nsimp + 1
-                  IF ( iload+2*nsimp>Mcore ) THEN
+                  IF ( iload+2*nsimp>mcore ) THEN
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   isub = 2*nsimp - 1
-                  Z(iload+isub) = zl(1)
+                  z(iload+isub) = zl(1)
                   iz(iload+isub+1) = l(2)
                ENDDO
             ELSE
@@ -102,7 +103,7 @@ SUBROUTINE loadsu
 !
 !     NO MATCH-SKIP TO -1-S
 !
-                  CALL fread(Nslt,l,2,0)
+                  CALL fread(nslt,l,2,0)
                   IF ( l(1)==-1 .AND. l(2)==-1 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
             ENDIF
@@ -114,16 +115,16 @@ SUBROUTINE loadsu
 !
          nsimp = 1
          alls = 1.
-         iload = Ist + iwords
-         Z(iload+1) = 1.
-         iz(iload+2) = Load
+         iload = ist + iwords
+         z(iload+1) = 1.
+         iz(iload+2) = load
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     FOR EACH SIMPLE LOAD, FIND PROPER LOAD ID AND THEN POSITION TO
 !     PROPER LOAD RECORD IN NSLT
 !
-         Ntot = 0
+         ntot = 0
          isimp = iload + 2*nsimp
          DO ns = 1 , nsimp
             spag_nextblock_2 = 1
@@ -132,14 +133,14 @@ SUBROUTINE loadsu
                CASE (1)
 !
                   isub = iload + 2*ns - 1
-                  factor = Z(isub)
+                  factor = z(isub)
                   id = iz(isub+1)
                   ncards = 0
-                  CALL rewind(Nslt)
+                  CALL rewind(nslt)
                   i = 1
                   IF ( nloads/=0 ) THEN
                      DO i = 1 , nloads
-                        IF ( id==iz(Ist+2+i) ) THEN
+                        IF ( id==iz(ist+2+i) ) THEN
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
@@ -151,20 +152,20 @@ SUBROUTINE loadsu
                CASE (2)
 !
                   DO j = 1 , i
-                     CALL fwdrec(*80,Nslt)
+                     CALL fwdrec(*80,nslt)
                   ENDDO
                   SPAG_Loop_2_2: DO
 !
-                     CALL read(*80,*24,Nslt,nobld,1,0,iflag)
-                     CALL fread(Nslt,ido,1,0)
-                     IF ( isimp+2>Mcore ) THEN
+                     CALL read(*80,*24,nslt,nobld,1,0,iflag)
+                     CALL fread(nslt,ido,1,0)
+                     IF ( isimp+2>mcore ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      iz(isimp+1) = nobld
                      iz(isimp+2) = ido
                      isimp = isimp + 2
-                     Ntot = Ntot + 2
+                     ntot = ntot + 2
 !
 !     SKIP NOBLD=-20. IF NOBLD=24(REMFLUX), STORE ONLY NOBLD AND IDO,
 !     BUT SKIP REMFLUX INFO ON NSLT
@@ -173,16 +174,16 @@ SUBROUTINE loadsu
 !
 !     TYPE=-20    SKIP IT
 !
-                        CALL fread(Nslt,Z,-(3*nrowsp),0)
+                        CALL fread(nslt,z,-(3*nrowsp),0)
                      ELSEIF ( nobld<=19 ) THEN
 !
 !     NOT A MAGNETICS TYPE OF LOAD. - SKIP IT
 !
-                        WRITE (Iout,99001) Uwm , Load
+                        WRITE (iout,99001) uwm , load
 99001                   FORMAT (A25,', IN FUNCTIONAL MODULE PROLATE, LOAD SET',I8,/5X,                                              &
                                &'CONTAINS A NONMAGNETIC LOAD TYPE. IT WILL BE IGNORED.')
                         DO i = 1 , ido
-                           CALL fread(Nslt,Z,-nwords(nobld),0)
+                           CALL fread(nslt,z,-nwords(nobld),0)
                         ENDDO
                         EXIT SPAG_Loop_2_2
                      ELSE
@@ -201,18 +202,18 @@ SUBROUTINE loadsu
                            mwords = 3*nrowsp
                         ENDIF
 !
-                        IF ( isimp+mwords*ido>Mcore ) THEN
+                        IF ( isimp+mwords*ido>mcore ) THEN
                            spag_nextblock_1 = 5
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        Ntot = Ntot + mwords*ido
+                        ntot = ntot + mwords*ido
  22                     DO j = 1 , ido
 !
 !     NCARDS TELLS HOW MANY SIMPLE LOAD CARDS HAVE THE PRESENT FACTOR
 !     APPLIED TO IT
 !
                            ncards = ncards + 1
-                           CALL fread(Nslt,Z(isimp+1),mwords,0)
+                           CALL fread(nslt,z(isimp+1),mwords,0)
                            IF ( nobld/=24 ) isimp = isimp + mwords
 !
 !     DONE WITH CARDS OF PRESENT TYPE-GET ANOTHER TYPE
@@ -240,24 +241,24 @@ SUBROUTINE loadsu
 !     ALLS,NSIMP,(LOAD FACTOR,NCARDS) FOR EACH SIMPLE LOAD ID,
 !     ALL LOAD INFO FOR EACH SIMPLE LOAD STARTING WITH NOBLD AND IDO
 !
-         Z(Ist+1) = alls
-         iz(Ist+2) = nsimp
+         z(ist+1) = alls
+         iz(ist+2) = nsimp
          ns2 = 2*nsimp
          DO i = 1 , ns2
-            Z(Ist+2+i) = Z(iload+i)
+            z(ist+2+i) = z(iload+i)
          ENDDO
-         isub1 = Ist + ns2 + 2
+         isub1 = ist + ns2 + 2
          isub2 = iload + 2*nsimp
-         DO i = 1 , Ntot
-            Z(isub1+i) = Z(isub2+i)
+         DO i = 1 , ntot
+            z(isub1+i) = z(isub2+i)
          ENDDO
-         Ntot = Ntot + 2*nsimp + 2
-         CALL close(Nslt,1)
+         ntot = ntot + 2*nsimp + 2
+         CALL close(nslt,1)
          RETURN
       CASE (4)
 !
-         Load = id
- 40      WRITE (Iout,99002) Ufm , Load
+         load = id
+ 40      WRITE (iout,99002) ufm , load
 99002    FORMAT (A23,', CANNOT FIND LOAD',I8,' ON NSLT IN BIOTSV')
          CALL mesage(-61,0,0)
 !
@@ -266,7 +267,6 @@ SUBROUTINE loadsu
          CYCLE SPAG_DispatchLoop_1
  80      n = -2
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          n = -8
          file = 0

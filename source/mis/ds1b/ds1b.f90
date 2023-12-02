@@ -1,10 +1,11 @@
-!*==ds1b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ds1b.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ds1b(Ke,J)
-USE C_DS1AAA
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_ds1aaa
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -29,8 +30,8 @@ USE ISO_FORTRAN_ENV
 !     SEARCH THE GPCT AND FIND AN INDEX M SUCH THAT
 !     IABS(GPCT(M)) .LE. J .LT. IABS(GPCT(M+1))
 !
-   low = Igpct + 1
-   lim = Ngpct + low - 2
+   low = igpct + 1
+   lim = ngpct + low - 2
    IF ( low>lim ) THEN
       isave = low
    ELSE
@@ -51,27 +52,27 @@ CONTAINS
 !
 !     ADD KE TO THE SUBMATRIX
 !
-      l1 = Frowic - 1
-      jj = Ipoint + isave - Igpct
-      j2 = iz(jj) - 1
-      i1 = 0
-      lim = Nrowsc - 1
+      L1 = frowic - 1
+      Jj = ipoint + Isave - Igpct
+      J2 = Iz(Jj) - 1
+      I1 = 0
+      Lim = nrowsc - 1
       SPAG_Loop_1_1: DO
-         IF ( i1>lim ) RETURN
-         k1 = I6x6k + i1*Jmax + j2
-         j1 = 0
-         l = 6*l1
-         k = k1
+         IF ( I1>Lim ) RETURN
+         K1 = i6x6k + I1*jmax + J2
+         J1 = 0
+         L = 6*L1
+         K = K1
          DO
-            j1 = j1 + 1
-            IF ( j1>6 ) THEN
-               i1 = i1 + 1
-               l1 = l1 + 1
+            J1 = J1 + 1
+            IF ( J1>6 ) THEN
+               I1 = I1 + 1
+               L1 = L1 + 1
                CYCLE SPAG_Loop_1_1
             ELSE
-               k = k + 1
-               l = l + 1
-               dz(k) = dz(k) + Ke(l)
+               K = K + 1
+               L = L + 1
+               Dz(K) = Dz(K) + Ke(L)
             ENDIF
          ENDDO
          EXIT SPAG_Loop_1_1

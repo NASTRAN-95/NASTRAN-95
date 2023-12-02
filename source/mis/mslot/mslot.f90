@@ -1,12 +1,13 @@
-!*==mslot.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mslot.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mslot(Itype)
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -65,43 +66,43 @@ USE ISO_FORTRAN_ENV
 !     THE CSLOT4 ELEMENT IS CHECKED FOR VALIDITY AND THE DATA ARE
 !     REARRANGED TO CONFORM TO THE CSLOT3 FORMAT
 !*****
-      IF ( Ecpt(7)==0.0 .OR. necpt(8)==0 ) RETURN
-      K = -1
+      IF ( ecpt(7)==0.0 .OR. necpt(8)==0 ) RETURN
+      k = -1
       SPAG_Loop_1_1: DO
-         K = K + 1
-         IF ( 2*necpt(9)<K*necpt(8) ) THEN
-         ELSEIF ( 2*necpt(9)==K*necpt(8) ) THEN
+         k = k + 1
+         IF ( 2*necpt(9)<k*necpt(8) ) THEN
+         ELSEIF ( 2*necpt(9)==k*necpt(8) ) THEN
             necpt(8) = necpt(8)*2
          ELSE
             CYCLE
          ENDIF
-         Ecpt(8) = float(necpt(8))/2.0
+         ecpt(8) = float(necpt(8))/2.0
          DO i = 1 , 4
-            Ecpt(i+50) = Ecpt(i)
+            ecpt(i+50) = ecpt(i)
          ENDDO
          DO i = 6 , 21
-            Ecpt(i+49) = Ecpt(i)
+            ecpt(i+49) = ecpt(i)
          ENDDO
-         Ecpt(56) = Ecpt(7)*2.0
-         Iret = 1
+         ecpt(56) = ecpt(7)*2.0
+         iret = 1
          EXIT SPAG_Loop_1_1
       ENDDO SPAG_Loop_1_1
    ELSE
-      IF ( Ecpt(6)==0.0 .OR. necpt(7)==0 ) RETURN
-      K = -1
+      IF ( ecpt(6)==0.0 .OR. necpt(7)==0 ) RETURN
+      k = -1
       SPAG_Loop_1_2: DO
-         K = K + 1
-         IF ( 2*necpt(8)<K*necpt(7) ) THEN
-         ELSEIF ( 2*necpt(8)==K*necpt(7) ) THEN
+         k = k + 1
+         IF ( 2*necpt(8)<k*necpt(7) ) THEN
+         ELSEIF ( 2*necpt(8)==k*necpt(7) ) THEN
             necpt(7) = necpt(7)*2
          ELSE
             CYCLE
          ENDIF
-         Ecpt(7) = float(necpt(7))/2.0
+         ecpt(7) = float(necpt(7))/2.0
          DO i = 1 , 20
-            Ecpt(i+50) = Ecpt(i)
+            ecpt(i+50) = ecpt(i)
          ENDDO
-         Iret = 4
+         iret = 4
          EXIT SPAG_Loop_1_2
       ENDDO SPAG_Loop_1_2
    ENDIF
@@ -109,43 +110,43 @@ USE ISO_FORTRAN_ENV
 !*****
 !     EACH CSLOT3 ELEMENT OR SUBELEMENT IS FORMULATED AS FOLLOWS
 !*****
-      IF ( (necpt(52)==Npvt) .OR. (necpt(53)==Npvt) .OR. (necpt(54)==Npvt) ) THEN
+      IF ( (necpt(52)==npvt) .OR. (necpt(53)==npvt) .OR. (necpt(54)==npvt) ) THEN
          DO i = 1 , 3
-            Ip = 4*(i-1) + 60
-            R(i) = Ecpt(Ip)
-            Z(i) = Ecpt(Ip+1)
-            W(i) = Ecpt(Ip+2)
-            IF ( Npvt==necpt(i+51) ) ipvt = i
+            ip = 4*(i-1) + 60
+            r(i) = ecpt(ip)
+            z(i) = ecpt(ip+1)
+            w(i) = ecpt(ip+2)
+            IF ( npvt==necpt(i+51) ) ipvt = i
          ENDDO
-         A2 = (R(2)-R(1))*(Z(3)-Z(1)) - (R(3)-R(1))*(Z(2)-Z(1))
-         Wb = W(1) + W(2) + W(3) + W(ipvt)
-         Coef = dabs(A2)*Ecpt(57)/(120.0D0*Ecpt(56))
-         i = Npvt
+         a2 = (r(2)-r(1))*(z(3)-z(1)) - (r(3)-r(1))*(z(2)-z(1))
+         wb = w(1) + w(2) + w(3) + w(ipvt)
+         coef = dabs(a2)*ecpt(57)/(120.0D0*ecpt(56))
+         i = npvt
          DO j = 1 , 3
-            K = necpt(j+51)
-            Mij = Coef*(Wb+W(j))
-            IF ( ipvt==j ) Mij = Mij*2.0D0
-            CALL sma2b(Mij,K,i,Ifile,0.0D0)
+            k = necpt(j+51)
+            mij = coef*(wb+w(j))
+            IF ( ipvt==j ) mij = mij*2.0D0
+            CALL sma2b(mij,k,i,ifile,0.0D0)
          ENDDO
       ENDIF
-      IF ( Iret==1 ) THEN
-         Ecpt(54) = Ecpt(5)
-         Ecpt(68) = Ecpt(23)
-         Ecpt(69) = Ecpt(24)
-         Ecpt(70) = Ecpt(25)
-         Iret = 2
-      ELSEIF ( Iret==2 ) THEN
-         Ecpt(53) = Ecpt(4)
-         Ecpt(64) = Ecpt(19)
-         Ecpt(65) = Ecpt(20)
-         Ecpt(66) = Ecpt(21)
-         Iret = 3
-      ELSEIF ( Iret==3 ) THEN
-         Ecpt(52) = Ecpt(3)
-         Ecpt(60) = Ecpt(15)
-         Ecpt(61) = Ecpt(16)
-         Ecpt(62) = Ecpt(17)
-         Iret = 4
+      IF ( iret==1 ) THEN
+         ecpt(54) = ecpt(5)
+         ecpt(68) = ecpt(23)
+         ecpt(69) = ecpt(24)
+         ecpt(70) = ecpt(25)
+         iret = 2
+      ELSEIF ( iret==2 ) THEN
+         ecpt(53) = ecpt(4)
+         ecpt(64) = ecpt(19)
+         ecpt(65) = ecpt(20)
+         ecpt(66) = ecpt(21)
+         iret = 3
+      ELSEIF ( iret==3 ) THEN
+         ecpt(52) = ecpt(3)
+         ecpt(60) = ecpt(15)
+         ecpt(61) = ecpt(16)
+         ecpt(62) = ecpt(17)
+         iret = 4
       ELSE
          EXIT SPAG_Loop_1_3
       ENDIF

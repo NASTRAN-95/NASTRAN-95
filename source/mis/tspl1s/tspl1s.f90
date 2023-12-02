@@ -1,10 +1,11 @@
-!*==tspl1s.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tspl1s.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tspl1s(Ts1,Ts2,Ts6,Ts6s,Ts7,Ktr3,Ktr31)
+   USE c_matout
+   USE c_sma1io
    IMPLICIT NONE
-   USE C_MATOUT
-   USE C_SMA1IO
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -36,36 +37,36 @@ SUBROUTINE tspl1s(Ts1,Ts2,Ts6,Ts6s,Ts7,Ktr3,Ktr31)
    DATA be/0.33333333333333E0 , 0.47014206E0 , 0.05971588E0 , 0.47014206E0 , 0.101286505E0 , 0.79742699E0 , 0.101286505E0/ ,        &
       & ga/0.33333333333333E0 , 2*0.47014206E0 , 0.05971588E0 , 2*0.101286505E0 , 0.79742699E0/ , wt/0.1125E0 , 3*0.066197075E0 ,   &
       & 3*0.06296959E0/
-   cons(1) = Dista*Distc
-   cons(2) = Distb*Distc
+   cons(1) = dista*distc
+   cons(2) = distb*distc
    DO i = 1 , 60
       Ts1(i) = 0.0E0
    ENDDO
    DO k = 1 , 7
       DO kase = 1 , 2
-         IF ( kase==1 ) X = be(k)*Dista
-         IF ( kase==2 ) X = -be(k)*Distb
-         Y = ga(k)*Distc
+         IF ( kase==1 ) x = be(k)*dista
+         IF ( kase==2 ) x = -be(k)*distb
+         y = ga(k)*distc
          CALL tspl3s(Ts6)
          cons1 = wt(k)*cons(kase)
-         thk = A1 + A2*X + A3*Y
+         thk = a1 + a2*x + a3*y
          cons14 = cons1*thk
-         gs1(1) = Rj11*cons14
-         gs1(2) = Rj12*cons14
+         gs1(1) = rj11*cons14
+         gs1(2) = rj12*cons14
          gs1(3) = gs1(2)
-         gs1(4) = Rj22*cons14
+         gs1(4) = rj22*cons14
          thk1 = thk**3/12.0E0
          cons11 = cons1*thk1
-         d11 = Em(1)*thk1
-         d12 = Em(2)*thk1
-         d13 = Em(3)*thk1
-         d22 = Em(4)*thk1
-         d23 = Em(5)*thk1
-         d33 = Em(6)*thk1
+         d11 = em(1)*thk1
+         d12 = em(2)*thk1
+         d13 = em(3)*thk1
+         d22 = em(4)*thk1
+         d23 = em(5)*thk1
+         d33 = em(6)*thk1
          d21 = d12
          d31 = d13
          d32 = d23
-         j11 = 1.0/(Em(6)*thk)
+         j11 = 1.0/(em(6)*thk)
          j22 = j11
          j12 = 0.0
          a11 = -(j11*d11+j12*d13)
@@ -87,15 +88,15 @@ SUBROUTINE tspl1s(Ts1,Ts2,Ts6,Ts6s,Ts7,Ktr3,Ktr31)
          a35 = a33 + a11
          a36 = a34 + a31
          a37 = a25 + a32
-         ge1(1) = Em(1)*cons11
-         ge1(2) = Em(2)*cons11
-         ge1(3) = Em(3)*cons11
+         ge1(1) = em(1)*cons11
+         ge1(2) = em(2)*cons11
+         ge1(3) = em(3)*cons11
          ge1(4) = ge1(2)
-         ge1(5) = Em(4)*cons11
-         ge1(6) = Em(5)*cons11
+         ge1(5) = em(4)*cons11
+         ge1(6) = em(5)*cons11
          ge1(7) = ge1(3)
          ge1(8) = ge1(6)
-         ge1(9) = Em(6)*cons11
+         ge1(9) = em(6)*cons11
 !
 !        (B1) REFERS TO BENDING STRAIN DUE TO SECOND DERIVATIVES OF W
 !        (B2) REFERS TO BENDING STRAINS DUE TO TRANSVERSE SHEAR STRAIN
@@ -120,19 +121,19 @@ SUBROUTINE tspl1s(Ts1,Ts2,Ts6,Ts6s,Ts7,Ktr3,Ktr31)
          Ts1(42) = -6.0*a37
          Ts1(44) = -24.0*a25
          Ts1(45) = -24.0*a15
-         Ts1(46) = -120.0*a11*X
-         Ts1(48) = -120.0*a21*X
-         Ts1(49) = -12.0*(a32*X+a31*Y)
-         Ts1(50) = -12.0*(a33*X+a21*Y)
-         Ts1(51) = -12.0*(a36*X+a35*Y)
-         Ts1(52) = -12.0*(a15*X+a32*Y)
-         Ts1(53) = -12.0*(a34*X+a33*Y)
-         Ts1(54) = -12.0*(a37*X+a36*Y)
-         Ts1(55) = -24.0*a15*Y
-         Ts1(56) = -24.0*(a25*X+a34*Y)
-         Ts1(57) = -24.0*(a15*X+a37*Y)
-         Ts1(59) = -120.0*a25*Y
-         Ts1(60) = -120.0*a15*Y
+         Ts1(46) = -120.0*a11*x
+         Ts1(48) = -120.0*a21*x
+         Ts1(49) = -12.0*(a32*x+a31*y)
+         Ts1(50) = -12.0*(a33*x+a21*y)
+         Ts1(51) = -12.0*(a36*x+a35*y)
+         Ts1(52) = -12.0*(a15*x+a32*y)
+         Ts1(53) = -12.0*(a34*x+a33*y)
+         Ts1(54) = -12.0*(a37*x+a36*y)
+         Ts1(55) = -24.0*a15*y
+         Ts1(56) = -24.0*(a25*x+a34*y)
+         Ts1(57) = -24.0*(a15*x+a37*y)
+         Ts1(59) = -120.0*a25*y
+         Ts1(60) = -120.0*a15*y
 !
 !  B2 TRANSPOSE D B2
 !

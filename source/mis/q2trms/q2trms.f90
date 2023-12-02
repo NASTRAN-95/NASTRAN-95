@@ -1,4 +1,5 @@
-!*==q2trms.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==q2trms.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE q2trms(Ra,Rb,Rc,Alpha,Isinth,Icosth,Gsube,It,Ierror,Iopt,Kmat,Pmat,Smat,Zmat)
@@ -31,7 +32,16 @@ SUBROUTINE q2trms(Ra,Rb,Rc,Alpha,Isinth,Icosth,Gsube,It,Ierror,Iopt,Kmat,Pmat,Sm
    INTEGER :: i , ipartn , irow1 , j , jpartn , k , kk
    REAL :: i33 , iarea , iareat , ic , is , ixsubb , ixsubc , iysubc , mag
    INTEGER , DIMENSION(3,3) , SAVE :: ipart
-   EXTERNAL gmmats , sadotb , saxb
+   EXTERNAL gmmats , saxb
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,9 +1,10 @@
-!*==gmmerg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gmmerg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gmmerg(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub,Mrgtyp,Core,Lcore)
+   USE c_parmeg
    IMPLICIT NONE
-   USE C_PARMEG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -68,42 +69,42 @@ SUBROUTINE gmmerg(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub,Mrgtyp,Core
    IF ( Cpart/=0 ) CALL rdtrl(cp)
 !
    DO i = 2 , 7
-      Ia(i) = 0
-      Ia11(i) = 0
-      Ia12(i) = 0
-      Ia21(i) = 0
-      Ia22(i) = 0
+      ia(i) = 0
+      ia11(i) = 0
+      ia12(i) = 0
+      ia21(i) = 0
+      ia22(i) = 0
    ENDDO
 !
-   Ia11(1) = File11
-   IF ( File11/=0 ) CALL rdtrl(Ia11)
-   IF ( Ia11(1)<0 ) Ia11(1) = 0
-   Ia12(1) = File12
-   IF ( File12/=0 ) CALL rdtrl(Ia12)
-   IF ( Ia12(1)<0 ) Ia12(1) = 0
-   Ia21(1) = File21
-   IF ( File21/=0 ) CALL rdtrl(Ia21)
-   IF ( Ia21(1)<0 ) Ia21(1) = 0
-   Ia22(1) = File22
-   IF ( File22/=0 ) CALL rdtrl(Ia22)
-   IF ( Ia22(1)<0 ) Ia22(1) = 0
+   ia11(1) = File11
+   IF ( File11/=0 ) CALL rdtrl(ia11)
+   IF ( ia11(1)<0 ) ia11(1) = 0
+   ia12(1) = File12
+   IF ( File12/=0 ) CALL rdtrl(ia12)
+   IF ( ia12(1)<0 ) ia12(1) = 0
+   ia21(1) = File21
+   IF ( File21/=0 ) CALL rdtrl(ia21)
+   IF ( ia21(1)<0 ) ia21(1) = 0
+   ia22(1) = File22
+   IF ( File22/=0 ) CALL rdtrl(ia22)
+   IF ( ia22(1)<0 ) ia22(1) = 0
 !
 !     SET UP MATRIX CONTROL BLOCK FOR OUTPUT
 !
-   Ia(1) = Filea
-   Ia(4) = Mrgtyp
-   Ia(5) = max0(Ia11(5),Ia12(5),Ia21(5),Ia22(5))
+   ia(1) = Filea
+   ia(4) = Mrgtyp
+   ia(5) = max0(ia11(5),ia12(5),ia21(5),ia22(5))
 !
 !     SET UP DUMMY PARTITION VECTOR
 !
    Core(1) = 0
    Core(2) = 1
-   Core(3) = Ia(2)
+   Core(3) = ia(2)
    Core(4) = 2
    Core(5) = 1
    Core(6) = 0
-   Lcr = Lcore
-   Rule = 0
+   lcr = Lcore
+   rule = 0
 !
    IF ( Rpart==0 ) THEN
 !
@@ -116,29 +117,28 @@ SUBROUTINE gmmerg(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub,Mrgtyp,Core
          CALL mesage(-7,0,name)
          RETURN
       ELSE
-         Ia(2) = max0(Ia11(2),Ia21(2))
-         Ia(3) = Nsub(3) + Nsub(4)
+         ia(2) = max0(ia11(2),ia21(2))
+         ia(3) = Nsub(3) + Nsub(4)
          CALL merge(Core,cp,Core)
       ENDIF
    ELSEIF ( Cpart==0 ) THEN
 !
 !  *  *  MERGE COLUMNS ONLY
 !
-      Ia(2) = Nsub(1) + Nsub(2)
-      Ia(3) = max0(Ia11(3),Ia12(3))
+      ia(2) = Nsub(1) + Nsub(2)
+      ia(3) = max0(ia11(3),ia12(3))
       CALL merge(rp,Core,Core)
    ELSE
 !
 !     FULL MERGE
 !
-      Ia(2) = Nsub(1) + Nsub(2)
-      Ia(3) = Nsub(3) + Nsub(4)
+      ia(2) = Nsub(1) + Nsub(2)
+      ia(3) = Nsub(3) + Nsub(4)
       CALL merge(rp,cp,Core)
    ENDIF
 !
 !     WRITE TRIALER FOR OUTPUT
 !
-   CALL wrttrl(Ia)
+   CALL wrttrl(ia)
 !
-   RETURN
 END SUBROUTINE gmmerg

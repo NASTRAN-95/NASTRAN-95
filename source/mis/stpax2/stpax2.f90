@@ -1,15 +1,16 @@
-!*==stpax2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==stpax2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stpax2(Sorc,Ti)
+   USE c_condas
+   USE c_sdr2de
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SDR2DE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -78,25 +79,25 @@ SUBROUTINE stpax2(Sorc,Ti)
    DATA zeron/.FALSE./
    DATA iosorc/0/
 !
-   Elemid = Idel/1000
-   Nelhar = Idel - Elemid*1000
-   Klemid = Elemid
+   elemid = idel/1000
+   nelhar = idel - elemid*1000
+   klemid = elemid
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
 !
 !     SET BLOCK = 0 IF HARMONIC = 0
 !
-   N = Nelhar - 1
-   IF ( N==0 ) THEN
-      IF ( N==0 .AND. zeron .AND. iosorc/=Sorc ) THEN
+   n = nelhar - 1
+   IF ( n==0 ) THEN
+      IF ( n==0 .AND. zeron .AND. iosorc/=Sorc ) THEN
          zeron = .FALSE.
       ELSE
          zeron = .TRUE.
          iosorc = Sorc
          DO i = 2 , 62
             DO j = 1 , 14
-               IF ( Ktype/=2 .OR. Ipart/=2 ) Block(i,j) = 0.0
-               Clock(i,j) = 0.0
+               IF ( ktype/=2 .OR. ipart/=2 ) block(i,j) = 0.0
+               clock(i,j) = 0.0
             ENDDO
          ENDDO
 !
@@ -105,13 +106,13 @@ SUBROUTINE stpax2(Sorc,Ti)
          zero = .FALSE.
          j = 0
          DO i = 1 , 14
-            IF ( Phi(i)==0 ) THEN
+            IF ( phi(i)==0 ) THEN
                IF ( zero ) CYCLE
                zero = .TRUE.
             ENDIF
             j = j + 1
-            Block(1,j) = Phi(i)
-            Clock(1,j) = Phi(i)
+            block(1,j) = phi(i)
+            clock(1,j) = phi(i)
          ENDDO
          j = j + 1
          IF ( j<=14 ) THEN
@@ -120,13 +121,13 @@ SUBROUTINE stpax2(Sorc,Ti)
          ENDIF
       ENDIF
    ENDIF
-   Harm = N
+   harm = n
 !
 !     INITIALIZE LOCAL VARIABLES
 !
    ndof = 3
    numpt = 4
-   N = ndof*numpt
+   n = ndof*numpt
    nsp = 5
    ncomp = 6
    ns = nsp*ncomp
@@ -135,35 +136,35 @@ SUBROUTINE stpax2(Sorc,Ti)
 !
    k = 0
    DO i = 1 , numpt
-      iloc = Ivec + Igp(i) - 2
+      iloc = ivec + igp(i) - 2
 !
       IF ( .NOT.(lsys78) ) THEN
          ilocp = iloc + 4
-         dispp(i) = Zz(ilocp)
+         dispp(i) = zz(ilocp)
       ENDIF
 !
       DO j = 1 , ndof
          iloc = iloc + 1
          k = k + 1
-         Disp(k) = Zz(iloc)
+         disp(k) = zz(iloc)
       ENDDO
    ENDDO
 !
 !     COMPUTE THE GRID POINT FORCES
 !
-   CALL gmmats(Ak(1),N,N,0,Disp(1),N,1,0,Eforc(1))
+   CALL gmmats(ak(1),n,n,0,disp(1),n,1,0,eforc(1))
 !
    DO i = 1 , 4
       echrg(i) = 0.0
    ENDDO
 !
    IF ( .NOT.(lsys78) ) THEN
-      CALL gmmats(akuph(1),N,numpt,0,dispp(1),numpt,1,0,d15(1))
+      CALL gmmats(akuph(1),n,numpt,0,dispp(1),numpt,1,0,d15(1))
       DO i = 1 , 12
-         Eforc(i) = Eforc(i) + d15(i)
+         eforc(i) = eforc(i) + d15(i)
       ENDDO
 !
-      CALL gmmats(akuph(1),N,numpt,1,Disp(1),N,1,0,d4(1))
+      CALL gmmats(akuph(1),n,numpt,1,disp(1),n,1,0,d4(1))
       CALL gmmats(akph2(1),numpt,numpt,0,dispp(1),numpt,1,0,echrg(1))
       DO i = 1 , 4
          echrg(i) = echrg(i) + d4(i)
@@ -172,7 +173,7 @@ SUBROUTINE stpax2(Sorc,Ti)
 !
 !     COMPUTE THE STRESSES
 !
-   CALL gmmats(Sel(1),ns,N,0,Disp(1),N,1,0,Estres(1))
+   CALL gmmats(sel(1),ns,n,0,disp(1),n,1,0,estres(1))
 !
    DO i = 1 , 15
       eflux(i) = 0.0
@@ -181,10 +182,10 @@ SUBROUTINE stpax2(Sorc,Ti)
    IF ( .NOT.(lsys78) ) THEN
       CALL gmmats(selp1(1),ns,numpt,0,dispp(1),numpt,1,0,d30(1))
       DO i = 1 , 30
-         Estres(i) = Estres(i) + d30(i)
+         estres(i) = estres(i) + d30(i)
       ENDDO
 !
-      CALL gmmats(selp2(1),15,N,0,Disp(1),N,1,0,eflux(1))
+      CALL gmmats(selp2(1),15,n,0,disp(1),n,1,0,eflux(1))
       CALL gmmats(selp3(1),15,numpt,0,dispp(1),numpt,1,0,d15(1))
       DO i = 1 , 15
          eflux(i) = eflux(i) + d15(i)
@@ -195,14 +196,14 @@ SUBROUTINE stpax2(Sorc,Ti)
 !
    IF ( ldtemp/=-1 ) THEN
       k = 0
-      t = Tz
-      IF ( Harm>0.0 ) t = 0.0
+      t = tz
+      IF ( harm>0.0 ) t = 0.0
       DO i = 1 , nsp
          dt = Ti(i) - t
          IF ( i==5 ) dt = (Ti(1)+Ti(2)+Ti(3)+Ti(4))/4.0 - t
          DO j = 1 , ncomp
             k = k + 1
-            Estres(k) = Estres(k) - dt*Ts(j)
+            estres(k) = estres(k) - dt*ts(j)
          ENDDO
       ENDDO
    ENDIF
@@ -214,102 +215,102 @@ SUBROUTINE stpax2(Sorc,Ti)
 !     IPART = 1 - IMAGINARY PART OF COMPLEX OUTPUT, STORED IN BLOCK
 !     IPART = 2 - REAL PART OF COMPLEX OUTPUT, STORED IN CLOCK
 !
-   IF ( Ktype/=2 .OR. Ipart/=2 ) THEN
+   IF ( ktype/=2 .OR. ipart/=2 ) THEN
 !
 !     INSERT HARMONIC STRESSES AND FORCES INTO BLOCK
 !
       SPAG_Loop_1_1: DO i = 1 , 14
          IF ( iblock(1,i)==1 ) EXIT SPAG_Loop_1_1
-         IF ( Harm==0.0 ) THEN
+         IF ( harm==0.0 ) THEN
 !
             DO ie = 1 , 5
                ke = 9*(ie-1)
                kepz = 6*(ie-1)
-               Block(2+ke,i) = Estres(1+kepz)
-               Block(3+ke,i) = Estres(2+kepz)
-               Block(4+ke,i) = Estres(3+kepz)
-               Block(5+ke,i) = Estres(4+kepz)
-               Block(6+ke,i) = Estres(5+kepz)
-               Block(7+ke,i) = Estres(6+kepz)
+               block(2+ke,i) = estres(1+kepz)
+               block(3+ke,i) = estres(2+kepz)
+               block(4+ke,i) = estres(3+kepz)
+               block(5+ke,i) = estres(4+kepz)
+               block(6+ke,i) = estres(5+kepz)
+               block(7+ke,i) = estres(6+kepz)
 !
                IF ( .NOT.(lsys78) ) THEN
                   kepz2 = kepz/2
-                  Block(8+ke,i) = eflux(1+kepz2)
-                  Block(9+ke,i) = eflux(2+kepz2)
-                  Block(10+ke,i) = eflux(3+kepz2)
+                  block(8+ke,i) = eflux(1+kepz2)
+                  block(9+ke,i) = eflux(2+kepz2)
+                  block(10+ke,i) = eflux(3+kepz2)
                ENDIF
             ENDDO
 !
             DO ir = 1 , 4
                kr = 4*(ir-1)
                krpz = 3*(ir-1)
-               Block(47+kr,i) = Eforc(1+krpz)
-               Block(48+kr,i) = Eforc(2+krpz)
-               Block(49+kr,i) = Eforc(3+krpz)
+               block(47+kr,i) = eforc(1+krpz)
+               block(48+kr,i) = eforc(2+krpz)
+               block(49+kr,i) = eforc(3+krpz)
                kr3 = 1 + krpz/3
-               IF ( .NOT.lsys78 ) Block(50+kr,i) = echrg(kr3)
+               IF ( .NOT.lsys78 ) block(50+kr,i) = echrg(kr3)
             ENDDO
          ELSE
-            Nphi = Harm*Block(1,i)*degrad
-            Sinphi = sin(Nphi)
-            Conphi = cos(Nphi)
+            nphi = harm*block(1,i)*degrad
+            sinphi = sin(nphi)
+            conphi = cos(nphi)
             IF ( Sorc==1 ) THEN
 !
                DO ie = 1 , 5
                   ke = 9*(ie-1)
                   kepz = 6*(ie-1)
-                  Block(2+ke,i) = Block(2+ke,i) + Sinphi*Estres(1+kepz)
-                  Block(3+ke,i) = Block(3+ke,i) + Sinphi*Estres(2+kepz)
-                  Block(4+ke,i) = Block(4+ke,i) + Sinphi*Estres(3+kepz)
-                  Block(5+ke,i) = Block(5+ke,i) + Sinphi*Estres(4+kepz)
-                  Block(6+ke,i) = Block(6+ke,i) - Conphi*Estres(5+kepz)
-                  Block(7+ke,i) = Block(7+ke,i) - Conphi*Estres(6+kepz)
+                  block(2+ke,i) = block(2+ke,i) + sinphi*estres(1+kepz)
+                  block(3+ke,i) = block(3+ke,i) + sinphi*estres(2+kepz)
+                  block(4+ke,i) = block(4+ke,i) + sinphi*estres(3+kepz)
+                  block(5+ke,i) = block(5+ke,i) + sinphi*estres(4+kepz)
+                  block(6+ke,i) = block(6+ke,i) - conphi*estres(5+kepz)
+                  block(7+ke,i) = block(7+ke,i) - conphi*estres(6+kepz)
 !
                   IF ( .NOT.(lsys78) ) THEN
                      kepz2 = kepz/2
-                     Block(8+ke,i) = Block(8+ke,i) + Sinphi*eflux(1+kepz2)
-                     Block(9+ke,i) = Block(9+ke,i) + Sinphi*eflux(2+kepz2)
-                     Block(10+ke,i) = Block(10+ke,i) - Conphi*eflux(3+kepz2)
+                     block(8+ke,i) = block(8+ke,i) + sinphi*eflux(1+kepz2)
+                     block(9+ke,i) = block(9+ke,i) + sinphi*eflux(2+kepz2)
+                     block(10+ke,i) = block(10+ke,i) - conphi*eflux(3+kepz2)
                   ENDIF
                ENDDO
 !
                DO ir = 1 , 4
                   kr = 4*(ir-1)
                   krpz = 3*(ir-1)
-                  Block(47+kr,i) = Block(47+kr,i) + Sinphi*Eforc(1+krpz)
-                  Block(48+kr,i) = Block(48+kr,i) - Conphi*Eforc(2+krpz)
-                  Block(49+kr,i) = Block(49+kr,i) + Sinphi*Eforc(3+krpz)
+                  block(47+kr,i) = block(47+kr,i) + sinphi*eforc(1+krpz)
+                  block(48+kr,i) = block(48+kr,i) - conphi*eforc(2+krpz)
+                  block(49+kr,i) = block(49+kr,i) + sinphi*eforc(3+krpz)
                   kr3 = 1 + krpz/3
-                  IF ( .NOT.lsys78 ) Block(50+kr,i) = Block(50+kr,i) + Sinphi*echrg(kr3)
+                  IF ( .NOT.lsys78 ) block(50+kr,i) = block(50+kr,i) + sinphi*echrg(kr3)
                ENDDO
             ELSE
 !
                DO ie = 1 , 5
                   ke = 9*(ie-1)
                   kepz = 6*(ie-1)
-                  Block(2+ke,i) = Block(2+ke,i) + Conphi*Estres(1+kepz)
-                  Block(3+ke,i) = Block(3+ke,i) + Conphi*Estres(2+kepz)
-                  Block(4+ke,i) = Block(4+ke,i) + Conphi*Estres(3+kepz)
-                  Block(5+ke,i) = Block(5+ke,i) + Conphi*Estres(4+kepz)
-                  Block(6+ke,i) = Block(6+ke,i) + Sinphi*Estres(5+kepz)
-                  Block(7+ke,i) = Block(7+ke,i) + Sinphi*Estres(6+kepz)
+                  block(2+ke,i) = block(2+ke,i) + conphi*estres(1+kepz)
+                  block(3+ke,i) = block(3+ke,i) + conphi*estres(2+kepz)
+                  block(4+ke,i) = block(4+ke,i) + conphi*estres(3+kepz)
+                  block(5+ke,i) = block(5+ke,i) + conphi*estres(4+kepz)
+                  block(6+ke,i) = block(6+ke,i) + sinphi*estres(5+kepz)
+                  block(7+ke,i) = block(7+ke,i) + sinphi*estres(6+kepz)
 !
                   IF ( .NOT.(lsys78) ) THEN
                      kepz2 = kepz/2
-                     Block(8+ke,i) = Block(8+ke,i) + Conphi*eflux(1+kepz2)
-                     Block(9+ke,i) = Block(9+ke,i) + Conphi*eflux(2+kepz2)
-                     Block(10+ke,i) = Block(10+ke,i) + Sinphi*eflux(3+kepz2)
+                     block(8+ke,i) = block(8+ke,i) + conphi*eflux(1+kepz2)
+                     block(9+ke,i) = block(9+ke,i) + conphi*eflux(2+kepz2)
+                     block(10+ke,i) = block(10+ke,i) + sinphi*eflux(3+kepz2)
                   ENDIF
                ENDDO
 !
                DO ir = 1 , 4
                   kr = 4*(ir-1)
                   krpz = 3*(ir-1)
-                  Block(47+kr,i) = Block(47+kr,i) + Conphi*Eforc(1+krpz)
-                  Block(48+kr,i) = Block(48+kr,i) + Sinphi*Eforc(2+krpz)
-                  Block(49+kr,i) = Block(49+kr,i) + Conphi*Eforc(3+krpz)
+                  block(47+kr,i) = block(47+kr,i) + conphi*eforc(1+krpz)
+                  block(48+kr,i) = block(48+kr,i) + sinphi*eforc(2+krpz)
+                  block(49+kr,i) = block(49+kr,i) + conphi*eforc(3+krpz)
                   kr3 = 1 + krpz/3
-                  IF ( .NOT.lsys78 ) Block(50+kr,i) = Block(50+kr,i) + Conphi*echrg(kr3)
+                  IF ( .NOT.lsys78 ) block(50+kr,i) = block(50+kr,i) + conphi*echrg(kr3)
                ENDDO
             ENDIF
          ENDIF
@@ -321,11 +322,11 @@ SUBROUTINE stpax2(Sorc,Ti)
       j = 2
       k = 1
       l = 0
-      istres(1) = Elemid
-      istres(2) = Nelhar
+      istres(1) = elemid
+      istres(2) = nelhar
       DO i = 1 , ns
          j = j + 1
-         stres(j) = Estres(i)
+         stres(j) = estres(i)
 !
          IF ( i/6==k ) THEN
             k = k + 1
@@ -340,13 +341,13 @@ SUBROUTINE stpax2(Sorc,Ti)
       k = 0
       j = 2
       l = 1
-      iforce(1) = Elemid
-      iforce(2) = Nelhar
+      iforce(1) = elemid
+      iforce(2) = nelhar
       DO i = 1 , numpt
          DO kk = 1 , ndof
             j = j + 1
             k = k + 1
-            force(j) = Eforc(k)
+            force(j) = eforc(k)
 !
             IF ( k/3==l ) THEN
                j = j + 1
@@ -357,103 +358,103 @@ SUBROUTINE stpax2(Sorc,Ti)
          ENDDO
       ENDDO
 !
-      IF ( Ktype==1 .OR. (Ktype==2 .AND. Ipart==1) ) RETURN
+      IF ( ktype==1 .OR. (ktype==2 .AND. ipart==1) ) RETURN
    ENDIF
 !
 !     INSERT HARMONIC STRESSES AND FORCES INTO CLOCK
 !
    SPAG_Loop_1_2: DO i = 1 , 14
       IF ( iclock(1,i)==1 ) EXIT SPAG_Loop_1_2
-      IF ( Harm==0.0 ) THEN
+      IF ( harm==0.0 ) THEN
 !
          DO ie = 1 , 5
             ke = 9*(ie-1)
             kepz = 6*(ie-1)
-            Clock(2+ke,i) = Estres(1+kepz)
-            Clock(3+ke,i) = Estres(2+kepz)
-            Clock(4+ke,i) = Estres(3+kepz)
-            Clock(5+ke,i) = Estres(4+kepz)
-            Clock(6+ke,i) = Estres(5+kepz)
-            Clock(7+ke,i) = Estres(6+kepz)
+            clock(2+ke,i) = estres(1+kepz)
+            clock(3+ke,i) = estres(2+kepz)
+            clock(4+ke,i) = estres(3+kepz)
+            clock(5+ke,i) = estres(4+kepz)
+            clock(6+ke,i) = estres(5+kepz)
+            clock(7+ke,i) = estres(6+kepz)
 !
             IF ( .NOT.(lsys78) ) THEN
                kepz2 = kepz/2
-               Clock(8+ke,i) = eflux(1+kepz2)
-               Clock(9+ke,i) = eflux(2+kepz2)
-               Clock(10+ke,i) = eflux(3+kepz2)
+               clock(8+ke,i) = eflux(1+kepz2)
+               clock(9+ke,i) = eflux(2+kepz2)
+               clock(10+ke,i) = eflux(3+kepz2)
             ENDIF
          ENDDO
 !
          DO ir = 1 , 4
             kr = 4*(ir-1)
             krpz = 3*(ir-1)
-            Clock(47+kr,i) = Eforc(1+krpz)
-            Clock(48+kr,i) = Eforc(2+krpz)
-            Clock(49+kr,i) = Eforc(3+krpz)
+            clock(47+kr,i) = eforc(1+krpz)
+            clock(48+kr,i) = eforc(2+krpz)
+            clock(49+kr,i) = eforc(3+krpz)
             kr3 = 1 + krpz/3
-            IF ( .NOT.lsys78 ) Clock(50+kr,i) = echrg(kr3)
+            IF ( .NOT.lsys78 ) clock(50+kr,i) = echrg(kr3)
          ENDDO
       ELSE
-         Nphi = Harm*Clock(1,i)*degrad
-         Sinphi = sin(Nphi)
-         Conphi = cos(Nphi)
+         nphi = harm*clock(1,i)*degrad
+         sinphi = sin(nphi)
+         conphi = cos(nphi)
          IF ( Sorc==1 ) THEN
 !
             DO ie = 1 , 5
                ke = 9*(ie-1)
                kepz = 6*(ie-1)
-               Clock(2+ke,i) = Clock(2+ke,i) + Sinphi*Estres(1+kepz)
-               Clock(3+ke,i) = Clock(3+ke,i) + Sinphi*Estres(2+kepz)
-               Clock(4+ke,i) = Clock(4+ke,i) + Sinphi*Estres(3+kepz)
-               Clock(5+ke,i) = Clock(5+ke,i) + Sinphi*Estres(4+kepz)
-               Clock(6+ke,i) = Clock(6+ke,i) - Conphi*Estres(5+kepz)
-               Clock(7+ke,i) = Clock(7+ke,i) - Conphi*Estres(6+kepz)
+               clock(2+ke,i) = clock(2+ke,i) + sinphi*estres(1+kepz)
+               clock(3+ke,i) = clock(3+ke,i) + sinphi*estres(2+kepz)
+               clock(4+ke,i) = clock(4+ke,i) + sinphi*estres(3+kepz)
+               clock(5+ke,i) = clock(5+ke,i) + sinphi*estres(4+kepz)
+               clock(6+ke,i) = clock(6+ke,i) - conphi*estres(5+kepz)
+               clock(7+ke,i) = clock(7+ke,i) - conphi*estres(6+kepz)
 !
                IF ( .NOT.(lsys78) ) THEN
                   kepz2 = kepz/2
-                  Clock(8+ke,i) = Clock(8+ke,i) + Sinphi*eflux(1+kepz2)
-                  Clock(9+ke,i) = Clock(9+ke,i) + Sinphi*eflux(2+kepz2)
-                  Clock(10+ke,i) = Clock(10+ke,i) - Conphi*eflux(3+kepz2)
+                  clock(8+ke,i) = clock(8+ke,i) + sinphi*eflux(1+kepz2)
+                  clock(9+ke,i) = clock(9+ke,i) + sinphi*eflux(2+kepz2)
+                  clock(10+ke,i) = clock(10+ke,i) - conphi*eflux(3+kepz2)
                ENDIF
             ENDDO
 !
             DO ir = 1 , 4
                kr = 4*(ir-1)
                krpz = 3*(ir-1)
-               Clock(47+kr,i) = Clock(47+kr,i) + Sinphi*Eforc(1+krpz)
-               Clock(48+kr,i) = Clock(48+kr,i) - Conphi*Eforc(2+krpz)
-               Clock(49+kr,i) = Clock(49+kr,i) + Sinphi*Eforc(3+krpz)
+               clock(47+kr,i) = clock(47+kr,i) + sinphi*eforc(1+krpz)
+               clock(48+kr,i) = clock(48+kr,i) - conphi*eforc(2+krpz)
+               clock(49+kr,i) = clock(49+kr,i) + sinphi*eforc(3+krpz)
                kr3 = 1 + krpz/3
-               IF ( .NOT.lsys78 ) Clock(50+kr,i) = Clock(50+kr,i) + Sinphi*echrg(kr3)
+               IF ( .NOT.lsys78 ) clock(50+kr,i) = clock(50+kr,i) + sinphi*echrg(kr3)
             ENDDO
          ELSE
 !
             DO ie = 1 , 5
                ke = 9*(ie-1)
                kepz = 6*(ie-1)
-               Clock(2+ke,i) = Clock(2+ke,i) + Conphi*Estres(1+kepz)
-               Clock(3+ke,i) = Clock(3+ke,i) + Conphi*Estres(2+kepz)
-               Clock(4+ke,i) = Clock(4+ke,i) + Conphi*Estres(3+kepz)
-               Clock(5+ke,i) = Clock(5+ke,i) + Conphi*Estres(4+kepz)
-               Clock(6+ke,i) = Clock(6+ke,i) + Sinphi*Estres(5+kepz)
-               Clock(7+ke,i) = Clock(7+ke,i) + Sinphi*Estres(6+kepz)
+               clock(2+ke,i) = clock(2+ke,i) + conphi*estres(1+kepz)
+               clock(3+ke,i) = clock(3+ke,i) + conphi*estres(2+kepz)
+               clock(4+ke,i) = clock(4+ke,i) + conphi*estres(3+kepz)
+               clock(5+ke,i) = clock(5+ke,i) + conphi*estres(4+kepz)
+               clock(6+ke,i) = clock(6+ke,i) + sinphi*estres(5+kepz)
+               clock(7+ke,i) = clock(7+ke,i) + sinphi*estres(6+kepz)
 !
                IF ( .NOT.(lsys78) ) THEN
                   kepz2 = kepz/2
-                  Clock(8+ke,i) = Clock(8+ke,i) + Conphi*eflux(1+kepz2)
-                  Clock(9+ke,i) = Clock(9+ke,i) + Conphi*eflux(2+kepz2)
-                  Clock(10+ke,i) = Clock(10+ke,i) + Sinphi*eflux(3+kepz2)
+                  clock(8+ke,i) = clock(8+ke,i) + conphi*eflux(1+kepz2)
+                  clock(9+ke,i) = clock(9+ke,i) + conphi*eflux(2+kepz2)
+                  clock(10+ke,i) = clock(10+ke,i) + sinphi*eflux(3+kepz2)
                ENDIF
             ENDDO
 !
             DO ir = 1 , 4
                kr = 4*(ir-1)
                krpz = 3*(ir-1)
-               Clock(47+kr,i) = Clock(47+kr,i) + Conphi*Eforc(1+krpz)
-               Clock(48+kr,i) = Clock(48+kr,i) + Sinphi*Eforc(2+krpz)
-               Clock(49+kr,i) = Clock(49+kr,i) + Conphi*Eforc(3+krpz)
+               clock(47+kr,i) = clock(47+kr,i) + conphi*eforc(1+krpz)
+               clock(48+kr,i) = clock(48+kr,i) + sinphi*eforc(2+krpz)
+               clock(49+kr,i) = clock(49+kr,i) + conphi*eforc(3+krpz)
                kr3 = 1 + krpz/3
-               IF ( .NOT.lsys78 ) Clock(50+kr,i) = Clock(50+kr,i) + Conphi*echrg(kr3)
+               IF ( .NOT.lsys78 ) clock(50+kr,i) = clock(50+kr,i) + conphi*echrg(kr3)
             ENDDO
          ENDIF
       ENDIF
@@ -465,11 +466,11 @@ SUBROUTINE stpax2(Sorc,Ti)
    j = 2
    k = 1
    l = 0
-   istres(1) = Elemid
-   istres(2) = Nelhar
+   istres(1) = elemid
+   istres(2) = nelhar
    DO i = 1 , ns
       j = j + 1
-      stres(j) = Estres(i)
+      stres(j) = estres(i)
 !
       IF ( i/6==k ) THEN
          k = k + 1
@@ -484,13 +485,13 @@ SUBROUTINE stpax2(Sorc,Ti)
    k = 0
    j = 2
    l = 1
-   iforce(1) = Elemid
-   iforce(2) = Nelhar
+   iforce(1) = elemid
+   iforce(2) = nelhar
    DO i = 1 , numpt
       DO kk = 1 , ndof
          j = j + 1
          k = k + 1
-         force(j) = Eforc(k)
+         force(j) = eforc(k)
 !
          IF ( k/3==l ) THEN
             j = j + 1

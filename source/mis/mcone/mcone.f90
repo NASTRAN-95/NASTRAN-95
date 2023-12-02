@@ -1,15 +1,16 @@
-!*==mcone.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mcone.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mcone
-USE C_CONDAS
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -62,27 +63,27 @@ USE ISO_FORTRAN_ENV
 !
    !>>>>EQUIVALENCE (Ra,Ecpt(28)) , (Rb,Ecpt(32)) , (Za,Ecpt(29)) , (Zb,Ecpt(33)) , (T,Ecpt(5)) , (Mu,Ecpt(10)) , (Necpt(1),Ecpt(1))
 !
-   L = sqrt((rb-ra)**2+(zb-za)**2)
+   l = sqrt((rb-ra)**2+(zb-za)**2)
 !
 !     NEXT LINE WAS REMOVED BY M.H./NAVY. ERROR FOR CONICAL SHELL MASS
 !
 !
-   Temp = rb/6.0 + ra/3.0
+   temp = rb/6.0 + ra/3.0
 !
    IF ( t/=0 ) THEN
-      Inflag = 4
-      Matid = necpt(4)
-      Eltemp = Ecpt(35)
+      inflag = 4
+      matid = necpt(4)
+      eltemp = ecpt(35)
       CALL mat(necpt(1))
    ENDIF
    DO i = 1 , 36
-      Mass(i) = 0.0D0
+      mass(i) = 0.0D0
    ENDDO
-   Term = Pi*L*Temp*(Rho*t+mu)
-   IF ( necpt(1)-(necpt(1)/1000)*1000==1 ) Term = Term*2.0
-   Mass(1) = Term
-   Mass(8) = Term
-   Mass(15) = Term
-   M1 = -1
-   CALL sma2b(Mass(1),Npvt,M1,Ifmgg,0.0D0)
+   term = pi*l*temp*(rho*t+mu)
+   IF ( necpt(1)-(necpt(1)/1000)*1000==1 ) term = term*2.0
+   mass(1) = term
+   mass(8) = term
+   mass(15) = term
+   m1 = -1
+   CALL sma2b(mass(1),npvt,m1,ifmgg,0.0D0)
 END SUBROUTINE mcone

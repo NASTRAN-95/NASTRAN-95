@@ -1,10 +1,11 @@
-!*==curcas.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==curcas.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE curcas(Nskip,Trl,Mcb,Zz,Ibuf) !HIDESTARS (*,Nskip,Trl,Mcb,Zz,Ibuf)
+   USE c_names
+   USE c_system
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,7 +52,7 @@ SUBROUTINE curcas(Nskip,Trl,Mcb,Zz,Ibuf) !HIDESTARS (*,Nskip,Trl,Mcb,Zz,Ibuf)
 !  . FOR STATICS THE NUMBER OF SUBCASES SKIPPED = NO. COLUMNS SKIPPED.
 !  .  OTHER ANALYSIS TYPES NEED TO SUPPLY PROPER VALUE FOR NSKIP...
             i = Nskip - 1
-            ibf2 = Ibuf + Isbz
+            ibf2 = Ibuf + isbz
             IF ( Ibuf<=0 ) THEN
                parm(1) = +8
                spag_nextblock_1 = 2
@@ -65,9 +66,9 @@ SUBROUTINE curcas(Nskip,Trl,Mcb,Zz,Ibuf) !HIDESTARS (*,Nskip,Trl,Mcb,Zz,Ibuf)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  CALL open(*20,Trl(1),Zz(ibf2),Irdrw)
+                  CALL open(*20,Trl(1),Zz(ibf2),irdrw)
                   parm(2) = Mcb(1)
-                  CALL open(*20,Mcb(1),Zz(Ibuf),Iwtrw)
+                  CALL open(*20,Mcb(1),Zz(Ibuf),iwtrw)
                   CALL write(Mcb(1),Mcb(1),2,1)
                   parm(2) = Trl(1)
                   CALL fwdrec(*40,Trl(1))

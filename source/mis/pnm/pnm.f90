@@ -1,4 +1,5 @@
-!*==pnm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pnm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pnm(M,N,X,Ir,V)
@@ -17,6 +18,15 @@ SUBROUTINE pnm(M,N,X,Ir,V)
    REAL :: abxx , cf , w , y , z
    REAL , DIMENSION(81) :: gamma
    INTEGER :: i , i2 , ii , j , j2 , nmm , npnn1
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

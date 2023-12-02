@@ -1,13 +1,14 @@
-!*==tetra.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tetra.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tetra(Temps,Pg,Iopt)
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -70,21 +71,21 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
 !     FILL THE 4 X 4 H MATRIX.
 !
    h(1) = 1.0
-   h(2) = Ecpt(8)
-   h(3) = Ecpt(9)
-   h(4) = Ecpt(10)
+   h(2) = ecpt(8)
+   h(3) = ecpt(9)
+   h(4) = ecpt(10)
    h(5) = 1.0
-   h(6) = Ecpt(12)
-   h(7) = Ecpt(13)
-   h(8) = Ecpt(14)
+   h(6) = ecpt(12)
+   h(7) = ecpt(13)
+   h(8) = ecpt(14)
    h(9) = 1.0
-   h(10) = Ecpt(16)
-   h(11) = Ecpt(17)
-   h(12) = Ecpt(18)
+   h(10) = ecpt(16)
+   h(11) = ecpt(17)
+   h(12) = ecpt(18)
    h(13) = 1.0
-   h(14) = Ecpt(20)
-   h(15) = Ecpt(21)
-   h(16) = Ecpt(22)
+   h(14) = ecpt(20)
+   h(15) = ecpt(21)
+   h(16) = ecpt(22)
 !
 !     INVERT H AND GET THE DETERMINANT
 !
@@ -100,27 +101,27 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
 !     GET THE MATERIAL DATA AND FILL THE 6X6 G MATERIAL STRESS-STRAIN
 !     MATRIX.
 !
-      Inflag = 1
-      Matid = necpt(2)
-      Eltemp = Ecpt(23)
+      inflag = 1
+      matid = necpt(2)
+      eltemp = ecpt(23)
       CALL mat(necpt(1))
       DO i = 1 , 36
          g(i) = 0.0
       ENDDO
-      temp1 = (1.0+Nu)*(1.0-2.0*Nu)
+      temp1 = (1.0+nu)*(1.0-2.0*nu)
       IF ( temp1/=0.0 ) THEN
-         g(1) = E*(1.0-Nu)/temp1
+         g(1) = e*(1.0-nu)/temp1
          g(8) = g(1)
          g(15) = g(1)
-         g(2) = E*Nu/temp1
+         g(2) = e*nu/temp1
          g(3) = g(2)
          g(7) = g(2)
          g(9) = g(2)
          g(13) = g(2)
          g(14) = g(2)
-         g(22) = Gg
-         g(29) = Gg
-         g(36) = Gg
+         g(22) = gg
+         g(29) = gg
+         g(36) = gg
 !
 !     FILL 4 C-MATRICES. (6X3) EACH.
 !
@@ -151,7 +152,7 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
 !
 !     INTRODUCE TBAR AND ALPHA
 !
-         hdeter = hdeter*(0.25*(Temps(1)+Temps(2)+Temps(3)+Temps(4))-Tsub0)*Alpha
+         hdeter = hdeter*(0.25*(Temps(1)+Temps(2)+Temps(3)+Temps(4))-tsub0)*alpha
 !
 !     FILL ALPHA VECTOR
 !
@@ -186,13 +187,13 @@ SUBROUTINE tetra(Temps,Pg,Iopt)
          ENDDO
          RETURN
       ELSE
-         WRITE (Out,99001) Ufm , Matid , Ecpt(1)
+         WRITE (out,99001) ufm , matid , ecpt(1)
 99001    FORMAT (A23,' 4003, AN ILLEGAL VALUE OF -NU- HAS BEEN SPECIFIED ','UNDER MATERIAL ID =',I9,' FOR ELEMENT ID =',I9)
 !
          CALL mesage(-61,0,0)
       ENDIF
    ELSE
-      WRITE (Out,99002) Ufm , necpt(1)
+      WRITE (out,99002) ufm , necpt(1)
 99002 FORMAT (A23,' 4002, MODULE SSG1 DETECTS BAD OR REVERSE GEOMETRY ','FOR ELEMENT ID =',I9)
       CALL mesage(-61,0,0)
    ENDIF

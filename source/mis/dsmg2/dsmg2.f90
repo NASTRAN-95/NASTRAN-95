@@ -2,9 +2,9 @@
  
 SUBROUTINE dsmg2
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -16,6 +16,12 @@ SUBROUTINE dsmg2
    INTEGER , DIMENSION(2) , SAVE :: dsnos , name
    INTEGER , DIMENSION(11) :: iblock
    INTEGER , DIMENSION(7) :: mcb
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -73,30 +79,30 @@ SUBROUTINE dsmg2
 !
 !
 !
-   izmax = korsz(Z)
-   buffr1 = izmax - Sysbuf
-   buffr2 = buffr1 - Sysbuf
+   izmax = korsz(z)
+   buffr1 = izmax - sysbuf
+   buffr2 = buffr1 - sysbuf
    left = buffr2 - 1
 !
 ! TURN DIFFERENTIAL STIFFNESS LOOPING FLAG ON AND INCREMENT THE INDEX
 ! OF BETA.  NOTE THAT NDSKIP MUST BE SET TO ZERO IN THE MODULE
 ! PROPERTIES TABLE.
 !
-   Ireptd = 1
-   Ndskip = Ndskip + 1
+   ireptd = 1
+   ndskip = ndskip + 1
 !
 ! CALL LOCATE TO FIND THE RECORD OF THE MPT WHERE THE DSFACT CARDS ARE.
 ! THIS IS DONE ONLY IF A D.S. COEFFICIENT SET NO. IS GIVEN.
 !
-   IF ( Dscset/=(-1) ) THEN
-      CALL preloc(*200,Z(buffr1),mpt)
-      CALL locate(*300,Z(buffr1),dsnos,idummy)
+   IF ( dscset/=(-1) ) THEN
+      CALL preloc(*200,z(buffr1),mpt)
+      CALL locate(*300,z(buffr1),dsnos,idummy)
       DO
 !
 !
 !
          CALL read(*400,*500,mpt,setno,1,neor,idummy)
-         IF ( setno/=Dscset ) THEN
+         IF ( setno/=dscset ) THEN
 !
 ! READ ONE WORD AT A TIME UNTIL A -1 (END OF SET INDICATOR) IS READ.
 !
@@ -112,7 +118,7 @@ SUBROUTINE dsmg2
 !
 ! SKIP NDSKIP - 1 WORDS
 !
-         IF ( Ndskip/=1 ) CALL read(*800,*900,mpt,0,-(Ndskip-1),neor,idummy)
+         IF ( ndskip/=1 ) CALL read(*800,*900,mpt,0,-(ndskip-1),neor,idummy)
 !
 ! READ THE VALUE OF BETA
 !
@@ -123,7 +129,7 @@ SUBROUTINE dsmg2
 ! IREPTD = -1
 !
          CALL read(*1200,*1300,mpt,j,1,neor,iflag)
-         IF ( j==(-1) ) Ireptd = -1
+         IF ( j==(-1) ) ireptd = -1
          CALL close(mpt,clsrw)
 !
 ! PERFORM THE 4 SCALAR MULTIPLICATIONS.  N.B.---IF DSCSET = -1, THAT IS,
@@ -142,7 +148,7 @@ SUBROUTINE dsmg2
 ! SEE COMMENTS ABOVE FORTRAN STATEMENT NO. 70 RE THE 4 SCALAR MULTIPLI-
 ! CATIONS WHEN DSCSET = -1.
 !
-      Ireptd = -1
+      ireptd = -1
 !
 ! PERFORM MATRIX ADDITIONS
 !

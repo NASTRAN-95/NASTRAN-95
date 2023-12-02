@@ -1,16 +1,17 @@
-!*==qdmm2s.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==qdmm2s.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qdmm2s
+   USE c_condas
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -83,7 +84,7 @@ SUBROUTINE qdmm2s
 !
    IF ( iheat ) THEN
 !
-      WRITE (ioutpt,99001) Uwm , nest(1)
+      WRITE (ioutpt,99001) uwm , nest(1)
 99001 FORMAT (A25,' 3115, QDMM2 FINDS ELEMENT NUMBER',I10,' PRESENT IN A HEAT FORMULATION AND IS IGNORING SAME.')
       RETURN
    ELSE
@@ -114,35 +115,35 @@ SUBROUTINE qdmm2s
 !     SET UP DICT ARRAY AND FOR STIFFNESS MATRIX
 !     CALCULATIONS, OTHERWISE SKIP
 !
-            IF ( Ismd(1)/=0 ) THEN
+            IF ( ismd(1)/=0 ) THEN
 !
 !      COMPUTE BASIC SIN AND COSINE OF ELEMENT MATERIAL ANGLE.
 !
-               angl = Est(6)*Degra
+               angl = est(6)*degra
                isinth = sin(angl)
                icosth = cos(angl)
 !
 !     COMPUTE GSUBE MATRIX
 !
-               Inflag = 2
-               Matid = nest(7)
-               Eltemp = Est(26)
-               Sinth = 0.0
-               Costh = 1.0
+               inflag = 2
+               matid = nest(7)
+               eltemp = est(26)
+               sinth = 0.0
+               costh = 1.0
                CALL mat(nest(1))
-               gsube(1) = G11
-               gsube(2) = G12
-               gsube(3) = G13
-               gsube(4) = G12
-               gsube(5) = G22
-               gsube(6) = G23
-               gsube(7) = G13
-               gsube(8) = G23
-               gsube(9) = G33
+               gsube(1) = g11
+               gsube(2) = g12
+               gsube(3) = g13
+               gsube(4) = g12
+               gsube(5) = g22
+               gsube(6) = g23
+               gsube(7) = g13
+               gsube(8) = g23
+               gsube(9) = g33
 !
 !     BASIC WHOLE-ELEMENT CALCULATIONS
 !
-               CALL q2bcs(Est,planar,rmat,et,ierror)
+               CALL q2bcs(est,planar,rmat,et,ierror)
                IF ( ierror>0 ) EXIT SPAG_Loop_1_1
 !
 !     ZERO SUMMATION ARRAYS
@@ -165,7 +166,7 @@ SUBROUTINE qdmm2s
                   ia = map(i,1)
                   ib = map(i,2)
                   ic = map(i,3)
-                  it = Est(8)
+                  it = est(8)
 !
                   CALL q2trms(rmat(1,ia),rmat(1,ib),rmat(1,ic),dummy,isinth,icosth,gsube,it,ierror,1,kmat,dummy,dummy,dummy)
                   IF ( ierror>0 ) EXIT SPAG_Loop_1_1
@@ -232,7 +233,7 @@ SUBROUTINE qdmm2s
                ising = -1
                CALL invers(3,k5mod(1,5),3,dummy,0,idetrm,ising,itemp9)
                IF ( ising==2 ) THEN
-                  WRITE (ioutpt,99002) Ufm , nest(1)
+                  WRITE (ioutpt,99002) ufm , nest(1)
 99002             FORMAT (A23,' 3099.  ELEMENT STIFFNESS COMPUTATION FOR QDMEM2 ','ELEMENT ID =',I10,/5X,                           &
                          &'IS IMPOSSIBLE DUE TO SINGULARITY',' IN CONSTRAINT EQUATION.')
                   CALL spag_block_1
@@ -321,12 +322,12 @@ SUBROUTINE qdmm2s
 !     SET UP.  THE SILS MUST BE SORTED SO THAT THE 12X12 WILL
 !     BE BY INCREASING SIL VALUE
 !
-                  dict(1) = Estid
+                  dict(1) = estid
                   dict(2) = 1
                   dict(3) = 12
                   dict(4) = 7
-                  dict5 = Ge
-                  ip = Iprec
+                  dict5 = ge
+                  ip = iprec
 !
 !     REORDER K1SUM INTO KOUT AS DESCRIBED ABOVE
 !
@@ -365,11 +366,11 @@ SUBROUTINE qdmm2s
 !     E MAS TQ IS USED TO GENERATE A LUMPED
 !     MASS MATRIX EXACTLY LIKE A QDMEM ELEMENT
 !
-            IF ( Ismd(2)==0 ) RETURN
+            IF ( ismd(2)==0 ) RETURN
 !
             CALL emastq(1,k1sum)
 !
-            dict(1) = Estid
+            dict(1) = estid
             dict(2) = 2
             dict(3) = 12
             dict(4) = 7
@@ -392,14 +393,13 @@ SUBROUTINE qdmm2s
 !
 !     ELEMENT ERRORS DETECTED.
 !
-      WRITE (ioutpt,99003) Ufm , nest(1)
+      WRITE (ioutpt,99003) ufm , nest(1)
 99003 FORMAT (A23,' 3098,  QDMEM2 ELEMENT STIFFNESS ROUTINE DETECTS ','ILLEGAL GEOMETRY FOR ELEMENT ID =',I10)
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      Nogo = .TRUE.
-      RETURN
+      nogo = .TRUE.
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE qdmm2s

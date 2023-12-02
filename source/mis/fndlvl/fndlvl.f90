@@ -1,9 +1,10 @@
-!*==fndlvl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fndlvl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndlvl(Name,Newnm)
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,7 +40,7 @@ SUBROUTINE fndlvl(Name,Newnm)
 !     FIND THE LOWER LEVEL SUBSTRUCTURE
 !
       CALL fmdi(k,imdi)
-      ill = andf(rshift(Buf(imdi+ll),20),1023)
+      ill = andf(rshift(buf(imdi+ll),20),1023)
       IF ( ill==0 ) THEN
 !
 !     NAME DOES NOT HAVE A LOWER LEVEL SUBSTRUCTURE
@@ -57,7 +58,6 @@ SUBROUTINE fndlvl(Name,Newnm)
 !     NAME DOES HAVE A LOWER LEVEL SUBSTRUCTURE
 !
    CALL fdit(ill,jdit)
-   Newnm(1) = Buf(jdit)
-   Newnm(2) = Buf(jdit+1)
-   RETURN
+   Newnm(1) = buf(jdit)
+   Newnm(2) = buf(jdit+1)
 END SUBROUTINE fndlvl

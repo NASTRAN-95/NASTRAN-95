@@ -1,11 +1,12 @@
-!*==ferrdm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ferrdm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ferrdm(Mcb,Nidx,Memtot,Ibuffi,Lasind,Ipos)
-USE C_NAMES
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -85,7 +86,7 @@ USE ISO_FORTRAN_ENV
          iblk(1) = Mcb(1)
          iblk(9) = 1
          iblk(10) = 1
-         CALL gopen(Mcb,Icore(Ibuffi),Rdrew)
+         CALL gopen(Mcb,icore(Ibuffi),rdrew)
          CALL rewind(Mcb)
          CALL skprec(Mcb,1)
          DO jcol = 1 , ncol
@@ -102,8 +103,8 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Icore(mem) = jcol
-               Icore(mem+1) = ntms
+               icore(mem) = jcol
+               icore(mem+1) = ntms
                IF ( iprec==1 ) THEN
                   mindex = mem + 1
                   DO ii = 1 , ntms
@@ -116,15 +117,14 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDIF
                mem = mem + 2 + ntms*iprec
-               Icore(mem) = jrow
-               Icore(mem+1) = ntms
+               icore(mem) = jrow
+               icore(mem+1) = ntms
                mem = mem + 2
                CALL endget(iblk(1))
             ENDDO
  20      ENDDO
          Lasind = mem - 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          Ipos(1) = jcol - 1
          Ipos(2) = iblock
@@ -137,7 +137,7 @@ USE ISO_FORTRAN_ENV
          Ipos(7) = icbp
          spag_nextblock_1 = 3
       CASE (3)
-         CALL close(Mcb,Rew)
+         CALL close(Mcb,rew)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

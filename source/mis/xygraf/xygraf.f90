@@ -1,12 +1,13 @@
-!*==xygraf.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xygraf.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xygraf(Graph)
+   USE c_system
+   USE c_xmssg
+   USE c_xypppp
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XYPPPP
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,12 +42,12 @@ SUBROUTINE xygraf(Graph)
 !
 !     GRAPH HEADING DATA
 !
-   IF ( Iframe<0 .OR. Iframe>99999 ) Iframe = 0
+   IF ( iframe<0 .OR. iframe>99999 ) iframe = 0
    n = 100000
    DO i = 1 , 5
       n = n/10
-      m(i) = Iframe/n
-      Iframe = Iframe - m(i)*n
+      m(i) = iframe/n
+      iframe = iframe - m(i)*n
       m(i) = m(i) + 1
    ENDDO
    n1 = m(1)
@@ -54,63 +55,63 @@ SUBROUTINE xygraf(Graph)
    n3 = m(3)
    n4 = m(4)
    n5 = m(5)
-   Lines = Lines + 21
-   Itlns = Itlns + 21
-   WRITE (L,99001) (nu(i,n1),nu(i,n2),nu(i,n3),nu(i,n4),nu(i,n5),i=1,5)
+   lines = lines + 21
+   itlns = itlns + 21
+   WRITE (l,99001) (nu(i,n1),nu(i,n2),nu(i,n3),nu(i,n4),nu(i,n5),i=1,5)
 99001 FORMAT (1H0,60X,25HF     R     A     M     E,//,5(59X,A4,2X,A4,2X,A4,2X,A4,2X,A4,/))
-   WRITE (L,99002) Titlec , (Xtitle(i),i=1,28)
+   WRITE (l,99002) titlec , (xtitle(i),i=1,28)
 99002 FORMAT (1H0,4X,31A4,A3,/1H0,4X,15HX-AXIS TITLE = ,28A4,/1H0)
 !
-   IF ( I123==1 ) THEN
+   IF ( i123==1 ) THEN
 !
 !     WHOLE FRAME TITLE FRAME
 !
-      WRITE (L,99010)
-      WRITE (L,99003) Titlel
+      WRITE (l,99010)
+      WRITE (l,99003) titlel
 99003 FORMAT (13X,1HI,117X,1HI/13X,2HI ,14A4,60X,1HI,/13X,1HI,117X,1HI)
-      WRITE (L,99004) Graph(1,6) , Graph(1,7) , Graph(1,8)
+      WRITE (l,99004) Graph(1,6) , Graph(1,7) , Graph(1,8)
 99004 FORMAT (13X,1HI,1P,E14.6,37X,1P,E14.6,37X,1P,E14.6,2H I)
-      WRITE (L,99010)
+      WRITE (l,99010)
    ELSE
 !
 !     DUAL FRAME TITLE FRAME
 !
-      WRITE (L,99011)
-      WRITE (L,99005) Titlel , Titler
+      WRITE (l,99011)
+      WRITE (l,99005) titlel , titler
 99005 FORMAT (13X,1HI,57X,3HI I,57X,1HI,/13X,2HI ,14A4,4HI I ,14A4,1HI,/13X,1HI,57X,3HI I,57X,1HI)
-      WRITE (L,99006) (Graph(i,6),Graph(i,7),Graph(i,8),i=2,3)
+      WRITE (l,99006) (Graph(i,6),Graph(i,7),Graph(i,8),i=2,3)
 99006 FORMAT (12X,2(2H I,1P,E14.6,1P,E21.6,1P,E21.6,2H I))
-      WRITE (L,99011)
+      WRITE (l,99011)
    ENDIF
 !
 !     DUMP GRAPH
 !
-   f = Xmin - Xinc
-   DO i = 1 , Maxplt
-      temp = f + float(i)*Xinc
+   f = xmin - xinc
+   DO i = 1 , maxplt
+      temp = f + float(i)*xinc
       i1 = (i-1)*30 + 1
       i2 = i1 + 29
-      Lines = Lines + 1
-      Itlns = Itlns + 1
-      IF ( Lines<=Nlpp ) THEN
-         WRITE (L,99007) temp , (Z(j),j=i1,i2)
+      lines = lines + 1
+      itlns = itlns + 1
+      IF ( lines<=nlpp ) THEN
+         WRITE (l,99007) temp , (z(j),j=i1,i2)
 99007    FORMAT (1X,1P,E11.4,1X,29A4,A3)
       ELSE
-         Lines = 1
-         WRITE (L,99008) temp , (Z(j),j=i1,i2)
+         lines = 1
+         WRITE (l,99008) temp , (z(j),j=i1,i2)
 99008    FORMAT (1H1,1P,E11.4,1X,29A4,A3)
       ENDIF
    ENDDO
 !
-   IF ( I123==1 ) THEN
-      WRITE (L,99010)
+   IF ( i123==1 ) THEN
+      WRITE (l,99010)
    ELSE
-      WRITE (L,99011)
+      WRITE (l,99011)
    ENDIF
 !
-   IF ( Exceed ) WRITE (L,99009) Uim
+   IF ( exceed ) WRITE (l,99009) uim
 99009 FORMAT (A29,'. THERE WERE MORE POINTS BELOW THIS POINT WHICH WE','ARE NOT PLOTTED HERE',/5X,'DUE TO CORE RESTRICTION')
-   Exceed = .FALSE.
+   exceed = .FALSE.
 99010 FORMAT (13X,1H+,117(1H-),1H+)
 99011 FORMAT (13X,1H+,57(1H-),3H+ +,57(1H-),1H+)
 END SUBROUTINE xygraf

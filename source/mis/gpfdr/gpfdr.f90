@@ -1,16 +1,17 @@
-!*==gpfdr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gpfdr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpfdr
-USE C_BLANK
-USE C_GPTA1
-USE C_NAMES
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -99,37 +100,36 @@ USE ISO_FORTRAN_ENV
 !
          n = 2*meths - 1
          DO i = 1 , n , 2
-            IF ( App(1)==method(i) ) THEN
+            IF ( app(1)==method(i) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         WRITE (Outpt,99001) Uwm , App
+         WRITE (outpt,99001) uwm , app
 99001    FORMAT (A25,' 2342, UNRECOGNIZED APPROACH PARAMETER ',2A4,' IN GPFDR INSTRUCTION.')
          i = 19
          nerror = 0
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
          branch = (i+1)/2
 !
 !     INITIALIZATION AND BUFFER ALLOCATION.
 !
-         core = korsz(Z)
-         buf1 = core - Sysbuf - 2
-         buf2 = buf1 - Sysbuf - 2
-         buf3 = buf2 - Sysbuf - 2
-         buf4 = buf3 - Sysbuf - 2
-         buf5 = buf4 - Sysbuf - 2
-         buf6 = buf5 - Sysbuf - 2
+         core = korsz(z)
+         buf1 = core - sysbuf - 2
+         buf2 = buf1 - sysbuf - 2
+         buf3 = buf2 - sysbuf - 2
+         buf4 = buf3 - sysbuf - 2
+         buf5 = buf4 - sysbuf - 2
+         buf6 = buf5 - sysbuf - 2
          core = buf6 - 1
 !
 !     READ IN FREQUENCIES IF APPROACH IS REIGEN
 !
          IF ( branch/=2 ) GOTO 40
          mode = 0
-         CALL open(*40,lama,Z(buf1),Rdrew)
+         CALL open(*40,lama,z(buf1),rdrew)
          CALL fwdrec(*20,lama)
          CALL fwdrec(*20,lama)
          lfeq = core
@@ -138,7 +138,7 @@ USE ISO_FORTRAN_ENV
             rz(core) = rbuf(5)
             core = core - 1
          ENDDO
- 20      CALL close(lama,Clsrew)
+ 20      CALL close(lama,clsrew)
 !
 !     GPTA1 DUMMY ELEMENT SETUP CALL.
 !
@@ -154,13 +154,13 @@ USE ISO_FORTRAN_ENV
 !
             file = casecc
             nerror = 2
-            CALL open(*680,casecc,Z(buf1),Rdrew)
+            CALL open(*680,casecc,z(buf1),rdrew)
             CALL fwdrec(*700,casecc)
 !
 !     OPEN VECTOR FILE.
 !
             file = ug
-            CALL open(*680,ug,Z(buf2),Rdrew)
+            CALL open(*680,ug,z(buf2),rdrew)
             CALL fwdrec(*700,ug)
             trl(1) = ug
             CALL rdtrl(trl)
@@ -169,11 +169,11 @@ USE ISO_FORTRAN_ENV
 !     PREPARE OUTPUT BLOCKS FOR ANY OUTPUTS POSSIBLE
 !
             enfile = .FALSE.
-            CALL open(*60,onrgy1,Z(buf3),Wrtrew)
+            CALL open(*60,onrgy1,z(buf3),wrtrew)
             enfile = .TRUE.
             CALL fname(onrgy1,name)
             CALL write(onrgy1,name,2,eor)
-            CALL close(onrgy1,Clseof)
+            CALL close(onrgy1,clseof)
             mcb(1) = onrgy1
             CALL rdtrl(mcb)
             mcb(2) = 0
@@ -182,11 +182,11 @@ USE ISO_FORTRAN_ENV
 !
  60      gpfile = .FALSE.
          nerror = 4
-         CALL open(*80,ogpf1,Z(buf3),Wrtrew)
+         CALL open(*80,ogpf1,z(buf3),wrtrew)
          gpfile = .TRUE.
          CALL fname(ogpf1,name)
          CALL write(ogpf1,name,2,eor)
-         CALL close(ogpf1,Clseof)
+         CALL close(ogpf1,clseof)
 !
  80      movepq = 1
          silin = .FALSE.
@@ -199,12 +199,10 @@ USE ISO_FORTRAN_ENV
          IF ( nsilex>core ) THEN
             CALL mesage(8,0,subr)
             spag_nextblock_1 = 24
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             iccz = nsilex
             icc = iccz + 1
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (3)
 !
@@ -212,15 +210,15 @@ USE ISO_FORTRAN_ENV
 !
          file = casecc
          nerror = 8
-         CALL open(*680,casecc,Z(buf1),Rd)
+         CALL open(*680,casecc,z(buf1),rd)
          file = ug
-         CALL open(*680,ug,Z(buf2),Rd)
+         CALL open(*680,ug,z(buf2),rd)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     READ NEXT CASE CONTROL RECORD.
 !
-         CALL read(*660,*100,casecc,Z(iccz+1),core-iccz,eor,iwords)
+         CALL read(*660,*100,casecc,z(iccz+1),core-iccz,eor,iwords)
          nerror = 7
          CALL mesage(8,0,subr)
          spag_nextblock_1 = 24
@@ -228,34 +226,34 @@ USE ISO_FORTRAN_ENV
 !
  100     ncc = iccz + iwords
          itemp = iccz + isubc
-         subcas = Z(itemp)
+         subcas = z(itemp)
 !
 !     SYMMETRY-REPCASE, GP-FORCE REQUEST, AND EL-ENERGY REQUEST CHECKS
 !
          itemp = iccz + isym
-         symflg = Z(itemp)
+         symflg = z(itemp)
 !
 !     SET REQUEST PARAMETERS FOR GP-FORCE AND EL-ENERGY.
 !
          itemp = iccz + igp
-         gpset = Z(itemp)
+         gpset = z(itemp)
          IF ( .NOT.gpfile ) gpset = 0
-         gpdvis = Z(itemp+1)
+         gpdvis = z(itemp+1)
          itemp = iccz + ieln
-         elnset = Z(itemp)
+         elnset = z(itemp)
          IF ( .NOT.enfile ) elnset = 0
-         eldvis = Z(itemp+1)
+         eldvis = z(itemp+1)
          IF ( gpset>0 .OR. elnset>0 ) THEN
 !
 !     POINTERS TO SET LIST DOMAINS
 !
             itemp = iccz + ilsym
-            lsym = Z(itemp)
+            lsym = z(itemp)
             itemp = itemp + lsym + 1
             SPAG_Loop_1_1: DO
-               set = Z(itemp)
+               set = z(itemp)
                iset = itemp + 2
-               lset = Z(itemp+1)
+               lset = z(itemp+1)
 !
 !     CHECK IF THIS SET IS THE ONE FOR GP-FORCE
 !
@@ -283,7 +281,7 @@ USE ISO_FORTRAN_ENV
 !
 !     NEGATIVE SYMFLG IMPLIES A REP-CASE.
 !
-            IF ( App(1)/=method(1) ) THEN
+            IF ( app(1)/=method(1) ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -343,17 +341,17 @@ USE ISO_FORTRAN_ENV
       CASE (5)
          IF ( symflg<=0 ) THEN
 !
-            Irow = 1
-            Nrow = gsize
-            Incrx = 1
-            Typout = 1
+            irow = 1
+            nrow = gsize
+            incrx = 1
+            typout = 1
             CALL unpack(*120,ugpgqg,rz(ivec))
          ELSE
 !
 !     SYMMETRY SEQUENCE.  SUM VECTORS OF SEQUENCE APPLYING COEFFICIENTS.
 !
             itemp = iccz + ilsym
-            lsym = Z(itemp)
+            lsym = z(itemp)
 !
 !     BACK UP OVER THE VECTORS OF THE SEQUENCE
 !
@@ -374,9 +372,9 @@ USE ISO_FORTRAN_ENV
                CALL intpk(*110,ugpgqg,0,1,0)
                SPAG_Loop_2_2: DO
                   CALL zntpki
-                  j = ivecz + Irowx
-                  rz(j) = rz(j) + coef*A(1)
-                  IF ( Ieol/=0 ) EXIT SPAG_Loop_2_2
+                  j = ivecz + irowx
+                  rz(j) = rz(j) + coef*a(1)
+                  IF ( ieol/=0 ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
  110        ENDDO
          ENDIF
@@ -402,8 +400,8 @@ USE ISO_FORTRAN_ENV
 !     NOTE.  THE ASSEMBLY OF GP-FORCES FOR OUTPUT IS ACCOMPLISHED AFTER
 !     ALL GP-FORCES REQUESTED HAVE BEEN WRITTEN TO PMAT.
 !
- 140     CALL close(casecc,Cls)
-         CALL close(ug,Cls)
+ 140     CALL close(casecc,cls)
+         CALL close(ug,cls)
          IF ( silin ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -414,13 +412,13 @@ USE ISO_FORTRAN_ENV
 !
          nerror = 6
          file = eqexin
-         CALL open(*680,eqexin,Z(buf1),Rdrew)
+         CALL open(*680,eqexin,z(buf1),rdrew)
          CALL fwdrec(*700,eqexin)
          CALL fwdrec(*700,eqexin)
-         CALL read(*700,*160,eqexin,Z(isilex),core-isilex,noeor,iwords)
+         CALL read(*700,*160,eqexin,z(isilex),core-isilex,noeor,iwords)
          spag_nextblock_1 = 7
       CASE (7)
-         WRITE (Outpt,99002) Swm , eqexin
+         WRITE (outpt,99002) swm , eqexin
 99002    FORMAT (A27,' 2343.  DATA BLOCK',I5,' IS EITHER NOT -EQEXIN- OR ','POSSIBLY INCORRECT.')
          spag_nextblock_1 = 24
          CYCLE SPAG_DispatchLoop_1
@@ -429,13 +427,13 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL close(eqexin,Clsrew)
+         CALL close(eqexin,clsrew)
          DO i = isilex , nsilex , 2
-            Z(i) = 10*Z(i) + mod(Z(i+1),10)
-            Z(i+1) = Z(i+1)/10
+            z(i) = 10*z(i) + mod(z(i+1),10)
+            z(i+1) = z(i+1)/10
          ENDDO
          silin = .TRUE.
-         CALL sort(0,0,2,2,Z(isilex),nsilex-isilex+1)
+         CALL sort(0,0,2,2,z(isilex),nsilex-isilex+1)
          spag_nextblock_1 = 8
       CASE (8)
 !
@@ -445,9 +443,9 @@ USE ISO_FORTRAN_ENV
          isub = iccz + subtit
          ilab = iccz + label
          DO i = 1 , 32
-            idrec(i+50) = Z(itit)
-            idrec(i+82) = Z(isub)
-            idrec(i+114) = Z(ilab)
+            idrec(i+50) = z(itit)
+            idrec(i+82) = z(isub)
+            idrec(i+114) = z(ilab)
             itit = itit + 1
             isub = isub + 1
             ilab = ilab + 1
@@ -457,9 +455,9 @@ USE ISO_FORTRAN_ENV
          ENDDO
          file = ect
          nerror = 10
-         CALL open(*680,ect,Z(buf4),Rdrew)
+         CALL open(*680,ect,z(buf4),rdrew)
          file = kmat
-         CALL open(*680,kmat,Z(buf5),Rdrew)
+         CALL open(*680,kmat,z(buf5),rdrew)
 !
 !     DETERMINE PRECISION OF KMAT DATA
 !
@@ -468,7 +466,7 @@ USE ISO_FORTRAN_ENV
          double = .FALSE.
          IF ( mcb(2)==2 ) double = .TRUE.
          file = kdict
-         CALL open(*680,kdict,Z(buf6),Rdrew)
+         CALL open(*680,kdict,z(buf6),rdrew)
          CALL fwdrec(*700,kdict)
 !
 !     PMAT WILL BE ON SCRATCH1
@@ -476,15 +474,15 @@ USE ISO_FORTRAN_ENV
 !
          file = scrt1
          nerror = 11
-         CALL open(*680,scrt1,Z(buf1),Wrtrew)
+         CALL open(*680,scrt1,z(buf1),wrtrew)
          file = scrt2
-         CALL open(*680,scrt2,Z(buf2),Wrtrew)
+         CALL open(*680,scrt2,z(buf2),wrtrew)
 !
 !     REQUESTED OUTPUT ELEMENT ENERGIES WILL BE TEMPORARILY WRITTEN ON
 !     SCRT3 WHILE THE TOTAL ENERGY IS SUMMED.
 !
          file = scrt3
-         IF ( elnset/=0 ) CALL open(*680,scrt3,Z(buf3),Wrtrew)
+         IF ( elnset/=0 ) CALL open(*680,scrt3,z(buf3),wrtrew)
          nextgp = 1
          lastid = 0
          oldcod = 0
@@ -517,30 +515,29 @@ USE ISO_FORTRAN_ENV
  180     CALL read(*700,*720,ect,recidx,3,noeor,iwords)
 !     2147483647 = 2**31-1
          IF ( recidx(1)==2147483647 ) GOTO 700
-         DO i = 1 , Last , Incr
-            IF ( Elem(i+3)==recidx(1) ) THEN
-               eltype = (i/Incr) + 1
-               ectwds = Elem(i+5)
+         DO i = 1 , last , incr
+            IF ( elem(i+3)==recidx(1) ) THEN
+               eltype = (i/incr) + 1
+               ectwds = elem(i+5)
                IF ( ectwds<=lbuf ) THEN
 !
-                  grdpts = Elem(i+9)
-                  grid1 = Elem(i+12)
-                  name1 = Elem(i)
-                  name2 = Elem(i+1)
+                  grdpts = elem(i+9)
+                  grid1 = elem(i+12)
+                  name1 = elem(i)
+                  name2 = elem(i+1)
                   spag_nextblock_1 = 11
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
-                  WRITE (Outpt,99003) Swm , Elem(i) , Elem(i+1)
+                  WRITE (outpt,99003) swm , elem(i) , elem(i+1)
 99003             FORMAT (A27,' 2344. GPFDR FINDS ELEMENT = ',2A4,' HAS AN ECT ','ENTRY LENGTH TOO LONG FOR A PROGRAM LOCAL ARRAY.')
                   spag_nextblock_1 = 24
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
 !
 !     UNRECOGNIZED ELEMENT DATA ON ECT.
 !
-         WRITE (Outpt,99004) Swm , recidx
+         WRITE (outpt,99004) swm , recidx
 99004    FORMAT (A27,' 2345.  GPFDR FINDS AND IS IGNORING UNDEFINED ECT ','DATA WITH LOCATE NUMBERS = ',3I8)
          file = ect
          spag_nextblock_1 = 10
@@ -578,7 +575,6 @@ USE ISO_FORTRAN_ENV
             IF ( npdic>core ) THEN
                CALL mesage(8,0,subr)
                spag_nextblock_1 = 24
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                iloc1 = nkdic - grdpts
                phead(1) = eltype
@@ -589,38 +585,37 @@ USE ISO_FORTRAN_ENV
 !
                nexten = 1
                spag_nextblock_1 = 13
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ENDIF
          spag_nextblock_1 = 12
       CASE (12)
-         WRITE (Outpt,99005) Swm , eltype , kdict
+         WRITE (outpt,99005) swm , eltype , kdict
 99005    FORMAT (A27,' 2346.  GPFDR FINDS DATA FOR EL-TYPE =',I9,' IN DATA BLOCK',I9,/5X,                                           &
                 &'NOT TO BE IN AGREEMENT WITH THAT WHICH IS EXPECTED.')
          spag_nextblock_1 = 24
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     READ NEXT ELEMENT DICTIONARY FROM KDICT OF CURRENT ELEMENT TYPE
 !     AND FIND ECT ENTRY WITH SAME ESTID.
 !
          file = kdict
-         CALL read(*700,*220,kdict,Z(ikdic),ldict,noeor,iwords)
+         CALL read(*700,*220,kdict,z(ikdic),ldict,noeor,iwords)
          file = ect
          nerror = 14
          SPAG_Loop_1_3: DO
             CALL read(*700,*720,ect,buf,ectwds,noeor,iwords)
             estid = estid + 1
-            IF ( Z(ikdic)<estid ) THEN
+            IF ( z(ikdic)<estid ) THEN
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Z(ikdic)==estid ) THEN
+            IF ( z(ikdic)==estid ) THEN
 !
 !     DECODE THE CODE WORD INTO A LIST OF INTEGERS
 !
-               IF ( Z(ikdic+3)/=oldcod ) THEN
-                  oldcod = Z(ikdic+3)
+               IF ( z(ikdic+3)/=oldcod ) THEN
+                  oldcod = z(ikdic+3)
                   CALL decode(oldcod,comps,ncomps)
                   ncomp2 = ncomps
                   IF ( double ) ncomp2 = ncomps + ncomps
@@ -628,7 +623,7 @@ USE ISO_FORTRAN_ENV
 !
 !     DETERMINE ACTIVE CONNECTIONS
 !
-               nsize = Z(ikdic+2)
+               nsize = z(ikdic+2)
                ngrids = nsize/ncomp2
                IF ( ngrids<=grdpts ) THEN
 !
@@ -650,8 +645,8 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG IF EL-ENERGY IS TO BE OUTPUT FOR THIS ELEMENT.
 !
                      exelid = buf(1)
-                     Z(ipdic) = estid
-                     Z(ipdic+1) = exelid
+                     z(ipdic) = estid
+                     z(ipdic+1) = exelid
                      enflag = .FALSE.
                      IF ( axic ) exelid = mod(exelid,10000)
                      IF ( axif ) exelid = mod(exelid,1000000)
@@ -663,13 +658,13 @@ USE ISO_FORTRAN_ENV
 !     FIND THIS EXTERNAL ELEMENT ID IN THE REQUESTED SET LIST FOR
 !     ELEMENT ENERGY OUTPUTS.
 !
-                        CALL setfnd(*200,Z(iellst),lellst,exelid,nexten)
+                        CALL setfnd(*200,z(iellst),lellst,exelid,nexten)
                      ENDIF
                      enflag = .TRUE.
                      EXIT SPAG_Loop_1_3
                   ENDIF
                ELSE
-                  WRITE (Outpt,99006) Uwm , buf(1)
+                  WRITE (outpt,99006) uwm , buf(1)
 99006             FORMAT (A25,' 2347.  GPFDR FINDS TOO MANY ACTIVE CONNECTING GRID',' POINTS FOR ELEMENT ID =',I9)
                   spag_nextblock_1 = 24
                   CYCLE SPAG_DispatchLoop_1
@@ -697,12 +692,12 @@ USE ISO_FORTRAN_ENV
                            CYCLE
                         ELSE
                            idx = isilex + 2*buf(i)
-                           id = Z(idx-2)/10
+                           id = z(idx-2)/10
                            IF ( axic ) id = mod(id,1000000)
                            IF ( axif ) id = mod(id,500000)
                            IF ( id<lastid ) nextgp = 1
                            lastid = id
-                           CALL setfnd(*202,Z(igplst),lgplst,id,nextgp)
+                           CALL setfnd(*202,z(igplst),lgplst,id,nextgp)
                         ENDIF
                         buf(i) = -buf(i)
                         anygp = .TRUE.
@@ -730,7 +725,7 @@ USE ISO_FORTRAN_ENV
                   ELSE
                      gpsil = isilex + 2*buf(i) - 1
                   ENDIF
-                  isil = Z(gpsil)
+                  isil = z(gpsil)
                   DO k = 1 , ncomps
                      lsil = isil + comps(k)
                      dz(j) = dble(rz(ivecz+lsil))
@@ -756,31 +751,30 @@ USE ISO_FORTRAN_ENV
                   IF ( nkmat>core ) THEN
                      CALL mesage(8,0,subr)
                      spag_nextblock_1 = 24
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      diagm = .FALSE.
-                     IF ( Z(ikdic+1)==2 ) diagm = .TRUE.
+                     IF ( z(ikdic+1)==2 ) diagm = .TRUE.
 !
 !     LOOP THROUGH ALL PARTITIONS ON KMAT FOR THIS ELEMENT.
 !
                      jpge = ipge
                      DO i = 1 , grdpts
                         itemp = iloc1 + i
-                        IF ( Z(itemp)/=0 ) THEN
-                           CALL filpos(kmat,Z(itemp))
+                        IF ( z(itemp)/=0 ) THEN
+                           CALL filpos(kmat,z(itemp))
                            IF ( diagm ) THEN
 !
 !     DIAGONAL MATRIX.  THUS ONLY DIAGONAL TERMS OF PARTITION CAN
 !     BE READ.
 !
                               nerror = 17
-                              CALL read(*700,*720,kmat,Z(ikmat),ncomp2,noeor,iwords)
+                              CALL read(*700,*720,kmat,z(ikmat),ncomp2,noeor,iwords)
                               IF ( double ) THEN
 !
                                  jkmat = ikmat
                                  DO j = 1 , ncomps
-                                    iii(1) = Z(jkmat)
-                                    iii(2) = Z(jkmat+1)
+                                    iii(1) = z(jkmat)
+                                    iii(2) = z(jkmat+1)
                                     dz(jpge) = dz(iuge+j-1)*diii
                                     jkmat = jkmat + 2
                                     jpge = jpge + 1
@@ -798,13 +792,13 @@ USE ISO_FORTRAN_ENV
 !
                               nerror = 16
                               DO k = 1 , ncomps
-                                 CALL read(*700,*720,kmat,Z(ikmat),jsize,noeor,iwords)
+                                 CALL read(*700,*720,kmat,z(ikmat),jsize,noeor,iwords)
                                  jkmat = ikmat
                                  IF ( double ) THEN
 !
                                     DO j = iuge , nuge
-                                       iii(1) = Z(jkmat)
-                                       iii(2) = Z(jkmat+1)
+                                       iii(1) = z(jkmat)
+                                       iii(2) = z(jkmat+1)
                                        dz(jpge) = dz(jpge) + dz(j)*diii
                                        jkmat = jkmat + 2
                                     ENDDO
@@ -864,7 +858,7 @@ USE ISO_FORTRAN_ENV
                         jpge = ipge
                         dicloc = ipdic + 2
                         DO i = dicloc , npdic
-                           Z(i) = 0
+                           z(i) = 0
                         ENDDO
                         DO i = grid1 , gridl
                            IF ( buf(i)<0 ) THEN
@@ -881,7 +875,7 @@ USE ISO_FORTRAN_ENV
                               ENDDO
 !
                               CALL write(scrt1,vec,6,eor)
-                              CALL savpos(scrt1,Z(dicloc))
+                              CALL savpos(scrt1,z(dicloc))
                               dicloc = dicloc + 1
                            ELSEIF ( buf(i)/=0 ) THEN
 !
@@ -895,30 +889,29 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT THE DICTIONARY
 !
                         IF ( .NOT.dicout ) CALL write(scrt2,phead,3,noeor)
-                        CALL write(scrt2,Z(ipdic),lpdic,noeor)
+                        CALL write(scrt2,z(ipdic),lpdic,noeor)
 !
 !     GO FOR NEXT ELEMENT OF CURRENT TYPE.
 !
                         dicout = .TRUE.
                      ENDIF
                      spag_nextblock_1 = 13
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ELSE
-                  WRITE (Outpt,99007) Swm , buf(1)
+                  WRITE (outpt,99007) swm , buf(1)
 99007             FORMAT (A27,' 2348.  GPFDR DOES NOT UNDERSTAND THE MATRIX-','DICTIONARY ENTRY FOR ELEMENT ID =',I9)
                   spag_nextblock_1 = 24
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ELSE
                gpsil = isilex + 2*buf(j) - 1
-               lsil = Z(gpsil)
+               lsil = z(gpsil)
                i = j
                SPAG_Loop_2_4: DO
                   i = i + 1
                   IF ( i>gridl ) EXIT SPAG_Loop_2_4
                   gpsil = isilex + 2*buf(i) - 1
-                  isil = Z(gpsil)
+                  isil = z(gpsil)
                   IF ( isil<=lsil ) THEN
                      lsil = buf(j)
                      buf(j) = buf(i)
@@ -942,12 +935,12 @@ USE ISO_FORTRAN_ENV
 !
 !     END OF ALL ELEMENT DATA ON ECT (WRAP UP PHASE I OF GPFDR).
 !
- 240     CALL close(kmat,Clsrew)
-         CALL close(kdict,Clsrew)
-         CALL close(ect,Clsrew)
-         CALL close(scrt1,Clsrew)
-         CALL close(scrt2,Clsrew)
-         CALL close(scrt3,Clsrew)
+ 240     CALL close(kmat,clsrew)
+         CALL close(kdict,clsrew)
+         CALL close(ect,clsrew)
+         CALL close(scrt1,clsrew)
+         CALL close(scrt2,clsrew)
+         CALL close(scrt3,clsrew)
 !
 !     PREPARE AND WRITE THE ELEMENT ENERGY OUTPUTS NOW RESIDENT ON SCRT3
 !
@@ -977,9 +970,9 @@ USE ISO_FORTRAN_ENV
 !
          nerror = 22
          file = onrgy1
-         CALL open(*680,onrgy1,Z(buf2),Wrt)
+         CALL open(*680,onrgy1,z(buf2),wrt)
          file = scrt3
-         CALL open(*680,scrt3,Z(buf3),Rdrew)
+         CALL open(*680,scrt3,z(buf3),rdrew)
 !
 !     TOTENG FACTOR FOR MULTIPLICATION TO GET DECIMAL PERCENTAGE BELOW
 !
@@ -1004,12 +997,12 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 14
          CYCLE SPAG_DispatchLoop_1
 !
- 280     CALL close(onrgy1,Clseof)
+ 280     CALL close(onrgy1,clseof)
          mcb(1) = onrgy1
          CALL rdtrl(mcb)
          mcb(2) = mcb(2) + jtype
          CALL wrttrl(mcb)
-         CALL close(scrt3,Clsrew)
+         CALL close(scrt3,clsrew)
          idrec(3) = 0
          idrec(6) = 0
          idrec(7) = 0
@@ -1046,7 +1039,7 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          idtab = ncc + 1
-         ndtab = idtab + Nelems*3 - 1
+         ndtab = idtab + nelems*3 - 1
          jdicts = ndtab + 1
          IF ( jdicts>core ) THEN
             CALL mesage(8,0,subr)
@@ -1054,13 +1047,13 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = idtab , ndtab
-               Z(i) = 0
+               z(i) = 0
             ENDDO
 !
 !     READ IN DICTIONARIES OF PMAT VECTORS.  (SCRT2)
 !
             file = scrt2
-            CALL open(*680,scrt2,Z(buf2),Rdrew)
+            CALL open(*680,scrt2,z(buf2),rdrew)
          ENDIF
          spag_nextblock_1 = 16
       CASE (16)
@@ -1071,20 +1064,20 @@ USE ISO_FORTRAN_ENV
          itype = buf(1)
          ldict = buf(2)
          grdpts = buf(3)
-         k = Incr*itype - Incr
+         k = incr*itype - incr
          j = idtab + 3*itype - 3
-         Z(j) = jdicts
+         z(j) = jdicts
 !
 !     BLAST READ IN THE DICTIONARIES OF THIS TYPE.
 !
-         CALL read(*700,*300,scrt2,Z(jdicts),core-jdicts,noeor,iwords)
+         CALL read(*700,*300,scrt2,z(jdicts),core-jdicts,noeor,iwords)
          nerror = 18
          CALL mesage(8,0,subr)
          spag_nextblock_1 = 24
          CYCLE SPAG_DispatchLoop_1
 !
- 300     Z(j+1) = iwords
-         Z(j+2) = iwords/ldict
+ 300     z(j+1) = iwords
+         z(j+2) = iwords/ldict
          jdicts = jdicts + iwords
          nerror = 19
          IF ( core>jdicts ) THEN
@@ -1095,7 +1088,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 24
          CYCLE SPAG_DispatchLoop_1
 !
- 320     CALL close(scrt2,Clsrew)
+ 320     CALL close(scrt2,clsrew)
 !
 !     DICTIONARIES ALL IN CORE.  SCRT2 IS AVAILABLE FOR USE AS THE
 !     -GPFBOM-.
@@ -1106,12 +1099,12 @@ USE ISO_FORTRAN_ENV
 !     COMPANION DICTIONARY FILE (ON SCRT3).
 !
          file = scrt2
-         CALL open(*680,scrt2,Z(buf2),Wrtrew)
+         CALL open(*680,scrt2,z(buf2),wrtrew)
          file = scrt3
-         CALL open(*680,scrt3,Z(buf3),Wrtrew)
+         CALL open(*680,scrt3,z(buf3),wrtrew)
 !
          file = gpect
-         CALL open(*680,gpect,Z(buf4),Rdrew)
+         CALL open(*680,gpect,z(buf4),rdrew)
          CALL fwdrec(*700,gpect)
          oldid = 0
          next = 1
@@ -1125,9 +1118,9 @@ USE ISO_FORTRAN_ENV
 !
 !     CONVERT SIL TO EX-ID
 !
-         CALL bisloc(*360,pivot,Z(isilex+1),2,points,j)
+         CALL bisloc(*360,pivot,z(isilex+1),2,points,j)
          j = isilex + j - 1
-         extid = Z(j)/10
+         extid = z(j)/10
          idext = extid
          IF ( axic ) idext = mod(extid,1000000)
          IF ( axif ) idext = mod(extid,500000)
@@ -1141,7 +1134,7 @@ USE ISO_FORTRAN_ENV
          ELSE
             IF ( idext<oldid ) next = 1
             oldid = idext
-            CALL setfnd(*380,Z(igplst),lgplst,idext,next)
+            CALL setfnd(*380,z(igplst),lgplst,idext,next)
          ENDIF
          spag_nextblock_1 = 18
       CASE (18)
@@ -1159,35 +1152,35 @@ USE ISO_FORTRAN_ENV
 !
                CALL read(*700,*720,gpect,buf,length,noeor,iwords)
                ktype = buf(2)*3 - 3 + idtab
-               ptr = Z(ktype)
-               ldicts = Z(ktype+2)
+               ptr = z(ktype)
+               ldicts = z(ktype+2)
                IF ( ldicts==0 ) EXIT SPAG_Loop_1_5
-               n = Z(ktype+1)
-               CALL bisloc(*340,buf(1),Z(ptr),n/ldicts,ldicts,j)
+               n = z(ktype+1)
+               CALL bisloc(*340,buf(1),z(ptr),n/ldicts,ldicts,j)
                j = ptr + j
-               out(1) = Z(j)
+               out(1) = z(j)
 !
 !     FOUND DICTIONARY.  DETERMINE GINO-LOC TO USE.
 !
                DO i = 3 , length
                   j = j + 1
-                  IF ( buf(i)==pivot .AND. Z(j)>0 ) GOTO 325
+                  IF ( buf(i)==pivot .AND. z(j)>0 ) GOTO 325
                ENDDO
-               WRITE (Outpt,99008) Swm , pivot , out(1) , gpect
+               WRITE (outpt,99008) swm , pivot , out(1) , gpect
 99008          FORMAT (A27,' 2350.  GPFDR CANNOT FIND PIVOT SIL =',I10,/5X,'AMONG THE SILS OF ELEMENT ID =',I9,                     &
                       &' AS READ FROM DATA BLOCK',I5,',  ENTRY THUS IGNORED.')
                CYCLE
 !
- 325           k = buf(2)*Incr - Incr
-               out(2) = Elem(k+1)
-               out(3) = Elem(k+2)
-               out(4) = Z(j)
+ 325           k = buf(2)*incr - incr
+               out(2) = elem(k+1)
+               out(3) = elem(k+2)
+               out(4) = z(j)
 !
 !     GINO-LOC IN P-DICTIONARY NO LONGER NEEDED, THUS SET IT NEGATIVE
 !     TO AVOID RE-USE IN CASE WHERE AN ELEMENT CONNECTS SAME GRID MORE
 !     THAN ONCE.
 !
-               Z(j) = -Z(j)
+               z(j) = -z(j)
 !
 !     OUTPUT THE 4-WORD ENTRY TO -GPFBOM-
 !
@@ -1200,7 +1193,7 @@ USE ISO_FORTRAN_ENV
 !
                nentry = nentry + 1
             ELSE
-               WRITE (Outpt,99009) Swm , pivot , gpect
+               WRITE (outpt,99009) swm , pivot , gpect
 99009          FORMAT (A27,' 2349.  GPFDR FINDS AN ELEMENT ENTRY CONNECTING ','PIVOT SIL =',I9,' ON DATA BLOCK',I5,/5X,             &
                       &'TOO LARGE FOR A LOCAL ARRAY. ENTRY IS BEING IGNORED.')
                CALL read(*700,*720,gpect,0,-length,noeor,iwords)
@@ -1210,8 +1203,8 @@ USE ISO_FORTRAN_ENV
 !     HERE WHEN PMAT DICTIONARY MISSING FOR AN ELEMENT
 !     CONNECTED TO A GRID POINT TO HAVE GP-FORCE BALANCE OUTPUT.
 !
- 340     kkk = buf(2)*Incr - Incr
-         WRITE (Outpt,99010) Uim , Elem(kkk+1) , Elem(kkk+2) , extid
+ 340     kkk = buf(2)*incr - incr
+         WRITE (outpt,99010) uim , elem(kkk+1) , elem(kkk+2) , extid
 99010    FORMAT (A29,' 2351. A FORCE CONTRIBUTION  DUE TO ELEMENT TYPE = ',2A4,', ON POINT ID =',I10,/5X,                           &
                 &'WILL NOT APPEAR IN THE GRID-POINT-FORCE-BALANCE SUMMARY.')
          spag_nextblock_1 = 18
@@ -1219,7 +1212,7 @@ USE ISO_FORTRAN_ENV
 !
 !     SIL NOT FOUND IN LIST OF SILS, OR NOT REQUESTED.
 !
- 360     WRITE (Outpt,99011) Swm , pivot , gpect
+ 360     WRITE (outpt,99011) swm , pivot , gpect
 99011    FORMAT (A27,' 2352.  GPFDR IS NOT ABLE TO FIND PIVOT SIL =',I10,' AS READ FROM DATA BLOCK',I5,/5X,'IN TABLE OF SILS.')
 !
  380     CALL fwdrec(*700,gpect)
@@ -1243,9 +1236,9 @@ USE ISO_FORTRAN_ENV
 !
 !     HERE WHEN END OF FILE ON -GPECT-.
 !
- 420     CALL close(gpect,Clsrew)
-         CALL close(scrt2,Clsrew)
-         CALL close(scrt3,Clsrew)
+ 420     CALL close(gpect,clsrew)
+         CALL close(scrt2,clsrew)
+         CALL close(scrt3,clsrew)
 !
 !     SO AS TO OUTPUT THE FORCE BALANCES IN EXTERNAL GRID POINT ORDER
 !     THE FOLLOWING STEPS ARE NOW PERFORMED ON THE DICTIONARY ENTRIES OF
@@ -1265,24 +1258,24 @@ USE ISO_FORTRAN_ENV
 !
          file = scrt3
          nerror = 20
-         CALL open(*680,scrt3,Z(buf3),Rdrew)
+         CALL open(*680,scrt3,z(buf3),rdrew)
 !
 !     BLAST-READ 3-WORD -GPFBOM- DICTIONARY ENTRIES INTO CORE.
 !
          idicts = ncc + 1
-         CALL read(*700,*440,scrt3,Z(idicts),core-idicts,noeor,iwords)
+         CALL read(*700,*440,scrt3,z(idicts),core-idicts,noeor,iwords)
          CALL mesage(8,0,subr)
          spag_nextblock_1 = 24
          CYCLE SPAG_DispatchLoop_1
 !
  440     ndicts = idicts + iwords - 1
-         CALL close(scrt3,Clsrew)
+         CALL close(scrt3,clsrew)
          nerror = 21
-         CALL open(*680,scrt3,Z(buf3),Wrtrew)
+         CALL open(*680,scrt3,z(buf3),wrtrew)
 !
 !     SORT ENTRIES ON EXTERNAL ID
 !
-         CALL sort(0,0,3,1,Z(idicts),iwords)
+         CALL sort(0,0,3,1,z(idicts),iwords)
 !
 !     DETERMINE A -GPFBOM- GROUP OF RECORDS FOR OUTPUT.  EACH -GPFBOM-
 !     RECORDS ENTRY WILL REQUIRE 12 WORDS OF CORE IN THE FINAL OUTPUT
@@ -1293,8 +1286,8 @@ USE ISO_FORTRAN_ENV
       CASE (19)
          j = idicts
          total = 0
-         SPAG_Loop_1_6: DO WHILE ( total+Z(j+2)<=entrys )
-            total = total + Z(j+2)
+         SPAG_Loop_1_6: DO WHILE ( total+z(j+2)<=entrys )
+            total = total + z(j+2)
             j = j + 3
             IF ( j>=ndicts ) EXIT SPAG_Loop_1_6
          ENDDO SPAG_Loop_1_6
@@ -1305,19 +1298,19 @@ USE ISO_FORTRAN_ENV
          jdicts = j - 1
          k = 1
          DO i = idicts , jdicts , 3
-            jk = Z(i+2)
-            Z(i+2) = k
+            jk = z(i+2)
+            z(i+2) = k
             k = k + jk
          ENDDO
 !
 !     SORT THIS GROUP OF 3-WORD ENTRIES ON THE GINO-LOCS.
 !
          length = jdicts - idicts + 1
-         CALL sort(0,0,3,2,Z(idicts),length)
+         CALL sort(0,0,3,2,z(idicts),length)
 !
 !     OUTPUT AS A LOGICAL RECORD.
 !
-         CALL write(scrt3,Z(idicts),length,eor)
+         CALL write(scrt3,z(idicts),length,eor)
 !
 !     PROCESS NEXT GROUP IF THERE ARE MORE.
 !
@@ -1330,7 +1323,7 @@ USE ISO_FORTRAN_ENV
 !     ALL GROUPS HAVE BEEN DETERMINED, SEQUENCED, SORTED ON GINO-LOCS,
 !     AND OUTPUT.
 !
-         CALL close(scrt3,Clsrew)
+         CALL close(scrt3,clsrew)
 !
 !     PREPARE GRID-POINT-FORCE-BALANCE ENTRIES WITH RESPECT TO APPLIED-
 !     LOAD AND SINGLE-POINT-CONSTRAINT FORCES.
@@ -1350,7 +1343,7 @@ USE ISO_FORTRAN_ENV
 !     AND RE-OUTPUT TO SCRT4.
 !
          file = scrt4
-         CALL open(*680,scrt4,Z(buf1),Wrtrew)
+         CALL open(*680,scrt4,z(buf1),wrtrew)
 !
 !     PROCESS PG.
 !
@@ -1378,20 +1371,20 @@ USE ISO_FORTRAN_ENV
 !     SORT SCRT4 ENTRIES ON EXTERNAL GP ID
 !
  480     CALL write(scrt4,0,0,eor)
-         CALL close(scrt4,Clsrew)
+         CALL close(scrt4,clsrew)
          movepq = 0
-         CALL open(*680,scrt4,Z(buf1),Rdrew)
-         CALL read(*700,*500,scrt4,Z(icc),buf1-icc,noeor,iwords)
-         WRITE (Outpt,99012) Uwm , subcas
+         CALL open(*680,scrt4,z(buf1),rdrew)
+         CALL read(*700,*500,scrt4,z(icc),buf1-icc,noeor,iwords)
+         WRITE (outpt,99012) uwm , subcas
 99012    FORMAT (A25,' 2353.  INSUFFICIENT CORE TO HOLD ALL NON-ZERO APP-','LOAD AND F-OF-SPC OUTPUT LINE ENTRIES OF',/5X,          &
                 &'GRID-POINT-FORCE-BALANCE REQUESTS. SOME POINTS REQUESTED',' FOR OUTPUT WILL BE MISSING THEIR APP-LOAD OR F-OF-SPC'&
                & ,/5X,'CONTRIBUTION IN THE PRINTED BALANCE.')
          iwords = buf1 - icc - mod(buf1-icc,10)
- 500     CALL sort(0,0,10,1,Z(icc),iwords)
-         CALL close(scrt4,Clsrew)
-         CALL open(*680,scrt4,Z(buf1),Wrtrew)
-         CALL write(scrt4,Z(icc),iwords,eor)
-         CALL close(scrt4,Clsrew)
+ 500     CALL sort(0,0,10,1,z(icc),iwords)
+         CALL close(scrt4,clsrew)
+         CALL open(*680,scrt4,z(buf1),wrtrew)
+         CALL write(scrt4,z(icc),iwords,eor)
+         CALL close(scrt4,clsrew)
 !
 !     FINAL OUTPUT PHASE FOR CURRENT CASE CONTROL.
 !
@@ -1453,14 +1446,14 @@ USE ISO_FORTRAN_ENV
 !
          file = scrt2
          nerror = 23
-         CALL open(*680,scrt2,Z(buf2),Rdrew)
+         CALL open(*680,scrt2,z(buf2),rdrew)
          file = scrt3
-         CALL open(*680,scrt3,Z(buf3),Rdrew)
+         CALL open(*680,scrt3,z(buf3),rdrew)
 !
 !     OPEN THE OUTPUT FILE FOR GP-FORCES.
 !
          file = ogpf1
-         CALL open(*680,ogpf1,Z(buf4),Wrt)
+         CALL open(*680,ogpf1,z(buf4),wrt)
          lines = 0
          idrec(1) = 10*branch + gpdvis
          idrec(2) = 19
@@ -1470,23 +1463,22 @@ USE ISO_FORTRAN_ENV
 !     OPEN THE PMAT 6X1 FORCE VECTORS FILE.
 !
          file = scrt1
-         CALL open(*680,scrt1,Z(buf1),Rdrew)
+         CALL open(*680,scrt1,z(buf1),rdrew)
 !
 !     INITIALIZE INPUT OF APP-LOAD AND F-OF-SPC LINE ENTRIES FROM SCRT4.
 !
          file = scrt4
-         CALL open(*680,scrt4,Z(buf5),Rdrew)
+         CALL open(*680,scrt4,z(buf5),rdrew)
          CALL read(*700,*580,scrt4,kvec,10,noeor,iwords)
          eorst4 = .FALSE.
          spag_nextblock_1 = 21
-         CYCLE SPAG_DispatchLoop_1
       CASE (20)
 !
 !     INTERNAL ROUTINE TO GET A VECTOR IN CORE (PG OR QG) AND WRITE
 !     SELECTED NON-ZERO ENTRIES TO SCRT4 FOR INCLUSION LATER IN THE
 !     GRID-POINT-FORCE-BALANCE.
 !
-         CALL open(*560,ugpgqg,Z(buf2),Rd)
+         CALL open(*560,ugpgqg,z(buf2),rd)
          IF ( movepq<0 ) THEN
 !
 !     BACK POSITION DATA BLOCK
@@ -1513,27 +1505,26 @@ USE ISO_FORTRAN_ENV
 !
 !     OUTPUT NON-ZERO ENTRIES REQUESTED
 !
- 520     CALL close(ugpgqg,Cls)
+ 520     CALL close(ugpgqg,cls)
          SPAG_Loop_1_7: DO i = isilex , nsilex , 2
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  icode = mod(Z(i),10)
-                  i1 = ivecz + Z(i+1)
+                  icode = mod(z(i),10)
+                  i1 = ivecz + z(i+1)
                   i2 = i1 + scale(icode)
-                  DO j = i1 , i2
+                  SPAG_Loop_4_1: DO j = i1 , i2
                      IF ( rz(j)/=0 ) THEN
                         spag_nextblock_2 = 2
-                        CYCLE SPAG_DispatchLoop_2
+                        EXIT SPAG_Loop_4_1
                      ENDIF
-                  ENDDO
-                  CYCLE
+                  ENDDO SPAG_Loop_4_1
                CASE (2)
 !
 !     NON-ZERO ENTRY.  CHECK FOR OUTPUT.
 !
-                  buf(1) = Z(i)/10
+                  buf(1) = z(i)/10
                   ibuf1 = buf(1)
                   IF ( axic ) ibuf1 = mod(ibuf1,1000000)
                   IF ( axif ) ibuf1 = mod(ibuf1,500000)
@@ -1543,11 +1534,11 @@ USE ISO_FORTRAN_ENV
                   ELSEIF ( gpset==0 ) THEN
                      EXIT SPAG_Loop_1_7
                   ELSE
-                     CALL setfnd(*540,Z(igplst),lgplst,ibuf1,nextgp)
+                     CALL setfnd(*540,z(igplst),lgplst,ibuf1,nextgp)
                   ENDIF
                   l = 5
                   DO j = i1 , i2
-                     buf(l) = Z(j)
+                     buf(l) = z(j)
                      l = l + 1
                   ENDDO
                   IF ( l<11 ) THEN
@@ -1592,12 +1583,12 @@ USE ISO_FORTRAN_ENV
 !     READ AND DISTRIBUTE THE DATA OF THE 4-WORD ENTRIES.
 !
             CALL read(*700,*600,scrt2,buf,4,noeor,iwords)
-            Z(iptr1+1) = buf(4)
-            Z(iptr1+2) = iptr2
-            Z(iptr2+1) = extgp
-            Z(iptr2+2) = buf(1)
-            Z(iptr2+3) = buf(2)
-            Z(iptr2+4) = buf(3)
+            z(iptr1+1) = buf(4)
+            z(iptr1+2) = iptr2
+            z(iptr2+1) = extgp
+            z(iptr2+2) = buf(1)
+            z(iptr2+3) = buf(2)
+            z(iptr2+4) = buf(3)
             iptr1 = iptr1 + 2
             iptr2 = iptr2 + 10
             jtab1 = jtab1 + 2
@@ -1607,14 +1598,14 @@ USE ISO_FORTRAN_ENV
 !     HERE ON END OF A GROUP.  SORT TABLE-1 ON GINO LOCS.
 !     AND FILL TABLE-2 WITH 6X1 FORCE VECTORS.
 !
- 620     CALL sort(0,0,2,1,Z(itab1),jtab1-itab1+1)
+ 620     CALL sort(0,0,2,1,z(itab1),jtab1-itab1+1)
 !
          nerror = 25
          file = scrt1
          DO i = itab1 , jtab1 , 2
-            CALL filpos(scrt1,Z(i))
-            ptr = Z(i+1)
-            CALL read(*700,*720,scrt1,Z(ptr+5),6,noeor,iwords)
+            CALL filpos(scrt1,z(i))
+            ptr = z(i+1)
+            CALL read(*700,*720,scrt1,z(ptr+5),6,noeor,iwords)
          ENDDO
 !
 !     OUTPUT DATA.  START NEW SUM WHEN ENCOUNTERING A NEW GP-ID.
@@ -1631,7 +1622,7 @@ USE ISO_FORTRAN_ENV
 !     CONTINUE OUTPUT OF LINE ENTRY AND SUM IN.  OTHERWISE OUTPUT
 !     SUM LINE, AND NEW ID-S APPLIED-LOAD AND F-OF-SPC ENTRY.
 !
-                  DO WHILE ( Z(i)/=oldid )
+                  DO WHILE ( z(i)/=oldid )
 !
 !     CHANGE IN GRID POINT ID.
 !
@@ -1647,7 +1638,7 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_3 = 2
                         CYCLE SPAG_DispatchLoop_3
                      ENDIF
-                     IF ( kvec(1)/10>Z(i) ) THEN
+                     IF ( kvec(1)/10>z(i) ) THEN
                         spag_nextblock_3 = 2
                         CYCLE SPAG_DispatchLoop_3
                      ENDIF
@@ -1676,7 +1667,6 @@ USE ISO_FORTRAN_ENV
 !
  622              eorst4 = .TRUE.
                   spag_nextblock_3 = 1
-                  CYCLE SPAG_DispatchLoop_3
                CASE (2)
 !
 !     NO APP-LOAD OR F-OF-SPC ENTRIES LEFT OR CURRENT ONE NOT NEEDED YET
@@ -1685,12 +1675,12 @@ USE ISO_FORTRAN_ENV
                      rsum(j) = 0.0
                   ENDDO
                   any = .TRUE.
-                  oldid = Z(i)
+                  oldid = z(i)
                   spag_nextblock_3 = 3
                CASE (3)
 !
-                  Z(i) = 10*Z(i) + gpdvis
-                  CALL write(ogpf1,Z(i),10,noeor)
+                  z(i) = 10*z(i) + gpdvis
+                  CALL write(ogpf1,z(i),10,noeor)
                   lines = lines + 1
                   DO j = 5 , 10
                      rsum(j) = rsum(j) + rz(i+j-1)
@@ -1715,22 +1705,22 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT PHASE FOR GP-FORCE BALANCE ONE SUBCASE, OR ONE TIME STEP OF
 !     ONE SUBCASE.
 !
- 640     CALL close(scrt1,Clsrew)
-         CALL close(scrt2,Clsrew)
-         CALL close(scrt3,Clsrew)
-         CALL close(scrt4,Clsrew)
+ 640     CALL close(scrt1,clsrew)
+         CALL close(scrt2,clsrew)
+         CALL close(scrt3,clsrew)
+         CALL close(scrt4,clsrew)
          mcb(1) = ogpf1
          CALL rdtrl(mcb)
          mcb(2) = mcb(2) + lines
          CALL wrttrl(mcb)
-         CALL close(ogpf1,Clseof)
+         CALL close(ogpf1,clseof)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     NORMAL COMPLETION.
 !
- 660     CALL close(casecc,Clsrew)
-         CALL close(ug,Clsrew)
+ 660     CALL close(casecc,clsrew)
+         CALL close(ug,clsrew)
          RETURN
 !
 !     HERE ON ERROR CONDITIONS.
@@ -1747,12 +1737,12 @@ USE ISO_FORTRAN_ENV
          CALL mesage(mm,file,subr)
          spag_nextblock_1 = 24
       CASE (24)
-         WRITE (Outpt,99013) Swm , nerror
+         WRITE (outpt,99013) swm , nerror
 99013    FORMAT (A27,' 2354.',/5X,'GPFDR MODULE IS UNABLE TO CONTINUE ','AND HAS BEEN TERMINATED DUE TO ERROR MESSAGE PRINTED ',    &
                 &'ABOVE OR BELOW THIS MESSAGE.',/5X,'THIS ERROR OCCURRED ','IN GPFDR CODE WHERE THE VARIABLE -NERROR- WAS SET =',I5)
          DO i = 100 , 300 , 100
             DO j = 1 , 9
-               CALL close(i+j,Clsrew)
+               CALL close(i+j,clsrew)
             ENDDO
          ENDDO
          EXIT SPAG_DispatchLoop_1

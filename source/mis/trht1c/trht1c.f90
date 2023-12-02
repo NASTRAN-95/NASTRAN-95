@@ -1,19 +1,20 @@
-!*==trht1c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trht1c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trht1c(Ngroup,Udvt,Pd,Rdd,Iloop)
-USE C_BLANK
-USE C_FBSX
-USE C_INFBSX
-USE C_PACKX
-USE C_SYSTEM
-USE C_TRDD1
-USE C_TRDXX
-USE C_TRHTX
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_fbsx
+   USE c_infbsx
+   USE c_packx
+   USE c_system
+   USE c_trdd1
+   USE c_trdxx
+   USE c_trhtx
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -93,26 +94,26 @@ USE ISO_FORTRAN_ENV
 !     ISYM     0    UNSYMETRIC   1  SYMMETRIC
 !     DELTA1   OLD DELTA  T
 !
-         iscr5 = Icr5
+         iscr5 = icr5
          noload = 0
          nbust = 0
          mcb(1) = Pd
          CALL rdtrl(mcb)
          IF ( mcb(1)<=0 ) noload = -1
-         nrow = Ik(2)
-         It1 = 1
-         It2 = 1
-         Ii = 1
-         Jj = nrow
-         Incr = 1
-         It3 = 1
-         Iii = 1
-         Jjj = nrow
-         Incr1 = 1
-         Tabs1 = Tabs
-         Sigma1 = Sigma
-         Nz = korsz(Z)
-         igroup = Nz - 3*Ngroup + 1
+         nrow = ik(2)
+         it1 = 1
+         it2 = 1
+         ii = 1
+         jj = nrow
+         incr = 1
+         it3 = 1
+         iii = 1
+         jjj = nrow
+         incr1 = 1
+         tabs1 = tabs
+         sigma1 = sigma
+         nz = korsz(z)
+         igroup = nz - 3*Ngroup + 1
          ibuf1 = igroup - sysbuf
          ibuf2 = ibuf1 - sysbuf
          ibuf3 = ibuf2 - sysbuf
@@ -121,62 +122,62 @@ USE ISO_FORTRAN_ENV
          ibuf6 = ibuf5 - sysbuf
          ibuf7 = ibuf6 - sysbuf
          ibuf8 = ibuf7 - sysbuf
-         Nz = ibuf8 - 1
-         Iloop1 = Iloop
-         Ist = 0
-         Ill1(1) = Icr1
-         CALL rdtrl(Ill1)
-         ifn(1) = Icr1
+         nz = ibuf8 - 1
+         iloop1 = Iloop
+         ist = 0
+         ill1(1) = icr1
+         CALL rdtrl(ill1)
+         ifn(1) = icr1
          CALL rdtrl(ifn)
-         Iu1 = 0
-         iu2 = Iu1 + nrow
+         iu1 = 0
+         iu2 = iu1 + nrow
          ip1 = iu2 + nrow
          ip2 = ip1 + nrow
          iuk = ip2 + nrow
          nolin = 0
-         IF ( Nlftp1/=0 .OR. Norad/=-1 ) nolin = 1
+         IF ( nlftp1/=0 .OR. norad/=-1 ) nolin = 1
          IF ( nolin==0 ) THEN
 !
 !     NO NON-LINEAR EFFECTS
 !
-            Nz = Nz - 4*nrow
-            In2 = ip2
+            nz = nz - 4*nrow
+            in2 = ip2
          ELSE
             in1 = iuk + nrow
-            In2 = in1 + nrow
-            Nz = Nz - 7*nrow
+            in2 = in1 + nrow
+            nz = nz - 7*nrow
          ENDIF
-         IF ( Nz<0 ) CALL mesage(-8,0,name)
-         Icore = In2 + nrow
-         Iul1(1) = Icr2
-         CALL rdtrl(Iul1)
-         ombeta = 1.0 - Beta
-         opbeta = 1.0 + Beta
+         IF ( nz<0 ) CALL mesage(-8,0,name)
+         icore = in2 + nrow
+         iul1(1) = icr2
+         CALL rdtrl(iul1)
+         ombeta = 1.0 - beta
+         opbeta = 1.0 + beta
 !
 !     SET UP FOR CORE I/O
 !
-         IF ( Nlftp1/=0 ) THEN
-            Ifrst = 0
+         IF ( nlftp1/=0 ) THEN
+            ifrst = 0
             CALL trd1d
-            Ifrst = 1
+            ifrst = 1
          ENDIF
-         itab(1) = A
-         itab(2) = Ill1(1)
-         itab(3) = Iul1(1)
+         itab(1) = a
+         itab(2) = ill1(1)
+         itab(3) = iul1(1)
          itab(4) = Rdd
-         icor = In2 + nrow + 1
+         icor = in2 + nrow + 1
          nf = 4
-         CALL gopen(A,iz(ibuf2),0)
-         CALL rewind(A)
-         IF ( nolin/=0 .AND. Radlin==-1 .AND. Norad/=-1 ) THEN
+         CALL gopen(a,iz(ibuf2),0)
+         CALL rewind(a)
+         IF ( nolin/=0 .AND. radlin==-1 .AND. norad/=-1 ) THEN
             CALL gopen(Rdd,iz(ibuf7),0)
             CALL rewind(Rdd)
          ENDIF
-         CALL gopen(Ill1,iz(ibuf3),0)
-         CALL rewind(Ill1)
-         IF ( Isym/=1 ) THEN
-            CALL gopen(Iul1,iz(ibuf4),0)
-            CALL rewind(Iul1)
+         CALL gopen(ill1,iz(ibuf3),0)
+         CALL rewind(ill1)
+         IF ( isym/=1 ) THEN
+            CALL gopen(iul1,iz(ibuf4),0)
+            CALL rewind(iul1)
          ENDIF
 !
 !     IS  THIS  A TIME  STEP CHANGE
@@ -188,29 +189,29 @@ USE ISO_FORTRAN_ENV
             CALL gopen(iscr5,iz(ibuf8),0)
             CALL fread(iscr5,iz(igroup),3*Ngroup,1)
             newgrp = igroup + (Iloop-1)*3
-            delta1 = Z(newgrp-2)
-            Nstep = iz(newgrp)
-            Deltat = Z(newgrp+1)
-            Nout = iz(newgrp+2)
+            delta1 = z(newgrp-2)
+            nstep = iz(newgrp)
+            deltat = z(newgrp+1)
+            nout = iz(newgrp+2)
             CALL gopen(Pd,iz(ibuf5),2)
-            h = 1.0/Deltat
+            h = 1.0/deltat
             CALL gopen(Udvt,iz(ibuf1),3)
             mcb(1) = Udvt
             CALL rdtrl(mcb(1))
             IF ( nolin/=0 ) THEN
-               CALL gopen(Pnl1,iz(ibuf6),3)
-               Ipnl(1) = Pnl1
-               CALL rdtrl(Ipnl)
+               CALL gopen(pnl1,iz(ibuf6),3)
+               ipnl(1) = pnl1
+               CALL rdtrl(ipnl)
             ENDIF
 !
 !     RESTORE  STUFF  SAVED
 !
-            IF ( nolin/=0 ) CALL fread(iscr5,Z(iuk+1),nrow,1)
-            CALL fread(iscr5,Z(iu2+1),nrow,1)
-            CALL fread(iscr5,Z(Iu1+1),nrow,1)
+            IF ( nolin/=0 ) CALL fread(iscr5,z(iuk+1),nrow,1)
+            CALL fread(iscr5,z(iu2+1),nrow,1)
+            CALL fread(iscr5,z(iu1+1),nrow,1)
             IF ( nolin/=0 ) THEN
-               CALL fread(iscr5,Z(in1+1),nrow,1)
-               CALL fread(iscr5,Z(In2+1),nrow,1)
+               CALL fread(iscr5,z(in1+1),nrow,1)
+               CALL fread(iscr5,z(in2+1),nrow,1)
             ENDIF
             CALL close(iscr5,1)
 !
@@ -218,66 +219,65 @@ USE ISO_FORTRAN_ENV
 !
             DO i = 1 , nrow
                l = ip1 + i
-               Z(l) = 0.0
+               z(l) = 0.0
                IF ( nolin/=0 ) THEN
-                  m = In2 + i
-                  Z(l) = -Z(m)
+                  m = in2 + i
+                  z(l) = -z(m)
                ENDIF
             ENDDO
             iopen = 0
-            CALL matvec(Z(Iu1+1),Z(ip1+1),Ik,iz(ibuf8))
-            IF ( Ib(1)/=0 ) THEN
+            CALL matvec(z(iu1+1),z(ip1+1),ik,iz(ibuf8))
+            IF ( ib(1)/=0 ) THEN
                DO i = 1 , nrow
                   l = iu2 + i
-                  m = Iu1 + i
-                  Z(l) = (Z(m)-Z(l))/delta1
+                  m = iu1 + i
+                  z(l) = (z(m)-z(l))/delta1
                ENDDO
                iopen = 0
-               CALL matvec(Z(iu2+1),Z(ip1+1),Ib,iz(ibuf8))
+               CALL matvec(z(iu2+1),z(ip1+1),ib,iz(ibuf8))
             ENDIF
             IF ( nolin/=0 ) THEN
-               h1 = 1.0 - Deltat/delta1
-               h2 = Deltat/delta1
+               h1 = 1.0 - deltat/delta1
+               h2 = deltat/delta1
                DO i = 1 , nrow
                   l = in1 + i
-                  m = In2 + i
-                  Z(l) = h2*Z(l) + h1*Z(m)
+                  m = in2 + i
+                  z(l) = h2*z(l) + h1*z(m)
                ENDDO
             ENDIF
-            Icount = 0
+            icount = 0
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( noload==0 ) THEN
                CALL gopen(Pd,iz(ibuf5),0)
                CALL fwdrec(*100,Pd)
             ENDIF
-            Ist = -1
-            CALL gopen(Icr5,iz(ibuf1),0)
+            ist = -1
+            CALL gopen(icr5,iz(ibuf1),0)
 !
-            CALL fread(Icr5,iz(igroup),3*Ngroup,1)
+            CALL fread(icr5,iz(igroup),3*Ngroup,1)
 !
 !     BRING IN  U0 AND UK
 !
-            CALL read(*120,*20,Icr5,Z(Iu1+1),nrow,1,nwds)
+            CALL read(*120,*20,icr5,z(iu1+1),nrow,1,nwds)
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     SHORT VECTOR ENCOUNTERED
 !
  20      k = nwds + 1
          DO l = k , nrow
-            m = Iu1 + l
-            Z(m) = 0.0
+            m = iu1 + l
+            z(m) = 0.0
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( Norad==-1 ) THEN
+         IF ( norad==-1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL read(*120,*40,Icr5,Z(iuk+1),nrow,1,nwds)
+         CALL read(*120,*40,icr5,z(iuk+1),nrow,1,nwds)
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
 !
@@ -286,26 +286,25 @@ USE ISO_FORTRAN_ENV
  40      k = nwds + 1
          DO l = k , nrow
             m = iuk + l
-            Z(m) = 0.0
+            z(m) = 0.0
          ENDDO
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         CALL close(Icr5,1)
-         Nstep = iz(igroup) + 1
-         Deltat = Z(igroup+1)
-         Nout = iz(igroup+2)
-         h = 1.0/Deltat
+         CALL close(icr5,1)
+         nstep = iz(igroup) + 1
+         deltat = z(igroup+1)
+         nout = iz(igroup+2)
+         h = 1.0/deltat
          CALL gopen(Udvt,iz(ibuf1),1)
          CALL makmcb(mcb,Udvt,nrow,2,1)
          IF ( nolin/=0 ) THEN
-            CALL gopen(Pnl1,iz(ibuf6),1)
-            CALL makmcb(Ipnl,Pnl1,nrow,2,1)
+            CALL gopen(pnl1,iz(ibuf6),1)
+            CALL makmcb(ipnl,pnl1,nrow,2,1)
          ENDIF
 !
 !     LETS  GO
 !
-         Icount = 1
+         icount = 1
          spag_nextblock_1 = 4
       CASE (4)
 !
@@ -320,86 +319,86 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE  NR
 !
-            IF ( Norad==-1 ) THEN
-               IF ( Nlftp1==0 ) THEN
+            IF ( norad==-1 ) THEN
+               IF ( nlftp1==0 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                DO i = 1 , nrow
-                  m = In2 + i
-                  Z(m) = 0.0
+                  m = in2 + i
+                  z(m) = 0.0
                ENDDO
-            ELSEIF ( Radlin==-1 ) THEN
+            ELSEIF ( radlin==-1 ) THEN
 !
 !     NON-CONSTANT RADIATION
 !
                DO i = 1 , nrow
-                  l = Iu1 + i
+                  l = iu1 + i
                   k = iuk + i
-                  m = In2 + i
+                  m = in2 + i
                   j = iu2 + i
 !
 !     CHECK FOR UNSTABLE SOLUTION ABOUT TO CAUSE ARITHMETIC OVERFLOWS.
 !
-                  IF ( Z(l)>=1.0E8 ) THEN
+                  IF ( z(l)>=1.0E8 ) THEN
                      nbust = nbust + 1
                      IF ( nbust>10 ) THEN
-                        WRITE (nprt,99001) Ufm
+                        WRITE (nprt,99001) ufm
 99001                   FORMAT (A23,' 3103, SUBROUTINE TRHT1C TERMINATING DUE TO ERROR ','COUNT FOR MESSAGE 3102.')
                         CALL mesage(-61,0,name)
                      ELSE
-                        WRITE (nprt,99002) Uwm , Z(l) , Icount , i
+                        WRITE (nprt,99002) uwm , z(l) , icount , i
 99002                   FORMAT (A25,' 3102, SUBROUTINE TRHT1C, UNSTABLE TEMP. VALUE OF',E20.8,' COMPUTED FOR TIME STEP',I5,/5X,     &
                                &'AT POINT NUMBER',I6,' IN THE ANALYSIS SET.')
-                        Z(l) = 1.0E6
+                        z(l) = 1.0E6
                      ENDIF
                   ENDIF
 !
-                  Z(j) = -(Z(l)+Tabs)**4 + 4.0*(Z(k)+Tabs)**3*Z(l)
-                  Z(m) = 0.0
+                  z(j) = -(z(l)+tabs)**4 + 4.0*(z(k)+tabs)**3*z(l)
+                  z(m) = 0.0
                ENDDO
                iopen = 1
                ifn(1) = Rdd
-               CALL matvec(Z(iu2+1),Z(In2+1),ifn,iz(ibuf7))
+               CALL matvec(z(iu2+1),z(in2+1),ifn,iz(ibuf7))
             ELSE
                DO i = 1 , nrow
-                  l = In2 + i
+                  l = in2 + i
                   k = iuk + i
-                  Z(l) = Z(k)
+                  z(l) = z(k)
                ENDDO
             ENDIF
-            IF ( Nlftp1/=0 ) THEN
-               Tim1 = tim
+            IF ( nlftp1/=0 ) THEN
+               tim1 = tim
                CALL trd1d
             ENDIF
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( Icount==1 .AND. Iloop==1 ) THEN
+         IF ( icount==1 .AND. Iloop==1 ) THEN
             DO i = 1 , nrow
                k = ip1 + i
-               Z(k) = 0.0
+               z(k) = 0.0
                IF ( nolin/=0 ) THEN
-                  l = In2 + i
+                  l = in2 + i
                   m = in1 + i
-                  Z(m) = Z(l)
-                  Z(k) = -Z(l)
+                  z(m) = z(l)
+                  z(k) = -z(l)
                ENDIF
             ENDDO
             iopen = 0
-            CALL matvec(Z(Iu1+1),Z(ip1+1),Ik,Z(ibuf8))
+            CALL matvec(z(iu1+1),z(ip1+1),ik,z(ibuf8))
          ENDIF
 !
 !     BRING IN  NEXT P
 !
          IF ( noload==0 ) THEN
-            CALL unpack(*60,Pd,Z(ip2+1))
+            CALL unpack(*60,Pd,z(ip2+1))
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  60      DO i = 1 , nrow
             k = ip2 + i
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          spag_nextblock_1 = 6
       CASE (6)
@@ -409,74 +408,74 @@ USE ISO_FORTRAN_ENV
          DO i = 1 , nrow
             l = ip1 + i
             m = ip2 + i
-            Z(l) = ombeta*Z(l) + Beta*Z(m)
+            z(l) = ombeta*z(l) + beta*z(m)
             IF ( nolin/=0 ) THEN
                m = in1 + i
-               j = In2 + i
-               Z(l) = Z(l) + opbeta*Z(j) - Beta*Z(m)
+               j = in2 + i
+               z(l) = z(l) + opbeta*z(j) - beta*z(m)
             ENDIF
          ENDDO
 !
 !     MULTIPLY  IN  A MATRIX
 !
          iopen = 1
-         ifn(1) = A
-         CALL matvec(Z(Iu1+1),Z(ip1+1),ifn,iz(ibuf2))
+         ifn(1) = a
+         CALL matvec(z(iu1+1),z(ip1+1),ifn,iz(ibuf2))
 !
 !     SOLVE  FOR NEXT DISPLACEMENT
 !
          iopen = 1
-         IF ( Isym==0 ) CALL intfbs(Z(ip1+1),Z(iu2+1),iz(ibuf4))
-         IF ( Isym==1 ) THEN
+         IF ( isym==0 ) CALL intfbs(z(ip1+1),z(iu2+1),iz(ibuf4))
+         IF ( isym==1 ) THEN
 !
 !     ABSORBED SUBROUTINE FBSINT   SEE ALSO EQUIV.   DATA.
 !
             DO i = 1 , mrow
-               Z(i+iu2) = Z(i+ip1)
+               z(i+iu2) = z(i+ip1)
             ENDDO
 !
 !     FORWARD PASS
 !
-            CALL rewind(Ill1)
-            CALL fwdrec(*80,Ill1)
-            iz(ibuf4) = Ill1(1)
-            Ll1(1) = Ill1(1)
-            CALL rdtrl(Ll1)
+            CALL rewind(ill1)
+            CALL fwdrec(*80,ill1)
+            iz(ibuf4) = ill1(1)
+            ll1(1) = ill1(1)
+            CALL rdtrl(ll1)
             IF ( iprec/=1 ) THEN
-               CALL fbs21(iz(ibuf4),Z(iu2+1),Z(iu2+1),mrow)
+               CALL fbs21(iz(ibuf4),z(iu2+1),z(iu2+1),mrow)
             ELSE
-               CALL fbs1(iz(ibuf4),Z(iu2+1),Z(iu2+1),mrow)
+               CALL fbs1(iz(ibuf4),z(iu2+1),z(iu2+1),mrow)
             ENDIF
          ENDIF
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 80      CALL mesage(-2,Ill1,name)
+ 80      CALL mesage(-2,ill1,name)
          spag_nextblock_1 = 7
       CASE (7)
 !
 !     ABSORBED SUBROUTINE FBSINT    SEE ALSO EQUIV.   DATA.
 !
-         IF ( Icount==1 .OR. Icount==Nstep .OR. mod(Icount+Ist,Nout)==0 ) THEN
+         IF ( icount==1 .OR. icount==nstep .OR. mod(icount+ist,nout)==0 ) THEN
 !
 !     IT  IS OUTPUT TIME
 !
-            CALL pack(Z(Iu1+1),Udvt,mcb)
+            CALL pack(z(iu1+1),Udvt,mcb)
 !
 !     COMPUTE  U DOT
 !
             DO i = 1 , nrow
                l = ip1 + i
-               m = Iu1 + i
+               m = iu1 + i
                j = iu2 + i
-               Z(l) = (Z(j)-Z(m))*h
+               z(l) = (z(j)-z(m))*h
             ENDDO
-            CALL pack(Z(ip1+1),Udvt,mcb)
+            CALL pack(z(ip1+1),Udvt,mcb)
 !
 !     PUT OUT ZERO ACCERERATION VECTOR FOR LATER MODULES
 !
             CALL bldpk(1,1,Udvt,0,0)
             CALL bldpkn(Udvt,0,mcb)
-            IF ( nolin/=0 ) CALL pack(Z(In2+1),Pnl1,Ipnl)
+            IF ( nolin/=0 ) CALL pack(z(in2+1),pnl1,ipnl)
          ENDIF
 !
 !     ROTATE POINTERS
@@ -484,19 +483,19 @@ USE ISO_FORTRAN_ENV
          j = ip1
          ip1 = ip2
          ip2 = j
-         j = Iu1
-         Iu1 = iu2
+         j = iu1
+         iu1 = iu2
          iu2 = j
          j = in1
-         in1 = In2
-         In2 = j
-         tim = tim + Deltat
-         Icount = Icount + 1
-         IF ( Icount<Nstep ) THEN
+         in1 = in2
+         in2 = j
+         tim = tim + deltat
+         icount = icount + 1
+         IF ( icount<nstep ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Icount==Nstep ) THEN
+         IF ( icount==nstep ) THEN
 !
 !     END OF 1 GROUP
 !
@@ -514,20 +513,20 @@ USE ISO_FORTRAN_ENV
 !
 !     SAVE   UI -1
 !
-            CALL write(iscr5,Z(iu2+1),nrow,1)
+            CALL write(iscr5,z(iu2+1),nrow,1)
 !
 !     SAVE   UI
 !
-            CALL write(iscr5,Z(Iu1+1),nrow,1)
+            CALL write(iscr5,z(iu1+1),nrow,1)
             IF ( nolin/=0 ) THEN
 !
 !     SAVE    NI - 1
 !
-               CALL write(iscr5,Z(In2+1),nrow,1)
+               CALL write(iscr5,z(in2+1),nrow,1)
 !
 !     SAVE    NI
 !
-               CALL write(iscr5,Z(in1+1),nrow,1)
+               CALL write(iscr5,z(in1+1),nrow,1)
             ENDIF
             CALL close(iscr5,1)
          ELSE
@@ -537,34 +536,34 @@ USE ISO_FORTRAN_ENV
       CASE (8)
          CALL close(Udvt,j)
          CALL close(Pd,j)
-         CALL close(Ill1,1)
-         CALL close(Iul1,1)
-         CALL close(A,1)
+         CALL close(ill1,1)
+         CALL close(iul1,1)
+         CALL close(a,1)
          CALL wrttrl(mcb)
-         IF ( Norad/=-1 ) CALL close(Rdd,1)
+         IF ( norad/=-1 ) CALL close(Rdd,1)
          IF ( nolin/=0 ) THEN
-            CALL close(Pnl1,j)
-            CALL wrttrl(Ipnl)
+            CALL close(pnl1,j)
+            CALL wrttrl(ipnl)
          ENDIF
          RETURN
       CASE (9)
 !
 !     CONSTANT RADIATION
 !
-         IF ( Radlin/=-1 ) THEN
+         IF ( radlin/=-1 ) THEN
             DO i = 1 , nrow
                l = iuk + i
-               k = In2 + i
-               Z(l) = -(Z(l)+Tabs)**4 + 4.0*(Z(l)+Tabs)**3*Z(l)
-               Z(k) = 0.0
+               k = in2 + i
+               z(l) = -(z(l)+tabs)**4 + 4.0*(z(l)+tabs)**3*z(l)
+               z(k) = 0.0
             ENDDO
             iopen = 1
             ifn(1) = Rdd
-            CALL matvec(Z(iuk+1),Z(In2+1),ifn,iz(ibuf7))
+            CALL matvec(z(iuk+1),z(in2+1),ifn,iz(ibuf7))
             DO i = 1 , nrow
                l = iuk + i
-               m = In2 + i
-               Z(l) = Z(m)
+               m = in2 + i
+               z(l) = z(m)
             ENDDO
          ENDIF
          spag_nextblock_1 = 3
@@ -575,7 +574,7 @@ USE ISO_FORTRAN_ENV
  100     file = Pd
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 120     file = Icr5
+ 120     file = icr5
          spag_nextblock_1 = 10
       CASE (10)
          CALL mesage(-2,file,name)

@@ -1,13 +1,14 @@
-!*==tabpch.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tabpch.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tabpch
-USE C_BLANK
-USE C_MACHIN
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_machin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -71,8 +72,8 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         nz = korsz(Z)
-         ibuf = nz - Sysbuf + 1
+         nz = korsz(z)
+         ibuf = nz - sysbuf + 1
          nz = ibuf - 1
          icrq = 10 - nz
          IF ( nz<=10 ) THEN
@@ -117,10 +118,10 @@ USE ISO_FORTRAN_ENV
                      IF ( ns==-1 ) THEN
                         ns = 1
                         CALL page1
-                        WRITE (Out,99001) Uwm
+                        WRITE (out,99001) uwm
 99001                   FORMAT (A25,', MODULE TABPCH ASSUMES ALL REAL DATA ARE IN S.P..',                                           &
                                &'  D.P. DATA THEREFORE MAY BE PUNCHED ERRONEOUSLY')
-                        IF ( Mach==5 .OR. Mach==6 .OR. Mach==10 .OR. Mach==21 ) WRITE (Out,99002)
+                        IF ( mach==5 .OR. mach==6 .OR. mach==10 .OR. mach==21 ) WRITE (out,99002)
 99002                   FORMAT (4X,'(ALL INTEGERS EXCEEDING 16000 ARE PUNCHED AS REAL ',                                            &
                                &'NUMBERS. ALL REAL NUMBERS OUTSIDE E-27 OR E+27 RANGE ','ARE PUNCHED AS INTEGERS)')
                      ENDIF
@@ -128,7 +129,7 @@ USE ISO_FORTRAN_ENV
 !
                   CALL read(*40,*60,file,iz(1),-2,0,ilen)
                   irecno = 0
-                  ichr = N1(1,i)
+                  ichr = n1(1,i)
                   iz(3) = 0
 !
 !     SET UP FIRST RECORD
@@ -168,7 +169,6 @@ USE ISO_FORTRAN_ENV
                   if = nlist
                   ifrs = 1
                   spag_nextblock_2 = 4
-                  CYCLE SPAG_DispatchLoop_2
                CASE (3)
 !
 !     BRING IN NEXT RECORD
@@ -194,12 +194,12 @@ USE ISO_FORTRAN_ENV
                         irecno = irecno + 1
                         IF ( je>=ilen ) THEN
                            je = ilen
-                           WRITE (Lpch,99003,ERR=80) ichr , ircnm1 , (dz(j),j=jb,je)
+                           WRITE (lpch,99003,ERR=80) ichr , ircnm1 , (dz(j),j=jb,je)
 99003                      FORMAT (1H*,A2,I5,1P,4D16.9)
                            spag_nextblock_2 = 3
                            CYCLE SPAG_DispatchLoop_2
                         ELSE
-                           WRITE (Lpch,99004,ERR=80) ichr , ircnm1 , (dz(j),j=jb,je) , ichr , irecno
+                           WRITE (lpch,99004,ERR=80) ichr , ircnm1 , (dz(j),j=jb,je) , ichr , irecno
 99004                      FORMAT (1H*,A2,I5,1P,4D16.9,1X,A2,I5)
                         ENDIF
                      ENDDO
@@ -258,7 +258,6 @@ USE ISO_FORTRAN_ENV
                   id = id + 2
                   if = if + 2
                   spag_nextblock_2 = 8
-                  CYCLE SPAG_DispatchLoop_2
                CASE (7)
 !
 !     REAL OR INTEGER
@@ -349,13 +348,13 @@ USE ISO_FORTRAN_ENV
                            DO j = 1 , 30
                               pform(j) = form(j,2)
                            ENDDO
-                           WRITE (Lpch,pform,ERR=8) iplus , ichr , ircnm1 , (rdata(m),m=1,idt) , ichr , irecno
+                           WRITE (lpch,pform,ERR=8) iplus , ichr , ircnm1 , (rdata(m),m=1,idt) , ichr , irecno
                            GOTO 8
                         ELSE
                            DO j = 1 , 30
                               pform(j) = form(j,1)
                            ENDDO
-                           WRITE (Lpch,pform,ERR=6) dti , (rdata(m),m=1,idt) , ichr , irecno
+                           WRITE (lpch,pform,ERR=6) dti , (rdata(m),m=1,idt) , ichr , irecno
                            EXIT SPAG_Loop_2_1
                         ENDIF
                      ENDIF
@@ -378,7 +377,6 @@ USE ISO_FORTRAN_ENV
                      form(j,2) = forms(j,2)
                   ENDDO
                   spag_nextblock_2 = 9
-                  CYCLE SPAG_DispatchLoop_2
                CASE (10)
                   m = m + 2
                   IF ( iform(nf)<2 ) THEN
@@ -422,13 +420,13 @@ USE ISO_FORTRAN_ENV
                      DO j = 1 , 30
                         pform(j) = form(j,2)
                      ENDDO
-                     WRITE (Lpch,pform,ERR=12) istar , ichr , ircnm1 , (rdata(m),m=is,idt) , ichr , irecno
+                     WRITE (lpch,pform,ERR=12) istar , ichr , ircnm1 , (rdata(m),m=is,idt) , ichr , irecno
                      GOTO 12
                   ELSE
                      DO j = 1 , 30
                         pform(j) = form(j,1)
                      ENDDO
-                     WRITE (Lpch,pform,ERR=10) dtis , (rdata(m),m=is,idt) , ichr , irecno
+                     WRITE (lpch,pform,ERR=10) dtis , (rdata(m),m=is,idt) , ichr , irecno
                   ENDIF
  10               irecno = irecno + 1
                   DO j = 1 , 30
@@ -457,13 +455,13 @@ USE ISO_FORTRAN_ENV
 !
  14               CALL close(file,1)
                   CALL page2(2)
-                  WRITE (Out,99005) Uim , tabnm , irecno
+                  WRITE (out,99005) uim , tabnm , irecno
 99005             FORMAT (A29,' 4015, TABLE ',2A4,' WAS PUNCHED OUT,',I8,' CARDS.')
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         WRITE (Lpch,99006)
+         WRITE (lpch,99006)
 99006    FORMAT (1H ,/,1H ,/,1H )
          RETURN
 !
@@ -477,7 +475,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  60      ip1 = -3
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          ip1 = -8
          file = icrq

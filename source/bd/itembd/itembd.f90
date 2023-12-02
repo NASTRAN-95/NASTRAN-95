@@ -2,12 +2,18 @@
  
 BLOCKDATA itembd
    IMPLICIT NONE
-   USE C_ITEMDT
+   USE c_itemdt
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , DIMENSION(7,10) , SAVE :: item01 , item02
    INTEGER , DIMENSION(7,5) , SAVE :: item03
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -61,7 +67,7 @@ BLOCKDATA itembd
 !
 !***********************************************************************
 !
-   DATA Nitem/25/
+   DATA nitem/25/
 !
 !
 !          NAME   TYPE     EQUIV     IMAGE    SECONDARY   HIGHER   EDIT

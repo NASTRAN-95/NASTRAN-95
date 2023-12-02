@@ -1,9 +1,10 @@
-!*==fornam.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fornam.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fornam(Ielt,Iscan,Name)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -95,7 +96,7 @@ SUBROUTINE fornam(Ielt,Iscan,Name)
       IF ( kscan==0 ) Name = 'CIRCUM'
       IF ( kscan==1 ) Name = 'AXIAL'
    ELSEIF ( Ielt/=64 .AND. Ielt/=83 ) THEN
-      WRITE (Nout,99001) Ielt
+      WRITE (nout,99001) Ielt
 99001 FORMAT (//' SCAN MODULE PROCESSING UNKNOWN ELEMENT NUMBER ',I8,//)
       CALL mesage(-61,0,0)
    ELSE

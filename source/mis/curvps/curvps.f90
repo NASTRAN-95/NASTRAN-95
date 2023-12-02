@@ -1,4 +1,5 @@
-!*==curvps.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==curvps.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE curvps(Sigs,Prin)
@@ -12,6 +13,15 @@ SUBROUTINE curvps(Sigs,Prin)
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: delta , temp
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -31,5 +41,4 @@ SUBROUTINE curvps(Sigs,Prin)
       RETURN
    ENDIF
    Prin(1) = atan2(delta,temp)*28.6478898E0
-   RETURN
 END SUBROUTINE curvps

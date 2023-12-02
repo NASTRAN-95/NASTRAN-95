@@ -1,4 +1,5 @@
-!*==edtl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==edtl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE edtl(Nedt,Ilist,Pg)
@@ -6,6 +7,23 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
 !     THIS SUBROUTINE COMPUTES THE ELEMENT TEMPERATURE AND ENFORCED
 !     DEFORMATION LOADS
 !
+   USE c_blank
+   USE c_compst
+   USE c_fpt
+   USE c_gpta1
+   USE c_loadx
+   USE c_matin
+   USE c_matout
+   USE c_packx
+   USE c_sgtmpd
+   USE c_ssgett
+   USE c_ssgwrk
+   USE c_system
+   USE c_tranx
+   USE c_trimex
+   USE c_xcstm
+   USE c_xmssg
+   USE c_zzzzzz
    USE C_BLANK
    USE C_COMPST
    USE C_FPT
@@ -707,7 +725,6 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
                   CALL ssgetd(Mecpt(1),Ti(1),0)
                   CALL triqd(kk,Ti(1))
                   spag_nextblock_2 = 6
-                  CYCLE SPAG_DispatchLoop_2
                CASE (7)
                   CALL ssgetd(Mecpt(1),Ti(1),npts)
                   CALL solid(Ti(2),Core(1),iijj)
@@ -740,7 +757,6 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
          GOTO 240
  180     n1 = -3
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          n1 = -8
          spag_nextblock_1 = 4
@@ -750,7 +766,6 @@ SUBROUTINE edtl(Nedt,Ilist,Pg)
  220     ipm = Ecpt
  240     n1 = -2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE edtl

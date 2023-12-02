@@ -2,10 +2,10 @@
  
 BLOCKDATA sma2bd
    IMPLICIT NONE
-   USE C_SMA2BK
-   USE C_SMA2CL
-   USE C_SMA2ET
-   USE C_SMA2IO
+   USE c_sma2bk
+   USE c_sma2cl
+   USE c_sma2et
+   USE c_sma2io
 !SMA2BD
 !
 !
@@ -18,9 +18,9 @@ BLOCKDATA sma2bd
 !     ECPT COMMON BLOCK
 !
 !
-   DATA Nlinks/10/
-   DATA Nogo/0/
-   DATA Ifcstm , Ifmpt , Ifecpt , Ifgpct , Ifdit/101 , 102 , 103 , 104 , 105/
-   DATA Ifmgg , Ifbgg/201 , 202/
-   DATA Inrw , Clsrw , Clsnrw , Eor , Neor , Outrw/0 , 1 , 2 , 1 , 0 , 1/
+   DATA nlinks/10/
+   DATA nogo/0/
+   DATA ifcstm , ifmpt , ifecpt , ifgpct , ifdit/101 , 102 , 103 , 104 , 105/
+   DATA ifmgg , ifbgg/201 , 202/
+   DATA inrw , clsrw , clsnrw , eor , neor , outrw/0 , 1 , 2 , 1 , 0 , 1/
 END BLOCKDATA sma2bd

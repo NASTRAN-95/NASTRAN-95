@@ -1,12 +1,13 @@
-!*==ifp4.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifp4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp4
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -116,12 +117,12 @@ SUBROUTINE ifp4
 !     DEFINE CORE AND BUFFER POINTERS
 !
          CALL conmsg(msg1,2,0)
-         icore = korsz(Z)
-         buf1 = icore - Sysbuf - 2
-         buf2 = buf1 - Sysbuf - 2
-         buf3 = buf2 - Sysbuf - 2
-         buf4 = buf3 - Sysbuf - 2
-         buf5 = buf4 - Sysbuf - 2
+         icore = korsz(z)
+         buf1 = icore - sysbuf - 2
+         buf2 = buf1 - sysbuf - 2
+         buf3 = buf2 - sysbuf - 2
+         buf4 = buf3 - sysbuf - 2
+         buf5 = buf4 - sysbuf - 2
          icore = buf5 - 1
          icrq = 100 - icore
          IF ( icore<100 ) THEN
@@ -131,30 +132,30 @@ SUBROUTINE ifp4
 !
 !     OPEN AXIC DATA BLOCK (IF NAME NOT IN FIST RETURN - NO MESSAGE)
 !
-         CALL preloc(*720,Z(buf1),axic)
+         CALL preloc(*720,z(buf1),axic)
 !
 !     PICK UP AXIF CARD. (IF AXIF CARD NOT PRESENT - RETURN NO MESSAGE)
 !
-         CALL locate(*720,Z(buf1),axif,flag)
-         CALL read(*740,*20,axic,Z(1),icore,eor,words)
-         WRITE (Output,99001) Ufm
+         CALL locate(*720,z(buf1),axif,flag)
+         CALL read(*740,*20,axic,z(1),icore,eor,words)
+         WRITE (output,99001) ufm
 99001    FORMAT (A23,' 4031, INSUFFICIENT CORE TO READ DATA ON AXIF CARD.')
-         WRITE (Output,99022) icore
+         WRITE (output,99022) icore
 !
 !     FATAL ERROR NO MORE PROCESSING POSSIBLE
 !
-         Nogo = .TRUE.
+         nogo = .TRUE.
          GOTO 720
 !
 !     DATA OF AXIF CARD IS NOW STORED
 !
- 20      csf = Z(1)
+ 20      csf = z(1)
          g = rz(2)
          drho = rz(3)
          j = 3
-         idrho = Z(j)
+         idrho = z(j)
          bd = rz(4)
-         nosym = Z(j+2)
+         nosym = z(j+2)
          in = 6
          nn = words - 1
          ni = nn
@@ -165,25 +166,25 @@ SUBROUTINE ifp4
 !
 !     CONVERT USER INPUT LIST OF HARMONIC NUMBERS TO A LIST OF INDICES.
 !
-            IF ( j/=1 ) CALL sort(0,0,1,1,Z(in),j)
+            IF ( j/=1 ) CALL sort(0,0,1,1,z(in),j)
             ii = nn + 1
             ni = nn
             DO i = in , nn
-               itemp = 2*Z(i)
+               itemp = 2*z(i)
                IF ( nosym/=0 ) THEN
-                  IF ( Z(i)/=0 ) THEN
+                  IF ( z(i)/=0 ) THEN
                      ni = ni + 1
-                     Z(ni) = itemp + 1
+                     z(ni) = itemp + 1
                   ENDIF
                ENDIF
                ni = ni + 1
-               Z(ni) = itemp + 2
+               z(ni) = itemp + 2
             ENDDO
             n = ni - ii + 1
 !
 !     SET MAXIMUM HARMONIC+1 FOR USE BY SDR2C AND VDRB
 !
-            Iaxif = Z(nn) + 1
+            iaxif = z(nn) + 1
          ENDIF
 !
 !     BEGIN GEOM1 PROCESSING
@@ -206,16 +207,15 @@ SUBROUTINE ifp4
             ENDIF
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         CALL preloc(*820,Z(buf2),geom1)
+         CALL preloc(*820,z(buf2),geom1)
          DO i = 1 , 4
             i2 = 2*i
-            CALL locate(*40,Z(buf2),cord(i2-1),flag)
+            CALL locate(*40,z(buf2),cord(i2-1),flag)
             nsize = ncord(i)
             DO
-               CALL read(*780,*40,geom1,Z(ni+1),nsize,noeor,flag)
-               IF ( Z(ni+1)==csf ) THEN
+               CALL read(*780,*40,geom1,z(ni+1),nsize,noeor,flag)
+               IF ( z(ni+1)==csf ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -226,32 +226,31 @@ SUBROUTINE ifp4
 !
 !     FALL THROUGH LOOP IMPLIES COORDINATE SYSTEM WAS NOT FOUND
 !
-         Nogo = .TRUE.
-         WRITE (Output,99002) Ufm , csf
+         nogo = .TRUE.
+         WRITE (output,99002) ufm , csf
 99002    FORMAT (A23,' 4033, COORDINATE SYSTEM ID =',I20,' AS SPECIFIED ','ON AXIF CARD IS NOT PRESENT',/5X,' AMONG ANY OF CORD1C,',&
                 &' CORD1S, CORD2C, OR CORD2S CARD TYPES.',/5X,' CYLINDRICAL TYPE ASSUMED FOR CONTINUING DATA CHECK.')
          corsys = 2
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         corsys = Z(ni+2)
+         corsys = z(ni+2)
          spag_nextblock_1 = 5
       CASE (5)
-         CALL close(geom1,Clsrew)
+         CALL close(geom1,clsrew)
 !
 !     READ INTO CORE FROM AXIC ALL GRIDB CARD IMAGES (5 WORDS / IMAGE)
 !
          anygb = .FALSE.
          igridb = ni + 1
          ngridb = ni
-         CALL locate(*80,Z(buf1),gridb,flag)
+         CALL locate(*80,z(buf1),gridb,flag)
          anygb = .TRUE.
          space = core - ni
-         CALL read(*740,*60,axic,Z(igridb),space,eor,nwords)
-         Nogo = .TRUE.
-         WRITE (Output,99003) Ufm
+         CALL read(*740,*60,axic,z(igridb),space,eor,nwords)
+         nogo = .TRUE.
+         WRITE (output,99003) ufm
 99003    FORMAT (A23,' 4034, INSUFFICIENT CORE TO HOLD GRIDB CARD IMAGES.')
-         WRITE (Output,99022) space
+         WRITE (output,99022) space
          anygb = .FALSE.
          GOTO 80
  60      ngridb = ni + nwords
@@ -261,7 +260,7 @@ SUBROUTINE ifp4
  80      ibdyl = ngridb + 1
          nbdyl = ngridb
          IF ( .NOT.anygb ) GOTO 160
-         CALL locate(*160,Z(buf1),bdylst,flag)
+         CALL locate(*160,z(buf1),bdylst,flag)
          spag_nextblock_1 = 6
       CASE (6)
          CALL read(*740,*100,axic,rhob,1,noeor,flag)
@@ -269,8 +268,8 @@ SUBROUTINE ifp4
             IF ( idrho/=1 ) THEN
                rhob = drho
             ELSE
-               Nogo = .TRUE.
-               WRITE (Output,99004) Ufm
+               nogo = .TRUE.
+               WRITE (output,99004) ufm
 99004          FORMAT (A23,' 4035, THE FLUID DENSITY HAS NOT BEEN SPECIFIED ON ','A BDYLIST CARD AND',/5X,                          &
                       &'THERE IS NO DEFAULT FLUID ','DENSITY SPECIFIED ON THE AXIF CARD.')
                rhob = 1.0
@@ -304,16 +303,16 @@ SUBROUTINE ifp4
 !
             IF ( idf/=-1 ) THEN
                IF ( nbdyl+7<=core ) THEN
-                  Z(nbdyl+1) = idf
-                  Z(nbdyl+2) = 1
-                  Z(nbdyl+3) = 1
-                  Z(nbdyl+4) = 1
-                  Z(nbdyl+5) = idfpre
-                  Z(nbdyl+6) = idfaft
+                  z(nbdyl+1) = idf
+                  z(nbdyl+2) = 1
+                  z(nbdyl+3) = 1
+                  z(nbdyl+4) = 1
+                  z(nbdyl+5) = idfpre
+                  z(nbdyl+6) = idfaft
                   rz(nbdyl+7) = rhob
                   nbdyl = nbdyl + 7
                ELSE
-                  WRITE (Output,99005) Ufm
+                  WRITE (output,99005) ufm
 99005             FORMAT (A23,' 4036, INSUFFICIENT CORE TO BUILD BOUNDARY LIST ','TABLE.')
                   icrq = nbdyl + 7 - core
                   spag_nextblock_1 = 29
@@ -333,34 +332,34 @@ SUBROUTINE ifp4
 !
 !     SORT ENTRIES ON FIRST WORD OF EACH ENTRY.
 !
- 100     CALL sort(0,0,7,1,Z(ibdyl),nbdyl-ibdyl+1)
+ 100     CALL sort(0,0,7,1,z(ibdyl),nbdyl-ibdyl+1)
          entrys = (nbdyl-ibdyl+1)/7
 !
 !     PASS THE RINGFL IMAGES INSERTING X1, X2, AND X3 IN THE APPROPRIATE
 !     BDYLIST ENTRY.
 !
-         CALL locate(*140,Z(buf1),ringfl,flag)
+         CALL locate(*140,z(buf1),ringfl,flag)
  120     DO
             CALL read(*740,*140,axic,buf,4,noeor,flag)
             IF ( corsys==3 ) THEN
                IF ( rbuf(3)==0. ) THEN
-                  Nogo = .TRUE.
-                  WRITE (Output,99023) Ufm , buf(1)
+                  nogo = .TRUE.
+                  WRITE (output,99023) ufm , buf(1)
                ENDIF
             ENDIF
             IF ( buf(corsys+1)/=0 ) THEN
-               Nogo = .TRUE.
+               nogo = .TRUE.
                IF ( corsys==3 ) THEN
-                  WRITE (Output,99006) Ufm , buf(1)
+                  WRITE (output,99006) ufm , buf(1)
 99006             FORMAT (A23,' 4043, COORDINATE SYSTEM IS SPHERICAL BUT RINGFL ','CARD ID =',I20,' HAS A NON-ZERO X3 VALUE.')
                ELSE
-                  WRITE (Output,99007) Ufm , buf(1)
+                  WRITE (output,99007) ufm , buf(1)
 99007             FORMAT (A23,'4042, COORDINATE SYSTEM IS CYLINDRICAL BUT RINGFL ','CARD ID =',I20,' HAS A NON-ZERO X2 VALUE.')
                ENDIF
             ENDIF
-            CALL bisloc(*120,buf(1),Z(ibdyl),7,entrys,jpoint)
+            CALL bisloc(*120,buf(1),z(ibdyl),7,entrys,jpoint)
             ntemp = ibdyl + jpoint - 1
-            IF ( Z(ntemp+1)==1 ) THEN
+            IF ( z(ntemp+1)==1 ) THEN
 !
 !     CHECK TO GET RANGE OF BDYLIST HAVING THIS SAME ID.
 !     THEN FILL IN X1, X2, AND X3 IN THOSE ENTRIES.
@@ -369,44 +368,44 @@ SUBROUTINE ifp4
                SPAG_Loop_2_2: DO
                   ntemp = ntemp - 7
                   IF ( ntemp<ibdyl ) EXIT SPAG_Loop_2_2
-                  IF ( Z(ntemp)/=Z(ntemp+7) ) EXIT SPAG_Loop_2_2
+                  IF ( z(ntemp)/=z(ntemp+7) ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
                ilist = ntemp + 7
                ntemp = nlist
                SPAG_Loop_2_3: DO
                   ntemp = ntemp + 7
                   IF ( ntemp>nbdyl ) EXIT SPAG_Loop_2_3
-                  IF ( Z(ntemp)/=Z(ntemp-7) ) EXIT SPAG_Loop_2_3
+                  IF ( z(ntemp)/=z(ntemp-7) ) EXIT SPAG_Loop_2_3
                ENDDO SPAG_Loop_2_3
                nlist = ntemp - 1
                DO i = ilist , nlist , 7
-                  Z(i+1) = buf(2)
-                  Z(i+2) = buf(3)
-                  Z(i+3) = buf(4)
+                  z(i+1) = buf(2)
+                  z(i+2) = buf(3)
+                  z(i+3) = buf(4)
                ENDDO
             ELSE
-               Nogo = .TRUE.
-               WRITE (Output,99024) Ufm , buf(1)
+               nogo = .TRUE.
+               WRITE (output,99024) ufm , buf(1)
             ENDIF
          ENDDO
 !
 !     CHECK TO SEE THAT X1, X2, AND X3 WERE FOUND FOR ALL ENTRIES.
 !
  140     DO i = ibdyl , nbdyl , 7
-            IF ( Z(i+1)==1 ) THEN
-               Nogo = .TRUE.
-               WRITE (Output,99008) Ufm , Z(i)
+            IF ( z(i+1)==1 ) THEN
+               nogo = .TRUE.
+               WRITE (output,99008) ufm , z(i)
 99008          FORMAT (A23,' 4040, ID =',I20,' APPEARS ON A BDYLIST CARD, BUT ','NO RINGFL CARD IS PRESENT WITH THE SAME ID.')
             ENDIF
          ENDDO
 !
 !     OPEN GEOM1, OPEN SCRATCH1, COPY HEADER REC FROM GEOM1 TO SCRATCH1
 !
- 160     CALL ifp4c(geom1,scrt1,Z(buf2),Z(buf3),g1eof)
+ 160     CALL ifp4c(geom1,scrt1,z(buf2),z(buf3),g1eof)
 !
 !     COPY ALL DATA UP TO FIRST GRID CARD IMAGE.
 !
-         CALL ifp4b(geom1,scrt1,any,Z(nbdyl+1),core-nbdyl,grid,g1eof)
+         CALL ifp4b(geom1,scrt1,any,z(nbdyl+1),core-nbdyl,grid,g1eof)
          anygrd = any
          IF ( .NOT.anygb ) THEN
             spag_nextblock_1 = 11
@@ -434,18 +433,18 @@ SUBROUTINE ifp4
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  card(1) = Z(i)
+                  card(1) = z(i)
                   CALL ifp4e(card(1))
                   card(2) = csf
-                  kid = Z(i+4)
-                  CALL bisloc(*182,kid,Z(ibdyl),7,entrys,point)
+                  kid = z(i+4)
+                  CALL bisloc(*182,kid,z(ibdyl),7,entrys,point)
                   ntemp = ibdyl + point - 1
-                  card(3) = Z(ntemp+1)
-                  card(4) = Z(ntemp+2)
-                  card(5) = Z(ntemp+3)
-                  card(corsys+2) = Z(i+1)
-                  card(6) = Z(i+2)
-                  card(7) = Z(i+3)
+                  card(3) = z(ntemp+1)
+                  card(4) = z(ntemp+2)
+                  card(5) = z(ntemp+3)
+                  card(corsys+2) = z(i+1)
+                  card(6) = z(i+2)
+                  card(7) = z(i+3)
                   card(8) = 0
 !
 !     MERGE CARD IN
@@ -459,8 +458,8 @@ SUBROUTINE ifp4
                   ENDIF
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
- 182              Nogo = .TRUE.
-                  WRITE (Output,99009) Ufm , Z(i) , Z(i+4)
+ 182              nogo = .TRUE.
+                  WRITE (output,99009) ufm , z(i) , z(i+4)
 99009             FORMAT (A23,' 4057, GRIDB CARD WITH ID =',I10,' HAS A REFERENCE ','IDF =',I10,/5X,                                &
                          &'WHICH DOES NOT APPEAR IN A BOUNDARY LIST')
                   CYCLE
@@ -497,13 +496,13 @@ SUBROUTINE ifp4
                rz(i+1) = temp*sin(angle)
                rz(i+2) = temp*cos(angle)
             ELSE
-               Z(i+2) = Z(i+3)
+               z(i+2) = z(i+3)
             ENDIF
          ENDDO
 !
 !     LENGTH AND ASSOCIATED ANGLE COMPONENTS OF A CONICAL SECTION. L,C,S
 !
-         IF ( .NOT.(Nogo) ) THEN
+         IF ( .NOT.(nogo) ) THEN
             DO i = ibdyl , nbdyl , 7
                rj = rz(i+1)
                zj = rz(i+2)
@@ -511,13 +510,13 @@ SUBROUTINE ifp4
 !     FIND R   , Z     AND  R   , Z     (RJL1,ZJL1,RJP1,ZJP1)
 !           J-1   J-1        J+1   J+1
 !
-               IF ( Z(i+4)<0 ) THEN
+               IF ( z(i+4)<0 ) THEN
 !
 !     SECONDARY ID IS AXIS
 !
                   rjl1 = 0
                   zjl1 = zj
-               ELSEIF ( Z(i+4)==0 ) THEN
+               ELSEIF ( z(i+4)==0 ) THEN
 !
 !     SECONDARY ID IS NOT AVAILABLE
 !
@@ -527,8 +526,8 @@ SUBROUTINE ifp4
 !
 !     FIND SECONDARY ID ENTRY
 !
-                  kid = Z(i+4)
-                  CALL bisloc(*840,kid,Z(ibdyl),7,entrys,point)
+                  kid = z(i+4)
+                  CALL bisloc(*840,kid,z(ibdyl),7,entrys,point)
                   ntemp = ibdyl + point - 1
                   rjl1 = rz(ntemp+1)
                   zjl1 = rz(ntemp+2)
@@ -536,13 +535,13 @@ SUBROUTINE ifp4
 !
 !     SECONDARY ID ON PLUS SIDE
 !
-               IF ( Z(i+5)<0 ) THEN
+               IF ( z(i+5)<0 ) THEN
 !
 !     SECONDARY ID IS AXIS
 !
                   rjp1 = 0
                   zjp1 = zj
-               ELSEIF ( Z(i+5)==0 ) THEN
+               ELSEIF ( z(i+5)==0 ) THEN
 !
 !     SECONDARY ID IS NOT AVAILABLE
 !
@@ -552,8 +551,8 @@ SUBROUTINE ifp4
 !
 !     FIND SECONDARY ID ENTRY
 !
-                  kid = Z(i+5)
-                  CALL bisloc(*840,kid,Z(ibdyl),7,entrys,point)
+                  kid = z(i+5)
+                  CALL bisloc(*840,kid,z(ibdyl),7,entrys,point)
                   ntemp = ibdyl + point - 1
                   rjp1 = rz(ntemp+1)
                   zjp1 = rz(ntemp+2)
@@ -573,13 +572,13 @@ SUBROUTINE ifp4
                      rz(i+4) = zz/rz(i+3)
                      rz(i+5) = r/rz(i+3)
                   ELSE
-                     Nogo = .TRUE.
-                     WRITE (Output,99010) Ufm , Z(i)
+                     nogo = .TRUE.
+                     WRITE (output,99010) ufm , z(i)
 99010                FORMAT (A23,' 4045, THE BOUNDARY LIST ENTRY FOR ID =',I9,' HAS A ZERO CROSS-SECTION LENGTH.')
                   ENDIF
                ELSE
-                  Nogo = .TRUE.
-                  WRITE (Output,99011) Ufm , Z(i)
+                  nogo = .TRUE.
+                  WRITE (output,99011) ufm , z(i)
 99011             FORMAT (A23,' 4044, RINGFL CARD ID =',I20,' HAS SPECIFIED A ','ZERO RADIAL LOCATION.')
                ENDIF
             ENDDO
@@ -588,8 +587,8 @@ SUBROUTINE ifp4
 !     SORT GRIDB IMAGES TO BE IN SORT ON RID AND PHI WITHIN EACH RID
 !
          ntemp = ngridb - igridb + 1
-         CALL sort(0,0,5,-2,Z(igridb),ntemp)
-         CALL sort(0,0,5,-5,Z(igridb),ntemp)
+         CALL sort(0,0,5,-2,z(igridb),ntemp)
+         CALL sort(0,0,5,-5,z(igridb),ntemp)
 !
 !     THE BOUNDARY FLUID DATA IS ADDED TO THE MATPOOL DATA BLOCK AS 1
 !     LOCATE RECORD CONTAINING THE FOLLOWING.
@@ -611,7 +610,7 @@ SUBROUTINE ifp4
          file = matpol
          iname = nbdyl + 1
          nname = nbdyl
-         CALL ifp4c(matpol,scrt2,Z(buf4),Z(buf5),mateof)
+         CALL ifp4c(matpol,scrt2,z(buf4),z(buf5),mateof)
          IF ( mateof ) GOTO 320
 !
 !     IF ANY DMIAX CARDS ARE PRESENT THEN THEY ARE MERGED IN FRONT OF
@@ -628,8 +627,8 @@ SUBROUTINE ifp4
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL close(matpol,Clsrew)
-         CALL preloc(*820,Z(buf4),matpol)
+         CALL close(matpol,clsrew)
+         CALL preloc(*820,z(buf4),matpol)
 !
 !     WRITE DMIG HEADER.
 !
@@ -638,7 +637,7 @@ SUBROUTINE ifp4
          buf(3) = 120
          CALL write(scrt2,buf,3,noeor)
          IF ( .NOT.bit ) GOTO 240
-         CALL locate(*240,Z(buf4),dmiax,flag)
+         CALL locate(*240,z(buf4),dmiax,flag)
          ASSIGN 220 TO iretrn
          spag_nextblock_1 = 8
       CASE (8)
@@ -650,8 +649,8 @@ SUBROUTINE ifp4
 !
 !     SAVE NAME
 !
-         Z(iname) = buf(1)
-         Z(iname+1) = buf(2)
+         z(iname) = buf(1)
+         z(iname+1) = buf(2)
          nname = nname + 2
          icrq = nname + 2 - icore
          IF ( icrq>0 ) THEN
@@ -686,7 +685,7 @@ SUBROUTINE ifp4
 !     DMIAX-S ALL COPIED.  NOW COPY ANY DMIG-S.
 !
  240     IF ( .NOT.bit2 ) GOTO 280
-         CALL locate(*280,Z(buf4),dmig,flag)
+         CALL locate(*280,z(buf4),dmig,flag)
          ASSIGN 260 TO iretrn
 !
 !     READ HEADER
@@ -696,13 +695,13 @@ SUBROUTINE ifp4
 !     CHECK THE NAME FOR BEING THE SAME AS ONE ON A DMIAX CARD
 !
          DO i = iname , nname , 2
-            IF ( buf(1)==Z(i) ) THEN
-               IF ( buf(2)==Z(i+1) ) THEN
+            IF ( buf(1)==z(i) ) THEN
+               IF ( buf(2)==z(i+1) ) THEN
 !
 !     ERROR FOR NAME DOES MATCH THAT OF A DMIAX NAME
 !
-                  Nogo = .TRUE.
-                  WRITE (Output,99012) Ufm , buf(1) , buf(2)
+                  nogo = .TRUE.
+                  WRITE (output,99012) ufm , buf(1) , buf(2)
 99012             FORMAT (A23,' 4062, DMIG BULK DATA CARD SPECIFIES DATA BLOCK ',2A4,' WHICH ALSO APPEARS ON A DMIAX CARD.')
                ENDIF
             ENDIF
@@ -734,26 +733,26 @@ SUBROUTINE ifp4
 !     2147483647  = 2**31-1
             itwo31 = 2147483647
             IF ( buf(1)/=itwo31 .AND. (buf(1)/=dmig(1) .OR. buf(2)/=dmig(2)) .AND. (buf(1)/=dmiax(1) .OR. buf(2)/=dmiax(2)) ) THEN
-               CALL read(*780,*300,matpol,Z(nbdyl+1),core-nbdyl,noeor,flag)
-               CALL write(scrt2,Z(nbdyl+1),core-nbdyl,noeor)
+               CALL read(*780,*300,matpol,z(nbdyl+1),core-nbdyl,noeor,flag)
+               CALL write(scrt2,z(nbdyl+1),core-nbdyl,noeor)
             ELSE
                CALL fwdrec(*780,matpol)
             ENDIF
          ENDDO
- 300     CALL write(scrt2,Z(nbdyl+1),flag,eor)
+ 300     CALL write(scrt2,z(nbdyl+1),flag,eor)
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
  320     mateof = .TRUE.
-         CALL ifp4b(matpol,scrt2,any,Z(nbdyl+1),core-nbdyl,bndfl,mateof)
+         CALL ifp4b(matpol,scrt2,any,z(nbdyl+1),core-nbdyl,bndfl,mateof)
          card(1) = 0
          card(2) = 0
          card(3) = 0
          card(4) = n
-         CALL locate(*340,Z(buf1),flsym,flag)
+         CALL locate(*340,z(buf1),flsym,flag)
          CALL read(*740,*760,axic,card,3,eor,flag)
- 340     CALL write(scrt2,Z(1),5,noeor)
+ 340     CALL write(scrt2,z(1),5,noeor)
          CALL write(scrt2,card,4,noeor)
-         CALL write(scrt2,Z(ii),n,noeor)
+         CALL write(scrt2,z(ii),n,noeor)
 !
 !     OUTPUT ENTRIES TO MATPOOL DATA BLOCK.(TEMPORARILY ON SCRT2)
 !
@@ -765,23 +764,23 @@ SUBROUTINE ifp4
 !
             IF ( jsave/=0 ) jgridb = jsave
             jsave = 0
-            IF ( Z(i)==Z(i+7) ) jsave = jgridb
+            IF ( z(i)==z(i+7) ) jsave = jgridb
 !
 !     IF RHO FOR A FLUID POINT IS ZERO WE DO NOT PUT OUT FLUID
 !     DATA AND CONNECTED POINTS.
 !
-            IF ( rz(i+6)/=0 ) CALL write(scrt2,Z(i),7,noeor)
+            IF ( rz(i+6)/=0 ) CALL write(scrt2,z(i),7,noeor)
 !
 !     APPEND GRIDB POINTS WITH THEIR ANGLES.
 !
             SPAG_Loop_2_5: DO WHILE ( jgridb<=ngridb )
-               IF ( Z(jgridb+4)<Z(i) ) THEN
+               IF ( z(jgridb+4)<z(i) ) THEN
                   jgridb = jgridb + 5
-               ELSEIF ( Z(jgridb+4)==Z(i) ) THEN
+               ELSEIF ( z(jgridb+4)==z(i) ) THEN
 !
 !     APPEND THE POINT
 !
-                  IF ( rz(i+6)/=0 ) CALL write(scrt2,Z(jgridb),2,noeor)
+                  IF ( rz(i+6)/=0 ) CALL write(scrt2,z(jgridb),2,noeor)
                   jgridb = jgridb + 5
                ELSE
                   EXIT SPAG_Loop_2_5
@@ -796,7 +795,7 @@ SUBROUTINE ifp4
 !     COMPLETE RECORD.
 !
          CALL write(scrt2,0,0,eor)
-         CALL ifp4b(matpol,scrt2,any,Z(ngridb+1),core-ngridb,mones,mateof)
+         CALL ifp4b(matpol,scrt2,any,z(ngridb+1),core-ngridb,mones,mateof)
          spag_nextblock_1 = 11
       CASE (11)
 !
@@ -817,13 +816,13 @@ SUBROUTINE ifp4
          ENDIF
  360     iring = ngridb + 1
          nring = ngridb
-         CALL locate(*400,Z(buf1),ringfl,flag)
-         CALL read(*740,*380,axic,Z(iring),core-iring,noeor,flag)
-         WRITE (Output,99013) Ufm
+         CALL locate(*400,z(buf1),ringfl,flag)
+         CALL read(*740,*380,axic,z(iring),core-iring,noeor,flag)
+         WRITE (output,99013) ufm
 99013    FORMAT (A23,' 4047, INSUFFICIENT CORE TO HOLD RINGFL IMAGES.')
          icrq = core - iring
-         WRITE (Output,99022) icrq
-         Nogo = .TRUE.
+         WRITE (output,99022) icrq
+         nogo = .TRUE.
          GOTO 720
  380     nring = iring + flag - 1
 !
@@ -833,7 +832,7 @@ SUBROUTINE ifp4
 !
 !     SORT RINGFL IDS
 !
-            CALL sort(0,0,4,1,Z(iring),flag)
+            CALL sort(0,0,4,1,z(iring),flag)
             card(2) = 0
             rcard(5) = 0.0
 !
@@ -844,32 +843,32 @@ SUBROUTINE ifp4
             card(7) = 0
             card(8) = 0
             DO i = ii , ni
-               index = Z(i)*500000
+               index = z(i)*500000
                SPAG_Loop_2_6: DO k = iring , nring , 4
 !
 !     CALL IFP4E TO CHECK ID RANGE 1 TO 99999
 !
-                  CALL ifp4e(Z(k))
+                  CALL ifp4e(z(k))
                   IF ( k/=iring ) THEN
-                     IF ( Z(k)==ztemp ) THEN
-                        Nogo = .TRUE.
-                        WRITE (Output,99024) Ufm , Z(k)
+                     IF ( z(k)==ztemp ) THEN
+                        nogo = .TRUE.
+                        WRITE (output,99024) ufm , z(k)
                      ENDIF
                   ENDIF
-                  ztemp = Z(k)
-                  card(1) = Z(k) + index
+                  ztemp = z(k)
+                  card(1) = z(k) + index
                   IF ( corsys==3 ) THEN
                      angle = rz(k+2)*degrad
                      rcard(3) = rz(k+1)*sin(angle)
                      rcard(4) = rz(k+1)*cos(angle)
                      IF ( rcard(3)==0.0 ) THEN
-                        Nogo = .TRUE.
-                        WRITE (Output,99023) Ufm , Z(k)
+                        nogo = .TRUE.
+                        WRITE (output,99023) ufm , z(k)
                         EXIT SPAG_Loop_2_6
                      ENDIF
                   ELSE
-                     card(3) = Z(k+1)
-                     card(4) = Z(k+3)
+                     card(3) = z(k+1)
+                     card(4) = z(k+3)
                   ENDIF
                   CALL write(scrt1,card,8,noeor)
                ENDDO SPAG_Loop_2_6
@@ -887,7 +886,7 @@ SUBROUTINE ifp4
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL ifp4b(geom1,scrt1,any,Z(nring+1),core-nring,seqgp,g1eof)
+         CALL ifp4b(geom1,scrt1,any,z(nring+1),core-nring,seqgp,g1eof)
 !
 !     COPY ALL SEQGP CARDS OVER ALSO (ID-S MUST BE OF CORRECT VALUE).
 !
@@ -903,11 +902,11 @@ SUBROUTINE ifp4
 !     NOW OUTPUT SEQGP CARDS FOR HARMONICS OF EACH RINGFL.
 !
  420     DO i = ii , ni
-            index = Z(i)*500000
-            ntemp = Z(i) - 1
+            index = z(i)*500000
+            ntemp = z(i) - 1
             DO k = iring , nring , 4
-               card(1) = Z(k) + index
-               card(2) = Z(k)*1000 + ntemp
+               card(1) = z(k) + index
+               card(2) = z(k)*1000 + ntemp
                CALL write(scrt1,card,2,noeor)
             ENDDO
          ENDDO
@@ -920,7 +919,7 @@ SUBROUTINE ifp4
 !     COPY BALANCE OF GEOM1 TO SCRT1 (IF ANY MORE, WRAP UP, AND COPY
 !     BACK)
 !
-         CALL ifp4b(geom1,scrt1,any,Z(nring+1),core-nring,mones,g1eof)
+         CALL ifp4b(geom1,scrt1,any,z(nring+1),core-nring,mones,g1eof)
 !
 !     IF THERE ARE NO HARMONICS THEN ONLY GRID CARDS ARE CREATED FROM
 !     GRIDB CARDS.
@@ -935,24 +934,24 @@ SUBROUTINE ifp4
 !
 !     OPEN GEOM2, AND SCRT1. COPY HEADER FROM GEOM2 TO SCRT1.
 !
-         CALL ifp4c(geom2,scrt1,Z(buf2),Z(buf3),g2eof)
+         CALL ifp4c(geom2,scrt1,z(buf2),z(buf3),g2eof)
 !
 !     PROCESS CFLUID2, CFLUID3, AND CFLUID4 CARDS.
 !
          DO i = 1 , 3
             i2 = 2*i
-            CALL locate(*440,Z(buf1),cfluid(i2-1),flag)
+            CALL locate(*440,z(buf1),cfluid(i2-1),flag)
 !
 !     COPY DATA FROM GEOM2 TO SCRT1 UP TO POINT WHERE CFLUID CARDS GO
 !     AND WRITE 3-WORD RECORD ID.
 !
-            CALL ifp4b(geom2,scrt1,any,Z(ni+1),core-ni,cfluid(2*i-1),g2eof)
+            CALL ifp4b(geom2,scrt1,any,z(ni+1),core-ni,cfluid(2*i-1),g2eof)
             DO
                CALL read(*740,*430,axic,card,i+4,noeor,flag)
                IF ( card(i+3)==1 ) THEN
                   IF ( idrho==1 ) THEN
-                     Nogo = .TRUE.
-                     WRITE (Output,99014) Ufm , card(1)
+                     nogo = .TRUE.
+                     WRITE (output,99014) ufm , card(1)
 99014                FORMAT (A23,' 4058, THE FLUID DENSITY HAS NOT BEEN SPECIFIED ON ','A CFLUID CARD WITH ID =',I10,/5X,           &
                             &'AND THERE IS NO DEFAULT ON THE AXIF CARD.')
                   ENDIF
@@ -960,8 +959,8 @@ SUBROUTINE ifp4
                ENDIF
                IF ( card(i+4)==1 ) THEN
                   IF ( ibd==1 ) THEN
-                     Nogo = .TRUE.
-                     WRITE (Output,99015) Ufm , card(1)
+                     nogo = .TRUE.
+                     WRITE (output,99015) ufm , card(1)
 99015                FORMAT (A23,' 4059, THE FLUID BULK MODULUS HAS NOT BEEN SPECIFIED',' ON A CFLUID CARD WITH ID =',I10,/5X,      &
                             &'AND THERE IS NO ','DEFAULT ON THE AXIF CARD.')
                   ENDIF
@@ -976,12 +975,12 @@ SUBROUTINE ifp4
                ENDDO
 !
                DO k = ii , ni
-                  card(1) = saveid(1)*1000 + Z(k)
-                  index = 500000*Z(k)
+                  card(1) = saveid(1)*1000 + z(k)
+                  index = 500000*z(k)
                   DO l = 2 , ntemp
                      card(l) = saveid(l) + index
                   ENDDO
-                  card(ntemp+3) = (Z(k)-1)/2
+                  card(ntemp+3) = (z(k)-1)/2
                   CALL write(scrt1,card,ntemp+3,noeor)
                ENDDO
             ENDDO
@@ -995,15 +994,15 @@ SUBROUTINE ifp4
 !
          ifslst = ni + 1
          nfslst = ni
-         CALL locate(*480,Z(buf1),fslst,flag)
+         CALL locate(*480,z(buf1),fslst,flag)
          SPAG_Loop_1_7: DO
             CALL read(*740,*460,axic,rhob,1,noeor,flag)
             IF ( irhob==1 ) THEN
                IF ( idrho/=1 ) THEN
                   rhob = drho
                ELSE
-                  Nogo = .TRUE.
-                  WRITE (Output,99016) Ufm
+                  nogo = .TRUE.
+                  WRITE (output,99016) ufm
 99016             FORMAT (A23,' 4048, THE FLUID DENSITY HAS NOT BEEN SPECIFIED ON ','AN FSLIST CARD AND',/5X,                       &
                          &'THERE IS NO DEFAULT FLUID ','DENSITY SPECIFIED ON THE AXIF CARD.')
                   rhob = 1.0
@@ -1016,18 +1015,18 @@ SUBROUTINE ifp4
                IF ( idfaft==-1 ) idfaft = -2
                IF ( idfaft==0 ) idfaft = -1
                IF ( nfslst+3<=core ) THEN
-                  Z(nfslst+1) = idf
-                  Z(nfslst+2) = idfaft
+                  z(nfslst+1) = idf
+                  z(nfslst+2) = idfaft
                   rz(nfslst+3) = rhob
                   nfslst = nfslst + 3
                   IF ( idfaft==-2 ) CYCLE SPAG_Loop_1_7
                   idf = idfaft
                ELSE
-                  WRITE (Output,99017) Ufm
+                  WRITE (output,99017) ufm
 99017             FORMAT (A23,' 4049, INSUFFICIENT CORE TO BUILD FREE SURFACE ','LIST TABLE.')
                   icrq = nfslst + 3 - core
-                  WRITE (Output,99022) icrq
-                  Nogo = .TRUE.
+                  WRITE (output,99022) icrq
+                  nogo = .TRUE.
                   GOTO 720
                ENDIF
             ENDDO
@@ -1038,29 +1037,29 @@ SUBROUTINE ifp4
 !     SLOT
 !
  460     IF ( nfslst>ifslst ) THEN
-            CALL ifp4b(geom2,scrt1,any,Z(nfslst+1),core-nfslst,cfsmas,g2eof)
+            CALL ifp4b(geom2,scrt1,any,z(nfslst+1),core-nfslst,cfsmas,g2eof)
             entrys = (nfslst-ifslst+1)/3
             k = 0
             DO i = ifslst , nfslst , 3
-               IF ( Z(i+1)/=-2 ) THEN
+               IF ( z(i+1)/=-2 ) THEN
                   k = k + 1000000
                   rcard(4) = rz(i+2)*g
                   DO l = ii , ni
-                     index = 500000*Z(l)
-                     card(1) = k + Z(l)
-                     card(2) = Z(i) + index
-                     IF ( Z(i)<=0 ) card(2) = Z(i+1) + index
-                     card(3) = Z(i+1) + index
-                     IF ( Z(i+1)<=0 ) card(3) = Z(i) + index
-                     card(5) = (Z(l)-1)/2
+                     index = 500000*z(l)
+                     card(1) = k + z(l)
+                     card(2) = z(i) + index
+                     IF ( z(i)<=0 ) card(2) = z(i+1) + index
+                     card(3) = z(i+1) + index
+                     IF ( z(i+1)<=0 ) card(3) = z(i) + index
+                     card(5) = (z(l)-1)/2
                      CALL write(scrt1,card,5,noeor)
                   ENDDO
                ENDIF
             ENDDO
             CALL write(scrt1,0,0,eor)
          ELSE
-            Nogo = .TRUE.
-            WRITE (Output,99018) Ufm
+            nogo = .TRUE.
+            WRITE (output,99018) ufm
 99018       FORMAT (A23,' 4050, FSLIST CARD HAS INSUFFICIENT IDF DATA, OR ','FSLIST DATA MISSING.')
          ENDIF
 !
@@ -1069,12 +1068,12 @@ SUBROUTINE ifp4
 !
 !     OPEN GEOM4 AND SCRT2 AND COPY HEADER RECORD FROM GEOM4 TO SCRT2.
 !
- 480     CALL ifp4c(geom4,scrt2,Z(buf4),Z(buf5),g4eof)
+ 480     CALL ifp4c(geom4,scrt2,z(buf4),z(buf5),g4eof)
 !
 !     COPY ALL DATA ON GEOM4 TO SCRT2 UP TO AND INCLUDING 3-WORD RECORD
 !     HEADER OF MPC-RECORD.
 !
-         CALL ifp4b(geom4,scrt2,any,Z(nfslst+1),core-nfslst,mpc,g4eof)
+         CALL ifp4b(geom4,scrt2,any,z(nfslst+1),core-nfslst,mpc,g4eof)
 !
 !     COPY ANY MPC IMAGES HAVING A SET ID .LT. 103 TO SCRT2. ERROR
 !     MESSAGE IF ANY HAVE ID = 102.  MAINTAIN A LIST OF SETID-S LESS
@@ -1096,8 +1095,8 @@ SUBROUTINE ifp4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                IF ( id==102 ) THEN
-                  Nogo = .TRUE.
-                  WRITE (Output,99019) Ufm
+                  nogo = .TRUE.
+                  WRITE (output,99019) ufm
 99019             FORMAT (A23,' 4051, AN MPC CARD HAS A SET ID SPECIFIED = 102. ',' SET 102 IS ILLEGAL WHEN FLUID DATA IS PRESENT.')
                ENDIF
                CALL write(scrt2,id,1,noeor)
@@ -1106,7 +1105,7 @@ SUBROUTINE ifp4
 !
                IF ( id/=idlast ) THEN
                   nmpc = nmpc + 1
-                  Z(nmpc) = id
+                  z(nmpc) = id
                ENDIF
                SPAG_Loop_2_8: DO
 !
@@ -1135,8 +1134,8 @@ SUBROUTINE ifp4
 !     IF THERE IS NO FREE SURFACE LIST, FREEPT CARDS ARE NOT USED.
 !
          IF ( nfslst<ifslst ) GOTO 560
-         CALL sort(0,0,3,1,Z(ifslst),nfslst-ifslst+1)
-         CALL locate(*560,Z(buf1),freept,flag)
+         CALL sort(0,0,3,1,z(ifslst),nfslst-ifslst+1)
+         CALL locate(*560,z(buf1),freept,flag)
          spag_nextblock_1 = 15
       CASE (15)
 !
@@ -1156,14 +1155,14 @@ SUBROUTINE ifp4
 !
 !     LOOK UP RHOB IN FSLIST TABLE
 !
-            CALL bisloc(*520,idf,Z(ifslst),3,entrys,point)
+            CALL bisloc(*520,idf,z(ifslst),3,entrys,point)
             ntemp = ifslst + point + 1
             rcard(4) = -abs(rz(ntemp)*g)
          ENDIF
          spag_nextblock_1 = 16
          CYCLE SPAG_DispatchLoop_1
- 520     Nogo = .TRUE.
-         WRITE (Output,99020) Ufm , idf
+ 520     nogo = .TRUE.
+         WRITE (output,99020) ufm , idf
 99020    FORMAT (A23,' 4052, IDF =',I10,' ON A FREEPT CARD DOES NOT ','APPEAR ON ANY FSLIST CARD.')
          spag_nextblock_1 = 16
       CASE (16)
@@ -1174,15 +1173,15 @@ SUBROUTINE ifp4
 !
          IF ( nspnt+1<=core ) THEN
             nspnt = nspnt + 1
-            Z(nspnt) = card(2)
+            z(nspnt) = card(2)
             card(2) = 0
 !
 !     HARMONIC COEFFICIENT DATA
 !
             DO i = ii , ni
-               card(1) = 500000*Z(i) + idf
-               nn = (Z(i)-1)/2
-               IF ( mod(Z(i),2)==0 ) THEN
+               card(1) = 500000*z(i) + idf
+               nn = (z(i)-1)/2
+               IF ( mod(z(i),2)==0 ) THEN
                   rcard(3) = cos(float(nn)*angle)
                ELSE
                   rcard(3) = sin(float(nn)*angle)
@@ -1193,18 +1192,18 @@ SUBROUTINE ifp4
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (Output,99021) Ufm
+            WRITE (output,99021) ufm
 99021       FORMAT (A23,' 4053, INSUFFICIENT CORE TO PERFORM OPERATIONS ','REQUIRED AS A RESULT OF FREEPT OR PRESPT DATA CARDS')
             icrq = nspnt + 1 - core
-            WRITE (Output,99022) icrq
-            Nogo = .TRUE.
+            WRITE (output,99022) icrq
+            nogo = .TRUE.
             GOTO 720
          ENDIF
 !
 !     CREATE MPC CARDS AND SPOINTS AS A RESULT OF PRESPT DATA.
 !
  540     IF ( press ) GOTO 580
- 560     CALL locate(*580,Z(buf1),prespt,flag)
+ 560     CALL locate(*580,z(buf1),prespt,flag)
          press = .TRUE.
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
@@ -1220,25 +1219,25 @@ SUBROUTINE ifp4
 !     RECORD HEADER FOR SPOINTS
 !
          file = geom2
-         CALL ifp4b(geom2,scrt1,any,Z(nspnt+1),core-nspnt,spoint,g2eof)
+         CALL ifp4b(geom2,scrt1,any,z(nspnt+1),core-nspnt,spoint,g2eof)
          IF ( .NOT.any ) THEN
             spag_nextblock_1 = 17
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO
-            CALL read(*780,*600,geom2,Z(nspnt+1),core-nspnt,noeor,flag)
-            CALL write(scrt1,Z(nspnt+1),core-nspnt,noeor)
+            CALL read(*780,*600,geom2,z(nspnt+1),core-nspnt,noeor,flag)
+            CALL write(scrt1,z(nspnt+1),core-nspnt,noeor)
          ENDDO
- 600     CALL write(scrt1,Z(nspnt+1),flag,noeor)
+ 600     CALL write(scrt1,z(nspnt+1),flag,noeor)
          spag_nextblock_1 = 17
       CASE (17)
-         CALL write(scrt1,Z(ispnt),nspnt-ispnt+1,eor)
+         CALL write(scrt1,z(ispnt),nspnt-ispnt+1,eor)
          spag_nextblock_1 = 18
       CASE (18)
 !
 !     COPY BALANCE OF GEOM2 TO SCRT1,CLOSE THEM, AND SWITCH DESIGNATIONS
 !
-         CALL ifp4b(geom2,scrt1,any,Z(nmpc+1),core-nmpc,-1,g2eof)
+         CALL ifp4b(geom2,scrt1,any,z(nmpc+1),core-nmpc,-1,g2eof)
 !
 !     END OF GEOM2 PROCESSING
 !     ***********************
@@ -1255,7 +1254,7 @@ SUBROUTINE ifp4
 !
                   idlast = id
                   nmpc = nmpc + 1
-                  Z(nmpc) = id
+                  z(nmpc) = id
                ENDIF
                CALL write(scrt2,id,1,noeor)
                DO
@@ -1286,7 +1285,7 @@ SUBROUTINE ifp4
             spag_nextblock_1 = 20
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL ifp4b(geom4,scrt2,any,Z(nmpc+1),core-nmpc,type,g4eof)
+         CALL ifp4b(geom4,scrt2,any,z(nmpc+1),core-nmpc,type,g4eof)
          IF ( set102 ) THEN
             card(1) = 200000000
             card(2) = 102
@@ -1298,8 +1297,8 @@ SUBROUTINE ifp4
 !
          IF ( nmpc>=impc ) THEN
             DO i = impc , nmpc
-               card(1) = Z(i) + 200000000
-               card(2) = Z(i)
+               card(1) = z(i) + 200000000
+               card(2) = z(i)
                nn = 3
                IF ( set102 ) THEN
                   card(3) = 102
@@ -1335,7 +1334,7 @@ SUBROUTINE ifp4
 !
 !     ALL PROCESSING COMPLETE ON GEOM4
 !
-            CALL ifp4b(geom4,scrt2,any,Z(1),core,mones,g4eof)
+            CALL ifp4b(geom4,scrt2,any,z(1),core,mones,g4eof)
             GOTO 720
          ELSE
 !
@@ -1356,7 +1355,7 @@ SUBROUTINE ifp4
 !
 !     COPY GEOM4 TO SCRT2 UP TO SPC CARDS
 !
-            CALL ifp4b(geom4,scrt2,any,Z(ispc),core-ispc,spc,g4eof)
+            CALL ifp4b(geom4,scrt2,any,z(ispc),core-ispc,spc,g4eof)
          ENDIF
          DO
 !
@@ -1366,11 +1365,11 @@ SUBROUTINE ifp4
             IF ( id/=idlast ) THEN
                IF ( id/=102 ) THEN
                   nspc = nspc + 1
-                  Z(nspc) = id
+                  z(nspc) = id
                   idlast = id
                ELSE
-                  Nogo = .TRUE.
-                  WRITE (Output,99025) Ufm
+                  nogo = .TRUE.
+                  WRITE (output,99025) ufm
                ENDIF
             ENDIF
             CALL write(scrt2,id,1,noeor)
@@ -1391,7 +1390,7 @@ SUBROUTINE ifp4
 !
 !     COPY FROM GEOM4 TO SCRT2 UP TO SPC1 DATA.
 !
-         CALL ifp4b(geom4,scrt2,any,Z(nspc+1),core-nspc-2,spc1,g4eof)
+         CALL ifp4b(geom4,scrt2,any,z(nspc+1),core-nspc-2,spc1,g4eof)
 !
 !     COPY SPC1-S UP TO SETID .GE. 103.  SET 102 IS ILLEGAL FOR USER.
 !
@@ -1404,15 +1403,15 @@ SUBROUTINE ifp4
                spag_nextblock_1 = 24
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Nogo = .TRUE.
-            WRITE (Output,99025) Ufm
+            nogo = .TRUE.
+            WRITE (output,99025) ufm
          ENDIF
 !
 !     ADD ID TO LIST IF NOT YET IN LIST
 !
          IF ( nspc>=ispc ) THEN
             DO i = ispc , nspc
-               IF ( id==Z(i) ) THEN
+               IF ( id==z(i) ) THEN
                   spag_nextblock_1 = 23
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -1422,7 +1421,7 @@ SUBROUTINE ifp4
 !     ADD ID TO LIST
 !
          nspc = nspc + 1
-         Z(nspc) = id
+         z(nspc) = id
          spag_nextblock_1 = 23
       CASE (23)
          CALL write(scrt2,id,1,noeor)
@@ -1447,12 +1446,12 @@ SUBROUTINE ifp4
 !     GENERATION OF HARMONIC SPC1-S
 !
             DO i = ifslst , nfslst , 3
-               IF ( Z(i)/=-1 ) THEN
+               IF ( z(i)/=-1 ) THEN
                   card(1) = 102
                   card(2) = 0
                   CALL write(scrt2,card,2,noeor)
                   DO j = ii , ni
-                     CALL write(scrt2,Z(i)+500000*Z(j),1,noeor)
+                     CALL write(scrt2,z(i)+500000*z(j),1,noeor)
                   ENDDO
                   CALL write(scrt2,minus1,1,noeor)
                ENDIF
@@ -1473,7 +1472,7 @@ SUBROUTINE ifp4
          spag_nextblock_1 = 25
       CASE (25)
          DO i = ispc , nspc
-            IF ( id==Z(i) ) THEN
+            IF ( id==z(i) ) THEN
                spag_nextblock_1 = 27
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -1484,7 +1483,7 @@ SUBROUTINE ifp4
 !     ID NOT IN LIST, THUS ADD IT.
 !
          nspc = nspc + 1
-         Z(nspc) = id
+         z(nspc) = id
          spag_nextblock_1 = 27
       CASE (27)
 !
@@ -1507,7 +1506,7 @@ SUBROUTINE ifp4
 !
 !     SORT LIST OF SPC AND SPC1 ID-S
 !
-         CALL sort(0,0,1,1,Z(ispc),nspc-ispc+1)
+         CALL sort(0,0,1,1,z(ispc),nspc-ispc+1)
          spag_nextblock_1 = 28
       CASE (28)
 !
@@ -1525,7 +1524,7 @@ SUBROUTINE ifp4
 !
 !     AXIC FILE NOT IN FIST OR AXIF CARD IS MISSING, THUS DO NOTHING.
 !
- 720     CALL close(axic,Clsrew)
+ 720     CALL close(axic,clsrew)
          CALL conmsg(msg2,2,0)
          RETURN
 !
@@ -1549,7 +1548,6 @@ SUBROUTINE ifp4
          CYCLE SPAG_DispatchLoop_1
  820     ier = -1
          spag_nextblock_1 = 30
-         CYCLE SPAG_DispatchLoop_1
       CASE (29)
          ier = -8
          file = icrq

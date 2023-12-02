@@ -1,16 +1,17 @@
-!*==curv3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==curv3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE curv3
+   USE c_blank
+   USE c_curvc1
+   USE c_curvc2
+   USE c_curvc3
+   USE c_curvtb
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CURVC1
-   USE C_CURVC2
-   USE C_CURVC3
-   USE C_CURVTB
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -145,89 +146,89 @@ SUBROUTINE curv3
 !
 !  BRING OES1G -ID- RECORD INTO CORE AND MODIFY AS NECESSARY.
 !
-         File = Scr3
-         Loc = 50
-         CALL open(*60,Scr3,Iz(Ibuf1),Rdrew)
-         CALL read(*80,*100,Scr3,Idrec(1),146,noeor,Nwords)
-         CALL close(Scr3,Clsrew)
+         file = scr3
+         loc = 50
+         CALL open(*60,scr3,iz(ibuf1),rdrew)
+         CALL read(*80,*100,scr3,idrec(1),146,noeor,nwords)
+         CALL close(scr3,clsrew)
 !
 !
 !
 !
 !  OVERALL LOOP IS ON ENTRIES OF TABLE(IMCSID-NMCSID)
 !
-         Jmcsid = Imcsid
+         jmcsid = imcsid
          spag_nextblock_1 = 2
       CASE (2)
 !
-         Mcsid = Iz(Jmcsid)
-         Indpts = Iz(Jmcsid+1)
-         Loc = 100
-         IF ( Indpts<0 ) GOTO 40
-         IF ( Indpts==0 ) THEN
+         mcsid = iz(jmcsid)
+         indpts = iz(jmcsid+1)
+         loc = 100
+         IF ( indpts<0 ) GOTO 40
+         IF ( indpts==0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !  COLLECT DATA REQUIRED FROM SCR2.
 !
-         File = Scr2
+         file = scr2
 !
 !  CORE ALLOCATION FOR XC, YC, ZC OF EACH INDEPENDENT POINT.
 !
-         Iindep = Ncstm + 1
-         Nindep = Ncstm + 3*Indpts
+         iindep = ncstm + 1
+         nindep = ncstm + 3*indpts
 !
 !  CORE ALLOCATION FOR EXT-ID,X,Y,Z OF EACH UNIQUE DEPENDENT POINT.
 !  (THE QUANTITY OF DEPENDENT POINTS IS NOT YET KNOWN.)
 !
-         Idep = Nindep + 1
-         Ndep = Nindep
-         Loc = 110
-         icrq = Ndep - Jcore
-         IF ( Ndep>Jcore ) THEN
+         idep = nindep + 1
+         ndep = nindep
+         loc = 110
+         icrq = ndep - jcore
+         IF ( ndep>jcore ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         CALL open(*60,Scr2,Iz(Ibuf1),Rdrew)
-         File = Scr3
-         CALL open(*60,Scr3,Iz(Ibuf2),Wrtrew)
+         CALL open(*60,scr2,iz(ibuf1),rdrew)
+         file = scr3
+         CALL open(*60,scr3,iz(ibuf2),wrtrew)
 !
-         Jindep = Iindep
-         File = Scr2
+         jindep = iindep
+         file = scr2
 !
 !  FIND -INDPTS- NUMBER OF INDEPENDENT ELEMENT POINTS ENTRIES
 !  FOR CURRENT -MCSID- PASS. (LOGIC ERROR IF CAN NOT FIND THIS MANY)
 !
-         DO I = 1 , Indpts
+         DO i = 1 , indpts
             SPAG_Loop_2_1: DO
 !
 !  READ ELEMENT INDEPENDENT PORTION OF ENTRY
 !
-               Loc = 150
-               CALL read(*80,*100,Scr2,Buf(1),11,noeor,Nwords)
-               Npts = Buf(11)
-               Npts4 = 4*Npts
+               loc = 150
+               CALL read(*80,*100,scr2,buf(1),11,noeor,nwords)
+               npts = buf(11)
+               npts4 = 4*npts
 !
 !  CHECK MCSID OF ENTRY TO BE SAME AS ONE OF THIS PASS.
 !
-               IF ( Buf(1)==Mcsid ) THEN
+               IF ( buf(1)==mcsid ) THEN
 !
 !  YES, THIS ENTRY IS OF CURRENT PASS MCSID. ADD POINT DATA TO CORE.
 !  FIRST OUTPUT SIGMAS TO SCR3
 !
-                  CALL write(Scr3,Buf(2),6,noeor)
-                  z(Jindep) = rbuf(8)
-                  z(Jindep+1) = rbuf(9)
-                  z(Jindep+2) = rbuf(10)
-                  Jindep = Jindep + 3
+                  CALL write(scr3,buf(2),6,noeor)
+                  z(jindep) = rbuf(8)
+                  z(jindep+1) = rbuf(9)
+                  z(jindep+2) = rbuf(10)
+                  jindep = jindep + 3
 !
 !  INDEPENDENT POINTS NOT YET IN CORE ARE ADDED.
 !
-                  CALL read(*80,*100,Scr2,Buf(1),Npts4,noeor,Nwords)
-                  K = Npts
-                  DO J = 1 , Npts
+                  CALL read(*80,*100,scr2,buf(1),npts4,noeor,nwords)
+                  k = npts
+                  DO j = 1 , npts
                      spag_nextblock_2 = 1
                      SPAG_DispatchLoop_2: DO
                         SELECT CASE (spag_nextblock_2)
@@ -235,9 +236,9 @@ SUBROUTINE curv3
 !
 !  CHECK IF EXTERNAL ID IS IN TABLE YET.
 !
-                           IF ( Ndep>=Idep ) THEN
-                              DO L = Idep , Ndep , 4
-                                 IF ( Buf(J)==Iz(L) ) THEN
+                           IF ( ndep>=idep ) THEN
+                              DO l = idep , ndep , 4
+                                 IF ( buf(j)==iz(l) ) THEN
                                     spag_nextblock_2 = 2
                                     CYCLE SPAG_DispatchLoop_2
                                  ENDIF
@@ -246,20 +247,20 @@ SUBROUTINE curv3
 !
 !  NOT YET IN THUS ADD IT TO TABLE
 !
-                           icrq = Ndep + 4 - Jcore
-                           IF ( Ndep+4>Jcore ) THEN
+                           icrq = ndep + 4 - jcore
+                           IF ( ndep+4>jcore ) THEN
                               spag_nextblock_1 = 6
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
-                           Iz(Ndep+1) = Buf(J)
-                           z(Ndep+2) = rbuf(K+1)
-                           z(Ndep+3) = rbuf(K+2)
-                           z(Ndep+4) = rbuf(K+3)
-                           Ndep = Ndep + 4
+                           iz(ndep+1) = buf(j)
+                           z(ndep+2) = rbuf(k+1)
+                           z(ndep+3) = rbuf(k+2)
+                           z(ndep+4) = rbuf(k+3)
+                           ndep = ndep + 4
                            spag_nextblock_2 = 2
                         CASE (2)
 !
-                           K = K + 3
+                           k = k + 3
                            EXIT SPAG_DispatchLoop_2
                         END SELECT
                      ENDDO SPAG_DispatchLoop_2
@@ -270,8 +271,8 @@ SUBROUTINE curv3
 !
 !  NO IT IS NOT THUS SKIP BALANCE OF ENTRY.
 !
-                  Loc = 170
-                  CALL read(*80,*100,Scr2,0,-Npts4,noeor,Nwords)
+                  loc = 170
+                  CALL read(*80,*100,scr2,0,-npts4,noeor,nwords)
                ENDIF
             ENDDO SPAG_Loop_2_1
 !
@@ -279,21 +280,21 @@ SUBROUTINE curv3
 !*****
 !  ALL DATA FOR CURRENT MCSID HAS BEEN COLLECTED FROM SCR2.
 !*****
-         CALL close(Scr2,Clsrew)
-         CALL close(Scr3,Clsrew)
+         CALL close(scr2,clsrew)
+         CALL close(scr3,clsrew)
 !
 !  DEPENDENT COORDINATES ARE SORTED ON EXTERNAL-ID.
 !
-         CALL sort(0,0,4,1,z(Idep),Ndep-Idep+1)
+         CALL sort(0,0,4,1,z(idep),ndep-idep+1)
 !*****
 !  CONVERSION OF INDEPENDENT AND DEPENDENT POINTS TO LOCAL
 !  MATERIAL COORDINATE SYSTEM. FIRST GET CSTM DATA TO USE.
 !*****
-         Loc = 400
-         CALL bisloc(*40,Mcsid,Iz(Icstm),14,Cstms,Jp)
-         Ivmat = Icstm + Jp + 1
-         Itran = Ivmat + 3
-         Ictype = Iz(Ivmat-1)
+         loc = 400
+         CALL bisloc(*40,mcsid,iz(icstm),14,cstms,jp)
+         ivmat = icstm + jp + 1
+         itran = ivmat + 3
+         ictype = iz(ivmat-1)
 !
 !  FOR EACH POINT
 !                               T
@@ -302,162 +303,162 @@ SUBROUTINE curv3
 !
 !                    (3X1)   (3X3)   (3X1)   (3X1)
 !
-         DO I = Iindep , Nindep , 3
-            Vec(1) = z(I) - z(Ivmat)
-            Vec(2) = z(I+1) - z(Ivmat+1)
-            Vec(3) = z(I+2) - z(Ivmat+2)
-            CALL gmmats(z(Itran),3,3,1,Vec(1),3,1,0,z(I))
+         DO i = iindep , nindep , 3
+            vec(1) = z(i) - z(ivmat)
+            vec(2) = z(i+1) - z(ivmat+1)
+            vec(3) = z(i+2) - z(ivmat+2)
+            CALL gmmats(z(itran),3,3,1,vec(1),3,1,0,z(i))
          ENDDO
 !
-         DO I = Idep , Ndep , 4
-            Vec(1) = z(I+1) - z(Ivmat)
-            Vec(2) = z(I+2) - z(Ivmat+1)
-            Vec(3) = z(I+3) - z(Ivmat+2)
-            CALL gmmats(z(Itran),3,3,1,Vec(1),3,1,0,z(I+1))
+         DO i = idep , ndep , 4
+            vec(1) = z(i+1) - z(ivmat)
+            vec(2) = z(i+2) - z(ivmat+1)
+            vec(3) = z(i+3) - z(ivmat+2)
+            CALL gmmats(z(itran),3,3,1,vec(1),3,1,0,z(i+1))
          ENDDO
 !*****
 !  CONVERSION OF INDEPENDENT POINT LOCAL COORDINATES TO MAPPING
 !  COORDINATES. (IF MCSID IS A RECTANGULAR SYSTEM THEN NO CHANGE.)
 !*****
-         Loc = 490
-         IF ( Ictype<1 .OR. Ictype>3 ) GOTO 40
-         IF ( Ictype==1 ) THEN
-         ELSEIF ( Ictype==3 ) THEN
+         loc = 490
+         IF ( ictype<1 .OR. ictype>3 ) GOTO 40
+         IF ( ictype==1 ) THEN
+         ELSEIF ( ictype==3 ) THEN
 !
 !  SPHERICAL COORDINATES
 !
             avgl = 0.0
-            DO I = Iindep , Nindep , 3
-               xsqysq = z(I)**2 + z(I+1)**2
+            DO i = iindep , nindep , 3
+               xsqysq = z(i)**2 + z(i+1)**2
                fl = sqrt(xsqysq)
-               Vec(1) = sqrt(xsqysq+z(I+2)**2)
-               avgl = avgl + Vec(1)
-               IF ( Vec(1)>0.0 ) THEN
-                  Vec(2) = atan2(fl,z(I+2))
+               vec(1) = sqrt(xsqysq+z(i+2)**2)
+               avgl = avgl + vec(1)
+               IF ( vec(1)>0.0 ) THEN
+                  vec(2) = atan2(fl,z(i+2))
                ELSE
-                  Vec(2) = 0.0
+                  vec(2) = 0.0
                ENDIF
                IF ( fl>0.0 ) THEN
-                  Vec(3) = atan2(z(I+1),z(I))
+                  vec(3) = atan2(z(i+1),z(i))
                ELSE
-                  Vec(3) = 0.0
+                  vec(3) = 0.0
                ENDIF
-               z(I) = Vec(1)
-               z(I+1) = Vec(2)
-               z(I+2) = Vec(3)
+               z(i) = vec(1)
+               z(i+1) = vec(2)
+               z(i+2) = vec(3)
             ENDDO
-            avgl = avgl/float(Indpts)
+            avgl = avgl/float(indpts)
          ELSE
 !
 !  CYLINDRICAL COORDINATES
 !
             avgl = 0.0
-            DO I = Iindep , Nindep , 3
-               Vec(1) = sqrt(z(I)**2+z(I+1)**2)
-               avgl = avgl + Vec(1)
-               IF ( Vec(1)<=0.0 ) THEN
-                  z(I+1) = 0.0
+            DO i = iindep , nindep , 3
+               vec(1) = sqrt(z(i)**2+z(i+1)**2)
+               avgl = avgl + vec(1)
+               IF ( vec(1)<=0.0 ) THEN
+                  z(i+1) = 0.0
                ELSE
-                  z(I+1) = atan2(z(I+1),z(I))
+                  z(i+1) = atan2(z(i+1),z(i))
                ENDIF
-               z(I) = Vec(1)
+               z(i) = vec(1)
             ENDDO
-            avgl = avgl/float(Indpts)
+            avgl = avgl/float(indpts)
          ENDIF
 !*****
 !  CONVERSION OF DEPENDENT POINT LOCAL COORDINATES TO MAPPING
 !  COORDINATES.
 !  (IF MCSID IS RECTANGULAR SYSTEM THEN NO CHANGE.)
 !*****
-         IF ( Ictype==1 ) THEN
-         ELSEIF ( Ictype==3 ) THEN
+         IF ( ictype==1 ) THEN
+         ELSEIF ( ictype==3 ) THEN
 !
 !  SPHERICAL COORDINATES
 !
-            DO I = Idep , Ndep , 4
-               xsqysq = z(I+1)**2 + z(I+2)**2
+            DO i = idep , ndep , 4
+               xsqysq = z(i+1)**2 + z(i+2)**2
                fl = sqrt(xsqysq)
-               Vec(1) = sqrt(xsqysq+z(I+3)**2)
-               IF ( Vec(1)>0.0 ) THEN
-                  Vec(2) = atan2(fl,z(I+3))
+               vec(1) = sqrt(xsqysq+z(i+3)**2)
+               IF ( vec(1)>0.0 ) THEN
+                  vec(2) = atan2(fl,z(i+3))
                ELSE
-                  Vec(2) = 0.0
+                  vec(2) = 0.0
                ENDIF
                IF ( fl>0.0 ) THEN
-                  Vec(3) = atan2(z(I+2),z(I+1))
+                  vec(3) = atan2(z(i+2),z(i+1))
                ELSE
-                  Vec(3) = 0.0
+                  vec(3) = 0.0
                ENDIF
-               z(I+1) = Vec(1)
-               z(I+2) = Vec(2)
-               z(I+3) = Vec(3)
+               z(i+1) = vec(1)
+               z(i+2) = vec(2)
+               z(i+3) = vec(3)
             ENDDO
          ELSE
 !
 !  CYLINDRICAL COORDINATES
 !
-            DO I = Idep , Ndep , 4
-               Vec(1) = sqrt(z(I+1)**2+z(I+2)**2)
-               IF ( Vec(1)<=0.0 ) THEN
-                  z(I+2) = 0.0
+            DO i = idep , ndep , 4
+               vec(1) = sqrt(z(i+1)**2+z(i+2)**2)
+               IF ( vec(1)<=0.0 ) THEN
+                  z(i+2) = 0.0
                ELSE
-                  z(I+2) = atan2(z(I+2),z(I+1))
+                  z(i+2) = atan2(z(i+2),z(i+1))
                ENDIF
-               z(I+1) = Vec(1)
+               z(i+1) = vec(1)
             ENDDO
          ENDIF
 !
 !  SET MAXIMUM AND MIMIMUM X,Y,Z VALUES.
 !
-         DO I = 1 , 3
-            Vmax(I) = z(Iindep+I-1)
-            Vmin(I) = z(Iindep+I-1)
+         DO i = 1 , 3
+            vmax(i) = z(iindep+i-1)
+            vmin(i) = z(iindep+i-1)
          ENDDO
 !
-         DO I = Iindep , Nindep , 3
-            DO J = 1 , 3
-               Vmax(J) = amax1(z(I+J-1),Vmax(J))
-               Vmin(J) = amin1(z(I+J-1),Vmin(J))
+         DO i = iindep , nindep , 3
+            DO j = 1 , 3
+               vmax(j) = amax1(z(i+j-1),vmax(j))
+               vmin(j) = amin1(z(i+j-1),vmin(j))
             ENDDO
          ENDDO
 !
 !  SET THE X,Y,Z RANGES
 !
-         DO I = 1 , 3
-            Vmax(I) = Vmax(I) - Vmin(I)
-            Vec(I) = Vmax(I)
+         DO i = 1 , 3
+            vmax(i) = vmax(i) - vmin(i)
+            vec(i) = vmax(i)
          ENDDO
 !
-         IF ( Ictype/=1 ) THEN
-            Vmax(2) = avgl*Vmax(2)
-            IF ( Ictype/=2 ) Vmax(3) = avgl*Vmax(3)
+         IF ( ictype/=1 ) THEN
+            vmax(2) = avgl*vmax(2)
+            IF ( ictype/=2 ) vmax(3) = avgl*vmax(3)
          ENDIF
 !
 !  DIRECTION YIELDING MINIMUM RANGE DETERMINES PROJECTION
 !
-         IF ( Vmax(1)<Vmax(2) ) THEN
-            IF ( Vmax(3)>=Vmax(1) ) THEN
-               K1 = 2
-               K2 = 3
+         IF ( vmax(1)<vmax(2) ) THEN
+            IF ( vmax(3)>=vmax(1) ) THEN
+               k1 = 2
+               k2 = 3
                kctype = 1
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-         ELSEIF ( Vmax(2)<Vmax(3) ) THEN
-            K1 = 1
-            K2 = 3
+         ELSEIF ( vmax(2)<vmax(3) ) THEN
+            k1 = 1
+            k2 = 3
             kctype = 2
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         K1 = 1
-         K2 = 2
+         k1 = 1
+         k2 = 2
          kctype = 3
          spag_nextblock_1 = 3
       CASE (3)
 !
-         xrange = Vec(K1)
-         yrange = Vec(K2)
+         xrange = vec(k1)
+         yrange = vec(k2)
          IF ( xrange==0 ) xrange = 1.0
          IF ( yrange==0 ) yrange = 1.0
 !
@@ -467,60 +468,60 @@ SUBROUTINE curv3
 !  TABLES OF X,Y PAIRS. FIRST TO GAIN SOME CORE, EXTERNAL
 !  IDS- ARE WRITTEN TO SCR4.
 !
-         File = Scr4
-         Loc = 714
-         CALL open(*60,Scr4,Iz(Ibuf1),Wrtrew)
-         DO I = Idep , Ndep , 4
-            CALL write(Scr4,Iz(I),1,noeor)
+         file = scr4
+         loc = 714
+         CALL open(*60,scr4,iz(ibuf1),wrtrew)
+         DO i = idep , ndep , 4
+            CALL write(scr4,iz(i),1,noeor)
          ENDDO
-         CALL close(Scr4,Clsrew)
+         CALL close(scr4,clsrew)
 !
 !  REDUCE INDEPENDENT POINTS TO XY PAIRS, SCALE BY X AND Y RANGES
 !  RESPECTIVELY, AND COMPRESS IN CORE.
 !
-         J = Iindep
-         DO I = Iindep , Nindep , 3
-            z(J) = z(I+K1-1)/xrange
-            z(J+1) = z(I+K2-1)/yrange
-            J = J + 2
+         j = iindep
+         DO i = iindep , nindep , 3
+            z(j) = z(i+k1-1)/xrange
+            z(j+1) = z(i+k2-1)/yrange
+            j = j + 2
          ENDDO
-         Nindep = J - 1
+         nindep = j - 1
 !
 !  REDUCE DEPENDENT POINTS LIST. (J IS STILL GOOD)
 !
-         DO I = Idep , Ndep , 4
-            z(J) = z(I+K1)/xrange
-            z(J+1) = z(I+K2)/yrange
-            J = J + 2
+         DO i = idep , ndep , 4
+            z(j) = z(i+k1)/xrange
+            z(j+1) = z(i+k2)/yrange
+            j = j + 2
          ENDDO
-         Idep = Nindep + 1
-         Ndep = J - 1
-         Depts = (Ndep-Idep+1)/2
+         idep = nindep + 1
+         ndep = j - 1
+         depts = (ndep-idep+1)/2
 !*****
 !  INDEPENDENT AND DEPENDENT POINT COORDINATE LISTS ARE NOW
 !  COMPLETE.  CALL FOR INTERPOLATION.
 !*****
-         CALL curvit(z(Iindep),Indpts,z(Idep),Depts,Scr5,z(Ndep+1),Iz(Ndep+1),Lcore-Ndep-1,Ip2,15.0,Mcsid,xrange,yrange)
+         CALL curvit(z(iindep),indpts,z(idep),depts,scr5,z(ndep+1),iz(ndep+1),lcore-ndep-1,ip2,15.0,mcsid,xrange,yrange)
 !
 !  BRING -OES1M- SIGMAS INTO CORE FOR CURRENT -MCSID- PASS.
 !
-         Isigma = Iindep + 1
-         Nsigma = Iindep + 6*Indpts
-         jsigma = Isigma - 7
-         icrq = Nsigma - Ibuf3
-         IF ( Nsigma>=Ibuf3 ) THEN
+         isigma = iindep + 1
+         nsigma = iindep + 6*indpts
+         jsigma = isigma - 7
+         icrq = nsigma - ibuf3
+         IF ( nsigma>=ibuf3 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         File = Scr3
-         Loc = 800
-         CALL open(*60,Scr3,Iz(Ibuf1),Rdrew)
-         CALL read(*80,*20,Scr3,Iz(Isigma),Ibuf3-Isigma,noeor,Nwords)
-         Loc = 810
+         file = scr3
+         loc = 800
+         CALL open(*60,scr3,iz(ibuf1),rdrew)
+         CALL read(*80,*20,scr3,iz(isigma),ibuf3-isigma,noeor,nwords)
+         loc = 810
          GOTO 40
 !
- 20      IF ( Nwords/=6*Indpts ) GOTO 40
-         CALL close(Scr3,Clsrew)
+ 20      IF ( nwords/=6*indpts ) GOTO 40
+         CALL close(scr3,clsrew)
 !
 !    (SIGMAS                ) = (G)(SIGMAS                        )
 !           DEPENDENT POINTS              OES1M INDEPENDENT POINTS
@@ -530,65 +531,65 @@ SUBROUTINE curv3
 !  OWN. THIS ELIMINATES NECESSITY OF HOLDING ANOTHER SIGMA ARRAY
 !  IN CORE.
 !
-         File = Oes1g
-         Loc = 815
-         CALL open(*60,Oes1g,Iz(Ibuf1),Wrt)
+         file = oes1g
+         loc = 815
+         CALL open(*60,oes1g,iz(ibuf1),wrt)
 !
 !  OUTPUT ID RECORD. PREVIOUSLY PREPARED.
 !
-         Idrec(3) = Idrec(3) + 2000
-         CALL write(Oes1g,Idrec(1),146,eor)
-         mcb(1) = Oes1g
+         idrec(3) = idrec(3) + 2000
+         CALL write(oes1g,idrec(1),146,eor)
+         mcb(1) = oes1g
          CALL wrttrl(mcb(1))
-         Any1g = .TRUE.
+         any1g = .TRUE.
 !
 !  OPEN SCR5 CONTAINING ROWS OF THE G-MATRIX.
 !
-         File = Scr5
-         CALL open(*60,Scr5,Iz(Ibuf3),Rdrew)
-         CALL fwdrec(*80,Scr5)
+         file = scr5
+         CALL open(*60,scr5,iz(ibuf3),rdrew)
+         CALL fwdrec(*80,scr5)
 !
 !  OPEN SCR4 CONTAINING LIST OF EXTERNAL IDS )
 !
-         File = Scr4
-         CALL open(*60,Scr4,Iz(Ibuf2),Rdrew)
+         file = scr4
+         CALL open(*60,scr4,iz(ibuf2),rdrew)
 !
 !  COMPUTE AND OUTPUT SIGMAS FOR THE DEPENDENT POINTS
 !
-         Buf(2) = Mcsid
-         DO I = 1 , Depts
+         buf(2) = mcsid
+         DO i = 1 , depts
 !
 !  READ THE EXTERNAL ID
 !
-            File = Scr4
-            CALL read(*80,*100,Scr4,Buf(1),1,noeor,Nwords)
-            File = Scr5
+            file = scr4
+            CALL read(*80,*100,scr4,buf(1),1,noeor,nwords)
+            file = scr5
 !
 !  INITIALIZE SIGMAS(DEPENDENT POINT) TO ZERO
 !
-            DO J = 3 , 8
-               rbuf(J) = 0.0
+            DO j = 3 , 8
+               rbuf(j) = 0.0
             ENDDO
 !
-            K = 0
-            Loc = 825
+            k = 0
+            loc = 825
             DO
 !
 !  READ ACTIVE INDEX AND G-VALUE FROM SCRATCH 5
 !
-               CALL read(*80,*30,Scr5,rbuf(11),2,noeor,Nwords)
-               K = K + 10
-               idx = jsigma + 6*Buf(11)
-               DO J = 1 , 6
-                  rbuf(J+2) = rbuf(J+2) + rbuf(12)*z(idx+J)
+               CALL read(*80,*30,scr5,rbuf(11),2,noeor,nwords)
+               k = k + 10
+               idx = jsigma + 6*buf(11)
+               DO j = 1 , 6
+                  rbuf(j+2) = rbuf(j+2) + rbuf(12)*z(idx+j)
                ENDDO
             ENDDO
 !
 !  IF THERE WERE ANY G-VALUES THEN NOW COMPLETE THE OUTPUT LINE.
 !
- 30         IF ( K>0 ) THEN
+ 30         IF ( k>0 ) THEN
 !
-               Buf(10) = K + kctype
+               buf(10) = k + kctype
 !
                rbuf(11) = rbuf(6)
                rbuf(12) = rbuf(7)
@@ -598,7 +599,7 @@ SUBROUTINE curv3
 !
                CALL curvps(rbuf(3),rbuf(6))
                CALL curvps(rbuf(11),rbuf(14))
-               IF ( Strain ) THEN
+               IF ( strain ) THEN
                   rbuf(5) = 2.0*rbuf(5)
                   rbuf(9) = 2.0*rbuf(9)
                   rbuf(13) = 2.0*rbuf(13)
@@ -607,24 +608,24 @@ SUBROUTINE curv3
 !
 !  APPEND DEVICE CODE TO EXTERNAL ID AND OUTPUT LINE
 !
-               Buf(1) = 10*Buf(1) + Device
-               CALL write(Oes1g,Buf(1),17,noeor)
+               buf(1) = 10*buf(1) + device
+               CALL write(oes1g,buf(1),17,noeor)
             ENDIF
          ENDDO
 !
-         CALL write(Oes1g,0,0,eor)
-         IF ( Eofos1 .AND. Jmcsid+2>Nmcsid ) CALL close(Oes1g,Clsrew)
-         CALL close(Oes1g,Cls)
-         CALL close(Scr4,Clsrew)
-         CALL close(Scr5,Clsrew)
+         CALL write(oes1g,0,0,eor)
+         IF ( eofos1 .AND. jmcsid+2>nmcsid ) CALL close(oes1g,clsrew)
+         CALL close(oes1g,cls)
+         CALL close(scr4,clsrew)
+         CALL close(scr5,clsrew)
          spag_nextblock_1 = 4
       CASE (4)
 !*****
 !  ALL INDEPENDENT POINTS OUTPUT TO OES1G FOR 1 ACTIVE MCSID OF
 !  CURRENT SUBCASE. GO TO NEXT MCSID.
 !*****
-         Jmcsid = Jmcsid + 2
-         IF ( Jmcsid<=Nmcsid ) THEN
+         jmcsid = jmcsid + 2
+         IF ( jmcsid<=nmcsid ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -637,23 +638,21 @@ SUBROUTINE curv3
 !*****
 !  ERROR CONDITION ENCOUNTERED
 !*****
- 40      Imsg = -Logerr
+ 40      imsg = -logerr
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 60      Imsg = -1
+ 60      imsg = -1
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 80      Imsg = -2
+ 80      imsg = -2
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 100     Imsg = -3
+ 100     imsg = -3
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
-         Imsg = -8
-         Lcore = icrq
+         imsg = -8
+         lcore = icrq
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE curv3

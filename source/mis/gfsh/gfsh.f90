@@ -2,9 +2,9 @@
  
 SUBROUTINE gfsh(Nuy,H)
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -17,6 +17,15 @@ SUBROUTINE gfsh(Nuy,H)
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
    REAL , DIMENSION(2) :: rz
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -41,8 +50,8 @@ SUBROUTINE gfsh(Nuy,H)
 !
 !     ALLOCATE CORE
 !
-   nz = korsz(Z(1))
-   ibuf = nz - Sysbuf
+   nz = korsz(z(1))
+   ibuf = nz - sysbuf
    nz = ibuf - 1
    IF ( nz<Nuy ) THEN
 !
@@ -53,16 +62,16 @@ SUBROUTINE gfsh(Nuy,H)
    ENDIF
    nuy1 = Nuy - 1
    CALL makmcb(mcb,H,nuy1,2,2)
-   Ti1 = 1
-   To1 = 2
-   I1 = 1
-   N1 = nuy1
-   Incr1 = 1
+   ti1 = 1
+   to1 = 2
+   i1 = 1
+   n1 = nuy1
+   incr1 = 1
 !
    DO i = 1 , Nuy
       rz(i) = -1.0/float(Nuy)
    ENDDO
-   CALL gopen(H,Z(ibuf),1)
+   CALL gopen(H,z(ibuf),1)
    DO i = 1 , Nuy
       rz(i) = float(nuy1)/float(Nuy)
       CALL pack(rz(2),H,mcb)
@@ -70,5 +79,4 @@ SUBROUTINE gfsh(Nuy,H)
    ENDDO
    CALL close(H,1)
    CALL wrttrl(mcb)
-   RETURN
 99999 END SUBROUTINE gfsh

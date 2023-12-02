@@ -2,12 +2,12 @@
  
 SUBROUTINE stri31
    IMPLICIT NONE
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_TERMS
+   USE c_hmtout
+   USE c_matin
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_terms
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -36,6 +36,12 @@ SUBROUTINE stri31
    REAL , DIMENSION(300) :: relout
    INTEGER , DIMENSION(3) :: sil
    REAL , DIMENSION(9) :: tbg , teb , tem , tes , teu , tsb , tsm , tub , tum , tus , uem
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -144,11 +150,11 @@ SUBROUTINE stri31
    nnode = 3
    mominr = 0.0
    ts = 0.0
-   Eltemp = tempel
-   Elid = nest(1)
-   Z1o = Est(18)
-   Z2o = Est(19)
-   Pido = nest(11) - hunmeg
+   eltemp = tempel
+   elid = nest(1)
+   z1o = est(18)
+   z2o = est(19)
+   pido = nest(11) - hunmeg
    mcsid = nest(21)
    scsid = nest(24)
    flags = nest(25)
@@ -160,9 +166,9 @@ SUBROUTINE stri31
 !
 !     START FILLING IN THE DATA BLOCKS
 !
-   Ielout(1) = Elid
+   ielout(1) = elid
    DO i = 1 , 3
-      Ielout(3+(i-1)*25) = sil(i)
+      ielout(3+(i-1)*25) = sil(i)
       DO j = 1 , 3
          relout(25*i+j-1) = bgpdt(j+1,i)
       ENDDO
@@ -170,11 +176,11 @@ SUBROUTINE stri31
 !
 !     SET UP THE ELEMENT FORMULATION
 !
-   CALL t3sets(ierr,sil,igpdt,elth,gpth,dgpth,egpdt,gpnorm,epnorm,Iorder,teb,tub,cente,avgthk,lx,ly,edglen,Elid)
+   CALL t3sets(ierr,sil,igpdt,elth,gpth,dgpth,egpdt,gpnorm,epnorm,iorder,teb,tub,cente,avgthk,lx,ly,edglen,elid)
    IF ( ierr==0 ) THEN
       CALL gmmats(teb,3,3,0,tub,3,3,1,teu)
       DO i = 1 , 3
-         Silo(i) = sil(i)
+         silo(i) = sil(i)
       ENDDO
 !
 !     SET THE NUMBER OF DOF'S
@@ -197,10 +203,10 @@ SUBROUTINE stri31
 !     STRESS TRANSFORMATIONS
 !
       IF ( userst ) THEN
-         Est(24) = 0.0
+         est(24) = 0.0
          nest(25) = 0
       ENDIF
-      CALL shcsgs(*300,nest(25),nest(24),Est(24),nest(25),nest(24),Est(24),necpt,tub,scsid,thetas,tus)
+      CALL shcsgs(*300,nest(25),nest(24),est(24),nest(25),nest(24),est(24),necpt,tub,scsid,thetas,tus)
       CALL gmmats(teu,3,3,0,tus,3,3,0,tes)
 !
 !     OBTAIN MATERIAL INFORMATION
@@ -208,9 +214,9 @@ SUBROUTINE stri31
 !     SET MATERIAL FLAGS
 !     0.83333333 = 5.0/6.0
 !
-      IF ( nest(13)/=0 ) mominr = Est(14)
-      IF ( nest(13)/=0 ) ts = Est(16)
-      IF ( Est(16)==0.0 ) ts = 0.83333333
+      IF ( nest(13)/=0 ) mominr = est(14)
+      IF ( nest(13)/=0 ) ts = est(16)
+      IF ( est(16)==0.0 ) ts = 0.83333333
       IF ( nest(13)==0 .AND. nest(11)>hunmeg ) ts = 0.83333333
 !
       mid(1) = nest(11)
@@ -218,11 +224,11 @@ SUBROUTINE stri31
       mid(3) = nest(15)
       mid(4) = nest(20)
 !
-      Membrn = mid(1)>0
-      Bendng = mid(2)>0 .AND. mominr>0.0
-      Shrflx = mid(3)>0
-      Mbcoup = mid(4)>0
-      Norpth = .FALSE.
+      membrn = mid(1)>0
+      bendng = mid(2)>0 .AND. mominr>0.0
+      shrflx = mid(3)>0
+      mbcoup = mid(4)>0
+      norpth = .FALSE.
 !
 !     SET UP TRANSFORMATION MATRIX FROM MATERIAL TO ELEMENT COORD. SYSTM
 !
@@ -230,7 +236,7 @@ SUBROUTINE stri31
 !
 !     BRANCH ON FORMULATION TYPE, HEAT
 !
-      IF ( Itherm/=0 ) THEN
+      IF ( itherm/=0 ) THEN
 !
 !
 !     BEGINNING OF HEAT FORCE RECOVERY
@@ -245,20 +251,20 @@ SUBROUTINE stri31
 !
          sheart = .FALSE.
          ipt = 4
-         CALL t3bmgs(ierr,sheart,ipt,Iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmatrx)
+         CALL t3bmgs(ierr,sheart,ipt,iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmatrx)
          IF ( ierr==0 ) THEN
 !
-            Matid = nest(11)
-            Inflag = 2
+            matid = nest(11)
+            inflag = 2
             thetas = thetas - thetam
-            Sinmat = sin(thetas)
-            Cosmat = cos(thetas)
-            CALL hmat(Elid)
+            sinmat = sin(thetas)
+            cosmat = cos(thetas)
+            CALL hmat(elid)
 !
-            drkce(1) = Kheat(1)
-            drkce(2) = Kheat(2)
-            drkce(3) = Kheat(2)
-            drkce(4) = Kheat(3)
+            drkce(1) = kheat(1)
+            drkce(2) = kheat(2)
+            drkce(3) = kheat(2)
+            drkce(4) = kheat(3)
 !
             tes(3) = tes(4)
             tes(4) = tes(5)
@@ -272,34 +278,34 @@ SUBROUTINE stri31
 !
          CALL gmmats(teu,3,3,0,tum,3,3,0,tem)
          CALL gmmats(tes,3,3,1,tem,3,3,0,tsm)
-         CALL shgmgs(*400,Elid,tsm,mid,ts,noalfa,gi,rho,gsube,Tsub0,egnor,alpha)
+         CALL shgmgs(*400,elid,tsm,mid,ts,noalfa,gi,rho,gsube,tsub0,egnor,alpha)
 !
 !     TURN OFF THE COUPLING FLAG WHEN MID4 IS PRESENT WITH ALL
 !     CALCULATED ZERO TERMS.
 !
-         IF ( Mbcoup ) THEN
+         IF ( mbcoup ) THEN
             DO i = 28 , 36
                IF ( abs(gi(i))>eps ) GOTO 20
             ENDDO
-            Mbcoup = .FALSE.
+            mbcoup = .FALSE.
          ENDIF
 !
 !     CONTINUE FILLING IN THE DATA BLOCKS
 !
- 20      Ph1rst(1) = avgthk
-         Ph1rst(2) = mominr
-         Ph1rst(48) = offset
+ 20      ph1rst(1) = avgthk
+         ph1rst(2) = mominr
+         ph1rst(48) = offset
          relout(2) = avgthk
 !
 !     PUT NORMALS IN IELOUT, GRID THICKNESS IN PH1OUT
 !
          DO i = 1 , nnode
-            io = Iorder(i)
+            io = iorder(i)
             iop = (io-1)*25 + 21
             relout(iop+1) = gpnorm(2,i)
             relout(iop+2) = gpnorm(3,i)
             relout(iop+3) = gpnorm(4,i)
-            Ph1rst(44+io) = dgpth(i)
+            ph1rst(44+io) = dgpth(i)
          ENDDO
 !
 !     CALCULATE [TSB] AND STORE IT IN IELOUT.
@@ -316,7 +322,7 @@ SUBROUTINE stri31
 !     STORE ALPHA IN PH1RST(39-44)
 !
          DO ialf = 1 , 6
-            Ph1rst(38+ialf) = alpha(ialf)
+            ph1rst(38+ialf) = alpha(ialf)
          ENDDO
 !
 !     STORE UEM IN PH1RST(49-57)
@@ -324,44 +330,44 @@ SUBROUTINE stri31
 !
          CALL shstts(tem,uem,vem)
          DO ll = 1 , 9
-            Ph1rst(48+ll) = uem(ll)
-            Ph1rst(57+ll) = tes(ll)
+            ph1rst(48+ll) = uem(ll)
+            ph1rst(57+ll) = tes(ll)
          ENDDO
 !
 !     STORE THE 6X6 [G] IN PH1RST
 !
          DO ig = 3 , 38
-            Ph1rst(ig) = 0.0
+            ph1rst(ig) = 0.0
          ENDDO
 !
-         IF ( Membrn ) THEN
+         IF ( membrn ) THEN
             DO ig = 1 , 3
                ig1 = (ig-1)*6 + 2
                ig2 = (ig-1)*3
                DO jg = 1 , 3
-                  Ph1rst(ig1+jg) = gi(ig2+jg)
+                  ph1rst(ig1+jg) = gi(ig2+jg)
                ENDDO
             ENDDO
          ENDIF
 !
-         IF ( Bendng ) THEN
+         IF ( bendng ) THEN
             DO ig = 1 , 3
                ig1 = (ig-1)*6 + 23
                ig2 = (ig-1)*3 + 9
                DO jg = 1 , 3
-                  Ph1rst(ig1+jg) = gi(ig2+jg)*mominr
+                  ph1rst(ig1+jg) = gi(ig2+jg)*mominr
                ENDDO
             ENDDO
 !
-            IF ( Mbcoup ) THEN
+            IF ( mbcoup ) THEN
                DO ig = 1 , 3
                   ig3 = (ig-1)*3
                   ig1 = ig3 + 5
                   ig2 = ig3 + 27
                   ig3 = ig3 + 20
                   DO jg = 1 , 3
-                     Ph1rst(ig1+jg) = gi(ig2+jg)
-                     Ph1rst(ig3+jg) = gi(ig2+jg)
+                     ph1rst(ig1+jg) = gi(ig2+jg)
+                     ph1rst(ig3+jg) = gi(ig2+jg)
                   ENDDO
                ENDDO
             ENDIF
@@ -372,13 +378,13 @@ SUBROUTINE stri31
          DO i = 1 , nnode
             ip = 67 + (i-1)*9
             CALL transs(igpdt(1,i),tbg)
-            CALL gmmats(teb,3,3,0,tbg,3,3,0,Ph1rst(ip))
+            CALL gmmats(teb,3,3,0,tbg,3,3,0,ph1rst(ip))
          ENDDO
 !
 !     GET THE GEOMETRY CORRECTION TERMS
 !
-         IF ( Bendng ) THEN
-            CALL t3gems(ierr,egpdt,Iorder,gi(10),gi(19),lx,ly,edglen,Shrflx,aic,jog,jok,k11,k22)
+         IF ( bendng ) THEN
+            CALL t3gems(ierr,egpdt,iorder,gi(10),gi(19),lx,ly,edglen,shrflx,aic,jog,jok,k11,k22)
             IF ( ierr/=0 ) GOTO 100
          ENDIF
 !
@@ -390,7 +396,7 @@ SUBROUTINE stri31
 !
             DO ipt = 1 , 3
                kpt = (ipt-1)*nd9 + 1
-               CALL t3bmgs(ierr,sheart,ipt,Iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmat1(kpt))
+               CALL t3bmgs(ierr,sheart,ipt,iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmat1(kpt))
                IF ( ierr/=0 ) GOTO 100
             ENDDO
 !
@@ -409,7 +415,7 @@ SUBROUTINE stri31
 !
          DO ipt = 4 , 7
 !
-            CALL t3bmgs(ierr,sheart,ipt,Iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmatrx)
+            CALL t3bmgs(ierr,sheart,ipt,iorder,egpdt,dgpth,aic,th,detjac,shpt,bterms,bmatrx)
             IF ( ierr/=0 ) GOTO 100
 !
             IF ( int==0 ) THEN
@@ -423,14 +429,14 @@ SUBROUTINE stri31
 !
 !     STORE THICKNESS
 !
-            Ph1rst(icount+1) = th
+            ph1rst(icount+1) = th
 !
 !     STORE [G3]
 !
-            IF ( .NOT.Bendng ) THEN
+            IF ( .NOT.bendng ) THEN
 !
                DO ig = 1 , 4
-                  Ph1rst(icount+1+ig) = 0.0
+                  ph1rst(icount+1+ig) = 0.0
                ENDDO
             ELSE
                reali = mominr*th*th*th/12.0
@@ -446,20 +452,20 @@ SUBROUTINE stri31
                IF ( ising/=1 ) GOTO 100
 !
                DO ig = 1 , 4
-                  Ph1rst(icount+1+ig) = zz(ig)
+                  ph1rst(icount+1+ig) = zz(ig)
                ENDDO
             ENDIF
 !
 !     STORE SHAPE FUNCTION VALUES
 !
             DO i = 1 , nnode
-               Ph1rst(icount+5+i) = shpt(i)
+               ph1rst(icount+5+i) = shpt(i)
             ENDDO
 !
 !     STORE THE STRAIN RECOVERY MATRIX
 !
             DO iph = 1 , nd8
-               Ph1rst(icount+8+iph) = bmatrx(iph)
+               ph1rst(icount+8+iph) = bmatrx(iph)
             ENDDO
 !
 !     END OF THE EVALUATION LOOP
@@ -502,6 +508,6 @@ SUBROUTINE stri31
    nest(2) = mid(3)
 !
  500  CALL mesage(30,j,nest(1))
-   Nogo = 1
+   nogo = 1
 !
 99999 END SUBROUTINE stri31

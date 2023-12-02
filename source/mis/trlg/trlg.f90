@@ -1,9 +1,10 @@
-!*==trlg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trlg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trlg
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -69,7 +70,7 @@ SUBROUTINE trlg
    ah = scr5
    mcb(1) = ap
    CALL rdtrl(mcb)
-   IF ( mcb(2)>0 ) CALL trlgb(usetd,ap,gmd,god,phidh,as,ad,ah,Ip1,scr6,scr7,scr8,scr9)
+   IF ( mcb(2)>0 ) CALL trlgb(usetd,ap,gmd,god,phidh,as,ad,ah,ip1,scr6,scr7,scr8,scr9)
 !
 !     PRODUCE TIME FUNCTION MATRIX
 !
@@ -81,6 +82,6 @@ SUBROUTINE trlg
 !
 !     COMPUTE LOAD FACTORS
 !
-      CALL trlgd(fct,fco,ap,as,ad,ah,ppo,pso,pdo,pd,ph,Ip1,scr2,ip2)
+      CALL trlgd(fct,fco,ap,as,ad,ah,ppo,pso,pdo,pd,ph,ip1,scr2,ip2)
    ENDIF
 END SUBROUTINE trlg

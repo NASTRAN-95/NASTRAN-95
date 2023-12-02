@@ -1,17 +1,18 @@
-!*==bdat02.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bdat02.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bdat02
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_cmbfnd
+   USE c_output
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_CMBFND
-   USE C_OUTPUT
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -44,60 +45,60 @@ SUBROUTINE bdat02
       CASE (1)
 !
          DO i = 1 , 96
-            Ihead(i) = iblnk
+            ihead(i) = iblnk
          ENDDO
          j = 1
          DO i = 73 , 88
-            Ihead(i) = ihd(j)
+            ihead(i) = ihd(j)
             j = j + 1
          ENDDO
          print = .FALSE.
-         IF ( andf(rshift(Iprint,3),1)==1 ) print = .TRUE.
-         np2 = 2*Npsub
+         IF ( andf(rshift(iprint,3),1)==1 ) print = .TRUE.
+         np2 = 2*npsub
          DO i = 1 , np2 , 2
             j = i/2 + 1
-            name(i) = Combo(j,1)
-            name(i+1) = Combo(j,2)
+            name(i) = combo(j,1)
+            name(i+1) = combo(j,2)
          ENDDO
-         ifile = Scr1
-         CALL open(*80,Scr1,Z(Buf2),3)
-         CALL locate(*20,Z(Buf1),conct,flag)
-         ifile = Geom4
+         ifile = scr1
+         CALL open(*80,scr1,z(buf2),3)
+         CALL locate(*20,z(buf1),conct,flag)
+         ifile = geom4
          DO
-            CALL read(*40,*20,Geom4,id,1,0,n)
-            IF ( id(1)==Conset ) THEN
-               CALL read(*40,*60,Geom4,comp,1,0,n)
+            CALL read(*40,*20,geom4,id,1,0,n)
+            IF ( id(1)==conset ) THEN
+               CALL read(*40,*60,geom4,comp,1,0,n)
                IF ( print ) THEN
                   CALL page
                   CALL page2(6)
-                  WRITE (Outt,99001) (name(kdh),kdh=1,np2)
+                  WRITE (outt,99001) (name(kdh),kdh=1,np2)
 99001             FORMAT (/24X,74HNOTE  GRID POINT ID NUMBERS HAVE BEEN CODED TO THE COMPONENT SUBSTRUCTURE ,/30X,                  &
                          &75HWITHIN A GIVEN PSEUDOSTRUCTURE BY - 1000000*COMPONENT NO. + ACTUAL GRID ID.,//15X,                     &
                          &22HCONNECTED   CONNECTION,23X,33HGRID POINT ID FOR PSEUDOSTRUCTURE/18X,3HDOF,9X,4HCODE,3X,7(3X,2A4)/)
                ENDIF
-               Tdat(2) = .TRUE.
+               tdat(2) = .TRUE.
                CALL encode(comp)
-               CALL read(*40,*60,Geom4,nams,4,0,n)
+               CALL read(*40,*60,geom4,nams,4,0,n)
                CALL finder(nams(1),is1,ic1)
-               IF ( Ierr==1 ) THEN
-                  WRITE (Outt,99004) Ufm , nams(1) , nams(2)
-                  Idry = -2
+               IF ( ierr==1 ) THEN
+                  WRITE (outt,99004) ufm , nams(1) , nams(2)
+                  idry = -2
                ENDIF
                CALL finder(nams(3),is2,ic2)
-               IF ( Ierr==1 ) THEN
-                  WRITE (Outt,99004) Ufm , nams(3) , nams(4)
-                  Idry = -2
+               IF ( ierr==1 ) THEN
+                  WRITE (outt,99004) ufm , nams(3) , nams(4)
+                  idry = -2
                ENDIF
                SPAG_Loop_2_1: DO
-                  CALL read(*40,*60,Geom4,id,2,0,n)
+                  CALL read(*40,*60,geom4,id,2,0,n)
 !
                   IF ( id(1)+id(2)==-2 ) EXIT SPAG_Loop_2_1
                   IF ( is1==is2 ) THEN
                      kk = 2*is1 - 1
-                     WRITE (Outt,99002) Ufm , id(1) , id(2) , name(kk) , name(kk+1)
+                     WRITE (outt,99002) ufm , id(1) , id(2) , name(kk) , name(kk+1)
 99002                FORMAT (A23,' 6536, MANUAL CONNECTION DATA IS ATTEMPTING TO ','CONNECT',/31X,'GRID POINTS',I9,5X,4HAND ,I8,    &
                            & /31X,'WHICH ARE BOTH CONTAINED IN PSEUDOSTRUCTURE ',2A4)
-                     Idry = -2
+                     idry = -2
                   ENDIF
                   DO i = 1 , 9
                      io(i) = 0
@@ -106,25 +107,25 @@ SUBROUTINE bdat02
                   io(2) = 2**(is1-1) + 2**(is2-1)
                   io(2+is1) = ic1*1000000 + id(1)
                   io(2+is2) = ic2*1000000 + id(2)
-                  nwd = 2 + Npsub
-                  CALL write(Scr1,io,nwd,1)
-                  IF ( .NOT.(.NOT.print .OR. Idry==-2) ) THEN
+                  nwd = 2 + npsub
+                  CALL write(scr1,io,nwd,1)
+                  IF ( .NOT.(.NOT.print .OR. idry==-2) ) THEN
                      CALL bitpat(io(1),ibits)
                      CALL bitpat(io(2),jbits)
                      CALL page2(1)
-                     WRITE (Outt,99003) (ibits(kdh),kdh=1,2) , (jbits(kdh),kdh=1,2) , (io(kdh+2),kdh=1,Npsub)
+                     WRITE (outt,99003) (ibits(kdh),kdh=1,2) , (jbits(kdh),kdh=1,2) , (io(kdh+2),kdh=1,npsub)
 99003                FORMAT (16X,A4,A2,6X,A4,A3,2X,7(3X,I8))
                   ENDIF
                ENDDO SPAG_Loop_2_1
             ELSE
-               CALL read(*40,*60,Geom4,id,-5,0,n)
+               CALL read(*40,*60,geom4,id,-5,0,n)
                SPAG_Loop_2_2: DO
-                  CALL read(*40,*60,Geom4,id,2,0,n)
+                  CALL read(*40,*60,geom4,id,2,0,n)
                   IF ( id(1)+id(2)==-2 ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
             ENDIF
          ENDDO
- 20      CALL close(Scr1,1)
+ 20      CALL close(scr1,1)
          RETURN
 !
  40      imsg = -2

@@ -1,12 +1,13 @@
-!*==number.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==number.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa,Isdir,Stka,Stkb,Stkc,Stkd,Nu,Idim)
+   USE c_bandb
+   USE c_bandg
+   USE c_bands
+   USE c_system
    IMPLICIT NONE
-   USE C_BANDB
-   USE C_BANDG
-   USE C_BANDS
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -67,20 +68,20 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
 !
 !     SET UP LVLST AND LSTPT FROM LVLS2
 !
-         DO i = 1 , N
+         DO i = 1 , n
             Ipfa(i) = 0
          ENDDO
          nstpt = 1
-         DO i = 1 , Idpth
+         DO i = 1 , idpth
             Lstpt(i) = nstpt
-            DO j = 1 , N
+            DO j = 1 , n
                IF ( Lvls2(j)==i ) THEN
                   Lvlst(nstpt) = j
                   nstpt = nstpt + 1
                ENDIF
             ENDDO
          ENDDO
-         Lstpt(Idpth+1) = nstpt
+         Lstpt(idpth+1) = nstpt
 !
 !     THIS ROUTINE USES FOUR STACKS, A,B,C,AND D, WITH POINTERS
 !     XA,XB,XC, AND XD.  CX IS A SPECIAL POINTER INTO STKC WHICH
@@ -89,7 +90,7 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
 !     INITIALLY STKC CONTAINS ONLY THE INITIAL NODE, SND.
 !
          lvln = 0
-         IF ( Nflg<0 ) lvln = Idpth + 1
+         IF ( Nflg<0 ) lvln = idpth + 1
          xc = 1
          Stkc(xc) = Snd
          spag_nextblock_1 = 2
@@ -173,8 +174,8 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
 !     WHEN STKC IS EXHAUSTED LOOK FOR MIN DEGREE NODE IN SAME LEVEL
 !     WHICH HAS NOT BEEN PROCESSED
 !
-               max = Ideg + 1
-               Snd = N + 1
+               max = ideg + 1
+               Snd = n + 1
                DO i = lst , lnd
                   test = Lvlst(i)
                   IF ( Renum(test)==0 ) THEN
@@ -186,7 +187,7 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
                      ENDIF
                   ENDIF
                ENDDO
-               IF ( Snd/=N+1 ) THEN
+               IF ( Snd/=n+1 ) THEN
                   xc = xc + 1
                   IF ( xc<=Idim ) THEN
                      Stkc(xc) = Snd
@@ -200,7 +201,7 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
 !
 !     DO FINAL BANDWIDTH AND PROFILE CALCULATIONS
 !
-                  DO i = 1 , N
+                  DO i = 1 , n
                      IF ( Ipfa(i)>Ibw2 ) Ibw2 = Ipfa(i)
                      Ipf2 = Ipf2 + Ipfa(i)
                   ENDDO
@@ -219,7 +220,7 @@ SUBROUTINE number(Snd,Num,Ndstk,Lvls2,Ndeg,Renum,Lvlst,Lstpt,Nflg,Ibw2,Ipf2,Ipfa
 !
 !     DIMENSION EXCEEDED  . . .  STOP JOB.
 !
-         Ngrid = -3
+         ngrid = -3
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

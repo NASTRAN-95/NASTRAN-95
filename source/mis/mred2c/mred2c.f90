@@ -1,11 +1,12 @@
-!*==mred2c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2c.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2c(Kode)
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,62 +65,62 @@ SUBROUTINE mred2c(Kode)
 !
 !     TEST OPERATION FLAG
 !
-         IF ( Dry/=-2 ) THEN
+         IF ( dry/=-2 ) THEN
             IF ( Kode>1 ) THEN
 !
 !     STORE LAMAMR (TABLE) AS LAMS ON SOF
 !
-               IF ( .NOT.(Modes) ) THEN
+               IF ( .NOT.(modes) ) THEN
                   item = itmlst(2)
-                  CALL delete(Oldnam,item,itest)
+                  CALL delete(oldnam,item,itest)
                   IF ( itest==2 .OR. itest>3 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   ifile = lamamr
-                  CALL gopen(lamamr,Z(Gbuf1),0)
+                  CALL gopen(lamamr,z(gbuf1),0)
                   CALL fwdrec(*40,lamamr)
                   itest = 3
-                  CALL sfetch(Oldnam,itmlst(2),2,itest)
+                  CALL sfetch(oldnam,itmlst(2),2,itest)
                   IF ( itest/=3 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   DO i = 1 , 2
-                     Z(Korbgn+i-1) = Oldnam(i)
+                     z(korbgn+i-1) = oldnam(i)
                   ENDDO
-                  Z(Korbgn+2) = rgdfmt
-                  Z(Korbgn+3) = Modlen
-                  CALL suwrt(Z(Korbgn),4,2)
-                  lamwds = Modlen - 1
+                  z(korbgn+2) = rgdfmt
+                  z(korbgn+3) = modlen
+                  CALL suwrt(z(korbgn),4,2)
+                  lamwds = modlen - 1
                   IF ( lamwds>=1 ) THEN
                      DO i = 1 , lamwds
-                        CALL read(*20,*40,lamamr,Z(Korbgn),7,0,nwds)
-                        CALL suwrt(Z(Korbgn),7,1)
+                        CALL read(*20,*40,lamamr,z(korbgn),7,0,nwds)
+                        CALL suwrt(z(korbgn),7,1)
                      ENDDO
                   ENDIF
-                  CALL read(*20,*40,lamamr,Z(Korbgn),7,0,nwds)
+                  CALL read(*20,*40,lamamr,z(korbgn),7,0,nwds)
                   CALL close(lamamr,1)
-                  CALL suwrt(Z(Korbgn),7,2)
+                  CALL suwrt(z(korbgn),7,2)
                   IF ( Kode==3 ) THEN
-                     DO i = 1 , Modlen
-                        Z(Korbgn+i-1) = 1
+                     DO i = 1 , modlen
+                        z(korbgn+i-1) = 1
                      ENDDO
-                     CALL suwrt(Z(Korbgn),Modlen,2)
-                     CALL suwrt(Z(Korbgn),0,3)
+                     CALL suwrt(z(korbgn),modlen,2)
+                     CALL suwrt(z(korbgn),0,3)
                   ELSE
-                     CALL suwrt(Z(Lamaap),Modlen,2)
-                     CALL suwrt(Z(Lamaap),0,3)
+                     CALL suwrt(z(lamaap),modlen,2)
+                     CALL suwrt(z(lamaap),0,3)
                   ENDIF
                ENDIF
 !
 !     TEST OLDMODES OPTION FLAG
 !
-            ELSEIF ( Modes ) THEN
+            ELSEIF ( modes ) THEN
 !
 !     READ SOF PHIS ONTO GINO PHIS SCRATCH FILE
 !
-               CALL mtrxi(phiss,Oldnam,itmlst(1),0,itest)
+               CALL mtrxi(phiss,oldnam,itmlst(1),0,itest)
                item = itmlst(1)
                IF ( itest/=1 ) THEN
                   spag_nextblock_1 = 3
@@ -128,17 +129,17 @@ SUBROUTINE mred2c(Kode)
 !
 !     READ SOF LAMS ONTO GINO LAMAMR SCRATCH FILE
 !
-               CALL sfetch(Oldnam,itmlst(2),1,itest)
+               CALL sfetch(oldnam,itmlst(2),1,itest)
                item = itmlst(2)
                IF ( itest>1 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL gopen(lams,Z(Gbuf1),1)
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               CALL write(lams,Z(Korbgn),nwdsrd,1)
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               CALL write(lams,Z(Korbgn),nwdsrd,1)
+               CALL gopen(lams,z(gbuf1),1)
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               CALL write(lams,z(korbgn),nwdsrd,1)
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               CALL write(lams,z(korbgn),nwdsrd,1)
                CALL close(lams,1)
 !
 !     SWITCH FILE NUMBERS
@@ -150,7 +151,7 @@ SUBROUTINE mred2c(Kode)
 !     STORE GINO PHIS AS PHIS ON SOF
 !
                ifile = phis
-               CALL mtrxo(phis,Oldnam,itmlst(1),0,itest)
+               CALL mtrxo(phis,oldnam,itmlst(1),0,itest)
                item = itmlst(1)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 3
@@ -179,23 +180,23 @@ SUBROUTINE mred2c(Kode)
             ismg = -11
          ELSEIF ( itest==3 ) THEN
             imsg = -1
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==4 ) THEN
             imsg = -2
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==5 ) THEN
             imsg = -3
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==6 ) THEN
             imsg = -10
          ELSE
             imsg = -9
          ENDIF
-         Dry = -2
-         CALL smsg1(imsg,item,Oldnam,modnam)
+         dry = -2
+         CALL smsg1(imsg,item,oldnam,modnam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

@@ -1,13 +1,14 @@
-!*==sofut.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sofut.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sofut
+   USE c_blank
+   USE c_sof
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SOF
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -38,46 +39,46 @@ SUBROUTINE sofut
    DATA iscr1/301/
 !
    itask = 0
-   IF ( Oper(1)==iedit ) itask = 1
-   IF ( Oper(1)==idest ) itask = 2
-   IF ( Oper(1)==iequiv ) itask = 3
-   IF ( Oper(1)==iprnt ) itask = 4
-   IF ( Oper(1)==dele ) itask = 5
-   IF ( Oper(1)==renam ) itask = 6
+   IF ( oper(1)==iedit ) itask = 1
+   IF ( oper(1)==idest ) itask = 2
+   IF ( oper(1)==iequiv ) itask = 3
+   IF ( oper(1)==iprnt ) itask = 4
+   IF ( oper(1)==dele ) itask = 5
+   IF ( oper(1)==renam ) itask = 6
    IF ( itask==0 ) THEN
 !
 !     ERROR MESSAGES
 !
-      WRITE (Nout,99001) Uwm , Oper(1) , Oper(2)
+      WRITE (nout,99001) uwm , oper(1) , oper(2)
 99001 FORMAT (A25,' 6217, MODULE SOFUT - ',2A4,' IS AN ILLEGAL ','PARAMETER NAME.')
    ELSE
 !
 !     ALLOCATE BUFFERS FOR THE SOF UTILITY SUBROUTINES
 !
-      nz = korsz(Iz)
-      IF ( 3*Sysbuf>nz ) CALL mesage(-8,0,name(1))
-      ib1 = nz - Sysbuf + 1
-      ib2 = ib1 - Sysbuf - 1
-      ib3 = ib2 - Sysbuf
-      CALL sofopn(Iz(ib1),Iz(ib2),Iz(ib3))
+      nz = korsz(iz)
+      IF ( 3*sysbuf>nz ) CALL mesage(-8,0,name(1))
+      ib1 = nz - sysbuf + 1
+      ib2 = ib1 - sysbuf - 1
+      ib3 = ib2 - sysbuf
+      CALL sofopn(iz(ib1),iz(ib2),iz(ib3))
       nz = ib3 - 1
       IF ( itask==2 ) THEN
 !
 !     DESTROY OPERATION
 !
          i = nz/2 + 1
-         CALL dstroy(Name1(1),itest,Iz,Iz(i),i-1)
+         CALL dstroy(name1(1),itest,iz,iz(i),i-1)
       ELSEIF ( itask==3 ) THEN
 !
 !     EQUIVALENCE OPERATION
 !
          i = nz/2 + 1
-         CALL seteq(Name1,Name2,Prefx,Dry,itest,Iz,i-1)
+         CALL seteq(name1,name2,prefx,dry,itest,iz,i-1)
       ELSEIF ( itask==4 ) THEN
 !
 !     PRINT OPERATIONS
 !
-         IF ( Opt>0 ) THEN
+         IF ( opt>0 ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
@@ -85,7 +86,7 @@ SUBROUTINE sofut
 !     PRINT SOF TABLE OF CONTENTS (DIT MDI)
 !
          CALL softoc
-         IF ( Opt==0 ) THEN
+         IF ( opt==0 ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
@@ -96,42 +97,42 @@ SUBROUTINE sofut
 !     DELETE OPERATION
 !
          DO i = 1 , 10
-            CALL delete(Name1,Items(i),itest)
+            CALL delete(name1,items(i),itest)
          ENDDO
       ELSEIF ( itask==6 ) THEN
 !
 !     RENAME OPERATION
 !
-         CALL rename(Name1,Name2,Iz(1),nz,itest)
+         CALL rename(name1,name2,iz(1),nz,itest)
       ELSE
 !
 !     EDIT OPERATION
 !
-         CALL edit(Name1(1),Opt,itest)
+         CALL edit(name1(1),opt,itest)
       ENDIF
 !
 !     TEST RETURN CODE
 !
       IF ( itest/=1 .AND. itest/=2 .AND. itest/=3 .AND. itest/=5 .AND. itest/=7 ) THEN
          IF ( itest==6 ) THEN
-            WRITE (Nout,99002) Uwm , Name1
+            WRITE (nout,99002) uwm , name1
 !
 99002       FORMAT (A25,' 6218, MODULE SOFUT - THE SUBSTRUCTURE ',2A4,1X,'CANNOT BE DESTROYED BECAUSE IT IS AN IMAGE SUBSTRUCTURE.')
          ELSEIF ( itest==8 ) THEN
-            WRITE (Nout,99003) Uwm , Name2
+            WRITE (nout,99003) uwm , name2
 !
 99003       FORMAT (A25,' 6219, MODULE SOFUT - RUN EQUALS DRY OR STEP AND ','SUBSTRUCTURE ',2A4,/33X,                               &
                    &'OR ONE OF THE NEW NAMES ALREADY EXISTS.')
          ELSEIF ( itest==9 ) THEN
-            WRITE (Nout,99004) Uwm , Name2
+            WRITE (nout,99004) uwm , name2
 !
 99004       FORMAT (A25,' 6220, MODULE SOFUT - RUN = GO AND SUBSTRUCTURE ',2A4,' OR ONE OF THE NEW NAMES DOES NOT EXIST')
          ELSEIF ( itest/=10 ) THEN
-            WRITE (Nout,99005) Uwm , Name1
+            WRITE (nout,99005) uwm , name1
 !
 99005       FORMAT (A25,' 6212, MODULE SOFUT - THE SUBSTRUCTURE ',2A4,' DOES NOT EXIST.')
          ENDIF
-         Dry = -2
+         dry = -2
       ENDIF
       CALL sofcls
    ENDIF
@@ -141,19 +142,19 @@ CONTAINS
 !
 !     PRINT SOF DATA ITEMS
 !
-      DO i = 1 , 5
-         ii = ittype(Items(2*i-1))
-         IF ( ii<0 ) THEN
-         ELSEIF ( ii==0 ) THEN
+      DO I = 1 , 5
+         Ii = ittype(items(2*I-1))
+         IF ( Ii<0 ) THEN
+         ELSEIF ( Ii==0 ) THEN
 !
 !     TABLE ITEM
 !
-            CALL itmprt(Name1,Items(2*i-1),nz,Opt)
+            CALL itmprt(name1,items(2*I-1),Nz,Opt)
          ELSE
 !
 !     MATRIX ITEM
 !
-            CALL matwrt(iscr1,Name1,Items(2*i-1),nz)
+            CALL matwrt(Iscr1,name1,items(2*I-1),Nz)
          ENDIF
 !
       ENDDO

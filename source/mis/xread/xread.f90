@@ -1,4 +1,5 @@
-!*==xread.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==xread.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !
@@ -14,12 +15,12 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     LAST REVISED, 1/1990, IMPROVED EFFICIENCY BY REDUCING CHARACTER
 !     OPERATIONS (VERY IMPORTANT FOR CDC MACHINE)
 !
+   USE c_machin
+   USE c_system
+   USE c_xechox
+   USE c_xmssg
+   USE c_xsortx
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XECHOX
-   USE C_XMSSG
-   USE C_XSORTX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,6 +45,7 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
    CHARACTER(1) , DIMENSION(43) :: khrk
    CHARACTER(8) , DIMENSION(15) , SAVE :: name8
    INTEGER , DIMENSION(2) , SAVE :: sub
+   INTEGER :: spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
@@ -60,8 +62,12 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !                              0         0         0         0
    DATA n7 , n1 , n2 , n3 , n4 , n5 , n6/44 , 1 , 2 , 11 , 37 , 41 , 43/
    DATA plus1 , blankk , equ1/0 , ' ' , '='/
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
 !
-   IF ( plus1==0 ) CALL k2b(khr43,khr1,43)
+         IF ( plus1==0 ) CALL k2b(khr43,khr1,43)
 !
 !     CALL FFREAD TO READ INPUT CARD
 !     IF INPUT IS A COMMENT CARD, SET IBUF(1)=-1, AND RETURN
@@ -70,58 +76,63 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     IF INPUT IS IN FIXED-FIELD, ALL 10 BULKDATA FIELDS MAY NOT BE IN
 !     LEFT-ADJUSTED FORMAT, AND WASFF IS SET TO -1 BY FFREAD
 !
-   CALL ffread(*1800,card8)
-   CALL k2b(card80,card1,80)
-   IF ( card1(1)==dollr1 ) GOTO 1500
-   ie = 0
-   IF ( Xsort/=0 .AND. Wasff/=1 ) THEN
+         CALL ffread(*20,card8)
+         CALL k2b(card80,card1,80)
+         IF ( card1(1)==dollr1 ) THEN
+            spag_nextblock_1 = 15
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         ie = 0
+         IF ( xsort/=0 .AND. wasff/=1 ) THEN
 !
 !     LEFT-ADJUSTED THE BULKDATA FIELDS, FIRST 9 FIELDS
 !     (FIRST 4 AND A HALF FIELDS IF DOUBLE FIELD CARDS)
 !
-      ib = 1
-      l = 8
-      IF ( card1(1)==plus1 .OR. card1(1)==star1 ) ib = 9
-      IF ( card1(1)==star1 ) l = 16
-      DO i = ib , 72 , l
-         IF ( card1(i)==blank1 ) THEN
-            k = i
-            je = i + l - 1
-            DO j = i , je
-               IF ( card1(j)/=blank1 ) THEN
-                  card1(k) = card1(j)
-                  kard1(k) = kard1(j)
-                  k = k + 1
+            ib = 1
+            l = 8
+            IF ( card1(1)==plus1 .OR. card1(1)==star1 ) ib = 9
+            IF ( card1(1)==star1 ) l = 16
+            DO i = ib , 72 , l
+               IF ( card1(i)==blank1 ) THEN
+                  k = i
+                  je = i + l - 1
+                  DO j = i , je
+                     IF ( card1(j)/=blank1 ) THEN
+                        card1(k) = card1(j)
+                        kard1(k) = kard1(j)
+                        k = k + 1
+                     ENDIF
+                  ENDDO
+                  IF ( k/=i ) THEN
+                     DO j = k , je
+                        kard1(j) = blankk
+                        card1(j) = blank1
+                     ENDDO
+                  ENDIF
                ENDIF
             ENDDO
-            IF ( k/=i ) THEN
-               DO j = k , je
-                  kard1(j) = blankk
-                  card1(j) = blank1
-               ENDDO
-            ENDIF
          ENDIF
-      ENDDO
-   ENDIF
-   DO
+         SPAG_Loop_1_1: DO
 !
 !     CHECK COMMENT CARD WITH DOLLAR SIGN NOT IN COLUMN 1. CONVERT
 !     CHARACTER STRING TO BCD STRING, AND RETURN TO CALLER IF IT IS
 !     NOT CALLED BY XSORT.
 !
-      ie = ie + 1
-      IF ( card1(ie)/=blank1 ) THEN
-         IF ( card1(ie)==dollr1 ) THEN
+            ie = ie + 1
+            IF ( card1(ie)/=blank1 ) THEN
+               IF ( card1(ie)==dollr1 ) THEN
 !
-            IF ( Xsort==0 ) kard1(ie) = khrk(1)
-            GOTO 1500
-         ELSE
-            CALL khrbcd(card80,Bufx)
-            IF ( Xsort==0 ) THEN
+                  IF ( xsort==0 ) kard1(ie) = khrk(1)
+                  spag_nextblock_1 = 15
+                  CYCLE SPAG_DispatchLoop_1
+               ELSE
+                  CALL khrbcd(card80,Bufx)
+                  IF ( xsort==0 ) THEN
 !
-               Ibuf(1) = 0
-               GOTO 1600
-            ELSE
+                     ibuf(1) = 0
+                     spag_nextblock_1 = 16
+                     CYCLE SPAG_DispatchLoop_1
+                  ELSE
 !
 !
 !     IF THIS ROUTINE IS CALLED BY XSORT, PASS THE FIRST 3 FIELDS TO
@@ -164,91 +175,99 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     TABLE SETTING IS MOVED UP BY ONE IF MACHINE IS CDC (TO AVOID
 !     BLANK CHARACTER WHICH IS ZERO FROM ICHAR FUNCTION)
 !
-               fromy = 0
-               IF ( Xsort==1 ) THEN
-                  Xsort = 2
-                  cdc = 0
-                  IF ( Mach==4 ) cdc = 1
-                  DO i = 1 , 255
-                     Table(i) = n7
-                  ENDDO
-                  DO i = 1 , n6
-                     j = ichar(khrk(i)) + cdc
-                     Table(j) = i
-                  ENDDO
-                  F3long = 0
-                  Large = rshift(complf(0),1)/20
+                     fromy = 0
+                     IF ( xsort==1 ) THEN
+                        xsort = 2
+                        cdc = 0
+                        IF ( mach==4 ) cdc = 1
+                        DO i = 1 , 255
+                           table(i) = n7
+                        ENDDO
+                        DO i = 1 , n6
+                           j = ichar(khrk(i)) + cdc
+                           table(j) = i
+                        ENDDO
+                        f3long = 0
+                        large = rshift(complf(0),1)/20
+                     ENDIF
+                     EXIT SPAG_Loop_1_1
+                  ENDIF
                ENDIF
-               EXIT
             ENDIF
-         ENDIF
-      ENDIF
-   ENDDO
+         ENDDO SPAG_Loop_1_1
+         spag_nextblock_1 = 2
+      CASE (2)
 !
 !     CHECK BLANK, ENDDATA, AND CONTINUATION CARDS
 !
- 100  er = 0
-   j1 = card1(1)
-   j = Table(ichar(kard1(1))+cdc)
-   IF ( j>=n7 ) GOTO 1700
-   IF ( card81==blank8 .AND. card8(2)==blank8 ) THEN
-      Ibuf(1) = -5
-      Ibuf(2) = Ibuf(1)
-      GOTO 1600
-   ELSE
-      IF ( card81==end8(1) .OR. card81==end8(2) .OR. card81==end8(3) ) THEN
-         Ibuf(1) = -9
-         Ibuf(2) = Ibuf(1)
-         GOTO 1600
-      ELSE
-         IF ( j1/=plus1 .AND. j1/=star1 ) THEN
+         er = 0
+         j1 = card1(1)
+         j = table(ichar(kard1(1))+cdc)
+         IF ( j>=n7 ) THEN
+            spag_nextblock_1 = 17
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         IF ( card81==blank8 .AND. card8(2)==blank8 ) THEN
+            ibuf(1) = -5
+            ibuf(2) = ibuf(1)
+            spag_nextblock_1 = 16
+            CYCLE SPAG_DispatchLoop_1
+         ELSE
+            IF ( card81==end8(1) .OR. card81==end8(2) .OR. card81==end8(3) ) THEN
+               ibuf(1) = -9
+               ibuf(2) = ibuf(1)
+               spag_nextblock_1 = 16
+               CYCLE SPAG_DispatchLoop_1
+            ELSE
+               IF ( j1/=plus1 .AND. j1/=star1 ) THEN
 !
 !     CHECK ASTERISK IN FIELD 1 (BUT NOT IN COLUMN1 1) AND SET DOUBLE-
 !     FIELD FLAG. MERGE EVERY TWO SINGLE FIELDS TO ENSURE CONTINUITY OF
 !     DOUBLE FIELD DATA (FIXED FIELD CARDS ONLY)
 !
-            double = .FALSE.
-            IF ( Wasff/=1 ) THEN
-               ie = 8
-               DO j = 2 , 8
-                  IF ( card1(ie)==star1 ) GOTO 120
-                  ie = ie - 1
-               ENDDO
-            ENDIF
-            GOTO 150
-         ELSE
-            Ibuf(1) = -2
-            Ibuf(2) = Ibuf(1)
-            GOTO 1600
-         ENDIF
- 120     double = .TRUE.
-         ib = 0
-         DO i = 8 , 71 , 16
-            k = i
-            DO j = 1 , 16
-               l = i + j
-               IF ( card1(l)/=blank1 ) THEN
-                  k = k + 1
-                  IF ( k/=l ) THEN
-                     ib = 1
-                     card1(k) = card1(l)
-                     kard1(k) = kard1(l)
+                  double = .FALSE.
+                  IF ( wasff/=1 ) THEN
+                     ie = 8
+                     DO j = 2 , 8
+                        IF ( card1(ie)==star1 ) GOTO 5
+                        ie = ie - 1
+                     ENDDO
                   ENDIF
+                  GOTO 10
+               ELSE
+                  ibuf(1) = -2
+                  ibuf(2) = ibuf(1)
+                  spag_nextblock_1 = 16
+                  CYCLE SPAG_DispatchLoop_1
                ENDIF
-            ENDDO
-            IF ( k/=l ) THEN
-               k = k + 1
-               DO j = k , l
-                  kard1(j) = blankk
-                  card1(j) = blank1
+ 5             double = .TRUE.
+               ib = 0
+               DO i = 8 , 71 , 16
+                  k = i
+                  DO j = 1 , 16
+                     l = i + j
+                     IF ( card1(l)/=blank1 ) THEN
+                        k = k + 1
+                        IF ( k/=l ) THEN
+                           ib = 1
+                           card1(k) = card1(l)
+                           kard1(k) = kard1(l)
+                        ENDIF
+                     ENDIF
+                  ENDDO
+                  IF ( k/=l ) THEN
+                     k = k + 1
+                     DO j = k , l
+                        kard1(j) = blankk
+                        card1(j) = blank1
+                     ENDDO
+                  ENDIF
                ENDDO
+               IF ( ie<=0 ) CALL mesage(-37,0,sub)
+               IF ( ib==1 ) CALL khrbcd(card80,Bufx)
+               card1(ie) = blank1
+               kard1(ie) = blankk
             ENDIF
-         ENDDO
-         IF ( ie<=0 ) CALL mesage(-37,0,sub)
-         IF ( ib==1 ) CALL khrbcd(card80,Bufx)
-         card1(ie) = blank1
-         kard1(ie) = blankk
-      ENDIF
 !
 !     CHECK DELETE CARD
 !     SET IBUF(1)=IBUF(2)=-3 IF IT IS PRESENT, AND SET THE DELETE RANGE
@@ -257,7 +276,7 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     FIELD 1
 !     NOTE - IF FIELD 3 IS BLANK, IBUF(4) IS -3
 !
- 150  IF ( j1/=slash1 ) THEN
+ 10         IF ( j1/=slash1 ) THEN
 !
 !     TURN BCD2 AND BCD3 FLAGS ON IF THE 2ND AND 3RD INPUT FIELDS ARE
 !     NOT NUMERIC RESPECTIVELY
@@ -271,14 +290,17 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     IF FIELD2 IS A BCD WORD, FIELD3 PROCESSING ACTUALLY BEGINS IN
 !     CARD8(4)
 !
-         bcd2 = .FALSE.
-         IF ( derr==+1 ) derr = 0
-         j = Table(ichar(kard1(9))+cdc)
-         IF ( j>=n7 ) GOTO 1700
-         numric = (j>=n2 .AND. j<=n3) .OR. j>=n5
-         IF ( .NOT.(numric) ) THEN
-            bcd2 = .TRUE.
-            IF ( card1(15)/=blank1 ) THEN
+               bcd2 = .FALSE.
+               IF ( derr==+1 ) derr = 0
+               j = table(ichar(kard1(9))+cdc)
+               IF ( j>=n7 ) THEN
+                  spag_nextblock_1 = 17
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               numric = (j>=n2 .AND. j<=n3) .OR. j>=n5
+               IF ( .NOT.(numric) ) THEN
+                  bcd2 = .TRUE.
+                  IF ( card1(15)/=blank1 ) THEN
 !
 !     SINCE THE NAME IN THE 2ND FIELD OF DMI, DTI, DMIG, DMIAX CARDS
 !     ARE NOT UNIQUELY DEFINED FOR SORTING, SPECIAL CODES HERE TO MOVE
@@ -288,81 +310,81 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     IS LIMITED TO 4 DIGITS OR LESS.  IF THE NAME IN THE 2ND FIELD IS
 !     SHORT (6 LETTERS OR LESS), MERGING OF THE 3RD FIELD IS NOT NEEDED.
 !
-               IF ( card1(1)/=d1 .OR. card1(3)/=khr1(20) .OR. (card1(2)/=khr1(24) .AND. card1(2)/=khr1(31)) ) THEN
+                     IF ( card1(1)/=d1 .OR. card1(3)/=khr1(20) .OR. (card1(2)/=khr1(24) .AND. card1(2)/=khr1(31)) ) THEN
 !
-                  kard1(17) = kard1(15)
-                  kard1(18) = kard1(16)
-                  DO k = 19 , 24
-                     kard1(k) = blankk
-                  ENDDO
-               ELSE
-                  bcd3 = .TRUE.
-                  k = 24
-                  IF ( double ) k = 32
-                  IF ( card1(k-3)/=blank1 ) THEN
-                     IF ( Echou/=1 ) THEN
-                        IF ( derr==-1 ) CALL page
-                        CALL page2(-2)
-                        IF ( double ) card1(8) = star1
-                        WRITE (Nout,99001) card8
-99001                   FORMAT (30X,10A8)
-                        IF ( double ) card1(8) = blank1
+                        kard1(17) = kard1(15)
+                        kard1(18) = kard1(16)
+                        DO k = 19 , 24
+                           kard1(k) = blankk
+                        ENDDO
+                     ELSE
+                        bcd3 = .TRUE.
+                        k = 24
+                        IF ( double ) k = 32
+                        IF ( card1(k-3)/=blank1 ) THEN
+                           IF ( echou/=1 ) THEN
+                              IF ( derr==-1 ) CALL page
+                              CALL page2(-2)
+                              IF ( double ) card1(8) = star1
+                              WRITE (nout,99001) card8
+99001                         FORMAT (30X,10A8)
+                              IF ( double ) card1(8) = blank1
+                           ENDIF
+                           CALL page2(-2)
+                           WRITE (nout,99002) ufm
+99002                      FORMAT (A23,', THE 3RD INPUT FIELD OF THE ABOVE CARD IS LIMITED ',                                       &
+                                  &'TO 4 OR LESS DIGITS, WHEN A NAME OF 7 OR MORE',/5X,'LETTERS IS USED IN THE 2ND FIELD',/)
+                           derr = +1
+                           nogo = 1
+                        ENDIF
+                        SPAG_Loop_1_2: DO j = 1 , 4
+                           IF ( card1(k-4)/=blank1 ) EXIT SPAG_Loop_1_2
+                           kard1(k-4) = kard1(k-5)
+                           kard1(k-5) = kard1(k-6)
+                           kard1(k-6) = kard1(k-7)
+                           kard1(k-7) = blankk
+                        ENDDO SPAG_Loop_1_2
+                        DO j = 1 , 6
+                           kard1(k) = kard1(k-2)
+                           k = k - 1
+                        ENDDO
+                        kard1(k) = kard1(16)
+                        kard1(k-1) = kard1(15)
+                        kard1(15) = blankk
+                        GOTO 15
                      ENDIF
-                     CALL page2(-2)
-                     WRITE (Nout,99002) Ufm
-99002                FORMAT (A23,', THE 3RD INPUT FIELD OF THE ABOVE CARD IS LIMITED ',                                             &
-                            &'TO 4 OR LESS DIGITS, WHEN A NAME OF 7 OR MORE',/5X,'LETTERS IS USED IN THE 2ND FIELD',/)
-                     derr = +1
-                     Nogo = 1
                   ENDIF
-                  DO j = 1 , 4
-                     IF ( card1(k-4)/=blank1 ) EXIT
-                     kard1(k-4) = kard1(k-5)
-                     kard1(k-5) = kard1(k-6)
-                     kard1(k-6) = kard1(k-7)
-                     kard1(k-7) = blankk
-                  ENDDO
-                  DO j = 1 , 6
-                     kard1(k) = kard1(k-2)
-                     k = k - 1
-                  ENDDO
-                  kard1(k) = kard1(16)
-                  kard1(k-1) = kard1(15)
-                  kard1(15) = blankk
-                  GOTO 160
                ENDIF
-            ENDIF
-         ENDIF
 !
-         bcd3 = .FALSE.
-         k = 17
-         IF ( double ) k = 25
-         j = Table(ichar(kard1(k))+cdc)
-         alpha = j==n1 .OR. (j>n3 .AND. j<n5)
-         IF ( alpha ) bcd3 = .TRUE.
-         IF ( .NOT.(bcd3) ) THEN
+               bcd3 = .FALSE.
+               k = 17
+               IF ( double ) k = 25
+               j = table(ichar(kard1(k))+cdc)
+               alpha = j==n1 .OR. (j>n3 .AND. j<n5)
+               IF ( alpha ) bcd3 = .TRUE.
+               IF ( .NOT.(bcd3) ) THEN
 !
 !     THE FIRST 3 FIELDS OF THE DMIG OR DMIAX CARDS (NOT THE 1ST HEADER
 !     CARD), ARE NOT UNIQUE. MERGE THE 4TH FIELD (1 DIGIT INTEGER) INTO
 !     THE 3RD FIELD (INTEGER, 8 DIGITS OR LESS) TO INCLUDE THE COMPONENT
 !     FIELD FOR SORTING
 !
-            IF ( .NOT.(card1(1)/=d1 .OR. card1(2)/=khr1(24) .OR. card1(3)/=khr1(20) .OR.                                            &
-               & (card1(4)/=khr1(18) .AND. card1(4)/=khr1(12))) ) THEN
-               IF ( card1(1)/=khr1(2) ) THEN
-                  k = 24
-                  IF ( double ) k = 32
-                  IF ( card1(k)==blank1 ) THEN
-                     DO j = 1 , 7
-                        k = k - 1
-                        IF ( card1(k)/=blank1 ) EXIT
-                     ENDDO
-                     kard1(k+1) = kard1(25)
-                     IF ( double ) kard1(k+1) = kard1(41)
+                  IF ( .NOT.(card1(1)/=d1 .OR. card1(2)/=khr1(24) .OR. card1(3)/=khr1(20) .OR.                                      &
+                     & (card1(4)/=khr1(18) .AND. card1(4)/=khr1(12))) ) THEN
+                     IF ( card1(1)/=khr1(2) ) THEN
+                        k = 24
+                        IF ( double ) k = 32
+                        IF ( card1(k)==blank1 ) THEN
+                           SPAG_Loop_1_3: DO j = 1 , 7
+                              k = k - 1
+                              IF ( card1(k)/=blank1 ) EXIT SPAG_Loop_1_3
+                           ENDDO SPAG_Loop_1_3
+                           kard1(k+1) = kard1(25)
+                           IF ( double ) kard1(k+1) = kard1(41)
+                        ENDIF
+                     ENDIF
                   ENDIF
                ENDIF
-            ENDIF
-         ENDIF
 !
 !
 !     CHANGE ALL CHARACTERS IN FIRST 3 FIELDS TO INTEGER INTEGER CODES
@@ -396,161 +418,191 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !     PERFORMED IN                        FIELD FIELD
 !     XSORT2                                 2     3
 !
- 160     numric = .FALSE.
-         l = 0
-         ioo = 100
-         word = 0
-         word = word + 1
-      ELSE
-         DO l = 1 , 4
-            Ibuf(l) = -3
+ 15            numric = .FALSE.
+               l = 0
+               ioo = 100
+               word = 0
+               word = word + 1
+            ELSE
+               DO l = 1 , 4
+                  ibuf(l) = -3
+               ENDDO
+               IF ( card81/=slash8 ) ibuf(2) = -4
+               l = 2
+               spag_nextblock_1 = 5
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+         ENDIF
+         spag_nextblock_1 = 3
+      CASE (3)
+         ie = word*4
+         ib = ie - 3
+         j = table(ichar(kard1(ib))+cdc)
+         IF ( j>=n7 ) THEN
+            spag_nextblock_1 = 17
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         IF ( .NOT.(mod(word,2)==0 .AND. .NOT.numric) ) THEN
+            numric = (j>=n2 .AND. j<=n3) .OR. j>=n5
+            IF ( numric ) THEN
+               spag_nextblock_1 = 4
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+         ENDIF
+         IF ( ioo/=100 ) THEN
+            ie = ie + 2
+            k = j
+            IF ( k>n3 ) j = k - n3
+            IF ( k<=n3 ) j = k + 25
+         ENDIF
+         sum = j
+         ib = ib + 1
+         DO i = ib , ie
+            j = table(ichar(kard1(i))+cdc)
+            sum = sum*ioo + j
          ENDDO
-         IF ( card81/=slash8 ) Ibuf(2) = -4
-         l = 2
-         GOTO 400
-      ENDIF
-   ENDIF
- 200  ie = word*4
-   ib = ie - 3
-   j = Table(ichar(kard1(ib))+cdc)
-   IF ( j>=n7 ) GOTO 1700
-   IF ( .NOT.(mod(word,2)==0 .AND. .NOT.numric) ) THEN
-      numric = (j>=n2 .AND. j<=n3) .OR. j>=n5
-      IF ( numric ) GOTO 300
-   ENDIF
-   IF ( ioo/=100 ) THEN
-      ie = ie + 2
-      k = j
-      IF ( k>n3 ) j = k - n3
-      IF ( k<=n3 ) j = k + 25
-   ENDIF
-   sum = j
-   ib = ib + 1
-   DO i = ib , ie
-      j = Table(ichar(kard1(i))+cdc)
-      sum = sum*ioo + j
-   ENDDO
-   IF ( ioo==100 ) sum = sum + 200000000
-   Ibuf(l+1) = sum
- 300  DO
-      l = l + 1
-      IF ( l==1 ) THEN
-         word = word + 1
-         GOTO 200
-      ELSEIF ( l==2 ) THEN
-         ioo = n4
-         IF ( bcd2 ) THEN
-            word = 3
-            GOTO 200
-         ENDIF
-      ELSEIF ( l==3 ) THEN
-         word = 5
-         IF ( double ) word = 7
-         IF ( .NOT.(.NOT.bcd2 .OR. kard1(15)==blankk) ) THEN
-            word = 4
-            ioo = 100
-            bcd3 = .TRUE.
-         ENDIF
-         IF ( bcd3 ) THEN
-            IF ( word/=4 .AND. kard1(word*4+3)/=blankk .AND. derr/=+1 ) F3long = 1
-            GOTO 200
-         ENDIF
-      ELSE
+         IF ( ioo==100 ) sum = sum + 200000000
+         ibuf(l+1) = sum
+         spag_nextblock_1 = 4
+      CASE (4)
+         SPAG_Loop_1_4: DO
+            l = l + 1
+            IF ( l==1 ) THEN
+               word = word + 1
+               spag_nextblock_1 = 3
+               CYCLE SPAG_DispatchLoop_1
+            ELSEIF ( l==2 ) THEN
+               ioo = n4
+               IF ( bcd2 ) THEN
+                  word = 3
+                  spag_nextblock_1 = 3
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ELSEIF ( l==3 ) THEN
+               word = 5
+               IF ( double ) word = 7
+               IF ( .NOT.(.NOT.bcd2 .OR. kard1(15)==blankk) ) THEN
+                  word = 4
+                  ioo = 100
+                  bcd3 = .TRUE.
+               ENDIF
+               IF ( bcd3 ) THEN
+                  IF ( word/=4 .AND. kard1(word*4+3)/=blankk .AND. derr/=+1 ) f3long = 1
+                  spag_nextblock_1 = 3
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ELSE
 !
 !     CHECK INTEGERS ON 2ND AND 3RD FIELDS
 !
-         IF ( bcd2 .AND. bcd3 ) GOTO 600
-         l = 2
-         IF ( bcd2 ) l = 3
-         EXIT
-      ENDIF
-   ENDDO
- 400  DO
-      l = l + 1
-      IF ( l<4 ) THEN
-         ib = 9
-      ELSEIF ( l==4 ) THEN
-         ib = 17
-         IF ( double ) ib = 25
-      ELSE
-         GOTO 600
-      ENDIF
-      ie = ib + 7
-      IF ( double ) ie = ib + 15
-      j1 = card1(ib)
-      IF ( j1==plus1 .OR. j1==minus1 .OR. j1==point1 .OR. j1==zero1 ) THEN
+               IF ( bcd2 .AND. bcd3 ) THEN
+                  spag_nextblock_1 = 7
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               l = 2
+               IF ( bcd2 ) l = 3
+               EXIT SPAG_Loop_1_4
+            ENDIF
+         ENDDO SPAG_Loop_1_4
+         spag_nextblock_1 = 5
+      CASE (5)
+         SPAG_Loop_1_5: DO
+            l = l + 1
+            IF ( l<4 ) THEN
+               ib = 9
+            ELSEIF ( l==4 ) THEN
+               ib = 17
+               IF ( double ) ib = 25
+            ELSE
+               spag_nextblock_1 = 7
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+            ie = ib + 7
+            IF ( double ) ie = ib + 15
+            j1 = card1(ib)
+            IF ( j1==plus1 .OR. j1==minus1 .OR. j1==point1 .OR. j1==zero1 ) THEN
 !
 !     IT IS NUMERIC
 !
-         ib = ib + 1
-         EXIT
-      ELSE
-         j = Table(ichar(kard1(ib))+cdc)
+               ib = ib + 1
+               EXIT SPAG_Loop_1_5
+            ELSE
+               j = table(ichar(kard1(ib))+cdc)
 !
 !     IT IS CHARACTER FIELDS, NOTHING ELSE NEEDS TO BE DONE
 !
-         IF ( j>=n2 .AND. j<=n3 ) EXIT
-      ENDIF
-   ENDDO
-   sum = 0
-   fp = 0
-   sigx = 1
-   sign = 1
-   IF ( j1==minus1 ) sign = -1
-   IF ( j1==point1 ) fp = 1
-   DO i = ib , ie
-      IF ( kard1(i)==blankk ) EXIT
-      j = Table(ichar(kard1(i))+cdc) - n2
-      IF ( j<0 .OR. j>9 ) THEN
+               IF ( j>=n2 .AND. j<=n3 ) EXIT SPAG_Loop_1_5
+            ENDIF
+         ENDDO SPAG_Loop_1_5
+         sum = 0
+         fp = 0
+         sigx = 1
+         sign = 1
+         IF ( j1==minus1 ) sign = -1
+         IF ( j1==point1 ) fp = 1
+         SPAG_Loop_1_6: DO i = ib , ie
+            IF ( kard1(i)==blankk ) EXIT SPAG_Loop_1_6
+            j = table(ichar(kard1(i))+cdc) - n2
+            IF ( j<0 .OR. j>9 ) THEN
 !
 !     A NON-NUMERIC SYMBOL FOUND IN NUMERIC STRING
 !     ONLY 'E', 'D', '+', '-', OR '.' ARE ACCEPTABLE HERE
 !
-         j1 = card1(i)
-         IF ( j1==point1 ) THEN
-            fp = 1
-         ELSE
-            IF ( fp==0 .OR. Ibuf(3)==-3 ) GOTO 500
-            IF ( j1/=e1 .AND. j1/=d1 .AND. j1/=plus1 .AND. j1/=minus1 ) GOTO 500
-            IF ( j1==minus1 ) sigx = -1
-            fp = -1
-            sum = 0
-         ENDIF
-      ELSE
-         IF ( fp<=0 .AND. iabs(sum)<Large ) sum = sum*10 + sign*j
-      ENDIF
+               j1 = card1(i)
+               IF ( j1==point1 ) THEN
+                  fp = 1
+               ELSE
+                  IF ( fp==0 .OR. ibuf(3)==-3 ) THEN
+                     spag_nextblock_1 = 6
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  IF ( j1/=e1 .AND. j1/=d1 .AND. j1/=plus1 .AND. j1/=minus1 ) THEN
+                     spag_nextblock_1 = 6
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  IF ( j1==minus1 ) sigx = -1
+                  fp = -1
+                  sum = 0
+               ENDIF
+            ELSE
+               IF ( fp<=0 .AND. iabs(sum)<large ) sum = sum*10 + sign*j
+            ENDIF
 !
-   ENDDO
+         ENDDO SPAG_Loop_1_6
 !
 !     BEEF UP NUMERIC DATA BY 2,000,000,000 SO THAT THEY WILL BE
 !     SORTED BEHIND ALL ALPHABETIC DATA, AND MOVE THE NUMERIC DATA, IN
 !     INTEGER FORM (F.P. MAY NOT BE EXACT) INTO IBUF(3) OR IBUF(4)
 !
-   IF ( fp<0 ) THEN
-      Ibuf(l) = sign*2000000000
-      IF ( sigx>0 .AND. sum<9 ) Ibuf(l) = sign*(10**(sigx*sum)+2000000000)
-      IF ( sigx>0 .AND. sum>=9 ) Ibuf(l) = 2147000000*sign
-   ELSE
-      Ibuf(l) = sum + sign*2000000000
-   ENDIF
-   GOTO 400
+         IF ( fp<0 ) THEN
+            ibuf(l) = sign*2000000000
+            IF ( sigx>0 .AND. sum<9 ) ibuf(l) = sign*(10**(sigx*sum)+2000000000)
+            IF ( sigx>0 .AND. sum>=9 ) ibuf(l) = 2147000000*sign
+         ELSE
+            ibuf(l) = sum + sign*2000000000
+         ENDIF
+         spag_nextblock_1 = 5
+         CYCLE SPAG_DispatchLoop_1
+      CASE (6)
 !
 !     ERROR IN NUMERIC FIELD
 !
- 500  IF ( ib==10 .OR. ib==18 ) ib = ib - 1
-   k = 1
-   IF ( Echou==0 .AND. er/=-9 ) k = 2
-   CALL page2(-k)
-   IF ( Echou==0 .AND. er/=-9 ) WRITE (Nout,99005) card80
-   k = 2
-   IF ( double ) THEN
-      k = 4
-      IF ( l/=4 ) word = word + 1
-   ENDIF
-   IF ( l==4 ) word = word + 2
-   WRITE (Nout,99006) (blank4,i=1,word) , (equal4,i=1,k)
-   Nogo = 1
-   er = -9
+         IF ( ib==10 .OR. ib==18 ) ib = ib - 1
+         k = 1
+         IF ( echou==0 .AND. er/=-9 ) k = 2
+         CALL page2(-k)
+         IF ( echou==0 .AND. er/=-9 ) WRITE (nout,99005) card80
+         k = 2
+         IF ( double ) THEN
+            k = 4
+            IF ( l/=4 ) word = word + 1
+         ENDIF
+         IF ( l==4 ) word = word + 2
+         WRITE (nout,99006) (blank4,i=1,word) , (equal4,i=1,k)
+         nogo = 1
+         er = -9
+         spag_nextblock_1 = 7
+      CASE (7)
 !
 !     BOTH FIELDS 2 AND 3 (OF BULK DATA CARD) DONE.
 !
@@ -561,140 +613,186 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !
 !     THOSE SPECIAL ONES IN NAME8 ADDITIONAL FIELDS FOR SORTING
 !
- 600  DO type = 1 , nname
-      IF ( card81==name8(type) ) THEN
-         IF ( type==1 .OR. type==2 .OR. type==3 .OR. type==4 .OR. type==6 .OR. type==7 .OR. type==8 .OR. type==9 ) GOTO 700
-         IF ( type==5 ) GOTO 1200
-         IF ( type==10 .OR. type==13 .OR. type==14 .OR. type==15 ) GOTO 900
-         IF ( type==11 ) GOTO 1000
-         IF ( type==12 ) GOTO 1100
-      ENDIF
+         DO type = 1 , nname
+            IF ( card81==name8(type) ) THEN
+               IF ( type==1 .OR. type==2 .OR. type==3 .OR. type==4 .OR. type==6 .OR. type==7 .OR. type==8 .OR. type==9 ) THEN
+                  spag_nextblock_1 = 8
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               IF ( type==5 ) THEN
+                  spag_nextblock_1 = 13
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               IF ( type==10 .OR. type==13 .OR. type==14 .OR. type==15 ) THEN
+                  spag_nextblock_1 = 10
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               IF ( type==11 ) THEN
+                  spag_nextblock_1 = 11
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               IF ( type==12 ) THEN
+                  spag_nextblock_1 = 12
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ENDIF
 !
 !    1   SPC1   SPCS   TICS   MPCS  MPCAX  RELES   GTRAN  FLUTTER
 !    2   BDYC  SPCSD   SPCS1 RANDPS DELAYS DAREAS  DPHASES
 !
-   ENDDO
-   GOTO 1300
+         ENDDO
+         spag_nextblock_1 = 14
+         CYCLE SPAG_DispatchLoop_1
+      CASE (8)
 !
 !     SPC1,SPCS,TICS,MPCS,RELES,GTRAN,FLUTTER,BDYC CARDS -
 !     ADD 4TH INTEGER FIELD TO IBUF ARRAY
 !
- 700  Ibuf(2) = Ibuf(3)
-   Ibuf(3) = Ibuf(4)
- 800  sum = 0
-   DO i = 25 , 32
-      j1 = card1(i)
-      IF ( j1==blank1 ) EXIT
-      j = Table(ichar(kard1(i))+cdc) - n2
-      IF ( j>=0 .AND. j<=9 ) sum = sum*10 + j
-   ENDDO
-   Ibuf(4) = sum
-   IF ( type==12 ) Ibuf(4) = Ibuf(4) + ioooo
-   GOTO 1300
+         ibuf(2) = ibuf(3)
+         ibuf(3) = ibuf(4)
+         spag_nextblock_1 = 9
+      CASE (9)
+         sum = 0
+         SPAG_Loop_1_7: DO i = 25 , 32
+            j1 = card1(i)
+            IF ( j1==blank1 ) EXIT SPAG_Loop_1_7
+            j = table(ichar(kard1(i))+cdc) - n2
+            IF ( j>=0 .AND. j<=9 ) sum = sum*10 + j
+         ENDDO SPAG_Loop_1_7
+         ibuf(4) = sum
+         IF ( type==12 ) ibuf(4) = ibuf(4) + ioooo
+         spag_nextblock_1 = 14
+         CYCLE SPAG_DispatchLoop_1
+      CASE (10)
 !
 !     DAREAS,DELAYS,DPHASES,SPCSD CARDS -
 !     ADD ONE TO IBUF(1), THUS CREATE DARF,DELB,DPHB,OR SPCT IN
 !     IBUF(1), THEN ADD 4TH INTEGER FIELD INTO IBUF ARRAY
 !
- 900  Ibuf(1) = Ibuf(1) + 1
-   GOTO 700
+         ibuf(1) = ibuf(1) + 1
+         spag_nextblock_1 = 8
+         CYCLE SPAG_DispatchLoop_1
+      CASE (11)
 !
 !     SPCS1 CARD -
 !     ADD TWO TO IBUF(1), THUS CREATE SPCU IN IBUF(1), THEN ADD
 !     4TH INTEGER FIELD INTO IBUF ARRAY
 !
- 1000 Ibuf(1) = Ibuf(1) + 2
-   GOTO 700
+         ibuf(1) = ibuf(1) + 2
+         spag_nextblock_1 = 8
+         CYCLE SPAG_DispatchLoop_1
+      CASE (12)
 !
 !     RANDPS -
 !     MERGE FIELDS 3 AND 4 IF SUBCASE NUMBERS ARE NOT TOO BIG
 !
- 1100 IF ( Ibuf(4)>=10000 .OR. Bufx(8)/=blank4 ) GOTO 1300
-   ioooo = Ibuf(4)*10000
-   GOTO 800
+         IF ( ibuf(4)>=10000 .OR. Bufx(8)/=blank4 ) THEN
+            spag_nextblock_1 = 14
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         ioooo = ibuf(4)*10000
+         spag_nextblock_1 = 9
+         CYCLE SPAG_DispatchLoop_1
+      CASE (13)
 !
 !     MPCAX -
 !     MOVE THE 6TH FIELD INTO IBUF(4)
 !
- 1200 j = 41
-   DO i = 25 , 32
-      card1(i) = card1(j)
-      kard1(i) = kard1(j)
-      j = j + 1
-   ENDDO
-   GOTO 800
+         j = 41
+         DO i = 25 , 32
+            card1(i) = card1(j)
+            kard1(i) = kard1(j)
+            j = j + 1
+         ENDDO
+         spag_nextblock_1 = 9
+         CYCLE SPAG_DispatchLoop_1
+      CASE (14)
 !
 !     CHECK NUMERIC ERROR IN 4TH TO 9TH FIELDS IF NO ERROR IN FIRST
 !     3 FIELDS (NEW BULK DATA CARDS ONLY)
 !
- 1300 IF ( fromy==1 .OR. er==-9 ) GOTO 1600
-   word = 5
-   IF ( double ) word = 7
-   DO
-      word = word + 2
-      IF ( double ) word = word + 2
-      IF ( word>=19 ) GOTO 1600
-      ib = word*4 - 3
-      j = Table(ichar(kard1(ib))+cdc)
-      IF ( j<n7 ) THEN
-         alpha = j==n1 .OR. (j>n3 .AND. j<n5)
-         IF ( .NOT.(alpha) ) THEN
-            ie = ib + 7
-            IF ( double ) ie = ib + 15
-            l = ib + 1
-            DO i = l , ie
-               j1 = card1(i)
-               IF ( j1==blank1 ) GOTO 1400
-               j = Table(ichar(kard1(i))+cdc)
-               numric = (j>=n2 .AND. j<=n3) .OR. (j>=n5 .AND. j<=n6)
-               IF ( .NOT.(numric .OR. j==15 .OR. j==16) ) THEN
-!                           D            E
-                  k = 1
-                  IF ( Echou==0 .AND. er/=-9 ) k = 2
-                  CALL page2(-k)
-                  IF ( Echou==0 .AND. er/=-9 ) WRITE (Nout,99005) card80
-                  word = word + 2
-                  k = 2
-                  IF ( double ) k = 4
-                  WRITE (Nout,99006) (blank4,j=1,word) , (equal4,j=1,k)
-                  Nogo = 1
-                  EXIT
-               ENDIF
-            ENDDO
-            GOTO 1600
+         IF ( fromy==1 .OR. er==-9 ) THEN
+            spag_nextblock_1 = 16
+            CYCLE SPAG_DispatchLoop_1
          ENDIF
-      ENDIF
- 1400 ENDDO
- 1500 IF ( Xsort==0 ) kard1(1) = khrk(39)
-   Ibuf(1) = -1
-   CALL khrbcd(card80,Bufx)
+         word = 5
+         IF ( double ) word = 7
+         SPAG_Loop_1_8: DO
+            word = word + 2
+            IF ( double ) word = word + 2
+            IF ( word>=19 ) THEN
+               spag_nextblock_1 = 16
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+            ib = word*4 - 3
+            j = table(ichar(kard1(ib))+cdc)
+            IF ( j<n7 ) THEN
+               alpha = j==n1 .OR. (j>n3 .AND. j<n5)
+               IF ( .NOT.(alpha) ) THEN
+                  ie = ib + 7
+                  IF ( double ) ie = ib + 15
+                  l = ib + 1
+                  SPAG_Loop_2_9: DO i = l , ie
+                     j1 = card1(i)
+                     IF ( j1==blank1 ) CYCLE SPAG_Loop_1_8
+                     j = table(ichar(kard1(i))+cdc)
+                     numric = (j>=n2 .AND. j<=n3) .OR. (j>=n5 .AND. j<=n6)
+                     IF ( .NOT.(numric .OR. j==15 .OR. j==16) ) THEN
+!                           D            E
+                        k = 1
+                        IF ( echou==0 .AND. er/=-9 ) k = 2
+                        CALL page2(-k)
+                        IF ( echou==0 .AND. er/=-9 ) WRITE (nout,99005) card80
+                        word = word + 2
+                        k = 2
+                        IF ( double ) k = 4
+                        WRITE (nout,99006) (blank4,j=1,word) , (equal4,j=1,k)
+                        nogo = 1
+                        EXIT SPAG_Loop_2_9
+                     ENDIF
+                  ENDDO SPAG_Loop_2_9
+                  spag_nextblock_1 = 16
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ENDIF
+         ENDDO SPAG_Loop_1_8
+         spag_nextblock_1 = 15
+      CASE (15)
+         IF ( xsort==0 ) kard1(1) = khrk(39)
+         ibuf(1) = -1
+         CALL khrbcd(card80,Bufx)
+         spag_nextblock_1 = 16
+      CASE (16)
 !
- 1600 RETURN
+         RETURN
+      CASE (17)
 !
- 1700 IF ( Xsort/=2 ) THEN
-      WRITE (Nout,99003) Xsort
-99003 FORMAT (//,' *** TABLE IN XREAD HAS NOT BEEN INITIALIZED.',/5X,'XSORT=',I4)
-      CALL mesage(-37,0,sub)
-   ENDIF
-   WRITE (Nout,99004) card8
-99004 FORMAT (/,' *** ILLEGAL CHARACTER ENCOUNTERED IN INPUT CARD',/4X,1H',10A8,1H')
-   Nogo = 1
- 1800 RETURN 1
+         IF ( xsort/=2 ) THEN
+            WRITE (nout,99003) xsort
+99003       FORMAT (//,' *** TABLE IN XREAD HAS NOT BEEN INITIALIZED.',/5X,'XSORT=',I4)
+            CALL mesage(-37,0,sub)
+         ENDIF
+         WRITE (nout,99004) card8
+99004    FORMAT (/,' *** ILLEGAL CHARACTER ENCOUNTERED IN INPUT CARD',/4X,1H',10A8,1H')
+         nogo = 1
+ 20      RETURN 1
 !
 !
-   ENTRY yread(Bufx) !HIDESTARS (*,Bufx)
+         ENTRY yread(Bufx)
+                     !HIDESTARS (*,Bufx)
 !     ====================
 !
 !     YREAD IS CALLED ONLY BY XSORT TO RE-PROCESS CARD IMAGES FROM
 !     THE OPTP FILE
 !
-   CALL bcdkh8(Bufx,card80)
-   CALL k2b(card80,card1,80)
-   fromy = 1
-   GOTO 100
+         CALL bcdkh8(Bufx,card80)
+         CALL k2b(card80,card1,80)
+         fromy = 1
+         spag_nextblock_1 = 2
+         CYCLE SPAG_DispatchLoop_1
 !
 !
-   ENTRY rmveq(Bufx)
+         ENTRY rmveq(Bufx)
 !     ==================
 !
 !     RMVEQ, CALLED ONLY BY XCSA, REMOVES AN EQUAL SIGN FROM TEXT.
@@ -703,12 +801,19 @@ SUBROUTINE xread(Bufx) !HIDESTARS (*,Bufx)
 !
 !     AT THIS POINT, THE DATA IN KARD1 IS STILL GOOD
 !
-   DO i = 1 , 36
-      IF ( kard1(i)==equ1 ) GOTO 1900
-   ENDDO
-   GOTO 99999
- 1900 kard1(i) = blankk
-   CALL khrbcd(card80,Bufx)
+         DO i = 1 , 36
+            IF ( kard1(i)==equ1 ) THEN
+               spag_nextblock_1 = 18
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+         ENDDO
+         RETURN
+      CASE (18)
+         kard1(i) = blankk
+         CALL khrbcd(card80,Bufx)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
 99005 FORMAT (1H ,29X,A80)
 99006 FORMAT (7X,'*** ERROR -',24A4)
-99999 END SUBROUTINE xread
+END SUBROUTINE xread

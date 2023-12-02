@@ -1,14 +1,15 @@
-!*==ihex.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ihex.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ihex(Temps,Pg,Type)
-USE C_MATIN
-USE C_MATISO
-USE C_MATOUT
-USE C_SSGWRK
-USE C_SYSTEM
-USE C_TRIMEX
-USE ISO_FORTRAN_ENV                 
+   USE c_matin
+   USE c_matiso
+   USE c_matout
+   USE c_ssgwrk
+   USE c_system
+   USE c_trimex
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -85,11 +86,11 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE EST POINTERS
 !*****
          ngp = 12*Type - 4
-         Mid = 10 + 12*(Type-1)
-         cid = iest(Mid+1)
-         nip = iest(Mid+2)
+         mid = 10 + 12*(Type-1)
+         cid = iest(mid+1)
+         nip = iest(mid+2)
          IF ( nip<2 .OR. nip>4 ) nip = Type/2 + 2
-         bgpdt = Mid + 6
+         bgpdt = mid + 6
          gpt = bgpdt + 4*ngp
          DO i = 1 , ngp
             jz(i) = iest(bgpdt+4*i-4)
@@ -99,38 +100,38 @@ USE ISO_FORTRAN_ENV
             DO j = 1 , 3
                k = bgpdt + 4*(ngp-i) + 4 - j
                bcord = bcord - 1
-               Est(bcord) = Est(k)
+               est(bcord) = est(k)
             ENDDO
          ENDDO
          DO i = 2 , ngp
             iest(bgpdt+i-1) = jz(i)
          ENDDO
-         Mid = iest(ngp+2)
+         mid = iest(ngp+2)
 !
 !     ABSCISSAE AND WEIGHT COEFFICIENTS FOR GAUSSIAN QUADRATURE
 !
          i = nip - 1
          IF ( i==2 ) THEN
-            H(1) = gauss(2)
-            S(1) = gauss(3)
-            H(2) = gauss(4)
-            S(2) = 0.0
-            H(3) = H(1)
-            S(3) = -S(1)
+            h(1) = gauss(2)
+            s(1) = gauss(3)
+            h(2) = gauss(4)
+            s(2) = 0.0
+            h(3) = h(1)
+            s(3) = -s(1)
          ELSEIF ( i==3 ) THEN
-            H(1) = gauss(5)
-            S(1) = gauss(6)
-            H(2) = gauss(7)
-            S(2) = gauss(8)
-            H(3) = H(2)
-            S(3) = -S(2)
-            H(4) = H(1)
-            S(4) = -S(1)
+            h(1) = gauss(5)
+            s(1) = gauss(6)
+            h(2) = gauss(7)
+            s(2) = gauss(8)
+            h(3) = h(2)
+            s(3) = -s(2)
+            h(4) = h(1)
+            s(4) = -s(1)
          ELSE
-            H(1) = 1.0
-            S(1) = gauss(1)
-            H(2) = H(1)
-            S(2) = -S(1)
+            h(1) = 1.0
+            s(1) = gauss(1)
+            h(2) = h(1)
+            s(2) = -s(1)
          ENDIF
 !
 !=======================================================================
@@ -140,7 +141,7 @@ USE ISO_FORTRAN_ENV
 !     TEST FOR ANISOTROPIC MATERIAL
 !
          anis = .FALSE.
-         Inflag = 10
+         inflag = 10
 !
 !     TEST FOR RECTANGULAR COORDINATE SYSTEM IN WHICH THE ANISOTROPIC
 !     MATERIAL IS DEFINED
@@ -152,7 +153,7 @@ USE ISO_FORTRAN_ENV
 !
          tdep = .TRUE.
          DO i = 2 , ngp
-            IF ( Est(gpt)/=Est(gpt+i-1) ) THEN
+            IF ( est(gpt)/=est(gpt+i-1) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -160,11 +161,11 @@ USE ISO_FORTRAN_ENV
          tdep = .FALSE.
          spag_nextblock_1 = 2
       CASE (2)
-         Eltemp = Est(gpt)
+         eltemp = est(gpt)
          CALL mat(eid)
-         IF ( .NOT.Mtdep ) tdep = .FALSE.
+         IF ( .NOT.mtdep ) tdep = .FALSE.
          IF ( ib(46)==6 ) anis = .TRUE.
-         Tref = Bufm6(44)
+         tref = bufm6(44)
 !*****
 !     IF ISOTROPIC TEMPERATURE INDEPENDENT MATERIAL, COMPUTE CONSTANTS
 !*****
@@ -177,16 +178,16 @@ USE ISO_FORTRAN_ENV
 !=======================================================================
 !
                DO ijk = 1 , 36
-                  gmat(ijk) = Bufm6(ijk)
+                  gmat(ijk) = bufm6(ijk)
                ENDDO
             ELSEIF ( ib(46)/=0 ) THEN
-               e1 = Bufm6(1)
-               e2 = Bufm6(2)
-               e3 = Bufm6(22)
-               Talpha = Bufm6(38)
+               e1 = bufm6(1)
+               e2 = bufm6(2)
+               e3 = bufm6(22)
+               talpha = bufm6(38)
             ELSE
                CALL page2(2)
-               WRITE (Otpt,99001) ufm , Mid , eid
+               WRITE (otpt,99001) ufm , mid , eid
                nogo = 1
                RETURN
             ENDIF
@@ -208,7 +209,7 @@ USE ISO_FORTRAN_ENV
 !*****
 !     GENERATE SHAPE FUNCTIONS AND JACOBIAN MATRIX INVERSE
 !*****
-                        CALL ihexsd(Type,Shp,Dshp,Jacob,detj,eid,S(i),S(j),S(k),Est(bcord))
+                        CALL ihexsd(Type,shp,dshp,jacob,detj,eid,s(i),s(j),s(k),est(bcord))
 !
 !     JACOBIAN MATRIX WAS SINGULAR
 !
@@ -217,15 +218,15 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE PARTIAL DERIVATIVE OF SHAPE FUNCTIONS WITH RESPECT
 !     TO BASIC COORDINATES
 !*****
-                        CALL gmmatd(Dshp,ngp,3,0,Jacob,3,3,0,cn)
+                        CALL gmmatd(dshp,ngp,3,0,jacob,3,3,0,cn)
 !*****
 !     COMPUTE LOADING TEMPERATURE AT THIS INTEGRATION POINT
 !*****
                         temp = 0.0D0
                         DO l = 1 , ngp
-                           temp = temp + Shp(l)*dble(Temps(l))
+                           temp = temp + shp(l)*dble(Temps(l))
                         ENDDO
-                        temp = temp - dble(Tref)
+                        temp = temp - dble(tref)
 !*****
 !     IF MATERIAL IS TEMPERATURE DEPENDENT, COMPUTE TEMPERATURE AT THIS
 !     INTEGRATION POINT AND FETCH MATERIAL PROPERTIES
@@ -245,43 +246,42 @@ USE ISO_FORTRAN_ENV
                               CYCLE SPAG_DispatchLoop_2
                            ENDIF
                         ELSE
-                           Eltemp = 0.0D0
+                           eltemp = 0.0D0
                            DO l = 1 , ngp
-                              Eltemp = Eltemp + Shp(l)*dble(Est(gpt+l-1))
+                              eltemp = eltemp + shp(l)*dble(est(gpt+l-1))
                            ENDDO
                            CALL mat(eid)
                            IF ( .NOT.(anis) ) THEN
                               IF ( ib(46)/=0 ) THEN
-                                 e1 = Bufm6(1)
-                                 e2 = Bufm6(2)
-                                 e3 = Bufm6(22)
-                                 Talpha = Bufm6(38)
+                                 e1 = bufm6(1)
+                                 e2 = bufm6(2)
+                                 e3 = bufm6(22)
+                                 talpha = bufm6(38)
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
                               ELSE
                                  CALL page2(2)
-                                 WRITE (Otpt,99001) ufm , Mid , eid
+                                 WRITE (otpt,99001) ufm , mid , eid
                                  nogo = 1
                                  RETURN
                               ENDIF
                            ENDIF
                         ENDIF
                         DO ijk = 1 , 36
-                           gmat(ijk) = Bufm6(ijk)
+                           gmat(ijk) = bufm6(ijk)
 !
 !=======================================================================
 !     INSERT GLOBAL TO BASIC TRANSFORMATION OPERATIONS HERE FOR
 !     ANISOTROPIC MATERIAL MATRIX
                         ENDDO
                         spag_nextblock_2 = 3
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (2)
 !=======================================================================
 !*****
 !     COMPUTE CONTRIBUTION TO THERMAL LOAD VECTOR FOR ISOTROPIC MATERIAL
 !*****
-                        alpvec = dble(Talpha)*(e1+2.0*e2)
-                        sfact = H(i)*H(j)*H(k)*detj*alpvec*temp
+                        alpvec = dble(talpha)*(e1+2.0*e2)
+                        sfact = h(i)*h(j)*h(k)*detj*alpvec*temp
                         l = 0
                         DO ii = 1 , ngp
                            DO jj = 1 , 3
@@ -289,15 +289,14 @@ USE ISO_FORTRAN_ENV
                               parg(l) = sfact*cn(jj,ii) + parg(l)
                            ENDDO
                         ENDDO
-                        CYCLE
                      CASE (3)
 !=======================================================================
 !     ADD LOAD COMPUTATIONS FOR ANISOTROPIC MATERIAL HERE
 !=======================================================================
 !
-                        sfact = H(i)*H(j)*H(k)*detj*temp
+                        sfact = h(i)*h(j)*h(k)*detj*temp
                         DO ijk = 1 , 6
-                           dalpha(ijk) = Bufm6(ijk+37)
+                           dalpha(ijk) = bufm6(ijk+37)
                         ENDDO
 !
                         CALL gmmatd(gmat,6,6,0,dalpha,6,1,0,a(1))
@@ -326,7 +325,7 @@ USE ISO_FORTRAN_ENV
          DO i = 1 , ngp
             sil = iest(i+1)
             ibgp = bgpdt + i - 1
-            IF ( iest(ibgp)/=0 ) CALL basglb(psgl(3*i-2),psgl(3*i-2),Est(bcord+3*i-3),iest(ibgp))
+            IF ( iest(ibgp)/=0 ) CALL basglb(psgl(3*i-2),psgl(3*i-2),est(bcord+3*i-3),iest(ibgp))
             DO j = 1 , 3
                Pg(sil+j-1) = Pg(sil+j-1) + psgl(3*i-3+j)
             ENDDO

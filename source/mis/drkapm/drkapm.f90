@@ -1,12 +1,13 @@
-!*==drkapm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==drkapm.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE drkapm(Arg,Indx,Reslt)
+   USE c_blk1
+   USE c_blk2
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLK1
-   USE C_BLK2
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,16 +28,16 @@ SUBROUTINE drkapm(Arg,Indx,Reslt)
 !     THIS SUBROUTINE COMPUTES THE DERVIATIVE OF KAPPA MINUS
 !
 !
-   pi2 = 2.0*Pi
-   a1 = pi2/(Sps-Sns)
+   pi2 = 2.0*pi
+   a1 = pi2/(sps-sns)
    a2 = -a1
-   gam0 = Sps*Del - Sigma
-   b1 = gam0/(Sps-Sns)
-   c1 = cexp(-Ai*Arg/2.0*(Sps-Sns))
-   c2q = gam0/Dstr - Scrk
-   c3q = gam0/Dstr + Scrk
-   s1 = Sps/(Dstr**2)
-   s2 = Sns/Dstr
+   gam0 = sps*del - sigma
+   b1 = gam0/(sps-sns)
+   c1 = cexp(-ai*Arg/2.0*(sps-sns))
+   c2q = gam0/dstr - scrk
+   c3q = gam0/dstr + scrk
+   s1 = sps/(dstr**2)
+   s2 = sns/dstr
    nn = 0
    csec = c2q*c3q
    IF ( csec<0.0 ) nn = 1
@@ -47,9 +48,9 @@ SUBROUTINE drkapm(Arg,Indx,Reslt)
    IF ( nn==1 ) alp0 = cmplx(t1,t2)
    rindx = Indx
    IF ( Indx==0 ) THEN
-      c2 = c1*b1/alp0*csin(Pi/a1*(Arg-b1))/((b1-alp0)*sin(Pi*b1/a1))*Bsycon
+      c2 = c1*b1/alp0*csin(pi/a1*(Arg-b1))/((b1-alp0)*sin(pi*b1/a1))*bsycon
    ELSE
-      c2 = c1*b1/alp0*csin(Pi/a1*(Arg-b1))/(a1*rindx+b1-Arg)*(1.0+(alp0-b1)/(b1-Arg))/(sin(Pi*b1/a1))*Bsycon
+      c2 = c1*b1/alp0*csin(pi/a1*(Arg-b1))/(a1*rindx+b1-Arg)*(1.0+(alp0-b1)/(b1-Arg))/(sin(pi*b1/a1))*bsycon
    ENDIF
    c2test = 0.0
    DO i = 1 , 200
@@ -58,10 +59,10 @@ SUBROUTINE drkapm(Arg,Indx,Reslt)
          IF ( Indx<=0 .OR. rindx/=r ) THEN
             gamp = pi2*r + gam0
             gamn = -pi2*r + gam0
-            c2p = gamp/Dstr - Scrk
-            c2q = gamp/Dstr + Scrk
-            c2n = gamn/Dstr - Scrk
-            c3q = gamn/Dstr + Scrk
+            c2p = gamp/dstr - scrk
+            c2q = gamp/dstr + scrk
+            c2n = gamn/dstr - scrk
+            c3q = gamn/dstr + scrk
             nn = 0
             csec = c2p*c2q
             IF ( csec<0.0 ) nn = 1
@@ -90,13 +91,12 @@ SUBROUTINE drkapm(Arg,Indx,Reslt)
       ENDIF
    ENDDO
 !
-   WRITE (Ibbout,99001) Ufm
+   WRITE (ibbout,99001) ufm
 99001 FORMAT (A23,' - AMG MODULE -SUBROUTINE DRKAPM')
    CALL mesage(-61,0,0)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      Reslt = c2
-      RETURN
+      Reslt = C2
    END SUBROUTINE spag_block_1
 END SUBROUTINE drkapm

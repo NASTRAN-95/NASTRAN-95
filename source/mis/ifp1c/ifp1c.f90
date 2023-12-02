@@ -1,12 +1,13 @@
-!*==ifp1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifp1c.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1c(I81,Nz)
+   USE c_ifp1a
+   USE c_system
+   USE c_xifp1
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_SYSTEM
-   USE C_XIFP1
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -36,7 +37,7 @@ SUBROUTINE ifp1c(I81,Nz)
       CASE (1)
 !
          i81o = I81
-         core(I81+2) = Isub
+         core(I81+2) = isub
          IF ( core(I81+3)/=-1 ) THEN
 !
 !     NO NAME FOR SET
@@ -52,7 +53,7 @@ SUBROUTINE ifp1c(I81,Nz)
 !     FIND BEGINNING OF SET LIST
 !
             I81 = I81 + 5
-            IF ( core(I81)==Ieor ) THEN
+            IF ( core(I81)==ieor ) THEN
 !
 !     UNEXPECTED END OF RECORD
 !
@@ -70,7 +71,7 @@ SUBROUTINE ifp1c(I81,Nz)
                   CYCLE SPAG_DispatchLoop_1
                ELSE
                   I81 = I81 + 3
-                  IF ( core(I81)==Ieor ) THEN
+                  IF ( core(I81)==ieor ) THEN
                      CALL ifp1d(-623)
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
@@ -104,23 +105,22 @@ SUBROUTINE ifp1c(I81,Nz)
          iput = iput + 1
          core(ilset) = core(ilset) + 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     CONTINUATION CARD
 !
 ! ... ALLOW ON-LINE READ IF INTRA IS .GT. ZERO, SET BY ONLINS
 !
-         IF ( Intra<=0 ) THEN
-            CALL read(*60,*60,Scr1,core(1),Nwpc,0,flag)
-            WRITE (Otpe,99001) Icc , (core(i),i=1,Nwpc)
+         IF ( intra<=0 ) THEN
+            CALL read(*60,*60,scr1,core(1),nwpc,0,flag)
+            WRITE (otpe,99001) icc , (core(i),i=1,nwpc)
 99001       FORMAT (11X,I8,6X,20A4)
-            Icc = Icc + 1
-            Line = Line + 1
-            IF ( Line>=Nlpp ) CALL page
+            icc = icc + 1
+            line = line + 1
+            IF ( line>=nlpp ) CALL page
          ELSE
             CALL xread(*60,core(1))
-            Icc = Icc + 1
+            icc = icc + 1
          ENDIF
          I81 = iput
          Nz = Nz - core(ilset)
@@ -130,7 +130,7 @@ SUBROUTINE ifp1c(I81,Nz)
 !
 !     THRU AND EXCEPT
 !
-         IF ( core(I81)==Ieor ) THEN
+         IF ( core(I81)==ieor ) THEN
 !
 !     END OF RECORD
 !
@@ -156,7 +156,7 @@ SUBROUTINE ifp1c(I81,Nz)
             CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( ireal==1 ) CALL ifp1d(-622)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,core(I81+1),0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,core(I81+1),0)
             IF ( core(I81+1)/=thru ) THEN
 !
 !     EXCEPT
@@ -170,7 +170,7 @@ SUBROUTINE ifp1c(I81,Nz)
 !     PROCESS EXCEPT CANDIDATES
 !
                   I81 = I81 + 3
-                  IF ( core(I81)==Ieor ) THEN
+                  IF ( core(I81)==ieor ) THEN
                      CALL ifp1d(-623)
                      spag_nextblock_1 = 6
                      CYCLE SPAG_DispatchLoop_1
@@ -203,10 +203,9 @@ SUBROUTINE ifp1c(I81,Nz)
                CYCLE SPAG_DispatchLoop_1
             ELSE
                I81 = I81 + 3
-               IF ( core(I81)==Ieor ) THEN
+               IF ( core(I81)==ieor ) THEN
                   CALL ifp1d(-623)
                   spag_nextblock_1 = 6
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   ibk = ibk1
                   ifwd = core(I81+1)
@@ -214,15 +213,14 @@ SUBROUTINE ifp1c(I81,Nz)
                   IF ( ibk>=ifwd ) THEN
                      CALL ifp1d(-614)
                      spag_nextblock_1 = 6
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      ithru = 1
 !     TEST FOR DEGENERATE THRU INTERVAL
                      IF ( ifwd-ibk/=1 ) core(I81+1) = -core(I81+1)
                      spag_nextblock_1 = 3
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
+               CYCLE
             ENDIF
          ENDIF
  40      SPAG_Loop_1_1: DO
@@ -232,7 +230,7 @@ SUBROUTINE ifp1c(I81,Nz)
                IF ( core(I81+1)<ibk ) THEN
                   CALL ifp1d(-614)
                   EXIT SPAG_Loop_1_1
-               ELSEIF ( core(I81+1)<=core(I81-1) .AND. jexcpt==1 .AND. (core(I81+2)<=0 .OR. core(I81+2)==Ieor) ) THEN
+               ELSEIF ( core(I81+1)<=core(I81-1) .AND. jexcpt==1 .AND. (core(I81+2)<=0 .OR. core(I81+2)==ieor) ) THEN
                   CALL ifp1d(-626)
                   I81 = I81 + 2
                ELSE
@@ -323,12 +321,12 @@ SUBROUTINE ifp1c(I81,Nz)
          spag_nextblock_1 = 6
       CASE (6)
          I81 = i81o
-         Nset = Nset - 1
+         nset = nset - 1
          spag_nextblock_1 = 7
       CASE (7)
          RETURN
  60      DO
-            CALL mesage(-1,Scr1,nifp1c)
+            CALL mesage(-1,scr1,nifp1c)
          ENDDO
          EXIT SPAG_DispatchLoop_1
       END SELECT

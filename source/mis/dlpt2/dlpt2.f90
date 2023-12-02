@@ -1,13 +1,14 @@
-!*==dlpt2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dlpt2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dlpt2(Input,W1jk,W2jk)
+   USE c_amgmn
+   USE c_amgp2
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_AMGP2
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,8 +39,8 @@ SUBROUTINE dlpt2(Input,W1jk,W2jk)
 !     COMPUTE POINTERS AND SEE IF THERE IS ENOUGH CORE
 !
    ecore = korsz(iz)
-   ecore = ecore - 4*Sysbuf
-   Nn = Ii + 1
+   ecore = ecore - 4*sysbuf
+   nn = ii + 1
    inc = 0
    inb = inc + np(1)
    iys = inb + np(1)
@@ -61,22 +62,22 @@ SUBROUTINE dlpt2(Input,W1jk,W2jk)
 !     NOT ENOUGH CORE
       CALL mesage(-8,0,name)
    ELSE
-      CALL read(*100,*100,Input,Work,nread,1,n)
+      CALL read(*100,*100,Input,work,nread,1,n)
 !
 !     COMPUTE TERMS AND PACK
 !
       DO i = 1 , ntp
          a(1) = 0.0
          a(2) = 1.0
-         CALL pack(a,W1jk,Tw1jk)
-         a(1) = -(2.0/Refc)
-         a(2) = Work(idelx+i)/(2.0*Refc)
-         CALL pack(a,W2jk,Tw2jk)
+         CALL pack(a,W1jk,tw1jk)
+         a(1) = -(2.0/refc)
+         a(2) = work(idelx+i)/(2.0*refc)
+         CALL pack(a,W2jk,tw2jk)
 !
 !     BUMP PACK INDEXES
 !
-         Ii = Ii + 2
-         IF ( i/=ntp ) Nn = Nn + 2
+         ii = ii + 2
+         IF ( i/=ntp ) nn = nn + 2
       ENDDO
       RETURN
    ENDIF

@@ -1,11 +1,12 @@
-!*==axloop.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==axloop.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE axloop(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
+   USE c_blank
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -152,10 +153,10 @@ SUBROUTINE axloop(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
                      deltf1 = deltf1*(xn21/xn2)*realk
                      deltf2 = deltf1*deltf1
                      f = f + deltf2
-                     IF ( abs(deltf2/f)<=Epse ) GOTO 2
+                     IF ( abs(deltf2/f)<=epse ) GOTO 2
                   ENDDO
                   delf = abs(deltf2/f)
-                  WRITE (Otpe,99001) Uwm , Xx , Yy , Zz , xc , yc , zc , x1 , y1 , z1 , x2 , y2 , z2 , delf , Epse
+                  WRITE (otpe,99001) uwm , Xx , Yy , Zz , xc , yc , zc , x1 , y1 , z1 , x2 , y2 , z2 , delf , epse
  2                f = piby2*f
 !
 !     COMPUTE ELLIPTIC INTEGRAL OF SECOND KIND
@@ -171,7 +172,7 @@ SUBROUTINE axloop(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
                      IF ( abs(delte2/e)<=.000001 ) GOTO 4
                   ENDDO
                   dele = abs(delte2/e)
-                  WRITE (Otpe,99001) Uwm , Xx , Yy , Zz , xc , yc , zc , x1 , y1 , z1 , x2 , y2 , z2 , dele
+                  WRITE (otpe,99001) uwm , Xx , Yy , Zz , xc , yc , zc , x1 , y1 , z1 , x2 , y2 , z2 , dele
  4                e = piby2*e
 !
 !     COMPUTE THE RADIAL COMPONENT OF THE MAGNETIC FIELD

@@ -1,12 +1,13 @@
-!*==cfactr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfactr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfactr(A,Ll,Ul,Scr1,Scr2,Scr3,Iopt)
-USE C_CDCMPX
-USE C_SDCCSP
-USE C_SFACT
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cdcmpx
+   USE c_sdccsp
+   USE c_sfact
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -32,7 +33,7 @@ USE ISO_FORTRAN_ENV
    DATA name/4HCFAC , 4HTR  /
 !
 !
-   nz = korsz(Iz)
+   nz = korsz(iz)
    mcb(1) = A
    CALL rdtrl(mcb)
    IF ( mcb(4)/=6 ) THEN
@@ -40,18 +41,18 @@ USE ISO_FORTRAN_ENV
 !     UNSYMMETRIC  COMPLEX
 !
       DO i = 1 , 7
-         Fa(i) = mcb(i)
-         Fl(i) = mcb(i)
-         Fu(i) = mcb(i)
+         fa(i) = mcb(i)
+         fl(i) = mcb(i)
+         fu(i) = mcb(i)
       ENDDO
-      Fl(1) = Ll
-      Fu(1) = Ul
-      Fl(4) = 4
-      Fu(4) = 5
-      Sr1 = Scr1
-      Sr2 = Scr2
-      Sr3 = Scr3
-      Nx = nz
+      fl(1) = Ll
+      fu(1) = Ul
+      fl(4) = 4
+      fu(4) = 5
+      sr1 = Scr1
+      sr2 = Scr2
+      sr3 = Scr3
+      nx = nz
 !     IB    = 0
 !
 !     IF IB IS SET TO ZERO HERE, T08021 PRINTS 27 MORE MESSAGES 3027
@@ -59,31 +60,31 @@ USE ISO_FORTRAN_ENV
 !     FRD2C, IN FRRD2 MODULE
 !
 !IBMI 6/93
-      Ibbar = 0
-      CALL cdcomp(*100,Iz,Iz,Iz)
-      CALL wrttrl(Fu)
-      CALL wrttrl(Fl)
+      ibbar = 0
+      CALL cdcomp(*100,iz,iz,iz)
+      CALL wrttrl(fu)
+      CALL wrttrl(fl)
       Iopt = 1
    ELSE
 !
 !     SYMMETRIC  COMPLEX
 !
       DO i = 1 , 7
-         Mfa(i) = mcb(i)
-         Mfl(i) = mcb(i)
-         Mfc(i) = mcb(i)
+         mfa(i) = mcb(i)
+         mfl(i) = mcb(i)
+         mfc(i) = mcb(i)
       ENDDO
-      Mfl(1) = Ll
-      Mfc(1) = Ul
-      Mfl(4) = 4
-      Mfc(4) = 5
-      M1fil = Scr1
-      M2fil = Scr2
-      Mxx = nz
-      M3fil = Scr3
-      Ichol = 0
-      CALL sdcomp(*100,Iz,Iz,Iz)
-      CALL wrttrl(Mfl)
+      mfl(1) = Ll
+      mfc(1) = Ul
+      mfl(4) = 4
+      mfc(4) = 5
+      m1fil = Scr1
+      m2fil = Scr2
+      mxx = nz
+      m3fil = Scr3
+      ichol = 0
+      CALL sdcomp(*100,iz,iz,iz)
+      CALL wrttrl(mfl)
       Iopt = 2
    ENDIF
    RETURN

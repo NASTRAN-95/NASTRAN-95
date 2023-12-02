@@ -1,4 +1,5 @@
-!*==permut.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==permut.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE permut(Ia,Id,N,Isw)
@@ -15,6 +16,15 @@ SUBROUTINE permut(Ia,Id,N,Isw)
 !
    INTEGER :: i , i1 , is1 , j , k , l , n1
    INTEGER , DIMENSION(32) :: ib , ic
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -47,18 +57,18 @@ SUBROUTINE permut(Ia,Id,N,Isw)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      DO j = i , N
-         k = j - i + 1
-         Id(k) = ib(j)
+      DO J = I , N
+         K = J - I + 1
+         Id(K) = Ib(J)
       ENDDO
-      IF ( k==N ) RETURN
-      k = k + 1
+      IF ( K==N ) RETURN
+      K = K + 1
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      DO j = k , N
-         l = j - k + 1
-         Id(j) = ib(l)
+      DO J = K , N
+         L = J - K + 1
+         Id(J) = Ib(L)
       ENDDO
    END SUBROUTINE spag_block_2
 END SUBROUTINE permut

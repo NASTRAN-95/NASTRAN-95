@@ -1,17 +1,18 @@
-!*==rcovui.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rcovui.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovui(Ub,Lastss,Modal)
-USE C_BLANK
-USE C_MPYADX
-USE C_NAMES
-USE C_PACKX
-USE C_PARMEG
-USE C_RCOVCM
-USE C_RCOVCR
-USE C_SADDX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_parmeg
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_saddx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -49,15 +50,15 @@ USE ISO_FORTRAN_ENV
 !
 !     INITILIZE
 !
-   lcorez = korsz(Z) - Lreq - Icore - 1
-   idpcor = Icore/2 + 1
-   Tflag = 0
-   Signab = 1
-   Signc = 1
-   Mprec = 0
-   Scrm = 309
+   lcorez = korsz(z) - lreq - icore - 1
+   idpcor = icore/2 + 1
+   tflag = 0
+   signab = 1
+   signc = 1
+   mprec = 0
+   scrm = 309
    reqf = .FALSE.
-   IF ( Lastss(1)==Fss(1) .AND. Lastss(2)==Fss(2) ) reqf = .TRUE.
+   IF ( Lastss(1)==fss(1) .AND. Lastss(2)==fss(2) ) reqf = .TRUE.
 !
 !     GENERATE THE PARTIAL LOAD VECTOR USING THE NORMAL TRANSFORMATION
 !
@@ -70,28 +71,28 @@ USE ISO_FORTRAN_ENV
       RETURN
    ENDIF
 !
-   Mcba(1) = scr2
-   CALL rdtrl(Mcba)
-   Mcbb(1) = Ub
-   CALL rdtrl(Mcbb)
-   Mcbc(1) = 0
+   mcba(1) = scr2
+   CALL rdtrl(mcba)
+   mcbb(1) = Ub
+   CALL rdtrl(mcbb)
+   mcbc(1) = 0
    upart = scr5
-   CALL makmcb(Mcbd,upart,Mcba(3),Rect,Mcbb(5))
-   Mpyz = lcorez
+   CALL makmcb(mcbd,upart,mcba(3),rect,mcbb(5))
+   mpyz = lcorez
    CALL sofcls
    CALL mpyad(dz(idpcor),dz(idpcor),dz(idpcor))
-   CALL wrttrl(Mcbd)
-   CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+   CALL wrttrl(mcbd)
+   CALL sofopn(z(sof1),z(sof2),z(sof3))
 !
 !     DETERMINE THE NUMBER OF OMITTED POINTS
 !
-   nrowo = Mcba(3) - Mcba(2)
-   CALL softrl(Lastss,gims,Mcba)
-   IF ( Mcba(1)==1 ) nrowo = Mcba(3)
+   nrowo = mcba(3) - mcba(2)
+   CALL softrl(Lastss,gims,mcba)
+   IF ( mcba(1)==1 ) nrowo = mcba(3)
 !
 !     GENERATE THE VELOCITIES AND ACCELERATIONS
 !
-   Lcore = Buf4 - Icore - 1
+   lcore = buf4 - icore - 1
    CALL rcovva(upart,0,0,0,scr7,scr8,Lastss,dz(idpcor),dz(idpcor),dz(idpcor))
    IF ( upart<=0 ) THEN
       CALL spag_block_8
@@ -106,8 +107,8 @@ USE ISO_FORTRAN_ENV
 !
    pid = 0
    IF ( reqf ) THEN
-      Mcba(1) = mgg
-      IF ( Mcba(1)>0 ) THEN
+      mcba(1) = mgg
+      IF ( mcba(1)>0 ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
@@ -117,24 +118,24 @@ USE ISO_FORTRAN_ENV
       CALL spag_block_2
       RETURN
    ENDIF
-   Mcba(1) = scr2
-   CALL rdtrl(Mcba)
+   mcba(1) = scr2
+   CALL rdtrl(mcba)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      Mcbb(1) = scr8
-      CALL rdtrl(Mcbb)
-      Mcbc(1) = 0
-      CALL makmcb(Mcbd,scr6,Mcbb(3),Rect,Mcbb(5))
+      mcbb(1) = Scr8
+      CALL rdtrl(mcbb)
+      mcbc(1) = 0
+      CALL makmcb(Mcbd,Scr6,mcbb(3),Rect,mcbb(5))
       Signab = -1
       CALL sofcls
 !
-      CALL mpyad(dz(idpcor),dz(idpcor),dz(idpcor))
+      CALL mpyad(Dz(Idpcor),Dz(Idpcor),Dz(Idpcor))
 !
-      DO i = 1 , 7
-         Mcbc(i) = Mcbd(i)
+      DO I = 1 , 7
+         mcbc(I) = Mcbd(I)
       ENDDO
-      pid = scr6
+      Pid = Scr6
       CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
       CALL spag_block_2
    END SUBROUTINE spag_block_1
@@ -142,68 +143,68 @@ CONTAINS
 !
 !     CALCULATE THE DAMPING LOADS
 !
-      IF ( Rfno==3 ) THEN
+      IF ( rfno==3 ) THEN
          CALL spag_block_6
          RETURN
       ENDIF
-      IF ( reqf ) THEN
-         Mcba(1) = k4gg
-         CALL rdtrl(Mcba)
-         IF ( Mcba(1)>0 ) THEN
+      IF ( Reqf ) THEN
+         mcba(1) = K4gg
+         CALL rdtrl(mcba)
+         IF ( mcba(1)>0 ) THEN
             CALL spag_block_3
             RETURN
          ENDIF
       ENDIF
-      CALL mtrxi(scr2,Lastss,k4mx,0,rc)
-      IF ( rc/=1 ) THEN
+      CALL mtrxi(Scr2,Lastss,K4mx,0,Rc)
+      IF ( Rc/=1 ) THEN
          CALL spag_block_4
          RETURN
       ENDIF
-      Mcba(1) = scr2
-      CALL rdtrl(Mcba)
+      mcba(1) = Scr2
+      CALL rdtrl(mcba)
       CALL spag_block_3
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3
-      Mcbb(1) = scr7
-      CALL rdtrl(Mcbb)
-      CALL makmcb(Mcbd,scr8,Mcbb(3),Rect,Mcbb(5))
+      mcbb(1) = Scr7
+      CALL rdtrl(mcbb)
+      CALL makmcb(Mcbd,Scr8,mcbb(3),Rect,mcbb(5))
       Signab = -1
       CALL sofcls
-      CALL mpyad(dz(idpcor),dz(idpcor),dz(idpcor))
-      pid = scr8
+      CALL mpyad(Dz(Idpcor),Dz(Idpcor),Dz(Idpcor))
+      Pid = Scr8
       CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
-      DO i = 1 , 7
-         Mcbc(i) = Mcbd(i)
+      DO I = 1 , 7
+         mcbc(I) = Mcbd(I)
       ENDDO
       CALL spag_block_4
    END SUBROUTINE spag_block_3
    SUBROUTINE spag_block_4
 !
-      IF ( reqf ) THEN
-         Mcba(1) = bgg
-         CALL rdtrl(Mcba)
-         IF ( Mcba(1)>0 ) THEN
+      IF ( Reqf ) THEN
+         mcba(1) = Bgg
+         CALL rdtrl(mcba)
+         IF ( mcba(1)>0 ) THEN
             CALL spag_block_5
             RETURN
          ENDIF
       ENDIF
-      CALL mtrxi(scr2,Lastss,bmtx,0,rc)
-      IF ( rc/=1 ) THEN
+      CALL mtrxi(Scr2,Lastss,Bmtx,0,Rc)
+      IF ( Rc/=1 ) THEN
          CALL spag_block_6
          RETURN
       ENDIF
-      Mcba(1) = scr2
-      CALL rdtrl(Mcba)
+      mcba(1) = Scr2
+      CALL rdtrl(mcba)
       CALL spag_block_5
    END SUBROUTINE spag_block_4
    SUBROUTINE spag_block_5
-      Mcbb(1) = scr7
-      CALL rdtrl(Mcbb)
-      CALL makmcb(Mcbd,scr6,Mcbb(3),Rect,Mcbb(5))
+      mcbb(1) = Scr7
+      CALL rdtrl(mcbb)
+      CALL makmcb(Mcbd,Scr6,mcbb(3),Rect,mcbb(5))
       Signab = -1
       CALL sofcls
-      CALL mpyad(dz(idpcor),dz(idpcor),dz(idpcor))
-      pid = scr6
+      CALL mpyad(Dz(Idpcor),Dz(Idpcor),Dz(Idpcor))
+      Pid = Scr6
       CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
       CALL spag_block_6
    END SUBROUTINE spag_block_5
@@ -213,44 +214,44 @@ CONTAINS
 !
 !     GET THE PARTITIONING VECTOR FROM THE SOF
 !
-      IF ( pid/=0 ) THEN
-         item = uprt
-         CALL mtrxi(scr2,Lastss,uprt,0,rc)
-         IF ( rc/=1 ) THEN
+      IF ( Pid/=0 ) THEN
+         Item = Uprt
+         CALL mtrxi(Scr2,Lastss,Uprt,0,Rc)
+         IF ( Rc/=1 ) THEN
             CALL spag_block_7
             RETURN
          ENDIF
-         Rule = 0
-         Mrgz = lcorez - 14
-         idp = (Icore+14)/2 + 1
-         DO i = 1 , 7
-            Mcb(i) = Mcbd(i)
+         rule = 0
+         mrgz = Lcorez - 14
+         Idp = (Icore+14)/2 + 1
+         DO I = 1 , 7
+            mcb(I) = Mcbd(I)
          ENDDO
-         pid = scr4
-         CALL makmcb(Mcb11,pid,nrowo,Rect,Mcbd(5))
-         Mcb11(2) = Mcbd(2)
-         Mcb12(1) = 0
-         Mcb21(1) = 0
-         Mcb22(1) = 0
+         Pid = Scr4
+         CALL makmcb(mcb11,Pid,Nrowo,Rect,Mcbd(5))
+         mcb11(2) = Mcbd(2)
+         mcb12(1) = 0
+         mcb21(1) = 0
+         mcb22(1) = 0
 !
 !     SET UP A NULL ROW PARTITION VECTOR
 !
-         Z(Icore) = scr2
+         Z(Icore) = Scr2
          CALL rdtrl(Z(Icore))
-         CALL makmcb(Z(Icore+7),0,Mcb(2),Rect,Rsp)
+         CALL makmcb(Z(Icore+7),0,mcb(2),Rect,rsp)
          Z(Icore+8) = 1
          CALL sofcls
-         CALL partn(Z(Icore+7),Z(Icore),dz(idp))
-         CALL wrttrl(Mcb11)
+         CALL partn(Z(Icore+7),Z(Icore),Dz(Idp))
+         CALL wrttrl(mcb11)
          CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
       ENDIF
 !
 !     PERFORM THE FBS TO GET THE LOADS ON THE OMMITTED POINTS.  WE
 !     WILL ALSO ADD IN THE EFFECTS OF THE DAMPING AND INERTIAL LOADS
 !
-      CALL rcovuo(pid,uao,Lastss)
+      CALL rcovuo(Pid,Uao,Lastss)
       CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
-      IF ( Iopt<0 ) THEN
+      IF ( iopt<0 ) THEN
          CALL spag_block_8
          RETURN
       ENDIF
@@ -258,48 +259,48 @@ CONTAINS
 !     IF RECOVERING A MODAL REDUCED SUBSTRUCTURE, CALCULATE
 !     THE MODAL CORRECTION TO THE U PARTIAL
 !
-      dua = 0
+      Dua = 0
       IF ( Modal ) THEN
 !
 !     IF RF-9, SPLIT THE DISPLACEMENTS FROM THE TOTAL VECTOR
 !
-         uad = upart
-         IF ( Rfno==9 ) THEN
-            uad = scr9
-            CALL rcovva(upart,1,0,uad,0,0,Lastss,dz(idpcor),dz(idpcor),dz(idpcor))
+         Uad = Upart
+         IF ( rfno==9 ) THEN
+            Uad = Scr9
+            CALL rcovva(Upart,1,0,Uad,0,0,Lastss,Dz(Idpcor),Dz(Idpcor),Dz(Idpcor))
          ENDIF
 !
 !     PARTITION THE PARTIAL DISPLACEMENTS TO THE OMITTED AND
 !     BOUNDARY SIZES
 !
-         item = uprt
-         CALL mtrxi(scr2,Lastss,uprt,0,rc)
-         IF ( rc/=1 ) THEN
+         Item = Uprt
+         CALL mtrxi(Scr2,Lastss,Uprt,0,Rc)
+         IF ( Rc/=1 ) THEN
             CALL spag_block_7
             RETURN
          ENDIF
-         Rule = 0
-         Mrgz = lcorez - 14
-         idp = (Icore+14)/2 + 1
-         Mcb(1) = uad
-         CALL rdtrl(Mcb)
-         CALL makmcb(Mcb11,scr3,nrowo,Rect,Mcb(5))
-         CALL makmcb(Mcb21,scr4,Mcb(3)-nrowo,Rect,Mcb(5))
-         Mcb11(2) = Mcb(2)
-         Mcb21(2) = Mcb(2)
-         Mcb12(1) = 0
-         Mcb22(1) = 0
+         rule = 0
+         mrgz = Lcorez - 14
+         Idp = (Icore+14)/2 + 1
+         mcb(1) = Uad
+         CALL rdtrl(mcb)
+         CALL makmcb(mcb11,Scr3,Nrowo,Rect,mcb(5))
+         CALL makmcb(mcb21,Scr4,mcb(3)-Nrowo,Rect,mcb(5))
+         mcb11(2) = mcb(2)
+         mcb21(2) = mcb(2)
+         mcb12(1) = 0
+         mcb22(1) = 0
 !
-         Z(Icore) = scr2
+         Z(Icore) = Scr2
          CALL rdtrl(Z(Icore))
-         CALL makmcb(Z(Icore+7),0,Mcb(2),Rect,Rsp)
+         CALL makmcb(Z(Icore+7),0,mcb(2),Rect,rsp)
          Z(Icore+8) = 1
          CALL sofcls
 !
-         CALL bug(nhpdat,500,Mcb(1),37)
-         CALL partn(Z(Icore+7),Z(Icore),dz(idp))
-         CALL wrttrl(Mcb11)
-         CALL wrttrl(Mcb21)
+         CALL bug(Nhpdat,500,mcb(1),37)
+         CALL partn(Z(Icore+7),Z(Icore),Dz(Idp))
+         CALL wrttrl(mcb11)
+         CALL wrttrl(mcb21)
 !
          CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
 !
@@ -307,71 +308,71 @@ CONTAINS
 !
 !     DUO = GI*UB - UO
 !
-         item = gims
-         CALL mtrxi(scr6,Lastss,gims,0,rc)
-         IF ( rc/=1 ) THEN
+         Item = Gims
+         CALL mtrxi(Scr6,Lastss,Gims,0,Rc)
+         IF ( Rc/=1 ) THEN
             CALL spag_block_7
             RETURN
          ENDIF
-         Mcba(1) = scr6
-         CALL rdtrl(Mcba)
-         DO i = 1 , 7
-            Mcbb(i) = Mcb21(i)
-            Mcbc(i) = Mcb11(i)
+         mcba(1) = Scr6
+         CALL rdtrl(mcba)
+         DO I = 1 , 7
+            mcbb(I) = mcb21(I)
+            mcbc(I) = mcb11(I)
          ENDDO
-         CALL makmcb(Mcbd,scr9,Mcba(3),Rect,Mcbb(5))
+         CALL makmcb(Mcbd,Scr9,mcba(3),Rect,mcbb(5))
          Signab = 1
          Signc = -1
          Tflag = 0
          Scrm = 308
          Mprec = 0
          CALL sofcls
-         Mpyz = Mrgz
-         CALL mpyad(dz(idp),dz(idp),dz(idp))
+         Mpyz = mrgz
+         CALL mpyad(Dz(Idp),Dz(Idp),Dz(Idp))
          CALL wrttrl(Mcbd)
 !
 !     MERGE DUO TO -A- SIZE
 !
-         DO i = 1 , 7
-            Mcb11(i) = Mcbd(i)
+         DO I = 1 , 7
+            mcb11(I) = Mcbd(I)
          ENDDO
-         Mcb21(1) = 0
-         dua = scr4
-         CALL makmcb(Mcb,dua,Z(Icore+2),Rect,Mcb11(5))
-         Mcb(2) = Mcbd(2)
-         IF ( Rfno==9 ) Mcb(2) = 3*Mcbd(2)
+         mcb21(1) = 0
+         Dua = Scr4
+         CALL makmcb(mcb,Dua,Z(Icore+2),Rect,mcb11(5))
+         mcb(2) = Mcbd(2)
+         IF ( rfno==9 ) mcb(2) = 3*Mcbd(2)
 !
 !     SET UP A NULL ROW PARTITIONING VECTOR (OR FOR RF-9)
 !     SET UP A VECTOR THAT WILL MERGE IN A NULL VELOCITY AND
 !     ACCELERATION VECTOR FOR EACH DISPLACEMENT VECTOR
 !
-         Nro = Mcb(2)
-         CALL makmcb(Z(Icore+7),scr3,Nro,Rect,Rsp)
-         IF ( Nro+15>lcorez ) THEN
+         nro = mcb(2)
+         CALL makmcb(Z(Icore+7),Scr3,nro,Rect,rsp)
+         IF ( nro+15>Lcorez ) THEN
 !
-            CALL mesage(8,0,name)
+            CALL mesage(8,0,Name)
             CALL spag_block_8
             RETURN
          ELSE
-            DO i = 1 , Nro
-               rz(Icore+14+i) = 0.0
+            DO I = 1 , nro
+               Rz(Icore+14+I) = 0.0
             ENDDO
-            IF ( Rfno==9 ) THEN
-               DO i = 1 , Nro , 3
-                  rz(Icore+15+i) = 1.0
-                  rz(Icore+16+i) = 1.0
+            IF ( rfno==9 ) THEN
+               DO I = 1 , nro , 3
+                  Rz(Icore+15+I) = 1.0
+                  Rz(Icore+16+I) = 1.0
                ENDDO
             ENDIF
-            CALL gopen(scr3,Z(Buf1),Wrtrew)
-            Typin = 1
-            Typot = 1
-            Iro = 1
-            Incrp = 1
-            CALL pack(Z(Icore+15),scr3,Z(Icore+7))
-            CALL close(scr3,Rew)
+            CALL gopen(Scr3,Z(buf1),wrtrew)
+            typin = 1
+            typot = 1
+            iro = 1
+            incrp = 1
+            CALL pack(Z(Icore+15),Scr3,Z(Icore+7))
+            CALL close(Scr3,rew)
             CALL wrttrl(Z(Icore+7))
-            CALL merge(Z(Icore+7),Z(Icore),dz(idp))
-            CALL wrttrl(Mcb)
+            CALL merge(Z(Icore+7),Z(Icore),Dz(Idp))
+            CALL wrttrl(mcb)
          ENDIF
       ENDIF
 !
@@ -379,43 +380,42 @@ CONTAINS
 !     THE OMITS, INERTIAL, DAMPING, AND MODAL CORRECTION EFFECTS
 !     TO GET THE FINAL DISPLACEMENT VECTOR FOR THIS SUBSTRUCTURE
 !
-      Nomat = 2
-      IF ( dua/=0 ) Nomat = 3
-      Typa = 1
-      Alpha = 1.0
-      Mcbaa(1) = upart
-      CALL rdtrl(Mcbaa)
-      Typb = 1
-      Beta = 1.0
-      Mcbbb(1) = uao
-      CALL rdtrl(Mcbbb)
-      IF ( dua/=0 ) THEN
-         Typc = 1
-         Gama = 1.0
-         Mcbcc(1) = dua
-         CALL rdtrl(Mcbcc)
+      nomat = 2
+      IF ( Dua/=0 ) nomat = 3
+      typa = 1
+      alpha = 1.0
+      mcbaa(1) = Upart
+      CALL rdtrl(mcbaa)
+      typb = 1
+      beta = 1.0
+      mcbbb(1) = Uao
+      CALL rdtrl(mcbbb)
+      IF ( Dua/=0 ) THEN
+         typc = 1
+         gama = 1.0
+         mcbcc(1) = Dua
+         CALL rdtrl(mcbcc)
       ENDIF
-      CALL makmcb(Mcbxx,Ua,Mcbaa(3),Rect,Mcbaa(5))
-      Mcbxx(2) = Mcbaa(2)
-      Lcor = lcorez
+      CALL makmcb(mcbxx,ua,mcbaa(3),Rect,mcbaa(5))
+      mcbxx(2) = mcbaa(2)
+      lcor = Lcorez
       CALL sofcls
-      CALL sadd(dz(idpcor),dz(idpcor))
-      CALL wrttrl(Mcbxx)
+      CALL sadd(Dz(Idpcor),Dz(Idpcor))
+      CALL wrttrl(mcbxx)
 !
 !     NORMAL RETURN
 !
       Signab = 1
-      RETURN
    END SUBROUTINE spag_block_6
    SUBROUTINE spag_block_7
 !
 !     ERROR MESSAGES
 !
-      IF ( rc==2 ) rc = 3
-      CALL smsg(rc-2,item,Lastss)
+      IF ( Rc==2 ) Rc = 3
+      CALL smsg(Rc-2,Item,Lastss)
       CALL spag_block_8
    END SUBROUTINE spag_block_7
    SUBROUTINE spag_block_8
-      Iopt = -1
+      iopt = -1
    END SUBROUTINE spag_block_8
 END SUBROUTINE rcovui

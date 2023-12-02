@@ -2,8 +2,8 @@
  
 SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
    IMPLICIT NONE
-   USE C_CJACOB
-   USE C_COMJAC
+   USE c_cjacob
+   USE c_comjac
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -30,6 +30,15 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     SINGLE PRECISION ROUTINE TO CALCULATE B-MATRIX TERMS
 !     FOR ELEMENTS  QUAD4, QUAD8 AND TRIA6.
 !
@@ -52,14 +61,14 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
    !>>>>EQUIVALENCE (Th,Cjac(1))
 !
    eps = 1.0E-15
-   Badjac = .FALSE.
+   badjac = .FALSE.
 !
-   IF ( Ltypfl==2 ) THEN
+   IF ( ltypfl==2 ) THEN
 !
 !     TRIA6 VERSION
 !
       ngp = 6
-   ELSEIF ( Ltypfl==3 ) THEN
+   ELSEIF ( ltypfl==3 ) THEN
 !
 !     QUAD8 VERSION
 !
@@ -69,7 +78,7 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
 !     QUAD4 VERSION
 !
       ngp = 4
-      CALL q4shps(Xi,Eta,shp,dshp)
+      CALL q4shps(xi,eta,shp,dshp)
    ENDIF
 !
    DO i = 1 , ngp
@@ -89,7 +98,7 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
       th = th + Gpth(i)*shp(i)
       DO j = 1 , 3
          j1 = j + 1
-         gridc(j,i) = Egpdt(j1,i) + Zeta*Gpth(i)*Epnorm(j1,i)*0.5
+         gridc(j,i) = Egpdt(j1,i) + zeta*Gpth(i)*Epnorm(j1,i)*0.5
       ENDDO
    ENDDO
 !
@@ -139,13 +148,13 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
    tie(5) = temp
    tie(6) = -tie(1)*tie(8)
 !
-   CALL invers(3,tj,3,dum,0,Detj,ising,index)
+   CALL invers(3,tj,3,dum,0,detj,ising,index)
 !
 !
 !     NOTE - THE INVERSE OF JACOBIAN HAS BEEN STORED IN TJ
 !            UPON RETURN FROM INVERS.
 !
-   IF ( ising==1 .AND. Detj>0.0 ) THEN
+   IF ( ising==1 .AND. detj>0.0 ) THEN
 !
 !
       DO i = 1 , 3
@@ -181,6 +190,6 @@ SUBROUTINE termss(Nnode,Gpth,Epnorm,Egpdt,Iorder,Mmn,Bterms)
          ENDDO
       ENDDO
    ELSE
-      Badjac = .TRUE.
+      badjac = .TRUE.
    ENDIF
 END SUBROUTINE termss

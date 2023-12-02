@@ -1,9 +1,10 @@
-!*==ectloc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ectloc.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ectloc(Ect,Buf,Ielem) !HIDESTARS (*,Ect,Buf,Ielem)
+   USE c_gpta1
    IMPLICIT NONE
-   USE C_GPTA1
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -53,8 +54,8 @@ SUBROUTINE ectloc(Ect,Buf,Ielem) !HIDESTARS (*,Ect,Buf,Ielem)
 ! SEARCH FOR MATCH OF FIRST WORD OF RECORD WITH ECT-ID WORD IN /GPTA1/
 ! IF FOUND AND NOT PLOTEL, RETURN POINTER.
 !
-         DO i = 1 , Last , Incr
-            IF ( Buf(1)==Elem(i+3) ) THEN
+         DO i = 1 , last , incr
+            IF ( Buf(1)==elem(i+3) ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -63,9 +64,8 @@ SUBROUTINE ectloc(Ect,Buf,Ielem) !HIDESTARS (*,Ect,Buf,Ielem)
       CASE (2)
          CALL fwdrec(*40,Ect)
          spag_nextblock_1 = 1
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         IF ( Elem(i)==plotel ) THEN
+         IF ( elem(i)==plotel ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF

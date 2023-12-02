@@ -1,9 +1,10 @@
-!*==solid.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==solid.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE solid(Temps,Pg,Itype)
+   USE c_trimex
    IMPLICIT NONE
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -136,7 +137,7 @@ SUBROUTINE solid(Temps,Pg,Itype)
       iopt = 0
    ENDIF
    DO j = 1 , 50
-      Ecpt(j+50) = Ecpt(j)
+      ecpt(j+50) = ecpt(j)
    ENDDO
 !
 !  FILL MAT ID AND EL TEMP

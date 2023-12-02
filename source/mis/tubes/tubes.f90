@@ -1,10 +1,11 @@
-!*==tubes.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tubes.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tubes
+   USE c_condas
+   USE c_emgest
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_EMGEST
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -44,17 +45,17 @@ SUBROUTINE tubes
 !
 ! ----------------------------------------------------------------------
 !
-   temp = Est(5) - Est(6)
-   a = temp*Est(6)*Pi
-   fj = .25*a*(temp**2+Est(6)**2)
-   c = .5*Est(5)
+   temp = est(5) - est(6)
+   a = temp*est(6)*pi
+   fj = .25*a*(temp**2+est(6)**2)
+   c = .5*est(5)
    m = 18
    DO i = 1 , 10
       m = m - 1
-      Est(m) = Est(m-1)
+      est(m) = est(m-1)
    ENDDO
-   Est(5) = a
-   Est(6) = fj
-   Est(7) = c
+   est(5) = a
+   est(6) = fj
+   est(7) = c
    CALL rods
 END SUBROUTINE tubes

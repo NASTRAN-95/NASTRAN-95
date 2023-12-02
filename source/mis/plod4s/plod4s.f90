@@ -1,12 +1,13 @@
-!*==plod4s.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==plod4s.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE plod4s
+   USE c_loadx
+   USE c_pindex
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_LOADX
-   USE C_PINDEX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -107,10 +108,10 @@ SUBROUTINE plod4s
 !
    x = 0.0
    DO i = 1 , 4
-      ppp(i) = Slt(i+1)
+      ppp(i) = slt(i+1)
    ENDDO
    DO i = 1 , 3
-      nv(i) = Slt(i+8)
+      nv(i) = slt(i+8)
       x = x + nv(i)**2
    ENDDO
    cid = islt(8)
@@ -317,9 +318,9 @@ SUBROUTINE plod4s
             ENDDO
          ELSE
 !
-            WRITE (Nout,99001) nest(1)
+            WRITE (nout,99001) nest(1)
 99001       FORMAT ('0*** SYSTEM FATAL ERROR.  BAD GEOMETRY DETECTED FOR ','QUAD4 ELEMENT ',I8,' WHILE PROCESSING PLOAD4 DATA.')
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
       ENDDO
@@ -341,10 +342,10 @@ SUBROUTINE plod4s
    jb = 25
    DO j = 1 , 4
       jb = jb + 4
-      IF ( nest(jb)/=0 ) CALL basglb(pe(1,j),pe(1,j),Best(jb+1),nest(jb))
+      IF ( nest(jb)/=0 ) CALL basglb(pe(1,j),pe(1,j),best(jb+1),nest(jb))
       jp = sil(j) - 1
       DO i = 1 , 3
-         Z(jp+i) = Z(jp+i) + pe(i,j)
+         z(jp+i) = z(jp+i) + pe(i,j)
       ENDDO
    ENDDO
 END SUBROUTINE plod4s

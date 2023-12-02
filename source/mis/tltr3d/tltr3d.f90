@@ -1,16 +1,17 @@
-!*==tltr3d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tltr3d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tltr3d
-USE C_BLANK
-USE C_CONDAD
-USE C_MATIN
-USE C_SGTMPD
-USE C_SYSTEM
-USE C_TERMS
-USE C_TRIMEX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condad
+   USE c_matin
+   USE c_sgtmpd
+   USE c_system
+   USE c_terms
+   USE c_trimex
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -113,7 +114,7 @@ USE ISO_FORTRAN_ENV
          sheart = .FALSE.
          noalfa = .FALSE.
          tgrad = 0.0D0
-         Eltemp = tempel
+         eltemp = tempel
          offset = zoff
          IF ( zoff==0.0 ) offset = zoff1
 !
@@ -127,7 +128,7 @@ USE ISO_FORTRAN_ENV
 !     TEST FOR COMPOSITE ELEMENT
 !
          pid = nest(11) - hunmeg
-         compos = Comps== - 1 .AND. pid>0
+         compos = comps== - 1 .AND. pid>0
 !
 !     CHECK FOR THE TYPE OF TEMPERATURE DATA
 !     - TYPE TEMPP1 ALSO INCLUDES TYPE TEMPP3.
@@ -164,9 +165,9 @@ USE ISO_FORTRAN_ENV
 !     SET MATERIAL FLAGS
 !     0.833333333D0 = 5.0D0/6.0D0
 !
-            IF ( nest(13)/=0 ) mominr = Est(14)
-            IF ( nest(13)/=0 ) ts = Est(16)
-            IF ( Est(16)==.0 ) ts = 0.83333333D0
+            IF ( nest(13)/=0 ) mominr = est(14)
+            IF ( nest(13)/=0 ) ts = est(16)
+            IF ( est(16)==.0 ) ts = 0.83333333D0
             IF ( nest(13)==0 .AND. nest(11)>hunmeg ) ts = 0.83333333D0
 !
             mid(1) = nest(11)
@@ -174,11 +175,11 @@ USE ISO_FORTRAN_ENV
             mid(3) = nest(15)
             mid(4) = nest(20)
 !
-            Membrn = mid(1)>0
-            Bendng = mid(2)>0 .AND. mominr>0.0D0
-            Shrflx = mid(3)>0
-            Mbcoup = mid(4)>0
-            Norpth = mid(1)==mid(2) .AND. mid(1)==mid(3) .AND. mid(4)==0 .AND. dabs(mominr-1.0D0)<=eps
+            membrn = mid(1)>0
+            bendng = mid(2)>0 .AND. mominr>0.0D0
+            shrflx = mid(3)>0
+            mbcoup = mid(4)>0
+            norpth = mid(1)==mid(2) .AND. mid(1)==mid(3) .AND. mid(4)==0 .AND. dabs(mominr-1.0D0)<=eps
 !
 !     SET UP TRANSFORMATION MATRIX FROM MATERIAL TO ELEMENT COORD.SYSTEM
 !
@@ -201,11 +202,11 @@ USE ISO_FORTRAN_ENV
 !     TURN OFF THE COUPLING FLAG WHEN MID4 IS PRESENT WITH ALL
 !     CALCULATED ZERO TERMS.
 !
-            IF ( Mbcoup ) THEN
+            IF ( mbcoup ) THEN
                DO i = 28 , 36
                   IF ( dabs(gi(i))>eps ) GOTO 10
                ENDDO
-               Mbcoup = .FALSE.
+               mbcoup = .FALSE.
             ENDIF
 !
 !     OBTAIN TEMPERATURE INFORMATION
@@ -213,8 +214,8 @@ USE ISO_FORTRAN_ENV
 !     IF TEMPP1 DATA, GET AVERAGE TEMP AND THERMAL GRADIENT.
 !
  10         IF ( tempp1 ) THEN
-               tmean = Stemp(1)
-               tgrad = Stemp(2)
+               tmean = stemp(1)
+               tgrad = stemp(2)
 !
 !     IF TEMPP2 DATA, GET THERMAL MOMENTS.
 !
@@ -225,15 +226,15 @@ USE ISO_FORTRAN_ENV
 !
                DO i = 1 , nnode
                   ipnt = iorder(i)
-                  gtemps(i) = Stemp(ipnt)
+                  gtemps(i) = stemp(ipnt)
                ENDDO
                tmean = (gtemps(1)+gtemps(2)+gtemps(3))/3.0D0
             ELSE
-               tmean = Stemp(1)
+               tmean = stemp(1)
 !
-               thrmom(1) = Stemp(2)
-               thrmom(2) = Stemp(3)
-               thrmom(3) = Stemp(4)
+               thrmom(1) = stemp(2)
+               thrmom(2) = stemp(3)
+               thrmom(3) = stemp(4)
 !
                ftherm(4) = thrmom(1)
                ftherm(5) = thrmom(2)
@@ -244,12 +245,12 @@ USE ISO_FORTRAN_ENV
 !     CALCULATE THERMAL STRAINS FOR COMPOSITE ELEMENTS
 !
             IF ( compos ) THEN
-               CALL shctsd(ierr,elid,pid,mid,avgthk,tmean,tgrad,thetae,ftherm,epslnt,Z,Z)
+               CALL shctsd(ierr,elid,pid,mid,avgthk,tmean,tgrad,thetae,ftherm,epslnt,z,z)
                IF ( ierr/=0 ) THEN
 !
 !     FATAL ERRORS
 !
-                  WRITE (Nout,99001)
+                  WRITE (nout,99001)
 99001             FORMAT ('0*** SYSTEM FATAL ERROR.  APPROPRIATE COMPOSITE DATA ','NOT FOUND IN MODULE SSG1.')
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
@@ -286,7 +287,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDDO
 !
-               IF ( Membrn ) THEN
+               IF ( membrn ) THEN
                   DO ig = 1 , 3
                      ig1 = (ig-1)*3
                      DO jg = 1 , 3
@@ -295,7 +296,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDIF
 !
-               IF ( Bendng ) THEN
+               IF ( bendng ) THEN
                   DO ig = 4 , 6
                      ig2 = (ig-2)*3
                      DO jg = 4 , 6
@@ -303,7 +304,7 @@ USE ISO_FORTRAN_ENV
                      ENDDO
                   ENDDO
 !
-                  IF ( Mbcoup ) THEN
+                  IF ( mbcoup ) THEN
                      DO ig = 1 , 3
                         ig4 = (ig+8)*3
                         DO jg = 1 , 3
@@ -320,13 +321,13 @@ USE ISO_FORTRAN_ENV
 !
 !     CALCULATE THERMAL STRAINS FOR NON-COMPOSITE ELEMENTS
 !
-                  IF ( Membrn ) THEN
+                  IF ( membrn ) THEN
                      DO i = 1 , 3
                         talfam(i) = tbar*alfam(i)
                      ENDDO
                   ENDIF
 !
-                  IF ( Bendng ) THEN
+                  IF ( bendng ) THEN
                      IF ( tempp1 ) THEN
                         DO i = 1 , 3
                            talfab(i) = -tgrad*alfab(i)
@@ -417,7 +418,7 @@ USE ISO_FORTRAN_ENV
          CALL mesage(30,j,nest(1))
          spag_nextblock_1 = 4
       CASE (4)
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

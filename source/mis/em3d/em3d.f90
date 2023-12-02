@@ -1,14 +1,15 @@
-!*==em3d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==em3d.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
+   USE c_emecpt
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_EMECPT
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -111,7 +112,7 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
-         WRITE (outpt,99001) Ufm
+         WRITE (outpt,99001) ufm
 99001    FORMAT (A23,' - WRONG ELEMENT TYPE IN EM3D PROBLEM.')
          CALL mesage(-61,0,0)
          RETURN
@@ -217,12 +218,12 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
          SPAG_Loop_1_2: DO i = 1 , ngrid
             isub = Istart + 3*necpt(frstgd+i-1) - 3
             IF ( Itype==24 ) isub = Istart + 3*Ncount - 3
-            h1 = h1 + abs(Z(isub))
-            h2 = h2 + abs(Z(isub+1))
-            h3 = h3 + abs(Z(isub+2))
-            g1 = g1 + Z(isub)
-            g2 = g2 + Z(isub+1)
-            g3 = g3 + Z(isub+2)
+            h1 = h1 + abs(z(isub))
+            h2 = h2 + abs(z(isub+1))
+            h3 = h3 + abs(z(isub+2))
+            g1 = g1 + z(isub)
+            g2 = g2 + z(isub+1)
+            g3 = g3 + z(isub+2)
             IF ( Itype==24 ) EXIT SPAG_Loop_1_2
          ENDDO SPAG_Loop_1_2
          hl = h1 + h2 + h3
@@ -269,9 +270,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     SET UP FOR FETCHING SHAPE FUNCTIONS
 !
             DO i = 1 , np
-               gpt(i) = Ecpt(itemp-1+i)
+               gpt(i) = ecpt(itemp-1+i)
                DO j = 1 , 3
-                  bxyz(j,i) = Ecpt(np+4+4*i+j)
+                  bxyz(j,i) = ecpt(np+4+4*i+j)
                ENDDO
             ENDDO
             IF ( .NOT.(onlyc) ) THEN
@@ -309,9 +310,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     REMFLUX
 !
                   isub = Istart + 3*Ncount - 3
-                  gh(1) = Z(isub)
-                  gh(2) = Z(isub+1)
-                  gh(3) = Z(isub+2)
+                  gh(1) = z(isub)
+                  gh(2) = z(isub+1)
+                  gh(3) = z(isub+2)
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -323,13 +324,13 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             IF ( jtype==20 ) THEN
                DO i = 1 , np
                   isil = 3*necpt(i+1)
-                  hc(3*i-2) = Z(Istart+isil-3)
-                  hc(3*i-1) = Z(Istart+isil-2)
-                  hc(3*i) = Z(Istart+isil-1)
+                  hc(3*i-2) = z(Istart+isil-3)
+                  hc(3*i-1) = z(Istart+isil-2)
+                  hc(3*i) = z(Istart+isil-1)
                ENDDO
             ENDIF
-            Inflag = 3
-            Matid = necpt(mid)
+            inflag = 3
+            matid = necpt(mid)
          ELSE
             IF ( .NOT.(onlyc) ) THEN
 !
@@ -361,22 +362,22 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                w(3) = w(2)
                w(4) = w(2)
                w(5) = w(2)
-               Inflag = 3
-               Matid = necpt(mid)
-               Eltemp = Ecpt(itemp)
+               inflag = 3
+               matid = necpt(mid)
+               eltemp = ecpt(itemp)
                CALL hmat(necpt(1))
 !
 !     G STORED BY ROW
 !
-               g(1) = Xmat(1)
-               g(2) = Xmat(2)
-               g(3) = Xmat(3)
-               g(4) = Xmat(2)
-               g(5) = Xmat(4)
-               g(6) = Xmat(5)
-               g(7) = Xmat(3)
-               g(8) = Xmat(5)
-               g(9) = Xmat(6)
+               g(1) = xmat(1)
+               g(2) = xmat(2)
+               g(3) = xmat(3)
+               g(4) = xmat(2)
+               g(5) = xmat(4)
+               g(6) = xmat(5)
+               g(7) = xmat(3)
+               g(8) = xmat(5)
+               g(9) = xmat(6)
 !
 !     PUT COORDINATES OF GRID POINTS INTO ARRAY
 !     FOR HEXA2  DIVIDE VOLUME BY 2.
@@ -394,9 +395,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
             DO i = 1 , ngrid
                itt = isys1 + 4*i - 4
-               r(1,i) = Ecpt(itt+1)
-               r(2,i) = Ecpt(itt+2)
-               r(3,i) = Ecpt(itt+3)
+               r(1,i) = ecpt(itt+1)
+               r(2,i) = ecpt(itt+2)
+               r(3,i) = ecpt(itt+3)
             ENDDO
 !
 !     SET UP POINTER TO GRID PT NO
@@ -481,9 +482,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     REMFLUX
 !
                            nsubx = Istart + 3*Ncount - 3
-                           hc(1) = Z(nsubx)
-                           hc(2) = Z(nsubx+1)
-                           hc(3) = Z(nsubx+2)
+                           hc(1) = z(nsubx)
+                           hc(2) = z(nsubx+1)
+                           hc(3) = z(nsubx+2)
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
@@ -547,7 +548,7 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                                        IF ( Itype/=20 ) THEN
                                          isub = Istart + (ijk-1)*Iwords - 1
                                          DO i = 1 , Iwords
-                                         buf(i) = Z(isub+i)
+                                         buf(i) = z(isub+i)
                                          ENDDO
 !
                                          IF ( ktype==2 ) THEN
@@ -574,9 +575,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                                        DO i = 1 , 4
                                          isil = frstgd - 1 + ip(i)
                                          ist = Istart + 3*necpt(isil) - 3
-                                         hcx(i) = Z(ist)
-                                         hcy(i) = Z(ist+1)
-                                         hcz(i) = Z(ist+2)
+                                         hcx(i) = z(ist)
+                                         hcy(i) = z(ist+1)
+                                         hcz(i) = z(ist+2)
                                        ENDDO
                                        hc1 = ll(1,npts)*hcx(1) + ll(2,npts)*hcx(2) + ll(3,npts)*hcx(3) + ll(4,npts)*hcx(4)
                                        hc2 = ll(1,npts)*hcy(1) + ll(2,npts)*hcy(2) + ll(3,npts)*hcy(3) + ll(4,npts)*hcy(4)
@@ -651,17 +652,17 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     IF PERMBDY EXISTS AND IF GRID IS NOT ON IT, IGNORE ITS LOAD
 !
                      IF ( Nbdys/=0 ) THEN
-                        DO j = 1 , Nbdys
+                        SPAG_Loop_4_1: DO j = 1 , Nbdys
                            IF ( isil==iz(Istart-Nbdys-Nelout+j-1) ) THEN
                               spag_nextblock_5 = 2
-                              CYCLE SPAG_DispatchLoop_5
+                              EXIT SPAG_Loop_4_1
                            ENDIF
-                        ENDDO
+                        ENDDO SPAG_Loop_4_1
                         CYCLE
                      ENDIF
                      spag_nextblock_5 = 2
                   CASE (2)
-                     Z(isil) = Z(isil) - xload(i)
+                     z(isil) = z(isil) - xload(i)
                      EXIT SPAG_DispatchLoop_5
                   END SELECT
                ENDDO SPAG_DispatchLoop_5
@@ -689,9 +690,9 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
 !     COMPUTE TEMPERATURES AND HC  AT THIS INTEGRSTION POINT
 !
-                     Eltemp = 0
+                     eltemp = 0
                      DO l = 1 , np
-                        Eltemp = Eltemp + shp(l)*gpt(l)
+                        eltemp = eltemp + shp(l)*gpt(l)
                      ENDDO
                      IF ( jtype/=24 ) THEN
                         hcxyz(1) = 0.
@@ -724,7 +725,7 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                            DO ijk = 1 , Ido
                               isub = Istart + (ijk-1)*Iwords - 1
                               DO l = 1 , Iwords
-                                 buf(l) = Z(isub+l)
+                                 buf(l) = z(isub+l)
                               ENDDO
 !
 !     COMPUTE HC AT THIS POINT DUE TO ALL LOADS OF PRESENT TYPE
@@ -742,15 +743,15 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                            ENDDO
                         ENDIF
 !
-                        g(1) = Xmat(1)
-                        g(2) = Xmat(2)
-                        g(3) = Xmat(3)
-                        g(4) = Xmat(2)
-                        g(5) = Xmat(4)
-                        g(6) = Xmat(5)
-                        g(7) = Xmat(3)
-                        g(8) = Xmat(5)
-                        g(9) = Xmat(6)
+                        g(1) = xmat(1)
+                        g(2) = xmat(2)
+                        g(3) = xmat(3)
+                        g(4) = xmat(2)
+                        g(5) = xmat(4)
+                        g(6) = xmat(5)
+                        g(7) = xmat(3)
+                        g(8) = xmat(5)
+                        g(9) = xmat(6)
 !
                         CALL gmmats(g,3,3,0,hcxyz,3,1,0,gh)
                      ENDIF
@@ -778,17 +779,17 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     IF PERMBDY EXISTS AND IF GRID IS NOT ON IT, IGNORE ITS LOAD
 !
                      IF ( Nbdys/=0 ) THEN
-                        DO i = 1 , Nbdys
+                        SPAG_Loop_4_2: DO i = 1 , Nbdys
                            IF ( isil==iz(Istart-Nbdys-Nelout+i-1) ) THEN
                               spag_nextblock_6 = 2
-                              CYCLE SPAG_DispatchLoop_6
+                              EXIT SPAG_Loop_4_2
                            ENDIF
-                        ENDDO
+                        ENDDO SPAG_Loop_4_2
                         CYCLE
                      ENDIF
                      spag_nextblock_6 = 2
                   CASE (2)
-                     Z(isil) = Z(isil) - f(l)
+                     z(isil) = z(isil) - f(l)
                      EXIT SPAG_DispatchLoop_6
                   END SELECT
                ENDDO SPAG_DispatchLoop_6
@@ -857,7 +858,7 @@ SUBROUTINE em3d(Eltype,Istart,Itype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                   DO ijk = 1 , Ido
                      isub = Istart + (ijk-1)*Iwords - 1
                      DO i = 1 , Iwords
-                        buf(i) = Z(isub+i)
+                        buf(i) = z(isub+i)
                      ENDDO
 !
 !     COMPUTE HC AT THIS POINT

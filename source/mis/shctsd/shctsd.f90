@@ -1,11 +1,12 @@
-!*==shctsd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==shctsd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shctsd(Ierr,Elid,Pid,Mid,Tlam,Tmean,Tgrad,Thetae,Ftherm,Epslnt,Icore,Core)
-USE C_CONDAD
-USE C_MATIN
-USE C_SDR2C1
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_matin
+   USE c_sdr2c1
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -83,18 +84,18 @@ USE ISO_FORTRAN_ENV
          minrt = Tlam*Tlam*Tlam/12.0D0
          zref = -Tlam/2.0D0
 !
-         Inflag = 12
-         Eltemp = Tmean
+         inflag = 12
+         eltemp = Tmean
 !
          itype = -1
-         lpcomp = Ipcmp + Npcmp + Npcmp1 + Npcmp2
-         pcmp = Npcmp>0
-         pcmp1 = Npcmp1>0
-         pcmp2 = Npcmp2>0
+         lpcomp = ipcmp + npcmp + npcmp1 + npcmp2
+         pcmp = npcmp>0
+         pcmp1 = npcmp1>0
+         pcmp2 = npcmp2>0
 !
 !     ISSUE ERROR IF PCOMPI DATA HAS NOT BEEN READ INTO CORE
 !
-         IF ( lpcomp==Ipcmp ) THEN
+         IF ( lpcomp==ipcmp ) THEN
 !
             Ierr = 1
             RETURN
@@ -106,13 +107,13 @@ USE ISO_FORTRAN_ENV
 !     SEARCH FOR PID IN PCOMP DATA
 !
             IF ( pcmp ) THEN
-               ip = Ipcmp
+               ip = ipcmp
                IF ( Icore(ip)==Pid ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               ipc11 = Ipcmp1 - 1
-               DO ip = Ipcmp , ipc11
+               ipc11 = ipcmp1 - 1
+               DO ip = ipcmp , ipc11
                   IF ( Icore(ip)==-1 .AND. ip<ipc11 ) THEN
                      IF ( Icore(ip+1)==Pid ) GOTO 10
                   ENDIF
@@ -122,13 +123,13 @@ USE ISO_FORTRAN_ENV
 !     SEARCH FOR PID IN PCOMP1 DATA
 !
             IF ( pcmp1 ) THEN
-               ip = Ipcmp1
+               ip = ipcmp1
                IF ( Icore(ip)==Pid ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               ipc21 = Ipcmp2 - 1
-               DO ip = Ipcmp1 , ipc21
+               ipc21 = ipcmp2 - 1
+               DO ip = ipcmp1 , ipc21
                   IF ( Icore(ip)==-1 .AND. ip<ipc21 ) THEN
                      IF ( Icore(ip+1)==Pid ) THEN
                         spag_nextblock_1 = 3
@@ -144,13 +145,13 @@ USE ISO_FORTRAN_ENV
                Ierr = 1
                RETURN
             ELSE
-               ip = Ipcmp2
+               ip = ipcmp2
                IF ( Icore(ip)==Pid ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                lpc11 = lpcomp - 1
-               DO ip = Ipcmp2 , lpc11
+               DO ip = ipcmp2 , lpc11
                   IF ( Icore(ip)==-1 .AND. ip<lpc11 ) THEN
                      IF ( Icore(ip+1)==Pid ) THEN
                         spag_nextblock_1 = 5
@@ -176,7 +177,6 @@ USE ISO_FORTRAN_ENV
          nlay = Icore(pidloc+1)
          ipoint = pidloc + 8 + 4*nlay
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
          ip = ip + 1
@@ -187,7 +187,6 @@ USE ISO_FORTRAN_ENV
          nlay = Icore(pidloc+1)
          ipoint = pidloc + 8 + nlay
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
          ip = ip + 1
@@ -215,7 +214,7 @@ USE ISO_FORTRAN_ENV
 !
 !     EXTENSIONAL
 !
-         Matid = Mid(1)
+         matid = Mid(1)
          CALL mat(Elid)
          CALL lpropd(gprop)
 !
@@ -230,7 +229,7 @@ USE ISO_FORTRAN_ENV
 !
          IF ( nonmem ) THEN
 !
-            Matid = Mid(2)
+            matid = Mid(2)
             CALL mat(Elid)
             CALL lpropd(gprop)
 !
@@ -245,7 +244,7 @@ USE ISO_FORTRAN_ENV
 !
             IF ( lamopt/=sym ) THEN
 !
-               Matid = Mid(4)
+               matid = Mid(4)
                CALL mat(Elid)
                CALL lpropd(gprop)
 !
@@ -298,7 +297,7 @@ USE ISO_FORTRAN_ENV
 !     TRANSFORM THE LAYER MATERIAL PROPERTIES FROM THE FIBER SYSTEM TO
 !     THE ELEMENT SYSTEM
 !
-            theta = theta*Degrad + Thetae
+            theta = theta*degrad + Thetae
             c = dcos(theta)
             c2 = c*c
             s = dsin(theta)

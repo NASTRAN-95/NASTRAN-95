@@ -1,4 +1,5 @@
-!*==ssghtp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ssghtp.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssghtp(Order,Z,Lz)
@@ -12,11 +13,19 @@ SUBROUTINE ssghtp(Order,Z,Lz)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   INTEGER :: i , isave , jptr , ptr , save1 , save2
+   INTEGER :: i , isave , jptr , ptr , save1 , save2 , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

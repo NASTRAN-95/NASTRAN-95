@@ -1,8 +1,9 @@
-!*==summ.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==summ.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE summ(Sum,Isum,Term1,Iterm1,Term2,Iterm2,N)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -19,6 +20,15 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: factor , temp1 , temp2
    INTEGER :: isave , mult
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -67,15 +77,14 @@ CONTAINS
       Sum = Term1
       Isum = Iterm1
       IF ( Sum==0.0D0 ) Isum = 0
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
       IF ( N/=1 ) THEN
-         Sum = temp1 - temp2
-         Isum = isave
+         Sum = Temp1 - Temp2
+         Isum = Isave
       ELSE
-         Sum = temp1 + temp2
-         Isum = isave
+         Sum = Temp1 + Temp2
+         Isum = Isave
       ENDIF
       IF ( Sum==0.0D0 ) Isum = 0
    END SUBROUTINE spag_block_2

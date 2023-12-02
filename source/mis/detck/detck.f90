@@ -1,10 +1,11 @@
-!*==detck.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==detck.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE detck(Jarg,Ifgpst,Npvt)
-USE C_MA1XX
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_ma1xx
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -48,7 +49,7 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         dtol = Tolel
+         dtol = tolel
          iarg = Jarg
          IF ( iarg<0 ) THEN
             iorder = 1
@@ -67,7 +68,7 @@ USE ISO_FORTRAN_ENV
          IF ( iarg/=1 ) THEN
             ASSIGN 20 TO back
             DO i = 1 , 9
-               B(i) = D(i)
+               b(i) = d(i)
             ENDDO
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -76,32 +77,32 @@ USE ISO_FORTRAN_ENV
             GOTO 40
          ENDIF
  20      DO i = 1 , 9
-            B(i) = D(i+9)
+            b(i) = d(i+9)
          ENDDO
 !
 !     INSURE THE SYMMETRY OF THE B MATRIX
 !
-         IF ( B(2)/=0.0D0 .AND. B(4)/=0.0D0 ) THEN
-            temp = (B(2)+B(4))/2.0D0
-            B(2) = temp
-            B(4) = temp
+         IF ( b(2)/=0.0D0 .AND. b(4)/=0.0D0 ) THEN
+            temp = (b(2)+b(4))/2.0D0
+            b(2) = temp
+            b(4) = temp
          ELSE
-            B(2) = 0.0D0
-            B(4) = 0.0D0
+            b(2) = 0.0D0
+            b(4) = 0.0D0
          ENDIF
-         IF ( B(3)/=0.0D0 .AND. B(7)/=0.0D0 ) THEN
-            temp = (B(3)+B(7))/2.0D0
-            B(3) = temp
-            B(7) = temp
+         IF ( b(3)/=0.0D0 .AND. b(7)/=0.0D0 ) THEN
+            temp = (b(3)+b(7))/2.0D0
+            b(3) = temp
+            b(7) = temp
          ELSE
-            B(3) = 0.0D0
-            B(7) = 0.0D0
+            b(3) = 0.0D0
+            b(7) = 0.0D0
          ENDIF
-         IF ( B(6)/=0.0D0 .AND. B(8)/=0.0D0 ) THEN
-            temp = (B(6)+B(8))/2.0D0
+         IF ( b(6)/=0.0D0 .AND. b(8)/=0.0D0 ) THEN
+            temp = (b(6)+b(8))/2.0D0
          ELSE
-            B(6) = 0.0D0
-            B(8) = 0.0D0
+            b(6) = 0.0D0
+            b(8) = 0.0D0
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -110,13 +111,13 @@ USE ISO_FORTRAN_ENV
 !     ELEMENT. IF THE LARGEST ELEMENT IS NON-POSITIVE, THE SINGULARITY
 !     IS OF ORDER 3.
 !
-         temp = B(1)
+         temp = b(1)
          DO i = 2 , 9
-            IF ( B(i)>temp ) temp = B(i)
+            IF ( b(i)>temp ) temp = b(i)
          ENDDO
          IF ( temp<=0.0D0 ) GOTO 40
          DO i = 1 , 9
-            B(i) = B(i)/temp
+            b(i) = b(i)/temp
          ENDDO
 !
 !     FIND THE SQUARES OF THE MAGNITUDES OF THE VECTORS OF THE ROWS OF
@@ -126,8 +127,8 @@ USE ISO_FORTRAN_ENV
          j = 0
          DO i = 1 , 9 , 3
             j = j + 1
-            Fl(j) = B(i)**2 + B(i+1)**2 + B(i+2)**2
-            IF ( Fl(j)==0.0D0 ) iorder = iorder + 1
+            fl(j) = b(i)**2 + b(i+1)**2 + b(i+2)**2
+            IF ( fl(j)==0.0D0 ) iorder = iorder + 1
          ENDDO
          IF ( iorder==2 ) THEN
 !
@@ -137,21 +138,20 @@ USE ISO_FORTRAN_ENV
             tnwds = 4
             ipoint = 2
             DO i = 1 , 3
-               IF ( Fl(i)==0.0D0 ) THEN
+               IF ( fl(i)==0.0D0 ) THEN
                   ipoint = ipoint + 1
                   iarray(ipoint) = ip + i
                ENDIF
             ENDDO
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( iorder==0 ) THEN
 !
 !     AT STATEMENT NO. 250, WE HAVE THAT ALL THE FL(I) ARE .GT. 0.0D0,
 !     SO THAT THE DETERMINANT, DET, OF B MUST BE COMPUTED.
 !
-               det = B(1)*(B(5)*B(9)-B(6)*B(8)) - B(2)*(B(4)*B(9)-B(6)*B(7)) + B(3)*(B(4)*B(8)-B(5)*B(7))
-               const = 0.05D0*dtol*Fl(1)*Fl(2)*Fl(3)
+               det = b(1)*(b(5)*b(9)-b(6)*b(8)) - b(2)*(b(4)*b(9)-b(6)*b(7)) + b(3)*(b(4)*b(8)-b(5)*b(7))
+               const = 0.05D0*dtol*fl(1)*fl(2)*fl(3)
                IF ( det>const ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
@@ -159,12 +159,12 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE M(I) AND R(I)
 !
-               M(1) = B(5)*B(9) - B(6)*B(8)
-               M(2) = B(1)*B(9) - B(3)*B(7)
-               M(3) = B(1)*B(5) - B(2)*B(4)
-               R(1) = dsqrt(B(5)**2+B(6)**2)*dsqrt(B(8)**2+B(9)**2)
-               R(2) = dsqrt(B(1)**2+B(3)**2)*dsqrt(B(7)**2+B(9)**2)
-               R(3) = dsqrt(B(1)**2+B(2)**2)*dsqrt(B(4)**2+B(5)**2)
+               m(1) = b(5)*b(9) - b(6)*b(8)
+               m(2) = b(1)*b(9) - b(3)*b(7)
+               m(3) = b(1)*b(5) - b(2)*b(4)
+               r(1) = dsqrt(b(5)**2+b(6)**2)*dsqrt(b(8)**2+b(9)**2)
+               r(2) = dsqrt(b(1)**2+b(3)**2)*dsqrt(b(7)**2+b(9)**2)
+               r(3) = dsqrt(b(1)**2+b(2)**2)*dsqrt(b(4)**2+b(5)**2)
 !
 !     FIND I1, J1, K1
 !     SUCH THAT M(I1)/R(I1) .GE. M(J1)/R(J1) .GE. M(K1)/R(K1)
@@ -172,21 +172,21 @@ USE ISO_FORTRAN_ENV
                i1 = 1
                j1 = 2
                k1 = 3
-               IF ( M(1)*R(2)<M(2)*R(1) ) THEN
+               IF ( m(1)*r(2)<m(2)*r(1) ) THEN
                   i1 = 2
                   j1 = 1
                ENDIF
-               IF ( M(i1)*R(k1)<M(k1)*R(i1) ) THEN
+               IF ( m(i1)*r(k1)<m(k1)*r(i1) ) THEN
                   itemp = i1
                   i1 = k1
                   k1 = itemp
                ENDIF
-               IF ( M(j1)*R(k1)<M(k1)*R(j1) ) THEN
+               IF ( m(j1)*r(k1)<m(k1)*r(j1) ) THEN
                   itemp = j1
                   j1 = k1
                   k1 = itemp
                ENDIF
-               IF ( M(i1)>=R(i1)*dtol ) THEN
+               IF ( m(i1)>=r(i1)*dtol ) THEN
 !
 !     AT THIS POINT THE SINGULARITY IS OF ORDER 1.
 !
@@ -194,11 +194,11 @@ USE ISO_FORTRAN_ENV
                   nwds = 1
                   tnwds = 3
                   iarray(3) = ip + i1
-                  IF ( M(j1)>=R(j1)*dtol ) THEN
+                  IF ( m(j1)>=r(j1)*dtol ) THEN
                      nwds = 2
                      tnwds = 4
                      iarray(4) = ip + j1
-                     IF ( M(k1)>=R(k1)*dtol ) THEN
+                     IF ( m(k1)>=r(k1)*dtol ) THEN
                         nwds = 3
                         tnwds = 5
                         iarray(5) = ip + k1
@@ -217,16 +217,16 @@ USE ISO_FORTRAN_ENV
                   ii = 1
                   jj = 5
                   kk = 9
-                  IF ( B(1)<B(5) ) THEN
+                  IF ( b(1)<b(5) ) THEN
                      ii = 5
                      jj = 1
                   ENDIF
-                  IF ( B(ii)<B(kk) ) THEN
+                  IF ( b(ii)<b(kk) ) THEN
                      itemp = ii
                      ii = kk
                      kk = itemp
                   ENDIF
-                  IF ( B(jj)<B(kk) ) THEN
+                  IF ( b(jj)<b(kk) ) THEN
                      itemp = jj
                      jj = kk
                      kk = itemp
@@ -234,7 +234,7 @@ USE ISO_FORTRAN_ENV
                   ll = ii
                   kount = 0
                   ipoint = 3
-                  SPAG_Loop_1_1: DO WHILE ( B(ll)>0.0D0 )
+                  SPAG_Loop_1_1: DO WHILE ( b(ll)>0.0D0 )
                      nwds = nwds + 2
                      tnwds = tnwds + 2
                      IF ( ll<5 ) THEN
@@ -261,14 +261,13 @@ USE ISO_FORTRAN_ENV
                   ENDDO SPAG_Loop_1_1
                ENDIF
                spag_nextblock_1 = 5
-               CYCLE SPAG_DispatchLoop_1
             ELSE
 !
 !     AT THIS POINT ONE AND ONLY ONE FL(I) IS ZERO.
 !
                DO i = 1 , 3
                   isave = i
-                  IF ( Fl(i)==0.0D0 ) THEN
+                  IF ( fl(i)==0.0D0 ) THEN
                      IF ( isave==1 ) GOTO 25
                      IF ( isave==2 ) GOTO 30
                      IF ( isave==3 ) THEN
@@ -278,19 +277,18 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                ENDDO
                CALL mesage(-30,26,name)
- 25            fm = B(5)*B(9) - B(6)*B(8)
-               fr = dsqrt((B(5)**2+B(6)**2)*(B(8)**2+B(9)**2))
+ 25            fm = b(5)*b(9) - b(6)*b(8)
+               fr = dsqrt((b(5)**2+b(6)**2)*(b(8)**2+b(9)**2))
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
- 30         fm = B(1)*B(9) - B(3)*B(7)
-            fr = dsqrt((B(1)**2+B(3)**2)*(B(7)**2+B(9)**2))
+            CYCLE
+ 30         fm = b(1)*b(9) - b(3)*b(7)
+            fr = dsqrt((b(1)**2+b(3)**2)*(b(7)**2+b(9)**2))
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (3)
-         fm = B(1)*B(5) - B(2)*B(4)
-         fr = dsqrt((B(1)**2+B(2)**2)*(B(4)**2+B(5)**2))
+         fm = b(1)*b(5) - b(2)*b(4)
+         fr = dsqrt((b(1)**2+b(2)**2)*(b(4)**2+b(5)**2))
          spag_nextblock_1 = 4
       CASE (4)
          IF ( fm/=0.0D0 ) THEN
@@ -332,8 +330,8 @@ USE ISO_FORTRAN_ENV
             inc2 = 3
             inc3 = 2
          ENDIF
-         IF ( B(k1)>0.0D0 .OR. B(k2)>0.0D0 ) THEN
-            IF ( B(k1)<=0.0D0 ) THEN
+         IF ( b(k1)>0.0D0 .OR. b(k2)>0.0D0 ) THEN
+            IF ( b(k1)<=0.0D0 ) THEN
                ipoint = 3
             ELSE
                nwds = 2
@@ -342,7 +340,7 @@ USE ISO_FORTRAN_ENV
                iarray(4) = ip + inc2
                ipoint = 5
             ENDIF
-            IF ( B(k2)>0.0D0 ) THEN
+            IF ( b(k2)>0.0D0 ) THEN
                nwds = nwds + 2
                tnwds = tnwds + 2
                iarray(ipoint) = ip + inc1

@@ -1,15 +1,16 @@
-!*==criggp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==criggp.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE criggp(N23)
-USE C_GP4FIL
-USE C_GP4PRM
-USE C_MACHIN
-USE C_NAMES
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_gp4fil
+   USE c_gp4prm
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -146,10 +147,10 @@ USE ISO_FORTRAN_ENV
 !           MDBGP =     NUMBER DEPENDENT GRID POINTS
 !     *************************************************************
 !
-         mask15 = Jhalf/2
-         kn2 = Kn/2
+         mask15 = jhalf/2
+         kn2 = kn/2
          ncstm = 0
-         knkl2 = Knkl1
+         knkl2 = knkl1
          kiold = 0
          ibuf1 = -99
          again = .FALSE.
@@ -158,47 +159,47 @@ USE ISO_FORTRAN_ENV
          CALL sswtch(38,j)
          IF ( j==1 ) l38 = .TRUE.
          CALL page2(-4)
-         WRITE (nout,99001) Uim
+         WRITE (nout,99001) uim
 99001    FORMAT (A29,' 3113, RIGID ELEMENTS ARE BEING PROCESSED IN GP4',/)
 !
 !     OPEN CSTM AND READ INTO CORE, FROM Z(KNKL2) THRU Z(KNKL3)
 !
-         left = Buf4 - Knkl1
-         file = Cstm
-         CALL open(*40,Cstm,Z(Buf2),Rdrew)
-         CALL skprec(Cstm,1)
-         CALL read(*520,*20,Cstm,Z(knkl2),left,1,ncstm)
+         left = buf4 - knkl1
+         file = cstm
+         CALL open(*40,cstm,z(buf2),rdrew)
+         CALL skprec(cstm,1)
+         CALL read(*520,*20,cstm,z(knkl2),left,1,ncstm)
          spag_nextblock_1 = 13
          CYCLE SPAG_DispatchLoop_1
 !
 !     IF CORE WAS FILLED WITHOUT HITTING AN EOR, CALL MESAGE
 !
- 20      IF ( iprec==1 ) CALL pretrs(Z(Knkl1),ncstm)
-         IF ( iprec==2 ) CALL pretrd(Z(Knkl1),ncstm)
-         CALL close(Cstm,Clsrew)
- 40      file = Bgpdt
-         CALL open(*500,Bgpdt,Z(Buf2),Rdrew)
-         CALL fwdrec(*540,Bgpdt)
+ 20      IF ( iprec==1 ) CALL pretrs(z(knkl1),ncstm)
+         IF ( iprec==2 ) CALL pretrd(z(knkl1),ncstm)
+         CALL close(cstm,clsrew)
+ 40      file = bgpdt
+         CALL open(*500,bgpdt,z(buf2),rdrew)
+         CALL fwdrec(*540,bgpdt)
          kiold = 0
 !
 !     CALCULATE STARTING POINT
 !     AND READ BGPDT INTO OPEN CORE
 !
-         Knkl1 = Knkl1 + ncstm
+         knkl1 = knkl1 + ncstm
          IF ( .NOT.(again) ) THEN
-            knkl3 = Knkl1
-            CALL read(*520,*60,Bgpdt,Z(knkl3+1),Buf4-knkl3,1,nbgpdt)
+            knkl3 = knkl1
+            CALL read(*520,*60,bgpdt,z(knkl3+1),buf4-knkl3,1,nbgpdt)
             imhere = 305
             IF ( debug ) WRITE (nout,99010) imhere
             knkl3 = 0
-            nbgpdt = Knkl1
+            nbgpdt = knkl1
             again = .TRUE.
-            CALL bckrec(Bgpdt)
+            CALL bckrec(bgpdt)
          ENDIF
- 60      IF ( .NOT.again ) CALL close(Bgpdt,Clsrew)
+ 60      IF ( .NOT.again ) CALL close(bgpdt,clsrew)
          knkl4 = knkl3 + nbgpdt
-         Knkl1 = knkl4 + 1
-         mu = Buf4 - 1
+         knkl1 = knkl4 + 1
+         mu = buf4 - 1
          irdg = 0
          itype = 0
          genre = .FALSE.
@@ -211,16 +212,16 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRIGD1 DATA IN THE INPUT FILE
 !
-         file = Geomp
-         CALL locate(*80,Z(Buf1),crigd1,flag)
+         file = geomp
+         CALL locate(*80,z(buf1),crigd1,flag)
          irdg = 1
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     LOCATE CRIGD2 DATA ON INPUT FILE
 !
- 80      file = Geomp
-         CALL locate(*100,Z(Buf1),crigd2,flag)
+ 80      file = geomp
+         CALL locate(*100,z(buf1),crigd2,flag)
          irdg = 2
          imhere = 500
          IF ( debug ) WRITE (nout,99008) imhere
@@ -229,8 +230,8 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRBE2 DATA ON INPUT FILE
 !
- 100     file = Geomp
-         CALL locate(*200,Z(Buf1),crbe2,flag)
+ 100     file = geomp
+         CALL locate(*200,z(buf1),crbe2,flag)
          irdg = 3
          imhere = 600
          IF ( debug ) WRITE (nout,99008) imhere
@@ -243,30 +244,29 @@ USE ISO_FORTRAN_ENV
 !
 !     READ ELEMENT ID AND INDEPENDENT GRID POINT NUMBER
 !
-         ifile = Geomp
+         ifile = geomp
          nwds = 2
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         ifile = Scr1
+         ifile = scr1
          nwds = 9
          spag_nextblock_1 = 5
       CASE (5)
          file = ifile
-         CALL read(*520,*540,ifile,Buf,nwds,0,flag)
-         IF ( (debug .OR. l38) .AND. Buf(1)/=ibuf1 ) WRITE (nout,99002) Buf(1)
+         CALL read(*520,*540,ifile,buf,nwds,0,flag)
+         IF ( (debug .OR. l38) .AND. buf(1)/=ibuf1 ) WRITE (nout,99002) buf(1)
 99002    FORMAT (5X,'ELEMENT',I8,' IS BEING PROCESSED')
          IF ( genre ) THEN
-            ibuf1 = Buf(1)
+            ibuf1 = buf(1)
 !
 !     SET UP INDEPENDENT D.O.F. FOR THE GENERAL RIGID ELEMENTS,
 !     CRIGID3 AND CRBE1, AND ALSO THE CRBAR AND CRTRPLT ELEMENTS
 !     WHICH WERE CONVERTED TO CRIGID3 FORMAT BY IFS3P
 !
             DO i = 1 , 6
-               indcmp(i) = Buf(i+2)
+               indcmp(i) = buf(i+2)
             ENDDO
-            itype = Buf(9)
+            itype = buf(9)
             IF ( itype==0 ) THEN
                DO i = 1 , 36
                   a(i) = 0.0
@@ -286,8 +286,8 @@ USE ISO_FORTRAN_ENV
 !
          ASSIGN 120 TO ret
          ASSIGN 140 TO ret1
-         idr = Buf(1)
-         Gpoint = Buf(2)
+         idr = buf(1)
+         gpoint = buf(2)
          ntype = 1
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
@@ -295,24 +295,24 @@ USE ISO_FORTRAN_ENV
 !     STORE SIL FOR INDEPENDENT DEGREES OF FREEDOM
 !
  120     DO i = 1 , 6
-            Z(Knkl1+i-1) = Gpoint + i - 1
+            z(knkl1+i-1) = gpoint + i - 1
          ENDDO
- 140     kinew = k - 2*Kn
+ 140     kinew = k - 2*kn
          ASSIGN 180 TO ret
          ASSIGN 160 TO ret1
 !
 !     READ DEPENDENT GRID POINTS
 !
-         j = Knkl1 + 3
+         j = knkl1 + 3
          mdbgp = 0
          mdep = 0
- 160     CALL read(*520,*540,ifile,Buf,7,0,flag)
-         IF ( Buf(1)==-1 ) THEN
+ 160     CALL read(*520,*540,ifile,buf,7,0,flag)
+         IF ( buf(1)==-1 ) THEN
 !
 !     HERE WHEN ALL DEPENDENT GRID POINTS FOR AN ELEMENT HAVE BEEN READ
 !
             more = 0
-            i = Knkl1 + 6 + 3*mdep + 4 + 4*mdbgp + (9+9+36*mdbgp+36)*iprec
+            i = knkl1 + 6 + 3*mdep + 4 + 4*mdbgp + (9+9+36*mdbgp+36)*iprec
 !
 !     CHECK FOR OPEN CORE AVAILABILITY
 !
@@ -321,61 +321,59 @@ USE ISO_FORTRAN_ENV
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Buf(2)==0 ) more = 1
-            IF ( Nogo/=0 ) THEN
+            IF ( buf(2)==0 ) more = 1
+            IF ( nogo/=0 ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
 !     LOCATE DATA IN BGPDT FOR INDEPENDENT GRID POINT
 !
-            iopen = Knkl1 + 6 + 3*mdep
+            iopen = knkl1 + 6 + 3*mdep
             IF ( again ) THEN
-               file = Bgpdt
+               file = bgpdt
                IF ( kinew<=kiold ) THEN
-                  CALL bckrec(Bgpdt)
+                  CALL bckrec(bgpdt)
                   kiold = 0
                ENDIF
                ki4 = (kinew-kiold-1)*4
-               IF ( ki4>0 ) CALL read(*520,*540,Bgpdt,Buf,-ki4,0,flag)
-               CALL read(*520,*540,Bgpdt,Buf,4,0,flag)
-               Z(iopen) = Buf(1)
-               Z(iopen+1) = Buf(2)
-               Z(iopen+2) = Buf(3)
-               Z(iopen+3) = Buf(4)
+               IF ( ki4>0 ) CALL read(*520,*540,bgpdt,buf,-ki4,0,flag)
+               CALL read(*520,*540,bgpdt,buf,4,0,flag)
+               z(iopen) = buf(1)
+               z(iopen+1) = buf(2)
+               z(iopen+2) = buf(3)
+               z(iopen+3) = buf(4)
                spag_nextblock_1 = 6
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                ki4 = knkl3 + kinew*4
                IF ( ki4>knkl4 ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Z(iopen) = Z(ki4-3)
-               Z(iopen+1) = Z(ki4-2)
-               Z(iopen+2) = Z(ki4-1)
-               Z(iopen+3) = Z(ki4)
+               z(iopen) = z(ki4-3)
+               z(iopen+1) = z(ki4-2)
+               z(iopen+2) = z(ki4-1)
+               z(iopen+3) = z(ki4)
                spag_nextblock_1 = 6
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSE
             mdbgp = mdbgp + 1
-            Gpoint = Buf(1)
+            gpoint = buf(1)
             ntype = 2
             spag_nextblock_1 = 11
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
- 180     IF ( Nogo==0 ) THEN
+         CYCLE
+ 180     IF ( nogo==0 ) THEN
 !
 !     STORE DEPENDENT GRID POINT SIL, DOF, AND INTERNAL INDEX
 !
             DO i = 1 , 6
-               IF ( Buf(i+1)/=0 ) THEN
+               IF ( buf(i+1)/=0 ) THEN
                   j = j + 3
                   l = j
-                  Z(l) = Gpoint + i - 1
-                  Z(l+1) = i
-                  Z(l+2) = k - 2*Kn
+                  z(l) = gpoint + i - 1
+                  z(l+1) = i
+                  z(l+2) = k - 2*kn
                   mdep = mdep + 1
                ENDIF
             ENDDO
@@ -387,15 +385,15 @@ USE ISO_FORTRAN_ENV
 !     SORT DEPENDENT DEGREE OF FREEDOM LIST ON BGPDT REFERENCE NUMBER
 !
          i = mdep*3
-         CALL sort(0,0,3,3,Z(Knkl1+6),i)
+         CALL sort(0,0,3,3,z(knkl1+6),i)
 !
          j = 0
          m = 0
-         indx = Knkl1 + 5
-         indxx = Knkl1 + 6 + 3*mdep + 4
+         indx = knkl1 + 5
+         indxx = knkl1 + 6 + 3*mdep + 4
          DO i = 1 , mdep
             k = indx + 3*i
-            kinew = Z(k)
+            kinew = z(k)
             IF ( kiold/=kinew ) THEN
                j = j + 1
 !
@@ -404,42 +402,42 @@ USE ISO_FORTRAN_ENV
                m = m + 1
                n = indxx + (m-1)*4
                IF ( again ) THEN
-                  file = Bgpdt
+                  file = bgpdt
                   IF ( kinew<=kiold ) THEN
-                     CALL bckrec(Bgpdt)
+                     CALL bckrec(bgpdt)
                      kiold = 0
                   ENDIF
                   ki4 = (kinew-kiold-1)*4
-                  IF ( ki4>0 ) CALL read(*520,*540,Bgpdt,Buf,-ki4,0,flag)
-                  CALL read(*520,*540,Bgpdt,Buf,4,0,flag)
-                  Z(n) = Buf(1)
-                  Z(n+1) = Buf(2)
-                  Z(n+2) = Buf(3)
-                  Z(n+3) = Buf(4)
+                  IF ( ki4>0 ) CALL read(*520,*540,bgpdt,buf,-ki4,0,flag)
+                  CALL read(*520,*540,bgpdt,buf,4,0,flag)
+                  z(n) = buf(1)
+                  z(n+1) = buf(2)
+                  z(n+2) = buf(3)
+                  z(n+3) = buf(4)
                ELSE
                   ki4 = knkl3 + kinew*4
                   IF ( ki4>knkl4 ) THEN
                      spag_nextblock_1 = 14
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Z(n) = Z(ki4-3)
-                  Z(n+1) = Z(ki4-2)
-                  Z(n+2) = Z(ki4-1)
-                  Z(n+3) = Z(ki4)
+                  z(n) = z(ki4-3)
+                  z(n+1) = z(ki4-2)
+                  z(n+2) = z(ki4-1)
+                  z(n+3) = z(ki4)
                ENDIF
                kiold = kinew
             ENDIF
-            Z(k) = j
+            z(k) = j
          ENDDO
 !
          IF ( iprec==2 ) THEN
 !
 !     FORM REFERENCE GRID POINT TRANSFORMATION MATRIX (DOUBLE PREC.)
 !
-            ibase = (Knkl1+6+3*mdep+4+4*mdbgp+36*mdbgp)/2 + 1
-            iba = Knkl1 + 6 + 3*mdep
+            ibase = (knkl1+6+3*mdep+4+4*mdbgp+36*mdbgp)/2 + 1
+            iba = knkl1 + 6 + 3*mdep
             ita = ibase
-            IF ( Z(iba)/=0 ) CALL transd(rz(iba),dz(ita))
+            IF ( z(iba)/=0 ) CALL transd(rz(iba),dz(ita))
 !
 !     PREPARE POINTERS USED TO FORM THE G MATRIX
 !
@@ -452,20 +450,20 @@ USE ISO_FORTRAN_ENV
             ita = ita - 1
             ig = indxx + 4*mdbgp - 1
             igg = ibase + 9 + 9 - 1
-            indx = Knkl1 + 3
+            indx = knkl1 + 3
             m = -1
 !
 !     BEGIN LOOP TO FORM THE G MATRIX
 !
             DO i = 1 , mdep
                k = indx + i*3
-               mm = Z(k+2)
+               mm = z(k+2)
                IF ( mm/=m ) THEN
                   ibb = indxx + (mm-1)*4
 !
 !     FORM DEPENDENT DEGREE OF FREEDOM TRANSFORMATION MATRIX
 !
-                  IF ( Z(ibb)/=0 ) CALL transd(rz(ibb),dz(itb))
+                  IF ( z(ibb)/=0 ) CALL transd(rz(ibb),dz(itb))
 !
 !     FORM THE GG MATRIX
 !
@@ -475,7 +473,7 @@ USE ISO_FORTRAN_ENV
 !     SELECT PROPER ROW BASED ON COMPONENT NUMBER AND STORE IN G
 !
                m = mm
-               mm = Z(k+1)
+               mm = z(k+1)
                DO ij = 1 , 6
                   indxxx = igg + (mm-1)*6 + ij
                   rz(ig+ij) = dz(indxxx)
@@ -486,9 +484,9 @@ USE ISO_FORTRAN_ENV
 !
 !     FORM REFERENCE GRID POINT TRANSFORMATION MATRIX
 !
-            iba = Knkl1 + 6 + 3*mdep
+            iba = knkl1 + 6 + 3*mdep
             ita = iba + 4 + 4*mdbgp + 36*mdbgp
-            IF ( Z(iba)/=0 ) CALL transs(rz(iba),rz(ita))
+            IF ( z(iba)/=0 ) CALL transs(rz(iba),rz(ita))
 !
 !     PREPARE POINTERS USED TO FORM THE G MATRIX
 !
@@ -501,20 +499,20 @@ USE ISO_FORTRAN_ENV
             ita = ita - 1
             ig = indxx + 4*mdbgp - 1
             igg = ig + (36*mdbgp) + 9 + 9
-            indx = Knkl1 + 3
+            indx = knkl1 + 3
             m = -1
 !
 !     BEGIN LOOP TO FORM THE G MATRIX
 !
             DO i = 1 , mdep
                k = indx + i*3
-               mm = Z(k+2)
+               mm = z(k+2)
                IF ( mm/=m ) THEN
                   ibb = indxx + (mm-1)*4
 !
 !     FORM DEPENDENT DEGREE OF FREEDOM TRANSFORMATION MATRIX
 !
-                  IF ( Z(ibb)/=0 ) CALL transs(rz(ibb),rz(itb))
+                  IF ( z(ibb)/=0 ) CALL transs(rz(ibb),rz(itb))
 !
 !     FORM THE GG MATRIX
 !
@@ -525,7 +523,7 @@ USE ISO_FORTRAN_ENV
 !     ACCORDING TO PARTITIONING VECTOR OF REFERENCE GRID POINT.
 !
                m = mm
-               mm = Z(k+1)
+               mm = z(k+1)
                DO ij = 1 , 6
                   indxxx = igg + (mm-1)*6 + ij
                   rz(ig+ij) = rz(indxxx)
@@ -553,15 +551,15 @@ USE ISO_FORTRAN_ENV
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         indx = Knkl1 + 3
+         indx = knkl1 + 3
          DO i = 1 , mdep
-            IF ( .NOT.(genre .AND. itype==0) ) Z(mu+i) = Z(indx+i*3)
-            krow = Z(indx+i*3)
+            IF ( .NOT.(genre .AND. itype==0) ) z(mu+i) = z(indx+i*3)
+            krow = z(indx+i*3)
             mcode(2) = krow
             IF ( krow>mask15 ) N23 = 3
             DO j = 1 , 6
                k = k + 1
-               kcol = Z(Knkl1+j-1)
+               kcol = z(knkl1+j-1)
                mcode(1) = kcol
                IF ( kcol>mask15 ) N23 = 3
                IF ( genre .AND. itype==0 ) THEN
@@ -578,8 +576,8 @@ USE ISO_FORTRAN_ENV
                      ic(j) = ib(j)
                      IF ( ic(j)>mask15 ) N23 = 3
                   ELSE
-                     CALL write(Rgt,mcode,2,0)
-                     CALL write(Rgt,rz(ig+k),1,0)
+                     CALL write(rgt,mcode,2,0)
+                     CALL write(rgt,rz(ig+k),1,0)
                   ENDIF
                ENDIF
             ENDDO
@@ -588,9 +586,9 @@ USE ISO_FORTRAN_ENV
                   IF ( itype==1 ) THEN
                      CALL gmmats(rz(ig+k-5),1,6,0,a,6,6,0,b)
                      DO j = 1 , 6
-                        CALL write(Rgt,ic(j),1,0)
-                        CALL write(Rgt,krow,1,0)
-                        CALL write(Rgt,b(j),1,0)
+                        CALL write(rgt,ic(j),1,0)
+                        CALL write(rgt,krow,1,0)
+                        CALL write(rgt,b(j),1,0)
                      ENDDO
                   ELSE
                      index = index + 1
@@ -602,8 +600,8 @@ USE ISO_FORTRAN_ENV
             ENDIF
             mcode(1) = krow
             coeff = 1.0
-            CALL write(Rgt,mcode,2,0)
-            CALL write(Rgt,coeff,1,0)
+            CALL write(rgt,mcode,2,0)
+            CALL write(rgt,coeff,1,0)
          ENDDO
          IF ( .NOT.(.NOT.genre .OR. itype/=0) ) THEN
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
@@ -614,15 +612,15 @@ USE ISO_FORTRAN_ENV
 !     CRTRPLT) ARE PROPERLY DEFINED
 !
             IF ( ising==2 ) THEN
-               WRITE (nout,99009) Ufm , idr
-               Nogo = 1
+               WRITE (nout,99009) ufm , idr
+               nogo = 1
             ENDIF
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
          IF ( more==0 ) THEN
 !
-            IF ( genre ) CALL close(Scr1,1)
+            IF ( genre ) CALL close(scr1,1)
             IF ( irdg<=8 ) THEN
                IF ( irdg==1 ) GOTO 80
                IF ( irdg==2 ) GOTO 100
@@ -653,27 +651,27 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRBAR DATA ON INPUT FILE
 !
- 200     file = Geomp
+ 200     file = geomp
          imhere = 4000
          IF ( debug ) WRITE (nout,99008) imhere
-         CALL locate(*220,Z(Buf1),crbar,flag)
+         CALL locate(*220,z(buf1),crbar,flag)
          irdg = 4
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
 !
 !     LOCATE CRTRPLT DATA ON INPUT FILE
 !
- 220     file = Geomp
+ 220     file = geomp
          imhere = 4100
          IF ( debug ) WRITE (nout,99008) imhere
-         CALL locate(*240,Z(Buf1),crtrpt,flag)
+         CALL locate(*240,z(buf1),crtrpt,flag)
          irdg = 5
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
 !
 !     LOCATE CRIGD3 DATA ON INPUT FILE
 !
- 240     CALL locate(*260,Z(Buf1),crigd3,flag)
+ 240     CALL locate(*260,z(buf1),crigd3,flag)
          imhere = 4200
          IF ( debug ) WRITE (nout,99008) imhere
          irdg = 6
@@ -682,7 +680,7 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRBE1 DATA ON INPUT FILE
 !
- 260     CALL locate(*280,Z(Buf1),crbe1,flag)
+ 260     CALL locate(*280,z(buf1),crbe1,flag)
          imhere = 4300
          IF ( debug ) WRITE (nout,99008) imhere
          irdg = 7
@@ -695,22 +693,22 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN SCR1 FILE TO WRITE
 !
-         CALL open(*500,Scr1,Z(Buf4),1)
+         CALL open(*500,scr1,z(buf4),1)
          SPAG_Loop_1_1: DO
 !
 !     READ ELEMENT ID
 !
-            file = Geomp
-            CALL read(*520,*540,Geomp,Buf,1,0,flag)
-            idr = Buf(1)
+            file = geomp
+            CALL read(*520,*540,geomp,buf,1,0,flag)
+            idr = buf(1)
 !
 !     READ INDEPENDENT GRID POINTS AND THEIR COMPONENT NUMBERS
 !
             n = 0
-            j = Knkl1
+            j = knkl1
             DO
-               CALL read(*520,*540,Geomp,Buf,1,0,flag)
-               IF ( Buf(1)==mset ) THEN
+               CALL read(*520,*540,geomp,buf,1,0,flag)
+               IF ( buf(1)==mset ) THEN
                   nind = n/7
 !
 !     CHECK TO SEE IF THE NUMBER OF INDEPENDENT GRID POINTS
@@ -719,85 +717,85 @@ USE ISO_FORTRAN_ENV
                   itype = -1
                   IF ( nind/=1 ) THEN
                      itype = 0
-                     j = Knkl1
+                     j = knkl1
 !
 !     WRITE THE INDEPENDENT GRID POINTS AS A PSEUDO CRIGD2 ELEMENT
 !
 !
 !     WRITE THE ELEMENT ID
 !
-                     CALL write(Scr1,idr,1,0)
+                     CALL write(scr1,idr,1,0)
 !
 !     WRITE THE FIRST INDEPENDENT GRID POINT AND ITS COMPONENT NUMBERS
 !
-                     CALL write(Scr1,Z(j),7,0)
+                     CALL write(scr1,z(j),7,0)
 !
 !     WRITE THE TYPE FLAG
 !
-                     CALL write(Scr1,itype,1,0)
+                     CALL write(scr1,itype,1,0)
 !
 !     WRITE THE REMAINING INDEPENDENT GRID POINTS AND THEIR
 !     COMPONENT NUMBERS
 !
                      j = j + 7
                      n = n - 7
-                     CALL write(Scr1,Z(j),n,0)
+                     CALL write(scr1,z(j),n,0)
                      DO l = 1 , 7
-                        Buf(l) = -1
+                        buf(l) = -1
                      ENDDO
-                     Buf(2) = 0
-                     CALL write(Scr1,Buf,7,0)
+                     buf(2) = 0
+                     CALL write(scr1,buf,7,0)
                      itype = 1
                   ENDIF
 !
 !     WRITE THE FIRST INDEPENDENT GRID POINT AND ALL THE
 !     DEPENDENT GRID POINTS AS A PSEUDO CRIGD2 ELEMENT
 !
-                  j = Knkl1
+                  j = knkl1
 !
 !     WRITE THE ELEMENT ID
 !
-                  CALL write(Scr1,idr,1,0)
+                  CALL write(scr1,idr,1,0)
 !
 !     WRITE THE FIRST INDEPENDENT GRID POINT AND ITS COMPONENT NUMBERS
 !
-                  CALL write(Scr1,Z(j),7,0)
+                  CALL write(scr1,z(j),7,0)
 !
 !     WRITE THE TYPE FLAG
 !
-                  CALL write(Scr1,itype,1,0)
+                  CALL write(scr1,itype,1,0)
                   DO
 !
 !     PROCESS THE DEPENDENT GRID POINTS AND THEIR COMPONENT NUMBERS
 !
-                     CALL read(*520,*540,Geomp,Buf,7,0,flag)
-                     IF ( Buf(1)==-1 ) THEN
-                        IF ( Buf(2)==-1 ) more = 0
+                     CALL read(*520,*540,geomp,buf,7,0,flag)
+                     IF ( buf(1)==-1 ) THEN
+                        IF ( buf(2)==-1 ) more = 0
                         DO l = 1 , 7
-                           Buf(l) = -1
+                           buf(l) = -1
                         ENDDO
-                        Buf(2) = 0
-                        IF ( more==0 ) Buf(2) = -1
-                        CALL write(Scr1,Buf,7,0)
+                        buf(2) = 0
+                        IF ( more==0 ) buf(2) = -1
+                        CALL write(scr1,buf,7,0)
                         IF ( more==1 ) CYCLE SPAG_Loop_1_1
-                        CALL write(Scr1,0,0,1)
+                        CALL write(scr1,0,0,1)
 !
 !     CLOSE SCR1, AND OPEN IT FOR READ
 !
-                        CALL close(Scr1,1)
-                        CALL open(*500,Scr1,Z(Buf4),0)
+                        CALL close(scr1,1)
+                        CALL open(*500,scr1,z(buf4),0)
                         imhere = 5085
                         IF ( debug ) WRITE (nout,99008) imhere
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ELSE
-                        CALL write(Scr1,Buf,7,0)
+                        CALL write(scr1,buf,7,0)
                      ENDIF
                   ENDDO
                ELSE
                   n = n + 7
-                  Z(j) = Buf(1)
-                  CALL read(*520,*540,Geomp,Z(j+1),6,0,flag)
+                  z(j) = buf(1)
+                  CALL read(*520,*540,geomp,z(j+1),6,0,flag)
                   j = j + 7
                ENDIF
             ENDDO
@@ -812,9 +810,9 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRBE3 DATA ON INPUT FILE
 !
- 280     file = Geomp
+ 280     file = geomp
          irdg = 8
-         CALL locate(*300,Z(Buf1),crbe3,flag)
+         CALL locate(*300,z(buf1),crbe3,flag)
          imhere = 5200
          IF ( debug ) WRITE (nout,99008) imhere
          spag_nextblock_1 = 9
@@ -822,9 +820,9 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE CRSPLINE DATA ON INPUT FILE
 !
- 300     file = Geomp
+ 300     file = geomp
          irdg = 9
-         CALL locate(*340,Z(Buf1),crspli,flag)
+         CALL locate(*340,z(buf1),crspli,flag)
          imhere = 530
          IF ( debug ) WRITE (nout,99008) imhere
          spag_nextblock_1 = 9
@@ -832,13 +830,13 @@ USE ISO_FORTRAN_ENV
 !
          j = irdg - 7
          IF ( debug ) WRITE (nout,99007) irdg
-         IF ( iprec==1 ) CALL crspls(*320,j,mu,knkl3+1,Z(Knkl1),again,N23)
-         IF ( iprec==2 ) CALL crspld(*320,j,mu,knkl3+1,Z(Knkl1),again,N23)
+         IF ( iprec==1 ) CALL crspls(*320,j,mu,knkl3+1,z(knkl1),again,N23)
+         IF ( iprec==2 ) CALL crspld(*320,j,mu,knkl3+1,z(knkl1),again,N23)
          IF ( j==1 ) GOTO 300
          IF ( j==2 ) GOTO 340
- 320     WRITE (nout,99003) Ufm
+ 320     WRITE (nout,99003) ufm
 99003    FORMAT (A23,' 8, INSUFFICIENT CORE FOR CRBE3 OR CRSPLINE RIGID ','ELEMENT COMPUTATION')
-         Nogo = 1
+         nogo = 1
 !
 !     *********************************************************
 !
@@ -851,16 +849,16 @@ USE ISO_FORTRAN_ENV
 !
  340     genre = .FALSE.
          nwds = 4
-         file = Geomp
-         CALL locate(*360,Z(Buf1),crigdr,flag)
+         file = geomp
+         CALL locate(*360,z(buf1),crigdr,flag)
          irdg = 10
          imhere = 5800
          IF ( debug ) WRITE (nout,99008) imhere
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 360     file = Geomp
+ 360     file = geomp
          irdg = 11
-         CALL locate(*480,Z(Buf1),crrod,flag)
+         CALL locate(*480,z(buf1),crrod,flag)
          imhere = 5900
          IF ( debug ) WRITE (nout,99008) imhere
          spag_nextblock_1 = 10
@@ -903,7 +901,7 @@ USE ISO_FORTRAN_ENV
 !     CHECK AVAILABILITY OF CORE
 !
          IF ( debug ) WRITE (nout,99007) irdg
-         itest = Knkl1 + 14 + 27*iprec + 2
+         itest = knkl1 + 14 + 27*iprec + 2
          IF ( itest>=mu ) THEN
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
@@ -911,16 +909,16 @@ USE ISO_FORTRAN_ENV
 !
 !     READ ELEMENT DATA
 !
- 380     CALL read(*520,*480,Geomp,Buf,nwds,0,flag)
-         idr = Buf(1)
-         idepgp = Buf(3)
-         icomp = Buf(4)
+ 380     CALL read(*520,*480,geomp,buf,nwds,0,flag)
+         idr = buf(1)
+         idepgp = buf(3)
+         icomp = buf(4)
 !
 !     PROCESS THE INDEPENDENT GRID POINT
 !
-         file = Bgpdt
-         j = Knkl1
-         Gpoint = Buf(2)
+         file = bgpdt
+         j = knkl1
+         gpoint = buf(2)
          ASSIGN 400 TO ret
          ASSIGN 420 TO ret1
          spag_nextblock_1 = 11
@@ -928,86 +926,86 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE SIL VALUES
 !
- 400     IF ( Nogo==0 ) THEN
-            Z(j) = Gpoint
-            Z(j+1) = Gpoint + 1
-            Z(j+2) = Gpoint + 2
-            kinew = k - 2*Kn
+ 400     IF ( nogo==0 ) THEN
+            z(j) = gpoint
+            z(j+1) = gpoint + 1
+            z(j+2) = gpoint + 2
+            kinew = k - 2*kn
 !
 !     LOCATE DATA IN BGPDT
 !
             IF ( again ) THEN
                IF ( kinew<=kiold ) THEN
-                  CALL bckrec(Bgpdt)
+                  CALL bckrec(bgpdt)
                   kiold = 0
                ENDIF
                ki4 = (kinew-kiold-1)*4
-               IF ( ki4>0 ) CALL read(*520,*540,Bgpdt,Buf,-ki4,0,flag)
-               CALL read(*520,*540,Bgpdt,Buf,4,0,flag)
+               IF ( ki4>0 ) CALL read(*520,*540,bgpdt,buf,-ki4,0,flag)
+               CALL read(*520,*540,bgpdt,buf,4,0,flag)
 !
 !     STORE BASIC GRID POINT DATA
 !
-               Z(j+3) = Buf(1)
-               Z(j+4) = Buf(2)
-               Z(j+5) = Buf(3)
-               Z(j+6) = Buf(4)
+               z(j+3) = buf(1)
+               z(j+4) = buf(2)
+               z(j+5) = buf(3)
+               z(j+6) = buf(4)
             ELSE
                ki4 = knkl3 + kinew*4
                IF ( ki4>knkl4 ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Z(j+3) = Z(ki4-3)
-               Z(j+4) = Z(ki4-2)
-               Z(j+5) = Z(ki4-1)
-               Z(j+6) = Z(ki4)
+               z(j+3) = z(ki4-3)
+               z(j+4) = z(ki4-2)
+               z(j+5) = z(ki4-1)
+               z(j+6) = z(ki4)
             ENDIF
             kiold = kinew
-            IF ( j/=Knkl1 ) THEN
+            IF ( j/=knkl1 ) THEN
                IF ( iprec==1 ) CALL crdrd(*440,*460,mu,icomp,N23)
                IF ( iprec==2 ) CALL crdrd2(*440,*460,mu,icomp,N23)
                GOTO 380
             ENDIF
-         ELSEIF ( j/=Knkl1 ) THEN
+         ELSEIF ( j/=knkl1 ) THEN
             GOTO 380
          ENDIF
 !
 !     PROCESS THE DEPENDENT GRID POINT
 !
  420     j = j + 7
-         Gpoint = idepgp
+         gpoint = idepgp
          ASSIGN 380 TO ret1
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
- 440     WRITE (nout,99004) Ufm , idr
+ 440     WRITE (nout,99004) ufm , idr
 99004    FORMAT (A23,' 3133, RIGID ELEMENT',I9,' HAS ZERO LENGTH')
-         Nogo = 1
+         nogo = 1
          GOTO 380
- 460     WRITE (nout,99009) Ufm , idr
-         Nogo = 1
+ 460     WRITE (nout,99009) ufm , idr
+         nogo = 1
          GOTO 380
 !
  480     IF ( irdg==10 ) GOTO 360
 !
-         IF ( again ) CALL close(Bgpdt,Clsrew)
-         IF ( Nogo/=0 ) CALL mesage(-61,0,name)
-         CALL write(Rgt,0,0,1)
+         IF ( again ) CALL close(bgpdt,clsrew)
+         IF ( nogo/=0 ) CALL mesage(-61,0,name)
+         CALL write(rgt,0,0,1)
 !
 !     WRITE A LIST OF DEPENDENT SIL VALUES FOR RIGID ELEMENTS ONTO THE
 !     RGT IN SORTED FORM
 !
          jrigid = mu + 1
-         m = Buf4 - jrigid
-         CALL sort(0,0,1,1,Z(jrigid),m)
-         CALL write(Rgt,Z(jrigid),m,1)
-         j = Buf4 - 1
-         IF ( debug ) WRITE (nout,99005) (Z(i),i=jrigid,j)
+         m = buf4 - jrigid
+         CALL sort(0,0,1,1,z(jrigid),m)
+         CALL write(rgt,z(jrigid),m,1)
+         j = buf4 - 1
+         IF ( debug ) WRITE (nout,99005) (z(i),i=jrigid,j)
 99005    FORMAT (/,'  CRIGGP/@7010  DEPEND.SIL LIST:',/,(5X,10I7))
-         Knkl1 = knkl2
+         knkl1 = knkl2
 !
 !     CLOSE RGT FILE AND RETURN
 !
-         CALL close(Rgt,Clsrew)
+         CALL close(rgt,clsrew)
          RETURN
       CASE (11)
 !
@@ -1023,19 +1021,19 @@ USE ISO_FORTRAN_ENV
             k = (klo+khi+1)/2
             IF ( lastk==k ) THEN
                IF ( genre .AND. itype==1 .AND. ntype==1 ) GOTO 140
-               Buf(1) = Gpoint
-               Buf(2) = irdg*100000000 + idr
+               buf(1) = gpoint
+               buf(2) = irdg*100000000 + idr
                n = 151
-               Nogo = 1
-               CALL mesage(30,n,Buf)
+               nogo = 1
+               CALL mesage(30,n,buf)
                GOTO ret1
             ELSE
                lastk = k
-               IF ( Gpoint<Z(2*k-1) ) THEN
+               IF ( gpoint<z(2*k-1) ) THEN
                   khi = k
-               ELSEIF ( Gpoint==Z(2*k-1) ) THEN
-                  k = Z(2*k) + 2*Kn
-                  Gpoint = Z(k)
+               ELSEIF ( gpoint==z(2*k-1) ) THEN
+                  k = z(2*k) + 2*kn
+                  gpoint = z(k)
                   GOTO ret
                ELSE
                   klo = k
@@ -1058,10 +1056,9 @@ USE ISO_FORTRAN_ENV
  540     j = -3
          CALL mesage(j,file,name)
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
          IF ( .NOT.(again) ) THEN
-            CALL close(Scr1,Clsrew)
+            CALL close(scr1,clsrew)
             WRITE (nout,99010) imhere
 !
 !     IF THERE IS ENOUGH CORE AVAILABLE, OPEN AND READ BGPDT INTO OPEN
@@ -1079,12 +1076,12 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE PRECISELY WHERE TO READ DATA OFF THE BGPDT FILE
 !
             again = .TRUE.
-            CALL write(Rgt,0,0,1)
-            CALL bckrec(Rgt)
+            CALL write(rgt,0,0,1)
+            CALL bckrec(rgt)
             knkl3 = 0
-            Knkl1 = knkl2
-            nbgpdt = Knkl1 + ncstm
-            CALL close(Bgpdt,Clsrew)
+            knkl1 = knkl2
+            nbgpdt = knkl1 + ncstm
+            CALL close(bgpdt,clsrew)
             GOTO 40
          ENDIF
          spag_nextblock_1 = 13
@@ -1095,12 +1092,11 @@ USE ISO_FORTRAN_ENV
          ENDDO
          spag_nextblock_1 = 14
       CASE (14)
-         WRITE (nout,99006) Knkl1 , knkl3 , knkl4 , ki4
+         WRITE (nout,99006) knkl1 , knkl3 , knkl4 , ki4
 99006    FORMAT (//,' *** SYSTEM FATAL ERROR IN CRIGGP',4I10)
          j = -61
          CALL mesage(j,file,name)
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99007 FORMAT ('0 IRDG/CRIGGP =',I6)

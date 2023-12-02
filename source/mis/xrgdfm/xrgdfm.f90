@@ -1,19 +1,20 @@
-!*==xrgdfm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xrgdfm.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
+   USE c_altrxx
+   USE c_phas11
+   USE c_phas25
+   USE c_phas28
+   USE c_phas31
+   USE c_phas37
+   USE c_system
+   USE c_two
+   USE c_xmdmsk
+   USE c_xmssg
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_ALTRXX
-   USE C_PHAS11
-   USE C_PHAS25
-   USE C_PHAS28
-   USE C_PHAS31
-   USE C_PHAS37
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMDMSK
-   USE C_XMSSG
-   USE C_XRGDXX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -220,20 +221,20 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
 !    5                 -1,  -1,  -1,  -1,  -1,  -1, 216, 214,
 !    6                215, 9*-1 /
 !
-         Iscrx = Iscr
-         Idmap = 0
+         iscrx = Iscr
+         idmap = 0
          DO k = 1 , 8
-            Ipas11(k) = 0
+            ipas11(k) = 0
          ENDDO
          DO k = 1 , 14
-            Ipas25(k) = 0
-            Ipas28(k) = 0
+            ipas25(k) = 0
+            ipas28(k) = 0
          ENDDO
          DO k = 1 , 2
-            Ipas31(k) = 0
+            ipas31(k) = 0
          ENDDO
          DO k = 1 , 6
-            Ipas37(k) = 0
+            ipas37(k) = 0
          ENDDO
          IF ( Iufile(1)==0 ) THEN
             isol = Newsol(1)
@@ -258,11 +259,11 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Member(1) = filtyp(Iapp)
-            Member(2) = solnum(isol)
+            member(1) = filtyp(Iapp)
+            member(2) = solnum(isol)
          ELSE
-            Member(1) = Iufile(1)
-            Member(2) = Iufile(2)
+            member(1) = Iufile(1)
+            member(2) = Iufile(2)
          ENDIF
 !
          oldind = Oldsol(1)
@@ -284,48 +285,48 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
             IF ( oldnum>0 ) THEN
                iword = ((oldnum-1)/31) + 1
                ibit = oldnum - 31*(iword-1) + 1
-               Medmsk(iword) = orf(Medmsk(iword),Two(ibit))
+               medmsk(iword) = orf(medmsk(iword),two(ibit))
                WRITE (optape,99001) Oldsol(1) , Newsol(1) , oldnum
 99001          FORMAT (51H0*** SWITCHED SOLUTION FOR RESTART - OLD SOLUTION =,I4,16H, NEW SOLUTION =,I4,14H, BIT NUMBER =,I4)
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( Irestr/=0 ) THEN
-            Nument = N1 + N2 + N3
+         IF ( irestr/=0 ) THEN
+            nument = n1 + n2 + n3
             ifill = 0
          ELSE
-            Nument = 1
+            nument = 1
             ifill = 1
          ENDIF
-         Idmap = 0
-         DO kb = 1 , Nument
+         idmap = 0
+         DO kb = 1 , nument
             Iopen(kb) = ifill
          ENDDO
-         index = 1 - Nument
+         index = 1 - nument
          next = 0
-         CALL rfopen(Member,lu)
-         Ignore = 0
+         CALL rfopen(member,lu)
+         ignore = 0
          IF ( lu==0 ) THEN
             Nogo = 3
             CALL rfclse(lu)
             RETURN
          ELSE
-            READ (lu,99008,ERR=20,END=40) Record
+            READ (lu,99008,ERR=20,END=40) record
 !
 !     BLANK OUT THE 19TH AND 20TH WORDS AS THEY
 !     MAY CONTAIN SEQUENCE INFORMATION
 !
-            Record(19) = blank
-            Record(20) = blank
+            record(19) = blank
+            record(20) = blank
 !
 !     ALLOW OPTIONS TO CHANGE NLPP LOCALLY, AND NOT TO CHECK RF DATE.
 !     (THE NLPP OPTION HERE IS OBSOLETE. CAN BE EASILY DONE VIA NASINFO
 !     FILE - 7/90)
 !
-            IF ( Record(3)/=asters ) THEN
-               IF ( Record(2)/=idate(3) ) THEN
-                  WRITE (optape,99002) Ufm , idate(1) , idate(3) , Record(1) , Record(2)
+            IF ( record(3)/=asters ) THEN
+               IF ( record(2)/=idate(3) ) THEN
+                  WRITE (optape,99002) ufm , idate(1) , idate(3) , record(1) , record(2)
 99002             FORMAT (A23,' 8037, NASTRAN IS LEVEL ',2A4,' BUT THE RIGID FORMAT DATA BASE IS LEVEL ',2A4)
                   Nogo = 3
                   CALL rfclse(lu)
@@ -333,99 +334,99 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
                ENDIF
             ENDIF
             SPAG_Loop_1_1: DO
-               READ (lu,99008,ERR=20,END=40) Record
+               READ (lu,99008,ERR=20,END=40) record
 !
 !     BLANK OUT THE 19TH AND 20TH WORDS AS THEY
 !     MAY CONTAIN SEQUENCE INFORMATION
 !
-               Record(19) = blank
-               Record(20) = blank
-               IF ( Record(1)/=coment ) THEN
-                  IF ( Record(1)==asters ) THEN
-                     IF ( Record(2)/=subset ) THEN
-                        IF ( Record(2)/=card ) THEN
-                           IF ( Record(2)/=file ) THEN
-                              IF ( Record(2)/=rfmt ) THEN
+               record(19) = blank
+               record(20) = blank
+               IF ( record(1)/=coment ) THEN
+                  IF ( record(1)==asters ) THEN
+                     IF ( record(2)/=subset ) THEN
+                        IF ( record(2)/=card ) THEN
+                           IF ( record(2)/=file ) THEN
+                              IF ( record(2)/=rfmt ) THEN
                                  DO k = 1 , 3
-                                    IF ( Record(2)==phase(k) ) THEN
-                                       Iphase = k
+                                    IF ( record(2)==phase(k) ) THEN
+                                       iphase = k
                                        CALL xrgsst(Newsol)
-                                       IF ( Ierror/=0 ) Nogo = 3
+                                       IF ( ierror/=0 ) Nogo = 3
                                        CYCLE SPAG_Loop_1_1
                                     ENDIF
                                  ENDDO
-                                 WRITE (optape,99003) Ufm , Record
+                                 WRITE (optape,99003) ufm , record
 99003                            FORMAT (A23,' 8026, THE FOLLOWING CARD HAS AN UNIDENTIFIED ','FUNCTION AFTER ',6H'****',//20X,20A4)
                                  Nogo = 3
-                              ELSEIF ( Irestr/=0 .AND. Ignore/=1 ) THEN
-                                 Limit(1) = (N1+N2)*31 + 1
-                                 Limit(2) = (N1+N2+N3)*31
+                              ELSEIF ( irestr/=0 .AND. ignore/=1 ) THEN
+                                 limit(1) = (n1+n2)*31 + 1
+                                 limit(2) = (n1+n2+n3)*31
                                  CALL xrgdcf(Iopen(index))
-                                 IF ( Ierror/=0 ) Nogo = 3
+                                 IF ( ierror/=0 ) Nogo = 3
                               ENDIF
-                           ELSEIF ( Irestr/=0 .AND. Ignore/=1 ) THEN
-                              Limit(1) = N1*31 + 1
-                              Limit(2) = (N1+N2)*31
+                           ELSEIF ( irestr/=0 .AND. ignore/=1 ) THEN
+                              limit(1) = n1*31 + 1
+                              limit(2) = (n1+n2)*31
                               CALL xrgdcf(Iopen(index))
-                              IF ( Ierror/=0 ) Nogo = 3
+                              IF ( ierror/=0 ) Nogo = 3
                            ENDIF
-                        ELSEIF ( Irestr/=0 .AND. Ignore/=1 ) THEN
-                           Limit(1) = 1
-                           Limit(2) = N1*31
+                        ELSEIF ( irestr/=0 .AND. ignore/=1 ) THEN
+                           limit(1) = 1
+                           limit(2) = n1*31
                            CALL xrgdcf(Iopen(index))
-                           IF ( Ierror/=0 ) Nogo = 3
+                           IF ( ierror/=0 ) Nogo = 3
                         ENDIF
-                     ELSEIF ( Nsubst/=0 ) THEN
+                     ELSEIF ( nsubst/=0 ) THEN
                         CALL xrgsub(Iopen(index),Newsol(2))
-                        IF ( Ierror/=0 ) Nogo = 3
+                        IF ( ierror/=0 ) Nogo = 3
                      ENDIF
-                  ELSEIF ( Record(1)==dolacr .OR. Record(1)==dolafl ) THEN
+                  ELSEIF ( record(1)==dolacr .OR. record(1)==dolafl ) THEN
                      CALL write(Iscr,0,0,1)
-                     IF ( Newalt/=0 ) THEN
-                        CALL write(Altfil,0,0,1)
-                        CALL close(Altfil,1)
+                     IF ( newalt/=0 ) THEN
+                        CALL write(altfil,0,0,1)
+                        CALL close(altfil,1)
                      ENDIF
-                     CALL write(Iscr,Iopen(1),index+Nument-1,1)
-                     IF ( Irestr==0 ) THEN
+                     CALL write(Iscr,Iopen(1),index+nument-1,1)
+                     IF ( irestr==0 ) THEN
                         CALL rfclse(lu)
                         RETURN
                      ELSE
-                        Itype = card
-                        IF ( Record(1)/=dolacr ) THEN
+                        itype = card
+                        IF ( record(1)/=dolacr ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        Limit(1) = 1
-                        Limit(2) = N1*31
+                        limit(1) = 1
+                        limit(2) = n1*31
                         CALL xrgdtb(lu)
-                        IF ( Ierror/=0 ) Nogo = 3
-                        Itype = file
-                        IF ( Record(1)/=dolafl ) THEN
+                        IF ( ierror/=0 ) Nogo = 3
+                        itype = file
+                        IF ( record(1)/=dolafl ) THEN
                            spag_nextblock_1 = 4
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        Limit(1) = N1*31 + 1
-                        Limit(2) = (N1+N2)*31
+                        limit(1) = n1*31 + 1
+                        limit(2) = (n1+n2)*31
                         CALL xrgdtb(lu)
-                        IF ( Ierror/=0 ) Nogo = 3
+                        IF ( ierror/=0 ) Nogo = 3
                         CALL rfclse(lu)
                         RETURN
                      ENDIF
                   ELSE
                      IF ( next/=1 ) THEN
-                        IF ( Newalt/=0 ) THEN
-                           CALL xrcard(ioutbf,200,Record)
-                           CALL write(Altfil,ioutbf(2),2,0)
+                        IF ( newalt/=0 ) THEN
+                           CALL xrcard(ioutbf,200,record)
+                           CALL write(altfil,ioutbf(2),2,0)
                         ENDIF
                         next = 1
-                        Idmap = Idmap + 1
-                        index = index + Nument
-                        DO kb = 1 , Nument
+                        idmap = idmap + 1
+                        index = index + nument
+                        DO kb = 1 , nument
                            Iopen(kb+index-1) = ifill
                         ENDDO
                      ENDIF
-                     CALL write(Iscr,Record,18,0)
-                     Ignore = 0
+                     CALL write(Iscr,record,18,0)
+                     ignore = 0
                   ENDIF
                ELSEIF ( next/=0 ) THEN
                   next = 0
@@ -442,20 +443,20 @@ SUBROUTINE xrgdfm(Newsol,Oldsol,Iapp,Iufile,Iopen,Isize,Iscr,Nogo)
 !
 !     ERRORS
 !
-         WRITE (optape,99004) Ufm , isol , filtyp(Iapp)
+         WRITE (optape,99004) ufm , isol , filtyp(Iapp)
 99004    FORMAT (A23,' 8023, SOLUTION NUMBER',I4,' IS ILLEGAL FOR APPROACH',A4)
- 20      WRITE (optape,99005) Ufm , Member
+ 20      WRITE (optape,99005) ufm , member
 99005    FORMAT (A23,' 8025, READ ERROR ON FILE ',2A4)
          Nogo = 3
          CALL rfclse(lu)
          RETURN
- 40      WRITE (optape,99006) Ufm , Member
+ 40      WRITE (optape,99006) ufm , member
 99006    FORMAT (A23,' 8025, UNEXPECTED EOF ENCOUNTERED ON FILE ',2A4)
          Nogo = 3
          CALL rfclse(lu)
          RETURN
       CASE (4)
-         WRITE (optape,99007) Ufm , Itype , Record
+         WRITE (optape,99007) ufm , itype , record
 99007    FORMAT (A23,' 8024, EXPECTED A ',3H'$*,A4,1H',' CARD.',' INSTEAD THE FOLLOWING CARD IS READ',//20X,20A4)
          Nogo = 3
          CALL rfclse(lu)

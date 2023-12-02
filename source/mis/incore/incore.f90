@@ -1,4 +1,5 @@
-!*==incore.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==incore.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE incore(A,N,B,Cx,Ix)
@@ -17,6 +18,15 @@ SUBROUTINE incore(A,N,B,Cx,Ix)
    REAL :: amax
    COMPLEX :: cmax , csum , scrch , t1 , t2 , t3
    INTEGER :: i , irow , j , jj , jmax , jp1 , k , l , nm1
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -124,5 +134,4 @@ SUBROUTINE incore(A,N,B,Cx,Ix)
          i = i - 1
       ENDDO SPAG_Loop_2_1
    ENDDO
-   RETURN
 END SUBROUTINE incore

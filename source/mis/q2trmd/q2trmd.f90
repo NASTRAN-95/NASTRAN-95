@@ -1,7 +1,9 @@
-!*==q2trmd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==q2trmd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE q2trmd(Ra,Rb,Rc,Alpha,Isinth,Icosth,Gsube,It,Ierror,Iopt,Kmat,Pmat,Smat,Zmat)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -32,7 +34,16 @@ USE ISO_FORTRAN_ENV
    INTEGER :: i , ipartn , irow1 , j , jpartn , k , kk
    REAL(REAL64) :: i33 , iarea , iareat , ic , is , ixsubb , ixsubc , iysubc , mag
    INTEGER , DIMENSION(3,3) , SAVE :: ipart
-   EXTERNAL dadotb , daxb , gmmatd
+   EXTERNAL daxb , gmmatd
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

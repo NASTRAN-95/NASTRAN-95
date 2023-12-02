@@ -1,15 +1,16 @@
-!*==lamx.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==lamx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE lamx
+   USE c_blank
+   USE c_condas
+   USE c_output
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_OUTPUT
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,27 +58,27 @@ SUBROUTINE lamx
    ncol = trl(2)
    IF ( ncol==0 ) ied = 0
    IF ( lma==0 .AND. ied==0 ) RETURN
-   Ito = 1
-   Ii = 1
-   Incr = 1
-   Ie = trl(3)
-   IF ( Ie>3 ) Ie = 3
+   ito = 1
+   ii = 1
+   incr = 1
+   ie = trl(3)
+   IF ( ie>3 ) ie = 3
    b = 0.0
    c = 0.0
-   bufb = icore - Sysbuf
+   bufb = icore - sysbuf
    CALL gopen(lamb,z(bufb),1)
    IF ( lma==0 ) THEN
 !
 !      MAKE A NEW LAMB
 !
-      bufe = bufb - Sysbuf
+      bufe = bufb - sysbuf
       CALL gopen(edit,z(bufe),0)
-      IF ( Nlam>0 ) ncol = min0(ncol,Nlam)
+      IF ( nlam>0 ) ncol = min0(ncol,nlam)
 !
 !     WRITE HEADER
 !
       CALL write(lamb,ist,50,0)
-      CALL write(lamb,Hdg,96,1)
+      CALL write(lamb,hdg,96,1)
 !
 !     MAKE RECORDS
 !
@@ -94,10 +95,10 @@ SUBROUTINE lamx
                d(3) = 0.0
                spag_nextblock_1 = 2
             CASE (2)
-               Iz(1) = i
-               Iz(iz2) = i
+               iz(1) = i
+               iz(iz2) = i
                z(5) = a
-               z(4) = Twopi*a
+               z(4) = twopi*a
                z(3) = z(4)*z(4)
                z(6) = c
                z(7) = c*z(3)
@@ -109,9 +110,9 @@ SUBROUTINE lamx
       j = ncol
       GOTO 300
    ELSE
-      bufa = bufb - Sysbuf
+      bufa = bufb - sysbuf
       CALL gopen(lama,z(bufa),0)
-      IF ( Nlam<0 ) THEN
+      IF ( nlam<0 ) THEN
 !
 !     BUILD LAMB AS A MATRIX
 !
@@ -121,16 +122,16 @@ SUBROUTINE lamx
          trl(5) = 1
          trl(6) = 0
          trl(7) = 0
-         Ityin = 1
-         Ityout = 1
-         Iii = 1
-         Incr1 = 7
+         ityin = 1
+         ityout = 1
+         iii = 1
+         incr1 = 7
          CALL fwdrec(*400,lama)
          CALL read(*400,*500,lama,z,bufa,0,nwr)
          CALL mesage(8,0,nam)
          GOTO 400
       ELSE
-         bufe = bufa - Sysbuf
+         bufe = bufa - sysbuf
 !
 !      EDITING LAMA FROM EDIT
 !
@@ -146,11 +147,11 @@ SUBROUTINE lamx
 !
 !     COPY LAMA TO LAMB FOR NLAM RECORDS
 !
-      IF ( Nlam==0 ) GOTO 400
-      j = Nlam
-      m = 7*Nlam
+      IF ( nlam==0 ) GOTO 400
+      j = nlam
+      m = 7*nlam
       CALL read(*300,*200,lama,z,m,0,nwr)
-      CALL write(lamb,z,7*Nlam,0)
+      CALL write(lamb,z,7*nlam,0)
       GOTO 300
    ELSE
 !
@@ -163,15 +164,15 @@ SUBROUTINE lamx
          IF ( a/=0.0 .OR. b/=0.0 .OR. c/=0.0 ) THEN
             IF ( c<0.0 ) CYCLE
             z(5) = z(5)*(1.0+b) + a
-            z(4) = z(5)*Twopi
+            z(4) = z(5)*twopi
             z(3) = z(4)*z(4)
             IF ( c/=0.0 ) z(6) = c
             z(7) = z(6)*z(3)
          ENDIF
  120     j = j + 1
-         Iz(1) = j
-         IF ( Nlam>0 ) THEN
-            IF ( j>Nlam ) EXIT SPAG_Loop_1_1
+         iz(1) = j
+         IF ( nlam>0 ) THEN
+            IF ( j>nlam ) EXIT SPAG_Loop_1_1
          ENDIF
          CALL write(lamb,z,7,0)
       ENDDO SPAG_Loop_1_1
@@ -192,7 +193,7 @@ SUBROUTINE lamx
    ENDDO SPAG_Loop_1_2
    IF ( nloop/=0 ) THEN
       trl(3) = nloop
-      Nnn = nloop
+      nnn = nloop
       l = 3
       DO i = 1 , 5
          CALL pack(z(l),lamb,trl)

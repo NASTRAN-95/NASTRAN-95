@@ -1,12 +1,13 @@
-!*==pstrq2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pstrq2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pstrq2(Ntype)
+   USE c_pla32s
+   USE c_pla3es
+   USE c_pla3uv
+   USE c_sout
    IMPLICIT NONE
-   USE C_PLA32S
-   USE C_PLA3ES
-   USE C_PLA3UV
-   USE C_SOUT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,36 +49,35 @@ SUBROUTINE pstrq2(Ntype)
 !     STRESS VECTOR = (SUMMATION  (S ) (U ))
 !                        I=1        I    I
 !
-   Nsize = Ntype + 2
-   DO i = 1 , Nsize
+   nsize = Ntype + 2
+   DO i = 1 , nsize
 !     POINTER TO DISPLACEMENT VECTOR
-      Npoint = Ivec + nsil(i) - 1
+      npoint = ivec + nsil(i) - 1
 !
-      CALL gmmats(si(9*i-8),3,3,0,Z(Npoint),3,1,0,Vec(1))
+      CALL gmmats(si(9*i-8),3,3,0,z(npoint),3,1,0,vec(1))
 !
       DO j = 1 , 3
-         Stress(j) = Stress(j) + Vec(j)
+         stress(j) = stress(j) + vec(j)
       ENDDO
    ENDDO
 !
-   Stres(1) = Ph1out(1)
-   Stres(2) = Stress(1)
-   Stres(3) = Stress(2)
-   Stres(4) = Stress(3)
+   stres(1) = ph1out(1)
+   stres(2) = stress(1)
+   stres(3) = stress(2)
+   stres(4) = stress(3)
 !
 !     ******************************************************************
 !
 !     PRINCIPAL STRESSES AND ANGLE OF ACTION PHI
-   Temp = Stres(2) - Stres(3)
-   Stres(8) = sqrt((Temp/2.0E0)**2+Stres(4)**2)
-   Delta = (Stres(2)+Stres(3))/2.0E0
-   Stres(6) = Delta + Stres(8)
-   Stres(7) = Delta - Stres(8)
-   Delta = 2.0E0*Stres(4)
-   IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
-      Stres(5) = 0.0E0
+   temp = stres(2) - stres(3)
+   stres(8) = sqrt((temp/2.0E0)**2+stres(4)**2)
+   delta = (stres(2)+stres(3))/2.0E0
+   stres(6) = delta + stres(8)
+   stres(7) = delta - stres(8)
+   delta = 2.0E0*stres(4)
+   IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
+      stres(5) = 0.0E0
       RETURN
    ENDIF
-   Stres(5) = atan2(Delta,Temp)*28.6478898E00
-   RETURN
+   stres(5) = atan2(delta,temp)*28.6478898E00
 END SUBROUTINE pstrq2

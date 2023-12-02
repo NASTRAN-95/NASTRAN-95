@@ -1,11 +1,12 @@
-!*==hdcoef.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdcoef.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdcoef(X,Y,Z,Xxx,Jxx,Ns,Ccc,Lz)
+   USE c_go3
+   USE c_hdptrs
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GO3
-   USE C_HDPTRS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,8 +36,8 @@ SUBROUTINE hdcoef(X,Y,Z,Xxx,Jxx,Ns,Ccc,Lz)
 !
    DATA epsi/1.0E-5/
    le = 0
-   ja = L13 + (Jxx-1)*Lz
-   jf = L12 + (Jxx-1)*5
+   ja = l13 + (Jxx-1)*Lz
+   jf = l12 + (Jxx-1)*5
    i = 0
    j = 1
    SPAG_Loop_1_1: DO
@@ -94,8 +95,8 @@ SUBROUTINE hdcoef(X,Y,Z,Xxx,Jxx,Ns,Ccc,Lz)
                j = 1
                DO k = 1 , le
                   japj = ja + j
-                  Ccc(japj) = Rz(Zcoef1-1+k)
-                  Ccc(japj+1) = Rz(Zcoef-1+k)
+                  Ccc(japj) = rz(zcoef1-1+k)
+                  Ccc(japj+1) = rz(zcoef-1+k)
                   j = j + 5
                ENDDO
                IF ( abs(coe(1))>epsi ) i = 1
@@ -139,8 +140,8 @@ SUBROUTINE hdcoef(X,Y,Z,Xxx,Jxx,Ns,Ccc,Lz)
             Ccc(j+4+ja) = Y(i+1)
          ENDIF
          j = j + 5
-         Rz(Zcoef1+le) = Z(i)
-         Rz(Zcoef+le) = Z(i+1)
+         rz(zcoef1+le) = Z(i)
+         rz(zcoef+le) = Z(i+1)
          le = le + 1
          IF ( le<=3 ) ibcoef(le) = i
       ENDIF

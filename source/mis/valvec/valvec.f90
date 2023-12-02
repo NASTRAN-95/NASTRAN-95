@@ -2,9 +2,9 @@
  
 SUBROUTINE valvec
    IMPLICIT NONE
-   USE C_GIVN
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_givn
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -14,6 +14,12 @@ SUBROUTINE valvec
    REAL :: oeigs , rstrt
    INTEGER , DIMENSION(3) , SAVE :: qrx , tri , val , wil
    REAL , DIMENSION(30) :: vcom
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -58,7 +64,7 @@ SUBROUTINE valvec
    mcb(1) = md
    CALL rdtrl(mcb(1))
    n = mcb(2)
-   n2 = n*Iprec
+   n2 = n*iprec
    id = 1
    io = id + n2
    iv = io + n2
@@ -78,9 +84,9 @@ SUBROUTINE valvec
       CALL conmsg(tri,3,0)
 !WKBD 2/94 SPR93027 CALL TRIDI (A(ID),A(IO),A(IV),A(IL),A(I1),A(IL))
 !WKBNB 2/94 SPR93027
-      IF ( Iprec==2 ) CALL tridi(A(id),A(io),A(iv),A(il),A(i1),A(il))
+      IF ( iprec==2 ) CALL tridi(a(id),a(io),a(iv),a(il),a(i1),a(il))
 !                   D      O    V     A     B
-      IF ( Iprec==1 ) CALL tridi1(A(id),A(io),A(iv),A(il),A(i1),A(il))
+      IF ( iprec==1 ) CALL tridi1(a(id),a(io),a(iv),a(il),a(i1),a(il))
 !                   D      O    V     A     B
 !WKBNE 2/94 SPR93027
       tri(3) = iend
@@ -88,8 +94,8 @@ SUBROUTINE valvec
    ELSE
 !WKBD 2/94 SPR93027 CALL SMLEIG (A(ID),A(IO),A(IV))
 !WKBNB 2/94 SPR93027
-      IF ( Iprec==2 ) CALL smleig(A(id),A(io),A(iv))
-      IF ( Iprec==1 ) CALL smleig1(A(id),A(io),A(iv))
+      IF ( iprec==2 ) CALL smleig(a(id),a(io),a(iv))
+      IF ( iprec==1 ) CALL smleig1(a(id),a(io),a(iv))
 !WKBNE 2/94 SPR93027
  
       IF ( n/=2 ) GOTO 100
@@ -103,8 +109,8 @@ SUBROUTINE valvec
    CALL conmsg(qrx,3,0)
 !WKBD 2/94 SPR93027 CALL QRITER (A(IV),A(I1),A(IL),QR)
 !WKBNB 2/94 SPR93027
-   IF ( Iprec==2 ) CALL qriter(A(iv),A(i1),A(il),qr)
-   IF ( Iprec==1 ) CALL qriter1(A(iv),A(i1),A(il),qr)
+   IF ( iprec==2 ) CALL qriter(a(iv),a(i1),a(il),qr)
+   IF ( iprec==1 ) CALL qriter1(a(iv),a(i1),a(il),qr)
 !WKBNE 2/94 SPR93027
  
    qrx(3) = iend
@@ -121,13 +127,13 @@ SUBROUTINE valvec
 !WKBDE 2/94 SPR93027
 !WKBNB 2/94 SPR93027
 !                    D      0    C    A      B
-   IF ( Iprec==1 ) CALL wilvec1(A(id),A(io),A(iv),A(il),A(i1),A(i2),A(i3),A(i4),A(i5),A(i6),n,A(i6))
+   IF ( iprec==1 ) CALL wilvec1(a(id),a(io),a(iv),a(il),a(i1),a(i2),a(i3),a(i4),a(i5),a(i6),n,a(i6))
 !                    D      0    C    A      B
-   IF ( Iprec==2 ) CALL wilvec(A(id),A(io),A(iv),A(il),A(i1),A(i2),A(i3),A(i4),A(i5),A(i6),n,A(i6))
+   IF ( iprec==2 ) CALL wilvec(a(id),a(io),a(iv),a(il),a(i1),a(i2),a(i3),a(i4),a(i5),a(i6),n,a(i6))
 !WKBNE 2/94 SPR93027
    wil(3) = iend
    CALL conmsg(wil,3,0)
- 100  CALL gopen(oeigs,A(1),1)
+ 100  CALL gopen(oeigs,a(1),1)
    mcb(1) = 4
    mcb(2) = n
    mcb(3) = nv

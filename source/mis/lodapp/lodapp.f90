@@ -2,14 +2,14 @@
  
 SUBROUTINE lodapp
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_PACKX
-   USE C_PARMEG
-   USE C_SOF
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_names
+   USE c_packx
+   USE c_parmeg
+   USE c_sof
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -27,6 +27,12 @@ SUBROUTINE lodapp
    INTEGER , DIMENSION(7) :: mcbloc
    INTEGER , DIMENSION(2) :: name , namell , nn
    INTEGER , DIMENSION(2) , SAVE :: nprog
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -57,17 +63,17 @@ SUBROUTINE lodapp
 !     INITIALIZE PARAMETERS
 !
    CALL tmtogo(itime1)
-   name(1) = Buf(1)
-   name(2) = Buf(2)
-   idry = Buf(3)
+   name(1) = buf(1)
+   name(2) = buf(2)
+   idry = buf(3)
    ncore = korsz(iz(1))
 !
 !     INITIALIZE OPEN CORE - THERE ARE NIZ WORDS AVAILABLE
 !
-   ib1 = ncore - (Isbuff+1)
-   ib2 = ib1 - Isbuff - 1
-   ib3 = ib2 - Isbuff
-   ibuf1 = ib3 - Isbuff
+   ib1 = ncore - (isbuff+1)
+   ib2 = ib1 - isbuff - 1
+   ib3 = ib2 - isbuff
+   ibuf1 = ib3 - isbuff
    niz = ibuf1 - 1
    nstart = 1
 !
@@ -215,7 +221,7 @@ SUBROUTINE lodapp
                irw = 2
                CALL sfetch(name,nitem,irw,itest)
                IF ( itest/=3 ) THEN
-                  WRITE (Lp,99001) Sfm , nitem , name
+                  WRITE (lp,99001) sfm , nitem , name
 99001             FORMAT (A25,' 6954, THE ,A4,62H ITEM EXISTS BUT HAS NO ','ASSOCIATED PVEC ITEM FOR SUBSTRUCTURE ',2A4)
                   idry = -2
                ELSE
@@ -243,7 +249,7 @@ SUBROUTINE lodapp
 !     MODULE IS FINISHED WITH THE DIRECT COPY CASE
 !
                   IF ( lpoap ) CALL mtrxo(iuoap,namell,npove,0,itest)
-                  WRITE (Lp,99002) Uim , name
+                  WRITE (lp,99002) uim , name
 99002             FORMAT (A29,' 6901, ADDITIONAL LOADS HAVE BEEN SUCCESSFULLY ','MERGED FOR SUBSTRUCTURE ',2A4)
                ENDIF
                GOTO 500
@@ -287,7 +293,7 @@ SUBROUTINE lodapp
                   DO m = 1 , nlbasa
                      DO n = 1 , nlbasp
                         IF ( iz(nbasa+m)==iz(nbasp+n) .AND. iz(nbasa+m)/=0 ) THEN
-                           WRITE (Lp,99003) Ufm , iz(nbasa+m) , name
+                           WRITE (lp,99003) ufm , iz(nbasa+m) , name
 99003                      FORMAT (A23,' 6955, DUPLICATE LOAD IDS DURING APPEND OPERATION.','  LOAD ID NO.',I9,' SUBSTRUCTURE ',2A4)
                            idry = -2
                         ENDIF
@@ -392,7 +398,7 @@ SUBROUTINE lodapp
 !     1) ZERO FIRST
 !
                DO i = 1 , lvect
-                  Rz(nmrvcs-1+i) = 0.
+                  rz(nmrvcs-1+i) = 0.
                ENDDO
 !
 !     2) NOW FILL
@@ -402,7 +408,7 @@ SUBROUTINE lodapp
                   idrc2 = iz(nmergn+1)
                   IF ( idrc2/=0 ) THEN
                      DO n = 1 , idrc2
-                        Rz(nmrvcn+idrc1+n) = 1.0
+                        rz(nmrvcn+idrc1+n) = 1.0
                      ENDDO
                   ENDIF
                   nmergn = nmergn + 2
@@ -412,12 +418,12 @@ SUBROUTINE lodapp
 !     THIS IS A COLUMN PARTITIONING VECTOR (REFERRED TO AS A ROW VECTOR
 !     BY MERGE)
 !
-               Itypin = 1
-               Itypot = 1
-               Ifirst = 1
-               Ilast = lvect
-               Incr = 1
-               CALL gopen(iscr5,iz(ibuf1),Iwrtrw)
+               itypin = 1
+               itypot = 1
+               ifirst = 1
+               ilast = lvect
+               incr = 1
+               CALL gopen(iscr5,iz(ibuf1),iwrtrw)
 !
 !     ZERO THE TRAILER INFO. LOCATIONS
 !
@@ -426,10 +432,10 @@ SUBROUTINE lodapp
                ENDDO
                mcbloc(1) = iscr5
                mcbloc(3) = lvect
-               mcbloc(4) = Irect
-               mcbloc(5) = Irsp
-               CALL pack(Rz(nmrvcs),iscr5,mcbloc(1))
-               CALL close(iscr5,Irew)
+               mcbloc(4) = irect
+               mcbloc(5) = irsp
+               CALL pack(rz(nmrvcs),iscr5,mcbloc(1))
+               CALL close(iscr5,irew)
                CALL wrttrl(mcbloc(1))
                idump = -iscr5
                CALL dmpfil(idump,adump,4000)
@@ -460,44 +466,44 @@ SUBROUTINE lodapp
 !     THIS IS A ROW PARTITIONING VECTOR REFERRED TO AS A COLUMN VECTOR
 !     BY MERGE)
 !
-               Mcbk11(1) = iuvec
-               CALL rdtrl(Mcbk11(1))
-               Mcbk12(1) = iuapp
-               CALL rdtrl(Mcbk12(1))
+               mcbk11(1) = iuvec
+               CALL rdtrl(mcbk11(1))
+               mcbk12(1) = iuapp
+               CALL rdtrl(mcbk12(1))
                DO k = 1 , 7
-                  Mcbk21(k) = 0
-                  Mcbk22(k) = 0
+                  mcbk21(k) = 0
+                  mcbk22(k) = 0
                ENDDO
                iz(icore+7) = iscr8
                iz(icore+8) = 0
-               iz(icore+9) = Mcbk11(3)
-               iz(icore+10) = Irect
-               iz(icore+11) = Irsp
+               iz(icore+9) = mcbk11(3)
+               iz(icore+10) = irect
+               iz(icore+11) = irsp
                iz(icore+12) = 0
                iz(icore+13) = 0
                ncnt = icore + 13
 !
-               CALL gopen(iscr8,iz(ibuf1),Iwrtrw)
-               Itypin = 1
-               Itypot = 1
-               Ifirst = 1
-               Ilast = 1
-               Incr = 1
+               CALL gopen(iscr8,iz(ibuf1),iwrtrw)
+               itypin = 1
+               itypot = 1
+               ifirst = 1
+               ilast = 1
+               incr = 1
                CALL pack(0,iscr8,iz(icore+7))
-               CALL close(iscr8,Irew)
+               CALL close(iscr8,irew)
                CALL wrttrl(iz(icore+7))
-               Lcore = ib3 - icore - 15
+               lcore = ib3 - icore - 15
                i = icore + 15
-               Irule = 0
-               Mcbk(1) = iscr6
-               Mcbk(2) = Mcbk11(2) + Mcbk12(2)
-               Mcbk(3) = Mcbk11(3)
-               Mcbk(4) = Irect
-               Mcbk(5) = Mcbk11(5)
-               Mcbk(6) = 0
-               Mcbk(7) = 0
+               irule = 0
+               mcbk(1) = iscr6
+               mcbk(2) = mcbk11(2) + mcbk12(2)
+               mcbk(3) = mcbk11(3)
+               mcbk(4) = irect
+               mcbk(5) = mcbk11(5)
+               mcbk(6) = 0
+               mcbk(7) = 0
                CALL merge(iz(icore),iz(icore+7),iz(i))
-               CALL wrttrl(Mcbk(1))
+               CALL wrttrl(mcbk(1))
 !
 !     SETUP TO MERGE  POVE  AND  POAP(IF THEY EXIST)
 !
@@ -506,24 +512,24 @@ SUBROUTINE lodapp
                idump = -iuoap
                CALL dmpfil(idump,adump,4000)
                IF ( lpove ) THEN
-                  Mcbk11(1) = iuove
-                  CALL rdtrl(Mcbk11(1))
-                  Mcbk12(1) = iuoap
-                  CALL rdtrl(Mcbk12(1))
+                  mcbk11(1) = iuove
+                  CALL rdtrl(mcbk11(1))
+                  mcbk12(1) = iuoap
+                  CALL rdtrl(mcbk12(1))
                   DO k = 1 , 7
-                     Mcbk21(k) = 0
-                     Mcbk22(k) = 0
+                     mcbk21(k) = 0
+                     mcbk22(k) = 0
                   ENDDO
-                  Irule = 0
-                  Mcbk(1) = iscr7
-                  Mcbk(2) = Mcbk11(2) + Mcbk12(2)
-                  Mcbk(3) = Mcbk11(3)
-                  Mcbk(4) = Irect
-                  Mcbk(5) = Mcbk11(5)
-                  Mcbk(6) = 0
-                  Mcbk(7) = 0
+                  irule = 0
+                  mcbk(1) = iscr7
+                  mcbk(2) = mcbk11(2) + mcbk12(2)
+                  mcbk(3) = mcbk11(3)
+                  mcbk(4) = irect
+                  mcbk(5) = mcbk11(5)
+                  mcbk(6) = 0
+                  mcbk(7) = 0
                   CALL merge(iz(icore),iz(icore+7),iz(i))
-                  CALL wrttrl(Mcbk(1))
+                  CALL wrttrl(mcbk(1))
                ENDIF
 !
 !     CHECK TIME REMAINING AND RETURN WITH USER FATAL MESSAGE IF NOT
@@ -562,7 +568,7 @@ SUBROUTINE lodapp
                      iblk = andf(icorx(imdi+ii),65535)
                      IF ( iblk/=0 .AND. iblk/=65535 ) CALL retblk(iblk)
                      icorx(imdi+ii) = 0
-                     Mdiup = .TRUE.
+                     mdiup = .TRUE.
                   ENDDO
                ENDIF
 !
@@ -588,35 +594,35 @@ SUBROUTINE lodapp
                IF ( lpove ) CALL delete(namell,npove,ichk)
                IF ( lpove ) CALL mtrxo(iscr7,namell,npove,0,ichk)
 !
-               WRITE (Lp,99004) Uim , name
+               WRITE (lp,99004) uim , name
 99004          FORMAT (A29,' 6900, LOADS HAVE BEEN SUCCESSFULLY APPENDED FOR ','SUBSTRUCTURE ',2A4)
                GOTO 500
             ENDIF
          ENDIF
       ENDIF
    ENDIF
-   WRITE (Lp,99005) Ufm , nchave
+   WRITE (lp,99005) ufm , nchave
 99005 FORMAT (A23,' 6951, INSUFFICIENT CORE TO LOAD TABLES',/5X,'IN MODULE LODAPP, CORE =',I8)
    CALL mesage(-8,nprog,0)
 !
- 100  WRITE (Lp,99006) Sfm , name
+ 100  WRITE (lp,99006) sfm , name
 99006 FORMAT (A25,' 6952, REQUESTED SUBSTRUCTURE ',2A4,' DOES NOT EXIST')
    idry = -2
    GOTO 500
- 200  WRITE (Lp,99007) Sfm , nitem , name
+ 200  WRITE (lp,99007) sfm , nitem , name
 99007 FORMAT (A25,' 6101, REQUESTED SOF ITEM DOES NOT EXIST.  ITEM ',A4,' SUBSTRUCTURE ',2A4)
    idry = -2
    GOTO 500
- 300  WRITE (Lp,99008) Sfm , name
+ 300  WRITE (lp,99008) sfm , name
 99008 FORMAT (A25,' 6953, A WRONG COMBINATION OF LOAD VECTORS EXISTS ','FOR SUBSTRUCTURE ',2A4)
    idry = -2
    GOTO 500
- 400  WRITE (Lp,99009) Ufm , itime2
+ 400  WRITE (lp,99009) ufm , itime2
 99009 FORMAT (A23,' 6956, INSUFFICIENT TIME REMAINING FOR MODULE ','LODAPP, TIME LEFT =',I8)
    idry = -2
  500  CALL sofcls
 !
 !     RETURN VALUE OF DRY PARAMETER
 !
-   Buf(3) = idry
+   buf(3) = idry
 END SUBROUTINE lodapp

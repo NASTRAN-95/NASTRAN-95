@@ -1,14 +1,15 @@
-!*==ift.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ift.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ift
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -58,9 +59,9 @@ SUBROUTINE ift
 !     PUT FOL INTO CORE
 !
          nz = korsz(iz)
-         ibuf1 = nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         nz = nz - 2*Sysbuf
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         nz = nz - 2*sysbuf
          file = fol
          CALL open(*60,fol,iz(ibuf1),0)
          CALL fread(fol,iz,-2,0)
@@ -87,22 +88,22 @@ SUBROUTINE ift
 !
 !     DETERMINE IF EQUAL FREQ - CONVERT TO W'S
 !
-         delw = Z(ifreq+1) - Z(ifreq)
+         delw = z(ifreq+1) - z(ifreq)
          epsi = delw*1.E-6
          j = nfreq - 1
          iequal = 1
          DO i = 1 , j
             m = ifreq + i - 1
-            IF ( abs(Z(m+1)-Z(m)-delw)>=epsi ) iequal = 0
-            Z(m) = Z(m)*Twopi
+            IF ( abs(z(m+1)-z(m)-delw)>=epsi ) iequal = 0
+            z(m) = z(m)*twopi
          ENDDO
-         Z(ifreq+nfreq-1) = Z(ifreq+nfreq-1)*Twopi
-         delw = delw*Twopi
+         z(ifreq+nfreq-1) = z(ifreq+nfreq-1)*twopi
+         delw = delw*twopi
 !
 !     FIRST FREQUENCY MUST BE MULTIPLE OF DELW
 !
-         nbig = abs(Z(ifreq)/delw) + .1
-         IF ( abs(float(nbig)*delw-abs(Z(ifreq)))>epsi ) iequal = 0
+         nbig = abs(z(ifreq)/delw) + .1
+         IF ( abs(float(nbig)*delw-abs(z(ifreq)))>epsi ) iequal = 0
          lll = nbig - 1
 !
 !     FIND TSTEP IN TRL
@@ -138,9 +139,9 @@ SUBROUTINE ift
 !
 !     FORCE WAT TO BE INTEGER MULTIPLE OF TWOPI/N
 !
-            fbig = Twopi/(delw*Z(itstp+1))
+            fbig = twopi/(delw*z(itstp+1))
             nbig = fbig + .9
-            Z(itstp+1) = Twopi/(float(nbig)*delw)
+            z(itstp+1) = twopi/(float(nbig)*delw)
          ENDIF
 !
 !     BUILD / WRITE TOL
@@ -149,7 +150,7 @@ SUBROUTINE ift
          CALL open(*60,tol,iz(ibuf1),1)
          CALL fname(tol,mcb1)
          CALL write(tol,mcb1,2,0)
-         delt = Z(itstp+1)
+         delt = z(itstp+1)
          t = 0.0
          n = 0
          m = itstp
@@ -160,7 +161,7 @@ SUBROUTINE ift
             DO j = 1 , nstep
                CALL write(tol,t,1,0)
                n = n + 1
-               IF ( j==nstep .AND. i/=ngroup ) delt = Z(m+1)
+               IF ( j==nstep .AND. i/=ngroup ) delt = z(m+1)
                t = t + delt
             ENDDO
          ENDDO
@@ -187,48 +188,48 @@ SUBROUTINE ift
             m1 = isk
             m2 = isk
             j = iudot
-            rp = cos(Twopi/float(nbig))
-            cp = sin(Twopi/float(nbig))
+            rp = cos(twopi/float(nbig))
+            cp = sin(twopi/float(nbig))
             i = m
             n = m1 + 1
             l = m2
             kk = j
-            Z(i) = 1.0
-            Z(l) = 0.0
+            z(i) = 1.0
+            z(l) = 0.0
             SPAG_Loop_1_2: DO
                IF ( m1-i<2 ) EXIT SPAG_Loop_1_2
                IF ( m1-i==2 ) THEN
                   cmnr = -1.
                   cmnc = 0.
                ELSE
-                  cmnr = rp*Z(i) - cp*Z(l)
-                  cmnc = cp*Z(i) + rp*Z(l)
+                  cmnr = rp*z(i) - cp*z(l)
+                  cmnc = cp*z(i) + rp*z(l)
                ENDIF
                i = i + 1
                l = l + 1
                m1 = m1 - 1
                kk = kk - 1
-               Z(i) = cmnr
-               Z(l) = cmnc
-               Z(m1) = cmnr
-               Z(kk) = -cmnc
+               z(i) = cmnr
+               z(l) = cmnc
+               z(m1) = cmnr
+               z(kk) = -cmnc
             ENDDO SPAG_Loop_1_2
          ENDIF
 !     GET READY FOR OUTPUTS
 !
          CALL gopen(uhvf,iz(ibuf1),0)
          CALL gopen(uhvt,iz(ibuf2),1)
-         It1 = 1
-         It2 = 1
-         Ii = 1
-         Jj = nmodes
-         Incr = 1
-         It3 = 3
-         Ii1 = 1
-         Jj1 = nmodes
-         Incr1 = 1
+         it1 = 1
+         it2 = 1
+         ii = 1
+         jj = nmodes
+         incr = 1
+         it3 = 3
+         ii1 = 1
+         jj1 = nmodes
+         incr1 = 1
          iuvt = iudot
-         IF ( Iftm==2 ) iuvt = iuvt + 2*nfreq*nmodes
+         IF ( iftm==2 ) iuvt = iuvt + 2*nfreq*nmodes
          ASSIGN 48 TO ihop
 !
 !     BEGIN LOOP ON LOADS
@@ -239,11 +240,11 @@ SUBROUTINE ift
 !
             DO j = 1 , nfreq
                m = iuhvf + (j-1)*nmodes*2
-               CALL unpack(*45,uhvf,Z(m))
+               CALL unpack(*45,uhvf,z(m))
                CYCLE
- 45            CALL zeroc(Z(m),2*nmodes)
+ 45            CALL zeroc(z(m),2*nmodes)
             ENDDO
-            IF ( Iftm==2 ) THEN
+            IF ( iftm==2 ) THEN
                ASSIGN 46 TO ihop
 !
 !     COMPUTE SPLINE FIT FOR U DOT
@@ -253,13 +254,13 @@ SUBROUTINE ift
 !
                iap = iuvt + nmodes
                m = nfreq + iap - 1
-               Z(m) = 0.0
+               z(m) = 0.0
                l = nfreq - 2
                IF ( l>0 ) THEN
                   DO j = 1 , l
                      m = iap + nfreq - j - 1
                      n = ifreq + nfreq - j - 1
-                     Z(m) = (Z(n)-Z(n-1))/(2.*(Z(n+1)-Z(n-1))-(Z(n+1)-Z(n))*Z(m+1))
+                     z(m) = (z(n)-z(n-1))/(2.*(z(n+1)-z(n-1))-(z(n+1)-z(n))*z(m+1))
                   ENDDO
                ENDIF
 !
@@ -267,8 +268,8 @@ SUBROUTINE ift
 !
                DO m1 = 1 , nmodes
                   m = iudot + (nfreq-1)*nmodes*2 + (m1-1)*2
-                  Z(m) = 0.0
-                  Z(m+1) = 0.0
+                  z(m) = 0.0
+                  z(m+1) = 0.0
 !
 !     BEGIN BACKWARD PASS
 !
@@ -281,11 +282,11 @@ SUBROUTINE ift
                         m2 = m2 - nmodes*2
                         kk = iap + nfreq - j
                         ll = m2 + 2*nmodes
-                        rp = Z(n+1) - Z(n)
-                        cp = Z(n) - Z(n-1)
+                        rp = z(n+1) - z(n)
+                        cp = z(n) - z(n-1)
                         n1 = m2 - 2*nmodes
-                        Z(m) = (6.*((Z(ll)-Z(m2))/rp-(Z(m2)-Z(n1))/cp)-rp*Z(kk)*Z(n2))/cp
-                        Z(m+1) = (6.*((Z(ll+1)-Z(m2+1))/rp-(Z(m2+1)-Z(n1+1))/cp)-rp*Z(kk)*Z(n2+1))/cp
+                        z(m) = (6.*((z(ll)-z(m2))/rp-(z(m2)-z(n1))/cp)-rp*z(kk)*z(n2))/cp
+                        z(m+1) = (6.*((z(ll+1)-z(m2+1))/rp-(z(m2+1)-z(n1+1))/cp)-rp*z(kk)*z(n2+1))/cp
                      ENDDO
                   ENDIF
                ENDDO
@@ -297,15 +298,15 @@ SUBROUTINE ift
                   m2 = iuhvf + (m1-1)*2
                   n1 = m2 + 2*nmodes
                   ll = m + 2*nmodes
-                  rp = Z(ifreq+1) - Z(ifreq)
-                  Z(m) = (6.*(Z(n1)-Z(m2))/rp-rp*Z(iap+1)*Z(ll))/(6.*Z(ifreq)+(rp)*(2.-Z(iap+1)))
-                  Z(m+1) = 0.0
+                  rp = z(ifreq+1) - z(ifreq)
+                  z(m) = (6.*(z(n1)-z(m2))/rp-rp*z(iap+1)*z(ll))/(6.*z(ifreq)+(rp)*(2.-z(iap+1)))
+                  z(m+1) = 0.0
                   DO j = 2 , nfreq
                      kk = iap + j - 1
                      m2 = m
                      m = m + 2*nmodes
-                     Z(m) = Z(kk)*(Z(ll)-Z(m2))
-                     Z(m+1) = Z(kk)*(Z(ll+1)-Z(m2+1))
+                     z(m) = z(kk)*(z(ll)-z(m2))
+                     z(m+1) = z(kk)*(z(ll+1)-z(m2+1))
                      ll = ll + 2*nmodes
                   ENDDO
                ENDDO
@@ -313,7 +314,7 @@ SUBROUTINE ift
             t = 0.0
             n = 0
             m = itstp
-            delt = Z(itstp+1)
+            delt = z(itstp+1)
 !
 !     BEGIN LOOP ON TIMES
 !
@@ -323,7 +324,7 @@ SUBROUTINE ift
                m = m + 3
                DO j = 1 , nstep
                   tt = t
-                  CALL zeroc(Z(iuvt),nmodes)
+                  CALL zeroc(z(iuvt),nmodes)
 !
 !     BEGIN LOOP ON FREQUENCIES
 !
@@ -334,21 +335,21 @@ SUBROUTINE ift
                         SELECT CASE (spag_nextblock_2)
                         CASE (1)
                            lx = lx + 1
-                           wn = Z(ifreq+ll-1)
-                           IF ( ll/=1 ) wnm1 = Z(ifreq+ll-2)
-                           IF ( ll/=nfreq ) wnp1 = Z(ifreq+ll)
+                           wn = z(ifreq+ll-1)
+                           IF ( ll/=1 ) wnm1 = z(ifreq+ll-2)
+                           IF ( ll/=nfreq ) wnp1 = z(ifreq+ll)
                            IF ( iequal==0 ) THEN
                               ck = cos(wn*tt)
                               sk = sin(wn*tt)
                            ELSE
                               kk = mod(lx*n,nbig)
-                              ck = Z(ick+kk)
-                              sk = Z(isk+kk)
+                              ck = z(ick+kk)
+                              sk = z(isk+kk)
                            ENDIF
 !
 !     COMPUTE CMN, DMN
 !
-                           IF ( Iftm/=0 ) THEN
+                           IF ( iftm/=0 ) THEN
 !
 !     IFTM = 1
 !
@@ -389,7 +390,7 @@ SUBROUTINE ift
                            ENDIF
                            spag_nextblock_2 = 2
                         CASE (2)
-                           IF ( Iftm==2 ) THEN
+                           IF ( iftm==2 ) THEN
 !
 !     IFTM = 2
 !
@@ -425,13 +426,13 @@ SUBROUTINE ift
 !
                            DO kk = 1 , nmodes
                               im = im1 + 2*kk
-                              rp = cmnr*Z(im) - cmnc*Z(im+1)
-                              cp = cmnc*Z(im) + cmnr*Z(im+1)
+                              rp = cmnr*z(im) - cmnc*z(im+1)
+                              cp = cmnc*z(im) + cmnr*z(im+1)
                               GOTO ihop
  46                           im = im2 + 2*kk
-                              rp = rp + dmnr*Z(im) - dmnc*Z(im+1)
-                              cp = cp + dmnc*Z(im) + dmnr*Z(im+1)
- 48                           Z(iuvt+kk-1) = Z(iuvt+kk-1) + rp*ck - cp*sk
+                              rp = rp + dmnr*z(im) - dmnc*z(im+1)
+                              cp = cp + dmnc*z(im) + dmnr*z(im+1)
+ 48                           z(iuvt+kk-1) = z(iuvt+kk-1) + rp*ck - cp*sk
 !
 !     END LOOP ON MODES
 !
@@ -444,14 +445,14 @@ SUBROUTINE ift
 !
                   ENDDO
                   DO kk = 1 , nmodes
-                     Z(iuvt+kk-1) = Z(iuvt+kk-1)/Phi
+                     z(iuvt+kk-1) = z(iuvt+kk-1)/phi
                   ENDDO
-                  CALL pack(Z(iuvt),uhvt,mcb)
+                  CALL pack(z(iuvt),uhvt,mcb)
                   DO kk = 1 , 2
                      CALL bldpk(1,1,uhvt,0,0)
                      CALL bldpkn(uhvt,0,mcb)
                   ENDDO
-                  IF ( j==nstep ) delt = Z(m+1)
+                  IF ( j==nstep ) delt = z(m+1)
                   t = t + delt
                   n = n + 1
                ENDDO
@@ -477,7 +478,6 @@ SUBROUTINE ift
          CALL pexit
  80      n1 = -2
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE ift

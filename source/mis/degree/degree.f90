@@ -1,9 +1,10 @@
-!*==degree.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==degree.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE degree(Ig,Ideg,Jg)
+   USE c_bands
    IMPLICIT NONE
-   USE C_BANDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,10 +28,10 @@ SUBROUTINE degree(Ig,Ideg,Jg)
 !
 !     INTEGER          BUNPK
 !
-   DO i = 1 , Nn
+   DO i = 1 , nn
       Ideg(i) = 0
-      CALL bunpak(Ig,i,Mm,Jg)
-      SPAG_Loop_2_1: DO j = 1 , Mm
+      CALL bunpak(Ig,i,mm,Jg)
+      SPAG_Loop_2_1: DO j = 1 , mm
 !     IF (BUNPK(IG,I,J)) 100,100,50
          IF ( Jg(j)<=0 ) EXIT SPAG_Loop_2_1
          Ideg(i) = Ideg(i) + 1

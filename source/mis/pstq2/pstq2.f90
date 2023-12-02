@@ -1,12 +1,13 @@
-!*==pstq2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pstq2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pstq2(Npts)
+   USE c_pla32s
+   USE c_pla3es
+   USE c_pla3uv
+   USE c_sout
    IMPLICIT NONE
-   USE C_PLA32S
-   USE C_PLA3ES
-   USE C_PLA3UV
-   USE C_SOUT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -92,36 +93,36 @@ SUBROUTINE pstq2(Npts)
 !
 !     FORM SUMMATION
 !
-      DO I = 1 , Npts
+      DO i = 1 , Npts
 !
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
 !
-         Npoint = Ivec + nsil(I) - 1
+         npoint = ivec + nsil(i) - 1
 !
-         CALL gmmats(si(30*I-29),5,6,0,Z(Npoint),6,1,0,Vec(1))
+         CALL gmmats(si(30*i-29),5,6,0,z(npoint),6,1,0,vec(1))
 !
-         DO J = 2 , 6
-            Forvec(J) = Forvec(J) + Vec(J-1)
+         DO j = 2 , 6
+            forvec(j) = forvec(j) + vec(j-1)
          ENDDO
 !
       ENDDO
 !
 !     FORCE VECTOR IS NOW COMPLETE
 !
-      z1 = Ph1out(7)
-      z2 = Ph1out(8)
+      z1 = ph1out(7)
+      z2 = ph1out(8)
 !
-      Z1ovri = -Ph1out(7)/Ph1out(6)
-      Z2ovri = -Ph1out(8)/Ph1out(6)
+      z1ovri = -ph1out(7)/ph1out(6)
+      z2ovri = -ph1out(8)/ph1out(6)
 !
-      sigx1 = Forvec(2)*Z1ovri
-      sigy1 = Forvec(3)*Z1ovri
-      sigxy1 = Forvec(4)*Z1ovri
-      sigx2 = Forvec(2)*Z2ovri
-      sigy2 = Forvec(3)*Z2ovri
+      sigx1 = forvec(2)*z1ovri
+      sigy1 = forvec(3)*z1ovri
+      sigxy1 = forvec(4)*z1ovri
+      sigx2 = forvec(2)*z2ovri
+      sigy2 = forvec(3)*z2ovri
 !     *******************************
 !
-      sigxy2 = Forvec(4)*Z2ovri
+      sigxy2 = forvec(4)*z2ovri
    ENDIF
 !
 !     FIND SIG X, SIG Y, SIG XY, FOR MEMBRANE CONSIDERATION
@@ -132,20 +133,20 @@ SUBROUTINE pstq2(Npts)
 !     STRESS VECTOR = ( SUMMATION(S )(U ) )
 !                        I=1       I   I
 !
-      DO I = 1 , Npts
+      DO i = 1 , Npts
 !
 !     POINTER TO I-TH SIL IN PH1OUT
-         Npoint = 30*Npts + 9 + I
+         npoint = 30*Npts + 9 + i
 !     POINTER TO DISPLACEMENT VECTOR IN VARIABLE CORE
-         Npoint = Ivec + nph1ou(Npoint) - 1
+         npoint = ivec + nph1ou(npoint) - 1
 !
 !     POINTER TO S SUB I 3X3
-         Npt1 = 30*Npts + 9 + 9*I
+         npt1 = 30*Npts + 9 + 9*i
 !
-         CALL gmmats(Ph1out(Npt1),3,3,0,Z(Npoint),3,1,0,Vec(1))
+         CALL gmmats(ph1out(npt1),3,3,0,z(npoint),3,1,0,vec(1))
 !
-         DO J = 1 , 3
-            Stress(J) = Stress(J) + Vec(J)
+         DO j = 1 , 3
+            stress(j) = stress(j) + vec(j)
          ENDDO
 !
       ENDDO
@@ -153,12 +154,12 @@ SUBROUTINE pstq2(Npts)
 !
 !     ADD MEMBRANE STRESSES TO PLATE STRESSES
 !
-      sigx1 = sigx1 + Stress(1)
-      sigy1 = sigy1 + Stress(2)
-      sigxy1 = sigxy1 + Stress(3)
-      sigx2 = sigx2 + Stress(1)
-      sigy2 = sigy2 + Stress(2)
-      sigxy2 = sigxy2 + Stress(3)
+      sigx1 = sigx1 + stress(1)
+      sigy1 = sigy1 + stress(2)
+      sigxy1 = sigxy1 + stress(3)
+      sigx2 = sigx2 + stress(1)
+      sigy2 = sigy2 + stress(2)
+      sigxy2 = sigxy2 + stress(3)
    ENDIF
 !
 !     STRESS OUTPUT VECTOR IS THE FOLLOWING
@@ -186,47 +187,47 @@ SUBROUTINE pstq2(Npts)
 !
 !
    IF ( nph1ou(2)==0 .AND. nph1ou(30*Npts+10)==0 ) THEN
-      DO I = 2 , 18
-         Str(I) = 0.0E0
+      DO i = 2 , 18
+         str(i) = 0.0E0
       ENDDO
    ELSE
 !
 !     COMPUTE PRINCIPAL STRESSES
 !
-      Str(1) = Ph1out(1)
-      Str(2) = z1
-      Str(3) = sigx1
-      Str(4) = sigy1
-      Str(5) = sigxy1
-      Str(10) = Ph1out(1)
-      Str(11) = z2
-      Str(12) = sigx2
-      Str(13) = sigy2
-      Str(14) = sigxy2
+      str(1) = ph1out(1)
+      str(2) = z1
+      str(3) = sigx1
+      str(4) = sigy1
+      str(5) = sigxy1
+      str(10) = ph1out(1)
+      str(11) = z2
+      str(12) = sigx2
+      str(13) = sigy2
+      str(14) = sigxy2
 !
-      DO I = 3 , 12 , 9
-         Temp = Str(I) - Str(I+1)
-         Str(I+6) = sqrt((Temp/2.0E0)**2+Str(I+2)**2)
-         Delta = (Str(I)+Str(I+1))/2.0E0
-         Str(I+4) = Delta + Str(I+6)
-         Str(I+5) = Delta - Str(I+6)
-         Delta = 2.0E0*Str(I+2)
-         IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
-            Str(I+3) = 0.0E0
+      DO i = 3 , 12 , 9
+         temp = str(i) - str(i+1)
+         str(i+6) = sqrt((temp/2.0E0)**2+str(i+2)**2)
+         delta = (str(i)+str(i+1))/2.0E0
+         str(i+4) = delta + str(i+6)
+         str(i+5) = delta - str(i+6)
+         delta = 2.0E0*str(i+2)
+         IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
+            str(i+3) = 0.0E0
          ELSE
-            Str(I+3) = atan2(Delta,Temp)*28.6478898E0
+            str(i+3) = atan2(delta,temp)*28.6478898E0
          ENDIF
 !
       ENDDO
    ENDIF
-   Str(1) = Ph1out(1)
-   Str(10) = Ph1out(1)
+   str(1) = ph1out(1)
+   str(10) = ph1out(1)
 !
 !
 !     ADDITION TO ELIMINATE 2ND ELEMENT ID IN OUTPUT
 !
-   DO I = 10 , 17
-      Str(I) = Str(I+1)
+   DO i = 10 , 17
+      str(i) = str(i+1)
    ENDDO
 !
 END SUBROUTINE pstq2

@@ -1,12 +1,13 @@
-!*==ta1ca.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ta1ca.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ta1ca(Koz)
-USE C_NAMES
-USE C_TA1COM
-USE C_TAC1AX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_ta1com
+   USE c_tac1ax
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -71,17 +72,17 @@ USE ISO_FORTRAN_ENV
 ! INITIALIZE
 !
    ncstm = 0
-   icstm = Izzz
-   left = Bufr3 - icstm
+   icstm = izzz
+   left = bufr3 - icstm
 !
 ! ATTEMPT TO OPEN THE CSTM
 !
-   file = Cstm
-   CALL open(*200,Cstm,z(Bufr3),Inrw)
-   CALL fwdrec(*500,Cstm)
-   CALL read(*500,*100,Cstm,z(icstm+1),left,eor,ncstm)
+   file = cstm
+   CALL open(*200,cstm,z(bufr3),inrw)
+   CALL fwdrec(*500,cstm)
+   CALL read(*500,*100,cstm,z(icstm+1),left,eor,ncstm)
    CALL mesage(-8,0,name(1))
- 100  CALL close(Cstm,Clsrw)
+ 100  CALL close(cstm,clsrw)
 !
 ! PRETRD SETS UP SUBSEQUENT CALLS TO TRANSD
 !
@@ -91,12 +92,12 @@ USE ISO_FORTRAN_ENV
 ! READ THE BGPDT INTO CORE
 !
  200  ibgpdt = icstm + ncstm
-   file = Bgpdt
-   CALL open(*400,Bgpdt,z(Bufr3),Inrw)
-   CALL fwdrec(*500,Bgpdt)
-   CALL read(*500,*300,Bgpdt,z(ibgpdt+1),left,eor,nbgpdt)
+   file = bgpdt
+   CALL open(*400,bgpdt,z(bufr3),inrw)
+   CALL fwdrec(*500,bgpdt)
+   CALL read(*500,*300,bgpdt,z(ibgpdt+1),left,eor,nbgpdt)
    CALL mesage(-8,0,name(1))
- 300  CALL close(Bgpdt,Clsrw)
+ 300  CALL close(bgpdt,clsrw)
 !
 ! ZERO OUT THE E MATRIX
 !
@@ -119,17 +120,17 @@ USE ISO_FORTRAN_ENV
 !     IF STIFFNESS IS INPUT,CALCULATE LIM
 !
          IF ( Koz==1 ) THEN
-            lim = (Nud-Iud)/4 + 1
+            lim = (nud-iud)/4 + 1
             lima = lim
-            ibeg = Iud
+            ibeg = iud
          ELSE
             lim = 6
             lima = 6
-            ibeg = Iud
+            ibeg = iud
          ENDIF
       ELSEIF ( ind==2 ) THEN
-         lim = (Nui-Iui)/4 + 1
-         ibeg = Iui
+         lim = (nui-iui)/4 + 1
+         ibeg = iui
          irow = 37
       ELSE
          EXIT SPAG_Loop_1_1
@@ -139,8 +140,8 @@ USE ISO_FORTRAN_ENV
       SPAG_Loop_2_2: DO
          IF ( ind==1 ) irow = 6*i - 5
          j = j + 4
-         jj = Iz(j+1)
-         k = ibgpdt + 4*(Iz(j)-1)
+         jj = iz(j+1)
+         k = ibgpdt + 4*(iz(j)-1)
 !
 ! COMPUTE THE V VECTOR
 !
@@ -149,10 +150,10 @@ USE ISO_FORTRAN_ENV
          v(3) = 0.0D0
          kk = jj
          IF ( jj>3 ) kk = jj - 3
-         IF ( Iz(k+1)==0 ) THEN
+         IF ( iz(k+1)==0 ) THEN
             v(kk) = 1.0D0
          ELSE
-            CALL transd(Iz(k+1),t)
+            CALL transd(iz(k+1),t)
             IF ( kk==2 ) THEN
                v(1) = t(2)
                v(2) = t(5)
@@ -179,7 +180,7 @@ USE ISO_FORTRAN_ENV
                d(ll) = 0.0D0
                ll = ll + 1
             ENDDO
-            IF ( Iz(k+1)==0 ) THEN
+            IF ( iz(k+1)==0 ) THEN
                ll = irow + jj - 1
                d(ll) = 1.0D0
             ELSE
@@ -194,7 +195,7 @@ USE ISO_FORTRAN_ENV
             e(12) = z(k+2)
             e(16) = z(k+3)
             e(17) = -z(k+2)
-            IF ( Iz(k+1)==0 ) THEN
+            IF ( iz(k+1)==0 ) THEN
                ierow = 6*jj - 5
                d(irow) = e(ierow)
                d(irow+1) = e(ierow+1)
@@ -233,13 +234,13 @@ USE ISO_FORTRAN_ENV
                DO l = 1 , lima
                   ssp(l) = s(l)
                ENDDO
-               CALL write(Gei,ssp,lima,neor)
+               CALL write(gei,ssp,lima,neor)
             ELSE
                CALL gmmatd(d(37),6,1,1,d(1),6,6,0,s(1))
                DO l = 1 , 6
                   ssp(l) = s(l)
                ENDDO
-               CALL write(Gei,ssp,6,neor)
+               CALL write(gei,ssp,6,neor)
             ENDIF
          ENDIF
          i = i + 1
@@ -305,8 +306,8 @@ USE ISO_FORTRAN_ENV
                      ising = -1
                      CALL inverd(lim,d(1),lim,b(1),0,det,ising,index(1))
                      IF ( ising/=1 ) THEN
-                        Nogo = 1
-                        CALL mesage(30,153,Idgenl)
+                        nogo = 1
+                        CALL mesage(30,153,idgenl)
                         EXIT SPAG_Loop_2_2
                      ENDIF
                   ENDIF
@@ -317,8 +318,8 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                   CYCLE SPAG_Loop_1_1
                ELSE
-                  Nogo = 1
-                  CALL mesage(30,152,Idgenl)
+                  nogo = 1
+                  CALL mesage(30,152,idgenl)
                   EXIT SPAG_Loop_2_2
                ENDIF
             ELSE
@@ -326,8 +327,8 @@ USE ISO_FORTRAN_ENV
                ising = -1
                CALL inverd(6,d(1),6,b(1),0,det,ising,index(1))
                IF ( ising==1 ) CYCLE SPAG_Loop_1_1
-               Nogo = 1
-               CALL mesage(30,82,Idgenl)
+               nogo = 1
+               CALL mesage(30,82,idgenl)
                EXIT SPAG_Loop_2_2
             ENDIF
          ENDIF

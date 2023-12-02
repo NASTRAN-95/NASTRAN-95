@@ -1,10 +1,11 @@
-!*==triqd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==triqd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE triqd(Ntype,T)
+   USE c_trimex
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_TRIMEX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -84,7 +85,7 @@ SUBROUTINE triqd(Ntype,T)
 !     SAVE THE INCOMING ECPT
 !
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO ELEMENT TYPE DESIRED
@@ -99,19 +100,19 @@ SUBROUTINE triqd(Ntype,T)
 !
 !     ECPT IS OK AS DELIVERED TO THIS ROUTINE
 !
-      CALL trimem(0,T(1),Core(1))
+      CALL trimem(0,T(1),core(1))
 !
 !     SET UP ECPT FOR CALL TO TRPLT
 !
       DO i = 1 , 6
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
-      Ecpt(7) = save(7)**3/12.0E0
-      Ecpt(8) = save(6)
-      Ecpt(9) = save(7)
-      Ecpt(10) = save(8)
+      ecpt(7) = save(7)**3/12.0E0
+      ecpt(8) = save(6)
+      ecpt(9) = save(7)
+      ecpt(10) = save(8)
       DO i = 13 , 25
-         Ecpt(i) = save(i-4)
+         ecpt(i) = save(i-4)
       ENDDO
 !
       CALL trplt(T(1))
@@ -124,12 +125,12 @@ SUBROUTINE triqd(Ntype,T)
 !
 !     SET UP ECPT FOR CALL TO  QDMEM
 !
-         Ecpt(9) = save(13)
+         ecpt(9) = save(13)
          DO i = 10 , 26
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
-         CALL qdmem(T(1),Core(1))
+         CALL qdmem(T(1),core(1))
       ENDIF
    ELSEIF ( Ntype==4 ) THEN
 !*****
@@ -141,19 +142,19 @@ SUBROUTINE triqd(Ntype,T)
 !
 !     ECPT IS OK AS DELIVERED TO THIS ROUTINE
 !
-      CALL qdmem(T(1),Core(1))
+      CALL qdmem(T(1),core(1))
 !
 !     SET UP ECPT FOR CALL TO QDPLT
 !
       DO i = 1 , 7
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
-      Ecpt(8) = save(8)**3/12.0E0
-      Ecpt(9) = save(7)
-      Ecpt(10) = save(8)
-      Ecpt(11) = save(9)
+      ecpt(8) = save(8)**3/12.0E0
+      ecpt(9) = save(7)
+      ecpt(10) = save(8)
+      ecpt(11) = save(9)
       DO i = 14 , 30
-         Ecpt(i) = save(i-4)
+         ecpt(i) = save(i-4)
       ENDDO
 !
       CALL qdplt(T(1))
@@ -166,20 +167,20 @@ SUBROUTINE triqd(Ntype,T)
 !
       IF ( save(7)/=0.0E0 ) THEN
          DO i = 9 , 21
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
-         CALL trimem(0,T(1),Core(1))
+         CALL trimem(0,T(1),core(1))
       ENDIF
 !
 !     SET UP ECPT FOR CALL TO TRPLT, FIRST CHECK I AND T2 EQUAL ZERO.
 !
       IF ( save(9)==0.0E0 ) RETURN
       DO i = 1 , 5
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
       DO i = 6 , 25
-         Ecpt(i) = save(i+2)
+         ecpt(i) = save(i+2)
       ENDDO
 !
       CALL trplt(T(1))
@@ -191,13 +192,12 @@ SUBROUTINE triqd(Ntype,T)
 !     SET UP ECPT FOR CALL TO QDPLT
 !
    DO i = 1 , 6
-      Ecpt(i) = save(i)
+      ecpt(i) = save(i)
    ENDDO
    DO i = 7 , 30
-      Ecpt(i) = save(i+2)
+      ecpt(i) = save(i+2)
    ENDDO
 !
    CALL qdplt(T(1))
-   RETURN
 !
 END SUBROUTINE triqd

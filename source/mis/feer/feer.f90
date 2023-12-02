@@ -1,21 +1,22 @@
-!*==feer.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==feer.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer
-USE C_BLANK
-USE C_FEERCX
-USE C_FEERXX
-USE C_NAMES
-USE C_NTIME
-USE C_OPINV
-USE C_PACKX
-USE C_REIGKR
-USE C_STURMX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_feercx
+   USE c_feerxx
+   USE c_names
+   USE c_ntime
+   USE c_opinv
+   USE c_packx
+   USE c_reigkr
+   USE c_sturmx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -113,7 +114,7 @@ USE ISO_FORTRAN_ENV
 !     SET PRECISION DIGITS TO 12, ALL MACHINES (NEW 1/92)
 !
          it = 12
-         Epx = 10.**(2-it)
+         epx = 10.**(2-it)
          dsm = 10.0D0**(-2*it/3)
          name(3) = ibegn
          CALL conmsg(name,3,0)
@@ -122,62 +123,62 @@ USE ISO_FORTRAN_ENV
 !     INITIALIZE FEERCX
 !     DEFINITION OF INTERNAL PARAMETERS
 !
-         Ibk = 0
-         IF ( Iprob(1)/=mode ) Ibk = 1
-         Ioptf = Ibk
-         Timed = 0
+         ibk = 0
+         IF ( iprob(1)/=mode ) ibk = 1
+         ioptf = ibk
+         timed = 0
          timet = 0
-         CALL sswtch(16,L16)
-         IF ( L16==1 ) WRITE (io,99001)
+         CALL sswtch(16,l16)
+         IF ( l16==1 ) WRITE (io,99001)
 99001    FORMAT (//,' *** DIAG16 - ALL TERMS USED ARE DESCRIBED IN ','PROGRAMMER MANUAL  P. 4.48-19I THRU K',/)
-         Lambda = -Xlmbda
-         IF ( Ibk/=0 ) THEN
-            IF ( Xlmbda/=0.0 ) THEN
+         lambda = -xlmbda
+         IF ( ibk/=0 ) THEN
+            IF ( xlmbda/=0.0 ) THEN
                CALL page2(3)
-               WRITE (io,99002) Uwm
+               WRITE (io,99002) uwm
 99002          FORMAT (A25,' 2388',/5X,'USER SPECIFIED RANGE NOT USED FOR FEER',                                                    &
                       &' BUCKLING. THE ROOTS OF LOWEST MAGNITUDE ARE OBTAINED')
             ENDIF
-            Lambda = 0.0D+0
+            lambda = 0.0D+0
          ENDIF
-         Ifset = 0
-         IF ( Xlmbda==0. .AND. Ibk==0 ) Ifset = 1
-         IF ( Ifset==1 ) Ioptf = 1
-         Cndflg = 0
+         ifset = 0
+         IF ( xlmbda==0. .AND. ibk==0 ) ifset = 1
+         IF ( ifset==1 ) ioptf = 1
+         cndflg = 0
          nodcmp = 0
-         CALL rdtrl(Ifkaa(1))
-         CALL rdtrl(Ifmaa(1))
-         ifk = Ifkaa(1)
-         ifm = Ifmaa(1)
-         Iprc = iprec
-         Nord = Ifkaa(2)
-         Incr = 1
-         Incrp = Incr
-         Itp1 = Iprc
-         Itp2 = Iprc
-         nz = korsz(Z)
+         CALL rdtrl(ifkaa(1))
+         CALL rdtrl(ifmaa(1))
+         ifk = ifkaa(1)
+         ifm = ifmaa(1)
+         iprc = iprec
+         nord = ifkaa(2)
+         incr = 1
+         incrp = incr
+         itp1 = iprc
+         itp2 = iprc
+         nz = korsz(z)
          ibuf1 = nz - sysbuf
          ibuf2 = ibuf1 - sysbuf
-         ntot = Iprc*(5*Nord+1) + 4*sysbuf - nz
+         ntot = iprc*(5*nord+1) + 4*sysbuf - nz
          IF ( ntot>0 ) CALL mesage(-8,ntot,name)
-         CALL klock(Istart)
-         Mrank = 0
-         CALL gopen(ifm,Z(ibuf1),Rdrew)
-         CALL makmcb(mcb,Sr8fle,Nord,6,Iprc)
-         CALL gopen(Sr8fle,Z(ibuf2),Wrtrew)
+         CALL klock(istart)
+         mrank = 0
+         CALL gopen(ifm,z(ibuf1),rdrew)
+         CALL makmcb(mcb,sr8fle,nord,6,iprc)
+         CALL gopen(sr8fle,z(ibuf2),wrtrew)
          mcb(2) = 0
          mcb(6) = 0
-         IF ( Iprc==2 ) THEN
-            DO j = 1 , Nord
+         IF ( iprc==2 ) THEN
+            DO j = 1 , nord
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     Ii = 0
+                     ii = 0
                      CALL unpack(*2,ifm,dz(1))
-                     nt = Nn - Ii + 1
+                     nt = nn - ii + 1
                      epxm = 0.0D+0
-                     IF ( Ii<=j .AND. Nn>=j ) epxm = dz(j-Ii+1)*dsm
+                     IF ( ii<=j .AND. nn>=j ) epxm = dz(j-ii+1)*dsm
                      ntz = 0
                      DO jj = 1 , nt
                         IF ( dabs(dz(jj))<=epxm ) THEN
@@ -185,94 +186,94 @@ USE ISO_FORTRAN_ENV
                            ntz = ntz + 1
                         ENDIF
                      ENDDO
-                     IF ( ntz<nt ) Mrank = Mrank + 1
+                     IF ( ntz<nt ) mrank = mrank + 1
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
- 2                   Ii = 1
-                     Nn = 1
+ 2                   ii = 1
+                     nn = 1
                      nt = 1
                      dz(1) = 0.0D+0
                      spag_nextblock_2 = 2
                   CASE (2)
-                     Iip = Ii
-                     Nnp = Nn
-                     CALL pack(dz(1),Sr8fle,mcb(1))
+                     iip = ii
+                     nnp = nn
+                     CALL pack(dz(1),sr8fle,mcb(1))
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
                ENDDO SPAG_DispatchLoop_2
             ENDDO
          ELSE
-            DO j = 1 , Nord
+            DO j = 1 , nord
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
                   CASE (1)
-                     Ii = 0
-                     CALL unpack(*4,ifm,Z(1))
-                     nt = Nn - Ii + 1
+                     ii = 0
+                     CALL unpack(*4,ifm,z(1))
+                     nt = nn - ii + 1
                      epxm = 0.0D+0
-                     IF ( Ii<=j .AND. Nn>=j ) epxm = Z(j-Ii+1)*dsm
+                     IF ( ii<=j .AND. nn>=j ) epxm = z(j-ii+1)*dsm
                      ntz = 0
                      DO jj = 1 , nt
-                        IF ( abs(Z(jj))<=epxm ) THEN
-                           Z(jj) = 0.
+                        IF ( abs(z(jj))<=epxm ) THEN
+                           z(jj) = 0.
                            ntz = ntz + 1
                         ENDIF
                      ENDDO
-                     IF ( ntz<nt ) Mrank = Mrank + 1
+                     IF ( ntz<nt ) mrank = mrank + 1
                      spag_nextblock_3 = 2
                      CYCLE SPAG_DispatchLoop_3
- 4                   Ii = 1
-                     Nn = 1
+ 4                   ii = 1
+                     nn = 1
                      nt = 1
-                     Z(1) = 0.
+                     z(1) = 0.
                      spag_nextblock_3 = 2
                   CASE (2)
-                     Iip = Ii
-                     Nnp = Nn
-                     CALL pack(Z(1),Sr8fle,mcb(1))
+                     iip = ii
+                     nnp = nn
+                     CALL pack(z(1),sr8fle,mcb(1))
                      EXIT SPAG_DispatchLoop_3
                   END SELECT
                ENDDO SPAG_DispatchLoop_3
             ENDDO
          ENDIF
          CALL wrttrl(mcb)
-         Mord = 2*(Neig-Northo) + 10
-         mrk = Mrank - Northo
-         Nzero = Northo
-         IF ( Mord>mrk ) Mord = mrk
-         IF ( Neig>Mrank ) THEN
+         mord = 2*(neig-northo) + 10
+         mrk = mrank - northo
+         nzero = northo
+         IF ( mord>mrk ) mord = mrk
+         IF ( neig>mrank ) THEN
             CALL page2(3)
-            WRITE (io,99003) Uwm
+            WRITE (io,99003) uwm
 99003       FORMAT (A25,' 2385',/5X,'DESIRED NUMBER OF EIGENVALUES EXCEED ',                                                        &
                    &'THE EXISTING NUMBER, ALL EIGENSOLUTIONS WILL BE SOUGHT.')
          ENDIF
-         CALL close(Sr8fle,Norew)
-         CALL close(ifm,Rew)
+         CALL close(sr8fle,norew)
+         CALL close(ifm,rew)
          DO i = 1 , 7
-            Mcbsma(i) = mcb(i)
-            Ifmaa(i) = Mcbsma(i)
+            mcbsma(i) = mcb(i)
+            ifmaa(i) = mcbsma(i)
          ENDDO
-         ifm = Ifmaa(1)
-         IF ( Ibk/=0 ) THEN
+         ifm = ifmaa(1)
+         IF ( ibk/=0 ) THEN
 !
 !     SET UP TO DECOMPOSE KAA
 !
-            Iflelm(1) = Ifkaa(1)
+            iflelm(1) = ifkaa(1)
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Ifset/=0 ) THEN
+         ELSEIF ( ifset/=0 ) THEN
 !
 !     CALCULATE INITIAL SHIFT
 !
-            CALL gopen(ifk,Z(ibuf1),Rdrew)
-            CALL gopen(ifm,Z(ibuf2),Rdrew)
-            CALL frmax(ifk,ifm,Nord,Iprc,drsn,drsm)
-            CALL close(ifk,Rew)
-            CALL close(ifm,Rew)
-            scale = dble(float(Nord))*10.0D0**(-it)*drsm
-            Lambda = 10.0D0**(-it/3)*drsn
-            IF ( Lambda<scale ) Lambda = scale
+            CALL gopen(ifk,z(ibuf1),rdrew)
+            CALL gopen(ifm,z(ibuf2),rdrew)
+            CALL frmax(ifk,ifm,nord,iprc,drsn,drsm)
+            CALL close(ifk,rew)
+            CALL close(ifm,rew)
+            scale = dble(float(nord))*10.0D0**(-it)*drsm
+            lambda = 10.0D0**(-it/3)*drsn
+            IF ( lambda<scale ) lambda = scale
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -290,18 +291,18 @@ USE ISO_FORTRAN_ENV
 !     CALL IN SDCOMP TO DECOMPOSE THIS MATRIX
 !
          nodcmp = nodcmp + 1
-         Shftpt = dabs(Lambda)
+         shftpt = dabs(lambda)
          name(2) = i2
          name(3) = ibegn
          CALL conmsg(name,3,0)
          CALL feer2(ising)
          name(3) = iend
          CALL conmsg(name,3,0)
-         ik = Ibk + 1
+         ik = ibk + 1
          ij = ising + 1
-         IF ( ising==1 .OR. L16/=0 ) THEN
+         IF ( ising==1 .OR. l16/=0 ) THEN
             CALL page2(4)
-            WRITE (io,99004) jcr(ik) , Nord , Mrank , Mord , Northo , Neig , Nzero , Xlmbda , Lambda , icr(ij)
+            WRITE (io,99004) jcr(ik) , nord , mrank , mord , northo , neig , nzero , xlmbda , lambda , icr(ij)
 99004       FORMAT ('0*** DIAG 16 OUTPUT FOR FEER ANALYSIS, OPTION =',A4,/5X,'ORDER =',I5,',  MAX RANK =',I5,',  REDUCED ORDER =',  &
                   & I5,',  ORTH VCT =',I5,',  NEIG =',I4,',  NZERO =',I4,/5X,'USER SHIFT =',1P,E16.8,',  INTERNAL SHIFT =',D16.8,   &
                    &',  SINGULARITY CHECK ',A4)
@@ -311,19 +312,19 @@ USE ISO_FORTRAN_ENV
 !     DETERMINE THE TIME REQUIRED TO COMPLETE FEER PROCESS
 !
             CALL tmtogo(t1)
-            xm = Mord
-            xmp = Northo
-            xn = Nord
-            xi = Ifset
-            ifl = Mcblt(1)
-            CALL gopen(ifl,Z(ibuf1),Rdrew)
+            xm = mord
+            xmp = northo
+            xn = nord
+            xi = ifset
+            ifl = mcblt(1)
+            CALL gopen(ifl,z(ibuf1),rdrew)
             ntms = 0
-            DO i = 1 , Nord
-               Ii = 0
-               CALL unpack(*10,ifl,Z(1))
-               ntms = ntms + Nn - Ii + 1
+            DO i = 1 , nord
+               ii = 0
+               CALL unpack(*10,ifl,z(1))
+               ntms = ntms + nn - ii + 1
  10         ENDDO
-            CALL close(ifl,Rew)
+            CALL close(ifl,rew)
             xt = ntms
             sp = (xt*(1.-xi)*(xm+xmp)+2.*xm) + xn*(2.+xi)*.5*(3.*xm**2+2.*xmp) + (16.+11.*xi*.5)*xn*xm + 14.*xm**2
 !
@@ -335,12 +336,12 @@ USE ISO_FORTRAN_ENV
             CALL feer3
             name(3) = iend
             CALL conmsg(name,3,0)
-            IF ( Cndflg==3 ) THEN
+            IF ( cndflg==3 ) THEN
                CALL page2(3)
-               WRITE (io,99005) Uwm
+               WRITE (io,99005) uwm
 99005          FORMAT (A25,' 2389',/5X,'PROBLEM SIZE REDUCED - NO MORE TRIAL ','VECTORS CAN BE OBTAINED.')
             ENDIF
-            IF ( Mord/=0 ) THEN
+            IF ( mord/=0 ) THEN
                CALL tmtogo(t2)
                timet = t3 - t1
 !
@@ -353,66 +354,66 @@ USE ISO_FORTRAN_ENV
                name(3) = iend
                CALL conmsg(name,3,0)
                CALL tmtogo(t3)
-               IF ( L16/=0 ) WRITE (io,99006) t1 , t2 , t3 , sp
+               IF ( l16/=0 ) WRITE (io,99006) t1 , t2 , t3 , sp
 99006          FORMAT (' FEER COMPLETE,  T1,T2,T3 =',3I9,',  SP = ',1P,E16.8)
-               IF ( Cndflg/=4 ) THEN
-                  IF ( Mord+Nzero<Neig ) THEN
-                     npr = Neig - Mord - Nzero
+               IF ( cndflg/=4 ) THEN
+                  IF ( mord+nzero<neig ) THEN
+                     npr = neig - mord - nzero
                      CALL page2(3)
-                     WRITE (io,99007) Uwm , npr , Neig
+                     WRITE (io,99007) uwm , npr , neig
 99007                FORMAT (A25,' 2390',/4X,I5,' FEWER ACCURATE EIGENSOLUTIONS THAN',' THE',I5,' REQUESTED HAVE BEEN FOUND.')
-                     Cndflg = 1
-                  ELSEIF ( Mord+Nzero/=Neig ) THEN
-                     npr = Mord + Nzero - Neig
+                     cndflg = 1
+                  ELSEIF ( mord+nzero/=neig ) THEN
+                     npr = mord + nzero - neig
                      CALL page2(3)
-                     WRITE (io,99008) Uim , npr , Neig
+                     WRITE (io,99008) uim , npr , neig
 99008                FORMAT (A29,' 2392',/4X,I5,' MORE ACCURATE EIGENSOLUTIONS THAN ','THE',I5,' REQUESTED HAVE BEEN FOUND.')
-                     IF ( L16==0 ) WRITE (io,99009)
+                     IF ( l16==0 ) WRITE (io,99009)
 99009                FORMAT (5X,'USE DIAG 16 TO DETERMINE ERROR BOUNDS')
                   ENDIF
-                  CALL gopen(Dmpfle,Z(ibuf1),Wrtrew)
+                  CALL gopen(dmpfle,z(ibuf1),wrtrew)
 !
 !    SET IZ(1) TO 2 (FOR INVPWR) THEN IZ(7) TO 1 (POINTS TO FEER METHOD)
 !
                   iz(1) = 2
-                  iz(2) = Mord + Nzero
-                  iz(3) = Iter
+                  iz(2) = mord + nzero
+                  iz(3) = iter
                   iz(4) = 0
                   iz(5) = nodcmp
-                  iz(6) = Nonul
+                  iz(6) = nonul
                   iz(7) = 1
-                  iz(8) = Cndflg
+                  iz(8) = cndflg
                   iz(9) = 0
                   iz(10) = 0
                   iz(11) = 0
                   iz(12) = 0
-                  CALL write(Dmpfle,iz,12,1)
-                  CALL close(Dmpfle,Rew)
-                  Critf = xn*10.0**(-it)
+                  CALL write(dmpfle,iz,12,1)
+                  CALL close(dmpfle,rew)
+                  critf = xn*10.0**(-it)
                   name(2) = i0
                   CALL conmsg(name,3,0)
                   RETURN
                ENDIF
             ENDIF
-            WRITE (io,99010) Ufm
+            WRITE (io,99010) ufm
 99010       FORMAT (A23,' 2391, PROGRAM LOGIC ERROR IN FEER')
             CALL mesage(-37,0,name)
 !
 !     SINGULAR MATRIX. ADJUST LAMBDA
 !
-         ELSEIF ( Ibk==1 ) THEN
+         ELSEIF ( ibk==1 ) THEN
 !
-            WRITE (io,99011) Ufm
+            WRITE (io,99011) ufm
 99011       FORMAT (A23,' 2436, SINGULAR MATRIX IN FEER BUCKLING SOLUTION.')
             CALL mesage(-37,0,name)
          ELSE
-            Cndflg = Cndflg + 1
+            cndflg = cndflg + 1
             IF ( nodcmp==3 ) THEN
-               WRITE (io,99012) Ufm
+               WRITE (io,99012) ufm
 99012          FORMAT (A23,' 2386',/5X,'STIFFNESS MATRIX SINGULARITY CANNOT BE',' REMOVED BY SHIFTING.')
                CALL mesage(-37,0,name)
             ELSE
-               Lambda = 100.0D0*Lambda
+               lambda = 100.0D0*lambda
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF

@@ -1,11 +1,12 @@
-!*==head.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==head.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
+   USE c_output
+   USE c_pltdat
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_OUTPUT
-   USE C_PLTDAT
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,33 +43,33 @@ SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
       & mtypf/4HFREQ , 4H.    , 4HEIGE , 4HNV.  , 4HTIME , 1H / , delx/3.0/ , maxdef/4HMAX- , 4HDEF. , 2H =/ , phas/4H PHA ,        &
       & 4HSE   , 1H /
 !
-   Xymin(1) = 0.0
-   Xymin(2) = 0.0
-   Xymax(1) = Axymax(1)
-   Xymax(2) = Axymax(2)
+   xymin(1) = 0.0
+   xymin(2) = 0.0
+   xymax(1) = axymax(1)
+   xymax(2) = axymax(2)
    CALL print(0,0,0,0,0,-1)
    IF ( Mtyp<0 ) THEN
 !
 !     PRINT THE MAXIMUM DEFORMATION AT THE TOP
 !
-      CALL print(20.*Cntx,Xymax(2),1,maxdef,3,0)
-      CALL typflt(31.*Cntx,Xymax(2),1,Idat(1),-10,0)
+      CALL print(20.*cntx,xymax(2),1,maxdef,3,0)
+      CALL typflt(31.*cntx,xymax(2),1,Idat(1),-10,0)
    ELSE
 !
 !     LEFT-MOST CHARACTER MAY NOT BE COMPETELY DRAWN IF FRACTION OF
 !     CSCALE IS IS LESS THAN 0.5. SO MOVE OVER A SMALL SPACE OF X0
 !
-      j = ifix(Cscale)
-      x0 = Cscale - float(j)
+      j = ifix(cscale)
+      x0 = cscale - float(j)
       IF ( x0>0.5 ) x0 = 0.0
 !
 !     PRINT THE TITLE, SUBTITLE AND LABEL
 !
-      CALL print(x0,3.0*Cnty,1,Title(1,1),17,0)
-      CALL print(x0,2.0*Cnty,1,Title(1,2),16,0)
-      CALL print(x0,Cnty,1,Title(1,3),17,0)
+      CALL print(x0,3.0*cnty,1,title(1,1),17,0)
+      CALL print(x0,2.0*cnty,1,title(1,2),16,0)
+      CALL print(x0,cnty,1,title(1,3),17,0)
 !
-      x = 25. - 5.*(Cscale-1.)
+      x = 25. - 5.*(cscale-1.)
       IF ( Dtyp/=0 ) THEN
          x = 40.
          IF ( Idat(1)>8 ) THEN
@@ -77,7 +78,7 @@ SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
             IF ( Idat(1)>=15 ) x = 59.
          ENDIF
       ENDIF
-      IF ( Fpltit/=0 ) CALL print(x*Cntx,0.,1,Pltitl,17,0)
+      IF ( fpltit/=0 ) CALL print(x*cntx,0.,1,pltitl,17,0)
 !
 !     BOTTOM LINE IDENTIFIES PLOT
 !
@@ -85,30 +86,30 @@ SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
 !
 !     DEFORMED SHAPE
 !
-         CALL print(Cntx+x0,0.,1,Idat(3),2,0)
+         CALL print(cntx+x0,0.,1,Idat(3),2,0)
          x = nt1(Dtyp)
-         CALL print(x*Cntx+x0,0.,1,ptyp(1,Pltp),2,0)
+         CALL print(x*cntx+x0,0.,1,ptyp(1,Pltp),2,0)
          x = x + nt2(Pltp)
-         CALL print(x*Cntx+x0,0.,1,subc,2,0)
+         CALL print(x*cntx+x0,0.,1,subc,2,0)
          x = x + 8.
          n = -1
-         CALL typint(x*Cntx+x0,0.,1,Idat(7),n,0)
+         CALL typint(x*cntx+x0,0.,1,Idat(7),n,0)
          x = x + float(n) + delx
 !
 !     LOAD I  OR  MODE I
 !
-         CALL print(x*Cntx+x0,0.,1,Idat(9),1,0)
+         CALL print(x*cntx+x0,0.,1,Idat(9),1,0)
          x = x + 5.
          n = -1
-         CALL typint(x*Cntx+x0,0.,1,Idat(8),n,0)
+         CALL typint(x*cntx+x0,0.,1,Idat(8),n,0)
 !
 !     FREQUENCY, EIGENVALUE, OR TIME
 !
          IF ( Idat(1)>8 ) THEN
             x = float(ifix(x+delx+0.1)+n)
-            CALL print(x*Cntx+x0,0.,1,mtypf(1,Mtyp),2,0)
+            CALL print(x*cntx+x0,0.,1,mtypf(1,Mtyp),2,0)
             x = x + nt3(Mtyp)
-            CALL typflt(x*Cntx+x0,0.,1,Idat(10),-8,0)
+            CALL typflt(x*cntx+x0,0.,1,Idat(10),-8,0)
 !
 !     MAGNITUDE  OR  PHASE LAG
 !
@@ -118,11 +119,11 @@ SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
                   Idat(15) = phas(2)
                   Idat(16) = phas(3)
                ENDIF
-               CALL print(x*Cntx+x0,0.,1,Idat(14),3,0)
+               CALL print(x*cntx+x0,0.,1,Idat(14),3,0)
 !
                IF ( Idat(1)>15 ) THEN
                   x = x + 7.0
-                  CALL typflt(x*Cntx+x0,0.,1,Idat(17),-6,0)
+                  CALL typflt(x*cntx+x0,0.,1,Idat(17),-6,0)
                ENDIF
             ENDIF
          ENDIF
@@ -130,7 +131,7 @@ SUBROUTINE head(Dtyp,Pltp,Mtyp,Idat)
 !
 !     UNDEFORMED SHAPE
 !
-         CALL print(Cntx+x0,0.,1,undef,4,0)
+         CALL print(cntx+x0,0.,1,undef,4,0)
       ENDIF
    ENDIF
 !

@@ -1,9 +1,10 @@
-!*==tabfbd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tabfbd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA tabfbd
+   USE c_tabftx
    IMPLICIT NONE
-   USE C_TABFTX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -43,10 +44,10 @@ BLOCKDATA tabfbd
 !
 !-----------------------------------------------------------------------
 !
-   DATA La/9/
-   DATA Re/1 , 1 , 1 , 1 , 1 , 1 , 1 , 0 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1/
+   DATA la/9/
+   DATA re/1 , 1 , 1 , 1 , 1 , 1 , 1 , 0 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1/
 !
-   DATA Na/4HBGPD , 4HT    , 4HGPL  , 4H     , 4HCSTM , 4H     , 4HGPLD , 4H     , 4HEQEX , 4HIN   , 4HEQDY , 4HN    , 4HGPDT ,     &
+   DATA na/4HBGPD , 4HT    , 4HGPL  , 4H     , 4HCSTM , 4H     , 4HGPLD , 4H     , 4HEQEX , 4HIN   , 4HEQDY , 4HN    , 4HGPDT ,     &
        &4H     , 4HGPTT , 4H     , 4HGPCT , 4H     , 4H*10* , 4H**** , 4H*11* , 4H**** , 4H*12* , 4H**** , 4H*13* , 4H**** ,        &
       & 4H*14* , 4H**** , 4H*15* , 4H**** , 4H*16* , 4H**** , 4H*17* , 4H**** , 4H*18* , 4H**** , 4H*19* , 4H**** , 4H*20* ,        &
       & 4H**** , 4H*21* , 4H****/

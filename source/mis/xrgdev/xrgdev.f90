@@ -1,11 +1,12 @@
-!*==xrgdev.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xrgdev.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgdev
+   USE c_system
+   USE c_xmssg
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XRGDXX
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -68,42 +69,42 @@ SUBROUTINE xrgdev
    DATA state/1 , 2 , 3 , 6 , 0 , 1 , 0 , 0 , 2 , 0 , 4 , 0 , 0 , 3 , 0 , 4 , 2 , 0 , 5 , 0 , 0 , 2 , 0 , 5 , 0 , 0 , 2 , 3 , 6 ,   &
       & 0 , 1 , 0 , 0 , 7 , 0/
 !
-   IF ( Icol<=80 ) THEN
-      Istate = 7
-      Ind = 1
-      Num(1) = 0
-      istr = Icol
+   IF ( icol<=80 ) THEN
+      istate = 7
+      ind = 1
+      num(1) = 0
+      istr = icol
       SPAG_Loop_1_1: DO k = istr , 80
-         Icol = k
+         icol = k
          CALL xrgdtp
-         Istate = state(Itype,Istate)
-         IF ( Istate/=0 ) THEN
-            IF ( Istate==2 ) EXIT SPAG_Loop_1_1
-            IF ( Istate==3 ) THEN
-               Ind = 2
-               Num(2) = 0
-            ELSEIF ( Istate/=5 .AND. Istate/=6 .AND. Istate/=7 ) THEN
-               Num(Ind) = Num(Ind)*10 + Number
+         istate = state(itype,istate)
+         IF ( istate/=0 ) THEN
+            IF ( istate==2 ) EXIT SPAG_Loop_1_1
+            IF ( istate==3 ) THEN
+               ind = 2
+               num(2) = 0
+            ELSEIF ( istate/=5 .AND. istate/=6 .AND. istate/=7 ) THEN
+               num(ind) = num(ind)*10 + number
             ENDIF
          ELSE
-            Ierror = 1
+            ierror = 1
             j = 0
-            WRITE (Nout,99001) Ufm , k , Record , j , (i,i=1,8) , Ierror , (j,i=1,8)
+            WRITE (nout,99001) ufm , k , record , j , (i,i=1,8) , ierror , (j,i=1,8)
 99001       FORMAT (A23,' 8020, SYNTAX ERROR NEAR COLUMN ',I3,' IN THE FOLLOWING CARD- ',/20X,20A4,/,(20X,I1,I9,7I10))
             RETURN
          ENDIF
       ENDDO SPAG_Loop_1_1
-      IF ( Ind/=2 ) THEN
-         Num(2) = Num(1)
-      ELSEIF ( Num(2)<=Num(1) ) THEN
-         Ierror = 1
-         WRITE (Nout,99002) Ufm , Num(1) , Num(2) , Record
+      IF ( ind/=2 ) THEN
+         num(2) = num(1)
+      ELSEIF ( num(2)<=num(1) ) THEN
+         ierror = 1
+         WRITE (nout,99002) ufm , num(1) , num(2) , record
 99002    FORMAT (A23,' 8021, NON-INCREASING RANGE ',I3,1H-,I3,' IN THE FOLLOWING CARD -',/20X,20A4)
       ENDIF
-      IF ( Num(1)<Limit(1) .OR. Num(2)>Limit(2) ) THEN
-         WRITE (Nout,99003) Ufm , Limit , Record
+      IF ( num(1)<limit(1) .OR. num(2)>limit(2) ) THEN
+         WRITE (nout,99003) ufm , limit , record
 99003    FORMAT (A23,' 8022, NUMBERS ARE OUT OF THE RANGE ',I3,1H-,I3,' IN THE FOLLOWING CARD - ',/20X,20A4)
-         Ierror = 1
+         ierror = 1
       ENDIF
    ENDIF
 END SUBROUTINE xrgdev

@@ -108,13 +108,13 @@ SUBROUTINE dumod5
 !         SHOULD BE MADE TO ALL THREE MODULES.
 !
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DSNAME
-   USE C_MACHIN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_dsname
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -139,6 +139,12 @@ SUBROUTINE dumod5
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !WKBNB
 !WKBNE
    !>>>>EQUIVALENCE (Z(1),Iz(1)) , (Date(1),Dumm(13))
@@ -149,28 +155,28 @@ SUBROUTINE dumod5
    DATA unvc , mt/4HUNIV , 4HAC   , 2*4H    /
    DATA debug , dzero , save/.FALSE. , 0.D0 , 10*1H /
 !
-   IF ( Mach==12 ) tape = 11
+   IF ( mach==12 ) tape = 11
    CALL page
-   WRITE (Nout,99001) P , Q , R
+   WRITE (nout,99001) p , q , r
 99001 FORMAT ('0*** MODULE DUMMOD5 CALLED BY USER DMAP ALTER.',/5X,'PARAMETERS ARE    P=',5(I5,1H,),5X,'Q=',I5,5X,'R=',I4,/)
    i6or8 = 8
-   IF ( R==1 ) i6or8 = 16
-   Incr = 1
-   Typin = 1
-   Typout = 1
-   Ii = 1
+   IF ( r==1 ) i6or8 = 16
+   incr = 1
+   typin = 1
+   typout = 1
+   ii = 1
    tapx = -1
    tapp = -1
-   core = korsz(Z)
-   buf1 = core - Ibuf + 1
-   buf2 = buf1 - Ibuf
+   core = korsz(z)
+   buf1 = core - ibuf + 1
+   buf2 = buf1 - ibuf
    core = buf2 - 1
    half = core/2
    half1 = half + 1
 !WKBNB
    IF ( ifirst==0 ) THEN
       CLOSE (UNIT=tape)
-      OPEN (UNIT=tape,FILE=Dsnames(tape),FORM='UNFORMATTED',STATUS='UNKNOWN')
+      OPEN (UNIT=tape,FILE=dsnames(tape),FORM='UNFORMATTED',STATUS='UNKNOWN')
       ifirst = 1
    ENDIF
 !WKBNE
@@ -187,13 +193,13 @@ SUBROUTINE dumod5
 !
       type = 1
 !
-      IF ( P(loop)<=0 ) P(loop) = pv
-      pv = P(loop)
-      Jj = P(loop)*i6or8
-      DO j = 1 , Jj
-         Z(j+half) = 0.0
+      IF ( p(loop)<=0 ) p(loop) = pv
+      pv = p(loop)
+      jj = p(loop)*i6or8
+      DO j = 1 , jj
+         z(j+half) = 0.0
       ENDDO
-      CALL gopen(input,Z(buf1),0)
+      CALL gopen(input,z(buf1),0)
       mcb(1) = outpt
       CALL rdtrl(mcb)
       none = .FALSE.
@@ -205,7 +211,7 @@ SUBROUTINE dumod5
             save(2,tapx) = infile(2)
          ENDIF
       ELSE
-         CALL gopen(outpt,Z(buf2),1)
+         CALL gopen(outpt,z(buf2),1)
          CALL fname(outpt,outfil)
          CALL makmcb(mcb,outpt,0,2,1)
       ENDIF
@@ -222,10 +228,10 @@ SUBROUTINE dumod5
  100  CALL read(*500,*150,input,temp,10,1,m)
       nwds = temp(10)
       IF ( temp(3)/=neltp ) GOTO 200
-      IF ( Q>=1 ) THEN
+      IF ( q>=1 ) THEN
          is = im
          kk = half + nxzh
-         WRITE (Nout,99020) is , i , (Z(j),j=half1,kk)
+         WRITE (nout,99020) is , i , (z(j),j=half1,kk)
       ENDIF
       i = i + 1
       IF ( none ) THEN
@@ -233,7 +239,7 @@ SUBROUTINE dumod5
          ASSIGN 450 TO retn
          GOTO 300
       ELSE
-         CALL pack(Z(half1),outpt,mcb)
+         CALL pack(z(half1),outpt,mcb)
          GOTO 450
       ENDIF
  150  CALL mesage(-61,input,name)
@@ -242,8 +248,8 @@ SUBROUTINE dumod5
  200  newlt = temp(3)
       nwds1 = nwds - 1
       nwds2 = nwds - 2
-      DO l = 1 , Jj
-         Z(l) = 0.0
+      DO l = 1 , jj
+         z(l) = 0.0
       ENDDO
       DO l = 1 , irdlmt
          ir(l) = 0
@@ -253,7 +259,7 @@ SUBROUTINE dumod5
       DO jsq = 1 , irdlmt
          kount = kount + 1
          loc = nwds1*jsq - nwds2
-         CALL read(*550,*600,input,Z(loc),nwds1,0,m)
+         CALL read(*550,*600,input,z(loc),nwds1,0,m)
 !     LAST = LOC + NWDS1 - 1
          last = kount*i6or8
          CALL read(*550,*250,input,ir(jsq+1),1,0,m)
@@ -270,31 +276,31 @@ SUBROUTINE dumod5
          kk = loca + nwds + half
          IF ( kk>core ) CALL mesage(-8,0,name)
          DO jm = 1 , nwds1
-            Z(loca+jm-1+half) = Z(lj+jm)
+            z(loca+jm-1+half) = z(lj+jm)
          ENDDO
       ENDDO
       nxir = nxir + jsq
       nxzh = nxzh + last
       GOTO 100
- 300  DO jb = Ii , Jj
+ 300  DO jb = ii , jj
 !WKBNB 8/94 ALPHA-VMS
-         itype = numtyp(Z(jb+half))
+         itype = numtyp(z(jb+half))
          IF ( itype>1 ) THEN
 !WKBNE 8/94 ALPHA-VMS
-            IF ( abs(Z(jb+half))>epsi ) GOTO 350
+            IF ( abs(z(jb+half))>epsi ) GOTO 350
          ENDIF
       ENDDO
       WRITE (tape) i , one , one , (zero,j=1,type)
-      IF ( debug ) WRITE (Nout,99002) i , one , one , (zero,j=1,type)
+      IF ( debug ) WRITE (nout,99002) i , one , one , (zero,j=1,type)
 99002 FORMAT (' +++ZEROS/DUMMOD5- ',7I5)
       GOTO 400
- 350  je = Jj
-      DO j = Ii , Jj
+ 350  je = jj
+      DO j = ii , jj
 !WKBNB 8/94 ALPHA-VMS
-         itype = numtyp(Z(je+half))
+         itype = numtyp(z(je+half))
          IF ( itype>1 ) THEN
 !WKBNE 8/94 ALPHA-VMS
-            IF ( abs(Z(je+half))>epsi ) EXIT
+            IF ( abs(z(je+half))>epsi ) EXIT
          ENDIF
          je = je - 1
       ENDDO
@@ -310,21 +316,21 @@ SUBROUTINE dumod5
          IF ( mod(jb,2)==0 ) jb = jb - 1
          IF ( mod(je,2)==1 ) je = je + 1
       ENDIF
-      WRITE (tape) i , jb , je , (Z(j+half),j=jb,je)
-      IF ( debug ) WRITE (Nout,99003) i , jb , je
+      WRITE (tape) i , jb , je , (z(j+half),j=jb,je)
+      IF ( debug ) WRITE (nout,99003) i , jb , je
 99003 FORMAT (' +++DATA RECORD/DUMMOD5- ',3I5)
  400  GOTO retn
 !
- 450  DO l = 1 , Jj
-         Z(l+half) = 0.0
+ 450  DO l = 1 , jj
+         z(l+half) = 0.0
       ENDDO
       nxzh = 0
       nxir = 0
       GOTO 200
- 500  IF ( Q>=0 ) THEN
+ 500  IF ( q>=0 ) THEN
          is = ie
          kk = half + nxzh
-         WRITE (Nout,99020) is , i , (Z(j),j=half1,kk)
+         WRITE (nout,99020) is , i , (z(j),j=half1,kk)
       ENDIF
       ASSIGN 650 TO retn
       IF ( none ) THEN
@@ -339,29 +345,29 @@ SUBROUTINE dumod5
             tapx = 1
             save(1,tapx) = infile(1)
             save(2,tapx) = infile(2)
-            mt(1) = Mchnam
-            IF ( Mach==3 ) THEN
+            mt(1) = mchnam
+            IF ( mach==3 ) THEN
                mt(1) = unvc(1)
                mt(2) = unvc(2)
             ENDIF
-            WRITE (tape) xx , xx , mt , date , Ibuf , zero
-            IF ( debug ) WRITE (Nout,99004) xx , xx , mt , date , Ibuf , zero
+            WRITE (tape) xx , xx , mt , date , ibuf , zero
+            IF ( debug ) WRITE (nout,99004) xx , xx , mt , date , ibuf , zero
 99004       FORMAT ('0+++TAPE HEADER/DUMMOD5-',/3X,2A4,1X,2A4,3I4,2I6)
          ENDIF
          IF ( tapx/=tapp ) THEN
             tapp = tapx
-            trl(5) = Typout
+            trl(5) = typout
             trl(7) = 1
             WRITE (tape) zero , one , one , dzero , (trl(k),k=2,7) , infile
-            IF ( debug ) WRITE (Nout,99005) zero , one , one , dzero , (trl(k),k=2,7) , infile
+            IF ( debug ) WRITE (nout,99005) zero , one , one , dzero , (trl(k),k=2,7) , infile
 99005       FORMAT (' +++MATRIX HEADER/DUMMOD5- ',3I5,D8.0,6I5,1X,2A4)
          ENDIF
          GOTO 300
       ELSE
-         CALL pack(Z(half1),outpt,mcb)
-         mcb(3) = Jj
+         CALL pack(z(half1),outpt,mcb)
+         mcb(3) = jj
          CALL wrttrl(mcb)
-         IF ( Q==2 ) WRITE (Nout,99006) (mcb(j),j=1,5)
+         IF ( q==2 ) WRITE (nout,99006) (mcb(j),j=1,5)
 99006    FORMAT (/2X,'MCB=',6I8)
          GOTO 650
       ENDIF
@@ -369,19 +375,19 @@ SUBROUTINE dumod5
 !     CALL READ (*330,*350,INPUT, Z(1),1,0,M)
 !     Z(1) = 0.0
 !     GO TO 320
- 550  WRITE (Nout,99007) infile
+ 550  WRITE (nout,99007) infile
 99007 FORMAT (/5X,'*** EOF ENCOUNTERED ON INPUT ',2A4,' DATA BLOCK')
       GOTO 700
- 600  WRITE (Nout,99008) infile
+ 600  WRITE (nout,99008) infile
 99008 FORMAT (/5X,'*** INPUT ',2A4,'DATA BLOCK IS EMPTY')
       GOTO 700
- 650  IF ( .NOT.none ) WRITE (Nout,99009) Uim , infile , outfil
+ 650  IF ( .NOT.none ) WRITE (nout,99009) uim , infile , outfil
 99009 FORMAT (A29,', MODULE DUMMOD5 SUCCESSFULLY PROCESSED TABULAR ','DATA FROM ',2A4,' TO DATA BLOCK ',2A4,/5X,                    &
              &'IN GINO PACKED FORM')
-      IF ( none ) WRITE (Nout,99010) Uim , infile , tape
+      IF ( none ) WRITE (nout,99010) uim , infile , tape
 99010 FORMAT (A29,', MODULE DUMMOD5 SUCCESSFULLY COPIED TABULAR DATA ','FROM ',2A4,' TO OUTPUT TAPE',/5X,'(FORTRAN UNIT',I4,        &
              &') IN BANDED MATRIX FORM')
-      IF ( Q>0 ) WRITE (Lpch,99011) (id(j),j=1,nxir)
+      IF ( q>0 ) WRITE (lpch,99011) (id(j),j=1,nxir)
 99011 FORMAT (8I10)
       l = eg(1)
       IF ( newlt<=0 ) THEN
@@ -390,13 +396,13 @@ SUBROUTINE dumod5
             id(j) = id(j)/100
          ENDDO
       ENDIF
-      WRITE (Nout,99012) l , infile , (id(j),j=1,nxir)
+      WRITE (nout,99012) l , infile , (id(j),j=1,nxir)
 99012 FORMAT (//5X,A4,'-ID ARRAY FOLLOWS/FROM ',2A4,(/5X,15I8))
       IF ( none ) THEN
          i = -1
          IF ( newlt==0 ) i = -2
          WRITE (tape) i , one , nxir , (id(j),j=1,nxir)
-         IF ( debug ) WRITE (Nout,99013) i , one , nxir
+         IF ( debug ) WRITE (nout,99013) i , one , nxir
 99013    FORMAT (' +++ELEM/GRID ID RECORD/DUMMOD5- ',3I5)
       ENDIF
  700  CALL close(input,1)
@@ -404,7 +410,7 @@ SUBROUTINE dumod5
    ENDDO
 !
    IF ( tapx<=0 ) GOTO 99999
-   WRITE (Nout,99014) Uim , tape , (save(1,j),save(2,j),j=1,tapx)
+   WRITE (nout,99014) uim , tape , (save(1,j),save(2,j),j=1,tapx)
 99014 FORMAT (A29,', FOLLOWING DATA BLOCKS WERE COPIED TO FORTRAN UNIT',I3,' BY MODULE DUMMOD5',/5X,                                &
              &'USING UNFORMATTED (BINARY) WRITE',/6X,5(2A4,3X))
    ENDFILE tape
@@ -412,31 +418,31 @@ SUBROUTINE dumod5
 !
 !     TO READ THE OUTPUT TAPE, Q=/2/
 !
-   IF ( iabs(Q)<2 ) GOTO 99999
+   IF ( iabs(q)<2 ) GOTO 99999
    CALL page1
    k = 1
    READ (tape,END=800) mcb , j , i
-   WRITE (Nout,99015) mcb , j
+   WRITE (nout,99015) mcb , j
 99015 FORMAT (//,'  TAPEID=',2A4,'   FROM ',A4,A2,' MACHINE,  DATE',I5,1H/,I2,1H/,I2,'  BINARY TAPE.   BUFFSIZE=',I7//)
    DO
-      READ (tape,END=900) i , jb , je , (Z(j),j=jb,je)
+      READ (tape,END=900) i , jb , je , (z(j),j=jb,je)
       IF ( i<0 ) THEN
 !
          l = eg(-i)
-         WRITE (Nout,99016) l , (iz(j),j=jb,je)
+         WRITE (nout,99016) l , (iz(j),j=jb,je)
 99016    FORMAT (//2X,A4,'-ID LIST -',/,(1X,10I10))
       ELSEIF ( i==0 ) THEN
          BACKSPACE tape
          READ (tape,END=900) i , jb , je , dtemp , (iz(j),j=1,8)
-         WRITE (Nout,99017) k , iz(7) , iz(8) , (iz(j),j=1,6)
+         WRITE (nout,99017) k , iz(7) , iz(8) , (iz(j),j=1,6)
 99017    FORMAT (//,'  DATA BLOCK',I3,3X,2A4,'  TRAILER=',6I5)
          k = k + 1
       ELSE
-         WRITE (Nout,99018) i , jb , je , (Z(j),j=jb,je)
+         WRITE (nout,99018) i , jb , je , (z(j),j=jb,je)
 99018    FORMAT (//,'  COLUMN RECORD =',I3,'   JB,JE =',2I5,/,(1X,10E13.6))
       ENDIF
    ENDDO
- 800  WRITE (Nout,99019)
+ 800  WRITE (nout,99019)
 99019 FORMAT (//,'  EMPTY TAPE')
  900  REWIND tape
 99020 FORMAT ('  COLUMN',A1,I5,/,(2X,8E16.6))

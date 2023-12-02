@@ -1,9 +1,10 @@
-!*==cnorm1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cnorm1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cnorm1(X,N)
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -39,7 +40,7 @@ USE ISO_FORTRAN_ENV
    ENDDO
    IF ( index==0 ) THEN
 !
-      WRITE (Nout,99001)
+      WRITE (nout,99001)
 99001 FORMAT (//5X,37HCNORM1 RECEIVED A VECTOR OF ALL ZEROS)
       CALL mesage(-37,0,name)
       RETURN
@@ -52,5 +53,4 @@ USE ISO_FORTRAN_ENV
       X(i+1) = (X(i+1)*div(1)-X(i)*div(2))/max
       X(i) = dum
    ENDDO
-   RETURN
 END SUBROUTINE cnorm1

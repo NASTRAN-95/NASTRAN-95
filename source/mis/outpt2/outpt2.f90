@@ -1,4 +1,5 @@
-!*==outpt2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==outpt2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE outpt2
@@ -86,14 +87,14 @@ SUBROUTINE outpt2
 !     REVISED  11/90 BY G.CHAN/UNISYS TO INCLUDE P4 AND P5 PARAMETERS
 !     LAST REVISED  2/93 BY G.CHAN    TO INCLUDE P6 PARAMETER
 !
+   USE c_blank
+   USE c_dsname
+   USE c_machin
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DSNAME
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -133,38 +134,38 @@ SUBROUTINE outpt2
 !     CHECK P2 AND P4 PARAMETERS
 !
 !WKBI 3/95 SPR94016
-         lcor = korsz(X) - Buffsz
-         IF ( P2<11 .OR. P2>21 ) THEN
+         lcor = korsz(x) - buffsz
+         IF ( p2<11 .OR. p2>21 ) THEN
             j = 11
-            WRITE (Nout,99001) Uwm , P2 , j , inp(i)
+            WRITE (nout,99001) uwm , p2 , j , inp(i)
 99001       FORMAT (A25,' FROM OUTPUT2 MODULE. UNACCEPTABLE FORTRAN UNIT',I3,' WAS CHANGED TO',I3,' (INP',A1,1H))
-            P2 = j
+            p2 = j
          ENDIF
-         IF ( P4<0 ) THEN
-            lrec = -P4*Buffsz
-         ELSEIF ( P4==0 ) THEN
+         IF ( p4<0 ) THEN
+            lrec = -p4*buffsz
+         ELSEIF ( p4==0 ) THEN
             lrec = lcor
-            IF ( Mach==2 ) lrec = 1024
-            IF ( P6(1)==msc ) lrec = 2*Buffsz
+            IF ( mach==2 ) lrec = 1024
+            IF ( p6(1)==msc ) lrec = 2*buffsz
          ELSE
-            lrec = P4
+            lrec = p4
          ENDIF
          IF ( lrec>lcor ) lrec = lcor
-         IF ( lrec<Buffsz ) lrec = Buffsz
-         IF ( P4/=0 ) WRITE (Nout,99002) Uim , lrec
+         IF ( lrec<buffsz ) lrec = buffsz
+         IF ( p4/=0 ) WRITE (nout,99002) uim , lrec
 99002    FORMAT (A29,' 4116, MAXIMUM FORTRAN RECORD SIZE USED IN OUTPUT2 ','WAS',I8,' WORDS')
-         P4 = lrec
+         p4 = lrec
 !WKBNB
          IF ( ifirst==0 ) THEN
-            CLOSE (UNIT=P2)
-            OPEN (UNIT=P2,FILE=Dsnames(P2),FORM='UNFORMATTED',STATUS='UNKNOWN')
+            CLOSE (UNIT=p2)
+            OPEN (UNIT=p2,FILE=dsnames(p2),FORM='UNFORMATTED',STATUS='UNKNOWN')
             ifirst = 1
          ENDIF
 !WKBNE
-         IF ( P6(1)==msc ) CALL outmsc(*99999,*60)
+         IF ( p6(1)==msc ) CALL outmsc(*99999,*60)
 !
          sparse = .FALSE.
-         IF ( P5/=0 ) sparse = .TRUE.
+         IF ( p5/=0 ) sparse = .TRUE.
          endfil = 0
          endrec = 0
 !WKBD 3/95 SPR94016      LCOR   = KORSZ(X) - BUFFSZ
@@ -174,26 +175,26 @@ SUBROUTINE outpt2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          inbuf = lcor + 1
-         tapcod(1) = P3(1)
-         tapcod(2) = P3(2)
-         out = P2
-         IF ( P1==mnin ) THEN
+         tapcod(1) = p3(1)
+         tapcod(2) = p3(2)
+         out = p2
+         IF ( p1==mnin ) THEN
 !
 !     FINAL CALL TO OUTPUT2. (P1 = -9)
 !
             WRITE (out) endfil , zero
             GOTO 60
-         ELSEIF ( P1<mtre .OR. P1==mtwo ) THEN
+         ELSEIF ( p1<mtre .OR. p1==mtwo ) THEN
 !
-            WRITE (Nout,99003) Ufm , P1
+            WRITE (nout,99003) ufm , p1
 99003       FORMAT (A23,' 4120, MODULE OUTPUT2 - ILLEGAL VALUE FOR FIRST ','PARAMETER =',I20)
-            Line = Line + 2
+            line = line + 2
 !
             mm = -37
             CALL mesage(mm,input,subnam)
             RETURN
 !
-         ELSEIF ( P1==mtre ) THEN
+         ELSEIF ( p1==mtre ) THEN
 !
 !     OBTAIN LIST OF DATA BLOCKS ON FORTRAN TAPE.  (P1 = -3)
 !
@@ -225,17 +226,17 @@ SUBROUTINE outpt2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             READ (out) p3x
-            IF ( p3x(1)/=P3(1) .OR. p3x(2)/=P3(2) ) THEN
-               WRITE (Nout,99004) Uwm , p3x , P3
+            IF ( p3x(1)/=p3(1) .OR. p3x(2)/=p3(2) ) THEN
+               WRITE (nout,99004) uwm , p3x , p3
 99004          FORMAT (A25,' 4131, FORTRAN TAPE ID CODE -',2A4,'- DOES NOT MATCH',' THIRD OUTPUT2 DMAP PARAMETER -',2A4,2H-.)
-               Line = Line + 2
+               line = line + 2
             ENDIF
             ASSIGN 80 TO ret
             nskip = 1
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( P1<=zero ) THEN
+            IF ( p1<=zero ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -253,8 +254,8 @@ SUBROUTINE outpt2
          READ (out) namex
          READ (out) key
          IF ( key>=0 ) THEN
-            WRITE (Nout,99013) Sfm , key
-            Line = Line + 2
+            WRITE (nout,99013) sfm , key
+            line = line + 2
             mm = -37
             CALL mesage(mm,input,subnam)
             RETURN
@@ -265,27 +266,27 @@ SUBROUTINE outpt2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  20      i = i + 1
-         IF ( i<=P1 ) THEN
+         IF ( i<=p1 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
 !
-         IF ( P1==mone ) THEN
+         IF ( p1==mone ) THEN
 !
 !     REWIND OUTPUT TAPE. (P1 = -1)
 !
             REWIND out
             key = 3
             WRITE (out) key , zero
-            WRITE (out) D
+            WRITE (out) d
             key = 7
             WRITE (out) key , zero
             WRITE (out) idhdr
             key = 2
             WRITE (out) key , zero
-            WRITE (out) P3
+            WRITE (out) p3
             endrec = endrec - 1
             WRITE (out) endrec , zero
             WRITE (out) endfil , zero
@@ -305,13 +306,13 @@ SUBROUTINE outpt2
 !
 !     OPEN INPUT DATA BLOCK TO READ WITH REWIND.
 !
-                  CALL open(*120,input,X(inbuf),0)
+                  CALL open(*120,input,x(inbuf),0)
                   CALL skprec(input,1)
                   trl(8) = 1
                   CALL rectyp(input,irec1)
                   IF ( irec1==0 ) THEN
                      trl(8) = 0
-                     CALL read(*42,*42,input,X(1),1,1,nf)
+                     CALL read(*42,*42,input,x(1),1,1,nf)
                      CALL rectyp(input,irec2)
                      IF ( irec2/=0 ) trl(8) = 2
                   ENDIF
@@ -339,13 +340,13 @@ SUBROUTINE outpt2
 !     INCENSITIVE. THE D.P. DATA IN KELM, MELM AND BELM TABLES SHOULD
 !     WORK OK.
 !
-                     CALL read(*48,*44,input,X(1),lrec,0,nf)
+                     CALL read(*48,*44,input,x(1),lrec,0,nf)
                      WRITE (out) lrec , zero
-                     WRITE (out) (X(l),l=1,lrec)
+                     WRITE (out) (x(l),l=1,lrec)
                   ENDDO
 !
  44               WRITE (out) nf , zero
-                  WRITE (out) (X(l),l=1,nf)
+                  WRITE (out) (x(l),l=1,nf)
                   endrec = endrec - 1
                   WRITE (out) endrec , zero
                   IF ( trl(8)==0 ) THEN
@@ -372,7 +373,7 @@ SUBROUTINE outpt2
                      IF ( nwds==3 ) nwds = 2
 !         NWDS=1,SP  -  =2,DP,CS  -  =4,CDP
 !
-                     Incr = 1
+                     incr = 1
                      nwds = trl(3)*nwds
 !
 !     CHECK FOR NULL MATRIX
@@ -386,9 +387,9 @@ SUBROUTINE outpt2
                         spag_nextblock_1 = 9
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     Itype = trl(5)
-                     Irow = 1
-                     Nrow = trl(3)
+                     itype = trl(5)
+                     irow = 1
+                     nrow = trl(3)
                      ncol = trl(2)
                      IF ( trl(8)==2 ) ncol = 1
                   ENDIF
@@ -397,7 +398,7 @@ SUBROUTINE outpt2
                      SPAG_DispatchLoop_3: DO
                         SELECT CASE (spag_nextblock_3)
                         CASE (1)
-                           CALL unpack(*46,input,X)
+                           CALL unpack(*46,input,x)
                            IF ( sparse ) THEN
 !
 !     SPARSE MASTRIX OUT
@@ -405,15 +406,15 @@ SUBROUTINE outpt2
                               j12 = -1
                               DO j = 1 , nwds , dsp
                                  IF ( j12<+1 ) THEN
-                                    IF ( X(j)==0.0 ) THEN
+                                    IF ( x(j)==0.0 ) THEN
                                        IF ( .NOT.(dp) ) CYCLE
-                                       IF ( X(j+1)==0 ) CYCLE
+                                       IF ( x(j+1)==0 ) CYCLE
                                     ENDIF
                                     j12 = +1
                                     k2 = j - 1
-                                 ELSEIF ( X(j)==0.0 ) THEN
+                                 ELSEIF ( x(j)==0.0 ) THEN
                                     IF ( dp ) THEN
-                                       IF ( X(j+1)/=0 ) CYCLE
+                                       IF ( x(j+1)/=0 ) CYCLE
                                     ENDIF
                                     IF ( j12==-1 ) CALL mesage(-37,0,subnam)
                                     j12 = j12 + 1
@@ -421,7 +422,7 @@ SUBROUTINE outpt2
 !     ALLOW UP TO 3 IMBEDDED ZEROS
 !
                                     IF ( j12>3 ) THEN
-                                       IF ( X(j-1)==0.0 .AND. X(j-2)==0.0 ) THEN
+                                       IF ( x(j-1)==0.0 .AND. x(j-2)==0.0 ) THEN
                                          j12 = -1
                                          k1 = j - k2
                                          IF ( k1>lrec ) THEN
@@ -432,11 +433,11 @@ SUBROUTINE outpt2
                                          k1 = k2 + lrec
                                          IF ( k1>ke ) k1 = ke
                                          WRITE (out) k1 , k2
-                                         WRITE (out) (X(k2+k),k=1,k1)
+                                         WRITE (out) (x(k2+k),k=1,k1)
                                          ENDDO
                                          ELSE
                                          WRITE (out) k1 , k2
-                                         WRITE (out) (X(k2+k),k=1,k1)
+                                         WRITE (out) (x(k2+k),k=1,k1)
                                          ENDIF
                                        ENDIF
                                     ENDIF
@@ -454,11 +455,11 @@ SUBROUTINE outpt2
                                        k1 = k2 + lrec
                                        IF ( k1>ke ) k1 = ke
                                        WRITE (out) k1 , k2
-                                       WRITE (out) (X(k2+k),k=1,k1)
+                                       WRITE (out) (x(k2+k),k=1,k1)
                                     ENDDO
                                  ELSE
                                     WRITE (out) k1 , k2
-                                    WRITE (out) (X(k2+k),k=1,k1)
+                                    WRITE (out) (x(k2+k),k=1,k1)
                                  ENDIF
                               ENDIF
 !
@@ -473,7 +474,7 @@ SUBROUTINE outpt2
                               IF ( ke>nwds ) ke = nwds
                               kbe = ke - kb + 1
                               WRITE (out) kbe , zero
-                              WRITE (out) (X(k),k=kb,ke)
+                              WRITE (out) (x(k),k=kb,ke)
                            ENDDO
                            spag_nextblock_3 = 3
                         CASE (3)
@@ -486,10 +487,9 @@ SUBROUTINE outpt2
                               CYCLE SPAG_DispatchLoop_3
                            ENDIF
                            DO k = 1 , nwds
-                              X(k) = 0
+                              x(k) = 0
                            ENDDO
                            spag_nextblock_3 = 2
-                           CYCLE SPAG_DispatchLoop_3
                         END SELECT
                      ENDDO SPAG_DispatchLoop_3
 !
@@ -509,9 +509,9 @@ SUBROUTINE outpt2
                   CALL page2(-4)
                   mt = matrix
                   IF ( trl(8)==0 ) mt = table
-                  WRITE (Nout,99005) Uim , mt , name , out , (trl(ii),ii=2,7)
+                  WRITE (nout,99005) uim , mt , name , out , (trl(ii),ii=2,7)
 99005             FORMAT (A29,' 4114, ',A6,' DATA BLOCK ',2A4,' WRITTEN ON FORTRAN UNIT',I4,/5X,'TRAILR =',5I6,I9)
-                  IF ( sparse .AND. trl(8)/=0 ) WRITE (Nout,99006)
+                  IF ( sparse .AND. trl(8)/=0 ) WRITE (nout,99006)
 99006             FORMAT (1H+,55X,'(SPARSE MATRIX)')
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -522,23 +522,23 @@ SUBROUTINE outpt2
  60      endrec = 0
          ENDFILE out
          REWIND out
-         WRITE (Nout,99007) Uim
+         WRITE (nout,99007) uim
 99007    FORMAT (A29,'. OUTPUT2 MODULE WROTE AN E-O-F RECORD, A SYSTEM ','E-O-F MARK, AND REWOUND THE OUTPUT TAPE. (P1=-9)')
          RETURN
  80      kf = 0
          spag_nextblock_1 = 4
       CASE (4)
          CALL page1
-         Line = Line + 8
-         WRITE (Nout,99008) out
+         line = line + 8
+         WRITE (nout,99008) out
 99008    FORMAT (1H0,50X,30HFILE CONTENTS ON FORTRAN UNIT ,I2,/51X,32(1H-),///54X,4HFILE,18X,4HNAME/1H0)
          spag_nextblock_1 = 5
       CASE (5)
          READ (out) key
          IF ( key<0 ) THEN
-            WRITE (Nout,99009) Sfm
+            WRITE (nout,99009) sfm
 99009       FORMAT (A25,' 4115, MODULE OUTPUT2 - SHORT RECORD.')
-            Line = Line + 2
+            line = line + 2
             mm = -37
             CALL mesage(mm,input,subnam)
             RETURN
@@ -553,15 +553,14 @@ SUBROUTINE outpt2
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  100     kf = kf + 1
-         Line = Line + 1
-         WRITE (Nout,99010) kf , namex
+         line = line + 1
+         WRITE (nout,99010) kf , namex
 99010    FORMAT (53X,I5,18X,2A4)
-         IF ( Line<Nlpp ) THEN
+         IF ( line<nlpp ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     SIMULATION OF SKPFIL (OUT,NSKIP)
@@ -600,9 +599,9 @@ SUBROUTINE outpt2
          CALL mesage(mm,input,subnam)
          RETURN
       CASE (8)
-         WRITE (Nout,99011) Ufm , (idhdrx(kf),kf=1,7)
+         WRITE (nout,99011) ufm , (idhdrx(kf),kf=1,7)
 99011    FORMAT (A23,' 4130, MODULE OUTPUT2 - ILLEGAL TAPE CODE HEADER = ',7A4)
-         Line = Line + 2
+         line = line + 2
          mm = -37
          CALL mesage(mm,input,subnam)
          RETURN
@@ -612,10 +611,10 @@ SUBROUTINE outpt2
          CALL mesage(mm,input,subnam)
          RETURN
       CASE (10)
-         WRITE (Nout,99013) Sfm , key
-         WRITE (Nout,99012) keyx
+         WRITE (nout,99013) sfm , key
+         WRITE (nout,99012) keyx
 99012    FORMAT (10X,17HEXPECTED VALUE = ,I10,1H.)
-         Line = Line + 3
+         line = line + 3
          mm = -37
          CALL mesage(mm,input,subnam)
          EXIT SPAG_DispatchLoop_1

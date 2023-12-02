@@ -1,10 +1,11 @@
-!*==gptabd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gptabd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA gptabd
+   USE c_clstrs
+   USE c_gpta1
    IMPLICIT NONE
-   USE C_CLSTRS
-   USE C_GPTA1
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -96,7 +97,7 @@ BLOCKDATA gptabd
    !>>>>EQUIVALENCE (Complx(1),Comp1(1)) , (Complx(101),Comp2(1)) , (Complx(201),Comp3(1)) , (Complx(301),Comp4(1)) ,                    &
 !>>>>    & (Complx(401),Comp5(1)) , (Complx(501),Comp6(1))
 !
-   DATA Nelem/86/ , Last/2150/ , Incr/25/
+   DATA nelem/86/ , last/2150/ , incr/25/
 !
 !     CURRENTLY ECTBIT USES 1 THRU 96, EXCEPT
 !        76-77, 82, 88-90, 94-96

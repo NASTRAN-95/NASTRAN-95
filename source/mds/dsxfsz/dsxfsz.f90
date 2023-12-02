@@ -1,12 +1,13 @@
-!*==dsxfsz.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dsxfsz.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dsxfsz
+   USE i_dsiof
+   USE i_ginox
+   USE c_xfiat
+   USE c_xfist
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_DSIOF
-   USE I_GINOX
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -18,7 +19,7 @@ SUBROUTINE dsxfsz
    idsn = ifilex
    nun = 0
    itotal = 0
-   DO
+   SPAG_Loop_1_2: DO
       lasblk = fcb(6,idsn)
       ifrblk = fcb(5,idsn)
       numblk = lasblk - ifrblk + 1
@@ -26,7 +27,7 @@ SUBROUTINE dsxfsz
          ipblks = numblk
          IF ( fcb(10,ifilex)/=0 ) THEN
             index = fcb(10,ifilex)
-            lblock = Mem(index+3)
+            lblock = mem(index+3)
             ipblks = ipblks + lblock
          ENDIF
       ELSE
@@ -35,17 +36,17 @@ SUBROUTINE dsxfsz
       ENDIF
       idsn = iand(mdsfcb(3,idsn),maskh2)
       IF ( idsn==0 ) THEN
-         lim = 2*Nfist
-         DO i = 1 , lim , 2
-            IF ( name==Ifist(i) ) THEN
-               IF ( Ifist(i+1)>0 ) THEN
-                  indx = Ifist(i+1)
-                  Ifiat(indx+7) = ipblks*2**16 + nun*2**8
-                  Ifiat(indx+8) = itotal*2**16
+         lim = 2*nfist
+         SPAG_Loop_2_1: DO i = 1 , lim , 2
+            IF ( name==ifist(i) ) THEN
+               IF ( ifist(i+1)>0 ) THEN
+                  indx = ifist(i+1)
+                  ifiat(indx+7) = ipblks*2**16 + nun*2**8
+                  ifiat(indx+8) = itotal*2**16
                ENDIF
-               EXIT
+               EXIT SPAG_Loop_2_1
             ENDIF
-         ENDDO
+         ENDDO SPAG_Loop_2_1
          maxusm = 0
          maxusd = 0
 ! ACCUMULATE TOTAL I/O USAGE STATISTICS
@@ -55,7 +56,7 @@ SUBROUTINE dsxfsz
                itotl2 = 0
                IF ( fcb(4,i)/=0 ) THEN
                   nexblk = fcb(10,i)
-                  IF ( nexblk/=0 ) itotl1 = Mem(nexblk+3)
+                  IF ( nexblk/=0 ) itotl1 = mem(nexblk+3)
                   IF ( fcb(5,i)/=0 ) itotl2 = fcb(6,i) - fcb(5,i) + 1
                   maxusm = maxusm + itotl1
                   maxusd = maxusd + itotl2
@@ -64,7 +65,7 @@ SUBROUTINE dsxfsz
          ENDDO
          IF ( maxblk<maxusm ) maxblk = maxusm
          IF ( maxdsk<maxusd ) maxdsk = maxusd
-         EXIT
+         EXIT SPAG_Loop_1_2
       ENDIF
-   ENDDO
+   ENDDO SPAG_Loop_1_2
 END SUBROUTINE dsxfsz

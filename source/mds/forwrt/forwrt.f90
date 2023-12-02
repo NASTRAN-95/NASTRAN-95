@@ -1,9 +1,10 @@
-!*==forwrt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==forwrt.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE forwrt(Form,Indata,Nwds)
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -77,8 +78,8 @@ USE ISO_FORTRAN_ENV
                ichar = ichar + 1
             ELSEIF ( Form(ichar)==slash ) THEN
 ! PROCESS SLASH
-               IF ( line/=blank ) WRITE (Iwr,99007) line
-               IF ( line==blank ) WRITE (Iwr,99001)
+               IF ( line/=blank ) WRITE (iwr,99007) line
+               IF ( line==blank ) WRITE (iwr,99001)
 99001          FORMAT (/)
                line = blank
                IF ( icycle==0 ) pfact = blank
@@ -191,7 +192,7 @@ USE ISO_FORTRAN_ENV
                                     IF ( ncnt>Nwds ) GOTO 5
 ! NO GROUP, THEREFORE MUST RE CYCLE THROUGH FORMAT
 ! UNTIL LIST IS SATISFIED
-                                    WRITE (Iwr,99007) line
+                                    WRITE (iwr,99007) line
                                     ichar = 2
                                     line = blank
                                     pfact = blank
@@ -234,13 +235,13 @@ USE ISO_FORTRAN_ENV
                      CYCLE
                   ENDIF
                ENDIF
- 5             WRITE (Iwr,99007) line
+ 5             WRITE (iwr,99007) line
                RETURN
             ENDIF
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 2
       CASE (2)
-         WRITE (Iwr,99006) ichar , Form
+         WRITE (iwr,99006) ichar , Form
 99006    FORMAT (///' SUBROUTINE FORWRT UNABLE TO DECIPHER THE FOLLOWING',' FORMAT AT CHARACTER ',I4,/,                             &
                 &' FORMAT GIVEN WAS THE FOLLOWING:',/,(1X,131A1))
          EXIT SPAG_DispatchLoop_1

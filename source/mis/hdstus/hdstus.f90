@@ -1,9 +1,10 @@
-!*==hdstus.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdstus.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdstus(Oj,Tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,Ii,H,Im,Jxt,Zj,Nc,Zmi,Ccc,Lz)
+   USE c_go3
    IMPLICIT NONE
-   USE C_GO3
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,16 +51,16 @@ SUBROUTINE hdstus(Oj,Tmj,Xxx,Tgm,Rv,Rvi,Tgi,Zm,Nno,Ii,H,Im,Jxt,Zj,Nc,Zmi,Ccc,Lz)
          SPAG_Loop_2_1: DO jo = 1 , Ii
             ggk = .015
             i = 0
-            jg = Nno(L4+jo)
-            js = L13 + (jg-1)*Lz
-            jt = L12 + (jg-1)*5
+            jg = Nno(l4+jo)
+            js = l13 + (jg-1)*Lz
+            jt = l12 + (jg-1)*5
 !
 !     PRELIMINARY CHECK TO SEE IF THE POINT IS OUTSIDE THE BOUNDARY
 !     BOXES IN THE X,Y,Z DIMENSIONS.
 !
-            IF ( Tmj<Rv(L7+jg) .AND. Tmj>Rvi(L8+jg) ) THEN
-               IF ( Oj<Tgi(L6+jg) .AND. Oj>Tgm(L5+jg) ) THEN
-                  IF ( Zj<Zm(L2+jg) ) THEN
+            IF ( Tmj<Rv(l7+jg) .AND. Tmj>Rvi(l8+jg) ) THEN
+               IF ( Oj<Tgi(l6+jg) .AND. Oj>Tgm(l5+jg) ) THEN
+                  IF ( Zj<Zm(l2+jg) ) THEN
                      vx = Xxx(4+jt)
                      vx1 = Xxx(2+jt)*Tmj
                      vx2 = Xxx(1+jt)*Oj

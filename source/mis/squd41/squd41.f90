@@ -1,19 +1,20 @@
-!*==squd41.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==squd41.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE squd41
+   USE c_condas
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_q4coms
+   USE c_q4dt
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_terms
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_Q4COMS
-   USE C_Q4DT
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_TERMS
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -171,10 +172,10 @@ SUBROUTINE squd41
          q4strs = 0
          elid = nest(1)
          nphi(1) = elid
-         Norpth = .FALSE.
-         Node = 4
-         Nnode = 4
-         ndof = Nnode*6
+         norpth = .FALSE.
+         node = 4
+         nnode = 4
+         ndof = nnode*6
          nd2 = ndof*2
          nd3 = ndof*3
          nd4 = ndof*4
@@ -215,7 +216,7 @@ SUBROUTINE squd41
          vkn(2) = vd1(3)*vd2(1) - vd1(1)*vd2(3)
          vkn(3) = vd1(1)*vd2(2) - vd1(2)*vd2(1)
          vkl = sqrt(vkn(1)**2+vkn(2)**2+vkn(3)**2)
-         IF ( vkl==0. ) WRITE (nout,99003) Est(1)
+         IF ( vkl==0. ) WRITE (nout,99003) est(1)
          vks(1) = vkn(1)/vkl
          vks(2) = vkn(2)/vkl
          vks(3) = vkn(3)/vkl
@@ -235,7 +236,7 @@ SUBROUTINE squd41
          vp12(2) = v12(2) - v12dk*vks(2)
          vp12(3) = v12(3) - v12dk*vks(3)
          vp12l = sqrt(vp12(1)**2+vp12(2)**2+vp12(3)**2)
-         IF ( vp12l==0. ) WRITE (nout,99003) Est(1)
+         IF ( vp12l==0. ) WRITE (nout,99003) est(1)
          vis(1) = vp12(1)/vp12l
          vis(2) = vp12(2)/vp12l
          vis(3) = vp12(3)/vp12l
@@ -246,7 +247,7 @@ SUBROUTINE squd41
 !   NORMALIZE J FOR GOOD MEASURE
 !
          vjl = sqrt(vjs(1)**2+vjs(2)**2+vjs(3)**2)
-         IF ( vjl==0. ) WRITE (nout,99003) Est(1)
+         IF ( vjl==0. ) WRITE (nout,99003) est(1)
          vjs(1) = vjs(1)/vjl
          vjs(2) = vjs(2)/vjl
          vjs(3) = vjs(3)/vjl
@@ -285,7 +286,7 @@ SUBROUTINE squd41
          DO j = 1 , 3
             cent(j) = 0.0
             DO i = 1 , 4
-               cent(j) = cent(j) + ugpdm(j,i)/Nnode
+               cent(j) = cent(j) + ugpdm(j,i)/nnode
             ENDDO
          ENDDO
 !
@@ -323,9 +324,9 @@ SUBROUTINE squd41
 !
 !     START FILLING IN IELOUT ARRAY WITH DATA TO BE STORED IN GPSRN
 !
-         Ielout(1) = elid
+         ielout(1) = elid
          DO i = 1 , 4
-            Ielout(3+(i-1)*25) = sil(i)
+            ielout(3+(i-1)*25) = sil(i)
             DO j = 1 , 3
                relout(25*i+j-1) = bgpdt(j+1,i)
             ENDDO
@@ -343,7 +344,7 @@ SUBROUTINE squd41
 !
 !
          DO i = 1 , 4
-            Iorder(i) = 0
+            iorder(i) = 0
             ksil(i) = sil(i)
          ENDDO
 !
@@ -356,7 +357,7 @@ SUBROUTINE squd41
                   isil = ksil(j)
                ENDIF
             ENDDO
-            Iorder(i) = itemp
+            iorder(i) = itemp
             ksil(itemp) = 99999999
          ENDDO
 !
@@ -376,7 +377,7 @@ SUBROUTINE squd41
             ENDDO
          ENDDO
          DO i = 1 , 4
-            ipoint = Iorder(i)
+            ipoint = iorder(i)
             gpth(i) = tmpthk(ipoint)
             igpdt(1,i) = kcid(ipoint)
             sil(i) = ksil(ipoint)
@@ -391,20 +392,20 @@ SUBROUTINE squd41
 !
          nphi(19) = nest(20)
          nphi(20) = nest(21)
-         Phiout(18) = 0.0
+         phiout(18) = 0.0
          offset = zoff
          IF ( zoff==0.0 ) offset = zoff1
-         Phiout(78) = offset
+         phiout(78) = offset
 !
 !     COMPUTE NODE NORMALS
 !
-         CALL q4nrms(bgpdt,gpnorm,Iorder,iflag)
+         CALL q4nrms(bgpdt,gpnorm,iorder,iflag)
          IF ( iflag==0 ) THEN
 !
 !     PUT NORMALS IN IELOUT
 !
-            DO i = 1 , Nnode
-               io = Iorder(i)
+            DO i = 1 , nnode
+               io = iorder(i)
                iop = (io-1)*25 + 21
                relout(iop+1) = gpnorm(2,i)
                relout(iop+2) = gpnorm(3,i)
@@ -414,14 +415,14 @@ SUBROUTINE squd41
 !     COMPUTE NODE NORMALS
 !
             avgthk = 0.0
-            DO i = 1 , Nnode
-               io = Iorder(i)
+            DO i = 1 , nnode
+               io = iorder(i)
                IF ( gpth(i)==0.0 ) gpth(i) = elth
                IF ( gpth(i)>0.0 ) THEN
-                  avgthk = avgthk + gpth(i)/Nnode
+                  avgthk = avgthk + gpth(i)/nnode
                   gpth2(io) = gpth(i)
                ELSE
-                  WRITE (nout,99001) Ufm , elid , sil(i)
+                  WRITE (nout,99001) ufm , elid , sil(i)
 !
 99001             FORMAT (A23,', QUAD4 ELEMENT HAS UNDEFINED THICKNESS.  ELEMENT',' ID =',I8,', SIL ID =',I8)
                   spag_nextblock_1 = 6
@@ -432,11 +433,11 @@ SUBROUTINE squd41
             mominr = 0.0
             tsfact = 5.0/6.0
             nocsub = .FALSE.
-            IF ( nest(15)/=0 ) mominr = Est(16)
-            IF ( nest(17)/=0 ) ts = Est(18)
-            IF ( Est(18)==.0 ) ts = 5.0/6.0
-            Phiout(21) = avgthk
-            Phiout(22) = mominr
+            IF ( nest(15)/=0 ) mominr = est(16)
+            IF ( nest(17)/=0 ) ts = est(18)
+            IF ( est(18)==.0 ) ts = 5.0/6.0
+            phiout(21) = avgthk
+            phiout(22) = mominr
 !
 !     SET LOGICAL NOCSUB IF EITHER MOMINR OR TS ARE NOT DEFAULT
 !     VALUES. THIS WILL BE USED TO OVERRIDE ALL CSUBB COMPUTATIONS.
@@ -461,7 +462,7 @@ SUBROUTINE squd41
             DO i = 1 , 3
                ii = i + 1
                ip = (i-1)*3
-               DO j = 1 , Nnode
+               DO j = 1 , nnode
                   epnorm(ii,j) = 0.0
                   egpdt(ii,j) = 0.0
                   DO k = 1 , 3
@@ -481,17 +482,17 @@ SUBROUTINE squd41
 !     ORTHOTROPIC MATERIAL PROPERTIES AMONG THE MAT8 CARDS, AND
 !     ANISOTROPIC MATERIAL PROPERTIES AMONG THE MAT2 CARDS.
 !
-            Inflag = 12
+            inflag = 12
             rho = 0.0
-            Eltemp = Est(45)
+            eltemp = est(45)
             mid(1) = nest(13)
             mid(2) = nest(15)
             mid(3) = nest(17)
             mid(4) = nest(22)
-            Membrn = mid(1)>0
-            Bendng = mid(2)>0 .AND. mominr>0.0
-            Shrflx = mid(3)>0
-            Mbcoup = mid(4)>0
+            membrn = mid(1)>0
+            bendng = mid(2)>0 .AND. mominr>0.0
+            shrflx = mid(3)>0
+            mbcoup = mid(4)>0
 !
 !     CHECK FOR COMPOSITE MATERIAL
 !
@@ -503,12 +504,10 @@ SUBROUTINE squd41
                ENDIF
             ENDDO
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (nout,99002) Ufm , elid
+            WRITE (nout,99002) ufm , elid
 99002       FORMAT (A23,', MODULE SDR2 DETECTS BAD OR REVERSE GEOMETRY FOR ','ELEMENT ID =',I8)
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
          nphi(79) = mid(img) - img*hunmeg
@@ -517,10 +516,10 @@ SUBROUTINE squd41
 !
 !     DETERMINE FACTORS TO BE USED IN CSUBB CALCULATIONS
 !
-         IF ( Bendng ) THEN
+         IF ( bendng ) THEN
             DO i = 1 , 4
-               DO j = 1 , Nnode
-                  jo = Iorder(j)
+               DO j = 1 , nnode
+                  jo = iorder(j)
                   IF ( i==jo ) THEN
                      xa(i) = egpdt(2,j)
                      yb(i) = egpdt(3,j)
@@ -544,22 +543,22 @@ SUBROUTINE squd41
             DO i = 1 , 4
                j = i + 1
                IF ( j==5 ) j = 1
-               Uev(1,i) = xa(j) - xa(i)
-               Uev(2,i) = yb(j) - yb(i)
-               Uev(3,i) = zc(j) - zc(i)
-               Unv(1,i) = (vnt(1,j)+vnt(1,i))*0.50
-               Unv(2,i) = (vnt(2,j)+vnt(2,i))*0.50
-               Unv(3,i) = (vnt(3,j)+vnt(3,i))*0.50
-               cc = Uev(1,i)**2 + Uev(2,i)**2 + Uev(3,i)**2
+               uev(1,i) = xa(j) - xa(i)
+               uev(2,i) = yb(j) - yb(i)
+               uev(3,i) = zc(j) - zc(i)
+               unv(1,i) = (vnt(1,j)+vnt(1,i))*0.50
+               unv(2,i) = (vnt(2,j)+vnt(2,i))*0.50
+               unv(3,i) = (vnt(3,j)+vnt(3,i))*0.50
+               cc = uev(1,i)**2 + uev(2,i)**2 + uev(3,i)**2
                IF ( cc>=1.0E-8 ) cc = sqrt(cc)
-               Edgel(i) = cc
-               Uev(1,i) = Uev(1,i)/cc
-               Uev(2,i) = Uev(2,i)/cc
-               Uev(3,i) = Uev(3,i)/cc
-               cc = sqrt(Unv(1,i)**2+Unv(2,i)**2+Unv(3,i)**2)
-               Unv(1,i) = Unv(1,i)/cc
-               Unv(2,i) = Unv(2,i)/cc
-               Unv(3,i) = Unv(3,i)/cc
+               edgel(i) = cc
+               uev(1,i) = uev(1,i)/cc
+               uev(2,i) = uev(2,i)/cc
+               uev(3,i) = uev(3,i)/cc
+               cc = sqrt(unv(1,i)**2+unv(2,i)**2+unv(3,i)**2)
+               unv(1,i) = unv(1,i)/cc
+               unv(2,i) = unv(2,i)/cc
+               unv(3,i) = unv(3,i)/cc
             ENDDO
 !
 !     CALCULATE INTERNAL NODAL ANGLES
@@ -567,8 +566,8 @@ SUBROUTINE squd41
             DO i = 1 , 4
                j = i - 1
                IF ( j==0 ) j = 4
-               Anglei(i) = -Uev(1,i)*Uev(1,j) - Uev(2,i)*Uev(2,j) - Uev(3,i)*Uev(3,j)
-               IF ( abs(Anglei(i))<1.0E-8 ) Anglei(i) = 0.0
+               anglei(i) = -uev(1,i)*uev(1,j) - uev(2,i)*uev(2,j) - uev(3,i)*uev(3,j)
+               IF ( abs(anglei(i))<1.0E-8 ) anglei(i) = 0.0
             ENDDO
          ENDIF
 !
@@ -581,10 +580,10 @@ SUBROUTINE squd41
 !
 !     BEGINNING OF HEAT RECOVERY.
 !
-            Matid = nest(13)
-            Inflag = 2
+            matid = nest(13)
+            inflag = 2
             nphi(22) = 2
-            nphi(23) = Nnode
+            nphi(23) = nnode
             nphi(24) = name(1)
             nphi(25) = name(2)
             xi = 0.0
@@ -599,31 +598,30 @@ SUBROUTINE squd41
                dshptp(i+4) = dshp(i+4)
             ENDDO
             DO i = 1 , 4
-               kk = Iorder(i)
+               kk = iorder(i)
                shp(i) = tmpshp(kk)
                dshp(i) = dshptp(kk)
                dshp(i+4) = dshptp(kk+4)
             ENDDO
 !
-            Hzta = 0.0
+            hzta = 0.0
             CALL jacobs(elid,shp,dshp,gpth,egpdt,epnorm,jacobe)
-            IF ( Badjac ) THEN
+            IF ( badjac ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
 !
             DO i = 2 , 4
                ecpt(i) = 0.0
-               DO j = 1 , Nnode
+               DO j = 1 , nnode
                   ecpt(i) = ecpt(i) + shp(j)*bgpdt(i,j)
                ENDDO
             ENDDO
 !
             flags = nest(27)
             IF ( flags==0 ) THEN
-               thetas = Est(26)*Degrad
+               thetas = est(26)*degrad
                spag_nextblock_1 = 8
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                scsid = nest(26)
                IF ( scsid<=0 ) THEN
@@ -644,14 +642,13 @@ SUBROUTINE squd41
                IF ( abs(xs)>eps1 .OR. abs(ys)>eps1 ) THEN
                   thetas = atan2(ys,xs)
                   spag_nextblock_1 = 8
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   nest(2) = scsid
                   j = 233
                   spag_nextblock_1 = 7
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
+            CYCLE
          ELSE
 !
 !     IN PLANE SHEAR REDUCTION
@@ -670,7 +667,7 @@ SUBROUTINE squd41
                dshptp(i+4) = dshp(i+4)
             ENDDO
             DO i = 1 , 4
-               kk = Iorder(i)
+               kk = iorder(i)
                shp(i) = tmpshp(kk)
                dshp(i) = dshptp(kk)
                dshp(i+4) = dshptp(kk+4)
@@ -682,10 +679,10 @@ SUBROUTINE squd41
 !     COMPUTE THE JACOBIAN AT THIS GAUSS POINT,
 !     ITS INVERSE AND ITS DETERMINANT.
 !
-               Hzta = zeta/2.0
+               hzta = zeta/2.0
 !
                CALL jacobs(elid,shp,dshp,gpth,egpdt,epnorm,jacob)
-               IF ( Badjac ) THEN
+               IF ( badjac ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -695,13 +692,13 @@ SUBROUTINE squd41
 !     TRANSPOSED BECAUSE OF OPPOSITE MATRIX LOADING CONVENTION BETWEEN
 !     INVER AND GMMAT.
 !
-               CALL gmmats(Psitrn,3,3,0,jacob,3,3,1,phi)
+               CALL gmmats(psitrn,3,3,0,jacob,3,3,1,phi)
 !
 !     CALL Q4BMGS TO GET B MATRIX
 !     SET THE ROW FLAG TO 2. IT WILL SAVE THE 3RD ROW OF B-MATRIX AT
 !     THE TWO INTEGRATION POINTS.
 !
-               Rowflg = 2
+               rowflg = 2
                CALL q4bmgs(dshp,gpth,egpdt,epnorm,phi,xybmat(kpt))
                kpt = kpt + nd2
             ENDDO
@@ -744,7 +741,7 @@ SUBROUTINE squd41
 !
 !     CALCULATE TEM-MATRIX USING THETAM
 !
-            thetam = Est(10)*Degrad
+            thetam = est(10)*degrad
             IF ( thetam/=0.0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
@@ -756,7 +753,7 @@ SUBROUTINE squd41
             flagm = nest(24)
             IF ( flagm==0 ) THEN
 !
-               thetam = Est(23)*Degrad
+               thetam = est(23)*degrad
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -803,17 +800,16 @@ SUBROUTINE squd41
 !     STORE TUM IN PHIOUT
 !
          DO iem = 1 , 9
-            Phiout(68+iem) = tum(iem)
+            phiout(68+iem) = tum(iem)
          ENDDO
 !
          IF ( itherm/=0 ) THEN
             CALL gmmats(tum,3,3,1,tsu,3,3,1,tms)
             tms(3) = tms(4)
             tms(4) = tms(5)
-            CALL gmmats(tms,2,2,1,Phiout(26),2,2,0,tum)
-            CALL gmmats(tum,2,2,0,tms,2,2,0,Phiout(26))
+            CALL gmmats(tms,2,2,1,phiout(26),2,2,0,tum)
+            CALL gmmats(tum,2,2,0,tms,2,2,0,phiout(26))
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     BEGIN THE LOOP TO FETCH PROPERTIES FOR EACH MATERIAL ID
@@ -835,22 +831,22 @@ SUBROUTINE squd41
                   mid(3) = mid(2)
                ELSE
                   IF ( m==4 .AND. igobk==1 ) EXIT SPAG_Loop_1_1
-                  Matid = mid(m)
-                  IF ( Matid/=0 .OR. m==3 ) THEN
-                     IF ( .NOT.(Matid==0 .AND. m==3 .AND. .NOT.Bendng) ) THEN
-                        IF ( Matid==0 .AND. m==3 .AND. Bendng ) Matid = mid(2)
+                  matid = mid(m)
+                  IF ( matid/=0 .OR. m==3 ) THEN
+                     IF ( .NOT.(matid==0 .AND. m==3 .AND. .NOT.bendng) ) THEN
+                        IF ( matid==0 .AND. m==3 .AND. bendng ) matid = mid(2)
 !
                         IF ( m<1 ) THEN
                         ELSEIF ( m==1 ) THEN
                            CALL mat(elid)
-                        ELSEIF ( Matid/=mid(m-1) .OR. igobk/=0 ) THEN
+                        ELSEIF ( matid/=mid(m-1) .OR. igobk/=0 ) THEN
                            CALL mat(elid)
                         ENDIF
 !
                         IF ( it0<=0 ) THEN
-                           tsub0 = Rmtout(11)
-                           IF ( matset==8.0 ) tsub0 = Rmtout(10)
-                           Phiout(18) = tsub0
+                           tsub0 = rmtout(11)
+                           IF ( matset==8.0 ) tsub0 = rmtout(10)
+                           phiout(18) = tsub0
                            it0 = 1
                         ENDIF
 !
@@ -900,10 +896,10 @@ SUBROUTINE squd41
 !WKBDE 11/93 SPR93020
 !WKBNB 11/93 SPR93020
                         IF ( m<=0 ) THEN
-                           IF ( .NOT.Shrflx .AND. Bendng ) THEN
+                           IF ( .NOT.shrflx .AND. bendng ) THEN
                               m = -m
                            ELSE
-                              nest(2) = Matid
+                              nest(2) = matid
                               j = 231
                               spag_nextblock_1 = 7
                               CYCLE SPAG_DispatchLoop_1
@@ -914,32 +910,32 @@ SUBROUTINE squd41
                            IF ( m==1 .OR. m==4 ) THEN
                            ELSEIF ( m==3 ) THEN
                               IF ( mtype<0 ) THEN
-                                 gnorx = Rmtout(6)
-                                 gnory = Rmtout(6)
+                                 gnorx = rmtout(6)
+                                 gnory = rmtout(6)
                               ELSEIF ( mtype==0 ) THEN
-                                 gnorx = Rmtout(1)
-                                 gnory = Rmtout(4)
+                                 gnorx = rmtout(1)
+                                 gnory = rmtout(4)
                               ELSE
-                                 gnorx = Rmtout(6)
-                                 gnory = Rmtout(5)
-                                 IF ( gnorx==0.0D0 ) gnorx = Rmtout(4)
-                                 IF ( gnory==0.0D0 ) gnory = Rmtout(4)
+                                 gnorx = rmtout(6)
+                                 gnory = rmtout(5)
+                                 IF ( gnorx==0.0D0 ) gnorx = rmtout(4)
+                                 IF ( gnory==0.0D0 ) gnory = rmtout(4)
                               ENDIF
 !WKBNE 11/93 SPR93020
 !WKBNB 2/94 SPR93020
                            ELSEIF ( mtype<0 ) THEN
-                              enorx = Rmtout(16)
-                              enory = Rmtout(16)
+                              enorx = rmtout(16)
+                              enory = rmtout(16)
                               dnux = gi(lpoint+1)/gi(lpoint)
                               dnuy = gi(lpoint+3)/gi(lpoint+4)
                            ELSEIF ( mtype==0 ) THEN
-                              enorx = Rmtout(1)
-                              enory = Rmtout(4)
+                              enorx = rmtout(1)
+                              enory = rmtout(4)
                               dnux = gi(lpoint+1)/gi(lpoint)
                               dnuy = gi(lpoint+3)/gi(lpoint+4)
                            ELSE
-                              enorx = Rmtout(1)
-                              enory = Rmtout(3)
+                              enorx = rmtout(1)
+                              enory = rmtout(3)
                               dnux = gi(lpoint+1)/gi(lpoint)
                               dnuy = gi(lpoint+3)/gi(lpoint+4)
                            ENDIF
@@ -978,21 +974,21 @@ SUBROUTINE squd41
 !     MAT2
 !
                               DO imat = 1 , 3
-                                 alfa(imat) = Rmtout(7+imat)
+                                 alfa(imat) = rmtout(7+imat)
                               ENDDO
                            ELSEIF ( matset==8. ) THEN
 !
 !     MAT8
 !
-                              alfa(1) = Rmtout(8)
-                              alfa(2) = Rmtout(9)
+                              alfa(1) = rmtout(8)
+                              alfa(2) = rmtout(9)
                               alfa(3) = 0.0
                            ELSE
 !
 !     MAT1
 !
-                              alfa(1) = Rmtout(8)
-                              alfa(2) = Rmtout(8)
+                              alfa(1) = rmtout(8)
+                              alfa(2) = rmtout(8)
                               alfa(3) = 0.0
                            ENDIF
 !
@@ -1000,11 +996,11 @@ SUBROUTINE squd41
                            IF ( matset==1.0 ) THEN
                               DO ialf = 1 , 3
                                  mp = mpoint - 1 + ialf
-                                 Phiout(mp) = alfa(ialf)
+                                 phiout(mp) = alfa(ialf)
                               ENDDO
                            ELSE
                               CALL invers(3,u,3,bdum,0,detu,isngu,index)
-                              CALL gmmats(u,3,3,0,alfa,3,1,0,Phiout(mpoint))
+                              CALL gmmats(u,3,3,0,alfa,3,1,0,phiout(mpoint))
                            ENDIF
                         ENDIF
                      ENDIF
@@ -1023,7 +1019,7 @@ SUBROUTINE squd41
                ENDDO
             ENDDO
 !
-            IF ( Membrn ) THEN
+            IF ( membrn ) THEN
                DO ig = 1 , 3
                   ig1 = (ig-1)*3
                   DO jg = 1 , 3
@@ -1033,7 +1029,7 @@ SUBROUTINE squd41
                ENDDO
             ENDIF
 !
-            IF ( Bendng ) THEN
+            IF ( bendng ) THEN
                DO ig = 4 , 6
                   ig2 = (ig-2)*3
                   DO jg = 4 , 6
@@ -1042,7 +1038,7 @@ SUBROUTINE squd41
                   ENDDO
                ENDDO
 !
-               IF ( Membrn ) THEN
+               IF ( membrn ) THEN
                   DO ig = 1 , 3
                      kg = ig + 3
                      ig1 = (ig-1)*3
@@ -1062,7 +1058,7 @@ SUBROUTINE squd41
             DO ig = 1 , 6
                DO jg = 1 , 6
                   ig1 = ig1 + 1
-                  Phiout(ig1) = g(ig,jg)
+                  phiout(ig1) = g(ig,jg)
                ENDDO
             ENDDO
 !
@@ -1104,16 +1100,16 @@ SUBROUTINE squd41
 !     MULTIPLY  TEB AND TBG MATRICES  TO GET  TEG-MATRIX
 !     FOR THIS GRID POINT AND STORE IT IN PHIOUT.
 !
-            DO i = 1 , Nnode
+            DO i = 1 , nnode
                ip = 80 + (i-1)*9
                IF ( igpdt(1,i)<=0 ) THEN
 !
                   DO j = 1 , 9
-                     Phiout(ip+j-1) = teb(j)
+                     phiout(ip+j-1) = teb(j)
                   ENDDO
                ELSE
                   CALL transs(igpdt(1,i),tbg)
-                  CALL gmmats(teb,3,3,0,tbg,3,3,0,Phiout(ip))
+                  CALL gmmats(teb,3,3,0,tbg,3,3,0,phiout(ip))
                ENDIF
             ENDDO
 !
@@ -1121,14 +1117,14 @@ SUBROUTINE squd41
 !     EVALUATION OF STRESSES IS DONE AT 2X2 POINTS AND AT THE
 !     CENTER OF THE ELEMENT, AT THE MID-SURFACE.
 !
-            IF ( .NOT.(Bendng) ) THEN
+            IF ( .NOT.(bendng) ) THEN
                j = nd3 + 1
                DO ibmx = j , nd8
                   bmatrx(ibmx) = 0.0
                ENDDO
             ENDIF
 !
-            icount = -(8*ndof+Nnode+32) + 79 + 9*Nnode
+            icount = -(8*ndof+nnode+32) + 79 + 9*nnode
 !
             ptintp(1) = -const
             ptintp(2) = const
@@ -1156,21 +1152,21 @@ SUBROUTINE squd41
                         dshptp(i+4) = dshp(i+4)
                      ENDDO
                      DO i = 1 , 4
-                        kk = Iorder(i)
+                        kk = iorder(i)
                         shp(i) = tmpshp(kk)
                         dshp(i) = dshptp(kk)
                         dshp(i+4) = dshptp(kk+4)
                      ENDDO
 !
                      th = 0.0
-                     DO ith = 1 , Nnode
+                     DO ith = 1 , nnode
                         th = th + shp(ith)*gpth(ith)
                      ENDDO
                      reali = mominr*th*th*th/12.0
                      tsi = ts*th
 !
                      IF ( .NOT.(nocsub) ) THEN
-                        IF ( Bendng ) THEN
+                        IF ( bendng ) THEN
 !      NUNORX = MOMINR*ENORX/(2.0*GNORX) - 1.0
 !      NUNORY = MOMINR*ENORY/(2.0*GNORY) - 1.0
 !WKBNB 2/94 SPR93020
@@ -1202,7 +1198,7 @@ SUBROUTINE squd41
                            IF ( xi<0.0 ) by = b + const*(yb(4)-yb(1)-b)
                            IF ( xi>0.0 ) by = b + const*(yb(3)-yb(2)-b)
                            psiiny = 32.0*reali/((1.0-nunory)*tsi*by*by)
-                           IF ( .NOT.Shrflx ) THEN
+                           IF ( .NOT.shrflx ) THEN
                               IF ( psiinx>=1.0 ) THEN
                                  tsmfx = 1.0
                               ELSE
@@ -1239,13 +1235,13 @@ SUBROUTINE squd41
                         IF ( ik==5 ) ik = 1
 !
                         SPAG_Loop_4_2: DO ir = 1 , 4
-                           IF ( ij==Iorder(ir) ) THEN
+                           IF ( ij==iorder(ir) ) THEN
                               ioj = ir
                               EXIT SPAG_Loop_4_2
                            ENDIF
                         ENDDO SPAG_Loop_4_2
                         SPAG_Loop_4_3: DO ir = 1 , 4
-                           IF ( ik==Iorder(ir) ) THEN
+                           IF ( ik==iorder(ir) ) THEN
                               iok = ir
                               EXIT SPAG_Loop_4_3
                            ENDIF
@@ -1254,26 +1250,26 @@ SUBROUTINE squd41
                         bb = shp(iok)
 !
                         DO is = 1 , 3
-                           Edgshr(is,ij) = (Uev(is,ij)+Anglei(ij)*Uev(is,ii))*aa/(1.0-Anglei(ij)*Anglei(ij))                        &
-                            & + (Uev(is,ij)+Anglei(ik)*Uev(is,ik))*bb/(1.0-Anglei(ik)*Anglei(ik))
+                           edgshr(is,ij) = (uev(is,ij)+anglei(ij)*uev(is,ii))*aa/(1.0-anglei(ij)*anglei(ij))                        &
+                            & + (uev(is,ij)+anglei(ik)*uev(is,ik))*bb/(1.0-anglei(ik)*anglei(ik))
                         ENDDO
                      ENDDO
 !
                      DO izta = 1 , 2
                         zeta = ptint(izta)
-                        Hzta = zeta/2.0
+                        hzta = zeta/2.0
                         ibot = (izta-1)*nd2
 !
 !     SET THE PHIOUT POINTER
 !
-                        icount = icount + 32 + Nnode + 8*ndof
+                        icount = icount + 32 + nnode + 8*ndof
 !
-                        Phiout(icount+1) = th
+                        phiout(icount+1) = th
 !
 !     STORE SHAPE FUNCTION VALUES IN PHIOUT
 !
-                        DO i = 1 , Nnode
-                           Phiout(icount+32+i) = shp(i)
+                        DO i = 1 , nnode
+                           phiout(icount+32+i) = shp(i)
                         ENDDO
 !
 !     STORE THE CORRECTION TO GBAR-MATRIX IN PHIOUT
@@ -1282,23 +1278,23 @@ SUBROUTINE squd41
                         ig4 = 28
                         DO ig = 1 , 9
                            ig1 = ig1 + 1
-                           Phiout(ig1) = -gi(ig4)*zeta*6.0
+                           phiout(ig1) = -gi(ig4)*zeta*6.0
                            ig4 = ig4 + 1
                         ENDDO
 !
 !     STORE G3-MATRIX IN PHIOUT
 !
                         iph = icount + 28
-                        Phiout(iph+1) = tsmfy*gi(19)
-                        Phiout(iph+2) = sqrt(tsmfx*tsmfy)*gi(20)
-                        Phiout(iph+3) = sqrt(tsmfx*tsmfy)*gi(21)
-                        Phiout(iph+4) = tsmfx*gi(22)
+                        phiout(iph+1) = tsmfy*gi(19)
+                        phiout(iph+2) = sqrt(tsmfx*tsmfy)*gi(20)
+                        phiout(iph+3) = sqrt(tsmfx*tsmfy)*gi(21)
+                        phiout(iph+4) = tsmfx*gi(22)
 !
 !     COMPUTE THE JACOBIAN AT THIS GAUSS POINT,
 !     ITS INVERSE AND ITS DETERMINANT.
 !
                         CALL jacobs(elid,shp,dshp,gpth,egpdt,epnorm,jacob)
-                        IF ( Badjac ) THEN
+                        IF ( badjac ) THEN
                            spag_nextblock_1 = 6
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
@@ -1308,15 +1304,15 @@ SUBROUTINE squd41
 !     TRANSPOSED BECAUSE OF OPPOSITE MATRIX LOADING CONVENTION BETWEEN
 !     INVER AND GMMAT.
 !
-                        CALL gmmats(Psitrn,3,3,0,jacob,3,3,1,phi)
+                        CALL gmmats(psitrn,3,3,0,jacob,3,3,1,phi)
 !
-                        CALL gmmats(tem,3,3,1,Psitrn,3,3,1,tmi)
+                        CALL gmmats(tem,3,3,1,psitrn,3,3,1,tmi)
 !
 !     STORE TMI-MATRIX IN PHIOUT
 !
                         iph = icount + 20
                         DO i = 1 , 9
-                           Phiout(iph) = tmi(i)
+                           phiout(iph) = tmi(i)
                            iph = iph + 1
                         ENDDO
 !
@@ -1328,8 +1324,8 @@ SUBROUTINE squd41
                         DO i = 1 , 3
                            gpc(i) = 0.0
                            ii = i + 1
-                           DO j = 1 , Nnode
-                              gpc(i) = gpc(i) + shp(j)*(bgpdt(ii,j)+Hzta*gpth(j)*gpnorm(ii,j))
+                           DO j = 1 , nnode
+                              gpc(i) = gpc(i) + shp(j)*(bgpdt(ii,j)+hzta*gpth(j)*gpnorm(ii,j))
                            ENDDO
                            ecpt(ii) = gpc(i)
                         ENDDO
@@ -1347,7 +1343,7 @@ SUBROUTINE squd41
 !     IF Q4STRS IS SET EQUAL TO 1, STRESSES WILL BE OUTPUT IN THE E C.S.
 !     WHICH COOINCIDES WITH MSC'S  VERSION OF ELEMENT COORDINATE SYSTEM.
 !
-                           thetas = Est(26)*Degrad
+                           thetas = est(26)*degrad
                         ELSE
 !
 !     FLAGS IS 1, I.E. SCSID HAS BEEN SPECIFIED.
@@ -1396,7 +1392,7 @@ SUBROUTINE squd41
 !                                   T
 !     CALCULATE  TSI  = TSE X PSITRN  AND STORE IT IN PHIOUT
 !
-                        CALL gmmats(tse,3,3,0,Psitrn,3,3,1,Phiout(icount+2))
+                        CALL gmmats(tse,3,3,0,psitrn,3,3,1,phiout(icount+2))
 !
 !     FOR CORNER POINTS (THE STRESS EVALUATION POINTS EXCEPT FOR THE
 !     ONES AT THE CENTER), CALCULATE TSB-MATRIX AND STORE IT IN IELOUT.
@@ -1412,14 +1408,14 @@ SUBROUTINE squd41
 !     SET THE ROW FLAG TO 3 TO CREATE THE FIRST 6 ROWS. THEN SET IT
 !     TO 1 FOR THE LAST 2 ROWS.
 !
-                        Rowflg = 3
+                        rowflg = 3
                         CALL q4bmgs(dshp,gpth,egpdt,epnorm,phi,bmatrx(1))
                         DO ix = 1 , ndof
                            bmatrx(ix+nd2) = xybmat(ibot+ix)
                         ENDDO
 !
-                        IF ( Bendng ) THEN
-                           Rowflg = 1
+                        IF ( bendng ) THEN
+                           rowflg = 1
                            CALL q4bmgs(dshp,gpth,egpdt,epnorm,phi,bmatrx(1+nd6))
                            DO ix = 1 , ndof
                               bmatrx(ix+nd5) = xybmat(ibot+ix+ndof)
@@ -1430,9 +1426,9 @@ SUBROUTINE squd41
 !     HERE WE SHIP OUT THE STRAIN RECOVERY MATRIX.
 !     --------------------------------------------
 !
-                        kcount = icount + 32 + Nnode
+                        kcount = icount + 32 + nnode
                         DO iph = 1 , nd8
-                           Phiout(kcount+iph) = bmatrx(iph)
+                           phiout(kcount+iph) = bmatrx(iph)
                         ENDDO
                      ENDDO
                   ENDIF
@@ -1448,16 +1444,15 @@ SUBROUTINE squd41
 !
          CALL mesage(30,j,name)
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          CALL angtrs(thetas,0,tsu)
          sinmat = 0.0
          cosmat = 1.0
          CALL hmat(elid)
-         Phiout(26) = Kheat(1)
-         Phiout(27) = Kheat(2)
-         Phiout(28) = Kheat(2)
-         Phiout(29) = Kheat(3)
+         phiout(26) = kheat(1)
+         phiout(27) = kheat(2)
+         phiout(28) = kheat(2)
+         phiout(29) = kheat(3)
 !
 !     BRANCH IF THERMAL CONDUCTIVITY KHEAT IS ISOTROPIC.
 !     OTHERWISE, FIND TBM, TBS AND TMS AND COMPUTE THE KHEAT
@@ -1468,9 +1463,9 @@ SUBROUTINE squd41
 !     SO WE CAN ONLY ASSUME THERMAL CONDUCTIVITY IS ISOTROPIC AND
 !     BRANCH TO 1610 UNCONDITIOANLLY BY SETTING TYPE =-1
 !
-         Type = -1
+         type = -1
 !
-         IF ( Type/=4 .AND. Type/=-1 ) THEN
+         IF ( type/=4 .AND. type/=-1 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1478,14 +1473,14 @@ SUBROUTINE squd41
       CASE (9)
          CALL gmmats(teu,3,3,1,jacobe,3,3,0,jacobu)
          CALL gmmats(tsu,3,3,0,jacobu,3,3,0,jacbs)
-         DO j = 1 , Nnode
+         DO j = 1 , nnode
             dq(j) = dshp(j)
-            jn = j + Nnode
+            jn = j + nnode
             dq(jn) = dshp(j+4)
-            jn = jn + Nnode
+            jn = jn + nnode
             dq(jn) = 0.0
          ENDDO
-         CALL gmmats(jacbs,3,3,0,dq,3,Nnode,0,Phiout(35))
+         CALL gmmats(jacbs,3,3,0,dq,3,nnode,0,phiout(35))
          RETURN
       END SELECT
    ENDDO SPAG_DispatchLoop_1

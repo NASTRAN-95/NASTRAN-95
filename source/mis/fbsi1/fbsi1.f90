@@ -1,14 +1,15 @@
-!*==fbsi1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbsi1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
+   USE c_fbsm
+   USE c_fbsx
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FBSM
-   USE C_FBSX
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,14 +44,14 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ncol = Dbl(2)
+         ncol = dbl(2)
          buf(1) = subnam
          buf(2) = begn
          iopen = 0
          CALL conmsg(buf,2,0)
-         last = Nvec*Nvecsz
+         last = nvec*nvecsz
          nidlt = 1
-         lcol = Ipos(1)
+         lcol = ipos(1)
          SPAG_Loop_1_1: DO j = 1 , lcol
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
@@ -61,7 +62,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 ! CHECK IF THIS ROW VALUE IS ZERO FOR ALL RIGHT HAND VECTORS
 !
-                  DO k = j , last , Nvecsz
+                  DO k = j , last , nvecsz
                      IF ( Y(k)/=zero ) THEN
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
@@ -70,15 +71,15 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 ! ALL VALUES FOR THIS ROW ARE ZERO, SKIP TO NEXT ROW OF RIGHT HAND VECTORS
 !
-                  IF ( nidlt>=Lasind ) EXIT SPAG_Loop_1_1
+                  IF ( nidlt>=lasind ) EXIT SPAG_Loop_1_1
                   kcol = Mem(nidlt)
                   IF ( kcol/=j ) GOTO 40
                   DO
                      nrows = Mem(nidlt+1)
                      nidlt = nidlt + nrows + 4
-                     IF ( nidlt>=Lasind ) EXIT SPAG_Loop_1_1
+                     IF ( nidlt>=lasind ) EXIT SPAG_Loop_1_1
                      kcol = Mem(nidlt)
-                     IF ( kcol/=j ) CYCLE SPAG_Loop_1_1
+                     IF ( kcol/=j ) EXIT SPAG_DispatchLoop_2
                   ENDDO
                   spag_nextblock_2 = 2
                CASE (2)
@@ -104,7 +105,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !     PROCESS CURRENT STRING IN TRIANGULAR FACTOR AGAINST EACH
 !     LOAD VECTOR IN CORE -- Y(I,K) = Y(I,K) + L(I,J)*Y(J,K)
 !
-                  DO k = 1 , last , Nvecsz
+                  DO k = 1 , last , nvecsz
                      yjk = Y(j1+k)
                      IF ( yjk/=zero ) THEN
                         iyrow = irow + k - 1
@@ -120,7 +121,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !     GET NEXT STRING IN TRIANGULAR FACTOR
 !
                   nidlt = nidlt + 4 + nrows
-                  IF ( nidlt<Lasind ) THEN
+                  IF ( nidlt<lasind ) THEN
                      kcol = Mem(nidlt)
                      IF ( kcol==j ) THEN
                         nrows = Mem(nidlt+1)
@@ -134,7 +135,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 !     END-OF-COLUMN ON TRIANGULAR FACTOR -- DIVIDE BY DIAGONAL
 !
-                  DO k = j , last , Nvecsz
+                  DO k = j , last , nvecsz
                      Y(k) = Y(k)*ljj
                   ENDDO
                   EXIT SPAG_DispatchLoop_2
@@ -144,11 +145,11 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
          ENDDO SPAG_Loop_1_1
          IF ( lcol/=ncol ) THEN
             ifcol = lcol + 1
-            CALL gopen(Dbl,Ibuff,Rdrew)
+            CALL gopen(dbl,Ibuff,rdrew)
 !
 ! POSITION FILE TO APPROPRIATE COLUMN TO BE READ
 !
-            CALL dsspos(Dbl,Ipos(2),Ipos(3),Ipos(4))
+            CALL dsspos(dbl,ipos(2),ipos(3),ipos(4))
             DO j = ifcol , ncol
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
@@ -158,7 +159,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 ! CHECK IF THIS ROW VALUE IS ZERO FOR ALL RIGHT HAND VECTORS
 !
-                     DO k = j , last , Nvecsz
+                     DO k = j , last , nvecsz
                         IF ( Y(k)/=zero ) THEN
                            spag_nextblock_3 = 2
                            CYCLE SPAG_DispatchLoop_3
@@ -167,8 +168,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 ! ALL VALUES FOR THIS ROW ARE ZERO, SKIP TO NEXT ROW OF RIGHT HAND VECTORS
 !
-                     CALL skprec(Dbl,1)
-                     CYCLE
+                     CALL skprec(dbl,1)
                   CASE (2)
 !
 !     GET 1ST STRING FOR COLUMN AND SAVE DIAGONAL ELEMENT
@@ -180,7 +180,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
                      indxi = Block(5)
                      nrows = Block(6)
                      indxl = indxi + nrows - 1
-                     ljj = 1.0D+0/L(indxi)
+                     ljj = 1.0D+0/l(indxi)
                      IF ( nrows==1 ) THEN
                         spag_nextblock_3 = 4
                         CYCLE SPAG_DispatchLoop_3
@@ -193,12 +193,12 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !     PROCESS CURRENT STRING IN TRIANGULAR FACTOR AGAINST EACH
 !     LOAD VECTOR IN CORE -- Y(I,K) = Y(I,K) + L(I,J)*Y(J,K)
 !
-                     DO k = 1 , last , Nvecsz
+                     DO k = 1 , last , nvecsz
                         yjk = Y(j1+k)
                         IF ( yjk/=zero ) THEN
                            iyrow = irow + k - 1
                            DO ij = indxi , indxl
-                              Y(iyrow) = Y(iyrow) + L(ij)*yjk
+                              Y(iyrow) = Y(iyrow) + l(ij)*yjk
                               iyrow = iyrow + 1
                            ENDDO
                         ENDIF
@@ -219,7 +219,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
 !     END-OF-COLUMN ON TRIANGULAR FACTOR -- DIVIDE BY DIAGONAL
 !
- 2                   DO k = j , last , Nvecsz
+ 2                   DO k = j , last , nvecsz
                         Y(k) = Y(k)*ljj
                      ENDDO
                      EXIT SPAG_DispatchLoop_3
@@ -278,14 +278,14 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !     PROCESS CURRENT STRING IN TRIANGULAR FACTOR AGAINST EACH
 !     LOAD VECTOR IN CORE -- Y(J,K) = Y(J,K) + L(J,I)*Y(I,K)
 !
-               DO k = 1 , last , Nvecsz
+               DO k = 1 , last , nvecsz
                   ji = indxi + 1
                   ik = irow + k
                   sum = 0.0D+0
                   DO ii = 1 , nrows
                      ji = ji - 1
                      ik = ik - 1
-                     sum = sum + L(ji)*Y(ik)
+                     sum = sum + l(ji)*Y(ik)
                   ENDDO
                   Y(j1+k) = Y(j1+k) + sum
                ENDDO
@@ -329,7 +329,7 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !     PROCESS CURRENT STRING IN TRIANGULAR FACTOR AGAINST EACH
 !     LOAD VECTOR IN CORE -- Y(J,K) = Y(J,K) + L(J,I)*Y(I,K)
 !
-            DO k = 1 , last , Nvecsz
+            DO k = 1 , last , nvecsz
                ji = indxi + 1
                ik = irow + k
                sum = 0.0D+0
@@ -362,12 +362,12 @@ SUBROUTINE fbsi1(Block,Y,Mem,Dmem,Ibuff)
 !
          buf(2) = end
          CALL conmsg(buf,2,0)
-         CALL close(Dbl,Rew)
+         CALL close(dbl,rew)
          RETURN
 !
 !     FATAL ERROR MESSAGE
 !
- 40      WRITE (Nout,99001) Sfm , subnam
+ 40      WRITE (nout,99001) sfm , subnam
 99001    FORMAT (A25,' 2149, SUBROUTINE ',A4,/5X,'FIRST ELEMENT OF A COLU',                                                         &
                 &'MN OF LOWER TRIANGULAR MATRIX IS NOT THE DIAGONAL ELEMENT')
          CALL mesage(-61,0,0)

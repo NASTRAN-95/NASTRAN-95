@@ -2,22 +2,28 @@
  
 SUBROUTINE krod
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1BK
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
-   USE C_SMA1IO
-   USE C_SYSTEM
+   USE c_blank
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i , iretrn , itemp , k1 , k2 , ka , kb , nonpvt
    INTEGER , DIMENSION(4) :: iecpt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -77,37 +83,37 @@ SUBROUTINE krod
 !*****
 !  BRANCH ON HEAT FORMULATION.
 !*****
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
 !*****
 !  HEAT FORMULATION.  FIRST COMPUTE LENGTH OF ELEMENT.
 !*****
-      X = Ecpt(14) - Ecpt(10)
-      Y = Ecpt(15) - Ecpt(11)
-      Z = Ecpt(16) - Ecpt(12)
-      Xl = dsqrt(X**2+Y**2+Z**2)
-      IF ( Xl<=0 ) CALL mesage(-30,26,iecpt(1))
+      x = ecpt(14) - ecpt(10)
+      y = ecpt(15) - ecpt(11)
+      z = ecpt(16) - ecpt(12)
+      xl = dsqrt(x**2+y**2+z**2)
+      IF ( xl<=0 ) CALL mesage(-30,26,iecpt(1))
 !
 !     GET MATERIAL PROPERTY -K- FROM HMAT ROUTINE
 !
-      Matflg = 1
-      Matidc = iecpt(4)
-      Eltemp = Ecpt(17)
+      matflg = 1
+      matidc = iecpt(4)
+      eltemp = ecpt(17)
       CALL hmat(iecpt)
 !
-      Xl = dble(Fk)*dble(Ecpt(5))/Xl
+      xl = dble(fk)*dble(ecpt(5))/xl
 !
-      IF ( Npvt==iecpt(3) ) Xl = -Xl
+      IF ( npvt==iecpt(3) ) xl = -xl
       DO i = 1 , 2
-         CALL sma1b(Xl,iecpt(i+1),Npvt,Ifkgg,0.0D0)
-         Xl = -Xl
+         CALL sma1b(xl,iecpt(i+1),npvt,ifkgg,0.0D0)
+         xl = -xl
       ENDDO
       GOTO 99999
    ELSE
-      IF ( iecpt(2)==Npvt ) THEN
+      IF ( iecpt(2)==npvt ) THEN
          ka = 9
          kb = 13
       ELSE
-         IF ( iecpt(3)/=Npvt ) CALL mesage(-30,34,iecpt(1))
+         IF ( iecpt(3)/=npvt ) CALL mesage(-30,34,iecpt(1))
          itemp = iecpt(2)
          iecpt(2) = iecpt(3)
          iecpt(3) = itemp
@@ -122,62 +128,62 @@ SUBROUTINE krod
 ! WE STORE THE COORDINATES IN THE D ARRAY SO THAT ALL ARITHMETIC WILL BE
 ! DOUBLE PRECISION
 !
-      D(1) = Ecpt(ka+1)
-      D(2) = Ecpt(ka+2)
-      D(3) = Ecpt(ka+3)
-      D(4) = Ecpt(kb+1)
-      D(5) = Ecpt(kb+2)
-      D(6) = Ecpt(kb+3)
-      X = D(1) - D(4)
-      Y = D(2) - D(5)
-      Z = D(3) - D(6)
-      Xl = dsqrt(X**2+Y**2+Z**2)
-      IF ( Xl/=0.0D0 ) THEN
+      d(1) = ecpt(ka+1)
+      d(2) = ecpt(ka+2)
+      d(3) = ecpt(ka+3)
+      d(4) = ecpt(kb+1)
+      d(5) = ecpt(kb+2)
+      d(6) = ecpt(kb+3)
+      x = d(1) - d(4)
+      y = d(2) - d(5)
+      z = d(3) - d(6)
+      xl = dsqrt(x**2+y**2+z**2)
+      IF ( xl/=0.0D0 ) THEN
 !
 ! CALCULATE A NORMALIZED DIRECTION VECTOR IN BASIC COORDINATES.
 !
-         Xn(1) = X/Xl
-         Xn(2) = Y/Xl
-         Xn(3) = Z/Xl
+         xn(1) = x/xl
+         xn(2) = y/xl
+         xn(3) = z/xl
 !
 ! LOCATE E = YOUNG-S MODULUS, G = SHEAR MODULUS AND DAMPC = DAMPING
 ! CONSTANT IN THE MAT1 TABLE AND COMPUTE DSCL = A * E / XL AND
 ! DSCR = J * G / XL.  A IS ECPT(5) AND J IS ECPT(6)
 !
-         Matidc = iecpt(4)
-         Matflg = 1
-         Eltemp = Ecpt(17)
+         matidc = iecpt(4)
+         matflg = 1
+         eltemp = ecpt(17)
          CALL mat(iecpt(1))
 !
 ! WE STORE ECPT(5), ECPT(6), E AND G IN DOUBLE PRECISION LOCATIONS SO
 ! THAT ALL ARITHMETIC WILL BE DOUBLE PRECISION
 !
-         D(1) = Ecpt(5)
-         D(2) = E
-         D(3) = Ecpt(6)
-         D(4) = G
-         Dscl = D(1)*D(2)/Xl
-         Dscr = D(3)*D(4)/Xl
-         Dampc = Gsube
+         d(1) = ecpt(5)
+         d(2) = e
+         d(3) = ecpt(6)
+         d(4) = g
+         dscl = d(1)*d(2)/xl
+         dscr = d(3)*d(4)/xl
+         dampc = gsube
 !
 ! SET UP THE -N- MATRIX AND STORE AT D(1)
 !
-         D(1) = Xn(1)*Xn(1)
-         D(2) = Xn(1)*Xn(2)
-         D(3) = Xn(1)*Xn(3)
-         D(4) = D(2)
-         D(5) = Xn(2)*Xn(2)
-         D(6) = Xn(2)*Xn(3)
-         D(7) = D(3)
-         D(8) = D(6)
-         D(9) = Xn(3)*Xn(3)
+         d(1) = xn(1)*xn(1)
+         d(2) = xn(1)*xn(2)
+         d(3) = xn(1)*xn(3)
+         d(4) = d(2)
+         d(5) = xn(2)*xn(2)
+         d(6) = xn(2)*xn(3)
+         d(7) = d(3)
+         d(8) = d(6)
+         d(9) = xn(3)*xn(3)
 !
 ! ZERO OUT THE 6X6 WHICH WILL BE USED FOR STORAGE OF KGG(NPVT,NONPVT),
 ! NONPVT = NPVT,J
 ! KGG(NPVT,NONPVT), NONPVT = NPVT,J
 !
          DO i = 1 , 36
-            Ke(i) = 0.0D0
+            ke(i) = 0.0D0
          ENDDO
          nonpvt = 2
          k2 = 1
@@ -187,9 +193,9 @@ SUBROUTINE krod
          IF ( iecpt(ka)==0 ) THEN
             ASSIGN 200 TO iretrn
          ELSE
-            CALL transd(Ecpt(ka),Ti(1))
-            CALL gmmatd(Ti(1),3,3,1,D(1),3,3,0,D(10))
-            CALL gmmatd(D(10),3,3,0,Ti(1),3,3,0,D(1))
+            CALL transd(ecpt(ka),ti(1))
+            CALL gmmatd(ti(1),3,3,1,d(1),3,3,0,d(10))
+            CALL gmmatd(d(10),3,3,0,ti(1),3,3,0,d(1))
 !
 ! AT THIS POINT D(1) CONTAINS THE MATRIX PRODUCT TAT * N * TA
 ! AND D(10) CONTAINS THE MATRIX PRODUCT TAT * N.
@@ -201,35 +207,35 @@ SUBROUTINE krod
 !
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULA
 !
-         Nogo = 1
+         nogo = 1
          RETURN
       ENDIF
    ENDIF
 !
 ! FILL THE KE MATRIX
 !
- 100  Ke(1) = Dscl*D(k2)
-   Ke(2) = Dscl*D(k2+1)
-   Ke(3) = Dscl*D(k2+2)
-   Ke(7) = Dscl*D(k2+3)
-   Ke(8) = Dscl*D(k2+4)
-   Ke(9) = Dscl*D(k2+5)
-   Ke(13) = Dscl*D(k2+6)
-   Ke(14) = Dscl*D(k2+7)
-   Ke(15) = Dscl*D(k2+8)
-   Ke(22) = Dscr*D(k2)
-   Ke(23) = Dscr*D(k2+1)
-   Ke(24) = Dscr*D(k2+2)
-   Ke(28) = Dscr*D(k2+3)
-   Ke(29) = Dscr*D(k2+4)
-   Ke(30) = Dscr*D(k2+5)
-   Ke(34) = Dscr*D(k2+6)
-   Ke(35) = Dscr*D(k2+7)
-   Ke(36) = Dscr*D(k2+8)
-   CALL sma1b(Ke,Ecpt(nonpvt),-1,Ifkgg,0.0D0)
-   IF ( Iopt4/=0 .AND. Gsube/=0.0 ) THEN
-      K4ggsw = 1
-      CALL sma1b(Ke,Ecpt(nonpvt),-1,If4gg,Dampc)
+ 100  ke(1) = dscl*d(k2)
+   ke(2) = dscl*d(k2+1)
+   ke(3) = dscl*d(k2+2)
+   ke(7) = dscl*d(k2+3)
+   ke(8) = dscl*d(k2+4)
+   ke(9) = dscl*d(k2+5)
+   ke(13) = dscl*d(k2+6)
+   ke(14) = dscl*d(k2+7)
+   ke(15) = dscl*d(k2+8)
+   ke(22) = dscr*d(k2)
+   ke(23) = dscr*d(k2+1)
+   ke(24) = dscr*d(k2+2)
+   ke(28) = dscr*d(k2+3)
+   ke(29) = dscr*d(k2+4)
+   ke(30) = dscr*d(k2+5)
+   ke(34) = dscr*d(k2+6)
+   ke(35) = dscr*d(k2+7)
+   ke(36) = dscr*d(k2+8)
+   CALL sma1b(ke,ecpt(nonpvt),-1,ifkgg,0.0D0)
+   IF ( iopt4/=0 .AND. gsube/=0.0 ) THEN
+      k4ggsw = 1
+      CALL sma1b(ke,ecpt(nonpvt),-1,if4gg,dampc)
    ENDIF
 !
 !  RETURN  FROM  FILL  CODE W/ IRETRN = 90 IMPLIES G.P. A WAS IN BASIC
@@ -251,25 +257,24 @@ SUBROUTINE krod
    IF ( iecpt(kb)==0 ) THEN
       k2 = k1
    ELSE
-      CALL transd(Ecpt(kb),Ti(1))
+      CALL transd(ecpt(kb),ti(1))
 !
 ! RECALL THAT D(K1) CONTAINS TAT * N.
 !
 !
 ! AT THIS POINT D(K2) CONTAINS TAT * N * TB.
 !
-      CALL gmmatd(D(k1),3,3,0,Ti(1),3,3,0,D(k2))
+      CALL gmmatd(d(k1),3,3,0,ti(1),3,3,0,d(k2))
    ENDIF
-   ASSIGN 500 TO iretrn
+   ASSIGN 99999 TO iretrn
 !
 ! SET CONSTANTS NEGATIVE TO PROPERLY COMPUTE K(NPVT,NONPVT)
 !
-   Dscr = -Dscr
-   Dscl = -Dscl
+   dscr = -dscr
+   dscl = -dscl
    GOTO 100
 !
 ! A TRANSFER TO STATEMENT NO. 140 IMPLIES KGG AND/OR K4GG CALCULATIONS
 ! HAVE BEEN COMPLETED.
 !
- 500  RETURN
 99999 END SUBROUTINE krod

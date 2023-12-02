@@ -1,13 +1,14 @@
-!*==linel.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==linel.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
+   USE c_blank
+   USE c_drwdat
+   USE c_pltscr
+   USE c_system
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DRWDAT
-   USE C_PLTSCR
-   USE C_SYSTEM
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -159,8 +160,8 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL read(*160,*100,Elset,etyp,1,0,i)
-         CALL fread(Elset,i,1,0)
+         CALL read(*160,*100,elset,etyp,1,0,i)
+         CALL fread(elset,i,1,0)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -198,7 +199,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
 !     CHECK FOR PDUM ELEMENTS BEFORE REJECTING
 !
                DO ii = 1 , 9
-                  IF ( etyp==ldx(ii) ) CALL pdumi(*20,*80,*60,ii,m,Opcor,ngpel,k,Elset,Opt)
+                  IF ( etyp==ldx(ii) ) CALL pdumi(*20,*80,*60,ii,m,Opcor,ngpel,k,elset,Opt)
                ENDDO
                GOTO 60
             ELSE
@@ -206,25 +207,25 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                m = ngpelx
             ENDIF
          ENDIF
-         IF ( ngpelx>Nnn ) GOTO 60
+         IF ( ngpelx>nnn ) GOTO 60
  40      SPAG_Loop_1_1: DO
 !
 !     READ THE ELEMENT DATA
 !
-            CALL fread(Elset,elid,1,0)
+            CALL fread(elset,elid,1,0)
             IF ( elid<=0 ) GOTO 20
-            CALL fread(Elset,lid,1,0)
-            CALL fread(Elset,G,ngpel,0)
-            IF ( ngpel/=ngpelx ) G(ngpelx) = G(1)
+            CALL fread(elset,lid,1,0)
+            CALL fread(elset,g,ngpel,0)
+            IF ( ngpel/=ngpelx ) g(ngpelx) = g(1)
 !
 !     CALL OFSPLT TO PROCESS OFFSET PLOT
 !
-            IF ( offset/=0 ) CALL ofsplt(*40,etyp,elid,G,offset,X,Deform,Gplst)
+            IF ( offset/=0 ) CALL ofsplt(*40,etyp,elid,g,offset,X,Deform,Gplst)
             IF ( type>=10 .AND. type<=14 ) THEN
 !
 !     SPECIAL HANDLING FOR CHBDY
 !
-               type = 9 + G(ngpel)
+               type = 9 + g(ngpel)
                l1 = ngtyp(1,type)
                m = ngtyp(2,type)
             ENDIF
@@ -250,7 +251,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                   i2 = ng(l)
                   IF ( i1==0 ) THEN
 !
-                     Iz(k) = G(i2)
+                     Iz(k) = g(i2)
                   ELSEIF ( i2<0 ) THEN
                      i2 = -i2
 !
@@ -258,14 +259,14 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
 !
                      IF ( n/=k+m ) i1 = i1 + 1
                      DO i = i1 , i2
-                        Iz(k) = G(i)
+                        Iz(k) = g(i)
                         k = k + 1
                      ENDDO
                      k = k - 1
                   ELSEIF ( i2==0 ) THEN
                      Iz(k) = i2
                   ELSE
-                     Iz(k) = G(i2)
+                     Iz(k) = g(i2)
                   ENDIF
                   k = k + 1
                   IF ( k>=n ) THEN
@@ -274,8 +275,8 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
 !
                      Iz(k) = 0
                      k = k + 1
-                     IF ( k+m+1>Opcor ) GOTO 80
-                     CYCLE SPAG_Loop_1_1
+                     IF ( k+m+1<=Opcor ) CYCLE SPAG_Loop_1_1
+                     GOTO 80
                   ENDIF
                ENDDO
             ELSE
@@ -299,7 +300,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                i2 = -i2
                i2 = min0(i2,m)
                j = i1 + 1
-               i1 = G(i1)
+               i1 = g(i1)
                IF ( 2*(i2-j+1)+k>Opcor ) THEN
 !
                   Opt = 0
@@ -308,11 +309,11 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                   CYCLE SPAG_DispatchLoop_1
                ELSE
                   DO i = j , i2
-                     Iz(k) = min0(G(i),i1)
-                     Iz(k+1) = max0(G(i),i1)
+                     Iz(k) = min0(g(i),i1)
+                     Iz(k+1) = max0(g(i),i1)
                      k = k + 2
                      ll = ll + 1
-                     i1 = G(i)
+                     i1 = g(i)
                   ENDDO
                   IF ( ll==m-1 ) ll = ll - 1
                   EXIT SPAG_Loop_1_2
@@ -324,8 +325,8 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
             ELSE
 !
                IF ( k+1>Opcor ) GOTO 80
-               Iz(k) = min0(G(i2),G(i1))
-               Iz(k+1) = max0(G(i2),G(i1))
+               Iz(k) = min0(g(i2),g(i1))
+               Iz(k+1) = max0(g(i2),g(i1))
                k = k + 2
                EXIT SPAG_Loop_1_2
             ENDIF
@@ -339,15 +340,15 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
 !
 !     ILLEGAL ELEMENT, NO CORE FOR 1 ELEMENT
 !
- 60      G(1) = 2
-         G(2) = etyp
-         G(3) = ngpel
-         CALL wrtprt(Merr,G,m1,nm1)
+ 60      g(1) = 2
+         g(2) = etyp
+         g(3) = ngpel
+         CALL wrtprt(merr,g,m1,nm1)
          DO
 !
 !     READ TO THE END OF THIS ELEMENT
 !
-            CALL fread(Elset,elid,1,0)
+            CALL fread(elset,elid,1,0)
             IF ( elid<=0 ) THEN
 !
 !     NOTE THAT BOTH OPT AND NWDS=0 FOR ILLEGAL ELEMENTS
@@ -359,7 +360,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                CYCLE SPAG_DispatchLoop_1
             ELSE
                j = 1 + ngpel + offset
-               CALL fread(Elset,0,-j,0)
+               CALL fread(elset,0,-j,0)
             ENDIF
          ENDDO
          spag_nextblock_1 = 4
@@ -386,7 +387,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
 !
 !     SORT
 !
- 100     IF ( Pedge==3 ) THEN
+ 100     IF ( pedge==3 ) THEN
             Nwds = 0
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -442,7 +443,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                         IF ( Iz(j+1)<Iz(k-1) ) THEN
                            k = k - 2
                         ELSEIF ( Iz(j+1)==Iz(k-1) ) THEN
-                           CYCLE SPAG_Loop_1_3
+                           EXIT SPAG_DispatchLoop_2
                         ELSE
                            EXIT SPAG_Loop_2_4
                         ENDIF
@@ -495,7 +496,6 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
          IF ( 2*Nwds>Opcor ) THEN
             Nwds = 0
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 1 , Nwds , 2
                Iz(k) = Iz(i+1)
@@ -506,10 +506,10 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
             CALL sort(0,0,2,1,Iz,Nwds)
             ASSIGN 140 TO iret
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
- 140     IF ( Nwds+Ngp+1>Opcor ) THEN
+ 140     IF ( Nwds+ngp+1>Opcor ) THEN
             Nwds = 0
          ELSE
             k = 1
@@ -541,7 +541,7 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
                      Iz(m) = Iz(m-1) + i
                      l = l + 1
                      i = 0
-                     IF ( l>Ngp ) THEN
+                     IF ( l>ngp ) THEN
 !
 !     EFFICIENCY PLOT POSSIBLE
 !
@@ -558,9 +558,8 @@ SUBROUTINE linel(Iz,Nwds,Opcor,Opt,X,Pen,Deform,Gplst)
       CASE (6)
          RETURN
 !
- 160     CALL mesage(-2,Elset,name)
+ 160     CALL mesage(-2,elset,name)
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE linel

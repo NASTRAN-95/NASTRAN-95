@@ -2,23 +2,29 @@
  
 SUBROUTINE bandit
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDG
-   USE C_BANDS
-   USE C_BANDW
-   USE C_GEOMX
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bandg
+   USE c_bands
+   USE c_bandw
+   USE c_geomx
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , SAVE :: end , iquit
    INTEGER :: ii3 , k1 , k2 , k3 , k4 , k5 , k6 , k7 , k8 , k9 , kdim4
    INTEGER , DIMENSION(3) , SAVE :: sub
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -117,68 +123,68 @@ SUBROUTINE bandit
 !           =  3, PROFILE
 !           =  4, MAX WAVEFRONT
 !
-   Nzero = 0
-   I77 = 77
-   Nompc = 0
-   Nodep = -1
-   Nopch = -1
-   Norun = -1
-   Method = +1
-   Kdim = 1
-   Icrit = 1
-   Irept = 0
+   nzero = 0
+   i77 = 77
+   nompc = 0
+   nodep = -1
+   nopch = -1
+   norun = -1
+   method = +1
+   kdim = 1
+   icrit = 1
+   irept = 0
 !
 !     THE ABOVE DEFAULT VALUES CAN BE RESET BY THE NASTRAN CARD.
 !     (SEE SUBROUTINE NASCAR BANDIT FLAG FOR MORE DETAILS)
 !     ******************************************************************
 !
    CALL conmsg(sub,3,0)
-   Nbpw = Is(37)
-   Mach = Machin
-   Kore = korsz(Z(1))
-   Ibuf1 = Kore - Ibuf - 2
-   Kore = Ibuf1 - 1
+   nbpw = is(37)
+   mach = machin
+   kore = korsz(z(1))
+   ibuf1 = kore - ibuf - 2
+   kore = ibuf1 - 1
    DO
 !
 !     CALL BGRID TO GET THE NO. OF GRID POINTS IN THE PROBLEM, SET
 !     THE INTEGER PACKING CONSTANT, NW, AND COMPUTE MAXGRD AND MAXDEG.
 !     BANDIT QUITS IF PROBLEM IS TOO SMALL TO BE WORTHWHILE.
 !
-      Irept = Irept + 1
+      irept = irept + 1
       CALL bgrid
-      IF ( Ngrid<15 ) THEN
+      IF ( ngrid<15 ) THEN
          sub(3) = iquit
          CALL conmsg(sub,3,0)
          EXIT
       ELSE
-         kdim4 = Kdim*4
-         ii3 = 2*Maxgrd
+         kdim4 = kdim*4
+         ii3 = 2*maxgrd
 !
 !     PARTITION OPEN CORE FOR SCHEME COMPUTATION.
 !
          k2 = 1 + kdim4
          k3 = k2 + 2*ii3 + 2
-         IF ( Method<=0 .AND. Maxdeg>Maxgrd ) k3 = k3 + Maxdeg - Maxgrd
-         k4 = k3 + Maxgrd + 1
-         k5 = k4 + Maxgrd
-         k6 = k5 + Maxgrd + 1
-         k7 = k6 + Maxgrd
-         k8 = k7 + Maxdeg
-         k1 = k8 + Maxdeg + Nw
-         k9 = k1 + Maxgrd*Maxdeg/Nw
-         IF ( k9>Kore ) CALL mesage(-8,k9-Kore,sub)
+         IF ( method<=0 .AND. maxdeg>maxgrd ) k3 = k3 + maxdeg - maxgrd
+         k4 = k3 + maxgrd + 1
+         k5 = k4 + maxgrd
+         k6 = k5 + maxgrd + 1
+         k7 = k6 + maxgrd
+         k8 = k7 + maxdeg
+         k1 = k8 + maxdeg + nw
+         k9 = k1 + maxgrd*maxdeg/nw
+         IF ( k9>kore ) CALL mesage(-8,k9-kore,sub)
 !
 !     READ BULK DATA, SET UP CONNECTION TABLE, AND RESEQUENCE NODES.
 !
-         CALL scheme(Z(k1),Z(k2),ii3,Z(k3),Z(k4),Z(k5),Z(k6),Z(k7),Z(k8),Z)
-         IF ( Ngrid==-1 ) CALL sptchk
-         IF ( Irept/=2 ) THEN
-            IF ( Ngrid<0 ) THEN
+         CALL scheme(z(k1),z(k2),ii3,z(k3),z(k4),z(k5),z(k6),z(k7),z(k8),z)
+         IF ( ngrid==-1 ) CALL sptchk
+         IF ( irept/=2 ) THEN
+            IF ( ngrid<0 ) THEN
 !
 !     NO BANDIT RUN.
 !
-               Nogo = 1
-            ELSEIF ( Ngrid/=0 ) THEN
+               nogo = 1
+            ELSEIF ( ngrid/=0 ) THEN
 !
 !     JOB DONE.
 !

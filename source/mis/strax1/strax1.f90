@@ -2,13 +2,13 @@
  
 SUBROUTINE strax1
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_MATPZ
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_matpz
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -27,6 +27,12 @@ SUBROUTINE strax1
    LOGICAL :: lsys78 , pzmat
    REAL , DIMENSION(3) :: r , z
    REAL , DIMENSION(45) :: teo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -75,37 +81,37 @@ SUBROUTINE strax1
 !>>>>    & (Consts(4),Degrad) , (acurp1(1),acurl(82)) , (acurp2(1),acurl(109))
 !
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
 !
 !     START EXECUTION
 !
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !
-   Idel = iecpt(1)
-   Igp(1) = iecpt(2)
-   Igp(2) = iecpt(3)
-   Igp(3) = iecpt(4)
+   idel = iecpt(1)
+   igp(1) = iecpt(2)
+   igp(2) = iecpt(3)
+   igp(3) = iecpt(4)
    matid = iecpt(7)
    ics(1) = iecpt(22)
-   r(1) = Ecpt(23)
-   z(1) = Ecpt(24)
-   D(1) = Ecpt(25)
+   r(1) = ecpt(23)
+   z(1) = ecpt(24)
+   d(1) = ecpt(25)
    ics(2) = iecpt(26)
-   r(2) = Ecpt(27)
-   z(2) = Ecpt(28)
-   D(2) = Ecpt(29)
+   r(2) = ecpt(27)
+   z(2) = ecpt(28)
+   d(2) = ecpt(29)
    ics(3) = iecpt(30)
-   r(3) = Ecpt(31)
-   z(3) = Ecpt(32)
-   D(3) = Ecpt(33)
-   dgama = Ecpt(5)
-   tempe = Ecpt(34)
+   r(3) = ecpt(31)
+   z(3) = ecpt(32)
+   d(3) = ecpt(33)
+   dgama = ecpt(5)
+   tempe = ecpt(34)
 !
 !     TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
    DO i = 1 , 3
       IF ( r(i)<=0.0 ) GOTO 100
-      IF ( D(i)/=0.0 ) GOTO 100
+      IF ( d(i)/=0.0 ) GOTO 100
    ENDDO
 !
 !     COMPUTE THE ELEMENT COORDINATES
@@ -119,22 +125,22 @@ SUBROUTINE strax1
 !     TO GRID POINT DEGREES OF FREEDOM
 !
    DO i = 1 , 81
-      Gababq(i,1) = 0.0
+      gababq(i,1) = 0.0
    ENDDO
    aa = r2*z3 + r1*z2 + z1*r3 - z2*r3 - r1*z3 - r2*z1
    aa = 1.0/aa
    c1 = aa*(r2*z3-z2*r3)
    c2 = -aa*(z3-z2)
    c3 = aa*(r3-r2)
-   Gababq(1,1) = c1
-   Gababq(1,2) = c2
-   Gababq(1,3) = c3
-   Gababq(2,4) = c1
-   Gababq(2,5) = c2
-   Gababq(2,6) = c3
-   Gababq(3,7) = c1
-   Gababq(3,8) = c2
-   Gababq(3,9) = c3
+   gababq(1,1) = c1
+   gababq(1,2) = c2
+   gababq(1,3) = c3
+   gababq(2,4) = c1
+   gababq(2,5) = c2
+   gababq(2,6) = c3
+   gababq(3,7) = c1
+   gababq(3,8) = c2
+   gababq(3,9) = c3
    IF ( .NOT.(lsys78) ) THEN
       gababp(1,1) = c1
       gababp(1,2) = c2
@@ -143,15 +149,15 @@ SUBROUTINE strax1
    c1 = -aa*(r1*z3-z1*r3)
    c2 = aa*(z3-z1)
    c3 = -aa*(r3-r1)
-   Gababq(4,1) = c1
-   Gababq(4,2) = c2
-   Gababq(4,3) = c3
-   Gababq(5,4) = c1
-   Gababq(5,5) = c2
-   Gababq(5,6) = c3
-   Gababq(6,7) = c1
-   Gababq(6,8) = c2
-   Gababq(6,9) = c3
+   gababq(4,1) = c1
+   gababq(4,2) = c2
+   gababq(4,3) = c3
+   gababq(5,4) = c1
+   gababq(5,5) = c2
+   gababq(5,6) = c3
+   gababq(6,7) = c1
+   gababq(6,8) = c2
+   gababq(6,9) = c3
    IF ( .NOT.(lsys78) ) THEN
       gababp(2,1) = c1
       gababp(2,2) = c2
@@ -160,15 +166,15 @@ SUBROUTINE strax1
    c1 = aa*(r1*z2-z1*r2)
    c2 = -aa*(z2-z1)
    c3 = aa*(r2-r1)
-   Gababq(7,1) = c1
-   Gababq(7,2) = c2
-   Gababq(7,3) = c3
-   Gababq(8,4) = c1
-   Gababq(8,5) = c2
-   Gababq(8,6) = c3
-   Gababq(9,7) = c1
-   Gababq(9,8) = c2
-   Gababq(9,9) = c3
+   gababq(7,1) = c1
+   gababq(7,2) = c2
+   gababq(7,3) = c3
+   gababq(8,4) = c1
+   gababq(8,5) = c2
+   gababq(8,6) = c3
+   gababq(9,7) = c1
+   gababq(9,8) = c2
+   gababq(9,9) = c3
    IF ( .NOT.(lsys78) ) THEN
       gababp(3,1) = c1
       gababp(3,2) = c2
@@ -214,45 +220,45 @@ SUBROUTINE strax1
    dgamr = dgama*degrad
    cosg = cos(dgamr)
    sing = sin(dgamr)
-   Sinth = sing
-   Costh = cosg
-   Matidc = matid
-   Matflg = 7
-   IF ( Ksys78>0 ) Matflg = 9
-   Eltemp = tempe
-   CALL mat(Idel)
+   sinth = sing
+   costh = cosg
+   matidc = matid
+   matflg = 7
+   IF ( ksys78>0 ) matflg = 9
+   eltemp = tempe
+   CALL mat(idel)
    pzmat = .FALSE.
-   IF ( Setmat==4. .OR. Setmat==5. ) pzmat = .TRUE.
+   IF ( setmat==4. .OR. setmat==5. ) pzmat = .TRUE.
    IF ( pzmat ) THEN
-      Rho = Pzout(46)
-      Alf(1) = Pzout(47)
-      Alf(2) = Pzout(48)
-      Alf(3) = Pzout(49)
-      Tzero = Pzout(50)
-      Gsube = Pzout(51)
+      rho = pzout(46)
+      alf(1) = pzout(47)
+      alf(2) = pzout(48)
+      alf(3) = pzout(49)
+      tzero = pzout(50)
+      gsube = pzout(51)
    ELSE
-      ksave = Ksys78
-      Ksys78 = 0
+      ksave = ksys78
+      ksys78 = 0
       lsys78 = .TRUE.
    ENDIF
-   IF ( Setmat==2.0 ) THEN
+   IF ( setmat==2.0 ) THEN
       i = 126
       GOTO 200
    ELSE
-      Tz = Tzero
-      IF ( Ksys78<=0 ) THEN
+      tz = tzero
+      IF ( ksys78<=0 ) THEN
 !
 !     SET MATERIAL PROPERTIES IN LOCAL VARIABLES (AGAIN)
 !
-         er = E(1)
-         et = E(2)
-         ez = E(3)
-         vro = Anu(1)
-         voz = Anu(2)
-         vzr = Anu(3)
-         gor = G(1)
-         gzo = G(2)
-         grz = G(3)
+         er = e(1)
+         et = e(2)
+         ez = e(3)
+         vro = anu(1)
+         voz = anu(2)
+         vzr = anu(3)
+         gor = g(1)
+         gzo = g(2)
+         grz = g(3)
          vor = vro*et/er
          vzo = voz*ez/et
          vrz = vzr*er/ez
@@ -264,59 +270,59 @@ SUBROUTINE strax1
       DO i = 1 , 45
          teo(i) = 0.0
       ENDDO
-      IF ( Ksys78>0 ) THEN
+      IF ( ksys78>0 ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES STORED IN TEO(22-39)
 !     DIELECTRIC MATERIAL PROPERTIES STORED IN TEO(40-45)
 !     TEO(22-39) CONTAINS E-TRANSPOSE
 !
-         teo(1) = Pzout(1)
-         teo(2) = Pzout(2)
-         teo(3) = Pzout(7)
-         teo(4) = Pzout(3)
-         teo(5) = Pzout(8)
-         teo(6) = Pzout(12)
-         teo(7) = Pzout(4)
-         teo(8) = Pzout(9)
-         teo(9) = Pzout(13)
-         teo(10) = Pzout(16)
-         teo(11) = Pzout(5)
-         teo(12) = Pzout(10)
-         teo(13) = Pzout(14)
-         teo(14) = Pzout(17)
-         teo(15) = Pzout(19)
-         teo(16) = Pzout(6)
-         teo(17) = Pzout(11)
-         teo(18) = Pzout(15)
-         teo(19) = Pzout(18)
-         teo(20) = Pzout(20)
-         teo(21) = Pzout(21)
+         teo(1) = pzout(1)
+         teo(2) = pzout(2)
+         teo(3) = pzout(7)
+         teo(4) = pzout(3)
+         teo(5) = pzout(8)
+         teo(6) = pzout(12)
+         teo(7) = pzout(4)
+         teo(8) = pzout(9)
+         teo(9) = pzout(13)
+         teo(10) = pzout(16)
+         teo(11) = pzout(5)
+         teo(12) = pzout(10)
+         teo(13) = pzout(14)
+         teo(14) = pzout(17)
+         teo(15) = pzout(19)
+         teo(16) = pzout(6)
+         teo(17) = pzout(11)
+         teo(18) = pzout(15)
+         teo(19) = pzout(18)
+         teo(20) = pzout(20)
+         teo(21) = pzout(21)
 !
-         IF ( Ksys78/=2 ) THEN
-            teo(22) = Pzout(22)
-            teo(23) = Pzout(28)
-            teo(24) = Pzout(34)
-            teo(25) = Pzout(23)
-            teo(26) = Pzout(29)
-            teo(27) = Pzout(35)
-            teo(28) = Pzout(24)
-            teo(29) = Pzout(30)
-            teo(30) = Pzout(36)
-            teo(31) = Pzout(25)
-            teo(32) = Pzout(31)
-            teo(33) = Pzout(37)
-            teo(34) = Pzout(26)
-            teo(35) = Pzout(32)
-            teo(36) = Pzout(38)
-            teo(37) = Pzout(27)
-            teo(38) = Pzout(33)
-            teo(39) = Pzout(39)
-            teo(40) = -Pzout(40)
-            teo(41) = -Pzout(41)
-            teo(42) = -Pzout(42)
-            teo(43) = -Pzout(43)
-            teo(44) = -Pzout(44)
-            teo(45) = -Pzout(45)
+         IF ( ksys78/=2 ) THEN
+            teo(22) = pzout(22)
+            teo(23) = pzout(28)
+            teo(24) = pzout(34)
+            teo(25) = pzout(23)
+            teo(26) = pzout(29)
+            teo(27) = pzout(35)
+            teo(28) = pzout(24)
+            teo(29) = pzout(30)
+            teo(30) = pzout(36)
+            teo(31) = pzout(25)
+            teo(32) = pzout(31)
+            teo(33) = pzout(37)
+            teo(34) = pzout(26)
+            teo(35) = pzout(32)
+            teo(36) = pzout(38)
+            teo(37) = pzout(27)
+            teo(38) = pzout(33)
+            teo(39) = pzout(39)
+            teo(40) = -pzout(40)
+            teo(41) = -pzout(41)
+            teo(42) = -pzout(42)
+            teo(43) = -pzout(43)
+            teo(44) = -pzout(44)
+            teo(45) = -pzout(45)
          ENDIF
       ELSE
          teo(1) = er*(1.0-voz*vzo)*del
@@ -514,14 +520,14 @@ SUBROUTINE strax1
 !     TRANSFORM THE ELEMENT STIFFNESS MATRIX FROM FIELD SYSTEM
 !     TO GRID POINT DEGREES OF FREEDOM
 !
-      CALL gmmats(Gababq,9,9,1,acurl,9,9,0,D)
-      CALL gmmats(D,9,9,0,Gababq,9,9,0,Ak)
+      CALL gmmats(gababq,9,9,1,acurl,9,9,0,d)
+      CALL gmmats(d,9,9,0,gababq,9,9,0,ak)
 !
       IF ( .NOT.(lsys78) ) THEN
-         CALL gmmats(Gababq,9,9,1,acurp1,9,3,0,d1)
-         CALL gmmats(d1,9,3,0,gababp,3,3,0,Akuph)
+         CALL gmmats(gababq,9,9,1,acurp1,9,3,0,d1)
+         CALL gmmats(d1,9,3,0,gababp,3,3,0,akuph)
          CALL gmmats(gababp,3,3,1,acurp2,3,3,0,d2)
-         CALL gmmats(d2,3,3,0,gababp,3,3,0,Akph2)
+         CALL gmmats(d2,3,3,0,gababp,3,3,0,akph2)
       ENDIF
 !
 !
@@ -552,7 +558,7 @@ SUBROUTINE strax1
 !
       DO i = 1 , 6
          DO j = 1 , 9
-            Wj(i,j) = 0.0
+            wj(i,j) = 0.0
          ENDDO
       ENDDO
       rsum = 0.0
@@ -564,25 +570,25 @@ SUBROUTINE strax1
       rsum = rsum/3.0
       zsum = zsum/3.0
       zdr = zsum/rsum
-      Wj(1,2) = 1.0
-      Wj(2,9) = 1.0
-      Wj(3,1) = 1.0/rsum
-      Wj(3,2) = 1.0
-      Wj(3,3) = zdr
-      Wj(3,4) = ajho/rsum
-      Wj(3,5) = ajho
-      Wj(3,6) = ajho*zdr
-      Wj(4,3) = 1.0
-      Wj(4,8) = 1.0
-      Wj(5,1) = -ajho/rsum
-      Wj(5,2) = -ajho
-      Wj(5,3) = -ajho*zdr
-      Wj(5,4) = -1.0/rsum
-      Wj(5,6) = -zdr
-      Wj(6,6) = 1.0
-      Wj(6,7) = -ajho/rsum
-      Wj(6,8) = -ajho
-      Wj(6,9) = -ajho*zdr
+      wj(1,2) = 1.0
+      wj(2,9) = 1.0
+      wj(3,1) = 1.0/rsum
+      wj(3,2) = 1.0
+      wj(3,3) = zdr
+      wj(3,4) = ajho/rsum
+      wj(3,5) = ajho
+      wj(3,6) = ajho*zdr
+      wj(4,3) = 1.0
+      wj(4,8) = 1.0
+      wj(5,1) = -ajho/rsum
+      wj(5,2) = -ajho
+      wj(5,3) = -ajho*zdr
+      wj(5,4) = -1.0/rsum
+      wj(5,6) = -zdr
+      wj(6,6) = 1.0
+      wj(6,7) = -ajho/rsum
+      wj(6,8) = -ajho
+      wj(6,9) = -ajho*zdr
 !
       IF ( .NOT.(lsys78) ) THEN
 !
@@ -603,13 +609,13 @@ SUBROUTINE strax1
 !
 !     COMPUTE THE STRESS MATRIX
 !
-      CALL gmmats(Wj,9,6,1,Gababq,9,9,0,D(1))
-      CALL gmmats(ee(1),6,6,0,D(1),6,9,0,Sel)
+      CALL gmmats(wj,9,6,1,gababq,9,9,0,d(1))
+      CALL gmmats(ee(1),6,6,0,d(1),6,9,0,sel)
       IF ( .NOT.(lsys78) ) THEN
          CALL gmmats(wjp,3,3,1,gababp,3,3,0,d2(1))
-         CALL gmmats(ee(37),6,3,0,d2(1),3,3,0,Selp1)
-         CALL gmmats(ee(37),6,3,1,D(1),6,9,0,Selp2)
-         CALL gmmats(ee(55),3,3,0,d2(1),3,3,0,Selp3)
+         CALL gmmats(ee(37),6,3,0,d2(1),3,3,0,selp1)
+         CALL gmmats(ee(37),6,3,1,d(1),6,9,0,selp2)
+         CALL gmmats(ee(55),3,3,0,d2(1),3,3,0,selp3)
       ENDIF
 !
 !    *** MORE CORD SYS REMOVAL.  FEL ABOVE IS WJ **********
@@ -623,14 +629,14 @@ SUBROUTINE strax1
 !
 !     COMPUTE THE THE THERMAL STRESS
 !
-      Ts(1) = ee(1)*Alf(1) + ee(2)*Alf(3) + ee(3)*Alf(2)
-      Ts(2) = ee(7)*Alf(1) + ee(8)*Alf(3) + ee(9)*Alf(2)
-      Ts(3) = ee(13)*Alf(1) + ee(14)*Alf(3) + ee(15)*Alf(2)
-      Ts(4) = ee(19)*Alf(1) + ee(20)*Alf(3) + ee(21)*Alf(2)
-      Ts(5) = 0.0
-      Ts(6) = 0.0
+      ts(1) = ee(1)*alf(1) + ee(2)*alf(3) + ee(3)*alf(2)
+      ts(2) = ee(7)*alf(1) + ee(8)*alf(3) + ee(9)*alf(2)
+      ts(3) = ee(13)*alf(1) + ee(14)*alf(3) + ee(15)*alf(2)
+      ts(4) = ee(19)*alf(1) + ee(20)*alf(3) + ee(21)*alf(2)
+      ts(5) = 0.0
+      ts(6) = 0.0
       DO iki = 1 , 14
-         Phi(iki) = Ecpt(7+iki)
+         phi(iki) = ecpt(7+iki)
       ENDDO
       GOTO 300
    ENDIF
@@ -638,7 +644,7 @@ SUBROUTINE strax1
 !     SET FATAL ERROR FLAG AND ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
  100  i = 37
- 200  CALL mesage(30,i,Idel)
+ 200  CALL mesage(30,i,idel)
    nogo = 1
- 300  IF ( .NOT.pzmat ) Ksys78 = ksave
+ 300  IF ( .NOT.pzmat ) ksys78 = ksave
 END SUBROUTINE strax1

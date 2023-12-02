@@ -1,18 +1,19 @@
-!*==xfldef.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xfldef.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xfldef(Name1,Name2,Nofind)
+   USE c_system
+   USE c_two
+   USE c_xgpi4
+   USE c_xgpi5
+   USE c_xgpi6
+   USE c_xgpic
+   USE c_xgpid
+   USE c_xmdmsk
+   USE c_xoldpt
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XGPI4
-   USE C_XGPI5
-   USE C_XGPI6
-   USE C_XGPIC
-   USE C_XGPID
-   USE C_XMDMSK
-   USE C_XOLDPT
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,9 +65,9 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !
          regen = Nofind
          Nofind = 1
-         IF ( Ptdbot>=Ptdtp ) THEN
-            DO ii = Ptdtp , Ptdbot , 3
-               i = Ptdbot + Ptdtp - ii
+         IF ( ptdbot>=ptdtp ) THEN
+            DO ii = ptdtp , ptdbot , 3
+               i = ptdbot + ptdtp - ii
                IF ( ptdic(i)==nam1 .AND. ptdic(i+1)==nam2 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
@@ -77,10 +78,10 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !     FILE NOT IN PTDIC - CHECK FNM TABLE IF RESTART IS MODIFIED AND
 !     APPROACH IS NOT DMAP
 !
-         IF ( Start/=Icst .AND. Iapp/=Idmapp ) THEN
+         IF ( start/=icst .AND. iapp/=idmapp ) THEN
             IF ( regen>=0 ) THEN
-               j = Fnmtp + 1
-               k = Fnmtp + fnm(Fnmtp)*3 - 2
+               j = fnmtp + 1
+               k = fnmtp + fnm(fnmtp)*3 - 2
                DO i = j , k , 3
                   IF ( nam1==fnm(i) .AND. nam2==fnm(i+1) ) GOTO 10
                ENDDO
@@ -95,14 +96,14 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !
                k = fmed(fmedtp+1)
                DO l = 1 , k
-                  Fmdmsk(l) = 0
+                  fmdmsk(l) = 0
                ENDDO
 !
 !     SET BIT IN FMDMSK FOR FILE REGENERATION
 !
                l = ((fnm(i+2)-1)/31) + 1
                k = fnm(i+2) - 31*(l-1) + 1
-               Fmdmsk(l) = or(Fmdmsk(l),Two(k))
+               fmdmsk(l) = or(fmdmsk(l),two(k))
 !
 !     USE FMDMSK AND FMED TABLE TO TURN ON OSCAR EXECUTE FLAGS
 !
@@ -116,28 +117,27 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
-                        DO k1 = 1 , k
+                        SPAG_Loop_4_1: DO k1 = 1 , k
                            jj = j + k1 - 1
-                           IF ( and(fmed(jj),Fmdmsk(k1))/=0 ) THEN
+                           IF ( and(fmed(jj),fmdmsk(k1))/=0 ) THEN
                               spag_nextblock_2 = 2
-                              CYCLE SPAG_DispatchLoop_2
+                              EXIT SPAG_Loop_4_1
                            ENDIF
-                        ENDDO
-                        CYCLE
+                        ENDDO SPAG_Loop_4_1
                      CASE (2)
 !
 !     NON-ZERO ENTRY FOUND - COMPUTE DMAP SEQUENCE NUMBER FOR FMED ENTRY
 !
                         n = ((j-j1)/k) + 1
-                        IF ( and(oscar(iospnt+5),Nosgn)<n ) RETURN
+                        IF ( and(oscar(iospnt+5),nosgn)<n ) RETURN
                         SPAG_Loop_2_1: DO
 !
 !     SET EXECUTINON FLAG FOR ALL OSCAR ENTRIES WITH SAME DMAP SEQ
 !     NUMBER
 !
-                           IF ( and(oscar(ospnt+5),Nosgn)<n ) THEN
-                           ELSEIF ( and(oscar(ospnt+5),Nosgn)==n ) THEN
-                              IF ( .NOT.(oscar(ospnt+5)<0 .OR. (oscar(ospnt+3)==nxchkp .AND. Icpflg==0)) ) THEN
+                           IF ( and(oscar(ospnt+5),nosgn)<n ) THEN
+                           ELSEIF ( and(oscar(ospnt+5),nosgn)==n ) THEN
+                              IF ( .NOT.(oscar(ospnt+5)<0 .OR. (oscar(ospnt+3)==nxchkp .AND. icpflg==0)) ) THEN
                                  IF ( ifirst/=1 ) THEN
                                     ifirst = 1
                                     CALL page1
@@ -149,7 +149,7 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
                                  ENDIF
                                  CALL xgpimw(4,0,0,oscar(ospnt))
                                  Nofind = -1
-                                 oscar(ospnt+5) = orf(oscar(ospnt+5),Isgnon)
+                                 oscar(ospnt+5) = orf(oscar(ospnt+5),isgnon)
                               ENDIF
                            ELSE
                               EXIT SPAG_Loop_2_1
@@ -175,9 +175,9 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !
 !     TURN OFF REUSE FLAGS IN PTDIC
 !
-                  IF ( Ptdbot>Ptdtp .AND. Iflag==0 ) THEN
+                  IF ( ptdbot>ptdtp .AND. iflag==0 ) THEN
                      j = complf(reuse)
-                     DO i = Ptdtp , Ptdbot , 3
+                     DO i = ptdtp , ptdbot , 3
                         ptdic(i+2) = andf(j,ptdic(i+2))
                      ENDDO
                   ENDIF
@@ -191,7 +191,7 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !
             CALL xgpidg(41,nam1,nam2,fnm(i+2))
             Nofind = -1
-            Nogo = 2
+            nogo = 2
          ENDIF
          RETURN
       CASE (2)
@@ -199,8 +199,8 @@ SUBROUTINE xfldef(Name1,Name2,Nofind)
 !     FILE IS IN PTDIC - SET REUSE FLAG FOR ALL EQUIVALENCED FILES
 !
          IF ( ptdic(i+2)<0 ) THEN
-            DO j = Ptdtp , Ptdbot , 3
-               IF ( and(ptdic(j+2),Noflgs)==and(ptdic(i+2),Noflgs) ) ptdic(j+2) = or(ptdic(j+2),reuse)
+            DO j = ptdtp , ptdbot , 3
+               IF ( and(ptdic(j+2),noflgs)==and(ptdic(i+2),noflgs) ) ptdic(j+2) = or(ptdic(j+2),reuse)
             ENDDO
          ENDIF
          ptdic(i+2) = or(ptdic(i+2),reuse)

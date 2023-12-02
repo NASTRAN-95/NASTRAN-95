@@ -1,9 +1,10 @@
-!*==invers.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==invers.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE invers(Ndim,A,N,B,M,Determ,Ising,Index)
+   USE c_machin
    IMPLICIT NONE
-   USE C_MACHIN
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,7 +46,7 @@ SUBROUTINE invers(Ndim,A,N,B,M,Determ,Ising,Index)
 !
 !     INITIALIZE
 !
-   IF ( Mach==5 ) epsi = 1.E-18
+   IF ( mach==5 ) epsi = 1.E-18
    Determ = 1.0
    IF ( Ising<0 ) Determ = 0.0
    DO j = 1 , N
@@ -157,7 +158,6 @@ SUBROUTINE invers(Ndim,A,N,B,M,Determ,Ising,Index)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
       Ising = 2

@@ -1,9 +1,10 @@
-!*==gmprtn.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gmprtn.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core,Lcore)
+   USE c_parmeg
    IMPLICIT NONE
-   USE C_PARMEG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -59,34 +60,34 @@ SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core
    IF ( Rpart/=0 ) CALL rdtrl(rp)
    cp(1) = Cpart
    IF ( Cpart/=0 ) CALL rdtrl(cp)
-   Ia(1) = Filea
-   CALL rdtrl(Ia)
+   ia(1) = Filea
+   CALL rdtrl(ia)
 !
 !     SET UP MATRIX CONTROL BLOCKS FOR OUTPUTS
 !
-   Ia11(1) = File11
-   Ia12(1) = File12
-   Ia21(1) = File21
-   Ia22(1) = File22
+   ia11(1) = File11
+   ia12(1) = File12
+   ia21(1) = File21
+   ia22(1) = File22
 !
    DO i = 2 , 5
-      Ia11(i) = Ia(i)
-      Ia12(i) = Ia(i)
-      Ia21(i) = Ia(i)
-      Ia22(i) = Ia(i)
+      ia11(i) = ia(i)
+      ia12(i) = ia(i)
+      ia21(i) = ia(i)
+      ia22(i) = ia(i)
    ENDDO
 !
 !     SET UP DUMMY PARTITION VECTOR
 !
    Core(1) = 0
    Core(2) = 1
-   Core(3) = Ia(2)
+   Core(3) = ia(2)
    Core(4) = 2
    Core(5) = 1
    Core(6) = 0
 !
-   Rule = 0
-   Lcr = Lcore
+   rule = 0
+   lcr = Lcore
 !
    IF ( Rpart==0 ) THEN
 !
@@ -99,10 +100,10 @@ SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core
          CALL mesage(-7,0,name)
          RETURN
       ELSE
-         Ia11(3) = Nsub0
-         Ia12(3) = Nsub0
-         Ia21(3) = Nsub1
-         Ia22(3) = Nsub1
+         ia11(3) = Nsub0
+         ia12(3) = Nsub0
+         ia21(3) = Nsub1
+         ia22(3) = Nsub1
          CALL partn(Core,cp,Core)
       ENDIF
    ELSEIF ( Cpart==0 ) THEN
@@ -114,19 +115,18 @@ SUBROUTINE gmprtn(Filea,File11,File21,File12,File22,Rpart,Cpart,Nsub0,Nsub1,Core
 !
 !     FULL PARTITION
 !
-      Ia11(3) = Nsub0
-      Ia12(3) = Nsub0
-      Ia21(3) = Nsub1
-      Ia22(3) = Nsub1
+      ia11(3) = Nsub0
+      ia12(3) = Nsub0
+      ia21(3) = Nsub1
+      ia22(3) = Nsub1
       CALL partn(rp,cp,Core)
    ENDIF
 !
 !     WRITE TRAILERS FOR OUTPUTS
 !
-   IF ( Ia11(1)/=0 ) CALL wrttrl(Ia11)
-   IF ( Ia12(1)/=0 ) CALL wrttrl(Ia12)
-   IF ( Ia21(1)/=0 ) CALL wrttrl(Ia21)
-   IF ( Ia22(1)/=0 ) CALL wrttrl(Ia22)
+   IF ( ia11(1)/=0 ) CALL wrttrl(ia11)
+   IF ( ia12(1)/=0 ) CALL wrttrl(ia12)
+   IF ( ia21(1)/=0 ) CALL wrttrl(ia21)
+   IF ( ia22(1)/=0 ) CALL wrttrl(ia22)
 !
-   RETURN
 END SUBROUTINE gmprtn

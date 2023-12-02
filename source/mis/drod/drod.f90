@@ -2,12 +2,12 @@
  
 SUBROUTINE drod
    IMPLICIT NONE
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_ZZZZZZ
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -16,6 +16,12 @@ SUBROUTINE drod
    INTEGER :: i , iaypnt , ibasea , ibaseb , ibypnt , idispa , idispb , itemp , j , k , ka , kb
    INTEGER , DIMENSION(19) :: iecpt
    REAL*8 , DIMENSION(9) :: zzt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -88,13 +94,13 @@ SUBROUTINE drod
 !
 ! BEGIN EXECUTION
 !
-   IF ( iecpt(2)==Npvt ) THEN
+   IF ( iecpt(2)==npvt ) THEN
       ka = 9
       kb = 13
       idispa = 19
       idispb = 22
    ELSE
-      IF ( iecpt(3)/=Npvt ) CALL mesage(-30,34,iecpt(1))
+      IF ( iecpt(3)/=npvt ) CALL mesage(-30,34,iecpt(1))
       itemp = iecpt(2)
       iecpt(2) = iecpt(3)
       iecpt(3) = itemp
@@ -112,46 +118,46 @@ SUBROUTINE drod
 ! WE STORE THE COORDINATES IN THE D ARRAY SO THAT ALL ARITHMETIC WILL BE
 ! DOUBLE PRECISION
 !
-   d(1) = Ecpt(ka+1)
-   d(2) = Ecpt(ka+2)
-   d(3) = Ecpt(ka+3)
-   d(4) = Ecpt(kb+1)
-   d(5) = Ecpt(kb+2)
-   d(6) = Ecpt(kb+3)
-   X = d(1) - d(4)
-   Y = d(2) - d(5)
-   Z = d(3) - d(6)
-   Xl = dsqrt(X**2+Y**2+Z**2)
-   IF ( Xl==0.0D0 ) THEN
+   d(1) = ecpt(ka+1)
+   d(2) = ecpt(ka+2)
+   d(3) = ecpt(ka+3)
+   d(4) = ecpt(kb+1)
+   d(5) = ecpt(kb+2)
+   d(6) = ecpt(kb+3)
+   x = d(1) - d(4)
+   y = d(2) - d(5)
+   z = d(3) - d(6)
+   xl = dsqrt(x**2+y**2+z**2)
+   IF ( xl==0.0D0 ) THEN
       CALL mesage(30,26,iecpt(1))
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
       GOTO 99999
    ELSE
 !
 ! CALCULATE A NORMALIZED DIRECTION VECTOR IN BASIC COORDINATES.
 !
-      Xn(1) = X/Xl
-      Xn(2) = Y/Xl
-      Xn(3) = Z/Xl
+      xn(1) = x/xl
+      xn(2) = y/xl
+      xn(3) = z/xl
 !
 ! CALL SUBROUTINE MAT TO FETCH MATERIAL PROPERTIES.
 !
-      Matidc = iecpt(4)
-      Matflg = 1
-      Eltemp = Ecpt(17)
+      matidc = iecpt(4)
+      matflg = 1
+      eltemp = ecpt(17)
       CALL mat(iecpt(1))
 !
 ! STORE DISPLACEMENT VECTORS IN DOUBLE PRECISION LOCATIONS
 !
-      Ua(1) = Ecpt(idispa+1)
-      Ua(2) = Ecpt(idispa+2)
-      Ua(3) = Ecpt(idispa+3)
-      Ub(1) = Ecpt(idispb+1)
-      Ub(2) = Ecpt(idispb+2)
-      Ub(3) = Ecpt(idispb+3)
+      ua(1) = ecpt(idispa+1)
+      ua(2) = ecpt(idispa+2)
+      ua(3) = ecpt(idispa+3)
+      ub(1) = ecpt(idispb+1)
+      ub(2) = ecpt(idispb+2)
+      ub(3) = ecpt(idispb+3)
 !
 !
 ! COMPUTE THE DIFFERENCE VECTOR DIFF =  T  * U   -  T  * U
@@ -159,79 +165,79 @@ SUBROUTINE drod
 !
       ibasea = 0
       IF ( iecpt(ka)/=0 ) THEN
-         CALL transd(Ecpt(ka),Ta)
+         CALL transd(ecpt(ka),ta)
          ibasea = 3
-         CALL gmmatd(Ta,3,3,0,Ua(1),3,1,0,Ua(4))
+         CALL gmmatd(ta,3,3,0,ua(1),3,1,0,ua(4))
       ENDIF
       ibaseb = 0
       IF ( iecpt(kb)/=0 ) THEN
-         CALL transd(Ecpt(kb),Tb)
+         CALL transd(ecpt(kb),tb)
          ibaseb = 3
-         CALL gmmatd(Tb,3,3,0,Ub(1),3,1,0,Ub(4))
+         CALL gmmatd(tb,3,3,0,ub(1),3,1,0,ub(4))
       ENDIF
-      Diff(1) = Ua(ibasea+1) - Ub(ibaseb+1)
-      Diff(2) = Ua(ibasea+2) - Ub(ibaseb+2)
-      Diff(3) = Ua(ibasea+3) - Ub(ibaseb+3)
+      diff(1) = ua(ibasea+1) - ub(ibaseb+1)
+      diff(2) = ua(ibasea+2) - ub(ibaseb+2)
+      diff(3) = ua(ibasea+3) - ub(ibaseb+3)
 !
 ! COMPUTE DOT PRODUCT XN . DIFF
 !
-      CALL gmmatd(Xn,3,1,1,Diff,3,1,0,Dpterm)
+      CALL gmmatd(xn,3,1,1,diff,3,1,0,dpterm)
 !
 ! COMPUTE AXIAL FORCE FX, AND TORSIONAL FORCE GX
 !
-      Delta = Ecpt(18)
-      Fx = Dpterm - Delta
+      delta = ecpt(18)
+      fx = dpterm - delta
       IF ( iecpt(19)/=(-1) ) THEN
-         Tsub0 = Tsub0s
-         Alpha = Alphas
-         Avgltp = Ecpt(19)
-         Fx = Fx - Alpha*Xl*(Avgltp-Tsub0)
+         tsub0 = tsub0s
+         alpha = alphas
+         avgltp = ecpt(19)
+         fx = fx - alpha*xl*(avgltp-tsub0)
       ENDIF
-      A = Ecpt(5)
-      E = Es
-      Fx = A*E*Fx/Xl**2
-      gx = Ecpt(6)*Fx/A
+      a = ecpt(5)
+      e = es
+      fx = a*e*fx/xl**2
+      gx = ecpt(6)*fx/a
 !
 ! COMPUTE THE XM VECTOR
 !
-      Xm(1) = 0.0D0
-      Xm(2) = 0.0D0
-      Xm(3) = 0.0D0
+      xm(1) = 0.0D0
+      xm(2) = 0.0D0
+      xm(3) = 0.0D0
       i = 1
-      IF ( dabs(Xn(2))<dabs(Xn(1)) ) i = 2
-      IF ( dabs(Xn(3))<dabs(Xn(i)) ) i = 3
-      Xm(i) = 1.0D0
+      IF ( dabs(xn(2))<dabs(xn(1)) ) i = 2
+      IF ( dabs(xn(3))<dabs(xn(i)) ) i = 3
+      xm(i) = 1.0D0
 !
 ! COMPUTE YVEC, THE CROSS PRODUCT XM X XN
 !
-      Yvec(1) = Xm(2)*Xn(3) - Xm(3)*Xn(2)
-      Yvec(2) = Xm(3)*Xn(1) - Xm(1)*Xn(3)
-      Yvec(3) = Xm(1)*Xn(2) - Xm(2)*Xn(1)
-      Yl = dsqrt(Yvec(1)**2+Yvec(2)**2+Yvec(3)**2)
-      Yvec(1) = Yvec(1)/Yl
-      Yvec(2) = Yvec(2)/Yl
-      Yvec(3) = Yvec(3)/Yl
+      yvec(1) = xm(2)*xn(3) - xm(3)*xn(2)
+      yvec(2) = xm(3)*xn(1) - xm(1)*xn(3)
+      yvec(3) = xm(1)*xn(2) - xm(2)*xn(1)
+      yl = dsqrt(yvec(1)**2+yvec(2)**2+yvec(3)**2)
+      yvec(1) = yvec(1)/yl
+      yvec(2) = yvec(2)/yl
+      yvec(3) = yvec(3)/yl
 !
 ! COMPUTE ZVEC, THE CROSS PRODUCT XN X YVEC
 !
-      Zvec(1) = Xn(2)*Yvec(3) - Xn(3)*Yvec(2)
-      Zvec(2) = Xn(3)*Yvec(1) - Xn(1)*Yvec(3)
-      Zvec(3) = Xn(1)*Yvec(2) - Xn(2)*Yvec(1)
-      Zl = dsqrt(Zvec(1)**2+Zvec(2)**2+Zvec(3)**2)
-      Zvec(1) = Zvec(1)/Zl
-      Zvec(2) = Zvec(2)/Zl
-      Zvec(3) = Zvec(3)/Zl
+      zvec(1) = xn(2)*yvec(3) - xn(3)*yvec(2)
+      zvec(2) = xn(3)*yvec(1) - xn(1)*yvec(3)
+      zvec(3) = xn(1)*yvec(2) - xn(2)*yvec(1)
+      zl = dsqrt(zvec(1)**2+zvec(2)**2+zvec(3)**2)
+      zvec(1) = zvec(1)/zl
+      zvec(2) = zvec(2)/zl
+      zvec(3) = zvec(3)/zl
 !
 !                    T                 T
 ! COMPUTE YVEC * YVEC  AND  ZVEC * ZVEC
 !
-      CALL gmmatd(Yvec,3,1,0,Yvec,3,1,1,Yyt)
-      CALL gmmatd(Zvec,3,1,0,Zvec,3,1,1,zzt)
+      CALL gmmatd(yvec,3,1,0,yvec,3,1,1,yyt)
+      CALL gmmatd(zvec,3,1,0,zvec,3,1,1,zzt)
 !
 ! ADD THESE TWO MATRICES AND STORE IN YYT
 !
       DO i = 1 , 9
-         Yyt(i) = Yyt(i) + zzt(i)
+         yyt(i) = yyt(i) + zzt(i)
       ENDDO
 !
 !          T
@@ -241,19 +247,19 @@ SUBROUTINE drod
       iaypnt = 1
       IF ( iecpt(ka)/=0 ) THEN
          iaypnt = 10
-         CALL gmmatd(Ta,3,3,1,Yyt,3,3,0,Yyt(10))
+         CALL gmmatd(ta,3,3,1,yyt,3,3,0,yyt(10))
 !
 !          T
 ! COMPUTE T  (YYT) T  AND STORE IN YYT(1)
 !          A        A
 !
-         CALL gmmatd(Yyt(10),3,3,0,Ta,3,3,0,Yyt(1))
+         CALL gmmatd(yyt(10),3,3,0,ta,3,3,0,yyt(1))
       ENDIF
 !
 ! ZERO OUT KE MATRIX
 !
       DO i = 1 , 36
-         Ke(i) = 0.0D0
+         ke(i) = 0.0D0
       ENDDO
       k = 1
       j = 2
@@ -262,36 +268,36 @@ SUBROUTINE drod
 !
 ! FILL UP THE 6 X 6 KE
 !
-      Ke(1) = Fx*Yyt(k)
-      Ke(2) = Fx*Yyt(k+1)
-      Ke(3) = Fx*Yyt(k+2)
-      Ke(7) = Fx*Yyt(k+3)
-      Ke(8) = Fx*Yyt(k+4)
-      Ke(9) = Fx*Yyt(k+5)
-      Ke(13) = Fx*Yyt(k+6)
-      Ke(14) = Fx*Yyt(k+7)
-      Ke(15) = Fx*Yyt(k+8)
-      Ke(22) = gx*Yyt(k)
-      Ke(23) = gx*Yyt(k+1)
-      Ke(24) = gx*Yyt(k+2)
-      Ke(28) = gx*Yyt(k+3)
-      Ke(29) = gx*Yyt(k+4)
-      Ke(30) = gx*Yyt(k+5)
-      Ke(34) = gx*Yyt(k+6)
-      Ke(35) = gx*Yyt(k+7)
-      Ke(36) = gx*Yyt(k+8)
-      CALL ds1b(Ke,iecpt(j))
+      ke(1) = fx*yyt(k)
+      ke(2) = fx*yyt(k+1)
+      ke(3) = fx*yyt(k+2)
+      ke(7) = fx*yyt(k+3)
+      ke(8) = fx*yyt(k+4)
+      ke(9) = fx*yyt(k+5)
+      ke(13) = fx*yyt(k+6)
+      ke(14) = fx*yyt(k+7)
+      ke(15) = fx*yyt(k+8)
+      ke(22) = gx*yyt(k)
+      ke(23) = gx*yyt(k+1)
+      ke(24) = gx*yyt(k+2)
+      ke(28) = gx*yyt(k+3)
+      ke(29) = gx*yyt(k+4)
+      ke(30) = gx*yyt(k+5)
+      ke(34) = gx*yyt(k+6)
+      ke(35) = gx*yyt(k+7)
+      ke(36) = gx*yyt(k+8)
+      CALL ds1b(ke,iecpt(j))
       IF ( j==3 ) RETURN
       IF ( iecpt(kb)==0 ) THEN
          k = iaypnt
       ELSE
          ibypnt = 1
          IF ( iaypnt==1 ) ibypnt = 10
-         CALL gmmatd(Yyt(iaypnt),3,3,0,Tb,3,3,0,Yyt(ibypnt))
+         CALL gmmatd(yyt(iaypnt),3,3,0,tb,3,3,0,yyt(ibypnt))
          k = ibypnt
       ENDIF
       j = 3
-      Fx = -Fx
+      fx = -fx
       gx = -gx
    ENDDO
 99999 END SUBROUTINE drod

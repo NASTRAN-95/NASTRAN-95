@@ -1,4 +1,5 @@
-!*==apdb2a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==apdb2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apdb2a(Nline,Nl,Scr1,Nstns,M1,S1,Sn,Tblt,Tblr)
@@ -22,13 +23,21 @@ SUBROUTINE apdb2a(Nline,Nl,Scr1,Nstns,M1,S1,Sn,Tblt,Tblr)
    REAL , DIMENSION(7) :: data
    REAL , DIMENSION(3) :: f1 , fn , p1 , pn
    INTEGER , SAVE :: file
-   INTEGER :: i , ip1 , mm , nskip
+   INTEGER :: i , ip1 , mm , nskip , spag_nextblock_1
    INTEGER , DIMENSION(2) , SAVE :: name
    EXTERNAL bckrec , fread , mesage , read
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     GENERATE BASIC TO LOCAL TRANSFORMATION MATRIX FOR
 !     STREAMLINE NL OF SWEPT TURBOPROP BLADE.

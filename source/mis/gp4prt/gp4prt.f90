@@ -1,14 +1,15 @@
-!*==gp4prt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gp4prt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp4prt(Ibuf)
+   USE c_bitpos
+   USE c_blank
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,7 +66,7 @@ SUBROUTINE gp4prt(Ibuf)
 !
          CALL sswtch(21,d21)
          CALL sswtch(22,d22)
-         IF ( d21/=1 .AND. d22/=1 .AND. Idsub<=0 ) RETURN
+         IF ( d21/=1 .AND. d22/=1 .AND. idsub<=0 ) RETURN
          IF ( iprint==1 ) RETURN
          iprint = 1
          name(3) = ibegn
@@ -73,43 +74,43 @@ SUBROUTINE gp4prt(Ibuf)
          buf = iabs(Ibuf)
          file = eqexin
          IF ( Ibuf<0 ) CALL close(eqexin,1)
-         CALL open(*40,eqexin,Z(buf),0)
+         CALL open(*40,eqexin,z(buf),0)
          CALL fwdrec(*60,eqexin)
          CALL fwdrec(*60,eqexin)
-         erec1 = Luset + 1
-         CALL read(*60,*20,eqexin,Z(erec1),buf-erec1,1,kn)
+         erec1 = luset + 1
+         CALL read(*60,*20,eqexin,z(erec1),buf-erec1,1,kn)
          GOTO 80
  20      CALL close(eqexin,1)
-         CALL sort(0,0,2,2,Z(erec1),kn)
+         CALL sort(0,0,2,2,z(erec1),kn)
 !
          IF ( d21==1 ) THEN
             ku = 1
-            msk(ku+1) = Two(Usb)
-            msk(ku+2) = Two(Usg)
-            msk(ku+3) = Two(Ul)
-            msk(ku+4) = Two(Ua)
-            msk(ku+5) = Two(Uf)
-            msk(ku+6) = Two(Un)
-            msk(ku+7) = Two(Ug)
-            msk(ku+8) = Two(Ur)
-            msk(ku+9) = Two(Uo)
-            msk(ku+10) = Two(Us)
-            msk(ku+11) = Two(Um)
+            msk(ku+1) = two(usb)
+            msk(ku+2) = two(usg)
+            msk(ku+3) = two(ul)
+            msk(ku+4) = two(ua)
+            msk(ku+5) = two(uf)
+            msk(ku+6) = two(un)
+            msk(ku+7) = two(ug)
+            msk(ku+8) = two(ur)
+            msk(ku+9) = two(uo)
+            msk(ku+10) = two(us)
+            msk(ku+11) = two(um)
             DO ku = 1 , 12
                sbit(ku) = 0
             ENDDO
             CALL page1
-            Line = Line + 2
-            WRITE (Nout,99001) Uim
+            line = line + 2
+            WRITE (nout,99001) uim
 !
 99001       FORMAT (A29,' 2118, SUBROUTINE GP4PRT - DIAG 21 SET-DOF VS. DISP',' SETS FOLLOWS.')
-            Line = Line + 4
-            WRITE (Nout,99005)
+            line = line + 4
+            WRITE (nout,99005)
             i = erec1
             kl = 0
             DO k = 1 , kn , 2
-               itm = Z(k+i)/10
-               itm = Z(k+i) - 10*itm
+               itm = z(k+i)/10
+               itm = z(k+i) - 10*itm
                l = 6
                IF ( itm==2 ) l = 1
                DO kk = 1 , l
@@ -118,8 +119,8 @@ SUBROUTINE gp4prt(Ibuf)
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
                         kl = kl + 1
-                        iu = Z(kl)
-                        ip = Z(i+k-1)
+                        iu = z(kl)
+                        ip = z(i+k-1)
                         idof = kk
                         IF ( andf(msk(11),iu)/=0 ) THEN
                            IF ( andf(msk(2),iu)==0 .AND. andf(msk(3),iu)==0 ) THEN
@@ -150,58 +151,58 @@ SUBROUTINE gp4prt(Ibuf)
                            ENDIF
                         ENDDO
                         IF ( l==1 ) idof = 0
-                        Line = Line + 1
-                        IF ( Line>Nlpp ) THEN
+                        line = line + 1
+                        IF ( line>nlpp ) THEN
                            CALL page1
-                           WRITE (Nout,99005)
-                           Line = Line + 5
+                           WRITE (nout,99005)
+                           line = line + 5
                         ENDIF
-                        WRITE (Nout,ifrmat) kl , ip , dash , idof , upbit
+                        WRITE (nout,ifrmat) kl , ip , dash , idof , upbit
                         EXIT SPAG_DispatchLoop_2
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
                ENDDO
             ENDDO
-            WRITE (Nout,99002) sbit
+            WRITE (nout,99002) sbit
 99002       FORMAT (1H0,34H--- C O L U M N   T O T A L S --- ,12I7)
-            Line = Line + 2
+            line = line + 2
          ENDIF
 !
-         IF ( d22/=1 .AND. Idsub<=0 ) RETURN
-         msk(1) = Two(Um)
-         msk(2) = Two(Us)
-         msk(3) = Two(Uo)
-         msk(4) = Two(Ua)
-         msk(5) = Two(Ur)
-         msk(6) = Two(Usg)
-         msk(7) = Two(Usb)
+         IF ( d22/=1 .AND. idsub<=0 ) RETURN
+         msk(1) = two(um)
+         msk(2) = two(us)
+         msk(3) = two(uo)
+         msk(4) = two(ua)
+         msk(5) = two(ur)
+         msk(6) = two(usg)
+         msk(7) = two(usb)
          exflag = 0
          extype = 0
          IF ( d22==1 ) THEN
             CALL page1
-            Line = Line + 2
-            WRITE (Nout,99003) Uim
+            line = line + 2
+            WRITE (nout,99003) uim
 99003       FORMAT (A29,' 2119, SUBROUTINE GP4PRT - DIAG 22 SET DISP SETS VS','. DOF FOLLOWS')
-            Line = Line + 4
+            line = line + 4
          ENDIF
          file = scr1
          IF ( Ibuf<0 ) CALL close(scr1,1)
-         CALL open(*40,scr1,Z(buf),1)
+         CALL open(*40,scr1,z(buf),1)
          DO imk = 1 , 8
             iflg(imk) = 0
             i = erec1
             ip = 0
             kl = 0
             DO k = 1 , kn , 2
-               itm = Z(k+i)/10
-               itm = Z(k+i) - 10*itm
+               itm = z(k+i)/10
+               itm = z(k+i) - 10*itm
                l = 6
                IF ( itm==2 ) l = 1
                DO kk = 1 , l
                   kl = kl + 1
-                  iu = Z(kl)
-                  IF ( Z(i+k-1)<ip ) exflag = 1
-                  ip = Z(i+k-1)
+                  iu = z(kl)
+                  IF ( z(i+k-1)<ip ) exflag = 1
+                  ip = z(i+k-1)
                   IF ( l==1 ) THEN
                      idof = 0
                      extype = orf(extype,1)
@@ -221,39 +222,39 @@ SUBROUTINE gp4prt(Ibuf)
             ENDDO
             IF ( iflg(imk)==1 ) CALL write(scr1,0,0,1)
          ENDDO
-         CALL write(scr1,Z(1),Luset,1)
+         CALL write(scr1,z(1),luset,1)
          CALL close(scr1,1)
-         CALL open(*40,scr1,Z(buf),0)
+         CALL open(*40,scr1,z(buf),0)
          iflag = 0
          SPAG_Loop_1_1: DO i = 1 , 8
             IF ( iflg(i)/=1 ) CYCLE
             iflag = iflag + 1
-            CALL read(*60,*30,scr1,Z(1),buf,1,kn)
+            CALL read(*60,*30,scr1,z(1),buf,1,kn)
             CALL page2(-4)
-            WRITE (Nout,99008) file
+            WRITE (nout,99008) file
             EXIT SPAG_Loop_1_1
- 30         IF ( Idsub>0 .AND. i==4 ) THEN
+ 30         IF ( idsub>0 .AND. i==4 ) THEN
                CALL close(scr1,2)
                file = tdb204
-               CALL open(*40,tdb204,Z(buf),1)
+               CALL open(*40,tdb204,z(buf),1)
                CALL fname(tdb204,nam204)
                CALL write(tdb204,nam204,2,1)
-               CALL write(tdb204,Z(1),kn,1)
+               CALL write(tdb204,z(1),kn,1)
                CALL close(tdb204,1)
                trl(1) = tdb204
                trl(2) = 0
                trl(3) = kn
                trl(4) = 0
-               trl(5) = Idsub
+               trl(5) = idsub
                trl(6) = exflag
                trl(7) = extype
                CALL wrttrl(trl)
-               CALL open(*40,scr1,Z(buf),2)
+               CALL open(*40,scr1,z(buf),2)
             ENDIF
             IF ( d22==1 ) THEN
                ipas = kn/10
                irem = kn - 10*ipas
-               IF ( iflag>1 ) Line = Nlpp
+               IF ( iflag>1 ) line = nlpp
                id1 = -9
                inos = 0
                IF ( ipas>=1 ) THEN
@@ -264,23 +265,23 @@ SUBROUTINE gp4prt(Ibuf)
                         CASE (1)
                            DO j = 1 , 10
                               inos = inos + 1
-                              zdum(j) = Z(inos)/10
-                              zcom(j) = Z(inos) - 10*zdum(j)
+                              zdum(j) = z(inos)/10
+                              zcom(j) = z(inos) - 10*zdum(j)
                            ENDDO
-                           Line = Line + 1
+                           line = line + 1
                            IF ( iflag/=1 .OR. k/=1 ) THEN
-                              IF ( Line<=Nlpp ) THEN
+                              IF ( line<=nlpp ) THEN
                                  spag_nextblock_3 = 2
                                  CYCLE SPAG_DispatchLoop_3
                               ENDIF
                               CALL page1
                            ENDIF
-                           WRITE (Nout,99006) title(1,i) , title(2,i)
-                           Line = Line + 5
+                           WRITE (nout,99006) title(1,i) , title(2,i)
+                           line = line + 5
                            spag_nextblock_3 = 2
                         CASE (2)
                            id1 = id1 + 10
-                           WRITE (Nout,99007) id1 , (zdum(kk),zcom(kk),kk=1,10)
+                           WRITE (nout,99007) id1 , (zdum(kk),zcom(kk),kk=1,10)
                            EXIT SPAG_DispatchLoop_3
                         END SELECT
                      ENDDO SPAG_DispatchLoop_3
@@ -289,24 +290,24 @@ SUBROUTINE gp4prt(Ibuf)
                IF ( irem==0 ) CYCLE
                DO j = 1 , irem
                   inos = inos + 1
-                  zdum(j) = Z(inos)/10
-                  zcom(j) = Z(inos) - zdum(j)*10
+                  zdum(j) = z(inos)/10
+                  zcom(j) = z(inos) - zdum(j)*10
                ENDDO
-               Line = Line + 1
+               line = line + 1
                IF ( iflag/=1 .OR. ipas/=0 ) THEN
-                  IF ( Line<=Nlpp ) GOTO 35
+                  IF ( line<=nlpp ) GOTO 35
                   CALL page1
                ENDIF
-               WRITE (Nout,99006) title(1,i) , title(2,i)
-               Line = Line + 5
+               WRITE (nout,99006) title(1,i) , title(2,i)
+               line = line + 5
  35            id1 = id1 + 10
-               WRITE (Nout,99007) id1 , (zdum(kk),zcom(kk),kk=1,irem)
+               WRITE (nout,99007) id1 , (zdum(kk),zcom(kk),kk=1,irem)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
 !     RE-ESTABLISH USET IN OPEN CORE.
 !
-         CALL read(*60,*80,scr1,Z(1),Luset,1,kn)
+         CALL read(*60,*80,scr1,z(1),luset,1,kn)
          CALL close(scr1,1)
          name(3) = iend
          CALL conmsg(name,3,0)
@@ -316,7 +317,7 @@ SUBROUTINE gp4prt(Ibuf)
 !
          CALL sswtch(20,j)
          IF ( j==0 .OR. d21+d22==0 ) RETURN
-         WRITE (Nout,99004)
+         WRITE (nout,99004)
 99004    FORMAT (10X,25HJOB TERMINATED BY DIAG 20)
          CALL pexit
 !
@@ -332,7 +333,7 @@ SUBROUTINE gp4prt(Ibuf)
 !     ERRORS
 !
  80      CALL page2(-4)
-         WRITE (Nout,99008) Uwm , file
+         WRITE (nout,99008) uwm , file
 !
          CALL close(file,1)
          EXIT SPAG_DispatchLoop_1

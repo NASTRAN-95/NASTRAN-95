@@ -1,12 +1,13 @@
-!*==mtriqd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mtriqd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mtriqd(Ntype)
+   USE c_matin
+   USE c_matout
+   USE c_sma2et
+   USE c_sma2ht
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA2ET
-   USE C_SMA2HT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -93,9 +94,9 @@ SUBROUTINE mtriqd(Ntype)
 !
 !     SAVE THE INCOMING ECPT
 !
-   Inflag = 4
+   inflag = 4
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO OPERATIONS DESIRED
@@ -110,19 +111,19 @@ SUBROUTINE mtriqd(Ntype)
       IF ( save(7)/=0.0 ) THEN
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
-         Ecpt(7) = save(7)**3/12.0
-         Ecpt(8) = save(6)
-         Ecpt(9) = save(7)
-         Matid = isave(6)
-         CALL mat(Ecpt(1))
-         Ecpt(10) = save(8) + Rho*save(7)
+         ecpt(7) = save(7)**3/12.0
+         ecpt(8) = save(6)
+         ecpt(9) = save(7)
+         matid = isave(6)
+         CALL mat(ecpt(1))
+         ecpt(10) = save(8) + rho*save(7)
          DO i = 13 , 25
-            Ecpt(i) = save(i-4)
+            ecpt(i) = save(i-4)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL mtrplt
+         IF ( .NOT.heat ) CALL mtrplt
       ELSE
          narg = 4
          CALL masstq(narg)
@@ -136,20 +137,20 @@ SUBROUTINE mtriqd(Ntype)
       IF ( save(10)/=0.0 ) THEN
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
          DO i = 7 , 30
-            Ecpt(i) = save(i+2)
+            ecpt(i) = save(i+2)
          ENDDO
-         Matid = isave(7)
+         matid = isave(7)
          IF ( save(8)==0.0 ) THEN
-            Ecpt(11) = save(13)
+            ecpt(11) = save(13)
          ELSE
-            CALL mat(Ecpt(1))
+            CALL mat(ecpt(1))
 !
-            Ecpt(11) = save(13) + Rho*save(8)
+            ecpt(11) = save(13) + rho*save(8)
          ENDIF
-         IF ( .NOT.Heat ) CALL mqdplt
+         IF ( .NOT.heat ) CALL mqdplt
       ELSE
          narg = 2
          CALL masstq(narg)
@@ -163,19 +164,19 @@ SUBROUTINE mtriqd(Ntype)
       IF ( save(8)/=0.0 ) THEN
 !
          DO i = 1 , 7
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
-         Ecpt(8) = save(8)**3/12.0
-         Ecpt(9) = save(7)
-         Ecpt(10) = save(8)
-         Matid = isave(7)
-         CALL mat(Ecpt(1))
-         Ecpt(11) = save(9) + Rho*save(8)
+         ecpt(8) = save(8)**3/12.0
+         ecpt(9) = save(7)
+         ecpt(10) = save(8)
+         matid = isave(7)
+         CALL mat(ecpt(1))
+         ecpt(11) = save(9) + rho*save(8)
          DO i = 14 , 30
-            Ecpt(i) = save(i-4)
+            ecpt(i) = save(i-4)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL mqdplt
+         IF ( .NOT.heat ) CALL mqdplt
       ELSE
          narg = 1
          CALL masstq(narg)
@@ -188,20 +189,20 @@ SUBROUTINE mtriqd(Ntype)
    ELSEIF ( save(9)/=0.0 ) THEN
 !
       DO i = 1 , 5
-         Ecpt(i) = save(i)
+         ecpt(i) = save(i)
       ENDDO
       DO i = 6 , 25
-         Ecpt(i) = save(i+2)
+         ecpt(i) = save(i+2)
       ENDDO
-      Matid = isave(6)
+      matid = isave(6)
       IF ( save(7)==0.0 ) THEN
-         Ecpt(10) = save(12)
+         ecpt(10) = save(12)
       ELSE
-         CALL mat(Ecpt(1))
+         CALL mat(ecpt(1))
 !
-         Ecpt(10) = save(12) + Rho*save(7)
+         ecpt(10) = save(12) + rho*save(7)
       ENDIF
-      IF ( .NOT.Heat ) CALL mtrplt
+      IF ( .NOT.heat ) CALL mtrplt
    ELSE
       narg = 5
       CALL masstq(narg)

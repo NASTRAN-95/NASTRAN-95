@@ -1,15 +1,16 @@
-!*==estmag.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==estmag.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -68,10 +69,10 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Sysbuf + 1
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf - 1
+         lcore = korsz(z)
+         buf1 = lcore - sysbuf + 1
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf - 1
          lcore = buf3 - 1
          IF ( lcore>0 ) THEN
 !
@@ -81,15 +82,15 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
 !
 !     SET UP MATERIALS
 !
-            Iihmat = 0
-            Nnhmat = lcore
-            Mptfil = Mpt
-            Iditfl = Dit
-            CALL prehma(Z)
-            nextz = Nnhmat + 1
+            iihmat = 0
+            nnhmat = lcore
+            mptfil = Mpt
+            iditfl = Dit
+            CALL prehma(z)
+            nextz = nnhmat + 1
 !
-            CALL gopen(Hest,Z(buf1),0)
-            CALL gopen(Estfld,Z(buf2),1)
+            CALL gopen(Hest,z(buf1),0)
+            CALL gopen(Estfld,z(buf2),1)
 !
 !     READ IN ANY BFIELD CARDS
 !
@@ -99,10 +100,10 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
             idefid = 0
             nfield = 0
             file = Geom1
-            CALL preloc(*100,Z(buf3),Geom1)
-            CALL locate(*40,Z(buf3),bfield,idex)
+            CALL preloc(*100,z(buf3),Geom1)
+            CALL locate(*40,z(buf3),bfield,idex)
             Iany = 1
-            CALL read(*120,*20,Geom1,Z(nextz+1),lcore-nextz,0,iwords)
+            CALL read(*120,*20,Geom1,z(nextz+1),lcore-nextz,0,iwords)
          ENDIF
          n = -8
          file = 0
@@ -140,7 +141,6 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
             ENDDO
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          idefid = iz(nextz+i-1)
          spag_nextblock_1 = 3
@@ -153,13 +153,13 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
          CALL write(Estfld,eltype,1,0)
          oldeid = 0
          icount = 0
-         idx = (eltype-1)*Incr
-         estwds = Ne(idx+12)
-         ngrids = Ne(idx+10)
+         idx = (eltype-1)*incr
+         estwds = ne(idx+12)
+         ngrids = ne(idx+10)
          frstgd = 2
          IF ( eltype>=39 .AND. eltype<=42 ) frstgd = 3
-         name(1) = Ne(idx+1)
-         name(2) = Ne(idx+2)
+         name(1) = ne(idx+1)
+         name(2) = ne(idx+2)
 !
 !     PICK UP MATERIAL ID, START OF BGPDT DATA, AND DIMENSIONALITY OF
 !     ELEMENT
@@ -175,7 +175,7 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
 !
 !     FATAL ERRORS
 !
-         WRITE (Otpe,99001) Ufm , name
+         WRITE (otpe,99001) ufm , name
 99001    FORMAT (A23,', ELEMENT TYPE ',2A4,' NOT ALLOWED IN ESTMAG')
          CALL mesage(-61,0,0)
          GOTO 100
@@ -214,7 +214,6 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
             ifield = idefid
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          ifield = iz(nextz+i-1)
          spag_nextblock_1 = 8
@@ -228,25 +227,25 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
 !
 !     FETCH MATERIALS
 !
-         Matid = iecpt(mid)
-         Sinth = 0.
-         Costh = 0.
+         matid = iecpt(mid)
+         sinth = 0.
+         costh = 0.
 !***
 !    ASSUME HERE THAT FOR ISOPARAMETRICS WE HAVE TEMPERATURE-INDEPENDENT
 !    MATERIALS IN THIS MAGNETICS PROBLEM
 !***
-         Eltemp = ecpt(itemp)
-         Inflag = 3
+         eltemp = ecpt(itemp)
+         inflag = 3
          CALL hmat(iecpt(1))
-         g(1) = Xmat(1)
-         g(2) = Xmat(2)
-         g(3) = Xmat(3)
-         g(4) = Xmat(2)
-         g(5) = Xmat(4)
-         g(6) = Xmat(5)
-         g(7) = Xmat(3)
-         g(8) = Xmat(5)
-         g(9) = Xmat(6)
+         g(1) = xmat(1)
+         g(2) = xmat(2)
+         g(3) = xmat(3)
+         g(4) = xmat(2)
+         g(5) = xmat(4)
+         g(6) = xmat(5)
+         g(7) = xmat(3)
+         g(8) = xmat(5)
+         g(9) = xmat(6)
 !
 !     NOW CREATE TRANSFORMATION MATRIX FROM LOACL COORDS TO BASIC
 !     DETERMINE DIMENSIONALITY OF ELEMENT
@@ -290,7 +289,7 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
 !     CHECK ON MATERIALS AS IN EMRING
 !
             angle = ecpt(ith)*0.017453293
-            IF ( Xmat(3)==0. .AND. Xmat(5)==0. ) THEN
+            IF ( xmat(3)==0. .AND. xmat(5)==0. ) THEN
                IF ( abs(angle)>.0001 ) THEN
                   DO i = 1 , 9
                      g(i) = 0.
@@ -300,12 +299,12 @@ SUBROUTINE estmag(Hest,Estfld,Mpt,Dit,Geom1,Iany,Kcount)
                   csq = c*c
                   ssq = s*s
                   cs = c*s
-                  x2 = 2.*cs*Xmat(2)
-                  g(1) = csq*Xmat(1) - x2 + ssq*Xmat(4)
-                  g(2) = cs*(Xmat(1)-Xmat(4)) + (csq-ssq)*Xmat(2)
-                  g(5) = ssq*Xmat(1) + x2 + csq*Xmat(4)
+                  x2 = 2.*cs*xmat(2)
+                  g(1) = csq*xmat(1) - x2 + ssq*xmat(4)
+                  g(2) = cs*(xmat(1)-xmat(4)) + (csq-ssq)*xmat(2)
+                  g(5) = ssq*xmat(1) + x2 + csq*xmat(4)
                   g(4) = g(2)
-                  g(9) = Xmat(6)
+                  g(9) = xmat(6)
 !
                   IF ( eltype==36 .OR. eltype==37 ) THEN
 !

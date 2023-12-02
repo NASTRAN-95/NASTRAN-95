@@ -2,18 +2,24 @@
  
 SUBROUTINE psrod
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_PLA32C
-   USE C_PLA32E
-   USE C_PLA32S
-   USE C_SOUT
+   USE c_matin
+   USE c_matout
+   USE c_pla32c
+   USE c_pla32e
+   USE c_pla32s
+   USE c_sout
 !
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: deps1 , deps2 , e , eps1 , eps2 , epsin1 , epsin2 , esub0l , g , gsub0l , p , plaans , sigma1 , sigma2 , t , term
    INTEGER :: i , ibasea , ibaseb , iselid , mssig , mstau
    INTEGER , DIMENSION(100) :: iecpt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -87,28 +93,28 @@ SUBROUTINE psrod
 !
 ! CALL MAT ROUTINE TO GET MATERIAL PROPERTIES AND STORE IN LOCAL NAMES.
 !
-   Matidc = iecpt(4)
-   Matflg = 1
+   matidc = iecpt(4)
+   matflg = 1
    CALL mat(iecpt(1))
-   esub0l = Esub0
-   gsub0l = Gsub0
+   esub0l = esub0
+   gsub0l = gsub0
 !
 ! SET UP VECTOR ALONG THE ROD, COMPUTE LENGTH AND NORMALIZE
 !
-   Xn(1) = Ecpt(10) - Ecpt(14)
-   Xn(2) = Ecpt(11) - Ecpt(15)
-   Xn(3) = Ecpt(12) - Ecpt(16)
-   Xl = Xn(1)**2 + Xn(2)**2 + Xn(3)**2
-   Xl = sqrt(Xl)
-   Xn(1) = Xn(1)/Xl
-   Xn(2) = Xn(2)/Xl
-   Xn(3) = Xn(3)/Xl
+   xn(1) = ecpt(10) - ecpt(14)
+   xn(2) = ecpt(11) - ecpt(15)
+   xn(3) = ecpt(12) - ecpt(16)
+   xl = xn(1)**2 + xn(2)**2 + xn(3)**2
+   xl = sqrt(xl)
+   xn(1) = xn(1)/xl
+   xn(2) = xn(2)/xl
+   xn(3) = xn(3)/xl
 !
 ! STORE DISPLACEMENT VECTORS IN LOCAL VARIABLES
 !
    DO i = 1 , 6
-      Ua(i) = Ecpt(i+21)
-      Ub(i) = Ecpt(i+27)
+      ua(i) = ecpt(i+21)
+      ub(i) = ecpt(i+27)
    ENDDO
 !
 ! TRANSFORM DISPLACEMENT VECTOR TRANSLATIONAL COMPONENTS IF NECESSARY
@@ -116,104 +122,104 @@ SUBROUTINE psrod
    ibasea = 0
    IF ( iecpt(9)/=0 ) THEN
       ibasea = 6
-      CALL transs(iecpt(9),Ta)
-      CALL gmmats(Ta,3,3,0,Ua(1),3,1,0,Ua(7))
+      CALL transs(iecpt(9),ta)
+      CALL gmmats(ta,3,3,0,ua(1),3,1,0,ua(7))
    ENDIF
    ibaseb = 0
    IF ( iecpt(13)/=0 ) THEN
       ibaseb = 6
-      CALL transs(iecpt(13),Tb)
-      CALL gmmats(Tb,3,3,0,Ub(1),3,1,0,Ub(7))
+      CALL transs(iecpt(13),tb)
+      CALL gmmats(tb,3,3,0,ub(1),3,1,0,ub(7))
    ENDIF
 !
 ! FORM DIFFERENCE VECTOR, DOT PRODUCT AND INCREMENT OF STRAIN
 !
-   Diff(1) = Ua(ibasea+1) - Ub(ibaseb+1)
-   Diff(2) = Ua(ibasea+2) - Ub(ibaseb+2)
-   Diff(3) = Ua(ibasea+3) - Ub(ibaseb+3)
-   CALL gmmats(Xn,3,1,1,Diff,3,1,0,term)
-   deps1 = term/Xl
-   epsin2 = Ecpt(19)
-   epsin1 = Ecpt(18)
+   diff(1) = ua(ibasea+1) - ub(ibaseb+1)
+   diff(2) = ua(ibasea+2) - ub(ibaseb+2)
+   diff(3) = ua(ibasea+3) - ub(ibaseb+3)
+   CALL gmmats(xn,3,1,1,diff,3,1,0,term)
+   deps1 = term/xl
+   epsin2 = ecpt(19)
+   epsin1 = ecpt(18)
    deps2 = epsin2 - epsin1
 !
 ! COMPUTE EPS1 AND EPS2 AND FETCH VIA MAT STRESSES SIGMA1 AND SIGMA2
 !
    eps1 = epsin2 + deps1
-   eps2 = epsin2 + (deps1+Gammas**2*deps2)*(Gamma+1.0)/(Gammas+1.0) + Gammas*(deps1-Gammas*deps2)*(Gamma+1.0)**2/(Gammas+1.0)
-   Matflg = 6
-   Plaarg = eps1
+   eps2 = epsin2 + (deps1+gammas**2*deps2)*(gamma+1.0)/(gammas+1.0) + gammas*(deps1-gammas*deps2)*(gamma+1.0)**2/(gammas+1.0)
+   matflg = 6
+   plaarg = eps1
    CALL mat(iecpt(1))
    sigma1 = plaans
-   Plaarg = eps2
+   plaarg = eps2
    CALL mat(iecpt(1))
    sigma2 = plaans
    IF ( eps1==eps2 ) THEN
-      e = Ecpt(20)
+      e = ecpt(20)
    ELSE
       e = (sigma2-sigma1)/(eps2-eps1)
    ENDIF
-   g = Ecpt(20)*gsub0l/esub0l
+   g = ecpt(20)*gsub0l/esub0l
 !
 ! COMPUTE STRESSES
 !
    iselid = iecpt(1)
-   Sigma = sigma1
-   p = Ecpt(5)*sigma1
+   sigma = sigma1
+   p = ecpt(5)*sigma1
 !
 ! TRANSFORM DISPLACEMENT VECTOR ROTATIONAL DISPLACEMENTS IF NECESSARY.
 !
    ibasea = 3
    IF ( iecpt(9)/=0 ) THEN
-      CALL gmmats(Ta,3,3,0,Ua(4),3,1,0,Ua(7))
+      CALL gmmats(ta,3,3,0,ua(4),3,1,0,ua(7))
       ibasea = 6
    ENDIF
    ibaseb = 3
    IF ( iecpt(13)/=0 ) THEN
       ibaseb = 6
-      CALL gmmats(Tb,3,3,0,Ub(4),3,1,0,Ub(7))
+      CALL gmmats(tb,3,3,0,ub(4),3,1,0,ub(7))
    ENDIF
-   Diff(1) = Ua(ibasea+1) - Ub(ibaseb+1)
-   Diff(2) = Ua(ibasea+2) - Ub(ibaseb+2)
-   Diff(3) = Ua(ibasea+3) - Ub(ibaseb+3)
-   CALL gmmats(Xn,3,1,1,Diff,3,1,0,term)
-   t = Ecpt(6)*g*term/Xl + Ecpt(21)
-   IF ( Ecpt(6)==0.0 ) THEN
-      Tau = 0.0
+   diff(1) = ua(ibasea+1) - ub(ibaseb+1)
+   diff(2) = ua(ibasea+2) - ub(ibaseb+2)
+   diff(3) = ua(ibasea+3) - ub(ibaseb+3)
+   CALL gmmats(xn,3,1,1,diff,3,1,0,term)
+   t = ecpt(6)*g*term/xl + ecpt(21)
+   IF ( ecpt(6)==0.0 ) THEN
+      tau = 0.0
    ELSE
-      Tau = Ecpt(7)*t/Ecpt(6)
+      tau = ecpt(7)*t/ecpt(6)
    ENDIF
 !
 ! COMPUTE MARGIN OF SAFETY IN EXTENSION
 !
-   IF ( Sigma<=0.0 ) THEN
-      IF ( Sigma/=0.0 ) THEN
-         Sigmac = -abs(Sigmac)
-         Smsig = Sigmac/Sigma - 1.0
+   IF ( sigma<=0.0 ) THEN
+      IF ( sigma/=0.0 ) THEN
+         sigmac = -abs(sigmac)
+         smsig = sigmac/sigma - 1.0
       ELSE
          mssig = 1
       ENDIF
-   ELSEIF ( Sigmat<=0.0 ) THEN
+   ELSEIF ( sigmat<=0.0 ) THEN
       mssig = 1
    ELSE
-      Smsig = Sigmat/Sigma - 1.0
+      smsig = sigmat/sigma - 1.0
    ENDIF
 !
 !     COMPUTE MARGIN OF SAFETY IN TORSION
 !
-   IF ( Sigmas<=0.0 ) THEN
+   IF ( sigmas<=0.0 ) THEN
       mstau = 1
-   ELSEIF ( Tau==0.0 ) THEN
+   ELSEIF ( tau==0.0 ) THEN
       mstau = 1
    ELSE
-      Smtau = Sigmas/abs(Tau) - 1.0
+      smtau = sigmas/abs(tau) - 1.0
    ENDIF
-   Jselid = iecpt(1)
+   jselid = iecpt(1)
 !
 ! UPDATE EST (ECPT) ENTRY
 !
-   Ecpt(18) = Ecpt(19)
-   Ecpt(19) = eps1
-   Ecpt(20) = e
-   Ecpt(21) = t
+   ecpt(18) = ecpt(19)
+   ecpt(19) = eps1
+   ecpt(20) = e
+   ecpt(21) = t
 END SUBROUTINE psrod

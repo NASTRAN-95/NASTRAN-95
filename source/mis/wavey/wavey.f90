@@ -1,9 +1,10 @@
-!*==wavey.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==wavey.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE wavey(Ig,Ild,New,Nc,Ic,Kact,Maxb,Maxw,Averw,Sumw,Rms,Brms,Jg)
-USE C_BANDS
-USE ISO_FORTRAN_ENV                 
+   USE c_bands
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -76,13 +77,13 @@ USE ISO_FORTRAN_ENV
    bsumsq = 0.D0
    Averw = 0.
    Rms = 0.
-   Mindeg = min0(Mindeg,Mm)
-   IF ( Nn*Mm<=0 ) RETURN
+   mindeg = min0(mindeg,mm)
+   IF ( nn*mm<=0 ) RETURN
 !
 !     INITIALIZE NEW, THE INVERSE OF ILD
 !
    IF ( Nc<=0 ) THEN
-      DO i = 1 , Nn
+      DO i = 1 , nn
          k = Ild(i)
          IF ( k>0 ) New(k) = i
       ENDDO
@@ -90,7 +91,7 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE ACTIVE COLUMN FLAGS (1 FOR ACTIVE)
 !
-   DO i = 1 , Nn
+   DO i = 1 , nn
       Kact(i) = 0
    ENDDO
 !
@@ -98,7 +99,7 @@ USE ISO_FORTRAN_ENV
 !
    iwave = 1
    kt = 0
-   DO i = 1 , Nn
+   DO i = 1 , nn
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
@@ -112,9 +113,9 @@ USE ISO_FORTRAN_ENV
                IF ( Nc/=Ic(k) ) CYCLE
             ENDIF
             kt = kt + 1
-            CALL bunpak(Ig,k,Mm,Jg)
+            CALL bunpak(Ig,k,mm,Jg)
             ib = 0
-            DO j = 1 , Mm
+            DO j = 1 , mm
                l = Jg(j)
                IF ( l==0 ) THEN
                   spag_nextblock_1 = 2
@@ -130,9 +131,8 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDDO
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          CASE (2)
-            Mindeg = min0(Mindeg,j-1)
+            mindeg = min0(mindeg,j-1)
             spag_nextblock_1 = 3
          CASE (3)
 !

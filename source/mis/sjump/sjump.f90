@@ -1,12 +1,13 @@
-!*==sjump.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sjump.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sjump(N)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,47 +34,47 @@ SUBROUTINE sjump(N)
    CALL chkopn(nmsbr(1))
    IF ( N<=0 ) RETURN
    icount = 0
-   IF ( Iomode/=ird ) THEN
+   IF ( iomode/=ird ) THEN
       N = -2
       RETURN
    ENDIF
    SPAG_Loop_1_1: DO
-      IF ( Ioptr>Blksiz+Io ) THEN
+      IF ( ioptr>blksiz+io ) THEN
 !
 !     REACHED END OF BLOCK.  REPLACE THE BLOCK CURRENTLY IN CORE BY ITS
 !     LINK BLOCK.
 !
-         CALL fnxt(Iopbn,inxt)
-         IF ( mod(Iopbn,2)==1 ) THEN
-            next = andf(Buf(inxt),Jhalf)
+         CALL fnxt(iopbn,inxt)
+         IF ( mod(iopbn,2)==1 ) THEN
+            next = andf(buf(inxt),jhalf)
          ELSE
-            next = andf(rshift(Buf(inxt),Ihalf),Jhalf)
+            next = andf(rshift(buf(inxt),ihalf),jhalf)
          ENDIF
          IF ( next==0 ) THEN
             CALL errmkn(indsbr,9)
             EXIT SPAG_Loop_1_1
          ELSE
-            Iopbn = next
-            Iolbn = Iolbn + 1
-            CALL sofio(ird,Iopbn,Buf(Io-2))
-            Ioptr = Io + 1
+            iopbn = next
+            iolbn = iolbn + 1
+            CALL sofio(ird,iopbn,buf(io-2))
+            ioptr = io + 1
          ENDIF
       ENDIF
-      IF ( Buf(Ioptr)==eoi ) THEN
+      IF ( buf(ioptr)==eoi ) THEN
          N = -1
          RETURN
 !
-      ELSEIF ( Buf(Ioptr)/=eog ) THEN
+      ELSEIF ( buf(ioptr)/=eog ) THEN
 !
 !     SEARCH THROUGH SOF FOR END OF ITEM AND END OF GROUP.
 !
-         Ioptr = Ioptr + 1
+         ioptr = ioptr + 1
       ELSE
          icount = icount + 1
          IF ( icount/=N ) THEN
-            Ioptr = Ioptr + 1
+            ioptr = ioptr + 1
          ELSE
-            Ioptr = Ioptr + 1
+            ioptr = ioptr + 1
             RETURN
          ENDIF
       ENDIF

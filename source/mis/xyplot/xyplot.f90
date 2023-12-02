@@ -2,13 +2,13 @@
  
 SUBROUTINE xyplot
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_PLTDAT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XXPARM
-   USE C_XYPLIN
-   USE C_ZZZZZZ
+   USE c_machin
+   USE c_pltdat
+   USE c_system
+   USE c_xmssg
+   USE c_xxparm
+   USE c_xyplin
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -24,6 +24,12 @@ SUBROUTINE xyplot
    REAL , DIMENSION(1) :: x , y
    REAL , SAVE :: xlpap , ylpap
    REAL , DIMENSION(2) :: xy
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -118,19 +124,19 @@ SUBROUTINE xyplot
 !     WITH WRONG WORD COUNT).  WHEN NERR=5, XYPLOT ASSUMES BAD INPUT
 !     FILE AND ABANDONS OPERATION.
 !
-   mb1 = korsz(Z) - sysbuf
+   mb1 = korsz(z) - sysbuf
    ipchg = 0
    iopn = 0
-   CALL open(*1100,xyplt,Z(mb1),irdrw)
+   CALL open(*1100,xyplt,z(mb1),irdrw)
  100  CALL fwdrec(*1400,xyplt)
    nerr = 0
 !
 !     READ I.D. RECORD ON INPUT DATA FILE
 !
- 200  CALL read(*1400,*400,xyplt,Idsb,nrwd+1,1,nact)
+ 200  CALL read(*1400,*400,xyplt,idsb,nrwd+1,1,nact)
  300  nerr = nerr + 1
    IF ( nerr<5 ) GOTO 200
-   WRITE (outape,99001) Uwm
+   WRITE (outape,99001) uwm
 !
 99001 FORMAT (A25,' 992, XYPLOT INPUT DATA FILE ID. RECORDS TOO SHORT.','  XYPLOT ABANDONED.')
    GOTO 1300
@@ -138,55 +144,55 @@ SUBROUTINE xyplot
 !
 !     SKIP DATA IF IT WAS FOR THE PAPERPLOTER ONLY
 !
-   IF ( D4(2)<=0 ) GOTO 100
-   IF ( Nwfr/=0 ) THEN
+   IF ( d4(2)<=0 ) GOTO 100
+   IF ( nwfr/=0 ) THEN
 !
 !     NEW AXIS, LABELS, ETC. ARE NEEDED.
 !
 !     NASTRAN PLOTTING SOFTWARE INITIALIZATION.
 !
-      IF ( Itbf>=0 .AND. iopn/=0 ) CALL stplot(-1)
-      Ipltnr = rshift(Nplt,Ihalf)
-      Model = Nplt - lshift(Ipltnr,Ihalf) - 100
-      IF ( Ncmr>0 ) Icmra = Ncmr
-      Ifskp = Iskp
-      Cscale = Chrscl
-      IF ( Cscale<1. ) Cscale = 1.0
-      IF ( Xpap>0. ) Papszx = Xpap
-      IF ( Ypap>0. ) Papszy = Ypap
-      DO i = 1 , Npens
-         Jpsz(i) = Ipsz
+      IF ( itbf>=0 .AND. iopn/=0 ) CALL stplot(-1)
+      ipltnr = rshift(nplt,ihalf)
+      model = nplt - lshift(ipltnr,ihalf) - 100
+      IF ( ncmr>0 ) icmra = ncmr
+      ifskp = iskp
+      cscale = chrscl
+      IF ( cscale<1. ) cscale = 1.0
+      IF ( xpap>0. ) papszx = xpap
+      IF ( ypap>0. ) papszy = ypap
+      DO i = 1 , npens
+         jpsz(i) = ipsz
       ENDDO
-      IF ( Itbf>=0 ) THEN
+      IF ( itbf>=0 ) THEN
 !
          CALL pltset
-         lcmr = Ncmr
-         xlpap = Xpap
-         ylpap = Ypap
-         lpltmd = Nplt
-         mb2 = mb1 - Ipltbf
+         lcmr = ncmr
+         xlpap = xpap
+         ylpap = ypap
+         lpltmd = nplt
+         mb2 = mb1 - ipltbf
          mb3 = 2*((mb2-1)/2)
          GOTO 900
 !
 !     LOWER HALF MAY NOT CHANGE FRAME OR PLOTTER OR CALL PLTSET
 !
 !     IF (NCMR .NE. LCMR  ) GO TO 925
-      ELSEIF ( Xpap/=xlpap ) THEN
-         WRITE (outape,99005) Swm
+      ELSEIF ( xpap/=xlpap ) THEN
+         WRITE (outape,99005) swm
          GOTO 1300
-      ELSEIF ( Ypap/=ylpap ) THEN
-         WRITE (outape,99005) Swm
+      ELSEIF ( ypap/=ylpap ) THEN
+         WRITE (outape,99005) swm
          GOTO 1300
       ELSE
-         IF ( Nplt==lpltmd ) GOTO 900
-         WRITE (outape,99005) Swm
+         IF ( nplt==lpltmd ) GOTO 900
+         WRITE (outape,99005) swm
          GOTO 1300
       ENDIF
    ENDIF
 !
 !     READ DATA PAIRS FROM INPUT DATA FILE FOR CURVE TO BE PLOTTED
 !
- 500  CALL read(*1400,*800,xyplt,Z,mb3,0,nact)
+ 500  CALL read(*1400,*800,xyplt,z,mb3,0,nact)
 !
 !     SET IFIN TO SHOW MORE DATA REMAINING TO BE READ FROM RECORD.
 !     SET L AS INDEX TO LAST LEGITIMATE X VALUE OF DATA PAIRS IN CORE.
@@ -201,9 +207,9 @@ SUBROUTINE xyplot
 !     CONVERT DATA POINTS TO PLOTTER COUNTS AND PLOT SYMBOL AT EACH
 !     LEGITIMATE POINT WHEN REQUIRED.
 !
-   IF ( Icrv/=0 ) CALL symbol(0,0,0,-1)
+   IF ( icrv/=0 ) CALL symbol(0,0,0,-1)
 !
-   isym(1) = iabs(Icrv) + Ncrv - 1
+   isym(1) = iabs(icrv) + ncrv - 1
    isym(2) = 0
 !
    DO i = 1 , l , 2
@@ -216,7 +222,7 @@ SUBROUTINE xyplot
                   IF ( y(i)>=ymins ) THEN
                      IF ( logys>0 ) y(i) = alog10(y(i))
                      y(i) = ydr*y(i) + yc
-                     IF ( Icrv/=0 ) CALL symbol(x(i),y(i),isym,0)
+                     IF ( icrv/=0 ) CALL symbol(x(i),y(i),isym,0)
                      CYCLE
                   ENDIF
                ENDIF
@@ -226,22 +232,22 @@ SUBROUTINE xyplot
          ix(i+1) = 1
       ENDIF
    ENDDO
-   IF ( Icrv/=0 ) CALL symbol(0,0,0,1)
+   IF ( icrv/=0 ) CALL symbol(0,0,0,1)
 !
 !     PLOT LINES BETWEEN LEGITIMATE POINTS WHEN REQUIRED
 !
-   IF ( Icrv<0 .AND. Ipenn>0 ) Icrv = -Icrv
-   IF ( Icrv>=0 ) THEN
+   IF ( icrv<0 .AND. ipenn>0 ) icrv = -icrv
+   IF ( icrv>=0 ) THEN
       CALL line(0,0,0,0,0,-1)
       oldx = x(1)
       oldy = y(1)
       IF ( ipchg==1 ) THEN
-         IF ( icpen==Ipenn ) icpen = Ipens - 1
+         IF ( icpen==ipenn ) icpen = ipens - 1
          icpen = icpen + 1
       ELSE
-         icpen = Ipsz
-         IF ( Ipens/=0 ) THEN
-            icpen = Ipens
+         icpen = ipsz
+         IF ( ipens/=0 ) THEN
+            icpen = ipens
             ipchg = 1
          ENDIF
       ENDIF
@@ -262,8 +268,8 @@ SUBROUTINE xyplot
       ENDDO
       CALL line(0,0,0,0,0,1)
    ENDIF
- 700  IF ( ifin/=0 ) GOTO 200
-   GOTO 500
+ 700  IF ( ifin==0 ) GOTO 500
+   GOTO 200
 !
 !     ALL DATA PAIRS IN CORE, SET IFIN TO SHOW NO MORE DATA REMAINS
 !     FOR PRESENT CURVE.  IF ODD NUMBER OF DATA VALUES OUTPUT WARNING
@@ -273,66 +279,66 @@ SUBROUTINE xyplot
  800  ifin = 1
    IF ( nact/=(nact/2)*2 ) THEN
       nact = nact - 1
-      WRITE (outape,99002) Uwm , Nfrm , Ncrv
+      WRITE (outape,99002) uwm , nfrm , ncrv
 99002 FORMAT (A25,' 993, XYPLOT FOUND ODD NR. OF VALUES FOR DATA PAIRS',' IN FRAME',I5,', CURVE NR.',I5,'.  LAST VALUE IGNORED.')
       nlines = nlines + 2
       IF ( nlines>=nlpp ) CALL page
    ENDIF
    l = nact - 1
-   IF ( l<=0 ) GOTO 200
-   GOTO 600
+   IF ( l>0 ) GOTO 600
+   GOTO 200
 !
 !     SET VALUES FOR FULL FRAME PLOTTING
 !
  900  ywmin = 0.
-   Ylow = 4.*Ccv
-   yxtr = (Ywmax+Ylow)/2.
+   ylow = 4.*ccv
+   yxtr = (ywmax+ylow)/2.
 !
 !     START A NEW PLOT IF NECESSARY.
 !
-   IF ( Itbf>=0 ) THEN
-      CALL sopen(*1200,Ltape,Z(mb2),Ipltbf)
+   IF ( itbf>=0 ) THEN
+      CALL sopen(*1200,ltape,z(mb2),ipltbf)
       iopn = 1
-      CALL stplot(Nfrm)
+      CALL stplot(nfrm)
    ENDIF
    CALL print(0,0,0,0,0,-1)
-   IF ( Itbf<0 ) THEN
+   IF ( itbf<0 ) THEN
 !
 !     MODIFY VALUE FOR LOWER HALF FRAME PLOTTING
 !
-      Yup = yxtr
+      yup = yxtr
       GOTO 1000
-   ELSEIF ( Itbf/=0 ) THEN
+   ELSEIF ( itbf/=0 ) THEN
 !
 !     MODIFY VALUE FOR UPPER HALF FRAME PLOTTING
 !
-      Ylow = yxtr
+      ylow = yxtr
    ENDIF
 !
 !     SAVE YLOW AND EXPAND REGION SIZE FOR PRINTING OF TITLES.  RESTORE
 !     YLOW AFTER PRINTING THE FOUR CURVE TITLES AT BOTTOM OF FRAME.
 !
-   xprm = Xwmin
+   xprm = xwmin
    yprm = ywmin
-   y1t = Ylow
-   Ylow = ywmin
-   CALL print(xprm,yprm,1,Clbl(1),32,0)
-   yprm = yprm + Ccv
-   CALL print(xprm,yprm,1,Sbtl(1),32,0)
-   yprm = yprm + Ccv
-   CALL print(xprm,yprm,1,Titl(1),32,0)
-   yprm = yprm + Ccv
-   CALL print(xprm,yprm,1,Cvtl(1),32,0)
-   Ylow = y1t
+   y1t = ylow
+   ylow = ywmin
+   CALL print(xprm,yprm,1,clbl(1),32,0)
+   yprm = yprm + ccv
+   CALL print(xprm,yprm,1,sbtl(1),32,0)
+   yprm = yprm + ccv
+   CALL print(xprm,yprm,1,titl(1),32,0)
+   yprm = yprm + ccv
+   CALL print(xprm,yprm,1,cvtl(1),32,0)
+   ylow = y1t
 !
 !     OUTPUT X AND Y AXES TITLES
 !
- 1000 yprm = Ylow
-   xprm = Xwmin + 8.*Cch
-   CALL print(xprm,yprm,1,Xatl(1),32,0)
-   yprm = Yup - 2*Ccv
-   xprm = Xwmin
-   CALL print(xprm,yprm,2,Yatl(1),32,0)
+ 1000 yprm = ylow
+   xprm = xwmin + 8.*cch
+   CALL print(xprm,yprm,1,xatl(1),32,0)
+   yprm = yup - 2*ccv
+   xprm = xwmin
+   CALL print(xprm,yprm,2,yatl(1),32,0)
    CALL tipe(0,0,0,0,0,1)
 !
 !     MEANING OF SYMBOLS USED
@@ -347,30 +353,30 @@ SUBROUTINE xyplot
 !
    n = 0
    DO
-      dx = Xltc - Xtic
-      dy = Yltc - Ytic
+      dx = xltc - xtic
+      dy = yltc - ytic
       IF ( dx>0.0 .AND. dy>0.0 ) EXIT
       IF ( n/=0 ) THEN
          n = 2
          IF ( dx<=0.0 ) THEN
-            Xltc = Xtic + 10.0
-            Xdtc = 2.0
-            Nxtt = 0
+            xltc = xtic + 10.0
+            xdtc = 2.0
+            nxtt = 0
          ENDIF
          IF ( dy<=0.0 ) THEN
-            Yltc = Ytic + 10.0
-            Ydtc = 2.0
-            Nytt = 4
+            yltc = ytic + 10.0
+            ydtc = 2.0
+            nytt = 4
          ENDIF
       ELSE
-         IF ( dx<=0.0 ) Xltc = Xtic + Xdtc*float(Nxtt+1)
-         IF ( dy<=0.0 ) Yltc = Ytic + Ydtc*float(Nytt+1)
+         IF ( dx<=0.0 ) xltc = xtic + xdtc*float(nxtt+1)
+         IF ( dy<=0.0 ) yltc = ytic + ydtc*float(nytt+1)
          n = 1
       ENDIF
 !
 !     PRINT WARNING (N=NO. OF PASSES TO CORRECT)
 !
-      WRITE (outape,99003) Uwm , n , Nfrm
+      WRITE (outape,99003) uwm , n , nfrm
 99003 FORMAT (A25,' 997, NR.',I4,'.  FRAME NR.',I5,' INPUT DATA ','INCOMPATIBLE.  ASSUMPTIONS MAY PRODUCE INVALID PLOT.')
       nlines = nlines + 2
       IF ( nlines>=nlpp ) CALL page
@@ -380,72 +386,72 @@ SUBROUTINE xyplot
 !     SAVE XMAX, XMIN, YMAX, YMIN, LOGX AND LOGY FOR USE IF NEXT
 !     I.D. RECORD IS NOT A NEW FRAME
 !
-   logxs = Logx
-   logys = Logy
-   xmins = Xtic
-   xmaxs = Xltc
-   ymins = Ytic
-   ymaxs = Yltc
+   logxs = logx
+   logys = logy
+   xmins = xtic
+   xmaxs = xltc
+   ymins = ytic
+   ymaxs = yltc
 !
 !     CALCULATE CONVERSION FACTORS
 !
-   xpl = Xwmax - 7.*Cch
-   xps = Xwmin + 8.*Cch
-   ypl = Yup - 2.*Ccv
-   yps = Ylow + 2.*Ccv
+   xpl = xwmax - 7.*cch
+   xps = xwmin + 8.*cch
+   ypl = yup - 2.*ccv
+   yps = ylow + 2.*ccv
 !
 !     PUT FRAME AT X AND Y MAXIMUM AND MINIMUM LIMITS
 !
-   IF ( Ixgd/=0 .OR. Iygd/=0 ) THEN
+   IF ( ixgd/=0 .OR. iygd/=0 ) THEN
       CALL axis(0,0,0,0,0,-1)
-      CALL axis(xps,yps,xps,ypl,Ipsz,0)
-      CALL axis(xps,ypl,xpl,ypl,Ipsz,0)
-      CALL axis(xpl,ypl,xpl,yps,Ipsz,0)
-      CALL axis(xpl,yps,xps,yps,Ipsz,0)
+      CALL axis(xps,yps,xps,ypl,ipsz,0)
+      CALL axis(xps,ypl,xpl,ypl,ipsz,0)
+      CALL axis(xpl,ypl,xpl,yps,ipsz,0)
+      CALL axis(xpl,yps,xps,yps,ipsz,0)
       CALL axis(0,0,0,0,0,+1)
    ENDIF
-   IF ( Logx>0 ) THEN
-      Xtic = alog10(Xtic)
-      Xltc = alog10(Xltc)
-      dx = Xltc - Xtic
-      IF ( Iyax==1 ) Yint = alog10(Yint)
+   IF ( logx>0 ) THEN
+      xtic = alog10(xtic)
+      xltc = alog10(xltc)
+      dx = xltc - xtic
+      IF ( iyax==1 ) yint = alog10(yint)
    ENDIF
-   IF ( Logy>0 ) THEN
-      Ytic = alog10(Ytic)
-      Yltc = alog10(Yltc)
-      dy = Yltc - Ytic
-      IF ( Ixax==1 ) Xint = alog10(Xint)
+   IF ( logy>0 ) THEN
+      ytic = alog10(ytic)
+      yltc = alog10(yltc)
+      dy = yltc - ytic
+      IF ( ixax==1 ) xint = alog10(xint)
    ENDIF
    xdr = (xpl-xps)/dx
-   xc = (xps*Xltc-xpl*Xtic)/dx
+   xc = (xps*xltc-xpl*xtic)/dx
    ydr = (ypl-yps)/dy
-   yc = (yps*Yltc-ypl*Ytic)/dy
+   yc = (yps*yltc-ypl*ytic)/dy
 !
 !     PREPARE TO CREATE + LABEL ANY REQUESTED TIC MARKS IN THE
 !     X-DIRECTION.
 !
-   IF ( Ittc/=0 .OR. Ixax==1 .OR. Ibtc/=0 .OR. Iygd/=0 ) THEN
+   IF ( ittc/=0 .OR. ixax==1 .OR. ibtc/=0 .OR. iygd/=0 ) THEN
       ndg = 0
-      IF ( Logx>0 ) THEN
-         ntt = Logx + 1
-         xts = Xtic*xdr + xc
+      IF ( logx>0 ) THEN
+         ntt = logx + 1
+         xts = xtic*xdr + xc
          dtc = 1.
          ndg = 4
-         IF ( Logx<=10 ) THEN
-            ill = lttp(Logx)
-            nitk = lttn(Logx)
+         IF ( logx<=10 ) THEN
+            ill = lttp(logx)
+            nitk = lttn(logx)
          ENDIF
       ELSE
-         dtc = Xdtc
-         IF ( dtc>0. .AND. Nxtt>0 ) THEN
-            ntt = Nxtt
-            xts = Xtic*xdr + xc
-            IF ( Ittc>0 .OR. Ibtc>0 ) THEN
-               ndg = min0(Nxdg+1,6)
-               expo = ndg + Ixpr - 2
-               nums = Xtic/10.**expo
+         dtc = xdtc
+         IF ( dtc>0. .AND. nxtt>0 ) THEN
+            ntt = nxtt
+            xts = xtic*xdr + xc
+            IF ( ittc>0 .OR. ibtc>0 ) THEN
+               ndg = min0(nxdg+1,6)
+               expo = ndg + ixpr - 2
+               nums = xtic/10.**expo
                dl = dtc/10.**expo
-               lstep = max0(Ixvs+1,1)
+               lstep = max0(ixvs+1,1)
             ENDIF
          ELSE
             ntt = 0
@@ -455,32 +461,32 @@ SUBROUTINE xyplot
       DO k = 1 , 3
          label = 1
 !WKBR 9/93 LOG = XTIC - 1.0 + SIGN(0.1,XTIC)
-         log = Xtic - 1.0 + sign(0.1,Xtic) - 1
+         log = xtic - 1.0 + sign(0.1,xtic) - 1
          IF ( k==2 ) THEN
 !
 !     TICS ALONG THE X-AXIS.
 !
             itc = 0
-            IF ( Ixax==1 ) itc = -1
+            IF ( ixax==1 ) itc = -1
             IF ( itc/=0 ) THEN
-               yt = Xint*ydr + yc
+               yt = xint*ydr + yc
                CALL axis(0,0,0,0,0,-1)
-               CALL axis(xpl,yt,xps,yt,Ipsz,0)
+               CALL axis(xpl,yt,xps,yt,ipsz,0)
             ENDIF
          ELSEIF ( k==3 ) THEN
 !
 !     TICS + LABELS AT THE BOTTOM.
 !
-            itc = Ibtc
+            itc = ibtc
             yt = yps
-            yl = yt - Ccv
+            yl = yt - ccv
          ELSE
 !
 !     TICS + LABELS AT THE TOP.
 !
-            itc = Ittc
+            itc = ittc
             yt = ypl
-            yl = yt + Ccv
+            yl = yt + ccv
          ENDIF
 !
          IF ( itc/=0 .AND. ntt>0 ) THEN
@@ -488,7 +494,7 @@ SUBROUTINE xyplot
             DO j = 1 , ntt
                r = xts + dtc*xdr*float(j-1)
                CALL tipe(r,yt,1,iplus,1,0)
-               IF ( Logx>0 ) THEN
+               IF ( logx>0 ) THEN
 !
 !     LABEL THIS LOGARITHMIC CYCLE TIC MARK.
 !
@@ -496,10 +502,10 @@ SUBROUTINE xyplot
                   IF ( itc>=0 ) THEN
                      i = lep
                      IF ( log<0 ) i = lem
-                     CALL print(r-Cch,yl,1,i,1,0)
-                     CALL typint(r+2.*Cch,yl,1,iabs(log),0,0)
+                     CALL print(r-cch,yl,1,i,1,0)
+                     CALL typint(r+2.*cch,yl,1,iabs(log),0,0)
                   ENDIF
-                  IF ( Logx<=10 .AND. j/=ntt ) THEN
+                  IF ( logx<=10 .AND. j/=ntt ) THEN
 !
 !     CREATE + LABEL THE LOGARITHMIC INTRACYCLE TIC MARKS WITHIN THIS
 !     CYCLE.
@@ -536,9 +542,9 @@ SUBROUTINE xyplot
  1002             CALL typflt(r,yl,1,rnum,ifield,0)
                   label = label + lstep
                   IF ( label>ntt ) THEN
-                     r = r + float(ifield)*Cch
+                     r = r + float(ifield)*cch
                      CALL tipe(r,yl,1,ie,1,0)
-                     CALL typint(r+Cch,yl,1,expo,0,0)
+                     CALL typint(r+cch,yl,1,expo,0,0)
                   ENDIF
                ENDIF
 !
@@ -546,20 +552,20 @@ SUBROUTINE xyplot
             CALL tipe(0,0,0,0,0,+1)
          ENDIF
       ENDDO
-      IF ( Iygd/=0 .AND. ntt>0 ) THEN
+      IF ( iygd/=0 .AND. ntt>0 ) THEN
 !
 !     DRAW THE Y-DIRECTION GRID NETWORK.
 !
          CALL axis(0,0,0,0,0,-1)
 !WKBR 9/93 LOG = XTIC - 1.0 + SIGN(0.1,XTIC)
-         log = Xtic - 1.0 + sign(0.1,Xtic) - 1
+         log = xtic - 1.0 + sign(0.1,xtic) - 1
          k = 1
          DO j = 1 , ntt
             k = -k
             r = xts + dtc*xdr*float(ntt-j)
-            IF ( k>0 ) CALL axis(r,ypl,r,yps,Ipsz,0)
-            IF ( k<0 ) CALL axis(r,yps,r,ypl,Ipsz,0)
-            IF ( Logx>0 .AND. Logx<=10 .AND. j/=ntt ) THEN
+            IF ( k>0 ) CALL axis(r,ypl,r,yps,ipsz,0)
+            IF ( k<0 ) CALL axis(r,yps,r,ypl,ipsz,0)
+            IF ( logx>0 .AND. logx<=10 .AND. j/=ntt ) THEN
 !
 !     DRAW THE Y-DIRECTION GRID LINES WITHIN THIS LOGARITHMIC CYCLE.
 !
@@ -568,8 +574,8 @@ SUBROUTINE xyplot
                   l = ill + nitk - i
                   t = xdr*(alog10(tltv(l))+float(log)) + xc
                   k = -k
-                  IF ( k>0 ) CALL axis(t,ypl,t,yps,Ipsz,0)
-                  IF ( k<0 ) CALL axis(t,yps,t,ypl,Ipsz,0)
+                  IF ( k>0 ) CALL axis(t,ypl,t,yps,ipsz,0)
+                  IF ( k<0 ) CALL axis(t,yps,t,ypl,ipsz,0)
                ENDDO
             ENDIF
 !
@@ -581,28 +587,28 @@ SUBROUTINE xyplot
 !     PREPARE TO CREATE + LABEL ANY REQUESTED TIC MARKS IN THE
 !     Y-DIRECTION.
 !
-   IF ( Iltc/=0 .OR. Iyax==1 .OR. Irtc/=0 .OR. Ixgd/=0 ) THEN
+   IF ( iltc/=0 .OR. iyax==1 .OR. irtc/=0 .OR. ixgd/=0 ) THEN
       ndg = 0
-      IF ( Logy>0 ) THEN
-         ntt = Logy + 1
-         yts = Ytic*ydr + yc
+      IF ( logy>0 ) THEN
+         ntt = logy + 1
+         yts = ytic*ydr + yc
          dtc = 1.
          ndg = 4
-         IF ( Logy<=10 ) THEN
-            ill = lttp(Logy)
-            nitk = lttn(Logy)
+         IF ( logy<=10 ) THEN
+            ill = lttp(logy)
+            nitk = lttn(logy)
          ENDIF
       ELSE
-         dtc = Ydtc
-         IF ( dtc>0. .AND. Nytt>0 ) THEN
-            ntt = Nytt
-            yts = Ytic*ydr + yc
-            IF ( Iltc>0 .OR. Irtc>0 ) THEN
-               ndg = min0(Nydg+1,6)
-               expo = ndg + Iypr - 2
-               nums = Ytic/10.**expo
+         dtc = ydtc
+         IF ( dtc>0. .AND. nytt>0 ) THEN
+            ntt = nytt
+            yts = ytic*ydr + yc
+            IF ( iltc>0 .OR. irtc>0 ) THEN
+               ndg = min0(nydg+1,6)
+               expo = ndg + iypr - 2
+               nums = ytic/10.**expo
                dl = dtc/10.**expo
-               lstep = max0(Iyvs+1,1)
+               lstep = max0(iyvs+1,1)
             ENDIF
          ELSE
             ntt = 0
@@ -611,32 +617,32 @@ SUBROUTINE xyplot
 !
       DO k = 1 , 3
          label = 1
-         log = Ytic - 1.0 + sign(0.1,Ytic)
+         log = ytic - 1.0 + sign(0.1,ytic)
          IF ( k==2 ) THEN
 !
 !     TICS ALONG THE Y-AXIS.
 !
             itc = 0
-            IF ( Iyax==1 ) itc = -1
+            IF ( iyax==1 ) itc = -1
             IF ( itc/=0 ) THEN
-               xt = Yint*xdr + xc
+               xt = yint*xdr + xc
                CALL axis(0,0,0,0,0,-1)
-               CALL axis(xt,ypl,xt,yps,Ipsz,0)
+               CALL axis(xt,ypl,xt,yps,ipsz,0)
             ENDIF
          ELSEIF ( k==3 ) THEN
 !
 !     TICS + LABELS ON THE RIGHT SIDE.
 !
-            itc = Irtc
+            itc = irtc
             xt = xpl
-            xl = xt + Cch
+            xl = xt + cch
          ELSE
 !
 !     TICS + LABELS ON THE LEFT SIDE.
 !
-            itc = Iltc
+            itc = iltc
             xt = xps
-            xl = xt - Cch*float(ndg+1)
+            xl = xt - cch*float(ndg+1)
          ENDIF
 !
          IF ( itc/=0 .AND. ntt>0 ) THEN
@@ -644,7 +650,7 @@ SUBROUTINE xyplot
             DO j = 1 , ntt
                s = yts + dtc*ydr*float(j-1)
                CALL tipe(xt,s,1,iplus,1,0)
-               IF ( Logy>0 ) THEN
+               IF ( logy>0 ) THEN
 !
 !     LABEL THIS LOGARITHMIC CYCLE TIC MARK.
 !
@@ -653,9 +659,9 @@ SUBROUTINE xyplot
                      i = lep
                      IF ( log<0 ) i = lem
                      CALL print(xl,s,1,i,1,0)
-                     CALL typint(xl+3.*Cch,s,1,iabs(log),0,0)
+                     CALL typint(xl+3.*cch,s,1,iabs(log),0,0)
                   ENDIF
-                  IF ( Logy<=10 .AND. j/=ntt ) THEN
+                  IF ( logy<=10 .AND. j/=ntt ) THEN
 !
 !     CREATE + LABEL THE LOGARITHMIC INTRACYCLE TIC MARKS WITHIN THIS
 !     CYCLE.
@@ -695,26 +701,26 @@ SUBROUTINE xyplot
                ENDIF
 !
             ENDDO
-            IF ( itc>=0 .AND. Logy<=0 ) THEN
-               CALL tipe(xl,ylabel-Ccv,1,ie,1,0)
-               CALL typint(xl+Cch,ylabel-Ccv,1,expo,0,0)
+            IF ( itc>=0 .AND. logy<=0 ) THEN
+               CALL tipe(xl,ylabel-ccv,1,ie,1,0)
+               CALL typint(xl+cch,ylabel-ccv,1,expo,0,0)
             ENDIF
             CALL tipe(0,0,0,0,0,+1)
          ENDIF
       ENDDO
-      IF ( Ixgd/=0 .AND. ntt>0 ) THEN
+      IF ( ixgd/=0 .AND. ntt>0 ) THEN
 !
 !     DRAW THE X-DIRECTION GRID NETWORK.
 !
          CALL axis(0,0,0,0,0,-1)
-         log = Ytic - 1.0 + sign(0.1,Ytic)
+         log = ytic - 1.0 + sign(0.1,ytic)
          k = 1
          DO j = 1 , ntt
             k = -k
             s = yts + dtc*ydr*float(ntt-j)
-            IF ( k>0 ) CALL axis(xps,s,xpl,s,Ipsz,0)
-            IF ( k<0 ) CALL axis(xpl,s,xps,s,Ipsz,0)
-            IF ( Logy>0 .AND. Logy<=10 .AND. j/=ntt ) THEN
+            IF ( k>0 ) CALL axis(xps,s,xpl,s,ipsz,0)
+            IF ( k<0 ) CALL axis(xpl,s,xps,s,ipsz,0)
+            IF ( logy>0 .AND. logy<=10 .AND. j/=ntt ) THEN
 !
 !     DRAW THE X-DIRECTION GRID LINES WITHIN THIS LOGARITHMIC CYCLE...
 !
@@ -723,8 +729,8 @@ SUBROUTINE xyplot
                   l = ill + nitk - i
                   t = ydr*(alog10(tltv(l))+float(log)) + yc
                   k = -k
-                  IF ( k>0 ) CALL axis(xps,t,xpl,t,Ipsz,0)
-                  IF ( k<0 ) CALL axis(xpl,t,xps,t,Ipsz,0)
+                  IF ( k>0 ) CALL axis(xps,t,xpl,t,ipsz,0)
+                  IF ( k<0 ) CALL axis(xpl,t,xps,t,ipsz,0)
                ENDDO
             ENDIF
 !
@@ -737,7 +743,7 @@ SUBROUTINE xyplot
 !     OUTPUT WARNING NESSAGES, CLOSE INPUT FILE AND PLOT TAPE AND RETURN
 !
  1100 RETURN
- 1200 WRITE (outape,99004) Uwm , Ltape
+ 1200 WRITE (outape,99004) uwm , ltape
 99004 FORMAT (A25,' 994, XYPLOT OUTPUT FILE NAME ',A4,' NOT FOUND.','  XYPLOT ABANDONED.')
  1300 nlines = nlines + 2
    IF ( nlines>=nlpp ) CALL page

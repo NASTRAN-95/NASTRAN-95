@@ -1,18 +1,19 @@
-!*==ktrpls.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ktrpls.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ktrpls
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_sma1dp
+   USE c_sma1io
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1DP
-   USE C_SMA1IO
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -125,38 +126,38 @@ SUBROUTINE ktrpls
 !
    icode = 63
    ndof = 36
-   iprec = Precis
-   Nlocs = 6
-   dict(1) = Estid
+   iprec = precis
+   nlocs = 6
+   dict(1) = estid
    dict(2) = 1
    dict(3) = ndof
    dict(4) = icode
-   dict(5) = Gsube
+   dict(5) = gsube
    nots = .FALSE.
    imass = .FALSE.
-   IF ( Nom>0 ) imass = .TRUE.
+   IF ( nom>0 ) imass = .TRUE.
    ipass = 1
    idele = iest(1)
    DO i = 1 , 6
       nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = (Est(10)*12.0)**0.333333333333
-   tmem3 = (Est(11)*12.0)**0.333333333333
-   tmem5 = (Est(12)*12.0)**0.333333333333
+   tmem1 = (est(10)*12.0)**0.333333333333
+   tmem3 = (est(11)*12.0)**0.333333333333
+   tmem5 = (est(12)*12.0)**0.333333333333
    matid2 = iest(13)
-   tshr1 = Est(14)
-   tshr3 = Est(15)
-   tshr5 = Est(16)
-   nsm = Est(17)
+   tshr1 = est(14)
+   tshr3 = est(15)
+   tshr5 = est(16)
+   nsm = est(17)
    j = 0
    DO i = 24 , 44 , 4
       j = j + 1
       ics(j) = iest(i)
-      xc(j) = Est(i+1)
-      yc(j) = Est(i+2)
-      zc(j) = Est(i+3)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
 !
 !     IF TMEM3 OR TMEM5 EQUAL TO ZERO OR BLANK,THEY WILL BE SET EQUAL TO
@@ -167,30 +168,30 @@ SUBROUTINE ktrpls
    IF ( tshr3==0.0 .OR. tshr3==blank ) tshr3 = tshr1
    IF ( tshr5==0.0 .OR. tshr5==blank ) tshr5 = tshr1
    IF ( tshr1==0.0 ) nots = .TRUE.
-   Eltemp = Est(48)
+   eltemp = est(48)
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUATE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    CALL mat(idele)
 !
-   Matid = matid2
-   Matflg = 3
+   matid = matid2
+   matflg = 3
    j11 = 0.0
    j12 = 0.0
    j22 = 0.0
    IF ( .NOT.(nots) ) CALL mat(idele)
-   d11 = Em(1)
-   d12 = Em(2)
-   d13 = Em(3)
-   d22 = Em(4)
-   d23 = Em(5)
-   d33 = Em(6)
+   d11 = em(1)
+   d12 = em(2)
+   d13 = em(3)
+   d22 = em(4)
+   d23 = em(5)
+   d33 = em(6)
 !
 !     CALCULATIONS FOR THE TRIANGLE
 !
@@ -214,23 +215,23 @@ SUBROUTINE ktrpls
    d334 = d33*4.0
    d132 = d13*2.0
    d232 = d23*2.0
-   CALL af(f,14,a,b,c,A1,A2,A3,thk1,thk2,thk3,1)
-   a1sq = A1*A1
-   a2sq = A2*A2
-   a3sq = A3*A3
-   c1 = a1sq*A1
-   c2 = 3.0*a1sq*A2
-   c3 = 3.0*a1sq*A3
-   c4 = 3.0*A1*a2sq
-   c5 = 6.0*A1*A2*A3
-   c6 = 3.0*a3sq*A1
-   c7 = a2sq*A2
-   c8 = 3.0*a2sq*A3
-   c9 = 3.0*A2*a3sq
-   c10 = A3*a3sq
-   CALL af(f,14,a,b,c,Aa1,Aa2,Aa3,tshr1,tshr3,tshr5,1)
+   CALL af(f,14,a,b,c,a1,a2,a3,thk1,thk2,thk3,1)
+   a1sq = a1*a1
+   a2sq = a2*a2
+   a3sq = a3*a3
+   c1 = a1sq*a1
+   c2 = 3.0*a1sq*a2
+   c3 = 3.0*a1sq*a3
+   c4 = 3.0*a1*a2sq
+   c5 = 6.0*a1*a2*a3
+   c6 = 3.0*a3sq*a1
+   c7 = a2sq*a2
+   c8 = 3.0*a2sq*a3
+   c9 = 3.0*a2*a3sq
+   c10 = a3*a3sq
+   CALL af(f,14,a,b,c,aa1,aa2,aa3,tshr1,tshr3,tshr5,1)
    uniben = .FALSE.
-   IF ( abs(A2)<=1.0E-06 .AND. abs(A3)<=1.0E-06 ) uniben = .TRUE.
+   IF ( abs(a2)<=1.0E-06 .AND. abs(a3)<=1.0E-06 ) uniben = .TRUE.
 !
 !     COMPUTE THE AREA INTEGRATION FUNCTION F
 !
@@ -299,8 +300,8 @@ SUBROUTINE ktrpls
 !     IF NO TRANSVERSE SHEAR GO TO 113
 !
       IF ( .NOT.(nots) ) THEN
-         X = xc(i)
-         Y = yc(i)
+         x = xc(i)
+         y = yc(i)
          CALL tspl3s(ts6)
          DO jj = 1 , 20
             qqq(i2,jj) = qqq(i2,jj) - ts6(20+jj)
@@ -410,8 +411,8 @@ SUBROUTINE ktrpls
                   nx01 = nx0 + 1
                   mx011 = mx01 + 1
                   nx011 = nx01 + 1
-                  rho = Rhoy*1.0
-                  mtr3(ij) = rho*(A1*f(mx01,nx01)+A2*f(mx011,nx01)+A3*f(mx01,nx011)) + nsm*f(mx01,nx01)
+                  rho = rhoy*1.0
+                  mtr3(ij) = rho*(a1*f(mx01,nx01)+a2*f(mx011,nx01)+a3*f(mx01,nx011)) + nsm*f(mx01,nx01)
                   mtr3(ji) = mtr3(ij)
                ENDIF
             ENDDO
@@ -430,7 +431,7 @@ SUBROUTINE ktrpls
 !     (QQQINV) TRANSPOSE (KTR3)  (QQQINV)
 !
          CALL gmmats(qqqinv,20,18,+1,ktr3,20,20,0,cmt(761))
-         CALL gmmats(cmt(761),18,20,0,qqqinv,20,18,0,Cm1)
+         CALL gmmats(cmt(761),18,20,0,qqqinv,20,18,0,cm1)
          SPAG_Loop_2_3: DO
 !
             DO i = 1 , 1296
@@ -480,7 +481,7 @@ SUBROUTINE ktrpls
                         DO l = 1 , 3
                            sil2 = small(j)
                            l1 = (sil2-1)*3 + l
-                           csub(k,l) = Cm1(k1,l1)
+                           csub(k,l) = cm1(k1,l1)
                         ENDDO
                      ENDDO
                      CALL gmmats(e,6,3,0,csub,3,3,0,csubt)
@@ -548,10 +549,10 @@ SUBROUTINE ktrpls
 !
 !     LUMPED MASS MATRIX
 !
-               CALL af(f,14,a,b,c,t1,t2,t3,Est(10),Est(11),Est(12),1)
+               CALL af(f,14,a,b,c,t1,t2,t3,est(10),est(11),est(12),1)
                area = f(1,1)
                vol = t1*f(1,1) + t2*f(2,1) + t3*f(1,2)
-               amass = (Rhoy*vol+nsm*area)/6.
+               amass = (rhoy*vol+nsm*area)/6.
                DO i = 1 , 1296 , 37
                   cmt(i) = amass
                ENDDO
@@ -580,7 +581,7 @@ SUBROUTINE ktrpls
 !     ERRORS
 !
    nogo = .TRUE.
-   WRITE (ioutpt,99001) Ufm , iest(1)
+   WRITE (ioutpt,99001) ufm , iest(1)
 99001 FORMAT (A23,' 2411, MATRIX RELATING GENERALIZED PARAMETERS AND ','GRID POINT DISPLACEMENTS IS SINGULAR.',//26X,               &
              &'CHECK COORDINATES OF ELEMENT  TRPLT1 WITH ID',I9,1H.)
 END SUBROUTINE ktrpls

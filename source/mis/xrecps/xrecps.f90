@@ -1,4 +1,5 @@
-!*==xrecps.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xrecps.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrecps(Inew,Iold)
@@ -10,6 +11,13 @@ SUBROUTINE xrecps(Inew,Iold)
 !     * STMTS FOR EACH SUB                                             *
 !     ******************************************************************
 !
+   USE c_ifpx0
+   USE c_ifpx1
+   USE c_machin
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_xsrtcm
    USE C_IFPX0
    USE C_IFPX1
    USE C_MACHIN

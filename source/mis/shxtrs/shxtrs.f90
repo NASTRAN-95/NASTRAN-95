@@ -1,4 +1,5 @@
-!*==shxtrs.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shxtrs.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shxtrs(Nrow,Ncol,Array)
@@ -19,6 +20,15 @@ SUBROUTINE shxtrs(Nrow,Ncol,Array)
    REAL , DIMENSION(4,4) :: temp
    REAL , DIMENSION(2,3) , SAVE :: tpoint
    LOGICAL :: tria
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

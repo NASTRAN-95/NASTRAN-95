@@ -1,11 +1,12 @@
-!*==prtint.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==prtint.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE prtint
+   USE c_blank
+   USE c_xxmprt
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_XXMPRT
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -20,12 +21,12 @@ SUBROUTINE prtint
 !
 !
 !
-   IF ( Prt>=0 ) THEN
-      Trlr(1) = 101
-      CALL rdtrl(Trlr)
-      IF ( Trlr(1)>0 ) THEN
-         CALL fname(Trlr,name)
-         CALL intprt(X,Opt,1,name)
+   IF ( prt>=0 ) THEN
+      trlr(1) = 101
+      CALL rdtrl(trlr)
+      IF ( trlr(1)>0 ) THEN
+         CALL fname(trlr,name)
+         CALL intprt(x,opt,1,name)
       ENDIF
    ENDIF
 END SUBROUTINE prtint

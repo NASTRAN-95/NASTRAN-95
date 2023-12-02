@@ -1,7 +1,11 @@
-!*==read.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==read.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE read(File,Idata,N,Ieorfl,M) !HIDESTARS (*,*,File,Idata,N,Ieorfl,M)
+   USE i_dsiof
+   USE i_ginox
+   USE i_xnstrn
    USE I_DSIOF
    USE I_GINOX
    USE I_XNSTRN
@@ -58,8 +62,12 @@ SUBROUTINE read(File,Idata,N,Ieorfl,M) !HIDESTARS (*,*,File,Idata,N,Ieorfl,M)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      EXTERNAL dssdcb
+!
+! End of declarations rewritten by SPAG
+!
       CALL dssdcb
-      IF ( iretrn==2 ) RETURN 2
-      IF ( iretrn==1 ) RETURN 1
+      IF ( Iretrn==2 ) RETURN 2
+      IF ( Iretrn==1 ) RETURN 1
    END SUBROUTINE spag_block_1
 END SUBROUTINE read

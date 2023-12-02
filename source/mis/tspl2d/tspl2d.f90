@@ -1,9 +1,10 @@
-!*==tspl2d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tspl2d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tspl2d(Ts7)
-USE C_SMA1IO
-USE ISO_FORTRAN_ENV                 
+   USE c_sma1io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -23,16 +24,16 @@ USE ISO_FORTRAN_ENV
    DO i = 1 , 60
       Ts7(i) = 0.0D0
    ENDDO
-   x2 = X*X
-   xy = X*Y
-   y2 = Y*Y
-   x3 = x2*X
-   x2y = x2*Y
-   xy2 = X*y2
-   y3 = y2*Y
+   x2 = x*x
+   xy = x*y
+   y2 = y*y
+   x3 = x2*x
+   x2y = x2*y
+   xy2 = x*y2
+   y3 = y2*y
    Ts7(4) = 2.0
-   Ts7(7) = 6.0*X
-   Ts7(8) = 2.0*Y
+   Ts7(7) = 6.0*x
+   Ts7(8) = 2.0*y
    Ts7(11) = 12.0*x2
    Ts7(12) = 6.0*xy
    Ts7(13) = 2.0*y2
@@ -40,8 +41,8 @@ USE ISO_FORTRAN_ENV
    Ts7(17) = 6.0*xy2
    Ts7(18) = 2.0*y3
    Ts7(26) = 2.0
-   Ts7(29) = 2.0*X
-   Ts7(30) = 6.0*Y
+   Ts7(29) = 2.0*x
+   Ts7(30) = 6.0*y
    Ts7(33) = 2.0*x2
    Ts7(34) = Ts7(12)
    Ts7(35) = 12.0*y2
@@ -50,8 +51,8 @@ USE ISO_FORTRAN_ENV
    Ts7(39) = 12.0*xy2
    Ts7(40) = 20.0*y3
    Ts7(45) = 2.0
-   Ts7(48) = 4.0*X
-   Ts7(49) = 4.0*Y
+   Ts7(48) = 4.0*x
+   Ts7(49) = 4.0*y
    Ts7(52) = 6.0*x2
    Ts7(53) = 8.0*xy
    Ts7(54) = 6.0*y2

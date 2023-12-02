@@ -1,8 +1,9 @@
-!*==locpt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==locpt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE locpt(N,P,M,S,K,Ks,Eps,Loc)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -19,15 +20,23 @@ USE ISO_FORTRAN_ENV
 ! Local variable declarations rewritten by SPAG
 !
    REAL(REAL64) :: edotp , vdotk , vmag , vpmag
-   INTEGER :: i , k1 , k2 , ne , np
+   INTEGER :: i , k1 , k2 , ne , np , spag_nextblock_1
    REAL(REAL64) , DIMENSION(3) :: v , vp
    REAL(REAL64) , DIMENSION(3,4) :: ve
    REAL(REAL64) , DIMENSION(4) :: vemag
-   EXTERNAL dadotb , daxb , dvmag
+   EXTERNAL daxb
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     DETERMINES POSITION OF EACH OF N POINTS (P) RELATIVE TO SURFACE
 !        BOUNDED BY M POINTS (S)
@@ -75,7 +84,7 @@ USE ISO_FORTRAN_ENV
 !        (PRESET POINT FLAG TO INTERIOR CODE)
             Loc(np) = 1
 !
-            DO ne = 1 , M
+            SPAG_Loop_3_1: DO ne = 1 , M
                k1 = K(1,ne)
 !
                DO i = 1 , 2
@@ -94,28 +103,26 @@ USE ISO_FORTRAN_ENV
                edotp = dadotb(ve(1,ne),vp)
                IF ( vpmag<=Eps(2) ) THEN
                   spag_nextblock_1 = 3
-                  CYCLE SPAG_DispatchLoop_1
+                  EXIT SPAG_Loop_3_1
                ENDIF
                IF ( vdotk<=Eps(1) ) THEN
 !                                      INSIDE THIS EDGE
 !                                                          OUTSIDE
                   IF ( (vdotk<-Eps(1)) .OR. (edotp<=Eps(1)) .OR. (vemag(ne)+Eps(2)<vpmag) ) THEN
                      spag_nextblock_1 = 2
-                     CYCLE SPAG_DispatchLoop_1
+                     EXIT SPAG_Loop_3_1
                   ENDIF
                   spag_nextblock_1 = 3
-                  CYCLE SPAG_DispatchLoop_1
+                  EXIT SPAG_Loop_3_1
                ENDIF
 !                  ON THIS EDGE
-            ENDDO
 !     POINT IS WITHIN SURFACE BOUNDRY IF NOT OUTSIDE ANY EDGE
 !        AND NOT ON SURFACE BOUNDRY
-            CYCLE
+            ENDDO SPAG_Loop_3_1
          CASE (2)
 !
 !     POINT IS OUTSIDE SURFACE BOUNDRY IF OUTSIDE ANY EDGE
             Loc(np) = -1
-            CYCLE
          CASE (3)
 !
 !

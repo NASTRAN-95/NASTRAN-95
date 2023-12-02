@@ -2,17 +2,17 @@
  
 SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EXIO2F
-   USE C_EXIO2P
+   USE c_blank
+   USE c_exio2f
+   USE c_exio2p
 !
 ! Dummy argument declarations rewritten by SPAG
 !
-   INTEGER :: Nwds
    INTEGER :: Rw
    INTEGER :: U
    INTEGER :: F
    INTEGER , DIMENSION(Nwds) :: Buf
+   INTEGER :: Nwds
    INTEGER :: Prec
    REAL*8 , DIMENSION(1) :: Dbuf
 !
@@ -21,6 +21,15 @@ SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
    INTEGER , DIMENSION(10) :: frmt
    INTEGER :: i , ifmt , n
    INTEGER , SAVE :: leof
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -37,9 +46,9 @@ SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
 !
    IF ( Nwds<=0 ) RETURN
    IF ( F>0 ) THEN
-      ifmt = Fp(1,F) - 1
+      ifmt = fp(1,F) - 1
       DO i = 1 , 10
-         frmt(i) = Fmt(ifmt+i)
+         frmt(i) = fmt(ifmt+i)
       ENDDO
    ENDIF
    IF ( Rw==2 ) THEN
@@ -48,7 +57,7 @@ SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
 !     POSITION THE FILE
 !
       IF ( Nwds==2 .OR. Nwds==3 ) THEN
-         n = Lbuf/33 + 1
+         n = lbuf/33 + 1
          DO i = 1 , n
             BACKSPACE U
          ENDDO
@@ -67,7 +76,7 @@ SUBROUTINE exfort(Rw,U,F,Buf,Nwds,Prec,Dbuf)
 !
 !     WRITE LOGICAL EOF
 !
-      n = Lbuf/33
+      n = lbuf/33
       DO i = 1 , n
          WRITE (U,99001) leof
       ENDDO

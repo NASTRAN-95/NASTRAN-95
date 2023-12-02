@@ -1,10 +1,11 @@
-!*==xmpldd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xmpldd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xmpldd
-USE C_XGPI2
-USE C_XGPI2X
-USE ISO_FORTRAN_ENV                 
+   USE c_xgpi2
+   USE c_xgpi2x
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -265,15 +266,15 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE /XGPI2/
 !
-   Lmpl = lmplx
-   DO i = 1 , Lmpl
-      Imp(i) = mpl(i)
+   lmpl = lmplx
+   DO i = 1 , lmpl
+      imp(i) = mpl(i)
    ENDDO
 !
 !     INITIALIZE /XGPI2X/
 !
    DO i = 1 , 20
-      Xxx(i) = xx(i)
+      xxx(i) = xx(i)
    ENDDO
 !
 END SUBROUTINE xmpldd

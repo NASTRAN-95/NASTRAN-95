@@ -25,13 +25,13 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !              CODE 8 ADDED - BIT 4 PAPERPLOT
 !
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_IFPX0
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XIFP1
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_ifp1a
+   USE c_ifpx0
+   USE c_machin
+   USE c_system
+   USE c_xifp1
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,6 +65,15 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !     COMMON /ZZIFP1/ ICSE(400),INCARD(20),BUFF(150),SUBCAS(200),Z(1)
    !>>>>EQUIVALENCE (Ksystm(1),Sysbuf) , (Ksystm(2),L) , (Ksystm(3),Nogo) , (Ksystm(9),Nlpp) , (Ksystm(12),Line) , (Ksystm(21),Iresrt) , &
    !>>>> & (Icse(1),Corex(1),Corey(1)) , (Incard(1),Corey(401)) , (Buff(1),Corey(421)) , (Subcas(1),Corey(571)) , (Z(1),Corey(771))
@@ -88,13 +97,13 @@ SUBROUTINE ifp1xy(Card,Xycard)
    DATA iden/4HDENS/ , iequal/4H=   / , oparen/4H(   / , file/4HXYCD/ , vg/2HVG/ , imodel/4HMODE/ , real/ - 2/ , inte/ - 1/ ,       &
       & cont/0/ , g/1HG/ , f/1HF/
 !
-   bitwrd = Lbd + 1
+   bitwrd = lbd + 1
    n = 1
-   IF ( Intr>1 .OR. Ilink/=ilnk ) THEN
+   IF ( intr>1 .OR. ilink/=ilnk ) THEN
       incard(1) = Xycard(1)
       CALL xrcard(buff,149,Xycard)
       buff(150) = rshift(complf(0),1)
-      A377 = buff(150)
+      a377 = buff(150)
       file = 301
    ENDIF
    IF ( Card<0 ) THEN
@@ -104,7 +113,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !
       IF ( contin ) THEN
          j = 689
-         WRITE (l,99001) Ufm , j
+         WRITE (l,99001) ufm , j
 99001    FORMAT (A23,I4,', LAST CARD ENDED WITH A DELIMITER BUT NO ','CONTINUATION CARD WAS PRESENT.')
          GOTO 3200
       ELSE
@@ -125,13 +134,13 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !
 !     SET RESTART BITS FOR VDR AND SDR
 !
-         IF ( iresrt<0 ) Bits(bitwrd) = orf(Bits(bitwrd),vdrbit+sdrbit)
+         IF ( iresrt<0 ) bits(bitwrd) = orf(bits(bitwrd),vdrbit+sdrbit)
 !
 !     CHECK FOR COMMAND OP CARD
 !
          IF ( .NOT.xycm ) THEN
             j = 697
-            WRITE (l,99002) Ufm , j
+            WRITE (l,99002) ufm , j
 99002       FORMAT (A23,I4,', XYPLOT, XYPRINT, XYPUNCH, XYPEAK, OR XYPAPLOT',/5X,                                                   &
                    &' COMMAND CARD NOT FOUND IN XY PLOTTER OUT PUT PACKAGE.')
             GOTO 3200
@@ -160,19 +169,19 @@ SUBROUTINE ifp1xy(Card,Xycard)
       binplt = 0
       contin = .FALSE.
       a777 = complf(0)
-      icore = korsz(z) - 2*sysbuf - Nwpc - 1
+      icore = korsz(z) - 2*sysbuf - nwpc - 1
    ENDIF
 !
 !     RETURNING WITH ANOTHER CARD IMAGE
 !
-   IF ( buff(n)==A377 ) RETURN
+   IF ( buff(n)==a377 ) RETURN
 !
    IF ( .NOT.contin ) THEN
 !
 !     BEGIN PROCESSING NON-CONTINUATION CARD (MUST BEGIN WITH BCD FIELD)
 !
       iwrd = incard(1)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( iwrd==xtit .OR. iwrd==ytit .OR. iwrd==ytti .OR. iwrd==ybti .OR. iwrd==tcur ) THEN
 !
 !     TITLE CARD
@@ -188,12 +197,12 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !     FATAL ERROR CONDITIONS
 !
             j = 675
-            WRITE (l,99003) Ufm , j
+            WRITE (l,99003) ufm , j
 99003       FORMAT (A23,I4,', ABOVE CARD DOES NOT BEGIN WITH A NON-NUMERIC ','WORD.')
             GOTO 3200
          ELSE
             bcd = buff(n+1)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,bcd,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,bcd,0)
             DO i = 1 , nrword
                IF ( bcd==rword(i) ) GOTO 300
             ENDDO
@@ -232,7 +241,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
                DO i = n1 , n2 , 2
                   bcd = buff(i)
                   IF ( bcd/=a777 ) THEN
-                     IF ( Bit64 ) CALL mvbits(Blank,0,32,bcd,0)
+                     IF ( bit64 ) CALL mvbits(blank,0,32,bcd,0)
                      IF ( bcd==xypl ) THEN
                         plot = 2
                         plots = 1
@@ -240,7 +249,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
                            ploter = 1
                            model = -1
                            buf(1) = bword(13)
-                           buf(2) = orf(lshift(ploter,Ihalf),model+100)
+                           buf(2) = orf(lshift(ploter,ihalf),model+100)
                            binplt = binplt + 1
                            CALL write(file,buf(1),2,noeor)
                         ENDIF
@@ -327,7 +336,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !
                   ELSEIF ( i==n2-1 ) THEN
                      iwrd = buff(i+1)
-                     IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+                     IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
                      IF ( iwrd==slas ) slash = .TRUE.
                      IF ( .NOT.slash ) GOTO 2500
                   ENDIF
@@ -345,7 +354,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
                buf(5) = type
                IF ( vector==0 ) THEN
                   j = 690
-                  WRITE (l,99004) Ufm , j
+                  WRITE (l,99004) ufm , j
 99004             FORMAT (A23,I4,', TYPE OF CURVE WAS NOT SPECIFIED. (E.G. ','DISPLACEMENT, STRESS, ETC.).')
                   GOTO 3200
                ELSE
@@ -358,8 +367,8 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !
                   nsubs = 0
                   n = n2 + 1
-                  IF ( slash ) GOTO 1000
-                  GOTO 500
+                  IF ( .NOT.(slash) ) GOTO 500
+                  GOTO 1000
                ENDIF
             ENDIF
 !
@@ -370,7 +379,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
             IF ( i==22 .AND. buff(n)/=inte ) THEN
 !
                iwrd = buff(n-2)
-               IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+               IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
                DO i = 1 , 3
                   IF ( iwrd==kword(i) ) THEN
                      buff(n+1) = i
@@ -406,8 +415,8 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !     VERB FOLLOWED BY A REAL VALUE
 !
  300  n = n + 2*buff(n) + 1
-   IF ( buff(n)/=real ) GOTO 2300
-   GOTO 100
+   IF ( buff(n)==real ) GOTO 100
+   GOTO 2300
 !
 !     VERB FOLLOWED BY BCD YES OR NO, UNLESS BCD = PLOT...
 !
@@ -419,20 +428,20 @@ SUBROUTINE ifp1xy(Card,Xycard)
       n = n + 2
       nmod = n + 3
       iwrd = buff(nmod)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( iwrd==imodel ) nmod = nmod + 2
       IF ( iwrd/=iden ) THEN
          modid(1) = 0
          modid(2) = 0
-         IF ( buff(nmod)/=A377 ) THEN
+         IF ( buff(nmod)/=a377 ) THEN
             IF ( buff(nmod)==-1 ) modid(1) = buff(nmod+1)
             IF ( buff(nmod)/=-1 ) modid(1) = buff(nmod)
             nmod = nmod + 2
             IF ( buff(nmod)==1 ) nmod = nmod + 1
             iwrd = buff(nmod)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
             IF ( iwrd/=iden ) THEN
-               IF ( buff(nmod)/=A377 ) THEN
+               IF ( buff(nmod)/=a377 ) THEN
                   IF ( buff(nmod)==-1 ) modid(2) = buff(nmod+1)
                   IF ( buff(nmod)/=-1 ) modid(2) = buff(nmod)
                ENDIF
@@ -441,7 +450,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
       ENDIF
       CALL fndplt(ploter,model,modid(1))
       buf(1) = bcd
-      buf(2) = orf(lshift(ploter,Ihalf),model+100)
+      buf(2) = orf(lshift(ploter,ihalf),model+100)
       binplt = binplt + 1
       GOTO 200
    ELSE
@@ -452,7 +461,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
 !     SEARCH FOR EQUAL SIGN
 !
          iwrd = buff(n)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
          IF ( iwrd==iequal ) THEN
             i = -1
             EXIT
@@ -467,7 +476,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
       ENDDO
       DO
          iwrd = buff(n+1)
-         IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+         IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
          IF ( iwrd==yes ) i = 1
          IF ( iwrd==no ) i = 0
          IF ( i>=0 ) THEN
@@ -504,7 +513,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
    IF ( buff(n+1)<=0 ) GOTO 2900
    subcas(nsubs) = buff(n+1)
    n = n + 2
- 700  DO WHILE ( buff(n)/=A377 )
+ 700  DO WHILE ( buff(n)/=a377 )
       IF ( buff(n)/=cont ) THEN
 !
          IF ( buff(n)/=inte ) GOTO 800
@@ -517,14 +526,14 @@ SUBROUTINE ifp1xy(Card,Xycard)
       ENDIF
    ENDDO
    j = 692
-   WRITE (l,99005) Ufm , j
+   WRITE (l,99005) ufm , j
 99005 FORMAT (A23,I4,', XY-OUTPUT COMMAND IS INCOMPLETE.')
    GOTO 3200
  800  IF ( buff(n)/=cont ) THEN
 !
       IF ( buff(n)<0 ) GOTO 2600
       iwrd = buff(n+2)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( iwrd/=slas ) THEN
 !
          IF ( iwrd/=thru ) GOTO 2600
@@ -582,7 +591,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
       ncurve = ncurve + 1
       IF ( buf(1)<=0 ) THEN
          j = 685
-         WRITE (l,99006) Ufm , j , buf(1)
+         WRITE (l,99006) ufm , j , buf(1)
 99006    FORMAT (A23,I4,1H,,I12,' = POINT OR ELEMENT ID IS ILLEGAL (LESS ','THAN 1).')
          GOTO 3200
       ELSE
@@ -599,7 +608,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
  1300 IF ( buff(n)/=cont ) THEN
 !
       iwrd = buff(n+2)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( buff(n)<=0 .OR. iwrd/=oparen ) GOTO 2600
 !
       ofbcd = .FALSE.
@@ -628,7 +637,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
  1500 IF ( buff(n)/=inte ) GOTO 2600
    IF ( buff(n+1)<=0 ) THEN
       j = 686
-      WRITE (l,99007) Ufm , j
+      WRITE (l,99007) ufm , j
 99007 FORMAT (A23,I4,', NEGATIVE OR ZERO COMPONENTS ARE ILLEGAL.')
       GOTO 3200
    ELSE
@@ -638,11 +647,11 @@ SUBROUTINE ifp1xy(Card,Xycard)
       GOTO 1700
    ENDIF
  1600 bcd = buff(n1)
-   IF ( Bit64 ) CALL mvbits(Blank,0,32,bcd,0)
-   IF ( bcd/=Blank ) THEN
+   IF ( bit64 ) CALL mvbits(blank,0,32,bcd,0)
+   IF ( bcd/=blank ) THEN
       IF ( vector==6 .OR. vector==7 ) THEN
          j = 687
-         WRITE (l,99008) Ufm , j
+         WRITE (l,99008) ufm , j
 99008    FORMAT (A23,I4,', ALPHA-COMPONENTS ARE NOT PERMITTED FOR STRESS ','OR FORCE XY-OUTPUT REQUESTS.')
          GOTO 3200
       ENDIF
@@ -675,9 +684,9 @@ SUBROUTINE ifp1xy(Card,Xycard)
                                          compon = 14
                                          IF ( bcd/=r3ip ) THEN
                                          compon = 1000
-                                         IF ( bcd/=Blank ) THEN
+                                         IF ( bcd/=blank ) THEN
                                          j = 688
-                                         WRITE (l,99009) Ufm , j , bcd
+                                         WRITE (l,99009) ufm , j , bcd
 99009                                    FORMAT (A23,I4,1H,,A4,' COMPONENT NAME NOT RECOGNIZED.')
                                          GOTO 3200
                                          ENDIF
@@ -704,12 +713,12 @@ SUBROUTINE ifp1xy(Card,Xycard)
    IF ( compon/=1000 ) THEN
       IF ( (type==2 .OR. type==3) .AND. (compon<3 .OR. compon>8) .AND. (vector/=6 .AND. vector/=7) ) THEN
          j = 695
-         WRITE (l,99010) Ufm , j , compon
+         WRITE (l,99010) ufm , j , compon
 99010    FORMAT (A23,I4,', COMPONENT VALUE =',I8,', IS ILLEGAL FOR AUTO ','OR PSDF VECTOR REQUESTS.')
          GOTO 3200
       ELSEIF ( (compon<3 .OR. compon>14) .AND. (vector/=6 .AND. vector/=7) ) THEN
          j = 696
-         WRITE (l,99011) Ufm , j , compon
+         WRITE (l,99011) ufm , j , compon
 99011    FORMAT (A23,I4,', COMPONENT VALUE =',I8,', IS ILLEGAL FOR VECTOR',' TYPE SPECIFIED.')
          GOTO 3200
       ELSEIF ( nogo==0 ) THEN
@@ -734,7 +743,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
    IF ( ncurve==1 .AND. idcom==2 ) pairs = .TRUE.
    IF ( pairs .AND. (type==2 .OR. type==3) ) THEN
       j = 694
-      WRITE (l,99012) Ufm , j
+      WRITE (l,99012) ufm , j
 99012 FORMAT (A23,I4,', AUTO OR PSDF REQUESTS MAY NOT USE SPLIT FRAME',', THUS ONLY ONE COMPONENT PER ID IS PERMITTED.')
       GOTO 3200
    ELSE
@@ -744,7 +753,7 @@ SUBROUTINE ifp1xy(Card,Xycard)
          IF ( n1<n-2 ) THEN
             n1 = n1 + 2
             iwrd = buff(n1+1)
-            IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+            IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
             IF ( iwrd/=slas ) GOTO 1600
             slash = .TRUE.
             GOTO 1900
@@ -759,13 +768,13 @@ SUBROUTINE ifp1xy(Card,Xycard)
       GOTO 2100
 !
    ELSEIF ( buff(n)==inte ) THEN
-      IF ( buff(n+2)==A377 ) GOTO 1500
+      IF ( buff(n+2)==a377 ) GOTO 1500
       iwrd = buff(n+4)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( iwrd/=oparen ) GOTO 1500
-   ELSEIF ( buff(n)/=A377 ) THEN
+   ELSEIF ( buff(n)/=a377 ) THEN
       iwrd = buff(n+2)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( buff(n)>0 .AND. iwrd/=slas ) THEN
          n1 = n + 1
          n = n + 2*buff(n) + 1
@@ -779,12 +788,12 @@ SUBROUTINE ifp1xy(Card,Xycard)
    buf(2) = -1
    buf(3) = -1
    CALL write(file,buf(1),3,noeor)
-   IF ( buff(n)==A377 ) RETURN
+   IF ( buff(n)==a377 ) RETURN
 !
  2000 IF ( buff(n)/=cont ) THEN
       IF ( slash ) GOTO 1100
       iwrd = buff(n+2)
-      IF ( Bit64 ) CALL mvbits(Blank,0,32,iwrd,0)
+      IF ( bit64 ) CALL mvbits(blank,0,32,iwrd,0)
       IF ( iwrd/=slas ) GOTO 2600
       n = n + 2*buff(n) + 1
       GOTO 1100
@@ -797,51 +806,51 @@ SUBROUTINE ifp1xy(Card,Xycard)
  2100 contin = .TRUE.
    RETURN
  2200 j = 676
-   WRITE (l,99013) Ufm , j , buff(n+1) , buff(n+2)
+   WRITE (l,99013) ufm , j , buff(n+1) , buff(n+2)
 99013 FORMAT (A23,I4,1H,,2A4,' IS NOT RECOGNIZED AS AN XYPLOT COMMAND ','CARD OR PARAMETER.')
    GOTO 3200
  2300 j = 677
-   WRITE (l,99014) Ufm , j
+   WRITE (l,99014) ufm , j
 99014 FORMAT (A23,I4,', ILLEGAL VALUE SPECIFIED.')
    GOTO 3200
  2400 j = 678
-   WRITE (l,99015) Ufm , j , buff(i) , buff(i+1)
+   WRITE (l,99015) ufm , j , buff(i) , buff(i+1)
 99015 FORMAT (A23,I4,1H,,2A4,' CONTRADICTS PREVIOUS DEFINITION.')
    GOTO 3200
  2500 j = 679
-   WRITE (l,99016) Ufm , j , buff(i+1)
+   WRITE (l,99016) ufm , j , buff(i+1)
 99016 FORMAT (A23,I4,1H,,A4,' DELIMITER ILLEGALLY USED.')
    GOTO 3200
  2600 IF ( buff(n)/=real ) THEN
       IF ( buff(n)==inte ) THEN
          j = 682
-         WRITE (l,99017) Ufm , j , buff(n+1)
+         WRITE (l,99017) ufm , j , buff(n+1)
 99017    FORMAT (A23,I4,1H,,I10,' IS ILLEGAL IN STATEMENT.')
       ELSE
          j = 680
-         WRITE (l,99018) Ufm , j , buff(n+1) , buff(n+2)
+         WRITE (l,99018) ufm , j , buff(n+1) , buff(n+2)
 99018    FORMAT (A23,I4,1H,,2A4,' IS ILLEGAL IN STATEMENT.')
       ENDIF
       GOTO 3200
    ENDIF
  2700 j = 681
-   WRITE (l,99019) Ufm , j , buff(n+1)
+   WRITE (l,99019) ufm , j , buff(n+1)
 99019 FORMAT (A23,I4,1H,,E16.8,' IS ILLEGAL IN STATEMENT.')
    GOTO 3200
  2800 j = 683
-   WRITE (l,99020) Ufm , j
+   WRITE (l,99020) ufm , j
 99020 FORMAT (A23,I4,', TOO MANY SUBCASES. MAXIMUM = 200 ON ANY ONE XY','-OUTPUT COMMAND CARD.')
    GOTO 3200
  2900 j = 684
-   WRITE (l,99021) Ufm , j
+   WRITE (l,99021) ufm , j
 99021 FORMAT (A23,I4,', SUBCASE-ID IS LESS THAN 1 OR IS NOT IN ','ASCENDING ORDER.')
    GOTO 3200
  3000 j = 691
-   WRITE (l,99022) Ufm , j
+   WRITE (l,99022) ufm , j
 99022 FORMAT (A23,I4,', MORE THAN 2 OR UNEQUAL NUMBER OF COMPONENTS ','FOR ID-S WITHIN A SINGLE FRAME.')
    GOTO 3200
  3100 j = 693
-   WRITE (l,99023) Ufm , j
+   WRITE (l,99023) ufm , j
 99023 FORMAT (A23,I4,', INSUFFICIENT CORE FOR SET TABLE.')
    icrq = (nsubs-i+1)*6
    WRITE (l,99024) icrq

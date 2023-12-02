@@ -1,17 +1,18 @@
-!*==dpd5.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dpd5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dpd5
+   USE c_bitpos
+   USE c_blank
+   USE c_dpdcom
+   USE c_machin
+   USE c_names
+   USE c_setup
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_DPDCOM
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SETUP
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -49,126 +50,126 @@ SUBROUTINE dpd5
 !
 !     OPEN DYNAMICS POOL.
 !
-         file = Dpool
-         CALL preloc(*320,Z(Buf1),Dpool)
+         file = dpool
+         CALL preloc(*320,z(buf1),dpool)
 !
-         file = Eed
-         CALL open(*260,Eed,Z(Buf2),Wrtrew)
-         file = Dpool
-         CALL fname(Eed,Buf)
-         CALL write(Eed,Buf,2,1)
+         file = eed
+         CALL open(*260,eed,z(buf2),wrtrew)
+         file = dpool
+         CALL fname(eed,buf)
+         CALL write(eed,buf,2,1)
          in = 0
          DO j = 2 , 7
-            Mcb(j) = 0
+            mcb(j) = 0
          ENDDO
-         L = 12
-         Msg(1) = 75
+         l = 12
+         msg(1) = 75
 !
 !     LOCATE EIGB CARDS IN DYNAMICS POOL. IF PRESENT, TURN NOEED FLAG
 !     OFF, WRITE ID ON EED AND TURN ON TRAILER BIT.
 !
-         CALL locate(*60,Z(Buf1),Eigb,flag)
-         Noeed = 1
-         CALL write(Eed,Eigb,2,0)
-         CALL write(Eed,0,1,0)
-         j = (Eigb(2)-1)/16
-         k = Eigb(2) - 16*j
-         Mcb(j+2) = orf(Mcb(j+2),Two(k+16))
+         CALL locate(*60,z(buf1),eigb,flag)
+         noeed = 1
+         CALL write(eed,eigb,2,0)
+         CALL write(eed,0,1,0)
+         j = (eigb(2)-1)/16
+         k = eigb(2) - 16*j
+         mcb(j+2) = orf(mcb(j+2),two(k+16))
          ASSIGN 20 TO nback
-         L = 12
-         mask = Two(Ua)
+         l = 12
+         mask = two(ua)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     READ EIGB CARDS. IF GRID NO. IS PRESENT, CONVERT TO SIL VALUE.
 !     WRITE DATA ON EED.
 !
-         CALL read(*340,*40,Dpool,Buf,18,0,flag)
+         CALL read(*340,*40,dpool,buf,18,0,flag)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 20      CALL write(Eed,Buf,12,0)
-         CALL write(Eed,Buf(14),6,0)
+ 20      CALL write(eed,buf,12,0)
+         CALL write(eed,buf(14),6,0)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 40      CALL write(Eed,0,0,1)
+ 40      CALL write(eed,0,0,1)
 !
 !     LOCATE EIGC CARDS IN DYNAMICS POOL. IF PRESENT, TURN OFF NOEED
 !     FLAG, WRITE ID ON EED AND TURN ON TRL BIT.
 !
- 60      CALL locate(*120,Z(Buf1),Eigc,flag)
-         Noeed = 1
-         CALL write(Eed,Eigc,2,0)
-         CALL write(Eed,0,1,0)
-         j = (Eigc(2)-1)/16
-         k = Eigc(2) - 16*j
-         Mcb(j+2) = orf(Mcb(j+2),Two(k+16))
+ 60      CALL locate(*120,z(buf1),eigc,flag)
+         noeed = 1
+         CALL write(eed,eigc,2,0)
+         CALL write(eed,0,1,0)
+         j = (eigc(2)-1)/16
+         k = eigc(2) - 16*j
+         mcb(j+2) = orf(mcb(j+2),two(k+16))
          ASSIGN 80 TO nback
-         L = 6
-         mask = Two(Ud)
+         l = 6
+         mask = two(ud)
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     READ EIGC CARDS. IF GRID NO. IS PRESENT, CONVERT TO SIL VALUE.
 !     WRITE DATA ON EED.
 !
-         CALL read(*340,*100,Dpool,Buf,10,0,flag)
+         CALL read(*340,*100,dpool,buf,10,0,flag)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 80      CALL write(Eed,Buf,7,0)
-         CALL write(Eed,Buf(8),3,0)
+ 80      CALL write(eed,buf,7,0)
+         CALL write(eed,buf(8),3,0)
          DO
-            CALL read(*340,*340,Dpool,Buf,7,0,flag)
-            CALL write(Eed,Buf,7,0)
-            IF ( Buf(1)==-1 ) THEN
+            CALL read(*340,*340,dpool,buf,7,0,flag)
+            CALL write(eed,buf,7,0)
+            IF ( buf(1)==-1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
- 100     CALL write(Eed,0,0,1)
+ 100     CALL write(eed,0,0,1)
 !
 !     LOCATE EIGP CARDS. IF PRESENT, TURN NOEED FLAG OFF,
 !     WRITE ID ON EED AND TURN ON TRAILER BIT. COPY DATA ON EED.
 !
- 120     CALL locate(*160,Z(Buf1),eigp,flag)
-         Noeed = 1
-         CALL write(Eed,eigp,2,0)
-         CALL write(Eed,0,1,0)
+ 120     CALL locate(*160,z(buf1),eigp,flag)
+         noeed = 1
+         CALL write(eed,eigp,2,0)
+         CALL write(eed,0,1,0)
          j = (eigp(2)-1)/16
          k = eigp(2) - 16*j
-         Mcb(j+2) = orf(Mcb(j+2),Two(k+16))
+         mcb(j+2) = orf(mcb(j+2),two(k+16))
          DO
-            CALL read(*340,*140,Dpool,Buf,4,0,flag)
-            CALL write(Eed,Buf,4,0)
+            CALL read(*340,*140,dpool,buf,4,0,flag)
+            CALL write(eed,buf,4,0)
          ENDDO
- 140     CALL write(Eed,0,0,1)
+ 140     CALL write(eed,0,0,1)
 !
 !     LOCATE EIGR CARDS IN DYNAMICS POOL. IF PRESENT, TURN OFF NOEED
 !     FLAG, WRITE ID ON EED AND TURN ON TRL BIT.
 !
- 160     CALL locate(*240,Z(Buf1),Eigr,flag)
-         Noeed = 1
-         CALL write(Eed,Eigr,2,0)
-         CALL write(Eed,0,1,0)
-         j = (Eigr(2)-1)/16
-         k = Eigr(2) - 16*j
-         Mcb(j+2) = orf(Mcb(j+2),Two(k+16))
+ 160     CALL locate(*240,z(buf1),eigr,flag)
+         noeed = 1
+         CALL write(eed,eigr,2,0)
+         CALL write(eed,0,1,0)
+         j = (eigr(2)-1)/16
+         k = eigr(2) - 16*j
+         mcb(j+2) = orf(mcb(j+2),two(k+16))
          ASSIGN 180 TO nback
-         L = 12
-         mask = Two(Ua)
+         l = 12
+         mask = two(ua)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     READ EIGR CARDS. IF GRID NO. IS PRESENT, CONVERT TO SIL VALUE.
 !     WRITE DATA ON EED.
 !
-         CALL read(*340,*200,Dpool,Buf,18,0,flag)
+         CALL read(*340,*200,dpool,buf,18,0,flag)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 180     CALL write(Eed,Buf,12,0)
-         CALL write(Eed,Buf(14),6,0)
+ 180     CALL write(eed,buf,12,0)
+         CALL write(eed,buf(14),6,0)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 200     CALL write(Eed,0,0,1)
+ 200     CALL write(eed,0,0,1)
          GOTO 240
       CASE (5)
 !
@@ -176,39 +177,39 @@ SUBROUTINE dpd5
 !     SIL NO. IS IN A SET FOR EIGR, EIGB - IN D SET FOR EIGC.
 !     WRITE DATA ON EED.
 !
-         IF ( Buf(L)==0 ) GOTO nback
+         IF ( buf(l)==0 ) GOTO nback
          IF ( in/=0 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Usetd
-         CALL open(*320,Usetd,Z(Buf3),Rdrew)
-         CALL fwdrec(*340,Usetd)
-         iusetd = Neqdyn + 2
-         CALL read(*340,*220,Usetd,Z(iusetd),Buf3-iusetd,1,n)
-         CALL mesage(-8,0,Nam)
- 220     CALL close(Usetd,Clsrew)
+         file = usetd
+         CALL open(*320,usetd,z(buf3),rdrew)
+         CALL fwdrec(*340,usetd)
+         iusetd = neqdyn + 2
+         CALL read(*340,*220,usetd,z(iusetd),buf3-iusetd,1,n)
+         CALL mesage(-8,0,nam)
+ 220     CALL close(usetd,clsrew)
          in = 1
          spag_nextblock_1 = 6
       CASE (6)
-         imsg(1) = Buf(1)
-         imsg(2) = Buf(L)
+         imsg(1) = buf(1)
+         imsg(2) = buf(l)
          CALL dpdaa
-         nusetd = iusetd + Buf(L) - 1
-         Buf(L) = 0
+         nusetd = iusetd + buf(l) - 1
+         buf(l) = 0
          DO j = iusetd , nusetd
-            IF ( andf(Z(j),mask)/=0 ) Buf(L) = Buf(L) + 1
+            IF ( andf(z(j),mask)/=0 ) buf(l) = buf(l) + 1
          ENDDO
-         IF ( andf(Z(nusetd),mask)/=0 ) GOTO nback
-         Nogo = 1
+         IF ( andf(z(nusetd),mask)/=0 ) GOTO nback
+         nogo = 1
          CALL mesage(30,107,imsg)
          GOTO nback
 !
 !     COMPLETE EIG CARD PROCESSING.
 !
- 240     CALL close(Eed,Clsrew)
-         Mcb(1) = Eed
-         CALL wrttrl(Mcb)
+ 240     CALL close(eed,clsrew)
+         mcb(1) = eed
+         CALL wrttrl(mcb)
 !
 !
 !     (2) PRECESS TFL FILE
@@ -219,7 +220,7 @@ SUBROUTINE dpd5
  260     pack = .TRUE.
          i45 = 4
          i23 = 3
-         IF ( Ihalf<=16 ) THEN
+         IF ( ihalf<=16 ) THEN
             pack = .FALSE.
             i45 = 5
             i23 = 2
@@ -228,18 +229,18 @@ SUBROUTINE dpd5
 !     OPEN TFL. WRITE HEADER. INITIALIZE TO READ TF CARDS.
 !
          DO j = 2 , 7
-            Mcb(j) = 0
+            mcb(j) = 0
          ENDDO
-         CALL locate(*300,Z(Buf1),Tf,flag)
-         Notfl = 0
-         file = Tfl
-         CALL open(*300,Tfl,Z(Buf2),Wrtrew)
-         CALL fname(Tfl,Buf)
-         CALL write(Tfl,Buf,2,1)
-         Msg(1) = 68
-         L = 2
+         CALL locate(*300,z(buf1),tf,flag)
+         notfl = 0
+         file = tfl
+         CALL open(*300,tfl,z(buf2),wrtrew)
+         CALL fname(tfl,buf)
+         CALL write(tfl,buf,2,1)
+         msg(1) = 68
+         l = 2
          id = 0
-         itfl = Neqdyn + 2
+         itfl = neqdyn + 2
          i = itfl
          isw = 0
          last = 0
@@ -249,20 +250,20 @@ SUBROUTINE dpd5
 !     READ FIXED SECTION OF TF CARD. CONVERT GRID POINT AND COMP. TO
 !     SIL NO. TEST FOR NEW TRANSFER FUNCTION SET.
 !
-         CALL read(*340,*280,Dpool,Buf,6,0,flag)
-         Msg(3) = Buf(1)
+         CALL read(*340,*280,dpool,buf,6,0,flag)
+         msg(3) = buf(1)
          CALL dpdaa
-         irow = Buf(2)
-         IF ( Buf(1)==id ) THEN
+         irow = buf(2)
+         IF ( buf(1)==id ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Notfl = Notfl + 1
+         notfl = notfl + 1
          IF ( id/=0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         id = Buf(1)
+         id = buf(1)
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
 !
@@ -272,36 +273,36 @@ SUBROUTINE dpd5
  280     last = 1
          spag_nextblock_1 = 8
       CASE (8)
-         CALL write(Tfl,id,1,0)
+         CALL write(tfl,id,1,0)
          IF ( isw==0 ) THEN
             n = i - itfl
-            IF ( pack ) CALL sorti(0,0,4,1,Z(itfl),n)
-            IF ( .NOT.pack ) CALL sorti2(0,0,5,1,Z(itfl),n)
-            CALL write(Tfl,Z(itfl),n,1)
+            IF ( pack ) CALL sorti(0,0,4,1,z(itfl),n)
+            IF ( .NOT.pack ) CALL sorti2(0,0,5,1,z(itfl),n)
+            CALL write(tfl,z(itfl),n,1)
          ELSE
-            CALL write(Scr1,0,0,1)
-            CALL close(Scr1,Clsrew)
-            CALL open(*320,Scr1,Z(Buf2),Rdrew)
-            Ifile(1) = Scr2
-            Ifile(2) = Scr3
-            Ifile(3) = Scr4
-            n = Buf3 - itfl
-            IF ( pack ) CALL sorti(Scr1,Tfl,4,1,Z(itfl),n)
-            IF ( .NOT.pack ) CALL sorti2(Scr1,Tfl,5,1,Z(itfl),n)
-            CALL close(Scr1,Clsrew)
+            CALL write(scr1,0,0,1)
+            CALL close(scr1,clsrew)
+            CALL open(*320,scr1,z(buf2),rdrew)
+            ifile(1) = scr2
+            ifile(2) = scr3
+            ifile(3) = scr4
+            n = buf3 - itfl
+            IF ( pack ) CALL sorti(scr1,tfl,4,1,z(itfl),n)
+            IF ( .NOT.pack ) CALL sorti2(scr1,tfl,5,1,z(itfl),n)
+            CALL close(scr1,clsrew)
          ENDIF
          i = itfl
-         id = Buf(1)
+         id = buf(1)
          isw = 0
          IF ( last/=0 ) THEN
 !
 !     HERE WHEN ALL TRANSFER FUNCTION SETS COMPLETE.
 !     CLOSE FILE AND WRITE TRAILER.
 !
-            CALL close(Tfl,Clsrew)
-            Mcb(2) = Notfl
-            Mcb(1) = Tfl
-            CALL wrttrl(Mcb)
+            CALL close(tfl,clsrew)
+            mcb(2) = notfl
+            mcb(1) = tfl
+            CALL wrttrl(mcb)
             GOTO 300
          ENDIF
          spag_nextblock_1 = 9
@@ -319,27 +320,27 @@ SUBROUTINE dpd5
 !     THE SUBROUTINE SORTI2 IS USED WHEN SORTING TFL BY 2 KEY WORDS
 !
             IF ( .NOT.pack ) THEN
-               Buf(3) = irow
+               buf(3) = irow
             ELSE
-               IF ( Buf(2)>=Jhalf .OR. irow>=Jhalf ) THEN
+               IF ( buf(2)>=jhalf .OR. irow>=jhalf ) THEN
                   spag_nextblock_1 = 11
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Buf(3) = lshift(Buf(2),Ihalf)
-               Buf(3) = orf(Buf(3),irow)
+               buf(3) = lshift(buf(2),ihalf)
+               buf(3) = orf(buf(3),irow)
             ENDIF
             IF ( isw/=0 ) THEN
-               CALL write(Scr1,Buf(i23),i45,0)
-            ELSEIF ( i+i45>Buf3 ) THEN
+               CALL write(scr1,buf(i23),i45,0)
+            ELSEIF ( i+i45>buf3 ) THEN
                isw = 1
-               file = Scr1
-               CALL open(*320,Scr1,Z(Buf3),Wrtrew)
+               file = scr1
+               CALL open(*320,scr1,z(buf3),wrtrew)
                n = i - itfl
-               CALL write(Scr1,Z(itfl),n,0)
-               CALL write(Scr1,Buf(i23),i45,0)
+               CALL write(scr1,z(itfl),n,0)
+               CALL write(scr1,buf(i23),i45,0)
             ELSE
                DO j = i23 , 6
-                  Z(i) = Buf(j)
+                  z(i) = buf(j)
                   i = i + 1
                ENDDO
             ENDIF
@@ -347,14 +348,14 @@ SUBROUTINE dpd5
 !     READ GRID POINT, COMP AND VALUES. CONVERT POINT AND COMP. TO SIL
 !     NO. STORE IN CORE. IF SPILL, WRITE ON SCR1.
 !
-            CALL read(*340,*320,Dpool,Buf(2),5,0,flag)
-            IF ( Buf(2)==-1 ) THEN
+            CALL read(*340,*320,dpool,buf(2),5,0,flag)
+            IF ( buf(2)==-1 ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             CALL dpdaa
          ENDDO
- 300     CALL close(Dpool,Clsrew)
+ 300     CALL close(dpool,clsrew)
          RETURN
 !
 !     FATAL ERRORS
@@ -365,12 +366,12 @@ SUBROUTINE dpd5
  340     n = -2
          spag_nextblock_1 = 10
       CASE (10)
-         CALL mesage(n,file,Nam)
+         CALL mesage(n,file,nam)
          spag_nextblock_1 = 11
       CASE (11)
-         WRITE (Nout,99001) Ihalf , Buf(2) , irow
+         WRITE (nout,99001) ihalf , buf(2) , irow
 99001    FORMAT ('0*** COLUMN OR ROW SIL NO. EXCEEDS',I3,' BITS WORD ','PACKING LIMIT',2I9)
-         CALL mesage(-37,Nam,Nam)
+         CALL mesage(-37,nam,nam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

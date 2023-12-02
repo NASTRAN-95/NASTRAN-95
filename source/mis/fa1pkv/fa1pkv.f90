@@ -1,9 +1,10 @@
-!*==fa1pkv.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fa1pkv.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fa1pkv(Az,Amk,Amb,N,E1,Cz,Bref,Pi,Vel,Ibuf)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -85,17 +86,17 @@ SUBROUTINE fa1pkv(Az,Amk,Amb,N,E1,Cz,Bref,Pi,Vel,Ibuf)
 !
 !     VECTOR IS IN CZ(NB)
 !
-      Lines = Nlpp
+      lines = nlpp
       k = 0
       DO i = 1 , N
-         IF ( Lines>=Nlpp ) THEN
+         IF ( lines>=nlpp ) THEN
             CALL page1
-            WRITE (Nout,99001) eigen
+            WRITE (nout,99001) eigen
 99001       FORMAT (1H0,47X,30HEIGENVECTOR FROM THE PK METHOD,/3X,13HEIGENVALUE = ,1P,E15.5,1P,E15.5,//3X,11HEIGENVECTOR)
-            Lines = Lines + 5
+            lines = lines + 5
          ENDIF
-         Lines = Lines + 1
-         WRITE (Nout,99002) Cz(nb+k) , Cz(nb+k+1)
+         lines = lines + 1
+         WRITE (nout,99002) Cz(nb+k) , Cz(nb+k+1)
 99002    FORMAT (16X,1P,E15.5,1P,E15.5)
          k = k + 2
       ENDDO

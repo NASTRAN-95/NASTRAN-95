@@ -1,4 +1,5 @@
-!*==input4.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==input4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
@@ -113,15 +114,15 @@ SUBROUTINE input4(Nmat,Unitx,Tape,Bcdopt)
 !     PROTION THRU SYMMETRY.
 !
 !
-USE C_BLANK
-USE C_DSNAME
-USE C_MACHIN
-USE C_PACKX
-USE C_SYSTEM
-USE C_TYPE
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_dsname
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -176,21 +177,21 @@ USE ISO_FORTRAN_ENV
          sp = .FALSE.
          cp = .FALSE.
          dp = .FALSE.
-         ms = P4== - 4
+         ms = p4== - 4
          bo = Bcdopt/=1
          lcore = korsz(z(1))
-         buf1 = lcore - Sysbuf
+         buf1 = lcore - sysbuf
          lcor = buf1 - 1
          IF ( lcor<=0 ) CALL mesage(-8,lcore,subnam)
          IF ( Unitx>=10 .AND. Unitx<=24 ) THEN
             IF ( Unitx/=13 ) THEN
-               IF ( Mach/=4 .OR. Unitx<13 ) THEN
-                  IF ( Mach==4 .OR. Unitx>13 ) THEN
+               IF ( mach/=4 .OR. Unitx<13 ) THEN
+                  IF ( mach==4 .OR. Unitx>13 ) THEN
 !
                      fm = unf
                      IF ( bo ) fm = fmd
 !WKBR WRITE  (NOUT,10) UIM,UNITX,INP(UNITX-10),FM
-                     WRITE (Nout,99001) Uim , Unitx , Dsnames(Unitx) , fm
+                     WRITE (nout,99001) uim , Unitx , dsnames(Unitx) , fm
 !    1,                BCDOPT,P1,P2,P3,P4
 !WKBR10 FORMAT (A29,'. INPUTT4 MODULE OPENING FORTRAN TAPE',I4,' (',A4,
 99001                FORMAT (A29,'. INPUTT4 MODULE OPENING FORTRAN TAPE',I4,/,' (',A44,')',/,' FOR ',A11,' READ.')
@@ -201,7 +202,7 @@ USE ISO_FORTRAN_ENV
                      CLOSE (UNIT=Unitx)
 !WKBR OPEN (UNIT=UNITX,ACCESS='SEQUENTIAL',STATUS='OLD',FORM=FM,ERR=920)
 !WKBI
-                     OPEN (UNIT=Unitx,ACCESS='SEQUENTIAL',STATUS='OLD',FORM=fm,ERR=20,FILE=Dsnames(Unitx))
+                     OPEN (UNIT=Unitx,ACCESS='SEQUENTIAL',STATUS='OLD',FORM=fm,ERR=20,FILE=dsnames(Unitx))
 !
                      IF ( Tape==-1 .OR. Tape==-3 ) REWIND Unitx
 !WKBI
@@ -209,8 +210,8 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP LOOP TO READ MATRIX FILES
 !
-                     Incr = 1
-                     Ii = 1
+                     incr = 1
+                     ii = 1
                      SPAG_Loop_1_1: DO nn = 1 , Nmat
                         spag_nextblock_2 = 1
                         SPAG_DispatchLoop_2: DO
@@ -235,8 +236,8 @@ USE ISO_FORTRAN_ENV
                                     READ (Unitx,ERR=60,END=40) ncol , nrow , nform , ntype , name
                                  ENDIF
 !
-                                 IF ( debug ) WRITE (Nout,99016) ncol , nrow , nform , ntype , name
-                                 IF ( .NOT.debug ) WRITE (Nout,99002) nn , name
+                                 IF ( debug ) WRITE (nout,99016) ncol , nrow , nform , ntype , name
+                                 IF ( .NOT.debug ) WRITE (nout,99002) nn , name
 99002                            FORMAT (5X,'READING DATA BLOCK NO.',I4,' - ',2A4,' FROM INPUT TAPE')
 !
                                  IF ( ms ) nform = -nform
@@ -251,7 +252,7 @@ USE ISO_FORTRAN_ENV
                                     dp = .FALSE.
                                     IF ( ntype==2 .OR. ntype==4 ) dp = .TRUE.
                                     sp = .NOT.dp
-                                    cp = P4>=1 .AND. Nbpw>=60
+                                    cp = p4>=1 .AND. nbpw>=60
                                     IF ( cp ) sp = .FALSE.
                                     IF ( cp ) dp = .FALSE.
                                  ENDIF
@@ -262,14 +263,14 @@ USE ISO_FORTRAN_ENV
                                  IF ( dp ) flag = 4
                                  IF ( flag==0 ) CALL mesage(-37,0,subnam)
                                  nform = iabs(nform)
-                                 Jj = nrow
-                                 Typin = ntype
-                                 IF ( ms .AND. (Typin==2 .OR. Typin==4) ) Typin = Typin - 1
-                                 Typout = ntype
-                                 nwords = Nwds(Typin)
+                                 jj = nrow
+                                 typin = ntype
+                                 IF ( ms .AND. (typin==2 .OR. typin==4) ) typin = typin - 1
+                                 typout = ntype
+                                 nwords = nwds(typin)
                                  base = nrow*nwords
                                  IF ( base>lcor ) CALL mesage(-8,lcore,subnam)
-                                 CALL makmcb(trl(1),output,nrow,nform,Typout)
+                                 CALL makmcb(trl(1),output,nrow,nform,typout)
                                  iname(1,nn) = name(1)
                                  iname(2,nn) = name(2)
                                  CALL fname(output,name)
@@ -285,8 +286,8 @@ USE ISO_FORTRAN_ENV
 !     PLUS ONE EXTRA COLUMN, NCOL+1, AT THE END
 !
                                  iold = -1
-                                 Ii = 1
-                                 Jj = nrow
+                                 ii = 1
+                                 jj = nrow
                                  ncol1 = ncol + 1
                                  i = 0
                                  spag_nextblock_2 = 2
@@ -317,7 +318,7 @@ USE ISO_FORTRAN_ENV
                                          IF ( .NOT.(ms) ) THEN
                                          dp = ntype==2 .OR. ntype==4
                                          sp = .NOT.dp
-                                         cp = P4>=1 .AND. Nbpw>=60
+                                         cp = p4>=1 .AND. nbpw>=60
                                          IF ( cp ) THEN
                                          sp = .FALSE.
                                          dp = .FALSE.
@@ -368,12 +369,12 @@ USE ISO_FORTRAN_ENV
                                        typ(nn) = ty(ntype)
                                        t(1,nn) = j1
                                        t(2,nn) = j2
-                                       CYCLE SPAG_Loop_1_1
+                                       EXIT SPAG_DispatchLoop_2
                                     ENDIF
                                  ENDDO
                               ENDIF
 !
- 2                            WRITE (Nout,99003) Ufm , Dsnames(Unitx)
+ 2                            WRITE (nout,99003) ufm , dsnames(Unitx)
 99003                         FORMAT (A23,'. CANNOT OPEN OUTPUT FILE - ',/,A80)
                               spag_nextblock_1 = 3
                               CYCLE SPAG_DispatchLoop_1
@@ -381,7 +382,7 @@ USE ISO_FORTRAN_ENV
                               SPAG_Loop_2_4: DO
 !
                                  i = i + 1
-                                 IF ( debug ) WRITE (Nout,99004) i , ncol1
+                                 IF ( debug ) WRITE (nout,99004) i , ncol1
 99004                            FORMAT ('   INPUT4/@290   I,NCOL1 =',2I5)
                                  IF ( i>ncol1 ) THEN
                                     spag_nextblock_2 = 4
@@ -408,9 +409,9 @@ USE ISO_FORTRAN_ENV
 !
 !     NULL COLUMN(S) ENCOUNTERED
 !
-                                    Jj = 1
+                                    jj = 1
                                     CALL pack(z(1),output,trl)
-                                    Jj = nrow
+                                    jj = nrow
                                     i = i + 1
                                  ENDDO
 !
@@ -491,7 +492,7 @@ USE ISO_FORTRAN_ENV
                                  READ (Unitx,99021,ERR=4,END=40) icol , irow , nw
                               ELSE
                                  READ (Unitx,99019,ERR=4,END=40) icol , irow , nw
-                                 IF ( debug ) WRITE (Nout,99020) icol , irow , nw
+                                 IF ( debug ) WRITE (nout,99020) icol , irow , nw
                               ENDIF
 !
 !     ICOL IS MATRIX COLUMN NUMBER READ IN FROM THE INPUT TAPE.
@@ -528,7 +529,7 @@ USE ISO_FORTRAN_ENV
                                     SPAG_Loop_2_6: DO
 ! 490 I = I + 1
                                        IF ( icol<i ) THEN
-                                         WRITE (Nout,99005) Sfm , i , icol , iold , ncol , irow , nw , sp , cp , dp , ms , flag
+                                         WRITE (nout,99005) sfm , i , icol , iold , ncol , irow , nw , sp , cp , dp , ms , flag
 99005                                    FORMAT (A25,'. LOGIC ERROR @470, I,ICOL =',2I6,/5X,'  IOLD,NCOL,IROW,NW =',4I6,            &
                                            &'  SP,CP,DP,MS,FLAG =',4L2,I4)
                                          CALL mesage(-37,0,subnam)
@@ -571,7 +572,7 @@ USE ISO_FORTRAN_ENV
                                          READ (Unitx,99025,ERR=4,END=40) (dz(k+irow),k=1,nw)
                                          ELSE
                                          READ (Unitx,99022,ERR=4,END=40) (z(k+irow),k=1,nw)
-                                         IF ( debug ) WRITE (Nout,99023) (z(k+irow),k=1,nw)
+                                         IF ( debug ) WRITE (nout,99023) (z(k+irow),k=1,nw)
                                          ENDIF
                                          CALL pack(z(1),output,trl)
                                          spag_nextblock_2 = 2
@@ -585,7 +586,7 @@ USE ISO_FORTRAN_ENV
                                  ENDIF
                               ENDIF
                               irow = iabs(irow) - 1
-                              IF ( Typin>=3 ) irow = irow*2
+                              IF ( typin>=3 ) irow = irow*2
                               imhere = 715
                               IF ( flag==2 ) THEN
                                  READ (Unitx,99023,ERR=4,END=40) (z(k+irow),k=1,nw)
@@ -597,22 +598,21 @@ USE ISO_FORTRAN_ENV
                                  READ (Unitx,99022,ERR=4,END=40) (z(k+irow),k=1,nw)
                               ENDIF
                               spag_nextblock_2 = 3
-                              CYCLE SPAG_DispatchLoop_2
                            CASE (4)
 !
                               CALL close(output,1)
                               CALL wrttrl(trl)
-                              IF ( debug ) WRITE (Nout,99006) Uim , name , Dsnames(Unitx) , trl
+                              IF ( debug ) WRITE (nout,99006) uim , name , dsnames(Unitx) , trl
 99006                         FORMAT (A29,' FROM INPUTT4 MODULE. ',2A4,' WAS RECOVERED FROM ',/,A44,' INPUT TAPE SUCCESSFULLY.',/5X,&
                                      &'TRAIL =',6I6,I9)
                               CYCLE
 !
 !     BAD DATA ON INPUT TAPE
 !
- 4                            WRITE (Nout,99007) Ufm , Dsnames(Unitx) , Unitx , nn , imhere
+ 4                            WRITE (nout,99007) ufm , dsnames(Unitx) , Unitx , nn , imhere
 99007                         FORMAT (A23,'. BAD DATA ENCOUNTERED WHILE READING INPUT TAPE ',/,A80,/,' FORTRAN UNIT',I4,            &
                                      &',  DATA BLOCK',I4,/5X,'IMHERE =',I5)
-                              Nogo = 1
+                              nogo = 1
                               EXIT SPAG_DispatchLoop_2
                            END SELECT
                         ENDDO SPAG_DispatchLoop_2
@@ -622,12 +622,12 @@ USE ISO_FORTRAN_ENV
                      IF ( Tape<=-2 ) REWIND Unitx
                      CALL page2(-8)
 !WKBR WRITE  (NOUT,820) UIM,FM,INP(UNITX-10)
-                     WRITE (Nout,99008) Uim , fm , Dsnames(Unitx)
+                     WRITE (nout,99008) uim , fm , dsnames(Unitx)
 !WKBR2       /A80/,' TO NASTRAN GINO FILES')
 99008                FORMAT (A29,' FROM INPUTT4 MODULE. THE FOLLOWING FILES WERE ','SUCCESSFULLY RECOVERED FROM USER ',/5X,A11,     &
                             &' INPUT TAPE ',/,A44,' TO NASTRAN GINO FILES')
                      DO j = 1 , 5
-                        IF ( iname(1,j)/=blnk ) WRITE (Nout,99009) iname(1,j) , iname(2,j) , oname(1,j) , oname(2,j) , typ(j) ,     &
+                        IF ( iname(1,j)/=blnk ) WRITE (nout,99009) iname(1,j) , iname(2,j) , oname(1,j) , oname(2,j) , typ(j) ,     &
                            & t(1,j) , t(2,j)
 99009                   FORMAT (5X,2A4,' ==COPIED TO== ',2A4,4X,'MATRIX TYPE = ',A4,',  SIZE (',I6,2H X,I6,1H))
                      ENDDO
@@ -643,38 +643,37 @@ USE ISO_FORTRAN_ENV
 !WKBD 20 FORMAT (A23,'. ',A4,' (TAPE UNIT',I4,') NOT ASSIGNED')
 !WKBD GO TO 990
 !
-         WRITE (Nout,99010) Ufm , Unitx
+         WRITE (nout,99010) ufm , Unitx
 99010    FORMAT (A23,', TAPE UNIT',I4,' SPEC. ERROR')
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
 !     ERRORS
 !
-         WRITE (Nout,99011) Ufm , Dsnames(Unitx) , bo , ncol , nrow , nform , ntype , name , Bcdopt
+         WRITE (nout,99011) ufm , dsnames(Unitx) , bo , ncol , nrow , nform , ntype , name , Bcdopt
 99011    FORMAT (A23,'. PARAMETER P3 ERROR. FORTRAN INPUT TAPE ',A4,' WAS',' WRITTEN IN BINARY RECORDS, NOT ASCII.',/5X,'BO =',L2,  &
                & 2X,'NCOL,NROW,NFORM,NTYPE,NAME =',4I8,1X,2A4,'   BCDOPT =',I3)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 20      WRITE (Nout,99012) Ufm , Unitx
+ 20      WRITE (nout,99012) ufm , Unitx
 99012    FORMAT (A23,'. INPUTT4 MODULE CANNOT OPEN FORTRAN INPUT TAPE',I4)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 40      WRITE (Nout,99013) Ufm , Dsnames(Unitx) , Unitx , nn , imhere
+ 40      WRITE (nout,99013) ufm , dsnames(Unitx) , Unitx , nn , imhere
 99013    FORMAT (A23,' 3001, EOF ENCOUNTERED WHILE READING INPUT TAPE ',/,A80,/,' FORTRAN UNIT',I4,',  DATA BLOCK',I4,/5X,          &
                & 'IMHERE =',I4)
-         IF ( imhere==210 .OR. imhere==220 ) WRITE (Nout,99026)
+         IF ( imhere==210 .OR. imhere==220 ) WRITE (nout,99026)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 60      WRITE (Nout,99014) Ufm , Dsnames(Unitx) , Unitx , nn , imhere
+ 60      WRITE (nout,99014) ufm , dsnames(Unitx) , Unitx , nn , imhere
 99014    FORMAT (A23,'. BAD DATA IN HEADER RECORD ON INPUT TAPE ',/,A80,/,' FORTRAN UNIT',I4,',  DATA BLOCK',I4,/5X,'IMHERE =',I5)
-         IF ( imhere==105 .OR. imhere==120 ) WRITE (Nout,99026)
-         IF ( imhere<0 ) WRITE (Nout,99015)
+         IF ( imhere==105 .OR. imhere==120 ) WRITE (nout,99026)
+         IF ( imhere<0 ) WRITE (nout,99015)
 99015    FORMAT (1H+,22X,'POSSIBLY ERROR IN CONTRL RECORD 3 WORDS')
          spag_nextblock_1 = 3
       CASE (3)
 !
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

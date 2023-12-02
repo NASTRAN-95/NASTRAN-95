@@ -1,4 +1,5 @@
-!*==failrs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==failrs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE failrs(Fthr,Ultstn,Stresl,Findex)
@@ -15,6 +16,15 @@ SUBROUTINE failrs(Fthr,Ultstn,Stresl,Findex)
 !
    REAL :: crit , eps1 , eps2 , f12 , fi1 , fi12 , fi2 , gama , s , sig1 , sig2 , tau12 , x , xc , xt , xx , y , yc , yt
    INTEGER :: i
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

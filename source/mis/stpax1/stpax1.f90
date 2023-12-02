@@ -2,14 +2,14 @@
  
 SUBROUTINE stpax1
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_MATPZ
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_XMSSG
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_matpz
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_xmssg
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -31,6 +31,12 @@ SUBROUTINE stpax1
    INTEGER , DIMENSION(50) :: sp
    REAL , DIMENSION(45) :: teo
    REAL , DIMENSION(3,4) :: wjp
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -90,42 +96,42 @@ SUBROUTINE stpax1
 !>>>>    & (Acurp2(1),Acurl(193))
 !
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
 !
 !     START EXECUTION
 !
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !
-   Idel = iecpt(1)
-   Igp(1) = iecpt(2)
-   Igp(2) = iecpt(3)
-   Igp(3) = iecpt(4)
-   Igp(4) = iecpt(5)
+   idel = iecpt(1)
+   igp(1) = iecpt(2)
+   igp(2) = iecpt(3)
+   igp(3) = iecpt(4)
+   igp(4) = iecpt(5)
    matid = iecpt(8)
    ics(1) = iecpt(23)
    ics(2) = iecpt(27)
    ics(3) = iecpt(31)
-   R(1) = Ecpt(24)
-   D(1) = Ecpt(26)
-   Z(1) = Ecpt(25)
-   R(2) = Ecpt(28)
-   Z(2) = Ecpt(29)
-   D(2) = Ecpt(30)
-   R(3) = Ecpt(32)
-   Z(3) = Ecpt(33)
-   D(3) = Ecpt(34)
+   r(1) = ecpt(24)
+   d(1) = ecpt(26)
+   z(1) = ecpt(25)
+   r(2) = ecpt(28)
+   z(2) = ecpt(29)
+   d(2) = ecpt(30)
+   r(3) = ecpt(32)
+   z(3) = ecpt(33)
+   d(3) = ecpt(34)
    ics(4) = iecpt(35)
-   Z(4) = Ecpt(37)
-   D(4) = Ecpt(38)
-   R(4) = Ecpt(36)
-   tempe = Ecpt(39)
-   dgama = Ecpt(6)
+   z(4) = ecpt(37)
+   d(4) = ecpt(38)
+   r(4) = ecpt(36)
+   tempe = ecpt(39)
+   dgama = ecpt(6)
 !
 !     TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
    DO i = 1 , 4
-      IF ( R(i)<=0.0 ) GOTO 100
-      IF ( D(i)/=0.0 ) GOTO 100
+      IF ( r(i)<=0.0 ) GOTO 100
+      IF ( d(i)/=0.0 ) GOTO 100
    ENDDO
 !
 !     COMPUTE THE ELEMENT COORDINATES
@@ -196,38 +202,38 @@ SUBROUTINE stpax1
 !
       IF ( .NOT.(lsys78) ) THEN
          gbp(1,1) = 1.0
-         gbp(2,1) = R(1)
-         gbp(3,1) = Z(1)
-         gbp(4,1) = R(1)*Z(1)
+         gbp(2,1) = r(1)
+         gbp(3,1) = z(1)
+         gbp(4,1) = r(1)*z(1)
          gbp(1,2) = 1.0
-         gbp(2,2) = R(2)
-         gbp(3,2) = Z(2)
-         gbp(4,2) = R(2)*Z(2)
+         gbp(2,2) = r(2)
+         gbp(3,2) = z(2)
+         gbp(4,2) = r(2)*z(2)
          gbp(1,3) = 1.0
-         gbp(2,3) = R(3)
-         gbp(3,3) = Z(3)
-         gbp(4,3) = R(3)*Z(3)
+         gbp(2,3) = r(3)
+         gbp(3,3) = z(3)
+         gbp(4,3) = r(3)*z(3)
          gbp(1,4) = 1.0
-         gbp(2,4) = R(4)
-         gbp(3,4) = Z(4)
-         gbp(4,4) = R(4)*Z(4)
+         gbp(2,4) = r(4)
+         gbp(3,4) = z(4)
+         gbp(4,4) = r(4)*z(4)
       ENDIF
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
       ising = -1
-      CALL invers(12,gababq,12,D(10),0,D(11),ising,sp)
+      CALL invers(12,gababq,12,d(10),0,d(11),ising,sp)
       IF ( ising==2 ) THEN
          i = 26
-         CALL mesage(-30,i,Idel)
-         IF ( .NOT.pzmat ) Ksys78 = ksave
+         CALL mesage(-30,i,idel)
+         IF ( .NOT.pzmat ) ksys78 = ksave
       ELSE
 !
-         IF ( Ksys78==1 ) CALL invers(4,gbp,4,D(10),0,D(11),ising,sp)
+         IF ( ksys78==1 ) CALL invers(4,gbp,4,d(10),0,d(11),ising,sp)
          IF ( ising==2 ) THEN
             i = 26
-            CALL mesage(-30,i,Idel)
-            IF ( .NOT.pzmat ) Ksys78 = ksave
+            CALL mesage(-30,i,idel)
+            IF ( .NOT.pzmat ) ksys78 = ksave
          ELSE
 !
 !     MODIFY THE TRANSFORMATION MATRIX IF ELEMENT IS A CORE ELEMENT
@@ -257,55 +263,55 @@ SUBROUTINE stpax1
                      ip = 3
                      iq = 0
                   ENDIF
-                  delint(i1) = rzints(ip,iq,R,Z,4)
+                  delint(i1) = rzints(ip,iq,r,z,4)
                ENDDO
             ENDDO
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3
 !
-            Matidc = matid
-            Matflg = 7
-            IF ( Ksys78>0 ) Matflg = 9
-            Eltemp = tempe
+            matidc = matid
+            matflg = 7
+            IF ( ksys78>0 ) matflg = 9
+            eltemp = tempe
             dgamr = dgama*degrad
-            Sinth = sin(dgamr)
-            Costh = cos(dgamr)
-            cosg = Costh
-            sing = Sinth
-            CALL mat(Idel)
+            sinth = sin(dgamr)
+            costh = cos(dgamr)
+            cosg = costh
+            sing = sinth
+            CALL mat(idel)
             pzmat = .FALSE.
-            IF ( Setmat==4. .OR. Setmat==5. ) pzmat = .TRUE.
+            IF ( setmat==4. .OR. setmat==5. ) pzmat = .TRUE.
             IF ( pzmat ) THEN
-               Rho = Pzout(46)
-               Alf(1) = Pzout(47)
-               Alf(2) = Pzout(48)
-               Alf(3) = Pzout(49)
-               Tzero = Pzout(50)
-               Gsube = Pzout(51)
+               rho = pzout(46)
+               alf(1) = pzout(47)
+               alf(2) = pzout(48)
+               alf(3) = pzout(49)
+               tzero = pzout(50)
+               gsube = pzout(51)
             ELSE
-               ksave = Ksys78
-               Ksys78 = 0
+               ksave = ksys78
+               ksys78 = 0
                lsys78 = .TRUE.
             ENDIF
-            IF ( Setmat==2.0 ) THEN
+            IF ( setmat==2.0 ) THEN
                i = 126
-               CALL mesage(-30,i,Idel)
-               IF ( .NOT.pzmat ) Ksys78 = ksave
+               CALL mesage(-30,i,idel)
+               IF ( .NOT.pzmat ) ksys78 = ksave
             ELSE
-               Tz = Tzero
-               IF ( Ksys78<=0 ) THEN
+               tz = tzero
+               IF ( ksys78<=0 ) THEN
 !
 !     SET MATERIAL PROPERTIES IN DOUBLE PRECISION VARIABLES
 !
-                  er = E(1)
-                  et = E(2)
-                  ez = E(3)
-                  vro = Anu(1)
-                  voz = Anu(2)
-                  vzr = Anu(3)
-                  gor = G(1)
-                  gzo = G(2)
-                  grz = G(3)
+                  er = e(1)
+                  et = e(2)
+                  ez = e(3)
+                  vro = anu(1)
+                  voz = anu(2)
+                  vzr = anu(3)
+                  gor = g(1)
+                  gzo = g(2)
+                  grz = g(3)
                   vor = vro*et/er
                   vzo = voz*ez/et
                   vrz = vzr*er/ez
@@ -318,59 +324,59 @@ SUBROUTINE stpax1
                   teo(i) = 0.0
                ENDDO
 !
-               IF ( Ksys78>0 ) THEN
+               IF ( ksys78>0 ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES STORED IN TEO(22-39)
 !     DIELECTRIC MATERIAL PROPERTIES STORED IN TEO(40-45)
 !     TEO(22-39) CONTAINS E-TRANSPOSE
 !
-                  teo(1) = Pzout(1)
-                  teo(2) = Pzout(2)
-                  teo(3) = Pzout(7)
-                  teo(4) = Pzout(3)
-                  teo(5) = Pzout(8)
-                  teo(6) = Pzout(12)
-                  teo(7) = Pzout(4)
-                  teo(8) = Pzout(9)
-                  teo(9) = Pzout(13)
-                  teo(10) = Pzout(16)
-                  teo(11) = Pzout(5)
-                  teo(12) = Pzout(10)
-                  teo(13) = Pzout(14)
-                  teo(14) = Pzout(17)
-                  teo(15) = Pzout(19)
-                  teo(16) = Pzout(6)
-                  teo(17) = Pzout(11)
-                  teo(18) = Pzout(15)
-                  teo(19) = Pzout(18)
-                  teo(20) = Pzout(20)
-                  teo(21) = Pzout(21)
+                  teo(1) = pzout(1)
+                  teo(2) = pzout(2)
+                  teo(3) = pzout(7)
+                  teo(4) = pzout(3)
+                  teo(5) = pzout(8)
+                  teo(6) = pzout(12)
+                  teo(7) = pzout(4)
+                  teo(8) = pzout(9)
+                  teo(9) = pzout(13)
+                  teo(10) = pzout(16)
+                  teo(11) = pzout(5)
+                  teo(12) = pzout(10)
+                  teo(13) = pzout(14)
+                  teo(14) = pzout(17)
+                  teo(15) = pzout(19)
+                  teo(16) = pzout(6)
+                  teo(17) = pzout(11)
+                  teo(18) = pzout(15)
+                  teo(19) = pzout(18)
+                  teo(20) = pzout(20)
+                  teo(21) = pzout(21)
 !
-                  IF ( Ksys78/=2 ) THEN
-                     teo(22) = Pzout(22)
-                     teo(23) = Pzout(28)
-                     teo(24) = Pzout(34)
-                     teo(25) = Pzout(23)
-                     teo(26) = Pzout(29)
-                     teo(27) = Pzout(35)
-                     teo(28) = Pzout(24)
-                     teo(29) = Pzout(30)
-                     teo(30) = Pzout(36)
-                     teo(31) = Pzout(25)
-                     teo(32) = Pzout(31)
-                     teo(33) = Pzout(37)
-                     teo(34) = Pzout(26)
-                     teo(35) = Pzout(32)
-                     teo(36) = Pzout(38)
-                     teo(37) = Pzout(27)
-                     teo(38) = Pzout(33)
-                     teo(39) = Pzout(39)
-                     teo(40) = -Pzout(40)
-                     teo(41) = -Pzout(41)
-                     teo(42) = -Pzout(42)
-                     teo(43) = -Pzout(43)
-                     teo(44) = -Pzout(44)
-                     teo(45) = -Pzout(45)
+                  IF ( ksys78/=2 ) THEN
+                     teo(22) = pzout(22)
+                     teo(23) = pzout(28)
+                     teo(24) = pzout(34)
+                     teo(25) = pzout(23)
+                     teo(26) = pzout(29)
+                     teo(27) = pzout(35)
+                     teo(28) = pzout(24)
+                     teo(29) = pzout(30)
+                     teo(30) = pzout(36)
+                     teo(31) = pzout(25)
+                     teo(32) = pzout(31)
+                     teo(33) = pzout(37)
+                     teo(34) = pzout(26)
+                     teo(35) = pzout(32)
+                     teo(36) = pzout(38)
+                     teo(37) = pzout(27)
+                     teo(38) = pzout(33)
+                     teo(39) = pzout(39)
+                     teo(40) = -pzout(40)
+                     teo(41) = -pzout(41)
+                     teo(42) = -pzout(42)
+                     teo(43) = -pzout(43)
+                     teo(44) = -pzout(44)
+                     teo(45) = -pzout(45)
                   ENDIF
                ELSE
                   teo(1) = er*(1.0-voz*vzo)*del
@@ -635,14 +641,14 @@ SUBROUTINE stpax1
                   ENDDO
                ENDIF
 !
-               CALL gmmats(gababq,12,12,1,acurl,12,12,0,D)
-               CALL gmmats(D,12,12,0,gababq,12,12,0,Ak)
+               CALL gmmats(gababq,12,12,1,acurl,12,12,0,d)
+               CALL gmmats(d,12,12,0,gababq,12,12,0,ak)
 !
                IF ( .NOT.(lsys78) ) THEN
                   CALL gmmats(gababq,12,12,1,acurp1,12,4,0,d1)
-                  CALL gmmats(d1,12,4,0,gbp,4,4,0,Akuph)
+                  CALL gmmats(d1,12,4,0,gbp,4,4,0,akuph)
                   CALL gmmats(gbp,4,4,1,acurp2,4,4,0,d2)
-                  CALL gmmats(d2,4,4,0,gbp,4,4,0,Akph2)
+                  CALL gmmats(d2,4,4,0,gbp,4,4,0,akph2)
                ENDIF
 !
 !     ********** COORDINATE SYSTEM NOT POSSIBLE ***********************
@@ -673,46 +679,46 @@ SUBROUTINE stpax1
 !
 !     COMPUTE THE FIFTH GRID POINT
 !
-               R(5) = (r1+r2+r3+r4)/4.0
-               Z(5) = (z1+z2+z3+z4)/4.0
+               r(5) = (r1+r2+r3+r4)/4.0
+               z(5) = (z1+z2+z3+z4)/4.0
 !
 !     FORM WJ MATRIX
 !
                DO iki = 1 , 5
                   DO i = 1 , 72
-                     Wj(i,1) = 0.0
+                     wj(i,1) = 0.0
                   ENDDO
-                  rsum = R(iki)
-                  zsum = Z(iki)
+                  rsum = r(iki)
+                  zsum = z(iki)
                   zdr = zsum/rsum
-                  Wj(1,2) = 1.0
-                  Wj(1,4) = zsum
-                  Wj(2,11) = 1.0
-                  Wj(2,12) = rsum
-                  Wj(3,1) = 1.0/rsum
-                  Wj(3,2) = 1.0
-                  Wj(3,3) = zdr
-                  Wj(3,4) = zsum
-                  Wj(3,5) = ajho/rsum
-                  Wj(3,6) = ajho
-                  Wj(3,7) = ajho*zdr
-                  Wj(3,8) = ajho*zsum
-                  Wj(4,3) = 1.0
-                  Wj(4,4) = rsum
-                  Wj(4,10) = 1.0
-                  Wj(4,12) = zsum
-                  Wj(5,1) = -ajho/rsum
-                  Wj(5,2) = -ajho
-                  Wj(5,3) = -ajho*zdr
-                  Wj(5,4) = -ajho*zsum
-                  Wj(5,5) = -1.0/rsum
-                  Wj(5,7) = -zdr
-                  Wj(6,7) = 1.0
-                  Wj(6,8) = rsum
-                  Wj(6,9) = -ajho/rsum
-                  Wj(6,10) = -ajho
-                  Wj(6,11) = -ajho*zdr
-                  Wj(6,12) = -ajho*zsum
+                  wj(1,2) = 1.0
+                  wj(1,4) = zsum
+                  wj(2,11) = 1.0
+                  wj(2,12) = rsum
+                  wj(3,1) = 1.0/rsum
+                  wj(3,2) = 1.0
+                  wj(3,3) = zdr
+                  wj(3,4) = zsum
+                  wj(3,5) = ajho/rsum
+                  wj(3,6) = ajho
+                  wj(3,7) = ajho*zdr
+                  wj(3,8) = ajho*zsum
+                  wj(4,3) = 1.0
+                  wj(4,4) = rsum
+                  wj(4,10) = 1.0
+                  wj(4,12) = zsum
+                  wj(5,1) = -ajho/rsum
+                  wj(5,2) = -ajho
+                  wj(5,3) = -ajho*zdr
+                  wj(5,4) = -ajho*zsum
+                  wj(5,5) = -1.0/rsum
+                  wj(5,7) = -zdr
+                  wj(6,7) = 1.0
+                  wj(6,8) = rsum
+                  wj(6,9) = -ajho/rsum
+                  wj(6,10) = -ajho
+                  wj(6,11) = -ajho*zdr
+                  wj(6,12) = -ajho*zsum
 !
                   IF ( .NOT.(lsys78) ) THEN
 !
@@ -737,41 +743,41 @@ SUBROUTINE stpax1
 !     EXPAND EE(21) INTO E1(36)
 !
                   DO i = 1 , 36
-                     E1(i) = 0.0
+                     e1(i) = 0.0
                   ENDDO
-                  E1(1) = ee(1)
-                  E1(2) = ee(2)
-                  E1(3) = ee(4)
-                  E1(4) = ee(7)
-                  E1(7) = ee(2)
-                  E1(8) = ee(3)
-                  E1(9) = ee(5)
-                  E1(10) = ee(8)
-                  E1(13) = ee(4)
-                  E1(14) = ee(5)
-                  E1(15) = ee(6)
-                  E1(16) = ee(9)
-                  E1(19) = ee(7)
-                  E1(20) = ee(8)
-                  E1(21) = ee(9)
-                  E1(22) = ee(10)
-                  E1(29) = ee(15)
-                  E1(36) = ee(21)
+                  e1(1) = ee(1)
+                  e1(2) = ee(2)
+                  e1(3) = ee(4)
+                  e1(4) = ee(7)
+                  e1(7) = ee(2)
+                  e1(8) = ee(3)
+                  e1(9) = ee(5)
+                  e1(10) = ee(8)
+                  e1(13) = ee(4)
+                  e1(14) = ee(5)
+                  e1(15) = ee(6)
+                  e1(16) = ee(9)
+                  e1(19) = ee(7)
+                  e1(20) = ee(8)
+                  e1(21) = ee(9)
+                  e1(22) = ee(10)
+                  e1(29) = ee(15)
+                  e1(36) = ee(21)
 !
 !     COMPUTE THE STRESS MATRICES
 !
                   k = 72*(iki-1) + 1
-                  CALL gmmats(Wj,12,6,1,gababq,12,12,0,D(1))
-                  CALL gmmats(E1(1),6,6,0,D(1),6,12,0,Sel(k))
+                  CALL gmmats(wj,12,6,1,gababq,12,12,0,d(1))
+                  CALL gmmats(e1(1),6,6,0,d(1),6,12,0,sel(k))
 !
                   IF ( .NOT.(lsys78) ) THEN
                      kp1 = 24*(iki-1) + 1
                      CALL gmmats(wjp,4,3,1,gbp,4,4,0,d2(1))
-                     CALL gmmats(ee(37),6,3,0,d2(1),3,4,0,Selp1(kp1))
+                     CALL gmmats(ee(37),6,3,0,d2(1),3,4,0,selp1(kp1))
                      kp2 = 36*(iki-1) + 1
-                     CALL gmmats(ee(37),6,3,1,D(1),6,12,0,Selp2(kp2))
+                     CALL gmmats(ee(37),6,3,1,d(1),6,12,0,selp2(kp2))
                      kp3 = 12*(iki-1) + 1
-                     CALL gmmats(ee(55),3,3,0,d2(1),3,4,0,Selp3(kp3))
+                     CALL gmmats(ee(55),3,3,0,d2(1),3,4,0,selp3(kp3))
                   ENDIF
 !
 !     ** COORDINATE SYSTEMS NOT POSSIBLE WITH RINGAX *******************
@@ -788,28 +794,28 @@ SUBROUTINE stpax1
 !
 !     COMPUTE THE THERMAL STRAIN
 !
-               alfb(1) = Alf(1)
-               alfb(2) = Alf(3)
-               alfb(3) = Alf(2)
+               alfb(1) = alf(1)
+               alfb(2) = alf(3)
+               alfb(3) = alf(2)
                alfb(4) = 0.0
                alfb(5) = 0.0
                alfb(6) = 0.0
 !
 !     COMPUTE THE THERMAL STRESS
 !
-               Ts(1) = ee(1)*alfb(1) + ee(2)*alfb(2) + ee(4)*alfb(3)
-               Ts(2) = ee(2)*alfb(1) + ee(3)*alfb(2) + ee(5)*alfb(3)
-               Ts(3) = ee(4)*alfb(1) + ee(5)*alfb(2) + ee(6)*alfb(3)
-               Ts(4) = ee(7)*alfb(1) + ee(8)*alfb(2) + ee(9)*alfb(3)
-               Ts(5) = 0.0
-               Ts(6) = 0.0
+               ts(1) = ee(1)*alfb(1) + ee(2)*alfb(2) + ee(4)*alfb(3)
+               ts(2) = ee(2)*alfb(1) + ee(3)*alfb(2) + ee(5)*alfb(3)
+               ts(3) = ee(4)*alfb(1) + ee(5)*alfb(2) + ee(6)*alfb(3)
+               ts(4) = ee(7)*alfb(1) + ee(8)*alfb(2) + ee(9)*alfb(3)
+               ts(5) = 0.0
+               ts(6) = 0.0
 !
 !     SAVE ECPT(9) TO ECP(22)
 !
                DO iki = 1 , 14
-                  Phi(iki) = Ecpt(8+iki)
+                  phi(iki) = ecpt(8+iki)
                ENDDO
-               IF ( .NOT.pzmat ) Ksys78 = ksave
+               IF ( .NOT.pzmat ) ksys78 = ksave
             ENDIF
          ENDIF
       ENDIF
@@ -818,8 +824,8 @@ SUBROUTINE stpax1
 !
 !     RATIO OF RADII IS TOO LARGE FOR GAUSS QUADRATURE FOR IP=-1
 !
-      idel1 = Idel/1000
-      WRITE (Iout,99001) Ufm , idel1
+      idel1 = idel/1000
+      WRITE (iout,99001) ufm , idel1
 99001 FORMAT (A23,', TRAPAX ELEMENT',I9,' HAS A MAXIMUM TO MINIMUM ','RADIUS RATIO EXCEEDING 10.',/5X,'ACCURACY OF NUMERICAL',      &
              &' INTEGRATION WOULD BE IN DOUBT.')
    ENDIF
@@ -827,6 +833,6 @@ SUBROUTINE stpax1
 !     SET FATAL ERROR FLAG AND ALLOWING ERROR MESSAGES TO ACCUMLATE
 !
  100  i = 37
-   CALL mesage(-30,i,Idel)
-   IF ( .NOT.pzmat ) Ksys78 = ksave
+   CALL mesage(-30,i,idel)
+   IF ( .NOT.pzmat ) ksys78 = ksave
 99999 END SUBROUTINE stpax1

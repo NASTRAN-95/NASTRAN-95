@@ -1,4 +1,5 @@
-!*==rbmg3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rbmg3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rbmg3
@@ -9,6 +10,12 @@ SUBROUTINE rbmg3
    INTEGER , SAVE :: dm , klr , krr , lll , scr1 , scr2
    REAL :: eps
    EXTERNAL mesage , solver
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

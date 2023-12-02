@@ -1,14 +1,15 @@
-!*==cinvp1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cinvp1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cinvp1
-USE C_CINVPX
-USE C_CINVXX
-USE C_NAMES
-USE C_SADDX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cinvpx
+   USE c_cinvxx
+   USE c_names
+   USE c_saddx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -30,41 +31,41 @@ USE ISO_FORTRAN_ENV
 !*******
 !     FORM -(B+LAMBDA*M) ON SCR2
 !*******
-   Nomat = 2
+   nomat = 2
    DO i = 1 , 7
-      ifila(i) = Filem(i)
-      ifilb(i) = Fileb(i)
+      ifila(i) = filem(i)
+      ifilb(i) = fileb(i)
    ENDDO
-   alpha(1) = -Lambda(1)
-   alpha(2) = -Lambda(2)
+   alpha(1) = -lambda(1)
+   alpha(2) = -lambda(2)
    beta(1) = -1.D0
    beta(2) = 0.D0
-   itypal = Cdp
-   itypbt = Cdp
-   Nz = korsz(Z)
-   IF ( Switch==-204 ) Nz = Nz - 2*Sysbuf
-   ifilc(1) = Scr2
-   IF ( Switch/=0 ) ifilc(1) = Scr11
-   ifilc(2) = Filek(2)
-   ifilc(3) = Filek(3)
+   itypal = cdp
+   itypbt = cdp
+   nz = korsz(z)
+   IF ( switch==-204 ) nz = nz - 2*sysbuf
+   ifilc(1) = scr2
+   IF ( switch/=0 ) ifilc(1) = scr11
+   ifilc(2) = filek(2)
+   ifilc(3) = filek(3)
    ifilc(4) = 1
-   ifilc(5) = Cdp
-   CALL sadd(Z,Z)
+   ifilc(5) = cdp
+   CALL sadd(z,z)
 !*******
 !     FORM (LAMBDA**2*M+LAMBDA*B+K) ON SCR1
 !*******
    DO i = 1 , 7
-      ifila(i) = Filek(i)
+      ifila(i) = filek(i)
    ENDDO
    ifilb(1) = ifilc(1)
-   ifilb(2) = Filek(2)
-   ifilb(3) = Filek(3)
-   ifilb(4) = Sqr
+   ifilb(2) = filek(2)
+   ifilb(3) = filek(3)
+   ifilb(4) = sqr
    alpha(2) = 0.D0
-   beta(1) = -Lambda(1)
-   beta(2) = -Lambda(2)
-   ifilb(5) = Cdp
+   beta(1) = -lambda(1)
+   beta(2) = -lambda(2)
+   ifilb(5) = cdp
    alpha(1) = 1.D0
-   ifilc(1) = Scr1
-   CALL sadd(Z,Z)
+   ifilc(1) = scr1
+   CALL sadd(z,z)
 END SUBROUTINE cinvp1

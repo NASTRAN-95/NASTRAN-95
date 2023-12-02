@@ -1,11 +1,12 @@
-!*==hring.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hring.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hring(Points)
+   USE c_sma1et
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SMA1ET
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -68,11 +69,11 @@ SUBROUTINE hring(Points)
    i1 = Points + 4
    i2 = i1 + 4*Points - 1
    DO i = i1 , i2 , 4
-      IF ( Ecpt(i+1)<=0 ) THEN
+      IF ( ecpt(i+1)<=0 ) THEN
          CALL spag_block_3
          RETURN
       ENDIF
-      IF ( Ecpt(i+2)/=0 ) THEN
+      IF ( ecpt(i+2)/=0 ) THEN
          CALL spag_block_3
          RETURN
       ENDIF
@@ -92,7 +93,7 @@ SUBROUTINE hring(Points)
       ir = map(i)*4 + jpoint
       is = map(i+1)*4 + jpoint
       it = map(i+2)*4 + jpoint
-      temp = (Ecpt(is)-Ecpt(ir))*(Ecpt(it+2)-Ecpt(is+2)) - (Ecpt(it)-Ecpt(is))*(Ecpt(is+2)-Ecpt(ir+2))
+      temp = (ecpt(is)-ecpt(ir))*(ecpt(it+2)-ecpt(is+2)) - (ecpt(it)-ecpt(is))*(ecpt(is+2)-ecpt(ir+2))
       IF ( temp<=0 ) THEN
          CALL spag_block_3
          RETURN
@@ -102,18 +103,18 @@ SUBROUTINE hring(Points)
 !     TRAPEZOID TEST.
 !
    IF ( Points/=4 ) THEN
-      t = pi23*(Ecpt(8)+Ecpt(12)+Ecpt(16))
+      t = pi23*(ecpt(8)+ecpt(12)+ecpt(16))
       CALL spag_block_2
       RETURN
    ELSE
-      IF ( Ecpt(11)==Ecpt(15) ) THEN
-         IF ( Ecpt(19)==Ecpt(23) ) THEN
+      IF ( ecpt(11)==ecpt(15) ) THEN
+         IF ( ecpt(19)==ecpt(23) ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
       ENDIF
       CALL page2(-2)
-      WRITE (Outpt,99001) Swm , Ecpt(1)
+      WRITE (outpt,99001) swm , ecpt(1)
 99001 FORMAT (A27,' 2158, A TRAPRG ELEMENT =',I14,' DOES NOT HAVE SIDE 1-2 PARALLEL TO SIDE 3-4.')
    ENDIF
    CALL spag_block_1
@@ -125,22 +126,22 @@ CONTAINS
 !     T IS SET = INTEGER 1 AS A FLAG TO QDMEM ROUTINE WHICH WILL
 !     COMPUTE T FOR EACH.
 !
-      tint = 1
-      tint = tint
+      Tint = 1
+      Tint = Tint
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     CONVERT ECPT TO THAT OF A TRMEM OR QDMEM.
 !
-      j = 5*Points + 6
-      k = 4*Points + 1
-      DO i = 1 , k
-         Ecpt(j) = Ecpt(j-2)
-         j = j - 1
+      J = 5*Points + 6
+      K = 4*Points + 1
+      DO I = 1 , K
+         ecpt(J) = ecpt(J-2)
+         J = J - 1
       ENDDO
-      Ecpt(Points+4) = t
-      Ecpt(Points+5) = 0.0
+      ecpt(Points+4) = T
+      ecpt(Points+5) = 0.0
       IF ( Points==4 ) THEN
 !
          CALL kqdmem
@@ -154,8 +155,8 @@ CONTAINS
 !
 !     BAD GEOMETRY FATAL ERROR.
 !
-      WRITE (Outpt,99002) Ufm , Ecpt(1)
-99002 FORMAT (A23,' 2159, TRIRG OR TRAPRG ELEMENT =',I14,' POSSESSES ILLEGAL GEOMETRY.')
-      Nogo = .TRUE.
+      WRITE (Outpt,99001) ufm , ecpt(1)
+99001 FORMAT (A23,' 2159, TRIRG OR TRAPRG ELEMENT =',I14,' POSSESSES ILLEGAL GEOMETRY.')
+      nogo = .TRUE.
    END SUBROUTINE spag_block_3
 END SUBROUTINE hring

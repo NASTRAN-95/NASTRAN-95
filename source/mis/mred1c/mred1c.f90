@@ -1,12 +1,13 @@
-!*==mred1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mred1c.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred1c
+   USE c_bitpos
+   USE c_blank
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -49,16 +50,16 @@ SUBROUTINE mred1c
 !
 !     IF OLDBOUNDS OPTION, GET EQST TRAILER
 !
-   IF ( Dry==-2 ) RETURN
+   IF ( dry==-2 ) RETURN
    eqstrl(1) = eqst
-   IF ( Bounds ) CALL rdtrl(eqstrl)
+   IF ( bounds ) CALL rdtrl(eqstrl)
 !
 !     GET SIL DOF AND DECODE
 !
    newips = 0
-   DO i = 1 , Nsil
-      sildof = Nslbgn + ((2*i)-1)
-      icode = Z(sildof)
+   DO i = 1 , nsil
+      sildof = nslbgn + ((2*i)-1)
+      icode = z(sildof)
       CALL decode(icode,bitpat,nwdsd)
 !
 !     TEST FOR DOF REMAINING IN BOUNDARY SET
@@ -66,10 +67,10 @@ SUBROUTINE mred1c
       ndof = 0
       kompnt = 0
       DO j = 1 , nwdsd
-         k = Locust + (Z(sildof-1)-1) + (j-1)
-         IF ( andf(Z(k),Itwo(Ub))/=0 ) THEN
+         k = locust + (z(sildof-1)-1) + (j-1)
+         IF ( andf(z(k),itwo(ub))/=0 ) THEN
             k = 32 - bitpat(j)
-            kompnt = orf(kompnt,Itwo(k))
+            kompnt = orf(kompnt,itwo(k))
             ndof = ndof + 1
          ENDIF
       ENDDO
@@ -80,50 +81,50 @@ SUBROUTINE mred1c
 !
 !     SIL DATA NOT NEEDED
 !
-         Z(sildof-1) = -1
+         z(sildof-1) = -1
       ELSE
          newips = newips + 1
-         Z(sildof-1) = (8*newips) + ndof
-         Z(sildof) = kompnt
+         z(sildof-1) = (8*newips) + ndof
+         z(sildof) = kompnt
       ENDIF
    ENDDO
 !
 !     WRITE EQSS GROUP 0 DATA ONTO TEMPORARY EQST TABLE
 !
-   CALL gopen(eqst,Z(Gbuf1),1)
-   CALL write(eqst,Newnam,2,0)
-   CALL write(eqst,Ncsubs,1,0)
+   CALL gopen(eqst,z(gbuf1),1)
+   CALL write(eqst,newnam,2,0)
+   CALL write(eqst,ncsubs,1,0)
    CALL write(eqst,newips,1,0)
-   nwds = Eqsind - Namebs
-   CALL write(eqst,Z(Namebs),nwds,1)
+   nwds = eqsind - namebs
+   CALL write(eqst,z(namebs),nwds,1)
    eqstrl(2) = nwds + 4
 !
 !     WRITE REMAINING EQSS GROUP DATA ONTO TEMPORARY EQST TABLE
 !
-   eqstrl(3) = Ncsubs
-   DO i = 1 , Ncsubs
+   eqstrl(3) = ncsubs
+   DO i = 1 , ncsubs
       j = 2*(i-1)
-      estdta = Z(Eqsind+j)
-      nwds = Z(Eqsind+j+1)
+      estdta = z(eqsind+j)
+      nwds = z(eqsind+j+1)
 !
 !     TEST SUBSTRUCTURE COMPONENTS
 !
       IF ( nwds>0 ) THEN
          DO j = 1 , nwds , 3
-            silind = Nslbgn + (2*(Z(estdta+j)-1))
-            IF ( Rgrid(1)>0 ) THEN
-               IF ( i==Rgrid(2) ) THEN
-                  IF ( Rgrid(1)==Z(estdta+j-1) ) Rgrid(1) = Z(estdta+j)
+            silind = nslbgn + (2*(z(estdta+j)-1))
+            IF ( rgrid(1)>0 ) THEN
+               IF ( i==rgrid(2) ) THEN
+                  IF ( rgrid(1)==z(estdta+j-1) ) rgrid(1) = z(estdta+j)
                ENDIF
             ENDIF
-            IF ( Z(silind)/=-1 ) THEN
+            IF ( z(silind)/=-1 ) THEN
 !
 !     REPLACE IP, SIL NUMBERS AND WRITE DATA
 !
                estwrt = estdta + j
-               Z(estwrt) = Z(silind)/8
-               Z(estwrt+1) = Z(silind+1)
-               CALL write(eqst,Z(estwrt-1),3,0)
+               z(estwrt) = z(silind)/8
+               z(estwrt+1) = z(silind+1)
+               CALL write(eqst,z(estwrt-1),3,0)
             ENDIF
          ENDDO
       ENDIF
@@ -134,8 +135,8 @@ SUBROUTINE mred1c
 !
    ndof = 1
    loindx = 0
-   newsil = Nslbgn + (2*Nsil)
-   IF ( (newsil+(2*Nsil))>=Korlen ) THEN
+   newsil = nslbgn + (2*nsil)
+   IF ( (newsil+(2*nsil))>=korlen ) THEN
 !
 !     PROCESS SYSTEM FATAL ERRORS
 !
@@ -145,26 +146,26 @@ SUBROUTINE mred1c
       CALL mesage(imsg,ifile,modnam)
       RETURN
    ELSE
-      DO i = 1 , Nsil
+      DO i = 1 , nsil
          j = 2*(i-1)
-         IF ( Z(Nslbgn+j)/=-1 ) THEN
-            Z(newsil+loindx) = ndof
-            Z(newsil+loindx+1) = Z(Nslbgn+j+1)
-            ndof = ndof + andf(Z(Nslbgn+j),7)
+         IF ( z(nslbgn+j)/=-1 ) THEN
+            z(newsil+loindx) = ndof
+            z(newsil+loindx+1) = z(nslbgn+j+1)
+            ndof = ndof + andf(z(nslbgn+j),7)
             loindx = loindx + 2
          ENDIF
       ENDDO
 !
 !     WRITE SIL DATA ONTO TEMPORARY EQST TABLE
 !
-      korbgn = Namebs
+      korbgn = namebs
       IF ( loindx<=0 ) CALL write(eqst,0,0,1)
-      IF ( loindx>0 ) CALL write(eqst,Z(newsil),loindx,1)
+      IF ( loindx>0 ) CALL write(eqst,z(newsil),loindx,1)
       eqstrl(4) = loindx
 !
 !     READ AND WRITE BGSS GROUP 0 DATA
 !
-      CALL sfetch(Oldnam,nhbgss,1,itest)
+      CALL sfetch(oldnam,nhbgss,1,itest)
       IF ( itest==3 ) THEN
 !
 !     PROCESS MODULE FATAL ERRORS
@@ -175,22 +176,22 @@ SUBROUTINE mred1c
       ELSEIF ( itest==5 ) THEN
          imsg = -3
       ELSE
-         CALL suread(Z(korbgn),-1,nwdsrd,itest)
-         Z(korbgn) = Oldnam(1)
-         Z(korbgn+1) = Oldnam(2)
-         nbgss = Z(korbgn+2)
-         Z(korbgn+2) = loindx/2
-         CALL write(eqst,Z(korbgn),3,1)
+         CALL suread(z(korbgn),-1,nwdsrd,itest)
+         z(korbgn) = oldnam(1)
+         z(korbgn+1) = oldnam(2)
+         nbgss = z(korbgn+2)
+         z(korbgn+2) = loindx/2
+         CALL write(eqst,z(korbgn),3,1)
 !
 !     ELIMINATE BGSS DATA NOT REQUIRED
 !
          i = 0
          eqstrl(5) = 0
          DO j = 1 , nbgss
-            CALL suread(Z(korbgn),4,nwdsrd,itest)
-            IF ( i<=(2*Nsil) ) THEN
-               IF ( Z(Nslbgn+i)/=-1 ) THEN
-                  CALL write(eqst,Z(korbgn),4,0)
+            CALL suread(z(korbgn),4,nwdsrd,itest)
+            IF ( i<=(2*nsil) ) THEN
+               IF ( z(nslbgn+i)/=-1 ) THEN
+                  CALL write(eqst,z(korbgn),4,0)
                   eqstrl(5) = eqstrl(5) + 4
                ENDIF
             ENDIF
@@ -205,7 +206,6 @@ SUBROUTINE mred1c
          RETURN
       ENDIF
    ENDIF
-   CALL smsg(imsg,nhbgss,Oldnam)
-   RETURN
+   CALL smsg(imsg,nhbgss,oldnam)
 !
 END SUBROUTINE mred1c

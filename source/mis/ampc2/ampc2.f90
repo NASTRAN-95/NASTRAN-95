@@ -1,13 +1,14 @@
-!*==ampc2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ampc2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ampc2(Inp,Outp,Scrf)
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,24 +42,24 @@ SUBROUTINE ampc2(Inp,Outp,Scrf)
 !     MUST DO COPY
 !
       CALL filswi(Outp,Scrf)
-      ibuf1 = korsz(Iz) - Sysbuf + 1
-      ibuf2 = ibuf1 - Sysbuf
-      ibuf3 = ibuf2 - Sysbuf
-      CALL gopen(Inp,Iz(ibuf1),0)
-      CALL gopen(Scrf,Iz(ibuf2),0)
-      CALL gopen(Outp,Iz(ibuf2),1)
+      ibuf1 = korsz(iz) - sysbuf + 1
+      ibuf2 = ibuf1 - sysbuf
+      ibuf3 = ibuf2 - sysbuf
+      CALL gopen(Inp,iz(ibuf1),0)
+      CALL gopen(Scrf,iz(ibuf2),0)
+      CALL gopen(Outp,iz(ibuf2),1)
       ncol = mcbi(2)
       nrowo = mcbi(3) + mcbo(3)
-      It1 = mcbi(5)
-      It2 = It1
-      It3 = It1
-      Incr = 1
-      Incr1 = 1
-      nterm = nrowo*Iword(It1)
-      Ii = 1
-      Jj = nrowo
-      nrowis = mcbo(3)*Iword(It1) + 1
-      Ii1 = 1
+      it1 = mcbi(5)
+      it2 = it1
+      it3 = it1
+      incr = 1
+      incr1 = 1
+      nterm = nrowo*iword(it1)
+      ii = 1
+      jj = nrowo
+      nrowis = mcbo(3)*iword(it1) + 1
+      ii1 = 1
       nri = mcbi(3)
       nro = mcbo(3)
       mcbo(2) = 0
@@ -67,13 +68,13 @@ SUBROUTINE ampc2(Inp,Outp,Scrf)
       mcbo(3) = nrowo
       DO i = 1 , ncol
          DO j = 1 , nterm
-            Iz(j) = 0
+            iz(j) = 0
          ENDDO
-         Jj1 = nro
-         CALL unpack(*20,Scrf,Iz)
- 20      Jj1 = nri
-         CALL unpack(*40,Inp,Iz(nrowis))
- 40      CALL pack(Iz,Outp,mcbo)
+         jj1 = nro
+         CALL unpack(*20,Scrf,iz)
+ 20      jj1 = nri
+         CALL unpack(*40,Inp,iz(nrowis))
+ 40      CALL pack(iz,Outp,mcbo)
       ENDDO
       CALL close(Scrf,1)
       CALL close(Inp,1)
@@ -85,5 +86,4 @@ SUBROUTINE ampc2(Inp,Outp,Scrf)
 !     SWITCH SCRATCH FILES
 !
    CALL filswi(Inp,Outp)
-   RETURN
 END SUBROUTINE ampc2

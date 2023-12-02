@@ -1,9 +1,10 @@
-!*==smp1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==smp1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE smp1
+   USE c_bitpos
    IMPLICIT NONE
-   USE C_BITPOS
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -42,7 +43,7 @@ SUBROUTINE smp1
 !
 !     PARTITION KFF INTO KAAB,KOAB, AND KOOB
 !
-   CALL upart(uset,scr1,Uf,Ua,Uo)
+   CALL upart(uset,scr1,uf,ua,uo)
    CALL mpart(kff,aab,ioab,0,koob)
 !
 !     DECOMPOSE KOOB INTO LOO

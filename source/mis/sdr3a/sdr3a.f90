@@ -1,11 +1,12 @@
-!*==sdr3a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdr3a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr3a(Ofpfil)
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -61,11 +62,11 @@ SUBROUTINE sdr3a(Ofpfil)
 !
 !     BUFFERS AND OPEN CORE
 !
-   core = korsz(Z)
+   core = korsz(z)
 !
-   buff(1) = core - Ibufsz + 1
+   buff(1) = core - ibufsz + 1
    DO i = 2 , 10
-      buff(i) = buff(i-1) - Ibufsz
+      buff(i) = buff(i-1) - ibufsz
    ENDDO
    buff9 = buff(9)
    buff10 = buff(10)
@@ -74,7 +75,7 @@ SUBROUTINE sdr3a(Ofpfil)
       DO i = 1 , 5
          Ofpfil(i) = 22
       ENDDO
-      WRITE (L,99001) Uwm
+      WRITE (l,99001) uwm
 99001 FORMAT (A25,' 986, INSUFFICIENT CORE FOR SDR3.')
    ELSE
 !
@@ -83,10 +84,10 @@ SUBROUTINE sdr3a(Ofpfil)
       ierror = 0
       DO i = 1 , nscrat
          ibuff = buff(i)
-         CALL open(*20,scrtch(i),Z(ibuff),outrwd)
+         CALL open(*20,scrtch(i),z(ibuff),outrwd)
          CYCLE
  20      ierror = 1
-         WRITE (L,99002) Uwm , i
+         WRITE (l,99002) uwm , i
 99002    FORMAT (A25,' 985, SDR3 FINDS SCRATCH',I1,' PURGED.')
       ENDDO
 !
@@ -101,8 +102,8 @@ SUBROUTINE sdr3a(Ofpfil)
                infile = ifile(file)
                oufile = ofile(file)
 !
-               CALL open(*150,infile,Z(buff9),inprwd)
-               CALL open(*145,oufile,Z(buff10),outrwd)
+               CALL open(*150,infile,z(buff9),inprwd)
+               CALL open(*145,oufile,z(buff10),outrwd)
                CALL fwdrec(*70,infile)
 !
 !     HEADER RECORD FOR OUFILE
@@ -144,7 +145,7 @@ SUBROUTINE sdr3a(Ofpfil)
 !
 !     INSUFFICIENT CORE,  IF FALL HERE, TO DO SORT II ON THIS FILE..
 !
-               CALL read(*75,*30,infile,Z(1),icore,noeor,iamt)
+               CALL read(*75,*30,infile,z(1),icore,noeor,iamt)
 !
 !     INSUFFICIENT CORE
 !
@@ -195,15 +196,15 @@ SUBROUTINE sdr3a(Ofpfil)
                         n1 = total1 - wperbk*i
                         n2 = total2 - nwds*i
                         ihd = ihd2 - i
-                        Z(ihd) = Z(n2)
-                        Z(n1) = id(5)
+                        z(ihd) = z(n2)
+                        z(n1) = id(5)
 !
 !     SAVE TRANSPOSE HEADING
 !
                         DO j = 2 , nwds
                            n1 = n1 + 1
                            n2 = n2 + 1
-                           Z(n1) = Z(n2)
+                           z(n1) = z(n2)
                         ENDDO
                      ENDDO
 !
@@ -226,7 +227,7 @@ SUBROUTINE sdr3a(Ofpfil)
 !     WILL READ DATA AND COUNT ENTRYS
 !
                IF ( ntypes>30 ) THEN
-                  WRITE (L,99003) Ufm , ntypes
+                  WRITE (l,99003) ufm , ntypes
 99003             FORMAT (A23,' 3129, SDR3 CAN ONLY PROCESS 30 ELEMENT TYPES, ','PROBLEM HAS',I5)
                   CALL mesage(-61,0,0)
                   GOTO 145
@@ -309,7 +310,7 @@ SUBROUTINE sdr3a(Ofpfil)
                      DO i = 1 , nentry
                         nfile = nfile + 1
                         IF ( nfile>nscrat ) nfile = 1
-                        CALL write(scrtch(nfile),Z(npoint),wperbk,eor)
+                        CALL write(scrtch(nfile),z(npoint),wperbk,eor)
                         npoint = npoint + wperbk
                      ENDDO
                      recs = recs + nentry
@@ -325,8 +326,8 @@ SUBROUTINE sdr3a(Ofpfil)
                npoint = vinbk*nwds + 1
                DO i = 1 , nentry
                   ieor = i/nentry
-                  CALL read(*90,*135,infile,Z(npoint),nwds,ieor,iamt)
-                  Z(npoint) = idtemp(5)
+                  CALL read(*90,*135,infile,z(npoint),nwds,ieor,iamt)
+                  z(npoint) = idtemp(5)
                   npoint = npoint + wperbk
                ENDDO
                vinbk = vinbk + 1
@@ -370,7 +371,7 @@ SUBROUTINE sdr3a(Ofpfil)
                   DO i = 1 , nscrat
                      CALL close(scrtch(i),rwd)
                      ibuff = buff(i)
-                     CALL open(*65,scrtch(i),Z(ibuff),inprwd)
+                     CALL open(*65,scrtch(i),z(ibuff),inprwd)
                   ENDDO
 !
 !     COMPUTE OVERLAPS PER LAYER
@@ -392,7 +393,7 @@ SUBROUTINE sdr3a(Ofpfil)
                   IF ( nfile>nscrat ) nfile = 1
 !
                   npoint = ihead + i
-                  id(5) = Z(npoint)
+                  id(5) = z(npoint)
                   CALL write(oufile,id(1),146,eor)
 !
 !     ANYTHING ON SCRATCH FILES IS NOW WRITTEN
@@ -440,7 +441,7 @@ SUBROUTINE sdr3a(Ofpfil)
 !
                   words = vinbk*nwds
                   npoint = wperbk*i - wperbk + 1
-                  CALL write(oufile,Z(npoint),words,eor)
+                  CALL write(oufile,z(npoint),words,eor)
                ENDDO
                IF ( recs/=0 ) THEN
 !
@@ -449,7 +450,7 @@ SUBROUTINE sdr3a(Ofpfil)
                   DO i = 1 , nscrat
                      CALL close(scrtch(i),rwd)
                      ibuff = buff(i)
-                     CALL open(*60,scrtch(i),Z(ibuff),outrwd)
+                     CALL open(*60,scrtch(i),z(ibuff),outrwd)
                   ENDDO
                ENDIF
 !
@@ -541,18 +542,18 @@ SUBROUTINE sdr3a(Ofpfil)
                spag_nextblock_1 = 11
             CASE (11)
                Ofpfil(file) = n
-               WRITE (L,99004) Uwm , file
+               WRITE (l,99004) uwm , file
 99004          FORMAT (A25,' 982, FORMAT OF SDR3 INPUT DATA BLOCK ',I3,' DOES NOT PERMIT SUCCESSFUL SORT-2 PROCESSING.')
                GOTO 25
 !
 !     CORRESPONDING OUTPUT FILE IS PURGED.
 !
  145           Ofpfil(file) = 2
-               WRITE (L,99005) Uwm , file
+               WRITE (l,99005) uwm , file
 99005          FORMAT (A25,' 984,  SDR3 FINDS OUTPUT DATA-BLOCK',I4,' PURGED.')
                GOTO 25
             CASE (12)
-               WRITE (L,99006) Uwm , file
+               WRITE (l,99006) uwm , file
 99006          FORMAT (A25,' 983, SDR3 HAS INSUFFICIENT CORE TO PERFORM SORT-2',' ON INPUT DATA BLOCK',I4,/5X,                      &
                       &'OR DATA-BLOCK IS NOT IN CORRECT FORMAT.')
                Ofpfil(file) = n

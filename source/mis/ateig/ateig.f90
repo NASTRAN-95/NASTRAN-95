@@ -1,7 +1,9 @@
-!*==ateig.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ateig.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ateig(M,A,Rr,Ri,Iana,Ia,B,Rra,Rri)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -22,12 +24,20 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) :: alpha , cap , d , delta , e10 , e6 , e7 , eps , eta , g1 , g2 , g3 , pan , pan1 , psi1 , psi2 , r , rmod , s ,   &
                  & t , u , v
    INTEGER :: i , ii , ii1 , iip , ij , in , in1 , ip , ip2j , ipi , ipip , ipip2 , it , j , ji , jip , jip2 , k , maxit , n , n1 , &
-            & n1n , n1n1 , n1n2 , n2 , nn , nn1 , np , p , p1 , q
+            & n1n , n1n1 , n1n2 , n2 , nn , nn1 , np , p , p1 , q , spag_nextblock_1
    REAL(REAL64) , DIMENSION(2) :: pri , prr
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -349,7 +359,6 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !        ONE EIGENVALUE HAS BEEN FOUND

@@ -1,10 +1,11 @@
-!*==rand5.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rand5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -113,14 +114,14 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
          mcb1(1) = Psdf
          mcb2(1) = Auto
-         lcore = korsz(Z)
-         ibuf1 = lcore - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         lcore = korsz(z)
+         ibuf1 = lcore - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          itau = Nfreq + 5*Npsdl
          isaa = Ntau + Ltab + itau
          icore = isaa + Nfreq
-         lcore = lcore - icore - 3*Sysbuf
+         lcore = lcore - icore - 3*sysbuf
          icrq = -lcore
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 4
@@ -129,8 +130,8 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !     OPEN OUTPUT FILES
 !
-         CALL gopen(Psdf,Z(ibuf2),1)
-         CALL gopen(Auto,Z(ibuf3),1)
+         CALL gopen(Psdf,z(ibuf2),1)
+         CALL gopen(Auto,z(ibuf3),1)
 !
 !     BEGIN LOOP ON EACH FILE
 !
@@ -142,7 +143,7 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !     BUILD POINT LIST FOR FILE(I)
 !
-                  CALL rand6(Xycb,Z(ibuf1),npoint,iz(icore+1),Ifile(i),lcore)
+                  CALL rand6(Xycb,z(ibuf1),npoint,iz(icore+1),Ifile(i),lcore)
                   IF ( npoint==0 ) CYCLE
                   nz = lcore - 5*npoint
                   icrq = -nz
@@ -154,7 +155,7 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !     OPEN INPUT FILE
 !
                   file = Ifile(i)
-                  CALL open(*20,file,Z(ibuf1),0)
+                  CALL open(*20,file,z(ibuf1),0)
                   ip = icore + 1
                   ndone = 0
                   oldld = 0
@@ -176,7 +177,7 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                   jj = ics + ndo*Nfreq - 1
                   DO k = ics , jj
-                     Z(k) = 0.0
+                     z(k) = 0.0
                   ENDDO
                   icdone = 0
                   spag_nextblock_2 = 3
@@ -219,9 +220,9 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
                            jj = isaa + j
 !
 !                TAB      X    F(X)
-                           CALL tab(iz(k+4),Z(j),Z(jj))
-                           IF ( iz(k+4)==0 ) Z(jj) = 1.0
-                           Z(jj) = Z(jj)*Z(k+2)
+                           CALL tab(iz(k+4),z(j),z(jj))
+                           IF ( iz(k+4)==0 ) z(jj) = 1.0
+                           z(jj) = z(jj)*z(k+2)
                         ENDDO
                         EXIT SPAG_Loop_2_1
                      ENDIF
@@ -264,7 +265,7 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !     COMPUTE POWER SPECTRAL DENSITY FUNCTION
 !
                         k = ics + ii*Nfreq - 1 + j
-                        Z(k) = Z(k) + data(jj)*Z(ll)*data(jj)
+                        z(k) = z(k) + data(jj)*z(ll)*data(jj)
                         IF ( ii==ndo-1 ) EXIT SPAG_Loop_3_2
 !
 !     IS NEXT REQUEST FROM SAME POINT
@@ -309,7 +310,7 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
 !     COMPUTE MEAN RESPONSE   Q
 !
-                     CALL rand3(Z(1),Z(l),q,Nfreq)
+                     CALL rand3(z(1),z(l),q,Nfreq)
                      IF ( iz(k+3)/=2 ) THEN
 !
 !     PSDF REQUESTED
@@ -323,8 +324,8 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                         DO ll = 1 , Nfreq
                            kk = l + ll - 1
-                           CALL write(Psdf,Z(ll),1,0)
-                           CALL write(Psdf,Z(kk),1,0)
+                           CALL write(Psdf,z(ll),1,0)
+                           CALL write(Psdf,z(kk),1,0)
                         ENDDO
                         CALL write(Psdf,0,0,1)
                      ENDIF
@@ -340,11 +341,11 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
 !
                            DO ll = 1 , Ntau
                               kk = itau + ll
-                              CALL write(Auto,Z(kk),1,0)
+                              CALL write(Auto,z(kk),1,0)
 !
 !     COMPUTE AUTO
 !
-                              CALL rand4(Z(1),Z(l),Z(kk),r,Nfreq)
+                              CALL rand4(z(1),z(l),z(kk),r,Nfreq)
                               CALL write(Auto,r,1,0)
                            ENDDO
                            CALL write(Auto,0,0,1)
@@ -388,12 +389,10 @@ SUBROUTINE rand5(Nfreq,Npsdl,Ntau,Xycb,Ltab,Ifile,Psdf,Auto,Nfile)
       CASE (3)
          ip1 = -7
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE rand5

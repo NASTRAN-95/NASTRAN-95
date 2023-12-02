@@ -1,10 +1,11 @@
-!*==setig.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==setig.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE setig(Kg1,Kg2,Ig,Norig)
+   USE c_bands
+   USE c_system
    IMPLICIT NONE
-   USE C_BANDS
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,15 +42,15 @@ SUBROUTINE setig(Kg1,Kg2,Ig,Norig)
          m = 0
          SPAG_Loop_2_1: DO
             m = m + 1
-            IF ( m>Maxdeg ) THEN
+            IF ( m>maxdeg ) THEN
                CALL spag_block_1
                RETURN
             ENDIF
             is = bunpk(Ig,l,m)
             IF ( is==0 ) THEN
                CALL bpack(Ig,l,m,k)
-               Mm = max0(Mm,m)
-               IF ( loop==1 ) Nedge = Nedge + 1
+               mm = max0(mm,m)
+               IF ( loop==1 ) nedge = nedge + 1
                EXIT SPAG_Loop_2_1
             ELSEIF ( is==k ) THEN
                EXIT SPAG_Loop_1_2
@@ -61,8 +62,8 @@ SUBROUTINE setig(Kg1,Kg2,Ig,Norig)
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      WRITE (Nout,99001) Norig(l) , Maxdeg
+      WRITE (nout,99001) Norig(L) , Maxdeg
 99001 FORMAT (34H0***  FATAL ERROR - - - GRID POINT,I10,48H  HAS DEGREE EXCEEDING THE NODAL DEGREE LIMIT OF,I8)
-      CALL mesage(-8,0,sub)
+      CALL mesage(-8,0,Sub)
    END SUBROUTINE spag_block_1
 END SUBROUTINE setig

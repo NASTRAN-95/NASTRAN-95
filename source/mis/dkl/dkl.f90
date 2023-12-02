@@ -1,7 +1,9 @@
-!*==dkl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dkl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dkl(Np,I,L,R,Z)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -21,7 +23,15 @@ USE ISO_FORTRAN_ENV
    REAL :: factl
    INTEGER :: j , jfact , k , l1 , l2 , lfact , lk , lmjf , m
    INTEGER , DIMENSION(2) , SAVE :: nam
-   EXTERNAL mesage
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -155,14 +165,12 @@ CONTAINS
 !
 !  . ALL DONE
 !
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !  . ERROR...
 !
-      CALL mesage(-7,k,nam)
+      CALL mesage(-7,K,Nam)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_2
 END FUNCTION dkl

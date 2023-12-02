@@ -1,9 +1,10 @@
-!*==gpwg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gpwg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpwg
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -26,9 +27,9 @@ SUBROUTINE gpwg
 !
 !     FORM D MATRIX (TRANSPOSED)
 !
-   ip = Point
+   ip = point
 !
-   CALL gpwg1a(Point,bgpdt,cstm,eqexin,scr3,nogo)
+   CALL gpwg1a(point,bgpdt,cstm,eqexin,scr3,nogo)
 !
 !     CHECK FOR AN ALL SCALAR PROBLEM AND A STUPID USER
 !
@@ -44,7 +45,7 @@ SUBROUTINE gpwg
 !
 !     FORM OUTPUT  STUFF
 !
-      IF ( Point==0 ) ip = 0
-      CALL gpwg1b(scr4,ogpwg,Wtmass,ip)
+      IF ( point==0 ) ip = 0
+      CALL gpwg1b(scr4,ogpwg,wtmass,ip)
    ENDIF
 END SUBROUTINE gpwg

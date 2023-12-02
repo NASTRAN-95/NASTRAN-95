@@ -1,14 +1,15 @@
-!*==setinp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==setinp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE setinp
 !
-USE C_BLANK
-USE C_GPTA1
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_gpta1
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -45,11 +46,11 @@ USE ISO_FORTRAN_ENV
       CASE (1)
 !
          CALL delset
-         b1 = korsz(X) - 5*Bufsiz + 1
-         b2 = b1 + Bufsiz
-         b3 = b2 + Bufsiz
-         b4 = b3 + Bufsiz
-         Nogo = 0
+         b1 = korsz(x) - 5*bufsiz + 1
+         b2 = b1 + bufsiz
+         b3 = b2 + bufsiz
+         b4 = b3 + bufsiz
+         nogo = 0
          org = 0
          porg = -1
          allon = complf(0)
@@ -59,17 +60,17 @@ USE ISO_FORTRAN_ENV
 !     OPEN ALL NECESSARY FILES
 !
          iorew = inprew
-         IF ( Intr>0 ) THEN
-            Pcdb = Ipcdb
+         IF ( intr>0 ) THEN
+            pcdb = ipcdb
             iorew = outrew
          ENDIF
-         CALL open(*360,Pcdb,X(b1),iorew)
-         IF ( Intr<=0 ) THEN
+         CALL open(*360,pcdb,x(b1),iorew)
+         IF ( intr<=0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         WRITE (Nout,99001)
+         WRITE (nout,99001)
 !
 99001    FORMAT (' ENTER PLOT DEFINITION OR ''GO'' IF DONE.')
          spag_nextblock_1 = 2
@@ -83,18 +84,18 @@ USE ISO_FORTRAN_ENV
             ENDDO
             CALL xread(*20,pcard)
             IF ( pcard(1)==stop ) THEN
-               Nogo = 1
+               nogo = 1
                RETURN
             ELSEIF ( pcard(1)==go ) THEN
-               CALL close(Pcdb,rew)
-               IF ( Intr>10 ) Nout = 1
-               CALL open(*360,Pcdb,X(b1),inprew)
+               CALL close(pcdb,rew)
+               IF ( intr>10 ) nout = 1
+               CALL open(*360,pcdb,x(b1),inprew)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSE
                CALL xrcard(pocard,199,pcard)
                CALL ifp1pc(1,icont,pocard,org,porg)
-               IF ( Nogo==0 ) THEN
+               IF ( nogo==0 ) THEN
                   WRITE (1,99002) pcard
 99002             FORMAT (20A4)
                   ie = 1
@@ -124,32 +125,31 @@ USE ISO_FORTRAN_ENV
                      ENDDO SPAG_DispatchLoop_2
                   ENDDO
                   nw = 80
- 2                CALL write(Pcdb,pocard,nw,ie)
+ 2                CALL write(pcdb,pocard,nw,ie)
                ELSE
-                  Nogo = 0
+                  nogo = 0
                   EXIT SPAG_Loop_1_1
                ENDIF
             ENDIF
          ENDDO SPAG_Loop_1_1
- 20      WRITE (Nout,99003)
+ 20      WRITE (nout,99003)
 99003    FORMAT (' BAD CARD TRY AGIAN')
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         IF ( Intr<=0 ) CALL fread(Pcdb,0,-2,1)
-         CALL gopen(Plot,X(b2),outrew)
-         CALL gopen(Mset,X(b3),outrew)
-         CALL gopen(Msetid,X(b4),outrew)
-         CALL rdmodx(Pcdb,mode,word)
+         IF ( intr<=0 ) CALL fread(pcdb,0,-2,1)
+         CALL gopen(plot,x(b2),outrew)
+         CALL gopen(mset,x(b3),outrew)
+         CALL gopen(msetid,x(b4),outrew)
+         CALL rdmodx(pcdb,mode,word)
  40      SPAG_Loop_1_2: DO
 !
 !     READ MODE FLAG.  SHOULD BE ALPHABETIC
 !
-            CALL read(*340,*340,Pcdb,mode,1,0,i)
+            CALL read(*340,*340,pcdb,mode,1,0,i)
             IF ( mode<0 ) THEN
                i = 1
                IF ( mode==-4 ) i = 2
-               CALL fread(Pcdb,0,-i,0)
+               CALL fread(pcdb,0,-i,0)
             ELSEIF ( mode/=0 ) THEN
                IF ( mode<eor ) THEN
                   mode = mode + 1
@@ -163,21 +163,21 @@ USE ISO_FORTRAN_ENV
                   CALL rdmode(*380,*60,*40,mode,word)
                   GOTO 100
                ELSE
-                  CALL fread(Pcdb,0,0,1)
+                  CALL fread(pcdb,0,0,1)
                ENDIF
             ENDIF
          ENDDO SPAG_Loop_1_2
 !
 !     THIS CARD IS A PLOT CONTROL CARD
 !
- 60      CALL bckrec(Pcdb)
+ 60      CALL bckrec(pcdb)
          spag_nextblock_1 = 4
       CASE (4)
-         CALL read(*340,*80,Pcdb,card,65,1,i)
-         WRITE (Nout,99004)
+         CALL read(*340,*80,pcdb,card,65,1,i)
+         WRITE (nout,99004)
 99004    FORMAT ('  ARRAY CARD OF 65 TOO SAMLL')
          CALL mesage(-37,0,name)
- 80      CALL write(Plot,card,i,1)
+ 80      CALL write(plot,card,i,1)
          IF ( card(i)/=0 ) GOTO 40
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
@@ -279,26 +279,26 @@ USE ISO_FORTRAN_ENV
          ENDIF
          IF ( word/=all ) THEN
 !
-            DO i = 1 , Ntypes
-               idx = (i-1)*Incr
+            DO i = 1 , ntypes
+               idx = (i-1)*incr
 !
 !     SKIP ELEMENTS WITH
 !       1 GRID
 !       SCALAR CONNECTIONS POSSIBLE
 !       SPECIAL PLOTTER MNEMONIC OF -XX-
 !
-               IF ( Ne(idx+10)>1 .AND. Ne(idx+11)==0 ) THEN
-                  IF ( Ne(idx+16)/=ilxx ) THEN
-                     IF ( awrd(1)==Ne(idx+1) .AND. awrd(2)==Ne(idx+2) ) THEN
+               IF ( ne(idx+10)>1 .AND. ne(idx+11)==0 ) THEN
+                  IF ( ne(idx+16)/=ilxx ) THEN
+                     IF ( awrd(1)==ne(idx+1) .AND. awrd(2)==ne(idx+2) ) THEN
                         spag_nextblock_1 = 8
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                   ENDIF
                ENDIF
             ENDDO
-            WRITE (Nout,99005) Ufm , awrd
+            WRITE (nout,99005) ufm , awrd
 99005       FORMAT (A23,' 699,',2A4,' ELEMENT IS INVALID')
-            Nogo = 1
+            nogo = 1
             elgp = 0
 !
 !     AN ELEMENT TYPE CAN BE INCLUDED OR EXCLUDED
@@ -306,7 +306,7 @@ USE ISO_FORTRAN_ENV
             IF ( mode<=0 ) CALL rdmode(*220,*300,*320,mode,word)
             GOTO 300
          ELSE
-            i = Ntypes + 1
+            i = ntypes + 1
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
@@ -324,13 +324,13 @@ USE ISO_FORTRAN_ENV
 !     A SET HAS BEEN COMPLETELY DEFINED.  FIRST, WRITE THE SET ID
 !
  320     IF ( nelx/=0 .OR. nt/=0 ) THEN
-            CALL write(Msetid,setid,1,0)
-            CALL write(Mset,setid,1,0)
+            CALL write(msetid,setid,1,0)
+            CALL write(mset,setid,1,0)
 !
 !     WRITE THE SET OF EXPICIT ELEMENT ID-S
 !
-            CALL write(Mset,nelx,1,0)
-            CALL write(Mset,el,nelx,0)
+            CALL write(mset,nelx,1,0)
+            CALL write(mset,el,nelx,0)
 !
 !     DELETE ALL ELEMENT TYPE DUPLICATES + WRITE REMAINING ONES
 !
@@ -356,27 +356,27 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                ENDDO
             ENDIF
-            CALL write(Mset,n,1,0)
-            CALL write(Mset,typ,n,0)
+            CALL write(mset,n,1,0)
+            CALL write(mset,typ,n,0)
 !
 !     WRITE THE SET OF EXPLICIT GRID POINT ID-S
 !
             n = b1 - ngpx
-            CALL write(Mset,n,1,0)
-            CALL write(Mset,gp(ngpx),n,1)
-            Nsets = Nsets + 1
+            CALL write(mset,n,1,0)
+            CALL write(mset,gp(ngpx),n,1)
+            nsets = nsets + 1
          ENDIF
          GOTO 40
 !
 !     END OF -PCDB-
 !
- 340     CALL clstab(Mset,rew)
-         CALL clstab(Plot,rew)
-         CALL clstab(Msetid,norew)
-         CALL close(Pcdb,rew)
-         IF ( Nsets==0 ) WRITE (Nout,99006) Uim
+ 340     CALL clstab(mset,rew)
+         CALL clstab(plot,rew)
+         CALL clstab(msetid,norew)
+         CALL close(pcdb,rew)
+         IF ( nsets==0 ) WRITE (nout,99006) uim
 99006    FORMAT (A29,', NO SETS EXIST IN PLOT PACKAGE')
-         IF ( Nogo/=0 ) CALL mesage(-61,0,0)
+         IF ( nogo/=0 ) CALL mesage(-61,0,0)
  360     RETURN
 !
 !     READ AN INTEGER

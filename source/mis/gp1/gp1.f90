@@ -1,16 +1,17 @@
-!*==gp1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gp1.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp1
+   USE c_blank
+   USE c_condas
+   USE c_gpta1
+   USE c_names
+   USE c_setup
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SETUP
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -107,13 +108,13 @@ SUBROUTINE gp1
 !     PERFORM GENERAL INITIALIZATION
 !
          CALL delset
-         nz = korsz(Z)
+         nz = korsz(z)
          buf1 = nz - sysbuf - 2
          buf2 = buf1 - sysbuf
          buf3 = buf2 - sysbuf
          nogo = 0
-         Nocstm = 0
-         Nogpdt = -1
+         nocstm = 0
+         nogpdt = -1
          nogmp1 = 1
          maxa1 = 0
          mult = 1000
@@ -130,20 +131,20 @@ SUBROUTINE gp1
 !     EXTRACT SCALAR POINTS AND WRITE THEM ON SCR2.
 !
          file = scr2
-         CALL open(*560,scr2,Z(buf2),Wrtrew)
+         CALL open(*560,scr2,z(buf2),wrtrew)
          nosclr = 0
          m8 = -8
          a(11) = -1
          DO k = 12 , 16
             a(k) = 0
          ENDDO
-         CALL preloc(*60,Z(buf1),geom2)
+         CALL preloc(*60,z(buf1),geom2)
          i = 1
-         DO i = 1 , Lastx , Incrx
-            kk = Elem(i+10)
+         DO i = 1 , lastx , incrx
+            kk = elem(i+10)
             IF ( kk/=0 ) THEN
-               CALL locate(*20,Z(buf1),Elem(i+3),flag)
-               nn = Elem(i+5)
+               CALL locate(*20,z(buf1),elem(i+3),flag)
+               nn = elem(i+5)
                DO
                   CALL read(*580,*20,geom2,a,nn,0,flag)
                   DO k = 3 , 4
@@ -159,31 +160,31 @@ SUBROUTINE gp1
 !
 !     COPY SCALAR POINTS DEFINED ON SPOINT CARDS (IF PRESENT) ONTO SCR2.
 !
-         CALL locate(*60,Z(buf1),scalpt,flag)
+         CALL locate(*60,z(buf1),scalpt,flag)
          nosclr = 1
-         CALL read(*580,*40,geom2,Z,buf2-1,1,n)
+         CALL read(*580,*40,geom2,z,buf2-1,1,n)
          CALL mesage(m8,0,gp1ah)
- 40      CALL write(scr2,Z,n,0)
+ 40      CALL write(scr2,z,n,0)
 !
 !     CLOSE FILES. IF SCALAR POINTS PRESENT, SORT LIST.
 !     THEN DISCARD DUPLICATES AND WRITE UNIQUE LIST ON SCR2.
 !
  60      CALL write(scr2,0,0,1)
-         CALL close(scr2,Clsrew)
-         CALL close(geom2,Clsrew)
+         CALL close(scr2,clsrew)
+         CALL close(geom2,clsrew)
          IF ( nosclr==0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Nfile(1) = gpdt
-         Nfile(2) = bgpdt
-         Nfile(3) = sil
-         CALL open(*560,scr2,Z(buf1),Rdrew)
-         CALL sorti(scr2,0,1,1,Z,buf1-1)
-         CALL close(scr2,Clsrew)
-         file = Nfile(6)
-         CALL open(*560,file,Z(buf1),Rdrew)
-         CALL open(*560,scr2,Z(buf2),Wrtrew)
+         nfile(1) = gpdt
+         nfile(2) = bgpdt
+         nfile(3) = sil
+         CALL open(*560,scr2,z(buf1),rdrew)
+         CALL sorti(scr2,0,1,1,z,buf1-1)
+         CALL close(scr2,clsrew)
+         file = nfile(6)
+         CALL open(*560,file,z(buf1),rdrew)
+         CALL open(*560,scr2,z(buf2),wrtrew)
          last = -1
          DO
             CALL read(*580,*80,file,a(10),1,0,flag)
@@ -193,9 +194,9 @@ SUBROUTINE gp1
             ENDIF
          ENDDO
  80      CALL write(scr2,0,0,1)
-         CALL close(scr2,Clsrew)
-         CALL close(file,Clsrew)
-         CALL open(*560,scr2,Z(buf3),Rdrew)
+         CALL close(scr2,clsrew)
+         CALL close(file,clsrew)
+         CALL open(*560,scr2,z(buf3),rdrew)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -207,11 +208,11 @@ SUBROUTINE gp1
          a(1) = large
          a(10) = large
          file = scr1
-         IF ( maxa1==0 ) CALL open(*560,scr1,Z(buf2),Wrtrew)
+         IF ( maxa1==0 ) CALL open(*560,scr1,z(buf2),wrtrew)
          i = -1
          nogrid = 0
-         IF ( maxa1==0 ) CALL preloc(*140,Z(buf1),geom1)
-         CALL locate(*160,Z(buf1),grid,flag)
+         IF ( maxa1==0 ) CALL preloc(*140,z(buf1),geom1)
+         CALL locate(*160,z(buf1),grid,flag)
          nogrid = 1
          CALL read(*580,*600,geom1,a,8,0,flag)
          CALL write(scr1,a,7,0)
@@ -248,13 +249,13 @@ SUBROUTINE gp1
 !     GRID NO. .LT. SCALAR NO.
 !
          i = i + 2
-         Z(i) = a(1)
+         z(i) = a(1)
 !
 !     GRID POINT EXTERNAL ID * MULT IS LIMITED TO COMPUTER MAXIMUM
 !     INTEGER SIZE
 !
          IF ( a(1)<=imax .OR. axi/=0 ) THEN
-            Z(i+1) = mult*a(1)
+            z(i+1) = mult*a(1)
          ELSE
             IF ( a(1)>maxa1 ) maxa1 = a(1)
          ENDIF
@@ -274,13 +275,13 @@ SUBROUTINE gp1
 !     SCALAR NO. .LT. GRID NO.
 !
          i = i + 2
-         Z(i) = a(10)
+         z(i) = a(10)
 !
 !     SCALAR POINT EXTERNAL ID * MULT IS LIMITED TO COMPUTER MAXIMUM
 !     INTEGER SIZE
 !
          IF ( a(10)<=imax .OR. axi/=0 ) THEN
-            Z(i+1) = mult*a(10)
+            z(i+1) = mult*a(10)
          ELSE
             IF ( a(10)>maxa1 ) maxa1 = a(10)
          ENDIF
@@ -306,7 +307,7 @@ SUBROUTINE gp1
          IF ( maxa1>0 ) THEN
             IF ( isubs/=0 ) THEN
 !
-               WRITE (iout,99001) Ufm
+               WRITE (iout,99001) ufm
 99001          FORMAT (A23,' 2140B, EXTERNAL GRID OR SCALAR POINT ID TOO BIG')
                CALL mesage(-61,0,0)
             ELSE
@@ -319,8 +320,8 @@ SUBROUTINE gp1
                maxa1 = -1
 !WKBR CALL PAGE (-3)
                CALL page2(-3)
-               IF ( mult==100 ) WRITE (iout,99014) Uwm , lvl1
-               IF ( mult==10 ) WRITE (iout,99014) Uwm , lvl2
+               IF ( mult==100 ) WRITE (iout,99014) uwm , lvl1
+               IF ( mult==10 ) WRITE (iout,99014) uwm , lvl2
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -333,15 +334,15 @@ SUBROUTINE gp1
          igpdt = n2
          ilist = n2
          kn = n1/2
-         CALL close(scr1,Clsrew)
-         CALL close(scr2,Clsrew)
+         CALL close(scr1,clsrew)
+         CALL close(scr2,clsrew)
 !
 !     READ THE SEQGP TABLE (IF PRESENT)
 !     FOR EACH ENTRY, FIND MATCH IN THE SORTED EXTERNAL GRID POINTS
 !     AND REPLACE SEQUENCE NO. WITH SEQGP NO.
 !
          noseq = 0
-         Nogpdt = 1
+         nogpdt = 1
          IF ( nogmp1==0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -350,11 +351,11 @@ SUBROUTINE gp1
          spoint(2) = 0
          ierr = 1
          ASSIGN 200 TO nerr
-         CALL locate(*240,Z(buf1),seqgp,flag)
+         CALL locate(*240,z(buf1),seqgp,flag)
          noseq = 1
          ifail = 0
          DO
-            CALL read(*580,*180,geomp,Z(n2),buf1-1,1,flag)
+            CALL read(*580,*180,geomp,z(n2),buf1-1,1,flag)
             ifail = ifail + 1
          ENDDO
 !
@@ -368,13 +369,13 @@ SUBROUTINE gp1
 !
 !     ABNORMAL EXIT FROM GP1
 !
-         CALL close(scr1,Clsrew)
-         CALL close(geom1,Clsrew)
-         Nocstm = -1
+         CALL close(scr1,clsrew)
+         CALL close(geom1,clsrew)
+         nocstm = -1
          RETURN
  180     IF ( ifail/=0 ) THEN
             nwds = (ifail-1)*(buf1-1) + flag
-            WRITE (iout,99002) Ufm , nwds
+            WRITE (iout,99002) ufm , nwds
 99002       FORMAT (A23,' 3135, UNABLE TO PROCESS SEQGP DATA IN SUBROUTINE ','GP1 DUE TO INSUFFICIENT CORE.',//5X,                  &
                    &'ADDITIONAL CORE REQUIRED =',I10,7H  WORDS)
             CALL mesage(-61,0,0)
@@ -388,17 +389,17 @@ SUBROUTINE gp1
          jj = kk - 2
          SPAG_Loop_1_2: DO
             DO i = k , jj , 2
-               IF ( Z(i)>=0 .AND. i<kk ) THEN
+               IF ( z(i)>=0 .AND. i<kk ) THEN
                   ii = i + 2
                   ifail = 0
                   DO j = ii , kk , 2
-                     IF ( Z(i)==Z(j) ) THEN
+                     IF ( z(i)==z(j) ) THEN
                         IF ( ifail==0 ) THEN
                            ifail = 1
                            nogo = 1
                            IF ( k/=n2 ) THEN
-                              idseq1 = Z(i)/1000
-                              irmndr = Z(i) - 1000*idseq1
+                              idseq1 = z(i)/1000
+                              irmndr = z(i) - 1000*idseq1
                               IF ( irmndr/=0 .AND. mult>=10 ) THEN
                                  idseq2 = irmndr/100
                                  irmndr = irmndr - 100*idseq2
@@ -406,59 +407,59 @@ SUBROUTINE gp1
                                     idseq3 = irmndr/10
                                     irmndr = irmndr - 10*idseq3
                                     IF ( irmndr/=0 ) THEN
-                                       WRITE (iout,99003) Ufm , idseq1 , idseq2 , idseq3 , irmndr
+                                       WRITE (iout,99003) ufm , idseq1 , idseq2 , idseq3 , irmndr
 99003                                  FORMAT (A23,' 3137, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,1H.,I1,1H.,I1,         &
                                          &'  ON SEQGP CARDS.')
                                     ELSE
-                                       WRITE (iout,99004) Ufm , idseq1 , idseq2 , idseq3
+                                       WRITE (iout,99004) ufm , idseq1 , idseq2 , idseq3
 99004                                  FORMAT (A23,' 3137, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,1H.,I1,4X,             &
                                          &'ON SEQGP CARDS.')
                                     ENDIF
                                  ELSE
-                                    WRITE (iout,99005) Ufm , idseq1 , idseq2
+                                    WRITE (iout,99005) ufm , idseq1 , idseq2
 99005                               FORMAT (A23,' 3137, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,5X,'ON SEQGP CARDS.')
                                  ENDIF
                               ELSEIF ( axi/=0 ) THEN
-                                 IF ( axi==1 ) WRITE (iout,99015) Ufm
+                                 IF ( axi==1 ) WRITE (iout,99015) ufm
                                  axi = 2
                                  nogo = 1
                               ELSE
-                                 WRITE (iout,99006) Ufm , idseq1
+                                 WRITE (iout,99006) ufm , idseq1
 99006                            FORMAT (A23,' 3137, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,6X,' ON SEQGP CARDS.')
                               ENDIF
                            ELSE
-                              WRITE (iout,99007) Ufm , Z(i)
+                              WRITE (iout,99007) ufm , z(i)
 99007                         FORMAT (A23,' 3136, MULTIPLE REFERENCES TO GRID (OR SCALAR) POINT',' ID NO.',I9,'  ON SEQGP CARDS.')
                            ENDIF
                         ENDIF
-                        Z(j) = -Z(j)
+                        z(j) = -z(j)
                      ENDIF
                   ENDDO
                ENDIF
 !
                IF ( jj>=kk .AND. mult/=1000 ) THEN
-                  l = Z(i)
+                  l = z(i)
                   IF ( mult<=10 ) THEN
                      IF ( mult==1 ) THEN
                         IF ( axi==0 ) CALL mesage(-37,0,nam)
                         IF ( mod(l,1000)/=0 ) THEN
-                           IF ( axi==1 ) WRITE (iout,99015) Ufm
+                           IF ( axi==1 ) WRITE (iout,99015) ufm
                            axi = 2
                            nogo = 1
                         ENDIF
                         CYCLE
                      ELSEIF ( mod(l,100)==0 ) THEN
-                        Z(i) = l/100
+                        z(i) = l/100
                         CYCLE
                      ENDIF
                   ELSEIF ( mod(l,10)==0 ) THEN
-                     Z(i) = l/10
+                     z(i) = l/10
                      CYCLE
                   ENDIF
                   IF ( maxa1/=0 ) THEN
                      maxa1 = 0
                      nogo = 1
-                     WRITE (iout,99008) Ufm
+                     WRITE (iout,99008) ufm
 99008                FORMAT (A23,' 2140B, ILLEGAL DATA IN SEQGP CARD, POSSIBLY CAUSED',' BY LARGE GRID OR SCALAR POINTS')
                   ENDIF
                ENDIF
@@ -467,7 +468,7 @@ SUBROUTINE gp1
             IF ( k/=n2 ) THEN
 !
                DO i = n2 , kk , 2
-                  IF ( Z(i)<0 ) Z(i) = -Z(i)
+                  IF ( z(i)<0 ) z(i) = -z(i)
                ENDDO
                IF ( nogo/=1 ) THEN
 !
@@ -475,20 +476,20 @@ SUBROUTINE gp1
 !     AS A GRID (OR SCALAR) POINT ID NO. THAT HAS NOT BEEN RESEQUENCED
 !
                   SPAG_Loop_2_1: DO i = k , kk , 2
-                     IF ( Z(i)>=0 ) THEN
-                        idseq1 = Z(i)/mult
-                        irmndr = Z(i) - mult*idseq1
+                     IF ( z(i)>=0 ) THEN
+                        idseq1 = z(i)/mult
+                        irmndr = z(i) - mult*idseq1
                         IF ( irmndr==0 ) THEN
                            DO j = n2 , kk , 2
-                              IF ( idseq1==Z(j) ) CYCLE SPAG_Loop_2_1
+                              IF ( idseq1==z(j) ) CYCLE SPAG_Loop_2_1
                            ENDDO
                            DO j = 1 , n1 , 2
-                              IF ( idseq1==Z(j) ) GOTO 182
+                              IF ( idseq1==z(j) ) GOTO 182
                            ENDDO
                         ENDIF
                         CYCLE
  182                    nogo = 1
-                        WRITE (iout,99009) Ufm , idseq1
+                        WRITE (iout,99009) ufm , idseq1
 99009                   FORMAT (A23,' 3138, SEQUENCE ID NO.',I6,' ON SEQGP CARDS IS THE ','SAME AS A',/5X,                          &
                                &'GRID (OR SCALAR) POINT ID NO. THAT HAS ','NOT BEEN RESEQUENCED.')
                      ENDIF
@@ -503,8 +504,8 @@ SUBROUTINE gp1
          ENDDO SPAG_Loop_1_2
  200     i = i + 2
          IF ( i<=flag ) THEN
-            a(1) = Z(n2+i-1)
-            a(2) = Z(n2+i)
+            a(1) = z(n2+i-1)
+            a(2) = z(n2+i)
             spag_nextblock_1 = 29
             CYCLE SPAG_DispatchLoop_1
 !
@@ -515,10 +516,10 @@ SUBROUTINE gp1
             CALL mesage(-61,0,0)
             GOTO 560
          ELSE
-            CALL sorti(0,0,2,2,Z,n1)
+            CALL sorti(0,0,2,2,z,n1)
             GOTO 240
          ENDIF
- 220     Z(2*k) = a(2)
+ 220     z(2*k) = a(2)
          GOTO 200
 !
 !     CLOSE GEOM1. WRITE THE GPL. FIRST RECORD IS A SINGE ENTRIED LIST
@@ -526,37 +527,37 @@ SUBROUTINE gp1
 !     ENTRIED LIST OF EXTERAL GRID NO., SEQUENCE NO. (SORT IS INTERNAL).
 !     ADD THE MULTIPLIER, MULT, TO THE 3RD WORD OF GPL HEADER RECORD
 !
- 240     IF ( nogmp1/=0 ) CALL close(geom1,Clsrew)
+ 240     IF ( nogmp1/=0 ) CALL close(geom1,clsrew)
          spag_nextblock_1 = 8
       CASE (8)
          CALL fname(gpl,a)
          file = gpl
-         CALL open(*560,gpl,Z(buf1),Wrtrew)
+         CALL open(*560,gpl,z(buf1),wrtrew)
          a(3) = mult
          CALL write(gpl,a,3,1)
          DO i = 1 , n , 2
-            CALL write(gpl,Z(i),1,0)
+            CALL write(gpl,z(i),1,0)
          ENDDO
          CALL write(gpl,0,0,1)
-         CALL write(gpl,Z,n1,1)
-         CALL close(gpl,Clsrew)
+         CALL write(gpl,z,n1,1)
+         CALL close(gpl,clsrew)
          mcb(1) = gpl
          CALL wrttrl(mcb)
 !
 !     FORM INTERNAL INDEX FOR EACH EXTERNAL GRID PT. NO.
 !
          i = 2
-         Z(i) = 1
+         z(i) = 1
          IF ( n/=1 ) THEN
             DO i = 3 , n , 2
-               Z(i+1) = Z(i-1) + 1
+               z(i+1) = z(i-1) + 1
             ENDDO
 !
 !     TEST TO SEE IF EXTERNAL GRID PT NOS ARE STILL IN EXTERNAL SORT
 !     I.E., IF NO SEQGP TABLE, THEN SORT IS MAINTAINED
 !     OTHERWISE, SORT ON EXTERNAL GRID NO.
 !
-            IF ( noseq/=0 ) CALL sorti(0,0,2,1,Z,n1)
+            IF ( noseq/=0 ) CALL sorti(0,0,2,1,z,n1)
          ENDIF
 !
 !     DETERMINE IF THE GPDT CAN BE HELD IN CORE
@@ -576,9 +577,9 @@ SUBROUTINE gp1
 !     IF CORE WILL HOLD THE GPDT, USE THE INTERNAL INDEX AS A POINTER
 !     OTHERWISE, WRITE THE UNSORTED GPDT ON SCR2
 !
-         CALL open(*560,scr1,Z(buf1),Rdrew)
+         CALL open(*560,scr1,z(buf1),rdrew)
          file = scr2
-         IF ( gpfl/=0 ) CALL open(*560,scr2,Z(buf2),Wrtrew)
+         IF ( gpfl/=0 ) CALL open(*560,scr2,z(buf2),wrtrew)
          file = scr1
          ASSIGN 280 TO ndx
          ierr = 2
@@ -592,7 +593,7 @@ SUBROUTINE gp1
             j = n1 + 7*(a(1)-1)
             DO k = 1 , 7
                i = j + k
-               Z(i) = a(k)
+               z(i) = a(k)
             ENDDO
          ENDIF
          GOTO 260
@@ -600,31 +601,31 @@ SUBROUTINE gp1
             CALL mesage(-61,0,0)
             GOTO 560
          ELSE
-            CALL close(scr1,Clsrew)
+            CALL close(scr1,clsrew)
 !
 !     OPEN OUTPUT FILE FOR GPDT AND WRITE HEADER DATA
 !     IF GPDT IS IN CORE, WRITE IT OUT
 !
             file = gpdt
             CALL fname(gpdt,a)
-            CALL open(*560,gpdt,Z(buf1),Wrtrew)
+            CALL open(*560,gpdt,z(buf1),wrtrew)
             CALL write(gpdt,a,2,1)
             IF ( gpfl/=0 ) THEN
 !
 !     IF GPDT NOT IN CORE, CALL SORT
 !
-               Nfile(1) = scr1
-               Nfile(2) = cstm
-               Nfile(3) = bgpdt
-               CALL close(scr2,Clsrew)
+               nfile(1) = scr1
+               nfile(2) = cstm
+               nfile(3) = bgpdt
+               CALL close(scr2,clsrew)
                file = scr2
-               CALL open(*560,scr2,Z(buf2),Rdrew)
-               CALL sorti(scr2,gpdt,7,1,Z(igpdt),buf2-igpdt)
-               CALL close(scr2,Clsrew)
+               CALL open(*560,scr2,z(buf2),rdrew)
+               CALL sorti(scr2,gpdt,7,1,z(igpdt),buf2-igpdt)
+               CALL close(scr2,clsrew)
             ELSE
-               CALL write(gpdt,Z(igpdt),nwds,1)
+               CALL write(gpdt,z(igpdt),nwds,1)
             ENDIF
-            CALL close(gpdt,Clsrew)
+            CALL close(gpdt,clsrew)
             mcb(1) = gpdt
             CALL wrttrl(mcb)
 !
@@ -640,21 +641,21 @@ SUBROUTINE gp1
             ndx = buf1 - 15
             ncore = buf1 - 15
             DO i = icsdt , buf1
-               Z(i) = 0
+               z(i) = 0
             ENDDO
             file = geomp
-            CALL preloc(*560,Z(buf1),geomp)
+            CALL preloc(*560,z(buf1),geomp)
             DO i = 1 , 6
                ij = i + i - 1
-               CALL locate(*310,Z(buf1),cordij(ij),flag)
+               CALL locate(*310,z(buf1),cordij(ij),flag)
                ifl = 1
                DO
-                  CALL read(*580,*310,geomp,Z(m),cord(i),0,flag)
+                  CALL read(*580,*310,geomp,z(m),cord(i),0,flag)
                   m = m + 16
                   IF ( m>ncore ) CALL mesage(-8,0,gp1ah)
                ENDDO
  310        ENDDO
-            CALL close(geomp,Clsrew)
+            CALL close(geomp,clsrew)
             m = m - 16
             ncsdt = m
 !
@@ -677,33 +678,33 @@ SUBROUTINE gp1
          ENDIF
          spag_nextblock_1 = 9
       CASE (9)
-         IF ( Z(jj+2)/=1 ) THEN
+         IF ( z(jj+2)/=1 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          nolist = 1
          ASSIGN 320 TO ndx
          ASSIGN 340 TO nerr
-         a(1) = Z(jj+3)
-         spoint(2) = Z(jj+1)
+         a(1) = z(jj+3)
+         spoint(2) = z(jj+1)
          spag_nextblock_1 = 29
          CYCLE SPAG_DispatchLoop_1
- 320     Z(jj+3) = a(1)
-         Z(ii+1) = a(1)
+ 320     z(jj+3) = a(1)
+         z(ii+1) = a(1)
  340     ASSIGN 360 TO ndx
          ASSIGN 380 TO nerr
-         a(1) = Z(jj+4)
+         a(1) = z(jj+4)
          spag_nextblock_1 = 29
          CYCLE SPAG_DispatchLoop_1
- 360     Z(jj+4) = a(1)
-         Z(ii+2) = a(1)
+ 360     z(jj+4) = a(1)
+         z(ii+2) = a(1)
  380     ASSIGN 400 TO ndx
          ASSIGN 420 TO nerr
-         a(1) = Z(jj+5)
+         a(1) = z(jj+5)
          spag_nextblock_1 = 29
          CYCLE SPAG_DispatchLoop_1
- 400     Z(jj+5) = a(1)
-         Z(ii+3) = a(1)
+ 400     z(jj+5) = a(1)
+         z(ii+3) = a(1)
  420     ii = ii + 3
          IF ( ii>ncore ) CALL mesage(-8,0,gp1ah)
          spag_nextblock_1 = 10
@@ -724,31 +725,31 @@ SUBROUTINE gp1
             IF ( nolist/=0 ) THEN
                nlist = ii
                icsgp = nlist + 1
-               CALL sorti(0,0,1,1,Z(ilist),icsgp-ilist)
-               Z(icsgp) = 0
+               CALL sorti(0,0,1,1,z(ilist),icsgp-ilist)
+               z(icsgp) = 0
                jj = ilist
                DO kk = ilist , nlist
-                  IF ( Z(kk+1)/=Z(kk) ) THEN
-                     Z(jj) = Z(kk)
+                  IF ( z(kk+1)/=z(kk) ) THEN
+                     z(jj) = z(kk)
                      jj = jj + 1
                   ENDIF
                ENDDO
                nlist = jj - 1
                icsgp = jj
                file = gpdt
-               CALL open(*560,gpdt,Z(buf1),Rdrew)
+               CALL open(*560,gpdt,z(buf1),rdrew)
                CALL fwdrec(*580,gpdt)
                ncore = buf1 - 5
                i = ilist
                SPAG_Loop_1_3: DO
-                  CALL read(*580,*600,gpdt,Z(jj),7,0,flag)
-                  IF ( Z(jj)==Z(i) ) THEN
+                  CALL read(*580,*600,gpdt,z(jj),7,0,flag)
+                  IF ( z(jj)==z(i) ) THEN
                      jj = jj + 5
                      IF ( jj>ncore ) CALL mesage(-8,0,gp1ah)
                      i = i + 1
                      IF ( i>nlist ) THEN
                         ncsgp = jj - 5
-                        CALL close(gpdt,Clsrew)
+                        CALL close(gpdt,clsrew)
                         EXIT SPAG_Loop_1_3
                      ENDIF
                   ENDIF
@@ -765,7 +766,7 @@ SUBROUTINE gp1
          ENDIF
          spag_nextblock_1 = 11
       CASE (11)
-         IF ( Z(ii+2)<2 ) THEN
+         IF ( z(ii+2)<2 ) THEN
 !
 !     *****  TYPE = 1 *****
 !     CHECK TO SEE IF EACH OF THE 3 REFERENCE GRID PTS IS IN BASIC SYS
@@ -773,7 +774,7 @@ SUBROUTINE gp1
 !     AS SOLVED, IF NOT CONTINUE TO NEXT COORDINATE SYSTEM
 !
             i = 0
-         ELSEIF ( Z(ii+2)==2 ) THEN
+         ELSEIF ( z(ii+2)==2 ) THEN
 !
 !     ***** TYPE = 2 *****
 !     CHECK THE DEFINING LOCAL COORDINATE SYSTEM
@@ -782,34 +783,33 @@ SUBROUTINE gp1
 !     SYSTEM IS SOLVED. IF YES, CALCULATE THE TRANSFORMATION TO BASIC
 !     IF NO, CONTINUE THRU THE CSDT
 !
-            IF ( Z(ii+3)/=0 ) THEN
+            IF ( z(ii+3)/=0 ) THEN
                i = icsdt
-               DO WHILE ( Z(i)/=Z(ii+3) )
+               DO WHILE ( z(i)/=z(ii+3) )
                   i = i + 16
                   IF ( i>ncsdt ) THEN
-                     spoint(1) = Z(ii)
-                     spoint(2) = Z(ii+3)
+                     spoint(1) = z(ii)
+                     spoint(2) = z(ii+3)
                      ierr = 4
                      CALL mesage(-30,ierr,spoint)
                      GOTO 600
                   ENDIF
                ENDDO
-               IF ( Z(i+2)/=3 .OR. Z(i+3)/=0 ) THEN
+               IF ( z(i+2)/=3 .OR. z(i+3)/=0 ) THEN
                   spag_nextblock_1 = 13
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                k = 0
                ASSIGN 440 TO ndx
                spag_nextblock_1 = 12
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                DO i = 1 , 9
                   k = ii + i
                   aa(i) = zz(k+3)
                ENDDO
                spag_nextblock_1 = 28
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSE
 !
 !     ***** TYPE = 3 *****
@@ -817,7 +817,7 @@ SUBROUTINE gp1
 !     IF BASIC, CONTINUE THRU CSDT
 !     IF NOT BASIC, ERROR CONDITION
 !
-            IF ( Z(ii+3)==0 ) THEN
+            IF ( z(ii+3)==0 ) THEN
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -827,14 +827,14 @@ SUBROUTINE gp1
          DO
             k = ii + i
             j = icsgp - 1
-            DO WHILE ( Z(j+1)/=Z(k+3) )
+            DO WHILE ( z(j+1)/=z(k+3) )
                j = j + 5
                IF ( j>=ncsgp ) THEN
                   spag_nextblock_1 = 31
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            IF ( Z(j+2)/=0 ) THEN
+            IF ( z(j+2)/=0 ) THEN
                spag_nextblock_1 = 13
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -854,11 +854,11 @@ SUBROUTINE gp1
          ax(1) = zz(l+4)
          ax(2) = zz(l+5)
          ax(3) = zz(l+6)
-         IF ( Z(i+1)<2 ) THEN
+         IF ( z(i+1)<2 ) THEN
             spag_nextblock_1 = 25
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Z(i+1)/=2 ) THEN
+         IF ( z(i+1)/=2 ) THEN
             spag_nextblock_1 = 27
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -873,7 +873,6 @@ SUBROUTINE gp1
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 28
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     TEST FOR COMPLETION OF PASS THRU CSDT
@@ -894,22 +893,22 @@ SUBROUTINE gp1
          jj = icsgp
          spag_nextblock_1 = 14
       CASE (14)
-         IF ( Z(jj+1)==0 ) THEN
+         IF ( z(jj+1)==0 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          i = icsdt
-         DO WHILE ( Z(jj+1)/=Z(i) )
+         DO WHILE ( z(jj+1)/=z(i) )
             i = i + 16
             IF ( i>ncsdt ) THEN
                ierr = 6
-               spoint(1) = Z(jj)
-               spoint(2) = Z(jj+1)
+               spoint(1) = z(jj)
+               spoint(2) = z(jj+1)
                CALL mesage(-30,ierr,spoint)
                GOTO 600
             ENDIF
          ENDDO
-         IF ( Z(i+2)/=3 .OR. Z(i+3)/=0 ) THEN
+         IF ( z(i+2)/=3 .OR. z(i+3)/=0 ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -917,11 +916,11 @@ SUBROUTINE gp1
          ax(2) = zz(jj+3)
          ax(3) = zz(jj+4)
          ASSIGN 460 TO ndx
-         IF ( Z(i+1)<2 ) THEN
+         IF ( z(i+1)<2 ) THEN
             spag_nextblock_1 = 25
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Z(i+1)/=2 ) THEN
+         IF ( z(i+1)/=2 ) THEN
             spag_nextblock_1 = 27
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -952,14 +951,14 @@ SUBROUTINE gp1
 !
             CALL fname(cstm,a)
             file = cstm
-            CALL open(*560,cstm,Z(buf1),Wrtrew)
+            CALL open(*560,cstm,z(buf1),wrtrew)
             CALL write(cstm,a,2,1)
             DO ii = icsdt , ncsdt , 16
-               CALL write(cstm,Z(ii),2,0)
-               CALL write(cstm,Z(ii+4),12,0)
+               CALL write(cstm,z(ii),2,0)
+               CALL write(cstm,z(ii+4),12,0)
             ENDDO
-            CALL close(cstm,Clsrew)
-            Nocstm = nn
+            CALL close(cstm,clsrew)
+            nocstm = nn
             mcb(3) = nn
             mcb(1) = cstm
             CALL wrttrl(mcb)
@@ -983,11 +982,11 @@ SUBROUTINE gp1
 !     IN EXTERNAL SORT).
 !
          file = eqexin
-         CALL open(*560,eqexin,Z(buf1),Wrtrew)
+         CALL open(*560,eqexin,z(buf1),wrtrew)
          CALL fname(eqexin,a)
          CALL write(eqexin,a,2,1)
-         CALL write(eqexin,Z,n1,1)
-         CALL close(eqexin,Cls)
+         CALL write(eqexin,z,n1,1)
+         CALL close(eqexin,cls)
 !
 !     A LIST OF DEGREES OF FREEDOM FOR EACH GRID OR SCALAR POINT IS
 !     FORMED BEGINNING AT Z(ILIST) BY READING GEOM2 AND USING THE
@@ -999,10 +998,10 @@ SUBROUTINE gp1
          nlist = ilist + (neqex+1)/2
          IF ( nlist>=buf3 ) CALL mesage(-8,0,gp1ah)
          DO i = ilist , nlist
-            Z(i) = 0
+            z(i) = 0
          ENDDO
          jerr = 0
-         CALL open(*500,geom2,Z(buf1),Rdrew)
+         CALL open(*500,geom2,z(buf1),rdrew)
          spag_nextblock_1 = 18
       CASE (18)
          CALL fwdrec(*580,geom2)
@@ -1010,15 +1009,15 @@ SUBROUTINE gp1
 !
 !     ELEMENT TYPE LOCATED--PREPARE TO PROCESS EACH ELEMENT
 !
-         IF ( Elem(i+9)==0 ) THEN
+         IF ( elem(i+9)==0 ) THEN
             spag_nextblock_1 = 18
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         j1 = Elem(i+12)
-         nread = j1 + Elem(i+9) - 1
-         nskip = -(Elem(i+5)-nread)
-         maxdof = Elem(i+24)
-         itype = Elem(i+2)
+         j1 = elem(i+12)
+         nread = j1 + elem(i+9) - 1
+         nskip = -(elem(i+5)-nread)
+         maxdof = elem(i+24)
+         itype = elem(i+2)
          DO
 !
 !     READ CONNECTION DATA FOR ELEMENT AND LOCATE EXT. GRID NBR IN
@@ -1031,36 +1030,34 @@ SUBROUTINE gp1
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
                      IF ( a(i)==0 ) CYCLE
-                     CALL bisloc(*482,a(i),Z,2,kn,k)
-                     j = ilist0 + Z(k+1)
+                     CALL bisloc(*482,a(i),z,2,kn,k)
+                     j = ilist0 + z(k+1)
                      IF ( itype>=76 .AND. itype<=79 ) THEN
 !
 !     FLUID ELEMENT (CFHEX1,CFHEX2,CFWEDGE,CFTETRA)
 !
-                        IF ( Z(j)>0 ) THEN
+                        IF ( z(j)>0 ) THEN
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
 !
-                        Z(j) = -1
-                        CYCLE
+                        z(j) = -1
                      ELSE
 !
 !     STRUCTURE ELEMENT AND OTHERS
 !
-                        IF ( Z(j)<0 ) THEN
+                        IF ( z(j)<0 ) THEN
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
-                        Z(j) = max0(Z(j),maxdof)
-                        CYCLE
+                        z(j) = max0(z(j),maxdof)
                      ENDIF
- 482                 WRITE (iout,99010) Ufm , a(1) , a(i)
+                     CYCLE
+ 482                 WRITE (iout,99010) ufm , a(1) , a(i)
 99010                FORMAT (A23,' 2007, ELEMENT',I8,' REFERENCES UNDEFINED GRID ','POINT',I8)
                      jerr = jerr + 1
-                     CYCLE
                   CASE (2)
-                     WRITE (iout,99011) Ufm , a(i)
+                     WRITE (iout,99011) ufm , a(i)
 99011                FORMAT (A23,' 8011, GRID POINT',I8,' HAS BOTH STRUCTURE AND ','FLUID ELEMENTS CONNECTED')
                      jerr = jerr + 1
                      EXIT SPAG_DispatchLoop_2
@@ -1072,7 +1069,7 @@ SUBROUTINE gp1
 !
 !     END-OF-FILE ON GEOM2---IF FATAL ERRORS, TERMINATE
 !
- 500     IF ( jerr/=0 ) CALL mesage(-61,a,Z)
+ 500     IF ( jerr/=0 ) CALL mesage(-61,a,z)
 !
 !     OPEN BGPDT AND SIL. WRITE HEADER RECORDS. OPEN GPDT. SKIP HEADER.
 !
@@ -1080,15 +1077,15 @@ SUBROUTINE gp1
          CALL fname(bgpdt,a)
          CALL fname(sil,a(3))
          file = bgpdt
-         CALL open(*560,bgpdt,Z(buf1),Wrtrew)
+         CALL open(*560,bgpdt,z(buf1),wrtrew)
          file = sil
-         CALL open(*560,sil,Z(buf2),Wrtrew)
+         CALL open(*560,sil,z(buf2),wrtrew)
          file = gpdt
-         CALL open(*560,gpdt,Z(buf3),Rdrew)
+         CALL open(*560,gpdt,z(buf3),rdrew)
          CALL fwdrec(*580,gpdt)
          CALL write(bgpdt,a,2,1)
          CALL write(sil,a(3),2,1)
-         Luset = 1
+         luset = 1
          spag_nextblock_1 = 19
       CASE (19)
 !
@@ -1108,9 +1105,9 @@ SUBROUTINE gp1
 !     COORDINATE SYSTEM NOT BASIC--
 !     USE CSDT IN CORE TO TRANSFORM TO BASIC.
 !
-         IF ( Nocstm/=-1 ) THEN
+         IF ( nocstm/=-1 ) THEN
             i = icsdt
-            DO WHILE ( Z(i)/=a(2) )
+            DO WHILE ( z(i)/=a(2) )
                i = i + 16
                IF ( i>ncsdt ) THEN
                   spag_nextblock_1 = 20
@@ -1121,11 +1118,11 @@ SUBROUTINE gp1
             ax(2) = aa(4)
             ax(3) = aa(5)
             ASSIGN 520 TO ndx
-            IF ( Z(i+1)<2 ) THEN
+            IF ( z(i+1)<2 ) THEN
                spag_nextblock_1 = 25
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Z(i+1)/=2 ) THEN
+            IF ( z(i+1)/=2 ) THEN
                spag_nextblock_1 = 27
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -1152,7 +1149,7 @@ SUBROUTINE gp1
          a(2) = a(6)
          type = 1
          khr = ilist0 + a(1)
-         incr = Z(khr)
+         incr = z(khr)
 !
 !     IF INCR NEGATIVE - SPECIAL HYDROELASTIC GRID POINT WITH SINGLE
 !     DEGREE OF FREEDOM
@@ -1178,9 +1175,9 @@ SUBROUTINE gp1
 !     ..... IF -HEAT- PROBLEM THEN ALL GRIDS HAVE 1 DEGREE OF FREEDOM.
 !
             IF ( a(2)/=(-1) .AND. itherm<=0 ) THEN
-               IF ( Nocstm/=-1 ) THEN
+               IF ( nocstm/=-1 ) THEN
                   DO ijk = icsdt , ncsdt , 16
-                     IF ( a(2)==Z(ijk) ) THEN
+                     IF ( a(2)==z(ijk) ) THEN
                         spag_nextblock_1 = 23
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -1207,23 +1204,23 @@ SUBROUTINE gp1
 !     WRITE ENTRY ON BGPDT AND SIL.
 !
          CALL write(bgpdt,a(2),4,0)
-         CALL write(sil,Luset,1,0)
+         CALL write(sil,luset,1,0)
 !
 !     REPLACE INTERNAL NO. IN EQEXIN WITH CODED SIL NO.
 !     THEN INCREMENT SIL NO.
 !
-         ncode = 10*Luset + type
+         ncode = 10*luset + type
          IF ( noseq/=0 ) THEN
             ncode = -ncode
             lmt1 = max0(2*(a(1)-offset),2)
             DO k = lmt1 , n1 , 2
-               IF ( Z(k)==a(1) ) THEN
+               IF ( z(k)==a(1) ) THEN
                   spag_nextblock_1 = 24
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
             DO k = 2 , lmt1 , 2
-               IF ( Z(k)==a(1) ) THEN
+               IF ( z(k)==a(1) ) THEN
                   spag_nextblock_1 = 24
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -1231,24 +1228,24 @@ SUBROUTINE gp1
             CALL mesage(-30,2,a)
          ELSE
             k = 2*a(1)
-            IF ( Z(k)/=a(1) ) CALL mesage(-30,2,a)
+            IF ( z(k)/=a(1) ) CALL mesage(-30,2,a)
          ENDIF
          spag_nextblock_1 = 24
       CASE (24)
-         Z(k) = ncode
-         Luset = Luset + incr
+         z(k) = ncode
+         luset = luset + incr
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
 !
 !     CLOSE BGPDT AND SIL. WRITE TRAILERS.
 !
- 540     CALL close(bgpdt,Clsrew)
-         CALL close(sil,Clsrew)
-         CALL close(gpdt,Clsrew)
-         Luset = Luset - 1
+ 540     CALL close(bgpdt,clsrew)
+         CALL close(sil,clsrew)
+         CALL close(gpdt,clsrew)
+         luset = luset - 1
 !    2147483647   = 2**31-1
-         IF ( Luset>2147483647 ) THEN
-            WRITE (iout,99012) Ufm , Luset
+         IF ( luset>2147483647 ) THEN
+            WRITE (iout,99012) ufm , luset
 99012       FORMAT (A23,' 3175, TOTAL NUMBER OF DEGREES OF FREEDOM IN THE ','PROBLEM (',I11,                                        &
                    &' ) EXCEEDS 2,147,483,647 (I.E., ''2**31 - 1)')
 99013       FORMAT (A29,' 3175, PROBLEM SIZE,',I8,' DOF''S, EXCEEDS THE OLD ','LIMIT OF 65535.',/5X,'GOOD NEWS, JOB WILL CONTINUE')
@@ -1258,7 +1255,7 @@ SUBROUTINE gp1
          mcb(3) = 0
          CALL wrttrl(mcb)
          mcb(1) = sil
-         mcb(3) = Luset
+         mcb(3) = luset
          CALL wrttrl(mcb)
 !
 !     IF GRID NOS. ARE RESEQUENCED, SWITCH SIGN ON CODED SIL NO.
@@ -1266,18 +1263,18 @@ SUBROUTINE gp1
 !
          IF ( noseq/=0 ) THEN
             DO k = 2 , n1 , 2
-               Z(k) = -Z(k)
+               z(k) = -z(k)
             ENDDO
          ENDIF
          file = eqexin
-         CALL open(*560,eqexin,Z(buf1),Wrt)
-         CALL write(eqexin,Z,n1,1)
-         CALL close(eqexin,Clsrew)
+         CALL open(*560,eqexin,z(buf1),wrt)
+         CALL write(eqexin,z,n1,1)
+         CALL close(eqexin,clsrew)
          mcb(1) = eqexin
          mcb(3) = 0
          CALL wrttrl(mcb)
          CALL sswtch(36,k)
-         IF ( k==1 ) CALL diag36(Z,buf1,gpl,sil,eqexin)
+         IF ( k==1 ) CALL diag36(z,buf1,gpl,sil,eqexin)
          IF ( nogo/=0 ) CALL mesage(-61,0,0)
          RETURN
       CASE (25)
@@ -1299,26 +1296,24 @@ SUBROUTINE gp1
 !     R,THETA,Z IS STORED AX(1,2,3)
 !
          r = ax(1)
-         ax(2) = Degra*ax(2)
+         ax(2) = degra*ax(2)
          ax(1) = r*cos(ax(2))
          ax(2) = r*sin(ax(2))
          spag_nextblock_1 = 25
-         CYCLE SPAG_DispatchLoop_1
       CASE (27)
 !
 !
 !     INTERNAL SUBROUTINE TO TRANSFORM A SPHERICAL GRID PT TO BASIC
 !     RHO,THETA,PHI IS STORED AT AX(1,2,3)
 !
-         ax(2) = Degra*ax(2)
-         ax(3) = Degra*ax(3)
+         ax(2) = degra*ax(2)
+         ax(3) = degra*ax(3)
          rsth = ax(1)*sin(ax(2))
          rcth = ax(1)*cos(ax(2))
          ax(1) = rsth*cos(ax(3))
          ax(2) = rsth*sin(ax(3))
          ax(3) = rcth
          spag_nextblock_1 = 25
-         CYCLE SPAG_DispatchLoop_1
       CASE (28)
 !
 !
@@ -1382,11 +1377,10 @@ SUBROUTINE gp1
 !     SET WD 3 OF CSDT = 3 AND WD 4 = 0 TO INDICATE  SOLVED SYSTEM
 !     INCREMENT SOLVED SYSTEM COUNT
 !
-         Z(ii+2) = 3
-         Z(ii+3) = 0
+         z(ii+2) = 3
+         z(ii+3) = 0
          solv = solv + 1
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (29)
 !
 !
@@ -1399,10 +1393,10 @@ SUBROUTINE gp1
       CASE (30)
          k = (klo+khi+1)/2
          DO
-            IF ( a(1)<Z(2*k-1) ) THEN
+            IF ( a(1)<z(2*k-1) ) THEN
                khi = k
-            ELSEIF ( a(1)==Z(2*k-1) ) THEN
-               a(1) = Z(2*k)
+            ELSEIF ( a(1)==z(2*k-1) ) THEN
+               a(1) = z(2*k)
                GOTO ndx
             ELSE
                klo = k
@@ -1439,8 +1433,8 @@ SUBROUTINE gp1
          CALL mesage(ndx,file,gp1ah)
          spag_nextblock_1 = 31
       CASE (31)
-         spoint(1) = Z(k+3)
-         spoint(2) = Z(ii)
+         spoint(1) = z(k+3)
+         spoint(2) = z(ii)
          ierr = 3
          CALL mesage(-30,ierr,spoint)
          GOTO 600

@@ -1,15 +1,16 @@
-!*==mma324.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma324.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mma324(Zi,Zd)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zblpkx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_ZBLPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,202 +58,239 @@ SUBROUTINE mma324(Zi,Zd)
 !     Z( IBUF1    ) = BUFFER FOR "A" FILE
 !     Z( NZ       ) = END OF OPEN CORE THAT IS AVAILABLE
 !
-   Filed(2) = 0
-   Filed(6) = 0
-   Filed(7) = 0
-   idrow = ibrow
-   DO ii = 1 , nbc
-      CALL bldpk(ndtype,ndtype,ofile,0,0)
+   filed(2) = 0
+   INTEGER :: spag_nextblock_1
+   INTEGER :: spag_nextblock_2
+   INTEGER :: spag_nextblock_3
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
+         filed(6) = 0
+         filed(7) = 0
+         idrow = ibrow
+         DO ii = 1 , nbc
+            spag_nextblock_2 = 1
+            SPAG_DispatchLoop_2: DO
+               SELECT CASE (spag_nextblock_2)
+               CASE (1)
+                  CALL bldpk(ndtype,ndtype,ofile,0,0)
 !      PRINT *,' PROCESSING B MATRIX COLUMN, II=',II
 !
 ! READ A COLUMN FROM THE "B" MATRIX
 !
-      sign = 1
-      irfile = Fileb(1)
-      CALL mmarc4(Zi,Zd)
-      lasindb = lasind
+                  sign = 1
+                  irfile = fileb(1)
+                  CALL mmarc4(Zi,Zd)
+                  lasindb = lasind
 !
 ! NOW READ "C", OR SCRATCH FILE WITH INTERMEDIATE RESULTS.
 ! IF NO "C" FILE AND THIS IS THE FIRST PASS, INITIALIZE "D" COLUMN TO ZERO.
 !
-      IF ( ifile/=0 ) THEN
-         IF ( ipass==1 ) sign = Signc
-         irfile = ifile
+                  IF ( ifile/=0 ) THEN
+                     IF ( ipass==1 ) sign = signc
+                     irfile = ifile
 !
 ! READ A COLUMN FROM THE "C" MATRIX
 !
-         CALL mmarc4(Zi(idx),Zd(idx2+1))
-         lasindc = lasind + idx - 1
-      ENDIF
+                     CALL mmarc4(Zi(idx),Zd(idx2+1))
+                     lasindc = lasind + idx - 1
+                  ENDIF
 !
 ! CHECK IF COLUMN OF "B" IS NULL
 !
-      IF ( Zi(1)/=0 ) THEN
-         irowb1 = Zi(1)
-         irows = Zi(2)
-         irowbn = irowb1 + irows - 1
-         indxb = 1
-         indxa = iax
-         indxc = idx
-         IF ( ifile/=0 .AND. indxc<lasindc ) THEN
-            irowc1 = Zi(indxc)
-            icrows = Zi(indxc+1)
-            irowcn = irowc1 + icrows - 1
+                  IF ( Zi(1)/=0 ) THEN
+                     irowb1 = Zi(1)
+                     irows = Zi(2)
+                     irowbn = irowb1 + irows - 1
+                     indxb = 1
+                     indxa = iax
+                     indxc = idx
+                     IF ( ifile/=0 .AND. indxc<lasindc ) THEN
+                        irowc1 = Zi(indxc)
+                        icrows = Zi(indxc+1)
+                        irowcn = irowc1 + icrows - 1
 !
 ! CHECK TO ADD TERMS FROM "C" OR INTERIM SCRATCH FILE BEFORE CURRENT ROW
 !
-            IF ( idrow/=0 .AND. irowc1<=idrow ) THEN
-               DO
-                  irown = idrow
-                  IF ( irowcn<idrow ) irown = irowcn
-                  indxcv = (indxc+3)/2
-                  nrows = irown - irowc1 + 1
-                  DO i = 1 , nrows
-                     Kdrow = irowc1 + i - 1
-                     cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
-                     indxcv = indxcv + 2
-                     CALL zblpki
-                  ENDDO
-                  IF ( irowcn>=idrow ) EXIT
-                  indxc = indxc + 2 + icrows*nwdd
-                  IF ( indxc>=lasindc ) EXIT
-                  irowc1 = Zi(indxc)
-                  icrows = Zi(indxc+1)
-                  irowcn = irowc1 + icrows - 1
-               ENDDO
-            ENDIF
-         ENDIF
+                        IF ( idrow/=0 .AND. irowc1<=idrow ) THEN
+                           SPAG_Loop_2_1: DO
+                              irown = idrow
+                              IF ( irowcn<idrow ) irown = irowcn
+                              indxcv = (indxc+3)/2
+                              nrows = irown - irowc1 + 1
+                              DO i = 1 , nrows
+                                 kdrow = irowc1 + i - 1
+                                 cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
+                                 indxcv = indxcv + 2
+                                 CALL zblpki
+                              ENDDO
+                              IF ( irowcn>=idrow ) EXIT SPAG_Loop_2_1
+                              indxc = indxc + 2 + icrows*nwdd
+                              IF ( indxc>=lasindc ) EXIT SPAG_Loop_2_1
+                              irowc1 = Zi(indxc)
+                              icrows = Zi(indxc+1)
+                              irowcn = irowc1 + icrows - 1
+                           ENDDO SPAG_Loop_2_1
+                        ENDIF
+                     ENDIF
 !
 ! CHECK FOR NULL COLUMN FROM "B" MATRIX
 !
-         IF ( irowb1/=0 ) THEN
+                     IF ( irowb1/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
 ! COMPLEX DOUBLE PRECISION
-            DO i = 1 , ncolpp
-               cd = (0.0D0,0.0D0)
-               Kdrow = idrow + i
-               icola = ibrow + i
-               IF ( icola/=iabs(Zi(indxa)) ) GOTO 100
-               indxal = Zi(indxa+1) + iax - 1
-               indxa = indxa + 2
-               indxb = 1
-               DO WHILE ( indxb<lasindb )
-                  irowb1 = Zi(indxb)
-                  irows = Zi(indxb+1)
-                  irowbn = irowb1 + irows - 1
-                  indxbs = indxb
-                  indxb = indxb + 2 + irows*nwdd
-                  DO WHILE ( indxa<indxal )
-                     irowa1 = Zi(indxa)
-                     ntms = Zi(indxa+1)
-                     irowan = irowa1 + ntms - 1
-                     IF ( irowbn<irowa1 ) GOTO 5
-                     IF ( irowan<irowb1 ) THEN
-                        indxa = indxa + 2 + ntms*nwdd
-                     ELSE
-                        irow1 = max0(irowa1,irowb1)
-                        irown = min0(irowan,irowbn)
-                        indxav = ((indxa+3)/2) + 2*(irow1-irowa1) - 1
-                        indxbv = ((indxbs+3)/2) + 2*(irow1-irowb1) - 1
-                        cdtemp = (0.0D0,0.0D0)
-                        kcnt = (irown-irow1)*2 + 1
-                        DO k = 1 , kcnt , 2
-                           cdtemp = cdtemp + dcmplx(Zd(indxav+k),Zd(indxav+k+1))*dcmplx(Zd(indxbv+k),Zd(indxbv+k+1))
+                        DO i = 1 , ncolpp
+                           spag_nextblock_3 = 1
+                           SPAG_DispatchLoop_3: DO
+                              SELECT CASE (spag_nextblock_3)
+                              CASE (1)
+                                 cd = (0.0D0,0.0D0)
+                                 kdrow = idrow + i
+                                 icola = ibrow + i
+                                 IF ( icola/=iabs(Zi(indxa)) ) THEN
+                                    spag_nextblock_1 = 2
+                                    CYCLE SPAG_DispatchLoop_1
+                                 ENDIF
+                                 indxal = Zi(indxa+1) + iax - 1
+                                 indxa = indxa + 2
+                                 indxb = 1
+                                 SPAG_Loop_3_2: DO WHILE ( indxb<lasindb )
+                                    irowb1 = Zi(indxb)
+                                    irows = Zi(indxb+1)
+                                    irowbn = irowb1 + irows - 1
+                                    indxbs = indxb
+                                    indxb = indxb + 2 + irows*nwdd
+                                    DO WHILE ( indxa<indxal )
+                                       irowa1 = Zi(indxa)
+                                       ntms = Zi(indxa+1)
+                                       irowan = irowa1 + ntms - 1
+                                       IF ( irowbn<irowa1 ) CYCLE SPAG_Loop_3_2
+                                       IF ( irowan<irowb1 ) THEN
+                                         indxa = indxa + 2 + ntms*nwdd
+                                       ELSE
+                                         irow1 = max0(irowa1,irowb1)
+                                         irown = min0(irowan,irowbn)
+                                         indxav = ((indxa+3)/2) + 2*(irow1-irowa1) - 1
+                                         indxbv = ((indxbs+3)/2) + 2*(irow1-irowb1) - 1
+                                         cdtemp = (0.0D0,0.0D0)
+                                         kcnt = (irown-irow1)*2 + 1
+                                         DO k = 1 , kcnt , 2
+                                         cdtemp = cdtemp + dcmplx(Zd(indxav+k),Zd(indxav+k+1))*dcmplx(Zd(indxbv+k),Zd(indxbv+k+1))
+                                         ENDDO
+                                         cd = cd + cdtemp
+                                         IF ( irowan>irowbn ) CYCLE SPAG_Loop_3_2
+                                         indxa = indxa + 2 + ntms*nwdd
+                                       ENDIF
+                                    ENDDO
+                                    indxa = indxal
+                                    spag_nextblock_3 = 2
+                                    CYCLE SPAG_DispatchLoop_3
+                                 ENDDO SPAG_Loop_3_2
+                                 indxa = indxal
+                                 spag_nextblock_3 = 2
+                              CASE (2)
+                                 SPAG_Loop_3_3: DO WHILE ( indxc<lasindc .AND. ifile/=0 )
+                                    IF ( kdrow<irowc1 ) EXIT SPAG_Loop_3_3
+                                    IF ( kdrow>irowcn ) THEN
+                                       indxc = indxc + 2 + icrows*nwdd
+                                       IF ( indxc>=lasindc ) EXIT SPAG_Loop_3_3
+                                       irowc1 = Zi(indxc)
+                                       icrows = Zi(indxc+1)
+                                       irowcn = irowc1 + icrows - 1
+                                    ELSE
+                                       indxcv = (indxc+3)/2 + 2*(kdrow-irowc1)
+                                       cd = cd + dcmplx(Zd(indxcv),Zd(indxcv+1))
+                                       EXIT SPAG_Loop_3_3
+                                    ENDIF
+                                 ENDDO SPAG_Loop_3_3
+                                 CALL zblpki
+                                 EXIT SPAG_DispatchLoop_3
+                              END SELECT
+                           ENDDO SPAG_DispatchLoop_3
                         ENDDO
-                        cd = cd + cdtemp
-                        IF ( irowan>irowbn ) GOTO 5
-                        indxa = indxa + 2 + ntms*nwdd
                      ENDIF
-                  ENDDO
-                  indxa = indxal
-                  GOTO 10
- 5             ENDDO
-               indxa = indxal
- 10            DO WHILE ( indxc<lasindc .AND. ifile/=0 )
-                  IF ( Kdrow<irowc1 ) EXIT
-                  IF ( Kdrow>irowcn ) THEN
-                     indxc = indxc + 2 + icrows*nwdd
-                     IF ( indxc>=lasindc ) EXIT
-                     irowc1 = Zi(indxc)
-                     icrows = Zi(indxc+1)
-                     irowcn = irowc1 + icrows - 1
-                  ELSE
-                     indxcv = (indxc+3)/2 + 2*(Kdrow-irowc1)
-                     cd = cd + dcmplx(Zd(indxcv),Zd(indxcv+1))
-                     EXIT
-                  ENDIF
-               ENDDO
-               CALL zblpki
-            ENDDO
-         ENDIF
-         IF ( Kdrow/=ndr .AND. ifile/=0 .AND. indxc<lasindc ) THEN
+                     IF ( kdrow/=ndr .AND. ifile/=0 .AND. indxc<lasindc ) THEN
 !
 ! ADD REMAINING TERMS FROM EITHER THE "C" MATRIX OR INTERIM SCRATCH MATRIX
 !
-            irow1 = Kdrow + 1
-            DO
-               indxcv = (indxc+3)/2
-               IF ( irow1<irowc1 ) EXIT
-               IF ( irow1<=irowcn ) THEN
-                  indxcv = (indxc+3)/2 + 2*(irow1-irowc1)
-                  irowc1 = irow1
-                  EXIT
-               ELSE
-                  indxc = indxc + 2 + icrows*nwdd
-                  IF ( indxc>=lasindc ) GOTO 50
-                  irowc1 = Zi(indxc)
-                  icrows = Zi(indxc+1)
-                  irowcn = irowc1 + icrows - 1
-               ENDIF
-            ENDDO
-            DO
-               nrows = irowcn - irowc1 + 1
-               DO k = 1 , nrows
-                  Kdrow = irowc1 + k - 1
-                  cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
-                  indxcv = indxcv + 2
-                  CALL zblpki
-               ENDDO
-               indxc = indxc + 2 + icrows*nwdd
-               IF ( indxc>=lasindc ) EXIT
-               irowc1 = Zi(indxc)
-               icrows = Zi(indxc+1)
-               irowcn = irowc1 + icrows - 1
-               indxcv = (indxc+3)/2
-            ENDDO
-         ENDIF
-      ELSE
-         IF ( ifile/=0 ) THEN
-            IF ( Zi(idx)/=0 ) THEN
-               indxc = idx
-               DO WHILE ( indxc<lasindc )
-                  irowc1 = Zi(indxc)
-                  icrows = Zi(indxc+1)
-                  irowcn = irowc1 + icrows - 1
-                  indxcv = (indxc+3)/2
-                  DO i = irowc1 , irowcn
-                     cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
-                     Kdrow = i
+                        irow1 = kdrow + 1
+                        SPAG_Loop_2_4: DO
+                           indxcv = (indxc+3)/2
+                           IF ( irow1<irowc1 ) EXIT SPAG_Loop_2_4
+                           IF ( irow1<=irowcn ) THEN
+                              indxcv = (indxc+3)/2 + 2*(irow1-irowc1)
+                              irowc1 = irow1
+                              EXIT SPAG_Loop_2_4
+                           ELSE
+                              indxc = indxc + 2 + icrows*nwdd
+                              IF ( indxc>=lasindc ) THEN
+                                 spag_nextblock_2 = 2
+                                 CYCLE SPAG_DispatchLoop_2
+                              ENDIF
+                              irowc1 = Zi(indxc)
+                              icrows = Zi(indxc+1)
+                              irowcn = irowc1 + icrows - 1
+                           ENDIF
+                        ENDDO SPAG_Loop_2_4
+                        SPAG_Loop_2_5: DO
+                           nrows = irowcn - irowc1 + 1
+                           DO k = 1 , nrows
+                              kdrow = irowc1 + k - 1
+                              cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
+                              indxcv = indxcv + 2
+                              CALL zblpki
+                           ENDDO
+                           indxc = indxc + 2 + icrows*nwdd
+                           IF ( indxc>=lasindc ) EXIT SPAG_Loop_2_5
+                           irowc1 = Zi(indxc)
+                           icrows = Zi(indxc+1)
+                           irowcn = irowc1 + icrows - 1
+                           indxcv = (indxc+3)/2
+                        ENDDO SPAG_Loop_2_5
+                     ENDIF
+                  ELSE
+                     IF ( ifile/=0 ) THEN
+                        IF ( Zi(idx)/=0 ) THEN
+                           indxc = idx
+                           DO WHILE ( indxc<lasindc )
+                              irowc1 = Zi(indxc)
+                              icrows = Zi(indxc+1)
+                              irowcn = irowc1 + icrows - 1
+                              indxcv = (indxc+3)/2
+                              DO i = irowc1 , irowcn
+                                 cd = dcmplx(Zd(indxcv),Zd(indxcv+1))
+                                 kdrow = i
+                                 CALL zblpki
+                                 indxcv = indxcv + 2
+                              ENDDO
+                              indxc = indxc + 2 + icrows*nwdd
+                           ENDDO
+                           spag_nextblock_2 = 2
+                           CYCLE SPAG_DispatchLoop_2
+                        ENDIF
+                     ENDIF
+                     cd = (0.0D0,0.0D0)
+                     kdrow = 1
                      CALL zblpki
-                     indxcv = indxcv + 2
-                  ENDDO
-                  indxc = indxc + 2 + icrows*nwdd
-               ENDDO
-               GOTO 50
-            ENDIF
-         ENDIF
-         cd = (0.0D0,0.0D0)
-         Kdrow = 1
-         CALL zblpki
-      ENDIF
- 50   CALL bldpkn(ofile,0,Filed)
+                  ENDIF
+                  spag_nextblock_2 = 2
+               CASE (2)
+                  CALL bldpkn(ofile,0,filed)
+                  EXIT SPAG_DispatchLoop_2
+               END SELECT
+            ENDDO SPAG_DispatchLoop_2
 ! END OF PROCESSING THIS COLUMN FOR THIS PASS
-   ENDDO
-   GOTO 99999
- 100  WRITE (iwr,99001) icola , Zi(indxa) , iax , indxa
-99001 FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX A',/,' COLUMN EXPECTED:',I6,/,' COLUND FOUND   :',I6,/,' IAX =',I7,    &
-             &' INDXA=',I7)
-   CALL mesage(-61,0,0)
-99999 END SUBROUTINE mma324
+         ENDDO
+         RETURN
+      CASE (2)
+         WRITE (iwr,99001) icola , Zi(indxa) , iax , indxa
+99001    FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX A',/,' COLUMN EXPECTED:',I6,/,' COLUND FOUND   :',I6,/,' IAX =',I7, &
+                &' INDXA=',I7)
+         CALL mesage(-61,0,0)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
+END SUBROUTINE mma324

@@ -1,13 +1,14 @@
-!*==rename.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rename.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
+   USE c_itemdt
+   USE c_sof
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ITEMDT
-   USE C_SOF
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,7 +58,7 @@ SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
 !
 !     SUBSTRUCTURE NAME2 ALREADY EXIST ON THE SOF
 !
-      WRITE (Nout,99001) Uwm , Name1 , Name2
+      WRITE (nout,99001) uwm , Name1 , Name2
 99001 FORMAT (A25,' 6230, SUBSTRUCTURE ',2A4,' HAS NOT BEEN RENAMED ','BECAUSE ',2A4,' ALREADY EXISTS ON THE SOF.')
       Itest = 10
       RETURN
@@ -74,15 +75,15 @@ SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
          RETURN
       ELSE
          CALL fdit(ind,idit)
-         IF ( Name1(1)/=Buf(idit) .OR. Name1(2)/=Buf(idit+1) ) THEN
+         IF ( Name1(1)/=buf(idit) .OR. Name1(2)/=buf(idit+1) ) THEN
 !
 !     DIT FORMAT ERROR
 !
             CALL errmkn(21,5)
          ELSE
-            Buf(idit) = Name2(1)
-            Buf(idit+1) = Name2(2)
-            Ditup = .TRUE.
+            buf(idit) = Name2(1)
+            buf(idit+1) = Name2(2)
+            ditup = .TRUE.
 !
             name(1) = Name2(1)
             name(2) = Name2(2)
@@ -97,13 +98,13 @@ SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
 !
                CALL fdsub(name,ind)
                CALL fmdi(ind,imdi)
-               ips = andf(Buf(imdi+ps),1023)
-               DO itm = 1 , Nitem
-                  IF ( Items(2,itm)<=0 ) THEN
-                     item = Items(1,itm)
-                     inum = Items(3,itm)/1000000
-                     iloc = (Items(3,itm)-inum*1000000)/1000
-                     incr = Items(3,itm) - inum*1000000 - iloc*1000
+               ips = andf(buf(imdi+ps),1023)
+               DO itm = 1 , nitem
+                  IF ( items(2,itm)<=0 ) THEN
+                     item = items(1,itm)
+                     inum = items(3,itm)/1000000
+                     iloc = (items(3,itm)-inum*1000000)/1000
+                     incr = items(3,itm) - inum*1000000 - iloc*1000
 !
 !     PROCESS THE FOLLOWING ITEMS
 !
@@ -187,7 +188,7 @@ SUBROUTINE rename(Name1,Name2,Z,Nz,Itest)
 !     NO HIGHER LEVEL SUBSTRUCTURES LEFT - PRINT INFORMATION MESSAGE
 !     AND RETURN
 !
-                  WRITE (Nout,99002) Uim , Name1 , Name2
+                  WRITE (nout,99002) uim , Name1 , Name2
 99002             FORMAT (A29,' 6229, SUBSTRUCTURE ',2A4,' HAS BEEN RENAMED TO ',2A4)
                   Itest = 1
                   RETURN

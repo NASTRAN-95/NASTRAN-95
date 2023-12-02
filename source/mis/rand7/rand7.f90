@@ -1,10 +1,11 @@
-!*==rand7.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rand7.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -67,22 +68,22 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !     BUILD FREQUENCY LIST
 !
          Icoup = 0
-         lcore = korsz(Iz)
-         ibuf1 = lcore - Sysbuf
+         lcore = korsz(iz)
+         ibuf1 = lcore - sysbuf
 !
 !     XYCDB MUST BE PRESENT
 !
          file = Xycdb
-         CALL open(*20,Xycdb,Iz(ibuf1),0)
+         CALL open(*20,Xycdb,iz(ibuf1),0)
          CALL close(Xycdb,1)
          lcore = ibuf1 - 1
 !
 !     EXTRACT  SET NO FROM CASECC
 !
-         CALL gopen(Casecc,Iz(ibuf1),0)
-         CALL fread(Casecc,Iz,166,1)
+         CALL gopen(Casecc,iz(ibuf1),0)
+         CALL fread(Casecc,iz,166,1)
          i163 = 163
-         irand = Iz(i163)
+         irand = iz(i163)
          CALL close(Casecc,1)
          IF ( irand/=0 ) THEN
 !
@@ -90,18 +91,18 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !
             DO i = 1 , Nfile
                file = Ifile(i)
-               CALL open(*10,file,Iz(ibuf1),0)
+               CALL open(*10,file,iz(ibuf1),0)
                CALL skprec(file,1)
-               CALL fread(file,Iz,10,1)
+               CALL fread(file,iz,10,1)
                i10 = 10
-               len = Iz(i10) - 1
+               len = iz(i10) - 1
                Nfreq = 0
                DO
 !
 !     EXTRACT FREQUENCIES
 !
                   CALL read(*100,*5,file,f,1,0,j)
-                  CALL fread(file,Iz,-len,0)
+                  CALL fread(file,iz,-len,0)
                   Nfreq = Nfreq + 1
                   z(Nfreq) = f
                ENDDO
@@ -115,7 +116,6 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !
  20      Icoup = -1
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
 !
 !     BRING IN PSDL CARDS
@@ -126,7 +126,7 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
          l = Nfreq + 1
          Npsdl = 0
          itau = -1
-         CALL read(*100,*40,Psdl,Iz(Nfreq+1),lcore,0,j)
+         CALL read(*100,*40,Psdl,iz(Nfreq+1),lcore,0,j)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  40      k = Nfreq + 3
@@ -136,7 +136,7 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !     DETERMINE RECORD THAT RANDOM TAU-S ARE IN
 !
             DO i = k , j
-               IF ( Iz(i)==irand ) THEN
+               IF ( iz(i)==irand ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -144,7 +144,6 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
             itau = -1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     FOUND RANDT CARDS
@@ -159,11 +158,11 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
             CALL read(*100,*60,Psdl,ipsdl(1),6,0,j)
             IF ( ipsdl(1)==irand ) THEN
                Npsdl = Npsdl + 1
-               Iz(l) = ipsdl(2)
-               Iz(l+1) = ipsdl(3)
-               Iz(l+2) = ipsdl(4)
-               Iz(l+3) = ipsdl(5)
-               Iz(l+4) = ipsdl(6)
+               iz(l) = ipsdl(2)
+               iz(l+1) = ipsdl(3)
+               iz(l+2) = ipsdl(4)
+               iz(l+3) = ipsdl(5)
+               iz(l+4) = ipsdl(6)
                l = l + 5
             ENDIF
          ENDDO
@@ -184,21 +183,21 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
 !
 !     COUPLED
 !
-               IF ( Iz(i)/=Iz(i+1) ) Icoup = 1
+               IF ( iz(i)/=iz(i+1) ) Icoup = 1
                IF ( ntabl/=0 ) THEN
                   DO j = 1 , ntabl
                      l = itabl + j
-                     IF ( Iz(l)==Iz(i+4) ) CYCLE SPAG_Loop_1_1
+                     IF ( iz(l)==iz(i+4) ) CYCLE SPAG_Loop_1_1
                   ENDDO
                ENDIF
 !
 !     STORE TABLE ID
 !
                ntabl = ntabl + 1
-               Iz(itabl) = Iz(i+4)
+               iz(itabl) = iz(i+4)
                itabl = itabl - 1
             ENDDO SPAG_Loop_1_1
-            Iz(itabl) = ntabl
+            iz(itabl) = ntabl
 !
 !     BRING IN  TAU-S
 !
@@ -224,7 +223,7 @@ SUBROUTINE rand7(Ifile,Nfile,Psdl,Dit,Icoup,Nfreq,Npsdl,Ntau,Ltab,Casecc,Xycdb)
          Ltab = 0
          IF ( ntabl/=0 ) THEN
             l = k + Ntau + 1
-            CALL pretab(Dit,Iz(l),z(l),Iz(ibuf1),lcore,Ltab,Iz(itabl),itlist(1))
+            CALL pretab(Dit,iz(l),z(l),iz(ibuf1),lcore,Ltab,iz(itabl),itlist(1))
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)

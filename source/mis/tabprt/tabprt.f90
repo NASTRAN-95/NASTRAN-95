@@ -1,14 +1,15 @@
-!*==tabprt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==tabprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tabprt(Iname1)
-USE C_BLANK
-USE C_MACHIN
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_machin
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -81,51 +82,51 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         nz = korsz(Core) - Sysbuf
+         nz = korsz(core) - sysbuf
          IF ( nz<=0 ) CALL mesage(-8,-nz,name)
-         dec = Mach==5 .OR. Mach==6 .OR. Mach==10 .OR. Mach==21
+         dec = mach==5 .OR. mach==6 .OR. mach==10 .OR. mach==21
          iname = Iname1
-         CALL open(*140,iname,Core(nz+1),0)
+         CALL open(*140,iname,core(nz+1),0)
          DO i = 1 , 96
-            Head2(i) = blank
+            head2(i) = blank
          ENDDO
-         Head2(1) = tabl
-         Head2(2) = ebb
-         CALL fname(iname,Head2(3))
+         head2(1) = tabl
+         head2(2) = ebb
+         CALL fname(iname,head2(3))
          CALL page
-         Head2(6) = cont
-         Head2(7) = uned
-         Head2(8) = d
-         IF ( Iprc/=1 .AND. iname==101 ) THEN
+         head2(6) = cont
+         head2(7) = uned
+         head2(8) = d
+         IF ( iprc/=1 .AND. iname==101 ) THEN
             CALL page2(-2)
-            WRITE (Otpe,99001) Uwm
+            WRITE (otpe,99001) uwm
 99001       FORMAT (A25,', TABPRT MODULE ASSUMES ALL REAL DATA ARE IN S.P.,',' D.P. DATA THEREFORE MAY BE PRINTED ERRONEOUSLY')
          ENDIF
          inum = nz/2 - 1
          inum = max0(inum,133)
          ns = inum + 1
          llen = 0
-         Core(1) = oparen
+         core(1) = oparen
          irec = 0
          ircd = 999999999
          ixxx = 999999999
-         IF ( Op(1)==pure .AND. Op(2)/=blank ) THEN
-            IF ( Op(2)==int ) jj = 2
-            IF ( Op(2)==fpn ) jj = 3
-            IF ( Op(2)==bcd ) jj = 4
-            IF ( Irc>0 ) ircd = Irc
-            IF ( Iwd>0 ) ixxx = Iwd + inum
-            IF ( Irc<=0 ) ircd = 3
-            IF ( Iwd<=0 ) ixxx = 3 + inum
+         IF ( op(1)==pure .AND. op(2)/=blank ) THEN
+            IF ( op(2)==int ) jj = 2
+            IF ( op(2)==fpn ) jj = 3
+            IF ( op(2)==bcd ) jj = 4
+            IF ( irc>0 ) ircd = irc
+            IF ( iwd>0 ) ixxx = iwd + inum
+            IF ( irc<=0 ) ircd = 3
+            IF ( iwd<=0 ) ixxx = 3 + inum
          ENDIF
  20      CALL page2(-2)
-         IF ( dec .AND. irec==0 ) WRITE (Otpe,99002)
+         IF ( dec .AND. irec==0 ) WRITE (otpe,99002)
 99002    FORMAT (4X,'(ALL INTEGERS EXCEEDING 16000 ARE PRINTED AS REAL ','NUMBERS. ALL REAL NUMBERS OUTSIDE E-27 OR E+27 RANGE ',   &
                 &'ARE PRINTED AS INTEGERS)')
-         WRITE (Otpe,99014) irec
+         WRITE (otpe,99014) irec
          irec = irec + 1
          DO i = 1 , nsp
-            IF ( Head2(3)==sp(i) ) THEN
+            IF ( head2(3)==sp(i) ) THEN
                icore(1) = iname
                CALL rdtrl(icore)
                IF ( icore(2)==2 ) THEN
@@ -150,7 +151,7 @@ USE ISO_FORTRAN_ENV
             iform = format + 1
             DO
                CALL page2(-2)
-               WRITE (Otpe,99003) strnbr , row , types(type) , forms(iform) , nterms
+               WRITE (otpe,99003) strnbr , row , types(type) , forms(iform) , nterms
 99003          FORMAT ('0STRING NO.',I5,'   ROW POSITION=',I5,'   STRING TYPE=',A3,'   STRING TRAILERS=',A3,'   NUMBER OF TERMS=',  &
                      & I5)
                strnbr = strnbr + 1
@@ -163,7 +164,7 @@ USE ISO_FORTRAN_ENV
                   SPAG_Loop_2_1: DO
                      n = min0(j+7,npoint)
                      CALL page2(-1)
-                     WRITE (Otpe,99004) (xnd(i),i=j,n)
+                     WRITE (otpe,99004) (xnd(i),i=j,n)
 99004                FORMAT (1X,8(1P,D15.7))
                      IF ( n==npoint ) THEN
                         CALL endget(block)
@@ -182,7 +183,7 @@ USE ISO_FORTRAN_ENV
                   SPAG_Loop_2_2: DO
                      n = min0(j+7,npoint)
                      CALL page2(-1)
-                     WRITE (Otpe,99005) (xns(i),i=j,n)
+                     WRITE (otpe,99005) (xns(i),i=j,n)
 99005                FORMAT (1X,4(1P,E14.7,1P,E15.7,2H//))
                      IF ( n==npoint ) THEN
                         CALL endget(block)
@@ -201,7 +202,7 @@ USE ISO_FORTRAN_ENV
                   SPAG_Loop_2_3: DO
                      n = min0(j+7,npoint)
                      CALL page2(-1)
-                     WRITE (Otpe,99006) (xnd(i),i=j,n)
+                     WRITE (otpe,99006) (xnd(i),i=j,n)
 99006                FORMAT (1X,4(1P,D14.7,1P,D15.7,2H//))
                      IF ( n==npoint ) THEN
                         CALL endget(block)
@@ -220,7 +221,7 @@ USE ISO_FORTRAN_ENV
                   SPAG_Loop_2_4: DO
                      n = min0(j+7,npoint)
                      CALL page2(-1)
-                     WRITE (Otpe,99007) (xns(i),i=j,n)
+                     WRITE (otpe,99007) (xns(i),i=j,n)
 99007                FORMAT (1X,8(1P,E15.7))
                      IF ( n==npoint ) THEN
                         CALL endget(block)
@@ -241,7 +242,7 @@ USE ISO_FORTRAN_ENV
          iout = 4
          nred = nred + 1
          np = np + 1
-         CALL read(*120,*80,iname,Core(ix),1,0,iflag)
+         CALL read(*120,*80,iname,core(ix),1,0,iflag)
 !
          IF ( irec<=ircd .AND. ix<=ixxx ) THEN
             jj = numtyp(icore(ix)) + 1
@@ -279,32 +280,31 @@ USE ISO_FORTRAN_ENV
 !
 !     TABLES KELM, MELM, AND BELM - D.P. DATA ONLY
 !
-         CALL read(*120,*120,iname,Core(1),2,1,iflag)
-         WRITE (Otpe,99008) icore(1) , icore(2)
+         CALL read(*120,*120,iname,core(1),2,1,iflag)
+         WRITE (otpe,99008) icore(1) , icore(2)
 99008    FORMAT (10X,2A4)
- 40      WRITE (Otpe,99014) irec
-         CALL read(*120,*60,iname,Core(1),nz,1,iflag)
+ 40      WRITE (otpe,99014) irec
+         CALL read(*120,*60,iname,core(1),nz,1,iflag)
          CALL mesage(-8,0,name)
  60      np = iflag/2
          jj = (np+9)/10
          CALL page2(-jj)
          irec = irec + 1
-         WRITE (Otpe,99009,ERR=40) (dcore(i),i=1,np)
+         WRITE (otpe,99009,ERR=40) (dcore(i),i=1,np)
 99009    FORMAT (1X,1P,10D13.6)
          GOTO 40
       CASE (4)
-         Core(nred+1) = ec
-         Core(nred+2) = ec1
-         Core(nred+3) = ec2
+         core(nred+1) = ec
+         core(nred+2) = ec1
+         core(nred+3) = ec2
          nred = nred + 2
          spag_nextblock_1 = 5
       CASE (5)
          llen = llen + 13
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
-         Core(nred+1) = alphc
-         Core(nred+2) = alphc1
+         core(nred+1) = alphc
+         core(nred+2) = alphc1
          nred = nred + 1
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
@@ -316,17 +316,17 @@ USE ISO_FORTRAN_ENV
 !     ICORE, WHICH IS DIMENSIONED TO 133.
 !     (CORE AND ICORE ARE EQUIVALENT)
 !
- 80      Core(nred+1) = cparen
+ 80      core(nred+1) = cparen
          IF ( nred>=133 ) CALL mesage(-37,0,name)
          CALL page2(-1)
          IF ( nred==1 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Mach/=2 .AND. Mach/=5 ) THEN
+         IF ( mach/=2 .AND. mach/=5 ) THEN
             CALL wrtfmt(icore(ns),np-ns+1,core1)
          ELSE
-            WRITE (Otpe,icore,ERR=100) (Core(i),i=ns,np)
+            WRITE (otpe,icore,ERR=100) (core(i),i=ns,np)
          ENDIF
  100     llen = 0
          nred = 1
@@ -334,7 +334,7 @@ USE ISO_FORTRAN_ENV
 !
 !     FINISH SEMI-PROCESSED WORD.
 !
-         Core(inum+1) = Core(ix)
+         core(inum+1) = core(ix)
          ix = inum + 1
          IF ( iout==1 ) THEN
             spag_nextblock_1 = 4
@@ -354,7 +354,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 7
       CASE (7)
 !
-         WRITE (Otpe,99010)
+         WRITE (otpe,99010)
 99010    FORMAT (' THIS RECORD IS NULL.')
 !
 !     GO TO 161 IS LOGICALLY UNSOUND. CHANG TO 164. (G.CHAN/UNISYS 1/93)
@@ -365,7 +365,7 @@ USE ISO_FORTRAN_ENV
 !
  120     CALL close(iname,1)
          CALL page2(-2)
-         WRITE (Otpe,99011)
+         WRITE (otpe,99011)
 99011    FORMAT (//,' END OF FILE')
 !
 !     PRINT TRAILER FOR FILE
@@ -373,14 +373,14 @@ USE ISO_FORTRAN_ENV
  140     icore(1) = iname
          CALL rdtrl(icore)
          CALL page2(-2)
-         WRITE (Otpe,99012) (icore(i),i=2,7)
+         WRITE (otpe,99012) (icore(i),i=2,7)
 99012    FORMAT ('0TRAILER WORD1 =',I8,' WORD2 =',I8,' WORD3 =',I8,' WORD4 =',I8,' WORD5 =',I8,' WORD6 =',I8)
          RETURN
 !
 !     PRINT NULL COLUMN
 !
  160     CALL page2(-1)
-         WRITE (Otpe,99013)
+         WRITE (otpe,99013)
 99013    FORMAT (5X,'NULL COLUMN')
          GOTO 20
       END SELECT

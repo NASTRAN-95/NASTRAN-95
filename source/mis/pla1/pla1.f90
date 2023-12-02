@@ -1,22 +1,23 @@
-!*==pla1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pla1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla1
-USE C_BLANK
-USE C_GPTA1
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA1BK
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1HT
-USE C_SMA1IO
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_gpta1
+   USE c_matin
+   USE c_matout
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -93,168 +94,168 @@ USE ISO_FORTRAN_ENV
 !
 !     IF THE DIT HAS BEEN PURGED, WE CANNOT PROCEED FURTHER
 !
-         ipr = Iprec
+         ipr = iprec
          CALL delset
-         Trail(1) = Dit
-         CALL rdtrl(Trail)
-         IF ( Trail(1)<0 ) CALL mesage(-1,Dit,name)
+         trail(1) = dit
+         CALL rdtrl(trail)
+         IF ( trail(1)<0 ) CALL mesage(-1,dit,name)
 !
 !     INITIALIZE HEAT PARAMETER
 !
-         Heat = .FALSE.
+         heat = .FALSE.
 !
 !     INITIALIZE MODULE PARAMETERS AND SET IOPT4 = 0, SO THAT ELEMENT
 !     ROUTINES WILL NOT CALCULATE STRUCTURAL DAMPING MATRICES.
 !
-         Kgglpg = -1
-         Nplalp = 1
-         Kickof = -1
-         Plaset = -1
-         Nonlst = 1
-         Plfact(1) = 1.0
-         Iopt4 = 0
-         Estnl = 204
+         kgglpg = -1
+         nplalp = 1
+         kickof = -1
+         plaset = -1
+         nonlst = 1
+         plfact(1) = 1.0
+         iopt4 = 0
+         estnl = 204
          est = 107
          phase1 = .TRUE.
          ASSIGN 240 TO nosd
 !
 !     SET UP BUFFERS AND INITIALIZE FILE TRAILERS.
 !
-         izmax = korsz(Z)
-         Bufr1 = izmax - Bufsz
-         Bufr2 = Bufr1 - Bufsz
-         Bufr3 = Bufr2 - Bufsz
-         Bufr4 = Bufr3 - Bufsz
-         Left = Bufr4 - 1
-         CALL makmcb(Mcbkgg,Kggl,0,6,ipr)
-         CALL makmcb(Trail,Ecptnl,0,0,0)
+         izmax = korsz(z)
+         bufr1 = izmax - bufsz
+         bufr2 = bufr1 - bufsz
+         bufr3 = bufr2 - bufsz
+         bufr4 = bufr3 - bufsz
+         left = bufr4 - 1
+         CALL makmcb(mcbkgg,kggl,0,6,ipr)
+         CALL makmcb(trail,ecptnl,0,0,0)
 !
 !     CHECK PLAARY SIZE
 !
-         IF ( Nelems>90 ) WRITE (Isyspt,99001) Uwm
+         IF ( nelems>90 ) WRITE (isyspt,99001) uwm
 99001    FORMAT (A25,' 2151, -PLAARY- ARRAY IS SMALLER THAN MAXIMUM ','NUMBER OF ELEMENT TYPES.')
 !
 !     OPEN THE KGGL FILE FOR OUTPUT
 !
-         CALL gopen(Kggl,Z(Bufr1),1)
+         CALL gopen(kggl,z(bufr1),1)
 !
 !     ATTEMPT TO READ THE CSTM INTO CORE
 !
-         Icstm = 0
-         Ncstm = 0
-         file = Cstm
-         CALL open(*40,Cstm,Z(Bufr2),Inrw)
-         CALL fwdrec(*420,Cstm)
-         CALL read(*420,*20,Cstm,Z(Icstm+1),Left,Eor,Ncstm)
+         icstm = 0
+         ncstm = 0
+         file = cstm
+         CALL open(*40,cstm,z(bufr2),inrw)
+         CALL fwdrec(*420,cstm)
+         CALL read(*420,*20,cstm,z(icstm+1),left,eor,ncstm)
 !
 !     INSUFFICIENT CORE - CALL MESAGE
 !
          CALL mesage(-8,0,name)
- 20      Left = Left - Ncstm
-         CALL close(Cstm,Clsrw)
+ 20      left = left - ncstm
+         CALL close(cstm,clsrw)
 !
 !     CALL PRETRD TO SET UP FUTURE CALLS TO TRANSD.
 !
-         CALL pretrd(Z(Icstm+1),Ncstm)
-         CALL pretrs(Z(Icstm+1),Ncstm)
+         CALL pretrd(z(icstm+1),ncstm)
+         CALL pretrs(z(icstm+1),ncstm)
 !
 !     CALL PREMAT TO READ THE MPT AND THE DIT AND TO SET UP FUTURE CALLS
 !     TO SUBROUTINE MAT.  NOTE NEGATIVE ISGN FOR DIT TO TRIGGER PLA FLAG
 !     IN MAT.
 !
- 40      imat = Ncstm
-         CALL premat(iz(imat+1),Z(imat+1),Z(Bufr2-3),Left,mused,Mpt,-Dit)
-         Left = Left - mused
-         Igpct = Ncstm + mused
+ 40      imat = ncstm
+         CALL premat(iz(imat+1),z(imat+1),z(bufr2-3),left,mused,mpt,-dit)
+         left = left - mused
+         igpct = ncstm + mused
 !
 !     OPEN THE INPUT FILES ECPT AND GPCT AND THE OUTPUT FILE ECPTNL.
 !
-         CALL gopen(Ecpt,Z(Bufr2),0)
-         CALL gopen(Gpct,Z(Bufr3),0)
-         CALL gopen(Ecptnl,Z(Bufr4),1)
-         ileft = Left
+         CALL gopen(ecpt,z(bufr2),0)
+         CALL gopen(gpct,z(bufr3),0)
+         CALL gopen(ecptnl,z(bufr4),1)
+         ileft = left
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     BEGIN MAIN LOOP FOR PROCESSING THE ECPT.
 !
-         CALL read(*300,*280,Gpct,inpvt(1),2,Neor,iflag)
-         Ngpct = inpvt(2)
-         Left = ileft - 2*Ngpct
-         IF ( Left<=0 ) CALL mesage(-8,0,name)
-         CALL fread(Gpct,iz(Igpct+1),Ngpct,Eor)
+         CALL read(*300,*280,gpct,inpvt(1),2,neor,iflag)
+         ngpct = inpvt(2)
+         left = ileft - 2*ngpct
+         IF ( left<=0 ) CALL mesage(-8,0,name)
+         CALL fread(gpct,iz(igpct+1),ngpct,eor)
 !
 !     FROWIC IS THE FIRST ROW IN CORE (1 .LE. FROWIC .LE. 6)
 !
-         Frowic = 1
-         Ipoint = Igpct + Ngpct
-         Npoint = Ngpct
-         I6x6k = Ipoint + Npoint
+         frowic = 1
+         ipoint = igpct + ngpct
+         npoint = ngpct
+         i6x6k = ipoint + npoint
 !
 !     MAKE I6X6K A DOUBLE PRECISION INDEX (I6X6K POINTS TO THE 0TH
 !     LOCATION OF THE 6 X 6 SUBMATRIX OF KGGL IN CORE)
 !
-         I6x6k = (I6x6k-1)/2 + 2
+         i6x6k = (i6x6k-1)/2 + 2
 !
 !     CONSTRUCT THE POINTER TABLE WHICH WILL ENABLE SUBROUTINE SMA1B TO
 !     ADD THE ELEMENT STIFFNESS MATRICES TO KGGL.
 !
-         iz(Ipoint+1) = 1
+         iz(ipoint+1) = 1
          i1 = 1
-         i = Igpct
-         j = Ipoint + 1
+         i = igpct
+         j = ipoint + 1
          SPAG_Loop_1_2: DO
             i1 = i1 + 1
-            IF ( i1>Ngpct ) THEN
+            IF ( i1>ngpct ) THEN
 !
 !     JMAX = THE NO. OF COLUMNS OF KGGL THAT WILL BE GENERATED WITH THE
 !     CURRENT PIVOT POINT.
 !
                inc = 5
-               ilast = Igpct + Ngpct
-               jlast = Ipoint + Npoint
+               ilast = igpct + ngpct
+               jlast = ipoint + npoint
                IF ( iz(ilast)<0 ) inc = 0
-               Jmax = iz(jlast) + inc
+               jmax = iz(jlast) + inc
 !
 !     TNROWS = TOTAL NO. OF ROWS OF THE MATRIX TO BE GENERATED
 !
-               Tnrows = 6
-               IF ( inpvt(1)<0 ) Tnrows = 1
-               IF ( 2*Tnrows*Jmax<Left ) THEN
-                  Nrowsc = Tnrows
+               tnrows = 6
+               IF ( inpvt(1)<0 ) tnrows = 1
+               IF ( 2*tnrows*jmax<left ) THEN
+                  nrowsc = tnrows
                ELSE
 !
 !     THE WHOLE SUBMATRIX CANNOT FIT IN CORE
 !
-                  IF ( Tnrows==1 ) CALL mesage(-8,0,name)
-                  Nrowsc = 3
+                  IF ( tnrows==1 ) CALL mesage(-8,0,name)
+                  nrowsc = 3
                   plaary(39) = name(1)
                   SPAG_Loop_2_1: DO
-                     plaary(40) = Npvt
+                     plaary(40) = npvt
                      CALL mesage(30,85,plaary(39))
-                     IF ( 2*Nrowsc*Jmax<Left ) EXIT SPAG_Loop_2_1
-                     Nrowsc = Nrowsc - 1
-                     IF ( Nrowsc==0 ) CALL mesage(-8,0,name)
+                     IF ( 2*nrowsc*jmax<left ) EXIT SPAG_Loop_2_1
+                     nrowsc = nrowsc - 1
+                     IF ( nrowsc==0 ) CALL mesage(-8,0,name)
                   ENDDO SPAG_Loop_2_1
                ENDIF
-               Frowic = 1
-               Lrowic = Frowic + Nrowsc - 1
+               frowic = 1
+               lrowic = frowic + nrowsc - 1
 !
 !     ZERO OUT THE KGGL SUBMATRIX IN CORE.
 !
-               low = I6x6k + 1
-               lim = I6x6k + Jmax*Nrowsc
+               low = i6x6k + 1
+               lim = i6x6k + jmax*nrowsc
                DO i = low , lim
                   dz(i) = 0.0D0
                ENDDO
 !
 !     INITIALIZE THE LINK VECTOR TO -1
 !
-               DO i = 1 , Nlinks
-                  Link(i) = -1
+               DO i = 1 , nlinks
+                  link(i) = -1
                ENDDO
                lincor = 1
-               file = Ecpt
+               file = ecpt
 !
 !     TURN FIRST PASS, FIRST ELEMENT READ ON THE CURRENT PASS OF THE
 !     ECPT RECORD, AND PIVOT POINT WRITTEN INDICATORS ON.
@@ -276,7 +277,7 @@ USE ISO_FORTRAN_ENV
 !
 !     READ THE FIRST WORD OF THE ECPT RECORD, THE PIVOT POINT, INTO NPVT
 !
-         CALL fread(Ecpt,Npvt,1,Neor)
+         CALL fread(ecpt,npvt,1,neor)
          spag_nextblock_1 = 4
       CASE (4)
          SPAG_Loop_1_3: DO
@@ -284,11 +285,11 @@ USE ISO_FORTRAN_ENV
 !     READ THE NEXT ELEMENT TYPE INTO ITYPE, AND READ THE PRESCRIBED NO.
 !     OF WORDS INTO THE XECPT ARRAY.
 !
-            CALL read(*420,*260,Ecpt,Itype,1,Neor,iflag)
-            idx = (Itype-1)*Incr
-            nn = Ne(idx+12)
-            CALL fread(Ecpt,Xecpt,nn,Neor)
-            itemp = Ne(idx+22)
+            CALL read(*420,*260,ecpt,itype,1,neor,iflag)
+            idx = (itype-1)*incr
+            nn = ne(idx+12)
+            CALL fread(ecpt,xecpt,nn,neor)
+            itemp = ne(idx+22)
             IF ( ipass/=1 ) GOTO 240
 !
 !     THIS IS THE FIRST PASS.  IF THE ELEMENT IS IN THE PLA SET, CALL
@@ -308,44 +309,44 @@ USE ISO_FORTRAN_ENV
 !                25        26        27        28        29        30
 !              PLOTEL    REACT     QUAD3     CBAR      CCONE
 !                31        32        33       34         35
-            IF ( Itype<=35 ) THEN
-               IF ( Itype==2 .OR. Itype==32 .OR. Itype==33 ) THEN
+            IF ( itype<=35 ) THEN
+               IF ( itype==2 .OR. itype==32 .OR. itype==33 ) THEN
                   spag_nextblock_1 = 25
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==3 ) THEN
+               IF ( itype==3 ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==4 .OR. Itype==5 .OR. Itype==7 .OR. Itype==8 .OR. Itype==11 .OR. Itype==12 .OR. Itype==13 .OR.            &
-                  & Itype==14 .OR. Itype==15 .OR. Itype==35 ) GOTO 240
-               IF ( Itype==6 ) THEN
+               IF ( itype==4 .OR. itype==5 .OR. itype==7 .OR. itype==8 .OR. itype==11 .OR. itype==12 .OR. itype==13 .OR.            &
+                  & itype==14 .OR. itype==15 .OR. itype==35 ) GOTO 240
+               IF ( itype==6 ) THEN
                   spag_nextblock_1 = 7
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==9 ) THEN
+               IF ( itype==9 ) THEN
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==16 ) THEN
+               IF ( itype==16 ) THEN
                   spag_nextblock_1 = 9
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==17 ) THEN
+               IF ( itype==17 ) THEN
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==18 ) THEN
+               IF ( itype==18 ) THEN
                   spag_nextblock_1 = 11
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==19 ) THEN
+               IF ( itype==19 ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Itype==20 .OR. Itype==21 .OR. Itype==22 .OR. Itype==23 .OR. Itype==24 .OR. Itype==25 .OR. Itype==26 .OR.        &
-                  & Itype==27 .OR. Itype==28 .OR. Itype==29 .OR. Itype==30 .OR. Itype==31 ) THEN
-               ELSEIF ( Itype==34 ) THEN
+               IF ( itype==20 .OR. itype==21 .OR. itype==22 .OR. itype==23 .OR. itype==24 .OR. itype==25 .OR. itype==26 .OR.        &
+                  & itype==27 .OR. itype==28 .OR. itype==29 .OR. itype==30 .OR. itype==31 ) THEN
+               ELSEIF ( itype==34 ) THEN
                   spag_nextblock_1 = 13
                   CYCLE SPAG_DispatchLoop_1
                ELSE
@@ -358,193 +359,179 @@ USE ISO_FORTRAN_ENV
 !
 !     ROD
 !
-         Matid = iecpt(4)
+         matid = iecpt(4)
          ASSIGN 60 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
- 60      Xecpt(18) = 0.0
-         Xecpt(19) = 0.0
-         Inflag = 1
+ 60      xecpt(18) = 0.0
+         xecpt(19) = 0.0
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(20) = e
+         xecpt(20) = e
          IF ( phase1 ) THEN
             nwds = 20
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            Xecpt(21) = 0.0
+            xecpt(21) = 0.0
             nwds = 21
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (6)
 !
 !     TUBE
 !
-         Matid = iecpt(4)
+         matid = iecpt(4)
          ASSIGN 80 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
- 80      Xecpt(17) = 0.0
-         Xecpt(18) = 0.0
-         Inflag = 1
+ 80      xecpt(17) = 0.0
+         xecpt(18) = 0.0
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(19) = e
+         xecpt(19) = e
          IF ( phase1 ) THEN
             nwds = 19
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            Xecpt(20) = 0.0
+            xecpt(20) = 0.0
             nwds = 20
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (7)
 !
 !     TRIA1
 !
-         Matid = iecpt(6)
+         matid = iecpt(6)
          ASSIGN 100 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  100     DO i = 28 , 33
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(30) = e
+         xecpt(30) = e
          IF ( phase1 ) THEN
             nwds = 33
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 34 , 38
-               Xecpt(i) = 0.0
+               xecpt(i) = 0.0
             ENDDO
             nwds = 38
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (8)
 !
 !     TRMEM
 !
-         Matid = iecpt(6)
+         matid = iecpt(6)
          ASSIGN 120 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  120     DO i = 22 , 27
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(24) = e
+         xecpt(24) = e
          nwds = 27
          IF ( phase1 ) THEN
             spag_nextblock_1 = 16
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 21
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     QDMEM
 !
-         Matid = iecpt(7)
+         matid = iecpt(7)
          ASSIGN 140 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  140     DO i = 27 , 32
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(29) = e
+         xecpt(29) = e
          nwds = 32
          IF ( phase1 ) THEN
             spag_nextblock_1 = 16
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 21
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     TRIA2
 !
-         Matid = iecpt(6)
+         matid = iecpt(6)
          ASSIGN 160 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  160     DO i = 22 , 27
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(24) = e
+         xecpt(24) = e
          IF ( phase1 ) THEN
             nwds = 27
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 28 , 32
-               Xecpt(i) = 0.0
+               xecpt(i) = 0.0
             ENDDO
             nwds = 32
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (11)
 !
 !     QUAD2
 !
-         Matid = iecpt(7)
+         matid = iecpt(7)
          ASSIGN 180 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  180     DO i = 27 , 32
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(29) = e
+         xecpt(29) = e
          IF ( phase1 ) THEN
             nwds = 32
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 33 , 37
-               Xecpt(i) = 0.0
+               xecpt(i) = 0.0
             ENDDO
             nwds = 37
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (12)
 !
 !     QUAD1
 !
-         Matid = iecpt(7)
+         matid = iecpt(7)
          ASSIGN 200 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
  200     DO i = 33 , 38
-            Xecpt(i) = 0.0
+            xecpt(i) = 0.0
          ENDDO
-         Inflag = 1
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(35) = e
+         xecpt(35) = e
          IF ( phase1 ) THEN
             nwds = 38
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 39 , 43
-               Xecpt(i) = 0.0
+               xecpt(i) = 0.0
             ENDDO
             nwds = 43
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (13)
 !
@@ -566,34 +553,32 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 14
       CASE (14)
-         Matid = iecpt(16)
+         matid = iecpt(16)
          ASSIGN 220 TO yessd
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
- 220     Xecpt(43) = 0.0
-         Xecpt(44) = 0.0
-         Inflag = 1
+ 220     xecpt(43) = 0.0
+         xecpt(44) = 0.0
+         inflag = 1
          CALL mat(iecpt(1))
-         Xecpt(45) = e
+         xecpt(45) = e
          IF ( phase1 ) THEN
             nwds = 45
             spag_nextblock_1 = 16
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO i = 46 , 50
-               Xecpt(i) = 0.0
+               xecpt(i) = 0.0
             ENDDO
             nwds = 50
             spag_nextblock_1 = 21
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (15)
 !
 !     TEST TO SEE IF ELEMENT IS STRESS DEPENDENT.
 !
-         Inflag = 5
+         inflag = 5
          CALL mat(iecpt(1))
-         IF ( Indstr<=0 ) THEN
+         IF ( indstr<=0 ) THEN
             GOTO nosd
          ELSE
             GOTO yessd
@@ -604,11 +589,11 @@ USE ISO_FORTRAN_ENV
 !
          IF ( npvtwr<=0 ) THEN
             npvtwr = 1
-            CALL write(Ecptnl,Npvt,1,Neor)
-            Kickof = 1
+            CALL write(ecptnl,npvt,1,neor)
+            kickof = 1
          ENDIF
-         CALL write(Ecptnl,Itype,1,Neor)
-         CALL write(Ecptnl,Xecpt,nwds,Neor)
+         CALL write(ecptnl,itype,1,neor)
+         CALL write(ecptnl,xecpt,nwds,neor)
          nnlel = nnlel + 1
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
@@ -617,7 +602,7 @@ USE ISO_FORTRAN_ENV
 !     CHECK TO SEE IF THIS ELEMENT IS IN A LINK THAT HAS ALREADY BEEN
 !     PROCESSED.
 !
- 240     Kgglpg = 1
+ 240     kgglpg = 1
          IF ( ifirst==1 ) THEN
 !
 !     SINCE THIS IS THE FIRST ELEMENT TYPE TO BE PROCESSED ON THIS PASS
@@ -625,7 +610,7 @@ USE ISO_FORTRAN_ENV
 !     IS IN A LINK THAT HAS ALREADY BEEN PROCESSED.  IF IT IS SUCH AN
 !     ELEMENT, WE KEEP IFIRST = 1 AND READ THE NEXT ELEMENT.
 !
-            IF ( Link(itemp)==1 ) THEN
+            IF ( link(itemp)==1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -648,7 +633,7 @@ USE ISO_FORTRAN_ENV
 !     SET A TO BE PROCESSED LATER FLAG FOR THE LINK IN WHICH THE ELEMENT
 !     RESIDES
 !
-            IF ( Link(itemp)/=1 ) Link(itemp) = 0
+            IF ( link(itemp)/=1 ) link(itemp) = 0
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -665,50 +650,50 @@ USE ISO_FORTRAN_ENV
 !            22      23      24     25      26      27      28
 !           CONM1  CONM2   PLOTEL REACT   QUAD3   CBAR    CCONE
 !             29     30      31     32      33     34       35
-         IF ( Itype<=35 ) THEN
-            IF ( Itype==2 .OR. Itype==32 .OR. Itype==33 ) THEN
+         IF ( itype<=35 ) THEN
+            IF ( itype==2 .OR. itype==32 .OR. itype==33 ) THEN
                spag_nextblock_1 = 25
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Itype==3 ) THEN
+            IF ( itype==3 ) THEN
                CALL ktube
-            ELSEIF ( Itype==4 ) THEN
+            ELSEIF ( itype==4 ) THEN
                CALL kpanel(4)
-            ELSEIF ( Itype==5 ) THEN
+            ELSEIF ( itype==5 ) THEN
                CALL kpanel(5)
-            ELSEIF ( Itype==6 ) THEN
+            ELSEIF ( itype==6 ) THEN
                CALL ktriqd(1)
-            ELSEIF ( Itype==7 ) THEN
+            ELSEIF ( itype==7 ) THEN
                CALL ktrbsc(0)
-            ELSEIF ( Itype==8 ) THEN
+            ELSEIF ( itype==8 ) THEN
                CALL ktrplt
-            ELSEIF ( Itype==9 ) THEN
+            ELSEIF ( itype==9 ) THEN
                CALL ktrmem(0)
-            ELSEIF ( Itype==11 ) THEN
+            ELSEIF ( itype==11 ) THEN
                CALL kelas(1)
-            ELSEIF ( Itype==12 ) THEN
+            ELSEIF ( itype==12 ) THEN
                CALL kelas(2)
-            ELSEIF ( Itype==13 ) THEN
+            ELSEIF ( itype==13 ) THEN
                CALL kelas(3)
-            ELSEIF ( Itype==14 ) THEN
+            ELSEIF ( itype==14 ) THEN
                CALL kelas(4)
-            ELSEIF ( Itype==15 ) THEN
+            ELSEIF ( itype==15 ) THEN
                CALL kqdplt
-            ELSEIF ( Itype==16 ) THEN
+            ELSEIF ( itype==16 ) THEN
                CALL kqdmem
-            ELSEIF ( Itype==17 ) THEN
+            ELSEIF ( itype==17 ) THEN
                CALL ktriqd(2)
-            ELSEIF ( Itype==18 ) THEN
+            ELSEIF ( itype==18 ) THEN
                CALL ktriqd(4)
-            ELSEIF ( Itype==19 ) THEN
+            ELSEIF ( itype==19 ) THEN
                CALL ktriqd(3)
-            ELSEIF ( Itype==20 .OR. Itype==21 .OR. Itype==22 .OR. Itype==23 .OR. Itype==24 .OR. Itype==25 .OR. Itype==26 .OR.       &
-                   & Itype==27 .OR. Itype==28 .OR. Itype==29 .OR. Itype==30 .OR. Itype==31 ) THEN
-            ELSEIF ( Itype==34 ) THEN
+            ELSEIF ( itype==20 .OR. itype==21 .OR. itype==22 .OR. itype==23 .OR. itype==24 .OR. itype==25 .OR. itype==26 .OR.       &
+                   & itype==27 .OR. itype==28 .OR. itype==29 .OR. itype==30 .OR. itype==31 ) THEN
+            ELSEIF ( itype==34 ) THEN
                CALL kbar
-            ELSEIF ( Itype==35 ) THEN
-               IF ( Nbpw<=32 ) CALL kconed
-               IF ( Nbpw>32 ) CALL kcones
+            ELSEIF ( itype==35 ) THEN
+               IF ( nbpw<=32 ) CALL kconed
+               IF ( nbpw>32 ) CALL kcones
             ELSE
                CALL krod
             ENDIF
@@ -722,15 +707,15 @@ USE ISO_FORTRAN_ENV
 !
  260     IF ( ipass==1 ) THEN
             IF ( npvtwr<=0 ) THEN
-               CALL write(Ecptnl,-Npvt,1,Eor)
+               CALL write(ecptnl,-npvt,1,eor)
             ELSE
-               CALL write(Ecptnl,0,0,Eor)
+               CALL write(ecptnl,0,0,eor)
             ENDIF
          ENDIF
          ipass = 2
-         Link(lincor) = 1
-         DO i = 1 , Nlinks
-            IF ( Link(i)==0 ) THEN
+         link(lincor) = 1
+         DO i = 1 , nlinks
+            IF ( link(i)==0 ) THEN
                spag_nextblock_1 = 17
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -741,43 +726,43 @@ USE ISO_FORTRAN_ENV
          i1 = 0
          SPAG_Loop_1_4: DO
             i2 = 0
-            ibeg = I6x6k + i1*Jmax
-            CALL bldpk(2,ipr,Kggl,0,0)
+            ibeg = i6x6k + i1*jmax
+            CALL bldpk(2,ipr,kggl,0,0)
             DO
                i2 = i2 + 1
-               IF ( i2>Ngpct ) THEN
-                  CALL bldpkn(Kggl,0,Mcbkgg)
+               IF ( i2>ngpct ) THEN
+                  CALL bldpkn(kggl,0,mcbkgg)
                   i1 = i1 + 1
-                  IF ( i1<Nrowsc ) CYCLE SPAG_Loop_1_4
+                  IF ( i1<nrowsc ) CYCLE SPAG_Loop_1_4
 !
 !     IF LROWIC = TNROWS, PROCESSING OF THE CURRENT ECPT RECORD HAS BEEN
 !     COMPLETED.
 !
-                  IF ( Lrowic==Tnrows ) THEN
+                  IF ( lrowic==tnrows ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL bckrec(Ecpt)
-                  Frowic = Frowic + Nrowsc
-                  Lrowic = Lrowic + Nrowsc
+                  CALL bckrec(ecpt)
+                  frowic = frowic + nrowsc
+                  lrowic = lrowic + nrowsc
                   ipass = 2
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  jj = Igpct + i2
-                  Index = iabs(iz(jj)) - 1
+                  jj = igpct + i2
+                  index = iabs(iz(jj)) - 1
                   lim = 6
                   IF ( iz(jj)<0 ) lim = 1
-                  jjj = Ipoint + i2
+                  jjj = ipoint + i2
                   kkk = ibeg + iz(jjj) - 1
                   i3 = 0
                   SPAG_Loop_3_5: DO
                      i3 = i3 + 1
                      IF ( i3>lim ) EXIT SPAG_Loop_3_5
-                     Index = Index + 1
+                     index = index + 1
                      kkk = kkk + 1
-                     Dpword = dz(kkk)
-                     IF ( Dpword/=0.0D0 ) CALL zblpki
+                     dpword = dz(kkk)
+                     IF ( dpword/=0.0D0 ) CALL zblpki
                   ENDDO SPAG_Loop_3_5
                ENDIF
             ENDDO
@@ -789,7 +774,7 @@ USE ISO_FORTRAN_ENV
 !     SINCE AT LEAST ONE LINK HAS NOT BEEN PROCESSED THE ECPT FILE MUST
 !     BE BACKSPACED
 !
-         CALL bckrec(Ecpt)
+         CALL bckrec(ecpt)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
@@ -799,55 +784,55 @@ USE ISO_FORTRAN_ENV
  280     lim = 6
          IF ( inpvt(1)<0 ) lim = 1
          DO i = 1 , lim
-            CALL bldpk(2,ipr,Kggl,0,0)
-            CALL bldpkn(Kggl,0,Mcbkgg)
+            CALL bldpk(2,ipr,kggl,0,0)
+            CALL bldpkn(kggl,0,mcbkgg)
          ENDDO
-         CALL skprec(Ecpt,1)
-         CALL write(Ecptnl,-iabs(inpvt(1)),1,Eor)
+         CALL skprec(ecpt,1)
+         CALL write(ecptnl,-iabs(inpvt(1)),1,eor)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     ECPT PROCESSING HAS BEEN COMPLETED SINCE AN EOF HAS BEEN READ ON
 !     GPCT.
 !
- 300     CALL close(Gpct,Clsrw)
-         CALL close(Ecpt,Clsrw)
-         CALL close(Kggl,Clsrw)
-         CALL close(Ecptnl,Clsrw)
-         IF ( Kickof==-1 ) THEN
+ 300     CALL close(gpct,clsrw)
+         CALL close(ecpt,clsrw)
+         CALL close(kggl,clsrw)
+         CALL close(ecptnl,clsrw)
+         IF ( kickof==-1 ) THEN
             spag_nextblock_1 = 24
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Mcbkgg(6)/=0 ) THEN
-            Mcbkgg(3) = Mcbkgg(2)
+         IF ( mcbkgg(6)/=0 ) THEN
+            mcbkgg(3) = mcbkgg(2)
          ELSE
             DO i = 2 , 7
-               Mcbkgg(i) = 0
+               mcbkgg(i) = 0
             ENDDO
          ENDIF
-         CALL wrttrl(Mcbkgg)
-         CALL wrttrl(Trail)
+         CALL wrttrl(mcbkgg)
+         CALL wrttrl(trail)
 !
 !     BEGIN EST PROCESSING
 !
-         Left = Bufr4 - 1
-         icc = Ncstm + mused
+         left = bufr4 - 1
+         icc = ncstm + mused
          all = .FALSE.
          phase1 = .FALSE.
 !
 !     READ THE FIRST RECORD OF CASECC INTO CORE.
 !
          file = casecc
-         CALL gopen(casecc,Z(Bufr1),0)
-         CALL read(*420,*320,casecc,iz(icc+1),Left,Eor,ncc)
+         CALL gopen(casecc,z(bufr1),0)
+         CALL read(*420,*320,casecc,iz(icc+1),left,eor,ncc)
          CALL mesage(-8,0,name)
  320     iplset = icc + jplset
-         Plaset = iz(iplset)
+         plaset = iz(iplset)
          istset = icc + jstset
          IF ( iz(istset)<0 ) THEN
             all = .TRUE.
          ELSEIF ( iz(istset)==0 ) THEN
-            Nonlst = -1
+            nonlst = -1
          ELSE
 !
 !     THE USER HAS REQUESTED A PROPER SUBSET OF HIS SET OF ELEMENTS FOR
@@ -873,17 +858,17 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDDO SPAG_Loop_1_6
          ENDIF
-         CALL close(casecc,Clsrw)
-         IF ( Plaset/=-1 ) THEN
+         CALL close(casecc,clsrw)
+         IF ( plaset/=-1 ) THEN
 !
 !     SEARCH THE MPT FOR THE PLA SET
 !
-            file = Mpt
-            CALL preloc(*400,Z(Bufr1-3),Mpt)
-            CALL locate(*460,Z(Bufr1-3),planos,iflag)
+            file = mpt
+            CALL preloc(*400,z(bufr1-3),mpt)
+            CALL locate(*460,z(bufr1-3),planos,iflag)
          ELSE
             jj = 1
-            Plfact(1) = 1.0
+            plfact(1) = 1.0
             spag_nextblock_1 = 18
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -891,19 +876,19 @@ USE ISO_FORTRAN_ENV
 !
 !     READ A PLA SET NO.
 !
-            CALL read(*460,*460,Mpt,setno,1,Neor,iflag)
+            CALL read(*460,*460,mpt,setno,1,neor,iflag)
             jj = 0
             SPAG_Loop_2_8: DO
-               CALL read(*460,*460,Mpt,nn,1,Neor,iflag)
+               CALL read(*460,*460,mpt,nn,1,neor,iflag)
                IF ( nn==-1 ) THEN
-                  IF ( setno/=Plaset ) CYCLE SPAG_Loop_1_7
-                  Nplalp = jj
-                  Plfact(2) = 0.0
-                  CALL close(Mpt,Clsrw)
+                  IF ( setno/=plaset ) CYCLE SPAG_Loop_1_7
+                  nplalp = jj
+                  plfact(2) = 0.0
+                  CALL close(mpt,clsrw)
                   EXIT SPAG_Loop_2_8
                ELSE
                   jj = jj + 1
-                  IF ( jj==1 ) Plfact(1) = fnn
+                  IF ( jj==1 ) plfact(1) = fnn
                ENDIF
             ENDDO SPAG_Loop_2_8
             EXIT SPAG_Loop_1_7
@@ -913,16 +898,16 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS THE EST
 !
-         estltr(1) = Estl
-         estnlt(1) = Estnl
+         estltr(1) = estl
+         estnlt(1) = estnl
          DO i = 2 , 7
             estltr(i) = 0
             estnlt(i) = 0
          ENDDO
          ASSIGN 340 TO nosd
-         CALL gopen(est,Z(Bufr1),0)
-         CALL gopen(Estl,Z(Bufr2),1)
-         CALL gopen(Estnl,Z(Bufr3),1)
+         CALL gopen(est,z(bufr1),0)
+         CALL gopen(estl,z(bufr2),1)
+         CALL gopen(estnl,z(bufr3),1)
          file = est
          spag_nextblock_1 = 19
       CASE (19)
@@ -932,10 +917,10 @@ USE ISO_FORTRAN_ENV
 !     PIECEWISE LINEAR ANALYSIS, WRITE IT TWICE.  OTHERWISE GO TO NEXT
 !     RECORD.
 !
-            CALL read(*380,*440,est,Itype,1,Neor,iflag)
-            IF ( plaary(Itype)==1 ) THEN
-               CALL write(Estl,Itype,1,Neor)
-               CALL write(Estnl,Itype,1,Neor)
+            CALL read(*380,*440,est,itype,1,neor,iflag)
+            IF ( plaary(itype)==1 ) THEN
+               CALL write(estl,itype,1,neor)
+               CALL write(estnl,itype,1,neor)
                EXIT SPAG_Loop_1_9
             ELSE
                CALL skprec(est,1)
@@ -946,11 +931,11 @@ USE ISO_FORTRAN_ENV
 !
 !     READ THE EST ENTRY
 !
-         idx = (Itype-1)*Incr
-         nwds = Ne(idx+12)
-         CALL read(*420,*360,est,Xecpt,nwds,Neor,iflag)
-         IF ( plaary(Itype)==0 ) GOTO 340
-         IF ( Itype>38 ) GOTO 340
+         idx = (itype-1)*incr
+         nwds = ne(idx+12)
+         CALL read(*420,*360,est,xecpt,nwds,neor,iflag)
+         IF ( plaary(itype)==0 ) GOTO 340
+         IF ( itype>38 ) GOTO 340
 !              CROD      CBEAM     CTUBE     CSHEAR    CTWIST
 !                1         2         3         4         5
 !              CTRIA1    CTRBSC    CTRPLT    CTRMEM    CONROD
@@ -967,43 +952,43 @@ USE ISO_FORTRAN_ENV
 !                31        32        33        34        35
 !              CTRIARG   CTRAPRG   CTORDRG
 !                36        37        38
-         IF ( Itype==1 .OR. Itype==10 ) THEN
+         IF ( itype==1 .OR. itype==10 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==2 .OR. Itype==4 .OR. Itype==5 .OR. Itype==7 .OR. Itype==8 .OR. Itype==11 .OR. Itype==12 .OR. Itype==13 .OR.    &
-            & Itype==14 .OR. Itype==15 .OR. Itype==20 .OR. Itype==21 .OR. Itype==22 .OR. Itype==23 .OR. Itype==24 .OR.              &
-            & Itype==25 .OR. Itype==26 .OR. Itype==27 .OR. Itype==28 .OR. Itype==29 .OR. Itype==30 .OR. Itype==31 .OR.              &
-            & Itype==32 .OR. Itype==33 .OR. Itype==35 .OR. Itype==36 .OR. Itype==37 .OR. Itype==38 ) GOTO 340
-         IF ( Itype==3 ) THEN
+         IF ( itype==2 .OR. itype==4 .OR. itype==5 .OR. itype==7 .OR. itype==8 .OR. itype==11 .OR. itype==12 .OR. itype==13 .OR.    &
+            & itype==14 .OR. itype==15 .OR. itype==20 .OR. itype==21 .OR. itype==22 .OR. itype==23 .OR. itype==24 .OR.              &
+            & itype==25 .OR. itype==26 .OR. itype==27 .OR. itype==28 .OR. itype==29 .OR. itype==30 .OR. itype==31 .OR.              &
+            & itype==32 .OR. itype==33 .OR. itype==35 .OR. itype==36 .OR. itype==37 .OR. itype==38 ) GOTO 340
+         IF ( itype==3 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==6 ) THEN
+         IF ( itype==6 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==9 ) THEN
+         IF ( itype==9 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==16 ) THEN
+         IF ( itype==16 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==17 ) THEN
+         IF ( itype==17 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==18 ) THEN
+         IF ( itype==18 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==19 ) THEN
+         IF ( itype==19 ) THEN
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype==34 ) THEN
+         IF ( itype==34 ) THEN
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1018,7 +1003,7 @@ USE ISO_FORTRAN_ENV
 !       IZ(ISETNO) = 5,12,1,2,3,4,-15,18,81,82,90,92,98,-100 = IZ(NSET)
 !
          IF ( .NOT.(all) ) THEN
-            IF ( Nonlst/=-1 ) THEN
+            IF ( nonlst/=-1 ) THEN
                ielid = iecpt(1)
                i = iset
                SPAG_Loop_1_10: DO WHILE ( i<=nset )
@@ -1039,9 +1024,9 @@ USE ISO_FORTRAN_ENV
                   ENDIF
                   IF ( iz(i)<=0 ) THEN
                      all = .TRUE.
-                     Llllll(1) = iz(istset)
-                     Llllll(2) = iz(i)
-                     CALL mesage(30,92,Llllll)
+                     llllll(1) = iz(istset)
+                     llllll(2) = iz(i)
+                     CALL mesage(30,92,llllll)
                      spag_nextblock_1 = 22
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
@@ -1052,27 +1037,27 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 22
       CASE (22)
-         outfil = Estnl
+         outfil = estnl
          nnlel = nnlel + 1
          spag_nextblock_1 = 23
          CYCLE SPAG_DispatchLoop_1
- 340     outfil = Estl
+ 340     outfil = estl
          nlel = nlel + 1
          spag_nextblock_1 = 23
       CASE (23)
-         CALL write(outfil,Xecpt,nwds,Neor)
+         CALL write(outfil,xecpt,nwds,neor)
          spag_nextblock_1 = 20
          CYCLE SPAG_DispatchLoop_1
- 360     CALL write(Estl,0,0,Eor)
-         CALL write(Estnl,0,0,Eor)
+ 360     CALL write(estl,0,0,eor)
+         CALL write(estnl,0,0,eor)
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
 !
 !     WRAP UP ROUTINE
 !
- 380     CALL close(est,Clsrw)
-         CALL close(Estl,Clsrw)
-         CALL close(Estnl,Clsrw)
+ 380     CALL close(est,clsrw)
+         CALL close(estl,clsrw)
+         CALL close(estnl,clsrw)
          CALL wrttrl(estltr)
          CALL wrttrl(estnlt)
          spag_nextblock_1 = 24
@@ -1086,14 +1071,14 @@ USE ISO_FORTRAN_ENV
  440     CALL mesage(-3,file,name)
          spag_nextblock_1 = 25
       CASE (25)
-         CALL mesage(-30,87,Itype)
+         CALL mesage(-30,87,itype)
 !
 !     UNABLE TO FIND PLFACT CARD IN THE MPT WHICH WAS CHOSEN BY THE USER
 !     IN CASECC.
 !
- 460     Trail(1) = hmpt
-         Trail(2) = name(1)
-         CALL mesage(-32,Plaset,Trail)
+ 460     trail(1) = hmpt
+         trail(2) = name(1)
+         CALL mesage(-32,plaset,trail)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

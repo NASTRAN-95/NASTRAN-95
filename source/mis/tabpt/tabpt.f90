@@ -1,9 +1,10 @@
-!*==tabpt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tabpt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tabpt
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -25,8 +26,8 @@ SUBROUTINE tabpt
       CALL rdtrl(itrl(1))
       IF ( itrl(1)>0 ) CALL tabprt(in(i))
    ENDDO
-   Op(1) = blank
-   Op(2) = blank
-   Irc = 0
-   Iwd = 0
+   op(1) = blank
+   op(2) = blank
+   irc = 0
+   iwd = 0
 END SUBROUTINE tabpt

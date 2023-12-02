@@ -1,11 +1,12 @@
-!*==trd1a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trd1a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -62,16 +63,16 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
 !
 !     INITIALIZE
 !
-         It1 = 1
-         It2 = 1
-         Ii = 1
-         Incr = 1
-         nz = korsz(Z)
+         it1 = 1
+         it2 = 1
+         ii = 1
+         incr = 1
+         nz = korsz(z)
          nx = nz
 !
 !     PICK UP AND STORE CASECC POINTERS
 !
-         ibuf1 = nz - Sysbuf + 1
+         ibuf1 = nz - sysbuf + 1
          CALL gopen(Casexx,iz(ibuf1),0)
          CALL fread(Casexx,iz,166,1)
          CALL close(Casexx,1)
@@ -82,14 +83,13 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
             ip1 = -51
             file = icp
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     BUILD INITIAL CONDITION FILE
 !
             CALL gopen(Ic,iz(ibuf1),1)
-            ibuf2 = ibuf1 - Sysbuf
-            nz = nz - 2*Sysbuf
+            ibuf2 = ibuf1 - sysbuf
+            nz = nz - 2*sysbuf
             icrq = -nz
             IF ( icrq<=0 ) THEN
                file = Trl
@@ -98,10 +98,10 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
                icrq = nz
             ENDIF
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      lud = iz(iflag)
-         Jj = lud
+         jj = lud
          icrq = 2*lud - nz
          IF ( icrq>0 ) THEN
             spag_nextblock_1 = 5
@@ -116,9 +116,9 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
          idisp = ivel - lud
          DO i = 1 , lud
             k = ivel + i
-            Z(k) = 0.0
+            z(k) = 0.0
             k = idisp + i
-            Z(k) = 0.0
+            z(k) = 0.0
          ENDDO
          CALL makmcb(mcb,Ic,lud,2,1)
          IF ( icp==0 ) GOTO 40
@@ -141,12 +141,12 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
             CALL read(*100,*40,Trl,iz(1),3,0,iflag)
             k = iz(1) + idisp
             i2 = 2
-            Z(k) = Z(k) + Z(i2)
+            z(k) = z(k) + z(i2)
             k = iz(1) + ivel
-            Z(k) = Z(k) + Z(i2+1)
+            z(k) = z(k) + z(i2+1)
          ENDDO
- 40      CALL pack(Z(idisp+1),Ic,mcb)
-         CALL pack(Z(ivel+1),Ic,mcb)
+ 40      CALL pack(z(idisp+1),Ic,mcb)
+         CALL pack(z(ivel+1),Ic,mcb)
          CALL close(Ic,1)
          CALL wrttrl(mcb)
          CALL skprec(Trl,l)
@@ -196,7 +196,6 @@ SUBROUTINE trd1a(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE trd1a

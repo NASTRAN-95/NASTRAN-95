@@ -1,14 +1,15 @@
-!*==ttrapr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ttrapr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ttrapr(Ti,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -85,20 +86,20 @@ SUBROUTINE ttrapr(Ti,Pg)
    ics(2) = iecpt(12)
    ics(3) = iecpt(16)
    ics(4) = iecpt(20)
-   r(1) = Ecpt(9)
-   d(1) = Ecpt(10)
-   z(1) = Ecpt(11)
-   r(2) = Ecpt(13)
-   d(2) = Ecpt(14)
-   z(2) = Ecpt(15)
-   r(3) = Ecpt(17)
-   d(3) = Ecpt(18)
-   z(3) = Ecpt(19)
-   r(4) = Ecpt(21)
-   d(4) = Ecpt(22)
-   z(4) = Ecpt(23)
-   tempe = Ecpt(24)
-   dgama = Ecpt(6)
+   r(1) = ecpt(9)
+   d(1) = ecpt(10)
+   z(1) = ecpt(11)
+   r(2) = ecpt(13)
+   d(2) = ecpt(14)
+   z(2) = ecpt(15)
+   r(3) = ecpt(17)
+   d(3) = ecpt(18)
+   z(3) = ecpt(19)
+   r(4) = ecpt(21)
+   d(4) = ecpt(22)
+   z(4) = ecpt(23)
+   tempe = ecpt(24)
+   dgama = ecpt(6)
 !
 !     TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
@@ -121,7 +122,7 @@ SUBROUTINE ttrapr(Ti,Pg)
 !
 !     RATIO OF RADII IS TOO LARGE FOR GAUSS QUADRATURE FOR IP=-1
 !
-         WRITE (Iout,99001) Ufm , idel
+         WRITE (iout,99001) ufm , idel
 99001    FORMAT (A23,', TRAPRG ELEMENT',I9,' HAS A MAXIMUM TO MINIMUM ','RADIUS RATIO EXCEEDING 10.'/5X,'ACCURACY OF NUMERICAL ',   &
                 &'INTEGRATION WOULD BE IN DOUBT.')
          CALL mesage(-61,0,0)
@@ -165,21 +166,21 @@ SUBROUTINE ttrapr(Ti,Pg)
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
    CALL mat(idel)
 !
 !     SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-   er = E(1)
-   et = E(2)
-   ez = E(3)
-   vrt = Anu(1)
-   vtz = Anu(2)
-   vzr = Anu(3)
-   grz = G(3)
-   tz = Tzero
+   er = e(1)
+   et = e(2)
+   ez = e(3)
+   vrt = anu(1)
+   vtz = anu(2)
+   vzr = anu(3)
+   grz = g(3)
+   tz = tzero
    vtr = vrt*et/er
    vzt = vtz*ez/et
    vrz = vzr*er/ez
@@ -236,7 +237,7 @@ SUBROUTINE ttrapr(Ti,Pg)
 !     COMPUTE THE THERMAL STRAIN VECTOR
 !
    DO i = 1 , 3
-      alfb(i) = Alf(i)
+      alfb(i) = alf(i)
    ENDDO
    alfb(4) = 0.0
 !
@@ -349,7 +350,7 @@ SUBROUTINE ttrapr(Ti,Pg)
 !     FORM THE TEMPERATURE VECTOR
 !
    DO i = 1 , 4
-      Ti(i) = Ti(i) - Tzero
+      Ti(i) = Ti(i) - tzero
    ENDDO
 !
 !     COMPUTE THE THERMAL LOAD IN FIELD COORDINATES
@@ -387,7 +388,7 @@ SUBROUTINE ttrapr(Ti,Pg)
       gambl(i) = 0.0
    ENDDO
    DO i = 1 , 4
-      CALL gbtran(ics(i),Ecpt(4*i+4),d(1))
+      CALL gbtran(ics(i),ecpt(4*i+4),d(1))
       k = 39*(i-1) + 1
       DO j = 1 , 3
          kk = k + 12*(j-1)

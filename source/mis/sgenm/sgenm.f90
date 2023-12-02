@@ -1,13 +1,14 @@
-!*==sgenm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sgenm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
+   USE c_blank
+   USE c_sgencm
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SGENCM
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -55,9 +56,9 @@ SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
 !
 !     OPEN FILES
 !
-         CALL gopen(Ifile,Z(Buf1),0)
-         CALL gopen(Sfile,Z(Buf2),0)
-         CALL gopen(Ofile,Z(Buf3),1)
+         CALL gopen(Ifile,z(buf1),0)
+         CALL gopen(Sfile,z(buf2),0)
+         CALL gopen(Ofile,z(buf3),1)
 !
 !     READ HEADER FROM IFILE - DETERMINE IF SUBSTRUCTURING OR NASTRAN
 !     CARD
@@ -83,9 +84,9 @@ SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
 !     FATAL ERROR IF BOTH SUBSTRUCTURING AND NASTRAN CARDS
 !
                   IF ( Icode(4,i)==0 ) EXIT SPAG_Loop_2_2
-                  Nono = 1
+                  nono = 1
                   j = Ocode(4,i)
-                  WRITE (Outt,99001) Ufm , Name , (Ctypes(k,j),k=1,2) , (Ctypeo(k,j),k=1,2)
+                  WRITE (outt,99001) ufm , name , (Ctypes(k,j),k=1,2) , (Ctypeo(k,j),k=1,2)
 !
 99001             FORMAT (A23,' 6330, SOLUTION SUBSTRUCTURE ',2A4,3H - ,2A4,' AND ',2A4,' CARDS CANNOT BE USED TOGETHER.',/30X,     &
                          &'USE EITHER ONE, BUT NOT BOTH.')
@@ -98,11 +99,11 @@ SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
 !
             CALL write(Ofile,card,3,0)
             DO
-               CALL read(*80,*20,Ifile,Z,Nz,0,nwds)
-               CALL write(Ofile,Z,Nz,0)
+               CALL read(*80,*20,Ifile,z,nz,0,nwds)
+               CALL write(Ofile,z,nz,0)
             ENDDO
          ENDDO SPAG_Loop_1_1
- 20      CALL write(Ofile,Z,nwds,1)
+ 20      CALL write(Ofile,z,nwds,1)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -130,10 +131,10 @@ SUBROUTINE sgenm(Ntype,Ifile,Sfile,Ofile,Icode,Ocode,Ctypes,Ctypeo)
          CALL write(Ofile,Ocode(1,i),3,0)
          file = Sfile
          DO
-            CALL read(*80,*60,Sfile,Z,Nz,0,nwds)
-            CALL write(Ofile,Z,Nz,0)
+            CALL read(*80,*60,Sfile,z,nz,0,nwds)
+            CALL write(Ofile,z,nz,0)
          ENDDO
- 60      CALL write(Ofile,Z,nwds,1)
+ 60      CALL write(Ofile,z,nwds,1)
          i1 = i + 1
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1

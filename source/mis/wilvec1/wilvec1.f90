@@ -1,15 +1,16 @@
-!*==wilvec1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==wilvec1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
+   USE c_givn
+   USE c_mgivxx
+   USE c_packx
+   USE c_reigkr
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_GIVN
-   USE C_MGIVXX
-   USE C_PACKX
-   USE C_REIGKR
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -78,10 +79,10 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
          sftinv = 1.0 + 0/sft
          vmult = 1.0 - 02
          nz = korsz(Svec)
-         ibuf1 = nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
          im = 1
-         CALL makmcb(mcb1,phia,n,2,Iprec)
+         CALL makmcb(mcb1,phia,n,2,iprec)
          im1 = 2
          nz = ibuf2 - 1
          path = 0
@@ -90,7 +91,7 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
          nm1 = n - 1
          nm2 = n - 2
          nver = 0
-         V2 = nrigid
+         v2 = nrigid
 !
 !     REARRANGE EIGENVALUES AND EXTRACTION ORDER FOR MULTIPLE ROOTS
 !     TO GUARANTEE THAT THEY ARE IN SUBMATRIX ORDER FOR PURPOSES
@@ -114,7 +115,6 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
          ENDIF
          IF ( iclos==0 ) iclos = i
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          DO i1 = iclos , i
             min = Vloc(i1)
@@ -156,32 +156,31 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     START LOOP FOR CORE LOADS OF VECTORS
 !
          CALL klock(ist)
-         v1 = V2 + 1
-         V2 = V2 + nv1
+         v1 = v2 + 1
+         v2 = v2 + nv1
          mul2 = mul3
          mulp2 = 0
          mul3 = 0
-         IF ( nv<V2 ) THEN
-            V2 = nv
-         ELSEIF ( nv/=V2 ) THEN
+         IF ( nv<v2 ) THEN
+            v2 = nv
+         ELSEIF ( nv/=v2 ) THEN
 !
 !     SEARCH FOR MULTIPLICITIES OF EIGENVALUES V2 AND V2+1.
 !
-            vv = V2
+            vv = v2
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
-         IF ( abs(Val(V2))+abs(Val(V2+1))>=rmult ) THEN
-            IF ( abs(one-Val(V2)/Val(V2+1))>rmult ) THEN
+         IF ( abs(Val(v2))+abs(Val(v2+1))>=rmult ) THEN
+            IF ( abs(one-Val(v2)/Val(v2+1))>rmult ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         l1 = Vloc(V2)
-         l2 = Vloc(V2+1)
+         l1 = Vloc(v2)
+         l2 = Vloc(v2+1)
          n1 = min0(l1,l2)
          n2 = max0(l1,l2) - 1
          DO k = n1 , n2
@@ -190,12 +189,12 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         V2 = V2 - 1
-         IF ( V2+6>n1 .AND. V2>v1 ) THEN
+         v2 = v2 - 1
+         IF ( v2+6>n1 .AND. v2>v1 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         V2 = vv
+         v2 = vv
          mul3 = 1
          spag_nextblock_1 = 8
       CASE (8)
@@ -204,7 +203,7 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !
          n1 = 0
          n2 = 0
-         nv2 = V2 - v1 + 1
+         nv2 = v2 - v1 + 1
          DO vv = 1 , nv2
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
@@ -216,7 +215,7 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     FOR MGIV METHOD, USE ORIGINAL LAMBDA COMPUTED BY QRITER
 !     IN EIGENVECTOR COMPUTATIONS
 !
-                  IF ( Ioptn==mgiv ) value = 1.0/(value+Dlmdas)
+                  IF ( ioptn==mgiv ) value = 1.0/(value+dlmdas)
                   loc = Vloc(vector)
                   IF ( loc<n1 .OR. loc>n2 ) THEN
 !
@@ -241,7 +240,6 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
                      n2 = n
                   ENDIF
                   spag_nextblock_2 = 3
-                  CYCLE SPAG_DispatchLoop_2
                CASE (2)
                   n2 = k
                   spag_nextblock_2 = 3
@@ -372,7 +370,7 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     CHECK MULTIPLICITY OF THE NEXT EIGENVALUE IF IT IS IN THE SAME
 !     SUBMATRIX AS THIS ONE.
 !
-                  IF ( vector/=V2 ) THEN
+                  IF ( vector/=v2 ) THEN
 !
 !     FOR MGIV METHOD, USE ADJUSTED LAMBDA COMING OUT OF QRITER
 !     IN THE FOLLOWING CHECKS
@@ -395,13 +393,13 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
                         DO kkk = n1 , n2
                            V(kkk) = one
                         ENDDO
-                        DO Jjj = mul1 , mulp3
+                        DO jjj = mul1 , mulp3
                            z = zero
                            DO kk = n1 , n2
-                              DO Ii = n1 , n2
-                                 z = z + Vec(Ii,Jjj)*V(Ii)
+                              DO ii = n1 , n2
+                                 z = z + Vec(ii,jjj)*V(ii)
                               ENDDO
-                              V(kk) = V(kk) - z*Vec(kk,Jjj)
+                              V(kk) = V(kk) - z*Vec(kk,jjj)
                            ENDDO
                         ENDDO
                         CYCLE
@@ -454,28 +452,28 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     CORE IS NOW FULL OF EIGENVECTORS OF THE TRIDIAGONAL MATRIX.
 !     CONVERT THEM TO EIGENVECTORS OF THE ORIGINAL MATRIX.
 !
-         It1 = Iprec
-         It2 = Iprec
-         Jj = n
-         Incr = 1
+         it1 = iprec
+         it2 = iprec
+         jj = n
+         incr = 1
 !
 !     IS THE ORIGINAL MATRIX A 2X2
 !
          IF ( nm2/=0 ) THEN
-            mt = Mt1
-            IF ( path==0 ) mt = Mo
+            mt = mt1
+            IF ( path==0 ) mt = mo
             CALL gopen(mt,Svec(ibuf1),im2)
-            IF ( path==0 .AND. V2/=nv ) CALL gopen(Mt1,Svec(ibuf2),1)
-            It3 = Iprec
-            Jjj = n
-            Incr1 = 1
+            IF ( path==0 .AND. v2/=nv ) CALL gopen(mt1,Svec(ibuf2),1)
+            it3 = iprec
+            jjj = n
+            incr1 = 1
             DO m = 1 , nm2
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
                   CASE (1)
                      l1 = n - m
-                     Iii = l1 + 1
+                     iii = l1 + 1
                      IF ( path==0 ) CALL bckrec(mt)
                      CALL unpack(*4,mt,P)
                      spag_nextblock_3 = 2
@@ -485,9 +483,9 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
                      ENDDO
                      spag_nextblock_3 = 2
                   CASE (2)
-                     IF ( path==0 .AND. V2/=nv ) THEN
-                        Ii = l1 + 1
-                        CALL pack(P,Mt1,mcb)
+                     IF ( path==0 .AND. v2/=nv ) THEN
+                        ii = l1 + 1
+                        CALL pack(P,mt1,mcb)
                      ENDIF
                      IF ( path==0 ) CALL bckrec(mt)
                      DO k = 1 , m
@@ -510,11 +508,11 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
             ENDDO
             CALL close(mt,1)
             IF ( path==0 ) THEN
-               IF ( V2/=nv ) WRITE (Iotpe,99001) Uim , n , nv , nv1
+               IF ( v2/=nv ) WRITE (iotpe,99001) uim , n , nv , nv1
 99001          FORMAT (A29,' 2016A, WILVEC EIGENVECTOR COMPUTATIONS.',/37X,'PROBLEM SIZE IS',I6,', NUMBER OF EIGENVECTORS TO BE ',  &
                       &'RECOVERED IS',I6,/37X,'SPILL WILL OCCUR FOR THIS ','CORE AT RECOVERY OF',I6,' EIGENVECTORS.')
                path = 1
-               CALL close(Mt1,1)
+               CALL close(mt1,1)
                im2 = 0
             ENDIF
          ENDIF
@@ -522,17 +520,17 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     WRITE THE EIGENVECTORS ONTO PHIA
 !
          CALL gopen(phia,Svec(ibuf1),im)
-         Ii = 1
-         It2 = Iprec
+         ii = 1
+         it2 = iprec
          IF ( im==1 .AND. nrigid>0 ) THEN
 !
 !     PUT OUT ZERO VECTORS FOR RIGID BODY MODES
 !
-            Jj = 1
+            jj = 1
             DO vv = 1 , nrigid
                CALL pack(zero,phia,mcb1)
             ENDDO
-            Jj = n
+            jj = n
          ENDIF
          im = 3
          IF ( n/=1 ) THEN
@@ -540,9 +538,9 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
                CALL pack(Vec(1,vv),phia,mcb1)
             ENDDO
          ENDIF
-         IF ( V2==nv ) im1 = 1
+         IF ( v2==nv ) im1 = 1
          CALL close(phia,im1)
-         Xentry = -Entry
+         xentry = -entry
 !
 !     ANY TIME LEFT TO FIND MORE
 !
@@ -553,7 +551,7 @@ SUBROUTINE wilvec1(D,O,Val,Vloc,V,F,P,Q,R,Vec,Nx,Svec)
 !     MAX TIME
 !
             iterm = 3
-         ELSEIF ( V2/=nv ) THEN
+         ELSEIF ( v2/=nv ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF

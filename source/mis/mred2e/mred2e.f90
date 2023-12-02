@@ -1,18 +1,19 @@
-!*==mred2e.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2e.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2e
-USE C_BITPOS
-USE C_BLANK
-USE C_MPYADX
-USE C_PACKX
-USE C_PARMEG
-USE C_PATX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_mpyadx
+   USE c_packx
+   USE c_parmeg
+   USE c_patx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -89,20 +90,20 @@ USE ISO_FORTRAN_ENV
 !
 !     READ LAMAMR FILE
 !
-         IF ( Dry==-2 ) RETURN
-         kore = Korbgn
+         IF ( dry==-2 ) RETURN
+         kore = korbgn
          ifile = lamamr
-         CALL gopen(lamamr,Z(Gbuf1),0)
+         CALL gopen(lamamr,z(gbuf1),0)
          CALL fwdrec(*80,lamamr)
          iter = 0
          DO
-            CALL read(*60,*20,lamamr,Z(Korbgn),7,0,nwds)
+            CALL read(*60,*20,lamamr,z(korbgn),7,0,nwds)
 !
 !     REJECT MODES WITH NO ASSOCIATED VECTORS
 !
-            IF ( rz(Korbgn+5)>0.0 ) THEN
-               Korbgn = Korbgn + 7
-               IF ( Korbgn>=Korlen ) THEN
+            IF ( rz(korbgn+5)>0.0 ) THEN
+               korbgn = korbgn + 7
+               IF ( korbgn>=korlen ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -114,44 +115,44 @@ USE ISO_FORTRAN_ENV
 !     ZERO OUT PARTITIONING VECTOR AND SET UP MODE USE DESCRIPTION
 !     RECORD
 !
-         modext = Korbgn
+         modext = korbgn
          itrlr(1) = phiss
          CALL rdtrl(itrlr)
          itphis = itrlr(2)
          nrows = itrlr(3)
-         IF ( (3*itphis)+modext>=Korlen ) THEN
+         IF ( (3*itphis)+modext>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          lamlen = 7*itphis
-         nnmax = min0(Nmax,itphis)
-         Moduse = modext + itphis
+         nnmax = min0(nmax,itphis)
+         moduse = modext + itphis
          ipartn = modext + 2*itphis
-         Modlen = itphis
+         modlen = itphis
          DO i = 1 , itphis
-            Z(modext+i-1) = 0
-            Z(Moduse+i-1) = 3
+            z(modext+i-1) = 0
+            z(moduse+i-1) = 3
             rz(ipartn+i-1) = 0.0
          ENDDO
 !
 !     SELECT DESIRED MODES
 !
-         Korbgn = modext + 3*itphis
-         IF ( Korbgn>=Korlen ) THEN
+         korbgn = modext + 3*itphis
+         IF ( korbgn>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Nfound = 0
+         nfound = 0
          DO i = 1 , itphis
             j = 4 + 7*(i-1)
-            IF ( rz(kore+j)>Range(1) .AND. rz(kore+j)<Range(2) ) THEN
+            IF ( rz(kore+j)>range(1) .AND. rz(kore+j)<range(2) ) THEN
 !
 !     REMOVE MODES WITH NEGATIVE EIGENVALUES
 !
                IF ( rz(kore+j-2)>=0.0 ) THEN
-                  Z(modext+Nfound) = i
-                  Nfound = Nfound + 1
-                  Z(Moduse+i-1) = 1
+                  z(modext+nfound) = i
+                  nfound = nfound + 1
+                  z(moduse+i-1) = 1
                   rz(ipartn+i-1) = 1.0
                ENDIF
             ENDIF
@@ -159,14 +160,14 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK OUT PARTITIONING VECTOR
 !
-         Typin = 1
-         Typep = 1
-         Irowp = 1
-         Nrowp = itrlr(2)
-         Incrp = 1
+         typin = 1
+         typep = 1
+         irowp = 1
+         nrowp = itrlr(2)
+         incrp = 1
          iform = 2
-         CALL makmcb(itrlr,pprtn,Nrowp,iform,Typin)
-         CALL gopen(pprtn,Z(Gbuf1),1)
+         CALL makmcb(itrlr,pprtn,nrowp,iform,typin)
+         CALL gopen(pprtn,z(gbuf1),1)
          CALL pack(rz(ipartn),pprtn,itrlr)
          CALL close(pprtn,1)
          CALL wrttrl(itrlr)
@@ -179,18 +180,18 @@ USE ISO_FORTRAN_ENV
 !        *       *   *   .       *
 !        **     **   **         **
 !
-         Nsub(1) = itphis - Nfound
-         Nsub(2) = Nfound
-         Nsub(3) = 0
-         Lcore = Korlen - Korbgn
-         icore = Lcore
+         nsub(1) = itphis - nfound
+         nsub(2) = nfound
+         nsub(3) = 0
+         lcore = korlen - korbgn
+         icore = lcore
 !
 !     TEST FOR ALL MODES
 !
-         IF ( Nsub(1)==0 ) THEN
+         IF ( nsub(1)==0 ) THEN
             phiam = phiss
          ELSE
-            phiam = Iscr(8)
+            phiam = iscr(8)
 !
 !     PARTITION PHIAM MATRIX
 !
@@ -204,40 +205,40 @@ USE ISO_FORTRAN_ENV
 !                    *       *
 !                    **     **
 !
-            CALL gmprtn(phiss,0,0,phiam,0,pprtn,0,Nsub(1),Nsub(2),Z(Korbgn),icore)
+            CALL gmprtn(phiss,0,0,phiam,0,pprtn,0,nsub(1),nsub(2),z(korbgn),icore)
          ENDIF
 !
 !     CALCULATE THE VECTOR MAGNITUDE
 !
-         IF ( Korbgn+nrows>=Korlen ) THEN
+         IF ( korbgn+nrows>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(phiam,Z(Gbuf1),0)
-         Typeu = 1
-         Irowu = 1
-         Nrowu = nrows
-         Incru = 1
-         DO i = 1 , Nfound
+         CALL gopen(phiam,z(gbuf1),0)
+         typeu = 1
+         irowu = 1
+         nrowu = nrows
+         incru = 1
+         DO i = 1 , nfound
             l = ipartn + i - 1
             rz(l) = 0.0
-            CALL unpack(*40,phiam,rz(Korbgn))
+            CALL unpack(*40,phiam,rz(korbgn))
             DO j = 1 , nrows
-               k = Korbgn + j - 1
+               k = korbgn + j - 1
                rz(l) = rz(l) + rz(k)**2
             ENDDO
  40      ENDDO
          CALL close(phiam,1)
-         Fuset = usetmr
-         CALL calcv(pprtn,Un,Ui,Ub,Z(Korbgn))
+         fuset = usetmr
+         CALL calcv(pprtn,un,ui,ub,z(korbgn))
 !
 !     TEST FOR NULL B SET
 !
          itrlr(1) = pprtn
          CALL rdtrl(itrlr)
          IF ( itrlr(6)>0 ) THEN
-            phiim = Iscr(7)
-            CALL gmprtn(phiam,phiim,phibm,0,0,0,pprtn,Nsub(1),Nsub(2),Z(Korbgn),icore)
+            phiim = iscr(7)
+            CALL gmprtn(phiam,phiim,phibm,0,0,0,pprtn,nsub(1),nsub(2),z(korbgn),icore)
             jhim = 0
 !
 !     COMPUTE MODAL TRANSFORMATION MATRIX
@@ -248,87 +249,87 @@ USE ISO_FORTRAN_ENV
 !        *     *   *       *   *     * *       *
 !        **   **   **     **   **   ** **     **
 !
-            CALL mtrxi(gib,Oldnam,item,0,itest)
+            CALL mtrxi(gib,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL softrl(Oldnam,item,itrlr)
+            CALL softrl(oldnam,item,itrlr)
             itest = itrlr(1)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             DO i = 1 , 7
-               Itrlra(i) = itrlr(i)
-               Itrlrb(i) = Ia21(i)
-               Itrlrc(i) = Ia11(i)
+               itrlra(i) = itrlr(i)
+               itrlrb(i) = ia21(i)
+               itrlrc(i) = ia11(i)
             ENDDO
-            Itrlra(1) = gib
-            himscr = Iscr(4)
+            itrlra(1) = gib
+            himscr = iscr(4)
             iform = 2
             iprc = 1
             ityp = 0
-            IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-            IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-            IF ( Itrlrc(5)==2 .OR. Itrlrc(5)==4 ) iprc = 2
-            IF ( Itrlra(5)>=3 ) ityp = 2
-            IF ( Itrlrb(5)>=3 ) ityp = 2
-            IF ( Itrlrc(5)>=3 ) ityp = 2
+            IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+            IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+            IF ( itrlrc(5)==2 .OR. itrlrc(5)==4 ) iprc = 2
+            IF ( itrlra(5)>=3 ) ityp = 2
+            IF ( itrlrb(5)>=3 ) ityp = 2
+            IF ( itrlrc(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Itrlrd,himscr,itrlr(3),iform,itype)
+            CALL makmcb(itrlrd,himscr,itrlr(3),iform,itype)
             CALL sofcls
-            T = 0
-            Signab = -1
-            Signc = 1
-            Prec = 0
-            Scr = Iscr(6)
-            dblkor = Korbgn/2 + 1
-            Nz = Lstzwd - ((2*dblkor)-1)
+            t = 0
+            signab = -1
+            signc = 1
+            prec = 0
+            scr = iscr(6)
+            dblkor = korbgn/2 + 1
+            nz = lstzwd - ((2*dblkor)-1)
             CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-            CALL wrttrl(Itrlrd)
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-            i = Itrlrd(2)
-            ii = Itrlrd(3)
-            iform = Itrlrd(4)
-            himtyp = Itrlrd(5)
+            CALL wrttrl(itrlrd)
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+            i = itrlrd(2)
+            ii = itrlrd(3)
+            iform = itrlrd(4)
+            himtyp = itrlrd(5)
          ELSE
             phiim = phiam
-            Ia11(1) = phiam
-            CALL rdtrl(Ia11)
+            ia11(1) = phiam
+            CALL rdtrl(ia11)
             DO i = 1 , 7
-               Ia21(i) = 0
+               ia21(i) = 0
             ENDDO
 !
 !     PHIBM IS NULL, HIM = PHIIM
 !
             himscr = phiim
-            i = Ia11(2)
-            ii = Ia11(3)
-            iform = Ia11(4)
-            himtyp = Ia11(5)
+            i = ia11(2)
+            ii = ia11(3)
+            iform = ia11(4)
+            himtyp = ia11(5)
             jhim = 1
          ENDIF
 !
 !     TEST SELECTED MODES
 !
          ncore = i
-         IF ( Korbgn+ncore>=Korlen ) THEN
+         IF ( korbgn+ncore>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Typin = himtyp
-         Typep = himtyp
-         Irowp = 1
-         Nrowp = ii
-         Incrp = 1
-         Irowu = 1
-         CALL gopen(himscr,Z(Gbuf1),0)
+         typin = himtyp
+         typep = himtyp
+         irowp = 1
+         nrowp = ii
+         incrp = 1
+         irowu = 1
+         CALL gopen(himscr,z(gbuf1),0)
          CALL makmcb(itrlr,him,ii,iform,himtyp)
-         CALL gopen(him,Z(Gbuf3),1)
-         Nfound = 0
+         CALL gopen(him,z(gbuf3),1)
+         nfound = 0
          iter = i
-         dblkor = Korbgn/2 + 1
+         dblkor = korbgn/2 + 1
          sglkor = 2*dblkor - 1
          IF ( himtyp==1 ) dicore = (sglkor+ii)/2 + 1
          IF ( himtyp==2 ) dicore = dblkor + ii
@@ -344,11 +345,11 @@ USE ISO_FORTRAN_ENV
 !
 !     LIMIT VECTORS TO NMAX
 !
-                  IF ( Nfound<nnmax ) THEN
-                     Typeu = himtyp
-                     Incru = 1
-                     Nrowu = ii
-                     ihim = Nrowu
+                  IF ( nfound<nnmax ) THEN
+                     typeu = himtyp
+                     incru = 1
+                     nrowu = ii
+                     ihim = nrowu
                      CALL unpack(*42,himscr,dz(dblkor))
 !
 !     SAVE LARGEST HIM COLUMN VALUE AND CALCULATE MAGNITUDE OF HIM,
@@ -385,21 +386,20 @@ USE ISO_FORTRAN_ENV
                         ENDIF
                      ENDIF
                   ELSE
-                     j = Z(modext+i-1) + Moduse - 1
-                     Z(j) = 3
+                     j = z(modext+i-1) + moduse - 1
+                     z(j) = 3
                      CYCLE
                   ENDIF
 !
 !     REJECT MODE
 !
- 42               j = Z(modext+i-1)
-                  Z(Moduse+j-1) = 2
-                  CYCLE
+ 42               j = z(modext+i-1)
+                  z(moduse+j-1) = 2
                CASE (2)
 !
 !     USE MODE
 !
-                  Nfound = Nfound + 1
+                  nfound = nfound + 1
 !
 !     SCALE HIM COLUMN
 !
@@ -415,7 +415,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK HIM COLUMN
 !
-                  Nrowp = Nrowu
+                  nrowp = nrowu
                   CALL pack(dz(dblkor),him,itrlr)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -425,18 +425,18 @@ USE ISO_FORTRAN_ENV
          IF ( jhim==0 ) CALL close(phiim,1)
          CALL close(himscr,1)
          CALL wrttrl(itrlr)
-         Korbgn = kore
+         korbgn = kore
          IF ( jhim==1 ) himscr = iscr4
 !
 !     TEST NUMBER OF MODAL POINTS
 !
          modal = itrlr(2)
-         IF ( Frebdy ) modal = modal + fbmods
+         IF ( frebdy ) modal = modal + fbmods
          IF ( modal>itrlr(3) ) THEN
-            WRITE (Iprntr,99001) Ufm , Oldnam , modal , itrlr(3)
+            WRITE (iprntr,99001) ufm , oldnam , modal , itrlr(3)
 99001       FORMAT (A23,' 6633, FOR SUBSTRUCTURE ',2A4,' THE TOTAL NUMBER OF',' MODAL COORDINATES (',I8,1H),/30X,                   &
                    &'IS LARGER THAN THE NUMBER OF INTERNAL DOF (',I8,2H).)
-            Dry = -2
+            dry = -2
          ENDIF
          RETURN
 !
@@ -447,7 +447,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  80      imsg = -3
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          imsg = -8
          ifile = 0
@@ -475,11 +474,11 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          RETURN
       CASE (5)
-         CALL smsg1(imsg,item,Oldnam,modnam)
-         Dry = -2
+         CALL smsg1(imsg,item,oldnam,modnam)
+         dry = -2
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

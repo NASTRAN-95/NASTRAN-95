@@ -1,14 +1,15 @@
-!*==mred2b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2b
-USE C_BLANK
-USE C_FBSX
-USE C_SFACT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_fbsx
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -61,13 +62,13 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FOR GUYAN REDUCTION
 !
-         IF ( Dry==-2 ) RETURN
-         IF ( Bounds ) THEN
+         IF ( dry==-2 ) RETURN
+         IF ( bounds ) THEN
             itrlr(1) = dmr
             CALL rdtrl(itrlr)
             IF ( itrlr(1)<0 ) RETURN
             item = itmlst(1)
-            CALL softrl(Oldnam,item,itrlr)
+            CALL softrl(oldnam,item,itrlr)
             IF ( itrlr(1)==1 ) RETURN
          ENDIF
 !
@@ -81,32 +82,32 @@ USE ISO_FORTRAN_ENV
 !        **   **   **   ** **   **
 !
          CALL sofcls
-         Kiit(1) = kii
-         CALL rdtrl(Kiit)
-         CALL makmcb(Liit,lii,Kiit(3),lower,Kiit(5))
-         Iscrq(1) = Iscr(6)
-         Iscra = Iscr(7)
-         Iscrb = Iscr(8)
-         Iscrc = Iscr(9)
-         Power = 1
-         Chlsky = 0
-         dblkor = 1 + Korbgn/2
-         Nzsf = Lstzwd - 2*dblkor - 1
+         kiit(1) = kii
+         CALL rdtrl(kiit)
+         CALL makmcb(liit,lii,kiit(3),lower,kiit(5))
+         iscrq(1) = iscr(6)
+         iscra = iscr(7)
+         iscrb = iscr(8)
+         iscrc = iscr(9)
+         power = 1
+         chlsky = 0
+         dblkor = 1 + korbgn/2
+         nzsf = lstzwd - 2*dblkor - 1
          CALL sdcomp(*20,dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Liit)
+         CALL wrttrl(liit)
 !
 !     SAVE LII AS LMTX ON SOF
 !
-         IF ( Rsave ) THEN
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         IF ( rsave ) THEN
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
             ifile = lii
             item = itmlst(1)
-            CALL mtrxo(lii,Oldnam,item,0,itest)
+            CALL mtrxo(lii,oldnam,item,0,itest)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( Bounds ) RETURN
+            IF ( bounds ) RETURN
             CALL sofcls
          ENDIF
 !
@@ -119,28 +120,28 @@ USE ISO_FORTRAN_ENV
 !        *     * *     * *     *    *     *
 !        **   ** **   ** **   **    **   **
 !
-         IF ( Bounds ) THEN
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         IF ( bounds ) THEN
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
             RETURN
          ELSE
-            Kibt(1) = kib
-            CALL rdtrl(Kibt)
+            kibt(1) = kib
+            CALL rdtrl(kibt)
             DO i = 1 , 7
-               Liifbs(i) = Liit(i)
+               liifbs(i) = liit(i)
             ENDDO
-            CALL makmcb(Gibt,gib,Kibt(3),Kibt(4),Kibt(5))
-            Nzfbs = Lstzwd - 2*dblkor
-            Prec = Kibt(5)
-            Sign = -1
+            CALL makmcb(gibt,gib,kibt(3),kibt(4),kibt(5))
+            nzfbs = lstzwd - 2*dblkor
+            prec = kibt(5)
+            sign = -1
             CALL fbs(dz(dblkor),dz(dblkor))
-            CALL wrttrl(Gibt)
+            CALL wrttrl(gibt)
 !
 !     SAVE GIB AS GIMS ON SOF
 !
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
             ifile = gib
             item = itmlst(2)
-            CALL mtrxo(gib,Oldnam,item,0,itest)
+            CALL mtrxo(gib,oldnam,item,0,itest)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
@@ -150,7 +151,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS SYSTEM FATAL ERRORS
 !
- 20      WRITE (Iprntr,99001) Swm , Oldnam
+ 20      WRITE (iprntr,99001) swm , oldnam
 99001    FORMAT (A27,' 6311, SDCOMP DECOMPOSITION FAILED ON KII MATRIX ','FOR SUBSTRUCTURE ',2A4)
          imsg = -37
          ifile = 0
@@ -162,19 +163,19 @@ USE ISO_FORTRAN_ENV
 !
          IF ( itest==4 ) THEN
             imsg = -2
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==5 ) THEN
             imsg = -3
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==6 ) THEN
             imsg = -10
          ELSE
             imsg = -9
          ENDIF
-         Dry = -2
-         CALL smsg1(imsg,item,Oldnam,modsam)
+         dry = -2
+         CALL smsg1(imsg,item,oldnam,modsam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

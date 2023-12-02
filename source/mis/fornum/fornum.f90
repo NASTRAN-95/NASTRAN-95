@@ -1,4 +1,5 @@
-!*==fornum.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fornum.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fornum(Form,Ichar,Imult)
@@ -15,6 +16,15 @@ SUBROUTINE fornum(Form,Ichar,Imult)
    CHARACTER(1) , SAVE :: blank
    INTEGER :: ii
    CHARACTER(1) , DIMENSION(2) , SAVE :: number
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,14 +1,15 @@
-!*==adrprt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==adrprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
+   USE c_bitpos
+   USE c_output
+   USE c_system
+   USE c_two
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,13 +59,13 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
 !       LOAD VECTOR        K SIZE
 !       BUFFERS            2 * SYSBUF
 !
-   mask = Ibit(19)
-   mask = Itwo(mask)
+   mask = ibit(19)
+   mask = itwo(mask)
    DO i = 1 , 96
-      tsave(i) = Head(i)
+      tsave(i) = head(i)
    ENDDO
-   ibuf1 = Ncore - Sysbuf - 1
-   ibuf2 = ibuf1 - Sysbuf
+   ibuf1 = Ncore - sysbuf - 1
+   ibuf2 = ibuf1 - sysbuf
    izspl = Nfreq
    nr = ibuf2 - izspl
    CALL preloc(*400,z(ibuf1),Spline)
@@ -83,7 +84,7 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
 !
    ismal = 1000000
    DO i = 1 , nspl , 3
-      ismal = min0(ismal,Iz(izspl+i+1))
+      ismal = min0(ismal,iz(izspl+i+1))
    ENDDO
    ismal = ismal - 1
    trl(1) = Sila
@@ -102,7 +103,7 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
    CALL close(Sila,1)
    izuset = izsil + nwr
    nr = ibuf2 - izuset
-   nskip = Iz(izsil+1) - 1
+   nskip = iz(izsil+1) - 1
    CALL open(*400,Useta,z(ibuf1),0)
    CALL fwdrec(*400,Useta)
    CALL read(*400,*400,Useta,z(izuset+1),-nskip,0,nwr)
@@ -115,10 +116,10 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
 !     ADJUST SILA AND USET POINTERS FOR SHRUNKEN LISTS
 !
    DO i = 1 , nspl , 3
-      Iz(izspl+i+1) = Iz(izspl+i+1) - ismal
+      iz(izspl+i+1) = iz(izspl+i+1) - ismal
    ENDDO
    DO i = 1 , nsil
-      Iz(izsil+i) = Iz(izsil+i) - nskip
+      iz(izsil+i) = iz(izsil+i) - nskip
    ENDDO
    CALL bug(nhfssu,60,z,icc)
    trl(1) = Casecc
@@ -127,10 +128,10 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
    izvect = icc + lcc
    trl(1) = Pkf
    CALL rdtrl(trl)
-   Ito = 3
-   Ii = 1
-   Nn = trl(3)
-   Incr = 1
+   ito = 3
+   ii = 1
+   nn = trl(3)
+   incr = 1
    nvect = trl(3)*2
    iend = izvect + nvect
    IF ( iend>ibuf2 ) THEN
@@ -151,10 +152,10 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
             SELECT CASE (spag_nextblock_1)
             CASE (1)
                CALL read(*400,*305,Casecc,z(icc+1),lcc,1,nwr)
- 305           setno = Iz(icc+iaero)
+ 305           setno = iz(icc+iaero)
                all = 0
                DO i = 1 , 96
-                  Head(i) = z(icc+i+38)
+                  head(i) = z(icc+i+38)
                ENDDO
                IF ( setno<0 ) THEN
                   all = 1
@@ -162,11 +163,11 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  isetno = lcs + Iz(icc+lcs) + 1 + icc
+                  isetno = lcs + iz(icc+lcs) + 1 + icc
                   SPAG_Loop_2_1: DO
                      iset = isetno + 2
-                     nset = Iz(isetno+1) + iset - 1
-                     IF ( Iz(isetno)==setno ) EXIT SPAG_Loop_2_1
+                     nset = iz(isetno+1) + iset - 1
+                     IF ( iz(isetno)==setno ) EXIT SPAG_Loop_2_1
                      isetno = nset + 1
                      IF ( isetno>=izvect ) THEN
                         all = 1
@@ -179,7 +180,7 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
-                        nlppp = Nlpp
+                        nlppp = nlpp
                         CALL unpack(*306,Pkf,z(izvect+1))
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
@@ -192,28 +193,26 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
                         IF ( all==0 ) THEN
                            i = iset
                            spag_nextblock_2 = 3
-                           CYCLE SPAG_DispatchLoop_2
                         ELSE
                            ASSIGN 308 TO iret
                            l = 1
                            spag_nextblock_2 = 6
-                           CYCLE SPAG_DispatchLoop_2
                         ENDIF
+                        CYCLE
  308                    l = l + 3
                         IF ( l>=nspl ) CYCLE
                         spag_nextblock_2 = 6
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (3)
                         IF ( i==nset ) THEN
                            spag_nextblock_2 = 4
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
-                        IF ( Iz(i+1)>0 ) THEN
+                        IF ( iz(i+1)>0 ) THEN
                            spag_nextblock_2 = 4
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
-                        id = Iz(i)
-                        n = -Iz(i+1)
+                        id = iz(i)
+                        n = -iz(i+1)
                         i = i + 1
                         ASSIGN 310 TO iret1
                         spag_nextblock_2 = 5
@@ -225,32 +224,31 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
                         ENDIF
                         GOTO 312
                      CASE (4)
-                        id = Iz(i)
+                        id = iz(i)
                         ASSIGN 312 TO iret1
                         spag_nextblock_2 = 5
                         CYCLE SPAG_DispatchLoop_2
  312                    i = i + 1
                         IF ( i>nset ) CYCLE
                         spag_nextblock_2 = 3
-                        CYCLE SPAG_DispatchLoop_2
                      CASE (5)
 !
 !     LOCATE ELEMENT THEN  PRINT DATA
 !
                         ASSIGN 314 TO iret
-                        CALL bisloc(*314,id,Iz(izspl+1),3,nspl/3,l)
+                        CALL bisloc(*314,id,iz(izspl+1),3,nspl/3,l)
                         spag_nextblock_2 = 6
                      CASE (6)
-                        extid = Iz(izspl+l)
-                        ipsil = Iz(izspl+l+1)
-                        irow = Iz(izspl+l+2)*2 - 1 + izvect
-                        ipuset = Iz(izsil+ipsil) + izuset - 1
+                        extid = iz(izspl+l)
+                        ipsil = iz(izspl+l+1)
+                        irow = iz(izspl+l+2)*2 - 1 + izvect
+                        ipuset = iz(izsil+ipsil) + izuset - 1
 !
 !     PRINT
 !
-                        IF ( nlppp>=Nlpp ) THEN
+                        IF ( nlppp>=nlpp ) THEN
                            CALL page1
-                           WRITE (Out,99001) j , Freq(j)
+                           WRITE (out,99001) j , Freq(j)
 99001                      FORMAT (44X,42HAERODYNAMIC LOADS  (UNIT DYNAMIC PRESSURE),/30X,7HVECTOR ,I8,10X,12HFREQUENCY = ,1P,E14.6,&
                                   &7H  HERTZ,/,11H BOX OR    ,12X,7HT1 / R1,23X,7HT2 / R2,23X,7HT3 / R3,/,11H BODY ELMT.,           &
                                  & 3(4X,4HREAL,10X,12HIMAGINARY   ))
@@ -260,13 +258,13 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
                            mm = m*2 - 1
                            buf(mm) = 0.0
                            buf(mm+1) = 0.0
-                           IF ( andf(Iz(ipuset+m),mask)/=0 ) THEN
+                           IF ( andf(iz(ipuset+m),mask)/=0 ) THEN
                               buf(mm) = z(irow)
                               buf(mm+1) = z(irow+1)
                               irow = irow + 2
                            ENDIF
                         ENDDO
-                        WRITE (Out,99002) extid , buf
+                        WRITE (out,99002) extid , buf
 99002                   FORMAT (1H0,I10,6(1P,E15.6),/11X,6(1P,E15.6))
                         nlppp = nlppp + 3
                         GOTO iret
@@ -293,7 +291,7 @@ SUBROUTINE adrprt(Casecc,Pkf,Spline,Sila,Useta,Freq,Nfreq,Ncore,Nload)
    CALL close(Sila,1)
    CALL close(Spline,1)
    DO i = 1 , 96
-      Head(i) = tsave(i)
+      head(i) = tsave(i)
    ENDDO
    CALL page2(1)
 END SUBROUTINE adrprt

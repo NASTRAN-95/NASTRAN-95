@@ -1,15 +1,16 @@
-!*==flfree.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flfree.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flfree(Frrec,Afe,Nafe,Kge,Nkge)
-USE C_BLANK
-USE C_FLBPTR
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_flbptr
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -57,13 +58,13 @@ USE ISO_FORTRAN_ENV
 !
    grav = .FALSE.
    IF ( Frrec(7)/=0 ) THEN
-      Inflag = 11
-      Matid = Frrec(2)
+      inflag = 11
+      matid = Frrec(2)
       CALL mat(Frrec(1))
 !
-      IF ( Ngrav/=0 ) THEN
-         lgrav = Igrav + Ngrav - 1
-         DO i = Igrav , lgrav , 6
+      IF ( ngrav/=0 ) THEN
+         lgrav = igrav + ngrav - 1
+         DO i = igrav , lgrav , 6
             IF ( iz(i)==Frrec(7) ) GOTO 50
 !
          ENDDO
@@ -71,26 +72,26 @@ USE ISO_FORTRAN_ENV
 !
 !     ERROR CONDITIONS
 !
-      WRITE (Nout,99001) Ufm , Frrec(1) , Frrec(7)
+      WRITE (nout,99001) ufm , Frrec(1) , Frrec(7)
 99001 FORMAT (A23,' 8012, FLUID ELEMENT',I9,' ON A CFFREE CARD REFERENCES UNDEFINED GRAVITY ID',I9)
-      Error = .TRUE.
+      error = .TRUE.
       RETURN
 !
- 50   g = sqrt(Z(i+3)**2+Z(i+4)**2+Z(i+5)**2)
+ 50   g = sqrt(z(i+3)**2+z(i+4)**2+z(i+5)**2)
 !
 !     USING THE FIRST GRAV VECTOR DETERMING THE FREE SURFACE PLOTTING
 !     ANGLE
 !
       IF ( .NOT.(ltilt) ) THEN
-         Tilt(1) = Z(i+5)/g
-         Tilt(2) = Z(i+3)/g
+         tilt(1) = z(i+5)/g
+         tilt(2) = z(i+3)/g
          ltilt = .FALSE.
       ENDIF
 !
-      g = g*Z(i+2)
-      rhoxg = dble(Rho)*dble(g)
+      g = g*z(i+2)
+      rhoxg = dble(rho)*dble(g)
       Nkge = Nafe
-      Nograv = 1
+      nograv = 1
       grav = .TRUE.
    ENDIF
 !
@@ -116,18 +117,18 @@ USE ISO_FORTRAN_ENV
    DO it = 1 , itria
 !
       i = grid(1,it)
-      gf1 = Ibgpdt + (Frrec(i+2)-1)*4
+      gf1 = ibgpdt + (Frrec(i+2)-1)*4
       i = grid(2,it)
-      gf2 = Ibgpdt + (Frrec(i+2)-1)*4
+      gf2 = ibgpdt + (Frrec(i+2)-1)*4
       i = grid(3,it)
-      gf3 = Ibgpdt + (Frrec(i+2)-1)*4
+      gf3 = ibgpdt + (Frrec(i+2)-1)*4
 !
 !     CALCUATE AREA OF TRIAGLE
 !     DIVIDE AREA BY TWO IF OVERLAPPING TRIAGLES USED
 !
       DO i = 1 , 3
-         r12(i) = Z(gf2+i) - Z(gf1+i)
-         r13(i) = Z(gf3+i) - Z(gf1+i)
+         r12(i) = z(gf2+i) - z(gf1+i)
+         r13(i) = z(gf3+i) - z(gf1+i)
       ENDDO
 !
       CALL dcross(r12,r13,rt)
@@ -152,5 +153,4 @@ USE ISO_FORTRAN_ENV
 !
    ENDDO
 !
-   RETURN
 END SUBROUTINE flfree

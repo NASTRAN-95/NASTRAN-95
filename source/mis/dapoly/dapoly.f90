@@ -1,8 +1,9 @@
-!*==dapoly.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dapoly.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION dapoly(N,P)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Function and Dummy argument declarations rewritten by SPAG
@@ -16,6 +17,15 @@ USE ISO_FORTRAN_ENV
    INTEGER :: i , j , k1 , k2 , nn
    INTEGER , DIMENSION(2,10) :: k
    INTEGER , DIMENSION(2,10) , SAVE :: kedge
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

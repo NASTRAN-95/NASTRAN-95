@@ -1,14 +1,15 @@
-!*==mtrbsc.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mtrbsc.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mtrbsc
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -92,62 +93,62 @@ USE ISO_FORTRAN_ENV
 !
 !     SETTING UP G MATRIX
 !
-   Inflag = 2
-   Matid = Matid1
+   inflag = 2
+   matid = matid1
    CALL mat(ecpt(1))
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-   g(1) = G11
-   g(2) = G12
-   g(3) = G13
-   g(4) = G12
-   g(5) = G22
-   g(6) = G23
-   g(7) = G13
-   g(8) = G23
-   g(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     COMPUTATION OF D = I.G-MATRIX (EYE IS INPUT FROM THE ECPT)
 !
    DO i = 1 , 9
-      d(i) = g(i)*dble(Eye)
+      d(i) = g(i)*dble(eye)
    ENDDO
 !
 !     F1LL  (HBAR) MATRIX STORING AT A(100). . .A(135)
-   Xcsq = Xsubc**2
-   Ycsq = Ysubc**2
-   Xbsq = Xsubb**2
-   Xcyc = Xsubc*Ysubc
+   xcsq = xsubc**2
+   ycsq = ysubc**2
+   xbsq = xsubb**2
+   xcyc = xsubc*ysubc
 !
    DO i = 100 , 135
-      A(i) = 0.0D0
+      a(i) = 0.0D0
    ENDDO
 !
-   A(100) = Xbsq
-   A(103) = Xbsq*Xsubb
-   A(107) = Xsubb
-   A(112) = -2.0D0*Xsubb
-   A(115) = -3.0D0*Xbsq
-   A(118) = Xcsq
-   A(119) = Xcyc
-   A(120) = Ycsq
-   A(121) = Xcsq*Xsubc
-   A(122) = Ycsq*Xsubc
-   A(123) = Ycsq*Ysubc
-   A(125) = Xsubc
-   A(126) = Ysubc*2.0D0
-   A(128) = Xcyc*2.0D0
-   A(129) = Ycsq*3.0D0
-   A(130) = -2.0D0*Xsubc
-   A(131) = -Ysubc
-   A(133) = -3.0D0*Xcsq
-   A(134) = -Ycsq
+   a(100) = xbsq
+   a(103) = xbsq*xsubb
+   a(107) = xsubb
+   a(112) = -2.0D0*xsubb
+   a(115) = -3.0D0*xbsq
+   a(118) = xcsq
+   a(119) = xcyc
+   a(120) = ycsq
+   a(121) = xcsq*xsubc
+   a(122) = ycsq*xsubc
+   a(123) = ycsq*ysubc
+   a(125) = xsubc
+   a(126) = ysubc*2.0D0
+   a(128) = xcyc*2.0D0
+   a(129) = ycsq*3.0D0
+   a(130) = -2.0D0*xsubc
+   a(131) = -ysubc
+   a(133) = -3.0D0*xcsq
+   a(134) = -ycsq
 !
 !
 !     ******************************************************************
 !
-   IF ( T2/=0.0E0 ) THEN
+   IF ( t2/=0.0E0 ) THEN
 !
 !     ALL OF THE FOLLOWING OPERATIONS THROUGH STATEMENT LABEL 110
 !     ARE NECESSARY IF T2 IS NON-ZERO.
@@ -155,20 +156,20 @@ USE ISO_FORTRAN_ENV
 !
 !     GET THE G2X2 MATRIX
 !
-      Matid = Matid2
-      Inflag = 3
+      matid = matid2
+      inflag = 3
       CALL mat(ecpt(1))
-      IF ( G2x211/=0.0E0 .OR. G2x212/=0.0E0 .OR. G2x222/=0.0E0 ) THEN
-         g2x2(1) = G2x211*T2
-         g2x2(2) = G2x212*T2
+      IF ( g2x211/=0.0E0 .OR. g2x212/=0.0E0 .OR. g2x222/=0.0E0 ) THEN
+         g2x2(1) = g2x211*t2
+         g2x2(2) = g2x212*t2
          g2x2(3) = g2x2(2)
-         g2x2(4) = G2x222*T2
+         g2x2(4) = g2x222*t2
 !
-         Determ = g2x2(1)*g2x2(4) - g2x2(3)*g2x2(2)
-         j2x2(1) = g2x2(4)/Determ
-         j2x2(2) = -g2x2(2)/Determ
+         determ = g2x2(1)*g2x2(4) - g2x2(3)*g2x2(2)
+         j2x2(1) = g2x2(4)/determ
+         j2x2(2) = -g2x2(2)/determ
          j2x2(3) = j2x2(2)
-         j2x2(4) = g2x2(1)/Determ
+         j2x2(4) = g2x2(1)/determ
 !
 !
 !     (H  ) IS PARTITIONED INTO A LEFT AND RIGHT PORTION AND ONLY THE
@@ -178,12 +179,12 @@ USE ISO_FORTRAN_ENV
 !
 !
 !
-         Temp = 2.0D0*d(2) + 4.0D0*d(9)
+         temp = 2.0D0*d(2) + 4.0D0*d(9)
          hyq(1) = -6.0D0*(j2x2(1)*d(1)+j2x2(2)*d(3))
-         hyq(2) = -j2x2(1)*Temp - 6.0D0*j2x2(2)*d(6)
+         hyq(2) = -j2x2(1)*temp - 6.0D0*j2x2(2)*d(6)
          hyq(3) = -6.0D0*(j2x2(1)*d(6)+j2x2(2)*d(5))
          hyq(4) = -6.0D0*(j2x2(2)*d(1)+j2x2(4)*d(3))
-         hyq(5) = -j2x2(2)*Temp - 6.0D0*j2x2(4)*d(6)
+         hyq(5) = -j2x2(2)*temp - 6.0D0*j2x2(4)*d(6)
          hyq(6) = -6.0D0*(j2x2(2)*d(6)+j2x2(4)*d(5))
 !
 !     ADD TO 6 OF THE (HBAR) ELEMENTS THE RESULT OF (H  )(H  )
@@ -195,8 +196,8 @@ USE ISO_FORTRAN_ENV
 !     THE FOLLOWING IS THEN STEP 6 PAGE 8, FMMS-66
 !
          DO i = 1 , 3
-            A(i+102) = A(i+102) + Xsubb*hyq(i)
-            A(i+120) = A(i+120) + Xsubc*hyq(i) + Ysubc*hyq(i+3)
+            a(i+102) = a(i+102) + xsubb*hyq(i)
+            a(i+120) = a(i+120) + xsubc*hyq(i) + ysubc*hyq(i+3)
          ENDDO
       ENDIF
    ENDIF
@@ -209,11 +210,11 @@ USE ISO_FORTRAN_ENV
 !     AT THIS POINT INVERT  (H) WHICH IS STORED AT A(100). . .A(135)
 !     STORE INVERSE BACK IN A(100). . A(135)
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
-   Ising = -1
-   CALL inverd(6,A(100),6,A(136),0,Determ,Ising,A(142))
+   ising = -1
+   CALL inverd(6,a(100),6,a(136),0,determ,ising,a(142))
 !
 !     CHECK TO SEE IF H WAS SINGULAR
-   IF ( Ising/=2 ) THEN
+   IF ( ising/=2 ) THEN
 !
 !
 !HURN OUT INTEGRAL VALUES I   USED IN REFERENCED M MATRICES
@@ -252,28 +253,28 @@ USE ISO_FORTRAN_ENV
 !                                            J = 1,7
 !
       DO j = 1 , 7
-         Yprodj = Ysubc**j
-         Fj = j
-         Fj2 = j + 1
-         Aij = Xsubb*Yprodj/(Fj*Fj2)
-         Bij = Xsubc*Yprodj/Fj2
-         siij(1,j) = Fmu*Aij
-         Aij = Aij + Bij
+         yprodj = ysubc**j
+         fj = j
+         fj2 = j + 1
+         aij = xsubb*yprodj/(fj*fj2)
+         bij = xsubc*yprodj/fj2
+         siij(1,j) = fmu*aij
+         aij = aij + bij
          IF ( j/=7 ) THEN
             k = 8 - j
             DO i = 2 , k
-               Xprodi = Xsubc**i
-               Fi = i
-               Fij = i + j
-               Aij = (Fi-1.0D0)*Xsubb*Aij/Fij
-               Bij = Xprodi*Yprodj/(Fi*Fij)
-               siij(i,j) = Fmu*Aij
-               Aij = Aij + Bij
+               xprodi = xsubc**i
+               fi = i
+               fij = i + j
+               aij = (fi-1.0D0)*xsubb*aij/fij
+               bij = xprodi*yprodj/(fi*fij)
+               siij(i,j) = fmu*aij
+               aij = aij + bij
             ENDDO
          ENDIF
 !
       ENDDO
-      Sizero = siij(1,1)/3.0D0
+      sizero = siij(1,1)/3.0D0
 !
 !HUNK IN NUMBERS FOR (M-BAR-AA)    3X3 MATRIX AS PER MS-48, PAGES 6-10
 !
@@ -355,8 +356,8 @@ USE ISO_FORTRAN_ENV
       mrr(35) = mrr(30)
       mrr(36) = siij(1,7)
 !
-      IF ( T2/=0.0 ) THEN
-         IF ( G2x211/=0.0E0 .OR. G2x212/=0.0E0 .OR. G2x222/=0.0E0 ) THEN
+      IF ( t2/=0.0 ) THEN
+         IF ( g2x211/=0.0E0 .OR. g2x212/=0.0E0 .OR. g2x222/=0.0E0 ) THEN
 !
             mar(4) = mar(4) + hyq(1)*siij(2,1) + hyq(4)*siij(1,2)
             mar(5) = mar(5) + hyq(2)*siij(2,1) + hyq(5)*siij(1,2)
@@ -409,7 +410,7 @@ USE ISO_FORTRAN_ENV
 !
       s(1) = 1.0D0
       s(2) = 0.0D0
-      s(3) = -Xsubb
+      s(3) = -xsubb
       s(4) = 0.0D0
       s(5) = 1.0D0
       s(6) = 0.0D0
@@ -417,8 +418,8 @@ USE ISO_FORTRAN_ENV
       s(8) = 0.0D0
       s(9) = 1.0D0
       s(10) = 1.0D0
-      s(11) = Ysubc
-      s(12) = -Xsubc
+      s(11) = ysubc
+      s(12) = -xsubc
       s(13) = 0.0D0
       s(14) = 1.0D0
       s(15) = 0.0D0
@@ -493,72 +494,72 @@ USE ISO_FORTRAN_ENV
 !OMPUTE (M) = (H  )  ((M  ) (H  ))
 !                       RR
 !
-      CALL gmmatd(mrr(1),6,6,0,A(100),6,6,0,A(37))
-      CALL gmmatd(A(100),6,6,1,A(37),6,6,0,A(1))
+      CALL gmmatd(mrr(1),6,6,0,a(100),6,6,0,a(37))
+      CALL gmmatd(a(100),6,6,1,a(37),6,6,0,a(1))
 !
 !REATE PARTITION OF 4 (3X3)
       DO i = 1 , 3
-         A(i+36) = A(i)
-         A(i+39) = A(i+6)
-         A(i+42) = A(i+12)
+         a(i+36) = a(i)
+         a(i+39) = a(i+6)
+         a(i+42) = a(i+12)
 !
-         A(i+45) = A(i+3)
-         A(i+48) = A(i+9)
-         A(i+51) = A(i+15)
+         a(i+45) = a(i+3)
+         a(i+48) = a(i+9)
+         a(i+51) = a(i+15)
 !
-         A(i+63) = A(i+18)
-         A(i+66) = A(i+24)
-         A(i+69) = A(i+30)
+         a(i+63) = a(i+18)
+         a(i+66) = a(i+24)
+         a(i+69) = a(i+30)
 !
-         A(i+72) = A(i+21)
-         A(i+75) = A(i+27)
-         A(i+78) = A(i+33)
+         a(i+72) = a(i+21)
+         a(i+75) = a(i+27)
+         a(i+78) = a(i+33)
       ENDDO
 !
 !OMPUTE                 -1
 !       (M  ) = (M  ) (H  )    AND  PARTITION INTO 2 (3X3)  (M-BAR-AB)
 !         AI      AR                                    AND (M-BAR-AC)
 !
-      CALL gmmatd(mar(1),3,6,0,A(100),6,6,0,A(181))
+      CALL gmmatd(mar(1),3,6,0,a(100),6,6,0,a(181))
       DO i = 1 , 3
-         A(i+162) = A(i+180)
-         A(i+165) = A(i+186)
-         A(i+168) = A(i+192)
+         a(i+162) = a(i+180)
+         a(i+165) = a(i+186)
+         a(i+168) = a(i+192)
 !
-         A(i+171) = A(i+183)
-         A(i+174) = A(i+189)
-         A(i+177) = A(i+195)
+         a(i+171) = a(i+183)
+         a(i+174) = a(i+189)
+         a(i+177) = a(i+195)
       ENDDO
 !OMPUTE (MAB)
-      CALL gmmatd(s(1),3,3,1,A(37),3,3,0,A(181))
-      CALL gmmatd(s(10),3,3,1,A(64),3,3,0,A(190))
+      CALL gmmatd(s(1),3,3,1,a(37),3,3,0,a(181))
+      CALL gmmatd(s(10),3,3,1,a(64),3,3,0,a(190))
       DO i = 1 , 9
-         A(i+9) = A(i+162) - A(i+180) - A(i+189)
+         a(i+9) = a(i+162) - a(i+180) - a(i+189)
       ENDDO
 !OMPUTE (MAC)
-      CALL gmmatd(s(1),3,3,1,A(46),3,3,0,A(181))
-      CALL gmmatd(s(10),3,3,1,A(73),3,3,0,A(190))
+      CALL gmmatd(s(1),3,3,1,a(46),3,3,0,a(181))
+      CALL gmmatd(s(10),3,3,1,a(73),3,3,0,a(190))
       DO i = 1 , 9
-         A(i+18) = A(i+171) - A(i+180) - A(i+189)
+         a(i+18) = a(i+171) - a(i+180) - a(i+189)
       ENDDO
 !OMPUTE (MAA)
-      CALL gmmatd(s(1),3,3,1,A(10),3,3,1,A(181))
-      CALL gmmatd(s(10),3,3,1,A(19),3,3,1,A(190))
-      CALL gmmatd(A(163),3,3,0,s(1),3,3,0,A(199))
-      CALL gmmatd(A(172),3,3,0,s(10),3,3,0,A(208))
+      CALL gmmatd(s(1),3,3,1,a(10),3,3,1,a(181))
+      CALL gmmatd(s(10),3,3,1,a(19),3,3,1,a(190))
+      CALL gmmatd(a(163),3,3,0,s(1),3,3,0,a(199))
+      CALL gmmatd(a(172),3,3,0,s(10),3,3,0,a(208))
       DO i = 1 , 9
-         A(i) = mbaraa(i) - A(i+180) - A(i+189) - A(i+198) - A(i+207)
+         a(i) = mbaraa(i) - a(i+180) - a(i+189) - a(i+198) - a(i+207)
       ENDDO
 !OMPUTE (MBA) AND (MCA)
       DO i = 1 , 3
          npt = 3*i + 7
-         A(i+27) = A(npt)
-         A(i+30) = A(npt+1)
-         A(i+33) = A(npt+2)
+         a(i+27) = a(npt)
+         a(i+30) = a(npt+1)
+         a(i+33) = a(npt+2)
 !
-         A(i+54) = A(npt+9)
-         A(i+57) = A(npt+10)
-         A(i+60) = A(npt+11)
+         a(i+54) = a(npt+9)
+         a(i+57) = a(npt+10)
+         a(i+60) = a(npt+11)
       ENDDO
    ELSE
 !
@@ -568,7 +569,7 @@ USE ISO_FORTRAN_ENV
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
       RETURN
    ENDIF
 !

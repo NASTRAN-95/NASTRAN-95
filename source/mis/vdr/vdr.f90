@@ -1,11 +1,12 @@
-!*==vdr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==vdr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE vdr
+   USE c_blank
+   USE c_system
+   USE c_vdrcom
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_VDRCOM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -37,20 +38,20 @@ SUBROUTINE vdr
 !     EXECUTE THE PHASES OF VDR.
 !
    DO i = 1 , 50
-      Buf(i) = 0
+      buf(i) = 0
    ENDDO
-   Casecc = 101
-   Output = -1
-   Sort2 = -1
+   casecc = 101
+   output = -1
+   sort2 = -1
    CALL vdra
-   IF ( Sscell/=0 ) Sdr2 = 1
-   IF ( Vdrreq==0 ) RETURN
-   mcb(1) = Infile
+   IF ( sscell/=0 ) sdr2 = 1
+   IF ( vdrreq==0 ) RETURN
+   mcb(1) = infile
    CALL rdtrl(mcb)
-   IF ( mcb(1)==Infile ) CALL vdrb(Infile,Outfle,Iadisp)
-   IF ( App(1)/=Trn(1) ) RETURN
-   mcb(1) = Pnl
+   IF ( mcb(1)==infile ) CALL vdrb(infile,outfle,iadisp)
+   IF ( app(1)/=trn(1) ) RETURN
+   mcb(1) = pnl
    CALL rdtrl(mcb)
-   IF ( mcb(1)/=Pnl ) RETURN
-   CALL vdrb(Pnl,Opnl1,Ipnl)
+   IF ( mcb(1)/=pnl ) RETURN
+   CALL vdrb(pnl,opnl1,ipnl)
 END SUBROUTINE vdr

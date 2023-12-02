@@ -1,11 +1,12 @@
-!*==mbreg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mbreg.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xwte,Ywte,Kte,Kte1,Kte2,Parea)
+   USE c_mboxa
+   USE c_mboxc
+   USE c_system
    IMPLICIT NONE
-   USE C_MBOXA
-   USE C_MBOXC
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,10 +58,10 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
          IF ( debug ) iprint = 1
 !
          Ireg = 1
-         Boxa = Boxl*Boxw
+         boxa = boxl*boxw
          kpt = 0
-         Kc1t = 0
-         Kc2t = 0
+         kc1t = 0
+         kc2t = 0
          DO i = 1 , 50
             Nw1(i) = 0
             Nwn(i) = 0
@@ -97,55 +98,55 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
          xre = 0.0
          ybe = 0.0
          k = 1
-         yr = -0.5*Boxw
-         DO i = 1 , Nsb
+         yr = -0.5*boxw
+         DO i = 1 , nsb
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
                   yl = yr
-                  yr = (float(i)-0.5)*Boxw
+                  yr = (float(i)-0.5)*boxw
                   xle = xre
-                  IF ( yr>Y(k+1) ) THEN
-                     xre = (yr-Y(k+1))*Tang(k+1) + X(k+1)
+                  IF ( yr>y(k+1) ) THEN
+                     xre = (yr-y(k+1))*tang(k+1) + x(k+1)
                      kpt = 1
                   ELSE
-                     xre = (yr-Y(k))*Tang(k) + X(k)
+                     xre = (yr-y(k))*tang(k) + x(k)
                   ENDIF
-                  xt = xle - amod(xle,Boxl)
-                  xb = xt + Boxl
-                  j1 = xb/Boxl + 0.01
+                  xt = xle - amod(xle,boxl)
+                  xb = xt + boxl
+                  j1 = xb/boxl + 0.01
 !
 !
-                  DO j = j1 , Ncb
+                  DO j = j1 , ncb
                      IF ( xre>xb ) THEN
 !
                         IF ( xle>xt ) THEN
 !
-                           IF ( xb>X(k+1) ) THEN
-                              ybe = (xb-X(k+1))*Cotang(k+1) + Y(k+1)
+                           IF ( xb>x(k+1) ) THEN
+                              ybe = (xb-x(k+1))*cotang(k+1) + y(k+1)
                               IF ( kpt==1 ) kpt = 2
                            ELSE
-                              ybe = (xb-X(k))*Cotang(k) + Y(k)
+                              ybe = (xb-x(k))*cotang(k) + y(k)
                            ENDIF
                            a = 0.5*(xb-xle)*(ybe-yl)
-                           IF ( kpt==2 ) a = a + (xle*(ybe-Y(k+1))-yl*(xb-X(k+1))+xb*Y(k+1)-ybe*X(k+1))/2.0
-                           pa = a/Boxa
+                           IF ( kpt==2 ) a = a + (xle*(ybe-y(k+1))-yl*(xb-x(k+1))+xb*y(k+1)-ybe*x(k+1))/2.0
+                           pa = a/boxa
                         ELSE
 !
                            yte = ybe
-                           IF ( xb>X(k+1) ) THEN
-                              ybe = (xb-X(k+1))*Cotang(k+1) + Y(k+1)
+                           IF ( xb>x(k+1) ) THEN
+                              ybe = (xb-x(k+1))*cotang(k+1) + y(k+1)
                               IF ( kpt==1 ) kpt = 2
                            ELSE
-                              ybe = (xb-X(k))*Cotang(k) + Y(k)
+                              ybe = (xb-x(k))*cotang(k) + y(k)
                            ENDIF
-                           a = 0.5*(yte+ybe-2.0*yl)*Boxl
-                           IF ( kpt==2 ) a = a + (xt*(ybe-Y(k+1))-yte*(xb-X(k+1))+xb*Y(k+1)-ybe*X(k+1))/2.0
-                           pa = a/Boxa
+                           a = 0.5*(yte+ybe-2.0*yl)*boxl
+                           IF ( kpt==2 ) a = a + (xt*(ybe-y(k+1))-yte*(xb-x(k+1))+xb*y(k+1)-ybe*x(k+1))/2.0
+                           pa = a/boxa
                         ENDIF
                         xt = xb
-                        xb = float(j+1)*Boxl
+                        xb = float(j+1)*boxl
                         IF ( kpt==2 ) kpt = 3
                         IF ( i==1 ) pa = 2.0*pa - 1.0
                         Parea(j,i,1) = pa
@@ -153,41 +154,40 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
                         IF ( xle>xt ) THEN
 !
                            a = 0.5*(xle+xre-2.0*xt)*(yr-yl)
-                           IF ( kpt>0 ) a = a + (xle*(Y(k+1)-yr)-yl*(X(k+1)-xre)+X(k+1)*yr-xre*Y(k+1))/2.0
-                           pa = 1.0 - a/Boxa
+                           IF ( kpt>0 ) a = a + (xle*(y(k+1)-yr)-yl*(x(k+1)-xre)+x(k+1)*yr-xre*y(k+1))/2.0
+                           pa = 1.0 - a/boxa
                         ELSE
 !
-                           IF ( xt<=X(k+1) ) THEN
-                              yte = (xt-X(k))*Cotang(k) + Y(k)
+                           IF ( xt<=x(k+1) ) THEN
+                              yte = (xt-x(k))*cotang(k) + y(k)
                               IF ( kpt==1 ) kpt = 2
                            ELSE
-                              yte = (xt-X(k+1))*Cotang(k+1) + Y(k+1)
+                              yte = (xt-x(k+1))*cotang(k+1) + y(k+1)
                            ENDIF
                            a = 0.5*(yr-yte)*(xre-xt)
-                           IF ( kpt==2 ) a = a + (xt*(Y(k+1)-yr)-yte*(X(k+1)-xre)+X(k+1)*yr-xre*Y(k+1))/2.0
-                           pa = 1.0 - a/Boxa
+                           IF ( kpt==2 ) a = a + (xt*(y(k+1)-yr)-yte*(x(k+1)-xre)+x(k+1)*yr-xre*y(k+1))/2.0
+                           pa = 1.0 - a/boxa
                         ENDIF
                         spag_nextblock_2 = 2
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   ENDDO
                   spag_nextblock_2 = 3
-                  CYCLE SPAG_DispatchLoop_2
                CASE (2)
 !
                   IF ( i==1 ) pa = 2.0*pa - 1.0
                   Parea(j,i,1) = pa
                   spag_nextblock_2 = 3
                CASE (3)
-                  yc = yr - 0.5*Boxw
+                  yc = yr - 0.5*boxw
                   IF ( kpt<=0 ) THEN
-                     xc = (yc-Y(k))*Tang(k) + X(k)
-                  ELSEIF ( yc<=Y(k+1) ) THEN
-                     xc = (yc-Y(k))*Tang(k) + X(k)
+                     xc = (yc-y(k))*tang(k) + x(k)
+                  ELSEIF ( yc<=y(k+1) ) THEN
+                     xc = (yc-y(k))*tang(k) + x(k)
                   ELSE
-                     xc = (yc-Y(k+1))*Tang(k+1) + X(k+1)
+                     xc = (yc-y(k+1))*tang(k+1) + x(k+1)
                   ENDIF
-                  Nw1(i) = xle/Boxl + 1.0001
+                  Nw1(i) = xle/boxl + 1.0001
                   IF ( kpt>0 ) k = k + 1
                   kpt = 0
                   EXIT SPAG_DispatchLoop_2
@@ -195,33 +195,33 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
             ENDDO SPAG_DispatchLoop_2
          ENDDO
          IF ( iprint>0 ) THEN
-            WRITE (N6,99001)
+            WRITE (n6,99001)
 99001       FORMAT (4H NW1)
-            WRITE (N6,99013) (Nw1(i),i=1,Nsb)
+            WRITE (n6,99013) (Nw1(i),i=1,nsb)
          ENDIF
 !
 !     TRAILING EDGE OF MAIN
 !
-         xre = X(4)
+         xre = x(4)
          k = 4
          yr = 0.0
-         DO i = 1 , Nsb
+         DO i = 1 , nsb
             spag_nextblock_3 = 1
             SPAG_DispatchLoop_3: DO
                SELECT CASE (spag_nextblock_3)
                CASE (1)
                   yl = yr
-                  yr = (float(i)-0.5)*Boxw
+                  yr = (float(i)-0.5)*boxw
                   xle = xre
-                  IF ( yr>Y(k+1) ) THEN
-                     xre = (yr-Y(k+1))*Tang(k+1) + X(k+1)
+                  IF ( yr>y(k+1) ) THEN
+                     xre = (yr-y(k+1))*tang(k+1) + x(k+1)
                      kpt = 1
                   ELSE
-                     xre = (yr-Y(k))*Tang(k) + X(k)
+                     xre = (yr-y(k))*tang(k) + x(k)
                   ENDIF
-                  xt = xle - amod(xle,Boxl)
-                  xb = xt + Boxl
-                  j = xb/Boxl + 0.01
+                  xt = xle - amod(xle,boxl)
+                  xb = xt + boxl
+                  j = xb/boxl + 0.01
                   IF ( j>50 ) THEN
                      spag_nextblock_3 = 5
                      CYCLE SPAG_DispatchLoop_3
@@ -237,7 +237,7 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
                      ipt = -1
                   ELSE
                      a = 0.5*(xle+xre-2.0*xt)*(yr-yl)
-                     IF ( kpt>0 ) a = a + (xle*(Y(k+1)-yr)-yl*(X(k+1)-xre)+X(k+1)*yr-Y(k+1)*xre)/2.0
+                     IF ( kpt>0 ) a = a + (xle*(y(k+1)-yr)-yl*(x(k+1)-xre)+x(k+1)*yr-y(k+1)*xre)/2.0
                      IF ( i==1 ) a = 2.0*a
                      spag_nextblock_3 = 6
                      CYCLE SPAG_DispatchLoop_3
@@ -247,76 +247,74 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
                   IF ( xre<xt ) THEN
 !
                      ybe = yte
-                     IF ( xt<X(k+1) ) THEN
-                        yte = (xt-X(k+1))*Cotang(k+1) + Y(k+1)
+                     IF ( xt<x(k+1) ) THEN
+                        yte = (xt-x(k+1))*cotang(k+1) + y(k+1)
                         IF ( kpt==1 ) kpt = 2
                      ELSE
-                        yte = (xt-X(k))*Cotang(k) + Y(k)
+                        yte = (xt-x(k))*cotang(k) + y(k)
                      ENDIF
                      IF ( xle>xb ) THEN
 !
-                        a = 0.5*Boxl*(yte+ybe-2.0*yl)
-                        IF ( kpt==2 ) a = a + (xt*(ybe-Y(k+1))-yte*(xb-X(k+1))+xb*Y(k+1)-ybe*X(k+1))/2.0
+                        a = 0.5*boxl*(yte+ybe-2.0*yl)
+                        IF ( kpt==2 ) a = a + (xt*(ybe-y(k+1))-yte*(xb-x(k+1))+xb*y(k+1)-ybe*x(k+1))/2.0
                      ELSE
 !
                         a = 0.5*(xle-xt)*(yte-yl)
-                        IF ( kpt==2 ) a = a + (xt*(yl-Y(k+1))-yte*(xle-X(k+1))+xle*Y(k+1)-yl*X(k+1))/2.0
+                        IF ( kpt==2 ) a = a + (xt*(yl-y(k+1))-yte*(xle-x(k+1))+xle*y(k+1)-yl*x(k+1))/2.0
                      ENDIF
 !
                      IF ( i==1 ) a = 2.0*a
                      spag_nextblock_3 = 4
-                     CYCLE SPAG_DispatchLoop_3
                   ELSE
 !
                      a = 0.5*(xb-xre)*(yr-yte)
-                     IF ( kpt>0 .AND. kpt<3 ) a = a - (xre*(yte-Y(k+1))-yr*(xb-X(k+1))+xb*Y(k+1)-yte*X(k+1))/2.0
+                     IF ( kpt>0 .AND. kpt<3 ) a = a - (xre*(yte-y(k+1))-yr*(xb-x(k+1))+xb*y(k+1)-yte*x(k+1))/2.0
                      IF ( i==1 ) a = 2.0*a
 !
-                     a = Boxa - a
+                     a = boxa - a
                      spag_nextblock_3 = 6
-                     CYCLE SPAG_DispatchLoop_3
                   ENDIF
                CASE (3)
 !
                   IF ( xre>xb ) THEN
 !
                      yte = ybe
-                     IF ( xb>X(k+1) ) THEN
-                        ybe = (xb-X(k+1))*Cotang(k+1) + Y(k+1)
+                     IF ( xb>x(k+1) ) THEN
+                        ybe = (xb-x(k+1))*cotang(k+1) + y(k+1)
                         IF ( kpt==1 ) kpt = 2
                      ELSE
-                        ybe = (xb-X(k))*Cotang(k) + Y(k)
+                        ybe = (xb-x(k))*cotang(k) + y(k)
                      ENDIF
                      IF ( xle<xt ) THEN
 !
-                        a = 0.5*Boxl*(2.0*yr-yte-ybe)
-                        IF ( kpt==2 ) a = a + (xt*(Y(k+1)-ybe)-yte*(X(k+1)-xb)+X(k+1)*ybe-Y(k+1)*xb)/2.0
+                        a = 0.5*boxl*(2.0*yr-yte-ybe)
+                        IF ( kpt==2 ) a = a + (xt*(y(k+1)-ybe)-yte*(x(k+1)-xb)+x(k+1)*ybe-y(k+1)*xb)/2.0
                         IF ( i==1 ) a = 2.0*a
                      ELSE
 !
                         a = 0.5*(xb-xle)*(ybe-yl)
-                        IF ( kpt==2 ) a = a - (xle*(Y(k+1)-ybe)-yl*(X(k+1)-xb)+X(k+1)*ybe-Y(k+1)*xb)/2.0
+                        IF ( kpt==2 ) a = a - (xle*(y(k+1)-ybe)-yl*(x(k+1)-xb)+x(k+1)*ybe-y(k+1)*xb)/2.0
                         IF ( i==1 ) a = 2.0*a
-                        a = Boxa - a
+                        a = boxa - a
                      ENDIF
                   ELSE
 !
                      a = 0.5*(yr-ybe)*(xre-xt)
-                     IF ( kpt>0 .AND. kpt<3 ) a = a + (xt*(Y(k+1)-yr)-ybe*(X(k+1)-xre)+X(k+1)*yr-Y(k+1)*xre)/2.0
+                     IF ( kpt>0 .AND. kpt<3 ) a = a + (xt*(y(k+1)-yr)-ybe*(x(k+1)-xre)+x(k+1)*yr-y(k+1)*xre)/2.0
                      IF ( i==1 ) a = 2.0*a
                      spag_nextblock_3 = 6
                      CYCLE SPAG_DispatchLoop_3
                   ENDIF
                   spag_nextblock_3 = 4
                CASE (4)
-                  pa = a/Boxa
+                  pa = a/boxa
                   a = 1.0
                   IF ( Parea(j,i,1)>0.0 ) a = Parea(j,i,1)
                   Parea(j,i,1) = pa*a
                   j = j + ipt
                   IF ( j<=50 ) THEN
-                     xb = float(j)*Boxl
-                     xt = xb - Boxl
+                     xb = float(j)*boxl
+                     xt = xb - boxl
                      IF ( kpt==2 ) kpt = 3
                      IF ( ipt>0 ) THEN
                         spag_nextblock_3 = 3
@@ -330,16 +328,16 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
                   Ireg = 2
                   RETURN
                CASE (6)
-                  yc = yr - 0.5*Boxw
+                  yc = yr - 0.5*boxw
                   IF ( kpt<=0 ) THEN
-                     xc = (yc-Y(k))*Tang(k) + X(k)
-                  ELSEIF ( yc<=Y(k+1) ) THEN
-                     xc = (yc-Y(k))*Tang(k) + X(k)
+                     xc = (yc-y(k))*tang(k) + x(k)
+                  ELSEIF ( yc<=y(k+1) ) THEN
+                     xc = (yc-y(k))*tang(k) + x(k)
                   ELSE
-                     xc = (yc-Y(k+1))*Tang(k+1) + X(k+1)
+                     xc = (yc-y(k+1))*tang(k+1) + x(k+1)
                   ENDIF
-                  Nwn(i) = amax1(xle,xre)/Boxl + 0.9999
-                  pa = a/Boxa
+                  Nwn(i) = amax1(xle,xre)/boxl + 0.9999
+                  pa = a/boxa
                   a = 1.0
                   IF ( Parea(j,i,1)>0.0 ) a = Parea(j,i,1)
                   Parea(j,i,1) = pa*a
@@ -352,15 +350,15 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
             ENDDO SPAG_DispatchLoop_3
          ENDDO
          IF ( iprint>0 ) THEN
-            WRITE (N6,99002)
+            WRITE (n6,99002)
 99002       FORMAT (4H NWN)
-            WRITE (N6,99013) (Nwn(i),i=1,Nsb)
+            WRITE (n6,99013) (Nwn(i),i=1,nsb)
          ENDIF
-         Ntote = Nsb
+         ntote = nsb
 !
 !     FILL IN MAIN PERCENTAGES
 !
-         DO i = 1 , Nsb
+         DO i = 1 , nsb
             n1 = Nw1(i)
             nn = Nwn(i)
             DO j = n1 , nn
@@ -384,7 +382,7 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
                Ndn(1) = Nwn(1)
             ENDIF
          ENDDO
-         j = Nsb + 1
+         j = nsb + 1
          DO WHILE ( Nd1(j-1)<Ndn(j-1)-1 )
             Nd1(j) = Nd1(j-1) + 1
             Ndn(j) = Ndn(j-1) - 1
@@ -395,160 +393,160 @@ SUBROUTINE mbreg(Ireg,Nw1,Nwn,Nc21,Nc2n,Nc1,Ncn,Nd1,Ndn,Xk,Yk,Xk1,Yk1,Xk2,Yk2,Xw
             ENDIF
          ENDDO
 !
-         Nsbd = j - 1
+         nsbd = j - 1
          IF ( iprint>0 ) THEN
-            WRITE (N6,99003)
+            WRITE (n6,99003)
 99003       FORMAT (4H ND1)
-            WRITE (N6,99013) (Nd1(i),i=1,Nsbd)
-            WRITE (N6,99004)
+            WRITE (n6,99013) (Nd1(i),i=1,nsbd)
+            WRITE (n6,99004)
 99004       FORMAT (4H NDN)
-            WRITE (N6,99013) (Ndn(i),i=1,Nsbd)
+            WRITE (n6,99013) (Ndn(i),i=1,nsbd)
 !
-            WRITE (N6,99015)
-            DO i = 1 , Ncb
-               WRITE (N6,99016) i
-               WRITE (N6,99014) (Parea(i,j,1),j=1,Nsb)
+            WRITE (n6,99015)
+            DO i = 1 , ncb
+               WRITE (n6,99016) i
+               WRITE (n6,99014) (Parea(i,j,1),j=1,nsb)
             ENDDO
          ENDIF
-         IF ( Cntrl1 ) CALL mbctr(1,il1,ir1,Ncn,Nc1,Nwn,Nw1,Parea)
-         IF ( Cntrl2 ) CALL mbctr(2,il2,ir2,Nc2n,Nc21,Nwn,Nw1,Parea)
+         IF ( cntrl1 ) CALL mbctr(1,il1,ir1,Ncn,Nc1,Nwn,Nw1,Parea)
+         IF ( cntrl2 ) CALL mbctr(2,il2,ir2,Nc2n,Nc21,Nwn,Nw1,Parea)
          IF ( iprint/=0 ) THEN
             DO kxyz = 1 , 3
-               IF ( kxyz==1 ) WRITE (N6,99015)
-               IF ( kxyz==2 ) WRITE (N6,99005)
+               IF ( kxyz==1 ) WRITE (n6,99015)
+               IF ( kxyz==2 ) WRITE (n6,99005)
 99005          FORMAT (14H PAREA, CNTRL1)
-               IF ( kxyz==3 ) WRITE (N6,99006)
+               IF ( kxyz==3 ) WRITE (n6,99006)
 99006          FORMAT (14H PAREA, CNTRL2)
-               DO i = 1 , Ncb
-                  WRITE (N6,99016) i
-                  WRITE (N6,99014) (Parea(i,j,kxyz),j=1,Nsb)
+               DO i = 1 , ncb
+                  WRITE (n6,99016) i
+                  WRITE (n6,99014) (Parea(i,j,kxyz),j=1,nsb)
                ENDDO
             ENDDO
          ENDIF
 !
 !     MAIN BOX CTR. COORDINATES
 !
-         Kc = 0
-         DO i = 1 , Ncb
+         kc = 0
+         DO i = 1 , ncb
             ixr = i - 1
-            DO j = 1 , Nsb
+            DO j = 1 , nsb
                IF ( i>=(Nd1(j)) .AND. i<=(Ndn(j)) ) THEN
                   IF ( Parea(i,j,1)>=0.005 ) THEN
                      jxr = j - 1
-                     Kc = Kc + 1
-                     IF ( Kc>=200 ) THEN
+                     kc = kc + 1
+                     IF ( kc>=200 ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     Xk(Kc) = Boxl*(float(ixr)+0.5)
-                     Yk(Kc) = Boxw*float(jxr)
+                     Xk(kc) = boxl*(float(ixr)+0.5)
+                     Yk(kc) = boxw*float(jxr)
                   ENDIF
                ENDIF
             ENDDO
          ENDDO
-         DO j = 1 , Nsb
-            Kc = Kc + 1
-            IF ( Kc>=200 ) THEN
+         DO j = 1 , nsb
+            kc = kc + 1
+            IF ( kc>=200 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Kte(j) = Kc
-            Xk(Kc) = Xwte(j)
-            Yk(Kc) = Ywte(j)
+            Kte(j) = kc
+            Xk(kc) = Xwte(j)
+            Yk(kc) = Ywte(j)
          ENDDO
-         Kct = Kc
+         kct = kc
          IF ( iprint>0 ) THEN
-            WRITE (N6,99007) (i,Xk(i),i=1,Kc)
+            WRITE (n6,99007) (i,Xk(i),i=1,kc)
 99007       FORMAT (1H1,23H MAIN BOX CTR. X COORD.,/(10(1X,I4,F8.2)))
-            WRITE (N6,99008) (i,Yk(i),i=1,Kc)
+            WRITE (n6,99008) (i,Yk(i),i=1,kc)
 99008       FORMAT (1H1,23H MAIN BOX CTR. Y COORD.,/(10(1X,I4,F8.2)))
          ENDIF
 !
 !     CNTRL1 BOX CTR. COORDINATES
 !
-         IF ( Cntrl1 ) THEN
-            Kc1 = 0
-            DO i = 1 , Ncb
+         IF ( cntrl1 ) THEN
+            kc1 = 0
+            DO i = 1 , ncb
                ixr = i - 1
                DO j = il1 , ir1
                   IF ( Parea(i,j,2)>=0.005 ) THEN
                      jxr = j - 1
-                     Kc1 = Kc1 + 1
-                     IF ( Kc1>=125 ) THEN
+                     kc1 = kc1 + 1
+                     IF ( kc1>=125 ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     Xk1(Kc1) = Boxl*(float(ixr)+0.5)
-                     Yk1(Kc1) = Boxw*float(jxr)
+                     Xk1(kc1) = boxl*(float(ixr)+0.5)
+                     Yk1(kc1) = boxw*float(jxr)
                   ENDIF
                ENDDO
             ENDDO
             DO j = il1 , ir1
-               Kc1 = Kc1 + 1
-               IF ( Kc1>=125 ) THEN
+               kc1 = kc1 + 1
+               IF ( kc1>=125 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Kte1(j) = Kc1
-               Xk1(Kc1) = Xwte(j)
-               Yk1(Kc1) = Ywte(j)
+               Kte1(j) = kc1
+               Xk1(kc1) = Xwte(j)
+               Yk1(kc1) = Ywte(j)
             ENDDO
-            Kc1t = Kc1
+            kc1t = kc1
             IF ( iprint>0 ) THEN
-               WRITE (N6,99009) (i,Xk1(i),i=1,Kc1)
+               WRITE (n6,99009) (i,Xk1(i),i=1,kc1)
 99009          FORMAT (1H1,25H CNTRL1 BOX CTR. X COORD.,/(10(1X,I4,F8.2)))
-               WRITE (N6,99010) (i,Yk1(i),i=1,Kc1)
+               WRITE (n6,99010) (i,Yk1(i),i=1,kc1)
 99010          FORMAT (1H1,25H CNTRL1 BOX CTR. Y COORD.,/(10(1X,I4,F8.2)))
             ENDIF
          ENDIF
 !
 !     CNTRL2 BOX CTR. COORDINATES
 !
-         IF ( Cntrl2 ) THEN
-            Kc2 = 0
-            DO i = 1 , Ncb
+         IF ( cntrl2 ) THEN
+            kc2 = 0
+            DO i = 1 , ncb
                ixr = i - 1
                DO j = il2 , ir2
                   IF ( Parea(i,j,3)>=0.005 ) THEN
                      jxr = j - 1
-                     Kc2 = Kc2 + 1
-                     IF ( Kc2>=125 ) THEN
+                     kc2 = kc2 + 1
+                     IF ( kc2>=125 ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     Xk2(Kc2) = Boxl*(float(ixr)+0.5)
-                     Yk2(Kc2) = Boxw*float(jxr)
+                     Xk2(kc2) = boxl*(float(ixr)+0.5)
+                     Yk2(kc2) = boxw*float(jxr)
                   ENDIF
                ENDDO
             ENDDO
             DO j = il2 , ir2
-               Kc2 = Kc2 + 1
-               IF ( Kc2>=125 ) THEN
+               kc2 = kc2 + 1
+               IF ( kc2>=125 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Kte2(j) = Kc2
-               Xk2(Kc2) = Xwte(j)
-               Yk2(Kc2) = Ywte(j)
+               Kte2(j) = kc2
+               Xk2(kc2) = Xwte(j)
+               Yk2(kc2) = Ywte(j)
             ENDDO
-            Kc2t = Kc2
+            kc2t = kc2
             IF ( iprint>0 ) THEN
-               WRITE (N6,99011) (i,Xk2(i),i=1,Kc2)
+               WRITE (n6,99011) (i,Xk2(i),i=1,kc2)
 99011          FORMAT (1H1,25H CNTRL2 BOX CTR. X COORD.,/(10(1X,I4,F8.2)))
-               WRITE (N6,99012) (i,Yk2(i),i=1,Kc2)
+               WRITE (n6,99012) (i,Yk2(i),i=1,kc2)
 99012          FORMAT (1H1,25H CNTRL2 BOX CTR. Y COORD.,/(10(1X,I4,F8.2)))
             ENDIF
          ENDIF
-         Boxl = Boxl/Cr
-         Boxw = Boxw/Cr
-         Boxa = Boxa/Cr**2
+         boxl = boxl/cr
+         boxw = boxw/cr
+         boxa = boxa/cr**2
          DO i = 1 , 12
-            X(i) = X(i)/Cr
-            Y(i) = Y(i)/Cr
+            x(i) = x(i)/cr
+            y(i) = y(i)/cr
          ENDDO
          DO i = 1 , 50
-            Xwte(i) = Xwte(i)/Cr
-            Ywte(i) = Ywte(i)/Cr
+            Xwte(i) = Xwte(i)/cr
+            Ywte(i) = Ywte(i)/cr
          ENDDO
          RETURN
       CASE (2)

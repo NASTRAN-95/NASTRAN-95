@@ -1,11 +1,12 @@
-!*==opt2d.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==opt2d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE opt2d(Ipr,Pr)
+   USE c_blank
+   USE c_names
+   USE c_optpw2
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_OPTPW2
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,9 +38,9 @@ SUBROUTINE opt2d(Ipr,Pr)
 !
 !  . RECORD ZERO - COPY NAME AND 6 PARAMETERS...
 !
-         CALL fread(Optp1,Z(1),8,Next)
-         CALL fname(Optp2,Z(1))
-         CALL write(Optp2,Z(1),8,Next)
+         CALL fread(optp1,z(1),8,next)
+         CALL fname(optp2,z(1))
+         CALL write(optp2,z(1),8,next)
 !
 !  . RECORD ONE (POINTERS) AND TWO (ELEMENT DATA)...
 !
@@ -48,13 +49,13 @@ SUBROUTINE opt2d(Ipr,Pr)
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  n = Zcor
+                  n = zcor
                   spag_nextblock_2 = 2
                CASE (2)
-                  eor = Next
-                  CALL read(*2,*2,Optp1,Z,Zcor,0,n)
+                  eor = next
+                  CALL read(*2,*2,optp1,z,zcor,0,n)
                   eor = 0
- 2                CALL write(Optp2,Z(1),n,eor)
+ 2                CALL write(optp2,z(1),n,eor)
                   IF ( eor==0 ) THEN
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
@@ -67,32 +68,32 @@ SUBROUTINE opt2d(Ipr,Pr)
 !  . RECORD THREE - PROPERTY DATA...
 !
          eor = 0
-         DO i = 1 , Nprw , Nwdsp
+         DO i = 1 , nprw , nwdsp
             Ipr(i) = iabs(Ipr(i))
             Pr(i+4) = -1.0
-            CALL write(Optp2,Ipr(i),Nwdsp,eor)
+            CALL write(optp2,Ipr(i),nwdsp,eor)
          ENDDO
-         CALL write(Optp2,0,0,Next)
+         CALL write(optp2,0,0,next)
 !
 !  . RECORD FOUR - PLIMIT DATA...
 !
-         CALL fread(Optp1,0,0,Next)
-         n = Zcor
+         CALL fread(optp1,0,0,next)
+         n = zcor
          spag_nextblock_1 = 2
       CASE (2)
-         eor = Next
-         CALL read(*20,*20,Optp1,Z,Zcor,0,n)
+         eor = next
+         CALL read(*20,*20,optp1,z,zcor,0,n)
          eor = 0
- 20      CALL write(Optp2,Z(1),n,eor)
+ 20      CALL write(optp2,z(1),n,eor)
          IF ( eor==0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         CALL eof(Optp2)
-         iz(1) = Optp1
+         CALL eof(optp2)
+         iz(1) = optp1
          CALL rdtrl(iz(1))
-         iz(1) = Optp2
+         iz(1) = optp2
          CALL wrttrl(iz(1))
          EXIT SPAG_DispatchLoop_1
       END SELECT

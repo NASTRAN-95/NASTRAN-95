@@ -1,4 +1,4 @@
-!*==sgino.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sgino.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sgino
@@ -38,21 +38,36 @@ SUBROUTINE sgino
 !        2. SINCE THE RECORD LENGTH IS 3000 BYTES, A FORMAT
 !           OF (750A4) IS SUFFICIENT)
 !
-   USE C_DSNAME
-   USE C_SYSTEM
+USE c_dsname
+USE c_system
+USE C_DSNAME
+USE C_SYSTEM
    IMPLICIT NONE
-   CHARACTER*80 Dsnames(80)
-   INTEGER Idum1 , Nbpc , Nbpw , Ncpw , Nout , Skpsys(36)
-   COMMON /dsname/ Dsnames
-   COMMON /system/ Idum1 , Nout , Skpsys , Nbpc , Nbpw , Ncpw
-   INTEGER Eorx , Ibfsz , N , Pltape
-   INTEGER A(1) , Buf(1)
-   INTEGER bfsz , eof , eor , format(3) , formtx(3) , irecsz , j , lbuf(1) , name(2) , nb , nbits , noff , nw , plt1 , plt2 , pltx ,&
-         & ptape , shift , tra , word
-   CHARACTER*7 fortn , none
-   INTEGER locfx
-   LOGICAL nopack , open
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
+   INTEGER , DIMENSION(1) :: A , Buf
+   INTEGER :: bfsz , eof , eor , irecsz , j , nb , noff , nw , ptape , spag_nextblock_1 , tra , word
+   INTEGER :: Eorx , Ibfsz , N , Pltape
+   INTEGER , DIMENSION(3) , SAVE :: format , formtx
+   CHARACTER(7) , SAVE :: fortn , none
+   INTEGER , DIMENSION(1) :: lbuf
+   INTEGER , DIMENSION(2) , SAVE :: name
+   INTEGER , SAVE :: nbits , plt1 , plt2 , pltx , shift
+   LOGICAL :: nopack
+   LOGICAL , SAVE :: open
+!
+! End of declarations rewritten by SPAG
+!
 !WKBNB
 !WKBNE
    DATA open/.FALSE./ , name/4H SGI , 2HNO/
@@ -61,7 +76,7 @@ SUBROUTINE sgino
    DATA fortn , none/'FORTRAN' , 'NONE   '/
    DATA shift , nbits/0 , 0/
    spag_nextblock_1 = 1
-   SPAG_DispatchLoop_1: DO
+   SPAG_DISPATCHLOOP_1:DO
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
@@ -127,7 +142,7 @@ SUBROUTINE sgino
 !
          IF ( open ) THEN
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
 !     MA = 'A'
 !     IF (NONE .EQ. 'NONE') MA = 'M'
@@ -150,7 +165,7 @@ SUBROUTINE sgino
                CALL mesage(-61,0,0)
             ENDIF
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ELSE
             DO
                READ (ptape,99002,END=20) j
@@ -182,7 +197,7 @@ SUBROUTINE sgino
 !
          IF ( Pltape/=pltx ) THEN
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          eor = Eorx
          nw = 1
@@ -198,7 +213,7 @@ SUBROUTINE sgino
                lbuf(nb+noff) = word
                IF ( nb==bfsz ) THEN
                   spag_nextblock_1 = 6
-                  CYCLE SPAG_DispatchLoop_1
+                  GOTO 100
                ENDIF
                word = 0
                nb = nb + 1
@@ -214,12 +229,12 @@ SUBROUTINE sgino
 !
             lbuf(nb+noff) = word
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ELSE
             nb = nb - 1
             IF ( nb>0 ) THEN
                spag_nextblock_1 = 6
-               CYCLE SPAG_DispatchLoop_1
+               CYCLE SPAG_DISPATCHLOOP_1
             ENDIF
 !
             nb = 1
@@ -235,7 +250,7 @@ SUBROUTINE sgino
             IF ( nb>bfsz ) THEN
                nb = nb - 1
                spag_nextblock_1 = 6
-               CYCLE SPAG_DispatchLoop_1
+               GOTO 100
             ENDIF
          ENDDO
 !
@@ -248,7 +263,7 @@ SUBROUTINE sgino
          ENDIF
          nb = bfsz
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
+         CYCLE SPAG_DISPATCHLOOP_1
 !
 !
          ENTRY sclose(Pltape)
@@ -260,23 +275,22 @@ SUBROUTINE sgino
 !
          IF ( Pltape/=pltx ) THEN
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( .NOT.nopack .AND. shift/=nbits ) THEN
             lbuf(nb+noff) = word
             ASSIGN 80 TO tra
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             nb = nb - 1
             IF ( nb<=0 ) THEN
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
+               CYCLE SPAG_DISPATCHLOOP_1
             ENDIF
             ASSIGN 80 TO tra
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE SPAG_DISPATCHLOOP_1
  80      ASSIGN 40 TO tra
          IF ( nopack ) ASSIGN 60 TO tra
          spag_nextblock_1 = 4
@@ -300,7 +314,6 @@ SUBROUTINE sgino
 !
          eof = 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
          WRITE (ptape,format) (lbuf(noff+j),j=1,nb)
@@ -309,6 +322,6 @@ SUBROUTINE sgino
          shift = nbits
          GOTO tra
       END SELECT
-   ENDDO SPAG_DispatchLoop_1
+ 100  ENDDO SPAG_DISPATCHLOOP_1
 !
 END SUBROUTINE sgino

@@ -1,17 +1,18 @@
-!*==sptchk.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sptchk.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sptchk
+   USE c_banda
+   USE c_bandb
+   USE c_bandd
+   USE c_bands
+   USE c_geomx
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BANDA
-   USE C_BANDB
-   USE C_BANDD
-   USE C_BANDS
-   USE C_GEOMX
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -31,41 +32,41 @@ SUBROUTINE sptchk
 !
 !     LIST ALL SPOINTS IN Z(1) THRU Z(NS)
 !
-   IF ( Irept==3 ) GOTO 300
+   IF ( irept==3 ) GOTO 300
    ns = 1
-   CALL preloc(*300,Z(Ibuf1),Geom2)
-   CALL locate(*100,Z(Ibuf1),spoint,k)
+   CALL preloc(*300,z(ibuf1),geom2)
+   CALL locate(*100,z(ibuf1),spoint,k)
    DO
-      CALL read(*400,*100,Geom2,Z(ns),1,0,k)
+      CALL read(*400,*100,geom2,z(ns),1,0,k)
       ns = ns + 1
    ENDDO
  100  ns = ns - 1
-   CALL rewind(Geom2)
+   CALL rewind(geom2)
 !
 !     CHECK THE PRESENCE OF ELAST, DAMP AND MASS CARDS (ELEMENT TYPES
 !     201 THRU 1301).  THEY MAY SPECIFY SCALAR POINTS WITHOUT USING
 !     SPOINT CARDS.
 !
    nss = ns
-   SPAG_Loop_1_1: DO ielem = 26 , 350 , Incr
-      CALL locate(*200,Z(Ibuf1),Ke(ielem+3),j)
-      nwds = Ke(ielem+5)
-      ngpt1 = Ke(ielem+12)
-      ngpts = Ke(ielem+9) + ngpt1 - 1
+   SPAG_Loop_1_1: DO ielem = 26 , 350 , incr
+      CALL locate(*200,z(ibuf1),ke(ielem+3),j)
+      nwds = ke(ielem+5)
+      ngpt1 = ke(ielem+12)
+      ngpts = ke(ielem+9) + ngpt1 - 1
       DO
-         CALL read(*400,*200,Geom2,kg(1),nwds,0,j)
+         CALL read(*400,*200,geom2,kg(1),nwds,0,j)
          DO i = ngpt1 , ngpts
             IF ( ns/=0 ) THEN
-               CALL bisloc(*110,kg(i),Z(1),1,ns,k)
+               CALL bisloc(*110,kg(i),z(1),1,ns,k)
                CYCLE
             ENDIF
  110        nss = nss + 1
-            IF ( nss>=Ibuf1 ) EXIT SPAG_Loop_1_1
-            Z(nss) = kg(i)
+            IF ( nss>=ibuf1 ) EXIT SPAG_Loop_1_1
+            z(nss) = kg(i)
          ENDDO
       ENDDO
  200  ENDDO SPAG_Loop_1_1
-   CALL close(Geom2,Rew)
+   CALL close(geom2,rew)
    k = nss - ns - 1
    IF ( k>=0 ) THEN
       IF ( k/=0 ) THEN
@@ -74,14 +75,14 @@ SUBROUTINE sptchk
 !     SORT THEM, AND THROW OUT DUPLICATES
 !
          ns1 = ns + 1
-         CALL sort(0,0,1,1,Z(ns1),nss-ns)
+         CALL sort(0,0,1,1,z(ns1),nss-ns)
          k = nss
          nss = ns1
          j = ns + 2
          DO i = j , k
-            IF ( Z(i)/=Z(i-1) ) THEN
+            IF ( z(i)/=z(i-1) ) THEN
                nss = nss + 1
-               Z(nss) = Z(i)
+               z(nss) = z(i)
             ENDIF
          ENDDO
       ENDIF
@@ -89,21 +90,21 @@ SUBROUTINE sptchk
 !     RE-COMPUTE THE TOTAL NO. OF GRID POINTS, NGRID, AND RETURN FOR
 !     ONE MORE BANDIT COMPUTATION
 !
-      Npt(2) = nss - ns
-      Ngrid = Npt(1) + Npt(2)
+      npt(2) = nss - ns
+      ngrid = npt(1) + npt(2)
       DO i = 1 , 9
-         Ndd(i) = 0
+         ndd(i) = 0
       ENDDO
-      Irept = 2
+      irept = 2
       RETURN
    ENDIF
 !
- 300  WRITE (Nout,99001) Maxgrd
+ 300  WRITE (nout,99001) maxgrd
 99001 FORMAT (                                                                                                                      &
        &120H1*** USER FATAL ERROR 2007,  THIS STRUCTURE MODEL USES MORE GRID POINTS THAN THE TOTAL NO. OF GRID CARDS IN BULK DATA (=&
       & ,I6,1H),/)
-   Ngrid = 0
+   ngrid = 0
    RETURN
 !
- 400  CALL mesage(-3,Geom2,name)
+ 400  CALL mesage(-3,geom2,name)
 END SUBROUTINE sptchk

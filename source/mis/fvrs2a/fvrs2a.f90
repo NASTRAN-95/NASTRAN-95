@@ -1,9 +1,10 @@
-!*==fvrs2a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fvrs2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fvrs2a(File,Kk1,Kk2,Noro,Buffer)
+   USE c_packx
    IMPLICIT NONE
-   USE C_PACKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -36,15 +37,15 @@ SUBROUTINE fvrs2a(File,Kk1,Kk2,Noro,Buffer)
 !
    Noro = 1
 !
-   Typin = 1
-   Typout = 1
-   Incr = 1
+   typin = 1
+   typout = 1
+   incr = 1
 !
    trl(1) = File
    trl(2) = 0
    trl(3) = Kk1*Kk2
    trl(4) = 1
-   trl(5) = Typout
+   trl(5) = typout
    trl(6) = 0
    trl(7) = 0
 !
@@ -56,8 +57,8 @@ SUBROUTINE fvrs2a(File,Kk1,Kk2,Noro,Buffer)
       row = k1
       DO k2 = 1 , Kk2
 !
-         Ii = row
-         Nn = row
+         ii = row
+         nn = row
          CALL pack(value,File,trl)
 !
          row = row + Kk1

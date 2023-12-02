@@ -1,14 +1,15 @@
-!*==alg11.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alg11.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg11
+   USE c_algino
+   USE c_system
+   USE c_ud300c
+   USE c_ud3prt
+   USE c_udsign
+   USE c_udstr2
    IMPLICIT NONE
-   USE C_ALGINO
-   USE C_SYSTEM
-   USE C_UD300C
-   USE C_UD3PRT
-   USE C_UDSIGN
-   USE C_UDSTR2
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,107 +40,107 @@ SUBROUTINE alg11
          opr = 0.0
          oeff = 1.0
          pfac = 550.0
-         ilast = Nstns
+         ilast = nstns
 !
 !     LOCATE COMPUTING STATION NUMBER AT THE BLADE LEADING EDGE AND
 !     AT THE BLADE TRAILING EDGE.
 !
          ledgeb = 0
          itrleb = 0
-         DO ible = 1 , Nstns
-            nout3s = Nout3(ible)/10
-            IF ( Nout3(ible)==1 .OR. nout3s==1 ) ledgeb = ible
-            IF ( Nout3(ible)==2 .OR. nout3s==2 ) itrleb = ible
+         DO ible = 1 , nstns
+            nout3s = nout3(ible)/10
+            IF ( nout3(ible)==1 .OR. nout3s==1 ) ledgeb = ible
+            IF ( nout3(ible)==2 .OR. nout3s==2 ) itrleb = ible
          ENDDO
-         IF ( Ifailo/=0 ) ilast = Ifailo
-         DO I = 1 , ilast
-            CALL alg03(Lnct,7+Nstrms)
-            IF ( Iprtc==1 ) WRITE (Log2,99001) I
+         IF ( ifailo/=0 ) ilast = ifailo
+         DO i = 1 , ilast
+            CALL alg03(lnct,7+nstrms)
+            IF ( iprtc==1 ) WRITE (log2,99001) i
 99001       FORMAT (//10X,'STATION',I3,'  FLOW-FIELD DESCRIPTION',/10X,34(1H*),//,'  STREAM      -----MESH-POINT COORDS------',3X,  &
                   & 16(1H-),'V E L O C I T I E S,16(1H-)    RADIUS OF  ','STREAMLINE   STATION',/,'  -LINE       RADIUS    X-COORD',&
                    &'    L-COORD   MERIDIONAL TANGENTIAL   AXIAL',6X,'RADIAL',4X,'TOTAL    CURVATURE SLOPE ANGLE LEAN ANGLE',/)
-            CALL alg01(R(1,I),X(1,I),Nstrms,R(1,I),x1,Gama,Nstrms,0,1)
-            IF ( I/=1 .AND. I/=Nstns ) THEN
-               DO j = 1 , Nstrms
-                  x1 = sqrt((R(j,I+1)-R(j,I))**2+(X(j,I+1)-X(j,I))**2)
-                  x2 = sqrt((R(j,I)-R(j,I-1))**2+(X(j,I)-X(j,I-1))**2)
-                  x3 = atan2(R(j,I+1)-R(j,I),X(j,I+1)-X(j,I))
-                  x4 = atan2(R(j,I)-R(j,I-1),X(j,I)-X(j,I-1))
-                  Cr(j) = (x3-x4)/(x1+x2)*2.0
-                  IF ( Cr(j)/=0.0 ) Cr(j) = 1.0/Cr(j)
-                  Phi(j) = (x3+x4)/2.0
+            CALL alg01(r(1,i),x(1,i),nstrms,r(1,i),x1,gama,nstrms,0,1)
+            IF ( i/=1 .AND. i/=nstns ) THEN
+               DO j = 1 , nstrms
+                  x1 = sqrt((r(j,i+1)-r(j,i))**2+(x(j,i+1)-x(j,i))**2)
+                  x2 = sqrt((r(j,i)-r(j,i-1))**2+(x(j,i)-x(j,i-1))**2)
+                  x3 = atan2(r(j,i+1)-r(j,i),x(j,i+1)-x(j,i))
+                  x4 = atan2(r(j,i)-r(j,i-1),x(j,i)-x(j,i-1))
+                  cr(j) = (x3-x4)/(x1+x2)*2.0
+                  IF ( cr(j)/=0.0 ) cr(j) = 1.0/cr(j)
+                  phi(j) = (x3+x4)/2.0
                ENDDO
             ELSE
                l1 = 1
                l2 = 2
-               IF ( I/=1 ) THEN
-                  l2 = Nstns
+               IF ( i/=1 ) THEN
+                  l2 = nstns
                   l1 = l2 - 1
                ENDIF
-               DO j = 1 , Nstrms
-                  Cr(j) = 0.0
-                  Phi(j) = atan2(R(j,l2)-R(j,l1),X(j,l2)-X(j,l1))
+               DO j = 1 , nstrms
+                  cr(j) = 0.0
+                  phi(j) = atan2(r(j,l2)-r(j,l1),x(j,l2)-x(j,l1))
                ENDDO
             ENDIF
-            DO j = 1 , Nstrms
-               va = Vm(j,I)*cos(Phi(j))
-               vr = Vm(j,I)*sin(Phi(j))
-               fi = Phi(j)*C1
-               ga = atan(Gama(j))*C1
+            DO j = 1 , nstrms
+               va = vm(j,i)*cos(phi(j))
+               vr = vm(j,i)*sin(phi(j))
+               fi = phi(j)*c1
+               ga = atan(gama(j))*c1
                ppg(j) = fi + ga
-               v(j) = sqrt(Vm(j,I)**2+Vw(j,I)**2)
+               v(j) = sqrt(vm(j,i)**2+vw(j,i)**2)
 !
 !     STORE RADIUS AT BLADE LEADING AND TRAILING EDGES, ALL STREAMLINES
 !
-               IF ( Icase==1 .AND. I==ledgeb ) rmdv(j,5) = R(j,I)
-               IF ( Icase==1 .AND. I==itrleb ) rmdv(j,6) = R(j,I)
-               IF ( Iprtc==1 ) WRITE (Log2,99002) j , R(j,I) , X(j,I) , Xl(j,I) , Vm(j,I) , Vw(j,I) , va , vr , v(j) , Cr(j) , fi , &
+               IF ( icase==1 .AND. i==ledgeb ) rmdv(j,5) = r(j,i)
+               IF ( icase==1 .AND. i==itrleb ) rmdv(j,6) = r(j,i)
+               IF ( iprtc==1 ) WRITE (log2,99002) j , r(j,i) , x(j,i) , xl(j,i) , vm(j,i) , vw(j,i) , va , vr , v(j) , cr(j) , fi , &
                                     & ga
 99002          FORMAT (I6,F14.4,2F11.4,5F11.2,1X,F10.2,2F11.3)
             ENDDO
-            CALL alg03(Lnct,Nstrms+4)
-            IF ( Iprtc==1 ) WRITE (Log2,99003)
+            CALL alg03(lnct,nstrms+4)
+            IF ( iprtc==1 ) WRITE (log2,99003)
 99003       FORMAT (/8H  STREAM,7X,4HMACH,6X,4(1H-),9HPRESSURES,4(1H-),5X,17H---TEMPERATURES--,4X,8HSPECIFIC,4X,                    &
                   & 17H---ENTHALPIES----,4X,7HENTROPY,6X,4HFLOW,3X,11H(PHI+GAMMA),/,7H  -LINE,7X,6HNUMBER,5X,5HTOTAL,6X,6HSTATIC,5X,&
                    &5HTOTAL,6X,6HSTATIC,5X,6HWEIGHT,5X,5HTOTAL,6X,6HSTATIC,16X,5HANGLE,/)
-            DO j = 1 , Nstrms
+            DO j = 1 , nstrms
                deltb(j) = 0.0
-               hs = H(j,I) - v(j)**2/(2.0*G*Ej)
-               IF ( hs<Hmin ) hs = Hmin
-               xm(j) = sqrt(alg9(hs,S(j,I),v(j)**2))
-               pt(j) = alg4(H(j,I),S(j,I))
-               ptins = pt(j)/Sclfac**2
-               ps(j) = alg4(hs,S(j,I))
-               psins = ps(j)/Sclfac**2
-               tt = alg7(H(j,I),S(j,I))
-               ts(j) = alg7(hs,S(j,I))
-               wt(j) = alg5(hs,S(j,I))
+               hs = h(j,i) - v(j)**2/(2.0*g*ej)
+               IF ( hs<hmin ) hs = hmin
+               xm(j) = sqrt(alg9(hs,s(j,i),v(j)**2))
+               pt(j) = alg4(h(j,i),s(j,i))
+               ptins = pt(j)/sclfac**2
+               ps(j) = alg4(hs,s(j,i))
+               psins = ps(j)/sclfac**2
+               tt = alg7(h(j,i),s(j,i))
+               ts(j) = alg7(hs,s(j,i))
+               wt(j) = alg5(hs,s(j,i))
                alpha = 0.0
-               IF ( I/=Istag .OR. j/=1 ) alpha = C1*atan(Vw(j,I)/Vm(j,I))
+               IF ( i/=istag .OR. j/=1 ) alpha = c1*atan(vw(j,i)/vm(j,i))
 !
 !     STORE DENSITY AT BLADE LEADING EDGE FOR ALL STREAMLINES
 !
-               IF ( Icase==1 .AND. I==ledgeb ) rmdv(j,2) = wt(j)
-               IF ( Iprtc==1 ) WRITE (Log2,99004) j , xm(j) , ptins , psins , tt , ts(j) , wt(j) , H(j,I) , hs , S(j,I) , alpha ,   &
+               IF ( icase==1 .AND. i==ledgeb ) rmdv(j,2) = wt(j)
+               IF ( iprtc==1 ) WRITE (log2,99004) j , xm(j) , ptins , psins , tt , ts(j) , wt(j) , h(j,i) , hs , s(j,i) , alpha ,   &
                                     & ppg(j)
 99004          FORMAT (I6,F14.4,2F11.4,2F11.3,F12.6,F10.3,F11.3,F12.6,F10.3,F11.3)
             ENDDO
-            IF ( I/=1 ) THEN
+            IF ( i/=1 ) THEN
                ifle = 0
                ifte = 0
-               IF ( Nwork(I)/=0 ) THEN
+               IF ( nwork(i)/=0 ) THEN
                   ifte = 1
-                  IF ( I/=Nstns .AND. Nwork(I+1)/=0 .AND. Speed(I)/=Speed(I+1) ) ifle = 1
-               ELSEIF ( I/=Nstns .AND. Nwork(I+1)/=0 ) THEN
+                  IF ( i/=nstns .AND. nwork(i+1)/=0 .AND. speed(i)/=speed(i+1) ) ifle = 1
+               ELSEIF ( i/=nstns .AND. nwork(i+1)/=0 ) THEN
                   ifle = 1
                ENDIF
                IF ( ifte/=0 ) THEN
-                  CALL alg03(Lnct,Nstrms+8)
-                  xn = Speed(I)*Spdfac(Icase)
+                  CALL alg03(lnct,nstrms+8)
+                  xn = speed(i)*spdfac(icase)
                   xblade = 10.0
-                  IF ( Nblade(I)/=0 ) xblade = abs(float(Nblade(I)))
+                  IF ( nblade(i)/=0 ) xblade = abs(float(nblade(i)))
                   l1 = xblade
-                  IF ( Iprtc==1 ) WRITE (Log2,99005) I , xn , l1
+                  IF ( iprtc==1 ) WRITE (log2,99005) i , xn , l1
 99005             FORMAT (/10X,'STATION',I3,' IS WITHIN OR AT THE TRAILING EDGE OF',' A BLADE ROTATING AT',F8.1,                    &
                          &' RPM  NUMBER OF BLADES IN ','ROW =',I3,/10X,109(1H*),//,'  STREAM      BLADE     ',                      &
                          &'RELATIVE    RELATIVE   RELATIVE  DEVIATION    BLADE    ',                                                &
@@ -147,102 +148,102 @@ SUBROUTINE alg11
                          &'SPEED     VELOCITY    MACH NO.  FLOW',' ANGLE   ANGLE      ANGLE      ANGLE   ACROSS BLADE  ',           &
                          &'COEFF      FACTOR     ON Q',/)
                   q = 1.0
-                  IF ( Speed(I)>=0.0 ) THEN
-                     IF ( Speed(I)>0.0 ) THEN
+                  IF ( speed(i)>=0.0 ) THEN
+                     IF ( speed(i)>0.0 ) THEN
                         q = -1.0
-                     ELSEIF ( I>=3 ) THEN
-                        ii = I - 1
-                        DO WHILE ( Speed(ii)==0.0 )
+                     ELSEIF ( i>=3 ) THEN
+                        ii = i - 1
+                        DO WHILE ( speed(ii)==0.0 )
                            IF ( ii==2 ) GOTO 2
                            ii = ii - 1
                         ENDDO
-                        IF ( Speed(ii)<0.0 ) q = -1.0
+                        IF ( speed(ii)<0.0 ) q = -1.0
                      ENDIF
                   ENDIF
- 2                l1 = Ndimen(I) + 1
+ 2                l1 = ndimen(i) + 1
                   IF ( l1==2 ) THEN
-                     DO j = 1 , Nstrms
-                        Taneps(j) = R(j,I)/R(Nstrms,I)
+                     DO j = 1 , nstrms
+                        taneps(j) = r(j,i)/r(nstrms,i)
                      ENDDO
                   ELSEIF ( l1==3 ) THEN
-                     DO j = 1 , Nstrms
-                        Taneps(j) = Xl(j,I)
+                     DO j = 1 , nstrms
+                        taneps(j) = xl(j,i)
                      ENDDO
                   ELSEIF ( l1==4 ) THEN
-                     DO j = 1 , Nstrms
-                        Taneps(j) = Xl(j,I)/Xl(Nstrms,I)
+                     DO j = 1 , nstrms
+                        taneps(j) = xl(j,i)/xl(nstrms,i)
                      ENDDO
                   ELSE
-                     DO j = 1 , Nstrms
-                        Taneps(j) = R(j,I)
+                     DO j = 1 , nstrms
+                        taneps(j) = r(j,i)
                      ENDDO
                   ENDIF
-                  l1 = Is2(I)
-                  IF ( Nwork(I)==5 .OR. Nwork(I)==6 ) CALL alg01(Datac(l1),Data6(l1),Ndata(I),Taneps,deltb,x1,Nstrms,Nterp(I),0)
-                  CALL alg01(Datac(l1),Data5(l1),Ndata(I),Taneps,solid,x1,Nstrms,Nterp(I),0)
-                  CALL alg01(Datac(l1),Data3(l1),Ndata(I),Taneps,Taneps,x1,Nstrms,Nterp(I),0)
-                  l1 = I + Nl1(I)
+                  l1 = is2(i)
+                  IF ( nwork(i)==5 .OR. nwork(i)==6 ) CALL alg01(datac(l1),data6(l1),ndata(i),taneps,deltb,x1,nstrms,nterp(i),0)
+                  CALL alg01(datac(l1),data5(l1),ndata(i),taneps,solid,x1,nstrms,nterp(i),0)
+                  CALL alg01(datac(l1),data3(l1),ndata(i),taneps,taneps,x1,nstrms,nterp(i),0)
+                  l1 = i + nl1(i)
                   l2 = l1
-                  IF ( Nloss(I)==1 .OR. Nloss(I)==4 .OR. Nwork(I)==7 ) l2 = I + Nl2(I)
-                  xn = xn*Pi/(30.0*Sclfac)
-                  DO j = 1 , Nstrms
-                     u = xn*R(j,I)
-                     vr = sqrt(Vm(j,I)**2+(Vw(j,I)-u)**2)
+                  IF ( nloss(i)==1 .OR. nloss(i)==4 .OR. nwork(i)==7 ) l2 = i + nl2(i)
+                  xn = xn*pi/(30.0*sclfac)
+                  DO j = 1 , nstrms
+                     u = xn*r(j,i)
+                     vr = sqrt(vm(j,i)**2+(vw(j,i)-u)**2)
                      xmr = xm(j)*vr/v(j)
-                     beta = atan(Tbeta(j,I))*C1
+                     beta = atan(tbeta(j,i))*c1
                      bbeta = 0.0
-                     IF ( Nwork(I)==5 .OR. Nwork(I)==6 ) bbeta = beta - deltb(j)
+                     IF ( nwork(i)==5 .OR. nwork(i)==6 ) bbeta = beta - deltb(j)
                      deltb(j) = deltb(j)*q
                      delp = 0.0
-                     IF ( I/=Nstns .AND. Nwork(I+1)/=0 .AND. Speed(I)==Speed(I+1) ) THEN
-                        x1 = sqrt((R(j,I+1)-R(j,I))**2+(X(j,I+1)-X(j,I))**2)
-                        x2 = sqrt((R(j,I)-R(j,I-1))**2+(X(j,I)-X(j,I-1))**2)
+                     IF ( i/=nstns .AND. nwork(i+1)/=0 .AND. speed(i)==speed(i+1) ) THEN
+                        x1 = sqrt((r(j,i+1)-r(j,i))**2+(x(j,i+1)-x(j,i))**2)
+                        x2 = sqrt((r(j,i)-r(j,i-1))**2+(x(j,i)-x(j,i-1))**2)
                         x3 = xblade
-                        delp = Pi*R(j,I)*wt(j)/(Sclfac**2*x3*G)                                                                     &
-                             & *(Tbeta(j,I)/(1.0+Tbeta(j,I)**2)*ts(j)*G*Ej*((S(j,I+1)-S(j,I))/x1+(S(j,I)-S(j,I-1))/x2)+Vm(j,I)      &
-                             & /R(j,I)*((R(j,I+1)*Vw(j,I+1)-R(j,I)*Vw(j,I))/x1+(R(j,I)*Vw(j,I)-R(j,I-1)*Vw(j,I-1))/x2))
-                        deltp(j,I) = delp
+                        delp = pi*r(j,i)*wt(j)/(sclfac**2*x3*g)                                                                     &
+                             & *(tbeta(j,i)/(1.0+tbeta(j,i)**2)*ts(j)*g*ej*((s(j,i+1)-s(j,i))/x1+(s(j,i)-s(j,i-1))/x2)+vm(j,i)      &
+                             & /r(j,i)*((r(j,i+1)*vw(j,i+1)-r(j,i)*vw(j,i))/x1+(r(j,i)*vw(j,i)-r(j,i-1)*vw(j,i-1))/x2))
+                        deltp(j,i) = delp
                      ENDIF
-                     hri = H(j,I) - (v(j)**2-vr**2)/(2.0*G*Ej)
-                     prd = alg4(hri,S(j,l1))
-                     pr = alg4(hri,S(j,I))
-                     tr(j,I) = alg7(hri,S(j,I))
+                     hri = h(j,i) - (v(j)**2-vr**2)/(2.0*g*ej)
+                     prd = alg4(hri,s(j,l1))
+                     pr = alg4(hri,s(j,i))
+                     tr(j,i) = alg7(hri,s(j,i))
                      prl2 = pr
-                     psl2 = ps(j)*Sclfac**2
-                     IF ( l2/=I ) THEN
-                        prl2 = H(j,l2) - (Vw(j,l2)**2-(Vw(j,l2)-xn*R(j,l2))**2)/(2.0*G*Ej)
-                        prl2 = alg4(prl2,S(j,l2))
-                        psl2 = H(j,l2) - (Vw(j,l2)**2+Vm(j,l2)**2)/(2.0*G*Ej)
-                        psl2 = alg4(psl2,S(j,l2))
+                     psl2 = ps(j)*sclfac**2
+                     IF ( l2/=i ) THEN
+                        prl2 = h(j,l2) - (vw(j,l2)**2-(vw(j,l2)-xn*r(j,l2))**2)/(2.0*g*ej)
+                        prl2 = alg4(prl2,s(j,l2))
+                        psl2 = h(j,l2) - (vw(j,l2)**2+vm(j,l2)**2)/(2.0*g*ej)
+                        psl2 = alg4(psl2,s(j,l2))
                      ENDIF
                      coef = (prd-pr)/(prl2-psl2)
                      dif = 0.0
                      IF ( solid(j)/=0.0 ) THEN
-                        x2 = Vw(j,l1) - xn*R(j,l1)
-                        x1 = sqrt(Vm(j,l1)**2+x2**2)
-                        x3 = Vw(j,I) - u
+                        x2 = vw(j,l1) - xn*r(j,l1)
+                        x1 = sqrt(vm(j,l1)**2+x2**2)
+                        x3 = vw(j,i) - u
                         dif = 1.0 - vr/x1 + (x2-x3)/(2.0*x1*solid(j))*q
                      ENDIF
                      prl1 = prl2
                      psl1 = psl2
                      IF ( l2/=l1 ) THEN
-                        psl1 = H(j,l1) - (Vw(j,l1)**2+Vm(j,l1)**2)/(2.0*G*Ej)
-                        prl1 = psl1 + (Vm(j,l1)**2+(Vw(j,l1)-xn*R(j,l1))**2)/(2.0*G*Ej)
-                        psl1 = alg4(psl1,S(j,l1))
-                        prl1 = alg4(prl1,S(j,l1))
+                        psl1 = h(j,l1) - (vw(j,l1)**2+vm(j,l1)**2)/(2.0*g*ej)
+                        prl1 = psl1 + (vm(j,l1)**2+(vw(j,l1)-xn*r(j,l1))**2)/(2.0*g*ej)
+                        psl1 = alg4(psl1,s(j,l1))
+                        prl1 = alg4(prl1,s(j,l1))
                      ENDIF
                      dpq = (ps(j)-psl1)/(prl1-psl1)
-                     IF ( Iprtc==1 ) WRITE (Log2,99006) j , u , vr , xmr , beta , deltb(j) , bbeta , Taneps(j) , delp , coef , dif ,&
+                     IF ( iprtc==1 ) WRITE (log2,99006) j , u , vr , xmr , beta , deltb(j) , bbeta , taneps(j) , delp , coef , dif ,&
                         & dpq
 99006                FORMAT (I6,F14.2,F11.2,F11.4,4F11.3,F11.4,F11.5,F10.4,F11.4)
                   ENDDO
-                  CALL alg03(Lnct,Nstrms+5)
+                  CALL alg03(lnct,nstrms+5)
                   pbar = 0.0
                   hbar = 0.0
-                  DO j = 1 , Itub
-                     x1 = (Delf(j+1)-Delf(j))/2.0
+                  DO j = 1 , itub
+                     x1 = (delf(j+1)-delf(j))/2.0
                      pbar = pbar + x1*(pt(j)+pt(j+1))
-                     hbar = hbar + x1*(H(j,I)+H(j+1,I))
+                     hbar = hbar + x1*(h(j,i)+h(j+1,i))
                   ENDDO
                   rbar1 = pbar/p1bar
                   dh1 = (hbar-h1bar)/h1bar
@@ -254,13 +255,13 @@ SUBROUTINE alg11
                      l1keep = l1
                      pnbar = 0.0
                      hnbar = 0.0
-                     DO j = 1 , Nstrms
-                        pn(j) = alg4(H(j,l1),S(j,l1))
+                     DO j = 1 , nstrms
+                        pn(j) = alg4(h(j,l1),s(j,l1))
                      ENDDO
-                     DO j = 1 , Itub
-                        x1 = (Delf(j+1)-Delf(j))/2.0
+                     DO j = 1 , itub
+                        x1 = (delf(j+1)-delf(j))/2.0
                         pnbar = pnbar + x1*(pn(j)+pn(j+1))
-                        hnbar = hnbar + x1*(H(j,l1)+H(j+1,l1))
+                        hnbar = hnbar + x1*(h(j,l1)+h(j+1,l1))
                      ENDDO
                      snbar = alg3(pnbar,hnbar)
                   ENDIF
@@ -268,106 +269,106 @@ SUBROUTINE alg11
                   IF ( hnbar/=hbar ) effn = (alg2(snbar,pbar)-hnbar)/(hbar-hnbar)
                   rbarn = pbar/pnbar
                   dhn = (hbar-hnbar)/hnbar
-                  IF ( Iprtc==1 ) WRITE (Log2,99007) I , l1 , I , I , l1 , I , rbar1 , rbarn , eff1 , effn , dh1 , dhn
+                  IF ( iprtc==1 ) WRITE (log2,99007) i , l1 , i , i , l1 , i , rbar1 , rbarn , eff1 , effn , dh1 , dhn
 99007             FORMAT (/,'  STREAM',7X,'INLET THROUGH STATION',I3,7X,'STATION',I3,' THROUGH STATION',I3,5X,'MEAN VALUES',6X,     &
                          &'INLET TO STA.',I2,'   STA.',I2,' TO STA.',I2,/,'  -LINE',6X,'PRESSURE  ISENTROPIC  DELTA H    PRESSURE  '&
                         & ,'ISENTROPIC  DELTA H     PRESSURE RATIO',F14.4,F19.4,/15X,                                               &
                          &'RATIO   EFFICIENCY  ON H1        RATIO   EFFICIENCY  ON ','H1       ISEN EFFY',2F19.4,/80X,              &
                          &'DELTA H ON H1',F15.4,F19.4)
-                  DO j = 1 , Nstrms
+                  DO j = 1 , nstrms
                      rbar1 = pt(j)/p1(j)
                      eff1 = 0.0
-                     IF ( H(j,I)/=H(j,1) ) eff1 = (alg2(S(j,1),pt(j))-H(j,1))/(H(j,I)-H(j,1))
-                     dh1 = (H(j,I)-H(j,1))/H(j,1)
+                     IF ( h(j,i)/=h(j,1) ) eff1 = (alg2(s(j,1),pt(j))-h(j,1))/(h(j,i)-h(j,1))
+                     dh1 = (h(j,i)-h(j,1))/h(j,1)
                      rbarn = pt(j)/pn(j)
                      effn = 0.0
-                     IF ( H(j,I)/=H(j,l1) ) effn = (alg2(S(j,l1),pt(j))-H(j,l1))/(H(j,I)-H(j,l1))
-                     dhn = (H(j,I)-H(j,l1))/H(j,l1)
-                     IF ( Iprtc==1 ) WRITE (Log2,99008) j , rbar1 , eff1 , dh1 , rbarn , effn , dhn
+                     IF ( h(j,i)/=h(j,l1) ) effn = (alg2(s(j,l1),pt(j))-h(j,l1))/(h(j,i)-h(j,l1))
+                     dhn = (h(j,i)-h(j,l1))/h(j,l1)
+                     IF ( iprtc==1 ) WRITE (log2,99008) j , rbar1 , eff1 , dh1 , rbarn , effn , dhn
 99008                FORMAT (I6,F14.4,F10.4,F11.4,F12.4,F10.4,F11.4)
                   ENDDO
                ENDIF
                IF ( ifle/=0 ) THEN
-                  CALL alg03(Lnct,Nstrms+8)
-                  xn = Speed(I+1)*Spdfac(Icase)
-                  ip = I + 1
+                  CALL alg03(lnct,nstrms+8)
+                  xn = speed(i+1)*spdfac(icase)
+                  ip = i + 1
                   xblade = 10.0
-                  IF ( Nblade(ip)/=0 ) xblade = abs(float(Nblade(ip)))
+                  IF ( nblade(ip)/=0 ) xblade = abs(float(nblade(ip)))
                   l1 = xblade
-                  IF ( Iprtc==1 ) WRITE (Log2,99009) I , xn , l1
+                  IF ( iprtc==1 ) WRITE (log2,99009) i , xn , l1
 99009             FORMAT (/10X,'STATION',I3,' IS AT THE LEADING EDGE OF A BLADE ','ROATING AT',F9.1,                                &
                          &' RPM  NUMBER OF BLADES IN ROW =',I3,/10X,99(1H*),//,'  STREAM      BLADE     RELATIVE   ',               &
                          &'RELATIVE   RELATIVE  INCIDENCE    BLADE      LEAN    ','PRESS DIFF',/,                                   &
                          &'  -LINE       SPEED     VELOCITY   MACH',' NO.  FLOW ANGLE   ANGLE      ANGLE      ANGLE   ACROSS',      &
                          &' BLADE',/)
-                  xn = xn*Pi/(30.0*Sclfac)
+                  xn = xn*pi/(30.0*sclfac)
                   q = 1.0
-                  IF ( Speed(ip)>=0.0 ) THEN
-                     IF ( Speed(ip)>0.0 ) THEN
+                  IF ( speed(ip)>=0.0 ) THEN
+                     IF ( speed(ip)>0.0 ) THEN
                         q = -1.0
                      ELSEIF ( ip>=3 ) THEN
                         ii = ip - 1
-                        DO WHILE ( Speed(ii)==0.0 )
+                        DO WHILE ( speed(ii)==0.0 )
                            IF ( ii==2 ) GOTO 4
                            ii = ii - 1
                         ENDDO
-                        IF ( Speed(ii)<0.0 ) q = -1.0
+                        IF ( speed(ii)<0.0 ) q = -1.0
                      ENDIF
                   ENDIF
- 4                DO j = 1 , Nstrms
-                     Cr(j) = 0.0
-                     Taneps(j) = 0.0
+ 4                DO j = 1 , nstrms
+                     cr(j) = 0.0
+                     taneps(j) = 0.0
                   ENDDO
-                  IF ( Nwork(I)==0 .AND. Ndata(I)/=0 ) THEN
-                     l1 = Ndimen(I) + 1
+                  IF ( nwork(i)==0 .AND. ndata(i)/=0 ) THEN
+                     l1 = ndimen(i) + 1
                      IF ( l1==2 ) THEN
-                        DO j = 1 , Nstrms
-                           Taneps(j) = R(j,I)/R(Nstrms,I)
+                        DO j = 1 , nstrms
+                           taneps(j) = r(j,i)/r(nstrms,i)
                         ENDDO
                      ELSEIF ( l1==3 ) THEN
-                        DO j = 1 , Nstrms
-                           Taneps(j) = Xl(j,I)
+                        DO j = 1 , nstrms
+                           taneps(j) = xl(j,i)
                         ENDDO
                      ELSEIF ( l1==4 ) THEN
-                        DO j = 1 , Nstrms
-                           Taneps(j) = Xl(j,I)/Xl(Nstrms,I)
+                        DO j = 1 , nstrms
+                           taneps(j) = xl(j,i)/xl(nstrms,i)
                         ENDDO
                      ELSE
-                        DO j = 1 , Nstrms
-                           Taneps(j) = R(j,I)
+                        DO j = 1 , nstrms
+                           taneps(j) = r(j,i)
                         ENDDO
                      ENDIF
-                     l1 = Is2(I)
-                     CALL alg01(Datac(l1),Data1(l1),Ndata(I),Taneps,Cr,x1,Nstrms,Nterp(I),0)
-                     CALL alg01(Datac(l1),Data3(l1),Ndata(I),Taneps,Taneps,x1,Nstrms,Nterp(I),0)
+                     l1 = is2(i)
+                     CALL alg01(datac(l1),data1(l1),ndata(i),taneps,cr,x1,nstrms,nterp(i),0)
+                     CALL alg01(datac(l1),data3(l1),ndata(i),taneps,taneps,x1,nstrms,nterp(i),0)
                   ENDIF
                   bbeta = 0.0
-                  DO j = 1 , Nstrms
-                     u = xn*R(j,I)
-                     vr = sqrt(Vm(j,I)**2+(Vw(j,I)-u)**2)
+                  DO j = 1 , nstrms
+                     u = xn*r(j,i)
+                     vr = sqrt(vm(j,i)**2+(vw(j,i)-u)**2)
                      xmr = xm(j)*vr/v(j)
-                     tr(j,I) = alg7(H(j,I)-(v(j)**2-vr**2)/(2.0*G*Ej),S(j,I))
-                     beta = atan((Vw(j,I)-u)/Vm(j,I))*C1
+                     tr(j,i) = alg7(h(j,i)-(v(j)**2-vr**2)/(2.0*g*ej),s(j,i))
+                     beta = atan((vw(j,i)-u)/vm(j,i))*c1
 !
 !     STORE REL. MACH, REL. VEL AND REL. FLOW ANGLE FOR ALL STREAMLINES
 !     AT THE BLADE LEADING EDGE
 !
-                     IF ( Icase==1 .AND. I==ledgeb ) THEN
+                     IF ( icase==1 .AND. i==ledgeb ) THEN
                         rmdv(j,1) = xmr
                         rmdv(j,3) = vr
                         rmdv(j,4) = beta
                      ENDIF
                      deltb(j) = 0.0
-                     IF ( Nwork(I)==0 .AND. Ndata(I)/=0 ) THEN
-                        bbeta = atan((tan(Cr(j)/C1)*(1.0-Gama(j)*tan(Phi(j)))-tan(Phi(j))*tan(Taneps(j)/C1)*sqrt(1.0+Gama(j)**2))   &
-                              & *cos(Phi(j)))*C1
+                     IF ( nwork(i)==0 .AND. ndata(i)/=0 ) THEN
+                        bbeta = atan((tan(cr(j)/c1)*(1.0-gama(j)*tan(phi(j)))-tan(phi(j))*tan(taneps(j)/c1)*sqrt(1.0+gama(j)**2))   &
+                              & *cos(phi(j)))*c1
                         deltb(j) = (beta-bbeta)*q
                      ENDIF
-                     x1 = sqrt((R(j,I+1)-R(j,I))**2+(X(j,I+1)-X(j,I))**2)
-                     delp = Pi*R(j,I)*2.0*wt(j)/(Sclfac**2*xblade*G)*(sin(beta/C1)*cos(beta/C1)*G*Ej*ts(j)*(S(j,I+1)-S(j,I))        &
-                          & /x1+Vm(j,I)/(R(j,I)*x1)*(R(j,I+1)*Vw(j,I+1)-R(j,I)*Vw(j,I)))
-                     deltp(j,I) = delp
-                     IF ( Iprtc==1 ) WRITE (Log2,99010) j , u , vr , xmr , beta , deltb(j) , bbeta , Taneps(j) , delp
+                     x1 = sqrt((r(j,i+1)-r(j,i))**2+(x(j,i+1)-x(j,i))**2)
+                     delp = pi*r(j,i)*2.0*wt(j)/(sclfac**2*xblade*g)*(sin(beta/c1)*cos(beta/c1)*g*ej*ts(j)*(s(j,i+1)-s(j,i))        &
+                          & /x1+vm(j,i)/(r(j,i)*x1)*(r(j,i+1)*vw(j,i+1)-r(j,i)*vw(j,i)))
+                     deltp(j,i) = delp
+                     IF ( iprtc==1 ) WRITE (log2,99010) j , u , vr , xmr , beta , deltb(j) , bbeta , taneps(j) , delp
 99010                FORMAT (I6,F14.2,F11.2,F11.4,4F11.3,F11.4)
                   ENDDO
                ENDIF
@@ -376,12 +377,12 @@ SUBROUTINE alg11
                h1bar = 0.0
                p1(1) = pt(1)
                pn(1) = pt(1)
-               DO j = 1 , Itub
+               DO j = 1 , itub
                   p1(j+1) = pt(j+1)
                   pn(j+1) = pt(j+1)
-                  x1 = (Delf(j+1)-Delf(j))/2.0
+                  x1 = (delf(j+1)-delf(j))/2.0
                   p1bar = p1bar + x1*(pt(j)+pt(j+1))
-                  h1bar = h1bar + x1*(H(j,1)+H(j+1,1))
+                  h1bar = h1bar + x1*(h(j,1)+h(j+1,1))
                ENDDO
                hbar = h1bar
                s1bar = alg3(p1bar,h1bar)
@@ -391,115 +392,114 @@ SUBROUTINE alg11
                l1keep = 1
             ENDIF
          ENDDO
-         IF ( Nbl/=0 ) THEN
+         IF ( nbl/=0 ) THEN
             l1 = (ilast-1)/10 + 1
-            CALL alg03(Lnct,3+5*l1)
-            IF ( Iprtc==1 ) THEN
-               WRITE (Log2,99011)
+            CALL alg03(lnct,3+5*l1)
+            IF ( iprtc==1 ) THEN
+               WRITE (log2,99011)
 99011          FORMAT (/10X,'ANNULUS WALL BOUNDARY LAYER CALCULATION RESULTS',/10X,47(1H*))
                DO k = 1 , l1
                   l2 = 10*(k-1) + 1
                   l3 = l2 + 9
                   IF ( l3>ilast ) l3 = ilast
-                  WRITE (Log2,99012) (I,I=l2,l3)
+                  WRITE (log2,99012) (i,i=l2,l3)
 99012             FORMAT (/,' STATION NUMBER',14X,10I10)
-                  WRITE (Log2,99013) (Delh(I),I=l2,l3)
+                  WRITE (log2,99013) (delh(i),i=l2,l3)
 99013             FORMAT (' HUB DISPLACEMENT THICKNESS',4X,10F10.5)
-                  WRITE (Log2,99014) (Delt(I),I=l2,l3)
+                  WRITE (log2,99014) (delt(i),i=l2,l3)
 99014             FORMAT (' CASE DISPLACEMENT THICKNESS',3X,10F10.5)
-                  WRITE (Log2,99015) (Wwbl(I),I=l2,l3)
+                  WRITE (log2,99015) (wwbl(i),i=l2,l3)
 99015             FORMAT (' BLOCKAGE AREA FRACTION',8X,10F10.5)
                ENDDO
             ENDIF
          ENDIF
-         CALL alg03(Lnct,4)
-         IF ( Iprtc==1 .AND. Ivfail==0 .AND. Iffail==0 ) WRITE (Log2,99016) Icase , Ipass
+         CALL alg03(lnct,4)
+         IF ( iprtc==1 .AND. ivfail==0 .AND. iffail==0 ) WRITE (log2,99016) icase , ipass
 99016    FORMAT (/10X,'POINT NO',I3,'   PASS',I3,'   THE CALCULATION IS ','CONVERGED',/10X,52(1H*))
-         IF ( Ifailo/=0 ) WRITE (Log2,99017) Icase , Ipass , Ifailo
+         IF ( ifailo/=0 ) WRITE (log2,99017) icase , ipass , ifailo
 99017    FORMAT (/10X,'POINT NO',I3,'   PASS',I3,'   THE CALCULATION FAIL','ED AT STATION',I3,/10X,60(1H*))
-         IF ( Ifailo==0 .AND. (Ivfail/=0 .OR. Iffail/=0) ) WRITE (Log2,99018) Icase , Ipass , Ivfail , Iffail
+         IF ( ifailo==0 .AND. (ivfail/=0 .OR. iffail/=0) ) WRITE (log2,99018) icase , ipass , ivfail , iffail
 99018    FORMAT (/10X,'POINT NO',I3,'   PASS',I3,'   THE CALCULATION IS ','NOT FULLY CONVERGED  IVFAIL =',I3,'  IFFAIL =',I3,/10X,  &
                & 88(1H*))
-         power = Flow(Icase)*(hbar-h1bar)*Ej/pfac
-         IF ( Iprtc==1 ) WRITE (Log2,99019) Spdfac(Icase) , Flow(Icase) , opr , oeff , power
+         power = flow(icase)*(hbar-h1bar)*ej/pfac
+         IF ( iprtc==1 ) WRITE (log2,99019) spdfac(icase) , flow(icase) , opr , oeff , power
 99019    FORMAT (10X,'SPEED FACTOR =',F10.3,'  FLOW =',F8.3,'  TOTAL PRES','SURE RATIO =',F7.3,'  ISENTROPIC EFFICIENCY =',F6.4,    &
                 &'  POWER =',E11.4)
-         IF ( Iprtc==0 ) WRITE (Log2,99020) Icase , Ipass , Spdfac(Icase) , Flow(Icase) , opr , oeff , power
+         IF ( iprtc==0 ) WRITE (log2,99020) icase , ipass , spdfac(icase) , flow(icase) , opr , oeff , power
 99020    FORMAT (18H     FOR POINT NO.,I3,5H PASS,I3,15H - SPEED FACTOR,10X,1H=,F10.4/32X,4HFLOW,18X,1H=,F10.4,/32X,                &
                 &23HTOTAL PRESSURE RATIO  =,F10.4,/32X,'ISENTROPIC ','EFFICIENCY =',F10.4,/32X,'POWER',17X,1H=,E10.4)
-         IF ( Ifailo/=0 ) THEN
+         IF ( ifailo/=0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          l1 = 2
          spag_nextblock_1 = 2
       CASE (2)
-         DO I = l1 , Nstns
-            nout3s = Nout3(I)/10
-            IF ( nout3s==0 ) nout3s = Nout3(I)
+         DO i = l1 , nstns
+            nout3s = nout3(i)/10
+            IF ( nout3s==0 ) nout3s = nout3(i)
             IF ( nout3s==1 .OR. nout3s==3 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         l2 = I
-         l3 = I + 1
-         SPAG_Loop_1_1: DO I = l3 , Nstns
-            nout3s = Nout3(I)/10
-            nout3t = Nout3(I) - nout3s*10
+         l2 = i
+         l3 = i + 1
+         SPAG_Loop_1_1: DO i = l3 , nstns
+            nout3s = nout3(i)/10
+            nout3t = nout3(i) - nout3s*10
             IF ( nout3s==0 ) nout3t = 1
-            IF ( nout3s==0 ) nout3s = Nout3(I)
+            IF ( nout3s==0 ) nout3s = nout3(i)
             IF ( nout3s==2 .OR. nout3s==3 ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
-         l3 = I
-         CALL alg03(Lnct,10)
-         IF ( Iprtc==1 ) WRITE (Log2,99021) l2 , l3
+         l3 = i
+         CALL alg03(lnct,10)
+         IF ( iprtc==1 ) WRITE (log2,99021) l2 , l3
 99021    FORMAT (/10X,'DATA FOR NASTRAN PROGRAM FOR BLADE BETWEEN STATIONS',I3,' AND',I3,/10X,61(1H*),//)
          IF ( nout3t/=2 ) THEN
-            IF ( Iprtc==1 ) WRITE (Log2,99022)
+            IF ( iprtc==1 ) WRITE (log2,99022)
 99022       FORMAT (' NAME   CODE    DELTA P   ELEMENT',7X,'MESHPOINTS -  J   I',9X,'J   I',9X,'J   I',/)
-            Lnct = Lnct - 4
+            lnct = lnct - 4
             ielem = 0
-            xsign = -float(Nsign)
+            xsign = -float(nsign)
             l4 = l2 + 1
             idata(1) = name1(1)
             idata(2) = name1(2)
             idata(3) = 60
-            DO j = 1 , Itub
-               DO I = l4 , l3
-                  CALL alg03(Lnct,2)
+            DO j = 1 , itub
+               DO i = l4 , l3
+                  CALL alg03(lnct,2)
                   ielem = ielem + 1
-                  l5 = I - 1
+                  l5 = i - 1
                   l6 = j + 1
-                  IF ( I==l3 ) THEN
+                  IF ( i==l3 ) THEN
                      pload = xsign*((deltp(j,l5)+deltp(l6,l5))/3.0)
-                     IF ( Nblade(I)<0 ) pload = pload*0.75
-                     IF ( Iprtc==1 ) WRITE (Log2,99028) pload , ielem , j , l5 , l6 , l5 , l6 , I
+                     IF ( nblade(i)<0 ) pload = pload*0.75
+                     IF ( iprtc==1 ) WRITE (log2,99028) pload , ielem , j , l5 , l6 , l5 , l6 , i
                      rdata(4) = pload
                      idata(5) = ielem
-                     CALL write(Iscr,idata,5,1)
+                     CALL write(iscr,idata,5,1)
                      ielem = ielem + 1
-                     IF ( Nblade(I)>=0 ) pload = xsign*(deltp(j,l5)/3.0)
-                     IF ( Iprtc==1 ) WRITE (Log2,99028) pload , ielem , j , l5 , l6 , I , j , I
+                     IF ( nblade(i)>=0 ) pload = xsign*(deltp(j,l5)/3.0)
+                     IF ( iprtc==1 ) WRITE (log2,99028) pload , ielem , j , l5 , l6 , i , j , i
                      rdata(4) = pload
                      idata(5) = ielem
-                     CALL write(Iscr,idata,5,1)
+                     CALL write(iscr,idata,5,1)
                   ELSE
-                     pload = xsign*((deltp(j,l5)+deltp(l6,l5)+deltp(l6,I))/3.0)
-                     IF ( Nblade(I)<0 ) pload = xsign*((deltp(j,l5)+deltp(j,I)+deltp(l6,l5)+deltp(l6,I))*0.25)
-                     IF ( Iprtc==1 ) WRITE (Log2,99028) pload , ielem , l6 , l5 , l6 , I , j , l5
+                     pload = xsign*((deltp(j,l5)+deltp(l6,l5)+deltp(l6,i))/3.0)
+                     IF ( nblade(i)<0 ) pload = xsign*((deltp(j,l5)+deltp(j,i)+deltp(l6,l5)+deltp(l6,i))*0.25)
+                     IF ( iprtc==1 ) WRITE (log2,99028) pload , ielem , l6 , l5 , l6 , i , j , l5
                      rdata(4) = pload
                      idata(5) = ielem
-                     CALL write(Iscr,idata,5,1)
+                     CALL write(iscr,idata,5,1)
                      ielem = ielem + 1
-                     IF ( Nblade(I)>=0 ) pload = xsign*((deltp(j,l5)+deltp(l6,I)+deltp(j,I))/3.0)
-                     IF ( Iprtc==1 ) WRITE (Log2,99028) pload , ielem , j , l5 , l6 , I , j , I
+                     IF ( nblade(i)>=0 ) pload = xsign*((deltp(j,l5)+deltp(l6,i)+deltp(j,i))/3.0)
+                     IF ( iprtc==1 ) WRITE (log2,99028) pload , ielem , j , l5 , l6 , i , j , i
                      rdata(4) = pload
                      idata(5) = ielem
-                     CALL write(Iscr,idata,5,1)
+                     CALL write(iscr,idata,5,1)
                   ENDIF
                ENDDO
             ENDDO
@@ -509,28 +509,27 @@ SUBROUTINE alg11
 !
 !     OUTPUT RELATIVE TOTAL TEMPERATURES AT NODES ON *TEMP* CARDS
 !
-            CALL alg03(Lnct,10)
-            Lnct = Lnct - 6
-            IF ( Iprtc==1 ) WRITE (Log2,99023)
+            CALL alg03(lnct,10)
+            lnct = lnct - 6
+            IF ( iprtc==1 ) WRITE (log2,99023)
 99023       FORMAT (//,' NAME   CODE    DELTA T   NODE',10X,'MESHPOINTS -  ','J   I   COORDINATES -   RADIAL       AXIAL',/)
             inode = 1
             idata(1) = name2(1)
             idata(2) = name2(2)
             idata(3) = 70
-            DO j = 1 , Nstrms
-               DO I = l2 , l3
-                  CALL alg03(Lnct,1)
+            DO j = 1 , nstrms
+               DO i = l2 , l3
+                  CALL alg03(lnct,1)
                   idata(4) = inode
-                  rdata(5) = tr(j,I)
-                  CALL write(Iscr,idata,5,1)
-                  IF ( Iprtc==1 ) WRITE (Log2,99024) tr(j,I) , inode , j , I , R(j,I) , X(j,I)
+                  rdata(5) = tr(j,i)
+                  CALL write(iscr,idata,5,1)
+                  IF ( iprtc==1 ) WRITE (log2,99024) tr(j,i) , inode , j , i , r(j,i) , x(j,i)
 99024             FORMAT (' TEMP     70',F12.5,I6,21X,2I4,16X,F10.4,2X,F10.4)
                   inode = inode + 1
                ENDDO
             ENDDO
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     PUNCH STREAML2 BULK DATA CARDS FOR EACH STREAMLINE
@@ -539,20 +538,20 @@ SUBROUTINE alg11
 !     NASTRAN MODULE AMG THAT USE THESE ANGLES.
 !
          IF ( ledgeb*itrleb/=0 ) THEN
-            IF ( Istrml/=-1 .AND. Istrml/=1 ) THEN
-               WRITE (Log2,99025)
+            IF ( istrml/=-1 .AND. istrml/=1 ) THEN
+               WRITE (log2,99025)
 99025          FORMAT (//10X,47HNASTRAN - STREAML2 - COMPRESSOR BLADE BULK DATA,/10X,49(1H*),/,                                     &
                       &'  SLN  NSTNS  STAGGER    CHORD    RADIUS','    BSPACE     MACH       DEN       VEL      FLOWA',/)
                nstnsx = itrleb - ledgeb + 1
-               DO ileb = 1 , Nstrms
+               DO ileb = 1 , nstrms
                   radius = (rmdv(ileb,5)+rmdv(ileb,6))/2.0
-                  bspace = (6.283185*radius)/float(Nbldes)
-                  Stag(ileb) = -1.0*Stag(ileb)
+                  bspace = (6.283185*radius)/float(nbldes)
+                  stag(ileb) = -1.0*stag(ileb)
                   rmdv(ileb,4) = -1.0*rmdv(ileb,4)
-                  WRITE (Lpunch,99026) ileb , nstnsx , Stag(ileb) , Chordd(ileb) , radius , bspace , rmdv(ileb,1) , rmdv(ileb,2) ,  &
+                  WRITE (lpunch,99026) ileb , nstnsx , stag(ileb) , chordd(ileb) , radius , bspace , rmdv(ileb,1) , rmdv(ileb,2) ,  &
                                      & ileb , ileb , rmdv(ileb,3) , rmdv(ileb,4)
 99026             FORMAT (8HSTREAML2,2I8,F8.3,3F8.5,2F8.6,5H+STRL,I2,5H+STRL,I2,F8.1,F8.3)
-                  WRITE (Log2,99027) ileb , nstnsx , Stag(ileb) , Chordd(ileb) , radius , bspace , rmdv(ileb,1) , rmdv(ileb,2) ,    &
+                  WRITE (log2,99027) ileb , nstnsx , stag(ileb) , chordd(ileb) , radius , bspace , rmdv(ileb,1) , rmdv(ileb,2) ,    &
                                    & rmdv(ileb,3) , rmdv(ileb,4)
 99027             FORMAT (I5,I6,2X,F8.3,3(2X,F8.5),2(2X,F8.6),2X,F8.1,2X,F8.3)
                ENDDO

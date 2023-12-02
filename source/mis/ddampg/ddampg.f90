@@ -1,13 +1,14 @@
-!*==ddampg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddampg.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddampg
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -42,10 +43,10 @@ SUBROUTINE ddampg
 !
 !     SET UP OPEN CORE AND BUFFERS
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Ibuf(1) + 1
-         buf2 = buf1 - Ibuf(1)
-         buf3 = buf2 - Ibuf(1)
+         lcore = korsz(z)
+         buf1 = lcore - ibuf(1) + 1
+         buf2 = buf1 - ibuf(1)
+         buf3 = buf2 - ibuf(1)
          lcore = buf3 - 1
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 2
@@ -57,12 +58,12 @@ SUBROUTINE ddampg
          mcb(1) = mp
          CALL rdtrl(mcb)
          ncolmp = mcb(2)
-         Nmodes = ncolmp
+         nmodes = ncolmp
          nrowmp = mcb(3)
          mcb(1) = pvw
          CALL rdtrl(mcb)
          ncolpv = mcb(2)
-         Ndir = ncolpv
+         ndir = ncolpv
          nrowpv = mcb(3)
          mcb4 = mcb(4)
          mcb5 = mcb(5)
@@ -85,48 +86,48 @@ SUBROUTINE ddampg
             mcb(6) = 0
             mcb(7) = 0
 !
-            Jout = 1
-            Iin = 1
-            Iout = 1
-            Ii = 1
-            Iii = 1
-            Nn = nrowmp
-            Incr = 1
-            Jncr = 1
+            jout = 1
+            iin = 1
+            iout = 1
+            ii = 1
+            iii = 1
+            nn = nrowmp
+            incr = 1
+            jncr = 1
 !
-            CALL gopen(mp,Z(buf1),0)
-            CALL gopen(pvw,Z(buf2),0)
-            CALL gopen(pg,Z(buf3),1)
+            CALL gopen(mp,z(buf1),0)
+            CALL gopen(pvw,z(buf2),0)
+            CALL gopen(pg,z(buf3),1)
 !
             DO ijk = 1 , ncolpv
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     Nnn = nrowpv
-                     CALL unpack(*4,pvw,Z(1))
+                     nnn = nrowpv
+                     CALL unpack(*4,pvw,z(1))
 !
                      DO j = 1 , ncolmp
                         spag_nextblock_3 = 1
                         SPAG_DispatchLoop_3: DO
                            SELECT CASE (spag_nextblock_3)
                            CASE (1)
-                              Nnn = nrowmp
-                              CALL unpack(*2,mp,Z(nrowpv+1))
+                              nnn = nrowmp
+                              CALL unpack(*2,mp,z(nrowpv+1))
 !
                               DO k = 1 , nrowmp
                                  isub = nrowpv + k
-                                 Z(isub) = Z(isub)*Z(j)
+                                 z(isub) = z(isub)*z(j)
                               ENDDO
                               spag_nextblock_3 = 2
                               CYCLE SPAG_DispatchLoop_3
 !
  2                            DO k = 1 , nrowmp
-                                 Z(nrowpv+k) = 0.
+                                 z(nrowpv+k) = 0.
                               ENDDO
                               spag_nextblock_3 = 2
                            CASE (2)
-                              CALL pack(Z(nrowpv+1),pg,mcb)
+                              CALL pack(z(nrowpv+1),pg,mcb)
                               EXIT SPAG_DispatchLoop_3
                            END SELECT
                         ENDDO SPAG_DispatchLoop_3
@@ -137,10 +138,10 @@ SUBROUTINE ddampg
 !     NULL COLUMN FOR PVW-WRITE OUT NCOLMP ZERO COLUMNS OF LENGTH NROWMP
 !
  4                   DO k = 1 , nrowmp
-                        Z(k) = 0.
+                        z(k) = 0.
                      ENDDO
                      DO k = 1 , ncolmp
-                        CALL pack(Z,pg,mcb)
+                        CALL pack(z,pg,mcb)
                      ENDDO
                      spag_nextblock_2 = 2
                   CASE (2)
@@ -164,7 +165,6 @@ SUBROUTINE ddampg
 !
  20      n = -2
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          n = -8
          file = 0

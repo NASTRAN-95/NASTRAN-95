@@ -31,14 +31,14 @@ SUBROUTINE ifp3
 !     23   CTRAPAX  --  AX.TRA.CR      7042-74  CTRAP-GEOM2
 !
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_IFP3CM
-   USE C_IFP3LV
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_condas
+   USE c_ifp3cm
+   USE c_ifp3lv
+   USE c_output
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,6 +55,12 @@ SUBROUTINE ifp3
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    !>>>>EQUIVALENCE (Consts(1),Pi) , (Consts(2),Twopi) , (Consts(4),Raddeg) , (Z(1),Rz(1)) , (Geom(1),File(1)) , (Scrtch,File(5)) ,      &
 !>>>>    & (Axic,File(6)) , (num(11),b) , (Noeor,Inprwd,Zero) , (Eor,Clorwd,Outrwd,One)
    DATA inum/1H0 , 1H1 , 1H2 , 1H3 , 1H4 , 1H5 , 1H6 , 1H7 , 1H8 , 1H9 , 1H /
@@ -66,47 +72,47 @@ SUBROUTINE ifp3
 !     RIGHT-JUSTIFY INUM AND CALL IT NUM
 !
    DO i = 1 , 11
-      num(i) = rshift(inum(i),Nbpw-Nbpc)
+      num(i) = rshift(inum(i),nbpw-nbpc)
    ENDDO
 !
 !     INITIAL CHECK TO MAKE SURE TRAILER BITS ARE ALL OFF FOR GEOM1,
 !     GEOM2, GEOM3, GEOM4.
 !
    DO i = 1 , 96
-      Ihead(i) = Iheadb(i)
+      ihead(i) = iheadb(i)
    ENDDO
 !
-   IF ( Noflag/=0 ) THEN
-      Nogo = .TRUE.
+   IF ( noflag/=0 ) THEN
+      nogo = .TRUE.
    ELSE
-      Nogo = .FALSE.
+      nogo = .FALSE.
    ENDIF
 !
-   Openfl(1) = 0
-   Openfl(2) = 0
-   Openfl(3) = 0
-   Openfl(4) = 0
-   Openfl(5) = 0
-   Openfl(6) = 0
+   openfl(1) = 0
+   openfl(2) = 0
+   openfl(3) = 0
+   openfl(4) = 0
+   openfl(5) = 0
+   openfl(6) = 0
    DO i = 1 , 4
-      Trail(1) = geom(i)
-      CALL rdtrl(Trail(1))
-      IF ( Trail(1)<=0 ) THEN
+      trail(1) = geom(i)
+      CALL rdtrl(trail(1))
+      IF ( trail(1)<=0 ) THEN
          CALL page2(3)
          imsg = 1061
-         WRITE (Nout,99011) Sfm , imsg
-         WRITE (Nout,99012) geom(i) , Iname(2*i-1) , Iname(2*i) , ifiat
-         Nogo = .TRUE.
+         WRITE (nout,99011) sfm , imsg
+         WRITE (nout,99012) geom(i) , iname(2*i-1) , iname(2*i) , ifiat
+         nogo = .TRUE.
       ELSE
 !
          DO j = 2 , 7
-            IF ( Trail(j)/=0 ) THEN
+            IF ( trail(j)/=0 ) THEN
                CALL page2(3)
                imsg = 1062
-               WRITE (Nout,99011) Sfm , imsg
-               WRITE (Nout,99001) geom(i) , Iname(2*i-1) , Iname(2*i)
+               WRITE (nout,99011) sfm , imsg
+               WRITE (nout,99001) geom(i) , iname(2*i-1) , iname(2*i)
 99001          FORMAT (5X,'FILE NUMBER',I4,3H ( ,2A4,') HAS TRAILER BIT ON.  ','FILE SHOULD BE CLEAN AT ENTRY TO IFP3.')
-               Nogo = .TRUE.
+               nogo = .TRUE.
                EXIT
             ENDIF
          ENDDO
@@ -116,49 +122,49 @@ SUBROUTINE ifp3
 !     PROCEED TO SETUP CORE AND OPEN AXIC FILE
 !     ICORE1 WILL ALWAYS EQUAL THE GROSS OPEN CORE TO IFP3 AT START
 !
-   Icore1 = korsz(z)
-   Ibuff1 = Icore1 - Ibufsz - 2
-   Ibuff2 = Ibuff1 - Ibufsz
-   Ibuff3 = Ibuff2 - Ibufsz
-   Icore = Ibuff3 - 1
-   icrq = 100 - Icore
-   IF ( Icore<100 ) GOTO 7300
+   icore1 = korsz(z)
+   ibuff1 = icore1 - ibufsz - 2
+   ibuff2 = ibuff1 - ibufsz
+   ibuff3 = ibuff2 - ibufsz
+   icore = ibuff3 - 1
+   icrq = 100 - icore
+   IF ( icore<100 ) GOTO 7300
 !
 !     OPEN  AXIC FILE
 !
-   CALL preloc(*7400,z(Ibuff1),axic)
-   Openfl(6) = 1
-   Axtrl(1) = axic
-   CALL rdtrl(Axtrl(1))
+   CALL preloc(*7400,z(ibuff1),axic)
+   openfl(6) = 1
+   axtrl(1) = axic
+   CALL rdtrl(axtrl(1))
 !
 !     READ AXIC CARD
 !
-   CALL locate(*100,z(Ibuff1),Axic1(1),Flag)
-   CALL read(*8700,*100,axic,z(1),2,eor,Flag)
-   N = z(1)
-   Csid = z(2)
-   Nnn = N
-   Ncard = 1
-   ASSIGN 200 TO Ierrtn
+   CALL locate(*100,z(ibuff1),axic1(1),flag)
+   CALL read(*8700,*100,axic,z(1),2,eor,flag)
+   n = z(1)
+   csid = z(2)
+   nnn = n
+   ncard = 1
+   ASSIGN 200 TO ierrtn
    GOTO 7800
 !
 !     MISSING REQUIRED AXIC CARD
 !
- 100  ASSIGN 200 TO Ierrtn
-   Nnn = 0
-   Ncard = 1
+ 100  ASSIGN 200 TO ierrtn
+   nnn = 0
+   ncard = 1
 !
 !     MISSING REQUIRED CARD
 !
    CALL page2(3)
    imsg = 362
-   WRITE (Nout,99013) Ufm , imsg
-   WRITE (Nout,99002) Cdtype(2*Ncard-1) , Cdtype(2*Ncard)
+   WRITE (nout,99013) ufm , imsg
+   WRITE (nout,99002) cdtype(2*ncard-1) , cdtype(2*ncard)
 99002 FORMAT (5X,'MINIMUM PROBLEM REQUIRES ',2A4,' CARD.  NONE FOUND.')
-   Nogo = .TRUE.
-   GOTO Ierrtn
- 200  N = Nnn
-   Nplus1 = N + 1
+   nogo = .TRUE.
+   GOTO ierrtn
+ 200  n = nnn
+   nplus1 = n + 1
 !
 !
 !     GEOM2  PROCESSING
@@ -166,44 +172,44 @@ SUBROUTINE ifp3
 !
 !     OPEN GEOM2
 !
-   Ifile = geom(2)
+   ifile = geom(2)
    i = 2
-   Op = outrwd
-   Buff = Ibuff2
-   ASSIGN 300 TO Iretrn
+   op = outrwd
+   buff = ibuff2
+   ASSIGN 300 TO iretrn
    GOTO 7500
 !
 !     CCONEAX CARDS
 !
- 300  Rec(1) = Cconex(1)
-   Rec(2) = Cconex(2)
-   Rec(3) = Cconex(3)
-   Ncard = 2
+ 300  rec(1) = cconex(1)
+   rec(2) = cconex(2)
+   rec(3) = cconex(3)
+   ncard = 2
 !
 !     IF THERE IS NO CCONEAX CARD, THEN GO TO 1750 AND LOOK FOR
 !     CTRAPAX OR CTRIAAX CARDS
 !
    iconb = 0
-   Iconso = 0
-   CALL locate(*6500,z(Ibuff1),Rec(1),Flag)
+   iconso = 0
+   CALL locate(*6500,z(ibuff1),rec(1),flag)
 !
 !     INPUT IS IN 4-WORD CARDS
 !     OUTPUT IS N+1 4-WORD CARDS FOR EACH CARD INPUT
 !
 !     RECORD HEADER FOR CCONES
 !
-   ASSIGN 400 TO Iheadr
+   ASSIGN 400 TO iheadr
    GOTO 8100
 !
- 400  CALL read(*8700,*700,axic,z(1),4,noeor,Iamt)
+ 400  CALL read(*8700,*700,axic,z(1),4,noeor,iamt)
 !
 !     CHECK RING ID-S FOR SIZE
 !
-   Nnn = z(3)
-   ASSIGN 500 TO Ierrtn
+   nnn = z(3)
+   ASSIGN 500 TO ierrtn
    GOTO 7900
- 500  Nnn = z(4)
-   ASSIGN 600 TO Ierrtn
+ 500  nnn = z(4)
+   ASSIGN 600 TO ierrtn
    GOTO 7900
 !
 !     CHECK CCONEAX ID FOR 1-9999 ALLOWABLE RANGE
@@ -211,35 +217,35 @@ SUBROUTINE ifp3
  600  IF ( z(1)<=0 .OR. z(1)>=10000 ) THEN
       CALL page2(3)
       imsg = 361
-      WRITE (Nout,99013) Ufm , imsg
-      WRITE (Nout,99003) z(1)
+      WRITE (nout,99013) ufm , imsg
+      WRITE (nout,99003) z(1)
 99003 FORMAT (5X,'CCONEAX ID =',I10,'.  OUT OF 1 TO 9999 PERMISSIBLE ','RANGE')
-      Nogo = .TRUE.
+      nogo = .TRUE.
    ENDIF
 !
    z(1) = z(1)*1000
-   DO i = 1 , Nplus1
+   DO i = 1 , nplus1
       z(1) = z(1) + 1
       z(3) = z(3) + 1000000
       z(4) = z(4) + 1000000
-      IF ( .NOT.(Nogo) ) CALL write(geom(2),z(1),4,noeor)
+      IF ( .NOT.(nogo) ) CALL write(geom(2),z(1),4,noeor)
    ENDDO
    GOTO 400
 !
 !     OUT OF CCONEAX CARDS
 !
- 700  IF ( Iamt/=0 ) THEN
+ 700  IF ( iamt/=0 ) THEN
 !
 !     GO TO 356 FOR RECORD ERROR
 !
-      ASSIGN 900 TO Ierrtn
+      ASSIGN 900 TO ierrtn
       GOTO 8200
    ELSE
 !
 !     WRITE EOR AND PUT BITS IN TRAILER
 !
-      ASSIGN 800 TO Iretrn
-      Iconso = 1
+      ASSIGN 800 TO iretrn
+      iconso = 1
       GOTO 7000
    ENDIF
  800  iconb = 1
@@ -248,7 +254,7 @@ SUBROUTINE ifp3
 !     CLOSE GEOM2
 !
  900  i = 2
-   ASSIGN 1000 TO Iretrn
+   ASSIGN 1000 TO iretrn
    GOTO 7700
 !
 !     GEOM3 PROCESSING
@@ -256,74 +262,74 @@ SUBROUTINE ifp3
 !
 !     OPEN GEOM3
 !
- 1000 Ifile = geom(3)
+ 1000 ifile = geom(3)
    i = 3
-   Op = outrwd
-   Buff = Ibuff2
-   ASSIGN 1100 TO Iretrn
+   op = outrwd
+   buff = ibuff2
+   ASSIGN 1100 TO iretrn
    GOTO 7500
 !
 !     FORCE, FORCEAX, MOMNT, AND MOMNTAX CARDS
 !
- 1100 Recid(1) = Force(1)
-   Recid(2) = Force(2)
-   Recid(3) = Force(3)
-   Recidx(1) = Forcex(1)
-   Recidx(2) = Forcex(2)
-   Recidx(3) = Forcex(3)
-   Ncard = 3
-   ASSIGN 3000 TO Icont
+ 1100 recid(1) = force(1)
+   recid(2) = force(2)
+   recid(3) = force(3)
+   recidx(1) = forcex(1)
+   recidx(2) = forcex(2)
+   recidx(3) = forcex(3)
+   ncard = 3
+   ASSIGN 3000 TO icont
 !
 !     SET NOREG = 0 OR 1, DEPENDING ON PRESSENCE OF RECID
 !     SET NOAXIC= 0 OR 1, DEPENDING ON PRESSENCE OF RECIDX
 !
- 1200 Ibit = Recidx(2)
-   ASSIGN 1300 TO Ibitr
+ 1200 ibit = recidx(2)
+   ASSIGN 1300 TO ibitr
    GOTO 8000
- 1300 Noaxic = Non
-   Ibit = Recid(2)
-   ASSIGN 1400 TO Ibitr
+ 1300 noaxic = non
+   ibit = recid(2)
+   ASSIGN 1400 TO ibitr
    GOTO 8000
- 1400 Noreg = Non
+ 1400 noreg = non
 !
-   Rec(1) = Recid(1)
-   Rec(2) = Recid(2)
-   Rec(3) = Recid(3)
+   rec(1) = recid(1)
+   rec(2) = recid(2)
+   rec(3) = recid(3)
 !
-   IF ( Noaxic/=0 ) THEN
+   IF ( noaxic/=0 ) THEN
 !
 !     AT 410 READ IN ALL FORCEAX OR MOMNTAX CARDS AND PUT OUT ON GEOM(3)
 !     IF NOREG=0,AND ON SCRTCH IF NOREG NON-ZERO.FIRST WRITE 3-WORD-
 !     REC ID ON GEOM3.
 !
-      ASSIGN 1500 TO Iheadr
+      ASSIGN 1500 TO iheadr
       GOTO 8100
    ELSE
-      IF ( Noreg==0 ) GOTO 2900
+      IF ( noreg==0 ) GOTO 2900
 !
 !     TRANSFER FORCE OR MOMENT RECORD DIRECTLY.
 !     THERE ARE NO FORCEAX OR MOMAX CARDS RESPECTIVELY.
 !
-      ASSIGN 2900 TO Iretrn
+      ASSIGN 2900 TO iretrn
       GOTO 6900
    ENDIF
 !
 !     OPEN SCRATCH IF NEEDED
 !
- 1500 IF ( Noreg/=0 ) THEN
+ 1500 IF ( noreg/=0 ) THEN
       i = 5
-      Op = outrwd
-      Buff = Ibuff3
-      ASSIGN 1600 TO Iretrn
+      op = outrwd
+      buff = ibuff3
+      ASSIGN 1600 TO iretrn
       GOTO 7500
    ENDIF
- 1600 CALL locate(*8300,z(Ibuff1),Recidx(1),Flag)
- 1700 CALL read(*8700,*2100,axic,z(1),8,noeor,Iamt)
+ 1600 CALL locate(*8300,z(ibuff1),recidx(1),flag)
+ 1700 CALL read(*8700,*2100,axic,z(1),8,noeor,iamt)
 !
 !     CHECK RING ID
 !
-   ASSIGN 1800 TO Ierrtn
-   Nnn = z(2)
+   ASSIGN 1800 TO ierrtn
+   nnn = z(2)
    GOTO 7900
 !
 !     CHECK HARMONIC NUMBER AND FOR A SEQUENCE OF HARMONICS
@@ -339,7 +345,7 @@ SUBROUTINE ifp3
       word = 4
       DO ij = 1 , 2
          DO ix = 1 , 4
-            chr = rshift(lshift(z(word),Nbpc*iabs(ix-4)),Nbpw-Nbpc)
+            chr = rshift(lshift(z(word),nbpc*iabs(ix-4)),nbpw-nbpc)
             IF ( chr/=b ) THEN
                DO i = 1 , 10
                   k = i - 1
@@ -364,12 +370,12 @@ SUBROUTINE ifp3
          nh1 = nh2
          nh2 = word
       ENDIF
-      Nnn = nh1
-      ASSIGN 1900 TO Ierrtn
+      nnn = nh1
+      ASSIGN 1900 TO ierrtn
       GOTO 7800
    ENDIF
- 1900 Nnn = nh2
-   ASSIGN 2000 TO Ierrtn
+ 1900 nnn = nh2
+   ASSIGN 2000 TO ierrtn
    GOTO 7800
  2000 z(4) = z(5)
    z(5) = z(6)
@@ -377,7 +383,7 @@ SUBROUTINE ifp3
    z(7) = z(8)
    nh1 = nh1 + 1
    nh2 = nh2 + 1
-   Sum = z(2)
+   sum = z(2)
    mus = z(2)
    DO i = nh1 , nh2
       z(2) = mus + i*1000000
@@ -386,141 +392,141 @@ SUBROUTINE ifp3
 !     OUTPUT TO GEOM(3) IF NOREG = 0
 !     OUTPUT TO SCRTCH  IF NOREG = NON-ZERO
 !
-      IF ( Nogo ) EXIT
-      IF ( Noreg/=0 ) THEN
-         Nfile = scrtch
+      IF ( nogo ) EXIT
+      IF ( noreg/=0 ) THEN
+         nfile = scrtch
       ELSE
-         Nfile = geom(3)
+         nfile = geom(3)
       ENDIF
-      CALL write(Nfile,z(1),7,noeor)
+      CALL write(nfile,z(1),7,noeor)
    ENDDO
    GOTO 1700
 !
 !     OUT OF CARDS
 !
- 2100 IF ( Iamt/=0 ) THEN
+ 2100 IF ( iamt/=0 ) THEN
 !
 !     CHECK FOR RECORD INCONSISTANCY ERROR.
 !
-      Rec(1) = Recidx(1)
-      Rec(2) = Recidx(2)
-      Rec(3) = Recidx(3)
-      ASSIGN 2200 TO Ierrtn
+      rec(1) = recidx(1)
+      rec(2) = recidx(2)
+      rec(3) = recidx(3)
+      ASSIGN 2200 TO ierrtn
       GOTO 8200
    ENDIF
 !
- 2200 IF ( Noreg==0 ) GOTO 2700
+ 2200 IF ( noreg==0 ) GOTO 2700
 !
 !     CLOSE THE SCRTCH FILE AND THEN MERGE SCRTCH WITH AXIC
 !     ON TO GEOM3
 !
    i = 5
-   ASSIGN 2300 TO Iretrn
+   ASSIGN 2300 TO iretrn
    GOTO 7700
 !
 !     OPEN SCRTCH FILE FOR INPUT AND LOCATE FORCE OR MOMENT CARDS ON
 !     AXIC FILE.
 !
- 2300 ASSIGN 2400 TO Iretrn
-   Op = inprwd
+ 2300 ASSIGN 2400 TO iretrn
+   op = inprwd
    GOTO 7500
- 2400 CALL locate(*8500,z(Ibuff1),Recid(1),Flag)
-   IF ( Nogo ) GOTO 2900
+ 2400 CALL locate(*8500,z(ibuff1),recid(1),flag)
+   IF ( nogo ) GOTO 2900
 !
-   CALL read(*8700,*2800,axic,z(1),7,noeor,Iamt)
-   CALL read(*8800,*8800,scrtch,z(8),7,noeor,Iamt)
+   CALL read(*8700,*2800,axic,z(1),7,noeor,iamt)
+   CALL read(*8800,*8800,scrtch,z(8),7,noeor,iamt)
    DO
 !
       IF ( z(1)<=z(8) ) THEN
 !
-         Nfile = axic
-         Outbuf = 1
+         nfile = axic
+         outbuf = 1
       ELSE
 !
-         Nfile = scrtch
-         Outbuf = 8
+         nfile = scrtch
+         outbuf = 8
       ENDIF
 !
-      IF ( Nogo ) GOTO 2900
-      CALL write(geom(3),z(Outbuf),7,noeor)
-      CALL read(*8900,*2500,Nfile,z(Outbuf),7,noeor,Iamt)
+      IF ( nogo ) GOTO 2900
+      CALL write(geom(3),z(outbuf),7,noeor)
+      CALL read(*8900,*2500,nfile,z(outbuf),7,noeor,iamt)
    ENDDO
 !
 !     OK ALL WORDS PROCESSED FOR FILE-NFILE
 !
- 2500 IF ( Nfile==axic ) THEN
-      Nfile = scrtch
-      Outbuf = 8
+ 2500 IF ( nfile==axic ) THEN
+      nfile = scrtch
+      outbuf = 8
    ELSE
-      Nfile = axic
-      Outbuf = 1
+      nfile = axic
+      outbuf = 1
    ENDIF
-   DO WHILE ( .NOT.(Nogo) )
-      CALL write(geom(3),z(Outbuf),7,noeor)
-      CALL read(*8900,*2600,Nfile,z(Outbuf),7,noeor,Iamt)
+   DO WHILE ( .NOT.(nogo) )
+      CALL write(geom(3),z(outbuf),7,noeor)
+      CALL read(*8900,*2600,nfile,z(outbuf),7,noeor,iamt)
    ENDDO
    GOTO 2900
 !
 !     CLOSE SCRTCH, WRITE EOR, AND PUT BITS IN TRAILER.
 !
  2600 i = 5
-   ASSIGN 2700 TO Iretrn
+   ASSIGN 2700 TO iretrn
    GOTO 7700
- 2700 ASSIGN 2900 TO Iretrn
+ 2700 ASSIGN 2900 TO iretrn
    GOTO 7000
 !
 !     RECORD LENGTH ERROR
 !
- 2800 Rec(1) = Recid(1)
-   Rec(2) = Recid(2)
-   Rec(3) = Recid(3)
-   ASSIGN 2900 TO Ierrtn
+ 2800 rec(1) = recid(1)
+   rec(2) = recid(2)
+   rec(3) = recid(3)
+   ASSIGN 2900 TO ierrtn
    GOTO 8200
 !
- 2900 GOTO Icont
+ 2900 GOTO icont
 !
 !     GRAV CARD
 !
- 3000 Rec(1) = Grav(1)
-   Rec(2) = Grav(2)
-   Rec(3) = Grav(3)
-   ASSIGN 3100 TO Iretrn
+ 3000 rec(1) = grav(1)
+   rec(2) = grav(2)
+   rec(3) = grav(3)
+   ASSIGN 3100 TO iretrn
    GOTO 6900
 !
 !     LOAD CARD
 !
- 3100 Rec(1) = Load(1)
-   Rec(2) = Load(2)
-   Rec(3) = Load(3)
-   ASSIGN 3200 TO Iretrn
+ 3100 rec(1) = load(1)
+   rec(2) = load(2)
+   rec(3) = load(3)
+   ASSIGN 3200 TO iretrn
    GOTO 6900
 !
 !     MOMENT AND MOMAX CARDS
 !
- 3200 Recid(1) = Moment(1)
-   Recid(2) = Moment(2)
-   Recid(3) = Moment(3)
-   Recidx(1) = Momax(1)
-   Recidx(2) = Momax(2)
-   Recidx(3) = Momax(3)
-   Ncard = 7
-   ASSIGN 3300 TO Icont
+ 3200 recid(1) = moment(1)
+   recid(2) = moment(2)
+   recid(3) = moment(3)
+   recidx(1) = momax(1)
+   recidx(2) = momax(2)
+   recidx(3) = momax(3)
+   ncard = 7
+   ASSIGN 3300 TO icont
    GOTO 1200
 !
 !     PRESAX CARD
 !
- 3300 CALL locate(*3800,z(Ibuff1),Presax(1),Flag)
+ 3300 CALL locate(*3800,z(ibuff1),presax(1),flag)
 !
 !     RECORD HEADER FOR PRESAX CARDS IS FORMED HERE
 !
-   Rec(1) = Presax(1)
-   Rec(2) = Presax(2)
-   Rec(3) = Presax(3)
-   Ncard = 13
-   ASSIGN 3400 TO Iheadr
+   rec(1) = presax(1)
+   rec(2) = presax(2)
+   rec(3) = presax(3)
+   ncard = 13
+   ASSIGN 3400 TO iheadr
    GOTO 8100
 !
- 3400 CALL read(*8700,*3700,axic,z(1),6,noeor,Iamt)
+ 3400 CALL read(*8700,*3700,axic,z(1),6,noeor,iamt)
 !
 !     CREATE N+1 CARDS OF SAME LENGTH AS INPUT CARD.
 !
@@ -529,22 +535,22 @@ SUBROUTINE ifp3
 !     CHECK FOR PIEZOELECTRIC
 !
    piez = .FALSE.
-   IF ( Ipiez==1 .AND. z(3)<0 ) piez = .TRUE.
+   IF ( ipiez==1 .AND. z(3)<0 ) piez = .TRUE.
    IF ( piez ) z(3) = -z(3)
-   Nnn = z(3)
-   ASSIGN 3500 TO Ierrtn
+   nnn = z(3)
+   ASSIGN 3500 TO ierrtn
    GOTO 7900
- 3500 Nnn = z(4)
-   ASSIGN 3600 TO Ierrtn
+ 3500 nnn = z(4)
+   ASSIGN 3600 TO ierrtn
    GOTO 7900
 !
- 3600 difphi = abs(Rz(i6)-Rz(i5))
-   DO i = 1 , Nplus1
+ 3600 difphi = abs(rz(i6)-rz(i5))
+   DO i = 1 , nplus1
       z(7) = i - 1
       z(3) = z(3) + 1000000
       IF ( piez ) z(3) = -z(3)
       z(4) = z(4) + 1000000
-      IF ( .NOT.(Nogo) ) THEN
+      IF ( .NOT.(nogo) ) THEN
          IF ( difphi/=0.0 ) THEN
             IF ( i<=1 .OR. abs(difphi-360.)>=1.E-6 ) THEN
                CALL write(geom(3),z(1),7,noeor)
@@ -557,37 +563,37 @@ SUBROUTINE ifp3
 !
 !     OUT OF PRESAX CARDS
 !
- 3700 IF ( Iamt/=0 ) THEN
+ 3700 IF ( iamt/=0 ) THEN
 !
 !     CHECK FOR RECORD INCONSISTANCY ERROR.
 !
-      ASSIGN 3800 TO Ierrtn
-      Rec(1) = Presax(1)
-      Rec(2) = Presax(2)
-      Rec(3) = Presax(3)
+      ASSIGN 3800 TO ierrtn
+      rec(1) = presax(1)
+      rec(2) = presax(2)
+      rec(3) = presax(3)
       GOTO 8200
    ELSE
 !
 !     WRITE EOR AND PUT BITS IN TRAILER
 !
-      ASSIGN 3800 TO Iretrn
+      ASSIGN 3800 TO iretrn
       GOTO 7000
    ENDIF
 !
 !     RFORCE CARD
 !
- 3800 CALL locate(*4100,z(Ibuff1),Rforce(1),Flag)
-   Rec(1) = Rforce(1)
-   Rec(2) = Rforce(2)
-   Rec(3) = Rforce(3)
-   Ncard = 24
-   ASSIGN 3900 TO Iheadr
+ 3800 CALL locate(*4100,z(ibuff1),rforce(1),flag)
+   rec(1) = rforce(1)
+   rec(2) = rforce(2)
+   rec(3) = rforce(3)
+   ncard = 24
+   ASSIGN 3900 TO iheadr
    GOTO 8100
  3900 DO
 !
 !     PROCESS RFORCE DATA
 !
-      CALL read(*8700,*4000,axic,z(1),7,noeor,Iamt)
+      CALL read(*8700,*4000,axic,z(1),7,noeor,iamt)
       IF ( z(2)==0 .AND. z(3)==0 .AND. z(5)==0 .AND. z(6)==0 ) THEN
          z(2) = 0
          z(3) = 0
@@ -596,153 +602,153 @@ SUBROUTINE ifp3
          z(7) = 0
          CALL write(geom(3),z(1),7,noeor)
       ELSE
-         WRITE (Nout,99004) Ufm , z(1)
+         WRITE (nout,99004) ufm , z(1)
 99004    FORMAT (A23,' 336, RFORCE DATA IN SET NO.',I8,' CONTAINS ILLEGAL DIRECTION FOR AXISYMMETRIC PROBLEM')
-         Nogo = .TRUE.
+         nogo = .TRUE.
       ENDIF
    ENDDO
 !
 !     END OF RFORCE CARDS
 !
- 4000 IF ( Iamt/=0 ) THEN
+ 4000 IF ( iamt/=0 ) THEN
 !
 !     RECORD INCONSISTENCY ERROR
 !
-      ASSIGN 4100 TO Ierrtn
-      Rec(1) = Rforce(1)
-      Rec(2) = Rforce(2)
-      Rec(3) = Rforce(3)
+      ASSIGN 4100 TO ierrtn
+      rec(1) = rforce(1)
+      rec(2) = rforce(2)
+      rec(3) = rforce(3)
       GOTO 8200
    ELSE
 !
 !     WRITE EOR AND BITS IN TRAILER
 !
-      ASSIGN 4100 TO Iretrn
+      ASSIGN 4100 TO iretrn
       GOTO 7000
    ENDIF
 !
 !     TEMPD CARD
 !
- 4100 Rec(1) = Tempd(1)
-   Rec(2) = Tempd(2)
-   Rec(3) = Tempd(3)
-   ASSIGN 4500 TO Iretrn
-   IF ( Nogo ) GOTO 4500
-   CALL locate(*4500,z(Ibuff1),Rec(1),Flag)
-   CALL write(Ifile,Rec(1),3,noeor)
-   Veor = 0
- 4200 CALL read(*8700,*4400,axic,z(1),Icore,noeor,Iamt)
-   Iamt = Icore
- 4300 DO i = 1 , Iamt , 2
+ 4100 rec(1) = tempd(1)
+   rec(2) = tempd(2)
+   rec(3) = tempd(3)
+   ASSIGN 4500 TO iretrn
+   IF ( nogo ) GOTO 4500
+   CALL locate(*4500,z(ibuff1),rec(1),flag)
+   CALL write(ifile,rec(1),3,noeor)
+   veor = 0
+ 4200 CALL read(*8700,*4400,axic,z(1),icore,noeor,iamt)
+   iamt = icore
+ 4300 DO i = 1 , iamt , 2
       z(i) = z(i) + 100000000
    ENDDO
-   CALL write(Ifile,z(1),Iamt,0)
-   DO i = 1 , Iamt , 2
+   CALL write(ifile,z(1),iamt,0)
+   DO i = 1 , iamt , 2
       z(i) = z(i) + 100000000
    ENDDO
-   CALL write(Ifile,z(1),Iamt,Veor)
-   IF ( Veor/=0 ) GOTO 7100
-   GOTO 4200
- 4400 Veor = 1
+   CALL write(ifile,z(1),iamt,veor)
+   IF ( veor==0 ) GOTO 4200
+   GOTO 7100
+ 4400 veor = 1
    GOTO 4300
 !
 !     TEMPAX CARD
 !
- 4500 CALL locate(*6000,z(Ibuff1),Tempax(1),Flag)
+ 4500 CALL locate(*6000,z(ibuff1),tempax(1),flag)
 !
 !     RECORD HEADER ON GEOM3 FOR TEMP CARDS
 !
-   Rec(1) = Temp(1)
-   Rec(2) = Temp(2)
-   Rec(3) = Temp(3)
-   Ncard = 20
-   ASSIGN 4600 TO Iheadr
+   rec(1) = temp(1)
+   rec(2) = temp(2)
+   rec(3) = temp(3)
+   ncard = 20
+   ASSIGN 4600 TO iheadr
    GOTO 8100
 !
 !     AT 604(?) SET UP SCRATCH FILE.
 !
  4600 i = 5
-   Buff = Ibuff3
-   Op = outrwd
-   ASSIGN 4700 TO Iretrn
+   buff = ibuff3
+   op = outrwd
+   ASSIGN 4700 TO iretrn
    GOTO 7500
 !
 !     PICK UP FIRST TEMPAX CARD = 4 WORDS.
 !
- 4700 Last = 0
-   CALL read(*8700,*5900,axic,z(1),4,noeor,Iamt)
+ 4700 last = 0
+   CALL read(*8700,*5900,axic,z(1),4,noeor,iamt)
  4800 k = 0
-   Setid = z(1)
-   Ringid = z(2)
+   setid = z(1)
+   ringid = z(2)
 !
 !     CHECK RING ID FOR PROPER RANGE OF VALUE
 !
-   Nnn = Ringid
-   ASSIGN 4900 TO Ierrtn
+   nnn = ringid
+   ASSIGN 4900 TO ierrtn
    GOTO 7900
 !
- 4900 Iat = 3
+ 4900 iat = 3
    DO
       k = k + 1
-      Iat = Iat + 2
-      icrq = Iat + 3 - Icore
-      IF ( Icore<Iat+3 ) GOTO 7300
+      iat = iat + 2
+      icrq = iat + 3 - icore
+      IF ( icore<iat+3 ) GOTO 7300
 !
 !     ALL TEMPAX CARDS HAVING SAME SET AND RING ID MUST BE ABLE TO
 !     HAVE 2 WORDS EACH FIT IN CORE.
 !
-      z(Iat) = z(3)
-      z(Iat+1) = z(4)
+      z(iat) = z(3)
+      z(iat+1) = z(4)
 !
-      CALL read(*8700,*5500,axic,z(1),4,noeor,Iamt)
+      CALL read(*8700,*5500,axic,z(1),4,noeor,iamt)
 !
 !     DOES THIS CARD HAVE SAME SET AND RING ID AS LAST IN CURRENT SERIES
 !
-      IF ( z(1)/=Setid ) EXIT
-      IF ( z(2)/=Ringid ) EXIT
+      IF ( z(1)/=setid ) EXIT
+      IF ( z(2)/=ringid ) EXIT
    ENDDO
 !
 !     WE HAVE A  K X 2  ARRAY OF  PHI-S  AND T-S.
 !
 !     CONVERT ALL  PHIS SUCH THAT (0.LE. PHI .LT.TWOPI)
 !
- 5000 Iend = Iat + 1
-   Ibegin = 5
+ 5000 iend = iat + 1
+   ibegin = 5
 !
-   DO i = Ibegin , Iend , 2
-      Angle = Rz(i)
-      IF ( Angle<0 ) THEN
-         DO WHILE ( Angle<0 )
-            Angle = Angle + 360.0
+   DO i = ibegin , iend , 2
+      angle = rz(i)
+      IF ( angle<0 ) THEN
+         DO WHILE ( angle<0 )
+            angle = angle + 360.0
          ENDDO
-      ELSEIF ( Angle/=0 ) THEN
+      ELSEIF ( angle/=0 ) THEN
 !
-         DO WHILE ( Angle>=360.0 )
-            Angle = Angle - 360.0
+         DO WHILE ( angle>=360.0 )
+            angle = angle - 360.0
          ENDDO
       ENDIF
 !
-      Rz(i) = Angle*raddeg
+      rz(i) = angle*raddeg
    ENDDO
 !
 !     SIMPLE SORT FOR THE K X 2  MATRIX.
 !     SORT IS PERFORMED ON COLUMN 1 ONLY
 !
    IF ( k==1 ) GOTO 5300
-   Istart = Ibegin + 2
-   DO i = Istart , Iend , 2
-      Iat = i - 2
-      IF ( Rz(i)<Rz(Iat) ) THEN
+   istart = ibegin + 2
+   DO i = istart , iend , 2
+      iat = i - 2
+      IF ( rz(i)<rz(iat) ) THEN
          DO
 !
 !     ROW NOT HIGH ENOUGH.  MOVE IT UP.
 !
-            Iat = Iat - 2
-            IF ( Iat<=Ibegin ) THEN
-               Iat = Ibegin
+            iat = iat - 2
+            IF ( iat<=ibegin ) THEN
+               iat = ibegin
                EXIT
-            ELSEIF ( Rz(i)>=Rz(Iat) ) THEN
-               Iat = Iat + 2
+            ELSEIF ( rz(i)>=rz(iat) ) THEN
+               iat = iat + 2
                EXIT
             ENDIF
          ENDDO
@@ -752,46 +758,46 @@ SUBROUTINE ifp3
 !
 !     FIRST SAVE THE ROW BEING MOVED UP
 !
-         Rz(Iend+1) = Rz(i)
-         Rz(Iend+2) = Rz(i+1)
-         Nmove = i - Iat
-         Iat = i + 2
-         DO j = 1 , Nmove
-            Iat = Iat - 1
-            Rz(Iat) = Rz(Iat-2)
+         rz(iend+1) = rz(i)
+         rz(iend+2) = rz(i+1)
+         nmove = i - iat
+         iat = i + 2
+         DO j = 1 , nmove
+            iat = iat - 1
+            rz(iat) = rz(iat-2)
          ENDDO
 !
 !     REPLACE SAVE ROW IN NEW SLOT
 !
-         Rz(Iat-2) = Rz(Iend+1)
-         Rz(Iat-1) = Rz(Iend+2)
+         rz(iat-2) = rz(iend+1)
+         rz(iat-1) = rz(iend+2)
       ENDIF
 !
    ENDDO
 !
 !     CHECK FOR ANY DUPLICATE ANGLES AND REMOVE THEM...
 !
-   Ibegin = Ibegin + 2
- 5100 DO i = Ibegin , Iend , 2
+   ibegin = ibegin + 2
+ 5100 DO i = ibegin , iend , 2
       IF ( z(i)==z(i-2) ) GOTO 5200
    ENDDO
    GOTO 5300
 !
 !     DUPLICATE, SHRINK LIST UP OVER IT.
 !
- 5200 Iend = Iend - 2
+ 5200 iend = iend - 2
    k = k - 1
-   DO j = i , Iend , 2
+   DO j = i , iend , 2
       z(j) = z(j+2)
       z(j+1) = z(j+3)
    ENDDO
-   Ibegin = i
-   IF ( Ibegin<Iend ) GOTO 5100
+   ibegin = i
+   IF ( ibegin<iend ) GOTO 5100
 !
 !     SET UP K + 1  CARD
 !
- 5300 Rz(Iend+1) = Rz(i5) + twopi
-   Rz(Iend+2) = Rz(i6)
+ 5300 rz(iend+1) = rz(i5) + twopi
+   rz(iend+2) = rz(i6)
 !
 !     THERE ARE K CARDS NOW WITH SETID, AND RINGID, NOT INCLUDING THE
 !     K + 1ST CARD
@@ -801,110 +807,110 @@ SUBROUTINE ifp3
 !
 !     NOTE FMMS-52  (10/04/67) PAGE -9- FOR FOLLOWING...
 !
-   Csset = 1
-   Setid = Setid + 100000000
+   csset = 1
+   setid = setid + 100000000
 !
 !     CSSET = 0 FOR C-SET  AND NON-ZERO FOR S-SET.
 !
-   Ibegin = k + k + 7
-   icrq = Ibegin + 2 - Icore
-   IF ( (Ibegin+2)>Icore ) GOTO 7300
+   ibegin = k + k + 7
+   icrq = ibegin + 2 - icore
+   IF ( (ibegin+2)>icore ) GOTO 7300
 !
- 5400 Nadd = 0
-   z(Ibegin) = Setid
-   DO i = 1 , Nplus1
-      Nadd = Nadd + 1000000
+ 5400 nadd = 0
+   z(ibegin) = setid
+   DO i = 1 , nplus1
+      nadd = nadd + 1000000
 !
 !     NI IS REAL
 !
-      Ni = i - 1
-      Nisq = (i-1)**2
-      z(Ibegin+1) = Ringid + Nadd
-      Iphi = 3
-      It = 4
-      Sum = 0.0E0
-      IF ( Ni/=0 ) THEN
+      ni = i - 1
+      nisq = (i-1)**2
+      z(ibegin+1) = ringid + nadd
+      iphi = 3
+      it = 4
+      sum = 0.0E0
+      IF ( ni/=0 ) THEN
 !
 !     NON-ZERO NI
 !
          IF ( k/=1 ) THEN
             DO ik = 1 , k
-               Iphi = Iphi + 2
-               It = It + 2
-               Nphi = Ni*Rz(Iphi)
-               Nphi1 = Ni*Rz(Iphi+2)
+               iphi = iphi + 2
+               it = it + 2
+               nphi = ni*rz(iphi)
+               nphi1 = ni*rz(iphi+2)
 !
-               IF ( Csset/=0 ) THEN
+               IF ( csset/=0 ) THEN
 !
 !     S-SET
 !
-                  A1 = -cos(Nphi1)
-                  A2 = cos(Nphi)
-                  A3 = sin(Nphi1)
-                  A4 = -sin(Nphi)
+                  a1 = -cos(nphi1)
+                  a2 = cos(nphi)
+                  a3 = sin(nphi1)
+                  a4 = -sin(nphi)
                ELSE
 !
 !     C-SET
 !
-                  A1 = sin(Nphi1)
-                  A2 = -sin(Nphi)
-                  A3 = cos(Nphi1)
-                  A4 = -cos(Nphi)
+                  a1 = sin(nphi1)
+                  a2 = -sin(nphi)
+                  a3 = cos(nphi1)
+                  a4 = -cos(nphi)
                ENDIF
 !
 !
-               Sum = Sum + (((Rz(It)*Rz(Iphi+2)-Rz(It+2)*Rz(Iphi))*(A1+A2)/Ni)+((Rz(It+2)-Rz(It))*(A3+A4+Nphi1*A1+Nphi*A2)/Nisq))   &
-                   & /(Rz(Iphi+2)-Rz(Iphi))
+               sum = sum + (((rz(it)*rz(iphi+2)-rz(it+2)*rz(iphi))*(a1+a2)/ni)+((rz(it+2)-rz(it))*(a3+a4+nphi1*a1+nphi*a2)/nisq))   &
+                   & /(rz(iphi+2)-rz(iphi))
             ENDDO
          ENDIF
 !
-         Rz(Ibegin+2) = Sum/pi
+         rz(ibegin+2) = sum/pi
       ELSE
-         IF ( Csset==0 ) THEN
+         IF ( csset==0 ) THEN
             DO ik = 1 , k
-               Iphi = Iphi + 2
-               It = It + 2
-               Sum = Sum + (Rz(It)+Rz(It+2))*(Rz(Iphi+2)-Rz(Iphi))
+               iphi = iphi + 2
+               it = it + 2
+               sum = sum + (rz(it)+rz(it+2))*(rz(iphi+2)-rz(iphi))
             ENDDO
          ENDIF
-         Rz(Ibegin+2) = 0.25*Sum/pi
+         rz(ibegin+2) = 0.25*sum/pi
       ENDIF
 !
-      IF ( Nogo ) EXIT
-      IF ( Csset/=0 ) THEN
-         Nfile = geom(3)
+      IF ( nogo ) EXIT
+      IF ( csset/=0 ) THEN
+         nfile = geom(3)
       ELSE
-         Nfile = scrtch
+         nfile = scrtch
       ENDIF
-      CALL write(Nfile,z(Ibegin),3,noeor)
+      CALL write(nfile,z(ibegin),3,noeor)
    ENDDO
-   IF ( Csset/=0 ) THEN
-      Csset = 0
-      Setid = Setid + 100000000
+   IF ( csset/=0 ) THEN
+      csset = 0
+      setid = setid + 100000000
       GOTO 5400
    ELSE
 !
 !     THIS SERIES OF TEMPAX CARDS COMPLETE GO FOR MORE IF LAST = 0
 !
-      IF ( Last==0 ) GOTO 4800
+      IF ( last==0 ) GOTO 4800
 !
 !     ALL TEMPAX CARDS COMPLETE. CLOSE SCRATCH, OPEN SCRATCH
 !     AND COPY SCRATCH TO GEOM3.
 !
-      IF ( Nogo ) GOTO 6000
+      IF ( nogo ) GOTO 6000
       CALL write(scrtch,z(1),0,eor)
       CALL close(scrtch,clorwd)
-      CALL open(*9000,scrtch,z(Ibuff3),inprwd)
+      CALL open(*9000,scrtch,z(ibuff3),inprwd)
 !
-      Veor = 0
+      veor = 0
       GOTO 5600
    ENDIF
- 5500 Last = 1
+ 5500 last = 1
    GOTO 5000
- 5600 CALL read(*8800,*5800,scrtch,z(1),Icore,noeor,Iamt)
-   Iamt = Icore
- 5700 CALL write(geom(3),z(1),Iamt,Veor)
-   IF ( Veor==0 ) GOTO 5600
+ 5600 CALL read(*8800,*5800,scrtch,z(1),icore,noeor,iamt)
+   iamt = icore
+ 5700 CALL write(geom(3),z(1),iamt,veor)
+   IF ( veor==0 ) GOTO 5600
 !
 !     ALL  TEMPAX  CARDS  PROCESSED.
 !
@@ -912,125 +918,125 @@ SUBROUTINE ifp3
 !
 !     PUT BITS IN TRAILER FOR TEMP CARDS WRITTEN
 !
-   Rec(1) = Temp(1)
-   Rec(2) = Temp(2)
-   Rec(3) = Temp(3)
-   ASSIGN 6000 TO Iretrn
+   rec(1) = temp(1)
+   rec(2) = temp(2)
+   rec(3) = temp(3)
+   ASSIGN 6000 TO iretrn
    GOTO 7100
- 5800 Veor = 1
+ 5800 veor = 1
    GOTO 5700
 !
 !     RECORD LENGTH ERROR
 !
- 5900 Rec(1) = Tempax(1)
-   Rec(2) = Tempax(2)
-   Rec(3) = Tempax(3)
-   ASSIGN 6000 TO Ierrtn
+ 5900 rec(1) = tempax(1)
+   rec(2) = tempax(2)
+   rec(3) = tempax(3)
+   ASSIGN 6000 TO ierrtn
    GOTO 8200
 !
 !     CLOSE GEOM3
 !
  6000 i = 3
-   ASSIGN 6800 TO Iretrn
+   ASSIGN 6800 TO iretrn
    GOTO 7700
 !
 !     CTRIAAX CARD
 !
- 6100 Rec(1) = Ctriaa(1)
-   Rec(2) = Ctriaa(2)
-   Rec(3) = Ctriaa(3)
-   Ncard = 43
-   CALL locate(*6400,z(Ibuff1),Rec(1),Flag)
+ 6100 rec(1) = ctriaa(1)
+   rec(2) = ctriaa(2)
+   rec(3) = ctriaa(3)
+   ncard = 43
+   CALL locate(*6400,z(ibuff1),rec(1),flag)
 !
 !     RECORD HEADER FOR CTRIAAX
 !
-   ASSIGN 6200 TO Iheadr
+   ASSIGN 6200 TO iheadr
    iconb = 2
-   Iconso = 1
+   iconso = 1
    GOTO 8100
  6200 DO
-      CALL read(*8700,*6300,axic,z(1),6,noeor,Iamt)
+      CALL read(*8700,*6300,axic,z(1),6,noeor,iamt)
       z(1) = z(1)*1000
-      DO i = 1 , Nplus1
+      DO i = 1 , nplus1
          z(1) = z(1) + 1
          z(3) = z(3) + 1000000
          z(4) = z(4) + 1000000
          z(5) = z(5) + 1000000
-         IF ( .NOT.(Nogo) ) CALL write(geom(2),z(1),6,noeor)
+         IF ( .NOT.(nogo) ) CALL write(geom(2),z(1),6,noeor)
       ENDDO
    ENDDO
 !
 !     OUT OF CTRIAAX CARD
 !
- 6300 IF ( Iamt/=0 ) THEN
-      ASSIGN 900 TO Ierrtn
+ 6300 IF ( iamt/=0 ) THEN
+      ASSIGN 900 TO ierrtn
       GOTO 8200
    ELSE
 !
 !     PUT BITS IN TRILER
 !
-      ASSIGN 900 TO Iretrn
+      ASSIGN 900 TO iretrn
       GOTO 7000
    ENDIF
- 6400 IF ( Iconso==1 ) THEN
-      ASSIGN 900 TO Iretrn
+ 6400 IF ( iconso==1 ) THEN
+      ASSIGN 900 TO iretrn
       GOTO 7000
    ELSE
-      ASSIGN 900 TO Ierrtn
+      ASSIGN 900 TO ierrtn
 !
 !     MISSING REQUIRED CCONEAX OR CTRIAAX OR CTRAPAX CARD
 !
       CALL page2(3)
       imsg = 362
-      WRITE (Nout,99013) Ufm , imsg
-      WRITE (Nout,99005) Cdtype(3) , Cdtype(4) , Cdtype(43) , Cdtype(44) , Cdtype(45) , Cdtype(46)
+      WRITE (nout,99013) ufm , imsg
+      WRITE (nout,99005) cdtype(3) , cdtype(4) , cdtype(43) , cdtype(44) , cdtype(45) , cdtype(46)
 99005 FORMAT (5X,'MINIMUM PROBLEM REQUIRES ',2A4,2H, ,2A4,4H OR ,2A4,' CARD.  NONE FOUND')
-      Nogo = .TRUE.
-      GOTO Ierrtn
+      nogo = .TRUE.
+      GOTO ierrtn
    ENDIF
 !
 !     CTRAPAX CARD
 !     ============
 !
- 6500 Rec(1) = Ctrapa(1)
-   Rec(2) = Ctrapa(2)
-   Rec(3) = Ctrapa(3)
-   CALL locate(*6100,z(Ibuff1),Rec(1),Flag)
+ 6500 rec(1) = ctrapa(1)
+   rec(2) = ctrapa(2)
+   rec(3) = ctrapa(3)
+   CALL locate(*6100,z(ibuff1),rec(1),flag)
    iconb = 1
 !
 !     RECORD HEADER FOR CTRAPAX
 !
-   ASSIGN 6600 TO Iheadr
-   Iconso = 1
+   ASSIGN 6600 TO iheadr
+   iconso = 1
    GOTO 8100
  6600 DO
-      CALL read(*8700,*6700,axic,z(1),7,noeor,Iamt)
+      CALL read(*8700,*6700,axic,z(1),7,noeor,iamt)
       z(1) = z(1)*1000
-      DO i = 1 , Nplus1
+      DO i = 1 , nplus1
          z(1) = z(1) + 1
          z(3) = z(3) + 1000000
          z(4) = z(4) + 1000000
          z(5) = z(5) + 1000000
          z(6) = z(6) + 1000000
-         IF ( .NOT.(Nogo) ) CALL write(geom(2),z(1),7,noeor)
+         IF ( .NOT.(nogo) ) CALL write(geom(2),z(1),7,noeor)
       ENDDO
    ENDDO
 !
 !     OUT OF CTRAPAX CARD
 !
- 6700 IF ( Iamt/=0 ) THEN
-      ASSIGN 900 TO Ierrtn
+ 6700 IF ( iamt/=0 ) THEN
+      ASSIGN 900 TO ierrtn
       GOTO 8200
    ELSE
 !
 !     PUT BITS IN TRILER
 !
-      ASSIGN 900 TO Iretrn
-      IF ( Nogo ) GOTO 7200
-      CALL write(Ifile,z(1),Iamt,eor)
-      I1 = (Rec(2)-1)/16 + 2
-      I2 = Rec(2) - (I1-2)*16 + 16
-      Trail(I1) = orf(Trail(I1),Two(I2))
+      ASSIGN 900 TO iretrn
+      IF ( nogo ) GOTO 7200
+      CALL write(ifile,z(1),iamt,eor)
+      i1 = (rec(2)-1)/16 + 2
+      i2 = rec(2) - (i1-2)*16 + 16
+      trail(i1) = orf(trail(i1),two(i2))
       GOTO 6100
    ENDIF
 !
@@ -1047,38 +1053,38 @@ SUBROUTINE ifp3
 !     COMMON CODE FOR TRANSFER OF RECORD FROM AXIC FILE TO SOME
 !     OTHER FILE
 !
- 6900 CALL locate(*7200,z(Ibuff1),Rec(1),Flag)
-   IF ( Nogo ) GOTO 7200
-   CALL write(Ifile,Rec(1),3,noeor)
+ 6900 CALL locate(*7200,z(ibuff1),rec(1),flag)
+   IF ( nogo ) GOTO 7200
+   CALL write(ifile,rec(1),3,noeor)
    DO
-      CALL read(*8700,*7000,axic,z(1),Icore,noeor,Iamt)
-      Iamt = Icore
-      CALL write(Ifile,z(1),Iamt,noeor)
+      CALL read(*8700,*7000,axic,z(1),icore,noeor,iamt)
+      iamt = icore
+      CALL write(ifile,z(1),iamt,noeor)
    ENDDO
- 7000 IF ( Nogo ) GOTO 7200
-   IF ( Ifile==geom(3) ) THEN
-      CALL write(Ifile,z(1),Iamt,eor)
+ 7000 IF ( nogo ) GOTO 7200
+   IF ( ifile==geom(3) ) THEN
+      CALL write(ifile,z(1),iamt,eor)
    ELSE
-      IF ( Ifile==geom(2) .AND. iconb==1 ) GOTO 7200
-      CALL write(Ifile,z(1),Iamt,eor)
+      IF ( ifile==geom(2) .AND. iconb==1 ) GOTO 7200
+      CALL write(ifile,z(1),iamt,eor)
    ENDIF
 !
 !     PUT BITS IN TRAILER
 !
- 7100 I1 = (Rec(2)-1)/16 + 2
-   I2 = Rec(2) - (I1-2)*16 + 16
-   Trail(I1) = orf(Trail(I1),Two(I2))
+ 7100 i1 = (rec(2)-1)/16 + 2
+   i2 = rec(2) - (i1-2)*16 + 16
+   trail(i1) = orf(trail(i1),two(i2))
 !
- 7200 GOTO Iretrn
+ 7200 GOTO iretrn
 !
 !     OUT OF CORE
 !
  7300 CALL page2(4)
    imsg = 363
-   WRITE (Nout,99013) imsg
-   WRITE (Nout,99006) icrq
+   WRITE (nout,99013) imsg
+   WRITE (nout,99006) icrq
 99006 FORMAT (5X,'INSUFFICIENT CORE TO PROCESS AXIC DATA IN SUBROUTINE','IFP3',/5X,'ADDITIONAL CORE NEEDED =',I8,' WORDS.')
-   Nogo = .TRUE.
+   nogo = .TRUE.
 !
 !     GO TO FATAL ERROR RETURN
 !
@@ -1088,9 +1094,9 @@ SUBROUTINE ifp3
 !
  7400 CALL page2(3)
    imsg = 1061
-   WRITE (Nout,99011) Sfm , imsg
-   WRITE (Nout,99012) axic , Iname(11) , Iname(12) , ifist
-   Nogo = .TRUE.
+   WRITE (nout,99011) sfm , imsg
+   WRITE (nout,99012) axic , iname(11) , iname(12) , ifist
+   nogo = .TRUE.
 !
 !     GO TO FATAL ERROR RETURN
 !
@@ -1098,121 +1104,121 @@ SUBROUTINE ifp3
 !
 !     OPEN A FILE AND GET THE TRAILER
 !
- 7500 IF ( .NOT.(Nogo) ) THEN
-      CALL open(*7600,File(i),z(Buff),Op)
-      Openfl(i) = 1
+ 7500 IF ( .NOT.(nogo) ) THEN
+      CALL open(*7600,file(i),z(buff),op)
+      openfl(i) = 1
       IF ( i<=4 ) THEN
 !
 !     WRITE THE HEADER RECORD
 !
-         CALL write(File(i),Iname(2*i-1),2,eor)
-         Trail(1) = File(i)
-         CALL rdtrl(Trail(1))
+         CALL write(file(i),iname(2*i-1),2,eor)
+         trail(1) = file(i)
+         CALL rdtrl(trail(1))
       ENDIF
    ENDIF
 !
-   GOTO Iretrn
+   GOTO iretrn
 !
  7600 CALL page2(3)
    imsg = 1061
-   WRITE (Nout,99011) Sfm , imsg
-   WRITE (Nout,99012) File(i) , Iname(2*i-1) , Iname(2*i) , ifist
-   Nogo = .TRUE.
+   WRITE (nout,99011) sfm , imsg
+   WRITE (nout,99012) file(i) , iname(2*i-1) , iname(2*i) , ifist
+   nogo = .TRUE.
    GOTO 8600
 !
 !     CLOSE A FILE
 !
- 7700 IF ( Openfl(i)/=0 ) THEN
-      IF ( i<=4 ) CALL write(File(i),T65535(1),3,eor)
-      CALL close(File(i),clorwd)
-      Openfl(i) = 0
-      IF ( i<=4 ) CALL wrttrl(Trail(1))
+ 7700 IF ( openfl(i)/=0 ) THEN
+      IF ( i<=4 ) CALL write(file(i),t65535(1),3,eor)
+      CALL close(file(i),clorwd)
+      openfl(i) = 0
+      IF ( i<=4 ) CALL wrttrl(trail(1))
    ENDIF
-   GOTO Iretrn
+   GOTO iretrn
 !
 !     HARMONIC NUMBER ... ON CARD TYPE ...... IS OUT OF RANGE 0 TO 998
 !
- 7800 IF ( Nnn<999 .AND. Nnn>=0 .AND. Nnn<=N ) GOTO Ierrtn
+ 7800 IF ( nnn<999 .AND. nnn>=0 .AND. nnn<=n ) GOTO ierrtn
    CALL page2(3)
    imsg = 364
-   WRITE (Nout,99013) Ufm , imsg
-   WRITE (Nout,99007) Nnn , Cdtype(2*Ncard-1) , Cdtype(2*Ncard) , N
+   WRITE (nout,99013) ufm , imsg
+   WRITE (nout,99007) nnn , cdtype(2*ncard-1) , cdtype(2*ncard) , n
 99007 FORMAT (5X,'HARMONIC NUMBER ',I6,4H ON ,2A4,' CARD OUT OF 0 TO ',I4,' ALLOWABLE RANGE.')
-   Nogo = .TRUE.
-   GOTO Ierrtn
+   nogo = .TRUE.
+   GOTO ierrtn
 !
 !     RING ID OUT OF PERMISSABLE RANGE OF 1 TO 999999
 !
- 7900 IF ( Nnn>0 .AND. Nnn<=999999 ) GOTO Ierrtn
+ 7900 IF ( nnn>0 .AND. nnn<=999999 ) GOTO ierrtn
    CALL page2(3)
    imsg = 365
-   WRITE (Nout,99013) Ufm , imsg
-   WRITE (Nout,99008) Nnn , Cdtype(2*Ncard-1) , Cdtype(2*Ncard)
+   WRITE (nout,99013) ufm , imsg
+   WRITE (nout,99008) nnn , cdtype(2*ncard-1) , cdtype(2*ncard)
 99008 FORMAT (5X,'RING ID',I10,4H ON ,2A4,' CARD OUT OF 1 TO 999999 ','ALLOWABLE RANGE')
-   Nogo = .TRUE.
-   GOTO Ierrtn
+   nogo = .TRUE.
+   GOTO ierrtn
 !
 !     CHECK BIT-IBIT IN TRAILER AND RETURN NON = ZERO OR NON-ZERO...
 !
- 8000 I1 = (Ibit-1)/16 + 2
-   I2 = Ibit - (I1-2)*16 + 16
-   Non = andf(Axtrl(I1),Two(I2))
-   GOTO Ibitr
+ 8000 i1 = (ibit-1)/16 + 2
+   i2 = ibit - (i1-2)*16 + 16
+   non = andf(axtrl(i1),two(i2))
+   GOTO ibitr
 !
 !     WRITE 3 WORD RECORD HEADER
 !
- 8100 IF ( .NOT.(Nogo) ) CALL write(Ifile,Rec(1),3,noeor)
-   GOTO Iheadr
+ 8100 IF ( .NOT.(nogo) ) CALL write(ifile,rec(1),3,noeor)
+   GOTO iheadr
 !
 !     END-OF-RECORD ON AXIC FILE
 !
  8200 CALL page2(3)
    imsg = 1063
-   WRITE (Nout,99011) Sfm , imsg
-   WRITE (Nout,99009) Cdtype(2*Ncard-1) , Cdtype(2*Ncard)
+   WRITE (nout,99011) sfm , imsg
+   WRITE (nout,99009) cdtype(2*ncard-1) , cdtype(2*ncard)
 99009 FORMAT (5X,'EOR ON AXIC FILE WHILE READING ',2A4,'CARD RECORDS.')
-   Nogo = .TRUE.
-   GOTO Ierrtn
+   nogo = .TRUE.
+   GOTO ierrtn
 !
 !     AXIC TRAILER BIT ON BUT CAN NOT LOCATE RECORD
 !
  8300 CALL page2(3)
    imsg = 1064
-   WRITE (Nout,99011) Sfm , imsg
-   WRITE (Nout,99014) Cdtype(2*Ncard-1) , Cdtype(2*Ncard)
- 8400 Nogo = .TRUE.
+   WRITE (nout,99011) sfm , imsg
+   WRITE (nout,99014) cdtype(2*ncard-1) , cdtype(2*ncard)
+ 8400 nogo = .TRUE.
    GOTO 2900
  8500 CALL page2(2)
-   WRITE (Nout,99014) Recid(1) , Recid(2) , Recid(3)
+   WRITE (nout,99014) recid(1) , recid(2) , recid(3)
    GOTO 8400
 !
 !     CLOSE ANY OPEN FILES AND RETURN
 !
  8600 DO i = 1 , 6
-      IF ( Openfl(i)/=0 ) THEN
-         CALL close(File(i),clorwd)
-         Openfl(i) = 0
+      IF ( openfl(i)/=0 ) THEN
+         CALL close(file(i),clorwd)
+         openfl(i) = 0
       ENDIF
    ENDDO
-   IF ( Nogo ) Noflag = 32767
+   IF ( nogo ) noflag = 32767
    CALL conmsg(msg2,2,0)
    RETURN
 !
 !     EOF ENCOUNTERED READING AXIC FILE.
 !
- 8700 Nfile = axic
+ 8700 nfile = axic
    in = 11
    in1 = 12
    GOTO 8900
- 8800 Nfile = scrtch
+ 8800 nfile = scrtch
    in = 9
    in1 = 10
  8900 CALL page2(3)
    imsg = 3002
-   WRITE (Nout,99011) Sfm , imsg
-   WRITE (Nout,99010) Iname(in) , Iname(in1) , Nfile
+   WRITE (nout,99011) sfm , imsg
+   WRITE (nout,99010) iname(in) , iname(in1) , nfile
 99010 FORMAT (5X,'EOF ENCOUNTERED WHILE READING DATA SET ',2A4,' (FILE',I4,') IN SUBROUTINE IFP3')
-   Nogo = .TRUE.
+   nogo = .TRUE.
    GOTO 8600
 !
  9000 i = 5

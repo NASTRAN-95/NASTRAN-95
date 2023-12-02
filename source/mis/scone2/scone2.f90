@@ -1,13 +1,14 @@
-!*==scone2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==scone2.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scone2(Sorc)
+   USE c_condas
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,22 +53,22 @@ SUBROUTINE scone2(Sorc)
    DATA nelold/ - 1/
 !
    DO i = 1 , 8
-      Sum(i) = 0.0
+      sum(i) = 0.0
    ENDDO
 !
-   Elemid = nelem/1000
-   Nelhar = nelem - Elemid*1000
+   elemid = nelem/1000
+   nelhar = nelem - elemid*1000
 !
 !     ZERO OUT BLOCK IF THIS IS FIRST CALL WITH HARMONIC = 0 FOR THIS
 !     ELEMENT
 !
-   N = Nelhar - 1
-   IF ( N==0 ) THEN
-      IF ( Elemid/=nelold ) THEN
-         nelold = Elemid
+   n = nelhar - 1
+   IF ( n==0 ) THEN
+      IF ( elemid/=nelold ) THEN
+         nelold = elemid
          DO i = 2 , 9
             DO j = 1 , 14
-               Block(i,j) = 0.0
+               block(i,j) = 0.0
             ENDDO
          ENDDO
 !
@@ -81,24 +82,24 @@ SUBROUTINE scone2(Sorc)
                zero = .TRUE.
             ENDIF
             j = j + 1
-            Block(1,j) = phi(i)
+            block(1,j) = phi(i)
          ENDDO
          j = j + 1
          IF ( j<=14 ) iblock(1,j) = 1
       ENDIF
    ENDIF
-   Harm = N
+   harm = n
 !
    DO i = 1 , 2
 !
 !     DISPLACEMENT VECTOR POINTER
 !
-      Npoint = Ivec + sil(i) - 1
+      npoint = ivec + sil(i) - 1
 !
-      CALL gmmats(s(48*i-47),8,6,0,Z(Npoint),6,1,0,Vec(1))
+      CALL gmmats(s(48*i-47),8,6,0,z(npoint),6,1,0,vec(1))
 !
       DO j = 1 , 8
-         Sum(j) = Sum(j) + Vec(j)
+         sum(j) = sum(j) + vec(j)
       ENDDO
    ENDDO
 !
@@ -106,62 +107,62 @@ SUBROUTINE scone2(Sorc)
 !
    SPAG_Loop_1_1: DO i = 1 , 14
       IF ( iblock(1,i)==1 ) EXIT SPAG_Loop_1_1
-      Nphi = Harm*Block(1,i)*degra
-      Sinphi = sin(Nphi)
-      Conphi = cos(Nphi)
+      nphi = harm*block(1,i)*degra
+      sinphi = sin(nphi)
+      conphi = cos(nphi)
       IF ( Sorc==2 ) THEN
-         Block(2,i) = Block(2,i) + Conphi*Sum(1)
-         Block(3,i) = Block(3,i) + Conphi*Sum(2)
-         Block(4,i) = Block(4,i) + Sinphi*Sum(3)
-         Block(5,i) = Block(5,i) + Conphi*Sum(4)
-         Block(6,i) = Block(6,i) + Conphi*Sum(5)
-         Block(7,i) = Block(7,i) + Sinphi*Sum(6)
-         Block(8,i) = Block(8,i) + Conphi*Sum(7)
-         Block(9,i) = Block(9,i) + Sinphi*Sum(8)
+         block(2,i) = block(2,i) + conphi*sum(1)
+         block(3,i) = block(3,i) + conphi*sum(2)
+         block(4,i) = block(4,i) + sinphi*sum(3)
+         block(5,i) = block(5,i) + conphi*sum(4)
+         block(6,i) = block(6,i) + conphi*sum(5)
+         block(7,i) = block(7,i) + sinphi*sum(6)
+         block(8,i) = block(8,i) + conphi*sum(7)
+         block(9,i) = block(9,i) + sinphi*sum(8)
       ELSE
-         Block(2,i) = Block(2,i) + Sinphi*Sum(1)
-         Block(3,i) = Block(3,i) + Sinphi*Sum(2)
-         Block(4,i) = Block(4,i) - Conphi*Sum(3)
-         Block(5,i) = Block(5,i) + Sinphi*Sum(4)
-         Block(6,i) = Block(6,i) + Sinphi*Sum(5)
-         Block(7,i) = Block(7,i) - Conphi*Sum(6)
-         Block(8,i) = Block(8,i) + Sinphi*Sum(7)
-         Block(9,i) = Block(9,i) - Conphi*Sum(8)
+         block(2,i) = block(2,i) + sinphi*sum(1)
+         block(3,i) = block(3,i) + sinphi*sum(2)
+         block(4,i) = block(4,i) - conphi*sum(3)
+         block(5,i) = block(5,i) + sinphi*sum(4)
+         block(6,i) = block(6,i) + sinphi*sum(5)
+         block(7,i) = block(7,i) - conphi*sum(6)
+         block(8,i) = block(8,i) + sinphi*sum(7)
+         block(9,i) = block(9,i) - conphi*sum(8)
       ENDIF
    ENDDO SPAG_Loop_1_1
 !
 !     COPY FORCES INTO FORCE OUTPUT BLOCK
 !
-   iforce(1) = Elemid
-   iforce(2) = Nelhar
-   force(3) = Sum(4)
-   force(4) = Sum(5)
-   force(5) = Sum(6)
-   force(6) = Sum(7)
-   force(7) = Sum(8)
+   iforce(1) = elemid
+   iforce(2) = nelhar
+   force(3) = sum(4)
+   force(4) = sum(5)
+   force(5) = sum(6)
+   force(6) = sum(7)
+   force(7) = sum(8)
 !
 !     COMPUTE STRESSES AT Z1 AND Z2
 !
-   istres(1) = Elemid
-   istres(2) = Nelhar
+   istres(1) = elemid
+   istres(2) = nelhar
 !
    DO i = 1 , 2
-      Zoveri = 0.0
-      IF ( iii/=0.0 ) Zoveri = zoff(i)/iii
+      zoveri = 0.0
+      IF ( iii/=0.0 ) zoveri = zoff(i)/iii
 !
       DO j = 1 , 3
-         Sig(j) = Sum(j) + Sum(j+3)*Zoveri
+         sig(j) = sum(j) + sum(j+3)*zoveri
       ENDDO
 !
-      Ipt = 8*i - 6
-      stress(Ipt+1) = zoff(i)
-      stress(Ipt+2) = Sig(1)
-      stress(Ipt+3) = Sig(2)
-      stress(Ipt+4) = Sig(3)
-      istres(Ipt+5) = 1
-      istres(Ipt+6) = 1
-      istres(Ipt+7) = 1
-      istres(Ipt+8) = 1
+      ipt = 8*i - 6
+      stress(ipt+1) = zoff(i)
+      stress(ipt+2) = sig(1)
+      stress(ipt+3) = sig(2)
+      stress(ipt+4) = sig(3)
+      istres(ipt+5) = 1
+      istres(ipt+6) = 1
+      istres(ipt+7) = 1
+      istres(ipt+8) = 1
    ENDDO
 !
 END SUBROUTINE scone2

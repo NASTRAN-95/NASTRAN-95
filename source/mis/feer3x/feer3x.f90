@@ -1,18 +1,19 @@
-!*==feer3x.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==feer3x.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer3x
-USE C_FEERCX
-USE C_FEERXX
-USE C_NAMES
-USE C_OPINV
-USE C_PACKX
-USE C_REIGKR
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerxx
+   USE c_names
+   USE c_opinv
+   USE c_packx
+   USE c_reigkr
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -56,36 +57,36 @@ USE ISO_FORTRAN_ENV
 !
    sr9fle = 309
    sr10fl = 308
-   Iprc = Mcblt(5)
-   nwds = Iwords(Iprc)
-   nz = korsz(Z)
-   CALL makmcb(Mcbvec(1),Sr7fle,Nord,2,Iprc)
-   Mcbvec(2) = 0
-   Mcbvec(6) = 0
-   CALL makmcb(Mcbrm(1),Sr6fle,Mord,2,Iprc)
-   Mcbrm(2) = 0
-   Mcbrm(6) = 0
-   mcbscl(1) = Iflrvc
+   iprc = mcblt(5)
+   nwds = iwords(iprc)
+   nz = korsz(z)
+   CALL makmcb(mcbvec(1),sr7fle,nord,2,iprc)
+   mcbvec(2) = 0
+   mcbvec(6) = 0
+   CALL makmcb(mcbrm(1),sr6fle,mord,2,iprc)
+   mcbrm(2) = 0
+   mcbrm(6) = 0
+   mcbscl(1) = iflrvc
    CALL rdtrl(mcbscl(1))
 !
 !     INITIALIZE ALLOCATIONS
 !
-   ibuf1 = nz - Sysbuf
-   ibuf2 = ibuf1 - Sysbuf
-   ibuf3 = ibuf2 - Sysbuf
-   ibuf4 = ibuf3 - Sysbuf
+   ibuf1 = nz - sysbuf
+   ibuf2 = ibuf1 - sysbuf
+   ibuf3 = ibuf2 - sysbuf
+   ibuf4 = ibuf3 - sysbuf
    iv1 = 1
-   iv2 = iv1 + Nord
-   iv3 = iv2 + Nord
-   iv4 = iv3 + Nord
-   iv5 = iv4 + Nord
-   Nzv5 = ibuf4 - iv5*nwds - 2
+   iv2 = iv1 + nord
+   iv3 = iv2 + nord
+   iv4 = iv3 + nord
+   iv5 = iv4 + nord
+   nzv5 = ibuf4 - iv5*nwds - 2
    ix2 = iv2 - 1
-   iend = nwds*(5*Nord+1) + 2
+   iend = nwds*(5*nord+1) + 2
    icrq = iend - ibuf4
    IF ( icrq>0 ) CALL mesage(-8,icrq,name)
-   ifl = Mcblt(1)
-   srxfle = Sr8fle
+   ifl = mcblt(1)
+   srxfle = sr8fle
 !
 !     CALL UNPSCR TO MOVE MCBSMA DATA INTO SR9FLE, AND MCBLT INTO SR10FL
 !     (ORIGINAL MCBSMA AND MCBLT TRAILER WORDS 4,5,6,7 WILL BE CHANGED)
@@ -95,89 +96,89 @@ USE ISO_FORTRAN_ENV
 !     IF KSYS94 IS 10000 OR DIAG 41 IS ON, NEW FBS METHODS AND UNPSCR
 !     ARE NOT USED
 !
-   IF ( mod(Ksys94,100000)/10000/=1 ) THEN
+   IF ( mod(ksys94,100000)/10000/=1 ) THEN
       CALL sswtch(41,i)
       IF ( i/=1 ) THEN
          srxfle = sr9fle
-         CALL unpscr(Mcbsma,srxfle,Z,ibuf2,ibuf1,Nzv5,0,1)
+         CALL unpscr(mcbsma,srxfle,z,ibuf2,ibuf1,nzv5,0,1)
          j = 2
-         IF ( Ioptf==1 ) j = 3
-         CALL unpscr(Mcblt,sr10fl,Z,ibuf2,ibuf1,Nzv5,0,j)
-         Nzv5 = Nzv5 + 1
+         IF ( ioptf==1 ) j = 3
+         CALL unpscr(mcblt,sr10fl,z,ibuf2,ibuf1,nzv5,0,j)
+         nzv5 = nzv5 + 1
          ifl = sr10fl
       ENDIF
    ENDIF
 !
-   CALL gopen(ifl,Z(ibuf3),Rdrew)
-   CALL gopen(Sr7fle,Z(ibuf1),Wrtrew)
-   IF ( Northo/=0 ) THEN
+   CALL gopen(ifl,z(ibuf3),rdrew)
+   CALL gopen(sr7fle,z(ibuf1),wrtrew)
+   IF ( northo/=0 ) THEN
 !
 !     LOAD RESTART AND/OR RIGID BODY VECTORS
 !
-      CALL gopen(Iflrvc,Z(ibuf2),Rdrew)
-      Incr = 1
-      Incrp = 1
-      Itp1 = Iprc
-      Itp2 = Iprc
+      CALL gopen(iflrvc,z(ibuf2),rdrew)
+      incr = 1
+      incrp = 1
+      itp1 = iprc
+      itp2 = iprc
 !
-      DO j = 1 , Northo
-         Ii = 1
-         Nn = Nord
-         CALL unpack(*50,Iflrvc,dz(1))
-         Iip = Ii
-         Nnp = Nn
-         IF ( Iprc==1 ) THEN
-            IF ( Ioptf/=0 ) THEN
+      DO j = 1 , northo
+         ii = 1
+         nn = nord
+         CALL unpack(*50,iflrvc,dz(1))
+         iip = ii
+         nnp = nn
+         IF ( iprc==1 ) THEN
+            IF ( ioptf/=0 ) THEN
                sq = 0.0
-               CALL frmlta(Mcblt(1),Z(iv1),Z(iv2),Z(iv3))
-               DO ij = 1 , Nord
-                  sq = sq + Z(ix2+ij)**2
+               CALL frmlta(mcblt(1),z(iv1),z(iv2),z(iv3))
+               DO ij = 1 , nord
+                  sq = sq + z(ix2+ij)**2
                ENDDO
                sq = 1.0/sqrt(sq)
-               DO ij = 1 , Nord
-                  Z(ij) = sq*Z(ix2+ij)
+               DO ij = 1 , nord
+                  z(ij) = sq*z(ix2+ij)
                ENDDO
             ENDIF
-            IF ( L16/=0 ) THEN
+            IF ( l16/=0 ) THEN
                CALL page2(2)
-               WRITE (Io,99003) Iip , Nnp , (Z(i),i=1,Nord)
+               WRITE (io,99003) iip , nnp , (z(i),i=1,nord)
             ENDIF
          ELSE
-            IF ( Ioptf/=0 ) THEN
+            IF ( ioptf/=0 ) THEN
                dsq = 0.D0
-               CALL frmltx(Mcblt(1),dz(iv1),dz(iv2),dz(iv3))
-               DO ij = 1 , Nord
+               CALL frmltx(mcblt(1),dz(iv1),dz(iv2),dz(iv3))
+               DO ij = 1 , nord
                   dsq = dsq + dz(ix2+ij)**2
                ENDDO
                dsq = 1.D0/dsqrt(dsq)
-               DO ij = 1 , Nord
+               DO ij = 1 , nord
                   dz(ij) = dsq*dz(ix2+ij)
                ENDDO
             ENDIF
-            IF ( L16/=0 ) THEN
+            IF ( l16/=0 ) THEN
                CALL page2(2)
-               WRITE (Io,99003) Iip , Nnp , (dz(i),i=1,Nord)
+               WRITE (io,99003) iip , nnp , (dz(i),i=1,nord)
             ENDIF
          ENDIF
-         CALL pack(dz(1),Sr7fle,Mcbvec(1))
+         CALL pack(dz(1),sr7fle,mcbvec(1))
  50   ENDDO
 !
-      CALL close(Iflrvc,Norew)
-      IF ( L16/=0 ) THEN
+      CALL close(iflrvc,norew)
+      IF ( l16/=0 ) THEN
          CALL page2(1)
-         WRITE (Io,99001) Northo , Mcbvec
+         WRITE (io,99001) northo , mcbvec
 99001    FORMAT (5X,I5,16H ORTH VECTORS ON,I5,5H FILE,5I5,I14)
       ENDIF
    ENDIF
-   k = Northo
-   CALL close(Sr7fle,Norew)
+   k = northo
+   CALL close(sr7fle,norew)
    j = k
-   Nonul = 0
-   Iter = 0
-   CALL gopen(Sr6fle,Z(ibuf4),Wrtrew)
-   CALL close(Sr6fle,Norew)
-   CALL gopen(srxfle,Z(ibuf2),Rdrew)
-   CALL gopen(Sr5fle,Z(ibuf4),Wrtrew)
+   nonul = 0
+   iter = 0
+   CALL gopen(sr6fle,z(ibuf4),wrtrew)
+   CALL close(sr6fle,norew)
+   CALL gopen(srxfle,z(ibuf2),rdrew)
+   CALL gopen(sr5fle,z(ibuf4),wrtrew)
    SPAG_Loop_1_1: DO
 !
 !     GENERATE SEED VECTOR
@@ -189,55 +190,55 @@ USE ISO_FORTRAN_ENV
 !     GENERATE SEED VECTOR FOR LANCZOS
 !
       ss = 1.0
-      IF ( Iprc==1 ) THEN
+      IF ( iprc==1 ) THEN
 !
-         DO i = 1 , Nord
+         DO i = 1 , nord
             ss = -ss
             j = j + 1
-            sq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/Nord)))
-            Z(ix2+i) = sq*ss
+            sq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/nord)))
+            z(ix2+i) = sq*ss
          ENDDO
-         IF ( Optn2/=dashq ) CALL fnxtv(Z(iv1),Z(iv2),Z(iv3),Z(iv4),Z(iv5),Z(ibuf1),ifn)
-         IF ( Optn2==dashq ) CALL fnxtvd(Z(iv1),Z(iv2),Z(iv3),Z(iv4),Z(iv5),Z(ibuf1),ifn)
+         IF ( optn2/=dashq ) CALL fnxtv(z(iv1),z(iv2),z(iv3),z(iv4),z(iv5),z(ibuf1),ifn)
+         IF ( optn2==dashq ) CALL fnxtvd(z(iv1),z(iv2),z(iv3),z(iv4),z(iv5),z(ibuf1),ifn)
       ELSE
-         DO i = 1 , Nord
+         DO i = 1 , nord
             ss = -ss
             j = j + 1
-            dsq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/Nord)))
+            dsq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/nord)))
             dz(ix2+i) = dsq*ss
          ENDDO
-         IF ( Optn2/=dashq ) CALL fnxtvc(dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),Z(ibuf1),ifn)
+         IF ( optn2/=dashq ) CALL fnxtvc(dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),z(ibuf1),ifn)
       ENDIF
 !
-      IF ( Iter>Mord ) THEN
-         Mord = Northo - Nzero
-         Cndflg = 3
+      IF ( iter>mord ) THEN
+         mord = northo - nzero
+         cndflg = 3
          EXIT SPAG_Loop_1_1
 !
-      ELSEIF ( ifn>=Mord ) THEN
+      ELSEIF ( ifn>=mord ) THEN
          EXIT SPAG_Loop_1_1
       ENDIF
    ENDDO SPAG_Loop_1_1
-   CALL close(Sr5fle,Norew)
-   CALL close(srxfle,Rew)
-   CALL close(ifl,Rew)
+   CALL close(sr5fle,norew)
+   CALL close(srxfle,rew)
+   CALL close(ifl,rew)
 !
 !     IF NEW FBS METHOD IS USED, SR9FLE AND SR10FL FILES COULD BE VERY
 !     BIG. MAKE SURE THEY ARE PHYSICALLY REDUCED TO ZERO SIZE. THIS IS
 !     IMPORTANT FOR A COMPUTER SYSTEM WITH LIMITED DISC SPACE
 !
    IF ( ifl==sr10fl ) THEN
-      CALL gopen(sr9fle,Z(ibuf2),Wrtrew)
-      CALL gopen(sr10fl,Z(ibuf3),Wrtrew)
-      CALL close(sr9fle,Rew)
-      CALL close(sr10fl,Rew)
+      CALL gopen(sr9fle,z(ibuf2),wrtrew)
+      CALL gopen(sr10fl,z(ibuf3),wrtrew)
+      CALL close(sr9fle,rew)
+      CALL close(sr10fl,rew)
    ENDIF
 !
-   IF ( L16==0 ) RETURN
+   IF ( l16==0 ) RETURN
    CALL page2(1)
-   i = ibuf4 - Northo*Nord*nwds - 2
+   i = ibuf4 - northo*nord*nwds - 2
    IF ( i<0 ) i = ibuf4 - iend
-   WRITE (Io,99002) i , name
+   WRITE (io,99002) i , name
 99002 FORMAT (19H OPEN CORE NOT USED,I10,2X,2A4)
 99003 FORMAT (10H ORTH VCT ,2I5,/(1X,8E16.8))
 !

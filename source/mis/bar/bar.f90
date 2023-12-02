@@ -2,10 +2,10 @@
  
 SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SSGWRK
-   USE C_TRIMEX
+   USE c_matin
+   USE c_matout
+   USE c_ssgwrk
+   USE c_trimex
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -28,6 +28,15 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    REAL , DIMENSION(18) :: ta
    REAL , DIMENSION(9) :: tb
    REAL , DIMENSION(3) :: veci , vecj , veck
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -111,11 +120,11 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
    fl = 0.0
    DO i = 1 , 3
-      fl = fl + Smallv(i)**2
+      fl = fl + smallv(i)**2
    ENDDO
    fl = sqrt(fl)
    DO i = 1 , 3
-      Smallv(i) = Smallv(i)/fl
+      smallv(i) = smallv(i)/fl
    ENDDO
 !
 !     DETERMINE IF POINT A AND B ARE IN BASIC COORDINATES OR NOT.
@@ -163,11 +172,11 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
       j = jofsta - 1
       DO i = 1 , 3
          j = j + 1
-         Dela(i) = ecpt(j)
+         dela(i) = ecpt(j)
       ENDDO
       IF ( .NOT.(abasic) ) THEN
          idela = 4
-         CALL gmmats(ta,3,3,0,Dela(1),3,1,0,Dela(4))
+         CALL gmmats(ta,3,3,0,dela(1),3,1,0,dela(4))
       ENDIF
 !
 !     TRANSFORM THE OFFSET VECTOR FOR POINT B IF NECESSARY
@@ -176,18 +185,18 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
       j = jofstb - 1
       DO i = 1 , 3
          j = j + 1
-         Delb(i) = ecpt(j)
+         delb(i) = ecpt(j)
       ENDDO
       IF ( .NOT.(bbasic) ) THEN
          idelb = 4
-         CALL gmmats(tb,3,3,0,Delb(1),3,1,0,Delb(4))
+         CALL gmmats(tb,3,3,0,delb(1),3,1,0,delb(4))
       ENDIF
 !
 !     SINCE THERE WAS AT LEAST ONE NON-ZERO OFFSET VECTOR RECOMPUTE VECI
 !
-      veci(1) = veci(1) + Dela(idela) - Delb(idelb)
-      veci(2) = veci(2) + Dela(idela+1) - Delb(idelb+1)
-      veci(3) = veci(3) + Dela(idela+2) - Delb(idelb+2)
+      veci(1) = veci(1) + dela(idela) - delb(idelb)
+      veci(2) = veci(2) + dela(idela+1) - delb(idelb+1)
+      veci(3) = veci(3) + dela(idela+2) - delb(idelb+2)
    ENDIF
 !
 !     COMPUTE THE LENGTH OF THE BIG V (VECI) VECTOR AND NORMALIZE
@@ -203,10 +212,10 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !     COMPUTE THE SMALL V SUB 0 VECTOR, SMALV0.  ***CHECK THIS LOGIC***
 !
    DO i = 1 , 3
-      smalv0(i) = Smallv(i)
+      smalv0(i) = smallv(i)
    ENDDO
    isv = 1
-   IF ( Icssv/=0 ) THEN
+   IF ( icssv/=0 ) THEN
       isv = 4
       CALL gmmats(ta,3,3,0,smalv0(1),3,1,0,smalv0(4))
    ENDIF
@@ -233,9 +242,9 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
 !     CALL MAT TO GET MATERIAL PROPERTIES.
 !
-   Matidc = Imatid
-   Matflg = 1
-   Eltemp = Tempel
+   matidc = imatid
+   matflg = 1
+   eltemp = tempel
    CALL mat(iecpt(1))
 !
 !     SET UP INTERMEDIATE VARIABLES FOR ELEMENT STIFFNESS MATRIX
@@ -244,18 +253,18 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    l = fl
    lsq = l**2
    lcube = lsq*l
-   ei1 = E*I1
-   ei2 = E*I2
-   IF ( K1==0.0 .OR. I12/=0.0 ) THEN
+   ei1 = e*i1
+   ei2 = e*i2
+   IF ( k1==0.0 .OR. i12/=0.0 ) THEN
       r1 = 12.0*ei1/lcube
    ELSE
-      gak1 = G*A*K1
+      gak1 = g*a*k1
       r1 = (12.0*ei1*gak1)/(gak1*lcube+12.0*l*ei1)
    ENDIF
-   IF ( K2==0.0 .OR. I12/=0.0 ) THEN
+   IF ( k2==0.0 .OR. i12/=0.0 ) THEN
       r2 = 12.0*ei2/lcube
    ELSE
-      gak2 = G*A*K2
+      gak2 = g*a*k2
       r2 = (12.0*ei2*gak2)/(gak2*lcube+12.0*l*ei2)
    ENDIF
 !
@@ -268,93 +277,93 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
 !     COMPUTE THE TERMS THAT WILL BE NEEDED FOR THE 12 X 12 MATRIX KE
 !
-   ael = A*E/l
+   ael = a*e/l
    lr1 = l*r1/2.0
    lr2 = l*r2/2.0
-   gjl = G*Fj/l
+   gjl = g*fj/l
 !
 !     CONSTRUCT THE 12 X 12 MATRIX KE
 !
    DO i = 1 , 144
-      Ke(i) = 0.0
+      ke(i) = 0.0
    ENDDO
-   Ke(1) = ael
-   Ke(7) = -ael
-   Ke(14) = r1
-   Ke(18) = lr1
-   Ke(20) = -r1
-   Ke(24) = lr1
-   Ke(27) = r2
-   Ke(29) = -lr2
-   Ke(33) = -r2
-   Ke(35) = -lr2
-   Ke(40) = gjl
-   Ke(46) = -gjl
-   Ke(51) = -lr2
-   Ke(53) = sk2
-   Ke(57) = lr2
-   Ke(59) = sk4
-   Ke(62) = lr1
-   Ke(66) = sk1
-   Ke(68) = -lr1
-   Ke(72) = sk3
-   Ke(73) = -ael
-   Ke(79) = ael
-   Ke(86) = -r1
-   Ke(90) = -lr1
-   Ke(92) = r1
-   Ke(96) = -lr1
-   Ke(99) = -r2
-   Ke(101) = lr2
-   Ke(105) = r2
-   Ke(107) = lr2
-   Ke(112) = -gjl
-   Ke(118) = gjl
-   Ke(123) = -lr2
-   Ke(125) = sk4
-   Ke(129) = lr2
-   Ke(131) = sk2
-   Ke(134) = lr1
-   Ke(138) = sk3
-   Ke(140) = -lr1
-   Ke(144) = sk1
-   IF ( I12/=0.0 ) THEN
-      beta = 12.0*E*I12/lcube
+   ke(1) = ael
+   ke(7) = -ael
+   ke(14) = r1
+   ke(18) = lr1
+   ke(20) = -r1
+   ke(24) = lr1
+   ke(27) = r2
+   ke(29) = -lr2
+   ke(33) = -r2
+   ke(35) = -lr2
+   ke(40) = gjl
+   ke(46) = -gjl
+   ke(51) = -lr2
+   ke(53) = sk2
+   ke(57) = lr2
+   ke(59) = sk4
+   ke(62) = lr1
+   ke(66) = sk1
+   ke(68) = -lr1
+   ke(72) = sk3
+   ke(73) = -ael
+   ke(79) = ael
+   ke(86) = -r1
+   ke(90) = -lr1
+   ke(92) = r1
+   ke(96) = -lr1
+   ke(99) = -r2
+   ke(101) = lr2
+   ke(105) = r2
+   ke(107) = lr2
+   ke(112) = -gjl
+   ke(118) = gjl
+   ke(123) = -lr2
+   ke(125) = sk4
+   ke(129) = lr2
+   ke(131) = sk2
+   ke(134) = lr1
+   ke(138) = sk3
+   ke(140) = -lr1
+   ke(144) = sk1
+   IF ( i12/=0.0 ) THEN
+      beta = 12.0*e*i12/lcube
       lb = l*beta/2.0
       l2b3 = lsq*beta/3.0
       l2b6 = lsq*beta/6.0
-      Ke(15) = beta
-      Ke(17) = -lb
-      Ke(21) = -beta
-      Ke(23) = -lb
-      Ke(26) = beta
-      Ke(30) = lb
-      Ke(32) = -beta
-      Ke(36) = lb
-      Ke(50) = -lb
-      Ke(54) = -l2b3
-      Ke(56) = lb
-      Ke(60) = -l2b6
-      Ke(63) = lb
-      Ke(65) = -l2b3
-      Ke(69) = -lb
-      Ke(71) = -l2b6
-      Ke(87) = -beta
-      Ke(89) = lb
-      Ke(93) = beta
-      Ke(95) = lb
-      Ke(98) = -beta
-      Ke(102) = -lb
-      Ke(104) = beta
-      Ke(108) = -lb
-      Ke(122) = -lb
-      Ke(126) = -l2b6
-      Ke(128) = lb
-      Ke(132) = -l2b3
-      Ke(135) = lb
-      Ke(137) = -l2b6
-      Ke(141) = -lb
-      Ke(143) = -l2b3
+      ke(15) = beta
+      ke(17) = -lb
+      ke(21) = -beta
+      ke(23) = -lb
+      ke(26) = beta
+      ke(30) = lb
+      ke(32) = -beta
+      ke(36) = lb
+      ke(50) = -lb
+      ke(54) = -l2b3
+      ke(56) = lb
+      ke(60) = -l2b6
+      ke(63) = lb
+      ke(65) = -l2b3
+      ke(69) = -lb
+      ke(71) = -l2b6
+      ke(87) = -beta
+      ke(89) = lb
+      ke(93) = beta
+      ke(95) = lb
+      ke(98) = -beta
+      ke(102) = -lb
+      ke(104) = beta
+      ke(108) = -lb
+      ke(122) = -lb
+      ke(126) = -l2b6
+      ke(128) = lb
+      ke(132) = -l2b3
+      ke(135) = lb
+      ke(137) = -l2b6
+      ke(141) = -lb
+      ke(143) = -l2b3
    ENDIF
 !
 !     DETERMINE IF THERE ARE NON-ZERO PIN FLAGS.
@@ -378,28 +387,28 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
       DO i = 1 , 10
          IF ( ipin(i)/=0 ) THEN
             ii = 13*ipin(i) - 12
-            IF ( Ke(ii)/=0.0 ) THEN
+            IF ( ke(ii)/=0.0 ) THEN
                DO j = 1 , 12
                   ji = 12*(j-1) + ipin(i)
                   ij = 12*(ipin(i)-1) + j
                   DO ll = 1 , 12
                      jll = 12*(j-1) + ll
                      ill = 12*(ipin(i)-1) + ll
-                     Kep(jll) = Ke(jll) - (Ke(ill)/Ke(ii))*Ke(ji)
+                     kep(jll) = ke(jll) - (ke(ill)/ke(ii))*ke(ji)
                   ENDDO
-                  Kep(ij) = 0.0
-                  Kep(ji) = 0.0
+                  kep(ij) = 0.0
+                  kep(ji) = 0.0
                ENDDO
                DO k = 1 , 144
-                  Ke(k) = Kep(k)
+                  ke(k) = kep(k)
                ENDDO
             ELSE
                il = ipin(i)
                ii = ii - il
                DO j = 1 , 12
                   ii = ii + 1
-                  Ke(ii) = 0.0
-                  Ke(il) = 0.0
+                  ke(ii) = 0.0
+                  ke(il) = 0.0
                   il = il + 12
                ENDDO
             ENDIF
@@ -421,22 +430,22 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
       lim = low + 5
       DO k = low , lim
          j = j + 1
-         Kep(j) = Ke(k)
-         Kep(j+36) = Ke(k+6)
+         kep(j) = ke(k)
+         kep(j+36) = ke(k+6)
       ENDDO
    ENDDO
 !                                                            T
 !     STORE VECI, VECJ, VECK IN KE(1),...,KE(9) FORMING THE A  MATRIX.
 !
-   Ke(1) = veci(1)
-   Ke(2) = veci(2)
-   Ke(3) = veci(3)
-   Ke(4) = vecj(1)
-   Ke(5) = vecj(2)
-   Ke(6) = vecj(3)
-   Ke(7) = veck(1)
-   Ke(8) = veck(2)
-   Ke(9) = veck(3)
+   ke(1) = veci(1)
+   ke(2) = veci(2)
+   ke(3) = veci(3)
+   ke(4) = vecj(1)
+   ke(5) = vecj(2)
+   ke(6) = vecj(3)
+   ke(7) = veck(1)
+   ke(8) = veck(2)
+   ke(9) = veck(3)
 !
 !     SET POINTERS SO THAT WE WILL BE WORKING WITH POINT A.
 !
@@ -447,13 +456,13 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
    iwbeg = 0
    ikel = 1
    isasb = 73
-   index = Isilno(1)
+   index = isilno(1)
 !
 !     ZERO OUT THE ARRAY WHERE THE 3 X 3 MATRIX AND THE W  AND W  6 X 6
 !     MATRICES WILL RESIDE.                              A      B
 !
    DO i = 28 , 108
-      Ke(i) = 0.0
+      ke(i) = 0.0
    ENDDO
    DO
 !
@@ -462,8 +471,8 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
       ig = 1
       IF ( .NOT.(basic) ) THEN
-         CALL gbtran(ecpt(jcsid),ecpt(jcsid+1),Ke(10))
-         CALL gmmats(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
+         CALL gbtran(ecpt(jcsid),ecpt(jcsid+1),ke(10))
+         CALL gmmats(ke(1),3,3,0,ke(10),3,3,0,ke(19))
          ig = 19
       ENDIF
 !
@@ -471,19 +480,19 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !     MATRIX.
 !
       IF ( offset ) THEN
-         Ke(10) = 0.0
-         Ke(11) = ecpt(jofset+2)
-         Ke(12) = -ecpt(jofset+1)
-         Ke(13) = -Ke(11)
-         Ke(14) = 0.0
-         Ke(15) = ecpt(jofset)
-         Ke(16) = -Ke(12)
-         Ke(17) = -Ke(15)
-         Ke(18) = 0.0
+         ke(10) = 0.0
+         ke(11) = ecpt(jofset+2)
+         ke(12) = -ecpt(jofset+1)
+         ke(13) = -ke(11)
+         ke(14) = 0.0
+         ke(15) = ecpt(jofset)
+         ke(16) = -ke(12)
+         ke(17) = -ke(15)
+         ke(18) = 0.0
 !
 !     FORM THE 3 X 3 PRODUCT H = G X D, I.E., KE(28) = KE(IG) X KE(10)
 !
-         CALL gmmats(Ke(ig),3,3,0,Ke(10),3,3,0,Ke(28))
+         CALL gmmats(ke(ig),3,3,0,ke(10),3,3,0,ke(28))
       ENDIF
 !
 !     FORM THE W  MATRIX OR THE W  MATRIX IN KE(37) OR KE(73) DEPENDING
@@ -492,34 +501,34 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !     STORED IN THE UPPER LEFT AND LOWER RIGHT CORNERS.  H, IF NON-ZERO,
 !     WILL BE STORED IN THE UPPER RIGHT CORNER.
 !
-      Ke(iwbeg+37) = Ke(ig)
-      Ke(iwbeg+38) = Ke(ig+1)
-      Ke(iwbeg+39) = Ke(ig+2)
-      Ke(iwbeg+43) = Ke(ig+3)
-      Ke(iwbeg+44) = Ke(ig+4)
-      Ke(iwbeg+45) = Ke(ig+5)
-      Ke(iwbeg+49) = Ke(ig+6)
-      Ke(iwbeg+50) = Ke(ig+7)
-      Ke(iwbeg+51) = Ke(ig+8)
-      Ke(iwbeg+58) = Ke(ig)
-      Ke(iwbeg+59) = Ke(ig+1)
-      Ke(iwbeg+60) = Ke(ig+2)
-      Ke(iwbeg+64) = Ke(ig+3)
-      Ke(iwbeg+65) = Ke(ig+4)
-      Ke(iwbeg+66) = Ke(ig+5)
-      Ke(iwbeg+70) = Ke(ig+6)
-      Ke(iwbeg+71) = Ke(ig+7)
-      Ke(iwbeg+72) = Ke(ig+8)
+      ke(iwbeg+37) = ke(ig)
+      ke(iwbeg+38) = ke(ig+1)
+      ke(iwbeg+39) = ke(ig+2)
+      ke(iwbeg+43) = ke(ig+3)
+      ke(iwbeg+44) = ke(ig+4)
+      ke(iwbeg+45) = ke(ig+5)
+      ke(iwbeg+49) = ke(ig+6)
+      ke(iwbeg+50) = ke(ig+7)
+      ke(iwbeg+51) = ke(ig+8)
+      ke(iwbeg+58) = ke(ig)
+      ke(iwbeg+59) = ke(ig+1)
+      ke(iwbeg+60) = ke(ig+2)
+      ke(iwbeg+64) = ke(ig+3)
+      ke(iwbeg+65) = ke(ig+4)
+      ke(iwbeg+66) = ke(ig+5)
+      ke(iwbeg+70) = ke(ig+6)
+      ke(iwbeg+71) = ke(ig+7)
+      ke(iwbeg+72) = ke(ig+8)
       IF ( offset ) THEN
-         Ke(iwbeg+40) = Ke(28)
-         Ke(iwbeg+41) = Ke(29)
-         Ke(iwbeg+42) = Ke(30)
-         Ke(iwbeg+46) = Ke(31)
-         Ke(iwbeg+47) = Ke(32)
-         Ke(iwbeg+48) = Ke(33)
-         Ke(iwbeg+52) = Ke(34)
-         Ke(iwbeg+53) = Ke(35)
-         Ke(iwbeg+54) = Ke(36)
+         ke(iwbeg+40) = ke(28)
+         ke(iwbeg+41) = ke(29)
+         ke(iwbeg+42) = ke(30)
+         ke(iwbeg+46) = ke(31)
+         ke(iwbeg+47) = ke(32)
+         ke(iwbeg+48) = ke(33)
+         ke(iwbeg+52) = ke(34)
+         ke(iwbeg+53) = ke(35)
+         ke(iwbeg+54) = ke(36)
       ENDIF
 !                              E                    E
 !     FORM THE PRODUCT  S  =  K   X  W   OR  S  = K   X  W  , DEPENDING
@@ -527,7 +536,7 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
 !     UPON WHICH POINT WE ARE WORKING WITH.
 !
-      CALL gmmats(Kep(ikel),6,6,0,Ke(iwbeg+37),6,6,0,Kep(isasb))
+      CALL gmmats(kep(ikel),6,6,0,ke(iwbeg+37),6,6,0,kep(isasb))
 !
 !     IF THE POINT UNDER CONSIDERATION IS POINT B WE ARE FINISHED.  IF
 !     NOT, SET UP POINTS AND INDICATORS FOR WORKING WITH POINT B.
@@ -536,19 +545,19 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !
 !     NOW PERFORM THE ELEMENT TEMPERATURE AND DEFORMATION LOADING.
 !
-         tbar = Tsub0
+         tbar = tsub0
          IF ( Nogptt/=0 ) THEN
-            CALL ssgetd(ecpt(1),Ke(1),0)
-            tbar = (Ke(1)+Ke(2))/2.0
+            CALL ssgetd(ecpt(1),ke(1),0)
+            tbar = (ke(1)+ke(2))/2.0
          ENDIF
          delta = 0.0
          IF ( Noedt==0 ) THEN
             delta = 0.0
          ELSE
-            Ke(3) = 0.0
-            Ke(4) = 0.0
-            Ke(5) = 0.0
-            Ke(6) = 0.0
+            ke(3) = 0.0
+            ke(4) = 0.0
+            ke(5) = 0.0
+            ke(6) = 0.0
             CALL fedt(ecpt(1),delta,Idefm)
          ENDIF
 !
@@ -564,24 +573,24 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
 !     NOW FILL THE U  MATRIX           (6 X 1)
 !                   A
 !
-         alphal = Alpha*l
+         alphal = alpha*l
 !
-         ua(1) = -alphal*(tbar-Tsub0) - delta
-         ua(2) = -alphal*l*(Ke(3)+2.0*Ke(4))/6.0
-         ua(3) = -alphal*l*(Ke(5)+2.0*Ke(6))/6.0
+         ua(1) = -alphal*(tbar-tsub0) - delta
+         ua(2) = -alphal*l*(ke(3)+2.0*ke(4))/6.0
+         ua(3) = -alphal*l*(ke(5)+2.0*ke(6))/6.0
          ua(4) = 0.0
-         ua(5) = -alphal*(Ke(5)+Ke(6))/2.0
-         ua(6) = alphal*(Ke(3)+Ke(4))/2.0
+         ua(5) = -alphal*(ke(5)+ke(6))/2.0
+         ua(6) = alphal*(ke(3)+ke(4))/2.0
 !
 !     COMPUTE P  AND P  AND STORE THEM INTO Z (OPEN CORE)
 !              A      B
 !
          DO i = 1 , 2
-            CALL gmmats(Kep(36*i+37),6,6,1,ua(1),6,1,0,Ke(1))
+            CALL gmmats(kep(36*i+37),6,6,1,ua(1),6,1,0,ke(1))
             k = iecpt(i+1) - 1
             DO j = 1 , 6
                k = k + 1
-               Z(k) = Z(k) + Ke(j)
+               Z(k) = Z(k) + ke(j)
             ENDDO
          ENDDO
          EXIT
@@ -593,9 +602,9 @@ SUBROUTINE bar(Z,Idefm,Nogptt,Noedt)
          iwbeg = 36
          ikel = 37
          isasb = 109
-         index = Isilno(2)
+         index = isilno(2)
          DO i = 28 , 36
-            Ke(i) = 0.0
+            ke(i) = 0.0
          ENDDO
       ENDIF
    ENDDO

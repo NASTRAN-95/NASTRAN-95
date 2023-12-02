@@ -1,9 +1,10 @@
-!*==dsupkc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dsupkc.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dsupkc(Itin,Itout,A,B)
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG

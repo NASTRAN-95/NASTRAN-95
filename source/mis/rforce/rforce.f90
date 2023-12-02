@@ -1,17 +1,18 @@
-!*==rforce.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rforce.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rforce(Lcore)
+   USE c_condas
+   USE c_loadx
+   USE c_machin
+   USE c_system
+   USE c_tranx
+   USE c_unpakx
+   USE c_xcstm
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_LOADX
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_TRANX
-   USE C_UNPAKX
-   USE C_XCSTM
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -70,7 +71,7 @@ SUBROUTINE rforce(Lcore)
 !
 !     BRING IN CARD IMAGE
 !
-         CALL fread(Slt,card,6,0)
+         CALL fread(slt,card,6,0)
 !
 !     FIND LOCATION OF AXIAL GRID POINT
 !
@@ -88,17 +89,17 @@ SUBROUTINE rforce(Lcore)
                ENDDO
             ENDIF
          ENDIF
-         CALL rewind(Bgpdt)
-         CALL skprec(Bgpdt,1)
+         CALL rewind(bgpdt)
+         CALL skprec(bgpdt,1)
 !
 !     CONVERT WI'S TO BASIC COORDINANTS
 !
          DO i = 4 , 6
-            wb(i-3) = card(i)*Twophi*card(3)
+            wb(i-3) = card(i)*twophi*card(3)
          ENDDO
          IF ( icard(2)/=0 ) THEN
             CALL fdcstm(icard(2))
-            CALL mpyl(To,wb,3,3,1,wg)
+            CALL mpyl(to,wb,3,3,1,wg)
             DO i = 1 , 3
                wb(i) = wg(i)
             ENDDO
@@ -106,45 +107,45 @@ SUBROUTINE rforce(Lcore)
 !
 !     OPEN MASS MATRIX
 !
-         j = Lcore - Sysbuf
+         j = Lcore - sysbuf
          IF ( j<=0 ) THEN
             icrrqd = iabs(j) + 1
             CALL mesage(-8,icrrqd,name)
          ENDIF
-         CALL gopen(Mgg,Z(j),0)
-         It1 = 1
+         CALL gopen(mgg,z(j),0)
+         it1 = 1
 !
 !     TEST FOR COUPLED MASS
 !
-         iy(1) = Mgg
+         iy(1) = mgg
          CALL rdtrl(iy)
          cupmas = .FALSE.
          IF ( iy(6)/=1 ) THEN
             IF ( iy(6)>6 ) cupmas = .TRUE.
             IF ( .NOT.(cupmas) ) THEN
-               Incr = 0
+               incr = 0
                ncol = iy(2)
                SPAG_Loop_1_1: DO i = 1 , ncol
-                  Ii = 0
-                  CALL unpack(*5,Mgg,A)
-                  IF ( Jj-Ii>6 ) cupmas = .TRUE.
+                  ii = 0
+                  CALL unpack(*5,mgg,a)
+                  IF ( jj-ii>6 ) cupmas = .TRUE.
                   IF ( cupmas ) EXIT SPAG_Loop_1_1
  5             ENDDO SPAG_Loop_1_1
-               CALL rewind(Mgg)
-               CALL skprec(Mgg,1)
+               CALL rewind(mgg)
+               CALL skprec(mgg,1)
             ENDIF
          ENDIF
-         Ii = 1
-         Incr = 6
+         ii = 1
+         incr = 6
 !
 !     TEST FOR CONICAL SHELL PROBLEM
 !
          nonshl = .TRUE.
-         IF ( Mn/=0 ) THEN
+         IF ( mn/=0 ) THEN
             nonshl = .FALSE.
-            nharms = Mn
+            nharms = mn
             nrings = isystm(161)
-            iy(1) = Bgpdt
+            iy(1) = bgpdt
             CALL rdtrl(iy)
             strtmn = iy(2) - nharms*nrings
             iptax = 0
@@ -156,8 +157,8 @@ SUBROUTINE rforce(Lcore)
 !
 !     BRING IN BGPDT
 !
-            file = Bgpdt
-            CALL read(*60,*40,Bgpdt,ri(1),4,0,iflag)
+            file = bgpdt
+            CALL read(*60,*40,bgpdt,ri(1),4,0,iflag)
 !
 !     TEST FOR CONICAL SHELL PROCESSING
 !
@@ -165,7 +166,7 @@ SUBROUTINE rforce(Lcore)
                iptax = iptax + 1
                IF ( iptax<strtmn ) THEN
 !
-                  IF ( ir/=-1 ) CALL skprec(Mgg,6)
+                  IF ( ir/=-1 ) CALL skprec(mgg,6)
                ELSE
                   kountm = kountm + 1
                   IF ( kountm>nrings ) GOTO 40
@@ -183,8 +184,8 @@ SUBROUTINE rforce(Lcore)
 !     CHECK FOR SCALAR POINT
 !
             IF ( ir==-1 ) THEN
-               CALL skprec(Mgg,1)
-               Ii = Ii + 1
+               CALL skprec(mgg,1)
+               ii = ii + 1
                CYCLE
 !
 !     TEST FOR COUPLED MASS PROCESSING
@@ -217,14 +218,14 @@ SUBROUTINE rforce(Lcore)
 !
 !     BRING IN  6X6  ON DIAGONAL OF MASS MATRIX
 !
-               Jj = Ii + 5
+               jj = ii + 5
                DO j = 1 , 6
                   DO i = 1 , 6
                      xm(i,j) = 0.0
                   ENDDO
                ENDDO
                DO i = 1 , 6
-                  CALL unpack(*10,Mgg,xm(i,1))
+                  CALL unpack(*10,mgg,xm(i,1))
  10            ENDDO
 !
 !     MOVE  6X6 TO PARTITIONS
@@ -246,7 +247,7 @@ SUBROUTINE rforce(Lcore)
                DO i = 1 , 3
                   xm(i,1) = xm(i,3)
                ENDDO
-               IF ( ir/=0 ) CALL mpyl(Ti(1,1),xm(1,1),3,3,1,xm(1,3))
+               IF ( ir/=0 ) CALL mpyl(ti(1,1),xm(1,1),3,3,1,xm(1,3))
 !
 !     COMPUTE MOMENTS
 !
@@ -254,10 +255,10 @@ SUBROUTINE rforce(Lcore)
                CALL cross(xm(1,1),wg(1),xm(1,2))
                CALL mpylt(mtr(1,1),xm(1,3),3,3,1,xm(1,1))
                CALL cross(xm(1,1),wg,xm(1,4))
-               j = Ii + 2
+               j = ii + 2
                DO i = 1 , 3
                   j = j + 1
-                  Z(j) = Z(j) + xm(i,2) + xm(i,4)
+                  z(j) = z(j) + xm(i,2) + xm(i,4)
                ENDDO
 !
 !     COMPUTE FORCES
@@ -266,15 +267,15 @@ SUBROUTINE rforce(Lcore)
                CALL cross(xm(1,1),wg(1),xm(1,2))
                CALL mpyl(mt(1,1),xm(1,3),3,3,1,xm(1,1))
                CALL cross(xm(1,1),wg,xm(1,4))
-               j = Ii - 1
+               j = ii - 1
                DO i = 1 , 3
                   j = j + 1
-                  Z(j) = Z(j) + xm(i,4) + xm(i,2)
+                  z(j) = z(j) + xm(i,4) + xm(i,2)
                ENDDO
 !
 !     BUMP  II
 !
-               Ii = Ii + 6
+               ii = ii + 6
                CYCLE
             ENDIF
             EXIT SPAG_Loop_1_2
@@ -284,27 +285,27 @@ SUBROUTINE rforce(Lcore)
 !
          i1 = 1
          DO i = 1 , 3
-            CALL intpk(*20,Mgg,0,i1,0)
+            CALL intpk(*20,mgg,0,i1,0)
             IF ( xm(i,3)==0.0 ) THEN
-               CALL skprec(Mgg,1)
+               CALL skprec(mgg,1)
             ELSE
                SPAG_Loop_2_3: DO
                   CALL zntpki
-                  Z(Irow) = Z(Irow) + A(1)*xm(i,3)
-                  IF ( Ieol==1 ) EXIT SPAG_Loop_2_3
+                  z(irow) = z(irow) + a(1)*xm(i,3)
+                  IF ( ieol==1 ) EXIT SPAG_Loop_2_3
                ENDDO SPAG_Loop_2_3
             ENDIF
  20      ENDDO
-         CALL skprec(Mgg,3)
+         CALL skprec(mgg,3)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     EOR IN BGPDT
 !
- 40      CALL close(Mgg,1)
-         CALL rewind(Bgpdt)
-         Old = 0
-         CALL skprec(Bgpdt,1)
+ 40      CALL close(mgg,1)
+         CALL rewind(bgpdt)
+         old = 0
+         CALL skprec(bgpdt,1)
          RETURN
  60      DO
             ip1 = -2

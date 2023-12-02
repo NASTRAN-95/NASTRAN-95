@@ -1,20 +1,21 @@
-!*==extern.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==extern.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !
 !     GENERATES EXTERNAL LOADS
 !
+   USE c_blank
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_loadx
+   USE c_packx
+   USE c_pindex
+   USE c_system
+   USE c_tranx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_LOADX
-   USE C_PACKX
-   USE C_PINDEX
-   USE C_SYSTEM
-   USE C_TRANX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,34 +50,34 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Iest(1) = -1
-         Idum(1) = 0
+         iest(1) = -1
+         idum(1) = 0
          jopen = 0
          ipre = 0
-         Incur = 1
-         Ii = 1
-         Jj = Nrowsp
+         incur = 1
+         ii = 1
+         jj = nrowsp
          Ngrav = 0
-         Old = 0
-         Icm = 1
-         Itya = 1
-         Ityb = 1
-         ibuf1 = Lcare - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
-         ibuf4 = ibuf3 - Sysbuf
-         ibuf5 = ibuf4 - Sysbuf
-         lcore = ibuf5 - Sysbuf
-         CALL gopen(Slt,Core(ibuf1),0)
-         CALL gopen(Bgpdt,Core(ibuf2),0)
-         file = Cstm
-         CALL open(*20,Cstm,Core(ibuf3),0)
-         Icm = 0
-         CALL skprec(Cstm,1)
- 20      CALL gopen(Sil,Core(ibuf4),0)
-         file = Slt
-         Isil = 0
-         IF ( lcore<Nrowsp ) THEN
+         old = 0
+         icm = 1
+         itya = 1
+         ityb = 1
+         ibuf1 = lcare - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         ibuf4 = ibuf3 - sysbuf
+         ibuf5 = ibuf4 - sysbuf
+         lcore = ibuf5 - sysbuf
+         CALL gopen(slt,core(ibuf1),0)
+         CALL gopen(bgpdt,core(ibuf2),0)
+         file = cstm
+         CALL open(*20,cstm,core(ibuf3),0)
+         icm = 0
+         CALL skprec(cstm,1)
+ 20      CALL gopen(sil,core(ibuf4),0)
+         file = slt
+         isil = 0
+         IF ( lcore<nrowsp ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -88,15 +89,15 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                SELECT CASE (spag_nextblock_2)
                CASE (1)
 !
-                  Ilid = Ilist(iii)
-                  IF ( Ilid/=0 ) THEN
-                     DO i = 1 , Nrowsp
-                        Core(i) = 0.0
+                  ilid = Ilist(iii)
+                  IF ( ilid/=0 ) THEN
+                     DO i = 1 , nrowsp
+                        core(i) = 0.0
                      ENDDO
                      nograv = 0
                      ngrold = Ngrav
                   ELSE
-                     CALL skprec(Slt,1)
+                     CALL skprec(slt,1)
                      spag_nextblock_2 = 9
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
@@ -107,29 +108,29 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                      SPAG_DispatchLoop_3: DO
                         SELECT CASE (spag_nextblock_3)
                         CASE (1)
-                           CALL read(*40,*38,Slt,Nobld,1,0,flag)
-                           CALL fread(Slt,ido,1,0)
+                           CALL read(*40,*38,slt,nobld,1,0,flag)
+                           CALL fread(slt,ido,1,0)
                            IF ( nograv==1 ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
-                           IF ( Nobld==-20 ) EXIT SPAG_Loop_2_1
-                           IF ( Nobld==3 .OR. Nobld==4 ) THEN
+                           IF ( nobld==-20 ) EXIT SPAG_Loop_2_1
+                           IF ( nobld==3 .OR. nobld==4 ) THEN
                               DO j = 1 , ido
                                  CALL tpont
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==5 .OR. Nobld==6 ) THEN
+                           ELSEIF ( nobld==5 .OR. nobld==6 ) THEN
                               DO j = 1 , ido
                                  CALL fpont
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==7 ) THEN
+                           ELSEIF ( nobld==7 ) THEN
                               DO j = 1 , ido
                                  CALL sload
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==8 ) THEN
+                           ELSEIF ( nobld==8 ) THEN
                               IF ( nograv==2 ) THEN
                                  spag_nextblock_1 = 2
                                  CYCLE SPAG_DispatchLoop_1
@@ -139,12 +140,12 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                               ENDDO
                               nograv = 1
                               CYCLE
-                           ELSEIF ( Nobld==9 ) THEN
+                           ELSEIF ( nobld==9 ) THEN
                               DO j = 1 , ido
                                  CALL pload
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==10 ) THEN
+                           ELSEIF ( nobld==10 ) THEN
 !
 !     RFORCE CARDS
 !
@@ -152,7 +153,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL rforce(lcore)
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==11 ) THEN
+                           ELSEIF ( nobld==11 ) THEN
 !
 !     PRESAX CARDS
 !
@@ -160,7 +161,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL presax(Iharm)
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==12 ) THEN
+                           ELSEIF ( nobld==12 ) THEN
 !
 !     QHBDY CARDS
 !
@@ -168,7 +169,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL qhbdy
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==13 ) THEN
+                           ELSEIF ( nobld==13 ) THEN
 !
 !     QVOL CARDS (MODIFIED USER ENTRYS)
 !
@@ -176,22 +177,22 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL qvol
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==14 ) THEN
+                           ELSEIF ( nobld==14 ) THEN
 !
 !     QBDY1 CARDS (MODIFIED USER ENTRYS)
 !
                               kkkk = 1
-                           ELSEIF ( Nobld==15 ) THEN
+                           ELSEIF ( nobld==15 ) THEN
 !
 !     QBDY2 CARDS (MODIFIED USER ENTRYS)
 !
                               kkkk = 2
-                           ELSEIF ( Nobld==16 ) THEN
+                           ELSEIF ( nobld==16 ) THEN
 !
 !     QVECT CARDS (MODIFIED USER ENTRYS)
 !
                               kkkk = 3
-                           ELSEIF ( Nobld==17 ) THEN
+                           ELSEIF ( nobld==17 ) THEN
 !
 !     PLOAD3 CARDS
 !
@@ -199,7 +200,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL pload3
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==18 ) THEN
+                           ELSEIF ( nobld==18 ) THEN
 !
 !     PLOAD1 CARDS
 !
@@ -208,16 +209,16 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CYCLE SPAG_DispatchLoop_3
                               ENDIF
                               ipre = 1
-                              lcore = lcore - Sysbuf - 1
-                              mcore = lcore - Nrowsp - 1
-                              IF ( lcore<Nrowsp ) THEN
+                              lcore = lcore - sysbuf - 1
+                              mcore = lcore - nrowsp - 1
+                              IF ( lcore<nrowsp ) THEN
                                  spag_nextblock_1 = 3
                                  CYCLE SPAG_DispatchLoop_1
                               ENDIF
-                              CALL premat(Core(Nrowsp+1),Core(Nrowsp+1),Core(lcore),mcore,ncore,Mpt,Idit)
+                              CALL premat(core(nrowsp+1),core(nrowsp+1),core(lcore),mcore,ncore,mpt,idit)
                               spag_nextblock_3 = 2
                               CYCLE SPAG_DispatchLoop_3
-                           ELSEIF ( Nobld==19 ) THEN
+                           ELSEIF ( nobld==19 ) THEN
 !
 !     PLOADX CARDS
 !
@@ -225,9 +226,9 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                                  CALL ploadx
                               ENDDO
                               CYCLE
-                           ELSEIF ( Nobld==20 .OR. Nobld==21 .OR. Nobld==22 .OR. Nobld==23 .OR. Nobld==24 ) THEN
+                           ELSEIF ( nobld==20 .OR. nobld==21 .OR. nobld==22 .OR. nobld==23 .OR. nobld==24 ) THEN
                               EXIT SPAG_Loop_2_1
-                           ELSEIF ( Nobld==25 ) THEN
+                           ELSEIF ( nobld==25 ) THEN
 !
 !     PLOAD4 CARDS
 !
@@ -242,7 +243,6 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                            DO j = 1 , ido
                               CALL qloadl(kkkk)
                            ENDDO
-                           CYCLE
                         CASE (2)
                            DO j = 1 , ido
                               CALL plbar1(ido,lcore)
@@ -260,7 +260,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !
 !     NO DO LOOP ON IDO. IN EANDM WE WILL READ ALL CARDS
 !
-                     CALL eandm(Nobld,ido,nextz,lcore,nbdys,all,nelout)
+                     CALL eandm(nobld,ido,nextz,lcore,nbdys,all,nelout)
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
                   ELSE
@@ -268,28 +268,28 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !
 !     1ST AND LAST AVAILABLE LOCATIONS IN OPEN CORE
 !
-                     Iihmat = Nrowsp
-                     Nnhmat = lcore
-                     Mptfil = Mpt
-                     Iditfl = Idit
-                     CALL prehma(Core)
+                     iihmat = nrowsp
+                     nnhmat = lcore
+                     mptfil = mpt
+                     iditfl = idit
+                     CALL prehma(core)
 !
 !     NOW NNHMAT CONTAINS LAST LOCATION OF MATERIAL INFO
 !
-                     nextz = Nnhmat + 1
+                     nextz = nnhmat + 1
 !
 !     OPEN HCFLDS TO CONTAIN APPLIED MAGNETIC FIELD LOAD
 !
-                     lcore = lcore - Sysbuf
+                     lcore = lcore - sysbuf
                      IF ( lcore>nextz ) THEN
 !
 !     STORE SILS  ON PERMBDY, IF ANY, INTO OPEN CORE
 !
                         nbdys = 0
                         file = permbd
-                        CALL open(*24,permbd,Core(lcore+1),0)
+                        CALL open(*24,permbd,core(lcore+1),0)
                         CALL fwdrec(*40,permbd)
-                        CALL read(*40,*22,permbd,Core(nextz),lcore-nextz+1,0,nbdys)
+                        CALL read(*40,*22,permbd,core(nextz),lcore-nextz+1,0,nbdys)
                      ENDIF
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
@@ -309,10 +309,10 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !     ID-S
 !
                   ncc = 0
-                  CALL gopen(casecc,Core(lcore+1),0)
+                  CALL gopen(casecc,core(lcore+1),0)
                   spag_nextblock_2 = 3
                CASE (3)
-                  CALL read(*28,*26,casecc,Core(nextz),lcore-nextz+1,0,kcc)
+                  CALL read(*28,*26,casecc,core(nextz),lcore-nextz+1,0,kcc)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
  26               ncc = max0(ncc,kcc)
@@ -324,7 +324,7 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                   spag_nextblock_2 = 4
                CASE (4)
 !
-                  CALL read(*36,*30,casecc,Core(nextz),lcore-nextz+1,0,ncc)
+                  CALL read(*36,*30,casecc,core(nextz),lcore-nextz+1,0,ncc)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
  30               setno = iz(nextz+25)
@@ -400,7 +400,6 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   spag_nextblock_2 = 4
-                  CYCLE SPAG_DispatchLoop_2
                CASE (8)
 !
 !     SEARCH LIST OF ELEMENT ID-S. ADD ID TO LIST IF NOT A DUPLICATE
@@ -436,24 +435,24 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
                      nextz = nextz + nelout
                   ENDIF
 !
-                  CALL gopen(hcflds,Core(lcore+1),1)
-                  i = lcore - Sysbuf
-                  j = i - Sysbuf
-                  lcore = j - Sysbuf
+                  CALL gopen(hcflds,core(lcore+1),1)
+                  i = lcore - sysbuf
+                  j = i - sysbuf
+                  lcore = j - sysbuf
                   IF ( lcore<=nextz ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL gopen(remfls,Core(i+1),1)
-                  CALL gopen(hccens,Core(j+1),1)
-                  CALL gopen(scr6,Core(lcore+1),1)
-                  CALL eandm(Nobld,ido,nextz,lcore,nbdys,all,nelout)
+                  CALL gopen(remfls,core(i+1),1)
+                  CALL gopen(hccens,core(j+1),1)
+                  CALL gopen(scr6,core(lcore+1),1)
+                  CALL eandm(nobld,ido,nextz,lcore,nbdys,all,nelout)
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
 !
 !
  38               IF ( ngrold/=Ngrav ) CYCLE
-                  CALL pack(Core,Pg,Pg(1))
+                  CALL pack(core,Pg,Pg(1))
                   spag_nextblock_2 = 9
                CASE (9)
                   iii = iii + 1
@@ -463,10 +462,10 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !
          ENDDO
 !
-         CALL close(Bgpdt,1)
-         IF ( Icm==0 ) CALL close(Cstm,1)
-         CALL close(Slt,1)
-         CALL close(Sil,1)
+         CALL close(bgpdt,1)
+         IF ( icm==0 ) CALL close(cstm,1)
+         CALL close(slt,1)
+         CALL close(sil,1)
          IF ( ipre==1 ) THEN
             CALL close(hcflds,1)
             CALL close(remfls,1)
@@ -479,11 +478,9 @@ SUBROUTINE extern(Nex,Ngrav,Gvect,Ilist,Pg,N1,Iharm)
 !
  40      ip1 = -2
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          ip1 = -7
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          ip1 = -8
          spag_nextblock_1 = 4

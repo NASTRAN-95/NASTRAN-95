@@ -1,14 +1,15 @@
-!*==gravl2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gravl2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gravl2(Nvect,Fild,Pg)
+   USE c_blank
+   USE c_loadx
+   USE c_system
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,18 +35,18 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
 !
 ! ----------------------------------------------------------------------
 !
-   lcore = korsz(Core)
+   lcore = korsz(core)
    nz = lcore
-   lcore = lcore - Sysbuf
-   CALL open(*100,Pg(1),Core(lcore+1),0)
+   lcore = lcore - sysbuf
+   CALL open(*100,Pg(1),core(lcore+1),0)
    CALL skpfil(Pg,1)
    CALL skpfil(Pg,-1)
    CALL close(Pg,2)
-   CALL open(*100,Pg(1),Core(lcore+1),3)
-   lcore = lcore - Sysbuf
-   CALL gopen(Fild,Core(lcore+1),0)
-   lcore = lcore - Sysbuf
-   CALL gopen(Sil,Core(lcore+1),0)
+   CALL open(*100,Pg(1),core(lcore+1),3)
+   lcore = lcore - sysbuf
+   CALL gopen(Fild,core(lcore+1),0)
+   lcore = lcore - sysbuf
+   CALL gopen(sil,core(lcore+1),0)
    ibuf = lcore
    isil = 0
    DO iloop = 1 , Nvect
@@ -54,7 +55,7 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
          SELECT CASE (spag_nextblock_1)
          CASE (1)
             SPAG_Loop_2_1: DO
-               CALL read(*200,*20,Sil,isil1,1,0,flag)
+               CALL read(*200,*20,sil,isil1,1,0,flag)
                IF ( isil1>=0 ) THEN
                   ASSIGN 10 TO iout
                   CALL bldpk(1,1,Pg(1),0,0)
@@ -65,7 +66,7 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
             spag_nextblock_1 = 2
          CASE (2)
             SPAG_Loop_2_2: DO
-               CALL read(*200,*20,Sil,isil2,1,0,flag)
+               CALL read(*200,*20,sil,isil2,1,0,flag)
                IF ( isil2>=0 ) THEN
                   IF ( isil2-isil1/=1 ) isil1 = 999999
                   EXIT SPAG_Loop_2_2
@@ -74,33 +75,33 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
             spag_nextblock_1 = 3
          CASE (3)
             GOTO iout
- 10         IF ( Ieol/=0 ) GOTO 30
+ 10         IF ( ieol/=0 ) GOTO 30
             CALL zntpki
-            IF ( Ll<isil1 ) THEN
-               B(1) = A(1)
-               Ii = Ll
+            IF ( ll<isil1 ) THEN
+               b(1) = a(1)
+               ii = ll
                CALL zblpki
-            ELSEIF ( Ll/=isil1 ) THEN
+            ELSEIF ( ll/=isil1 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
  20         ASSIGN 30 TO iout
-            IF ( Nrowsp/=isil1 ) THEN
+            IF ( nrowsp/=isil1 ) THEN
                isil1 = 999999
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
- 30         CALL rewind(Sil)
+ 30         CALL rewind(sil)
             CALL bldpkn(Pg(1),0,Pg)
-            CALL skprec(Sil,1)
+            CALL skprec(sil,1)
             isil = 0
             EXIT SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1
    ENDDO
-   CALL close(Sil,1)
+   CALL close(sil,1)
    CALL close(Fild,1)
    CALL wrttrl(Pg)
    CALL close(Pg,1)
@@ -109,6 +110,6 @@ SUBROUTINE gravl2(Nvect,Fild,Pg)
  100  ipm = Pg(1)
    CALL mesage(-1,ipm,name)
 !
- 200  CALL mesage(-3,Sil,name)
+ 200  CALL mesage(-3,sil,name)
 !
 END SUBROUTINE gravl2

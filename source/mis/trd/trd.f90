@@ -2,10 +2,10 @@
  
 SUBROUTINE trd
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TRDXX
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_system
+   USE c_trdxx
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -16,6 +16,12 @@ SUBROUTINE trd
             & nstep , nz
    INTEGER , DIMENSION(1) :: iz
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -56,70 +62,70 @@ SUBROUTINE trd
 !     INITIALIZE
 !
    moda1 = -1
-   IF ( moda==Modal(1) ) moda1 = 1
+   IF ( moda==modal(1) ) moda1 = 1
 !
 !     BUILD INITIAL CONDITIONS
 !
-   IF ( Iprec==1 ) CALL trd1a(casexx,trl,scr1,nlftp,ngroup,moda1)
-   IF ( Iprec==2 ) CALL trd1a2(casexx,trl,scr1,nlftp,ngroup,moda1)
+   IF ( iprec==1 ) CALL trd1a(casexx,trl,scr1,nlftp,ngroup,moda1)
+   IF ( iprec==2 ) CALL trd1a2(casexx,trl,scr1,nlftp,ngroup,moda1)
 !
 !     TEST FOR ZERO APPLIED LOAD
 !
-   Ik(1) = scr1
-   CALL rdtrl(Ik(1))
-   IF ( Ik(6)==0 ) THEN
+   ik(1) = scr1
+   CALL rdtrl(ik(1))
+   IF ( ik(6)==0 ) THEN
       IF ( nlftp==0 ) THEN
-         Ik(1) = pd
-         Ik(6) = 0
-         CALL rdtrl(Ik)
-         IF ( Ik(6)==0 ) THEN
-            IF ( Ncol<=0 ) CALL mesage(-46,0,0)
+         ik(1) = pd
+         ik(6) = 0
+         CALL rdtrl(ik)
+         IF ( ik(6)==0 ) THEN
+            IF ( ncol<=0 ) CALL mesage(-46,0,0)
          ENDIF
       ENDIF
    ENDIF
 !
 !     ESTIMATE CORE
 !
-   IF ( Noncup<0 .AND. Modal(1)==moda .AND. nlftp==0 ) THEN
+   IF ( noncup<0 .AND. modal(1)==moda .AND. nlftp==0 ) THEN
 !
 !     UNCOUPLED MODAL
 !
       CALL trd1e(mdd,bdd,kdd,pd,udvt,ngroup)
    ELSE
-      nz = korsz(Z)
+      nz = korsz(z)
       igroup = nz - 3*ngroup + 1
-      Ik(1) = kdd
-      CALL rdtrl(Ik)
-      IF ( Ik(1)<0 ) THEN
-         Ik(1) = 0
+      ik(1) = kdd
+      CALL rdtrl(ik)
+      IF ( ik(1)<0 ) THEN
+         ik(1) = 0
       ELSE
-         nrow = Ik(3)
+         nrow = ik(3)
       ENDIF
-      Ib(1) = bdd
-      CALL rdtrl(Ib)
-      IF ( Ib(1)<0 ) THEN
-         Ib(1) = 0
+      ib(1) = bdd
+      CALL rdtrl(ib)
+      IF ( ib(1)<0 ) THEN
+         ib(1) = 0
       ELSE
-         nrow = Ib(3)
+         nrow = ib(3)
       ENDIF
-      Im(1) = mdd
-      CALL rdtrl(Im)
-      IF ( Im(1)<0 ) THEN
-         Im(1) = 0
+      im(1) = mdd
+      CALL rdtrl(im)
+      IF ( im(1)<0 ) THEN
+         im(1) = 0
       ELSE
-         nrow = Im(3)
+         nrow = im(3)
       ENDIF
-      icrq = 8*Ibuf + 7*Iprec*nrow - igroup
+      icrq = 8*ibuf + 7*iprec*nrow - igroup
       IF ( icrq>0 ) CALL mesage(-8,icrq,name)
 !
 !     SET UP COMMON
 !
-      Sr1 = scr2
-      Sr2 = scr3
-      Sr3 = scr4
-      Sr4 = scr5
-      Sr5 = scr6
-      Sr6 = scr7
+      sr1 = scr2
+      sr2 = scr3
+      sr3 = scr4
+      sr4 = scr5
+      sr5 = scr6
+      sr6 = scr7
       iskip = 1
       jgroup = igroup
       DO i = 1 , ngroup
@@ -134,13 +140,13 @@ SUBROUTINE trd
       DO i = 1 , ngroup
          CALL klock(itime1)
          nstep = iz(igroup)
-         delta = Z(igroup+1)
+         delta = z(igroup+1)
          igroup = igroup + 3
-         IF ( Iprec==1 ) CALL initl(3*ngroup,delta)
-         IF ( Iprec==2 ) CALL initl2(3*ngroup,delta)
+         IF ( iprec==1 ) CALL initl(3*ngroup,delta)
+         IF ( iprec==2 ) CALL initl2(3*ngroup,delta)
          CALL klock(itime3)
-         IF ( Iprec==1 ) CALL trd1c(scr1,pd,ngroup,nlftp,udvt,i,scr8,dit,nlft,Noue,moda1,pnld,iskip)
-         IF ( Iprec==2 ) CALL trd1c2(scr1,pd,ngroup,nlftp,udvt,i,scr8,dit,nlft,Noue,moda1,pnld,iskip)
+         IF ( iprec==1 ) CALL trd1c(scr1,pd,ngroup,nlftp,udvt,i,scr8,dit,nlft,noue,moda1,pnld,iskip)
+         IF ( iprec==2 ) CALL trd1c2(scr1,pd,ngroup,nlftp,udvt,i,scr8,dit,nlft,noue,moda1,pnld,iskip)
          CALL klock(itime2)
          CALL tmtogo(itleft)
          IF ( itleft<=0 ) GOTO 100
@@ -152,18 +158,18 @@ SUBROUTINE trd
          ENDIF
       ENDDO
    ENDIF
-   Ik(1) = udvt
-   CALL rdtrl(Ik(1))
-   Ncol = Ik(2)/3
+   ik(1) = udvt
+   CALL rdtrl(ik(1))
+   ncol = ik(2)/3
    RETURN
 !
 !     INSUFFICIENT TIME LEFT TO FINISH
 !
- 100  Ik(1) = udvt
-   CALL rdtrl(Ik(1))
-   Ncol = Ik(2)/3
-   Ik(1) = pd
-   CALL rdtrl(Ik)
-   CALL mesage(45,Ik(2)-Ncol,name)
-   IF ( Ncol==0 ) CALL mesage(-37,0,name)
+ 100  ik(1) = udvt
+   CALL rdtrl(ik(1))
+   ncol = ik(2)/3
+   ik(1) = pd
+   CALL rdtrl(ik)
+   CALL mesage(45,ik(2)-ncol,name)
+   IF ( ncol==0 ) CALL mesage(-37,0,name)
 END SUBROUTINE trd

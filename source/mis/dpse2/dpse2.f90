@@ -2,14 +2,20 @@
  
 SUBROUTINE dpse2
    IMPLICIT NONE
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i , ielem , itemp , k1 , ka , kb , kb1 , kb2 , nogo
    INTEGER , DIMENSION(3) :: iecpt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -62,18 +68,18 @@ SUBROUTINE dpse2
    !>>>>EQUIVALENCE (Ecpt(1),Iecpt(1))
 !
    ielem = iecpt(1)
-   IF ( iecpt(2)==Npvt ) THEN
+   IF ( iecpt(2)==npvt ) THEN
       ka = 8
       kb = 12
-      Alpha = 1.0D0
+      alpha = 1.0D0
    ELSE
-      IF ( iecpt(3)/=Npvt ) CALL mesage(-30,34,iecpt(1))
+      IF ( iecpt(3)/=npvt ) CALL mesage(-30,34,iecpt(1))
       itemp = iecpt(2)
       iecpt(2) = iecpt(3)
       iecpt(3) = itemp
       ka = 12
       kb = 8
-      Alpha = -1.0D0
+      alpha = -1.0D0
    ENDIF
 !
 !     AT THIS POINT KA POINTS TO THE COOR. SYS. ID. OF THE PIVOT GRID
@@ -87,17 +93,17 @@ SUBROUTINE dpse2
 !
 !     CHECK TO SEE THAT THE CPSE2 HAS A NONZERO LENGTH
 !
-   D(1) = Ecpt(ka+1)
-   D(2) = Ecpt(ka+2)
-   D(3) = Ecpt(ka+3)
-   D(4) = Ecpt(kb+1)
-   D(5) = Ecpt(kb+2)
-   D(6) = Ecpt(kb+3)
-   X = D(1) - D(4)
-   Y = D(2) - D(5)
-   Z = D(3) - D(6)
-   Xl = dsqrt(X**2+Y**2+Z**2)
-   IF ( Xl==0.0D0 ) THEN
+   d(1) = ecpt(ka+1)
+   d(2) = ecpt(ka+2)
+   d(3) = ecpt(ka+3)
+   d(4) = ecpt(kb+1)
+   d(5) = ecpt(kb+2)
+   d(6) = ecpt(kb+3)
+   x = d(1) - d(4)
+   y = d(2) - d(5)
+   z = d(3) - d(6)
+   xl = dsqrt(x**2+y**2+z**2)
+   IF ( xl==0.0D0 ) THEN
 !
 !     ERROR
 !
@@ -108,20 +114,20 @@ SUBROUTINE dpse2
 !
 !     COMPUTE THE 3 X 3 NON-ZERO SUBMATRIX OF KDGG(NPVT,NONPVT)
 !
-      D(1) = 0.0D0
-      D(2) = Alpha*Ecpt(4)/2.0D0
-      D(3) = D(2)
-      D(4) = -D(2)
-      D(5) = 0.0D0
-      D(6) = D(2)
-      D(7) = D(4)
-      D(8) = D(4)
-      D(9) = 0.0D0
+      d(1) = 0.0D0
+      d(2) = alpha*ecpt(4)/2.0D0
+      d(3) = d(2)
+      d(4) = -d(2)
+      d(5) = 0.0D0
+      d(6) = d(2)
+      d(7) = d(4)
+      d(8) = d(4)
+      d(9) = 0.0D0
 !
 !     ZERO OUT KE MATRIX
 !
       DO i = 1 , 36
-         Ke(i) = 0.0D0
+         ke(i) = 0.0D0
       ENDDO
 !
 !     FILL UP THE 6 X 6 KE
@@ -136,28 +142,27 @@ SUBROUTINE dpse2
          kb1 = 1
          kb2 = 10
       ELSE
-         CALL transd(Ecpt(ka),Ta)
-         CALL gmmatd(Ta,3,3,1,D(1),3,3,0,D(10))
+         CALL transd(ecpt(ka),ta)
+         CALL gmmatd(ta,3,3,1,d(1),3,3,0,d(10))
          k1 = 10
          kb1 = 10
          kb2 = 1
       ENDIF
       IF ( iecpt(kb)/=0 ) THEN
-         CALL transd(Ecpt(kb),Tb)
-         CALL gmmatd(D(kb1),3,3,0,Tb,3,3,0,D(kb2))
+         CALL transd(ecpt(kb),tb)
+         CALL gmmatd(d(kb1),3,3,0,tb,3,3,0,d(kb2))
          k1 = kb2
       ENDIF
    ENDIF
 !
-   Ke(1) = D(k1)
-   Ke(2) = D(k1+1)
-   Ke(3) = D(k1+2)
-   Ke(7) = D(k1+3)
-   Ke(8) = D(k1+4)
-   Ke(9) = D(k1+5)
-   Ke(13) = D(k1+6)
-   Ke(14) = D(k1+7)
-   Ke(15) = D(k1+8)
-   CALL ds1b(Ke,iecpt(3))
-   RETURN
+   ke(1) = d(k1)
+   ke(2) = d(k1+1)
+   ke(3) = d(k1+2)
+   ke(7) = d(k1+3)
+   ke(8) = d(k1+4)
+   ke(9) = d(k1+5)
+   ke(13) = d(k1+6)
+   ke(14) = d(k1+7)
+   ke(15) = d(k1+8)
+   CALL ds1b(ke,iecpt(3))
 99999 END SUBROUTINE dpse2

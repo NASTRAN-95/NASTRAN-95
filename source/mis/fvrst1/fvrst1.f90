@@ -1,14 +1,15 @@
-!*==fvrst1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fvrst1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fvrst1
-USE C_BLANK
-USE C_CONDAD
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condad
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -161,28 +162,28 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST TO SEE IF BASEXG IS TO BE GENERATED.
 !
-         Nobasx = -1
-         IF ( Nomgg/=-1 .AND. Cycio==-1 .AND. Nofreq/=-1 ) THEN
-            IF ( Bxtid/=-1 .OR. Bytid/=-1 .OR. Bztid/=-1 ) Nobasx = 1
+         nobasx = -1
+         IF ( nomgg/=-1 .AND. cycio==-1 .AND. nofreq/=-1 ) THEN
+            IF ( bxtid/=-1 .OR. bytid/=-1 .OR. bztid/=-1 ) nobasx = 1
          ENDIF
 !
-         IF ( Cycio==-1 ) THEN
+         IF ( cycio==-1 ) THEN
 !
 !     DETERMINE FKMAX
 !
-            IF ( mod(Nsegs,2)/=0 ) THEN
-               Fkmax = 2*Kmax + 1
-            ELSEIF ( Kmax==Nsegs/2 ) THEN
-               Fkmax = Nsegs
+            IF ( mod(nsegs,2)/=0 ) THEN
+               fkmax = 2*kmax + 1
+            ELSEIF ( kmax==nsegs/2 ) THEN
+               fkmax = nsegs
             ELSE
-               Fkmax = 2*Kmax + 1
+               fkmax = 2*kmax + 1
             ENDIF
          ENDIF
 !
 !     TEST TO SEE IF ANY DATA BLOCKS ARE TO BE GENERATED.
 !
-         IF ( Nomgg==-1 ) RETURN
-         IF ( Omega==0.0 .AND. (Cycio/=-1 .OR. Nofreq==-1) .AND. (Bxtid==-1 .AND. Bytid==-1 .AND. Bztid==-1) ) RETURN
+         IF ( nomgg==-1 ) RETURN
+         IF ( omega==0.0 .AND. (cycio/=-1 .OR. nofreq==-1) .AND. (bxtid==-1 .AND. bytid==-1 .AND. bztid==-1) ) RETURN
 !
 !     TEST TRAILER OF MGG TO SEE IF PURGED
 !
@@ -198,30 +199,30 @@ USE ISO_FORTRAN_ENV
          nform = mcb(4)
          ntype = mcb(5)
 !
-         nz = korsz(Z)
+         nz = korsz(z)
 !
 !     ALLOCATE BUFFERS
 !
 !     MGG,CSTM (IBUF1 IS NBUF+1 LONG)
 !
-         ibuf1 = nz - Nbuf
+         ibuf1 = nz - nbuf
 !
 !     BGPDT
 !
-         ibuf2 = ibuf1 - Nbuf
+         ibuf2 = ibuf1 - nbuf
 !
 !     B1GG
 !
-         ibuf3 = ibuf2 - Nbuf
+         ibuf3 = ibuf2 - nbuf
 !
 !     M1GG
 !
-         ibuf4 = ibuf3 - Nbuf
+         ibuf4 = ibuf3 - nbuf
 !
 !     M2GG
 !
-         ibuf5 = ibuf4 - Nbuf
-         IF ( Omega==0.0 ) ibuf5 = ibuf3
+         ibuf5 = ibuf4 - nbuf
+         IF ( omega==0.0 ) ibuf5 = ibuf3
 !
 !     CALCULATE LENGTH OF OPEN CORE
 !
@@ -284,7 +285,7 @@ USE ISO_FORTRAN_ENV
 !     OPEN MGG AND OUTPUT MATRICES
 !
          CALL gopen(mgg,zs(ibuf1),0)
-         IF ( Omega/=0.0 ) THEN
+         IF ( omega/=0.0 ) THEN
             CALL gopen(b1gg,zs(ibuf3),1)
             mcbb1(1) = b1gg
             mcbb1(2) = 0
@@ -302,7 +303,7 @@ USE ISO_FORTRAN_ENV
             mcbm1(6) = 0
             mcbm1(7) = 0
          ENDIF
-         IF ( Nobasx/=-1 ) THEN
+         IF ( nobasx/=-1 ) THEN
             CALL gopen(m2gg,zs(ibuf5),1)
             mcbm2(1) = m2gg
             mcbm2(2) = 0
@@ -315,11 +316,11 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP PACK AND UNPACK TERMS
 !
-         In1 = ntype
-         In = 2
-         Iout = ntype
-         Incr = 1
-         Incr1 = 1
+         in1 = ntype
+         in = 2
+         iout = ntype
+         incr = 1
+         incr1 = 1
 !
 !     READ INTERNAL SORT BGPDT PICK UP CID,X,Y,Z
 !
@@ -339,16 +340,16 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDDO
                DO i = 1 , 3
-                  Nf1 = 0
-                  CALL unpack(*2,mgg,Z)
+                  nf1 = 0
+                  CALL unpack(*2,mgg,z)
 !
 !     LOCATE DIAGONAL ELEMENT IN COL-NROW
 !
-                  nrow = ndof - Nf1 + i
-                  nterm = Nl1 - Nf1 + 1
+                  nrow = ndof - nf1 + i
+                  nterm = nl1 - nf1 + 1
                   IF ( nrow>=1 .AND. nrow<=nterm ) THEN
                      IF ( ntype==1 ) a(i,i) = zs(nrow)
-                     IF ( ntype==2 ) a(i,i) = Z(nrow)
+                     IF ( ntype==2 ) a(i,i) = z(nrow)
                      CYCLE
                   ENDIF
 !
@@ -377,7 +378,7 @@ USE ISO_FORTRAN_ENV
                   avgm = (a(1,1)+a(2,2)+a(3,3))/3.0
                ENDIF
 !
-               IF ( Omega/=0.0 ) THEN
+               IF ( omega/=0.0 ) THEN
 !
 !     PROCESS M1GG
 !
@@ -408,8 +409,8 @@ USE ISO_FORTRAN_ENV
                      DO k = 1 , 3
                         row(k) = c(i,k)
                      ENDDO
-                     Nf = ndof
-                     Nl = ndof + 2
+                     nf = ndof
+                     nl = ndof + 2
                      CALL pack(row,m1gg,mcbm1)
                   ENDDO
 !
@@ -417,8 +418,8 @@ USE ISO_FORTRAN_ENV
 !
                   row(1) = 0.0
                   DO k = 1 , 3
-                     Nf = 1
-                     Nl = 1
+                     nf = 1
+                     nl = 1
                      CALL pack(row,m1gg,mcbm1)
                   ENDDO
 !
@@ -453,8 +454,8 @@ USE ISO_FORTRAN_ENV
                      DO k = 1 , 3
                         row(k) = c(i,k)
                      ENDDO
-                     Nf = ndof
-                     Nl = ndof + 2
+                     nf = ndof
+                     nl = ndof + 2
                      CALL pack(row,b1gg,mcbb1)
                   ENDDO
 !
@@ -462,12 +463,12 @@ USE ISO_FORTRAN_ENV
 !
                   row(1) = 0.0
                   DO i = 1 , 3
-                     Nf = 1
-                     Nl = 1
+                     nf = 1
+                     nl = 1
                      CALL pack(row,b1gg,mcbb1)
                   ENDDO
                ENDIF
-               IF ( Nobasx/=-1 ) THEN
+               IF ( nobasx/=-1 ) THEN
 !
 !     NOW PROCESS M2GG
 !
@@ -505,8 +506,8 @@ USE ISO_FORTRAN_ENV
                      DO k = 1 , 3
                         row(k) = c(i,k)
                      ENDDO
-                     Nf = ndof
-                     Nl = ndof + 2
+                     nf = ndof
+                     nl = ndof + 2
                      CALL pack(row,m2gg,mcbm2)
                   ENDDO
 !
@@ -514,8 +515,8 @@ USE ISO_FORTRAN_ENV
 !
                   row(1) = 0.0
                   DO i = 1 , 3
-                     Nf = 1
-                     Nl = 1
+                     nf = 1
+                     nl = 1
                      CALL pack(row,m2gg,mcbm2)
                   ENDDO
                ENDIF
@@ -533,15 +534,15 @@ USE ISO_FORTRAN_ENV
 !     SCALAR POINT-UNPACK ONE COL OF MGG
 !     SAVE DIAGONAL TERM
 !
-               Nf1 = 0
-               CALL unpack(*20,mgg,Z)
-               nrow = ndof - Nf1 + 1
-               nterm = Nl1 - Nf1 + 1
+               nf1 = 0
+               CALL unpack(*20,mgg,z)
+               nrow = ndof - nf1 + 1
+               nterm = nl1 - nf1 + 1
                IF ( nrow<1 .OR. nrow>nterm ) EXIT SPAG_Loop_1_1
                IF ( ntype==1 ) row(1) = zs(nrow)
-               IF ( ntype==2 ) row(1) = Z(nrow)
-               Nf = ndof
-               Nl = ndof
+               IF ( ntype==2 ) row(1) = z(nrow)
+               nf = ndof
+               nl = ndof
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -550,29 +551,29 @@ USE ISO_FORTRAN_ENV
 !     OUT OF RANGE OF NON-ZERO BAND
 !
  20      row(1) = 0.0
-         Nf = 1
-         Nl = 1
+         nf = 1
+         nl = 1
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     NOW PUT DIAGONAL ELEMENT INTO OUTPUT MATRICES
 !
-         IF ( Omega/=0.0 ) THEN
+         IF ( omega/=0.0 ) THEN
             CALL pack(row,m1gg,mcbm1)
             CALL pack(row,b1gg,mcbb1)
          ENDIF
-         IF ( Nobasx/=-1 ) CALL pack(row,m2gg,mcbm2)
+         IF ( nobasx/=-1 ) CALL pack(row,m2gg,mcbm2)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     FINISH PROCESSING
 !
  40      CALL close(mgg,1)
-         IF ( Nobasx/=-1 ) THEN
+         IF ( nobasx/=-1 ) THEN
             CALL close(m2gg,1)
             CALL wrttrl(mcbm2)
          ENDIF
-         IF ( Omega/=0.0 ) THEN
+         IF ( omega/=0.0 ) THEN
             CALL close(b1gg,1)
             CALL close(m1gg,1)
             CALL wrttrl(mcbb1)
@@ -585,7 +586,7 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST TO SEE IF BASEXG IS TO BE GENERATED.
 !
-         IF ( Nobasx==-1 ) RETURN
+         IF ( nobasx==-1 ) RETURN
 !
 !     RE-ESTABLISH LENGTH OF OPEN CORE FOR PHASE II PROCESSING
 !
@@ -594,7 +595,7 @@ USE ISO_FORTRAN_ENV
 !     PROCESS FRL, FRLX AND PDZERO
 !
          modfrl = .TRUE.
-         IF ( Omega==0.0 .OR. Bytid==-1 .AND. Bztid==-1 ) modfrl = .FALSE.
+         IF ( omega==0.0 .OR. bytid==-1 .AND. bztid==-1 ) modfrl = .FALSE.
 !
          nfile = frl
          mcb1(1) = frl
@@ -654,9 +655,9 @@ USE ISO_FORTRAN_ENV
             mcb2(5) = 1
             mcb2(6) = 0
             mcb2(7) = 0
-            In = 1
-            Iout = 1
-            Incr1 = 1
+            in = 1
+            iout = 1
+            incr1 = 1
             row2(1) = 0.0
             row2(2) = 1.0
             row2(3) = 0.0
@@ -702,7 +703,7 @@ USE ISO_FORTRAN_ENV
                   DO ii = 1 , nfs
                      IF ( zs(ii)==0.0 ) THEN
                         zs(ll+1) = 0.0
-                        zs(ll+2) = abs(Omega)
+                        zs(ll+2) = abs(omega)
                         kkk = kkk + 1
                         zs(kkk) = row2(2)
                         kkk = kkk + 1
@@ -713,9 +714,9 @@ USE ISO_FORTRAN_ENV
                            kkk = kkk + 1
                            zs(kkk) = row2(kk)
                         ENDDO
-                        zs(ll+1) = abs(zs(ii)-Omega)
+                        zs(ll+1) = abs(zs(ii)-omega)
                         zs(ll+2) = zs(ii)
-                        zs(ll+3) = abs(zs(ii)+Omega)
+                        zs(ll+3) = abs(zs(ii)+omega)
                         ll = ll + 3
                      ENDIF
                   ENDDO
@@ -753,11 +754,11 @@ USE ISO_FORTRAN_ENV
 !     NOW OUTPUT NFSX * FKMAX COLUMNS FOR PDZERO
 !
             kkk = 0
-            DO kk = 1 , Fkmax
+            DO kk = 1 , fkmax
                DO jj = 1 , nfsx
                   kkk = kkk + 1
-                  Nf = kkk
-                  Nl = kkk
+                  nf = kkk
+                  nl = kkk
                   CALL pack(zs(ifrlx+jj-1),pdzero,mcb2)
                ENDDO
             ENDDO
@@ -846,7 +847,7 @@ USE ISO_FORTRAN_ENV
          n3 = n2 + (3*nfsx)*2
          nt = n3 + nrowc*2 - 1
          IF ( nz>=nt ) THEN
-            CALL fvrs1a(zs(n1),zs(n2),zs(n3),zs(ifrl),zs(ibuf1),zs(index),modfrl,basexg,nrowc,nfs,nfsx,Fkmax,Omega)
+            CALL fvrs1a(zs(n1),zs(n2),zs(n3),zs(ifrl),zs(ibuf1),zs(index),modfrl,basexg,nrowc,nfs,nfsx,fkmax,omega)
             RETURN
          ENDIF
          spag_nextblock_1 = 6

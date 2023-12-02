@@ -1,10 +1,11 @@
-!*==dpzy.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dpzy.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dpzy(Kb,Iz,I,J1,J2,Ifirst,Ilast,Yb,Zb,Avr,Arb,Th1a,Th2a,Nt121,Nt122,Nbaray,Ncaray,Nzykb,Dpz,Dpy)
+   USE c_dlbdy
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_DLBDY
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -80,8 +81,8 @@ SUBROUTINE dpzy(Kb,Iz,I,J1,J2,Ifirst,Ilast,Yb,Zb,Avr,Arb,Th1a,Th2a,Nt121,Nt122,N
       smult = sin(theta)*rho/pi
       cmult = cos(theta)*rho/pi
       DO j = J1 , J2
-         CALL subpb(I,l,ls,j,sgr,cgr,yrec,zrec,sum,Z(Ixic),Z(Idelx),Z(Iee),Z(Ixlam),Z(Isg),Z(Icg),Z(Iys),Z(Izs),Z(Inas),Z(Inasb+ksp)&
-                  & ,Z(Iavr),Z(Izb),Z(Iyb),Z(Iarb),Z(Ixle),Z(Ixte),Z(Ia),Nb)
+         CALL subpb(I,l,ls,j,sgr,cgr,yrec,zrec,sum,z(ixic),z(idelx),z(iee),z(ixlam),z(isg),z(icg),z(iys),z(izs),z(inas),z(inasb+ksp)&
+                  & ,z(iavr),z(izb),z(iyb),z(iarb),z(ixle),z(ixte),z(ia),nb)
          IF ( Nzykb==3 ) THEN
             Dpy(j) = Dpy(j) + sum*cmult*delth
          ELSE
@@ -90,7 +91,7 @@ SUBROUTINE dpzy(Kb,Iz,I,J1,J2,Ifirst,Ilast,Yb,Zb,Avr,Arb,Th1a,Th2a,Nt121,Nt122,N
          ENDIF
          IF ( j/=J2 ) THEN
             IF ( j>=nbxs ) THEN
-               ksp = ksp + Z(Inas+l-1)
+               ksp = ksp + z(inas+l-1)
                l = l + 1
                nc1 = Ncaray(l)
                nbxs = Nbaray(l)

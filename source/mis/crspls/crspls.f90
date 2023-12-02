@@ -1,4 +1,5 @@
-!*==crspls.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==crspls.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23)
@@ -8,13 +9,13 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !
 !     SINGLE PRECISION VERSION
 !
+   USE c_crsply
+   USE c_gp4fil
+   USE c_gp4prm
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CRSPLY
-   USE C_GP4FIL
-   USE C_GP4PRM
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -56,9 +57,9 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
       CASE (1)
 !
          IF ( Again ) RETURN 1
-         IF ( debug ) WRITE (Nout,99001) Kn , Knkl1 , Bp , Geomp , Bgpdt , Cstm , Rgt , Jump
+         IF ( debug ) WRITE (nout,99001) kn , knkl1 , Bp , geomp , bgpdt , cstm , rgt , Jump
 99001    FORMAT ('0  CRSPLS DEBUG- KN,KNKL1,BP,GEOMP,BGPDT,CSTM,RGT,JUMP=',/3X,8I7)
-         kn2 = Kn/2
+         kn2 = kn/2
          CALL sswtch(38,l38)
 !
 !     UNIT MATRIX UNN
@@ -96,39 +97,39 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             t(i) = zero
             knn(i) = zero
          ENDDO
-         CALL read(*480,*480,Geomp,Buf,3,0,flag)
+         CALL read(*480,*480,geomp,buf,3,0,flag)
          nwds = 3
-         IF ( debug .OR. l38==1 ) WRITE (Nout,99006) Buf(1)
-         eid = Buf(1)
-         Gpoint = Buf(2)
+         IF ( debug .OR. l38==1 ) WRITE (nout,99006) buf(1)
+         eid = buf(1)
+         gpoint = buf(2)
          ASSIGN 20 TO retn
          ASSIGN 440 TO retn1
-         kx = Buf(3)
+         kx = buf(3)
          nm = cn
          spag_nextblock_1 = 16
          CYCLE SPAG_DispatchLoop_1
  20      refg = k
-         sil = Gpoint
+         sil = gpoint
          DO i = 1 , 6
             sild(i) = sil + i - 1
          ENDDO
-         X2 = z(k+1)
-         Y2 = z(k+2)
-         Z2 = z(k+3)
+         x2 = z(k+1)
+         y2 = z(k+2)
+         z2 = z(k+3)
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     READ WEIGHT FACTORS AND COMPONENTS.
 !     GENERATE WEIGHT VECTOR W
 !
-         CALL read(*460,*460,Geomp,iwt,1,0,flag)
+         CALL read(*460,*460,geomp,iwt,1,0,flag)
          IF ( pass==1 ) nwds = nwds + 1
          IF ( iwt/=-2 ) THEN
             IF ( iwt==-3 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL read(*460,*460,Geomp,comp,1,0,flag)
+            CALL read(*460,*460,geomp,comp,1,0,flag)
             IF ( pass==1 ) nwds = nwds + 1
             ASSIGN 40 TO retn1
             kx = comp
@@ -144,7 +145,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !
 !     SKIP TO END OF CARD
 !
-               CALL read(*460,*460,Geomp,j,1,0,flag)
+               CALL read(*460,*460,geomp,j,1,0,flag)
                IF ( j==-3 ) THEN
 !
 !     UPDATE BEGIN POINTER, AND RETURN FOR ANOTHER RBE3 CARD
@@ -161,7 +162,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          ENDIF
  40      DO i = 1 , 6
             w(i) = zero
-            IF ( Buf(cm+i)/=0 ) w(i) = wt
+            IF ( buf(cm+i)/=0 ) w(i) = wt
          ENDDO
          spag_nextblock_1 = 4
       CASE (4)
@@ -169,18 +170,18 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !     READ GRID POINT, GET TRANSFORMATION MATRIX, AND SUMMING UP
 !     WT MATRIX, AND FINALLY KNN MATRIX
 !
-         CALL read(*460,*460,Geomp,grid,1,0,flag)
+         CALL read(*460,*460,geomp,grid,1,0,flag)
          IF ( pass==1 ) nwds = nwds + 1
          IF ( grid==-1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ASSIGN 60 TO retn
-         Gpoint = grid
+         gpoint = grid
          GOTO 440
- 60      X1 = z(k+1)
-         Y1 = z(k+2)
-         Z1 = z(k+3)
+ 60      x1 = z(k+1)
+         y1 = z(k+2)
+         z1 = z(k+3)
          ASSIGN 420 TO retn2
          ASSIGN 80 TO retn3
          zk = z(k)
@@ -199,18 +200,18 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
                ENDDO
             ENDDO
             DO i = 1 , 6
-               IF ( Buf(cn+i)/=0 ) THEN
+               IF ( buf(cn+i)/=0 ) THEN
                   sil = sild(i)
                   l = (i-1)*6
                   DO j = 1 , 6
-                     IF ( Buf(cm+j)/=0 ) THEN
+                     IF ( buf(cm+j)/=0 ) THEN
                         ans = knn(l+j)
                         IF ( ans/=zero ) THEN
-                           mcode(1) = Gpoint + j - 1
+                           mcode(1) = gpoint + j - 1
                            mcode(2) = sil
                            coeff = ans
-                           CALL write(Rgt,mcode,2,0)
-                           CALL write(Rgt,coeff,1,0)
+                           CALL write(rgt,mcode,2,0)
+                           CALL write(rgt,coeff,1,0)
                         ENDIF
                      ENDIF
                   ENDDO
@@ -233,61 +234,58 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             CALL gmmats(tx,6,6,-1,x,6,6,0,knn)
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
-         CALL read(*460,*460,Geomp,grid,1,0,flag)
+         CALL read(*460,*460,geomp,grid,1,0,flag)
          nwds = nwds + 1
          IF ( grid==-3 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL read(*460,*460,Geomp,comp,1,0,flag)
+         CALL read(*460,*460,geomp,comp,1,0,flag)
          nwds = nwds + 1
          ASSIGN 100 TO retn1
          kx = comp
          nm = cm
          spag_nextblock_1 = 16
          CYCLE SPAG_DispatchLoop_1
- 100     Gpoint = grid
+ 100     gpoint = grid
          ASSIGN 120 TO retn
          GOTO 440
  120     DO i = 1 , 6
-            IF ( Buf(cm+i)/=0 ) THEN
+            IF ( buf(cm+i)/=0 ) THEN
                IF ( jj>6 ) THEN
                   spag_nextblock_1 = 19
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               DO WHILE ( Buf(cn+jj)==0 )
+               DO WHILE ( buf(cn+jj)==0 )
                   jj = jj + 1
                   IF ( jj>6 ) THEN
                      spag_nextblock_1 = 19
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
-               sild(jj) = Gpoint + i - 1
+               sild(jj) = gpoint + i - 1
                jj = jj + 1
             ENDIF
          ENDDO
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          IF ( pass==2 ) THEN
             begn = begn + nwds
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     STORE DIAG TERMS WITH -1.
 !     ADD DEPENDENT SIL TO THE END OF OPEN CORE VIA MU POINTER
 !
             DO i = 1 , 6
-               IF ( Buf(cn+i)/=0 ) THEN
+               IF ( buf(cn+i)/=0 ) THEN
                   mcode(1) = sil + i - 1
                   mcode(2) = sild(i)
                   coeff = -1.
-                  CALL write(Rgt,mcode,2,0)
-                  CALL write(Rgt,coeff,1,0)
-                  Iz(Mu) = mcode(2)
+                  CALL write(rgt,mcode,2,0)
+                  CALL write(rgt,coeff,1,0)
+                  iz(Mu) = mcode(2)
                   Mu = Mu - 1
                ENDIF
             ENDDO
@@ -303,19 +301,18 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             ASSIGN 140 TO retn2
             zk = z(refg)
             spag_nextblock_1 = 13
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  140     CALL gmmats(knn,6,6,0,t,6,6,0,tx)
 !
 !     BACK RECORD FOR 2ND PASS
 !     SKIP TO WHERE WEIGHT FACTORS BEGIN
 !
-         CALL bckrec(Geomp)
+         CALL bckrec(geomp)
          pass = 2
          i = begn + 3
-         CALL read(*460,*460,Geomp,Buf,-i,0,flag)
+         CALL read(*460,*460,geomp,buf,-i,0,flag)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !
@@ -325,16 +322,16 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !     INPUT DATA WILL BE SAVED IN RS ARRAY
 !     3 WORDS SAVED FOR EACH GRID - BGPDT POINTER, COMPONENT, AND SIL
 !
-         CALL read(*480,*480,Geomp,Buf,3,0,flag)
-         eid = Buf(1)
-         idl = Buf(2)
-         Rs(1) = Buf(3)
+         CALL read(*480,*480,geomp,buf,3,0,flag)
+         eid = buf(1)
+         idl = buf(2)
+         Rs(1) = buf(3)
          Rs(2) = -1
          Rs(3) = 0
-         IF ( debug .OR. l38==1 ) WRITE (Nout,99006) Buf(1)
+         IF ( debug .OR. l38==1 ) WRITE (nout,99006) buf(1)
          k = 4
          DO
-            CALL read(*460,*460,Geomp,Rs(k),2,0,flag)
+            CALL read(*460,*460,geomp,Rs(k),2,0,flag)
             IF ( Rs(k)/=-1 ) THEN
                Rs(k+2) = 0
                k = k + 3
@@ -358,7 +355,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !
 !     DO 460 I = 1,IEND,3
                i = 1
-               Gpoint = Rs(i)
+               gpoint = Rs(i)
                GOTO 440
             ENDIF
          ENDDO
@@ -366,26 +363,26 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !     UPON RETURN FROM 1000, K IS BGPDT AND GPOINT IS SIL
 !
  160     Rs(i) = k
-         Rs(i+2) = Gpoint
-         IF ( debug ) WRITE (Nout,99002) i , Gpoint , k , z(k+1)
+         Rs(i+2) = gpoint
+         IF ( debug ) WRITE (nout,99002) i , gpoint , k , z(k+1)
 99002    FORMAT (/10X,'@430  I, NEW GPOINT & K=',I4,2I6,E11.3)
 !
          IF ( i/=1 ) THEN
-            X2 = z(k+1)
-            Y2 = z(k+2)
-            Z2 = z(k+3)
-            len = len + sqrt((X2-X1)**2+(Y2-Y1)**2+(Z2-Z1)**2)
-            X1 = X2
-            Y1 = Y2
-            Z1 = Z2
+            x2 = z(k+1)
+            y2 = z(k+2)
+            z2 = z(k+3)
+            len = len + sqrt((x2-x1)**2+(y2-y1)**2+(z2-z1)**2)
+            x1 = x2
+            y1 = y2
+            z1 = z2
          ELSE
-            X1 = z(k+1)
-            Y1 = z(k+2)
-            Z1 = z(k+3)
+            x1 = z(k+1)
+            y1 = z(k+2)
+            z1 = z(k+3)
          ENDIF
          i = i + 3
          IF ( i<iend ) THEN
-            Gpoint = Rs(i)
+            gpoint = Rs(i)
             GOTO 440
          ELSE
 !
@@ -393,7 +390,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             is = 1
             IF ( debug ) THEN
                CALL bug1('RS-     ',345,Rs,iend)
-               WRITE (Nout,99003) len , di
+               WRITE (nout,99003) len , di
 99003          FORMAT ('0  LEN,DI/@470 =',2E14.5)
             ENDIF
          ENDIF
@@ -440,19 +437,19 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         X2 = z(i1+1)
-         Y2 = z(i1+2)
-         Z2 = z(i1+3)
-         X1 = z(i2+1)
-         Y1 = z(i2+2)
-         Z1 = z(i2+3)
-         X2 = (X2+X1)*half
-         Y2 = (Y2+Y1)*half
-         Z2 = (Z2+Z1)*half
+         x2 = z(i1+1)
+         y2 = z(i1+2)
+         z2 = z(i1+3)
+         x1 = z(i2+1)
+         y1 = z(i2+2)
+         z1 = z(i2+3)
+         x2 = (x2+x1)*half
+         y2 = (y2+y1)*half
+         z2 = (z2+z1)*half
          i1 = Rs(ie)
-         X1 = z(i1+1)
-         Y1 = z(i1+2)
-         Z1 = z(i1+3)
+         x1 = z(i1+1)
+         y1 = z(i1+2)
+         z1 = z(i1+3)
 !
 !     FORM UNN USING BASIC UNN MATRIX
 !     DO NOT DESTROY RIGID TRANSFER MATRIX
@@ -500,18 +497,18 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          ASSIGN 220 TO retn4
          spag_nextblock_1 = 15
          CYCLE SPAG_DispatchLoop_1
- 220     X1 = z(i2+1)
-         Y1 = z(i2+2)
-         Z1 = z(i2+3)
-         X2 = z(i1+1)
-         Y2 = z(i1+2)
-         Z2 = z(i1+3)
-         X3 = z(i2+1)
-         Y3 = z(i2+2)
-         Z3 = z(i2+3)
-         X2 = (X2+X3)*half
-         Y2 = (Y2+Y3)*half
-         Z2 = (Z2+Z3)*half
+ 220     x1 = z(i2+1)
+         y1 = z(i2+2)
+         z1 = z(i2+3)
+         x2 = z(i1+1)
+         y2 = z(i1+2)
+         z2 = z(i1+3)
+         x3 = z(i2+1)
+         y3 = z(i2+2)
+         z3 = z(i2+3)
+         x2 = (x2+x3)*half
+         y2 = (y2+y3)*half
+         z2 = (z2+z3)*half
 !
 !     Y I+1 I X   S I+1 S
 !
@@ -519,9 +516,9 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          GOTO 420
  240     CALL gmmats(unn,6,6,0,znn,6,6,0,snn)
          CALL gmmats(snn,6,6,0,unn,6,6,1,y)
-         X2 = z(i1+1)
-         Y2 = z(i1+2)
-         Z2 = z(i1+3)
+         x2 = z(i1+1)
+         y2 = z(i1+2)
+         z2 = z(i1+3)
 !
 !     S I+1 I X GIN
 !
@@ -529,12 +526,12 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          GOTO 420
  260     CALL gmmats(unn,6,6,0,gnn,6,6,0,snn)
          i3 = Rs(ie)
-         X3 = z(i3+1)
-         Y3 = z(i3+2)
-         Z3 = z(i3+3)
-         X2 = z(js+1)
-         Y2 = z(js+2)
-         Z2 = z(js+3)
+         x3 = z(i3+1)
+         y3 = z(i3+2)
+         z3 = z(i3+3)
+         x2 = z(js+1)
+         y2 = z(js+2)
+         z2 = z(js+3)
 !
 !     GNN = G I+1 N
 !
@@ -601,11 +598,11 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !     ADD DEPENDENT TO LIST AND MPC EQUATIONS TO RGT
 !
  400     IF ( debug ) THEN
-            WRITE (Nout,99007) y
-            WRITE (Nout,99007) snn
+            WRITE (nout,99007) y
+            WRITE (nout,99007) snn
          ENDIF
          DO j = 1 , 6
-            IF ( Buf(cm+j)/=0 ) THEN
+            IF ( buf(cm+j)/=0 ) THEN
 !
 !     SELF TERM FOR DEPENDENT SIL
 !
@@ -613,9 +610,9 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
                mcode(1) = sil
                mcode(2) = sil
                coeff = -1.
-               CALL write(Rgt,mcode,2,0)
-               CALL write(Rgt,coeff,1,0)
-               Iz(Mu) = mcode(2)
+               CALL write(rgt,mcode,2,0)
+               CALL write(rgt,coeff,1,0)
+               iz(Mu) = mcode(2)
                Mu = Mu - 1
                IF ( ii>=Mu ) CALL mesage(-8,0,name)
                ll = (j-1)*6
@@ -634,8 +631,8 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
                      mcode(1) = Rs(ib+2) + l - 1
                      mcode(2) = sil
                      coeff = ans
-                     CALL write(Rgt,mcode,2,0)
-                     CALL write(Rgt,coeff,1,0)
+                     CALL write(rgt,mcode,2,0)
+                     CALL write(rgt,coeff,1,0)
                   ENDIF
                ENDDO
 !
@@ -653,8 +650,8 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
                      mcode(1) = Rs(ie+2) + l - 1
                      mcode(2) = sil
                      coeff = ans
-                     CALL write(Rgt,mcode,2,0)
-                     CALL write(Rgt,coeff,1,0)
+                     CALL write(rgt,mcode,2,0)
+                     CALL write(rgt,coeff,1,0)
                   ENDIF
                ENDDO
             ENDIF
@@ -677,7 +674,6 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          is = ie
          Rs(is+1) = -1
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     ----------------------------------------------------
@@ -717,13 +713,13 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          DO i = 1 , 36
             znn(i) = zero
          ENDDO
-         X1 = z(i1+1)
-         Y1 = z(i1+2)
-         Z1 = z(i1+3)
-         X2 = z(i2+1)
-         Y2 = z(i2+2)
-         Z2 = z(i2+3)
-         leng = sqrt((X2-X1)**2+(Y2-Y1)**2+(Z2-Z1)**2)
+         x1 = z(i1+1)
+         y1 = z(i1+2)
+         z1 = z(i1+3)
+         x2 = z(i2+1)
+         y2 = z(i2+2)
+         z2 = z(i2+3)
+         leng = sqrt((x2-x1)**2+(y2-y1)**2+(z2-z1)**2)
          IF ( leng==zero ) THEN
             CALL mesage(30,31,eid)
             nogox = 1
@@ -733,15 +729,15 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             znn(36) = leng
             fac = leng/12.0*((3.0*di**2)/(2.0*leng**2)-one)
             ln3 = leng**3/12.0
-            znn(1) = ln3 + fac*(X2-X1)**2
-            znn(2) = fac*(X2-X1)*(Y2-Y1)
-            znn(3) = fac*(X2-X1)*(Z2-Z1)
+            znn(1) = ln3 + fac*(x2-x1)**2
+            znn(2) = fac*(x2-x1)*(y2-y1)
+            znn(3) = fac*(x2-x1)*(z2-z1)
             znn(7) = znn(2)
-            znn(8) = ln3 + fac*(Y2-Y1)**2
-            znn(9) = fac*(Y2-Y1)*(Z2-Z1)
+            znn(8) = ln3 + fac*(y2-y1)**2
+            znn(9) = fac*(y2-y1)*(z2-z1)
             znn(13) = znn(3)
             znn(14) = znn(9)
-            znn(15) = ln3 + fac*(Z2-Z1)**2
+            znn(15) = ln3 + fac*(z2-z1)**2
          ENDIF
          GOTO retn4
       CASE (16)
@@ -749,14 +745,14 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !     INTERNAL ROUTINE TO ABSTRACT CODED DOF
 !
          DO i = 1 , 6
-            Buf(nm+i) = 0
+            buf(nm+i) = 0
          ENDDO
          IF ( kx>0 ) THEN
             SPAG_Loop_1_2: DO i = 1 , 6
                k1 = kx/10
                k2 = kx - k1*10
                IF ( k2>6 ) EXIT SPAG_Loop_1_2
-               Buf(nm+k2) = k2
+               buf(nm+k2) = k2
                IF ( k1==0 ) EXIT SPAG_Loop_1_2
                kx = k1
             ENDDO SPAG_Loop_1_2
@@ -772,7 +768,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
          DO
             k = (klo+khi+1)/2
             IF ( lastk==k ) THEN
-               WRITE (Nout,99004) Ufm , Gpoint , eid
+               WRITE (nout,99004) ufm , gpoint , eid
 99004          FORMAT (A23,', UNDEFINED GRID POINT',I9,' SPECIFIED BY RIGID ','ELEMENT ID',I9)
                times = times + 1
                IF ( times>50 ) CALL mesage(-37,0,name)
@@ -780,20 +776,20 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
                CYCLE SPAG_DispatchLoop_1
             ELSE
                lastk = k
-               IF ( Gpoint<Iz(2*k-1) ) THEN
+               IF ( gpoint<iz(2*k-1) ) THEN
                   khi = k
-               ELSEIF ( Gpoint==Iz(2*k-1) ) THEN
-                  k = Iz(2*k)
-                  Gpoint = Iz(k+2*Kn)
+               ELSEIF ( gpoint==iz(2*k-1) ) THEN
+                  k = iz(2*k)
+                  gpoint = iz(k+2*kn)
                   k = (k-1)*4 + Bp
-                  IF ( Gpoint+5>mask15 ) N23 = 3
+                  IF ( gpoint+5>mask15 ) N23 = 3
                   GOTO retn
                ELSE
                   klo = k
                ENDIF
             ENDIF
          ENDDO
- 460     CALL mesage(-3,Geomp,name)
+ 460     CALL mesage(-3,geomp,name)
          spag_nextblock_1 = 17
       CASE (17)
          msg = 38
@@ -801,15 +797,13 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
       CASE (18)
          CALL mesage(30,msg,eid)
          spag_nextblock_1 = 20
-         CYCLE SPAG_DispatchLoop_1
       CASE (19)
-         WRITE (Nout,99005) Ufm , eid
+         WRITE (nout,99005) ufm , eid
 99005    FORMAT (A23,', RIGID ELEMENT CRBE3',I9,' HAS ILLEGAL UM SET ','SPECIFICATION')
          spag_nextblock_1 = 21
-         CYCLE SPAG_DispatchLoop_1
       CASE (20)
 !
-         Nogo = 1
+         nogo = 1
          nogox = 0
          IF ( Jump==1 ) THEN
             spag_nextblock_1 = 2
@@ -824,13 +818,13 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
 !
 !     REPOSITION GEOMP FILE FOR NEXT CRBE3 INPUT CARD
 !
-         Nogo = 1
+         nogo = 1
          nogox = 0
-         CALL bckrec(Geomp)
+         CALL bckrec(geomp)
          i = begn + 1
-         CALL read(*460,*460,Geomp,j,-i,0,flag)
+         CALL read(*460,*460,geomp,j,-i,0,flag)
          DO
-            CALL read(*460,*460,Geomp,j,1,0,flag)
+            CALL read(*460,*460,geomp,j,1,0,flag)
             i = i + 1
             IF ( j==-3 ) THEN
                begn = i
@@ -839,7 +833,7 @@ SUBROUTINE crspls(Jump,Mu,Bp,Rs,Again,N23) !HIDESTARS (*,Jump,Mu,Bp,Rs,Again,N23
             ENDIF
          ENDDO
 !
- 480     IF ( nogox==1 ) Nogo = 1
+ 480     IF ( nogox==1 ) nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

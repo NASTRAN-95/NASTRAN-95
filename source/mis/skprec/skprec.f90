@@ -1,4 +1,5 @@
-!*==skprec.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==skprec.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE skprec(Ifile,K)
@@ -11,13 +12,21 @@ SUBROUTINE skprec(Ifile,K)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   INTEGER :: i , m
+   INTEGER :: i , m , spag_nextblock_1
    INTEGER , DIMENSION(2) , SAVE :: name
    EXTERNAL bckrec , fwdrec , mesage
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !
    DATA name/4HSKPR , 2HEC/
@@ -47,7 +56,6 @@ SUBROUTINE skprec(Ifile,K)
 !
  20      CALL mesage(-2,Ifile,name)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !

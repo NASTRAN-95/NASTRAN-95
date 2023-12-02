@@ -1,13 +1,14 @@
-!*==gravl3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gravl3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
+   USE c_blank
+   USE c_machin
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,11 +46,11 @@ SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
 !
 !     INITIALIZE STUFF
 !
-   ibuf = korsz(Z) - Sysbuf + 1
-   CALL gopen(Sr1,Z(ibuf),1)
-   CALL makmcb(mcb,Sr1,Luset,2,1)
+   ibuf = korsz(z) - sysbuf + 1
+   CALL gopen(Sr1,z(ibuf),1)
+   CALL makmcb(mcb,Sr1,luset,2,1)
    il = 1
-   n = Mn
+   n = mn
    m = isystm(161)
 !
 !     BUILD NVECT GRAVITY VECTORS
@@ -74,39 +75,39 @@ SUBROUTINE gravl3(Nvect,Gvect,Sr1,Iharm)
 !
 !     COSINE SET
 !
-         B(1) = g*costh
-         Ii = Luset - m*n*6 + 3
+         b(1) = g*costh
+         ii = luset - m*n*6 + 3
 !
 !     LOAD ZERO HARMONIC
 !
          DO i = 1 , m
             CALL zblpki
-            Ii = Ii + 6
+            ii = ii + 6
          ENDDO
 !
 !     LOAD 2-D HARMONIC
 !
-         Ii = Ii - 2
-         B(1) = g*sinth*cosph
+         ii = ii - 2
+         b(1) = g*sinth*cosph
          DO i = 1 , m
             CALL zblpki
-            Ii = Ii + 1
-            B(1) = -B(1)
+            ii = ii + 1
+            b(1) = -b(1)
             CALL zblpki
-            B(1) = -B(1)
-            Ii = Ii + 5
+            b(1) = -b(1)
+            ii = ii + 5
          ENDDO
       ELSE
 !
 !     SINE SET
 !
-         B(1) = g*sinth*sinph
-         Ii = Luset - m*(n-1)*6 + 1
+         b(1) = g*sinth*sinph
+         ii = luset - m*(n-1)*6 + 1
          DO i = 1 , m
             CALL zblpki
-            Ii = Ii + 1
+            ii = ii + 1
             CALL zblpki
-            Ii = Ii + 5
+            ii = ii + 5
          ENDDO
       ENDIF
 !

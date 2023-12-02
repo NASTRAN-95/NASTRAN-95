@@ -2,17 +2,17 @@
  
 SUBROUTINE xsem00
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_MSGX
-   USE C_OSCENT
-   USE C_SEM
-   USE C_SYSTEM
-   USE C_XFIST
-   USE C_XLINK
-   USE C_XPFIST
-   USE C_XVPS
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_machin
+   USE c_msgx
+   USE c_oscent
+   USE c_sem
+   USE c_system
+   USE c_xfist
+   USE c_xlink
+   USE c_xpfist
+   USE c_xvps
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -26,6 +26,12 @@ SUBROUTINE xsem00
    INTEGER , DIMENSION(3) , SAVE :: scrtch
    INTEGER , DIMENSION(4) , SAVE :: wordb
    CHARACTER(4) :: wordc
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -80,20 +86,20 @@ SUBROUTINE xsem00
    infile = trim(proj)//'/'//trim(ft05)
    OPEN (nin,FILE=infile,FORM='formatted',STATUS='unknown',IOSTAT=ierr,ERR=200)
 !
-   lvax = Mach==5
+   lvax = mach==5
 !*****
 ! EXECUTE PREFACE
 !*****
-   kscr = lshift(1,Nbpw-4*Nbpc)
-   CALL tdate(Xx(14))
+   kscr = lshift(1,nbpw-4*nbpc)
+   CALL tdate(xx(14))
    CALL conmsg(wordb,2,1)
    CALL semint(0)
-   Isperlnk = 1
+   isperlnk = 1
    wordb(2) = worde(2)
    CALL conmsg(wordb,2,1)
    iplot = plotf
    IF ( plotf<0 ) plotf = 1
-   ibuf1 = korsz(Databf) - Sysbuf
+   ibuf1 = korsz(databf) - sysbuf
    GOTO 500
  100  error_id = -2
    GOTO 300
@@ -113,27 +119,27 @@ SUBROUTINE xsem00
 !*****
 ! RETURN HERE AFTER MODULE HAS EXECUTED
 !*****
- 400  IF ( Inoscr(4)/=xsav .AND. Inoscr(4)/=ychk ) THEN
+ 400  IF ( inoscr(4)/=xsav .AND. inoscr(4)/=ychk ) THEN
       wordb(4) = worde(2)
 !      CALL CONMSG(WORDB,4,0)
       CALL conmsg(wordb,4,222222)
    ENDIF
- 500  IF ( Nmsg>0 ) CALL msgwrt
-   CALL open(*1400,pool,Databf(ibuf1),2)
+ 500  IF ( nmsg>0 ) CALL msgwrt
+   CALL open(*1400,pool,databf(ibuf1),2)
 !*****
 ! READ THE OSCAR ENTRY
 !*****
- 600  CALL read(*1500,*700,pool,Inoscr,200,1,errflg)
+ 600  CALL read(*1500,*700,pool,inoscr,200,1,errflg)
 !
 ! OSCAR RECORD TOO LARGE FOR /OSCENT/
    kode = 290
    GOTO 1700
- 700  IF ( Inoscr(6)>=0 ) GOTO 600
+ 700  IF ( inoscr(6)>=0 ) GOTO 600
 !*****
 ! TRY AGAIN IF EXECUTE FLAG IS OFF
 !*****
    CALL close(pool,2)
-   typecd = andf(Inoscr(3),Mask)
+   typecd = andf(inoscr(3),mask)
 !*****
 ! NOW DETERMINE TYPE OF OSCAR FORMAT
 !*****
@@ -142,19 +148,19 @@ SUBROUTINE xsem00
 !*****
 ! NOW PROCESSING TYPE O AND F
 !*****
- 800  modno = Inoscr(2)
-   Fist(2) = Fstrst
+ 800  modno = inoscr(2)
+   fist(2) = fstrst
    opntr = 7
    ASSIGN 1000 TO mm
    fistnm = 101
 !*****
 ! PROCESS FILES IN OSCAR ENTRY.
 !*****
- 900  j = Inoscr(opntr)
+ 900  j = inoscr(opntr)
    opntr = opntr + 1
    IF ( j/=0 ) THEN
       DO i = 1 , j
-         CALL gnfist(Inoscr(opntr),fistnm,modno)
+         CALL gnfist(inoscr(opntr),fistnm,modno)
          IF ( modno<0 ) GOTO 800
          IF ( modno==0 ) GOTO 1300
          opntr = opntr + 3
@@ -173,7 +179,7 @@ SUBROUTINE xsem00
 !*****
 ! PROCESS SCRATCH FILES
 !*****
- 1100 j1 = Inoscr(opntr)
+ 1100 j1 = inoscr(opntr)
    IF ( j1/=0 ) THEN
       fistnm = 301
       scrtch(2) = scrtch(3)
@@ -198,20 +204,20 @@ SUBROUTINE xsem00
 ! NOW PROCESS PARAMETER LIST IN OSCAR
 !  PARMN = NO. OF PARAMETERS TO PROCESS
 !*****
-   parmn = Inoscr(opntr)
+   parmn = inoscr(opntr)
    IF ( parmn/=0 ) THEN
       ii = 1
       opntr = opntr + 1
       DO j2 = 1 , parmn
-         IF ( Inoscr(opntr)<0 ) THEN
+         IF ( inoscr(opntr)<0 ) THEN
 !*****
 ! MOVE VARIABLE INTO COMMON VIA VPS TABLE
 !*****
-            vpsx = andf(Inoscr(opntr),Mask3)
+            vpsx = andf(inoscr(opntr),mask3)
             opntr = opntr + 1
-            vparml = Vps(vpsx-1)
+            vparml = vps(vpsx-1)
             DO j5 = 1 , vparml
-               Param(ii) = Vps(vpsx)
+               param(ii) = vps(vpsx)
                ii = ii + 1
                vpsx = vpsx + 1
             ENDDO
@@ -219,25 +225,25 @@ SUBROUTINE xsem00
 !*****
 ! NOW PROCESS CONSTANT PARAMETER
 !*****
-            parml = Inoscr(opntr)
+            parml = inoscr(opntr)
             opntr = opntr + 1
             DO j3 = 1 , parml
-               Param(ii) = Inoscr(opntr)
+               param(ii) = inoscr(opntr)
                ii = ii + 1
                opntr = opntr + 1
             ENDDO
          ENDIF
       ENDDO
    ENDIF
- 1200 modx = rshift(Inoscr(3),16)
+ 1200 modx = rshift(inoscr(3),16)
 !*****
 ! MODULE IS IN THIS LINK
 ! PRINT TIME MODULE BEGAN EXECUTION IF FUNCTIONAL MODULE
 !*****
-   wordb(2) = Inoscr(4)
-   wordb(3) = Inoscr(5)
-   IF ( Inoscr(4)==xequ .OR. Inoscr(4)==xpur ) THEN
-      IF ( Inoscr(4)/=xequ ) THEN
+   wordb(2) = inoscr(4)
+   wordb(3) = inoscr(5)
+   IF ( inoscr(4)==xequ .OR. inoscr(4)==xpur ) THEN
+      IF ( inoscr(4)/=xequ ) THEN
          wordb(2) = purge(1)
          wordb(3) = purge(2)
       ELSE
@@ -247,13 +253,13 @@ SUBROUTINE xsem00
    ENDIF
    CALL tmtogo(ktime)
    IF ( ktime<=0 .AND. wordb(2)/=exit ) CALL mesage(-50,0,wordb(2))
-   IF ( Inoscr(4)/=xsav .AND. Inoscr(4)/=ychk ) THEN
+   IF ( inoscr(4)/=xsav .AND. inoscr(4)/=ychk ) THEN
       wordb(1) = iblnk
       wordb(4) = worde(1)
 !
 !     EXTRACT DMAP SEQUENCE NUMBER
 !
-      idin = andf(Inoscr(6),Mask)
+      idin = andf(inoscr(6),mask)
 !WKBIB 5/95
       WRITE (wordc,99001) idin
 99001 FORMAT (I4)
@@ -277,8 +283,8 @@ SUBROUTINE xsem00
 !                   E R R O R   M E S S A G E S
 !*****
 ! MODULE REQUIREMENTS EXCEED AVAILABLE FILES
- 1300 Inoscr(6) = andf(Inoscr(6),Mask)
-   CALL mesage(-18,Inoscr(6),Inoscr(4))
+ 1300 inoscr(6) = andf(inoscr(6),mask)
+   CALL mesage(-18,inoscr(6),inoscr(4))
 !
 ! UNEXPECTED ALTERNATE RETURN TAKEN WHILE ATTEMPTING TO OPEN POOL TAPE.
  1400 kode = 270
@@ -408,9 +414,9 @@ SUBROUTINE xsem00
          CALL ema1
       ELSEIF ( modx==3 ) THEN
 !         SET LINKNO TO FLAG SUBROUTINE SMA1B TO CALL EMG1B
-         Linkno = Linknm(8)
+         linkno = linknm(8)
          CALL emg
-         Linkno = Linknm(1)
+         linkno = linknm(1)
       ELSEIF ( modx==4 ) THEN
          CALL fa1
       ELSEIF ( modx==5 ) THEN

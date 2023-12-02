@@ -1,11 +1,12 @@
-!*==stube1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==stube1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE stube1
+   USE c_condas
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,13 +58,13 @@ SUBROUTINE stube1
 !
 !
 !
-   Temp = Ecpt(5) - Ecpt(6)
+   temp = ecpt(5) - ecpt(6)
 !
 ! COMPUTE AREA, TORSIONAL INERTIA AND STRESS COEFFICIENT.
 !
-   A = Temp*Ecpt(6)*Pi
-   Fj = .25*A*(Temp**2+Ecpt(6)**2)
-   C = .5*Ecpt(5)
+   a = temp*ecpt(6)*pi
+   fj = .25*a*(temp**2+ecpt(6)**2)
+   c = .5*ecpt(5)
 !
 ! MOVE THE -END- OF THE ARRAY -DOWN ONE SLOT- SO THAT ENTRIES 7 THRU 16
 ! OF THE ECPT WILL BE STORED AT POSITIONS 8 THRU 17.
@@ -71,10 +72,10 @@ SUBROUTINE stube1
    m = 18
    DO i = 1 , 10
       m = m - 1
-      Ecpt(m) = Ecpt(m-1)
+      ecpt(m) = ecpt(m-1)
    ENDDO
-   Ecpt(5) = A
-   Ecpt(6) = Fj
-   Ecpt(7) = C
+   ecpt(5) = a
+   ecpt(6) = fj
+   ecpt(7) = c
    CALL srod1
 END SUBROUTINE stube1

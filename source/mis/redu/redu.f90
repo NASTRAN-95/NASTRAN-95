@@ -1,10 +1,11 @@
-!*==redu.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==redu.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE redu(Cdata,Nx,Ix,Nas,Ias,Nvar,Var,Ipre,Ier)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -75,7 +76,7 @@ SUBROUTINE redu(Cdata,Nx,Ix,Nas,Ias,Nvar,Var,Ipre,Ier)
       ENDDO
       IF ( Var(2,2)/=blank ) THEN
          IF ( Var(3,6)<=0 ) THEN
-            WRITE (Iout,99001) Ufm
+            WRITE (iout,99001) ufm
 99001       FORMAT (A23,' 6615, ILLEGAL BOUNDARY SET IDENTIFICATION NUMBER')
             Ier = 1
             RETURN
@@ -116,8 +117,8 @@ SUBROUTINE redu(Cdata,Nx,Ix,Nas,Ias,Nvar,Var,Ipre,Ier)
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      WRITE (Iout,99002) Ufm
-99002 FORMAT (A23,' 6614, ILLEGAL OR NON-EXISTANT STRUCTURE NAME USED ','ABOVE')
+      WRITE (Iout,99001) Ufm
+99001 FORMAT (A23,' 6614, ILLEGAL OR NON-EXISTANT STRUCTURE NAME USED ','ABOVE')
       Ier = 1
    END SUBROUTINE spag_block_1
 END SUBROUTINE redu

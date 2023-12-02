@@ -1,19 +1,20 @@
-!*==feer3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==feer3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer3
-USE C_FEERCX
-USE C_FEERIM
-USE C_FEERXX
-USE C_NAMES
-USE C_OPINV
-USE C_PACKX
-USE C_REIGKR
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerim
+   USE c_feerxx
+   USE c_names
+   USE c_opinv
+   USE c_packx
+   USE c_reigkr
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -74,54 +75,54 @@ USE ISO_FORTRAN_ENV
 !
    CALL sswtch(43,l43)
    IF ( l43==0 ) THEN
-      Iprc = Mcblt(5)
-      nwds = Iwords(Iprc)
-      nz = korsz(Z)
-      CALL makmcb(Mcbvec(1),Sr7fle,Nord,2,Iprc)
-      Mcbvec(2) = 0
-      Mcbvec(6) = 0
-      CALL makmcb(Mcbrm(1),Sr6fle,Mord,2,Iprc)
-      Mcbrm(2) = 0
-      Mcbrm(6) = 0
-      mcbscl(1) = Iflrvc
+      iprc = mcblt(5)
+      nwds = iwords(iprc)
+      nz = korsz(z)
+      CALL makmcb(mcbvec(1),sr7fle,nord,2,iprc)
+      mcbvec(2) = 0
+      mcbvec(6) = 0
+      CALL makmcb(mcbrm(1),sr6fle,mord,2,iprc)
+      mcbrm(2) = 0
+      mcbrm(6) = 0
+      mcbscl(1) = iflrvc
       CALL rdtrl(mcbscl(1))
 !
 !     INITIALIZE ALLOCATIONS
 !
-      ibuf1 = nz - Sysbuf
-      ibuf2 = ibuf1 - Sysbuf
-      ibuf3 = ibuf2 - Sysbuf
-      ibuf4 = ibuf3 - Sysbuf
-      Ibforv = ibuf1
-      Ibflt = ibuf3
-      Ibfsma = ibuf2
+      ibuf1 = nz - sysbuf
+      ibuf2 = ibuf1 - sysbuf
+      ibuf3 = ibuf2 - sysbuf
+      ibuf4 = ibuf3 - sysbuf
+      ibforv = ibuf1
+      ibflt = ibuf3
+      ibfsma = ibuf2
       iv1 = 1
-      iv2 = iv1 + Nord
+      iv2 = iv1 + nord
       iv2m1 = iv2 - 1
-      iv3 = iv2 + Nord
-      iv4 = iv3 + Nord
-      iv5 = iv4 + Nord
-      iend = nwds*(5*Nord+1) + 2
+      iv3 = iv2 + nord
+      iv4 = iv3 + nord
+      iv5 = iv4 + nord
+      iend = nwds*(5*nord+1) + 2
       mavail = iend - ibuf4
       IF ( mavail>0 ) CALL mesage(-8,mavail,name)
 !
 ! COMPUTE THE MEMORY REQUIREMENT FOR ORTHOGONAL VECTORS
 !
-      memort = Nord*(Mord+Northo)*Iprc
+      memort = nord*(mord+northo)*iprc
 !
 ! COMPUTE THE MEMORY REQUIREMENT FOR THE LOWER TRIANGULAR MATRIX
 !
-      CALL dssize(Mcblt,ncols,nterms,nstrgs,nwdtrm)
+      CALL dssize(mcblt,ncols,nterms,nstrgs,nwdtrm)
       memlt = nterms*nwdtrm + nstrgs*4
 !
 ! COMPUTE THE MEMORY REQUIREMENT FOR THE SMA MATRIX
 !
-      CALL dssize(Mcbsma,ncols,nterms,nstrgs,nwdtrm)
+      CALL dssize(mcbsma,ncols,nterms,nstrgs,nwdtrm)
       memsma = nterms*nwdtrm + nstrgs*4
-      IF ( L16/=0 ) THEN
-         minnee = iend + 4*Sysbuf
+      IF ( l16/=0 ) THEN
+         minnee = iend + 4*sysbuf
          memtot = memort + memlt + memsma + minnee
-         WRITE (Nout,99001) minnee , memort , memsma , memlt , memtot , nz
+         WRITE (nout,99001) minnee , memort , memsma , memlt , memtot , nz
 99001    FORMAT (' FEER EIGENVALUE EXTRACTION NFORMATION',/,5X,' THE FOLLOWING GIVES OPEN CORE REQUIREMENTS FOR KEEPING',/,5X,      &
                 &' VARIOUS MATRICES AND VECTORS IN CORE FOR THE FEER',/,5X,' EIGENVALUE EXTRACTION METHOD',/,10X,                   &
                 &' MINIMUM NUMBER OF WORDS NEEDED IN OPEN CORE    =',I10,/,10X,' NUMBER OF WORDS FOR ORTHOGONAL VECTORS         =', &
@@ -130,21 +131,21 @@ USE ISO_FORTRAN_ENV
                & I10,/,10X,' WORDS FOR OPEN CORE SPECIFIED IN THIS RUN      =',I10)
       ENDIF
 ! CHECK TO SEE IF MEMORY AVAILABLE FOR ORTHOGONAL VECTORS
-      Nidorv = 0
+      nidorv = 0
       itest = iend + memort
       IF ( itest<=ibuf4 ) THEN
-         Nidorv = iend
-         Nidorv = (Nidorv/2)*2 + 1
+         nidorv = iend
+         nidorv = (nidorv/2)*2 + 1
          iend = iend + memort
       ENDIF
 ! CHECK TO SEE IF MEMORY AVAILABLE FOR SMA MATRIX
       irmem = ibuf4 - iend
       IF ( irmem<=10 ) THEN
-         Nidsma = 0
+         nidsma = 0
          memsma = 0
       ELSE
-         Nidsma = iend
-         Nidsma = (Nidsma/2)*2 + 1
+         nidsma = iend
+         nidsma = (nidsma/2)*2 + 1
          memsma = memsma
          memsma = min0(memsma,irmem)
          iend = iend + memsma
@@ -152,90 +153,90 @@ USE ISO_FORTRAN_ENV
 ! CHECK TO SEE IF MEMORY AVAILABLE FOR LOWER TRIANGULAR MATRIX
       irmem = ibuf4 - iend
       IF ( irmem<=10 ) THEN
-         Nidlt = 0
+         nidlt = 0
          memlt = 0
       ELSE
-         Nidlt = iend
-         Nidlt = (Nidlt/2)*2 + 1
+         nidlt = iend
+         nidlt = (nidlt/2)*2 + 1
          memlt = memlt
          memlt = min0(memlt,irmem)
          iend = iend + memlt
       ENDIF
-      Ltpos(4) = -1
-      Smapos(4) = -1
+      ltpos(4) = -1
+      smapos(4) = -1
 !      PRINT *,' FEER3, CALLING FERRDM,NIDSMA,NIDLT=',NIDSMA,NIDLT
-      IF ( Nidsma/=0 ) CALL ferrdm(Mcbsma,Nidsma,memsma,Ibfsma,Nsmali,Smapos)
+      IF ( nidsma/=0 ) CALL ferrdm(mcbsma,nidsma,memsma,ibfsma,nsmali,smapos)
 !      PRINT *,' RETURN FROM FERRDM,MEMSMA,NSMALI=',MEMSMA,NSMALI
 !      PRINT *,' SMAPOS=',SMAPOS
-      IF ( Nidlt/=0 ) CALL ferrdm(Mcblt,Nidlt,memlt,Ibflt,Nltli,Ltpos)
+      IF ( nidlt/=0 ) CALL ferrdm(mcblt,nidlt,memlt,ibflt,nltli,ltpos)
 !      PRINT *,' RETURN FROM FERRDM,MEMLT,NLTLI=',MEMLT,NLTLI
 !      PRINT *,' LTPOS=',LTPOS
-      IF ( L16/=0 ) THEN
-         WRITE (Nout,99002) 'SMA' , Smapos(1)
-         WRITE (Nout,99002) 'LT ' , Ltpos(1)
+      IF ( l16/=0 ) THEN
+         WRITE (nout,99002) 'SMA' , smapos(1)
+         WRITE (nout,99002) 'LT ' , ltpos(1)
       ENDIF
 !      PRINT *,' SMAPOS=',SMAPOS
 !      PRINT *,' LTPOS =',LTPOS
-      CALL gopen(Sr7fle,Z(ibuf1),Wrtrew)
-      IF ( Northo/=0 ) THEN
+      CALL gopen(sr7fle,z(ibuf1),wrtrew)
+      IF ( northo/=0 ) THEN
 !
 !     LOAD RESTART AND/OR RIGID BODY VECTORS
 !
-         CALL gopen(Iflrvc,Z(ibuf2),Rdrew)
-         Incr = 1
-         Incrp = 1
-         Itp1 = Iprc
-         Itp2 = Iprc
-         DO j = 1 , Northo
-            Ii = 1
-            Nn = Nord
-            CALL unpack(*20,Iflrvc,dz(1))
-            Iip = Ii
-            Nnp = Nn
-            IF ( Iprc==1 ) THEN
-               IF ( Ioptf/=0 ) THEN
+         CALL gopen(iflrvc,z(ibuf2),rdrew)
+         incr = 1
+         incrp = 1
+         itp1 = iprc
+         itp2 = iprc
+         DO j = 1 , northo
+            ii = 1
+            nn = nord
+            CALL unpack(*20,iflrvc,dz(1))
+            iip = ii
+            nnp = nn
+            IF ( iprc==1 ) THEN
+               IF ( ioptf/=0 ) THEN
                   sq = 0.0
 !      PRINT *,' FEER3 CALLING FRMLTA'
-                  CALL frmlta(Mcblt(1),Z(iv1),Z(iv2),Z(iv3))
-                  DO ij = 1 , Nord
-                     sq = sq + Z(iv2m1+ij)**2
+                  CALL frmlta(mcblt(1),z(iv1),z(iv2),z(iv3))
+                  DO ij = 1 , nord
+                     sq = sq + z(iv2m1+ij)**2
                   ENDDO
                   sq = 1.0/sqrt(sq)
-                  DO ij = 1 , Nord
-                     Z(ij) = sq*Z(iv2m1+ij)
+                  DO ij = 1 , nord
+                     z(ij) = sq*z(iv2m1+ij)
                   ENDDO
                ENDIF
-            ELSEIF ( Ioptf/=0 ) THEN
+            ELSEIF ( ioptf/=0 ) THEN
                dsq = 0.D0
 !      PRINT *,' FERR3 CALLING FRMLTX'
-               CALL frmltx(Mcblt(1),dz(iv1),dz(iv2),dz(iv3))
-               DO ij = 1 , Nord
+               CALL frmltx(mcblt(1),dz(iv1),dz(iv2),dz(iv3))
+               DO ij = 1 , nord
                   dsq = dsq + dz(iv2m1+ij)**2
                ENDDO
                dsq = 1.D0/dsqrt(dsq)
-               DO ij = 1 , Nord
+               DO ij = 1 , nord
                   dz(ij) = dsq*dz(iv2m1+ij)
                ENDDO
             ENDIF
-            CALL pack(dz(1),Sr7fle,Mcbvec(1))
+            CALL pack(dz(1),sr7fle,mcbvec(1))
  20      ENDDO
-         CALL close(Iflrvc,Norew)
+         CALL close(iflrvc,norew)
       ENDIF
-      k = Northo
-      CALL close(Sr7fle,Norew)
+      k = northo
+      CALL close(sr7fle,norew)
       j = k
-      Nonul = 0
-      Iter = 0
+      nonul = 0
+      iter = 0
 !      PRINT *,' FEER3,SR7FLE,IFLRVC,SR6FLE=',SR7FLE,IFLRVC,SR6FLE
 !      PRINT *,' FEER3,SR6FLE,SR8FLE,SR5FLE=',SR6FLE,SR8FLE,SR5FLE
 !      PRINT *,' FEER3,MCBSMA,MCBLT,MCBVEC=',MCBSMA(1),MCBLT(1),MCBSMA(1)
-      CALL gopen(Sr6fle,Z(ibuf4),Wrtrew)
-      CALL close(Sr6fle,Norew)
-      IF ( Sr8fle==Mcbsma(1) ) THEN
+      CALL gopen(sr6fle,z(ibuf4),wrtrew)
+      CALL close(sr6fle,norew)
+      IF ( sr8fle==mcbsma(1) ) THEN
 !      CALL GOPEN (SR8FLE,Z(IBUF2) ,RDREW )
-         CALL gopen(Sr5fle,Z(ibuf4),Wrtrew)
-         CALL gopen(Mcbsma,Z(Ibfsma),Rdrew)
-         CALL gopen(Mcblt,Z(Ibflt),Rdrew)
+         CALL gopen(sr5fle,z(ibuf4),wrtrew)
+         CALL gopen(mcbsma,z(ibfsma),rdrew)
+         CALL gopen(mcblt,z(ibflt),rdrew)
       ELSE
 !      PRINT *,' PROBLEM IN FEER3, SR8FLE NE MCBSMA =',SR8FLE,MCBSMA(1)
          STOP
@@ -255,38 +256,38 @@ USE ISO_FORTRAN_ENV
 !     GENERATE SEED VECTOR FOR LANCZOS
 !
       ss = 1.0
-      IF ( Iprc==1 ) THEN
-         DO i = 1 , Nord
+      IF ( iprc==1 ) THEN
+         DO i = 1 , nord
             ss = -ss
             j = j + 1
-            sq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/Nord)))
-            Z(iv2m1+i) = sq*ss
+            sq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/nord)))
+            z(iv2m1+i) = sq*ss
          ENDDO
 !      IF (OPTN2 .EQ. DASHQ) GO TO 175
-         CALL ferxts(Z(iv1),Z(iv2),Z(iv3),Z(iv4),Z(iv5),Z(ibuf1),ifn)
+         CALL ferxts(z(iv1),z(iv2),z(iv3),z(iv4),z(iv5),z(ibuf1),ifn)
       ELSE
-         DO i = 1 , Nord
+         DO i = 1 , nord
             ss = -ss
             j = j + 1
-            dsq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/Nord)))
+            dsq = float(mod(j,3)+1)/(3.0*float((mod(j,13)+1)*(1+5*i/nord)))
             dz(iv2m1+i) = dsq*ss
          ENDDO
 !      PRINT *,' FEER3 CALLING FERXTD'
-         CALL ferxtd(dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),Z(ibuf1),ifn)
+         CALL ferxtd(dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),z(ibuf1),ifn)
       ENDIF
 !  175 CALL FERXTQ ( Z(IV1), Z(IV2)  , Z(IV3), Z(IV4 )
 !     1,              Z(IV5), Z(IBUF1), IFN)
-      IF ( Iter>Mord ) THEN
-         Mord = Northo - Nzero
-         Cndflg = 3
+      IF ( iter>mord ) THEN
+         mord = northo - nzero
+         cndflg = 3
          EXIT SPAG_Loop_1_1
 !
-      ELSEIF ( ifn>=Mord ) THEN
+      ELSEIF ( ifn>=mord ) THEN
          EXIT SPAG_Loop_1_1
       ENDIF
    ENDDO SPAG_Loop_1_1
-   CALL close(Sr5fle,Norew)
-   CALL close(Sr8fle,Rew)
-   CALL close(Mcblt,Rew)
+   CALL close(sr5fle,norew)
+   CALL close(sr8fle,rew)
+   CALL close(mcblt,rew)
 99002 FORMAT (10X,' LAST COLUMN OF ',A3,' MATRIX IN MEMORY IS ',I4)
 END SUBROUTINE feer3

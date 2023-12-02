@@ -2,18 +2,18 @@
  
 SUBROUTINE rcovuo(Pid,Uao,Lastss)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_FBSX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_PARMEG
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SADDX
-   USE C_SFACT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_fbsx
+   USE c_names
+   USE c_packx
+   USE c_parmeg
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_saddx
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,6 +29,15 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
    INTEGER , SAVE :: kmtx , lmtx , pove , scr2 , scr3 , scr4 , scr6 , scr7 , scr8 , scr9 , uprt
    INTEGER , DIMENSION(7) :: mcbpao
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -53,20 +62,20 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
 !
 !     SET UP COMMON BLOCKS
 !
-   lcorez = korsz(Z) - Lreq - Icore - 1
-   idpcor = Icore/2 + 1
-   Rule = 0
-   Mcbk21(1) = 0
-   Mcbk12(1) = 0
-   Mcbk22(1) = 0
-   Sign = 1
+   lcorez = korsz(z) - lreq - icore - 1
+   idpcor = icore/2 + 1
+   rule = 0
+   mcbk21(1) = 0
+   mcbk12(1) = 0
+   mcbk22(1) = 0
+   sign = 1
 !
 !     CALCUATE THE LOADS ON THE OMMITED POINTS
 !
    pao = 0
-   IF ( Rfno/=3 ) THEN
+   IF ( rfno/=3 ) THEN
       pao = scr3
-      CALL rcovsl(Lastss,pove,0,scr6,scr7,scr8,pao,Z(Icore),Z(Icore),Sof3-Icore-1,.FALSE.,Rfno)
+      CALL rcovsl(Lastss,pove,0,scr6,scr7,scr8,pao,z(icore),z(icore),sof3-icore-1,.FALSE.,rfno)
       mcbpao(1) = pao
       CALL rdtrl(mcbpao)
    ENDIF
@@ -82,25 +91,25 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
          mcbpao(1) = Pid
          CALL rdtrl(mcbpao)
       ELSE
-         Nomat = 2
-         Typa = 1
-         Alpha = 1.0
-         Mcbaa(1) = Pid
-         CALL rdtrl(Mcbaa)
-         Typb = 1
-         Beta = 1.0
-         Mcbbb(1) = pao
-         CALL rdtrl(Mcbbb)
-         CALL makmcb(Mcbxx,scr6,Mcbaa(3),Rect,Mcbaa(5))
-         Mcbxx(2) = Mcbaa(2)
-         Lcor = lcorez
+         nomat = 2
+         typa = 1
+         alpha = 1.0
+         mcbaa(1) = Pid
+         CALL rdtrl(mcbaa)
+         typb = 1
+         beta = 1.0
+         mcbbb(1) = pao
+         CALL rdtrl(mcbbb)
+         CALL makmcb(mcbxx,scr6,mcbaa(3),rect,mcbaa(5))
+         mcbxx(2) = mcbaa(2)
+         lcor = lcorez
          CALL sofcls
          CALL sadd(dz(idpcor),dz(idpcor))
-         CALL wrttrl(Mcbxx)
+         CALL wrttrl(mcbxx)
          DO i = 1 , 7
-            mcbpao(i) = Mcbxx(i)
+            mcbpao(i) = mcbxx(i)
          ENDDO
-         CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+         CALL sofopn(z(sof1),z(sof2),z(sof3))
       ENDIF
    ENDIF
 !
@@ -116,8 +125,8 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
 !     CHECK FOR EXISTENCE OF LMTX ON THE SOF.  IF IT EXISTS
 !     SKIP THE PARTN AND DECOMP
 !
-      CALL softrl(Lastss,lmtx,Lmcb(1))
-      IF ( Lmcb(1)/=1 ) THEN
+      CALL softrl(Lastss,lmtx,lmcb(1))
+      IF ( lmcb(1)/=1 ) THEN
 !
 !     COMPUTE THE KOO PARTITION OF KMTX FOR LASTSS
 !
@@ -132,44 +141,44 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
          item = kmtx
          CALL mtrxi(scr8,Lastss,kmtx,0,rc)
          IF ( rc/=1 ) GOTO 200
-         Mcbk(1) = scr8
-         CALL rdtrl(Mcbk)
+         mcbk(1) = scr8
+         CALL rdtrl(mcbk)
 !
 !     PARTITION KMTX INTO KOO.  STORE KOO ON SCR4.
 !
          CALL sofcls
-         iz(Icore) = scr2
-         CALL rdtrl(iz(Icore))
-         CALL makmcb(Mcbk11,scr9,mcbpao(3),Sym,Mcbk(5))
-         Mcbk11(2) = mcbpao(3)
-         Mrgz = lcorez - 7
-         i = (Icore+7)/2 + 1
-         CALL partn(Z(Icore),Z(Icore),dz(i))
-         CALL wrttrl(Mcbk11)
+         iz(icore) = scr2
+         CALL rdtrl(iz(icore))
+         CALL makmcb(mcbk11,scr9,mcbpao(3),sym,mcbk(5))
+         mcbk11(2) = mcbpao(3)
+         mrgz = lcorez - 7
+         i = (icore+7)/2 + 1
+         CALL partn(z(icore),z(icore),dz(i))
+         CALL wrttrl(mcbk11)
 !
 !     DECOMPOSE KOO
 !
          DO i = 1 , 7
-            Mcba(i) = Mcbk11(i)
+            mcba(i) = mcbk11(i)
          ENDDO
-         CALL makmcb(Mcbl,scr2,Mcba(3),Lower,Mcba(5))
-         Mcblt(1) = scr8
-         Scra = scr3
-         IF ( Scra==mcbpao(1) ) Scra = scr6
-         Scrb = scr4
-         IF ( Scrb==mcbpao(1) ) Scrb = scr6
-         Scrc = scr7
-         Sdcmpz = Mrgz
-         Power = 1
-         Chlsky = 0
+         CALL makmcb(mcbl,scr2,mcba(3),lower,mcba(5))
+         mcblt(1) = scr8
+         scra = scr3
+         IF ( scra==mcbpao(1) ) scra = scr6
+         scrb = scr4
+         IF ( scrb==mcbpao(1) ) scrb = scr6
+         scrc = scr7
+         sdcmpz = mrgz
+         power = 1
+         chlsky = 0
          CALL sdcomp(*100,dz(idpcor),dz(idpcor),dz(idpcor))
-         CALL wrttrl(Mcbl)
+         CALL wrttrl(mcbl)
 !
 !     FORWARD AND BACKWARD SUBSTITUTION TO SOLVE FOR UAO
 !
          DO i = 1 , 7
-            Lmcb(i) = Mcbl(i)
-            Bmcb(i) = mcbpao(i)
+            lmcb(i) = mcbl(i)
+            bmcb(i) = mcbpao(i)
          ENDDO
       ELSE
 !
@@ -177,78 +186,78 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
 !
          CALL mtrxi(scr2,Lastss,lmtx,0,rc)
          DO i = 1 , 7
-            Bmcb(i) = mcbpao(i)
+            bmcb(i) = mcbpao(i)
          ENDDO
-         Lmcb(1) = scr2
+         lmcb(1) = scr2
          CALL sofcls
       ENDIF
-      Fbsz = lcorez
-      mattyp = Bmcb(5)
-      CALL makmcb(Xmcb,scr8,Bmcb(3),Rect,mattyp)
-      Prec = 2 - (mattyp-2*(mattyp/2))
+      fbsz = lcorez
+      mattyp = bmcb(5)
+      CALL makmcb(xmcb,scr8,bmcb(3),rect,mattyp)
+      prec = 2 - (mattyp-2*(mattyp/2))
       CALL fbs(dz(idpcor),dz(idpcor))
-      CALL wrttrl(Xmcb)
+      CALL wrttrl(xmcb)
 !
 !     MERGE UAO INTO THE UA SET
 !
 !     COPY UPRT BACK TO SCR2
 !
-      CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+      CALL sofopn(z(sof1),z(sof2),z(sof3))
       item = uprt
       CALL mtrxi(scr2,Lastss,uprt,0,rc)
       IF ( rc/=1 ) GOTO 200
       CALL sofcls
-      iz(Icore) = scr2
-      CALL rdtrl(iz(Icore))
+      iz(icore) = scr2
+      CALL rdtrl(iz(icore))
 !
 !     SETUP MCB-S IN /PARMEG/
 !
       DO i = 1 , 7
-         Mcbk11(i) = Xmcb(i)
+         mcbk11(i) = xmcb(i)
       ENDDO
       Uao = scr7
-      CALL makmcb(Mcbk,Uao,iz(Icore+2),Rect,Mcbk11(5))
-      Mcbk(2) = Xmcb(2)
-      IF ( Rfno==9 ) Mcbk(2) = 3*Xmcb(2)
+      CALL makmcb(mcbk,Uao,iz(icore+2),rect,mcbk11(5))
+      mcbk(2) = xmcb(2)
+      IF ( rfno==9 ) mcbk(2) = 3*xmcb(2)
 !
 !     SETUP A NULL ROW PARTITIONING VECTOR OR FOR RIGID FORMAT 9 A
 !     VECTOR THAT WILL MERGE IN A NULL VELOCITY AND ACCELERATION
 !     VECTOR FOR EACH DISPLACEMENT VECTOR
 !
-      Nro = Mcbk(2)
-      CALL makmcb(Z(Icore+7),scr6,Nro,Rect,Rsp)
-      IF ( Nro+15>lcorez ) THEN
+      nro = mcbk(2)
+      CALL makmcb(z(icore+7),scr6,nro,rect,rsp)
+      IF ( nro+15>lcorez ) THEN
 !
          n = 8
-         Iopt = -1
+         iopt = -1
          CALL sofcls
          CALL mesage(n,file,name)
-         CALL close(pao,Rew)
-         CALL close(scr3,Rew)
+         CALL close(pao,rew)
+         CALL close(scr3,rew)
          GOTO 99999
       ELSE
-         DO i = 1 , Nro
-            Z(Icore+14+i) = 0.0
+         DO i = 1 , nro
+            z(icore+14+i) = 0.0
          ENDDO
-         IF ( Rfno==9 ) THEN
-            DO i = 1 , Nro , 3
-               Z(Icore+15+i) = 1.0
-               Z(Icore+16+i) = 1.0
+         IF ( rfno==9 ) THEN
+            DO i = 1 , nro , 3
+               z(icore+15+i) = 1.0
+               z(icore+16+i) = 1.0
             ENDDO
          ENDIF
-         CALL gopen(scr6,Z(Buf1),Wrtrew)
-         Typin = 1
-         Typot = 1
-         Iro = 1
-         Incrp = 1
-         CALL pack(Z(Icore+15),scr6,iz(Icore+7))
-         CALL close(scr6,Rew)
-         CALL wrttrl(iz(Icore+7))
+         CALL gopen(scr6,z(buf1),wrtrew)
+         typin = 1
+         typot = 1
+         iro = 1
+         incrp = 1
+         CALL pack(z(icore+15),scr6,iz(icore+7))
+         CALL close(scr6,rew)
+         CALL wrttrl(iz(icore+7))
 !
-         Mrgz = lcorez - 14
-         i = (Icore+14)/2 + 1
-         CALL merge(Z(Icore+7),Z(Icore),dz(i))
-         CALL wrttrl(Mcbk)
+         mrgz = lcorez - 14
+         i = (icore+14)/2 + 1
+         CALL merge(z(icore+7),z(icore),dz(i))
+         CALL wrttrl(mcbk)
 !
 !     NORMAL RETURN
 !
@@ -258,11 +267,10 @@ SUBROUTINE rcovuo(Pid,Uao,Lastss)
 !
 !     ERROR PROCESSING
 !
- 100  WRITE (Nout,99001) Swm , Lastss
+ 100  WRITE (nout,99001) swm , Lastss
 99001 FORMAT (A27,' 6311, SDCOMP DECOMPOSITION FAILED ON KOO MATRIX ','FOR SUBSTRUCTURE ',2A4)
    GOTO 300
  200  IF ( rc==2 ) rc = 3
    CALL smsg(rc-2,item,Lastss)
- 300  Iopt = -1
-   RETURN
+ 300  iopt = -1
 99999 END SUBROUTINE rcovuo

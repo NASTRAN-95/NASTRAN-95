@@ -1,15 +1,16 @@
-!*==opt2c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==opt2c.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_optpw2
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_OPTPW2
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -104,10 +105,10 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
          kount = 0
          headng = 0
          ch = 1.0
-         icp = Ntotl
-         IF ( Count==max .OR. Conv==2.0 ) kpun = .TRUE.
+         icp = ntotl
+         IF ( count==max .OR. conv==2.0 ) kpun = .TRUE.
          IF ( parm(5)/=yes ) kpun = .FALSE.
-         IF ( iprnt/=0 ) Nlines = Nlpp
+         IF ( iprnt/=0 ) nlines = nlpp
          ie2 = 1
          lel = 0
          spag_nextblock_1 = 2
@@ -115,8 +116,8 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !
 !     READ EST1 ELEMENT TYPE
 !
-         CALL read(*180,*100,Est1,etyp,1,Noeor,i)
-         CALL write(Est2,etyp,1,Noeor)
+         CALL read(*180,*100,est1,etyp,1,noeor,i)
+         CALL write(est2,etyp,1,noeor)
          itp = iy(etyp)
          IF ( itp/=0 ) THEN
             ie1 = Pt(1,itp)
@@ -134,10 +135,10 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !
 !     ELEMENT TYPE HAS CORE ENTRIES
 !
-               nwds = Incr*(etyp-1) + 12
-               nwds = Ne(nwds)
+               nwds = incr*(etyp-1) + 12
+               nwds = ne(nwds)
                npcard = 0
-               IF ( nwds>Zcor ) CALL mesage(-8,Zcor,name)
+               IF ( nwds>zcor ) CALL mesage(-8,zcor,name)
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -148,27 +149,26 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !     SKIP THIS ELEMENT TYPE.  COPY RECORD TO EST2
 !
          j = 1
-         n = Zcor
-         CALL read(*20,*20,Est1,Z,Zcor,Noeor,n)
+         n = zcor
+         CALL read(*20,*20,est1,z,zcor,noeor,n)
          j = 0
- 20      CALL write(Est2,Z(1),n,j)
+ 20      CALL write(est2,z(1),n,j)
          IF ( j/=0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          SPAG_Loop_1_1: DO
 !
 !     READ ONE EST1 ELEMENT INTO CORE
 !
-            CALL read(*80,*60,Est1,Z,nwds,Noeor,i)
+            CALL read(*80,*60,est1,z,nwds,noeor,i)
             IF ( eid<lel ) THEN
 !
 !     ELEMENT ID NOT IN CORE
 !
-               CALL write(Est2,iz(1),nwds,Noeor)
+               CALL write(est2,iz(1),nwds,noeor)
             ELSEIF ( eid==lel ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
@@ -183,13 +183,13 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !
          i = eject(2)
          IF ( i/=0 ) THEN
-            IF ( Count==max .OR. Conv==2.0 ) THEN
-               WRITE (Outtap,99006) Count
+            IF ( count==max .OR. conv==2.0 ) THEN
+               WRITE (outtap,99006) count
             ELSE
-               WRITE (Outtap,99007) Count
+               WRITE (outtap,99007) count
             ENDIF
          ENDIF
-         WRITE (Outtap,99001) Sfm , etyp , lel , name
+         WRITE (outtap,99001) sfm , etyp , lel , name
 99001    FORMAT (A25,' 2297, INCORRECT LOGIC FOR ELEMENT TYPE',I4,', ELEMENT',I8,2H (,2A4,2H).)
          CALL mesage(-61,lel,name)
          spag_nextblock_1 = 6
@@ -198,7 +198,7 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !     ELEMENT IN CORE - CONVERT THE ENTRIES
 !
          ipl = Iel(ie1+4) + ip1
-         ie1 = ie1 + Nwdse
+         ie1 = ie1 + nwdse
          lel = Iel(ie1)
          IF ( ie1>ie2 ) lel = 100000000
          a = Pr(ipl+4)
@@ -207,7 +207,7 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
             locf = neop(itp)
             j = locf
             k = wdopt(locf)
-            irr = (ipl+Nwdsp)/Nwdsp
+            irr = (ipl+nwdsp)/nwdsp
             IF ( abs(parm(3)-1.0)<0.0001 ) ch = 0.25*Rr(irr) + 0.75
             c = (a/(a+(1.0-a)*parm(3)))**ch
             IF ( etyp/=trim6 ) THEN
@@ -215,13 +215,13 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
                DO i = 1 , k
                   j = j + 1
                   l = wdopt(j)
-                  Z(l) = c*Z(l)
+                  z(l) = c*z(l)
                ENDDO
                IF ( etyp==quad4 .OR. etyp==tria3 ) THEN
-                  Z(l+6) = 0.5*Z(l)
-                  Z(l+7) = -0.5*Z(l)
+                  z(l+6) = 0.5*z(l)
+                  z(l+7) = -0.5*z(l)
                ENDIF
-               IF ( etyp==tube .AND. Z(l)<2.*Z(l+1) ) Z(l+1) = .5*Z(l)
+               IF ( etyp==tube .AND. z(l)<2.*z(l+1) ) z(l+1) = .5*z(l)
             ELSE
 !
 !     SPECIAL HANDLING FOR TRIM6
@@ -230,13 +230,13 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
                DO jj = 1 , k
                   j = j + 1
                   l = wdopt(j)
-                  IF ( jj/=k .AND. abs(Z(l+1))<1.E-7 ) Z(l+1) = Z(l)
+                  IF ( jj/=k .AND. abs(z(l+1))<1.E-7 ) z(l+1) = z(l)
                   pc = y(icp+jj)
-                  Z(l) = Z(l)*(pc/(pc+(1.0-pc)*parm(3)))
+                  z(l) = z(l)*(pc/(pc+(1.0-pc)*parm(3)))
                ENDDO
                icp = icp + 4
             ENDIF
-            CALL write(Est2,Z(1),nwds,Noeor)
+            CALL write(est2,z(1),nwds,noeor)
 !
 !     PUNCH AND/OR PRINT PROPERTY CARDS
 !
@@ -309,19 +309,19 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
             IF ( iprnt/=0 .AND. nmes<=100 ) THEN
                i = eject(2)
                IF ( i/=0 ) THEN
-                  IF ( Count==max .OR. Conv==2.0 ) THEN
-                     WRITE (Outtap,99007) Count
+                  IF ( count==max .OR. conv==2.0 ) THEN
+                     WRITE (outtap,99007) count
                   ELSE
-                     WRITE (Outtap,99007) Count
+                     WRITE (outtap,99007) count
                   ENDIF
                ENDIF
-               WRITE (Outtap,99002) Uim , eid
+               WRITE (outtap,99002) uim , eid
 99002          FORMAT (A29,' 2305, OPTPR2 DETECTED NEGATIVE ALPHA FOR ELEMENT',I8)
-               CALL write(Est2,iz(1),nwds,Noeor)
+               CALL write(est2,iz(1),nwds,noeor)
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL write(Est2,iz(1),nwds,Noeor)
+            CALL write(est2,iz(1),nwds,noeor)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -333,7 +333,7 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
             j = mod(kk,10)
             IF ( j/=0 ) THEN
                IF ( j==1 ) CALL int2a8(*120,iz(i+ii),g(1,i))
-               IF ( j==2 ) CALL fp2a8(*160,Z(i+ii),g(1,i))
+               IF ( j==2 ) CALL fp2a8(*160,z(i+ii),g(1,i))
             ENDIF
             kk = kk/10
          ENDDO
@@ -353,12 +353,12 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
-         WRITE (Outtap,99003) g
+         WRITE (outtap,99003) g
 99003    FORMAT (5X,10(2A4,1X))
          IF ( kpun ) THEN
-            WRITE (Lpch,99004) g
+            WRITE (lpch,99004) g
 99004       FORMAT (20A4)
-            Ncard = Ncard + 1
+            ncard = ncard + 1
          ENDIF
 !
 !     SET UP FOR CONTINUATION CARD(S)
@@ -381,17 +381,16 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
             k2 = -1
          ENDIF
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !     PRINT HEADING
 !
          headng = 1
          IF ( eject(1)/=0 ) THEN
-            IF ( Count==max .OR. Conv==2.0 ) THEN
-               WRITE (Outtap,99006) Count
+            IF ( count==max .OR. conv==2.0 ) THEN
+               WRITE (outtap,99006) count
             ELSE
-               WRITE (Outtap,99007) Count
+               WRITE (outtap,99007) count
             ENDIF
          ENDIF
          spag_nextblock_1 = 8
@@ -399,7 +398,7 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !
 !     EOR ON EST1
 !
- 60      CALL write(Est2,0,0,Nweor)
+ 60      CALL write(est2,0,0,nweor)
          IF ( ie1<ie2 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
@@ -409,8 +408,8 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
 !
 !     ERRORS
 !
- 80      CALL mesage(-2,Est1,name)
- 100     CALL mesage(-3,Est1,name)
+ 80      CALL mesage(-2,est1,name)
+ 100     CALL mesage(-3,est1,name)
  120     j = 370
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
@@ -421,15 +420,15 @@ SUBROUTINE opt2c(Pt,Iel,Ipr,Pr,Rr)
  160     j = 380
          spag_nextblock_1 = 10
       CASE (10)
-         WRITE (Outtap,99005) j , g(1,1) , g(2,1) , i , ii , iz(i+ii) , Z(i+ii)
+         WRITE (outtap,99005) j , g(1,1) , g(2,1) , i , ii , iz(i+ii) , z(i+ii)
 99005    FORMAT (16H0*** OPT2C/ERROR,I5,9X,5HELEM ,2A4,3I9,E10.4)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
- 180     CALL eof(Est2)
-         mcb(1) = Est1
+ 180     CALL eof(est2)
+         mcb(1) = est1
          CALL rdtrl(mcb)
-         mcb(1) = Est2
+         mcb(1) = est2
          CALL wrttrl(mcb)
          EXIT SPAG_DispatchLoop_1
       END SELECT

@@ -2,15 +2,15 @@
  
 SUBROUTINE ktrmem(Ntype)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA1CL
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
-   USE C_SMA1IO
+   USE c_condas
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,6 +24,15 @@ SUBROUTINE ktrmem(Ntype)
    INTEGER :: i , j , k , n1 , n2 , ncom , npt1 , npt2
    INTEGER , DIMENSION(6) :: necpt
    REAL*8 , DIMENSION(2) :: tt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -78,186 +87,186 @@ SUBROUTINE ktrmem(Ntype)
 !
 !     FIRST FIND I-VECTOR = RSUBB - RSUBA  (NON-NORMALIZED)
 !
-   E(1) = dble(X2) - dble(X1)
-   E(3) = dble(Y2) - dble(Y1)
-   E(5) = dble(Z2) - dble(Z1)
+   e(1) = dble(x2) - dble(x1)
+   e(3) = dble(y2) - dble(y1)
+   e(5) = dble(z2) - dble(z1)
 !
 !     NOW FIND LENGTH = X-SUB-B   COORD. IN ELEMENT SYSTEM
 !
-   Xsubb = dsqrt(E(1)**2+E(3)**2+E(5)**2)
-   IF ( Xsubb>1.0D-06 ) THEN
+   xsubb = dsqrt(e(1)**2+e(3)**2+e(5)**2)
+   IF ( xsubb>1.0D-06 ) THEN
 !
 !     NOW NORMALIZE I-VECTOR WITH X-SUB-B
 !
-      E(1) = E(1)/Xsubb
-      E(3) = E(3)/Xsubb
-      E(5) = E(5)/Xsubb
+      e(1) = e(1)/xsubb
+      e(3) = e(3)/xsubb
+      e(5) = e(5)/xsubb
 !
 !     HERE WE NOW TAKE RSUBC - RSUBA AND STORE TEMPORARILY IN
 !     E(2), E(4), E(6) WHICH IS WHERE THE J-VECTOR WILL FIT LATER
 !
-      E(2) = dble(X3) - dble(X1)
-      E(4) = dble(Y3) - dble(Y1)
-      E(6) = dble(Z3) - dble(Z1)
+      e(2) = dble(x3) - dble(x1)
+      e(4) = dble(y3) - dble(y1)
+      e(6) = dble(z3) - dble(z1)
 !
 !     X-SUB-C  =  I . (RSUBC - RSUBA),  THUS
 !
-      Xsubc = E(1)*E(2) + E(3)*E(4) + E(5)*E(6)
+      xsubc = e(1)*e(2) + e(3)*e(4) + e(5)*e(6)
 !
 !     AND CROSSING THE I-VECTOR TO (RSUBC-RSUBA) GIVES THE K-VECTOR
 !     (NON-NORMALIZED)
 !
-      E(7) = E(3)*E(6) - E(5)*E(4)
-      E(8) = E(5)*E(2) - E(1)*E(6)
-      E(9) = E(1)*E(4) - E(3)*E(2)
+      e(7) = e(3)*e(6) - e(5)*e(4)
+      e(8) = e(5)*e(2) - e(1)*e(6)
+      e(9) = e(1)*e(4) - e(3)*e(2)
 !
 !     THE LENGTH OF THE K-VECTOR IS NOW FOUND AND EQUALS Y-SUB-C
 !     COORD. IN ELEMENT SYSTEM
 !
-      Ysubc = dsqrt(E(7)**2+E(8)**2+E(9)**2)
-      IF ( Ysubc>1.0D-06 ) THEN
+      ysubc = dsqrt(e(7)**2+e(8)**2+e(9)**2)
+      IF ( ysubc>1.0D-06 ) THEN
 !
 !     NOW NORMALIZE K-VECTOR WITH YSUBC JUST FOUND
 !
-         E(7) = E(7)/Ysubc
-         E(8) = E(8)/Ysubc
-         E(9) = E(9)/Ysubc
+         e(7) = e(7)/ysubc
+         e(8) = e(8)/ysubc
+         e(9) = e(9)/ysubc
 !
 !     J VECTOR = K CROSS I
 !     STORE IN THE SPOT FOR J
 !
-         E(2) = E(5)*E(8) - E(3)*E(9)
-         E(4) = E(1)*E(9) - E(5)*E(7)
-         E(6) = E(3)*E(7) - E(1)*E(8)
+         e(2) = e(5)*e(8) - e(3)*e(9)
+         e(4) = e(1)*e(9) - e(5)*e(7)
+         e(6) = e(3)*e(7) - e(1)*e(8)
 !
 !     AND JUST FOR COMPUTER EXACTNESS NORMALIZE J-VECTOR TO MAKE SURE.
 !
-         Temp = dsqrt(E(2)**2+E(4)**2+E(6)**2)
-         IF ( Temp/=0.0D0 ) THEN
+         temp = dsqrt(e(2)**2+e(4)**2+e(6)**2)
+         IF ( temp/=0.0D0 ) THEN
 !
-            E(2) = E(2)/Temp
-            E(4) = E(4)/Temp
-            E(6) = E(6)/Temp
+            e(2) = e(2)/temp
+            e(4) = e(4)/temp
+            e(6) = e(6)/temp
 !
 !     VOLUME OF ELEMENT, THETA, MU, LAMDA, AND DELTA
 !
-            Vol = Xsubb*Ysubc*dble(T)/2.0D0
-            Reelmu = 1.0D0/Xsubb
-            Flamda = 1.0D0/Ysubc
-            Delta = Xsubc/Xsubb - 1.0D0
+            vol = xsubb*ysubc*dble(t)/2.0D0
+            reelmu = 1.0D0/xsubb
+            flamda = 1.0D0/ysubc
+            delta = xsubc/xsubb - 1.0D0
 !
 !     NOW FORM THE  C MATRIX   (3X6) PARTITIONED AS FOLLOWS HERE.
 !         CSUBA = (3X2) STORED IN C( 1) THRU C( 6) BY ROWS
 !         CSUBB = (3X2) STORED IN C( 7) THRU C(12) BY ROWS
 !         CSUBC = (3X2) STORED IN C(13) THRU C(18) BY ROWS
 !
-            C(1) = -Reelmu
-            C(2) = 0.0D0
-            C(3) = 0.0D0
-            C(4) = Flamda*Delta
-            C(5) = C(4)
-            C(6) = -Reelmu
-            C(7) = Reelmu
-            C(8) = 0.0D0
-            C(9) = 0.0D0
-            C(10) = -Flamda*Reelmu*Xsubc
-            C(11) = C(10)
-            C(12) = Reelmu
-            C(13) = 0.0D0
-            C(14) = 0.0D0
-            C(15) = 0.0D0
-            C(16) = Flamda
-            C(17) = Flamda
-            C(18) = 0.0D0
+            c(1) = -reelmu
+            c(2) = 0.0D0
+            c(3) = 0.0D0
+            c(4) = flamda*delta
+            c(5) = c(4)
+            c(6) = -reelmu
+            c(7) = reelmu
+            c(8) = 0.0D0
+            c(9) = 0.0D0
+            c(10) = -flamda*reelmu*xsubc
+            c(11) = c(10)
+            c(12) = reelmu
+            c(13) = 0.0D0
+            c(14) = 0.0D0
+            c(15) = 0.0D0
+            c(16) = flamda
+            c(17) = flamda
+            c(18) = 0.0D0
 !
             IF ( Ntype/=1 ) THEN
 !
-               Theta = Angle*degra
-               Sinth = sin(Theta)
-               Costh = cos(Theta)
+               theta = angle*degra
+               sinth = sin(theta)
+               costh = cos(theta)
             ENDIF
-            IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+            IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
 !
 !     BRANCH ON -HEAT- PROBLEM AT THIS POINT.
 !
-            IF ( Heat ) THEN
+            IF ( heat ) THEN
 !
 !     HEAT PROBLEM LOGIC PICKS UP HERE.  CALL HMAT FOR MATERIAL DATA.
 !
-               Inflag = 2
-               Matid = necpt(6)
-               Eltemp = ecpt(21)
+               inflag = 2
+               matid = necpt(6)
+               eltemp = ecpt(21)
                CALL hmat(necpt)
-               g(1) = Matbuf(1)
-               g(2) = Matbuf(2)
-               g(3) = Matbuf(2)
-               g(4) = Matbuf(3)
+               g(1) = matbuf(1)
+               g(2) = matbuf(2)
+               g(3) = matbuf(2)
+               g(4) = matbuf(3)
 !
 !     CONDENSE C MATRIX FOR HEAT PROBLEM (FORMED ABOVE)  C IS (2X3)
 !
-               C(2) = C(4)
-               C(3) = C(7)
-               C(4) = C(10)
-               C(5) = C(13)
-               C(6) = C(16)
+               c(2) = c(4)
+               c(3) = c(7)
+               c(4) = c(10)
+               c(5) = c(13)
+               c(6) = c(16)
 !
 !     DETERMINE THE PIVOT POINT.
 !
                DO i = 1 , 3
-                  IF ( Ngrid(i)==Npvt ) GOTO 5
+                  IF ( ngrid(i)==npvt ) GOTO 5
                ENDDO
                CALL mesage(-30,34,ecpt(1))
 !
 !     PIVOT C MATRIX TIMES VOLUME (STORED INTO TT(1) AND TT(2).)
 !
- 5             tt(1) = Vol*C(2*i-1)
-               tt(2) = Vol*C(2*i)
+ 5             tt(1) = vol*c(2*i-1)
+               tt(2) = vol*c(2*i)
 !
 !     OUTPUT THE CONDUCTIVITY MATRICES
 !
                k = 36
                IF ( Ntype/=0 ) k = 27
                DO i = 1 , k
-                  Kij(i) = 0.0D0
+                  kij(i) = 0.0D0
                ENDDO
-               Npoint = 0
+               npoint = 0
 !
                DO i = 1 , 3
                   n2 = 2*i
                   n1 = n2 - 1
-                  Tempar(1) = (g(1)*C(n1)+g(2)*C(n2))*tt(1) + (g(3)*C(n1)+g(4)*C(n2))*tt(2)
+                  tempar(1) = (g(1)*c(n1)+g(2)*c(n2))*tt(1) + (g(3)*c(n1)+g(4)*c(n2))*tt(2)
                   IF ( Ntype/=0 ) THEN
 !
 !     SUB-TRIANGLE (RETURN 3X3-S AS ABOVE IN STIFFNESS PORTION)
 !
-                     Kij(Npoint+1) = Tempar(1)
-                     Npoint = Npoint + 9
+                     kij(npoint+1) = tempar(1)
+                     npoint = npoint + 9
                   ELSE
 !
 !     TRIANGLE BY ITSELF
 !
-                     CALL sma1b(Tempar(1),necpt(i+1),Npvt,Ifkgg,0.0D0)
+                     CALL sma1b(tempar(1),necpt(i+1),npvt,ifkgg,0.0D0)
                   ENDIF
                ENDDO
                GOTO 99999
             ELSE
-               Eltemp = ecpt(21)
-               Matid = Matid1
-               Inflag = 2
+               eltemp = ecpt(21)
+               matid = matid1
+               inflag = 2
                CALL mat(ecpt(1))
-               IF ( Nogo==1 ) RETURN
+               IF ( nogo==1 ) RETURN
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-               g(1) = G11
-               g(2) = G12
-               g(3) = G13
-               g(4) = G12
-               g(5) = G22
-               g(6) = G23
-               g(7) = G13
-               g(8) = G23
-               g(9) = G33
+               g(1) = g11
+               g(2) = g12
+               g(3) = g13
+               g(4) = g12
+               g(5) = g22
+               g(6) = g23
+               g(7) = g13
+               g(8) = g23
+               g(9) = g33
 !
 !     G, E, AND C MATRICES ARE COMPLETE
 !
@@ -279,9 +288,9 @@ SUBROUTINE ktrmem(Ntype)
 !
 !
                DO i = 1 , 3
-                  IF ( Ngrid(i)==Npvt ) THEN
-                     Ka = 4*i + 5
-                     Npoint = 6*i - 5
+                  IF ( ngrid(i)==npvt ) THEN
+                     ka = 4*i + 5
+                     npoint = 6*i - 5
                      GOTO 10
                   ENDIF
                ENDDO
@@ -296,8 +305,8 @@ SUBROUTINE ktrmem(Ntype)
 !     COMPUTE   E*C *G       AND STORE IN TEMPAR (1 THRU 9)
 !                  I
 !
- 10            CALL gmmatd(E,3,2,0,C(Npoint),3,2,1,Tempar(10))
-               CALL gmmatd(Tempar(10),3,3,0,g,3,3,0,Tempar(1))
+ 10            CALL gmmatd(e,3,2,0,c(npoint),3,2,1,tempar(10))
+               CALL gmmatd(tempar(10),3,3,0,g,3,3,0,tempar(1))
 !
 !     NCOM WILL ALWAYS POINT TO THE COMMON 3 X 3 PRODUCT ABOVE
 !     NPT1 WILL POINT TO FREE WORKING SPACE LENGTH 9
@@ -308,21 +317,21 @@ SUBROUTINE ktrmem(Ntype)
 !     MULTIPLY COMMON PRODUCT BY SCALER VOL
 !
                DO i = 1 , 9
-                  Tempar(i) = Tempar(i)*Vol
+                  tempar(i) = tempar(i)*vol
                ENDDO
 !
 !     CHECK FOR PIVOT  CSID = 0,  IF ZERO SKIP TRANSFORMATION TSUBI.
 !
-               IF ( necpt(Ka)/=0 ) THEN
+               IF ( necpt(ka)/=0 ) THEN
 !
 !     NOT-ZERO THUS GET TI
 !
-                  CALL transd(necpt(Ka),Ti)
+                  CALL transd(necpt(ka),ti)
 !
 !     INTRODUCE TI INTO THE COMMON PRODUCT AND STORE AT
 !     TEMPAR (10 THRU 18)
 !
-                  CALL gmmatd(Ti,3,3,1,Tempar(1),3,3,0,Tempar(10))
+                  CALL gmmatd(ti,3,3,1,tempar(1),3,3,0,tempar(10))
 !
 !     COMMON PRODUCT NOW STARTS AT TEMPAR(10) THUS CHANGE NCOM AND NPT1
 !
@@ -336,7 +345,7 @@ SUBROUTINE ktrmem(Ntype)
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
       ELSE
@@ -345,7 +354,7 @@ SUBROUTINE ktrmem(Ntype)
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          RETURN
       ENDIF
    ELSE
@@ -354,7 +363,7 @@ SUBROUTINE ktrmem(Ntype)
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
       RETURN
    ENDIF
 !
@@ -366,19 +375,19 @@ SUBROUTINE ktrmem(Ntype)
 !     FIRST ZERO OUT (6 X 6) K
 !                             IJ
 !
-   Nsave = npt1
+   nsave = npt1
    DO i = 1 , 36
-      Kij(i) = 0.0D0
+      kij(i) = 0.0D0
    ENDDO
-   Npoint = 0
+   npoint = 0
 !
    DO i = 1 , 3
-      CALL gmmatd(C(6*i-5),3,2,0,E,3,2,1,Tempar(Nsave))
+      CALL gmmatd(c(6*i-5),3,2,0,e,3,2,1,tempar(nsave))
 !
 !                                                                  T
 !     NPT2 IS SET TO POINT TO THE BEGINNING OF THE PRODUCT  C *E *T
 !                                                            J     J
-      npt2 = Nsave
+      npt2 = nsave
       npt1 = 19
 !
 !     CHECK FOR ZERO CSID IN WHICH CASE TJ IS NOT NEEDED
@@ -388,44 +397,43 @@ SUBROUTINE ktrmem(Ntype)
 !     COMMING HERE IMPLIES NEED FOR TJ
 !     WILL STORE TJ IN TI
 !
-         CALL transd(necpt(4*i+5),Ti)
-         CALL gmmatd(Tempar(npt2),3,3,0,Ti,3,3,0,Tempar(19))
+         CALL transd(necpt(4*i+5),ti)
+         CALL gmmatd(tempar(npt2),3,3,0,ti,3,3,0,tempar(19))
          npt1 = npt2
          npt2 = 19
       ENDIF
 !
 !     AT THIS POINT COMPLETE COMPUTATION FOR  K-SUB-I,J
 !
-      CALL gmmatd(Tempar(ncom),3,3,0,Tempar(npt2),3,3,0,Tempar(npt1))
+      CALL gmmatd(tempar(ncom),3,3,0,tempar(npt2),3,3,0,tempar(npt1))
 !
       IF ( Ntype==0 ) THEN
 !
-         Kij(1) = Tempar(npt1)
-         Kij(2) = Tempar(npt1+1)
-         Kij(3) = Tempar(npt1+2)
-         Kij(7) = Tempar(npt1+3)
-         Kij(8) = Tempar(npt1+4)
-         Kij(9) = Tempar(npt1+5)
-         Kij(13) = Tempar(npt1+6)
-         Kij(14) = Tempar(npt1+7)
-         Kij(15) = Tempar(npt1+8)
+         kij(1) = tempar(npt1)
+         kij(2) = tempar(npt1+1)
+         kij(3) = tempar(npt1+2)
+         kij(7) = tempar(npt1+3)
+         kij(8) = tempar(npt1+4)
+         kij(9) = tempar(npt1+5)
+         kij(13) = tempar(npt1+6)
+         kij(14) = tempar(npt1+7)
+         kij(15) = tempar(npt1+8)
 !
-         CALL sma1b(Kij(1),necpt(i+1),-1,Ifkgg,0.0D0)
-         Temp = Gsube
-         IF ( Iopt4/=0 ) THEN
-            IF ( Gsube/=0 ) THEN
-               CALL sma1b(Kij(1),necpt(i+1),-1,If4gg,Temp)
-               K4ggsw = 1
+         CALL sma1b(kij(1),necpt(i+1),-1,ifkgg,0.0D0)
+         temp = gsube
+         IF ( iopt4/=0 ) THEN
+            IF ( gsube/=0 ) THEN
+               CALL sma1b(kij(1),necpt(i+1),-1,if4gg,temp)
+               k4ggsw = 1
             ENDIF
          ENDIF
       ELSE
          DO j = 1 , 9
-            Npoint = Npoint + 1
+            npoint = npoint + 1
             npt2 = npt1 + j - 1
-            Kij(Npoint) = Tempar(npt2)
+            kij(npoint) = tempar(npt2)
          ENDDO
       ENDIF
 !
    ENDDO
-   RETURN
 99999 END SUBROUTINE ktrmem

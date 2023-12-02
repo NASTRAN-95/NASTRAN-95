@@ -1,4 +1,5 @@
-!*==idf1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==idf1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE idf1(Ee,E2,Eta01,Zet01,Are,Aim,Bre,Bim,Cre,Cim,R1sqx,Xiijr,Xiiji)
@@ -24,6 +25,15 @@ SUBROUTINE idf1(Ee,E2,Eta01,Zet01,Are,Aim,Bre,Bim,Cre,Cim,R1sqx,Xiijr,Xiiji)
 !
    REAL :: alarg2 , alpha , arg2 , arga , argt , atana , azet , coef , down , faci , facr , funct , parn , parni , parnr , pi , s , &
          & ser , test , test0 , trm1i , trm1r , trm2i , trm2r , trm3i , trm3r , up
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

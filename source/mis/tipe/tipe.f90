@@ -1,10 +1,11 @@
-!*==tipe.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tipe.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tipe(X,Y,Xyd,Chr,N,Opt)
+   USE c_char94
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_CHAR94
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,7 +51,7 @@ SUBROUTINE tipe(X,Y,Xyd,Chr,N,Opt)
 !     OPT = 0.
 !
       d = max0(iabs(Xyd),1)
-      s = Cntchr(d)
+      s = cntchr(d)
       IF ( Xyd==-1 .OR. Xyd==2 ) s = -s
       xy(1,1) = X
       xy(2,1) = Y
@@ -78,7 +79,7 @@ SUBROUTINE tipe(X,Y,Xyd,Chr,N,Opt)
                CASE (1)
                   charx = Chr(l)
                   DO i = 1 , lstchr
-                     IF ( charx==Char(i) ) THEN
+                     IF ( charx==char(i) ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF

@@ -1,17 +1,18 @@
-!*==sdr2a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdr2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr2a
+   USE c_blank
+   USE c_machin
+   USE c_names
+   USE c_sdr2x1
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SDR2X1
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,63 +40,63 @@ SUBROUTINE sdr2a
 !
 !     CHECK FOR STRAIN OPTION
 !
-         Strain = .FALSE.
-         IF ( Istrn>=0 ) Strain = .TRUE.
+         strain = .FALSE.
+         IF ( istrn>=0 ) strain = .TRUE.
 !
 !     PERFORM BUFFER ALLOCATION.
 !
-         Buf1 = korsz(Z) - Sysbuf - 2
-         Buf2 = Buf1 - Sysbuf
-         Buf3 = Buf2 - Sysbuf
-         Buf4 = Buf3 - Sysbuf
-         Buf5 = Buf4 - Sysbuf
+         buf1 = korsz(z) - sysbuf - 2
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         buf5 = buf4 - sysbuf
 !
 !     SET PARAMETER FOR APPROACH.
 !
-         n = 2*Nrigds - 1
+         n = 2*nrigds - 1
 !
 !     FIRST CHECK FOR SPECIAL APPROACH FOR DYNAMIC-DATA-RECOVERY-MATRIX-
 !     METHOD.  IF APPROACH IS -MMREIG- THEN DDRMM FLAG IS SET TO INSURE
 !     ENOUGH OUTPUTS UNDER CERTAIN CONDITIONS.
 !
-         Ddrmm = .FALSE.
-         IF ( App(1)/=mmreig ) THEN
+         ddrmm = .FALSE.
+         IF ( app(1)/=mmreig ) THEN
 !
             DO i = 1 , n , 2
-               IF ( Sta(i)==App(1) ) THEN
+               IF ( sta(i)==app(1) ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            CALL mesage(-30,75,App)
+            CALL mesage(-30,75,app)
          ELSE
-            Ddrmm = .TRUE.
+            ddrmm = .TRUE.
             i = 3
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Branch = (i+1)/2
+         branch = (i+1)/2
 !
 !    OPEN CASE CONTROL. SKIP HEADER RECORD.
 !    IF DIFF. STIFF. PHASE 1 OR BUCKLING PHASE 1, SKIP 1ST CASECC RECORD
 !
-         CALL gopen(Casecc,Z(Buf1),Rdrew)
-         IF ( App(1)==Ds1(1) .OR. App(1)==Bk1(1) ) CALL skprec(Casecc,1)
-         Kwdcc = 0
+         CALL gopen(casecc,z(buf1),rdrew)
+         IF ( app(1)==ds1(1) .OR. app(1)==bk1(1) ) CALL skprec(casecc,1)
+         kwdcc = 0
 !
 !     INITIALIZE VARIOUS OUTPUT REQUEST FLAGS.
 !
-         All = 0
-         Any = 0
-         Displ = 0
-         Vel = 0
-         Acc = 0
-         Spcf = 0
-         Loads = 0
-         Stress = 0
-         Force = 0
-         Tloads = 0
-         Eldef = 0
+         all = 0
+         any = 0
+         displ = 0
+         vel = 0
+         acc = 0
+         spcf = 0
+         loads = 0
+         stress = 0
+         force = 0
+         tloads = 0
+         eldef = 0
          ii = 0
          prevs = 0
          prevf = 0
@@ -109,48 +110,48 @@ SUBROUTINE sdr2a
 !     -ALL- FLAG = ANY REQUEST FOR ALL STRESSES OR FORCES.
 !     IF ANY.NE.0 .AND ALL.EQ.0, BUILD LIST OF UNIQUE ELEMENT IDS.
 !
-         CALL read(*120,*20,Casecc,Z,Buf5-1,1,ncc)
-         CALL mesage(+8,0,Nam)
-         All = 1
+         CALL read(*120,*20,casecc,z,buf5-1,1,ncc)
+         CALL mesage(+8,0,nam)
+         all = 1
  20      any1 = 0
-         Kwdcc = max0(Kwdcc,ncc)
-         Mset = max0(Mset,Kwdcc+1)
+         kwdcc = max0(kwdcc,ncc)
+         mset = max0(mset,kwdcc+1)
 !
 !     SET DMAP FLAG FOR USE IN DISP R.F. 1
 !
-         IF ( Istrn<0 .AND. Strnfl<0 ) THEN
+         IF ( istrn<0 .AND. strnfl<0 ) THEN
             j = 180
-            IF ( Z(j)/=0 ) Strnfl = 1
+            IF ( z(j)/=0 ) strnfl = 1
          ENDIF
-         Istr = 23
-         IF ( Strain ) Istr = 180
-         IF ( Z(Istr)<0 ) THEN
-            All = 1
-         ELSEIF ( Z(Istr)==0 ) THEN
+         istr = 23
+         IF ( strain ) istr = 180
+         IF ( z(istr)<0 ) THEN
+            all = 1
+         ELSEIF ( z(istr)==0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Stress = 1
+         stress = 1
          any1 = 1
          spag_nextblock_1 = 4
       CASE (4)
-         IF ( Z(Ielf)<0 ) THEN
-            All = 1
-         ELSEIF ( Z(Ielf)==0 ) THEN
+         IF ( z(ielf)<0 ) THEN
+            all = 1
+         ELSEIF ( z(ielf)==0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Force = 1
+         force = 1
          any1 = 1
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( All/=0 .OR. any1==0 ) GOTO 100
+         IF ( all/=0 .OR. any1==0 ) GOTO 100
 !
 !     INITIALIZE TO PROCESS STRESS OUTPUT REQUEST.
 !     BUILD MASTER SET LIST ONLY IF CURRENT SET ID IS NEW
 !
          ASSIGN 80 TO pass
-         setno = Z(Istr)
+         setno = z(istr)
          IF ( setno==prevs ) GOTO 80
          prevs = setno
          spag_nextblock_1 = 6
@@ -159,11 +160,11 @@ SUBROUTINE sdr2a
 !     IF REQUEST PRESENT, LOCATE SET DEFINITION IN CASE CONTROL DATA.
 !
          IF ( setno==0 ) GOTO pass
-         isetno = Ilsym + Z(Ilsym) + 1
+         isetno = ilsym + z(ilsym) + 1
          SPAG_Loop_1_1: DO
             iset = isetno + 2
-            nset = Z(isetno+1) + iset - 1
-            IF ( Z(isetno)==setno ) THEN
+            nset = z(isetno+1) + iset - 1
+            IF ( z(isetno)==setno ) THEN
 !
 !     PICK UP ELEMENT IDS IN SET. SAVE IN UNIQUE LIST.
 !
@@ -172,7 +173,7 @@ SUBROUTINE sdr2a
             ELSE
                isetno = nset + 1
                IF ( isetno>=ncc ) THEN
-                  All = 1
+                  all = 1
                   GOTO 100
                ENDIF
             ENDIF
@@ -183,12 +184,12 @@ SUBROUTINE sdr2a
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Z(i+1)>0 ) THEN
+         IF ( z(i+1)>0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         zi = Z(i)
-         n = -Z(i+1)
+         zi = z(i)
+         n = -z(i+1)
          i = i + 1
          ASSIGN 40 TO ret
          spag_nextblock_1 = 9
@@ -197,16 +198,16 @@ SUBROUTINE sdr2a
             zi = zi + 1
             IF ( zi>n ) GOTO 60
             ii = ii + 1
-            IF ( ii>Buf2 ) THEN
-               All = 1
+            IF ( ii>buf2 ) THEN
+               all = 1
                GOTO 100
             ELSE
-               Z(ii) = zi
+               z(ii) = zi
             ENDIF
          ENDDO
          spag_nextblock_1 = 8
       CASE (8)
-         zi = Z(i)
+         zi = z(i)
          ASSIGN 60 TO ret
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
@@ -220,7 +221,7 @@ SUBROUTINE sdr2a
 !     INITIALIZE TO PROCESS FORCE OUTPUT REQUEST.
 !     BUILD MASTER SET LIST ONLY IF CURRENT SET ID IS NEW
 !
- 80      setno = Z(Ielf)
+ 80      setno = z(ielf)
          IF ( setno/=prevf ) THEN
             prevf = setno
             ASSIGN 100 TO pass
@@ -230,30 +231,30 @@ SUBROUTINE sdr2a
 !
 !     TURN ON FLAGS FOR OTHER OUTPUT REQUESTS.
 !
- 100     IF ( Z(Iloads)/=0 ) Loads = 1
-         IF ( Z(Ispcf)/=0 ) Spcf = 1
-         IF ( Z(Idispl)/=0 ) Displ = 1
-         IF ( Z(Ivel)/=0 ) Vel = 1
-         IF ( Z(Iacc)/=0 ) Acc = 1
-         IF ( Z(Ieldef)/=0 ) Eldef = 1
-         IF ( Z(Itload)/=0 ) Tloads = 1
-         IF ( Z(Iloads+2)<0 .OR. Z(Ispcf+2)<0 .OR. Z(Idispl+2)<0 .OR. Z(Ivel+2)<0 .OR. Z(Iacc+2)<0 .OR. Z(Istr+2)<0 .OR. Z(Ielf+2)  &
-            & <0 .OR. App(1)==Trn(1) ) Sort2 = 1
-         Any = Stress + Force
+ 100     IF ( z(iloads)/=0 ) loads = 1
+         IF ( z(ispcf)/=0 ) spcf = 1
+         IF ( z(idispl)/=0 ) displ = 1
+         IF ( z(ivel)/=0 ) vel = 1
+         IF ( z(iacc)/=0 ) acc = 1
+         IF ( z(ieldef)/=0 ) eldef = 1
+         IF ( z(itload)/=0 ) tloads = 1
+         IF ( z(iloads+2)<0 .OR. z(ispcf+2)<0 .OR. z(idispl+2)<0 .OR. z(ivel+2)<0 .OR. z(iacc+2)<0 .OR. z(istr+2)<0 .OR. z(ielf+2)  &
+            & <0 .OR. app(1)==trn(1) ) sort2 = 1
+         any = stress + force
 !
 !     CONICAL SHELL PROBLEM
 !
-         Axic = .FALSE.
-         IF ( Mn/=0 ) THEN
-            Nrings = isystm(161)
-            Nharms = Mn
-            Axic = .TRUE.
+         axic = .FALSE.
+         IF ( mn/=0 ) THEN
+            nrings = isystm(161)
+            nharms = mn
+            axic = .TRUE.
          ENDIF
 !
 !     RETURN TO READ ANOTHER RECORD IN CASE CONTROL (UNLESS DIFF STIFF
 !     PHASE 0 OR BUCKLING PHASE 0)
 !
-         IF ( App(1)/=Ds0(1) .AND. App(1)/=Bk0(1) ) THEN
+         IF ( app(1)/=ds0(1) .AND. app(1)/=bk0(1) ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -261,22 +262,22 @@ SUBROUTINE sdr2a
 !     IF ALL .EQ. 0, SORT LIST OF ELEMENT IDS AND MOVE LIST TO END OF
 !     CORE. AND THROW AWAY ANY DUPLICATE.
 !
- 120     IF ( All/=0 .OR. Any==0 ) THEN
-            Mset = Buf2 - 1
+ 120     IF ( all/=0 .OR. any==0 ) THEN
+            mset = buf2 - 1
          ELSE
-            kn = ii - Mset + 1
-            CALL sort(0,0,1,-1,Z(Mset),kn)
-            jj = Buf2 - 1
-            Z(jj) = Z(ii)
+            kn = ii - mset + 1
+            CALL sort(0,0,1,-1,z(mset),kn)
+            jj = buf2 - 1
+            z(jj) = z(ii)
             SPAG_Loop_1_2: DO
                ii = ii - 1
-               IF ( Z(ii)/=Z(jj) ) THEN
+               IF ( z(ii)/=z(jj) ) THEN
                   jj = jj - 1
-                  IF ( ii>=Mset ) THEN
-                     Z(jj) = Z(ii)
+                  IF ( ii>=mset ) THEN
+                     z(jj) = z(ii)
                   ELSE
-                     Mset = jj + 1
-                     Knset = Buf2 - Mset
+                     mset = jj + 1
+                     knset = buf2 - mset
                      EXIT SPAG_Loop_1_2
                   ENDIF
                ENDIF
@@ -285,10 +286,10 @@ SUBROUTINE sdr2a
 !
 !     CLOSE CASE CONTROL AND RETURN
 !
-         CALL close(Casecc,Clsrew)
-         IF ( App(1)/=Bk1(1) ) RETURN
-         Eldef = 0
-         Tloads = 0
+         CALL close(casecc,clsrew)
+         IF ( app(1)/=bk1(1) ) RETURN
+         eldef = 0
+         tloads = 0
          RETURN
       CASE (9)
 !
@@ -299,13 +300,13 @@ SUBROUTINE sdr2a
 !
 !     ADD ELEM ID TO LIST. NO NEED TO CHECK DUPLICATE ID HERE
 !
-         IF ( ii==0 ) ii = Mset - 1
+         IF ( ii==0 ) ii = mset - 1
          ii = ii + 1
-         IF ( ii<Buf2 ) THEN
-            Z(ii) = zi
+         IF ( ii<buf2 ) THEN
+            z(ii) = zi
             GOTO ret
          ELSE
-            All = 1
+            all = 1
             GOTO 100
          ENDIF
       END SELECT

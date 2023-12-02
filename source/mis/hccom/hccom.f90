@@ -1,12 +1,13 @@
-!*==hccom.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hccom.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
+   USE c_packx
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,10 +43,10 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Ita = 1
-         Itb = 1
-         Ii = 1
-         Incr = 1
+         ita = 1
+         itb = 1
+         ii = 1
+         incr = 1
          icount = 0
          nskip = 0
          nskip1 = 0
@@ -68,7 +69,7 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
             CYCLE SPAG_DispatchLoop_1
          ELSE
 !
-            CALL gopen(scr6,Z(Lcore+1),0)
+            CALL gopen(scr6,z(Lcore+1),0)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -100,7 +101,7 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
                CALL read(*60,*100,scr6,id,-nskip1,0,nwds)
                GOTO 40
             ELSE
-               CALL fread(scr6,Z(inext),nwords,0)
+               CALL fread(scr6,z(inext),nwords,0)
 !
 ! INWORD IS THE NUMBER OF WORDS READ INTO CORE ON THIS READ
 ! NSKIP IS THE TOTAL NUMBER OF WORDS READ FROM SCR6 FROM THIS RECORD
@@ -139,7 +140,7 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
 !
                nj = Nextz + jcount - 1
                DO i = 1 , nwords
-                  Z(nj+i) = Z(nj+i) + hc(i)
+                  z(nj+i) = z(nj+i) + hc(i)
                ENDDO
                jcount = jcount + nwords
                IF ( (.NOT.incore) .AND. jcount==inword ) THEN
@@ -158,9 +159,9 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
  60      IF ( incore ) THEN
 !
             CALL close(scr6,1)
-            Jj = icount
-            mcbh(3) = Jj
-            CALL pack(Z(Nextz),hccens,mcbh)
+            jj = icount
+            mcbh(3) = jj
+            CALL pack(z(Nextz),hccens,mcbh)
          ELSE
 !
 ! SPILL LOGIC-PACK OUT INWORD WORDS. THEN REWIND  SCRL AND SKIP DOWN
@@ -169,8 +170,8 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
             IF ( .NOT.bldp ) CALL bldpk(1,1,scr6,0,0)
             bldp = .TRUE.
             DO k = 1 , inword
-               A(1) = Z(Nextz+k-1)
-               Irow = in + k
+               a(1) = z(Nextz+k-1)
+               irow = in + k
                CALL zblpki
             ENDDO
             IF ( eor ) THEN
@@ -207,11 +208,11 @@ SUBROUTINE hccom(Itype,Lcore,Icore,Nextz,Kcount)
             ENDIF
          ENDIF
 !
-         CALL gopen(scr6,Z(Lcore+1),1)
+         CALL gopen(scr6,z(Lcore+1),1)
          RETURN
       CASE (4)
 !
-         WRITE (Iout,99001)
+         WRITE (iout,99001)
 99001    FORMAT (58H0***SYSTEM FATAL ERROR,LOGIC ERROR,COUNTS ARE OFF IN HCCOM)
          CALL mesage(-61,0,0)
 !

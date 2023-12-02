@@ -1,23 +1,24 @@
-!*==mpyado.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mpyado.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mpyado(Zz,Z,Zd)
-USE C_LOGOUT
-USE C_MACHIN
-USE C_MPYADX
-USE C_MPYADZ
-USE C_MPYQT4
-USE C_NAMES
-USE C_NTIME
-USE C_PACKX
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_ZBLPKX
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_logout
+   USE c_machin
+   USE c_mpyadx
+   USE c_mpyadz
+   USE c_mpyqt4
+   USE c_names
+   USE c_ntime
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -154,26 +155,26 @@ USE ISO_FORTRAN_ENV
          nogo = 0
          file = 0
          noab = 0
-         IF ( Filea(6)==0 .OR. Fileb(6)==0 ) noab = 1
-         irowb = Filea(2)
-         irowc = Filea(3)
-         IF ( T/=0 ) T = 1
-         IF ( T/=0 ) THEN
-            irowb = Filea(3)
-            irowc = Filea(2)
+         IF ( filea(6)==0 .OR. fileb(6)==0 ) noab = 1
+         irowb = filea(2)
+         irowc = filea(3)
+         IF ( t/=0 ) t = 1
+         IF ( t/=0 ) THEN
+            irowb = filea(3)
+            irowc = filea(2)
          ENDIF
          IF ( noab/=1 ) THEN
-            IF ( Fileb(3)/=irowb ) nogo = 1
-            IF ( Filec(1)>0 ) THEN
-               IF ( Filec(2)/=Fileb(2) .OR. Filec(3)/=irowc ) nogo = 1
+            IF ( fileb(3)/=irowb ) nogo = 1
+            IF ( filec(1)>0 ) THEN
+               IF ( filec(2)/=fileb(2) .OR. filec(3)/=irowc ) nogo = 1
             ENDIF
             IF ( nogo==1 ) THEN
-               CALL fname(Filea,Zz(1))
-               CALL fname(Fileb,Zz(3))
-               CALL fname(Filec,Zz(5))
-               IF ( Filec(2)/=Fileb(2) .OR. Filec(3)/=irowc ) nogo = 1
-               WRITE (mout,99001) Zz(1) , Zz(2) , Filea(2) , Filea(3) , Zz(3) , Zz(4) , Fileb(2) , Fileb(3) , Zz(5) , Zz(6) ,       &
-                                & Filec(2) , irowc
+               CALL fname(filea,Zz(1))
+               CALL fname(fileb,Zz(3))
+               CALL fname(filec,Zz(5))
+               IF ( filec(2)/=fileb(2) .OR. filec(3)/=irowc ) nogo = 1
+               WRITE (mout,99001) Zz(1) , Zz(2) , filea(2) , filea(3) , Zz(3) , Zz(4) , fileb(2) , fileb(3) , Zz(5) , Zz(6) ,       &
+                                & filec(2) , irowc
 99001          FORMAT (3(4X,2A4,2I7))
                mm = -55
                spag_nextblock_1 = 7
@@ -184,46 +185,46 @@ USE ISO_FORTRAN_ENV
 !     PERFORM GENERAL INITIALIZATION
 !
          mpy(3) = jbegn
-         IF ( Filed(1)>0 ) CALL conmsg(mpy,3,0)
-         nout = Lout
+         IF ( filed(1)>0 ) CALL conmsg(mpy,3,0)
+         nout = lout
 !
 !  -- USE SINGLE PRECISION ON MACHINES WITH 60 OR 64 BITS PER WORD
 !
-         IF ( nbpw>=60 ) Prec1 = 1
-         opb = Rdrew
-         opc = Rdrew
-         op2 = Wrtrew
-         op = Cls
-         cfile = Filec(1)
+         IF ( nbpw>=60 ) prec1 = 1
+         opb = rdrew
+         opc = rdrew
+         op2 = wrtrew
+         op = cls
+         cfile = filec(1)
          IF ( cfile==0 ) typec = 1
          b(2) = 0.
          b(3) = 0.
          b(4) = 0.
-         Typd1 = typd
-         One1 = 1
-         One2 = 1
+         typd1 = typd
+         one1 = 1
+         one2 = 1
          p = n
-         IF ( T/=0 ) p = m
-         Pp1 = p
-         Incr1 = 1
-         IF ( cfile==0 .OR. Filec(6)==0 ) cfile = 0
-         IF ( Fileb(6)==0 .AND. cfile==0 ) Pp1 = 1
-         Incr2 = 1
-         Filed(2) = 0
-         Filed(6) = 0
-         Filed(7) = 0
+         IF ( t/=0 ) p = m
+         pp1 = p
+         incr1 = 1
+         IF ( cfile==0 .OR. filec(6)==0 ) cfile = 0
+         IF ( fileb(6)==0 .AND. cfile==0 ) pp1 = 1
+         incr2 = 1
+         filed(2) = 0
+         filed(6) = 0
+         filed(7) = 0
          mpass3 = 0
          time3 = 1.0E+10
-         Prec = Prec1
-         IF ( Prec/=2 ) Prec = 1
-         IF ( Prec1==0 .AND. (Prc(typea)==2 .OR. Prc(typeb)==2 .OR. Prc(typec)==2) ) Prec = 2
+         prec = prec1
+         IF ( prec/=2 ) prec = 1
+         IF ( prec1==0 .AND. (prc(typea)==2 .OR. prc(typeb)==2 .OR. prc(typec)==2) ) prec = 2
 !
 !     ELIMINATE METHOD THREE FROM SELECTION FOR THIS BAD CASE
 !     (I.E. TRANSPOSE AND MIXED MATRIX PRECISION)
 !
-         it = T
-         IF ( it/=0 .AND. Prec==1 .AND. Prc(typeb)==2 ) it = 0
-         IF ( it/=T .AND. l19/=0 ) WRITE (nout,99002) typea , typeb , typec
+         it = t
+         IF ( it/=0 .AND. prec==1 .AND. prc(typeb)==2 ) it = 0
+         IF ( it/=t .AND. l19/=0 ) WRITE (nout,99002) typea , typeb , typec
 99002    FORMAT ('0METHOD 3T IS ELIMINATED FROM SELECTION/MPYAD@60',/1X,'MATRIX TYPES A,B,C =',3I3)
 !
 !     COMPUTE TYPE AND PRECISION OF D MATRIX
@@ -232,15 +233,15 @@ USE ISO_FORTRAN_ENV
 !     TYPED  = 1 FOR RSP, 2 FOR RDP, 3 FOR CSP, AND 4 FOR CDP
 !     PRC(1) = 1 FOR S.P.   PRC(2) = 2 FOR D.P.
 !
-         Rcd = 0
-         IF ( Prec/=2 ) THEN
+         rcd = 0
+         IF ( prec/=2 ) THEN
             IF ( andf(typea,1)==0 ) typea = typea - 1
             IF ( andf(typeb,1)==0 ) typeb = typeb - 1
             IF ( andf(typec,1)==0 ) typec = typec - 1
          ENDIF
-         IF ( typea>2 .OR. typeb>2 .OR. typec>2 ) Rcd = 2
-         Typed = Rcd + Prec
-         IF ( Rcd==0 ) Rcd = 1
+         IF ( typea>2 .OR. typeb>2 .OR. typec>2 ) rcd = 2
+         typed = rcd + prec
+         IF ( rcd==0 ) rcd = 1
 !
 !     RCA/B/D   = 1 IF A/B/D IS REAL, = 2 IF A/B/D IS COMPLEX
 !     NWDA/B/D  = NUMBER OF WORDS PER ELEMENT OF A/B/D
@@ -265,11 +266,11 @@ USE ISO_FORTRAN_ENV
 !     OFF AND SYSTEM(94) IS NOT 1, BRANCH OFF TO SPECIAL SUBROUTINE
 !     MPY-D-R-I
 !
-         k = Filea(4)
-         IF ( k==6 .AND. m==n .AND. l41==0 ) T = 0
+         k = filea(4)
+         IF ( k==6 .AND. m==n .AND. l41==0 ) t = 0
 !        SYMMETRIC    COLN=ROW     DIAG41 OFF
-         IF ( l41/=1 .AND. mod(Ksystm(94),10)/=1 ) THEN
-            j = Fileb(4)
+         IF ( l41/=1 .AND. mod(ksystm(94),10)/=1 ) THEN
+            j = fileb(4)
             IF ( k==3 .OR. k==7 .OR. k==8 .OR. j==3 .OR. j==7 .OR. j==8 ) THEN
 !         DIAGONAL     ROW VCTR     IDENTITY
 !
@@ -284,152 +285,152 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDIF
 !
-         Rcb = Rc(typeb)
-         Nbx = r*Rcb
-         Nwdb = Nwds(typeb)
-         nwdb1 = Nwdb + 1
-         Nb = r*Nwdb
-         Ndx = p*Rcd
-         Nd = p*Nwds(Typed)
-         nzz = iabs(Nz) - sysbuf + 1
+         rcb = rc(typeb)
+         nbx = r*rcb
+         nwdb = nwds(typeb)
+         nwdb1 = nwdb + 1
+         nb = r*nwdb
+         ndx = p*rcd
+         nd = p*nwds(typed)
+         nzz = iabs(nz) - sysbuf + 1
          buf2 = buf1 - sysbuf
          buf3 = buf2 - sysbuf
          buf4 = buf3 - sysbuf
-         jj = (nzz-1)/(Nb+Nd)
-         icrq = Nb + Nd - nzz + 1
+         jj = (nzz-1)/(nb+nd)
+         icrq = nb + nd - nzz + 1
          IF ( icrq>0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          mpass1 = (q-1)/jj + 1
-         jzb = jj*Nd + 1
-         jzdb = jj*Ndx + 1
-         Jb = jzb
-         IF ( Prc(typeb)==2 ) Jb = jzdb
-         Nwda = Nwds(typea)
-         prca = Prc(typea)
-         Na = Nwda*n
-         nwda1 = Nwda + 1
-         Nwdd = Nwds(Typed)
-         Acore = Nd + 1
-         IF ( T/=0 ) Acore = Nb + 1
-         Acore = ((Acore+1)/2)*2 + 1
-         IF ( Signab==0 .AND. Prec==1 .AND. (Prc(typea)==2 .OR. Prc(typeb)==2) ) Typed = Rcd + 1
-         IF ( noab==1 .OR. Signab==0 ) THEN
+         jzb = jj*nd + 1
+         jzdb = jj*ndx + 1
+         jb = jzb
+         IF ( prc(typeb)==2 ) jb = jzdb
+         nwda = nwds(typea)
+         prca = prc(typea)
+         na = nwda*n
+         nwda1 = nwda + 1
+         nwdd = nwds(typed)
+         acore = nd + 1
+         IF ( t/=0 ) acore = nb + 1
+         acore = ((acore+1)/2)*2 + 1
+         IF ( signab==0 .AND. prec==1 .AND. (prc(typea)==2 .OR. prc(typeb)==2) ) typed = rcd + 1
+         IF ( noab==1 .OR. signab==0 ) THEN
 !
 !     A MATRIX OR B MATRIX IS NULL - COPY C MATRIX TO D MATRIX
 !
-            Time = 0.0
-            IF ( Filed(1)<0 ) RETURN
-            IF ( q<=0 ) q = Filec(2)
-            Filed(2) = 0
-            Filed(6) = 0
-            Filed(7) = 0
+            time = 0.0
+            IF ( filed(1)<0 ) RETURN
+            IF ( q<=0 ) q = filec(2)
+            filed(2) = 0
+            filed(6) = 0
+            filed(7) = 0
             WRITE (nout,99003)
 99003       FORMAT ('             MPYAD - NULL MATRIX PRODUCT')
-            CALL gopen(Filed,Z(buf1),Wrtrew)
+            CALL gopen(filed,Z(buf1),wrtrew)
             IF ( cfile==0 ) THEN
 !
 !     PACK NULL COLUMNS BECAUSE C MATRIX IS NULL
 !
-               Pp1 = 1
-               DO Acol = 1 , q
-                  CALL pack(zero,Filed,Filed)
+               pp1 = 1
+               DO acol = 1 , q
+                  CALL pack(zero,filed,filed)
                ENDDO
-            ELSEIF ( typec==Signc*typd ) THEN
+            ELSEIF ( typec==signc*typd ) THEN
 !
 !     USE CPYSTR TO COPY C TO D
 !
-               Block(1) = cfile
-               blk(1) = Filed(1)
-               CALL gopen(cfile,Z(buf2),Rdrew)
+               block(1) = cfile
+               blk(1) = filed(1)
+               CALL gopen(cfile,Z(buf2),rdrew)
                DO ii = 1 , q
-                  CALL cpystr(Block,blk,0,0)
+                  CALL cpystr(block,blk,0,0)
                ENDDO
-               CALL close(cfile,Clsrew)
-               Filed(2) = q
-               Filed(5) = Filec(5)
-               Filed(6) = Filec(6)
-               Filed(7) = Filec(7)
+               CALL close(cfile,clsrew)
+               filed(2) = q
+               filed(5) = filec(5)
+               filed(6) = filec(6)
+               filed(7) = filec(7)
             ELSE
 !
 !     USE INTPK/BLDPK TO COPY C TO D BECAUSE TYPES CONFLICT
 !
-               CALL gopen(cfile,Z(buf2),Rdrew)
+               CALL gopen(cfile,Z(buf2),rdrew)
                DO ii = 1 , q
-                  CALL bldpk(typd,typd,Filed,Block,1)
-                  itypsg = Signc*typd
-                  CALL intpk(*2,Filec,0,itypsg,0)
+                  CALL bldpk(typd,typd,filed,block,1)
+                  itypsg = signc*typd
+                  CALL intpk(*2,filec,0,itypsg,0)
                   SPAG_Loop_2_1: DO
                      CALL zntpki
-                     CALL bldpki(A,Ip,Filed,Block)
-                     IF ( Eol/=0 ) EXIT SPAG_Loop_2_1
+                     CALL bldpki(a,ip,filed,block)
+                     IF ( eol/=0 ) EXIT SPAG_Loop_2_1
                   ENDDO SPAG_Loop_2_1
- 2                CALL bldpkn(Filed,Block,Filed)
+ 2                CALL bldpkn(filed,block,filed)
                ENDDO
-               CALL close(cfile,Clsrew)
+               CALL close(cfile,clsrew)
             ENDIF
-            IF ( Filec(1)>0 ) Filed(4) = Filec(4)
-            CALL close(Filed,Clsrew)
+            IF ( filec(1)>0 ) filed(4) = filec(4)
+            CALL close(filed,clsrew)
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Signab==1 .OR. Signab==-1 ) THEN
+         ELSEIF ( signab==1 .OR. signab==-1 ) THEN
             CALL mpyq(Z)
 !
 !     CALCULATE ESTIMATED EXECUTION TIMES AND SELECT METHOD.
 !
-            ncore = buf3 - Acore
+            ncore = buf3 - acore
             icrq = -ncore
             IF ( icrq>0 ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            core = float(ncore/Nwda)
-            fn = Filea(2)
-            fm = Filea(3)
-            fp = Fileb(2)
-            rhoa = amin1(1.E-4*float(Filea(7)),1.0)
-            rhob = amin1(1.E-4*float(Fileb(7)),1.0)
-            rhoc = amin1(1.E-4*float(Filec(7)),1.0)
+            core = float(ncore/nwda)
+            fn = filea(2)
+            fm = filea(3)
+            fp = fileb(2)
+            rhoa = amin1(1.E-4*float(filea(7)),1.0)
+            rhob = amin1(1.E-4*float(fileb(7)),1.0)
+            rhoc = amin1(1.E-4*float(filec(7)),1.0)
             rhod = amax1(rhoa,rhob)
-            arith = fm*fn*(Tmt(Typed)+(1.0-rhoa)*Tml(Typed))
-            aterm = (fm*rhoa+5.0)*fn*Tmipak
-            bterm = float(r)*fp*0.5*(1.0+rhob)*Tmupak
-            dterm = fm*fp*0.5*(1.0+rhod)*Tmpak
+            arith = fm*fn*(tmt(typed)+(1.0-rhoa)*tml(typed))
+            aterm = (fm*rhoa+5.0)*fn*tmipak
+            bterm = float(r)*fp*0.5*(1.0+rhob)*tmupak
+            dterm = fm*fp*0.5*(1.0+rhod)*tmpak
             cterm = 0
-            IF ( cfile/=0 ) cterm = fm*fp*0.5*(1.0+rhoc)*Tmupak
-            time1 = (fm*fn*fp*rhoa*Tmt(Typed)+float(mpass1)*aterm+bterm+dterm+cterm)*1.0E-6
+            IF ( cfile/=0 ) cterm = fm*fp*0.5*(1.0+rhoc)*tmupak
+            time1 = (fm*fn*fp*rhoa*tmt(typed)+float(mpass1)*aterm+bterm+dterm+cterm)*1.0E-6
 !
             mpass2 = (2.0-rhoa)*fm*fn*rhoa/core + 1.0
             fr = mpass2
-            IF ( T/=0 ) THEN
+            IF ( t/=0 ) THEN
 !
                fnt = fn*fm*rhob
-               p1 = amin1((fnt/float(Fileb(6))+fp)/2.0,fnt,fp)
+               p1 = amin1((fnt/float(fileb(6))+fp)/2.0,fnt,fp)
                fp1 = p1
                cterm2 = 0.
-               IF ( cfile/=0 ) cterm2 = (fn*rhoc+5.0)*fp*Tmipak
-               bterm = fm*fp*0.5*(1.0+rhob)*Tmupak
+               IF ( cfile/=0 ) cterm2 = (fn*rhoc+5.0)*fp*tmipak
+               bterm = fm*fp*0.5*(1.0+rhob)*tmupak
                dterm2 = (fn*rhod+5.0)*fp
-               time2 = (fp1*rhoa*arith+(fm*rhoa+5.0)*fn*Tmipak+fr*bterm+(fr+1.0)/2.0*dterm2*Tmbpak+(fr-1.0)/2.0*dterm2*Tmipak+      &
+               time2 = (fp1*rhoa*arith+(fm*rhoa+5.0)*fn*tmipak+fr*bterm+(fr+1.0)/2.0*dterm2*tmbpak+(fr-1.0)/2.0*dterm2*tmipak+      &
                      & cterm2)*1.0E-6
 !
                bufi = buf4
-               IF ( Filec(1)==0 ) bufi = buf3
-               nbrrow = min0((bufi-orf(Nd+1,1))/Na,m)
+               IF ( filec(1)==0 ) bufi = buf3
+               nbrrow = min0((bufi-orf(nd+1,1))/na,m)
                mpass3 = (m-1)/nbrrow + 1
                fr = mpass3
-               time3 = (fm*fn*fp*rhob*Tmt(Typed)+fm*fn*0.5*(1.0+rhoa)*Tmupak+fr*fp*(fn*rhob+5.0)*Tmipak+(fr+1.0)                    &
-                     & /4.0*fn*fp*(1.0+rhod)*Tmpak+(fr-1.0)/4.0*fn*fp*(1.0+rhod)*Tmupak+cterm2)*1.E-6
+               time3 = (fm*fn*fp*rhob*tmt(typed)+fm*fn*0.5*(1.0+rhoa)*tmupak+fr*fp*(fn*rhob+5.0)*tmipak+(fr+1.0)                    &
+                     & /4.0*fn*fp*(1.0+rhod)*tmpak+(fr-1.0)/4.0*fn*fp*(1.0+rhod)*tmupak+cterm2)*1.E-6
             ELSE
-               time2 = (fp*rhoa*rhob*arith+aterm+(fr+1.0)/2.0*(fn*rhob+10.0)*fp*Tmipak+fr*dterm+(fr-1.0)*0.5*fm*fp*(1.0+rhod)       &
-                     & *Tmupak+cterm)*1.0E-6
+               time2 = (fp*rhoa*rhob*arith+aterm+(fr+1.0)/2.0*(fn*rhob+10.0)*fp*tmipak+fr*dterm+(fr-1.0)*0.5*fm*fp*(1.0+rhod)       &
+                     & *tmupak+cterm)*1.0E-6
             ENDIF
             CALL tmtogo(itimgo)
             IF ( core<=0.0 ) time2 = amax1(time1,time3) + 1.0
-            Time = amin1(time1,time2,time3)
-            itime = Time + 1
-            IF ( itimgo<=itime .AND. Filed(1)>0 ) THEN
+            time = amin1(time1,time2,time3)
+            itime = time + 1
+            IF ( itimgo<=itime .AND. filed(1)>0 ) THEN
                mm = -50
                file = itime
                spag_nextblock_1 = 7
@@ -442,10 +443,10 @@ USE ISO_FORTRAN_ENV
                jelems = float(r)*fp*rhob
 !WKBNB 9/93
                IF ( l19/=0 ) THEN
-                  CALL fname(Filea,namea)
-                  CALL fname(Fileb,nameb)
-                  CALL fname(Filec,namec)
-                  CALL fname(Filed,named)
+                  CALL fname(filea,namea)
+                  CALL fname(fileb,nameb)
+                  CALL fname(filec,namec)
+                  CALL fname(filed,named)
 !WKBR 7/94/SPR 94008 *         NAMEA, N, M, IELEMS, RHOA, PRNTYP( TYPEA )
 !KWBR 7/94 SPR 94008 *,        NAMEB, R, Q, JELEMS, RHOB, PRNTYP( TYPEB )
                   WRITE (nout,99004,IOSTAT=ierr) namea , n , m , ielems , rhoa , prntyp(itypea) , nameb , r , q , jelems , rhob ,   &
@@ -456,19 +457,19 @@ USE ISO_FORTRAN_ENV
                          &'  /  B- ',2A4,I8,I7,I10,F7.4,5X,A2)
                   ielems = fn*fm*rhoc + .5
                   IF ( cfile/=0 ) THEN
-                     WRITE (nout,99005,IOSTAT=ierr) namec , Filec(3) , Filec(2) , ielems , rhoc , prntyp(itypec)
+                     WRITE (nout,99005,IOSTAT=ierr) namec , filec(3) , filec(2) , ielems , rhoc , prntyp(itypec)
 99005                FORMAT ('  /  C- ',2A4,I8,I7,I10,F7.4,5X,A2)
                   ENDIF
-                  WRITE (nout,99006) named , prntyp(Typed)
+                  WRITE (nout,99006) named , prntyp(typed)
 99006             FORMAT ('  /  D- ',2A4,8X,7X,10X,7X,5X,A2)
-                  WRITE (nout,99007) Signab , Signc , T , core , mpass1 , mpass2 , mpass3 , time1 , time2 , time3
+                  WRITE (nout,99007) signab , signc , t , core , mpass1 , mpass2 , mpass3 , time1 , time2 , time3
 99007             FORMAT ('  /  SIGNAB =',I4,'  SIGNC =',I4,'  TIME EST=',I9,' MEMORY =',F8.0,/,'  /  MPASS1 =',I4,'  MPASS2=',I4,  &
                          &'  MPASS3=',I4,/,'  /  TIME1  =',E9.2,' TIME2=',E9.2,' TIME3=',E9.2,/,                                    &
                          &'  /-----------------------------------------------------------/')
                ENDIF
 !WKBNE 9/93
 !
-               IF ( Filed(1)<0 ) RETURN
+               IF ( filed(1)<0 ) RETURN
 !
                j = ksys58
                IF ( j<0 .OR. j>3 .OR. (j==3 .AND. it==0) ) j = 0
@@ -523,7 +524,7 @@ USE ISO_FORTRAN_ENV
 !     WHERE JMAX=JJ EXCEPT ON FINAL PASS
 !
  5             jcol = 1
-               WRITE (nout,99009) method(T+1) , mpass1 , time1
+               WRITE (nout,99009) method(t+1) , mpass1 , time1
             ENDIF
          ELSE
             WRITE (mout,99008)
@@ -534,21 +535,21 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Jmax = min0(jcol+jj-1,q)
-         IF ( Jmax==q ) op = Clsrew
-         jmax1 = Jmax - jcol
-         Jmax = jmax1 + 1
-         Jmax1x = jmax1*Ndx
-         IF ( Fileb(6)/=0 ) THEN
+         jmax = min0(jcol+jj-1,q)
+         IF ( jmax==q ) op = clsrew
+         jmax1 = jmax - jcol
+         jmax = jmax1 + 1
+         jmax1x = jmax1*ndx
+         IF ( fileb(6)/=0 ) THEN
 !
 !     READ AND UNPACK JMAX COLUMNS OF THE B MATRIX
 !
-            file = Fileb(1)
+            file = fileb(1)
             jz = jzb
-            Typebd = typeb*Signab
-            nbd = Nb
+            typebd = typeb*signab
+            nbd = nb
             opbc = opb
-            Pp2 = r
+            pp2 = r
             ASSIGN 20 TO mm
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -556,25 +557,25 @@ USE ISO_FORTRAN_ENV
 !
 !     READ AND UNPACK JMAX COLUMNS OF THE C MATRIX
 !
- 20      file = Filec(1)
+ 20      file = filec(1)
          jz = 1
-         Typebd = Typed*Signc
-         nbd = Nd
+         typebd = typed*signc
+         nbd = nd
          opbc = opc
-         Pp2 = p
+         pp2 = p
          ASSIGN 40 TO mm
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
 !
 !     OPEN AND POSITION A MATRIX TO FIRST COLUMN
 !
- 40      IF ( Fileb(6)==0 ) THEN
+ 40      IF ( fileb(6)==0 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Filea(1)
-         CALL open(*80,Filea,Z(nzz),Rdrew)
-         CALL fwdrec(*100,Filea)
+         file = filea(1)
+         CALL open(*80,filea,Z(nzz),rdrew)
+         CALL fwdrec(*100,filea)
 !
 !     SET POINTERS
 !     L   = COLUMN NUMBER
@@ -582,15 +583,15 @@ USE ISO_FORTRAN_ENV
 !     LLL = POINTER TO LTH ROW OF D MATRIX
 !
          l = 1
-         Ll = Jb
-         Lll = 1
+         ll = jb
+         lll = 1
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     CALL INTPK TO INITIATE READING THE LTH COLUMN OF THE A MATRIX
 !     IF COLUMN IS NULL, BYPASS ARITHMETIC
 !
-         CALL intpk(*60,Filea,0,Typed,0)
+         CALL intpk(*60,filea,0,typed,0)
 !
 !     FORM EITHER  A(I,L)*B(L,J) + D(I,J)
 !              OR  A(L,I)*B(I,J) + D(L,J)
@@ -600,8 +601,8 @@ USE ISO_FORTRAN_ENV
 !
 !     POSITION POINTERS FOR NEXT COLUMN OF A
 !
- 60      Ll = Ll + Rcb
-         Lll = Lll + Rcd
+ 60      ll = ll + rcb
+         lll = lll + rcd
          l = l + 1
          IF ( l<=m ) THEN
             spag_nextblock_1 = 3
@@ -610,40 +611,40 @@ USE ISO_FORTRAN_ENV
 !
 !     CLOSE AND REWIND FILE CONTAINING A MATRIX
 !
-         CALL close(Filea,Clsrew)
+         CALL close(filea,clsrew)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     OPEN FILE CONTAINING D MATRIX TO WRITE
 !
-         file = Filed(1)
-         CALL open(*80,Filed,Z(nzz),op2)
+         file = filed(1)
+         CALL open(*80,filed,Z(nzz),op2)
 !
 !     IF FIRST COLUMNS OF D, WRITE HEADER
 !
-         IF ( op2/=Wrt ) THEN
-            CALL fname(Filed,bcd)
-            CALL write(Filed,bcd,2,1)
+         IF ( op2/=wrt ) THEN
+            CALL fname(filed,bcd)
+            CALL write(filed,bcd,2,1)
          ENDIF
 !
 !     PACK AND WRITE JMAX COLUMNS OF THE D MATRIX
 !
          jz = 1
-         DO j = 1 , Jmax
-            CALL pack(Z(jz),Filed,Filed)
-            jz = jz + Nd
+         DO j = 1 , jmax
+            CALL pack(Z(jz),filed,filed)
+            jz = jz + nd
          ENDDO
 !
 !     TEST FOR END OF MULTIPLICATION
 !     CLOSE FILE CONTAINING D MATRIX
 !
-         CALL close(Filed,op)
+         CALL close(filed,op)
 !
 !     SET OP FLAGS FOR OPEN CALLS FOR NEXT PASS
 !
-         opb = Rd
-         opc = Rd
-         op2 = Wrt
+         opb = rd
+         opc = rd
+         op2 = wrt
 !
          jcol = jcol + jj
          IF ( jcol<=q ) THEN
@@ -669,7 +670,7 @@ USE ISO_FORTRAN_ENV
 !
 !     LOOP THROUGH JMAX COLUMNS OF MATRIX
 !
-         DO j = 1 , Jmax
+         DO j = 1 , jmax
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -724,7 +725,6 @@ USE ISO_FORTRAN_ENV
          mm = -8
          file = icrq
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
 !
 !
@@ -742,27 +742,27 @@ USE ISO_FORTRAN_ENV
 !     AND B (LL4 = 6).
 !
          mt4 = 0
-         mt2 = T
-         IF ( mod(Ksystm(94),100)/10/=1 ) THEN
-            IF ( T/=0 .AND. l41/=1 .AND. Ll4/=6 ) THEN
+         mt2 = t
+         IF ( mod(ksystm(94),100)/10/=1 ) THEN
+            IF ( t/=0 .AND. l41/=1 .AND. ll4/=6 ) THEN
                IF ( mpass2>2 .AND. cfile/=0 .AND. densc>=700 ) THEN
                   mt2 = 0
                   mt4 = 2
-                  Acore = Nb + Nd + 1
-                  Acore = ((Acore+1)/2)*2 + 1
-                  jzb = Nd + 1
-                  Jb = Nd/Prec1 + 1
+                  acore = nb + nd + 1
+                  acore = ((acore+1)/2)*2 + 1
+                  jzb = nd + 1
+                  jb = nd/prec1 + 1
                ENDIF
             ENDIF
          ENDIF
-         dfile = Filed(1)
-         efile = Scrtch
-         Block(1) = Filea(1)
-         cfile = Filec(1)
-         opa = Rdrew
-         typec = Typed*Signc
-         Firstl = buf3 - 1
-         WRITE (nout,99009) method(T+3+mt4) , mpass2 , time2
+         dfile = filed(1)
+         efile = scrtch
+         block(1) = filea(1)
+         cfile = filec(1)
+         opa = rdrew
+         typec = typed*signc
+         firstl = buf3 - 1
+         WRITE (nout,99009) method(t+3+mt4) , mpass2 , time2
 !
 !     BEGIN PASS
 !
@@ -770,45 +770,45 @@ USE ISO_FORTRAN_ENV
 !     READ AS MANY COLUMNS (OR ROWS) OF A AS CAN BE HELD
 !     IN CORE IN PACKED FORM ON THIS PASS.
 !
-         Acol1 = 1
+         acol1 = 1
          spag_nextblock_1 = 10
       CASE (10)
          file = dfile
-         CALL open(*80,dfile,Z(buf3),Wrtrew)
-         CALL fname(Filed(1),bcd)
+         CALL open(*80,dfile,Z(buf3),wrtrew)
+         CALL fname(filed(1),bcd)
          CALL write(dfile,bcd,2,1)
-         Filed(2) = 0
-         Filed(6) = 0
-         Filed(7) = 0
-         file = Filea(1)
-         CALL gopen(Filea,Z(buf2),opa)
-         Apoint = Acore
-         l = Firstl
-         Acol = Acol1
+         filed(2) = 0
+         filed(6) = 0
+         filed(7) = 0
+         file = filea(1)
+         CALL gopen(filea,Z(buf2),opa)
+         apoint = acore
+         l = firstl
+         acol = acol1
          spag_nextblock_1 = 11
       CASE (11)
 !WKBR 9/94   660 IF ( (APOINT+NA+2) .GE. L-2) GO TO 530
 ! ABOVE CHECK WAS OVER-ZEALOUS IN CHECKING FOR AVAILABLE MEMORY
 ! BECAUSE OF THE CHECK TWO LINES AFTER STATEMENT 670
-         IF ( (Apoint+2)>=l-2 ) THEN
+         IF ( (apoint+2)>=l-2 ) THEN
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          Zz(l) = 0
          Zz(l-1) = 0
-         Block(8) = -1
-         CALL getstr(*120,Block)
-         Incra = 1
-         IF ( Prc(type)==2 .AND. Prc(typea)==1 ) Incra = 2
-         Zz(l) = Apoint
+         block(8) = -1
+         CALL getstr(*120,block)
+         incra = 1
+         IF ( prc(type)==2 .AND. prc(typea)==1 ) incra = 2
+         Zz(l) = apoint
          DO
-            kr1 = Apoint + 2
-            krn = kr1 + nbrstr*Nwda - 1
+            kr1 = apoint + 2
+            krn = kr1 + nbrstr*nwda - 1
             IF ( krn>=l-2 ) THEN
 !
 !     ALL COLUMNS OF A WILL NOT FIT ON THIS PASS.
 !
-               CALL bckrec(Filea(1))
+               CALL bckrec(filea(1))
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -816,34 +816,34 @@ USE ISO_FORTRAN_ENV
 !     MOVE STRING FROM BUFFER TO CORE AND COMPLETE STRING DEFINITION
 !     WORDS
 !
-               IF ( Prc(type)/=2 .OR. Prc(typea)/=1 ) THEN
-                  IF ( Prc(type)==2 ) point = point*2 - 1
+               IF ( prc(type)/=2 .OR. prc(typea)/=1 ) THEN
+                  IF ( prc(type)==2 ) point = point*2 - 1
                   DO ii = kr1 , krn
                      Z(ii) = xns(point)
-                     point = point + Incra
+                     point = point + incra
                   ENDDO
                ELSE
 !
 !  -- THIS CODE NECESSARY FOR UNIVAC DOUBLE PRECISION TO SINGLE PRC.
 !
                   inc = 1
-                  Incra = 1
+                  incra = 1
                   IF ( type==4 ) inc = 2
                   krn = kr1 + nbrstr*inc - 1
                   DO ii = kr1 , krn
-                     Z(ii) = Xnd(point)
-                     point = point + Incra
+                     Z(ii) = xnd(point)
+                     point = point + incra
                   ENDDO
                ENDIF
-               Zz(Apoint) = row
-               Zz(Apoint+1) = nbrstr
+               Zz(apoint) = row
+               Zz(apoint+1) = nbrstr
                Zz(l-1) = Zz(l-1) + 1
-               Apoint = krn + 1
+               apoint = krn + 1
 !
 !     GET NEXT STRING DEFINITION
 !
-               CALL endget(Block)
-               CALL getstr(*120,Block)
+               CALL endget(block)
+               CALL getstr(*120,block)
             ENDIF
          ENDDO
 !
@@ -855,25 +855,24 @@ USE ISO_FORTRAN_ENV
 !     ROW HERE ARE STILL VALID. OTHERWISE THEY MUST BE SAVED FIRST (AT
 !     710) AND USED ON NEXT LINE.
 !
- 120     IF ( mt4==2 ) Zz(l-1) = orf(Zz(l-1),lshift(row+nbrstr-1,Ihalf))
+ 120     IF ( mt4==2 ) Zz(l-1) = orf(Zz(l-1),lshift(row+nbrstr-1,ihalf))
 !                                    NBR + LAST NON-ZERO TERM COLUMN NO.
 !
          l = l - 2
-         Acol = Acol + 1
-         IF ( Acol<=m ) THEN
+         acol = acol + 1
+         IF ( acol<=m ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     ALL COLUMNS OF A ARE IN - THIS IS THE LAST PASS
 !
-         Acoln = m
-         CALL close(Filea(1),Clsrew)
+         acoln = m
+         CALL close(filea(1),clsrew)
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
-         CALL close(Filea(1),Cls)
-         Acoln = Acol - 1
+         CALL close(filea(1),cls)
+         acoln = acol - 1
          spag_nextblock_1 = 13
       CASE (13)
 !
@@ -884,13 +883,13 @@ USE ISO_FORTRAN_ENV
 !
          IF ( cfile/=0 ) THEN
             file = cfile
-            CALL open(*80,cfile,Z(buf1),Rdrew)
+            CALL open(*80,cfile,Z(buf1),rdrew)
             CALL fwdrec(*100,cfile)
          ENDIF
-         file = Fileb(1)
-         CALL open(*80,Fileb(1),Z(buf2),Rdrew)
-         CALL fwdrec(*100,Fileb(1))
-         Bcol = 1
+         file = fileb(1)
+         CALL open(*80,fileb(1),Z(buf2),rdrew)
+         CALL fwdrec(*100,fileb(1))
+         bcol = 1
          spag_nextblock_1 = 14
       CASE (14)
          IF ( mt2==1 ) THEN
@@ -902,31 +901,31 @@ USE ISO_FORTRAN_ENV
 !     UNPACK A COLUMN OF B IN CORE. IF NULL, COPY COLUMN FROM C TO D.
 !     INITIATE INTERPRETATION OF A COLUMN OF C.
 !
-            CALL bldpk(Typed,typd,dfile,0,0)
-            Typebd = typeb*Signab
-            Pp2 = r
-            CALL unpack(*180,Fileb(1),Z)
-            Eol = 1
-            Crow = 16777215
+            CALL bldpk(typed,typd,dfile,0,0)
+            typebd = typeb*signab
+            pp2 = r
+            CALL unpack(*180,fileb(1),Z)
+            eol = 1
+            crow = 16777215
 !            16777215 = 2**24 - 1
 !
             IF ( cfile/=0 ) THEN
                CALL intpk(*200,cfile,0,typec,0)
-               Crow = 0
+               crow = 0
             ENDIF
             GOTO 200
 !
 !     UNPACK A COLUMN OF C.
 !
          ELSEIF ( cfile/=0 ) THEN
-            Typebd = typec
-            IF ( mt4/=0 ) One2 = 1
-            Pp2 = p
+            typebd = typec
+            IF ( mt4/=0 ) one2 = 1
+            pp2 = p
             CALL unpack(*140,cfile,Z)
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 140     DO ii = 1 , Nd
+ 140     DO ii = 1 , nd
             Z(ii) = 0.
          ENDDO
          spag_nextblock_1 = 15
@@ -941,9 +940,9 @@ USE ISO_FORTRAN_ENV
 !     PRODUCTS
 !     D(I,K) = A(I,J)*B(J,K) + C(I,K)
 !
-            Typebd = typeb*Signab
-            One2 = 0
-            CALL unpack(*160,Fileb,Z(jzb))
+            typebd = typeb*signab
+            one2 = 0
+            CALL unpack(*160,fileb,Z(jzb))
 !
 !     WE HAVE HERE -
 !     ACLO1, ACOLN = COLUMNS OF MATRIX A IN CORE
@@ -960,8 +959,8 @@ USE ISO_FORTRAN_ENV
 !     INITIATE INTERPRETATION OF A COLUMN OF B.
 !
 !     ITYPSG = TYPED*SIGNAB
-            itypsg = typeb*Signab
-            CALL intpk(*160,Fileb(1),0,itypsg,0)
+            itypsg = typeb*signab
+            CALL intpk(*160,fileb(1),0,itypsg,0)
 !
 !     FOR EACH NON-ZERO ELEMENT B(I) IN THE CURRENT COLMN OF B SUCH
 !     THAT FOR I.GE.ACOL1 .AND I.LE.ACOLN, FORM ALL PRODUCTS OF
@@ -973,7 +972,7 @@ USE ISO_FORTRAN_ENV
 !     PACK CURRENT COLUMN ONTO DFILE FOR BOTH 2NT AND 4T METHOD, AND
 !     GO TO TEST FOR END OF PASS.
 !
- 160     CALL pack(Z,dfile,Filed)
+ 160     CALL pack(Z,dfile,filed)
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
  180     IF ( cfile==0 ) GOTO 220
@@ -981,17 +980,17 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 16
       CASE (16)
          CALL zntpki
-         Crow = Ip
+         crow = ip
          spag_nextblock_1 = 17
       CASE (17)
-         DO ii = 1 , Nwdd
-            D(ii) = A(ii)
+         DO ii = 1 , nwdd
+            d(ii) = a(ii)
          ENDDO
-         Drow = Crow
+         drow = crow
          CALL zblpki
          spag_nextblock_1 = 18
       CASE (18)
-         IF ( Eol==0 ) THEN
+         IF ( eol==0 ) THEN
             spag_nextblock_1 = 16
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -1000,8 +999,8 @@ USE ISO_FORTRAN_ENV
 !     FOR ALL NON-NULL ROWS OF A IN CORE, FORM A(I,J)*B(J) + C(I)
 !
  200     CALL mpy2tv(Zz,Z,Zd)
-         IF ( arown/=m .AND. Crow/=16777215 ) THEN
-            IF ( Crow>arown ) THEN
+         IF ( arown/=m .AND. crow/=16777215 ) THEN
+            IF ( crow>arown ) THEN
                spag_nextblock_1 = 17
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -1011,7 +1010,7 @@ USE ISO_FORTRAN_ENV
 !
 !     TERMINATE CURRENT COLUMN OF D.
 !
- 220     CALL bldpkn(dfile,0,Filed)
+ 220     CALL bldpkn(dfile,0,filed)
          spag_nextblock_1 = 19
       CASE (19)
 !
@@ -1019,30 +1018,29 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FOR COMPLETION OF PASS. IF COMPLETE, TEST ALL PASSES.
 !
-         Bcol = Bcol + 1
-         IF ( Bcol<=q ) THEN
+         bcol = bcol + 1
+         IF ( bcol<=q ) THEN
             spag_nextblock_1 = 14
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL close(Fileb,Clsrew)
-         IF ( cfile/=0 ) CALL close(cfile,Clsrew)
-         CALL close(dfile,Clsrew)
-         IF ( Acoln==m ) THEN
+         CALL close(fileb,clsrew)
+         IF ( cfile/=0 ) CALL close(cfile,clsrew)
+         CALL close(dfile,clsrew)
+         IF ( acoln==m ) THEN
 !
 !     LAST PASS -
 !     MAKE SURE D MATRIX IS ON PROPER FILE.
 !     IF NOT, SWITCH FIST AND FIAT UNIT NBRS IN /XFIAT/
 !
-            IF ( dfile/=Filed(1) ) CALL filswi(dfile,Filed)
+            IF ( dfile/=filed(1) ) CALL filswi(dfile,filed)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     NOT LAST PASS - SWITCH C AND D FILES AND CONTINUE
 !
-            opa = Rd
-            typec = Typed
-            IF ( Acol1==1 ) THEN
+            opa = rd
+            typec = typed
+            IF ( acol1==1 ) THEN
                cfile = dfile
                dfile = efile
             ELSE
@@ -1050,9 +1048,8 @@ USE ISO_FORTRAN_ENV
                cfile = dfile
                dfile = k
             ENDIF
-            Acol1 = Acoln + 1
+            acol1 = acoln + 1
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (20)
 !
@@ -1068,65 +1065,65 @@ USE ISO_FORTRAN_ENV
 !     ==============================
 !
          WRITE (nout,99009) method(5) , mpass3 , time3
-         Block(1) = Fileb(1)
-         Acore = orf(Nd+1,1)
-         cfile = Scrtch
-         dfile = Filed(1)
+         block(1) = fileb(1)
+         acore = orf(nd+1,1)
+         cfile = scrtch
+         dfile = filed(1)
          IF ( mod(mpass3,2)==0 ) THEN
-            cfile = Filed(1)
-            dfile = Scrtch
+            cfile = filed(1)
+            dfile = scrtch
          ENDIF
          arow1 = 1
          last = .FALSE.
-         opa = Rdrew
+         opa = rdrew
          DO
 !
 !     BEGIN PASS BY FILLING CORE WITH UNPACKED COLUMNS OF A
 !
             arown = min0(arow1+nbrrow-1,m)
             IF ( arown==m ) last = .TRUE.
-            CALL gopen(Filea,Z(buf1),opa)
-            Typebd = typea*Signab
-            Pp2 = n
-            Apoint = Acore
+            CALL gopen(filea,Z(buf1),opa)
+            typebd = typea*signab
+            pp2 = n
+            apoint = acore
             DO arow = arow1 , arown
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
                   CASE (1)
-                     CALL unpack(*222,Filea,Z(Apoint))
+                     CALL unpack(*222,filea,Z(apoint))
                      spag_nextblock_3 = 2
                      CYCLE SPAG_DispatchLoop_3
- 222                 k2 = Apoint + Na - 1
-                     DO ii = Apoint , k2
+ 222                 k2 = apoint + na - 1
+                     DO ii = apoint , k2
                         Z(ii) = 0.
                      ENDDO
                      spag_nextblock_3 = 2
                   CASE (2)
-                     Apoint = Apoint + Na
+                     apoint = apoint + na
                      EXIT SPAG_DispatchLoop_3
                   END SELECT
                ENDDO SPAG_DispatchLoop_3
             ENDDO
-            ii = Cls
-            IF ( last ) ii = Clsrew
-            CALL close(Filea,ii)
-            Incra = (arown-arow1)*Na
+            ii = cls
+            IF ( last ) ii = clsrew
+            CALL close(filea,ii)
+            incra = (arown-arow1)*na
 !
 !     PREPARE TO PASS B MATRIX AND C MATRIX FROM LAST PASS
 !
-            IF ( arow1/=1 ) CALL gopen(cfile,Z(buf2),Rdrew)
-            CALL gopen(dfile,Z(buf3),Wrtrew)
-            CALL gopen(Fileb,Z(buf1),Rdrew)
-            IF ( last .AND. Filec(1)/=0 ) CALL gopen(Filec,Z(buf4),Rdrew)
-            Filed(2) = 0
-            Filed(6) = 0
-            Filed(7) = 0
-            Typebd = Typed
-            Pp2 = arown
-            k2 = arown*Nwdd
+            IF ( arow1/=1 ) CALL gopen(cfile,Z(buf2),rdrew)
+            CALL gopen(dfile,Z(buf3),wrtrew)
+            CALL gopen(fileb,Z(buf1),rdrew)
+            IF ( last .AND. filec(1)/=0 ) CALL gopen(filec,Z(buf4),rdrew)
+            filed(2) = 0
+            filed(6) = 0
+            filed(7) = 0
+            typebd = typed
+            pp2 = arown
+            k2 = arown*nwdd
 !
-            DO Bcol = 1 , q
+            DO bcol = 1 , q
                spag_nextblock_4 = 1
                SPAG_DispatchLoop_4: DO
                   SELECT CASE (spag_nextblock_4)
@@ -1154,39 +1151,39 @@ USE ISO_FORTRAN_ENV
 !
 !     LAST PASS - ADD COLUMN FROM C MATRIX (IF PRESENT)
 !
-                     IF ( Filec(1)/=0 ) THEN
-                        itypsg = Typed*Signc
-                        CALL intpk(*226,Filec,0,itypsg,0)
+                     IF ( filec(1)/=0 ) THEN
+                        itypsg = typed*signc
+                        CALL intpk(*226,filec,0,itypsg,0)
                         null = .FALSE.
                         SPAG_Loop_3_2: DO
                            CALL zntpki
-                           IF ( Typed==2 ) THEN
-                              Zd(Ip) = Zd(Ip) + ad(1)
-                           ELSEIF ( Typed==3 ) THEN
-                              Z(2*Ip-1) = Z(2*Ip-1) + A(1)
-                              Z(2*Ip) = Z(2*Ip) + A(2)
-                           ELSEIF ( Typed==4 ) THEN
-                              Zd(2*Ip-1) = Zd(2*Ip-1) + ad(1)
-                              Zd(2*Ip) = Zd(2*Ip) + ad(2)
+                           IF ( typed==2 ) THEN
+                              Zd(ip) = Zd(ip) + ad(1)
+                           ELSEIF ( typed==3 ) THEN
+                              Z(2*ip-1) = Z(2*ip-1) + a(1)
+                              Z(2*ip) = Z(2*ip) + a(2)
+                           ELSEIF ( typed==4 ) THEN
+                              Zd(2*ip-1) = Zd(2*ip-1) + ad(1)
+                              Zd(2*ip) = Zd(2*ip) + ad(2)
                            ELSE
-                              Z(Ip) = Z(Ip) + A(1)
+                              Z(ip) = Z(ip) + a(1)
                            ENDIF
-                           IF ( Eol/=0 ) EXIT SPAG_Loop_3_2
+                           IF ( eol/=0 ) EXIT SPAG_Loop_3_2
                         ENDDO SPAG_Loop_3_2
                      ENDIF
 !
 !     FOR EACH NON-ZERO TERM B(J) IN THE CURRENT COLUMN OF B FORM
 !     D(I,K) = D(I,K) + A(I,J)*B(J,K)
 !
- 226                 CALL mpy3t(*228,Z(Acore),Z(Acore),Z(1),Z(1))
+ 226                 CALL mpy3t(*228,Z(acore),Z(acore),Z(1),Z(1))
                      spag_nextblock_4 = 3
                      CYCLE SPAG_DispatchLoop_4
 !
 !     PACK NULL COLUMN
 !
  228                 IF ( null ) THEN
-                        Pp1 = 1
-                        CALL pack(zero,dfile,Filed)
+                        pp1 = 1
+                        CALL pack(zero,dfile,filed)
                         CYCLE
                      ENDIF
                      spag_nextblock_4 = 3
@@ -1194,8 +1191,8 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK NON-NULL COLUMN
 !
-                     Pp1 = arown
-                     CALL pack(Z,dfile,Filed)
+                     pp1 = arown
+                     CALL pack(Z,dfile,filed)
                      EXIT SPAG_DispatchLoop_4
                   END SELECT
                ENDDO SPAG_DispatchLoop_4
@@ -1204,14 +1201,14 @@ USE ISO_FORTRAN_ENV
 !
             ENDDO
 !
-            IF ( arow1/=1 ) CALL close(cfile,Clsrew)
-            CALL close(dfile,Clsrew)
-            CALL close(Fileb,Clsrew)
+            IF ( arow1/=1 ) CALL close(cfile,clsrew)
+            CALL close(dfile,clsrew)
+            CALL close(fileb,clsrew)
             IF ( last ) THEN
 !
 !     LAST PASS - SIGNAL END AND RETURN
 !
-               IF ( Filec(1)/=0 ) CALL close(Filec,Clsrew)
+               IF ( filec(1)/=0 ) CALL close(filec,clsrew)
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -1222,7 +1219,7 @@ USE ISO_FORTRAN_ENV
                cfile = dfile
                dfile = ii
                arow1 = arown + 1
-               opa = Rd
+               opa = rd
             ENDIF
          ENDDO
          EXIT SPAG_DispatchLoop_1

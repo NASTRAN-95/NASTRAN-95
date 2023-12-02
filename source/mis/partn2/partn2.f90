@@ -1,13 +1,14 @@
-!*==partn2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==partn2.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE partn2(Cp,Rp,Core,Buf)
+   USE c_blank
+   USE c_prtmrg
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PRTMRG
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -53,43 +54,43 @@ SUBROUTINE partn2(Cp,Rp,Core,Buf)
 !
 !     CONVERT COLUMN PARTITIONING VECTOR TO BIT STRING.
 !
-   Icp = 1
-   Ireqcl = Cpcol
-   CALL partn3(Cp,Cpsize,Cpones,Icp,Ncp,Cphere,Buf,Core)
-   Cpcol = Ireqcl
-   IF ( Cphere ) THEN
-      Irp = Ncp + 1
+   icp = 1
+   ireqcl = cpcol
+   CALL partn3(Cp,cpsize,cpones,icp,ncp,cphere,Buf,Core)
+   cpcol = ireqcl
+   IF ( cphere ) THEN
+      irp = ncp + 1
    ELSE
-      Irp = 1
+      irp = 1
    ENDIF
 !
 !     CONVERT ROW PARTITIONING VECTOR TO BIT STRING.
 !
-   Ireqcl = Rpcol
-   CALL partn3(Rp,Rpsize,Rpones,Irp,Nrp,Rphere,Buf,Core)
-   Rpcol = Ireqcl
+   ireqcl = rpcol
+   CALL partn3(Rp,rpsize,rpones,irp,nrp,rphere,Buf,Core)
+   rpcol = ireqcl
 !
 !     BRANCH ON SYMMETRIC OR  NON-SYMMETRIC DMAP VARIABLE SYM
 !
-   Cpnull = .FALSE.
-   Rpnull = .FALSE.
-   IF ( Sym<0 ) THEN
+   cpnull = .FALSE.
+   rpnull = .FALSE.
+   IF ( sym<0 ) THEN
 !
 !     DMAP USER CLAIMS SYMMETRIC INPUT AND OUTPUT
 !
-      IF ( Cphere ) THEN
+      IF ( cphere ) THEN
 !
 !     -CP- IS NOT PURGED.  IF -RP- IS PURGED IT IS SET EQUAL TO -CP-.
 !
-         IF ( Rphere ) THEN
+         IF ( rphere ) THEN
 !
 !     BOTH -RP- AND -CP- ARE PRESENT AND SINCE USER HAS SPECIFIED A
 !     SYMMETRIC OUTPUT PARTITION IS DESIRED THE NUMBER OF
 !     NON-ZEROS IN-CP- MUST EQUAL THE NUMBER OF NON-ZEROS IN -RP- FOR NO
 !     ERROR HERE.
 !
-            IF ( Cpones/=Rpones .OR. Cpsize/=Rpsize ) THEN
-               WRITE (Outpt,99001) Swm , Cp , Rp
+            IF ( cpones/=rpones .OR. cpsize/=rpsize ) THEN
+               WRITE (outpt,99001) swm , Cp , Rp
 99001          FORMAT (A27,' 2171, SYM FLAG INDICATES TO THE PARTITION OR MERGE',' MODULE THAT A SYMMETRIC MATRIX IS TO BE',/5X,    &
                       &' OUTPUT.  THE PARTITIONING VECTORS',2I4,' HOWEVER DO NOT',                                                  &
                       &' CONTAIN AN IDENTICAL NUMBER OF ZEROS AND NON-ZEROS.')
@@ -97,10 +98,10 @@ SUBROUTINE partn2(Cp,Rp,Core,Buf)
 !
 !     CHECK FOR ORDER OF ONES IN ROW AND COLUMN PARTITIONING VECTOR.
 !
-            IF ( Cpsize==Rpsize ) THEN
-               j = Irp
-               DO i = Icp , Ncp
-                  IF ( Z(i)/=Z(j) ) THEN
+            IF ( cpsize==rpsize ) THEN
+               j = irp
+               DO i = icp , ncp
+                  IF ( z(i)/=z(j) ) THEN
                      CALL spag_block_2
                      RETURN
                   ENDIF
@@ -108,50 +109,50 @@ SUBROUTINE partn2(Cp,Rp,Core,Buf)
                ENDDO
             ENDIF
          ELSE
-            Irp = Icp
-            Nrp = Ncp
-            Rpones = Cpones
-            Rpsize = Cpsize
+            irp = icp
+            nrp = ncp
+            rpones = cpones
+            rpsize = cpsize
          ENDIF
          RETURN
 !
 !     -CP- IS PURGED.  CHECK FOR -RP- PURGED (ERROR), AND IF NOT SET
 !     -CP- BITS EQUAL TO -RP- BITS
 !
-      ELSEIF ( Rphere ) THEN
+      ELSEIF ( rphere ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
 !
 !     DMAP USER DOES NOT REQUIRE SYMMETRY
 !
-   ELSEIF ( Cphere ) THEN
+   ELSEIF ( cphere ) THEN
 !
 !     -CP- NOT PURGED.  IF -RP- IS PURGED SET IT NULL.
 !
-      IF ( .NOT.(Rphere) ) THEN
-         Rpnull = .TRUE.
-         Nrp = Irp - 1
-         Rpsize = 0
-         Rpones = 0
+      IF ( .NOT.(rphere) ) THEN
+         rpnull = .TRUE.
+         nrp = irp - 1
+         rpsize = 0
+         rpones = 0
       ENDIF
       RETURN
 !
 !     -CP- IS PURGED.  THUS -RP- MUST BE PRESENT FOR NO ERROR.
 !
-   ELSEIF ( Rphere ) THEN
+   ELSEIF ( rphere ) THEN
 !
 !     SET CP-ONES EQUAL TO 0 AND CPSIZE = 0
 !
-      Cpnull = .TRUE.
-      Cpsize = 0
-      Cpones = 0
+      cpnull = .TRUE.
+      cpsize = 0
+      cpones = 0
       RETURN
    ENDIF
 !
 !     BOTH -RP- AND -CP- PURGED AND -A- IS NOT PURGED (ERROR).
 !
-   WRITE (Outpt,99002) Sfm
+   WRITE (outpt,99002) sfm
 99002 FORMAT (A25,' 2170, BOTH THE ROW AND COLUMN PARTITIONING VECTORS',' ARE PURGED AND ONLY ONE MAY BE.')
    CALL mesage(-61,0,subr)
    CALL spag_block_1
@@ -164,14 +165,13 @@ CONTAINS
       Ncp = Nrp
       Cpones = Rpones
       Cpsize = Rpsize
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     ROW AND COLUMN PARTITIONING VECTORS DO NOT HAVE SAME ORDER.
 !
-      WRITE (Outpt,99003) Swm
-99003 FORMAT (A27,' 2172, ROW AND COLUMN PARTITIONING VECTORS DO NOT ','HAVE IDENTICAL ORDERING OF ZERO',/5X,' AND NON-ZERO ',      &
+      WRITE (Outpt,99001) Swm
+99001 FORMAT (A27,' 2172, ROW AND COLUMN PARTITIONING VECTORS DO NOT ','HAVE IDENTICAL ORDERING OF ZERO',/5X,' AND NON-ZERO ',      &
              &'ELEMENTS, AND SYM FLAG INDICATES THAT A SYMMETRIC ','PARTITION OR MERGE IS TO BE PERFORMED.')
    END SUBROUTINE spag_block_2
 END SUBROUTINE partn2

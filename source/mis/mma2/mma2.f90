@@ -1,15 +1,16 @@
-!*==mma2.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mma2(Zi,Zr,Zd,Zc,Zdc)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,6 +27,9 @@ SUBROUTINE mma2(Zi,Zr,Zd,Zc,Zdc)
             & nctype , ndc , nddens , ndform , ndnzwd , ndr , ndtype , nout , npass , sysbuf
    INTEGER , SAVE :: jbegn , jend , kone , kzero
    INTEGER , DIMENSION(3) , SAVE :: module
+   INTEGER :: spag_nextblock_1
+   INTEGER :: spag_nextblock_2
+   INTEGER :: spag_nextblock_3
 !
 ! End of declarations rewritten by SPAG
 !
@@ -57,11 +61,11 @@ SUBROUTINE mma2(Zi,Zr,Zd,Zc,Zdc)
    IF ( nastor==2 .OR. ksys58==21 ) module(2) = kone
    module(3) = jbegn
    CALL conmsg(module,3,0)
-   Incru = 1
-   Typei = ndtype
-   Typep = ndtype
-   nwdd = Nwords(ndtype)
-   irfile = Filea(1)
+   incru = 1
+   typei = ndtype
+   typep = ndtype
+   nwdd = nwords(ndtype)
+   irfile = filea(1)
 !
 !   OPEN CORE ALLOCATION AS FOLLOWS:
 !     Z( 1        ) = ARRAY FOR ONE COLUMN OF "A" MATRIX
@@ -90,26 +94,26 @@ SUBROUTINE mma2(Zi,Zr,Zd,Zc,Zdc)
    ENDIF
    idx2 = ((idx+1)/2) - 1
    idx4 = (idx+1)/4
-   ibuf1 = Nz - sysbuf
+   ibuf1 = nz - sysbuf
    ibuf2 = ibuf1 - sysbuf
-   IF ( Filec(1)==0 ) THEN
+   IF ( filec(1)==0 ) THEN
       ibuf4 = ibuf2 - sysbuf
    ELSE
       ibuf3 = ibuf2 - sysbuf
       ibuf4 = ibuf3 - sysbuf
    ENDIF
    lasmem = ibuf4 - 1
-   Iprow1 = 1
-   Iprown = ndr
-   Incrp = 1
+   iprow1 = 1
+   iprown = ndr
+   incrp = 1
    sign = 1.0
-   CALL gopen(Filea,Zr(ibuf1),Rdrew)
-   CALL gopen(Fileb,Zr(ibuf2),Rdrew)
-   IF ( Filec(1)/=0 ) CALL gopen(Filec,Zr(ibuf3),Rdrew)
-   CALL gopen(Filed,Zr(ibuf4),Wrtrew)
-   Filed(2) = 0
-   Filed(6) = 0
-   Filed(7) = 0
+   CALL gopen(filea,Zr(ibuf1),rdrew)
+   CALL gopen(fileb,Zr(ibuf2),rdrew)
+   IF ( filec(1)/=0 ) CALL gopen(filec,Zr(ibuf3),rdrew)
+   CALL gopen(filed,Zr(ibuf4),wrtrew)
+   filed(2) = 0
+   filed(6) = 0
+   filed(7) = 0
 !
 !   DETERMINE HOW MANY COLUMNS OF "B" CAN BE READ INTO MEMORY AND HOW
 !   MANY COLUMNS OF "D" CAN BE HELD IN MEMORY FOR ONE PASS
@@ -127,71 +131,103 @@ SUBROUTINE mma2(Zi,Zr,Zd,Zc,Zdc)
    npass = ((nbc-1)/ncolpp) + 1
    ibx = idx + ncolpp*nwddndr
    DO m = 1 , npass
-      ipass = m
-      IF ( m==npass ) ncolpp = nbc - (ncolpp*(npass-1))
-      CALL rewind(Filea)
-      CALL skprec(Filea,1)
-      indxb = ibx
-      indxd = idx
-      Typeu = ndtype*Signab
-      DO i = 1 , ncolpp
-         Iurow1 = -1
-         CALL unpack(*20,Fileb,Zr(indxb+2))
-         Zi(indxb) = Iurow1
-         Zi(indxb+1) = Iurown
-         GOTO 40
+      spag_nextblock_1 = 1
+      SPAG_DispatchLoop_1: DO
+         SELECT CASE (spag_nextblock_1)
+         CASE (1)
+            ipass = m
+            IF ( m==npass ) ncolpp = nbc - (ncolpp*(npass-1))
+            CALL rewind(filea)
+            CALL skprec(filea,1)
+            indxb = ibx
+            indxd = idx
+            typeu = ndtype*signab
+            DO i = 1 , ncolpp
+               spag_nextblock_2 = 1
+               SPAG_DispatchLoop_2: DO
+                  SELECT CASE (spag_nextblock_2)
+                  CASE (1)
+                     iurow1 = -1
+                     CALL unpack(*2,fileb,Zr(indxb+2))
+                     Zi(indxb) = iurow1
+                     Zi(indxb+1) = iurown
+                     spag_nextblock_2 = 2
+                     CYCLE SPAG_DispatchLoop_2
 ! NULL COLUMN READ ON "B"
- 20      Zi(indxb) = 0
-         Zi(indxb+1) = 0
- 40      indxb = indxb + nwddnbr + 2
-      ENDDO
-      IF ( Filec(1)==0 .OR. Signc==0 ) THEN
+ 2                   Zi(indxb) = 0
+                     Zi(indxb+1) = 0
+                     spag_nextblock_2 = 2
+                  CASE (2)
+                     indxb = indxb + nwddnbr + 2
+                     EXIT SPAG_DispatchLoop_2
+                  END SELECT
+               ENDDO SPAG_DispatchLoop_2
+            ENDDO
+            IF ( filec(1)==0 .OR. signc==0 ) THEN
 !
 ! "C" MATRIX IS NULL OR "SIGNC" IS ZERO
 !
-         len = idx + ncolpp*nwddndr - 1
-         DO k = idx , len
-            Zr(k) = 0.
-         ENDDO
-      ELSE
-         Typeu = ndtype*Signc
-         Iurow1 = 1
-         Iurown = ncr
-         DO i = 1 , ncolpp
-            CALL unpack(*50,Filec,Zr(indxd))
-            GOTO 60
+               len = idx + ncolpp*nwddndr - 1
+               DO k = idx , len
+                  Zr(k) = 0.
+               ENDDO
+            ELSE
+               typeu = ndtype*signc
+               iurow1 = 1
+               iurown = ncr
+               DO i = 1 , ncolpp
+                  spag_nextblock_3 = 1
+                  SPAG_DispatchLoop_3: DO
+                     SELECT CASE (spag_nextblock_3)
+                     CASE (1)
+                        CALL unpack(*4,filec,Zr(indxd))
+                        spag_nextblock_3 = 2
+                        CYCLE SPAG_DispatchLoop_3
 !
 ! NULL COLUMN READ ON "C"
 !
- 50         len = indxd + nwddndr - 1
-            DO k = indxd , len
-               Zr(k) = 0.0
-            ENDDO
- 60         indxd = indxd + nwddndr
-         ENDDO
-      ENDIF
+ 4                      len = indxd + nwddndr - 1
+                        DO k = indxd , len
+                           Zr(k) = 0.0
+                        ENDDO
+                        spag_nextblock_3 = 2
+                     CASE (2)
+                        indxd = indxd + nwddndr
+                        EXIT SPAG_DispatchLoop_3
+                     END SELECT
+                  ENDDO SPAG_DispatchLoop_3
+               ENDDO
+            ENDIF
 !
 ! PROCESS ALL OF THE COLUMNS OF "A"
 !
-      IF ( ksys58/=21 ) THEN
-         IF ( ksys58/=20 ) THEN
-            IF ( nastor==2 ) GOTO 100
-         ENDIF
-         IF ( ndtype==1 ) CALL mma201(Zi,Zr)
-         IF ( ndtype==2 ) CALL mma202(Zi,Zd)
-         IF ( ndtype==3 ) CALL mma203(Zi,Zc)
-         IF ( ndtype==4 ) CALL mma204(Zi,Zd,Zdc)
-         CYCLE
-      ENDIF
- 100  IF ( ndtype==1 ) CALL mma211(Zi,Zr)
-      IF ( ndtype==2 ) CALL mma212(Zi,Zd)
-      IF ( ndtype==3 ) CALL mma213(Zi,Zc)
-      IF ( ndtype==4 ) CALL mma214(Zi,Zd,Zdc)
+            IF ( ksys58/=21 ) THEN
+               IF ( ksys58/=20 ) THEN
+                  IF ( nastor==2 ) THEN
+                     spag_nextblock_1 = 2
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+               ENDIF
+               IF ( ndtype==1 ) CALL mma201(Zi,Zr)
+               IF ( ndtype==2 ) CALL mma202(Zi,Zd)
+               IF ( ndtype==3 ) CALL mma203(Zi,Zc)
+               IF ( ndtype==4 ) CALL mma204(Zi,Zd,Zdc)
+               CYCLE
+            ENDIF
+            spag_nextblock_1 = 2
+         CASE (2)
+            IF ( ndtype==1 ) CALL mma211(Zi,Zr)
+            IF ( ndtype==2 ) CALL mma212(Zi,Zd)
+            IF ( ndtype==3 ) CALL mma213(Zi,Zc)
+            IF ( ndtype==4 ) CALL mma214(Zi,Zd,Zdc)
+            EXIT SPAG_DispatchLoop_1
+         END SELECT
+      ENDDO SPAG_DispatchLoop_1
    ENDDO
-   CALL close(Filea,Clsrew)
-   CALL close(Fileb,Clsrew)
-   CALL close(Filec,Clsrew)
-   CALL close(Filed,Clsrew)
+   CALL close(filea,clsrew)
+   CALL close(fileb,clsrew)
+   CALL close(filec,clsrew)
+   CALL close(filed,clsrew)
    module(3) = jend
    CALL conmsg(module,3,0)
 END SUBROUTINE mma2

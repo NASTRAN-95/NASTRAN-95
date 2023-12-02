@@ -1,11 +1,12 @@
-!*==pload.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pload.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pload
+   USE c_loadx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -35,14 +36,14 @@ SUBROUTINE pload
          DO i = 1 , 3
             ploads(i,4) = 0.0
          ENDDO
-         CALL read(*20,*20,Slt,gridp(1),5,0,flag)
+         CALL read(*20,*20,slt,gridp(1),5,0,flag)
          pont(1) = gridp(2)
          pont(2) = gridp(3)
          pont(3) = gridp(4)
          pont(4) = gridp(5)
          n1 = 4
          IF ( gridp(5)==0 ) n1 = 3
-         CALL permut(pont(1),iord(1),n1,Old)
+         CALL permut(pont(1),iord(1),n1,old)
          DO i = 1 , n1
             l = iord(i)
             CALL fndpnt(igpco(1,l),pont(l))
@@ -125,7 +126,7 @@ SUBROUTINE pload
                ENDDO
             ENDDO
 !
-            IF ( Ksys88==1 ) THEN
+            IF ( ksys88==1 ) THEN
 !
 !     IMPLEMENTED BY G.CHAN/UNISYS   3/1990
 !     KSYS88 = 1, PRESSURE LOAD IS DISTRIBUTED PROPORTIONALLY TO THE
@@ -191,16 +192,15 @@ SUBROUTINE pload
             CALL fndsil(pont(i))
             DO j = 1 , 3
                in = pont(i) + j - 1
-               Core(in) = ploads(j,i) + Core(in)
+               core(in) = ploads(j,i) + core(in)
             ENDDO
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
          RETURN
 !
- 20      CALL mesage(-1,Slt,name)
+ 20      CALL mesage(-1,slt,name)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE pload

@@ -1,10 +1,11 @@
-!*==mmarc1.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mmarc1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
  
 SUBROUTINE mmarc1(Zi,Zr)
+   USE i_mmacom
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -59,7 +60,7 @@ SUBROUTINE mmarc1(Zi,Zr)
       Zi(mem+1) = ntms
       mem = mem + 1
       DO ii = 1 , ntms
-         Zr(mem+ii) = sign*Rxl(index+ii-1)
+         Zr(mem+ii) = sign*rxl(index+ii-1)
       ENDDO
       mem = mem + 1 + ntms
       CALL endget(iblk)

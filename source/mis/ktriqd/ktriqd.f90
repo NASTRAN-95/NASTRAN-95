@@ -1,13 +1,14 @@
-!*==ktriqd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ktriqd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ktriqd(Ntype)
+   USE c_blank
+   USE c_matout
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MATOUT
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SMA1HT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -94,7 +95,7 @@ SUBROUTINE ktriqd(Ntype)
 !     SAVE THE INCOMING ECPT
 !
    DO i = 1 , 32
-      save(i) = Ecpt(i)
+      save(i) = ecpt(i)
    ENDDO
 !
 !     TRANSFER TO OPERATIONS DESIRED
@@ -115,17 +116,17 @@ SUBROUTINE ktriqd(Ntype)
 !     SET UP ECPT FOR CALL TO KTQPLT (3)
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
-         Ecpt(7) = save(7)**3/12.0
-         Ecpt(8) = save(6)
-         Ecpt(9) = save(7)
-         Ecpt(10) = save(8)
+         ecpt(7) = save(7)**3/12.0
+         ecpt(8) = save(6)
+         ecpt(9) = save(7)
+         ecpt(10) = save(8)
          DO i = 13 , 25
-            Ecpt(i) = save(i-4)
+            ecpt(i) = save(i-4)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL ktrplt
+         IF ( .NOT.heat ) CALL ktrplt
       ENDIF
    ELSEIF ( Ntype==3 ) THEN
 !
@@ -135,9 +136,9 @@ SUBROUTINE ktriqd(Ntype)
 !
 !     SET UP ECPT FOR CALL TO KQDMEM
 !
-         Ecpt(9) = save(13)
+         ecpt(9) = save(13)
          DO i = 10 , 26
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL kqdmem
@@ -148,13 +149,13 @@ SUBROUTINE ktriqd(Ntype)
 !     SET UP ECPT FOR CALL TO KTQPLT (4)
 !
          DO i = 1 , 6
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
          DO i = 7 , 30
-            Ecpt(i) = save(i+2)
+            ecpt(i) = save(i+2)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL kqdplt
+         IF ( .NOT.heat ) CALL kqdplt
       ENDIF
    ELSEIF ( Ntype==4 ) THEN
 !
@@ -181,17 +182,17 @@ SUBROUTINE ktriqd(Ntype)
 !     SET UP ECPT FOR CALL TO KTQPLT (4)
 !
          DO i = 1 , 7
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
-         Ecpt(8) = save(8)**3/12.0
-         Ecpt(9) = save(7)
-         Ecpt(10) = save(8)
-         Ecpt(11) = save(9)
+         ecpt(8) = save(8)**3/12.0
+         ecpt(9) = save(7)
+         ecpt(10) = save(8)
+         ecpt(11) = save(9)
          DO i = 14 , 30
-            Ecpt(i) = save(i-4)
+            ecpt(i) = save(i-4)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL kqdplt
+         IF ( .NOT.heat ) CALL kqdplt
       ENDIF
    ELSE
 !
@@ -201,7 +202,7 @@ SUBROUTINE ktriqd(Ntype)
 !
       IF ( save(7)/=0.0 ) THEN
          DO i = 9 , 21
-            Ecpt(i) = save(i+6)
+            ecpt(i) = save(i+6)
          ENDDO
 !
          CALL ktrmem(0)
@@ -211,13 +212,13 @@ SUBROUTINE ktriqd(Ntype)
 !
       IF ( save(9)/=0.0 ) THEN
          DO i = 1 , 5
-            Ecpt(i) = save(i)
+            ecpt(i) = save(i)
          ENDDO
          DO i = 6 , 25
-            Ecpt(i) = save(i+2)
+            ecpt(i) = save(i+2)
          ENDDO
 !
-         IF ( .NOT.Heat ) CALL ktrplt
+         IF ( .NOT.heat ) CALL ktrplt
       ENDIF
    ENDIF
 !
@@ -225,7 +226,7 @@ SUBROUTINE ktriqd(Ntype)
 !     SAVE ELEMENT NAME, ID, THICKNESS, DENSITY, NO. OF GRID POINTS,
 !     AND GRID PT DATA IF USER REQUESTED VOLUME AND AREA COMPUTATION
 !
-   IF ( .NOT.(Heat .OR. (Volume<=0.0 .AND. Surfac<=0.0)) ) THEN
+   IF ( .NOT.(heat .OR. (volume<=0.0 .AND. surfac<=0.0)) ) THEN
       IF ( save(1)/=old ) THEN
          old = save(1)
          ngpt = 3
@@ -234,14 +235,14 @@ SUBROUTINE ktriqd(Ntype)
       ENDIF
       kount = kount + 1
       IF ( kount>=ngpt ) THEN
-         Ecpt(2) = save(7)
-         Ecpt(3) = Rho
+         ecpt(2) = save(7)
+         ecpt(3) = rho
          iecpt(4) = ngpt
          i = bgpdt(Ntype)
          k = ngpt*4
-         IF ( Ntype>=3 ) Ecpt(2) = save(8)
+         IF ( Ntype>=3 ) ecpt(2) = save(8)
          CALL write(scr4,bcd(1,Ntype),2,0)
-         CALL write(scr4,Ecpt(1),4,0)
+         CALL write(scr4,ecpt(1),4,0)
          CALL write(scr4,save(2),ngpt,0)
          CALL write(scr4,save(i),k,1)
       ENDIF

@@ -1,11 +1,12 @@
-!*==exlvl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==exlvl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE exlvl(Nos,Md,Name,Z,Nwds)
+   USE c_sof
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SOF
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,7 +52,7 @@ SUBROUTINE exlvl(Nos,Md,Name,Z,Nwds)
 !
 !     SUBSTRUCTURE ADDED TO SOF SUCCESSFULLY
 !
-               WRITE (Nout,99005) Name
+               WRITE (nout,99005) Name
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -141,9 +142,9 @@ SUBROUTINE exlvl(Nos,Md,Name,Z,Nwds)
 !
          CALL fdsub(Z(2*iss-1),j)
          CALL fmdi(j,i)
-         Buf(i+1) = lshift(tp,20)
-         Buf(i+2) = m
-         Mdiup = .TRUE.
+         buf(i+1) = lshift(tp,20)
+         buf(i+2) = m
+         mdiup = .TRUE.
 !
 !     WRITE USER MESSAGES
 !
@@ -152,26 +153,26 @@ SUBROUTINE exlvl(Nos,Md,Name,Z,Nwds)
          IF ( cs/=0 ) nl = nl + 1
          IF ( hl/=0 ) nl = nl + 1
          IF ( ps/=0 ) nl = nl + 3
-         IF ( Line+nl>Nlpp ) CALL page
-         Line = Line + nl
-         WRITE (Nout,99005) Z(2*iss-1) , Z(2*iss)
+         IF ( line+nl>nlpp ) CALL page
+         line = line + nl
+         WRITE (nout,99005) Z(2*iss-1) , Z(2*iss)
          IF ( hl/=0 ) THEN
             CALL fdit(hl,i)
-            WRITE (Nout,99001) Buf(i) , Buf(i+1)
+            WRITE (nout,99001) buf(i) , buf(i+1)
 99001       FORMAT (5X,25HHIGHER LEVEL SUBSTRUCTURE,2X,2A4)
          ENDIF
          IF ( cs/=0 ) THEN
             CALL fdit(cs,i)
-            WRITE (Nout,99002) Buf(i) , Buf(i+1)
+            WRITE (nout,99002) buf(i) , buf(i+1)
 99002       FORMAT (5X,25HCOMBINED SUBSTRUCTURE    ,6(2X,2A4))
          ENDIF
          IF ( ll/=0 ) THEN
             CALL fdit(ll,i)
-            WRITE (Nout,99003) Buf(i) , Buf(i+1)
+            WRITE (nout,99003) buf(i) , buf(i+1)
 99003       FORMAT (5X,25HLOWER LEVEL SUBSTRUCTURE ,7(2X,2A4))
          ENDIF
          IF ( ps/=0 ) THEN
-            WRITE (Nout,99004) Z(2*iss-1) , Z(2*iss)
+            WRITE (nout,99004) Z(2*iss-1) , Z(2*iss)
 99004       FORMAT (49H0*** USER INFORMATION MESSAGE 6359, SUBSTRUCTURE ,2A4,41H WAS ORIGINALLY A SECONDARY SUBSTRUCTURE./36X,      &
                    &42HON THIS SOF, IT IS A PRIMARY SUBSTRUCTURE.)
          ENDIF

@@ -1,16 +1,17 @@
-!*==seemat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==seemat.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE seemat
+   USE c_blank
+   USE c_pltdat
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_xxparm
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PLTDAT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_XXPARM
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -79,16 +80,16 @@ SUBROUTINE seemat
          ncc = 100
          plotit = .FALSE.
          prntit = .TRUE.
-         nlnxx = Nlines
-         IF ( Pp(1)==kpp(1) .AND. Pp(2)==kpp(2) ) THEN
+         nlnxx = nlines
+         IF ( pp(1)==kpp(1) .AND. pp(2)==kpp(2) ) THEN
             plotit = .TRUE.
             prntit = .FALSE.
             table = .FALSE.
-            ncc = Fsize
+            ncc = fsize
             fncc = ncc
             nlnxx = ncc
          ENDIF
-         lcor = korsz(X) - Sysbuf
+         lcor = korsz(x) - sysbuf
 !
          ncc1 = ncc/4
          ncc5 = ncc - 5
@@ -100,25 +101,25 @@ SUBROUTINE seemat
 !
 !     INITIALIZE PLOTTER
 !
-         modid(1) = Modida(1)
-         modid(2) = Modela
-         CALL fndplt(Pltter,Model,modid)
-         Papsiz(1) = Paperx
-         Papsiz(2) = Papery
-         Kamran = 3
+         modid(1) = modida(1)
+         modid(2) = modela
+         CALL fndplt(pltter,model,modid)
+         papsiz(1) = paperx
+         papsiz(2) = papery
+         kamran = 3
          nblkfm = 0
          CALL pltset
-         lcor = lcor - Pltbuf
-         kcor = lcor + Sysbuf + 1
+         lcor = lcor - pltbuf
+         kcor = lcor + sysbuf + 1
          IF ( lcor<=0 ) CALL mesage(-8,sq,seemt)
          bcor = lcor - ncc1
-         IF ( tapbit(Ploter) ) THEN
-            IF ( iabs(Pltype)/=1 ) table = .TRUE.
-            Region(3) = amin1(Axmax,Aymax)
-            Region(4) = Region(3)
-            Axmax = Region(3)
-            Aymax = Region(4)
-            CALL mapset(0,0,1.01*fncc,1.01*fncc,0,0,Axmax,Aymax,2)
+         IF ( tapbit(ploter) ) THEN
+            IF ( iabs(pltype)/=1 ) table = .TRUE.
+            region(3) = amin1(axmax,aymax)
+            region(4) = region(3)
+            axmax = region(3)
+            aymax = region(4)
+            CALL mapset(0,0,1.01*fncc,1.01*fncc,0,0,axmax,aymax,2)
             CALL map(0.005*fncc,0.005*fncc,bllx,blly)
             CALL map(1.005*fncc,0.005*fncc,blrx,blry)
             CALL map(1.005*fncc,1.005*fncc,burx,bury)
@@ -126,11 +127,11 @@ SUBROUTINE seemat
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (Nout,99001) Uwm , Ploter
+            WRITE (nout,99001) uwm , ploter
 99001       FORMAT (A25,' 1704, PLOT FILE -',A4,'- NOT SET UP')
             RETURN
          ENDIF
- 20      CALL mesage(-1,Ploter,seemt)
+ 20      CALL mesage(-1,ploter,seemt)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -143,7 +144,7 @@ SUBROUTINE seemat
                   nam = name(iii)
                   CALL rdtrl(it)
                   IF ( nam<=0 ) CYCLE
-                  CALL gopen(nam,X(lcor+1),0)
+                  CALL gopen(nam,x(lcor+1),0)
                   CALL fname(nam,lbl)
                   sq = .TRUE.
                   IF ( ncols/=nrows ) sq = .FALSE.
@@ -153,9 +154,9 @@ SUBROUTINE seemat
                   nrows1 = nrows + 1
                   IF ( .NOT.(prntit) ) THEN
                      IF ( .NOT.(table) ) THEN
-                        Pfile = Pfile + 1
-                        CALL sopen(*20,Ploter,X(kcor),Pltbuf)
-                        CALL stplot(Pfile)
+                        pfile = pfile + 1
+                        CALL sopen(*20,ploter,x(kcor),pltbuf)
+                        CALL stplot(pfile)
                         CALL map(0.23*fncc,0.50*fncc,xxxx,yyyy)
                         CALL print(xxxx,yyyy,1,ttl1,9,-1)
                         CALL print(xxxx,yyyy,1,ttl1,9,0)
@@ -179,12 +180,12 @@ SUBROUTINE seemat
                         CALL stplot(-1)
                      ENDIF
                      CALL page1
-                     Lnct = Lnct + 5
-                     WRITE (Nout,99002) lbl(1) , lbl(2) , ncols , nrows
+                     lnct = lnct + 5
+                     WRITE (nout,99002) lbl(1) , lbl(2) , ncols , nrows
 99002                FORMAT (//5X,'SEEMAT PLOT FOR TRANSPOSE OF',/22X,'MATRIX DATA ','BLOCK ',2A4,11X,'PLOT FILE ','    R','     C',&
                            & /10X,'SIZE =',I6,' ROWS BY',I6,' COLUMNS')
                      IF ( .NOT.(table) ) THEN
-                        WRITE (Nout,99003) Pfile
+                        WRITE (nout,99003) pfile
 99003                   FORMAT (1H0,62X,I5,2X,12HHEADER FRAME)
                      ENDIF
                   ENDIF
@@ -206,7 +207,7 @@ SUBROUTINE seemat
                   nrow = 1
                   spag_nextblock_2 = 3
                CASE (3)
-                  IF ( Eol/=0 ) GOTO 22
+                  IF ( eol/=0 ) GOTO 22
 !
 !     READ ELEMENT OF MATRIX INTO /ZNTPKX/
 !
@@ -218,7 +219,7 @@ SUBROUTINE seemat
 !
                   IF ( nblks<=0 ) THEN
                      nblk = -1
-                  ELSEIF ( ncol<=jblcu1 .OR. ncol>jblcu2 .OR. Iz<=iblcu1 .OR. Iz>iblcu2 ) THEN
+                  ELSEIF ( ncol<=jblcu1 .OR. ncol>jblcu2 .OR. iz<=iblcu1 .OR. iz>iblcu2 ) THEN
 !
 !     SEARCH ALL BLOCKS TO FIND OLD ONE IN WHICH ELEMENT LIES
 !
@@ -229,7 +230,7 @@ SUBROUTINE seemat
                         iblcu2 = iblcu1 + ncc
                         jblcu1 = ix(ip+1)
                         jblcu2 = jblcu1 + nlnxx
-                        IF ( ncol>jblcu1 .AND. ncol<=jblcu2 .AND. Iz>iblcu1 .AND. Iz<=iblcu2 ) THEN
+                        IF ( ncol>jblcu1 .AND. ncol<=jblcu2 .AND. iz>iblcu1 .AND. iz<=iblcu2 ) THEN
                            nblk = i2
                            spag_nextblock_2 = 4
                            CYCLE SPAG_DispatchLoop_2
@@ -260,7 +261,7 @@ SUBROUTINE seemat
                         ix(i) = 0
                      ENDDO
                      DO ijm = 1 , ijmax
-                        IF ( ijm*ncc>=Iz ) THEN
+                        IF ( ijm*ncc>=iz ) THEN
                            ix(ip) = ncc*(ijm-1)
                            spag_nextblock_2 = 5
                            CYCLE SPAG_DispatchLoop_2
@@ -268,13 +269,11 @@ SUBROUTINE seemat
                      ENDDO
                      kerror = 1074
                      spag_nextblock_2 = 10
-                     CYCLE SPAG_DispatchLoop_2
                   ELSE
-                     WRITE (Nout,99004) Swm , nblks1
+                     WRITE (nout,99004) swm , nblks1
 99004                FORMAT (A27,' 1701, AVAILABLE CORE EXCEEDED BY',I10,' LINE IMAGE',' BLOCKS.')
                      nblks = -1
                      spag_nextblock_2 = 11
-                     CYCLE SPAG_DispatchLoop_2
                   ENDIF
                CASE (5)
                   DO ijm = 1 , ijmax
@@ -286,7 +285,6 @@ SUBROUTINE seemat
                   ENDDO
                   kerror = 1079
                   spag_nextblock_2 = 10
-                  CYCLE SPAG_DispatchLoop_2
                CASE (6)
                   iblcu1 = ix(ip)
                   iblcu2 = iblcu1 + ncc
@@ -303,11 +301,11 @@ SUBROUTINE seemat
 !
 !     INSERT BIT INTO PACKED LINE IMAGE BLOCK
 !
-                  a = ncc*(ncol-ix(ip+1)-1) + (Iz-ix(ip))
+                  a = ncc*(ncol-ix(ip+1)-1) + (iz-ix(ip))
                   b = (a-1)/32
                   c = ip1 + b
                   b = a - 32*b
-                  ix(c) = orf(ix(c),Two(b))
+                  ix(c) = orf(ix(c),two(b))
 !
 !     END OF LOOP ON ROWS
 !
@@ -349,7 +347,6 @@ SUBROUTINE seemat
                   CYCLE SPAG_DispatchLoop_2
  26               nblks = 0
                   spag_nextblock_2 = 12
-                  CYCLE SPAG_DispatchLoop_2
                CASE (9)
 !
 !     OUTPUT GROUP OF LINE IMAGE BLOCKS
@@ -363,17 +360,17 @@ SUBROUTINE seemat
                         DO ij = 1 , 10
                            iro(ij) = i1 + 10*ij
                         ENDDO
-                        IF ( prntit ) WRITE (Nout,99005) (iro(ij),ij=1,10)
+                        IF ( prntit ) WRITE (nout,99005) (iro(ij),ij=1,10)
 99005                   FORMAT (13H0TRANSPOSE OF,9X,8HCOLUMN..,10I10)
-                        IF ( prntit ) WRITE (Nout,99006) lbl(1) , lbl(2)
+                        IF ( prntit ) WRITE (nout,99006) lbl(1) , lbl(2)
 99006                   FORMAT (8H MATRIX ,2A4,7X,3HROW,4X,10(9X,1H.),/23X,3H...,4X,100(1H.)/24X,1H.)
                         icol1 = ix(ip+1)
                         i100 = icol1 + nlnxx
                         ip1 = ip - ncc1 + 1
                         IF ( .NOT.(prntit) ) THEN
-                           Pfile = Pfile + 1
-                           CALL sopen(*20,Ploter,X(kcor),Pltbuf)
-                           CALL stplot(Pfile)
+                           pfile = pfile + 1
+                           CALL sopen(*20,ploter,x(kcor),pltbuf)
+                           CALL stplot(pfile)
                            CALL tipe(xxxx,yyyy,1,plus,1,-1)
                            ipak = (ncc+99)/100
                            ija = 5*ipak
@@ -420,7 +417,7 @@ SUBROUTINE seemat
                                     ib = 1
                                     iw = iw + 1
                                  ENDIF
-                                 IF ( andf(ix(iw),Two(ib))/=0 ) THEN
+                                 IF ( andf(ix(iw),two(ib))/=0 ) THEN
                                     nobits = .FALSE.
                                     fjj = float(jj)
                                     CALL map(fjj,fij,xxxx,yyyy)
@@ -443,7 +440,7 @@ SUBROUTINE seemat
                                     ib = 1
                                     iw = iw + 1
                                  ENDIF
-                                 IF ( andf(ix(iw),Two(ib))/=0 ) THEN
+                                 IF ( andf(ix(iw),two(ib))/=0 ) THEN
                                     nobits = .FALSE.
                                     b = (jj-1)/4 + 1
                                     c = jj - 4*(b-1)
@@ -456,25 +453,25 @@ SUBROUTINE seemat
                               IF ( nobits ) THEN
                                  IF ( mod(ij,5)==0 ) THEN
                                     icol1 = icol1 + 5
-                                    WRITE (Nout,99012) icol1
+                                    WRITE (nout,99012) icol1
                                  ELSE
-                                    WRITE (Nout,99013)
+                                    WRITE (nout,99013)
                                  ENDIF
                               ELSEIF ( mod(ij,5)==0 ) THEN
                                  icol1 = icol1 + 5
-                                 WRITE (Nout,99012) icol1 , (lin(jj),jj=1,ncc1)
+                                 WRITE (nout,99012) icol1 , (lin(jj),jj=1,ncc1)
                               ELSE
-                                 WRITE (Nout,99013) (lin(jj),jj=1,ncc1)
+                                 WRITE (nout,99013) (lin(jj),jj=1,ncc1)
                               ENDIF
                            ENDIF
                         ENDDO
-                        IF ( prntit ) WRITE (Nout,99007)
+                        IF ( prntit ) WRITE (nout,99007)
 99007                   FORMAT (1H0,29X,100(1H.)/30X,10(9X,1H.))
                         IF ( .NOT.(prntit) ) THEN
                            CALL stplot(-1)
-                           Lnct = Lnct + 1
-                           IF ( Lnct>Nlines ) CALL page1
-                           WRITE (Nout,99008) Pfile , i100 , j100
+                           lnct = lnct + 1
+                           IF ( lnct>nlines ) CALL page1
+                           WRITE (nout,99008) pfile , i100 , j100
 99008                      FORMAT (1H ,62X,I5,2I6)
                         ENDIF
                      ENDDO
@@ -483,20 +480,20 @@ SUBROUTINE seemat
                   GOTO gobac
                CASE (10)
 !
-                  WRITE (Nout,99009) Swm , kerror
+                  WRITE (nout,99009) swm , kerror
 99009             FORMAT (A27,' 1705, LOGIC ERROR AT STATEMENT',I5,' IN SUBROUTINE SEEMAT.')
                   spag_nextblock_2 = 11
                CASE (11)
-                  WRITE (Nout,99010) Sim , lbl
+                  WRITE (nout,99010) sim , lbl
 99010             FORMAT (A31,' 1702, UTILITY MODULE SEEMAT WILL ABANDON ','PROCESSING DATA BLOCK ',2A4)
                   spag_nextblock_2 = 12
                CASE (12)
                   CALL close(nam,1)
                   IF ( .NOT.(prntit) ) THEN
                      IF ( .NOT.(table) ) THEN
-                        Pfile = Pfile + 1
-                        CALL sopen(*20,Ploter,X(kcor),Pltbuf)
-                        CALL stplot(Pfile)
+                        pfile = pfile + 1
+                        CALL sopen(*20,ploter,x(kcor),pltbuf)
+                        CALL stplot(pfile)
                         CALL line(bllx,blly,burx,bury,1,-1)
                         CALL line(bllx,blly,burx,bury,1,0)
                         CALL line(bulx,buly,burx,bury,1,0)
@@ -510,8 +507,8 @@ SUBROUTINE seemat
                         CALL symbol(xxxx,yyyy,symbl,-1)
                         CALL symbol(xxxx,yyyy,symbl,0)
                         CALL stplot(-1)
-                        Lnct = Lnct + 1
-                        WRITE (Nout,99011) Pfile
+                        lnct = lnct + 1
+                        WRITE (nout,99011) pfile
 99011                   FORMAT (63X,I5,2X,13HTRAILER FRAME)
                      ENDIF
                   ENDIF

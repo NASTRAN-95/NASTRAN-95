@@ -1,9 +1,10 @@
-!*==border.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==border.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,20 +34,20 @@ SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
    !>>>>EQUIVALENCE (words(1),nelmt) , (words(2),igdpt)
 !
          lcor = Opcor/5 - 1
-         CALL open(*99999,Scr2,Gplst(B1),0)
+         CALL open(*99999,scr2,Gplst(B1),0)
          CALL line(0.,0.,0.,0.,1,-1)
- 20      CALL fwdrec(*60,Scr2)
+ 20      CALL fwdrec(*60,scr2)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*60,*20,Scr2,iflag,1,0,m)
+         CALL read(*60,*20,scr2,iflag,1,0,m)
          IF ( iflag==0 ) GOTO 60
          IF ( iflag==-1 ) GOTO 20
-         CALL fread(Scr2,words,2,0)
+         CALL fread(scr2,words,2,0)
          ie = -1
          DO
             ie = ie + 2
-            CALL read(*60,*40,Scr2,elid,1,0,m)
-            CALL fread(Scr2,Istore(ie),2,0)
+            CALL read(*60,*40,scr2,elid,1,0,m)
+            CALL fread(scr2,Istore(ie),2,0)
          ENDDO
  40      ione = Istore(1)
          itwo = Istore(2)
@@ -105,7 +106,7 @@ SUBROUTINE border(Gplst,X,U,Istore,Deform,B1,Opcor)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  60      CALL line(0.,0.,0.,0.,1,+1)
-         CALL close(Scr2,1)
+         CALL close(scr2,1)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

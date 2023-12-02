@@ -1,10 +1,11 @@
-!*==dbmdmp.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dbmdmp.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmdmp
+   USE i_dsiof
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -15,16 +16,16 @@ SUBROUTINE dbmdmp
 !********************************************************************
 !     DBMDMP - DUMPS THE IN MEMORY DATA BASE DIRECTORY
 !********************************************************************
-   WRITE (Iwr,99001) idbbas , idbfre , idbdir , indbas , indclr , indcbp , nblock , lenalc , iocode , ifilex , name , maxalc ,      &
+   WRITE (iwr,99001) idbbas , idbfre , idbdir , indbas , indclr , indcbp , nblock , lenalc , iocode , ifilex , name , maxalc ,      &
                    & maxblk , maxdsk , idblen , idbadr , ibasbf , inddir , numopn , numcls , numwri , numrea , lenopc
 99001 FORMAT (/,' CONTENTS OF / DBM / FOLLOW:',/,' IDBBAS =',I8,' IDBFRE =',I8,' IDBDIR =',I8,' INDBAS =',I8,/,' INDCLR =',I8,      &
              &' INDCBP =',I8,' NBLOCK =',I8,' LENALC =',I8,/,' IOCODE =',I8,' IFILEX =',I8,' NAME   =',I8,' MAXALC =',I8,/,         &
              &' MAXBLK =',I8,' MAXDSK =',I8,' IDBLEN =',I8,' IDBADR =',I8,/,' IBASBF =',I8,' INDDIR =',I8,' NUMOPN =',I8,           &
             & ' NUMCLS =',I8,/,' NUMWRI =',I8,' NUMREA -',I8,' LENOPC =',I8)
-   WRITE (Iwr,99002)
+   WRITE (iwr,99002)
 99002 FORMAT (/,' CONTENTS OF FCB FOLLOW:',/)
    DO i = 1 , 80
-      WRITE (Iwr,99003) i , (fcb(k,i),k=1,15)
+      WRITE (iwr,99003) i , (fcb(k,i),k=1,15)
 99003 FORMAT (I3,'-',I3,I7,4I5,I12,I2,4I7,2A4,I4)
    ENDDO
    CALL dbmdia
@@ -35,20 +36,20 @@ SUBROUTINE dbmdmp
    itotbk = 0
    icnt = 0
    IF ( next/=0 ) THEN
-      DO
+      SPAG_Loop_1_1: DO
          icnt = icnt + 1
-         IF ( next==0 ) EXIT
+         IF ( next==0 ) EXIT SPAG_Loop_1_1
          ival = next
-         ivalp = Mem(next)
-         ivaln = Mem(next+1)
-         IF ( Mem(next)==0 ) ivalp = 0
-         IF ( Mem(next+1)==0 ) ivaln = 0
-         itotal = itotal + Mem(next+2)
+         ivalp = mem(next)
+         ivaln = mem(next+1)
+         IF ( mem(next)==0 ) ivalp = 0
+         IF ( mem(next+1)==0 ) ivaln = 0
+         itotal = itotal + mem(next+2)
          itotbk = itotbk + 1
 !      WRITE ( IWR, 908 ) ICNT,IVAL,IVALP,IVALN,MEM(NEXT+2)
 !      WRITE( IWR, 909 )
-         next = Mem(next+1)
-      ENDDO
+         next = mem(next+1)
+      ENDDO SPAG_Loop_1_1
    ENDIF
 !     WRITE( IWR, 910 ) ITOTAL, ITOTBK
    RETURN

@@ -1,12 +1,13 @@
-!*==cnstrc.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cnstrc.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,39 +50,39 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
    DATA br , t3 , q4/2HBR , 2HT3 , 2HQ4/
 !
    b1 = 1
-   b2 = b1 + Bufsiz
-   b3 = b2 + Bufsiz
-   CALL gopen(Mset,Buf(b3),Inprew)
-   CALL gopen(Ect2,Buf(b2),Outrew)
+   b2 = b1 + bufsiz
+   b3 = b2 + bufsiz
+   CALL gopen(mset,Buf(b3),inprew)
+   CALL gopen(ect2,Buf(b2),outrew)
 !
-   DO setnum = 1 , Nsets
+   DO setnum = 1 , nsets
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
-            CALL fread(Mset,setid,1,0)
-            DO i = 1 , Ngp
+            CALL fread(mset,setid,1,0)
+            DO i = 1 , ngp
                Gp(i) = 0
             ENDDO
 !
 !     READ THE EXPLICIT ELEMENT NUMBERS IN THIS SET.
 !
-            CALL fread(Mset,nel,1,0)
+            CALL fread(mset,nel,1,0)
             IF ( nel>=Max ) CALL mesage(-8,0,name)
             Ele(nel+1) = 0
-            CALL fread(Mset,Ele,nel,0)
+            CALL fread(mset,Ele,nel,0)
 !
 !     READ THE ELEMENT TYPES TO BE INCLUDED OR EXCLUDED IN THIS SET.
 !
-            CALL fread(Mset,ntypes,1,0)
-            CALL fread(Mset,type,ntypes,0)
+            CALL fread(mset,ntypes,1,0)
+            CALL fread(mset,type,ntypes,0)
 !
 !     GENERATE AN ECT FOR THE ELEMENTS INCLUDED IN THIS SET.
 !
-            CALL gopen(Ect1,Buf(b1),Inprew)
+            CALL gopen(ect1,Buf(b1),inprew)
             spag_nextblock_1 = 2
          CASE (2)
-            CALL read(*20,*20,Ect1,etype,1,0,i)
+            CALL read(*20,*20,ect1,etype,1,0,i)
 !
 !     CHECK WHETHER OR NOT THIS ELEMENT TYPE IS TO BE EXCLUDED.
 !
@@ -97,7 +98,6 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
                ENDDO
             ENDIF
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          CASE (3)
             mtype = type(i+1)
             spag_nextblock_1 = 4
@@ -107,18 +107,18 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
 !     MAY BE INCLUDED SPECIFICALLY. READ -NGPPE- = NUMBER OF GRID
 !     POINTS PER ELEMENT FOR THIS TYPE.
 !
-            CALL fread(Ect1,ngppe,1,0)
+            CALL fread(ect1,ngppe,1,0)
             IF ( ngppe<=0 ) THEN
 !
 !     SKIP THIS ELEMENT TYPE (NON-EXISTENT)
 !
-               CALL fread(Ect1,0,0,1)
+               CALL fread(ect1,0,0,1)
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               idx = (etype-1)*Incr
+               idx = (etype-1)*incr
                neltyp = 0
-               ne16 = Ne(idx+16)
+               ne16 = ne(idx+16)
                offset = 0
                IF ( ne16==br ) offset = 6
                IF ( ne16==t3 .OR. ne16==q4 ) offset = 1
@@ -127,7 +127,7 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
 !
                IF ( ntypes/=0 .AND. mtype<0 ) THEN
                   DO i = 1 , ntypes , 2
-                     IF ( etype==type(i) .OR. type(i)==Ntyps+1 ) THEN
+                     IF ( etype==type(i) .OR. type(i)==ntyps+1 ) THEN
                         spag_nextblock_1 = 7
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -141,9 +141,9 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
 !     NOW CHECK WHETHER OR NOT ANY OF THE ELEMENTS OF THIS TYPE ARE
 !     EXPLICITLY INCLUDED. PUT ALL SUCH ON THE NEW ECT (ECT2).
 !
-               CALL read(*10,*10,Ect1,eid,2,0,i)
-               CALL fread(Ect1,gpts,ngppe,0)
-               IF ( offset/=0 ) CALL fread(Ect1,off,offset,0)
+               CALL read(*10,*10,ect1,eid,2,0,i)
+               CALL fread(ect1,gpts,ngppe,0)
+               IF ( offset/=0 ) CALL fread(ect1,off,offset,0)
                IF ( nel>0 ) THEN
                   m = 0
                   n = 1
@@ -170,12 +170,12 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
          CASE (6)
             IF ( m/=0 ) THEN
                IF ( neltyp==0 ) THEN
-                  CALL write(Ect2,Ne(idx+16),1,0)
-                  CALL write(Ect2,ngppe,1,0)
+                  CALL write(ect2,ne(idx+16),1,0)
+                  CALL write(ect2,ngppe,1,0)
                ENDIF
-               CALL write(Ect2,eid,2,0)
-               CALL write(Ect2,gpts,ngppe,0)
-               IF ( offset/=0 ) CALL write(Ect2,off,offset,0)
+               CALL write(ect2,eid,2,0)
+               CALL write(ect2,gpts,ngppe,0)
+               IF ( offset/=0 ) CALL write(ect2,off,offset,0)
                neltyp = neltyp + 1
                DO i = 1 , ngppe
                   j = gpts(i)
@@ -187,7 +187,6 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
                IF ( etype==ae ) Gp(j) = 1
             ENDIF
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          CASE (7)
 !
 !     THIS ELEMENT TYPE IS TO BE INCLUDED, EXCEPT THE ONES EXPLICITLY
@@ -199,9 +198,9 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
             spag_nextblock_1 = 8
          CASE (8)
             SPAG_Loop_2_4: DO
-               CALL read(*10,*10,Ect1,eid,2,0,i)
-               CALL fread(Ect1,gpts,ngppe,0)
-               IF ( offset/=0 ) CALL fread(Ect1,off,offset,0)
+               CALL read(*10,*10,ect1,eid,2,0,i)
+               CALL fread(ect1,gpts,ngppe,0)
+               IF ( offset/=0 ) CALL fread(ect1,off,offset,0)
                IF ( nel>0 ) THEN
                   m = 1
                   n = 1
@@ -224,12 +223,12 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
                EXIT SPAG_Loop_2_4
             ENDDO SPAG_Loop_2_4
             IF ( neltyp==0 ) THEN
-               CALL write(Ect2,Ne(idx+16),1,0)
-               CALL write(Ect2,ngppe,1,0)
+               CALL write(ect2,ne(idx+16),1,0)
+               CALL write(ect2,ngppe,1,0)
             ENDIF
-            CALL write(Ect2,eid,2,0)
-            CALL write(Ect2,gpts,ngppe,0)
-            IF ( offset/=0 ) CALL write(Ect2,off,offset,0)
+            CALL write(ect2,eid,2,0)
+            CALL write(ect2,gpts,ngppe,0)
+            IF ( offset/=0 ) CALL write(ect2,off,offset,0)
             DO i = 1 , ngppe
                j = gpts(i)
                Gp(j) = labgp
@@ -244,26 +243,26 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
 !
 !     END OF NEW ECT FOR THIS ELEMENT TYPE
 !
- 10         IF ( neltyp>0 ) CALL write(Ect2,0,1,0)
+ 10         IF ( neltyp>0 ) CALL write(ect2,0,1,0)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
 !
 !     END OF ECT FOR THIS ELEMENT SET
 !
- 20         CALL close(Ect1,Rew)
-            CALL write(Ect2,0,0,1)
+ 20         CALL close(ect1,rew)
+            CALL write(ect2,0,0,1)
 !
 !     FLAG ALL GRID POINTS TO BE EXCLUDED FROM A DEFORMED SHAPE.
 !
-            CALL fread(Mset,ngpts,1,0)
+            CALL fread(mset,ngpts,1,0)
             IF ( ngpts>=Max ) CALL mesage(-8,0,name)
             Ele(ngpts+1) = 0
-            CALL fread(Mset,Ele,ngpts,1)
+            CALL fread(mset,Ele,ngpts,1)
             IF ( ngpts>0 ) THEN
-               CALL gopen(Exgpid,Buf(b1),Inprew)
-               DO gpt = 1 , Ngp
-                  CALL fread(Exgpid,exgp,1,0)
-                  CALL fread(Exgpid,ingp,1,0)
+               CALL gopen(exgpid,Buf(b1),inprew)
+               DO gpt = 1 , ngp
+                  CALL fread(exgpid,exgp,1,0)
+                  CALL fread(exgpid,ingp,1,0)
                   m = 0
                   n = 1
                   SPAG_Loop_3_5: DO
@@ -281,16 +280,16 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
                      ENDIF
                   ENDDO SPAG_Loop_3_5
                ENDDO
-               CALL close(Exgpid,Rew)
+               CALL close(exgpid,rew)
             ENDIF
 !
 !     GENERATE A GRID POINT LIST FOR THIS SET (CONVERT THE INTERNAL
 !     GRID POINT NUMBERS TO POINTERS TO THE GRID POINTS PECULIAR TO
 !     THIS SET)
 !
-            CALL gopen(Grid,Buf(b1),Outnor)
+            CALL gopen(grid,Buf(b1),outnor)
             ngpts = 0
-            DO i = 1 , Ngp
+            DO i = 1 , ngp
                IF ( Gp(i)/=0 ) THEN
                   ngpts = ngpts + 1
                   Gp(i) = isign(ngpts,Gp(i))
@@ -299,12 +298,12 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
             IF ( ngpts==0 ) THEN
                err(1) = 1
                err(2) = setid
-               CALL wrtprt(Merr,err,msg1,nmsg1)
+               CALL wrtprt(merr,err,msg1,nmsg1)
             ENDIF
 !
-            CALL write(Grid,ngpts,1,0)
-            CALL write(Grid,Gp,Ngp,0)
-            IF ( setnum/=Nsets ) CALL close(Grid,Norew)
+            CALL write(grid,ngpts,1,0)
+            CALL write(grid,Gp,ngp,0)
+            IF ( setnum/=nsets ) CALL close(grid,norew)
             EXIT SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1
@@ -313,7 +312,7 @@ SUBROUTINE cnstrc(Gp,Ele,Buf,Max)
 !     ALL DONE. THE SET DEFINITION FILE (MSET) + THE SHORT ECT FILE
 !     (ECT1) WILL NOT BE NEEDED AGAIN.
 !
-   CALL clstab(Grid,Rew)
-   CALL clstab(Ect2,Rew)
-   CALL close(Mset,Rew)
+   CALL clstab(grid,rew)
+   CALL clstab(ect2,rew)
+   CALL close(mset,rew)
 END SUBROUTINE cnstrc

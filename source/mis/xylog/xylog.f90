@@ -1,4 +1,5 @@
-!*==xylog.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xylog.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xylog(V1,V2,Cycles)
@@ -14,6 +15,15 @@ SUBROUTINE xylog(V1,V2,Cycles)
 !
    INTEGER :: power1 , power2
    REAL :: temp
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -58,7 +68,6 @@ CONTAINS
       V1 = 1.0E-5
       V2 = 1.0E+5
       Cycles = 10
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !WKBR 9/93  50 IF( V1 .LT. 1.0E0      ) GO TO 70
@@ -68,33 +77,33 @@ CONTAINS
             CALL spag_block_1
             RETURN
          ENDIF
-         power1 = power1 - 1
+         Power1 = Power1 - 1
       ENDDO
 !WKBR 9/93  60 IF( V1 .LT. 10.0E0) GO TO 80
       DO WHILE ( V1>10.0001 )
          V1 = V1/10.0E0
-         power1 = power1 + 1
+         Power1 = Power1 + 1
       ENDDO
 !
-      V1 = 10.0E0**power1
+      V1 = 10.0E0**Power1
 !
-      power2 = 1
+      Power2 = 1
       DO WHILE ( V2<=1.0E0 )
          V2 = V2*10.0E0
          IF ( V2<=0.0E0 ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
-         power2 = power2 - 1
+         Power2 = Power2 - 1
       ENDDO
 !WKBR 9/93 100 IF( V2 .LT. 10.00001E0) GO TO 120
       DO WHILE ( V2>10.0001 )
          V2 = V2/10.0E0
-         power2 = power2 + 1
+         Power2 = Power2 + 1
       ENDDO
 !
-      V2 = 10.0**power2
+      V2 = 10.0**Power2
 !
-      Cycles = power2 - power1
+      Cycles = Power2 - Power1
    END SUBROUTINE spag_block_2
 END SUBROUTINE xylog

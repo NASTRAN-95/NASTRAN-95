@@ -2,17 +2,17 @@
  
 SUBROUTINE exio1
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_ITEMDT
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_OUTPUT
-   USE C_SOF
-   USE C_SOFCOM
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_itemdt
+   USE c_machin
+   USE c_names
+   USE c_output
+   USE c_sof
+   USE c_sofcom
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -29,6 +29,12 @@ SUBROUTINE exio1
 ! End of declarations rewritten by SPAG
 !
 !
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     EXIO1 SERVICES INTERNAL FORMAT FUNCTIONS FOR EXIO.
 !
    !>>>>EQUIVALENCE (Cor(1),Z(1))
@@ -41,33 +47,33 @@ SUBROUTINE exio1
 !
 !     INITIALIZE
 !
-   IF ( Nitem>50 ) CALL errmkn(25,10)
-   lcore = korsz(Z)
-   buf1 = lcore - Sysbuf + 1
-   buf2 = buf1 - Sysbuf - 1
-   buf3 = buf2 - Sysbuf
-   buf4 = buf3 - Sysbuf
-   buf5 = buf4 - Sysbuf
+   IF ( nitem>50 ) CALL errmkn(25,10)
+   lcore = korsz(z)
+   buf1 = lcore - sysbuf + 1
+   buf2 = buf1 - sysbuf - 1
+   buf3 = buf2 - sysbuf
+   buf4 = buf3 - sysbuf
+   buf5 = buf4 - sysbuf
    lcore = buf5 - 1
    ncore = lcore
    nos = 0
    idm = 1
    IF ( lcore<=0 ) CALL mesage(-8,0,subr)
-   IF ( Mode(1)/=restor ) CALL sofopn(Z(buf1),Z(buf2),Z(buf3))
-   unit = Uname(1)
+   IF ( mode(1)/=restor ) CALL sofopn(z(buf1),z(buf2),z(buf3))
+   unit = uname(1)
 !
 !     CHECK TAPE BIT IF DEVICE=TAPE
 !
-   IF ( Device(1)/=disk .AND. Mode(1)/=comprs .AND. Mode(1)/=append ) THEN
-      IF ( Device(1)/=tape ) THEN
-         WRITE (Nout,99001) Uwm , Device
+   IF ( device(1)/=disk .AND. mode(1)/=comprs .AND. mode(1)/=append ) THEN
+      IF ( device(1)/=tape ) THEN
+         WRITE (nout,99001) uwm , device
 99001    FORMAT (A25,' 6335, ',2A4,' IS AN INVALID DEVICE FOR MODULE EXIO')
          GOTO 4600
       ELSEIF ( .NOT.tapbit(unit) ) THEN
 !
 !     ERRORS CAUSING MODULE AND/OR JOB TERMINATION
 !
-         WRITE (Nout,99002) Uwm , Uname
+         WRITE (nout,99002) uwm , uname
 !
 !     TEXT OF ERROR MESSAGES
 !
@@ -86,60 +92,60 @@ SUBROUTINE exio1
 !     WE ARE INFRONT OF AND EOF AND THEN SEARCH FOR EOF
 !
    ipos = -1
-   IF ( Pos(1)==norewi .OR. Pos(1)==eqf ) ipos = 2
-   IF ( Pos(1)==rewi ) ipos = 0
+   IF ( pos(1)==norewi .OR. pos(1)==eqf ) ipos = 2
+   IF ( pos(1)==rewi ) ipos = 0
    IF ( ipos<0 ) THEN
-      WRITE (Nout,99003) Uwm , Pos
+      WRITE (nout,99003) uwm , pos
 99003 FORMAT (A25,' 6339, ',2A4,' IS AN INVALID FILE POSITIONING ','PARAMETER FOR MODULE EXIO')
       GOTO 4600
    ELSE
-      IF ( Mode(1)==dump .OR. Mode(1)==restor ) ipos = 0
+      IF ( mode(1)==dump .OR. mode(1)==restor ) ipos = 0
       IF ( ipos==0 ) THEN
-         Head2(13) = rewi
-         Head2(14) = rewi2
+         head2(13) = rewi
+         head2(14) = rewi2
       ENDIF
-      IF ( Mode(1)/=sofout ) GOTO 300
+      IF ( mode(1)/=sofout ) GOTO 300
       IF ( ipos==0 ) GOTO 300
-      CALL open(*4200,unit,Z(buf4),Rd)
+      CALL open(*4200,unit,z(buf4),rd)
       CALL bckrec(unit)
-      IF ( Pos(1)==norewi ) GOTO 200
+      IF ( pos(1)==norewi ) GOTO 200
       DO
          CALL fwdrec(*100,unit)
       ENDDO
    ENDIF
  100  CALL bckrec(unit)
- 200  CALL close(unit,Norew)
+ 200  CALL close(unit,norew)
 !
 !     BRANCH ON MODE OF OPERATION
 !
- 300  IF ( Mode(1)==sofout .OR. Mode(1)==dump ) THEN
+ 300  IF ( mode(1)==sofout .OR. mode(1)==dump ) THEN
 !
 !
 !     **********************   W R I T E   **********************
 !
 !     OPEN FILE AND WRITE 9 WORD ID RECORD
 !
-      CALL open(*4200,unit,Z(buf4),Wrtrew+ipos)
+      CALL open(*4200,unit,z(buf4),wrtrew+ipos)
       CALL waltim(sec)
       hours = sec/3600
       sec = mod(sec,3600)
       min = sec/60
       sec = mod(sec,60)
-      Hdrec(1) = id
-      Hdrec(2) = Passwd(1)
-      Hdrec(3) = Passwd(2)
+      hdrec(1) = id
+      hdrec(2) = passwd(1)
+      hdrec(3) = passwd(2)
       DO i = 1 , 3
-         Hdrec(i+3) = Date(i)
-         Hdrec(i+6) = Time(i)
+         hdrec(i+3) = date(i)
+         hdrec(i+6) = time(i)
       ENDDO
-      CALL write(unit,Hdrec,9,1)
+      CALL write(unit,hdrec,9,1)
       CALL page
-      WRITE (Nout,99023) Uim , Passwd , Date , Time
-      Line = Line + 1
+      WRITE (nout,99023) uim , passwd , date , time
+      line = line + 1
 !
 !     WRITE DIT AND MDI CONTROL WORDS
 !
-      n = Ditsiz/2
+      n = ditsiz/2
       CALL write(unit,n,1,0)
       DO i = 1 , n
          CALL fdit(i,j)
@@ -149,7 +155,7 @@ SUBROUTINE exio1
       ENDDO
       CALL write(unit,0,0,1)
       CALL write(unit,eoi,1,1)
-      IF ( Mode(1)/=dump ) THEN
+      IF ( mode(1)/=dump ) THEN
 !
 !     STANDARD FORM --
 !
@@ -158,38 +164,38 @@ SUBROUTINE exio1
 !
 !     SETUP THE ARRAY XITEMS OF NAMES OF ITEMS TO BE COPIED.
 !
-         IF ( Datype(1)==all ) THEN
-            nitems = Nitem
-            DO i = 1 , Nitem
-               xitems(i) = Items(1,i)
+         IF ( datype(1)==all ) THEN
+            nitems = nitem
+            DO i = 1 , nitem
+               xitems(i) = items(1,i)
             ENDDO
-         ELSEIF ( Datype(1)==tables ) THEN
+         ELSEIF ( datype(1)==tables ) THEN
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( Items(2,i)<=0 ) THEN
+            DO i = 1 , nitem
+               IF ( items(2,i)<=0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
-         ELSEIF ( Datype(1)==matric ) THEN
+         ELSEIF ( datype(1)==matric ) THEN
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( Items(2,i)>0 ) THEN
+            DO i = 1 , nitem
+               IF ( items(2,i)>0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
-         ELSEIF ( Datype(1)/=phase3 ) THEN
+         ELSEIF ( datype(1)/=phase3 ) THEN
             nitems = 2
-            xitems(1) = Datype(1)
-            xitems(2) = Datype(2)
+            xitems(1) = datype(1)
+            xitems(2) = datype(2)
             IF ( xitems(2)==blank ) nitems = 1
          ELSE
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( andf(Items(7,i),8)/=0 ) THEN
+            DO i = 1 , nitem
+               IF ( andf(items(7,i),8)/=0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
          ENDIF
@@ -207,23 +213,23 @@ SUBROUTINE exio1
 !     TO THE DATA SEQUENCE OR CONTENT.
 !
 !
-         DO i = 1 , Noblks
-            CALL sofio(srd,i,Z(buf1))
-            CALL write(unit,Z(buf1+3),Blksiz,0)
+         DO i = 1 , noblks
+            CALL sofio(srd,i,z(buf1))
+            CALL write(unit,z(buf1+3),blksiz,0)
          ENDDO
          CALL write(unit,0,0,1)
-         CALL close(unit,Rew)
-         WRITE (Nout,99004) Uim , Noblks , Nxttsz , Uname
+         CALL close(unit,rew)
+         WRITE (nout,99004) uim , noblks , nxttsz , uname
 99004    FORMAT (A29,' 6337,',I6,' BLOCKS (',I4,' SUPERBLOCKS) OF THE SOF',' SUCCESSFULLY DUMPED TO EXTERNAL FILE ',2A4)
          GOTO 3900
       ENDIF
-   ELSEIF ( Mode(1)==sofin .OR. Mode(1)==restor ) THEN
+   ELSEIF ( mode(1)==sofin .OR. mode(1)==restor ) THEN
 !
 !     ***********************   R E A D  ************************
 !
 !     BRANCH FOR RESTORE OR STANDARD READ
 !
-      IF ( Mode(1)/=restor ) THEN
+      IF ( mode(1)/=restor ) THEN
 !
 !     STANDARD FORM -
 !
@@ -233,38 +239,38 @@ SUBROUTINE exio1
 !
 !     SETUP ARRAY OF NAMES OF ITEMS TO BE COPIED.
 !
-         IF ( Datype(1)==all ) THEN
-            nitems = Nitem
-            DO i = 1 , Nitem
-               xitems(i) = Items(1,i)
+         IF ( datype(1)==all ) THEN
+            nitems = nitem
+            DO i = 1 , nitem
+               xitems(i) = items(1,i)
             ENDDO
-         ELSEIF ( Datype(1)==tables ) THEN
+         ELSEIF ( datype(1)==tables ) THEN
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( Items(2,i)<=0 ) THEN
+            DO i = 1 , nitem
+               IF ( items(2,i)<=0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
-         ELSEIF ( Datype(1)==matric ) THEN
+         ELSEIF ( datype(1)==matric ) THEN
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( Items(2,i)>0 ) THEN
+            DO i = 1 , nitem
+               IF ( items(2,i)>0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
-         ELSEIF ( Datype(1)/=phase3 ) THEN
+         ELSEIF ( datype(1)/=phase3 ) THEN
             nitems = 2
-            xitems(1) = Datype(1)
-            xitems(2) = Datype(2)
+            xitems(1) = datype(1)
+            xitems(2) = datype(2)
             IF ( xitems(2)==blank ) nitems = 1
          ELSE
             nitems = 0
-            DO i = 1 , Nitem
-               IF ( andf(Items(7,i),8)/=0 ) THEN
+            DO i = 1 , nitem
+               IF ( andf(items(7,i),8)/=0 ) THEN
                   nitems = nitems + 1
-                  xitems(nitems) = Items(1,i)
+                  xitems(nitems) = items(1,i)
                ENDIF
             ENDDO
          ENDIF
@@ -274,12 +280,12 @@ SUBROUTINE exio1
 !
          jcopy = 0
          ncopy = 0
-         IF ( Names(1)/=whole(1) .OR. Names(2)/=whole(2) ) THEN
+         IF ( names(1)/=whole(1) .OR. names(2)/=whole(2) ) THEN
             DO i = 1 , 5
-               IF ( Names(2*i-1)/=xxxx ) ncopy = ncopy + 1
+               IF ( names(2*i-1)/=xxxx ) ncopy = ncopy + 1
             ENDDO
             ncopy = ncopy*nitems
-            IF ( Pdate/=0 ) ncopy = 1
+            IF ( pdate/=0 ) ncopy = 1
          ENDIF
 !
 !     OPEN THE EXTERNAL FILE AND READ THE IDENTIFICATION OR HEADER
@@ -288,7 +294,7 @@ SUBROUTINE exio1
 !     WHICH IS NOT PRESENT ON THE FILE.
 !
          CALL page
-         CALL open(*4200,unit,Z(buf4),Rdrew+ipos)
+         CALL open(*4200,unit,z(buf4),rdrew+ipos)
          GOTO 800
 !
 !     RESTORE FORM --
@@ -298,22 +304,22 @@ SUBROUTINE exio1
 !
 !     MAKE SURE THE RESIDENT SOF IS EMPTY.
 !
-      ELSEIF ( Status/=0 ) THEN
-         WRITE (Nout,99005) Uwm
+      ELSEIF ( status/=0 ) THEN
+         WRITE (nout,99005) uwm
 99005    FORMAT (A25,' 6342, SOF RESTORE OPERATION FAILED.  THE RESIDENT ','SOF IS NOT EMPTY')
          GOTO 4600
       ELSE
-         CALL sofopn(Z(buf1),Z(buf2),Z(buf3))
+         CALL sofopn(z(buf1),z(buf2),z(buf3))
          CALL sofcls
 !
 !     OPEN FILE AND READ THE ID RECORD
 !
-         CALL open(*4200,unit,Z(buf4),Rdrew)
-         CALL read(*4100,*4100,unit,Hdrec,9,1,flag)
-         IF ( Hdrec(1)/=id ) GOTO 4100
+         CALL open(*4200,unit,z(buf4),rdrew)
+         CALL read(*4100,*4100,unit,hdrec,9,1,flag)
+         IF ( hdrec(1)/=id ) GOTO 4100
          CALL page
-         Line = Line + 1
-         WRITE (Nout,99023) Uim , (Hdrec(i),i=2,9)
+         line = line + 1
+         WRITE (nout,99023) uim , (hdrec(i),i=2,9)
          CALL fwdrec(*4300,unit)
          CALL fwdrec(*4300,unit)
 !
@@ -321,26 +327,26 @@ SUBROUTINE exio1
 !
          i = 1
          DO
-            CALL read(*4300,*700,unit,Z(buf1+3),Blksiz,0,flag)
-            CALL sofio(swrt,i,Z(buf1))
+            CALL read(*4300,*700,unit,z(buf1+3),blksiz,0,flag)
+            CALL sofio(swrt,i,z(buf1))
             i = i + 1
          ENDDO
       ENDIF
-   ELSEIF ( Mode(1)==check ) THEN
+   ELSEIF ( mode(1)==check ) THEN
 !
 !     *********************   C H E C K   ***************************
 !
 !     REWIND THE EXTERNAL FILE AND PRINT A LIST OF ALL SUBSTRUCTURE/
 !     ITEMS ON IT WITH THE DATE AND TIME WHEN THEY WERE WRITTEN THERE.
 !
-      CALL open(*4200,unit,Z(buf4),Rdrew)
+      CALL open(*4200,unit,z(buf4),rdrew)
       CALL page
-      WRITE (Nout,99006) Uim , Uname
+      WRITE (nout,99006) uim , uname
 99006 FORMAT (A29,' 6349, CONTENTS OF EXTERNAL SOF FILE ',2A4,' FOLLOW')
-      Line = Line + 1
-      CALL read(*4300,*4400,unit,Buf,9,1,flag)
+      line = line + 1
+      CALL read(*4300,*4400,unit,buf,9,1,flag)
       GOTO 2900
-   ELSEIF ( Mode(1)==append ) THEN
+   ELSEIF ( mode(1)==append ) THEN
 !
 !     ********************   A P P E N D   ***************************
 !
@@ -355,52 +361,52 @@ SUBROUTINE exio1
 !     FIRST, ADD THE EXTERNAL SOF TO /SOFCOM/ SO THAT SOFIO CAN BE USED
 !     TO READ IT.
 !
-      IF ( Nfiles<10 ) THEN
-         Nfiles = Nfiles + 1
-         Filnam(Nfiles) = unit
-         Filsiz(Nfiles) = 4
-         nsave = Noblks + 1
+      IF ( nfiles<10 ) THEN
+         nfiles = nfiles + 1
+         filnam(nfiles) = unit
+         filsiz(nfiles) = 4
+         nsave = noblks + 1
 !
 !     READ THE FIRST PHYSICAL BLOCK OF THE EXTERNAL SOF AND SEE THAT IT
 !     IS COMPATIBLE WITH THE RESIDENT SOF.
          incblk = -4
-         DO i = 1 , Nfiles
-            incblk = incblk + Filsiz(i)
+         DO i = 1 , nfiles
+            incblk = incblk + filsiz(i)
          ENDDO
-         CALL sofio(srd,incblk+1,Z(buf4))
+         CALL sofio(srd,incblk+1,z(buf4))
 !
 !     PASSWORD CHECK
 !
-         IF ( Z(buf4+3)/=Datype(1) .OR. Z(buf4+4)/=Datype(2) ) THEN
-            WRITE (Nout,99027) Uwm , Uname
-            WRITE (Nout,99007)
+         IF ( z(buf4+3)/=datype(1) .OR. z(buf4+4)/=datype(2) ) THEN
+            WRITE (nout,99027) uwm , uname
+            WRITE (nout,99007)
 99007       FORMAT (32X,17HINVALID PASSWORD.)
             incblk = -1
          ENDIF
 !
 !     FILE SEQUENCE NUMBER CHECK
 !
-         IF ( Z(buf4+5)/=1 ) THEN
-            WRITE (Nout,99027) Uwm , Uname
-            WRITE (Nout,99008)
+         IF ( z(buf4+5)/=1 ) THEN
+            WRITE (nout,99027) uwm , uname
+            WRITE (nout,99008)
 99008       FORMAT (32X,'THE SEQUENCE NUMBER OF THE EXTERNAL SOF FILE IS NOT',' 1')
             incblk = -1
          ENDIF
 !
 !     NUMBER OF EXTERNAL FILES CHECK
 !
-         IF ( Z(buf4+6)/=1 ) THEN
-            WRITE (Nout,99027) Uwm , Uname
-            WRITE (Nout,99009)
+         IF ( z(buf4+6)/=1 ) THEN
+            WRITE (nout,99027) uwm , uname
+            WRITE (nout,99009)
 99009       FORMAT (32X,'THE EXTERNAL SOF FILE MUST CONSIST OF ONLY ONLY ONE',' PHYSICAL UNIT')
             incblk = -1
          ENDIF
 !
 !     BLOCKSIZE CHECK
 !
-         IF ( Z(buf4+27)/=Blksiz ) THEN
-            WRITE (Nout,99027) Uwm , Uname
-            WRITE (Nout,99010) Blksiz , Z(buf4+27)
+         IF ( z(buf4+27)/=blksiz ) THEN
+            WRITE (nout,99027) uwm , uname
+            WRITE (nout,99010) blksiz , z(buf4+27)
 99010       FORMAT (32X,45HTHE EXTERNAL SOF HAS INCOMPATIBLE BLOCK SIZE.,/32X,32HBLOCK SIZE OF THE RESIDENT SOF =,I5,/32X,          &
                    &32HBLOCK SIZE OF THE EXTERNAL SOF =,I5)
             incblk = -1
@@ -410,26 +416,26 @@ SUBROUTINE exio1
 !     APPEND OPERATION ABORTED.  RESTORE THE COMMON BLOCKS FOR THE
 !     RESIDENT SOF.
 !
-            First = .TRUE.
-            Opnsof = .FALSE.
-            CALL sofopn(Z(buf1),Z(buf2),Z(buf3))
+            first = .TRUE.
+            opnsof = .FALSE.
+            CALL sofopn(z(buf1),z(buf2),z(buf3))
             GOTO 4500
          ELSE
 !
 !     COMPLETE THE UPDATING OF THE COMMON BLOCKS
 !
-            Filsiz(Nfiles) = Z(buf4+17)
-            Avblks = Avblks + Z(buf4+30)
-            Nxtcur = 1
-            Nxtrst = .TRUE.
-            Nxtfsz(Nfiles) = Z(buf4+36)
-            j = Nfiles - 1
-            Nxttsz = 0
+            filsiz(nfiles) = z(buf4+17)
+            avblks = avblks + z(buf4+30)
+            nxtcur = 1
+            nxtrst = .TRUE.
+            nxtfsz(nfiles) = z(buf4+36)
+            j = nfiles - 1
+            nxttsz = 0
             DO i = 1 , j
-               Nxttsz = Nxttsz + Nxtfsz(i)
+               nxttsz = nxttsz + nxtfsz(i)
             ENDDO
-            oldtsz = Nxttsz + 1
-            Nxttsz = Nxttsz + Z(buf4+35)
+            oldtsz = nxttsz + 1
+            nxttsz = nxttsz + z(buf4+35)
 !
 !     READ THE DIT OF THE EXTERNAL SOF AND ADD EACH SUBSTRUCTURE THERE
 !     TO THE DIT OF THE RESIDENT SOF.  KEEP A TABLE IN OPEN CORE OF TWO
@@ -438,27 +444,27 @@ SUBROUTINE exio1
 !     (1)  SUBSTRUCTURE NUMBER FROM THE EXTERNAL SOF.
 !     (2)  NEW SUBSTRUCTURE NUMBER ON THE RESIDENT SOF.
 !
-            nold = Z(buf4+32)
+            nold = z(buf4+32)
             IF ( 2*nold>lcore ) THEN
                n = 8
                GOTO 4700
             ELSE
                iss = 1
                k = 1
-               kdit = Z(buf4+33) + incblk
-               kmdi = Z(buf4+34) + incblk
+               kdit = z(buf4+33) + incblk
+               kmdi = z(buf4+34) + incblk
                DO
-                  CALL sofio(srd,kdit,Z(buf4))
-                  DO i = 1 , Blksiz , 2
-                     Ssname(1) = Z(buf4+i+2)
-                     Ssname(2) = Z(buf4+i+3)
-                     IF ( Ssname(1)/=blank ) THEN
+                  CALL sofio(srd,kdit,z(buf4))
+                  DO i = 1 , blksiz , 2
+                     ssname(1) = z(buf4+i+2)
+                     ssname(2) = z(buf4+i+3)
+                     IF ( ssname(1)/=blank ) THEN
                         DO
-                           CALL fdsub(Ssname,j)
+                           CALL fdsub(ssname,j)
                            IF ( j==-1 ) THEN
-                              CALL crsub(Ssname,j)
-                              Z(iss) = k
-                              Z(iss+1) = j
+                              CALL crsub(ssname,j)
+                              z(iss) = k
+                              z(iss+1) = j
                               iss = iss + 2
                               k = k + 1
                               EXIT
@@ -466,15 +472,15 @@ SUBROUTINE exio1
 !
 !     DUPLICATE NAME ON RESIDENT SOF.  PREFIX IT WITH -Q- AND TRY AGAIN.
 !
-                              WRITE (Nout,99011) Uwm , Ssname
+                              WRITE (nout,99011) uwm , ssname
 99011                         FORMAT (A25,' 6351, DUPLICATE SUBSTRUCTURE NAME ',2A4,' FOUND DURING SOF APPEND OF FILE ',2A4,/32X,   &
                                      &'THE SUBSTRUCTURE WITH THIS NAME ON THE FILE BEING ','APPENDED WILL BE PREFIXED WITH Q')
-                              CALL prefix(q,Ssname)
-                              IF ( Ssname(2)==qqqq ) THEN
-                                 WRITE (Nout,99012)
+                              CALL prefix(q,ssname)
+                              IF ( ssname(2)==qqqq ) THEN
+                                 WRITE (nout,99012)
 99012                            FORMAT (1H0,31X,37HPREFIX FAILED.  SUBSTRUCTURE IGNORED.)
-                                 Z(iss) = (i+1)/2
-                                 Z(iss+1) = 0
+                                 z(iss) = (i+1)/2
+                                 z(iss+1) = 0
                                  iss = iss + 2
                                  EXIT
                               ENDIF
@@ -488,9 +494,9 @@ SUBROUTINE exio1
 !
                   CALL fnxt(kdit,j)
                   IF ( mod(kdit,2)==1 ) THEN
-                     i = andf(cor(j),Jhalf)
+                     i = andf(cor(j),jhalf)
                   ELSE
-                     i = andf(rshift(cor(j),Ihalf),Jhalf)
+                     i = andf(rshift(cor(j),ihalf),jhalf)
                   ENDIF
                   kdit = i + incblk
                ENDDO
@@ -500,13 +506,13 @@ SUBROUTINE exio1
 !
  305           iss = 0
                DO
-                  CALL sofio(srd,kmdi,Z(buf4))
-                  DO i = 1 , Blksiz , Dirsiz
-                     IF ( Blksiz-i+1>=Dirsiz ) THEN
+                  CALL sofio(srd,kmdi,z(buf4))
+                  DO i = 1 , blksiz , dirsiz
+                     IF ( blksiz-i+1>=dirsiz ) THEN
                         iss = iss + 1
                         jmdi = buf4 + i + 1
-                        CALL bisloc(*4500,iss,Z,2,nold,k)
-                        CALL fmdi(Z(k+1),jrmdi)
+                        CALL bisloc(*4500,iss,z,2,nold,k)
+                        CALL fmdi(z(k+1),jrmdi)
 !
 !     PUT THE CONVERTED SUBSTRUCTURE INDICES IN THE FIRST TWO WORDS OF
 !     THE MDI OF THE RESIDENT SOF.
@@ -516,10 +522,10 @@ SUBROUTINE exio1
 !                   1023 = 2*10-1, LEFT SHIFT 0, 10, AND 20 BITS
 !
                            k = mod(j-1,2) + 1
-                           jss = andf(Z(jmdi+k),mask)
+                           jss = andf(z(jmdi+k),mask)
                            IF ( jss/=0 ) THEN
-                              CALL bisloc(*4500,jss,Z,2,nold,k)
-                              jss = Z(k+1)
+                              CALL bisloc(*4500,jss,z,2,nold,k)
+                              jss = z(k+1)
                               cor(jrmdi+k) = andf(cor(jrmdi+k),lshift(jss,10*((j-1)/2)))
                            ENDIF
                         ENDDO
@@ -527,8 +533,8 @@ SUBROUTINE exio1
 !     INCREMENT THE BLOCK INDICES OF THE ITEMS IN THIS MDI DIRECTORY BY
 !     THE NUMBER OF BLOCKS ON THE RESIDENT SOF.
 !
-                        DO j = Ifrst , Dirsiz
-                           IF ( andf(Z(jmdi+j),Jhalf)/=0 ) cor(jrmdi+j) = Z(jmdi+j) + incblk
+                        DO j = ifrst , dirsiz
+                           IF ( andf(z(jmdi+j),jhalf)/=0 ) cor(jrmdi+j) = z(jmdi+j) + incblk
                         ENDDO
                         IF ( iss==nold ) GOTO 310
                      ENDIF
@@ -538,9 +544,9 @@ SUBROUTINE exio1
 !
                   CALL fnxt(kmdi,j)
                   IF ( mod(kmdi,2)==1 ) THEN
-                     i = andf(cor(j),Jhalf)
+                     i = andf(cor(j),jhalf)
                   ELSE
-                     i = andf(rshift(cor(j),Ihalf),Jhalf)
+                     i = andf(rshift(cor(j),ihalf),jhalf)
                   ENDIF
                   kmdi = i + incblk
                ENDDO
@@ -548,27 +554,27 @@ SUBROUTINE exio1
 !     THE MDI OF THE EXTERNAL SOF HAS NOW BEEN MERGED WITH THE MDI OF
 !     THE RESIDENT SOF.  NOW UPDATE THE NXT OF THE EXTERNAL SOF.
 !
- 310           n = Blksiz
+ 310           n = blksiz
                knxt = incblk + 2
-               incblk = orf(incblk,lshift(incblk,Ihalf))
-               DO i = oldtsz , Nxttsz
-                  CALL sofio(srd,knxt,Z(buf4))
-                  IF ( i-oldtsz+1==Nxtfsz(Nfiles) ) n = (mod(Filsiz(Nfiles)-2,Supsiz)+1)/2 + 1
+               incblk = orf(incblk,lshift(incblk,ihalf))
+               DO i = oldtsz , nxttsz
+                  CALL sofio(srd,knxt,z(buf4))
+                  IF ( i-oldtsz+1==nxtfsz(nfiles) ) n = (mod(filsiz(nfiles)-2,supsiz)+1)/2 + 1
                   DO j = 1 , n
-                     Z(buf4+j+2) = Z(buf4+j+2) + incblk
+                     z(buf4+j+2) = z(buf4+j+2) + incblk
                   ENDDO
-                  CALL sofio(swrt,knxt,Z(buf4))
-                  knxt = knxt + Supsiz
+                  CALL sofio(swrt,knxt,z(buf4))
+                  knxt = knxt + supsiz
                ENDDO
 !
 !     RELEASE THE BLOCKS USED BY THE MDI AND DIT OF THE EXTERNAL SOF.
 !     (THIS WILL CAUSE THE EXTERNAL SOF TO BE UNUSEABLE IN ITS ORIGINAL
 !     FORM.)
 !
-               incblk = andf(incblk,Jhalf)
-               CALL sofio(srd,incblk+1,Z(buf4))
-               kdit = Z(buf4+33) + incblk
-               kmdi = Z(buf4+34) + incblk
+               incblk = andf(incblk,jhalf)
+               CALL sofio(srd,incblk+1,z(buf4))
+               kdit = z(buf4+33) + incblk
+               kmdi = z(buf4+34) + incblk
                CALL retblk(kdit)
                CALL retblk(kmdi)
 !
@@ -576,9 +582,9 @@ SUBROUTINE exio1
 !     ORIGINAL RESIDENT SOF AND THE FIRST BLOCK OF THE APPENDED SOF.
 !     THIS IS REQUIRED TO AVOID DATA TRANSMISSION ERRORS.
 !
-               n = Filsiz(Nfiles-1)
+               n = filsiz(nfiles-1)
                DO i = nsave , n
-                  CALL sofio(swrt,nsave,Z(buf4))
+                  CALL sofio(swrt,nsave,z(buf4))
                ENDDO
 !
 !     SOFCLS WILL UPDATE THE FIRST PHYSICAL BLOCK ON EACH SOF UNIT.
@@ -587,21 +593,21 @@ SUBROUTINE exio1
 !
 !     APPEND OPERATION COMPLETED SUCCESSFULLY.  TELL USER THE NEWS.
 !
-               WRITE (Nout,99013) Uim , Uname
+               WRITE (nout,99013) uim , uname
 99013          FORMAT (A29,' 6352, EXTERNAL SOF FILE ',2A4,' SUCCESSFULLY APPENDED TO THE RESIDENT SOF')
                n = sofsiz(n)
-               WRITE (Nout,99014) Uim , Avblks , n
+               WRITE (nout,99014) uim , avblks , n
 99014          FORMAT (A29,' 6354, THERE ARE',I7,' FREE BLOCKS (',I9,' WORDS) ON THE RESIDENT SOF')
                GOTO 4000
             ENDIF
          ENDIF
       ELSE
-         WRITE (Nout,99027) Uwm , Uname
-         WRITE (Nout,99015)
+         WRITE (nout,99027) uwm , uname
+         WRITE (nout,99015)
 99015    FORMAT (32X,'TOO MANY PHYSICAL SOF UNITS. MAXIMUM ALLOWED IS 10')
          GOTO 4600
       ENDIF
-   ELSEIF ( Mode(1)==comprs ) THEN
+   ELSEIF ( mode(1)==comprs ) THEN
 !
 !     ********************   C O M P R E S S   **********************
 !
@@ -626,12 +632,12 @@ SUBROUTINE exio1
 !                                      +------------+
 !
       unit = scr1
-      CALL open(*4200,scr1,Z(buf4),Wrtrew)
+      CALL open(*4200,scr1,z(buf4),wrtrew)
 !
 !     COPY OUT DIT AND MDI INFORMATION
 !
       iss = 0
-      DO k = 1 , Ditsiz , 2
+      DO k = 1 , ditsiz , 2
          iss = iss + 1
          CALL fdit(iss,j)
          CALL write(scr1,cor(j),2,0)
@@ -643,53 +649,53 @@ SUBROUTINE exio1
 !     COPY OUT SUBSTRUCTURE ITEMS
 !
       iss = 0
-      DO k = 1 , Ditsiz , 2
+      DO k = 1 , ditsiz , 2
          iss = iss + 1
          CALL fdit(iss,j)
-         Ssname(1) = cor(j)
-         Ssname(2) = cor(j+1)
-         IF ( Ssname(1)/=blank ) THEN
-            DO item = 1 , Nitem
-               kdh = Items(2,item)
+         ssname(1) = cor(j)
+         ssname(2) = cor(j+1)
+         IF ( ssname(1)/=blank ) THEN
+            DO item = 1 , nitem
+               kdh = items(2,item)
                IF ( kdh==1 ) THEN
 !
 !     PROCESS MATRIX ITEMS
 !
-                  CALL mtrxi(scr2,Ssname,Items(1,item),0,rc)
+                  CALL mtrxi(scr2,ssname,items(1,item),0,rc)
                   ifile = scr2
                   IF ( rc/=2 ) THEN
                      IF ( rc==3 ) THEN
                      ELSEIF ( rc==4 .OR. rc==5 ) THEN
-                        CALL smsg(rc-2,Items(1,item),Ssname)
+                        CALL smsg(rc-2,items(1,item),ssname)
                      ELSEIF ( rc==6 ) THEN
                         GOTO 4800
                      ELSE
-                        CALL write(scr1,Ssname,2,0)
-                        CALL write(scr1,Items(1,item),1,0)
+                        CALL write(scr1,ssname,2,0)
+                        CALL write(scr1,items(1,item),1,0)
                         CALL write(scr1,3,1,1)
-                        CALL open(*4800,scr2,Z(buf5),Rdrew)
-                        Z(1) = scr2
-                        CALL rdtrl(Z(1))
-                        CALL write(scr1,Z(iz2),6,1)
-                        CALL cpyfil(scr2,scr1,Z,lcore,icount)
+                        CALL open(*4800,scr2,z(buf5),rdrew)
+                        z(1) = scr2
+                        CALL rdtrl(z(1))
+                        CALL write(scr1,z(iz2),6,1)
+                        CALL cpyfil(scr2,scr1,z,lcore,icount)
                         CALL write(scr1,eoi,1,1)
                         CALL close(scr2,1)
                      ENDIF
                      CYCLE
                   ENDIF
                ELSE
-                  CALL sfetch(Ssname,Items(1,item),srd,rc)
+                  CALL sfetch(ssname,items(1,item),srd,rc)
                   IF ( rc==1 ) THEN
 !
 !     ITEM EXISTS.  COPY IT OUT.
 !
-                     CALL write(scr1,Ssname,2,0)
-                     CALL write(scr1,Items(1,item),1,0)
+                     CALL write(scr1,ssname,2,0)
+                     CALL write(scr1,items(1,item),1,0)
                      CALL write(scr1,3,1,1)
                      DO
-                        CALL suread(Z,lcore,n,rc)
+                        CALL suread(z,lcore,n,rc)
                         IF ( rc>1 ) THEN
-                           CALL write(scr1,Z,n,1)
+                           CALL write(scr1,z,n,1)
                            IF ( rc/=2 ) THEN
 !
 !     END OF ITEM HIT.  WRITE EOI RECORD
@@ -698,22 +704,22 @@ SUBROUTINE exio1
                               GOTO 320
                            ENDIF
                         ELSE
-                           CALL write(scr1,Z,lcore,0)
+                           CALL write(scr1,z,lcore,0)
                         ENDIF
                      ENDDO
                   ELSEIF ( rc==2 ) THEN
                   ELSEIF ( rc==3 ) THEN
                      CYCLE
                   ELSE
-                     CALL smsg(rc-2,Items(1,item),Ssname)
+                     CALL smsg(rc-2,items(1,item),ssname)
                      CYCLE
                   ENDIF
                ENDIF
 !
 !     ITEM PSEUDO-EXISTS.  WRITE PSEUDO-HEADER RECORD AND EOI RECORD.
 !
-               CALL write(scr1,Ssname,2,0)
-               CALL write(scr1,Items(1,item),1,0)
+               CALL write(scr1,ssname,2,0)
+               CALL write(scr1,items(1,item),1,0)
                CALL write(scr1,2,1,1)
                CALL write(scr1,eoi,1,1)
  320        ENDDO
@@ -722,54 +728,54 @@ SUBROUTINE exio1
 !
 !     COPY ALL ITEMS BACK TO THE SOF
 !
-      CALL close(scr1,Rew)
-      CALL open(*4200,scr1,Z(buf4),Rdrew)
+      CALL close(scr1,rew)
+      CALL open(*4200,scr1,z(buf4),rdrew)
 !
 !     RE-INITIALIZE THE SOF, THEN RESTORE THE OLD DIT AND MDI
 !
       CALL sofcls
-      Status = 0
-      First = .TRUE.
-      CALL sofopn(Z(buf1),Z(buf2),Z(buf3))
+      status = 0
+      first = .TRUE.
+      CALL sofopn(z(buf1),z(buf2),z(buf3))
       CALL page
       iss = 0
       DO
-         CALL read(*4300,*3200,scr1,Buf,4,0,flag)
+         CALL read(*4300,*3200,scr1,buf,4,0,flag)
          iss = iss + 1
-         IF ( Buf(1)/=blank ) THEN
-            CALL crsub(Buf,i)
+         IF ( buf(1)/=blank ) THEN
+            CALL crsub(buf,i)
             CALL fmdi(i,j)
-            cor(j+1) = Buf(3)
-            cor(j+2) = Buf(4)
-            Mdiup = .TRUE.
+            cor(j+1) = buf(3)
+            cor(j+2) = buf(4)
+            mdiup = .TRUE.
          ENDIF
       ENDDO
    ELSE
-      WRITE (Nout,99016) Uwm , Mode
+      WRITE (nout,99016) uwm , mode
 99016 FORMAT (A25,' 6338, ',2A4,' IS AN INVALID MODE PARAMETER FOR ','MODULE EXIO')
       GOTO 4600
    ENDIF
  400  DO
       iss = iss + 1
-      IF ( Names(1)/=whole(1) .OR. Names(2)/=whole(2) ) THEN
+      IF ( names(1)/=whole(1) .OR. names(2)/=whole(2) ) THEN
 !
 !     WRITE ONLY THOSE SUBSTRUCTURES IN THE PARAMETER LIST
 !
          IF ( iss>5 ) GOTO 600
-         IF ( Names(2*iss-1)/=xxxx ) THEN
-            Ssname(1) = Names(2*iss-1)
-            Ssname(2) = Names(2*iss)
+         IF ( names(2*iss-1)/=xxxx ) THEN
+            ssname(1) = names(2*iss-1)
+            ssname(2) = names(2*iss)
             EXIT
          ENDIF
       ELSE
 !
 !     WRITE ALL SUBSTRUCTURES IN THE RESIDENT SOF.
 !
-         IF ( iss>Ditsiz/2 ) GOTO 600
+         IF ( iss>ditsiz/2 ) GOTO 600
          CALL fdit(iss,i)
          IF ( cor(i)/=blank ) THEN
-            Ssname(1) = cor(i)
-            Ssname(2) = cor(i+1)
+            ssname(1) = cor(i)
+            ssname(2) = cor(i+1)
             EXIT
          ENDIF
       ENDIF
@@ -780,18 +786,18 @@ SUBROUTINE exio1
    DO item = 1 , nitems
       kdh = ittype(xitems(item))
       IF ( kdh==1 ) GOTO 550
-      CALL sfetch(Ssname,xitems(item),srd,rc)
+      CALL sfetch(ssname,xitems(item),srd,rc)
       IF ( rc==1 ) GOTO 550
       IF ( rc==3 ) CYCLE
       IF ( rc==4 .OR. rc==5 ) GOTO 500
- 450  Line = Line + 2
-      IF ( Line>Nlpp ) CALL page
-      WRITE (Nout,99017) Uwm , Ssname , xitems(item)
+ 450  line = line + 2
+      IF ( line>nlpp ) CALL page
+      WRITE (nout,99017) uwm , ssname , xitems(item)
 99017 FORMAT (A25,' 6340, SUBSTRUCTURE ',2A4,' ITEM ',A4,' PSEUDOEXISTS ONLY AND CANNOT BE COPIED OUT BY EXIO')
       CYCLE
- 500  Line = Line + 2
-      IF ( Line>Nlpp ) CALL page
-      CALL smsg(rc-2,xitems(item),Ssname)
+ 500  line = line + 2
+      IF ( line>nlpp ) CALL page
+      CALL smsg(rc-2,xitems(item),ssname)
       CYCLE
 !
 !     WRITE SUBSTRUCTURE/ITEM HEADER RECORD
@@ -801,44 +807,44 @@ SUBROUTINE exio1
       sec = mod(sec,3600)
       min = sec/60
       sec = mod(sec,60)
-      Hdrec(1) = hdr
-      Hdrec(2) = Ssname(1)
-      Hdrec(3) = Ssname(2)
-      Hdrec(4) = xitems(item)
+      hdrec(1) = hdr
+      hdrec(2) = ssname(1)
+      hdrec(3) = ssname(2)
+      hdrec(4) = xitems(item)
       DO i = 1 , 3
-         Hdrec(i+4) = Date(i)
-         Hdrec(i+7) = Time(i)
+         hdrec(i+4) = date(i)
+         hdrec(i+7) = time(i)
       ENDDO
       IF ( kdh==1 ) THEN
 !
 !     COPY MATRIX DATA ITEMS
 !
          ifile = scr1
-         CALL mtrxi(scr1,Ssname,xitems(item),0,rc)
+         CALL mtrxi(scr1,ssname,xitems(item),0,rc)
          IF ( rc==2 ) GOTO 450
          IF ( rc==3 ) CYCLE
          IF ( rc==4 .OR. rc==5 ) GOTO 500
          IF ( rc==6 ) GOTO 4800
-         CALL write(unit,Hdrec,10,1)
-         Z(1) = scr1
-         CALL rdtrl(Z(1))
-         CALL write(unit,Z(iz2),6,1)
-         CALL open(*4800,scr1,Z(buf5),Rdrew)
-         CALL cpyfil(scr1,unit,Z,lcore,icount)
+         CALL write(unit,hdrec,10,1)
+         z(1) = scr1
+         CALL rdtrl(z(1))
+         CALL write(unit,z(iz2),6,1)
+         CALL open(*4800,scr1,z(buf5),rdrew)
+         CALL cpyfil(scr1,unit,z,lcore,icount)
          CALL close(scr1,1)
       ELSE
-         CALL write(unit,Hdrec,10,1)
+         CALL write(unit,hdrec,10,1)
          DO
 !
 !     COPY DATA
 !
-            CALL suread(Z(1),lcore,nwds,rc)
+            CALL suread(z(1),lcore,nwds,rc)
             IF ( rc==2 ) THEN
-               CALL write(unit,Z,nwds,1)
+               CALL write(unit,z,nwds,1)
             ELSEIF ( rc==3 ) THEN
                EXIT
             ELSE
-               CALL write(unit,Z,lcore,0)
+               CALL write(unit,z,lcore,0)
             ENDIF
          ENDDO
       ENDIF
@@ -846,9 +852,9 @@ SUBROUTINE exio1
 !     WRITE END-OF-ITEM RECORD AND USER MESSAGE
 !
       CALL write(unit,eoi,1,1)
-      Line = Line + 1
-      IF ( Line>Nlpp ) CALL page
-      WRITE (Nout,99024) Uim , Ssname , xitems(item) , sof , unit , Date , Time
+      line = line + 1
+      IF ( line>nlpp ) CALL page
+      WRITE (nout,99024) uim , ssname , xitems(item) , sof , unit , date , time
    ENDDO
 !
 !     BOTTOM OF LOOP OVER SUBSTRUCTURES
@@ -862,32 +868,32 @@ SUBROUTINE exio1
 !     ADVERTISED
 !
  600  CALL eof(unit)
-   CALL close(unit,Eofnrw)
+   CALL close(unit,eofnrw)
    GOTO 3900
 !
 !     RESTORE COMPLETE.  CLOSE FILE AND GIVE USER THE NEWS.
 !
- 700  CALL close(unit,Rew)
+ 700  CALL close(unit,rew)
    i = i - 1
-   WRITE (Nout,99018) Uim , i
+   WRITE (nout,99018) uim , i
 99018 FORMAT (A29,' 6344, SOF RESTORE OF ',I6,' BLOCKS SUCCESSFULLY ','COMPLETED')
    GOTO 4000
- 800  CALL read(*900,*1000,unit,Hdrec,10,1,lrec1)
+ 800  CALL read(*900,*1000,unit,hdrec,10,1,lrec1)
    lrec1 = 10
    GOTO 1000
  900  CALL rewind(unit)
    GOTO 800
  1000 DO i = 1 , lrec1
-      Buf(i) = Hdrec(i)
+      buf(i) = hdrec(i)
    ENDDO
-   IF ( Hdrec(1)==id ) GOTO 1300
-   IF ( Hdrec(1)/=hdr ) GOTO 4100
-   GOTO 1300
- 1100 IF ( Names(1)==whole(1) .AND. Names(2)==whole(2) ) THEN
+   IF ( hdrec(1)==id ) GOTO 1300
+   IF ( hdrec(1)==hdr ) GOTO 1300
+   GOTO 4100
+ 1100 IF ( names(1)==whole(1) .AND. names(2)==whole(2) ) THEN
 !
 !     READ OPERATION COMPLETE
 !
-      CALL close(unit,Norew)
+      CALL close(unit,norew)
       GOTO 3900
    ELSE
       CALL rewind(unit)
@@ -907,14 +913,14 @@ SUBROUTINE exio1
 !
 !     READ AN IDENTIFICATION OR HEADER RECORD
 !
-      CALL read(*1100,*1200,unit,Buf,10,1,flag)
+      CALL read(*1100,*1200,unit,buf,10,1,flag)
    ENDIF
 !
 !     CHECK IT AGAINST THE FIRST RECORD READ.  IF IT MATCHES, THE ENTIRE
 !     TAPE HAS BEEN SCANNED, BUT NOT ALL ITEMS WERE FOUND.
 !
  1200 DO i = 1 , lrec1
-      IF ( Buf(i)/=Hdrec(i) ) GOTO 1300
+      IF ( buf(i)/=hdrec(i) ) GOTO 1300
    ENDDO
 !
 !     THE ENTIRE EXTERNAL FILE HAS NOW BEEN SCANNED, BUT NOT ALL ITEMS
@@ -924,17 +930,17 @@ SUBROUTINE exio1
 !     FOR NEXT EXECUTION OF MODULE.
 !
    DO i = 1 , 9 , 2
-      IF ( Names(i)/=xxxx ) THEN
+      IF ( names(i)/=xxxx ) THEN
          DO item = 1 , nitems
             IF ( iss/=0 ) THEN
                DO j = 1 , iss
                   jss = 10*(j-1)
-                  IF ( Names(i)==Z(jss+1) .AND. Names(i+1)==Z(jss+2) .AND. xitems(item)==Z(jss+3) ) GOTO 1220
+                  IF ( names(i)==z(jss+1) .AND. names(i+1)==z(jss+2) .AND. xitems(item)==z(jss+3) ) GOTO 1220
                ENDDO
             ENDIF
-            Line = Line + 2
-            IF ( Line>Nlpp ) CALL page
-            WRITE (Nout,99019) Uwm , Names(i) , Names(i+1) , xitems(item) , Uname
+            line = line + 2
+            IF ( line>nlpp ) CALL page
+            WRITE (nout,99019) uwm , names(i) , names(i+1) , xitems(item) , uname
 99019       FORMAT (A25,' 6348, SUBSTRUCTURE ',2A4,' ITEM ',A4,' NOT FOUND ON EXTERNAL FILE ',2A4)
  1220    ENDDO
       ENDIF
@@ -944,7 +950,7 @@ SUBROUTINE exio1
 !     IF THAT WAS AN ID RECORD, ISSUE MESSAGE AND GO BACK TO READ THE
 !     IMMEDIATELY FOLLOWING HEADER RECORD.
 !
- 1300 IF ( Buf(1)==id ) THEN
+ 1300 IF ( buf(1)==id ) THEN
 !
 !     READ OLD DIT AND MDI DATA
 !
@@ -956,34 +962,34 @@ SUBROUTINE exio1
          GOTO 4700
       ELSE
          nos4 = nos*4
-         CALL read(*4300,*4400,unit,Z(idm),nos4,1,flag)
+         CALL read(*4300,*4400,unit,z(idm),nos4,1,flag)
          CALL fwdrec(*4300,unit)
-         Line = Line + 1
-         IF ( Line>Nlpp ) CALL page
-         WRITE (Nout,99023) Uim , (Buf(i),i=2,9)
-         CALL read(*1100,*1200,unit,Buf,10,1,flag)
+         line = line + 1
+         IF ( line>nlpp ) CALL page
+         WRITE (nout,99023) uim , (buf(i),i=2,9)
+         CALL read(*1100,*1200,unit,buf,10,1,flag)
          GOTO 1200
       ENDIF
 !
 !     READ OR SKIP THE SUBSTRUCTURE/ITEM DATA.
 !
-   ELSEIF ( Pdate/=0 ) THEN
+   ELSEIF ( pdate/=0 ) THEN
 !
 !     IF DATE AND TIME PARAMETERS WERE INVOKED, CHECK THEM.
 !
-      IF ( mod(Pdate,100)==Buf(7) .AND. Pdate/10000==Buf(5) .AND. mod(Pdate,10000)/100==Buf(6) .AND. Ptime/10000==Buf(8) .AND.      &
-         & mod(Ptime,10000)/100==Buf(9) .AND. mod(Ptime,100)==Buf(10) ) GOTO 2000
-      GOTO 1900
+      IF ( mod(pdate,100)/=buf(7) .OR. pdate/10000/=buf(5) .OR. mod(pdate,10000)/100/=buf(6) .OR. ptime/10000/=buf(8) .OR.          &
+         & mod(ptime,10000)/100/=buf(9) .OR. mod(ptime,100)/=buf(10) ) GOTO 1900
+      GOTO 2000
    ELSE
-      IF ( Names(1)==whole(1) .AND. Names(2)==whole(2) ) GOTO 1500
+      IF ( names(1)==whole(1) .AND. names(2)==whole(2) ) GOTO 1500
       DO i = 1 , 5
-         IF ( Names(2*i-1)/=xxxx ) THEN
-            IF ( Buf(2)==Names(2*i-1) .AND. Buf(3)==Names(2*i) ) GOTO 1350
+         IF ( names(2*i-1)/=xxxx ) THEN
+            IF ( buf(2)==names(2*i-1) .AND. buf(3)==names(2*i) ) GOTO 1350
          ENDIF
       ENDDO
       GOTO 1400
  1350 DO i = 1 , nitems
-         IF ( Buf(4)==xitems(i) ) GOTO 1500
+         IF ( buf(4)==xitems(i) ) GOTO 1500
       ENDDO
    ENDIF
  1400 DO
@@ -997,7 +1003,7 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*1400,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL read(*1100,*1200,unit,Buf,10,1,flag)
+            CALL read(*1100,*1200,unit,buf,10,1,flag)
             GOTO 1200
          ENDIF
       ELSE
@@ -1016,7 +1022,7 @@ SUBROUTINE exio1
       DO i = 1 , iss
          jss = 10*(i-1)
          DO j = 1 , 3
-            IF ( Buf(j+1)/=Z(jss+j) ) GOTO 1550
+            IF ( buf(j+1)/=z(jss+j) ) GOTO 1550
          ENDDO
          GOTO 1600
  1550 ENDDO
@@ -1029,51 +1035,51 @@ SUBROUTINE exio1
       GOTO 4700
    ELSE
       DO i = 1 , 9
-         Z(10*iss+i) = Buf(i+1)
+         z(10*iss+i) = buf(i+1)
       ENDDO
-      Z(10*iss+10) = 0
+      z(10*iss+10) = 0
       iss = iss + 1
       GOTO 2000
    ENDIF
 !
 !     DUPLICATE SUBSTRUCTURE/ITEM ENCOUNTER.  USE MOST RECENT.
 !
- 1600 IF ( Z(jss+10)==0 ) THEN
-      Line = Line + 3
-      IF ( Line>Nlpp ) CALL page
+ 1600 IF ( z(jss+10)==0 ) THEN
+      line = line + 3
+      IF ( line>nlpp ) CALL page
 !
 !     CHECK YEAR, MONTH, DAY, HOUR, MINUTE, SECOND
 !
-      IF ( Z(jss+6)<Buf(7) ) GOTO 1800
-      IF ( Z(jss+6)==Buf(7) ) THEN
-         IF ( Z(jss+4)<Buf(5) ) GOTO 1800
-         IF ( Z(jss+4)==Buf(5) ) THEN
-            IF ( Z(jss+5)<Buf(6) ) GOTO 1800
-            IF ( Z(jss+5)==Buf(6) ) THEN
-               IF ( Z(jss+7)<Buf(8) ) GOTO 1800
-               IF ( Z(jss+7)==Buf(8) ) THEN
-                  IF ( Z(jss+8)<Buf(9) ) GOTO 1800
-                  IF ( Z(jss+8)==Buf(9) ) THEN
-                     IF ( Z(jss+9)<Buf(10) ) GOTO 1800
+      IF ( z(jss+6)<buf(7) ) GOTO 1800
+      IF ( z(jss+6)==buf(7) ) THEN
+         IF ( z(jss+4)<buf(5) ) GOTO 1800
+         IF ( z(jss+4)==buf(5) ) THEN
+            IF ( z(jss+5)<buf(6) ) GOTO 1800
+            IF ( z(jss+5)==buf(6) ) THEN
+               IF ( z(jss+7)<buf(8) ) GOTO 1800
+               IF ( z(jss+7)==buf(8) ) THEN
+                  IF ( z(jss+8)<buf(9) ) GOTO 1800
+                  IF ( z(jss+8)==buf(9) ) THEN
+                     IF ( z(jss+9)<buf(10) ) GOTO 1800
 !
 !     MOST RECENT VERSION IS THE ONE ALREADY READ.  THEREFORE, SKIP THE
 !     ONE ON TAPE.
 !
-                     IF ( Z(jss+9)/=Buf(10) ) WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+                     IF ( z(jss+9)/=buf(10) ) WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
                   ELSE
-                     WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+                     WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
                   ENDIF
                ELSE
-                  WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+                  WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
                ENDIF
             ELSE
-               WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+               WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
             ENDIF
          ELSE
-            WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+            WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
          ENDIF
       ELSE
-         WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Buf(i),i=5,10)
+         WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (buf(i),i=5,10)
       ENDIF
    ENDIF
  1700 DO
@@ -1084,7 +1090,7 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*1700,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL read(*1100,*1200,unit,Buf,10,1,flag)
+            CALL read(*1100,*1200,unit,buf,10,1,flag)
             GOTO 1200
          ENDIF
       ELSE
@@ -1098,12 +1104,12 @@ SUBROUTINE exio1
 !     MOST RECENT VERSION IS ON TAPE.  REPLACE OLDER VERSION ALREADY
 !     READ.
 !
- 1800 WRITE (Nout,99025) Uwm , Buf(2) , Buf(3) , Buf(4) , Uname , (Z(jss+i),i=4,9)
+ 1800 WRITE (nout,99025) uwm , buf(2) , buf(3) , buf(4) , uname , (z(jss+i),i=4,9)
    DO i = 1 , 9
-      Z(jss+i) = Buf(i+1)
+      z(jss+i) = buf(i+1)
    ENDDO
    jcopy = jcopy - 1
-   CALL delete(Buf(2),Buf(4),rc)
+   CALL delete(buf(2),buf(4),rc)
    GOTO 2000
  1900 DO
 !
@@ -1116,7 +1122,7 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*1900,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL read(*1100,*1200,unit,Buf,10,1,flag)
+            CALL read(*1100,*1200,unit,buf,10,1,flag)
             GOTO 1200
          ENDIF
       ELSE
@@ -1131,7 +1137,7 @@ SUBROUTINE exio1
 !     FETCH THE ITEM ON THE SOF.
 !
       rc = 3
-      kdh = ittype(Buf(4))
+      kdh = ittype(buf(4))
       IF ( kdh==1 ) THEN
 !
 !     COPY MATRIX DATA FROM THE GINO FILE TO THE SOF.
@@ -1143,37 +1149,37 @@ SUBROUTINE exio1
             n = 8
             GOTO 4700
          ELSE
-            CALL read(*4900,*5000,unit,Z(i+1),6,1,nw)
-            Z(i) = scr2
-            CALL wrttrl(Z(i))
+            CALL read(*4900,*5000,unit,z(i+1),6,1,nw)
+            z(i) = scr2
+            CALL wrttrl(z(i))
             inblk(1) = unit
             outblk(1) = scr2
-            CALL open(*4800,scr2,Z(buf5),Wrtrew)
+            CALL open(*4800,scr2,z(buf5),wrtrew)
             GOTO 2500
          ENDIF
       ELSE
-         CALL sfetch(Buf(2),Buf(4),swrt,rc)
+         CALL sfetch(buf(2),buf(4),swrt,rc)
          IF ( rc==3 ) GOTO 2200
-         Line = Line + 2
-         IF ( Line>Nlpp ) CALL page
+         line = line + 2
+         IF ( line>nlpp ) CALL page
          IF ( rc==2 .OR. rc==3 ) GOTO 2200
          IF ( rc==4 ) THEN
 !
 !     SUBSTRUCTURE DOES NOT EXIST.  ADD IT TO THE SOF HIERARCHY.
 !
-            CALL exlvl(nos,Z(idm),Buf(2),Z(10*iss+1),lcore-10*iss)
+            CALL exlvl(nos,z(idm),buf(2),z(10*iss+1),lcore-10*iss)
             CYCLE
          ELSEIF ( rc==5 ) THEN
 !
 !     INVALID ITEM NAME
 !
-            CALL smsg(3,Buf(4),Buf(2))
+            CALL smsg(3,buf(4),buf(2))
          ELSE
 !
 !     ITEM ALREADY EXISTS.
 !
-            WRITE (Nout,99026) Uwm , Buf(2) , Buf(3) , Buf(4)
-            Z(10*iss) = 1
+            WRITE (nout,99026) uwm , buf(2) , buf(3) , buf(4)
+            z(10*iss) = 1
          ENDIF
          EXIT
       ENDIF
@@ -1189,7 +1195,7 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*2100,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL read(*1100,*1200,unit,Buf,10,1,flag)
+            CALL read(*1100,*1200,unit,buf,10,1,flag)
             GOTO 1200
          ENDIF
       ELSE
@@ -1209,17 +1215,17 @@ SUBROUTINE exio1
       GOTO 4700
    ENDIF
  2300 DO
-      CALL read(*4300,*2400,unit,Z(i),j,0,flag)
+      CALL read(*4300,*2400,unit,z(i),j,0,flag)
       rc = 1
-      CALL suwrt(Z(i),j,rc)
+      CALL suwrt(z(i),j,rc)
    ENDDO
- 2400 IF ( Z(i)==eoi ) THEN
+ 2400 IF ( z(i)==eoi ) THEN
       rc = 3
       CALL suwrt(0,0,rc)
       GOTO 2700
    ELSE
       rc = 2
-      CALL suwrt(Z(i),flag,rc)
+      CALL suwrt(z(i),flag,rc)
       GOTO 2300
    ENDIF
  2500 DO
@@ -1228,53 +1234,53 @@ SUBROUTINE exio1
          CALL cpystr(inblk,outblk,0,0)
       ELSE
          DO
-            CALL read(*4800,*2600,unit,Z(i),j,0,nw)
-            CALL write(scr2,Z(i),j,0)
+            CALL read(*4800,*2600,unit,z(i),j,0,nw)
+            CALL write(scr2,z(i),j,0)
          ENDDO
       ENDIF
    ENDDO
- 2600 IF ( Z(i)==eoi ) THEN
+ 2600 IF ( z(i)==eoi ) THEN
       CALL close(scr2,1)
       DO
-         CALL mtrxo(scr2,Buf(2),Buf(4),0,rc)
+         CALL mtrxo(scr2,buf(2),buf(4),0,rc)
          IF ( rc==2 .OR. rc==3 ) EXIT
          IF ( rc==4 ) THEN
 !
 !     SUBSTRUCTURE DOES NOT EXIST - ADD IT TO THE SOF HIERARCHY
 !
-            CALL exlvl(nos,Z(idm),Buf(2),Z(10*iss+1),lcore-10*iss)
+            CALL exlvl(nos,z(idm),buf(2),z(10*iss+1),lcore-10*iss)
             CYCLE
          ELSEIF ( rc==5 ) THEN
 !
 !     ILLEGAL ITEM NAME
 !
-            Line = Line + 2
-            IF ( Line>Nlpp ) CALL page
-            CALL smsg(3,Buf(4),Buf(2))
+            line = line + 2
+            IF ( line>nlpp ) CALL page
+            CALL smsg(3,buf(4),buf(2))
          ELSEIF ( rc==6 ) THEN
             GOTO 4800
          ELSE
 !
 !     ITEM ALREADY EXISTS
 !
-            Line = Line + 2
-            IF ( Line>Nlpp ) CALL page
-            WRITE (Nout,99026) Uwm , Buf(2) , Buf(3) , Buf(4)
-            Z(10*iss) = 1
+            line = line + 2
+            IF ( line>nlpp ) CALL page
+            WRITE (nout,99026) uwm , buf(2) , buf(3) , buf(4)
+            z(10*iss) = 1
          ENDIF
-         CALL read(*1100,*1200,unit,Buf,10,1,flag)
+         CALL read(*1100,*1200,unit,buf,10,1,flag)
          GOTO 1200
       ENDDO
    ELSE
-      CALL write(scr2,Z(i),nw,1)
+      CALL write(scr2,z(i),nw,1)
       GOTO 2500
    ENDIF
 !
 !     ITEM COPIED - PRINT MESSAGE
 !
- 2700 Line = Line + 1
-   IF ( Line>Nlpp ) CALL page
-   WRITE (Nout,99024) Uim , Buf(2) , Buf(3) , Buf(4) , unit , sof , (Buf(i),i=5,10)
+ 2700 line = line + 1
+   IF ( line>nlpp ) CALL page
+   WRITE (nout,99024) uim , buf(2) , buf(3) , buf(4) , unit , sof , (buf(i),i=5,10)
 !
 !     INCREMENT NUMBER OF ITEMS COPIED.  IF NOT ALL ARE COPIED, LOOP
 !     BACK TO FIND NEXT SUBSTRUCTURE/ITEM ON THE EXTERNAL FILE TO BE
@@ -1282,10 +1288,10 @@ SUBROUTINE exio1
 !
    jcopy = jcopy + 1
    IF ( ncopy/=jcopy ) THEN
-      CALL read(*1100,*1200,unit,Buf,10,1,flag)
+      CALL read(*1100,*1200,unit,buf,10,1,flag)
       GOTO 1200
    ELSE
-      CALL close(unit,Norew)
+      CALL close(unit,norew)
       GOTO 3900
    ENDIF
  2800 DO
@@ -1296,7 +1302,7 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*2800,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL close(unit,Norew)
+            CALL close(unit,norew)
             GOTO 3900
          ENDIF
       ELSE
@@ -1306,9 +1312,9 @@ SUBROUTINE exio1
          CALL fwdrec(*4300,unit)
       ENDIF
    ENDDO
- 2900 Line = Line + 1
-   IF ( Line>Nlpp ) CALL page
-   WRITE (Nout,99023) Uim , (Buf(i),i=2,9)
+ 2900 line = line + 1
+   IF ( line>nlpp ) CALL page
+   WRITE (nout,99023) uim , (buf(i),i=2,9)
  3000 DO
       CALL rectyp(unit,irec)
       IF ( irec==0 ) THEN
@@ -1317,10 +1323,10 @@ SUBROUTINE exio1
 !
          CALL read(*4300,*3000,unit,i,1,1,flag)
          IF ( i==eoi ) THEN
-            CALL read(*3100,*2900,unit,Buf,10,1,flag)
-            Line = Line + 1
-            IF ( Line>Nlpp ) CALL page
-            WRITE (Nout,99020) (Buf(i),i=2,10)
+            CALL read(*3100,*2900,unit,buf,10,1,flag)
+            line = line + 1
+            IF ( line>nlpp ) CALL page
+            WRITE (nout,99020) (buf(i),i=2,10)
 99020       FORMAT (5X,'SUBSTRUCTURE ',2A4,5X,'ITEM ',A4,10X,5HDATE ,I2,1H/,I2,1H/,I2,10X,5HTIME ,I2,1H.,I2,1H.,I2)
          ENDIF
       ELSE
@@ -1331,47 +1337,47 @@ SUBROUTINE exio1
       ENDIF
    ENDDO
  3100 CALL bckrec(unit)
-   CALL close(unit,Norew)
+   CALL close(unit,norew)
    GOTO 3900
 !
 !     READ HEADER RECORD AND FETCH THE SOF ITEM
 !
- 3200 CALL read(*3800,*4400,scr1,Buf,4,1,flag)
-   kdh = ittype(Buf(3))
+ 3200 CALL read(*3800,*4400,scr1,buf,4,1,flag)
+   kdh = ittype(buf(3))
    IF ( kdh==1 ) THEN
 !
 !     COPY IN MATRIX ITEMS
 !
-      CALL open(*4800,scr2,Z(buf5),Wrtrew)
-      CALL read(*4300,*4400,scr1,Z(iz2),6,1,nw)
-      Z(1) = scr2
-      CALL wrttrl(Z(1))
+      CALL open(*4800,scr2,z(buf5),wrtrew)
+      CALL read(*4300,*4400,scr1,z(iz2),6,1,nw)
+      z(1) = scr2
+      CALL wrttrl(z(1))
       inblk(1) = scr1
       outblk(1) = scr2
       GOTO 3500
    ELSE
-      CALL sfetch(Buf,Buf(3),2,Buf(4))
+      CALL sfetch(buf,buf(3),2,buf(4))
    ENDIF
  3300 DO
 !
 !     COPY THE DATA
 !
-      CALL read(*4300,*3400,scr1,Z,lcore,0,flag)
-      IF ( Z(1)==eoi ) THEN
+      CALL read(*4300,*3400,scr1,z,lcore,0,flag)
+      IF ( z(1)==eoi ) THEN
 !
 !     EOI FOUND
 !
          CALL suwrt(0,0,3)
          GOTO 3700
       ELSE
-         CALL suwrt(Z,lcore,1)
+         CALL suwrt(z,lcore,1)
       ENDIF
    ENDDO
- 3400 IF ( Z(1)==eoi ) THEN
+ 3400 IF ( z(1)==eoi ) THEN
       CALL suwrt(0,0,3)
       GOTO 3700
    ELSE
-      CALL suwrt(Z,flag,2)
+      CALL suwrt(z,flag,2)
       GOTO 3300
    ENDIF
  3500 DO
@@ -1380,30 +1386,30 @@ SUBROUTINE exio1
          CALL cpystr(inblk,outblk,0,0)
       ELSE
          DO
-            CALL read(*4300,*3600,scr1,Z,lcore,0,nw)
-            CALL write(scr2,Z,lcore,0)
+            CALL read(*4300,*3600,scr1,z,lcore,0,nw)
+            CALL write(scr2,z,lcore,0)
          ENDDO
       ENDIF
    ENDDO
- 3600 IF ( Z(1)==eoi ) THEN
+ 3600 IF ( z(1)==eoi ) THEN
 !
 !     EOI FOUND
 !
       CALL close(scr2,1)
-      CALL mtrxo(scr2,Buf,Buf(3),0,rc)
+      CALL mtrxo(scr2,buf,buf(3),0,rc)
    ELSE
-      CALL write(scr2,Z,nw,1)
+      CALL write(scr2,z,nw,1)
       GOTO 3500
    ENDIF
- 3700 Line = Line + 1
-   IF ( Line>Nlpp ) CALL page
-   WRITE (Nout,99021) Uim , Buf(1) , Buf(2) , Buf(3)
+ 3700 line = line + 1
+   IF ( line>nlpp ) CALL page
+   WRITE (nout,99021) uim , buf(1) , buf(2) , buf(3)
 99021 FORMAT (A29,' 6353, SUBSTRUCTURE ',2A4,' ITEM ',A4,' HAS BEEN SUCCESSFULLY COMPRESSED')
    GOTO 3200
 !
 !     COMPRESS COMPLETE
 !
- 3800 CALL close(scr1,Rew)
+ 3800 CALL close(scr1,rew)
 !
 !     **********************   C O D A   ************************
 !
@@ -1411,9 +1417,9 @@ SUBROUTINE exio1
 !
  3900 CALL sofcls
  4000 RETURN
- 4100 WRITE (Nout,99022) Swm , Uname
+ 4100 WRITE (nout,99022) swm , uname
 99022 FORMAT (A27,' 6343, ',2A4,' IS NOT AN EXTERNAL SOF FILE')
-   CALL close(unit,Norew)
+   CALL close(unit,norew)
    GOTO 4600
 !
  4200 n = -1
@@ -1425,14 +1431,14 @@ SUBROUTINE exio1
  4500 n = -61
    GOTO 4700
  4600 CALL sofcls
-   Dry = -2
-   WRITE (Nout,99028) Sim
+   dry = -2
+   WRITE (nout,99028) sim
    RETURN
 !
  4700 CALL sofcls
    CALL mesage(n,unit,subr)
-   Dry = -2
-   WRITE (Nout,99028) Sim
+   dry = -2
+   WRITE (nout,99028) sim
    RETURN
 !
  4800 n = -1

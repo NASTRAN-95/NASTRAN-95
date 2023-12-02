@@ -1,10 +1,11 @@
-!*==mbbslj.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mbbslj.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbbslj(Arg,N,Bsl)
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,7 +45,7 @@ SUBROUTINE mbbslj(Arg,N,Bsl)
       IF ( pf<=1.E-08 ) THEN
 !
          CALL page2(3)
-         WRITE (N6,99001) Sfm , Arg
+         WRITE (n6,99001) sfm , Arg
 99001    FORMAT (A25,' 2435, MBBSLJ SUBROUTINE FAILED BECAUSE THE ARGUMEN','T IS TOO LARGE FOR THE BSL ARRAY',/5X,'ARG =',1P,E13.5)
          CALL mesage(-61,0,0)
          RETURN
@@ -73,5 +74,4 @@ SUBROUTINE mbbslj(Arg,N,Bsl)
       IF ( abs(Bsl(N))>1.0E-07 ) RETURN
       N = N - 1
    ENDDO
-   RETURN
 END SUBROUTINE mbbslj

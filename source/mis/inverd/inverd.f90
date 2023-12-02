@@ -1,9 +1,10 @@
-!*==inverd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==inverd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE inverd(Ndim,A,N,B,M,Determ,Ising,Index)
-USE C_MACHIN
-USE ISO_FORTRAN_ENV                 
+   USE c_machin
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,7 +46,7 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
-   IF ( Mach==5 ) epsi = 1.D-18
+   IF ( mach==5 ) epsi = 1.D-18
    Determ = 1.0D0
    IF ( Ising<0 ) Determ = 0.0D0
    DO j = 1 , N
@@ -169,9 +170,10 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
+      USE ISO_FORTRAN_ENV                 
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
+      USE ISO_FORTRAN_ENV                 
       Ising = 2
    END SUBROUTINE spag_block_2
 END SUBROUTINE inverd

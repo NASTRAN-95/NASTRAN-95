@@ -2,14 +2,14 @@
  
 SUBROUTINE masstq(Narg)
    IMPLICIT NONE
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SMA2CL
-   USE C_SMA2DP
-   USE C_SMA2ET
-   USE C_SMA2HT
-   USE C_SMA2IO
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2ht
+   USE c_sma2io
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -20,6 +20,15 @@ SUBROUTINE masstq(Narg)
    INTEGER :: i , iflag
    INTEGER , DIMENSION(7) :: necpt
    REAL , SAVE :: pi23
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -91,50 +100,50 @@ SUBROUTINE masstq(Narg)
 !                   NTYPE = 7  -MQDPLT-
 !                   *******************
 !
-   Ntype = Narg
+   ntype = Narg
 !
 !            -MQDMEM-      -MTRPLT-MTRMEM-      -MTWIST-
 !            -MQUAD2-MQUAD1-MTRBSC-MTRIA2-MTRIA1-MSHEAR-MQDPLT-
-   IF ( Ntype==2 ) THEN
+   IF ( ntype==2 ) THEN
 !
-      Ncsid = 16
-      Matid = necpt(7)
-      T = Ecpt(8)
-      Fmu = Ecpt(13)
-   ELSEIF ( Ntype==3 ) THEN
+      ncsid = 16
+      matid = necpt(7)
+      t = ecpt(8)
+      fmu = ecpt(13)
+   ELSEIF ( ntype==3 ) THEN
 !
-      Ncsid = 13
-      Matid = necpt(6)
-      T = 0.0E0
-      Fmu = Ecpt(10)
-   ELSEIF ( Ntype==4 ) THEN
+      ncsid = 13
+      matid = necpt(6)
+      t = 0.0E0
+      fmu = ecpt(10)
+   ELSEIF ( ntype==4 ) THEN
 !
-      Ncsid = 9
-      Matid = necpt(6)
-      T = Ecpt(7)
-      Fmu = Ecpt(8)
-   ELSEIF ( Ntype==5 ) THEN
+      ncsid = 9
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(8)
+   ELSEIF ( ntype==5 ) THEN
 !
-      Ncsid = 15
-      Matid = necpt(6)
-      T = Ecpt(7)
-      Fmu = Ecpt(12)
-   ELSEIF ( Ntype==6 ) THEN
-      Ncsid = 9
-      Matid = necpt(6)
-      T = Ecpt(7)
-      Fmu = Ecpt(8)
-   ELSEIF ( Ntype==7 ) THEN
-      Ncsid = 14
-      Matid = necpt(7)
-      T = 0.0E0
-      Fmu = Ecpt(11)
+      ncsid = 15
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(12)
+   ELSEIF ( ntype==6 ) THEN
+      ncsid = 9
+      matid = necpt(6)
+      t = ecpt(7)
+      fmu = ecpt(8)
+   ELSEIF ( ntype==7 ) THEN
+      ncsid = 14
+      matid = necpt(7)
+      t = 0.0E0
+      fmu = ecpt(11)
    ELSE
 !
-      Ncsid = 10
-      Matid = necpt(7)
-      T = Ecpt(8)
-      Fmu = Ecpt(9)
+      ncsid = 10
+      matid = necpt(7)
+      t = ecpt(8)
+      fmu = ecpt(9)
    ENDIF
 !
 !  30 COMPUTE PIVOT TRIANGLE AREA
@@ -142,114 +151,113 @@ SUBROUTINE masstq(Narg)
 !     FIRST SET UP THE POINTERS TO THE CSID OF THE 3 POINTS FROM THE
 !     BASE CSID
 !
-   Npt1 = 0
-   Npt2 = 4
-   Npt3 = 8
-   IF ( Ntype>=3 .AND. Ntype<=5 ) GOTO 200
-   Ichek = 1
+   npt1 = 0
+   npt2 = 4
+   npt3 = 8
+   IF ( ntype>=3 .AND. ntype<=5 ) GOTO 200
+   ichek = 1
 !     SELECT 3 POINTS FOR THE PIVOT TRIANGLE OF A QUADRILATERAL
 !     FIND PIVOT NUMBER FIRST
    DO i = 1 , 4
-      IF ( Npvt==necpt(i+1) ) THEN
-         Npivot = i
+      IF ( npvt==necpt(i+1) ) THEN
+         npivot = i
          GOTO 100
       ENDIF
    ENDDO
 !
 !     ERROR IF FALL THRU ABOVE LOOP
 !
-   CALL mesage(-30,34,Ecpt(1))
+   CALL mesage(-30,34,ecpt(1))
    RETURN
 !
 !
- 100  IF ( Npivot<2 ) THEN
-      Npt3 = 12
-   ELSEIF ( Npivot/=2 ) THEN
-      IF ( Npivot==3 ) THEN
-         Npt1 = 12
+ 100  IF ( npivot<2 ) THEN
+      npt3 = 12
+   ELSEIF ( npivot/=2 ) THEN
+      IF ( npivot==3 ) THEN
+         npt1 = 12
       ELSE
-         Npt2 = 12
+         npt2 = 12
       ENDIF
    ENDIF
 !
 !     ABOVE LOGIC SETS THE 3 POINTS FOR THE PIVOT TRIANGLE OF A QUAD.
 !
  200  DO i = 1 , 3
-      Isub1 = Ncsid + Npt1 + i
-      Isub2 = Ncsid + Npt2 + i
-      Isub3 = Ncsid + Npt3 + i
-      V1(i) = Ecpt(Isub3) - Ecpt(Isub1)
-      V2(i) = Ecpt(Isub3) - Ecpt(Isub2)
+      isub1 = ncsid + npt1 + i
+      isub2 = ncsid + npt2 + i
+      isub3 = ncsid + npt3 + i
+      v1(i) = ecpt(isub3) - ecpt(isub1)
+      v2(i) = ecpt(isub3) - ecpt(isub2)
    ENDDO
 !
 !     COMPUTE AREA OF QUAD OR TRI USING V1 AND V2
-   Area = 0.0E0
+   area = 0.0E0
    DO
 !
-      V1xv2(1) = V1(2)*V2(3) - V1(3)*V2(2)
-      V1xv2(2) = V1(3)*V2(1) - V1(1)*V2(3)
-      V1xv2(3) = V1(1)*V2(2) - V1(2)*V2(1)
+      v1xv2(1) = v1(2)*v2(3) - v1(3)*v2(2)
+      v1xv2(2) = v1(3)*v2(1) - v1(1)*v2(3)
+      v1xv2(3) = v1(1)*v2(2) - v1(2)*v2(1)
 !
-      Area = Area + sqrt(V1xv2(1)**2+V1xv2(2)**2+V1xv2(3)**2)/2.0E0
+      area = area + sqrt(v1xv2(1)**2+v1xv2(2)**2+v1xv2(3)**2)/2.0E0
 !
-      IF ( Ntype>2 .AND. Ntype<6 ) EXIT
-      IF ( Ichek==0 ) EXIT
+      IF ( ntype>2 .AND. ntype<6 ) EXIT
+      IF ( ichek==0 ) EXIT
 !
 !     COMPUTE AREA OF WHOLE QUAD, FIRST SET UP V1 + V2 THEN TRA TO 600.
 !
       IF ( Narg==1 .AND. iflag==1 ) THEN
-         Isub1 = Ncsid + Npt1 + 1
-         Isub2 = Ncsid + Npt2 + 1
-         Isub3 = Ncsid + Npt3 + 1
-         T = pi23*(Ecpt(Isub1)+Ecpt(Isub2)+Ecpt(Isub3))
+         isub1 = ncsid + npt1 + 1
+         isub2 = ncsid + npt2 + 1
+         isub3 = ncsid + npt3 + 1
+         t = pi23*(ecpt(isub1)+ecpt(isub2)+ecpt(isub3))
       ENDIF
-      Npt1 = Ncsid
-      Npt2 = Ncsid + 4
-      Npt3 = Ncsid + 8
-      Npt4 = Ncsid + 12
+      npt1 = ncsid
+      npt2 = ncsid + 4
+      npt3 = ncsid + 8
+      npt4 = ncsid + 12
       DO i = 1 , 3
-         Npt1 = Npt1 + 1
-         Npt2 = Npt2 + 1
-         Npt3 = Npt3 + 1
-         Npt4 = Npt4 + 1
-         V1(i) = Ecpt(Npt1) - Ecpt(Npt3)
-         V2(i) = Ecpt(Npt2) - Ecpt(Npt4)
+         npt1 = npt1 + 1
+         npt2 = npt2 + 1
+         npt3 = npt3 + 1
+         npt4 = npt4 + 1
+         v1(i) = ecpt(npt1) - ecpt(npt3)
+         v2(i) = ecpt(npt2) - ecpt(npt4)
       ENDDO
 !
-      Ichek = 0
+      ichek = 0
    ENDDO
 !     ******************************************************************
 !     FINAL COMPUTATION OF TERM AND SHIP OUT OF MATRIX.
 !
    DO i = 1 , 36
-      Mass(i) = 0.0D0
+      mass(i) = 0.0D0
    ENDDO
-   IF ( T/=0 ) THEN
+   IF ( t/=0 ) THEN
 !     RHO NOT NEEDED IF T = 0
 !
-      Inflag = 4
-      IF ( Heat ) THEN
+      inflag = 4
+      IF ( heat ) THEN
 !*****
 !  HEAT FORMULATION.
 !*****
-         CALL hmat(Ecpt)
-         Mass(1) = (Cp*T)*Area/3.0
-         IF ( Ntype<3 .OR. Ntype>5 ) Mass(1) = Mass(1)/2.0D0
-         CALL sma2b(Mass(1),Npvt,Npvt,Ifbgg,0.0D0)
+         CALL hmat(ecpt)
+         mass(1) = (cp*t)*area/3.0
+         IF ( ntype<3 .OR. ntype>5 ) mass(1) = mass(1)/2.0D0
+         CALL sma2b(mass(1),npvt,npvt,ifbgg,0.0D0)
          GOTO 99999
       ELSE
-         CALL mat(Ecpt(1))
+         CALL mat(ecpt(1))
       ENDIF
    ENDIF
 !
 !
-   Term = (Fmu+Rho*T)*Area/3.0E0
-   IF ( Ntype<3 .OR. Ntype>5 ) Term = Term/2.0E0
-   Mass(1) = Term
-   Mass(8) = Term
-   Mass(15) = Term
+   term = (fmu+rho*t)*area/3.0E0
+   IF ( ntype<3 .OR. ntype>5 ) term = term/2.0E0
+   mass(1) = term
+   mass(8) = term
+   mass(15) = term
 !
-   CALL sma2b(Mass(1),Npvt,-1,Ifmgg,0.0D0)
+   CALL sma2b(mass(1),npvt,-1,ifmgg,0.0D0)
 !
-   RETURN
 99999 END SUBROUTINE masstq

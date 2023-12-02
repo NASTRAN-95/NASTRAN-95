@@ -1,14 +1,15 @@
-!*==prolat.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==prolat.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE prolat
+   USE c_biot
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BIOT
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -71,12 +72,12 @@ SUBROUTINE prolat
 !
          tpi = 2.*pi
          writ = .FALSE.
-         Nslt = 105
-         Hest = 108
-         Scr1 = 301
-         lcore = korsz(Z)
+         nslt = 105
+         hest = 108
+         scr1 = 301
+         lcore = korsz(z)
          llcore = lcore
-         buf1 = lcore - Sysbuf
+         buf1 = lcore - sysbuf
          lcore = buf1 - 1
          IF ( lcore>0 ) THEN
 !
@@ -92,23 +93,23 @@ SUBROUTINE prolat
 !     CHECK TO SEE IF PROLATE CARD EXISTS.IF NOT, WARNING AND OUT
 !
             file = geom1
-            CALL preloc(*140,Z(buf1),geom1)
-            CALL locate(*20,Z(buf1),prolte,idx)
+            CALL preloc(*140,z(buf1),geom1)
+            CALL locate(*20,z(buf1),prolte,idx)
 !
 !     THERE IS ONLY ONE PROLAT CARD IN THE DECK-READ IT IN
 !
-            CALL read(*160,*40,geom1,Z,lcore,0,ngrids)
+            CALL read(*160,*40,geom1,z,lcore,0,ngrids)
          ENDIF
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 20      WRITE (Otpe,99001) Sim
+ 20      WRITE (otpe,99001) sim
 99001    FORMAT (A31,', NO PROLAT CARD FOUND')
          CALL close(geom1,1)
          RETURN
  40      CALL close(geom1,1)
-         semaj = Z(1)
+         semaj = z(1)
          j = 2
-         semin = Z(j)
+         semin = z(j)
          nsegs = iz(3)
          msegs = iz(4)
          nnharm = iz(5)
@@ -119,11 +120,11 @@ SUBROUTINE prolat
 !     BOTH INTERNAL AND SIL VALUES FOR THE GRIDS.BUT THESE ARE THE SAME
 !     IN HEAT TRANSFER. SO READ IN ONLY THE 1ST RECORD OF EQEXIN
 !
-         Mcore = lcore - ngrids
+         mcore = lcore - ngrids
          ieqex = ngrids
-         CALL gopen(eqexin,Z(buf1),0)
+         CALL gopen(eqexin,z(buf1),0)
          file = eqexin
-         CALL read(*160,*60,eqexin,Z(ieqex+1),Mcore,0,neqex)
+         CALL read(*160,*60,eqexin,z(ieqex+1),mcore,0,neqex)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
  60      CALL close(eqexin,1)
@@ -148,7 +149,7 @@ SUBROUTINE prolat
          ENDDO
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 80      WRITE (Otpe,99002) Ufm , iz(i)
+ 80      WRITE (otpe,99002) ufm , iz(i)
 99002    FORMAT (A23,', GRID',I8,' ON PROLAT CARD DOES NOT EXIST')
          CALL mesage(-61,0,0)
          spag_nextblock_1 = 2
@@ -164,17 +165,17 @@ SUBROUTINE prolat
 !     CREATE SCRATCH FILE OF HC VALUES FOR EACH REMFLUX CARD(FOR LATER
 !     USE IN HC LINE INTEGRALS)
 !
-         Buf2 = buf1
-         Mcore = lcore
+         buf2 = buf1
+         mcore = lcore
          CALL remflx(ngrids)
 !
 !     NOW PICK UP COORDINATES OF THESE POINTS-OPEN CORE 1-NGRIDS GIVES
 !     THE POINTERS
 !
          ibg = ngrids
-         CALL gopen(bgpdt,Z(buf1),0)
+         CALL gopen(bgpdt,z(buf1),0)
          file = bgpdt
-         CALL read(*160,*100,bgpdt,Z(ibg+1),lcore-ngrids,0,nbg)
+         CALL read(*160,*100,bgpdt,z(ibg+1),lcore-ngrids,0,nbg)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
  100     CALL close(bgpdt,1)
@@ -189,7 +190,7 @@ SUBROUTINE prolat
             isub = 4*(ipz-1) + ibg
             isub1 = isub + 1
             DO j = 1 , 3
-               Z(k+j) = Z(isub1+j)
+               z(k+j) = z(isub1+j)
             ENDDO
             k = k + 3
          ENDDO
@@ -201,7 +202,7 @@ SUBROUTINE prolat
          DO i = 1 , ngrids
             ij = ngrids + 3*(i-1)
             DO j = 1 , 3
-               Z(ij+j) = Z(k+j)
+               z(ij+j) = z(k+j)
             ENDDO
             k = k + 3
          ENDDO
@@ -215,11 +216,11 @@ SUBROUTINE prolat
          CALL rdtrl(mcb)
          ncol = mcb(2)
          nrow = mcb(3)
-         Typout = 1
-         Ii = 1
-         Nn = nrow
-         Incr = 1
-         Subcas = 0
+         typout = 1
+         ii = 1
+         nn = nrow
+         incr = 1
+         subcas = 0
          spag_nextblock_1 = 3
       CASE (3)
          inext = 4*ngrids
@@ -228,9 +229,9 @@ SUBROUTINE prolat
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Subcas = Subcas + 1
-         CALL gopen(hugv,Z(buf1),iop)
-         CALL unpack(*120,hugv,Z(inext+1))
+         subcas = subcas + 1
+         CALL gopen(hugv,z(buf1),iop)
+         CALL unpack(*120,hugv,z(inext+1))
          CALL close(hugv,2)
 !
 !     PICK UP POTENTIALS OF ASSOCIATED POINTS
@@ -238,13 +239,13 @@ SUBROUTINE prolat
          isub = inext + nrow
          DO i = 1 , ngrids
             ipz = iz(i)
-            Z(isub+i) = Z(inext+ipz)
+            z(isub+i) = z(inext+ipz)
          ENDDO
 !
 !     MOVE THESE  UP
 !
          DO i = 1 , ngrids
-            Z(ipot+i) = Z(isub+i)
+            z(ipot+i) = z(isub+i)
          ENDDO
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
@@ -252,7 +253,7 @@ SUBROUTINE prolat
 !     ZERO POTENTIALS
 !
  120     DO i = 1 , ngrids
-            Z(ipot+i) = 0.
+            z(ipot+i) = 0.
          ENDDO
          CALL close(hugv,2)
          spag_nextblock_1 = 4
@@ -280,14 +281,14 @@ SUBROUTINE prolat
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(casecc,Z(buf1),iop)
+         CALL gopen(casecc,z(buf1),iop)
          DO
-            CALL fread(casecc,Z(inext+1),136,1)
+            CALL fread(casecc,z(inext+1),136,1)
             nsym = iz(inext+16)
-            Load = iz(inext+4)
+            load = iz(inext+4)
             isym = iz(inext+136)
             DO i = 1 , 96
-               title(i) = Z(inext+38+i)
+               title(i) = z(inext+38+i)
             ENDDO
             anom = .FALSE.
             IF ( isym>2 ) THEN
@@ -308,18 +309,18 @@ SUBROUTINE prolat
 !
 !     IF BIOT-SAVART LOAD ARE ZERO OR ANOMALY ONLY, SKIP HC POTENTIALS
 !
-               IF ( Load/=0 ) THEN
+               IF ( load/=0 ) THEN
                   IF ( .NOT.(anom) ) THEN
 !
 !     SET UP LOADS FOR LINE INTEGRAL COMPUTATIONS
 !
-                     Buf2 = buf1
-                     Mcore = lcore
-                     Ist = inext
+                     buf2 = buf1
+                     mcore = lcore
+                     ist = inext
 !
                      CALL loadsu
 !
-                     inext = inext + Ntot
+                     inext = inext + ntot
                      IF ( inext+ngrids>lcore ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
@@ -327,7 +328,7 @@ SUBROUTINE prolat
 !
 !     CHECK CORE FOR BIOTSV
 !
-                     IF ( Remfl .AND. inext+4*ngrids>lcore ) THEN
+                     IF ( remfl .AND. inext+4*ngrids>lcore ) THEN
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -339,7 +340,7 @@ SUBROUTINE prolat
 !
 !
                      DO i = 1 , ngrids
-                        Z(inext+i) = 0.
+                        z(inext+i) = 0.
                      ENDDO
                      ihcpot = inext
                      mlong = msegs + 1
@@ -360,25 +361,25 @@ SUBROUTINE prolat
                            IF ( n==nsegs ) ipt2 = 2
 !
                            isub = 3*(ipt1-1) + ibg
-                           X1 = Z(isub+1)
-                           Y1 = Z(isub+2)
-                           Z1 = Z(isub+3)
+                           x1 = z(isub+1)
+                           y1 = z(isub+2)
+                           z1 = z(isub+3)
                            isub = 3*(ipt2-1) + ibg
-                           X2 = Z(isub+1)
-                           Y2 = Z(isub+2)
-                           Z2 = Z(isub+3)
-                           Ng1 = iz(ipt1)
-                           Ng2 = iz(ipt2)
+                           x2 = z(isub+1)
+                           y2 = z(isub+2)
+                           z2 = z(isub+3)
+                           ng1 = iz(ipt1)
+                           ng2 = iz(ipt2)
 !
-                           CALL linein(X1,Y1,Z1,X2,Y2,Z2,hcdl)
+                           CALL linein(x1,y1,z1,x2,y2,z2,hcdl)
 !
 !     NOW ADD POTENTIAL FROM 1ST POINT TO INTEGRAL AT 2ND TO GIVE
 !     INITIAL POTENTIAL AT 2ND POINT. IF 2ND POINT IS RIGHT END POINT
 !     (POINT 2 ON PROLAT), ACCUMULATE FOR AVERAGING
 !
                            add = 0.
-                           IF ( ipt2==2 ) add = Z(ihcpot+2)
-                           Z(ihcpot+ipt2) = Z(ihcpot+ipt1) + hcdl + add
+                           IF ( ipt2==2 ) add = z(ihcpot+2)
+                           z(ihcpot+ipt2) = z(ihcpot+ipt1) + hcdl + add
 !
 !     GET ANOTHER CIRCUMFERENTIAL SEGMENT
 !
@@ -386,7 +387,7 @@ SUBROUTINE prolat
 !
 !     AVERAGE THE INTEGRALS AT RIGHT END POINT
 !
-                        Z(ihcpot+2) = Z(ihcpot+2)/float(mlong)
+                        z(ihcpot+2) = z(ihcpot+2)/float(mlong)
 !
 !     LONGITUDINAL INTEGRATIONS FOR THIS LONGITUDINAL SEGMENT ARE
 !     COMPLETE.
@@ -401,23 +402,23 @@ SUBROUTINE prolat
                               ipt1 = (m-1)*(nsegs-1) + 2 + n
                               ipt2 = ipt1 + (nsegs-1)
                               isub = 3*(ipt1-1) + ibg
-                              X1 = Z(isub+1)
-                              Y1 = Z(isub+2)
-                              Z1 = Z(isub+3)
+                              x1 = z(isub+1)
+                              y1 = z(isub+2)
+                              z1 = z(isub+3)
                               isub = 3*(ipt2-1) + ibg
-                              X2 = Z(isub+1)
-                              Y2 = Z(isub+2)
-                              Z2 = Z(isub+3)
-                              Ng1 = iz(ipt1)
-                              Ng2 = iz(ipt2)
+                              x2 = z(isub+1)
+                              y2 = z(isub+2)
+                              z2 = z(isub+3)
+                              ng1 = iz(ipt1)
+                              ng2 = iz(ipt2)
 !
-                              CALL linein(X1,Y1,Z1,X2,Y2,Z2,hcdl)
+                              CALL linein(x1,y1,z1,x2,y2,z2,hcdl)
 !
 !     TO GET FINAL HC POTENTIAL AT 2ND POINT, ADD PRESENT POTENTIAL AT
 !     POINT 2(WHICH RESULTED FROM LONGITUDINAL INTEGRATION) TO THE SUM
 !     OF THE POTENTIAL AT POINT 1 AND PRESENT INTEGRAL. THEN AVERAGE
 !
-                              Z(ihcpot+ipt2) = (Z(ihcpot+ipt2)+Z(ihcpot+ipt1)+hcdl)/2.
+                              z(ihcpot+ipt2) = (z(ihcpot+ipt2)+z(ihcpot+ipt1)+hcdl)/2.
 !
                            ENDDO
                         ENDIF
@@ -426,7 +427,7 @@ SUBROUTINE prolat
 !
                      ENDDO
 !
-                     CALL close(Nslt,1)
+                     CALL close(nslt,1)
 !
 !     USING THE POTENTIALS JUST COMPUTED, COMPUTE AN AVERAGE REFERNCE
 !     POTENTIAL TO BE SUBTRACTED FROM THESE POTENTIALS SO THAT THE
@@ -445,7 +446,7 @@ SUBROUTINE prolat
                   ENDIF
                ENDIF
                onlyar = .FALSE.
-               IF ( Load==0 .OR. isym==1 ) onlyar = .TRUE.
+               IF ( load==0 .OR. isym==1 ) onlyar = .TRUE.
                IF ( anom ) onlyar = .TRUE.
 !
                sump = 0.
@@ -480,9 +481,9 @@ SUBROUTINE prolat
 !
                      DO i = 1 , 4
                         isub = 3*(ipt(i)-1) + ibg
-                        xx(i) = Z(isub+1)
-                        yy(i) = Z(isub+2)
-                        zz(i) = Z(isub+3)
+                        xx(i) = z(isub+1)
+                        yy(i) = z(isub+2)
+                        zz(i) = z(isub+3)
                         xeta(i) = dxi*xx(i)
                         IF ( zz(i)/=0. .OR. yy(i)/=0. ) THEN
                            xphi(i) = atan2(zz(i),yy(i))
@@ -529,10 +530,10 @@ SUBROUTINE prolat
                         ipt2 = ipt(2)
                         ipt3 = ipt(3)
                         ipt4 = ipt(4)
-                        potv(1) = Z(ihcpot+ipt1)
-                        potv(2) = Z(ihcpot+ipt2)
-                        potv(3) = Z(ihcpot+ipt3)
-                        potv(4) = Z(ihcpot+ipt4)
+                        potv(1) = z(ihcpot+ipt1)
+                        potv(2) = z(ihcpot+ipt2)
+                        potv(3) = z(ihcpot+ipt3)
+                        potv(4) = z(ihcpot+ipt4)
 !
                         DO i = 1 , 4
                            poti(i) = 0.
@@ -569,7 +570,7 @@ SUBROUTINE prolat
                ENDDO
 !
                IF ( suma<=0. ) THEN
-                  WRITE (Otpe,99003) Ufm
+                  WRITE (otpe,99003) ufm
 99003             FORMAT (A23,', AREA OF PROLATE SPHEROID IS ZERO')
                   CALL mesage(-61,0,0)
                ENDIF
@@ -580,10 +581,10 @@ SUBROUTINE prolat
                area = 2.*pi*(semin**2+semaj*semin*asin(eps)/eps)
                IF ( isym/=0 ) suma = 2.*suma
 !
-               IF ( .NOT.writ ) WRITE (Otpe,99004) Uim , area , suma
+               IF ( .NOT.writ ) WRITE (otpe,99004) uim , area , suma
 99004          FORMAT (A29,', THE EXACT SURFACE AREA OF THE PROLATE SPHEROID IS',1X,1P,E15.3,',  THE COMPUTED AREA IS ',1P,E15.3)
                writ = .TRUE.
-               IF ( Load/=0 ) THEN
+               IF ( load/=0 ) THEN
                   IF ( .NOT.(anom) ) THEN
 !
 !     GET REFERNCE POTENTIAL AND SUBTRACT FROM SUM OF ANOMALY AND HC
@@ -591,7 +592,7 @@ SUBROUTINE prolat
 !
                      IF ( isym/=1 ) reff = sump/sumep
                      DO i = 1 , ngrids
-                        Z(ipot+i) = Z(ipot+i) + Z(ihcpot+i) - reff
+                        z(ipot+i) = z(ipot+i) + z(ihcpot+i) - reff
                      ENDDO
                   ENDIF
                ENDIF
@@ -624,7 +625,7 @@ SUBROUTINE prolat
                ENDIF
                n2 = 2*ncoefs
                DO i = 1 , n2
-                  Z(iacoef+i) = 0.
+                  z(iacoef+i) = 0.
                ENDDO
 !
 !     START THE INTEGRATIONS - FOR EACH PATCH IN TURN, DO ALL THE M-S
@@ -654,9 +655,9 @@ SUBROUTINE prolat
                      ENDIF
                      DO i = 1 , 4
                         isub = 3*(ipt(i)-1) + ibg
-                        xx(i) = Z(isub+1)
-                        yy(i) = Z(isub+2)
-                        zz(i) = Z(isub+3)
+                        xx(i) = z(isub+1)
+                        yy(i) = z(isub+2)
+                        zz(i) = z(isub+3)
                         xeta(i) = dxi*xx(i)
                         IF ( zz(i)/=0. .OR. yy(i)/=0. ) THEN
                            xphi(i) = atan2(zz(i),yy(i))
@@ -679,7 +680,7 @@ SUBROUTINE prolat
 !
                      DO i = 1 , 4
                         isub = ipt(i)
-                        potv(i) = Z(ipot+isub)
+                        potv(i) = z(ipot+isub)
                      ENDDO
 !
 !     INTERPOLATE TO GET POTENTIALS AT EACH INTEGRATION POINT
@@ -809,8 +810,8 @@ SUBROUTINE prolat
 !
 !     STORE THE COEFFICIENTS
 !
-                           Z(iacoef+kount) = suma + Z(iacoef+kount)
-                           Z(ibcoef+kount) = sumb + Z(ibcoef+kount)
+                           z(iacoef+kount) = suma + z(iacoef+kount)
+                           z(ibcoef+kount) = sumb + z(ibcoef+kount)
 !
 !     GET ANOTHER N OR M
 !
@@ -838,15 +839,15 @@ SUBROUTINE prolat
 !     PICK UP COORDINATES OF POINT
 !
                   isub = 3*(i-1) + ibg
-                  X1 = Z(isub+1)
-                  Y1 = Z(isub+2)
-                  Z1 = Z(isub+3)
+                  x1 = z(isub+1)
+                  y1 = z(isub+2)
+                  z1 = z(isub+3)
 !
 !     COMPUTE PROLATE SPHEROIDAL COORDINATES
 !
-                  eta = dxi*X1
+                  eta = dxi*x1
                   phi = 0.
-                  IF ( Z1/=0. .OR. Y1/=0. ) phi = atan2(Z1,Y1)
+                  IF ( z1/=0. .OR. y1/=0. ) phi = atan2(z1,y1)
 !
 !     START SUMMATION
 !
@@ -869,8 +870,8 @@ SUBROUTINE prolat
                         trig1 = cos(ang)
                         trig2 = sin(ang)
                         ab = 0.
-                        IF ( isym==0 .OR. isym==1 ) ab = ab + Z(ibcoef+kount)*trig2
-                        IF ( isym==0 .OR. isym==2 ) ab = ab + Z(iacoef+kount)*trig1
+                        IF ( isym==0 .OR. isym==1 ) ab = ab + z(ibcoef+kount)*trig2
+                        IF ( isym==0 .OR. isym==2 ) ab = ab + z(iacoef+kount)*trig1
 !
                         sum = sum + ab*v
                      ENDDO
@@ -878,7 +879,7 @@ SUBROUTINE prolat
 !
 !     STORE VALUE
 !
-                  Z(isump+i) = sum
+                  z(isump+i) = sum
 !
 !     GET ANOTHER POINT
 !
@@ -893,24 +894,24 @@ SUBROUTINE prolat
                info(5) = ncoefs
                info(6) = isym
                info(7) = ngrids
-               CALL gopen(procos,Z(buf1),iop1)
+               CALL gopen(procos,z(buf1),iop1)
                CALL write(procos,info,7,0)
                CALL write(procos,title,96,1)
-               CALL write(procos,Z(iacoef+1),ncoefs,1)
-               CALL write(procos,Z(ibcoef+1),ncoefs,1)
-               CALL write(procos,Z(ipot+1),ngrids,1)
-               CALL write(procos,Z(isump+1),ngrids,1)
+               CALL write(procos,z(iacoef+1),ncoefs,1)
+               CALL write(procos,z(ibcoef+1),ncoefs,1)
+               CALL write(procos,z(ipot+1),ngrids,1)
+               CALL write(procos,z(isump+1),ngrids,1)
                CALL close(procos,2)
 !
 !     NOW THAT WE ARE FINISHED ALL THIS WORK, WE SHOULD SEE IF THERE
 !     ARE OTHER SUBCASES WE MUST DO IT FOR
 !
-               IF ( Subcas>=ncol ) THEN
+               IF ( subcas>=ncol ) THEN
 !
 !     DONE
 !
                   trail(1) = procos
-                  trail(2) = Subcas
+                  trail(2) = subcas
                   DO i = 3 , 7
                      trail(i) = 0
                   ENDDO
@@ -935,7 +936,6 @@ SUBROUTINE prolat
          CYCLE SPAG_DispatchLoop_1
  160     n = -2
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          n = -8
          file = 0

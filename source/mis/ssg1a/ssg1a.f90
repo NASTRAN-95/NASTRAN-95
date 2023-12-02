@@ -1,12 +1,13 @@
-!*==ssg1a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssg1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
+   USE c_blank
+   USE c_loadx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,12 +52,12 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
          Ncent = 0
          ifound = 0
          N1 = 0
-         lc1 = Lc - System
+         lc1 = lc - system
          islt = 0
-         CALL open(*40,Slt,core(lc1+1),0)
+         CALL open(*40,slt,core(lc1+1),0)
          islt = 1
-         CALL read(*100,*20,Slt,Ilist(1),-2,0,N1)
-         CALL read(*100,*20,Slt,Ilist(1),lc1,1,N1)
+         CALL read(*100,*20,slt,Ilist(1),-2,0,N1)
+         CALL read(*100,*20,slt,Ilist(1),lc1,1,N1)
 !
 !     ALLOW FOR 360 LOADS
 !
@@ -64,11 +65,11 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
             name(2) = N1
             CALL mesage(-30,137,name)
          ENDIF
-         lc1 = lc1 - System
+         lc1 = lc1 - system
          llist = N1
  40      CALL open(*120,Casecc,core(lc1+1),0)
          ione = 0
-         DO i = 1 , Loadnn
+         DO i = 1 , loadnn
             CALL fwdrec(*120,Casecc)
          ENDDO
          ifrst = 0
@@ -105,7 +106,7 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
 !
 !     SEE IF TEMP LOAD ALREADY APPLIED
 !
-                  IF ( Itherm==0 ) THEN
+                  IF ( itherm==0 ) THEN
                      IF ( Ntemp/=0 ) THEN
                         DO i = 1 , Ntemp
                            IF ( itempl(i)==core(7) ) GOTO 50
@@ -134,7 +135,7 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
          ENDDO SPAG_Loop_1_1
  60      CALL close(Casecc,1)
          IF ( ione==0 ) THEN
-            WRITE (Nout,99001)
+            WRITE (nout,99001)
 99001       FORMAT ('0*** MISSING LOAD CARD IN CASE CONTROL')
             CALL mesage(-7,0,name)
             GOTO 140
@@ -159,11 +160,11 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
 !     LOOK AT LOAD CARDS
 !
             DO i = 1 , N1
-               CALL fwdrec(*100,Slt)
+               CALL fwdrec(*100,slt)
             ENDDO
             i = 1
             nogo = 0
-            CALL read(*140,*80,Slt,core(1),lc1,1,iflag)
+            CALL read(*140,*80,slt,core(1),lc1,1,iflag)
          ENDIF
  80      llist = N1 + Nedt + Ntemp
          IF ( llist==0 ) GOTO 140
@@ -192,9 +193,8 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
                         ENDIF
                      ENDDO
                      spag_nextblock_2 = 2
-                     CYCLE SPAG_DispatchLoop_2
+                     EXIT SPAG_Loop_2_3
                   ENDDO SPAG_Loop_2_3
-                  CYCLE
                CASE (2)
                   CALL mesage(31,icomb(i),name1)
                   nogo = 1
@@ -208,7 +208,7 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( islt/=0 ) CALL close(Slt,1)
+         IF ( islt/=0 ) CALL close(slt,1)
          IF ( N1/=0 ) THEN
             DO i = 1 , N1
                IF ( Ilist(i)<0 ) THEN
@@ -222,7 +222,7 @@ SUBROUTINE ssg1a(N1,Ilist,Nedt,Ntemp,Ncent,Casecc,Iharm)
 !
 !     ERROR MESSAGES.
 !
- 100     ip1 = Slt
+ 100     ip1 = slt
          spag_nextblock_1 = 3
       CASE (3)
          ip2 = -1

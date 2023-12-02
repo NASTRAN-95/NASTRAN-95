@@ -2,9 +2,9 @@
  
 SUBROUTINE gfstrn(A,At,I,Scr1)
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -18,6 +18,15 @@ SUBROUTINE gfstrn(A,At,I,Scr1)
    INTEGER :: ibuf , ir , nz
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -53,8 +62,8 @@ SUBROUTINE gfstrn(A,At,I,Scr1)
 !
 !***********************************************************************
 !
-   nz = korsz(Z)
-   ibuf = nz - Sysbuf
+   nz = korsz(z)
+   ibuf = nz - sysbuf
    IF ( ibuf<0 ) CALL mesage(-8,0,name)
 !
 !     GET MATRIX TRAILER
@@ -66,11 +75,11 @@ SUBROUTINE gfstrn(A,At,I,Scr1)
 !
 !     GENERATE A SQUARE IDENITY MATRIX   IR BY IR
 !
-   Val(1) = 1.0
+   val(1) = 1.0
    CALL makmcb(mcb,I,ir,2,2)
-   CALL gopen(I,Z(ibuf),1)
+   CALL gopen(I,z(ibuf),1)
 !
-   DO Irow = 1 , ir
+   DO irow = 1 , ir
       CALL bldpk(1,2,I,0,0)
       CALL zblpki
       CALL bldpkn(I,0,mcb)

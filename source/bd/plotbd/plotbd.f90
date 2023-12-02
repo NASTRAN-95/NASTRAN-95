@@ -3,13 +3,13 @@
 BLOCKDATA plotbd
 !PLOTBD
    IMPLICIT NONE
-   USE C_CHAR94
-   USE C_CHRDRW
-   USE C_DRWAXS
-   USE C_PLTDAT
-   USE C_PLTSCR
-   USE C_SYMBLS
-   USE C_XXPARM
+   USE c_char94
+   USE c_chrdrw
+   USE c_drwaxs
+   USE c_pltdat
+   USE c_pltscr
+   USE c_symbls
+   USE c_xxparm
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -21,6 +21,12 @@ BLOCKDATA plotbd
    INTEGER , DIMENSION(2,84) , SAVE :: chrnz
    INTEGER , DIMENSION(2,19) , SAVE :: chrsym
    INTEGER , DIMENSION(20,2) , SAVE :: eof , npens , pbfsiz , pltype
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -86,7 +92,7 @@ BLOCKDATA plotbd
 !    2   G   H   I   J   K   L   M   N   O   P   Q   R   S   T   U   V
 !    3   W   X   Y   Z   (   )   +   -   *   /   =   .   ,   $   -  DOT
 !    4  CIRCLE SQUARE DIAMOND TRIANGLE END FILLER
-   DATA Lstchr , Chrind/52 , -25 , 001 , 006 , 014 , 027 , 031 , 041 , 052 , 055 , 071 , 080 , 086 , 098 , 106 , 113 , 120 , 126 ,  &
+   DATA lstchr , chrind/52 , -25 , 001 , 006 , 014 , 027 , 031 , 041 , 052 , 055 , 071 , 080 , 086 , 098 , 106 , 113 , 120 , 126 ,  &
       & 136 , 142 , 148 , 155 , 160 , 163 , 168 , 172 , 181 , 188 , 199 , 208 , 220 , 225 , 231 , 234 , 239 , 243 , 248 , 252 ,     &
       & 256 , 260 , 264 , 266 , 274 , 276 , 280 , 285 , 287 , 302 , 304 , -25 , 309 , 314 , 319 , 323 , 7*0/
 !
@@ -139,27 +145,27 @@ BLOCKDATA plotbd
 !          MAJOR PRIN. STRESS, WHERE = Z1, DIRECT = COMMON
 !    8 ... DATA FOR USER PLOT TITLE CARD
 !    9 ... OFFSET SCALE (AND ALSO PLOT TAPE MESSAGE CONTROL)
-   DATA Bufsiz/0/ , Camera , Bframs , Pltmdl , Tapden/2 , 1 , 1HM , 1 , 0/ , Nopens , Papsiz , Paptyp , Pensiz , Penclr/8 , 2*0. ,  &
-       &4HVELL , 2HUM , 8*1 , 8*4HBLAC , 8*1HK/ , Scale(2) , Fscale , Maxdef/1. , 1 , 0./ , Axis , Daxis , Vangle/1 , 2 , 3 , 1 ,   &
-      & 2 , 3 , 0. , -1.E10 , 34.27 , 23.17 , 0./ , Fvp , Prject , D02 , D03 , S0s/1 , 1 , 1. , 2. , 2.756/ , Norg , Org , Forg ,   &
-      & Edge/10 , 0 , 1 , 22*0. , 22*1./ , Ncntr , Cntr , Icntvl , Where , Direct , Flag , Lasset/10 , 50*0.0 , 1 , 1 , 2 , 0 , 0/ ,&
-      & Fpltit , Pltitl/0 , 17*4H    / , Offscl/0/
+   DATA bufsiz/0/ , camera , bframs , pltmdl , tapden/2 , 1 , 1HM , 1 , 0/ , nopens , papsiz , paptyp , pensiz , penclr/8 , 2*0. ,  &
+       &4HVELL , 2HUM , 8*1 , 8*4HBLAC , 8*1HK/ , scale(2) , fscale , maxdef/1. , 1 , 0./ , axis , daxis , vangle/1 , 2 , 3 , 1 ,   &
+      & 2 , 3 , 0. , -1.E10 , 34.27 , 23.17 , 0./ , fvp , prject , d02 , d03 , s0s/1 , 1 , 1. , 2. , 2.756/ , norg , org , forg ,   &
+      & edge/10 , 0 , 1 , 22*0. , 22*1./ , ncntr , cntr , icntvl , where , direct , flag , lasset/10 , 50*0.0 , 1 , 1 , 2 , 0 , 0/ ,&
+      & fpltit , pltitl/0 , 17*4H    / , offscl/0/
 !
 ! ... PLOTTER DATA.
 !
-   DATA Model , Ploter , Chrscl/ - 1 , 1 , 1.0/
+   DATA model , ploter , chrscl/ - 1 , 1 , 1.0/
 !
 ! ... 1  NASTRAN GENERAL PURPOSE MICROFILM PLOTTER.
 !
-   DATA Data(1,1)/1023.0/ , Data(2,1)/1023.0/ , Data(3,1)/146.1429/ , Data(4,1)/8.0/ , Data(5,1)/16.0/ , Data(6,1)/1023.0/ ,        &
-      & Data(8,1)/0.0/ , Data(9,1)/0.0/ , Data(11,1)/4HPLT2/ , Data(14,1)/1484.761/ , Data(15,1)/0.0/ , Data(16,1)/0.0/ , Data(17,1)&
-      & /0.0/ , Data(18,1)/0.0/ , Data(19,1)/0.0/ , Data(20,1)/0.0/
+   DATA data(1,1)/1023.0/ , data(2,1)/1023.0/ , data(3,1)/146.1429/ , data(4,1)/8.0/ , data(5,1)/16.0/ , data(6,1)/1023.0/ ,        &
+      & data(8,1)/0.0/ , data(9,1)/0.0/ , data(11,1)/4HPLT2/ , data(14,1)/1484.761/ , data(15,1)/0.0/ , data(16,1)/0.0/ , data(17,1)&
+      & /0.0/ , data(18,1)/0.0/ , data(19,1)/0.0/ , data(20,1)/0.0/
 !
 ! ... 2  NASTRAN GENERAL PURPOSE TABLE OR DRUM PLOTTER
 !
-   DATA Data(1,2)/3000.0/ , Data(2,2)/3000.0/ , Data(3,2)/100.0/ , Data(4,2)/8.0/ , Data(5,2)/16.0/ , Data(6,2)/3000.0/ , Data(8,2) &
-      & /0.0/ , Data(9,2)/0.0/ , Data(11,2)/4HPLT2/ , Data(14,2)/100.0/ , Data(15,2)/0.0/ , Data(16,2)/0.0/ , Data(17,2)/0.0/ ,     &
-      & Data(18,2)/0.0/ , Data(19,2)/0.0/ , Data(20,2)/0.0/
+   DATA data(1,2)/3000.0/ , data(2,2)/3000.0/ , data(3,2)/100.0/ , data(4,2)/8.0/ , data(5,2)/16.0/ , data(6,2)/3000.0/ , data(8,2) &
+      & /0.0/ , data(9,2)/0.0/ , data(11,2)/4HPLT2/ , data(14,2)/100.0/ , data(15,2)/0.0/ , data(16,2)/0.0/ , data(17,2)/0.0/ ,     &
+      & data(18,2)/0.0/ , data(19,2)/0.0/ , data(20,2)/0.0/
 !
    DATA npens(1,1) , pltype(1,1) , pbfsiz(1,1) , eof(1,1)/64 , -1 , 3000 , 1/ , npens(1,2) , pltype(1,2) , pbfsiz(1,2) , eof(1,2)   &
       & /64 , -2 , 3000 , 1/
@@ -167,16 +173,16 @@ BLOCKDATA plotbd
 ! ... SYMBOL DATA.
 !
 !           X, *, +, -, DOT, CIRCLE, SQUARE, DIAMOND, TRIANGLE
-   DATA Nsym , Symbol/9 , 34 , 41 , 39 , 40 , 48 , 49 , 50 , 51 , 52 , 11*0 , 34 , 41 , 39 , 40 , 48 , 49 , 50 , 51 , 52 , 11*0/
+   DATA nsym , symbol/9 , 34 , 41 , 39 , 40 , 48 , 49 , 50 , 51 , 52 , 11*0 , 34 , 41 , 39 , 40 , 48 , 49 , 50 , 51 , 52 , 11*0/
 !
 ! ... PLOTTER SCRATCH AREA
 !
 !          NCOR = ARRAY LENGTH
-   DATA Ncor , Pltsc/50 , 50*0/
+   DATA ncor , pltsc/50 , 50*0/
 !
 ! ... DATA FOR DRAWING A X-Y-Z COORDINATE TRIAD IN /DRWAXS/
 !     G   - X,Y,Z COORD. POINT DATA AND SYMBOLS
 !
-   DATA G/9*0.0 , 1HX , 1HY , 1HZ/
+   DATA g/9*0.0 , 1HX , 1HY , 1HZ/
 !
 END BLOCKDATA plotbd

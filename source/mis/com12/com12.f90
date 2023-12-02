@@ -1,7 +1,14 @@
-!*==com12.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==com12.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE com12(Ix,X,Dx,Itermm) !HIDESTARS (*,Ix,X,Dx,Itermm)
+   USE c_cdcmpx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zblpkx
    USE C_CDCMPX
    USE C_NAMES
    USE C_PACKX

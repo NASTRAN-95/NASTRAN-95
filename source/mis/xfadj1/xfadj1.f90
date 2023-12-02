@@ -1,4 +1,5 @@
-!*==xfadj1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xfadj1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xfadj1(Bf,shift,Sd)
@@ -11,9 +12,9 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
 !     SD   = 0 SINGLE (2 FIELDS), 1 DOUBLE (4 FIELDS)
 !     RIGHT SHIFTING CAUSES INSERTION OF LEADING ZEROS
 !
+   USE c_machin
+   USE c_xsrtcm
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_XSRTCM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,7 +48,7 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
 !
 !     INITIALIZE ROUTINES
 !
-         dec = Mach==5 .OR. Mach==6 .OR. Mach==21
+         dec = mach==5 .OR. mach==6 .OR. mach==21
          IF ( shift(mk(3),sft(1))/=0 ) THEN
 !
 !     RIGHT SHIFT REQUESTED
@@ -120,15 +121,15 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
          ELSEIF ( Bf(ii)/=bkx ) THEN
             SPAG_Loop_1_2: DO
                IF ( .NOT.dec ) ihld = rshift(andf(mk(3),Bf(ii)),1)
-               IF ( dec ) ihld = khrfn4(rshift(khrfn4(khrfn1(Bkmsk2,1,Bf(ii),1)),1))
-               IF ( ihld/=Icon1 ) THEN
+               IF ( dec ) ihld = khrfn4(rshift(khrfn4(khrfn1(bkmsk2,1,Bf(ii),1)),1))
+               IF ( ihld/=icon1 ) THEN
                   IF ( n==0 ) EXIT SPAG_Loop_1_2
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSE
                   n = n + 1
                   IF ( .NOT.dec ) Bf(ii) = lshift(Bf(ii),sft(1))
-                  IF ( dec ) Bf(ii) = khrfn3(Bkmsk2,Bf(ii),1,1)
+                  IF ( dec ) Bf(ii) = khrfn3(bkmsk2,Bf(ii),1,1)
                   IF ( n>=3 ) THEN
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
@@ -145,14 +146,12 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
          ENDIF
          n = 0
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          n2 = 4 - n
          IF ( .NOT.dec ) Bf(ii) = orf(rshift(Bf(ii),sft(n)),bk(n2))
          IF ( dec ) Bf(ii) = khrfn3(bk(n2),Bf(ii),n,0)
          n = 0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     RIGHT
@@ -163,22 +162,20 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( andf(mk(4),Bf(i1))/=andf(mk(4),blks) ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (6)
 !
 !     LEFT
 !
          IF ( .NOT.dec ) ihld = rshift(andf(mk(3),Bf(i1)),1)
-         IF ( dec ) ihld = khrfn4(rshift(khrfn4(khrfn1(Bkmsk2,1,Bf(i1),1)),1))
-         IF ( ihld/=Icon1 .AND. ihld/=Icon2 ) THEN
+         IF ( dec ) ihld = khrfn4(rshift(khrfn4(khrfn1(bkmsk2,1,Bf(i1),1)),1))
+         IF ( ihld/=icon1 .AND. ihld/=icon2 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -186,7 +183,7 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
       CASE (7)
          n = n + 1
          IF ( .NOT.dec ) Bf(i1) = shift(Bf(i1),sft(1))
-         IF ( dec ) Bf(i1) = khrfn3(Bkmsk2,Bf(i1),1,4-j)
+         IF ( dec ) Bf(i1) = khrfn3(bkmsk2,Bf(i1),1,4-j)
          IF ( n>=3 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
@@ -196,7 +193,6 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          IF ( n==0 ) RETURN
          spag_nextblock_1 = 9
@@ -217,21 +213,21 @@ SUBROUTINE xfadj1(Bf,shift,Sd)
          n3 = 4 - n
          IF ( .NOT.dec ) Bf(i1) = orf(andf(mk(n1),Bf(i1)),andf(mk(n2),isft(Bf(i2),sft(n3),j)))
          IF ( dec ) Bf(i1) = khrfn3(Bf(i1),Bf(i2),n3,j-3)
-         Bf(i1) = orf(Bf(i1),Bkmsk2)
+         Bf(i1) = orf(Bf(i1),bkmsk2)
          IF ( .NOT.dec ) Bf(i2) = orf(andf(mk(n1),shift(Bf(i2),sft(n))),bk(n2))
          IF ( dec ) Bf(i2) = khrfn3(bk(n2),Bf(i2),n,4-j)
          IF ( Sd==0 ) RETURN
 !
          IF ( .NOT.dec ) Bf(i2) = orf(andf(mk(n1),Bf(i2)),andf(mk(n2),isft(Bf(i3),sft(n3),j)))
          IF ( dec ) Bf(i2) = khrfn3(Bf(i2),Bf(i3),n3,j-3)
-         Bf(i2) = orf(Bf(i2),Bkmsk2)
+         Bf(i2) = orf(Bf(i2),bkmsk2)
          IF ( Bf(i2)==blk ) RETURN
 !
          IF ( .NOT.dec ) Bf(i3) = orf(andf(mk(n1),shift(Bf(i3),sft(n))),bk(n2))
          IF ( dec ) Bf(i3) = khrfn3(bk(n2),Bf(i3),n,4-j)
          IF ( .NOT.dec ) Bf(i3) = orf(andf(mk(n1),Bf(i3)),andf(mk(n2),isft(Bf(i4),sft(n3),j)))
          IF ( dec ) Bf(i3) = khrfn3(Bf(i3),Bf(i4),n3,j-3)
-         Bf(i3) = orf(Bf(i3),Bkmsk2)
+         Bf(i3) = orf(Bf(i3),bkmsk2)
          IF ( Bf(i3)==blk ) RETURN
 !
          IF ( .NOT.dec ) Bf(i4) = orf(andf(mk(n1),shift(Bf(i4),sft(n))),bk(n2))

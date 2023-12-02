@@ -1,14 +1,15 @@
-!*==mma401.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma401.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mma401(Zi,Zr)
+   USE i_mmacom
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,6 +22,11 @@ SUBROUTINE mma401(Zi,Zr)
             & irows , iwr , k , nac , nadens , naform , nanzwd , nar , natype , nbc , nbdens , nbform , nbnzwd , nbr , nbtype ,     &
             & ncc , ncdens , ncform , ncnzwd , ncr , nctype , ndc , nddens , ndform , ndnzwd , ndr , ndtype
    REAL :: sysbuf
+   INTEGER :: spag_nextblock_1
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
 !
 ! End of declarations rewritten by SPAG
 !
@@ -62,85 +68,95 @@ SUBROUTINE mma401(Zi,Zr)
 !
 ! PROCESS ALL OF THE COLUMNS OF "A"
 !
-   DO ii = 1 , nac
+         DO ii = 1 , nac
 !      print *,' processing column of a, ii=',ii
-      Iurow1 = -1
-      Typeu = ndtype
-      CALL unpack(*100,Filea,Zr(1))
-      irowa1 = Iurow1
-      irowan = Iurown
-      indxa = 1 - irowa1
-      IF ( T/=0 ) THEN
+            iurow1 = -1
+            typeu = ndtype
+            CALL unpack(*20,filea,Zr(1))
+            irowa1 = iurow1
+            irowan = iurown
+            indxa = 1 - irowa1
+            IF ( t/=0 ) THEN
 !
 !  TRANSPOSE CASE ( A(T) * B + C )
 !
 ! SINGLE PRECISION
-         indxb = ibx
-         DO i = 1 , ncolpp
-            icolb = ibrow + i
-            IF ( icolb/=iabs(Zi(indxb)) ) GOTO 200
-            indxbl = Zi(indxb+1) + ibx - 1
-            indxb = indxb + 2
-            indxd = (idx+(i-1)*ndr) + ii - 1
-            DO WHILE ( indxb<indxbl )
-               irowb1 = Zi(indxb)
-               irows = Zi(indxb+1)
-               irowbn = irowb1 + irows - 1
-               irow1 = max0(irowa1,irowb1)
-               irown = min0(irowan,irowbn)
-               IF ( irown>=irow1 ) THEN
-                  indxbv = indxb + 2 - irowb1
-                  DO k = irow1 , irown
-                     Zr(indxd) = Zr(indxd) + Zr(indxa+k)*Zr(indxbv+k)
+               indxb = ibx
+               DO i = 1 , ncolpp
+                  icolb = ibrow + i
+                  IF ( icolb/=iabs(Zi(indxb)) ) THEN
+                     spag_nextblock_1 = 2
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  indxbl = Zi(indxb+1) + ibx - 1
+                  indxb = indxb + 2
+                  indxd = (idx+(i-1)*ndr) + ii - 1
+                  DO WHILE ( indxb<indxbl )
+                     irowb1 = Zi(indxb)
+                     irows = Zi(indxb+1)
+                     irowbn = irowb1 + irows - 1
+                     irow1 = max0(irowa1,irowb1)
+                     irown = min0(irowan,irowbn)
+                     IF ( irown>=irow1 ) THEN
+                        indxbv = indxb + 2 - irowb1
+                        DO k = irow1 , irown
+                           Zr(indxd) = Zr(indxd) + Zr(indxa+k)*Zr(indxbv+k)
+                        ENDDO
+                     ENDIF
+                     indxb = indxb + 2 + irows
                   ENDDO
-               ENDIF
-               indxb = indxb + 2 + irows
-            ENDDO
-            indxb = indxbl
-         ENDDO
-      ELSE
+                  indxb = indxbl
+               ENDDO
+            ELSE
 !
 ! "A" NON-TRANSPOSE CASE    ( A*B + C )
 !
 ! SINGLE PRECISION
-         indxb = ibx
-         DO i = 1 , ncolpp
-            icolb = ibrow + i
-            IF ( icolb/=iabs(Zi(indxb)) ) GOTO 200
-            indxbl = Zi(indxb+1) + ibx - 1
-            indxb = indxb + 2
-            indxd = (idx+(i-1)*ndr) - 1
-            DO WHILE ( indxb<indxbl )
-               irowb1 = Zi(indxb)
-               irows = Zi(indxb+1)
-               irowbn = irowb1 + irows - 1
-               IF ( ii>irowbn ) THEN
-                  indxb = indxb + 2 + irows
-               ELSE
-                  IF ( ii>=irowb1 ) THEN
-                     indxbv = indxb + 2 + ii - irowb1
-                     IF ( Zr(indxbv)/=0.0 ) THEN
-                        DO k = irowa1 , irowan
-                           Zr(indxd+k) = Zr(indxd+k) + Zr(indxa+k)*Zr(indxbv)
-                        ENDDO
-                     ENDIF
+               indxb = ibx
+               DO i = 1 , ncolpp
+                  icolb = ibrow + i
+                  IF ( icolb/=iabs(Zi(indxb)) ) THEN
+                     spag_nextblock_1 = 2
+                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  EXIT
-               ENDIF
-            ENDDO
-            indxb = indxbl
-         ENDDO
-      ENDIF
+                  indxbl = Zi(indxb+1) + ibx - 1
+                  indxb = indxb + 2
+                  indxd = (idx+(i-1)*ndr) - 1
+                  SPAG_Loop_3_1: DO WHILE ( indxb<indxbl )
+                     irowb1 = Zi(indxb)
+                     irows = Zi(indxb+1)
+                     irowbn = irowb1 + irows - 1
+                     IF ( ii>irowbn ) THEN
+                        indxb = indxb + 2 + irows
+                     ELSE
+                        IF ( ii>=irowb1 ) THEN
+                           indxbv = indxb + 2 + ii - irowb1
+                           IF ( Zr(indxbv)/=0.0 ) THEN
+                              DO k = irowa1 , irowan
+                                 Zr(indxd+k) = Zr(indxd+k) + Zr(indxa+k)*Zr(indxbv)
+                              ENDDO
+                           ENDIF
+                        ENDIF
+                        EXIT SPAG_Loop_3_1
+                     ENDIF
+                  ENDDO SPAG_Loop_3_1
+                  indxb = indxbl
+               ENDDO
+            ENDIF
 ! END OF PROCESSING THIS COLUMN OF "A" FOR THIS PASS
- 100  ENDDO
+ 20      ENDDO
 !  NOW SAVE COLUMNS COMPLETED
-   DO k = 1 , ncolpp
-      indx = idx + (k-1)*ndr
-      CALL pack(Zr(indx),Filed,Filed)
-   ENDDO
-   GOTO 99999
- 200  WRITE (iwr,99001) icolb , Zi(indxb) , ibx , indxb
-99001 FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX B',/,' COLUMN EXPECTED:',I6,/,' COLUMN FOUND   :',I6,/,' IBX =',I7,    &
-             &'  INDXB =',I7)
-   CALL mesage(-61,0,0)
-99999 END SUBROUTINE mma401
+         DO k = 1 , ncolpp
+            indx = idx + (k-1)*ndr
+            CALL pack(Zr(indx),filed,filed)
+         ENDDO
+         RETURN
+      CASE (2)
+         WRITE (iwr,99001) icolb , Zi(indxb) , ibx , indxb
+99001    FORMAT (' UNEXPECTED COLUMN FOUND IN PROCESSING MATRIX B',/,' COLUMN EXPECTED:',I6,/,' COLUMN FOUND   :',I6,/,' IBX =',I7, &
+                &'  INDXB =',I7)
+         CALL mesage(-61,0,0)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
+END SUBROUTINE mma401

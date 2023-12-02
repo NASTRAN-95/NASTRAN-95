@@ -1,12 +1,13 @@
-!*==partn.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==partn.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE partn(Irp,Icp,Core)
+   USE c_parmeg
+   USE c_system
+   USE c_two
+   USE c_zntpkx
    IMPLICIT NONE
-   USE C_PARMEG
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,14 +41,14 @@ SUBROUTINE partn(Irp,Icp,Core)
 !
 !     ZERO 6 AND 7 OF OUTPUT BLOCKS
 !
-         iotp = Itypa
+         iotp = itypa
          iopen = 0
          DO i = 1 , 4
             DO j = 6 , 7
                ias(j,i) = 0
             ENDDO
             IF ( ias(1,i)/=0 ) THEN
-               IF ( ias(5,i)/=Itypa ) iotp = 4
+               IF ( ias(5,i)/=itypa ) iotp = 4
                iopen = iopen + 1
                DO j = 2 , 5
                   IF ( ias(j,i)<=0 ) THEN
@@ -58,10 +59,10 @@ SUBROUTINE partn(Irp,Icp,Core)
                ias(2,i) = 0
             ENDIF
          ENDDO
-         lcore = Lcare
-         ibuf = lcore - Sysbuf + 1
-         ibufcp = ibuf - Nrowa
-         ibufrp = ibufcp - (Ncola+31)/32
+         lcore = lcare
+         ibuf = lcore - sysbuf + 1
+         ibufcp = ibuf - nrowa
+         ibufrp = ibufcp - (ncola+31)/32
          IF ( ibufrp<=0 ) THEN
 !
             ipm1 = -8
@@ -69,23 +70,23 @@ SUBROUTINE partn(Irp,Icp,Core)
          ELSE
             lcore = ibufrp - 1
             inorp = 0
-            CALL ruler(Rule,Icp,zcpct,ocpct,Core(ibufcp),Nrowa,Core(ibuf),1)
-            IF ( Irp(1)==Icp(1) .AND. Irp(1)/=0 .AND. Nrowa==Ncola ) THEN
+            CALL ruler(rule,Icp,zcpct,ocpct,Core(ibufcp),nrowa,Core(ibuf),1)
+            IF ( Irp(1)==Icp(1) .AND. Irp(1)/=0 .AND. nrowa==ncola ) THEN
                inorp = 1
                lcore = ibufcp - 1
             ELSE
-               CALL ruler(Rule,Irp,zrpct,orpct,Core(ibufrp),Ncola,Core(ibuf),0)
+               CALL ruler(rule,Irp,zrpct,orpct,Core(ibufrp),ncola,Core(ibuf),0)
             ENDIF
 !
 !     OPEN OUTPUT MATRICES
 !
-            IF ( iopen*Sysbuf>lcore ) THEN
+            IF ( iopen*sysbuf>lcore ) THEN
                ipm1 = -8
                CALL mesage(ipm1,ipm2,name)
             ELSE
                DO i = 1 , 4
                   IF ( ias(1,i)/=0 ) THEN
-                     lcore = lcore - Sysbuf
+                     lcore = lcore - sysbuf
                      CALL open(*2,ias(1,i),Core(lcore+1),1)
                      CALL fname(ias(1,i),head)
                      CALL write(ias(1,i),head,2,1)
@@ -96,12 +97,12 @@ SUBROUTINE partn(Irp,Icp,Core)
 !
 !     OPEN INPUT MATRIX
 !
-               CALL gopen(Namea,Core(ibuf),0)
+               CALL gopen(namea,Core(ibuf),0)
 !
 !     LOOP FOR EACH COLUMN
 !
                km = 0
-               DO loop = 1 , Ncola
+               DO loop = 1 , ncola
                   IF ( inorp/=0 ) THEN
                      l = ibufcp + loop - 1
                      IF ( Core(l)<0 ) THEN
@@ -116,8 +117,8 @@ SUBROUTINE partn(Irp,Icp,Core)
                      km = km + 1
                      IF ( km>32 ) km = 1
                      l = ibufrp + (loop-1)/32
-                     itemp = andf(Core(l),Two1(km))
-                     IF ( km==1 ) itemp = rshift(andf(Core(l),Two1(km)),1)
+                     itemp = andf(Core(l),two1(km))
+                     IF ( km==1 ) itemp = rshift(andf(Core(l),two1(km)),1)
                      IF ( itemp/=0 ) THEN
                         l1 = 2
                      ELSE
@@ -140,16 +141,16 @@ SUBROUTINE partn(Irp,Icp,Core)
 !
 !     SEARCH COLUMN FOR NON-ZERO ELEMENTS
 !
-                     CALL intpk(*4,Namea,0,iotp,0)
+                     CALL intpk(*4,namea,0,iotp,0)
 !
 !     LOOP FOR ROWS WITHIN COLUMN
 !
-                     DO WHILE ( Ieol==0 )
+                     DO WHILE ( ieol==0 )
                         CALL zntpki
 !
 !     COMPUTE ROW POSITION AND OUTPUT MATRIX
 !
-                        l = ibufcp + Ii - 1
+                        l = ibufcp + ii - 1
                         ipos = iabs(Core(l))
                         IF ( Core(l)<0 ) THEN
                            m1 = l1 + 1
@@ -158,10 +159,10 @@ SUBROUTINE partn(Irp,Icp,Core)
                            m1 = l1 + 2
                            m = iln + 1
                         ENDIF
-                        IF ( ias(1,m1)/=0 ) CALL bldpki(A11(1),ipos,ias(1,m1),block1(m))
+                        IF ( ias(1,m1)/=0 ) CALL bldpki(a11(1),ipos,ias(1,m1),block1(m))
                      ENDDO
                   ELSE
-                     CALL skprec(Namea,1)
+                     CALL skprec(namea,1)
                      CYCLE
                   ENDIF
  4                DO l = 1 , 2
@@ -173,7 +174,7 @@ SUBROUTINE partn(Irp,Icp,Core)
 !
 !     ALL DONE - CLOSE OPEN MATRICES
 !
-               CALL close(Namea,1)
+               CALL close(namea,1)
                DO i = 1 , 4
                   IF ( ias(1,i)/=0 ) CALL close(ias(1,i),1)
                ENDDO

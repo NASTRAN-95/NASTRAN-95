@@ -1,14 +1,15 @@
-!*==fmdi.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fmdi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fmdi(I,J)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,7 +39,7 @@ SUBROUTINE fmdi(I,J)
 !     NDIR IS THE NUMBER OF DIRECTORIES ON ONE BLOCK OF THE MDI.
 !
    CALL chkopn(nmsbr(1))
-   ndir = Blksiz/Dirsiz
+   ndir = blksiz/dirsiz
 !
 !     COMPUTE THE LOGICAL BLOCK NUMBER, AND THE WORD NUMBER WITHIN
 !     BUF IN WHICH THE ITH SUBSTRUCTURE DIRECTORY IS STORED.  STORE THE
@@ -46,16 +47,16 @@ SUBROUTINE fmdi(I,J)
 !
    iblock = I/ndir
    IF ( I/=iblock*ndir ) iblock = iblock + 1
-   J = Dirsiz*(I-(iblock-1)*ndir-1) + Mdi
-   IF ( Mdilbn==iblock ) RETURN
-   IF ( Mdipbn/=0 ) THEN
-      IF ( Mdiup ) THEN
+   J = dirsiz*(I-(iblock-1)*ndir-1) + mdi
+   IF ( mdilbn==iblock ) RETURN
+   IF ( mdipbn/=0 ) THEN
+      IF ( mdiup ) THEN
 !
 !     THE MDI BLOCK CURRENTLY IN CORE HAS BEEN UPDATED.  MUST THEREFORE
 !     WRITE IT OUT BEFORE READING IN A NEW BLOCK.
 !
-         CALL sofio(iwrt,Mdipbn,Buf(Mdi-2))
-         Mdiup = .FALSE.
+         CALL sofio(iwrt,mdipbn,buf(mdi-2))
+         mdiup = .FALSE.
       ENDIF
    ENDIF
 !
@@ -67,15 +68,15 @@ SUBROUTINE fmdi(I,J)
 !     FIND THE PHYSICAL BLOCK NUMBER OF THE BLOCK ON WHICH THE LOGICAL
 !     BLOCK IBLOCK IS STORED.
 !
-   k = Mdibl
+   k = mdibl
    icount = 1
    DO WHILE ( icount/=iblock )
       icount = icount + 1
       CALL fnxt(k,nxtk)
       IF ( mod(k,2)==1 ) THEN
-         ibl = andf(Buf(nxtk),Jhalf)
+         ibl = andf(buf(nxtk),jhalf)
       ELSE
-         ibl = rshift(Buf(nxtk),Ihalf)
+         ibl = rshift(buf(nxtk),ihalf)
       ENDIF
       IF ( ibl==0 ) THEN
 !
@@ -88,17 +89,17 @@ SUBROUTINE fmdi(I,J)
          ENDIF
          newblk = .TRUE.
          k = ibl
-         min = Mdi + 1
-         max = Mdi + Blksiz
+         min = mdi + 1
+         max = mdi + blksiz
          DO ll = min , max
-            Buf(ll) = 0
+            buf(ll) = 0
          ENDDO
-         CALL sofio(iwrt,k,Buf(Mdi-2))
+         CALL sofio(iwrt,k,buf(mdi-2))
       ELSE
          k = ibl
       ENDIF
    ENDDO
-   IF ( Mdipbn==k ) THEN
+   IF ( mdipbn==k ) THEN
 !
 !     ERROR IN UPDATING EITHER MDIPBN OR MDILBN.
 !
@@ -107,10 +108,10 @@ SUBROUTINE fmdi(I,J)
 !
 !     READ THE DESIRED MDI BLOCK INTO CORE.
 !
-      Mdipbn = k
-      Mdilbn = iblock
+      mdipbn = k
+      mdilbn = iblock
       IF ( newblk ) RETURN
-      CALL sofio(ird,Mdipbn,Buf(Mdi-2))
+      CALL sofio(ird,mdipbn,buf(mdi-2))
       RETURN
    ENDIF
    CALL spag_block_1
@@ -119,7 +120,7 @@ CONTAINS
 !
 !     ERROR MESSAGES.
 !
-      WRITE (Nout,99001) Ufm
+      WRITE (nout,99001) ufm
 99001 FORMAT (A23,' 6223, SUBROUTINE FMDI - THERE ARE NO MORE FREE ','BLOCKS AVAILABLE ON THE SOF.')
       CALL sofcls
       CALL mesage(-61,0,0)

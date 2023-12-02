@@ -1,10 +1,11 @@
-!*==gust1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gust1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -58,26 +59,26 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
 !
 !     INITIALIZE
 !
-         nz = korsz(Iz)
-         ibuf1 = nz - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         nz = korsz(iz)
+         ibuf1 = nz - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          nz = ibuf3 - 1
          Nogust = -1
          nogo = 0
-         CALL preloc(*80,Iz(ibuf1),Dit)
-         CALL locate(*80,Iz(ibuf1),igust,idx)
+         CALL preloc(*80,iz(ibuf1),Dit)
+         CALL locate(*80,iz(ibuf1),igust,idx)
 !
 !     PUT  GUST CARDS IN CORE
 !
          file = Dit
-         CALL read(*100,*20,Dit,Iz,nz,0,nlgust)
+         CALL read(*100,*20,Dit,iz,nz,0,nlgust)
          CALL mesage(-8,0,name)
  20      CALL close(Dit,1)
          icc = nlgust + 1
-         CALL gopen(Casecc,Iz(ibuf1),0)
-         CALL gopen(Casnew,Iz(ibuf2),1)
-         CALL gopen(Gustl,Iz(ibuf3),1)
+         CALL gopen(Casecc,iz(ibuf1),0)
+         CALL gopen(Casnew,iz(ibuf2),1)
+         CALL gopen(Gustl,iz(ibuf3),1)
          nz = nz - nlgust
          spag_nextblock_1 = 2
       CASE (2)
@@ -85,17 +86,17 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
 !     BLAST READ A CASE CONTROL RECORD INTO CORE
 !
          file = Casecc
-         CALL read(*60,*40,Casecc,Iz(icc),nz,0,lcc)
+         CALL read(*60,*40,Casecc,iz(icc),nz,0,lcc)
          CALL mesage(-8,0,name)
- 40      igsid = Iz(icc+igst)
-         Iz(icc+12) = igsid
+ 40      igsid = iz(icc+igst)
+         iz(icc+12) = igsid
          CALL zeroc(rgust,5)
          IF ( igsid/=0 ) THEN
 !
 !     FIND GUST ID AMONG GUST CARDS
 !
             DO i = 1 , nlgust , 5
-               IF ( Iz(i)==igsid ) THEN
+               IF ( iz(i)==igsid ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -104,14 +105,13 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
             nogo = 1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     FOUND GUST CARD
 !
-         Iz(icc+12) = Iz(i+1)
+         iz(icc+12) = iz(i+1)
          igust(1) = igsid
-         lgust(2) = Iz(i+1)
+         lgust(2) = iz(i+1)
          rgust(3) = z(i+2)
          rgust(4) = z(i+3)
          rgust(5) = z(i+4)
@@ -123,7 +123,7 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
 !
 !     PUT OUT GUSTL /CASNEW
 !
-         CALL write(Casnew,Iz(icc),lcc,1)
+         CALL write(Casnew,iz(icc),lcc,1)
          CALL write(Gustl,lgust,5,1)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
@@ -137,7 +137,7 @@ SUBROUTINE gust1(Casecc,Dit,Dlt,Frl,Pp,Fol,Gustl,Nfreq,Nload,Xo,V,Nogust,Casnew)
 !     CALL GUST1A FOR LOADS(W)
 !
          CALL gust1a(Dlt,Frl,-Casnew,Dit,Pp,1,Nfreq,Nload,frqset,Fol,notrd)
-         CALL dmpfil(-Pp,Iz,nz)
+         CALL dmpfil(-Pp,iz,nz)
  80      CALL close(Dit,1)
          RETURN
 !

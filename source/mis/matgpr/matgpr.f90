@@ -1,17 +1,18 @@
-!*==matgpr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==matgpr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE matgpr
+   USE c_bitpos
+   USE c_blank
+   USE c_condas
+   USE c_output
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -63,14 +64,14 @@ SUBROUTINE matgpr
       CASE (1)
 !
 !
-         iset = Iiset(1)
-         kset = Kkset(1)
+         iset = iiset(1)
+         kset = kkset(1)
          inlopt = 0
-         IF ( Ipopt(1)==null ) inlopt = 1
-         IF ( Filter/=0.0 ) THEN
+         IF ( ipopt(1)==null ) inlopt = 1
+         IF ( filter/=0.0 ) THEN
             iflag = 1
-            IF ( Filter<0.0 ) iflag = 2
-            IF ( Iflflg/=0 ) iflag = iflag + 2
+            IF ( filter<0.0 ) iflag = 2
+            IF ( iflflg/=0 ) iflag = iflag + 2
          ENDIF
          im(1) = matrx
          CALL rdtrl(im(1))
@@ -82,39 +83,37 @@ SUBROUTINE matgpr
 !     CONVERT BCD TO BIT POSITION IN USET
 !
          DO i = 1 , 32
-            IF ( Ichar(i)==iset ) THEN
+            IF ( ichar(i)==iset ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          IF ( iset/=ihset ) THEN
-            WRITE (Otpe,99001) Uwm , Iiset
+            WRITE (otpe,99001) uwm , iiset
 99001       FORMAT (A25,', UNKNOWN SET ',2A4,' SPECIFIED FOR THE FIRST PARA','METER OF THE MATGPR MODULE.  MODULE NOT EXECUTED.')
             RETURN
          ELSE
             iset = -1
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (2)
 !
-         iset = Ibits(i)
+         iset = ibits(i)
          spag_nextblock_1 = 3
       CASE (3)
          DO i = 1 , 32
-            IF ( Ichar(i)==kset ) THEN
+            IF ( ichar(i)==kset ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          kset = iset
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         kset = Ibits(i)
+         kset = ibits(i)
          spag_nextblock_1 = 5
       CASE (5)
-         lcore = korsz(Core) - Sysbuf
+         lcore = korsz(core) - sysbuf
          ibuf = lcore + 1
          IF ( iset+kset==-2 ) THEN
 !
@@ -126,34 +125,33 @@ SUBROUTINE matgpr
             iuset = 1
             isil = 1
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL gopen(gpl,Core(ibuf),0)
-            CALL read(*160,*20,gpl,Core(1),lcore,0,lgpl)
+            CALL gopen(gpl,core(ibuf),0)
+            CALL read(*160,*20,gpl,core(1),lcore,0,lgpl)
             CALL close(gpl,1)
             spag_nextblock_1 = 19
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      CALL close(gpl,1)
          lcore = lcore - lgpl
-         CALL gopen(uset,Core(ibuf),0)
+         CALL gopen(uset,core(ibuf),0)
          iuset = lgpl + 1
-         CALL read(*180,*40,uset,Core(lgpl+1),lcore,0,luset)
+         CALL read(*180,*40,uset,core(lgpl+1),lcore,0,luset)
          CALL close(uset,1)
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
  40      CALL close(uset,1)
          lcore = lcore - luset
-         CALL gopen(sil,Core(ibuf),0)
+         CALL gopen(sil,core(ibuf),0)
          isil = lgpl + luset + 1
-         CALL read(*200,*60,sil,Core(isil),lcore,0,lsil)
+         CALL read(*200,*60,sil,core(isil),lcore,0,lsil)
          CALL close(sil,1)
          spag_nextblock_1 = 19
          CYCLE SPAG_DispatchLoop_1
  60      CALL close(sil,1)
          k = isil + lsil
          lcore = lcore - lsil - 1
-         Core(k) = luset + 1
+         core(k) = luset + 1
 !
 !     LOAD HEADER FOR PAGES
 !
@@ -161,22 +159,22 @@ SUBROUTINE matgpr
          spag_nextblock_1 = 6
       CASE (6)
          DO i = 1 , 96
-            Label(i) = blank
+            label(i) = blank
          ENDDO
          DO i = 1 , 32
             k = 32 + i
-            Label(k) = head2(i)
+            label(k) = head2(i)
          ENDDO
          ncol = im(2)
-         CALL fname(matrx,Label(4))
-         CALL gopen(matrx,Core(ibuf),0)
-         ie = Ibits(12)
+         CALL fname(matrx,label(4))
+         CALL gopen(matrx,core(ibuf),0)
+         ie = ibits(12)
          inull = 0
          loop = 0
          icmpx = 1
          IF ( im(5)>2 ) icmpx = 3
-         IF ( iset/=-1 ) mask = Two1(iset)
-         IF ( kset/=-1 ) mask1 = Two1(kset)
+         IF ( iset/=-1 ) mask = two1(iset)
+         IF ( kset/=-1 ) mask1 = two1(kset)
          muset = 0
          jc = 0
          iksil = 1
@@ -215,14 +213,14 @@ SUBROUTINE matgpr
 !
                DO WHILE ( iksil/=lsil+1 )
                   kk = isil + iksil
-                  IF ( jc<Core(kk) ) THEN
-                     icomp = jc - Core(kk-1) + 1
+                  IF ( jc<core(kk) ) THEN
+                     icomp = jc - core(kk-1) + 1
                      IF ( icomp/=1 ) THEN
                         tycomp = comps(icomp)
 !
 !     CHECK FOR SCALAR POINT
 !
-                     ELSEIF ( Core(kk)-Core(kk-1)>1 ) THEN
+                     ELSEIF ( core(kk)-core(kk-1)>1 ) THEN
                         tycomp = comps(icomp)
                      ELSE
                         tycomp = scalar
@@ -230,9 +228,9 @@ SUBROUTINE matgpr
 !     CHECK FOR EXTRA
 !
                         kk = lgpl + jc
-                        IF ( andf(Core(kk),Two1(ie))/=0 ) tycomp = extra
+                        IF ( andf(core(kk),two1(ie))/=0 ) tycomp = extra
                      ENDIF
-                     exid = Core(iksil)
+                     exid = core(iksil)
                      iprbf(l+1) = tycomp
                      iprbf(l) = exid
                      spag_nextblock_1 = 10
@@ -247,7 +245,7 @@ SUBROUTINE matgpr
                   jc = jc + 1
                   IF ( jc>luset ) EXIT SPAG_Loop_1_1
                   kk = lgpl + jc
-                  IF ( andf(Core(kk),mask)/=0 ) THEN
+                  IF ( andf(core(kk),mask)/=0 ) THEN
 !
 !     FOUND COLUMN IN USET
 !
@@ -265,10 +263,10 @@ SUBROUTINE matgpr
          spag_nextblock_1 = 10
       CASE (10)
          GOTO iout
- 80      WRITE (Otpe,99002) loop , iprbf(1) , iprbf(2)
+ 80      WRITE (otpe,99002) loop , iprbf(1) , iprbf(2)
 99002    FORMAT ('0COLUMN',I8,2H (,I8,1H-,A2,2H).)
-         Line = Line + 2
-         IF ( Line>=Nlpp ) CALL page
+         line = line + 2
+         IF ( line>=nlpp ) CALL page
          jj = 0
          kuset = 0
          ksil = 1
@@ -277,7 +275,7 @@ SUBROUTINE matgpr
          iend = 0
          spag_nextblock_1 = 11
       CASE (11)
-         DO WHILE ( Ieol==0 )
+         DO WHILE ( ieol==0 )
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -286,20 +284,20 @@ SUBROUTINE matgpr
 !
 !     CHECK FILTER
 !
-                  IF ( Filter/=0.0 ) THEN
+                  IF ( filter/=0.0 ) THEN
 !
 !     FILTER IS NON-ZERO
 !
                      value = a(1)
                      IF ( icmpx==3 ) value = sqrt(a(1)*a(1)+a(2)*a(2))
                      IF ( iflag==2 ) THEN
-                        IF ( abs(value)>abs(Filter) ) CYCLE
+                        IF ( abs(value)>abs(filter) ) CYCLE
                      ELSEIF ( iflag==3 ) THEN
-                        IF ( value<Filter .AND. value>0.0 ) CYCLE
+                        IF ( value<filter .AND. value>0.0 ) CYCLE
                      ELSEIF ( iflag==4 ) THEN
-                        IF ( value>Filter .AND. value<0.0 ) CYCLE
+                        IF ( value>filter .AND. value<0.0 ) CYCLE
 !
-                     ELSEIF ( abs(value)<Filter ) THEN
+                     ELSEIF ( abs(value)<filter ) THEN
                         CYCLE
                      ENDIF
                   ENDIF
@@ -311,23 +309,23 @@ SUBROUTINE matgpr
 !     LOOK UP ROW IN USET
 !
                      DO WHILE ( kuset<=luset+1 )
-                        IF ( kuset==Ii ) THEN
+                        IF ( kuset==ii ) THEN
 !
 !     JJ IS INDEX OF NON-ZERO IN G SET - NOW SEARCH SIL FOR JJ
 !
                            DO WHILE ( ksil/=lsil+1 )
                               kk = isil + ksil
-                              IF ( jj<Core(kk) ) THEN
-                                 icomp = jj - Core(kk-1) + 1
+                              IF ( jj<core(kk) ) THEN
+                                 icomp = jj - core(kk-1) + 1
                                  IF ( icomp/=1 ) THEN
                                     tycomp = comps(icomp)
-                                    exid = Core(ksil)
+                                    exid = core(ksil)
 !
 !     CHECK FOR SCALAR POINT
 !
-                                 ELSEIF ( Core(kk)-Core(kk-1)>1 ) THEN
+                                 ELSEIF ( core(kk)-core(kk-1)>1 ) THEN
                                     tycomp = comps(icomp)
-                                    exid = Core(ksil)
+                                    exid = core(ksil)
                                  ELSE
                                     tycomp = scalar
 !
@@ -337,8 +335,8 @@ SUBROUTINE matgpr
 !
 !     EXTRA POINT
 !
-                                    IF ( andf(Core(kk),Two1(ie))/=0 ) tycomp = extra
-                                    exid = Core(ksil)
+                                    IF ( andf(core(kk),two1(ie))/=0 ) tycomp = extra
+                                    exid = core(ksil)
                                  ENDIF
                                  spag_nextblock_1 = 12
                                  CYCLE SPAG_DispatchLoop_1
@@ -358,7 +356,7 @@ SUBROUTINE matgpr
                                  CYCLE SPAG_DispatchLoop_2
                               ENDIF
                               kk = lgpl + jj
-                              IF ( andf(Core(kk),mask1)/=0 ) THEN
+                              IF ( andf(core(kk),mask1)/=0 ) THEN
 !
 !     FOUND ELEMENT IN USET
 !
@@ -377,7 +375,7 @@ SUBROUTINE matgpr
 !     H POINT
 !
                   tycomp = hset
-                  exid = Ii
+                  exid = ii
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                END SELECT
@@ -392,7 +390,6 @@ SUBROUTINE matgpr
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
          IF ( ipb>=nline ) THEN
             spag_nextblock_1 = 14
@@ -403,37 +400,36 @@ SUBROUTINE matgpr
          prbuf(ipb) = exid
          prbuf(ipb+1) = tycomp
          IF ( icmpx/=1 ) THEN
-            IF ( Ipopt(1)==iallp ) THEN
+            IF ( ipopt(1)==iallp ) THEN
                amag = sqrt(a(1)*a(1)+a(2)*a(2))
                IF ( amag/=0.0 ) THEN
-                  a(2) = atan2(a(2),a(1))*Raddeg
+                  a(2) = atan2(a(2),a(1))*raddeg
                   IF ( a(2)<-0.00005 ) a(2) = a(2) + 360.0
                   a(1) = amag
                ENDIF
             ENDIF
          ENDIF
-         prbuf(ipb+2) = Ia(1)
-         prbufc(ipbc) = Ia(2)
+         prbuf(ipb+2) = ia(1)
+         prbufc(ipbc) = ia(2)
          ipbc = ipbc + 1
          ipb = ipb + 3
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
          ipb1 = ipb - 1
          ipbc = ipbc - 1
-         WRITE (Otpe,99003) (prbuf(i),prbuf(i+1),xxbuf(i+2),i=1,ipb1,3)
+         WRITE (otpe,99003) (prbuf(i),prbuf(i+1),xxbuf(i+2),i=1,ipb1,3)
 99003    FORMAT (5X,5(1X,I8,1X,1A2,1X,1P,E12.5))
-         Line = Line + 1
+         line = line + 1
          IF ( icmpx/=1 ) THEN
-            WRITE (Otpe,99004) (prbufx(i),i=1,ipbc)
+            WRITE (otpe,99004) (prbufx(i),i=1,ipbc)
 99004       FORMAT (5X,5(13X,1P,E12.5))
-            WRITE (Otpe,99005)
+            WRITE (otpe,99005)
 99005       FORMAT (1H )
-            Line = Line + 2
+            line = line + 2
          ENDIF
          ipbc = 1
          ipb = 1
-         IF ( Line>=Nlpp ) CALL page
+         IF ( line>=nlpp ) CALL page
          IF ( iend/=1 ) THEN
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
@@ -460,7 +456,6 @@ SUBROUTINE matgpr
             ibegn = loop
          ENDIF
          spag_nextblock_1 = 15
-         CYCLE SPAG_DispatchLoop_1
       CASE (17)
          loops = loop
          loop = ibegn
@@ -475,10 +470,10 @@ SUBROUTINE matgpr
  140     ASSIGN 80 TO iout
          l = 1
          loop = loops
-         WRITE (Otpe,99006) ibegn , iprbf(1) , iprbf(2) , ifin , iprbf(3) , iprbf(4)
+         WRITE (otpe,99006) ibegn , iprbf(1) , iprbf(2) , ifin , iprbf(3) , iprbf(4)
 99006    FORMAT ('0COLUMNS',I8,2H (,I8,1H-,A2,6H) THRU,I8,2H (,I8,1H-,A2,11H) ARE NULL.)
-         Line = Line + 2
-         IF ( Line>=Nlpp ) CALL page
+         line = line + 2
+         IF ( line>=nlpp ) CALL page
          IF ( ifin/=ncol ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -495,7 +490,6 @@ SUBROUTINE matgpr
          CYCLE SPAG_DispatchLoop_1
  200     in = sil
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (19)
          CALL mesage(8,0,name)
          CALL close(matrx,1)
@@ -504,7 +498,6 @@ SUBROUTINE matgpr
  220     CALL mesage(7,0,name)
          CALL close(matrx,1)
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE matgpr

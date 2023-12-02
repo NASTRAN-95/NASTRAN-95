@@ -1,14 +1,15 @@
-!*==fa1k.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fa1k.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,9 +46,9 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ncore = korsz(Iz) - Ico
-         buff = ncore - Sysbuf
-         buff1 = buff - Sysbuf
+         ncore = korsz(iz) - Ico
+         buff = ncore - sysbuf
+         buff1 = buff - sysbuf
          trl(1) = fsave
          CALL rdtrl(trl)
 !
@@ -55,16 +56,16 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
 !
          jj = trl(3)*3
          ifil = fsave
-         CALL gopen(fsave,Iz(buff+1),0)
+         CALL gopen(fsave,iz(buff+1),0)
          CALL read(*120,*20,fsave,z,jj,1,nwr)
- 20      i = (Floop-1)*3 + 1
+ 20      i = (floop-1)*3 + 1
          cmach = z(i)
          K = z(i+1)
          Rho = z(i+2)
-         Incr1 = 1
-         Incr = 1
-         Ii = 1
-         Inn = 1
+         incr1 = 1
+         incr = 1
+         ii = 1
+         inn = 1
          IF ( Imeth==2 ) THEN
 !
 !     LINEAR SPLINE INTERPOLATION
@@ -75,7 +76,7 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
             eps = .001
             new = .TRUE.
             ni = trl(4)
-            IF ( Floop==1 ) THEN
+            IF ( floop==1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -90,23 +91,22 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
                ij = trl(7) + 1
                CALL wrttrl(trl)
                spag_nextblock_1 = 7
-               CYCLE SPAG_DispatchLoop_1
             ELSE
-               IF ( Floop/=1 ) THEN
+               IF ( floop/=1 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
 !
 !     SURFACE SPLINE INTERPOLATION
 !
-         ELSEIF ( Floop/=1 ) THEN
+         ELSEIF ( floop/=1 ) THEN
 !
 !     GET A COLUMN FROM FSAVE AND BUILD QHH ON OUTFIL
 !
-            nf = 2 + (Floop-1)/trl(7)
+            nf = 2 + (floop-1)/trl(7)
             DO i = 1 , nf
                CALL fwdrec(*120,fsave)
             ENDDO
@@ -139,28 +139,27 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
 !
          CALL close(fsave,2)
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         Iout = trl(6)
-         Iti = Iout
-         Ito = Iout
+         iout = trl(6)
+         iti = iout
+         ito = iout
          nwc = 1
-         IF ( Ito==2 .OR. Ito==3 ) nwc = 2
-         IF ( Ito==4 ) nwc = 4
+         IF ( ito==2 .OR. ito==3 ) nwc = 2
+         IF ( ito==4 ) nwc = 4
          mcb(1) = qhhl
          CALL rdtrl(mcb)
          nc = mcb(3)
-         Nn = nc
-         Nnn = nc*nc
+         nn = nc
+         nnn = nc*nc
          CALL unpack(*100,fsave,z)
          ij = 1
          CALL close(fsave,1)
-         CALL gopen(Outfil,Iz(buff+1),1)
+         CALL gopen(Outfil,iz(buff+1),1)
          mcb(1) = Outfil
          mcb(2) = 0
          mcb(3) = nc
          mcb(4) = 1
-         mcb(5) = Iout
+         mcb(5) = iout
          mcb(6) = 0
          mcb(7) = 0
          DO i = 1 , nc
@@ -188,7 +187,7 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
                   IF ( temp-z(iip+j-1)<eps ) nf = nf + 1
                ENDDO
                IF ( nf<=1 ) THEN
-                  WRITE (Out,99001) Ufm , temp
+                  WRITE (out,99001) ufm , temp
 !
 !     ERROR MESSAGES
 !
@@ -219,7 +218,6 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
  80      CALL fwdrec(*120,fsave)
          CALL close(fsave,2)
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          IF ( abs(cmach-z(iip+i-1))<eps ) THEN
             z(iip+ik) = z(iip+i)
@@ -253,13 +251,11 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
          nd = nrd
          ni = nf
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          DO i = 1 , ij
             CALL fwdrec(*120,fsave)
          ENDDO
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     CALL MINTRP
@@ -267,21 +263,21 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
          ig = iip + 2*ni
          nc = ncore - ig
          nogo = 0
-         CALL mintrp(ni,z(iip),nd,z(idp),type,0,0,0.0,Outfil,scr2,scr3,scr4,z(ig),nc,nogo,Iprec)
+         CALL mintrp(ni,z(iip),nd,z(idp),type,0,0,0.0,Outfil,scr2,scr3,scr4,z(ig),nc,nogo,iprec)
          IF ( nogo==1 ) GOTO 100
 !
 !     INTERPOLATED MATRIX IS ON SCR2 MOVE TO FSAVE
 !
-         CALL open(*120,fsave,Iz(buff+1),3)
-         CALL gopen(scr2,Iz(buff1+1),0)
+         CALL open(*120,fsave,iz(buff+1),3)
+         CALL gopen(scr2,iz(buff1+1),0)
          trl(1) = scr2
          CALL rdtrl(trl)
          ncol = trl(2)
-         Nn = trl(3)
-         Nnn = Nn
-         Iti = trl(5)
-         Ito = Iti
-         Iout = Iti
+         nn = trl(3)
+         nnn = nn
+         iti = trl(5)
+         ito = iti
+         iout = iti
          trl(1) = fsave
          trl(2) = 0
          trl(6) = 0
@@ -294,13 +290,13 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
                CALL close(scr2,1)
                CALL close(fsave,1)
                CALL rdtrl(trl)
-               trl(6) = Ito
+               trl(6) = ito
                IF ( Imeth==2 ) trl(7) = 1
                CALL wrttrl(trl)
 !
 !     GET COLUMN FROM FSAVE AND BUILD QHH
 !
-               CALL gopen(fsave,Iz(buff+1),0)
+               CALL gopen(fsave,iz(buff+1),0)
                ij = 3
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
@@ -313,23 +309,23 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
 !
 !     SET UP COLUMN - MATRIX COPY
 !
-         CALL gopen(qhhl,Iz(buff+1),0)
+         CALL gopen(qhhl,iz(buff+1),0)
          trl(1) = qhhl
          CALL rdtrl(trl)
          ncol = trl(2)/trl(3)
          ncm = trl(3)
-         CALL gopen(Outfil,Iz(buff1+1),1)
-         Nnn = ncm
-         Nn = ncm*ncm
-         Iti = trl(5)
-         Ito = Iti
-         Iout = Iti
+         CALL gopen(Outfil,iz(buff1+1),1)
+         nnn = ncm
+         nn = ncm*ncm
+         iti = trl(5)
+         ito = iti
+         iout = iti
          nwc = 1
-         IF ( Ito==2 .OR. Ito==3 ) nwc = 2
-         IF ( Ito==4 ) nwc = 4
+         IF ( ito==2 .OR. ito==3 ) nwc = 2
+         IF ( ito==4 ) nwc = 4
          trl(1) = Outfil
          trl(2) = 0
-         trl(3) = Nn
+         trl(3) = nn
          trl(6) = 0
          trl(7) = 0
          IF ( Imeth==1 ) THEN
@@ -389,7 +385,7 @@ SUBROUTINE fa1k(Imeth,K,Rho,Outfil,Ico)
                EXIT SPAG_Loop_1_1
             ENDIF
          ENDDO SPAG_Loop_1_1
- 100     WRITE (Out,99002) Ufm
+ 100     WRITE (out,99002) ufm
 99002    FORMAT (A23,' 2271, INTERPOLATION MATRIX IS SINGULAR')
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1

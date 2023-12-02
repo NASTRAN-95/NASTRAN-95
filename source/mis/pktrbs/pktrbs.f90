@@ -1,13 +1,14 @@
-!*==pktrbs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pktrbs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pktrbs(Iopt)
-USE C_MATIN
-USE C_MATOUT
-USE C_PLA42C
-USE C_PLA42D
-USE C_PLA4ES
-USE ISO_FORTRAN_ENV                 
+   USE c_matin
+   USE c_matout
+   USE c_pla42c
+   USE c_pla42d
+   USE c_pla4es
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -79,148 +80,148 @@ USE ISO_FORTRAN_ENV
 !>>>>    & , (Ti(1),A(118))
 !
 !
-   Matid = Matid1
-   Inflag = -1
+   matid = matid1
+   inflag = -1
 !
    CALL plamat
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-   g(1) = G11
-   g(2) = G12
-   g(3) = G13
-   g(4) = G12
-   g(5) = G22
-   g(6) = G23
-   g(7) = G13
-   g(8) = G23
-   g(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     COMPUTATION OF D = I.G-MATRIX (EYE IS INPUT FROM THE ECPT)
 !
    DO i = 1 , 9
-      d(i) = g(i)*dble(Eye)
+      d(i) = g(i)*dble(eye)
    ENDDO
 !
-   Area = Xsubb*Ysubc/2.0D0
-   Xbar = (Xsubb+Xsubc)/3.0D0
-   Ybar = Ysubc/3.0D0
+   area = xsubb*ysubc/2.0D0
+   xbar = (xsubb+xsubc)/3.0D0
+   ybar = ysubc/3.0D0
 !
-   Xcsq = Xsubc**2
-   Ycsq = Ysubc**2
-   Xbsq = Xsubb**2
-   Xcyc = Xsubc*Ysubc
-   Px2 = (Xbsq+Xsubb*Xsubc+Xcsq)/6.0D0
-   Py2 = Ycsq/6.0D0
-   Pxy2 = Ysubc*(Xsubb+2.0D0*Xsubc)/12.0D0
-   Xbar3 = 3.0D0*Xbar
-   Ybar3 = 3.0D0*Ybar
-   Ybar2 = 2.0D0*Ybar
+   xcsq = xsubc**2
+   ycsq = ysubc**2
+   xbsq = xsubb**2
+   xcyc = xsubc*ysubc
+   px2 = (xbsq+xsubb*xsubc+xcsq)/6.0D0
+   py2 = ycsq/6.0D0
+   pxy2 = ysubc*(xsubb+2.0D0*xsubc)/12.0D0
+   xbar3 = 3.0D0*xbar
+   ybar3 = 3.0D0*ybar
+   ybar2 = 2.0D0*ybar
 !
 !                 X
 !     FILL THE  (K ) MATRIX STORING IN  A(1) THRU A(36)
 !
-   A(1) = d(1)
-   A(2) = d(3)
-   A(3) = d(2)
-   A(4) = d(1)*Xbar3
-   A(5) = d(2)*Xbar + Ybar2*d(3)
-   A(6) = d(2)*Ybar3
-   A(7) = A(2)
-   A(8) = d(9)
-   A(9) = d(6)
-   A(10) = d(3)*Xbar3
-   A(11) = d(6)*Xbar + Ybar2*d(9)
-   A(12) = d(6)*Ybar3
-   A(13) = A(3)
-   A(14) = A(9)
-   A(15) = d(5)
-   A(16) = d(2)*Xbar3
-   A(17) = d(5)*Xbar + Ybar2*d(6)
-   A(18) = d(5)*Ybar3
-   A(19) = A(4)
-   A(20) = A(10)
-   A(21) = A(16)
-   A(22) = d(1)*9.0D0*Px2
-   A(23) = d(2)*3.0D0*Px2 + 6.0D0*Pxy2*d(3)
-   A(24) = d(2)*9.0D0*Pxy2
-   A(25) = A(5)
-   A(26) = A(11)
-   A(27) = A(17)
-   A(28) = A(23)
-   A(29) = d(5)*Px2 + 4.0D0*Pxy2*d(6) + 4.0D0*Py2*d(9)
-   A(30) = d(5)*3.0D0*Pxy2 + 6.0D0*Py2*d(6)
-   A(31) = A(6)
-   A(32) = A(12)
-   A(33) = A(18)
-   A(34) = A(24)
-   A(35) = A(30)
-   A(36) = d(5)*9.0D0*Py2
-   Temp = 4.0D0*Area
+   a(1) = d(1)
+   a(2) = d(3)
+   a(3) = d(2)
+   a(4) = d(1)*xbar3
+   a(5) = d(2)*xbar + ybar2*d(3)
+   a(6) = d(2)*ybar3
+   a(7) = a(2)
+   a(8) = d(9)
+   a(9) = d(6)
+   a(10) = d(3)*xbar3
+   a(11) = d(6)*xbar + ybar2*d(9)
+   a(12) = d(6)*ybar3
+   a(13) = a(3)
+   a(14) = a(9)
+   a(15) = d(5)
+   a(16) = d(2)*xbar3
+   a(17) = d(5)*xbar + ybar2*d(6)
+   a(18) = d(5)*ybar3
+   a(19) = a(4)
+   a(20) = a(10)
+   a(21) = a(16)
+   a(22) = d(1)*9.0D0*px2
+   a(23) = d(2)*3.0D0*px2 + 6.0D0*pxy2*d(3)
+   a(24) = d(2)*9.0D0*pxy2
+   a(25) = a(5)
+   a(26) = a(11)
+   a(27) = a(17)
+   a(28) = a(23)
+   a(29) = d(5)*px2 + 4.0D0*pxy2*d(6) + 4.0D0*py2*d(9)
+   a(30) = d(5)*3.0D0*pxy2 + 6.0D0*py2*d(6)
+   a(31) = a(6)
+   a(32) = a(12)
+   a(33) = a(18)
+   a(34) = a(24)
+   a(35) = a(30)
+   a(36) = d(5)*9.0D0*py2
+   temp = 4.0D0*area
    DO i = 1 , 36
-      A(i) = A(i)*Temp
+      a(i) = a(i)*temp
    ENDDO
 !
 !     F1LL  (HBAR) MATRIX STORING AT A(37) THRU A(72)
 !
    DO i = 37 , 72
-      A(i) = 0.0D0
+      a(i) = 0.0D0
    ENDDO
 !
-   A(37) = Xbsq
-   A(40) = Xbsq*Xsubb
-   A(44) = Xsubb
-   A(49) = -2.0D0*Xsubb
-   A(52) = -3.0D0*Xbsq
-   A(55) = Xcsq
-   A(56) = Xcyc
-   A(57) = Ycsq
-   A(58) = Xcsq*Xsubc
-   A(59) = Ycsq*Xsubc
-   A(60) = Ycsq*Ysubc
-   A(62) = Xsubc
-   A(63) = Ysubc*2.0D0
-   A(65) = Xcyc*2.0D0
-   A(66) = Ycsq*3.0D0
-   A(67) = -2.0D0*Xsubc
-   A(68) = -Ysubc
-   A(70) = -3.0D0*Xcsq
-   A(71) = -Ycsq
+   a(37) = xbsq
+   a(40) = xbsq*xsubb
+   a(44) = xsubb
+   a(49) = -2.0D0*xsubb
+   a(52) = -3.0D0*xbsq
+   a(55) = xcsq
+   a(56) = xcyc
+   a(57) = ycsq
+   a(58) = xcsq*xsubc
+   a(59) = ycsq*xsubc
+   a(60) = ycsq*ysubc
+   a(62) = xsubc
+   a(63) = ysubc*2.0D0
+   a(65) = xcyc*2.0D0
+   a(66) = ycsq*3.0D0
+   a(67) = -2.0D0*xsubc
+   a(68) = -ysubc
+   a(70) = -3.0D0*xcsq
+   a(71) = -ycsq
 !
-   IF ( T2/=0.0E0 ) THEN
+   IF ( t2/=0.0E0 ) THEN
 !
 !     ALL OF THE FOLLOWING OPERATIONS THROUGH STATEMENT LABEL 500
 !     ARE NECESSARY IF T2 IS NON-ZERO.
 !
 !     GET THE G2X2 MATRIX
 !
-      Matid = Matid2
-      Inflag = 3
+      matid = matid2
+      inflag = 3
       CALL mat(ecpt(1))
-      IF ( G2x211/=0.0 .OR. G2x212/=0.0 .OR. G2x222/=0.0 ) THEN
-         g2x2(1) = G2x211*T2
-         g2x2(2) = G2x212*T2
-         g2x2(3) = G2x212*T2
-         g2x2(4) = G2x222*T2
+      IF ( g2x211/=0.0 .OR. g2x212/=0.0 .OR. g2x222/=0.0 ) THEN
+         g2x2(1) = g2x211*t2
+         g2x2(2) = g2x212*t2
+         g2x2(3) = g2x212*t2
+         g2x2(4) = g2x222*t2
 !
-         Determ = g2x2(1)*g2x2(4) - g2x2(3)*g2x2(2)
-         j2x2(1) = g2x2(4)/Determ
-         j2x2(2) = -g2x2(2)/Determ
-         j2x2(3) = -g2x2(3)/Determ
-         j2x2(4) = g2x2(1)/Determ
+         determ = g2x2(1)*g2x2(4) - g2x2(3)*g2x2(2)
+         j2x2(1) = g2x2(4)/determ
+         j2x2(2) = -g2x2(2)/determ
+         j2x2(3) = -g2x2(3)/determ
+         j2x2(4) = g2x2(1)/determ
 !
 !     (H  ) IS PARTITIONED INTO A LEFT AND RIGHT PORTION AND ONLY THE
 !       YQ  RIGHT PORTION IS COMPUTED AND USED AS A  (2X3). THE LEFT
 !           2X3 PORTION IS NULL.  THE RIGHT PORTION WILL BE STORED AT
 !           A(73)...A(78) UNTIL NOT NEEDED ANY FURTHER.
 !
-         Temp = 2.0D0*d(2) + 4.0D0*d(9)
-         A(73) = -6.0D0*(j2x2(1)*d(1)+j2x2(2)*d(3))
-         A(74) = -j2x2(1)*Temp + 6.0D0*j2x2(2)*d(6)
-         A(75) = -6.0D0*(j2x2(1)*d(6)+j2x2(2)*d(5))
-         A(76) = -6.0D0*(j2x2(2)*d(1)+j2x2(4)*d(3))
-         A(77) = -j2x2(2)*Temp + 6.0D0*j2x2(4)*d(6)
-         A(78) = -6.0D0*(j2x2(2)*d(6)+j2x2(4)*d(5))
+         temp = 2.0D0*d(2) + 4.0D0*d(9)
+         a(73) = -6.0D0*(j2x2(1)*d(1)+j2x2(2)*d(3))
+         a(74) = -j2x2(1)*temp + 6.0D0*j2x2(2)*d(6)
+         a(75) = -6.0D0*(j2x2(1)*d(6)+j2x2(2)*d(5))
+         a(76) = -6.0D0*(j2x2(2)*d(1)+j2x2(4)*d(3))
+         a(77) = -j2x2(2)*temp + 6.0D0*j2x2(4)*d(6)
+         a(78) = -6.0D0*(j2x2(2)*d(6)+j2x2(4)*d(5))
 !
 !     THE ABOVE 6 ELEMENTS NOW REPRESENT THE (H  ) MATRIX (2X3)
 !                                              YQ
@@ -228,7 +229,7 @@ USE ISO_FORTRAN_ENV
 !     NOW FORMING  PRODUCT (G2X2)(H  ) AND STORING AS AN INTERMEDIATE
 !     STEP.                        YQ
 !
-         CALL gmmatd(g2x2(1),2,2,0,A(73),2,3,0,A(79))
+         CALL gmmatd(g2x2(1),2,2,0,a(73),2,3,0,a(79))
 !
 !                                                               Y
 !     WITH LAST PRODUCT  FORM  LOWER RIGHT 3 X 3 PARTITION OF (K )
@@ -237,7 +238,7 @@ USE ISO_FORTRAN_ENV
 !     THUS   (K ) PARTITION = (H  ) (LAST PRODUCT)   STORE AT A(85)
 !                               YQ
 !
-         CALL gmmatd(A(73),2,3,1,A(79),2,3,0,A(85))
+         CALL gmmatd(a(73),2,3,1,a(79),2,3,0,a(85))
 !
 !                                                     X
 !     NOW ADD THE 9 ELEMENTS OF THIS 3X3 PORTION TO (K )
@@ -245,9 +246,9 @@ USE ISO_FORTRAN_ENV
 !     MULTIPLY IN AREA AT SAME TIME WHICH WAS LEFT OUT OF (K ) ABOVE.
 !
          DO i = 1 , 3
-            A(i+21) = A(i+21) + A(i+84)*Area
-            A(i+27) = A(i+27) + A(i+87)*Area
-            A(i+33) = A(i+33) + A(i+90)*Area
+            a(i+21) = a(i+21) + a(i+84)*area
+            a(i+27) = a(i+27) + a(i+87)*area
+            a(i+33) = a(i+33) + a(i+90)*area
          ENDDO
 !
 !     ADD TO 6 OF THE (HBAR) ELEMENTS THE RESULT OF (H  )(H  )
@@ -259,8 +260,8 @@ USE ISO_FORTRAN_ENV
 !     THE FOLLOWING IS THEN PER STEPS 6 AND 7 PAGE -16- MS-17.
 !
          DO i = 1 , 3
-            A(i+39) = A(i+39) + Xsubb*A(i+72)
-            A(i+57) = A(i+57) + Xsubc*A(i+72) + Ysubc*A(i+75)
+            a(i+39) = a(i+39) + xsubb*a(i+72)
+            a(i+57) = a(i+57) + xsubc*a(i+72) + ysubc*a(i+75)
          ENDDO
       ENDIF
    ENDIF
@@ -272,12 +273,12 @@ USE ISO_FORTRAN_ENV
 !     STORE INVERSE BACK IN A(37) THRU A(72)
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
-   Ising = -1
-   CALL inverd(6,A(37),6,A(73),0,Determ,Ising,A(79))
+   ising = -1
+   CALL inverd(6,a(37),6,a(73),0,determ,ising,a(79))
 !
 !     CHECK TO SEE IF H WAS SINGULAR
 !
-   IF ( Ising/=2 ) THEN
+   IF ( ising/=2 ) THEN
 !
 !              Q   -1
 ! 440 FORM   (K )(H  )  AND STORE AT  A(73) THRU A(108)
@@ -285,13 +286,13 @@ USE ISO_FORTRAN_ENV
 !                 X                     Q
 !     NOTE THAT (K ) AT THIS POINT IS (K )
 !
-      CALL gmmatd(A(1),6,6,0,A(37),6,6,0,A(73))
+      CALL gmmatd(a(1),6,6,0,a(37),6,6,0,a(73))
 !
 !                    -1 T
 !     FORM(K  ) = (H  ) (LAST PRODUCT) STORE AT A(109) THRU A(144)
 !            II
 !
-      CALL gmmatd(A(37),6,6,1,A(73),6,6,0,A(109))
+      CALL gmmatd(a(37),6,6,1,a(73),6,6,0,a(109))
 !
 !     FILL S-MATRIX EQUIVALENCED TO A(82)  (S IS 6X3)
 !
@@ -300,13 +301,13 @@ USE ISO_FORTRAN_ENV
 !     SAVE H-INVERSE TO BE USED BY TRIANGULAR PLATE ROUTINE.
 !
          DO i = 37 , 72
-            A(i+108) = A(i)
+            a(i+108) = a(i)
          ENDDO
       ENDIF
 !
       s(1) = 1.0D0
       s(2) = 0.0D0
-      s(3) = -Xsubb
+      s(3) = -xsubb
       s(4) = 0.0D0
       s(5) = 1.0D0
       s(6) = 0.0D0
@@ -314,8 +315,8 @@ USE ISO_FORTRAN_ENV
       s(8) = 0.0D0
       s(9) = 1.0D0
       s(10) = 1.0D0
-      s(11) = Ysubc
-      s(12) = -Xsubc
+      s(11) = ysubc
+      s(12) = -xsubc
       s(13) = 0.0D0
       s(14) = 1.0D0
       s(15) = 0.0D0
@@ -327,7 +328,7 @@ USE ISO_FORTRAN_ENV
 !     FORM   K   = K   = -K   S  STORING AT A(46)   (K   IS 6X3)
 !             IA    AI     II                         IA
 !
-      CALL gmmatd(A(109),6,6,0,s(1),6,3,0,A(46))
+      CALL gmmatd(a(109),6,6,0,s(1),6,3,0,a(46))
 !
 !     THIS PRODUCT IS MULTIPLIED BY SCALER -1 BELOW.
 !
@@ -338,13 +339,13 @@ USE ISO_FORTRAN_ENV
 !     NOTE K    HAS NOT BEEN MULTIPLIED ABOVE BY -1, THUS IGNORE MINUS
 !           IA                                                   HERE.
 !
-      CALL gmmatd(s(1),6,3,1,A(46),6,3,0,A(1))
+      CALL gmmatd(s(1),6,3,1,a(46),6,3,0,a(1))
 !
 !     NOW MULTIPLY  K   BY SCALER (-1)
 !                    IA
 !
       DO i = 46 , 63
-         A(i) = -A(i)
+         a(i) = -a(i)
       ENDDO
 !
 !     AT THIS POINT, STORED BY ROWS ARE
@@ -360,61 +361,61 @@ USE ISO_FORTRAN_ENV
 !
 !     ARRANGE NINE 3X3 MATRICES OF K SUPER U
 !
-      A(i) = A(i+18)
-      A(10) = A(46)
-      A(11) = A(49)
-      A(12) = A(52)
-      A(13) = A(47)
-      A(14) = A(50)
-      A(15) = A(53)
-      A(16) = A(48)
-      A(17) = A(51)
-      A(18) = A(54)
-      A(19) = A(55)
-      A(20) = A(58)
-      A(21) = A(61)
-      A(22) = A(56)
-      A(23) = A(59)
-      A(24) = A(62)
-      A(25) = A(57)
-      A(26) = A(60)
-      A(27) = A(63)
-      A(37) = A(109)
-      A(38) = A(110)
-      A(39) = A(111)
-      A(40) = A(115)
-      A(41) = A(116)
-      A(42) = A(117)
-      A(43) = A(121)
-      A(44) = A(122)
-      A(45) = A(123)
-      A(46) = A(112)
-      A(47) = A(113)
-      A(48) = A(114)
-      A(49) = A(118)
-      A(50) = A(119)
-      A(51) = A(120)
-      A(52) = A(124)
-      A(53) = A(125)
-      A(54) = A(126)
-      A(64) = A(127)
-      A(65) = A(128)
-      A(66) = A(129)
-      A(67) = A(133)
-      A(68) = A(134)
-      A(69) = A(135)
-      A(70) = A(139)
-      A(71) = A(140)
-      A(72) = A(141)
-      A(73) = A(130)
-      A(74) = A(131)
-      A(75) = A(132)
-      A(76) = A(136)
-      A(77) = A(137)
-      A(78) = A(138)
-      A(79) = A(142)
-      A(80) = A(143)
-      A(81) = A(144)
+      a(i) = a(i+18)
+      a(10) = a(46)
+      a(11) = a(49)
+      a(12) = a(52)
+      a(13) = a(47)
+      a(14) = a(50)
+      a(15) = a(53)
+      a(16) = a(48)
+      a(17) = a(51)
+      a(18) = a(54)
+      a(19) = a(55)
+      a(20) = a(58)
+      a(21) = a(61)
+      a(22) = a(56)
+      a(23) = a(59)
+      a(24) = a(62)
+      a(25) = a(57)
+      a(26) = a(60)
+      a(27) = a(63)
+      a(37) = a(109)
+      a(38) = a(110)
+      a(39) = a(111)
+      a(40) = a(115)
+      a(41) = a(116)
+      a(42) = a(117)
+      a(43) = a(121)
+      a(44) = a(122)
+      a(45) = a(123)
+      a(46) = a(112)
+      a(47) = a(113)
+      a(48) = a(114)
+      a(49) = a(118)
+      a(50) = a(119)
+      a(51) = a(120)
+      a(52) = a(124)
+      a(53) = a(125)
+      a(54) = a(126)
+      a(64) = a(127)
+      a(65) = a(128)
+      a(66) = a(129)
+      a(67) = a(133)
+      a(68) = a(134)
+      a(69) = a(135)
+      a(70) = a(139)
+      a(71) = a(140)
+      a(72) = a(141)
+      a(73) = a(130)
+      a(74) = a(131)
+      a(75) = a(132)
+      a(76) = a(136)
+      a(77) = a(137)
+      a(78) = a(138)
+      a(79) = a(142)
+      a(80) = a(143)
+      a(81) = a(144)
    ELSE
 !
 !     ISING = 2 IMPLIES SINGULAR MATRIX THUS ERROR CONDITION.
@@ -424,7 +425,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-      Nogo = 1
+      nogo = 1
       RETURN
    ENDIF
 END SUBROUTINE pktrbs

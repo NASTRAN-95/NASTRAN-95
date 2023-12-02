@@ -1,11 +1,12 @@
-!*==xrgdtb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrgdtb.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgdtb(Lu)
+   USE c_system
+   USE c_xmssg
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XRGDXX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,62 +70,62 @@ SUBROUTINE xrgdtb(Lu)
    DATA coment/4H$$$$/
    DO
 !
-      Number = 0
-      Name(1) = 0
-      READ (Lu,99001,ERR=100,END=100) Record
+      number = 0
+      name(1) = 0
+      READ (Lu,99001,ERR=100,END=100) record
 99001 FORMAT (20A4)
       CALL xdcode
-      IF ( Record(1)/=coment ) THEN
-         IF ( Ichar(1)==dollar .AND. Ichar(2)==astrsk ) THEN
-            CALL write(Iscr,0,0,1)
+      IF ( record(1)/=coment ) THEN
+         IF ( ichar(1)==dollar .AND. ichar(2)==astrsk ) THEN
+            CALL write(iscr,0,0,1)
             RETURN
          ELSE
-            Icol = 1
+            icol = 1
             SPAG_Loop_2_1: DO
-               IF ( Ichar(Icol)==blank .OR. Icol>80 ) THEN
-                  IF ( Icol>=80 ) THEN
-                     IF ( Number==0 .OR. Name(1)==0 ) THEN
-                        WRITE (optape,99002) Ufm , Record
+               IF ( ichar(icol)==blank .OR. icol>80 ) THEN
+                  IF ( icol>=80 ) THEN
+                     IF ( number==0 .OR. name(1)==0 ) THEN
+                        WRITE (optape,99002) ufm , record
 99002                   FORMAT (A23,' 8036, MISSING FIELDS ON THE FOLLOWING CARD',/20X,20A4)
-                        Ierror = 1
+                        ierror = 1
                      ENDIF
                      EXIT SPAG_Loop_2_1
                   ELSE
-                     Icol = Icol + 1
+                     icol = icol + 1
                   ENDIF
-               ELSEIF ( Number/=0 ) THEN
-                  Icount = 1
+               ELSEIF ( number/=0 ) THEN
+                  icount = 1
                   SPAG_Loop_3_2: DO
-                     icolum = Icol + Icount
-                     IF ( Ichar(icolum)/=blank .AND. icolum<=80 ) THEN
-                        Icount = Icount + 1
-                        IF ( Icount>8 ) THEN
-                           WRITE (optape,99003) Ufm , Record
+                     icolum = icol + icount
+                     IF ( ichar(icolum)/=blank .AND. icolum<=80 ) THEN
+                        icount = icount + 1
+                        IF ( icount>8 ) THEN
+                           WRITE (optape,99003) ufm , record
 99003                      FORMAT (A23,' 8029, THE FOLLOWING CARD CONTAINS NAMES THAT ARE','COMPRISED OF MORE THAN 8 CHARACTERS',   &
                                  & //20X,20A4)
-                           Ierror = 1
+                           ierror = 1
                            EXIT SPAG_Loop_2_1
                         ENDIF
-                     ELSEIF ( Icount/=0 ) THEN
+                     ELSEIF ( icount/=0 ) THEN
                         CALL xecode
-                        CALL write(Iscr,Name,2,0)
-                        CALL write(Iscr,Number,1,0)
-                        Icol = Icol + Icount
+                        CALL write(iscr,name,2,0)
+                        CALL write(iscr,number,1,0)
+                        icol = icol + icount
                         EXIT SPAG_Loop_3_2
                      ENDIF
                   ENDDO SPAG_Loop_3_2
                ELSE
                   CALL xrgnum
-                  IF ( Number==0 ) THEN
-                     WRITE (optape,99004) Ufm , Record
+                  IF ( number==0 ) THEN
+                     WRITE (optape,99004) ufm , record
 99004                FORMAT (A23,' 8028, EXPECTED TO FIND AN INTEGER IN THE FIRST ','FIELD OF THE FOLLOWING CARD',//20X,20A4)
-                     Ierror = 1
+                     ierror = 1
                      EXIT SPAG_Loop_2_1
-                  ELSEIF ( Number<Limit(1) .OR. Number>Limit(2) ) THEN
-                     WRITE (optape,99005) Ufm , Number , Record , Limit , Itype
+                  ELSEIF ( number<limit(1) .OR. number>limit(2) ) THEN
+                     WRITE (optape,99005) ufm , number , record , limit , itype
 99005                FORMAT (A23,' 8029, THE VALUE',I4,' GIVEN IN THE FIRST FIELD OF',' THE FOLLOWING CARD',//20X,20A4,//5X,        &
                             &'IS OUTSIDE THE ','RANGE OF',I5,1H-,I4,6H FOR ',A4,8H' CARDS.)
-                     Ierror = 1
+                     ierror = 1
                      EXIT SPAG_Loop_2_1
                   ENDIF
                ENDIF
@@ -135,8 +136,8 @@ SUBROUTINE xrgdtb(Lu)
 !
 !     ERRORS
 !
- 100  WRITE (optape,99006) Ufm , Member
+ 100  WRITE (optape,99006) ufm , member
 99006 FORMAT (A23,' 8027, UNEXPECTED EOF ENCOUNTERED ON FILE ',2A4,' IN SUBROUTINE XRGDTB.')
-   Ierror = 1
-   CALL write(Iscr,0,0,1)
+   ierror = 1
+   CALL write(iscr,0,0,1)
 END SUBROUTINE xrgdtb

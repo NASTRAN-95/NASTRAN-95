@@ -1,14 +1,15 @@
-!*==ssg2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ssg2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssg2
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -41,19 +42,19 @@ SUBROUTINE ssg2
    pr = 302
    pf = 204
    pa = 204
-   Lc = korsz(Core)
+   lc = korsz(core)
 !
 !     DECIDE IF MULTI,SINGLE,OMIT,REACT ARE 1 OR ZERO
 !
    ia(1) = uset
-   Uset1 = uset
+   uset1 = uset
    CALL rdtrl(ia)
-   multi = andf(ia(5),Two1(Um))
-   Single = andf(ia(5),Two1(Us))
-   omit = andf(ia(5),Two1(Uo))
-   react = andf(ia(5),Two1(Ur))
+   multi = andf(ia(5),two1(um))
+   single = andf(ia(5),two1(us))
+   omit = andf(ia(5),two1(uo))
+   react = andf(ia(5),two1(ur))
    IF ( react>0 ) THEN
-      IF ( multi<=0 .OR. Single/=0 .OR. omit/=0 ) THEN
+      IF ( multi<=0 .OR. single/=0 .OR. omit/=0 ) THEN
          pf = 201
          pa = 303
       ELSE
@@ -74,32 +75,32 @@ SUBROUTINE ssg2
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      CALL calcv(pvect,Ug,Un,Um,Core(1))
-      CALL ssg2a(pg,pnbar,pm,pvect)
-      CALL ssg2b(gm,pm,pnbar,pn,1,Iprec,1,sr4)
+      CALL calcv(Pvect,ug,un,Um,core(1))
+      CALL ssg2a(Pg,Pnbar,Pm,Pvect)
+      CALL ssg2b(Gm,Pm,Pnbar,Pn,1,iprec,1,Sr4)
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
       IF ( Single/=0 ) THEN
-         CALL calcv(pvect,Un,Uf,Us,Core(1))
-         CALL ssg2a(pn,pfbar,ps,pvect)
-         CALL ssg2b(kfs,ys,pfbar,pf,0,Iprec,0,sr4)
+         CALL calcv(Pvect,un,uf,Us,core(1))
+         CALL ssg2a(Pn,Pfbar,Ps,Pvect)
+         CALL ssg2b(Kfs,Ys,Pfbar,Pf,0,iprec,0,Sr4)
       ELSE
-         pf = pn
+         Pf = Pn
       ENDIF
-      IF ( omit/=0 ) THEN
+      IF ( Omit/=0 ) THEN
 !
-         CALL calcv(pvect,Uf,Ua,Uo,Core(1))
-         CALL ssg2a(pf,pabar,po,pvect)
-         CALL ssg2b(go,po,pabar,pa,1,Iprec,1,sr4)
+         CALL calcv(Pvect,uf,ua,Uo,core(1))
+         CALL ssg2a(Pf,Pabar,Po,Pvect)
+         CALL ssg2b(Go,Po,Pabar,Pa,1,iprec,1,Sr4)
       ELSE
-         pa = pf
+         Pa = Pf
       ENDIF
-      IF ( react/=0 ) THEN
+      IF ( React/=0 ) THEN
 !
-         CALL calcv(pvect,Ua,Ul,Ur,Core(1))
-         CALL ssg2a(pa,pl,pr,pvect)
-         CALL ssg2b(d,pl,pr,qr,1,Iprec,-1,sr4)
+         CALL calcv(Pvect,ua,ul,Ur,core(1))
+         CALL ssg2a(Pa,Pl,Pr,Pvect)
+         CALL ssg2b(D,Pl,Pr,Qr,1,iprec,-1,Sr4)
       ENDIF
    END SUBROUTINE spag_block_2
 END SUBROUTINE ssg2

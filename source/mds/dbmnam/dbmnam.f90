@@ -2,8 +2,8 @@
  
 SUBROUTINE dbmnam(Igname,Name,Ifilex)
    IMPLICIT NONE
-   USE C_XFIAT
-   USE C_XFIST
+   USE c_xfiat
+   USE c_xfist
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -15,6 +15,15 @@ SUBROUTINE dbmnam(Igname,Name,Ifilex)
 !
    INTEGER , SAVE :: blank , pool
    INTEGER :: i , index , lim
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -32,12 +41,12 @@ SUBROUTINE dbmnam(Igname,Name,Ifilex)
       Name(2) = blank
       IF ( Ifilex==22 ) Name(1) = pool
    ELSE
-      lim = Fist(2)*2 - 1
+      lim = fist(2)*2 - 1
       DO i = 1 , lim , 2
-         IF ( Igname==Fist(2+i) ) THEN
-            index = Fist(3+i)
-            Name(1) = Fiat(index+2)
-            Name(2) = Fiat(index+3)
+         IF ( Igname==fist(2+i) ) THEN
+            index = fist(3+i)
+            Name(1) = fiat(index+2)
+            Name(2) = fiat(index+3)
             GOTO 99999
          ENDIF
       ENDDO

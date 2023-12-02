@@ -1,15 +1,16 @@
-!*==mbamg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mbamg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbamg(Input,Ajjl,Skj)
+   USE c_amgmn
+   USE c_mboxa
+   USE c_mboxc
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_MBOXA
-   USE C_MBOXC
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -71,33 +72,33 @@ SUBROUTINE mbamg(Input,Ajjl,Skj)
 !
 !     INITITALIZE  PUT HEADER DATA IN MBOXC
 !
-   icore = korsz(iz) - 4*Sysbuf
-   buf1 = icore - Sysbuf
-   CALL fread(Input,Njj,9,0)
-   Asym = .FALSE.
-   IF ( Nd==-1 ) Asym = .TRUE.
-   Mach = Fmach
-   Beta = sqrt((Mach*Mach)-1.0)
-   CALL fread(Input,Z,24,0)
+   icore = korsz(iz) - 4*sysbuf
+   buf1 = icore - sysbuf
+   CALL fread(Input,njj,9,0)
+   asym = .FALSE.
+   IF ( nd==-1 ) asym = .TRUE.
+   mach = fmach
+   beta = sqrt((mach*mach)-1.0)
+   CALL fread(Input,z,24,0)
 !
 !     MOVE X AND Y TO MBOXA
 !
    l = 0
    DO i = 1 , 23 , 2
       l = l + 1
-      X(l) = Z(i)
-      Y(l) = Z(i+1)
+      x(l) = z(i)
+      y(l) = z(i+1)
    ENDDO
    CALL mbgeod
-   Ek = (2.0*Cr/Refc)*Rfk
-   cmax = amax1(X(4),X(5),X(6))
-   Boxl = cmax/(float(Nbox)+0.50)
-   Boxw = Boxl/Beta
-   Nsb = Y(3)/Boxw + 0.5
-   Nsb = min0(Nsb,50)
-   Boxw = Y(3)/(float(Nsb)-0.50)
-   Boxl = Boxw*Beta
-   Ncb = cmax/Boxl + 0.999
+   ek = (2.0*cr/refc)*rfk
+   cmax = amax1(x(4),x(5),x(6))
+   boxl = cmax/(float(nbox)+0.50)
+   boxw = boxl/beta
+   nsb = y(3)/boxw + 0.5
+   nsb = min0(nsb,50)
+   boxw = y(3)/(float(nsb)-0.50)
+   boxl = boxw*beta
+   ncb = cmax/boxl + 0.999
 !
 !     CALL MBREG TO GENERATE BOXES
 !
@@ -106,42 +107,42 @@ SUBROUTINE mbamg(Input,Ajjl,Skj)
       CALL mesage(-8,icrq,name)
    ELSE
       SPAG_Loop_1_1: DO
-         CALL mbreg(ireg,Z(nw1),Z(nwn),Z(nc21),Z(nc2n),Z(nc1),Z(ncn),Z(nd1),Z(ndn),Z(nxk),Z(nyk),Z(nxk1),Z(nyk1),Z(nxk2),Z(nyk2),   &
-                  & Z(nxwte),Z(nywte),Z(nkte),Z(nkte1),Z(nkte2),Z(nparea))
+         CALL mbreg(ireg,z(nw1),z(nwn),z(nc21),z(nc2n),z(nc1),z(ncn),z(nd1),z(ndn),z(nxk),z(nyk),z(nxk1),z(nyk1),z(nxk2),z(nyk2),   &
+                  & z(nxwte),z(nywte),z(nkte),z(nkte1),z(nkte2),z(nparea))
          IF ( ireg/=2 ) THEN
-            CALL mbplot(Z(nw1),Z(nd1),Z(nwn),Z(nc21),Z(nc2n),Z(nc1),Z(ncn),Z(ndn))
+            CALL mbplot(z(nw1),z(nd1),z(nwn),z(nc21),z(nc2n),z(nc1),z(ncn),z(ndn))
 !
 !     CALL MBMODE TO GENERATE MODE LIKE DATA
 !
-            CALL gopen(scr2,Z(buf1),1)
-            CALL mbmode(Input,scr2,icorr,buf1,Z,Npts0,Kct,Z(nxk),Z(nyk),is,Cr)
+            CALL gopen(scr2,z(buf1),1)
+            CALL mbmode(Input,scr2,icorr,buf1,z,npts0,kct,z(nxk),z(nyk),is,cr)
             IF ( is==2 ) THEN
                CALL spag_block_2
                RETURN
             ENDIF
-            IF ( Cntrl1 ) CALL mbmode(Input,scr2,icorr,buf1,Z,Npts1,Kc1t,Z(nxk1),Z(nyk1),is,Cr)
+            IF ( cntrl1 ) CALL mbmode(Input,scr2,icorr,buf1,z,npts1,kc1t,z(nxk1),z(nyk1),is,cr)
             IF ( is==2 ) THEN
                CALL spag_block_2
                RETURN
             ENDIF
-            IF ( Cntrl2 ) CALL mbmode(Input,scr2,icorr,buf1,Z,Npts2,Kc2t,Z(nxk2),Z(nyk2),is,Cr)
+            IF ( cntrl2 ) CALL mbmode(Input,scr2,icorr,buf1,z,npts2,kc2t,z(nxk2),z(nyk2),is,cr)
             IF ( is==2 ) THEN
                CALL spag_block_2
                RETURN
             ENDIF
             CALL close(scr2,1)
-            Ekbar = (Ek*Boxl*Mach*Mach)/(Beta*Beta)
-            Ekm = Ekbar/Mach
+            ekbar = (ek*boxl*mach*mach)/(beta*beta)
+            ekm = ekbar/mach
             CALL fread(Input,0,0,1)
-            CALL bug(nhcore,80,Z,nyk1-1)
-            CALL bug(nhcore,80,Z(nyk1),nparea-nyk1)
-            CALL dmpfil(scr2,Z(icorr),buf1-icorr)
+            CALL bug(nhcore,80,z,nyk1-1)
+            CALL bug(nhcore,80,z(nyk1),nparea-nyk1)
+            CALL dmpfil(scr2,z(icorr),buf1-icorr)
 !
 !     MORE DIMENSIONS
 !
             IF ( mod(icorr,2)==0 ) icorr = icorr + 1
             ncap = icorr
-            ncaph = Ncb*(Ncb+1)/2
+            ncaph = ncb*(ncb+1)/2
 !
 !     COMPLEX PHIS
 !
@@ -150,81 +151,79 @@ SUBROUTINE mbamg(Input,Ajjl,Skj)
             IF ( icorr>buf1 ) THEN
                CALL mesage(-8,icrq,name)
             ELSE
-               CALL mbcap(ncaph,Z(ncap))
+               CALL mbcap(ncaph,z(ncap))
                icorr = ncap + ncaph*2
-               CALL bug(nhcapf,80,Z(ncap),ncaph*2)
+               CALL bug(nhcapf,80,z(ncap),ncaph*2)
 !
 !     PUT OUT SKJ
 !
-               Iti = 1
-               It0 = 3
-               Ii = Isk
-               Nsk = Nsk + 1
-               Nn = Nsk
+               iti = 1
+               it0 = 3
+               ii = isk
+               nsk = nsk + 1
+               nn = nsk
                rm = 1.0
-               DO i = 1 , Njj
-                  CALL pack(rm,Skj,Tskj)
-                  Ii = Ii + 1
-                  IF ( i/=Njj ) Nn = Nn + 1
+               DO i = 1 , njj
+                  CALL pack(rm,Skj,tskj)
+                  ii = ii + 1
+                  IF ( i/=njj ) nn = nn + 1
                ENDDO
-               Isk = Ii
-               Nsk = Nn
+               isk = ii
+               nsk = nn
 !
 !     SET UP FOR COLUMN OF AJJL
 !
-               Iti = 3
-               It0 = 3
-               Ii = Nrow + 1
-               Nn = Nrow + Njj
+               iti = 3
+               it0 = 3
+               ii = nrow + 1
+               nn = nrow + njj
 !
 !     GET AJJL MATRIX TERMS
 !     MORE DIMENSIONS
 !
                nphit = icorr
-               ndss = nphit + (3*Nsbd)*2
-               nq = ndss + (Ncb*Nsbd)*2
-               nq1 = nq + Kct*2
-               nq2 = nq1 + Kc1t*2
-               na = nq2 + Kc2t*2
-               icorr = na + Njj*2
-               CALL bug(nhxect,100,X,54)
-               CALL bug(nhcont,100,Njj,30)
+               ndss = nphit + (3*nsbd)*2
+               nq = ndss + (ncb*nsbd)*2
+               nq1 = nq + kct*2
+               nq2 = nq1 + kc1t*2
+               na = nq2 + kc2t*2
+               icorr = na + njj*2
+               CALL bug(nhxect,100,x,54)
+               CALL bug(nhcont,100,njj,30)
                icrq = icorr - buf1
                IF ( icorr>buf1 ) THEN
                   CALL mesage(-8,icrq,name)
                ELSE
-                  CALL mbdpdh(Ajjl,Z(nxk),Z(nyk),Z(nxk1),Z(nyk1),Z(nxk2),Z(nyk2),Z(nxwte),Z(nywte),Z(nparea),Z(ncap),Z(nphit),      &
-                            & Z(ndss),Z(nq),Z(nq1),Z(nq2),Z(ndn),Z(nd1),Z(nw1),Z(nwn),Z(nkte),Z(nkte1),Z(nkte2),Z(nc1),Ncb,Nsbd,    &
-                            & scr2,Z(buf1),Z(na))
-                  Nrow = Nrow + Njj
+                  CALL mbdpdh(Ajjl,z(nxk),z(nyk),z(nxk1),z(nyk1),z(nxk2),z(nyk2),z(nxwte),z(nywte),z(nparea),z(ncap),z(nphit),      &
+                            & z(ndss),z(nq),z(nq1),z(nq2),z(ndn),z(nd1),z(nw1),z(nwn),z(nkte),z(nkte1),z(nkte2),z(nc1),ncb,nsbd,    &
+                            & scr2,z(buf1),z(na))
+                  nrow = nrow + njj
                ENDIF
             ENDIF
             EXIT SPAG_Loop_1_1
-         ELSEIF ( Nbox<2 ) THEN
-            WRITE (Nout,99001) Ufm
+         ELSEIF ( nbox<2 ) THEN
+            WRITE (nout,99001) ufm
 99001       FORMAT (A23,' 2425, MACH BOX GENERATION OF BOXES FAILED')
             CALL mesage(-37,0,name)
             CALL mesage(-8,icrq,name)
             EXIT SPAG_Loop_1_1
          ELSE
-            Nbox = Nbox - 1
+            nbox = nbox - 1
          ENDIF
       ENDDO SPAG_Loop_1_1
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     ERROR MESSAGES
 !
-      WRITE (Nout,99002) Ufm
-99002 FORMAT (A23,' 2424, MACH BOX CONTROL POINTS IMPROPER SINGULAR ','MATRIX RESULTED')
-      CALL mesage(-37,0,name)
-      CALL mesage(-8,icrq,name)
+      WRITE (Nout,99001) Ufm
+99001 FORMAT (A23,' 2424, MACH BOX CONTROL POINTS IMPROPER SINGULAR ','MATRIX RESULTED')
+      CALL mesage(-37,0,Name)
+      CALL mesage(-8,Icrq,Name)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_2
 END SUBROUTINE mbamg

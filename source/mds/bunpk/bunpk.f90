@@ -1,10 +1,11 @@
-!*==bunpk.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bunpk.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION bunpk(Ig,I,J)
-USE C_BANDB
-USE C_BANDS
-USE ISO_FORTRAN_ENV                 
+   USE c_bandb
+   USE c_bands
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Function and Dummy argument declarations rewritten by SPAG
@@ -28,7 +29,7 @@ USE ISO_FORTRAN_ENV
 !
 !
 !
-   Ipass = Ipass + 1
+   ipass = ipass + 1
    loc = J - 1
 !
 !     ********************************************
@@ -48,6 +49,6 @@ USE ISO_FORTRAN_ENV
 !     INTEGER*2        IG(1)
 !     ********************************************
 !
-   n1 = Ii1*loc + I
+   n1 = ii1*loc + I
    bunpk = Ig(n1)
 END FUNCTION bunpk

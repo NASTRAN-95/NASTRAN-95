@@ -1,12 +1,13 @@
-!*==sofi.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sofi.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sofi
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -31,40 +32,40 @@ SUBROUTINE sofi
    DATA modnam/4HSOFI , 4H    /
 !
    DO i = 1 , 5
-      IF ( Items(1,i)==xxxx .OR. Items(1,i)==0 ) Items(1,i) = iblnk
+      IF ( items(1,i)==xxxx .OR. items(1,i)==0 ) items(1,i) = iblnk
    ENDDO
 !
-   nz = korsz(Iz)
-   IF ( 3*Sysbuf>nz ) CALL mesage(-8,0,modnam(1))
-   ib1 = nz - Sysbuf + 1
-   ib2 = ib1 - Sysbuf - 1
-   ib3 = ib2 - Sysbuf
-   CALL sofopn(Iz(ib1),Iz(ib2),Iz(ib3))
-   IF ( Dry>=0 ) THEN
+   nz = korsz(iz)
+   IF ( 3*sysbuf>nz ) CALL mesage(-8,0,modnam(1))
+   ib1 = nz - sysbuf + 1
+   ib2 = ib1 - sysbuf - 1
+   ib3 = ib2 - sysbuf
+   CALL sofopn(iz(ib1),iz(ib2),iz(ib3))
+   IF ( dry>=0 ) THEN
 !
 !     COPY SOF DATA INTO NASTRAN DATA BLOCKS
 !
       SPAG_Loop_1_1: DO i = 1 , 5
-         IF ( Items(1,i)/=iblnk ) THEN
+         IF ( items(1,i)/=iblnk ) THEN
             mcb(1) = file(i)
             CALL rdtrl(mcb)
             IF ( mcb(1)>=0 ) THEN
-               CALL mtrxi(file(i),Name(1),Items(1,i),0,itest)
+               CALL mtrxi(file(i),name(1),items(1,i),0,itest)
                IF ( itest==1 .OR. itest==6 ) CYCLE
                IF ( itest==3 ) THEN
-                  WRITE (Nout,99002) Uwm , Items(1,i) , Name(1) , Name(2)
+                  WRITE (nout,99002) uwm , items(1,i) , name(1) , name(2)
                   CYCLE
                ELSEIF ( itest==4 ) THEN
-                  WRITE (Nout,99003) Uwm , Name(1) , Name(2)
-                  Dry = -2
+                  WRITE (nout,99003) uwm , name(1) , name(2)
+                  dry = -2
                   EXIT SPAG_Loop_1_1
                ELSEIF ( itest==5 ) THEN
-                  WRITE (Nout,99004) Uwm , Items(1,i)
+                  WRITE (nout,99004) uwm , items(1,i)
                ELSE
-                  WRITE (Nout,99001) Uwm , Items(1,i) , Name(1) , Name(2)
+                  WRITE (nout,99001) uwm , items(1,i) , name(1) , name(2)
 99001             FORMAT (A25,' 6215, MODULE SOFI - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' PSEUDO-EXISTS ONLY.')
                ENDIF
-               Dry = -2
+               dry = -2
             ENDIF
          ENDIF
       ENDDO SPAG_Loop_1_1
@@ -73,23 +74,23 @@ SUBROUTINE sofi
 !     CHECK THE EXISTENCE OF THE SOF FILE.
 !
       SPAG_Loop_1_2: DO i = 1 , 5
-         IF ( Items(1,i)/=iblnk ) THEN
+         IF ( items(1,i)/=iblnk ) THEN
             mcb(1) = file(i)
             CALL rdtrl(mcb)
             IF ( mcb(1)>=0 ) THEN
-               CALL softrl(Name(1),Items(1,i),mcb)
+               CALL softrl(name(1),items(1,i),mcb)
                itest = mcb(1)
                IF ( itest==1 .OR. itest==2 ) CYCLE
                IF ( itest==4 ) THEN
-                  WRITE (Nout,99003) Uwm , Name(1) , Name(2)
-                  Dry = -2
+                  WRITE (nout,99003) uwm , name(1) , name(2)
+                  dry = -2
                   EXIT SPAG_Loop_1_2
                ELSEIF ( itest==5 ) THEN
-                  WRITE (Nout,99004) Uwm , Items(1,i)
+                  WRITE (nout,99004) uwm , items(1,i)
                ELSE
-                  WRITE (Nout,99002) Uwm , Items(1,i) , Name(1) , Name(2)
+                  WRITE (nout,99002) uwm , items(1,i) , name(1) , name(2)
                ENDIF
-               Dry = -2
+               dry = -2
             ENDIF
          ENDIF
       ENDDO SPAG_Loop_1_2

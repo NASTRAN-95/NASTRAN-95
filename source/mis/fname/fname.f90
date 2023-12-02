@@ -1,10 +1,11 @@
-!*==fname.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fname.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fname(File,Name)
+   USE c_xfiat
+   USE c_xfist
    IMPLICIT NONE
-   USE C_XFIAT
-   USE C_XFIST
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,9 +27,9 @@ SUBROUTINE fname(File,Name)
 !*******
 !     SEARCH THE FIST FOR THE FILE
 !*******
-   n = Fist(2)*2 + 2
+   n = fist(2)*2 + 2
    DO j = 3 , n , 2
-      IF ( File==Fist(j) ) THEN
+      IF ( File==fist(j) ) THEN
          CALL spag_block_1
          RETURN
       ENDIF
@@ -41,19 +42,19 @@ SUBROUTINE fname(File,Name)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      k = Fist(j+1)
-      IF ( k<=0 ) THEN
+      K = fist(J+1)
+      IF ( K<=0 ) THEN
 !*******
 !     RETURN BCD DESCRIPTOR
 !*******
          Name(1) = File
-         Name(2) = nblank
+         Name(2) = Nblank
          RETURN
       ELSE
 !
-         ix = Fist(j+1) + 2
-         Name(1) = Fiat(ix)
-         Name(2) = Fiat(ix+1)
+         Ix = fist(J+1) + 2
+         Name(1) = fiat(Ix)
+         Name(2) = fiat(Ix+1)
       ENDIF
    END SUBROUTINE spag_block_1
 END SUBROUTINE fname

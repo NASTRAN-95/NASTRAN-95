@@ -1,18 +1,19 @@
-!*==bdat04.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bdat04.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bdat04
+   USE c_blank
+   USE c_cmb001
+   USE c_cmb002
+   USE c_cmb003
+   USE c_cmb004
+   USE c_cmbfnd
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CMB001
-   USE C_CMB002
-   USE C_CMB003
-   USE C_CMB004
-   USE C_CMBFND
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -42,34 +43,34 @@ SUBROUTINE bdat04
       CASE (1)
 !
          DO i = 1 , 96
-            Ihead(i) = ihd(i)
+            ihead(i) = ihd(i)
          ENDDO
          pager = .TRUE.
          print = .FALSE.
-         IF ( andf(rshift(Iprint,8),1)==1 ) print = .TRUE.
-         ifile = Scbdat
-         CALL open(*40,Scbdat,Z(Buf2),0)
-         CALL skpfil(Scbdat,3)
-         CALL close(Scbdat,2)
-         CALL open(*40,Scbdat,Z(Buf2),3)
-         ifile = Scr2
-         CALL locate(*20,Z(Buf1),reles,flag)
-         ifile = Geom4
+         IF ( andf(rshift(iprint,8),1)==1 ) print = .TRUE.
+         ifile = scbdat
+         CALL open(*40,scbdat,z(buf2),0)
+         CALL skpfil(scbdat,3)
+         CALL close(scbdat,2)
+         CALL open(*40,scbdat,z(buf2),3)
+         ifile = scr2
+         CALL locate(*20,z(buf1),reles,flag)
+         ifile = geom4
          DO
-            CALL read(*60,*20,Geom4,id,1,0,n)
-            IF ( id(1)==Conset ) THEN
+            CALL read(*60,*20,geom4,id,1,0,n)
+            IF ( id(1)==conset ) THEN
                name = .TRUE.
                IF ( pager .AND. print ) CALL page
                pager = .FALSE.
-               Tdat(4) = .TRUE.
+               tdat(4) = .TRUE.
                SPAG_Loop_2_1: DO
-                  CALL read(*60,*80,Geom4,id,2,0,n)
+                  CALL read(*60,*80,geom4,id,2,0,n)
                   IF ( id(1)+id(2)==-2 ) THEN
-                     CALL write(Scbdat,id,0,1)
+                     CALL write(scbdat,id,0,1)
                      EXIT SPAG_Loop_2_1
                   ELSEIF ( .NOT.name ) THEN
                      CALL fndgrd(is,ic,id(1),ip,icc,n)
-                     IF ( Ierr/=1 ) THEN
+                     IF ( ierr/=1 ) THEN
                         CALL encode(id(2))
                         CALL bitpat(id(2),ibits)
                         DO i = 1 , n
@@ -79,33 +80,33 @@ SUBROUTINE bdat04
                            CALL bitpat(icc(i),kbits)
                            IF ( iccc/=0 ) THEN
                               IF ( print ) THEN
-                                 WRITE (Outt,99001) ibas , id(1) , ibits(1) , ibits(2) , ip(i) , kbits(1) , kbits(2) , jbits(1) ,   &
+                                 WRITE (outt,99001) ibas , id(1) , ibits(1) , ibits(2) , ip(i) , kbits(1) , kbits(2) , jbits(1) ,   &
                                       & jbits(2)
 99001                            FORMAT (35X,2A4,5X,I8,7X,A4,A2,6X,I8,6X,A4,A2,6X,A4,A2)
                               ENDIF
-                              CALL write(Scbdat,ip(i),1,0)
-                              CALL write(Scbdat,iccc,1,0)
+                              CALL write(scbdat,ip(i),1,0)
+                              CALL write(scbdat,iccc,1,0)
                            ENDIF
                         ENDDO
                      ELSE
-                        WRITE (Outt,99002) Ufm , id(1) , Inam
+                        WRITE (outt,99002) ufm , id(1) , inam
 99002                   FORMAT (A23,' 6515, GRID POINT',I10,' BASIC SUBSTRUCTURE ',2A4,' DOES NOT EXIST.')
-                        Idry = -2
+                        idry = -2
                      ENDIF
                   ELSE
                      CALL finder(id,is,ic)
                      ibas(1) = id(1)
                      ibas(2) = id(2)
-                     IF ( Ierr/=1 ) THEN
-                        CALL write(Scbdat,is,1,0)
+                     IF ( ierr/=1 ) THEN
+                        CALL write(scbdat,is,1,0)
                         name = .NOT.name
                      ELSE
-                        WRITE (Outt,99003) Ufm , (id(k),k=1,2)
+                        WRITE (outt,99003) ufm , (id(k),k=1,2)
 99003                   FORMAT (A23,' 6517, THE BASIC SUBSTRUCTURE  ',2A4,/30X,                                                     &
                                &'REFERED TO BY A RELES  BULK DATA CARD CAN NOT BE FOUND ','IN THE PROBLEM TABLE OF CONTENTS.')
-                        Idry = -2
+                        idry = -2
                         DO
-                           CALL read(*60,*80,Geom4,id,2,0,n)
+                           CALL read(*60,*80,geom4,id,2,0,n)
                            IF ( id(1)+id(2)==-2 ) EXIT SPAG_Loop_2_1
                         ENDDO
                      ENDIF
@@ -113,12 +114,12 @@ SUBROUTINE bdat04
                ENDDO SPAG_Loop_2_1
             ELSE
                SPAG_Loop_2_2: DO
-                  CALL read(*60,*80,Geom4,id,2,0,n)
+                  CALL read(*60,*80,geom4,id,2,0,n)
                   IF ( id(1)+id(2)==-2 ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
             ENDIF
          ENDDO
- 20      CALL close(Scbdat,1)
+ 20      CALL close(scbdat,1)
          RETURN
 !
  40      imsg = -1

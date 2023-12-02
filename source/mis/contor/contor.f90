@@ -1,14 +1,15 @@
-!*==contor.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==contor.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
+   USE c_blank
+   USE c_drwdat
+   USE c_pltdat
+   USE c_system
+   USE c_xmssg
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DRWDAT
-   USE C_PLTDAT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,13 +52,13 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         b2 = B1 - 2*Bufsiz
-         b3 = b2 - Bufsiz
+         b2 = B1 - 2*bufsiz
+         b3 = b2 - bufsiz
          lopcor = Opcor/5
          id = 1
          err = 0
          irr = 0
-         Ncntr = iabs(Ncntr)
+         ncntr = iabs(ncntr)
 !
 !     COLOR = 0 IS NO COLOR CONTOUR,
 !     COLOR = 1 TO  31 IS DRAW CONTOUR LINES IN COLOR.
@@ -66,9 +67,9 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
 !     THIS IS THE CODE FOR THE COLOR BAR SCALE
 !     AT THE TOP OF THE PLOT
 !
-         IF ( Color/=0 ) THEN
+         IF ( color/=0 ) THEN
             CALL line(0.0,0.0,0.0,0.0,32,-1)
-            icolor = iabs(Color)
+            icolor = iabs(color)
             rcolor = 535.0/icolor
 !              535.0 IS BASED ON 1000X1000 PLOT SCREEN COORDINATE FRAME
             DO ib = 1 , icolor
@@ -109,14 +110,14 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
          icen = lopcor + ival
          lopcor = lopcor - 1
          pen = Ppen
-         IF ( Icntvl<=9 .OR. Icntvl>=14 .OR. Pedge==1 ) THEN
-            CALL close(Parm,2)
-            IF ( Icntvl<=9 .OR. Icntvl>13 ) CALL create(Gplst,X,U,Deform,conmin,conmax,Z(ival),Z(icen),lopcor,B1,b2)
-            IF ( Iset/=Jset ) CALL order(Gplst,Z(ival),Z(isav),Z(icen),Z(id),lopcor,B1,b2,b3)
-            Iset = Jset
+         IF ( icntvl<=9 .OR. icntvl>=14 .OR. pedge==1 ) THEN
+            CALL close(parm,2)
+            IF ( icntvl<=9 .OR. icntvl>13 ) CALL create(Gplst,X,U,Deform,conmin,conmax,Z(ival),Z(icen),lopcor,B1,b2)
+            IF ( iset/=jset ) CALL order(Gplst,Z(ival),Z(isav),Z(icen),Z(id),lopcor,B1,b2,b3)
+            iset = jset
          ENDIF
-         IF ( Icntvl>9 .AND. Icntvl<14 ) CALL displa(Gplst,X,U,Dd,pen,Deform,labl,pt,B1)
-         IF ( Icntvl>9 .AND. Icntvl<14 ) THEN
+         IF ( icntvl>9 .AND. icntvl<14 ) CALL displa(Gplst,X,U,Dd,pen,Deform,labl,pt,B1)
+         IF ( icntvl>9 .AND. icntvl<14 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -124,11 +125,11 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Color<0 ) CALL close(Est,2)
-         CALL gopen(Scr1,Gplst(B1),1)
-         CALL close(Scr1,2)
-         CALL gopen(Sort,Gplst(b2),2)
-         CALL gopen(Stress,Gplst(B1),0)
+         IF ( color<0 ) CALL close(est,2)
+         CALL gopen(scr1,Gplst(B1),1)
+         CALL close(scr1,2)
+         CALL gopen(sort,Gplst(b2),2)
+         CALL gopen(stress,Gplst(B1),0)
 !
 !     BUFFERS ASSIGNEMENT HERE -
 !     B1 IS USED BY STRESS (SCRATCH1/301), AND BY SCR1 (SCRATCH4/304)
@@ -136,21 +137,21 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
 !     B2 IS USED BY SORT (SCRATCH2/302)
 !     B3 IS USED BY EST (ELEST/103) AND BY SCR1 (SCRATCH4/304)
 !
-         Ncntr = min0(Ncntr,50)
-         IF ( Cntr(1)==Cntr(2) ) THEN
+         ncntr = min0(ncntr,50)
+         IF ( cntr(1)==cntr(2) ) THEN
 !
 !     IF INTERVALS SPECIFIED, DEFINE CONTOUR VALUES
 !
-            delta = (conmax-conmin)/float(Ncntr-1)
-            Cntr(1) = conmin
-            j = Ncntr - 1
+            delta = (conmax-conmin)/float(ncntr-1)
+            cntr(1) = conmin
+            j = ncntr - 1
             DO i = 2 , j
-               Cntr(i) = Cntr(i-1) + delta
+               cntr(i) = cntr(i-1) + delta
             ENDDO
-            Cntr(Ncntr) = conmax
+            cntr(ncntr) = conmax
          ENDIF
          CALL line(0.,0.,0.,0.,pen,-1)
-         DO i = 1 , Ncntr
+         DO i = 1 , ncntr
             labl(i) = 3
          ENDDO
 !
@@ -162,29 +163,29 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
             is = isav + i - 1
             Iz(is) = 0
          ENDDO
-         IF ( Color>=0 ) THEN
+         IF ( color>=0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(Est,Gplst(b3),2)
-         CALL bckrec(Est)
+         CALL gopen(est,Gplst(b3),2)
+         CALL bckrec(est)
          imhere = 120
- 20      CALL read(*100,*80,Est,esym,1,0,m)
+ 20      CALL read(*100,*80,est,esym,1,0,m)
          irr = 0
-         CALL fread(Est,ngppe,1,0)
+         CALL fread(est,ngppe,1,0)
          spag_nextblock_1 = 2
       CASE (2)
-         CALL fwdrec(*140,Sort)
+         CALL fwdrec(*140,sort)
          spag_nextblock_1 = 3
       CASE (3)
-         CALL read(*140,*140,Sort,iflag,1,0,m)
+         CALL read(*140,*140,sort,iflag,1,0,m)
          IF ( iflag==0 ) GOTO 140
          IF ( iflag==-2 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL fread(Sort,ibegin,2,0)
-         CALL read(*140,*40,Sort,Iz(id),lines,1,i)
+         CALL fread(sort,ibegin,2,0)
+         CALL read(*140,*40,sort,Iz(id),lines,1,i)
  40      iread = 0
          nel = 0
          DO i = 1 , lines
@@ -211,14 +212,14 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 60      CALL read(*120,*120,Stress,essym,1,0,m)
+ 60      CALL read(*120,*120,stress,essym,1,0,m)
          spag_nextblock_1 = 4
       CASE (4)
          DO
-            CALL read(*120,*60,Stress,elid,1,0,m)
+            CALL read(*120,*60,stress,elid,1,0,m)
             IF ( elid==0 ) GOTO 60
-            CALL fread(Stress,v,1,0)
-            CALL fread(Stress,pt,2,0)
+            CALL fread(stress,v,1,0)
+            CALL fread(stress,pt,2,0)
             SPAG_Loop_2_4: DO i = 1 , lines
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
@@ -234,7 +235,7 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
                      Z(ic) = pt(1)
                      Z(ic+1) = pt(2)
                      Iz(is) = elid
-                     IF ( Color>=0 ) THEN
+                     IF ( color>=0 ) THEN
                         spag_nextblock_2 = 3
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -248,31 +249,31 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
                         IF ( esym==kbar ) offset = 6
                         IF ( esym==kt3 .OR. esym==kq4 ) offset = 1
                         DO
-                           CALL read(*62,*64,Est,elmid,1,0,m)
+                           CALL read(*62,*64,est,elmid,1,0,m)
                            IF ( elmid==0 ) THEN
 !
                               jrr = jrr + 1
-                              IF ( jrr<=1 ) CALL bckrec(Est)
+                              IF ( jrr<=1 ) CALL bckrec(est)
                               imhere = 203
                               ASSIGN 20 TO irtn
-                              CALL read(*62,*62,Est,esym,1,0,m)
-                              CALL fread(Est,ngppe,1,0)
+                              CALL read(*62,*62,est,esym,1,0,m)
+                              CALL fread(est,ngppe,1,0)
                               CYCLE SPAG_Loop_3_2
                            ELSE
-                              CALL fread(Est,0,-1,0)
-                              CALL fread(Est,gpts,ngppe,0)
-                              IF ( offset/=0 ) CALL fread(Est,0,-offset,0)
+                              CALL fread(est,0,-1,0)
+                              CALL fread(est,gpts,ngppe,0)
+                              IF ( offset/=0 ) CALL fread(est,0,-offset,0)
                               IF ( elmid==elid ) THEN
 !
 !     START TO CONTOUR FILL HERE
 !
                                  rcolor = icolor
-                                 rcntrl = Ncntr
-                                 SPAG_Loop_5_3: DO ik = 1 , Ncntr
+                                 rcntrl = ncntr
+                                 SPAG_Loop_5_3: DO ik = 1 , ncntr
                                     pen = 32 + (1.0-(rcntrl-ik+1)/rcntrl)*rcolor
                                     ik1 = ik + 1
-                                    IF ( ik==Ncntr ) ik1 = ik
-                                    IF ( v>=Cntr(ik) .AND. v<=Cntr(ik1) ) THEN
+                                    IF ( ik==ncntr ) ik1 = ik
+                                    IF ( v>=cntr(ik) .AND. v<=cntr(ik1) ) THEN
                                        DO j = 1 , ngppe
                                          k = j + 1
                                          ig = gpts(j)
@@ -299,17 +300,16 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
                         spag_nextblock_1 = 5
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     CALL rewind(Est)
-                     CALL skprec(Est,1)
+                     CALL rewind(est)
+                     CALL skprec(est,1)
                      GOTO irtn
 !
  64                  imhere = 205
                      ASSIGN 64 TO irtn
- 66                  CALL read(*62,*64,Est,esym,1,0,m)
-                     CALL fread(Est,ngppe,1,0)
+ 66                  CALL read(*62,*64,est,esym,1,0,m)
+                     CALL fread(est,ngppe,1,0)
                      jrr = 0
                      spag_nextblock_2 = 2
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (3)
                      nel = nel + 1
                      EXIT SPAG_Loop_2_4
@@ -356,64 +356,64 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
 !
 !     PLOT CONTOURS.
 !
-               IF ( Color>=0 ) THEN
+               IF ( color>=0 ) THEN
                   rcolor = icolor
-                  rcntrl = Ncntr
+                  rcntrl = ncntr
 !
-                  CALL close(Est,2)
-                  CALL gopen(Scr1,Gplst(b3),3)
+                  CALL close(est,2)
+                  CALL gopen(scr1,Gplst(b3),3)
 !
-                  DO i = 1 , Ncntr
-                     IF ( Color/=0 ) pen = 1 + (1.0-(rcntrl-i+1)/rcntrl)*rcolor
+                  DO i = 1 , ncntr
+                     IF ( color/=0 ) pen = 1 + (1.0-(rcntrl-i+1)/rcntrl)*rcolor
                      DO j = 1 , l
-                        pt(1) = Xmin - 1.0
+                        pt(1) = xmin - 1.0
                         pt(3) = pt(1)
                         pt(5) = pt(1)
                         jc = icen + 2*j - 2
                         jv = ival + j - 1
                         d = (Z(jv)-Z(jv+1))
-                        IF ( abs(Z(jv)-Cntr(i))<=abs(d) .AND. abs(Z(jv+1)-Cntr(i))<=abs(d) ) THEN
+                        IF ( abs(Z(jv)-cntr(i))<=abs(d) .AND. abs(Z(jv+1)-cntr(i))<=abs(d) ) THEN
                            IF ( d==0.0 ) d = 1.0
-                           pt(1) = Z(jc) + (Z(jc+2)-Z(jc))*(Z(jv)-Cntr(i))/d
-                           pt(2) = Z(jc+1) + (Z(jc+3)-Z(jc+1))*(Z(jv)-Cntr(i))/d
+                           pt(1) = Z(jc) + (Z(jc+2)-Z(jc))*(Z(jv)-cntr(i))/d
+                           pt(2) = Z(jc+1) + (Z(jc+3)-Z(jc+1))*(Z(jv)-cntr(i))/d
                         ENDIF
                         d = Z(jv+1) - cenval
-                        IF ( abs(Z(jv+1)-Cntr(i))<=abs(d) .AND. abs(cenval-Cntr(i))<=abs(d) ) THEN
+                        IF ( abs(Z(jv+1)-cntr(i))<=abs(d) .AND. abs(cenval-cntr(i))<=abs(d) ) THEN
                            IF ( d==0.0 ) d = 1.0
-                           pt(3) = Z(jc+2) + (xmid-Z(jc+2))*(Z(jv+1)-Cntr(i))/d
-                           pt(4) = Z(jc+3) + (ymid-Z(jc+3))*(Z(jv+1)-Cntr(i))/d
+                           pt(3) = Z(jc+2) + (xmid-Z(jc+2))*(Z(jv+1)-cntr(i))/d
+                           pt(4) = Z(jc+3) + (ymid-Z(jc+3))*(Z(jv+1)-cntr(i))/d
                         ENDIF
                         d = cenval - Z(jv)
-                        IF ( abs(cenval-Cntr(i))<=abs(d) .AND. abs(Z(jv)-Cntr(i))<=abs(d) ) THEN
+                        IF ( abs(cenval-cntr(i))<=abs(d) .AND. abs(Z(jv)-cntr(i))<=abs(d) ) THEN
                            IF ( d==0.0 ) d = 1.0
-                           pt(5) = xmid + (Z(jc)-xmid)*(cenval-Cntr(i))/d
-                           pt(6) = ymid + (Z(jc+1)-ymid)*(cenval-Cntr(i))/d
+                           pt(5) = xmid + (Z(jc)-xmid)*(cenval-cntr(i))/d
+                           pt(6) = ymid + (Z(jc+1)-ymid)*(cenval-cntr(i))/d
                         ENDIF
                         pt(7) = pt(1)
                         pt(8) = pt(2)
                         DO k = 1 , 5 , 2
-                           IF ( pt(k)>=Xmin .AND. pt(k+2)>=Xmin ) THEN
+                           IF ( pt(k)>=xmin .AND. pt(k+2)>=xmin ) THEN
                               CALL line(pt(k),pt(k+1),pt(k+2),pt(k+3),pen,0)
                               labl(i) = labl(i) + 1
                               IF ( labl(i)==4 ) THEN
                                  labl(i) = 0
-                                 CALL write(Scr1,i,1,0)
-                                 CALL write(Scr1,pt(k),2,0)
+                                 CALL write(scr1,i,1,0)
+                                 CALL write(scr1,pt(k),2,0)
                               ENDIF
                            ENDIF
                         ENDDO
                      ENDDO
                   ENDDO
 !
-                  CALL close(Scr1,2)
-                  CALL gopen(Est,Gplst(b3),2)
+                  CALL close(scr1,2)
+                  CALL gopen(est,Gplst(b3),2)
                ENDIF
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
 !
- 80      CALL bckrec(Est)
+ 80      CALL bckrec(est)
          irr = irr + 1
          IF ( irr<3 ) GOTO 20
 !
@@ -421,21 +421,21 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
 !
  100     err = err + 1
          IF ( err<=3 ) THEN
-            CALL rewind(Est)
-            CALL skprec(Est,1)
+            CALL rewind(est)
+            CALL skprec(est,1)
             GOTO 20
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         WRITE (Nout,99001) Uim , elid , imhere , err , irr , ngppe
+         WRITE (nout,99001) uim , elid , imhere , err , irr , ngppe
 99001    FORMAT (A29,', CONTOUR FAILED TO LOCATE ELMENT ID =',I8,/5X,'IMHERE =',I5,5X,'ERR,IRR,NGPPE =',3I8)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF FILE ON STRESS
 !
- 120     CALL rewind(Stress)
-         CALL fwdrec(*140,Stress)
+ 120     CALL rewind(stress)
+         CALL fwdrec(*140,stress)
          IF ( iread==1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
@@ -443,42 +443,42 @@ SUBROUTINE contor(Gplst,X,U,Dd,Z,Iz,Ppen,Deform,B1,Opcor)
          iread = 1
          GOTO 60
 !
- 140     CALL close(Sort,1)
-         CALL close(Stress,1)
-         CALL close(Scr1,1)
+ 140     CALL close(sort,1)
+         CALL close(stress,1)
+         CALL close(scr1,1)
          spag_nextblock_1 = 6
       CASE (6)
 !     IF (COLOR .LT. 0) CALL CLOSE (EST,1)
 !     IF (COLOR .GE. 0) CALL GOPEN (EST,GPLST(B3),2)
          CALL line(0.,0.,0.,0.,pen,+1)
-         IF ( Color/=0 ) THEN
+         IF ( color/=0 ) THEN
             CALL typflt(0.0,0.0,0,0,0,-1)
-            CALL typflt(368.14,990.0,1,Cntr(1),-8,0)
-            center = (Cntr(1)+Cntr(Ncntr))/2.0
+            CALL typflt(368.14,990.0,1,cntr(1),-8,0)
+            center = (cntr(1)+cntr(ncntr))/2.0
             CALL typflt(585.90,990.0,1,center,-8,0)
-            CALL typflt(796.3,990.0,1,Cntr(Ncntr),-8,0)
+            CALL typflt(796.3,990.0,1,cntr(ncntr),-8,0)
             CALL typflt(0.0,0.0,0,0,0,+1)
-            IF ( Color<0 ) THEN
+            IF ( color<0 ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         CALL gopen(Scr1,Gplst(B1),0)
-         IF ( Color==0 ) CALL typint(0.,0.,0,0,0,-1)
+         CALL gopen(scr1,Gplst(B1),0)
+         IF ( color==0 ) CALL typint(0.,0.,0,0,0,-1)
          DO
-            CALL read(*160,*160,Scr1,i,1,0,m)
-            CALL fread(Scr1,pt,2,0)
-            IF ( Color==0 ) CALL typint(pt(1),pt(2),1,i,1,0)
+            CALL read(*160,*160,scr1,i,1,0,m)
+            CALL fread(scr1,pt,2,0)
+            IF ( color==0 ) CALL typint(pt(1),pt(2),1,i,1,0)
          ENDDO
- 160     IF ( Color==0 ) CALL typint(0.,0.,0,0,0,+1)
-         CALL close(Scr1,1)
+ 160     IF ( color==0 ) CALL typint(0.,0.,0,0,0,+1)
+         CALL close(scr1,1)
          spag_nextblock_1 = 7
       CASE (7)
          CALL pltopr
          spag_nextblock_1 = 8
       CASE (8)
-         IF ( (Icntvl>9 .AND. Icntvl<14) .AND. Pedge/=1 ) RETURN
-         CALL gopen(Parm,Gplst(b2),2)
+         IF ( (icntvl>9 .AND. icntvl<14) .AND. pedge/=1 ) RETURN
+         CALL gopen(parm,Gplst(b2),2)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

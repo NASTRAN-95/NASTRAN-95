@@ -2,15 +2,15 @@
  
 SUBROUTINE xgpidd
    IMPLICIT NONE
-   USE C_MODDMP
-   USE C_XGPI3
-   USE C_XGPI4
-   USE C_XGPI5
-   USE C_XGPI6
-   USE C_XGPI7
-   USE C_XGPI8
-   USE C_XGPIC
-   USE C_XGPID
+   USE c_moddmp
+   USE c_xgpi3
+   USE c_xgpi4
+   USE c_xgpi5
+   USE c_xgpi6
+   USE c_xgpi7
+   USE c_xgpi8
+   USE c_xgpic
+   USE c_xgpid
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -18,6 +18,12 @@ SUBROUTINE xgpidd
    INTEGER , DIMENSION(22) , SAVE :: ihol
    INTEGER , SAVE :: ipls
    INTEGER , DIMENSION(26) , SAVE :: namopt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -103,11 +109,11 @@ SUBROUTINE xgpidd
 !    5         NCHKPT/4HCHKP/, NPURGE/4HPURG/, NEQUIV/4HEQUI/,
 !    6         MASKHI/32767 /, NOUTPT/4HOUTP/
 !
-   Icold = 1
-   Maskhi = 32767
+   icold = 1
+   maskhi = 32767
 !              2**15 - 1
    DO i = 1 , 21
-      Iholc(i) = ihol(i)
+      iholc(i) = ihol(i)
    ENDDO
 !
 !     ****** /XGPID / *******
@@ -130,37 +136,37 @@ SUBROUTINE xgpidd
 !    1      CPNTRY/6,2,0,4HXCHK, 4H    ,  0,0/,
 !    2      JMP   /7,3,0,4HJUMP, 4H    ,  0,0/
 !
-   Icst = 1
-   Iunst = 2
-   Imst = 3
-   Idmapp = 1
-   Isave = 1
-   Jmp(1) = 7
-   Jmp(2) = 3
-   Jmp(3) = 0
-   Jmp(4) = ihol(13)
-   Jmp(5) = ihol(3)
-   Jmp(6) = 0
-   Jmp(7) = 0
-   Cpntry(1) = 6
-   Cpntry(2) = 2
-   Cpntry(3) = 0
-   Cpntry(4) = ihol(22)
-   Cpntry(5) = ihol(3)
-   Cpntry(6) = 0
-   Cpntry(7) = 0
+   icst = 1
+   iunst = 2
+   imst = 3
+   idmapp = 1
+   isave = 1
+   jmp(1) = 7
+   jmp(2) = 3
+   jmp(3) = 0
+   jmp(4) = ihol(13)
+   jmp(5) = ihol(3)
+   jmp(6) = 0
+   jmp(7) = 0
+   cpntry(1) = 6
+   cpntry(2) = 2
+   cpntry(3) = 0
+   cpntry(4) = ihol(22)
+   cpntry(5) = ihol(3)
+   cpntry(6) = 0
+   cpntry(7) = 0
 !
 !     ****** /XGPI3 / *******
 !
 !     PVT = PARAMETER VALUE TABLE
 !     DATA  PVT/200,2,0,0,1,195*0/
 !
-   Pvt(1) = 200
-   Pvt(2) = 2
+   pvt(1) = 200
+   pvt(2) = 2
    DO i = 3 , 200
-      Pvt(i) = 0
+      pvt(i) = 0
    ENDDO
-   Pvt(5) = 1
+   pvt(5) = 1
 !
 !     ****** /XGPI4 / *******
 !
@@ -193,11 +199,11 @@ SUBROUTINE xgpidd
 !
 !     DATA     ISEQN/1/, DMPCNT/0/, ICHAR/1/, LDMAP/200/, BCDCNT/0/
 !
-   Iseqn = 1
-   Dmpcnt = 0
-   Ichar = 1
-   Ldmap = 200
-   Bcdcnt = 0
+   iseqn = 1
+   dmpcnt = 0
+   ichar = 1
+   ldmap = 200
+   bcdcnt = 0
 !
 !     ****** /XGPI5/ *******
 !
@@ -215,10 +221,10 @@ SUBROUTINE xgpidd
 !
 !     DATA     IESTIM/0/, ICFTOP/1/, LCTLFL/1/, IFLAG/0/
 !
-   Iestim = 0
-   Icftop = 1
-   Lctlfl = 1
-   Iflag = 0
+   iestim = 0
+   icftop = 1
+   lctlfl = 1
+   iflag = 0
 !
 !     ****** /XGPI6/ *******
 !
@@ -234,9 +240,9 @@ SUBROUTINE xgpidd
 !
 !     DATA     MEDTP/1/,  LMED/0/,  IPLUS/1H+/
 !
-   Medtp = 1
-   Lmed = 0
-   Iplus = ipls
+   medtp = 1
+   lmed = 0
+   iplus = ipls
 !
 !     ****** /XGPI7/ *******
 !
@@ -246,10 +252,10 @@ SUBROUTINE xgpidd
 !
 !     DATA     IFPNT/-2/,  LFILE/130/,  IFILE/130*0/
 !
-   Ifpnt = -2
-   Lfile = 130
-   DO i = 1 , Lfile
-      Ifile(i) = 0
+   ifpnt = -2
+   lfile = 130
+   DO i = 1 , lfile
+      ifile(i) = 0
    ENDDO
 !
 !     ****** /XGPI8 / *******
@@ -261,20 +267,20 @@ SUBROUTINE xgpidd
 !
 !     DATA     ICPTOP/0/,  ICPBOT/0/,  LCPDPL/0/
 !
-   Icptop = 0
-   Icpbot = 0
-   Lcpdpl = 0
+   icptop = 0
+   icpbot = 0
+   lcpdpl = 0
 !
 !     ****** /MODDMP/ ********
 !
-   Iflg(1) = 1
-   Iflg(2) = 2
-   Iflg(3) = 0
-   Iflg(4) = 0
-   Iflg(5) = 0
-   Iflg(6) = 0
+   iflg(1) = 1
+   iflg(2) = 2
+   iflg(3) = 0
+   iflg(4) = 0
+   iflg(5) = 0
+   iflg(6) = 0
    DO i = 1 , 26
-      Nmpt(i) = namopt(i)
+      nmpt(i) = namopt(i)
    ENDDO
 !
 END SUBROUTINE xgpidd

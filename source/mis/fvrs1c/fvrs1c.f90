@@ -1,10 +1,11 @@
-!*==fvrs1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fvrs1c.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fvrs1c(Z,W1,Omega,Nf)
+   USE c_blank
+   USE c_condas
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,43 +42,43 @@ SUBROUTINE fvrs1c(Z,W1,Omega,Nf)
                Z(i,j) = (0.0,0.0)
             ENDDO
          ENDDO
-         f = W1(kkk)/Twopi
-         IF ( Ixt==-1 ) THEN
+         f = W1(kkk)/twopi
+         IF ( ixt==-1 ) THEN
             Z(1,ll) = (0.0,0.0)
          ELSE
-            CALL tab(Ixt,f,xo)
-            IF ( Ixp==-1 ) THEN
+            CALL tab(ixt,f,xo)
+            IF ( ixp==-1 ) THEN
                p = (1.0,0.0)
             ELSE
-               CALL tab(Ixp,f,phi)
-               rad = phi*Degra
+               CALL tab(ixp,f,phi)
+               rad = phi*degra
                z1 = cmplx(0.0,rad)
                p = cexp(z1)
             ENDIF
             Z(1,ll) = xo*p
          ENDIF
-         IF ( Iyt==-1 ) THEN
+         IF ( iyt==-1 ) THEN
             yy = 0.0
          ELSE
-            CALL tab(Iyt,f,yo)
-            IF ( Iyp==-1 ) THEN
+            CALL tab(iyt,f,yo)
+            IF ( iyp==-1 ) THEN
                cy = 1.0
             ELSE
-               CALL tab(Iyp,f,phi)
-               rad = phi*Degra
+               CALL tab(iyp,f,phi)
+               rad = phi*degra
                cy = cos(rad)
             ENDIF
             yy = yo*cy
          ENDIF
-         IF ( Izt==-1 ) THEN
+         IF ( izt==-1 ) THEN
             zz = 0.0
          ELSE
-            CALL tab(Izt,f,zo)
-            IF ( Izp==-1 ) THEN
+            CALL tab(izt,f,zo)
+            IF ( izp==-1 ) THEN
                cz = 1.0
             ELSE
-               CALL tab(Izp,f,phi)
-               rad = phi*Degra
+               CALL tab(izp,f,phi)
+               rad = phi*degra
                cz = cos(rad)
             ENDIF
             zz = zo*cz
@@ -101,54 +102,54 @@ SUBROUTINE fvrs1c(Z,W1,Omega,Nf)
                Z(i,j) = (0.0,0.0)
             ENDDO
          ENDDO
-         f = W1(kkk)/Twopi
-         IF ( Ixt/=-1 ) THEN
-            CALL tab(Ixt,f,xo)
-            IF ( Ixp==-1 ) THEN
+         f = W1(kkk)/twopi
+         IF ( ixt/=-1 ) THEN
+            CALL tab(ixt,f,xo)
+            IF ( ixp==-1 ) THEN
                p = (1.0,0.0)
             ELSE
-               CALL tab(Ixp,f,phi)
-               rad = phi*Degra
+               CALL tab(ixp,f,phi)
+               rad = phi*degra
                z1 = cmplx(0.0,rad)
                p = cexp(z1)
             ENDIF
             Z(1,ll+1) = xo*p
          ENDIF
-         IF ( Iyt==-1 ) THEN
+         IF ( iyt==-1 ) THEN
             yo = 0.0
          ELSE
-            CALL tab(Iyt,f,yo)
+            CALL tab(iyt,f,yo)
          ENDIF
-         IF ( Izt==-1 ) THEN
+         IF ( izt==-1 ) THEN
             zo = 0.0
          ELSE
-            CALL tab(Izt,f,zo)
+            CALL tab(izt,f,zo)
          ENDIF
-         IF ( Iyp==-1 ) THEN
+         IF ( iyp==-1 ) THEN
             phi = 0.0
          ELSE
-            CALL tab(Iyp,f,phi)
+            CALL tab(iyp,f,phi)
          ENDIF
-         rad = phi*Degra
+         rad = phi*degra
          z1 = cmplx(0.0,rad)
          py1a = cexp(a*z1)
          py1b = cexp(b*z1)
-         z1 = cmplx(0.0,rad-0.5*Pi*a)
+         z1 = cmplx(0.0,rad-0.5*pi*a)
          py2a = cexp(a*z1)
-         z1 = cmplx(0.0,rad-0.5*Pi*b)
+         z1 = cmplx(0.0,rad-0.5*pi*b)
          py2b = cexp(b*z1)
-         IF ( Izp==-1 ) THEN
+         IF ( izp==-1 ) THEN
             phi = 0.0
          ELSE
-            CALL tab(Izp,f,phi)
+            CALL tab(izp,f,phi)
          ENDIF
-         rad = phi*Degra
+         rad = phi*degra
          z1 = cmplx(0.0,rad)
          pz1a = cexp(a*z1)
          pz1b = cexp(b*z1)
-         z1 = cmplx(0.0,rad-0.5*Pi*a)
+         z1 = cmplx(0.0,rad-0.5*pi*a)
          pz2a = cexp(a*z1)
-         z1 = cmplx(0.0,rad-0.5*Pi*b)
+         z1 = cmplx(0.0,rad-0.5*pi*b)
          pz2b = cexp(b*z1)
          Z(2,ll) = (yo*py1a-a*zo*pz2a)*0.5
          Z(3,ll) = (a*yo*py2a+zo*pz1a)*0.5

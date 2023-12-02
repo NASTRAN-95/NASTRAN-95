@@ -1,9 +1,10 @@
-!*==rand1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rand1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand1(File,Mid,Type,Id,Comp,Q)
+   USE c_output
    IMPLICIT NONE
-   USE C_OUTPUT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,5 +42,5 @@ SUBROUTINE rand1(File,Mid,Type,Id,Comp,Q)
    idr(9) = Q(2)
    idr(10) = 2
    CALL write(File,idr(1),50,0)
-   CALL write(File,Head(1),96,1)
+   CALL write(File,head(1),96,1)
 END SUBROUTINE rand1

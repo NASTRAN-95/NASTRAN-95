@@ -1,15 +1,16 @@
-!*==ifp1b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp1b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1b
+   USE c_ifp1a
+   USE c_ifpx0
+   USE c_system
+   USE c_two
+   USE c_xifp1
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_IFP1A
-   USE C_IFPX0
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XIFP1
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -75,7 +76,7 @@ SUBROUTINE ifp1b
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         k = Lbd + 1
+         k = lbd + 1
          ifirod = 0
          ioloop = 0
          iloop = 0
@@ -85,9 +86,9 @@ SUBROUTINE ifp1b
 !     ALLOCATE GINO BUFFERS
 !
          nz = korsz(core)
-         ibuf1 = nz - Ibuf + 1
-         ibuf2 = ibuf1 - Ibuf
-         nz = nz - 2*Ibuf
+         ibuf1 = nz - ibuf + 1
+         ibuf2 = ibuf1 - ibuf
+         nz = nz - 2*ibuf
          icrq = -nz
          IF ( nz<=0 ) THEN
             spag_nextblock_1 = 11
@@ -110,7 +111,7 @@ SUBROUTINE ifp1b
 !
 !     OPEN CASECC AND SKIP CASESS IF PRESENT
 !
-               CALL open(*200,Casecc,core(ibuf2),0)
+               CALL open(*200,casecc,core(ibuf2),0)
                EXIT SPAG_Loop_1_1
             ELSEIF ( core(1)==case .AND. core(2)==ss ) THEN
                DO
@@ -119,7 +120,7 @@ SUBROUTINE ifp1b
 !
                   CALL read(*160,*180,optp,core(1),2,1,iflag)
                   IF ( core(1)==case .AND. core(2)==cc ) THEN
-                     CALL open(*200,Casecc,core(ibuf2),0)
+                     CALL open(*200,casecc,core(ibuf2),0)
                      EXIT SPAG_Loop_1_1
                   ENDIF
                ENDDO
@@ -130,17 +131,17 @@ SUBROUTINE ifp1b
             ENDIF
          ENDDO SPAG_Loop_1_1
          SPAG_Loop_1_2: DO
-            CALL read(*220,*240,Casecc,core(1),2,1,iflag)
+            CALL read(*220,*240,casecc,core(1),2,1,iflag)
             IF ( core(1)==case .AND. core(2)==cc ) THEN
                ASSIGN 20 TO ihop
                EXIT SPAG_Loop_1_2
             ENDIF
          ENDDO SPAG_Loop_1_2
  20      DO
-            CALL read(*120,*180,optp,icase(1,2),Lencc,0,iflag)
+            CALL read(*120,*180,optp,icase(1,2),lencc,0,iflag)
             IF ( icase(16,2)==0 ) THEN
-               IF ( icase(Lencc,2)/=0 ) THEN
-                  lsym = icase(Lencc,2)
+               IF ( icase(lencc,2)/=0 ) THEN
+                  lsym = icase(lencc,2)
                   CALL read(*160,*180,optp,core(1),-lsym,0,iflag)
                ENDIF
                CALL read(*160,*40,optp,core(1),nz,1,ifoptp)
@@ -152,18 +153,18 @@ SUBROUTINE ifp1b
             ENDIF
          ENDDO
  40      DO
-            CALL read(*80,*240,Casecc,icase(1,1),Lencc,0,iflag)
+            CALL read(*80,*240,casecc,icase(1,1),lencc,0,iflag)
             IF ( icase(16,1)==0 ) THEN
-               IF ( icase(Lencc,1)/=0 ) THEN
-                  lsym = icase(Lencc,1)
-                  CALL read(*220,*240,Casecc,core(ifoptp+1),-lsym,0,iflag)
+               IF ( icase(lencc,1)/=0 ) THEN
+                  lsym = icase(lencc,1)
+                  CALL read(*220,*240,casecc,core(ifoptp+1),-lsym,0,iflag)
                ENDIF
-               CALL read(*220,*60,Casecc,core(ifoptp+1),nz-ifoptp,1,ifcase)
+               CALL read(*220,*60,casecc,core(ifoptp+1),nz-ifoptp,1,ifcase)
                icrq = nz - ifoptp
                spag_nextblock_1 = 11
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               CALL fwdrec(*220,Casecc)
+               CALL fwdrec(*220,casecc)
             ENDIF
          ENDDO
 !
@@ -211,7 +212,7 @@ SUBROUTINE ifp1b
 !
 !     SET LOOP$
 !
-         Bits(k) = orf(Bits(k),Two1(11))
+         bits(k) = orf(bits(k),two1(11))
          iloop = 1
          spag_nextblock_1 = 2
       CASE (2)
@@ -268,22 +269,22 @@ SUBROUTINE ifp1b
 !     CHECK FOR CHANGES -
 !
             IF ( ieoptp==1 ) ieoptp = 2
-            DO i = 1 , Lencc
+            DO i = 1 , lencc
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
                      IF ( ibit(i)==0 ) CYCLE
                      l = ibit(i)
-                     IF ( l<=32 .AND. andf(Bits(k),Two1(l))/=0 ) CYCLE
+                     IF ( l<=32 .AND. andf(bits(k),two1(l))/=0 ) CYCLE
                      IF ( iword(i)==0 ) THEN
 !
 !     CHECK FOR PRESENCE OF PRINT AND PLOT REQUESTS
 !
                         IF ( i/=135 .AND. icase(i,1)==0 ) CYCLE
                         IF ( i/=135 ) THEN
-                           IF ( ibit(i)==18 ) Bits(k+1) = orf(Bits(k+1),Two1(3))
-                           IF ( ibit(i)==10 ) Bits(k+1) = orf(Bits(k+1),Two1(4))
+                           IF ( ibit(i)==18 ) bits(k+1) = orf(bits(k+1),two1(3))
+                           IF ( ibit(i)==10 ) bits(k+1) = orf(bits(k+1),two1(4))
                            IF ( ieoptp/=2 ) THEN
                               IF ( icase(i,1)<0 .AND. icase(i,2)<0 ) CYCLE
                               IF ( icase(i,1)>=0 .OR. icase(i,2)<0 ) THEN
@@ -323,30 +324,29 @@ SUBROUTINE ifp1b
 !     SECOND CASECC WORD
 !
                         l = l - 31
-                        Bits(k+1) = orf(Bits(k+1),Two1(l))
+                        bits(k+1) = orf(bits(k+1),two1(l))
                      ELSE
-                        Bits(k) = orf(Bits(k),Two1(l))
+                        bits(k) = orf(bits(k),two1(l))
                      ENDIF
-                     CYCLE
                   CASE (3)
                      iqcase = ifoptp + ifcase + 1
                      ix = ipcase
                      iy = iqcase
                      ASSIGN 62 TO jump
-                     IF ( debug ) WRITE (Nout,99001)
+                     IF ( debug ) WRITE (nout,99001)
 99001                FORMAT (/,' ------ NPTP PASS ------')
                      spag_nextblock_2 = 5
                      CYCLE SPAG_DispatchLoop_2
  62                  iqoptp = iy
                      ix = ipoptp
                      ASSIGN 64 TO jump
-                     IF ( debug ) WRITE (Nout,99002)
+                     IF ( debug ) WRITE (nout,99002)
 99002                FORMAT (/,' ------ OPTP PASS ------')
                      spag_nextblock_2 = 5
                      CYCLE SPAG_DispatchLoop_2
  64                  leng1 = iqoptp - iqcase
                      leng2 = iy - iqoptp
-                     IF ( debug ) WRITE (Nout,99003) core(ipcase) , leng1 , leng2 , iy , iqoptp , iqcase
+                     IF ( debug ) WRITE (nout,99003) core(ipcase) , leng1 , leng2 , iy , iqoptp , iqcase
 99003                FORMAT (//,' IFP1B/@310  CHECKING SETS',I9,' FROM NPTP AND OPTP',/5X,'LENG1,LENG2, IY,IQOPTP,IQCASE =',2I5,3I7)
                      IF ( leng1==leng2 ) THEN
                         DO mm = 1 , leng1
@@ -355,16 +355,15 @@ SUBROUTINE ifp1b
                               CYCLE SPAG_DispatchLoop_2
                            ENDIF
                         ENDDO
-                        IF ( debug ) WRITE (Nout,99004) core(ipcase)
+                        IF ( debug ) WRITE (nout,99004) core(ipcase)
 99004                   FORMAT (' ... NO DIFFERENCES IN SET',I8)
                         CYCLE
                      ENDIF
                      spag_nextblock_2 = 4
                   CASE (4)
-                     WRITE (Nout,99005) Uim , core(ipcase)
+                     WRITE (nout,99005) uim , core(ipcase)
 99005                FORMAT (A29,', SET',I9,' DEFINITION HAS BEEN CHANGED IN RESTART')
                      spag_nextblock_2 = 2
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (5)
 !
 !     A NEW NON-EXPANDING METHOD IS IMPLEMENTED HERE BY  G.CAHN/UNISYS
@@ -402,14 +401,14 @@ SUBROUTINE ifp1b
                                  CYCLE SPAG_DispatchLoop_1
                               ENDIF
                               m1 = iy - 1
-                              IF ( debug ) WRITE (Nout,99006) core(ix-2) , (core(j),j=m0,m1)
+                              IF ( debug ) WRITE (nout,99006) core(ix-2) , (core(j),j=m0,m1)
 99006                         FORMAT (/,' IFP1B/@480    SET',I8,/,(2X,15I8))
                               spag_nextblock_2 = 7
                               CYCLE SPAG_DispatchLoop_2
                            ELSE
                               m1 = core(ix+m)
                               m2 = iabs(m1)
-                              IF ( debug ) WRITE (Nout,99007) m , in , ix , iy , m1 , core(iy-1)
+                              IF ( debug ) WRITE (nout,99007) m , in , ix , iy , m1 , core(iy-1)
 99007                         FORMAT (' @440   M,IN,IX,IY,M1,CORE(IY-1) =',6I8)
                               IF ( m1<0 ) THEN
                                  IF ( core(iy-1)<=0 ) THEN
@@ -468,7 +467,6 @@ SUBROUTINE ifp1b
                      core(iy) = core(ix+m-1)
                      iy = iy + 1
                      spag_nextblock_2 = 6
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (7)
 !
                      GOTO jump
@@ -480,7 +478,7 @@ SUBROUTINE ifp1b
          ELSE
             IF ( ioloop==1 ) GOTO 100
             DO
-               CALL read(*100,*180,optp,icase(1,2),Lencc,1,iflag)
+               CALL read(*100,*180,optp,icase(1,2),lencc,1,iflag)
                IF ( icase(16,2)==0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -490,7 +488,7 @@ SUBROUTINE ifp1b
 !
 !     EOF ON CASECC
 !
- 80      CALL close(Casecc,1)
+ 80      CALL close(casecc,1)
          IF ( ieoptp==0 ) THEN
             iecase = 1
             spag_nextblock_1 = 3
@@ -500,11 +498,11 @@ SUBROUTINE ifp1b
 !
 !     SET LOOP1  THIS SHOULD REEXECUTE THE ENTIRE LOOP
 !
-         IF ( ieoptp/=1 .AND. ioloop/=0 ) Bits(k) = orf(Bits(k),Two1(12))
+         IF ( ieoptp/=1 .AND. ioloop/=0 ) bits(k) = orf(bits(k),two1(12))
 !
 !     CHECK FOR LOOP$ IF NOT ON SET NOLOOP$
 !
-         IF ( iloop==0 ) Bits(k) = orf(Bits(k),Two1(32))
+         IF ( iloop==0 ) bits(k) = orf(bits(k),two1(32))
          RETURN
 !
 !     EOF ON  OPTP
@@ -529,13 +527,12 @@ SUBROUTINE ifp1b
          CYCLE SPAG_DispatchLoop_1
  180     ip1 = -3
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          core(1) = optp
-         core(2) = Iblank
+         core(2) = iblank
          spag_nextblock_1 = 8
       CASE (8)
-         WRITE (Nout,99008) Sfm , core(1) , core(2)
+         WRITE (nout,99008) sfm , core(1) , core(2)
 99008    FORMAT (A25,' 651, LOGIC ERROR IN SUBROUTINE IFP1B WHILE ','PROCESSING SET DATA ON ',2A4,' FILE.')
          ip1 = -37
          spag_nextblock_1 = 6
@@ -543,7 +540,7 @@ SUBROUTINE ifp1b
  200     ip1 = -1
          spag_nextblock_1 = 9
       CASE (9)
-         ip2 = Casecc
+         ip2 = casecc
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  220     ip1 = -2
@@ -551,17 +548,14 @@ SUBROUTINE ifp1b
          CYCLE SPAG_DispatchLoop_1
  240     ip1 = -3
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          core(1) = case
          core(2) = cc
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
          ip1 = -8
          ip2 = icrq
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE ifp1b

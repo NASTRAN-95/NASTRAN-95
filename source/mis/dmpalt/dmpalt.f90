@@ -1,12 +1,13 @@
-!*==dmpalt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dmpalt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 !*DECK,DMPALT
 SUBROUTINE dmpalt(Isize,Iopen,Iptape)
+   USE c_altrxx
+   USE c_system
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_ALTRXX
-   USE C_SYSTEM
-   USE C_XRGDXX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,13 +50,13 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
 !
          ipoint = 1
          CALL write(Iptape,xalter,2,1)
-         IF ( Newalt==0 ) THEN
+         IF ( newalt==0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         n2dmap = 2*Nmdmap
-         CALL skpfil(Altfil,1)
-         CALL read(*240,*20,Altfil,Iopen,Isize,1,iend)
+         n2dmap = 2*nmdmap
+         CALL skpfil(altfil,1)
+         CALL read(*240,*20,altfil,Iopen,Isize,1,iend)
          ireqd = n2dmap - Isize
          CALL mesage(-8,ireqd,isubr)
  20      IF ( iend/=n2dmap ) THEN
@@ -63,14 +64,14 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ipoint = ipoint + iend
-         CALL rewind(Altfil)
+         CALL rewind(altfil)
          spag_nextblock_1 = 2
       CASE (2)
 !
-         CALL read(*99999,*40,Altfil,Iopen(ipoint),19,1,iflag)
+         CALL read(*99999,*40,altfil,Iopen(ipoint),19,1,iflag)
          nwords = 19
          logic = 200
-         WRITE (Nout,99001) nwords , logic
+         WRITE (nout,99006) nwords , logic
          CALL mesage(-61,0,0)
          RETURN
 !
@@ -83,8 +84,8 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
          ELSEIF ( iflag==4 ) THEN
             nwords = 4
             logic = 400
-            IF ( Newalt==0 ) THEN
-               WRITE (Nout,99001) nwords , logic
+            IF ( newalt==0 ) THEN
+               WRITE (nout,99006) nwords , logic
                CALL mesage(-61,0,0)
                RETURN
             ELSE
@@ -97,8 +98,8 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
          ELSEIF ( iflag==5 ) THEN
             nwords = 5
             logic = 500
-            IF ( Newalt==0 ) THEN
-               WRITE (Nout,99001) nwords , logic
+            IF ( newalt==0 ) THEN
+               WRITE (nout,99006) nwords , logic
                CALL mesage(-61,0,0)
                RETURN
             ELSE
@@ -115,7 +116,7 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
             nwords = iflag
             logic = 700
             IF ( iflag/=18 ) THEN
-               WRITE (Nout,99001) nwords , logic
+               WRITE (nout,99006) nwords , logic
                CALL mesage(-61,0,0)
                RETURN
             ELSE
@@ -126,8 +127,8 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
          ELSE
             nwords = 9
             logic = 600
-            IF ( Newalt==0 ) THEN
-               WRITE (Nout,99001) nwords , logic
+            IF ( newalt==0 ) THEN
+               WRITE (nout,99006) nwords , logic
                CALL mesage(-61,0,0)
                RETURN
             ELSE
@@ -173,7 +174,7 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
          icheck = Iopen(ipoint+4)
          logic = 520
          IF ( icheck/=0 ) THEN
-            WRITE (Nout,99002) logic
+            WRITE (nout,99007) logic
             CALL mesage(-61,0,0)
             RETURN
          ELSE
@@ -195,7 +196,7 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
          icheck = Iopen(ipoint+4)
          logic = 620
          IF ( icheck/=1 ) THEN
-            WRITE (Nout,99002) logic
+            WRITE (nout,99007) logic
             CALL mesage(-61,0,0)
             RETURN
          ELSE
@@ -232,21 +233,20 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
-            Nogo = 1
-            WRITE (Nout,99003) icard
+            nogo = 1
+            WRITE (nout,99001) icard
 !***********************************************************************
-99003       FORMAT ('0*** USER FATAL MESSAGE, THE DATA ON THE ','FOLLOWING ALTER CONTROL CARD IS NOT IN PROPER ',                   &
+99001       FORMAT ('0*** USER FATAL MESSAGE, THE DATA ON THE ','FOLLOWING ALTER CONTROL CARD IS NOT IN PROPER ',                   &
                    &'SEQUENCE OR ORDER --'//5X,18A4)
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     INTERNAL SUBROUTINE TO READ IN AN ALTER CONTROL CARD IMAGE
 !
-         CALL read(*240,*220,Altfil,icard,19,1,iflag)
+         CALL read(*240,*220,altfil,icard,19,1,iflag)
          nwords = 19
-         WRITE (Nout,99001) nwords , logic
+         WRITE (nout,99006) nwords , logic
          CALL mesage(-61,0,0)
          RETURN
  220     GOTO jgoto
@@ -262,11 +262,11 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
                icount = icount + 1
                IF ( icount>=ioccur ) THEN
                   inumbr = (j+1)/2 + ioffst
-                  IF ( inumbr<1 .OR. inumbr>Nmdmap ) THEN
-                     Nogo = 1
+                  IF ( inumbr<1 .OR. inumbr>nmdmap ) THEN
+                     nogo = 1
                      inumbr = 0
-                     WRITE (Nout,99004) icard
-99004                FORMAT ('0*** USER FATAL MESSAGE, ILLEGAL OFFSET FLAG ','SPECIFIED ON THE FOLLOWING ALTER CONTROL CARD --'//5X,&
+                     WRITE (nout,99002) icard
+99002                FORMAT ('0*** USER FATAL MESSAGE, ILLEGAL OFFSET FLAG ','SPECIFIED ON THE FOLLOWING ALTER CONTROL CARD --'//5X,&
                            & 18A4)
                   ENDIF
                   spag_nextblock_1 = 6
@@ -274,12 +274,12 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
                ENDIF
             ENDIF
          ENDDO
-         Nogo = 1
+         nogo = 1
          inumbr = 0
-         IF ( icount>0 ) WRITE (Nout,99005) icard
-99005    FORMAT ('0*** USER FATAL MESSAGE, ILLEGAL OCCURENCE FLAG ','SPECIFIED ON THE FOLLOWING ALTER CONTROL CARD --'//5X,18A4)
-         IF ( icount==0 ) WRITE (Nout,99006) icard
-99006    FORMAT ('0*** USER FATAL MESSAGE, NON-EXISTENT NOMINAL ','DMAP STATEMENT SPECIFIED ON THE FOLLOWING ',                     &
+         IF ( icount>0 ) WRITE (nout,99003) icard
+99003    FORMAT ('0*** USER FATAL MESSAGE, ILLEGAL OCCURENCE FLAG ','SPECIFIED ON THE FOLLOWING ALTER CONTROL CARD --'//5X,18A4)
+         IF ( icount==0 ) WRITE (nout,99004) icard
+99004    FORMAT ('0*** USER FATAL MESSAGE, NON-EXISTENT NOMINAL ','DMAP STATEMENT SPECIFIED ON THE FOLLOWING ',                     &
                 &'ALTER CONTROL CARD --'//5X,18A4)
          spag_nextblock_1 = 6
       CASE (6)
@@ -287,19 +287,19 @@ SUBROUTINE dmpalt(Isize,Iopen,Iptape)
 !
 !     ERROR MESSAGES
 !
- 240     CALL mesage(-2,Altfil,isubr)
+ 240     CALL mesage(-2,altfil,isubr)
          spag_nextblock_1 = 7
       CASE (7)
-         WRITE (Nout,99007) iend , n2dmap
-99007    FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL NUMBER OF ','WORDS (',I5,') ENCOUNTERED IN THE SECOND ',                       &
+         WRITE (nout,99005) iend , n2dmap
+99005    FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL NUMBER OF ','WORDS (',I5,') ENCOUNTERED IN THE SECOND ',                       &
                 &'FILE OF THE ALTER SCRATCH FILE.'/'     EXPECTED NUMBER OF WORDS = ',I5)
          CALL mesage(-61,0,0)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
-99001 FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL NUMBER OF ','WORDS (',I5,') ENCOUNTERED WHILE READING ',                          &
+99006 FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL NUMBER OF ','WORDS (',I5,') ENCOUNTERED WHILE READING ',                          &
              &'A RECORD IN THE FIRST FILE OF THE ALTER SCRATCH ','FILE.'/'     LOGIC ERROR NO. = ',I5)
-99002 FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL CONTROL WORD ','WHILE PROCESSING THE FOLLOWING ALTER CONTROL CARD'//5X,18A4)
+99007 FORMAT ('0*** SYSTEM FATAL MESSAGE, ILLEGAL CONTROL WORD ','WHILE PROCESSING THE FOLLOWING ALTER CONTROL CARD'//5X,18A4)
 !
 !***********************************************************************
 !                              NOTICE                             *

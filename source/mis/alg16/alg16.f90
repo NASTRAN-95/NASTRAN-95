@@ -1,4 +1,5 @@
-!*==alg16.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg16.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg16(Ix,Log1,X1,Y1,X2,Y2)
@@ -16,14 +17,22 @@ SUBROUTINE alg16(Ix,Log1,X1,Y1,X2,Y2)
 ! Local variable declarations rewritten by SPAG
 !
    REAL , SAVE :: blank , cross , dash , symbol , xi
-   INTEGER :: i , kline , l , mx , my
+   INTEGER :: i , kline , l , mx , my , spag_nextblock_1
    REAL , DIMENSION(121) :: line
    REAL :: xh , xinc , xl , xmax , xmin , xrange , yh , yinc , yinc2 , yl , ymax , ymin , ynum
    REAL , DIMENSION(13) :: xnum
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !
 !
@@ -136,5 +145,4 @@ SUBROUTINE alg16(Ix,Log1,X1,Y1,X2,Y2)
    ENDDO
    WRITE (Log1,99005) xnum
 99005 FORMAT (6X,12(F6.3,4X),F6.3)
-   RETURN
 END SUBROUTINE alg16

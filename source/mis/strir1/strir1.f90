@@ -1,13 +1,14 @@
-!*==strir1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strir1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strir1
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -72,32 +73,32 @@ SUBROUTINE strir1
 !
 ! STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !
-   Idel = iecpt(1)
-   Igp(1) = iecpt(2)
-   Igp(2) = iecpt(3)
-   Igp(3) = iecpt(4)
+   idel = iecpt(1)
+   igp(1) = iecpt(2)
+   igp(2) = iecpt(3)
+   igp(3) = iecpt(4)
    matid = iecpt(6)
    ics(1) = iecpt(7)
    ics(2) = iecpt(11)
    ics(3) = iecpt(15)
-   r(1) = Ecpt(8)
-   D(1) = Ecpt(9)
-   z(1) = Ecpt(10)
-   r(2) = Ecpt(12)
-   D(2) = Ecpt(13)
-   z(2) = Ecpt(14)
-   r(3) = Ecpt(16)
-   D(3) = Ecpt(17)
-   z(3) = Ecpt(18)
-   tempe = Ecpt(19)
-   dgama = Ecpt(5)
+   r(1) = ecpt(8)
+   d(1) = ecpt(9)
+   z(1) = ecpt(10)
+   r(2) = ecpt(12)
+   d(2) = ecpt(13)
+   z(2) = ecpt(14)
+   r(3) = ecpt(16)
+   d(3) = ecpt(17)
+   z(3) = ecpt(18)
+   tempe = ecpt(19)
+   dgama = ecpt(5)
 !
 !
 ! TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
    DO i = 1 , 3
-      IF ( r(i)<0.0E0 ) CALL mesage(-30,37,Idel)
-      IF ( D(i)/=0.0E0 ) CALL mesage(-30,37,Idel)
+      IF ( r(i)<0.0E0 ) CALL mesage(-30,37,idel)
+      IF ( d(i)/=0.0E0 ) CALL mesage(-30,37,idel)
    ENDDO
 !
 !
@@ -114,33 +115,33 @@ SUBROUTINE strir1
 ! POINT DEGREES OF FREEDOM
 !
    DO i = 1 , 36
-      Gambq(i) = 0.0E0
+      gambq(i) = 0.0E0
    ENDDO
-   Gambq(1) = 1.0E0
-   Gambq(2) = r1
-   Gambq(3) = z1
-   Gambq(10) = 1.0E0
-   Gambq(11) = r1
-   Gambq(12) = z1
-   Gambq(13) = 1.0E0
-   Gambq(14) = r2
-   Gambq(15) = z2
-   Gambq(22) = 1.0E0
-   Gambq(23) = r2
-   Gambq(24) = z2
-   Gambq(25) = 1.0E0
-   Gambq(26) = r3
-   Gambq(27) = z3
-   Gambq(34) = 1.0E0
-   Gambq(35) = r3
-   Gambq(36) = z3
+   gambq(1) = 1.0E0
+   gambq(2) = r1
+   gambq(3) = z1
+   gambq(10) = 1.0E0
+   gambq(11) = r1
+   gambq(12) = z1
+   gambq(13) = 1.0E0
+   gambq(14) = r2
+   gambq(15) = z2
+   gambq(22) = 1.0E0
+   gambq(23) = r2
+   gambq(24) = z2
+   gambq(25) = 1.0E0
+   gambq(26) = r3
+   gambq(27) = z3
+   gambq(34) = 1.0E0
+   gambq(35) = r3
+   gambq(36) = z3
 !
 !
 !     NO NEED TO COMPUTR DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
    ising = -1
-   CALL invers(6,Gambq(1),6,D(10),0,D(11),ising,sp)
+   CALL invers(6,gambq(1),6,d(10),0,d(11),ising,sp)
 !
-   IF ( ising==2 ) CALL mesage(-30,26,Idel)
+   IF ( ising==2 ) CALL mesage(-30,26,idel)
 !
 !
 !
@@ -194,9 +195,9 @@ SUBROUTINE strir1
                   ENDIF
                ENDDO
             ENDDO
-            D(1) = delint(6)
+            d(1) = delint(6)
             delint(6) = delint(7)
-            delint(7) = D(1)
+            delint(7) = d(1)
 !
 !
 ! TEST FOR EXCESSIVE ROUND-OFF ERROR IN INTEGRAL CALCULATIONS
@@ -226,22 +227,22 @@ SUBROUTINE strir1
 !
 ! LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
-   CALL mat(Idel)
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
+   CALL mat(idel)
 !
 !
 ! SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-   er = E(1)
-   et = E(2)
-   ez = E(3)
-   vrt = Anu(1)
-   vtz = Anu(2)
-   vzr = Anu(3)
-   grz = G(3)
-   Tz = Tzero
+   er = e(1)
+   et = e(2)
+   ez = e(3)
+   vrt = anu(1)
+   vtz = anu(2)
+   vzr = anu(3)
+   grz = g(3)
+   tz = tzero
    vtr = vrt*et/er
    vzt = vtz*ez/et
    vrz = vzr*er/ez
@@ -250,22 +251,22 @@ SUBROUTINE strir1
 !
 ! GENERATE ELASTIC CONSTANTS MATRIX (4X4)
 !
-   Ee(1) = er*(1.0E0-vtz*vzt)/del
-   Ee(2) = er*(vtr+vzr*vtz)/del
-   Ee(3) = er*(vzr+vtr*vzt)/del
-   Ee(4) = 0.0E0
-   Ee(5) = Ee(2)
-   Ee(6) = et*(1.0E0-vrz*vzr)/del
-   Ee(7) = et*(vzt+vrt*vzr)/del
-   Ee(8) = 0.0E0
-   Ee(9) = Ee(3)
-   Ee(10) = Ee(7)
-   Ee(11) = ez*(1.0E0-vrt*vtr)/del
-   Ee(12) = 0.0E0
-   Ee(13) = 0.0E0
-   Ee(14) = 0.0E0
-   Ee(15) = 0.0E0
-   Ee(16) = grz
+   ee(1) = er*(1.0E0-vtz*vzt)/del
+   ee(2) = er*(vtr+vzr*vtz)/del
+   ee(3) = er*(vzr+vtr*vzt)/del
+   ee(4) = 0.0E0
+   ee(5) = ee(2)
+   ee(6) = et*(1.0E0-vrz*vzr)/del
+   ee(7) = et*(vzt+vrt*vzr)/del
+   ee(8) = 0.0E0
+   ee(9) = ee(3)
+   ee(10) = ee(7)
+   ee(11) = ez*(1.0E0-vrt*vtr)/del
+   ee(12) = 0.0E0
+   ee(13) = 0.0E0
+   ee(14) = 0.0E0
+   ee(15) = 0.0E0
+   ee(16) = grz
 !
 !
 ! FORM TRANSFORMATION MATRIX (4X4) FROM MATERIAL AXIS TO ELEMENT
@@ -295,59 +296,59 @@ SUBROUTINE strir1
 ! TRANSFORM THE ELASTIC CONSTANTS MATRIX FROM MATERIAL
 ! TO ELEMENT GEOMETRIC AXIS
 !
-   CALL gmmats(teo,4,4,1,Ee,4,4,0,D)
-   CALL gmmats(D,4,4,0,teo,4,4,0,Ee)
+   CALL gmmats(teo,4,4,1,ee,4,4,0,d)
+   CALL gmmats(d,4,4,0,teo,4,4,0,ee)
 !
 !
 !
 ! FORM THE ELEMENT STIFFNESS MATRIX IN FIELD COORDINATES
 !
-   Ak(1) = Ee(6)*delint(1)
-   Ak(2) = (Ee(2)+Ee(6))*delint(4)
-   Ak(3) = Ee(6)*delint(2) + Ee(8)*delint(4)
-   Ak(4) = 0.0E0
-   Ak(5) = Ee(8)*delint(4)
-   Ak(6) = Ee(7)*delint(4)
-   Ak(7) = Ak(2)
-   Ak(8) = (Ee(1)+2.0E0*Ee(2)+Ee(6))*delint(6)
-   Ak(9) = (Ee(2)+Ee(6))*delint(5) + (Ee(4)+Ee(8))*delint(6)
-   Ak(10) = 0.0E0
-   Ak(11) = (Ee(4)+Ee(8))*delint(6)
-   Ak(12) = (Ee(3)+Ee(7))*delint(6)
-   Ak(13) = Ak(3)
-   Ak(14) = Ak(9)
-   Ak(15) = Ee(6)*delint(3) + 2.0E0*Ee(8)*delint(5) + Ee(16)*delint(6)
-   Ak(16) = 0.0E0
-   Ak(17) = Ee(8)*delint(5) + Ee(16)*delint(6)
-   Ak(18) = Ee(7)*delint(5) + Ee(12)*delint(6)
-   Ak(19) = 0.0E0
-   Ak(20) = 0.0E0
-   Ak(21) = 0.0E0
-   Ak(22) = 0.0E0
-   Ak(23) = 0.0E0
-   Ak(24) = 0.0E0
-   Ak(25) = Ak(5)
-   Ak(26) = Ak(11)
-   Ak(27) = Ak(17)
-   Ak(28) = 0.0E0
-   Ak(29) = Ee(16)*delint(6)
-   Ak(30) = Ee(12)*delint(6)
-   Ak(31) = Ak(6)
-   Ak(32) = Ak(12)
-   Ak(33) = Ak(18)
-   Ak(34) = 0.0E0
-   Ak(35) = Ak(30)
-   Ak(36) = Ee(11)*delint(6)
+   ak(1) = ee(6)*delint(1)
+   ak(2) = (ee(2)+ee(6))*delint(4)
+   ak(3) = ee(6)*delint(2) + ee(8)*delint(4)
+   ak(4) = 0.0E0
+   ak(5) = ee(8)*delint(4)
+   ak(6) = ee(7)*delint(4)
+   ak(7) = ak(2)
+   ak(8) = (ee(1)+2.0E0*ee(2)+ee(6))*delint(6)
+   ak(9) = (ee(2)+ee(6))*delint(5) + (ee(4)+ee(8))*delint(6)
+   ak(10) = 0.0E0
+   ak(11) = (ee(4)+ee(8))*delint(6)
+   ak(12) = (ee(3)+ee(7))*delint(6)
+   ak(13) = ak(3)
+   ak(14) = ak(9)
+   ak(15) = ee(6)*delint(3) + 2.0E0*ee(8)*delint(5) + ee(16)*delint(6)
+   ak(16) = 0.0E0
+   ak(17) = ee(8)*delint(5) + ee(16)*delint(6)
+   ak(18) = ee(7)*delint(5) + ee(12)*delint(6)
+   ak(19) = 0.0E0
+   ak(20) = 0.0E0
+   ak(21) = 0.0E0
+   ak(22) = 0.0E0
+   ak(23) = 0.0E0
+   ak(24) = 0.0E0
+   ak(25) = ak(5)
+   ak(26) = ak(11)
+   ak(27) = ak(17)
+   ak(28) = 0.0E0
+   ak(29) = ee(16)*delint(6)
+   ak(30) = ee(12)*delint(6)
+   ak(31) = ak(6)
+   ak(32) = ak(12)
+   ak(33) = ak(18)
+   ak(34) = 0.0E0
+   ak(35) = ak(30)
+   ak(36) = ee(11)*delint(6)
 !
    DO i = 1 , 36
-      Ak(i) = twopi*Ak(i)
+      ak(i) = twopi*ak(i)
    ENDDO
 !
 ! TRANSFORM THE ELEMENT STIFFNESS MATRIX FROM FIELD COORDINATES
 ! TO GRID POINT DEGREES OF FREEDOM
 !
-   CALL gmmats(Gambq,6,6,1,Ak,6,6,0,D)
-   CALL gmmats(D,6,6,0,Gambq,6,6,0,Ak)
+   CALL gmmats(gambq,6,6,1,ak,6,6,0,d)
+   CALL gmmats(d,6,6,0,gambq,6,6,0,ak)
 !
 !
 !
@@ -355,93 +356,93 @@ SUBROUTINE strir1
 ! FREEDOM PER POINT
 !
    DO i = 1 , 54
-      Gamqs(i) = 0.0E0
+      gamqs(i) = 0.0E0
    ENDDO
-   Gamqs(1) = 1.0E0
-   Gamqs(12) = 1.0E0
-   Gamqs(22) = 1.0E0
-   Gamqs(33) = 1.0E0
-   Gamqs(43) = 1.0E0
-   Gamqs(54) = 1.0E0
+   gamqs(1) = 1.0E0
+   gamqs(12) = 1.0E0
+   gamqs(22) = 1.0E0
+   gamqs(33) = 1.0E0
+   gamqs(43) = 1.0E0
+   gamqs(54) = 1.0E0
 !
 !
 ! TRANSFORM THE STIFFNESS MATRIX FROM TWO TO THREE DEGREES OF
 ! FREEDOM PER POINT
 !
-   CALL gmmats(Gamqs(1),6,9,1,Ak(1),6,6,0,D(1))
-   CALL gmmats(D(1),9,6,0,Gamqs(1),6,9,0,Ak(1))
+   CALL gmmats(gamqs(1),6,9,1,ak(1),6,6,0,d(1))
+   CALL gmmats(d(1),9,6,0,gamqs(1),6,9,0,ak(1))
 !
 !
 ! LOCATE THE TRANSFORMATION MATRICES FOR THE THREE GRID POINTS
 !
    DO i = 1 , 81
-      Gambl(i) = 0.0E0
+      gambl(i) = 0.0E0
    ENDDO
    DO i = 1 , 3
-      CALL transs(ics(i),D(1))
+      CALL transs(ics(i),d(1))
       k = 30*(i-1) + 1
       DO j = 1 , 3
          kk = k + 9*(j-1)
          jj = 3*(j-1) + 1
-         Gambl(kk) = D(jj)
-         Gambl(kk+1) = D(jj+1)
-         Gambl(kk+2) = D(jj+2)
+         gambl(kk) = d(jj)
+         gambl(kk+1) = d(jj+1)
+         gambl(kk+2) = d(jj+2)
       ENDDO
    ENDDO
 !
 !
 ! TRANSFORM THE STIFFNESS MATRIX FROM BASIC TO LOCAL COORDINATES
 !
-   CALL gmmats(Gambl(1),9,9,1,Ak(1),9,9,0,D(1))
-   CALL gmmats(D(1),9,9,0,Gambl(1),9,9,0,Ak(1))
+   CALL gmmats(gambl(1),9,9,1,ak(1),9,9,0,d(1))
+   CALL gmmats(d(1),9,9,0,gambl(1),9,9,0,ak(1))
 !
 !
 ! FORM THE D SUB 0 MATRIX
 !
    DO i = 1 , 24
-      Dzero(i) = 0.0E0
+      dzero(i) = 0.0E0
    ENDDO
-   Dzero(2) = 1.0E0
-   Dzero(7) = 1.0E0/ra
-   Dzero(8) = 1.0E0
-   Dzero(9) = za/ra
-   Dzero(18) = 1.0E0
-   Dzero(21) = 1.0E0
-   Dzero(23) = 1.0E0
+   dzero(2) = 1.0E0
+   dzero(7) = 1.0E0/ra
+   dzero(8) = 1.0E0
+   dzero(9) = za/ra
+   dzero(18) = 1.0E0
+   dzero(21) = 1.0E0
+   dzero(23) = 1.0E0
 !
 !
 ! COMPUTE THE STRESS MATRIX IN FIELD COORDINATES
 !
-   CALL gmmats(Ee(1),4,4,0,Dzero(1),4,6,0,D(1))
+   CALL gmmats(ee(1),4,4,0,dzero(1),4,6,0,d(1))
 !
 !
 ! TRANSFORM THE STRESS MATRIX TO GRID POINT DEGREES OF FREEDOM
 !
-   CALL gmmats(D(1),4,6,0,Gambq(1),6,6,0,Sel(1))
+   CALL gmmats(d(1),4,6,0,gambq(1),6,6,0,sel(1))
 !
 !
 ! TRANSFORM THE STRESS MATRIX FROM TWO TO THREE DEGREES OF FREEDOM
 ! PER POINT
 !
-   CALL gmmats(Sel(1),4,6,0,Gamqs(1),6,9,0,D(1))
+   CALL gmmats(sel(1),4,6,0,gamqs(1),6,9,0,d(1))
 !
 !
 ! TRANSFORM THE STRESS MATRIX FROM BASIC TO LOCAL COORDINATES
 !
-   CALL gmmats(D(1),4,9,0,Gambl(1),9,9,0,Sel(1))
+   CALL gmmats(d(1),4,9,0,gambl(1),9,9,0,sel(1))
 !
 !
 ! COMPUTE THE THERMAL STRAIN VECTOR
 !
    DO i = 1 , 3
-      Alfb(i) = Alf(i)
+      alfb(i) = alf(i)
    ENDDO
-   Alfb(4) = 0.0E0
+   alfb(4) = 0.0E0
 !
 !
 ! COMPUTE THE THERMAL STRESS VECTOR
 !
-   CALL gmmats(Ee(1),4,4,0,Alfb(1),4,1,0,Ts(1))
+   CALL gmmats(ee(1),4,4,0,alfb(1),4,1,0,ts(1))
 !
 !
 END SUBROUTINE strir1

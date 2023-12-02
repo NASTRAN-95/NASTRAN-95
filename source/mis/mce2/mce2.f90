@@ -1,9 +1,10 @@
-!*==mce2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mce2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce2
+   USE c_bitpos
    IMPLICIT NONE
-   USE C_BITPOS
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,7 +40,7 @@ SUBROUTINE mce2
 !
 !     PARTITION KGG INTO KNNB, KMNB, AND KMMB
 !
-   CALL upart(uset,scr1,Ug,Un,Um)
+   CALL upart(uset,scr1,ug,un,um)
    CALL mpart(kgg,knnb,kmnb,0,kmmb)
 !
 !     COMPUTE KNN
@@ -55,7 +56,7 @@ SUBROUTINE mce2
 !     IF MGG PRESENT, PARTITION INTO MNNB, MMNB, AND MMMB
 !     THEN COMPUTE MNN
 !
-      CALL upart(uset,scr1,Ug,Un,Um)
+      CALL upart(uset,scr1,ug,un,um)
       CALL mpart(mgg,mnnb,mmnb,0,mmmb)
       CALL elim(mnnb,mmnb,mmmb,gm,mnn,scr1,scr2,scr6)
    ENDIF
@@ -69,7 +70,7 @@ SUBROUTINE mce2
 !     IF BGG PRESENT, PARTITION INTO BNNB, BMNB, AND BMMB
 !     THEN COMPUTE BNN
 !
-      CALL upart(uset,scr1,Ug,Un,Um)
+      CALL upart(uset,scr1,ug,un,um)
       CALL mpart(bgg,bnnb,bmnb,0,bmmb)
       CALL elim(bnnb,bmnb,bmmb,gm,bnn,scr1,scr2,scr6)
    ENDIF
@@ -83,7 +84,7 @@ SUBROUTINE mce2
 !     IF K4GG IS PRESENT, PARTITION INTO K4NNB, K4MNB, AND K4MMB
 !     THEN COMPUTE K4NN
 !
-   CALL upart(uset,scr1,Ug,Un,Um)
+   CALL upart(uset,scr1,ug,un,um)
    CALL mpart(k4gg,k4nnb,k4mnb,0,k4mmb)
    CALL elim(k4nnb,k4mnb,k4mmb,gm,k4nn,scr1,scr2,scr6)
 END SUBROUTINE mce2

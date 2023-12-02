@@ -1,38 +1,44 @@
-!*==hmat.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hmat.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hmat(Id)
-   USE C_HMATDD
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+USE c_hmatdd
+USE c_hmtout
+USE c_matin
+USE c_names
+USE c_system
+USE c_xmssg
+USE c_zzzzzz
+USE C_HMATDD
+USE C_HMTOUT
+USE C_MATIN
+USE C_NAMES
+USE C_SYSTEM
+USE C_XMSSG
+USE C_ZZZZZZ
    IMPLICIT NONE
-   LOGICAL Anytab , Linear
-   REAL Buf(7) , C , Dum(1) , Eltemp , Rd , Rdrew , S , Tstep , Wrt , Wrtrew , Z(1)
-   INTEGER Cls , Clsrew , Dit , Ihmatx , Inflag , itherm , Ksystm(65) , Matid , Mpt , Nhmatx , outpt , sysbuf , tset
-   CHARACTER*25 Sfm , Uwm
-   CHARACTER*23 Ufm
-   CHARACTER*29 Uim
-   COMMON /hmatdd/ Ihmatx , Nhmatx , Mpt , Dit , Linear , Anytab , Tstep
-   COMMON /hmtout/ Buf
-   COMMON /matin / Matid , Inflag , Eltemp , Dum , S , C
-   COMMON /names / Rd , Rdrew , Wrt , Wrtrew , Clsrew , Cls
-   COMMON /system/ Ksystm
-   COMMON /xmssg / Ufm , Uwm , Uim , Sfm
-   COMMON /zzzzzz/ Z
-   INTEGER Id
-   REAL Rz(1)
-   LOGICAL any4 , any5 , anyt4 , anyt5
-   REAL card(10) , cs , cs2kxy , csq , f4 , f5 , factor , oldcos , oldsin , oldstp , oldtem , ssq , x
-   INTEGER core , flag , i , icheck , idit , igbuf , ihmat , imat , imat4 , imat5 , imatt4 , imatt5 , itabno , itemp , iwords , j , &
-         & j1 , j2 , j4 , j5 , jpoint , k , kk , lbuf , lused , lz , mat4(2) , mat4s , mat5(2) , mat5s , mats , matt4(2) , matt4s , &
-         & matt5(2) , matt5s , n4 , n5 , name(2) , ndit , nhmat , nmat4 , nmat5 , nmatt4 , nmatt5 , noeor , ntabno , ntemp ,        &
-         & offset , oldflg , oldmid , tablst(16) , type
-   INTEGER locfx
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   INTEGER :: Id
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
+   LOGICAL :: any4 , any5 , anyt4 , anyt5
+   REAL , DIMENSION(10) :: card
+   INTEGER :: core , flag , i , icheck , idit , igbuf , ihmat , imat , imat4 , imat5 , imatt4 , imatt5 , itabno , itemp , itherm ,  &
+            & iwords , j , j1 , j2 , j4 , j5 , jpoint , k , kk , lbuf , lused , lz , mat4s , mat5s , mats , matt4s , matt5s , n4 ,  &
+            & n5 , ndit , nhmat , nmat4 , nmat5 , nmatt4 , nmatt5 , ntabno , ntemp , offset , oldflg , oldmid , outpt ,             &
+            & spag_nextblock_1 , sysbuf , tset , type
+   REAL :: cs , cs2kxy , csq , f4 , f5 , factor , oldcos , oldsin , oldstp , oldtem , ssq , x
+   INTEGER , DIMENSION(2) , SAVE :: mat4 , mat5 , matt4 , matt5 , name
+   INTEGER , SAVE :: noeor
+   REAL , DIMENSION(1) :: Rz
+   INTEGER , DIMENSION(16) , SAVE :: tablst
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     MAT ROUTINE FOR USE IN -HEAT- FORMULATIONS ONLY.
 !
@@ -58,7 +64,7 @@ SUBROUTINE hmat(Id)
    DATA matt5/2403 , 24/
    DATA tablst/5 , 105 , 1 , 1 , 205 , 2 , 2 , 305 , 3 , 3 , 405 , 4 , 4 , 505 , 5 , 5/
    spag_nextblock_1 = 1
-   SPAG_DispatchLoop_1: DO
+   SPAG_DISPATCHLOOP_1:DO
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
@@ -96,37 +102,37 @@ SUBROUTINE hmat(Id)
 !
          IF ( Inflag/=oldflg ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( Matid/=oldmid ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( Eltemp/=oldtem ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( Tstep/=oldstp ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( type==4 ) THEN
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          IF ( S/=oldsin ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
 !
 !     ALL INPUTS SEEM TO BE SAME THUS RETURN IS MADE.
 !
          IF ( C/=oldcos ) THEN
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
+         CYCLE SPAG_DISPATCHLOOP_1
 !
 !
          ENTRY prehma(Rz)
@@ -219,13 +225,13 @@ SUBROUTINE hmat(Id)
             ntabno = itabno
 !
             IF ( matt4s>0 ) THEN
-               SPAG_Loop_1_1: DO i = imatt4 , nmatt4 , 2
+               SPAG_LOOP_1_1:DO i = imatt4 , nmatt4 , 2
                   f4 = Z(i+1)
                   IF ( n4>0 ) THEN
                      IF ( kk>0 ) THEN
                         DO j = itabno , ntabno
                            f5 = Z(j)
-                           IF ( n4==n5 ) CYCLE SPAG_Loop_1_1
+                           IF ( n4==n5 ) GOTO 165
                         ENDDO
                      ENDIF
 !
@@ -235,20 +241,20 @@ SUBROUTINE hmat(Id)
                      Z(ntabno) = Z(i+1)
                      kk = 1
                   ENDIF
-               ENDDO SPAG_Loop_1_1
+ 165           ENDDO SPAG_LOOP_1_1
             ENDIF
 !
             IF ( matt5s>0 ) THEN
                DO i = imatt5 , nmatt5 , 7
                   j1 = i + 1
                   j2 = i + 6
-                  SPAG_Loop_2_2: DO j = j1 , j2
+                  SPAG_LOOP_2_2:DO j = j1 , j2
                      f4 = Z(j)
                      IF ( n4>0 ) THEN
                         IF ( kk>0 ) THEN
                            DO k = itabno , ntabno
                               f5 = Z(k)
-                              IF ( n4==n5 ) CYCLE SPAG_Loop_2_2
+                              IF ( n4==n5 ) GOTO 166
                            ENDDO
                         ENDIF
 !
@@ -258,7 +264,7 @@ SUBROUTINE hmat(Id)
                         Z(ntabno) = Z(j)
                         kk = 1
                      ENDIF
-                  ENDDO SPAG_Loop_2_2
+ 166              ENDDO SPAG_LOOP_2_2
                ENDDO
             ENDIF
 !
@@ -287,7 +293,7 @@ SUBROUTINE hmat(Id)
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
+         CYCLE SPAG_DISPATCHLOOP_1
 !
 !     WRAP UP THE PRE-HMAT SECTION
 !
@@ -312,7 +318,7 @@ SUBROUTINE hmat(Id)
 !
          IF ( .NOT.any4 .OR. .NOT.any5 ) THEN
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          j4 = imat4
          j5 = imat5
@@ -320,7 +326,7 @@ SUBROUTINE hmat(Id)
          f5 = Z(j5)
          spag_nextblock_1 = 3
       CASE (3)
-         SPAG_Loop_1_3: DO
+         SPAG_LOOP_1_3:DO
             IF ( n4<n5 ) THEN
 !
 !     MAT4 ID IS LESS THAN MAT5 ID
@@ -328,7 +334,7 @@ SUBROUTINE hmat(Id)
                j4 = j4 + 3
                IF ( j4>nmat4 ) THEN
                   spag_nextblock_1 = 6
-                  CYCLE SPAG_DispatchLoop_1
+                  GOTO 300
                ENDIF
                f4 = Z(j4)
             ELSEIF ( n4==n5 ) THEN
@@ -338,22 +344,21 @@ SUBROUTINE hmat(Id)
                WRITE (outpt,99002) Uwm , n4
 99002          FORMAT (A25,' 2155, MAT4 AND MAT5 MATERIAL DATA CARDS HAVE SAME ','ID =',I14,/5X,                                    &
                       &'MAT4 DATA WILL BE SUPPLIED WHEN CALLED ','FOR THIS ID.')
-               EXIT SPAG_Loop_1_3
+               EXIT SPAG_LOOP_1_3
             ELSE
-               EXIT SPAG_Loop_1_3
+               EXIT SPAG_LOOP_1_3
             ENDIF
-         ENDDO SPAG_Loop_1_3
+         ENDDO SPAG_LOOP_1_3
 !
 !     MAT5 ID IS LESS THAN MAT4 ID.
 !
          j5 = j5 + 8
          IF ( j5>nmat5 ) THEN
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
          f5 = Z(j5)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     FIND POINTER TO SECOND WORD OF CARD IMAGE WITH MAT-ID DESIRED.
@@ -371,7 +376,7 @@ SUBROUTINE hmat(Id)
             j = imat4 + jpoint
             type = 4
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
  200     IF ( .NOT.any5 ) GOTO 240
          CALL bisloc(*240,Matid,Z(imat5),8,mat5s,jpoint)
@@ -523,7 +528,7 @@ SUBROUTINE hmat(Id)
                Buf(2) = card(2)
             ENDIF
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
+            CYCLE SPAG_DISPATCHLOOP_1
          ENDIF
  240     WRITE (outpt,99004) Ufm , Matid
 99004    FORMAT (A23,' 2157, MATERIAL ID =',I14,' DOES NOT APPEAR ON ANY MAT4 OR MAT5 MATERIAL DATA CARD.')
@@ -541,5 +546,5 @@ SUBROUTINE hmat(Id)
 !
          RETURN
       END SELECT
-   ENDDO SPAG_DispatchLoop_1
+ 300  ENDDO SPAG_DISPATCHLOOP_1
 END SUBROUTINE hmat

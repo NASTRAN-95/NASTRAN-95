@@ -1,4 +1,5 @@
-!*==xrcard.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrcard.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrcard(Out,Nflag,In)
@@ -12,10 +13,10 @@ SUBROUTINE xrcard(Out,Nflag,In)
 !     (THIS NEW XRCARD IS SEVERAL TIMES FASTER THAN YRCARD)
 !
 !
-USE C_LHPWX
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_lhpwx
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -70,7 +71,7 @@ USE ISO_FORTRAN_ENV
             a67777 = rshift(lshift(a77777,1),1)
             prev = blank4
             CALL sswtch(42,l42)
-            IF ( debug ) WRITE (Nout,99001)
+            IF ( debug ) WRITE (nout,99001)
 99001       FORMAT (//5X,'INPUT DEBUG IN XRCARD ROUTINE')
          ENDIF
 !
@@ -85,7 +86,7 @@ USE ISO_FORTRAN_ENV
 !
             CALL bcdkh7(In,char72)
             CALL k2b(char72,char1,72)
-            IF ( debug ) WRITE (Nout,99002) char72
+            IF ( debug ) WRITE (nout,99002) char72
 99002       FORMAT (/,' INPUT- ',A72)
 !
 !
@@ -106,7 +107,6 @@ USE ISO_FORTRAN_ENV
                         ENDDO
                         type(n) = -1
                      ENDIF
-                     CYCLE
                   CASE (2)
                      type(n) = 1
                      EXIT SPAG_DispatchLoop_2
@@ -135,7 +135,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
  20      DO WHILE ( n/=last )
             IF ( Nflag-iout<5 ) THEN
-               WRITE (Nout,99003) Ufm
+               WRITE (nout,99003) ufm
 99003          FORMAT (A23,'300, ROUTINE XRCARD FINDS OUTPUT BUFFER TOO SMALL ','TO PROCESS CARD COMPLETELY')
                spag_nextblock_1 = 16
                CYCLE SPAG_DispatchLoop_1
@@ -157,7 +157,6 @@ USE ISO_FORTRAN_ENV
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      spag_nextblock_1 = 5
-                     CYCLE SPAG_DispatchLoop_1
                   ELSE
                      IF ( char1n==dollr1 ) THEN
                         spag_nextblock_1 = 4
@@ -192,8 +191,8 @@ USE ISO_FORTRAN_ENV
                      ASSIGN 40 TO irtn
                      imhere = 125
                      spag_nextblock_1 = 3
-                     CYCLE SPAG_DispatchLoop_1
                   ENDIF
+                  CYCLE SPAG_DispatchLoop_1
                ELSEIF ( type(n)/=0 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
@@ -249,7 +248,7 @@ USE ISO_FORTRAN_ENV
          ichar = ichar + 1
          save1(ichar) = khar1(n)
          imhere = 150
-         IF ( debug ) WRITE (Nout,99014) save8 , imhere , ichar , iout
+         IF ( debug ) WRITE (nout,99014) save8 , imhere , ichar , iout
 !
 !     GO FOR NEXT CHARACTER
 !
@@ -264,8 +263,8 @@ USE ISO_FORTRAN_ENV
 !
          IF ( save8/=blank8 ) CALL khrbc2(save8,Out(iout-1))
          IF ( debug ) THEN
-            WRITE (Nout,99014) save8 , imhere , ichar , iout
-            WRITE (Nout,99004) iout , Out(iout-1) , Out(iout) , delim , iout , Out(iout-1) , Out(iout)
+            WRITE (nout,99014) save8 , imhere , ichar , iout
+            WRITE (nout,99004) iout , Out(iout-1) , Out(iout) , delim , iout , Out(iout-1) , Out(iout)
 99004       FORMAT ('   IOUT,OUT  =',I4,2H /,2A4,'/  DELIM=',L1,/14X,'=',I4,2H /,2I25,'/')
          ENDIF
          save8 = blank8
@@ -288,7 +287,6 @@ USE ISO_FORTRAN_ENV
          IF ( char1n==dollr1 ) THEN
             Out(iout+1) = a67777
             spag_nextblock_1 = 10
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             delim = .TRUE.
             IF ( char1n==cparn1 ) delim = .FALSE.
@@ -305,13 +303,12 @@ USE ISO_FORTRAN_ENV
             IF ( char1n==equal1 ) Out(iout) = equal4
             IF ( char1n==astk1 ) Out(iout) = astk4
             IF ( Out(iout)==blank4 ) THEN
-               WRITE (Nout,99005) Ufm , char1n
+               WRITE (nout,99005) ufm , char1n
 99005          FORMAT (A23,'300, FORGOTTEN DELIMITER - ',A1,',  PROGRAM ERROR')
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                Out(iout-1) = a77777
-               IF ( debug ) WRITE (Nout,99006) iout , Out(iout) , delim , char1n
+               IF ( debug ) WRITE (nout,99006) iout , Out(iout) , delim , char1n
 99006          FORMAT (5X,'IOUT,OUT/@195 =',I4,2H ',A4,8H' DELIM=,L1,2H ',A1,1H')
                save8 = blank8
                GOTO 20
@@ -373,8 +370,8 @@ USE ISO_FORTRAN_ENV
          Out(iout) = number
          IF ( debug ) THEN
             imhere = 280
-            WRITE (Nout,99014) numric , imhere
-            WRITE (Nout,99007) iout , Out(iout-1) , Out(iout) , delim
+            WRITE (nout,99014) numric , imhere
+            WRITE (nout,99007) iout , Out(iout-1) , Out(iout) , delim
 99007       FORMAT (10X,I4,1H),2I8,'    DELIM=',L1)
          ENDIF
          n = n + it - 1
@@ -523,7 +520,7 @@ USE ISO_FORTRAN_ENV
 !
          ichek = ipower + it
          IF ( ddoubl/=0.0D0 ) THEN
-            IF ( ichek<Lowpw+1 .OR. ichek>Highpw-1 .OR. ipower<Lowpw+1 .OR. ipower>Highpw-1 ) THEN
+            IF ( ichek<lowpw+1 .OR. ichek>highpw-1 .OR. ipower<lowpw+1 .OR. ipower>highpw-1 ) THEN
                spag_nextblock_1 = 15
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -559,32 +556,28 @@ USE ISO_FORTRAN_ENV
 !
 !     ERRORS
 !
-         WRITE (Nout,99008) Ufm
+         WRITE (nout,99008) ufm
 99008    FORMAT (A23,'300, INVALID DATA COLUMN 72')
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
-         WRITE (Nout,99009) Ufm
+         WRITE (nout,99009) ufm
 99009    FORMAT (A23,'300, INTEGER DATA OUT OF MACHINE RANGE')
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
-         WRITE (Nout,99010) Ufm , n1
+         WRITE (nout,99010) ufm , n1
 99010    FORMAT (A23,'300, INVALID CHARACTER FOLLOWING INTEGER IN COLUMN',I4)
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
-         WRITE (Nout,99011) Ufm , i
+         WRITE (nout,99011) ufm , i
 99011    FORMAT (A23,'300, DATA ERROR-UNANTICIPATED CHARACTER IN COLUMN',I4)
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
-         WRITE (Nout,99012) Ufm
+         WRITE (nout,99012) ufm
 99012    FORMAT (A23,'300, DATA ERROR - MISSING DELIMITER OR REAL POWER ','OUT OF MACHINE RANGE')
          spag_nextblock_1 = 16
       CASE (16)
-         Nogo = .TRUE.
-         WRITE (Nout,99013) char72
+         nogo = .TRUE.
+         WRITE (nout,99013) char72
 99013    FORMAT (/5X,1H',A72,1H','  ERROR IN XRCARD ROUTINE')
          Out(1) = 0
          EXIT SPAG_DispatchLoop_1

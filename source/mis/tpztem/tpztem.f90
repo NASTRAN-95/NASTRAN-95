@@ -2,11 +2,11 @@
  
 SUBROUTINE tpztem(Ti,Pg)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_TRIMEX
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_trimex
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,6 +31,15 @@ SUBROUTINE tpztem(Ti,Pg)
    INTEGER , DIMENSION(36) :: sp
    REAL , DIMENSION(21) :: teo
    REAL , DIMENSION(12) :: tl
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -86,21 +95,21 @@ SUBROUTINE tpztem(Ti,Pg)
    ics(1) = iecpt(23)
    ics(3) = iecpt(31)
    ics(2) = iecpt(27)
-   r(1) = Ecpt(24)
-   r(2) = Ecpt(28)
-   r(3) = Ecpt(32)
+   r(1) = ecpt(24)
+   r(2) = ecpt(28)
+   r(3) = ecpt(32)
    ics(4) = iecpt(35)
-   z(1) = Ecpt(25)
-   d(1) = Ecpt(26)
-   z(2) = Ecpt(29)
-   d(2) = Ecpt(30)
-   z(3) = Ecpt(33)
-   d(3) = Ecpt(34)
-   z(4) = Ecpt(37)
-   d(4) = Ecpt(38)
-   r(4) = Ecpt(36)
-   tempe = Ecpt(39)
-   dgama = Ecpt(6)
+   z(1) = ecpt(25)
+   d(1) = ecpt(26)
+   z(2) = ecpt(29)
+   d(2) = ecpt(30)
+   z(3) = ecpt(33)
+   d(3) = ecpt(34)
+   z(4) = ecpt(37)
+   d(4) = ecpt(38)
+   r(4) = ecpt(36)
+   tempe = ecpt(39)
+   dgama = ecpt(6)
    idel1 = idel/1000
 !
 !     COMPUTE THE ELEMENT COORDINATES
@@ -236,31 +245,31 @@ SUBROUTINE tpztem(Ti,Pg)
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3
 !
-      Matidc = matid
-      Matflg = 7
-      Eltemp = tempe
+      matidc = matid
+      matflg = 7
+      eltemp = tempe
       dgamr = dgama*degrad
-      Sinth = sin(dgamr)
-      Costh = cos(dgamr)
-      sing = Sinth
-      cosg = Costh
+      sinth = sin(dgamr)
+      costh = cos(dgamr)
+      sing = sinth
+      cosg = costh
       CALL mat(idel)
-      IF ( Setmat==2.0 ) THEN
+      IF ( setmat==2.0 ) THEN
          i = 37
          j = -30
       ELSE
 !
 !     SET MATERIAL PROPERTIES IN DOUBLE PRECISION VARIABLES
 !
-         er = E(1)
-         et = E(2)
-         ez = E(3)
-         vro = Anu(1)
-         voz = Anu(2)
-         vzr = Anu(3)
-         gor = G(1)
-         gzo = G(2)
-         grz = G(3)
+         er = e(1)
+         et = e(2)
+         ez = e(3)
+         vro = anu(1)
+         voz = anu(2)
+         vzr = anu(3)
+         gor = g(1)
+         gzo = g(2)
+         grz = g(3)
          vor = vro*et/er
          vzo = voz*ez/et
          vrz = vzr*er/ez
@@ -300,10 +309,10 @@ SUBROUTINE tpztem(Ti,Pg)
 !
 !     COMPUTE THERMAL LOAD
 !
-         a1 = ee01*Alf(1) + ee02*Alf(3) + ee04*Alf(2)
-         a2 = ee02*Alf(1) + ee03*Alf(3) + ee05*Alf(2)
-         a3 = ee04*Alf(1) + ee05*Alf(3) + ee06*Alf(2)
-         a4 = ee07*Alf(1) + ee08*Alf(3) + ee09*Alf(2)
+         a1 = ee01*alf(1) + ee02*alf(3) + ee04*alf(2)
+         a2 = ee02*alf(1) + ee03*alf(3) + ee05*alf(2)
+         a3 = ee04*alf(1) + ee05*alf(3) + ee06*alf(2)
+         a4 = ee07*alf(1) + ee08*alf(3) + ee09*alf(2)
 !
 !     FORM HTN MATRIX
 !
@@ -383,7 +392,7 @@ SUBROUTINE tpztem(Ti,Pg)
 !
 !     COMPUTE TI
 !
-                  dgamr = Tzero
+                  dgamr = tzero
                   IF ( ajho>0.0 ) dgamr = 0.0
                   DO i = 1 , 4
                      Ti(i) = Ti(i) - dgamr

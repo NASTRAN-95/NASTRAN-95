@@ -1,10 +1,11 @@
-!*==cmiwrt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmiwrt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
+   USE c_output
+   USE c_system
    IMPLICIT NONE
-   USE C_OUTPUT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -74,20 +75,20 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !     BGSS ITEM
 !
             DO i = 1 , 96
-               Ihead(i) = ih2(i)
+               ihead(i) = ih2(i)
             ENDDO
-            Ihead(20) = Name1(1)
-            Ihead(21) = Name1(2)
+            ihead(20) = Name1(1)
+            ihead(21) = Name1(2)
             CALL page
             j = 0
             DO i = ist , ifin , 4
                j = j + 1
-               Nline = Nline + 1
-               IF ( Nline>Nlpp ) THEN
+               nline = nline + 1
+               IF ( nline>nlpp ) THEN
                   CALL page
-                  Nline = Nline + 1
+                  nline = nline + 1
                ENDIF
-               WRITE (Outt,99001) j , Iz(i) , A(i+1) , A(i+2) , A(i+3)
+               WRITE (outt,99001) j , Iz(i) , A(i+1) , A(i+2) , A(i+3)
 99001          FORMAT (33X,I8,4X,I8,3X,3(3X,E13.6))
             ENDDO
          ELSEIF ( Icode==3 ) THEN
@@ -95,20 +96,20 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !     CSTM ITEM
 !
             DO i = 1 , 96
-               Ihead(i) = ih3(i)
+               ihead(i) = ih3(i)
             ENDDO
-            Ihead(20) = Name1(1)
-            Ihead(21) = Name1(2)
+            ihead(20) = Name1(1)
+            ihead(21) = Name1(2)
             CALL page
             DO i = ist , ifin , 14
-               Nline = Nline + 4
-               IF ( Nline>Nlpp ) THEN
+               nline = nline + 4
+               IF ( nline>nlpp ) THEN
                   CALL page
-                  Nline = Nline + 4
+                  nline = nline + 4
                ENDIF
                i1 = i + 2
                i2 = i + 13
-               WRITE (Outt,99002) Iz(i) , Iz(i+1) , (A(kk),kk=i1,i2)
+               WRITE (outt,99002) Iz(i) , Iz(i+1) , (A(kk),kk=i1,i2)
 99002          FORMAT (/10X,I8,3X,I4,3X,3(3X,E13.6),4X,3(3X,E13.6),/80X,3(3X,E13.6),/80X,3(3X,E13.6))
             ENDDO
          ELSEIF ( Icode==4 ) THEN
@@ -117,20 +118,20 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !
 !     PLTS ITEM
 !
-               Ihead(i) = ih4(i)
+               ihead(i) = ih4(i)
             ENDDO
-            Ihead(20) = Name1(1)
-            Ihead(21) = Name1(2)
+            ihead(20) = Name1(1)
+            ihead(21) = Name1(2)
             CALL page
             DO i = ist , ifin , 14
-               Nline = Nline + 4
-               IF ( Nline>Nlpp ) THEN
+               nline = nline + 4
+               IF ( nline>nlpp ) THEN
                   CALL page
-                  Nline = Nline + 4
+                  nline = nline + 4
                ENDIF
                i1 = i + 2
                i2 = i + 13
-               WRITE (Outt,99003) Iz(i) , Iz(i+1) , (A(j),j=i1,i2)
+               WRITE (outt,99003) Iz(i) , Iz(i+1) , (A(j),j=i1,i2)
 99003          FORMAT (/14X,2A4,3X,3(3X,E13.6),4X,3(3X,E13.6)/77X,3(3X,E13.6),/77X,3(3X,E13.6))
             ENDDO
          ELSEIF ( Icode==5 .OR. Icode==7 ) THEN
@@ -138,11 +139,11 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !     LODS AND LOAP ITEMS
 !
             DO i = 1 , 96
-               Ihead(i) = ih5(i)
+               ihead(i) = ih5(i)
             ENDDO
-            Ihead(20) = Name1(1)
-            Ihead(21) = Name1(2)
-            IF ( Icode==7 ) Ihead(13) = loap
+            ihead(20) = Name1(1)
+            ihead(21) = Name1(2)
+            IF ( Icode==7 ) ihead(13) = loap
             CALL page
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -154,18 +155,18 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !     EQSS - SCALER INDEX LIST
 !
             DO i = 1 , 96
-               Ihead(i) = ih6(i)
+               ihead(i) = ih6(i)
             ENDDO
-            Ihead(22) = Name1(1)
-            Ihead(23) = Name1(2)
+            ihead(22) = Name1(1)
+            ihead(23) = Name1(2)
             CALL page
 !
             ip = 0
             DO i = ist , ifin , 6
-               Nline = Nline + 1
-               IF ( Nline>Nlpp ) THEN
+               nline = nline + 1
+               IF ( nline>nlpp ) THEN
                   CALL page
-                  Nline = Nline + 1
+                  nline = nline + 1
                ENDIF
                kcode = Iz(i+1)
                CALL bitpat(kcode,ibits(1))
@@ -183,7 +184,7 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
                      ipl(5) = ip + 3
                   ENDIF
                ENDIF
-               WRITE (Outt,99007) (ipl(j),Iz(i+j-1),ibits(j),ibits(j+1),j=1,i2,2)
+               WRITE (outt,99007) (ipl(j),Iz(i+j-1),ibits(j),ibits(j+1),j=1,i2,2)
                ip = ip + 3
             ENDDO
          ELSE
@@ -191,23 +192,23 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
 !     EQSS ITEM
 !
             DO i = 1 , 96
-               Ihead(i) = ih1(i)
+               ihead(i) = ih1(i)
             ENDDO
 !
 !     INSERT NAMES INTO HEADING
 !
-            Ihead(17) = Name1(1)
-            Ihead(18) = Name1(2)
-            Ihead(22) = Name2(1)
-            Ihead(23) = Name2(2)
+            ihead(17) = Name1(1)
+            ihead(18) = Name1(2)
+            ihead(22) = Name2(1)
+            ihead(23) = Name2(2)
             CALL page
             IF ( Nw/=0 ) THEN
 !
                DO i = ist , ifin , 9
-                  Nline = Nline + 1
-                  IF ( Nline>Nlpp ) THEN
+                  nline = nline + 1
+                  IF ( nline>nlpp ) THEN
                      CALL page
-                     Nline = Nline + 1
+                     nline = nline + 1
                   ENDIF
                   icomp = andf(Iz(i+2),63)
                   CALL bitpat(icomp,ibits(1))
@@ -222,34 +223,33 @@ SUBROUTINE cmiwrt(Icode,Name1,Name2,Loc,Nw,A,Iz)
                         i2 = 9
                      ENDIF
                   ENDIF
-                  WRITE (Outt,99007) (Iz(i+j-1),Iz(i+j),ibits(j),ibits(j+1),j=1,i2,3)
+                  WRITE (outt,99007) (Iz(i+j-1),Iz(i+j),ibits(j),ibits(j+1),j=1,i2,3)
                ENDDO
             ELSE
-               WRITE (Outt,99004)
+               WRITE (outt,99004)
 99004          FORMAT (/30X,64HALL DEGREES OF FREEDOM FOR THIS COMPONENT HAVE BEEN REDUCED OUT.)
             ENDIF
          ENDIF
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          IF ( Nw==0 .OR. Nw==1 ) THEN
 !
-            Nline = Nline + 2
-            IF ( Nline>Nlpp ) THEN
+            nline = nline + 2
+            IF ( nline>nlpp ) THEN
                CALL page
-               Nline = Nline + 2
+               nline = nline + 2
             ENDIF
-            WRITE (Outt,99005) Name2(1) , Name2(2)
+            WRITE (outt,99005) Name2(1) , Name2(2)
 99005       FORMAT (/26X,2A4,17X,32HNO LOAD SETS FOR THIS COMPONENT.)
          ELSE
             nl = Nw/5 + 3
-            Nline = Nline + nl
-            IF ( Nline>Nlpp ) THEN
+            nline = nline + nl
+            IF ( nline>nlpp ) THEN
                CALL page
-               Nline = Nline + nl
+               nline = nline + nl
             ENDIF
             ist1 = ist + 1
-            WRITE (Outt,99006) Name2(1) , Name2(2) , Iz(ist) , (Iz(j),j=ist1,ifin)
+            WRITE (outt,99006) Name2(1) , Name2(2) , Iz(ist) , (Iz(j),j=ist1,ifin)
 99006       FORMAT (/26X,2A4,3X,I8,5X,6(2X,I8)/(50X,2X,I8,2X,I8,2X,I8,2X,I8,2X,I8,2X,I8,/))
          ENDIF
          spag_nextblock_1 = 3

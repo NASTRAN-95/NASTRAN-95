@@ -1,20 +1,21 @@
-!*==amgb1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==amgb1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgb1a(Input,Matout,Ajj,Ajjt,Tsonx,Tamach,Tredf)
+   USE c_amgbug
+   USE c_amgmn
+   USE c_bamg1l
+   USE c_condas
+   USE c_packx
    IMPLICIT NONE
-   USE C_AMGBUG
-   USE C_AMGMN
-   USE C_BAMG1L
-   USE C_CONDAS
-   USE C_PACKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
    INTEGER :: Input
    INTEGER :: Matout
-   COMPLEX , DIMENSION(Nstns,1) :: Ajj
-   COMPLEX , DIMENSION(Nstns) :: Ajjt
+   COMPLEX , DIMENSION(nstns,1) :: Ajj
+   COMPLEX , DIMENSION(nstns) :: Ajjt
    INTEGER , DIMENSION(1) :: Tsonx
    REAL , DIMENSION(1) :: Tamach
    REAL , DIMENSION(1) :: Tredf
@@ -35,38 +36,38 @@ SUBROUTINE amgb1a(Input,Matout,Ajj,Ajjt,Tsonx,Tamach,Tredf)
 !     LOOP ON STREAMLINES, COMPUTE AJJ FOR EACH STREAMLINE AND THEN
 !     PACK AJJ INTO AJJL MATRIX AT CORRECT POSITION
 !
-   Ii = 0
-   Nn = 0
-   nstns3 = 3*Nstns
-   DO line = 1 , Nlines
+   ii = 0
+   nn = 0
+   nstns3 = 3*nstns
+   DO line = 1 , nlines
 !
 !     READ STREAMLINE DATA (SKIP COORDINATE DATA)
 !
-      CALL read(*100,*100,Input,Sln,10,0,nwar)
+      CALL read(*100,*100,Input,sln,10,0,nwar)
       CALL read(*100,*100,Input,0,-nstns3,0,nwar)
 !
 !     COMPUTE PARAMETERS
 !
-      Amach = Mach*cos(Degra*(Flowa-Stager))
-      Redf = Rfreq*(Chord/Refcrd)*(Refvel/Vel)*(Mach/Amach)
-      Blspc = Bspace/Chord
-      IF ( Debug ) CALL bug1('BAMG1L    ',5,Iref,26)
+      amach = mach*cos(degra*(flowa-stager))
+      redf = rfreq*(chord/refcrd)*(refvel/vel)*(mach/amach)
+      blspc = bspace/chord
+      IF ( debug ) CALL bug1('BAMG1L    ',5,iref,26)
 !
 !     COMPUTE POINTER FOR LOCATION INTO AJJ MATRIX
 !
       iajjc = 1
-      IF ( Tsonic ) iajjc = Nstns*(line-1) + 1
+      IF ( tsonic ) iajjc = nstns*(line-1) + 1
 !
 !     BRANCH TO SUBSONIC, SUPERSONIC OR TRANSONIC CODE
 !
-      Tamach(line) = Amach
-      Tredf(line) = Redf
-      IF ( Amach<=Maxmac ) THEN
+      Tamach(line) = amach
+      Tredf(line) = redf
+      IF ( amach<=maxmac ) THEN
 !
 !     SUBSONIC STREAMLINE
 !
          CALL amgb1b(Ajj(1,iajjc))
-      ELSEIF ( Amach>=Minmac ) THEN
+      ELSEIF ( amach>=minmac ) THEN
 !
 !     SUPERSONIC STREAMLINE
 !
@@ -81,37 +82,37 @@ SUBROUTINE amgb1a(Input,Matout,Ajj,Ajjt,Tsonx,Tamach,Tredf)
 !
 !     IF THERE ARE NO TRANSONIC STREAMLINES OUTPUT THIS AJJ SUBMATRIX
 !
-      IF ( Tsonic ) THEN
+      IF ( tsonic ) THEN
          Tsonx(line) = 0
       ELSE
-         Ii = Nn + 1
-         Nn = Nn + Nstns
+         ii = nn + 1
+         nn = nn + nstns
 !
 !     OUTPUT AJJ MATRIX
 !
-         DO i = 1 , Nstns
-            IF ( Debug ) CALL bug1('SS-AJJL   ',40,Ajj(1,i),Nstns*2)
-            CALL pack(Ajj(1,i),Matout,Mcb)
+         DO i = 1 , nstns
+            IF ( debug ) CALL bug1('SS-AJJL   ',40,Ajj(1,i),nstns*2)
+            CALL pack(Ajj(1,i),Matout,mcb)
          ENDDO
       ENDIF
    ENDDO
 !
 !     PERFORM TRANSONIC INTERPOLATION, IF NECESSARY
 !
-   IF ( Tsonic ) THEN
-      IF ( Debug ) CALL bug1('TSONX     ',102,Tsonx,Nlines)
-      IF ( Debug ) CALL bug1('TAMACH    ',103,Tamach,Nlines)
-      IF ( Debug ) CALL bug1('TREDF     ',104,Tredf,Nlines)
+   IF ( tsonic ) THEN
+      IF ( debug ) CALL bug1('TSONX     ',102,Tsonx,nlines)
+      IF ( debug ) CALL bug1('TAMACH    ',103,Tamach,nlines)
+      IF ( debug ) CALL bug1('TREDF     ',104,Tredf,nlines)
       CALL amgb1d(Ajj,Tsonx,Tamach,Tredf)
 !
 !     OUTPUT AJJ FOR EACH STREAMLINE
 !
-      DO nline = 1 , Nlines
-         Ii = Nn + 1
-         Nn = Nn + Nstns
-         DO i = Ii , Nn
-            IF ( Debug ) CALL bug1('STS-AJJL  ',110,Ajj(1,i),Nstns*2)
-            CALL pack(Ajj(1,i),Matout,Mcb)
+      DO nline = 1 , nlines
+         ii = nn + 1
+         nn = nn + nstns
+         DO i = ii , nn
+            IF ( debug ) CALL bug1('STS-AJJL  ',110,Ajj(1,i),nstns*2)
+            CALL pack(Ajj(1,i),Matout,mcb)
          ENDDO
       ENDDO
    ENDIF

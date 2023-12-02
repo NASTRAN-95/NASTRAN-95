@@ -1,4 +1,5 @@
-!*==ai.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ai.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION ai(I,J,K,L,M,N,Ip,Iq,R,Z)
@@ -22,7 +23,15 @@ FUNCTION ai(I,J,K,L,M,N,Ip,Iq,R,Z)
 !
    REAL :: abs1 , akkl , akmn , amkl , amm , ammn , arr , rd , xx
    INTEGER :: irr , iss , mm , nn
-   EXTERNAL bint , f6211 , f89 , ff100
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

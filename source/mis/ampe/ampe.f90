@@ -1,13 +1,14 @@
-!*==ampe.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ampe.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ampe(Phidh,Gtka,Gkh,Scr1,Scr2,Useta)
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,23 +34,23 @@ SUBROUTINE ampe(Phidh,Gtka,Gkh,Scr1,Scr2,Useta)
 !
 !     DETERMINE IF PHIDH MUST BE MODIFIED
 !
-   IF ( Noue/=-1 ) THEN
+   IF ( noue/=-1 ) THEN
 !
 !     BUILD PARTITIONING VECTORS
 !
-      Iuset = Useta
-      Lc = korsz(Z)
-      CALL calcv(Scr1,Ud,Ua,Ue,Z)
+      iuset = Useta
+      lc = korsz(z)
+      CALL calcv(Scr1,ud,ua,ue,z)
 !
 !     PERFORM PARTITION
 !
-      Nrow1 = Ns0
-      Nrow2 = Ns1
+      nrow1 = ns0
+      nrow2 = ns1
       phiah = Scr2
       CALL ssg2a(Phidh,phiah,0,Scr1)
    ENDIF
 !
 !     COMPUTE GKH
 !
-   CALL ssg2b(Gtka,phiah,0,Gkh,1,Iprec,1,Scr1)
+   CALL ssg2b(Gtka,phiah,0,Gkh,1,iprec,1,Scr1)
 END SUBROUTINE ampe

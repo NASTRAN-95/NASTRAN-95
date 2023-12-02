@@ -1,11 +1,12 @@
-!*==mbgae.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mbgae.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mbgae(Ajjl,In17,A,F,Df,F1,Df1,F2,Df2,Q,Q1,Q2,Mood)
+   USE c_amgmn
+   USE c_mboxc
+   USE c_system
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_MBOXC
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,70 +38,70 @@ SUBROUTINE mbgae(Ajjl,In17,A,F,Df,F1,Df1,F2,Df2,Q,Q1,Q2,Mood)
 !
    DATA debug/.FALSE./
 !
-   gck = Gc*Boxw
-   DO i = 1 , Njj
+   gck = gc*boxw
+   DO i = 1 , njj
       A(i) = (0.0,0.0)
    ENDDO
-   DO i = 1 , Npts0
-      CALL fread(In17,F,Kct,0)
-      CALL fread(In17,Df,Kct,0)
-      DO j = 1 , Kc
-         A(i) = A(i) + cmplx(Df(j),-Ek*F(j))*Q(j)
+   DO i = 1 , npts0
+      CALL fread(In17,F,kct,0)
+      CALL fread(In17,Df,kct,0)
+      DO j = 1 , kc
+         A(i) = A(i) + cmplx(Df(j),-ek*F(j))*Q(j)
       ENDDO
-      IF ( Kc/=Kct ) THEN
-         kcc = Kc + 1
-         DO j = kcc , Kct
+      IF ( kc/=kct ) THEN
+         kcc = kc + 1
+         DO j = kcc , kct
             A(i) = A(i) + F(j)*Q(j)
          ENDDO
       ENDIF
    ENDDO
-   IF ( Cntrl1 ) THEN
-      jj = Npts0
-      DO i = 1 , Npts1
-         CALL fread(In17,F1,Kc1t,0)
-         CALL fread(In17,Df1,Kc1t,0)
-         DO j = 1 , Kc1
-            A(i+jj) = A(i+jj) + cmplx(Df1(j),-Ek*F1(j))*Q1(j)
+   IF ( cntrl1 ) THEN
+      jj = npts0
+      DO i = 1 , npts1
+         CALL fread(In17,F1,kc1t,0)
+         CALL fread(In17,Df1,kc1t,0)
+         DO j = 1 , kc1
+            A(i+jj) = A(i+jj) + cmplx(Df1(j),-ek*F1(j))*Q1(j)
          ENDDO
-         IF ( Kc1/=Kc1t ) THEN
-            kcc1 = Kc1 + 1
-            DO j = kcc1 , Kc1t
+         IF ( kc1/=kc1t ) THEN
+            kcc1 = kc1 + 1
+            DO j = kcc1 , kc1t
                A(i+jj) = A(i+jj) + F1(j)*Q1(j)
             ENDDO
          ENDIF
       ENDDO
    ENDIF
-   IF ( Cntrl2 ) THEN
-      jj = jj + Npts1
-      DO i = 1 , Npts2
-         CALL fread(In17,F2,Kc2t,0)
-         CALL fread(In17,Df2,Kc2t,0)
-         DO j = 1 , Kc2
-            A(i+jj) = A(i+jj) + cmplx(Df2(j),-Ek*F2(j))*Q2(j)
+   IF ( cntrl2 ) THEN
+      jj = jj + npts1
+      DO i = 1 , npts2
+         CALL fread(In17,F2,kc2t,0)
+         CALL fread(In17,Df2,kc2t,0)
+         DO j = 1 , kc2
+            A(i+jj) = A(i+jj) + cmplx(Df2(j),-ek*F2(j))*Q2(j)
          ENDDO
-         IF ( Kc2/=Kc2t ) THEN
-            kcc2 = Kc2 + 1
-            DO j = kcc2 , Kc2t
+         IF ( kc2/=kc2t ) THEN
+            kcc2 = kc2 + 1
+            DO j = kcc2 , kc2t
                A(i+jj) = A(i+jj) + F2(j)*Q2(j)
             ENDDO
          ENDIF
       ENDDO
    ENDIF
    CALL bckrec(In17)
-   DO i = 1 , Njj
+   DO i = 1 , njj
       A(i) = A(i)*gck
    ENDDO
-   CALL pack(A,Ajjl,Mcb)
+   CALL pack(A,Ajjl,mcb)
 !
 !     PRINT OUT GENERALIZED AERODYNAMIC FORCE COEFFICIENTS
 !
    IF ( .NOT.debug ) RETURN
    IF ( Mood<=1 ) THEN
-      WRITE (N6,99001) Mach , Boxl , Ek , Boxw
+      WRITE (n6,99001) mach , boxl , ek , boxw
 99001 FORMAT (1H1,31X,30HGENERALIZED AERODYNAMIC FORCE ,12HCOEFFICIENTS/1H0,9X,11HMACH NUMBER,F9.3,40X,10HBOX LENGTH,F12.6/1H0,9X,  &
              &33HREDUCED FREQUENCY  ( ROOT CHORD ),F10.5,17X,9HBOX WIDTH,F13.6/1H0,42X,21H- -  A ( I , J )  - -/6H-  ROW,9X,4HREAL, &
             & 10X,4HIMAG,14X,4HREAL,10X,4HIMAG,14X,4HREAL,10X,4HIMAG)
    ENDIF
-   WRITE (N6,99002) Mood , (A(j),j=1,Njj)
+   WRITE (n6,99002) Mood , (A(j),j=1,njj)
 99002 FORMAT (1H0,I4,3(E18.4,E14.4)/(1H0,4X,3(E18.4,E14.4)))
 END SUBROUTINE mbgae

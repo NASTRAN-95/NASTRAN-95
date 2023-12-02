@@ -1,9 +1,10 @@
-!*==formgg.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==formgg.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE formgg(Ig,Jr,Jd,Ir,Id)
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,7 +41,7 @@ SUBROUTINE formgg(Ig,Jr,Jd,Ir,Id)
 !
 !     IF NO TRANSFORMATION IS NECESSARY, GO TO 30
 !
-   IF ( Z(Ir)==0 .AND. Z(Id)==0 ) THEN
+   IF ( z(Ir)==0 .AND. z(Id)==0 ) THEN
 !
 !     NO TRANSFORMATIONS
 !
@@ -63,12 +64,12 @@ SUBROUTINE formgg(Ig,Jr,Jd,Ir,Id)
 !
 !     IF ONLY DEPENDENT GRID POINT HAS A TRANSFORMATION, GO TO 20
 !
-   ELSEIF ( Z(Ir)/=0 ) THEN
+   ELSEIF ( z(Ir)/=0 ) THEN
 !
 !     IF BOTH HAVE TRANSFORMATIONS, GO TO 10
 !
 !
-      IF ( Z(Id)/=0 ) THEN
+      IF ( z(Id)/=0 ) THEN
 !
 !     BOTH HAVE TRANSFORMATIONS
 !
@@ -200,5 +201,4 @@ SUBROUTINE formgg(Ig,Jr,Jd,Ir,Id)
    zz(Ig+34) = zz(Ig+13)
    zz(Ig+35) = zz(Ig+14)
    zz(Ig+36) = zz(Ig+15)
-   RETURN
 END SUBROUTINE formgg

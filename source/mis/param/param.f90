@@ -1,13 +1,14 @@
-!*==param.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==param.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE param(Setid,Xx,Buf4)
-USE C_BLANK
-USE C_OUTPUT
-USE C_PLTDAT
-USE C_SYSTEM
-USE C_XXPARM
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_output
+   USE c_pltdat
+   USE c_system
+   USE c_xxparm
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -131,27 +132,27 @@ USE ISO_FORTRAN_ENV
 !     DEFINDED ORIGIN, IS GOING TO BE USED, NOT THE ONE HE JUST DEFINED
 !
          nofind = -1
-         Lasset = 0
+         lasset = 0
          CALL pltset
          buf1 = Buf4 + 3*bufsiz
 !
 !     SAVE THE TITLE, SUBTITLE AND LABEL IF DEFORMED PLOTS ...
 !
-         IF ( Prnt>=0 ) THEN
-            CALL rdmodx(Parm,mode,word)
+         IF ( prnt>=0 ) THEN
+            CALL rdmodx(parm,mode,word)
          ELSE
             DO i = 1 , 96
-               savtit(i) = Title(i)
+               savtit(i) = title(i)
             ENDDO
             nofind = 0
-            CALL rdmodx(Parm,mode,word)
+            CALL rdmodx(parm,mode,word)
          ENDIF
  20      DO
-            CALL read(*880,*880,Parm,mode,1,0,i)
+            CALL read(*880,*880,parm,mode,1,0,i)
             IF ( mode<0 ) THEN
                i = 1
                IF ( mode==-4 ) i = 2
-               CALL fread(Parm,0,-i,0)
+               CALL fread(parm,0,-i,0)
             ELSEIF ( mode/=0 ) THEN
                IF ( mode<eor ) THEN
                   mode = mode + 1
@@ -177,11 +178,11 @@ USE ISO_FORTRAN_ENV
 !         WHEN VANTAGE POINT IS HEIT, FVP SET TO 0
 !         WHEN ORIGIN IS HIT,         ORG SET TO 0
 !
-                     IF ( Fscale/=0 .OR. For/=0 ) THEN
+                     IF ( fscale/=0 .OR. for/=0 ) THEN
                         spag_nextblock_1 = 3
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
-                     IF ( Prject==1 .OR. Fvp==0 ) THEN
+                     IF ( prject==1 .OR. fvp==0 ) THEN
                         spag_nextblock_1 = 4
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -202,20 +203,20 @@ USE ISO_FORTRAN_ENV
                      CALL rdword(mode,word)
                      pltnam(1) = awrd(1)
                      pltnam(2) = awrd(2)
-                     Pltmod(1) = 0
-                     Pltmod(2) = 0
-                     Camera = 2
-                     Fscale = 1
-                     Fvp = 1
-                     For = 1
-                     IF ( Org/=0 ) THEN
-                        DO i = 1 , Org
-                           Edge(i,1) = 0.
-                           Edge(i,2) = 0.
-                           Edge(i,3) = 1.
-                           Edge(i,4) = 1.
+                     pltmod(1) = 0
+                     pltmod(2) = 0
+                     camera = 2
+                     fscale = 1
+                     fvp = 1
+                     for = 1
+                     IF ( org/=0 ) THEN
+                        DO i = 1 , org
+                           edge(i,1) = 0.
+                           edge(i,2) = 0.
+                           edge(i,3) = 1.
+                           edge(i,4) = 1.
                         ENDDO
-                        Org = 0
+                        org = 0
                      ENDIF
 !
 !     CHECK FOR A MODEL NUMBER
@@ -226,7 +227,7 @@ USE ISO_FORTRAN_ENV
                      GOTO 460
                   ENDIF
                ELSE
-                  CALL fread(Parm,0,0,1)
+                  CALL fread(parm,0,0,1)
                ENDIF
             ENDIF
          ENDDO
@@ -238,25 +239,23 @@ USE ISO_FORTRAN_ENV
          CALL find(mode,buf1,Buf4,Setid,Xx)
          nofind = +1
          IF ( mode>=0 ) THEN
-            CALL rdmodx(Parm,mode,word)
+            CALL rdmodx(parm,mode,word)
             GOTO 20
          ELSE
             mode = modex
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (3)
          modex = mode
          mode = -1
-         Org = max0(1,Org)
+         org = max0(1,org)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          CALL plot(mode,buf1,Buf4,Setid,Xx,nofind)
-         Oesx = oes1
-         IF ( nofind==-1 ) Org = max0(1,Org)
+         oesx = oes1
+         IF ( nofind==-1 ) org = max0(1,org)
          nofind = 0
-         CALL rdmodx(Parm,mode,word)
+         CALL rdmodx(parm,mode,word)
          GOTO 20
 !
 !     PLOT PARAMETER CARD.
@@ -265,7 +264,7 @@ USE ISO_FORTRAN_ENV
  60      CALL rdword(mode,word)
          spag_nextblock_1 = 5
       CASE (5)
-         i = nkwd(Prject)
+         i = nkwd(prject)
          DO kwrd = 1 , i
             IF ( hkey(kwrd)==word ) THEN
                spag_nextblock_1 = 6
@@ -273,7 +272,6 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
          IF ( kwrd==1 ) THEN
@@ -316,7 +314,7 @@ USE ISO_FORTRAN_ENV
                      spag_nextblock_1 = 8
                      CYCLE SPAG_DispatchLoop_1
                   CASE (2)
-                     Axis(j) = i - 4
+                     axis(j) = i - 4
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
                ENDDO SPAG_DispatchLoop_2
@@ -348,14 +346,14 @@ USE ISO_FORTRAN_ENV
 !
 !     RESTORE DEFAULTS
 !
-            Icntvl = 1
-            Ncntr = 10
-            Color = 0
-            Layer = 0
-            Where = 1
-            Direct = 2
-            Cntr(1) = 0.0
-            Cntr(2) = 0.0
+            icntvl = 1
+            ncntr = 10
+            color = 0
+            layer = 0
+            where = 1
+            direct = 2
+            cntr(1) = 0.0
+            cntr(2) = 0.0
             GOTO 720
          ELSEIF ( kwrd==9 ) THEN
 !
@@ -461,18 +459,18 @@ USE ISO_FORTRAN_ENV
 !
 !     PTITLE
 !
-            Fpltit = 1
+            fpltit = 1
             DO i = 1 , 17
-               Pltitl(i) = blank4
+               pltitl(i) = blank4
             ENDDO
-            j = Color
+            j = color
             DO i = 1 , 17 , 2
                CALL rdword(mode,word)
-               Pltitl(i) = awrd(1)
-               Pltitl(i+1) = awrd(2)
+               pltitl(i) = awrd(1)
+               pltitl(i+1) = awrd(2)
                IF ( mode==0 ) GOTO 40
             ENDDO
-            Color = j
+            color = j
             IF ( mode/=0 ) CALL rdword(mode,word)
             GOTO 40
          ELSEIF ( kwrd==18 ) THEN
@@ -523,32 +521,31 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ENDDO
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     PROJECTION
 !
-         Prject = kwrd - 4
-         Vangle(1) = 0.
-         Vangle(2) = -1.E10
-         Vangle(3) = 34.27
-         Fscale = 1
-         Fvp = 1
-         For = 1
+         prject = kwrd - 4
+         vangle(1) = 0.
+         vangle(2) = -1.E10
+         vangle(3) = 34.27
+         fscale = 1
+         fvp = 1
+         for = 1
          IF ( nofind==0 ) nofind = -1
          CALL rdword(mode,word)
          IF ( word==hkey(16) ) THEN
 !
 !     READ SECOND WORD OF ORTHO.,PERS.,OR STERO. SHOULD BE PROJECTION
 !
-            IF ( Org/=0 ) THEN
-               DO i = 1 , Org
-                  Edge(i,1) = 0.
-                  Edge(i,2) = 0.
-                  Edge(i,3) = 1.
-                  Edge(i,4) = 1.
+            IF ( org/=0 ) THEN
+               DO i = 1 , org
+                  edge(i,1) = 0.
+                  edge(i,2) = 0.
+                  edge(i,3) = 1.
+                  edge(i,4) = 1.
                ENDDO
-               Org = 0
+               org = 0
             ENDIF
          ENDIF
          GOTO 40
@@ -564,7 +561,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 9
       CASE (9)
          DO j = 1 , 3
-            Daxis(j) = k*Axis(j)
+            daxis(j) = k*axis(j)
          ENDDO
          IF ( mode>=eor ) GOTO 20
          IF ( mode<0 .OR. word==symm .OR. word==anti ) GOTO 40
@@ -584,13 +581,13 @@ USE ISO_FORTRAN_ENV
  140     n = iwrd
          spag_nextblock_1 = 10
       CASE (10)
-         Camera = n
+         camera = n
          GOTO 40
- 160     Bframs = iwrd
+ 160     bframs = iwrd
          GOTO 40
- 180     Maxdef = fwrd
+ 180     maxdef = fwrd
          GOTO 40
- 200     S0s = fwrd
+ 200     s0s = fwrd
          GOTO 40
 !
 !     ORIGIN ID
@@ -602,50 +599,50 @@ USE ISO_FORTRAN_ENV
 !
 !     HORIZONTAL LOCATION (LEFT EYE - STEREO)
 !
- 240     x = fwrd*Cntsin
+ 240     x = fwrd*cntsin
          ASSIGN 260 TO tra
          CALL rdmode(*920,*40,*20,mode,word)
          GOTO 920
 !
 !     VERTICAL LOCATION
 !
- 260     y = fwrd*Cntsin
-         IF ( Org/=0 ) THEN
-            DO j = 1 , Org
-               IF ( Origin(j)==id ) THEN
+ 260     y = fwrd*cntsin
+         IF ( org/=0 ) THEN
+            DO j = 1 , org
+               IF ( origin(j)==id ) THEN
                   spag_nextblock_1 = 11
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            IF ( Org>=Norg ) THEN
-               IF ( Prnt>=0 ) THEN
+            IF ( org>=norg ) THEN
+               IF ( prnt>=0 ) THEN
                   err(1) = 1
-                  err(2) = Norg
-                  CALL wrtprt(Merr,err,msg1,nmsg1)
+                  err(2) = norg
+                  CALL wrtprt(merr,err,msg1,nmsg1)
                ENDIF
-               Org = Norg
+               org = norg
                DO i = 1 , 2
-                  Edge(Org+1,i+0) = 0.
-                  Edge(Org+1,i+2) = 1.
+                  edge(org+1,i+0) = 0.
+                  edge(org+1,i+2) = 1.
                ENDDO
             ENDIF
          ENDIF
-         Org = Org + 1
-         j = Org
-         Origin(j) = id
+         org = org + 1
+         j = org
+         origin(j) = id
          IF ( nofind==0 ) nofind = -1
          spag_nextblock_1 = 11
       CASE (11)
-         Xy(j,1) = x
-         Xy(j,3) = y
-         For = 0
+         xy(j,1) = x
+         xy(j,3) = y
+         for = 0
          ASSIGN 280 TO tra
          CALL rdmode(*920,*40,*20,mode,word)
          GOTO 920
 !
 !     HORIZONTAL LOCATION (RIGHT EYE - STEREO)
 !
- 280     Xy(j,2) = fwrd*Cntsin
+ 280     xy(j,2) = fwrd*cntsin
          GOTO 40
       CASE (12)
 !
@@ -681,8 +678,8 @@ USE ISO_FORTRAN_ENV
  340     ASSIGN 360 TO tra
          CALL rdmode(*920,*40,*20,mode,word)
          GOTO 920
- 360     Papsiz(1) = x
-         Papsiz(2) = fwrd
+ 360     papsiz(1) = x
+         papsiz(2) = fwrd
          CALL pltset
          CALL rdmode(*40,*380,*20,mode,word)
  380     CALL rdword(mode,word)
@@ -700,15 +697,15 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL rdword(mode,word)
-         Paptyp(1) = awrd(1)
-         Paptyp(2) = awrd(2)
+         paptyp(1) = awrd(1)
+         paptyp(2) = awrd(2)
          IF ( mode<=0 ) GOTO 40
          spag_nextblock_1 = 12
          CYCLE SPAG_DispatchLoop_1
- 400     IF ( iwrd==1 .OR. iwrd>Npens ) THEN
+ 400     IF ( iwrd==1 .OR. iwrd>npens ) THEN
             err(1) = 1
             err(2) = iwrd
-            CALL wrtprt(Merr,err,msg4,nmsg4)
+            CALL wrtprt(merr,err,msg4,nmsg4)
             iwrd = 1
          ENDIF
          id = iwrd
@@ -736,13 +733,13 @@ USE ISO_FORTRAN_ENV
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                CALL rdword(mode,word)
-               Penclr(id,1) = awrd(1)
-               Penclr(id,2) = awrd(2)
+               penclr(id,1) = awrd(1)
+               penclr(id,2) = awrd(2)
                IF ( mode<0 ) GOTO 40
                IF ( mode==0 ) CALL rdmode(*40,*420,*20,mode,word)
             ENDIF
          ENDDO
- 440     Pensiz(id) = iwrd
+ 440     pensiz(id) = iwrd
          CALL rdmode(*40,*420,*20,mode,word)
          GOTO 420
  460     CALL rdword(mode,word)
@@ -751,15 +748,15 @@ USE ISO_FORTRAN_ENV
          IF ( mode<=0 ) CALL rdmode(*900,*480,*520,mode,word)
  480     CALL rdword(mode,word)
          IF ( word==dens ) GOTO 520
- 500     Pltmod(j) = word
+ 500     pltmod(j) = word
          j = j + 1
          IF ( j==2 ) THEN
             IF ( mode<=0 ) CALL rdmode(*900,*480,*520,mode,word)
             GOTO 480
          ENDIF
- 520     CALL fndplt(id,n,Pltmod)
-         Ploter = id
-         Model = n
+ 520     CALL fndplt(id,n,pltmod)
+         ploter = id
+         model = n
          CALL pltset
          IF ( word==dens ) THEN
             spag_nextblock_1 = 14
@@ -781,41 +778,41 @@ USE ISO_FORTRAN_ENV
          ASSIGN 580 TO tra
          CALL rdmode(*900,*40,*20,mode,word)
          GOTO 900
- 580     Tapden = iwrd
+ 580     tapden = iwrd
          CALL rdmode(*40,*600,*20,mode,word)
  600     CALL rdword(mode,word)
          IF ( word==bpi ) GOTO 40
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 620     IF ( Prject==2 ) D02 = fwrd
-         IF ( Prject==3 ) D03 = fwrd
+ 620     IF ( prject==2 ) d02 = fwrd
+         IF ( prject==3 ) d03 = fwrd
          GOTO 40
  640     IF ( fwrd/=0. ) THEN
-            IF ( Prject/=3 ) Scale(1) = Cntsin*fwrd
-            IF ( Prject==3 ) Scale(1) = Cntin3*fwrd
+            IF ( prject/=3 ) scale(1) = cntsin*fwrd
+            IF ( prject==3 ) scale(1) = cntin3*fwrd
          ENDIF
-         Fscale = 0
+         fscale = 0
          ASSIGN 660 TO tra
          CALL rdmode(*920,*40,*20,mode,word)
          GOTO 920
- 660     IF ( fwrd/=0. ) Scale(2) = fwrd
+ 660     IF ( fwrd/=0. ) scale(2) = fwrd
          IF ( nofind==0 ) nofind = -1
          GOTO 40
       CASE (15)
          j = j + 1
          IF ( j==3 ) j = 4
-         IF ( Prject==3 .AND. j==6 ) j = 3
+         IF ( prject==3 .AND. j==6 ) j = 3
          CALL rdmode(*920,*40,*20,mode,word)
          GOTO 920
- 680     Vanpnt(j) = fwrd
-         IF ( (Prject/=3 .AND. j/=5) .OR. (Prject==3 .AND. j/=3) ) THEN
+ 680     vanpnt(j) = fwrd
+         IF ( (prject/=3 .AND. j/=5) .OR. (prject==3 .AND. j/=3) ) THEN
             spag_nextblock_1 = 15
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Fvp = 0
+         fvp = 0
          IF ( nofind==0 ) nofind = -1
          GOTO 40
- 700     Vangle(j) = fwrd
+ 700     vangle(j) = fwrd
          IF ( nofind==0 ) nofind = -1
          IF ( j==1 ) GOTO 40
          j = j - 1
@@ -837,7 +834,7 @@ USE ISO_FORTRAN_ENV
 !
 !     SET STRESS FILE TO LAYER STRESS
 !
-               Oesx = oes1l
+               oesx = oes1l
             ENDIF
             CALL rdmode(*900,*40,*20,mode,word)
             GOTO 900
@@ -848,25 +845,25 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 16
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Ncntr = 0
+               ncntr = 0
                ASSIGN 820 TO tra
                CALL rdmode(*920,*740,*20,mode,word)
                GOTO 820
 !
             ELSEIF ( word==z1 ) THEN
-               Where = 1
+               where = 1
                GOTO 720
             ELSEIF ( word==z2 ) THEN
-               Where = -1
+               where = -1
                GOTO 720
             ELSEIF ( word==max ) THEN
-               Where = 2
+               where = 2
                GOTO 720
             ELSEIF ( word==mid ) THEN
-               Where = 3
+               where = 3
                GOTO 720
             ELSEIF ( word==comm ) THEN
-               Direct = 2
+               direct = 2
                GOTO 720
             ELSE
                IF ( word==disp ) GOTO 720
@@ -882,7 +879,7 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 16
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  Direct = 1
+                  direct = 1
                   GOTO 720
                ENDIF
             ENDIF
@@ -891,64 +888,64 @@ USE ISO_FORTRAN_ENV
             CALL rdmode(*900,*40,*20,mode,word)
             GOTO 900
          ENDIF
- 760     Ncntr = min0(50,iwrd)
+ 760     ncntr = min0(50,iwrd)
          GOTO 720
- 780     Color = iwrd
+ 780     color = iwrd
          GOTO 720
- 800     Color = -iwrd
+ 800     color = -iwrd
          GOTO 720
  820     DO
-            IF ( Ncntr<50 ) THEN
-               Ncntr = Ncntr + 1
-               Cntr(Ncntr) = fwrd
-            ELSEIF ( Prnt>=0 ) THEN
+            IF ( ncntr<50 ) THEN
+               ncntr = ncntr + 1
+               cntr(ncntr) = fwrd
+            ELSEIF ( prnt>=0 ) THEN
                err(1) = 1
                err(2) = iwrd
-               CALL wrtprt(Merr,err,msg5,nmsg5)
+               CALL wrtprt(merr,err,msg5,nmsg5)
             ENDIF
             CALL rdmode(*920,*740,*20,mode,word)
          ENDDO
          spag_nextblock_1 = 16
       CASE (16)
-         IF ( Prnt>=0 ) THEN
+         IF ( prnt>=0 ) THEN
             err(1) = 2
             err(2) = awrd(1)
             err(3) = awrd(2)
-            CALL wrtprt(Merr,err,msg2,nmsg2)
+            CALL wrtprt(merr,err,msg2,nmsg2)
          ENDIF
          GOTO 720
       CASE (17)
 !
-         Icntvl = j
+         icntvl = j
 !
 !     SET STRESS FILE TO STRAIN FILE
 !
-         IF ( Icntvl==20 ) Oesx = onrgy1
+         IF ( icntvl==20 ) oesx = onrgy1
          GOTO 720
- 840     Layer = iwrd
+ 840     layer = iwrd
          GOTO 720
- 860     Chrscl = fwrd
+ 860     chrscl = fwrd
          IF ( nofind==0 ) nofind = -1
-         IF ( Chrscl<1.0 ) Chrscl = 1.0
+         IF ( chrscl<1.0 ) chrscl = 1.0
          CALL pltset
          GOTO 40
       CASE (18)
 !
 !     UNRECOGNIZABLE PLOT PARAMETER.
 !
-         IF ( Prnt>=0 ) THEN
+         IF ( prnt>=0 ) THEN
             err(1) = 2
             err(2) = awrd(1)
             err(3) = awrd(2)
-            CALL wrtprt(Merr,err,msg2,nmsg2)
+            CALL wrtprt(merr,err,msg2,nmsg2)
          ENDIF
          GOTO 40
 !
 !     END OF PLOT INPUT
 !
- 880     IF ( Prnt<0 ) THEN
+ 880     IF ( prnt<0 ) THEN
             DO i = 1 , 96
-               Title(i) = savtit(i)
+               title(i) = savtit(i)
             ENDDO
          ENDIF
          RETURN

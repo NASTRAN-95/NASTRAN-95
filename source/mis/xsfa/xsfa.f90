@@ -1,4 +1,5 @@
-!*==xsfa.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xsfa.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xsfa(X)
@@ -7,17 +8,17 @@ SUBROUTINE xsfa(X)
 !
 !     REVISED  8/89,  SEE XSFABD
 !
+   USE c_blank
+   USE c_ixsfa
+   USE c_machin
+   USE c_system
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xsfa1
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_IXSFA
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
-   USE C_XSFA1
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,15 +70,15 @@ SUBROUTINE xsfa(X)
          almsk = rshift(complf(0),1)
 !
 !     THCRMK = O 777777000000     Z FFFFFF00
-         thcrmk = lshift(almsk,Nbpw-(3*Nbpc))
+         thcrmk = lshift(almsk,nbpw-(3*nbpc))
 !
 !     S      = O 400000000000     Z 80000000
-         s = lshift(1,Nbpw-1)
+         s = lshift(1,nbpw-1)
 !
 !     MACSFT = SHIFT COUNT TO PLACE INTEGER IN 4TH FROM LEFT CHARACTER
-         macsft = (Ncpw-4)*Nbpc
+         macsft = (ncpw-4)*nbpc
 !
-         entn1 = Icfiat
+         entn1 = icfiat
          cursno = X
 !
 !     GET OSCAR FILE POSITION AND SAVE IN FNOS
@@ -92,7 +93,7 @@ SUBROUTINE xsfa(X)
          rnos = cursno
          CALL xsosgn
          IF ( mlgn==0 ) THEN
-            WRITE (Outtap,99001) Sfm
+            WRITE (outtap,99001) sfm
 99001       FORMAT (A25,' 1002, OSCAR CONTAINS NO MODULES')
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
@@ -120,10 +121,10 @@ SUBROUTINE xsfa(X)
          totio = minp(i) + mout(i)
          totf = totio + mscr(i)
          alcnt = 0
-         lmt2 = Lmt3 + 1
-         lmt4 = Lmt3 + minp(i)*entn2
+         lmt2 = lmt3 + 1
+         lmt4 = lmt3 + minp(i)*entn2
          lmt5 = lmt4 + mout(i)*entn2
-         Lmt3 = Lmt3 + totf*entn2
+         lmt3 = lmt3 + totf*entn2
          lmt9 = fculg*entn1
          nfculg = lmt9 + 1
          itiord = lshift(mlsn(i),16)
@@ -137,7 +138,7 @@ SUBROUTINE xsfa(X)
 !     SEQUENCE THRU SOS (ONE MODULE) LOOK FOR NAME MATCH + LTU COMPARE
 !
             flag = 0
-            DO k = lmt2 , Lmt3 , entn2
+            DO k = lmt2 , lmt3 , entn2
                IF ( sal(k)>=0 ) THEN
                   itpflg = andf(tapmsk,sntu(k))
 !
@@ -184,7 +185,7 @@ SUBROUTINE xsfa(X)
                                          ENDIF
                                          ENDDO
                                          ENDIF
-                                         IF ( fculg+Pad>=fmxlg ) THEN
+                                         IF ( fculg+pad>=fmxlg ) THEN
                                          spag_nextblock_1 = 7
                                          CYCLE SPAG_DispatchLoop_1
                                          ENDIF
@@ -219,7 +220,7 @@ SUBROUTINE xsfa(X)
 !
 !     SEQUENCE THRU SOS (ONE MODULE) LOOK FOR BLANK FILES + GREATER NTU
 !
-               DO k = lmt2 , Lmt3 , entn2
+               DO k = lmt2 , lmt3 , entn2
                   IF ( sal(k)>=0 ) THEN
                      IF ( flag/=0 .AND. k>lmt4 .AND. k<=lmt5 ) CYCLE SPAG_Loop_1_2
                      iapflg = 0
@@ -229,7 +230,7 @@ SUBROUTINE xsfa(X)
 !
 !     SEQUENCE THRU FIAT-UNIQUE (BLANK FILES)
 !
-                     IF ( Bff>=0 ) THEN
+                     IF ( bff>=0 ) THEN
                         DO f1 = 1 , lmt8 , entn1
                            IF ( fdbn(f1)==0 ) THEN
                               IF ( itpflg==0 .OR. andf(tapmsk,file(f1))/=0 ) THEN
@@ -237,12 +238,12 @@ SUBROUTINE xsfa(X)
                                     CALL xpolck(sdbn(k),sdbn(k+1),fn,nx)
                                     IF ( iapflg==0 .OR. fn/=0 ) THEN
                                        IF ( fn==0 ) THEN
-                                         IF ( Pltflg==0 ) THEN
+                                         IF ( pltflg==0 ) THEN
                                          DO ip = 1 , 3
                                          IF ( sdbn(k)==pfil(1,ip) .AND. sdbn(k+1)==pfil(2,ip) ) GOTO 14
                                          ENDDO
                                          ENDIF
-                                         IF ( Thislk/=ns14 ) CALL mesage(22,0,sdbn(k))
+                                         IF ( thislk/=ns14 ) CALL mesage(22,0,sdbn(k))
                                          GOTO 16
                                        ENDIF
  14                                    fpun(f1) = fn
@@ -262,7 +263,7 @@ SUBROUTINE xsfa(X)
                               ENDIF
                            ENDIF
                         ENDDO
-                        IF ( itpflg==0 ) Bff = -1
+                        IF ( itpflg==0 ) bff = -1
                      ENDIF
 !
 !     SEQUENCE THRU FIAT (GREATEST NTU) FOR POOLING
@@ -280,12 +281,12 @@ SUBROUTINE xsfa(X)
                         mxntui = 0
                         DO f1 = 1 , lmt8 , entn1
                            IF ( fcus(f1)>=0 ) THEN
-                              IF ( Idefr2>=0 ) THEN
+                              IF ( idefr2>=0 ) THEN
                                  IF ( fmat(f1)/=0 .OR. fmat(f1+1)/=0 .OR. fmat(f1+2)/=0 ) THEN
-                                    Idefr1 = -1
+                                    idefr1 = -1
                                     CYCLE
                                  ELSEIF ( entn1==11 .AND. (fmat(f1+5)/=0 .OR. fmat(f1+6)/=0 .OR. fmat(f1+7)/=0) ) THEN
-                                    Idefr1 = -1
+                                    idefr1 = -1
                                     CYCLE
                                  ENDIF
                               ENDIF
@@ -320,15 +321,15 @@ SUBROUTINE xsfa(X)
 !
 !     IF MATCHED FILE HAS NTU LESS - TEST AND SET DEFER FLAG
 !
-                                 IF ( Idefr2>=0 ) THEN
+                                 IF ( idefr2>=0 ) THEN
                                     IF ( fmat(j)/=0 .OR. fmat(j+1)/=0 .OR. fmat(j+2)/=0 ) THEN
-                                       Idefr1 = -1
+                                       idefr1 = -1
                                        GOTO 18
                                     ELSEIF ( entn1==11 .AND. (fmat(j+5)/=0 .OR. fmat(j+6)/=0 .OR. fmat(j+7)/=0) ) THEN
-                                       Idefr1 = -1
+                                       idefr1 = -1
                                        GOTO 18
                                     ELSEIF ( andf(rmsk,fntu(1))<andf(rmsk,fntu(mxntui)) ) THEN
-                                       Idefr1 = -1
+                                       idefr1 = -1
                                        GOTO 18
                                     ENDIF
                                  ENDIF
@@ -359,7 +360,7 @@ SUBROUTINE xsfa(X)
                               iunpfg = nfculg
                               EXIT SPAG_Loop_3_3
                            ELSE
-                              IF ( Thislk/=14 ) CALL mesage(22,0,sdbn(k))
+                              IF ( thislk/=14 ) CALL mesage(22,0,sdbn(k))
                               GOTO 20
                            ENDIF
  18                        IF ( fknd(mxntui)==0 ) fknd(mxntui) = 9
@@ -368,21 +369,21 @@ SUBROUTINE xsfa(X)
 !
 !     FILE NOT FOUND - HAS A PASS BEEN DEFERRED
 !
-                           IF ( Idefr1==0 ) THEN
+                           IF ( idefr1==0 ) THEN
                               spag_nextblock_1 = 7
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
 !
 !     PASS HAS BEEN DEFERRED - TRY IT NOW
 !
-                           Idefr1 = 0
-                           Idefr2 = -1
+                           idefr1 = 0
+                           idefr2 = -1
                            DO ix = 1 , lmt8 , entn1
                               fknd(ix) = iabs(fknd(ix))
                            ENDDO
                         ENDIF
                      ENDDO SPAG_Loop_3_3
-                     IF ( fculg+Pad>=fmxlg ) THEN
+                     IF ( fculg+pad>=fmxlg ) THEN
                         spag_nextblock_1 = 7
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -435,7 +436,7 @@ SUBROUTINE xsfa(X)
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         CALL open(*80,pool,Buf1,0)
+         CALL open(*80,pool,buf1,0)
          IF ( fnos/=1 ) CALL skpfil(pool,fnos-1)
          DO j = 1 , rnos
             CALL fwdrec(*100,pool)
@@ -451,18 +452,18 @@ SUBROUTINE xsfa(X)
          IF ( ix/=1 ) GOTO itest
          CALL page1
          CALL page2(-4)
-         WRITE (Outtap,99002) Fiat(1) , Fiat(2) , Fiat(3) , X , cursno
+         WRITE (outtap,99002) fiat(1) , fiat(2) , fiat(3) , X , cursno
 99002    FORMAT (15H0FIAT AFTER SFA,3I4,12H  OSCAR STR ,I4,6H, STP ,I4,//,' EQ AP  LTU  TP  UNIT  NTU  OF SG KN TR DATA-BLK      *',&
                & 6X,'*   TRAILER   *      *      *  PRI BLKS   SEC FLS/BLKS',3X,'TER FLS/BLKS')
-         ii = Fiat(3)*entn1
+         ii = fiat(3)*entn1
          DO ix = 1 , ii , entn1
-            iprt(1) = rshift(fequ(ix),Nbpw-1)
+            iprt(1) = rshift(fequ(ix),nbpw-1)
             iprt(2) = rshift(andf(apndmk,ford(ix)),30)
             iprt(3) = rshift(andf(lmsk,ford(ix)),16)
             iprt(4) = rshift(andf(tapmsk,file(ix)),15)
             iprt(5) = andf(rmsk,file(ix))
             iprt(6) = andf(rmsk,fntu(ix))
-            iprt(7) = rshift(fon(ix),Nbpw-1)
+            iprt(7) = rshift(fon(ix),nbpw-1)
             iprt(8) = fcus(ix)
             iprt(9) = fknd(ix)
             iprt(10) = rshift(andf(tapmsk,fntu(ix)),15)
@@ -494,24 +495,24 @@ SUBROUTINE xsfa(X)
             iprt(22) = itemp - iprt(20)*2**8
             iprt(23) = andf(rxmsk,fmat(ix+4))
             CALL page2(-1)
-            WRITE (Outtap,99003) (iprt(iy),iy=1,23)
+            WRITE (outtap,99003) (iprt(iy),iy=1,23)
 99003       FORMAT (1H ,2(I2,1X),I5,1X,I2,2(1X,I5),4(1X,I2),1X,2A4,6I7,4X,I5,1X,2(7X,I2,1H/,I5))
          ENDDO
          CALL xflszd(0,blksiz,0)
          CALL page2(-2)
-         WRITE (Outtap,99004) blksiz
+         WRITE (outtap,99004) blksiz
 99004    FORMAT (30X,20H EACH BLOCK CONTAINS,I5,7H WORDS.)
-         WRITE (Outtap,99005)
+         WRITE (outtap,99005)
 99005    FORMAT (52H POOL FILE CONTENTS   EQ    SIZE   FILE   DATA BLOCK)
-         ii = Dpd(3)*3
+         ii = dpd(3)*3
          DO ix = 1 , ii , 3
-            iprt(1) = rshift(dfnu(ix),Nbpw-1)
+            iprt(1) = rshift(dfnu(ix),nbpw-1)
             iprt(2) = rshift(dfnu(ix),16)
             iprt(3) = andf(rxmsk,dfnu(ix))
             iprt(4) = ddbn(ix)
             iprt(5) = ddbn(ix+1)
             CALL page2(-1)
-            WRITE (Outtap,99006) (iprt(iy),iy=1,5)
+            WRITE (outtap,99006) (iprt(iy),iy=1,5)
 99006       FORMAT (22X,I2,I7,I7,3X,2A4)
          ENDDO
          CALL dbmdia
@@ -519,8 +520,8 @@ SUBROUTINE xsfa(X)
 !
          GOTO itest
 !
- 40      j = Mch
-         IF ( iabs(Ibnk(entn1*5))/1000/=j .AND. j>6 ) Comm(4) = j
+ 40      j = mch
+         IF ( iabs(ibnk(entn1*5))/1000/=j .AND. j>6 ) comm(4) = j
          X = cursno
          nsfa(3) = iend
          CALL conmsg(nsfa,3,0)
@@ -536,7 +537,6 @@ SUBROUTINE xsfa(X)
          IF ( itpflg==0 ) THEN
             cursno = 0
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     LOOKING FOR A TAPE + AT LEAST ONE TAPE EXISTS
@@ -551,14 +551,13 @@ SUBROUTINE xsfa(X)
             IF ( noaval==0 ) THEN
                cursno = 0
                spag_nextblock_1 = 5
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                tapmsk = 0
 !
-               Bff = 0
+               bff = 0
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
 !
 !     A TAPE FILE EXIST CONTAINING A D.B. NOT REQUIRING A TAPE  -
 !     FREE THAT TAPE***  CHECK FOR EQUIV AND LTU D.B. ON SAME UNIT
@@ -567,8 +566,8 @@ SUBROUTINE xsfa(X)
 !
             ASSIGN 60 TO itest
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  60      ASSIGN 40 TO itest
 !
          trial = andf(rmsk,file(m))
@@ -586,14 +585,13 @@ SUBROUTINE xsfa(X)
                      ELSE
                         fdbn(j) = almsk
                      ENDIF
-                     DO l = lmt2 , Lmt3 , entn2
+                     SPAG_Loop_4_1: DO l = lmt2 , lmt3 , entn2
                         IF ( inam1==sdbn(l) .AND. inam2==sdbn(l+1) ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
-                     ENDDO
+                     ENDDO SPAG_Loop_4_1
                   ENDIF
-                  CYCLE
                CASE (2)
 !
 !     TURN OFF ALLOC FLAG
@@ -606,14 +604,13 @@ SUBROUTINE xsfa(X)
          ENDDO
          inam1 = fdbn(m)
          inam2 = fdbn(m+1)
-         DO l = lmt2 , Lmt3 , entn2
+         DO l = lmt2 , lmt3 , entn2
             IF ( inam1==sdbn(l) .AND. inam2==sdbn(l+1) ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          sal(l) = orf(almsk,sal(l))
          alcnt = alcnt - 1
@@ -629,23 +626,22 @@ SUBROUTINE xsfa(X)
          CALL sswtch(2,ix)
          IF ( ix==1 ) THEN
             CALL page2(-2)
-            WRITE (Outtap,99007)
+            WRITE (outtap,99007)
 99007       FORMAT (38H0* XSFA REPEATS TO USE FREED TAPE FILE)
          ENDIF
-         Bff = 0
+         bff = 0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
-         WRITE (Outtap,99008) Sfm
+         WRITE (outtap,99008) sfm
 99008    FORMAT (A25,' 1001, OSCAR NOT FOUND IN DPL')
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
- 80      WRITE (Outtap,99009) Sfm
+ 80      WRITE (outtap,99009) sfm
 99009    FORMAT (A25,' 1003, POOL COULD NOT BE OPENED')
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
- 100     WRITE (Outtap,99010) Sfm
+ 100     WRITE (outtap,99010) sfm
 99010    FORMAT (A25,' 1004, ILLEGAL EOF ON POOL')
          spag_nextblock_1 = 11
       CASE (11)

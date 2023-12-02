@@ -1,13 +1,14 @@
-!*==trht.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trht.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trht
+   USE c_blank
+   USE c_system
+   USE c_trdd1
+   USE c_trhtx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TRDD1
-   USE C_TRHTX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -44,27 +45,27 @@ SUBROUTINE trht
 !
 !     SET UP FILES
 !
-   Ik(1) = kdd
-   CALL rdtrl(Ik)
-   Ib(1) = bdd
-   CALL rdtrl(Ib)
-   Icr1 = iscr1
-   Icr2 = iscr2
-   Icr3 = iscr3
-   Icr4 = iscr4
-   Icr5 = iscr5
-   Icr6 = iscr6
-   Icr7 = iscr7
+   ik(1) = kdd
+   CALL rdtrl(ik)
+   ib(1) = bdd
+   CALL rdtrl(ib)
+   icr1 = iscr1
+   icr2 = iscr2
+   icr3 = iscr3
+   icr4 = iscr4
+   icr5 = iscr5
+   icr6 = iscr6
+   icr7 = iscr7
 !
 !     SET UP NONLINEAR FILES
 !
-   Nlft1 = nlft
-   Dit1 = dit
-   Pnl1 = pnld
-   IF ( Ik(1)<=0 ) Ik(1) = 0
-   IF ( Ib(1)<=0 ) Ib(1) = 0
-   Moda1 = -1
-   IF ( Ib(1)/=0 ) Ik(2) = Ib(2)
+   nlft1 = nlft
+   dit1 = dit
+   pnl1 = pnld
+   IF ( ik(1)<=0 ) ik(1) = 0
+   IF ( ib(1)<=0 ) ib(1) = 0
+   moda1 = -1
+   IF ( ib(1)/=0 ) ik(2) = ib(2)
 !
 !     OBTAIN PARAMETERS, INITIAL CONDITIONS
 !
@@ -72,16 +73,16 @@ SUBROUTINE trht
 !
 !     ALLOCATE CORE
 !
-   Nz = korsz(Z)
-   igroup = Nz - 3*ngroup + 1
+   nz = korsz(z)
+   igroup = nz - 3*ngroup + 1
    nv = 4
-   IF ( Nlftp1/=0 .OR. Norad/=-1 ) nv = nv + 3
-   IF ( Nz<nv*Ik(2)*iprec-nb*sysbuf-3*ngroup ) CALL mesage(-8,0,name)
-   Tim = 0.
+   IF ( nlftp1/=0 .OR. norad/=-1 ) nv = nv + 3
+   IF ( nz<nv*ik(2)*iprec-nb*sysbuf-3*ngroup ) CALL mesage(-8,0,name)
+   tim = 0.
    DO i = 1 , ngroup
       CALL klock(itim1)
-      Nstep = iz(igroup)
-      delta = Z(igroup+1)
+      nstep = iz(igroup)
+      delta = z(igroup+1)
       igroup = igroup + 3
 !
 !     FORM  A  MATRIX AND DECOMPOSE
@@ -92,7 +93,7 @@ SUBROUTINE trht
       CALL klock(itim2)
       CALL tmtogo(itleft)
       IF ( i/=ngroup ) THEN
-         IF ( (itim3-itim1+((itim2-itim3)/Nstep)*iz(igroup))>=itleft ) THEN
+         IF ( (itim3-itim1+((itim2-itim3)/nstep)*iz(igroup))>=itleft ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
@@ -101,12 +102,10 @@ SUBROUTINE trht
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
-      CALL mesage(45,ngroup-i,name)
+      CALL mesage(45,Ngroup-I,Name)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_2
 END SUBROUTINE trht

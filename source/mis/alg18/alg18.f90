@@ -1,4 +1,5 @@
-!*==alg18.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg18.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg18(Beta1,Beta2,I1,I2,Fact,X0,Y0,S0,Xr,Y1,X1,Y2,Rdius,S,C1)
@@ -26,6 +27,15 @@ SUBROUTINE alg18(Beta1,Beta2,I1,I2,Fact,X0,Y0,S0,Xr,Y1,X1,Y2,Rdius,S,C1)
 !
    REAL :: am , delx , phi1 , phi2 , xx
    INTEGER :: i3 , j
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -58,5 +68,4 @@ SUBROUTINE alg18(Beta1,Beta2,I1,I2,Fact,X0,Y0,S0,Xr,Y1,X1,Y2,Rdius,S,C1)
       phi2 = abs(Beta1/C1-phi1)
       S(j) = Rdius*phi2 + S0
    ENDDO
-   RETURN
 END SUBROUTINE alg18

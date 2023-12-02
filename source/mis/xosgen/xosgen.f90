@@ -23,25 +23,25 @@ SUBROUTINE xosgen
 !              INSTRUCTION.
 !
    IMPLICIT NONE
-   USE C_AUTOCM
-   USE C_AUTOSM
-   USE C_MODDMP
-   USE C_PASSER
-   USE C_SYSTEM
-   USE C_XCEITB
-   USE C_XFIAT
-   USE C_XGPI2
-   USE C_XGPI3
-   USE C_XGPI4
-   USE C_XGPI5
-   USE C_XGPI6
-   USE C_XGPI7
-   USE C_XGPIC
-   USE C_XGPID
-   USE C_XGPIE
-   USE C_XOLDPT
-   USE C_XVPS
-   USE C_ZZZZZZ
+   USE c_autocm
+   USE c_autosm
+   USE c_moddmp
+   USE c_passer
+   USE c_system
+   USE c_xceitb
+   USE c_xfiat
+   USE c_xgpi2
+   USE c_xgpi3
+   USE c_xgpi4
+   USE c_xgpi5
+   USE c_xgpi6
+   USE c_xgpi7
+   USE c_xgpic
+   USE c_xgpid
+   USE c_xgpie
+   USE c_xoldpt
+   USE c_xvps
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,6 +57,12 @@ SUBROUTINE xosgen
    INTEGER , DIMENSION(5) :: os
    INTEGER , DIMENSION(2) , SAVE :: prechk , xdmap
    LOGICAL :: skip
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -86,11 +92,11 @@ SUBROUTINE xosgen
 !
 !     INITIALIZE
 !
-   Ifirst = 0
+   ifirst = 0
    osbot = 1
-   Nwords = 0
+   nwords = 0
    lookup = 0
-   Preflg = 0
+   preflg = 0
    ivrept = 0
    ilevel = 0
    skip = .FALSE.
@@ -101,7 +107,7 @@ SUBROUTINE xosgen
 !     FOR RESTART ALLOW CHECKPOINT AND JUMP ENTRIES TO BE INSERTED IN
 !     OSCAR BY XGPI.
 !
-   IF ( Start/=Icst ) oscar(osbot+1) = 3
+   IF ( start/=icst ) oscar(osbot+1) = 3
 !
 !     ALLOCATE 50 WORDS IN OPEN CORE FOR LBLTBL AND SET LBLTBL
 !     PARAMETERS.
@@ -114,16 +120,16 @@ SUBROUTINE xosgen
 !
 !     INITIALIZE DMPCRD ARRAY FOR RIGID FORMAT
 !
-   Icrdtp = loscar
+   icrdtp = loscar
 !
 !     ****************************************
 !     PREPARE TO PROCESS NEXT DMAP INSTRUCTION
 !     ****************************************
 !
- 100  Dmpcnt = Dmpcnt + 1
-   IF ( Iapp/=Idmapp ) THEN
-      Medpnt = med(Medtp+1)*(Dmpcnt-1) + Medtp + 2
-      IF ( med(Medtp)<Dmpcnt .AND. Iapp/=Idmapp ) THEN
+ 100  dmpcnt = dmpcnt + 1
+   IF ( iapp/=idmapp ) THEN
+      medpnt = med(medtp+1)*(dmpcnt-1) + medtp + 2
+      IF ( med(medtp)<dmpcnt .AND. iapp/=idmapp ) THEN
 !
 !     DMAP SEQUENCE DOES NOT CORRESPOND TO MED TABLE
 !
@@ -131,33 +137,33 @@ SUBROUTINE xosgen
 !
 !     RETURN WHEN XGPI HAS BEEN DISASTERED.
 !
-         Nogo = 2
+         nogo = 2
          GOTO 99999
       ENDIF
    ENDIF
-   Newcrd = -1
-   Insert = 0
+   newcrd = -1
+   insert = 0
 !
 !     SEE IF DMAP INSTRUCTION IS TO BE DELETED OR INSERTED
 !
-   IF ( Alter(1)/=0 .AND. Alter(1)<=Dmpcnt ) THEN
-      IF ( Alter(1)<=Dmpcnt .AND. Alter(2)>=Dmpcnt ) THEN
+   IF ( alter(1)/=0 .AND. alter(1)<=dmpcnt ) THEN
+      IF ( alter(1)<=dmpcnt .AND. alter(2)>=dmpcnt ) THEN
 !
 !     SET INSERT FLAG TO NO PRINT
 !
-         Insert = -2
+         insert = -2
          GOTO 400
       ELSE
-         IF ( Alter(2)/=0 ) THEN
+         IF ( alter(2)/=0 ) THEN
 !
 !     JUST FINISHED DELETING, SET INSERT AND ALTER FOR INSERTING
 !
-            Alter(1) = Alter(2)
-            Alter(2) = 0
+            alter(1) = alter(2)
+            alter(2) = 0
          ENDIF
-         IF ( Alter(1)==Dmpcnt-1 ) THEN
-            Insert = 1
-            Dmpcnt = Dmpcnt - 1
+         IF ( alter(1)==dmpcnt-1 ) THEN
+            insert = 1
+            dmpcnt = dmpcnt - 1
             GOTO 200
          ENDIF
       ENDIF
@@ -166,13 +172,13 @@ SUBROUTINE xosgen
 !     GET NEXT DMAP INSTRUCTION
 !     FOR RIGID FORMAT SEE IF OSCAR ENTRY IS PART OF SUBSET
 !
-   IF ( Iapp/=Idmapp ) THEN
-      i = med(Medtp+1)
+   IF ( iapp/=idmapp ) THEN
+      i = med(medtp+1)
       DO j = 1 , i
-         k = Medpnt + j - 1
+         k = medpnt + j - 1
          IF ( med(k)/=0 ) GOTO 200
       ENDDO
-      Insert = -2
+      insert = -2
       GOTO 400
    ENDIF
 !
@@ -186,41 +192,41 @@ SUBROUTINE xosgen
          skip = .FALSE.
          ilevel = ilevel - 1
       ELSE
-         IF ( skip ) Insert = Insert - 2
+         IF ( skip ) insert = insert - 2
       ENDIF
    ENDIF
 !
-   IF ( lookup==1 .AND. Preflg/=0 ) THEN
-      Preflg = -Preflg
+   IF ( lookup==1 .AND. preflg/=0 ) THEN
+      preflg = -preflg
       CALL autock(ospnt)
    ENDIF
-   Modnam = 1
+   modnam = 1
    lookup = 0
    CALL xscndm
-   Modnam = 0
-   IF ( Irturn==1 .OR. Irturn==3 ) THEN
+   modnam = 0
+   IF ( irturn==1 .OR. irturn==3 ) THEN
 !
 !     NO MACRO INSTRUCTION NAME ON DMAP CARD.
 !
-      CALL xgpidg(12,0,Dmpcnt,0)
-   ELSEIF ( Irturn==4 ) THEN
+      CALL xgpidg(12,0,dmpcnt,0)
+   ELSEIF ( irturn==4 ) THEN
       GOTO 100
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
    ELSEIF ( .NOT.skip ) THEN
 !
 !     FIND MPL ENTRY AND BRANCH ON TYPE
 !
-      Mplpnt = 1
-      Modidx = 1
-      IF ( Dmap(Dmppnt)==prechk(1) .AND. Dmap(Dmppnt+1)==prechk(2) ) THEN
+      mplpnt = 1
+      modidx = 1
+      IF ( dmap(dmppnt)==prechk(1) .AND. dmap(dmppnt+1)==prechk(2) ) THEN
          DO
 !
 !     PROCESS PRECHK CARD
 !
             index = 3
             CALL xscndm
-            IF ( Irturn==1 .OR. Irturn==3 .OR. Irturn==4 .OR. Irturn==5 ) THEN
+            IF ( irturn==1 .OR. irturn==3 .OR. irturn==4 .OR. irturn==5 ) THEN
 !
 !     DMAP FORMAT ERROR
 !
@@ -229,32 +235,32 @@ SUBROUTINE xosgen
 !
 !     TEST FOR  ALL  OPTION OR BLANK
 !
-            ELSEIF ( Dmap(Dmppnt)/=Nblank ) THEN
-               Preflg = 1
-               Nnames = 0
-               IF ( Dmap(Dmppnt)==Namopt(23) ) GOTO 3200
-               IF ( Dmap(Dmppnt)/=Nend ) GOTO 3100
-               Preflg = 0
+            ELSEIF ( dmap(dmppnt)/=nblank ) THEN
+               preflg = 1
+               nnames = 0
+               IF ( dmap(dmppnt)==namopt(23) ) GOTO 3200
+               IF ( dmap(dmppnt)/=nend ) GOTO 3100
+               preflg = 0
                GOTO 3300
             ENDIF
          ENDDO
-      ELSEIF ( Dmap(Dmppnt)==xdmap(1) .AND. Dmap(Dmppnt+1)==xdmap(2) ) THEN
+      ELSEIF ( dmap(dmppnt)==xdmap(1) .AND. dmap(dmppnt+1)==xdmap(2) ) THEN
 !
 !     PROCESS XDMAP INSTRUCTION
 !
-         iold = Diag14
+         iold = diag14
          DO
             CALL xscndm
-            IF ( Irturn==1 .OR. Irturn==3 ) THEN
+            IF ( irturn==1 .OR. irturn==3 ) THEN
                CALL xgpidg(16,ospnt,0,0)
                EXIT
-            ELSEIF ( Irturn==2 ) THEN
-               IF ( Dmap(Dmppnt)==Nblank ) CYCLE
+            ELSEIF ( irturn==2 ) THEN
+               IF ( dmap(dmppnt)==nblank ) CYCLE
 !
 !     HAVE LOCATED AN XDMAP OPTION
 !
                DO k = 1 , 22 , 2
-                  IF ( Dmap(Dmppnt)==Namopt(k) .AND. Dmap(Dmppnt+1)==Namopt(k+1) ) GOTO 205
+                  IF ( dmap(dmppnt)==namopt(k) .AND. dmap(dmppnt+1)==namopt(k+1) ) GOTO 205
                ENDDO
 !
 !     ILLEGAL OPTION ON XDMAP CARD
@@ -268,73 +274,73 @@ SUBROUTINE xosgen
 !     CODE TO PROCESS  ERR  OPTION
 !
                   CALL xscndm
-                  IF ( Irturn==2 .OR. Irturn==3 .OR. Irturn==4 ) THEN
+                  IF ( irturn==2 .OR. irturn==3 .OR. irturn==4 ) THEN
                      CALL xgpidg(16,ospnt,0,0)
                      EXIT
-                  ELSEIF ( Irturn==5 ) THEN
+                  ELSEIF ( irturn==5 ) THEN
                      GOTO 3700
-                  ELSEIF ( Dmap(Dmppnt+1)/=Iequl ) THEN
+                  ELSEIF ( dmap(dmppnt+1)/=iequl ) THEN
                      CALL xgpidg(16,ospnt,0,0)
                      EXIT
                   ELSE
                      CALL xscndm
-                     IF ( Irturn==1 .OR. Irturn==2 .OR. Irturn==4 ) THEN
+                     IF ( irturn==1 .OR. irturn==2 .OR. irturn==4 ) THEN
                         CALL xgpidg(16,ospnt,0,0)
                         EXIT
-                     ELSEIF ( Irturn==5 ) THEN
+                     ELSEIF ( irturn==5 ) THEN
                         GOTO 3700
                      ELSE
-                        Iflg(2) = Dmap(Dmppnt+1)
-                        IF ( Iflg(2)<0 .OR. Iflg(2)>2 ) THEN
+                        iflg(2) = dmap(dmppnt+1)
+                        IF ( iflg(2)<0 .OR. iflg(2)>2 ) THEN
                            CALL xgpidg(56,0,0,0)
                            EXIT
                         ENDIF
                      ENDIF
                   ENDIF
                ELSEIF ( kk==4 ) THEN
-                  IF ( Diag14/=1 ) THEN
-                     Iflg(3) = 1
-                     Diag14 = 2
+                  IF ( diag14/=1 ) THEN
+                     iflg(3) = 1
+                     diag14 = 2
                   ENDIF
                ELSEIF ( kk==5 ) THEN
-                  IF ( Diag14/=1 ) THEN
-                     Iflg(3) = 0
-                     Diag14 = 0
+                  IF ( diag14/=1 ) THEN
+                     iflg(3) = 0
+                     diag14 = 0
                   ENDIF
                ELSEIF ( kk==6 ) THEN
-                  IF ( Diag17/=1 ) THEN
-                     Iflg(4) = 1
-                     Diag17 = 2
+                  IF ( diag17/=1 ) THEN
+                     iflg(4) = 1
+                     diag17 = 2
                   ENDIF
                ELSEIF ( kk==7 ) THEN
-                  IF ( Diag17/=1 ) THEN
-                     Iflg(4) = 0
-                     Diag17 = 0
+                  IF ( diag17/=1 ) THEN
+                     iflg(4) = 0
+                     diag17 = 0
                   ENDIF
                ELSEIF ( kk==8 ) THEN
-                  IF ( Diag25/=1 ) THEN
-                     Iflg(5) = 1
-                     Diag25 = 1
+                  IF ( diag25/=1 ) THEN
+                     iflg(5) = 1
+                     diag25 = 1
                   ENDIF
                ELSEIF ( kk==10 ) THEN
-                  IF ( Diag4/=1 ) THEN
-                     Iflg(6) = 1
-                     Diag4 = 1
+                  IF ( diag4/=1 ) THEN
+                     iflg(6) = 1
+                     diag4 = 1
                   ENDIF
                ELSE
-                  Iflg(1) = 0
+                  iflg(1) = 0
                ENDIF
-            ELSEIF ( Irturn==5 ) THEN
+            ELSEIF ( irturn==5 ) THEN
                GOTO 3700
             ELSE
                index = 2
-               IF ( iold==0 .OR. Ifirst==0 ) GOTO 1700
-               IF ( Start/=Icst ) WRITE (Optape,99001) Iplus , Iplus
+               IF ( iold==0 .OR. ifirst==0 ) GOTO 1700
+               IF ( start/=icst ) WRITE (optape,99001) iplus , iplus
 99001          FORMAT (A1,2X,A1)
                EXIT
             ENDIF
          ENDDO
-      ELSEIF ( Dmap(Dmppnt)==cdcomp(1) .AND. (Dmap(Dmppnt+1)==cdcomp(2) .OR. Dmap(Dmppnt+1)==cdcomp(3)) ) THEN
+      ELSEIF ( dmap(dmppnt)==cdcomp(1) .AND. (dmap(dmppnt+1)==cdcomp(2) .OR. dmap(dmppnt+1)==cdcomp(3)) ) THEN
 !
 !     PROCESS CONDCOMP INSTRUCTION
 !
@@ -342,48 +348,48 @@ SUBROUTINE xosgen
             CALL xgpidg(16,ospnt,0,0)
          ELSE
             ion = 0
-            IF ( Dmap(Dmppnt+1)==cdcomp(2) ) ion = 1
+            IF ( dmap(dmppnt+1)==cdcomp(2) ) ion = 1
             CALL xscndm
-            IF ( Irturn==1 .OR. Irturn==4 ) THEN
+            IF ( irturn==1 .OR. irturn==4 ) THEN
                CALL xgpidg(16,ospnt,0,0)
-            ELSEIF ( Irturn==3 ) THEN
+            ELSEIF ( irturn==3 ) THEN
 !
 !     INSTRUCTION COUNT GIVEN FOR END
 !
-               IF ( Dmap(Dmppnt+1)<0 ) THEN
+               IF ( dmap(dmppnt+1)<0 ) THEN
                   CALL xgpidg(16,ospnt,0,0)
                ELSE
-                  nskip(ilevel+1,1) = Dmap(Dmppnt+1)
+                  nskip(ilevel+1,1) = dmap(dmppnt+1)
                   GOTO 3400
                ENDIF
-            ELSEIF ( Irturn==5 ) THEN
+            ELSEIF ( irturn==5 ) THEN
                GOTO 3700
             ELSE
 !
 !     LABEL SPECIFIED FOR END
 !
-               nskip(ilevel+1,1) = Dmap(Dmppnt)
-               nskip(ilevel+1,2) = Dmap(Dmppnt+1)
+               nskip(ilevel+1,1) = dmap(dmppnt)
+               nskip(ilevel+1,2) = dmap(dmppnt+1)
                GOTO 3400
             ENDIF
          ENDIF
       ELSE
-         DO WHILE ( Mpl(Mplpnt+1)/=Dmap(Dmppnt) .OR. Mpl(Mplpnt+2)/=Dmap(Dmppnt+1) )
+         DO WHILE ( mpl(mplpnt+1)/=dmap(dmppnt) .OR. mpl(mplpnt+2)/=dmap(dmppnt+1) )
 !
 !     CHECK FOR ERROR IN MPL TABLE
 !
-            IF ( Mpl(Mplpnt)<1 .OR. Mpl(Mplpnt)>Lmpl ) THEN
+            IF ( mpl(mplpnt)<1 .OR. mpl(mplpnt)>lmpl ) THEN
                CALL xgpidg(49,0,0,0)
-               Nogo = 2
+               nogo = 2
                GOTO 99999
             ELSE
-               Mplpnt = Mpl(Mplpnt) + Mplpnt
-               Modidx = 1 + Modidx
-               IF ( Mplpnt>=Lmpl ) THEN
+               mplpnt = mpl(mplpnt) + mplpnt
+               modidx = 1 + modidx
+               IF ( mplpnt>=lmpl ) THEN
 !
 !     NO MPL ENTRY FOR THIS DMAP MACRO INSTRUCTION
 !
-                  CALL xgpidg(13,0,Dmppnt,Dmpcnt)
+                  CALL xgpidg(13,0,dmppnt,dmpcnt)
                   GOTO 300
                ENDIF
             ENDIF
@@ -391,13 +397,13 @@ SUBROUTINE xosgen
 !
 !     GET FORMAT TYPE FROM MPL AND BRANCH
 !
-         i = Mpl(Mplpnt+3)
+         i = mpl(mplpnt+3)
          IF ( i<1 .OR. i>5 ) THEN
 !
 !     MPL TABLE INCORRECT
 !
             CALL xgpidg(49,0,0,0)
-            Nogo = 2
+            nogo = 2
             GOTO 99999
          ELSEIF ( i==1 .OR. i==2 ) THEN
 !
@@ -418,7 +424,7 @@ SUBROUTINE xosgen
 !
 !     DMAP INPUT FILE ERROR
 !
-            IF ( Irturn==2 ) CALL xgpidg(-10,ospnt,0,0)
+            IF ( irturn==2 ) CALL xgpidg(-10,ospnt,0,0)
 !
 !     SAVE POINTER TO O/P FILE SECTION
 !
@@ -430,36 +436,36 @@ SUBROUTINE xosgen
 !
 !     DMAP OUTPUT FILE ERROR
 !
-            IF ( Irturn==2 ) CALL xgpidg(-11,ospnt,0,0)
+            IF ( irturn==2 ) CALL xgpidg(-11,ospnt,0,0)
 !
 !     NUMBER OF SCRATCH FILES TO OSCAR
 !
             i = ospnt + oscar(ospnt)
-            oscar(i) = Mpl(Mplpnt)
+            oscar(i) = mpl(mplpnt)
 !
 !     INCREMENT OSCAR WORD COUNT AND MPLPNT
 !
             oscar(ospnt) = 1 + oscar(ospnt)
-            Mplpnt = 1 + Mplpnt
+            mplpnt = 1 + mplpnt
 !
 !     GENERATE PARAMETER SECTION
 !
             CALL xparam
-            IF ( Irturn==2 ) GOTO 3700
+            IF ( irturn==2 ) GOTO 3700
 !
 !     CONTINUE COMPILATION
 !     ZERO INTERNAL CHECKPOINT FLAG IN OSCAR ENTRY FOR TYPE F ENTRY
 !
-            IF ( andf(oscar(ospnt+2),Maskhi)/=2 ) THEN
+            IF ( andf(oscar(ospnt+2),maskhi)/=2 ) THEN
                i = ospnt + oscar(ospnt)
                oscar(i) = 0
                oscar(ospnt) = 1 + oscar(ospnt)
             ENDIF
-            IF ( Nwords/=0 ) THEN
+            IF ( nwords/=0 ) THEN
                CALL autosv
-               Nwords = 0
+               nwords = 0
             ENDIF
-            IF ( Preflg/=0 .AND. Istopf/=0 ) CALL autock(Istopf)
+            IF ( preflg/=0 .AND. istopf/=0 ) CALL autock(istopf)
          ELSEIF ( i==3 ) THEN
 !
 !     ***************************************
@@ -476,40 +482,40 @@ SUBROUTINE xosgen
 !
 !     CHECK FOR END CARD
 !
-            IF ( oscar(ospnt+3)==Nend ) THEN
-               oscar(ospnt+3) = Nexit
+            IF ( oscar(ospnt+3)==nend ) THEN
+               oscar(ospnt+3) = nexit
                iendf = 1
 !
 !     SET EXECUTE FLAG IN OSCAR FOR END
 !
-               oscar(ospnt+5) = orf(Isgnon,oscar(ospnt+5))
+               oscar(ospnt+5) = orf(isgnon,oscar(ospnt+5))
             ENDIF
 !
 !     GET NEXT ENTRY IN DMAP
 !
             CALL xscndm
-            IF ( Irturn==1 ) THEN
+            IF ( irturn==1 ) THEN
                CALL xgpidg(16,ospnt,0,0)
-            ELSEIF ( Irturn==3 .OR. Irturn==4 ) THEN
+            ELSEIF ( irturn==3 .OR. irturn==4 ) THEN
 !
 !     EXIT DMAP INSTRUCTION, SET EXECUTE FLAG AND OSCAR VALUE SECTION.
 !
-               IF ( oscar(ospnt+3)/=Nexit ) THEN
+               IF ( oscar(ospnt+3)/=nexit ) THEN
                   CALL xgpidg(16,ospnt,0,0)
                ELSE
-                  IF ( Dmap(Dmppnt)/=Intgr ) Dmap(Dmppnt+1) = 0
-                  Dmap(Dmppnt) = Intgr
-                  Dmap(Dmppnt+2) = rshift(Iallon,1)
+                  IF ( dmap(dmppnt)/=intgr ) dmap(dmppnt+1) = 0
+                  dmap(dmppnt) = intgr
+                  dmap(dmppnt+2) = rshift(iallon,1)
                   GOTO 900
                ENDIF
-            ELSEIF ( Irturn==5 ) THEN
+            ELSEIF ( irturn==5 ) THEN
                GOTO 3700
             ELSE
 !
 !     IF NEXT DMAP ENTRY IS BCD IT SHOULD BE LABEL NAME FOR BRANCH
 !     DMAP INSTRUCTION.
 !
-               IF ( oscar(ospnt+3)==Nexit ) THEN
+               IF ( oscar(ospnt+3)==nexit ) THEN
                   CALL xgpidg(16,ospnt,0,0)
                   GOTO 300
                ELSE
@@ -518,7 +524,7 @@ SUBROUTINE xosgen
 !
                   IF ( lstlbl>=lbltop ) THEN
                      DO j = lbltop , lstlbl , 4
-                        IF ( Dmap(Dmppnt)==lbltbl(j) .AND. Dmap(Dmppnt+1)==lbltbl(j+1) ) GOTO 210
+                        IF ( dmap(dmppnt)==lbltbl(j) .AND. dmap(dmppnt+1)==lbltbl(j+1) ) GOTO 210
                      ENDDO
                   ENDIF
 !
@@ -543,11 +549,11 @@ SUBROUTINE xosgen
 !     PREFIX MODULE NAME WITH AN X
 !
             DO i = 1 , 6
-               IF ( Ntypee(i)==Dmap(Dmppnt) ) EXIT
+               IF ( ntypee(i)==dmap(dmppnt) ) EXIT
             ENDDO
             i = 2*i - 1
-            Dmap(Dmppnt) = namtbl(i)
-            Dmap(Dmppnt+1) = namtbl(i+1)
+            dmap(dmppnt) = namtbl(i)
+            dmap(dmppnt+1) = namtbl(i+1)
 !
 !     GENERATE LINK HEADER FOR OSCAR
 !
@@ -570,12 +576,12 @@ SUBROUTINE xosgen
 !     GET PARAMETER NAME FROM DMAP.
 !
                   CALL xscndm
-                  IF ( Irturn==1 .OR. Irturn==3 ) THEN
+                  IF ( irturn==1 .OR. irturn==3 ) THEN
 !
 !     ILLEGAL CHARACTERS IN DMAP SAVE PARAMETER NAME LIST
 !
                      CALL xgpidg(20,ospnt,oscar(i)+1,0)
-                  ELSEIF ( Irturn==4 ) THEN
+                  ELSEIF ( irturn==4 ) THEN
 !
 !
 !     END OF SAVE PARAMETER NAME LIST, INCREMENT OSCAR WORD COUNT.
@@ -587,7 +593,7 @@ SUBROUTINE xosgen
 !
                      iosdav = osprc
                      IF ( oscar(osprc+3)==xchk ) osprc = os2b4
-                     IF ( andf(oscar(osprc+2),Maskhi)>2 ) THEN
+                     IF ( andf(oscar(osprc+2),maskhi)>2 ) THEN
 !
 !     SAVE OUT OF POSITION
 !
@@ -599,7 +605,7 @@ SUBROUTINE xosgen
 !     J = OSCAR POINTER TO BEGINNING OF PARAMETER SECTION.
 !
                         j = osprc + 6 + 3*oscar(osprc+6) + 1
-                        IF ( andf(oscar(osprc+2),Maskhi)==1 ) j = j + 1 + 3*oscar(j)
+                        IF ( andf(oscar(osprc+2),maskhi)==1 ) j = j + 1 + 3*oscar(j)
                         j = j + 1
 !
 !     N1 = PARAMETER COUNT,N2=PARAMETER DISPLACEMENT IN COMMON,
@@ -612,7 +618,7 @@ SUBROUTINE xosgen
 !     SCAN PARAMETER LIST OF PRECEDING OSCAR ENTRY
 !
                         DO m = 1 , n1
-                           l = andf(oscar(n3),Nosgn)
+                           l = andf(oscar(n3),nosgn)
                            IF ( oscar(n3)>0 ) THEN
 !
 !     CONSTANT PARAMETER, INCREMENT N2, N3
@@ -631,7 +637,7 @@ SUBROUTINE xosgen
                               GOTO 214
                            ENDIF
  212                       oscar(k1+1) = n2
- 214                       l = andf(Vps(l-1),Maskhi)
+ 214                       l = andf(vps(l-1),maskhi)
  216                       n2 = n2 + l
 !
 !     PARAMETER SECTION SCANNED, CHECK EXSAVE PARAMETER LIST FOR
@@ -646,12 +652,12 @@ SUBROUTINE xosgen
                         DO k1 = i1 , k , 2
                            IF ( oscar(k1)<=0 .AND. oscar(k1-1)/=0 ) THEN
                               j = oscar(k1-1)
-                              CALL xgpidg(21,ospnt,Vps(j-3),Vps(j-2))
+                              CALL xgpidg(21,ospnt,vps(j-3),vps(j-2))
                            ENDIF
                         ENDDO
                      ENDIF
                      EXIT
-                  ELSEIF ( Irturn==5 ) THEN
+                  ELSEIF ( irturn==5 ) THEN
                      GOTO 3700
                   ELSE
 !
@@ -662,14 +668,14 @@ SUBROUTINE xosgen
                      oscar(k) = 0
                      oscar(k+1) = 0
                      j = 3
-                     DO WHILE ( Vps(j)/=Dmap(Dmppnt) .OR. Vps(j+1)/=Dmap(Dmppnt+1) )
-                        l = andf(Vps(j+2),Maskhi)
+                     DO WHILE ( vps(j)/=dmap(dmppnt) .OR. vps(j+1)/=dmap(dmppnt+1) )
+                        l = andf(vps(j+2),maskhi)
                         j = j + l + 3
-                        IF ( j>=Vps(2) ) THEN
+                        IF ( j>=vps(2) ) THEN
 !
 !     XSAVE PARAMETER NAME NOT ON PRECEDING DMAP CARD
 !
-                           CALL xgpidg(21,ospnt,Dmap(Dmppnt),Dmap(Dmppnt+1))
+                           CALL xgpidg(21,ospnt,dmap(dmppnt),dmap(dmppnt+1))
                            GOTO 220
 !
 !     PARAMETER NOT IN VPS - ERROR
@@ -699,7 +705,7 @@ SUBROUTINE xosgen
 !
 !     DUPLICATE PARAMETER NAMES (WARNING)
 !
-                     CALL xgpidg(-2,ospnt,Dmap(Dmppnt),Dmap(Dmppnt+1))
+                     CALL xgpidg(-2,ospnt,dmap(dmppnt),dmap(dmppnt+1))
                   ENDIF
  220           ENDDO
             ELSEIF ( i==3 .OR. i==4 .OR. i==5 .OR. i==6 ) THEN
@@ -708,24 +714,24 @@ SUBROUTINE xosgen
 !
 !     EXTIME ENTRY, CHECK ESTIM IN CONTROL FILE
 !
-               oscar(ospnt+5) = andf(oscar(ospnt+5),Nosgn)
-               IF ( Iestim/=0 ) THEN
+               oscar(ospnt+5) = andf(oscar(ospnt+5),nosgn)
+               IF ( iestim/=0 ) THEN
 !
 !     GET TIME SEGMENT NAME
 !
                   CALL xscndm
-                  IF ( Irturn==1 .OR. Irturn==3 .OR. Irturn==4 ) THEN
+                  IF ( irturn==1 .OR. irturn==3 .OR. irturn==4 ) THEN
 !
 !     TIME SEGMENT NAME INCORRECT - WARNING ONLY
 !
                      CALL xgpidg(-17,ospnt,0,0)
-                  ELSEIF ( Irturn==5 ) THEN
+                  ELSEIF ( irturn==5 ) THEN
                      GOTO 3700
                   ELSE
-                     i = Iestim + Ictlfl(Iestim) - 1
-                     j = Iestim + 1
+                     i = iestim + ictlfl(iestim) - 1
+                     j = iestim + 1
                      DO k = j , i , 2
-                        IF ( Dmap(Dmppnt)==Ictlfl(k) .AND. Dmap(Dmppnt+1)==Ictlfl(k+1) ) oscar(ospnt+5) = orf(oscar(ospnt+5),Isgnon)
+                        IF ( dmap(dmppnt)==ictlfl(k) .AND. dmap(dmppnt+1)==ictlfl(k+1) ) oscar(ospnt+5) = orf(oscar(ospnt+5),isgnon)
                      ENDDO
                   ENDIF
                ENDIF
@@ -739,15 +745,15 @@ SUBROUTINE xosgen
 !     PUT DUMMY ENTRY IN OSCAR FOR DIAGNOSTIC USE.
 !
             j = osbot + oscar(osbot)
-            oscar(j+3) = Dmap(Dmppnt)
-            oscar(j+4) = Dmap(Dmppnt+1)
-            oscar(j+5) = Dmpcnt
+            oscar(j+3) = dmap(dmppnt)
+            oscar(j+4) = dmap(dmppnt+1)
+            oscar(j+5) = dmpcnt
             CALL xlnkhd
 !
 !     NOW PROCESS INSTRUCTION
 !
             DO j = 1 , 3
-               IF ( Dmap(Dmppnt)==declar(j) ) THEN
+               IF ( dmap(dmppnt)==declar(j) ) THEN
                   IF ( j==1 ) EXIT
                   IF ( j==2 ) GOTO 2000
                   IF ( j==3 ) GOTO 2400
@@ -764,8 +770,8 @@ SUBROUTINE xosgen
 !
 !     CHECK LABELS EVEN IF CONDITIONAL COMPILATION
 !
-      IF ( Dmap(Dmppnt)==declar(2) ) GOTO 2000
-      GOTO 400
+      IF ( dmap(dmppnt)/=declar(2) ) GOTO 400
+      GOTO 2000
    ENDIF
 !
 !     *****************************************************
@@ -774,7 +780,7 @@ SUBROUTINE xosgen
 !
 !     CHECK FOR FATAL ERROR
 !
- 300  IF ( Nogo==2 ) GOTO 3700
+ 300  IF ( nogo==2 ) GOTO 3700
 !
 !     CHECK FOR END OF DMAP SEQUENCE.
 !
@@ -786,9 +792,9 @@ SUBROUTINE xosgen
 !
 !     CHECK FOR DISCREPENCY BETWEEN RIGID FORMAT AND MED TABLE.
 !
-      IF ( med(Medtp)/=Dmpcnt .AND. Iapp/=Idmapp ) THEN
+      IF ( med(medtp)/=dmpcnt .AND. iapp/=idmapp ) THEN
          CALL xgpidg(39,0,0,0)
-         Nogo = 2
+         nogo = 2
          GOTO 99999
       ELSE
 !
@@ -800,39 +806,39 @@ SUBROUTINE xosgen
 !     FIND PARAMETER NAME IN VPS
 !
             k = 3
-            DO WHILE ( lbltbl(lstpar)/=Vps(k) .OR. lbltbl(lstpar+1)/=Vps(k+1) )
-               k = k + andf(Vps(k+2),Maskhi) + 3
-               IF ( k>=Vps(2) ) THEN
+            DO WHILE ( lbltbl(lstpar)/=vps(k) .OR. lbltbl(lstpar+1)/=vps(k+1) )
+               k = k + andf(vps(k+2),maskhi) + 3
+               IF ( k>=vps(2) ) THEN
 !
 !     SEARCH PVT TABLE FOR PARAMETER. IF FOUND ENTER PARAMETER IN VPS.
 !
                   k1 = 3
                   DO
-                     Length = andf(Pvt(k1+2),Nosgn)
-                     Length = itype(Length)
-                     IF ( lbltbl(lstpar)==Pvt(k1) .AND. lbltbl(lstpar+1)==Pvt(k1+1) ) THEN
-                        k = Vps(2) + 1
-                        Pvt(k1+2) = orf(Pvt(k1+2),Isgnon)
-                        Vps(2) = k + 2 + Length
-                        IF ( Vps(2)>=Vps(1) ) THEN
+                     length = andf(pvt(k1+2),nosgn)
+                     length = itype(length)
+                     IF ( lbltbl(lstpar)==pvt(k1) .AND. lbltbl(lstpar+1)==pvt(k1+1) ) THEN
+                        k = vps(2) + 1
+                        pvt(k1+2) = orf(pvt(k1+2),isgnon)
+                        vps(2) = k + 2 + length
+                        IF ( vps(2)>=vps(1) ) THEN
 !
 !     VPS TABLE OVERFLOWED
 !
-                           CALL xgpidg(14,nvps,Nblank,0)
-                           Nogo = 2
+                           CALL xgpidg(14,nvps,nblank,0)
+                           nogo = 2
                            GOTO 99999
                         ELSE
-                           k2 = Length + 3
+                           k2 = length + 3
                            DO m = 1 , k2
                               j = k + m - 1
                               j1 = k1 + m - 1
-                              Vps(j) = Pvt(j1)
+                              vps(j) = pvt(j1)
                            ENDDO
                            GOTO 310
                         ENDIF
                      ELSE
-                        k1 = k1 + Length + 3
-                        IF ( k1>=Pvt(2) ) THEN
+                        k1 = k1 + length + 3
+                        IF ( k1>=pvt(2) ) THEN
 !
 !     PARAMETER NOT DEFINED FOR USE IN COND, PURGE OR EQUIV INSTRUCTIONS
 !
@@ -868,9 +874,9 @@ SUBROUTINE xosgen
 !     CHECK FOR $ ENTRY IN DMAP AND GET NEXT DMAP INSTRUCTION
 !
       CALL xscndm
-      IF ( Irturn==4 ) GOTO 100
-      IF ( Irturn==5 ) GOTO 3700
-      IF ( Nogo==0 .AND. Insert>=0 ) THEN
+      IF ( irturn==4 ) GOTO 100
+      IF ( irturn==5 ) GOTO 3700
+      IF ( nogo==0 .AND. insert>=0 ) THEN
          CALL xgpidg(16,ospnt,0,0)
          GOTO 300
       ENDIF
@@ -878,12 +884,12 @@ SUBROUTINE xosgen
 !
 !     MAKE NEW ENTRY IN LABEL TABLE, CHECK FOR TABLE OVERFLOW
 !
- 500  ASSIGN 600 TO Irturn
+ 500  ASSIGN 600 TO irturn
    IF ( lstlbl+8>=lstpar ) GOTO 3900
  600  lstlbl = lstlbl + 4
    j = lstlbl
-   lbltbl(j) = Dmap(Dmppnt)
-   lbltbl(j+1) = Dmap(Dmppnt+1)
+   lbltbl(j) = dmap(dmppnt)
+   lbltbl(j+1) = dmap(dmppnt+1)
    lbltbl(j+2) = ldef
  700  lbltbl(j+3) = ospnt
 !
@@ -891,93 +897,93 @@ SUBROUTINE xosgen
 !     VALUE FOR REPT.
 !
    CALL xscndm
-   IF ( Irturn==1 ) THEN
+   IF ( irturn==1 ) THEN
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
-   ELSEIF ( Irturn==2 ) THEN
+   ELSEIF ( irturn==2 ) THEN
 !
 !     COND DMAP INSTRUCTION, ENTER PARAMETER NAME IN LABEL TABLE.
 !
-      IF ( oscar(ospnt+3)==Nrept ) THEN
+      IF ( oscar(ospnt+3)==nrept ) THEN
          ivrept = 1
          GOTO 900
-      ELSEIF ( oscar(ospnt+3)/=Ncond ) THEN
+      ELSEIF ( oscar(ospnt+3)/=ncond ) THEN
          CALL xgpidg(16,ospnt,0,0)
          GOTO 300
       ELSE
-         ASSIGN 800 TO Irturn
+         ASSIGN 800 TO irturn
          IF ( lstpar-8<=lstlbl ) GOTO 3900
       ENDIF
-   ELSEIF ( Irturn==3 ) THEN
+   ELSEIF ( irturn==3 ) THEN
 !
 !     REPT DMAP INSTRUCTION, COUNT TO VALUE SECTION.
 !
-      IF ( oscar(ospnt+3)==Nrept ) GOTO 900
+      IF ( oscar(ospnt+3)==nrept ) GOTO 900
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
    ELSE
 !
 !     DMAP INSTRUCTION IS JUMP
 !
       oscar(ospnt+6) = 0
-      IF ( oscar(ospnt+3)/=Njump ) CALL xgpidg(16,ospnt,0,0)
+      IF ( oscar(ospnt+3)/=njump ) CALL xgpidg(16,ospnt,0,0)
       GOTO 300
    ENDIF
  800  lstpar = lstpar - 4
-   lbltbl(lstpar) = Dmap(Dmppnt)
-   lbltbl(lstpar+1) = Dmap(Dmppnt+1)
+   lbltbl(lstpar) = dmap(dmppnt)
+   lbltbl(lstpar+1) = dmap(dmppnt+1)
    lbltbl(lstpar+2) = ospnt + 6
    lbltbl(lstpar+3) = ospnt
    GOTO 300
 !
 !     ENTER LOOP COUNT IN CEITBL FOR REPT AND EXIT INSTRUCTIONS
 !
- 900  Ceitbl(2) = Ceitbl(2) + 4
-   IF ( Ceitbl(2)>Ceitbl(1) ) THEN
+ 900  ceitbl(2) = ceitbl(2) + 4
+   IF ( ceitbl(2)>ceitbl(1) ) THEN
 !
 !     CEITBL OVERFLOW, DISCONTINUE COMPILATION
 !
-      CALL xgpidg(14,nceit1,nceit2,Dmpcnt)
-      Nogo = 2
+      CALL xgpidg(14,nceit1,nceit2,dmpcnt)
+      nogo = 2
       GOTO 99999
    ELSE
 !
 !     I = POINTER TO LOOP COUNT IN CEITBL ENTRY
 !
-      i = Ceitbl(2) - 2
+      i = ceitbl(2) - 2
       IF ( ivrept==0 ) THEN
-         Ceitbl(i) = lshift(Dmap(Dmppnt+1),16)
+         ceitbl(i) = lshift(dmap(dmppnt+1),16)
       ELSE
 !
 !     PROCESS VARIABLE REPT INSTRUCTION - FIND PARAM IN VPS
 !
          kdh = 3
-         DO WHILE ( Dmap(Dmppnt)/=Vps(kdh) .OR. Dmap(Dmppnt+1)/=Vps(kdh+1) )
-            kdh = kdh + andf(Vps(kdh+2),Maskhi) + 3
-            IF ( kdh>=Vps(2) ) THEN
+         DO WHILE ( dmap(dmppnt)/=vps(kdh) .OR. dmap(dmppnt+1)/=vps(kdh+1) )
+            kdh = kdh + andf(vps(kdh+2),maskhi) + 3
+            IF ( kdh>=vps(2) ) THEN
 !
 !     CHECK PVT FOR PARAMETER
 !
                kdh = 3
                DO
-                  Length = andf(Pvt(kdh+2),Nosgn)
-                  Length = itype(Length)
-                  IF ( Dmap(Dmppnt)/=Pvt(kdh) .OR. Dmap(Dmppnt+1)/=Pvt(kdh+1) ) THEN
-                     kdh = kdh + Length + 3
-                     IF ( kdh>=Pvt(2) ) THEN
+                  length = andf(pvt(kdh+2),nosgn)
+                  length = itype(length)
+                  IF ( dmap(dmppnt)/=pvt(kdh) .OR. dmap(dmppnt+1)/=pvt(kdh+1) ) THEN
+                     kdh = kdh + length + 3
+                     IF ( kdh>=pvt(2) ) THEN
 !
 !     VARIABLE REPT INSTRUCTION ERRORS
 !
                         CALL xgpidg(58,0,0,0)
                         GOTO 300
                      ENDIF
-                  ELSEIF ( Length/=itype(1) ) THEN
+                  ELSEIF ( length/=itype(1) ) THEN
                      CALL xgpidg(57,0,0,0)
                      GOTO 300
                   ELSE
-                     Ceitbl(i) = lshift(Pvt(kdh+3),16)
+                     ceitbl(i) = lshift(pvt(kdh+3),16)
                      GOTO 950
                   ENDIF
                ENDDO
@@ -986,19 +992,19 @@ SUBROUTINE xosgen
 !
 !     PARAMETER FOUND
 !
-         IF ( andf(rshift(Vps(kdh+2),16),15)/=1 ) THEN
+         IF ( andf(rshift(vps(kdh+2),16),15)/=1 ) THEN
             CALL xgpidg(57,0,0,0)
             GOTO 300
          ELSE
-            Ceitbl(i) = lshift(kdh,16)
-            Ceitbl(i) = orf(Ceitbl(i),Isgnon)
+            ceitbl(i) = lshift(kdh,16)
+            ceitbl(i) = orf(ceitbl(i),isgnon)
          ENDIF
       ENDIF
 !
 !     FIRST WORD OF CEITBL ENTRY CONTAINS OSCAR RECORD NUMBERS OF
 !     BEGINNING AND END OF LOOP
 !
- 950  Ceitbl(i-1) = Iseqn
+ 950  ceitbl(i-1) = iseqn
       ivrept = 0
 !
 !     OSCAR VALUE SECTION CONTAINS POINTER TO LOOP COUNT IN CEITBL ENTRY
@@ -1018,11 +1024,11 @@ SUBROUTINE xosgen
 !     GET NEXT ENTRY FROM DMAP CARD
 !
       CALL xscndm
-      IF ( Irturn==1 ) THEN
+      IF ( irturn==1 ) THEN
 !
 !     DMAP ENTRY IS OPERATOR, CHECK FOR / OPERATOR
 !
-         IF ( (Dmap(Dmppnt+1)/=Islsh) .OR. (oscar(ospnt+3)/=Nxequi .AND. oscar(ospnt+3)/=nxpurg) ) THEN
+         IF ( (dmap(dmppnt+1)/=islsh) .OR. (oscar(ospnt+3)/=nxequi .AND. oscar(ospnt+3)/=nxpurg) ) THEN
             CALL xgpidg(16,ospnt,0,0)
             GOTO 300
          ELSE
@@ -1035,30 +1041,30 @@ SUBROUTINE xosgen
             CALL xgpidg(16,ospnt,0,0)
             GOTO 300
          ENDIF
-      ELSEIF ( Irturn==3 ) THEN
+      ELSEIF ( irturn==3 ) THEN
          CALL xgpidg(16,ospnt,0,0)
          GOTO 300
-      ELSEIF ( Irturn==4 ) THEN
+      ELSEIF ( irturn==4 ) THEN
          GOTO 1500
-      ELSEIF ( Irturn==5 ) THEN
+      ELSEIF ( irturn==5 ) THEN
          GOTO 3700
       ELSE
 !
 !     DMAP ENTRY IS DATA BLOCK NAME, STORE IN OSCAR
 !
-         oscar(iospnt) = Dmap(Dmppnt)
-         oscar(iospnt+1) = Dmap(Dmppnt+1)
+         oscar(iospnt) = dmap(dmppnt)
+         oscar(iospnt+1) = dmap(dmppnt+1)
 !
 !     MAKE SURE FILE IS NOT BLANK
 !
-         IF ( oscar(iospnt)/=Nblank ) THEN
+         IF ( oscar(iospnt)/=nblank ) THEN
 !
 !     FOR CHKPNT - MAKE SURE FILE IS NOT OUTPUT BY USER I/P PROCESSOR
 !
             IF ( oscar(ospnt+3)==namtbl(7) ) THEN
-               m = Fiat(3)*Icfiat - 2
-               DO j = 4 , m , Icfiat
-                  IF ( oscar(iospnt)==Fiat(j+1) .AND. oscar(iospnt+1)==Fiat(j+2) ) GOTO 4100
+               m = fiat(3)*icfiat - 2
+               DO j = 4 , m , icfiat
+                  IF ( oscar(iospnt)==fiat(j+1) .AND. oscar(iospnt+1)==fiat(j+2) ) GOTO 4100
                ENDDO
             ENDIF
             EXIT
@@ -1083,32 +1089,32 @@ SUBROUTINE xosgen
 !     GET PARAMETER NAME AND ENTER INTO LBLTBL
 !
  1300 CALL xscndm
-   IF ( Irturn==1 ) GOTO 1600
-   IF ( Irturn==3 .OR. Irturn==4 ) THEN
+   IF ( irturn==1 ) GOTO 1600
+   IF ( irturn==3 .OR. irturn==4 ) THEN
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
    ELSE
       varflg = 1
-      IF ( Dmap(Dmppnt)==Nblank ) THEN
+      IF ( dmap(dmppnt)==nblank ) THEN
          CALL xscndm
-         IF ( Irturn==2 .OR. Irturn==3 .OR. Irturn==4 ) THEN
+         IF ( irturn==2 .OR. irturn==3 .OR. irturn==4 ) THEN
             CALL xgpidg(16,ospnt,0,0)
             GOTO 300
-         ELSEIF ( Irturn==5 ) THEN
+         ELSEIF ( irturn==5 ) THEN
             GOTO 3700
          ELSE
             GOTO 1600
          ENDIF
       ELSE
-         ASSIGN 1400 TO Irturn
+         ASSIGN 1400 TO irturn
          IF ( lstpar-8<=lstlbl ) GOTO 3900
       ENDIF
    ENDIF
  1400 lstpar = lstpar - 4
-   lbltbl(lstpar) = Dmap(Dmppnt)
-   lbltbl(lstpar+1) = Dmap(Dmppnt+1)
+   lbltbl(lstpar) = dmap(dmppnt)
+   lbltbl(lstpar+1) = dmap(dmppnt+1)
    lbltbl(lstpar+2) = iospnt
    lbltbl(lstpar+3) = ospnt
    idlhss = 2*oscar(nospnt) + oscar(ospnt) + 2
@@ -1118,11 +1124,11 @@ SUBROUTINE xosgen
 !     CHECK FOR POSSIBILITY OF ANOTHER DATA BLOCK NAME LIST.
 !
    CALL xscndm
-   IF ( Irturn==1 ) GOTO 1000
-   IF ( Irturn==2 .OR. Irturn==3 ) THEN
+   IF ( irturn==1 ) GOTO 1000
+   IF ( irturn==2 .OR. irturn==3 ) THEN
       CALL xgpidg(16,ospnt,0,0)
-   ELSEIF ( Irturn==4 ) THEN
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==4 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
    ELSE
       GOTO 1500
@@ -1132,7 +1138,7 @@ SUBROUTINE xosgen
 !     END OF DMAP INSTRUCTION, INCREMENT OSCAR WORD COUNT IF NOT XEQUIV
 !     OR XPURGE.
 !
- 1500 IF ( oscar(ospnt+3)/=Nxequi .AND. oscar(ospnt+3)/=nxpurg ) THEN
+ 1500 IF ( oscar(ospnt+3)/=nxequi .AND. oscar(ospnt+3)/=nxpurg ) THEN
       oscar(ospnt) = 2*oscar(nospnt) + oscar(ospnt) + 1
 !
 !     ELIMINATE ENTRY IF NOTHING CHECKPOINTED.
@@ -1145,7 +1151,7 @@ SUBROUTINE xosgen
       oscar(ospnt) = idlhss
    ENDIF
    GOTO 300
- 1600 IF ( (Dmap(Dmppnt+1)/=Islsh) .OR. (oscar(ospnt+3)/=Nxequi .AND. oscar(ospnt+3)/=nxpurg) ) THEN
+ 1600 IF ( (dmap(dmppnt+1)/=islsh) .OR. (oscar(ospnt+3)/=nxequi .AND. oscar(ospnt+3)/=nxpurg) ) THEN
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
    ELSE
@@ -1155,20 +1161,20 @@ SUBROUTINE xosgen
       oscar(ospnt) = idlhss
       GOTO 1000
    ENDIF
- 1700 IF ( Ifirst<=0 ) THEN
-      IF ( Diag14/=0 .OR. Diag17/=0 ) THEN
-         Ifirst = 1
-         CALL xgpimw(5,18,Dmpcnt,Ibuff)
-         IF ( Start/=Icst ) CALL xgpimw(10,0,0,0)
+ 1700 IF ( ifirst<=0 ) THEN
+      IF ( diag14/=0 .OR. diag17/=0 ) THEN
+         ifirst = 1
+         CALL xgpimw(5,18,dmpcnt,ibuff)
+         IF ( start/=icst ) CALL xgpimw(10,0,0,0)
       ENDIF
    ENDIF
  1800 IF ( index>1 ) GOTO 300
  1900 DO
       CALL xscndm
-      IF ( Irturn==1 .OR. Irturn==2 .OR. Irturn==3 ) THEN
-      ELSEIF ( Irturn==4 ) THEN
+      IF ( irturn==1 .OR. irturn==2 .OR. irturn==3 ) THEN
+      ELSEIF ( irturn==4 ) THEN
          GOTO 300
-      ELSEIF ( Irturn==5 ) THEN
+      ELSEIF ( irturn==5 ) THEN
          GOTO 3700
       ELSE
          EXIT
@@ -1178,25 +1184,25 @@ SUBROUTINE xosgen
 !     LABEL DECLARATIVE - GET LABEL NAME
 !
  2000 CALL xscndm
-   IF ( Irturn==1 .OR. Irturn==3 .OR. Irturn==4 ) GOTO 3800
-   IF ( Irturn==5 ) GOTO 3700
+   IF ( irturn==1 .OR. irturn==3 .OR. irturn==4 ) GOTO 3800
+   IF ( irturn==5 ) GOTO 3700
 !
 !     CHECK IF LABEL IS FOR CONDITIONAL COMPILATION
 !
-   IF ( Dmap(Dmppnt)/=nskip(ilevel,1) .OR. Dmap(Dmppnt+1)/=nskip(ilevel,2) ) THEN
+   IF ( dmap(dmppnt)/=nskip(ilevel,1) .OR. dmap(dmppnt+1)/=nskip(ilevel,2) ) THEN
       IF ( skip ) GOTO 300
 !
 !     SCAN LABEL TABLE FOR LABEL NAME
 !
       IF ( lstlbl>=lbltop ) THEN
          DO j = lbltop , lstlbl , 4
-            IF ( Dmap(Dmppnt)==lbltbl(j) .AND. Dmap(Dmppnt+1)==lbltbl(j+1) ) GOTO 2300
+            IF ( dmap(dmppnt)==lbltbl(j) .AND. dmap(dmppnt+1)==lbltbl(j+1) ) GOTO 2300
          ENDDO
       ENDIF
 !
 !     NAME NOT IN LABEL TABLE, MAKE NEW ENTRY
 !
-      ASSIGN 2100 TO Irturn
+      ASSIGN 2100 TO irturn
       IF ( lstlbl+8>=lstpar ) GOTO 3900
    ELSE
       ilevel = ilevel - 1
@@ -1205,10 +1211,10 @@ SUBROUTINE xosgen
    ENDIF
  2100 lstlbl = lstlbl + 4
    j = lstlbl
-   lbltbl(j) = Dmap(Dmppnt)
-   lbltbl(j+1) = Dmap(Dmppnt+1)
+   lbltbl(j) = dmap(dmppnt)
+   lbltbl(j+1) = dmap(dmppnt+1)
    lbltbl(j+3) = 0
- 2200 lbltbl(j+2) = Iseqn + 1
+ 2200 lbltbl(j+2) = iseqn + 1
    GOTO 300
 !
 !     LABEL NAME FOUND IN LABEL TABLE, DEF ENTRY SHOULD BE ZERO
@@ -1217,7 +1223,7 @@ SUBROUTINE xosgen
 !
 !     LABEL IS MULTIPLY DEFINED
 !
-   CALL xgpidg(19,Dmpcnt,Dmppnt,0)
+   CALL xgpidg(19,dmpcnt,dmppnt,0)
    GOTO 300
 !
 !     FILE DECLARATIVE
@@ -1225,11 +1231,11 @@ SUBROUTINE xosgen
 !     DO NOT PROCESS FILE DECLARATION WHEN EXECUTE FLAG IS OFF ON
 !     MODIFIED RESTART.
 !
- 2400 IF ( Start==Imst .AND. oscar(ospnt+5)>=0 ) GOTO 1900
+ 2400 IF ( start==imst .AND. oscar(ospnt+5)>=0 ) GOTO 1900
    i = 1
  2500 DO
       CALL xscndm
-      IF ( Irturn==2 ) THEN
+      IF ( irturn==2 ) THEN
 !
 !     NAME ENCOUNTERED - TEST FILE NAME FLAG
 !
@@ -1238,7 +1244,7 @@ SUBROUTINE xosgen
 !     FILE PARAMETER FOUND - ENTER APPROPRIATE CODE IN FILE TABLE
 !
             DO j = 1 , 3
-               IF ( Dmap(Dmppnt)==fparam(j) ) THEN
+               IF ( dmap(dmppnt)==fparam(j) ) THEN
                   IF ( j==1 ) GOTO 2700
                   IF ( j==2 ) GOTO 2800
                   IF ( j==3 ) GOTO 2900
@@ -1250,42 +1256,42 @@ SUBROUTINE xosgen
 !
 !     FILE NAME - ENTER IN FILE TABLE
 !
-            Fpnt = Fpnt + 3
-            IF ( Fpnt>Lfile-2 ) THEN
+            fpnt = fpnt + 3
+            IF ( fpnt>lfile-2 ) THEN
 !
 !     OVERFLOWED FILE TABLE
 !
-               CALL xgpidg(14,nfile,Nblank,0)
-               Nogo = 2
+               CALL xgpidg(14,nfile,nblank,0)
+               nogo = 2
                GOTO 99999
             ELSE
-               File(Fpnt) = Dmap(Dmppnt)
-               File(Fpnt+1) = Dmap(Dmppnt+1)
+               file(fpnt) = dmap(dmppnt)
+               file(fpnt+1) = dmap(dmppnt+1)
 !
 !     PUT FILE NAME INTO LABEL TABLE FOR DMAP XREF
 !
-               ASSIGN 2600 TO Irturn
+               ASSIGN 2600 TO irturn
                IF ( lstlbl+8<lstpar ) EXIT
                GOTO 3900
             ENDIF
          ENDIF
-      ELSEIF ( Irturn==3 ) THEN
+      ELSEIF ( irturn==3 ) THEN
          GOTO 3800
-      ELSEIF ( Irturn==4 ) THEN
+      ELSEIF ( irturn==4 ) THEN
          GOTO 300
-      ELSEIF ( Irturn==5 ) THEN
+      ELSEIF ( irturn==5 ) THEN
          GOTO 3700
 !
 !     DELIMITER ENCOUNTERED
 !
-      ELSEIF ( Dmap(Dmppnt+1)==Islsh ) THEN
+      ELSEIF ( dmap(dmppnt+1)==islsh ) THEN
 !
 !     DELIMITER IS /, TEST FILE NAME FLAG
 !
          IF ( i/=0 ) GOTO 3800
          i = 1
       ELSE
-         IF ( Dmap(Dmppnt+1)/=Iequl ) GOTO 3800
+         IF ( dmap(dmppnt+1)/=iequl ) GOTO 3800
 !
 !     DELIMITER IS =, TURN OFF FILE NAME FLAG
 !
@@ -1293,53 +1299,53 @@ SUBROUTINE xosgen
       ENDIF
    ENDDO
  2600 lstlbl = lstlbl + 4
-   lbltbl(lstlbl) = File(Fpnt)
-   lbltbl(lstlbl+1) = File(Fpnt+1)
-   lbltbl(lstlbl+2) = Iseqn
+   lbltbl(lstlbl) = file(fpnt)
+   lbltbl(lstlbl+1) = file(fpnt+1)
+   lbltbl(lstlbl+2) = iseqn
    lbltbl(lstlbl+3) = -1
    GOTO 2500
 !
 !     TAPE PARAM
 !
- 2700 fcode = Itape
+ 2700 fcode = itape
    GOTO 3000
 !
 !     APPEND PARAM
 !
- 2800 fcode = Iappnd
+ 2800 fcode = iappnd
    GOTO 3000
 !
 !     SAVE PARAM
 !
- 2900 fcode = Isave
+ 2900 fcode = isave
 !
 !     PUT CODE IN FILE TABLE
 !
- 3000 File(Fpnt+2) = orf(File(Fpnt+2),fcode)
+ 3000 file(fpnt+2) = orf(file(fpnt+2),fcode)
    GOTO 2500
  3100 DO
 !
 !     LIST HAS BEEN FOUND, STORE IN /AUTOCM/
 !
-      Nnames = Nnames + 1
-      IF ( Nnames>50 ) THEN
+      nnames = nnames + 1
+      IF ( nnames>50 ) THEN
 !
 !     PRECHK NAME LIST OVERFLOW
 !
          CALL xgpidg(55,0,0,0)
-         Nogo = 2
+         nogo = 2
          GOTO 99999
       ELSE
-         Prenam(2*Nnames-1) = Dmap(Dmppnt)
-         Prenam(2*Nnames) = Dmap(Dmppnt+1)
+         prenam(2*nnames-1) = dmap(dmppnt)
+         prenam(2*nnames) = dmap(dmppnt+1)
          CALL xscndm
-         IF ( Irturn==1 .OR. Irturn==3 ) THEN
+         IF ( irturn==1 .OR. irturn==3 ) THEN
             CALL xgpidg(16,ospnt,0,0)
             GOTO 300
-         ELSEIF ( Irturn==2 ) THEN
-         ELSEIF ( Irturn==4 ) THEN
+         ELSEIF ( irturn==2 ) THEN
+         ELSEIF ( irturn==4 ) THEN
             GOTO 3300
-         ELSEIF ( Irturn==5 ) THEN
+         ELSEIF ( irturn==5 ) THEN
             GOTO 3700
          ELSE
             EXIT
@@ -1350,64 +1356,64 @@ SUBROUTINE xosgen
 !     ALL  OPTION FOUND, LOOK FOR  EXCEPT
 !
  3200 CALL xscndm
-   IF ( Irturn==1 .OR. Irturn==3 ) THEN
+   IF ( irturn==1 .OR. irturn==3 ) THEN
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
-   ELSEIF ( Dmap(Dmppnt)==Namopt(25) .AND. Dmap(Dmppnt+1)==Namopt(26) ) THEN
-      Preflg = 3
+   ELSEIF ( dmap(dmppnt)==namopt(25) .AND. dmap(dmppnt+1)==namopt(26) ) THEN
+      preflg = 3
       CALL xscndm
-      IF ( Irturn==1 .OR. Irturn==3 ) THEN
+      IF ( irturn==1 .OR. irturn==3 ) THEN
          CALL xgpidg(16,ospnt,0,0)
          GOTO 300
-      ELSEIF ( Irturn==2 ) THEN
+      ELSEIF ( irturn==2 ) THEN
          GOTO 3100
-      ELSEIF ( Irturn==4 ) THEN
-      ELSEIF ( Irturn==5 ) THEN
+      ELSEIF ( irturn==4 ) THEN
+      ELSEIF ( irturn==5 ) THEN
          GOTO 3700
       ELSE
-         Preflg = 0
+         preflg = 0
       ENDIF
    ELSE
-      Preflg = 2
+      preflg = 2
    ENDIF
- 3300 IF ( Icpflg/=0 ) THEN
-      IF ( Start/=Icst ) CALL xgpimw(10,0,0,0)
+ 3300 IF ( icpflg/=0 ) THEN
+      IF ( start/=icst ) CALL xgpimw(10,0,0,0)
       GOTO 1800
    ELSE
-      Preflg = 0
+      preflg = 0
       GOTO 300
    ENDIF
 !
 !     GET LABEL AND LOOK FOR IT IN PVT
 !
  3400 CALL xscndm
-   IF ( Irturn==1 .OR. Irturn==3 .OR. Irturn==4 ) THEN
+   IF ( irturn==1 .OR. irturn==3 .OR. irturn==4 ) THEN
       CALL xgpidg(16,ospnt,0,0)
       GOTO 300
-   ELSEIF ( Irturn==5 ) THEN
+   ELSEIF ( irturn==5 ) THEN
       GOTO 3700
    ELSE
       ilevel = ilevel + 1
       kdh = 3
       DO
-         Length = andf(Pvt(kdh+2),Nosgn)
-         Length = itype(Length)
-         IF ( Dmap(Dmppnt)==Pvt(kdh) .AND. Dmap(Dmppnt+1)==Pvt(kdh+1) ) THEN
+         length = andf(pvt(kdh+2),nosgn)
+         length = itype(length)
+         IF ( dmap(dmppnt)==pvt(kdh) .AND. dmap(dmppnt+1)==pvt(kdh+1) ) THEN
 !
 !     CHECK IF VALUE IS FALSE
 !
-            Pvt(kdh+2) = orf(Pvt(kdh+2),Isgnon)
-            IF ( andf(Pvt(kdh+2),Nosgn)/=1 ) THEN
+            pvt(kdh+2) = orf(pvt(kdh+2),isgnon)
+            IF ( andf(pvt(kdh+2),nosgn)/=1 ) THEN
                CALL xgpidg(16,ospnt,0,0)
-            ELSEIF ( Pvt(kdh+3)>=0 .OR. ion/=1 ) THEN
-               IF ( Pvt(kdh+3)<0 .OR. ion/=0 ) skip = .TRUE.
+            ELSEIF ( pvt(kdh+3)>=0 .OR. ion/=1 ) THEN
+               IF ( pvt(kdh+3)<0 .OR. ion/=0 ) skip = .TRUE.
             ENDIF
             GOTO 300
          ELSE
-            kdh = kdh + Length + 3
-            IF ( kdh>=Pvt(2) ) THEN
+            kdh = kdh + length + 3
+            IF ( kdh>=pvt(2) ) THEN
 !
 !     PARAMETER NOT FOUND - ASSUME FALSE VALUE
 !
@@ -1429,7 +1435,7 @@ SUBROUTINE xosgen
 !     LABEL NOT DEFINED
 !
       CALL xgpidg(26,lbltbl(lstlbl+3),lbltbl(lstlbl),lbltbl(lstlbl+1))
-      Nogo = 1
+      nogo = 1
 !
 !     GET NEXT LBLTBL ENTRY.
 !
@@ -1453,17 +1459,17 @@ SUBROUTINE xosgen
       CALL xgpidg(-27,lbltbl(lstlbl+2),lbltbl(lstlbl),lbltbl(lstlbl+1))
    ELSE
       i = lbltbl(lstlbl+3) + 6
-      IF ( oscar(i-3)/=Ncond .AND. oscar(i-3)/=Njump ) THEN
+      IF ( oscar(i-3)/=ncond .AND. oscar(i-3)/=njump ) THEN
          j = oscar(i)
 !
 !     LABEL NAME TO WORDS 3 AND 4 OF CEITBL ENTRY
 !
-         Ceitbl(j+1) = lbltbl(lstlbl)
-         Ceitbl(j+2) = lbltbl(lstlbl+1)
+         ceitbl(j+1) = lbltbl(lstlbl)
+         ceitbl(j+2) = lbltbl(lstlbl+1)
 !
 !     OSCAR RECORD NO. OF BEGIN LOOP TO FIRST WORD OF CEITBL ENTRY
 !
-         Ceitbl(j-1) = orf(lshift(lbltbl(lstlbl+2),16),Ceitbl(j-1))
+         ceitbl(j-1) = orf(lshift(lbltbl(lstlbl+2),16),ceitbl(j-1))
       ENDIF
       oscar(i) = orf(lshift(lbltbl(lstlbl+2),16),oscar(i))
       lstlbl = lstlbl - 4
@@ -1472,8 +1478,8 @@ SUBROUTINE xosgen
    lstlbl = lstlbl - 4
    GOTO 3500
  3700 loscar = lblbot
-   idpbuf = korsz(oscar) - 2*Bufsz
-   CALL close(Nscr,1)
+   idpbuf = korsz(oscar) - 2*bufsz
+   CALL close(nscr,1)
    lstlbl = lstlbl - lbltop + 4
    IF ( lstlbl<0 ) lstlbl = 0
    RETURN
@@ -1483,13 +1489,13 @@ SUBROUTINE xosgen
 !
 !     LBLTBL OVERFLOWED - ALLOCATE 50 MORE WORDS FOR IT.
 !
- 3900 Icrdtp = Icrdtp - 50
-   IF ( Icrdtp<oscar(osbot)+osbot ) THEN
+ 3900 icrdtp = icrdtp - 50
+   IF ( icrdtp<oscar(osbot)+osbot ) THEN
 !
 !     LABEL TABLE OVERFLOW, DISCONTINUE COMPILATION
 !
-      CALL xgpidg(14,nlblt1,nlblt2,Dmpcnt)
-      Nogo = 2
+      CALL xgpidg(14,nlblt1,nlblt2,dmpcnt)
+      nogo = 2
       GOTO 99999
    ELSE
       loscar = loscar - 50
@@ -1503,7 +1509,7 @@ SUBROUTINE xosgen
       ENDDO
       lbltop = lbltop - 50
       lstlbl = lstlbl - 50
-      GOTO Irturn
+      GOTO irturn
    ENDIF
  4000 lbltbl(lstlbl+2) = lbltbl(j+2)
    GOTO 3600

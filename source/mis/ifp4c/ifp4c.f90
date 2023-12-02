@@ -1,9 +1,10 @@
-!*==ifp4c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifp4c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp4c(File,Scrt,Buf1,Buf2,Eof)
+   USE c_names
    IMPLICIT NONE
-   USE C_NAMES
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,14 +52,14 @@ SUBROUTINE ifp4c(File,Scrt,Buf1,Buf2,Eof)
 !     FILE IS NULL
 !
          Eof = .TRUE.
-         CALL open(*40,Scrt,Buf2,Wrtrew)
+         CALL open(*40,Scrt,Buf2,wrtrew)
          CALL fname(File,name2)
          CALL write(Scrt,name2,2,eor)
          RETURN
       CASE (2)
-         CALL open(*80,File,Buf1,Rdrew)
+         CALL open(*80,File,Buf1,rdrew)
          Eof = .FALSE.
-         CALL open(*40,Scrt,Buf2,Wrtrew)
+         CALL open(*40,Scrt,Buf2,wrtrew)
          DO
             CALL read(*60,*20,File,work,10,noeor,flag)
             CALL write(Scrt,work,10,noeor)

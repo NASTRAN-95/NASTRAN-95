@@ -1,15 +1,16 @@
-!*==sdr2aa.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdr2aa.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr2aa
+   USE c_blank
+   USE c_names
+   USE c_sdr2x1
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SDR2X1
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -42,29 +43,29 @@ SUBROUTINE sdr2aa
 !
 !     SET BUFFER POINTERS AND PERFORM GENERAL INITIALIZATION.
 !
-         buf1 = korsz(Z) - Sysbuf
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf
+         buf1 = korsz(z) - sysbuf
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
          imstr = 1
          master = 1
          lastxy = 0
          anynew = 0
-         Sort2 = -1
+         sort2 = -1
 !
 !     OPEN XYCDB. IF PURGED, RETURN.
 !
-         CALL open(*100,Xycdb,Z(buf1),Rdrew)
-         file = Xycdb
-         CALL fwdrec(*80,Xycdb)
-         CALL fwdrec(*80,Xycdb)
+         CALL open(*100,xycdb,z(buf1),rdrew)
+         file = xycdb
+         CALL fwdrec(*80,xycdb)
+         CALL fwdrec(*80,xycdb)
 !
 !     READ FIRST LINE OF XYCDB. IF SUBCASE = 0 (MEANING DATA APPLIES
 !     TO ALL SUBCASES), READ IN DATA FOR ZERO SUBCASE.
 !
          last = 0
-         xycdbf = Xycdb
-         CALL read(*80,*80,Xycdb,buf,6,0,flag)
-         Sort2 = 0
+         xycdbf = xycdb
+         CALL read(*80,*80,xycdb,buf,6,0,flag)
+         sort2 = 0
          subcse = buf(1)
          IF ( subcse/=0 ) THEN
 !
@@ -72,18 +73,18 @@ SUBROUTINE sdr2aa
 !
             nmstr = imstr
             ixysc = imstr + 2
-            Z(imstr) = 9999
-            Z(imstr+1) = 0
+            z(imstr) = 9999
+            z(imstr+1) = 0
             master = -1
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
             i = imstr
             DO
-               Z(i) = buf(2)
-               Z(i+1) = buf(3)
+               z(i) = buf(2)
+               z(i+1) = buf(3)
                i = i + 2
-               CALL read(*140,*20,Xycdb,buf,6,0,flag)
+               CALL read(*140,*20,xycdb,buf,6,0,flag)
                IF ( buf(1)/=0 ) THEN
                   nmstr = i - 2
                   ixysc = i
@@ -106,9 +107,9 @@ SUBROUTINE sdr2aa
             nmstr = nmstr - 2
             j = imstr
             DO i = imstr , nmstr , 2
-               IF ( Z(i+2)/=Z(j) .OR. Z(i+3)/=Z(j+1) ) THEN
-                  Z(j+2) = Z(i+2)
-                  Z(j+3) = Z(i+3)
+               IF ( z(i+2)/=z(j) .OR. z(i+3)/=z(j+1) ) THEN
+                  z(j+2) = z(i+2)
+                  z(j+3) = z(i+3)
                   j = j + 2
                ENDIF
             ENDDO
@@ -120,11 +121,11 @@ SUBROUTINE sdr2aa
 !
 !     OPEN CASE CONTROL AND SCRATCH FILE FOR MODIFIED CASE CONTROL
 !
-         CALL gopen(Casecc,Z(buf2),Rdrew)
-         file = Scr3
-         CALL open(*120,Scr3,Z(buf3),Wrtrew)
-         CALL fname(Casecc,buf(9))
-         CALL write(Scr3,buf(9),2,1)
+         CALL gopen(casecc,z(buf2),rdrew)
+         file = scr3
+         CALL open(*120,scr3,z(buf3),wrtrew)
+         CALL fname(casecc,buf(9))
+         CALL write(scr3,buf(9),2,1)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -137,8 +138,8 @@ SUBROUTINE sdr2aa
          subcse = buf(1)
          i = ixysc
          DO
-            Z(i) = buf(2)
-            Z(i+1) = buf(3)
+            z(i) = buf(2)
+            z(i+1) = buf(3)
             i = i + 2
             CALL read(*80,*40,xycdbf,buf,6,0,flag)
             IF ( buf(1)/=subcse ) THEN
@@ -154,22 +155,22 @@ SUBROUTINE sdr2aa
 !     THEN SORT DATA TOGETHER TO FORM SORTED UNION.
 !
          DO j = imstr , nmstr , 2
-            Z(i) = Z(j)
-            Z(i+1) = Z(j+1)
+            z(i) = z(j)
+            z(i+1) = z(j+1)
             i = i + 2
          ENDDO
          n = i - ixysc
-         CALL sort(0,0,2,-2,Z(ixysc),n)
-         CALL sort(0,0,2,-1,Z(ixysc),n)
+         CALL sort(0,0,2,-2,z(ixysc),n)
+         CALL sort(0,0,2,-1,z(ixysc),n)
 !
 !     REDUCE LIST TO UNIQUE PAIRS.
 !
          nxysc = i - 4
          j = ixysc
          DO i = ixysc , nxysc , 2
-            IF ( Z(i+2)/=Z(j) .OR. Z(i+3)/=Z(j+1) ) THEN
-               Z(j+2) = Z(i+2)
-               Z(j+3) = Z(i+3)
+            IF ( z(i+2)/=z(j) .OR. z(i+3)/=z(j+1) ) THEN
+               z(j+2) = z(i+2)
+               z(j+3) = z(i+3)
                j = j + 2
             ENDIF
          ENDDO
@@ -181,9 +182,9 @@ SUBROUTINE sdr2aa
 !     EITHER MASTER SUBCASE OR CURRENT SUBCASE IN CORE.
 !
          icc = nxysc + 1
-         CALL read(*80,*60,Casecc,Z(icc+1),buf3-icc,1,ncc)
+         CALL read(*80,*60,casecc,z(icc+1),buf3-icc,1,ncc)
          CALL mesage(-8,0,nam)
- 60      IF ( subcse==Z(icc+1) ) THEN
+ 60      IF ( subcse==z(icc+1) ) THEN
             ixy = ixysc
             nxy = nxysc
 !
@@ -200,7 +201,7 @@ SUBROUTINE sdr2aa
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            IF ( subcse>Z(icc+1) ) THEN
+            IF ( subcse>z(icc+1) ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -209,7 +210,7 @@ SUBROUTINE sdr2aa
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             IF ( anynew/=0 ) THEN
-               CALL write(Scr3,Z(icc+1),ncc,1)
+               CALL write(scr3,z(icc+1),ncc,1)
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -217,35 +218,33 @@ SUBROUTINE sdr2aa
 !
 !     TERMINATE PROCESSING.
 !
- 80      CALL close(Casecc,Clsrew)
-         CALL close(xycdbf,Clsrew)
-         CALL close(Scr3,Clsrew)
-         IF ( anynew/=0 ) Casecc = Scr3
+ 80      CALL close(casecc,clsrew)
+         CALL close(xycdbf,clsrew)
+         CALL close(scr3,clsrew)
+         IF ( anynew/=0 ) casecc = scr3
  100     RETURN
       CASE (6)
          dbname = tab(loop)
          ix = tab(loop+1)
-         ireq = icc + Sdr2x1(ix)
-         setno = Z(ireq)
+         ireq = icc + sdr2x1(ix)
+         setno = z(ireq)
          DO j = ixy , nxy , 2
-            IF ( Z(j)==dbname ) THEN
+            IF ( z(j)==dbname ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          ixyset = j
          DO j = ixyset , nxy , 2
-            IF ( Z(j)/=dbname ) THEN
+            IF ( z(j)/=dbname ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          nxyset = nxy
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          nxyset = j - 2
          spag_nextblock_1 = 9
@@ -257,8 +256,8 @@ SUBROUTINE sdr2aa
 !
 !     HERE IF CASECC SET = ALL AND XY REQUEST EXISTS - TURN SORT2 ON.
 !
-            Z(ireq+2) = -iabs(Z(ireq+2))
-            Sort2 = 0
+            z(ireq+2) = -iabs(z(ireq+2))
+            sort2 = 0
          ELSEIF ( setno==0 ) THEN
 !
 !     HERE IF NO CASECC REQUEST.
@@ -266,39 +265,39 @@ SUBROUTINE sdr2aa
 !     CASECC RECORD AND TURN ON CASECC REQUEST FOR SET.
 !
             xsetno = xsetno + 1
-            Z(ireq) = xsetno
-            Z(ireq+1) = 0
+            z(ireq) = xsetno
+            z(ireq+1) = 0
             formt = -2
-            IF ( App(1)==Trn(1) ) formt = -1
-            Z(ireq+2) = formt
-            Sort2 = 0
+            IF ( app(1)==trn(1) ) formt = -1
+            z(ireq+2) = formt
+            sort2 = 0
             ix = icc + ncc + 1
-            Z(ix) = xsetno
+            z(ix) = xsetno
             jx = ix + 2
-            Z(jx) = Z(ixyset+1)
+            z(jx) = z(ixyset+1)
             IF ( ixyset/=nxyset ) THEN
                ixyset = ixyset + 2
                n = 1
                DO j = ixyset , nxyset , 2
-                  IF ( Z(j+1)-Z(jx)==n ) THEN
+                  IF ( z(j+1)-z(jx)==n ) THEN
                      n = n + 1
                   ELSEIF ( n/=1 ) THEN
-                     Z(jx+1) = -Z(j-1)
+                     z(jx+1) = -z(j-1)
                      jx = jx + 2
-                     Z(jx) = Z(j+1)
+                     z(jx) = z(j+1)
                      n = 1
                   ELSE
                      jx = jx + 1
-                     Z(jx) = Z(j+1)
+                     z(jx) = z(j+1)
                   ENDIF
                ENDDO
                IF ( n/=1 ) THEN
                   jx = jx + 1
-                  Z(jx) = -Z(nxyset+1)
+                  z(jx) = -z(nxyset+1)
                ENDIF
             ENDIF
-            Z(ix+1) = jx - ix - 1
-            ncc = ncc + Z(ix+1) + 2
+            z(ix+1) = jx - ix - 1
+            ncc = ncc + z(ix+1) + 2
             anynew = 1
          ELSE
 !
@@ -306,12 +305,12 @@ SUBROUTINE sdr2aa
 !     FIRST, LOCATE CASECC SET.
 !
             ilist = icc + ncc + 3
-            ix = icc + Ilsym
-            isetno = ix + Z(ix) + 1
+            ix = icc + ilsym
+            isetno = ix + z(ix) + 1
             SPAG_Loop_1_1: DO
                iset = isetno + 2
-               nset = Z(isetno+1) + iset - 1
-               IF ( Z(isetno)==setno ) THEN
+               nset = z(isetno+1) + iset - 1
+               IF ( z(isetno)==setno ) THEN
 !
 !     COMPARE EACH POINT IN XYCDB REQUEST WITH CASECC SET.
 !     ADD ANY POINTS IN XYCDB NOT IN CASECC TO CASECC SET.
@@ -320,7 +319,7 @@ SUBROUTINE sdr2aa
                   j = ixyset
                   k = ilist
                   l = iset
-                  arg = Z(j+1)
+                  arg = z(j+1)
                   spag_nextblock_1 = 10
                   CYCLE SPAG_DispatchLoop_1
                ELSE
@@ -330,19 +329,18 @@ SUBROUTINE sdr2aa
             ENDDO SPAG_Loop_1_1
          ENDIF
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          SPAG_Loop_1_2: DO
             IF ( i<nset ) THEN
-               IF ( Z(i+1)>0 ) EXIT SPAG_Loop_1_2
+               IF ( z(i+1)>0 ) EXIT SPAG_Loop_1_2
                n = 2
-               IF ( arg<Z(i) ) THEN
+               IF ( arg<z(i) ) THEN
                   spag_nextblock_1 = 11
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( arg/=Z(i) ) THEN
-                  IF ( arg+Z(i+1)<0 ) THEN
-                  ELSEIF ( arg+Z(i+1)==0 ) THEN
+               IF ( arg/=z(i) ) THEN
+                  IF ( arg+z(i+1)<0 ) THEN
+                  ELSEIF ( arg+z(i+1)==0 ) THEN
                      i = i + n
                   ELSE
                      i = i + n
@@ -350,17 +348,16 @@ SUBROUTINE sdr2aa
                   ENDIF
                ENDIF
                spag_nextblock_1 = 12
-               CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==nset ) THEN
                EXIT SPAG_Loop_1_2
             ELSE
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE SPAG_DispatchLoop_1
          ENDDO SPAG_Loop_1_2
          n = 1
-         IF ( arg<Z(i) ) THEN
-         ELSEIF ( arg==Z(i) ) THEN
+         IF ( arg<z(i) ) THEN
+         ELSEIF ( arg==z(i) ) THEN
             i = i + n
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
@@ -375,18 +372,18 @@ SUBROUTINE sdr2aa
             ln = i - 1
             ll = l
             DO l = ll , ln
-               Z(k) = Z(l)
+               z(k) = z(l)
                k = k + 1
             ENDDO
             l = i
          ENDIF
-         Z(k) = arg
+         z(k) = arg
          k = k + 1
          spag_nextblock_1 = 12
       CASE (12)
          j = j + 2
          IF ( j<=nxyset ) THEN
-            arg = Z(j+1)
+            arg = z(j+1)
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -394,7 +391,7 @@ SUBROUTINE sdr2aa
             IF ( n/=0 ) THEN
                IF ( l<=nset ) THEN
                   DO ll = l , nset
-                     Z(k) = Z(ll)
+                     z(k) = z(ll)
                      k = k + 1
                   ENDDO
                   n = k - ilist
@@ -405,12 +402,12 @@ SUBROUTINE sdr2aa
 !     EXTEND END OF CASECC RECORD.
 !
                xsetno = xsetno + 1
-               Z(ireq) = xsetno
-               Z(ireq+1) = 10*setno + Z(ireq+1)
-               Z(ireq+2) = -iabs(Z(ireq+2))
-               Sort2 = 0
-               Z(ilist-2) = xsetno
-               Z(ilist-1) = n
+               z(ireq) = xsetno
+               z(ireq+1) = 10*setno + z(ireq+1)
+               z(ireq+2) = -iabs(z(ireq+2))
+               sort2 = 0
+               z(ilist-2) = xsetno
+               z(ilist-1) = n
                ncc = ncc + n + 2
                anynew = 1
             ENDIF
@@ -426,7 +423,7 @@ SUBROUTINE sdr2aa
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL write(Scr3,Z(icc+1),ncc,1)
+         CALL write(scr3,z(icc+1),ncc,1)
 !
 !     RETURN TO READ ANOTHER RECORD IN CASE CONTROL OR ANOTHER XYCDB
 !     SUBCASE
@@ -435,7 +432,7 @@ SUBROUTINE sdr2aa
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( subcse<=Z(icc+1) ) THEN
+         IF ( subcse<=z(icc+1) ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF

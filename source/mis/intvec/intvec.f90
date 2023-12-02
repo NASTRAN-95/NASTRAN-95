@@ -1,9 +1,10 @@
-!*==intvec.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==intvec.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE intvec(Vector)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,15 +41,14 @@ SUBROUTINE intvec(Vector)
             SELECT CASE (spag_nextblock_1)
             CASE (1)
                char = klshft(vecwrd,(k-1))
-               char = krshft(char,(Ncpw-1))
+               char = krshft(char,(ncpw-1))
                DO i = 1 , 4
-                  IF ( char==krshft(xyzr(i),(Ncpw-1)) ) THEN
+                  IF ( char==krshft(xyzr(i),(ncpw-1)) ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDDO
-               IF ( char==krshft(n,(Ncpw-1)) ) nshape = 1
-               CYCLE
+               IF ( char==krshft(n,(ncpw-1)) ) nshape = 1
             CASE (2)
                vec(i) = 1
                EXIT SPAG_DispatchLoop_1

@@ -1,15 +1,16 @@
-!*==xclean.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xclean.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xclean
 !
+   USE c_system
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xmssg
+   USE c_xsfa1
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XMSSG
-   USE C_XSFA1
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -76,16 +77,14 @@ SUBROUTINE xclean
                      ENDDO
                      j = i
                      spag_nextblock_2 = 3
-                     CYCLE SPAG_DispatchLoop_2
                   ELSE
                      SPAG_Loop_2_1: DO j = 1 , lmt1 , entn1
                         IF ( trial==andf(rmsk,file(j)) ) THEN
                            IF ( fequ(j)<0 ) EXIT SPAG_Loop_2_1
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_2_1
                         ENDIF
                      ENDDO SPAG_Loop_2_1
-                     CYCLE
                   ENDIF
                CASE (2)
                   k = andf(lmsk,ford(j))
@@ -146,7 +145,6 @@ SUBROUTINE xclean
                                  IF ( i>lmt1 ) THEN
                                     lmti = 0
                                     file(i) = orf(file(i),zap)
-                                    GOTO 25
 !
 !     PURGE FILE --PUT ENTRY AT END OF FIAT
 !
@@ -168,8 +166,8 @@ SUBROUTINE xclean
                                     file(nfculg) = orf(file(i),zap)
                                     fdbn(nfculg) = fdbn(i)
                                     fdbn(nfculg+1) = fdbn(i+1)
-                                    GOTO 25
                                  ENDIF
+                                 GOTO 25
                               ENDIF
                            ENDIF
                         ENDIF
@@ -260,11 +258,9 @@ SUBROUTINE xclean
                ENDIF
             ENDDO
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             lmt7 = lmt7 - entn1
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (4)
          lmt7 = lmt7 - entn1y
@@ -274,7 +270,6 @@ SUBROUTINE xclean
          lmt3 = lmt3 - entn1
          fculg = fculg - 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     RESET ANY NECESSARY OFF SWITCHES
@@ -305,7 +300,7 @@ SUBROUTINE xclean
          RETURN
       CASE (7)
 !
-         WRITE (Outtap,99001) Sfm
+         WRITE (outtap,99001) sfm
 99001    FORMAT (A25,' 1021, FIAT OVERFLOW.')
          CALL mesage(-37,0,nclean)
          EXIT SPAG_DispatchLoop_1

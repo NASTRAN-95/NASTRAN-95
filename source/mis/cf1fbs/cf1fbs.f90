@@ -1,13 +1,14 @@
-!*==cf1fbs.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cf1fbs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_system
+   USE c_zntpkx
    IMPLICIT NONE
-   USE C_FEERAA
-   USE C_FEERXC
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,48 +44,48 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
       CASE (1)
-         IF ( Qpr ) WRITE (Nout,99001) Tpose(1) , Symmet , Nswp , iscr6
+         IF ( qpr ) WRITE (nout,99001) Tpose(1) , symmet , nswp , iscr6
 99001    FORMAT (1H0,12HENTER CF1FBS,8X,11HTRANSPOSE =,L2,L9,2I10)
          junk = 0
-         IF ( Tpose(1) .AND. .NOT.Symmet ) THEN
+         IF ( Tpose(1) .AND. .NOT.symmet ) THEN
 !*******
 !     BELOW FOR OPERATION U-TRANSPOSE * L-TRANSPOSE
 !     (LOGIC COPIED FROM SUBROUTINE CDIFBS)
 !*******
 !     BEGIN THE FORWARD PASS USING THE UPPER TRIANGLE
 !*******
-            ioff = Mcbut(7) - 1
-            IF ( Qpr ) WRITE (Nout,99002) ioff
+            ioff = mcbut(7) - 1
+            IF ( qpr ) WRITE (nout,99002) ioff
 99002       FORMAT (1H ,30X,6HIOFF =,I10)
-            mcsave = Mcbut(1)
-            Mcbut(1) = iscr6
-            CALL gopen(Mcbut(1),Iobuf(1),Rdrew)
-            DO i = 1 , Nswp
-               IF ( Qpr ) WRITE (Nout,99010) i
+            mcsave = mcbut(1)
+            mcbut(1) = iscr6
+            CALL gopen(mcbut(1),Iobuf(1),rdrew)
+            DO i = 1 , nswp
+               IF ( qpr ) WRITE (nout,99010) i
                j = i + i
-               CALL intpk(*10,Mcbut(1),0,Csp,0)
+               CALL intpk(*10,mcbut(1),0,csp,0)
                SPAG_Loop_2_1: DO
                   CALL zntpki
-                  IF ( Qpr ) WRITE (Nout,99011) Ii , Eol , Da
-                  IF ( Ii<i ) THEN
+                  IF ( qpr ) WRITE (nout,99011) ii , eol , da
+                  IF ( ii<i ) THEN
 !*******
 !     SUBTRACT OFF NORMAL TERM
 !*******
-                     i2 = Ii + Ii
+                     i2 = ii + ii
                      i1 = i2 - 1
                      j1 = j - 1
-                     Xout(j1) = Xout(j1) - Xout(i1)*Da(1) + Xout(i2)*Da(2)
-                     Xout(j) = Xout(j) - Xout(i1)*Da(2) - Xout(i2)*Da(1)
-                  ELSEIF ( Ii==i ) THEN
+                     Xout(j1) = Xout(j1) - Xout(i1)*da(1) + Xout(i2)*da(2)
+                     Xout(j) = Xout(j) - Xout(i1)*da(2) - Xout(i2)*da(1)
+                  ELSEIF ( ii==i ) THEN
 !*******
 !     DIVIDE BY THE DIAGONAL
 !*******
                      i1 = j - 1
-                     unidum = 1./(Da(1)**2+Da(2)**2)
-                     dtemp = (Xout(i1)*Da(1)+Xout(j)*Da(2))*unidum
-                     Xout(j) = (Xout(j)*Da(1)-Xout(i1)*Da(2))*unidum
+                     unidum = 1./(da(1)**2+da(2)**2)
+                     dtemp = (Xout(i1)*da(1)+Xout(j)*da(2))*unidum
+                     Xout(j) = (Xout(j)*da(1)-Xout(i1)*da(2))*unidum
                      Xout(i1) = dtemp
-                     IF ( Qpr ) WRITE (Nout,99013)
+                     IF ( qpr ) WRITE (nout,99013)
                   ELSE
 !*******
 !     SUBTRACT OFF ACTIVE COLUMN TERMS
@@ -93,53 +94,53 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
                      junk = 1
                      in1 = k
                      IF ( in1<=0 ) GOTO 40
-                     i2 = Ii + Ii
+                     i2 = ii + ii
                      i1 = i2 - 1
                      j1 = k - 1
-                     Xout(i1) = Xout(i1) - Xout(j1)*Da(1) + Xout(k)*Da(2)
-                     Xout(i2) = Xout(i2) - Xout(k)*Da(1) - Xout(j1)*Da(2)
+                     Xout(i1) = Xout(i1) - Xout(j1)*da(1) + Xout(k)*da(2)
+                     Xout(i2) = Xout(i2) - Xout(k)*da(1) - Xout(j1)*da(2)
                   ENDIF
-                  IF ( Eol/=0 ) EXIT SPAG_Loop_2_1
+                  IF ( eol/=0 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
  10         ENDDO
-            CALL close(Mcbut(1),Rew)
-            Mcbut(1) = mcsave
+            CALL close(mcbut(1),rew)
+            mcbut(1) = mcsave
 !*******
 !     BEGIN BACKWARD PASS USING THE LOWER TRIANGLE
 !*******
-            CALL gopen(Mcblt(1),Iobuf(1),Rdrew)
-            CALL skprec(Mcblt(1),Nswp)
-            DO i = 1 , Nswp
-               IF ( Qpr ) WRITE (Nout,99010) i
-               CALL bckrec(Mcblt(1))
+            CALL gopen(mcblt(1),Iobuf(1),rdrew)
+            CALL skprec(mcblt(1),nswp)
+            DO i = 1 , nswp
+               IF ( qpr ) WRITE (nout,99010) i
+               CALL bckrec(mcblt(1))
                intchn = 0
-               CALL intpk(*15,Mcblt(1),0,Csp,0)
-               j = (Nswp-i+1)*2
+               CALL intpk(*15,mcblt(1),0,csp,0)
+               j = (nswp-i+1)*2
                SPAG_Loop_2_2: DO
                   CALL zntpki
-                  IF ( Qpr ) WRITE (Nout,99011) Ii , Eol , Da
-                  IF ( Ii/=Nswp-i+1 ) THEN
+                  IF ( qpr ) WRITE (nout,99011) ii , eol , da
+                  IF ( ii/=nswp-i+1 ) THEN
                      j1 = j - 1
-                     i2 = Ii + Ii
+                     i2 = ii + ii
                      i1 = i2 - 1
-                     Xout(j1) = Xout(j1) - Xout(i1)*Da(1) + Xout(i2)*Da(2)
-                     Xout(j) = Xout(j) - Xout(i1)*Da(2) - Xout(i2)*Da(1)
+                     Xout(j1) = Xout(j1) - Xout(i1)*da(1) + Xout(i2)*da(2)
+                     Xout(j) = Xout(j) - Xout(i1)*da(2) - Xout(i2)*da(1)
                   ELSE
-                     IF ( Ii<j/2 ) THEN
+                     IF ( ii<j/2 ) THEN
                         spag_nextblock_1 = 9
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
 !*******
 !     PERFORM THE INTERCHANGE
 !*******
-                     intchn = ifix(Da(1))*2
-                     IF ( Qpr ) WRITE (Nout,99003) intchn
+                     intchn = ifix(da(1))*2
+                     IF ( qpr ) WRITE (nout,99003) intchn
 99003                FORMAT (1H ,4X,11HINTERCHANGE,I6)
                   ENDIF
-                  IF ( Eol/=0 ) THEN
+                  IF ( eol/=0 ) THEN
                      IF ( intchn>0 ) THEN
                         in1 = j + intchn
-                        IF ( Qpr ) WRITE (Nout,99004) j , intchn , in1
+                        IF ( qpr ) WRITE (nout,99004) j , intchn , in1
 99004                   FORMAT (1H ,15X,3I6)
                         dtemp = Xout(j)
                         Xout(j) = Xout(in1)
@@ -153,9 +154,9 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
                      EXIT SPAG_Loop_2_2
                   ENDIF
                ENDDO SPAG_Loop_2_2
- 15            CALL bckrec(Mcblt(1))
+ 15            CALL bckrec(mcblt(1))
             ENDDO
-            CALL close(Mcblt(1),Rew)
+            CALL close(mcblt(1),rew)
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -165,25 +166,25 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
 !*******
 !     BEGIN FORWARD PASS USING THE LOWER TRIANGLE
 !*******
-            CALL gopen(Mcblt(1),Iobuf(1),Rdrew)
+            CALL gopen(mcblt(1),Iobuf(1),rdrew)
             j = 1
-            CALL intpk(*20,Mcblt(1),0,Csp,0)
+            CALL intpk(*20,mcblt(1),0,csp,0)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         DO WHILE ( Eol==0 )
+         DO WHILE ( eol==0 )
             CALL zntpki
-            IF ( Qpr ) WRITE (Nout,99012) Da , Ii , Eol , j
-            IF ( j<Ii ) THEN
+            IF ( qpr ) WRITE (nout,99012) da , ii , eol , j
+            IF ( j<ii ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( j==Ii ) THEN
+            IF ( j==ii ) THEN
 !*******
 !     PERFORM THE REQUIRED ROW INTERCHANGE
 !*******
-               in1 = (j+ifix(Da(1)))*2 - 1
-               IF ( Qpr ) WRITE (Nout,99005) in1 , Eol
+               in1 = (j+ifix(da(1)))*2 - 1
+               IF ( qpr ) WRITE (nout,99005) in1 , eol
 99005          FORMAT (1H ,3X,5HIN1 =,I6,4X,5HEOL =,I2)
                in2 = in1 + 1
                j2 = 2*j
@@ -199,46 +200,45 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
             ENDIF
          ENDDO
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
-         IF ( Eol/=0 ) GOTO 20
+         IF ( eol/=0 ) GOTO 20
          CALL zntpki
-         IF ( Qpr ) WRITE (Nout,99012) Da , Ii , Eol , j
+         IF ( qpr ) WRITE (nout,99012) da , ii , eol , j
          spag_nextblock_1 = 4
       CASE (4)
-         ii2 = 2*Ii
+         ii2 = 2*ii
          ii1 = ii2 - 1
          j2 = 2*j
          j1 = j2 - 1
-         Xout(ii1) = Xout(ii1) - Da(1)*Xout(j1) + Da(2)*Xout(j2)
-         Xout(ii2) = Xout(ii2) - Da(2)*Xout(j1) - Da(1)*Xout(j2)
+         Xout(ii1) = Xout(ii1) - da(1)*Xout(j1) + da(2)*Xout(j2)
+         Xout(ii2) = Xout(ii2) - da(2)*Xout(j1) - da(1)*Xout(j2)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  20      j = j + 1
-         IF ( j<Nswp ) THEN
-            CALL intpk(*20,Mcblt(1),0,Csp,0)
+         IF ( j<nswp ) THEN
+            CALL intpk(*20,mcblt(1),0,csp,0)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL close(Mcblt(1),Rew)
+            CALL close(mcblt(1),rew)
 !*******
 !     BEGIN BACKWARD PASS USING THE UPPER TRIANGLE
 !*******
-            ioff = Mcbut(7) - 1
-            IF ( Qpr ) WRITE (Nout,99006) ioff , Mcblt , Mcbut
+            ioff = mcbut(7) - 1
+            IF ( qpr ) WRITE (nout,99006) ioff , mcblt , mcbut
 99006       FORMAT (1H ,15(1X,I7))
-            CALL gopen(Mcbut(1),Iobuf(1),Rdrew)
-            j = Nswp
+            CALL gopen(mcbut(1),Iobuf(1),rdrew)
+            j = nswp
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
-         CALL intpk(*40,Mcbut(1),0,Csp,0)
-         IF ( Eol/=0 ) GOTO 40
+         CALL intpk(*40,mcbut(1),0,csp,0)
+         IF ( eol/=0 ) GOTO 40
          spag_nextblock_1 = 6
       CASE (6)
          CALL zntpki
-         IF ( Qpr ) WRITE (Nout,99012) Da , Ii , Eol , j
-         i = Nswp - Ii + 1
+         IF ( qpr ) WRITE (nout,99012) da , ii , eol , j
+         i = nswp - ii + 1
          IF ( i/=j ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -248,11 +248,11 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
 !*******
          i2 = 2*i
          i1 = i2 - 1
-         unidum = 1./(Da(1)**2+Da(2)**2)
-         dtemp = (Da(1)*Xout(i1)+Da(2)*Xout(i2))*unidum
-         Xout(i2) = (Da(1)*Xout(i2)-Da(2)*Xout(i1))*unidum
+         unidum = 1./(da(1)**2+da(2)**2)
+         dtemp = (da(1)*Xout(i1)+da(2)*Xout(i2))*unidum
+         Xout(i2) = (da(1)*Xout(i2)-da(2)*Xout(i1))*unidum
          Xout(i1) = dtemp
-         IF ( Qpr ) WRITE (Nout,99013)
+         IF ( qpr ) WRITE (nout,99013)
          spag_nextblock_1 = 7
       CASE (7)
 !*******
@@ -262,19 +262,19 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Eol/=0 ) THEN
+         IF ( eol/=0 ) THEN
             j = j - 1
             IF ( j>0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL close(Mcbut(1),Rew)
+            CALL close(mcbut(1),rew)
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL zntpki
-            IF ( Qpr ) WRITE (Nout,99012) Da , Ii , Eol , j
-            i = Nswp - Ii + 1
+            IF ( qpr ) WRITE (nout,99012) da , ii , eol , j
+            i = nswp - ii + 1
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
@@ -291,25 +291,24 @@ SUBROUTINE cf1fbs(Tpose,Xout,Iobuf)
          in2 = 2*in2
          ii1 = in1 - 1
          ii2 = in2 - 1
-         IF ( Qpr ) WRITE (Nout,99007) i , j , ii1 , ii2
+         IF ( qpr ) WRITE (nout,99007) i , j , ii1 , ii2
 99007    FORMAT (1H ,3HI =,I6,6X,3HJ =,I6,6X,5HII1 =,I6,6X,5HII2 =,I6)
-         Xout(ii1) = Xout(ii1) - Da(1)*Xout(ii2) + Da(2)*Xout(in2)
-         Xout(in1) = Xout(in1) - Da(2)*Xout(ii2) - Da(1)*Xout(in2)
+         Xout(ii1) = Xout(ii1) - da(1)*Xout(ii2) + da(2)*Xout(in2)
+         Xout(in1) = Xout(in1) - da(2)*Xout(ii2) - da(1)*Xout(in2)
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
-         j = Mcblt(1)
+         j = mcblt(1)
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
- 40      j = Mcbut(1)
+ 40      j = mcbut(1)
          spag_nextblock_1 = 10
       CASE (10)
          CALL mesage(-5,j,name)
          spag_nextblock_1 = 11
       CASE (11)
-         IF ( Qpr .AND. junk==0 ) WRITE (Nout,99008)
+         IF ( qpr .AND. junk==0 ) WRITE (nout,99008)
 99008    FORMAT (1H0,30X,13HIOFF NOT USED,/1H )
-         IF ( Qpr .AND. junk/=0 ) WRITE (Nout,99009)
+         IF ( qpr .AND. junk/=0 ) WRITE (nout,99009)
 99009    FORMAT (1H0,30X,13HIOFF WAS USED,/1H )
          EXIT SPAG_DispatchLoop_1
       END SELECT

@@ -1,7 +1,10 @@
-!*==dbmalb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dbmalb.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dbmalb(Lenreq,Index)
+   USE i_dsiof
+   USE i_zzzzzz
    USE I_DSIOF
    USE I_ZZZZZZ
    IMPLICIT NONE
@@ -102,5 +105,4 @@ SUBROUTINE dbmalb(Lenreq,Index)
       ENDDO SPAG_Loop_1_1
    ENDIF
    Index = -1
-   RETURN
 END SUBROUTINE dbmalb

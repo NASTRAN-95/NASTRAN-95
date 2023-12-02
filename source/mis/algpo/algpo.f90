@@ -1,14 +1,15 @@
-!*==algpo.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==algpo.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE algpo(Scr1)
+   USE c_blank
+   USE c_names
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,31 +45,31 @@ SUBROUTINE algpo(Scr1)
 !     ALG WILL USE OPEN CORE AT IZ
 !     ALLOCATE OPEN CORE
 !
-         nz = korsz(Iz)
-         ibuf1 = nz - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf - 1
+         nz = korsz(iz)
+         ibuf1 = nz - sysbuf
+         ibuf2 = ibuf1 - sysbuf - 1
          last = ibuf2 - 1
 !
 !     CHECK FOR SUFFICIENT CORE
 !
          IF ( last<=0 ) CALL mesage(-8,0,name)
-         left = corwds(Iz(1),Iz(last))
+         left = corwds(iz(1),iz(last))
          kaperr = 0
          katerr = 0
-         Ifail = 1
+         ifail = 1
 !
 !     OPEN GEOM3A FOR OUTPUT OF PLOAD2 AND TEMP DATA
 !
-         CALL gopen(geom3a,Iz(ibuf1),Wrtrew)
+         CALL gopen(geom3a,iz(ibuf1),wrtrew)
 !
 !     AERODYNAMIC PRESSURE SECTION
 !
-         IF ( Apress<0 ) THEN
+         IF ( apress<0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ifile = Scr1
-         CALL open(*220,Scr1,Iz(ibuf2),Rdrew)
+         CALL open(*220,Scr1,iz(ibuf2),rdrew)
          CALL read(*40,*20,Scr1,lrec,5,1,nwar)
  20      DO WHILE ( lrec(1)/=labp )
             CALL read(*40,*20,Scr1,lrec,5,1,nwar)
@@ -86,7 +87,7 @@ SUBROUTINE algpo(Scr1)
  40      kaperr = 1
          idp = 0
          CALL rewind(Scr1)
-         WRITE (Nout,99001) Uwm
+         WRITE (nout,99001) uwm
 !
 99001    FORMAT (A25,' - ALG MODULE - AERODYNAMIC PRESSURES REQUESTED VIA',' PARAM APRESS, BUT NOUT3=0 IN AERODYNAMIC INPUT',/41X,  &
                 &'OR AERODYNAMIC CALCULATION FAILED. REQUEST IGNORED.')
@@ -98,18 +99,18 @@ SUBROUTINE algpo(Scr1)
          CALL write(geom3a,lrec(3),3,0)
          CALL read(*80,*60,Scr1,lrec,5,1,nwar)
          GOTO 60
- 80      CALL write(geom3a,Iz,0,1)
+ 80      CALL write(geom3a,iz,0,1)
          CALL rewind(Scr1)
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     AERODYNAMIC TEMPERATURE SECTION
 !
-         IF ( Atemp<0 ) THEN
+         IF ( atemp<0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Apress<0 ) CALL open(*220,Scr1,Iz(ibuf2),Rdrew)
+         IF ( apress<0 ) CALL open(*220,Scr1,iz(ibuf2),rdrew)
          CALL read(*120,*100,Scr1,lrec,5,1,nwar)
  100     DO WHILE ( lrec(1)/=labt )
             CALL read(*120,*100,Scr1,lrec,5,1,nwar)
@@ -128,7 +129,7 @@ SUBROUTINE algpo(Scr1)
 !
  120     katerr = 1
          idt = 0
-         WRITE (Nout,99002) Uwm
+         WRITE (nout,99002) uwm
 99002    FORMAT (A25,' - ALG MODULE - AERODYNAMIC TEMPERATURES REQUESTED ','VIA PARAM ATEMP, BUT NOUT3=0 IN AERODYNAMIC INPUT',/41X,&
                 &'OR AERODYNAMIC CALCULATION FAILED. REQUEST IGNORED.')
          spag_nextblock_1 = 5
@@ -141,7 +142,7 @@ SUBROUTINE algpo(Scr1)
          IF ( itpd<=3 ) dtemp = dtemp + rrec(5)
          CALL read(*160,*140,Scr1,lrec,5,1,nwar)
          GOTO 140
- 160     CALL write(geom3a,Iz,0,1)
+ 160     CALL write(geom3a,iz,0,1)
 !
 !     CREATE TEMPD RECORD. AVERAGE FIRST THREE TEMPS. ON BLADE ROOT.
 !
@@ -163,51 +164,51 @@ SUBROUTINE algpo(Scr1)
          itrl(5) = 0
          itrl(6) = 0
          itrl(7) = 0
-         IF ( Apress>=0 .AND. kaperr/=1 ) THEN
+         IF ( apress>=0 .AND. kaperr/=1 ) THEN
             ibit = 68
             i1 = (ibit-1)/16 + 2
             i2 = ibit - (i1-2)*16 + 16
-            itrl(i1) = orf(itrl(i1),Two(i2))
+            itrl(i1) = orf(itrl(i1),two(i2))
          ENDIF
-         IF ( Atemp>=0 .AND. katerr/=1 ) THEN
+         IF ( atemp>=0 .AND. katerr/=1 ) THEN
             ibit = 57
             i1 = (ibit-1)/16 + 2
             i2 = ibit - (i1-2)*16 + 16
-            itrl(i1) = orf(itrl(i1),Two(i2))
+            itrl(i1) = orf(itrl(i1),two(i2))
             ibit = 65
             i1 = (ibit-1)/16 + 2
             i2 = ibit - (i1-2)*16 + 16
-            itrl(i1) = orf(itrl(i1),Two(i2))
+            itrl(i1) = orf(itrl(i1),two(i2))
          ENDIF
          CALL wrttrl(itrl)
 !
 !     CLOSE SCR1
 !
-         IF ( Apress>=0 .OR. Atemp>=0 ) CALL close(Scr1,1)
-         IF ( kaperr==1 ) Apress = -1
-         IF ( katerr==1 ) Atemp = -1
+         IF ( apress>=0 .OR. atemp>=0 ) CALL close(Scr1,1)
+         IF ( kaperr==1 ) apress = -1
+         IF ( katerr==1 ) atemp = -1
 !
 !     SET IFAIL TO INDICATE ALG MODULE FAILED. CONDITIONAL JUMP BASED
 !     ON VALUE OF IFAIL IS PERFORMED AFTER EXITING FROM ALG MODULE.
 !
-         IF ( Apress==-1 .AND. Atemp==-1 ) Ifail = -1
+         IF ( apress==-1 .AND. atemp==-1 ) ifail = -1
 !
 !     NEW CASE CONTROL DATA BLOCK
 !     OPEN CASECC AND COPY ALL SUBCASES WITH CHANGES MADE TO
 !     STATIC AND THERMAL LOAD ID-S
 !
          ifile = casecc
-         CALL open(*220,casecc,Iz(ibuf1),Rdrew)
+         CALL open(*220,casecc,iz(ibuf1),rdrew)
          CALL fwdrec(*240,casecc)
-         CALL gopen(caseca,Iz(ibuf2),Wrtrew)
-         CALL read(*200,*180,casecc,Iz,left,1,nwds)
+         CALL gopen(caseca,iz(ibuf2),wrtrew)
+         CALL read(*200,*180,casecc,iz,left,1,nwds)
  180     DO
             izx = 4
-            Iz(izx) = idp
+            iz(izx) = idp
             izx = 7
-            Iz(izx) = idt
-            CALL write(caseca,Iz,nwds,1)
-            CALL read(*200,*180,casecc,Iz,left,1,nwds)
+            iz(izx) = idt
+            CALL write(caseca,iz,nwds,1)
+            CALL read(*200,*180,casecc,iz,left,1,nwds)
          ENDDO
  200     CALL close(casecc,1)
          CALL close(caseca,1)

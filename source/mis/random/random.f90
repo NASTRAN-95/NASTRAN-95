@@ -1,9 +1,10 @@
-!*==random.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==random.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE random
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -30,9 +31,9 @@ SUBROUTINE random
 !
 !     INITIALIZE + SET UP
 !
-   CALL rand7(ifile,nfile,psdl,dit,Icoup,nfreq,npsdl,ntau,ltab,casecc,xycb)
-   IF ( Icoup<0 ) THEN
-   ELSEIF ( Icoup==0 ) THEN
+   CALL rand7(ifile,nfile,psdl,dit,icoup,nfreq,npsdl,ntau,ltab,casecc,xycb)
+   IF ( icoup<0 ) THEN
+   ELSEIF ( icoup==0 ) THEN
 !
 !     UNCOUPLED
 !

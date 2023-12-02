@@ -1,14 +1,15 @@
-!*==gp3b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gp3b.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gp3b
+   USE c_blank
+   USE c_gp3com
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GP3COM
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,12 +53,12 @@ SUBROUTINE gp3b
 !
 !     READ EQEXIN INTO CORE
 !
-         file = Eqexin
-         CALL open(*160,Eqexin,Z(Buf2),Rdrew)
-         CALL fwdrec(*180,Eqexin)
-         CALL read(*180,*20,Eqexin,Z,Buf3,1,neqx)
+         file = eqexin
+         CALL open(*160,eqexin,z(buf2),rdrew)
+         CALL fwdrec(*180,eqexin)
+         CALL read(*180,*20,eqexin,z,buf3,1,neqx)
          CALL mesage(-8,0,nam)
- 20      CALL close(Eqexin,Clsrew)
+ 20      CALL close(eqexin,clsrew)
          kn = neqx/2
          itempd = neqx + 1
          itabl = itempd
@@ -65,19 +66,19 @@ SUBROUTINE gp3b
 !     READ TEMPERATURE DEFAULT CARDS (IF PRESENT)
 !
          file = geomp
-         CALL preloc(*99999,Z(Buf1),geomp)
-         CALL locate(*60,Z(Buf1),Tempd,flag)
+         CALL preloc(*99999,z(buf1),geomp)
+         CALL locate(*60,z(buf1),tempd,flag)
          i = itempd
          nodef = 1
-         Notemp = 1
+         notemp = 1
          DO
-            CALL read(*180,*40,geomp,Z(i),2,0,flag)
+            CALL read(*180,*40,geomp,z(i),2,0,flag)
             i = i + 2
          ENDDO
  40      itabl = i
          ntempd = i - 2
          n = itabl - itempd
-         CALL sort(0,0,2,1,Z(itempd),n)
+         CALL sort(0,0,2,1,z(itempd),n)
 !
 !     READ TEMP CARDS.  DETERMINE NO. OF TEMP SETS
 !     FOR EACH SET ID, LOOK UP THE DEFAULT TEMPERATURE
@@ -89,74 +90,74 @@ SUBROUTINE gp3b
          i = itabl
          l = 1
          file = geomp
-         CALL locate(*140,Z(Buf1),Temp,flag)
-         Notemp = 1
+         CALL locate(*140,z(buf1),temp,flag)
+         notemp = 1
          file = gptt
-         CALL open(*160,gptt,Z(Buf2),Wrtrew)
-         CALL fname(gptt,Buf)
-         CALL write(gptt,Buf,2,0)
+         CALL open(*160,gptt,z(buf2),wrtrew)
+         CALL fname(gptt,buf)
+         CALL write(gptt,buf,2,0)
 !
 !     OPEN ETT AS TEMPORARY SCRATCH TO FORM IDENTICAL FILE WITH
 !     INTERNAL NOTATION
 !
-         file = Ett
-         CALL open(*160,Ett,Z(Buf3),Wrtrew)
-         CALL fname(Ett,Buf)
-         CALL write(Ett,Buf,2,0)
+         file = ett
+         CALL open(*160,ett,z(buf3),wrtrew)
+         CALL fname(ett,buf)
+         CALL write(ett,buf,2,0)
          file = geomp
          DO
-            CALL read(*180,*80,geomp,Buf,3,0,flag)
+            CALL read(*180,*80,geomp,buf,3,0,flag)
             j = j + 1
-            IF ( id/=Buf(1) ) THEN
-               id = Buf(1)
-               Z(i) = j
+            IF ( id/=buf(1) ) THEN
+               id = buf(1)
+               z(i) = j
                i = i + 1
                IF ( nodef==0 ) THEN
-                  Buf(2) = -1
+                  buf(2) = -1
                ELSE
                   DO WHILE ( k<=ntempd )
-                     IF ( id<Z(k) ) THEN
-                        Buf(2) = -1
-                     ELSEIF ( id==Z(k) ) THEN
-                        Buf(2) = Z(k+1)
+                     IF ( id<z(k) ) THEN
+                        buf(2) = -1
+                     ELSEIF ( id==z(k) ) THEN
+                        buf(2) = z(k+1)
                         k = k + 2
                      ELSE
-                        Buf(1) = Z(k)
-                        Buf(2) = Z(k+1)
-                        Buf(3) = 0
-                        CALL write(gptt,Buf,3,0)
-                        CALL write(Ett,Buf,3,0)
+                        buf(1) = z(k)
+                        buf(2) = z(k+1)
+                        buf(3) = 0
+                        CALL write(gptt,buf,3,0)
+                        CALL write(ett,buf,3,0)
                         k = k + 2
                         CYCLE
                      ENDIF
                      GOTO 65
                   ENDDO
-                  Buf(2) = -1
+                  buf(2) = -1
                ENDIF
- 65            Buf(3) = l
-               Buf(1) = id
+ 65            buf(3) = l
+               buf(1) = id
                l = l + 1
-               CALL write(gptt,Buf,3,0)
-               CALL write(Ett,Buf,3,0)
+               CALL write(gptt,buf,3,0)
+               CALL write(ett,buf,3,0)
                j = 0
             ENDIF
          ENDDO
  80      IF ( nodef/=0 ) THEN
             IF ( k<=ntempd ) THEN
-               Buf(3) = 0
+               buf(3) = 0
                DO l = k , ntempd , 2
-                  Buf(1) = Z(l)
-                  Buf(2) = Z(l+1)
-                  CALL write(Ett,Buf,3,0)
-                  CALL write(gptt,Buf,3,0)
+                  buf(1) = z(l)
+                  buf(2) = z(l+1)
+                  CALL write(ett,buf,3,0)
+                  CALL write(gptt,buf,3,0)
                ENDDO
             ENDIF
          ENDIF
          CALL write(gptt,0,0,1)
-         CALL write(Ett,0,0,1)
+         CALL write(ett,0,0,1)
          CALL bckrec(geomp)
          n = i
-         Z(n) = j + 1
+         z(n) = j + 1
          i = itabl + 1
 !
 !     READ EACH TEMP SET
@@ -173,11 +174,11 @@ SUBROUTINE gp3b
          spag_nextblock_1 = 3
       CASE (3)
          j = n1
-         nx = Z(i)
+         nx = z(i)
          ni = 1
          spag_nextblock_1 = 4
       CASE (4)
-         CALL read(*180,*200,geomp,Buf,3,0,flag)
+         CALL read(*180,*200,geomp,buf,3,0,flag)
          IF ( intern ) THEN
 !
 !     INTERNAL BINARY SEARCH ROUTINE.
@@ -186,16 +187,16 @@ SUBROUTINE gp3b
             khi = kn
             k = (klo+khi+1)/2
             SPAG_Loop_1_1: DO
-               IF ( Buf(2)<Z(2*k-1) ) THEN
+               IF ( buf(2)<z(2*k-1) ) THEN
                   khi = k
-               ELSEIF ( Buf(2)==Z(2*k-1) ) THEN
-                  Buf(2) = Z(2*k)
+               ELSEIF ( buf(2)==z(2*k-1) ) THEN
+                  buf(2) = z(2*k)
                   EXIT SPAG_Loop_1_1
                ELSE
                   klo = k
                ENDIF
                IF ( khi-klo<1 ) THEN
-                  CALL mesage(-30,9,Buf)
+                  CALL mesage(-30,9,buf)
                   CALL mesage(j,file,nam)
                   RETURN
                ELSEIF ( khi-klo==1 ) THEN
@@ -210,10 +211,10 @@ SUBROUTINE gp3b
                ENDIF
             ENDDO SPAG_Loop_1_1
          ENDIF
-         Z(j) = Buf(2)
-         Z(j+1) = Buf(3)
+         z(j) = buf(2)
+         z(j+1) = buf(3)
          j = j + 2
-         IF ( j>=Buf3 ) THEN
+         IF ( j>=buf3 ) THEN
             j = -8
             CALL mesage(j,file,nam)
             RETURN
@@ -224,7 +225,7 @@ SUBROUTINE gp3b
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             nx = j - n1
-            CALL sort(0,0,2,1,Z(n1),nx)
+            CALL sort(0,0,2,1,z(n1),nx)
 !
 !     TEST FOR UNIQUENESS OF POINT AND TEMPERATURE
 !
@@ -234,21 +235,21 @@ SUBROUTINE gp3b
             IF ( klo<khi ) THEN
                k = klo
                DO j = klo , khi , 2
-                  IF ( Z(j)/=Z(j-2) ) THEN
+                  IF ( z(j)/=z(j-2) ) THEN
 !
 !     VALID TEMPERATURE
 !
-                     Z(k) = Z(j)
-                     Z(k+1) = Z(j+1)
+                     z(k) = z(j)
+                     z(k+1) = z(j+1)
                      k = k + 2
                   ELSE
 !
 !     NOT FATAL IF SAME TEMPERATURE
 !
-                     IF ( Z(j+1)/=Z(j-1) ) nogo = nogo + 1
+                     IF ( z(j+1)/=z(j-1) ) nogo = nogo + 1
                      IF ( .NOT.(intern) ) THEN
                         CALL page2(2)
-                        WRITE (Nout,99001) Ufm , Z(j-1) , Z(j+1) , Z(j)
+                        WRITE (nout,99001) ufm , z(j-1) , z(j+1) , z(j)
 99001                   FORMAT (A23,' 2100, TEMPERATURE SPECIFIED HAS ',1P,E10.3,4H AND,1P,E10.3,' FOR GRID',I9)
                      ENDIF
                   ENDIF
@@ -256,7 +257,7 @@ SUBROUTINE gp3b
             ENDIF
 !
             nx = k - n1
-            CALL write(ifile,Z(n1),nx,1)
+            CALL write(ifile,z(n1),nx,1)
             i = i + 1
             IF ( i<=n ) THEN
                spag_nextblock_1 = 3
@@ -269,7 +270,7 @@ SUBROUTINE gp3b
             IF ( .NOT.(intern) ) THEN
                CALL bckrec(geomp)
                intern = .TRUE.
-               ifile = Ett
+               ifile = ett
                i = isave
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
@@ -280,23 +281,23 @@ SUBROUTINE gp3b
 !
 !     NOW APPEND ENTIRE ETT FILE TO GPTT FILE
 !
-         file = Ett
-         CALL close(Ett,Clsrew)
-         CALL open(*160,Ett,Z(Buf3),Rdrew)
+         file = ett
+         CALL close(ett,clsrew)
+         CALL open(*160,ett,z(buf3),rdrew)
          spag_nextblock_1 = 6
       CASE (6)
          DO
-            CALL read(*120,*100,Ett,Z,Buf3-1,0,flag)
-            CALL write(gptt,Z,Buf3-1,0)
+            CALL read(*120,*100,ett,z,buf3-1,0,flag)
+            CALL write(gptt,z,buf3-1,0)
          ENDDO
- 100     CALL write(gptt,Z,flag,1)
+ 100     CALL write(gptt,z,flag,1)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 120     CALL close(gptt,Clsrew)
-         CALL close(Ett,Clsrew)
+ 120     CALL close(gptt,clsrew)
+         CALL close(ett,clsrew)
          spag_nextblock_1 = 7
       CASE (7)
-         CALL close(geomp,Clsrew)
+         CALL close(geomp,clsrew)
          RETURN
 !
 !     NO TEMP CARDS PRESENT. IF NO DEFAULT CARDS, NO GPTT.
@@ -308,22 +309,22 @@ SUBROUTINE gp3b
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file = gptt
-         CALL open(*160,gptt,Z(Buf2),Wrtrew)
-         CALL fname(gptt,Buf)
-         CALL write(gptt,Buf,2,0)
-         file = Ett
-         CALL open(*160,Ett,Z(Buf3),Wrtrew)
-         CALL fname(Ett,Buf)
-         CALL write(Ett,Buf,2,0)
-         Buf(3) = 0
+         CALL open(*160,gptt,z(buf2),wrtrew)
+         CALL fname(gptt,buf)
+         CALL write(gptt,buf,2,0)
+         file = ett
+         CALL open(*160,ett,z(buf3),wrtrew)
+         CALL fname(ett,buf)
+         CALL write(ett,buf,2,0)
+         buf(3) = 0
          DO k = itempd , ntempd , 2
-            Buf(1) = Z(k)
-            Buf(2) = Z(k+1)
-            CALL write(gptt,Buf,3,0)
+            buf(1) = z(k)
+            buf(2) = z(k+1)
+            CALL write(gptt,buf,3,0)
          ENDDO
-         CALL write(Ett,Buf,3,0)
+         CALL write(ett,buf,3,0)
          CALL write(gptt,0,0,1)
-         CALL write(Ett,0,0,1)
+         CALL write(ett,0,0,1)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
 !

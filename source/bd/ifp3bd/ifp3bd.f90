@@ -1,88 +1,89 @@
-!*==ifp3bd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp3bd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA ifp3bd
+   USE c_ifp3cm
    IMPLICIT NONE
-   USE C_IFP3CM
 !IFP3BD
 !     B L O C K   D A T A   F O R   I F P 3
 !
 !
 !
 !
-   DATA One/1/ , Zero/0/
+   DATA one/1/ , zero/0/
 !
-   DATA File(1) , File(2)/201 , 208/
-   DATA File(3) , File(4)/209 , 210/
-   DATA File(5) , File(6)/301 , 215/
+   DATA file(1) , file(2)/201 , 208/
+   DATA file(3) , file(4)/209 , 210/
+   DATA file(5) , file(6)/301 , 215/
 !
-   DATA Iname(1) , Iname(2)/4HGEOM , 4H1   /
-   DATA Iname(3) , Iname(4)/4HGEOM , 4H2   /
-   DATA Iname(5) , Iname(6)/4HGEOM , 4H3   /
-   DATA Iname(7) , Iname(8)/4HGEOM , 4H4   /
-   DATA Iname(9) , Iname(10)/4HSCRT , 4HCH  /
-   DATA Iname(11) , Iname(12)/4HAXIC , 4H    /
+   DATA iname(1) , iname(2)/4HGEOM , 4H1   /
+   DATA iname(3) , iname(4)/4HGEOM , 4H2   /
+   DATA iname(5) , iname(6)/4HGEOM , 4H3   /
+   DATA iname(7) , iname(8)/4HGEOM , 4H4   /
+   DATA iname(9) , iname(10)/4HSCRT , 4HCH  /
+   DATA iname(11) , iname(12)/4HAXIC , 4H    /
 !
-   DATA Cdtype(1) , Cdtype(2)/4HAXIC , 4H    /
-   DATA Cdtype(3) , Cdtype(4)/4HCCON , 4HEAX /
-   DATA Cdtype(5) , Cdtype(6)/4HFORC , 4HEAX /
-   DATA Cdtype(7) , Cdtype(8)/4HFORC , 4HE   /
-   DATA Cdtype(9) , Cdtype(10)/4HGRAV , 4H    /
-   DATA Cdtype(11) , Cdtype(12)/4HLOAD , 4H    /
-   DATA Cdtype(13) , Cdtype(14)/4HMOMA , 4HX   /
-   DATA Cdtype(15) , Cdtype(16)/4HMOME , 4HNT  /
-   DATA Cdtype(17) , Cdtype(18)/4HMPCA , 4HDD  /
-   DATA Cdtype(19) , Cdtype(20)/4HMPCA , 4HX   /
-   DATA Cdtype(21) , Cdtype(22)/4HOMIT , 4HAX  /
-   DATA Cdtype(23) , Cdtype(24)/4HPOIN , 4HTAX /
-   DATA Cdtype(25) , Cdtype(26)/4HPRES , 4HAX  /
-   DATA Cdtype(27) , Cdtype(28)/4HRING , 4HAX  /
-   DATA Cdtype(29) , Cdtype(30)/4HSECT , 4HAX  /
-   DATA Cdtype(31) , Cdtype(32)/4HSEQG , 4HP   /
-   DATA Cdtype(33) , Cdtype(34)/4HSPCA , 4HDD  /
-   DATA Cdtype(35) , Cdtype(36)/4HSPCA , 4HX   /
-   DATA Cdtype(37) , Cdtype(38)/4HSUPA , 4HX   /
-   DATA Cdtype(39) , Cdtype(40)/4HTEMP , 4HAX  /
-   DATA Cdtype(41) , Cdtype(42)/4HTEMP , 4HD   /
-   DATA Cdtype(43) , Cdtype(44)/4HCTRI , 4HAAX /
-   DATA Cdtype(45) , Cdtype(46)/4HCTRA , 4HPAX /
-   DATA Cdtype(47) , Cdtype(48)/4HRFOR , 4HCE  /
+   DATA cdtype(1) , cdtype(2)/4HAXIC , 4H    /
+   DATA cdtype(3) , cdtype(4)/4HCCON , 4HEAX /
+   DATA cdtype(5) , cdtype(6)/4HFORC , 4HEAX /
+   DATA cdtype(7) , cdtype(8)/4HFORC , 4HE   /
+   DATA cdtype(9) , cdtype(10)/4HGRAV , 4H    /
+   DATA cdtype(11) , cdtype(12)/4HLOAD , 4H    /
+   DATA cdtype(13) , cdtype(14)/4HMOMA , 4HX   /
+   DATA cdtype(15) , cdtype(16)/4HMOME , 4HNT  /
+   DATA cdtype(17) , cdtype(18)/4HMPCA , 4HDD  /
+   DATA cdtype(19) , cdtype(20)/4HMPCA , 4HX   /
+   DATA cdtype(21) , cdtype(22)/4HOMIT , 4HAX  /
+   DATA cdtype(23) , cdtype(24)/4HPOIN , 4HTAX /
+   DATA cdtype(25) , cdtype(26)/4HPRES , 4HAX  /
+   DATA cdtype(27) , cdtype(28)/4HRING , 4HAX  /
+   DATA cdtype(29) , cdtype(30)/4HSECT , 4HAX  /
+   DATA cdtype(31) , cdtype(32)/4HSEQG , 4HP   /
+   DATA cdtype(33) , cdtype(34)/4HSPCA , 4HDD  /
+   DATA cdtype(35) , cdtype(36)/4HSPCA , 4HX   /
+   DATA cdtype(37) , cdtype(38)/4HSUPA , 4HX   /
+   DATA cdtype(39) , cdtype(40)/4HTEMP , 4HAX  /
+   DATA cdtype(41) , cdtype(42)/4HTEMP , 4HD   /
+   DATA cdtype(43) , cdtype(44)/4HCTRI , 4HAAX /
+   DATA cdtype(45) , cdtype(46)/4HCTRA , 4HPAX /
+   DATA cdtype(47) , cdtype(48)/4HRFOR , 4HCE  /
 !
-   DATA Axic1/515 , 5 , 0/
-   DATA Cconex/8515 , 85 , 0/
-   DATA Forcex/2115 , 21 , 0/
-   DATA Force/4201 , 42 , 0/
-   DATA Grav/4401 , 44 , 0/
-   DATA Load/4551 , 61 , 0/
-   DATA Momax/3815 , 38 , 0/
-   DATA Moment/4801 , 48 , 0/
-   DATA Mpcadd/4891 , 60 , 0/
-   DATA Mpcax/4015 , 40 , 0/
-   DATA Omitax/4315 , 43 , 0/
-   DATA Pointx/4915 , 49 , 0/
-   DATA Presax/5215 , 52 , 0/
-   DATA Ringax/5615 , 56 , 0/
-   DATA Sectax/6315 , 63 , 0/
-   DATA Seqgp/5301 , 53 , 0/
-   DATA Spcax/6215 , 62 , 0/
-   DATA Supax/6415 , 64 , 0/
-   DATA Tempax/6815 , 68 , 0/
-   DATA Tempd/5641 , 65 , 0/
-   DATA Pload/5101 , 51 , 0/
-   DATA Mpc/4901 , 49 , 0/
-   DATA Spc/5501 , 55 , 0/
-   DATA Grid/4501 , 45 , 0/
-   DATA Suport/5601 , 56 , 0/
-   DATA Temp/5701 , 57 , 0/
-   DATA Omit/5001 , 50 , 0/
-   DATA Spcadd/5491 , 59 , 0/
-   DATA Ctriaa/7012 , 70 , 0/
-   DATA Ctrapa/7042 , 74 , 0/
-   DATA Rforce/5509 , 55 , 0/
-   DATA Iconso/0/
-   DATA Neg111/ - 1 , -1 , -1/
-   DATA T65535/65535 , 65535 , 65535/
-   DATA Iheadb/4HI N  , 4HP U  , 4HT    , 4HD A  , 4HT A  , 4H  E  , 4HR R  , 4HO R  , 4HS    , 4HD E  , 4HT E  , 4HC T  , 4HE D  , &
+   DATA axic1/515 , 5 , 0/
+   DATA cconex/8515 , 85 , 0/
+   DATA forcex/2115 , 21 , 0/
+   DATA force/4201 , 42 , 0/
+   DATA grav/4401 , 44 , 0/
+   DATA load/4551 , 61 , 0/
+   DATA momax/3815 , 38 , 0/
+   DATA moment/4801 , 48 , 0/
+   DATA mpcadd/4891 , 60 , 0/
+   DATA mpcax/4015 , 40 , 0/
+   DATA omitax/4315 , 43 , 0/
+   DATA pointx/4915 , 49 , 0/
+   DATA presax/5215 , 52 , 0/
+   DATA ringax/5615 , 56 , 0/
+   DATA sectax/6315 , 63 , 0/
+   DATA seqgp/5301 , 53 , 0/
+   DATA spcax/6215 , 62 , 0/
+   DATA supax/6415 , 64 , 0/
+   DATA tempax/6815 , 68 , 0/
+   DATA tempd/5641 , 65 , 0/
+   DATA pload/5101 , 51 , 0/
+   DATA mpc/4901 , 49 , 0/
+   DATA spc/5501 , 55 , 0/
+   DATA grid/4501 , 45 , 0/
+   DATA suport/5601 , 56 , 0/
+   DATA temp/5701 , 57 , 0/
+   DATA omit/5001 , 50 , 0/
+   DATA spcadd/5491 , 59 , 0/
+   DATA ctriaa/7012 , 70 , 0/
+   DATA ctrapa/7042 , 74 , 0/
+   DATA rforce/5509 , 55 , 0/
+   DATA iconso/0/
+   DATA neg111/ - 1 , -1 , -1/
+   DATA t65535/65535 , 65535 , 65535/
+   DATA iheadb/4HI N  , 4HP U  , 4HT    , 4HD A  , 4HT A  , 4H  E  , 4HR R  , 4HO R  , 4HS    , 4HD E  , 4HT E  , 4HC T  , 4HE D  , &
        &4H  B  , 4HY    , 4HI F  , 4HP 3  , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     ,        &
       & 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H (AX , 4HIS-S , 4HYMME , 4HTRIC , 4H CON , 4HICAL ,        &
       & 4H SHE , 4HLL D , 4HATA  , 4HPROC , 4HESSO , 4HR-GE , 4HNERA , 4HTOR) , 4H     , 4H     , 4H     , 4H     , 4H     ,        &

@@ -1,11 +1,12 @@
-!*==inptt4.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==inptt4.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE inptt4
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -105,14 +106,14 @@ SUBROUTINE inptt4
    !>>>>EQUIVALENCE (Y(1),X(1))
    !>>>>EQUIVALENCE (Z(1),X(1))
 !
-   IF ( P4<0 ) THEN
-      nmat = iabs(P4)
+   IF ( p4<0 ) THEN
+      nmat = iabs(p4)
       IF ( nmat==2 ) THEN
 !
          CALL input2
       ELSEIF ( nmat==3 .OR. nmat==5 ) THEN
 !
-         WRITE (Nout,99001) P4
+         WRITE (nout,99001) p4
 99001    FORMAT ('  ERROR IN INPTT4.  P4 =',I3,' NOT AVAILABLE')
          CALL mesage(-61,0,0)
          CALL spag_block_1
@@ -130,17 +131,17 @@ SUBROUTINE inptt4
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      nmat = 5
-      iunit = iabs(P2)
-      itape = P1
-      bcdopt = 1
-      IF ( P2<0 ) bcdopt = 2
-      IF ( P4>0 ) bcdopt = 3
+      Nmat = 5
+      Iunit = iabs(p2)
+      Itape = p1
+      Bcdopt = 1
+      IF ( p2<0 ) Bcdopt = 2
+      IF ( P4>0 ) Bcdopt = 3
 !
 !     BCDOPT = 1, BINARAY INPUT TAPE
 !            = 2, ASCII INPUT TAPE, WITH S.P./D.P. STANDARD FORMATS
 !            = 3, ASCII INPUT TAPE, WITH LARGE FILED S.P./D.P. FORMATS
 !
-      CALL input4(nmat,iunit,itape,bcdopt)
+      CALL input4(Nmat,Iunit,Itape,Bcdopt)
    END SUBROUTINE spag_block_1
 END SUBROUTINE inptt4

@@ -1,12 +1,13 @@
-!*==eqmck.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==eqmck.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE eqmck
+   USE c_blank
+   USE c_eqmk1
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EQMK1
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -47,37 +48,37 @@ SUBROUTINE eqmck
    DATA name/4HEQMC , 2HK /
 !
    oqm = 0
-   Kmpc = 0
-   Kspc = 0
-   Kload = 0
-   Parm(3) = name(1)
-   Parm(4) = name(2)
+   kmpc = 0
+   kspc = 0
+   kload = 0
+   parm(3) = name(1)
+   parm(4) = name(2)
    DO i = 1 , 7
       sf(i) = sfl(i)
    ENDDO
 !
    DO i = 1 , 11
-      Trl(1) = kfil(i)
-      CALL rdtrl(Trl)
-      K(i) = Trl(1)
+      trl(1) = kfil(i)
+      CALL rdtrl(trl)
+      k(i) = trl(1)
    ENDDO
-   lama = K(10)
+   lama = k(10)
    cstm = kfil(12)
 !
 !     ALWAYS NECESSARY FILES
 !
-   Parm(2) = kfil(1)
+   parm(2) = kfil(1)
    IF ( casecc<0 ) THEN
       CALL spag_block_3
       RETURN
    ENDIF
-   Parm(2) = kfil(2)
+   parm(2) = kfil(2)
    IF ( eqexin<0 ) THEN
       CALL spag_block_3
       RETURN
    ENDIF
-   Parm(2) = kfil(13)
-   IF ( Nskip<0 .AND. lama<0 ) THEN
+   parm(2) = kfil(13)
+   IF ( nskip<0 .AND. lama<0 ) THEN
       CALL spag_block_3
       RETURN
    ENDIF
@@ -85,19 +86,19 @@ SUBROUTINE eqmck
 !     FILES FOR OQM
 !
    l = 0
-   IF ( Iopt>=0 ) THEN
+   IF ( iopt>=0 ) THEN
       IF ( gpl>=0 .AND. sil>=0 .AND. uset>=0 ) oqm = kfil(14)
 !
 !     MPC CONSTRAINTS
 !
-      IF ( gm>=0 .AND. ugv>=0 .AND. kgg>=0 ) Kmpc = 1
-      IF ( Kmpc<=0 .OR. Iopt<0 ) oqm = -kfil(14)
+      IF ( gm>=0 .AND. ugv>=0 .AND. kgg>=0 ) kmpc = 1
+      IF ( kmpc<=0 .OR. iopt<0 ) oqm = -kfil(14)
       IF ( oqm<=0 ) THEN
-         IF ( Iopt>=0 ) THEN
+         IF ( iopt>=0 ) THEN
             CALL page2(2)
-            WRITE (nout,99001) Uwm , name
+            WRITE (nout,99001) uwm , name
 99001       FORMAT (A25,' 2370, MULTI-POINT CONSTRAINT FORCES NOT CALCULATED',' IN ',A4,A2,' DUE TO MISSING INPUT FILE.')
-            IF ( Iopt==0 ) THEN
+            IF ( iopt==0 ) THEN
                CALL spag_block_2
                RETURN
             ENDIF
@@ -110,11 +111,11 @@ SUBROUTINE eqmck
 !WKBD 11/93 SPR93007   40 IF (IOPT  .EQ. 0) GO TO 60
 !WKBD 11/93 SPR93007      IF (BGPDT .LT. 0) GO TO 50
 !WKBI 11/93 SPR93007
-   IF ( pgg>=0 .AND. Nskip>=0 ) Kload = 1
-   IF ( qg>=0 ) Kspc = 1
-   l = Kspc + Kmpc + Kload
+   IF ( pgg>=0 .AND. nskip>=0 ) kload = 1
+   IF ( qg>=0 ) kspc = 1
+   l = kspc + kmpc + kload
 !WKBNB 11/93 SPR93007
-   IF ( Iopt/=0 ) THEN
+   IF ( iopt/=0 ) THEN
       IF ( bgpdt>=0 ) THEN
 !WKBNE 11/93 SPR93007
          IF ( l>0 ) THEN
@@ -123,40 +124,40 @@ SUBROUTINE eqmck
          ENDIF
       ENDIF
       CALL page2(2)
-      WRITE (nout,99002) Uwm , name
+      WRITE (nout,99002) uwm , name
 !
 !     ERROR MESSAGES
 !
 99002 FORMAT (A25,' 2371, EQUILIBRIUM FORCES NOT CALCULATED IN ',A4,A2,' DUE TO MISSING INPUT FILE.')
-      IF ( Iopt<0 ) THEN
+      IF ( iopt<0 ) THEN
          CALL spag_block_2
          RETURN
       ENDIF
-      Iopt = 0
+      iopt = 0
    ENDIF
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      IF ( Iopt>=0 .OR. l/=0 ) THEN
-         IF ( Iopt/=0 .OR. oqm>0 ) THEN
-            IF ( Iopt<=0 .OR. l/=0 .OR. oqm>0 ) THEN
+      IF ( Iopt>=0 .OR. L/=0 ) THEN
+         IF ( Iopt/=0 .OR. Oqm>0 ) THEN
+            IF ( Iopt<=0 .OR. L/=0 .OR. Oqm>0 ) THEN
 !
 !     CREATE MPC DATA AND OQM
 !
-               IF ( Kmpc>0 .OR. (Nskip>1 .AND. l>0) ) CALL eqmckm
-               IF ( l/=0 ) THEN
+               IF ( Kmpc>0 .OR. (Nskip>1 .AND. L>0) ) CALL eqmckm
+               IF ( L/=0 ) THEN
 !
 !     CALCULATE D-T FOR ST1
 !
-                  i = Igrid
-                  CALL eqmcka(Igrid,bgpdt,cstm,eqexin,sf(2),l)
-                  IF ( Igrid/=0 ) Igrid = i
-                  IF ( l==0 ) THEN
+                  I = igrid
+                  CALL eqmcka(igrid,Bgpdt,Cstm,Eqexin,Sf(2),L)
+                  IF ( igrid/=0 ) igrid = I
+                  IF ( L==0 ) THEN
 !
                      CALL page2(2)
-                     WRITE (nout,99003) Uwm , name
-99003                FORMAT (A25,' 2372, ',A4,A2,' IS UNABLE TO CALCULATE RIGID BODY ','TRANSFORMATION FOR SCALAR MODEL.')
+                     WRITE (Nout,99001) Uwm , Name
+99001                FORMAT (A25,' 2372, ',A4,A2,' IS UNABLE TO CALCULATE RIGID BODY ','TRANSFORMATION FOR SCALAR MODEL.')
                   ELSE
 !
 !     CALCULATE AND OUTPUT ST1
@@ -171,12 +172,10 @@ CONTAINS
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
-      RETURN
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3
-      Parm(1) = 1
-      CALL mesage(Parm(1),Parm(2),Parm(3))
+      parm(1) = 1
+      CALL mesage(parm(1),parm(2),parm(3))
       CALL spag_block_2
-      RETURN
    END SUBROUTINE spag_block_3
 END SUBROUTINE eqmck

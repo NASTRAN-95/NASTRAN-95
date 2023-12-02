@@ -1,14 +1,15 @@
-!*==fdit.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fdit.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fdit(I,K)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -40,7 +41,7 @@ SUBROUTINE fdit(I,K)
 !
 !     NDIR IS THE NUMBER OF SUBSTRUCTURE NAMES IN ONE BLOCK OF THE DIT
 !
-   ndir = Blksiz/2
+   ndir = blksiz/2
 !
 !     COMPUTE THE LOGICAL BLOCK NUMBER, AND THE WORD NUMBER WITHIN
 !     BUF IN WHICH THE ITH SUBSTRUCTURE NAME IS STORED.  STORE THE BLOCK
@@ -48,8 +49,8 @@ SUBROUTINE fdit(I,K)
 !
    iblock = I/ndir
    IF ( I/=iblock*ndir ) iblock = iblock + 1
-   K = 2*(I-(iblock-1)*ndir) - 1 + Dit
-   IF ( Ditlbn==iblock ) RETURN
+   K = 2*(I-(iblock-1)*ndir) - 1 + dit
+   IF ( ditlbn==iblock ) RETURN
 !
 !     THE DESIRED DIT BLOCK IS NOT PRESENTLY IN CORE, MUST THEREFORE
 !     FETCH IT.
@@ -59,15 +60,15 @@ SUBROUTINE fdit(I,K)
 !     FIND THE PHYSICAL BLOCK NUMBER OF THE BLOCK ON WHICH THE LOGICAL
 !     BLOCK IBLOCK IS STORED.
 !
-   j = Ditbl
+   j = ditbl
    icount = 1
    SPAG_Loop_1_1: DO WHILE ( icount/=iblock )
       icount = icount + 1
       CALL fnxt(j,inxt)
       IF ( mod(j,2)==1 ) THEN
-         ibl = andf(Buf(inxt),Jhalf)
+         ibl = andf(buf(inxt),jhalf)
       ELSE
-         ibl = rshift(Buf(inxt),Ihalf)
+         ibl = rshift(buf(inxt),ihalf)
       ENDIF
       IF ( ibl==0 ) THEN
 !
@@ -83,7 +84,7 @@ SUBROUTINE fdit(I,K)
 !
             CALL errmkn(indsbr,7)
          ENDIF
-         WRITE (Nout,99001) Ufm
+         WRITE (nout,99001) ufm
 99001    FORMAT (A23,' 6223, SUBROUTINE FDIT - THERE ARE NO MORE FREE ','BLOCKS AVAILABLE ON THE SOF')
          CALL sofcls
          CALL mesage(-61,0,0)
@@ -92,41 +93,41 @@ SUBROUTINE fdit(I,K)
          j = ibl
       ENDIF
    ENDDO SPAG_Loop_1_1
-   IF ( Ditpbn==0 ) THEN
-      IF ( Nxtpbn/=0 ) THEN
+   IF ( ditpbn==0 ) THEN
+      IF ( nxtpbn/=0 ) THEN
 !
 !     THE IN CORE BLOCK SHARED BY THE DIT AND THE ARRAY NXT IS NOW
 !     OCCUPIED BY NXT.  WRITE OUT NXT IF IT HAS BEEN UPDATED.
 !
-         IF ( Nxtup ) THEN
-            CALL sofio(iwrt,Nxtpbn,Buf(Nxt-2))
-            Nxtup = .FALSE.
+         IF ( nxtup ) THEN
+            CALL sofio(iwrt,nxtpbn,buf(nxt-2))
+            nxtup = .FALSE.
          ENDIF
-         Nxtpbn = 0
-         Nxtlbn = 0
+         nxtpbn = 0
+         nxtlbn = 0
       ENDIF
 !
 !     THE IN CORE BLOCK SHARED BY THE DIT AND THE ARRAY NXT IS NOW
 !     OCCUPIED BY THE DIT.  WRITE IT OUT IF IT HAS BEEN UPDATED.
 !
-   ELSEIF ( Ditup ) THEN
-      CALL sofio(iwrt,Ditpbn,Buf(Dit-2))
+   ELSEIF ( ditup ) THEN
+      CALL sofio(iwrt,ditpbn,buf(dit-2))
    ENDIF
 !
 !     READ THE DESIRED DIT BLOCK INTO CORE.
 !
-   Ditpbn = j
-   Ditlbn = iblock
+   ditpbn = j
+   ditlbn = iblock
    IF ( newblk ) THEN
 !
-      istart = Dit + 1
-      iend = Dit + Blksiz
+      istart = dit + 1
+      iend = dit + blksiz
       DO ll = istart , iend
-         Buf(ll) = iempty
+         buf(ll) = iempty
       ENDDO
       RETURN
    ELSE
-      CALL sofio(ird,j,Buf(Dit-2))
+      CALL sofio(ird,j,buf(dit-2))
       RETURN
    ENDIF
 END SUBROUTINE fdit

@@ -2,20 +2,26 @@
  
 SUBROUTINE amg
    IMPLICIT NONE
-   USE C_AMGBUG
-   USE C_AMGMN
-   USE C_AMGP2
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_amgbug
+   USE c_amgmn
+   USE c_amgp2
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , SAVE :: acpt , aero , ajjl , skj , w1jk , w2jk
    INTEGER :: buf1 , buf2 , buf3 , i , icore , ifile , j , method , n , n1 , nmk , nms
    INTEGER , DIMENSION(2) , SAVE :: name
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -40,44 +46,44 @@ SUBROUTINE amg
    DATA name/4HAMG  , 4H    /
    DATA aero/101/ , acpt/102/ , ajjl/201/ , skj/202/ , w1jk/203/ , w2jk/204/
 !
-   Debug = .FALSE.
+   debug = .FALSE.
    CALL sswtch(20,j)
-   IF ( j==1 ) Debug = .TRUE.
+   IF ( j==1 ) debug = .TRUE.
 !
 !     USE IZ TO COMPUTE BUFFERS
 !
-   icore = korsz(Iz)
-   ifile = 4*Sysbuf + 3*Nj
+   icore = korsz(iz)
+   ifile = 4*sysbuf + 3*nj
    IF ( icore>ifile ) THEN
 !
 !     OPEN INPUT STRUCTURAL DATA
 !
-      icore = icore - Sysbuf
-      CALL gopen(acpt,Iz(icore+1),0)
+      icore = icore - sysbuf
+      CALL gopen(acpt,iz(icore+1),0)
 !
 !     OPEN AND SKIP HEADER ON AERO
 !
       ifile = aero
-      buf1 = icore - Sysbuf
-      CALL gopen(aero,Iz(buf1+1),0)
+      buf1 = icore - sysbuf
+      CALL gopen(aero,iz(buf1+1),0)
 !
 !     READ 3 INPUT WORDS INTO COMMON
 !
-      CALL read(*900,*900,aero,Nd,3,1,n)
+      CALL read(*900,*900,aero,nd,3,1,n)
 !
 !     OPEN OUTPUT FILE FOR AJJL MATRIX, SET UP TRAILER AND WRITE HEADER
 !
-      buf2 = buf1 - Sysbuf
+      buf2 = buf1 - sysbuf
       ifile = ajjl
-      CALL open(*800,ajjl,Iz(buf2+1),1)
-      CALL fname(ajjl,Mcb)
-      CALL write(ajjl,Mcb,2,0)
-      CALL write(ajjl,Nj,1,0)
-      CALL write(ajjl,Nk,1,0)
-      buf3 = buf2 - Sysbuf
-      CALL gopen(skj,Iz(buf3+1),1)
+      CALL open(*800,ajjl,iz(buf2+1),1)
+      CALL fname(ajjl,mcb)
+      CALL write(ajjl,mcb,2,0)
+      CALL write(ajjl,nj,1,0)
+      CALL write(ajjl,nk,1,0)
+      buf3 = buf2 - sysbuf
+      CALL gopen(skj,iz(buf3+1),1)
       ifile = aero
-      CALL read(*800,*100,aero,Iz,buf3,0,n)
+      CALL read(*800,*100,aero,iz,buf3,0,n)
    ENDIF
    nms = -8
    CALL mesage(nms,ifile,name)
@@ -87,89 +93,89 @@ SUBROUTINE amg
    CALL fwdrec(*900,aero)
    CALL fwdrec(*900,aero)
    CALL write(ajjl,nmk,1,0)
-   CALL write(ajjl,Iz,n,0)
+   CALL write(ajjl,iz,n,0)
    ifile = acpt
-   Iz(1) = 0
+   iz(1) = 0
    n1 = 2
    DO
       CALL read(*200,*200,acpt,method,1,0,n)
-      Iz(1) = Iz(1) + 1
-      Iz(n1) = method
+      iz(1) = iz(1) + 1
+      iz(n1) = method
       IF ( method==2 ) THEN
 !
 !     DOUBLET LATTICE WITH BODIES
 !
-         CALL read(*800,*900,acpt,Mcb,2,1,n)
-         Iz(n1+1) = Mcb(1)
-         Iz(n1+2) = Mcb(2)
+         CALL read(*800,*900,acpt,mcb,2,1,n)
+         iz(n1+1) = mcb(1)
+         iz(n1+2) = mcb(2)
       ELSEIF ( method==3 .OR. method==4 .OR. method==5 ) THEN
 !
 !     MACH BOX  STRIP THEORY  PISTON THEORY
 !
-         CALL read(*800,*900,acpt,Mcb,1,1,n)
-         Iz(n1+1) = Mcb(1)
-         Iz(n1+2) = Mcb(1)
+         CALL read(*800,*900,acpt,mcb,1,1,n)
+         iz(n1+1) = mcb(1)
+         iz(n1+2) = mcb(1)
       ELSEIF ( method==6 ) THEN
 !
 !     COMPRESSOR BLADE METHOD
 !
-         CALL read(*800,*900,acpt,Mcb,5,1,n)
+         CALL read(*800,*900,acpt,mcb,5,1,n)
 !
 !     NUMBER OF COLUMNS ADDED IS NJ = NK = (NSTNS*NLINES) FOR THE BLADE
 !
-         Iz(n1+1) = Mcb(4)*Mcb(5)
-         Iz(n1+2) = Iz(n1+1)
+         iz(n1+1) = mcb(4)*mcb(5)
+         iz(n1+2) = iz(n1+1)
       ELSEIF ( method==7 ) THEN
 !
 !     SWEPT TURBOPROP BLADE METHOD
 !
-         CALL read(*800,*900,acpt,Mcb,5,1,n)
+         CALL read(*800,*900,acpt,mcb,5,1,n)
 !
 !     NUMBER OF COLUMNS ADDED IS NJ = NK = (2*NSTNS*NLINES) FOR THE PROP
 !
-         Iz(n1+1) = 2*Mcb(4)*Mcb(5)
-         Iz(n1+2) = Iz(n1+1)
+         iz(n1+1) = 2*mcb(4)*mcb(5)
+         iz(n1+2) = iz(n1+1)
       ELSE
 !
 !     DOUBLET LATTICE METHOD
 !
-         CALL read(*800,*900,acpt,Mcb,3,1,n)
+         CALL read(*800,*900,acpt,mcb,3,1,n)
 !
 !     NUMBER OF COLUMNS ADDED EQUAL NUMBER OF BOXES
 !
-         Iz(n1+1) = Mcb(3)
-         Iz(n1+2) = Mcb(3)
+         iz(n1+1) = mcb(3)
+         iz(n1+2) = mcb(3)
       ENDIF
       n1 = n1 + 3
    ENDDO
  200  CALL rewind(acpt)
-   CALL write(ajjl,Iz,n1-1,1)
-   Mcb(1) = ajjl
-   Mcb(2) = 0
-   Mcb(3) = Nj
-   Mcb(4) = 2
-   Mcb(5) = 3
-   Mcb(6) = 0
-   Mcb(7) = 0
-   Incr = 1
-   Tskj(1) = skj
-   Tskj(2) = 0
-   Tskj(3) = Nk
-   Tskj(4) = 2
-   Tskj(5) = 3
-   Tskj(6) = 0
-   Tskj(7) = 0
+   CALL write(ajjl,iz,n1-1,1)
+   mcb(1) = ajjl
+   mcb(2) = 0
+   mcb(3) = nj
+   mcb(4) = 2
+   mcb(5) = 3
+   mcb(6) = 0
+   mcb(7) = 0
+   incr = 1
+   tskj(1) = skj
+   tskj(2) = 0
+   tskj(3) = nk
+   tskj(4) = 2
+   tskj(5) = 3
+   tskj(6) = 0
+   tskj(7) = 0
    ifile = acpt
 !
 !     READ MACH NUMBER AND REDUCED FREQUENCY AND LOOP UNTIL COMPLETED
 !
- 300  CALL read(*500,*500,aero,Fmach,2,0,n)
+ 300  CALL read(*500,*500,aero,fmach,2,0,n)
 !
 !     NUMBER OF ROWS ADDED BY EACH RECORD ON ACPT
 !
-   Nrow = 0
-   Isk = 1
-   Nsk = 0
+   nrow = 0
+   isk = 1
+   nsk = 0
 !
 !     SKIP HEADER
 !
@@ -216,16 +222,16 @@ SUBROUTINE amg
 !
          CALL dlamg(acpt,ajjl,skj)
       ENDIF
-      IF ( Nsk>Nk ) THEN
+      IF ( nsk>nk ) THEN
 !
 !     ERROR MESSAGES
 !
 !     NROW IN RECORDS DID NOT MATCH NJ PARAMETER
 !
-         Nrow = Nsk
-         Nj = Nk
+         nrow = nsk
+         nj = nk
          GOTO 700
-      ELSEIF ( Nrow>Nj ) THEN
+      ELSEIF ( nrow>nj ) THEN
          GOTO 700
       ENDIF
    ENDDO
@@ -234,8 +240,8 @@ SUBROUTINE amg
  500  CALL close(aero,1)
    CALL close(ajjl,1)
    CALL close(skj,1)
-   CALL wrttrl(Tskj)
-   CALL wrttrl(Mcb)
+   CALL wrttrl(tskj)
+   CALL wrttrl(mcb)
 !
 !     COMPUTE W1JK - W2JK
 !
@@ -244,32 +250,32 @@ SUBROUTINE amg
 !
    CALL fwdrec(*900,acpt)
    ifile = w1jk
-   CALL gopen(w1jk,Iz(buf1+1),1)
+   CALL gopen(w1jk,iz(buf1+1),1)
    ifile = w2jk
-   CALL gopen(w2jk,Iz(buf2+1),1)
+   CALL gopen(w2jk,iz(buf2+1),1)
    ifile = acpt
 !
 !     SET UP PACKX AND TRAILERS
 !
-   Incr = 1
-   Iti = 1
-   Ito = 1
+   incr = 1
+   iti = 1
+   ito = 1
 !
 !     II AND NN ARE BUMPED BY METHOD DRIVERS
 !
-   Ii = 1
+   ii = 1
    DO i = 2 , 7
-      Tw1jk(i) = 0
-      Tw2jk(i) = 0
+      tw1jk(i) = 0
+      tw2jk(i) = 0
    ENDDO
-   Tw1jk(1) = w1jk
-   Tw2jk(1) = w2jk
-   Tw1jk(3) = Nk
-   Tw1jk(4) = 2
-   Tw1jk(5) = 1
-   Tw2jk(3) = Nk
-   Tw2jk(4) = 2
-   Tw2jk(5) = 1
+   tw1jk(1) = w1jk
+   tw2jk(1) = w2jk
+   tw1jk(3) = nk
+   tw1jk(4) = 2
+   tw1jk(5) = 1
+   tw2jk(3) = nk
+   tw2jk(4) = 2
+   tw2jk(5) = 1
    DO
 !
 !     READ A RECORD AND LOOP ON METHOD UNTIL EOR
@@ -302,9 +308,9 @@ SUBROUTINE amg
 !
          CALL dlpt2(acpt,w1jk,w2jk)
       ENDIF
-      IF ( Nn>Nk ) THEN
-         Nrow = Nn
-         Nj = Nk
+      IF ( nn>nk ) THEN
+         nrow = nn
+         nj = nk
          GOTO 700
       ENDIF
    ENDDO
@@ -314,10 +320,10 @@ SUBROUTINE amg
  600  CALL close(acpt,1)
    CALL close(w1jk,1)
    CALL close(w2jk,1)
-   CALL wrttrl(Tw1jk)
-   CALL wrttrl(Tw2jk)
+   CALL wrttrl(tw1jk)
+   CALL wrttrl(tw2jk)
    RETURN
- 700  WRITE (Iout,99001) Sfm , Nrow , Nj
+ 700  WRITE (iout,99001) sfm , nrow , nj
 99001 FORMAT (A25,' 2264, NUMBER OF ROWS COMPUTED (',I4,') WAS GREATER',' THAN SIZE REQUESTED FOR OUTPUT MATRIX (',I4,2H).)
    CALL mesage(-61,n,name)
  800  nms = -1

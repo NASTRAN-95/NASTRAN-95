@@ -1,12 +1,13 @@
-!*==kpltst.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kpltst.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kpltst(G1,G2,G3,G4)
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_SMA1DP
-   USE C_SMA1ET
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -28,28 +29,28 @@ SUBROUTINE kpltst(G1,G2,G3,G4)
 !     MESSAGE IS WRITEN.
 !
 !
-   R13(1) = G3(1) - G1(1)
-   R13(2) = G3(2) - G1(2)
-   R13(3) = G3(3) - G1(3)
-   R24(1) = G4(1) - G2(1)
-   R24(2) = G4(2) - G2(2)
-   R24(3) = G4(3) - G2(3)
-   CALL saxb(R13,R24,Rxr)
+   r13(1) = G3(1) - G1(1)
+   r13(2) = G3(2) - G1(2)
+   r13(3) = G3(3) - G1(3)
+   r24(1) = G4(1) - G2(1)
+   r24(2) = G4(2) - G2(2)
+   r24(3) = G4(3) - G2(3)
+   CALL saxb(r13,r24,rxr)
 !
 !     NORMALIZE
 !
-   dl = sqrt(Rxr(1)**2+Rxr(2)**2+Rxr(3)**2)
+   dl = sqrt(rxr(1)**2+rxr(2)**2+rxr(3)**2)
    IF ( dl>0 ) THEN
-      Rxr(1) = Rxr(1)/dl
-      Rxr(2) = Rxr(2)/dl
-      Rxr(3) = Rxr(3)/dl
-      r1l = sqrt(R13(1)**2+R13(2)**2+R13(3)**2)
-      r2l = sqrt(R24(1)**2+R24(2)**2+R24(3)**2)
+      rxr(1) = rxr(1)/dl
+      rxr(2) = rxr(2)/dl
+      rxr(3) = rxr(3)/dl
+      r1l = sqrt(r13(1)**2+r13(2)**2+r13(3)**2)
+      r2l = sqrt(r24(1)**2+r24(2)**2+r24(3)**2)
       dl = amin1(r1l,r2l)
-      R(1) = G2(1) - G1(1)
-      R(2) = G2(2) - G1(2)
-      R(3) = G2(3) - G1(3)
-      dh = sadotb(R,Rxr)
+      r(1) = G2(1) - G1(1)
+      r(2) = G2(2) - G1(2)
+      r(3) = G2(3) - G1(3)
+      dh = sadotb(r,rxr)
       IF ( dl>0 ) THEN
          IF ( abs(dh/dl)<=0.10 ) RETURN
       ENDIF
@@ -58,6 +59,6 @@ SUBROUTINE kpltst(G1,G2,G3,G4)
 !     NOT PLANER
 !
    CALL page2(-2)
-   WRITE (Out,99001) Uwm , Id
+   WRITE (out,99001) uwm , id
 99001 FORMAT (A25,' 4000, ONE SIDE OF ELEMENT',I10,' CONNECTING FOUR POINTS IS NOT APPROXIMATELY PLANER.')
 END SUBROUTINE kpltst

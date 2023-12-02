@@ -1,13 +1,14 @@
-!*==mred2a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2a
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,18 +56,18 @@ SUBROUTINE mred2a
 !
 !     LOCATE PARTITIONING VECTOR
 !
-   IF ( Dry/=-2 ) THEN
-      IF ( Bounds ) THEN
-         CALL mtrxi(uprt,Oldnam,item,0,itest)
+   IF ( dry/=-2 ) THEN
+      IF ( bounds ) THEN
+         CALL mtrxi(uprt,oldnam,item,0,itest)
          IF ( itest/=1 ) GOTO 50
          itrlr(1) = eqst
          CALL rdtrl(itrlr)
-         Nsub(1) = itrlr(6)
-         Nsub(2) = itrlr(7)
+         nsub(1) = itrlr(6)
+         nsub(2) = itrlr(7)
       ELSE
-         Lcore = Korlen
-         Fuset = usetmr
-         CALL calcv(uprt,Un,Ui,Ub,Z(Korbgn))
+         lcore = korlen
+         fuset = usetmr
+         CALL calcv(uprt,un,ui,ub,z(korbgn))
       ENDIF
 !
 !     PARTITION STIFFNESS MATRIX
@@ -81,12 +82,12 @@ SUBROUTINE mred2a
 !                  *     .     *
 !                  **         **
 !
-      CALL gmprtn(kaa,kii,0,kib,kbb,uprt,uprt,Nsub(1),Nsub(2),Z(Korbgn),Korlen)
+      CALL gmprtn(kaa,kii,0,kib,kbb,uprt,uprt,nsub(1),nsub(2),z(korbgn),korlen)
 !
 !     SAVE PARTITIONING VECTOR
 !
-      IF ( Bounds ) RETURN
-      CALL mtrxo(uprt,Oldnam,item,0,itest)
+      IF ( bounds ) RETURN
+      CALL mtrxo(uprt,oldnam,item,0,itest)
       IF ( itest==3 ) RETURN
 !
 !     PROCESS MODULE FATAL ERRORS
@@ -95,23 +96,23 @@ SUBROUTINE mred2a
          imsg = -11
       ELSEIF ( itest==3 ) THEN
          imsg = -1
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          RETURN
       ELSEIF ( itest==4 ) THEN
          imsg = -2
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          RETURN
       ELSEIF ( itest==5 ) THEN
          imsg = -3
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          RETURN
       ELSEIF ( itest==6 ) THEN
          imsg = -10
       ELSE
          imsg = -9
       ENDIF
-      Dry = -2
-      CALL smsg1(imsg,item,Oldnam,modnam)
+      dry = -2
+      CALL smsg1(imsg,item,oldnam,modnam)
    ENDIF
 !
 END SUBROUTINE mred2a

@@ -1,13 +1,14 @@
-!*==ssgetd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssgetd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssgetd(Elid,Ti,Grids)
+   USE c_fpt
+   USE c_loadx
+   USE c_ssgett
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_FPT
-   USE C_LOADX
-   USE C_SSGETT
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -53,37 +54,37 @@ SUBROUTINE ssgetd(Elid,Ti,Grids)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Itemp==0 ) THEN
+         IF ( itemp==0 ) THEN
             DO i = 1 , maxwds
                Ti(i) = 0
             ENDDO
             RETURN
 !
-         ELSEIF ( .NOT.Record .OR. Eorflg ) THEN
+         ELSEIF ( .NOT.record .OR. eorflg ) THEN
 !
 !     NO MORE DATA FOR THIS ELEMENT TYPE
 !
-            Endid = .TRUE.
+            endid = .TRUE.
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( Eltype/=Oldel ) THEN
+         IF ( eltype/=oldel ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Endid ) THEN
-            Endid = .TRUE.
+         IF ( endid ) THEN
+            endid = .TRUE.
          ELSE
             SPAG_Loop_1_1: DO
 !
 !     HERE WHEN ELTYPE IS AT HAND AND END OF THIS TYPE DATA
 !     HAS NOT YET BEEN REACHED.  READ AN ELEMENT ID
 !
-               CALL read(*40,*60,Gptt,id,1,0,flag)
+               CALL read(*40,*60,gptt,id,1,0,flag)
                IF ( id==0 ) THEN
-                  Endid = .TRUE.
+                  endid = .TRUE.
                   EXIT SPAG_Loop_1_1
                ELSEIF ( iabs(id)==Elid ) THEN
                   IF ( id<=0 ) EXIT SPAG_Loop_1_1
@@ -92,13 +93,13 @@ SUBROUTINE ssgetd(Elid,Ti,Grids)
 !     IF QUAD4 OR TRIA3 ELEMENT, SET THE TI(7) FLAG FOR TLQD4D/S (QAUD4)
 !     OR TLTR3D/S (TRIA3)
 !
-                  CALL read(*40,*60,Gptt,Ti,nwords,0,flag)
-                  IF ( Eltype/=64 .AND. Eltype/=83 ) RETURN
+                  CALL read(*40,*60,gptt,Ti,nwords,0,flag)
+                  IF ( eltype/=64 .AND. eltype/=83 ) RETURN
                   Ti(7) = 13
                   IF ( Ti(6)/=1 ) Ti(7) = 2
                   RETURN
                ELSEIF ( id>0 ) THEN
-                  CALL read(*40,*60,Gptt,Ti,nwords,0,flag)
+                  CALL read(*40,*60,gptt,Ti,nwords,0,flag)
                ENDIF
             ENDDO SPAG_Loop_1_1
          ENDIF
@@ -107,25 +108,25 @@ SUBROUTINE ssgetd(Elid,Ti,Grids)
 !
 !     NO DATA FOR ELEMENT ID DESIRED, THUS USE DEFALT
 !
-         IF ( Defalt==-1 ) THEN
+         IF ( defalt==-1 ) THEN
 !
 !     NO TEMP DATA OR DEFALT
 !
-            WRITE (Iout,99001) Ufm , Elid , Itemp
+            WRITE (iout,99001) ufm , Elid , itemp
 99001       FORMAT (A23,' 4017. THERE IS NO TEMPERATURE DATA FOR ELEMENT',I9,' IN SET',I9)
             CALL mesage(-61,0,0)
          ELSEIF ( Grids>0 ) THEN
             DO i = 1 , Grids
-               Ti(i) = Defalt
+               Ti(i) = defalt
             ENDDO
-            Ti(Grids+1) = Defalt
+            Ti(Grids+1) = defalt
             RETURN
          ELSE
             DO i = 2 , maxwds
                Ti(i) = 0
             ENDDO
-            Ti(1) = Defalt
-            IF ( Eltype==34 ) Ti(2) = Defalt
+            Ti(1) = defalt
+            IF ( eltype==34 ) Ti(2) = defalt
             RETURN
          ENDIF
          spag_nextblock_1 = 4
@@ -133,36 +134,36 @@ SUBROUTINE ssgetd(Elid,Ti,Grids)
 !
 !     LOOK FOR MATCH ON ELTYPE (FIRST SKIP ANY UNUSED ELEMENT DATA)
 !
-         IF ( .NOT.(Endid) ) THEN
+         IF ( .NOT.(endid) ) THEN
             SPAG_Loop_1_2: DO
-               CALL read(*40,*60,Gptt,id,1,0,flag)
+               CALL read(*40,*60,gptt,id,1,0,flag)
                IF ( id<0 ) THEN
                ELSEIF ( id==0 ) THEN
                   EXIT SPAG_Loop_1_2
                ELSE
-                  CALL read(*40,*60,Gptt,Ti,nwords,0,flag)
+                  CALL read(*40,*60,gptt,Ti,nwords,0,flag)
                ENDIF
             ENDDO SPAG_Loop_1_2
          ENDIF
 !
 !     READ ELTYPE AND COUNT
 !
-         CALL read(*40,*20,Gptt,Ti,2,0,flag)
-         Oldel = Ti(1)
+         CALL read(*40,*20,gptt,Ti,2,0,flag)
+         oldel = Ti(1)
          nwords = Ti(2)
-         Endid = .FALSE.
+         endid = .FALSE.
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF RECORD HIT
 !
- 20      Eorflg = .TRUE.
-         Endid = .TRUE.
+ 20      eorflg = .TRUE.
+         endid = .TRUE.
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 40      CALL mesage(-2,Gptt,name)
- 60      CALL mesage(-3,Gptt,name)
+ 40      CALL mesage(-2,gptt,name)
+ 60      CALL mesage(-3,gptt,name)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

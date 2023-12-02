@@ -1,4 +1,5 @@
-!*==prompt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==prompt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE prompt
@@ -8,9 +9,9 @@ SUBROUTINE prompt
 !        PROMPT    //S,N,PEXIT/S,N,PLOT1/S,N,PLOT2/S,N,XYPLOT/
 !                    S,N,SCAN1/S,N,SCAN2/DUM1/DUM2/DUM3/DUM4 $
 !
+   USE c_blank
+   USE c_system
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -30,7 +31,7 @@ SUBROUTINE prompt
          intra = iabs(intra)
          nout = 6
          DO i = 1 , 10
-            Param(i) = 0
+            param(i) = 0
          ENDDO
  20      SPAG_Loop_1_1: DO
 !
@@ -45,7 +46,7 @@ SUBROUTINE prompt
                   WRITE (nout,99003) j , soln
 99003             FORMAT (/,' OPTION',I3,' IS NOT AVAILABLE FOR SOLUTION',I3)
                ELSE
-                  Param(j) = -1
+                  param(j) = -1
                   IF ( j==1 ) RETURN
                   EXIT SPAG_Loop_1_1
                ENDIF
@@ -61,7 +62,7 @@ SUBROUTINE prompt
  40      IF ( i==b ) RETURN
          IF ( i==c ) THEN
 !
-            Param(j) = 0
+            param(j) = 0
             GOTO 20
          ELSEIF ( i/=p .AND. i/=s ) THEN
             spag_nextblock_1 = 2

@@ -1,4 +1,5 @@
-!*==xflord.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xflord.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xflord
@@ -14,22 +15,22 @@ SUBROUTINE xflord
 !     LPORD  = POINTER TO IORDNL TABLE ENTRY CORRESPONDING TO LPTOP.
 !     IORDNO = FILE ORDINAL NUMBER
 !
+   USE c_system
+   USE c_two
+   USE c_xdpl
+   USE c_xfiat
+   USE c_xfist
+   USE c_xgpi2
+   USE c_xgpi4
+   USE c_xgpi5
+   USE c_xgpi6
+   USE c_xgpi7
+   USE c_xgpi8
+   USE c_xgpic
+   USE c_xgpid
+   USE c_xoldpt
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XDPL
-   USE C_XFIAT
-   USE C_XFIST
-   USE C_XGPI2
-   USE C_XGPI4
-   USE C_XGPI5
-   USE C_XGPI6
-   USE C_XGPI7
-   USE C_XGPI8
-   USE C_XGPIC
-   USE C_XGPID
-   USE C_XOLDPT
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -70,20 +71,20 @@ SUBROUTINE xflord
 !     USE AREA IN OPEN CORE BETWEEN PTDIC AND MED ARRAYS FOR STORING
 !     MISSING FILE DATA
 !
-         Iflag = 0
-         Icptop = Ptdbot + 3
-         Icpbot = Icptop - 3
-         Lcpdpl = Medtp - Icptop
-         IF ( Start==Imst ) dlyerr = 1
-         irentr = and(Maskhi,Seqno)
-         idmpct = rshift(Seqno,16)
+         iflag = 0
+         icptop = ptdbot + 3
+         icpbot = icptop - 3
+         lcpdpl = medtp - icptop
+         IF ( start==imst ) dlyerr = 1
+         irentr = and(maskhi,seqno)
+         idmpct = rshift(seqno,16)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     PREPARE FOR NTH PASS THRU OSCAR
 !     *******************************
 !
-         IF ( Nogo>1 ) RETURN
+         IF ( nogo>1 ) RETURN
          ospnt = 1
          osprc = ospnt
          iorbot = 0
@@ -100,8 +101,8 @@ SUBROUTINE xflord
          IF ( lstdpl/=0 ) THEN
             DO k = 4 , i , 3
                iorbot = iorbot + 4
-               iordnl(iorbot) = Dpl(k)
-               iordnl(iorbot+1) = Dpl(k+1)
+               iordnl(iorbot) = dpl(k)
+               iordnl(iorbot+1) = dpl(k+1)
                iordnl(iorbot+2) = 0
                iordnl(iorbot+3) = 0
             ENDDO
@@ -109,13 +110,13 @@ SUBROUTINE xflord
 !
 !     ENTER FIAT NAMES IN IORDNL TABLE
 !
-         i = Ifiat(3)*Icfiat - 2
-         DO k = 4 , i , Icfiat
-            IF ( Ifiat(k+1)/=0 ) THEN
+         i = ifiat(3)*icfiat - 2
+         DO k = 4 , i , icfiat
+            IF ( ifiat(k+1)/=0 ) THEN
                iorbot = iorbot + 4
-               Ifiat(k) = or(lshift(iorbot,16),and(Ifiat(k),orf(Maskhi,Losgn)))
-               iordnl(iorbot) = Ifiat(k+1)
-               iordnl(iorbot+1) = Ifiat(k+2)
+               ifiat(k) = or(lshift(iorbot,16),and(ifiat(k),orf(maskhi,losgn)))
+               iordnl(iorbot) = ifiat(k+1)
+               iordnl(iorbot+1) = ifiat(k+2)
                iordnl(iorbot+2) = 0
                iordnl(iorbot+3) = 0
             ENDIF
@@ -125,7 +126,7 @@ SUBROUTINE xflord
 !     THIS IS FIRST PASS THRU OSCAR
 !
          IF ( nthpas<=1 ) THEN
-            IF ( Start==Iunst .AND. irentr/=0 ) THEN
+            IF ( start==iunst .AND. irentr/=0 ) THEN
                SPAG_Loop_1_1: DO j = 1 , irentr
                   IF ( oscar(ospnt+1)>=irentr ) EXIT SPAG_Loop_1_1
                   osprc = ospnt
@@ -142,7 +143,7 @@ SUBROUTINE xflord
 !     BRANCH ON OSCAR ENTRY TYPE IF EXECUTE FLAG IS UP
 !
          IF ( oscar(ospnt+5)<0 ) THEN
-            i = and(oscar(ospnt+2),Maskhi)
+            i = and(oscar(ospnt+2),maskhi)
             lstbot = iorbot
             IF ( i==1 ) THEN
 !
@@ -155,7 +156,7 @@ SUBROUTINE xflord
                k = oscar(k)*3 + 2 + k
                i = oscar(k-1)*3 - 3 + k
                iopnt = k
-               ASSIGN 20 TO Irturn
+               ASSIGN 20 TO irturn
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==2 ) THEN
@@ -169,7 +170,7 @@ SUBROUTINE xflord
 !     CHECK FOR LOOPING
 !
                lptop = rshift(oscar(ospnt+6),16)
-               IF ( (Nexit/=oscar(ospnt+3)) .AND. (oscar(ospnt+1)>=lptop) ) THEN
+               IF ( (nexit/=oscar(ospnt+3)) .AND. (oscar(ospnt+1)>=lptop) ) THEN
 !
 !     FIND BEGINNING OF LOOP AND ADJUST IORDNL RANGES INSIDE LOOP.
 !
@@ -186,7 +187,7 @@ SUBROUTINE xflord
 !     LOOP TOP FOUND - IF UNMODIFIED RESTART,EXECUTE ALL MODULES INSIDE
 !     LOOP.
 !
-                  IF ( oscar(lptop+5)<0 .OR. Start/=Iunst ) THEN
+                  IF ( oscar(lptop+5)<0 .OR. start/=iunst ) THEN
 !
 !     EXTEND RANGE OF FILES DEFINED OUTSIDE OF LOOP IF USED INSIDE LOOP
 !     GET FIRST/NEXT OSCAR ENTRY INSIDE LOOP
@@ -195,7 +196,7 @@ SUBROUTINE xflord
                      j1 = oscar(lptop+1)
                      j2 = oscar(lpbot+1)
                      DO j = j1 , j2
-                        IF ( and(oscar(ospnt+2),Maskhi)<=2 ) THEN
+                        IF ( and(oscar(ospnt+2),maskhi)<=2 ) THEN
 !
 !     GET FIRST/NEXT I/P FILE OF OSCAR ENTRY
 !
@@ -210,10 +211,10 @@ SUBROUTINE xflord
 !
 !     SEE IF FILE SAVE IS ON
 !
-                                    IF ( Fpnt>=1 ) THEN
-                                       SPAG_Loop_3_3: DO l = 1 , Fpnt , 3
-                                         IF ( oscar(k)==File(l) .AND. oscar(k+1)==File(l+1) ) THEN
-                                         IF ( and(Isave,File(l+2))/=Isave ) EXIT SPAG_Loop_3_3
+                                    IF ( fpnt>=1 ) THEN
+                                       SPAG_Loop_3_3: DO l = 1 , fpnt , 3
+                                         IF ( oscar(k)==file(l) .AND. oscar(k+1)==file(l+1) ) THEN
+                                         IF ( and(isave,file(l+2))/=isave ) EXIT SPAG_Loop_3_3
                                          spag_nextblock_2 = 2
                                          CYCLE SPAG_DispatchLoop_2
                                          ENDIF
@@ -228,7 +229,7 @@ SUBROUTINE xflord
 !
                                     n = lptop
                                     DO l = j1 , l1
-                                       IF ( and(oscar(n+2),Maskhi)==1 .AND. oscar(n+5)<0 ) THEN
+                                       IF ( and(oscar(n+2),maskhi)==1 .AND. oscar(n+5)<0 ) THEN
 !
 !     GET FIRST/NEXT O/P FILE
 !
@@ -236,7 +237,7 @@ SUBROUTINE xflord
                                          m2 = oscar(m1-1)*3 - 3 + m1
                                          DO m = m1 , m2 , 3
                                          IF ( oscar(m)/=0 ) THEN
-                                         IF ( oscar(m)==oscar(k) .AND. oscar(m+1)==oscar(k+1) ) CYCLE SPAG_Loop_2_4
+                                         IF ( oscar(m)==oscar(k) .AND. oscar(m+1)==oscar(k+1) ) EXIT SPAG_DispatchLoop_2
                                          ENDIF
                                          ENDDO
                                        ENDIF
@@ -253,14 +254,14 @@ SUBROUTINE xflord
                                  END SELECT
                               ENDDO SPAG_DispatchLoop_2
                            ENDDO SPAG_Loop_2_4
-                           IF ( Start==Iunst ) THEN
+                           IF ( start==iunst ) THEN
 !
 !     FOR UNMODIFIED RESTART, MARK ALL OUTPUT FILES WITHIN THE
 !     LOOP AND BEFORE THE RE-ENTRY POINT FOR REUSE
 !
                               kk1 = k1
                               IF ( oscar(kk1-6)<irentr ) THEN
-                                 IF ( and(oscar(kk1-5),Maskhi)==1 ) THEN
+                                 IF ( and(oscar(kk1-5),maskhi)==1 ) THEN
                                     k1 = k2 + 4
                                     k2 = 3*oscar(k1-1) - 3 + k1
                                     DO k = k1 , k2 , 3
@@ -288,22 +289,22 @@ SUBROUTINE xflord
 !     CHKPNT IS FIRST INSTRUCTION IN LOOP
 !
                         CALL xgpidg(47,lptop,0,0)
-                        oscar(lptop+5) = or(oscar(lptop+5),Isgnon)
+                        oscar(lptop+5) = or(oscar(lptop+5),isgnon)
                      ENDIF
 !
 !     EXECUTE FLAGS NOT ALL SET - SET FLAGS AND BEGIN OSCAR SCAN AGAIN
 !
                      j1 = oscar(lptop+1)
                      DO j = j1 , i
-                        IF ( oscar(ospnt+3)/=xnam(7) .OR. oscar(ospnt+4)/=xnam(8) .OR. Icpflg/=0 ) THEN
+                        IF ( oscar(ospnt+3)/=xnam(7) .OR. oscar(ospnt+4)/=xnam(8) .OR. icpflg/=0 ) THEN
                            IF ( oscar(ospnt+5)>=0 ) THEN
-                              IF ( Iflag/=1 ) THEN
-                                 Iflag = 1
+                              IF ( iflag/=1 ) THEN
+                                 iflag = 1
                                  CALL page1
                                  CALL xgpimw(11,idmpct,0,0)
                               ENDIF
                               CALL xgpimw(4,0,0,oscar(ospnt))
-                              oscar(ospnt+5) = or(Isgnon,oscar(ospnt+5))
+                              oscar(ospnt+5) = or(isgnon,oscar(ospnt+5))
                            ENDIF
                         ENDIF
                         ospnt = oscar(ospnt) + ospnt
@@ -350,10 +351,9 @@ SUBROUTINE xflord
 !     GET NEXT OSCAR ENTRY
 !
          IF ( ospnt<osbot ) THEN
-            IF ( oscar(ospnt+5)<0 .AND. and(oscar(ospnt+2),Maskhi)<=2 ) osprc = ospnt
+            IF ( oscar(ospnt+5)<0 .AND. and(oscar(ospnt+2),maskhi)<=2 ) osprc = ospnt
             ospnt = ospnt + oscar(ospnt)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
 !
 !     OSCAR HAS BEEN PROCESSED
 !     ************************
@@ -363,29 +363,29 @@ SUBROUTINE xflord
 !     SET  NTU = LTU FOR LAST REFERENCE TO EACH FILE IN OSCAR.
 !
             DO i = 4 , iorbot , 4
-               lstuse = and(iordnl(i+2),Maskhi)
+               lstuse = and(iordnl(i+2),maskhi)
                IF ( lstuse/=0 ) THEN
-                  ntu = or(and(Itape,iordnl(i+2)),rshift(iordnl(i+3),16))
-                  oscar(lstuse) = or(ntu,and(oscar(lstuse),Masklo))
+                  ntu = or(and(itape,iordnl(i+2)),rshift(iordnl(i+3),16))
+                  oscar(lstuse) = or(ntu,and(oscar(lstuse),masklo))
                ENDIF
             ENDDO
 !
 !     SEARCH FILE TABLE FOR FILES WITH APPEND OR SAVE FLAG UP
 !
-            IF ( Fpnt>=1 ) THEN
-               DO j = 1 , Fpnt , 3
-                  IF ( and(File(j+2),Iappnd)/=0 .OR. and(File(j+2),Isave)/=0 ) THEN
+            IF ( fpnt>=1 ) THEN
+               DO j = 1 , fpnt , 3
+                  IF ( and(file(j+2),iappnd)/=0 .OR. and(file(j+2),isave)/=0 ) THEN
 !
 !     FOR RESTART, MARK APPEND AND SAVE FILES FOR REUSE
 !
                      nofind = -1
-                     CALL xfldef(File(j),File(j+1),nofind)
-                     IF ( and(File(j+2),Isave)==0 ) THEN
+                     CALL xfldef(file(j),file(j+1),nofind)
+                     IF ( and(file(j+2),isave)==0 ) THEN
 !
 !     APPEND FLAG SET - FIND CORRESPONDING IORDNL ENTRY AND SET FLAG
 !
                         DO i = 4 , iorbot , 4
-                           IF ( iordnl(i)==File(j) .AND. iordnl(i+1)==File(j+1) ) iordnl(i+3) = or(Iappnd,iordnl(i+3))
+                           IF ( iordnl(i)==file(j) .AND. iordnl(i+1)==file(j+1) ) iordnl(i+3) = or(iappnd,iordnl(i+3))
                         ENDDO
                      ENDIF
                   ENDIF
@@ -396,17 +396,15 @@ SUBROUTINE xflord
 !
             ospnt = 1
             spag_nextblock_1 = 20
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             dlyerr = 0
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (5)
          IF ( iorbot>0 ) THEN
             DO j = 4 , iorbot , 4
                IF ( oscar(iopnt)==iordnl(j) .AND. oscar(iopnt+1)==iordnl(j+1) ) THEN
-                  IF ( Start==Iunst .AND. j<=idpl ) THEN
+                  IF ( start==iunst .AND. j<=idpl ) THEN
                      nnfind = -1
                      CALL xfldef(oscar(iopnt),oscar(iopnt+1),nnfind)
                   ENDIF
@@ -459,7 +457,6 @@ SUBROUTINE xflord
                      ENDIF
                   ENDDO
                   spag_nextblock_3 = 4
-                  CYCLE SPAG_DispatchLoop_3
                CASE (3)
                   l4 = l1 + incrlp
                   incrlp = 2
@@ -489,7 +486,6 @@ SUBROUTINE xflord
 !
          nofind = -1
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     FILE IS IN ORDNAL TABLE - ENTER RANGE
@@ -503,7 +499,6 @@ SUBROUTINE xflord
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     PROCESS EQUIV INSTRUCTION
@@ -524,7 +519,7 @@ SUBROUTINE xflord
                      IF ( iorbot>0 ) THEN
                         DO i = 4 , iorbot , 4
                            IF ( iordnl(i)==oscar(l1) .AND. iordnl(i+1)==oscar(l1+1) ) THEN
-                              IF ( Start==Iunst .AND. i<=idpl ) THEN
+                              IF ( start==iunst .AND. i<=idpl ) THEN
                                  nnfind = -1
                                  CALL xfldef(oscar(l1),oscar(l1+1),nnfind)
                               ENDIF
@@ -536,7 +531,7 @@ SUBROUTINE xflord
 !
 !     FILE NOT IN IORDNL, SEE IF ON PTDIC OR REGEN
 !
-                     IF ( Start/=Icst .AND. iprime==0 ) THEN
+                     IF ( start/=icst .AND. iprime==0 ) THEN
                         nofind = 1
                         CALL xfldef(oscar(l1),oscar(l1+1),nofind)
                         IF ( nofind<0 ) THEN
@@ -569,18 +564,18 @@ SUBROUTINE xflord
                      iordnl(iorbot) = oscar(l1)
                      iordnl(iorbot+1) = oscar(l1+1)
                      iordnl(iorbot+2) = 0
-                     iordnl(iorbot+3) = Isgnon
+                     iordnl(iorbot+3) = isgnon
                      spag_nextblock_4 = 3
                   CASE (3)
                      IF ( iprime==0 ) THEN
-                        lstuse = and(Maskhi,iordnl(i+2))
+                        lstuse = and(maskhi,iordnl(i+2))
                         IF ( lstuse/=0 ) THEN
-                           ntu = or(oscar(ospnt+1),and(iordnl(i+2),Itape))
-                           oscar(lstuse) = or(and(oscar(lstuse),Masklo),ntu)
+                           ntu = or(oscar(ospnt+1),and(iordnl(i+2),itape))
+                           oscar(lstuse) = or(and(oscar(lstuse),masklo),ntu)
                         ENDIF
-                        iordnl(i+2) = or(oscar(l1+2),and(iordnl(i+2),Itape))
+                        iordnl(i+2) = or(oscar(l1+2),and(iordnl(i+2),itape))
                         iordnl(i+3) = lshift(oscar(ospnt+1),16)
-                        oscar(l1+2) = or(and(oscar(l1+2),Maskhi),lshift(i,16))
+                        oscar(l1+2) = or(and(oscar(l1+2),maskhi),lshift(i,16))
                      ENDIF
                      l1 = l1 + 2
                      IF ( iprime==0 ) l1 = l1 + 1
@@ -608,7 +603,7 @@ SUBROUTINE xflord
          IF ( iorbot>0 ) THEN
             DO k = 4 , iorbot , 4
                IF ( iordnl(k)==oscar(iopnt) .AND. iordnl(k+1)==oscar(iopnt+1) ) THEN
-                  IF ( Start==Iunst .AND. k<=idpl ) THEN
+                  IF ( start==iunst .AND. k<=idpl ) THEN
                      nnfind = -1
                      CALL xfldef(oscar(iopnt),oscar(iopnt+1),nnfind)
                   ENDIF
@@ -618,7 +613,6 @@ SUBROUTINE xflord
             ENDDO
          ENDIF
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          IF ( iordnl(k+3)>=0 ) THEN
 !
@@ -626,8 +620,8 @@ SUBROUTINE xflord
 !
 !     SUPPRESS MESSAGE ONCE IF FILE IS INITIALLY UNDEFINED
 !
-            IF ( Icpbot>=Icptop ) THEN
-               SPAG_Loop_1_6: DO ii = Icptop , Icpbot , 3
+            IF ( icpbot>=icptop ) THEN
+               SPAG_Loop_1_6: DO ii = icptop , icpbot , 3
                   IF ( oscar(iopnt)==icpdpl(ii) .AND. oscar(iopnt+1)==icpdpl(ii+1) ) THEN
                      IF ( icpdpl(ii+2)>=0 ) EXIT SPAG_Loop_1_6
                      icpdpl(ii+2) = -icpdpl(ii+2)
@@ -642,7 +636,6 @@ SUBROUTINE xflord
       CASE (11)
          kxt = k
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
 !     INCREMENT TO NEXT ORDNAL ENTRY AND ENTER FILE NAME AND LU POINTER.
@@ -661,10 +654,10 @@ SUBROUTINE xflord
          spag_nextblock_1 = 13
       CASE (13)
          lstuse = iopnt + 2
-         IF ( and(oscar(ospnt+2),Maskhi)>2 ) lstuse = 0
-         IF ( Fpnt>=1 ) THEN
-            DO k = 1 , Fpnt , 3
-               IF ( oscar(iopnt)==File(k) .AND. oscar(iopnt+1)==File(k+1) ) lstuse = or(lstuse,and(File(k+2),Itape))
+         IF ( and(oscar(ospnt+2),maskhi)>2 ) lstuse = 0
+         IF ( fpnt>=1 ) THEN
+            DO k = 1 , fpnt , 3
+               IF ( oscar(iopnt)==file(k) .AND. oscar(iopnt+1)==file(k+1) ) lstuse = or(lstuse,and(file(k+2),itape))
             ENDDO
          ENDIF
          iordnl(kxt+2) = lstuse
@@ -672,8 +665,8 @@ SUBROUTINE xflord
 !
 !     IORDNL POINTER  TO OSCAR IF TYPE F OR O FORMAT
 !
-         IF ( and(oscar(ospnt+2),Maskhi)<=2 ) oscar(iopnt+2) = or(lshift(kxt,16),and(oscar(iopnt+2),Maskhi))
-         GOTO Irturn
+         IF ( and(oscar(ospnt+2),maskhi)<=2 ) oscar(iopnt+2) = or(lshift(kxt,16),and(oscar(iopnt+2),maskhi))
+         GOTO irturn
 !
 !     O/P FILE PROCESSED  -  INCREMENT TO NEXT O/P FILE
 !
@@ -702,7 +695,7 @@ SUBROUTINE xflord
 !
          IF ( oscar(iopnt)==0 ) GOTO 40
          nofind = 1
-         ASSIGN 40 TO Irturn
+         ASSIGN 40 TO irturn
 !
 !     NOW SCAN IORDNAL TABLE FOR FILE NAME
 !
@@ -710,7 +703,7 @@ SUBROUTINE xflord
          IF ( j1>0 ) THEN
             DO j = 4 , j1 , 4
                IF ( oscar(iopnt)==iordnl(j) .AND. oscar(iopnt+1)==iordnl(j+1) ) THEN
-                  IF ( Start==Iunst .AND. j<=idpl ) THEN
+                  IF ( start==iunst .AND. j<=idpl ) THEN
                      nnfind = -1
                      CALL xfldef(oscar(iopnt),oscar(iopnt+1),nnfind)
                   ENDIF
@@ -720,27 +713,26 @@ SUBROUTINE xflord
             ENDDO
          ENDIF
          spag_nextblock_1 = 17
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
 !
 !     FOUND FILE IN IORDNL TABLE - ENTER NTU AND TAPE FLAG INTO
 !     OSCAR ENTRY POINTED TO BY IORDNL ENTRY
 !
-         lstuse = and(Maskhi,iordnl(j+2))
+         lstuse = and(maskhi,iordnl(j+2))
          IF ( lstuse/=0 ) THEN
-            ntu = or(oscar(ospnt+1),and(iordnl(j+2),Itape))
-            oscar(lstuse) = or(and(oscar(lstuse),Masklo),ntu)
+            ntu = or(oscar(ospnt+1),and(iordnl(j+2),itape))
+            oscar(lstuse) = or(and(oscar(lstuse),masklo),ntu)
          ENDIF
 !
 !     SET RANGE AND LASTUSE POINTER IN IORDNAL ENTRY
 !
          nofind = -1
-         iordnl(j+2) = or(iopnt+2,and(iordnl(j+2),Itape))
+         iordnl(j+2) = or(iopnt+2,and(iordnl(j+2),itape))
          iordnl(j+3) = lshift(oscar(ospnt+1),16)
 !
 !     LINK OSCAR I/P FILE TO IORDNL ENTRY
 !
-         oscar(iopnt+2) = or(and(oscar(iopnt+2),Maskhi),lshift(j,16))
+         oscar(iopnt+2) = or(and(oscar(iopnt+2),maskhi),lshift(j,16))
          spag_nextblock_1 = 17
       CASE (17)
 !
@@ -752,7 +744,7 @@ SUBROUTINE xflord
 !
 !     I/P FILE NOT DEFINED
 !
-         IF ( Start/=Icold ) THEN
+         IF ( start/=icold ) THEN
 !
 !     RESTART - SEE IF FILE IS ON PROBLEM TAPE OR CAN BE REGENERATED
 !     BY RE-EXECUTING SOME MODULES.
@@ -772,8 +764,8 @@ SUBROUTINE xflord
 !     SEE IF FILE IS ALREADY IN ICPDPL TABLE
 !
          IF ( dlyerr==0 ) THEN
-            IF ( Icpbot>=Icptop ) THEN
-               DO l = Icptop , Icpbot , 3
+            IF ( icpbot>=icptop ) THEN
+               DO l = icptop , icpbot , 3
                   IF ( oscar(iopnt)==icpdpl(l) .AND. oscar(iopnt+1)==icpdpl(l+1) ) THEN
                      spag_nextblock_1 = 19
                      CYCLE SPAG_DispatchLoop_1
@@ -783,17 +775,17 @@ SUBROUTINE xflord
 !
 !     ENTER FILE IN ICPDPL TABLE
 !
-            Icpbot = Icpbot + 3
-            IF ( Icpbot+3-Icptop>Lcpdpl ) THEN
+            icpbot = icpbot + 3
+            IF ( icpbot+3-icptop>lcpdpl ) THEN
 !
 !     ICPDPL TABLE OVERFLOW
 !
                CALL xgpidg(14,ncpdp1,ncpdp2,0)
                RETURN
             ELSE
-               icpdpl(Icpbot) = oscar(iopnt)
-               icpdpl(Icpbot+1) = oscar(iopnt+1)
-               icpdpl(Icpbot+2) = -ospnt
+               icpdpl(icpbot) = oscar(iopnt)
+               icpdpl(icpbot+1) = oscar(iopnt+1)
+               icpdpl(icpbot+2) = -ospnt
             ENDIF
          ENDIF
          spag_nextblock_1 = 19
@@ -819,19 +811,18 @@ SUBROUTINE xflord
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (20)
-         IF ( oscar(ospnt+5)<0 .AND. and(oscar(ospnt+2),Maskhi)<=2 ) THEN
+         IF ( oscar(ospnt+5)<0 .AND. and(oscar(ospnt+2),maskhi)<=2 ) THEN
             k = ospnt + 7
             j = 1
-            IF ( and(oscar(ospnt+2),Maskhi)==1 ) j = 2
+            IF ( and(oscar(ospnt+2),maskhi)==1 ) j = 2
             DO l = 1 , j
 !
                i = oscar(k-1)*3 - 3 + k
                DO iopnt = k , i , 3
                   IF ( oscar(iopnt)/=0 ) THEN
                      j1 = rshift(oscar(iopnt+2),16)
-                     ltu = and(oscar(iopnt+2),or(Losgn,Maskhi))
+                     ltu = and(oscar(iopnt+2),or(losgn,maskhi))
                      oscar(iopnt+2) = or(ltu,iordnl(j1+3))
                   ENDIF
                ENDDO
@@ -843,7 +834,7 @@ SUBROUTINE xflord
             k = ospnt + 7
             SPAG_Loop_1_7: DO
                j1 = rshift(oscar(k+2),16)
-               ltu = and(oscar(k+2),or(Losgn,Maskhi))
+               ltu = and(oscar(k+2),or(losgn,maskhi))
                oscar(k+2) = or(ltu,iordnl(j1+3))
                i = i - 2*oscar(k-1) - 3
                IF ( i<=0 ) EXIT SPAG_Loop_1_7
@@ -858,25 +849,25 @@ SUBROUTINE xflord
 !
 !     STORE LTU IN FIAT ENTRIES
 !
-         i = Ifiat(3)*Icfiat - 2
-         DO k = 4 , i , Icfiat
-            IF ( Ifiat(k+1)/=0 ) THEN
-               j = rshift(and(Ifiat(k),Masklo),16)
+         i = ifiat(3)*icfiat - 2
+         DO k = 4 , i , icfiat
+            IF ( ifiat(k+1)/=0 ) THEN
+               j = rshift(and(ifiat(k),masklo),16)
 !
 !     SEE IF FILE HAS BEEN REFERENCED
 !
-               IF ( and(iordnl(j+3),compl(Iappnd))/=0 ) THEN
-                  ltu = and(Ifiat(k),or(or(Isgnon,Losgn),Maskhi))
-                  Ifiat(k) = or(ltu,iordnl(j+3))
+               IF ( and(iordnl(j+3),compl(iappnd))/=0 ) THEN
+                  ltu = and(ifiat(k),or(or(isgnon,losgn),maskhi))
+                  ifiat(k) = or(ltu,iordnl(j+3))
                ELSE
 !
 !     FILE NOT USED - DROP IT FROM FIAT
 !
-                  Ifiat(k) = and(Ifiat(k),or(Maskhi,Losgn))
+                  ifiat(k) = and(ifiat(k),or(maskhi,losgn))
                   k1 = k + 1
-                  k2 = k + Icfiat - 3
+                  k2 = k + icfiat - 3
                   DO kk = k1 , k2
-                     Ifiat(kk) = 0
+                     ifiat(kk) = 0
                   ENDDO
                ENDIF
             ENDIF
@@ -884,15 +875,14 @@ SUBROUTINE xflord
 !
 !     CHECK ICPDPL TABLE FOR UNDEFINED FILES
 !
-         IF ( Icpbot<Icptop ) THEN
+         IF ( icpbot<icptop ) THEN
 !
 !     NO UNDEFINED FILES - CHECK FOR RESTART
 !
-            IF ( Start==Icst ) RETURN
+            IF ( start==icst ) RETURN
             spag_nextblock_1 = 22
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            DO i = Icptop , Icpbot , 3
+            DO i = icptop , icpbot , 3
                CALL xgpidg(-22,iabs(icpdpl(i+2)),icpdpl(i),icpdpl(i+1))
             ENDDO
 !
@@ -904,8 +894,8 @@ SUBROUTINE xflord
 !     SHICH IS CALLED BY XOSGEN. XOSGEN IS CALLED BY XGPI BEFORE THIS
 !     XFLORD IS CALLED (ALSO BY XGPI)
 !
-            IF ( Diag14==10 ) Diag14 = 11
-            IF ( Start/=Icst ) THEN
+            IF ( diag14==10 ) diag14 = 11
+            IF ( start/=icst ) THEN
                spag_nextblock_1 = 22
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -918,53 +908,53 @@ SUBROUTINE xflord
 !
 !     IORDNL TABLE OVERFLOW
 !
-         CALL xgpidg(14,nordn1,nordn2,and(oscar(ospnt+5),Nosgn))
+         CALL xgpidg(14,nordn1,nordn2,and(oscar(ospnt+5),nosgn))
          RETURN
       CASE (22)
 !
 !     RESTART - USE LAST XVPS ENTRY IN PTDIC FOR RESTART.
 !     EXCLUDE FIRST NXVPS ENTRY
 !
-         Ptdtop = Ptdtop + 3
+         ptdtop = ptdtop + 3
          nofind = -1
-         CALL xfldef(nxvps,Nblank,nofind)
-         Ptdtop = Ptdtop - 3
+         CALL xfldef(nxvps,nblank,nofind)
+         ptdtop = ptdtop - 3
 !
 !     OVERLAY PTDIC TABLE WITH ICPDPL TABLE
 !
-         Icptop = Ptdtop
-         Icpbot = Icptop - 3
-         Lcpdpl = Lptdic
+         icptop = ptdtop
+         icpbot = icptop - 3
+         lcpdpl = lptdic
 !
 !     SCAN PTDIC FOR REUSE FLAGS
 !
-         DO j = Ptdtop , Ptdbot , 3
+         DO j = ptdtop , ptdbot , 3
             IF ( and(ptdic(j+2),reuse)/=0 ) THEN
 !
 !     REUSE FLAG UP - ENTER FILE IN ICPDPL
 !
-               Icpbot = Icpbot + 3
-               icpdpl(Icpbot) = ptdic(j)
-               icpdpl(Icpbot+1) = ptdic(j+1)
-               icpdpl(Icpbot+2) = ptdic(j+2)
+               icpbot = icpbot + 3
+               icpdpl(icpbot) = ptdic(j)
+               icpdpl(icpbot+1) = ptdic(j+1)
+               icpdpl(icpbot+2) = ptdic(j+2)
             ENDIF
          ENDDO
 !
 !     ORDER FILES IN ICPDPL BY REEL/FILE NUMBER
 !
-         IF ( Icpbot<Icptop ) RETURN
+         IF ( icpbot<icptop ) RETURN
 !
 !     DO NOT DISTURB EXISTING ORDER
 !
-         IF ( Icpbot==Icptop ) THEN
+         IF ( icpbot==icptop ) THEN
             spag_nextblock_1 = 24
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         k = Icptop
+         k = icptop
          l = k
          spag_nextblock_1 = 23
       CASE (23)
-         SPAG_Loop_1_8: DO WHILE ( and(icpdpl(k+2),Noflgs)>and(icpdpl(k+5),Noflgs) )
+         SPAG_Loop_1_8: DO WHILE ( and(icpdpl(k+2),noflgs)>and(icpdpl(k+5),noflgs) )
 !
 !     SWITCH
 !
@@ -975,10 +965,10 @@ SUBROUTINE xflord
                icpdpl(j-3) = itmp(1)
             ENDDO
             k = k - 3
-            IF ( k<Icptop ) EXIT SPAG_Loop_1_8
+            IF ( k<icptop ) EXIT SPAG_Loop_1_8
          ENDDO SPAG_Loop_1_8
          k = l + 3
-         IF ( k<Icpbot ) THEN
+         IF ( k<icpbot ) THEN
             l = k
             spag_nextblock_1 = 23
             CYCLE SPAG_DispatchLoop_1
@@ -992,15 +982,15 @@ SUBROUTINE xflord
          j1 = 2
          j1 = oscar(j1)
          j2 = oscar(osbot+1)
-         SPAG_Loop_1_9: DO i = Icptop , Icpbot , 3
-            IF ( and(icpdpl(i+2),Maskhi)/=0 ) EXIT SPAG_Loop_1_9
+         SPAG_Loop_1_9: DO i = icptop , icpbot , 3
+            IF ( and(icpdpl(i+2),maskhi)/=0 ) EXIT SPAG_Loop_1_9
             ospnt = 1
             SPAG_Loop_2_10: DO j = j1 , j2
                spag_nextblock_5 = 1
                SPAG_DispatchLoop_5: DO
                   SELECT CASE (spag_nextblock_5)
                   CASE (1)
-                     IF ( and(Maskhi,oscar(ospnt+2))<=2 .AND. oscar(ospnt+5)<0 ) THEN
+                     IF ( and(maskhi,oscar(ospnt+2))<=2 .AND. oscar(ospnt+5)<0 ) THEN
 !
 !     SEE IF PURGED FILE IS IN I/P SECTION
 !
@@ -1012,7 +1002,7 @@ SUBROUTINE xflord
 !
 !     PURGED FILE IS NOT IN I/P SECTION - SEARCH O/P SECTION FOR IT.
 !
-                        IF ( and(Maskhi,oscar(ospnt+2))==1 ) THEN
+                        IF ( and(maskhi,oscar(ospnt+2))==1 ) THEN
                            k1 = oscar(ospnt+6)*3 + ospnt + 8
                            k2 = oscar(k1-1)*3 - 3 + k1
                            DO k = k1 , k2 , 3
@@ -1025,11 +1015,11 @@ SUBROUTINE xflord
 !     PURGED FILE FIRST USED AS INPUT - THEREFORE IT CANNOT BE GENERATED
 !     ENTER PURGED FILE IN FIAT
 !
- 42                     l = Ifiat(3)*Icfiat + 4
-                        Ifiat(3) = Ifiat(3) + 1
-                        Ifiat(l) = or(Maskhi,oscar(k+2))
-                        Ifiat(l+1) = oscar(k)
-                        Ifiat(l+2) = oscar(k+1)
+ 42                     l = ifiat(3)*icfiat + 4
+                        ifiat(3) = ifiat(3) + 1
+                        ifiat(l) = or(maskhi,oscar(k+2))
+                        ifiat(l+1) = oscar(k)
+                        ifiat(l+2) = oscar(k+1)
                         EXIT SPAG_Loop_2_10
                      ENDIF
                      spag_nextblock_5 = 2

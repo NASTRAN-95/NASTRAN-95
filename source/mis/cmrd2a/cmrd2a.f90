@@ -1,14 +1,15 @@
-!*==cmrd2a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmrd2a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2a
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,10 +56,10 @@ SUBROUTINE cmrd2a
 !
 !     SET UP PARTITIONING VECTOR
 !
-   IF ( Dry==-2 ) RETURN
-   Lcore = Korlen
-   Fuset = usetmr
-   CALL calcv(uprt,Un,Ui,Ub,Z(Korbgn))
+   IF ( dry==-2 ) RETURN
+   lcore = korlen
+   fuset = usetmr
+   CALL calcv(uprt,un,ui,ub,z(korbgn))
 !
 !     PARTITION STIFFNESS MATRIX
 !
@@ -72,11 +73,11 @@ SUBROUTINE cmrd2a
 !                  *     .     *
 !                  **         **
 !
-   CALL gmprtn(kaa,kii,kbi,kib,kbb,uprt,uprt,Nsub(1),Nsub(2),Z(Korbgn),Korlen)
+   CALL gmprtn(kaa,kii,kbi,kib,kbb,uprt,uprt,nsub(1),nsub(2),z(korbgn),korlen)
 !
 !     SAVE PARTITIONING VECTOR
 !
-   CALL mtrxo(uprt,Oldnam,item,0,itest)
+   CALL mtrxo(uprt,oldnam,item,0,itest)
    IF ( itest==3 ) THEN
       RETURN
 !
@@ -88,17 +89,17 @@ SUBROUTINE cmrd2a
       imsg = -3
    ELSEIF ( itest==6 ) THEN
 !
-      WRITE (Iprntr,99001) Ufm , modnam , item , Oldnam
+      WRITE (iprntr,99001) ufm , modnam , item , oldnam
 99001 FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR ','I/O OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,', IS PURGED.')
-      Dry = -2
+      dry = -2
       RETURN
    ELSE
-      WRITE (Iprntr,99002) Ufm , modnam , item , Oldnam
+      WRITE (iprntr,99002) ufm , modnam , item , oldnam
 !
 99002 FORMAT (A23,' 3211, MODULE ',2A4,8H - ITEM ,A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
-      Dry = -2
+      dry = -2
       RETURN
    ENDIF
-   CALL smsg(imsg,item,Oldnam)
+   CALL smsg(imsg,item,oldnam)
 !
 END SUBROUTINE cmrd2a

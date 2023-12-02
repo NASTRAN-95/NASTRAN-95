@@ -1,4 +1,5 @@
-!*==asdmap.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==asdmap.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE asdmap
@@ -10,16 +11,16 @@ SUBROUTINE asdmap
 !     PLACED FIRST ON THE SCRATCH FILE AND THEN COPIED TO THE PROBLEM
 !     TAPE
 !
+   USE c_asdbd
+   USE c_blank
+   USE c_ginox
+   USE c_machin
+   USE c_output
+   USE c_sofcom
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ASDBD
-   USE C_BLANK
-   USE C_GINOX
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SOFCOM
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -110,10 +111,10 @@ SUBROUTINE asdmap
 !
          CALL conmsg(asd1,2,0)
          DO i = 64 , 68
-            Iotit(i) = blank
+            iotit(i) = blank
          ENDDO
          DO i = 1 , 16
-            Ihead(i) = nhead(i)
+            ihead(i) = nhead(i)
          ENDDO
          CALL page
          nz = korsz(z(1))
@@ -128,7 +129,7 @@ SUBROUTINE asdmap
          iopen = 1
          nopen = buf3 - 1
          IF ( nopen<=100 ) CALL mesage(-8,100-nopen,subnam)
-         First = .TRUE.
+         first = .TRUE.
          skip = .FALSE.
          isopt = 0
 !
@@ -142,7 +143,6 @@ SUBROUTINE asdmap
 !
          ASSIGN 20 TO iread
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          IF ( skip ) THEN
             spag_nextblock_1 = 4
@@ -188,7 +188,7 @@ SUBROUTINE asdmap
 !
 !     NO PHASE IS DEFINED
 !
-            WRITE (outt,99001) Uwm
+            WRITE (outt,99001) uwm
 99001       FORMAT (A25,' 6002, INCORRECT PHASE DATA')
             nlines = nlines + 2
             alter = .FALSE.
@@ -199,7 +199,7 @@ SUBROUTINE asdmap
 !
 !     NO SUBSTRUCTURE CARD
 !
-            WRITE (outt,99002) Ufm
+            WRITE (outt,99002) ufm
 !
 99002       FORMAT (A23,' 6001. SUBSTRUCTURE DATA IS REQUIRED WITH THIS ','APPROACH')
             nlines = nlines + 2
@@ -220,9 +220,9 @@ SUBROUTINE asdmap
 !
          IF ( phase==2 ) bandit = -1
          j = 2
-         iapp = iabs(Sys(21))
+         iapp = iabs(sys(21))
          IF ( iapp/=2 ) alter = .FALSE.
-         iap2 = Sys(69)/10
+         iap2 = sys(69)/10
          IF ( iap2==1 ) alter = .FALSE.
          sol = 1
          IF ( .NOT.alter ) GOTO 80
@@ -288,7 +288,7 @@ SUBROUTINE asdmap
          newbt = obits
          recov = .FALSE.
          solve = .FALSE.
-         iapp = Sys(21)
+         iapp = sys(21)
          IF ( iapp==3 ) alter = .FALSE.
          IF ( alter ) THEN
             CALL open(*320,scrt,z(buf3),1)
@@ -296,13 +296,13 @@ SUBROUTINE asdmap
             ii(2) = nxl2
             CALL write(scrt,ii,2,1)
          ENDIF
-         Nsof = 0
+         nsof = 0
          isof = 1
-         Nname(1) = inpt
-         Stat = 1
-         Length(1) = 100
-         Paswd(1) = blank
-         Paswd(2) = blank
+         nname(1) = inpt
+         stat = 1
+         length(1) = 100
+         paswd(1) = blank
+         paswd(2) = blank
 !
 !     READ PASSWORD AND SOF DECLARATIONS
 !
@@ -313,8 +313,8 @@ SUBROUTINE asdmap
  100     IF ( ocard(2)==pass ) THEN
             k = 4
             IF ( ocard(5)==eqsn ) k = 6
-            Paswd(1) = ocard(k)
-            Paswd(2) = ocard(k+1)
+            paswd(1) = ocard(k)
+            paswd(2) = ocard(k+1)
             ASSIGN 100 TO iread
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -333,28 +333,26 @@ SUBROUTINE asdmap
                isof = ocard(7)
             ENDIF
             IF ( isof<0 .OR. isof>10 ) THEN
-               WRITE (outt,99021) Ufm
+               WRITE (outt,99021) ufm
                nlines = nlines + 1
                nogo = 1
                ASSIGN 100 TO iread
                spag_nextblock_1 = 2
-               CYCLE SPAG_DispatchLoop_1
             ELSE
-               Nsof = Nsof + 1
+               nsof = nsof + 1
                IF ( ocard(k+1)==eqsn ) k = k + 2
-               IF ( ocard(k+4)==jnew .OR. ocard(k+5)==jnew ) Stat = 0
-               Nname(isof) = ocard(k)
-               Length(isof) = ocard(k+3)
+               IF ( ocard(k+4)==jnew .OR. ocard(k+5)==jnew ) stat = 0
+               nname(isof) = ocard(k)
+               length(isof) = ocard(k+3)
                IF ( ocard(k+2)==-1 ) THEN
                   ASSIGN 100 TO iread
                   spag_nextblock_1 = 2
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
-                  Length(isof) = 100
+                  length(isof) = 100
                   IF ( nlines+3>nlpp ) CALL page
                   nlines = nlines + 3
                   IF ( .NOT.skip ) WRITE (outt,99020) card
-                  WRITE (outt,99003) Uwm , isof
+                  WRITE (outt,99003) uwm , isof
 99003             FORMAT (A25,', SOF(',I2,') FILESIZE NOT SPECIFIED. DEFAULT OF ','100K WORDS WILL BE ALLOCATED',/)
                   ASSIGN 100 TO iread
                   IF ( skip ) THEN
@@ -362,9 +360,9 @@ SUBROUTINE asdmap
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   spag_nextblock_1 = 3
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
+            CYCLE
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
@@ -418,11 +416,11 @@ SUBROUTINE asdmap
 !
 !     TRANSFER RAW DMAP TO WORKING AREA
 !
-         m = Irdm - 1
-         DO j = 1 , Nrdm
+         m = irdm - 1
+         DO j = 1 , nrdm
             DO i = 1 , 18
                m = m + 1
-               dmap(i,j) = Idat(m)
+               dmap(i,j) = idat(m)
             ENDDO
          ENDDO
 !
@@ -444,11 +442,11 @@ SUBROUTINE asdmap
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             IF ( itemp(2)/=opti ) THEN
-               IF ( Nxtra/=0 ) THEN
-                  m = Ixtra - 1
-                  DO i = 1 , Nxtra
+               IF ( nxtra/=0 ) THEN
+                  m = ixtra - 1
+                  DO i = 1 , nxtra
                      m = m + 1
-                     IF ( itemp(2)==Idat(m) ) GOTO 130
+                     IF ( itemp(2)==idat(m) ) GOTO 130
 !
 !     CARD IS NOT AN EXTRA
 !
@@ -537,13 +535,12 @@ SUBROUTINE asdmap
             ENDIF
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
- 140        WRITE (outt,99021) Ufm
+ 140        WRITE (outt,99021) ufm
             nlines = nlines + 2
             nogo = 1
          ENDIF
          ASSIGN 120 TO iread
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
 !
 !     FOR PHASE 3 RECOVERY, CHANGE RECO TO BREC
@@ -696,12 +693,12 @@ SUBROUTINE asdmap
                var(3,12) = blank
             ENDIF
             iac = ns
-            m = Iph - 1
+            m = iph - 1
             DO i = 1 , 7
                m = m + 2
                var(1,i) = alt1
-               var(2,i) = Idat(m-1)
-               var(3,i) = Idat(m)
+               var(2,i) = idat(m-1)
+               var(3,i) = idat(m)
             ENDDO
             solve = .TRUE.
             spag_nextblock_1 = 14
@@ -767,12 +764,12 @@ SUBROUTINE asdmap
 !
             i2 = 4
             IF ( cdata(i2)==eqsn ) i2 = i2 + 2
-            m = Iph - 1
+            m = iph - 1
             DO i = 1 , 3
                m = m + 2
                var(1,i) = alt1
-               var(2,i) = Idat(m-1)
-               var(3,i) = Idat(m)
+               var(2,i) = idat(m-1)
+               var(3,i) = idat(m)
             ENDDO
             isol = sol
             IF ( sol>3 ) isol = isol - 4
@@ -843,7 +840,7 @@ SUBROUTINE asdmap
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                IF ( jx<1 ) THEN
-                  WRITE (outt,99004) Uwm
+                  WRITE (outt,99004) uwm
 99004             FORMAT (A25,' 6004, NO PREFIX DEFINED AFTER EQUIVALENCE.')
                   nlines = nlines + 2
                ELSE
@@ -907,11 +904,10 @@ SUBROUTINE asdmap
             ENDIF
             IF ( cdata(i2+1)==eqsn ) i2 = i2 + 2
             IF ( cdata(i2)==i6777 .OR. cdata(i2+1)==lpar ) THEN
-               WRITE (outt,99005) Ufm
+               WRITE (outt,99005) ufm
 99005          FORMAT (A23,' 6008, ILLEGAL INPUT ON THE PREVIOUS COMMAND.',/5X,'MISSING FILE NAME FOR IO OPERATION')
                nlines = nlines + 3
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                var(2,3) = cdata(i2)
                var(3,3) = cdata(i2+1)
@@ -945,8 +941,8 @@ SUBROUTINE asdmap
 !
                IF ( icom>=24 ) var(2,2) = disk
                spag_nextblock_1 = 14
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSEIF ( icom==25 ) THEN
 !
 !     PLOT COMMAND
@@ -1014,8 +1010,8 @@ SUBROUTINE asdmap
 !
             nvar = 6
             var(1,1) = alt1
-            var(2,1) = Idat(Iph)
-            var(3,1) = Idat(Iph+1)
+            var(2,1) = idat(iph)
+            var(3,1) = idat(iph+1)
             var(1,2) = run
             var(2,2) = istp
             var(3,2) = blank
@@ -1074,12 +1070,12 @@ SUBROUTINE asdmap
                var(2,nx+1) = -1
                var(3,nx+1) = 0
             ENDIF
-            m = Iph - 1
+            m = iph - 1
             DO i = 1 , 4
                m = m + 2
                var(1,i) = alt1
-               var(2,i) = Idat(m-1)
-               var(3,i) = Idat(m)
+               var(2,i) = idat(m-1)
+               var(3,i) = idat(m)
             ENDDO
             spag_nextblock_1 = 14
             CYCLE SPAG_DispatchLoop_1
@@ -1119,7 +1115,7 @@ SUBROUTINE asdmap
 !
 !     WRITE  DMAP ON  SCRATCH FILE
 !
-               DO i = 1 , Nrdm
+               DO i = 1 , nrdm
                   spag_nextblock_2 = 1
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
@@ -1228,14 +1224,14 @@ SUBROUTINE asdmap
 !
 !     CHECK SOF AND PASSWORD DECLARATIONS
 !
-            IF ( Paswd(1)/=blank ) THEN
-               IF ( Nsof>0 ) THEN
+            IF ( paswd(1)/=blank ) THEN
+               IF ( nsof>0 ) THEN
                   spag_nextblock_1 = 18
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
             CALL page2(2)
-            WRITE (outt,99006) Ufm
+            WRITE (outt,99006) ufm
 99006       FORMAT (A23,' 6011, SOF DATA PASSWORD MISSING')
             nogo = 1
          ELSE
@@ -1255,17 +1251,17 @@ SUBROUTINE asdmap
          spag_nextblock_1 = 18
       CASE (18)
          iblksz = ibuf - 4
-         IF ( Mchn==3 .OR. Mchn==4 ) iblksz = Iginob
+         IF ( mchn==3 .OR. mchn==4 ) iblksz = iginob
          fact = 1000.0/iblksz
          DO i = 1 , 10
-            Length(i) = Length(i)*fact
-            jx = Length(i)/2
-            Length(i) = 2*jx
+            length(i) = length(i)*fact
+            jx = length(i)/2
+            length(i) = 2*jx
          ENDDO
 !
 !     INITIALIZE DIRECT ACCESS FILES FOR IBM 360/370 MACHINES
 !
-         IF ( Mchn==2 ) CALL sofioi
+         IF ( mchn==2 ) CALL sofioi
          spag_nextblock_1 = 19
       CASE (19)
          CALL page2(1)
@@ -1281,21 +1277,21 @@ SUBROUTINE asdmap
 !
          cname = comnd(1,3)
          CALL ascm02(cname,phase,sol,nogo)
-         m = Irdm + 18
-         CALL write(scrt,Idat(m),18,1)
+         m = irdm + 18
+         CALL write(scrt,idat(m),18,1)
 !
 !     REPEAT ALTER IF DRYGO IS ON
 !
          IF ( dryflg==0 ) THEN
             DO i = 1 , 3
                m = m + 18
-               CALL write(scrt,Idat(m),18,1)
+               CALL write(scrt,idat(m),18,1)
             ENDDO
          ENDIF
 !
 !     JUMP TO FINISH OF RIGID FORMAT
 !
-         IF ( phase/=3 ) CALL write(scrt,Idat(91),18,1)
+         IF ( phase/=3 ) CALL write(scrt,idat(91),18,1)
          ifile = ptape
          ofile = scrt
          ifin = .FALSE.
@@ -1380,7 +1376,7 @@ SUBROUTINE asdmap
             IF ( kprt/=0 ) WRITE (outt,99009) icard , (card(i),i=1,nc)
 99009       FORMAT (4X,I5,4X,18A4)
             IF ( kprt/=0 ) nlines = nlines + 1
-            IF ( kpch/=0 ) WRITE (Lpch,99010) (card(i),i=1,nc)
+            IF ( kpch/=0 ) WRITE (lpch,99010) (card(i),i=1,nc)
 99010       FORMAT (18A4)
             icard = icard + 1
          ENDDO
@@ -1395,14 +1391,14 @@ SUBROUTINE asdmap
             IF ( kprt/=0 ) WRITE (outt,99011) icard , alt1 , alt2 , card(1)
 99011       FORMAT (5X,I4,4X,2A4,I8)
             IF ( kprt/=0 ) nlines = nlines + 1
-            IF ( kpch/=0 ) WRITE (Lpch,99012) alt1 , alt2 , card(1)
+            IF ( kpch/=0 ) WRITE (lpch,99012) alt1 , alt2 , card(1)
 99012       FORMAT (2A4,I8)
             icard = icard + 1
          ELSE
             IF ( kprt/=0 ) WRITE (outt,99013) icard , alt1 , alt2 , (card(i),i=1,2)
 99013       FORMAT (5X,I4,4X,2A4,I8,1H,,I3)
             IF ( kprt/=0 ) nlines = nlines + 1
-            IF ( kpch/=0 ) WRITE (Lpch,99014) alt1 , alt2 , card(1) , card(2)
+            IF ( kpch/=0 ) WRITE (lpch,99014) alt1 , alt2 , card(1) , card(2)
 99014       FORMAT (2A4,I8,1H,,I3)
             icard = icard + 1
          ENDIF
@@ -1441,16 +1437,16 @@ SUBROUTINE asdmap
 !
 !     USER FATAL MESSAGES
 !
- 300     WRITE (outt,99015) Ufm
+ 300     WRITE (outt,99015) ufm
 99015    FORMAT (A23,' 6017, MISSING ENDSUBS CARD.')
          CALL mesage(-37,0,subnam)
 !
 !     SYSTEM ERROR MESSAGES
 !
- 320     WRITE (outt,99016) Sfm , file
+ 320     WRITE (outt,99016) sfm , file
 99016    FORMAT (A25,' 6007, IMPROPER FILE SETUP FOR ',A4)
          nlines = nlines + 2
-         WRITE (outt,99017) Ufm
+         WRITE (outt,99017) ufm
 99017    FORMAT (A23,' 6009, UNRECOVERABLE ERROR CONDITIONS IN SUBROUTINE',' ASDMAP')
          nlines = nlines + 2
          nogo = 3
@@ -1459,19 +1455,17 @@ SUBROUTINE asdmap
          CALL close(ptape,1)
          RETURN
       CASE (25)
-         WRITE (outt,99018) Ufm , cname
+         WRITE (outt,99018) ufm , cname
 99018    FORMAT (A23,' 6005, ILLEGAL OR MISSING DATA FOR THE PREVIOUS ','COMMAND - ',A4)
          nlines = nlines + 2
          nogo = 1
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (26)
-         WRITE (outt,99019) Ufm , alts(1) , alts(2) , ii
+         WRITE (outt,99019) ufm , alts(1) , alts(2) , ii
 99019    FORMAT (A23,' 6006, DMAP ALTERS  ',2I8,/5X,'INTERFERE WITH SUBSTRUCTURE ALTERS  ',2I4)
          nlines = nlines + 3
          nogo = 1
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 99020 FORMAT (1H ,4X,20A4)

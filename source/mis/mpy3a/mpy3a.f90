@@ -1,13 +1,14 @@
-!*==mpy3a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mpy3a.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy3a(Z,Iz,Dz)
-USE C_MPY3CP
-USE C_MPY3TL
-USE C_PACKX
-USE C_UNPAKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_mpy3cp
+   USE c_mpy3tl
+   USE c_packx
+   USE c_unpakx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -61,39 +62,39 @@ USE ISO_FORTRAN_ENV
 !*****
 !    FILE OPENING.
 !*****
-         file = Scr1
-         CALL open(*40,Scr1,Z(Buf2),1)
-         file = Fileb(1)
-         CALL open(*40,Fileb,Z(Buf3),0)
-         CALL fwdrec(*60,Fileb)
+         file = scr1
+         CALL open(*40,scr1,Z(buf2),1)
+         file = fileb(1)
+         CALL open(*40,fileb,Z(buf3),0)
+         CALL fwdrec(*60,fileb)
 !*****
 !    UNPACK B AND PACK INTO SCRATCH FILE 1.
 !*****
 ! PACK PARAMETERS
-         Typin = Prec
-         Typout = Prec
-         Row1 = 1
-         Rowm = N
-         Incr = 1
+         typin = prec
+         typout = prec
+         row1 = 1
+         rowm = n
+         incr = 1
 ! UNPACK PARAMETERS
-         Utyp = Prec
-         Urow1 = 1
-         Urown = N
-         Uincr = 1
-         precn = Prec*N
+         utyp = prec
+         urow1 = 1
+         urown = n
+         uincr = 1
+         precn = prec*n
          mcb(1) = 301
          mcb(2) = 0
-         mcb(3) = N
+         mcb(3) = n
          mcb(4) = 1
-         mcb(5) = Prec
+         mcb(5) = prec
          mcb(6) = 0
          mcb(7) = 0
-         DO k = 1 , Ncb
+         DO k = 1 , ncb
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  CALL unpack(*2,Fileb,Z(ibcols))
+                  CALL unpack(*2,fileb,Z(ibcols))
                   spag_nextblock_2 = 2
                   CYCLE SPAG_DispatchLoop_2
  2                ib = ibcols - 1
@@ -103,15 +104,15 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                   spag_nextblock_2 = 2
                CASE (2)
-                  CALL pack(Z(ibcols),Scr1,mcb)
-                  CALL savpos(Scr1,Iz(k))
+                  CALL pack(Z(ibcols),scr1,mcb)
+                  CALL savpos(scr1,Iz(k))
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
          ENDDO
-         CALL close(Scr1,1)
-         CALL close(Fileb,1)
-         IF ( Icore/=1 ) THEN
+         CALL close(scr1,1)
+         CALL close(fileb,1)
+         IF ( icore/=1 ) THEN
 !*****
 !    INITIALIZE ARRAY CONTAINING POINTERS TO ROWS OF MATRIX A TO 0.
 !*****
@@ -121,16 +122,16 @@ USE ISO_FORTRAN_ENV
 !*****
 !    COUNT NO. OF NON-ZERO COLUMNS IN EACH ROW OF A.
 !*****
-            file = Filea(1)
-            CALL open(*40,Filea,Z(Buf1),0)
-            CALL fwdrec(*60,Filea)
-            DO i = 1 , M
-               CALL intpk(*10,Filea,0,Prec,0)
+            file = filea(1)
+            CALL open(*40,filea,Z(buf1),0)
+            CALL fwdrec(*60,filea)
+            DO i = 1 , m
+               CALL intpk(*10,filea,0,prec,0)
                SPAG_Loop_2_1: DO
                   CALL zntpki
-                  ii = ipoint + Irow - 1
+                  ii = ipoint + irow - 1
                   Iz(ii) = Iz(ii) + 1
-                  IF ( Eol==1 ) EXIT SPAG_Loop_2_1
+                  IF ( eol==1 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
  10         ENDDO
 !*****
@@ -144,22 +145,22 @@ USE ISO_FORTRAN_ENV
                   jj = jj + incrjj
                ENDIF
             ENDDO
-            Laend = jj - 1
+            laend = jj - 1
 !*****
 !    PROCESS A(T) MATRIX.
 !*****
-            file = Filea(1)
-            CALL rewind(Filea)
-            CALL fwdrec(*60,Filea)
-            jj2 = iacols + Laend - 1
+            file = filea(1)
+            CALL rewind(filea)
+            CALL fwdrec(*60,filea)
+            jj2 = iacols + laend - 1
             DO jj = iacols , jj2
                Iz(jj) = 0
             ENDDO
-            DO j = 1 , M
-               CALL intpk(*20,Filea,0,Prec,0)
+            DO j = 1 , m
+               CALL intpk(*20,filea,0,prec,0)
                SPAG_Loop_2_2: DO
                   CALL zntpki
-                  l = ipoint + Irow - 1
+                  l = ipoint + irow - 1
                   jj = Iz(l)
                   jjc = iacols + jj - 1
                   DO WHILE ( Iz(jjc)/=0 )
@@ -167,19 +168,19 @@ USE ISO_FORTRAN_ENV
                      jjc = jjc + 1
                   ENDDO
                   Iz(jjc) = j
-                  IF ( Prec==2 ) THEN
+                  IF ( prec==2 ) THEN
                      jjt = (itrans-1)/2 + jj
                      Dz(jjt) = da
-                     IF ( Eol==1 ) EXIT SPAG_Loop_2_2
+                     IF ( eol==1 ) EXIT SPAG_Loop_2_2
                   ELSE
                      jjt = itrans + jj - 1
-                     Z(jjt) = A(1)
-                     IF ( Eol==1 ) EXIT SPAG_Loop_2_2
+                     Z(jjt) = a(1)
+                     IF ( eol==1 ) EXIT SPAG_Loop_2_2
                   ENDIF
                ENDDO SPAG_Loop_2_2
  20         ENDDO
-            precl = Prec*Laend
-            CALL close(Filea,1)
+            precl = prec*laend
+            CALL close(filea,1)
          ENDIF
          RETURN
 !*****

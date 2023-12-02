@@ -1,14 +1,15 @@
-!*==pltset.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pltset.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pltset
+   USE c_blank
+   USE c_machin
+   USE c_pltdat
+   USE c_system
+   USE c_xmssg
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_PLTDAT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XXPARM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -36,23 +37,23 @@ SUBROUTINE pltset
 !     INITIALIZE -PDATA-
 !
    DO i = 1 , 20
-      Pdata(i) = Pltdat(i,Ploter)
+      pdata(i) = pltdat(i,ploter)
    ENDDO
 !
 !     PLT2 FILE WAS HARD CODED INTO THE 11TH WORD OF PLTDAT(11,PLOTER)
 !     BY PLOTBD. IF USER REQUESTS PLT1 FILE, WE MUST MAKE A SWITCH HERE
 !
-   IF ( .NOT.tapbit(plt2) .AND. tapbit(plt1) ) Pdata(11) = plt1
-   IF ( Pltnum==0 .AND. Offscl==0 ) WRITE (nout,99001) Uim , Pdata(11)
+   IF ( .NOT.tapbit(plt2) .AND. tapbit(plt1) ) pdata(11) = plt1
+   IF ( pltnum==0 .AND. offscl==0 ) WRITE (nout,99001) uim , pdata(11)
 99001 FORMAT (A29,', PLOT FILE GOES TO ',A4)
 !
-   IF ( Offscl==0 ) Offscl = 1
+   IF ( offscl==0 ) offscl = 1
 !
 !     SCALE THE CHARACTURE SIZE BEFORE SETTING BORDERS
 !
-   cntchr(1) = Chrscl*cntchr(1)
-   cntchr(2) = Chrscl*cntchr(2)
-   Pbufsz = pbfsiz/chrwrd
+   cntchr(1) = chrscl*cntchr(1)
+   cntchr(2) = chrscl*cntchr(2)
+   pbufsz = pbfsiz/chrwrd
 !
 !     FOR UNIVAC 9 TRACK CALCOMP PLOT TAPES QUARTER WORD MODE WILL
 !     BE USED LIMITING THE NUMBER OF CHARACTERS PER WORD TO 4
@@ -65,9 +66,9 @@ SUBROUTINE pltset
 !     PLOT BUFFER FOR UNIVAC MUST BE 500 WORDS FOR BOTH FORTRAN V AND
 !     ASCII FORTRAN. (SEE PROG. MANUAL PAGE 6.10-15)
 !
-   IF ( Mach==3 ) Pbufsz = pbfsiz/6
+   IF ( mach==3 ) pbufsz = pbfsiz/6
 !
-   pltype = Model
+   pltype = model
 !
 !     INITIALIZE PAPER SIZE AND BORDERS
 !
@@ -81,11 +82,11 @@ SUBROUTINE pltset
 !
 !     CRT PLOTTERS
 !
-                  Axymax(i) = xymax(i) - cntchr(i)
-                  Xyedge(i) = cntchr(i)*.5
+                  axymax(i) = xymax(i) - cntchr(i)
+                  xyedge(i) = cntchr(i)*.5
                ELSE
-                  Axymax(i) = xymax(i)
-                  Xyedge(i) = 0.
+                  axymax(i) = xymax(i)
+                  xyedge(i) = 0.
                ENDIF
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
@@ -93,28 +94,28 @@ SUBROUTINE pltset
 !
 !     TABLE PLOTTERS
 !
-               IF ( Papsiz(i)<=0.0 ) Papsiz(i) = xysize(i)
+               IF ( papsiz(i)<=0.0 ) papsiz(i) = xysize(i)
 !
-               IF ( cntsin*Papsiz(i)>xymax(i) ) Papsiz(i) = xymax(i)/cntsin
+               IF ( cntsin*papsiz(i)>xymax(i) ) papsiz(i) = xymax(i)/cntsin
             ELSE
 !
 !     DRUM PLOTTERS
 !
-               IF ( Papsiz(i)<=0.0 ) Papsiz(i) = xymax(i)/cntsin
+               IF ( papsiz(i)<=0.0 ) papsiz(i) = xymax(i)/cntsin
                IF ( i==1 ) THEN
                ELSEIF ( i==2 ) THEN
-                  IF ( cntsin*Papsiz(i)>xymax(i) ) Papsiz(i) = xymax(i)/cntsin
+                  IF ( cntsin*papsiz(i)>xymax(i) ) papsiz(i) = xymax(i)/cntsin
                ELSE
-                  IF ( Papsiz(i)<=0.0 ) Papsiz(i) = xysize(i)
-                  IF ( cntsin*Papsiz(i)>xymax(i) ) Papsiz(i) = xymax(i)/cntsin
+                  IF ( papsiz(i)<=0.0 ) papsiz(i) = xysize(i)
+                  IF ( cntsin*papsiz(i)>xymax(i) ) papsiz(i) = xymax(i)/cntsin
                ENDIF
             ENDIF
-            Axymax(i) = cntsin*Papsiz(i) - cntsin
-            Xyedge(i) = cntsin*.5
+            axymax(i) = cntsin*papsiz(i) - cntsin
+            xyedge(i) = cntsin*.5
             spag_nextblock_1 = 2
          CASE (2)
-            Reg(i,1) = 0.
-            Reg(i,2) = Axymax(i)
+            reg(i,1) = 0.
+            reg(i,2) = axymax(i)
             EXIT SPAG_DispatchLoop_1
          END SELECT
       ENDDO SPAG_DispatchLoop_1

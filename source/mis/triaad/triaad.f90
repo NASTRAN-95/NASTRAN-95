@@ -2,15 +2,15 @@
  
 SUBROUTINE triaad
    IMPLICIT NONE
-   USE C_CONDAD
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_MATPZ
-   USE C_SYSTEM
-   USE C_TRIAXX
+   USE c_condad
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_matpz
+   USE c_system
+   USE c_triaxx
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,6 +33,12 @@ SUBROUTINE triaad
    INTEGER , DIMENSION(34) :: iecpt
    LOGICAL :: lsys78 , pzmat
    REAL*8 , DIMENSION(3) :: r , z
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -91,13 +97,13 @@ SUBROUTINE triaad
    DATA idel2 , jax/0 , 4HTRIA/
 !
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
-   idel1 = Idel/1000
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
+   idel1 = idel/1000
 !
 !     INITALIZE
 !
    DO i = 1 , 403
-      Aki(i) = 0.D0
+      aki(i) = 0.D0
    ENDDO
    DO i = 1 , 3
       r(i) = ecpt(4*i+19)
@@ -105,13 +111,13 @@ SUBROUTINE triaad
       ics(i) = iecpt(4*i+18)
    ENDDO
 !
-   dict(1) = Estid
+   dict(1) = estid
    dict(2) = 1
    dict(3) = 12
    dict(4) = 15
-   ipr = Iprec
+   ipr = iprec
 !
-   IF ( R1<=0. .OR. R2<=0. .OR. R3<=0. ) THEN
+   IF ( r1<=0. .OR. r2<=0. .OR. r3<=0. ) THEN
 !
 !     ERROR EXITS
 !
@@ -135,10 +141,10 @@ SUBROUTINE triaad
          ENDDO
       ENDDO
 !
-      aa = 1.D0/(R2*z3+R1*z2+z1*R3-z2*R3-R1*z3-R2*z1)
-      c1 = aa*(R2*z3-z2*R3)
+      aa = 1.D0/(r2*z3+r1*z2+z1*r3-z2*r3-r1*z3-r2*z1)
+      c1 = aa*(r2*z3-z2*r3)
       c2 = -aa*(z3-z2)
-      c3 = aa*(R3-R2)
+      c3 = aa*(r3-r2)
       gababq(1,1) = c1
       gababq(1,2) = c2
       gababq(1,3) = c3
@@ -153,9 +159,9 @@ SUBROUTINE triaad
          gababp(1,2) = c2
          gababp(1,3) = c3
       ENDIF
-      c1 = -aa*(R1*z3-z1*R3)
+      c1 = -aa*(r1*z3-z1*r3)
       c2 = aa*(z3-z1)
-      c3 = -aa*(R3-R1)
+      c3 = -aa*(r3-r1)
       gababq(4,1) = c1
       gababq(4,2) = c2
       gababq(4,3) = c3
@@ -170,9 +176,9 @@ SUBROUTINE triaad
          gababp(2,2) = c2
          gababp(2,3) = c3
       ENDIF
-      c1 = aa*(R1*z2-z1*R2)
+      c1 = aa*(r1*z2-z1*r2)
       c2 = -aa*(z2-z1)
-      c3 = aa*(R2-R1)
+      c3 = aa*(r2-r1)
       gababq(7,1) = c1
       gababq(7,2) = c2
       gababq(7,3) = c3
@@ -208,12 +214,12 @@ SUBROUTINE triaad
 !     DELINT(7)  =  (3,0)
 !
 !
-      IF ( Ismb(1)/=0 ) THEN
-         ra = (R1+R2+R3)/3.0
+      IF ( ismb(1)/=0 ) THEN
+         ra = (r1+r2+r3)/3.0
          za = (z1+z2+z3)/3.0D0
-         rh = amin1(R1,R2,R3)/10.0
-         dr = amax1(abs(R1-R2),abs(R2-R3),abs(R3-R1))
-         area = (R1*(z2-z3)+R2*(z3-z1)+R3*(z1-z2))/2.0D0
+         rh = amin1(r1,r2,r3)/10.0
+         dr = amax1(abs(r1-r2),abs(r2-r3),abs(r3-r1))
+         area = (r1*(z2-z3)+r2*(z3-z1)+r3*(z1-z2))/2.0D0
 !
          i1 = 0
          DO i = 1 , 2
@@ -236,61 +242,61 @@ SUBROUTINE triaad
 !
 !     MASS MATRIX
 !
-         IF ( Ismb(2)==0 ) GOTO 100
+         IF ( ismb(2)==0 ) GOTO 100
       ENDIF
-      CALL deltkl(Akj,r,z,0)
-      delm(1) = Akj(2)
-      delm(2) = Akj(7)
-      delm(3) = Akj(8)
-      delm(4) = Akj(10)
-      delm(5) = Akj(9)
-      delm(7) = Akj(12)
+      CALL deltkl(akj,r,z,0)
+      delm(1) = akj(2)
+      delm(2) = akj(7)
+      delm(3) = akj(8)
+      delm(4) = akj(10)
+      delm(5) = akj(9)
+      delm(7) = akj(12)
    ENDIF
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3
 !
- 100  dgamr = dble(Dgama)*degrad
+ 100  dgamr = dble(dgama)*degrad
    cosg = dcos(dgamr)
    sing = dsin(dgamr)
-   Sinth = sing
-   Costh = cosg
-   Matidc = Matid
-   Matflg = 7
-   IF ( Ksys78>0 ) Matflg = 9
-   Eltemp = Tempe
-   CALL mat(Idel)
+   sinth = sing
+   costh = cosg
+   matidc = matid
+   matflg = 7
+   IF ( ksys78>0 ) matflg = 9
+   eltemp = tempe
+   CALL mat(idel)
    pzmat = .FALSE.
-   IF ( Setmat==4. .OR. Setmat==5. ) pzmat = .TRUE.
+   IF ( setmat==4. .OR. setmat==5. ) pzmat = .TRUE.
    IF ( pzmat ) THEN
-      Rho = Pzout(46)
-      Alf(1) = Pzout(47)
-      Alf(2) = Pzout(48)
-      Alf(3) = Pzout(49)
-      Tzero = Pzout(50)
-      Gsube = Pzout(51)
+      rho = pzout(46)
+      alf(1) = pzout(47)
+      alf(2) = pzout(48)
+      alf(3) = pzout(49)
+      tzero = pzout(50)
+      gsube = pzout(51)
    ELSE
-      ksave = Ksys78
-      Ksys78 = 0
+      ksave = ksys78
+      ksys78 = 0
       lsys78 = .TRUE.
    ENDIF
-   IF ( Setmat==2. ) THEN
+   IF ( setmat==2. ) THEN
       i = 126
       GOTO 400
    ELSE
-      dict5 = Gsube
-      IF ( Ksys78<=0 ) THEN
+      dict5 = gsube
+      IF ( ksys78<=0 ) THEN
 !
 !     SET MATERIAL PROPERTIES IN DOUBLE PRECISION VARIABLES
 !
-         er = E(1)
-         et = E(2)
-         ez = E(3)
-         vro = Anu(1)
-         voz = Anu(2)
-         vzr = Anu(3)
-         gor = G(1)
-         gzo = G(2)
-         grz = G(3)
+         er = e(1)
+         et = e(2)
+         ez = e(3)
+         vro = anu(1)
+         voz = anu(2)
+         vzr = anu(3)
+         gor = g(1)
+         gzo = g(2)
+         grz = g(3)
          vor = vro*et/er
          vzo = voz*ez/et
          vrz = vzr*er/ez
@@ -300,72 +306,72 @@ SUBROUTINE triaad
 !     COMPUTE ELASTIC CONSTANTS MATRIX FROM MATERIAL TO ELEMENT AXIS
 !
       DO i = 1 , 45
-         Teo(i) = 0.D0
+         teo(i) = 0.D0
       ENDDO
 !
-      IF ( Ksys78>0 ) THEN
+      IF ( ksys78>0 ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES STORED IN TEO(22-39)
 !     DIELECTRIC MATERIAL PROPERTIES STORED IN TEO(40-45)
 !     TEO(22-39) CONTAINS E-TRANSPOSE
 !
-         Teo(1) = Pzout(1)
-         Teo(2) = Pzout(2)
-         Teo(3) = Pzout(7)
-         Teo(4) = Pzout(3)
-         Teo(5) = Pzout(8)
-         Teo(6) = Pzout(12)
-         Teo(7) = Pzout(4)
-         Teo(8) = Pzout(9)
-         Teo(9) = Pzout(13)
-         Teo(10) = Pzout(16)
-         Teo(11) = Pzout(5)
-         Teo(12) = Pzout(10)
-         Teo(13) = Pzout(14)
-         Teo(14) = Pzout(17)
-         Teo(15) = Pzout(19)
-         Teo(16) = Pzout(6)
-         Teo(17) = Pzout(11)
-         Teo(18) = Pzout(15)
-         Teo(19) = Pzout(18)
-         Teo(20) = Pzout(20)
-         Teo(21) = Pzout(21)
-         IF ( Ksys78/=2 ) THEN
-            Teo(22) = Pzout(22)
-            Teo(23) = Pzout(28)
-            Teo(24) = Pzout(34)
-            Teo(25) = Pzout(23)
-            Teo(26) = Pzout(29)
-            Teo(27) = Pzout(35)
-            Teo(28) = Pzout(24)
-            Teo(29) = Pzout(30)
-            Teo(30) = Pzout(36)
-            Teo(31) = Pzout(25)
-            Teo(32) = Pzout(31)
-            Teo(33) = Pzout(37)
-            Teo(34) = Pzout(26)
-            Teo(35) = Pzout(32)
-            Teo(36) = Pzout(38)
-            Teo(37) = Pzout(27)
-            Teo(38) = Pzout(33)
-            Teo(39) = Pzout(39)
-            Teo(40) = -Pzout(40)
-            Teo(41) = -Pzout(41)
-            Teo(42) = -Pzout(42)
-            Teo(43) = -Pzout(43)
-            Teo(44) = -Pzout(44)
-            Teo(45) = -Pzout(45)
+         teo(1) = pzout(1)
+         teo(2) = pzout(2)
+         teo(3) = pzout(7)
+         teo(4) = pzout(3)
+         teo(5) = pzout(8)
+         teo(6) = pzout(12)
+         teo(7) = pzout(4)
+         teo(8) = pzout(9)
+         teo(9) = pzout(13)
+         teo(10) = pzout(16)
+         teo(11) = pzout(5)
+         teo(12) = pzout(10)
+         teo(13) = pzout(14)
+         teo(14) = pzout(17)
+         teo(15) = pzout(19)
+         teo(16) = pzout(6)
+         teo(17) = pzout(11)
+         teo(18) = pzout(15)
+         teo(19) = pzout(18)
+         teo(20) = pzout(20)
+         teo(21) = pzout(21)
+         IF ( ksys78/=2 ) THEN
+            teo(22) = pzout(22)
+            teo(23) = pzout(28)
+            teo(24) = pzout(34)
+            teo(25) = pzout(23)
+            teo(26) = pzout(29)
+            teo(27) = pzout(35)
+            teo(28) = pzout(24)
+            teo(29) = pzout(30)
+            teo(30) = pzout(36)
+            teo(31) = pzout(25)
+            teo(32) = pzout(31)
+            teo(33) = pzout(37)
+            teo(34) = pzout(26)
+            teo(35) = pzout(32)
+            teo(36) = pzout(38)
+            teo(37) = pzout(27)
+            teo(38) = pzout(33)
+            teo(39) = pzout(39)
+            teo(40) = -pzout(40)
+            teo(41) = -pzout(41)
+            teo(42) = -pzout(42)
+            teo(43) = -pzout(43)
+            teo(44) = -pzout(44)
+            teo(45) = -pzout(45)
          ENDIF
       ELSE
-         Teo(1) = er*(1.-voz*vzo)*del
-         Teo(2) = er*(vzr+vzo*vor)*del
-         Teo(3) = ez*(1.-vro*vor)*del
-         Teo(4) = er*(vor+vzr*voz)*del
-         Teo(5) = et*(vzo+vro*vzr)*del
-         Teo(6) = et*(1.-vrz*vzr)*del
-         Teo(10) = grz
-         Teo(15) = gor
-         Teo(21) = gzo
+         teo(1) = er*(1.-voz*vzo)*del
+         teo(2) = er*(vzr+vzo*vor)*del
+         teo(3) = ez*(1.-vro*vor)*del
+         teo(4) = er*(vor+vzr*voz)*del
+         teo(5) = et*(vzo+vro*vzr)*del
+         teo(6) = et*(1.-vrz*vzr)*del
+         teo(10) = grz
+         teo(15) = gor
+         teo(21) = gzo
       ENDIF
       c2 = cosg*cosg
       c4 = c2*c2
@@ -378,58 +384,58 @@ SUBROUTINE triaad
       sc2 = sing*c2
       cs = cosg*sing
 !
-      ee(1) = Teo(1)*c4 + Teo(3)*s4 + 2.*c2s2*(Teo(2)+2.*Teo(10))
-      ee(2) = Teo(2)*(c4+s4) + c2s2*(Teo(1)+Teo(3)-4.*Teo(10))
-      ee(3) = Teo(4)*c2 + Teo(5)*s2
-      ee(4) = cosg*sing*s2*(Teo(2)-Teo(3)+2.*Teo(10)) + sing*cosg*c2*(Teo(1)-Teo(2)-2.*Teo(10))
+      ee(1) = teo(1)*c4 + teo(3)*s4 + 2.*c2s2*(teo(2)+2.*teo(10))
+      ee(2) = teo(2)*(c4+s4) + c2s2*(teo(1)+teo(3)-4.*teo(10))
+      ee(3) = teo(4)*c2 + teo(5)*s2
+      ee(4) = cosg*sing*s2*(teo(2)-teo(3)+2.*teo(10)) + sing*cosg*c2*(teo(1)-teo(2)-2.*teo(10))
       ee(7) = ee(2)
-      ee(8) = Teo(1)*s4 + 2.*c2s2*(Teo(2)+2.*Teo(10)) + Teo(3)*c4
-      ee(9) = Teo(4)*s2 + Teo(5)*c2
-      ee(10) = sing*cosg*c2*(Teo(2)-Teo(3)+2.*Teo(10)) + cosg*sing*s2*(Teo(1)-Teo(2)-2.*Teo(10))
+      ee(8) = teo(1)*s4 + 2.*c2s2*(teo(2)+2.*teo(10)) + teo(3)*c4
+      ee(9) = teo(4)*s2 + teo(5)*c2
+      ee(10) = sing*cosg*c2*(teo(2)-teo(3)+2.*teo(10)) + cosg*sing*s2*(teo(1)-teo(2)-2.*teo(10))
       ee(13) = ee(3)
       ee(14) = ee(9)
-      ee(15) = Teo(6)
-      ee(16) = sing*cosg*(Teo(4)-Teo(5))
+      ee(15) = teo(6)
+      ee(16) = sing*cosg*(teo(4)-teo(5))
       ee(19) = ee(4)
       ee(20) = ee(10)
       ee(21) = ee(16)
-      ee(22) = c2s2*(Teo(1)-2.*Teo(2)+Teo(3)) + Teo(10)*(c2-s2)**2
-      ee(29) = Teo(15)*c2 + Teo(21)*s2
-      ee(30) = sing*cosg*(Teo(15)-Teo(21))
+      ee(22) = c2s2*(teo(1)-2.*teo(2)+teo(3)) + teo(10)*(c2-s2)**2
+      ee(29) = teo(15)*c2 + teo(21)*s2
+      ee(30) = sing*cosg*(teo(15)-teo(21))
       ee(35) = ee(30)
-      ee(36) = Teo(15)*s2 + Teo(21)*c2
+      ee(36) = teo(15)*s2 + teo(21)*c2
 !
       IF ( .NOT.(lsys78) ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES IN ELEMENT COORDINATES
 !
-         ee(37) = c3*Teo(22) - s3*Teo(26) + cs2*(Teo(25)+2.0*Teo(32)) - sc2*(Teo(23)+2.0*Teo(31))
-         ee(38) = c3*Teo(23) + s3*Teo(25) + cs2*(Teo(26)-2.0*Teo(31)) + sc2*(Teo(22)-2.0*Teo(32))
-         ee(39) = s2*Teo(27) + c2*Teo(24) - 2.0*cs*Teo(33)
-         ee(40) = c3*Teo(25) - s3*Teo(23) + cs2*(Teo(22)-2.0*Teo(32)) - sc2*(Teo(26)-2.0*Teo(31))
-         ee(41) = c3*Teo(26) + s3*Teo(22) + cs2*(Teo(23)+2.0*Teo(31)) + sc2*(Teo(25)+2.0*Teo(32))
-         ee(42) = s2*Teo(24) + c2*Teo(27) + 2.0*cs*Teo(33)
-         ee(43) = cosg*Teo(28) - sing*Teo(29)
-         ee(44) = cosg*Teo(29) + sing*Teo(28)
-         ee(45) = Teo(30)
-         ee(46) = c3*Teo(31) + s3*Teo(32) - cs2*(Teo(23)-Teo(26)+Teo(31)) + sc2*(-Teo(32)-Teo(25)+Teo(22))
-         ee(47) = c3*Teo(32) - s3*Teo(31) - cs2*(Teo(25)-Teo(22)+Teo(32)) + sc2*(Teo(23)+Teo(31)-Teo(26))
-         ee(48) = (c2-s2)*Teo(33) + cs*(Teo(24)-Teo(27))
-         ee(49) = c2*Teo(34) + s2*Teo(38) - cs*(Teo(35)+Teo(37))
-         ee(50) = c2*Teo(35) - s2*Teo(37) + cs*(Teo(34)-Teo(38))
-         ee(51) = cosg*Teo(36) - sing*Teo(39)
-         ee(52) = c2*Teo(37) - s2*Teo(35) - cs*(Teo(38)-Teo(34))
-         ee(53) = c2*Teo(38) + s2*Teo(34) + cs*(Teo(35)+Teo(37))
-         ee(54) = cosg*Teo(39) + sing*Teo(36)
+         ee(37) = c3*teo(22) - s3*teo(26) + cs2*(teo(25)+2.0*teo(32)) - sc2*(teo(23)+2.0*teo(31))
+         ee(38) = c3*teo(23) + s3*teo(25) + cs2*(teo(26)-2.0*teo(31)) + sc2*(teo(22)-2.0*teo(32))
+         ee(39) = s2*teo(27) + c2*teo(24) - 2.0*cs*teo(33)
+         ee(40) = c3*teo(25) - s3*teo(23) + cs2*(teo(22)-2.0*teo(32)) - sc2*(teo(26)-2.0*teo(31))
+         ee(41) = c3*teo(26) + s3*teo(22) + cs2*(teo(23)+2.0*teo(31)) + sc2*(teo(25)+2.0*teo(32))
+         ee(42) = s2*teo(24) + c2*teo(27) + 2.0*cs*teo(33)
+         ee(43) = cosg*teo(28) - sing*teo(29)
+         ee(44) = cosg*teo(29) + sing*teo(28)
+         ee(45) = teo(30)
+         ee(46) = c3*teo(31) + s3*teo(32) - cs2*(teo(23)-teo(26)+teo(31)) + sc2*(-teo(32)-teo(25)+teo(22))
+         ee(47) = c3*teo(32) - s3*teo(31) - cs2*(teo(25)-teo(22)+teo(32)) + sc2*(teo(23)+teo(31)-teo(26))
+         ee(48) = (c2-s2)*teo(33) + cs*(teo(24)-teo(27))
+         ee(49) = c2*teo(34) + s2*teo(38) - cs*(teo(35)+teo(37))
+         ee(50) = c2*teo(35) - s2*teo(37) + cs*(teo(34)-teo(38))
+         ee(51) = cosg*teo(36) - sing*teo(39)
+         ee(52) = c2*teo(37) - s2*teo(35) - cs*(teo(38)-teo(34))
+         ee(53) = c2*teo(38) + s2*teo(34) + cs*(teo(35)+teo(37))
+         ee(54) = cosg*teo(39) + sing*teo(36)
 !
 !     DIELECTRIC MATERIAL PROPERTIES IN ELEMENT COORDINTES
 !
-         ee(55) = s2*Teo(43) - 2.0*cs*Teo(41) + c2*Teo(40)
-         ee(56) = (c2-s2)*Teo(41) - cs*(Teo(43)-Teo(40))
-         ee(57) = -sing*Teo(44) + cosg*Teo(42)
-         ee(59) = c2*Teo(43) + 2.0*cs*Teo(41) + s2*Teo(40)
-         ee(60) = cosg*Teo(44) + sing*Teo(42)
-         ee(63) = Teo(45)
+         ee(55) = s2*teo(43) - 2.0*cs*teo(41) + c2*teo(40)
+         ee(56) = (c2-s2)*teo(41) - cs*(teo(43)-teo(40))
+         ee(57) = -sing*teo(44) + cosg*teo(42)
+         ee(59) = c2*teo(43) + 2.0*cs*teo(41) + s2*teo(40)
+         ee(60) = cosg*teo(44) + sing*teo(42)
+         ee(63) = teo(45)
       ENDIF
 !
 !     COMPUTE HARMONIC COEFFICIENT
@@ -437,95 +443,95 @@ SUBROUTINE triaad
       mjho = mod(iecpt(1),1000) - 1
       ajho = mjho
       ajjho = ajho*ajho
-      rhod = Rho*pi
+      rhod = rho*pi
       IF ( ajho==0.D0 ) rhod = 2.*rhod
-      IF ( Ismb(1)/=0 ) THEN
+      IF ( ismb(1)/=0 ) THEN
 !
 !     FORM THE ELEMENT STIFFNESS MATRIX IN FIELD SYSTEM
 !
-         Acurl(01) = (ee(15)+ajjho*ee(29))*delint(1)
-         Acurl(02) = (ee(03)+ee(15)+ajjho*ee(29))*delint(4)
-         Acurl(03) = (ee(15)+ajjho*ee(29))*delint(2) + ee(16)*delint(4)
-         Acurl(04) = (ee(15)+ee(29))*ajho*delint(1)
-         Acurl(05) = ee(15)*ajho*delint(4)
-         Acurl(06) = (ee(15)+ee(29))*ajho*delint(2) - ee(30)*ajho*delint(4)
-         Acurl(07) = ajjho*delint(1)*ee(35)
-         Acurl(08) = (ee(16)+ajjho*ee(35))*delint(4)
-         Acurl(09) = ee(09)*delint(4) + ajjho*delint(2)*ee(35)
-         Acurl(11) = (ee(1)+2.*ee(3)+ee(15)+ajjho*ee(29))*delint(6)
-         Acurl(12) = (ee(3)+ee(15)+ajjho*ee(29))*delint(5) + (ee(4)+ee(16))*delint(6)
-         Acurl(13) = (ee(3)+ee(15)+ee(29))*ajho*delint(4)
-         Acurl(14) = (ee(3)+ee(15))*delint(6)*ajho
-         Acurl(15) = (ee(3)+ee(15)+ee(29))*ajho*delint(5) - ajho*ee(30)*delint(6)
-         Acurl(16) = ajjho*delint(4)*ee(35)
-         Acurl(17) = (ee(4)+ee(16)+ajjho*ee(35))*delint(6)
-         Acurl(18) = (ee(2)+ee(9))*delint(6) + ajjho*delint(5)*ee(35)
-         Acurl(21) = (ee(15)+ajjho*ee(29))*delint(3) + ee(22)*delint(6) + 2.*ee(16)*delint(5)
-         Acurl(22) = (ee(15)+ee(29))*ajho*delint(2) + ajho*delint(4)*ee(16)
-         Acurl(23) = ee(15)*ajho*delint(5) + ajho*delint(6)*ee(16)
-         Acurl(24) = (ee(15)+ee(29))*ajho*delint(3) + (ee(16)-ee(30))*ajho*delint(5)
-         Acurl(25) = ajjho*delint(2)*ee(35)
-         Acurl(26) = ee(22)*delint(6) + (ee(21)+ajjho*ee(35))*delint(5)
-         Acurl(27) = ee(9)*delint(5) + ee(10)*delint(6) + ajjho*delint(3)*ee(35)
-         Acurl(31) = (ee(29)+ajjho*ee(15))*delint(1)
-         Acurl(32) = ee(15)*ajjho*delint(4)
-         Acurl(33) = (ee(29)+ajjho*ee(15))*delint(2) - ee(30)*delint(4)
-         Acurl(34) = ajho*delint(1)*ee(35)
-         Acurl(35) = ajho*(ee(16)+ee(35))*delint(4)
-         Acurl(36) = ee(9)*ajho*delint(4) + ajho*delint(2)*ee(35)
-         Acurl(41) = ajjho*delint(06)*ee(15)
-         Acurl(42) = ee(15)*ajjho*delint(5)
-         Acurl(43) = 0.
-         Acurl(44) = ajho*delint(6)*ee(16)
-         Acurl(45) = ee(9)*ajho*delint(6)
-         Acurl(51) = (ee(29)+ajjho*ee(15))*delint(3) + ee(36)*delint(6) - 2.*ee(35)*delint(5)
-         Acurl(52) = ajho*(delint(2)*ee(30)-delint(4)*ee(36))
-         Acurl(53) = -ee(36)*ajho*delint(6) + ajho*(ee(16)+ee(35))*delint(5)
-         Acurl(54) = (ee(9)-ee(36))*ajho*delint(5) + ajho*delint(3)*ee(35)
-         Acurl(61) = ee(36)*ajjho*delint(1)
-         Acurl(62) = ee(36)*ajjho*delint(4)
-         Acurl(63) = ee(36)*ajjho*delint(2)
-         Acurl(71) = (ee(22)+ajjho*ee(36))*delint(6)
-         Acurl(72) = ee(36)*ajjho*delint(5) + ee(20)*delint(6)
-         Acurl(81) = ee(36)*ajjho*delint(3) + ee(8)*delint(6)
+         acurl(01) = (ee(15)+ajjho*ee(29))*delint(1)
+         acurl(02) = (ee(03)+ee(15)+ajjho*ee(29))*delint(4)
+         acurl(03) = (ee(15)+ajjho*ee(29))*delint(2) + ee(16)*delint(4)
+         acurl(04) = (ee(15)+ee(29))*ajho*delint(1)
+         acurl(05) = ee(15)*ajho*delint(4)
+         acurl(06) = (ee(15)+ee(29))*ajho*delint(2) - ee(30)*ajho*delint(4)
+         acurl(07) = ajjho*delint(1)*ee(35)
+         acurl(08) = (ee(16)+ajjho*ee(35))*delint(4)
+         acurl(09) = ee(09)*delint(4) + ajjho*delint(2)*ee(35)
+         acurl(11) = (ee(1)+2.*ee(3)+ee(15)+ajjho*ee(29))*delint(6)
+         acurl(12) = (ee(3)+ee(15)+ajjho*ee(29))*delint(5) + (ee(4)+ee(16))*delint(6)
+         acurl(13) = (ee(3)+ee(15)+ee(29))*ajho*delint(4)
+         acurl(14) = (ee(3)+ee(15))*delint(6)*ajho
+         acurl(15) = (ee(3)+ee(15)+ee(29))*ajho*delint(5) - ajho*ee(30)*delint(6)
+         acurl(16) = ajjho*delint(4)*ee(35)
+         acurl(17) = (ee(4)+ee(16)+ajjho*ee(35))*delint(6)
+         acurl(18) = (ee(2)+ee(9))*delint(6) + ajjho*delint(5)*ee(35)
+         acurl(21) = (ee(15)+ajjho*ee(29))*delint(3) + ee(22)*delint(6) + 2.*ee(16)*delint(5)
+         acurl(22) = (ee(15)+ee(29))*ajho*delint(2) + ajho*delint(4)*ee(16)
+         acurl(23) = ee(15)*ajho*delint(5) + ajho*delint(6)*ee(16)
+         acurl(24) = (ee(15)+ee(29))*ajho*delint(3) + (ee(16)-ee(30))*ajho*delint(5)
+         acurl(25) = ajjho*delint(2)*ee(35)
+         acurl(26) = ee(22)*delint(6) + (ee(21)+ajjho*ee(35))*delint(5)
+         acurl(27) = ee(9)*delint(5) + ee(10)*delint(6) + ajjho*delint(3)*ee(35)
+         acurl(31) = (ee(29)+ajjho*ee(15))*delint(1)
+         acurl(32) = ee(15)*ajjho*delint(4)
+         acurl(33) = (ee(29)+ajjho*ee(15))*delint(2) - ee(30)*delint(4)
+         acurl(34) = ajho*delint(1)*ee(35)
+         acurl(35) = ajho*(ee(16)+ee(35))*delint(4)
+         acurl(36) = ee(9)*ajho*delint(4) + ajho*delint(2)*ee(35)
+         acurl(41) = ajjho*delint(06)*ee(15)
+         acurl(42) = ee(15)*ajjho*delint(5)
+         acurl(43) = 0.
+         acurl(44) = ajho*delint(6)*ee(16)
+         acurl(45) = ee(9)*ajho*delint(6)
+         acurl(51) = (ee(29)+ajjho*ee(15))*delint(3) + ee(36)*delint(6) - 2.*ee(35)*delint(5)
+         acurl(52) = ajho*(delint(2)*ee(30)-delint(4)*ee(36))
+         acurl(53) = -ee(36)*ajho*delint(6) + ajho*(ee(16)+ee(35))*delint(5)
+         acurl(54) = (ee(9)-ee(36))*ajho*delint(5) + ajho*delint(3)*ee(35)
+         acurl(61) = ee(36)*ajjho*delint(1)
+         acurl(62) = ee(36)*ajjho*delint(4)
+         acurl(63) = ee(36)*ajjho*delint(2)
+         acurl(71) = (ee(22)+ajjho*ee(36))*delint(6)
+         acurl(72) = ee(36)*ajjho*delint(5) + ee(20)*delint(6)
+         acurl(81) = ee(36)*ajjho*delint(3) + ee(8)*delint(6)
          IF ( .NOT.(lsys78) ) THEN
-            Acurl(82) = -(ee(45)-ajho*ee(51))*ajho*delint(1)
-            Acurl(83) = (ee(43)-ajho*ee(45)-ajho*ee(49)+ajjho*ee(51))*delint(4)
-            Acurl(84) = (ee(44)-ajho*ee(50))*delint(4) - (ee(45)-ajho*ee(51))*ajho*delint(2)
-            Acurl(85) = -(ee(39)+ee(45)-ajho*ee(51))*ajho*delint(4)
-            Acurl(86) = (ee(37)+ee(43)-(ee(39)+ee(45)+ee(49)-ajho*ee(51))*ajho)*delint(6)
-            Acurl(87) = (ee(38)+ee(44)-ajho*ee(50))*delint(6) - (ee(39)+ee(45)-ajho*ee(51))*ajho*delint(5)
-            Acurl(88) = -(ee(45)-ajho*ee(51))*ajho*delint(2) - ee(48)*ajho*delint(4)
-            Acurl(89) = (ee(43)-ajho*ee(45)-ajho*ee(49)+ajjho*ee(51))*delint(5) + (ee(46)-ee(48)*ajho)*delint(6)
-            Acurl(90) = (ee(44)-ajho*ee(48)-ajho*ee(50))*delint(5) + ee(47)*delint(6) - (ee(45)-ajho*ee(51))*ajho*delint(3)
-            Acurl(91) = -(ee(45)*ajho-ee(51))*ajho*delint(1)
-            Acurl(92) = (ajho*ee(43)-ajjho*ee(45)-ee(49)+ajho*ee(51))*delint(4)
-            Acurl(93) = (ee(44)*ajho-ee(50))*delint(4) - (ee(45)*ajho-ee(51))*ajho*delint(2)
-            Acurl(94) = -ee(45)*ajjho*delint(4)
-            Acurl(95) = (ee(43)-ajho*ee(45))*ajho*delint(6)
-            Acurl(96) = ee(44)*ajho*delint(6) - ee(45)*ajjho*delint(5)
-            Acurl(97) = -(ee(45)*ajho-ee(51))*ajho*delint(2) - ee(54)*ajho*delint(4)
-            Acurl(98) = (ee(43)*ajho-ajjho*ee(45)-ee(49)+ee(51)*ajho)*delint(5) + (ee(52)-ajho*ee(54))*delint(6)
-            Acurl(99) = (ee(44)*ajho-ee(50)-ee(54)*ajho)*delint(5) + ee(53)*delint(6) - (ee(45)*ajho-ee(51))*ajho*delint(3)
-            Acurl(100) = ee(54)*ajjho*delint(1)
-            Acurl(101) = -(ee(52)-ee(54)*ajho)*ajho*delint(4)
-            Acurl(102) = -(ee(53)*delint(4)-ee(54)*ajho*delint(2))*ajho
-            Acurl(103) = -(ee(48)-ee(54)*ajho)*ajho*delint(4)
-            Acurl(104) = (ee(46)-ee(48)*ajho-ee(52)*ajho+ee(54)*ajjho)*delint(6)
-            Acurl(105) = (ee(47)-ee(53)*ajho)*delint(6) - (ee(48)-ee(54)*ajho)*ajho*delint(5)
-            Acurl(106) = ee(54)*ajjho*delint(2) - ee(42)*ajho*delint(4)
-            Acurl(107) = (ee(40)-ee(42)*ajho)*delint(6) - (ee(52)-ee(54)*ajho)*ajho*delint(5)
-            Acurl(108) = ee(41)*delint(6) + (-ee(42)-ee(53))*ajho*delint(5) + ee(54)*ajjho*delint(3)
+            acurl(82) = -(ee(45)-ajho*ee(51))*ajho*delint(1)
+            acurl(83) = (ee(43)-ajho*ee(45)-ajho*ee(49)+ajjho*ee(51))*delint(4)
+            acurl(84) = (ee(44)-ajho*ee(50))*delint(4) - (ee(45)-ajho*ee(51))*ajho*delint(2)
+            acurl(85) = -(ee(39)+ee(45)-ajho*ee(51))*ajho*delint(4)
+            acurl(86) = (ee(37)+ee(43)-(ee(39)+ee(45)+ee(49)-ajho*ee(51))*ajho)*delint(6)
+            acurl(87) = (ee(38)+ee(44)-ajho*ee(50))*delint(6) - (ee(39)+ee(45)-ajho*ee(51))*ajho*delint(5)
+            acurl(88) = -(ee(45)-ajho*ee(51))*ajho*delint(2) - ee(48)*ajho*delint(4)
+            acurl(89) = (ee(43)-ajho*ee(45)-ajho*ee(49)+ajjho*ee(51))*delint(5) + (ee(46)-ee(48)*ajho)*delint(6)
+            acurl(90) = (ee(44)-ajho*ee(48)-ajho*ee(50))*delint(5) + ee(47)*delint(6) - (ee(45)-ajho*ee(51))*ajho*delint(3)
+            acurl(91) = -(ee(45)*ajho-ee(51))*ajho*delint(1)
+            acurl(92) = (ajho*ee(43)-ajjho*ee(45)-ee(49)+ajho*ee(51))*delint(4)
+            acurl(93) = (ee(44)*ajho-ee(50))*delint(4) - (ee(45)*ajho-ee(51))*ajho*delint(2)
+            acurl(94) = -ee(45)*ajjho*delint(4)
+            acurl(95) = (ee(43)-ajho*ee(45))*ajho*delint(6)
+            acurl(96) = ee(44)*ajho*delint(6) - ee(45)*ajjho*delint(5)
+            acurl(97) = -(ee(45)*ajho-ee(51))*ajho*delint(2) - ee(54)*ajho*delint(4)
+            acurl(98) = (ee(43)*ajho-ajjho*ee(45)-ee(49)+ee(51)*ajho)*delint(5) + (ee(52)-ajho*ee(54))*delint(6)
+            acurl(99) = (ee(44)*ajho-ee(50)-ee(54)*ajho)*delint(5) + ee(53)*delint(6) - (ee(45)*ajho-ee(51))*ajho*delint(3)
+            acurl(100) = ee(54)*ajjho*delint(1)
+            acurl(101) = -(ee(52)-ee(54)*ajho)*ajho*delint(4)
+            acurl(102) = -(ee(53)*delint(4)-ee(54)*ajho*delint(2))*ajho
+            acurl(103) = -(ee(48)-ee(54)*ajho)*ajho*delint(4)
+            acurl(104) = (ee(46)-ee(48)*ajho-ee(52)*ajho+ee(54)*ajjho)*delint(6)
+            acurl(105) = (ee(47)-ee(53)*ajho)*delint(6) - (ee(48)-ee(54)*ajho)*ajho*delint(5)
+            acurl(106) = ee(54)*ajjho*delint(2) - ee(42)*ajho*delint(4)
+            acurl(107) = (ee(40)-ee(42)*ajho)*delint(6) - (ee(52)-ee(54)*ajho)*ajho*delint(5)
+            acurl(108) = ee(41)*delint(6) + (-ee(42)-ee(53))*ajho*delint(5) + ee(54)*ajjho*delint(3)
 !
-            Acurl(109) = ee(63)*ajjho*delint(1)
-            Acurl(110) = (-ee(57)+ee(63)*ajho)*ajho*delint(4)
-            Acurl(111) = -ee(60)*ajho*delint(4) + ee(63)*ajjho*delint(2)
-            Acurl(112) = Acurl(110)
-            Acurl(113) = (ee(55)-2.0*ee(57)*ajho+ee(63)*ajjho)*delint(6)
-            Acurl(114) = (ee(56)-ee(60)*ajho)*delint(6) + (-ee(57)+ee(63)*ajho)*ajho*delint(5)
-            Acurl(115) = Acurl(111)
-            Acurl(116) = Acurl(114)
-            Acurl(117) = ee(59)*delint(6) - 2.0*ee(60)*ajho*delint(5) + ee(63)*ajjho*delint(3)
+            acurl(109) = ee(63)*ajjho*delint(1)
+            acurl(110) = (-ee(57)+ee(63)*ajho)*ajho*delint(4)
+            acurl(111) = -ee(60)*ajho*delint(4) + ee(63)*ajjho*delint(2)
+            acurl(112) = acurl(110)
+            acurl(113) = (ee(55)-2.0*ee(57)*ajho+ee(63)*ajjho)*delint(6)
+            acurl(114) = (ee(56)-ee(60)*ajho)*delint(6) + (-ee(57)+ee(63)*ajho)*ajho*delint(5)
+            acurl(115) = acurl(111)
+            acurl(116) = acurl(114)
+            acurl(117) = ee(59)*delint(6) - 2.0*ee(60)*ajho*delint(5) + ee(63)*ajjho*delint(3)
          ENDIF
 !
 !     EXPAND ACURL INTO (9X9)
@@ -536,26 +542,26 @@ SUBROUTINE triaad
             DO j = ib , 9
                ic = ic + 9
                i = i + 1
-               Acurl(ic) = Acurl(i)
+               acurl(ic) = acurl(i)
             ENDDO
          ENDDO
          dgamar = pi
          IF ( ajho==0.D0 ) dgamar = twopi
          DO i = 1 , 81
-            Acurl(i) = Acurl(i)*dgamar
+            acurl(i) = acurl(i)*dgamar
          ENDDO
          IF ( .NOT.(lsys78) ) THEN
 !
             DO i = 82 , 117
-               Acurl(i) = Acurl(i)*dgamar
+               acurl(i) = acurl(i)*dgamar
             ENDDO
          ENDIF
       ENDIF
 !
-      IF ( Ismb(2)/=0 ) THEN
-         IF ( Icmbar<0 ) THEN
-            area = (R1*(z2-z3)+R2*(z3-z1)+R3*(z1-z2))/2.
-            convm = rhod*(R1+R2+R3)/3.*area
+      IF ( ismb(2)/=0 ) THEN
+         IF ( icmbar<0 ) THEN
+            area = (r1*(z2-z3)+r2*(z3-z1)+r3*(z1-z2))/2.
+            convm = rhod*(r1+r2+r3)/3.*area
          ELSE
 !
 !     CONSISTENT MASS IN FIELD COORDINATES
@@ -596,35 +602,35 @@ SUBROUTINE triaad
 !     TRANSFORM THE ELEMENT STIFFNESS MATRIX FROM FIELD SYSTEM
 !     TO GRID POINT DEGREES OF FREEDOM
 !
-      IF ( Ismb(1)/=0 ) THEN
-         CALL gmmatd(Aki,9,9,1,Acurl,9,9,0,d)
-         CALL gmmatd(d,9,9,0,Aki,9,9,0,ak)
+      IF ( ismb(1)/=0 ) THEN
+         CALL gmmatd(aki,9,9,1,acurl,9,9,0,d)
+         CALL gmmatd(d,9,9,0,aki,9,9,0,ak)
          IF ( .NOT.(lsys78) ) THEN
-            CALL gmmatd(Aki,9,9,1,acurp1,9,3,0,d1)
+            CALL gmmatd(aki,9,9,1,acurp1,9,3,0,d1)
             CALL gmmatd(d1,9,3,0,akip,3,3,0,akuph)
             CALL gmmatd(akip,3,3,1,acurp2,3,3,0,d2)
             CALL gmmatd(d2,3,3,0,akip,3,3,0,akph2)
          ENDIF
 !
-         IF ( Ismb(2)==0 .OR. Icmbar<0 ) GOTO 200
+         IF ( ismb(2)==0 .OR. icmbar<0 ) GOTO 200
       ENDIF
-      CALL gmmatd(Aki,9,9,1,bmass,9,9,0,d)
-      CALL gmmatd(d,9,9,0,Aki,9,9,0,akm)
+      CALL gmmatd(aki,9,9,1,bmass,9,9,0,d)
+      CALL gmmatd(d,9,9,0,aki,9,9,0,akm)
    ENDIF
 !
  200  DO i = 1 , 81
-      Akj(i) = 0.D0
+      akj(i) = 0.D0
       akjm(i) = 0.D0
    ENDDO
    DO i = 82 , 117
-      Akj(i) = 0.D0
+      akj(i) = 0.D0
 !
    ENDDO
 !
 !     CREATE AN ARRAY OF SORTED GRID POINTS
 !
    DO i = 1 , 3
-      isort(i) = Igp(i)
+      isort(i) = igp(i)
    ENDDO
    i = -3
    DO
@@ -655,20 +661,20 @@ SUBROUTINE triaad
                DO j = 1 , 3
                   j1 = (j-1)*4 + 1
                   ircc = irc + (j-1)*9
-                  IF ( Ismb(1)/=0 ) THEN
-                     Akt(j1) = ak(ircc)
-                     Akt(j1+1) = ak(ircc+1)
-                     Akt(j1+2) = ak(ircc+2)
+                  IF ( ismb(1)/=0 ) THEN
+                     akt(j1) = ak(ircc)
+                     akt(j1+1) = ak(ircc+1)
+                     akt(j1+2) = ak(ircc+2)
                      IF ( .NOT.(lsys78) ) THEN
                         m = ircc/3 + 1
                         n = (m-1)/9 + 1 + (ii-1)*9 + (j-1)*3
-                        Akt(j1+3) = akuph(m)
-                        Akt(j1+15-j*3) = akuph(n)
-                        Akt(16) = akph2(ir1+ii-1)
+                        akt(j1+3) = akuph(m)
+                        akt(j1+15-j*3) = akuph(n)
+                        akt(16) = akph2(ir1+ii-1)
                      ENDIF
                   ENDIF
 !
-                  IF ( Ismb(2)/=0 .AND. Icmbar>=1 ) THEN
+                  IF ( ismb(2)/=0 .AND. icmbar>=1 ) THEN
                      j1 = (j-1)*3 + 1
                      amt(j1) = akm(ircc)
                      amt(j1+1) = akm(ircc+1)
@@ -690,7 +696,7 @@ SUBROUTINE triaad
                   DO jj = 1 , 4
                      ki = (ij-1)*4 + jj
                      iout = (ipp-1)*48 + (i-1)*4 + (ij-1)*12 + jj
-                     Akj(iout) = Akt(ki)
+                     akj(iout) = akt(ki)
                   ENDDO
                ENDDO
             ENDDO
@@ -699,12 +705,12 @@ SUBROUTINE triaad
 !     NOW OUTPUT THE MATRIX VIA EMG OUT
 !
          dict(2) = 1
-         IF ( Ismb(1)/=0 ) CALL emgout(Akj,Akj,144,1,dict,1,ipr)
-         IF ( Ismb(2)==0 .AND. .NOT.pzmat ) Ksys78 = ksave
-         IF ( Ismb(2)==0 ) RETURN
+         IF ( ismb(1)/=0 ) CALL emgout(akj,akj,144,1,dict,1,ipr)
+         IF ( ismb(2)==0 .AND. .NOT.pzmat ) ksys78 = ksave
+         IF ( ismb(2)==0 ) RETURN
          dict(3) = 9
          dict(4) = 7
-         IF ( Icmbar<0 ) THEN
+         IF ( icmbar<0 ) THEN
 !
 !     GENERATE LUMPED MASS MATRIX HERE
 !
@@ -719,7 +725,7 @@ SUBROUTINE triaad
          EXIT
       ENDIF
    ENDDO
- 300  IF ( .NOT.pzmat ) Ksys78 = ksave
+ 300  IF ( .NOT.pzmat ) ksys78 = ksave
    RETURN
  400  IF ( idel1/=idel2 ) THEN
       idel2 = idel1
@@ -727,6 +733,6 @@ SUBROUTINE triaad
       ics(2) = jax
       CALL mesage(30,i,ics)
    ENDIF
-   Nogo = .TRUE.
+   nogo = .TRUE.
    GOTO 300
 END SUBROUTINE triaad

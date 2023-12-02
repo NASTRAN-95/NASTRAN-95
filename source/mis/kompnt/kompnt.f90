@@ -1,9 +1,10 @@
-!*==kompnt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kompnt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION kompnt(Ig,Ic,Ideg,Iw,Icc,Jg)
+   USE c_bands
    IMPLICIT NONE
-   USE C_BANDS
 !
 ! Function and Dummy argument declarations rewritten by SPAG
 !
@@ -39,7 +40,7 @@ FUNCTION kompnt(Ig,Ic,Ideg,Iw,Icc,Jg)
 !
 !     INTEGER          BUNPK
 !
-         DO i = 1 , Nn
+         DO i = 1 , nn
             Icc(i) = 0
             Ic(i) = 0
          ENDDO
@@ -47,7 +48,7 @@ FUNCTION kompnt(Ig,Ic,Ideg,Iw,Icc,Jg)
          Icc(1) = 1
          spag_nextblock_1 = 2
       CASE (2)
-         DO i = 1 , Nn
+         DO i = 1 , nn
             IF ( Ic(i)==0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1

@@ -1,11 +1,12 @@
-!*==mred2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -130,18 +131,18 @@ SUBROUTINE mred2
 !
 !     COMPUTE OPEN CORE AND DEFINE GINO, SOF BUFFERS
 !
-         IF ( Dry==-2 ) RETURN
-         nozwds = korsz(Z(1))
-         Lstzwd = nozwds - 1
-         Gbuf1 = nozwds - Sysbuf - 2
-         Gbuf2 = Gbuf1 - Sysbuf
-         Gbuf3 = Gbuf2 - Sysbuf
-         Sbuf1 = Gbuf3 - Sysbuf
-         Sbuf2 = Sbuf1 - Sysbuf - 1
-         Sbuf3 = Sbuf2 - Sysbuf
-         Korlen = Sbuf3 - 1
-         Korbgn = 1
-         IF ( Korlen<=Korbgn ) THEN
+         IF ( dry==-2 ) RETURN
+         nozwds = korsz(z(1))
+         lstzwd = nozwds - 1
+         gbuf1 = nozwds - sysbuf - 2
+         gbuf2 = gbuf1 - sysbuf
+         gbuf3 = gbuf2 - sysbuf
+         sbuf1 = gbuf3 - sysbuf
+         sbuf2 = sbuf1 - sysbuf - 1
+         sbuf3 = sbuf2 - sysbuf
+         korlen = sbuf3 - 1
+         korbgn = 1
+         IF ( korlen<=korbgn ) THEN
             imsg = -8
             ifile = 0
             spag_nextblock_1 = 3
@@ -150,66 +151,65 @@ SUBROUTINE mred2
 !
 !     INITIALIZE SOF
 !
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
 !
 !     INITIALIZE CASE CONTROL PARAMETERS
 !
             DO i = 1 , 12
-               Infile(i) = 100 + i
+               infile(i) = 100 + i
             ENDDO
             DO i = 1 , 6
-               Otfile(i) = 200 + i
+               otfile(i) = 200 + i
             ENDDO
             DO i = 1 , 10
-               Iscr(i) = 300 + i
+               iscr(i) = 300 + i
             ENDDO
-            Iscr11 = 311
+            iscr11 = 311
             DO i = 1 , 2
-               Oldnam(i) = iblank
-               Newnam(i) = iblank
+               oldnam(i) = iblank
+               newnam(i) = iblank
             ENDDO
-            Range(1) = 0.0
-            Range(2) = 1.0E+35
-            Frebdy = .FALSE.
-            Nmax = 2147483647
-            Usrmod = -1
-            Io = 0
+            range(1) = 0.0
+            range(2) = 1.0E+35
+            frebdy = .FALSE.
+            nmax = 2147483647
+            usrmod = -1
+            io = 0
             nrange = 0
-            Bounds = .FALSE.
-            Modes = .FALSE.
-            Rsave = .FALSE.
-            Ponly = .FALSE.
+            bounds = .FALSE.
+            modes = .FALSE.
+            rsave = .FALSE.
+            ponly = .FALSE.
 !
 !     ** PROCESS CASE CONTROL
 !
             ifile = casecc
-            CALL open(*20,casecc,Z(Gbuf2),0)
-            IF ( Step/=0 ) THEN
-               DO i = 1 , Step
+            CALL open(*20,casecc,z(gbuf2),0)
+            IF ( step/=0 ) THEN
+               DO i = 1 , step
                   CALL fwdrec(*60,casecc)
                ENDDO
             ENDIF
 !
 !     READ CASECC
 !
-            CALL read(*40,*60,casecc,Z(Korbgn),2,0,nwdsrd)
-            nwdscc = Z(Korbgn+1)
+            CALL read(*40,*60,casecc,z(korbgn),2,0,nwdsrd)
+            nwdscc = z(korbgn+1)
             DO i = 1 , nwdscc , 3
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     CALL read(*40,*60,casecc,Z(Korbgn),3,0,nwdsrd)
+                     CALL read(*40,*60,casecc,z(korbgn),3,0,nwdsrd)
 !
 !     TEST CASE CONTROL MNEMONICS
 !
-                     DO j = 1 , 10
-                        IF ( Z(Korbgn)==nmonic(j) ) THEN
+                     SPAG_Loop_4_1: DO j = 1 , 10
+                        IF ( z(korbgn)==nmonic(j) ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
-                     ENDDO
-                     CYCLE
+                     ENDDO SPAG_Loop_4_1
                   CASE (2)
 !
 !     SELECT DATA TO EXTRACT
@@ -219,59 +219,59 @@ SUBROUTINE mred2
 !     EXTRACT NAME OF REDUCED SUBSTRUCTURE
 !
                         DO k = 1 , 2
-                           Newnam(k) = Z(Korbgn+k)
+                           newnam(k) = z(korbgn+k)
                         ENDDO
                      ELSEIF ( j==3 ) THEN
 !
 !     EXTRACT FREEBODY MODES FLAG
 !
-                        Frebdy = .TRUE.
+                        frebdy = .TRUE.
                      ELSEIF ( j==4 ) THEN
 !
 !     EXTRACT FREQUENCY RANGE
 !
                         IF ( nrange==1 ) THEN
-                           Range(2) = rz(Korbgn+2)
+                           range(2) = rz(korbgn+2)
                         ELSE
                            nrange = 1
-                           Range(1) = rz(Korbgn+2)
+                           range(1) = rz(korbgn+2)
                         ENDIF
                      ELSEIF ( j==5 ) THEN
 !
 !     EXTRACT MAXIMUM NUMBER OF FREQUENCIES
 !
-                        IF ( Z(Korbgn+2)/=0 ) Nmax = Z(Korbgn+2)
+                        IF ( z(korbgn+2)/=0 ) nmax = z(korbgn+2)
                      ELSEIF ( j==6 ) THEN
 !
 !     EXTRACT USERMODE FLAG
 !
-                        Usrmod = Z(Korbgn+2)
+                        usrmod = z(korbgn+2)
                      ELSEIF ( j==7 ) THEN
 !
 !     EXTRACT OUTPUT FLAGS
 !
-                        Io = orf(Io,Z(Korbgn+2))
+                        io = orf(io,z(korbgn+2))
                      ELSEIF ( j==8 ) THEN
 !
 !     EXTRACT OLDBOUND FLAG
 !
-                        Bounds = .TRUE.
+                        bounds = .TRUE.
                      ELSEIF ( j==9 ) THEN
 !
 !     EXTRACT OLDMODES FLAG
 !
-                        Modes = .TRUE.
+                        modes = .TRUE.
                      ELSEIF ( j==10 ) THEN
 !
 !     EXTRACT REDUCTION SAVE FLAG
 !
-                        Rsave = .TRUE.
+                        rsave = .TRUE.
                      ELSE
 !
 !     EXTRACT NAME OF SUBSTRUCTURE BEING REDUCED
 !
                         DO k = 1 , 2
-                           Oldnam(k) = Z(Korbgn+k)
+                           oldnam(k) = z(korbgn+k)
                         ENDDO
                      ENDIF
                      EXIT SPAG_DispatchLoop_2
@@ -284,11 +284,11 @@ SUBROUTINE mred2
 !     TEST FOR RUN = GO
 !
             mrd2g = 1
-            IF ( Dry/=0 ) THEN
+            IF ( dry/=0 ) THEN
 !
 !     CHECK FOR USERMODE = TYPE 2
 !
-               IF ( Usrmod==2 ) THEN
+               IF ( usrmod==2 ) THEN
 !
 !     PROCESS USERMODES FLAG
 !
@@ -332,16 +332,16 @@ SUBROUTINE mred2
 !
 !     CHECK FOR LOADS ONLY
 !
-                     CALL sfetch(Newnam,nhlods,3,itest)
+                     CALL sfetch(newnam,nhlods,3,itest)
                      IF ( itest/=3 ) THEN
-                        CALL sfetch(Newnam,nhloap,3,itest)
+                        CALL sfetch(newnam,nhloap,3,itest)
                         IF ( itest/=3 ) THEN
                            mrd2g = 4
                            GOTO 10
                         ENDIF
                      ENDIF
                      mrd2g = 3
-                     Ponly = .TRUE.
+                     ponly = .TRUE.
                   ENDIF
                ENDIF
             ENDIF
@@ -362,7 +362,7 @@ SUBROUTINE mred2
 !     CLOSE ANY OPEN FILES
 !
          CALL sofcls
-         IF ( Dry==-2 ) WRITE (Iprntr,99001)
+         IF ( dry==-2 ) WRITE (iprntr,99001)
 !
 99001    FORMAT (//,'  MODULE MREDUCE TERMINATING DUE TO ABOVE ERRORS.')
          RETURN

@@ -1,9 +1,10 @@
-!*==dppsb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dppsb.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dppsb(Ks,I,J1,J2,Sgr,Cgr,Ys,Zs,Nbaray,Ncaray,Dt,Z)
+   USE c_dlbdy
    IMPLICIT NONE
-   USE C_DLBDY
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,12 +43,12 @@ SUBROUTINE dppsb(Ks,I,J1,J2,Sgr,Cgr,Ys,Zs,Nbaray,Ncaray,Dt,Z)
    yrec = Ys(Ks)
    zrec = Zs(Ks)
    DO j = J1 , J2
-      CALL subpb(I,l,ls,j,Sgr,Cgr,yrec,zrec,sum,Z(Ixic),Z(Idelx),Z(Iee),Z(Ixlam),Z(Isg),Z(Icg),Z(Iys),Z(Izs),Z(Inas),Z(Inasb+lsp),  &
-               & Z(Iavr),Z(Izb),Z(Iyb),Z(Iarb),Z(Ixle),Z(Ixte),Z(Ix),Nb)
+      CALL subpb(I,l,ls,j,Sgr,Cgr,yrec,zrec,sum,Z(ixic),Z(idelx),Z(iee),Z(ixlam),Z(isg),Z(icg),Z(iys),Z(izs),Z(inas),Z(inasb+lsp),  &
+               & Z(iavr),Z(izb),Z(iyb),Z(iarb),Z(ixle),Z(ixte),Z(ix),nb)
       Dt(j) = sum
       IF ( j/=J2 ) THEN
          IF ( j>=nbxs ) THEN
-            lsp = lsp + Z(Inas+l-1)
+            lsp = lsp + Z(inas+l-1)
             l = l + 1
             nc1 = Ncaray(l)
             nbxs = Nbaray(l)

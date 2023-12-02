@@ -1,9 +1,10 @@
-!*==xrgsub.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xrgsub.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xrgsub(Irestb,Subset)
+   USE c_xrgdxx
    IMPLICIT NONE
-   USE C_XRGDXX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -69,25 +70,25 @@ SUBROUTINE xrgsub(Irestb,Subset)
 !
 !****
 !
-   Icol = 9
-   Ierror = 0
+   icol = 9
+   ierror = 0
    CALL xdcode
-   Limit(1) = 1
-   Limit(2) = 12
+   limit(1) = 1
+   limit(2) = 12
    SPAG_Loop_1_1: DO
       CALL xrgdev
-      IF ( Ierror/=0 .OR. Icol>80 ) RETURN
-      istr = Num(1)
-      iend = Num(2)
+      IF ( ierror/=0 .OR. icol>80 ) RETURN
+      istr = num(1)
+      iend = num(2)
       DO k = istr , iend
-         DO kk = 1 , Nsubst
+         DO kk = 1 , nsubst
             IF ( k==Subset(kk) ) EXIT SPAG_Loop_1_1
          ENDDO
       ENDDO
-      Icol = Icol + 1
+      icol = icol + 1
    ENDDO SPAG_Loop_1_1
-   DO k = 1 , Nument
+   DO k = 1 , nument
       Irestb(k) = 0
    ENDDO
-   Ignore = 1
+   ignore = 1
 END SUBROUTINE xrgsub

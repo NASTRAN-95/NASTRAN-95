@@ -1,14 +1,15 @@
-!*==sqdm12.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sqdm12.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sqdm12
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -54,36 +55,36 @@ SUBROUTINE sqdm12
 !
 !      ZERO OUT THE STRESS VECTOR
 !
-   Stress(1) = 0.
-   Stress(2) = 0.
-   Stress(3) = 0.
-   Cstrs(2) = 0.0E0
-   Cstrs(3) = 0.0E0
-   Cstrs(4) = 0.0E0
+   stress(1) = 0.
+   stress(2) = 0.
+   stress(3) = 0.
+   cstrs(2) = 0.0E0
+   cstrs(3) = 0.0E0
+   cstrs(4) = 0.0E0
 !
 !                           I=4                      -
 !         STRESS VECTOR =(SUMMATION (S )(U )) - (S )(T - T)
 !                           I=1       I   I       T       0
    DO i = 1 , 4
-      Npoint = Ivec + nsil(i) - 1
-      CALL smmats(s(9*i-8),3,3,0,Z(Npoint),3,1,0,Vec(1),Cvc(1))
+      npoint = ivec + nsil(i) - 1
+      CALL smmats(s(9*i-8),3,3,0,z(npoint),3,1,0,vec(1),cvc(1))
       DO j = 1 , 3
-         IF ( Nchk>0 ) Cstrs(j+1) = Cstrs(j+1) + Cvc(j)
-         Stress(j) = Stress(j) + Vec(j)
+         IF ( nchk>0 ) cstrs(j+1) = cstrs(j+1) + cvc(j)
+         stress(j) = stress(j) + vec(j)
       ENDDO
    ENDDO
-   Stres(1) = ph1out(1)
-   Stres(2) = Stress(1)
-   Stres(3) = Stress(2)
-   Stres(4) = Stress(3)
-   Cstrs(1) = Stres(1)
+   stres(1) = ph1out(1)
+   stres(2) = stress(1)
+   stres(3) = stress(2)
+   stres(4) = stress(3)
+   cstrs(1) = stres(1)
 !
 !      ADD IN TEMPERATURE EFFECTS
 !
-   IF ( Ldtemp/=(-1) ) THEN
-      Tem = ftemp - tsub0
+   IF ( ldtemp/=(-1) ) THEN
+      tem = ftemp - tsub0
       DO i = 2 , 4
-         Stres(i) = Stres(i) - st(i-1)*Tem
+         stres(i) = stres(i) - st(i-1)*tem
       ENDDO
    ENDIF
 !
@@ -91,56 +92,56 @@ SUBROUTINE sqdm12
 !
 !      PRINCIPAL STRESSES AND ANGLE OF ACTION PHI
 !
-   Temp = Stres(2) - Stres(3)
+   temp = stres(2) - stres(3)
 !
 !     COMPUTE TAU
 !
-   Stres(8) = sqrt((Temp/2.0E0)**2+Stres(4)**2)
-   Delta = (Stres(2)+Stres(3))/2.0E0
+   stres(8) = sqrt((temp/2.0E0)**2+stres(4)**2)
+   delta = (stres(2)+stres(3))/2.0E0
 !
 !     COMPUTE SIGMA 1 AND SIGMA 2
 !
-   Stres(6) = Delta + Stres(8)
-   Stres(7) = Delta - Stres(8)
-   Delta = 2.0E0*Stres(4)
-   IF ( abs(Delta)<1.0E-15 .AND. abs(Temp)<1.0E-15 ) THEN
-      Stres(5) = 0.0E0
-   ELSEIF ( abs(Temp)<1.0E-15 ) THEN
-      Stres(5) = 45.
+   stres(6) = delta + stres(8)
+   stres(7) = delta - stres(8)
+   delta = 2.0E0*stres(4)
+   IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN
+      stres(5) = 0.0E0
+   ELSEIF ( abs(temp)<1.0E-15 ) THEN
+      stres(5) = 45.
    ELSE
 !
 !     COMPUTE PHI 1 DEPENDING ON WHETHER OR NOT SIGMA XY AND/OR
 !               (SIGMA 1 - SIGMA 2) ARE ZERO
 !
-      Stres(5) = atan2(Delta,Temp)*28.6478898E00
+      stres(5) = atan2(delta,temp)*28.6478898E00
    ENDIF
-   IF ( Nchk>0 ) THEN
+   IF ( nchk>0 ) THEN
 !
 !  . STRESS PRECISION CHECK...
 !
       k = 0
-      CALL sdrchk(Stres(2),Cstrs(2),3,k)
+      CALL sdrchk(stres(2),cstrs(2),3,k)
       IF ( k/=0 ) THEN
 !
 !  . LIMITS EXCEEDED...
          j = 0
-         IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
+         IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
 !
-            lsub = Isub
-            frlast(1) = Frtmei(1)
-            frlast(2) = Frtmei(2)
-            lld = Ild
+            lsub = isub
+            frlast(1) = frtmei(1)
+            frlast(2) = frtmei(2)
+            lld = ild
             j = 1
             CALL page1
          ELSEIF ( eject(2)==0 ) THEN
             GOTO 20
          ENDIF
          CALL sd2rhd(ished,j)
-         WRITE (Nout,99001)
+         WRITE (nout,99001)
 99001    FORMAT (7X,4HTYPE,5X,3HEID,5X,2HSX,5X,2HSY,4X,3HSXY)
-         Line = Line + 1
+         line = line + 1
 !
- 20      WRITE (Nout,99002) istyp , Cstrs
+ 20      WRITE (nout,99002) istyp , cstrs
 99002    FORMAT (1H0,5X,A4,A2,I7,4F7.1)
       ENDIF
    ENDIF

@@ -1,9 +1,10 @@
-!*==rotate.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rotate.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rotate(Da,Row,Row1,Row2,O,Sin,Cos)
-USE C_GIVN
-USE ISO_FORTRAN_ENV                 
+   USE c_givn
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -47,9 +48,9 @@ USE ISO_FORTRAN_ENV
          Da(m) = O(Row+1) + Da(m) - z
          O(Row+1) = z
       ENDIF
-      IF ( j/=N ) THEN
+      IF ( j/=n ) THEN
          jp1 = j + 1
-         DO i = jp1 , N
+         DO i = jp1 , n
             m = m + 1
             x = Da(m)*cosine - O(i)*sine
             O(i) = O(i)*cosine + Da(m)*sine

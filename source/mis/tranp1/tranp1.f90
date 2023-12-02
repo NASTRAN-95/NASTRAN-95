@@ -1,10 +1,11 @@
-!*==tranp1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tranp1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tranp1(In,Iout,Nscrth,Is1,Is2,Is3,Is4,Is5,Is6,Is7,Is8)
+   USE c_trnspx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_TRNSPX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,28 +36,28 @@ SUBROUTINE tranp1(In,Iout,Nscrth,Is1,Is2,Is3,Is4,Is5,Is6,Is7,Is8)
    DATA nam/4HTRNS , 4HP1  /
 !
    IF ( Nscrth>8 ) CALL mesage(-37,0,nam)
-   Ia(1) = In
-   CALL rdtrl(Ia)
-   Iat(1) = Iout
-   Iat(2) = Ia(3)
-   Iat(3) = Ia(2)
-   Iat(5) = Ia(5)
-   Iat(4) = Ia(4)
+   ia(1) = In
+   CALL rdtrl(ia)
+   iat(1) = Iout
+   iat(2) = ia(3)
+   iat(3) = ia(2)
+   iat(5) = ia(5)
+   iat(4) = ia(4)
 !
 !     REVERSE THE FORM OF THE LOWER AND UPPER TRIANGULAR MATRIX
 !
-   IF ( Ia(4)==4 ) Iat(4) = 5
-   IF ( Ia(4)==5 ) Iat(4) = 4
-   Lcore = korsz(Core)
-   Nscrh = Nscrth
-   Scr(1) = Is1
-   Scr(2) = Is2
-   Scr(3) = Is3
-   Scr(4) = Is4
-   Scr(5) = Is5
-   Scr(6) = Is6
-   Scr(7) = Is7
-   Scr(8) = Is8
-   CALL trnsp(Core)
-   CALL wrttrl(Iat)
+   IF ( ia(4)==4 ) iat(4) = 5
+   IF ( ia(4)==5 ) iat(4) = 4
+   lcore = korsz(core)
+   nscrh = Nscrth
+   scr(1) = Is1
+   scr(2) = Is2
+   scr(3) = Is3
+   scr(4) = Is4
+   scr(5) = Is5
+   scr(6) = Is6
+   scr(7) = Is7
+   scr(8) = Is8
+   CALL trnsp(core)
+   CALL wrttrl(iat)
 END SUBROUTINE tranp1

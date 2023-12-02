@@ -1,18 +1,19 @@
-!*==qdmm1d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==qdmm1d.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qdmm1d
-USE C_CONDAS
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA1DP
-USE C_SMA2DP
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_sma1dp
+   USE c_sma2dp
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -81,9 +82,9 @@ USE ISO_FORTRAN_ENV
 !
    eta = 1.D0
    tea = 1.D0
-   IF ( Heat ) THEN
+   IF ( heat ) THEN
 !
-      WRITE (Outpt,99001) Uwm , Necpt(1)
+      WRITE (outpt,99001) uwm , necpt(1)
 99001 FORMAT (A25,' 3115, QDMM1D FINDS ELEMENT NO.',I9,' PRESENT IN A',' HEAT FORMULATION AND IS IGNORING SAME.')
       RETURN
    ELSE
@@ -92,18 +93,18 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE DIFFERENCES OF COORDINATES OF ACTUAL GRID POINTS
 !
-      x21 = X2 - X1
-      y21 = Y2 - Y1
-      z21 = Z2 - Z1
-      x31 = X3 - X1
-      y31 = Y3 - Y1
-      z31 = Z3 - Z1
-      x41 = X4 - X1
-      y41 = Y4 - Y1
-      z41 = Z4 - Z1
-      x42 = X4 - X2
-      y42 = Y4 - Y2
-      z42 = Z4 - Z2
+      x21 = x2 - x1
+      y21 = y2 - y1
+      z21 = z2 - z1
+      x31 = x3 - x1
+      y31 = y3 - y1
+      z31 = z3 - z1
+      x41 = x4 - x1
+      y41 = y4 - y1
+      z41 = z4 - z1
+      x42 = x4 - x2
+      y42 = y4 - y2
+      z42 = z4 - z2
 !
 !     COMPUTE ELEMENTS OF THE E MATRIX
 !
@@ -144,7 +145,7 @@ USE ISO_FORTRAN_ENV
             h1 = (2.0*hh)/(temp+ysub4)
             planar = .TRUE.
             IF ( h1>1.0D-6 ) planar = .FALSE.
-            IF ( h1>=1.0D-2 ) WRITE (Outpt,99002) Uim , h1 , Necpt(1)
+            IF ( h1>=1.0D-2 ) WRITE (outpt,99002) uim , h1 , necpt(1)
 99002       FORMAT (A29,' 3061, THE MEASURE OF NON-PLANARITY IS ',D13.5,' FOR ELEMENT NUMBER',I9)
             pj1 = pk2*pi3 - pk3*pi2
             pj2 = pk3*pi1 - pk1*pi3
@@ -165,24 +166,24 @@ USE ISO_FORTRAN_ENV
 !     E(2),E(5),E(8) IS J-VECTOR
 !     E(3),E(6),E(9) IS K-VECTOR
 !
-               E(1) = pi1
-               E(2) = pj1
-               E(3) = pk1
-               E(4) = pi2
-               E(5) = pj2
-               E(6) = pk2
-               E(7) = pi3
-               E(8) = pj3
-               E(9) = pk3
+               e(1) = pi1
+               e(2) = pj1
+               e(3) = pk1
+               e(4) = pi2
+               e(5) = pj2
+               e(6) = pk2
+               e(7) = pi3
+               e(8) = pj3
+               e(9) = pk3
 !
 !     COMPUTE DIFFERENCES OF COORDINATES OF GRID POINTS IN THE MEAN PLAN
 !
-               x12 = -(x21*E(1)+y21*E(4)+z21*E(7))
-               x13 = -(x31*E(1)+y31*E(4)+z31*E(7))
-               x24 = -(x42*E(1)+y42*E(4)+z42*E(7))
+               x12 = -(x21*e(1)+y21*e(4)+z21*e(7))
+               x13 = -(x31*e(1)+y31*e(4)+z31*e(7))
+               x24 = -(x42*e(1)+y42*e(4)+z42*e(7))
                x14 = x12 + x24
-               y3a = x31*E(2) + y31*E(5) + z31*E(8)
-               y4a = x42*E(2) + y42*E(5) + z42*E(8)
+               y3a = x31*e(2) + y31*e(5) + z31*e(8)
+               y4a = x42*e(2) + y42*e(5) + z42*e(8)
                x34 = x14 - x13
                y34 = y3a - y4a
                x23 = x13 - x12
@@ -201,9 +202,9 @@ USE ISO_FORTRAN_ENV
 !
 !     GET MASS MATRIX DIAGONALS
 !
-                     IF ( Mass/=0 ) THEN
-                        Inflag = 4
-                        Matid = Matid1
+                     IF ( mass/=0 ) THEN
+                        inflag = 4
+                        matid = matid1
                         CALL mat(ecpt(1))
 !
 !     GET TRIANGULAR AREA TIMES TWO
@@ -213,7 +214,7 @@ USE ISO_FORTRAN_ENV
                         at3 = -x23*y4a + x24*y3a
                         at4 = -x13*y4a + x14*y3a
 !
-                        fact = (Fmu+G11*Thick)/12.0D0
+                        fact = (fmu+g11*thick)/12.0D0
                         mgg(1) = (at4+at1+at2)*fact
                         mgg(2) = (at1+at2+at3)*fact
                         mgg(3) = (at2+at3+at4)*fact
@@ -256,48 +257,48 @@ USE ISO_FORTRAN_ENV
 !                        AND ACTUAL GRID POINTS
 !
                            DO i = 2 , 92
-                              B(i) = 0.0
+                              b(i) = 0.0
                            ENDDO
 !
-                           B(1) = 1.0
-                           B(10) = 1.0
-                           B(17) = -hh/la
-                           B(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
-                           B(19) = hh/la
-                           B(20) = (hh*cth2)/(la*sth2)
-                           B(23) = (hh*cth42)/ldd2
-                           B(24) = (hh*sth42)/ldd2
-                           B(27) = 1.0
-                           B(36) = 1.
-                           B(41) = -B(17)
-                           B(42) = (-hh*cth1)/(la*sth1)
-                           B(43) = B(17)
-                           B(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
-                           B(45) = (-hh*sth31)/lbd1
-                           B(46) = (-hh*cth31)/lbd1
-                           B(53) = 1.
-                           B(62) = 1.
-                           B(68) = -hh/(lb*sth2)
-                           B(69) = hh*((sth31/lbd1)+(cth32/lcd1))
-                           B(70) = hh*((cth31/lbd1)+(sth32/lcd1))
-                           B(71) = (-hh*sth41)/lcd2
-                           B(72) = (hh*cth41)/lcd2
-                           B(79) = 1.0
-                           B(88) = 1.0
-                           B(90) = hh/(ld*sth1)
-                           B(93) = (-hh*cth32)/lcd1
-                           B(94) = (-hh*sth32)/lcd1
-                           B(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
-                           B(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
+                           b(1) = 1.0
+                           b(10) = 1.0
+                           b(17) = -hh/la
+                           b(18) = -hh/(ld*sth1) + ((hh*cth1)/(la*sth1))
+                           b(19) = hh/la
+                           b(20) = (hh*cth2)/(la*sth2)
+                           b(23) = (hh*cth42)/ldd2
+                           b(24) = (hh*sth42)/ldd2
+                           b(27) = 1.0
+                           b(36) = 1.
+                           b(41) = -b(17)
+                           b(42) = (-hh*cth1)/(la*sth1)
+                           b(43) = b(17)
+                           b(44) = ((-hh*cth2)/(la*sth2)) + (hh/(lb*sth2))
+                           b(45) = (-hh*sth31)/lbd1
+                           b(46) = (-hh*cth31)/lbd1
+                           b(53) = 1.
+                           b(62) = 1.
+                           b(68) = -hh/(lb*sth2)
+                           b(69) = hh*((sth31/lbd1)+(cth32/lcd1))
+                           b(70) = hh*((cth31/lbd1)+(sth32/lcd1))
+                           b(71) = (-hh*sth41)/lcd2
+                           b(72) = (hh*cth41)/lcd2
+                           b(79) = 1.0
+                           b(88) = 1.0
+                           b(90) = hh/(ld*sth1)
+                           b(93) = (-hh*cth32)/lcd1
+                           b(94) = (-hh*sth32)/lcd1
+                           b(95) = hh*((-cth42/ldd2)+(sth41/lcd2))
+                           b(96) = hh*((-sth42/ldd2)-(cth41/lcd2))
                         ENDIF
 !
-                        theta = Angle*Degra
-                        Sinth = sin(theta)
-                        Costh = cos(theta)
-                        IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
-                        Eltemp = ecpt(26)
-                        Inflag = 2
-                        Matid = Matid1
+                        theta = angle*degra
+                        sinth = sin(theta)
+                        costh = cos(theta)
+                        IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
+                        eltemp = ecpt(26)
+                        inflag = 2
+                        matid = matid1
 !
 !                                                     T
 !     COMPUTE TRANSFORMED MATRIX OF STIFFNESSES  C = P  * G * P
@@ -306,13 +307,13 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE INTO G MATRIX
 !
-                        C(1) = G11
-                        C(2) = G12
-                        C(3) = G22
-                        C(4) = G13
-                        C(5) = G23
-                        C(6) = 0.D0
-                        fact = G33*dble(Thick)/(x24*y3a-x13*y4a)*2.0D0
+                        c(1) = g11
+                        c(2) = g12
+                        c(3) = g22
+                        c(4) = g13
+                        c(5) = g23
+                        c(6) = 0.D0
+                        fact = g33*dble(thick)/(x24*y3a-x13*y4a)*2.0D0
 !
 !     COMPUTE COEFFICIENTS OF THE GENERAL INTEGRAL
 !
@@ -322,56 +323,56 @@ USE ISO_FORTRAN_ENV
 !     Y *X   +Y  *X  *ZETA + (Y *X   - Y *X  ) * ETA
 !      4  21   34  21          4  32    3  41
 !
-                        Aq(1) = -y4a
-                        Aq(3) = -x24
-                        Aq(5) = -x24
-                        Aq(6) = -y4a
-                        Aq(7) = y4a
-                        Aq(9) = x14
-                        Aq(11) = x14
-                        Aq(12) = y4a
-                        Aq(13) = 0.0
-                        Aq(15) = 0.0
-                        Aq(17) = 0.0
-                        Aq(18) = 0.0
-                        Aq(19) = 0.0
-                        Aq(21) = -x12
-                        Aq(23) = -x12
-                        Aq(24) = 0.0
+                        aq(1) = -y4a
+                        aq(3) = -x24
+                        aq(5) = -x24
+                        aq(6) = -y4a
+                        aq(7) = y4a
+                        aq(9) = x14
+                        aq(11) = x14
+                        aq(12) = y4a
+                        aq(13) = 0.0
+                        aq(15) = 0.0
+                        aq(17) = 0.0
+                        aq(18) = 0.0
+                        aq(19) = 0.0
+                        aq(21) = -x12
+                        aq(23) = -x12
+                        aq(24) = 0.0
 !
-                        Bq(1) = y3a
-                        Bq(3) = x23
-                        Bq(5) = x23
-                        Bq(6) = y3a
-                        Bq(7) = -y4a
-                        Bq(9) = -x14
-                        Bq(11) = -x14
-                        Bq(12) = -y4a
-                        Bq(13) = y4a
-                        Bq(15) = x14
-                        Bq(17) = x14
-                        Bq(18) = y4a
-                        Bq(19) = -y3a
-                        Bq(21) = -x23
-                        Bq(23) = -x23
-                        Bq(24) = -y3a
+                        bq(1) = y3a
+                        bq(3) = x23
+                        bq(5) = x23
+                        bq(6) = y3a
+                        bq(7) = -y4a
+                        bq(9) = -x14
+                        bq(11) = -x14
+                        bq(12) = -y4a
+                        bq(13) = y4a
+                        bq(15) = x14
+                        bq(17) = x14
+                        bq(18) = y4a
+                        bq(19) = -y3a
+                        bq(21) = -x23
+                        bq(23) = -x23
+                        bq(24) = -y3a
 !
-                        Cq(1) = -y34
-                        Cq(3) = x34
-                        Cq(5) = x34
-                        Cq(6) = -y34
-                        Cq(7) = y34
-                        Cq(9) = -x34
-                        Cq(11) = -x34
-                        Cq(12) = y34
-                        Cq(13) = 0.0
-                        Cq(15) = -x12
-                        Cq(17) = -x12
-                        Cq(18) = 0.0
-                        Cq(19) = 0.0
-                        Cq(21) = x12
-                        Cq(23) = x12
-                        Cq(24) = 0.0
+                        cq(1) = -y34
+                        cq(3) = x34
+                        cq(5) = x34
+                        cq(6) = -y34
+                        cq(7) = y34
+                        cq(9) = -x34
+                        cq(11) = -x34
+                        cq(12) = y34
+                        cq(13) = 0.0
+                        cq(15) = -x12
+                        cq(17) = -x12
+                        cq(18) = 0.0
+                        cq(19) = 0.0
+                        cq(21) = x12
+                        cq(23) = x12
+                        cq(24) = 0.0
 !
                         nn = 0
                         DO i = 1 , 4
@@ -390,35 +391,35 @@ USE ISO_FORTRAN_ENV
                                     kl = k + l - 1
                                     k3 = k + 3
                                     l3 = l + 3
-                                    d = C(kl)*Aq(k1)*Aq(l1) + C(k3)*Aq(k1)*Aq(l2) + C(l3)*Aq(k2)*Aq(l1)
+                                    d = c(kl)*aq(k1)*aq(l1) + c(k3)*aq(k1)*aq(l2) + c(l3)*aq(k2)*aq(l1)
 !
-                                    v = C(kl)*((Aq(k1)*Bq(l1))+(Bq(k1)*Aq(l1))) + C(k3)*((Aq(k1)*Bq(l2))+(Bq(k1)*Aq(l2))) + C(l3)   &
-                                      & *((Aq(k2)*Bq(l1))+(Bq(k2)*Aq(l1)))
+                                    v = c(kl)*((aq(k1)*bq(l1))+(bq(k1)*aq(l1))) + c(k3)*((aq(k1)*bq(l2))+(bq(k1)*aq(l2))) + c(l3)   &
+                                      & *((aq(k2)*bq(l1))+(bq(k2)*aq(l1)))
 !
-                                    f = C(kl)*((Aq(k1)*Cq(l1))+(Cq(k1)*Aq(l1))) + C(k3)*((Aq(k1)*Cq(l2))+(Cq(k1)*Aq(l2))) + C(l3)   &
-                                      & *((Aq(k2)*Cq(l1))+(Cq(k2)*Aq(l1)))
+                                    f = c(kl)*((aq(k1)*cq(l1))+(cq(k1)*aq(l1))) + c(k3)*((aq(k1)*cq(l2))+(cq(k1)*aq(l2))) + c(l3)   &
+                                      & *((aq(k2)*cq(l1))+(cq(k2)*aq(l1)))
 !
-                                    h = C(kl)*((Bq(k1)*Cq(l1))+(Cq(k1)*Bq(l1))) + C(k3)*((Bq(k1)*Cq(l2))+(Cq(k1)*Bq(l2))) + C(l3)   &
-                                      & *((Bq(k2)*Cq(l1))+(Cq(k2)*Bq(l1)))
+                                    h = c(kl)*((bq(k1)*cq(l1))+(cq(k1)*bq(l1))) + c(k3)*((bq(k1)*cq(l2))+(cq(k1)*bq(l2))) + c(l3)   &
+                                      & *((bq(k2)*cq(l1))+(cq(k2)*bq(l1)))
 !
-                                    p = C(kl)*Bq(k1)*Bq(l1) + C(k3)*Bq(k1)*Bq(l2) + C(l3)*Bq(k2)*Bq(l1)
+                                    p = c(kl)*bq(k1)*bq(l1) + c(k3)*bq(k1)*bq(l2) + c(l3)*bq(k2)*bq(l1)
 !
-                                    q = C(kl)*Cq(k1)*Cq(l1) + C(k3)*Cq(k1)*Cq(l2) + C(l3)*Cq(k2)*Cq(l1)
+                                    q = c(kl)*cq(k1)*cq(l1) + c(k3)*cq(k1)*cq(l2) + c(l3)*cq(k2)*cq(l1)
 !
 !     USE GAUSSIAN INTEGRATION TO FIND THE PARTITIONS OF
 !     THE STIFFNESS MATRIX FOR THE MEAN PLANE ELEMENT
 !
-                                    U(nn) = 0.0D0
+                                    u(nn) = 0.0D0
                                     DO ia01 = 1 , 2
                                        DO ja01 = 1 , 2
-                                         U(nn) = U(nn) + o(d,v,f,h,p,q,y4a,x12,y34,y3a,x23,x14,eta01(ia01),eta01(ja01))
+                                         u(nn) = u(nn) + o(d,v,f,h,p,q,y4a,x12,y34,y3a,x23,x14,eta01(ia01),eta01(ja01))
                                        ENDDO
                                     ENDDO
-                                    U(nn) = U(nn)/4.0D0*dble(Thick)
+                                    u(nn) = u(nn)/4.0D0*dble(thick)
 !
 !     ADD SHEAR TERMS HERE
 !
-                                    U(nn) = U(nn) + fact*(Aq(k2)+0.5*(Bq(k2)+Cq(k2)))*(Aq(l2)+0.5*(Bq(l2)+Cq(l2)))
+                                    u(nn) = u(nn) + fact*(aq(k2)+0.5*(bq(k2)+cq(k2)))*(aq(l2)+0.5*(bq(l2)+cq(l2)))
                                  ENDDO
                               ENDDO
                            ENDDO
@@ -439,7 +440,7 @@ USE ISO_FORTRAN_ENV
                            ij1 = -12
                            i2 = 144
                            DO i = 1 , 64
-                              tempar(i2+i) = U(i)
+                              tempar(i2+i) = u(i)
                            ENDDO
                            DO i = 1 , 12
                               ij1 = ij1 + 12
@@ -461,8 +462,8 @@ USE ISO_FORTRAN_ENV
                               ENDIF
                            ENDDO
                         ELSE
-                           CALL gmmatd(B(1),12,8,0,U(1),8,8,0,Btxk(1))
-                           CALL gmmatd(Btxk(1),12,8,0,B(1),12,8,1,tempar(1))
+                           CALL gmmatd(b(1),12,8,0,u(1),8,8,0,btxk(1))
+                           CALL gmmatd(btxk(1),12,8,0,b(1),12,8,1,tempar(1))
                         ENDIF
 !
 !                T            T
@@ -471,23 +472,23 @@ USE ISO_FORTRAN_ENV
 !
                         DO i = 1 , 4
                            ka = 4*i + 6
-                           IF ( Necpt(ka)==0 ) THEN
+                           IF ( necpt(ka)==0 ) THEN
                               DO ii = 1 , 9
-                                 Tie(ii,i) = E(ii)
+                                 tie(ii,i) = e(ii)
                               ENDDO
-                              Etj(1,i) = E(1)
-                              Etj(2,i) = E(4)
-                              Etj(3,i) = E(7)
-                              Etj(4,i) = E(2)
-                              Etj(5,i) = E(5)
-                              Etj(6,i) = E(8)
-                              Etj(7,i) = E(3)
-                              Etj(8,i) = E(6)
-                              Etj(9,i) = E(9)
+                              etj(1,i) = e(1)
+                              etj(2,i) = e(4)
+                              etj(3,i) = e(7)
+                              etj(4,i) = e(2)
+                              etj(5,i) = e(5)
+                              etj(6,i) = e(8)
+                              etj(7,i) = e(3)
+                              etj(8,i) = e(6)
+                              etj(9,i) = e(9)
                            ELSE
-                              CALL transd(Necpt(ka),Ti)
-                              CALL gmmatd(Ti,3,3,1,E,3,3,0,Tie(1,i))
-                              CALL gmmatd(E,3,3,1,Ti,3,3,0,Etj(1,i))
+                              CALL transd(necpt(ka),ti)
+                              CALL gmmatd(ti,3,3,1,e,3,3,0,tie(1,i))
+                              CALL gmmatd(e,3,3,1,ti,3,3,0,etj(1,i))
                            ENDIF
                         ENDDO
 !                                      T              T
@@ -502,9 +503,9 @@ USE ISO_FORTRAN_ENV
                            SPAG_DispatchLoop_1: DO
                               SELECT CASE (spag_nextblock_1)
                               CASE (1)
-                                 j = Ngrid(i)
+                                 j = ngrid(i)
                                  DO k = 2 , 5
-                                    IF ( Necpt(k)==j ) THEN
+                                    IF ( necpt(k)==j ) THEN
                                        spag_nextblock_1 = 2
                                        CYCLE SPAG_DispatchLoop_1
                                     ENDIF
@@ -546,21 +547,21 @@ USE ISO_FORTRAN_ENV
                               DO k = 1 , 3
                                  kl = iocl + 12*(k-1)
                                  DO l = 1 , 3
-                                    Kij(l,k) = tempar(kl+l)
+                                    kij(l,k) = tempar(kl+l)
                                  ENDDO
                               ENDDO
 !
 !     TRANSFORM 3 BY 3
 !
-                              CALL gmmatd(Kij,3,3,0,Etj(1,j),3,3,0,E)
-                              CALL gmmatd(Tie(1,i),3,3,0,E,3,3,0,Kij)
+                              CALL gmmatd(kij,3,3,0,etj(1,j),3,3,0,e)
+                              CALL gmmatd(tie(1,i),3,3,0,e,3,3,0,kij)
 !
 !     INSERT
 !
                               DO k = 1 , 3
                                  kl = incl + 12*(k-1)
                                  DO l = 1 , 3
-                                    B(kl+l) = Kij(l,k)
+                                    b(kl+l) = kij(l,k)
                                  ENDDO
                               ENDDO
                            ENDDO
@@ -568,30 +569,30 @@ USE ISO_FORTRAN_ENV
 !
 !     INSERT WHOLE 12 BY 12 USING EMGOUT
 !
-                        dict(1) = Estid
+                        dict(1) = estid
                         dict(2) = 1
                         dict(3) = 12
                         dict(4) = 7
-                        dict5 = Gsube
+                        dict5 = gsube
                         ldata = 144
                         ieoe = 1
                         ifile = 1
-                        CALL emgout(B,B,ldata,ieoe,dict,ifile,Iprec)
+                        CALL emgout(b,b,ldata,ieoe,dict,ifile,iprec)
 !
 !     DO MASS IF NECESSARY
 !
-                        IF ( Mass==0 ) RETURN
+                        IF ( mass==0 ) RETURN
                         DO i = 1 , 4
                            kl = 3*(map(1,i)-1)
                            DO j = 1 , 3
-                              B(kl+j) = mgg(i)
+                              b(kl+j) = mgg(i)
                            ENDDO
                         ENDDO
                         dict(2) = 2
                         dict(5) = 0
                         ldata = 12
                         ifile = 2
-                        CALL emgout(B,B,ldata,ieoe,dict,ifile,Iprec)
+                        CALL emgout(b,b,ldata,ieoe,dict,ifile,iprec)
                         RETURN
                      ENDIF
                   ENDIF
@@ -601,6 +602,5 @@ USE ISO_FORTRAN_ENV
       ENDIF
    ENDIF
    CALL mesage(30,j,ecpt(1))
-   Nogo = .TRUE.
-   RETURN
+   nogo = .TRUE.
 END SUBROUTINE qdmm1d

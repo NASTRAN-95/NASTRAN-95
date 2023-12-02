@@ -1,15 +1,16 @@
-!*==tordrd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tordrd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tordrd
-USE C_CONDAD
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_condad
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -95,8 +96,8 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP THE DICT ARRAY
 !
-         ipr = Iprec
-         dict(1) = Estid
+         ipr = iprec
+         dict(1) = estid
          dict(3) = 12
          dict(4) = 63
          ics(1) = iecpt(10)
@@ -117,23 +118,23 @@ USE ISO_FORTRAN_ENV
 !
 !  SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO ACCUMULATE
 !
-            CALL mesage(30,37,Idel)
+            CALL mesage(30,37,idel)
          ELSEIF ( d1/=0. .OR. d2/=0. ) THEN
-            CALL mesage(30,37,Idel)
+            CALL mesage(30,37,idel)
          ELSE
 !
 !
 ! DETERMINE IF ELEMENT IS A TOROIDAL, CONICAL OR CYLINDRICAL RING
 !
             itord = 0
-            IF ( abs(Alph(1)-Alph(2))<=1.E-6 ) itord = 1
-            IF ( itord==1 .AND. abs(Alph(1)-90.)<=1.E-5 ) itord = -1
+            IF ( abs(alph(1)-alph(2))<=1.E-6 ) itord = 1
+            IF ( itord==1 .AND. abs(alph(1)-90.)<=1.E-5 ) itord = -1
 !
 !
 ! COMPUTE THE ELEMENT COORDINATES
 !
-            a1 = dble(Alph(1))*degrad
-            a2 = dble(Alph(2))*degrad
+            a1 = dble(alph(1))*degrad
+            a2 = dble(alph(2))*degrad
             phib = a2 - a1
             sina1 = dsin(a1)
             cosa1 = dcos(a1)
@@ -209,7 +210,6 @@ USE ISO_FORTRAN_ENV
                         delint(k+3) = 0.
                         delint(k+4) = 0.
                         delint(k+5) = 0.
-                        CYCLE
                      ELSEIF ( itord==0 ) THEN
 !
 ! THE TOROIDAL RING BASIC INTEGRALS WILL BE COMPUTED IN
@@ -277,7 +277,6 @@ USE ISO_FORTRAN_ENV
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
                         spag_nextblock_2 = 5
-                        CYCLE SPAG_DispatchLoop_2
                      ENDIF
                   CASE (2)
                      d(2) = d(20)*d(2)
@@ -307,19 +306,19 @@ USE ISO_FORTRAN_ENV
 ! COMPUTE I(J,4)
 !
                      CALL rombdk(phib,d(10),ip,d(4),1,d(21))
-                     IF ( ip>=15 ) CALL mesage(30,26,Idel)
+                     IF ( ip>=15 ) CALL mesage(30,26,idel)
                      d(4) = d(20)*d(4)
 !
 ! COMPUTE I(J,5)
 !
                      CALL rombdk(phib,d(10),ip,d(5),2,d(21))
-                     IF ( ip>=15 ) CALL mesage(30,26,Idel)
+                     IF ( ip>=15 ) CALL mesage(30,26,idel)
                      d(5) = d(20)*d(5)
 !
 ! COMPUTE I(J,6)
 !
                      CALL rombdk(phib,d(10),ip,d(6),3,d(21))
-                     IF ( ip>=15 ) CALL mesage(30,26,Idel)
+                     IF ( ip>=15 ) CALL mesage(30,26,idel)
                      d(6) = d(20)*d(6)
 !
 ! THE TOROIDAL RING REQUIRED INTEGRALS
@@ -330,7 +329,6 @@ USE ISO_FORTRAN_ENV
                      delint(k+3) = cosa1*d(3) - sina1*d(2)
                      delint(k+4) = d(34)*(d(6)-d(4)) + d(36)*d(5)
                      delint(k+5) = d(33)*d(6) - d(34)*d(5) + d(35)*d(4)
-                     CYCLE
                   CASE (4)
                      d(2) = ((s**jp1)/r1)*d(2)
                      spag_nextblock_2 = 5
@@ -357,20 +355,20 @@ USE ISO_FORTRAN_ENV
 !
 ! LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-            Matidc = Matid
-            Matflg = 7
-            Eltemp = Tempe
-            CALL mat(Idel)
+            matidc = matid
+            matflg = 7
+            eltemp = tempe
+            CALL mat(idel)
 !
 !
 ! SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-            ep = E(1)
-            et = E(2)
-            vpt = Anu(1)
+            ep = e(1)
+            et = e(2)
+            vpt = anu(1)
             vtp = vpt*et/ep
             del = 1. - vpt*vtp
-            dict5 = Gsube
+            dict5 = gsube
 !
 !
 ! GENERATE THE ELASTIC CONSTANTS MATRIX(2X2)
@@ -391,8 +389,8 @@ USE ISO_FORTRAN_ENV
             d(2) = d(1)*d(7)
             d(3) = d(2)*d(7)
             d(4) = vpt*d(7)
-            d(5) = (ep*Tm/(d(1)-vpt**2))*twopi
-            d(6) = (ep*Tf**3)/(12.*(d(1)-vpt**2))*twopi
+            d(5) = (ep*tm/(d(1)-vpt**2))*twopi
+            d(6) = (ep*tf**3)/(12.*(d(1)-vpt**2))*twopi
 !
 ! CALL THE DMATRIX SUBROUTINE TO COMPUTE THE STIFFNESS MATRIX (10X10)
 !
@@ -402,8 +400,8 @@ USE ISO_FORTRAN_ENV
 ! PROGRAM AND IT IS A (6X11) DOUBLY SUBSCRIPTED ARRAY (STORED
 ! COLUMNWISE) IN DMATRX ROUTINE.
 !
-            IF ( Ismb(1)/=0 ) CALL dmatrx(ak(1),vpt,d(1),d(2),d(3),d(4),d(5),d(6),delint(1))
-            IF ( Ismb(2)/=0 ) THEN
+            IF ( ismb(1)/=0 ) CALL dmatrx(ak(1),vpt,d(1),d(2),d(3),d(4),d(5),d(6),delint(1))
+            IF ( ismb(2)/=0 ) THEN
                DO i = 1 , 100
                   am(i) = 0.
                ENDDO
@@ -460,7 +458,7 @@ USE ISO_FORTRAN_ENV
                am(99) = delint(55)
                am(100) = delint(61)
 !
-               d(1) = twopi*Rho*Tm
+               d(1) = twopi*rho*tm
                DO i = 1 , 100
                   am(i) = d(1)*am(i)
                ENDDO
@@ -517,11 +515,11 @@ USE ISO_FORTRAN_ENV
 !
 ! TRANSFORM THE STIFFNESS MATRIX TO GRID POINT DEGREES OF FREEDOM
 !
-            IF ( Ismb(1)/=0 ) THEN
+            IF ( ismb(1)/=0 ) THEN
                CALL gmmatd(gambq(1),10,12,1,ak(1),10,10,0,d(1))
                CALL gmmatd(d(1),12,10,0,gambq(1),10,12,0,ak(1))
             ENDIF
-            IF ( Ismb(2)/=0 ) THEN
+            IF ( ismb(2)/=0 ) THEN
 !     REARRANGE GAMBQ FOR MASS MATRIX CALCULATIONS
                DO i = 1 , 72
                   d(i+48) = gambq(i)
@@ -562,11 +560,11 @@ USE ISO_FORTRAN_ENV
 !
 ! TRANSFORM THE STIFFNESS MATRIX FROM ELEMENT TO BASIC COORDINATES
 !
-            IF ( Ismb(1)/=0 ) THEN
+            IF ( ismb(1)/=0 ) THEN
                CALL gmmatd(gamrs(1),12,12,1,ak(1),12,12,0,d(1))
                CALL gmmatd(d(1),12,12,0,gamrs(1),12,12,0,ak(1))
             ENDIF
-            IF ( Ismb(2)/=0 ) THEN
+            IF ( ismb(2)/=0 ) THEN
                CALL gmmatd(gamrs(1),12,12,1,am(1),12,12,0,d(1))
                CALL gmmatd(d(1),12,12,0,gamrs(1),12,12,0,am(1))
             ENDIF
@@ -602,7 +600,7 @@ USE ISO_FORTRAN_ENV
 !
             DO ip = 1 , 2
                ipp = ip
-               IF ( Igp(1)>=Igp(2) ) ipp = 3 - ip
+               IF ( igp(1)>=igp(2) ) ipp = 3 - ip
                ir = 72*(ipp-1)
                iapp = 36*(ipp-1) + 1
                DO ji = 1 , 2
@@ -626,13 +624,13 @@ USE ISO_FORTRAN_ENV
 !   TRANSFORM FROM BASIC TO LOCAL  COORDINATES
 !
                   IF ( ics(ipp)/=0 ) THEN
-                     IF ( Ismb(1)/=0 ) THEN
+                     IF ( ismb(1)/=0 ) THEN
                         CALL gmmatd(d(iapp),6,6,1,aki(1),6,6,0,d(73))
                         DO j = 1 , 36
                            aki(j) = d(j+72)
                         ENDDO
                      ENDIF
-                     IF ( Ismb(2)/=0 ) THEN
+                     IF ( ismb(2)/=0 ) THEN
                         CALL gmmatd(d(iapp),6,6,1,akm(1),6,6,0,d(73))
                         DO j = 1 , 36
                            akm(i) = d(j+72)
@@ -642,13 +640,13 @@ USE ISO_FORTRAN_ENV
 !
                   IF ( ics(i)/=0 ) THEN
                      iai = 36*(i-1) + 1
-                     IF ( Ismb(1)/=0 ) THEN
+                     IF ( ismb(1)/=0 ) THEN
                         CALL gmmatd(aki(1),6,6,0,d(iai),6,6,0,d(73))
                         DO j = 1 , 36
                            aki(j) = d(j+72)
                         ENDDO
                      ENDIF
-                     IF ( Ismb(2)/=0 ) THEN
+                     IF ( ismb(2)/=0 ) THEN
                         CALL gmmatd(akm(1),6,6,0,d(iai),6,6,0,d(73))
                         DO j = 1 , 36
                            akm(j) = d(j+72)
@@ -672,20 +670,19 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT THE MATRIX BY EMGOUT
 !
             dict(2) = 1
-            IF ( Ismb(1)/=0 ) CALL emgout(kout,kout,144,1,dict,1,ipr)
+            IF ( ismb(1)/=0 ) CALL emgout(kout,kout,144,1,dict,1,ipr)
 !
-            IF ( Ismb(2)/=0 ) CALL emgout(mout,mout,144,1,dict,2,ipr)
+            IF ( ismb(2)/=0 ) CALL emgout(mout,mout,144,1,dict,2,ipr)
 !
             RETURN
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Nogo = .TRUE.
+         nogo = .TRUE.
          RETURN
       CASE (3)
-         CALL mesage(30,26,Idel)
+         CALL mesage(30,26,idel)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 !

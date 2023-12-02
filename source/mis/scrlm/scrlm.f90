@@ -1,4 +1,5 @@
-!*==scrlm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==scrlm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scrlm(Scurl,Xxi,E,H,Cont,Rp,Alf1,R1,Lam1,Hf)
@@ -22,6 +23,15 @@ SUBROUTINE scrlm(Scurl,Xxi,E,H,Cont,Rp,Alf1,R1,Lam1,Hf)
    REAL :: eel , el , ell , lam2 , lam3 , lam4 , sc1 , sc2 , xx1 , xx2 , xx3 , xx4 , xx5
    INTEGER :: i , j , jj , k , kk , ll
    EXTERNAL solve1
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

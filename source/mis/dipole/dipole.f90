@@ -1,4 +1,5 @@
-!*==dipole.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dipole.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dipole(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
@@ -20,6 +21,15 @@ SUBROUTINE dipole(Buf,Ibuf,Xx,Yy,Zz,Hc1,Hc2,Hc3)
    REAL :: cx , cy , cz , max , min , mx , mxa , my , myb , mz , mzc , r3 , r5 , rmr1 , xnum
    REAL , SAVE :: fpi
    INTEGER :: icid
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,23 +1,24 @@
-!*==emgpro.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==emgpro.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emgpro(Ibuf)
-USE C_BLANK
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGFIL
-USE C_EMGPRM
-USE C_GPTA1
-USE C_IEMG1B
-USE C_IEMGOD
-USE C_IEMGOT
-USE C_MATOUT
-USE C_SMA1CL
-USE C_SMA2CL
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgfil
+   USE c_emgprm
+   USE c_gpta1
+   USE c_iemg1b
+   USE c_iemgod
+   USE c_iemgot
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma2cl
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -69,21 +70,21 @@ USE ISO_FORTRAN_ENV
 !
          iqdmm1 = 0
          iqdmm2 = 0
-         Nval(1) = 0
-         Nval(2) = 0
-         Nval(3) = 0
+         nval(1) = 0
+         nval(2) = 0
+         nval(3) = 0
          ltypes = 0
-         Ktypes = 0
-         Dummy = 0.0D0
-         Icall = 0
-         Ilast = 0
+         ktypes = 0
+         dummy = 0.0D0
+         icall = 0
+         ilast = 0
 !
 !     INITIALIZE /SMA1CL/ AND /SMA2CL/
 !
-         Knogo = 0
-         Mnogo = 0
-         Kdummy(10) = 10
-         Mdummy(10) = 10
+         knogo = 0
+         mnogo = 0
+         kdummy(10) = 10
+         mdummy(10) = 10
 !
 !     FOLLOWING CALL PREPS /GPTA1/ FOR DUMMY ELEMENTS
 !
@@ -91,34 +92,34 @@ USE ISO_FORTRAN_ENV
 !
 !     DEFINE WORKING CORE BLOCK FOR RESET PURPOSES.
 !
-         ipr = Precis
+         ipr = precis
          IF ( ipr/=1 ) ipr = 0
-         savjcr = Jcore
-         savncr = Ncore
-         Estid = 0
-         lnum = Lcong/2
+         savjcr = jcore
+         savncr = ncore
+         estid = 0
+         lnum = lcong/2
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     READ THE ELEMENT TYPE FROM THE EST.
 !
-         CALL read(*100,*160,Est,Eltype,1,noeor,iwords)
-         izero = Incr*(Eltype-1)
+         CALL read(*100,*160,est,eltype,1,noeor,iwords)
+         izero = incr*(eltype-1)
 !
 !     CHECK FOR ALLOWABLE ELEMENT TYPES
 !
-         IF ( Eltype/=2 .AND. Eltype/=32 .AND. Eltype/=33 .AND. Eltype/=68 .AND. Eltype/=69 .AND. Eltype/=72 ) THEN
-            IF ( Eltype>=1 .AND. Eltype<=Nelem ) THEN
+         IF ( eltype/=2 .AND. eltype/=32 .AND. eltype/=33 .AND. eltype/=68 .AND. eltype/=69 .AND. eltype/=72 ) THEN
+            IF ( eltype>=1 .AND. eltype<=nelem ) THEN
 !
 !     RESTORE CORE POINTERS
 !
-               Jcore = savjcr
-               Ncore = savncr
+               jcore = savjcr
+               ncore = savncr
 !
 !     CLEAR ESTBUF
 !
                DO i = 1 , 200
-                  Estbuf(i) = 0
+                  estbuf(i) = 0
                ENDDO
 !
 !     SET VARIOUS PARAMETERS = FUNCTION OF THIS ELEMENT TYPE
@@ -126,84 +127,84 @@ USE ISO_FORTRAN_ENV
 !     TURN ON COUPLED MASS FLAG IF EITHER OF ALL-COUPLED-MASS-FLAG
 !     OR SPECIFIC-TYPE-COUPLED-MASS-FLAG IS ON.
 !
-               IF ( Flags(2)==0 ) THEN
-                  Icmbar = -1
-               ELSEIF ( Nocmas<0 ) THEN
-                  Icmbar = -1
-               ELSEIF ( Nocmas==0 ) THEN
-                  IF ( Eltype==34 ) THEN
-                     IF ( Ncpbar<=0 ) THEN
-                        Icmbar = -1
+               IF ( flags(2)==0 ) THEN
+                  icmbar = -1
+               ELSEIF ( nocmas<0 ) THEN
+                  icmbar = -1
+               ELSEIF ( nocmas==0 ) THEN
+                  IF ( eltype==34 ) THEN
+                     IF ( ncpbar<=0 ) THEN
+                        icmbar = -1
                      ELSE
 !
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==1 ) THEN
-                     IF ( Ncprod<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==1 ) THEN
+                     IF ( ncprod<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==19 ) THEN
-                     IF ( Ncpqd1<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==19 ) THEN
+                     IF ( ncpqd1<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==18 ) THEN
-                     IF ( Ncpqd2<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==18 ) THEN
+                     IF ( ncpqd2<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==6 ) THEN
-                     IF ( Ncptr1<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==6 ) THEN
+                     IF ( ncptr1<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==17 ) THEN
-                     IF ( Ncptr2<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==17 ) THEN
+                     IF ( ncptr2<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==3 ) THEN
-                     IF ( Ncptub<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==3 ) THEN
+                     IF ( ncptub<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==15 ) THEN
-                     IF ( Ncpqdp<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==15 ) THEN
+                     IF ( ncpqdp<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==8 ) THEN
-                     IF ( Ncptrp<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==8 ) THEN
+                     IF ( ncptrp<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
-                  ELSEIF ( Eltype==7 ) THEN
-                     IF ( Ncptrb<=0 ) THEN
-                        Icmbar = -1
+                  ELSEIF ( eltype==7 ) THEN
+                     IF ( ncptrb<=0 ) THEN
+                        icmbar = -1
                      ELSE
-                        Icmbar = 1
+                        icmbar = 1
                      ENDIF
                   ELSE
-                     Icmbar = -1
+                     icmbar = -1
                   ENDIF
                ELSE
-                  Icmbar = 1
+                  icmbar = 1
                ENDIF
 !
-               jltype = 2*Eltype - ipr
-               estwds = Elem(izero+12)
-               nsils = Elem(izero+10)
-               isil = Elem(izero+13)
-               IF ( Elem(izero+9)/=0 ) isil = isil - 1
+               jltype = 2*eltype - ipr
+               estwds = elem(izero+12)
+               nsils = elem(izero+10)
+               isil = elem(izero+13)
+               IF ( elem(izero+9)/=0 ) isil = isil - 1
                i1 = isil
                i2 = isil + nsils - 1
                isave2 = 0
@@ -211,17 +212,17 @@ USE ISO_FORTRAN_ENV
 !
 !     CHECK TO SEE IF ILLEGAL ELEMENTS ARE USED IN -HEAT- FORMULATION
 !
-                  IF ( Heat ) THEN
-                     IF ( Eltype/=1 .AND. Eltype/=3 .AND. Eltype/=6 ) THEN
-                        IF ( Eltype<9 .OR. Eltype>14 ) THEN
-                           IF ( Eltype<16 .OR. Eltype>24 ) THEN
-                              IF ( Eltype/=34 .AND. Eltype/=36 .AND. Eltype/=37 ) THEN
-                                 IF ( Eltype<39 .OR. Eltype>42 ) THEN
-                                    IF ( Eltype/=52 .AND. Eltype/=62 .AND. Eltype/=63 ) THEN
-                                       IF ( Eltype<64 .OR. Eltype>67 ) THEN
-                                         IF ( Eltype/=80 .AND. Eltype/=81 .AND. Eltype/=83 ) THEN
+                  IF ( heat ) THEN
+                     IF ( eltype/=1 .AND. eltype/=3 .AND. eltype/=6 ) THEN
+                        IF ( eltype<9 .OR. eltype>14 ) THEN
+                           IF ( eltype<16 .OR. eltype>24 ) THEN
+                              IF ( eltype/=34 .AND. eltype/=36 .AND. eltype/=37 ) THEN
+                                 IF ( eltype<39 .OR. eltype>42 ) THEN
+                                    IF ( eltype/=52 .AND. eltype/=62 .AND. eltype/=63 ) THEN
+                                       IF ( eltype<64 .OR. eltype>67 ) THEN
+                                         IF ( eltype/=80 .AND. eltype/=81 .AND. eltype/=83 ) THEN
 !
-                                         WRITE (outpt,99001) Ufm , Elem(izero+1) , Elem(izero+2) , Eltype
+                                         WRITE (outpt,99001) ufm , elem(izero+1) , elem(izero+2) , eltype
 99001                                    FORMAT (A23,' 3115, EMGPRO FINDS ',2A4,' ELEMENTS (ELEMENT TYPE ',I3,                      &
                                            &') PRESENT IN A HEAT FORMULATION.')
                                          spag_nextblock_1 = 4
@@ -238,52 +239,50 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP VARIABLES TO BE WRITTEN AS DICTIONARY 3-WORD HEADER
 !
-                  Nlocs = nsils
-                  Ldict = Nlocs + 5
+                  nlocs = nsils
+                  ldict = nlocs + 5
                   spag_nextblock_1 = 5
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
-                  WRITE (outpt,99002) Sfm , Eltype
+                  WRITE (outpt,99002) sfm , eltype
 99002             FORMAT (A25,' 3106, EMGPRO FINDS THAT ELEMENT TYPE ',I3,' HAS EST ENTRIES TOO LARGE TO HANDLE CURRENTLY.')
                   spag_nextblock_1 = 4
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE
             ENDIF
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (outpt,99003) Sfm , Elem(izero+1) , Elem(izero+2) , Eltype
+         WRITE (outpt,99003) sfm , elem(izero+1) , elem(izero+2) , eltype
 99003    FORMAT (A25,' 3105, EMGPRO FINDS ',2A4,' ELEMENTS (ELEM. TYPE ',I3,') UNDEFINED IN EST DATA BLOCK AND/OR ELEMENT ROUTINE.')
          spag_nextblock_1 = 4
       CASE (4)
-         CALL fwdrec(*120,Est)
-         Error = .TRUE.
+         CALL fwdrec(*120,est)
+         error = .TRUE.
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     READ AN ELEMENT EST ENTRY
 !
-         CALL read(*120,*80,Est,Estbuf,estwds,noeor,iwords)
-         Elid = Estbuf(1)
-         Estid = Estid + 1
+         CALL read(*120,*80,est,estbuf,estwds,noeor,iwords)
+         elid = estbuf(1)
+         estid = estid + 1
 !
 !     CHECK TO SEE IF THIS ELEMENT IS CONGRUENT TO ANOTHER ALREADY
 !     POSSESSING A DICTIONARY IN CORE.
 !
-         IF ( .NOT.Anycon ) GOTO 20
-         CALL bisloc(*20,Elid,Z(Icong),2,lnum,j)
+         IF ( .NOT.anycon ) GOTO 20
+         CALL bisloc(*20,elid,z(icong),2,lnum,j)
 !
 !     MATCH FOUND.  CHECK FOR DICTIONARY-TABLE ON PRIMARY.
 !
-         iprime = Z(Icong+j)
-         idprim = Z(Icong+j-1)
+         iprime = z(icong+j)
+         idprim = z(icong+j-1)
          SPAG_Loop_1_1: DO
             IF ( iprime<0 ) THEN
 !
 !     IPRIME IS NEGATIVE TABLE ADDRESS IMPLYING DICTIONARY EXISTS.
 !
-               IF ( Error ) GOTO 20
+               IF ( error ) GOTO 20
                iprime = -iprime
                imatch = 0
                ibfind = 1
@@ -294,11 +293,11 @@ USE ISO_FORTRAN_ENV
 !     SET UP ELEMENT MATRIX MAPPING ARRAY FOR LATER USE BY OTHER
 !     ELEMENTS IN THIS CONGRUENT SET
 !
-               icg = Jcore
-               jjcore = Jcore + 2*nsils + 5
-               icrq = jjcore - Ncore
-               IF ( jjcore>=Ncore ) THEN
-                  WRITE (outpt,99004) Uim , idprim
+               icg = jcore
+               jjcore = jcore + 2*nsils + 5
+               icrq = jjcore - ncore
+               IF ( jjcore>=ncore ) THEN
+                  WRITE (outpt,99004) uim , idprim
 !
 99004             FORMAT (A29,' 2382, ELEMENT MATRICES FOR ELEMENTS CONGRUENT TO ','ELEMENT ID =',I10,/5X,                          &
                          &'WILL BE RE-COMPUTED AS THERE IS',' INSUFFICIENT CORE AT THIS TIME TO HOLD CONGRUENCY ','MAPPING DATA.')
@@ -306,7 +305,7 @@ USE ISO_FORTRAN_ENV
                   CALL page2(4)
                   GOTO 20
                ELSE
-                  Jcore = jjcore
+                  jcore = jjcore
                   iz(icg) = idprim
                   iz(icg+1) = nsils
                   iz(icg+2) = 0
@@ -320,14 +319,14 @@ USE ISO_FORTRAN_ENV
 !
 !     IPRIME POINTS TO PRIMARY ID
 !
-               idprim = Z(iprime)
-               iprime = Z(iprime+1)
+               idprim = z(iprime)
+               iprime = z(iprime+1)
             ENDIF
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 6
       CASE (6)
          j = j + 1
-         iadd = Z(iprime+j)
+         iadd = z(iprime+j)
          IF ( iadd<=0 ) THEN
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -335,14 +334,13 @@ USE ISO_FORTRAN_ENV
 !
 !     COPY DICTIONARY FROM CORE TO DICTIONARY FILE.
 !
-         Z(iadd) = Estid
-         Flags(j) = Flags(j) + 1
-         CALL write(Dictn(j),Z(iadd),5,noeor)
+         z(iadd) = estid
+         flags(j) = flags(j) + 1
+         CALL write(dictn(j),z(iadd),5,noeor)
          iaddd = iadd + 5
          IF ( imatch==1 ) THEN
-            CALL write(Dictn(j),Z(iaddd),nsils,noeor)
+            CALL write(dictn(j),z(iaddd),nsils,noeor)
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( imatch==2 ) THEN
                spag_nextblock_1 = 18
@@ -352,8 +350,8 @@ USE ISO_FORTRAN_ENV
             igoto = 1
             DO WHILE ( iz(indcng)/=idprim )
                jjcore = indcng + 2*iz(indcng+1) + 5
-               IF ( jjcore>=Ncore ) THEN
-                  WRITE (outpt,99005) Swm , Estid
+               IF ( jjcore>=ncore ) THEN
+                  WRITE (outpt,99005) swm , estid
 99005             FORMAT (A27,' 2383, UNABLE TO LOCATE CONGRUENCY MAPPING DATA FOR',' ELEMENT ID =',I10,1H.,/5X,                    &
                          &'ELEMENT MATRICES FOR THIS ','ELEMENT WILL, THEREFORE, BE RE-COMPUTED.')
                   CALL page2(4)
@@ -363,12 +361,10 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDDO
             spag_nextblock_1 = 17
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (7)
          imatch = 2
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          ibfind = ibfind + 2
          IF ( j<3 ) THEN
@@ -381,22 +377,22 @@ USE ISO_FORTRAN_ENV
 !     BRANCH ON ELEMENT TYPE.  INDIVIDUAL ROUTINES WILL COMPUTE AND
 !     OUTPUT ALL MATRIX TYPES DESIRED BASED ON FLAGS AVAILABLE TO THEM.
 !
- 20      IF ( Eltype/=ltypes ) THEN
-            ltypes = Eltype
-            IF ( ltypes>Nelem ) THEN
+ 20      IF ( eltype/=ltypes ) THEN
+            ltypes = eltype
+            IF ( ltypes>nelem ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             CALL page2(3)
-            WRITE (outpt,99006) Uim , dosi(ipr+1) , Elem(izero+1) , Elem(izero+2) , Eltype , Elid
+            WRITE (outpt,99006) uim , dosi(ipr+1) , elem(izero+1) , elem(izero+2) , eltype , elid
 99006       FORMAT (A29,' 3113,',/5X,'EMG MODULE PROCESSING ',A4,'LE PRECISION ',2A4,' ELEMENTS (ELEMENT TYPE ',I3,                 &
                    &') STARTING WITH ID ',I8)
-            IF ( Eltype>=84 .AND. Eltype<=86 ) WRITE (outpt,99007)
+            IF ( eltype>=84 .AND. eltype<=86 ) WRITE (outpt,99007)
 99007       FORMAT (5X,'(STEPPING THRU ONLY. NO REAL COMPUTATION HERE FOR ','THIS DIFFERENTIAL STIFFNESS ELEMENT)')
          ENDIF
-         IF ( L38==1 ) THEN
+         IF ( l38==1 ) THEN
             CALL page2(1)
-            WRITE (outpt,99008) Elid
+            WRITE (outpt,99008) elid
 99008       FORMAT (5X,'ELEMENT ',I8,' IS BEING PROCESSED')
          ENDIF
          local = jltype - 100
@@ -584,10 +580,10 @@ USE ISO_FORTRAN_ENV
                CALL scaled(nscal1,nscal2)
             ELSEIF ( jltype==47 ) THEN
                CALL viscs
-               IF ( Flags(3)==0 ) WRITE (outpt,99011) Uwm
+               IF ( flags(3)==0 ) WRITE (outpt,99011) uwm
             ELSEIF ( jltype==48 ) THEN
                CALL viscd
-               IF ( Flags(3)==0 ) WRITE (outpt,99011) Uwm
+               IF ( flags(3)==0 ) WRITE (outpt,99011) uwm
             ELSEIF ( jltype==49 .OR. jltype==50 ) THEN
                nscal1 = 1
                nscal2 = 2
@@ -714,268 +710,213 @@ USE ISO_FORTRAN_ENV
          IF ( local==1 ) THEN
             CALL slot4s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==2 ) THEN
             CALL slot4d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==3 ) THEN
             CALL hbdys
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==4 ) THEN
             CALL hbdyd
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==5 .OR. local==6 ) THEN
             CALL kdum1
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==7 .OR. local==8 ) THEN
             CALL kdum2
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==9 .OR. local==10 ) THEN
             CALL kdum3
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==11 .OR. local==12 ) THEN
             CALL kdum4
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==13 .OR. local==14 ) THEN
             CALL kdum5
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==15 .OR. local==16 ) THEN
             CALL kdum6
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==17 .OR. local==18 ) THEN
             CALL kdum7
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==19 .OR. local==20 ) THEN
             CALL kdum8
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==21 .OR. local==22 ) THEN
             CALL kdum9
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==23 ) THEN
-            IF ( .NOT.Heat ) THEN
+            IF ( .NOT.heat ) THEN
                CALL qdmm1s
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( iqdmm1/=0 ) GOTO 40
                ASSIGN 40 TO ret
                iqdmm1 = 1
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSEIF ( local==24 ) THEN
-            IF ( .NOT.Heat ) THEN
+            IF ( .NOT.heat ) THEN
                CALL qdmm1d
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( iqdmm1/=0 ) GOTO 60
                ASSIGN 60 TO ret
                iqdmm1 = 1
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSEIF ( local==25 ) THEN
-            IF ( .NOT.Heat ) THEN
+            IF ( .NOT.heat ) THEN
                CALL qdmm2s
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( iqdmm2/=0 ) GOTO 40
                ASSIGN 40 TO ret
                iqdmm2 = 1
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSEIF ( local==26 ) THEN
-            IF ( .NOT.Heat ) THEN
+            IF ( .NOT.heat ) THEN
                CALL qdmm2d
                spag_nextblock_1 = 11
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                IF ( iqdmm2/=0 ) GOTO 60
                ASSIGN 60 TO ret
                iqdmm2 = 1
                spag_nextblock_1 = 16
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSEIF ( local==27 ) THEN
             CALL quad4s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==28 ) THEN
             CALL quad4d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==29 .OR. local==31 .OR. local==33 ) THEN
-            CALL ihexs(Eltype-64)
+            CALL ihexs(eltype-64)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==30 .OR. local==32 .OR. local==34 ) THEN
-            CALL ihexd(Eltype-64)
+            CALL ihexd(eltype-64)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==35 .OR. local==36 .OR. local==37 .OR. local==38 .OR. local==43 .OR. local==44 ) THEN
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==39 ) THEN
             CALL triaax
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==40 ) THEN
             CALL triaad
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==41 ) THEN
             CALL trapax
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==42 ) THEN
             CALL trapad
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==45 ) THEN
             CALL ktrm6s
             l = 14
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==46 ) THEN
             CALL ktrm6d
             l = 14
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==47 ) THEN
             CALL ktrpls
             l = 24
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==48 ) THEN
             CALL ktrpld
             l = 24
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==49 ) THEN
             CALL ktshls
             l = 28
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==50 ) THEN
             CALL ktshld
             l = 28
             spag_nextblock_1 = 15
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==51 ) THEN
             CALL hexa1s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==52 ) THEN
             CALL hexa1d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==53 ) THEN
             CALL hexa2s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==54 ) THEN
             CALL hexa2d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==55 ) THEN
             CALL tetras
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==56 ) THEN
             CALL tetrad
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==57 ) THEN
             CALL wedges
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==58 ) THEN
             CALL wedged
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==59 ) THEN
             CALL is2d8s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==60 ) THEN
             CALL is2d8d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==61 ) THEN
             CALL elbows
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==62 ) THEN
             CALL elbowd
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==63 .OR. local==64 ) THEN
             CALL ftube
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==65 ) THEN
             CALL tria3s
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==66 ) THEN
             CALL tria3d
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSEIF ( local==67 .OR. local==68 .OR. local==69 .OR. local==70 .OR. local==71 .OR. local==72 ) THEN
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             CALL rods
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (10)
          kht = 7
          l = 9
-         IF ( Volume/=0 .OR. Surfac/=0 ) THEN
-            CALL write(scr4,Elem(izero+1),2,0)
-            CALL write(scr4,Estbuf(1),1,0)
+         IF ( volume/=0 .OR. surfac/=0 ) THEN
+            CALL write(scr4,elem(izero+1),2,0)
+            CALL write(scr4,estbuf(1),1,0)
             estx(5) = estx(kht)
-            estx(6) = Rho
-            Estbuf(7) = 3
-            CALL write(scr4,Estbuf(5),3,0)
-            CALL write(scr4,Estbuf(2),3,0)
-            CALL write(scr4,Estbuf(l),12,1)
+            estx(6) = rho
+            estbuf(7) = 3
+            CALL write(scr4,estbuf(5),3,0)
+            CALL write(scr4,estbuf(2),3,0)
+            CALL write(scr4,estbuf(l),12,1)
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
          kht = 8
          l = 10
          spag_nextblock_1 = 12
       CASE (12)
-         IF ( Volume/=0 .OR. Surfac/=0 ) THEN
-            CALL write(scr4,Elem(izero+1),2,0)
-            CALL write(scr4,Estbuf(1),1,0)
+         IF ( volume/=0 .OR. surfac/=0 ) THEN
+            CALL write(scr4,elem(izero+1),2,0)
+            CALL write(scr4,estbuf(1),1,0)
             estx(5) = estx(kht)
-            estx(6) = Rho
-            Estbuf(7) = 4
-            CALL write(scr4,Estbuf(5),3,0)
-            CALL write(scr4,Estbuf(2),4,0)
-            CALL write(scr4,Estbuf(l),16,1)
+            estx(6) = rho
+            estbuf(7) = 4
+            CALL write(scr4,estbuf(5),3,0)
+            CALL write(scr4,estbuf(2),4,0)
+            CALL write(scr4,estbuf(l),16,1)
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
          kht = 10
          l = 14
@@ -986,30 +927,27 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  60      CALL qdmemd
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
          IF ( estx(12)<=0.0 ) estx(12) = estx(8)
          kht = 12
          l = 14
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
-         IF ( Volume/=0.0 .OR. Surfac/=0.0 ) THEN
-            estx(8) = Elem(izero+1)
-            estx(9) = Elem(izero+2)
+         IF ( volume/=0.0 .OR. surfac/=0.0 ) THEN
+            estx(8) = elem(izero+1)
+            estx(9) = elem(izero+2)
             IF ( estx(11)<=0.0 ) estx(11) = estx(10)
             IF ( estx(12)<=0.0 ) estx(12) = estx(10)
             thk = (estx(10)+estx(11)+estx(12))/3.
-            Estbuf(10) = Estbuf(1)
+            estbuf(10) = estbuf(1)
             estx(11) = thk
-            estx(12) = Rho
-            Estbuf(13) = 6
-            CALL write(scr4,Estbuf(8),6,0)
-            CALL write(scr4,Estbuf(2),6,0)
-            CALL write(scr4,Estbuf(l),24,1)
+            estx(12) = rho
+            estbuf(13) = 6
+            CALL write(scr4,estbuf(8),6,0)
+            CALL write(scr4,estbuf(2),6,0)
+            CALL write(scr4,estbuf(l),24,1)
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (16)
 !
 !     PRINT WARNING MESSAGE TO INDICATE THAT QDMEM1 ELEMENTS
@@ -1017,10 +955,10 @@ USE ISO_FORTRAN_ENV
 !     ARE REPLACED BY QDMEM ELEMENTS (ELEMENT TYPE 16) IN
 !     -HEAT- FORMULATION
 !
-         index = 15*Incr
+         index = 15*incr
          index1 = 16
          CALL page2(3)
-         WRITE (outpt,99009) Uwm , Elem(izero+1) , Elem(izero+2) , Eltype , Elem(index+1) , Elem(index+2) , index1
+         WRITE (outpt,99009) uwm , elem(izero+1) , elem(izero+2) , eltype , elem(index+1) , elem(index+2) , index1
 99009    FORMAT (A25,' 3144, EMGPRO FINDS ',2A4,' ELEMENTS (ELEMENT TYPE ',I3,') PRESENT IN A HEAT FORMULATION AND IS',/5X,         &
                 &'REPLACING',' THE SAME BY ',2A4,' ELEMENTS (ELEMENT TYPE ',I3,2H).)
          GOTO ret
@@ -1028,11 +966,11 @@ USE ISO_FORTRAN_ENV
 !     ALL ELEMENTS OF THIS ELEMENT TYPE PROCESSED.
 !     COMPLETE DICTIONARY RECORD FOR ELEMENT TYPE.
 !
- 80      IF ( .NOT.(Error) ) THEN
+ 80      IF ( .NOT.(error) ) THEN
             DO i = 1 , 3
-               IF ( Flags(i)>0 ) THEN
-                  Flags(i) = -Flags(i)
-                  CALL write(Dictn(i),0,0,eor)
+               IF ( flags(i)>0 ) THEN
+                  flags(i) = -flags(i)
+                  CALL write(dictn(i),0,0,eor)
                ENDIF
             ENDDO
          ENDIF
@@ -1040,9 +978,9 @@ USE ISO_FORTRAN_ENV
 !     FOR SAFETY AND IF CONGRUENCY EXISTS CLEAR OFF ANY TABLE POINTERS
 !     ON PRIMARY-IDS IN THE CONGRUENCY LIST
 !
-         IF ( Anycon ) THEN
-            DO i = Icong , Ncong , 2
-               IF ( Z(i+1)<0 ) Z(i+1) = 0
+         IF ( anycon ) THEN
+            DO i = icong , ncong , 2
+               IF ( z(i+1)<0 ) z(i+1) = 0
             ENDDO
          ENDIF
          spag_nextblock_1 = 2
@@ -1050,17 +988,17 @@ USE ISO_FORTRAN_ENV
 !
 !     ALL ELEMENT TYPES HAVE BEEN PROCESSED.
 !
- 100     IF ( Knogo>0 .OR. Mnogo>0 ) CALL mesage(-61,0,0)
+ 100     IF ( knogo>0 .OR. mnogo>0 ) CALL mesage(-61,0,0)
          RETURN
 !
 !     IMPROPER ENCOUNTER OF AN -EOF-
 !
- 120     jfile = Est
+ 120     jfile = est
  140     CALL mesage(-2,jfile,subr)
 !
 !     IMPROPER ENCOUNTER OF AN -EOR-
 !
- 160     jfile = Est
+ 160     jfile = est
          CALL mesage(-3,jfile,subr)
 !
 !     FILE NOT IN FIST
@@ -1073,23 +1011,23 @@ USE ISO_FORTRAN_ENV
 !
          l1 = nsils
          DO l = i1 , i2
-            IF ( Estbuf(l)==0 ) THEN
+            IF ( estbuf(l)==0 ) THEN
                m = l1
                l1 = l1 - 1
             ELSE
                m = 1
                DO n = i1 , i2
-                  IF ( Estbuf(n)<Estbuf(l) ) THEN
-                  ELSEIF ( Estbuf(n)==Estbuf(l) ) THEN
+                  IF ( estbuf(n)<estbuf(l) ) THEN
+                  ELSEIF ( estbuf(n)==estbuf(l) ) THEN
                      IF ( n>=l ) CYCLE
                   ELSE
                      CYCLE
                   ENDIF
-                  IF ( Estbuf(n)/=0 ) m = m + 1
+                  IF ( estbuf(n)/=0 ) m = m + 1
                ENDDO
             ENDIF
             ipos(m) = l - i1 + 1
-            sil(m) = Estbuf(l)
+            sil(m) = estbuf(l)
          ENDDO
          IF ( igoto==1 ) THEN
             DO l = 1 , nsils
@@ -1099,14 +1037,13 @@ USE ISO_FORTRAN_ENV
                ENDIF
             ENDDO
             imatch = 1
-            CALL write(Dictn(j),Z(iaddd),nsils,noeor)
+            CALL write(dictn(j),z(iaddd),nsils,noeor)
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             DO l = i1 , i2
                l1 = l - i1 + 1
                SPAG_Loop_2_2: DO n = 1 , nsils
-                  IF ( Estbuf(l)==sil(n) ) THEN
+                  IF ( estbuf(l)==sil(n) ) THEN
                      iz(icg+l1+4) = n
                      EXIT SPAG_Loop_2_2
                   ENDIF
@@ -1125,35 +1062,35 @@ USE ISO_FORTRAN_ENV
 !     PICK UP ELEMENT MATRIX DATA FOR A CONGRUENT ELEMENT THAT HAS
 !     ALREADY BEEN PROCESSED AND STORE IT ON SCR3.
 !
-            ibuf1 = Ncore - sysbuf - 2
-            icrq = Jcore - ibuf1
+            ibuf1 = ncore - sysbuf - 2
+            icrq = jcore - ibuf1
             IF ( icrq<=0 ) THEN
                ibuf3 = ibuf1 - 1
-               icrq = Jcore - ibuf3 + 36*nsils*iprec
+               icrq = jcore - ibuf3 + 36*nsils*iprec
                IF ( icrq<=0 ) THEN
-                  ifile = Mats(j)
+                  ifile = mats(j)
                   IF ( iz(indcng+j+1)==0 ) THEN
                      CALL savpos(ifile,isave1)
                      CALL close(ifile,1)
                      ibuf2 = Ibuf(ibfind+1)
-                     CALL gopen(ifile,Z(ibuf2),0)
-                     CALL filpos(ifile,Z(iaddd))
+                     CALL gopen(ifile,z(ibuf2),0)
+                     CALL filpos(ifile,z(iaddd))
                      IF ( isave2/=0 ) THEN
                         jfile = scr3
-                        CALL open(*180,scr3,Z(ibuf1),3)
+                        CALL open(*180,scr3,z(ibuf1),3)
                      ELSE
-                        CALL gopen(scr3,Z(ibuf1),1)
+                        CALL gopen(scr3,z(ibuf1),1)
                      ENDIF
                      jfile = ifile
                      DO l1 = 1 , nsils
-                        CALL read(*140,*182,ifile,Z(Jcore),ibuf3,eor,n)
- 182                    CALL write(scr3,Z(Jcore),n,eor)
+                        CALL read(*140,*182,ifile,z(jcore),ibuf3,eor,n)
+ 182                    CALL write(scr3,z(jcore),n,eor)
                         IF ( l1==1 ) CALL savpos(scr3,iz(indcng+j+1))
                      ENDDO
                      CALL filpos(ifile,isave1)
                      CALL skprec(ifile,1)
                      CALL close(ifile,2)
-                     CALL open(*180,ifile,Z(ibuf2),3)
+                     CALL open(*180,ifile,z(ibuf2),3)
                      CALL savpos(scr3,isave2)
                      CALL close(scr3,1)
                   ENDIF
@@ -1161,29 +1098,29 @@ USE ISO_FORTRAN_ENV
 !     ELEMENT MATRIX DATA IS AVAILABLE ON SCR3.  REARRANGE IT IN
 !     THE REQUIRED ORDER AND WRITE IT ON THE OUTPUT DATA BLOCK.
 !
-                  CALL gopen(scr3,Z(ibuf1),0)
+                  CALL gopen(scr3,z(ibuf1),0)
                   jfile = scr3
                   DO l = 1 , nsils
                      CALL filpos(scr3,iz(indcng+j+1))
                      m = ipos(l)
                      n = iz(indcng+m+4) - 1
                      CALL skprec(scr3,n)
-                     CALL read(*140,*184,scr3,Z(Jcore),ibuf3,eor,n)
+                     CALL read(*140,*184,scr3,z(jcore),ibuf3,eor,n)
  184                 nnwrds = n/(nsils*iprec)
                      nnwrds = sqrt(nnwrds+0.5)
                      nwords = nnwrds*iprec
-                     jjcore = Jcore
+                     jjcore = jcore
                      DO l2 = 1 , nnwrds
                         DO l1 = 1 , nsils
                            m = ipos(l1)
                            n = iz(indcng+m+4) - 1
-                           CALL write(ifile,Z(jjcore+n*nwords),nwords,noeor)
+                           CALL write(ifile,z(jjcore+n*nwords),nwords,noeor)
                         ENDDO
                         jjcore = jjcore + nwords*nsils
                      ENDDO
                      CALL write(ifile,0,0,1)
                      CALL savpos(ifile,isave1)
-                     CALL write(Dictn(j),isave1,1,noeor)
+                     CALL write(dictn(j),isave1,1,noeor)
                   ENDDO
                   CALL filpos(scr3,isave2)
                   CALL skprec(scr3,1)
@@ -1192,7 +1129,7 @@ USE ISO_FORTRAN_ENV
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
-            WRITE (outpt,99010) Uim , Estid
+            WRITE (outpt,99010) uim , estid
 99010       FORMAT (A29,' 2384, CONGRUENCY OF ELEMENT ID =',I10,' WILL BE IGNORED AND ITS ELEMENT MATRICES',/5X,                    &
                    &'WILL BE RE-COMPUTED AS THERE IS INSUFFICIENT CORE AT ','THIS TIME TO PERFORM CONGRUENCY MAPPING COMPUTATIONS.')
             WRITE (outpt,99012) icrq
@@ -1206,10 +1143,9 @@ USE ISO_FORTRAN_ENV
             DO l = 1 , nsils
                m = ipos(l)
                n = iz(indcng+m+4) - 1
-               CALL write(Dictn(j),Z(iaddd+n),1,noeor)
+               CALL write(dictn(j),z(iaddd+n),1,noeor)
             ENDDO
             spag_nextblock_1 = 8
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       END SELECT
    ENDDO SPAG_DispatchLoop_1

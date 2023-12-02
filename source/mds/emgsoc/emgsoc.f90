@@ -2,14 +2,20 @@
  
 SUBROUTINE emgsoc(Icore,Ncore,Heat)
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_ZZEMGX
+   USE c_machin
+   USE c_zzemgx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
    INTEGER :: Icore
    INTEGER :: Ncore
    REAL :: Heat
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -28,7 +34,7 @@ SUBROUTINE emgsoc(Icore,Ncore,Heat)
 !     START AT AN ODD ADDRESS.
 !
 !
-   Ncore = korsz(Ixxx)
+   Ncore = korsz(ixxx)
    Icore = 3
-   IF ( Mach==3 .OR. Mach==4 ) STOP ' EMGSOC'
+   IF ( mach==3 .OR. mach==4 ) STOP ' EMGSOC'
 END SUBROUTINE emgsoc

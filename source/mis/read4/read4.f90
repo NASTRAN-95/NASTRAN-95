@@ -1,14 +1,15 @@
-!*==read4.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==read4.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE read4(Lama,Phi,Scr1,Eps,Mass)
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -46,7 +47,7 @@ USE ISO_FORTRAN_ENV
 !
          ncol = Phi(2)
          nrow = Phi(3)
-         nz = korsz(Z)
+         nz = korsz(z)
          ibuf = nz - isys
          ibuf1 = ibuf - isys
          ibuf2 = ibuf1 - isys
@@ -54,25 +55,25 @@ USE ISO_FORTRAN_ENV
          idid = 0
          ipr = Phi(5)
          rmult = .01
-         Itype = Rsp
-         Iunpak = 1
-         Junpak = nrow
-         Incr = 1
-         Itypa = Rsp
-         Itypb = Rsp
-         Ipak = 1
-         Jpak = nrow
-         Incrx = 1
+         itype = rsp
+         iunpak = 1
+         junpak = nrow
+         incr = 1
+         itypa = rsp
+         itypb = rsp
+         ipak = 1
+         jpak = nrow
+         incrx = 1
          epsi = Eps
          IF ( Eps<=0. ) epsi = .0001
          nz = nz - isys - isys - 1 - isys
-         CALL makmcb(phi1,Scr1,nrow,2,Rsp)
+         CALL makmcb(phi1,Scr1,nrow,2,rsp)
          ifile = Lama
-         CALL gopen(Lama,Z(ibuf),0)
-         CALL read(*40,*20,Lama,Z(1),nz,1,n)
+         CALL gopen(Lama,z(ibuf),0)
+         CALL read(*40,*20,Lama,z(1),nz,1,n)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 20      CALL close(Lama,Rew)
+ 20      CALL close(Lama,rew)
 !
 !     REJECT ALL BUT VALUES FOR WHICH VECTORS EXIST
 !
@@ -83,25 +84,24 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ifile = Phi(1)
-         CALL gopen(Phi,Z(ibuf),0)
+         CALL gopen(Phi,z(ibuf),0)
          ipos = 1
          i = 1
          eps1 = rmult
          spag_nextblock_1 = 2
       CASE (2)
-         IF ( abs(Z(i))+abs(Z(i+1))>=eps1 ) THEN
-            IF ( Z(i+1)==0.0 ) THEN
+         IF ( abs(z(i))+abs(z(i+1))>=eps1 ) THEN
+            IF ( z(i+1)==0.0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( abs(1.0-Z(i)/Z(i+1))>eps1 ) THEN
+            IF ( abs(1.0-z(i)/z(i+1))>eps1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
          IF ( iclos==0 ) iclos = i
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          num = i - iclos + 1
          eps1 = rmult
@@ -112,13 +112,13 @@ USE ISO_FORTRAN_ENV
          IF ( idid/=1 ) THEN
             idid = 1
             ifile = Scr1
-            CALL gopen(Scr1,Z(ibuf1),Wrtrew)
+            CALL gopen(Scr1,z(ibuf1),wrtrew)
          ENDIF
          ii = n + 1
          DO WHILE ( ipos/=iclos )
             ifile = Phi(1)
-            CALL unpack(*60,Phi,Z(ii))
-            CALL pack(Z(ii),Scr1,phi1)
+            CALL unpack(*60,Phi,z(ii))
+            CALL pack(z(ii),Scr1,phi1)
             ipos = ipos + 1
          ENDDO
 !
@@ -129,7 +129,7 @@ USE ISO_FORTRAN_ENV
          IF ( kore>nz ) THEN
 !
             eps2 = eps1/10.
-            WRITE (iout,99001) Uwm , num , i , eps1 , eps2
+            WRITE (iout,99001) uwm , num , i , eps1 , eps2
 99001       FORMAT (A25,' 3142, INSUFFICIENT CORE STORAGE FOR EIGENVECTORS ','ASSOCIATED WITH',I4,                                  &
                    &' MULTIPLE EIGENVALUES STARTING WITH',/28X,'MODE NUMBER',I4,' USING CURRENT MULTIPLE ROOT ',                    &
                    &'CRITERIA. CRITERIA REDUCED FROM ',1P,E12.5,' TO ',E12.5)
@@ -139,7 +139,7 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ELSE
             DO j = 1 , num
-               CALL unpack(*60,Phi,Z(ii))
+               CALL unpack(*60,Phi,z(ii))
                ipos = ipos + 1
                ii = ii + nrow
                IF ( ii+nrow>=nz ) THEN
@@ -149,10 +149,10 @@ USE ISO_FORTRAN_ENV
             ENDDO
             ij = ii + n + n + 3
             ii = ii/2 + 1
-            CALL ortck(Z(n+1),Mass,Z(ibuf2),num,nrow,Z(ij),dz(ii),epsi)
+            CALL ortck(z(n+1),Mass,z(ibuf2),num,nrow,z(ij),dz(ii),epsi)
             ii = n + 1
             DO j = 1 , num
-               CALL pack(Z(ii),Scr1,phi1)
+               CALL pack(z(ii),Scr1,phi1)
                ii = ii + nrow
             ENDDO
             iclos = 0
@@ -177,32 +177,31 @@ USE ISO_FORTRAN_ENV
          IF ( idid/=0 ) THEN
             IF ( ipos<=ncol ) THEN
                DO i = ipos , ncol
-                  CALL unpack(*60,Phi,Z)
-                  CALL pack(Z(1),Scr1,phi1)
+                  CALL unpack(*60,Phi,z)
+                  CALL pack(z(1),Scr1,phi1)
                ENDDO
             ENDIF
             CALL wrttrl(phi1)
 !
 !     COPY VECTORS FROM SCR1 TO PHI
 !
-            CALL close(Phi,Rew)
-            CALL close(Scr1,Rew)
-            CALL gopen(Phi,Z(ibuf),1)
-            CALL gopen(Scr1,Z(ibuf1),Rdrew)
+            CALL close(Phi,rew)
+            CALL close(Scr1,rew)
+            CALL gopen(Phi,z(ibuf),1)
+            CALL gopen(Scr1,z(ibuf1),rdrew)
             CALL makmcb(Phi,Phi,nrow,2,ipr)
-            Itypb = ipr
+            itypb = ipr
             DO i = 1 , n
-               CALL unpack(*60,Scr1,Z)
-               CALL pack(Z,Phi,Phi)
+               CALL unpack(*60,Scr1,z)
+               CALL pack(z,Phi,Phi)
             ENDDO
             CALL wrttrl(Phi)
-            CALL close(Scr1,Rew)
+            CALL close(Scr1,rew)
          ENDIF
-         CALL close(Phi,Rew)
+         CALL close(Phi,rew)
          RETURN
  40      no = -2
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
          no = -8
          spag_nextblock_1 = 7

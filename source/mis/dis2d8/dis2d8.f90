@@ -1,13 +1,14 @@
-!*==dis2d8.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dis2d8.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dis2d8
-USE C_DS1AAA
-USE C_DS1ADP
-USE C_DS1AET
-USE C_MATIN
-USE C_MATOUT
-USE ISO_FORTRAN_ENV                 
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matout
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -112,7 +113,7 @@ USE ISO_FORTRAN_ENV
 !     TEST FOR PIVOT POINT
 !
          DO kk = 1 , 8
-            IF ( Ngrid(kk)==Npvt ) THEN
+            IF ( ngrid(kk)==npvt ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -138,9 +139,9 @@ USE ISO_FORTRAN_ENV
 !     K VECTOR IS OBTAINED BY CROSSING I INTO VECTOR FROM GRID PT. 1 TO
 !     GRID
 !
-            veck(1) = veci(2)*(Z4-Z1) - veci(3)*(Y4-Y1)
-            veck(2) = veci(3)*(X4-X1) - veci(1)*(Z4-Z1)
-            veck(3) = veci(1)*(Y4-Y1) - veci(2)*(X4-X1)
+            veck(1) = veci(2)*(z4-z1) - veci(3)*(y4-y1)
+            veck(2) = veci(3)*(x4-x1) - veci(1)*(z4-z1)
+            veck(3) = veci(1)*(y4-y1) - veci(2)*(x4-x1)
             veckl = sqrt(veck(1)**2+veck(2)**2+veck(3)**2)
             IF ( veckl/=0.0 ) THEN
                veck(1) = veck(1)/veckl
@@ -168,10 +169,10 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE ELEMENT COORDS FOR GRIDS 1 AND 2
 !
-               Xx(1) = 0.
-               Xx(2) = 0.
-               Xx(3) = vecil
-               Xx(4) = 0.
+               xx(1) = 0.
+               xx(2) = 0.
+               xx(3) = vecil
+               xx(4) = 0.
 !
 !     FOR GRIDS 3-8, THE X COORDINATE IS THE DOT PRODUCT OF HTE VECTOR
 !     FROM GRID POINT 1 TO THE GRID POINT AND THE I VECTOR. THE Y COORD.
@@ -181,67 +182,67 @@ USE ISO_FORTRAN_ENV
                DO i = 3 , 8
                   ixx = 2*i - 1
                   isub = 4*i + 11
-                  vec(1) = ecpt(isub) - X1
-                  vec(2) = ecpt(isub+1) - Y1
-                  vec(3) = ecpt(isub+2) - Z1
-                  Xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
+                  vec(1) = ecpt(isub) - x1
+                  vec(2) = ecpt(isub+1) - y1
+                  vec(3) = ecpt(isub+2) - z1
+                  xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
                   vvec(1) = veci(2)*vec(3) - veci(3)*vec(2)
                   vvec(2) = veci(3)*vec(1) - veci(1)*vec(3)
                   vvec(3) = veci(1)*vec(2) - veci(2)*vec(1)
-                  Xx(ixx+1) = sqrt(vvec(1)**2+vvec(2)**2+vvec(3)**2)
+                  xx(ixx+1) = sqrt(vvec(1)**2+vvec(2)**2+vvec(3)**2)
                ENDDO
 !
 !     COMPUTE MATERIAL PROPERTIES
 !
-               tth = Th*3.1415927/180.
-               Sinth = sin(tth)
-               Costh = cos(tth)
-               Eltemp = Ttemp
-               Inflag = 2
-               Matid = Matid1
+               tth = th*3.1415927/180.
+               sinth = sin(tth)
+               costh = cos(tth)
+               eltemp = ttemp
+               inflag = 2
+               matid = matid1
                CALL mat(ecpt(1))
                DO i = 1 , 3
-                  G(i) = qq(i)
+                  g(i) = qq(i)
                ENDDO
-               G(4) = qq(2)
-               G(5) = qq(4)
-               G(6) = qq(5)
-               G(7) = qq(3)
-               G(8) = qq(5)
-               G(9) = qq(6)
-               thick = T
+               g(4) = qq(2)
+               g(5) = qq(4)
+               g(6) = qq(5)
+               g(7) = qq(3)
+               g(8) = qq(5)
+               g(9) = qq(6)
+               thick = t
                DO i = 1 , 9
-                  r(i) = G(i)
+                  r(i) = g(i)
                ENDDO
-               IF ( Isetno/=0 ) CALL gmmats(r,3,3,0,alphas,3,1,0,st)
+               IF ( isetno/=0 ) CALL gmmats(r,3,3,0,alphas,3,1,0,st)
 !
 !     ZERO OUT THE KIJ AND SAVE MATRICES
 !
                DO i = 1 , 36
                   kwd(i) = 0.D0
-                  Kij(i) = 0.D0
+                  kij(i) = 0.D0
                ENDDO
                DO i = 1 , 72
                   save(i) = 0.D0
                ENDDO
 !
-               Pt(1) = -0.57735027D0
-               Pt(2) = -Pt(1)
-               H(1) = 1.D0
-               H(2) = 1.D0
-               IF ( Id1/=2 ) THEN
-                  Pt(1) = -0.77459667D0
-                  Pt(2) = 0.D0
-                  Pt(3) = -Pt(1)
-                  H(1) = 5.D0/9.D0
-                  H(2) = 8.D0/9.D0
-                  H(3) = H(1)
+               pt(1) = -0.57735027D0
+               pt(2) = -pt(1)
+               h(1) = 1.D0
+               h(2) = 1.D0
+               IF ( id1/=2 ) THEN
+                  pt(1) = -0.77459667D0
+                  pt(2) = 0.D0
+                  pt(3) = -pt(1)
+                  h(1) = 5.D0/9.D0
+                  h(2) = 8.D0/9.D0
+                  h(3) = h(1)
                ENDIF
 !
 !     2 OR 3 QUADRATURE POINTS
 !
-               DO iii = 1 , Id1
-                  DO jjj = 1 , Id1
+               DO iii = 1 , id1
+                  DO jjj = 1 , id1
                      spag_nextblock_2 = 1
                      SPAG_DispatchLoop_2: DO
                         SELECT CASE (spag_nextblock_2)
@@ -254,18 +255,18 @@ USE ISO_FORTRAN_ENV
 !     EACH GRID POINT
 !
                            DO n = 1 , 4
-                              dnxi(n) = .25D0*xi(n)*(1.D0+Pt(jjj)*eta(n))*(2.D0*Pt(iii)*xi(n)+Pt(jjj)*eta(n))
-                              dneta(n) = .25D0*eta(n)*(1.D0+Pt(iii)*xi(n))*(Pt(iii)*xi(n)+2.D0*Pt(jjj)*eta(n))
+                              dnxi(n) = .25D0*xi(n)*(1.D0+pt(jjj)*eta(n))*(2.D0*pt(iii)*xi(n)+pt(jjj)*eta(n))
+                              dneta(n) = .25D0*eta(n)*(1.D0+pt(iii)*xi(n))*(pt(iii)*xi(n)+2.D0*pt(jjj)*eta(n))
                            ENDDO
                            DO n = 5 , 7 , 2
 !
-                              dnxi(n) = -Pt(iii)*(1.D0+Pt(jjj)*eta(n))
-                              dneta(n) = .5D0*(1.D0-Pt(iii)*Pt(iii))*eta(n)
+                              dnxi(n) = -pt(iii)*(1.D0+pt(jjj)*eta(n))
+                              dneta(n) = .5D0*(1.D0-pt(iii)*pt(iii))*eta(n)
                            ENDDO
 !
                            DO n = 6 , 8 , 2
-                              dnxi(n) = .5D0*xi(n)*(1.D0-Pt(jjj)*Pt(jjj))
-                              dneta(n) = -Pt(jjj)*(1.D0+Pt(iii)*xi(n))
+                              dnxi(n) = .5D0*xi(n)*(1.D0-pt(jjj)*pt(jjj))
+                              dneta(n) = -pt(jjj)*(1.D0+pt(iii)*xi(n))
                            ENDDO
 !
 !     COMPUTE JACOBEAN
@@ -282,7 +283,7 @@ USE ISO_FORTRAN_ENV
 !          X7  Y7
 !          X8  Y8
 !
-                           CALL gmmatd(Dnc,2,8,0,Xx,8,2,0,Xjb)
+                           CALL gmmatd(dnc,2,8,0,xx,8,2,0,xjb)
 !
 !     XJB IS ROW-STORED-IT MUST BE COLUMN-STORED AND DOUBLY DIMENSIONED
 !     FOR INVERSION
@@ -291,15 +292,15 @@ USE ISO_FORTRAN_ENV
                            DO i = 1 , 2
                               DO j = 1 , 2
                                  k = k + 1
-                                 Xxjb(i,j) = Xjb(k)
+                                 xxjb(i,j) = xjb(k)
                               ENDDO
                            ENDDO
 !
 !     COMPUTE INVERSE AND DETERMINANT OF JACOBEAN
 !
-                           CALL inverd(2,Xxjb,2,Dumarg,0,Determ,ising,iws)
+                           CALL inverd(2,xxjb,2,dumarg,0,determ,ising,iws)
                            IF ( ising==2 ) CALL mesage(-30,143,ecpt(1))
-                           dhh = Determ*H(iii)*H(jjj)
+                           dhh = determ*h(iii)*h(jjj)
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO X AND Y
 !
@@ -307,10 +308,10 @@ USE ISO_FORTRAN_ENV
                            DO i = 1 , 2
                               DO j = 1 , 2
                                  k = k + 1
-                                 Xjb(k) = Xxjb(i,j)
+                                 xjb(k) = xxjb(i,j)
                               ENDDO
                            ENDDO
-                           CALL gmmatd(Xjb,2,2,0,Dnc,2,8,0,Dnl)
+                           CALL gmmatd(xjb,2,2,0,dnc,2,8,0,dnl)
 !
 !           N1X N2X N3X N4X N5X N6X N7X N8X
 !     DNL = N1Y N2Y N3Y N4Y N5Y N6Y N7Y N8Y
@@ -323,13 +324,12 @@ USE ISO_FORTRAN_ENV
 !
                            idtemp = 0
                            DO i = 1 , 8
-                              IF ( Tgrid(i)/=0. ) THEN
+                              IF ( tgrid(i)/=0. ) THEN
                                  spag_nextblock_2 = 2
                                  CYCLE SPAG_DispatchLoop_2
                               ENDIF
                            ENDDO
                            spag_nextblock_2 = 3
-                           CYCLE SPAG_DispatchLoop_2
                         CASE (2)
                            idtemp = 1
                            spag_nextblock_2 = 3
@@ -350,12 +350,12 @@ USE ISO_FORTRAN_ENV
 !
 !     TRANSFORM TO ELEMENT COORDINATES
 !
-                              IF ( Necpt(4*n+10)==0 ) THEN
+                              IF ( necpt(4*n+10)==0 ) THEN
                                  DO i = 1 , 6
                                     stb(i) = se1t(i)
                                  ENDDO
                               ELSE
-                                 CALL transs(Necpt(4*n+10),ttb)
+                                 CALL transs(necpt(4*n+10),ttb)
                                  CALL gmmats(se1t,2,3,0,ttb,3,3,0,stb)
                               ENDIF
                               CALL gmmats(s,3,2,0,stb,2,3,0,semp(1))
@@ -377,32 +377,32 @@ USE ISO_FORTRAN_ENV
 !
 !     COMPUTE STRESSES
 !
-                           CALL gmmats(db,3,24,0,Disp,24,1,0,sig)
+                           CALL gmmats(db,3,24,0,disp,24,1,0,sig)
 !
 !
 !     COMPUTE GAUSS POINT  TEMPERATURES
 !
-                           IF ( Isetno/=0 ) THEN
+                           IF ( isetno/=0 ) THEN
                               IF ( idtemp==1 ) THEN
 !
 !     ALL TEMPERATURES ARE DEFAULT VALUE
 !
                                  DO n = 1 , 4
-                                    dn(n) = .25*(1.+Pt(iii)*xi(n))*(1.+Pt(jjj)*eta(n))*(Pt(iii)*xi(n)+Pt(jjj)*eta(n)-1.)
+                                    dn(n) = .25*(1.+pt(iii)*xi(n))*(1.+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.)
                                  ENDDO
                                  DO n = 5 , 7 , 2
-                                    dn(n) = .5*(1.-Pt(iii)*Pt(iii))*(1.+Pt(jjj)*eta(n))
+                                    dn(n) = .5*(1.-pt(iii)*pt(iii))*(1.+pt(jjj)*eta(n))
                                  ENDDO
                                  DO n = 6 , 8 , 2
-                                    dn(n) = .5*(1.+Pt(iii)*xi(n))*(1.-Pt(jjj)*Pt(jjj))
+                                    dn(n) = .5*(1.+pt(iii)*xi(n))*(1.-pt(jjj)*pt(jjj))
                                  ENDDO
                                  gstemp = 0.
                                  DO n = 1 , 8
-                                    gstemp = gstemp + dn(n)*Tgrid(n)
+                                    gstemp = gstemp + dn(n)*tgrid(n)
                                  ENDDO
-                                 rgtemp = gstemp - Tref
+                                 rgtemp = gstemp - tref
                               ELSE
-                                 rgtemp = Eltemp - Tref
+                                 rgtemp = eltemp - tref
                               ENDIF
                               DO i = 1 , 3
                                  sig(i) = sig(i) - st(i)*rgtemp
@@ -489,7 +489,7 @@ USE ISO_FORTRAN_ENV
 !     CHECK ON NECESSITY OF PRE-MULTIPLYING COORDINATE TRANSFORMATIONS
 !
                isub = 4*kk + 10
-               IF ( Necpt(isub)==0 ) THEN
+               IF ( necpt(isub)==0 ) THEN
                   DO i = 1 , 9
                      premul(i) = e1t(i)
                   ENDDO
@@ -497,8 +497,8 @@ USE ISO_FORTRAN_ENV
 !
 !     ELEMENT TO GLOBAL
 !
-                  CALL transd(Necpt(isub),Tb)
-                  CALL gmmatd(e1t,3,3,0,Tb,3,3,0,premul)
+                  CALL transd(necpt(isub),tb)
+                  CALL gmmatd(e1t,3,3,0,tb,3,3,0,premul)
                ENDIF
                DO n = 1 , 8
                   ll = 9*n - 8
@@ -508,7 +508,7 @@ USE ISO_FORTRAN_ENV
 !
                   DO i = 1 , 9
                      l = 9*n + i - 9
-                     Tsave(l) = temp(i)
+                     tsave(l) = temp(i)
                   ENDDO
 !
                ENDDO
@@ -518,7 +518,7 @@ USE ISO_FORTRAN_ENV
                DO n = 1 , 8
                   isub = 4*n + 10
                   ll = 9*n - 8
-                  IF ( Necpt(isub)==0 ) THEN
+                  IF ( necpt(isub)==0 ) THEN
                      DO i = 1 , 9
                         pstmul(i) = e1t(i)
                      ENDDO
@@ -526,29 +526,29 @@ USE ISO_FORTRAN_ENV
 !
 !     GLOBAL TO ELEMENT
 !
-                     CALL transd(Necpt(isub),Tb)
-                     CALL gmmatd(e1t,3,3,0,Tb,3,3,0,pstmul)
+                     CALL transd(necpt(isub),tb)
+                     CALL gmmatd(e1t,3,3,0,tb,3,3,0,pstmul)
                   ENDIF
 !
 !     POST-MULTIPLY
 !
-                  CALL gmmatd(Tsave(ll),3,3,0,pstmul,3,3,0,temp)
+                  CALL gmmatd(tsave(ll),3,3,0,pstmul,3,3,0,temp)
 !
 !     FILL OUT THE 6 X 6 PARTITION
 !
-                  Kij(1) = temp(1)*thick
-                  Kij(2) = temp(2)*thick
-                  Kij(3) = temp(3)*thick
-                  Kij(7) = temp(4)*thick
-                  Kij(8) = temp(5)*thick
-                  Kij(9) = temp(6)*thick
-                  Kij(13) = temp(7)*thick
-                  Kij(14) = temp(8)*thick
-                  Kij(15) = temp(9)*thick
+                  kij(1) = temp(1)*thick
+                  kij(2) = temp(2)*thick
+                  kij(3) = temp(3)*thick
+                  kij(7) = temp(4)*thick
+                  kij(8) = temp(5)*thick
+                  kij(9) = temp(6)*thick
+                  kij(13) = temp(7)*thick
+                  kij(14) = temp(8)*thick
+                  kij(15) = temp(9)*thick
 !
 !     INSERT INTO THE OVERALL STIFFNESS MATRIX
 !
-                  CALL ds1b(Kij,Necpt(n+1))
+                  CALL ds1b(kij,necpt(n+1))
 !
 !     LOOP FOR MORE PARTITIONS
 !

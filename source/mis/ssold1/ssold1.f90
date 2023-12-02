@@ -1,12 +1,13 @@
-!*==ssold1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssold1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssold1(Itype)
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -93,88 +94,88 @@ SUBROUTINE ssold1(Itype)
    DATA m(14,1) , m(14,2) , m(14,3) , m(14,4)/4 , 5 , 7 , 8/
 !
    IF ( Itype==2 ) THEN
-      Npts = 6
-      Nel = 3
-      Mfirst = 2
+      npts = 6
+      nel = 3
+      mfirst = 2
    ELSEIF ( Itype==3 ) THEN
-      Npts = 8
-      Nel = 5
-      Mfirst = 5
+      npts = 8
+      nel = 5
+      mfirst = 5
    ELSEIF ( Itype==4 ) THEN
-      Npts = 8
-      Nel = 10
-      Mfirst = 5
+      npts = 8
+      nel = 10
+      mfirst = 5
    ELSE
 !*****
 !     THE TYPE OF THE ELEMENT DETERMINES THE FOLLOWING PARAMETERS
 !*****
-      Npts = 4
-      Nel = 1
-      Mfirst = 1
+      npts = 4
+      nel = 1
+      mfirst = 1
    ENDIF
 !*****
 !     ZERO OUT ARRAYS
 !*****
-   Elvol = 0.0
-   DO j = 1 , Npts
-      Beta(j) = 0.0
+   elvol = 0.0
+   DO j = 1 , npts
+      beta(j) = 0.0
       DO i = 1 , 18
-         Cmat(i,j) = 0.0
+         cmat(i,j) = 0.0
       ENDDO
    ENDDO
 !*****
 !     LOOP ON SUBELEMENTS
 !*****
-   DO me = 1 , Nel
-      Nrow = Mfirst + me - 1
+   DO me = 1 , nel
+      nrow = mfirst + me - 1
 !*****
 !     J  CORRESPONDS TO THE X,Y,AND Z LOCATIONS OF EACH CONNECTED POINT
 !*****
       DO j = 1 , 3
-         J1 = m(Nrow,1)*4 + Npts + j - 1
+         j1 = m(nrow,1)*4 + npts + j - 1
 !*****
 !     I  CORRESPONDS TO POINTS 2,3,AND 4
 !*****
          DO i = 1 , 3
-            Jloc = m(Nrow,i+1)*4 + Npts + j - 1
+            jloc = m(nrow,i+1)*4 + npts + j - 1
 !*****
 !     ECPT(JLOC) IS THE JTH COMPONENT OF POINT I+1
 !*****
-            R(i,j) = Ecpt(Jloc) - Ecpt(J1)
+            r(i,j) = ecpt(jloc) - ecpt(j1)
          ENDDO
       ENDDO
 !*****
 !     INVERT THE GEOMETRY MATRIX EXPLICITLY USING VECTOR OPERATORS
 !*****
-      CALL saxb(R(1,3),R(1,2),Temp)
-      H(2,1) = Temp(1) + Temp(2) + Temp(3)
-      H(2,2) = R(2,2)*R(3,3) - R(3,2)*R(2,3)
-      H(2,3) = R(3,2)*R(1,3) - R(1,2)*R(3,3)
-      H(2,4) = R(1,2)*R(2,3) - R(2,2)*R(1,3)
-      CALL saxb(R(1,1),R(1,3),Temp)
-      H(3,1) = Temp(1) + Temp(2) + Temp(3)
-      H(3,2) = R(2,3)*R(3,1) - R(3,3)*R(2,1)
-      H(3,3) = R(3,3)*R(1,1) - R(1,3)*R(3,1)
-      H(3,4) = R(1,3)*R(2,1) - R(2,3)*R(1,1)
-      CALL saxb(R(1,1),R(1,2),Temp)
-      H(4,1) = -Temp(1) - Temp(2) - Temp(3)
-      H(4,2) = R(2,1)*R(3,2) - R(3,1)*R(2,2)
-      H(4,3) = R(3,1)*R(1,2) - R(1,1)*R(3,2)
-      H(4,4) = R(1,1)*R(2,2) - R(2,1)*R(1,2)
-      Vol = (R(1,3)*Temp(1)+R(2,3)*Temp(2)+R(3,3)*Temp(3))/6.0
-      Elvol = Elvol + Vol
+      CALL saxb(r(1,3),r(1,2),temp)
+      h(2,1) = temp(1) + temp(2) + temp(3)
+      h(2,2) = r(2,2)*r(3,3) - r(3,2)*r(2,3)
+      h(2,3) = r(3,2)*r(1,3) - r(1,2)*r(3,3)
+      h(2,4) = r(1,2)*r(2,3) - r(2,2)*r(1,3)
+      CALL saxb(r(1,1),r(1,3),temp)
+      h(3,1) = temp(1) + temp(2) + temp(3)
+      h(3,2) = r(2,3)*r(3,1) - r(3,3)*r(2,1)
+      h(3,3) = r(3,3)*r(1,1) - r(1,3)*r(3,1)
+      h(3,4) = r(1,3)*r(2,1) - r(2,3)*r(1,1)
+      CALL saxb(r(1,1),r(1,2),temp)
+      h(4,1) = -temp(1) - temp(2) - temp(3)
+      h(4,2) = r(2,1)*r(3,2) - r(3,1)*r(2,2)
+      h(4,3) = r(3,1)*r(1,2) - r(1,1)*r(3,2)
+      h(4,4) = r(1,1)*r(2,2) - r(2,1)*r(1,2)
+      vol = (r(1,3)*temp(1)+r(2,3)*temp(2)+r(3,3)*temp(3))/6.0
+      elvol = elvol + vol
       DO i = 1 , 4
-         Kpt = m(Nrow,i)
-         Beta(Kpt) = Beta(Kpt) + Vol
-         Cmat(1,Kpt) = H(2,i)/6.0 + Cmat(1,Kpt)
-         Cmat(5,Kpt) = H(3,i)/6.0 + Cmat(5,Kpt)
-         Cmat(9,Kpt) = H(4,i)/6.0 + Cmat(9,Kpt)
-         Cmat(11,Kpt) = H(4,i)/6.0 + Cmat(11,Kpt)
-         Cmat(12,Kpt) = H(3,i)/6.0 + Cmat(12,Kpt)
-         Cmat(13,Kpt) = H(4,i)/6.0 + Cmat(13,Kpt)
-         Cmat(15,Kpt) = H(2,i)/6.0 + Cmat(15,Kpt)
-         Cmat(16,Kpt) = H(3,i)/6.0 + Cmat(16,Kpt)
-         Cmat(17,Kpt) = H(2,i)/6.0 + Cmat(17,Kpt)
+         kpt = m(nrow,i)
+         beta(kpt) = beta(kpt) + vol
+         cmat(1,kpt) = h(2,i)/6.0 + cmat(1,kpt)
+         cmat(5,kpt) = h(3,i)/6.0 + cmat(5,kpt)
+         cmat(9,kpt) = h(4,i)/6.0 + cmat(9,kpt)
+         cmat(11,kpt) = h(4,i)/6.0 + cmat(11,kpt)
+         cmat(12,kpt) = h(3,i)/6.0 + cmat(12,kpt)
+         cmat(13,kpt) = h(4,i)/6.0 + cmat(13,kpt)
+         cmat(15,kpt) = h(2,i)/6.0 + cmat(15,kpt)
+         cmat(16,kpt) = h(3,i)/6.0 + cmat(16,kpt)
+         cmat(17,kpt) = h(2,i)/6.0 + cmat(17,kpt)
       ENDDO
    ENDDO
 !*****
@@ -186,26 +187,26 @@ SUBROUTINE ssold1(Itype)
 !
 !     CALL THE MATERIAL  ROUTINE TO OBTAIN PARAMETERS
 !*****
-   Nmat = necpt(2)
-   Matflg = 1
-   Eltemp = Ecpt(5*Npts+3)
-   CALL mat(Ecpt(1))
-   Fact = E/((1.0+Nu)*(1.0-2.0*Nu))
+   nmat = necpt(2)
+   matflg = 1
+   eltemp = ecpt(5*npts+3)
+   CALL mat(ecpt(1))
+   fact = e/((1.0+nu)*(1.0-2.0*nu))
    DO i = 1 , 36
-      Ge(i) = 0.0
+      ge(i) = 0.0
    ENDDO
-   Ge(1) = Fact*(1.0-Nu)
-   Ge(2) = Fact*Nu
-   Ge(3) = Ge(2)
-   Ge(7) = Ge(2)
-   Ge(8) = Ge(1)
-   Ge(9) = Ge(2)
-   Ge(13) = Ge(2)
-   Ge(14) = Ge(2)
-   Ge(15) = Ge(1)
-   Ge(22) = G
-   Ge(29) = G
-   Ge(36) = G
+   ge(1) = fact*(1.0-nu)
+   ge(2) = fact*nu
+   ge(3) = ge(2)
+   ge(7) = ge(2)
+   ge(8) = ge(1)
+   ge(9) = ge(2)
+   ge(13) = ge(2)
+   ge(14) = ge(2)
+   ge(15) = ge(1)
+   ge(22) = g
+   ge(29) = g
+   ge(36) = g
 !*****
 !     EACH CMAT MATRIX IS PREEMULTIPLIED BY THE STRESS-STRAIN GE MATRIX
 !         AND DIVIDED BY THE SUM OF THE VOLUMES.
@@ -213,37 +214,37 @@ SUBROUTINE ssold1(Itype)
 !
 !     LOOP ON GRID POINTS
 !*****
-   DO i = 1 , Npts
+   DO i = 1 , npts
       nphi(i+1) = necpt(i+2)
-      k = Npts + i + 8
-      Phiout(k) = Beta(i)/(4.0*Elvol)
-      icord = Npts + 4*i - 1
+      k = npts + i + 8
+      phiout(k) = beta(i)/(4.0*elvol)
+      icord = npts + 4*i - 1
       DO j = 1 , 18
-         Cmat(j,i) = Cmat(j,i)/Elvol
+         cmat(j,i) = cmat(j,i)/elvol
       ENDDO
-      k = Npts*2 + 18*i - 9
+      k = npts*2 + 18*i - 9
       IF ( necpt(icord)/=0 ) THEN
-         CALL transs(necpt(icord),Ti)
-         CALL gmmats(Cmat(1,i),6,3,0,Ti,3,3,0,Temp)
-         CALL gmmats(Ge,6,6,0,Temp,6,3,0,Phiout(k))
+         CALL transs(necpt(icord),ti)
+         CALL gmmats(cmat(1,i),6,3,0,ti,3,3,0,temp)
+         CALL gmmats(ge,6,6,0,temp,6,3,0,phiout(k))
       ELSE
-         CALL gmmats(Ge,6,6,0,Cmat(1,i),6,3,0,Phiout(k))
+         CALL gmmats(ge,6,6,0,cmat(1,i),6,3,0,phiout(k))
       ENDIF
    ENDDO
 !
    nphi(1) = necpt(1)
-   Phiout(Npts+2) = Tempo
-   Temp(1) = Alfa
-   Temp(2) = Alfa
-   Temp(3) = Alfa
-   Temp(4) = 0.0
-   Temp(5) = 0.0
-   Temp(6) = 0.0
+   phiout(npts+2) = tempo
+   temp(1) = alfa
+   temp(2) = alfa
+   temp(3) = alfa
+   temp(4) = 0.0
+   temp(5) = 0.0
+   temp(6) = 0.0
 !*****
 !     THE THERMAL EXPANSION VECTOR IS MULTIPLIED BY THE STRESS-STRAIN
 !       MATRIX,GE
 !*****
-   CALL gmmats(Ge,6,6,0,Temp(1),6,1,0,Phiout(Npts+3))
+   CALL gmmats(ge,6,6,0,temp(1),6,1,0,phiout(npts+3))
 !*****
 !     THE OUTPUT ARRAY IS NOW COMPLETE
 !*****

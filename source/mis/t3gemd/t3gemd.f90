@@ -1,8 +1,9 @@
-!*==t3gemd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==t3gemd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3gemd(Ierr,Egpdt,Iorder,Gb,Gs,Lx,Ly,Edglen,Shrflx,Aic,Jog,Jok,K11,K22)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -30,6 +31,15 @@ USE ISO_FORTRAN_ENV
    INTEGER :: i , ising , j , jo
    INTEGER , DIMENSION(3,3) :: index
    EXTERNAL inverd
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

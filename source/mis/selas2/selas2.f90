@@ -1,11 +1,12 @@
-!*==selas2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==selas2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE selas2
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -34,20 +35,20 @@ SUBROUTINE selas2
 !
 !
 !
-   idisp = Ivec - 1
+   idisp = ivec - 1
    disp1 = 0.0
    disp2 = 0.0
-   IF ( Isilno(1)>0 ) THEN
-      iu = idisp + Isilno(1)
-      disp1 = Zz(iu)
+   IF ( isilno(1)>0 ) THEN
+      iu = idisp + isilno(1)
+      disp1 = zz(iu)
    ENDIF
-   IF ( Isilno(2)>0 ) THEN
-      iu = idisp + Isilno(2)
-      disp2 = Zz(iu)
+   IF ( isilno(2)>0 ) THEN
+      iu = idisp + isilno(2)
+      disp2 = zz(iu)
    ENDIF
-   Jfelid = Jelid
-   Force = Stiff*(disp1-disp2)
+   jfelid = jelid
+   force = stiff*(disp1-disp2)
    IF ( icoeff==(-1) ) RETURN
-   Stress = Scoeff*Force
-   Jselid = Jelid
+   stress = scoeff*force
+   jselid = jelid
 END SUBROUTINE selas2

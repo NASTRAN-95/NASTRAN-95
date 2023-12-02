@@ -1,12 +1,13 @@
-!*==ifp5.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ifp5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp5
+   USE c_condas
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -85,7 +86,7 @@ SUBROUTINE ifp5
 !     DEFINE CORE AND BUFFER POINTERS
 !
          CALL conmsg(msg1,2,0)
-         core = korsz(Z)
+         core = korsz(z)
          buf1 = core - sysbuf - 2
          buf2 = buf1 - sysbuf - 2
          buf3 = buf2 - sysbuf - 2
@@ -105,13 +106,13 @@ SUBROUTINE ifp5
 !
 !     OPEN AXIC DATA BLOCK. (IF NAME IS NOT IN FIST RETURN - NO MESSAGE)
 !
-            CALL preloc(*240,Z(buf1),axic)
+            CALL preloc(*240,z(buf1),axic)
 !
 !     PICK UP THE AXSLOT CARD AND SAVE THE VALUES ON IT.
 !     RHOD, BD, N, WD, MD (FATAL ERROR IF NOT PRESSENT)
 !
-            CALL locate(*20,Z(buf1),axslot,flag)
-            CALL read(*260,*40,axic,Z(1),6,eor,words)
+            CALL locate(*20,z(buf1),axslot,flag)
+            CALL read(*260,*40,axic,z(1),6,eor,words)
          ENDIF
  20      CALL ifp5a(1)
          WRITE (output,99001)
@@ -130,9 +131,9 @@ SUBROUTINE ifp5
          rhod = rz(1)
          bd = rz(2)
          j = 3
-         n = Z(j)
+         n = z(j)
          wd = rz(4)
-         md = Z(j+2)
+         md = z(j+2)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -140,8 +141,8 @@ SUBROUTINE ifp5
 !
          igrids = 1
          ngrids = igrids - 1
-         CALL locate(*80,Z(buf1),grids,flag)
-         CALL read(*260,*60,axic,Z(igrids),core,eor,words)
+         CALL locate(*80,z(buf1),grids,flag)
+         CALL read(*260,*60,axic,z(igrids),core,eor,words)
          CALL ifp5a(2)
          WRITE (output,99002)
 99002    FORMAT (49H INSUFFICIENT CORE TO HOLD ALL GRIDS CARD IMAGES.)
@@ -153,8 +154,8 @@ SUBROUTINE ifp5
 !
  80      igridf = ngrids + 1
          ngridf = igridf - 1
-         CALL locate(*120,Z(buf1),gridf,flag)
-         CALL read(*260,*100,axic,Z(igridf),core-ngrids,eor,words)
+         CALL locate(*120,z(buf1),gridf,flag)
+         CALL read(*260,*100,axic,z(igridf),core-ngrids,eor,words)
          CALL ifp5a(3)
          WRITE (output,99003)
 99003    FORMAT (49H INSUFFICIENT CORE TO HOLD ALL GRIDF CARD IMAGES.)
@@ -168,27 +169,26 @@ SUBROUTINE ifp5
 !
  120     IF ( ngrids>=igrids ) THEN
             DO i = igrids , ngrids , 5
-               IF ( Z(i+3)==1 ) rz(i+3) = wd
+               IF ( z(i+3)==1 ) rz(i+3) = wd
             ENDDO
 !
 !     CREATE A GRIDF CARD FOR EACH GRIDS DATA CARD THAT HAS A NON-ZERO
 !     IDF
 !
             DO i = igrids , ngrids , 5
-               IF ( Z(i+4)>0 ) THEN
+               IF ( z(i+4)>0 ) THEN
                   ngridf = ngridf + 3
                   IF ( ngridf>core ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Z(ngridf-2) = Z(i+4)
-                  Z(ngridf-1) = Z(i+1)
-                  Z(ngridf) = Z(i+2)
+                  z(ngridf-2) = z(i+4)
+                  z(ngridf-1) = z(i+1)
+                  z(ngridf) = z(i+2)
                ENDIF
             ENDDO
          ENDIF
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          CALL ifp5a(4)
          WRITE (output,99004)
@@ -202,15 +202,15 @@ SUBROUTINE ifp5
 !
 !     SORT THE GRIDF CARDS ON THEIR ID.
 !
-         IF ( ngridf>igridf ) CALL sort(0,0,3,1,Z(igridf),ngridf-igridf+1)
+         IF ( ngridf>igridf ) CALL sort(0,0,3,1,z(igridf),ngridf-igridf+1)
 !
 !     OPEN GEOM1 AND SCRATCH1, COPY HEADER REC FROM GEOM1 TO SCRATCH1.
 !
-         CALL ifp4c(geom1,scrt1,Z(buf2),Z(buf3),g1eof)
+         CALL ifp4c(geom1,scrt1,z(buf2),z(buf3),g1eof)
 !
 !     COPY ALL DATA FROM GEOM1 TO SCRATCH1 UP TO FIRST GRID CARD.
 !
-         CALL ifp4b(geom1,scrt1,any,Z(ngridf+1),core-ngridf,grid,g1eof)
+         CALL ifp4b(geom1,scrt1,any,z(ngridf+1),core-ngridf,grid,g1eof)
          file = geom1
 !
 !     CREATE GRID CARDS FROM GRIDS AND GRIDF CARDS.
@@ -220,8 +220,8 @@ SUBROUTINE ifp5
          idgf = 0
          igs = igrids
          idgs = 0
-         IF ( igf<ngridf ) idgf = Z(igf)
-         IF ( igs<ngrids ) idgs = Z(igs)
+         IF ( igf<ngridf ) idgf = z(igf)
+         IF ( igs<ngrids ) idgs = z(igs)
          card(2) = 0
          card(6) = -1
          card(7) = 0
@@ -255,7 +255,7 @@ SUBROUTINE ifp5
 !
 !     COPY BALANCE OF GEOM1 TO SCRT1, WRAP UP AND COPY BACK.
 !
-               CALL ifp4b(geom1,scrt1,any,Z(igridf),core-igridf,-1,g1eof)
+               CALL ifp4b(geom1,scrt1,any,z(igridf),core-igridf,-1,g1eof)
 !
 !     SLBDY CARD IMAGES ARE NOW PROCESSED AND A BOUNDARY TABLE IS FORMED
 !     IN CORE.  EACH ENTRY IN THE TABLE CONTAINS,
@@ -271,7 +271,7 @@ SUBROUTINE ifp5
 !
                islbdy = ngrids + 1
                nslbdy = islbdy - 1
-               CALL locate(*160,Z(buf1),slbdy,flag)
+               CALL locate(*160,z(buf1),slbdy,flag)
                SPAG_Loop_1_2: DO
                   CALL read(*260,*160,axic,buf,2,noeor,words)
                   rho = rbuf(1)
@@ -300,11 +300,11 @@ SUBROUTINE ifp5
                         CALL read(*260,*160,axic,buf,1,eor,words)
                         EXIT SPAG_Loop_2_1
                      ELSE
-                        Z(nslbdy-4) = ids
-                        Z(nslbdy-3) = idsl1
-                        Z(nslbdy-2) = idsp1
+                        z(nslbdy-4) = ids
+                        z(nslbdy-3) = idsl1
+                        z(nslbdy-2) = idsp1
                         rz(nslbdy-1) = rho
-                        Z(nslbdy) = m
+                        z(nslbdy) = m
                         idsl1 = ids
                         ids = idsp1
                         IF ( idsp1+1==0 ) CYCLE SPAG_Loop_1_2
@@ -379,7 +379,6 @@ SUBROUTINE ifp5
          IF ( idg==idgf ) THEN
             CALL write(scrt1,buf,8,noeor)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             IF ( idg/=idgs ) THEN
                spag_nextblock_1 = 8
@@ -387,7 +386,6 @@ SUBROUTINE ifp5
             ENDIF
             CALL write(scrt1,buf,8,noeor)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (7)
 !
@@ -399,9 +397,8 @@ SUBROUTINE ifp5
          rcard(5) = 0.0
          igf = igf + 3
          IF ( igf>ngridf ) idgf = 0
-         IF ( idgf/=0 ) idgf = Z(igf)
+         IF ( idgf/=0 ) idgf = z(igf)
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     OUTPUT A GRID FROM GRIDS CARD.
@@ -412,7 +409,7 @@ SUBROUTINE ifp5
          rcard(5) = rz(igs+3)
          igs = igs + 5
          IF ( igs>ngrids ) idgs = 0
-         IF ( idgs/=0 ) idgs = Z(igs)
+         IF ( idgs/=0 ) idgs = z(igs)
          spag_nextblock_1 = 9
       CASE (9)
          CALL write(scrt1,card,8,noeor)
@@ -422,20 +419,20 @@ SUBROUTINE ifp5
 !     SORT BOUNDARY TABLE ON IDS . (FIRST WORD OF EACH ENTRY)
 !                               I
 !
- 160     IF ( nslbdy>islbdy ) CALL sort(0,0,5,1,Z(islbdy),nslbdy-islbdy+1)
+ 160     IF ( nslbdy>islbdy ) CALL sort(0,0,5,1,z(islbdy),nslbdy-islbdy+1)
 !/////
 !     CALL BUG (10H BOUNDRY      ,440,Z(ISLBDY),NSLBDY-ISLBDY+1)
 !
 !     OPEN GEOM2, OPEN SCRATCH2, COPY HEADER REC FROM GEOM2 TO SCRATCH2.
 !
          file = geom2
-         CALL ifp4c(geom2,scrt2,Z(buf2),Z(buf3),g2eof)
+         CALL ifp4c(geom2,scrt2,z(buf2),z(buf3),g2eof)
 !
 !     OPEN SCRATCH1, FOR TEMPORARY OUTPUT OF PLOTEL IMAGES CREATED FROM
 !     CAXIF2, CAXIF3, CAXIF4, CSLOT3, AND CSLOT4 CARDS.
 !
          file = scrt1
-         CALL open(*320,scrt1,Z(buf4),Wrtrew)
+         CALL open(*320,scrt1,z(buf4),wrtrew)
 !
 !     CREATE PLOTEL IMAGES FROM CAXIF2, CAXIF3, AND CAXIF4 AT THIS TIME
 !
@@ -453,7 +450,7 @@ SUBROUTINE ifp5
 !
 !     COPY ALL DATA FROM GEOM2 TO SCRATCH2 UP TO FIRST CAXIF(I+1) IMAGE.
 !
-            CALL ifp4b(geom2,scrt2,any,Z(nslbdy+1),core-nslbdy,caxif(k),g2eof)
+            CALL ifp4b(geom2,scrt2,any,z(nslbdy+1),core-nslbdy,caxif(k),g2eof)
             IF ( .NOT.any ) THEN
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
@@ -485,7 +482,7 @@ SUBROUTINE ifp5
 !     COPY ALL DATA FROM GEOM2 TO SCRATCH2 UP TO FIRST CELAS2 CARD
 !     IMAGE.
 !
-         CALL ifp4b(geom2,scrt2,any,Z(nslbdy+1),core-nslbdy,celas2,g2eof)
+         CALL ifp4b(geom2,scrt2,any,z(nslbdy+1),core-nslbdy,celas2,g2eof)
 !
 !     COPY ANY CELAS2 DATA CARDS, MAKE SURE ALL ID ARE LESS THAN
 !     10000001.
@@ -525,7 +522,7 @@ SUBROUTINE ifp5
                      is3 = i + 2
                      DO j = is1 , is3
                         k = k + 1
-                        IF ( Z(j)<0 ) THEN
+                        IF ( z(j)<0 ) THEN
 !
 !     IDS = -1
 !
@@ -533,10 +530,10 @@ SUBROUTINE ifp5
                            zz(k) = zz(1)
                            ww(k) = ww(1)
                            CYCLE
-                        ELSEIF ( Z(j)/=0 ) THEN
+                        ELSEIF ( z(j)/=0 ) THEN
                            IF ( entrys>0 ) THEN
-                              kid = Z(j)
-                              CALL bisloc(*182,kid,Z(igrids),5,entrys,jpoint)
+                              kid = z(j)
+                              CALL bisloc(*182,kid,z(igrids),5,entrys,jpoint)
                               ntemp = igrids + jpoint
 !
 !     NTEMP NOW POINTS TO THE SECOND WORD OF THE GRIDS ENTRY HAVING
@@ -546,8 +543,8 @@ SUBROUTINE ifp5
 !     NO CELAS2 CARDS ARE GENERATED IF GRIDS FOR IDS  HAS NO IDF.
 !                                                   I
 !
-                              IF ( k==1 ) idf = Z(ntemp+3)
-                              IF ( k==1 .AND. idf<=0 ) CYCLE SPAG_Loop_1_3
+                              IF ( k==1 ) idf = z(ntemp+3)
+                              IF ( k==1 .AND. idf<=0 ) EXIT SPAG_DispatchLoop_2
                               rr(k) = rz(ntemp)
                               zz(k) = rz(ntemp+1)
                               ww(k) = rz(ntemp+2)
@@ -558,7 +555,7 @@ SUBROUTINE ifp5
 !     IDS COULD NOT BE FOUND IN GRIDS ENTRYS.
 !
  182                    CALL ifp5a(7)
-                        WRITE (output,99008) Z(j)
+                        WRITE (output,99008) z(j)
 99008                   FORMAT (11H SLBDY ID =,I12,' DOES NOT APPEAR ON ANY GRIDS DATA CARD.')
                         rr(k) = 0.0
                         zz(k) = 0.0
@@ -581,11 +578,11 @@ SUBROUTINE ifp5
 !
                         IF ( wbar/=0 ) THEN
                            IF ( rbar/=0 ) THEN
-                              IF ( Z(i+4)/=0 ) THEN
+                              IF ( z(i+4)/=0 ) THEN
 !
 !     COMPUTE BETA,LC
 !
-                                 beta = (twopi*rbar)/(float(Z(i+4))*wbar)
+                                 beta = (twopi*rbar)/(float(z(i+4))*wbar)
                                  IF ( beta>1.0 ) THEN
                                     bl1 = beta - 1.0
                                     bp1 = beta + 1.0
@@ -599,20 +596,19 @@ SUBROUTINE ifp5
 !     FIND F  = M, IF N=0 OR N=M/2  OTHERWISE F  = M/2
 !           I                                  I
 !
-                                         IF ( n==0 .OR. 2*n==Z(i+4) ) THEN
-                                         fi = Z(i+4)
+                                         IF ( n==0 .OR. 2*n==z(i+4) ) THEN
+                                         fi = z(i+4)
                                          ELSE
-                                         fi = float(Z(i+4))/2.0
+                                         fi = float(z(i+4))/2.0
                                          ENDIF
                                          kf = (wbar*l3*fi)/(rz(i+3)*le)
                                          spag_nextblock_2 = 2
-                                         CYCLE SPAG_DispatchLoop_2
                                        ELSE
                                          CALL ifp5a(9)
-                                         WRITE (output,99009) Z(i)
+                                         WRITE (output,99009) z(i)
 99009                                    FORMAT (' RHO AS SPECIFIED ON SLBDY OR AXSLOT CARD IS 0.0 FOR ID',' =',I12)
-                                         CYCLE
                                        ENDIF
+                                       CYCLE
                                     ENDIF
                                  ENDIF
                               ELSE
@@ -631,10 +627,9 @@ SUBROUTINE ifp5
 !     ERROR, ZERO OR NEGATIVE LENGTH
 !
                      CALL ifp5a(8)
-                     WRITE (output,99010) Z(i) , Z(i+1) , Z(i+2)
+                     WRITE (output,99010) z(i) , z(i+1) , z(i+2)
 99010                FORMAT (' ONE OR MORE OF THE FOLLOWING ID-S NOT EQUAL TO -1 HAVE',' INCORRECT OR NO GEOMETRY DATA',            &
                             &/3(10X,4HID =,I10))
-                     CYCLE
                   CASE (2)
 !
 !                           N WBAR
@@ -656,7 +651,7 @@ SUBROUTINE ifp5
 !
                      buf(1) = ide + 1
                      rbuf(2) = kf*(1.0-alpha)
-                     buf(3) = Z(i)
+                     buf(3) = z(i)
                      buf(4) = 0
                      buf(5) = 1
                      buf(6) = 0
@@ -664,7 +659,7 @@ SUBROUTINE ifp5
                      buf(8) = 0
                      buf(9) = ide + 2
                      rbuf(10) = kf*alpha
-                     buf(11) = Z(i)
+                     buf(11) = z(i)
                      buf(12) = idf
                      buf(13) = 1
                      buf(14) = 1
@@ -704,7 +699,7 @@ SUBROUTINE ifp5
 !
 !     COPY ALL DATA FROM GEOM2 TO SCRATCH2 UP TO FIRST CSLOT(I+2) IMAGE.
 !
-            CALL ifp4b(geom2,scrt2,any,Z(igrids),core-igrids,cslot(k),g2eof)
+            CALL ifp4b(geom2,scrt2,any,z(igrids),core-igrids,cslot(k),g2eof)
             IF ( .NOT.any ) THEN
                spag_nextblock_1 = 12
                CYCLE SPAG_DispatchLoop_1
@@ -741,7 +736,7 @@ SUBROUTINE ifp5
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL ifp4b(geom2,scrt2,any,Z(igrids),core-igrids,plotls,g2eof)
+         CALL ifp4b(geom2,scrt2,any,z(igrids),core-igrids,plotls,g2eof)
          IF ( .NOT.any ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
@@ -750,38 +745,38 @@ SUBROUTINE ifp5
 !
 !     BLAST COPY PLOTELS FROM GEOM2 TO SCRATCH2
 !
-            CALL read(*300,*200,geom2,Z(igrids),core-igrids,noeor,words)
-            CALL write(scrt2,Z(igrids),core-igrids,noeor)
+            CALL read(*300,*200,geom2,z(igrids),core-igrids,noeor,words)
+            CALL write(scrt2,z(igrids),core-igrids,noeor)
          ENDDO
- 200     CALL write(scrt2,Z(igrids),words,noeor)
+ 200     CALL write(scrt2,z(igrids),words,noeor)
          spag_nextblock_1 = 10
       CASE (10)
 !
 !     CLOSE AND OPEN SCRATCH1 CONTAINING GENERATED PLOTEL IMAGES.
 !
          file = scrt1
-         CALL close(scrt1,Clsrew)
-         CALL open(*320,scrt1,Z(buf4),Rdrew)
+         CALL close(scrt1,clsrew)
+         CALL open(*320,scrt1,z(buf4),rdrew)
          DO
 !
 !     BLAST COPY PLOTELS FROM SCRATCH1 TO SCRATCH2.
 !
-            CALL read(*220,*220,scrt1,Z(igrids),core-igrids,noeor,words)
-            CALL write(scrt2,Z(igrids),core-igrids,noeor)
+            CALL read(*220,*220,scrt1,z(igrids),core-igrids,noeor,words)
+            CALL write(scrt2,z(igrids),core-igrids,noeor)
          ENDDO
- 220     CALL write(scrt2,Z(igrids),words,eor)
+ 220     CALL write(scrt2,z(igrids),words,eor)
          spag_nextblock_1 = 11
       CASE (11)
-         CALL close(scrt1,Clsrew)
+         CALL close(scrt1,clsrew)
 !
 !     ALL PROCESSING OF GEOM2 IS COMPLETE SO COPY BALANCE OF GEOM2 TO
 !     SCRATCH2, WRAP UP, AND COPY BACK.
 !
-         CALL ifp4b(geom2,scrt2,any,Z(igrids),core-igrids,-1,g2eof)
+         CALL ifp4b(geom2,scrt2,any,z(igrids),core-igrids,-1,g2eof)
 !
 !     ALL PROCESSING COMPLETE.
 !
- 240     CALL close(axic,Clsrew)
+ 240     CALL close(axic,clsrew)
          CALL conmsg(msg2,2,0)
          RETURN
 !
@@ -807,7 +802,6 @@ SUBROUTINE ifp5
 !
  320     ier = -1
          spag_nextblock_1 = 13
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
 !
 !     BISLOC EXIT

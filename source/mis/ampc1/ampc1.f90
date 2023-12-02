@@ -2,7 +2,7 @@
  
 SUBROUTINE ampc1(Input,Output,Ncol,Z,Mcb)
    IMPLICIT NONE
-   USE C_PACKX
+   USE c_packx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -15,6 +15,15 @@ SUBROUTINE ampc1(Input,Output,Ncol,Z,Mcb)
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: i
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -35,7 +44,7 @@ SUBROUTINE ampc1(Input,Output,Ncol,Z,Mcb)
 !
 !     NULL COLUMN
 !
- 50   CALL bldpk(It1,It2,Output,0,0)
+ 50   CALL bldpk(it1,it2,Output,0,0)
       CALL bldpkn(Output,0,Mcb)
    ENDDO
 END SUBROUTINE ampc1

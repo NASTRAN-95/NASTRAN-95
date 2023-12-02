@@ -2,20 +2,20 @@
  
 SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMGDIC
-   USE C_EMGFIL
-   USE C_EMGPRM
-   USE C_IEMGOT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_emgdic
+   USE c_emgfil
+   USE c_emgprm
+   USE c_iemgot
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
-   INTEGER :: Lbuf
    REAL , DIMENSION(Lbuf) :: Rbuf
    REAL*8 , DIMENSION(Lbuf) :: Dbuf
+   INTEGER :: Lbuf
    INTEGER :: Eoe
    INTEGER , DIMENSION(5) :: Dict
    INTEGER :: File
@@ -28,6 +28,15 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    REAL :: fff , ra
    INTEGER , DIMENSION(3) :: fredms , locs , part
    INTEGER :: i , i1 , i2 , iadd , icrq , ifff , igrids , iloc , iprime , itab , itemp , j , k , n2word , nwords , outpt , qfile
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -110,16 +119,16 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (fff,ifff)
    DATA eor , noeor , maxfil/1 , 0 , 3/
 !
-   IF ( Error ) RETURN
+   IF ( error ) RETURN
    IF ( File>=1 .AND. File<=maxfil ) THEN
 !
 !     ON FIRST CALL TO THIS ROUTINE FOR THIS ELEMENT THE SIZE OF COLUMN
 !     AND SIZE OF PARTITION BEING WRITTEN IS SET.
 !     IF NVAL(FILE) .GT. 0 THEN THIS IS NOT THE FIRST CALL.
 !
-      IF ( Kflags(File)==0 ) RETURN
-      IF ( Nval(File)>0 ) GOTO 200
-      Nval(File) = Dict(3)
+      IF ( kflags(File)==0 ) RETURN
+      IF ( nval(File)>0 ) GOTO 200
+      nval(File) = Dict(3)
 !
 !     DETERMINE NUMBER OF ACTIVE FREEDOMS BY COUNTING BITS ON IN CODE
 !     WORD.  THIS CODE ADDED AS AN TEMPORARY NECESSITY.
@@ -142,14 +151,14 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     LESS THAN OR EQUAL TO NLOCS.
 !
       igrids = Dict(3)/fredms(File)
-      IF ( igrids<=Nlocs ) THEN
+      IF ( igrids<=nlocs ) THEN
 !
-         locs(File) = Ldict - Nlocs
+         locs(File) = ldict - nlocs
 !
 !     ZERO ALL GINO-LOC SLOTS IN DICTIONARY.
 !
-         i = Ldict - Nlocs + 1
-         DO j = i , Ldict
+         i = ldict - nlocs + 1
+         DO j = i , ldict
             Dict(j) = 0
          ENDDO
          IF ( Dict(2)==1 ) THEN
@@ -165,11 +174,11 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
             part(File) = fredms(File)
             GOTO 200
          ELSE
-            WRITE (outpt,99001) Sfm , Dict(2) , Elid
+            WRITE (outpt,99001) sfm , Dict(2) , elid
 99001       FORMAT (A25,' 3109, EMGOUT HAS BEEN SENT AN INVALID DICTIONARY ','WORD-2 =',I10,' FROM ELEMENT ID =',I10)
          ENDIF
       ELSE
-         WRITE (outpt,99002) Sfm , igrids , Elid
+         WRITE (outpt,99002) sfm , igrids , elid
 99002    FORMAT (A25,' 3122,  EMGOUT HAS DETERMINED THAT THERE ARE',I10,' CONNECTING GRID POINTS FOR ELEMENT ID =',I10,/5X,         &
                 &'THIS IS GREATER THAN THE MAXIMUM AS PER /GPTA1/ TABLE ','FOR THE TYPE OF THIS ELEMENT. PROBABLE ERROR IN ELEMENT',&
                 &' ROUTINE PROGRAM')
@@ -178,32 +187,32 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !
 !     ILLEGAL FILE VALUE
 !
-      WRITE (outpt,99003) Sfm , File
+      WRITE (outpt,99003) sfm , File
 99003 FORMAT (A25,' 3108, EMGOUT RECEIVES ILLEGAL FILE TYPE =',I10)
    ENDIF
- 100  Error = .TRUE.
+ 100  error = .TRUE.
    RETURN
 !
 !     WRITE MATRIX DATA TO FILE DESIRED.
 !
  200  nwords = part(File)
    IF ( mod(Lbuf,nwords)/=0 ) THEN
-      WRITE (outpt,99004) Sfm , Elid
+      WRITE (outpt,99004) sfm , elid
 99004 FORMAT (A25,' 3110, EMGOUT HAS BEEN CALLED TO WRITE AN INCORRECT',' NUMBER OF WORDS FOR ELEMENT ID =',I10)
       GOTO 100
    ELSE
 !
       iloc = locs(File)
       IF ( Lbuf>0 ) THEN
-         qfile = Matrix(File)
-         IF ( Inprec/=Precis ) THEN
+         qfile = matrix(File)
+         IF ( Inprec/=precis ) THEN
 !
 !     INPUT PRECISION IS DIFFERENT FROM OUTPUT PRECISION
 !
             k = 0
             DO i = 1 , Lbuf , nwords
                k = k + nwords
-               IF ( Precis==2 ) THEN
+               IF ( precis==2 ) THEN
 !
 !     SINGLE PRECISION INPUT AND DOUBLE PRECISION OUTPUT
 !
@@ -228,7 +237,7 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !
 !     INPUT AND OUTPUT PRECISIONS ARE THE SAME
 !
-            n2word = Precis*nwords
+            n2word = precis*nwords
             k = 1
             DO i = 1 , Lbuf , nwords
                iloc = iloc + 1
@@ -250,21 +259,21 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     INSURE ALL -LOCS- SET CONSIDERING THE NUMBER OF ACTIVE GRID POINTS
 !     FOR THIS PARTICULAR ELEMENT.
 !
-         IF ( locs(File)==Ldict-Nlocs+Dict(3)/fredms(File) ) THEN
+         IF ( locs(File)==ldict-nlocs+Dict(3)/fredms(File) ) THEN
 !
-            IF ( Flags(File)<0 ) THEN
-               Flags(File) = iabs(Flags(File))
-               CALL write(Dictn(File),Eltype,3,noeor)
+            IF ( flags(File)<0 ) THEN
+               flags(File) = iabs(flags(File))
+               CALL write(dictn(File),eltype,3,noeor)
             ENDIF
-            Flags(File) = Flags(File) + 1
-            CALL write(Dictn(File),Dict,Ldict,noeor)
-            Nval(File) = 0
+            flags(File) = flags(File) + 1
+            CALL write(dictn(File),Dict,ldict,noeor)
+            nval(File) = 0
 !
 !     EXISTENCE OF NON-ZERO DAMPING CONSTANT TURNS ON NOK4GG FLAG.
 !
-            IF ( Nok4gg<=0 ) THEN
+            IF ( nok4gg<=0 ) THEN
                ifff = Dict(5)
-               IF ( fff/=0 ) Nok4gg = 1
+               IF ( fff/=0 ) nok4gg = 1
             ENDIF
 !
 !     CHECK FOR THIS ELEMENT BEING IN CONGRUENT LIST.
@@ -272,14 +281,14 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     EMGOUT WILL NEVER BE CALLED FOR AN ELEMENT WHICH IS IN THE
 !     CONGRUENT LIST AND ALREADY HAS A DICTIONARY.
 !
-            IF ( Anycon ) THEN
-               CALL bisloc(*300,Elid,Z(Icong),2,Lcong/2,j)
+            IF ( anycon ) THEN
+               CALL bisloc(*300,elid,z(icong),2,lcong/2,j)
 !
 !     OK ELEMENT IS CONGRUENT, FIND PRIMARY ID.
 !
-               iadd = Icong + j
+               iadd = icong + j
                DO
-                  iprime = Z(iadd)
+                  iprime = z(iadd)
 !
 !     IPRIME .GT. 0 POINTS TO PRIMARY ID
 !     IPRIME .EQ. 0 IS PRIMARY ID TABLE POINTER AND NO TABLE EXISTS
@@ -295,7 +304,7 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     IPRIME IS TABLE POINTER AND NONE EXISTS YET.
 !     THUS ADD ONE TO CORE, FROM THE BOTTOM OF CORE.
 !
-                  ELSEIF ( Ncore-maxfil>Jcore ) THEN
+                  ELSEIF ( ncore-maxfil>jcore ) THEN
 !
 !     ALLOCATE SMALL TABLE FOR POINTERS TO DICTIONARY FOR EACH FILE TYPE
 !     POSSIBLE.
@@ -306,29 +315,29 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     MAY NOT YET OR EVER BE CREATED).
 !     NO CORE IS USED UNTIL A DICTIONARY IS CREATED.
 !
-                     i2 = Ncore
-                     Ncore = Ncore - maxfil
-                     i1 = Ncore + 1
+                     i2 = ncore
+                     ncore = ncore - maxfil
+                     i1 = ncore + 1
                      DO i = i1 , i2
-                        Z(i) = 0
+                        z(i) = 0
                      ENDDO
 !
 !     STORE ZERO ADDRESS OF THIS TABLE WITH PRIMARY ID.
 !
-                     Z(iadd) = -Ncore
-                     iprime = -Ncore
+                     z(iadd) = -ncore
+                     iprime = -ncore
                      GOTO 500
                   ELSE
 !
 !     NOT ENOUGH CORE SO CONGRUENCY IS IGNORED.
 !
-                     icrq = Jcore - Ncore + maxfil
+                     icrq = jcore - ncore + maxfil
                      GOTO 400
                   ENDIF
                ENDDO
             ENDIF
          ELSE
-            WRITE (outpt,99005) Sfm , Elid , File
+            WRITE (outpt,99005) sfm , elid , File
 99005       FORMAT (A25,' 3111, INVALID NUMBER OF PARTITIONS WERE SENT EMGOUT',' FOR ELEMENT ID =',I10,/5X,                         &
                    &'WITH RESPECT TO DATA BLOCK ','TYPE =',I3,1H.)
             GOTO 100
@@ -337,7 +346,7 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
    ENDIF
  300  RETURN
  400  CALL page2(4)
-   WRITE (outpt,99006) Uim , Elid
+   WRITE (outpt,99006) uim , elid
 99006 FORMAT (A29,' 3112, ELEMENTS CONGRUENT TO ELEMENT ID =',I10,/5X,'WILL BE RE-COMPUTED AS THERE IS INSUFFICIENT CORE AT ',      &
              &'THIS MOMENT TO HOLD DICTIONARY DATA.')
    WRITE (outpt,99007) icrq
@@ -353,29 +362,29 @@ SUBROUTINE emgout(Rbuf,Dbuf,Lbuf,Eoe,Dict,File,Inprec)
 !     SET FILE POSITION IN TABLE TO POINT TO THIS DICTIONARY,
 !     AND STORE THE DICTIONARY.
 !
-   IF ( Ncore-Ldict>Jcore ) THEN
+   IF ( ncore-ldict>jcore ) THEN
 !
 !     ALLOCATE AND WRITE DICTIONARY
 !
-      Ncore = Ncore - Ldict
-      j = Ncore
-      DO i = 1 , Ldict
+      ncore = ncore - ldict
+      j = ncore
+      DO i = 1 , ldict
          j = j + 1
-         Z(j) = Dict(i)
+         z(j) = Dict(i)
       ENDDO
 !
 !     STORE DICTIONARY ADDRESS IN TABLE(FILE), WHERE TABLE BEGINS
 !     AT Z(ITAB+1).
 !
-      Z(itab+File) = Ncore + 1
+      z(itab+File) = ncore + 1
       GOTO 300
    ELSE
 !
 !     INSUFFICIENT CORE THUS IGNORE CONGRUENCY, AND FOR SAFETY
 !     PURGE THIS CONGRUENCY FOR ALL FILES.
 !
-      icrq = Jcore - Ncore + Ldict
-      Z(iadd) = 0
+      icrq = jcore - ncore + ldict
+      z(iadd) = 0
       GOTO 400
    ENDIF
 END SUBROUTINE emgout

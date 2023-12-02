@@ -1,12 +1,13 @@
-!*==mpy3b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mpy3b.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mpy3b(Z,Iz,Dz)
-USE C_MPY3CP
-USE C_MPY3TL
-USE C_UNPAKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_mpy3cp
+   USE c_mpy3tl
+   USE c_unpakx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -57,70 +58,70 @@ USE ISO_FORTRAN_ENV
 !*****
 !    INITIALIZATION.
 !*****
-   file = Scr1
-   Utyp = Prec
-   Urow1 = 1
-   Urown = N
-   Uincr = 1
-   precn = Prec*N
+   file = scr1
+   utyp = prec
+   urow1 = 1
+   urown = n
+   uincr = 1
+   precn = prec*n
 !*****
 !    READ AND STORE COLUMN OF A.
 !*****
-   K = 0
+   k = 0
    kt = iktbp - 1
-   IF ( Prec==2 ) THEN
+   IF ( prec==2 ) THEN
 ! DOUBLE PRECISION CASE
       kj = (iakj-1)/2
-      CALL intpk(*100,Filea,0,2,0)
+      CALL intpk(*100,filea,0,2,0)
       SPAG_Loop_1_1: DO
          CALL zntpki
-         K = K + 1
+         k = k + 1
          kt = kt + 1
-         Iz(kt) = Irow
+         Iz(kt) = irow
          kj = kj + 1
          Dz(kj) = da
-         IF ( Eol==1 ) EXIT SPAG_Loop_1_1
+         IF ( eol==1 ) EXIT SPAG_Loop_1_1
       ENDDO SPAG_Loop_1_1
    ELSE
 ! SINGLE PRECISION CASE
       kj = iakj - 1
-      CALL intpk(*100,Filea,0,1,0)
+      CALL intpk(*100,filea,0,1,0)
       SPAG_Loop_1_2: DO
          CALL zntpki
-         K = K + 1
+         k = k + 1
          kt = kt + 1
-         Iz(kt) = Irow
+         Iz(kt) = irow
          kj = kj + 1
-         Z(kj) = A(1)
-         IF ( Eol==1 ) EXIT SPAG_Loop_1_2
+         Z(kj) = a(1)
+         IF ( eol==1 ) EXIT SPAG_Loop_1_2
       ENDDO SPAG_Loop_1_2
    ENDIF
-   IF ( First1 ) THEN
+   IF ( first1 ) THEN
 !*****
 !    READ COLUMNS OF B INTO CORE.
 !*****
-      First1 = .FALSE.
-      IF ( K>Nk ) THEN
-         K2 = Nk
+      first1 = .FALSE.
+      IF ( k>nk ) THEN
+         k2 = nk
       ELSE
-         K2 = K
+         k2 = k
       ENDIF
       kt = iktbp - 1
-      Kb = ibcols - precn
+      kb = ibcols - precn
       kbc = ibcid - 1
-      DO kk = 1 , K2
+      DO kk = 1 , k2
          spag_nextblock_1 = 1
          SPAG_DispatchLoop_1: DO
             SELECT CASE (spag_nextblock_1)
             CASE (1)
                kt = kt + 1
                kkk = Iz(kt)
-               CALL filpos(Scr1,Iz(kkk))
-               Kb = Kb + precn
-               CALL unpack(*5,Scr1,Z(Kb))
+               CALL filpos(scr1,Iz(kkk))
+               kb = kb + precn
+               CALL unpack(*5,scr1,Z(kb))
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
- 5             ib = Kb - 1
+ 5             ib = kb - 1
                DO l = 1 , precn
                   ib = ib + 1
                   Z(ib) = 0.
@@ -138,33 +139,32 @@ USE ISO_FORTRAN_ENV
 !    BEGIN CALCULATING MATRIX PRODUCT.
 !*****
    kt = iktbp - 1
-   Kcount = 0
-   preck = Prec*K
-   DO Ka = 1 , K
+   kcount = 0
+   preck = prec*k
+   DO ka = 1 , k
       spag_nextblock_2 = 1
       SPAG_DispatchLoop_2: DO
          SELECT CASE (spag_nextblock_2)
          CASE (1)
             kt = kt + 1
             kbc = ibcid - 1
-            DO Kb = 1 , K2
+            SPAG_Loop_3_1: DO kb = 1 , k2
                kbc = kbc + 1
                IF ( Iz(kt)==Iz(kbc) ) THEN
                   spag_nextblock_2 = 2
-                  CYCLE SPAG_DispatchLoop_2
+                  EXIT SPAG_Loop_3_1
                ENDIF
-            ENDDO
-            CYCLE
+            ENDDO SPAG_Loop_3_1
          CASE (2)
-            kkb = Kb
+            kkb = kb
             CALL mpy3p(Z,Z,Z)
             Iz(kt) = 0
-            Kcount = Kcount + 1
-            IF ( .NOT.(First2 .OR. Icore==1) ) THEN
-               I = Iz(kbc)
+            kcount = kcount + 1
+            IF ( .NOT.(first2 .OR. icore==1) ) THEN
+               i = Iz(kbc)
                CALL mpy3nu(Z)
                kbn = ibntu + kkb - 1
-               Iz(kbn) = Ntbu
+               Iz(kbn) = ntbu
             ENDIF
             EXIT SPAG_DispatchLoop_2
          END SELECT
@@ -173,15 +173,15 @@ USE ISO_FORTRAN_ENV
 !*****
 !    SET RETURN FLAG.
 !*****
-   IF ( Kcount/=K ) THEN
-      Iflag = 1
+   IF ( kcount/=k ) THEN
+      iflag = 1
       RETURN
    ENDIF
- 100  Iflag = 0
-   IF ( .NOT.(Icore/=1 .OR. First2) ) THEN
-      IF ( J/=M ) THEN
-         file = Scr2
-         CALL fwdrec(*200,Scr2)
+ 100  iflag = 0
+   IF ( .NOT.(icore/=1 .OR. first2) ) THEN
+      IF ( j/=m ) THEN
+         file = scr2
+         CALL fwdrec(*200,scr2)
       ENDIF
    ENDIF
    RETURN

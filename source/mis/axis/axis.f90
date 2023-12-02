@@ -1,9 +1,10 @@
-!*==axis.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==axis.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE axis(Xa,Ya,Xb,Yb,Penx,Opt)
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -32,7 +33,7 @@ SUBROUTINE axis(Xa,Ya,Xb,Yb,Penx,Opt)
 !
    IF ( Opt==0 ) THEN
       pen = max0(Penx,1)
-      pen = pen - Npens*((pen-1)/Npens)
+      pen = pen - npens*((pen-1)/npens)
    ENDIF
 !
    CALL axis10(Xa,Ya,Xb,Yb,pen,Opt)

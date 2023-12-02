@@ -1,11 +1,12 @@
-!*==ferltd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ferltd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ferltd(Ifile,Dz,Dy,Zm)
-USE C_FEERIM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feerim
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -41,14 +42,13 @@ USE ISO_FORTRAN_ENV
    !>>>>EQUIVALENCE (Dcore(1),Icore(1))
          n = Ifile(2)
          iccol = 1
-         IF ( Nidsma==0 ) THEN
+         IF ( nidsma==0 ) THEN
             CALL rewind(Ifile)
             CALL skprec(Ifile,1)
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            mem = Nidsma
-            ilcol = Smapos(1)
+            mem = nidsma
+            ilcol = smapos(1)
             DO i = 1 , n
                iccol = i
 ! CHECK TO SEE IF REMAINING DATA IS ON THE FILE AND NOT IN MEMORY
@@ -59,14 +59,14 @@ USE ISO_FORTRAN_ENV
                Dy(i) = 0.D0
                dsum = 0.D0
                SPAG_Loop_2_1: DO
-                  icol = Icore(mem)
+                  icol = icore(mem)
                   IF ( icol/=i ) EXIT SPAG_Loop_2_1
-                  ntms = Icore(mem+1)
-                  Ip = Icore(mem+2+2*ntms)
-                  Np = Ip + ntms - 1
+                  ntms = icore(mem+1)
+                  ip = icore(mem+2+2*ntms)
+                  np = ip + ntms - 1
                   indx = mem/2 + 1
                   ii = 0
-                  DO j = Ip , Np
+                  DO j = ip , np
                      ii = ii + 1
                      dsum = dsum + dcore(indx+ii)*Dz(j)
                   ENDDO
@@ -77,18 +77,18 @@ USE ISO_FORTRAN_ENV
             RETURN
          ENDIF
       CASE (2)
-         CALL dsspos(Ifile,Smapos(2),Smapos(3),Smapos(4))
+         CALL dsspos(Ifile,smapos(2),smapos(3),smapos(4))
          spag_nextblock_1 = 3
       CASE (3)
-         Incr = 1
-         Ityp = Ifile(5)
+         incr = 1
+         ityp = Ifile(5)
          DO i = iccol , n
             Dy(i) = 0.D0
-            Ip = 0
+            ip = 0
             CALL unpack(*20,Ifile,Zm(1))
             ii = 0
             dsum = 0.D0
-            DO j = Ip , Np
+            DO j = ip , np
                ii = ii + 1
                dsum = dsum + Zm(ii)*Dz(j)
             ENDDO

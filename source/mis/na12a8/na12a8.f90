@@ -1,7 +1,10 @@
-!*==na12a8.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==na12a8.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE na12a8(A,N,B,Notuse) !HIDESTARS (*,A,N,B,Notuse)
+   USE c_machin
+   USE c_xreadx
    USE C_MACHIN
    USE C_XREADX
    IMPLICIT NONE
@@ -60,10 +63,12 @@ SUBROUTINE na12a8(A,N,B,Notuse) !HIDESTARS (*,A,N,B,Notuse)
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE C_MACHIN
+      USE C_XREADX
 !
       WRITE (Nout,99001) N
 99001 FORMAT ('   N.GT.8/NA12A8',I6)
-      j = Notuse
+      J = Notuse
       RETURN 1
    END SUBROUTINE spag_block_1
 END SUBROUTINE na12a8

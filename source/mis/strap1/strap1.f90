@@ -1,15 +1,16 @@
-!*==strap1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strap1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strap1
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -66,36 +67,36 @@ SUBROUTINE strap1
 !
 !     STORE ECPT PARAMETERS IN LOCAL VARIABLES
 !
-   Idel = iecpt(1)
-   Igp(1) = iecpt(2)
-   Igp(2) = iecpt(3)
-   Igp(3) = iecpt(4)
-   Igp(4) = iecpt(5)
+   idel = iecpt(1)
+   igp(1) = iecpt(2)
+   igp(2) = iecpt(3)
+   igp(3) = iecpt(4)
+   igp(4) = iecpt(5)
    matid = iecpt(7)
    ics(1) = iecpt(8)
    ics(2) = iecpt(12)
    ics(3) = iecpt(16)
    ics(4) = iecpt(20)
-   R(1) = Ecpt(9)
-   D(1) = Ecpt(10)
-   Z(1) = Ecpt(11)
-   R(2) = Ecpt(13)
-   D(2) = Ecpt(14)
-   Z(2) = Ecpt(15)
-   R(3) = Ecpt(17)
-   D(3) = Ecpt(18)
-   Z(3) = Ecpt(19)
-   R(4) = Ecpt(21)
-   D(4) = Ecpt(22)
-   Z(4) = Ecpt(23)
-   tempe = Ecpt(24)
-   dgama = Ecpt(6)
+   r(1) = ecpt(9)
+   d(1) = ecpt(10)
+   z(1) = ecpt(11)
+   r(2) = ecpt(13)
+   d(2) = ecpt(14)
+   z(2) = ecpt(15)
+   r(3) = ecpt(17)
+   d(3) = ecpt(18)
+   z(3) = ecpt(19)
+   r(4) = ecpt(21)
+   d(4) = ecpt(22)
+   z(4) = ecpt(23)
+   tempe = ecpt(24)
+   dgama = ecpt(6)
 !
 !     TEST THE VALIDITY OF THE GRID POINT COORDINATES
 !
    DO i = 1 , 4
-      IF ( R(i)<0.0 ) CALL mesage(-30,37,Idel)
-      IF ( D(i)/=0.0 ) CALL mesage(-30,37,Idel)
+      IF ( r(i)<0.0 ) CALL mesage(-30,37,idel)
+      IF ( d(i)/=0.0 ) CALL mesage(-30,37,idel)
    ENDDO
 !
 !     COMPUTE THE ELEMENT COORDINATES
@@ -112,22 +113,22 @@ SUBROUTINE strap1
 !
 !     RATIO OF RADII IS TOO LARGE FOR GAUSS QUADRATURE FOR IP=-1
 !
-         WRITE (Iout,99001) Ufm , Idel
+         WRITE (iout,99001) ufm , idel
 99001    FORMAT (A23,', TRAPRG ELEMENT',I9,' HAS A MAXIMUM TO MINIMUM ','RADIUS RATIO EXCEEDING 10.',/5X,                           &
                 &'ACCURACY OF NUMERICAL INTEGRATION WOULD BE IN DOUBT.')
-         CALL mesage(-30,37,Idel)
+         CALL mesage(-30,37,idel)
       ENDIF
    ENDIF
    icore = 0
    j = 1
    DO i = 1 , 4
-      IF ( R(i)==0. ) THEN
+      IF ( r(i)==0. ) THEN
          icore = icore + 1
          jrz(j) = i
          j = 2
       ENDIF
    ENDDO
-   IF ( icore/=0 .AND. icore/=2 ) CALL mesage(-30,37,Idel)
+   IF ( icore/=0 .AND. icore/=2 ) CALL mesage(-30,37,idel)
 !
 !     FORM THE TRANSFORMATION MATRIX (8X8) FROM FIELD COORDINATES TO
 !     GRID POINT DEGREES OF FREEDOM
@@ -171,9 +172,9 @@ SUBROUTINE strap1
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
    ising = -1
-   CALL invers(8,gambq(1),8,D(10),0,D(11),ising,sp)
+   CALL invers(8,gambq(1),8,d(10),0,d(11),ising,sp)
 !
-   IF ( ising==2 ) CALL mesage(-30,26,Idel)
+   IF ( ising==2 ) CALL mesage(-30,26,idel)
 !
 !     MODIFY THE TRANSFORMATION MATRIX IF ELEMENT IS A CORE ELEMENT
 !
@@ -222,27 +223,27 @@ SUBROUTINE strap1
                CYCLE
             ENDIF
          ENDIF
-         delint(i1) = rzints(ip,iq,R,Z,4)
+         delint(i1) = rzints(ip,iq,r,z,4)
       ENDDO
    ENDDO
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
-   CALL mat(Idel)
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
+   CALL mat(idel)
 !
 !     SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-   er = E(1)
-   et = E(2)
-   ez = E(3)
-   vrt = Anu(1)
-   vtz = Anu(2)
-   vzr = Anu(3)
-   grz = G(3)
-   Tz = Tzero
+   er = e(1)
+   et = e(2)
+   ez = e(3)
+   vrt = anu(1)
+   vtz = anu(2)
+   vzr = anu(3)
+   grz = g(3)
+   tz = tzero
    vtr = vrt*et/er
    vzt = vtz*ez/et
    vrz = vzr*er/ez
@@ -293,87 +294,87 @@ SUBROUTINE strap1
 !     TRANSFORM THE ELASTIC CONSTANTS MATRIX FROM MATERIAL
 !     TO ELEMENT GEOMETRIC AXIS
 !
-   CALL gmmats(teo,4,4,1,ee,4,4,0,D)
-   CALL gmmats(D,4,4,0,teo,4,4,0,ee)
+   CALL gmmats(teo,4,4,1,ee,4,4,0,d)
+   CALL gmmats(d,4,4,0,teo,4,4,0,ee)
 !
 !     FORM THE ELEMENT STIFFNESS MATRIX IN FIELD COORDINATES
 !
    ee48 = ee(4) + ee(8)
-   D(1) = ee(1) + 2.0*ee(2) + ee(6)
-   Ak(1) = ee(6)*delint(1)
-   Ak(2) = (ee(2)+ee(6))*delint(4)
-   Ak(3) = ee(6)*delint(2) + ee(8)*delint(4)
-   Ak(4) = (ee(2)+ee(6))*delint(5) + ee(8)*delint(7)
-   Ak(5) = 0.0
-   Ak(6) = ee(8)*delint(4)
-   Ak(7) = ee(7)*delint(4)
-   Ak(8) = ee(7)*delint(7) + ee(8)*delint(5)
-   Ak(9) = Ak(2)
-   Ak(10) = D(1)*delint(7)
-   Ak(11) = (ee(2)+ee(6))*delint(5) + ee48*delint(7)
-   Ak(12) = D(1)*delint(8) + ee48*delint(10)
-   Ak(13) = 0.0
-   Ak(14) = ee48*delint(7)
-   Ak(15) = (ee(3)+ee(7))*delint(7)
-   Ak(16) = (ee(3)+ee(7))*delint(10) + ee48*delint(8)
-   Ak(17) = Ak(3)
-   Ak(18) = Ak(11)
-   Ak(19) = ee(6)*delint(3) + ee(16)*delint(7) + (ee(8)+ee(14))*delint(5)
-   Ak(20) = (ee(2)+ee(6))*delint(6) + ee(16)*delint(10) + (ee(8)+ee(13)+ee(14))*delint(8)
-   Ak(21) = 0.0
-   Ak(22) = ee(16)*delint(7) + ee(8)*delint(5)
-   Ak(23) = ee(7)*delint(5) + ee(15)*delint(7)
-   Ak(24) = (ee(7)+ee(16))*delint(8) + ee(8)*delint(6) + ee(15)*delint(10)
-   Ak(25) = Ak(4)
-   Ak(26) = Ak(12)
-   Ak(27) = Ak(20)
-   Ak(28) = D(1)*delint(9) + ee(16)*delint(12) + (ee48+ee(13)+ee(14))*delint(11)
-   Ak(29) = 0.0
-   Ak(30) = ee(16)*delint(10) + ee48*delint(8)
-   Ak(31) = (ee(3)+ee(7))*delint(8) + ee(15)*delint(10)
-   Ak(32) = (ee(3)+ee(7)+ee(16))*delint(11) + ee(15)*delint(12) + ee48*delint(9)
-   Ak(33) = 0.0
-   Ak(34) = 0.0
-   Ak(35) = 0.0
-   Ak(36) = 0.0
-   Ak(37) = 0.0
-   Ak(38) = 0.0
-   Ak(39) = 0.0
-   Ak(40) = 0.0
-   Ak(41) = Ak(6)
-   Ak(42) = Ak(14)
-   Ak(43) = Ak(22)
-   Ak(44) = Ak(30)
-   Ak(45) = 0.0
-   Ak(46) = ee(16)*delint(7)
-   Ak(47) = ee(15)*delint(7)
-   Ak(48) = ee(16)*delint(8) + ee(15)*delint(10)
-   Ak(49) = Ak(7)
-   Ak(50) = Ak(15)
-   Ak(51) = Ak(23)
-   Ak(52) = Ak(31)
-   Ak(53) = 0.0
-   Ak(54) = Ak(47)
-   Ak(55) = ee(11)*delint(7)
-   Ak(56) = ee(11)*delint(10) + ee(12)*delint(8)
-   Ak(57) = Ak(8)
-   Ak(58) = Ak(16)
-   Ak(59) = Ak(24)
-   Ak(60) = Ak(32)
-   Ak(61) = 0.0
-   Ak(62) = Ak(48)
-   Ak(63) = Ak(56)
-   Ak(64) = ee(11)*delint(12) + ee(16)*delint(9) + (ee(12)+ee(13))*delint(11)
+   d(1) = ee(1) + 2.0*ee(2) + ee(6)
+   ak(1) = ee(6)*delint(1)
+   ak(2) = (ee(2)+ee(6))*delint(4)
+   ak(3) = ee(6)*delint(2) + ee(8)*delint(4)
+   ak(4) = (ee(2)+ee(6))*delint(5) + ee(8)*delint(7)
+   ak(5) = 0.0
+   ak(6) = ee(8)*delint(4)
+   ak(7) = ee(7)*delint(4)
+   ak(8) = ee(7)*delint(7) + ee(8)*delint(5)
+   ak(9) = ak(2)
+   ak(10) = d(1)*delint(7)
+   ak(11) = (ee(2)+ee(6))*delint(5) + ee48*delint(7)
+   ak(12) = d(1)*delint(8) + ee48*delint(10)
+   ak(13) = 0.0
+   ak(14) = ee48*delint(7)
+   ak(15) = (ee(3)+ee(7))*delint(7)
+   ak(16) = (ee(3)+ee(7))*delint(10) + ee48*delint(8)
+   ak(17) = ak(3)
+   ak(18) = ak(11)
+   ak(19) = ee(6)*delint(3) + ee(16)*delint(7) + (ee(8)+ee(14))*delint(5)
+   ak(20) = (ee(2)+ee(6))*delint(6) + ee(16)*delint(10) + (ee(8)+ee(13)+ee(14))*delint(8)
+   ak(21) = 0.0
+   ak(22) = ee(16)*delint(7) + ee(8)*delint(5)
+   ak(23) = ee(7)*delint(5) + ee(15)*delint(7)
+   ak(24) = (ee(7)+ee(16))*delint(8) + ee(8)*delint(6) + ee(15)*delint(10)
+   ak(25) = ak(4)
+   ak(26) = ak(12)
+   ak(27) = ak(20)
+   ak(28) = d(1)*delint(9) + ee(16)*delint(12) + (ee48+ee(13)+ee(14))*delint(11)
+   ak(29) = 0.0
+   ak(30) = ee(16)*delint(10) + ee48*delint(8)
+   ak(31) = (ee(3)+ee(7))*delint(8) + ee(15)*delint(10)
+   ak(32) = (ee(3)+ee(7)+ee(16))*delint(11) + ee(15)*delint(12) + ee48*delint(9)
+   ak(33) = 0.0
+   ak(34) = 0.0
+   ak(35) = 0.0
+   ak(36) = 0.0
+   ak(37) = 0.0
+   ak(38) = 0.0
+   ak(39) = 0.0
+   ak(40) = 0.0
+   ak(41) = ak(6)
+   ak(42) = ak(14)
+   ak(43) = ak(22)
+   ak(44) = ak(30)
+   ak(45) = 0.0
+   ak(46) = ee(16)*delint(7)
+   ak(47) = ee(15)*delint(7)
+   ak(48) = ee(16)*delint(8) + ee(15)*delint(10)
+   ak(49) = ak(7)
+   ak(50) = ak(15)
+   ak(51) = ak(23)
+   ak(52) = ak(31)
+   ak(53) = 0.0
+   ak(54) = ak(47)
+   ak(55) = ee(11)*delint(7)
+   ak(56) = ee(11)*delint(10) + ee(12)*delint(8)
+   ak(57) = ak(8)
+   ak(58) = ak(16)
+   ak(59) = ak(24)
+   ak(60) = ak(32)
+   ak(61) = 0.0
+   ak(62) = ak(48)
+   ak(63) = ak(56)
+   ak(64) = ee(11)*delint(12) + ee(16)*delint(9) + (ee(12)+ee(13))*delint(11)
 !
    DO i = 1 , 64
-      Ak(i) = twopi*Ak(i)
+      ak(i) = twopi*ak(i)
    ENDDO
 !
 !     TRANSFORM THE ELEMENT STIFFNESS MATRIX FROM FIELD COORDINATES
 !     TO GRID POINT DEGREES OF FREEDOM
 !
-   CALL gmmats(gambq,8,8,1,Ak,8,8,0,D)
-   CALL gmmats(D,8,8,0,gambq,8,8,0,Ak)
+   CALL gmmats(gambq,8,8,1,ak,8,8,0,d)
+   CALL gmmats(d,8,8,0,gambq,8,8,0,ak)
 !
 !     GENERATE THE TRANSFORMATION MATRIX FROM TWO TO THREE DEGREES OF
 !     FREEDOM PER POINT
@@ -393,36 +394,36 @@ SUBROUTINE strap1
 !     TRANSFORM THE STIFFNESS MATRIX FROM TWO TO THREE DEGREES OF
 !     FREEDOM PER POINT
 !
-   CALL gmmats(gamqs(1),8,12,1,Ak(1),8,8,0,D(1))
-   CALL gmmats(D(1),12,8,0,gamqs(1),8,12,0,Ak(1))
+   CALL gmmats(gamqs(1),8,12,1,ak(1),8,8,0,d(1))
+   CALL gmmats(d(1),12,8,0,gamqs(1),8,12,0,ak(1))
 !
 !     LOCATE THE TRANSFORMATION MATRICES FOR THE FOUR  GRID POINTS
 !
    DO i = 1 , 144
-      Gambl(i) = 0.0
+      gambl(i) = 0.0
    ENDDO
    DO i = 1 , 4
-      CALL transs(ics(i),D(1))
+      CALL transs(ics(i),d(1))
       k = 39*(i-1) + 1
       DO j = 1 , 3
          kk = k + 12*(j-1)
          jj = 3*(j-1) + 1
-         Gambl(kk) = D(jj)
-         Gambl(kk+1) = D(jj+1)
-         Gambl(kk+2) = D(jj+2)
+         gambl(kk) = d(jj)
+         gambl(kk+1) = d(jj+1)
+         gambl(kk+2) = d(jj+2)
       ENDDO
    ENDDO
 !
 !     TRANSFORM THE STIFFNESS MATRIX FROM BASIC TO LOCAL COORDINATES
 !
-   CALL gmmats(Gambl(1),12,12,1,Ak(1),12,12,0,D(1))
-   CALL gmmats(D(1),12,12,0,Gambl(1),12,12,0,Ak(1))
+   CALL gmmats(gambl(1),12,12,1,ak(1),12,12,0,d(1))
+   CALL gmmats(d(1),12,12,0,gambl(1),12,12,0,ak(1))
 !
 !     COMPUTE THE FIFTH GRID POINT TO BE THE AVERAGE OF THE FOUR
 !     CORNER POINTS
 !
-   R(5) = (r1+r2+r3+r4)/4.0
-   Z(5) = (z1+z2+z3+z4)/4.0
+   r(5) = (r1+r2+r3+r4)/4.0
+   z(5) = (z1+z2+z3+z4)/4.0
 !
 !     INITIALIZE THE CONSTANT PORTION OF THE D SUB 0 MATRIX
 !
@@ -441,44 +442,44 @@ SUBROUTINE strap1
 !
 !     COMPUTE THE VARIABLE PORTION OF THE D SUB 0 MATRIX
 !
-      dzero(4) = Z(j)
+      dzero(4) = z(j)
       IF ( icore==0 ) THEN
-         dzero(9) = 1.00/R(j)
-         dzero(11) = Z(j)/R(j)
+         dzero(9) = 1.00/r(j)
+         dzero(11) = z(j)/r(j)
       ENDIF
-      dzero(12) = Z(j)
-      dzero(24) = R(j)
-      dzero(28) = R(j)
-      dzero(32) = Z(j)
+      dzero(12) = z(j)
+      dzero(24) = r(j)
+      dzero(28) = r(j)
+      dzero(32) = z(j)
 !
 !     COMPUTE THE STRESS MATRIX IN FIELD COORDINATES
 !
-      CALL gmmats(ee(1),4,4,0,dzero(1),4,8,0,D(1))
+      CALL gmmats(ee(1),4,4,0,dzero(1),4,8,0,d(1))
 !
 !     TRANSFORM THE STRESS MATRIX TO GRID POINT DEGREES OF FREEDOM
 !
-      CALL gmmats(D(1),4,8,0,gambq(1),8,8,0,D(37))
+      CALL gmmats(d(1),4,8,0,gambq(1),8,8,0,d(37))
 !
 !     TRANSFORM THE STRESS MATRIX FROM TWO TO THREE DEGREES OF FREEDOM
 !     PER POINT
 !
-      CALL gmmats(D(37),4,8,0,gamqs(1),8,12,0,D(73))
+      CALL gmmats(d(37),4,8,0,gamqs(1),8,12,0,d(73))
 !
 !     TRANSFORM THE STRESS MATRIX FROM BASIC TO LOCAL COORDINATES
 !
       k = 48*(j-1) + 1
-      CALL gmmats(D(73),4,12,0,Gambl(1),12,12,0,Sel(k))
+      CALL gmmats(d(73),4,12,0,gambl(1),12,12,0,sel(k))
 !
    ENDDO
 !
 !     COMPUTE THE THERMAL STRAIN VECTOR
 !
    DO i = 1 , 3
-      alfb(i) = Alf(i)
+      alfb(i) = alf(i)
    ENDDO
    alfb(4) = 0.0
 !
 !     COMPUTE THE THERMAL STRESS VECTOR
 !
-   CALL gmmats(ee(1),4,4,0,alfb(1),4,1,0,Ts(1))
+   CALL gmmats(ee(1),4,4,0,alfb(1),4,1,0,ts(1))
 END SUBROUTINE strap1

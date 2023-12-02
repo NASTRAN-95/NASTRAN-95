@@ -1,17 +1,18 @@
-!*==mred2f.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2f.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2f
-USE C_BITPOS
-USE C_BLANK
-USE C_FBSX
-USE C_MPYADX
-USE C_PACKX
-USE C_PATX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_fbsx
+   USE c_mpyadx
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -82,7 +83,7 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FREEBODY MODES CALCULATION FLAG
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          itrlr2(1) = dmr
          CALL rdtrl(itrlr2)
          IF ( itrlr2(1)<0 ) THEN
@@ -105,32 +106,32 @@ USE ISO_FORTRAN_ENV
 !        **   **   **   ** **   **
 !
             CALL sofcls
-            Frebdy = .TRUE.
+            frebdy = .TRUE.
             itrlr1(1) = maa
             CALL rdtrl(itrlr1)
             DO i = 1 , 7
-               Itrlra(i) = itrlr1(i)
-               Itrlrb(i) = itrlr2(i)
-               Itrlrc(i) = 0
+               itrlra(i) = itrlr1(i)
+               itrlrb(i) = itrlr2(i)
+               itrlrc(i) = 0
             ENDDO
             iform = 2
             iprc = 1
             ityp = 0
-            IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-            IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-            IF ( Itrlra(5)>=3 ) ityp = 2
-            IF ( Itrlrb(5)>=3 ) ityp = 2
+            IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+            IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+            IF ( itrlra(5)>=3 ) ityp = 2
+            IF ( itrlrb(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Itrlrd,far,itrlr1(3),iform,itype)
-            T = 0
-            Signab = 1
-            Signc = 1
+            CALL makmcb(itrlrd,far,itrlr1(3),iform,itype)
+            t = 0
+            signab = 1
+            signc = 1
             prec = 0
-            Scr = Iscr(4)
-            dblkor = 1 + Korbgn/2
-            Nzmpy = Lstzwd - 2*dblkor - 1
+            scr = iscr(4)
+            dblkor = 1 + korbgn/2
+            nzmpy = lstzwd - 2*dblkor - 1
             CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-            CALL wrttrl(Itrlrd)
+            CALL wrttrl(itrlrd)
 !
 !     PARTITION FAR INTO BOUNDARY, INTERIOR POINTS
 !
@@ -144,10 +145,10 @@ USE ISO_FORTRAN_ENV
 !                  *     *
 !                  **   **
 !
-            Lcore = Nzmpy
-            Fuset = usetmr
-            CALL calcv(pprtn,Un,Ui,Ub,Z(Korbgn))
-            CALL gmprtn(far,fir,0,0,0,0,pprtn,Nsub(1),Nsub(2),Z(Korbgn),Korlen)
+            lcore = nzmpy
+            fuset = usetmr
+            CALL calcv(pprtn,un,ui,ub,z(korbgn))
+            CALL gmprtn(far,fir,0,0,0,0,pprtn,nsub(1),nsub(2),z(korbgn),korlen)
 !
 !     CALCULATE FREEBODY TRANSFORMATION MATRIX
 !
@@ -158,14 +159,14 @@ USE ISO_FORTRAN_ENV
 !        *     * *     * *     *    *     *
 !        **   ** **   ** **   **    **   **
 !
-            IF ( Bounds ) THEN
+            IF ( bounds ) THEN
                item = itmlst(4)
-               CALL softrl(Oldnam,item,Jtrlrl)
-               itest = Jtrlrl(1)
+               CALL softrl(oldnam,item,jtrlrl)
+               itest = jtrlrl(1)
                IF ( itest==1 ) THEN
-                  Jtrlrl(1) = lii
-                  CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-                  CALL mtrxi(lii,Oldnam,item,0,itest)
+                  jtrlrl(1) = lii
+                  CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+                  CALL mtrxi(lii,oldnam,item,0,itest)
                   IF ( itest/=1 ) THEN
                      spag_nextblock_1 = 4
                      CYCLE SPAG_DispatchLoop_1
@@ -175,43 +176,43 @@ USE ISO_FORTRAN_ENV
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDIF
-            Jtrlrl(1) = lii
-            CALL rdtrl(Jtrlrl)
+            jtrlrl(1) = lii
+            CALL rdtrl(jtrlrl)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Jtrlrb(1) = fir
-         CALL rdtrl(Jtrlrb)
+         jtrlrb(1) = fir
+         CALL rdtrl(jtrlrb)
          iform = 2
          iprc = 1
          ityp = 0
-         IF ( Jtrlrl(5)==2 .OR. Jtrlrl(5)==4 ) iprc = 2
-         IF ( Jtrlrb(5)==2 .OR. Jtrlrb(5)==4 ) iprc = 2
-         IF ( Jtrlrl(5)>=3 ) ityp = 2
-         IF ( Jtrlrb(5)>=3 ) ityp = 2
+         IF ( jtrlrl(5)==2 .OR. jtrlrl(5)==4 ) iprc = 2
+         IF ( jtrlrb(5)==2 .OR. jtrlrb(5)==4 ) iprc = 2
+         IF ( jtrlrl(5)>=3 ) ityp = 2
+         IF ( jtrlrb(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Jtrlrx,hir,Jtrlrb(3),iform,itype)
-         Nzfbs = Nzmpy
-         Precfb = itype
-         Sign = -1
-         CALL fbs(Z(Korbgn),Z(Korbgn))
-         CALL wrttrl(Jtrlrx)
+         CALL makmcb(jtrlrx,hir,jtrlrb(3),iform,itype)
+         nzfbs = nzmpy
+         precfb = itype
+         sign = -1
+         CALL fbs(z(korbgn),z(korbgn))
+         CALL wrttrl(jtrlrx)
 !
 !     UNPACK HIR COLUMNS FOR SCALING
 !
-         Typinu = Jtrlrx(5)
-         Irowu = 1
-         Nrowu = Jtrlrx(3)
-         Incru = Jtrlrx(5)
-         Typinp = Jtrlrx(5)
-         Typeop = Jtrlrx(5)
-         Irowp = 1
-         Nrowp = Jtrlrx(3)
-         Incrp = Jtrlrx(5)
-         CALL gopen(hir,Z(Gbuf1),0)
-         iform = Jtrlrx(4)
-         CALL makmcb(itrlr1,hirscr,Jtrlrx(3),iform,Jtrlrx(5))
-         CALL gopen(hirscr,Z(Gbuf2),1)
+         typinu = jtrlrx(5)
+         irowu = 1
+         nrowu = jtrlrx(3)
+         incru = jtrlrx(5)
+         typinp = jtrlrx(5)
+         typeop = jtrlrx(5)
+         irowp = 1
+         nrowp = jtrlrx(3)
+         incrp = jtrlrx(5)
+         CALL gopen(hir,z(gbuf1),0)
+         iform = jtrlrx(4)
+         CALL makmcb(itrlr1,hirscr,jtrlrx(3),iform,jtrlrx(5))
+         CALL gopen(hirscr,z(gbuf2),1)
          sglkor = 2*dblkor - 1
          DO i = 1 , farind
             spag_nextblock_2 = 1
@@ -222,17 +223,17 @@ USE ISO_FORTRAN_ENV
 !
 !     CALCULATE MAGNITUDE OF HIR
 !
-                  IF ( Jtrlrx(5)==2 ) THEN
+                  IF ( jtrlrx(5)==2 ) THEN
                      dhirmg = dz(dblkor)
-                     IF ( Nrowu/=1 ) THEN
-                        DO j = 2 , Nrowu
+                     IF ( nrowu/=1 ) THEN
+                        DO j = 2 , nrowu
                            IF ( dabs(dz(dblkor+j-1))>dabs(dhirmg) ) dhirmg = dz(dblkor+j-1)
                         ENDDO
                      ENDIF
                   ELSE
                      hirmag = rz(sglkor)
-                     IF ( Nrowu/=1 ) THEN
-                        DO j = 2 , Nrowu
+                     IF ( nrowu/=1 ) THEN
+                        DO j = 2 , nrowu
                            IF ( abs(rz(sglkor+j-1))>abs(hirmag) ) hirmag = rz(sglkor+j-1)
                         ENDDO
                      ENDIF
@@ -240,12 +241,12 @@ USE ISO_FORTRAN_ENV
 !
 !     SCALE HIR COLUMN
 !
-                  IF ( Jtrlrx(5)==2 ) THEN
-                     DO j = 1 , Nrowu
+                  IF ( jtrlrx(5)==2 ) THEN
+                     DO j = 1 , nrowu
                         dz(dblkor+j-1) = dz(dblkor+j-1)/dhirmg
                      ENDDO
                   ELSE
-                     DO j = 1 , Nrowu
+                     DO j = 1 , nrowu
                         rz(sglkor+j-1) = rz(sglkor+j-1)/hirmag
                      ENDDO
                   ENDIF
@@ -254,12 +255,12 @@ USE ISO_FORTRAN_ENV
 !
 !     NULL COLUMN
 !
- 2                IF ( Jtrlrx(5)==2 ) THEN
-                     DO j = 1 , Nrowu
+ 2                IF ( jtrlrx(5)==2 ) THEN
+                     DO j = 1 , nrowu
                         dz(dblkor+j-1) = 0.0D0
                      ENDDO
                   ELSE
-                     DO j = 1 , Nrowu
+                     DO j = 1 , nrowu
                         rz(sglkor+j-1) = 0.0
                      ENDDO
                   ENDIF
@@ -285,18 +286,18 @@ USE ISO_FORTRAN_ENV
          i = itrlr1(2) + itrlr2(2)
          isub(2) = itrlr2(2)
          DO j = 1 , i
-            rz(Korbgn+j-1) = 0.0
-            IF ( j>isub(1) ) rz(Korbgn+j-1) = 1.0
+            rz(korbgn+j-1) = 0.0
+            IF ( j>isub(1) ) rz(korbgn+j-1) = 1.0
          ENDDO
-         Typinp = 1
-         Typeop = 1
-         Irowp = 1
-         Nrowp = i
-         Incrp = 1
+         typinp = 1
+         typeop = 1
+         irowp = 1
+         nrowp = i
+         incrp = 1
          iform = 7
-         CALL makmcb(itrlr2,rprtn,Nrowp,iform,Typinp)
-         CALL gopen(rprtn,Z(Gbuf1),1)
-         CALL pack(rz(Korbgn),rprtn,itrlr2)
+         CALL makmcb(itrlr2,rprtn,nrowp,iform,typinp)
+         CALL gopen(rprtn,z(gbuf1),1)
+         CALL pack(rz(korbgn),rprtn,itrlr2)
          CALL close(rprtn,1)
          CALL wrttrl(itrlr2)
 !
@@ -314,8 +315,8 @@ USE ISO_FORTRAN_ENV
          ENDIF
          itype = 1
          IF ( i/=itrlr2(3) ) itype = 2
-         CALL gmmerg(hie,hirscr,0,him,0,rprtn,0,isub,itype,Z(Korbgn),Korlen)
-         CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         CALL gmmerg(hie,hirscr,0,him,0,rprtn,0,isub,itype,z(korbgn),korlen)
+         CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -331,30 +332,30 @@ USE ISO_FORTRAN_ENV
 !                  *     .     *
 !                  **         **
 !
-         CALL softrl(Oldnam,itmlst(2),itrlr1)
+         CALL softrl(oldnam,itmlst(2),itrlr1)
          IF ( itrlr1(1)==1 ) RETURN
 !
 !     GENERATE IDENTITY MATRIX
 !
-         CALL softrl(Oldnam,itmlst(1),itrlr1)
+         CALL softrl(oldnam,itmlst(1),itrlr1)
          itest = itrlr1(1)
          item = itmlst(1)
          IF ( itest==1 ) THEN
-            Typinp = 1
-            Typeop = itrlr1(5)
-            Irowp = 1
-            Nrowp = itrlr1(2)
-            Incrp = 1
+            typinp = 1
+            typeop = itrlr1(5)
+            irowp = 1
+            nrowp = itrlr1(2)
+            incrp = 1
             iform = 8
             ii = itrlr1(2)
-            CALL makmcb(itrlr1,ident,Nrowp,iform,Typeop)
-            CALL gopen(ident,Z(Gbuf1),1)
+            CALL makmcb(itrlr1,ident,nrowp,iform,typeop)
+            CALL gopen(ident,z(gbuf1),1)
             DO i = 1 , ii
                DO j = 1 , ii
-                  rz(Korbgn+j-1) = 0.0
-                  IF ( i==j ) rz(Korbgn+j-1) = 1.0
+                  rz(korbgn+j-1) = 0.0
+                  IF ( i==j ) rz(korbgn+j-1) = 1.0
                ENDDO
-               CALL pack(rz(Korbgn),ident,itrlr1)
+               CALL pack(rz(korbgn),ident,itrlr1)
             ENDDO
             CALL close(ident,1)
             CALL wrttrl(itrlr1)
@@ -364,31 +365,31 @@ USE ISO_FORTRAN_ENV
             itrlr1(1) = hie
             CALL rdtrl(itrlr1)
             iter = itrlr1(2)
-            Nrowp = ii + iter
-            DO i = 1 , Nrowp
-               rz(Korbgn+i-1) = 0.0
-               IF ( i>ii ) rz(Korbgn+i-1) = 1.0
+            nrowp = ii + iter
+            DO i = 1 , nrowp
+               rz(korbgn+i-1) = 0.0
+               IF ( i>ii ) rz(korbgn+i-1) = 1.0
             ENDDO
-            Typinp = 1
-            Typeop = 1
-            Incrp = 1
+            typinp = 1
+            typeop = 1
+            incrp = 1
             iform = 7
-            CALL makmcb(itrlr2,rprtn,Nrowp,iform,Typinp)
-            CALL gopen(rprtn,Z(Gbuf1),1)
-            CALL pack(rz(Korbgn),rprtn,itrlr2)
+            CALL makmcb(itrlr2,rprtn,nrowp,iform,typinp)
+            CALL gopen(rprtn,z(gbuf1),1)
+            CALL pack(rz(korbgn),rprtn,itrlr2)
             CALL close(rprtn,1)
             CALL wrttrl(itrlr2)
-            nrows = Nrowp
+            nrows = nrowp
 !
 !     SET UP MERGE COLUMN PARTITION VECTOR
 !
             item = itmlst(3)
-            CALL mtrxi(cprtn,Oldnam,item,0,itest)
+            CALL mtrxi(cprtn,oldnam,item,0,itest)
             IF ( itest==1 ) THEN
 !
 !     SET UP GIB MATRIX
 !
-               CALL mtrxi(gib,Oldnam,itmlst(1),0,itest)
+               CALL mtrxi(gib,oldnam,itmlst(1),0,itest)
                item = itmlst(1)
                IF ( itest==1 ) THEN
 !
@@ -399,12 +400,12 @@ USE ISO_FORTRAN_ENV
                   isub(3) = itrlr1(3)
                   isub(4) = ii
                   itype = 1
-                  IF ( nrows/=Nrowp ) itype = 2
-                  CALL gmmerg(hgh,gib,ident,hie,0,rprtn,cprtn,isub,itype,Z(Korbgn),Korlen)
+                  IF ( nrows/=nrowp ) itype = 2
+                  CALL gmmerg(hgh,gib,ident,hie,0,rprtn,cprtn,isub,itype,z(korbgn),korlen)
 !
 !     SAVE HGH ON SOF AS HORG MATRIX
 !
-                  CALL mtrxo(hgh,Oldnam,itmlst(2),0,itest)
+                  CALL mtrxo(hgh,oldnam,itmlst(2),0,itest)
                   item = itmlst(2)
                   IF ( itest==3 ) RETURN
                ENDIF
@@ -419,23 +420,23 @@ USE ISO_FORTRAN_ENV
             imsg = -11
          ELSEIF ( itest==3 ) THEN
             imsg = -1
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==4 ) THEN
             imsg = -2
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==5 ) THEN
             imsg = -3
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
             RETURN
          ELSEIF ( itest==6 ) THEN
             imsg = -10
          ELSE
             imsg = -9
          ENDIF
-         Dry = -2
-         CALL smsg1(imsg,item,Oldnam,modnam)
+         dry = -2
+         CALL smsg1(imsg,item,oldnam,modnam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

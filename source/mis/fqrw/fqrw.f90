@@ -1,15 +1,16 @@
-!*==fqrw.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fqrw.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fqrw(M,E,Er,A,B,W,P,Q,Xm,Int,Zb,Srfle,Mcbc)
-USE C_FEERXX
-USE C_LHPWX
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_feerxx
+   USE c_lhpwx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -48,15 +49,15 @@ USE ISO_FORTRAN_ENV
 !     IACC  =  ACCURACY CONTROL (EPSILON) FOR UNDERFLOW
 !
    IF ( M==1 ) RETURN
-   lambda = Dlamda
-   Iprc = 1
-   CALL makmcb(mcb(1),Srfle,M,2,Iprc)
+   lambda = dlamda
+   iprc = 1
+   CALL makmcb(mcb(1),Srfle,M,2,iprc)
    icf = Mcbc(1)
-   Incr = 1
-   Incrp = 1
-   Itp1 = Iprc
-   Itp2 = Iprc
-   it = Iacc*iprec
+   incr = 1
+   incrp = 1
+   itp1 = iprc
+   itp2 = iprc
+   it = iacc*iprec
    prc = 10.**(-it)
    pprc = 10.E-4
    jerr = 0
@@ -192,8 +193,8 @@ USE ISO_FORTRAN_ENV
                DO i = 1 , M
                   W(i) = 1.
                ENDDO
-               Iip = 1
-               Nnp = M
+               iip = 1
+               nnp = M
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ELSE
@@ -208,16 +209,16 @@ USE ISO_FORTRAN_ENV
                   nrp = 0
                ENDIF
                IF ( nv/=2 ) THEN
-                  CALL gopen(Srfle,Zb(1),Wrt)
+                  CALL gopen(Srfle,Zb(1),wrt)
                ELSE
-                  CALL gopen(Srfle,Zb(1),Wrtrew)
+                  CALL gopen(Srfle,Zb(1),wrtrew)
                   mcb(2) = 0
                   mcb(6) = 0
                ENDIF
-               Iip = 1
-               Nnp = M
+               iip = 1
+               nnp = M
                CALL pack(W(1),Srfle,mcb(1))
-               CALL close(Srfle,Norew)
+               CALL close(Srfle,norew)
                ss = 1.0
                sum = 0.
                DO i = 1 , M
@@ -232,7 +233,7 @@ USE ISO_FORTRAN_ENV
                   P(i) = P(i)*sum
                   Q(i) = P(i)
                ENDDO
-               CALL gopen(Srfle,Zb(1),Rdrew)
+               CALL gopen(Srfle,Zb(1),rdrew)
                j = 0
                SPAG_Loop_2_5: DO
                   sum = 0.
@@ -244,12 +245,12 @@ USE ISO_FORTRAN_ENV
                      Q(i) = Q(i) - sum*W(i)
                   ENDDO
                   IF ( j==nv-1 ) EXIT SPAG_Loop_2_5
-                  Ii = 1
-                  Nn = M
+                  ii = 1
+                  nn = M
                   CALL unpack(*10,Srfle,W(1))
                ENDDO SPAG_Loop_2_5
             ENDIF
- 10         CALL close(Srfle,Norew)
+ 10         CALL close(Srfle,norew)
             sum = 0.
             DO i = 1 , M
                sum = sum + Q(i)**2
@@ -317,15 +318,15 @@ USE ISO_FORTRAN_ENV
 !     MULTIPLE EIGENVALUES AND ORTHOGONALIZATION
 !
                   irp = irp + 1
-                  CALL gopen(Srfle,Zb(1),Rdrew)
+                  CALL gopen(Srfle,Zb(1),rdrew)
                   DO i = 1 , M
                      Q(i) = W(i)
                   ENDDO
                   sumx = 0.
                   jrp = nv - 1
                   DO i = 1 , jrp
-                     Ii = 1
-                     Nn = M
+                     ii = 1
+                     nn = M
                      CALL unpack(*20,Srfle,P(1))
                      sum = 0.
                      DO j = 1 , M
@@ -349,7 +350,7 @@ USE ISO_FORTRAN_ENV
                   ENDDO
                ENDIF
             ENDDO SPAG_Loop_2_6
- 20         CALL close(Srfle,Norew)
+ 20         CALL close(Srfle,norew)
             spag_nextblock_1 = 3
          CASE (3)
 !
@@ -374,7 +375,7 @@ USE ISO_FORTRAN_ENV
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( L16/=0 ) WRITE (io,99001) nv , niter , irp , sumx
+            IF ( l16/=0 ) WRITE (io,99001) nv , niter , irp , sumx
 99001       FORMAT (10X,18H FEER QRW ELEMENT ,I5,6H ITER ,2I3,6H PROJ ,E16.8)
             IF ( jerr<=0 ) THEN
                zerr = abs(W(1))
@@ -383,7 +384,7 @@ USE ISO_FORTRAN_ENV
                ENDDO
                zerr = (abs(W(M)))/zerr
                IF ( zerr>pprc ) jerr = nv - 1
-               IF ( jerr/=0 ) WRITE (io,99002) Uwm , jerr
+               IF ( jerr/=0 ) WRITE (io,99002) uwm , jerr
 99002          FORMAT (A25,' 2399',/5X,'ONLY THE FIRST',I6,' EIGENSOLUTIONS ',                                                      &
                       &'CLOSEST TO THE SHIFT POINT (F1 OR ZERO) PASS THE FEER ','ACCURACY TEST FOR EIGENVECTORS.')
             ENDIF

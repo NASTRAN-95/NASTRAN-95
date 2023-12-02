@@ -1,12 +1,13 @@
-!*==ddrmms.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ddrmms.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,10 +45,9 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
             ENDIF
          ENDDO
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          nelt = i
-         CALL open(*60,est,Z(Buf4),0)
+         CALL open(*60,est,z(Buf4),0)
          SPAG_Loop_1_1: DO
             CALL fwdrec(*80,est)
             CALL fread(est,elt,1,0)
@@ -56,12 +56,12 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
                CALL fread(est,bufa,nwords,0)
                CALL close(est,1)
                n1mat = Buf4 - Buf6
-               CALL premat(Z(Buf6),Z(Buf6),Z(Buf4),n1mat,n2mat,mpt,dit)
-               Matflg = 1
+               CALL premat(z(Buf6),z(Buf6),z(Buf4),n1mat,n2mat,mpt,dit)
+               matflg = 1
                itemp = tmp(nelt)
                imatid = mtd(nelt)
                ieltmp = bufa(itemp)
-               Matid = bufa(imatid)
+               matid = bufa(imatid)
                ielid = bufa(1)
                CALL mat(ielid)
                EXIT SPAG_Loop_1_1
@@ -133,19 +133,19 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
 !
 !     M. S. IN TENSION
 !
-                  IF ( Sigt>0.0 ) THEN
+                  IF ( sigt>0.0 ) THEN
                      temp = Buf(7)
                      IF ( Buf(7)<Buf(14) ) temp = Buf(14)
-                     IF ( temp>0.0 ) Buf(9) = Sigt/temp - 1.0
+                     IF ( temp>0.0 ) Buf(9) = sigt/temp - 1.0
                   ENDIF
 !
 !     M. S. IN COMPRESSION
 !
-                  IF ( Sigc/=0.0 ) THEN
+                  IF ( sigc/=0.0 ) THEN
                      temp = Buf(8)
                      IF ( Buf(8)>Buf(15) ) temp = Buf(15)
                      IF ( temp<0.0 ) THEN
-                        cprim = -abs(Sigc)
+                        cprim = -abs(sigc)
                         Buf(16) = cprim/temp - 1.0
                      ENDIF
                   ENDIF
@@ -165,14 +165,14 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
 !     M. S. IN TENSION OR COMPRESSION
 !
                   IF ( Buf(2)>=0.0 ) THEN
-                     IF ( Sigt>0.0 .AND. Buf(2)/=0.0 ) Buf(3) = Sigt/Buf(2) - 1.0
-                  ELSEIF ( Sigc/=0.0 ) THEN
-                     Buf(3) = (-abs(Sigc)/Buf(2)) - 1.0
+                     IF ( sigt>0.0 .AND. Buf(2)/=0.0 ) Buf(3) = sigt/Buf(2) - 1.0
+                  ELSEIF ( sigc/=0.0 ) THEN
+                     Buf(3) = (-abs(sigc)/Buf(2)) - 1.0
                   ENDIF
 !
 !     M. S. IN TORSION
 !
-                  IF ( Buf(4)/=0.0 .AND. Sigs>0.0 ) Buf(3) = Sigs/abs(Buf(4)) - 1.0
+                  IF ( Buf(4)/=0.0 .AND. sigs>0.0 ) Buf(3) = sigs/abs(Buf(4)) - 1.0
                ENDIF
             ENDIF
          ENDIF
@@ -190,7 +190,7 @@ SUBROUTINE ddrmms(Buf,Eltype,Buf4,Buf6)
          Buf(i+5) = delta + Buf(i+7)
          Buf(i+6) = delta - Buf(i+7)
 !
-         IF ( andf(Isys(61),1)>0 ) Buf(i+7) = sqrt(Buf(i+1)**2+Buf(i+2)**2-Buf(i+1)*Buf(i+2)+3.0*Buf(i+3)**2)
+         IF ( andf(isys(61),1)>0 ) Buf(i+7) = sqrt(Buf(i+1)**2+Buf(i+2)**2-Buf(i+1)*Buf(i+2)+3.0*Buf(i+3)**2)
 !
          delta = 2.0*Buf(i+3)
          IF ( abs(delta)<1.0E-15 .AND. abs(temp)<1.0E-15 ) THEN

@@ -1,15 +1,16 @@
-!*==shlsts.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==shlsts.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
+   USE c_condas
+   USE c_outreq
+   USE c_sdr2c1
+   USE c_sdr2de
+   USE c_sdr2x2
+   USE c_sdr2x7
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_OUTREQ
-   USE C_SDR2C1
-   USE C_SDR2DE
-   USE C_SDR2X2
-   USE C_SDR2X7
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -112,23 +113,23 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
             trnshr(ll) = 0.0
          ENDDO
 !
-         force = Forreq .AND. Layer
-         stress = Stsreq .AND. Layer
-         strain = Stnreq .AND. Layers
+         force = forreq .AND. layer
+         stress = stsreq .AND. layer
+         strain = stnreq .AND. layers
 !
          itype = -1
-         lpcomp = Ipcmp + Npcmp + Npcmp1 + Npcmp2
-         pcmp = Npcmp>0
-         pcmp1 = Npcmp1>0
-         pcmp2 = Npcmp2>0
+         lpcomp = ipcmp + npcmp + npcmp1 + npcmp2
+         pcmp = npcmp>0
+         pcmp1 = npcmp1>0
+         pcmp2 = npcmp2>0
 !
          IF ( force ) THEN
 !
 !     WRITE FORCE RESULTANTS TO OEF1L IF REQUESTED
 !
             elemid = 10*Elid + fdest
-            CALL write(Oef1l,elemid,1,0)
-            CALL write(Oef1l,Forsul(3),8,0)
+            CALL write(oef1l,elemid,1,0)
+            CALL write(oef1l,forsul(3),8,0)
          ENDIF
 !
 !     FORCE REQUEST HAS BEEN PROCESSED. IF NO MORE REQUESTS WE ARE DONE.
@@ -142,7 +143,7 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !
 !     1.  10*ELEMENT ID + DEVICE CODE
 !
-         IF ( lpcomp==Ipcmp ) THEN
+         IF ( lpcomp==ipcmp ) THEN
 !
 !
 !     ERROR MESSAGE
@@ -154,13 +155,13 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
          ELSE
             elemid = 10*Elid + sdest
             IF ( strain ) elemid = 10*Elid + edest
-            CALL write(Oes1l,elemid,1,0)
+            CALL write(oes1l,elemid,1,0)
 !
 !     DETERMINE  IF INTERLAMINAR SHEAR STRESS CALCULATIONS ARE REQUIRED
 !     BY CHECKING THE TRANSVERSE SHEAR STRESS RESULTANTS QX AND QY
 !
-            v(1) = Forsul(9)
-            v(2) = Forsul(10)
+            v(1) = forsul(9)
+            v(2) = forsul(10)
             trnflx = v(1)/=0.0 .OR. v(2)/=0.0
 !
 !     LOCATE PID BY PERFORMING A SEQUENTIAL SEARCH OF THE PCOMPI DATA
@@ -169,13 +170,13 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !     SEARCH FOR PID IN PCOMP DATA
 !
             IF ( pcmp ) THEN
-               ip = Ipcmp
+               ip = ipcmp
                IF ( iz(ip)==Pid ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               ipc11 = Ipcmp1 - 1
-               DO ip = Ipcmp , ipc11
+               ipc11 = ipcmp1 - 1
+               DO ip = ipcmp , ipc11
                   IF ( iz(ip)==-1 .AND. ip<ipc11 ) THEN
                      IF ( iz(ip+1)==Pid ) GOTO 10
                   ENDIF
@@ -185,13 +186,13 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !     SEARCH FOR PID IN PCOMP1 DATA
 !
             IF ( pcmp1 ) THEN
-               ip = Ipcmp1
+               ip = ipcmp1
                IF ( iz(ip)==Pid ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               ipc21 = Ipcmp2 - 1
-               DO ip = Ipcmp1 , ipc21
+               ipc21 = ipcmp2 - 1
+               DO ip = ipcmp1 , ipc21
                   IF ( iz(ip)==-1 .AND. ip<ipc21 ) THEN
                      IF ( iz(ip+1)==Pid ) THEN
                         spag_nextblock_1 = 3
@@ -207,13 +208,13 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
                CALL mesage(-30,223,Elid)
                RETURN
             ELSE
-               ip = Ipcmp2
+               ip = ipcmp2
                IF ( iz(ip)==Pid ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                lpc11 = lpcomp - 1
-               DO ip = Ipcmp2 , lpc11
+               DO ip = ipcmp2 , lpc11
                   IF ( iz(ip)==-1 .AND. ip<lpc11 ) THEN
                      IF ( iz(ip+1)==Pid ) THEN
                         spag_nextblock_1 = 5
@@ -251,7 +252,6 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
          ipoint = pidloc + 8 + 4*nlay
          icontr = ipoint + 27*nlay
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
          ip = ip + 1
@@ -264,7 +264,6 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
          ipoint = pidloc + 8 + nlay
          icontr = ipoint + 25 + 2*nlay
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
          ip = ip + 1
@@ -298,11 +297,11 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !
          lamopt = iz(pidloc+8)
          fthr = iz(pidloc+5)
-         sb = Z(pidloc+4)
-         ei(1) = Z(icontr+1)
-         ei(2) = Z(icontr+2)
-         zbar(1) = Z(icontr+3)
-         zbar(2) = Z(icontr+4)
+         sb = z(pidloc+4)
+         ei(1) = z(icontr+1)
+         ei(2) = z(icontr+2)
+         zbar(1) = z(icontr+3)
+         zbar(2) = z(icontr+4)
 !
          nonmem = lamopt/=mem .AND. lamopt/=symmem
          symlay = lamopt==sym .OR. lamopt==symmem
@@ -314,8 +313,8 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !     2.  NLAYER - NUMBER OF LAYERS FOR LAMINATE
 !     3.  TYPE OF FAILURE THEORY SELECTED
 !
-            CALL write(Oes1l,nlayer,1,0)
-            CALL write(Oes1l,fthr,1,0)
+            CALL write(oes1l,nlayer,1,0)
+            CALL write(oes1l,fthr,1,0)
 !
 !     START THE LOOP OVER LAYERS
 !
@@ -336,9 +335,9 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !       (NOT SUPPORTED FOR PCOMP1 OR PCOMP2 BULK DATA)
 !
                   zk1 = zk
-                  IF ( itype==pcomp ) zk = zk1 + Z(pidloc+6+4*k)
-                  IF ( itype==pcomp1 ) zk = zk1 + Z(pidloc+7)
-                  IF ( itype==pcomp2 ) zk = zk1 + Z(pidloc+7+2*k)
+                  IF ( itype==pcomp ) zk = zk1 + z(pidloc+6+4*k)
+                  IF ( itype==pcomp1 ) zk = zk1 + z(pidloc+7)
+                  IF ( itype==pcomp2 ) zk = zk1 + z(pidloc+7+2*k)
                   zsubi = (zk+zk1)/2.0
                   ti = zk - zk1
                   souti = 1
@@ -347,21 +346,21 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
 !     LAYER MATERIAL PROPERTIES
 !
                   DO igi = 1 , 9
-                     gg(igi) = Z(ipoint+igi)
+                     gg(igi) = z(ipoint+igi)
                   ENDDO
 !
 !     LAYER ULTIMATE STRENGTHS
 !
                   DO ir = 1 , 6
-                     ultstn(ir) = Z(ipoint+16+ir)
+                     ultstn(ir) = z(ipoint+16+ir)
                   ENDDO
 !
 !     LAYER ORIENTATION
 !
-                  IF ( itype==pcomp ) theta = Z(pidloc+7+4*k)
-                  IF ( itype==pcomp1 ) theta = Z(pidloc+8+k)
-                  IF ( itype==pcomp2 ) theta = Z(pidloc+8+2*k)
-                  theta = theta*Degrad
+                  IF ( itype==pcomp ) theta = z(pidloc+7+4*k)
+                  IF ( itype==pcomp1 ) theta = z(pidloc+8+k)
+                  IF ( itype==pcomp2 ) theta = z(pidloc+8+2*k)
+                  theta = theta*degrad
 !
 !     BUILD THE STRAIN TENSOR TRANSFORMATION TO TRANSFORM
 !     LAYER STRAINS FROM MATERIAL TO FIBER DIRECTION.
@@ -413,7 +412,7 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
                      IF ( itype==pcomp2 ) icontr = ipoint + 23 + 2*k
                      DO ir = 1 , 2
                         ernar(ir) = ernar(ir) + ti*(zbar(ir)-zsubi)
-                        trnar(ir) = trnar(ir) + ti*(zbar(ir)-zsubi)*Z(icontr+ir)
+                        trnar(ir) = trnar(ir) + ti*(zbar(ir)-zsubi)*z(icontr+ir)
                      ENDDO
 !
                      DO ir = 1 , 2
@@ -468,13 +467,13 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
                         ENDDO
                         trnsrr(1) = trnshr(1)
                         trnsrr(2) = trnshr(2)
-                        CALL write(Oes1l,lyrid,1,0)
-                        CALL write(Oes1l,strslr(1),3,0)
-                        CALL write(Oes1l,findxr,1,0)
-                        CALL write(Oes1l,iflag1,1,0)
-                        CALL write(Oes1l,trnsrr(1),2,0)
-                        CALL write(Oes1l,fbondr,1,0)
-                        CALL write(Oes1l,iflag2,1,0)
+                        CALL write(oes1l,lyrid,1,0)
+                        CALL write(oes1l,strslr(1),3,0)
+                        CALL write(oes1l,findxr,1,0)
+                        CALL write(oes1l,iflag1,1,0)
+                        CALL write(oes1l,trnsrr(1),2,0)
+                        CALL write(oes1l,fbondr,1,0)
+                        CALL write(oes1l,iflag2,1,0)
                      ENDIF
 !
                      IF ( strain ) THEN
@@ -521,8 +520,8 @@ SUBROUTINE shlsts(Elid,Pid,Tlam,Epsumi,Epscmi)
             iflag3 = 0
             IF ( abs(fimax)>=0.999 ) iflag3 = 1
 !
-            CALL write(Oes1l,fimaxr,1,0)
-            CALL write(Oes1l,iflag3,1,0)
+            CALL write(oes1l,fimaxr,1,0)
+            CALL write(oes1l,iflag3,1,0)
          ENDIF
          EXIT SPAG_DispatchLoop_1
       END SELECT

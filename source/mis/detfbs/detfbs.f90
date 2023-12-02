@@ -1,15 +1,16 @@
-!*==detfbs.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==detfbs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE detfbs(Iy,Iobuf,Fileu,Nrow,Kcount)
-USE C_DETMX
-USE C_NAMES
-USE C_REGEAN
-USE C_REIGKR
-USE C_TRNSPX
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_detmx
+   USE c_names
+   USE c_regean
+   USE c_reigkr
+   USE c_trnspx
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -59,31 +60,31 @@ USE ISO_FORTRAN_ENV
    DATA parm(3) , parm(4)/4HDETF , 4HBS  /
 !
 !WKBI SPR 94011 10/94
-   IF ( Option/=sdet ) THEN
+   IF ( option/=sdet ) THEN
 !WKBNB 10/94 SPR94011
       CALL detgbs(Iy,Iobuf,Kcount)
    ELSE
-      Itypex = Fileu(5)
+      itypex = Fileu(5)
       index = -1
-      Incr = 1
+      incr = 1
       nfile = Fileu(1)
-      IF ( Option/=sdet ) THEN
+      IF ( option/=sdet ) THEN
          index = 1
-         Lcore = Ipdeta - Iy*Itypex - 1
-         IF ( Lcore<0 ) CALL mesage(-8,0,parm(3))
-         Ncr = 2
-         Scr(1) = Scr3
-         Scr(2) = Scr4
+         lcore = ipdeta - Iy*itypex - 1
+         IF ( lcore<0 ) CALL mesage(-8,0,parm(3))
+         ncr = 2
+         scr(1) = scr3
+         scr(2) = scr4
          DO i = 1 , 7
-            Filev(i) = Fileu(i)
-            Filevt(i) = Fileu(i)
+            filev(i) = Fileu(i)
+            filevt(i) = Fileu(i)
          ENDDO
       ENDIF
-      Filevt(1) = Scr6
-      nfile = Filevt(1)
-      IF ( Itypex==1 ) CALL trnsp(y(Iy))
-      IF ( Itypex/=1 ) CALL trnsp(dy(Iy))
-      IF ( Itypex==1 ) THEN
+      filevt(1) = scr6
+      nfile = filevt(1)
+      IF ( itypex==1 ) CALL trnsp(y(Iy))
+      IF ( itypex/=1 ) CALL trnsp(dy(Iy))
+      IF ( itypex==1 ) THEN
          ASSIGN 10 TO isd
          ASSIGN 20 TO ius
       ELSE
@@ -91,12 +92,12 @@ USE ISO_FORTRAN_ENV
          ASSIGN 15 TO ius
       ENDIF
       parm(2) = nfile
-      CALL gopen(nfile,Iobuf,Rdrew)
+      CALL gopen(nfile,Iobuf,rdrew)
       xmin = 1.0E20
-      IF ( Itypex/=1 ) dxmin = 1.0D20
+      IF ( itypex/=1 ) dxmin = 1.0D20
       DO i = 1 , Nrow
-         Iunpak = 0
-         IF ( Itypex/=1 ) THEN
+         iunpak = 0
+         IF ( itypex/=1 ) THEN
             CALL unpack(*100,nfile,dx(i))
             IF ( dxmin>dabs(dx(i)) ) dxmin = dabs(dx(i))
          ELSE
@@ -104,12 +105,12 @@ USE ISO_FORTRAN_ENV
             IF ( xmin>abs(x(i)) ) xmin = abs(x(i))
          ENDIF
       ENDDO
-      IF ( Itypex/=1 .OR. xmin==0.0 ) THEN
-         IF ( Itypex==1 .OR. dxmin==0.0D0 ) THEN
+      IF ( itypex/=1 .OR. xmin==0.0 ) THEN
+         IF ( itypex==1 .OR. dxmin==0.0D0 ) THEN
             xmin = 1.0E20
-            IF ( Itypex/=1 ) dxmin = 1.0D20
+            IF ( itypex/=1 ) dxmin = 1.0D20
             DO i = 1 , Nrow
-               IF ( Itypex/=1 ) THEN
+               IF ( itypex/=1 ) THEN
                   IF ( dx(i)/=0.0D0 ) THEN
                      IF ( dxmin>dabs(dx(i)) ) dxmin = dabs(dx(i))
                   ENDIF
@@ -117,7 +118,7 @@ USE ISO_FORTRAN_ENV
                   IF ( xmin>abs(x(i)) ) xmin = abs(x(i))
                ENDIF
             ENDDO
-            IF ( Itypex/=1 ) THEN
+            IF ( itypex/=1 ) THEN
                IF ( dxmin>1.0D-8 ) dxmin = 1.0D-8
             ELSE
                IF ( xmin>1.0E-8 ) xmin = 1.0E-8
@@ -128,21 +129,21 @@ USE ISO_FORTRAN_ENV
 !     BUILD LOAD VECTOR FOR BACKWARD PASS
 !
       sdiag = 1.0
-      IF ( Itypex/=1 ) dsdiag = 1.0D0
+      IF ( itypex/=1 ) dsdiag = 1.0D0
       DO i = 1 , Nrow
          anum = (-1)**(i*Kcount)
          ai = i
          aden = 1.0 + (1.0-ai/Nrow)*Kcount
          avalue = anum/aden
-         IF ( Itypex/=1 ) THEN
-            IF ( Option==sdet ) THEN
+         IF ( itypex/=1 ) THEN
+            IF ( option==sdet ) THEN
                dsdiag = dx(i)
                IF ( dx(i)>=0.0 .AND. dabs(dx(i))<dxmin ) dsdiag = dxmin
                IF ( dx(i)<0.0 .AND. dabs(dx(i))<dxmin ) dsdiag = -dxmin
             ENDIF
             dx(i) = dxmin*avalue/dsdiag
          ELSE
-            IF ( Option==sdet ) THEN
+            IF ( option==sdet ) THEN
                sdiag = x(i)
                IF ( x(i)>=0.0 .AND. abs(x(i))<xmin ) sdiag = xmin
                IF ( x(i)<0.0 .AND. abs(x(i))<xmin ) sdiag = -xmin
@@ -155,21 +156,21 @@ USE ISO_FORTRAN_ENV
 !     BEGIN BACKWARD PASS
 !
       DO i = 1 , Nrow
-         Iunpak = 0
+         iunpak = 0
          j = Nrow - i + 1
          CALL bckrec(nfile)
-         IF ( Itypex==1 ) CALL unpack(*100,nfile,y(Iy))
-         IF ( Itypex/=1 ) CALL unpack(*100,nfile,dy(Iy))
+         IF ( itypex==1 ) CALL unpack(*100,nfile,y(Iy))
+         IF ( itypex/=1 ) CALL unpack(*100,nfile,dy(Iy))
          CALL bckrec(nfile)
          ising = 0
-         k = Junpak - Iunpak + Iy
+         k = junpak - iunpak + Iy
          GOTO isd
          spag_nextblock_1 = 1
          SPAG_DispatchLoop_1: DO
             SELECT CASE (spag_nextblock_1)
             CASE (1)
                k = k - 1
-               Junpak = Junpak - 1
+               junpak = junpak - 1
                IF ( k<Iy ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -179,18 +180,18 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 1
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Junpak<j ) THEN
+               IF ( junpak<j ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Junpak/=j ) THEN
+               IF ( junpak/=j ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
 !
 !     DIVIDE BY THE DIAGONAL TERM
 !
-               IF ( Option/=sdet ) THEN
+               IF ( option/=sdet ) THEN
                   IF ( dy(k)>=0.0D0 .AND. dabs(dy(k))<dxmin ) dy(k) = dxmin
                   IF ( dy(k)<0.0D0 .AND. dabs(dy(k))<dxmin ) dy(k) = -dxmin
                   dx(j) = dx(j)/dy(k)
@@ -200,12 +201,12 @@ USE ISO_FORTRAN_ENV
                   spag_nextblock_1 = 1
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Junpak<j ) THEN
+               IF ( junpak<j ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Junpak==j ) THEN
-                  IF ( Option/=sdet ) THEN
+               IF ( junpak==j ) THEN
+                  IF ( option/=sdet ) THEN
                      IF ( y(k)>=0.0 .AND. abs(y(k))<xmin ) y(k) = xmin
                      IF ( y(k)<0.0 .AND. abs(y(k))<xmin ) y(k) = -xmin
                      x(j) = x(j)/y(k)
@@ -215,21 +216,20 @@ USE ISO_FORTRAN_ENV
                spag_nextblock_1 = 2
             CASE (2)
                GOTO ius
- 15            dx(j) = dx(j) - index*dx(Junpak)*dy(k)
+ 15            dx(j) = dx(j) - index*dx(junpak)*dy(k)
                spag_nextblock_1 = 1
                CYCLE SPAG_DispatchLoop_1
- 20            x(j) = x(j) - index*x(Junpak)*y(k)
+ 20            x(j) = x(j) - index*x(junpak)*y(k)
                spag_nextblock_1 = 1
-               CYCLE SPAG_DispatchLoop_1
             CASE (3)
-               IF ( ising==0 ) GOTO 100
-               EXIT SPAG_DispatchLoop_1
+               IF ( ising/=0 ) EXIT SPAG_DispatchLoop_1
+               GOTO 100
             END SELECT
          ENDDO SPAG_DispatchLoop_1
       ENDDO
 !
-      IF ( Option/=sdet ) THEN
-         IF ( Itypex==1 ) THEN
+      IF ( option/=sdet ) THEN
+         IF ( itypex==1 ) THEN
             DO i = 1 , Nrow
                x(i) = -x(i)
             ENDDO
@@ -239,7 +239,7 @@ USE ISO_FORTRAN_ENV
             ENDDO
          ENDIF
       ENDIF
-      CALL close(nfile,Rew)
+      CALL close(nfile,rew)
    ENDIF
 !WKBI 10/94 SPR94011
    RETURN

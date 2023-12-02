@@ -1,9 +1,10 @@
-!*==akappa.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==akappa.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE akappa(Arg,Bkappa)
+   USE c_blk1
    IMPLICIT NONE
-   USE C_BLK1
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,20 +22,19 @@ SUBROUTINE akappa(Arg,Bkappa)
 !
 !
 !
-   scrk1 = abs(Scrk)
+   scrk1 = abs(scrk)
    arg1 = abs(Arg)
    IF ( scrk1>arg1 ) THEN
-      gam = sqrt(Scrk**2-Arg**2)
-      s1 = Sns*gam
-      c1 = -Beta*gam*sinh(s1)
-      c2 = cosh(s1) - cos((Arg-Del)*Sps+Sigma)
+      gam = sqrt(scrk**2-Arg**2)
+      s1 = sns*gam
+      c1 = -beta*gam*sinh(s1)
+      c2 = cosh(s1) - cos((Arg-del)*sps+sigma)
       Bkappa = c1/c2
       RETURN
    ENDIF
-   gam = sqrt(Arg**2-Scrk**2)
-   s1 = Sns*gam
-   c1 = Beta*gam*sin(s1)
-   c2 = cos(s1) - cos((Arg-Del)*Sps+Sigma)
+   gam = sqrt(Arg**2-scrk**2)
+   s1 = sns*gam
+   c1 = beta*gam*sin(s1)
+   c2 = cos(s1) - cos((Arg-del)*sps+sigma)
    Bkappa = c1/c2
-   RETURN
 END SUBROUTINE akappa

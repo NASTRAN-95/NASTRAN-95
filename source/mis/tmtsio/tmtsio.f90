@@ -2,15 +2,15 @@
  
 SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    IMPLICIT NONE
-   USE C_GINOX
-   USE C_NTIME
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZNTPKX
-   USE C_ZZZZZZ
+   USE c_ginox
+   USE c_ntime
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,6 +26,15 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    INTEGER , DIMENSION(7) :: mcb
    REAL , DIMENSION(23) :: t
    REAL , DIMENSION(1) :: x , z
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -48,9 +57,9 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
 !     FOR THIS MACHINE
 !
    kerr = 1
-   buf1 = korsz(A)
+   buf1 = korsz(a)
    IF ( buf1<=0 ) GOTO 1800
-   IF ( Debug1>0 ) WRITE (Output,99001)
+   IF ( Debug1>0 ) WRITE (output,99001)
 99001 FORMAT (' -LINK1 DEBUG- TMTSIO CALLINS DUMMY NEXT')
 !WKBD CALL DUMMY
 !
@@ -58,29 +67,29 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
 !            SKIP TMTSIO AND TMTSLP OR NOT. DIAG 35 CAN NOT BE USED AT
 !            THIS POINT SINCE THE DIAG CARD HAS NOT BEEN READ YET.
 !
-   IF ( Tgino>0. .AND. Isy77/=-3 ) RETURN 1
+   IF ( tgino>0. .AND. isy77/=-3 ) RETURN 1
 !
 !     INITIALIZE
 !
    CALL page1
-   WRITE (Output,99002)
+   WRITE (output,99002)
 99002 FORMAT ('0*** USER INFORMATION MESSAGE 225, GINO TIME CONSTANTS ','ARE BEING COMPUTED',/5X,                                   &
              &'(SEE NASINFO FILE FOR ELIMINATION OF THESE COMPUTATIONS)')
-   IF ( Tgino>0. ) WRITE (Output,99003) t
+   IF ( tgino>0. ) WRITE (output,99003) t
 99003 FORMAT ('0*** EXISTING TIME CONSTANTS IN /NTIME/ -',/,2(/5X,9F8.3))
    n = 50
    m = n
-   type = Iprec
+   type = iprec
 !     NITEMS = 23
 !
    f1 = files(1)
    f2 = files(2)
-   buf1 = buf1 - Sysbuf
-   buf2 = buf1 - Sysbuf
+   buf1 = buf1 - sysbuf
+   buf2 = buf1 - sysbuf
    end = n*m
    IF ( end>=buf1-1 ) CALL mesage(-8,0,isubr)
    DO i = 1 , end
-      A(i) = i
+      a(i) = i
    ENDDO
    n10 = n*10
    m10 = m/10
@@ -90,29 +99,29 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
 !
 !     WRITE TEST
 !
-   IF ( Debug1>0 ) WRITE (Output,99004) Nbuff3 , Ig
+   IF ( Debug1>0 ) WRITE (output,99004) nbuff3 , ig
 99004 FORMAT (' -LINK1 DEBUG- OPEN OUTPUT FILE NEXT FOR WRITE. NBUFF3 =',I5,/5X,'GINO BUFADD 75 WORDS =',/,(2X,11I7))
-   CALL open(*1700,f1,A(buf1),1)
+   CALL open(*1700,f1,a(buf1),1)
    IF ( Debug1>0 ) THEN
-      WRITE (Output,99005) Nbuff3 , Ig
+      WRITE (output,99005) nbuff3 , ig
 99005 FORMAT (' -LINK1 DEBUG- FILE OPEN OK. NBUFF3 =',I5,/5X,'GINO BUFADD 75 WORDS =',/,(2X,11I7))
-      WRITE (Output,99006) Iwr(41)
+      WRITE (output,99006) iwr(41)
 99006 FORMAT (5X,'RWFLG(41) =',I7,//,' -LINK1 DEBUG- CALLING SECOND NEXT')
    ENDIF
    CALL cputim(t1,t1,1)
    DO i = 1 , n
-      CALL write(f1,A,m,1)
+      CALL write(f1,a,m,1)
    ENDDO
    CALL cputim(t2,t2,1)
-   IF ( Debug1>0 ) WRITE (Output,99007)
+   IF ( Debug1>0 ) WRITE (output,99007)
 99007 FORMAT (' -LINK1 DEBUG- CLOSE FILE NEXT')
    CALL close(f1,1)
-   IF ( Debug1>0 ) WRITE (Output,99008)
+   IF ( Debug1>0 ) WRITE (output,99008)
 99008 FORMAT (' -LINK1 DEBUG- OPEN ANOTHER OUTPUT FILE NEXT FOR WRITE')
-   CALL open(*1700,f2,A(buf2),1)
+   CALL open(*1700,f2,a(buf2),1)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
-      CALL write(f2,A,m10,1)
+      CALL write(f2,a,m10,1)
    ENDDO
    CALL cputim(t4,t4,1)
    CALL close(f2,1)
@@ -125,69 +134,69 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    tprrec = 1.0E6*(time2-time1)/(9.0*fn)
    tprwrd = (1.0E6*time1-fn*tprrec)/(fn*fm)
    GOTO iret
- 200  Tgino = tprwrd
-   Rgino = tprrec
+ 200  tgino = tprwrd
+   rgino = tprrec
 !
 !     READ TEST
 !
-   IF ( Debug1>0 ) WRITE (Output,99009)
+   IF ( Debug1>0 ) WRITE (output,99009)
 99009 FORMAT (' -LINK1 DEBUG- OPEN INPUT FILE NEXT FOR READ')
-   CALL open(*1700,f1,A(buf1),0)
+   CALL open(*1700,f1,a(buf1),0)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
-      CALL read(*1700,*1700,f1,A(i1000),m,1,flag)
+      CALL read(*1700,*1700,f1,a(i1000),m,1,flag)
    ENDDO
    CALL cputim(t2,t2,1)
    CALL close(f1,2)
-   CALL open(*1700,f2,A(buf2),0)
+   CALL open(*1700,f2,a(buf2),0)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
-      CALL read(*1700,*1700,f2,A(i1000),m10,1,flag)
+      CALL read(*1700,*1700,f2,a(i1000),m10,1,flag)
    ENDDO
    CALL cputim(t4,t4,1)
    CALL close(f2,2)
    ASSIGN 300 TO iret
    GOTO 100
- 300  Tgino = Tgino + tprwrd
-   Rgino = Rgino + tprrec
+ 300  tgino = tgino + tprwrd
+   rgino = rgino + tprrec
 !
 !     BACKWARD READ TEST
 !
-   CALL open(*1700,f1,A(buf1),2)
+   CALL open(*1700,f1,a(buf1),2)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
       CALL bckrec(f1)
-      CALL read(*1700,*1700,f1,A(i1000),m,1,flag)
+      CALL read(*1700,*1700,f1,a(i1000),m,1,flag)
       CALL bckrec(f1)
    ENDDO
    CALL cputim(t2,t2,1)
    CALL close(f1,1)
-   CALL open(*1700,f2,A(buf2),2)
+   CALL open(*1700,f2,a(buf2),2)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
       CALL bckrec(f2)
-      CALL read(*1700,*1700,f2,A(i1000),m10,1,flag)
+      CALL read(*1700,*1700,f2,a(i1000),m10,1,flag)
       CALL bckrec(f2)
    ENDDO
    CALL cputim(t4,t4,1)
    CALL close(f2,1)
    ASSIGN 400 TO iret
    GOTO 100
- 400  Tgino = Tgino + tprwrd
-   Tgino = Tgino/3.0
-   Rgino = Rgino + tprrec
-   Rgino = Rgino/3.0
+ 400  tgino = tgino + tprwrd
+   tgino = tgino/3.0
+   rgino = rgino + tprrec
+   rgino = rgino/3.0
 !
 !     BLDPK TEST
 !
-   CALL open(*1700,f1,A(buf1),1)
+   CALL open(*1700,f1,a(buf1),1)
    CALL makmcb(mcb,f1,m,2,type)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
       CALL bldpk(type,type,f1,0,0)
       DO j = 1 , m
          z(1) = 1.0
-         Iz = j
+         iz = j
          CALL zblpki
       ENDDO
       CALL bldpkn(f1,0,mcb)
@@ -196,13 +205,13 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    CALL wrttrl(mcb)
    CALL close(f1,1)
    CALL makmcb(mcb,f2,m10,2,type)
-   CALL open(*1700,f2,A(buf2),1)
+   CALL open(*1700,f2,a(buf2),1)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
       CALL bldpk(type,type,f2,0,0)
       DO j = 1 , m10
          z(1) = 2.0
-         Iz = j
+         iz = j
          CALL zblpki
       ENDDO
       CALL bldpkn(f2,0,mcb)
@@ -212,106 +221,106 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    CALL close(f2,1)
    ASSIGN 500 TO iret
    GOTO 100
- 500  Tbldpk = tprwrd
-   Rbldpk = tprrec
+ 500  tbldpk = tprwrd
+   rbldpk = tprrec
 !
 !     INTPK TEST
 !
-   CALL open(*1700,f1,A(buf1),0)
+   CALL open(*1700,f1,a(buf1),0)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
       CALL intpk(*1700,f1,0,type,0)
       DO j = 1 , m
          CALL zntpki
-         IF ( Ix/=j ) GOTO 1600
-         IF ( Eol/=0 ) THEN
-            IF ( Ix/=m ) GOTO 1600
+         IF ( ix/=j ) GOTO 1600
+         IF ( eol/=0 ) THEN
+            IF ( ix/=m ) GOTO 1600
          ENDIF
       ENDDO
-      IF ( Eol==0 ) GOTO 1600
+      IF ( eol==0 ) GOTO 1600
    ENDDO
    CALL cputim(t2,t2,1)
    CALL close(f1,1)
-   CALL open(*1700,f2,A(buf2),0)
+   CALL open(*1700,f2,a(buf2),0)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
       CALL intpk(*1700,f2,0,type,0)
       DO j = 1 , m10
          CALL zntpki
-         IF ( Ix/=j ) GOTO 1600
-         IF ( Eol/=0 ) THEN
-            IF ( Ix/=m10 ) GOTO 1600
+         IF ( ix/=j ) GOTO 1600
+         IF ( eol/=0 ) THEN
+            IF ( ix/=m10 ) GOTO 1600
          ENDIF
       ENDDO
-      IF ( Eol==0 ) GOTO 1600
+      IF ( eol==0 ) GOTO 1600
    ENDDO
    CALL cputim(t4,t4,1)
    CALL close(f2,1)
    ASSIGN 600 TO iret
    GOTO 100
- 600  Tintpk = tprwrd
-   Rintpk = tprrec
+ 600  tintpk = tprwrd
+   rintpk = tprrec
 !
 !     PACK TEST
 !
    CALL makmcb(mcb,f1,m,2,type)
-   Typin1 = type
-   Typou1 = type
-   I1 = 1
-   J1 = m
-   Incr1 = 1
+   typin1 = type
+   typou1 = type
+   i1 = 1
+   j1 = m
+   incr1 = 1
    mx = m*type
    DO i = 1 , mx
-      A(i+1000) = i
+      a(i+1000) = i
    ENDDO
-   CALL open(*1700,f1,A(buf1),1)
+   CALL open(*1700,f1,a(buf1),1)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
-      CALL pack(A(i1001),f1,mcb)
+      CALL pack(a(i1001),f1,mcb)
    ENDDO
    CALL cputim(t2,t2,1)
    CALL wrttrl(mcb)
    CALL close(f1,1)
    CALL makmcb(mcb,f2,m10,2,type)
-   J1 = m10
-   CALL open(*1700,f2,A(buf2),1)
+   j1 = m10
+   CALL open(*1700,f2,a(buf2),1)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
-      CALL pack(A(i1001),f2,mcb)
+      CALL pack(a(i1001),f2,mcb)
    ENDDO
    CALL cputim(t4,t4,1)
    CALL wrttrl(mcb)
    CALL close(f2,1)
    ASSIGN 700 TO iret
    GOTO 100
- 700  Tpack = tprwrd
+ 700  tpack = tprwrd
    rpack = tprrec
 !
 !     UNPACK TEST
 !
-   Typou2 = type
-   I2 = 1
-   J2 = m
-   Incr2 = 1
-   CALL open(*1700,f1,A(buf1),0)
+   typou2 = type
+   i2 = 1
+   j2 = m
+   incr2 = 1
+   CALL open(*1700,f1,a(buf1),0)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
-      CALL unpack(*1700,f1,A(i1001))
+      CALL unpack(*1700,f1,a(i1001))
    ENDDO
    CALL cputim(t2,t2,1)
    CALL close(f1,1)
-   J2 = m10
-   CALL open(*1700,f2,A(buf2),0)
+   j2 = m10
+   CALL open(*1700,f2,a(buf2),0)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
-      CALL unpack(*1700,f2,A(i1001))
+      CALL unpack(*1700,f2,a(i1001))
    ENDDO
    CALL cputim(t4,t4,1)
    CALL close(f2,2)
    ASSIGN 800 TO iret
    GOTO 100
- 800  Tunpak = tprwrd
-   Runpak = tprrec
+ 800  tunpak = tprwrd
+   runpak = tprrec
 !
 !     PUTSTR TEST
 !
@@ -319,7 +328,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    ablk(1) = f1
    ablk(2) = type
    ablk(3) = 1
-   CALL gopen(f1,A(buf1),1)
+   CALL gopen(f1,a(buf1),1)
    nwds = type
    IF ( type==3 ) nwds = 2
    CALL cputim(t1,t1,1)
@@ -335,7 +344,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
             ablk(4) = ablk(4) + ablk(7) + 4
             mm = ablk(7)*nwds
             DO k = 1 , mm
-               x(1) = A(k)
+               x(1) = a(k)
             ENDDO
             IF ( ablk(7)==nbrstr ) THEN
                IF ( j==10 ) ablk(8) = 1
@@ -351,7 +360,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    CALL cputim(t2,t2,1)
    CALL close(f1,1)
    m100 = max0(m10/10,1)
-   CALL gopen(f2,A(buf2),1)
+   CALL gopen(f2,a(buf2),1)
    kerr = 3
    bblk(1) = f2
    bblk(2) = type
@@ -369,7 +378,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
             bblk(4) = bblk(4) + bblk(7) + 4
             mm = bblk(7)*nwds
             DO k = 1 , mm
-               x(1) = A(k)
+               x(1) = a(k)
             ENDDO
             IF ( bblk(7)==nbrstr ) THEN
                IF ( j==10 ) bblk(8) = 1
@@ -385,12 +394,12 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    CALL close(f2,1)
    ASSIGN 900 TO iret
    GOTO 100
- 900  Tputst = tprwrd
-   Rputst = tprrec
+ 900  tputst = tprwrd
+   rputst = tprrec
 !
 !     GETSTR TEST (GET STRING FORWARD)
 !
-   CALL gopen(f1,A(buf1),0)
+   CALL gopen(f1,a(buf1),0)
    CALL cputim(t1,t1,1)
    DO i = 1 , n
       ablk(8) = -1
@@ -398,14 +407,14 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
          CALL getstr(*1000,ablk)
          mm = ablk(6)*nwds
          DO k = 1 , mm
-            x(1) = A(k)
+            x(1) = a(k)
          ENDDO
          CALL endget(ablk)
       ENDDO
  1000 ENDDO
    CALL cputim(t2,t2,1)
 !     CALL CLOSE  (F1,1)
-   CALL gopen(f2,A(buf2),0)
+   CALL gopen(f2,a(buf2),0)
    CALL cputim(t3,t3,1)
    DO i = 1 , n10
       bblk(8) = -1
@@ -413,7 +422,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
          CALL getstr(*1100,bblk)
          mm = bblk(6)*nwds
          DO k = 1 , mm
-            x(1) = A(k)
+            x(1) = a(k)
          ENDDO
          CALL endget(bblk)
       ENDDO
@@ -422,8 +431,8 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
 !     CALL CLOSE  (F2,1)
    ASSIGN 1200 TO iret
    GOTO 100
- 1200 Tgetst = tprwrd
-   Rgetst = tprrec
+ 1200 tgetst = tprwrd
+   rgetst = tprrec
 !
 !     GETSTB TEST, (GET BACKWARD STRING)
 !     F1 AND F2 FILES ARE STILL OPENED, AND POSITIONED AT THE END
@@ -438,7 +447,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
          CALL getstb(*1300,ablk)
          mm = ablk(6)*nwds
          DO k = 1 , mm
-            x(1) = A(k)
+            x(1) = a(k)
          ENDDO
          CALL endgtb(ablk)
       ENDDO
@@ -455,7 +464,7 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
          CALL getstb(*1400,bblk)
          mm = bblk(6)*nwds
          DO k = 1 , mm
-            x(1) = A(k)
+            x(1) = a(k)
          ENDDO
          CALL endgtb(bblk)
       ENDDO
@@ -464,20 +473,20 @@ SUBROUTINE tmtsio(Debug1) !HIDESTARS (*,Debug1)
    CALL close(f2,1)
    ASSIGN 1500 TO iret
    GOTO 100
- 1500 Tgetsb = tprwrd
-   IF ( Debug1>0 ) WRITE (Output,99010)
+ 1500 tgetsb = tprwrd
+   IF ( Debug1>0 ) WRITE (output,99010)
 99010 FORMAT (' -LINK1 DEBUG- TMTSIO FINISHED')
    RETURN
 !
 !     INTERNAL ROUTINE CALLED FOR AN ABORT IN THE INTPK TEST
 !
- 1600 WRITE (Output,99011) Sfm
+ 1600 WRITE (output,99011) sfm
 99011 FORMAT (A25,' 2197, ABORT CALLED DURING TIME TEST OF INTPK')
 !
 !     ABNORMAL RETURNS FROM GINO - ALL FATAL ERRORS
 !
  1700 CALL mesage(-61,0,0)
- 1800 WRITE (Output,99012) kerr
+ 1800 WRITE (output,99012) kerr
 99012 FORMAT ('0*** TMTSIO FATAL ERROR',I7)
    GOTO 1700
 END SUBROUTINE tmtsio

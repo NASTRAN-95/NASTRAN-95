@@ -2,11 +2,11 @@
  
 SUBROUTINE gpstgn
    IMPLICIT NONE
-   USE C_GPSTGX
-   USE C_GPSTGY
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
+   USE c_gpstgx
+   USE c_gpstgy
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -16,6 +16,12 @@ SUBROUTINE gpstgn
    INTEGER , DIMENSION(3) :: k
    INTEGER , SAVE :: kgg , sil
    INTEGER , DIMENSION(7) :: mcb
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -39,24 +45,24 @@ SUBROUTINE gpstgn
    DATA kgg , sil/101 , 102/
    DATA isubnm/4HGPST , 4HGN  /
 !
-   Gpst = 201
-   Igpst = 0
-   Nsing = 0
+   gpst = 201
+   igpst = 0
+   nsing = 0
 !WKBR 8/94 SPR93026      ITYPOT= 2
-   Itypot = Iprec
-   Incr = 1
+   itypot = iprec
+   incr = 1
    k(1) = 1
    k(2) = 1
-   ibuf1 = korsz(Iz) - Isysbf - 2
-   Ibuf2 = ibuf1 - Isysbf
+   ibuf1 = korsz(iz) - isysbf - 2
+   ibuf2 = ibuf1 - isysbf
    ifile = sil
-   CALL open(*200,sil,Iz(ibuf1),0)
+   CALL open(*200,sil,iz(ibuf1),0)
    CALL skprec(sil,1)
    mcb(1) = sil
    CALL rdtrl(mcb)
    luset = mcb(3)
    icore = luset + 1 - ibuf1
-   IF ( icore<0 ) CALL read(*400,*100,sil,Iz,ibuf1,0,npts)
+   IF ( icore<0 ) CALL read(*400,*100,sil,iz,ibuf1,0,npts)
    n = -8
    ifile = icore
    GOTO 300
@@ -66,10 +72,10 @@ SUBROUTINE gpstgn
       n = -7
       GOTO 300
    ELSE
-      Iz(npts+1) = luset + 1
+      iz(npts+1) = luset + 1
 !
       ifile = kgg
-      CALL open(*200,kgg,Iz(ibuf1),0)
+      CALL open(*200,kgg,iz(ibuf1),0)
       CALL skprec(kgg,1)
       mcb(1) = kgg
       CALL rdtrl(mcb)
@@ -81,30 +87,30 @@ SUBROUTINE gpstgn
 !
          DO i = 1 , npts
             ityp = 1
-            Isil = Iz(i)
-            isilnx = Iz(i+1)
-            IF ( isilnx-Isil==1 ) ityp = 2
+            isil = iz(i)
+            isilnx = iz(i+1)
+            IF ( isilnx-isil==1 ) ityp = 2
             iloop = 1
             ist = 1
-            Ii = Isil
+            ii = isil
             DO
-               Jj = Ii + 2*(2-ityp)
-               DO j = Ii , Jj
+               jj = ii + 2*(2-ityp)
+               DO j = ii , jj
 !WKBD 8/94 SPR93026      CALL UNPACK (*30,KGG,B(IST))
 !WKBNB 8/94 SPR93026
-                  IF ( Iprec==1 ) CALL unpack(*102,kgg,bs(ist))
-                  IF ( Iprec==2 ) CALL unpack(*102,kgg,B(ist))
+                  IF ( iprec==1 ) CALL unpack(*102,kgg,bs(ist))
+                  IF ( iprec==2 ) CALL unpack(*102,kgg,b(ist))
 !WKBNE 8/94 SPR93026
                   GOTO 104
  102              istx = ist + 2
 !WKBI 8/94 SPR93026
-                  IF ( Iprec==1 ) THEN
+                  IF ( iprec==1 ) THEN
                      DO iii = ist , istx
                         bs(iii) = 0.0
                      ENDDO
                   ELSE
                      DO iii = ist , istx
-                        B(iii) = 0.0D0
+                        b(iii) = 0.0D0
 !WKBNB 8/94 SPR93026
                      ENDDO
                   ENDIF
@@ -113,37 +119,37 @@ SUBROUTINE gpstgn
                IF ( ityp==2 ) THEN
 !WKBD 8/94 SPR93026   70 IF (B(1).GT.0.0D0) GO TO 100
 !WKBNB 8/94 SPR93026
-                  IF ( Iprec/=2 .OR. B(1)<=0.0D0 ) THEN
-                     IF ( Iprec/=1 .OR. bs(1)<=0.0 ) THEN
+                  IF ( iprec/=2 .OR. b(1)<=0.0D0 ) THEN
+                     IF ( iprec/=1 .OR. bs(1)<=0.0 ) THEN
 !WKBNE 8/94 SPR93026
-                        k(3) = Isil
-                        IF ( Igpst/=1 ) THEN
-                           Igpst = 1
-                           CALL gopen(Gpst,Iz(Ibuf2),1)
+                        k(3) = isil
+                        IF ( igpst/=1 ) THEN
+                           igpst = 1
+                           CALL gopen(gpst,iz(ibuf2),1)
                         ENDIF
-                        Nsing = Nsing + 1
-                        CALL write(Gpst,k,3,0)
+                        nsing = nsing + 1
+                        CALL write(gpst,k,3,0)
                      ENDIF
                   ENDIF
                   EXIT
                ELSEIF ( iloop==2 ) THEN
 !WKBD 8/94 SPR93026   90 CALL GPSTG
 !WKBNB 8/94 SPR93026
-                  IF ( Iprec==1 ) CALL gpstgs
-                  IF ( Iprec==2 ) CALL gpstg
+                  IF ( iprec==1 ) CALL gpstgs
+                  IF ( iprec==2 ) CALL gpstg
                   EXIT
                ELSE
                   iloop = 2
-                  Ii = Ii + 3
+                  ii = ii + 3
                ENDIF
             ENDDO
 !WKBNE 8/94 SPR93026
          ENDDO
-         IF ( Igpst/=0 ) THEN
-            CALL write(Gpst,0,0,1)
-            CALL close(Gpst,1)
-            CALL makmcb(mcb,Gpst,npts,luset,0)
-            mcb(2) = Nsing
+         IF ( igpst/=0 ) THEN
+            CALL write(gpst,0,0,1)
+            CALL close(gpst,1)
+            CALL makmcb(mcb,gpst,npts,luset,0)
+            mcb(2) = nsing
             CALL wrttrl(mcb)
          ENDIF
          CALL close(kgg,1)

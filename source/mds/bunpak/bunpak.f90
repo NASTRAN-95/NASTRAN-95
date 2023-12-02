@@ -1,4 +1,5 @@
-!*==bunpak.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bunpak.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bunpak(Ig,I,Nj,Jg)
@@ -11,10 +12,10 @@ SUBROUTINE bunpak(Ig,I,Nj,Jg)
 !     THIS ROUTINE GREATLY INCREASES BANDIT INTERNAL EFFICIENCY
 !     WRITTEN BY G.CHAN/UNISYS,    MAY 1988
 !
-USE C_BANDB
-USE C_BANDS
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_bandb
+   USE c_bands
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -41,13 +42,13 @@ USE ISO_FORTRAN_ENV
 !
    DATA nam/4HUNPA , 4HK   /
 !
-   IF ( Nj>Maxdeg ) THEN
-      WRITE (Nout,99001) Nj , Maxdeg
+   IF ( Nj>maxdeg ) THEN
+      WRITE (nout,99001) Nj , maxdeg
 99001 FORMAT ('0 *** BUNPAK .GT. MAXDEG',2I7)
       CALL errtrc(nam)
    ENDIF
 !
-   Ipass = Ipass + Nj
+   ipass = ipass + Nj
    n1 = I
 !
 !     ********************************************
@@ -71,6 +72,6 @@ USE ISO_FORTRAN_ENV
 !
    DO n = 1 , Nj
       Jg(n) = Ig(n1)
-      n1 = n1 + Ii1
+      n1 = n1 + ii1
    ENDDO
 END SUBROUTINE bunpak

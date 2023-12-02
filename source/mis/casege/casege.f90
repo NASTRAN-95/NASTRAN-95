@@ -1,11 +1,12 @@
-!*==casege.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==casege.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE casege
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,23 +34,23 @@ SUBROUTINE casege
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Sysbuf + 1
-         buf2 = buf1 - Sysbuf
+         lcore = korsz(z)
+         buf1 = lcore - sysbuf + 1
+         buf2 = buf1 - sysbuf
          lcore = buf2 - 1
          IF ( lcore>0 ) THEN
 !
-            CALL gopen(casecc,Z(buf1),0)
-            CALL gopen(casedd,Z(buf2),1)
-            CALL read(*40,*20,casecc,Z,lcore,0,iwords)
+            CALL gopen(casecc,z(buf1),0)
+            CALL gopen(casedd,z(buf2),1)
+            CALL read(*40,*20,casecc,z,lcore,0,iwords)
          ENDIF
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
- 20      IF ( Lmodes>Nmodes ) Lmodes = Nmodes
-         itot = Lmodes*Ndir
+ 20      IF ( lmodes>nmodes ) lmodes = nmodes
+         itot = lmodes*ndir
          DO i = 1 , itot
             iz(1) = i
-            CALL write(casedd,Z,iwords,1)
+            CALL write(casedd,z,iwords,1)
          ENDDO
          CALL close(casecc,1)
          CALL close(casedd,1)

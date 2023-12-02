@@ -1,12 +1,13 @@
-!*==frmltd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==frmltd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frmltd(Ifile,Dz,Dy,Zm)
-USE C_FEERXX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feerxx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -78,7 +79,7 @@ USE ISO_FORTRAN_ENV
                nrec = nrec + 1
 !DB   IF (DEBUG) WRITE (NOUT,70) NREC,I
 !  70 FORMAT ('  ...READING RECORD',I5,'.  I =',I7)
-               CALL read(*100,*5,ifl,Zm,Nzm,1,ll)
+               CALL read(*100,*5,ifl,Zm,nzm,1,ll)
                CALL mesage(-8,0,nam)
  5             ll2 = ll/nwds
 !DB   IF (DEBUG) WRITE (NOUT,90) LL,NREC,LL2
@@ -109,18 +110,18 @@ USE ISO_FORTRAN_ENV
          ENDDO SPAG_DispatchLoop_1
       ENDDO
    ELSE
-      Ityp = Ifile(5)
+      ityp = Ifile(5)
 !
 !     NASTRAN ORIGIANL METHOD
 !
-      Incr = 1
+      incr = 1
       DO i = 1 , n
          Dy(i) = 0.0D+0
-         Ip = 0
+         ip = 0
          CALL unpack(*50,ifl,Zm(1))
          dsum = 0.0D+0
          ii = 0
-         DO j = Ip , Np
+         DO j = ip , np
             ii = ii + 1
             dsum = dsum + Zm(ii)*Dz(j)
          ENDDO
@@ -130,7 +131,7 @@ USE ISO_FORTRAN_ENV
    RETURN
 !
  100  j = Ifile(4)/10
-   WRITE (Nout,99001) nrec , i , n , j
+   WRITE (nout,99001) nrec , i , n , j
 99001 FORMAT ('0*** TRY TO READ RECORD',I5,'.   I,N,IFILE(4) =',2I7,I5)
    CALL mesage(-2,ifl,nam)
 !

@@ -2,14 +2,14 @@
  
 SUBROUTINE gfbs(X,Dx)
    IMPLICIT NONE
-   USE C_GFBSX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZNTPKX
+   USE c_gfbsx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -29,6 +29,15 @@ SUBROUTINE gfbs(X,Dx)
    REAL , DIMENSION(2) , SAVE :: subnam
    REAL :: temp
    REAL , DIMENSION(4) , SAVE :: zeros
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -62,20 +71,20 @@ SUBROUTINE gfbs(X,Dx)
 !
 !     INITIALIZE
 !
-   IF ( formb==Identy ) typeb = 1
-   typear = Prec
-   IF ( Rc(typel)+Rc(typeb)-1>1 ) typear = Prec + 2
-   incr = Nwds(typear)*nrow
-   Typea = typear*Isign
-   Type1 = typear
-   Type2 = typex
-   Incrx = 1
-   Incry = 1
-   cmplx = Rc(typear)
-   iobuf = Nx - Sysbuf
+   IF ( formb==identy ) typeb = 1
+   typear = prec
+   IF ( rc(typel)+rc(typeb)-1>1 ) typear = prec + 2
+   incr = nwds(typear)*nrow
+   typea = typear*isign
+   type1 = typear
+   type2 = typex
+   incrx = 1
+   incry = 1
+   cmplx = rc(typear)
+   iobuf = nx - sysbuf
    icol = iobuf - 1
    col = 1
-   clsop = Eofnrw
+   clsop = eofnrw
 !
 !     SET UP TRANSFER VECTORS FOR THE ARITHMETIC TYPES
 !
@@ -109,35 +118,35 @@ SUBROUTINE gfbs(X,Dx)
       parm(1) = -8
       GOTO 4300
    ELSE
-      noload = Fileb(2)
-      IF ( formb==Identy ) noload = nrow
+      noload = fileb(2)
+      IF ( formb==identy ) noload = nrow
       ident = 1
       lstlod = noload
 !
 !     WRITE OUTPUT HEADER RECORDS AND INITIALIZE MATRIX CONTROL BLOCKS
 !
-      CALL gopen(Filex,X(iobuf),1)
-      CALL close(Filex(1),Norew)
-      Filex(2) = 0
-      Filex(6) = 0
-      Filex(7) = 0
-      IF ( formb==Identy ) GOTO 500
+      CALL gopen(filex,X(iobuf),1)
+      CALL close(filex(1),norew)
+      filex(2) = 0
+      filex(6) = 0
+      filex(7) = 0
+      IF ( formb==identy ) GOTO 500
 !
 !     OPEN THE LOAD FILE AND FILL CORE WITH LOAD VECTORS
 !
-      CALL gopen(Fileb,X(iobuf),0)
+      CALL gopen(fileb,X(iobuf),0)
    ENDIF
  100  nn = 0
    khr = icol
    fstcol = col
    l = 1
-   Ixy = 1
-   Jxy = nrow
+   ixy = 1
+   jxy = nrow
  200  IF ( l+incr>=khr ) THEN
       col = col - 1
       GOTO 400
    ELSE
-      CALL unpack(*300,Fileb,X(l))
+      CALL unpack(*300,fileb,X(l))
       nn = nn + 1
       X(khr) = col
       khr = khr - 1
@@ -150,10 +159,10 @@ SUBROUTINE gfbs(X,Dx)
  400  ncol = khr
    X(ncol) = lstlod + 1
    lstcol = col
-   IF ( lstcol==lstlod ) clsop = Rew
-   CALL close(Fileb,clsop)
-   IF ( nn==0 ) GOTO 4100
-   GOTO 800
+   IF ( lstcol==lstlod ) clsop = rew
+   CALL close(fileb,clsop)
+   IF ( nn/=0 ) GOTO 800
+   GOTO 4100
 !
 !     GENERATE COLUMNS OF THE IDENTITY MATRIX
 !
@@ -187,23 +196,23 @@ SUBROUTINE gfbs(X,Dx)
 !
 !     OPEN FILE FOR THE LOWER TRIANGLE
 !
-   parm(2) = Filel(1)
-   CALL gopen(Filel,X(iobuf),0)
+   parm(2) = filel(1)
+   CALL gopen(filel,X(iobuf),0)
 !
 !     BEGIN FORWARD PASS
 !
    j = 1
- 900  CALL intpk(*2400,Filel(1),0,typear,0)
-   DO WHILE ( Eol==0 )
+ 900  CALL intpk(*2400,filel(1),0,typear,0)
+   DO WHILE ( eol==0 )
       CALL zntpki
-      IF ( j<Ii ) GOTO 1700
-      IF ( j==Ii ) THEN
+      IF ( j<ii ) GOTO 1700
+      IF ( j==ii ) THEN
 !
 !     PERFORM THE REQUIRED ROW INTERCHANGE
 !
-         intchn = A(1)
+         intchn = a(1)
          k = 0
-         IF ( Prec==2 ) intchn = da(1)
+         IF ( prec==2 ) intchn = da(1)
          in1 = j*cmplx
          in2 = in1 + intchn*cmplx
          GOTO 1000
@@ -236,40 +245,40 @@ SUBROUTINE gfbs(X,Dx)
    in2 = in2 + nrow*cmplx
    k = k + 1
    IF ( k<nn ) GOTO 1000
- 1600 IF ( Eol/=0 ) GOTO 2400
+ 1600 IF ( eol/=0 ) GOTO 2400
    CALL zntpki
  1700 k = 0
    in2 = j*cmplx
-   in1 = Ii*cmplx
+   in1 = ii*cmplx
  1800 k = k + 1
    GOTO tra3
- 1900 X(in1) = X(in1) - X(in2)*A(1)
+ 1900 X(in1) = X(in1) - X(in2)*a(1)
    GOTO 2300
  2000 Dx(in1) = Dx(in1) - Dx(in2)*da(1)
    GOTO 2300
- 2100 X(in1-1) = X(in1-1) - A(1)*X(in2-1) + A(2)*X(in2)
-   X(in1) = X(in1) - A(1)*X(in2) - A(2)*X(in2-1)
+ 2100 X(in1-1) = X(in1-1) - a(1)*X(in2-1) + a(2)*X(in2)
+   X(in1) = X(in1) - a(1)*X(in2) - a(2)*X(in2-1)
    GOTO 2300
  2200 Dx(in1-1) = Dx(in1-1) - da(1)*Dx(in2-1) + da(2)*Dx(in2)
    Dx(in1) = Dx(in1) - da(1)*Dx(in2) - da(2)*Dx(in2-1)
  2300 in1 = in1 + nrow*cmplx
    in2 = in2 + nrow*cmplx
-   IF ( k<nn ) GOTO 1800
-   GOTO 1600
+   IF ( k>=nn ) GOTO 1600
+   GOTO 1800
  2400 j = j + 1
    IF ( j<nrow ) GOTO 900
-   CALL close(Filel(1),Rew)
+   CALL close(filel(1),rew)
 !
 !     BEGIN BACKWARD PASS
 !
-   ioff = Fileu(7) - 1
-   parm(2) = Fileu(1)
-   CALL gopen(Fileu,X(iobuf),0)
+   ioff = fileu(7) - 1
+   parm(2) = fileu(1)
+   CALL gopen(fileu,X(iobuf),0)
    j = nrow
- 2500 CALL intpk(*4200,Fileu(1),0,typear,0)
-   IF ( Eol/=0 ) GOTO 4200
+ 2500 CALL intpk(*4200,fileu(1),0,typear,0)
+   IF ( eol/=0 ) GOTO 4200
  2600 CALL zntpki
-   i = nrow - Ii + 1
+   i = nrow - ii + 1
    IF ( i/=j ) GOTO 3400
 !
 !     DIVIDE BY THE DIAGONAL
@@ -277,12 +286,12 @@ SUBROUTINE gfbs(X,Dx)
    in1 = i*cmplx
    k = 0
  2700 GOTO tra4
- 2800 X(in1) = X(in1)/A(1)
+ 2800 X(in1) = X(in1)/a(1)
    GOTO 3200
  2900 Dx(in1) = Dx(in1)/da(1)
    GOTO 3200
- 3000 temp = (A(1)*X(in1-1)+A(2)*X(in1))/(A(1)*A(1)+A(2)*A(2))
-   X(in1) = (A(1)*X(in1)-A(2)*X(in1-1))/(A(1)*A(1)+A(2)*A(2))
+ 3000 temp = (a(1)*X(in1-1)+a(2)*X(in1))/(a(1)*a(1)+a(2)*a(2))
+   X(in1) = (a(1)*X(in1)-a(2)*X(in1-1))/(a(1)*a(1)+a(2)*a(2))
    X(in1-1) = temp
    GOTO 3200
  3100 dtemp = (da(1)*Dx(in1-1)+da(2)*Dx(in1))/(da(1)**2+da(2)**2)
@@ -291,14 +300,14 @@ SUBROUTINE gfbs(X,Dx)
  3200 k = k + 1
    in1 = in1 + nrow*cmplx
    IF ( k<nn ) GOTO 2700
- 3300 IF ( Eol/=0 ) THEN
+ 3300 IF ( eol/=0 ) THEN
       j = j - 1
       IF ( j>0 ) GOTO 2500
-      CALL close(Fileu(1),Rew)
+      CALL close(fileu(1),rew)
       GOTO 4100
    ELSE
       CALL zntpki
-      i = nrow - Ii + 1
+      i = nrow - ii + 1
    ENDIF
  3400 in1 = i*cmplx
    in2 = j*cmplx
@@ -309,12 +318,12 @@ SUBROUTINE gfbs(X,Dx)
    ENDIF
    k = 0
  3500 GOTO tra5
- 3600 X(in1) = X(in1) - A(1)*X(in2)
+ 3600 X(in1) = X(in1) - a(1)*X(in2)
    GOTO 4000
  3700 Dx(in1) = Dx(in1) - Dx(in2)*da(1)
    GOTO 4000
- 3800 X(in1-1) = X(in1-1) - A(1)*X(in2-1) + A(2)*X(in2)
-   X(in1) = X(in1) - A(1)*X(in2) - A(2)*X(in2-1)
+ 3800 X(in1-1) = X(in1-1) - a(1)*X(in2-1) + a(2)*X(in2)
+   X(in1) = X(in1) - a(1)*X(in2) - a(2)*X(in2-1)
    GOTO 4000
  3900 Dx(in1-1) = Dx(in1-1) - da(1)*Dx(in2-1) + da(2)*Dx(in2)
    Dx(in1) = Dx(in1) - da(1)*Dx(in2) - da(2)*Dx(in2-1)
@@ -325,49 +334,49 @@ SUBROUTINE gfbs(X,Dx)
 !
 !     SUBTRACT OFF REMAINING TERMS
 !
-   IF ( i>j ) GOTO 2600
-   GOTO 3300
+   IF ( i<=j ) GOTO 3300
+   GOTO 2600
 !
 !     OUTPUT LOAD VECTORS
 !
- 4100 CALL gopen(Filex,X(iobuf),Wrt)
+ 4100 CALL gopen(filex,X(iobuf),wrt)
    l = 1
-   Iy = 1
-   IF ( formb/=Identy ) nxtnz = X(icol)
+   iy = 1
+   IF ( formb/=identy ) nxtnz = X(icol)
    khr = icol
    DO col = fstcol , lstcol
-      IF ( formb/=Identy ) THEN
+      IF ( formb/=identy ) THEN
 ! 593 CONTINUE
          IF ( col<nxtnz ) THEN
-            Jy = 1
-            CALL pack(zeros,Filex,Filex)
+            jy = 1
+            CALL pack(zeros,filex,filex)
             CYCLE
          ELSEIF ( col/=nxtnz ) THEN
             GOTO 4500
          ENDIF
       ENDIF
-      Jy = nrow
-      CALL pack(X(l),Filex,Filex)
+      jy = nrow
+      CALL pack(X(l),filex,filex)
       l = l + incr
       khr = khr - 1
-      IF ( formb/=Identy ) nxtnz = X(khr)
+      IF ( formb/=identy ) nxtnz = X(khr)
    ENDDO
-   IF ( formb/=Identy .AND. khr/=ncol ) THEN
+   IF ( formb/=identy .AND. khr/=ncol ) THEN
       kerr = 600
       GOTO 4600
    ELSE
-      IF ( lstcol==lstlod ) clsop = Rew
-      CALL close(Filex,clsop)
+      IF ( lstcol==lstlod ) clsop = rew
+      CALL close(filex,clsop)
       noload = noload - (lstcol-fstcol+1)
       IF ( lstcol==lstlod ) GOTO 4400
       col = lstcol + 1
-      IF ( formb==Identy ) GOTO 500
-      CALL gopen(Fileb,X(iobuf),Rd)
+      IF ( formb==identy ) GOTO 500
+      CALL gopen(fileb,X(iobuf),rd)
       GOTO 100
    ENDIF
  4200 parm(1) = -5
  4300 CALL mesage(parm(1),parm(2),parm(3))
- 4400 IF ( Filex(2)/=lstlod ) THEN
+ 4400 IF ( filex(2)/=lstlod ) THEN
       kerr = 670
       GOTO 4600
    ELSE
@@ -380,7 +389,7 @@ SUBROUTINE gfbs(X,Dx)
 !     LOGIC ERRORS LAND HERE
 !
  4500 kerr = 593
- 4600 WRITE (Nout,99001) Sfm , kerr
+ 4600 WRITE (nout,99001) sfm , kerr
 99001 FORMAT (A25,I4,' - LOGIC ERROR IN GFBS')
    CALL mesage(-61,0,0)
 END SUBROUTINE gfbs

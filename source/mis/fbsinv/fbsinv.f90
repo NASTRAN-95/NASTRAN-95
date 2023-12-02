@@ -1,9 +1,10 @@
-!*==fbsinv.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbsinv.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbsinv(X,Y,Iobuff)
+   USE c_fbsx
    IMPLICIT NONE
-   USE C_FBSX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,8 +38,8 @@ SUBROUTINE fbsinv(X,Y,Iobuff)
 !
 !     FORWARD PASS
 !
-   parm(1) = Filel(1)
-   iblk(1) = Filel(1)
+   parm(1) = filel(1)
+   iblk(1) = filel(1)
    IF ( ltype==2 ) THEN
 !
 !     TRANSFER THE DOUBLE PRECISION LOAD VECTOR TO THE SOLUTION VECTOR
@@ -64,7 +65,6 @@ SUBROUTINE fbsinv(X,Y,Iobuff)
       CALL fbs1(iblk,Y,Y,nrow)
    ENDIF
 !
-   CALL rewind(Filel)
-   CALL skprec(Filel,1)
-   RETURN
+   CALL rewind(filel)
+   CALL skprec(filel,1)
 END SUBROUTINE fbsinv

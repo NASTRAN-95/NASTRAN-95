@@ -1,13 +1,14 @@
-!*==detm5.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==detm5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE detm5
-USE C_CONDAS
-USE C_DETMX
-USE C_REGEAN
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_condas
+   USE c_detmx
+   USE c_regean
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -31,35 +32,35 @@ USE ISO_FORTRAN_ENV
 !
 ! ----------------------------------------------------------------------
 !
-   nz = korsz(Psave) - Lcore - Sysbuf
-   CALL gopen(Ipout,ipdet(nz+1),1)
+   nz = korsz(psave) - lcore - sysbuf
+   CALL gopen(ipout,ipdet(nz+1),1)
    ipdet(1) = 1
-   ipdet(2) = Nfound
-   IF ( Mz>0 ) ipdet(2) = ipdet(2) + Mz
-   ipdet(3) = Nstart
-   ipdet(4) = Ic
-   ipdet(5) = Nsmove
-   ipdet(6) = Ndcmp
-   ipdet(7) = Nfail
-   ipdet(8) = Iterm
+   ipdet(2) = nfound
+   IF ( mz>0 ) ipdet(2) = ipdet(2) + mz
+   ipdet(3) = nstart
+   ipdet(4) = ic
+   ipdet(5) = nsmove
+   ipdet(6) = ndcmp
+   ipdet(7) = nfail
+   ipdet(8) = iterm
    DO i = 9 , 12
       ipdet(i) = 0
    ENDDO
-   CALL write(Ipout,ipdet(1),12,0)
-   IF ( Ndcmp/=0 ) THEN
-      n2ev2 = Iadd + Nd
+   CALL write(ipout,ipdet(1),12,0)
+   IF ( ndcmp/=0 ) THEN
+      n2ev2 = iadd + nd
       DO i = 1 , n2ev2
-         nnd = i + Idet
-         nnp = i + Ips
-         nni = i + Ipdeta
+         nnd = i + idet
+         nnp = i + ips
+         nni = i + ipdeta
 !
 !     PUT UUT STRRTING POINT SUMMARY
 !
          ipdet(1) = i
-         core(2) = Psave(nnp)
+         core(2) = psave(nnp)
          core(3) = sqrt(abs(core(2)))
          core(4) = core(3)/tphi
-         core(5) = Psave(nnd)
+         core(5) = psave(nnd)
          ipdet(6) = ipdet(nni)
 !
 !     SCALE DETERMINANTE FOR PRETTY PRINT
@@ -74,9 +75,9 @@ USE ISO_FORTRAN_ENV
                ipdet(6) = ipdet(6) - 1
             ENDDO
          ENDIF
-         CALL write(Ipout,core(1),6,0)
+         CALL write(ipout,core(1),6,0)
       ENDDO
    ENDIF
-   CALL write(Ipout,core(1),0,1)
-   CALL close(Ipout,1)
+   CALL write(ipout,core(1),0,1)
+   CALL close(ipout,1)
 END SUBROUTINE detm5

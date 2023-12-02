@@ -1,15 +1,16 @@
-!*==adri.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==adri.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TYPE
-   USE C_UNPAKX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,13 +46,13 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         ibuf1 = Ncore - Isys
-         ibuf2 = ibuf1 - Isys
+         ibuf1 = Ncore - isys
+         ibuf2 = ibuf1 - isys
          Nrow = 0
-         Incr = 1
-         Incr1 = 1
-         Ii = 1
-         Inn = 1
+         incr = 1
+         incr1 = 1
+         ii = 1
+         inn = 1
          mcb(1) = Qhhl
          CALL rdtrl(mcb)
          IF ( mcb(1)<0 ) GOTO 40
@@ -64,13 +65,13 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
          n = n + n
          ni = (mcb(2)/Ncol)*2
          ni = min0(ni,n)
-         Nnn = Nrow
-         Nn = Ncol*Nrow
-         Iti = 3
-         Ito = Iti
-         Iout = Iti
-         nwc = Iwc(Iti)
-         CALL makmcb(trl,Scr1,Nn,mcb(4),Ito)
+         nnn = Nrow
+         nn = Ncol*Nrow
+         iti = 3
+         ito = iti
+         iout = iti
+         nwc = iwc(iti)
+         CALL makmcb(trl,Scr1,nn,mcb(4),ito)
 !
 !     MAKE   DEPENDENT FREQ LIST
 !
@@ -79,7 +80,7 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
          n = Nfreq + 1
          ipi = ipd + nl
          DO i = 1 , Nfreq
-            Fl(nl) = Fl(n-i)*Twopi*Bov
+            Fl(nl) = Fl(n-i)*twopi*bov
             Fl(nl-1) = 0.0
             nl = nl - 2
          ENDDO
@@ -94,7 +95,7 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
          rmi = 1.E20
          rms = 0.0
          DO i = 1 , ni , 2
-            rmx = abs(Fl(ipi+i-1)-Rm)
+            rmx = abs(Fl(ipi+i-1)-rm)
             rmi = amin1(rmi,rmx)
             IF ( rmx<=rmi ) rms = Fl(ipi+i-1)
          ENDDO
@@ -159,10 +160,10 @@ SUBROUTINE adri(Fl,Nfreq,Ncore,Qhhl,Scr2,Scr1,Scr3,Scr4,Nrow,Ncol,Nogo)
          CALL dmpfil(-Scr1,Fl(icp),nc)
          im = 0
          ik = 1
-         CALL mintrp(ni,Fl(ipi),Nfreq,Fl(ipd),-1,im,ik,0.0,Scr1,Scr2,Scr3,Scr4,Fl(icp),nc,Nogo,Iprec)
+         CALL mintrp(ni,Fl(ipi),Nfreq,Fl(ipd),-1,im,ik,0.0,Scr1,Scr2,Scr3,Scr4,Fl(icp),nc,Nogo,iprec)
          IF ( Nogo==1 ) THEN
 !
-            WRITE (Out,99001) Ufm
+            WRITE (out,99001) ufm
 !IBMR 6/93  GO TO 240                                                 !*
 99001       FORMAT (A23,' 2271, INTERPOLATION MATRIX IS SINGULAR')
             spag_nextblock_1 = 2

@@ -2,14 +2,14 @@
  
 SUBROUTINE trapad
    IMPLICIT NONE
-   USE C_CONDAD
-   USE C_EMGDIC
-   USE C_EMGEST
-   USE C_EMGPRM
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_MATPZ
-   USE C_SYSTEM
+   USE c_condad
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_matpz
+   USE c_system
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -38,6 +38,12 @@ SUBROUTINE trapad
    REAL*8 , DIMENSION(4) :: r , z
    REAL*8 , DIMENSION(36) :: sp
    REAL*8 , DIMENSION(45) :: teo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -98,8 +104,8 @@ SUBROUTINE trapad
    DATA idel2 , jax/0 , 4HTRAP/
 !
    lsys78 = .FALSE.
-   IF ( Ksys78==0 .OR. Ksys78==2 ) lsys78 = .TRUE.
-   idel1 = Idel/1000
+   IF ( ksys78==0 .OR. ksys78==2 ) lsys78 = .TRUE.
+   idel1 = idel/1000
    isort = 0
    masor = 0
 !
@@ -233,7 +239,7 @@ SUBROUTINE trapad
       gbp(4,4) = r(4)*z(4)
    ENDIF
 !
-   IF ( Ismb(1)==0 ) GOTO 300
+   IF ( ismb(1)==0 ) GOTO 300
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
@@ -244,12 +250,12 @@ SUBROUTINE trapad
       GOTO 700
    ELSE
 !
-      IF ( Ksys78==1 ) CALL inverd(4,gbp,4,d(10),0,d(11),ising,sp)
+      IF ( ksys78==1 ) CALL inverd(4,gbp,4,d(10),0,d(11),ising,sp)
       IF ( ising==2 ) THEN
          i = 26
          GOTO 700
       ELSE
-         IF ( Nogo ) RETURN
+         IF ( nogo ) RETURN
 !
 !       DELINT( 1) = (-1,0)
 !       DELINT( 2) = (-1,1)
@@ -280,33 +286,33 @@ SUBROUTINE trapad
 !
 !     LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3
 !
-         Matidc = Matid
-         Matflg = 7
-         IF ( Ksys78>0 ) Matflg = 9
-         Eltemp = Tempe
+         matidc = matid
+         matflg = 7
+         IF ( ksys78>0 ) matflg = 9
+         eltemp = tempe
 !
-         gamr = Dgama*Degrad
+         gamr = dgama*degrad
          cosg = dcos(gamr)
          sing = dsin(gamr)
-         Sinth = sing
-         Costh = cosg
-         CALL mat(Idel)
+         sinth = sing
+         costh = cosg
+         CALL mat(idel)
          pzmat = .FALSE.
-         IF ( Setmat==4. .OR. Setmat==5. ) pzmat = .TRUE.
+         IF ( setmat==4. .OR. setmat==5. ) pzmat = .TRUE.
          IF ( pzmat ) THEN
-            Rho = Pzout(46)
-            Alf(1) = Pzout(47)
-            Alf(2) = Pzout(48)
-            Alf(3) = Pzout(49)
-            Tzero = Pzout(50)
-            Gsube = Pzout(51)
+            rho = pzout(46)
+            alf(1) = pzout(47)
+            alf(2) = pzout(48)
+            alf(3) = pzout(49)
+            tzero = pzout(50)
+            gsube = pzout(51)
          ELSE
-            ksave = Ksys78
-            Ksys78 = 0
+            ksave = ksys78
+            ksys78 = 0
             lsys78 = .TRUE.
          ENDIF
 !
-         IF ( Setmat==2. ) THEN
+         IF ( setmat==2. ) THEN
 !
 !     MAT2 NOT LEGAL
 !
@@ -314,11 +320,11 @@ SUBROUTINE trapad
             GOTO 700
          ELSE
 !WKBI SPR94002 5/94
-            dict5 = Gsube
-            IF ( Ksys78<=0 ) THEN
+            dict5 = gsube
+            IF ( ksys78<=0 ) THEN
                DO i = 1 , 3
-                  anu(i) = Anus(i)
-                  e(i) = Es(i)
+                  anu(i) = anus(i)
+                  e(i) = es(i)
                ENDDO
                v = anu(1)*e(2)/e(1)
                vz = anu(2)*e(3)/e(2)
@@ -332,58 +338,58 @@ SUBROUTINE trapad
                teo(i) = 0.
             ENDDO
 !
-            IF ( Ksys78>0 ) THEN
+            IF ( ksys78>0 ) THEN
 !
 !     PIEZOELECTRIC MATERIAL PROPERTIES STORED IN TEO(22-39)
 !     DIELECTRIC MATERIAL PROPERTIES STORED IN TEO(40-45)
 !     TEO(22-39) CONTAINS E-TRANSPOSE
 !
-               teo(1) = Pzout(1)
-               teo(2) = Pzout(2)
-               teo(3) = Pzout(7)
-               teo(4) = Pzout(3)
-               teo(5) = Pzout(8)
-               teo(6) = Pzout(12)
-               teo(7) = Pzout(4)
-               teo(8) = Pzout(9)
-               teo(9) = Pzout(13)
-               teo(10) = Pzout(16)
-               teo(11) = Pzout(5)
-               teo(12) = Pzout(10)
-               teo(13) = Pzout(14)
-               teo(14) = Pzout(17)
-               teo(15) = Pzout(19)
-               teo(16) = Pzout(6)
-               teo(17) = Pzout(11)
-               teo(18) = Pzout(15)
-               teo(19) = Pzout(18)
-               teo(20) = Pzout(20)
-               teo(21) = Pzout(21)
-               IF ( Ksys78/=2 ) THEN
-                  teo(22) = Pzout(22)
-                  teo(23) = Pzout(28)
-                  teo(24) = Pzout(34)
-                  teo(25) = Pzout(23)
-                  teo(26) = Pzout(29)
-                  teo(27) = Pzout(35)
-                  teo(28) = Pzout(24)
-                  teo(29) = Pzout(30)
-                  teo(30) = Pzout(36)
-                  teo(31) = Pzout(25)
-                  teo(32) = Pzout(31)
-                  teo(33) = Pzout(37)
-                  teo(34) = Pzout(26)
-                  teo(35) = Pzout(32)
-                  teo(36) = Pzout(38)
-                  teo(37) = Pzout(27)
-                  teo(38) = Pzout(33)
-                  teo(39) = Pzout(39)
-                  teo(40) = -Pzout(40)
-                  teo(41) = -Pzout(41)
-                  teo(42) = -Pzout(42)
-                  teo(43) = -Pzout(43)
-                  teo(44) = -Pzout(44)
-                  teo(45) = -Pzout(45)
+               teo(1) = pzout(1)
+               teo(2) = pzout(2)
+               teo(3) = pzout(7)
+               teo(4) = pzout(3)
+               teo(5) = pzout(8)
+               teo(6) = pzout(12)
+               teo(7) = pzout(4)
+               teo(8) = pzout(9)
+               teo(9) = pzout(13)
+               teo(10) = pzout(16)
+               teo(11) = pzout(5)
+               teo(12) = pzout(10)
+               teo(13) = pzout(14)
+               teo(14) = pzout(17)
+               teo(15) = pzout(19)
+               teo(16) = pzout(6)
+               teo(17) = pzout(11)
+               teo(18) = pzout(15)
+               teo(19) = pzout(18)
+               teo(20) = pzout(20)
+               teo(21) = pzout(21)
+               IF ( ksys78/=2 ) THEN
+                  teo(22) = pzout(22)
+                  teo(23) = pzout(28)
+                  teo(24) = pzout(34)
+                  teo(25) = pzout(23)
+                  teo(26) = pzout(29)
+                  teo(27) = pzout(35)
+                  teo(28) = pzout(24)
+                  teo(29) = pzout(30)
+                  teo(30) = pzout(36)
+                  teo(31) = pzout(25)
+                  teo(32) = pzout(31)
+                  teo(33) = pzout(37)
+                  teo(34) = pzout(26)
+                  teo(35) = pzout(32)
+                  teo(36) = pzout(38)
+                  teo(37) = pzout(27)
+                  teo(38) = pzout(33)
+                  teo(39) = pzout(39)
+                  teo(40) = -pzout(40)
+                  teo(41) = -pzout(41)
+                  teo(42) = -pzout(42)
+                  teo(43) = -pzout(43)
+                  teo(44) = -pzout(44)
+                  teo(45) = -pzout(45)
                ENDIF
             ELSE
                teo(1) = e(1)*(1.-anu(2)*vz)*del
@@ -392,9 +398,9 @@ SUBROUTINE trapad
                teo(4) = e(1)*(v+anu(3)*anu(2))*del
                teo(5) = e(2)*(vz+anu(1)*anu(3))*del
                teo(6) = e(2)*(1.-vr*anu(3))*del
-               teo(10) = G(3)
-               teo(15) = G(1)
-               teo(21) = G(2)
+               teo(10) = g(3)
+               teo(15) = g(1)
+               teo(21) = g(2)
             ENDIF
 !
 !     MATRIX EG STORED AS FOLLOWS IN EE
@@ -645,8 +651,8 @@ SUBROUTINE trapad
                ENDDO
             ENDDO
 !
-            dgam = Pi
-            IF ( ajho==0. ) dgam = Twopi
+            dgam = pi
+            IF ( ajho==0. ) dgam = twopi
             DO i = 1 , 144
                acurl(i) = acurl(i)*dgam
             ENDDO
@@ -713,7 +719,7 @@ SUBROUTINE trapad
                         CALL gmmatd(d(iapp),3,3,1,akt(1),3,3,0,akt(10))
                         iakt = 10
                         IF ( ics(i)==0 .AND. ics(ipp)==0 ) CYCLE
-                        gor = G(1)
+                        gor = g(1)
                      ENDIF
                      IF ( ics(i)/=0 ) THEN
                         iai = 9*(i-1) + 1
@@ -799,12 +805,12 @@ SUBROUTINE trapad
    ENDDO
    IF ( masor==1 ) THEN
 !
-      dict(1) = Estid
+      dict(1) = estid
       dict(2) = 1
       dict(3) = 12
       dict(4) = 7
 !WKBD SPR94002 5/94      DICT5   =  0.
-      ip = Iprec
+      ip = iprec
 !
       CALL emgout(akj,akj,144,1,dict,2,ip)
       GOTO 500
@@ -812,11 +818,11 @@ SUBROUTINE trapad
 !
 !     SET UP CONSTANTS AND OUTPUT AKJ
 !
-      dict(1) = Estid
+      dict(1) = estid
       dict(2) = 1
       dict(3) = 16
       dict(4) = 15
-      ip = Iprec
+      ip = iprec
       CALL emgout(akj,akj,256,1,dict,1,ip)
    ENDIF
 !
@@ -827,9 +833,9 @@ SUBROUTINE trapad
 !     IF STIFFNESS MATRIX NOT NEEDED WE HAVE ALL WE NEED FOR THE
 !     MASS MATRIX CALCULATIONS
 !
- 300  IF ( Ismb(2)==0 .AND. .NOT.pzmat ) Ksys78 = ksave
-   IF ( Ismb(2)==0 ) RETURN
-   IF ( Icmbar>=0 ) THEN
+ 300  IF ( ismb(2)==0 .AND. .NOT.pzmat ) ksys78 = ksave
+   IF ( ismb(2)==0 ) RETURN
+   IF ( icmbar>=0 ) THEN
       i1 = 0
       DO i = 1 , 3
          ip = i
@@ -841,17 +847,17 @@ SUBROUTINE trapad
       ENDDO
    ENDIF
 !
-   IF ( Ismb(1)==0 ) THEN
-      Matidc = Matid
-      Matflg = 7
-      IF ( Ksys78>0 ) Matflg = 9
-      Eltemp = Tempe
-      gamr = Dgama*Degrad
-      Costh = dcos(gamr)
-      Sinth = dsin(gamr)
-      CALL mat(Idel)
-      IF ( Ksys78>0 ) Rho = Pzout(46)
-      IF ( Setmat==2. ) THEN
+   IF ( ismb(1)==0 ) THEN
+      matidc = matid
+      matflg = 7
+      IF ( ksys78>0 ) matflg = 9
+      eltemp = tempe
+      gamr = dgama*degrad
+      costh = dcos(gamr)
+      sinth = dsin(gamr)
+      CALL mat(idel)
+      IF ( ksys78>0 ) rho = pzout(46)
+      IF ( setmat==2. ) THEN
          i = 126
          GOTO 700
       ENDIF
@@ -861,9 +867,9 @@ SUBROUTINE trapad
 !
    mjho = mod(iecpt(1),1000) - 1
    ajho = mjho
-   rhod = Rho*Pi
+   rhod = rho*pi
    IF ( ajho==0.D0 ) rhod = 2.*rhod
-   IF ( Icmbar<0 ) THEN
+   IF ( icmbar<0 ) THEN
 !
 !     LUMPED MASS CALCULATIONS HANDLED HERE
 !
@@ -874,12 +880,12 @@ SUBROUTINE trapad
          akj(i) = akj(1)
       ENDDO
 !
-      dict(1) = Estid
+      dict(1) = estid
       dict(2) = 2
       dict(3) = 12
       dict(4) = 7
 !WKBD SPR94002 5/94      DICT5   = 0.
-      ip = Iprec
+      ip = iprec
 !
       CALL emgout(akj,akj,12,1,dict,2,ip)
       GOTO 500
@@ -953,7 +959,7 @@ SUBROUTINE trapad
 !
  400  masor = 1
    GOTO 200
- 500  IF ( .NOT.pzmat ) Ksys78 = ksave
+ 500  IF ( .NOT.pzmat ) ksys78 = ksave
    RETURN
  600  i = 37
  700  IF ( idel1/=idel2 ) THEN
@@ -962,6 +968,6 @@ SUBROUTINE trapad
       ics(2) = jax
       CALL mesage(30,i,ics)
    ENDIF
-   Nogo = .TRUE.
+   nogo = .TRUE.
    GOTO 500
 END SUBROUTINE trapad

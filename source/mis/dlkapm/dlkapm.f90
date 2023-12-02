@@ -1,11 +1,12 @@
-!*==dlkapm.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dlkapm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dlkapm(Arg,Blkapm)
+   USE c_blk1
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLK1
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -25,13 +26,13 @@ SUBROUTINE dlkapm(Arg,Blkapm)
 !     SUBROUTINE FOR COMPUTING LOGARITHMIC DERIVATIVE OF KAPPA MINUS
 !
 !
-   c1 = -Ai/2.0*(Sps-Sns)
-   pi2 = 2.0*Pi
-   s1 = Sps/(Dstr**2)
-   s2 = Sns/Dstr
-   gam0 = Sps*Del - Sigma
-   c2q = gam0/Dstr - Scrk
-   c3q = gam0/Dstr + Scrk
+   c1 = -ai/2.0*(sps-sns)
+   pi2 = 2.0*pi
+   s1 = sps/(dstr**2)
+   s2 = sns/dstr
+   gam0 = sps*del - sigma
+   c2q = gam0/dstr - scrk
+   c3q = gam0/dstr + scrk
    nn = 0
    csec = c2q*c3q
    IF ( csec<0.0 ) nn = 1
@@ -41,18 +42,18 @@ SUBROUTINE dlkapm(Arg,Blkapm)
    IF ( nn==0 ) alp0 = t1 + t2
    IF ( nn==1 ) alp0 = cmplx(t1,t2)
    c1 = c1 + 1.0/(Arg-alp0)
-   a1 = pi2/(Sps-Sns)
+   a1 = pi2/(sps-sns)
    a2 = -a1
-   b1 = gam0/(Sps-Sns)
+   b1 = gam0/(sps-sns)
    c1test = 0.0
    DO i = 1 , 200
       r = i
       gamp = pi2*r + gam0
       gamn = -pi2*r + gam0
-      c2p = gamp/Dstr - Scrk
-      c2q = gamp/Dstr + Scrk
-      c2n = gamn/Dstr - Scrk
-      c3q = gamn/Dstr + Scrk
+      c2p = gamp/dstr - scrk
+      c2q = gamp/dstr + scrk
+      c2n = gamn/dstr - scrk
+      c3q = gamn/dstr + scrk
       nn = 0
       csec = c2p*c2q
       IF ( csec<0.0 ) nn = 1
@@ -84,16 +85,15 @@ SUBROUTINE dlkapm(Arg,Blkapm)
       c1test = c1
    ENDDO
 !
-   WRITE (Ibbout,99001) Ufm
+   WRITE (ibbout,99001) ufm
 99001 FORMAT (A23,' - AMG MODULE -SUBROUTINE DLKAPM')
    CALL mesage(-61,0,0)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
-      e1 = Arg - b1
-      b = Pi/a1
-      c1 = c1 - 1.0/e1 + b*ccos(b*e1)/(csin(b*e1))
-      Blkapm = c1
-      RETURN
+      E1 = Arg - B1
+      B = Pi/A1
+      C1 = C1 - 1.0/E1 + B*ccos(B*E1)/(csin(B*E1))
+      Blkapm = C1
    END SUBROUTINE spag_block_1
 END SUBROUTINE dlkapm

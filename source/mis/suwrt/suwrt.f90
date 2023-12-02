@@ -1,14 +1,15 @@
-!*==suwrt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==suwrt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE suwrt(Ia,Nwords,Itest)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -41,7 +42,7 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
 !
          CALL chkopn(nmsbr(1))
          icount = 0
-         IF ( Iomode/=iwrt ) THEN
+         IF ( iomode/=iwrt ) THEN
             Itest = 4
             RETURN
          ENDIF
@@ -52,32 +53,32 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
 !     UNTIL THE BUFFER IS FULL, OR UNTIL THE REQUESTED NUMBER OF WORDS
 !     HAS BEEN COPIED.
 !
-         IF ( Ioptr>Blksiz+Io ) THEN
+         IF ( ioptr>blksiz+io ) THEN
 !
 !     THE BUFFER IS FULL.  OUTPUT IT ON THE SOF.
 !
-            CALL sofio(iwrt,Iopbn,Buf(Io-2))
-            CALL getblk(Iopbn,j)
+            CALL sofio(iwrt,iopbn,buf(io-2))
+            CALL getblk(iopbn,j)
             IF ( j==-1 ) THEN
 !
 !     THERE ARE NO MORE FREE BLOCKS ON THE SOF.  RETURN THE BLOCKS THAT
 !     HAVE BEEN USED SO FAR BY THE ITEM BEING WRITTEN, AND CLOSE THE SOF
 !     THEN ISSUE A FATAL ERROR MESSAGE.
 !
-               CALL retblk(Ioblk)
+               CALL retblk(ioblk)
                CALL sofcls
 !
 !     ERROR MESSAGES.
 !
-               WRITE (Nout,99001) Ufm
+               WRITE (nout,99001) ufm
 99001          FORMAT (A23,' 6223, THERE ARE NO MORE FREE BLOCKS AVAILABLE ON',' THE SOF FILE.')
                CALL sofcls
                CALL mesage(-61,0,0)
                RETURN
             ELSE
-               Iopbn = j
-               Iolbn = Iolbn + 1
-               Ioptr = Io + 1
+               iopbn = j
+               iolbn = iolbn + 1
+               ioptr = io + 1
             ENDIF
          ENDIF
          IF ( icount==Nwords ) THEN
@@ -86,24 +87,24 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
 !
 !     WRITE END OF GROUP.
 !
-                  Buf(Ioptr) = ieog
+                  buf(ioptr) = ieog
                ELSEIF ( Itest==3 ) THEN
 !
 !     WRITE END OF ITEM, OUTPUT THE INPUT/OUTPUT BUFFER ON THE SOF, AND
 !     UPDATE THE MDI.
 !
-                  Buf(Ioptr) = ieoi
-                  CALL sofio(iwrt,Iopbn,Buf(Io-2))
-                  CALL fmdi(Iosind,imdi)
-                  Buf(imdi+Ioitcd) = Ioblk
-                  Buf(imdi+Ioitcd) = orf(andf(Buf(imdi+Ioitcd),Jhalf),lshift(Iolbn,Ihalf))
-                  Mdiup = .TRUE.
-                  Iomode = idle
+                  buf(ioptr) = ieoi
+                  CALL sofio(iwrt,iopbn,buf(io-2))
+                  CALL fmdi(iosind,imdi)
+                  buf(imdi+ioitcd) = ioblk
+                  buf(imdi+ioitcd) = orf(andf(buf(imdi+ioitcd),jhalf),lshift(iolbn,ihalf))
+                  mdiup = .TRUE.
+                  iomode = idle
                ELSE
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Ioptr = Ioptr + 1
+               ioptr = ioptr + 1
             ENDIF
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
@@ -111,10 +112,9 @@ SUBROUTINE suwrt(Ia,Nwords,Itest)
          spag_nextblock_1 = 3
       CASE (3)
          icount = icount + 1
-         Buf(Ioptr) = Ia(icount)
-         Ioptr = Ioptr + 1
+         buf(ioptr) = Ia(icount)
+         ioptr = ioptr + 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          RETURN
       END SELECT

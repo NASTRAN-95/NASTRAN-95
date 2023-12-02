@@ -1,15 +1,16 @@
-!*==scan.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==scan.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scan
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_xscanx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XSCANX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -142,42 +143,42 @@ SUBROUTINE scan
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Debug = .FALSE.
+         debug = .FALSE.
 !WKBNB 1/4/94 SPR93011 & 93010
-         Quad4 = 0
-         Tria3 = 0
+         quad4 = 0
+         tria3 = 0
 !
 !     ALLOCATE OPEN CORE
 !
 !RLBNB 12/29/93 SPR 93010 & 93011
-         Lloop = 1
-         jelt(1) = Ielt(1)
-         jelt(2) = Ielt(2)
+         lloop = 1
+         jelt(1) = ielt(1)
+         jelt(2) = ielt(2)
          spag_nextblock_1 = 2
       CASE (2)
 !RLBNB 12/29/93 SPR 93010 & 93011
          nz = korsz(z)
-         ibuf1 = nz - Ibuf + 1
-         ibuf2 = ibuf1 - Ibuf
-         ibuf3 = ibuf2 - Ibuf
+         ibuf1 = nz - ibuf + 1
+         ibuf2 = ibuf1 - ibuf
+         ibuf3 = ibuf2 - ibuf
          nz = ibuf3 - 1
-         Lcore = ibuf2 - 1
-         Iopen = .FALSE.
-         Jopen = .FALSE.
+         lcore = ibuf2 - 1
+         iopen = .FALSE.
+         jopen = .FALSE.
          kopen = .FALSE.
          lopen = .FALSE.
 !
 !     OPEN CASECC AND CHECK SCAN DATA
 !
-         Iset = 0
-         IF ( Ielt(1)/=irf ) Iset = -2
-         IF ( Ielt(1)==iol1 .OR. Ielt(1)==iol2 ) Iset = -3
-         IF ( Iset/=-2 ) THEN
+         iset = 0
+         IF ( ielt(1)/=irf ) iset = -2
+         IF ( ielt(1)==iol1 .OR. ielt(1)==iol2 ) iset = -3
+         IF ( iset/=-2 ) THEN
             file = casecc
-            CALL open(*120,casecc,z(ibuf1),Rdrew)
+            CALL open(*120,casecc,z(ibuf1),rdrew)
             lopen = .TRUE.
             CALL fwdrec(*140,casecc)
-            IF ( Iset/=-3 ) THEN
+            IF ( iset/=-3 ) THEN
                SPAG_Loop_1_1: DO
                   CALL read(*40,*40,casecc,z(1),200,1,l)
                   lencc = z(166)
@@ -197,14 +198,14 @@ SUBROUTINE scan
 !     Z(11) = OEFI
 !RLBDE 12/29/93 SPR 93010 & 93011
 !RLBNB 12/29/93 SPR 93010 & 93011
-         z(1) = oesi(Lloop)
-         z(11) = oefi(Lloop)
+         z(1) = oesi(lloop)
+         z(11) = oefi(lloop)
 !RLBNE 12/29/93 SPR 93010 & 93011
          CALL rdtrl(z(1))
          CALL rdtrl(z(11))
          IF ( z(1)<0 ) ioes = 0
          IF ( z(11)<0 ) ioef = 0
-         IF ( ioes+ioef==0 .AND. Iset/=-3 ) THEN
+         IF ( ioes+ioef==0 .AND. iset/=-3 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -219,18 +220,18 @@ SUBROUTINE scan
 !     CALL WRITE (OESFI,Z,2,EOR)
 !RLBDE 12/29/93 SPR 93010 & 93011
 !RLBNB 12/29/93 SPR 93010 & 93011
-         file = oesfi(Lloop)
-         Oufile = oesfi(Lloop)
-         CALL fname(Oufile,z)
-         CALL open(*120,Oufile,z(ibuf2),Wrtrew)
-         CALL write(Oufile,z,2,eor)
+         file = oesfi(lloop)
+         oufile = oesfi(lloop)
+         CALL fname(oufile,z)
+         CALL open(*120,oufile,z(ibuf2),wrtrew)
+         CALL write(oufile,z,2,eor)
 !RLBNE 12/29/93 SPR 93010 & 93011
-         Jopen = .TRUE.
-         Itrl3 = 0
+         jopen = .TRUE.
+         itrl3 = 0
          lx = -1
-         IF ( Ielt(1)==iol2 ) lx = -2
-         IF ( Iset==-3 ) CALL onlins(*100,lx)
-         IF ( Iset/=-2 ) THEN
+         IF ( ielt(1)==iol2 ) lx = -2
+         IF ( iset==-3 ) CALL onlins(*100,lx)
+         IF ( iset/=-2 ) THEN
 !
 !
 !     SCAN IS CALLED BY RIGID FORMAT (ISET .GE. -1)
@@ -243,12 +244,12 @@ SUBROUTINE scan
 !     SAVE THE COMPLETE SCAN DATA IN SCR1 FILE.
 !
             file = scr1
-            CALL open(*120,scr1,z(ibuf3),Wrtrew)
+            CALL open(*120,scr1,z(ibuf3),wrtrew)
             kopen = .TRUE.
             nscan = 0
             ncase = 0
             nxx = nz
-            IF ( Intra<=0 ) THEN
+            IF ( intra<=0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -262,9 +263,9 @@ SUBROUTINE scan
 !     SCAN CALLED BY USER VIA DMAP ALTER (ISET=-2)
 !     ============================================
 !
-            ls = Lcore
-            Lbeg = 0
-            Lend = 0
+            ls = lcore
+            lbeg = 0
+            lend = 0
 !
 !     CHECK USER DMAP ERROR, SET IOPT FLAG, AND INITIALIZE ISCAN ARRAY
 !     FOR COMPONENT SPECIFIED.
@@ -273,55 +274,55 @@ SUBROUTINE scan
 !
 !     ERROR MESSAGES
 !
-               WRITE (Nout,99001)
+               WRITE (nout,99001)
 !
 99001          FORMAT (//5X,48HONLY ONE INPUT FILE ALLOWED FROM SCAN DMAP ALTER)
-            ELSEIF ( Amin>Amax ) THEN
-               WRITE (Nout,99002)
+            ELSEIF ( amin>amax ) THEN
+               WRITE (nout,99002)
 99002          FORMAT (//5X,21HAMAX-AMIN RANGE ERROR)
-            ELSEIF ( Icomp<=1 ) THEN
-               WRITE (Nout,99003)
+            ELSEIF ( icomp<=1 ) THEN
+               WRITE (nout,99003)
 99003          FORMAT (//5X,35HFIELD COMPONENT SPECIFICATION ERROR)
-            ELSEIF ( (Amax==0. .AND. Amin==0.) .AND. Ntop==0 ) THEN
-               WRITE (Nout,99004)
+            ELSEIF ( (amax==0. .AND. amin==0.) .AND. ntop==0 ) THEN
+               WRITE (nout,99004)
 99004          FORMAT (//5X,30HNO AMAX-AMIN OR NTOP SPECIFIED)
-            ELSEIF ( (Amax/=0. .OR. Amin/=0.) .AND. Ntop/=0 ) THEN
-               WRITE (Nout,99005)
+            ELSEIF ( (amax/=0. .OR. amin/=0.) .AND. ntop/=0 ) THEN
+               WRITE (nout,99005)
 99005          FORMAT (//5X,46HSPECIFY EITHER AMAX-AMIN OR NTOP, BUT NOT BOTH,/5X,21H(NTOP=20  BY DEFAULT))
-            ELSEIF ( (Ibeg==0 .AND. Iend/=0) .OR. Ibeg>Iend .OR. (Ibeg/=0 .AND. Iend==0) ) THEN
-               WRITE (Nout,99006) Sfm , Ielt , Ibeg , Iend
+            ELSEIF ( (ibeg==0 .AND. iend/=0) .OR. ibeg>iend .OR. (ibeg/=0 .AND. iend==0) ) THEN
+               WRITE (nout,99006) sfm , ielt , ibeg , iend
 99006          FORMAT (A25,' - SCANNING ',2A4,' ELEMENT. IBEG-IEND OUT OF RANGE','.  SCAN ABORTED')
             ELSE
-               IF ( Ibeg==0 .AND. Iend==0 ) Ibeg = -1
-               Iopt = 1
-               IF ( Ntop>0 ) Iopt = 2
+               IF ( ibeg==0 .AND. iend==0 ) ibeg = -1
+               iopt = 1
+               IF ( ntop>0 ) iopt = 2
 !
 !     DETERMINE ELEMENT TYPE, DROP THE FIRST LETTER C IF NECESSARY
 !
                z(1) = irf
                z(2) = irf
-               IF ( khrfn2(Ielt(1),1,1)==llc ) THEN
-                  z(1) = khrfn3(nam(2),Ielt(1),1,1)
-                  z(1) = khrfn1(z(1),4,Ielt(2),1)
-                  z(2) = khrfn3(nam(2),Ielt(2),1,1)
+               IF ( khrfn2(ielt(1),1,1)==llc ) THEN
+                  z(1) = khrfn3(nam(2),ielt(1),1,1)
+                  z(1) = khrfn1(z(1),4,ielt(2),1)
+                  z(2) = khrfn3(nam(2),ielt(2),1,1)
                ENDIF
-               DO i = 1 , Last , Incr
-                  IF ( Ielt(1)==E(i) .AND. Ielt(2)==E(i+1) ) GOTO 20
-                  IF ( z(1)==E(i) .AND. z(2)==E(i+1) ) GOTO 20
+               DO i = 1 , last , incr
+                  IF ( ielt(1)==e(i) .AND. ielt(2)==e(i+1) ) GOTO 20
+                  IF ( z(1)==e(i) .AND. z(2)==e(i+1) ) GOTO 20
                ENDDO
-               WRITE (Nout,99007) Ielt
+               WRITE (nout,99007) ielt
 99007          FORMAT (//5X,22HELEMENT MIS-SPELLED - ,2A4)
             ENDIF
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 20      Iel = E(i+2)
+ 20      iel = e(i+2)
 !
 !     SPECIAL HANDLING OF THE QUAD4 AND TRIA3 ELEMENT, STRESS ONLY
 !     (THE 2ND, 3RD, 9TH, AND 13TH WORDS IN OES1/OES1L FILES ARE
 !     NOT PRINTED. THE 9TH AND 13TH WORDS MAY BE BLANKS OR ASTERISKS)
 !
-         IF ( (Iel/=64 .AND. Iel/=83) .OR. ioes==0 ) THEN
+         IF ( (iel/=64 .AND. iel/=83) .OR. ioes==0 ) THEN
          ENDIF
 !WKBD 1/3/94 SPR93011 & 93011      ICOMP = ICOMP + 2
 !WKBD 1/3/94 SPR93010 & 93011      IF (ICOMP .GT. 8) ICOMP = ICOMP + 1
@@ -333,18 +334,18 @@ SUBROUTINE scan
 !     IF (IOES .EQ. 0) INFILE = OEFI
 !RLBDE 12/29/93 SPR 93010 & 93011
 !RLBNB 12/29/93 SPR 93010 & 93011
-         Infile = oesi(Lloop)
-         Stress = .TRUE.
-         Force = .FALSE.
+         infile = oesi(lloop)
+         stress = .TRUE.
+         force = .FALSE.
          IF ( ioes==0 ) THEN
-            Stress = .FALSE.
-            Force = .TRUE.
-            Infile = oefi(Lloop)
+            stress = .FALSE.
+            force = .TRUE.
+            infile = oefi(lloop)
          ENDIF
 !RLBNE 12/29/93 SPR 93010 & 93011
-         file = Infile
-         CALL open(*20,Infile,z(ibuf1),Rdrew)
-         Iopen = .TRUE.
+         file = infile
+         CALL open(*20,infile,z(ibuf1),rdrew)
+         iopen = .TRUE.
 !
 ! ... NEXT I/O OPERATION ON INFILE WILL BE IN SUBROUTINE STRSCN
 !
@@ -355,7 +356,7 @@ SUBROUTINE scan
          CALL strscn(j)
          GOTO 100
 !
- 40      CALL close(casecc,Rew)
+ 40      CALL close(casecc,rew)
          lopen = .FALSE.
          RETURN
       CASE (3)
@@ -376,7 +377,7 @@ SUBROUTINE scan
          lencc = z(166)
          nscan = z(lencc-1)
          lsem = z(lencc)
-         Subc = z(1)
+         subc = z(1)
 !
 !     PICK UP ALL THE SET ID'S AND THEIR LOCATIONS IN Z ARRAY, Z(L1)
 !     THRU Z(LL). SORT, AND CHECK DUPLICATE
@@ -390,7 +391,7 @@ SUBROUTINE scan
             IF ( ii>=l ) THEN
                lll1 = ll - l1 + 1
                ll2 = lll1/2
-               IF ( Debug ) WRITE (Nout,99008) (z(i),i=l1,ll)
+               IF ( debug ) WRITE (nout,99008) (z(i),i=l1,ll)
 99008          FORMAT (' ...SET/@125',/,(10X,I8,' @',I6))
 !
                jmp = 0
@@ -400,7 +401,7 @@ SUBROUTINE scan
                   CALL sort(0,0,2,1,z(l1),lll1)
                   j = l1 + 2
                   DO i = j , ll , 2
-                     IF ( z(i)==z(i-2) ) WRITE (Nout,99009) Uwm , z(i)
+                     IF ( z(i)==z(i-2) ) WRITE (nout,99009) uwm , z(i)
 99009                FORMAT (A25,' FROM SCAN, DUPLICATE SET',I9)
                   ENDDO
                ENDIF
@@ -438,13 +439,13 @@ SUBROUTINE scan
                   RETURN
                ELSE
                   ie = nz - kk
-                  z(kk+1) = Subc
+                  z(kk+1) = subc
                   z(kk+2) = ie - 2
                   CALL write(scr1,z(kk+1),ie,1)
                   l = kk + 1
                   nn = 200
-                  IF ( Debug ) WRITE (Nout,99016) nn , (z(j),j=l,nz)
-                  IF ( Intra>0 .AND. lx>=200 ) EXIT SPAG_Loop_1_3
+                  IF ( debug ) WRITE (nout,99016) nn , (z(j),j=l,nz)
+                  IF ( intra>0 .AND. lx>=200 ) EXIT SPAG_Loop_1_3
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -452,13 +453,13 @@ SUBROUTINE scan
                jmp = z(ii+2) + 2
                IF ( z(ii+1)>=10000000 .AND. jmp==8 ) THEN
                   ie = 0
-                  Iset = z(ii+4)
-                  IF ( Iset/=-1 ) THEN
+                  iset = z(ii+4)
+                  IF ( iset/=-1 ) THEN
                      IF ( lll1<=0 ) GOTO 180
-                     CALL bisloc(*180,Iset,z(l1),2,ll2,i)
+                     CALL bisloc(*180,iset,z(l1),2,ll2,i)
                      ib = z(i+l1) + 2
                      ie = z(ib)
-                     IF ( Debug ) WRITE (Nout,99010) Iset , i , ib , ie
+                     IF ( debug ) WRITE (nout,99010) iset , i , ib , ie
 99010                FORMAT (' @145, SET',I8,' FOUND.  I,IB,IE =',3I6)
                      kk = kk - ie
                      DO i = 1 , ie
@@ -519,8 +520,8 @@ SUBROUTINE scan
 !
 !     THUS, END OF THE PREPARATION PHASE.  CLOSE CASECC AND SCR1
 !
- 80      CALL close(casecc,Rew)
-         CALL close(scr1,Rew)
+ 80      CALL close(casecc,rew)
+         CALL close(scr1,rew)
          kopen = .FALSE.
          lopen = .FALSE.
 !
@@ -530,10 +531,10 @@ SUBROUTINE scan
          sorf = 30000000
          SPAG_Loop_1_4: DO
             sorf = sorf - 10000000
-            IF ( Debug ) WRITE (Nout,99011) sorf
+            IF ( debug ) WRITE (nout,99011) sorf
 99011       FORMAT (///,18H PROCESSING SERIES,I15/1X,8(4H====),/)
-            IF ( Iopen ) CALL close(Infile,Rew)
-            Iopen = .FALSE.
+            IF ( iopen ) CALL close(infile,rew)
+            iopen = .FALSE.
             IF ( sorf/=10000000 .OR. ioes/=0 ) THEN
                IF ( sorf/=20000000 .OR. ioef/=0 ) THEN
                   IF ( sorf<=0 ) EXIT SPAG_Loop_1_4
@@ -545,18 +546,18 @@ SUBROUTINE scan
 !     IF (SORF .GE. 20000000) INFILE=OEFI
 !RLBDE 12/29/93 SPR 93010 & 93011
 !RLBNB 12/29/93 SPR 93010 & 93011
-                  Infile = oesi(Lloop)
-                  Stress = .TRUE.
-                  Force = .FALSE.
+                  infile = oesi(lloop)
+                  stress = .TRUE.
+                  force = .FALSE.
                   IF ( sorf>=20000000 ) THEN
-                     Stress = .FALSE.
-                     Force = .TRUE.
-                     Infile = oefi(Lloop)
+                     stress = .FALSE.
+                     force = .TRUE.
+                     infile = oefi(lloop)
                   ENDIF
 !RLBNE 12/29/93 SPR 93010 & 93011
-                  file = Infile
-                  CALL open(*120,Infile,z(ibuf1),Rdrew)
-                  Iopen = .TRUE.
+                  file = infile
+                  CALL open(*120,infile,z(ibuf1),rdrew)
+                  iopen = .TRUE.
 ! ... NEXT I/O OPERATION ON INFILE WILL BE IN SUBROUTINE STRSCN
 !
 !     NOW, LOAD THE SCAN DATA PREVIOUSLY SAVED IN SCR1, TO THE TAIL END
@@ -568,21 +569,21 @@ SUBROUTINE scan
 !            (IF SUBCASE 1 DOES NOT HAVE SCAN DATA, USE NEXT SUBCASE)
 !
                   file = scr1
-                  IF ( .NOT.kopen ) CALL open(*120,scr1,z(ibuf3),Rdrew)
+                  IF ( .NOT.kopen ) CALL open(*120,scr1,z(ibuf3),rdrew)
                   IF ( kopen ) CALL rewind(scr1)
                   kopen = .TRUE.
-                  Isort = 0
-                  Osubc = 0
-                  Oel = 0
+                  isort = 0
+                  osubc = 0
+                  oel = 0
 !
                   SPAG_Loop_2_5: DO ii = 1 , ncase
-                     IF ( Isort==2 ) EXIT SPAG_Loop_2_5
+                     IF ( isort==2 ) EXIT SPAG_Loop_2_5
                      CALL read(*140,*160,scr1,z(1),2,0,l)
                      j = z(2)
                      IF ( j==0 ) THEN
                         CALL fwdrec(*140,scr1)
                      ELSE
-                        Subc = z(1)
+                        subc = z(1)
                         ls = nz - j
                         CALL read(*140,*160,scr1,z(ls+1),j,1,l)
                         le = ls
@@ -592,10 +593,10 @@ SUBROUTINE scan
                            ls = ls - 1
                            i = i + z(i+2) + 2
                            IF ( i>=nz ) THEN
-                              Lcore = ls
+                              lcore = ls
                               j = ls + 1
                               kk = 230
-                              IF ( Debug ) WRITE (Nout,99016) kk , Subc , (z(i),i=j,nz)
+                              IF ( debug ) WRITE (nout,99016) kk , subc , (z(i),i=j,nz)
 !
 !     NOW IS THE TIME TO SET THE SCAN PARAMETERS FOR EACH SCAN CARD
 !     WITHIN A SUBCASE, AND CALL STRSCN TO SCAN THE OUTPUT DATA
@@ -607,32 +608,32 @@ SUBROUTINE scan
                                  ib = z(i)
                                  IF ( z(ib+1)==sorf ) THEN
                                     jmp = z(ib+2)
-                                    Iel = z(ib+3)
+                                    iel = z(ib+3)
 ! ONLY QUAD4 (=64) AND TRIA3 (=83) ARE VALID FOR LLOOP=2
-                                    IF ( Lloop/=2 .OR. Iel==64 .OR. Iel==83 ) THEN
-                                       Iset = z(ib+4)
-                                       Icomp = z(ib+5)
-                                       Ntop = z(ib+6)
+                                    IF ( lloop/=2 .OR. iel==64 .OR. iel==83 ) THEN
+                                       iset = z(ib+4)
+                                       icomp = z(ib+5)
+                                       ntop = z(ib+6)
                                        imax = z(ib+6)
                                        imin = z(ib+7)
                                        idupl = z(ib+8)
                                        inc = z(ib+9)
-                                       Iopt = 1
-                                       IF ( imin==-1 ) Iopt = 2
-                                       IF ( Iopt/=2 ) Ntop = 0
-                                       Lbeg = Lcore
-                                       Lend = Lcore - 1
-                                       IF ( Iset/=-1 ) THEN
-                                         Lbeg = ib + 10
-                                         Lend = ib + jmp + 2
+                                       iopt = 1
+                                       IF ( imin==-1 ) iopt = 2
+                                       IF ( iopt/=2 ) ntop = 0
+                                       lbeg = lcore
+                                       lend = lcore - 1
+                                       IF ( iset/=-1 ) THEN
+                                         lbeg = ib + 10
+                                         lend = ib + jmp + 2
                                        ENDIF
-                                       j = (Iel-1)*Incr
-                                       Ielt(1) = E(j+1)
-                                       Ielt(2) = E(j+2)
-                                       IF ( Debug ) WRITE (Nout,99012) Ielt , (z(ib+j),j=3,9) , Iopt , Lbeg , Lend , ii , Subc
+                                       j = (iel-1)*incr
+                                       ielt(1) = e(j+1)
+                                       ielt(2) = e(j+2)
+                                       IF ( debug ) WRITE (nout,99012) ielt , (z(ib+j),j=3,9) , iopt , lbeg , lend , ii , subc
 99012                                  FORMAT (/5X,16HDEBUG/SCAN255 - ,2A4,/5X,12I9)
                                        CALL strscn(sorf/10000000)
-                                       IF ( Iopt<0 ) THEN
+                                       IF ( iopt<0 ) THEN
                                          spag_nextblock_1 = 8
                                          CYCLE SPAG_DispatchLoop_1
                                        ENDIF
@@ -652,12 +653,12 @@ SUBROUTINE scan
 !
 !     ALL SCAN DONE.  WRITE OUTPUT FILE TRAILERS AND CLOSE ALL FILES
 !
- 100     IF ( Itrl3>0 ) THEN
+ 100     IF ( itrl3>0 ) THEN
 !RLBR 12/29/93 SPR 93010 & 93011
 !     Z(1) = OESFI
-            z(1) = oesfi(Lloop)
+            z(1) = oesfi(lloop)
             z(2) = 1
-            z(3) = Itrl3
+            z(3) = itrl3
             DO i = 4 , 7
                z(i) = 0
             ENDDO
@@ -666,20 +667,20 @@ SUBROUTINE scan
          spag_nextblock_1 = 6
       CASE (6)
 !
-         IF ( Iopen ) CALL close(Infile,Rew)
-         IF ( Jopen ) CALL close(Oufile,Rew)
-         IF ( kopen ) CALL close(scr1,Rew)
-         IF ( lopen ) CALL close(casecc,Rew)
+         IF ( iopen ) CALL close(infile,rew)
+         IF ( jopen ) CALL close(oufile,rew)
+         IF ( kopen ) CALL close(scr1,rew)
+         IF ( lopen ) CALL close(casecc,rew)
 !RLBNE 12/29/93 SPR 93010 & 93011
-         IF ( Lloop==2 ) THEN
-            IF ( Quad4==-1 ) WRITE (Nout,99017) 'QUAD4'
-            IF ( Tria3==-1 ) WRITE (Nout,99017) 'TRIA3'
+         IF ( lloop==2 ) THEN
+            IF ( quad4==-1 ) WRITE (nout,99017) 'QUAD4'
+            IF ( tria3==-1 ) WRITE (nout,99017) 'TRIA3'
 !RLBNE 12/29/93 SPR 93010 & 93011
             RETURN
          ELSE
-            Lloop = 2
-            Ielt(1) = jelt(1)
-            Ielt(2) = jelt(2)
+            lloop = 2
+            ielt(1) = jelt(1)
+            ielt(2) = jelt(2)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -702,16 +703,15 @@ SUBROUTINE scan
             j = -8
             CALL mesage(j,file,nam)
          ENDDO
- 180     WRITE (Nout,99013) Uwm , Iset
+ 180     WRITE (nout,99013) uwm , iset
 99013    FORMAT (A25,' FROM SCAN, SET',I9,' NOT FOUND')
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
-         WRITE (Nout,99014) Iopt
+         WRITE (nout,99014) iopt
 99014    FORMAT (//5X,44HUSER ERROR.  ILLEGAL INPUT FILE SENT TO SCAN,I6)
          spag_nextblock_1 = 9
       CASE (9)
-         WRITE (Nout,99015) Swm
+         WRITE (nout,99015) swm
 99015    FORMAT (A27,' FROM SCAN.  CASE ABORTED ***')
          GOTO 100
       END SELECT

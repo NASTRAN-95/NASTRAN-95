@@ -1,11 +1,12 @@
-!*==pltopr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pltopr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pltopr
+   USE c_blank
+   USE c_pltdat
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PLTDAT
-   USE C_XXPARM
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -169,14 +170,14 @@ SUBROUTINE pltopr
    DATA ilay/4H  1  , 4H  2  , 4H  3  , 4H  4  , 4H  5  , 4H  6  , 4H  7  , 4H  8  , 4H  9  , 4H 10  , 4H 11  , 4H 12  , 4H 13  ,   &
        &4H 14  , 4H 15  , 4H 16  , 4H 17  , 4H 18  , 4H 19  , 4H 20 /
 !
-   IF ( Ncntr>0 ) THEN
+   IF ( ncntr>0 ) THEN
 !
 !     CONTOUR PLOTTING DATA
 !
       list(1) = 0
-      CALL wrtprt(Prnt,list,g1,ng1)
+      CALL wrtprt(prnt,list,g1,ng1)
       list(1) = 4
-      IF ( Icntvl>9 .AND. Icntvl<14 ) THEN
+      IF ( icntvl>9 .AND. icntvl<14 ) THEN
 !
 !     DISPLACEMENT CONTOURS
 !
@@ -184,47 +185,47 @@ SUBROUTINE pltopr
          list(2) = displa(i)
          list(3) = displa(i+1)
          list(4) = displa(i+2)
-         list(5) = displa(Icntvl-6)
-         CALL wrtprt(Prnt,list,g2,ng2)
+         list(5) = displa(icntvl-6)
+         CALL wrtprt(prnt,list,g2,ng2)
          j = 3
       ELSE
 !
 !     STRESS CONTOURS
 !
          i = 1
-         IF ( Icntvl>6 .OR. Icntvl==3 ) i = 3
-         IF ( Icntvl>=14 .AND. Icntvl<=19 ) i = 1
-         IF ( Icntvl/=20 ) THEN
+         IF ( icntvl>6 .OR. icntvl==3 ) i = 3
+         IF ( icntvl>=14 .AND. icntvl<=19 ) i = 1
+         IF ( icntvl/=20 ) THEN
 !
             list(2) = stress(i)
             list(3) = stress(i+1)
-            i = Icntvl*2 + 3
-            IF ( Icntvl>13 .AND. Icntvl<20 ) i = (Icntvl-14)*2 + 20
-            IF ( Icntvl>6 .AND. Icntvl<=9 ) i = Icntvl + 10
+            i = icntvl*2 + 3
+            IF ( icntvl>13 .AND. icntvl<20 ) i = (icntvl-14)*2 + 20
+            IF ( icntvl>6 .AND. icntvl<=9 ) i = icntvl + 10
             list(4) = stress(i)
             list(5) = space
-            IF ( Icntvl<7 .OR. Icntvl>=14 ) list(5) = stress(i+1)
-            CALL wrtprt(Prnt,list,g2,ng2)
+            IF ( icntvl<7 .OR. icntvl>=14 ) list(5) = stress(i+1)
+            CALL wrtprt(prnt,list,g2,ng2)
 !
 !     ADDING LAYER NUMBER TO OUTPUT WHEN REQUESTED
 !
-            IF ( Icntvl<14 .OR. Icntvl==20 ) THEN
+            IF ( icntvl<14 .OR. icntvl==20 ) THEN
 !
                list(1) = 3
-               i = Iwhere
-               IF ( Iwhere<=0 ) i = 0
+               i = iwhere
+               IF ( iwhere<=0 ) i = 0
                i = i*3 + 1
                list(2) = dist(i)
                list(3) = dist(i+1)
                list(4) = dist(i+2)
-               CALL wrtprt(Prnt,list,g3,ng3)
+               CALL wrtprt(prnt,list,g3,ng3)
             ELSE
                list(1) = 4
                list(2) = stress(32)
                list(3) = stress(33)
                list(4) = stress(34)
-               list(5) = ilay(Layer)
-               CALL wrtprt(Prnt,list,g2,ng2)
+               list(5) = ilay(layer)
+               CALL wrtprt(prnt,list,g2,ng2)
             ENDIF
          ELSE
 !
@@ -235,23 +236,23 @@ SUBROUTINE pltopr
             list(3) = strain(2)
             list(4) = strain(3)
             list(5) = strain(4)
-            CALL wrtprt(Prnt,list,g2,ng2)
+            CALL wrtprt(prnt,list,g2,ng2)
          ENDIF
 !
-         j = 2*(Idirec-1) + 1
+         j = 2*(idirec-1) + 1
       ENDIF
-      IF ( Icntvl>=4 .AND. Icntvl/=13 ) THEN
+      IF ( icntvl>=4 .AND. icntvl/=13 ) THEN
          list(1) = 2
          list(2) = way(j)
          list(3) = way(j+1)
-         CALL wrtprt(Prnt,list,g4,ng4)
+         CALL wrtprt(prnt,list,g4,ng4)
       ENDIF
       list(1) = 0
-      CALL wrtprt(Prnt,list,g5,ng5)
-      CALL wrtprt(Prnt,list,g6,ng6)
-      l = (Ncntr-1)/10 + 1
+      CALL wrtprt(prnt,list,g5,ng5)
+      CALL wrtprt(prnt,list,g6,ng6)
+      l = (ncntr-1)/10 + 1
       list(1) = 2*l
-      k = min0(Ncntr,10)
+      k = min0(ncntr,10)
       DO j = 1 , k
          spag_nextblock_1 = 1
          SPAG_DispatchLoop_1: DO
@@ -260,22 +261,21 @@ SUBROUTINE pltopr
                n = j + (l-1)*10
                m = 2
                DO i = j , n , 10
-                  IF ( i>Ncntr ) THEN
+                  IF ( i>ncntr ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   list(m) = i
-                  alst(m+1) = Cntr(i)
+                  alst(m+1) = cntr(i)
                   m = m + 2
                ENDDO
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             CASE (2)
                list(1) = list(1) - 2
                l = l - 1
                spag_nextblock_1 = 3
             CASE (3)
-               CALL wrtprt(Prnt,list,g7,ng7)
+               CALL wrtprt(prnt,list,g7,ng7)
                EXIT SPAG_DispatchLoop_1
             END SELECT
          ENDDO SPAG_DispatchLoop_1
@@ -285,179 +285,179 @@ SUBROUTINE pltopr
 !     PRINT THE PLOTTER ID.
 !
       list(1) = 0
-      CALL write(Prnt,list,1,0)
-      CALL wrtprt(Prnt,list,a1,na1)
+      CALL write(prnt,list,1,0)
+      CALL wrtprt(prnt,list,a1,na1)
 !
 !     NASTRAN GENERAL PURPOSE PLOTTER.
 !
       list(1) = 5
-      j = iabs(Pltype)
+      j = iabs(pltype)
       DO i = 1 , 3
          list(i+1) = plttyp(i,j)
       ENDDO
       mm = 1
-      IF ( Pltype<0 ) mm = 3
+      IF ( pltype<0 ) mm = 3
       list(5) = itype(mm)
       list(6) = itype(mm+1)
-      CALL wrtprt(Prnt,list,p6,np6)
+      CALL wrtprt(prnt,list,p6,np6)
 !
 !     GENERAL PLOTTER INFORMATION.
 !
-      IF ( Tapden>0 ) THEN
+      IF ( tapden>0 ) THEN
          list(1) = 1
-         list(2) = Tapden
-         CALL wrtprt(Prnt,list,a2,na2)
+         list(2) = tapden
+         CALL wrtprt(prnt,list,a2,na2)
       ENDIF
-      IF ( Eof/=0 ) THEN
-         CALL wrtprt(Prnt,0,a4,na4)
+      IF ( eof/=0 ) THEN
+         CALL wrtprt(prnt,0,a4,na4)
       ELSE
-         CALL wrtprt(Prnt,0,a3,na3)
+         CALL wrtprt(prnt,0,a3,na3)
       ENDIF
-      CALL wrtprt(Prnt,0,a5,na5)
+      CALL wrtprt(prnt,0,a5,na5)
       list(1) = 1
-      alst(2) = Cscale
-      CALL wrtprt(Prnt,list,a6,na6)
-      IF ( iabs(Pltype)<2 ) THEN
+      alst(2) = cscale
+      CALL wrtprt(prnt,list,a6,na6)
+      IF ( iabs(pltype)<2 ) THEN
 !
 !     ELECTRONIC PLOTTER INFORMATION.
 !
-         IF ( Camera<2 ) THEN
+         IF ( camera<2 ) THEN
             list(2) = film(1)
             list(3) = film(2)
-         ELSEIF ( Camera==2 ) THEN
+         ELSEIF ( camera==2 ) THEN
             list(2) = paper(1)
             list(3) = paper(2)
          ELSE
-            CALL wrtprt(Prnt,0,c2,nc2)
+            CALL wrtprt(prnt,0,c2,nc2)
             GOTO 20
          ENDIF
          list(1) = 2
-         CALL wrtprt(Prnt,list,c1,nc1)
- 20      IF ( Camera/=2 .AND. Bframs/=0 ) THEN
+         CALL wrtprt(prnt,list,c1,nc1)
+ 20      IF ( camera/=2 .AND. bframs/=0 ) THEN
             list(1) = 1
-            list(2) = Bframs
-            CALL wrtprt(Prnt,list,c3,nc3)
+            list(2) = bframs
+            CALL wrtprt(prnt,list,c3,nc3)
          ENDIF
          GOTO 50
-      ELSEIF ( iabs(Pltype)==2 ) THEN
+      ELSEIF ( iabs(pltype)==2 ) THEN
 !
 !     TABLE PLOTTER INFORMATION.
 !
          list(1) = 1
-         alst(2) = Cntsin
-         CALL wrtprt(Prnt,list,b1,nb1)
+         alst(2) = cntsin
+         CALL wrtprt(prnt,list,b1,nb1)
       ENDIF
       list(1) = 4
-      alst(2) = Papsiz(1)
-      alst(3) = Papsiz(2)
-      list(4) = Paptyp(1)
-      list(5) = Paptyp(2)
-      CALL wrtprt(Prnt,list,b2,nb2)
+      alst(2) = papsiz(1)
+      alst(3) = papsiz(2)
+      list(4) = paptyp(1)
+      list(5) = paptyp(2)
+      CALL wrtprt(prnt,list,b2,nb2)
 !
       list(1) = 4
-      n = min0(Npens,Nopens)
+      n = min0(npens,nopens)
       DO i = 1 , n
          list(2) = i
-         list(3) = Pensiz(i)
+         list(3) = pensiz(i)
          IF ( list(3)>=0 ) THEN
-            list(4) = Penclr(i,1)
-            list(5) = Penclr(i,2)
-            IF ( list(4)/=blank .OR. list(5)/=blank ) CALL wrtprt(Prnt,list,b5,nb5)
+            list(4) = penclr(i,1)
+            list(5) = penclr(i,2)
+            IF ( list(4)/=blank .OR. list(5)/=blank ) CALL wrtprt(prnt,list,b5,nb5)
          ENDIF
       ENDDO
-      CALL wrtprt(Prnt,0,skip,nskip)
+      CALL wrtprt(prnt,0,skip,nskip)
 !
 !     ENGINEERING DATA.
 !
- 50   CALL wrtprt(Prnt,0,d1,nd1)
+ 50   CALL wrtprt(prnt,0,d1,nd1)
       list(1) = 3
       DO i = 1 , 3
-         list(i+1) = prj(i,Prject)
+         list(i+1) = prj(i,prject)
       ENDDO
-      CALL wrtprt(Prnt,list,d2,nd2)
+      CALL wrtprt(prnt,list,d2,nd2)
 !
       list(1) = 13
-      alst(2) = Vangle(3)
-      IF ( Vangle(2)<=-1.E10 ) THEN
-         IF ( Prject/=2 ) Vangle(2) = Vangle(4)
-         IF ( Prject==2 ) Vangle(2) = Vangle(5)
+      alst(2) = vangle(3)
+      IF ( vangle(2)<=-1.E10 ) THEN
+         IF ( prject/=2 ) vangle(2) = vangle(4)
+         IF ( prject==2 ) vangle(2) = vangle(5)
       ENDIF
-      alst(3) = Vangle(2)
-      alst(4) = Vangle(1)
+      alst(3) = vangle(2)
+      alst(4) = vangle(1)
       DO i = 1 , 3
          j = 2*i + 3
-         k = iabs(Axis(i))
+         k = iabs(axis(i))
          list(j) = plus
-         IF ( Axis(i)<0 ) list(j) = minus
+         IF ( axis(i)<0 ) list(j) = minus
          list(j+1) = xyz(k)
       ENDDO
       n = 1
-      IF ( Axis(1)==Daxis(1) ) n = 2
+      IF ( axis(1)==daxis(1) ) n = 2
       list(14) = blank
       j = 1
       DO i = n , 4
          list(j+10) = symm(i)
          j = j + 1
       ENDDO
-      CALL wrtprt(Prnt,list,d3,nd3)
-      IF ( Prject==3 ) THEN
+      CALL wrtprt(prnt,list,d3,nd3)
+      IF ( prject==3 ) THEN
 !
 !     STEREO ENGINEERING DATA.
 !
          list(1) = 2
-         alst(2) = Scale(1)/Cntin3
-         alst(3) = Scale(2)
-         CALL wrtprt(Prnt,list,f1,nf1)
+         alst(2) = scale(1)/cntin3
+         alst(3) = scale(2)
+         CALL wrtprt(prnt,list,f1,nf1)
          list(1) = 4
-         alst(2) = R0
-         alst(3) = S0l
-         alst(4) = S0r
-         alst(5) = T0
-         CALL wrtprt(Prnt,list,f2,nf2)
+         alst(2) = r0
+         alst(3) = s0l
+         alst(4) = s0r
+         alst(5) = t0
+         CALL wrtprt(prnt,list,f2,nf2)
          list(1) = 1
-         alst(2) = D0
-         CALL wrtprt(Prnt,list,e3,ne3)
-         alst(2) = S0s
-         CALL wrtprt(Prnt,list,f3,nf3)
+         alst(2) = d0
+         CALL wrtprt(prnt,list,e3,ne3)
+         alst(2) = s0s
+         CALL wrtprt(prnt,list,f3,nf3)
 !
-         CALL wrtprt(Prnt,0,skip,nskip)
+         CALL wrtprt(prnt,0,skip,nskip)
          list(1) = 4
-         DO i = 1 , Org
-            list(2) = Origin(i)
-            alst(3) = Xy(i,1)/Cntsin
-            alst(4) = Xy(i,2)/Cntsin
-            alst(5) = Xy(i,3)/Cntsin
-            CALL wrtprt(Prnt,list,f4,nf4)
+         DO i = 1 , org
+            list(2) = origin(i)
+            alst(3) = xy(i,1)/cntsin
+            alst(4) = xy(i,2)/cntsin
+            alst(5) = xy(i,3)/cntsin
+            CALL wrtprt(prnt,list,f4,nf4)
          ENDDO
       ELSE
 !
 !     ORTHOGRAPHIC + PERSPECTIVE ENGINEERING DATA.
 !
          list(1) = 1
-         alst(2) = Scale(1)/Cntsin
-         CALL wrtprt(Prnt,list,e1,ne1)
-         IF ( Prject/=1 ) THEN
+         alst(2) = scale(1)/cntsin
+         CALL wrtprt(prnt,list,e1,ne1)
+         IF ( prject/=1 ) THEN
             list(1) = 3
-            alst(2) = R0
-            alst(3) = S0l
-            alst(4) = T0
-            CALL wrtprt(Prnt,list,e2,ne2)
+            alst(2) = r0
+            alst(3) = s0l
+            alst(4) = t0
+            CALL wrtprt(prnt,list,e2,ne2)
             list(1) = 1
-            alst(2) = D0
-            CALL wrtprt(Prnt,list,e3,ne3)
+            alst(2) = d0
+            CALL wrtprt(prnt,list,e3,ne3)
          ENDIF
 !
-         CALL wrtprt(Prnt,0,skip,nskip)
+         CALL wrtprt(prnt,0,skip,nskip)
          list(1) = 3
-         DO i = 1 , Org
-            list(2) = Origin(i)
-            alst(3) = Xy(i,1)/Cntsin
-            alst(4) = Xy(i,3)/Cntsin
-            CALL wrtprt(Prnt,list,e4,ne4)
+         DO i = 1 , org
+            list(2) = origin(i)
+            alst(3) = xy(i,1)/cntsin
+            alst(4) = xy(i,3)/cntsin
+            CALL wrtprt(prnt,list,e4,ne4)
          ENDDO
       ENDIF
    ENDIF
 !
    list(1) = 0
-   CALL wrtprt(Prnt,list,h1,nh1)
+   CALL wrtprt(prnt,list,h1,nh1)
 END SUBROUTINE pltopr

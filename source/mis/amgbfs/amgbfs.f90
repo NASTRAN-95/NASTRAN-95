@@ -1,13 +1,14 @@
-!*==amgbfs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==amgbfs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
+   USE c_amgmn
+   USE c_dlbdy
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_DLBDY
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,49 +45,49 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         nsb = Ntys + Ntzs
+         nsb = ntys + ntzs
          nzy2 = nsb*2
-         nt02 = Nt0*2
-         ntp2 = Ntp*2
-         length = Nt0 + nsb
-         isl = Isk - 1
-         ii = Isk + length
-         nn = Nsk + nzy2 + ntp2
-         ibuf2 = Ecore
+         nt02 = nt0*2
+         ntp2 = ntp*2
+         length = nt0 + nsb
+         isl = isk - 1
+         ii = isk + length
+         nn = nsk + nzy2 + ntp2
+         ibuf2 = ecore
          IF ( nsb/=0 ) THEN
-            ibuf2 = Ecore - Sysbuf
+            ibuf2 = ecore - sysbuf
 !
 !     CALL BFSMAT
 !     SCR1 HAS NTZS + NTYS ROWS WITH NTO*2 THEN NTZS+NTYS*2 TERMS
 !     ROWS ARE Z FOR Z , Y THEN Z FOR ZY , AND Y FOR Y
 !
-            CALL gopen(Scr1,Z(ibuf2),1)
-            icorr = Next
-            IF ( Next+length*4>ibuf2 ) THEN
+            CALL gopen(scr1,z(ibuf2),1)
+            icorr = next
+            IF ( next+length*4>ibuf2 ) THEN
 !
 !     ERROR MESSAGES
 !
                CALL mesage(-8,0,name)
                RETURN
             ELSE
-               CALL bfsmat(Nd,Ne,Nb,Np,Ntp,length,Nt0,Scr1,jf,jl,Z(Inas),Fmach,Z(Iyb),Z(Izb),Z(Iys),Z(Izs),Z(Ix),Delx,Ee,Z(Ixic),   &
-                         & Z(Isg),Z(Icg),Z(Iarb),Z(Iria),Z(Inbea1),Z(Inbea2),Z(Inasb),Z(Inb),Nc,Z(icorr),Z(Iavr),Refc,A0,Xis1,Xis2, &
-                         & Rfk,Nsbe,Nt0)
-               CALL write(Scr1,0,0,1)
-               CALL close(Scr1,1)
-               CALL dmpfil(Scr1,Z(Next),ibuf2-Next)
-               CALL gopen(Scr1,Z(ibuf2),0)
-               ncore = Nt0*nzy2*2
-               IF ( ncore+Next>ibuf2 ) THEN
+               CALL bfsmat(nd,ne,nb,np,ntp,length,nt0,scr1,jf,jl,z(inas),fmach,z(iyb),z(izb),z(iys),z(izs),z(ix),Delx,Ee,z(ixic),   &
+                         & z(isg),z(icg),z(iarb),z(iria),z(inbea1),z(inbea2),z(inasb),z(inb),Nc,z(icorr),z(iavr),refc,A0,Xis1,Xis2, &
+                         & rfk,Nsbe,nt0)
+               CALL write(scr1,0,0,1)
+               CALL close(scr1,1)
+               CALL dmpfil(scr1,z(next),ibuf2-next)
+               CALL gopen(scr1,z(ibuf2),0)
+               ncore = nt0*nzy2*2
+               IF ( ncore+next>ibuf2 ) THEN
                   CALL mesage(-8,0,name)
                   RETURN
                ELSE
-                  CALL zeroc(Z(Next),ncore)
-                  i = Next
+                  CALL zeroc(z(next),ncore)
+                  i = next
                   izbf = 1
                   DO j = 1 , nsb
-                     CALL fread(Scr1,Z(i),nt02,0)
-                     CALL fread(Scr1,Z(i),-nzy2,0)
+                     CALL fread(scr1,z(i),nt02,0)
+                     CALL fread(scr1,z(i),-nzy2,0)
                      i = i + nt02
                      IF ( jf/=0 ) THEN
                         IF ( j>=jf .AND. j<=jl ) THEN
@@ -97,29 +98,29 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
                      ENDIF
                      i = i + nt02
                   ENDDO
-                  CALL bckrec(Scr1)
+                  CALL bckrec(scr1)
                ENDIF
             ENDIF
          ENDIF
 !
 !     BUILD NT0 COLUMNS OF SKJ
 !
-         IF ( Nt0/=0 ) THEN
-            ibf = Next - 2
+         IF ( nt0/=0 ) THEN
+            ibf = next - 2
             k = 1
             ks = 1
             nbxr = Nc(k)
-            DO i = 1 , Nt0
+            DO i = 1 , nt0
                CALL bldpk(3,3,Skj,0,0)
-               IF ( i<=Ntp ) THEN
-                  A(1) = 2.0*Ee(ks)*Delx(i)
-                  A(2) = 0.0
-                  Iis = isl + (i-1)*2 + 1
+               IF ( i<=ntp ) THEN
+                  a(1) = 2.0*Ee(ks)*Delx(i)
+                  a(2) = 0.0
+                  iis = isl + (i-1)*2 + 1
                   CALL zblpki
-                  A(1) = (Ee(ks)*Delx(i)**2)/2.0
-                  Iis = Iis + 1
+                  a(1) = (Ee(ks)*Delx(i)**2)/2.0
+                  iis = iis + 1
                   CALL zblpki
-                  IF ( i/=Ntp ) THEN
+                  IF ( i/=ntp ) THEN
                      IF ( i==Nba(k) ) k = k + 1
                      IF ( i==nbxr ) THEN
                         ks = ks + 1
@@ -131,13 +132,13 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
                   ibf = ibf + 2
                   DO j = 1 , nzy2
                      l = (j-1)*nt02
-                     A(1) = Z(ibf+l)
-                     A(2) = Z(ibf+l+1)
-                     Iis = isl + ntp2 + j
+                     a(1) = z(ibf+l)
+                     a(2) = z(ibf+l+1)
+                     iis = isl + ntp2 + j
                      CALL zblpki
                   ENDDO
                ENDIF
-               CALL bldpkn(Skj,0,Tskj)
+               CALL bldpkn(Skj,0,tskj)
             ENDDO
          ENDIF
 !
@@ -148,16 +149,16 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ncore = nzy2*nsb*4 + nsb*nsb*2
-         IF ( ncore+Next>ibuf2 ) THEN
+         IF ( ncore+next>ibuf2 ) THEN
             CALL mesage(-8,0,name)
             RETURN
          ELSE
-            CALL zeroc(Z(Next),ncore)
-            i = Next
+            CALL zeroc(z(next),ncore)
+            i = next
             izbf = 1
             DO j = 1 , nsb
-               CALL fread(Scr1,Z(i),-nt02,0)
-               CALL fread(Scr1,Z(i),nzy2,0)
+               CALL fread(scr1,z(i),-nt02,0)
+               CALL fread(scr1,z(i),nzy2,0)
                i = i + nzy2
                IF ( jf/=0 ) THEN
                   IF ( j>=jf .AND. j<=jl ) THEN
@@ -173,19 +174,19 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
 !
             ig = i
             ia = ig + nsb*nsb*2
-            nfyb = Nb + 1 - Nby
+            nfyb = nb + 1 - nby
             irow = ig
-            rfkoc = 2.0*Rfk/Refc
+            rfkoc = 2.0*rfk/refc
             ibzy = 0
             p5 = .5
-            IF ( Ntzs==0 ) THEN
+            IF ( ntzs==0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             nfse = 1
             nlse = 0
             nfb = 1
-            nbx = Nbz
+            nbx = nbz
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
@@ -198,24 +199,24 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
                   IF ( it==nfse ) THEN
                      x2 = p5*(Xis2(it+1)+Xis1(it+1))
                      x1 = p5*(Xis2(it)+Xis1(it))
-                     Z(irow) = (-1.0/(x2-x1))*dx
-                     Z(irow+2) = -Z(irow)*(A0(it)/A0(it+1))**2
+                     z(irow) = (-1.0/(x2-x1))*dx
+                     z(irow+2) = -z(irow)*(A0(it)/A0(it+1))**2
                   ELSEIF ( it==nlse ) THEN
                      x1 = p5*(Xis2(it-1)+Xis1(it-1))
                      x2 = p5*(Xis2(it)+Xis1(it))
-                     Z(irow) = (1.0/(x2-x1))*dx
-                     Z(irow-2) = -Z(irow)*(A0(it)/A0(it-1))**2
+                     z(irow) = (1.0/(x2-x1))*dx
+                     z(irow-2) = -z(irow)*(A0(it)/A0(it-1))**2
                   ELSE
                      x1 = p5*(Xis2(it-1)+Xis1(it-1))
                      x2 = p5*(Xis2(it)+Xis1(it))
                      x3 = p5*(Xis2(it+1)+Xis1(it+1))
-                     Z(irow-2) = (1.0/(x3-x1)-1.0/(x2-x1))*dx*(A0(it)/A0(it-1))**2
-                     Z(irow) = (1.0/(x2-x1)-1.0/(x3-x2))*dx
-                     Z(irow+2) = (1.0/(x3-x2)-1.0/(x3-x1))*dx*(A0(it)/A0(it+1))**2
+                     z(irow-2) = (1.0/(x3-x1)-1.0/(x2-x1))*dx*(A0(it)/A0(it-1))**2
+                     z(irow) = (1.0/(x2-x1)-1.0/(x3-x2))*dx
+                     z(irow+2) = (1.0/(x3-x2)-1.0/(x3-x1))*dx*(A0(it)/A0(it+1))**2
                   ENDIF
                ENDIF
-               Z(irow) = Z(irow) + dx*a02p
-               Z(irow+1) = dx*rfkoc
+               z(irow) = z(irow) + dx*a02p
+               z(irow+1) = dx*rfkoc
                irow = irow + nzy2 + 2
             ENDDO
             nfse = nfse + Nsbe(ib)
@@ -224,9 +225,9 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
       CASE (3)
          IF ( ibzy/=1 ) THEN
             ibzy = 1
-            IF ( Ntys/=0 ) THEN
+            IF ( ntys/=0 ) THEN
                nfb = nfyb
-               nbx = Nb
+               nbx = nb
                nfse = 1
                nlse = 0
                nl = nfyb - 1
@@ -243,29 +244,29 @@ SUBROUTINE amgbfs(Skj,Ee,Delx,Nc,Nba,Xis2,Xis1,A0,A0p,Nsbe)
 !
 !     MULTIPLY BFS * G
 !
-         CALL bug(nhbfs,200,Z(Next),nzy2*nzy2)
-         CALL bug(nhg,200,Z(ig),nsb*nsb*2)
-         CALL gmmatc(Z(Next),nzy2,nsb,0,Z(ig),nsb,nsb,0,Z(ia))
-         CALL bug(nha,200,Z(ia),nzy2*nsb*2)
+         CALL bug(nhbfs,200,z(next),nzy2*nzy2)
+         CALL bug(nhg,200,z(ig),nsb*nsb*2)
+         CALL gmmatc(z(next),nzy2,nsb,0,z(ig),nsb,nsb,0,z(ia))
+         CALL bug(nha,200,z(ia),nzy2*nsb*2)
          irow = ia - 2
          DO i = 1 , nsb
             CALL bldpk(3,3,Skj,0,0)
             irow = irow + 2
             k = irow
             DO j = 1 , nzy2
-               A(1) = Z(k)
-               A(2) = Z(k+1)
-               Iis = isl + ntp2 + j
+               a(1) = z(k)
+               a(2) = z(k+1)
+               iis = isl + ntp2 + j
                CALL zblpki
                k = k + nzy2
             ENDDO
-            CALL bldpkn(Skj,0,Tskj)
+            CALL bldpkn(Skj,0,tskj)
          ENDDO
          spag_nextblock_1 = 4
       CASE (4)
-         Isk = ii
-         Nsk = nn
-         CALL close(Scr1,1)
+         isk = ii
+         nsk = nn
+         CALL close(scr1,1)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

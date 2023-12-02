@@ -1,4 +1,5 @@
-!*==alg14.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg14.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg14(Xdata,Ydata,Ndata,Xin,Yout,Yprime,Nxy,Nwot)
@@ -20,6 +21,15 @@ SUBROUTINE alg14(Xdata,Ydata,Ndata,Xin,Yout,Yprime,Nxy,Nwot)
    REAL , DIMENSION(65) :: a , b , d , m
    REAL :: dx , e1 , e2 , ydash
    INTEGER :: i , ii , j , n
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

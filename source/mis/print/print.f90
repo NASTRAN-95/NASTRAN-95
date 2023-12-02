@@ -1,10 +1,11 @@
-!*==print.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==print.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE print(X,Y,Xyd,Chr,N,Opt)
+   USE c_pltdat
+   USE c_system
    IMPLICIT NONE
-   USE C_PLTDAT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,7 +48,7 @@ SUBROUTINE print(X,Y,Xyd,Chr,N,Opt)
    ELSE
       blnk = krshft(klshft(blank,1),1)
       d = max0(iabs(Xyd),1)
-      s = Cntchr(d)
+      s = cntchr(d)
       IF ( Xyd==-1 .OR. Xyd==2 ) s = -s
       xy(1,1) = X
       xy(2,1) = Y
@@ -70,9 +71,9 @@ SUBROUTINE print(X,Y,Xyd,Chr,N,Opt)
          nc = 0
          DO l = l1 , l2
             DO i = 1 , 4
-               charx = krshft(Chr(l),Ncpw-i)
+               charx = krshft(Chr(l),ncpw-i)
                nc = nc + 1
-               c(nc) = orf(klshft(charx,Ncpw-1),blnk)
+               c(nc) = orf(klshft(charx,ncpw-1),blnk)
             ENDDO
          ENDDO
 !

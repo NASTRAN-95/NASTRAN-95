@@ -1,4 +1,5 @@
-!*==table5.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==table5.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE table5(In,Out,Trl,Ibuf,Wrt,Lfn,Fn) !HIDESTARS (*,In,Out,Trl,Ibuf,Wrt,Lfn,Fn)
@@ -81,12 +82,12 @@ SUBROUTINE table5(In,Out,Trl,Ibuf,Wrt,Lfn,Fn) !HIDESTARS (*,In,Out,Trl,Ibuf,Wrt,
 !
 !  $MIXED_FORMATS
 !
-USE C_BLANK
-USE C_MACHIN
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_machin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -132,14 +133,14 @@ USE ISO_FORTRAN_ENV
       CASE (1)
 !
          debug = .FALSE.
-         IF ( Ti(1)<0 ) debug = .TRUE.
-         Ti(1) = iabs(Ti(1))
+         IF ( ti(1)<0 ) debug = .TRUE.
+         ti(1) = iabs(ti(1))
          tion = .FALSE.
          DO l = 1 , 10
-            IF ( Ti(l)/=0 ) tion = .TRUE.
+            IF ( ti(l)/=0 ) tion = .TRUE.
          ENDDO
          IF ( debug ) CALL page1
-         IF ( debug ) WRITE (Nout,99001)
+         IF ( debug ) WRITE (nout,99001)
 99001    FORMAT (///5X,'*** IN TABLE5/OUTPUT5 ***')
          kore = Ibuf - 2
 !
@@ -147,25 +148,25 @@ USE ISO_FORTRAN_ENV
 !     WRITE ONE HEADER RECORD, IN OUTPT5 MATRIX HEADER FORMAT, TO
 !     OUTPUT TAPE
 !
-         CALL open(*120,In,Z(Ibuf),0)
+         CALL open(*120,In,z(Ibuf),0)
          CALL read(*140,*160,In,name,2,1,kk)
-         IF ( debug ) WRITE (Nout,99002) name
+         IF ( debug ) WRITE (nout,99002) name
 99002    FORMAT (/5X,'PROCESSING...',2A4,/)
          i = 0
          j = 1
          Trl(7) = 0
-         IF ( P4==0 ) WRITE (Out) i , j , j , dtemp , (Trl(k),k=2,7) , name
-         IF ( P4==1 ) WRITE (Out,99003) i , j , j , dtemp , (Trl(k),k=2,7) , name
+         IF ( p4==0 ) WRITE (Out) i , j , j , dtemp , (Trl(k),k=2,7) , name
+         IF ( p4==1 ) WRITE (Out,99003) i , j , j , dtemp , (Trl(k),k=2,7) , name
 99003    FORMAT (3I8,/,D26.17,6I8,2A4)
          spag_nextblock_1 = 2
       CASE (2)
 !
-         IF ( P4==1 ) THEN
+         IF ( p4==1 ) THEN
 !
 !     FORMATTED WRITE
 !
             j = 2
-            CALL read(*100,*40,In,Z(j),kore,1,kk)
+            CALL read(*100,*40,In,z(j),kore,1,kk)
             j = 0
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
@@ -177,21 +178,21 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
-         CALL read(*100,*20,In,Z(j),kore,1,kk)
+         CALL read(*100,*20,In,z(j),kore,1,kk)
          j = 0
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
  20      IF ( j/=1 ) THEN
             j = 1
-            Z(1) = kk
+            z(1) = kk
          ENDIF
-         CALL write(Out,Z(1),kk,1)
+         CALL write(Out,z(1),kk,1)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     SET UP USER DIRECTED TI TABLE IN Z(KK2) THRU Z(KK3)
 !
- 40      IF ( debug ) WRITE (Nout,99004) (Ti(j),j=1,10)
+ 40      IF ( debug ) WRITE (nout,99004) (ti(j),j=1,10)
 99004    FORMAT (//5X,'TI PARAMETERS =',/4X,10(1X,I9))
          kk1 = kk + 2
          kk2 = kk1 + kk
@@ -202,7 +203,7 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO k = kk1 , kk3
-            Z(k) = 0
+            z(k) = 0
          ENDDO
          IF ( .NOT.tion ) THEN
             spag_nextblock_1 = 5
@@ -220,45 +221,44 @@ USE ISO_FORTRAN_ENV
             IF ( k>=kk2 .OR. ll>10 ) THEN
 !
                k = kk2 - 1
-               IF ( debug ) WRITE (Nout,99005) (Z(j),j=kk1,k)
+               IF ( debug ) WRITE (nout,99005) (z(j),j=kk1,k)
 99005          FORMAT (//5X,'DIGITIZED TI PARAMTERS =',/,(3X,25I3))
                i = kk2
                DO j = kk1 , k
-                  jz = Z(j)
+                  jz = z(j)
                   IF ( jz>4 ) THEN
                      ji = jz + i - 1
-                     jj = Z(j+1)
+                     jj = z(j+1)
                      IF ( jj>4 ) THEN
                         spag_nextblock_1 = 10
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
                      DO l = i , ji
-                        Z(l) = jj
+                        z(l) = jj
                      ENDDO
                      i = ji + 1
-                     Z(j+1) = -1
+                     z(j+1) = -1
                   ELSEIF ( jz/=-1 ) THEN
-                     Z(i) = jz
+                     z(i) = jz
                      i = i + 1
                   ENDIF
                ENDDO
                i = kk3 - 1
-               IF ( debug ) WRITE (Nout,99006) (Z(j),j=kk2,i)
+               IF ( debug ) WRITE (nout,99006) (z(j),j=kk2,i)
 99006          FORMAT (//,5X,'DECODED TI PARAMETERS =',/,(3X,25I3))
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               til = Ti(ll)
+               til = ti(ll)
                IF ( til>0 ) EXIT SPAG_Loop_1_1
                l = -1
             ENDIF
          ENDDO SPAG_Loop_1_1
          til10 = til/10
-         Z(k+l) = til - til10*10
+         z(k+l) = til - til10*10
          til = til10
          l = l - 1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     COUNT HOW MANY 5-BYTE WORDS TO BE GENERATED, FILLERS INCLUDED
@@ -277,10 +277,10 @@ USE ISO_FORTRAN_ENV
                   k = k + 1
                   pjj = jj
                   IF ( tion ) THEN
-                     jj = Z(kk2+i) + 1
-                     IF ( jj==1 ) jj = numtyp(Z(i+1)) + 1
+                     jj = z(kk2+i) + 1
+                     IF ( jj==1 ) jj = numtyp(z(i+1)) + 1
                   ELSE
-                     jj = numtyp(Z(i+1)) + 1
+                     jj = numtyp(z(i+1)) + 1
                   ENDIF
                   IF ( jj==2 ) THEN
                   ELSEIF ( jj==3 .OR. jj==5 ) THEN
@@ -290,7 +290,7 @@ USE ISO_FORTRAN_ENV
 !
 !     BCD
 !
-                     Z(k) = jj
+                     z(k) = jj
                      l5 = l5 + 5
                      CYCLE
                   ELSE
@@ -309,13 +309,12 @@ USE ISO_FORTRAN_ENV
 !     INTEGER
 !
                   IF ( mod(l5,130)>120 ) THEN
-                     Z(k) = 6
+                     z(k) = 6
                      k = k + 1
                      l5 = l5 + 5
                   ENDIF
-                  Z(k) = jj
+                  z(k) = jj
                   l5 = l5 + 10
-                  CYCLE
                CASE (2)
 !
 !     REAL, S.P. OR D.P.
@@ -324,14 +323,14 @@ USE ISO_FORTRAN_ENV
                   IF ( j>=120 ) THEN
                      IF ( j==120 ) THEN
                         l5 = l5 + 5
-                        Z(k) = 6
+                        z(k) = 6
                         k = k + 1
                      ENDIF
                      l5 = l5 + 5
-                     Z(k) = 6
+                     z(k) = 6
                      k = k + 1
                   ENDIF
-                  Z(k) = jj
+                  z(k) = jj
                   l5 = l5 + 15
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -343,7 +342,7 @@ USE ISO_FORTRAN_ENV
 !
          dp = .FALSE.
          kk = k
-         Z(1) = (l5-10)/5
+         z(1) = (l5-10)/5
          fmt(1) = lpri10
 !
          l5 = 10
@@ -361,15 +360,15 @@ USE ISO_FORTRAN_ENV
          fmt(l) = rpren
          IF ( debug ) THEN
             CALL page2(-5)
-            WRITE (Nout,99012) (fmt(j),j=1,l)
+            WRITE (nout,99012) (fmt(j),j=1,l)
          ENDIF
 !WKBD 7/94   520 WRITE  (OUT,FMT,ERR=530) (RZ(J),J=IB,I)
 !WKBNB 7/94
-         IF ( Mach/=5 .AND. Mach/=2 ) THEN
-            isave = Nout
-            Nout = Out
+         IF ( mach/=5 .AND. mach/=2 ) THEN
+            isave = nout
+            nout = Out
             CALL forwrt(fmt,rz(ib),i-ib+1)
-            Nout = isave
+            nout = isave
          ELSE
             WRITE (Out,fmt,ERR=60) (rz(j),j=ib,i)
          ENDIF
@@ -388,7 +387,7 @@ USE ISO_FORTRAN_ENV
             fmt(l) = rpren
             IF ( debug ) THEN
                CALL page2(-5)
-               WRITE (Nout,99012) (fmt(j),j=1,l)
+               WRITE (nout,99012) (fmt(j),j=1,l)
             ENDIF
 !
 !     REMOVED SECOND HALVES OF ALL D.P. NUMBERS IF THEY ARE PRESENT
@@ -397,27 +396,27 @@ USE ISO_FORTRAN_ENV
             IF ( dp ) THEN
                k = ib - 1
                DO j = ib , i
-                  IF ( Z(j)/=del ) THEN
+                  IF ( z(j)/=del ) THEN
                      k = k + 1
-                     Z(k) = Z(j)
+                     z(k) = z(j)
                   ENDIF
                ENDDO
                i = k
             ENDIF
 !WKBD 7/94  680 WRITE (OUT,FMT,ERR=690) (RZ(J),J=IB,I)
 !WKBNB 7/94
-            IF ( Mach/=2 .AND. Mach/=5 ) THEN
-               isave = Nout
-               Nout = Out
+            IF ( mach/=2 .AND. mach/=5 ) THEN
+               isave = nout
+               nout = Out
                CALL forwrt(fmt,rz(ib),i-ib+1)
-               Nout = isave
+               nout = isave
             ELSE
                WRITE (Out,fmt,ERR=80) (rz(j),j=ib,i)
             ENDIF
          ELSE
             i = i + 1
             l = l + 1
-            j = Z(k)
+            j = z(k)
             IF ( j==3 ) THEN
 !
 !     S.P. REAL NUMBERS
@@ -436,8 +435,8 @@ USE ISO_FORTRAN_ENV
                l5 = l5 + 15
                temp(1) = rz(l)
                temp(2) = rz(l+1)
-               Z(l) = sngl(dtemp)
-               Z(l+1) = del
+               z(l) = sngl(dtemp)
+               z(l+1) = del
                dp = .TRUE.
             ELSEIF ( j==6 ) THEN
 !
@@ -472,21 +471,21 @@ USE ISO_FORTRAN_ENV
          Fn(2,Lfn) = name(2)
          Fn(3,Lfn) = tble
          CALL close(In,1)
-         IF ( P4==1 ) THEN
+         IF ( p4==1 ) THEN
             i = 1
             WRITE (Out,99007) i , end
 99007       FORMAT (1X,I9,1X,A4)
             CALL page2(-13)
-            WRITE (Nout,99013) Uim , name
-            WRITE (Nout,99008)
+            WRITE (nout,99013) uim , name
+            WRITE (nout,99008)
 99008       FORMAT (5X,'FORTRAN FORMATTED WRITE, 130 CHARACTERS PER LINE -',/10X,'(''/'',A4 FOR BCD WORD       ( 5 BYTES)',/11X,    &
                    &'''I'',I9 FOR INTEGER        (10 BYTES)',/11X,'''R'',E14.7 FOR S.P. REAL   (15 BYTES)',/11X,                    &
                    &'''D'',D14.7 FOR D.P. NUMBER (15 BYTES)',/11X,'''X    '', FOR FILLER       ( 5 BYTES)')
          ELSE
             CALL page2(-7)
             WRITE (Out) i , end
-            WRITE (Nout,99013) Uim , name
-            WRITE (Nout,99009)
+            WRITE (nout,99013) uim , name
+            WRITE (nout,99009)
 99009       FORMAT (5X,'FORTRAN UNFORMATTED (BINARY) WRITE')
          ENDIF
          GOTO 180
@@ -501,7 +500,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  160     j = 3
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          In = j
          j = 8
@@ -509,14 +507,13 @@ USE ISO_FORTRAN_ENV
       CASE (9)
          CALL mesage(j,In,sub)
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
-         WRITE (Nout,99010) Uwm , ji , jj
+         WRITE (nout,99010) uwm , ji , jj
 99010    FORMAT (A25,', OUTPTT5 MODULE PARAMETER ERROR.  WRONG INDEX ','VALUES',2I3)
          spag_nextblock_1 = 11
       CASE (11)
          CALL fname(In,name)
-         WRITE (Nout,99011) name
+         WRITE (nout,99011) name
 99011    FORMAT (/5X,'TABLE DATA BLOCK ',2A4,' WAS NOT COPIED TO OUTPUT',' TAPE')
          DO
             CALL fwdrec(*180,In)

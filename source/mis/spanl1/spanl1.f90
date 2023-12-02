@@ -1,12 +1,13 @@
-!*==spanl1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==spanl1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE spanl1(Iarg)
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -81,206 +82,206 @@ SUBROUTINE spanl1(Iarg)
 !
 ! CALL MAT TO GET MATERIAL PROPERTIES.
 !
-   Matidc = Matid
-   Matflg = 1
-   Eltemp = Tempel
+   matidc = matid
+   matflg = 1
+   eltemp = tempel
    CALL mat(iecpt(1))
 !
 ! COMPUTE DIAGONAL VECTORS.
 !
    DO i = 1 , 3
-      Vd1(i) = Gp3(i) - Gp1(i)
-      Vd2(i) = Gp4(i) - Gp2(i)
+      vd1(i) = gp3(i) - gp1(i)
+      vd2(i) = gp4(i) - gp2(i)
    ENDDO
 !
 ! COMPUTE THE NORMAL VECTOR VKN, NORMALIZE, AND COMPUTE THE PROJECTED
 ! AREA, PA
 !
-   Vkn(1) = Vd1(2)*Vd2(3) - Vd1(3)*Vd2(2)
-   Vkn(2) = Vd1(3)*Vd2(1) - Vd1(1)*Vd2(3)
-   Vkn(3) = Vd1(1)*Vd2(2) - Vd1(2)*Vd2(1)
-   Vkl = sqrt(Vkn(1)**2+Vkn(2)**2+Vkn(3)**2)
-   IF ( Vkl==0.0 ) THEN
+   vkn(1) = vd1(2)*vd2(3) - vd1(3)*vd2(2)
+   vkn(2) = vd1(3)*vd2(1) - vd1(1)*vd2(3)
+   vkn(3) = vd1(1)*vd2(2) - vd1(2)*vd2(1)
+   vkl = sqrt(vkn(1)**2+vkn(2)**2+vkn(3)**2)
+   IF ( vkl==0.0 ) THEN
       CALL mesage(-30,26,iecpt(1))
       iecpt(2) = 2
       CALL mesage(-30,27,iecpt(1))
    ELSE
-      Vk(1) = Vkn(1)/Vkl
-      Vk(2) = Vkn(2)/Vkl
-      Vk(3) = Vkn(3)/Vkl
-      Pa = .5*Vkl
+      vk(1) = vkn(1)/vkl
+      vk(2) = vkn(2)/vkl
+      vk(3) = vkn(3)/vkl
+      pa = .5*vkl
 !
 ! COMPUTE  SIDES -12- AND -41-
 !
       DO i = 1 , 3
-         V12(i) = Gp2(i) - Gp1(i)
-         V41(i) = Gp1(i) - Gp4(i)
+         v12(i) = gp2(i) - gp1(i)
+         v41(i) = gp1(i) - gp4(i)
       ENDDO
 !
 ! COMPUTE DOT PRODUCT, V12DK, OF V12 AND VK, THE VECTORS VP12, VI, VJ
 !
-      V12dk = V12(1)*Vk(1) + V12(2)*Vk(2) + V12(3)*Vk(3)
-      Vp12(1) = V12(1) - V12dk*Vk(1)
-      Vp12(2) = V12(2) - V12dk*Vk(2)
-      Vp12(3) = V12(3) - V12dk*Vk(3)
-      vp12l = sqrt(Vp12(1)**2+Vp12(2)**2+Vp12(3)**2)
+      v12dk = v12(1)*vk(1) + v12(2)*vk(2) + v12(3)*vk(3)
+      vp12(1) = v12(1) - v12dk*vk(1)
+      vp12(2) = v12(2) - v12dk*vk(2)
+      vp12(3) = v12(3) - v12dk*vk(3)
+      vp12l = sqrt(vp12(1)**2+vp12(2)**2+vp12(3)**2)
       IF ( vp12l==0.0 ) THEN
          CALL mesage(-30,26,iecpt(1))
          iecpt(2) = 2
          CALL mesage(-30,27,iecpt(1))
       ELSE
-         Vi(1) = Vp12(1)/vp12l
-         Vi(2) = Vp12(2)/vp12l
-         Vi(3) = Vp12(3)/vp12l
-         Vj(1) = Vk(2)*Vi(3) - Vk(3)*Vi(2)
-         Vj(2) = Vk(3)*Vi(1) - Vk(1)*Vi(3)
-         Vj(3) = Vk(1)*Vi(2) - Vk(2)*Vi(1)
+         vi(1) = vp12(1)/vp12l
+         vi(2) = vp12(2)/vp12l
+         vi(3) = vp12(3)/vp12l
+         vj(1) = vk(2)*vi(3) - vk(3)*vi(2)
+         vj(2) = vk(3)*vi(1) - vk(1)*vi(3)
+         vj(3) = vk(1)*vi(2) - vk(2)*vi(1)
 !
 ! NORMALIZE J FOR GOOD MEASURE
 !
-         vjl = sqrt(Vj(1)**2+Vj(2)**2+Vj(3)**2)
+         vjl = sqrt(vj(1)**2+vj(2)**2+vj(3)**2)
          IF ( vjl==0.0 ) THEN
             CALL mesage(-30,26,iecpt(1))
             iecpt(2) = 2
             CALL mesage(-30,27,iecpt(1))
          ELSE
-            Vj(1) = Vj(1)/vjl
-            Vj(2) = Vj(2)/vjl
-            Vj(3) = Vj(3)/vjl
-            X1 = 0.0
-            Y1 = 0.0
-            X2 = vp12l
-            Y2 = 0.0
-            X3 = Vi(1)*Vd1(1) + Vi(2)*Vd1(2) + Vi(3)*Vd1(3)
-            Y3 = Vj(1)*Vd1(1) + Vj(2)*Vd1(2) + Vj(3)*Vd1(3)
-            X4 = -Vi(1)*V41(1) - Vi(2)*V41(2) - Vi(3)*V41(3)
-            Y4 = -Vj(1)*V41(1) - Vj(2)*V41(2) - Vj(3)*V41(3)
+            vj(1) = vj(1)/vjl
+            vj(2) = vj(2)/vjl
+            vj(3) = vj(3)/vjl
+            x1 = 0.0
+            y1 = 0.0
+            x2 = vp12l
+            y2 = 0.0
+            x3 = vi(1)*vd1(1) + vi(2)*vd1(2) + vi(3)*vd1(3)
+            y3 = vj(1)*vd1(1) + vj(2)*vd1(2) + vj(3)*vd1(3)
+            x4 = -vi(1)*v41(1) - vi(2)*v41(2) - vi(3)*v41(3)
+            y4 = -vj(1)*v41(1) - vj(2)*v41(2) - vj(3)*v41(3)
 !
 ! CHECK TO SEE IF INTERIOR ANGLES ARE LESS THAN 180 DEGREES.  IF NOT,
 ! CALL FATAL ERROR MESSAGE.
 !
-            IF ( Y3<=0.0 ) THEN
+            IF ( y3<=0.0 ) THEN
                iecpt(2) = 2
                CALL mesage(-30,27,iecpt(1))
-            ELSEIF ( X3<=Y3*X4/Y4 ) THEN
+            ELSEIF ( x3<=y3*x4/y4 ) THEN
                iecpt(2) = 4
                CALL mesage(-30,27,iecpt(1))
-            ELSEIF ( Y4<=0.0 ) THEN
+            ELSEIF ( y4<=0.0 ) THEN
                iecpt(2) = 1
                CALL mesage(-30,27,iecpt(1))
-            ELSEIF ( X4>=X2-(X2-X3)*Y4/Y3 ) THEN
+            ELSEIF ( x4>=x2-(x2-x3)*y4/y3 ) THEN
                iecpt(2) = 3
                CALL mesage(-30,27,iecpt(1))
             ELSE
 !
 ! TEST FOR PARALLEL EFFECTS.
 !
-               Temp = X3 - X2
-               Ep = 0.01
-               IF ( abs(Y3-Y4)<abs(X3-X4)*Ep ) THEN
-                  IF ( abs(Y4*Temp-Y3*X4)<abs(X4*Temp+Y4*Y3)*Ep ) THEN
+               temp = x3 - x2
+               ep = 0.01
+               IF ( abs(y3-y4)<abs(x3-x4)*ep ) THEN
+                  IF ( abs(y4*temp-y3*x4)<abs(x4*temp+y4*y3)*ep ) THEN
 !
 ! IN THIS CASE THE PANEL APPROXIMATES A PARALLELOGRAM.
 !
                      DO i = 1 , 4
-                        P(i) = 1.0
+                        p(i) = 1.0
                      ENDDO
-                     D = -.5*(X4/Y4+(X3-X2)/Y3+(Y3-Y4)/(X3-X4))
-                     z = Pa/(2.0*G*T)*(1.0+2.0*D**2/(1.0+Nu))
+                     d = -.5*(x4/y4+(x3-x2)/y3+(y3-y4)/(x3-x4))
+                     z = pa/(2.0*g*t)*(1.0+2.0*d**2/(1.0+nu))
                   ELSE
 !
 ! AT THIS POINT THE LINE CONNECTING POINTS 3 AND 4 IS -PARALLEL- TO THE
 ! LINE CONNECTING POINTS 1 AND 2.
 !
-                     Temp = Y3*X4 - Y4*(X3-X2)
-                     Yp = X2*Y3*Y4/Temp
-                     P(1) = Yp - Y1
-                     P(2) = Yp - Y2
-                     P(3) = Yp - Y3
-                     P(4) = Yp - Y4
-                     Xp = X2*Y3*X4/Temp
-                     Sa = (X2-Xp)/Yp
-                     C = (X1-Xp)/Yp
-                     z = ((P(1)*P(2)*Pa)/(P(3)*P(4)*2.0*G*T))*(1.0+2.0/(3.0+3.0*Nu)*(Sa**2+Sa*C+C**2))
+                     temp = y3*x4 - y4*(x3-x2)
+                     yp = x2*y3*y4/temp
+                     p(1) = yp - y1
+                     p(2) = yp - y2
+                     p(3) = yp - y3
+                     p(4) = yp - y4
+                     xp = x2*y3*x4/temp
+                     sa = (x2-xp)/yp
+                     c = (x1-xp)/yp
+                     z = ((p(1)*p(2)*pa)/(p(3)*p(4)*2.0*g*t))*(1.0+2.0/(3.0+3.0*nu)*(sa**2+sa*c+c**2))
                   ENDIF
-               ELSEIF ( abs(Y4*Temp-Y3*X4)<abs(X4*Temp+Y4*Y3)*Ep ) THEN
+               ELSEIF ( abs(y4*temp-y3*x4)<abs(x4*temp+y4*y3)*ep ) THEN
 !
 ! AT THIS POINT THE LINE CONNECTING POINTS 1 AND 4 IS -PARALLEL- TO THE
 ! LINE CONNECTING POINTS 2 AND 3.
 !
-                  D = -.5*(X4/Y4+(X3-X2)/Y3)
-                  Xq = X4 - Y4*(X3-X4)/(Y3-Y4)
-                  Temp = 1.0/sqrt(1.0+D**2)
-                  P(1) = (Xq-X1-D*Y1)*Temp
-                  P(2) = (Xq-X2-D*Y2)*Temp
-                  P(3) = (Xq-X3-D*Y3)*Temp
-                  P(4) = (Xq-X4-D*Y4)*Temp
-                  Temp = Xq - X4
-                  B = (Temp*D+Y4)/(Temp-Y4*D)
-                  z = ((P(1)*P(2)*Pa)/(P(3)*P(4)*2.0*G*T))*(1.0+2.0/(3.0+3.0*Nu)*(B**2+B*D+D**2))
+                  d = -.5*(x4/y4+(x3-x2)/y3)
+                  xq = x4 - y4*(x3-x4)/(y3-y4)
+                  temp = 1.0/sqrt(1.0+d**2)
+                  p(1) = (xq-x1-d*y1)*temp
+                  p(2) = (xq-x2-d*y2)*temp
+                  p(3) = (xq-x3-d*y3)*temp
+                  p(4) = (xq-x4-d*y4)*temp
+                  temp = xq - x4
+                  b = (temp*d+y4)/(temp-y4*d)
+                  z = ((p(1)*p(2)*pa)/(p(3)*p(4)*2.0*g*t))*(1.0+2.0/(3.0+3.0*nu)*(b**2+b*d+d**2))
                ELSE
 !
 ! IN THIS CASE NO PARALLEL EFFECTS EXIST.
 !
-                  Xq = X4 - (X3-X4)/(Y3-Y4)*Y4
-                  Temp = Y3*X4 - Y4*(X3-X2)
-                  Xp = X2*Y3*X4/Temp
-                  Yp = X2*Y3*Y4/Temp
-                  Xl = sqrt((Xq-Xp)**2+Yp**2)
-                  D = (Xq-Xp)/Yp
-                  Temp = Yp/Xl
-                  P(1) = Temp*(Xq-X1-D*Y1)
-                  P(2) = Temp*(Xq-X2-D*Y2)
-                  P(3) = Temp*(Xq-X3-D*Y3)
-                  P(4) = Temp*(Xq-X4-D*Y4)
-                  C = Xl/P(1) - D
-                  B = Xl/P(4) - C
-                  A = Xl/P(2) - D
-                  A2 = A**2
-                  B2 = B**2
-                  C2 = C**2
-                  D2 = D**2
-                  A3 = A2*A
-                  B3 = B2*B
-                  C3 = C2*C
-                  D3 = D2*D
-                  A4 = A3*A
-                  B4 = B3*B
-                  C4 = C3*C
-                  D4 = D3*D
-                  A5 = A4*A
-                  B5 = B4*B
-                  C5 = C4*C
-                  D5 = D4*D
-                  Temp = .5*P(1)*P(2)*P(3)*P(4)/Xl**2
-                  term = A + B + 2.0*(A3+B3)/3.0 + .2*(A5+B5)
-                  Term1 = C + D + 2.0*(C3+D3)/3.0 + .2*(C5+D5)
-                  Term2 = B + C + 2.0*(B3+C3)/3.0 + .2*(B5+C5)
-                  Term3 = D + A + 2.0*(D3+A3)/3.0 + .2*(D5+A5)
-                  term = term*alog(abs(A+B))
-                  Term1 = Term1*alog(abs(C+D))
-                  Term2 = Term2*alog(abs(B+C))
-                  Term3 = Term3*alog(abs(D+A))
-                  Term4 = .1*((A2-C2)*(B3-D3)+(B2-D2)*(A3-C3))
-                  Term5 = .2*((A-C)*(B4-D4)+(B-D)*(A4-C4))
-                  f = Temp*(term+Term1-Term2-Term3+Term4-Term5)
-                  z = P(1)*P(2)/(P(3)*P(4)*2.0*G*T)*(Pa+4.0/(1.0+Nu)*(f-2.0*Pa/3.0))
+                  xq = x4 - (x3-x4)/(y3-y4)*y4
+                  temp = y3*x4 - y4*(x3-x2)
+                  xp = x2*y3*x4/temp
+                  yp = x2*y3*y4/temp
+                  xl = sqrt((xq-xp)**2+yp**2)
+                  d = (xq-xp)/yp
+                  temp = yp/xl
+                  p(1) = temp*(xq-x1-d*y1)
+                  p(2) = temp*(xq-x2-d*y2)
+                  p(3) = temp*(xq-x3-d*y3)
+                  p(4) = temp*(xq-x4-d*y4)
+                  c = xl/p(1) - d
+                  b = xl/p(4) - c
+                  a = xl/p(2) - d
+                  a2 = a**2
+                  b2 = b**2
+                  c2 = c**2
+                  d2 = d**2
+                  a3 = a2*a
+                  b3 = b2*b
+                  c3 = c2*c
+                  d3 = d2*d
+                  a4 = a3*a
+                  b4 = b3*b
+                  c4 = c3*c
+                  d4 = d3*d
+                  a5 = a4*a
+                  b5 = b4*b
+                  c5 = c4*c
+                  d5 = d4*d
+                  temp = .5*p(1)*p(2)*p(3)*p(4)/xl**2
+                  term = a + b + 2.0*(a3+b3)/3.0 + .2*(a5+b5)
+                  term1 = c + d + 2.0*(c3+d3)/3.0 + .2*(c5+d5)
+                  term2 = b + c + 2.0*(b3+c3)/3.0 + .2*(b5+c5)
+                  term3 = d + a + 2.0*(d3+a3)/3.0 + .2*(d5+a5)
+                  term = term*alog(abs(a+b))
+                  term1 = term1*alog(abs(c+d))
+                  term2 = term2*alog(abs(b+c))
+                  term3 = term3*alog(abs(d+a))
+                  term4 = .1*((a2-c2)*(b3-d3)+(b2-d2)*(a3-c3))
+                  term5 = .2*((a-c)*(b4-d4)+(b-d)*(a4-c4))
+                  f = temp*(term+term1-term2-term3+term4-term5)
+                  z = p(1)*p(2)/(p(3)*p(4)*2.0*g*t)*(pa+4.0/(1.0+nu)*(f-2.0*pa/3.0))
                ENDIF
-               Xl13 = sqrt(X3**2+Y3**2)
-               Xl24 = sqrt((X4-X2)**2+Y4**2)
-               Smallu(1) = X3/Xl13
-               Smallu(2) = (X4-X2)/Xl24
-               Smallu(3) = Smallu(1)
-               Smallu(4) = Smallu(2)
-               Smallv(1) = Y3/Xl13
-               Smallv(2) = Y4/Xl24
-               Smallv(3) = Smallv(1)
-               Smallv(4) = Smallv(2)
-               Temp = X4*Y3 - X3*Y4
-               Avec(1) = -.5*X2*Y4*Xl13/Temp
-               Avec(2) = .5*X2*Y3*Xl24/(Temp-X2*(Y3-Y4))
-               Avec(3) = -Avec(1)
-               Avec(4) = -Avec(2)
+               xl13 = sqrt(x3**2+y3**2)
+               xl24 = sqrt((x4-x2)**2+y4**2)
+               smallu(1) = x3/xl13
+               smallu(2) = (x4-x2)/xl24
+               smallu(3) = smallu(1)
+               smallu(4) = smallu(2)
+               smallv(1) = y3/xl13
+               smallv(2) = y4/xl24
+               smallv(3) = smallv(1)
+               smallv(4) = smallv(2)
+               temp = x4*y3 - x3*y4
+               avec(1) = -.5*x2*y4*xl13/temp
+               avec(2) = .5*x2*y3*xl24/(temp-x2*(y3-y4))
+               avec(3) = -avec(1)
+               avec(4) = -avec(2)
 !
 ! IF IARG = 4, WE HAVE A SHEAR PANEL, AND IF IARG = 5, A TWIST PANEL.
 !
@@ -290,59 +291,59 @@ SUBROUTINE spanl1(Iarg)
 ! SMALLU IN SMALLV.
 !
                   DO i = 1 , 4
-                     Temp = Smallu(i)
-                     Smallu(i) = -Smallv(i)
-                     Smallv(i) = Temp
+                     temp = smallu(i)
+                     smallu(i) = -smallv(i)
+                     smallv(i) = temp
                   ENDDO
                ENDIF
 !
 ! COMPUTE THE SINGLE PRECISION CONSTANT SPCON
 !
                IF ( Iarg==5 ) THEN
-                  Spcon = -1.0/(4.0*z)
+                  spcon = -1.0/(4.0*z)
                ELSE
-                  Spcon = -1.0/(2.0*z*T)
+                  spcon = -1.0/(2.0*z*t)
                ENDIF
 !
 ! COMPUTE THE FOUR 1 X 3 MATRICES S
 !
                DO i = 1 , 4
                   ivlbeg = 1
-                  Vleft(1) = Smallu(i)*Vi(1) + Smallv(i)*Vj(1)
-                  Vleft(2) = Smallu(i)*Vi(2) + Smallv(i)*Vj(2)
-                  Vleft(3) = Smallu(i)*Vi(3) + Smallv(i)*Vj(3)
+                  vleft(1) = smallu(i)*vi(1) + smallv(i)*vj(1)
+                  vleft(2) = smallu(i)*vi(2) + smallv(i)*vj(2)
+                  vleft(3) = smallu(i)*vi(3) + smallv(i)*vj(3)
                   IF ( iecpt(4*i+5)/=0 ) THEN
                      ivlbeg = 4
-                     CALL transs(iecpt(4*i+5),Ti)
-                     CALL gmmats(Vleft(1),3,1,1,Ti,3,3,0,Vleft(4))
+                     CALL transs(iecpt(4*i+5),ti)
+                     CALL gmmats(vleft(1),3,1,1,ti,3,3,0,vleft(4))
                   ENDIF
-                  S(1,i) = Spcon*Vleft(ivlbeg)*Avec(i)
-                  S(2,i) = Spcon*Vleft(ivlbeg+1)*Avec(i)
-                  S(3,i) = Spcon*Vleft(ivlbeg+2)*Avec(i)
+                  s(1,i) = spcon*vleft(ivlbeg)*avec(i)
+                  s(2,i) = spcon*vleft(ivlbeg+1)*avec(i)
+                  s(3,i) = spcon*vleft(ivlbeg+2)*avec(i)
                ENDDO
-               Out(1) = Avec(1)
-               Out(2) = Avec(2)
-               Out(3) = T
-               Out(4) = P(2)/P(1)
-               Out(5) = P(1)*P(2)/P(3)**2
-               Out(6) = P(1)*P(2)/P(4)**2
-               Out(7) = Sigs
-               Jelid = Ielid
+               out(1) = avec(1)
+               out(2) = avec(2)
+               out(3) = t
+               out(4) = p(2)/p(1)
+               out(5) = p(1)*p(2)/p(3)**2
+               out(6) = p(1)*p(2)/p(4)**2
+               out(7) = sigs
+               jelid = ielid
                DO i = 1 , 4
-                  Jsilno(i) = Isilno(i)
+                  jsilno(i) = isilno(i)
                ENDDO
                IF ( Iarg/=4 ) RETURN
 !*****
 !  ADDITIONAL PHASE-1 OUTPUTS FOR SHEAR PANEL FORCES  IN PHASE 2
 !*****
-               Out(8) = P(1)/P(3)*T
-               Out(9) = (P(1)*P(2))/(P(3)*P(4))*T
-               Out(10) = P(2)/P(4)*T
-               Out(11) = -V12dk/2.0
-               Out(12) = X2/2.0
-               Out(13) = sqrt((X3-X2)**2+Y3**2)/2.0
-               Out(14) = sqrt((X4-X3)**2+(Y4-Y3)**2)/2.0
-               Out(15) = sqrt(X4**2+Y4**2)/2.0
+               out(8) = p(1)/p(3)*t
+               out(9) = (p(1)*p(2))/(p(3)*p(4))*t
+               out(10) = p(2)/p(4)*t
+               out(11) = -v12dk/2.0
+               out(12) = x2/2.0
+               out(13) = sqrt((x3-x2)**2+y3**2)/2.0
+               out(14) = sqrt((x4-x3)**2+(y4-y3)**2)/2.0
+               out(15) = sqrt(x4**2+y4**2)/2.0
                RETURN
             ENDIF
          ENDIF

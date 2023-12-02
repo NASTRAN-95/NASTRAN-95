@@ -1,8 +1,9 @@
-!*==dcross.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dcross.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dcross(X,Y,Z)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -10,6 +11,12 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) , DIMENSION(3) :: X
    REAL(REAL64) , DIMENSION(3) :: Y
    REAL(REAL64) , DIMENSION(3) :: Z
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

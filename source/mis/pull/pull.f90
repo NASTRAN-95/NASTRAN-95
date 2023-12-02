@@ -1,9 +1,10 @@
-!*==pull.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pull.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pull(Bcd,Out,Icol,Nchar,Flag)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -31,10 +32,10 @@ SUBROUTINE pull(Bcd,Out,Icol,Nchar,Flag)
    nwds = (Nchar-1)/cperwd + 1
    IF ( first ) THEN
       first = .FALSE.
-      nx = Ncpw - cperwd
-      ixtra = nx*Nbpc
+      nx = ncpw - cperwd
+      ixtra = nx*nbpc
       ibl = 0
-      ib1 = krshft(blank,Ncpw-1)
+      ib1 = krshft(blank,ncpw-1)
       IF ( nx/=0 ) THEN
          DO i = 1 , nx
             ibl = orf(ibl,klshft(ib1,i-1))
@@ -46,21 +47,21 @@ SUBROUTINE pull(Bcd,Out,Icol,Nchar,Flag)
    ENDDO
 !
    iwd = (Icol-1)/cperwd + 1
-   m1 = (Icol-(iwd-1)*cperwd-1)*Nbpc
-   m2 = cperwd*Nbpc - m1
+   m1 = (Icol-(iwd-1)*cperwd-1)*nbpc
+   m2 = cperwd*nbpc - m1
 !
    DO i = 1 , nwds
       ibcd = iwd + i - 1
-      itemp = krshft(Bcd(ibcd),ixtra/Nbpc)
-      Out(i) = orf(Out(i),klshft(itemp,(m1+ixtra)/Nbpc))
-      itemp = krshft(Bcd(ibcd+1),(m2+ixtra)/Nbpc)
-      Out(i) = orf(Out(i),klshft(itemp,ixtra/Nbpc))
+      itemp = krshft(Bcd(ibcd),ixtra/nbpc)
+      Out(i) = orf(Out(i),klshft(itemp,(m1+ixtra)/nbpc))
+      itemp = krshft(Bcd(ibcd+1),(m2+ixtra)/nbpc)
+      Out(i) = orf(Out(i),klshft(itemp,ixtra/nbpc))
    ENDDO
    IF ( nwds*cperwd==Nchar ) RETURN
 !
 !     REMOVE EXTRA CHARACTERS FROM LAST OUT WORD
 !
-   nbl = (nwds-1)*cperwd + Ncpw - Nchar
+   nbl = (nwds-1)*cperwd + ncpw - Nchar
    lword = krshft(Out(nwds),nbl)
    Out(nwds) = klshft(lword,nbl)
 !

@@ -1,13 +1,14 @@
-!*==plttra.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==plttra.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE plttra
+   USE c_blank
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,11 +52,11 @@ SUBROUTINE plttra
 !
 !     LOCATE STORAGE AREA FOR FILE BUFFERS
 !
-         nz = korsz(Z)
-         buf1 = nz - Sysbuf + 1
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
+         nz = korsz(z)
+         buf1 = nz - sysbuf + 1
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
          IF ( buf4<=0 ) CALL mesage(-8,nz,plt)
 !
 !     READ TRAILER RECORDS OF INPUT FILES AND CHECK COMPATABILITY
@@ -66,29 +67,29 @@ SUBROUTINE plttra
          CALL rdtrl(mcb)
          CALL fname(file,name)
          IF ( file<=0 ) GOTO 40
-         CALL open(*40,bgpdt,Z(buf2),Rdrew)
+         CALL open(*40,bgpdt,z(buf2),rdrew)
          CALL fwdrec(*80,bgpdt)
 !
          file = sil
          CALL rdtrl(mcb)
          CALL fname(file,name)
          IF ( file<=0 ) GOTO 40
-         IF ( mcb(3)/=Luset ) THEN
-            WRITE (Not,99001) Ufm , Luset , mcb(3)
+         IF ( mcb(3)/=luset ) THEN
+            WRITE (not,99001) ufm , luset , mcb(3)
 99001       FORMAT (A23,' 5011, FIRST PARAMETER',I6,' NE TRAILER RECORD ','PARAMETER',I6)
             CALL mesage(-61,0,0)
             RETURN
          ELSE
-            CALL open(*40,sil,Z(buf1),Rdrew)
+            CALL open(*40,sil,z(buf1),rdrew)
             CALL fwdrec(*80,sil)
 !
             file = sip
             CALL fname(sip,a)
-            CALL open(*60,sip,Z(buf3),Wrtrew)
+            CALL open(*60,sip,z(buf3),wrtrew)
             CALL write(sip,a,2,1)
 !
             file = bgpdp
-            CALL open(*60,bgpdp,Z(buf4),Wrtrew)
+            CALL open(*60,bgpdp,z(buf4),wrtrew)
             CALL fname(bgpdp,b)
             CALL write(bgpdp,b,2,1)
 !
@@ -118,7 +119,7 @@ SUBROUTINE plttra
 !
          IF ( a(1)>=0 .AND. s2-s1/=6 ) THEN
             IF ( s2-s1/=1 ) THEN
-               WRITE (Not,99002) Ufm , ns
+               WRITE (not,99002) ufm , ns
 99002          FORMAT (A23,' 5012, ENTRY',I6,' OF SIL TABLE INCOMPATIBLE WITH ','NEXT ENTRY')
                CALL mesage(-61,0,0)
                RETURN
@@ -138,19 +139,19 @@ SUBROUTINE plttra
          CALL write(bgpdp,a,4,0)
          nadd = nadd + delta
          IF ( leof ) THEN
-            Lusep = Luset + nadd
+            lusep = luset + nadd
 !
 !     CLOSE OUTPUT FILES AND WRITE TRAILER RECORDS
 !
-            CALL close(sil,Clsrew)
-            CALL close(bgpdt,Clsrew)
-            CALL close(sip,Clsrew)
-            CALL close(bgpdp,Clsrew)
+            CALL close(sil,clsrew)
+            CALL close(bgpdt,clsrew)
+            CALL close(sip,clsrew)
+            CALL close(bgpdp,clsrew)
             mcb(1) = bgpdp
             mcb(3) = 0
             CALL wrttrl(mcb)
             mcb(1) = sip
-            mcb(3) = Lusep
+            mcb(3) = lusep
             CALL wrttrl(mcb)
             RETURN
          ELSE
@@ -162,11 +163,11 @@ SUBROUTINE plttra
 !     SIL(I) IS SIL(LAST)
 !
  20      leof = .TRUE.
-         s2 = Luset + 1
+         s2 = luset + 1
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
- 40      Lusep = Luset
+ 40      lusep = luset
          RETURN
 !
 !     ERROR DIAGNOSTICS

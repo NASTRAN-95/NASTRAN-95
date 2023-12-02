@@ -1,12 +1,13 @@
-!*==ddr2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ddr2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddr2
+   USE c_bitpos
+   USE c_blank
+   USE c_patx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_PATX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -39,27 +40,27 @@ SUBROUTINE ddr2
    DATA scr2 , scr3 , scr4 , scr5 , scr6 , scr7 , pad/302 , 303 , 304 , 305 , 306 , 301 , 302/
 !
 !
-   Lc = korsz(Core)
+   lc = korsz(core)
    vud = 102
    scr7 = 301
-   Uset = usetd
+   uset = usetd
    pl = scr6
    isol = scr7
-   IF ( Noue<0 ) pad = paf
-   IF ( Type(1)/=tran ) scr7 = uav
-   IF ( Type(1)/=tran .AND. React<0 .AND. Noue>=0 ) scr7 = vud
+   IF ( noue<0 ) pad = paf
+   IF ( type(1)/=tran ) scr7 = uav
+   IF ( type(1)/=tran .AND. react<0 .AND. noue>=0 ) scr7 = vud
 !
 !     MODE ACCELERATION
 !
 !     FORM PAD
 !
 !
-   CALL ddr1a(pd,k2dd,b2dd,mdd,vud,pad,frl,Frqset,scr3,scr4,scr5,scr6,Type(1),scr7)
+   CALL ddr1a(pd,k2dd,b2dd,mdd,vud,pad,frl,frqset,scr3,scr4,scr5,scr6,type(1),scr7)
 !
 !     DISP ON SCR7 IN TRANSIENT
 !
-   IF ( Noue>=0 ) THEN
-      CALL calcv(scr3,Ud,Ua,Ue,Core(1))
+   IF ( noue>=0 ) THEN
+      CALL calcv(scr3,ud,ua,ue,core(1))
       CALL ssg2a(vud,scr4,uev,scr3)
 !
 !     UA IS ON SCR4
@@ -70,42 +71,42 @@ SUBROUTINE ddr2
 !
       CALL ssg2a(pad,paf,scr5,scr3)
    ENDIF
-   IF ( React>=0 ) THEN
+   IF ( react>=0 ) THEN
 !
 !     FREE BODY PROBLEM
 !
-      CALL calcv(scr3,Ua,Ul,Ur,Core(1))
+      CALL calcv(scr3,ua,ul,ur,core(1))
 !
 !     PARTITION PAF AND UA
 !
       CALL ssg2a(paf,pl,scr5,scr3)
       ivec = vud
-      IF ( Type(1)==tran ) ivec = scr7
+      IF ( type(1)==tran ) ivec = scr7
       CALL ssg2a(ivec,scr2,scr5,scr3)
 !
 !     UR IS  ON SCR5
 !
       CALL ssg3a(0,lll,pl,scr3,scr2,scr6,-1,0)
       CALL ssg2b(dm,scr5,scr3,scr4,0,2,1,scr6)
-      CALL sdr1b(scr3,scr4,scr5,scr7,Ua,Ul,Ur,usetd,0,0)
+      CALL sdr1b(scr3,scr4,scr5,scr7,ua,ul,ur,usetd,0,0)
    ELSE
 !
 !     UR NULL
 !
-      IF ( Type(1)/=tran ) scr7 = isol
-      IF ( Type(1)/=tran .AND. Noue<0 ) scr7 = uav
+      IF ( type(1)/=tran ) scr7 = isol
+      IF ( type(1)/=tran .AND. noue<0 ) scr7 = uav
       CALL ssg3a(0,lll,paf,scr7,scr3,scr6,-1,0)
    ENDIF
-   IF ( Type(1)==tran ) THEN
+   IF ( type(1)==tran ) THEN
 !
 !     MERGE RECALCULATED SOLUTIONS AND ACCEL AND VELOCITY
 !
       isol = uav
-      IF ( Noue>=0 ) isol = scr5
+      IF ( noue>=0 ) isol = scr5
       CALL ddr1b(vud,scr7,isol)
    ENDIF
 !
 !     BUILD UP TO DSIZE  ADDING IN UEV
 !
-   IF ( Noue>=0 ) CALL sdr1b(scr4,isol,uev,uav,Ud,Ua,Ue,usetd,0,0)
+   IF ( noue>=0 ) CALL sdr1b(scr4,isol,uev,uav,ud,ua,ue,usetd,0,0)
 END SUBROUTINE ddr2

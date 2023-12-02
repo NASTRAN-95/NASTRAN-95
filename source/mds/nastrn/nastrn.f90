@@ -1,15 +1,16 @@
-!*==nastrn.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==nastrn.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 PROGRAM nastrn
+   USE i_nasnames
+   USE c_dbm
+   USE c_logout
+   USE c_lstadd
+   USE c_resdic
+   USE c_sofdsn
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_NASNAMES
-   USE C_DBM
-   USE C_LOGOUT
-   USE C_LSTADD
-   USE C_RESDIC
-   USE C_SOFDSN
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -22,13 +23,13 @@ PROGRAM nastrn
 !
 !
    !>>>>EQUIVALENCE (Isystm,Systm)
-   Lenopc = 400000000
+   lenopc = 400000000
 !
 !     SAVE STARTING CPU TIME AND WALL CLOCK TIME IN /SYSTEM/
 !
-   Isystm(18) = 0
+   isystm(18) = 0
    CALL second(systm(18))
-   CALL waltim(Isystm(32))
+   CALL waltim(isystm(32))
 !
 !     EXECUTE NASTRAN SUPER LINK
 !
@@ -36,22 +37,22 @@ PROGRAM nastrn
    value = ' '
    CALL btstrp
    CALL getenv('DBMEM',value)
-   READ (value,*) Idblen
+   READ (value,*) idblen
    CALL getenv('OCMEM',value)
    READ (value,*) iocmem
-   IF ( iocmem>Lenopc ) THEN
-      PRINT * , ' LARGEST VALUE FOR OPEN CORE ALLOWED IS:' , Lenopc
+   IF ( iocmem>lenopc ) THEN
+      PRINT * , ' LARGEST VALUE FOR OPEN CORE ALLOWED IS:' , lenopc
       CALL mesage(-61,0,0)
    ENDIF
-   IF ( Idblen/=0 ) Idblen = Lenopc - iocmem
-   Lastad = locfx(Iz(iocmem))
-   IF ( Idblen/=0 ) Idbadr = locfx(Iz(iocmem+1))
-   Lenopc = iocmem
+   IF ( idblen/=0 ) idblen = lenopc - iocmem
+   lastad = locfx(iz(iocmem))
+   IF ( idblen/=0 ) idbadr = locfx(iz(iocmem+1))
+   lenopc = iocmem
    CALL dbmint
-   Lout = 3
-   Irdict = 4
-   Sperlk = 1
-   Isystm(11) = 1
+   lout = 3
+   irdict = 4
+   sperlk = 1
+   isystm(11) = 1
    value = ' '
    CALL getenv('RFDIR',rfdir)
    value = ' '
@@ -99,25 +100,25 @@ PROGRAM nastrn
    CALL getenv('PUNCHNM',punch)
    dsnames(1) = punch
    CALL getenv('SOF1',value)
-   Sdsn(1) = value
+   sdsn(1) = value
    CALL getenv('SOF2',value)
-   Sdsn(2) = value
+   sdsn(2) = value
    CALL getenv('SOF3',value)
-   Sdsn(3) = value
+   sdsn(3) = value
    CALL getenv('SOF4',value)
-   Sdsn(4) = value
+   sdsn(4) = value
    CALL getenv('SOF5',value)
-   Sdsn(5) = value
+   sdsn(5) = value
    CALL getenv('SOF6',value)
-   Sdsn(6) = value
+   sdsn(6) = value
    CALL getenv('SOF7',value)
-   Sdsn(7) = value
+   sdsn(7) = value
    CALL getenv('SOF8',value)
-   Sdsn(8) = value
+   sdsn(8) = value
    CALL getenv('SOF9',value)
-   Sdsn(9) = value
+   sdsn(9) = value
    CALL getenv('SOF10',value)
-   Sdsn(10) = value
+   sdsn(10) = value
    OPEN (3,FILE=dsnames(3),STATUS='UNKNOWN')
    IF ( dsnames(11)/='none' ) OPEN (11,FILE=dsnames(11),STATUS='UNKNOWN')
    IF ( dsnames(12)/='none' ) OPEN (12,FILE=dsnames(12),STATUS='UNKNOWN')

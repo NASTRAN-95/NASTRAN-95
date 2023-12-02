@@ -1,12 +1,13 @@
-!*==fbs3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fbs3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbs3(Block,Y,Yn,Nwds)
+   USE c_fbsx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FBSX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,7 +44,7 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
          nbritm = Nwds
          j = (locfx(Yn)-locfx(Y)+1)/Nwds
          last = max0(j,1)*nbritm
-         DO j = 1 , N
+         DO j = 1 , n
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
@@ -58,7 +59,6 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
                      ENDIF
                   ENDDO
                   CALL skprec(Block(1),1)
-                  CYCLE
                CASE (2)
 !
 !     MAKE 1ST CALL FOR COLUMN AND SAVE DIAGONAL ELEMENT
@@ -67,8 +67,8 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
                   CALL getstr(*40,Block)
                   IF ( Block(4)/=j ) GOTO 40
                   jstr = Block(5)
-                  ljjr = L(jstr)
-                  ljji = L(jstr+1)
+                  ljjr = l(jstr)
+                  ljji = l(jstr+1)
                   IF ( Block(6)==1 ) THEN
                      spag_nextblock_2 = 4
                      CYCLE SPAG_DispatchLoop_2
@@ -88,8 +88,8 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
                      IF ( yjkr/=0.0 .OR. yjki/=0.0 ) THEN
                         ik = 2*Block(4) + k - 2
                         DO ij = jstr , nstr , 2
-                           Y(ik) = Y(ik) + L(ij)*yjkr - L(ij+1)*yjki
-                           Y(ik+1) = Y(ik+1) + L(ij)*yjki + L(ij+1)*yjkr
+                           Y(ik) = Y(ik) + l(ij)*yjkr - l(ij+1)*yjki
+                           Y(ik+1) = Y(ik+1) + l(ij)*yjki + l(ij+1)*yjkr
                            ik = ik + 2
                         ENDDO
                      ENDIF
@@ -122,12 +122,12 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
 !
 !     INITIALIZE FOR BACKWARD PASS BY SKIPPING THE NTH COLUMN
 !
-         IF ( N==1 ) THEN
+         IF ( n==1 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          CALL bckrec(Block)
-         j = N - 1
+         j = n - 1
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -154,8 +154,8 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
                   DO ii = 1 , nterms
                      ji = ji - 2
                      ik = ik - 2
-                     sumr = sumr + L(ji)*Y(ik) - L(ji+1)*Y(ik+1)
-                     sumi = sumi + L(ji)*Y(ik+1) + L(ji+1)*Y(ik)
+                     sumr = sumr + l(ji)*Y(ik) - l(ji+1)*Y(ik+1)
+                     sumi = sumi + l(ji)*Y(ik+1) + l(ji+1)*Y(ik)
                   ENDDO
                   Y(jk) = Y(jk) + sumr
                   Y(jk+1) = Y(jk+1) + sumi
@@ -183,7 +183,7 @@ SUBROUTINE fbs3(Block,Y,Yn,Nwds)
 !
 !     FATAL ERROR MESSAGE
 !
- 40      WRITE (Nout,99001) Sfm , subnam
+ 40      WRITE (nout,99001) sfm , subnam
 99001    FORMAT (A25,' 2149, SUBROUTINE ',A4,/5X,'FIRST ELEMENT OF A COLU',                                                         &
                 &'MN OF LOWER TRIANGULAR MATRIX IS NOT THE DIAGONAL ELEMENT')
          CALL mesage(-61,0,0)

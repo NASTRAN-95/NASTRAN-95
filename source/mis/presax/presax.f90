@@ -1,12 +1,13 @@
-!*==presax.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==presax.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE presax(Iharm)
+   USE c_condas
+   USE c_loadx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_LOADX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,15 +58,15 @@ SUBROUTINE presax(Iharm)
 !
 !     BRING IN PRESAX CARD
 !
-         file = Slt
-         CALL read(*20,*40,Slt,card(1),6,0,iflag)
+         file = slt
+         CALL read(*20,*40,slt,card(1),6,0,iflag)
          n = icard(6) + 1
          xi = n - 1
 !
 !     CONVERT PHI1,PHI2 TO RADIANS
 !
-         card(4) = card(4)*Degrad
-         card(5) = card(5)*Degrad
+         card(4) = card(4)*degrad
+         card(5) = card(5)*degrad
 !
 !     PICK UP BGPDT DATA FOR RINGS
 !
@@ -73,11 +74,11 @@ SUBROUTINE presax(Iharm)
 !     PIEZOELECTRIC PROBLEM
 !
          piez = .FALSE.
-         IF ( Ksystm(78)==1 .AND. icard(2)<=0 ) THEN
+         IF ( ksystm(78)==1 .AND. icard(2)<=0 ) THEN
             piez = .TRUE.
             icard(2) = -icard(2)
          ENDIF
-         CALL permut(icard(2),iord(1),2,Old)
+         CALL permut(icard(2),iord(1),2,old)
          DO i = 1 , 2
             j = iord(i) + 1
             CALL fndpnt(gpco(1,j-1),icard(j))
@@ -131,13 +132,13 @@ SUBROUTINE presax(Iharm)
             prc = 0.
             prs = 0.
          ENDIF
-         Z(isila) = Z(isila) + prc*pr
-         Z(isila+2) = Z(isila+2) + prs*pr
-         IF ( piez ) Z(isila+3) = Z(isila+3) + prpiez*pr
+         z(isila) = z(isila) + prc*pr
+         z(isila+2) = z(isila+2) + prs*pr
+         IF ( piez ) z(isila+3) = z(isila+3) + prpiez*pr
          pr = gpco(2,2)/3.0 + gpco(2,1)/6.0
-         Z(isilb) = Z(isilb) + prc*pr
-         Z(isilb+2) = Z(isilb+2) + prs*pr
-         IF ( piez ) Z(isilb+3) = Z(isilb+3) + prpiez*pr
+         z(isilb) = z(isilb) + prc*pr
+         z(isilb+2) = z(isilb+2) + prs*pr
+         IF ( piez ) z(isilb+3) = z(isilb+3) + prpiez*pr
          spag_nextblock_1 = 2
       CASE (2)
          RETURN
@@ -150,7 +151,6 @@ SUBROUTINE presax(Iharm)
          CALL mesage(ip1,file,name(1))
  40      ip1 = -3
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE presax

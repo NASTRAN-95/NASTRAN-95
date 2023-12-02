@@ -1,12 +1,13 @@
-!*==aspro.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==aspro.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
+   USE c_asdbd
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_ASDBD
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -77,15 +78,15 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
 !
 !     DELETE CARDS USING OCT TABLE.
 !
-         IF ( Noct/=0 ) THEN
-            m = Ioct - 1
-            DO j = 1 , Noct
+         IF ( noct/=0 ) THEN
+            m = ioct - 1
+            DO j = 1 , noct
                DO i = 1 , 3
                   m = m + 1
-                  oct(i,j) = Idat(m)
+                  oct(i,j) = idat(m)
                ENDDO
             ENDDO
-            DO i = 1 , Noct
+            DO i = 1 , noct
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
@@ -106,15 +107,15 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                ENDDO SPAG_DispatchLoop_2
             ENDDO
          ENDIF
-         IF ( Nptbs/=0 ) THEN
-            m = Iptbs - 1
-            DO j = 1 , Nptbs
+         IF ( nptbs/=0 ) THEN
+            m = iptbs - 1
+            DO j = 1 , nptbs
                DO i = 1 , 7
                   m = m + 1
-                  ptbs(i,j) = Idat(m)
+                  ptbs(i,j) = idat(m)
                ENDDO
             ENDDO
-            SPAG_Loop_1_2: DO i = 1 , Nptbs
+            SPAG_Loop_1_2: DO i = 1 , nptbs
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
                   SELECT CASE (spag_nextblock_3)
@@ -158,7 +159,6 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                         rmv = .TRUE.
                      ENDIF
                      spag_nextblock_3 = 3
-                     CYCLE SPAG_DispatchLoop_3
                   CASE (2)
 !
 !     VARIABLE  IS FOUND , IT IS IN VAR(2,J) AND/OR VAR(3,J)
@@ -220,7 +220,6 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
 !
                            rmv = .TRUE.
                            spag_nextblock_3 = 3
-                           CYCLE SPAG_DispatchLoop_3
                         ELSE
 !
 !     VARIABLE IS OK , ADD NAME TO LIST
@@ -229,8 +228,8 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                            dbs(1,ndbs) = ii(1)
                            dbs(2,ndbs) = ii(2)
                            spag_nextblock_3 = 5
-                           CYCLE SPAG_DispatchLoop_3
                         ENDIF
+                        CYCLE
  2                      IF ( ptbs(7,i)>0 ) THEN
                            spag_nextblock_3 = 5
                            CYCLE SPAG_DispatchLoop_3
@@ -254,7 +253,6 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                         nchar = nchar + ptbs(3,i) - ptbs(2,i)
                      ENDIF
                      spag_nextblock_3 = 5
-                     CYCLE SPAG_DispatchLoop_3
                   CASE (4)
 !
 !     CHECK IF ALTER CARD, OUTPUT AS BCD AND TWO INTEGERS
@@ -266,7 +264,6 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                      nxdel = 0
                      IF ( Var(2,j)==0 ) rmvall = .TRUE.
                      spag_nextblock_3 = 6
-                     CYCLE SPAG_DispatchLoop_3
                   CASE (5)
 !
 !     ADD VARIABLES TO BCD DMAP
@@ -290,7 +287,7 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
 !     CONTINUATION FOUND
 !
                         nxdel = nxdel + 1
-                        IF ( nnew==icd+1 ) CYCLE SPAG_Loop_1_2
+                        IF ( nnew==icd+1 ) EXIT SPAG_DispatchLoop_3
                         icd = icd + 1
                      ENDDO SPAG_Loop_2_1
                      spag_nextblock_3 = 6
@@ -321,7 +318,7 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
 !     PROCESS CARDS TO BE DELETED FROM SEQUENCE
 !
          ikeep = 0
-         DO icd = 1 , Nrdm
+         DO icd = 1 , nrdm
 !
             IF ( Dmap(1,icd)/=-1 ) THEN
 !
@@ -333,13 +330,13 @@ SUBROUTINE aspro(Dmap,Var,Nvar,Obits,Sol)
                ENDDO
             ENDIF
          ENDDO
-         Nrdm = ikeep
+         nrdm = ikeep
          RETURN
       CASE (2)
-         WRITE (Iout,99001) Sfm , Dmap(1,icd)
+         WRITE (iout,99001) sfm , Dmap(1,icd)
 99001    FORMAT (A25,' 6010, ILLEGAL VARIABLE TO BE SET IN DMAP STATEMENT',3X,A4)
 !
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

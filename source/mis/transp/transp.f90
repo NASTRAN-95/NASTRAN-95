@@ -2,10 +2,10 @@
  
 SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZNTPKX
+   USE c_machin
+   USE c_names
+   USE c_system
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,6 +26,15 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     TRANSP WILL DO AN INCORE TRANSPOSE OF THE UPPER TRIANGLE OF
 !     ACTIVE ELEMENTS
 !     (OUT-OF-CORE TRANSPOSE IS DONE BY TRNSP)
@@ -36,7 +45,7 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 !
 !
    num = rshift(complf(0),1)
-   iobuf = Nx - 4*Sysbuf
+   iobuf = Nx - 4*sysbuf
    ifile = Filea(1)
 !
 !     POSITION INPUT FILE AT START OF THE UPPER TRIANGLE
@@ -51,28 +60,28 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
  100  CALL intpk(*200,Filea(1),0,typea,0)
    DO
       CALL zntpki
-      IF ( Ii>k ) THEN
-         IF ( Eor==0 ) CALL skprec(Filea,1)
+      IF ( ii>k ) THEN
+         IF ( eor==0 ) CALL skprec(Filea,1)
          EXIT
       ELSE
 !
 !     PACK I AND J IN ONE WORD AND STORE IT AND THE NONZERO VALUE
 !     IN CORE
 !
-         l = orf(lshift(Ii,Ihalf),k+B)
+         l = orf(lshift(ii,ihalf),k+B)
          no = no + 1
          Ix(istor) = l
-         Ix(istor+1) = Ia(1)
+         Ix(istor+1) = ia(1)
          istor = istor + 2
-         IF ( typea==Rdp ) THEN
-            Ix(istor) = Ia(2)
+         IF ( typea==rdp ) THEN
+            Ix(istor) = ia(2)
             istor = istor + 1
          ENDIF
          IF ( istor+3>iobuf ) THEN
             no = -8
             CALL mesage(no,ifile,name)
             GOTO 99999
-         ELSEIF ( Eol/=0 ) THEN
+         ELSEIF ( eol/=0 ) THEN
             EXIT
          ENDIF
       ENDIF
@@ -84,7 +93,7 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 !     ALL ELEMENTS ARE IN CORE.  WRITE THEM OUT IN THE TRANSPOSED ORDER
 !
    ifile = Sr1fil
-   CALL open(*300,Sr1fil,Ix(iobuf),Wrtrew)
+   CALL open(*300,Sr1fil,Ix(iobuf),wrtrew)
    incr = typea + 1
    istor = istor - incr
    DO i = 1 , no
@@ -98,8 +107,8 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 !
 !     UNPACK I AND J, AND WRITE OUT I,J,AND A(I,J)
 !
-      iii(1) = rshift(k,Ihalf)
-      iii(2) = k - lshift(iii(1),Ihalf)
+      iii(1) = rshift(k,ihalf)
+      iii(2) = k - lshift(iii(1),ihalf)
       Ix(kk) = num
       IF ( incr==3 ) THEN
          iii(3) = Ix(kk+1)
@@ -116,7 +125,7 @@ SUBROUTINE transp(Ix,X,Nx,Filea,B,Sr1fil)
 !
    iii(1) = -1
    CALL write(Sr1fil,iii(1),4,0)
-   CALL close(Sr1fil,Rew)
+   CALL close(Sr1fil,rew)
    RETURN
 !
  300  no = -1

@@ -1,12 +1,13 @@
-!*==cmrd2b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmrd2b.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2b(Kode)
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -72,55 +73,55 @@ SUBROUTINE cmrd2b(Kode)
 !
 !     TEST OPERATION FLAG
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          IF ( Kode==3 ) THEN
 !
 !     STORE LAMAMR (TABLE) AS LAMS ON SOF
 !
-            IF ( .NOT.(Modes) ) THEN
+            IF ( .NOT.(modes) ) THEN
                item = itmlst(3)
-               CALL delete(Oldnam,item,itest)
+               CALL delete(oldnam,item,itest)
                IF ( itest==2 .OR. itest>3 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                ifile = lamamr
-               CALL gopen(lamamr,Z(Gbuf1),0)
+               CALL gopen(lamamr,z(gbuf1),0)
                CALL fwdrec(*40,lamamr)
                itest = 3
-               CALL sfetch(Oldnam,itmlst(3),2,itest)
+               CALL sfetch(oldnam,itmlst(3),2,itest)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                DO i = 1 , 2
-                  Z(Korbgn+i-1) = Oldnam(i)
+                  z(korbgn+i-1) = oldnam(i)
                ENDDO
-               Z(Korbgn+2) = rgdfmt
-               Z(Korbgn+3) = Modlen
-               CALL suwrt(Z(Korbgn),4,2)
-               lamwds = Modlen - 1
-               rz(Korbgn+6) = 0.0
+               z(korbgn+2) = rgdfmt
+               z(korbgn+3) = modlen
+               CALL suwrt(z(korbgn),4,2)
+               lamwds = modlen - 1
+               rz(korbgn+6) = 0.0
                DO i = 1 , lamwds
-                  CALL read(*20,*40,lamamr,Z(Korbgn),6,0,nwds)
-                  CALL suwrt(Z(Korbgn),7,1)
+                  CALL read(*20,*40,lamamr,z(korbgn),6,0,nwds)
+                  CALL suwrt(z(korbgn),7,1)
                ENDDO
-               CALL read(*20,*40,lamamr,Z(Korbgn),6,0,nwds)
+               CALL read(*20,*40,lamamr,z(korbgn),6,0,nwds)
                CALL close(lamamr,1)
-               CALL suwrt(Z(Korbgn),7,2)
-               CALL suwrt(Z(Lamaap),Modlen,2)
-               CALL suwrt(Z(Lamaap),0,3)
+               CALL suwrt(z(korbgn),7,2)
+               CALL suwrt(z(lamaap),modlen,2)
+               CALL suwrt(z(lamaap),0,3)
             ENDIF
             RETURN
 !
 !     TEST OLDMODES OPTION FLAG
 !
-         ELSEIF ( Modes ) THEN
+         ELSEIF ( modes ) THEN
 !
 !     READ SOF PHI(S,L) ONTO GINO PHI(S,L) SCRATCH FILES
 !
             item = itmlst(Kode)
-            CALL mtrxi(phisl,Oldnam,item,0,itest)
+            CALL mtrxi(phisl,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -128,17 +129,17 @@ SUBROUTINE cmrd2b(Kode)
 !
 !     READ SOF LAMS ONTO GINO LAMS SCRATCH FILE
 !
-            CALL sfetch(Oldnam,itmlst(3),1,itest)
+            CALL sfetch(oldnam,itmlst(3),1,itest)
             item = itmlst(3)
             IF ( itest>1 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL gopen(lams,Z(Gbuf1),1)
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            CALL write(lams,Z(Korbgn),nwdsrd,1)
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            CALL write(lams,Z(Korbgn),nwdsrd,1)
+            CALL gopen(lams,z(gbuf1),1)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            CALL write(lams,z(korbgn),nwdsrd,1)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            CALL write(lams,z(korbgn),nwdsrd,1)
             CALL close(lams,1)
 !
 !     SWITCH FILE NUMBERS
@@ -154,7 +155,7 @@ SUBROUTINE cmrd2b(Kode)
             ifile = phissr
             IF ( Kode==2 ) ifile = phissl
             item = itmlst(Kode)
-            CALL mtrxo(ifile,Oldnam,item,0,itest)
+            CALL mtrxo(ifile,oldnam,item,0,itest)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -179,9 +180,9 @@ SUBROUTINE cmrd2b(Kode)
 !
          IF ( itest==2 ) THEN
 !
-            WRITE (Iprntr,99001) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99001) ufm , modnam , item , oldnam
 99001       FORMAT (A23,' 6215, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' PSEUDO-EXISTS ONLY.')
-            Dry = -2
+            dry = -2
             RETURN
          ELSEIF ( itest==3 ) THEN
             imsg = -1
@@ -191,19 +192,19 @@ SUBROUTINE cmrd2b(Kode)
             imsg = -3
          ELSEIF ( itest==6 ) THEN
 !
-            WRITE (Iprntr,99002) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99002) ufm , modnam , item , oldnam
 99002       FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,             &
                    &', IS PURBED.')
-            Dry = -2
+            dry = -2
             RETURN
          ELSE
-            WRITE (Iprntr,99003) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99003) ufm , modnam , item , oldnam
 !
 99003       FORMAT (A23,' 6211, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

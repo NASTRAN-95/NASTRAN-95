@@ -2,12 +2,12 @@
  
 SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry)
    IMPLICIT NONE
-   USE C_DCOMPX
-   USE C_NAMES
-   USE C_NTIME
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZNTPKX
+   USE c_dcompx
+   USE c_names
+   USE c_ntime
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,6 +38,15 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
 ! End of declarations rewritten by SPAG
 !
 !
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     GENVEC WILL PICK THE OPTIMUM VALUE OF B AND BBAR FOR A GIVEN
 !     MATRIX
 !
@@ -54,7 +63,7 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
 !
    bmax = min0(ifix(1.0E+05/sqrt(float(Ncol)*xmb(p))),Ncol)
    ifile = Filea(1)
-   CALL open(*200,Filea(1),Ibuf,Rdrew)
+   CALL open(*200,Filea(1),Ibuf,rdrew)
    i1 = Ncol
    i4 = 4*Ncol + 2*cmax
    icrq = i4 - Nx + sysbuf
@@ -69,21 +78,21 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
 !     GENERATE THE ROW AND COLUMN VECTORS
 !
    DO i = 1 , Ncol
-      CALL intpk(*600,Filea(1),0,Rsp,0)
+      CALL intpk(*600,Filea(1),0,rsp,0)
       CALL zntpki
       in1 = i1 + i
-      Ix(in1) = Ii
-      nmax = max0(nmax,i-Ii+1)
+      Ix(in1) = ii
+      nmax = max0(nmax,i-ii+1)
       DO
-         IF ( Ix(Ii)==0 ) THEN
-            Ix(Ii) = i
-            mmax = max0(mmax,Ii-i+1)
+         IF ( Ix(ii)==0 ) THEN
+            Ix(ii) = i
+            mmax = max0(mmax,ii-i+1)
          ENDIF
-         IF ( Eol/=0 ) EXIT
+         IF ( eol/=0 ) EXIT
          CALL zntpki
       ENDDO
    ENDDO
-   CALL close(Filea(1),Rew)
+   CALL close(Filea(1),rew)
    i2 = i1 + Ncol + 1
    i3 = i2 + 2*Ncol
    nmax = min0(nmax,bmax)
@@ -248,8 +257,8 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
       IF ( i>ilast ) GOTO 400
       bb = Ix(i+1)
       cc = Ix(i) + 1
-      IF ( bb>bmax ) GOTO 400
-      GOTO 100
+      IF ( bb<=bmax ) GOTO 100
+      GOTO 400
    ELSE
       ib = B
       ic = C
@@ -259,12 +268,12 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
       Ix(1) = C
       Ix(2) = R
       CALL page2(4)
-      WRITE (nout,99002) Uim , B , Bbar , C , Cbar , R
+      WRITE (nout,99002) uim , B , Bbar , C , Cbar , R
 99002 FORMAT (A29,' 3028',6X,3HB =,I5,5X,6HBBAR =,I5,/40X,3HC =,I5,5X,6HCBAR =,I5,/40X,3HR =,I5)
       CALL tfin(float(B),float(Bbar),float(C),float(Cbar),float(R),Ientry,float(Ncol),time)
       Ix(1) = time
       CALL page2(3)
-      WRITE (nout,99003) Uim , namin(1,Ientry) , namin(2,Ientry) , dbname , Ncol , Ix(1)
+      WRITE (nout,99003) uim , namin(1,Ientry) , namin(2,Ientry) , dbname , Ncol , Ix(1)
 99003 FORMAT (A29,' 3027, UNSYMMETRIC ',2A4,' DECOMPOSITION OF DATA ','BLOCK ',2A4,6H (N = ,I5,1H),/5X,'TIME ESTIMATE = ',I8,       &
              &8H SECONDS)
       CALL tmtogo(ixy)
@@ -282,7 +291,7 @@ SUBROUTINE genvec(Ibuf,Filea,Nx,Ix,Ncol,B,Bbar,C,Cbar,R,Ientry) !HIDESTARS (*,Ib
 !
 !     NULL COLUMN DISCOVERED
 !
- 600  WRITE (nout,99004) Ufm , i , namin(1,Ientry) , namin(2,Ientry)
+ 600  WRITE (nout,99004) ufm , i , namin(1,Ientry) , namin(2,Ientry)
 99004 FORMAT (A23,' 3097, COLUMN',I7,' IS SINGULAR.  UNSYMMETRIC ',2A4,'DECOMP ABORTED.')
    RETURN 1
 99005 FORMAT (5I10,F10.2)

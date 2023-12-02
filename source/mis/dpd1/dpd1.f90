@@ -1,4 +1,5 @@
-!*==dpd1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dpd1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dpd1
@@ -6,15 +7,15 @@ SUBROUTINE dpd1
 !     DPD1 GENERATES THE GRID POINT LIST-DYNAMICS (GPLD),
 !     USET-DYNAMICS (USETD), AND THE SCALAR INDEX LIST-DYNAMICS(SILD).
 !
+   USE c_bitpos
+   USE c_blank
+   USE c_dpdcom
+   USE c_names
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_DPDCOM
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -37,17 +38,17 @@ SUBROUTINE dpd1
 !     SET NODYN FLAG TO TRUE IF NO DYNAMIC
 !
          nodyn = .FALSE.
-         Buf(1) = Dpool
-         CALL rdtrl(Buf)
-         IF ( Buf(1)/=Dpool ) nodyn = .TRUE.
+         buf(1) = dpool
+         CALL rdtrl(buf)
+         IF ( buf(1)/=dpool ) nodyn = .TRUE.
 !
 !     COMPUTE MAXIMUM EPOINT SIZE ALLOWED BY A COMPUTER WORD
 !
          first = .TRUE.
          IF ( .NOT.(nodyn) ) THEN
             imax = 100000000
-            IF ( Nbpw==32 ) imax = 2147493
-            IF ( Nbpw==36 ) imax = 34359738
+            IF ( nbpw==32 ) imax = 2147493
+            IF ( nbpw==36 ) imax = 34359738
 !         2147493=2**31/1000   34359738=2**35/1000
             maxz = imax
             mult = 1000
@@ -60,26 +61,26 @@ SUBROUTINE dpd1
 !     (A MULTIFICATION FACTOR WAS SAVED IN GPL HEADER RECORD BY GP1,
 !      MULT = 10,100,OR 1000,  AND BY SGEN, MULT = 1000)
 !
-         file = Gpl
-         IF ( Luset==0 ) GOTO 40
-         CALL open(*40,Gpl,Z(Buf1),Rdrew)
-         CALL read(*160,*140,Gpl,Z(1),3,1,falg)
-         CALL fwdrec(*160,Gpl)
+         file = gpl
+         IF ( luset==0 ) GOTO 40
+         CALL open(*40,gpl,z(buf1),rdrew)
+         CALL read(*160,*140,gpl,z(1),3,1,falg)
+         CALL fwdrec(*160,gpl)
          i = 3
-         mult = Z(i)
+         mult = z(i)
          imax = (imax/mult)*1000
          maxz = imax
          igpl = 1
          j = 1
          i = igpl
          DO
-            CALL read(*160,*20,Gpl,Z(i),2,0,flag)
-            Z(i+2) = j
+            CALL read(*160,*20,gpl,z(i),2,0,flag)
+            z(i+2) = j
             i = i + 3
             j = j + 1
          ENDDO
  20      ngpl = i - 3
-         CALL close(Gpl,Clsrew)
+         CALL close(gpl,clsrew)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -87,7 +88,7 @@ SUBROUTINE dpd1
 !
  40      i = 1
          igpl = 1
-         Luset = 0
+         luset = 0
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -98,17 +99,17 @@ SUBROUTINE dpd1
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         file = Dpool
-         CALL preloc(*140,Z(Buf1),Dpool)
+         file = dpool
+         CALL preloc(*140,z(buf1),dpool)
          iep = i
          noep = 0
-         CALL locate(*100,Z(Buf1),Epoint,flag)
+         CALL locate(*100,z(buf1),epoint,flag)
          noep = 1
          DO
-            CALL read(*160,*60,Dpool,Z(i),1,0,flag)
-            IF ( Z(i)>maxz ) maxz = Z(i)
-            Z(i+1) = mult*Z(i)
-            Z(i+2) = 0
+            CALL read(*160,*60,dpool,z(i),1,0,flag)
+            IF ( z(i)>maxz ) maxz = z(i)
+            z(i+1) = mult*z(i)
+            z(i+2) = 0
             i = i + 3
          ENDDO
  60      nep = i - 3
@@ -128,20 +129,20 @@ SUBROUTINE dpd1
                imax = (imax/mult)*1000
                j = 1000/mult
                DO i = igpl , nep , 3
-                  IF ( mod(Z(i+1),j)/=0 ) GOTO 70
-                  Z(i+1) = Z(i+1)/j
+                  IF ( mod(z(i+1),j)/=0 ) GOTO 70
+                  z(i+1) = z(i+1)/j
                ENDDO
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
- 70         WRITE (Iout,99001) Ufm
+ 70         WRITE (iout,99001) ufm
 99001       FORMAT (A23,' 2140C, ONE OR MORE EPOINTS WITH  EXTERNAL ID TOO ','LARGE.')
-            IF ( j/=0 ) WRITE (Iout,99002)
+            IF ( j/=0 ) WRITE (iout,99002)
 99002       FORMAT (/5X,'SUGGESTION - RE-RUN NASTRAN JOB WITH ALL THE EPOINT',                                                      &
                    &' EXTERNAL ID''S SMALLER THAN THE LARGEST GRID POINT ID',/5X,                                                   &
                    &'OR, REDUCE THE SEQID LEVEL IF SEQGP CARDS WERE USED','.  I.E. FROM XXX.X.X TO XXX.X OR XXX')
-            CALL close(Dpool,Clsrew)
-            CALL mesage(-37,0,Nam)
+            CALL close(dpool,clsrew)
+            CALL mesage(-37,0,nam)
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
@@ -149,17 +150,17 @@ SUBROUTINE dpd1
 !     IF EXTRA POINTS PRESENT, READ SEQEP DATA (IF ANY).
 !     REPLACE OLD SEQ NO WITH NEW SEQ NO.
 !
-         CALL locate(*100,Z(Buf1),Seqep,flag)
+         CALL locate(*100,z(buf1),seqep,flag)
          n1 = i
          n2 = n1 + 1
          ifail = 0
          DO
-            CALL read(*160,*80,Dpool,Z(n2),Buf1-1,1,flag)
+            CALL read(*160,*80,dpool,z(n2),buf1-1,1,flag)
             ifail = ifail + 1
          ENDDO
  80      IF ( ifail/=0 ) THEN
-            nwds = (ifail-1)*(Buf1-1) + flag
-            WRITE (Iout,99003) Ufm , nwds
+            nwds = (ifail-1)*(buf1-1) + flag
+            WRITE (iout,99003) ufm , nwds
 99003       FORMAT (A23,' 3139, UNABLE TO PROCESS SEQEP DATA IN SUBROUTINE ','DPD1 DUE TO INSUFFICIENT CORE.',//5X,                 &
                    &'ADDITIONAL CORE REQUIRED =',I10,7H  WORDS)
             CALL mesage(-61,0,0)
@@ -173,17 +174,17 @@ SUBROUTINE dpd1
          jj = kk - 2
          SPAG_Loop_1_2: DO
             DO i = k , jj , 2
-               IF ( Z(i)>=0 .AND. i<kk ) THEN
+               IF ( z(i)>=0 .AND. i<kk ) THEN
                   ii = i + 2
                   ifail = 0
                   DO j = ii , kk , 2
-                     IF ( Z(i)==Z(j) ) THEN
+                     IF ( z(i)==z(j) ) THEN
                         IF ( ifail==0 ) THEN
                            ifail = 1
-                           Nogo = 1
+                           nogo = 1
                            IF ( k/=n2 ) THEN
-                              idseq1 = Z(i)/1000
-                              irmndr = Z(i) - 1000*idseq1
+                              idseq1 = z(i)/1000
+                              irmndr = z(i) - 1000*idseq1
                               IF ( irmndr/=0 .AND. mult>=10 ) THEN
                                  idseq2 = irmndr/100
                                  irmndr = irmndr - 100*idseq2
@@ -191,47 +192,47 @@ SUBROUTINE dpd1
                                     idseq3 = irmndr/10
                                     irmndr = irmndr - 10*idseq3
                                     IF ( irmndr/=0 ) THEN
-                                       WRITE (Iout,99004) Ufm , idseq1 , idseq2 , idseq3 , irmndr
+                                       WRITE (iout,99004) ufm , idseq1 , idseq2 , idseq3 , irmndr
 99004                                  FORMAT (A23,' 3141, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,1H.,I1,1H.,I1,         &
                                          &'  ON SEQEP CARDS.')
                                     ELSE
-                                       WRITE (Iout,99005) Ufm , idseq1 , idseq2 , idseq3
+                                       WRITE (iout,99005) ufm , idseq1 , idseq2 , idseq3
 99005                                  FORMAT (A23,' 3141, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,1H.,I1,4X,             &
                                          &'ON SEQEP CARDS.')
                                     ENDIF
                                  ELSE
-                                    WRITE (Iout,99006) Ufm , idseq1 , idseq2
+                                    WRITE (iout,99006) ufm , idseq1 , idseq2
 99006                               FORMAT (A23,' 3141, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,1H.,I1,6X,'ON SEQEP CARDS.')
                                  ENDIF
                               ELSE
-                                 WRITE (Iout,99007) Ufm , idseq1
+                                 WRITE (iout,99007) ufm , idseq1
 99007                            FORMAT (A23,' 3141, MULTIPLE REFERENCES TO SEQUENCE ID NO.',I6,6X,'ON SEQEP CARDS.')
                               ENDIF
                            ELSE
-                              WRITE (Iout,99008) Ufm , Z(i)
+                              WRITE (iout,99008) ufm , z(i)
 99008                         FORMAT (A23,' 3140, MULTIPLE REFERENCES TO EXTRA POINT ID NO.',I9,' ON SEQEP CARDS.')
                            ENDIF
                         ENDIF
-                        Z(j) = -Z(j)
+                        z(j) = -z(j)
                      ENDIF
                   ENDDO
                ENDIF
 !
                IF ( jj>=kk .AND. mult/=1 .AND. mult/=1000 ) THEN
-                  L = Z(i)
+                  l = z(i)
                   IF ( mult==10 ) THEN
-                     IF ( mod(L,100)==0 ) THEN
-                        Z(i) = L/100
+                     IF ( mod(l,100)==0 ) THEN
+                        z(i) = l/100
                         CYCLE
                      ENDIF
-                  ELSEIF ( mod(L,10)==0 ) THEN
-                     Z(i) = L/10
+                  ELSEIF ( mod(l,10)==0 ) THEN
+                     z(i) = l/10
                      CYCLE
                   ENDIF
                   IF ( first ) THEN
                      first = .FALSE.
-                     Nogo = 1
-                     WRITE (Iout,99009) Ufm
+                     nogo = 1
+                     WRITE (iout,99009) ufm
 99009                FORMAT (A23,' 2140B, ILLEGAL DATA IN SEQEP CARD, POSSIBLY CAUSED',' BY LARGE GRID OR SCALAR POINTS')
                   ENDIF
                ENDIF
@@ -240,28 +241,28 @@ SUBROUTINE dpd1
             IF ( k/=n2 ) THEN
 !
                DO i = n2 , kk , 2
-                  IF ( Z(i)<0 ) Z(i) = -Z(i)
+                  IF ( z(i)<0 ) z(i) = -z(i)
                ENDDO
-               IF ( Nogo/=1 ) THEN
+               IF ( nogo/=1 ) THEN
 !
 !     CHECK TO SEE IF ANY SEQUENCE ID NO. ON SEQEP CARDS IS THE SAME
 !     AS AN EXTRA POINT ID NO. THAT HAS NOT BEEN RESEQUENCED
 !
                   SPAG_Loop_2_1: DO i = k , kk , 2
-                     IF ( Z(i)>=0 ) THEN
-                        idseq1 = Z(i)/mult
-                        irmndr = Z(i) - mult*idseq1
+                     IF ( z(i)>=0 ) THEN
+                        idseq1 = z(i)/mult
+                        irmndr = z(i) - mult*idseq1
                         IF ( irmndr==0 ) THEN
                            DO j = n2 , kk , 2
-                              IF ( idseq1==Z(j) ) CYCLE SPAG_Loop_2_1
+                              IF ( idseq1==z(j) ) CYCLE SPAG_Loop_2_1
                            ENDDO
                            DO j = 1 , n1 , 3
-                              IF ( idseq1==Z(j) ) GOTO 82
+                              IF ( idseq1==z(j) ) GOTO 82
                            ENDDO
                         ENDIF
                         CYCLE
- 82                     Nogo = 1
-                        WRITE (Iout,99010) Ufm , idseq1
+ 82                     nogo = 1
+                        WRITE (iout,99010) ufm , idseq1
 99010                   FORMAT (A23,' 3142, SEQUENCE ID NO.',I6,'  ON SEQEP CARDS IS THE SAME AS AN ',/5X,                          &
                                &'EXTRA POINT ID NO. THAT HAS NOT BEEN RESEQUENCED.')
                      ENDIF
@@ -278,36 +279,35 @@ SUBROUTINE dpd1
       CASE (4)
          i = i + 2
          IF ( i>flag ) GOTO 100
-         Buf(1) = Z(n2+i-1)
-         Buf(2) = Z(n2+i)
+         buf(1) = z(n2+i-1)
+         buf(2) = z(n2+i)
          DO j = iep , nep , 3
-            IF ( Z(j)==Buf(1) ) THEN
+            IF ( z(j)==buf(1) ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          spag_nextblock_1 = 5
       CASE (5)
-         Buf(2) = 0
-         CALL mesage(30,64,Buf)
-         Nogo = 1
+         buf(2) = 0
+         CALL mesage(30,64,buf)
+         nogo = 1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
-         IF ( Z(j+2)/=0 ) THEN
+         IF ( z(j+2)/=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Z(j+1) = Buf(2)
+         z(j+1) = buf(2)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
- 100     CALL close(Dpool,Clsrew)
+ 100     CALL close(dpool,clsrew)
          spag_nextblock_1 = 7
       CASE (7)
-         IF ( Luset+noep==0 ) THEN
+         IF ( luset+noep==0 ) THEN
             n = -30
             file = 109
-            CALL mesage(n,file,Nam)
+            CALL mesage(n,file,nam)
             RETURN
          ELSE
 !
@@ -315,93 +315,93 @@ SUBROUTINE dpd1
 !     REPLACE SEQ NO WITH INTERNAL GRID NO FOR DYNAMICS.
 !
             n = ngpl + 2
-            IF ( noep/=0 ) CALL sort(0,0,3,2,Z,n)
+            IF ( noep/=0 ) CALL sort(0,0,3,2,z,n)
             i = 2
-            Z(i) = 1
+            z(i) = 1
             IF ( ngpl/=1 ) THEN
                DO i = 4 , ngpl , 3
-                  Z(i+1) = Z(i-2) + 1
+                  z(i+1) = z(i-2) + 1
                ENDDO
             ENDIF
 !
 !     WRITE THE GPLD.
 !
-            file = Gpld
-            CALL open(*140,Gpld,Z(Buf1),Wrtrew)
-            CALL fname(Gpld,Buf)
-            CALL write(Gpld,Buf,2,1)
+            file = gpld
+            CALL open(*140,gpld,z(buf1),wrtrew)
+            CALL fname(gpld,buf)
+            CALL write(gpld,buf,2,1)
             DO i = igpl , ngpl , 3
-               CALL write(Gpld,Z(i),1,0)
+               CALL write(gpld,z(i),1,0)
             ENDDO
-            CALL write(Gpld,0,0,1)
-            CALL close(Gpld,Clsrew)
-            Mcb(1) = Gpld
-            Mcb(2) = n/3
-            CALL wrttrl(Mcb)
-            Kn = Mcb(2)
+            CALL write(gpld,0,0,1)
+            CALL close(gpld,clsrew)
+            mcb(1) = gpld
+            mcb(2) = n/3
+            CALL wrttrl(mcb)
+            kn = mcb(2)
 !
 !     OPEN SILD AND USETD. WRITE HEADER RECORDS.
 !     OPEN SIL  AND USET.  SKIP  HEADER RECORD.
 !     READ SIL INTO CORE.
 !
-            file = Sild
-            CALL open(*140,Sild,Z(Buf1),Wrtrew)
-            CALL fname(Sild,Buf)
-            CALL write(Sild,Buf,2,1)
-            IF ( Luset==0 ) THEN
+            file = sild
+            CALL open(*140,sild,z(buf1),wrtrew)
+            CALL fname(sild,buf)
+            CALL write(sild,buf,2,1)
+            IF ( luset==0 ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            file = Sil
-            CALL open(*140,Sil,Z(Buf2),Rdrew)
-            CALL fwdrec(*160,Sil)
+            file = sil
+            CALL open(*140,sil,z(buf2),rdrew)
+            CALL fwdrec(*160,sil)
             isil = ngpl + 3
-            CALL read(*160,*120,Sil,Z(isil),Buf3-isil,1,n)
-            CALL mesage(-8,0,Nam)
+            CALL read(*160,*120,sil,z(isil),buf3-isil,1,n)
+            CALL mesage(-8,0,nam)
          ENDIF
- 120     CALL close(Sil,Clsrew)
+ 120     CALL close(sil,clsrew)
          nsil = isil + n
-         Z(nsil) = Luset + 1
+         z(nsil) = luset + 1
          spag_nextblock_1 = 8
       CASE (8)
-         file = Usetd
-         CALL open(*140,Usetd,Z(Buf3),Wrtrew)
-         CALL fname(Usetd,Buf)
-         CALL write(Usetd,Buf,2,1)
-         IF ( Luset/=0 ) THEN
-            file = Uset
-            CALL open(*140,Uset,Z(Buf2),Rdrew)
-            CALL fwdrec(*160,Uset)
+         file = usetd
+         CALL open(*140,usetd,z(buf3),wrtrew)
+         CALL fname(usetd,buf)
+         CALL write(usetd,buf,2,1)
+         IF ( luset/=0 ) THEN
+            file = uset
+            CALL open(*140,uset,z(buf2),rdrew)
+            CALL fwdrec(*160,uset)
          ENDIF
 !
 !     INITIALIZE DISPLACEMENT SET BIT MASKS.
 !
          i = igpl
          j = isil - 1
-         Nbrep = 0
-         Buf(10) = 1
+         nbrep = 0
+         buf(10) = 1
          DO k = 2 , 7
-            Mcb(k) = 0
+            mcb(k) = 0
          ENDDO
-         mskua = Two(Ua)
-         mskun = Two(Un)
-         mskuf = Two(Uf)
-         mskue = Two(Ue)
-         mskup = Two(Up)
-         mskud = Two(Ud)
-         mskune = Two(Une)
-         mskufe = Two(Ufe)
+         mskua = two(ua)
+         mskun = two(un)
+         mskuf = two(uf)
+         mskue = two(ue)
+         mskup = two(up)
+         mskud = two(ud)
+         mskune = two(une)
+         mskufe = two(ufe)
          musetd = orf(mskue,orf(mskune,orf(mskufe,orf(mskud,mskup))))
          DO
 !
 !     TEST FOR CURRENT POINT IN G-SET OR IN P-SET (EXTRA POINT).
 !
-            IF ( Z(i+2)==0 ) THEN
+            IF ( z(i+2)==0 ) THEN
 !
 !     POINT IS AN EXTRA POINT - WRITE MASK ON USETD.
 !
-               CALL write(Usetd,musetd,1,0)
-               Mcb(5) = orf(Mcb(5),musetd)
+               CALL write(usetd,musetd,1,0)
+               mcb(5) = orf(mcb(5),musetd)
                m = 1
             ELSE
 !
@@ -409,100 +409,100 @@ SUBROUTINE dpd1
 !     TURN ON APPROPRIATE BITS FOR P-SET. WRITE MASKS ON USETD.
 !
                j = j + 1
-               m = Z(j+1) - Z(j)
-               CALL read(*160,*180,Uset,Buf,m,0,flag)
+               m = z(j+1) - z(j)
+               CALL read(*160,*180,uset,buf,m,0,flag)
                DO k = 1 , m
-                  ksw = orf(Buf(k),mskup)
+                  ksw = orf(buf(k),mskup)
                   IF ( andf(ksw,mskua)/=0 ) ksw = orf(ksw,mskud)
                   IF ( andf(ksw,mskun)/=0 ) ksw = orf(ksw,mskune)
                   IF ( andf(ksw,mskuf)/=0 ) ksw = orf(ksw,mskufe)
-                  Mcb(5) = orf(Mcb(5),ksw)
-                  Buf(k) = ksw
+                  mcb(5) = orf(mcb(5),ksw)
+                  buf(k) = ksw
                ENDDO
-               CALL write(Usetd,Buf,m,0)
+               CALL write(usetd,buf,m,0)
             ENDIF
 !
 !     REPLACE INTERNAL DYNAMICS NO. WITH SILD NO. WRITE SILD ENTRY.
 !     REPLACE INTERNAL STATICS NO. WITH SIL NO.
 !
-            Z(i+1) = Buf(10)
-            CALL write(Sild,Z(i+1),1,0)
-            IF ( Z(i+2)==0 ) THEN
-               Nbrep = Nbrep + 1
+            z(i+1) = buf(10)
+            CALL write(sild,z(i+1),1,0)
+            IF ( z(i+2)==0 ) THEN
+               nbrep = nbrep + 1
             ELSE
-               Z(i+2) = Z(j)
+               z(i+2) = z(j)
             ENDIF
 !
 !     TEST FOR COMPLETION.
 !
-            Buf(10) = Buf(10) + m
+            buf(10) = buf(10) + m
             i = i + 3
             IF ( i>ngpl ) THEN
 !
 !     WRITE SECOND RECORD OF SILD (PAIRS OF SIL NO., SILD NO.)
 !
-               CALL write(Sild,0,0,1)
-               CALL write(Usetd,0,0,1)
+               CALL write(sild,0,0,1)
+               CALL write(usetd,0,0,1)
                DO i = igpl , ngpl , 3
-                  IF ( Z(i+2)/=0 ) THEN
-                     Buf(1) = Z(i+2)
-                     Buf(2) = Z(i+1)
-                     CALL write(Sild,Buf,2,0)
+                  IF ( z(i+2)/=0 ) THEN
+                     buf(1) = z(i+2)
+                     buf(2) = z(i+1)
+                     CALL write(sild,buf,2,0)
                   ENDIF
                ENDDO
 !
 !     CLOSE FILES AND WRITE TRAILERS.
 !
-               CALL close(Sild,Clsrew)
-               CALL close(Usetd,Clsrew)
-               Mcb(1) = Sild
-               Lusetd = Luset + Nbrep
-               Mcb(2) = Lusetd
-               Mcb(3) = Nbrep
-               CALL wrttrl(Mcb)
-               Mcb(1) = Usetd
-               CALL wrttrl(Mcb)
-               Mcb(5) = 0
-               CALL close(Uset,Clsrew)
+               CALL close(sild,clsrew)
+               CALL close(usetd,clsrew)
+               mcb(1) = sild
+               lusetd = luset + nbrep
+               mcb(2) = lusetd
+               mcb(3) = nbrep
+               CALL wrttrl(mcb)
+               mcb(1) = usetd
+               CALL wrttrl(mcb)
+               mcb(5) = 0
+               CALL close(uset,clsrew)
 !
 !     REPLACE SIL NO. IN TABLE WITH CODED SILD NO.
 !     THEN SORT TABLE ON EXTERNAL GRID NO.
 !
-               Z(ngpl+4) = Lusetd + 1
+               z(ngpl+4) = lusetd + 1
                DO i = igpl , ngpl , 3
                   j = 1
-                  IF ( Z(i+4)-Z(i+1)==1 ) THEN
+                  IF ( z(i+4)-z(i+1)==1 ) THEN
                      j = 2
-                     IF ( Z(i+2)==0 ) j = 3
+                     IF ( z(i+2)==0 ) j = 3
                   ENDIF
-                  Z(i+2) = 10*Z(i+1) + j
+                  z(i+2) = 10*z(i+1) + j
                ENDDO
-               CALL sort(0,0,3,1,Z(igpl),ngpl-igpl+3)
+               CALL sort(0,0,3,1,z(igpl),ngpl-igpl+3)
 !
 !     WRITE EQDYN DATA BLOCK. FIRST RECORD IS PAIRS OF EXTERNAL GRID NO,
 !     SILD NO. SECOND RECORD IS PAIRS OF EXTERNAL GRID NO., CODED SILD
 !     NO.
 !
-               file = Eqdyn
-               CALL open(*140,Eqdyn,Z(Buf1),Wrtrew)
-               CALL fname(Eqdyn,Buf)
-               CALL write(Eqdyn,Buf,2,1)
+               file = eqdyn
+               CALL open(*140,eqdyn,z(buf1),wrtrew)
+               CALL fname(eqdyn,buf)
+               CALL write(eqdyn,buf,2,1)
                DO i = igpl , ngpl , 3
-                  CALL write(Eqdyn,Z(i),2,0)
+                  CALL write(eqdyn,z(i),2,0)
                ENDDO
-               CALL write(Eqdyn,0,0,1)
+               CALL write(eqdyn,0,0,1)
                DO i = igpl , ngpl , 3
-                  Buf(1) = Z(i)
-                  Buf(2) = Z(i+2)
-                  CALL write(Eqdyn,Buf,2,0)
+                  buf(1) = z(i)
+                  buf(2) = z(i+2)
+                  CALL write(eqdyn,buf,2,0)
                ENDDO
-               CALL write(Eqdyn,0,0,1)
-               CALL close(Eqdyn,Clsrew)
-               Mcb(1) = Eqdyn
-               Mcb(2) = Kn
-               CALL wrttrl(Mcb)
-               Neqdyn = 2*Kn - 1
-               IF ( Nbrep==0 ) Nbrep = -1
+               CALL write(eqdyn,0,0,1)
+               CALL close(eqdyn,clsrew)
+               mcb(1) = eqdyn
+               mcb(2) = kn
+               CALL wrttrl(mcb)
+               neqdyn = 2*kn - 1
+               IF ( nbrep==0 ) nbrep = -1
                RETURN
             ENDIF
          ENDDO
@@ -510,13 +510,13 @@ SUBROUTINE dpd1
 !     FATAL FILE ERRORS
 !
  140     n = -1
-         CALL mesage(n,file,Nam)
+         CALL mesage(n,file,nam)
          RETURN
  160     n = -2
-         CALL mesage(n,file,Nam)
+         CALL mesage(n,file,nam)
          RETURN
  180     n = -3
-         CALL mesage(n,file,Nam)
+         CALL mesage(n,file,nam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

@@ -1,14 +1,15 @@
-!*==spanl2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==spanl2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE spanl2(Iarg)
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_sdr2x9
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SDR2X9
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -83,54 +84,54 @@ SUBROUTINE spanl2(Iarg)
    DATA typ/4HSHEA , 1HR , 4HTWIS , 1HT/
    DATA larg/0/
 !
-   Idisp = Ivec - 1
+   idisp = ivec - 1
 !
 ! COMPUTE AVERAGE STRESS ALONG SIDE 1 IF WE ARE DEALING WITH A SHEAR
 ! PANEL OR MEAN FIBRE SHEAR STRESS IF WE HAVE A TWIST PANEL.
 !
    cs1br = 0.0
-   S1bar = 0.0
+   s1bar = 0.0
    DO i = 1 , 4
-      Iu = Idisp + Isilno(i)
-      IF ( Iarg==5 ) Iu = Iu + 3
-      CALL smmats(S(1,i),3,1,1,Zz(Iu),3,1,0,Term,ctrm)
+      iu = idisp + isilno(i)
+      IF ( Iarg==5 ) iu = iu + 3
+      CALL smmats(s(1,i),3,1,1,zz(iu),3,1,0,term,ctrm)
       cs1br = cs1br + ctrm
-      S1bar = S1bar + Term
+      s1bar = s1bar + term
    ENDDO
 !
 ! COMPUTE STRESSES AT THE CORNERS
 !
-   Tau(1) = Ratio(1)*S1bar
-   Tau(2) = S1bar/Ratio(1)
-   Tau(3) = Ratio(2)*S1bar
-   Tau(4) = Ratio(3)*S1bar
-   Ctu(1) = abs(Ratio(1))*cs1br
-   Ctu(2) = cs1br/abs(Ratio(1))
-   Ctu(3) = abs(Ratio(2))*cs1br
-   Ctu(4) = abs(Ratio(3))*cs1br
+   tau(1) = ratio(1)*s1bar
+   tau(2) = s1bar/ratio(1)
+   tau(3) = ratio(2)*s1bar
+   tau(4) = ratio(3)*s1bar
+   ctu(1) = abs(ratio(1))*cs1br
+   ctu(2) = cs1br/abs(ratio(1))
+   ctu(3) = abs(ratio(2))*cs1br
+   ctu(4) = abs(ratio(3))*cs1br
 !
 ! COMPUTE AVERAGE STRESS
 !
-   tauavg = 0.25*(Tau(1)+Tau(2)+Tau(3)+Tau(4))
-   Cfrvec(3) = 0.25E0*(Ctu(1)+Ctu(2)+Ctu(3)+Ctu(4))
+   tauavg = 0.25*(tau(1)+tau(2)+tau(3)+tau(4))
+   cfrvec(3) = 0.25E0*(ctu(1)+ctu(2)+ctu(3)+ctu(4))
 !
 ! COMPUTE MAXIMUM STRESS
 !
-   taumax = abs(Tau(1))
-   Cfrvec(2) = taumax
+   taumax = abs(tau(1))
+   cfrvec(2) = taumax
    DO i = 2 , 4
-      IF ( abs(Tau(i))>taumax ) taumax = abs(Tau(i))
-      IF ( Ctu(i)>Cfrvec(2) ) Cfrvec(2) = Ctu(i)
+      IF ( abs(tau(i))>taumax ) taumax = abs(tau(i))
+      IF ( ctu(i)>cfrvec(2) ) cfrvec(2) = ctu(i)
    ENDDO
 !
 ! COMPUTE MARGIN OF SAFETY
 !
-   IF ( Sigs<=0.0 ) THEN
+   IF ( sigs<=0.0 ) THEN
       marsaf = 1
    ELSEIF ( taumax==0.0 ) THEN
       marsaf = 1
    ELSE
-      safmar = Sigs/taumax - 1.0
+      safmar = sigs/taumax - 1.0
    ENDIF
 !
 ! FOR A SHEAR PANEL COMPUTE LOADS, FOR A TWIST PANEL COMPUTE STRESSES.
@@ -139,105 +140,105 @@ SUBROUTINE spanl2(Iarg)
 !
 !     TWIST STRESSES
 !
-      p13 = A(1)*S1bar*T
-      p24 = A(2)*S1bar*T
-      Term = T/6.0
-      Cfrvec(4) = A(1)*cs1br*T
-      Cfrvec(5) = A(2)*cs1br*T
-      p13 = p13*Term
-      p24 = p24*Term
-      Cfrvec(4) = abs(Cfrvec(4)*Term)
-      Cfrvec(5) = abs(Cfrvec(5)*Term)
+      p13 = a(1)*s1bar*t
+      p24 = a(2)*s1bar*t
+      term = t/6.0
+      cfrvec(4) = a(1)*cs1br*t
+      cfrvec(5) = a(2)*cs1br*t
+      p13 = p13*term
+      p24 = p24*term
+      cfrvec(4) = abs(cfrvec(4)*term)
+      cfrvec(5) = abs(cfrvec(5)*term)
    ELSE
 !
 !     SHEAR PANEL FORCES
 !
-      q1 = S1bar*T/sqrt(1.0+(Rq(4)/Rk(1))**2)
-      q2 = S1bar*Rq(1)/sqrt(1.0+(Rq(4)/Rk(2))**2)
-      q3 = S1bar*Rq(2)/sqrt(1.0+(Rq(4)/Rk(3))**2)
-      q4 = S1bar*Rq(3)/sqrt(1.0+(Rq(4)/Rk(4))**2)
-      Cfrvec(13) = cs1br*abs(T)/sqrt(1.0E0+(Rq(4)/Rk(1))**2)
+      q1 = s1bar*t/sqrt(1.0+(rq(4)/rk(1))**2)
+      q2 = s1bar*rq(1)/sqrt(1.0+(rq(4)/rk(2))**2)
+      q3 = s1bar*rq(2)/sqrt(1.0+(rq(4)/rk(3))**2)
+      q4 = s1bar*rq(3)/sqrt(1.0+(rq(4)/rk(4))**2)
+      cfrvec(13) = cs1br*abs(t)/sqrt(1.0E0+(rq(4)/rk(1))**2)
       DO i = 1 , 3
-         f = sqrt(1.0E0+(Rq(4)/Rk(i+1))**2)
-         Forces(2*i+10) = S1bar*Rq(i)/f
-         Cfrvec(2*i+13) = cs1br*abs(Rq(i))/f
+         f = sqrt(1.0E0+(rq(4)/rk(i+1))**2)
+         forces(2*i+10) = s1bar*rq(i)/f
+         cfrvec(2*i+13) = cs1br*abs(rq(i))/f
       ENDDO
 !
-      f = abs(Rq(4))
-      rk1 = -(q1+q4)*Rq(4)
-      rk2 = -(q1+q2)*Rq(4)
-      rk3 = -(q2+q3)*Rq(4)
-      rk4 = -(q3+q4)*Rq(4)
-      Cfrvec(12) = (Cfrvec(13)+Cfrvec(19))*f
-      Cfrvec(14) = (Cfrvec(13)+Cfrvec(15))*f
-      Cfrvec(16) = (Cfrvec(15)+Cfrvec(17))*f
-      Cfrvec(18) = (Cfrvec(17)+Cfrvec(19))*f
-      f1 = q4*Rk(4)
-      f2 = q1*Rk(1)
-      f5 = q2*Rk(2)
-      f6 = q3*Rk(3)
-      Cfrvec(4) = Cfrvec(19)*abs(Rk(4))
-      Cfrvec(5) = Cfrvec(13)*abs(Rk(1))
-      Cfrvec(8) = Cfrvec(15)*abs(Rk(2))
-      Cfrvec(9) = Cfrvec(17)*abs(Rk(3))
+      f = abs(rq(4))
+      rk1 = -(q1+q4)*rq(4)
+      rk2 = -(q1+q2)*rq(4)
+      rk3 = -(q2+q3)*rq(4)
+      rk4 = -(q3+q4)*rq(4)
+      cfrvec(12) = (cfrvec(13)+cfrvec(19))*f
+      cfrvec(14) = (cfrvec(13)+cfrvec(15))*f
+      cfrvec(16) = (cfrvec(15)+cfrvec(17))*f
+      cfrvec(18) = (cfrvec(17)+cfrvec(19))*f
+      f1 = q4*rk(4)
+      f2 = q1*rk(1)
+      f5 = q2*rk(2)
+      f6 = q3*rk(3)
+      cfrvec(4) = cfrvec(19)*abs(rk(4))
+      cfrvec(5) = cfrvec(13)*abs(rk(1))
+      cfrvec(8) = cfrvec(15)*abs(rk(2))
+      cfrvec(9) = cfrvec(17)*abs(rk(3))
       f3 = -f2
       f4 = -f5
       f7 = -f6
       f8 = -f1
-      Cfrvec(6) = Cfrvec(5)
-      Cfrvec(7) = Cfrvec(8)
-      Cfrvec(10) = Cfrvec(9)
-      Cfrvec(11) = Cfrvec(4)
+      cfrvec(6) = cfrvec(5)
+      cfrvec(7) = cfrvec(8)
+      cfrvec(10) = cfrvec(9)
+      cfrvec(11) = cfrvec(4)
    ENDIF
 !
 ! STORE ELEMENT ID IN OUTPUT SLOTS.
 !
-   Jselid = Ielid
-   Jfelid = Ielid
-   IF ( Nchk>0 ) THEN
+   jselid = ielid
+   jfelid = ielid
+   IF ( nchk>0 ) THEN
 !
 !  . CHECK PRECISION...
 !
       k = 0
 !
 !  . STRESSES...
-      CALL sdrchk(Stres(1),Cfrvec(2),2,k)
+      CALL sdrchk(stres(1),cfrvec(2),2,k)
 !
 !  . FORCES...
       i = 16
       IF ( Iarg/=4 ) i = 2
-      CALL sdrchk(Forces(1),Cfrvec(4),i,k)
+      CALL sdrchk(forces(1),cfrvec(4),i,k)
       IF ( k==0 ) RETURN
 !
 !  . LIMITS EXCEEDED...
-      ifrvec = Ielid
+      ifrvec = ielid
       i = 1
       IF ( Iarg/=4 ) i = 3
       istyp(1) = typ(i)
       istyp(2) = typ(i+1)
       j = 0
 !
-      IF ( lsub/=Isub .OR. frlast(1)/=Frtmei(1) .OR. larg/=Iarg .OR. lld/=Ild .OR. frlast(2)/=Frtmei(2) ) THEN
-         lsub = Isub
+      IF ( lsub/=isub .OR. frlast(1)/=frtmei(1) .OR. larg/=Iarg .OR. lld/=ild .OR. frlast(2)/=frtmei(2) ) THEN
+         lsub = isub
          larg = Iarg
-         lld = Ild
-         frlast(1) = Frtmei(1)
-         frlast(2) = Frtmei(2)
+         lld = ild
+         frlast(1) = frtmei(1)
+         frlast(2) = frtmei(2)
          j = 2
          CALL page1
       ELSEIF ( eject(2)==0 ) THEN
          GOTO 50
       ENDIF
       CALL sd2rhd(ishd,j)
-      Line = Line + 1
-      IF ( Iarg==4 ) WRITE (Nout,99001)
+      line = line + 1
+      IF ( Iarg==4 ) WRITE (nout,99001)
 99001 FORMAT (7X,4HTYPE,5X,42HEID  SMAX  SAVE  F1-4  F1-2  F2-1  F2-3  F,                                                           &
              &60H3-2  F3-4  F4-3  F4-1   K-1  SH12   K-2  SH23   K-3  SH34   ,9HK-4  SH41)
-      IF ( Iarg/=4 ) WRITE (Nout,99002)
+      IF ( Iarg/=4 ) WRITE (nout,99002)
 99002 FORMAT (7X,4HTYPE,5X,27HEID  SMAX  SAVE  M1-3  M2-4)
  50   i = 19
       IF ( Iarg/=4 ) i = 5
-      WRITE (Nout,99003) istyp , (Cfrvec(j),j=1,i)
+      WRITE (nout,99003) istyp , (cfrvec(j),j=1,i)
 99003 FORMAT (1H0,6X,A4,A1,I7,18F6.1)
    ENDIF
 !

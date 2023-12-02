@@ -1,12 +1,13 @@
-!*==smleig.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==smleig.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE smleig(D,O,Val)
-USE C_GIVN
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE ISO_FORTRAN_ENV                 
+   USE c_givn
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -51,7 +52,7 @@ USE ISO_FORTRAN_ENV
 !     N        ORDER OF  PROBLEM
 !     NFOUND   NUMBER OF EIGENVALUES/VECTOR PREVIOUSLY FOUND
 !
-         ibuf1 = (korsz(O)-Sysbuf+1)/2 - 1
+         ibuf1 = (korsz(O)-sysbuf+1)/2 - 1
 !
 !     OPEN INPUT MATRIX
 !
@@ -59,10 +60,10 @@ USE ISO_FORTRAN_ENV
 !
 !     SETUP FOR UNPACK
 !
-         It3 = 2
-         Iii = 1
-         Jjj = n
-         Incr1 = 1
+         it3 = 2
+         iii = 1
+         jjj = n
+         incr1 = 1
          ASSIGN 20 TO itra
          CALL unpack(*60,md,D)
  20      IF ( n==2 ) THEN
@@ -72,7 +73,7 @@ USE ISO_FORTRAN_ENV
             O(1) = D(2)
             O(2) = 0.0D0
             ASSIGN 40 TO itra
-            Iii = 2
+            iii = 2
             CALL unpack(*60,md,D(2))
          ELSE
 !
@@ -103,11 +104,11 @@ USE ISO_FORTRAN_ENV
 !     SETUP FOR PACK
 !
          im1 = 1
-         It1 = 2
-         It2 = 2
-         Ii = 1
-         Jj = n
-         Incr = 1
+         it1 = 2
+         it2 = 2
+         ii = 1
+         jj = n
+         incr = 1
          CALL pack(D,mo,mcb)
          CALL pack(O,mo,mcb)
          CALL write(mo,loc,1,1)
@@ -123,7 +124,7 @@ USE ISO_FORTRAN_ENV
             mcb(5) = 2
             mcb(6) = 0
             CALL gopen(phia,O(ibuf1),1)
-            Jj = 1
+            jj = 1
             CALL pack(1.0D0,phia,mcb)
             CALL close(phia,1)
             CALL wrttrl(mcb(1))
@@ -147,7 +148,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
          xentry = -entry
          RETURN
- 60      DO i = Iii , Jjj
+ 60      DO i = iii , jjj
             D(i) = 0.0D0
          ENDDO
          GOTO itra

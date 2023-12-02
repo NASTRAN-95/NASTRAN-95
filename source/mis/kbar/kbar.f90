@@ -1,18 +1,19 @@
-!*==kbar.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kbar.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kbar
-USE C_HMTOUT
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA1BK
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1HT
-USE C_SMA1IO
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_hmtout
+   USE c_matin
+   USE c_matout
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -111,9 +112,9 @@ USE ISO_FORTRAN_ENV
 !     DETERMINE WHICH POINT IS THE PIVOT POINT.
 !
          ipvt = 1
-         IF ( Isilno(1)/=Npvt ) THEN
+         IF ( isilno(1)/=npvt ) THEN
             ipvt = 2
-            IF ( Isilno(2)/=Npvt ) CALL mesage(-30,34,iecpt(1))
+            IF ( isilno(2)/=npvt ) CALL mesage(-30,34,iecpt(1))
          ENDIF
 !
 !     SET UP POINTERS TO COOR. SYS. IDS., OFFSET VECTORS, AND PIN FLAGS.
@@ -134,7 +135,7 @@ USE ISO_FORTRAN_ENV
 !     PRECISION
 !
          DO i = 1 , 3
-            smalv0(i) = Smallv(i)
+            smalv0(i) = smallv(i)
          ENDDO
          fl = dsqrt(smalv0(1)**2+smalv0(2)**2+smalv0(3)**2)
          IF ( fl<=0.0D0 ) THEN
@@ -208,11 +209,11 @@ USE ISO_FORTRAN_ENV
             j = jofsta - 1
             DO i = 1 , 3
                j = j + 1
-               Dela(i) = ecpt(j)
+               dela(i) = ecpt(j)
             ENDDO
             IF ( .NOT.(abasic) ) THEN
                idela = 4
-               CALL gmmatd(ta,3,3,0,Dela(1),3,1,0,Dela(4))
+               CALL gmmatd(ta,3,3,0,dela(1),3,1,0,dela(4))
             ENDIF
 !
 !     TRANSFORM THE OFFSET VECTOR FOR POINT B IF NECESSARY
@@ -221,18 +222,18 @@ USE ISO_FORTRAN_ENV
             j = jofstb - 1
             DO i = 1 , 3
                j = j + 1
-               Delb(i) = ecpt(j)
+               delb(i) = ecpt(j)
             ENDDO
             IF ( .NOT.(bbasic) ) THEN
                idelb = 4
-               CALL gmmatd(tb,3,3,0,Delb(1),3,1,0,Delb(4))
+               CALL gmmatd(tb,3,3,0,delb(1),3,1,0,delb(4))
             ENDIF
 !
 !     SINCE THERE WAS AT LEAST ONE NON-ZERO OFFSET VECTOR RECOMPUTE VECI
 !
-            veci(1) = veci(1) + Dela(idela) - Delb(idelb)
-            veci(2) = veci(2) + Dela(idela+1) - Delb(idelb+1)
-            veci(3) = veci(3) + Dela(idela+2) - Delb(idelb+2)
+            veci(1) = veci(1) + dela(idela) - delb(idelb)
+            veci(2) = veci(2) + dela(idela+1) - delb(idelb+1)
+            veci(3) = veci(3) + dela(idela+2) - delb(idelb+2)
          ENDIF
 !
 !     COMPUTE THE LENGTH OF THE BIG V (VECI) VECTOR AND NORMALIZE
@@ -249,20 +250,20 @@ USE ISO_FORTRAN_ENV
 !     NOW THAT LENGTH HAS BEEN COMPUTED, BRANCH IF THIS IS A -HEAT-
 !     FORMULATION.
 !
-         IF ( Heat ) THEN
+         IF ( heat ) THEN
 !
 !     HEAT FORMULATION CONTINUES HERE.  GET MATERIAL PROPERTY -K- FROM
 !     HMAT
 !
-            Matflg = 1
-            Matidc = iecpt(16)
-            Eltemp = ecpt(42)
-            CALL hmat(Ielid)
+            matflg = 1
+            matidc = iecpt(16)
+            eltemp = ecpt(42)
+            CALL hmat(ielid)
 !
-            fl = dble(Fk)*dble(ecpt(17))/fl
-            IF ( Npvt==iecpt(3) ) fl = -fl
+            fl = dble(fk)*dble(ecpt(17))/fl
+            IF ( npvt==iecpt(3) ) fl = -fl
             DO i = 1 , 2
-               CALL sma1b(fl,iecpt(i+1),Npvt,Ifkgg,0.0D0)
+               CALL sma1b(fl,iecpt(i+1),npvt,ifkgg,0.0D0)
                fl = -fl
             ENDDO
             RETURN
@@ -274,7 +275,7 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE THE SMALL V SUB 0 VECTOR, SMALV0.  ***CHECK THIS LOGIC***
 !
             isv = 1
-            IF ( Icssv/=0 ) THEN
+            IF ( icssv/=0 ) THEN
                isv = 4
                CALL gmmatd(ta,3,3,0,smalv0(1),3,1,0,smalv0(4))
             ENDIF
@@ -310,11 +311,11 @@ USE ISO_FORTRAN_ENV
 !     SEARCH THE MATERIAL PROPERTIES TABLE FOR E, G AND THE DAMPING
 !     CONSTANT.
 !
-            Matidc = Imatid
-            Matflg = 1
-            Eltemp = Tempel
+            matidc = imatid
+            matflg = 1
+            eltemp = tempel
             CALL mat(iecpt(1))
-            dampc = Gsube
+            dampc = gsube
 !
 !     SET UP INTERMEDIATE VARIABLES FOR ELEMENT STIFFNESS MATRIX
 !     CALCULATION
@@ -325,24 +326,24 @@ USE ISO_FORTRAN_ENV
 !
 !     STORE ECPT AND MPT VARIABLES IN DOUBLE PRECISION LOCATIONS.
 !
-            dp(1) = E
-            dp(2) = G
-            dp(3) = I1
-            dp(4) = I2
-            dp(5) = A
+            dp(1) = e
+            dp(2) = g
+            dp(3) = i1
+            dp(4) = i2
+            dp(5) = a
             ei1 = dp(1)*dp(3)
             ei2 = dp(1)*dp(4)
-            IF ( K1==0.0 .OR. I12/=0.0 ) THEN
+            IF ( k1==0.0 .OR. i12/=0.0 ) THEN
                r1 = 12.0D0*ei1/lcube
             ELSE
-               dp(6) = K1
+               dp(6) = k1
                gak1 = dp(2)*dp(5)*dp(6)
                r1 = (12.0D0*ei1*gak1)/(gak1*lcube+12.0D0*l*ei1)
             ENDIF
-            IF ( K2==0.0 .OR. I12/=0.0 ) THEN
+            IF ( k2==0.0 .OR. i12/=0.0 ) THEN
                r2 = 12.0D0*ei2/lcube
             ELSE
-               dp(7) = K2
+               dp(7) = k2
                gak2 = dp(2)*dp(5)*dp(7)
                r2 = (12.0D0*ei2*gak2)/(gak2*lcube+12.0D0*l*ei2)
             ENDIF
@@ -359,92 +360,92 @@ USE ISO_FORTRAN_ENV
             ael = dp(5)*dp(1)/l
             lr1 = l*r1/2.0D0
             lr2 = l*r2/2.0D0
-            dp(8) = Fj
+            dp(8) = fj
             gjl = dp(2)*dp(8)/l
 !
 !     CONSTRUCT THE 12 X 12 MATRIX KE
 !
             DO i = 1 , 144
-               Ke(i) = 0.0D0
+               ke(i) = 0.0D0
             ENDDO
-            Ke(1) = ael
-            Ke(7) = -ael
-            Ke(14) = r1
-            Ke(18) = lr1
-            Ke(20) = -r1
-            Ke(24) = lr1
-            Ke(27) = r2
-            Ke(29) = -lr2
-            Ke(33) = -r2
-            Ke(35) = -lr2
-            Ke(40) = gjl
-            Ke(46) = -gjl
-            Ke(51) = -lr2
-            Ke(53) = sk2
-            Ke(57) = lr2
-            Ke(59) = sk4
-            Ke(62) = lr1
-            Ke(66) = sk1
-            Ke(68) = -lr1
-            Ke(72) = sk3
-            Ke(73) = -ael
-            Ke(79) = ael
-            Ke(86) = -r1
-            Ke(90) = -lr1
-            Ke(92) = r1
-            Ke(96) = -lr1
-            Ke(99) = -r2
-            Ke(101) = lr2
-            Ke(105) = r2
-            Ke(107) = lr2
-            Ke(112) = -gjl
-            Ke(118) = gjl
-            Ke(123) = -lr2
-            Ke(125) = sk4
-            Ke(129) = lr2
-            Ke(131) = sk2
-            Ke(134) = lr1
-            Ke(138) = sk3
-            Ke(140) = -lr1
-            Ke(144) = sk1
-            IF ( I12/=0.0 ) THEN
-               dp(8) = I12
+            ke(1) = ael
+            ke(7) = -ael
+            ke(14) = r1
+            ke(18) = lr1
+            ke(20) = -r1
+            ke(24) = lr1
+            ke(27) = r2
+            ke(29) = -lr2
+            ke(33) = -r2
+            ke(35) = -lr2
+            ke(40) = gjl
+            ke(46) = -gjl
+            ke(51) = -lr2
+            ke(53) = sk2
+            ke(57) = lr2
+            ke(59) = sk4
+            ke(62) = lr1
+            ke(66) = sk1
+            ke(68) = -lr1
+            ke(72) = sk3
+            ke(73) = -ael
+            ke(79) = ael
+            ke(86) = -r1
+            ke(90) = -lr1
+            ke(92) = r1
+            ke(96) = -lr1
+            ke(99) = -r2
+            ke(101) = lr2
+            ke(105) = r2
+            ke(107) = lr2
+            ke(112) = -gjl
+            ke(118) = gjl
+            ke(123) = -lr2
+            ke(125) = sk4
+            ke(129) = lr2
+            ke(131) = sk2
+            ke(134) = lr1
+            ke(138) = sk3
+            ke(140) = -lr1
+            ke(144) = sk1
+            IF ( i12/=0.0 ) THEN
+               dp(8) = i12
                beta = 12.0D0*dp(1)*dp(8)/lcube
                lb = l*beta/2.0D0
                l2b3 = lsq*beta/3.0D0
                l2b6 = lsq*beta/6.0D0
-               Ke(15) = beta
-               Ke(17) = -lb
-               Ke(21) = -beta
-               Ke(23) = -lb
-               Ke(26) = beta
-               Ke(30) = lb
-               Ke(32) = -beta
-               Ke(36) = lb
-               Ke(50) = -lb
-               Ke(54) = -l2b3
-               Ke(56) = lb
-               Ke(60) = -l2b6
-               Ke(63) = lb
-               Ke(65) = -l2b3
-               Ke(69) = -lb
-               Ke(71) = -l2b6
-               Ke(87) = -beta
-               Ke(89) = lb
-               Ke(93) = beta
-               Ke(95) = lb
-               Ke(98) = -beta
-               Ke(102) = -lb
-               Ke(104) = beta
-               Ke(108) = -lb
-               Ke(122) = -lb
-               Ke(126) = -l2b6
-               Ke(128) = lb
-               Ke(132) = -l2b3
-               Ke(135) = lb
-               Ke(137) = -l2b6
-               Ke(141) = -lb
-               Ke(143) = -l2b3
+               ke(15) = beta
+               ke(17) = -lb
+               ke(21) = -beta
+               ke(23) = -lb
+               ke(26) = beta
+               ke(30) = lb
+               ke(32) = -beta
+               ke(36) = lb
+               ke(50) = -lb
+               ke(54) = -l2b3
+               ke(56) = lb
+               ke(60) = -l2b6
+               ke(63) = lb
+               ke(65) = -l2b3
+               ke(69) = -lb
+               ke(71) = -l2b6
+               ke(87) = -beta
+               ke(89) = lb
+               ke(93) = beta
+               ke(95) = lb
+               ke(98) = -beta
+               ke(102) = -lb
+               ke(104) = beta
+               ke(108) = -lb
+               ke(122) = -lb
+               ke(126) = -l2b6
+               ke(128) = lb
+               ke(132) = -l2b3
+               ke(135) = lb
+               ke(137) = -l2b6
+               ke(141) = -lb
+               ke(143) = -l2b3
             ENDIF
 !
 !     DETERMINE IF THERE ARE NON-ZERO PIN FLAGS.
@@ -468,28 +469,28 @@ USE ISO_FORTRAN_ENV
                DO i = 1 , 10
                   IF ( ipin(i)/=0 ) THEN
                      ii = 13*ipin(i) - 12
-                     IF ( Ke(ii)/=0.0D0 ) THEN
+                     IF ( ke(ii)/=0.0D0 ) THEN
                         DO j = 1 , 12
                            ji = 12*(j-1) + ipin(i)
                            ij = 12*(ipin(i)-1) + j
                            DO ll = 1 , 12
                               jll = 12*(j-1) + ll
                               ill = 12*(ipin(i)-1) + ll
-                              Kep(jll) = Ke(jll) - (Ke(ill)/Ke(ii))*Ke(ji)
+                              kep(jll) = ke(jll) - (ke(ill)/ke(ii))*ke(ji)
                            ENDDO
-                           Kep(ij) = 0.0D0
-                           Kep(ji) = 0.0D0
+                           kep(ij) = 0.0D0
+                           kep(ji) = 0.0D0
                         ENDDO
                         DO k = 1 , 144
-                           Ke(k) = Kep(k)
+                           ke(k) = kep(k)
                         ENDDO
                      ELSE
                         il = ipin(i)
                         ii = ii - il
                         DO j = 1 , 12
                            ii = ii + 1
-                           Ke(ii) = 0.0D0
-                           Ke(il) = 0.0D0
+                           ke(ii) = 0.0D0
+                           ke(il) = 0.0D0
                            il = il + 12
                         ENDDO
                      ENDIF
@@ -518,29 +519,29 @@ USE ISO_FORTRAN_ENV
                lim = low + 5
                DO k = low , lim
                   j = j + 1
-                  Kep(j) = Ke(k)
-                  Kep(j+36) = Ke(k+6)
+                  kep(j) = ke(k)
+                  kep(j+36) = ke(k+6)
                ENDDO
             ENDDO
 !
 !                                                            T
 !     STORE VECI, VECJ, VECK IN KE(1),...,KE(9) FORMING THE A  MATRIX.
 !
-            Ke(1) = veci(1)
-            Ke(2) = veci(2)
-            Ke(3) = veci(3)
-            Ke(4) = vecj(1)
-            Ke(5) = vecj(2)
-            Ke(6) = vecj(3)
-            Ke(7) = veck(1)
-            Ke(8) = veck(2)
-            Ke(9) = veck(3)
+            ke(1) = veci(1)
+            ke(2) = veci(2)
+            ke(3) = veci(3)
+            ke(4) = vecj(1)
+            ke(5) = vecj(2)
+            ke(6) = vecj(3)
+            ke(7) = veck(1)
+            ke(8) = veck(2)
+            ke(9) = veck(3)
 !
 !     ZERO OUT THE ARRAY WHERE THE 3X3 MATRIX H AND THE W  AND W  6X6
 !     MATRICES WILL RESIDE.                              A      B
 !
             DO i = 28 , 108
-               Ke(i) = 0.0D0
+               ke(i) = 0.0D0
             ENDDO
             ipass = 1
             iwbeg = 0
@@ -559,16 +560,15 @@ USE ISO_FORTRAN_ENV
          offset = aofset
          jofset = jofsta
          ikel = 1
-         index = Isilno(1)
+         index = isilno(1)
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
          basic = bbasic
          jcsid = jcsidb
          offset = bofset
          jofset = jofstb
          ikel = 37
-         index = Isilno(2)
+         index = isilno(2)
          spag_nextblock_1 = 6
       CASE (6)
 !
@@ -577,8 +577,8 @@ USE ISO_FORTRAN_ENV
 !
          ig = 1
          IF ( .NOT.(basic) ) THEN
-            CALL transd(ecpt(jcsid),Ke(10))
-            CALL gmmatd(Ke(1),3,3,0,Ke(10),3,3,0,Ke(19))
+            CALL transd(ecpt(jcsid),ke(10))
+            CALL gmmatd(ke(1),3,3,0,ke(10),3,3,0,ke(19))
             ig = 19
          ENDIF
 !
@@ -586,19 +586,19 @@ USE ISO_FORTRAN_ENV
 !     MATRIX.
 !
          IF ( offset ) THEN
-            Ke(10) = 0.0D0
-            Ke(11) = ecpt(jofset+2)
-            Ke(12) = -ecpt(jofset+1)
-            Ke(13) = -Ke(11)
-            Ke(14) = 0.0D0
-            Ke(15) = ecpt(jofset)
-            Ke(16) = -Ke(12)
-            Ke(17) = -Ke(15)
-            Ke(18) = 0.0D0
+            ke(10) = 0.0D0
+            ke(11) = ecpt(jofset+2)
+            ke(12) = -ecpt(jofset+1)
+            ke(13) = -ke(11)
+            ke(14) = 0.0D0
+            ke(15) = ecpt(jofset)
+            ke(16) = -ke(12)
+            ke(17) = -ke(15)
+            ke(18) = 0.0D0
 !
 !     FORM THE 3X3 PRODUCT H = G X D, I.E., KE(28) = KE(IG) X KE(10)
 !
-            CALL gmmatd(Ke(ig),3,3,0,Ke(10),3,3,0,Ke(28))
+            CALL gmmatd(ke(ig),3,3,0,ke(10),3,3,0,ke(28))
          ENDIF
 !
 !
@@ -608,52 +608,52 @@ USE ISO_FORTRAN_ENV
 !     STORED IN THE UPPER LEFT AND LOWER RIGHT CORNERS.  H, IF NON-ZERO,
 !     WILL BE STORED IN THE UPPER RIGHT CORNER.
 !
-         Ke(iwbeg+37) = Ke(ig)
-         Ke(iwbeg+38) = Ke(ig+1)
-         Ke(iwbeg+39) = Ke(ig+2)
-         Ke(iwbeg+43) = Ke(ig+3)
-         Ke(iwbeg+44) = Ke(ig+4)
-         Ke(iwbeg+45) = Ke(ig+5)
-         Ke(iwbeg+49) = Ke(ig+6)
-         Ke(iwbeg+50) = Ke(ig+7)
-         Ke(iwbeg+51) = Ke(ig+8)
-         Ke(iwbeg+58) = Ke(ig)
-         Ke(iwbeg+59) = Ke(ig+1)
-         Ke(iwbeg+60) = Ke(ig+2)
-         Ke(iwbeg+64) = Ke(ig+3)
-         Ke(iwbeg+65) = Ke(ig+4)
-         Ke(iwbeg+66) = Ke(ig+5)
-         Ke(iwbeg+70) = Ke(ig+6)
-         Ke(iwbeg+71) = Ke(ig+7)
-         Ke(iwbeg+72) = Ke(ig+8)
+         ke(iwbeg+37) = ke(ig)
+         ke(iwbeg+38) = ke(ig+1)
+         ke(iwbeg+39) = ke(ig+2)
+         ke(iwbeg+43) = ke(ig+3)
+         ke(iwbeg+44) = ke(ig+4)
+         ke(iwbeg+45) = ke(ig+5)
+         ke(iwbeg+49) = ke(ig+6)
+         ke(iwbeg+50) = ke(ig+7)
+         ke(iwbeg+51) = ke(ig+8)
+         ke(iwbeg+58) = ke(ig)
+         ke(iwbeg+59) = ke(ig+1)
+         ke(iwbeg+60) = ke(ig+2)
+         ke(iwbeg+64) = ke(ig+3)
+         ke(iwbeg+65) = ke(ig+4)
+         ke(iwbeg+66) = ke(ig+5)
+         ke(iwbeg+70) = ke(ig+6)
+         ke(iwbeg+71) = ke(ig+7)
+         ke(iwbeg+72) = ke(ig+8)
          IF ( offset ) THEN
-            Ke(iwbeg+40) = Ke(28)
-            Ke(iwbeg+41) = Ke(29)
-            Ke(iwbeg+42) = Ke(30)
-            Ke(iwbeg+46) = Ke(31)
-            Ke(iwbeg+47) = Ke(32)
-            Ke(iwbeg+48) = Ke(33)
-            Ke(iwbeg+52) = Ke(34)
-            Ke(iwbeg+53) = Ke(35)
-            Ke(iwbeg+54) = Ke(36)
+            ke(iwbeg+40) = ke(28)
+            ke(iwbeg+41) = ke(29)
+            ke(iwbeg+42) = ke(30)
+            ke(iwbeg+46) = ke(31)
+            ke(iwbeg+47) = ke(32)
+            ke(iwbeg+48) = ke(33)
+            ke(iwbeg+52) = ke(34)
+            ke(iwbeg+53) = ke(35)
+            ke(iwbeg+54) = ke(36)
          ENDIF
 !
 !                       T      E
 !     FORM THE PRODUCT W   X  K   AND STORE IN KEP(73)
 !                       NPVT
 !
-         CALL gmmatd(Ke(37),6,6,1,Kep(ikel),6,6,0,Kep(73))
+         CALL gmmatd(ke(37),6,6,1,kep(ikel),6,6,0,kep(73))
 !
 !     COMPUTE THE FINAL ANSWER AND STORE IN KEP(109)
 !
-         CALL gmmatd(Kep(73),6,6,0,Ke(iwbeg+37),6,6,0,Kep(109))
+         CALL gmmatd(kep(73),6,6,0,ke(iwbeg+37),6,6,0,kep(109))
 !
 !     INSERT THIS 6X6
 !
-         CALL sma1b(Kep(109),index,-1,Ifkgg,0.0D0)
-         IF ( Iopt4/=0 .AND. Gsube/=0.0 ) THEN
-            K4ggsw = 1
-            CALL sma1b(Kep(109),index,-1,If4gg,dampc)
+         CALL sma1b(kep(109),index,-1,ifkgg,0.0D0)
+         IF ( iopt4/=0 .AND. gsube/=0.0 ) THEN
+            k4ggsw = 1
+            CALL sma1b(kep(109),index,-1,if4gg,dampc)
          ENDIF
 !
 !     IF IPASS = 2, WE ARE DONE.  OTHERWISE COMPUTE THE OFF-DIAGONAL 6X6
@@ -664,14 +664,13 @@ USE ISO_FORTRAN_ENV
             iwbeg = 36
             ipass = 2
             DO i = 28 , 36
-               Ke(i) = 0.0D0
+               ke(i) = 0.0D0
             ENDDO
             IF ( ipvt/=1 ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (7)
 !
@@ -680,7 +679,7 @@ USE ISO_FORTRAN_ENV
 !     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
 !     ACCUMULATE
 !
-         Nogo = 1
+         nogo = 1
          RETURN
       END SELECT
    ENDDO SPAG_DispatchLoop_1

@@ -1,15 +1,16 @@
-!*==gkam.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gkam.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkam
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,9 +53,9 @@ SUBROUTINE gkam
 !
 !     PICK UP AND STORE SELECTED MODES, SAVING EIGENVECTORS
 !
-   lc1 = korsz(Core)
-   nz = lc1 - Sysbuf
-   icrq = 2*Sysbuf - nz
+   lc1 = korsz(core)
+   nz = lc1 - sysbuf
+   icrq = 2*sysbuf - nz
    IF ( icrq>0 ) THEN
       ip1 = -8
       file = icrq
@@ -64,7 +65,7 @@ SUBROUTINE gkam
 !
 !     FIND SELECTED SDT INTO CASECC
 !
-      CALL gopen(casecc,Core(nz+1),0)
+      CALL gopen(casecc,core(nz+1),0)
       CALL fread(casecc,icore,166,1)
       CALL close(casecc,1)
       i149 = 149
@@ -72,45 +73,45 @@ SUBROUTINE gkam
 !
 !     OPEN  LAMA, PHIA, AND PHI0H
 !
-      CALL gopen(lama,Core(nz+1),0)
+      CALL gopen(lama,core(nz+1),0)
       CALL skprec(lama,1)
-      nz = nz - Sysbuf
-      CALL gopen(phia,Core(nz+1),0)
+      nz = nz - sysbuf
+      CALL gopen(phia,core(nz+1),0)
       icore(1) = phia
       CALL rdtrl(icore)
       nvect = icore(2)
-      nz = nz - Sysbuf
-      IF ( Noue<0 ) phidh1 = phidh
-      CALL gopen(phidh1,Core(nz+1),1)
+      nz = nz - sysbuf
+      IF ( noue<0 ) phidh1 = phidh
+      CALL gopen(phidh1,core(nz+1),1)
       mcb(1) = phia
       CALL rdtrl(mcb)
       mcb(1) = phidh1
-      It1 = mcb(5)
-      It2 = It1
-      It3 = It1
-      Incr = 1
-      Incr1 = 1
-      Ii = 1
-      Ii1 = 1
-      Jj = mcb(3)
-      Jj1 = Jj
+      it1 = mcb(5)
+      it2 = it1
+      it3 = it1
+      incr = 1
+      incr1 = 1
+      ii = 1
+      ii1 = 1
+      jj = mcb(3)
+      jj1 = jj
       mcb(2) = 0
       mcb(6) = 0
       mcb(7) = 0
       isw = 1
       modes = 1
       SPAG_Loop_1_1: DO i = 1 , nvect
-         CALL read(*200,*100,lama,Core(nz-6),7,0,iflag)
+         CALL read(*200,*100,lama,core(nz-6),7,0,iflag)
 !
 !     PICK UP FREQUENCY
 !
-         f = Core(nz-2)
-         IF ( Nlmode==0 ) THEN
+         f = core(nz-2)
+         IF ( nlmode==0 ) THEN
 !
 !     FREQUENCY RANGE SPECIFICATION
 !
-            IF ( f>Hfreq ) EXIT SPAG_Loop_1_1
-            IF ( f<Lfreq ) THEN
+            IF ( f>hfreq ) EXIT SPAG_Loop_1_1
+            IF ( f<lfreq ) THEN
                CALL skprec(phia,1)
                isw = isw + 1
                CYCLE
@@ -119,12 +120,12 @@ SUBROUTINE gkam
 !
 !     ACCEPT LAMA
 !
-         Core(modes) = f*Twophi
+         core(modes) = f*twophi
          modes = modes + 1
-         CALL unpack(*300,phia,Core(modes))
-         CALL pack(Core(modes),phidh1,mcb)
-         IF ( Nlmode/=0 ) THEN
-            IF ( modes>Nlmode ) EXIT SPAG_Loop_1_1
+         CALL unpack(*300,phia,core(modes))
+         CALL pack(core(modes),phidh1,mcb)
+         IF ( nlmode/=0 ) THEN
+            IF ( modes>nlmode ) EXIT SPAG_Loop_1_1
          ENDIF
       ENDDO SPAG_Loop_1_1
    ENDIF
@@ -139,7 +140,7 @@ SUBROUTINE gkam
 !     BUILD PHIDH
 !
    lhset = modes - 1
-   Nmode = isw
+   nmode = isw
    IF ( lhset<=0 ) THEN
 !
 !     NO MODES SELECTED
@@ -147,7 +148,7 @@ SUBROUTINE gkam
       ip1 = -47
       CALL mesage(ip1,ip2,name)
    ELSE
-      IF ( Noue>=0 ) CALL gkam1b(usetd,scr1,scr2,phidh,phidh1,modes,Core,lhset,Noue,scr3)
+      IF ( noue>=0 ) CALL gkam1b(usetd,scr1,scr2,phidh,phidh1,modes,core,lhset,noue,scr3)
 !
 !     FORM H MATRICES
 !
@@ -155,29 +156,29 @@ SUBROUTINE gkam
 !
 !     SAVE MODES ON SCRATCH3 IN CASE DMI WIPES THEM OUT
 !
-      nz = lc1 - Sysbuf
-      CALL open(*400,scr3,Core(nz+1),1)
-      CALL write(scr3,Core(1),modes,1)
+      nz = lc1 - sysbuf
+      CALL open(*400,scr3,core(nz+1),1)
+      CALL write(scr3,core(1),modes,1)
       CALL close(scr3,1)
-      Noncup = 1
+      noncup = 1
 !
 !     FORM  MHH
 !
-      CALL gkam1a(mi,phidh,sdt,scr1,scr2,1,mhh,Nom2dd,Core(1),modes,nosdt,lhset,m2dd,isw,scr3)
-      IF ( Nom2dd>=0 ) CALL ssg2c(scr1,scr2,mhh,1,iblock(1))
+      CALL gkam1a(mi,phidh,sdt,scr1,scr2,1,mhh,nom2dd,core(1),modes,nosdt,lhset,m2dd,isw,scr3)
+      IF ( nom2dd>=0 ) CALL ssg2c(scr1,scr2,mhh,1,iblock(1))
 !
 !     FORM  BHH
 !
-      IF ( nosdt/=0 .OR. Nob2dd>=0 ) THEN
-         CALL gkam1a(mi,phidh,sdt,scr1,scr2,2,bhh,Nob2dd,Core(1),modes,nosdt,lhset,b2dd,isw,scr3)
-         IF ( Nob2dd>=0 ) CALL ssg2c(scr1,scr2,bhh,1,iblock(1))
+      IF ( nosdt/=0 .OR. nob2dd>=0 ) THEN
+         CALL gkam1a(mi,phidh,sdt,scr1,scr2,2,bhh,nob2dd,core(1),modes,nosdt,lhset,b2dd,isw,scr3)
+         IF ( nob2dd>=0 ) CALL ssg2c(scr1,scr2,bhh,1,iblock(1))
       ENDIF
 !
 !     FORM  KHH
 !
-      CALL gkam1a(mi,phidh,sdt,scr1,scr2,3,khh,Nok2dd,Core(1),modes,nosdt,lhset,k2dd,isw,scr3)
-      IF ( Nok2dd>=0 ) CALL ssg2c(scr1,scr2,khh,1,iblock(1))
-      IF ( Nob2dd<0 .AND. Nom2dd<0 .AND. Nok2dd<0 ) Noncup = -1
+      CALL gkam1a(mi,phidh,sdt,scr1,scr2,3,khh,nok2dd,core(1),modes,nosdt,lhset,k2dd,isw,scr3)
+      IF ( nok2dd>=0 ) CALL ssg2c(scr1,scr2,khh,1,iblock(1))
+      IF ( nob2dd<0 .AND. nom2dd<0 .AND. nok2dd<0 ) noncup = -1
       RETURN
    ENDIF
  200  DO
@@ -185,7 +186,7 @@ SUBROUTINE gkam
       ip1 = -3
       CALL mesage(ip1,ip2,name)
    ENDDO
- 300  WRITE (Nout,99001) Sfm
+ 300  WRITE (nout,99001) sfm
 99001 FORMAT (A25,' 2204, UNPACK FOUND NULL COLUMN IN PHIA FILE IN ','GKAM MODULE.')
    ip1 = -37
    CALL mesage(ip1,ip2,name)

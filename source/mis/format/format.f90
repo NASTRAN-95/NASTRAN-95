@@ -1,9 +1,10 @@
-!*==format.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==format.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE format(A,N1x,N2x,N3x,L1x,L2x)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,7 +51,7 @@ SUBROUTINE format(A,N1x,N2x,N3x,L1x,L2x)
       ENDDO
       l1 = iabs(l1)
       l2 = iabs(l2)
-      WRITE (Mo,ff,ERR=99999) l1 , (A(i),i=n1,n2,n3) , l2
+      WRITE (mo,ff,ERR=99999) l1 , (A(i),i=n1,n2,n3) , l2
    ENDIF
 !
 99999 END SUBROUTINE format

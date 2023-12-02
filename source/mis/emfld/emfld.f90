@@ -1,14 +1,15 @@
-!*==emfld.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==emfld.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emfld
+   USE c_blank
+   USE c_gpta1
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -61,13 +62,13 @@ SUBROUTINE emfld
          IF ( mcb(1)<0 ) RETURN
          mcb(1) = hccen
          CALL rdtrl(mcb)
-         Nn = mcb(3)
+         nn = mcb(3)
          IF ( mcb(1)<=0 ) THEN
-            Nn = 0
+            nn = 0
             mcb(1) = remfl
             CALL rdtrl(mcb)
             IF ( mcb(1)<=0 ) THEN
-               WRITE (Otpe,99001) Uwm
+               WRITE (otpe,99001) uwm
 99001          FORMAT (A25,', DATA BLOCKS HCFLD AND REMFL ARE PURGED IN EM ','PROBLEM. ALL RESULTS ARE ZERO')
                RETURN
             ENDIF
@@ -77,9 +78,9 @@ SUBROUTINE emfld
          CALL rdtrl(mcb)
          nelx = 3*mcb(2)
 !
-         Typout = 1
-         Ii = 1
-         Incur = 1
+         typout = 1
+         ii = 1
+         incur = 1
 !
 !     CREATE ESTFLD WHICH LOOKS LIKE HEST BUT CONTAINS ONLY TYPE, ID,
 !     NUMBER OF SILS,SILS,3 X 3 MATERAIL MATRIX,AND 3 X 3 TRANSFORMATION
@@ -90,27 +91,27 @@ SUBROUTINE emfld
 !
 !     KCOUNT SHOULD BE NUMBER OF TERMS IN ROW OF HCCEN
 !
-         IF ( Nn==0 ) Nn = kcount
-         IF ( Nn/=kcount ) THEN
+         IF ( nn==0 ) nn = kcount
+         IF ( nn/=kcount ) THEN
 !
 !     FATAL ERROR MESSAGES
 !
-            WRITE (Otpe,99002) Sfm
+            WRITE (otpe,99002) sfm
 99002       FORMAT (A25,', ROW COUNT ON HCCEN IN EMFLD IS NOT CONSISTENT')
             CALL mesage(-61,0,0)
             GOTO 220
          ELSE
-            nrows = Nn
+            nrows = nn
 !
 !     NOW FETCH HC AT EACH POINT FROM HCFLD
 !
-            lcore = korsz(Z)
-            buf1 = lcore - Sysbuf + 1
-            buf2 = buf1 - Sysbuf
-            buf3 = buf2 - Sysbuf
-            buf4 = buf3 - Sysbuf
-            buf5 = buf4 - Sysbuf
-            buf6 = buf5 - Sysbuf
+            lcore = korsz(z)
+            buf1 = lcore - sysbuf + 1
+            buf2 = buf1 - sysbuf
+            buf3 = buf2 - sysbuf
+            buf4 = buf3 - sysbuf
+            buf5 = buf4 - sysbuf
+            buf6 = buf5 - sysbuf
             lcore = buf6 - 1
             IF ( lcore>0 ) THEN
 !
@@ -121,18 +122,18 @@ SUBROUTINE emfld
 !     COPY HEADER FROM HOEF1 TO HOEH1
 !
                file = hoeh1
-               CALL open(*220,hoeh1,Z(buf5),1)
+               CALL open(*220,hoeh1,z(buf5),1)
                file = hoef1
-               CALL open(*220,hoef1,Z(buf4),0)
-               CALL read(*240,*20,hoef1,Z,lcore,0,iwords)
+               CALL open(*220,hoef1,z(buf4),0)
+               CALL read(*240,*20,hoef1,z,lcore,0,iwords)
             ENDIF
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
- 20      Z(1) = zn(1)
+ 20      z(1) = zn(1)
          i = 2
-         Z(i) = zn(2)
-         CALL write(hoeh1,Z,iwords,1)
+         z(i) = zn(2)
+         CALL write(hoeh1,z,iwords,1)
 !
 !     OPEN CSTM FOR NON-BASIC COORDINATE SYSTEM
 !
@@ -141,21 +142,21 @@ SUBROUTINE emfld
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(cstm,Z(buf1),0)
-         CALL read(*240,*40,cstm,Z,lcore,0,ncstm)
+         CALL gopen(cstm,z(buf1),0)
+         CALL read(*240,*40,cstm,z,lcore,0,ncstm)
          spag_nextblock_1 = 8
          CYCLE SPAG_DispatchLoop_1
  40      CALL close(cstm,1)
-         CALL pretrs(Z(1),ncstm)
+         CALL pretrs(z(1),ncstm)
          spag_nextblock_1 = 2
       CASE (2)
 !
          nncr = ncstm + nrows
          nall = nncr + nelx
-         CALL gopen(casecc,Z(buf1),0)
-         CALL gopen(hccen,Z(buf2),0)
-         CALL gopen(estfld,Z(buf3),0)
-         CALL gopen(remfl,Z(buf6),0)
+         CALL gopen(casecc,z(buf1),0)
+         CALL gopen(hccen,z(buf2),0)
+         CALL gopen(estfld,z(buf3),0)
+         CALL gopen(remfl,z(buf6),0)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -193,7 +194,7 @@ SUBROUTINE emfld
          ENDIF
          DO
             file = casecc
-            CALL read(*240,*260,casecc,Z(ncstm+1),16,0,iwords)
+            CALL read(*240,*260,casecc,z(ncstm+1),16,0,iwords)
             IF ( iz(ncstm+1)==subcas ) THEN
 !
 !     MATCH ON SUBCASE ID. SEE HOW LONG THE RECORD IS
@@ -217,15 +218,14 @@ SUBROUTINE emfld
 !             NEXTP+1 - NEXTP+NELX  COLUMN OF REMFL
 !             NEXTP+NELX+1 - NEXTP+2*NELX  REMFL COMBINATION
 !
-                  CALL read(*240,*60,casecc,Z(ncstm+17),lcore,0,iwords)
+                  CALL read(*240,*60,casecc,z(ncstm+17),lcore,0,iwords)
                   spag_nextblock_1 = 8
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
                   CALL bckrec(hccen)
                   CALL bckrec(remfl)
                   spag_nextblock_1 = 4
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ELSE
                CALL fwdrec(*240,casecc)
                file = hccen
@@ -255,10 +255,10 @@ SUBROUTINE emfld
 !     SET UP FOR SUBSEQ
 !
          DO i = 1 , nall2
-            Z(nextz+i) = 0.
+            z(nextz+i) = 0.
          ENDDO
          DO i = 1 , lsym
-            coef = Z(ncstm+lcc+i)
+            coef = z(ncstm+lcc+i)
             IF ( coef==0. ) THEN
 !
 !     COEF = 0.
@@ -269,29 +269,28 @@ SUBROUTINE emfld
                CALL fwdrec(*240,remfl)
                CYCLE
             ELSE
-               Nn = nrows
-               CALL unpack(*70,hccen,Z(nextz+1))
+               nn = nrows
+               CALL unpack(*70,hccen,z(nextz+1))
                DO j = 1 , nrows
-                  Z(nextr+j) = Z(nextr+j) + coef*Z(nextz+j)
+                  z(nextr+j) = z(nextr+j) + coef*z(nextz+j)
                ENDDO
             ENDIF
- 70         Nn = nelx
-            CALL unpack(*80,remfl,Z(nextp+1))
+ 70         nn = nelx
+            CALL unpack(*80,remfl,z(nextp+1))
             DO j = 1 , nelx
-               Z(isub+j) = Z(isub+j) + coef*Z(nextp+j)
+               z(isub+j) = z(isub+j) + coef*z(nextp+j)
             ENDDO
  80      ENDDO
 !
 !     MOVE THE VECTOR IN CORE
 !
          DO i = 1 , nrows
-            Z(ncstm+i) = Z(nextr+i)
+            z(ncstm+i) = z(nextr+i)
          ENDDO
          DO i = 1 , nelx
-            Z(nncr+i) = Z(isub+i)
+            z(nncr+i) = z(isub+i)
          ENDDO
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     NOT A SUBCOM
@@ -299,21 +298,21 @@ SUBROUTINE emfld
 !
          file = casecc
          CALL fwdrec(*240,casecc)
-         Nn = nrows
-         CALL unpack(*100,hccen,Z(ncstm+1))
+         nn = nrows
+         CALL unpack(*100,hccen,z(ncstm+1))
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
  100     DO i = 1 , nrows
-            Z(ncstm+i) = 0.
+            z(ncstm+i) = 0.
          ENDDO
          spag_nextblock_1 = 5
       CASE (5)
-         Nn = nelx
-         CALL unpack(*120,remfl,Z(nncr+1))
+         nn = nelx
+         CALL unpack(*120,remfl,z(nncr+1))
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
  120     DO i = 1 , nelx
-            Z(nncr+i) = 0.
+            z(nncr+i) = 0.
          ENDDO
          spag_nextblock_1 = 6
       CASE (6)
@@ -373,7 +372,7 @@ SUBROUTINE emfld
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*240,*260,estfld,Z(nall+1),nwords,0,iwords)
+               CALL read(*240,*260,estfld,z(nall+1),nwords,0,iwords)
 !
                IF ( elid==ielid ) EXIT SPAG_Loop_1_1
             ENDDO SPAG_Loop_1_1
@@ -392,7 +391,7 @@ SUBROUTINE emfld
          itype = numtyp(hm(3))
          IF ( itype<=1 ) hm(3) = 0.
 !WKBNE 8/94 ALPHA-VMS
-         CALL gmmats(Z(nall+ngrids+10),3,3,0,hm,3,1,0,hmg)
+         CALL gmmats(z(nall+ngrids+10),3,3,0,hm,3,1,0,hmg)
 !
 !     PICK UP HC FROM HCCEN VECTOR. FOR ALL EXCEPT ISOPARAMETRICS,HCOUNT
 !     POINTS TO THE Z COMPONENT OF PROPER HC WHICH STARTS AT Z(NCSTM+1)
@@ -417,9 +416,9 @@ SUBROUTINE emfld
             IF ( rbuf(2)==hex1 .AND. strspt>=9 ) oldeid = 0
          ENDIF
          isub = ncstm + 3*(hcount-ipts+strspt-1)
-         hc(1) = Z(isub+1)
-         hc(2) = Z(isub+2)
-         hc(3) = Z(isub+3)
+         hc(1) = z(isub+1)
+         hc(2) = z(isub+2)
+         hc(3) = z(isub+3)
 !
          DO i = 1 , 3
             rbuf(i+3) = hmg(i) + hc(i)
@@ -427,14 +426,14 @@ SUBROUTINE emfld
 !
 !     TO GET INDUCTION B, MULTIPLY H BY MATERIALS
 !
-         CALL gmmats(Z(nall+ngrids+1),3,3,0,rbuf(4),3,1,0,rbuf(7))
+         CALL gmmats(z(nall+ngrids+1),3,3,0,rbuf(4),3,1,0,rbuf(7))
 !
 !     ADD IN REMANENCE Z(NNCR+1)-Z(NNCR+NELX)
 !
          isub = nncr + 3*ncount - 3
-         rbuf(7) = rbuf(7) + Z(isub+1)
-         rbuf(8) = rbuf(8) + Z(isub+2)
-         rbuf(9) = rbuf(9) + Z(isub+3)
+         rbuf(7) = rbuf(7) + z(isub+1)
+         rbuf(8) = rbuf(8) + z(isub+2)
+         rbuf(9) = rbuf(9) + z(isub+3)
 !
 !     CHECK FOR REQUEST FOR NON-BASIC COORD. SYSTEM. TA TRANSFORMS TO
 !     BASIC
@@ -447,9 +446,9 @@ SUBROUTINE emfld
 !
             IF ( iel==80 ) strspt = 1
             isub = nall + ngrids + 19 + 3*strspt - 3
-            coord(2) = Z(isub+1)
-            coord(3) = Z(isub+2)
-            coord(4) = Z(isub+3)
+            coord(2) = z(isub+1)
+            coord(3) = z(isub+2)
+            coord(4) = z(isub+3)
             CALL transs(coord,ta)
             CALL gmmats(ta,3,3,1,rbuf(7),3,1,0,temp)
             DO i = 1 , 3
@@ -505,7 +504,6 @@ SUBROUTINE emfld
          CYCLE SPAG_DispatchLoop_1
  260     n = -3
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
          n = -8
          file = 0

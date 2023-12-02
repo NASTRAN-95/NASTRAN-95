@@ -1,10 +1,11 @@
-!*==rsetup.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rsetup.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
+   USE c_bandb
+   USE c_bandg
    IMPLICIT NONE
-   USE C_BANDB
-   USE C_BANDG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,16 +36,16 @@ SUBROUTINE rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
 !
 !     DIMENSION EXCEEDED  . . .  STOP JOB.
 !
-   IF ( Idpth<=Idim ) THEN
+   IF ( idpth<=Idim ) THEN
 !
-      DO i = 1 , Idpth
+      DO i = 1 , idpth
          Nacum(i) = 0
       ENDDO
-      DO i = 1 , N
+      DO i = 1 , n
          Lvl(i) = 1
-         Lvls2(i) = Idpth + 1 - Lvls2(i)
+         Lvls2(i) = idpth + 1 - Lvls2(i)
          itemp = Lvls2(i)
-         IF ( itemp<=Idpth ) THEN
+         IF ( itemp<=idpth ) THEN
             IF ( itemp/=Lvls1(i) ) THEN
                Lvl(i) = 0
             ELSE
@@ -54,6 +55,5 @@ SUBROUTINE rsetup(Lvl,Lvls1,Lvls2,Nacum,Idim)
       ENDDO
       RETURN
    ENDIF
-   Ngrid = -3
-   RETURN
+   ngrid = -3
 END SUBROUTINE rsetup

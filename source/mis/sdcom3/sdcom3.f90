@@ -1,9 +1,10 @@
-!*==sdcom3.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sdcom3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcom3(P,Ac,Wa,Wb)
+   USE c_sdcomx
    IMPLICIT NONE
-   USE C_SDCOMX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,34 +38,34 @@ SUBROUTINE sdcom3(P,Ac,Wa,Wb)
    p2 = P(1)**2 + P(2)**2
    p1 = P(1)/p2
    p2 = P(2)/p2
-   DO i = Start , Lasti
+   DO i = start , lasti
       spag_nextblock_1 = 1
       SPAG_DispatchLoop_1: DO
          SELECT CASE (spag_nextblock_1)
          CASE (1)
             pir = -P(2*i-1)*p1 - P(2*i)*p2
             pii = P(2*i-1)*p2 - P(2*i)*p1
-            IF ( i<=Lastpl ) THEN
+            IF ( i<=lastpl ) THEN
 !
 ! LOOP 3 -- K RUNS FROM I TO LASTPL AND L IS INCREMENTED EVERY TIME
 !           THEN, IF LASTPL .LT. C, LOOP 1 IS EXECUTED TO FINISH IT UP
 !
-               DO k = i , Lastpl
+               DO k = i , lastpl
                   Wb(j) = pir*P(2*k-1) - pii*P(2*k) + Wa(l)
                   Wb(j+1) = pir*P(2*k) + pii*P(2*k-1) + Wa(l+1)
                   l = l + 2
                   j = j + 2
                ENDDO
-               IF ( Lastpl==C ) THEN
+               IF ( lastpl==c ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               k1 = Lastpl + 1
+               k1 = lastpl + 1
             ELSEIF ( Ac(i)<0 ) THEN
 !
 ! LOOP 2 -- L IS NEVER INCREMENTED
 !
-               DO k = i , C
+               DO k = i , c
                   Wb(j) = pir*P(2*k-1) - pii*P(2*k)
                   Wb(j+1) = pir*P(2*k) + pii*P(2*k-1)
                   j = j + 2
@@ -77,7 +78,7 @@ SUBROUTINE sdcom3(P,Ac,Wa,Wb)
 !
 ! LOOP 1 -- L IS INCREMENTED WHENEVER AC(K) .GT. 0
 !
-            DO k = k1 , C
+            DO k = k1 , c
                IF ( Ac(k)>0 ) THEN
                   Wb(j) = pir*P(2*k-1) - pii*P(2*k) + Wa(l)
                   Wb(j+1) = pir*P(2*k) + pii*P(2*k-1) + Wa(l+1)

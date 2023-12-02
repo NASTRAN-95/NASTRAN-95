@@ -1,10 +1,11 @@
-!*==subp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==subp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
+   USE c_amgmn
+   USE c_dlcom
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_DLCOM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -47,11 +48,11 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
 !
 !
          eps = 0.00001
-         m = Fmach
+         m = fmach
          beta = sqrt(1.0-m*m)
-         fl = Refc
-         flnd = float(Nd)
-         flne = float(Ne)
+         fl = refc
+         flnd = float(nd)
+         flne = float(ne)
          sgs = Sg(Ls)
          cgs = Cg(Ls)
          dpur = (0.0,0.0)
@@ -72,7 +73,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
          sqtl = sqrt(1.0+tl**2)
          sl = tl/sqtl
          cl = 1.0/sqtl
-         x = Xic(I) + F*Delx(I)
+         x = Xic(I) + f*Delx(I)
          x0 = x - Xic(J)
          y0 = Yrec - Ys(Ls)
          z0 = Zrec - Zs(Ls)
@@ -88,7 +89,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
 !
             nobi = 1
             CALL snpdf(sl,cl,tl,sgs,cgs,Sgr,Cgr,x0,y0,z0,es,dij,beta,cv)
-            IF ( Kr>eps ) THEN
+            IF ( kr>eps ) THEN
                sdelx = dxs
                dely = 2.0*es
                ax1 = ax + es*tl
@@ -97,7 +98,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
                ax2 = ax - es*tl
                ay2 = ay - es*cgs
                az2 = az - es*sgs
-               CALL incro(ax,ay,az,ax1,ay1,az1,ax2,ay2,az2,Sgr,Cgr,sgs,cgs,Kr,fl,beta,sdelx,dely,delr,deli)
+               CALL incro(ax,ay,az,ax1,ay1,az1,ax2,ay2,az2,Sgr,Cgr,sgs,cgs,kr,fl,beta,sdelx,dely,delr,deli)
             ENDIF
             dp = cmplx(((dij+diji)-(delr+delri)),(-deli-delii))
             IF ( igo==2 ) THEN
@@ -105,7 +106,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
                EXIT SPAG_Loop_1_1
             ELSEIF ( igo==3 ) THEN
                dplr = dp
-               IF ( Nd==0 ) THEN
+               IF ( nd==0 ) THEN
                   Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
                   RETURN
                ELSE
@@ -128,7 +129,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
 !
 !     TEST FOR ABS(YS(LS)) .LE..001 TAKEN OUT
 !
-               IF ( Nd==0 ) EXIT SPAG_Loop_1_1
+               IF ( nd==0 ) EXIT SPAG_Loop_1_1
 !
 !     UPPER LEFT  SENDING POINT
 !
@@ -140,7 +141,7 @@ SUBROUTINE subp(I,L,Ls,J,Sgr,Cgr,Yrec,Zrec,Sum,Xic,Delx,Ee,Xlam,Sg,Cg,Ys,Zs)
                ay = y0
             ENDIF
          ENDDO SPAG_Loop_1_1
-         IF ( Ne==0 ) THEN
+         IF ( ne==0 ) THEN
             Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
          ELSE
 !

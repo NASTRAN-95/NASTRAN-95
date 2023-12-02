@@ -1,7 +1,9 @@
-!*==t3setd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==t3setd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3setd(Ierr,Sil,Jgpdt,Elth,Gpth,Dgpth,Egpdt,Gpnorm,Epnorm,Iorder,Teb,Tub,Cent,Avgthk,Lx,Ly,Edglen,Elid)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -38,6 +40,15 @@ USE ISO_FORTRAN_ENV
    INTEGER , DIMENSION(3) :: ksil
    REAL , DIMENSION(3) :: tmpthk
    EXTERNAL betrnd , daxb
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

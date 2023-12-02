@@ -1,10 +1,11 @@
-!*==dzpy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dzpy.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dzpy(Kb,Ks,Ls,I,J1,J2,Nyflag,Sgr,Cgr,Fmach,Arb,Nbea,Dt)
+   USE c_dlbdy
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_DLBDY
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,7 +51,7 @@ SUBROUTINE dzpy(Kb,Ks,Ls,I,J1,J2,Nyflag,Sgr,Cgr,Fmach,Arb,Nbea,Dt)
 !  THROUGH  NTZ
       jz = jz + 1
 !  JZ  RUNS FROM 1  THROUGH  NBE-SUB-LB
-      CALL subb(Kb,Ks,I,j,jb,lb,Ls,ndy,nyfl,pi,eps,Sgr,Cgr,ar,beta,sum,Z(Iria),Z(Idelx),Z(Iyb),Z(Izb),Z(Iys),Z(Izs),Z(Ix))
+      CALL subb(Kb,Ks,I,j,jb,lb,Ls,ndy,nyfl,pi,eps,Sgr,Cgr,ar,beta,sum,z(iria),z(idelx),z(iyb),z(izb),z(iys),z(izs),z(ix))
       Dt(j) = sum
       IF ( jz==Nbea(lb) ) THEN
          jz = 0

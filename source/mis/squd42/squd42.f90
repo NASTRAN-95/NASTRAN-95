@@ -2,17 +2,17 @@
  
 SUBROUTINE squd42
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_SDR2C1
-   USE C_SDR2DE
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_SDR2X8
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_condas
+   USE c_sdr2c1
+   USE c_sdr2de
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_sdr2x8
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -53,6 +53,12 @@ SUBROUTINE squd42
    REAL , DIMENSION(5,5) :: tstb , tstt
    REAL , DIMENSION(50) :: tstn
    REAL , DIMENSION(5) :: z1 , z2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -199,12 +205,12 @@ SUBROUTINE squd42
       epsavg(i) = 0.
    ENDDO
 !WKBNE 3/95 SPR94017
-   Nstot = 1 + 5 + 5*2*8
+   nstot = 1 + 5 + 5*2*8
    nforce = 1 + 5*9
    nnode = 0
    DO ichk = 1 , 8
       IF ( ksil(ichk)>0 ) nnode = nnode + 1
-      Extrnl(ichk) = 0
+      extrnl(ichk) = 0
    ENDDO
    ndof = 6*nnode
    four = nnode==4
@@ -222,10 +228,10 @@ SUBROUTINE squd42
 !
    grids = .FALSE.
    intgs = .TRUE.
-   maxsh = andf(Nstrop,1)==0
-   vonms = andf(Nstrop,1)/=0
-   extrm = andf(Nstrop,2)==0
-   layer = andf(Nstrop,2)/=0
+   maxsh = andf(nstrop,1)==0
+   vonms = andf(nstrop,1)/=0
+   extrm = andf(nstrop,2)==0
+   layer = andf(nstrop,2)/=0
    bendng = mominr>0.0
 !
 !     NOTE - MAXSH AND EXTRM ARE NO LONGER USED
@@ -233,7 +239,7 @@ SUBROUTINE squd42
 !     IF LAYERED STRESS/STARIN OUTPUT IS REQUESTED, AND THERE ARE NO
 !     LAYERED COMPOSITE DATA, SET LAYER FLAG TO FALSE
 !
-   IF ( layer .AND. Npcmp+Npcmp1+Npcmp2<=0 ) layer = .FALSE.
+   IF ( layer .AND. npcmp+npcmp1+npcmp2<=0 ) layer = .FALSE.
 !
 !     IF LAYERED OUTPUT IS REQUESTED BUT THE CURRENT ELEMENT IS NOT A
 !     LAYERED COMPOSITE, SET LAYER FLAG TO FALSE
@@ -249,7 +255,7 @@ SUBROUTINE squd42
 !      IF (OPRQST .EQ.-2) RETURN
 !WKBDE 3/95 SPR94017
 !WKBI  3/95 SPR94017
-   IF ( (kstrs/=1) .AND. (kforce/=1) .AND. (.NOT.Ostrai) ) RETURN
+   IF ( (kstrs/=1) .AND. (kforce/=1) .AND. (.NOT.ostrai) ) RETURN
 !
 !     CHECK FOR FIBRE DISTANCES Z1 AND Z2 BEING BLANK
 !
@@ -267,16 +273,16 @@ SUBROUTINE squd42
 !
 !     CHECK FOR OFFSET AND COMPOSITES
 !
-   offset = Phiout(78)
-   compos = Comps== - 1 .AND. ipid>0
+   offset = phiout(78)
+   compos = comps== - 1 .AND. ipid>0
 !
 !     ZERO OUT STRESS AND FORCE RESULTANT ARRAYS
 !
-   DO k = 1 , Nstot
+   DO k = 1 , nstot
       stres(k) = 0.0
    ENDDO
    DO i = 1 , nforce
-      Forsul(i) = 0.0
+      forsul(i) = 0.0
    ENDDO
    nstres(1) = elid
    nfors(1) = elid
@@ -284,7 +290,7 @@ SUBROUTINE squd42
 !     ZERO OUT THE COPY OF GBAR-MATRIX TO BE USED BY THIS ROUTINE
 !
    DO k = 1 , 36
-      Gt(k) = 0.0
+      gt(k) = 0.0
    ENDDO
 !
 !     STAGE 2 - ARRANGEMENT OF INCOMING DATA
@@ -292,7 +298,7 @@ SUBROUTINE squd42
 !
 !     SORT THE GRID TEMPERATURE CHANGES INTO SIL ORDER (IF PRESENT)
 !
-   IF ( Ldtemp/=-1 ) THEN
+   IF ( ldtemp/=-1 ) THEN
       IF ( .NOT.(tempp1 .OR. tempp2) ) THEN
 !
 !     DO 50 K = 1,NNODE
@@ -312,16 +318,16 @@ SUBROUTINE squd42
 !     INTO THE ELEMENT C.S.
 !
    DO idelt = 1 , nnode
-      jdelt = Ivec + ksil(idelt) - 2
+      jdelt = ivec + ksil(idelt) - 2
       kdelt = 6*(idelt-1)
       DO ldelt = 1 , 6
-         tdelta(ldelt) = Z(jdelt+ldelt)
+         tdelta(ldelt) = z(jdelt+ldelt)
       ENDDO
 !
 !     FETCH TEG-MATRIX 3X3 FOR EACH NODE AND LOAD IT IN A 6X6 MATRIX
 !     INCLUDE THE EFFECTS OF OFFSET
 !
-      CALL tldrs(offset,idelt,Phiout(80),u)
+      CALL tldrs(offset,idelt,phiout(80),u)
       CALL gmmats(u,6,6,0,tdelta,6,1,0,delta(kdelt+1))
    ENDDO
 !
@@ -337,7 +343,7 @@ SUBROUTINE squd42
 !     SEQUENCE.
 !
    isig = 1
-   Icount = -(8*ndof+nnode+32) + 79 + 9*nnode
+   icount = -(8*ndof+nnode+32) + 79 + 9*nnode
 !
    DO inplan = 1 , 5
       inpln1 = ipn(inplan)
@@ -350,7 +356,7 @@ SUBROUTINE squd42
       ELSE
          DO i = 1 , nnode
             IF ( iorder(i)==inpln1 ) THEN
-               igrid(inplan) = Extrnl(i)
+               igrid(inplan) = extrnl(i)
                EXIT
             ENDIF
          ENDDO
@@ -359,32 +365,32 @@ SUBROUTINE squd42
       DO izta = 1 , 2
          zeta = (izta*2-3)*const
 !
-         Icount = Icount + 8*ndof + nnode + 32
+         icount = icount + 8*ndof + nnode + 32
          IF ( izta/=2 ) THEN
 !
 !     THICKNESS AND MOMENT OF INERTIA AT THIS POINT
 !
-            Thikns(inplan) = Phiout(Icount+1)
-            IF ( grids .AND. inplan/=5 ) Thikns(inplan) = gpth(inpln1)
-            Reali(inplan) = mominr*Thikns(inplan)**3/12.0
+            thikns(inplan) = phiout(icount+1)
+            IF ( grids .AND. inplan/=5 ) thikns(inplan) = gpth(inpln1)
+            reali(inplan) = mominr*thikns(inplan)**3/12.0
 !
 !     DETERMINE FIBER DISTANCE VALUES
 !
             IF ( logz12==-4 ) THEN
 !
-               z1(inplan) = Phiout(19)
-               z2(inplan) = Phiout(20)
+               z1(inplan) = phiout(19)
+               z2(inplan) = phiout(20)
             ELSEIF ( logz12<0 ) THEN
 !
-               z1(inplan) = -0.5*Thikns(inplan)
-               z2(inplan) = Phiout(20)
+               z1(inplan) = -0.5*thikns(inplan)
+               z2(inplan) = phiout(20)
             ELSEIF ( logz12==0 ) THEN
 !
-               z1(inplan) = Phiout(19)
-               z2(inplan) = 0.5*Thikns(inplan)
+               z1(inplan) = phiout(19)
+               z2(inplan) = 0.5*thikns(inplan)
             ELSE
 !
-               z1(inplan) = -0.5*Thikns(inplan)
+               z1(inplan) = -0.5*thikns(inplan)
                z2(inplan) = -z1(inplan)
             ENDIF
          ENDIF
@@ -396,14 +402,14 @@ SUBROUTINE squd42
 !          EPS  =       B      *   U
 !          8X1        8XNDOF    NDOFX1
 !
-         ksig = Icount + nnode + 33
-         CALL gmmats(Phiout(ksig),8,ndof,0,delta(1),ndof,1,0,Epsln)
+         ksig = icount + nnode + 33
+         CALL gmmats(phiout(ksig),8,ndof,0,delta(1),ndof,1,0,epsln)
 !
 !     CALCULATE THERMAL STRAINS IF TEMPERATURES ARE PRESENT
 !
-         IF ( Ldtemp/=-1 ) THEN
+         IF ( ldtemp/=-1 ) THEN
             DO iet = 1 , 6
-               Epslnt(iet) = 0.0
+               epslnt(iet) = 0.0
             ENDDO
 !
 !     A) MEMBRANE STRAINS
@@ -417,17 +423,17 @@ SUBROUTINE squd42
 !
 !     GRID TEMPERATURES
 !
-               kshp = Icount + 32
+               kshp = icount + 32
                tbar = 0.0
                DO ish = 1 , nnode
                   ksh = kshp + ish
-                  tbar = tbar + Phiout(ksh)*deltat(ish)
+                  tbar = tbar + phiout(ksh)*deltat(ish)
                ENDDO
                tmean = tbar
             ENDIF
             tbar = tbar - tsub0
             DO ieps = 1 , 3
-               Epslnt(ieps) = -tbar*alfam(ieps)
+               epslnt(ieps) = -tbar*alfam(ieps)
             ENDDO
 !
 !     B) BENDING STRAINS (ELEMENT TEMPERATURES ONLY)
@@ -443,24 +449,24 @@ SUBROUTINE squd42
                      DO jg2 = 1 , 3
                         ig21 = ig21 + 1
                         jg22 = jg2 + ig22
-                        g2(ig21) = g(jg22) + Phiout(Icount+10+ig21)
+                        g2(ig21) = g(jg22) + phiout(icount+10+ig21)
                      ENDDO
                   ENDDO
 !
                   ig2ab = (isig*3)/5 + 1
-                  CALL gmmats(g2,3,3,0,alfab,3,1,0,G2alfb(ig2ab))
+                  CALL gmmats(g2,3,3,0,alfab,3,1,0,g2alfb(ig2ab))
 !
                   IF ( tempp1 ) THEN
 !
                      tprime = stemp(2)
                      DO ieps = 4 , 6
-                        Epslnt(ieps) = -tprime*alfab(ieps-3)*zeta*Thikns(inplan)/2.
+                        epslnt(ieps) = -tprime*alfab(ieps-3)*zeta*thikns(inplan)/2.
                      ENDDO
                   ELSE
                      CALL invers(3,g2,3,gdum,0,detg2,isngg2,indxg2)
-                     CALL gmmats(g2,3,3,0,stemp(2),3,1,0,Khit)
+                     CALL gmmats(g2,3,3,0,stemp(2),3,1,0,khit)
                      DO ieps = 4 , 6
-                        Epslnt(ieps) = Khit(ieps-3)*zeta*Thikns(inplan)/(2.*Reali(inplan))
+                        epslnt(ieps) = khit(ieps-3)*zeta*thikns(inplan)/(2.*reali(inplan))
                      ENDDO
                   ENDIF
                ENDIF
@@ -471,7 +477,7 @@ SUBROUTINE squd42
 !
          i1 = -6
          i2 = 12
-         i3 = 11 + Icount
+         i3 = 11 + icount
          DO i = 1 , 3
             i1 = i1 + 6
             i2 = i2 + 6
@@ -480,10 +486,10 @@ SUBROUTINE squd42
                j3 = j1 + 3
                j4 = j + i2
                j2 = j4 + 3
-               Gt(j1) = g(j1)
-               Gt(j2) = g(j2)
-               Gt(j3) = g(j3) + Phiout(i3)
-               Gt(j4) = g(j4) + Phiout(i3)
+               gt(j1) = g(j1)
+               gt(j2) = g(j2)
+               gt(j3) = g(j3) + phiout(i3)
+               gt(j4) = g(j4) + phiout(i3)
                i3 = i3 + 1
             ENDDO
          ENDDO
@@ -491,29 +497,29 @@ SUBROUTINE squd42
 !     DETERMINE G MATRIX FOR THIS EVALUATION POINT
 !
          DO i = 1 , 4
-            g3(i) = Phiout(Icount+28+i)
+            g3(i) = phiout(icount+28+i)
          ENDDO
 !
-         IF ( Ldtemp/=-1 ) THEN
+         IF ( ldtemp/=-1 ) THEN
 !
 !     CORRECT STRAINS FOR THERMAL EFFECTS
 !
             DO i = 1 , 6
-               Epsln(i) = Epsln(i) + Epslnt(i)
+               epsln(i) = epsln(i) + epslnt(i)
             ENDDO
          ENDIF
 !
 !     CALCULATE STRESS VECTOR
 !
-         CALL gmmats(Gt(1),6,6,0,Epsln(1),6,1,0,Tsigma(1))
-         CALL gmmats(g3(1),2,2,0,Epsln(7),2,1,0,Tsigma(7))
+         CALL gmmats(gt(1),6,6,0,epsln(1),6,1,0,tsigma(1))
+         CALL gmmats(g3(1),2,2,0,epsln(7),2,1,0,tsigma(7))
 !WKBNB NCL93012 3/94
          IF ( izta==1 ) THEN
             DO iav = 1 , 3
-               epsavg(iav) = epsavg(iav) + Epsln(iav)
+               epsavg(iav) = epsavg(iav) + epsln(iav)
             ENDDO
             DO iav = 4 , 6
-               epsavg(iav) = epsavg(iav) + Epsln(iav)/const
+               epsavg(iav) = epsavg(iav) + epsln(iav)/const
             ENDDO
          ENDIF
 !WKBNE NCL93012 3/94
@@ -522,7 +528,7 @@ SUBROUTINE squd42
 !     COMBINE STRESSES ONLY IF 'BENDING'
 !
             DO i = 1 , 3
-               Tsigma(i) = Tsigma(i+3)
+               tsigma(i) = tsigma(i+3)
             ENDDO
          ENDIF
 !
@@ -530,28 +536,28 @@ SUBROUTINE squd42
 !     TRANSFORM STRESSES FROM ELEMENT TO STRESS C.S.
 !
          DO i = 1 , 9
-            Tes(i) = Phiout(Icount+1+i)
+            tes(i) = phiout(icount+1+i)
          ENDDO
 !
-         Tesu(1) = Tes(1)*Tes(1)
-         Tesu(2) = Tes(4)*Tes(4)
-         Tesu(3) = Tes(1)*Tes(4)
-         Tesu(4) = Tes(2)*Tes(2)
-         Tesu(5) = Tes(5)*Tes(5)
-         Tesu(6) = Tes(2)*Tes(5)
-         Tesu(7) = Tes(1)*Tes(2)*2.0
-         Tesu(8) = Tes(4)*Tes(5)*2.0
-         Tesu(9) = Tes(1)*Tes(5) + Tes(2)*Tes(4)
+         tesu(1) = tes(1)*tes(1)
+         tesu(2) = tes(4)*tes(4)
+         tesu(3) = tes(1)*tes(4)
+         tesu(4) = tes(2)*tes(2)
+         tesu(5) = tes(5)*tes(5)
+         tesu(6) = tes(2)*tes(5)
+         tesu(7) = tes(1)*tes(2)*2.0
+         tesu(8) = tes(4)*tes(5)*2.0
+         tesu(9) = tes(1)*tes(5) + tes(2)*tes(4)
 !
-         CALL gmmats(Tesu(1),3,3,1,Tsigma(1),3,1,0,Tstr(isig))
+         CALL gmmats(tesu(1),3,3,1,tsigma(1),3,1,0,tstr(isig))
 !
-         Tesv(1) = Tes(5)*Tes(9) + Tes(6)*Tes(8)
-         Tesv(2) = Tes(2)*Tes(9) + Tes(8)*Tes(3)
-         Tesv(3) = Tes(4)*Tes(9) + Tes(7)*Tes(6)
-         Tesv(4) = Tes(1)*Tes(9) + Tes(3)*Tes(7)
+         tesv(1) = tes(5)*tes(9) + tes(6)*tes(8)
+         tesv(2) = tes(2)*tes(9) + tes(8)*tes(3)
+         tesv(3) = tes(4)*tes(9) + tes(7)*tes(6)
+         tesv(4) = tes(1)*tes(9) + tes(3)*tes(7)
 !
          isig = isig + 3
-         CALL gmmats(Tesv(1),2,2,1,Tsigma(7),2,1,0,Tstr(isig))
+         CALL gmmats(tesv(1),2,2,1,tsigma(7),2,1,0,tstr(isig))
 !
          isig = isig + 2
       ENDDO
@@ -565,8 +571,8 @@ SUBROUTINE squd42
    DO ikk = 1 , 5
       itb = (ikk-1)*10
       DO ijj = 1 , 5
-         tstb(ikk,ijj) = Tstr(itb+ijj)
-         tstt(ikk,ijj) = Tstr(itb+5+ijj)
+         tstb(ikk,ijj) = tstr(itb+ijj)
+         tstt(ikk,ijj) = tstr(itb+5+ijj)
       ENDDO
    ENDDO
 !
@@ -591,7 +597,7 @@ SUBROUTINE squd42
    ENDDO
 !
    DO ii = 1 , 50
-      Tstr(ii) = tstn(ii)
+      tstr(ii) = tstn(ii)
    ENDDO
 !
    IF ( .NOT.(intgs .OR. compos) ) THEN
@@ -603,7 +609,7 @@ SUBROUTINE squd42
       DO iz = 1 , 2
 !
          DO i = 1 , jxtr
-            Tst(i) = 0.0
+            tst(i) = 0.0
          ENDDO
 !
 !     FOR THE SAKE OF COMPATIBILITY BETWEEN THE CONVENTION FOR
@@ -616,47 +622,47 @@ SUBROUTINE squd42
          IF ( kforce==1 ) THEN
             DO i = 1 , 4
                j = (i-1)*2*ixtr + iz1 + 4
-               IF ( Tstr(j)==0.0 ) THEN
-                  Signy(i) = 0.0
+               IF ( tstr(j)==0.0 ) THEN
+                  signy(i) = 0.0
                ELSE
-                  Signy(i) = Tstr(j)/abs(Tstr(j))
+                  signy(i) = tstr(j)/abs(tstr(j))
                ENDIF
-               IF ( Tstr(j+1)==0.0 ) THEN
-                  Signx(i) = 0.0
+               IF ( tstr(j+1)==0.0 ) THEN
+                  signx(i) = 0.0
                ELSE
-                  Signx(i) = Tstr(j+1)/abs(Tstr(j+1))
+                  signx(i) = tstr(j+1)/abs(tstr(j+1))
                ENDIF
             ENDDO
 !
             snrvry = .FALSE.
-            IF ( Signy(1)*Signy(2)<=0.0 .OR. Signy(3)*Signy(4)<=0.0 .OR. Signy(3)*Signy(1)<=0.0 ) snrvry = .TRUE.
+            IF ( signy(1)*signy(2)<=0.0 .OR. signy(3)*signy(4)<=0.0 .OR. signy(3)*signy(1)<=0.0 ) snrvry = .TRUE.
             snrvrx = .FALSE.
-            IF ( Signx(1)*Signx(2)<=0.0 .OR. Signx(3)*Signx(4)<=0.0 .OR. Signx(3)*Signx(1)<=0.0 ) snrvrx = .TRUE.
+            IF ( signx(1)*signx(2)<=0.0 .OR. signx(3)*signx(4)<=0.0 .OR. signx(3)*signx(1)<=0.0 ) snrvrx = .TRUE.
 !
             IF ( snrvry ) THEN
-               Tstr(iz1+4) = -Tstr(iz1+4)
-               Tstr(iz1+4+4*ixtr) = -Tstr(iz1+4+4*ixtr)
+               tstr(iz1+4) = -tstr(iz1+4)
+               tstr(iz1+4+4*ixtr) = -tstr(iz1+4+4*ixtr)
             ENDIF
             IF ( snrvrx ) THEN
-               Tstr(iz1+5) = -Tstr(iz1+5)
-               Tstr(iz1+5+2*ixtr) = -Tstr(iz1+5+2*ixtr)
+               tstr(iz1+5) = -tstr(iz1+5)
+               tstr(iz1+5+2*ixtr) = -tstr(iz1+5+2*ixtr)
             ENDIF
          ENDIF
 !
-         Xpoint(1) = -1.0
-         Xpoint(2) = +1.0
+         xpoint(1) = -1.0
+         xpoint(2) = +1.0
          ir = 0
 !
          DO ix = 1 , 2
-            xi = Xpoint(ix)
+            xi = xpoint(ix)
 !
             DO ie = 1 , 2
-               eta = Xpoint(ie)
+               eta = xpoint(ie)
 !
-               Shpfnc(1) = 0.75*(const-xi)*(const-eta)
-               Shpfnc(2) = 0.75*(const-xi)*(const+eta)
-               Shpfnc(3) = 0.75*(const+xi)*(const-eta)
-               Shpfnc(4) = 0.75*(const+xi)*(const+eta)
+               shpfnc(1) = 0.75*(const-xi)*(const-eta)
+               shpfnc(2) = 0.75*(const-xi)*(const+eta)
+               shpfnc(3) = 0.75*(const+xi)*(const-eta)
+               shpfnc(4) = 0.75*(const+xi)*(const+eta)
 !
                li = ir*ixtr
                ir = ir + 1
@@ -665,7 +671,7 @@ SUBROUTINE squd42
                   lk = (is-1)*2*ixtr + iz1
 !
                   DO it = 1 , ixtr
-                     Tst(li+it) = Tst(li+it) + Shpfnc(is)*Tstr(lk+it)
+                     tst(li+it) = tst(li+it) + shpfnc(is)*tstr(lk+it)
                   ENDDO
                ENDDO
             ENDDO
@@ -677,7 +683,7 @@ SUBROUTINE squd42
             DO js = 1 , ixtr
                j1 = j1 + 1
                j2 = j2 + 1
-               Tstr(j2) = Tst(j1)
+               tstr(j2) = tst(j1)
             ENDDO
          ENDDO
 !
@@ -686,12 +692,12 @@ SUBROUTINE squd42
 !WKBR 3/95 SPR94017     IF (OPRQST .LT. 0) GO TO 520
          IF ( kforce==1 ) THEN
             IF ( snrvry ) THEN
-               Tstr(iz1+4) = -Tstr(iz1+4)
-               Tstr(iz1+4+4*ixtr) = -Tstr(iz1+4+4*ixtr)
+               tstr(iz1+4) = -tstr(iz1+4)
+               tstr(iz1+4+4*ixtr) = -tstr(iz1+4+4*ixtr)
             ENDIF
             IF ( snrvrx ) THEN
-               Tstr(iz1+5) = -Tstr(iz1+5)
-               Tstr(iz1+5+2*ixtr) = -Tstr(iz1+5+2*ixtr)
+               tstr(iz1+5) = -tstr(iz1+5)
+               tstr(iz1+5+2*ixtr) = -tstr(iz1+5+2*ixtr)
             ENDIF
          ENDIF
          iz1 = iz1 + ixtr
@@ -702,57 +708,57 @@ SUBROUTINE squd42
 !     ========================================
 !
 !WKBR 3/95 SPR94017     IF (OPRQST .EQ. 0) GO TO 740
-   IF ( .NOT.((kstrs/=1) .AND. (.NOT.Ostrai)) ) THEN
+   IF ( .NOT.((kstrs/=1) .AND. (.NOT.ostrai)) ) THEN
 !
 !WKBNB NCL93012 3/94
       DO iav = 1 , 3
          epsavg(iav) = epsavg(iav)/5.
       ENDDO
       DO iav = 4 , 6
-         epsavg(iav) = epsavg(iav)/(5.*Phiout(21)/2.)
+         epsavg(iav) = epsavg(iav)/(5.*phiout(21)/2.)
       ENDDO
 !WKBNE NCL93012 3/94
       isig = 0
       ig2a = 0
-      Strx(1) = 0.0
-      Strx(2) = 0.0
-      Stry(1) = 0.0
-      Stry(2) = 0.0
-      Strs(1) = 0.0
-      Strs(2) = 0.0
+      strx(1) = 0.0
+      strx(2) = 0.0
+      stry(1) = 0.0
+      stry(2) = 0.0
+      strs(1) = 0.0
+      strs(2) = 0.0
       DO inplan = 1 , 5
          inpln1 = inplan
          IF ( inplan==2 ) inpln1 = 4
          IF ( inplan==3 ) inpln1 = 2
          IF ( inplan==4 ) inpln1 = 3
 !
-         Istres = (inpln1-1)*17 + 2
+         istres = (inpln1-1)*17 + 2
 !
          idpont = igrid(inplan)
          IF ( intgs ) idpont = inpln1
          IF ( intgs .AND. inplan==5 ) idpont = center
-         nstres(Istres) = idpont
-         thick = Thikns(inplan)
+         nstres(istres) = idpont
+         thick = thikns(inplan)
 !
          DO iz = 1 , 2
-            IF ( iz==2 ) Istres = Istres + 8
+            IF ( iz==2 ) istres = istres + 8
             fibre = z1(inplan)
             IF ( iz==2 ) fibre = z2(inplan)
 !WKBNB NCL93012 3/94
-            IF ( .NOT.Ostrai ) THEN
+            IF ( .NOT.ostrai ) THEN
 !WKBNE NCL93012 3/94
-               stres(Istres+1) = fibre
+               stres(istres+1) = fibre
 !
 !     EVALUATE STRESSES AT THIS FIBRE DISTANCE
 !
                DO i = 1 , 3
-                  Sigma(i) = (0.5-fibre/thick)*Tstr(isig+i) + (0.5+fibre/thick)*Tstr(isig+i+5)
+                  sigma(i) = (0.5-fibre/thick)*tstr(isig+i) + (0.5+fibre/thick)*tstr(isig+i+5)
                ENDDO
 !
 !     IF TEMPERATURES ARE PRESENT, CORRECT STRESSES FOR THERMAL
 !     STRESSES ASSOCIATED WITH THE DATA RELATED TO FIBRE DISTANCES.
 !
-               IF ( Ldtemp/=-1 ) THEN
+               IF ( ldtemp/=-1 ) THEN
 !
 !     IF NO BENDING, TREAT IT LIKE GRID POINT TEMPERATURES
 !
@@ -768,12 +774,12 @@ SUBROUTINE squd42
                         tsubi = stemp(4+iz)
                         IF ( abs(tsubi)<epss ) GOTO 5
                         DO ist = 1 , 3
-                           Sigma(ist) = Sigma(ist) - stemp(ist+1)*fibre/Reali(inplan)
+                           sigma(ist) = sigma(ist) - stemp(ist+1)*fibre/reali(inplan)
                         ENDDO
                      ENDIF
                      tsubi = tsubi - tbar
                      DO its = 1 , 3
-                        Sigma(its) = Sigma(its) - tsubi*G2alfb(ig2a+its)
+                        sigma(its) = sigma(its) - tsubi*g2alfb(ig2a+its)
                      ENDDO
                   ENDIF
                ENDIF
@@ -781,37 +787,37 @@ SUBROUTINE squd42
 !     AVERAGE THE VALUES FROM OTHER 4 POINTS FOR THE CENTER POINT
 !
  5             IF ( inplan==5 ) THEN
-                  Sigma(1) = Strx(iz)
-                  Sigma(2) = Stry(iz)
-                  Sigma(3) = Strs(iz)
+                  sigma(1) = strx(iz)
+                  sigma(2) = stry(iz)
+                  sigma(3) = strs(iz)
                ELSE
-                  Strx(iz) = Strx(iz) + 0.25*Sigma(1)
-                  Stry(iz) = Stry(iz) + 0.25*Sigma(2)
-                  Strs(iz) = Strs(iz) + 0.25*Sigma(3)
+                  strx(iz) = strx(iz) + 0.25*sigma(1)
+                  stry(iz) = stry(iz) + 0.25*sigma(2)
+                  strs(iz) = strs(iz) + 0.25*sigma(3)
                ENDIF
             ELSEIF ( iz/=1 ) THEN
-               nstres(Istres+1) = -1
-               Sigma(1) = epsavg(4)
-               Sigma(2) = epsavg(5)
-               Sigma(3) = epsavg(6)
+               nstres(istres+1) = -1
+               sigma(1) = epsavg(4)
+               sigma(2) = epsavg(5)
+               sigma(3) = epsavg(6)
             ELSE
-               nstres(Istres+1) = 0
-               Sigma(1) = epsavg(1)
-               Sigma(2) = epsavg(2)
-               Sigma(3) = epsavg(3)
+               nstres(istres+1) = 0
+               sigma(1) = epsavg(1)
+               sigma(2) = epsavg(2)
+               sigma(3) = epsavg(3)
             ENDIF
             DO is = 1 , 3
-               stres(Istres+1+is) = Sigma(is)
+               stres(istres+1+is) = sigma(is)
             ENDDO
 !
 !     CALCULATE PRINCIPAL STRESSES
 !
-            sigavg = 0.5*(Sigma(1)+Sigma(2))
-            proj = 0.5*(Sigma(1)-Sigma(2))
-            taumax = proj*proj + Sigma(3)*Sigma(3)
+            sigavg = 0.5*(sigma(1)+sigma(2))
+            proj = 0.5*(sigma(1)-sigma(2))
+            taumax = proj*proj + sigma(3)*sigma(3)
 !WKBNB 7/94 SPR94004
-            IF ( Ostrai ) THEN
-               taumax = proj*proj + Sigma(3)*Sigma(3)/4.
+            IF ( ostrai ) THEN
+               taumax = proj*proj + sigma(3)*sigma(3)/4.
                taumax = sqrt(taumax)
 !WKBNE 7/94 SPR94004
             ELSEIF ( abs(taumax)<=epss ) THEN
@@ -823,17 +829,17 @@ SUBROUTINE squd42
 !
 !     PRINCIPAL ANGLE
 !
-            txy2 = Sigma(3)*2.0
+            txy2 = sigma(3)*2.0
             proj = proj*2.0
             IF ( abs(txy2)<=epsa .AND. abs(proj)<=epsa ) THEN
-               stres(Istres+5) = 0.0
+               stres(istres+5) = 0.0
             ELSE
-               stres(Istres+5) = 28.647890*atan2(txy2,proj)
+               stres(istres+5) = 28.647890*atan2(txy2,proj)
             ENDIF
             sigma1 = sigavg + taumax
             sigma2 = sigavg - taumax
-            stres(Istres+6) = sigma1
-            stres(Istres+7) = sigma2
+            stres(istres+6) = sigma1
+            stres(istres+7) = sigma2
 !
 !     OUTPUT VON MISES YIELD STRESS IF ASKED FOR BY THE USER
 !
@@ -845,11 +851,11 @@ SUBROUTINE squd42
                ELSE
                   sigyp = sqrt(sigyp)
                ENDIF
-               stres(Istres+8) = sigyp
+               stres(istres+8) = sigyp
             ELSE
-               stres(Istres+8) = taumax
+               stres(istres+8) = taumax
 !WKBI NCL93012 3/94
-               IF ( Ostrai ) stres(Istres+8) = 2.*taumax
+               IF ( ostrai ) stres(istres+8) = 2.*taumax
             ENDIF
 !
             ig2a = ig2a + 3
@@ -872,17 +878,17 @@ SUBROUTINE squd42
    ENDIF
 !
    isig = 0
-   Vxcntr = 0.0
-   Vycntr = 0.0
-   Fxcntr = 0.0
-   Fycntr = 0.0
-   Fxycnt = 0.0
+   vxcntr = 0.0
+   vycntr = 0.0
+   fxcntr = 0.0
+   fycntr = 0.0
+   fxycnt = 0.0
    DO inplan = 1 , 5
       inpln1 = inplan
       IF ( inplan==2 ) inpln1 = 4
       IF ( inplan==3 ) inpln1 = 2
       IF ( inplan==4 ) inpln1 = 3
-      thick = Thikns(inplan)
+      thick = thikns(inplan)
 !
       iforce = (inpln1-1)*9 + 2
 !
@@ -894,31 +900,31 @@ SUBROUTINE squd42
 !     CALCULATE FORCES AT MID-SURFACE LEVEL
 !
       DO ifor = 1 , 3
-         Forsul(iforce+ifor) = (Tstr(isig+ifor)+Tstr(isig+ifor+5))*thick/2.
-         Forsul(iforce+ifor+3) = (Tstr(isig+ifor)-Tstr(isig+ifor+5))*Reali(inplan)/thick
+         forsul(iforce+ifor) = (tstr(isig+ifor)+tstr(isig+ifor+5))*thick/2.
+         forsul(iforce+ifor+3) = (tstr(isig+ifor)-tstr(isig+ifor+5))*reali(inplan)/thick
       ENDDO
 !
 !     INTERCHANGE 7 AND 8 POSITIONS TO BE COMPATIBLE WITH THE
 !     OUTPUT FORMAT OF VX AND VY (WE HAVE CALCULATED VY AND VX)
 !
       IF ( inplan==5 ) THEN
-         Forsul(iforce+1) = Fxcntr
-         Forsul(iforce+2) = Fycntr
-         Forsul(iforce+3) = Fxycnt
-         Forsul(iforce+7) = Vxcntr
-         Forsul(iforce+8) = Vycntr
+         forsul(iforce+1) = fxcntr
+         forsul(iforce+2) = fycntr
+         forsul(iforce+3) = fxycnt
+         forsul(iforce+7) = vxcntr
+         forsul(iforce+8) = vycntr
       ELSE
-         Forsul(iforce+7) = (Tstr(isig+5)+Tstr(isig+10))*thick*0.5
-         Forsul(iforce+8) = (Tstr(isig+4)+Tstr(isig+9))*thick*0.5
+         forsul(iforce+7) = (tstr(isig+5)+tstr(isig+10))*thick*0.5
+         forsul(iforce+8) = (tstr(isig+4)+tstr(isig+9))*thick*0.5
 !
 !     SUBSTITUTE THE AVERAGE OF CORNER (OR INTEGRATION) POINT
 !     MEMBRANE AND SHEAR FORCES FOR THE CENTER POINT
 !
-         Fxcntr = Fxcntr + Forsul(iforce+1)*0.25
-         Fycntr = Fycntr + Forsul(iforce+2)*0.25
-         Fxycnt = Fxycnt + Forsul(iforce+3)*0.25
-         Vxcntr = Vxcntr + Forsul(iforce+7)*0.25
-         Vycntr = Vycntr + Forsul(iforce+8)*0.25
+         fxcntr = fxcntr + forsul(iforce+1)*0.25
+         fycntr = fycntr + forsul(iforce+2)*0.25
+         fxycnt = fxycnt + forsul(iforce+3)*0.25
+         vxcntr = vxcntr + forsul(iforce+7)*0.25
+         vycntr = vycntr + forsul(iforce+8)*0.25
       ENDIF
 !
       isig = isig + 10
@@ -933,7 +939,7 @@ SUBROUTINE squd42
 !     CHECK STRESS AND FORCE OUTPUT REQUEST
 !
       IF ( (kforce/=0 .OR. kstrs/=0) .AND. .NOT.compos ) THEN
-         WRITE (nout,99001) Ufm
+         WRITE (nout,99001) ufm
 99001    FORMAT (A23,', LAYER STRESS OR FORCE RECOVERY WAS REQUESTED WHILE',' PROBLEM WAS NOT SET UP FOR',/5X,'LAYER COMPUTATION')
          CALL mesage(-61,0,0)
          GOTO 99999
@@ -946,13 +952,13 @@ SUBROUTINE squd42
 !
          IF ( kforce/=0 ) THEN
             elemid = 10*elid + fdest
-            IF ( Ldtemp==-1 ) THEN
-               CALL write(Oef1l,elemid,1,0)
-               CALL write(Oef1l,Forsul(39),8,0)
+            IF ( ldtemp==-1 ) THEN
+               CALL write(oef1l,elemid,1,0)
+               CALL write(oef1l,forsul(39),8,0)
             ENDIF
          ENDIF
 !
-         IF ( kstrs==0 .AND. Ldtemp==-1 ) RETURN
+         IF ( kstrs==0 .AND. ldtemp==-1 ) RETURN
          elemid = 10*elid + sdest
 !
 !     LOCATE PID BY CARRYING OUT A SEQUENTIAL SEARCH
@@ -961,7 +967,7 @@ SUBROUTINE squd42
 !
 !     SET POINTER LPCOMP
 !
-         lpcomp = Ipcmp + Npcmp + Npcmp1 + Npcmp2
+         lpcomp = ipcmp + npcmp + npcmp1 + npcmp2
 !
 !
 !     POINTER DESCRIPITION
@@ -997,9 +1003,9 @@ SUBROUTINE squd42
          pcmp1 = .FALSE.
          pcmp2 = .FALSE.
 !
-         pcmp = Npcmp>0
-         pcmp1 = Npcmp1>0
-         pcmp2 = Npcmp2>0
+         pcmp = npcmp>0
+         pcmp1 = npcmp1>0
+         pcmp2 = npcmp2>0
 !
 !     CHECK IF NO 'PCOMP' DATA HAS BEEN READ INTO CORE
 !
@@ -1009,14 +1015,14 @@ SUBROUTINE squd42
 !
          IF ( .NOT.pcmp ) GOTO 300
 !
-         ip = Ipcmp
+         ip = ipcmp
          IF ( intz(ip)==ipid ) THEN
             itype = pcomp
             GOTO 600
          ELSE
-            ipc11 = Ipcmp1 - 1
-            DO ip = Ipcmp , ipc11
-               IF ( intz(ip)==-1 .AND. ip<(Ipcmp1-1) ) THEN
+            ipc11 = ipcmp1 - 1
+            DO ip = ipcmp , ipc11
+               IF ( intz(ip)==-1 .AND. ip<(ipcmp1-1) ) THEN
                   IF ( intz(ip+1)==ipid ) GOTO 20
                ENDIF
             ENDDO
@@ -1036,7 +1042,7 @@ SUBROUTINE squd42
 !     BUT FIRST, MOVE THE CENTER POINT STRESSES TO THE TOP.
 !
 !WKBR 3/95 SPR94017     IF (OPRQST .EQ. 0) GO TO 840
-   ELSEIF ( (kstrs/=1) .AND. (.NOT.Ostrai) ) THEN
+   ELSEIF ( (kstrs/=1) .AND. (.NOT.ostrai) ) THEN
       GOTO 200
    ENDIF
  100  nphi(101) = nstres(1)
@@ -1067,7 +1073,7 @@ SUBROUTINE squd42
 !
 !     DEBUG PRINTOUT
 !
-   IF ( debug ) WRITE (nout,99003) (Forsul(i),i=39,46)
+   IF ( debug ) WRITE (nout,99003) (forsul(i),i=39,46)
 99003 FORMAT (' SQUD42 - FORCES',(/1X,8E13.5))
 !
    DO i = 11 , 46
@@ -1082,14 +1088,14 @@ SUBROUTINE squd42
 !     SEARCH FOR PID IN PCOMP1 DATA
 !
  300  IF ( pcmp1 ) THEN
-      ip = Ipcmp1
+      ip = ipcmp1
       IF ( intz(ip)==ipid ) THEN
          itype = pcomp1
          GOTO 600
       ELSE
-         ipc21 = Ipcmp2 - 1
-         DO ip = Ipcmp1 , ipc21
-            IF ( intz(ip)==-1 .AND. ip<(Ipcmp2-1) ) THEN
+         ipc21 = ipcmp2 - 1
+         DO ip = ipcmp1 , ipc21
+            IF ( intz(ip)==-1 .AND. ip<(ipcmp2-1) ) THEN
                IF ( intz(ip+1)==ipid ) GOTO 350
             ENDIF
          ENDDO
@@ -1105,13 +1111,13 @@ SUBROUTINE squd42
 !
  400  IF ( pcmp2 ) THEN
 !
-      ip = Ipcmp2
+      ip = ipcmp2
       IF ( intz(ip)==ipid ) THEN
          itype = pcomp2
          GOTO 600
       ELSE
          lpc11 = lpcomp - 1
-         DO ip = Ipcmp2 , lpc11
+         DO ip = ipcmp2 , lpc11
             IF ( intz(ip)==-1 .AND. ip<(lpcomp-1) ) THEN
                IF ( intz(ip+1)==ipid ) GOTO 450
             ENDIF
@@ -1146,7 +1152,7 @@ SUBROUTINE squd42
 !     SEQUENCE.
 !
    isig = 1
-   Icount = -(8*ndof+nnode+32) + 79 + 9*nnode
+   icount = -(8*ndof+nnode+32) + 79 + 9*nnode
 !
    DO inplan = 1 , 5
       inpln1 = ipn(inplan)
@@ -1159,7 +1165,7 @@ SUBROUTINE squd42
       ELSE
          DO i = 1 , nnode
             IF ( iorder(i)==inpln1 ) THEN
-               igrid(inplan) = Extrnl(i)
+               igrid(inplan) = extrnl(i)
                EXIT
             ENDIF
          ENDDO
@@ -1168,7 +1174,7 @@ SUBROUTINE squd42
       DO izta = 1 , 2
          zeta = (izta*2-3)*const
 !
-         Icount = Icount + 8*ndof + nnode + 32
+         icount = icount + 8*ndof + nnode + 32
 !
 !     FIRST COMPUTE LOCAL STRAINS AT THIS EVALUATION POINT
 !
@@ -1176,20 +1182,20 @@ SUBROUTINE squd42
 !          EPS =        B     *   U
 !          8X1        8XNDOF    NDOFX1
 !
-         ksig = Icount + nnode + 33
-         CALL gmmats(Phiout(ksig),8,ndof,0,delta(1),ndof,1,0,Epsln)
+         ksig = icount + nnode + 33
+         CALL gmmats(phiout(ksig),8,ndof,0,delta(1),ndof,1,0,epsln)
 !
 !     TRANSFORM THE STRAINS AT THIS EVALUATION POINT TO THE
 !     MATERIAL COORDINATE SYSTEM
 !
          DO ir = 1 , 9
-            tmi(ir) = Phiout(Icount+19+ir)
+            tmi(ir) = phiout(icount+19+ir)
          ENDDO
 !
 !     TOTAL STRAIN AT EVALUATION POINT = MEMBRANE + BENDING
 !
          DO ir = 1 , 3
-            epstot(ir) = Epsln(ir) + Epsln(ir+3)
+            epstot(ir) = epsln(ir) + epsln(ir+3)
          ENDDO
 !
 !     GENERATE TRANS-MATRIX TO TRANSFORM STRAINS FROM I TO M SYSTEM
@@ -1268,13 +1274,13 @@ SUBROUTINE squd42
 !
 !     == 1.
 !
-   IF ( kstrs==1 ) CALL write(Oes1l,elemid,1,0)
+   IF ( kstrs==1 ) CALL write(oes1l,elemid,1,0)
 !
 !     DETERMINE INTRINSIC LAMINATE PROPERTIES
 !
 !     LAMINATE THICKNESS
 !
-   tlam = Phiout(21)
+   tlam = phiout(21)
 !
 !     REFERENCE SURFACE
 !
@@ -1306,7 +1312,7 @@ SUBROUTINE squd42
 !
 !     == 2.
 !
-   IF ( kstrs==1 ) CALL write(Oes1l,nlayer,1,0)
+   IF ( kstrs==1 ) CALL write(oes1l,nlayer,1,0)
 !
 !     SET POINTER
 !
@@ -1322,11 +1328,11 @@ SUBROUTINE squd42
 !
 !     == 3.
 !
-   IF ( kstrs==1 ) CALL write(Oes1l,fthr,1,0)
+   IF ( kstrs==1 ) CALL write(oes1l,fthr,1,0)
 !
 !     SHEAR BONDING STRENGTH
 !
-   sb = Z(pidloc+4)
+   sb = z(pidloc+4)
    findex = 0.0
    fbond = 0.0
    fpmax = 0.0
@@ -1340,8 +1346,8 @@ SUBROUTINE squd42
 !
 !     TRANSVERSE SHEAR STRESS RESULTANTS QX AND QY
 !
-   v(1) = Forsul(45)
-   v(2) = Forsul(46)
+   v(1) = forsul(45)
+   v(2) = forsul(46)
    trnflx = v(1)/=0.0 .AND. v(2)/=0.0
    IF ( trnflx ) THEN
       IF ( itype==pcomp ) icontr = ipoint + 27*nlay
@@ -1349,13 +1355,13 @@ SUBROUTINE squd42
 !
 !     LAMINATE BENDING INERTIA
 !
-      ei(1) = Z(icontr+1)
-      ei(2) = Z(icontr+2)
+      ei(1) = z(icontr+1)
+      ei(2) = z(icontr+2)
 !
 !     LOCATION OF NEUTRAL SURFACE
 !
-      zbar(1) = Z(icontr+3)
-      zbar(2) = Z(icontr+4)
+      zbar(1) = z(icontr+3)
+      zbar(2) = z(icontr+4)
    ENDIF
 !
 !     INTILIZISE
@@ -1368,16 +1374,16 @@ SUBROUTINE squd42
 !     ALLOW FOR THE ORIENTATION OF THE MATERIAL AXIS FROM
 !     THE USER DEFINED COORDINATE SYSTEM
 !
-   thetae = acos(Phiout(69))
-   thetae = thetae*Degrad
+   thetae = acos(phiout(69))
+   thetae = thetae*degrad
 !
 !     SWITCH FOR THEMAL EFFECTS
 !
-   IF ( Ldtemp/=-1 ) THEN
+   IF ( ldtemp/=-1 ) THEN
 !
 !     LAMINATE REFERENCE (OR LAMINATION) TEMPERATURE
 !
-      tsubo = Z(ipoint+24)
+      tsubo = z(ipoint+24)
 !
 !     MEAN ELEMENT TEMPERATURE
 !
@@ -1401,15 +1407,15 @@ SUBROUTINE squd42
 !
 !     DETERMINE ABBD-MATRIX FROM PHIOUT(23-58)
 !
-               Icount = 89 + 9*nnode
+               icount = 89 + 9*nnode
                DO ll = 1 , 3
                   DO mm = 1 , 3
                      nn = mm + 6*(ll-1)
                      ii = mm + 3*(ll-1)
-                     abbd(ll,mm) = Phiout(nn+22)*tlam
-                     abbd(ll,mm+3) = Phiout(Icount+ii)*(tlam*tlam)/(-6.0*const)
-                     abbd(ll+3,mm) = Phiout(Icount+ii)*(tlam*tlam)/(-6.0*const)
-                     abbd(ll+3,mm+3) = Phiout(nn+43)*mintr
+                     abbd(ll,mm) = phiout(nn+22)*tlam
+                     abbd(ll,mm+3) = phiout(icount+ii)*(tlam*tlam)/(-6.0*const)
+                     abbd(ll+3,mm) = phiout(icount+ii)*(tlam*tlam)/(-6.0*const)
+                     abbd(ll+3,mm+3) = phiout(nn+43)*mintr
                   ENDDO
                ENDDO
 !
@@ -1441,7 +1447,7 @@ SUBROUTINE squd42
 !
 !
    DO ll = 1 , 6
-      Forsul(ll) = 0.0
+      forsul(ll) = 0.0
    ENDDO
 !
 !     LOOP OVER NLAY
@@ -1452,9 +1458,9 @@ SUBROUTINE squd42
 !
       zk1 = zk
       IF ( k==1 ) zk1 = zref
-      IF ( itype==pcomp ) zk = zk1 + Z(pidloc+6+4*k)
-      IF ( itype==pcomp1 ) zk = zk1 + Z(pidloc+7)
-      IF ( itype==pcomp2 ) zk = zk1 + Z(pidloc+7+2*k)
+      IF ( itype==pcomp ) zk = zk1 + z(pidloc+6+4*k)
+      IF ( itype==pcomp1 ) zk = zk1 + z(pidloc+7)
+      IF ( itype==pcomp2 ) zk = zk1 + z(pidloc+7+2*k)
 !
       zsubi = (zk+zk1)/2.0
 !
@@ -1470,14 +1476,14 @@ SUBROUTINE squd42
 !
 !     LAYER ORIENTATION
 !
-      IF ( itype==pcomp ) theta = Z(pidloc+7+4*k)
-      IF ( itype==pcomp1 ) theta = Z(pidloc+8+k)
-      IF ( itype==pcomp2 ) theta = Z(pidloc+8+2*k)
+      IF ( itype==pcomp ) theta = z(pidloc+7+4*k)
+      IF ( itype==pcomp1 ) theta = z(pidloc+8+k)
+      IF ( itype==pcomp2 ) theta = z(pidloc+8+2*k)
 !
 !     BUILD TRANS-MATRIX TO TRANSFORM LAYER STRAINS FROM MATERIAL
 !     TO FIBRE DIRECTION.
 !
-      theta = theta*Degrad
+      theta = theta*degrad
 !
       c = cos(theta)
       c2 = c*c
@@ -1496,18 +1502,18 @@ SUBROUTINE squd42
 !
 !     TRANSFORM STRAINS FROM ELEMENT TO FIBRE COORD SYSTEM
 !
-      CALL gmmats(trans(1),3,3,0,epslne(1),3,1,0,Epsln(1))
+      CALL gmmats(trans(1),3,3,0,epslne(1),3,1,0,epsln(1))
 !
 !     SWITCH FOR TEMPERATURE EFFECTS
 !
-      IF ( Ldtemp/=-1 ) THEN
+      IF ( ldtemp/=-1 ) THEN
 !
 !     CORRECT LAYER STRAIN VECTOR FOR THERMAL EFFECTS
 !
 !     LAYER THERMAL COEFFICIENTS OF EXPANSION ALPHA-VECTOR
 !
          DO ll = 1 , 3
-            alpha(ll) = Z(ipoint+13+ll)
+            alpha(ll) = z(ipoint+13+ll)
          ENDDO
 !
 !     ELEMENT TEMPERATURE
@@ -1522,7 +1528,7 @@ SUBROUTINE squd42
          ENDIF
 !
          DO ll = 1 , 3
-            Epslnt(ll) = -alpha(ll)*delt
+            epslnt(ll) = -alpha(ll)*delt
          ENDDO
 !
          IF ( lamopt/=mem .AND. lamopt/=symmem ) THEN
@@ -1531,7 +1537,7 @@ SUBROUTINE squd42
 !     COMPUTE STRAIN DUE TO THERMAL MOMENTS
 !
                DO ll = 1 , 3
-                  Epslnt(ll) = Epslnt(ll) + (ezerot(ll)+zsubi*ezerot(ll+3))
+                  epslnt(ll) = epslnt(ll) + (ezerot(ll)+zsubi*ezerot(ll+3))
                ENDDO
             ENDIF
          ENDIF
@@ -1539,7 +1545,7 @@ SUBROUTINE squd42
 !     COMBINE MECHANICAL AND THERMAL STRAINS
 !
          DO ll = 1 , 3
-            Epsln(ll) = Epsln(ll) + Epslnt(ll)
+            epsln(ll) = epsln(ll) + epslnt(ll)
          ENDDO
       ENDIF
 !
@@ -1548,12 +1554,12 @@ SUBROUTINE squd42
 !
 !     STRESL-VECTOR  =  G-MATRIX  X  EPSLN-VECTOR
 !
-      CALL gmmats(Z(ipoint+1),3,3,0,Epsln,3,1,0,stresl(1))
+      CALL gmmats(z(ipoint+1),3,3,0,epsln,3,1,0,stresl(1))
 !
 !     USE FORCE RESTULANTS CALCULATED PREVIOUSLY
 !     I.E. AT EXTREME FIBER STATIONS EXCEPT FOR THERMAL LOADING CASES
 !
-      IF ( Ldtemp/=-1 ) THEN
+      IF ( ldtemp/=-1 ) THEN
          IF ( kforce/=0 ) THEN
 !
 !     TRANSFORM LAYER STRESSES TO ELEMENT AXIS
@@ -1580,8 +1586,8 @@ SUBROUTINE squd42
             CALL gmmats(trans(1),3,3,0,stresl(1),3,1,0,strese(1))
 !
             DO ir = 1 , 3
-               Forsul(ir) = Forsul(ir) + strese(ir)*ti
-               IF ( lamopt/=mem .AND. lamopt/=symmem ) Forsul(ir+3) = Forsul(ir+3) - strese(ir)*ti*zsubi
+               forsul(ir) = forsul(ir) + strese(ir)*ti
+               IF ( lamopt/=mem .AND. lamopt/=symmem ) forsul(ir+3) = forsul(ir+3) - strese(ir)*ti*zsubi
             ENDDO
          ENDIF
       ENDIF
@@ -1591,14 +1597,14 @@ SUBROUTINE squd42
 !     WRITE ULTIMATE STRENGTH VALUES TO ULTSTN
 !
          DO ir = 1 , 6
-            ultstn(ir) = Z(ipoint+16+ir)
+            ultstn(ir) = z(ipoint+16+ir)
          ENDDO
 !
 !     CALL FTHR TO COMPUTE FAILURE INDEX FOR PLY
 !
          IF ( fthr==strain ) THEN
 !
-            CALL failur(fthr,ultstn,Epsln,findex)
+            CALL failur(fthr,ultstn,epsln,findex)
          ELSE
             CALL failur(fthr,ultstn,stresl,findex)
          ENDIF
@@ -1620,7 +1626,7 @@ SUBROUTINE squd42
 !     CALCULATE INTERLAMINAR SHEAR STRESSES
 !
             DO ir = 1 , 2
-               trnar(ir) = trnar(ir) + (Z(icontr+ir))*ti*(zbar(ir)-zsubi)
+               trnar(ir) = trnar(ir) + (z(icontr+ir))*ti*(zbar(ir)-zsubi)
             ENDDO
 !
 !     THE INTERLAMINAR SHEAR STRESSES AT STN ZSUBI
@@ -1671,15 +1677,15 @@ SUBROUTINE squd42
 !
 !     == 4.
 !
-         CALL write(Oes1l,plyid,1,0)
+         CALL write(oes1l,plyid,1,0)
 !
 !     == 5,6,7.
 !
-         CALL write(Oes1l,stresl(1),3,0)
+         CALL write(oes1l,stresl(1),3,0)
 !
 !     == 8.
 !
-         CALL write(Oes1l,findex,1,0)
+         CALL write(oes1l,findex,1,0)
 !
 !     SET IFLAG
 !
@@ -1688,15 +1694,15 @@ SUBROUTINE squd42
 !
 !     == 9.
 !
-         CALL write(Oes1l,iflag,1,0)
+         CALL write(oes1l,iflag,1,0)
 !
 !     == 10,11.
 !
-         CALL write(Oes1l,trnshr(1),2,0)
+         CALL write(oes1l,trnshr(1),2,0)
 !
 !     == 12.
 !
-         CALL write(Oes1l,fbond,1,0)
+         CALL write(oes1l,fbond,1,0)
 !
 !     SET IFLAG
 !
@@ -1705,7 +1711,7 @@ SUBROUTINE squd42
 !
 !     == 13.
 !
-         CALL write(Oes1l,iflag,1,0)
+         CALL write(oes1l,iflag,1,0)
       ENDIF
 !
 !
@@ -1727,9 +1733,9 @@ SUBROUTINE squd42
 !     ZSUBI -DISTANCE FROM REFERENCE SURFACE TO MID OF LAYER K
 !
          zk1 = zk
-         IF ( itype==pcomp ) zk = zk1 + Z(pidloc+6+4*k)
-         IF ( itype==pcomp1 ) zk = zk1 + Z(pidloc+7)
-         IF ( itype==pcomp2 ) zk = zk1 + Z(pidloc+7+2*k)
+         IF ( itype==pcomp ) zk = zk1 + z(pidloc+6+4*k)
+         IF ( itype==pcomp1 ) zk = zk1 + z(pidloc+7)
+         IF ( itype==pcomp2 ) zk = zk1 + z(pidloc+7+2*k)
 !
          zsubi = (zk+zk1)/2.0
 !
@@ -1745,14 +1751,14 @@ SUBROUTINE squd42
 !
 !     LAYER ORIENTATION
 !
-         IF ( itype==pcomp ) theta = Z(pidloc+7+4*k)
-         IF ( itype==pcomp1 ) theta = Z(pidloc+8+k)
-         IF ( itype==pcomp2 ) theta = Z(pidloc+8+2*k)
+         IF ( itype==pcomp ) theta = z(pidloc+7+4*k)
+         IF ( itype==pcomp1 ) theta = z(pidloc+8+k)
+         IF ( itype==pcomp2 ) theta = z(pidloc+8+2*k)
 !
 !     BUILD TRANS-MATRIX TO TRANSFORM LAYER STRAINS FROM MATERIAL
 !     TO FIBRE DIRECTION.
 !
-         theta = theta*Degrad
+         theta = theta*degrad
          c = cos(theta)
          c2 = c*c
          s = sin(theta)
@@ -1770,18 +1776,18 @@ SUBROUTINE squd42
 !
 !     TRANSFORM STRAINS FROM MATERIAL TO FIBRE COORD SYSTEM
 !
-         CALL gmmats(trans(1),3,3,0,epslne(1),3,1,0,Epsln(1))
+         CALL gmmats(trans(1),3,3,0,epslne(1),3,1,0,epsln(1))
 !
 !     SWITCH FOR TEMPERATURE EFFECTS
 !
-         IF ( Ldtemp/=-1 ) THEN
+         IF ( ldtemp/=-1 ) THEN
 !
 !     CORRECT LAYER STRAIN VECTOR FOR THERMAL EFFECTS
 !
 !     LAYER THERMAL COEFFICIENTS OF EXPANSION ALPHA-VECTOR
 !
             DO ll = 1 , 3
-               alpha(ll) = Z(ipoint+13+ll)
+               alpha(ll) = z(ipoint+13+ll)
             ENDDO
 !
 !     ELEMENT TEMPERATURE
@@ -1795,7 +1801,7 @@ SUBROUTINE squd42
             ENDIF
 !
             DO ll = 1 , 3
-               Epslnt(ll) = -alpha(ll)*delt
+               epslnt(ll) = -alpha(ll)*delt
             ENDDO
 !
             IF ( lamopt/=symmem ) THEN
@@ -1804,7 +1810,7 @@ SUBROUTINE squd42
 !     COMPUTE STRAIN DUE TO THERMAL MOMENTS
 !
                   DO ll = 1 , 3
-                     Epslnt(ll) = Epslnt(ll) + (ezerot(ll)+zsubi*ezerot(ll+3))
+                     epslnt(ll) = epslnt(ll) + (ezerot(ll)+zsubi*ezerot(ll+3))
                   ENDDO
                ENDIF
             ENDIF
@@ -1812,7 +1818,7 @@ SUBROUTINE squd42
 !     COMBINE MECHANICAL AND THERMAL STRAINS
 !
             DO ll = 1 , 3
-               Epsln(ll) = Epsln(ll) + Epslnt(ll)
+               epsln(ll) = epsln(ll) + epslnt(ll)
             ENDDO
          ENDIF
 !
@@ -1821,11 +1827,11 @@ SUBROUTINE squd42
 !
 !     STRESL-VECTOR =  G-MATRIX  X  EPSLN-VECTOR
 !
-         CALL gmmats(Z(ipoint+1),3,3,0,Epsln,3,1,0,stresl(1))
+         CALL gmmats(z(ipoint+1),3,3,0,epsln,3,1,0,stresl(1))
 !
 !     COMPUTE FORCE RESULTANTS IF REQUESTED
 !
-         IF ( Ldtemp/=-1 ) THEN
+         IF ( ldtemp/=-1 ) THEN
             IF ( kforce/=0 ) THEN
 !
 !     TRANSFORM LAYER STRESSES TO ELEMENT AXIS
@@ -1852,8 +1858,8 @@ SUBROUTINE squd42
                CALL gmmats(trans(1),3,3,0,stresl(1),3,1,0,strese(1))
 !
                DO ir = 1 , 3
-                  Forsul(ir) = Forsul(ir) + strese(ir)*ti
-                  IF ( lamopt/=symmem ) Forsul(ir+3) = Forsul(ir+3) - strese(ir)*ti*zsubi
+                  forsul(ir) = forsul(ir) + strese(ir)*ti
+                  IF ( lamopt/=symmem ) forsul(ir+3) = forsul(ir+3) - strese(ir)*ti*zsubi
                ENDDO
             ENDIF
          ENDIF
@@ -1863,14 +1869,14 @@ SUBROUTINE squd42
 !     WRITE ULTIMATE STRENGTH VALUES TO ULTSTN
 !
             DO ir = 1 , 6
-               ultstn(ir) = Z(ipoint+16+ir)
+               ultstn(ir) = z(ipoint+16+ir)
             ENDDO
 !
 !     CALL FTHR TO COMPUTE FAILURE INDEX FOR PLY
 !
             IF ( fthr==strain ) THEN
 !
-               CALL failur(fthr,ultstn,Epsln,findex)
+               CALL failur(fthr,ultstn,epsln,findex)
             ELSE
                CALL failur(fthr,ultstn,stresl,findex)
             ENDIF
@@ -1892,7 +1898,7 @@ SUBROUTINE squd42
 !     CALCULATE INTERLAMINAR SHEAR STRESSES
 !
                DO ir = 1 , 2
-                  trnar(ir) = trnar(ir) + (Z(icontr+ir))*ti*(zbar(ir)-zsubi)
+                  trnar(ir) = trnar(ir) + (z(icontr+ir))*ti*(zbar(ir)-zsubi)
                ENDDO
 !
 !     THE INTERLAMINAR SHEAR STRESSES AT STN ZSUBI
@@ -1943,15 +1949,15 @@ SUBROUTINE squd42
 !
 !     == 4.
 !
-            CALL write(Oes1l,plyid,1,0)
+            CALL write(oes1l,plyid,1,0)
 !
 !     == 5,6,7
 !
-            CALL write(Oes1l,stresl(1),3,0)
+            CALL write(oes1l,stresl(1),3,0)
 !
 !     == 8.
 !
-            CALL write(Oes1l,findex,1,0)
+            CALL write(oes1l,findex,1,0)
 !
 !     SET IFLAG
 !
@@ -1960,15 +1966,15 @@ SUBROUTINE squd42
 !
 !     == 9.
 !
-            CALL write(Oes1l,iflag,1,0)
+            CALL write(oes1l,iflag,1,0)
 !
 !     == 10,11.
 !
-            CALL write(Oes1l,trnshr(1),2,0)
+            CALL write(oes1l,trnshr(1),2,0)
 !
 !     == 12.
 !
-            CALL write(Oes1l,fbond,1,0)
+            CALL write(oes1l,fbond,1,0)
 !
 !     SET IFLAG
 !
@@ -1977,7 +1983,7 @@ SUBROUTINE squd42
 !
 !     == 13.
 !
-            CALL write(Oes1l,iflag,1,0)
+            CALL write(oes1l,iflag,1,0)
          ENDIF
 !
 !     UPDATE IPOINT FOR PCOMP BULK DATA ENTRY
@@ -1996,20 +2002,20 @@ SUBROUTINE squd42
 !
 !     == LAST-1.
 !
-   IF ( kstrs==1 ) CALL write(Oes1l,fimax,1,0)
+   IF ( kstrs==1 ) CALL write(oes1l,fimax,1,0)
 !
    iflag = 0
    IF ( abs(fimax)>=0.999 ) iflag = 1
 !
 !     == LAST.
 !
-   IF ( kstrs==1 ) CALL write(Oes1l,iflag,1,0)
+   IF ( kstrs==1 ) CALL write(oes1l,iflag,1,0)
 !
    IF ( kforce/=0 ) THEN
-      IF ( Ldtemp/=-1 ) THEN
-         CALL write(Oef1l,elemid,1,0)
-         CALL write(Oef1l,Forsul(1),6,0)
-         CALL write(Oef1l,Forsul(45),2,0)
+      IF ( ldtemp/=-1 ) THEN
+         CALL write(oef1l,elemid,1,0)
+         CALL write(oef1l,forsul(1),6,0)
+         CALL write(oef1l,forsul(45),2,0)
       ENDIF
    ENDIF
 !
@@ -2017,7 +2023,7 @@ SUBROUTINE squd42
 !
 !     ERROR MESSAGES
 !
- 800  WRITE (nout,99004) Uwm
+ 800  WRITE (nout,99004) uwm
 99004 FORMAT (A25,' - NO PCOMP, PCOMP1 OR PCOMP2 DATA AVAILABLE FOR ','LAYER STRESS RECOVERY BY SUBROUTINE SQUD42.')
    GOTO 700
 99999 END SUBROUTINE squd42

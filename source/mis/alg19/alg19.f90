@@ -1,10 +1,11 @@
-!*==alg19.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==alg19.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,Pi,C1,Nblade,Ccord,Block,Alpb,Epslon,Ifangs,Ipunch,  &
                & Naero)
+   USE c_ud3prt
    IMPLICIT NONE
-   USE C_UD3PRT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -89,7 +90,7 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
          nout1(nle) = idata(1)
          nout2(nle) = idata(2)
          nout3(nle) = idata(3)
-         IF ( Iprtc==1 ) WRITE (Log2,99001) nrad , ndpts , ndatr , nswitc , nle , nte , xkshpe , speed , nle , nout1(nle) ,         &
+         IF ( iprtc==1 ) WRITE (Log2,99001) nrad , ndpts , ndatr , nswitc , nle , nte , xkshpe , speed , nle , nout1(nle) ,         &
                               & nout2(nle) , nout3(nle)
 99001    FORMAT (1H1,9X,'DATA INTERFACING ROUTINE - DEVIATION CALCULATIONS',' AND DATA FORMATTING',/10X,69(1H*),/10X,5HINPUT,/10X,  &
                 &5(1H*),//10X,6HNRAD =,I3,9H  NDPTS =,I3,9H  NDATR =,I3,11H  NSWITCH =,I2,7H  NLE =,I2,7H  NTE =,I3,//10X,          &
@@ -114,11 +115,11 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
             nout3(i) = idata(13)
             nblad(i) = idata(14)
             IF ( lnct+6+nr(i)>lmax ) THEN
-               IF ( Iprtc/=0 ) WRITE (Log2,99013)
+               IF ( iprtc/=0 ) WRITE (Log2,99013)
                lnct = 1
             ENDIF
             lnct = lnct + 6 + nr(i)
-            IF ( Iprtc==1 ) WRITE (Log2,99002) i , nr(i) , nterp(i) , nmach(i) , nloss(i) , nl1(i) , nl2(i) , neval(i) , ncurve(i) ,&
+            IF ( iprtc==1 ) WRITE (Log2,99002) i , nr(i) , nterp(i) , nmach(i) , nloss(i) , nl1(i) , nl2(i) , neval(i) , ncurve(i) ,&
                                  & nliter(i) , ndel(i) , nout1(i) , nout2(i) , nout3(i) , nblad(i)
 99002       FORMAT (/10X,7HSTATION,I3,7H   NR =,I3,9H  NTERP =,I2,9H  NMACH =,I2,9H  NLOSS =,I2,7H  NL1 =,I3,7H  NL2 =,I3,          &
                    &9H  NEVAL =,I2,8HNCURVE =,I2,10H  NLITER =,I3,8H  NDEL =,I2,/22X,7HNOUT1 =,I2,9H  NOUT2 =,I2,9H  NOUT3 =,I2,    &
@@ -129,19 +130,19 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
                rr(j,i) = rdata(1)
                xloss(j,i) = rdata(2)
             ENDDO
-            IF ( Iprtc==1 ) WRITE (Log2,99003) (rr(j,i),xloss(j,i),j=1,l1)
+            IF ( iprtc==1 ) WRITE (Log2,99003) (rr(j,i),xloss(j,i),j=1,l1)
 99003       FORMAT (/14X,6HRADIUS,6X,15HLOSS DESCRIPTOR,//,(F20.4,F17.6))
          ENDDO
          IF ( lnct+7+ndpts>lmax ) THEN
-            IF ( Iprtc/=0 ) WRITE (Log2,99013)
+            IF ( iprtc/=0 ) WRITE (Log2,99013)
             lnct = 1
          ENDIF
          lnct = lnct + 2
-         IF ( Iprtc==1 ) WRITE (Log2,99004) nrad
+         IF ( iprtc==1 ) WRITE (Log2,99004) nrad
 99004    FORMAT (/10X,28HDEVIATION FRACTION CURVES AT,I2,6H RADII)
          DO k = 1 , nrad
             IF ( lnct+5+ndpts>lmax ) THEN
-               IF ( Iprtc/=0 ) WRITE (Log2,99013)
+               IF ( iprtc/=0 ) WRITE (Log2,99013)
                lnct = 1
             ENDIF
             lnct = lnct + 5 + ndpts
@@ -151,7 +152,7 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
                dm(j,k) = rdata(1)
                dvfrac(j,k) = rdata(2)
             ENDDO
-            IF ( Iprtc==1 ) WRITE (Log2,99005) rte(k) , (dm(j,k),dvfrac(j,k),j=1,ndpts)
+            IF ( iprtc==1 ) WRITE (Log2,99005) rte(k) , (dm(j,k),dvfrac(j,k),j=1,ndpts)
 99005       FORMAT (/10X,5HRTE =,F8.4,//15X,2HDM,10X,6HDVFRAC,//,(F20.5,F13.5))
          ENDDO
          DO j = 1 , ndatr
@@ -161,20 +162,20 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
             ac(j) = rdata(3)
          ENDDO
          IF ( lnct+3+ndatr>lmax ) THEN
-            IF ( Iprtc/=0 ) WRITE (Log2,99013)
+            IF ( iprtc/=0 ) WRITE (Log2,99013)
             lnct = 1
          ENDIF
          lnct = lnct + 3 + ndatr
-         IF ( Iprtc==1 ) WRITE (Log2,99006) (rdte(j),deltad(j),ac(j),j=1,ndatr)
+         IF ( iprtc==1 ) WRITE (Log2,99006) (rdte(j),deltad(j),ac(j),j=1,ndatr)
 99006    FORMAT (/15X,4HRDTE,6X,6HDELTAD,9X,2HAC,//,(F20.4,F11.3,F13.4))
          IF ( lnct+6+Nlines>lmax ) THEN
-            IF ( Iprtc/=0 ) WRITE (Log2,99013)
+            IF ( iprtc/=0 ) WRITE (Log2,99013)
             lnct = 1
          ENDIF
          lnct = lnct + 6 + Nlines
-         IF ( Iprtc==1 ) WRITE (Log2,99007)
+         IF ( iprtc==1 ) WRITE (Log2,99007)
 99007    FORMAT (/10X,7HRESULTS,/,10X,7(1H*))
-         IF ( Iprtc==1 ) WRITE (Log2,99008)
+         IF ( iprtc==1 ) WRITE (Log2,99008)
 99008    FORMAT (/5X,10HSTREAMLINE,5X,5HBETA1,6X,5HBETA2,5X,6HCAMBER,7X,3HT/C,8X,3HA/C,6X,8HSOLIDITY,4X,11HADDIT. DEVN,4X,          &
                 &15HTOTAL DEVIATION,/)
          DO j = 1 , Nlines
@@ -224,7 +225,7 @@ SUBROUTINE alg19(Log1,Log2,Log3,Log5,Nlines,Nspec,Kpts,Rsta,Xsta,R,Zr,B1,B2,Tc,P
                CALL alg15(rte,doo,nrad,R(nte,j),devfr,1,0)
                dev(i,j) = dev(nte,j)*devfr
             ENDDO
-            IF ( Iprtc==1 ) WRITE (Log2,99009) j , beta1 , beta2 , camber , thick , aonc , solid , dadd , dev(nte,j)
+            IF ( iprtc==1 ) WRITE (Log2,99009) j , beta1 , beta2 , camber , thick , aonc , solid , dadd , dev(nte,j)
 99009       FORMAT (I11,F14.3,2F11.3,2F11.4,F12.5,F14.4,F17.4)
          ENDDO
          IF ( Ifangs(nle)/=0 ) THEN

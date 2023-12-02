@@ -1,11 +1,12 @@
-!*==exio2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==exio2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE exio2
+   USE c_blank
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -32,10 +33,10 @@ SUBROUTINE exio2
 !
 !     DECODE FORTRAN UNIT
 !
-   IF ( Uname(1)==fort ) THEN
+   IF ( uname(1)==fort ) THEN
       DO i = 1 , 32
-         Unit = i
-         IF ( Uname(2)==num(Unit) ) THEN
+         unit = i
+         IF ( uname(2)==num(unit) ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
@@ -43,7 +44,7 @@ SUBROUTINE exio2
    ENDIF
    nogo = 1
    CALL page2(-2)
-   WRITE (Nout,99001) Uwm , Uname
+   WRITE (nout,99001) uwm , uname
 99001 FORMAT (A25,' 6356, ',2A4,' IS AN INVALID UNIT FOR MODULE EXIO,',' EXTERNAL FORMAT')
    CALL spag_block_1
 CONTAINS
@@ -51,37 +52,37 @@ CONTAINS
 !
 !     DECODE MODE OF OPERATION
 !
-      iomode = 0
-      IF ( Mode(1)==sofout ) iomode = 1
-      IF ( Mode(1)==sofin ) iomode = 2
-      IF ( iomode<=0 ) THEN
-         nogo = 1
+      Iomode = 0
+      IF ( mode(1)==Sofout ) Iomode = 1
+      IF ( mode(1)==Sofin ) Iomode = 2
+      IF ( Iomode<=0 ) THEN
+         Nogo = 1
          CALL page2(-2)
-         WRITE (Nout,99002) Uwm , Mode
+         WRITE (Nout,99001) Uwm , mode
 !
 !     MESSAGE TEXT
 !
-99002    FORMAT (A25,' 6338, ',2A4,' IS AN INVALID MODE PARAMETER FOR ','MODULE EXIO')
+99001    FORMAT (A25,' 6338, ',2A4,' IS AN INVALID MODE PARAMETER FOR ','MODULE EXIO')
       ENDIF
 !
 !     IF ERRORS THEN QUIT
 !
-      IF ( nogo==0 ) THEN
+      IF ( Nogo==0 ) THEN
 !
 !     SET POSITION AND UNIVAC FLAGS
 !
-         Univac = .TRUE.
-         IF ( Xblk<=0 ) Xblk = 3960
-         Xblk = Xblk - mod(Xblk,132)
-         Lbuf = Xblk/Ncpw
-         IF ( mod(Xblk,Ncpw)/=0 ) Lbuf = Lbuf + 1
-         Iadd = 2
-         IF ( Pos(1)==rewi ) Iadd = 1
-         IF ( Pos(1)==eqf ) Iadd = 3
+         univac = .TRUE.
+         IF ( xblk<=0 ) xblk = 3960
+         xblk = xblk - mod(xblk,132)
+         lbuf = xblk/ncpw
+         IF ( mod(xblk,ncpw)/=0 ) lbuf = lbuf + 1
+         iadd = 2
+         IF ( pos(1)==Rewi ) iadd = 1
+         IF ( pos(1)==Eqf ) iadd = 3
 !
 !     BRANCH ON MODE OF OPERATION
 !
-         IF ( iomode==2 ) THEN
+         IF ( Iomode==2 ) THEN
 !
 !     SOFIN
 !
@@ -93,7 +94,7 @@ CONTAINS
             CALL exo2
          ENDIF
       ELSE
-         Dry = -2
+         dry = -2
       ENDIF
    END SUBROUTINE spag_block_1
 !

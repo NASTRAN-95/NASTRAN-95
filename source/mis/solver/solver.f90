@@ -1,14 +1,15 @@
-!*==solver.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==solver.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE solver(Lower,X,B,In,Out,Eps,Ifl,Scr)
-USE C_FBSX
-USE C_MPYADX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZNTPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsx
+   USE c_mpyadx
+   USE c_system
+   USE c_xmssg
+   USE c_zntpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -41,69 +42,69 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS FOR FORWARD-BACKWARD SOLUTION
 !
-   Nz = korsz(Z)
-   Filel(1) = Lower
-   CALL rdtrl(Filel)
-   Fileb(1) = B
-   CALL rdtrl(Fileb)
-   CALL makmcb(Filex,X,Fileb(3),Fileb(4),iprec)
-   Prec = iprec
-   Sign = -1
+   nz = korsz(z)
+   filel(1) = Lower
+   CALL rdtrl(filel)
+   fileb(1) = B
+   CALL rdtrl(fileb)
+   CALL makmcb(filex,X,fileb(3),fileb(4),iprec)
+   prec = iprec
+   sign = -1
 !
 !     SOLVE A*X = -B FOR X WHERE A HAS BEEN FACTORED
 !
-   Scr1 = Scr
-   CALL fbs(Z,Z)
-   CALL wrttrl(Filex)
+   scr1 = Scr
+   CALL fbs(z,z)
+   CALL wrttrl(filex)
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS FOR MPYAD OPERATION
 !
    DO k = 1 , 7
-      Filee(k) = Fileb(k)
-      Filef(k) = Filex(k)
+      filee(k) = fileb(k)
+      filef(k) = filex(k)
    ENDDO
-   Fileg(1) = In
-   CALL rdtrl(Fileg)
-   CALL makmcb(Fileh,Out,Fileg(3),Fileg(4),iprec)
-   Nzz = Nz
-   T = 1
-   Signab = 1
-   Signc = 1
-   Precx = iprec
-   Scrtch = Scr
+   fileg(1) = In
+   CALL rdtrl(fileg)
+   CALL makmcb(fileh,Out,fileg(3),fileg(4),iprec)
+   nzz = nz
+   t = 1
+   signab = 1
+   signc = 1
+   precx = iprec
+   scrtch = Scr
 !
 !     COMPUTE OUT = IN + B(T)*X
 !
-   CALL mpyad(Z,Z,Z)
-   CALL wrttrl(Fileh)
+   CALL mpyad(z,z,z)
+   CALL wrttrl(fileh)
 !
 !     IF REQUESTED,COMPUTE EPS = NORM(OUT) / NORM(IN)
 !
    IF ( Ifl==0 ) RETURN
-   n1 = Nz - sysbuf
+   n1 = nz - sysbuf
    n2 = n1 - sysbuf
-   CALL gopen(Out,Z(n1+1),0)
-   CALL gopen(In,Z(n2+1),0)
+   CALL gopen(Out,z(n1+1),0)
+   CALL gopen(In,z(n2+1),0)
    num = 0.0D0
    denom = 0.0D0
-   ncol = Fileg(2)
+   ncol = fileg(2)
    DO k = 1 , ncol
       CALL intpk(*50,Out,0,2,0)
       SPAG_Loop_2_1: DO
          CALL zntpki
-         num = num + dabs(Ad(1))*dabs(Ad(1))
-         IF ( Eol/=0 ) EXIT SPAG_Loop_2_1
+         num = num + dabs(ad(1))*dabs(ad(1))
+         IF ( eol/=0 ) EXIT SPAG_Loop_2_1
       ENDDO SPAG_Loop_2_1
  50   CALL intpk(*100,In,0,2,0)
       SPAG_Loop_2_2: DO
          CALL zntpki
-         denom = denom + dabs(Ad(1))*dabs(Ad(1))
-         IF ( Eol/=0 ) EXIT SPAG_Loop_2_2
+         denom = denom + dabs(ad(1))*dabs(ad(1))
+         IF ( eol/=0 ) EXIT SPAG_Loop_2_2
       ENDDO SPAG_Loop_2_2
  100  ENDDO
    IF ( denom==0.0D0 ) THEN
       CALL fname(In,name)
-      WRITE (ioutpt,99001) Uwm , name
+      WRITE (ioutpt,99001) uwm , name
 99001 FORMAT (A25,' 2401, ',2A4,' MATRIX IS NULL.  AN ARBITRARY VALUE ','OF 1.0 IS THEREFORE ASSIGNED TO',/5X,                      &
              &'THE RIGID BODY ERROR RATIO (EPSILON SUB E).')
       Eps = 1.0

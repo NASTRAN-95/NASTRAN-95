@@ -1,10 +1,11 @@
-!*==fndnxl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fndnxl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndnxl(Name,Newnm)
+   USE c_sof
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SOF
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,7 +39,7 @@ SUBROUTINE fndnxl(Name,Newnm)
 !     FIND THE HIGHER LEVEL SUBSTRUCTURE TO NAME.
 !
       CALL fmdi(k,imdi)
-      i = andf(Buf(imdi+hl),1023)
+      i = andf(buf(imdi+hl),1023)
       IF ( i==0 ) THEN
 !
 !     NAME DOES NOT HAVE A HIGHER LEVEL SUBSTRUCTURE.
@@ -56,7 +57,6 @@ SUBROUTINE fndnxl(Name,Newnm)
 !     NAME DOES HAVE A HIGHER LEVEL SUBSTRUCTURE.
 !
    CALL fdit(i,jdit)
-   Newnm(1) = Buf(jdit)
-   Newnm(2) = Buf(jdit+1)
-   RETURN
+   Newnm(1) = buf(jdit)
+   Newnm(2) = buf(jdit+1)
 END SUBROUTINE fndnxl

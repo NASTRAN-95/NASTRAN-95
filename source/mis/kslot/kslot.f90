@@ -1,14 +1,15 @@
-!*==kslot.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==kslot.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE kslot(Itype)
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1IO
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1io
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -66,7 +67,7 @@ USE ISO_FORTRAN_ENV
 !     THE CSLOT4 ELEMENT IS CHECKED FOR VALIDITY AND THE DATA ARE
 !     REARRANGED TO CONFORM TO THE CSLOT3 FORMAT
 !
-      IF ( Ecpt(6)==0.0 .OR. necpt(8)==0 ) RETURN
+      IF ( ecpt(6)==0.0 .OR. necpt(8)==0 ) RETURN
       k = -1
       SPAG_Loop_1_1: DO
          k = k + 1
@@ -76,48 +77,48 @@ USE ISO_FORTRAN_ENV
          ELSE
             CYCLE
          ENDIF
-         Ecpt(8) = float(necpt(8))/2.0
+         ecpt(8) = float(necpt(8))/2.0
 !
-         Nneg = 0
-         Ip = 0
+         nneg = 0
+         ip = 0
          DO i = 1 , 4
-            IF ( Npvt==necpt(i+1) ) Ip = Ip + 1
+            IF ( npvt==necpt(i+1) ) ip = ip + 1
             DO j = 1 , 3
                nj = i + j - 1
                IF ( nj>4 ) nj = nj - 4
-               Nptj = 4*(nj-1) + 11
-               R(j) = Ecpt(Nptj)
-               Z(j) = Ecpt(Nptj+1)
+               nptj = 4*(nj-1) + 11
+               r(j) = ecpt(nptj)
+               z(j) = ecpt(nptj+1)
             ENDDO
-            Coef = (R(2)-R(1))*(Z(3)-Z(1)) - (R(3)-R(1))*(Z(2)-Z(1))
-            IF ( Coef<0 ) THEN
-               Nneg = Nneg + 1
-            ELSEIF ( Coef==0 ) THEN
+            coef = (r(2)-r(1))*(z(3)-z(1)) - (r(3)-r(1))*(z(2)-z(1))
+            IF ( coef<0 ) THEN
+               nneg = nneg + 1
+            ELSEIF ( coef==0 ) THEN
                CALL spag_block_1
                RETURN
             ENDIF
          ENDDO
-         IF ( Nneg==1 .OR. Nneg==3 ) THEN
+         IF ( nneg==1 .OR. nneg==3 ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
-         IF ( Ip/=1 ) THEN
+         IF ( ip/=1 ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
 !
          DO i = 1 , 4
-            Ecpt(i+50) = Ecpt(i)
+            ecpt(i+50) = ecpt(i)
          ENDDO
          DO i = 7 , 21
-            Ecpt(i+49) = Ecpt(i)
+            ecpt(i+49) = ecpt(i)
          ENDDO
-         Ecpt(55) = Ecpt(6)*2.0
-         Iret = 1
+         ecpt(55) = ecpt(6)*2.0
+         iret = 1
          EXIT SPAG_Loop_1_1
       ENDDO SPAG_Loop_1_1
    ELSE
-      IF ( Ecpt(5)==0.0 .OR. necpt(7)==0 ) RETURN
+      IF ( ecpt(5)==0.0 .OR. necpt(7)==0 ) RETURN
       k = -1
       SPAG_Loop_1_2: DO
          k = k + 1
@@ -127,11 +128,11 @@ USE ISO_FORTRAN_ENV
          ELSE
             CYCLE
          ENDIF
-         Ecpt(7) = float(necpt(7))/2.0
+         ecpt(7) = float(necpt(7))/2.0
          DO i = 1 , 20
-            Ecpt(i+50) = Ecpt(i)
+            ecpt(i+50) = ecpt(i)
          ENDDO
-         Iret = 4
+         iret = 4
          EXIT SPAG_Loop_1_2
       ENDDO SPAG_Loop_1_2
    ENDIF
@@ -139,50 +140,50 @@ USE ISO_FORTRAN_ENV
 !
 !     EACH CSLOT3 ELEMENT OR SUBELEMENT IS FORMULATED AS FOLLOWS
 !
-      IF ( necpt(52)==Npvt .OR. necpt(53)==Npvt .OR. necpt(54)==Npvt ) THEN
-         Coef = 0.0
-         A2 = 0.0
+      IF ( necpt(52)==npvt .OR. necpt(53)==npvt .OR. necpt(54)==npvt ) THEN
+         coef = 0.0
+         a2 = 0.0
          DO i = 1 , 3
             j = i + 1
             IF ( j>3 ) j = j - 3
             k = j + 1
             IF ( k>3 ) k = k - 3
-            Lri = 4*i + 56
-            Lrj = 4*j + 56
-            Lrk = 4*k + 56
-            Coef = Coef + Ecpt(Lri+2)
-            Fir(i) = Ecpt(Lrk) - Ecpt(Lrj)
-            Fiz(i) = Ecpt(Lrj+1) - Ecpt(Lrk+1)
-            A2 = A2 + Ecpt(Lri)*Fiz(i)
-            IF ( necpt(i+51)==Npvt ) Ipvt = i
+            lri = 4*i + 56
+            lrj = 4*j + 56
+            lrk = 4*k + 56
+            coef = coef + ecpt(lri+2)
+            fir(i) = ecpt(lrk) - ecpt(lrj)
+            fiz(i) = ecpt(lrj+1) - ecpt(lrk+1)
+            a2 = a2 + ecpt(lri)*fiz(i)
+            IF ( necpt(i+51)==npvt ) ipvt = i
          ENDDO
-         IF ( A2==0.0D0 ) EXIT SPAG_Loop_1_3
-         Coef = Coef*Ecpt(57)/(6.0D0*Ecpt(55)*dabs(A2))
-         i = Npvt
+         IF ( a2==0.0D0 ) EXIT SPAG_Loop_1_3
+         coef = coef*ecpt(57)/(6.0D0*ecpt(55)*dabs(a2))
+         i = npvt
          DO j = 1 , 3
             k = necpt(j+51)
-            Kij = Coef*(Fir(Ipvt)*Fir(j)+Fiz(Ipvt)*Fiz(j))
-            CALL sma1b(Kij,k,i,Ifile,0.0D0)
+            kij = coef*(fir(ipvt)*fir(j)+fiz(ipvt)*fiz(j))
+            CALL sma1b(kij,k,i,ifile,0.0D0)
          ENDDO
       ENDIF
-      IF ( Iret==1 ) THEN
-         Ecpt(54) = Ecpt(5)
-         Ecpt(68) = Ecpt(23)
-         Ecpt(69) = Ecpt(24)
-         Ecpt(70) = Ecpt(25)
-         Iret = 2
-      ELSEIF ( Iret==2 ) THEN
-         Ecpt(53) = Ecpt(4)
-         Ecpt(64) = Ecpt(19)
-         Ecpt(65) = Ecpt(20)
-         Ecpt(66) = Ecpt(21)
-         Iret = 3
-      ELSEIF ( Iret==3 ) THEN
-         Ecpt(52) = Ecpt(3)
-         Ecpt(60) = Ecpt(15)
-         Ecpt(61) = Ecpt(16)
-         Ecpt(62) = Ecpt(17)
-         Iret = 4
+      IF ( iret==1 ) THEN
+         ecpt(54) = ecpt(5)
+         ecpt(68) = ecpt(23)
+         ecpt(69) = ecpt(24)
+         ecpt(70) = ecpt(25)
+         iret = 2
+      ELSEIF ( iret==2 ) THEN
+         ecpt(53) = ecpt(4)
+         ecpt(64) = ecpt(19)
+         ecpt(65) = ecpt(20)
+         ecpt(66) = ecpt(21)
+         iret = 3
+      ELSEIF ( iret==3 ) THEN
+         ecpt(52) = ecpt(3)
+         ecpt(60) = ecpt(15)
+         ecpt(61) = ecpt(16)
+         ecpt(62) = ecpt(17)
+         iret = 4
       ELSE
          RETURN
       ENDIF
@@ -190,9 +191,10 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
+      USE ISO_FORTRAN_ENV                 
 !
-      WRITE (Out,99001) Ufm , necpt(1)
+      WRITE (out,99001) ufm , Necpt(1)
 99001 FORMAT (A23,' 2160, BAD GEOMETRY OR ZERO COEFFICIENT FOR SLOT ','ELEMENT NUMBER',I18)
-      Nogo = .TRUE.
+      nogo = .TRUE.
    END SUBROUTINE spag_block_1
 END SUBROUTINE kslot

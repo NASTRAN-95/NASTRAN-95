@@ -1,4 +1,4 @@
-!*==/home/marcusmae/nasa/nastran/SPAGged/C_ZZZZZZ.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+!*==/home/marcusmae/nasa/nastran/source/mis/hmat/SPAGged/C_ZZZZZZ.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
 MODULE C_ZZZZZZ
-   REAL, DIMENSION(1) :: Z
+REAL , DIMENSION(1) :: Z
 END MODULE C_ZZZZZZ

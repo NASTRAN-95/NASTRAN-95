@@ -1,10 +1,11 @@
-!*==symbol.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==symbol.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE symbol(X,Y,Symx,Opt)
+   USE c_pltdat
+   USE c_symbls
    IMPLICIT NONE
-   USE C_PLTDAT
-   USE C_SYMBLS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -32,8 +33,8 @@ SUBROUTINE symbol(X,Y,Symx,Opt)
 !
       DO i = 1 , 2
          IF ( Symx(i)>0 ) THEN
-            sym = Symx(i) - Nsym*((Symx(i)-1)/Nsym)
-            sym = Symbl(sym,Ploter)
+            sym = Symx(i) - nsym*((Symx(i)-1)/nsym)
+            sym = symbl(sym,ploter)
             CALL type10(X,Y,0,sym,0,0)
          ENDIF
       ENDDO

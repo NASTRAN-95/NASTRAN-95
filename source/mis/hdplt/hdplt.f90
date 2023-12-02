@@ -1,10 +1,11 @@
-!*==hdplt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==hdplt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdplt(X1,Y1,Ij,Im)
+   USE c_drwdat
+   USE c_system
    IMPLICIT NONE
-   USE C_DRWDAT
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,7 +34,7 @@ SUBROUTINE hdplt(X1,Y1,Ij,Im)
 !
    DATA debug/.FALSE./
 !
-   IF ( debug ) WRITE (Nout,99001) Ij , Im , (X1(i),i=1,4) , (Y1(j),j=1,4)
+   IF ( debug ) WRITE (nout,99001) Ij , Im , (X1(i),i=1,4) , (Y1(j),j=1,4)
 99001 FORMAT (7H HDPLT ,2I3,8F12.5)
    IF ( Im==1 ) THEN
       Ij = 0
@@ -45,7 +46,7 @@ SUBROUTINE hdplt(X1,Y1,Ij,Im)
          yold = yvalue
          Ij = 1
       ELSE
-         CALL line(xold,yold,xvalue,yvalue,Ppen,0)
+         CALL line(xold,yold,xvalue,yvalue,ppen,0)
          xold = xvalue
          yold = yvalue
       ENDIF

@@ -1,4 +1,5 @@
-!*==setlvl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==setlvl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE setlvl(Newnm,Numb,Oldnms,Itest,Ibit)
@@ -23,9 +24,9 @@ SUBROUTINE setlvl(Newnm,Numb,Oldnms,Itest,Ibit)
 !     APPROPRIATE TYPE OF SUBSTRUCTURE. IF IBIT IS ZERO NO CHANGE IS
 !     MADE TO THE MDI
 !
+   USE c_sof
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SOF
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -91,9 +92,9 @@ SUBROUTINE setlvl(Newnm,Numb,Oldnms,Itest,Ibit)
 !
       CALL fmdi(inew,imdi)
       llmask = complf(lshift(1023,20))
-      Buf(imdi+ll) = orf(andf(Buf(imdi+ll),llmask),lshift(iold(1),20))
-      IF ( Ibit/=0 ) Buf(imdi+ib) = orf(Buf(imdi+ib),lshift(1,Ibit))
-      Mdiup = .TRUE.
+      buf(imdi+ll) = orf(andf(buf(imdi+ll),llmask),lshift(iold(1),20))
+      IF ( Ibit/=0 ) buf(imdi+ib) = orf(buf(imdi+ib),lshift(1,Ibit))
+      mdiup = .TRUE.
 !
 !     UPDATE IN THE MDI THE DIRECTORIES OF THE SUBSTRUCTURES IN OLDNMS.
 !
@@ -101,19 +102,19 @@ SUBROUTINE setlvl(Newnm,Numb,Oldnms,Itest,Ibit)
       maskcs = complf(lshift(1023,10))
       SPAG_Loop_1_1: DO i = 1 , Numb
          CALL fmdi(iold(i),imdi)
-         IF ( andf(Buf(imdi+hl),1023)==0 ) THEN
-            Buf(imdi+hl) = orf(Buf(imdi+hl),inew)
-            Mdiup = .TRUE.
+         IF ( andf(buf(imdi+hl),1023)==0 ) THEN
+            buf(imdi+hl) = orf(buf(imdi+hl),inew)
+            mdiup = .TRUE.
             IF ( Numb==1 ) RETURN
             IF ( i==Numb ) EXIT SPAG_Loop_1_1
-            Buf(imdi+cs) = orf(andf(Buf(imdi+cs),maskcs),lshift(iold(i+1),10))
+            buf(imdi+cs) = orf(andf(buf(imdi+cs),maskcs),lshift(iold(i+1),10))
          ELSE
             icount = i
             CALL spag_block_1
             RETURN
          ENDIF
       ENDDO SPAG_Loop_1_1
-      Buf(imdi+cs) = orf(andf(Buf(imdi+cs),maskcs),lshift(iold(1),10))
+      buf(imdi+cs) = orf(andf(buf(imdi+cs),maskcs),lshift(iold(1),10))
       RETURN
    ENDIF
 CONTAINS
@@ -123,21 +124,21 @@ CONTAINS
 !     REDUCTION OR COMBINATION.  REMOVE ALL CHANGES THAT HAVE BEEN MADE.
 !
       Itest = 8
-      CALL fdit(inew,idit)
-      Buf(idit) = iempty
-      Buf(idit+1) = iempty
-      Ditup = .TRUE.
-      IF ( 2*inew==Ditsiz ) Ditsiz = Ditsiz - 2
-      Ditnsb = Ditnsb - 1
-      CALL fmdi(inew,imdi)
-      Buf(imdi+ll) = andf(Buf(imdi+ll),llmask)
+      CALL fdit(Inew,Idit)
+      buf(Idit) = Iempty
+      buf(Idit+1) = Iempty
+      ditup = .TRUE.
+      IF ( 2*Inew==ditsiz ) ditsiz = ditsiz - 2
+      ditnsb = ditnsb - 1
+      CALL fmdi(Inew,Imdi)
+      buf(Imdi+Ll) = andf(buf(Imdi+Ll),Llmask)
       Mdiup = .TRUE.
-      icount = icount - 1
-      IF ( icount<1 ) RETURN
-      DO i = 1 , icount
-         CALL fmdi(iold(i),imdi)
-         Buf(imdi+hl) = andf(Buf(imdi+hl),complf(1023))
-         Buf(imdi+cs) = andf(Buf(imdi+cs),maskcs)
+      Icount = Icount - 1
+      IF ( Icount<1 ) RETURN
+      DO I = 1 , Icount
+         CALL fmdi(Iold(I),Imdi)
+         buf(Imdi+Hl) = andf(buf(Imdi+Hl),complf(1023))
+         buf(Imdi+Cs) = andf(buf(Imdi+Cs),Maskcs)
          Mdiup = .TRUE.
       ENDDO
    END SUBROUTINE spag_block_1

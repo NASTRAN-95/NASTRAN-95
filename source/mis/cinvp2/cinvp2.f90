@@ -1,14 +1,15 @@
-!*==cinvp2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cinvp2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cinvp2() !HIDESTARS (*)
-USE C_CDCMPX
-USE C_CINVPX
-USE C_CINVXX
-USE C_NAMES
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_cdcmpx
+   USE c_cinvpx
+   USE c_cinvxx
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -22,32 +23,32 @@ USE ISO_FORTRAN_ENV
 !     CINVP2 INITIALIZES AND CALLS CDCOMP FOR CINVPR
 !
 !
-   ioff = Fileu(7)
-   Filea(1) = Scr1
-   IF ( Switch==0 ) THEN
-      Filel(1) = Scr3
-      Fileu(1) = Scr4
+   ioff = fileu(7)
+   filea(1) = scr1
+   IF ( switch==0 ) THEN
+      filel(1) = scr3
+      fileu(1) = scr4
    ELSE
-      Filel(1) = Scr8
-      Fileu(1) = Scr9
-      IF ( Switch<0 ) Filea(1) = -Filea(1)
-      IF ( Switch/=-204 ) Switch = 1
+      filel(1) = scr8
+      fileu(1) = scr9
+      IF ( switch<0 ) filea(1) = -filea(1)
+      IF ( switch/=-204 ) switch = 1
    ENDIF
-   Sr1fil = Scr5
-   Sr2fil = Scr6
-   Sr3fil = Scr7
-   Filea(2) = Dumm(3)
-   Filea(3) = Dumm(3)
-   Filea(4) = Dumm(4)
-   Filea(5) = Cdp
-   Filea(6) = 0
-   Filea(7) = 0
-   Filel(5) = Cdp
-   Nz = korsz(Z)
-   IF ( Switch==-204 ) Nz = Nz - 2*Sysbuf
-   Ib = 0
-   CALL cdcomp(*100,Z,Z,Z)
-   IF ( Switch/=0 ) Fileu(7) = ioff
+   sr1fil = scr5
+   sr2fil = scr6
+   sr3fil = scr7
+   filea(2) = dumm(3)
+   filea(3) = dumm(3)
+   filea(4) = dumm(4)
+   filea(5) = cdp
+   filea(6) = 0
+   filea(7) = 0
+   filel(5) = cdp
+   nz = korsz(z)
+   IF ( switch==-204 ) nz = nz - 2*sysbuf
+   ib = 0
+   CALL cdcomp(*100,z,z,z)
+   IF ( switch/=0 ) fileu(7) = ioff
    RETURN
 !
  100  RETURN 1

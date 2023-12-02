@@ -1,12 +1,13 @@
-!*==plbar1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==plbar1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE plbar1(Ido,Lcore)
+   USE c_loadx
+   USE c_matin
+   USE c_ssga1x
+   USE c_system
    IMPLICIT NONE
-   USE C_LOADX
-   USE C_MATIN
-   USE C_SSGA1X
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,21 +50,21 @@ SUBROUTINE plbar1(Ido,Lcore)
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(Est,iz(Lcore),0)
-         CALL read(*60,*20,Est,i,1,0,flag)
+         CALL gopen(est,iz(Lcore),0)
+         CALL read(*60,*20,est,i,1,0,flag)
  20      DO WHILE ( i/=bar )
-            CALL fwdrec(*60,Est)
-            CALL read(*60,*20,Est,i,1,0,flag)
+            CALL fwdrec(*60,est)
+            CALL read(*60,*20,est,i,1,0,flag)
          ENDDO
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     READ SLT THEN FIND BAR ELEMENT
 !
-         CALL read(*40,*40,Slt,islt,7,0,flag)
+         CALL read(*40,*40,slt,islt,7,0,flag)
          IF ( islt(1)/=oldid ) THEN
             SPAG_Loop_1_1: DO
-               CALL read(*60,*60,Est,iz(iect),nwds,0,flag)
+               CALL read(*60,*60,est,iz(iect),nwds,0,flag)
                oldid = iz(iect)
                IF ( iz(iect)<islt(1) ) THEN
                ELSEIF ( iz(iect)==islt(1) ) THEN
@@ -78,9 +79,9 @@ SUBROUTINE plbar1(Ido,Lcore)
 !
 !     DATA READY
 !
-                  Inflag = 1
-                  Temp = pg(ibg+8)
-                  Matid = iz(iept)
+                  inflag = 1
+                  temp = pg(ibg+8)
+                  matid = iz(iept)
                   CALL mat(oldid)
                   EXIT SPAG_Loop_1_1
                ELSE
@@ -94,24 +95,24 @@ SUBROUTINE plbar1(Ido,Lcore)
 !
          ipg = iz(iect+1) - 1
          DO i = 1 , 6
-            Pv(ipg+i) = Pv(ipg+i) + pa(i)
+            pv(ipg+i) = pv(ipg+i) + pa(i)
          ENDDO
          ipg = iz(iect+2) - 1
          DO i = 1 , 6
-            Pv(ipg+i) = Pv(ipg+i) + pb(i)
+            pv(ipg+i) = pv(ipg+i) + pb(i)
          ENDDO
          n = n + 1
          IF ( n==Ido ) THEN
             n = 0
             oldid = 0
-            CALL close(Est,1)
+            CALL close(est,1)
          ENDIF
          RETURN
 !
 !     ERROR
 !
- 40      CALL mesage(-1,Slt,nam)
- 60      WRITE (Nout,99001) islt(1) , Ilid
+ 40      CALL mesage(-1,slt,nam)
+ 60      WRITE (nout,99001) islt(1) , ilid
 99001    FORMAT ('0*** USER FATAL MESSAGE 2286, CBAR ELEMENT',I9,' REFERENCED ON PLOAD1',I9,' NOT FOUND')
          CALL mesage(-61,0,nam)
          EXIT SPAG_DispatchLoop_1

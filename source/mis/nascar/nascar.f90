@@ -1,19 +1,20 @@
-!*==nascar.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==nascar.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE nascar
 !
 !     NASCAR READS THE NASTRAN CARD (IF PRESENT) AND CALLS TTLPGE.
 !
+   USE c_blank
+   USE c_lhpwx
+   USE c_machin
+   USE c_output
+   USE c_system
+   USE c_xfist
+   USE c_xmssg
+   USE c_xpfist
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_LHPWX
-   USE C_MACHIN
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XFIST
-   USE C_XMSSG
-   USE C_XPFIST
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -71,10 +72,10 @@ SUBROUTINE nascar
 !     READ FIRST CARD IN DATA STREAM AND CALL XRCARD TO CONVERT IT.
 !     IF INPUT CARD IS BLANK, READ NEXT CARD
 !
-            CALL xread(*20,Card)
-            IF ( Card(1)/=blank .OR. Card(2)/=blank .OR. Card(3)/=blank .OR. Card(5)/=blank .OR. Card(7)/=blank ) THEN
-               CALL xrcard(buf,75,Card)
-               Flag = 1
+            CALL xread(*20,card)
+            IF ( card(1)/=blank .OR. card(2)/=blank .OR. card(3)/=blank .OR. card(5)/=blank .OR. card(7)/=blank ) THEN
+               CALL xrcard(buf,75,card)
+               flag = 1
                IF ( buf(1)<0 ) THEN
                   spag_nextblock_1 = 14
                   CYCLE SPAG_DispatchLoop_1
@@ -88,10 +89,10 @@ SUBROUTINE nascar
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   DO i = 1 , 14
-                     Pghdg(i+2) = hdg(i)
+                     pghdg(i+2) = hdg(i)
                   ENDDO
-                  IF ( System(11)<=0 ) CALL page1
-                  WRITE (outtap,99032) (Card(i),i=1,20)
+                  IF ( system(11)<=0 ) CALL page1
+                  WRITE (outtap,99032) (card(i),i=1,20)
 !
 !     RETURN IF NO KEYWORD ON NASTRAN CARD
 !
@@ -99,7 +100,7 @@ SUBROUTINE nascar
                      spag_nextblock_1 = 14
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Flag = 0
+                  flag = 0
 !
 !     IDENTIFY KEYWORDS AND BRANCH TO APPROPRIATE CODE.
 !
@@ -117,7 +118,6 @@ SUBROUTINE nascar
          jn = 2*buf(1) + 1
          j1 = 1
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          IF ( buf(j1)<0 ) THEN
             spag_nextblock_1 = 7
@@ -130,9 +130,9 @@ SUBROUTINE nascar
          spag_nextblock_1 = 4
       CASE (4)
          DO
-            CALL xread(*20,Card)
-            CALL xrcard(buf,75,Card)
-            WRITE (outtap,99032) Card
+            CALL xread(*20,card)
+            CALL xrcard(buf,75,card)
+            WRITE (outtap,99032) card
             IF ( buf(1)/=0 ) THEN
                j = 2
                spag_nextblock_1 = 2
@@ -193,12 +193,11 @@ SUBROUTINE nascar
             ENDIF
          ENDDO SPAG_Loop_1_2
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     PRINT MESSAGE FOR UNIDENTIFIED KEYWORD.
 !
-         WRITE (outtap,99001) Ufm , buf(j) , buf(j+1)
+         WRITE (outtap,99001) ufm , buf(j) , buf(j+1)
 99001    FORMAT (A23,' 17, UNIDENTIFIED NASTRAN CARD KEYWORD ',2A4,'.  ACCEPTABLE KEYWORDS FOLLOW ---',/1H0)
          DO i = 1 , lkeywd
             WRITE (outtap,99002) keywds(1,i) , keywds(2,i)
@@ -208,16 +207,14 @@ SUBROUTINE nascar
 99003    FORMAT (7(5X,4HBAND,A4),/5X,'FILES (MUST BE LAST IN INPUT LIST)')
          nogo = 1
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     PRINT MESSAGE FOR BAD FORMAT.
 !
-         WRITE (outtap,99004) Ufm
+         WRITE (outtap,99004) ufm
 99004    FORMAT (A23,' 43, INCORRECT FORMAT FOR NASTRAN CARD.')
          nogo = 1
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     . BANDIT KEYWORDS.
@@ -323,7 +320,7 @@ SUBROUTINE nascar
 !
 !     MAXFILES UPPER LIMIT
 !
-               m = Mxfl
+               m = mxfl
                IF ( param>m ) THEN
                   WRITE (outtap,99005) m
 99005             FORMAT (' *** MAXFILES IS RESET TO THE LIMIT OF 74')
@@ -338,9 +335,9 @@ SUBROUTINE nascar
 !
                IF ( param<=maxfil ) THEN
                   maxopn = param
-               ELSEIF ( param>Mxfl ) THEN
+               ELSEIF ( param>mxfl ) THEN
 !
-                  m = Mxfl
+                  m = mxfl
                   WRITE (outtap,99006) m , m
 99006             FORMAT (' *** MAXOPEN EXCEEDS MAXFILES LIMIT OF ',I3,'.  BOTH ','MAXOPEN AND MAXFILES ARE RESET ONLY TO ',I3,     &
                          &' EACH')
@@ -373,7 +370,7 @@ SUBROUTINE nascar
 !
 !     IGNORE THE CONFIG PARAMETER
 !
-                        IF ( param/=28 ) System(param) = buf(j)
+                        IF ( param/=28 ) system(param) = buf(j)
 !
 !     SYSTEM WORD ECHO
 !
@@ -392,9 +389,9 @@ SUBROUTINE nascar
 99011                            FORMAT (5X,A4,I3,A16,'MAX FILES OPEN')
                                  IF ( param==31 ) WRITE (outtap,99012) s1 , param , s2
 99012                            FORMAT (5X,A4,I3,A16,'HI-CORE')
-                                 IF ( param==34 .AND. Mach/=4 ) WRITE (outtap,99013) s1 , param , s2
+                                 IF ( param==34 .AND. mach/=4 ) WRITE (outtap,99013) s1 , param , s2
 99013                            FORMAT (5X,A4,I3,A16,'DRUM FLAG')
-                                 IF ( param==34 .AND. Mach==4 ) WRITE (outtap,99014) s1 , param , s2
+                                 IF ( param==34 .AND. mach==4 ) WRITE (outtap,99014) s1 , param , s2
 99014                            FORMAT (5X,A4,I3,A16,'NOS/NOS-BE FLAG')
                               ELSEIF ( k==4 .OR. k==5 ) THEN
                                  IF ( param==42 ) WRITE (outtap,99015) s1 , param , s2
@@ -430,7 +427,7 @@ SUBROUTINE nascar
 99025                      FORMAT (5X,A4,I3,A16,'INPUT UNIT')
                            IF ( param==7 ) WRITE (outtap,99026) s1 , param , s2
 99026                      FORMAT (5X,A4,I3,A16,'NO. OF CONSOLE LOG MESSAGES')
-                           IF ( param==7 .AND. Mach==3 ) WRITE (outtap,99027)
+                           IF ( param==7 .AND. mach==3 ) WRITE (outtap,99027)
 99027                      FORMAT (1H+,31X,'. (95 MAX.)')
                            IF ( param==9 ) WRITE (outtap,99028) s1 , param , s2
 99028                      FORMAT (5X,A4,I3,A16,'NO. OF LINES PER PAGE. MINIMUM 10')
@@ -439,8 +436,8 @@ SUBROUTINE nascar
 !     SET BOTTOM LIMIT OF 10 TO NUMBER OF LINES PER PAGE
 !     AND FOR UNIVAC ONLY, LIMIT THE CONSOLE LOG MESSAGES TO 95 MAXIMUM
 !
- 8                      IF ( param==9 .AND. System(9)<10 ) System(9) = 10
-                        IF ( Mach==3 .AND. param==7 .AND. System(7)>95 ) System(7) = 95
+ 8                      IF ( param==9 .AND. system(9)<10 ) system(9) = 10
+                        IF ( mach==3 .AND. param==7 .AND. system(7)>95 ) system(7) = 95
                         j1 = j1 + 2
                         j = j1 + 1
                         IF ( buf(j1)==mask2 ) THEN
@@ -474,15 +471,15 @@ SUBROUTINE nascar
 !
 !     KON360/HICORE
 !
-               System(31) = param
+               system(31) = param
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==7 ) THEN
 !
 !     NLINES - BOTTOM-LIMITED TO 10
 !
-               System(9) = param
-               IF ( System(9)<10 ) System(9) = 10
+               system(9) = param
+               IF ( system(9)<10 ) system(9) = 10
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==8 ) THEN
@@ -490,7 +487,7 @@ SUBROUTINE nascar
 !     TITLEOPT
 !
                topt = param
-               IF ( Mach==3 .AND. topt<=-2 ) logfl = 3
+               IF ( mach==3 .AND. topt<=-2 ) logfl = 3
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==9 ) THEN
@@ -530,7 +527,7 @@ SUBROUTINE nascar
 !
 !     HICORE = LENGTH OF CORE ON UNIVAC, VAX, AND UNIX
 !
-               System(31) = param
+               system(31) = param
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSEIF ( i==11 ) THEN
@@ -543,11 +540,11 @@ SUBROUTINE nascar
 !                             TRACK=9 IMPLIES 9 TRACK
 !
                IF ( param/=7 .AND. param/=9 ) THEN
-                  WRITE (outtap,99034) Uwm , param , keywds(1,12) , keywds(2,12)
+                  WRITE (outtap,99034) uwm , param , keywds(1,12) , keywds(2,12)
                   nogo = 1
                ELSE
-                  IF ( param==7 ) System(59) = 1
-                  IF ( param==9 ) System(59) = 2
+                  IF ( param==7 ) system(59) = 1
+                  IF ( param==9 ) system(59) = 2
                ENDIF
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
@@ -609,7 +606,7 @@ SUBROUTINE nascar
 !     CUT MAXFIL TO HALF AND SKIP BANDIT IF PLOT OPTION IS 2 OR 3
 !
                IF ( param<2 .OR. param>5 ) THEN
-                  WRITE (outtap,99034) Uwm , param , keywds(1,16) , keywds(2,16)
+                  WRITE (outtap,99034) uwm , param , keywds(1,16) , keywds(2,16)
                ELSE
                   IF ( param>=2 ) pltflg = -param
                   IF ( pltflg==-2 .OR. pltflg==-3 ) THEN
@@ -640,17 +637,15 @@ SUBROUTINE nascar
          ENDIF
          spag_nextblock_1 = 10
       CASE (10)
-         WRITE (outtap,99034) Uwm , param , keywds(1,14) , k
+         WRITE (outtap,99034) uwm , param , keywds(1,14) , k
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
          IF ( buf(j)==mask1 .OR. khr==1 ) THEN
             j = j + 2
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            DO ii = 1 , Npfist
-               IF ( buf(j)==Fist(2*ii-1) ) THEN
+            DO ii = 1 , npfist
+               IF ( buf(j)==fist(2*ii-1) ) THEN
                   spag_nextblock_1 = 12
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -661,14 +656,13 @@ SUBROUTINE nascar
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            IF ( buf(j)/=blank ) WRITE (outtap,99030) Uwm , buf(j)
+            IF ( buf(j)/=blank ) WRITE (outtap,99030) uwm , buf(j)
 99030       FORMAT (A25,' 64, ',A4,' IS NOT DEFINED AS A NASTRAN FILE AND ','WILL BE IGNORED.')
             spag_nextblock_1 = 13
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (12)
          ixx = 2**(ii-1)
-         System(45) = orf(System(45),ixx)
+         system(45) = orf(system(45),ixx)
          spag_nextblock_1 = 13
       CASE (13)
          j = j + 2
@@ -687,9 +681,9 @@ SUBROUTINE nascar
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO
-            CALL xread(*20,Card)
-            CALL xrcard(buf,75,Card)
-            WRITE (outtap,99032) (Card(i),i=1,20)
+            CALL xread(*20,card)
+            CALL xrcard(buf,75,card)
+            WRITE (outtap,99032) (card(i),i=1,20)
             IF ( buf(1)/=0 ) THEN
                j = 2
                j1 = 1
@@ -702,7 +696,7 @@ SUBROUTINE nascar
 !
 !     END-OF-FILE ENCOUNTERED ON INPUT FILE
 !
- 20      WRITE (outtap,99031) Ufm , intap
+ 20      WRITE (outtap,99031) ufm , intap
 99031    FORMAT (A23,' 74, EOF ENCOUNTERED ON UNIT ',I4,' WHILE READING THE INPUT DATA IN SUBROUTINE NASCAR')
          CALL mesage(-61,0,0)
          spag_nextblock_1 = 14
@@ -712,7 +706,7 @@ SUBROUTINE nascar
 !     GENERATE TITLE PAGE
 !
          DO i = 1 , 14
-            Pghdg(i+2) = blank
+            pghdg(i+2) = blank
          ENDDO
          CALL ttlpge(topt)
          EXIT SPAG_DispatchLoop_1

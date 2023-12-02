@@ -1,9 +1,10 @@
-!*==t3bmgd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==t3bmgd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3bmgd(Ierr,Sheart,Ipt,Iorder,Egpdt,Dgpth,Aic,Th,Detjac,Shp,Bterms,Bmatrx)
-USE C_TERMS
-USE ISO_FORTRAN_ENV                 
+   USE c_terms
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -177,7 +178,7 @@ USE ISO_FORTRAN_ENV
          Bterms(i) = dnx
          Bterms(i+nnode) = dny
 !
-         IF ( Membrn ) THEN
+         IF ( membrn ) THEN
 !
 !     ROW 1
 !
@@ -193,7 +194,7 @@ USE ISO_FORTRAN_ENV
             Bmatrx(ip+2+nd2) = dnx
          ENDIF
 !
-         IF ( Bendng ) THEN
+         IF ( bendng ) THEN
 !
 !     ROW 4
 !
@@ -252,6 +253,5 @@ USE ISO_FORTRAN_ENV
       RETURN
    ENDIF
    Ierr = 1
-   RETURN
 !
 END SUBROUTINE t3bmgd

@@ -1,9 +1,10 @@
-!*==filcor.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==filcor.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION filcor(Mt1x,Mt2x,Pc,Frsrow,Midrow,Nx,A,Nza,Z)
+   USE c_unpakx
    IMPLICIT NONE
-   USE C_UNPAKX
 !
 ! Function and Dummy argument declarations rewritten by SPAG
 !
@@ -49,9 +50,9 @@ FUNCTION filcor(Mt1x,Mt2x,Pc,Frsrow,Midrow,Nx,A,Nza,Z)
          n = Nx
          mt = mt1
          lasrow = Frsrow - 1
-         It1 = Pc
-         Incr1 = 1
-         Jj = n
+         it1 = Pc
+         incr1 = 1
+         jj = n
          IF ( lasrow>=Midrow .AND. mt2/=0 ) mt = mt2
          nn = Nza/Pc
          na = 0
@@ -66,7 +67,7 @@ FUNCTION filcor(Mt1x,Mt2x,Pc,Frsrow,Midrow,Nx,A,Nza,Z)
          ELSE
             lasrow = lasrow + 1
             i = Pc*na + 1
-            Ii = lasrow
+            ii = lasrow
             CALL unpack(*20,mt,A(i))
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1

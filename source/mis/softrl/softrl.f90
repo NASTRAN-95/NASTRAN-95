@@ -1,12 +1,13 @@
-!*==softrl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==softrl.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE softrl(Name,Item,Mcb)
+   USE c_machin
+   USE c_sof
+   USE c_sys
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SOF
-   USE C_SYS
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,7 +44,7 @@ SUBROUTINE softrl(Name,Item,Mcb)
 !     KMTX,MMTX,PVEC,POVE,UPRT,HORG,UVEC,QVEC,PAPP,POAP,LMTX
 !
    CALL chkopn(nmsbr(1))
-   Ioitcd = itcode(Item)
+   ioitcd = itcode(Item)
    itm = ittype(Item)
    IF ( itm/=1 ) THEN
 !
@@ -58,33 +59,33 @@ SUBROUTINE softrl(Name,Item,Mcb)
 !
 !     FIND SUBSTRUCTURE NAME AND MDI BLOCK
 !
-      CALL fdsub(Name,Iosind)
-      IF ( Iosind<0 ) THEN
+      CALL fdsub(Name,iosind)
+      IF ( iosind<0 ) THEN
 !
 !     SUBSTRUCTURE DOES NOT EXIST
 !
          Mcb(1) = 4
          RETURN
       ELSE
-         CALL fmdi(Iosind,imdi)
+         CALL fmdi(iosind,imdi)
 !
 !     GET BLOCK NUMBER OF FIRST BLOCK
 !
-         Iopbn = andf(Buf(imdi+Ioitcd),Jhalf)
-         IF ( Iopbn==0 ) THEN
+         iopbn = andf(buf(imdi+ioitcd),jhalf)
+         IF ( iopbn==0 ) THEN
 !
 !     ITEM DOES NOT EXIST
 !
             Mcb(1) = 3
             RETURN
-         ELSEIF ( Iopbn==Jhalf ) THEN
+         ELSEIF ( iopbn==jhalf ) THEN
 !
 !     ITEM IS PESUDO WRITTEN
 !
             Mcb(1) = 2
             RETURN
          ELSE
-            Iolbn = 1
+            iolbn = 1
          ENDIF
       ENDIF
    ENDIF
@@ -92,28 +93,27 @@ SUBROUTINE softrl(Name,Item,Mcb)
 !
 !     GET NEXT BLOCK IN CHAIN
 !
-      CALL fnxt(Iopbn,inxt)
-      IF ( mod(Iopbn,2)==1 ) THEN
-         next = andf(Buf(inxt),Jhalf)
+      CALL fnxt(iopbn,inxt)
+      IF ( mod(iopbn,2)==1 ) THEN
+         next = andf(buf(inxt),jhalf)
       ELSE
-         next = andf(rshift(Buf(inxt),Ihalf),Jhalf)
+         next = andf(rshift(buf(inxt),ihalf),jhalf)
       ENDIF
       IF ( next==0 ) EXIT SPAG_Loop_1_1
-      Iopbn = next
-      Iolbn = Iolbn + 1
+      iopbn = next
+      iolbn = iolbn + 1
    ENDDO SPAG_Loop_1_1
 !
 !     WE HAVE HIT END OF CHAIN - READ THE LAST BLOCK
 !
-   CALL sofio(ird,Iopbn,Buf(Io-2))
-   i1 = Io - 2
-   i2 = i1 + Blksiz + 4
+   CALL sofio(ird,iopbn,buf(io-2))
+   i1 = io - 2
+   i2 = i1 + blksiz + 4
 !
 !     EXTRACT TRAILER FROM BLOCK
 !
    DO i = 1 , 6
-      Mcb(i+1) = Buf(Io+Blksiz-6+i)
+      Mcb(i+1) = buf(io+blksiz-6+i)
    ENDDO
    Mcb(1) = 1
-   RETURN
 END SUBROUTINE softrl

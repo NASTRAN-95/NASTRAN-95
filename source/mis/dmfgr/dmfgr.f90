@@ -1,7 +1,9 @@
-!*==dmfgr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dmfgr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dmfgr(A,M,N,Eps,Irank,Irow,Icol)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -20,6 +22,15 @@ USE ISO_FORTRAN_ENV
    REAL(REAL64) :: hold , piv , save
    INTEGER :: i , ic , ii , ir , j , jj , kk , l , ll , mm , ncol , nm
    REAL :: tol
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -191,7 +202,6 @@ USE ISO_FORTRAN_ENV
    CALL spag_block_1
 CONTAINS
    SUBROUTINE spag_block_1
-      RETURN
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
@@ -205,27 +215,27 @@ CONTAINS
 !     SET UP MATRIX EXPRESSING BASIC VARIABLES IN TERMS OF FREE
 !     PARAMETERS (HOMOGENEOUS SOLUTION).
 !
-      ir = ll
-      kk = ll + M
-      DO j = 1 , Irank
-         DO i = kk , nm , M
-            jj = ir
-            ll = i
-            hold = 0.D0
-            ii = j
+      Ir = Ll
+      Kk = Ll + M
+      DO J = 1 , Irank
+         DO I = Kk , Nm , M
+            Jj = Ir
+            Ll = I
+            Hold = 0.D0
+            Ii = J
             SPAG_Loop_3_2: DO
-               ii = ii - 1
-               IF ( ii<=0 ) THEN
-                  A(ll) = (hold-A(ll))/A(jj)
+               Ii = Ii - 1
+               IF ( Ii<=0 ) THEN
+                  A(Ll) = (Hold-A(Ll))/A(Jj)
                   EXIT SPAG_Loop_3_2
                ELSE
-                  hold = hold - A(jj)*A(ll)
-                  jj = jj - M
-                  ll = ll - 1
+                  Hold = Hold - A(Jj)*A(Ll)
+                  Jj = Jj - M
+                  Ll = Ll - 1
                ENDIF
             ENDDO SPAG_Loop_3_2
          ENDDO
-         ir = ir - 1
+         Ir = Ir - 1
       ENDDO
    END SUBROUTINE spag_block_2
 END SUBROUTINE dmfgr

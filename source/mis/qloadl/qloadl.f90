@@ -1,13 +1,14 @@
-!*==qloadl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==qloadl.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE qloadl(Iopt)
+   USE c_loadx
+   USE c_qvect
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_LOADX
-   USE C_QVECT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -59,11 +60,11 @@ SUBROUTINE qloadl(Iopt)
       CASE (1)
 !
          transt = .FALSE.
-         IF ( Itran==itran1 ) transt = .TRUE.
+         IF ( itran==itran1 ) transt = .TRUE.
          nwords = 10
          IF ( Iopt==3 ) nwords = 19
 !
-         CALL read(*20,*40,Slt,card(1),nwords,0,flag)
+         CALL read(*20,*40,slt,card(1),nwords,0,flag)
 !
 !     REARRANGE CARD ARRAY FOR UNIFORMITY.
 !
@@ -103,9 +104,9 @@ SUBROUTINE qloadl(Iopt)
                coef(1) = coef(1)*sqrt(dot**2+dot2**2)
                coef(2) = coef(1)
                isil = sils(1)
-               Core(isil) = Core(isil) + coef(1)
+               core(isil) = core(isil) + coef(1)
                isil = sils(2)
-               Core(isil) = Core(isil) + coef(2)
+               core(isil) = core(isil) + coef(2)
                RETURN
             ELSE
                DO i = 1 , 3
@@ -122,7 +123,7 @@ SUBROUTINE qloadl(Iopt)
                IF ( dot>=0.0 ) RETURN
                DO i = 1 , n
                   isil = sils(i)
-                  Core(isil) = Core(isil) - dot*coef(i)
+                  core(isil) = core(isil) - dot*coef(i)
                ENDDO
                RETURN
             ENDIF
@@ -137,7 +138,7 @@ SUBROUTINE qloadl(Iopt)
 !
          DO i = 1 , n
             isil = sils(i)
-            Core(isil) = Core(isil) + coef(i)
+            core(isil) = core(isil) + coef(i)
          ENDDO
          RETURN
       CASE (2)
@@ -151,32 +152,32 @@ SUBROUTINE qloadl(Iopt)
 !
 !     BUILD QVECT RECORDS FOR TRANSIENT
 !
-         IF ( Ilid/=iold ) THEN
+         IF ( ilid/=iold ) THEN
 !
 !     TERMINATE OLD RECORD
 !
-            IF ( iold/=0 ) CALL write(Iqvect,minus,2,0)
-            iold = Ilid
-            CALL write(Iqvect,Ilid,1,0)
+            IF ( iold/=0 ) CALL write(iqvect,minus,2,0)
+            iold = ilid
+            CALL write(iqvect,ilid,1,0)
          ENDIF
 !
 !     DUMP DATA ON IQVECT
 !
-         CALL write(Iqvect,n,1,0)
+         CALL write(iqvect,n,1,0)
          DO i = 1 , n
-            CALL write(Iqvect,sils(i),1,0)
-            CALL write(Iqvect,coef(i),1,0)
+            CALL write(iqvect,sils(i),1,0)
+            CALL write(iqvect,coef(i),1,0)
          ENDDO
-         CALL write(Iqvect,ie,3,0)
-         CALL write(Iqvect,v1,6,0)
+         CALL write(iqvect,ie,3,0)
+         CALL write(iqvect,v1,6,0)
          RETURN
 !
- 20      CALL mesage(-2,Slt,subr)
- 40      CALL mesage(-3,Slt,subr)
+ 20      CALL mesage(-2,slt,subr)
+ 40      CALL mesage(-3,slt,subr)
          spag_nextblock_1 = 3
       CASE (3)
          nogo = .TRUE.
-         WRITE (Iout,99001) Ufm , id
+         WRITE (iout,99001) ufm , id
 99001    FORMAT (A23,' 3080, ERROR IN QVECT DATA, INTEGER VALUES SPECIFIED',' FOR THERMAL FLUX VECTOR COMPONENTS',/30X,             &
                 &'IN A NON-TRANSIENT ANALYSIS.',/30X,'ELEMENT ID = ',I9)
          CALL mesage(-61,0,subr)

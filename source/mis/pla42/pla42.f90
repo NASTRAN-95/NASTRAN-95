@@ -1,19 +1,20 @@
-!*==pla42.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pla42.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla42
-USE C_BLANK
-USE C_CONDAS
-USE C_PLA42C
-USE C_PLA42D
-USE C_PLA42E
-USE C_PLA42S
-USE C_PLA4ES
-USE C_PLA4UV
-USE C_SYSTEM
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condas
+   USE c_pla42c
+   USE c_pla42d
+   USE c_pla42e
+   USE c_pla42s
+   USE c_pla4es
+   USE c_pla4uv
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -53,95 +54,95 @@ USE ISO_FORTRAN_ENV
 !
 !
          DO i = 1 , 40
-            Iovrly(i) = 1
+            iovrly(i) = 1
          ENDDO
 !
 !     DETERMINE SIZE OF VARIABLE CORE AND SET UP BUFFERS
 !
-         izmax = korsz(Z)
-         buffr1 = izmax - Sysbuf
-         buffr2 = buffr1 - Sysbuf
-         buffr3 = buffr2 - Sysbuf
-         buffr4 = buffr3 - Sysbuf
+         izmax = korsz(z)
+         buffr1 = izmax - sysbuf
+         buffr2 = buffr1 - sysbuf
+         buffr3 = buffr2 - sysbuf
+         buffr4 = buffr3 - sysbuf
          leftt = buffr4 - 1
-         Ipass = Placnt - 1
-         ipr = Iprec
+         ipass = placnt - 1
+         ipr = iprec
 !
 !     READ THE CSTM INTO CORE
 !
-         file = Cstm
-         Ncstm = 0
-         Icstm = 0
-         CALL open(*40,Cstm,Z(buffr1),Inrw)
-         CALL skprec(Cstm,1)
-         CALL read(*140,*20,Cstm,Z(Icstm+1),leftt,Eor,Ncstm)
+         file = cstm
+         ncstm = 0
+         icstm = 0
+         CALL open(*40,cstm,z(buffr1),inrw)
+         CALL skprec(cstm,1)
+         CALL read(*140,*20,cstm,z(icstm+1),leftt,eor,ncstm)
          CALL mesage(-8,0,name)
- 20      leftt = leftt - Ncstm
+ 20      leftt = leftt - ncstm
 !
 !     PRETRD SETS UP SUBSEQUENT CALLS TO TRANSD
 !
-         CALL pretrd(Z(Icstm+1),Ncstm)
-         CALL pretrs(Z(Icstm+1),Ncstm)
-         CALL close(Cstm,Clsrw)
- 40      imat = Ncstm
+         CALL pretrd(z(icstm+1),ncstm)
+         CALL pretrs(z(icstm+1),ncstm)
+         CALL close(cstm,clsrw)
+ 40      imat = ncstm
 !
 !     SEARCH THE MPT FOR THE PLAFACT CARDS.
 !
-         file = Mpt
-         CALL preloc(*120,Z(buffr1-3),Mpt)
-         CALL locate(*160,Z(buffr1-3),planos,iflag)
+         file = mpt
+         CALL preloc(*120,z(buffr1-3),mpt)
+         CALL locate(*160,z(buffr1-3),planos,iflag)
          SPAG_Loop_1_1: DO
 !
 !     FIND THE CORRECT PLA SET NO.
 !
-            CALL fread(Mpt,setno,1,0)
-            IF ( setno==Plsetn ) THEN
+            CALL fread(mpt,setno,1,0)
+            IF ( setno==plsetn ) THEN
 !
 !     SKIP THE PROPER NO. OF WORDS ON THE PLFACT CARD SO THAT GAMMA AND
 !     GAMMAS (GAMMA STAR) WILL BE CORRECTLY COMPUTED.
 !
-               IF ( Placnt>4 ) CALL fread(Mpt,0,-(Placnt-4),0)
+               IF ( placnt>4 ) CALL fread(mpt,0,-(placnt-4),0)
                nwdsrd = 4
-               IF ( Placnt<4 ) nwdsrd = Placnt
-               CALL fread(Mpt,p,nwdsrd,0)
-               IF ( Placnt<3 ) THEN
-                  Gammas = 0.0
-                  Plfact(1) = p(2) - p(1)
-                  Gamma = Plfact(1)/p(1)
-               ELSEIF ( Placnt==3 ) THEN
+               IF ( placnt<4 ) nwdsrd = placnt
+               CALL fread(mpt,p,nwdsrd,0)
+               IF ( placnt<3 ) THEN
+                  gammas = 0.0
+                  plfact(1) = p(2) - p(1)
+                  gamma = plfact(1)/p(1)
+               ELSEIF ( placnt==3 ) THEN
                   word = p(2) - p(1)
-                  Plfact(1) = p(3) - p(2)
-                  Gammas = word/p(1)
-                  Gamma = Plfact(1)/word
+                  plfact(1) = p(3) - p(2)
+                  gammas = word/p(1)
+                  gamma = plfact(1)/word
                ELSE
                   word = p(3) - p(2)
-                  Plfact(1) = p(4) - p(3)
-                  Gammas = word/(p(2)-p(1))
-                  Gamma = Plfact(1)/word
+                  plfact(1) = p(4) - p(3)
+                  gammas = word/(p(2)-p(1))
+                  gamma = plfact(1)/word
                ENDIF
-               Plfact(2) = 0.0
-               CALL close(Mpt,Clsrw)
+               plfact(2) = 0.0
+               CALL close(mpt,clsrw)
 !
 !     CALL PREMAT TO READ MPT AND DIT INTO CORE.  NOTE NEGATIVE FILE NO.
 !     FOR DIT TO TRIGGER PLA FLAG IN SUBROUTINE PREMAT.
 !
-               CALL premat(Z(imat+1),Z(imat+1),Z(buffr1),leftt,matcr,Mpt,-Dit)
+               CALL premat(z(imat+1),z(imat+1),z(buffr1),leftt,matcr,mpt,-dit)
                leftt = leftt - matcr
-               Igpct = Ncstm + matcr
+               igpct = ncstm + matcr
 !
 !     OPEN KGGNL, ECPTO, ECPTS, AND GPCT
 !
-               ifile = Kggnl
-               CALL gopen(Kggnl,Z(buffr1),1)
-               CALL makmcb(mcbkgg,Kggnl,0,6,ipr)
-               CALL gopen(Ecpto,Z(buffr2),1)
-               CALL makmcb(ecptot,Ecpto,0,0,0)
-               CALL gopen(Ecpts,Z(buffr3),0)
-               CALL gopen(Gpct,Z(buffr4),0)
+               ifile = kggnl
+               CALL gopen(kggnl,z(buffr1),1)
+               CALL makmcb(mcbkgg,kggnl,0,6,ipr)
+               CALL gopen(ecpto,z(buffr2),1)
+               CALL makmcb(ecptot,ecpto,0,0,0)
+               CALL gopen(ecpts,z(buffr3),0)
+               CALL gopen(gpct,z(buffr4),0)
                EXIT SPAG_Loop_1_1
             ELSE
                SPAG_Loop_2_2: DO
-                  CALL fread(Mpt,nn,1,0)
+                  CALL fread(mpt,nn,1,0)
                   IF ( nn==(-1) ) EXIT SPAG_Loop_2_2
                ENDDO SPAG_Loop_2_2
             ENDIF
@@ -155,35 +156,35 @@ USE ISO_FORTRAN_ENV
 !     IS A SCALAR POINT.  INPVT(2) IS THE NUMBER OF WORDS IN THE
 !     REMAINDER OF THIS RECORD OF THE GPCT.
 !
-         file = Gpct
-         CALL read(*100,*80,Gpct,inpvt(1),2,Neor,iflag)
-         Ngpct = inpvt(2)
-         CALL fread(Gpct,iz(Igpct+1),Ngpct,1)
+         file = gpct
+         CALL read(*100,*80,gpct,inpvt(1),2,neor,iflag)
+         ngpct = inpvt(2)
+         CALL fread(gpct,iz(igpct+1),ngpct,1)
          IF ( inpvt(1)<0 ) GOTO 80
 !
 !     FROWIC IS THE FIRST ROW IN CORE. (1 .LE. FROWIC .LE. 6)
 !
-         Frowic = 1
+         frowic = 1
 !
 !     DECREMENT THE AMOUNT OF CORE REMAINING.
 !
-         left = leftt - 2*Ngpct
+         left = leftt - 2*ngpct
          IF ( left<=0 ) CALL mesage(-8,0,name)
-         Ipoint = Igpct + Ngpct
-         Npoint = Ngpct
-         I6x6k = Ipoint + Npoint
-         I6x6k = (I6x6k-1)/2 + 2
+         ipoint = igpct + ngpct
+         npoint = ngpct
+         i6x6k = ipoint + npoint
+         i6x6k = (i6x6k-1)/2 + 2
 !
 !     CONSTRUCT THE POINTER TABLE, WHICH WILL ENABLE SUBROUTINE PLA4B TO
 !     INSERT THE 6 X 6 MATRICES INTO KGGNL.
 !
-         iz(Ipoint+1) = 1
+         iz(ipoint+1) = 1
          i1 = 1
-         i = Igpct
-         j = Ipoint + 1
+         i = igpct
+         j = ipoint + 1
          SPAG_Loop_1_3: DO
             i1 = i1 + 1
-            IF ( i1>Ngpct ) EXIT SPAG_Loop_1_3
+            IF ( i1>ngpct ) EXIT SPAG_Loop_1_3
             i = i + 1
             j = j + 1
             inc = 6
@@ -197,47 +198,47 @@ USE ISO_FORTRAN_ENV
 !     CURRENT GRID POINT.
 !
          inc = 5
-         ilast = Igpct + Ngpct
-         jlast = Ipoint + Npoint
+         ilast = igpct + ngpct
+         jlast = ipoint + npoint
          IF ( iz(ilast)<0 ) inc = 0
-         Jmax = iz(jlast) + inc
+         jmax = iz(jlast) + inc
 !
 !     IF 2*6*JMAX .LT. LEFT, THERE ARE NO SPILL LOGIC PROBLEMS FOR KGGNL
 !     SINCE THE WHOLE DOUBLE PRECISION SUBMATRIX OF ORDER 6 X JMAX CAN
 !     FIT IN CORE.
 !
-         itemp = 6*Jmax
+         itemp = 6*jmax
          IF ( 2*itemp<left ) THEN
-            Nrowsc = 6
+            nrowsc = 6
 !
 !     LROWIC IS THE LAST ROW IN CORE. (1 .LE. LROWIC .LE. 6)
 !
-            Lrowic = Frowic + Nrowsc - 1
+            lrowic = frowic + nrowsc - 1
          ELSE
             name(2) = inpvt(1)
             CALL mesage(30,85,name)
-            Nrowsc = 3
-            DO WHILE ( 2*Nrowsc*Jmax>=left )
-               Nrowsc = Nrowsc - 1
-               IF ( Nrowsc==0 ) CALL mesage(-8,0,name)
+            nrowsc = 3
+            DO WHILE ( 2*nrowsc*jmax>=left )
+               nrowsc = nrowsc - 1
+               IF ( nrowsc==0 ) CALL mesage(-8,0,name)
             ENDDO
-            Lrowic = Frowic + Nrowsc - 1
+            lrowic = frowic + nrowsc - 1
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     ZERO OUT THE KGGD SUBMATRIX IN CORE.
 !
-         low = I6x6k + 1
-         lim = I6x6k + Jmax*Nrowsc
+         low = i6x6k + 1
+         lim = i6x6k + jmax*nrowsc
          DO i = low , lim
             dz(i) = 0.0D0
          ENDDO
 !
 !     INITIALIZE THE LINK VECTOR TO -1.
 !
-         DO i = 1 , Nlinks
-            Link(i) = -1
+         DO i = 1 , nlinks
+            link(i) = -1
          ENDDO
 !
 !     TURN FIRST PASS INDICATOR ON.
@@ -248,27 +249,27 @@ USE ISO_FORTRAN_ENV
 !     IF NPVT .LT. 0, THE REMAINDER OF THE ECPT RECORD IS NULL SO THAT
 !     1 OR 6 NULL COLUMNS MUST BE GENERATED
 !
-         file = Ecpts
-         CALL fread(Ecpts,Npvt,1,0)
-         IF ( Npvt<0 ) GOTO 80
+         file = ecpts
+         CALL fread(ecpts,npvt,1,0)
+         IF ( npvt<0 ) GOTO 80
 !
 !     WRITE PIVOT POINT ON ECPTNL1 (ECPTO)
 !
-         CALL write(Ecpto,Npvt,1,Neor)
+         CALL write(ecpto,npvt,1,neor)
          spag_nextblock_1 = 5
       CASE (5)
          SPAG_Loop_1_4: DO
 !
 !     READ THE NEXT ELEMENT TYPE INTO THE CELL ITYPE.
 !
-            CALL read(*140,*60,Ecpts,itype,1,Neor,iflag)
+            CALL read(*140,*60,ecpts,itype,1,neor,iflag)
 !
 !     READ THE ECPT ENTRY FOR THE CURRENT TYPE INTO THE ECPT ARRAY. THE
 !     NUMBER OF WORDS TO BE READ WILL BE NWORDS(ITYPE).
 !
-            IF ( Nwords(itype)<=0 ) CALL mesage(-30,61,name)
-            CALL fread(Ecpts,Ecpt,Nwords(itype),0)
-            itemp = Iovrly(itype)
+            IF ( nwords(itype)<=0 ) CALL mesage(-30,61,name)
+            CALL fread(ecpts,ecpt,nwords(itype),0)
+            itemp = iovrly(itype)
 !
 !     IF THIS IS THE 1ST ELEMENT READ ON THE CURRENT PASS OF THE ECPT
 !     CHECK TO SEE IF THIS ELEMENT IS IN A LINK THAT HAS ALREADY BEEN
@@ -289,14 +290,14 @@ USE ISO_FORTRAN_ENV
 !     SET A TO BE PROCESSED LATER FLAG FOR THE LINK IN WHICH THE ELEMENT
 !     RESIDES
 !
-               IF ( Link(itemp)/=1 ) Link(itemp) = 0
+               IF ( link(itemp)/=1 ) link(itemp) = 0
 !
 !     SINCE THIS IS THE FIRST ELEMENT TYPE TO BE PROCESSED ON THIS PASS
 !     OF THE ECPT RECORD, A CHECK MUST BE MADE TO SEE IF THIS ELEMENT
 !     IS IN A LINK THAT HAS ALREADY BEEN PROCESSED.  IF IT IS SUCH AN
 !     ELEMENT, WE KEEP IFIRST = 1 AND READ THE NEXT ELEMENT.
 !
-            ELSEIF ( Link(itemp)/=1 ) THEN
+            ELSEIF ( link(itemp)/=1 ) THEN
 !
 !     SET THE CURRENT LINK IN CORE = ITEMP AND IFIRST = 0
 !
@@ -342,15 +343,15 @@ USE ISO_FORTRAN_ENV
 !     OF THE DISPLACEMENTS VECTORS.
 !
             DO i = 1 , 16
-               tubsav(i) = Ecpt(i)
+               tubsav(i) = ecpt(i)
             ENDDO
 !
 !     COMPUTE AREA, TORSIONAL INERTIA TERM AND STRESS COEFFICIENT.
 !
-            d = Ecpt(5)
-            t = Ecpt(6)
+            d = ecpt(5)
+            t = ecpt(6)
             dmt = d - t
-            a = dmt*t*Pi
+            a = dmt*t*pi
             fj = .25*a*(dmt**2+t**2)
             c = d/2.0
 !
@@ -359,12 +360,12 @@ USE ISO_FORTRAN_ENV
 !
             m = 26
             DO i = 1 , 19
-               Ecpt(m) = Ecpt(m-1)
+               ecpt(m) = ecpt(m-1)
                m = m - 1
             ENDDO
-            Ecpt(5) = a
-            Ecpt(6) = fj
-            Ecpt(7) = c
+            ecpt(5) = a
+            ecpt(6) = fj
+            ecpt(7) = c
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ELSEIF ( itype==6 ) THEN
@@ -407,7 +408,6 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     ROD, CONROD
@@ -419,19 +419,19 @@ USE ISO_FORTRAN_ENV
 !
          IF ( itype==3 ) THEN
             DO i = 1 , 16
-               Ecpt(i) = tubsav(i)
+               ecpt(i) = tubsav(i)
             ENDDO
-            Ecpt(17) = Ecpt(18)
-            Ecpt(18) = Ecpt(19)
-            Ecpt(19) = Ecpt(20)
+            ecpt(17) = ecpt(18)
+            ecpt(18) = ecpt(19)
+            ecpt(19) = ecpt(20)
          ENDIF
          spag_nextblock_1 = 7
       CASE (7)
 !
 !     WRITE ELEMENT TYPE AND UPDATED ECPT ENTRY ONTO ECPTNL1 (ECPTO)
 !
-         CALL write(Ecpto,itype,1,Neor)
-         CALL write(Ecpto,Ecpt,nwdsp2(itype),Neor)
+         CALL write(ecpto,itype,1,neor)
+         CALL write(ecpto,ecpt,nwdsp2(itype),neor)
          ecptot(2) = ecptot(2) + 1
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
@@ -439,61 +439,61 @@ USE ISO_FORTRAN_ENV
 !     AT STATEMENT NO. 500 WE HAVE HIT AN EOR ON THE ECPT FILE.  SEARCH
 !     THE LINK VECTOR TO DETERMINE IF THERE ARE LINKS TO BE PROCESSED.
 !
- 60      Link(lincor) = 1
-         DO i = 1 , Nlinks
-            IF ( Link(i)==0 ) THEN
+ 60      link(lincor) = 1
+         DO i = 1 , nlinks
+            IF ( link(i)==0 ) THEN
                spag_nextblock_1 = 8
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         IF ( Nogo==1 ) CALL mesage(-61,0,0)
+         IF ( nogo==1 ) CALL mesage(-61,0,0)
 !
 !     AT THIS POINT BLDPK THE NUMBER OF ROWS IN CORE ONTO THE KGGNL FILE
 !
          i1 = 0
          SPAG_Loop_1_5: DO
             i2 = 0
-            ibeg = I6x6k + i1*Jmax
+            ibeg = i6x6k + i1*jmax
             CALL bldpk(2,ipr,ifile,0,0)
             DO
                i2 = i2 + 1
-               IF ( i2>Ngpct ) THEN
+               IF ( i2>ngpct ) THEN
                   CALL bldpkn(ifile,0,mcbkgg)
                   i1 = i1 + 1
-                  IF ( i1<Nrowsc ) CYCLE SPAG_Loop_1_5
+                  IF ( i1<nrowsc ) CYCLE SPAG_Loop_1_5
 !
 !     WRITE AN EOR ON ECPTO
 !
-                  CALL write(Ecpto,0,0,Eor)
+                  CALL write(ecpto,0,0,eor)
 !
 !     TEST TO SEE IF THE LAST ROW IN CORE, LROWIC, = THE TOTAL NO. OF
 !     ROWS TO BE COMPUTED = 6.  IF IT IS, WE ARE DONE.  IF NOT, THE
 !     ECPTS MUST BE BACKSPACED.
 !
-                  IF ( Lrowic==6 ) THEN
+                  IF ( lrowic==6 ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL bckrec(Ecpts)
-                  Frowic = Frowic + Nrowsc
-                  Lrowic = Lrowic + Nrowsc
+                  CALL bckrec(ecpts)
+                  frowic = frowic + nrowsc
+                  lrowic = lrowic + nrowsc
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSE
-                  jj = Igpct + i2
-                  Index = iabs(iz(jj)) - 1
+                  jj = igpct + i2
+                  index = iabs(iz(jj)) - 1
                   lim = 6
                   IF ( iz(jj)<0 ) lim = 1
-                  jjj = Ipoint + i2
+                  jjj = ipoint + i2
                   kkk = ibeg + iz(jjj) - 1
                   i3 = 0
                   SPAG_Loop_3_6: DO
                      i3 = i3 + 1
                      IF ( i3>lim ) EXIT SPAG_Loop_3_6
-                     Index = Index + 1
+                     index = index + 1
                      kkk = kkk + 1
-                     Dpword = dz(kkk)
-                     IF ( Dpword/=0.0D0 ) CALL zblpki
+                     dpword = dz(kkk)
+                     IF ( dpword/=0.0D0 ) CALL zblpki
                   ENDDO SPAG_Loop_3_6
                ENDIF
             ENDDO
@@ -505,39 +505,39 @@ USE ISO_FORTRAN_ENV
 !     SINCE AT LEAST ONE LINK HAS NOT BEEN PROCESSED THE ECPT FILE MUST
 !     BE BACKSPACED.
 !
-         CALL bckrec(Ecpts)
+         CALL bckrec(ecpts)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
- 80      IF ( Nogo==1 ) CALL mesage(-61,0,0)
+ 80      IF ( nogo==1 ) CALL mesage(-61,0,0)
 !
 !     HERE WE HAVE A PIVOT POINT WITH NO ELEMENTS CONNECTED, SO THAT
 !     NULL COLUMNS MUST BE OUTPUT ON THE KGGD FILE.
 !
-         file = Ecpts
+         file = ecpts
          lim = 6
          IF ( inpvt(1)<0 ) lim = 1
          DO i = 1 , lim
             CALL bldpk(2,ipr,ifile,0,0)
-            CALL bldpkn(Kggnl,0,mcbkgg)
+            CALL bldpkn(kggnl,0,mcbkgg)
          ENDDO
-         CALL skprec(Ecpts,1)
+         CALL skprec(ecpts,1)
 !
 !     WRITE PIVOT POINT ON ECPTO
 !
-         CALL write(Ecpto,Npvt,1,Eor)
+         CALL write(ecpto,npvt,1,eor)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !     CHECK NOGO FLAG. IF NOGO = 1, TERMINATE EXECUTION
 !
- 100     IF ( Nogo==1 ) CALL mesage(-61,0,0)
+ 100     IF ( nogo==1 ) CALL mesage(-61,0,0)
 !
 !     WRAP UP BEFORE RETURN
 !
-         CALL close(Ecpts,Clsrw)
-         CALL close(Ecpto,Clsrw)
-         CALL close(Gpct,Clsrw)
-         CALL close(Kggnl,Clsrw)
+         CALL close(ecpts,clsrw)
+         CALL close(ecpto,clsrw)
+         CALL close(gpct,clsrw)
+         CALL close(kggnl,clsrw)
          mcbkgg(3) = mcbkgg(2)
          CALL wrttrl(mcbkgg)
          CALL wrttrl(ecptot)

@@ -1,29 +1,30 @@
-!*==emgold.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==emgold.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE emgold
-USE C_EMG1BX
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_GPTA1
-USE C_HYDROE
-USE C_IEMGOD
-USE C_MACHIN
-USE C_SMA1BK
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1HT
-USE C_SMA1IO
-USE C_SMA2BK
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2HT
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_emg1bx
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_gpta1
+   USE c_hydroe
+   USE c_iemgod
+   USE c_machin
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_sma2bk
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2ht
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -50,31 +51,31 @@ USE ISO_FORTRAN_ENV
 !
    !>>>>EQUIVALENCE (Ksystm(2),Outpt) , (Ksystm(40),Nbpw) , (Smaio(11),Ifkgg) , (Smaio(13),If4gg)
 !
-         ktemp = Knogo
-         mtemp = Mnogo
-         qp = mod(Lqro/100,10)
-         jltype = 2*(Eltype-1) + Precis
-         Kheat = Heat
-         Lheat = Heat
-         izero = Incr*(Eltype-1)
-         IF ( Eltype/=Ltypes ) THEN
+         ktemp = knogo
+         mtemp = mnogo
+         qp = mod(lqro/100,10)
+         jltype = 2*(eltype-1) + precis
+         kheat = heat
+         lheat = heat
+         izero = incr*(eltype-1)
+         IF ( eltype/=ltypes ) THEN
             CALL page2(3)
             index = izero
-            IF ( Heat ) THEN
-               IF ( Eltype==62 .OR. Eltype==63 ) index = 15*Incr
+            IF ( heat ) THEN
+               IF ( eltype==62 .OR. eltype==63 ) index = 15*incr
             ENDIF
-            IF ( L38==1 ) WRITE (outpt,99001) Sim , Elem(index+1) , Elem(index+2)
+            IF ( l38==1 ) WRITE (outpt,99001) sim , elem(index+1) , elem(index+2)
 99001       FORMAT (A31,' 3107',/5X,'EMGOLD CALLED BY EMGPRO TO PROCESS ',2A4,' ELEMENTS.')
-            Ltypes = Eltype
+            ltypes = eltype
          ENDIF
 !
-         Nsils = Elem(izero+10)
-         isil = Elem(izero+13)
-         IF ( Elem(izero+9)/=0 ) isil = isil - 1
-         estwds = Elem(izero+12)
+         nsils = elem(izero+10)
+         isil = elem(izero+13)
+         IF ( elem(izero+9)/=0 ) isil = isil - 1
+         estwds = elem(izero+12)
          i1 = isil
-         i2 = isil + Nsils - 1
-         l = Nsils
+         i2 = isil + nsils - 1
+         l = nsils
 !
 !     MOVE SILS TO SEPARATE ARRAY
 !
@@ -83,50 +84,50 @@ USE ISO_FORTRAN_ENV
 !     POSITION VECTOR
 !
          DO i = i1 , i2
-            IF ( Estbuf(i)==0 ) THEN
+            IF ( estbuf(i)==0 ) THEN
                k = l
                l = l - 1
             ELSE
                k = 1
                DO j = i1 , i2
-                  IF ( Estbuf(j)<Estbuf(i) ) THEN
-                  ELSEIF ( Estbuf(j)==Estbuf(i) ) THEN
+                  IF ( estbuf(j)<estbuf(i) ) THEN
+                  ELSEIF ( estbuf(j)==estbuf(i) ) THEN
                      IF ( j>=i ) CYCLE
                   ELSE
                      CYCLE
                   ENDIF
-                  IF ( Estbuf(j)/=0 ) k = k + 1
+                  IF ( estbuf(j)/=0 ) k = k + 1
                ENDDO
             ENDIF
-            Posvec(k) = i - i1 + 1
-            Sil(k) = Estbuf(i)
+            posvec(k) = i - i1 + 1
+            sil(k) = estbuf(i)
          ENDDO
 !
 !     ELIMINATE DUP SILS THAT MAY OCCUR,E.G. CHBDY WITH AMB.PTS.
 !
          k = 1
          icount = 1
-         DO i = 2 , Nsils
+         DO i = 2 , nsils
             SPAG_Loop_2_1: DO
                k = k + 1
-               IF ( k>Nsils ) THEN
-                  Sil(i) = 0
-                  Posvec(i) = 0
+               IF ( k>nsils ) THEN
+                  sil(i) = 0
+                  posvec(i) = 0
                   EXIT SPAG_Loop_2_1
-               ELSEIF ( Sil(k)/=Sil(k-1) ) THEN
-                  Sil(i) = Sil(k)
-                  IF ( Sil(k)/=0 ) icount = icount + 1
-                  Posvec(i) = Posvec(k)
+               ELSEIF ( sil(k)/=sil(k-1) ) THEN
+                  sil(i) = sil(k)
+                  IF ( sil(k)/=0 ) icount = icount + 1
+                  posvec(i) = posvec(k)
                   EXIT SPAG_Loop_2_1
                ENDIF
             ENDDO SPAG_Loop_2_1
          ENDDO
-         Nsils = icount
+         nsils = icount
 !
 !     SETUP VALUES AND DICTIONARY IN /EMG1BX/ FOR EMG1B USE
 !
-         Dict(1) = Estid
-         Dict(2) = 1
+         dict(1) = estid
+         dict(2) = 1
 !
 !     PSUEDO SMA1-SMA2 FILE NUMBERS
 !
@@ -137,33 +138,33 @@ USE ISO_FORTRAN_ENV
 !     BASED ON INCOMING DATA TO EMG1B
 !
          DO i = 5 , 15
-            Dict(i) = 0
+            dict(i) = 0
          ENDDO
 !
 !     CALL ELEMENT FOR EACH PIVOT ROW
 !
-         Last = .FALSE.
-         Knogo = 0
-         Mnogo = 0
-         DO i = 1 , Nsils
+         last = .FALSE.
+         knogo = 0
+         mnogo = 0
+         DO i = 1 , nsils
             spag_nextblock_2 = 1
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  IF ( i==Nsils ) Last = .TRUE.
+                  IF ( i==nsils ) last = .TRUE.
 !
 !     STIFFNESS MATRIX
 !
-                  IF ( Flags(1)/=0 ) THEN
+                  IF ( flags(1)/=0 ) THEN
 !
 !     RESTORE K-DICTIONARY IF NECESSARY
 !
                      IF ( i/=1 ) THEN
                         DO l = 1 , 15
-                           Dict(l) = kdict(l)
+                           dict(l) = kdict(l)
                         ENDDO
                      ENDIF
-                     Filtyp = 1
+                     filtyp = 1
 !
 !     IOPT4 IS TURNED ON SO THAT DAMPING CONSTANTS ARE SENT TO EMG1B
 !     IN ALL AVAILABLE CASES BY ELEMENT ROUTINES.  MATRIX DATA WILL BE
@@ -171,19 +172,19 @@ USE ISO_FORTRAN_ENV
 !     DAMPING CONSTANTS WILL BE PLACED IN 5TH WORD OF ELEMENT DICTIONARY
 !     ENTRY.
 !
-                     Iopt4 = 1
-                     K4ggsw = 0
-                     Knpvt = Sil(i)
+                     iopt4 = 1
+                     k4ggsw = 0
+                     knpvt = sil(i)
 !
 !     FULL 6X6 MATRIX FORCED FOR STIFFNESS WITH OLD ELEMENT ROUTINES
 !
-                     Dict(2) = 1
-                     IF ( Sil(i)/=0 ) THEN
+                     dict(2) = 1
+                     IF ( sil(i)/=0 ) THEN
                         DO l = 1 , estwds
-                           Kecpt(l) = Estbuf(l)
+                           kecpt(l) = estbuf(l)
                         ENDDO
-                        Hydro = .FALSE.
-                        IF ( Eltype>=76 .AND. Eltype<=79 ) Hydro = .TRUE.
+                        hydro = .FALSE.
+                        IF ( eltype>=76 .AND. eltype<=79 ) hydro = .TRUE.
 !
 !     CALL THE PROPER ELEMENT STIFFNESS ROUTINE
 !
@@ -256,7 +257,7 @@ USE ISO_FORTRAN_ENV
                               CALL kcones
                               GOTO 2
                            ELSEIF ( jltype==70 ) THEN
-                              IF ( Mach==3 ) THEN
+                              IF ( mach==3 ) THEN
                                  CALL kcones
                               ELSEIF ( nbpw>=60 ) THEN
                                  CALL kcone2
@@ -266,17 +267,16 @@ USE ISO_FORTRAN_ENV
                               ENDIF
                               GOTO 2
                            ELSEIF ( jltype==71 .OR. jltype==72 ) THEN
-                              IF ( Heat ) THEN
+                              IF ( heat ) THEN
                                  CALL hring(3)
-                                 GOTO 2
                               ELSE
-                                 IF ( Knogo==2 ) CYCLE
+                                 IF ( knogo==2 ) CYCLE
                                  CALL ktrirg
-                                 IF ( Knogo==2 ) CYCLE
-                                 GOTO 2
+                                 IF ( knogo==2 ) CYCLE
                               ENDIF
+                              GOTO 2
                            ELSEIF ( jltype==73 .OR. jltype==74 ) THEN
-                              IF ( Heat ) THEN
+                              IF ( heat ) THEN
                                  CALL hring(4)
                               ELSE
                                  CALL ktrapr
@@ -344,7 +344,7 @@ USE ISO_FORTRAN_ENV
 !     REPLACE ELEMENT TYPE CQDMEM1 BY ELEMENT TYPE CQDMEM
 !     IN -HEAT- FORMULATION
 !
-                           IF ( .NOT.(Heat) ) THEN
+                           IF ( .NOT.(heat) ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -354,7 +354,7 @@ USE ISO_FORTRAN_ENV
 !     REPLACE ELEMENT TYPE CQDMEM2 BY ELEMENT TYPE CQDMEM
 !     IN -HEAT- FORMULATION
 !
-                           IF ( .NOT.(Heat) ) THEN
+                           IF ( .NOT.(heat) ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -364,7 +364,7 @@ USE ISO_FORTRAN_ENV
 !     REPLACE ELEMENT TYPE CQDMEM2 BY ELEMENT TYPE CQDMEM
 !     IN -HEAT- FORMULATION
 !
-                           IF ( .NOT.(Heat) ) THEN
+                           IF ( .NOT.(heat) ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
@@ -383,7 +383,7 @@ USE ISO_FORTRAN_ENV
                            CALL ktriqd(1)
                         ENDIF
                      ELSE
-                        CALL emg1b(Dummy,0,1,1,0)
+                        CALL emg1b(dummy,0,1,1,0)
                      ENDIF
 !
 !     OUTPUT THE PIVOT ROW PARTITION NOW COMPLETED BY -EMG1B-
@@ -393,17 +393,17 @@ USE ISO_FORTRAN_ENV
 !     SAVE K-DICTIONARY
 !
                      DO l = 1 , 15
-                        kdict(l) = Dict(l)
+                        kdict(l) = dict(l)
                      ENDDO
                   ENDIF
 !
 !     MASS MATRIX M
 !
-                  IF ( Flags(2)==0 ) THEN
+                  IF ( flags(2)==0 ) THEN
                      spag_nextblock_2 = 5
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
-                  IF ( Heat ) THEN
+                  IF ( heat ) THEN
                      spag_nextblock_2 = 5
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
@@ -412,20 +412,20 @@ USE ISO_FORTRAN_ENV
 !
                   IF ( i/=1 ) THEN
                      DO l = 1 , 15
-                        Dict(l) = mdict(l)
+                        dict(l) = mdict(l)
                      ENDDO
                   ENDIF
-                  Filtyp = 2
-                  Ioptb = 0
-                  Bggind = -1
-                  Mnpvt = Sil(i)
-                  Dict(2) = 1
-                  IF ( Sil(i)/=0 ) THEN
+                  filtyp = 2
+                  ioptb = 0
+                  bggind = -1
+                  mnpvt = sil(i)
+                  dict(2) = 1
+                  IF ( sil(i)/=0 ) THEN
                      DO l = 1 , estwds
-                        Mecpt(l) = Estbuf(l)
+                        mecpt(l) = estbuf(l)
                      ENDDO
                   ELSE
-                     CALL emg1b(Dummy,0,1,2,0)
+                     CALL emg1b(dummy,0,1,2,0)
                      spag_nextblock_2 = 4
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
@@ -477,7 +477,7 @@ USE ISO_FORTRAN_ENV
                      ENDIF
                      IF ( jltype==15 .OR. jltype==16 ) THEN
 !
-                        IF ( Icmbar<0 ) THEN
+                        IF ( icmbar<0 ) THEN
                            CALL masstq(3)
                         ELSE
                            CALL mtrplt
@@ -486,7 +486,7 @@ USE ISO_FORTRAN_ENV
                         CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( jltype==29 .OR. jltype==30 ) THEN
 !
-                        IF ( Icmbar<0 ) THEN
+                        IF ( icmbar<0 ) THEN
                            CALL masstq(7)
                         ELSE
                            CALL mqdplt
@@ -499,7 +499,7 @@ USE ISO_FORTRAN_ENV
                         CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( jltype==33 .OR. jltype==34 ) THEN
 !
-                        IF ( Icmbar<0 ) THEN
+                        IF ( icmbar<0 ) THEN
                            CALL masstq(4)
                         ELSE
                            CALL mtriqd(2)
@@ -508,7 +508,7 @@ USE ISO_FORTRAN_ENV
                         CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( jltype==35 .OR. jltype==36 ) THEN
 !
-                        IF ( Icmbar<0 ) THEN
+                        IF ( icmbar<0 ) THEN
                            CALL masstq(1)
                         ELSE
                            CALL mtriqd(4)
@@ -517,7 +517,7 @@ USE ISO_FORTRAN_ENV
                         CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( jltype==37 .OR. jltype==38 ) THEN
 !
-                        IF ( Icmbar<0 ) THEN
+                        IF ( icmbar<0 ) THEN
                            CALL masstq(2)
                         ELSE
                            CALL mtriqd(3)
@@ -532,19 +532,18 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_2 = 4
                         CYCLE SPAG_DispatchLoop_2
                      ELSEIF ( jltype==71 .OR. jltype==72 ) THEN
-                        IF ( Mnogo==2 ) CYCLE
-                        IF ( Heat ) THEN
+                        IF ( mnogo==2 ) CYCLE
+                        IF ( heat ) THEN
                            CALL mring(3)
                            spag_nextblock_2 = 4
-                           CYCLE SPAG_DispatchLoop_2
                         ELSE
                            CALL mtrirg
-                           IF ( Mnogo==2 ) CYCLE
+                           IF ( mnogo==2 ) CYCLE
                            spag_nextblock_2 = 4
-                           CYCLE SPAG_DispatchLoop_2
                         ENDIF
+                        CYCLE
                      ELSEIF ( jltype==73 .OR. jltype==74 ) THEN
-                        IF ( Heat ) THEN
+                        IF ( heat ) THEN
                            CALL mring(4)
                         ELSE
                            CALL mtrapr
@@ -629,7 +628,6 @@ USE ISO_FORTRAN_ENV
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
                   spag_nextblock_2 = 4
-                  CYCLE SPAG_DispatchLoop_2
                CASE (3)
 !
 !
@@ -637,7 +635,7 @@ USE ISO_FORTRAN_ENV
 !     ICMBAR .LT. 0
 !     OTHERWISE CONSISTENT MASS MATRIX GENERATION ROUTINE CALLED
 !
-                  IF ( Icmbar<0 ) THEN
+                  IF ( icmbar<0 ) THEN
                      CALL masstq(5)
                   ELSE
                      CALL mtriqd(1)
@@ -648,7 +646,7 @@ USE ISO_FORTRAN_ENV
 !     OUTPUT THE PIVOT ROW PARTITION NOW COMPLETED BY -EMG1B-
 !
                   CALL emg1b(0.0D0,-1111111,0,0,0.0D0)
-                  IF ( Heat ) THEN
+                  IF ( heat ) THEN
                      spag_nextblock_2 = 6
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
@@ -656,36 +654,36 @@ USE ISO_FORTRAN_ENV
 !     SAVE M-DICTIONARY
 !
                   DO l = 1 , 15
-                     mdict(l) = Dict(l)
+                     mdict(l) = dict(l)
                   ENDDO
                   spag_nextblock_2 = 5
                CASE (5)
 !
 !     DAMPING MATRIX B
 !
-                  IF ( Flags(3)==0 ) CYCLE
-                  IF ( .NOT.Heat ) CYCLE
+                  IF ( flags(3)==0 ) CYCLE
+                  IF ( .NOT.heat ) CYCLE
 !
 !     RESTORE B-DICTIONARY IF NECESSARY
 !
                   IF ( i/=1 ) THEN
                      DO l = 1 , 15
-                        Dict(l) = bdict(l)
+                        dict(l) = bdict(l)
                      ENDDO
                   ENDIF
-                  Filtyp = 3
-                  Ioptb = -1
-                  Bggind = -1
-                  Mnpvt = Sil(i)
-                  Dict(2) = 1
-                  IF ( Sil(i)/=0 ) THEN
+                  filtyp = 3
+                  ioptb = -1
+                  bggind = -1
+                  mnpvt = sil(i)
+                  dict(2) = 1
+                  IF ( sil(i)/=0 ) THEN
                      DO l = 1 , estwds
-                        Mecpt(l) = Estbuf(l)
+                        mecpt(l) = estbuf(l)
                      ENDDO
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
                   ELSE
-                     CALL emg1b(Dummy,0,1,3,0)
+                     CALL emg1b(dummy,0,1,3,0)
 !
 !     OUTPUT THE PIVOT ROW PARTITION NOW COMPLETED BY -EMG1B-
 !
@@ -697,18 +695,18 @@ USE ISO_FORTRAN_ENV
 !     SAVE DICTIONARY
 !
                   DO l = 1 , 15
-                     bdict(l) = Dict(l)
+                     bdict(l) = dict(l)
                   ENDDO
                   EXIT SPAG_DispatchLoop_2
                END SELECT
             ENDDO SPAG_DispatchLoop_2
 !
          ENDDO
-         IF ( Knogo==0 ) Knogo = ktemp
-         IF ( Mnogo==0 ) Mnogo = mtemp
+         IF ( knogo==0 ) knogo = ktemp
+         IF ( mnogo==0 ) mnogo = mtemp
          RETURN
       CASE (2)
-         WRITE (outpt,99002) Swm , Elid , Elem(izero+1) , Elem(izero+2)
+         WRITE (outpt,99002) swm , elid , elem(izero+1) , elem(izero+2)
 99002    FORMAT (A27,' 3121, EMGOLD HAS RECEIVED A CALL FOR ELEMENT ID',I9,' (ELEMENT TYPE ',2A4,2H).,/5X,                          &
                & 'ELEMENT IGNORED AS THIS ','ELEMENT TYPE IS NOT HANDLED BY EMGOLD.')
          EXIT SPAG_DispatchLoop_1

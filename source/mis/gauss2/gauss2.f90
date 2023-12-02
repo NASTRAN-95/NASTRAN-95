@@ -1,8 +1,9 @@
-!*==gauss2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==gauss2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gauss2(A,N,N2)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -15,6 +16,15 @@ USE ISO_FORTRAN_ENV
 !
    COMPLEX(REAL64) , DIMENSION(20,30) :: da
    INTEGER :: i , j , k , l , m
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

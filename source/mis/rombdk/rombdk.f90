@@ -1,7 +1,9 @@
-!*==rombdk.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rombdk.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rombdk(B,Precis,Itdone,Fintg,K,X)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -18,11 +20,19 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: const , den , diff , f , faaac , faaad , faaae , faaaf , faaag , faaah
    REAL(REAL64) , DIMENSION(20) :: faaaa , faaab
-   INTEGER :: iaaaa , iaaac , iaaad , iaaaf , iret
+   INTEGER :: iaaaa , iaaac , iaaad , iaaaf , iret , spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

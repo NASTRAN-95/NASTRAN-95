@@ -1,17 +1,18 @@
-!*==cmrd2f.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cmrd2f.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2f(Kode)
-USE C_BITPOS
-USE C_BLANK
-USE C_MPY3TL
-USE C_MPYADX
-USE C_PACKX
-USE C_PATX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_mpy3tl
+   USE c_mpyadx
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -97,19 +98,19 @@ USE ISO_FORTRAN_ENV
 !
 !     SELECT OPERATION MODE
 !
-   IF ( Dry==-2 ) RETURN
-   IF ( .NOT.(Ponly .OR. Dry==0) ) THEN
+   IF ( dry==-2 ) RETURN
+   IF ( .NOT.(ponly .OR. dry==0) ) THEN
 !
 !     SET UP NEW SUBSTRUCTURE
 !
-      IF ( .NOT.(Modes) ) THEN
+      IF ( .NOT.(modes) ) THEN
          numb = 1
-         CALL setlvl(Newnam,numb,Oldnam,itest,cmred2)
+         CALL setlvl(newnam,numb,oldnam,itest,cmred2)
          IF ( itest==8 ) THEN
 !
-            WRITE (Iprntr,99001) Ufm
+            WRITE (iprntr,99001) ufm
 99001       FORMAT (A23,' 6518, ONE OF THE COMPONENT SUBSTRUCTURES HAS BEEN ','USED IN A PREVIOUS COMBINE OR REDUCE.')
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
       ENDIF
@@ -131,17 +132,17 @@ USE ISO_FORTRAN_ENV
 !
          itrlr1(1) = kbb
          CALL rdtrl(itrlr1)
-         IF ( Symtry ) THEN
+         IF ( symtry ) THEN
             item = itmlst(10)
-            CALL softrl(Oldnam,item,itrlr2)
+            CALL softrl(oldnam,item,itrlr2)
             itest = itrlr2(1)
-            itmnam(1) = Oldnam(1)
-            itmnam(2) = Oldnam(2)
+            itmnam(1) = oldnam(1)
+            itmnam(2) = oldnam(2)
             IF ( itest/=1 ) THEN
                CALL spag_block_1
                RETURN
             ENDIF
-            CALL mtrxi(gib,Oldnam,item,0,itest)
+            CALL mtrxi(gib,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                CALL spag_block_1
                RETURN
@@ -154,34 +155,34 @@ USE ISO_FORTRAN_ENV
          itrlr3(1) = kib
          CALL rdtrl(itrlr3)
          DO i = 1 , 7
-            Itrlra(i) = itrlr2(i)
-            Itrlrb(i) = itrlr3(i)
-            Itrlrc(i) = itrlr1(i)
+            itrlra(i) = itrlr2(i)
+            itrlrb(i) = itrlr3(i)
+            itrlrc(i) = itrlr1(i)
          ENDDO
          iform = 1
          iprc = 1
          ityp = 0
-         IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-         IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-         IF ( Itrlrc(5)==2 .OR. Itrlrc(5)==4 ) iprc = 2
-         IF ( Itrlra(5)>=3 ) ityp = 2
-         IF ( Itrlrb(5)>=3 ) ityp = 2
-         IF ( Itrlrc(5)>=3 ) ityp = 2
+         IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+         IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+         IF ( itrlrc(5)==2 .OR. itrlrc(5)==4 ) iprc = 2
+         IF ( itrlra(5)>=3 ) ityp = 2
+         IF ( itrlrb(5)>=3 ) ityp = 2
+         IF ( itrlrc(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Itrlrd,kbarbb,itrlr1(3),iform,itype)
-         T = 1
-         Signab = 1
-         Signc = 1
-         Prec = 0
-         Scr = Iscr(7)
-         Scr = Iscr(1)
+         CALL makmcb(itrlrd,kbarbb,itrlr1(3),iform,itype)
+         t = 1
+         signab = 1
+         signc = 1
+         prec = 0
+         scr = iscr(7)
+         scr = iscr(1)
          CALL sofcls
-         dblkor = Korbgn/2 + 1
-         Nz = Lstzwd - (2*dblkor-1)
+         dblkor = korbgn/2 + 1
+         nz = lstzwd - (2*dblkor-1)
          CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Itrlrd)
-         kbarow = Itrlrd(3)
-         kcol = Itrlrd(2)
+         CALL wrttrl(itrlrd)
+         kbarow = itrlrd(3)
+         kcol = itrlrd(2)
 !
 !     FORM PRELIMINARY STIFFNESS CALCULATION
 !
@@ -197,64 +198,64 @@ USE ISO_FORTRAN_ENV
          CALL rdtrl(itrlr1)
          CALL rdtrl(itrlr2)
          DO i = 1 , 7
-            Itrlra(i) = itrlr1(i)
-            Itrlrb(i) = itrlr2(i)
-            Itrlrc(i) = 0
+            itrlra(i) = itrlr1(i)
+            itrlrb(i) = itrlr2(i)
+            itrlrc(i) = 0
          ENDDO
          iform = 2
          iprc = 1
          ityp = 0
-         IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-         IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-         IF ( Itrlra(5)>=3 ) ityp = 2
-         IF ( Itrlrb(5)>=3 ) ityp = 2
+         IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+         IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+         IF ( itrlra(5)>=3 ) ityp = 2
+         IF ( itrlrb(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Itrlrd,Iscr(2),itrlr2(3),iform,itype)
-         Prec = 0
-         T = 0
-         Signab = 1
-         Signc = 1
-         Scr = Iscr(1)
+         CALL makmcb(itrlrd,iscr(2),itrlr2(3),iform,itype)
+         prec = 0
+         t = 0
+         signab = 1
+         signc = 1
+         scr = iscr(1)
          CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Itrlrd)
+         CALL wrttrl(itrlrd)
          itrlr1(1) = him
-         IF ( .NOT.Symtry ) itrlr1(1) = himbar
+         IF ( .NOT.symtry ) itrlr1(1) = himbar
          CALL rdtrl(itrlr1)
          DO i = 1 , 7
-            Itrlra(i) = itrlr1(i)
-            Itrlrb(i) = Itrlrd(i)
+            itrlra(i) = itrlr1(i)
+            itrlrb(i) = itrlrd(i)
          ENDDO
          iform = 1
          iprc = 1
          ityp = 0
-         IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-         IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-         IF ( Itrlra(5)>=3 ) ityp = 2
-         IF ( Itrlrb(5)>=3 ) ityp = 2
+         IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+         IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+         IF ( itrlra(5)>=3 ) ityp = 2
+         IF ( itrlrb(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Itrlrd,kmm,itrlr1(2),iform,itype)
-         T = 1
-         Prec = 0
+         CALL makmcb(itrlrd,kmm,itrlr1(2),iform,itype)
+         t = 1
+         prec = 0
          CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Itrlrd)
-         kmmrow = Itrlrd(3)
-         kmmcol = Itrlrd(2)
+         CALL wrttrl(itrlrd)
+         kmmrow = itrlrd(3)
+         kmmcol = itrlrd(2)
 !
 !     GENERATE MERGE PARTITION VECTOR
 !
-         Nrow = kcol + kmmcol
-         DO i = 1 , Nrow
-            rz(Korbgn+i-1) = 0.0
-            IF ( i>kcol ) rz(Korbgn+i-1) = 1.0
+         nrow = kcol + kmmcol
+         DO i = 1 , nrow
+            rz(korbgn+i-1) = 0.0
+            IF ( i>kcol ) rz(korbgn+i-1) = 1.0
          ENDDO
-         Typin = 1
-         Typout = 1
-         Irow = 1
-         Incr = 1
+         typin = 1
+         typout = 1
+         irow = 1
+         incr = 1
          iform = 7
-         CALL makmcb(itrlr1,rprtn,Nrow,iform,Typin)
-         CALL gopen(rprtn,Z(Gbuf1),1)
-         CALL pack(rz(Korbgn),rprtn,itrlr1)
+         CALL makmcb(itrlr1,rprtn,nrow,iform,typin)
+         CALL gopen(rprtn,z(gbuf1),1)
+         CALL pack(rz(korbgn),rprtn,itrlr1)
          CALL close(rprtn,1)
          CALL wrttrl(itrlr1)
 !
@@ -275,15 +276,15 @@ USE ISO_FORTRAN_ENV
          isub(3) = kbarow
          isub(4) = kmmrow
          itype = 1
-         CALL gmmerg(khh,kbarbb,0,0,kmm,rprtn,rprtn,isub,itype,Z(Korbgn),Korlen)
+         CALL gmmerg(khh,kbarbb,0,0,kmm,rprtn,rprtn,isub,itype,z(korbgn),korlen)
 !
 !     STORE KHH AS KMTX ON SOF
 !
-         CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-         CALL mtrxo(khh,Newnam,itmlst(1),0,itest)
+         CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+         CALL mtrxo(khh,newnam,itmlst(1),0,itest)
          item = itmlst(1)
-         itmnam(1) = Newnam(1)
-         itmnam(2) = Newnam(2)
+         itmnam(1) = newnam(1)
+         itmnam(2) = newnam(2)
          IF ( itest/=3 ) THEN
             CALL spag_block_1
             RETURN
@@ -298,25 +299,25 @@ USE ISO_FORTRAN_ENV
 !       KODE .EQ. 3, BOTH HORG, HLFT CALCULATED
 !
    item = itmlst(2)
-   itmnam(1) = Oldnam(1)
-   itmnam(2) = Oldnam(2)
-   CALL mtrxi(hgh,Oldnam,item,0,itest)
+   itmnam(1) = oldnam(1)
+   itmnam(2) = oldnam(2)
+   CALL mtrxi(hgh,oldnam,item,0,itest)
    IF ( itest==1 ) THEN
-      IF ( .NOT.(Kode>1 .OR. Symtry) ) THEN
+      IF ( .NOT.(Kode>1 .OR. symtry) ) THEN
          item = itmlst(3)
-         CALL mtrxi(hghbar,Oldnam,item,0,itest)
+         CALL mtrxi(hghbar,oldnam,item,0,itest)
          IF ( itest/=1 ) THEN
             CALL spag_block_1
             RETURN
          ENDIF
       ENDIF
-      Signab = 1
-      Signc = 1
-      Scr = Iscr(1)
-      dblkor = Korbgn/2 + 1
-      Nz = Lstzwd - (2*dblkor-1)
-      itmnam(1) = Newnam(1)
-      itmnam(2) = Newnam(2)
+      signab = 1
+      signc = 1
+      scr = iscr(1)
+      dblkor = korbgn/2 + 1
+      nz = lstzwd - (2*dblkor-1)
+      itmnam(1) = newnam(1)
+      itmnam(2) = newnam(2)
 !
 !     GENERATE MATRICES REQUESTED
 !        I .EQ. 2, GENERATE MHH MATRIX
@@ -325,7 +326,7 @@ USE ISO_FORTRAN_ENV
 !        I .EQ. 5, GENERATE PHH MATRIX
 !
       DO i = 2 , 5
-         itrlr1(1) = Infile(i+6)
+         itrlr1(1) = infile(i+6)
          CALL rdtrl(itrlr1)
          IF ( itrlr1(1)>=0 ) THEN
             CALL sofcls
@@ -350,15 +351,15 @@ USE ISO_FORTRAN_ENV
             CALL rdtrl(itrlr2)
             IF ( i==5 ) THEN
                DO j = 1 , 7
-                  Itrlrd(j) = itrlr1(j)
+                  itrlrd(j) = itrlr1(j)
                ENDDO
                item = itmlst(7)
-               IF ( Popt==papp ) item = itmlst(8)
+               IF ( popt==papp ) item = itmlst(8)
             ELSE
                DO j = 1 , 7
-                  Itrlra(j) = itrlr1(j)
-                  Itrlrb(j) = itrlr2(j)
-                  Itrlrc(j) = 0
+                  itrlra(j) = itrlr1(j)
+                  itrlrb(j) = itrlr2(j)
+                  itrlrc(j) = 0
                ENDDO
                iform = 2
                IF ( itrlr1(3)==itrlr2(2) ) iform = 1
@@ -369,36 +370,36 @@ USE ISO_FORTRAN_ENV
                IF ( itrlr1(5)>=3 ) ityp = 2
                IF ( itrlr2(5)>=3 ) ityp = 2
                itype = iprc + ityp
-               CALL makmcb(Itrlrd,Iscr(2),itrlr1(3),iform,itype)
-               Prec = 0
-               T = 0
-               Signab = 1
-               Signc = 1
-               Scr = Iscr(1)
+               CALL makmcb(itrlrd,iscr(2),itrlr1(3),iform,itype)
+               prec = 0
+               t = 0
+               signab = 1
+               signc = 1
+               scr = iscr(1)
                CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-               CALL wrttrl(Itrlrd)
+               CALL wrttrl(itrlrd)
                item = itmlst(i+2)
             ENDIF
             itrlr2(1) = hgh
-            IF ( .NOT.Symtry ) itrlr2(1) = hghbar
+            IF ( .NOT.symtry ) itrlr2(1) = hghbar
             CALL rdtrl(itrlr2)
             DO j = 1 , 7
-               Itrlra(j) = itrlr2(j)
-               Itrlrb(j) = Itrlrd(j)
+               itrlra(j) = itrlr2(j)
+               itrlrb(j) = itrlrd(j)
             ENDDO
             iform = 1
             iprc = 1
             ityp = 0
-            IF ( Itrlrd(5)==2 .OR. Itrlrd(5)==4 ) iprc = 2
+            IF ( itrlrd(5)==2 .OR. itrlrd(5)==4 ) iprc = 2
             IF ( itrlr2(5)==2 .OR. itrlr2(5)==4 ) iprc = 2
-            IF ( Itrlrd(5)>=3 ) ityp = 2
+            IF ( itrlrd(5)>=3 ) ityp = 2
             IF ( itrlr2(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Itrlrd,Otfile(i),itrlr2(2),iform,itype)
-            T = 1
-            Prec = 0
+            CALL makmcb(itrlrd,otfile(i),itrlr2(2),iform,itype)
+            t = 1
+            prec = 0
             CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-            CALL wrttrl(Itrlrd)
+            CALL wrttrl(itrlrd)
 !
 !     STORE MATRIX ON SOF
 !        I .EQ. 2, STORE MHH AS MMTX
@@ -406,8 +407,8 @@ USE ISO_FORTRAN_ENV
 !        I .EQ. 4, STORE K4HH AS K4MX
 !        I .EQ. 5, STORE PHH AS PVEC OR PAPP
 !
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-            CALL mtrxo(Otfile(i),Newnam,item,0,itest)
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+            CALL mtrxo(otfile(i),newnam,item,0,itest)
             IF ( itest/=3 ) THEN
                CALL spag_block_1
                RETURN
@@ -417,36 +418,36 @@ USE ISO_FORTRAN_ENV
 !
 !     TEST FOR LOAD PROCESSING
 !
-      IF ( Popt/=blanks ) THEN
-         itmnam(1) = Oldnam(1)
-         itmnam(2) = Oldnam(2)
-         IF ( .NOT.Ponly ) THEN
+      IF ( popt/=blanks ) THEN
+         itmnam(1) = oldnam(1)
+         itmnam(2) = oldnam(2)
+         IF ( .NOT.ponly ) THEN
 !
 !     PARTITION PAA VECTOR
 !
-            Lcore = Korlen
-            Fuset = usetmr
-            CALL calcv(uprt,Un,Ui,Ub,Z(Korbgn))
+            lcore = korlen
+            fuset = usetmr
+            CALL calcv(uprt,un,ui,ub,z(korbgn))
          ELSE
             itrlr1(1) = eqst
             CALL rdtrl(itrlr1)
-            Nsub(1) = itrlr1(6)
-            Nsub(2) = itrlr1(7)
+            nsub(1) = itrlr1(6)
+            nsub(2) = itrlr1(7)
             item = itmlst(12)
-            CALL mtrxi(uprt,Oldnam,item,0,itest)
+            CALL mtrxi(uprt,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                CALL spag_block_1
                RETURN
             ENDIF
          ENDIF
-         CALL gmprtn(paa,pove,0,0,0,0,uprt,Nsub(1),Nsub(2),Z(Korbgn),Korlen)
+         CALL gmprtn(paa,pove,0,0,0,0,uprt,nsub(1),nsub(2),z(korbgn),korlen)
 !
 !     SAVE POVE AS POVE OR POAP ON SOF
 !
-         IF ( .NOT.(Modes) ) THEN
+         IF ( .NOT.(modes) ) THEN
             item = itmlst(9)
-            IF ( Popt==papp ) item = itmlst(11)
-            CALL mtrxo(pove,Oldnam,item,0,itest)
+            IF ( popt==papp ) item = itmlst(11)
+            CALL mtrxo(pove,oldnam,item,0,itest)
             IF ( itest/=3 ) THEN
                CALL spag_block_1
                RETURN
@@ -461,26 +462,25 @@ CONTAINS
 !
 !     PROCESS MODULE ERRORS
 !
-      IF ( itest==4 ) THEN
+      IF ( Itest==4 ) THEN
 !
-         imsg = -2
-      ELSEIF ( itest==5 ) THEN
-         imsg = -3
-      ELSEIF ( itest==6 ) THEN
+         Imsg = -2
+      ELSEIF ( Itest==5 ) THEN
+         Imsg = -3
+      ELSEIF ( Itest==6 ) THEN
 !
-         WRITE (Iprntr,99002) Ufm , modnam , item , itmnam
-99002    FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,', IS PURGED.')
+         WRITE (Iprntr,99001) Ufm , Modnam , Item , Itmnam
+99001    FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,', IS PURGED.')
          Dry = -2
          RETURN
       ELSE
-         WRITE (Iprntr,99003) Ufm , modnam , item , itmnam
+         WRITE (Iprntr,99002) Ufm , Modnam , Item , Itmnam
 !
-99003    FORMAT (A23,' 6211, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
+99002    FORMAT (A23,' 6211, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
          Dry = -2
          RETURN
       ENDIF
-      CALL smsg(imsg,item,itmnam)
-      RETURN
+      CALL smsg(Imsg,Item,Itmnam)
    END SUBROUTINE spag_block_1
 !
 END SUBROUTINE cmrd2f

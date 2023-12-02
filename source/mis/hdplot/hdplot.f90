@@ -1,17 +1,18 @@
-!*==hdplot.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==hdplot.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
 !
+   USE c_blank
+   USE c_hdptrs
+   USE c_hdrec
+   USE c_hdsc
+   USE c_plothd
+   USE c_pltscr
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_HDPTRS
-   USE C_HDREC
-   USE C_HDSC
-   USE C_PLOTHD
-   USE C_PLTSCR
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,17 +43,17 @@ SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
 !
 !     SET MNE EQUAL TO THE MAXIMUM NUMBER OF EDGES IN ANY ONE POLYGON.
 !
-   Mne = Nmax
+   mne = Nmax
 !
 !     MNP=MNE+2+2*NHOLES   WHERE NHOLES IS THE NUMBER OF HOLES,IF ANY
 !
    nholes = 0
-   Mnp = Mne + 2 + 2*nholes
+   mnp = mne + 2 + 2*nholes
 !
 !     SET DISTANCE FROM VIEWER, AND SET SCALING FACTOR = 1 UNITS/INCH
 !
-   Dv = 99999.
-   Scf = 1.00
+   dv = 99999.
+   scf = 1.00
 !
 !     SET MAX. LINES OF INTERSECTION ALLOWED IN HDSOLV (DIMEN. OF XCC)
 !
@@ -61,75 +62,75 @@ SUBROUTINE hdplot(Gplst,Nmax,Maxsf,Iopcor,Ib)
 !
 !     DEFINE EULERIAN ANGLES IN DEGREES.
 !
-   Psi = 0.
-   Phi = 0.
-   Theta = 0.
+   psi = 0.
+   phi = 0.
+   theta = 0.
 !
 !     INITIALIZE ARRAY POINTERS IN OPEN CORE SPACE (USED, SET BY PLOT,
 !     IS NO. OF WORDS ALREADY IN USE)
 !
-   Xdum = 1
-   Xcc = Xdum + Used
-   Xasolv = Xcc + lintc
-   Yasolv = Xasolv + 50
-   Zasolv = Yasolv + 50
-   X1skt = Zasolv + 50
-   Y1skt = X1skt + 160
-   Z1skt = Y1skt + 160
-   Zcoef1 = Z1skt + 160
-   Zcoef = Zcoef1 + 150
-   Icount = Zcoef + 150
-   Irct = Icount + 150
-   X21 = Irct + 100
-   Y21 = X21 + 200
-   Z21 = Y21 + 200
-   Iia = Z21 + 200
-   Xe = Iia + 200
-   Ye = Xe + 150
-   Xu = Ye + 150
-   Yu = Xu + 150
-   Ibeg = Yu + 150
-   Iend = Ibeg + 100
-   Ict = Iend + 100
-   Icct = Ict + 100
-   Xi = Icct + 100
-   Icore = (25+5*Mne+4*Mnp)*(Maxsf+1)
-   j = (Iopcor-Icore-Xi)/5
-   Yi = Xi + j
-   Zi = Yi + j
-   Di = Zi + j
-   Work = Di + j
-   IF ( debug .OR. j<300 ) WRITE (Iout,99001) Nmax , Maxsf , Icore , Used , lintc , Iopcor , Ib , Nsets , j , ptrs
+   xdum = 1
+   xcc = xdum + used
+   xasolv = xcc + lintc
+   yasolv = xasolv + 50
+   zasolv = yasolv + 50
+   x1skt = zasolv + 50
+   y1skt = x1skt + 160
+   z1skt = y1skt + 160
+   zcoef1 = z1skt + 160
+   zcoef = zcoef1 + 150
+   icount = zcoef + 150
+   irct = icount + 150
+   x21 = irct + 100
+   y21 = x21 + 200
+   z21 = y21 + 200
+   iia = z21 + 200
+   xe = iia + 200
+   ye = xe + 150
+   xu = ye + 150
+   yu = xu + 150
+   ibeg = yu + 150
+   iend = ibeg + 100
+   ict = iend + 100
+   icct = ict + 100
+   xi = icct + 100
+   icore = (25+5*mne+4*mnp)*(Maxsf+1)
+   j = (Iopcor-icore-xi)/5
+   yi = xi + j
+   zi = yi + j
+   di = zi + j
+   work = di + j
+   IF ( debug .OR. j<300 ) WRITE (iout,99001) Nmax , Maxsf , icore , used , lintc , Iopcor , Ib , nsets , j , ptrs
 !
 99001 FORMAT (1X,10HIN HDPLOT ,9I8,/,(5X,15I8))
    IF ( j<300 ) THEN
-      j = 300*5 + Xi + Icore - Iopcor
+      j = 300*5 + xi + icore - Iopcor
       CALL mesage(-8,j,name)
    ENDIF
 !
-   CALL gopen(Nscr2,Gplst(Ib),0)
+   CALL gopen(nscr2,Gplst(Ib),0)
    CALL line(0.,0.,0.,0.,1,-1)
    DO
-      CALL read(*100,*100,Nscr2,Nofsur,44,0,m)
-      nps = Npers
+      CALL read(*100,*100,nscr2,nofsur,44,0,m)
+      nps = npers
       DO i = 1 , nps
-         x(i) = P(1,i)
-         y(i) = P(2,i)
-         z(i) = P(3,i)
+         x(i) = p(1,i)
+         y(i) = p(2,i)
+         z(i) = p(3,i)
       ENDDO
-      IF ( debug ) WRITE (Iout,99002) Nofsur , Ns , Elid , Lid , nps , (x(n),y(n),z(n),n=1,nps)
+      IF ( debug ) WRITE (iout,99002) nofsur , ns , elid , lid , nps , (x(n),y(n),z(n),n=1,nps)
 99002 FORMAT (1X,5I10/(1X,3G20.4))
       nc = 0
       CALL hdsket(x,y,z,nps,nc)
    ENDDO
- 100  CALL close(Nscr2,1)
+ 100  CALL close(nscr2,1)
    nc = 1
    CALL hdsket(x,y,z,nps,nc)
    IF ( nc/=0 ) THEN
-      WRITE (Iout,99003) nc , Icore , Dv
+      WRITE (iout,99003) nc , icore , dv
 99003 FORMAT (22H CODE FOR HIDDEN ERROR,I3,6H ICORE,I9,3H DV,F15.5)
    ENDIF
    CALL line(0.,0.,0.,0.,1,+1)
-   IF ( debug ) WRITE (Iout,99004)
+   IF ( debug ) WRITE (iout,99004)
 99004 FORMAT (1X,10HOUT HDPLOT)
 END SUBROUTINE hdplot

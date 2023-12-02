@@ -1,17 +1,18 @@
-!*==mma.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mma.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mma(Zi,Zr,Zd)
+   USE i_mmacom
+   USE c_logout
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_LOGOUT
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZBLPKX
-   USE C_ZNTPKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,6 +38,7 @@ SUBROUTINE mma(Zi,Zr,Zd)
    INTEGER , DIMENSION(4) , SAVE :: prntyp
    REAL , SAVE :: testpct
    CHARACTER(6) , DIMENSION(2) , SAVE :: upmeth
+   INTEGER :: spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
@@ -139,288 +141,319 @@ SUBROUTINE mma(Zi,Zr,Zd)
    DATA upmeth/'UNPACK' , 'STRING'/
    DATA prntyp/2HRS , 2HRD , 2HCS , 2HCD/
    DATA testpct/.8/
-   isave(1) = Typei
-   isave(2) = Typep
-   isave(3) = Irow1p
-   isave(4) = Irownp
-   isave(5) = Incrp
-   isave(6) = Typeu
-   isave(7) = Irowu
-   isave(8) = Irownu
-   isave(9) = Incru
-   CALL sswtch(19,l19)
-   module(3) = jbegn
-   CALL conmsg(module,3,0)
-   ndr = nar
-   ndc = nbc
-   IF ( T/=0 ) ndr = nac
-   IF ( ndform==0 ) THEN
-      ndform = 2
-      IF ( ndr==ndc ) ndform = 1
-   ENDIF
-   IF ( Filea(6)/=0 .AND. Fileb(6)/=0 ) THEN
-      IF ( Signab/=0 ) THEN
-         IF ( T/=0 ) THEN
-            IF ( nar/=nbr ) GOTO 100
-            IF ( Filec(1)/=0 ) THEN
-               IF ( nac/=ncr ) GOTO 100
-               IF ( nbc/=ncc ) GOTO 100
-            ENDIF
-         ELSE
-            IF ( nac/=nbr ) GOTO 100
-            IF ( Filec(1)/=0 ) THEN
-               IF ( nar/=ncr ) GOTO 100
-               IF ( nbc/=ncc ) GOTO 100
-            ENDIF
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
+         isave(1) = typei
+         isave(2) = typep
+         isave(3) = irow1p
+         isave(4) = irownp
+         isave(5) = incrp
+         isave(6) = typeu
+         isave(7) = irowu
+         isave(8) = irownu
+         isave(9) = incru
+         CALL sswtch(19,l19)
+         module(3) = jbegn
+         CALL conmsg(module,3,0)
+         ndr = nar
+         ndc = nbc
+         IF ( t/=0 ) ndr = nac
+         IF ( ndform==0 ) THEN
+            ndform = 2
+            IF ( ndr==ndc ) ndform = 1
          ENDIF
-         nwdc = 0
-         CALL dssize(Filea,ncols,naterms,nastrgs,nwda)
-         CALL dssize(Fileb,ncols,nbterms,nbstrgs,nwdb)
-         IF ( Filec(1)/=0 ) CALL dssize(Filec,ncols,ncterms,ncstrgs,nwdc)
-         nwdd = max0(nwda,nwdb,nwdc)
-         ndtype = 2
-         IF ( nwdd==4 ) ndtype = 4
-         IF ( nwdd==1 ) ndtype = 1
-         IF ( ndtype/=1 .AND. ndtype/=4 ) THEN
-            itest1 = min0(natype,nbtype,nctype)
-            itest2 = max0(natype,nbtype,nctype)
-            ndtype = 3
-            IF ( itest2==3 .AND. (natype==2 .OR. nbtype==2 .OR. nctype==2) ) ndtype = 4
-            IF ( itest2<=2 ) ndtype = 2
-         ENDIF
-         natotal = nac*nar*nwdd
-         nbtotal = nbc*nbr*nwdd
-         IF ( Filec(1)/=0 ) nctotal = ncc*ncr*nwdd
-         ndtotal = ndc*ndr*nwdd
-         napack = 2*nac + 2*nastrgs + naterms*nwdd
-         nbpack = 2*nbc + 2*nbstrgs + nbterms*nwdd
-         IF ( Filec(1)/=0 ) ncpack = 2*ndc + 2*ncstrgs + ncterms*nwdd
-         denstya = (nadens*1.)/10000.
-         denstyb = (nbdens*1.)/10000.
-         IF ( Filec(1)/=0 ) denstyc = (ncdens*1.)/10000.
-         nastor = 2
-         nbstor = 2
-         ncstor = 2
-         x = natotal
-         y = napack
-         percnta = y/x
-         x = nbtotal
-         y = nbpack
-         percntb = y/x
-         IF ( Filec(1)/=0 ) THEN
-            x = nctotal
-            y = ncpack
-            percntc = y/x
-         ENDIF
-         IF ( percnta>=testpct ) nastor = 1
-         IF ( percntb>=testpct ) nbstor = 1
-         IF ( Filec(1)/=0 .AND. percntc>=testpct ) ncstor = 1
-         memavl = Nz - 4*sysbuf
-         mpass10 = (natotal/(memavl-(nbr+ndr)*nwdd)) + 1
-         mpass11 = (natotal/(memavl-ndr*nwdd-(nbpack/nbc))) + 1
-         mpass20 = ((nbtotal+ndtotal)/(memavl-nar*nwdd)) + 1
-         mpass21 = ((nbtotal+ndtotal)/(memavl-(napack/nac))) + 1
-         mpass30 = (napack/(memavl-(nbr+ndr)*nwdd)) + 1
-         mpass31 = (napack/(memavl-ndr*nwdd-(nbpack/nbc))) + 1
-         mpass32 = (napack/(memavl-(ncpack/ndc)-(nbpack/nbc))) + 1
-         mpass40 = ((nbpack+ndtotal)/(memavl-nar*nwdd)) + 1
-         mpass41 = ((nbpack+ndtotal)/(memavl-(napack/nac))) + 1
-         IF ( nastor/=1 .OR. nbstor/=1 ) THEN
-            IF ( nastor==2 .AND. nbstor==1 ) THEN
+         IF ( filea(6)/=0 .AND. fileb(6)/=0 ) THEN
+            IF ( signab/=0 ) THEN
+               IF ( t/=0 ) THEN
+                  IF ( nar/=nbr ) THEN
+                     spag_nextblock_1 = 2
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  IF ( filec(1)/=0 ) THEN
+                     IF ( nac/=ncr ) THEN
+                        spag_nextblock_1 = 2
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                     IF ( nbc/=ncc ) THEN
+                        spag_nextblock_1 = 2
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                  ENDIF
+               ELSE
+                  IF ( nac/=nbr ) THEN
+                     spag_nextblock_1 = 2
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  IF ( filec(1)/=0 ) THEN
+                     IF ( nar/=ncr ) THEN
+                        spag_nextblock_1 = 2
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                     IF ( nbc/=ncc ) THEN
+                        spag_nextblock_1 = 2
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                  ENDIF
+               ENDIF
+               nwdc = 0
+               CALL dssize(filea,ncols,naterms,nastrgs,nwda)
+               CALL dssize(fileb,ncols,nbterms,nbstrgs,nwdb)
+               IF ( filec(1)/=0 ) CALL dssize(filec,ncols,ncterms,ncstrgs,nwdc)
+               nwdd = max0(nwda,nwdb,nwdc)
+               ndtype = 2
+               IF ( nwdd==4 ) ndtype = 4
+               IF ( nwdd==1 ) ndtype = 1
+               IF ( ndtype/=1 .AND. ndtype/=4 ) THEN
+                  itest1 = min0(natype,nbtype,nctype)
+                  itest2 = max0(natype,nbtype,nctype)
+                  ndtype = 3
+                  IF ( itest2==3 .AND. (natype==2 .OR. nbtype==2 .OR. nctype==2) ) ndtype = 4
+                  IF ( itest2<=2 ) ndtype = 2
+               ENDIF
+               natotal = nac*nar*nwdd
+               nbtotal = nbc*nbr*nwdd
+               IF ( filec(1)/=0 ) nctotal = ncc*ncr*nwdd
+               ndtotal = ndc*ndr*nwdd
+               napack = 2*nac + 2*nastrgs + naterms*nwdd
+               nbpack = 2*nbc + 2*nbstrgs + nbterms*nwdd
+               IF ( filec(1)/=0 ) ncpack = 2*ndc + 2*ncstrgs + ncterms*nwdd
+               denstya = (nadens*1.)/10000.
+               denstyb = (nbdens*1.)/10000.
+               IF ( filec(1)/=0 ) denstyc = (ncdens*1.)/10000.
+               nastor = 2
+               nbstor = 2
+               ncstor = 2
+               x = natotal
+               y = napack
+               percnta = y/x
+               x = nbtotal
+               y = nbpack
+               percntb = y/x
+               IF ( filec(1)/=0 ) THEN
+                  x = nctotal
+                  y = ncpack
+                  percntc = y/x
+               ENDIF
+               IF ( percnta>=testpct ) nastor = 1
+               IF ( percntb>=testpct ) nbstor = 1
+               IF ( filec(1)/=0 .AND. percntc>=testpct ) ncstor = 1
+               memavl = nz - 4*sysbuf
+               mpass10 = (natotal/(memavl-(nbr+ndr)*nwdd)) + 1
+               mpass11 = (natotal/(memavl-ndr*nwdd-(nbpack/nbc))) + 1
+               mpass20 = ((nbtotal+ndtotal)/(memavl-nar*nwdd)) + 1
+               mpass21 = ((nbtotal+ndtotal)/(memavl-(napack/nac))) + 1
+               mpass30 = (napack/(memavl-(nbr+ndr)*nwdd)) + 1
+               mpass31 = (napack/(memavl-ndr*nwdd-(nbpack/nbc))) + 1
+               mpass32 = (napack/(memavl-(ncpack/ndc)-(nbpack/nbc))) + 1
+               mpass40 = ((nbpack+ndtotal)/(memavl-nar*nwdd)) + 1
+               mpass41 = ((nbpack+ndtotal)/(memavl-(napack/nac))) + 1
+               IF ( nastor/=1 .OR. nbstor/=1 ) THEN
+                  IF ( nastor==2 .AND. nbstor==1 ) THEN
 !---------USE GETSTR FOR MATRIX "A"; UNPACK FOR MATRIX "B"
 !         (CHOOSE METHOD 21 OR 30)
-               method = 21
-               IF ( mpass21/=1 ) THEN
-                  IF ( mpass21>mpass30 ) method = 30
-               ENDIF
-               GOTO 20
-            ELSEIF ( nastor==1 .AND. nbstor==2 ) THEN
+                     method = 21
+                     IF ( mpass21/=1 ) THEN
+                        IF ( mpass21>mpass30 ) method = 30
+                     ENDIF
+                     GOTO 5
+                  ELSEIF ( nastor==1 .AND. nbstor==2 ) THEN
 !---------USE UNPACK FOR MATRIX "A"; GETSTR FOR MATRIX "B"
 !         (CHOOSE METHOD 11 OR 40)
-               method = 11
-               IF ( mpass11/=1 ) THEN
-                  IF ( mpass11>mpass40 ) method = 40
-               ENDIF
-               GOTO 20
-            ELSEIF ( nastor==2 .AND. nbstor==2 ) THEN
+                     method = 11
+                     IF ( mpass11/=1 ) THEN
+                        IF ( mpass11>mpass40 ) method = 40
+                     ENDIF
+                     GOTO 5
+                  ELSEIF ( nastor==2 .AND. nbstor==2 ) THEN
 !---------USE GETSTR FOR MATRICES "A" AND "B" (CHOOSE METHOD 31, 32 OR 41)
-               method = 31
-               IF ( mpass31==1 ) THEN
-                  IF ( ncstor==2 .AND. T/=0 ) method = 32
-               ELSEIF ( mpass31<=mpass41 ) THEN
-                  IF ( ncstor==2 .AND. T/=0 ) method = 32
-               ELSE
-                  method = 41
+                     method = 31
+                     IF ( mpass31==1 ) THEN
+                        IF ( ncstor==2 .AND. t/=0 ) method = 32
+                     ELSEIF ( mpass31<=mpass41 ) THEN
+                        IF ( ncstor==2 .AND. t/=0 ) method = 32
+                     ELSE
+                        method = 41
+                     ENDIF
+                     GOTO 5
+                  ENDIF
                ENDIF
-               GOTO 20
+!---------USE UNPACK FOR MATRICES "A" AND "B"  (CHOOSE METHOD 10 OR 20)
+               method = 10
+               IF ( mpass10/=1 ) THEN
+                  IF ( mpass10>mpass20 ) method = 20
+               ENDIF
+ 5             IF ( l19/=0 ) THEN
+                  CALL fname(filea,namea)
+                  CALL fname(fileb,nameb)
+                  CALL fname(filec,namec)
+                  CALL fname(filed,named)
+                  WRITE (lout,99010,IOSTAT=ierr) namea , nar , nac , naterms , denstya , prntyp(natype) , nameb , nbr , nbc ,       &
+                       & nbterms , denstyb , prntyp(nbtype)
+                  IF ( filec(1)/=0 ) WRITE (lout,99011,IOSTAT=ierr) namec , ncr , ncc , ncterms , denstyc , prntyp(nctype)
+                  WRITE (lout,99001) named , ndr , ndc , prntyp(ndtype)
+99001             FORMAT ('     D- ',2A4,I8,I7,10X,7X,5X,A2)
+                  WRITE (lout,99002) signab , signc , nz , ksys58
+99002             FORMAT ('     SIGNAB =',I2,'  SIGNC =',I2,'  MEMORY =',I10,'  SYSTEM(58)=',I3)
+                  WRITE (lout,99003) upmeth(nastor) , natotal , napack , upmeth(nbstor) , nbtotal , nbpack
+99003             FORMAT ('  /-----------------------------------------------------------/',/,                                      &
+                         &'  /    READ METHOD   MEMORY (FULL MATRIX)    MEMORY (STRINGS) /',/,                                      &
+                         &'  /-----------------------------------------------------------/',/,'     A-  ',A6,I21,I21,/,'     B-  ', &
+                        & A6,I21,I21)
+                  IF ( filec(1)/=0 ) WRITE (lout,99004) upmeth(ncstor) , nctotal , ncpack
+99004             FORMAT ('     C-  ',A6,I21,I21)
+                  WRITE (lout,99005) t , method , prntyp(ndtype)
+99005             FORMAT ('     T =',I2,'    SUGGESTED METHOD =',I2,'    "D" MATRIX TYPE:',1X,A2)
+                  WRITE (lout,99006) mpass10 , mpass11 , mpass20 , mpass21 , mpass30 , mpass31 , mpass32 , mpass40 , mpass41
+99006             FORMAT ('  /-----------------------------------------------------------/',                                        &
+                         &/'  /       ESTIMATED NUMBER OF PASSES REQUIRED PER METHOD      /',/,                                     &
+                         &'  /         10   11   20   21   30   31   32   40   41        /',/,                                      &
+                         &'  /-----------------------------------------------------------/',/,'         ',9I5,/,                    &
+                         &'  /-----------------------------------------------------------/')
+               ENDIF
+               IF ( filed(1)>=0 ) THEN
+                  IF ( ksys58/=0 .AND. (ksys58>=10 .AND. ksys58<=11) .OR. (ksys58>=20 .AND. ksys58<=21) .OR.                        &
+                     & (ksys58>=30 .AND. ksys58<=31) .OR. (ksys58>=40 .AND. ksys58<=41) ) method = ksys58
+                  IF ( ksys58==32 .AND. t/=0 ) method = ksys58
+                  IF ( method==10 ) nbstor = 1
+                  IF ( method==11 ) nbstor = 2
+                  IF ( method==20 ) nastor = 1
+                  IF ( method==21 ) nastor = 2
+                  IF ( method==30 ) nbstor = 1
+                  IF ( method==31 ) nbstor = 2
+                  IF ( method==32 ) nbstor = 2
+                  IF ( method==40 ) nastor = 1
+                  IF ( method==41 ) nastor = 2
+                  IF ( method==10 .OR. method==11 ) CALL mma1(Zi,Zr,Zd,Zr,Zd)
+                  IF ( method==20 .OR. method==21 ) CALL mma2(Zi,Zr,Zd,Zr,Zd)
+                  IF ( method>=30 .AND. method<=32 ) CALL mma3(Zi,Zr,Zd,Zr,Zd)
+                  IF ( method==40 .OR. method==41 ) CALL mma4(Zi,Zr,Zd,Zr,Zd)
+                  ct = 'NT'
+                  IF ( t/=0 ) ct = 'T '
+                  WRITE (lout,99007) method , ct , ipass
+99007             FORMAT ('   METHOD USED = ',I2,A2,'  ACTUAL NUMBER OF PASSES =',I4)
+               ENDIF
+               spag_nextblock_1 = 3
+               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-!---------USE UNPACK FOR MATRICES "A" AND "B"  (CHOOSE METHOD 10 OR 20)
-         method = 10
-         IF ( mpass10/=1 ) THEN
-            IF ( mpass10>mpass20 ) method = 20
-         ENDIF
- 20      IF ( l19/=0 ) THEN
-            CALL fname(Filea,namea)
-            CALL fname(Fileb,nameb)
-            CALL fname(Filec,namec)
-            CALL fname(Filed,named)
-            WRITE (Lout,99010,IOSTAT=ierr) namea , nar , nac , naterms , denstya , prntyp(natype) , nameb , nbr , nbc , nbterms ,   &
-                 & denstyb , prntyp(nbtype)
-            IF ( Filec(1)/=0 ) WRITE (Lout,99011,IOSTAT=ierr) namec , ncr , ncc , ncterms , denstyc , prntyp(nctype)
-            WRITE (Lout,99001) named , ndr , ndc , prntyp(ndtype)
-99001       FORMAT ('     D- ',2A4,I8,I7,10X,7X,5X,A2)
-            WRITE (Lout,99002) Signab , Signc , Nz , ksys58
-99002       FORMAT ('     SIGNAB =',I2,'  SIGNC =',I2,'  MEMORY =',I10,'  SYSTEM(58)=',I3)
-            WRITE (Lout,99003) upmeth(nastor) , natotal , napack , upmeth(nbstor) , nbtotal , nbpack
-99003       FORMAT ('  /-----------------------------------------------------------/',/,                                            &
-                   &'  /    READ METHOD   MEMORY (FULL MATRIX)    MEMORY (STRINGS) /',/,                                            &
-                   &'  /-----------------------------------------------------------/',/,'     A-  ',A6,I21,I21,/,'     B-  ',A6,I21,&
-                  & I21)
-            IF ( Filec(1)/=0 ) WRITE (Lout,99004) upmeth(ncstor) , nctotal , ncpack
-99004       FORMAT ('     C-  ',A6,I21,I21)
-            WRITE (Lout,99005) T , method , prntyp(ndtype)
-99005       FORMAT ('     T =',I2,'    SUGGESTED METHOD =',I2,'    "D" MATRIX TYPE:',1X,A2)
-            WRITE (Lout,99006) mpass10 , mpass11 , mpass20 , mpass21 , mpass30 , mpass31 , mpass32 , mpass40 , mpass41
-99006       FORMAT ('  /-----------------------------------------------------------/',                                              &
-                   &/'  /       ESTIMATED NUMBER OF PASSES REQUIRED PER METHOD      /',/,                                           &
-                   &'  /         10   11   20   21   30   31   32   40   41        /',/,                                            &
-                   &'  /-----------------------------------------------------------/',/,'         ',9I5,/,                          &
-                   &'  /-----------------------------------------------------------/')
-         ENDIF
-         IF ( Filed(1)>=0 ) THEN
-            IF ( ksys58/=0 .AND. (ksys58>=10 .AND. ksys58<=11) .OR. (ksys58>=20 .AND. ksys58<=21) .OR. (ksys58>=30 .AND. ksys58<=31)&
-               & .OR. (ksys58>=40 .AND. ksys58<=41) ) method = ksys58
-            IF ( ksys58==32 .AND. T/=0 ) method = ksys58
-            IF ( method==10 ) nbstor = 1
-            IF ( method==11 ) nbstor = 2
-            IF ( method==20 ) nastor = 1
-            IF ( method==21 ) nastor = 2
-            IF ( method==30 ) nbstor = 1
-            IF ( method==31 ) nbstor = 2
-            IF ( method==32 ) nbstor = 2
-            IF ( method==40 ) nastor = 1
-            IF ( method==41 ) nastor = 2
-            IF ( method==10 .OR. method==11 ) CALL mma1(Zi,Zr,Zd,Zr,Zd)
-            IF ( method==20 .OR. method==21 ) CALL mma2(Zi,Zr,Zd,Zr,Zd)
-            IF ( method>=30 .AND. method<=32 ) CALL mma3(Zi,Zr,Zd,Zr,Zd)
-            IF ( method==40 .OR. method==41 ) CALL mma4(Zi,Zr,Zd,Zr,Zd)
-            ct = 'NT'
-            IF ( T/=0 ) ct = 'T '
-            WRITE (Lout,99007) method , ct , ipass
-99007       FORMAT ('   METHOD USED = ',I2,A2,'  ACTUAL NUMBER OF PASSES =',I4)
-         ENDIF
-         GOTO 200
-      ENDIF
-   ENDIF
 !
 ! "A" AND "B" MATRICES ARE NULL, MOVE "C" TO "D" IF "C" EXISTS
 !
-   IF ( Filed(1)>=0 ) THEN
-      ndtype = nctype
-      WRITE (Lout,99008)
-99008 FORMAT ('       MMA - NULL MATRIX PRODUCT')
-      ibuf1 = Nz - sysbuf
-      ibuf2 = ibuf1 - sysbuf
-      IF ( Filec(1)/=0 ) THEN
-         IF ( Signc/=0 ) THEN
-            IF ( Signc<0 ) THEN
+         IF ( filed(1)>=0 ) THEN
+            ndtype = nctype
+            WRITE (lout,99008)
+99008       FORMAT ('       MMA - NULL MATRIX PRODUCT')
+            ibuf1 = nz - sysbuf
+            ibuf2 = ibuf1 - sysbuf
+            IF ( filec(1)/=0 ) THEN
+               IF ( signc/=0 ) THEN
+                  IF ( signc<0 ) THEN
 !
 ! USE INTPK/BLDPK TO COPY C TO D BECAUSE SIGNS CONFLICT
 !
-               Filed(2) = 0
-               Filed(6) = 0
-               Filed(7) = 0
-               CALL gopen(Filec,Zr(ibuf1),Rdrew)
-               CALL gopen(Filed,Zr(ibuf2),Wrtrew)
-               DO i = 1 , ncc
-                  CALL bldpk(ndtype,ndtype,Filed,blk1,1)
-                  CALL intpk(*22,Filec,0,ndtype*Signc,0)
-                  DO
-                     CALL zntpki
-                     CALL bldpki(A,Irowin,Filed,blk1)
-                     IF ( Eol/=0 ) EXIT
-                  ENDDO
- 22               CALL bldpkn(Filed,blk1,Filed)
-               ENDDO
-               Filed(3) = Filec(3)
-               Filed(4) = Filec(4)
-               Filed(5) = Filec(5)
-               CALL close(Filec,Clsrew)
-               CALL close(Filed,Clsrew)
-            ELSE
+                     filed(2) = 0
+                     filed(6) = 0
+                     filed(7) = 0
+                     CALL gopen(filec,Zr(ibuf1),rdrew)
+                     CALL gopen(filed,Zr(ibuf2),wrtrew)
+                     DO i = 1 , ncc
+                        CALL bldpk(ndtype,ndtype,filed,blk1,1)
+                        CALL intpk(*6,filec,0,ndtype*signc,0)
+                        SPAG_Loop_2_1: DO
+                           CALL zntpki
+                           CALL bldpki(a,irowin,filed,blk1)
+                           IF ( eol/=0 ) EXIT SPAG_Loop_2_1
+                        ENDDO SPAG_Loop_2_1
+ 6                      CALL bldpkn(filed,blk1,filed)
+                     ENDDO
+                     filed(3) = filec(3)
+                     filed(4) = filec(4)
+                     filed(5) = filec(5)
+                     CALL close(filec,clsrew)
+                     CALL close(filed,clsrew)
+                  ELSE
 !
 ! USE CPYSTR TO COPY "C" TO "D"
 !
-               blk1(1) = Filec(1)
-               blk2(1) = Filed(1)
-               CALL gopen(Filec,Zr(ibuf1),Rdrew)
-               CALL gopen(Filed,Zr(ibuf2),Wrtrew)
-               DO i = 1 , ncc
-                  CALL cpystr(blk1,blk2,0,0)
-               ENDDO
-               CALL close(Filed,Clsrew)
-               CALL close(Filec,Clsrew)
-               Filed(2) = Filec(2)
-               Filed(3) = Filec(3)
-               Filed(4) = Filec(4)
-               Filed(5) = Filec(5)
-               Filed(6) = Filec(6)
-               Filed(7) = Filec(7)
+                     blk1(1) = filec(1)
+                     blk2(1) = filed(1)
+                     CALL gopen(filec,Zr(ibuf1),rdrew)
+                     CALL gopen(filed,Zr(ibuf2),wrtrew)
+                     DO i = 1 , ncc
+                        CALL cpystr(blk1,blk2,0,0)
+                     ENDDO
+                     CALL close(filed,clsrew)
+                     CALL close(filec,clsrew)
+                     filed(2) = filec(2)
+                     filed(3) = filec(3)
+                     filed(4) = filec(4)
+                     filed(5) = filec(5)
+                     filed(6) = filec(6)
+                     filed(7) = filec(7)
+                  ENDIF
+                  spag_nextblock_1 = 3
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
             ENDIF
-            GOTO 200
-         ENDIF
-      ENDIF
 !
 ! CREATE NULL MATRIX BECAUSE "C" MATRIX IS NULL
 !
-      ndr = 0
-      ndc = 0
-      CALL gopen(Filed,Zr(ibuf1),Wrtrew)
-      ndc = nbc
-      ndr = nar
-      IF ( nar==nbc ) ndr = nac
-      dd(1) = 0.0D0
-      Incrp = 1
-      Irow1p = 1
-      Irownp = 1
-      Typei = Prec1
-      IF ( Typei==0 ) Typei = 1
-      Typep = Typei
-      numc = ndc
-      Filed(2) = 0
-      Filed(3) = ndr
-      Filed(5) = iprec
-      Filed(6) = 0
-      Filed(7) = 0
-      DO i = 1 , numc
-         CALL pack(dd,Filed,Filed)
-      ENDDO
-      CALL close(Filed,Clsrew)
-   ENDIF
-   GOTO 200
+            ndr = 0
+            ndc = 0
+            CALL gopen(filed,Zr(ibuf1),wrtrew)
+            ndc = nbc
+            ndr = nar
+            IF ( nar==nbc ) ndr = nac
+            dd(1) = 0.0D0
+            incrp = 1
+            irow1p = 1
+            irownp = 1
+            typei = prec1
+            IF ( typei==0 ) typei = 1
+            typep = typei
+            numc = ndc
+            filed(2) = 0
+            filed(3) = ndr
+            filed(5) = iprec
+            filed(6) = 0
+            filed(7) = 0
+            DO i = 1 , numc
+               CALL pack(dd,filed,filed)
+            ENDDO
+            CALL close(filed,clsrew)
+         ENDIF
+         spag_nextblock_1 = 3
+         CYCLE SPAG_DispatchLoop_1
+      CASE (2)
 ! MATRICES ARE INCOMPATIBLE FOR MULTIPLICATION
- 100  WRITE (nout,99009) Ufm
-99009 FORMAT (A23,' MATRICES FOR MULTIPLICATION HAVE INCOMPATIBLE SIZES',/)
-   CALL fname(Filea,namea)
-   CALL fname(Fileb,nameb)
-   CALL fname(Filec,namec)
-   CALL fname(Filed,named)
-   WRITE (nout,99010,IOSTAT=ierr) namea , nar , nac , naterms , denstya , prntyp(natype) , nameb , nbr , nbc , nbterms , denstyb ,  &
-                                & prntyp(nbtype)
-   IF ( Filec(1)/=0 ) WRITE (nout,99011,IOSTAT=ierr) namec , ncr , ncc , ncterms , denstyc , prntyp(nctype)
-   CALL mesage(-61,0,0)
- 200  module(3) = jend
-   CALL conmsg(module,3,0)
-   Typei = isave(1)
-   Typep = isave(2)
-   Irow1p = isave(3)
-   Irownp = isave(4)
-   Incrp = isave(5)
-   Typeu = isave(6)
-   Irowu = isave(7)
-   Irownu = isave(8)
-   Incru = isave(9)
+         WRITE (nout,99009) ufm
+99009    FORMAT (A23,' MATRICES FOR MULTIPLICATION HAVE INCOMPATIBLE SIZES',/)
+         CALL fname(filea,namea)
+         CALL fname(fileb,nameb)
+         CALL fname(filec,namec)
+         CALL fname(filed,named)
+         WRITE (nout,99010,IOSTAT=ierr) namea , nar , nac , naterms , denstya , prntyp(natype) , nameb , nbr , nbc , nbterms ,      &
+                                      & denstyb , prntyp(nbtype)
+         IF ( filec(1)/=0 ) WRITE (nout,99011,IOSTAT=ierr) namec , ncr , ncc , ncterms , denstyc , prntyp(nctype)
+         CALL mesage(-61,0,0)
+         spag_nextblock_1 = 3
+      CASE (3)
+         module(3) = jend
+         CALL conmsg(module,3,0)
+         typei = isave(1)
+         typep = isave(2)
+         irow1p = isave(3)
+         irownp = isave(4)
+         incrp = isave(5)
+         typeu = isave(6)
+         irowu = isave(7)
+         irownu = isave(8)
+         incru = isave(9)
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
 99010 FORMAT ('  /-----------------------------------------------------------/',/,                                                  &
              &'  /     MATRIX      ROWS   COLS     TERMS   DENS    TYPE      /',/,                                                  &
              &'  /-----------------------------------------------------------/',/,'     A- ',2A4,I8,I7,I10,F7.4,5X,A2,/,'     B- ', &

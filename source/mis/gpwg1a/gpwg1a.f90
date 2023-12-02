@@ -1,11 +1,12 @@
-!*==gpwg1a.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gpwg1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,15 +44,15 @@ SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
 !
 !     CONVERT  EXTERNAL IP TO INTERNAL IP
 !
-         ibuf = korsz(z) - Sysbuf + 1
+         ibuf = korsz(z) - sysbuf + 1
          file = Eqexin
          CALL gopen(Eqexin,z(ibuf),0)
-         CALL read(*100,*20,Eqexin,Iz(1),ibuf-1,0,iflag)
+         CALL read(*100,*20,Eqexin,iz(1),ibuf-1,0,iflag)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
  20      CALL close(Eqexin,1)
          DO i = 1 , iflag , 2
-            IF ( Iz(i)==Ip ) THEN
+            IF ( iz(i)==Ip ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -59,9 +60,8 @@ SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
          CALL mesage(41,Ip,name)
          Ip = 0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         Ip = Iz(i+1)
+         Ip = iz(i+1)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -90,7 +90,7 @@ SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
 !
 !     SET UP TO WRITE D
 !
-         ibuf1 = ibuf - Sysbuf
+         ibuf1 = ibuf - sysbuf
          nz = ibuf1 - 5
 !
 !     BRING IN CSTM
@@ -106,17 +106,17 @@ SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
  60      CALL gopen(D,z(ibuf1),1)
          CALL makmcb(mcb,D,6,2,1)
          Iscalr = 0
-         Ii = 1
-         Jj = 6
-         It1 = 1
-         It2 = 1
-         Incr = 1
+         ii = 1
+         jj = 6
+         it1 = 1
+         it2 = 1
+         incr = 1
          DO
 !
 !     EXAMINE BGPDT
 !
             CALL read(*100,*80,Bgpdt,z(1),4,0,iflag)
-            IF ( Iz(1)<0 ) THEN
+            IF ( iz(1)<0 ) THEN
 !
 !     SCALAR POINT
 !
@@ -144,8 +144,8 @@ SUBROUTINE gpwg1a(Ip,Bgpdt,Cstm,Eqexin,D,Iscalr)
                      IF ( i==j ) ti(i,j) = 1.0
                   ENDDO
                ENDDO
-               IF ( Iz(1)/=0 ) THEN
-                  CALL transs(Iz(1),ti)
+               IF ( iz(1)/=0 ) THEN
+                  CALL transs(iz(1),ti)
                   CALL gmmats(ti,3,3,1,tr,3,3,0,tt)
                   DO i = 1 , 3
                      DO j = 1 , 3

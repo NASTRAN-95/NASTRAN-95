@@ -1,17 +1,18 @@
-!*==amgb2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==amgb2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE amgb2(Input,D1jk,D2jk)
+   USE c_amgbug
+   USE c_amgmn
+   USE c_amgp2
+   USE c_bamg2l
+   USE c_blank
+   USE c_condas
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGBUG
-   USE C_AMGMN
-   USE C_AMGP2
-   USE C_BAMG2L
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,13 +45,13 @@ SUBROUTINE amgb2(Input,D1jk,D2jk)
 !
 !     READ PARAMETERS IREF,MINMAC,MAXMAC,NLINES AND NSTNS
 !
-   CALL fread(Input,Iref,5,0)
-   IF ( Debug ) CALL bug1('ACPT-REF  ',5,Iref,5)
+   CALL fread(Input,iref,5,0)
+   IF ( debug ) CALL bug1('ACPT-REF  ',5,iref,5)
 !
 !     READ REST OF ACPT RECORD INTO OPEN CORE AND LOCATE REFERENCE
 !     PARAMETERS REFSTG,REFCRD,REFMAC,REFDEN,REFVEL AND REFFLO
 !
-   ecore = korsz(iz) - 3*Sysbuf
+   ecore = korsz(iz) - 3*sysbuf
    CALL read(*100,*100,Input,iz,ecore,1,nwar)
 !
 !     ERROR MESSAGES
@@ -59,80 +60,80 @@ SUBROUTINE amgb2(Input,D1jk,D2jk)
 !
    CALL mesage(-8,0,name)
    RETURN
- 100  ndata = 3*Nstns + 10
-   IF ( Debug ) CALL bug1('ACPT-REST ',10,iz,nwar)
+ 100  ndata = 3*nstns + 10
+   IF ( debug ) CALL bug1('ACPT-REST ',10,iz,nwar)
    irsln = 0
    nline = 0
    DO i = 1 , nwar , ndata
-      IF ( Iref==iz(i) ) irsln = i
+      IF ( iref==iz(i) ) irsln = i
       nline = nline + 1
    ENDDO
 !
 !     DETERMINE DIRECTION OF BLADE ROTATION VIA Y-COORDINATES AT TIP
 !     STREAMLINE. USE COORDINATES OF FIRST 2 NODES ON STREAMLINE.
 !
-   iptr = ndata*(Nlines-1)
-   Xsign = 1.0
-   IF ( Work(iptr+15)<Work(iptr+12) ) Xsign = -1.0
+   iptr = ndata*(nlines-1)
+   xsign = 1.0
+   IF ( work(iptr+15)<work(iptr+12) ) xsign = -1.0
 !
-   IF ( Debug ) CALL bug1('RADII     ',20,radii,Nlines)
+   IF ( debug ) CALL bug1('RADII     ',20,radii,nlines)
 !
 !     DID IREF MATCH AN SLN OR IS THE DEFAULT TO BE TAKEN (BLADE TIP)
 !
-   IF ( irsln==0 ) irsln = (Nlines-1)*ndata + 1
-   Refstg = Work(irsln+2)
-   Refcrd = Work(irsln+3)
-   Refmac = Work(irsln+6)
-   Refden = Work(irsln+7)
-   Refvel = Work(irsln+8)
-   Refflo = Work(irsln+9)
+   IF ( irsln==0 ) irsln = (nlines-1)*ndata + 1
+   refstg = work(irsln+2)
+   refcrd = work(irsln+3)
+   refmac = work(irsln+6)
+   refden = work(irsln+7)
+   refvel = work(irsln+8)
+   refflo = work(irsln+9)
 !
 !     REPOSITION ACPT TO BEGINNING OF COMPRESSOR BLADE DATA
 !
    CALL bckrec(Input)
    CALL fread(Input,0,-6,0)
 !
-   IF ( Debug ) CALL bug1('BAMG2L    ',22,Iref,27)
+   IF ( debug ) CALL bug1('BAMG2L    ',22,iref,27)
 !
 !     COMPUTE POINTERS AND SEE IF THERE IS ENOUGH CORE
 !
-   nsns = Nstns*Nstns
+   nsns = nstns*nstns
    ip1 = 1
    ip2 = ip1 + nsns
-   next = ip2 + 3*Nstns
+   next = ip2 + 3*nstns
    IF ( next>ecore ) THEN
       CALL mesage(-8,0,name)
    ELSE
 !
 !     COMPUTE F(INVERSE) FOR EACH STREAMLINE
 !
-      Nn = Ii + Nstns - 1
-      DO nline = 1 , Nlines
-         CALL amgb2a(Input,Work(ip1),Work(ip2),Work(ip2))
+      nn = ii + nstns - 1
+      DO nline = 1 , nlines
+         CALL amgb2a(Input,work(ip1),work(ip2),work(ip2))
 !
 !     OUTPUT D1JK (=F(INVERSE)TRANSPOSE) FOR THIS STREAMLINE.
 !     NOTE - AMP MODULE TAKES D1JK(TRANSPOSE) SO OUTPUT
 !            F(INVERSE)TRANSPOSE TO GET EFFECT OF F(INVERSE) IN AMP.
 !
-         ip3 = ip2 + Nstns - 1
-         DO i = 1 , Nstns
+         ip3 = ip2 + nstns - 1
+         DO i = 1 , nstns
             k = i
             DO j = ip2 , ip3
-               Work(j) = Work(k)
-               k = k + Nstns
+               work(j) = work(k)
+               k = k + nstns
             ENDDO
-            CALL pack(Work(ip2),D1jk,Td1jk)
-            IF ( Debug ) CALL bug1('D1JK      ',31,Work(ip2),Nstns)
+            CALL pack(work(ip2),D1jk,td1jk)
+            IF ( debug ) CALL bug1('D1JK      ',31,work(ip2),nstns)
          ENDDO
-         Ii = Ii + Nstns
-         IF ( nline/=Nlines ) Nn = Nn + Nstns
+         ii = ii + nstns
+         IF ( nline/=nlines ) nn = nn + nstns
       ENDDO
 !
 !     OUTPUT D2JK = NULL
 !
-      DO icol = 1 , Nk
-         CALL bldpk(Iti,Ito,D2jk,0,0)
-         CALL bldpkn(D2jk,0,Td2jk)
+      DO icol = 1 , nk
+         CALL bldpk(iti,ito,D2jk,0,0)
+         CALL bldpkn(D2jk,0,td2jk)
       ENDDO
       RETURN
    ENDIF

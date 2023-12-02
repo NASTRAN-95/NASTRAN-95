@@ -1,13 +1,14 @@
-!*==sdcmq.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdcmq.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdcmq(Key,V1,V,Dv1,Dv,Ic,Z) !HIDESTARS (*,Key,V1,V,Dv1,Dv,Ic,Z)
-USE C_NAMES
-USE C_SDCQ
-USE C_SFACT
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_names
+   USE c_sdcq
+   USE c_sfact
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -77,41 +78,41 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Filcur>0 ) CALL close(Filcur,Kcl2)
-         filerr = Filscr
-         IF ( .NOT.(Opnscr) ) THEN
-            IF ( .NOT.First ) CALL open(*20,Filscr,Z(Buf),Kwt3)
-            IF ( First ) CALL open(*20,Filscr,Z(Buf),Kwr1)
-            First = .FALSE.
-            Opnscr = .TRUE.
+         IF ( filcur>0 ) CALL close(filcur,kcl2)
+         filerr = filscr
+         IF ( .NOT.(opnscr) ) THEN
+            IF ( .NOT.first ) CALL open(*20,filscr,Z(buf),kwt3)
+            IF ( first ) CALL open(*20,filscr,Z(buf),kwr1)
+            first = .FALSE.
+            opnscr = .TRUE.
          ENDIF
 !
          iv(1) = Ic*10 + Key
-         IF ( Iprec==1 ) THEN
+         IF ( iprec==1 ) THEN
             rv = V
             rv1 = V1
          ELSE
             rv = Dv
             rv1 = Dv1
          ENDIF
-         CALL write(Filscr,iv,3,1)
+         CALL write(filscr,iv,3,1)
 !
 !     CONVERT FILES TO ORIGINAL STATUS
 !
-         IF ( Filcur/=0 ) THEN
-            CALL close(Filscr,Kcl2)
-            Opnscr = .FALSE.
-            IF ( Filcur>0 ) THEN
-               filerr = Filcur
+         IF ( filcur/=0 ) THEN
+            CALL close(filscr,kcl2)
+            opnscr = .FALSE.
+            IF ( filcur>0 ) THEN
+               filerr = filcur
 !
 !     READ MODE ON CURRENT FILE
 !
-               IF ( Stscr==1 ) i = Krd2
+               IF ( stscr==1 ) i = krd2
 !
 !     WRITE MODE ON CURRENT FILE
 !
-               IF ( Stscr==2 ) i = Kwt3
-               CALL open(*20,Filcur,Z(Buf),i)
+               IF ( stscr==2 ) i = kwt3
+               CALL open(*20,filcur,Z(buf),i)
             ENDIF
          ENDIF
 !
@@ -119,24 +120,24 @@ USE ISO_FORTRAN_ENV
 !
          IF ( Key==1 ) THEN
 !
-            Noglev = 2
+            noglev = 2
          ELSEIF ( Key==3 ) THEN
 !
 !     NEGATIVE DIAGONAL
 !
-            IF ( Ichly==1 ) THEN
-               IF ( Iprec==1 ) V = -V
-               IF ( Iprec==2 ) Dv = -Dv
+            IF ( ichly==1 ) THEN
+               IF ( iprec==1 ) V = -V
+               IF ( iprec==2 ) Dv = -Dv
             ENDIF
-            IF ( Pdefck/=0 ) Noglev = max0(Noglev,1)
+            IF ( pdefck/=0 ) noglev = max0(noglev,1)
          ELSEIF ( Key==4 .OR. Key==6 .OR. Key==7 ) THEN
 !
 !     ES SINGULARITY CHECK, DIAG-IN=0.0, NON-CONSERVATIVE MATRIX
 !
-            Nerr(1) = Nerr(1) + 1
-            IF ( Diagck/=0 ) THEN
-               Noglev = max0(Noglev,1)
-               IF ( Nerr(1)>=Diagck ) Noglev = 3
+            nerr(1) = nerr(1) + 1
+            IF ( diagck/=0 ) THEN
+               noglev = max0(noglev,1)
+               IF ( nerr(1)>=diagck ) noglev = 3
             ENDIF
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -144,36 +145,35 @@ USE ISO_FORTRAN_ENV
 !
 !     UNEXPECTED NULL COLUMN
 !
-            Noglev = 3
+            noglev = 3
          ELSE
 !
 !     ZERO DIAGONAL - DECOMPOSED MATRIX
 !
-            Noglev = max0(Noglev,1)
-            IF ( Iprec==1 ) V = 1.0
-            IF ( Iprec==2 ) Dv = 1.D0
+            noglev = max0(noglev,1)
+            IF ( iprec==1 ) V = 1.0
+            IF ( iprec==2 ) Dv = 1.D0
          ENDIF
-         Nerr(2) = Nerr(2) + 1
-         IF ( Nerr(2)>iabs(Pdefck) .AND. Pdefck/=0 ) Noglev = 3
+         nerr(2) = nerr(2) + 1
+         IF ( nerr(2)>iabs(pdefck) .AND. pdefck/=0 ) noglev = 3
          spag_nextblock_1 = 2
       CASE (2)
 !
-         IF ( Noglev==3 ) RETURN 1
+         IF ( noglev==3 ) RETURN 1
          RETURN
 !
 !     UNABLE TO USE FILES - WRITE GINO NUMBER. ABORT AT MAJOR DECOMP
 !     CHCK
 !
  20      CALL page2(2)
-         WRITE (Iout,99001) Swm , filerr , name , Ic , Key
+         WRITE (iout,99001) swm , filerr , name , Ic , Key
 99001    FORMAT (A27,' 2379, FILE',I8,' COULD NOT BE OPENED IN',A4,A1,'. COLUMN',I8,' SINGULAR, REASON',I3)
-         Parm(1) = -37
-         Parm(2) = Filscr
-         Parm(3) = name(1)
-         Parm(4) = name(2)
-         Noglev = 4
+         parm(1) = -37
+         parm(2) = filscr
+         parm(3) = name(1)
+         parm(4) = name(2)
+         noglev = 4
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE sdcmq

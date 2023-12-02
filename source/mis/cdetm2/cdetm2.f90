@@ -1,7 +1,9 @@
-!*==cdetm2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cdetm2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cdetm2(P,D,Ip,Pr,Pi,Dr,Di,Ips1)
+USE iso_fortran_env
 USE ISO_FORTRAN_ENV                 
    IMPLICIT NONE
 !
@@ -20,12 +22,20 @@ USE ISO_FORTRAN_ENV
 !
    REAL(REAL64) :: d1 , d2 , d3 , d4
    REAL(REAL64) , DIMENSION(3) :: dd
-   INTEGER :: i , is1 , is2 , isret , k , nx
+   INTEGER :: i , is1 , is2 , isret , k , nx , spag_nextblock_1
    INTEGER , DIMENSION(3) :: ips
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)
@@ -93,7 +103,6 @@ USE ISO_FORTRAN_ENV
          is2 = 3
          ASSIGN 20 TO isret
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          IF ( ips(1)<ips(2) ) THEN
          ELSEIF ( ips(1)==ips(2) ) THEN

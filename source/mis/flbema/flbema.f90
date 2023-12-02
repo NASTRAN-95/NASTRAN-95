@@ -1,14 +1,15 @@
-!*==flbema.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==flbema.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE flbema(Type)
+   USE c_flbfil
+   USE c_flbptr
+   USE c_names
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_FLBFIL
-   USE C_FLBPTR
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,41 +52,41 @@ SUBROUTINE flbema(Type)
 !
 !     DKGG MATRIX
 !
-            outmat = Dkgg
-            xmat = Kgmat
-            xdict = Kgdict
+            outmat = dkgg
+            xmat = kgmat
+            xdict = kgdict
          ELSE
 !
 !     AF MATRIX
 !
-            outmat = Af
-            xmat = Afmat
-            xdict = Afdict
+            outmat = af
+            xmat = afmat
+            xdict = afdict
          ENDIF
 !
 !     ALLOCATE COLUMN POINTER VECTOR IN TOP OF CORE
 !
-         mcb(1) = Uset
+         mcb(1) = uset
          CALL rdtrl(mcb)
          luset = mcb(3)
          icol = 1
          ncol = luset
          DO i = 1 , ncol
-            Z(i) = 0
+            z(i) = 0
          ENDDO
 !
 !     INITILIZE OPEN AND CLOSE OPTIONS
 !
-         optw = Wrtrew
-         optc = Norew
+         optw = wrtrew
+         optc = norew
 !
 !     POSITION CONNECT FILE TO PROPER RECORD
 !
-         file = Conect
-         CALL open(*80,Conect,Z(Ibuf1),Rdrew)
-         IF ( Type==2 ) CALL skpfil(Conect,1)
-         CALL fwdrec(*100,Conect)
-         CALL close(Conect,Norew)
+         file = conect
+         CALL open(*80,conect,z(ibuf1),rdrew)
+         IF ( Type==2 ) CALL skpfil(conect,1)
+         CALL fwdrec(*100,conect)
+         CALL close(conect,norew)
 !
 !     INITIALIZE PACK - UNPACK DATA
 !
@@ -101,9 +102,9 @@ SUBROUTINE flbema(Type)
 !
 !     SET UP CORE POINTERS
 !
-         Icore = ncol + 1
-         Lcore = Ibuf2 - 1
-         ncore = Lcore - Icore
+         icore = ncol + 1
+         lcore = ibuf2 - 1
+         ncore = lcore - icore
          IF ( ncore<200 ) GOTO 140
 !
          skip = .FALSE.
@@ -115,19 +116,19 @@ SUBROUTINE flbema(Type)
 !     ALLOCATE ALL AVALABLE CORE FOR THIS PASS BY USE OF CONECT FILE
 !
          ifcol = ilcol + 1
-         jcore = Icore
-         file = Conect
+         jcore = icore
+         file = conect
 !
-         CALL gopen(Conect,Z(Ibuf1),Rd)
+         CALL gopen(conect,z(ibuf1),rd)
 !
-         IF ( .NOT.(skip) ) CALL read(*20,*140,Conect,alloc,3,1,n)
+         IF ( .NOT.(skip) ) CALL read(*20,*140,conect,alloc,3,1,n)
          DO
 !
-            Isil = alloc(1)
-            Z(Isil) = jcore
-            Z(jcore) = jcore + 1
+            isil = alloc(1)
+            z(isil) = jcore
+            z(jcore) = jcore + 1
             jcore = jcore + 1 + alloc(2) + 2*alloc(3)
-            IF ( jcore>Lcore ) THEN
+            IF ( jcore>lcore ) THEN
 !
 !     INSUFFICIENT CORE FOR NEXT COLUMN - SET FLAG TO SAVE CURRENT
 !     CONECT ALLOCATION RECORD
@@ -136,24 +137,24 @@ SUBROUTINE flbema(Type)
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               ilcol = Isil
-               CALL read(*20,*140,Conect,alloc,3,1,n)
+               ilcol = isil
+               CALL read(*20,*140,conect,alloc,3,1,n)
             ENDIF
          ENDDO
 !
 !     END OF RECORD ON CONECT - ALL COLUMNS ALLOCATED
 !
  20      ilcol = luset
-         optc = Rew
+         optc = rew
          spag_nextblock_1 = 3
       CASE (3)
 !
-         CALL close(Conect,optc)
+         CALL close(conect,optc)
 !
 !     OPEN DICTIONARY AND MATRIX FILES AND PREPARE TO MAKE PASS
 !
-         CALL gopen(xdict,Z(Ibuf1),Rdrew)
-         CALL gopen(xmat,Z(Ibuf2),Rdrew)
+         CALL gopen(xdict,z(ibuf1),rdrew)
+         CALL gopen(xmat,z(ibuf2),rdrew)
          icpos = 0
          spag_nextblock_1 = 4
       CASE (4)
@@ -164,8 +165,8 @@ SUBROUTINE flbema(Type)
 !
             file = xdict
             CALL read(*100,*60,xdict,dict,2,0,n)
-            Isil = dict(1)
-            IF ( Isil>=ifcol .AND. Isil<=ilcol ) THEN
+            isil = dict(1)
+            IF ( isil>=ifcol .AND. isil<=ilcol ) THEN
 !
 !     THE COLUMN IS IN CORE - OBTAIN MATRIX DATA FROM XMAT FILE IF
 !     WE DO NOT ALREADY HAVE IT
@@ -209,14 +210,13 @@ SUBROUTINE flbema(Type)
 !     LOCATE POSITION OF MATRIX TERMS FOR DESIRED SIL
 !
          DO kcol = 1 , ncol
-            IF ( colsil(kcol)==Isil ) THEN
+            IF ( colsil(kcol)==isil ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          icode = 2
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
          iloc = (kcol-1)*nrow*ntpers + 1
@@ -224,24 +224,24 @@ SUBROUTINE flbema(Type)
 !     EXTRACT MATRIX TERMS AND STORE THEM IN CORE
 !
          icode = 3
-         jcore = Z(Isil)
+         jcore = z(isil)
          IF ( jcore==0 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         kcore = Z(jcore)
+         kcore = z(jcore)
          DO i = 1 , nrow
-            Z(kcore) = rowsil(i)
-            IF ( ntpers==2 ) Z(kcore) = -rowsil(i)
+            z(kcore) = rowsil(i)
+            IF ( ntpers==2 ) z(kcore) = -rowsil(i)
             kcore = kcore + 1
             DO j = 1 , ntpers
-               Z(kcore) = terms(iloc)
+               z(kcore) = terms(iloc)
                iloc = iloc + 1
                kcore = kcore + 1
             ENDDO
          ENDDO
 !
-         Z(jcore) = kcore
+         z(jcore) = kcore
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
@@ -249,17 +249,17 @@ SUBROUTINE flbema(Type)
 !
  60      CALL close(xdict,optc)
          CALL close(xmat,optc)
-         CALL gopen(outmat,Z(Ibuf1),optw)
+         CALL gopen(outmat,z(ibuf1),optw)
 !
 !     PACK OUT COLUMNS
 !
          DO i = ifcol , ilcol
             CALL bldpk(typin,typout,outmat,0,0)
-            IF ( Z(i)/=0 ) THEN
+            IF ( z(i)/=0 ) THEN
 !
-               iloc = Z(i) + 1
-               nloc = Z(iloc-1) - iloc
-               CALL pakcol(Z(iloc),nloc)
+               iloc = z(i) + 1
+               nloc = z(iloc-1) - iloc
+               CALL pakcol(z(iloc),nloc)
             ENDIF
 !
             CALL bldpkn(outmat,0,mcb)
@@ -269,7 +269,7 @@ SUBROUTINE flbema(Type)
 !
 !     RETURN FOR ADDITIONAL PASS IF MORE NONZERO COLUMNS REMAIN
 !
-         optw = Wrt
+         optw = wrt
          IF ( ilcol<luset ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -301,7 +301,7 @@ SUBROUTINE flbema(Type)
       CASE (7)
          DO
 !
-            WRITE (Nout,99001) Sfm , icode
+            WRITE (nout,99001) sfm , icode
 99001       FORMAT (A25,' 8010, LOGIC ERROR IN SUBROUTINE FLBEMA - CODE',I3/)
             n = -61
             CALL mesage(n,file,name)

@@ -1,12 +1,13 @@
-!*==mce1c.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mce1c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce1c
+   USE c_blank
+   USE c_gfbsx
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GFBSX
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -25,25 +26,25 @@ SUBROUTINE mce1c
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS
 !
-   Nz = korsz(Z)
-   Lx(1) = L
-   CALL rdtrl(Lx)
-   Ux(1) = U
-   CALL rdtrl(Ux)
-   Rnx(1) = Rn
-   CALL rdtrl(Rnx)
-   Gmx(1) = Gm
-   Gmx(3) = Rnx(3)
-   Gmx(4) = Rnx(4)
-   Gmx(5) = iprec
-   Prec = iprec
-   Sign = -1
+   nz = korsz(z)
+   lx(1) = l
+   CALL rdtrl(lx)
+   ux(1) = u
+   CALL rdtrl(ux)
+   rnx(1) = rn
+   CALL rdtrl(rnx)
+   gmx(1) = gm
+   gmx(3) = rnx(3)
+   gmx(4) = rnx(4)
+   gmx(5) = iprec
+   prec = iprec
+   sign = -1
 !
 !     PERFORM SOLUTION
 !
-   CALL gfbs(Z,Z)
+   CALL gfbs(z,z)
 !
 !     WRITE TRAILER
 !
-   CALL wrttrl(Gmx)
+   CALL wrttrl(gmx)
 END SUBROUTINE mce1c

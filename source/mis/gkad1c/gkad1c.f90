@@ -1,7 +1,10 @@
-!*==gkad1c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gkad1c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gkad1c(Xmd,Xod,Xcr1,Xcr2,Xcr3,Xcr4,Xcr5,Xcr6,Xsetd)
+   USE c_bitpos
+   USE c_blank
    USE C_BITPOS
    USE C_BLANK
    IMPLICIT NONE

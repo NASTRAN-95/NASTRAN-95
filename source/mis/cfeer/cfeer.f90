@@ -1,15 +1,16 @@
-!*==cfeer.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cfeer.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cfeer(Eed,Method,Nfound)
-USE C_FEERAA
-USE C_FEERXC
-USE C_NAMES
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feeraa
+   USE c_feerxc
+   USE c_names
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -114,141 +115,141 @@ USE ISO_FORTRAN_ENV
 !     WANT   = ARRAY OF DESIRED NUMBER OF ROOTS IN EACH NEIGHBORHOOD
 !     HAVE   = ARRAY OF ACTUAL  NUMBER OF ROOTS IN EACH NEIGHBORHOOD
 !
-         Northo = 0
-         Nfound = Northo
-         Nzero = Northo
-         Jskip = 0
-         CALL sswtch(12,Idiag)
+         northo = 0
+         Nfound = northo
+         nzero = northo
+         jskip = 0
+         CALL sswtch(12,idiag)
 !
 !     TEST COMPUTING MACHINE TYPE AND SET PRECISION PARAMETERS
 !
          IF ( nbpw>=60 ) THEN
-            It = 14*Ksystm(55)
+            it = 14*ksystm(55)
          ELSE
-            It = 8*Ksystm(55)
+            it = 8*ksystm(55)
          ENDIF
-         Ten2mt = 10.**(2-It)
-         Tenmht = 10.**(-It/2)
-         Tenmtt = 10.**(-It/3)
-         Ik(1) = 101
-         CALL rdtrl(Ik)
-         Im(1) = 103
-         CALL rdtrl(Im)
-         Ib(1) = 102
-         CALL rdtrl(Ib)
-         IF ( Ib(1)<0 .OR. Ib(6)==0 ) Ib(1) = 0
+         ten2mt = 10.**(2-it)
+         tenmht = 10.**(-it/2)
+         tenmtt = 10.**(-it/3)
+         ik(1) = 101
+         CALL rdtrl(ik)
+         im(1) = 103
+         CALL rdtrl(im)
+         ib(1) = 102
+         CALL rdtrl(ib)
+         IF ( ib(1)<0 .OR. ib(6)==0 ) ib(1) = 0
 !
 !     DETERMINE IF THE DYNAMIC MATRIX IS SYMMETRIC
 !
-         Symmet = .FALSE.
-         IF ( Ik(1)==0 .OR. Ik(4)==6 ) THEN
-            IF ( Im(1)==0 .OR. Im(4)==6 ) THEN
-               IF ( Ib(1)==0 .OR. Ib(4)==6 ) Symmet = .TRUE.
+         symmet = .FALSE.
+         IF ( ik(1)==0 .OR. ik(4)==6 ) THEN
+            IF ( im(1)==0 .OR. im(4)==6 ) THEN
+               IF ( ib(1)==0 .OR. ib(4)==6 ) symmet = .TRUE.
             ENDIF
          ENDIF
          DO i = 1 , 11
-            Iscr(i) = 300 + i
+            iscr(i) = 300 + i
          ENDDO
-         Idmpfl = 203
-         nz = korsz(Z)
-         ibuf = nz - Ksystm(1) - 2
+         idmpfl = 203
+         nz = korsz(z)
+         ibuf = nz - ksystm(1) - 2
          limsum = 12
          iopn = ibuf - limsum
-         IF ( Idiag/=0 ) WRITE (nout,99001) iopn
+         IF ( idiag/=0 ) WRITE (nout,99001) iopn
 !
 !
 99001    FORMAT (1H1,27X,'*****  F E E R  *****  (FAST EIGENVALUE',' EXTRACTION ROUTINE)  *****',////,1H ,I10,' SINGLE ',           &
                 &'PRECISION WORDS OF OPEN CORE, NOT USED (SUBROUTINE ','CFEER)',//)
          IF ( iopn<=0 ) CALL mesage(-8,0,name)
-         Minopn = iopn
-         Ilam(1) = 308
-         Iphi(1) = 309
-         ifile = Ilam(1)
-         CALL open(*20,Ilam,Z(ibuf),Wrtrew)
-         CALL close(Ilam,Rew)
-         ifile = Iphi(1)
-         CALL open(*20,Iphi,Z(ibuf),Wrtrew)
-         CALL close(Iphi,Rew)
-         CALL gopen(Idmpfl,Z(ibuf),Wrtrew)
-         CALL close(Idmpfl,Eofnrw)
+         minopn = iopn
+         ilam(1) = 308
+         iphi(1) = 309
+         ifile = ilam(1)
+         CALL open(*20,ilam,z(ibuf),wrtrew)
+         CALL close(ilam,rew)
+         ifile = iphi(1)
+         CALL open(*20,iphi,z(ibuf),wrtrew)
+         CALL close(iphi,rew)
+         CALL gopen(idmpfl,z(ibuf),wrtrew)
+         CALL close(idmpfl,eofnrw)
 !
 !     PROCURE DATA FROM MAIN EIGC CARD
 !
          ifile = Eed
-         CALL preloc(*20,Z(ibuf),Eed)
-         CALL locate(*20,Z(ibuf),eigc(1),flag)
+         CALL preloc(*20,z(ibuf),Eed)
+         CALL locate(*20,z(ibuf),eigc(1),flag)
          SPAG_Loop_1_4: DO
             CALL fread(Eed,ireg,10,0)
             IF ( ireg(1,1)==Method ) THEN
-               Jreg = 1
-               Eps = .1D0/Ik(2)/100.D0
-               IF ( Reg(1,2)>0. ) Eps = dble(Reg(1,2))/100.D0
-               unidum = sngl(Eps)*100.
-               IF ( Idiag/=0 ) WRITE (nout,99002) unidum , Reg(1,2)
+               jreg = 1
+               eps = .1D0/ik(2)/100.D0
+               IF ( reg(1,2)>0. ) eps = dble(reg(1,2))/100.D0
+               unidum = sngl(eps)*100.
+               IF ( idiag/=0 ) WRITE (nout,99002) unidum , reg(1,2)
 99002          FORMAT (1H0,5HCFEER,6X,18HACCURACY CRITERION,1P,E16.8,8X,12H(INPUT VALUE,E16.8,1H))
                SPAG_Loop_2_1: DO
 !
 !     PROCURE DATA FROM EIGC CONTINUATION CARDS
 !
-                  CALL fread(Eed,ireg(1,Jreg),7,0)
-                  IF ( ireg(6,Jreg)==-1 ) EXIT SPAG_Loop_2_1
-                  Jreg = Jreg + 1
-                  IF ( Jreg>10 ) EXIT SPAG_Loop_2_1
+                  CALL fread(Eed,ireg(1,jreg),7,0)
+                  IF ( ireg(6,jreg)==-1 ) EXIT SPAG_Loop_2_1
+                  jreg = jreg + 1
+                  IF ( jreg>10 ) EXIT SPAG_Loop_2_1
                ENDDO SPAG_Loop_2_1
-               CALL close(Eed,Rew)
-               Noreg = Jreg - 1
+               CALL close(Eed,rew)
+               noreg = jreg - 1
                nodcmp = 0
-               Numort = 0
-               Numran = 0
-               Jreg = 0
+               numort = 0
+               numran = 0
+               jreg = 0
                SPAG_Loop_2_3: DO
 !
 !     PICK UP PARAMETERS FOR NEIGHBORHOOD I
 !
-                  Jreg = Jreg + 1
-                  IF ( Jreg<=Noreg ) THEN
-                     x1 = Reg(1,Jreg)
-                     y1 = Reg(2,Jreg)
-                     anodes = Reg(7,Jreg)
-                     asym = Reg(6,Jreg)
-                     IF ( nonsym/=0 ) Symmet = .FALSE.
-                     nprint = ifix(Reg(5,Jreg))
-                     Qpr = .FALSE.
-                     IF ( Idiag/=0 .AND. nprint>=Ik(2) ) Qpr = .TRUE.
-                     IF ( Idiag/=0 ) WRITE (nout,99003) Jreg , x1 , y1 , nodes , nonsym
+                  jreg = jreg + 1
+                  IF ( jreg<=noreg ) THEN
+                     x1 = reg(1,jreg)
+                     y1 = reg(2,jreg)
+                     anodes = reg(7,jreg)
+                     asym = reg(6,jreg)
+                     IF ( nonsym/=0 ) symmet = .FALSE.
+                     nprint = ifix(reg(5,jreg))
+                     qpr = .FALSE.
+                     IF ( idiag/=0 .AND. nprint>=ik(2) ) qpr = .TRUE.
+                     IF ( idiag/=0 ) WRITE (nout,99003) jreg , x1 , y1 , nodes , nonsym
 99003                FORMAT (1H0,5HCFEER,6X,12HNEIGHBORHOOD,I3,8X,8HCENTER =,2F18.8,8X,15HNO. DES. RTS. =,I5,8X,8HNONSYM =,I2/1H )
 !
 !     TEST IF USER PICKED THE ORIGIN
 !
                      IF ( x1==0. .AND. y1==0. ) THEN
                         x1 = x1 + .001
-                        WRITE (nout,99004) Uwm
+                        WRITE (nout,99004) uwm
 99004                   FORMAT (A25,' 3149',//5X,'USER SPECIFIED NEIGHBORHOOD CENTERED AT',                                         &
                                &' ORIGIN NOT ALLOWED, CENTER SHIFTED TO THE RIGHT .001',//)
                      ENDIF
                      IF ( nodes<=0 ) THEN
-                        WRITE (nout,99005) Uwm , nodes
+                        WRITE (nout,99005) uwm , nodes
 99005                   FORMAT (A25,' 3150',//5X,'DESIRED NUMBER OF EIGENVALUES',I8,3X,'INVALID. SET = 1.',//)
                         nodes = 1
                      ENDIF
-                     want(Jreg) = nodes
-                     have(Jreg) = 0
-                     Nord = 2*Ik(2)
-                     Nob = .FALSE.
-                     IF ( Ib(1)<=0 ) THEN
-                        Nob = .TRUE.
-                        Nord = Ik(2)
+                     want(jreg) = nodes
+                     have(jreg) = 0
+                     nord = 2*ik(2)
+                     nob = .FALSE.
+                     IF ( ib(1)<=0 ) THEN
+                        nob = .TRUE.
+                        nord = ik(2)
                      ENDIF
-                     Nswp = Ik(2)
-                     Nord2 = 2*Nord
-                     Nord4 = 2*Nord2
-                     Nordp1 = Nord + 1
-                     Mreduc = 2*nodes + 10
-                     nomnf = Nord - Nfound
-                     IF ( Mreduc>nomnf ) Mreduc = nomnf
-                     Lambda(1) = x1
-                     Lambda(2) = y1
-                     IF ( nodes>Nord ) WRITE (nout,99006) Uwm , nodes , Jreg , Noreg , Lambda , Nord
+                     nswp = ik(2)
+                     nord2 = 2*nord
+                     nord4 = 2*nord2
+                     nordp1 = nord + 1
+                     mreduc = 2*nodes + 10
+                     nomnf = nord - Nfound
+                     IF ( mreduc>nomnf ) mreduc = nomnf
+                     lambda(1) = x1
+                     lambda(2) = y1
+                     IF ( nodes>nord ) WRITE (nout,99006) uwm , nodes , jreg , noreg , lambda , nord
 99006                FORMAT (A25,' 3161',//5X,'DESIRED NUMBER OF EIGENSOLUTIONS',I5,' FOR NEIGHBORHOOD',I3,' OF',I3,' CENTERED AT ',&
                            & 1P,2D16.8,//5X,'EXCEEDS THE EXISTING NUMBER',I5,', ALL EIGENSOLUTIONS WILL BE SOUGHT.',//)
                      ising = 0
@@ -264,7 +265,7 @@ USE ISO_FORTRAN_ENV
                         CALL cfeer2(iret)
                         IF ( iret/=0 ) THEN
                            iret = iret + ising
-                           WRITE (nout,99007) Uwm , iret , Lambda
+                           WRITE (nout,99007) uwm , iret , lambda
 99007                      FORMAT (A25,' 3151',//5X,'DYNAMIC MATRIX IS SINGULAR (OCCURRENCE',I3,') IN NEIGHBORHOOD CENTERED AT ',1P,&
                                  & 2D16.8,//)
                            IF ( ising==1 ) EXIT SPAG_Loop_3_2
@@ -272,56 +273,56 @@ USE ISO_FORTRAN_ENV
 !     SINGULAR MATRIX. INCREMENT LAMBDA AND TRY ONCE MORE.
 !
                            ising = 1
-                           Lambda(1) = Lambda(1) + .02D0
-                           Lambda(2) = Lambda(2) + .02D0
+                           lambda(1) = lambda(1) + .02D0
+                           lambda(2) = lambda(2) + .02D0
                         ELSE
 !
 !     CALL IN DRIVER TO GENERATE REDUCED TRIDIAGONAL MATRIX
 !
                            CALL cfeer3
-                           IF ( Nstart>2 ) EXIT SPAG_Loop_3_2
+                           IF ( nstart>2 ) EXIT SPAG_Loop_3_2
 !
 !     OBTAIN EIGENVALUES AND EIGENVECTORS
 !
                            CALL cfeer4
-                           have(Jreg) = Mreduc
-                           IF ( Mreduc>nodes ) THEN
-                              i = Mreduc - nodes
-                              WRITE (nout,99008) Uim , i , nodes , Jreg , Noreg , Lambda
+                           have(jreg) = mreduc
+                           IF ( mreduc>nodes ) THEN
+                              i = mreduc - nodes
+                              WRITE (nout,99008) uim , i , nodes , jreg , noreg , lambda
 99008                         FORMAT (A29,' 3166',//1X,I5,' MORE ACCURATE EIGENSOLUTIONS THAN ','THE',I5,                           &
                                      &' REQUESTED HAVE BEEN FOUND FOR NEIGHBORHOOD',I3,' OF',I3,//5X,'CENTERED AT ',1P,2D16.8,      &
                                      &'. USE DIAG 12 TO DETERMINE ERROR ESTIMATES.',//)
                            ENDIF
-                           Nfound = Nfound + Mreduc
-                           IF ( Jreg<Noreg .AND. Nfound<Nord ) EXIT SPAG_Loop_3_2
+                           Nfound = Nfound + mreduc
+                           IF ( jreg<noreg .AND. Nfound<nord ) EXIT SPAG_Loop_3_2
                            EXIT SPAG_Loop_2_3
                         ENDIF
                      ENDDO SPAG_Loop_3_2
                   ELSE
-                     Jreg = Noreg
-                     IF ( Nzero>0 ) Jskip = -1
+                     jreg = noreg
+                     IF ( nzero>0 ) jskip = -1
                      EXIT SPAG_Loop_2_3
                   ENDIF
                ENDDO SPAG_Loop_2_3
 !
 !     FEER IS FINISHED. PERFORM WRAP-UP OPERATIONS.
 !
-               IF ( Jskip<0 ) CALL cfeer4
+               IF ( jskip<0 ) CALL cfeer4
                IF ( Nfound==0 ) THEN
 !
 !     ABNORMAL TERMINATION. NO ROOTS FOUND.
 !
                   iterm = 2
                ELSE
-                  IF ( Nfound>=Nord ) THEN
+                  IF ( Nfound>=nord ) THEN
 !
 !     ALL SOLUTIONS FOUND
 !
-                     WRITE (nout,99009) Uim
+                     WRITE (nout,99009) uim
 99009                FORMAT (A29,' 3159',//5X,'ALL SOLUTIONS HAVE BEEN FOUND.',//)
-                     IF ( Jreg<Noreg ) EXIT SPAG_Loop_1_4
+                     IF ( jreg<noreg ) EXIT SPAG_Loop_1_4
                   ENDIF
-                  DO i = 1 , Jreg
+                  DO i = 1 , jreg
                      IF ( have(i)<want(i) ) EXIT SPAG_Loop_1_4
                   ENDDO
 !
@@ -348,31 +349,31 @@ USE ISO_FORTRAN_ENV
 !
 !     WRITE INFORMATION ON NASTRAN SUMMARY FILE
 !
-         ifile = Idmpfl
-         CALL open(*20,Idmpfl,Z(ibuf),Wrt)
+         ifile = idmpfl
+         CALL open(*20,idmpfl,z(ibuf),wrt)
          DO i = 1 , limsum
             iz(i) = 0
          ENDDO
          i = 0
-         iz(i+2) = Northo
-         iz(i+3) = Numran
+         iz(i+2) = northo
+         iz(i+3) = numran
          iz(i+5) = nodcmp
-         iz(i+6) = Numort
+         iz(i+6) = numort
          iz(i+7) = iterm
          iz(i+8) = 1
          i = 2
-         CALL write(Idmpfl,ihead(1),10,0)
-         CALL write(Idmpfl,iz(i),40,0)
-         CALL write(Idmpfl,Head(1),96,1)
-         CALL write(Idmpfl,iz(1),0,1)
-         CALL close(Idmpfl,Eofnrw)
+         CALL write(idmpfl,ihead(1),10,0)
+         CALL write(idmpfl,iz(i),40,0)
+         CALL write(idmpfl,head(1),96,1)
+         CALL write(idmpfl,iz(1),0,1)
+         CALL close(idmpfl,eofnrw)
 !
 !     WRITE DUMMY TRAILER
 !
-         ixx = Ik(1)
-         Ik(1) = Idmpfl
-         CALL wrttrl(Ik(1))
-         Ik(1) = ixx
+         ixx = ik(1)
+         ik(1) = idmpfl
+         CALL wrttrl(ik(1))
+         ik(1) = ixx
 !
 !     INFORM USER IF RUN REGION SIZE CAN BE REDUCED
 !
@@ -384,9 +385,9 @@ USE ISO_FORTRAN_ENV
             i = 10
             IF ( nbpw==64 ) i = 8
          ENDIF
-         i = (i*Minopn)/1000
+         i = (i*minopn)/1000
          IF ( i<0 ) i = 0
-         WRITE (nout,99010) Uim , Minopn , i
+         WRITE (nout,99010) uim , minopn , i
 99010    FORMAT (A29,' 3160',//5X,'MINIMUM OPEN CORE NOT USED BY FEER',I9,' WORDS (',I9,'K BYTES).',//)
          RETURN
 !

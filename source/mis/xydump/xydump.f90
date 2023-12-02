@@ -1,13 +1,14 @@
-!*==xydump.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==xydump.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xydump(Outfil,Type)
+   USE c_blank
+   USE c_machin
+   USE c_two
+   USE c_xywork
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MACHIN
-   USE C_TWO
-   USE C_XYWORK
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -52,13 +53,13 @@ SUBROUTINE xydump(Outfil,Type)
 !     BUT FIRST CONVERT X FROM INTERGER TO REAL IF NECESSARY.
 !
          intore = .FALSE.
-         dec = Machx==5 .OR. Machx==6 .OR. Machx==21
+         dec = machx==5 .OR. machx==6 .OR. machx==21
          j = 1
-         is1 = Steps - 1
+         is1 = steps - 1
 !
 !     NOW SEARCH LIST FOR FIRST NON-ZERO ENTRY
 !
-         DO WHILE ( Z(Iat+j)==0 )
+         DO WHILE ( z(iat+j)==0 )
             j = j + 1
             IF ( j>is1 ) THEN
                spag_nextblock_1 = 2
@@ -67,31 +68,31 @@ SUBROUTINE xydump(Outfil,Type)
          ENDDO
 !
 !              UNIVAC             CDC             CRAY
-         IF ( Machx/=3 .AND. Machx/=4 .AND. Machx/=12 ) THEN
+         IF ( machx/=3 .AND. machx/=4 .AND. machx/=12 ) THEN
 !
 !     IBM, VAX, UNIX
 !
-            IF ( .NOT.dec .AND. iabs(Z(Iat+j))>Two1(9) ) THEN
+            IF ( .NOT.dec .AND. iabs(z(iat+j))>two1(9) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( dec .AND. (Z(Iat+j)<1 .OR. Z(Iat+j)>127) ) THEN
+            IF ( dec .AND. (z(iat+j)<1 .OR. z(iat+j)>127) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-         ELSEIF ( iabs(Z(Iat+j))>Two1(2) ) THEN
+         ELSEIF ( iabs(z(iat+j))>two1(2) ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          intore = .TRUE.
-         IF ( j==1 ) rz(Iat+j) = Z(Iat+j)
+         IF ( j==1 ) rz(iat+j) = z(iat+j)
          spag_nextblock_1 = 2
       CASE (2)
 !
          ok = .FALSE.
          DO i = 1 , is1
-            j = Iat + i
-            IF ( intore ) rz(j+1) = Z(j+1)
+            j = iat + i
+            IF ( intore ) rz(j+1) = z(j+1)
             diff = rz(j+1) - rz(j)
             IF ( .NOT.ok ) THEN
                IF ( diff/=0.0 ) THEN
@@ -109,19 +110,19 @@ SUBROUTINE xydump(Outfil,Type)
          xcycle = 0
          ycycle(1) = 0
          ycycle(2) = 0
-         xmin = rz(Iat+1)
-         j = Iat + Steps
+         xmin = rz(iat+1)
+         j = iat + steps
          xmax = rz(j)
 !
 !     REDUCE THESE LIMITS TO USER SPECIFIED LIMITS
 !
-         IF ( Ivalue(1)/=1 ) xmin = (value(1))
-         IF ( Ivalue(2)/=1 ) xmax = (value(2))
+         IF ( ivalue(1)/=1 ) xmin = (value(1))
+         IF ( ivalue(2)/=1 ) xmax = (value(2))
 !
 !     FURTHER EXPAND XLIMITS TO INCLUDE Y-AXIS INTERCEPT
 !
-         IF ( Ivalue(9)/=1 ) THEN
-            IF ( Ivalue(36)==1 .AND. value(9)<=0.0 ) THEN
+         IF ( ivalue(9)/=1 ) THEN
+            IF ( ivalue(36)==1 .AND. value(9)<=0.0 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -132,15 +133,15 @@ SUBROUTINE xydump(Outfil,Type)
 !     IF X-DIRECTION IS LOG AND XMIN IS NEGATIVE OR ZERO, SET YMIN
 !     EQUAL TO THE SMALLEST NON-ZERO POSITIVE VALUE
 !
-         IF ( Ivalue(36)/=1 ) THEN
+         IF ( ivalue(36)/=1 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 3
       CASE (3)
          IF ( xmin<=0.0 ) THEN
-            DO i = 1 , Steps
-               j = Iat + i
+            DO i = 1 , steps
+               j = iat + i
                IF ( rz(j)>0.0 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
@@ -150,7 +151,6 @@ SUBROUTINE xydump(Outfil,Type)
             xmax = 10.
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
          xmin = rz(j)
          spag_nextblock_1 = 5
@@ -175,8 +175,8 @@ SUBROUTINE xydump(Outfil,Type)
 !
 !     FIRST FIND I1 AND I2
 !
-         DO i = 1 , Steps
-            j = Iat + i
+         DO i = 1 , steps
+            j = iat + i
             IF ( xmin<=rz(j) .AND. rz(j)<=xmax ) THEN
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
@@ -184,11 +184,10 @@ SUBROUTINE xydump(Outfil,Type)
          ENDDO
          i1 = 0
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          i1 = i
-         j = Iat + Steps + 1
-         DO i = 1 , Steps
+         j = iat + steps + 1
+         DO i = 1 , steps
             j = j - 1
             IF ( xmin<=rz(j) .AND. rz(j)<=xmax ) THEN
                spag_nextblock_1 = 9
@@ -199,25 +198,24 @@ SUBROUTINE xydump(Outfil,Type)
       CASE (8)
          i2 = 0
          spag_nextblock_1 = 10
-         CYCLE SPAG_DispatchLoop_1
       CASE (9)
-         i2 = j - Iat
+         i2 = j - iat
          spag_nextblock_1 = 10
       CASE (10)
          IF ( i1/=0 ) THEN
             m = 1
-            IF ( Nbots/=0 ) m = 2
-            begin = Iat
+            IF ( nbots/=0 ) m = 2
+            begin = iat
             DO i = 1 , m
                limit(i,1) = 1
                limit(i,2) = 1
                limit(i,3) = 1
-               DO j = 1 , Ntops
+               DO j = 1 , ntops
                   spag_nextblock_2 = 1
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
-                        k = j*Steps + begin
+                        k = j*steps + begin
                         j1 = k + i1
                         j2 = k + i2
                         IF ( limit(i,1)/=1 ) THEN
@@ -227,20 +225,19 @@ SUBROUTINE xydump(Outfil,Type)
 !
 !     FIND FIRST NON-INTEGER 1 VALUE
 !
-                        DO k = j1 , j2
-                           IF ( Z(k)/=1 ) THEN
+                        SPAG_Loop_5_1: DO k = j1 , j2
+                           IF ( z(k)/=1 ) THEN
                               spag_nextblock_2 = 2
-                              CYCLE SPAG_DispatchLoop_2
+                              EXIT SPAG_Loop_5_1
                            ENDIF
-                        ENDDO
-                        CYCLE
+                        ENDDO SPAG_Loop_5_1
                      CASE (2)
                         ylimit(i,1) = rz(k)
                         ylimit(i,2) = rz(k)
                         spag_nextblock_2 = 3
                      CASE (3)
                         DO k = j1 , j2
-                           IF ( Z(k)/=1 ) THEN
+                           IF ( z(k)/=1 ) THEN
                               ylimit(i,1) = amin1(rz(k),ylimit(i,1))
                               ylimit(i,2) = amax1(rz(k),ylimit(i,2))
                               IF ( rz(k)>0.0 ) THEN
@@ -253,7 +250,7 @@ SUBROUTINE xydump(Outfil,Type)
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
                ENDDO
-               begin = Center
+               begin = center
 !
 !     DEFAULT YLIMITS IF ALL CURVES NULL
 !
@@ -272,7 +269,7 @@ SUBROUTINE xydump(Outfil,Type)
 !     K=2 IMPLIES UPPER AND LOWER CURVES
 !
             k = 1
-            IF ( Nbots>0 ) k = 2
+            IF ( nbots>0 ) k = 2
             DO i = 1 , k
                spag_nextblock_3 = 1
                SPAG_DispatchLoop_3: DO
@@ -284,14 +281,14 @@ SUBROUTINE xydump(Outfil,Type)
 !     REDUCE THESE CURVE LIMITS TO LIMITS SET BY USER
 !
                      itemp = 2*(i+k)
-                     IF ( Ivalue(itemp-1)/=1 ) ymin(i) = (value(itemp-1))
-                     IF ( Ivalue(itemp)/=1 ) ymax(i) = (value(itemp))
+                     IF ( ivalue(itemp-1)/=1 ) ymin(i) = (value(itemp-1))
+                     IF ( ivalue(itemp)/=1 ) ymax(i) = (value(itemp))
 !
 !     FURTHER EXPAND LIMITS TO INCLUDE X-AXIS
 !
                      itemp = i + k
-                     IF ( Ivalue(itemp+8)/=1 ) THEN
-                        IF ( Ivalue(itemp+35)==1 .AND. value(itemp+8)<=0.E0 ) THEN
+                     IF ( ivalue(itemp+8)/=1 ) THEN
+                        IF ( ivalue(itemp+35)==1 .AND. value(itemp+8)<=0.E0 ) THEN
                            spag_nextblock_3 = 2
                            CYCLE SPAG_DispatchLoop_3
                         ENDIF
@@ -302,7 +299,7 @@ SUBROUTINE xydump(Outfil,Type)
 !     IF Y-DIRECTION IS LOG AND YMIN IS NEGATIVE OR ZERO SET YMIN
 !     EQUAL TO SMALLEST POSITIVE CURVE VALUE WITHIN XLIMITS
 !
-                     IF ( Ivalue(itemp+35)/=1 ) THEN
+                     IF ( ivalue(itemp+35)/=1 ) THEN
                         spag_nextblock_3 = 3
                         CYCLE SPAG_DispatchLoop_3
                      ENDIF
@@ -345,132 +342,132 @@ SUBROUTINE xydump(Outfil,Type)
 !     FILL IDOUT
 !
          DO i = 1 , 300
-            Idout(i) = 0
+            idout(i) = 0
          ENDDO
-         IF ( Plot .AND. Outopn ) Nframe = Nframe + 1
-         Idout(1) = Subc(File)
-         Idout(2) = Nframe
-         Idout(6) = Vector
-         Idout(9) = Ivalue(45)
-         IF ( Ivalue(43)==0 ) value(43) = 1.0
-         Idout(43) = Ivalue(43)
+         IF ( plot .AND. outopn ) nframe = nframe + 1
+         idout(1) = subc(file)
+         idout(2) = nframe
+         idout(6) = vector
+         idout(9) = ivalue(45)
+         IF ( ivalue(43)==0 ) value(43) = 1.0
+         idout(43) = ivalue(43)
          idoutr(10) = xinc
-         Idout(245) = Type
-         Idout(246) = Steps
+         idout(245) = Type
+         idout(246) = steps
          idoutr(282) = value(57)
          IF ( idoutr(282)<1.0 ) idoutr(282) = 1.0
-         Idout(283) = Ivalue(50)
-         IF ( Ivalue(47)==3 ) Idout(283) = Ivalue(41)
-         Idout(284) = Ivalue(47)
-         Idout(285) = Ivalue(48)
-         Idout(286) = Ivalue(49)
-         Idout(287) = Ivalue(46)
-         Idout(44) = Ivalue(58)
-         Idout(45) = Ivalue(59)
-         IF ( Print ) Idout(288) = 1
-         IF ( Plot ) Idout(289) = 1
-         IF ( Paplot ) THEN
-            IF ( .NOT.Plot ) Idout(289) = -1
-            IF ( Plot ) Idout(289) = 2
+         idout(283) = ivalue(50)
+         IF ( ivalue(47)==3 ) idout(283) = ivalue(41)
+         idout(284) = ivalue(47)
+         idout(285) = ivalue(48)
+         idout(286) = ivalue(49)
+         idout(287) = ivalue(46)
+         idout(44) = ivalue(58)
+         idout(45) = ivalue(59)
+         IF ( print ) idout(288) = 1
+         IF ( plot ) idout(289) = 1
+         IF ( paplot ) THEN
+            IF ( .NOT.plot ) idout(289) = -1
+            IF ( plot ) idout(289) = 2
             npaplt = npaplt + 1
-            Idout(281) = npaplt
+            idout(281) = npaplt
          ENDIF
          on = .FALSE.
-         IF ( Plot .OR. Paplot ) on = .TRUE.
-         IF ( Punch ) Idout(290) = 1
+         IF ( plot .OR. paplot ) on = .TRUE.
+         IF ( punch ) idout(290) = 1
          DO i = 51 , 146
-            Idout(i) = Idin(i)
+            idout(i) = idin(i)
          ENDDO
 !
 !     BRANCH ON TOP, BOTTOM, OR WHOLE CURVE (FIRST WILL BE TOP OR WHOLE)
 !
          i = 3
-         IF ( Z(i)==0 .OR. Random ) THEN
+         IF ( z(i)==0 .OR. random ) THEN
 !
 !     WHOLE CURVE ID
 !
             curve = 0
-            Idout(7) = 0
-            Idout(8) = 1
+            idout(7) = 0
+            idout(8) = 1
             idoutr(11) = xmin
             idoutr(12) = xmax
             idoutr(13) = ymin(1)
             idoutr(14) = ymax(1)
             iflag = 0
             IF ( intore ) iflag = 1
-            CALL xytics(Idout(15),idoutr(15),Ivalue(17),Idout(11),Idout(12),Ivalue(21),xcycle,iflag)
-            CALL xytics(Idout(23),idoutr(23),Ivalue(18),Idout(13),Idout(14),Ivalue(22),ycycle(1),0)
-            Idout(31) = Ivalue(33) + Ivalue(25)
-            Idout(32) = Ivalue(33) + Ivalue(26)
-            Idout(33) = Ivalue(33) + Ivalue(27)
-            Idout(34) = Ivalue(33) + Ivalue(28)
-            Idout(35) = xcycle
-            Idout(36) = ycycle(1)
-            Idout(37) = Ivalue(13)
-            Idout(38) = Ivalue(10)
-            IF ( Idout(38)==1 ) Idout(38) = 0.0
-            IF ( idoutr(38)<ymin(1) ) Idout(37) = 0
-            Idout(39) = Ivalue(14)
-            Idout(40) = Ivalue(9)
-            IF ( Idout(40)==1 ) idoutr(40) = 0.0
-            IF ( idoutr(40)<xmin ) Idout(39) = 0
-            Idout(41) = Ivalue(40)
-            Idout(243) = Ivalue(51)
-            Idout(244) = Ivalue(52)
+            CALL xytics(idout(15),idoutr(15),ivalue(17),idout(11),idout(12),ivalue(21),xcycle,iflag)
+            CALL xytics(idout(23),idoutr(23),ivalue(18),idout(13),idout(14),ivalue(22),ycycle(1),0)
+            idout(31) = ivalue(33) + ivalue(25)
+            idout(32) = ivalue(33) + ivalue(26)
+            idout(33) = ivalue(33) + ivalue(27)
+            idout(34) = ivalue(33) + ivalue(28)
+            idout(35) = xcycle
+            idout(36) = ycycle(1)
+            idout(37) = ivalue(13)
+            idout(38) = ivalue(10)
+            IF ( idout(38)==1 ) idout(38) = 0.0
+            IF ( idoutr(38)<ymin(1) ) idout(37) = 0
+            idout(39) = ivalue(14)
+            idout(40) = ivalue(9)
+            IF ( idout(40)==1 ) idoutr(40) = 0.0
+            IF ( idoutr(40)<xmin ) idout(39) = 0
+            idout(41) = ivalue(40)
+            idout(243) = ivalue(51)
+            idout(244) = ivalue(52)
             DO i = 1 , 32
-               Idout(i+146) = Tcurve(i)
-               Idout(i+178) = Xaxis(i)
-               Idout(i+210) = Yaxis(i)
+               idout(i+146) = tcurve(i)
+               idout(i+178) = xaxis(i)
+               idout(i+210) = yaxis(i)
             ENDDO
          ELSE
 !
 !     TOP CURVE ID
 !
             curve = 0
-            Idout(7) = 1
-            Idout(8) = 1
+            idout(7) = 1
+            idout(8) = 1
             idoutr(11) = xmin
             idoutr(12) = xmax
             idoutr(13) = ymin(1)
             idoutr(14) = ymax(1)
             iflag = 0
             IF ( intore ) iflag = 1
-            CALL xytics(Idout(15),idoutr(15),Ivalue(17),Idout(11),Idout(12),Ivalue(21),xcycle,iflag)
-            CALL xytics(Idout(23),idoutr(23),Ivalue(19),Idout(13),Idout(14),Ivalue(23),ycycle(1),0)
-            Idout(31) = Ivalue(34) + Ivalue(25)
-            Idout(32) = Ivalue(34) + Ivalue(26)
-            Idout(33) = Ivalue(34) + Ivalue(29)
-            Idout(34) = Ivalue(34) + Ivalue(30)
-            Idout(35) = xcycle
-            Idout(36) = ycycle(1)
-            Idout(37) = Ivalue(15)
-            Idout(38) = Ivalue(11)
-            IF ( Idout(38)==1 ) idoutr(38) = 0.0
-            IF ( idoutr(38)<ymin(1) ) Idout(37) = 0
-            Idout(39) = Ivalue(14)
-            Idout(40) = Ivalue(9)
-            IF ( Idout(40)==1 ) idoutr(40) = 0.0
-            IF ( idoutr(40)<xmin ) Idout(39) = 0
-            Idout(41) = Ivalue(40)
-            Idout(243) = Ivalue(53)
-            Idout(244) = Ivalue(54)
+            CALL xytics(idout(15),idoutr(15),ivalue(17),idout(11),idout(12),ivalue(21),xcycle,iflag)
+            CALL xytics(idout(23),idoutr(23),ivalue(19),idout(13),idout(14),ivalue(23),ycycle(1),0)
+            idout(31) = ivalue(34) + ivalue(25)
+            idout(32) = ivalue(34) + ivalue(26)
+            idout(33) = ivalue(34) + ivalue(29)
+            idout(34) = ivalue(34) + ivalue(30)
+            idout(35) = xcycle
+            idout(36) = ycycle(1)
+            idout(37) = ivalue(15)
+            idout(38) = ivalue(11)
+            IF ( idout(38)==1 ) idoutr(38) = 0.0
+            IF ( idoutr(38)<ymin(1) ) idout(37) = 0
+            idout(39) = ivalue(14)
+            idout(40) = ivalue(9)
+            IF ( idout(40)==1 ) idoutr(40) = 0.0
+            IF ( idoutr(40)<xmin ) idout(39) = 0
+            idout(41) = ivalue(40)
+            idout(243) = ivalue(53)
+            idout(244) = ivalue(54)
             DO i = 1 , 32
-               Idout(i+146) = Tcurve(i)
-               Idout(i+178) = Xaxis(i)
-               Idout(i+210) = Ytaxis(i)
+               idout(i+146) = tcurve(i)
+               idout(i+178) = xaxis(i)
+               idout(i+210) = ytaxis(i)
             ENDDO
          ENDIF
 !
 !     IDOUT IS COMPLETE   OUTPUT CURVES
 !
          ASSIGN 20 TO icont
-         ipair = Iat + Steps
+         ipair = iat + steps
          n = 1
          spag_nextblock_1 = 11
       CASE (11)
 !
          mcount = 0
-         DO m = 1 , Nat , 3
+         DO m = 1 , nat , 3
             spag_nextblock_4 = 1
             SPAG_DispatchLoop_4: DO
                SELECT CASE (spag_nextblock_4)
@@ -479,27 +476,27 @@ SUBROUTINE xydump(Outfil,Type)
 !
 !     CURVE NUMBER, ID, COMPONENT
 !
-                  Idout(4) = Z(m)
+                  idout(4) = z(m)
                   itemp = m + n
-                  Idout(5) = Z(itemp)
-                  IF ( Idout(5)/=1000 ) curve = curve + 1
-                  Idout(3) = curve
+                  idout(5) = z(itemp)
+                  IF ( idout(5)/=1000 ) curve = curve + 1
+                  idout(3) = curve
 !
 !     MEAN RESPONSE IN PLACE OF SUBCASE IF RANDOM
 !
-                  IF ( Random ) Idout(1) = Z(itemp+1)
+                  IF ( random ) idout(1) = z(itemp+1)
 !
 !     SET NUMBER OF ZERO CROSSINGS IF RANDOM
 !
-                  IF ( Random ) Idout(42) = Buf(mcount+20)
+                  IF ( random ) idout(42) = buf(mcount+20)
 !
 !     COMPUTE Y1 = YMIN  AND Y2 = YMAX  FOR ALL DATA FOR THIS CURVE
 !
-                  begin = ipair + mcount*Steps - Steps
+                  begin = ipair + mcount*steps - steps
                   null = .TRUE.
-                  DO k = 1 , Steps
+                  DO k = 1 , steps
                      i = begin + k
-                     IF ( Z(i)/=1 ) THEN
+                     IF ( z(i)/=1 ) THEN
                         IF ( null ) THEN
                            nx1 = k
                            nx2 = k
@@ -517,8 +514,8 @@ SUBROUTINE xydump(Outfil,Type)
                   ENDDO
 !
                   IF ( .NOT.null ) THEN
-                     nx1 = nx1 + Iat
-                     nx2 = nx2 + Iat
+                     nx1 = nx1 + iat
+                     nx2 = nx2 + iat
                      idoutr(297) = y1
                      idoutr(298) = rz(nx1)
                      idoutr(299) = y2
@@ -536,7 +533,7 @@ SUBROUTINE xydump(Outfil,Type)
                   IF ( i1/=0 ) THEN
                      DO k = i1 , i2
                         i = begin + k
-                        IF ( Z(i)/=1 ) THEN
+                        IF ( z(i)/=1 ) THEN
                            IF ( null ) THEN
                               nx1 = k
                               nx2 = k
@@ -553,8 +550,8 @@ SUBROUTINE xydump(Outfil,Type)
                         ENDIF
                      ENDDO
                      IF ( .NOT.null ) THEN
-                        nx1 = nx1 + Iat
-                        nx2 = nx2 + Iat
+                        nx1 = nx1 + iat
+                        nx2 = nx2 + iat
                         idoutr(293) = y1
                         idoutr(294) = rz(nx1)
                         idoutr(295) = y2
@@ -570,15 +567,15 @@ SUBROUTINE xydump(Outfil,Type)
                   spag_nextblock_4 = 2
                CASE (2)
 !
-                  idoutr(291) = rz(Iat+1)
-                  itemp = Iat + Steps
+                  idoutr(291) = rz(iat+1)
+                  itemp = iat + steps
                   idoutr(292) = rz(itemp)
 !
 !     IDOUT IS COMPLETE FOR THIS CURVE
 !
-                  IF ( Idout(5)/=0 .AND. Idout(5)/=1000 ) CALL xyout(-1,Idout(1),idoutr(1))
-                  IF ( on ) CALL write(Outfil,Idout(1),300,eor)
-                  Idout(8) = 0
+                  IF ( idout(5)/=0 .AND. idout(5)/=1000 ) CALL xyout(-1,idout(1),idoutr(1))
+                  IF ( on ) CALL write(Outfil,idout(1),300,eor)
+                  idout(8) = 0
 !
 !     DUMP ALL PAIRS TO PRINTER AND PUNCH,  THOSE IN RANGE TO PLOTTER
 !
@@ -586,17 +583,17 @@ SUBROUTINE xydump(Outfil,Type)
                   y2 = idoutr(14)
                   IF ( on ) CALL write(Outfil,oneone(1),2,noeor)
                   ones = .TRUE.
-                  IF ( Idout(5)/=1000 ) THEN
-                     DO k = 1 , Steps
+                  IF ( idout(5)/=1000 ) THEN
+                     DO k = 1 , steps
                         i = begin + k
-                        j = Iat + k
-                        Buf(1) = Z(j)
-                        Buf(2) = Z(i)
-                        IF ( Z(i)/=1 ) THEN
+                        j = iat + k
+                        buf(1) = z(j)
+                        buf(2) = z(i)
+                        IF ( z(i)/=1 ) THEN
                            IF ( k>=i1 .AND. k<=i2 ) THEN
-                              IF ( Print .OR. Punch ) CALL xyout(1,Buf(1),rbuf(1))
+                              IF ( print .OR. punch ) CALL xyout(1,buf(1),rbuf(1))
                               IF ( rz(i)>=y1 .AND. rz(i)<=y2 ) THEN
-                                 IF ( on ) CALL write(Outfil,Buf(1),2,noeor)
+                                 IF ( on ) CALL write(Outfil,buf(1),2,noeor)
                                  ones = .FALSE.
                               ELSEIF ( .NOT.(ones) ) THEN
                                  IF ( on ) CALL write(Outfil,oneone(1),2,noeor)
@@ -606,7 +603,7 @@ SUBROUTINE xydump(Outfil,Type)
                         ENDIF
                      ENDDO
                   ENDIF
-                  IF ( on ) CALL write(Outfil,Buf(1),0,eor)
+                  IF ( on ) CALL write(Outfil,buf(1),0,eor)
                   EXIT SPAG_DispatchLoop_4
                END SELECT
             ENDDO SPAG_DispatchLoop_4
@@ -618,33 +615,33 @@ SUBROUTINE xydump(Outfil,Type)
 !
  20      ASSIGN 99999 TO icont
          n = 2
-         IF ( Idout(7)>0 ) THEN
+         IF ( idout(7)>0 ) THEN
 !
 !     BOTTOM CURVE ID (SET ONLY VALUES THAT CHANGE FROM THE TOP CURVES)
 !
             curve = 0
-            Idout(7) = -1
+            idout(7) = -1
             idoutr(13) = ymin(2)
-            Idout(8) = 1
+            idout(8) = 1
             idoutr(14) = ymax(2)
-            CALL xytics(Idout(23),idoutr(23),Ivalue(20),Idout(13),Idout(14),Ivalue(24),ycycle(2),0)
-            Idout(31) = Ivalue(35) + Ivalue(25)
-            Idout(32) = Ivalue(35) + Ivalue(26)
-            Idout(33) = Ivalue(35) + Ivalue(31)
-            Idout(34) = Ivalue(35) + Ivalue(32)
-            Idout(36) = ycycle(2)
-            Idout(37) = Ivalue(16)
-            Idout(38) = Ivalue(12)
-            IF ( Idout(38)==1 ) idoutr(38) = 0.0
-            IF ( idoutr(38)<ymin(2) ) Idout(37) = 0
-            Idout(243) = Ivalue(55)
-            Idout(244) = Ivalue(56)
+            CALL xytics(idout(23),idoutr(23),ivalue(20),idout(13),idout(14),ivalue(24),ycycle(2),0)
+            idout(31) = ivalue(35) + ivalue(25)
+            idout(32) = ivalue(35) + ivalue(26)
+            idout(33) = ivalue(35) + ivalue(31)
+            idout(34) = ivalue(35) + ivalue(32)
+            idout(36) = ycycle(2)
+            idout(37) = ivalue(16)
+            idout(38) = ivalue(12)
+            IF ( idout(38)==1 ) idoutr(38) = 0.0
+            IF ( idoutr(38)<ymin(2) ) idout(37) = 0
+            idout(243) = ivalue(55)
+            idout(244) = ivalue(56)
             DO i = 1 , 32
-               Idout(i+146) = Tcurve(i)
-               Idout(i+178) = Xaxis(i)
-               Idout(i+210) = Ybaxis(i)
+               idout(i+146) = tcurve(i)
+               idout(i+178) = xaxis(i)
+               idout(i+210) = ybaxis(i)
             ENDDO
-            ipair = Center + Steps
+            ipair = center + steps
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF

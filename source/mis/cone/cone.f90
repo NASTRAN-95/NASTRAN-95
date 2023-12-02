@@ -1,12 +1,13 @@
-!*==cone.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==cone.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cone(Ti,Z)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -123,21 +124,21 @@ SUBROUTINE cone(Ti,Z)
 !
 !     SET UP FOR MAT ROUTINE
 !
-         Matid = Mecpt(4)
-         Inflag = 2
-         Temp = ecpt(35)
-         Sinth = 0.0
-         Costh = 1.0
-         CALL mat(Mecpt(1))
+         matid = mecpt(4)
+         inflag = 2
+         temp = ecpt(35)
+         sinth = 0.0
+         costh = 1.0
+         CALL mat(mecpt(1))
 !
 !     COMPUTE COEFICCIENTS
 !
-         f = (G12*Alph2+G22*Alph1)*ecpt(5)*Pi
-         ff = (G11*Alph2+G12*Alph1)*ecpt(5)*Pi
+         f = (g12*alph2+g22*alph1)*ecpt(5)*pi
+         ff = (g11*alph2+g12*alph1)*ecpt(5)*pi
 !
 !     COMPUTE  A
 !
-         a = (Ti(1)-Tsub0)*f
+         a = (Ti(1)-tsub0)*f
 !
 !     COMPUTE  B
 !
@@ -145,7 +146,7 @@ SUBROUTINE cone(Ti,Z)
 !
 !     COMPUTE  C
 !
-         c = (Ti(1)-Tsub0)*ff
+         c = (Ti(1)-tsub0)*ff
 !
 !     COMPUTE  D
 !
@@ -153,8 +154,8 @@ SUBROUTINE cone(Ti,Z)
 !
 !     DECODE  N
 !
-         ixn = Mecpt(1)/1000
-         xn = Mecpt(1) - ixn*1000 - 1
+         ixn = mecpt(1)/1000
+         xn = mecpt(1) - ixn*1000 - 1
 !
 !     COMPUTE  PA
 !
@@ -216,17 +217,17 @@ SUBROUTINE cone(Ti,Z)
 !
 !     FORM  (D) = I*(G)
 !
-               d11 = ecpt(7)*G11
-               d12 = ecpt(7)*G12
-               d22 = ecpt(7)*G22
-               d33 = ecpt(7)*G33
+               d11 = ecpt(7)*g11
+               d12 = ecpt(7)*g12
+               d22 = ecpt(7)*g22
+               d33 = ecpt(7)*g33
 !
 !     PICK UP GSHEAR FROM MAT
 !
-               Inflag = 1
-               Matid = matid3
-               Temp = ecpt(35)
-               CALL mat(Mecpt(1))
+               inflag = 1
+               matid = matid3
+               temp = ecpt(35)
+               CALL mat(mecpt(1))
                IF ( gshear/=0.0 ) THEN
 !
 !     COMPUTE INTEGRALS
@@ -268,7 +269,7 @@ SUBROUTINE cone(Ti,Z)
                   cp2 = cp*cp
                   sp2 = sp*sp
                   xn2 = xn*xn
-                  opi = one/Pi
+                  opi = one/pi
                   n2d33 = xn2*d33
                   sp2d22 = sp2*d22
                   oq = xl*ts*gshear*rav + i02*(n2d33+sp2d22)*opi
@@ -319,7 +320,7 @@ SUBROUTINE cone(Ti,Z)
 !
  20      ising = -1
          CALL invers(10,huq(1),10,dum,0,determ,ising,eht(1))
-         IF ( ising==2 ) CALL mesage(-30,40,Mecpt(1))
+         IF ( ising==2 ) CALL mesage(-30,40,mecpt(1))
          IF ( itest==0 ) THEN
             huq(85) = 0.0
             huq(100) = 0.0
@@ -370,7 +371,7 @@ SUBROUTINE cone(Ti,Z)
 !
                DO j = 1 , 2
                   CALL gmmats(eht(48*j-47),6,8,0,pa(1),8,1,0,xi(1))
-                  k = Mecpt(j+1) - 1
+                  k = mecpt(j+1) - 1
                   DO i = 1 , 6
                      k = k + 1
                      Z(k) = Z(k) + xi(i)

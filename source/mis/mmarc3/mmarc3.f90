@@ -1,10 +1,11 @@
-!*==mmarc3.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==mmarc3.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mmarc3(Zi,Zr)
+   USE i_mmacom
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_MMACOM
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -62,18 +63,18 @@ SUBROUTINE mmarc3(Zi,Zr)
 !
 ! THE FOLLOWING LINE SHOULD NEVER BE REFERENCED
 !
-         WRITE (Iwr,*) ' ERROR IN MMARC3'
+         WRITE (iwr,*) ' ERROR IN MMARC3'
          STOP
       ELSEIF ( itype==3 ) THEN
          mindex = mem + 1
          ntms2 = ntms*2
          DO ii = 1 , ntms2
-            Zr(mindex+ii) = sign*Rxl(index+ii-1)
+            Zr(mindex+ii) = sign*rxl(index+ii-1)
          ENDDO
       ELSE
          mindex = mem + 2
          DO ii = 1 , ntms
-            Zr(mindex) = sign*Rxl(index+ii-1)
+            Zr(mindex) = sign*rxl(index+ii-1)
             Zr(mindex+1) = 0.
             mindex = mindex + 2
          ENDDO

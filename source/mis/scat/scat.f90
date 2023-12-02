@@ -1,11 +1,12 @@
-!*==scat.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==scat.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE scat(Kg,Ncon,Inv,Ii3,Norig)
+   USE c_bandb
+   USE c_bands
+   USE c_system
    IMPLICIT NONE
-   USE C_BANDB
-   USE C_BANDS
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -38,16 +39,16 @@ SUBROUTINE scat(Kg,Ncon,Inv,Ii3,Norig)
       IF ( nold/=0 ) THEN
          loc = nold - 1
          SPAG_Loop_2_1: DO
-            loc = mod(loc,Kmod) + 1
+            loc = mod(loc,kmod) + 1
             IF ( Inv(loc,1)==0 ) THEN
                Inv(loc,1) = nold
-               Nn = Nn + 1
-               IF ( Nn>Maxgrd ) THEN
+               nn = nn + 1
+               IF ( nn>maxgrd ) THEN
                   CALL spag_block_1
                   RETURN
                ENDIF
-               Norig(Nn) = nold
-               Inv(loc,2) = Nn
+               Norig(nn) = nold
+               Inv(loc,2) = nn
                EXIT SPAG_Loop_2_1
             ELSEIF ( Inv(loc,1)==nold ) THEN
                EXIT SPAG_Loop_2_1
@@ -60,6 +61,6 @@ SUBROUTINE scat(Kg,Ncon,Inv,Ii3,Norig)
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      Ngrid = -1
+      ngrid = -1
    END SUBROUTINE spag_block_1
 END SUBROUTINE scat

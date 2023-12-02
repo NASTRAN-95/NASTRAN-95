@@ -2,12 +2,12 @@
  
 SUBROUTINE ssght1(Iest,File,Nequiv)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_ESTOUT
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_HMTOUT
-   USE C_MATIN
+   USE c_condas
+   USE c_estout
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_hmtout
+   USE c_matin
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -27,6 +27,15 @@ SUBROUTINE ssght1(Iest,File,Nequiv)
    INTEGER , DIMENSION(8,3) , SAVE :: point2
    INTEGER , DIMENSION(8,23) :: pointr
    INTEGER , DIMENSION(2) , SAVE :: subr
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -73,13 +82,13 @@ SUBROUTINE ssght1(Iest,File,Nequiv)
    CALL fwdrec(*600,Iest)
    GOTO 100
 !
- 200  zp = (type-1)*Incr
-   Name(1) = Elem(zp+1)
-   Name(2) = Elem(zp+2)
-   nwords = Elem(zp+12)
+ 200  zp = (type-1)*incr
+   name(1) = elem(zp+1)
+   name(2) = elem(zp+2)
+   nwords = elem(zp+12)
    DO
       CALL read(*600,*400,Iest,est,nwords,0,flag)
-      Elid = nest(1)
+      elid = nest(1)
       DO i = 5 , 45
          nesto(i) = 0
       ENDDO
@@ -90,50 +99,50 @@ SUBROUTINE ssght1(Iest,File,Nequiv)
       im = pointr(4,iel)
       ia = pointr(5,iel)
       ig = pointr(6,iel)
-      Sub = pointr(8,iel)
+      sub = pointr(8,iel)
       np = pointr(7,iel)
 !
-      IF ( Sub==10 ) Sub = Sub + nest(2) - 1
-      Inflag = 1
-      IF ( Sub>=16 ) Inflag = 3
-      IF ( Sub>=2 .AND. Sub<=5 ) THEN
-         Inflag = 2
-      ELSEIF ( Sub>=6 .AND. Sub<=9 ) THEN
-         Inflag = 3
+      IF ( sub==10 ) sub = sub + nest(2) - 1
+      inflag = 1
+      IF ( sub>=16 ) inflag = 3
+      IF ( sub>=2 .AND. sub<=5 ) THEN
+         inflag = 2
+      ELSEIF ( sub>=6 .AND. sub<=9 ) THEN
+         inflag = 3
       ENDIF
-      IF ( ia>0 ) Af = est(ia)
-      Matid = nest(im)
-      IF ( Matid>0 ) THEN
-         Sinth = 0.0
-         Costh = 1.0
-         IF ( Inflag==2 ) THEN
-            Theta = est(ith)*pi/180.0
-            IF ( Theta/=0.0 ) THEN
-               Sinth = sin(Theta)
-               Costh = cos(Theta)
+      IF ( ia>0 ) af = est(ia)
+      matid = nest(im)
+      IF ( matid>0 ) THEN
+         sinth = 0.0
+         costh = 1.0
+         IF ( inflag==2 ) THEN
+            theta = est(ith)*pi/180.0
+            IF ( theta/=0.0 ) THEN
+               sinth = sin(theta)
+               costh = cos(theta)
             ENDIF
          ENDIF
          itemp = ig + 4*np
-         Eltemp = est(itemp)
-         Imat = Matid
-         Linear = .FALSE.
-         CALL hmat(Elid)
+         eltemp = est(itemp)
+         imat = matid
+         linear = .FALSE.
+         CALL hmat(elid)
 !*****
 !     TEST IF NONLINEAR
 !*****
-         IF ( .NOT.(Linear) ) THEN
+         IF ( .NOT.(linear) ) THEN
             DO i = 1 , 6
-               Mato(i) = Bufm(i)
+               mato(i) = bufm(i)
             ENDDO
             DO i = 1 , np
                jpoint = 4*(i-1) + ig
                DO j = 1 , 3
                   iloc = jpoint + j
-                  R(j,i) = est(iloc)
+                  r(j,i) = est(iloc)
                ENDDO
                isil = is + i + 1
                ipt = nest(isil)
-               IF ( ipt/=0 ) Sil(i) = Nequiv(ipt)
+               IF ( ipt/=0 ) sil(i) = Nequiv(ipt)
             ENDDO
 !*****
 !     WRITE A UNIFORM EST GROUP OF CONVERTED DATA HERE

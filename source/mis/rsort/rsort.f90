@@ -1,9 +1,10 @@
-!*==rsort.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rsort.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rsort(Nwds,Keywx,L,Nx)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,7 +36,7 @@ SUBROUTINE rsort(Nwds,Keywx,L,Nx)
    DATA nam/4HRSOR , 4HT   /
 !
    IF ( Nwds>50 ) THEN
-      WRITE (Nout,99001)
+      WRITE (nout,99001)
 99001 FORMAT (' *** ARRAY TEMP OF 50 EXCEEDED')
       CALL mesage(-37,0,nam)
    ENDIF

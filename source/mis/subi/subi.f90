@@ -1,4 +1,5 @@
-!*==subi.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==subi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subi(Da,Dzb,Dyb,Dar,Deta,Dzeta,Dcgam,Dsgam,Dee,Dxi,Tl,Detai,Dzetai,Dcgami,Dsgami,Deei,Dtlami,Dmuy,Dmuz,Infl,Ioutfl)
@@ -34,6 +35,15 @@ SUBROUTINE subi(Da,Dzb,Dyb,Dar,Deta,Dzeta,Dcgam,Dsgam,Dee,Dxi,Tl,Detai,Dzetai,Dc
          & par3 , paren , part1 , part2 , psqr , rho12 , rho2 , rho22 , rho4 , sinth , st2 , st3 , tedif , trm1 , trm2 , xetai ,    &
          & xzetai , ycbar , zcbar , zeta1 , zeta2 , zeti1 , zeti2
    INTEGER :: igo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,10 +1,11 @@
-!*==subb.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==subb.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,Yb,Zb,Ys,Zs,X)
+   USE c_amgmn
+   USE c_kds
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_KDS
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -49,9 +50,9 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
       CASE (1)
 !   ***   COMPUTES ELEMENTS OF THE SUBMATRICES  DZP, DZZ, DZY, DYP,
 !         DYZ  AND  DYY  USING  SUBROUTINE  DZY
-         flnd = float(Nd)
-         flne = float(Ne)
-         Ind = 0
+         flnd = float(nd)
+         flne = float(ne)
+         ind = 0
          dpur = (0.0,0.0)
          dpul = (0.0,0.0)
          dplr = (0.0,0.0)
@@ -100,7 +101,7 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
          spag_nextblock_1 = 2
       CASE (2)
          SPAG_Loop_1_1: DO
-            CALL dzy(xx,y,z,Sgr,Cgr,xi1,xi2,eta,zeta,Ar,ao,Kr,Refc,Beta,Fmach,lhs,idzdy,dzdyr,dzdyi)
+            CALL dzy(xx,y,z,Sgr,Cgr,xi1,xi2,eta,zeta,Ar,ao,kr,refc,Beta,fmach,lhs,idzdy,dzdyr,dzdyi)
             dp = cmplx(dzdyr,dzdyi)
             IF ( igo==2 ) THEN
 !  UPPER LEFT-HAND SIDE CONTRIBUTION
@@ -110,7 +111,7 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
             ELSEIF ( igo==3 ) THEN
 !  LOWER RIGHT-HAND SIDE CONTRIBUTION
                dplr = dp
-               IF ( Nd==0 ) THEN
+               IF ( nd==0 ) THEN
                   Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
                   RETURN
                ELSEIF ( idflag==1 .AND. absyb<Eps ) THEN
@@ -136,7 +137,7 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
          ENDDO SPAG_Loop_1_1
          spag_nextblock_1 = 3
       CASE (3)
-         IF ( Nd/=0 ) THEN
+         IF ( nd/=0 ) THEN
             IF ( idflag/=1 .OR. absyb>=Eps ) THEN
                igo = 2
                eta = -Ys(Ls)
@@ -147,7 +148,7 @@ SUBROUTINE subb(Kb,Ks,I,J,Jb,Lb,Ls,Ndy,Nyfl,Pi,Eps,Sgr,Cgr,Ar,Beta,Sum,Ria,Delx,
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
-         IF ( Ne==0 ) THEN
+         IF ( ne==0 ) THEN
             Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll
          ELSEIF ( idflag==1 .AND. abszb<Eps ) THEN
             Sum = dpur + flnd*dpul + flne*dplr + flnd*flne*dpll

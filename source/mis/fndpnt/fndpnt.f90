@@ -1,7 +1,12 @@
-!*==fndpnt.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fndpnt.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fndpnt(Iary,Id)
+   USE c_fpt
+   USE c_loadx
+   USE c_system
+   USE c_zzzzzz
    USE C_FPT
    USE C_LOADX
    USE C_SYSTEM
@@ -167,7 +172,6 @@ SUBROUTINE fndpnt(Iary,Id)
          ENDDO
          IF ( ifound==1 ) CALL mesage(-61,0,0)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE fndpnt

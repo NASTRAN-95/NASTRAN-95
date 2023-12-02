@@ -1,12 +1,13 @@
-!*==ttrirg.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ttrirg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ttrirg(Ti,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -95,17 +96,17 @@ SUBROUTINE ttrirg(Ti,Pg)
    ics(1) = iecpt(7)
    ics(2) = iecpt(11)
    ics(3) = iecpt(15)
-   r(1) = Ecpt(8)
-   d(1) = Ecpt(9)
-   z(1) = Ecpt(10)
-   r(2) = Ecpt(12)
-   d(2) = Ecpt(13)
-   z(2) = Ecpt(14)
-   r(3) = Ecpt(16)
-   d(3) = Ecpt(17)
-   z(3) = Ecpt(18)
-   tempe = Ecpt(19)
-   dgama = Ecpt(5)
+   r(1) = ecpt(8)
+   d(1) = ecpt(9)
+   z(1) = ecpt(10)
+   r(2) = ecpt(12)
+   d(2) = ecpt(13)
+   z(2) = ecpt(14)
+   r(3) = ecpt(16)
+   d(3) = ecpt(17)
+   z(3) = ecpt(18)
+   tempe = ecpt(19)
+   dgama = ecpt(5)
 !
 !
 ! TEST THE VALIDITY OF THE GRID POINT COORDINATES
@@ -205,22 +206,22 @@ SUBROUTINE ttrirg(Ti,Pg)
 !
 ! LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
    CALL mat(idel)
 !
 !
 ! SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-   er = E(1)
-   et = E(2)
-   ez = E(3)
-   vrt = Anu(1)
-   vtz = Anu(2)
-   vzr = Anu(3)
-   grz = G(3)
-   tz = Tzero
+   er = e(1)
+   et = e(2)
+   ez = e(3)
+   vrt = anu(1)
+   vtz = anu(2)
+   vzr = anu(3)
+   grz = g(3)
+   tz = tzero
    vtr = vrt*et/er
    vzt = vtz*ez/et
    vrz = vzr*er/ez
@@ -298,7 +299,7 @@ SUBROUTINE ttrirg(Ti,Pg)
    d(1) = (Ti(1)+Ti(2)+Ti(3))/3.0E0
    d(1) = d(1) - tz
    DO i = 1 , 3
-      alfb(i) = Alf(i)*d(1)
+      alfb(i) = alf(i)*d(1)
    ENDDO
    alfb(4) = 0.0E0
 !
@@ -373,7 +374,7 @@ SUBROUTINE ttrirg(Ti,Pg)
       gambl(i) = 0.0E0
    ENDDO
    DO i = 1 , 3
-      CALL gbtran(ics(i),Ecpt(4*i+7),d(1))
+      CALL gbtran(ics(i),ecpt(4*i+7),d(1))
       k = 30*(i-1) + 1
       DO j = 1 , 3
          kk = k + 9*(j-1)

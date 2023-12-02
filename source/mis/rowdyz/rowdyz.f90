@@ -1,10 +1,11 @@
-!*==rowdyz.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rowdyz.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb,Zb,Ar,Nsbe,Xis1,Xis2,A0)
+   USE c_amgmn
+   USE c_system
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,8 +58,8 @@ SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb
 !     IDZDY     FLAG REQUIRED FOR FLLD
 !
 !
-   delta = float(Nd)
-   epslon = float(Ne)
+   delta = float(nd)
+   epslon = float(ne)
    b1 = 0
    t1 = 0
    it1 = 0
@@ -72,7 +73,7 @@ SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb
       b1 = b1 + 1
       dar = Ar(b)
       nsbeb = Nsbe(b)
-      IF ( Iprnt/=0 ) WRITE (Npot,99001) b , Dy , Yb(b) , Dz , Zb(b)
+      IF ( Iprnt/=0 ) WRITE (npot,99001) b , Dy , Yb(b) , Dz , Zb(b)
 99001 FORMAT (12H ROWDYZ  B =,I10,4E20.8)
 !
 !     LOOP FOR EACH ELEMENT IN BODY -B-
@@ -165,12 +166,11 @@ SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb
                CYCLE SPAG_DispatchLoop_1
  20            D(1,t1) = D(1,t1) + epslon*dzyr
                D(2,t1) = D(2,t1) + epslon*dzyi
-               CYCLE
             CASE (5)
 !
 !     CALL SEQUENCE TO DZY
 !
-               CALL dzy(Dx,Dy,Dz,Sgr,Cgr,xi1,xi2,eta,zeta,dar,azro,Kr,Refc,Beta,Fmach,lhs,Idzdy,dzyr,dzyi)
+               CALL dzy(Dx,Dy,Dz,Sgr,Cgr,xi1,xi2,eta,zeta,dar,azro,kr,refc,Beta,fmach,lhs,Idzdy,dzyr,dzyi)
                lhs = 0
                GOTO jdzdy
             END SELECT
@@ -187,6 +187,6 @@ SUBROUTINE rowdyz(Nfb,Nlb,Row,Ntzys,D,Dx,Dy,Dz,Beta,Idzdy,Ntape,Sgr,Cgr,Iprnt,Yb
 !     WRITE ROW ON TAPE, ROW NUMBER, NO. ELEMENTS, DATA
 !
    CALL write(Ntape,D,2*t1,0)
-   IF ( Iprnt/=0 ) WRITE (Npot,99002) Row , t1 , D
+   IF ( Iprnt/=0 ) WRITE (npot,99002) Row , t1 , D
 99002 FORMAT (' ROWDYZ - ROW NO.',I5,1H,,I10,' ELEMENTS',/(1X,6E12.4))
 END SUBROUTINE rowdyz

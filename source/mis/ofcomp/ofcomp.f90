@@ -2,10 +2,10 @@
  
 SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Type,Eltyp,Iapp,Headng,Pnched,Form)
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_output
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,6 +37,15 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
    REAL , DIMENSION(3) :: rbuf
    REAL , DIMENSION(50) :: rid
    INTEGER , DIMENSION(3) , SAVE :: subst
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -158,66 +167,66 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !
 !     PUNCH HEADINGS - TITLE, SUBTITLE, AND LABEL
 !
-         Icard = Icard + 1
-         WRITE (punch,99001) (ititle(j),j=1,15) , Icard
+         icard = icard + 1
+         WRITE (punch,99001) (ititle(j),j=1,15) , icard
 99001    FORMAT (10H$TITLE   =,15A4,2X,I8)
-         Icard = Icard + 1
-         WRITE (punch,99002) (isubtl(j),j=1,15) , Icard
+         icard = icard + 1
+         WRITE (punch,99002) (isubtl(j),j=1,15) , icard
 99002    FORMAT (10H$SUBTITLE=,15A4,2X,I8)
-         Icard = Icard + 1
-         WRITE (punch,99003) (label(j),j=1,15) , Icard
+         icard = icard + 1
+         WRITE (punch,99003) (label(j),j=1,15) , icard
 99003    FORMAT (10H$LABEL   =,15A4,2X,I8)
 !
 !     IF SUBSTRUCTURE (PHASE2) EXTRACTED ALSO SUBS-NAME AND COMPONENT
 !
          IF ( isubs/=0 ) THEN
             IF ( isubtl(20)==subst(1) .AND. isubtl(21)==subst(2) .AND. isubtl(22)==subst(3) ) THEN
-               Icard = Icard + 1
-               WRITE (punch,99037) (isubtl(j),j=20,26) , Icard
-               Icard = Icard + 1
-               WRITE (punch,99037) (label(j),j=20,26) , Icard
+               icard = icard + 1
+               WRITE (punch,99037) (isubtl(j),j=20,26) , icard
+               icard = icard + 1
+               WRITE (punch,99037) (label(j),j=20,26) , icard
             ENDIF
          ENDIF
 !
-         Icard = Icard + 1
-         IF ( stress ) WRITE (punch,99004) Icard
+         icard = icard + 1
+         IF ( stress ) WRITE (punch,99004) icard
 99004    FORMAT (17H$ELEMENT STRESSES,55X,I8)
-         IF ( force ) WRITE (punch,99005) Icard
+         IF ( force ) WRITE (punch,99005) icard
 99005    FORMAT (15H$ELEMENT FORCES,57X,I8)
 !
 !     REAL, REAL/IMAGINARY, MAGNITUDE/PHASE
 !
-         Icard = Icard + 1
+         icard = icard + 1
          IF ( .NOT.(cmpxdt) ) THEN
-            WRITE (punch,99006) Icard
+            WRITE (punch,99006) icard
 99006       FORMAT (12H$REAL OUTPUT,60X,I8)
          ELSEIF ( magpha ) THEN
-            WRITE (punch,99007) Icard
+            WRITE (punch,99007) icard
 99007       FORMAT (23H$MAGNITUDE-PHASE OUTPUT,49X,I8)
          ELSE
-            WRITE (punch,99008) Icard
+            WRITE (punch,99008) icard
 99008       FORMAT (22H$REAL-IMAGINARY OUTPUT,50X,I8)
          ENDIF
 !
 !     SUBCASE OR ELEMENT ID
 !
-         Icard = Icard + 1
+         icard = icard + 1
          IF ( sort2 ) THEN
-            WRITE (punch,99009) elemid , Icard
+            WRITE (punch,99009) elemid , icard
 99009       FORMAT (13H$ELEMENT ID =,I10,49X,I8)
          ELSE
-            WRITE (punch,99010) id(4) , Icard
+            WRITE (punch,99010) id(4) , icard
 99010       FORMAT (13H$SUBCASE ID =,I12,47X,I8)
          ENDIF
 !
 !     PUNCH ELEMENT TYPE NUMBER,
 !     IT IS SWITCHED TO MATCH THOSE OF POST PROCESSOR.
 !
-         Icard = Icard + 1
+         icard = icard + 1
          ieltyp = id(3)
          t3q4 = t3
          IF ( ieltyp==64 ) t3q4 = q4
-         WRITE (punch,99011) ieltyp , t3q4 , Icard
+         WRITE (punch,99011) ieltyp , t3q4 , icard
 99011    FORMAT (15H$ELEMENT TYPE =,I12,4H   (,A5,1H),37X,I8)
 !
 !     EIGENVALUE, FREQUENCY, OR TIME
@@ -228,26 +237,26 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !     FREQUENCY OR TIME
 !
             IF ( .NOT.(sort2) ) THEN
-               Icard = Icard + 1
-               WRITE (punch,99012) rid(5) , Icard
+               icard = icard + 1
+               WRITE (punch,99012) rid(5) , icard
 99012          FORMAT (12H$FREQUENCY =,E16.7,44X,I8)
             ENDIF
          ELSEIF ( Iapp==6 ) THEN
             IF ( .NOT.(sort2) ) THEN
-               Icard = Icard + 1
-               WRITE (punch,99013) rid(5) , Icard
+               icard = icard + 1
+               WRITE (punch,99013) rid(5) , icard
 99013          FORMAT (7H$TIME =,E16.7,49X,I8)
             ENDIF
          ELSE
 !
 !     PUNCH EIGENVALUE
 !
-            Icard = Icard + 1
+            icard = icard + 1
             IF ( sort1 .AND. cmpxdt ) THEN
-               WRITE (punch,99014) rid(6) , rid(7) , id(5) , Icard
+               WRITE (punch,99014) rid(6) , rid(7) , id(5) , icard
 99014          FORMAT (15H$EIGENVALUE = (,E15.7,1H,,E15.7,8H) MODE =,I6,12X,I8)
             ELSE
-               WRITE (punch,99015) rid(6) , id(5) , Icard
+               WRITE (punch,99015) rid(6) , id(5) , icard
 99015          FORMAT (13H$EIGENVALUE =,E15.7,2X,6HMODE =,I6,30X,I8)
             ENDIF
          ENDIF
@@ -257,7 +266,7 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !
 !     PUNCH HEADINGS COMPLETE
 !
-      Icard = Icard + 1
+      icard = icard + 1
 !
 !     ELEMENT STRESSES,  FIRST SUB-RECORD
 !
@@ -269,32 +278,32 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !
 !     FIRST CARD BEGINS WITH A REAL
 !
-            WRITE (punch,99016) bufr(1) , bufr(2) , bufr(3) , bufr(4) , Icard
+            WRITE (punch,99016) bufr(1) , bufr(2) , bufr(3) , bufr(4) , icard
 99016       FORMAT (4(1P,E18.6),I8)
          ELSE
 !
 !     FIRST CARD BEGINS WITH AN INTEGER
 !
-            WRITE (punch,99017) buf(1) , bufr(2) , bufr(3) , bufr(4) , Icard
+            WRITE (punch,99017) buf(1) , bufr(2) , bufr(3) , bufr(4) , icard
 99017       FORMAT (I10,8X,3(1P,E18.6),I8)
          ENDIF
          nword = 4
       ELSE
          IF ( iply>1 ) THEN
-            WRITE (punch,99018) buf(1) , bufr(2) , bufr(3) , Icard
+            WRITE (punch,99018) buf(1) , bufr(2) , bufr(3) , icard
 99018       FORMAT (6H-CONT-,12X,I10,8X,2(1P,E18.6),I8)
 !
          ELSEIF ( sort2 .AND. Iapp/=static ) THEN
 !
 !     FIRST CARD BEGINS WITH A REAL
 !
-            WRITE (punch,99019) time , buf(1) , bufr(2) , bufr(3) , Icard
+            WRITE (punch,99019) time , buf(1) , bufr(2) , bufr(3) , icard
 99019       FORMAT (1P,E18.6,I10,8X,2(1P,E18.6),I8)
          ELSE
 !
 !     FIRST CARD BEGINS WITH AN INTEGER
 !
-            WRITE (punch,99020) elemid , buf(1) , bufr(2) , bufr(3) , Icard
+            WRITE (punch,99020) elemid , buf(1) , bufr(2) , bufr(3) , icard
 99020       FORMAT (I10,8X,I10,8X,2(1P,E18.6),I8)
          ENDIF
          nword = 3
@@ -311,7 +320,7 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !     PUNCH THE SUB-RECORDS
 !
             DO WHILE ( nword<length )
-               Icard = Icard + 1
+               icard = icard + 1
                nword = nword + 3
                jout = 3
                IF ( nword>length ) THEN
@@ -332,21 +341,21 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !
 !     2 WORDS OUT
 !
-                  IF ( iply<nlayer ) WRITE (punch,99021) rbuf(1) , rbuf(2) , Icard
+                  IF ( iply<nlayer ) WRITE (punch,99021) rbuf(1) , rbuf(2) , icard
 99021             FORMAT (6H-CONT-,12X,1P,E18.6,0P,F18.4,18X,I8)
-                  IF ( iply==nlayer ) WRITE (punch,99022) rbuf(1) , rbuf(2) , rbuf(3) , Icard
+                  IF ( iply==nlayer ) WRITE (punch,99022) rbuf(1) , rbuf(2) , rbuf(3) , icard
 99022             FORMAT (6H-CONT-,12X,1P,E18.6,2(0P,F18.4),I8)
                ELSEIF ( jout==3 ) THEN
 !
 !     3 WORDS OUT
 !
-                  WRITE (punch,99023) rbuf(1) , rbuf(2) , rbuf(3) , Icard
+                  WRITE (punch,99023) rbuf(1) , rbuf(2) , rbuf(3) , icard
 99023             FORMAT (6H-CONT-,12X,1P,E18.6,0P,F18.4,1P,E18.6,I8)
                ELSE
 !
 !     1 WORD OUT
 !
-                  WRITE (punch,99024) rbuf(1) , Icard
+                  WRITE (punch,99024) rbuf(1) , icard
 99024             FORMAT (6H-CONT-,12X,1P,E18.6,36X,I8)
                ENDIF
                IF ( jout<3 ) EXIT
@@ -520,11 +529,11 @@ SUBROUTINE ofcomp(File,Type,Eltyp,Iapp,Headng,Pnched,Form) !HIDESTARS (*,File,Ty
 !     DONE WITH ONE ENTRY, GO BACK AND READ ANOTHER ONE.
 !
  350  line = line + nlines
-      IF ( stress ) GOTO 200
-      GOTO 300
+      IF ( .NOT.(stress) ) GOTO 300
+      GOTO 200
    ELSE
-      IF ( stress ) GOTO 200
-      GOTO 300
+      IF ( .NOT.(stress) ) GOTO 300
+      GOTO 200
    ENDIF
 !
  400  RETURN

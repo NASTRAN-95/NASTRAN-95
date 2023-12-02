@@ -1,13 +1,14 @@
-!*==trlgb.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trlgb.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
+   USE c_bitpos
+   USE c_patx
+   USE c_system
+   USE c_two
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_PATX
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -65,18 +66,18 @@ SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
 !
    mcb(1) = Usetd
    CALL rdtrl(mcb)
-   Uset1 = Usetd
-   multi = andf(mcb(5),Two1(Um))
-   single = andf(mcb(5),Two1(Us))
-   omit = andf(mcb(5),Two1(Uo))
+   uset1 = Usetd
+   multi = andf(mcb(5),two1(um))
+   single = andf(mcb(5),two1(us))
+   omit = andf(mcb(5),two1(uo))
    modal = 0
    mcb(1) = Phidh
    CALL rdtrl(mcb)
    IF ( mcb(1)<=0 ) modal = 1
-   Nz = korsz(Iz)
+   nz = korsz(iz)
    sign = 1
    trnsp = 1
-   prec = Iprec
+   prec = iprec
 !
 !     REMOVE EACH CONSTRAINT
 !
@@ -87,7 +88,7 @@ SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
       an = Ap
    ELSE
       IF ( single==0 .AND. omit==0 ) an = Ad
-      CALL calcv(Scr1,Up,Une,Um,Iz)
+      CALL calcv(Scr1,up,une,um,iz)
       CALL ssg2a(Ap,anbar,am,Scr1)
       CALL ssg2b(Gmd,am,anbar,an,trnsp,prec,sign,Scr1)
    ENDIF
@@ -101,7 +102,7 @@ SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
       af = an
    ELSE
       IF ( omit==0 ) af = Ad
-      CALL calcv(Scr1,Une,Ufe,Us,Iz)
+      CALL calcv(Scr1,une,ufe,us,iz)
       CALL ssg2a(an,af,As,Scr1)
    ENDIF
    IF ( omit==0 ) THEN
@@ -113,7 +114,7 @@ SUBROUTINE trlgb(Usetd,Ap,Gmd,God,Phidh,As,Ad,Ah,Iflag1,Scr1,Scr2,Scr3,Scr4)
 !
 !     REMOVE OMITS
 !
-      CALL calcv(Scr1,Ufe,Ud,Uo,Iz)
+      CALL calcv(Scr1,ufe,ud,uo,iz)
       IF ( af==ao ) ao = Scr2
       CALL ssg2a(af,adbar,ao,Scr1)
       CALL ssg2b(God,ao,adbar,Ad,trnsp,prec,sign,Scr1)

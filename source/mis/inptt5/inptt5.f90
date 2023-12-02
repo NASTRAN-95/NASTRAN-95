@@ -148,14 +148,14 @@ SUBROUTINE inptt5
 !     MAJOR REVISED 12/1992 BY G.C.
 !
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_DSNAME
-   USE C_INPUT5
-   USE C_MACHIN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_dsname
+   USE c_input5
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -177,6 +177,12 @@ SUBROUTINE inptt5
 !
 ! End of declarations rewritten by SPAG
 !
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !WKBI
 !WKBNB
 !WKBNE
@@ -192,62 +198,62 @@ SUBROUTINE inptt5
 !     AN ANSI STANDARD.
 !
    bf = binary
-   IF ( P4>=1 ) bf = formtd
+   IF ( p4>=1 ) bf = formtd
    CALL page1
-   WRITE (Nout,99001) Uim , bf , P1
+   WRITE (nout,99001) uim , bf , p1
 99001 FORMAT (A29,', MODULE INPUTT5 CALLED BY USER DMAP ALTER, ON ',A8,' INPUT FILE,',/5X,'WITH THE FOLLOWING REQUEST.  (P1=',I2,   &
             & 1H))
-   IF ( P1==-9 ) WRITE (Nout,99002)
+   IF ( p1==-9 ) WRITE (nout,99002)
 99002 FORMAT (5X,'REWIND TAPE ONLY')
-   IF ( P1==-3 ) WRITE (Nout,99003)
+   IF ( p1==-3 ) WRITE (nout,99003)
 99003 FORMAT (5X,'REWIND AND READ TAPE. PRINT ALL DATA BLOCK NAMES ON ','TAPE. AT END, TAPE IS REWOUND',/5X,'AND POSITIONED ',      &
              &'PASS TAPE HEADER RECORD')
-   IF ( P1==-1 ) WRITE (Nout,99004)
+   IF ( p1==-1 ) WRITE (nout,99004)
 99004 FORMAT (5X,'REWIND, POSITION PAST TAPE HEADER RECORD, THEN READ ','TAPE. AT END, NO REWIND')
-   IF ( P1==0 ) WRITE (Nout,99005)
+   IF ( p1==0 ) WRITE (nout,99005)
 99005 FORMAT (5X,'READ TAPE STARTING AT CURRENT POSITION, OR POSITION ','PAST THE TAPE HEADER RECORD (FIRST USE OF TAPE).',/5X,     &
              &' NO REWIND AT BEGINNING AND AT END')
-   IF ( P1>0 ) WRITE (Nout,99006) P1
+   IF ( p1>0 ) WRITE (nout,99006) p1
 99006 FORMAT (5X,'SKIP FORWARD',I4,' DATA BLOCKS (NOT COUNTING TAPE ','HEADER RECORD) BEFORE READING, AT END NO REWIND')
 !
-   buf1 = korsz(Rz(1)) - Ibuf - 1
+   buf1 = korsz(rz(1)) - ibuf - 1
    IF ( buf1<=0 ) CALL mesage(-8,0,subnam)
-   input = P2
+   input = p2
    opn = .FALSE.
    ll = 0
    p41 = .FALSE.
-   IF ( P4>=1 ) p41 = .TRUE.
+   IF ( p4>=1 ) p41 = .TRUE.
    p40 = .NOT.p41
    p40s = .FALSE.
    p41s = .FALSE.
    p40d = p40
    p41d = p41
-   p41c = P4==2 .AND. Nbpw>=60
+   p41c = p4==2 .AND. nbpw>=60
    IF ( p41c ) p40d = .FALSE.
    IF ( p41c ) p41d = .FALSE.
    col12 = 0
-   p1n = P1
-   IF ( P1<0 ) p1n = 0
+   p1n = p1
+   IF ( p1<0 ) p1n = 0
 !WKBNB
    CLOSE (UNIT=input)
-   IF ( P4/=0 ) THEN
-      OPEN (UNIT=input,FILE=Dsnames(input),STATUS='UNKNOWN')
+   IF ( p4/=0 ) THEN
+      OPEN (UNIT=input,FILE=dsnames(input),STATUS='UNKNOWN')
    ELSE
-      OPEN (UNIT=input,FILE=Dsnames(input),FORM='UNFORMATTED',STATUS='UNKNOWN')
+      OPEN (UNIT=input,FILE=dsnames(input),FORM='UNFORMATTED',STATUS='UNKNOWN')
    ENDIF
 !WKBNE
-   IF ( P1/=-9 ) THEN
+   IF ( p1/=-9 ) THEN
 !
       DO i = 1 , 15
          fn(3,i) = bk
       ENDDO
-      IF ( P1<-1 .AND. P1/=-3 .AND. P1/=-9 ) THEN
+      IF ( p1<-1 .AND. p1/=-3 .AND. p1/=-9 ) THEN
 !
-         WRITE (Nout,99007) Ufm , P1
+         WRITE (nout,99007) ufm , p1
 99007    FORMAT (A23,', MODULE INPUTT5 - ILLEGAL VALUE FOR FIRST PARAMETER',' = ',I8,/5X,'ONLY -9, -3 AND GREATER THAN -1 ALLOWED')
          err = -37
 !
-      ELSEIF ( P1==0 ) THEN
+      ELSEIF ( p1==0 ) THEN
 !
 !     P1 = 0,
 !     MUST SKIP TAPE HEADER RECORD IF CURRENT TAPE POSITION IS AT THE
@@ -257,7 +263,7 @@ SUBROUTINE inptt5
          imhere = 500
          IF ( p40 ) READ (input,ERR=1300,END=600) tapeid
          IF ( p41 ) READ (input,99029,ERR=1300,END=600) tapeid
-         IF ( tapeid(1)/=P3(1) .OR. tapeid(2)/=P3(2) ) BACKSPACE input
+         IF ( tapeid(1)/=p3(1) .OR. tapeid(2)/=p3(2) ) BACKSPACE input
 !
 !     COPY MATRIX TO TAPE
 !
@@ -271,10 +277,10 @@ SUBROUTINE inptt5
          err = -1
          IF ( p40 ) READ (input,END=600) tapeid , mac , dt , i , k
          IF ( p41 ) READ (input,99029,END=600) tapeid , mac , dt , i , k
-         IF ( tapeid(1)==P3(1) .AND. tapeid(2)==P3(2) ) GOTO 200
-         WRITE (Nout,99008) tapeid , P3 , mac , dt
+         IF ( tapeid(1)==p3(1) .AND. tapeid(2)==p3(2) ) GOTO 200
+         WRITE (nout,99008) tapeid , p3 , mac , dt
 99008    FORMAT ('0*** WRONG TAPE MOUNTED - TAPEID =',2A4,', NOT ',2A4,/5X,'MACHINE=',2A4,' DATE WRITTEN-',I4,1H/,I2,1H/,I2)
-         IF ( P1/=-1 ) GOTO 200
+         IF ( p1/=-1 ) GOTO 200
          err = -37
       ENDIF
    ELSE
@@ -283,24 +289,24 @@ SUBROUTINE inptt5
    ENDIF
  100  CALL mesage(err,output,subnam)
    RETURN
- 200  IF ( k/=P4 ) THEN
-      WRITE (Nout,99009) Uwm , P4
+ 200  IF ( k/=p4 ) THEN
+      WRITE (nout,99009) uwm , p4
 99009 FORMAT (A25,', MODULE INPUTT5 4TH PARAMETER SPECIFIED WRONG TAPE',' FORMAT.   P4=',I5,/5X,                                    &
              &'INPUTT5 WILL RESET P4 AND TRY TO READ THE TAPE AGAIN.',/)
-      P4 = k
+      p4 = k
       p40 = .NOT.p40
       p41 = .NOT.p41
    ENDIF
    CALL page2(4)
-   WRITE (Nout,99010) tapeid , mac , dt , i
+   WRITE (nout,99010) tapeid , mac , dt , i
 99010 FORMAT (/5X,'MODULE INPUTT5 IS NOW PROCESSING TAPE ',2A4,' WHICH WAS WRITTEN BY ',2A4,'MACHINE',/5X,'ON',I4,1H/,I2,1H/,I2,4X, &
              &'SYSTEM BUFFSIZE=',I8)
-   IF ( p40 ) WRITE (Nout,99011)
+   IF ( p40 ) WRITE (nout,99011)
 99011 FORMAT (5X,'TAPE IN BINARY RECORDS',/)
-   IF ( p41 ) WRITE (Nout,99012)
+   IF ( p41 ) WRITE (nout,99012)
 99012 FORMAT (5X,'TAPE IN FORMATTED RECORDS',/)
    ll = 0
-   IF ( P1>0 .OR. P1==-3 ) THEN
+   IF ( p1>0 .OR. p1==-3 ) THEN
       DO
 !
 !     TO SKIP P1 MATRIX DATA BLOCKS OR TABLES ON INPUT TAPE (P1 = +N)
@@ -310,10 +316,10 @@ SUBROUTINE inptt5
          IF ( p41s ) READ (input,99033,ERR=500,END=600) nc , jb , je , (x,j=jb,je)
          IF ( p41c ) READ (input,99034,ERR=500,END=600) nc , jb , je , (x,j=jb,je)
          IF ( p41d ) READ (input,99035,ERR=500,END=600) nc , jb , je , (dx,j=jb,je)
-         IF ( debug .AND. (nc<=15 .OR. nc>=col12) ) WRITE (Nout,99036) nc , jb , je , ll
+         IF ( debug .AND. (nc<=15 .OR. nc>=col12) ) WRITE (nout,99036) nc , jb , je , ll
          IF ( nc<0 ) EXIT
          IF ( nc==0 ) THEN
-            DO WHILE ( P1==-3 .OR. ll<P1 )
+            DO WHILE ( p1==-3 .OR. ll<p1 )
                imhere = 340
                ll = ll + 1
                BACKSPACE input
@@ -321,16 +327,16 @@ SUBROUTINE inptt5
                IF ( ll>15 ) GOTO 400
                IF ( p40 ) READ (input) i , i , i , dx , j , j , j , j , k , k , fn(1,ll) , fn(2,ll)
                IF ( p41 ) READ (input,99037) i , i , i , dx , j , j , j , j , k , k , fn(1,ll) , fn(2,ll)
-               IF ( P1/=-3 .OR. ll<=P1 ) fn(3,ll) = skip
+               IF ( p1/=-3 .OR. ll<=p1 ) fn(3,ll) = skip
                IF ( k>0 .AND. j>=1 .AND. j<=4 ) THEN
 !
 !     FILE IS A MATRIX
 !
-                  IF ( ll>P1 ) fn(3,ll) = mtrx
+                  IF ( ll>p1 ) fn(3,ll) = mtrx
                   IF ( .NOT.(p40) ) THEN
                      p41s = .FALSE.
                      p41d = .FALSE.
-                     p41c = P4==2 .AND. Nbpw>=60
+                     p41c = p4==2 .AND. nbpw>=60
                      IF ( .NOT.(p41c) ) THEN
                         IF ( j==1 .OR. j==3 ) p41s = .TRUE.
                         p41d = .NOT.p41s
@@ -341,14 +347,14 @@ SUBROUTINE inptt5
 !
 !     FILE IS A TABLE
 !
-                  IF ( ll>P1 ) fn(3,ll) = tble
+                  IF ( ll>p1 ) fn(3,ll) = tble
                   imhere = 345
                   DO
 !
                      IF ( p40 ) READ (input,ERR=500,END=600) l
                      IF ( p41 ) READ (input,99013,ERR=500,END=600) l , (tabel,j=1,l)
 99013                FORMAT (I10,24A,/,(26A5))
-                     IF ( debug ) WRITE (Nout,99014) l , ll
+                     IF ( debug ) WRITE (nout,99014) l , ll
 99014                FORMAT (30X,'L AND LL=',2I6)
                      imhere = 330
                      IF ( l<0 ) GOTO 300
@@ -360,46 +366,46 @@ SUBROUTINE inptt5
          ENDIF
  250  ENDDO
 !
- 300  IF ( P1==-3 ) GOTO 1700
+ 300  IF ( p1==-3 ) GOTO 1700
       IF ( p41 ) BACKSPACE input
       BACKSPACE input
       GOTO 700
    ELSE
-      IF ( P1==-1 ) GOTO 700
+      IF ( p1==-1 ) GOTO 700
       imhere = 290
-      WRITE (Nout,99030) Sfm , imhere , P1
+      WRITE (nout,99030) sfm , imhere , p1
       err = -37
       GOTO 100
    ENDIF
 !
- 400  WRITE (Nout,99015) Uim
+ 400  WRITE (nout,99015) uim
 99015 FORMAT (A29,', INPUTT5, WITH P1= -3, CAN ONLY PRINT UP TO 15 ',' FILE NAMES ON ONE INPUT TAPE.',/5X,'TAPE IS POSITIONED',     &
              &' AFTER THE 15TH FILE')
    ll = ll - 1
    GOTO 1900
 !
- 500  WRITE (Nout,99031) Ufm , P3 , ll , nc , imhere
+ 500  WRITE (nout,99031) ufm , p3 , ll , nc , imhere
    imhere = 405
-   IF ( p41 .AND. Mach==2 ) WRITE (Nout,99032) imhere
+   IF ( p41 .AND. mach==2 ) WRITE (nout,99032) imhere
    err = -37
    GOTO 100
- 600  IF ( P1==-3 ) THEN
-      WRITE (Nout,99016) Uwm , P3
+ 600  IF ( p1==-3 ) THEN
+      WRITE (nout,99016) uwm , p3
 99016 FORMAT (A25,', EOF ENCOUNTERED ON INPUT TAPE ',2A4,'. TAPE DOES ','NOT CONTAIN AN ''OUTPUT5 E-O-F'' MARK')
-      IF ( debug ) WRITE (Nout,99017) imhere , ll , nc
+      IF ( debug ) WRITE (nout,99017) imhere , ll , nc
 99017 FORMAT (5X,'IMHERE,LL,NC =',3I5)
    ELSE
-      WRITE (Nout,99018) Ufm , P3 , imhere , ll , nc
+      WRITE (nout,99018) ufm , p3 , imhere , ll , nc
 99018 FORMAT (A23,', EOF ENCOUNTERED ON INPUT TAPE ',2A4,5X,'IMHERE,LL,NC =',3I5)
-      IF ( P1/=-3 ) Nogo = 1
+      IF ( p1/=-3 ) nogo = 1
    ENDIF
    GOTO 1700
- 700  IF ( p40s ) READ (input,ERR=1300,END=1800) nc , jb , je , (Rz(j),j=jb,je)
+ 700  IF ( p40s ) READ (input,ERR=1300,END=1800) nc , jb , je , (rz(j),j=jb,je)
    IF ( p40d ) READ (input,ERR=1300,END=1800) nc , jb , je , (dz(j),j=jb,je)
-   IF ( p41s ) READ (input,99033,ERR=1300,END=1800) nc , jb , je , (Rz(j),j=jb,je)
-   IF ( p41c ) READ (input,99034,ERR=1300,END=1800) nc , jb , je , (Rz(j),j=jb,je)
+   IF ( p41s ) READ (input,99033,ERR=1300,END=1800) nc , jb , je , (rz(j),j=jb,je)
+   IF ( p41c ) READ (input,99034,ERR=1300,END=1800) nc , jb , je , (rz(j),j=jb,je)
    IF ( p41d ) READ (input,99035,ERR=1300,END=1800) nc , jb , je , (dz(j),j=jb,je)
-   IF ( debug .AND. (nc<=15 .OR. nc>=col12) ) WRITE (Nout,99036) nc , jb , je , ll , imhere
+   IF ( debug .AND. (nc<=15 .OR. nc>=col12) ) WRITE (nout,99036) nc , jb , je , ll , imhere
    IF ( nc<0 ) GOTO 1400
    IF ( nc/=0 ) GOTO 1100
 !             EOF, MATRIX-HEADER, COLUMN-DATA
@@ -412,70 +418,70 @@ SUBROUTINE inptt5
    BACKSPACE input
    IF ( p41 ) BACKSPACE input
    j = -1
-   IF ( p40 ) READ (input,ERR=900) k , j , j , dx , Col , Row , Form , Type , Max , Dens , fn(1,ll) , fn(2,ll)
-   IF ( p41 ) READ (input,99037,ERR=900) k , j , j , dx , Col , Row , Form , Type , Max , Dens , fn(1,ll) , fn(2,ll)
-   col12 = Col - 12
+   IF ( p40 ) READ (input,ERR=900) k , j , j , dx , col , row , form , type , max , dens , fn(1,ll) , fn(2,ll)
+   IF ( p41 ) READ (input,99037,ERR=900) k , j , j , dx , col , row , form , type , max , dens , fn(1,ll) , fn(2,ll)
+   col12 = col - 12
    IF ( col12<0 ) col12 = 0
    IF ( .NOT.debug ) GOTO 1000
- 900  WRITE (Nout,99019) Col , Row , Form , Type , Max , Dens , dx , fn(1,ll) , fn(2,ll)
+ 900  WRITE (nout,99019) col , row , form , type , max , dens , dx , fn(1,ll) , fn(2,ll)
 99019 FORMAT (' COL,ROW,FORM,TYPE,MAX,DENS,DX,FILE=',6I6,D12.3,3X,2A4)
    IF ( j==-1 ) CALL mesage(-37,0,subnam)
 !
 !WKBR1    CALL TABLE V (*510,INPUT,LL,MCB,FN(1,LL),P4,BUF1,RZ)
- 1000 IF ( k==0 .AND. (Dens==0 .OR. Type<=0 .OR. Type>4) ) CALL tablev(*700,input,ll,Mcb,fn(1,ll),P4,buf1,z5)
+ 1000 IF ( k==0 .AND. (dens==0 .OR. type<=0 .OR. type>4) ) CALL tablev(*700,input,ll,mcb,fn(1,ll),p4,buf1,z5)
 !
    fn(3,ll) = mtrx
    p40s = .FALSE.
    p40d = .FALSE.
    p41s = .FALSE.
    p41d = .FALSE.
-   p41c = P4==2 .AND. Nbpw>=60
+   p41c = p4==2 .AND. nbpw>=60
    IF ( .NOT.(p41c) ) THEN
       IF ( p41 ) THEN
-         IF ( Type==1 .OR. Type==3 ) p41s = .TRUE.
+         IF ( type==1 .OR. type==3 ) p41s = .TRUE.
          p41d = .NOT.p41s
       ELSE
-         IF ( Type==1 .OR. Type==3 ) p40s = .TRUE.
+         IF ( type==1 .OR. type==3 ) p40s = .TRUE.
          p40d = .NOT.p40s
       ENDIF
    ENDIF
-   IF ( debug ) WRITE (Nout,99020) p40 , p40s , p40d , p41 , p41s , p41d , p41c
+   IF ( debug ) WRITE (nout,99020) p40 , p40s , p40d , p41 , p41s , p41d , p41c
 99020 FORMAT ('0  P40,P40S,P40D,P41,P41S,P41D,P41C = ',7L4)
-   Typin = Type
-   Typout = Type
-   jtyp = Type
-   IF ( Type==3 ) jtyp = 2
-   Ii = 1
-   Jj = Row
-   Incr = 1
-   nwds = Row*jtyp
+   typin = type
+   typout = type
+   jtyp = type
+   IF ( type==3 ) jtyp = 2
+   ii = 1
+   jj = row
+   incr = 1
+   nwds = row*jtyp
    IF ( nwds>buf1 ) CALL mesage(-8,0,subnam)
 !
 !     OPEN GINO FILE FOR OUTPUT
 !
    imhere = 640
-   IF ( P1==-3 ) THEN
+   IF ( p1==-3 ) THEN
 !
-      WRITE (Nout,99030) Sfm , imhere , P1
+      WRITE (nout,99030) sfm , imhere , p1
       CALL mesage(-37,0,subnam)
    ELSE
-      rowx = Row
-      formx = Form
+      rowx = row
+      formx = form
       output = 200 + ll - p1n
-      Mcb(1) = output
-      CALL rdtrl(Mcb(1))
-      IF ( Mcb(1)<=0 ) GOTO 1200
+      mcb(1) = output
+      CALL rdtrl(mcb(1))
+      IF ( mcb(1)<=0 ) GOTO 1200
       err = -1
-      CALL open(*100,output,Rz(buf1),1)
+      CALL open(*100,output,rz(buf1),1)
       CALL fname(output,name)
       CALL write(output,name,2,1)
       opn = .TRUE.
-      Col = 0
-      Row = rowx
-      Form = formx
-      Type = Typout
-      Max = 0
-      Dens = 0
+      col = 0
+      row = rowx
+      form = formx
+      type = typout
+      max = 0
+      dens = 0
       nck = 0
       GOTO 700
    ENDIF
@@ -483,22 +489,22 @@ SUBROUTINE inptt5
 !     RECOVER INPUT MATRIX, AND WRITE IT OUT BY COLUMN
 !
  1100 imhere = 700
-   IF ( P1==-3 ) GOTO 700
+   IF ( p1==-3 ) GOTO 700
    nck = nck + 1
    IF ( nc/=nck ) GOTO 500
    IF ( jb>1 ) THEN
       jb = (jb-1)*jtyp
       DO j = 1 , jb
-         Rz(j) = 0.0
+         rz(j) = 0.0
       ENDDO
    ENDIF
    IF ( je<nwds ) THEN
       je = (je*jtyp) + 1
       DO j = je , nwds
-         Rz(j) = 0.0
+         rz(j) = 0.0
       ENDDO
    ENDIF
-   CALL pack(Rz,output,Mcb)
+   CALL pack(rz,output,mcb)
    GOTO 700
  1200 DO
 !
@@ -510,7 +516,7 @@ SUBROUTINE inptt5
       IF ( p41d ) READ (input,99035,ERR=500,END=600) nc , jb , je , (dx,j=jb,jb)
       IF ( nc<=0 ) THEN
          CALL page2(2)
-         WRITE (Nout,99021) Uwm , fn(1,ll) , fn(2,ll)
+         WRITE (nout,99021) uwm , fn(1,ll) , fn(2,ll)
 99021    FORMAT (A25,', OUTPUT FILE PURGED.  ',2A4,' FROM INPUT TAPE NOT ','COPIED')
 !     LL = LL + 1
          GOTO 800
@@ -518,11 +524,11 @@ SUBROUTINE inptt5
    ENDDO
 !
  1300 imhere = -imhere
-   WRITE (Nout,99031) Ufm , P3 , ll , nc , imhere
-   WRITE (Nout,99022) p40 , p41 , p40s , p40d , p41s , p41d , p41c
+   WRITE (nout,99031) ufm , p3 , ll , nc , imhere
+   WRITE (nout,99022) p40 , p41 , p40s , p40d , p41s , p41d , p41c
 99022 FORMAT ('  P40,P41,P40S,P40D,P41S,P41D,P41C =',7L2)
    imhere = 770
-   IF ( p41 .AND. Mach==2 ) WRITE (Nout,99032) imhere
+   IF ( p41 .AND. mach==2 ) WRITE (nout,99032) imhere
    GOTO 1200
 !
 !     END OF MATRIX ENCOUNTERED. CLOSE GINO DATA BLOCK WITH REWIND.
@@ -530,14 +536,14 @@ SUBROUTINE inptt5
  1400 IF ( .NOT.opn ) GOTO 1600
  1500 CALL close(output,1)
    opn = .FALSE.
-   IF ( Form<1 .OR. Form>6 ) THEN
-      Form = 1
-      IF ( Col/=Row ) Form = 2
+   IF ( form<1 .OR. form>6 ) THEN
+      form = 1
+      IF ( col/=row ) form = 2
    ENDIF
-   CALL wrttrl(Mcb)
+   CALL wrttrl(mcb)
    CALL fname(output,name)
    CALL page2(10)
-   WRITE (Nout,99023) fn(1,ll) , fn(2,ll) , input , name , (Mcb(j),j=1,7)
+   WRITE (nout,99023) fn(1,ll) , fn(2,ll) , input , name , (mcb(j),j=1,7)
 99023 FORMAT (/5X,'MATRIX DATA BLOCK ',2A4,' WAS SUCESSFULLY RECOVERED',' FROM FORTRAN UNIT',I4,' TO ',2A4,/8X,'GINO UNIT =',I8,/6X,&
              &'NO. OF COLS =',I8,/6X,'NO. OF ROWS =',I8,/13X,'FORM =',I8,/13X,'TYPE =',I8,/3X,'NON-ZERO WORDS =',I8,/10X,           &
             & 'DENSITY =',I8)
@@ -547,7 +553,7 @@ SUBROUTINE inptt5
       IF ( p41 ) BACKSPACE input
       GOTO 1900
    ELSEIF ( nc<0 ) THEN
-      IF ( P1==-3 ) GOTO 2000
+      IF ( p1==-3 ) GOTO 2000
    ELSEIF ( nc==0 ) THEN
       GOTO 800
    ELSE
@@ -562,7 +568,7 @@ SUBROUTINE inptt5
    IF ( fn(3,ll)==bk ) ll = ll - 1
    IF ( ll<=0 ) THEN
 !
-      IF ( P1==-3 ) WRITE (Nout,99024) Uim , input
+      IF ( p1==-3 ) WRITE (nout,99024) uim , input
 99024 FORMAT (A29,' FROM INPUTT5 MODULE, INPUT TAPE (FORTRAN UNIT',I5,') CONTAINS NO DATA BLOCK')
       GOTO 2000
    ENDIF
@@ -570,27 +576,27 @@ SUBROUTINE inptt5
 !     PRINT LIST OF DATA BLOCKS ON FORTRAN TAPE (P1=-3).
 !
  1900 CALL page2(ll+9)
-   WRITE (Nout,99025)
+   WRITE (nout,99025)
 99025 FORMAT (/5X,'SUMMARY FROM INPUTT5 MODLUE -')
-   IF ( P1/=-3 ) WRITE (Nout,99026) input
+   IF ( p1/=-3 ) WRITE (nout,99026) input
 99026 FORMAT (/34X,'FILES RECOVERED FROM FORTRAN UNIT',I5)
-   IF ( P1==-3 ) WRITE (Nout,99027) input
+   IF ( p1==-3 ) WRITE (nout,99027) input
 99027 FORMAT (/34X,'FILE CONTENTS ON FORTRAN UNIT',I5)
-   WRITE (Nout,99028) mac , bf , (j,fn(1,j),fn(2,j),fn(3,j),j=1,ll)
+   WRITE (nout,99028) mac , bf , (j,fn(1,j),fn(2,j),fn(3,j),j=1,ll)
 99028 FORMAT (28X,'(WRITTEN BY ',2A4,' MACHINE ',A8,' RECORDS)',//37X,'FILE',8X,'NAME',8X,'TYPE',/33X,9(4H----),/,                  &
             & (37X,I3,7X,2A4,6X,A4))
-   IF ( Nogo==1 ) THEN
+   IF ( nogo==1 ) THEN
       err = -37
       GOTO 100
 !
-   ELSEIF ( P1==-3 ) THEN
+   ELSEIF ( p1==-3 ) THEN
       REWIND input
       IF ( p40 ) READ (input)
       IF ( p41 ) READ (input,99029)
    ENDIF
 !
- 2000 IF ( Mach==3 ) CALL unvcls(P2)
-   IF ( Mach==4 ) CALL cdccls(P2)
+ 2000 IF ( mach==3 ) CALL unvcls(p2)
+   IF ( mach==4 ) CALL cdccls(p2)
 99029 FORMAT (4A4,5I8)
 99030 FORMAT (A25,' @',I5,I10)
 99031 FORMAT (A23,', TAPE ERROR DURING READ/INPUTT5  ',2A4,/5X,'LL,NC =',2I5,'   IMHERE =',I5)

@@ -2,10 +2,10 @@
  
 SUBROUTINE trttem(Ti,Pg)
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRIMEX
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_trimex
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -25,6 +25,15 @@ SUBROUTINE trttem(Ti,Pg)
    INTEGER , DIMENSION(3) :: ics , igp
    INTEGER , DIMENSION(34) :: iecpt
    REAL , DIMENSION(21) :: teo
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -72,17 +81,17 @@ SUBROUTINE trttem(Ti,Pg)
    ics(1) = iecpt(22)
    ics(2) = iecpt(26)
    ics(3) = iecpt(30)
-   r(1) = Ecpt(23)
-   r(2) = Ecpt(27)
-   r(3) = Ecpt(31)
-   z(2) = Ecpt(28)
-   d(2) = Ecpt(29)
-   z(1) = Ecpt(24)
-   d(1) = Ecpt(25)
-   z(3) = Ecpt(32)
-   d(3) = Ecpt(33)
-   dgama = Ecpt(05)
-   tempe = Ecpt(34)
+   r(1) = ecpt(23)
+   r(2) = ecpt(27)
+   r(3) = ecpt(31)
+   z(2) = ecpt(28)
+   d(2) = ecpt(29)
+   z(1) = ecpt(24)
+   d(1) = ecpt(25)
+   z(3) = ecpt(32)
+   d(3) = ecpt(33)
+   dgama = ecpt(05)
+   tempe = ecpt(34)
 !
 ! COMPUTE THE ELEMENT COORDINATES
    zmin = amin1(z1,z2,z3)
@@ -140,26 +149,26 @@ SUBROUTINE trttem(Ti,Pg)
    dgamr = dgama*degrad
    cosg = cos(dgamr)
    sing = sin(dgamr)
-   Costh = cosg
-   Sinth = sing
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
+   costh = cosg
+   sinth = sing
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
    CALL mat(idel)
-   IF ( Setmat==2.0 ) THEN
-      CALL mesage(-30,37,Ecpt(1))
+   IF ( setmat==2.0 ) THEN
+      CALL mesage(-30,37,ecpt(1))
    ELSE
 !
 !  . SET MATERIAL PROPERTIES IN LOCAL VARIABLES...
-      er = E(1)
-      et = E(2)
-      ez = E(3)
-      vro = Anu(1)
-      voz = Anu(2)
-      vzr = Anu(3)
-      gor = G(1)
-      gzo = G(2)
-      grz = G(3)
+      er = e(1)
+      et = e(2)
+      ez = e(3)
+      vro = anu(1)
+      voz = anu(2)
+      vzr = anu(3)
+      gor = g(1)
+      gzo = g(2)
+      grz = g(3)
       vor = vro*et/er
       vzo = voz*ez/et
       vrz = vzr*er/ez
@@ -206,10 +215,10 @@ SUBROUTINE trttem(Ti,Pg)
       delint(5) = ais(3,0,1,r,z)
       delint(6) = ais(3,1,0,r,z)
 !
-      t1 = ee01*Alf(1) + ee02*Alf(3) + ee03*Alf(2)
-      t2 = ee02*Alf(1) + ee08*Alf(3) + ee09*Alf(2)
-      t3 = ee03*Alf(1) + ee09*Alf(3) + ee15*Alf(2)
-      t4 = ee04*Alf(1) + ee10*Alf(3) + ee16*Alf(2)
+      t1 = ee01*alf(1) + ee02*alf(3) + ee03*alf(2)
+      t2 = ee02*alf(1) + ee08*alf(3) + ee09*alf(2)
+      t3 = ee03*alf(1) + ee09*alf(3) + ee15*alf(2)
+      t4 = ee04*alf(1) + ee10*alf(3) + ee16*alf(2)
 ! GENERATE DTT MATRIX
       dtt(1) = delint(4)*t3
       dtt(2) = delint(6)*(t1+t3)
@@ -223,7 +232,7 @@ SUBROUTINE trttem(Ti,Pg)
 !
 ! TRANSFORM THE THERMAL LOAD TO GRID POINT DEGREES OF FREEDOM
       CALL gmmats(gababq,9,9,1,dtt,9,1,0,fij)
-      t = Tzero
+      t = tzero
       IF ( ajho>0.0 ) t = 0.0
       t = ((Ti(1)+Ti(2)+Ti(3))/3.0E0-t)*pi
       IF ( ajho==0.0 ) t = t*2.0E0

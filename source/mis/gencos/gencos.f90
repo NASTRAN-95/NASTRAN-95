@@ -1,13 +1,14 @@
-!*==gencos.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gencos.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gencos
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -55,8 +56,8 @@ SUBROUTINE gencos
 !
 !     OPEN CORE AND BUFFERS
 !
-         lcore = korsz(Z)
-         buf1 = lcore - Ibuf + 1
+         lcore = korsz(z)
+         buf1 = lcore - ibuf + 1
          lcore = buf1 - 1
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 10
@@ -68,7 +69,7 @@ SUBROUTINE gencos
          mcb(1) = bgpdt
          CALL rdtrl(mcb)
          npts = mcb(2)
-         CALL gopen(bgpdt,Z(buf1),0)
+         CALL gopen(bgpdt,z(buf1),0)
          DO i = 1 , npts
             CALL fread(bgpdt,coord,4,0)
             IF ( icoord(1)==-1 ) THEN
@@ -76,22 +77,21 @@ SUBROUTINE gencos
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         Nscale = 0
+         nscale = 0
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
-         Nscale = 1
+         nscale = 1
          spag_nextblock_1 = 3
       CASE (3)
          CALL close(bgpdt,1)
 !
-         IF ( Direct<1 .OR. Direct>3 ) THEN
-            IF ( Direct/=12 .AND. Direct/=13 .AND. Direct/=23 .AND. Direct/=123 ) THEN
+         IF ( direct<1 .OR. direct>3 ) THEN
+            IF ( direct/=12 .AND. direct/=13 .AND. direct/=23 .AND. direct/=123 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         IF ( Shock<0 ) THEN
+         IF ( shock<0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -100,19 +100,19 @@ SUBROUTINE gencos
          all = .FALSE.
          rec = .FALSE.
          ndir = 2
-         IF ( Direct<=3 ) ndir = 1
-         IF ( Direct==123 ) ndir = 3
-         IF ( Luset*ndir<=lcore ) THEN
+         IF ( direct<=3 ) ndir = 1
+         IF ( direct==123 ) ndir = 3
+         IF ( luset*ndir<=lcore ) THEN
 !
             IF ( ndir==2 ) THEN
 !
-               IF ( Direct==23 ) THEN
+               IF ( direct==23 ) THEN
                   idir(1) = 2
                   idir(2) = 3
                ELSE
                   idir(1) = 1
                   idir(2) = 2
-                  IF ( Direct==13 ) idir(2) = 3
+                  IF ( direct==13 ) idir(2) = 3
                ENDIF
             ELSEIF ( ndir==3 ) THEN
 !
@@ -121,17 +121,17 @@ SUBROUTINE gencos
                idir(3) = 3
             ELSE
 !
-               idir(1) = Direct
+               idir(1) = direct
             ENDIF
 !
 !
 !     READ CSTM FOR FETCHING TRANSFORMATION MATRICES
 !
-            CALL open(*20,cstm,Z(buf1),0)
+            CALL open(*20,cstm,z(buf1),0)
 !
             file = cstm
             CALL fwdrec(*80,cstm)
-            CALL read(*80,*40,cstm,Z,lcore,0,ncstm)
+            CALL read(*80,*40,cstm,z,lcore,0,ncstm)
          ENDIF
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
@@ -140,8 +140,8 @@ SUBROUTINE gencos
 !     BE ALSO.  IF SHOCK SYSTEM IS NOT 0, FATAL MESSAGE.  IF IT IS 0,
 !     THEN NEED ONLY IDENTITIES.
 !
- 20      IF ( Shock/=0 ) THEN
-            WRITE (Otpe,99001) Ufm
+ 20      IF ( shock/=0 ) THEN
+            WRITE (otpe,99001) ufm
 99001       FORMAT (A23,', IN GENCOS, CSTM IS PURGED AND SHOCK COORDINATE ','SYSTEM IS NOT BASIC')
             CALL mesage(-61,0,0)
          ENDIF
@@ -149,7 +149,7 @@ SUBROUTINE gencos
 !     EVERYTHING IS BASIC - CHECK FOR SCALAR POINTS - IF THEY EXIST,
 !     WE MUST READ BGPDT
 !
-         IF ( Nscale==1 ) THEN
+         IF ( nscale==1 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -161,25 +161,25 @@ SUBROUTINE gencos
 !
 !     CHECK FOR ENOUGH OPEN CORE
 !
-         IF ( ncstm+Luset*ndir>lcore ) THEN
+         IF ( ncstm+luset*ndir>lcore ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL pretrs(Z(1),ncstm)
+         CALL pretrs(z(1),ncstm)
 !
 !     IF SHOCK COORDINATE SYSTEM IS RECTANGULAR, LET'S GET THE TRANS-
 !     FORMATION MATRIX ONCE SINCE IT WILL NOT BE POINT-DEPENDENT.
 !
-         IF ( Shock/=0 ) THEN
+         IF ( shock/=0 ) THEN
             DO i = 1 , ncstm , 14
-               IF ( Shock==iz(i) ) THEN
+               IF ( shock==iz(i) ) THEN
                   IF ( iz(i+1)==1 ) THEN
 !
 !     RECTANGULAR
 !
                      rec = .TRUE.
                      DO j = 1 , 9
-                        tshock(j) = Z(i+j+4)
+                        tshock(j) = z(i+j+4)
                      ENDDO
                   ENDIF
                   spag_nextblock_1 = 5
@@ -189,7 +189,7 @@ SUBROUTINE gencos
 !
 !     CAN'T FIND SHOCK COORDINATE SYSTEM
 !
-            CALL mesage(-30,25,Shock)
+            CALL mesage(-30,25,shock)
          ENDIF
          spag_nextblock_1 = 4
       CASE (4)
@@ -209,7 +209,7 @@ SUBROUTINE gencos
 !     OPEN BGPDT TO GET GRID POINT OUTPUT COORDINATE SYSTEMS AND
 !     BASIC COORDINATES
 !
-         CALL gopen(bgpdt,Z(buf1),0)
+         CALL gopen(bgpdt,z(buf1),0)
          file = bgpdt
          spag_nextblock_1 = 6
       CASE (6)
@@ -239,13 +239,13 @@ SUBROUTINE gencos
 !     IF SHOCK IS NOT RECTANGULAR, FETCH SHOCK-TO-BASIC FOR THIS POINT
 !
          IF ( .NOT.(rec) ) THEN
-            icoord(1) = Shock
+            icoord(1) = shock
             CALL transs(coord,tshock)
          ENDIF
 !
 !     THE MATRIX WE NEED IS (TRANSPOSE(TPOINT))*(TSHOCK)
 !
-         IF ( Shock/=0 ) THEN
+         IF ( shock/=0 ) THEN
             IF ( isys==0 ) THEN
 !
 !     TPOINT IS IDENTITY, BUT TSHOCK IS NOT
@@ -299,8 +299,8 @@ SUBROUTINE gencos
 !     ING AT Z(NCSTM+1) - MAKE UP TO 3 COLUMNS OF LUSET EACH
 !
             isub(1) = ncstm + ncount
-            isub(2) = isub(1) + Luset
-            isub(3) = isub(2) + Luset
+            isub(2) = isub(1) + luset
+            isub(3) = isub(2) + luset
 !
             DO i = 1 , ndir
                ip = idir(i)
@@ -309,14 +309,14 @@ SUBROUTINE gencos
 !
 !     SCALAR
 !
-                  Z(jsub+1) = 1.
+                  z(jsub+1) = 1.
                ELSE
-                  Z(jsub+1) = tfinal(ip)
-                  Z(jsub+2) = tfinal(ip+3)
-                  Z(jsub+3) = tfinal(ip+6)
-                  Z(jsub+4) = 0.
-                  Z(jsub+5) = 0.
-                  Z(jsub+6) = 0.
+                  z(jsub+1) = tfinal(ip)
+                  z(jsub+2) = tfinal(ip+3)
+                  z(jsub+3) = tfinal(ip+6)
+                  z(jsub+4) = 0.
+                  z(jsub+5) = 0.
+                  z(jsub+6) = 0.
                ENDIF
             ENDDO
 !
@@ -328,28 +328,28 @@ SUBROUTINE gencos
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( ncount==Luset ) EXIT SPAG_Loop_1_1
+            IF ( ncount==luset ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
 !
 !     DONE WITH ALL POINTS - PACK RESULTS
 !
  60      IF ( .NOT.all ) CALL close(bgpdt,1)
-         CALL gopen(dircos,Z(buf1),1)
-         In = 1
-         Iout = 1
-         Ii = 1
-         Nn = Luset
-         Incr = 1
+         CALL gopen(dircos,z(buf1),1)
+         in = 1
+         iout = 1
+         ii = 1
+         nn = luset
+         incr = 1
          mcb(1) = dircos
          mcb(2) = 0
-         mcb(3) = Luset
+         mcb(3) = luset
          mcb(4) = 2
          mcb(5) = 1
          mcb(6) = 0
          mcb(7) = 0
          DO i = 1 , ndir
-            jsub = ncstm + Luset*(i-1)
-            CALL pack(Z(jsub+1),dircos,mcb)
+            jsub = ncstm + luset*(i-1)
+            CALL pack(z(jsub+1),dircos,mcb)
          ENDDO
 !
          CALL close(dircos,1)
@@ -357,14 +357,13 @@ SUBROUTINE gencos
          RETURN
       CASE (9)
 !
-         WRITE (Otpe,99002) Ufm , Shock , Direct
+         WRITE (otpe,99002) ufm , shock , direct
 99002    FORMAT (A23,', SHOCK AND DIRECT ARE',2I10,/10X,'RESPECTIVELY. ','SHOCK MUST BE NONNEGATIVE AND DIRECT MUST BE EITHER 1,2', &
                 &',3,12,13,23, OR 123')
          CALL mesage(-61,0,0)
 !
  80      n = -2
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          n = -8
          file = 0

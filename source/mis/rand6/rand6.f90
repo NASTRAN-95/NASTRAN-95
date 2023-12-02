@@ -1,4 +1,5 @@
-!*==rand6.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rand6.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rand6(Xycb,Buffer,Npoint,Iz,Input,Lcore)
@@ -16,7 +17,7 @@ SUBROUTINE rand6(Xycb,Buffer,Npoint,Iz,Input,Lcore)
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER , SAVE :: auto , psdf
-   INTEGER :: file , i , ip , ip1 , ireq , k , l , ntype
+   INTEGER :: file , i , ip , ip1 , ireq , k , l , ntype , spag_nextblock_1
    INTEGER , DIMENSION(6) :: ilist
    INTEGER , DIMENSION(13,5) , SAVE :: itype
    INTEGER , DIMENSION(2) , SAVE :: name
@@ -24,7 +25,15 @@ SUBROUTINE rand6(Xycb,Buffer,Npoint,Iz,Input,Lcore)
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
 !     ANALYSIS OF REQUESTS AND BUILDS LIST
 !

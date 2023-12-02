@@ -1,4 +1,5 @@
-!*==rzints.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rzints.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION rzints(Ip,Iq,R,Z,Ngrids)
@@ -18,6 +19,15 @@ FUNCTION rzints(Ip,Iq,R,Z,Ngrids)
    REAL :: detj , drdeta , drdxi , dzdeta , dzdxi , rr , rrp , xint , zz , zzq
    REAL , DIMENSION(3) :: h , pt
    INTEGER :: iii , jjj , npt
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

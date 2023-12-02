@@ -1,17 +1,18 @@
-!*==feer4.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==feer4.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer4(It)
-USE C_FEERCX
-USE C_FEERXX
-USE C_MACHIN
-USE C_NAMES
-USE C_OPINV
-USE C_PACKX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerxx
+   USE c_machin
+   USE c_names
+   USE c_opinv
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -55,21 +56,21 @@ USE ISO_FORTRAN_ENV
 !     SR7FLE CONTAINS THE ORTHOGONAL VECTORS
 !
          CALL sswtch(26,l26)
-         mdim = Mord + 1
+         mdim = mord + 1
          dsm = 10.0D+0**(-2*It/3)
          sm = dsm
-         Iprc = Mcbrm(5)
-         nz = korsz(Z)
-         CALL makmcb(mcbc(1),Sr4fle,mdim,2,Iprc)
+         iprc = mcbrm(5)
+         nz = korsz(z)
+         CALL makmcb(mcbc(1),sr4fle,mdim,2,iprc)
          mcbc(2) = 0
          mcbc(6) = 0
          m = 0
 !
 !     INITIALIZE ALLOCATIONS
 !
-         ibuf1 = nz - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
+         ibuf1 = nz - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
          iv1 = 1
          iv2 = iv1 + mdim
          iv3 = iv2 + mdim
@@ -81,32 +82,32 @@ USE ISO_FORTRAN_ENV
          iv9 = iv8 + mdim
          ix3 = iv3 - 1
          ix4 = iv4 - 1
-         iend = Iprc*(8*mdim+1) + mdim
+         iend = iprc*(8*mdim+1) + mdim
          IF ( iend>ibuf3 ) CALL mesage(-8,iend-ibuf3,name)
-         CALL gopen(Sr5fle,Z(ibuf2),Rdrew)
-         IF ( Iprc==2 ) dz(iv4+Mord) = Errc
-         IF ( Iprc==1 ) Z(iv4+Mord) = Errc
-         nw = Iprc*2
-         DO i = 1 , Mord
-            CALL read(*40,*60,Sr5fle,b(1),nw,1,m)
-            IF ( Iprc==1 ) THEN
-               Z(ix3+i) = sb(1)
-               Z(ix4+i) = sb(2)
+         CALL gopen(sr5fle,z(ibuf2),rdrew)
+         IF ( iprc==2 ) dz(iv4+mord) = errc
+         IF ( iprc==1 ) z(iv4+mord) = errc
+         nw = iprc*2
+         DO i = 1 , mord
+            CALL read(*40,*60,sr5fle,b(1),nw,1,m)
+            IF ( iprc==1 ) THEN
+               z(ix3+i) = sb(1)
+               z(ix4+i) = sb(2)
             ELSE
                dz(ix3+i) = b(1)
                dz(ix4+i) = b(2)
             ENDIF
          ENDDO
-         CALL close(Sr5fle,Rew)
-         CALL gopen(Sr4fle,Z(ibuf2),Wrtrew)
-         IF ( Iprc==1 ) THEN
-            CALL fqrw(Mord,Z(iv1),Z(iv2),Z(iv3),Z(iv4),Z(iv5),Z(iv6),Z(iv7),Z(iv8),Z(iv9),Z(ibuf1),Sr5fle,mcbc(1))
+         CALL close(sr5fle,rew)
+         CALL gopen(sr4fle,z(ibuf2),wrtrew)
+         IF ( iprc==1 ) THEN
+            CALL fqrw(mord,z(iv1),z(iv2),z(iv3),z(iv4),z(iv5),z(iv6),z(iv7),z(iv8),z(iv9),z(ibuf1),sr5fle,mcbc(1))
          ELSE
 !                                                              SR4FLE
-            CALL fqrwv(Mord,dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),dz(iv6),dz(iv7),dz(iv8),dz(iv9),Z(ibuf1),Sr5fle,mcbc(1))
+            CALL fqrwv(mord,dz(iv1),dz(iv2),dz(iv3),dz(iv4),dz(iv5),dz(iv6),dz(iv7),dz(iv8),dz(iv9),z(ibuf1),sr5fle,mcbc(1))
          ENDIF
 !                                                          SR4FLE
-         CALL close(Sr4fle,Norew)
+         CALL close(sr4fle,norew)
 !
 !     RECONFIGURE VECTOR INDEX TO OBTAIN PHYSICAL EIGENVECTORS
 !
@@ -114,76 +115,76 @@ USE ISO_FORTRAN_ENV
          ix2 = iv2 - 1
          ix3 = iv3 - 1
          ix4 = iv4 - 1
-         ix5 = ix4 + Nord
-         isrv = Mcbrm(1)
-         Iflvec(1) = Iflrvc
-         Iflelm(1) = Iflrva
-         IF ( Nzero==0 ) THEN
+         ix5 = ix4 + nord
+         isrv = mcbrm(1)
+         iflvec(1) = iflrvc
+         iflelm(1) = iflrva
+         IF ( nzero==0 ) THEN
 !
 !     PREPARE FILES WHEN NO RESTART AND/OR RIGID BODY VECTORS
 !
-            Iflvec(2) = 0
-            Iflvec(6) = 0
-            CALL gopen(Iflrvc,Z(ibuf3),Wrtrew)
-            CALL close(Iflrvc,Norew)
-            CALL gopen(Iflrva,Z(ibuf3),Wrtrew)
-            CALL close(Iflrva,Norew)
+            iflvec(2) = 0
+            iflvec(6) = 0
+            CALL gopen(iflrvc,z(ibuf3),wrtrew)
+            CALL close(iflrvc,norew)
+            CALL gopen(iflrva,z(ibuf3),wrtrew)
+            CALL close(iflrva,norew)
          ENDIF
-         Itp1 = Iprc
-         Itp2 = 1
-         Incrp = 1
-         Ii = 1
-         CALL gopen(Iflrva,Z(ibuf1),Wrt)
+         itp1 = iprc
+         itp2 = 1
+         incrp = 1
+         ii = 1
+         CALL gopen(iflrva,z(ibuf1),wrt)
          mred = 0
          mflg = 1
-         DO m = 1 , Mord
-            IF ( Iprc==1 ) THEN
-               sce = 1.0/Z(ix1+m) - Lambda
-               IF ( L16/=0 ) THEN
+         DO m = 1 , mord
+            IF ( iprc==1 ) THEN
+               sce = 1.0/z(ix1+m) - lambda
+               IF ( l16/=0 ) THEN
                   erf = 0.0D+0
-                  IF ( abs(sce)>sm ) erf = 100.0D+0*Z(ix2+m)/dabs(1.0D+0-Z(ix1+m)*Lambda)
-                  Z(ix2+m) = sce
-                  IF ( erf>Critf ) mflg = 2
+                  IF ( abs(sce)>sm ) erf = 100.0D+0*z(ix2+m)/dabs(1.0D+0-z(ix1+m)*lambda)
+                  z(ix2+m) = sce
+                  IF ( erf>critf ) mflg = 2
                ENDIF
             ELSE
-               dsce = 1.0D+0/dz(ix1+m) - Lambda
-               IF ( L16/=0 ) THEN
+               dsce = 1.0D+0/dz(ix1+m) - lambda
+               IF ( l16/=0 ) THEN
                   erf = 0.0D+0
-                  IF ( dabs(dsce)>dsm ) erf = 100.D0*dz(ix2+m)/dabs(1.D0-dz(ix1+m)*Lambda)
+                  IF ( dabs(dsce)>dsm ) erf = 100.D0*dz(ix2+m)/dabs(1.D0-dz(ix1+m)*lambda)
                   dz(ix2+m) = dsce
-                  IF ( erf>Critf ) mflg = 2
+                  IF ( erf>critf ) mflg = 2
                ENDIF
             ENDIF
             IF ( mflg/=2 ) THEN
                mred = mred + 1
-               CALL write(Iflrva,dsce,Iprec,1)
+               CALL write(iflrva,dsce,iprec,1)
             ENDIF
-            IF ( L16/=0 ) THEN
+            IF ( l16/=0 ) THEN
                CALL page2(1)
-               IF ( Iprc==2 ) WRITE (Io,99002) m , dsce , erf , icr(mflg)
-               IF ( Iprc==1 ) WRITE (Io,99002) m , sce , erf , icr(mflg)
+               IF ( iprc==2 ) WRITE (io,99002) m , dsce , erf , icr(mflg)
+               IF ( iprc==1 ) WRITE (io,99002) m , sce , erf , icr(mflg)
             ENDIF
          ENDDO
-         CALL close(Iflrva,Eofnrw)
-         IF ( Mord==0 ) RETURN
+         CALL close(iflrva,eofnrw)
+         IF ( mord==0 ) RETURN
 !
-         CALL gopen(isrv,Z(ibuf1),Rdrew)
-         CALL gopen(Sr4fle,Z(ibuf2),Rdrew)
-         CALL gopen(Iflrvc,Z(ibuf3),Wrt)
+         CALL gopen(isrv,z(ibuf1),rdrew)
+         CALL gopen(sr4fle,z(ibuf2),rdrew)
+         CALL gopen(iflrvc,z(ibuf3),wrt)
 !WKBNB NCL93007 11/94
          incore = .FALSE.
          CALL sswtch(43,l43)
          IF ( l43==0 ) THEN
-            ivw = ix5 + Nord + 1
-            icreq = Nord*Mord*Iprc
+            ivw = ix5 + nord + 1
+            icreq = nord*mord*iprc
             icavl = ibuf3 - ivw - 1
             IF ( icavl>icreq ) incore = .TRUE.
             IF ( incore ) THEN
-               Nn = Nord
-               DO i = 1 , Mord
-                  ivr = ivw + (i-1)*Nord
-                  IF ( Iprc==1 ) CALL unpack(*5,isrv,Z(ivr+1))
-                  IF ( Iprc==2 ) CALL unpack(*5,isrv,dz(ivr+1))
+               nn = nord
+               DO i = 1 , mord
+                  ivr = ivw + (i-1)*nord
+                  IF ( iprc==1 ) CALL unpack(*5,isrv,z(ivr+1))
+                  IF ( iprc==2 ) CALL unpack(*5,isrv,dz(ivr+1))
  5             ENDDO
             ENDIF
          ENDIF
@@ -191,95 +192,95 @@ USE ISO_FORTRAN_ENV
 !
 !     IF DIAG 26 IS OFF, LIMIT EIGENSOLUTIONS TO NUMBER REQUESTED
 !
-         IF ( mred>=Neig .AND. l26/=0 ) mred = Neig
-         IF ( Iprc==1 ) THEN
+         IF ( mred>=neig .AND. l26/=0 ) mred = neig
+         IF ( iprc==1 ) THEN
             DO m = 1 , mred
-               DO l = 1 , Nord
-                  Z(ix5+l) = 0.0
+               DO l = 1 , nord
+                  z(ix5+l) = 0.0
                ENDDO
-               Nn = Nord
-               CALL unpack(*10,Sr4fle,Z(iv3))
-               Nn = Nord
+               nn = nord
+               CALL unpack(*10,sr4fle,z(iv3))
+               nn = nord
 !WKBI NCL93007 11/94
                IF ( incore ) THEN
-                  DO i = 1 , Mord
-                     ivr = ivw + (i-1)*Nord
-                     DO j = 1 , Nord
-                        Z(ix5+j) = Z(ix5+j) + Z(ivr+j)*Z(ix3+i)
+                  DO i = 1 , mord
+                     ivr = ivw + (i-1)*nord
+                     DO j = 1 , nord
+                        z(ix5+j) = z(ix5+j) + z(ivr+j)*z(ix3+i)
                      ENDDO
                   ENDDO
                ELSE
-                  DO i = 1 , Mord
-                     CALL unpack(*20,isrv,Z(iv4))
-                     DO j = 1 , Nord
-                        Z(ix5+j) = Z(ix5+j) + Z(ix4+j)*Z(ix3+i)
+                  DO i = 1 , mord
+                     CALL unpack(*20,isrv,z(iv4))
+                     DO j = 1 , nord
+                        z(ix5+j) = z(ix5+j) + z(ix4+j)*z(ix3+i)
                      ENDDO
 !WKBNB NCL93007 11/94
                   ENDDO
                ENDIF
 !WKBNE NCL93007 11/94
- 10            IF ( Ioptf/=0 ) THEN
-                  sce = 1.0/sqrt(abs(Z(ix1+m)))
-                  DO l = 1 , Nord
-                     Z(ix5+l) = sce*Z(ix5+l)
+ 10            IF ( ioptf/=0 ) THEN
+                  sce = 1.0/sqrt(abs(z(ix1+m)))
+                  DO l = 1 , nord
+                     z(ix5+l) = sce*z(ix5+l)
                   ENDDO
                ENDIF
-               Iip = 1
-               Nnp = Nord
-               CALL pack(Z(ix5+1),Iflrvc,Iflvec(1))
+               iip = 1
+               nnp = nord
+               CALL pack(z(ix5+1),iflrvc,iflvec(1))
 !WKBI NCL93007 11/94
                IF ( .NOT.(incore) ) THEN
-                  CALL rewind(Mcbrm)
-                  CALL skprec(Mcbrm,1)
+                  CALL rewind(mcbrm)
+                  CALL skprec(mcbrm,1)
                ENDIF
  20         ENDDO
          ELSE
             DO m = 1 , mred
-               DO l = 1 , Nord
+               DO l = 1 , nord
                   dz(ix5+l) = 0.0D+0
                ENDDO
-               Nn = Mord
-               CALL unpack(*25,Sr4fle,dz(iv3))
-               Nn = Nord
+               nn = mord
+               CALL unpack(*25,sr4fle,dz(iv3))
+               nn = nord
 !WKBI NCL93007 11/94
                IF ( incore ) THEN
-                  DO i = 1 , Mord
-                     ivr = ivw + (i-1)*Nord
-                     DO j = 1 , Nord
+                  DO i = 1 , mord
+                     ivr = ivw + (i-1)*nord
+                     DO j = 1 , nord
                         dz(ix5+j) = dz(ix5+j) + dz(ivr+j)*dz(ix3+i)
                      ENDDO
                   ENDDO
                ELSE
-                  DO i = 1 , Mord
+                  DO i = 1 , mord
                      CALL unpack(*30,isrv,dz(iv4))
-                     DO j = 1 , Nord
+                     DO j = 1 , nord
                         dz(ix5+j) = dz(ix5+j) + dz(ix4+j)*dz(ix3+i)
                      ENDDO
 !WKBNB NCL93007 11/94
                   ENDDO
                ENDIF
 !WKBNE NCL93007 11/94
- 25            IF ( Ioptf/=0 ) THEN
+ 25            IF ( ioptf/=0 ) THEN
                   dsce = 1.0D+0/dsqrt(dabs(dz(ix1+m)))
-                  DO l = 1 , Nord
+                  DO l = 1 , nord
                      dz(ix5+l) = dsce*dz(ix5+l)
                   ENDDO
                ENDIF
-               Iip = 1
-               Nnp = Nord
-               CALL pack(dz(ix5+1),Iflrvc,Iflvec(1))
+               iip = 1
+               nnp = nord
+               CALL pack(dz(ix5+1),iflrvc,iflvec(1))
 !WKBI NCL93007 11/94
                IF ( .NOT.(incore) ) THEN
-                  CALL rewind(Mcbrm)
-                  CALL skprec(Mcbrm,1)
+                  CALL rewind(mcbrm)
+                  CALL skprec(mcbrm,1)
                ENDIF
  30         ENDDO
          ENDIF
 !
-         CALL close(Iflrvc,Eofnrw)
-         CALL close(isrv,Rew)
-         CALL close(Sr4fle,Rew)
-         Mord = mred
+         CALL close(iflrvc,eofnrw)
+         CALL close(isrv,rew)
+         CALL close(sr4fle,rew)
+         mord = mred
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
  40      ier = 2
@@ -288,12 +289,12 @@ USE ISO_FORTRAN_ENV
  60      ier = 3
          spag_nextblock_1 = 2
       CASE (2)
-         Cndflg = 4
-         CALL mesage(ier,Sr5fle,name)
+         cndflg = 4
+         CALL mesage(ier,sr5fle,name)
          spag_nextblock_1 = 3
       CASE (3)
          iopn = ibuf3 - iend
-         IF ( L16==1 ) WRITE (Io,99001) iopn , name
+         IF ( l16==1 ) WRITE (io,99001) iopn , name
 99001    FORMAT ('  OPEN CORE NOT USED',I10,2X,2A4)
          EXIT SPAG_DispatchLoop_1
       END SELECT

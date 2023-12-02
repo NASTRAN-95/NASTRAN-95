@@ -1,8 +1,9 @@
-!*==gmmatd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==gmmatd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gmmatd(A,Irowa,Icola,Mta,B,Irowb,Icolb,Ntb,C)
-USE ISO_FORTRAN_ENV                 
+USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -20,13 +21,21 @@ USE ISO_FORTRAN_ENV
 ! Local variable declarations rewritten by SPAG
 !
    INTEGER :: cola , colb , i , ia , ifix , ij , ilim , inci , incj , incka , inckb , j , jb , jlim , k , klim , lim , nta , rowa , &
-            & rowb
+            & rowb , spag_nextblock_1
    INTEGER , DIMENSION(2) :: iparm
    EXTERNAL mesage
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
    spag_nextblock_1 = 1
    SPAG_DispatchLoop_1: DO
       SELECT CASE (spag_nextblock_1)

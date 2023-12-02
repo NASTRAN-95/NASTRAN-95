@@ -1,11 +1,12 @@
-!*==mred2m.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2m.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2m(Nuf,N2,Nus)
+   USE c_blank
+   USE c_packx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_PACKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -39,7 +40,7 @@ SUBROUTINE mred2m(Nuf,N2,Nus)
 !        *    *   *      .        *
 !        **  **   **             **
 !
-   IF ( Dry==-2 ) RETURN
+   IF ( dry==-2 ) RETURN
    IF ( Nuf==0 ) THEN
 !
 !     NO UF POINTS
@@ -50,50 +51,50 @@ SUBROUTINE mred2m(Nuf,N2,Nus)
 !        *    *   *   .   *
 !        **  **   **     **
 !
-      Typin = 1
-      Typout = 1
-      Irow = 1
-      Nrow = Nmodes
-      Incr = 1
+      typin = 1
+      typout = 1
+      irow = 1
+      nrow = nmodes
+      incr = 1
       iform = 8
-      IF ( Korbgn+Nmodes<Korlen ) THEN
+      IF ( korbgn+nmodes<korlen ) THEN
 !
 !     GENERATE IDENTITY MATRIX
 !
-         CALL makmcb(itrlr2,ident,Nmodes,iform,Typin)
-         CALL gopen(ident,Z(Gbuf1),1)
-         DO i = 1 , Nmodes
-            DO j = 1 , Nmodes
-               rz(Korbgn+j-1) = 0.0
-               IF ( j==i ) rz(Korbgn+j-1) = 1.0
+         CALL makmcb(itrlr2,ident,nmodes,iform,typin)
+         CALL gopen(ident,z(gbuf1),1)
+         DO i = 1 , nmodes
+            DO j = 1 , nmodes
+               rz(korbgn+j-1) = 0.0
+               IF ( j==i ) rz(korbgn+j-1) = 1.0
             ENDDO
-            CALL pack(Z(Korbgn),ident,itrlr2)
+            CALL pack(z(korbgn),ident,itrlr2)
          ENDDO
          CALL close(ident,1)
          CALL wrttrl(itrlr2)
 !
 !     GENERATE ROW PARTITIONING VECTOR
 !
-         Nrow = Nus + Nmodes
-         IF ( Korbgn+Nrow<Korlen ) THEN
-            j = Nrow
+         nrow = Nus + nmodes
+         IF ( korbgn+nrow<korlen ) THEN
+            j = nrow
             DO i = 1 , j
-               rz(Korbgn+i-1) = 0.0
-               IF ( i>Nus ) rz(Korbgn+i-1) = 1.0
+               rz(korbgn+i-1) = 0.0
+               IF ( i>Nus ) rz(korbgn+i-1) = 1.0
             ENDDO
             iform = 7
-            CALL makmcb(itrlr2,rprtn,Nrow,iform,Typin)
-            CALL gopen(rprtn,Z(Gbuf1),1)
-            CALL pack(Z(Korbgn),rprtn,itrlr2)
+            CALL makmcb(itrlr2,rprtn,nrow,iform,typin)
+            CALL gopen(rprtn,z(gbuf1),1)
+            CALL pack(z(korbgn),rprtn,itrlr2)
             CALL close(rprtn,1)
             CALL wrttrl(itrlr2)
 !
 !     FORM HK MATRIX
 !
             isub(1) = Nus
-            isub(2) = Nmodes
+            isub(2) = nmodes
             itype = 2
-            CALL gmmerg(hk,0,0,ident,0,rprtn,0,isub,itype,Z(Korbgn),Korlen)
+            CALL gmmerg(hk,0,0,ident,0,rprtn,0,isub,itype,z(korbgn),korlen)
             RETURN
          ENDIF
       ENDIF
@@ -109,25 +110,25 @@ SUBROUTINE mred2m(Nuf,N2,Nus)
       CALL rdtrl(itrlr1)
       itrlr2(1) = phi12i
       CALL rdtrl(itrlr2)
-      Incr = 1
-      Typin = 1
-      Typout = 1
-      Irow = 1
-      Nrow = itrlr1(3) + itrlr2(3)
+      incr = 1
+      typin = 1
+      typout = 1
+      irow = 1
+      nrow = itrlr1(3) + itrlr2(3)
       isub(1) = itrlr1(3)
       isub(2) = itrlr2(3)
-      DO i = 1 , Nrow
-         rz(Korbgn+i-1) = 0.0
-         IF ( i>itrlr1(3) ) rz(Korbgn+i-1) = 1.0
+      DO i = 1 , nrow
+         rz(korbgn+i-1) = 0.0
+         IF ( i>itrlr1(3) ) rz(korbgn+i-1) = 1.0
       ENDDO
       iform = 7
-      CALL makmcb(itrlr2,rprtn,Nrow,iform,Typin)
-      CALL gopen(rprtn,Z(Gbuf1),1)
-      CALL pack(Z(Korbgn),rprtn,itrlr2)
+      CALL makmcb(itrlr2,rprtn,nrow,iform,typin)
+      CALL gopen(rprtn,z(gbuf1),1)
+      CALL pack(z(korbgn),rprtn,itrlr2)
       CALL close(rprtn,1)
       CALL wrttrl(itrlr2)
       itype = 2
-      CALL gmmerg(hk,hkpg,0,phi12i,0,rprtn,0,isub,itype,Z(Korbgn),Korlen)
+      CALL gmmerg(hk,hkpg,0,phi12i,0,rprtn,0,isub,itype,z(korbgn),korlen)
       RETURN
    ENDIF
 !

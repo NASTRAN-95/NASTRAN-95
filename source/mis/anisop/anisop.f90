@@ -1,12 +1,13 @@
-!*==anisop.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==anisop.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE anisop
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -44,10 +45,10 @@ SUBROUTINE anisop
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Isop = 1
-         lcore = korsz(Z)
-         buf1 = lcore - Ibuf - 1
-         buf2 = buf1 - Ibuf
+         isop = 1
+         lcore = korsz(z)
+         buf1 = lcore - ibuf - 1
+         buf2 = buf1 - ibuf
          lcore = buf2 - 1
          IF ( lcore<=0 ) THEN
             spag_nextblock_1 = 18
@@ -61,8 +62,8 @@ SUBROUTINE anisop
          i = 0
 !WKBI SPR93033 5/94
          file = mpt
-         CALL preloc(*260,Z(buf1),mpt)
-         CALL locate(*20,Z(buf1),mat1,idx)
+         CALL preloc(*260,z(buf1),mpt)
+         CALL locate(*20,z(buf1),mat1,idx)
          DO
 !WKBD SPR93022 5/94      FILE  = MPT
             CALL read(*280,*20,mpt,idum,12,0,m)
@@ -77,7 +78,7 @@ SUBROUTINE anisop
 !
 !     DONE WITH MAT1
 !
- 20      CALL locate(*40,Z(buf1),imat6,idx)
+ 20      CALL locate(*40,z(buf1),imat6,idx)
          DO
             CALL read(*280,*40,mpt,idum,31,0,m)
             nmat6 = nmat6 + 1
@@ -95,8 +96,8 @@ SUBROUTINE anisop
 !
 !WKBI SPR93033 5/94
          file = ept
-         CALL preloc(*220,Z(buf1),ept)
-         CALL locate(*220,Z(buf1),ipi,idx)
+         CALL preloc(*220,z(buf1),ept)
+         CALL locate(*220,z(buf1),ipi,idx)
          spag_nextblock_1 = 2
       CASE (2)
 !WKBD SPR93033 5/94      FILE = EPT
@@ -131,11 +132,10 @@ SUBROUTINE anisop
          ENDDO
          spag_nextblock_1 = 3
       CASE (3)
-         WRITE (Nout,99001) Ufm , mid
+         WRITE (nout,99001) ufm , mid
 99001    FORMAT (A23,', MATERIAL',I8,', SPECIFIED ON A PIHEX CARD, DOES ','NOT REFERENCE THE PROPER MATERIAL TYPE',/5X,             &
                 &'CID = 0 MEANS MAT1, CID NOT 0 MEANS MAT6')
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     STORE ALL CID,MID PAIRS WHERE CID IS NOT 0
@@ -192,12 +192,12 @@ SUBROUTINE anisop
          ncord1 = 0
          ncord2 = 0
          file = geom1
-         CALL preloc(*260,Z(buf1),geom1)
-         CALL locate(*80,Z(buf1),ic1,idx)
+         CALL preloc(*260,z(buf1),geom1)
+         CALL locate(*80,z(buf1),ic1,idx)
          spag_nextblock_1 = 5
       CASE (5)
          DO WHILE ( icord+12<=lcore )
-            CALL read(*280,*80,geom1,Z(icord),6,0,m)
+            CALL read(*280,*80,geom1,z(icord),6,0,m)
 !
 !     COMPARE AGAINST CIDS ON PIHEX-S
 !
@@ -210,7 +210,6 @@ SUBROUTINE anisop
             ENDDO
          ENDDO
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (6)
 !
 !     MATCH- RESERVE 13 WORDS SINCE THIS CORD1R WILL BE CONVERTED TO
@@ -228,11 +227,11 @@ SUBROUTINE anisop
 !
 !     TRY CORD2R
 !
- 80      CALL locate(*100,Z(buf1),ic2,idx)
+ 80      CALL locate(*100,z(buf1),ic2,idx)
          spag_nextblock_1 = 7
       CASE (7)
          DO WHILE ( icord+12<=lcore )
-            CALL read(*280,*100,geom1,Z(icord),13,0,m)
+            CALL read(*280,*100,geom1,z(icord),13,0,m)
 !
 !     COMPARE
 !
@@ -245,16 +244,14 @@ SUBROUTINE anisop
             ENDDO
          ENDDO
          spag_nextblock_1 = 18
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     MATCH ON CORD2R. CHECK FOR RID. MUST BE 0
 !
          IF ( iz(icord+3)/=0 ) THEN
-            WRITE (Nout,99002) Ufm , iz(j)
+            WRITE (nout,99002) ufm , iz(j)
 99002       FORMAT (A23,', CORD2R',I8,' DEFINES A PIHEX CID BUT HAS NONZERO',' RID')
             spag_nextblock_1 = 9
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
             iz(j) = -iz(j)
@@ -265,15 +262,15 @@ SUBROUTINE anisop
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 7
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     EXHAUSTED CORD2R-S, BUT NOT ALL  CID-S ARE LOCATED
 !
  100     DO jj = 1 , num
             j = ncid + jj
             IF ( iz(j)>=0 ) THEN
-               WRITE (Nout,99003) Ufm , iz(j)
+               WRITE (nout,99003) ufm , iz(j)
 99003          FORMAT (A23,', CID',I8,' ON A PIHEX CARD IS NOT DEFINED TO BE ','CORD1R OR CORD2R')
             ENDIF
          ENDDO
@@ -313,17 +310,17 @@ SUBROUTINE anisop
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL gopen(bgpdt,Z(buf1),0)
+         CALL gopen(bgpdt,z(buf1),0)
          file = bgpdt
-         CALL read(*280,*120,bgpdt,Z(ibgpdt),lcore,0,m)
+         CALL read(*280,*120,bgpdt,z(ibgpdt),lcore,0,m)
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
  120     CALL close(bgpdt,1)
          ieq = ibgpdt + m
          lcore = lcore - m
-         CALL gopen(eqexin,Z(buf1),0)
+         CALL gopen(eqexin,z(buf1),0)
          file = eqexin
-         CALL read(*280,*140,eqexin,Z(ieq),lcore,0,m)
+         CALL read(*280,*140,eqexin,z(ieq),lcore,0,m)
          spag_nextblock_1 = 18
          CYCLE SPAG_DispatchLoop_1
  140     CALL close(eqexin,1)
@@ -339,7 +336,7 @@ SUBROUTINE anisop
                isubk = ipoint + 3 + k
                k3 = 3*(k-1)
                igrid = iz(isubk)
-               CALL bisloc(*240,igrid,Z(ieq),2,m/2,jp)
+               CALL bisloc(*240,igrid,z(ieq),2,m/2,jp)
 !
 !     IM IS POINTER TO INTERNAL NUMBER. NOW FIND BGPDT ENTRY
 !
@@ -348,7 +345,7 @@ SUBROUTINE anisop
                DO l = 1 , 3
                   isubb = ibgpdt + ip + l
                   isubl = k3 + l
-                  store(isubl) = Z(isubb)
+                  store(isubl) = z(isubb)
                ENDDO
             ENDDO
 !
@@ -359,7 +356,7 @@ SUBROUTINE anisop
             iz(ip4) = 0
             DO l = 1 , 9
                isubl = ip4 + l
-               Z(isubl) = store(l)
+               z(isubl) = store(l)
             ENDDO
 !
 !     GO BACK FOR ANOTHER CORD1R
@@ -374,8 +371,8 @@ SUBROUTINE anisop
 !     INFO.
 !
          lcore = mcore
-         CALL gopen(mpt,Z(buf1),0)
-         CALL gopen(mpta,Z(buf2),1)
+         CALL gopen(mpt,z(buf1),0)
+         CALL gopen(mpta,z(buf2),1)
          IF ( icord+30>lcore ) THEN
             spag_nextblock_1 = 18
             CYCLE SPAG_DispatchLoop_1
@@ -386,25 +383,24 @@ SUBROUTINE anisop
          file = mpt
          spag_nextblock_1 = 12
       CASE (12)
-         CALL read(*200,*300,mpt,Z(icord),3,0,m)
-         CALL write(mpta,Z(icord),3,0)
+         CALL read(*200,*300,mpt,z(icord),3,0,m)
+         CALL write(mpta,z(icord),3,0)
          IF ( iz(icord)==imat6(1) ) THEN
             spag_nextblock_1 = 13
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          DO
-            CALL read(*280,*160,mpt,Z(icord),lcore,0,m)
-            CALL write(mpta,Z(icord),lcore,0)
+            CALL read(*280,*160,mpt,z(icord),lcore,0,m)
+            CALL write(mpta,z(icord),lcore,0)
          ENDDO
- 160     CALL write(mpta,Z(icord),m,1)
+ 160     CALL write(mpta,z(icord),m,1)
          spag_nextblock_1 = 12
-         CYCLE SPAG_DispatchLoop_1
       CASE (13)
 !
 !     MAT6 RECORD FOUND. EACH MAT6 CONTAINS 31 WORDS. INCREASE THAT
 !     TO 40
 !
-         CALL read(*280,*180,mpt,Z(icord),31,0,m)
+         CALL read(*280,*180,mpt,z(icord),31,0,m)
 !
 !     SEE IF THIS ID MATCHES A CID ON PIHEX) IT NEED NOT
 !
@@ -422,7 +418,6 @@ SUBROUTINE anisop
             xd(k) = 0.
          ENDDO
          spag_nextblock_1 = 16
-         CYCLE SPAG_DispatchLoop_1
       CASE (14)
 !
 !     MATCH. NOW FIND IT IN CORD1R,CORD2R LIST
@@ -438,22 +433,21 @@ SUBROUTINE anisop
 !     LOGIC ERROR
 !
          ENDDO
-         WRITE (Nout,99004) Ufm
+         WRITE (nout,99004) ufm
 99004    FORMAT (A23,', NON-UNIQUE COORDINATE SYSTEMS ON PIHEX CARDS',/5X,'(SEE USER MANUAL P.2.4-233(05/30/86))')
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (15)
 !
          iz(ipoint+1) = -iz(ipoint+1)
-         a(1) = Z(ipoint+5)
-         a(2) = Z(ipoint+6)
-         a(3) = Z(ipoint+7)
-         b(1) = Z(ipoint+8)
-         b(2) = Z(ipoint+9)
-         b(3) = Z(ipoint+10)
-         c(1) = Z(ipoint+11)
-         c(2) = Z(ipoint+12)
-         c(3) = Z(ipoint+13)
+         a(1) = z(ipoint+5)
+         a(2) = z(ipoint+6)
+         a(3) = z(ipoint+7)
+         b(1) = z(ipoint+8)
+         b(2) = z(ipoint+9)
+         b(3) = z(ipoint+10)
+         c(1) = z(ipoint+11)
+         c(2) = z(ipoint+12)
+         c(3) = z(ipoint+13)
 !
 !     ZP AXIS IS B-A. YP IS ZP X (C-A). XP IS YP X ZP
 !
@@ -492,7 +486,7 @@ SUBROUTINE anisop
 !
 !     WRITE OUT NEW MAT6 RECORD WITH DIRECTION COSINES APPENDED
 !
-         CALL write(mpta,Z(icord),31,0)
+         CALL write(mpta,z(icord),31,0)
 !
 !     GET ANOTHER MAT6
 !
@@ -515,7 +509,7 @@ SUBROUTINE anisop
          CALL rdtrl(itrl)
          itrl(1) = mpta
          CALL wrttrl(itrl)
-         Isop = -1
+         isop = -1
          spag_nextblock_1 = 17
       CASE (17)
          RETURN
@@ -529,7 +523,7 @@ SUBROUTINE anisop
  220     CALL close(ept,1)
          spag_nextblock_1 = 17
          CYCLE SPAG_DispatchLoop_1
- 240     WRITE (Nout,99005) Ufm , igrid
+ 240     WRITE (nout,99005) ufm , igrid
 99005    FORMAT (A23,', EXTERNAL GRID',I8,' CANNOT BE FOUND ON EQEXIN IN ','ANISOP')
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
@@ -549,7 +543,6 @@ SUBROUTINE anisop
          CYCLE SPAG_DispatchLoop_1
  300     n = -3
          spag_nextblock_1 = 19
-         CYCLE SPAG_DispatchLoop_1
       CASE (18)
          file = 0
          n = -8

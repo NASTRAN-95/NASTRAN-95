@@ -1,13 +1,14 @@
-!*==dlamby.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dlamby.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dlamby(Input,Matout,Skj)
+   USE c_amgmn
+   USE c_blank
+   USE c_dlbdy
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_AMGMN
-   USE C_BLANK
-   USE C_DLBDY
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -33,47 +34,47 @@ SUBROUTINE dlamby(Input,Matout,Skj)
    DATA name/4HDLAM , 4HBY  /
    DATA nhaero , nhpoin , nhcore/4HAERO , 4HPOIN , 4HCORE/
 !
-   Scr1 = 301
-   Scr2 = 302
-   Scr3 = 303
-   Scr4 = 304
-   Scr5 = 305
+   scr1 = 301
+   scr2 = 302
+   scr3 = 303
+   scr4 = 304
+   scr5 = 305
 !
 !     GET CORE THEN SET POINTERS TO ACPT TABLE ARRAYS
 !
-   Ecore = korsz(iz) - 4*Sysbuf
+   ecore = korsz(iz) - 4*sysbuf
 !
 !     READ LENGTHS OF ARRAYS
 !
-   CALL fread(Input,Nj1,13,0)
+   CALL fread(Input,nj1,13,0)
 !
 !     COMPUTE POINTERS TO OPEN CORE
 !
-   lns = Inc
-   Inc = 1
-   Ins = Inc
-   Inb = Ins + Np
-   Inas = Inb + Np
-   Izin = Inas
-   Iyin = Izin
-   Inbea1 = Iyin + Np
-   Inbea2 = Inbea1 + Nb
-   Insbea = Inbea2 + Nb
-   Izb = Insbea + Nb
-   Iyb = Izb + Nb
-   Iavr = Iyb + Nb
-   Iarb = Iavr + Nb
-   Infl = Iarb + Nb
-   Ixle = Infl + Nb
-   Ixte = Ixle + Nb
-   Int121 = Ixte + Nb
-   Int122 = Int121 + Nb
-   Izs = Int122 + Nb
-   n = 3*Np + 12*Nb
+   lns = inc
+   inc = 1
+   ins = inc
+   inb = ins + np
+   inas = inb + np
+   izin = inas
+   iyin = izin
+   inbea1 = iyin + np
+   inbea2 = inbea1 + nb
+   insbea = inbea2 + nb
+   izb = insbea + nb
+   iyb = izb + nb
+   iavr = iyb + nb
+   iarb = iavr + nb
+   infl = iarb + nb
+   ixle = infl + nb
+   ixte = ixle + nb
+   int121 = ixte + nb
+   int122 = int121 + nb
+   izs = int122 + nb
+   n = 3*np + 12*nb
 !
 !     READ FIXED ARRAYS
 !
-   IF ( n>Ecore ) THEN
+   IF ( n>ecore ) THEN
 !
 !     ERROR MESSAGES
 !
@@ -84,9 +85,9 @@ SUBROUTINE dlamby(Input,Matout,Skj)
 !     GET LENGTHS OF VARIABLE ARRAYS, PANELS THEN BODIES
 !
       lnas = 0
-      IF ( Np/=0 ) THEN
-         DO i = 1 , Np
-            lnas = lnas + iz(Inas+i-1)
+      IF ( np/=0 ) THEN
+         DO i = 1 , np
+            lnas = lnas + iz(inas+i-1)
          ENDDO
       ENDIF
       lnb = 0
@@ -94,65 +95,65 @@ SUBROUTINE dlamby(Input,Matout,Skj)
       lnfl = 0
       lt1 = 0
       lt2 = 0
-      DO i = 1 , Nb
+      DO i = 1 , nb
          k = i - 1
-         lnb = lnb + iz(Inbea1+k)
-         lnsb = lnsb + iz(Insbea+k)
-         lnfl = lnfl + iz(Infl+k)
-         lt1 = lt1 + iz(Int121+k)
-         lt2 = lt2 + iz(Int122+k)
+         lnb = lnb + iz(inbea1+k)
+         lnsb = lnsb + iz(insbea+k)
+         lnfl = lnfl + iz(infl+k)
+         lt1 = lt1 + iz(int121+k)
+         lt2 = lt2 + iz(int122+k)
       ENDDO
-      Ntbe = Ntp + lnb
+      ntbe = ntp + lnb
 !
 !     READ VARIABLE  ARRAYS AND SET POINTERS TO CORE
 !
-      Next = n + 1
-      n = 2*Nb + 5*lns + 4*Ntp + 3*lnb + 4*lnsb + lnas + 2*lnfl + lt1 + lt2
-      IF ( Next+n+4*Nj>=Ecore ) THEN
+      next = n + 1
+      n = 2*nb + 5*lns + 4*ntp + 3*lnb + 4*lnsb + lnas + 2*lnfl + lt1 + lt2
+      IF ( next+n+4*nj>=ecore ) THEN
          CALL mesage(-8,0,name)
       ELSE
-         CALL fread(Input,iz(Next),n,1)
-         Next = Next + n + 1
-         Iys = Izs + Nb + lns
-         Ics = Iys
-         Iee = Ics + Nb + lns
-         Isg = Iee + lns
-         Icg = Isg + lns
-         Ixij = Icg
-         Ix = Ixij + lns
-         Idelx = Ix + Ntp + lnb
-         Ixic = Idelx + Ntp + lnb
-         Ixlam = Ixic + Ntp
-         Ia0 = Ixlam + Ntp
-         Ixis1 = Ia0 + lnsb
-         Ixis2 = Ixis1 + lnsb
-         Ia0p = Ixis2 + lnsb
-         Iria = Ia0p + lnsb
-         Inasb = Iria + lnb
-         Ifla1 = Inasb + lnas
-         Ifla2 = Ifla1 + lnfl
-         Ith1a = Ifla2 + lnfl
-         Ith2a = Ith1a + lt1
+         CALL fread(Input,iz(next),n,1)
+         next = next + n + 1
+         iys = izs + nb + lns
+         ics = iys
+         iee = ics + nb + lns
+         isg = iee + lns
+         icg = isg + lns
+         ixij = icg
+         ix = ixij + lns
+         idelx = ix + ntp + lnb
+         ixic = idelx + ntp + lnb
+         ixlam = ixic + ntp
+         ia0 = ixlam + ntp
+         ixis1 = ia0 + lnsb
+         ixis2 = ixis1 + lnsb
+         ia0p = ixis2 + lnsb
+         iria = ia0p + lnsb
+         inasb = iria + lnb
+         ifla1 = inasb + lnas
+         ifla2 = ifla1 + lnfl
+         ith1a = ifla2 + lnfl
+         ith2a = ith1a + lt1
 !
 !     BUILD A MATRIX
 !
-         CALL bug(nhaero,100,Nd,5)
-         CALL bug(nhpoin,100,Nj1,59)
-         CALL bug(nhcore,100,Z,Next)
-         n1 = Next
-         n = Next + 2*Ntbe
-         Next = Next + 4*Ntbe
-         IF ( Nt0/=0 ) CALL gendsb(Z(Inc),Z(Inb),Z(Isg),Z(Icg),Z(Infl),Z(Inbea1),Z(Inbea2),Z(Ifla1),Z(Ifla2),Z(n1),Z(n1),Z(n))
-         n = Ntzs + Ntys
-         Next = n1
-         beta = sqrt(1.0-Fmach**2)
-         IF ( Nt0/=0 .AND. n/=0 ) CALL amgrod(Z(n1),beta)
-         CALL amgsba(Matout,Z(Ia0),Z(Iarb),Z(Insbea),Z(n1),Z(Iyb),Z(Izb))
-         Nrow = Nrow + Nj1
+         CALL bug(nhaero,100,nd,5)
+         CALL bug(nhpoin,100,nj1,59)
+         CALL bug(nhcore,100,z,next)
+         n1 = next
+         n = next + 2*ntbe
+         next = next + 4*ntbe
+         IF ( nt0/=0 ) CALL gendsb(z(inc),z(inb),z(isg),z(icg),z(infl),z(inbea1),z(inbea2),z(ifla1),z(ifla2),z(n1),z(n1),z(n))
+         n = ntzs + ntys
+         next = n1
+         beta = sqrt(1.0-fmach**2)
+         IF ( nt0/=0 .AND. n/=0 ) CALL amgrod(z(n1),beta)
+         CALL amgsba(Matout,z(ia0),z(iarb),z(insbea),z(n1),z(iyb),z(izb))
+         nrow = nrow + nj1
 !
 !     BUILD SKJ MATRIX BE SURE TO BUMP ISK NSK
 !
-         CALL amgbfs(Skj,Z(Iee),Z(Idelx),Z(Inc),Z(Inb),Z(Ixis2),Z(Ixis1),Z(Ia0),Z(Ia0p),Z(Insbea))
+         CALL amgbfs(Skj,z(iee),z(idelx),z(inc),z(inb),z(ixis2),z(ixis1),z(ia0),z(ia0p),z(insbea))
       ENDIF
    ENDIF
 END SUBROUTINE dlamby

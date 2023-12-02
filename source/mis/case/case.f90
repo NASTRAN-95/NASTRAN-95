@@ -1,12 +1,13 @@
-!*==case.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==case.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE case
+   USE c_blank
+   USE c_names
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -52,25 +53,25 @@ SUBROUTINE case
 !
 !     PERFORM BUFFER ALLOCATION.
 !
-         buf1 = korsz(Z) - Sysbuf + 1
-         buf3 = buf1 - Sysbuf
-         buf2 = buf3 - Sysbuf
+         buf1 = korsz(z) - sysbuf + 1
+         buf3 = buf1 - sysbuf
+         buf2 = buf3 - sysbuf
          iry = 0
          m8 = -8
-         IF ( Count<=0 ) Count = 1
-         Loop = 1
-         iocnt = Count
+         IF ( count<=0 ) count = 1
+         loop = 1
+         iocnt = count
 !
 !     SET PARAMETER FOR APPROACH.
 !
          n = 2*nrigds - 1
          DO i = 1 , n , 2
-            IF ( rfmts(i)==App(1) ) THEN
+            IF ( rfmts(i)==app(1) ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         CALL mesage(30,75,App)
+         CALL mesage(30,75,app)
          i = 19
          spag_nextblock_1 = 2
       CASE (2)
@@ -80,12 +81,12 @@ SUBROUTINE case
 !     WRITE HEADER RECORD. THEN BRANCH ON APPROACH.
 !
          file = casecc
-         CALL open(*160,casecc,Z(buf1),Rdrew)
-         DO i = 1 , Count
+         CALL open(*160,casecc,z(buf1),rdrew)
+         DO i = 1 , count
             CALL fwdrec(*180,casecc)
          ENDDO
          file = casexx
-         CALL open(*160,casexx,Z(buf2),Wrtrew)
+         CALL open(*160,casexx,z(buf2),wrtrew)
          CALL fname(casexx,buf)
          CALL write(casexx,buf,2,1)
          IF ( branch==1 .OR. branch==3 .OR. branch==4 .OR. branch==7 .OR. branch==8 .OR. branch==10 ) GOTO 140
@@ -93,26 +94,26 @@ SUBROUTINE case
 !
 !     TRANSIENT RESPONSE.
 !
-            CALL read(*180,*120,casecc,Z,buf2,1,ncc)
+            CALL read(*180,*120,casecc,z,buf2,1,ncc)
             CALL mesage(m8,0,nam)
             GOTO 120
          ELSE
 !
 !     COMPLEX EIGENVALUES OR FREQUENCY RESPONSE.
 !
-            CALL read(*180,*20,casecc,Z,buf2,1,ncc)
+            CALL read(*180,*20,casecc,z,buf2,1,ncc)
             CALL mesage(m8,0,nam)
          ENDIF
- 20      buf(1) = Z(ik2pp)
-         buf(2) = Z(ik2pp+1)
-         buf(3) = Z(im2pp)
-         buf(4) = Z(im2pp+1)
-         buf(5) = Z(ib2pp)
-         buf(6) = Z(ib2pp+1)
-         buf(7) = Z(itfl)
-         irset = Z(irand)
-         ifrqst = Z(ifreq)
-         imrqst = Z(imeth)
+ 20      buf(1) = z(ik2pp)
+         buf(2) = z(ik2pp+1)
+         buf(3) = z(im2pp)
+         buf(4) = z(im2pp+1)
+         buf(5) = z(ib2pp)
+         buf(6) = z(ib2pp+1)
+         buf(7) = z(itfl)
+         irset = z(irand)
+         ifrqst = z(ifreq)
+         imrqst = z(imeth)
          IF ( branch==5 .AND. irset/=0 ) iry = 1
          IF ( iry==0 ) THEN
             spag_nextblock_1 = 7
@@ -122,17 +123,17 @@ SUBROUTINE case
 !     BUILD LIST OF UNIQUE LOAD ID-S
 !
          file = psdl
-         CALL open(*60,psdl,Z(buf3),Rdrew)
+         CALL open(*60,psdl,z(buf3),rdrew)
          CALL fwdrec(*100,psdl)
          ils = buf2
          ilf = buf2 - 1
          spag_nextblock_1 = 3
       CASE (3)
          SPAG_Loop_1_1: DO
-            CALL read(*100,*40,psdl,Z(ncc+1),6,0,j)
-            IF ( Z(ncc+1)==irset ) THEN
+            CALL read(*100,*40,psdl,z(ncc+1),6,0,j)
+            IF ( z(ncc+1)==irset ) THEN
                j = 1
-               iload = Z(ncc+2)
+               iload = z(ncc+2)
                IF ( ils/=ilf+1 ) EXIT SPAG_Loop_1_1
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
@@ -141,7 +142,7 @@ SUBROUTINE case
          spag_nextblock_1 = 4
       CASE (4)
          DO i = ils , ilf
-            IF ( Z(i)==iload ) THEN
+            IF ( z(i)==iload ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -152,7 +153,7 @@ SUBROUTINE case
 !     NEW LOAD ID
 !
          ils = ils - 1
-         Z(ils) = iload
+         z(ils) = iload
          spag_nextblock_1 = 6
       CASE (6)
          IF ( j==0 ) THEN
@@ -160,13 +161,13 @@ SUBROUTINE case
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          j = 0
-         iload = Z(ncc+3)
+         iload = z(ncc+3)
          spag_nextblock_1 = 4
          CYCLE SPAG_DispatchLoop_1
 !
 !     END OF PSDL RECORD
 !
- 40      CALL close(psdl,Clsrew)
+ 40      CALL close(psdl,clsrew)
          IF ( ils==ilf+1 ) CALL mesage(-31,irset,error(1))
          buf2 = ils - 1
          spag_nextblock_1 = 7
@@ -177,63 +178,62 @@ SUBROUTINE case
  60      iry = 0
          spag_nextblock_1 = 7
       CASE (7)
-         CALL write(casexx,Z,ncc,1)
-         Count = Count + 1
+         CALL write(casexx,z,ncc,1)
+         count = count + 1
          IF ( iry/=0 ) THEN
 !
 !     CHECK  SUBCASE ID-S
 !
             DO i = ils , ilf
-               IF ( Z(1)==Z(i) ) THEN
+               IF ( z(1)==z(i) ) THEN
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
          ENDIF
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     MARK USED
 !
-         Z(i) = -Z(i)
+         z(i) = -z(i)
          spag_nextblock_1 = 9
       CASE (9)
-         CALL read(*100,*80,casecc,Z,buf2,1,ncc)
+         CALL read(*100,*80,casecc,z,buf2,1,ncc)
          CALL mesage(m8,0,nam)
- 80      IF ( Z(ik2pp)/=buf(1) .OR. Z(ik2pp+1)/=buf(2) .OR. Z(im2pp)/=buf(3) .OR. Z(im2pp+1)/=buf(4) .OR. Z(ib2pp)/=buf(5) .OR.     &
-            & Z(ib2pp+1)/=buf(6) ) GOTO 140
-         IF ( Z(itfl)/=buf(7) ) GOTO 140
-         IF ( Z(imeth)/=0 .AND. Z(imeth)/=imrqst ) GOTO 140
+ 80      IF ( z(ik2pp)/=buf(1) .OR. z(ik2pp+1)/=buf(2) .OR. z(im2pp)/=buf(3) .OR. z(im2pp+1)/=buf(4) .OR. z(ib2pp)/=buf(5) .OR.     &
+            & z(ib2pp+1)/=buf(6) ) GOTO 140
+         IF ( z(itfl)/=buf(7) ) GOTO 140
+         IF ( z(imeth)/=0 .AND. z(imeth)/=imrqst ) GOTO 140
 !
 !     TEST FOR CHANGED FREQUENCY SET
 !
-         IF ( Z(ifreq)/=ifrqst .AND. branch==5 ) GOTO 140
+         IF ( z(ifreq)/=ifrqst .AND. branch==5 ) GOTO 140
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
- 100     Count = -1
+ 100     count = -1
          GOTO 140
- 120     CALL write(casexx,Z,ncc,1)
-         Count = Count + 1
-         CALL read(*100,*140,casecc,Z,buf2,1,ncc)
+ 120     CALL write(casexx,z,ncc,1)
+         count = count + 1
+         CALL read(*100,*140,casecc,z,buf2,1,ncc)
 !
 !     CLOSE FILES. WRITE TRAILER. RETURN.
 !
- 140     CALL close(casecc,Clsrew)
-         CALL close(casexx,Clsrew)
+ 140     CALL close(casecc,clsrew)
+         CALL close(casexx,clsrew)
          mcb(1) = casexx
-         mcb(2) = Count
+         mcb(2) = count
          CALL wrttrl(mcb)
-         IF ( Count<=1 .AND. iocnt==1 ) Loop = -1
+         IF ( count<=1 .AND. iocnt==1 ) loop = -1
 !
 !     CHECK ALL PSDL ACCOUNTED FOR
 !
          IF ( iry/=0 ) THEN
             nogo = 0
             DO i = ils , ilf
-               IF ( Z(i)>=0 ) THEN
+               IF ( z(i)>=0 ) THEN
                   nogo = -1
-                  CALL mesage(33,Z(i),nam)
+                  CALL mesage(33,z(i),nam)
                ENDIF
             ENDDO
             IF ( nogo<0 ) CALL mesage(-7,0,nam)

@@ -1,9 +1,10 @@
-!*==prefix.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==prefix.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE prefix(Iprefx,Name)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -28,23 +29,23 @@ SUBROUTINE prefix(Iprefx,Name)
 !
 !     SET RIGHT HAND PORTION OF WORDS TO ZERO.
 !
-   lword = lshift(rshift(Name(1),Nbpw-4*Nbpc),Nbpw-4*Nbpc)
-   rword = lshift(rshift(Name(2),Nbpw-4*Nbpc),Nbpw-4*Nbpc)
-   Iprefx = lshift(rshift(Iprefx,Nbpw-Nbpc),Nbpw-Nbpc)
-   iblank = rshift(lshift(iblank,4*Nbpc),4*Nbpc)
+   lword = lshift(rshift(Name(1),nbpw-4*nbpc),nbpw-4*nbpc)
+   rword = lshift(rshift(Name(2),nbpw-4*nbpc),nbpw-4*nbpc)
+   Iprefx = lshift(rshift(Iprefx,nbpw-nbpc),nbpw-nbpc)
+   iblank = rshift(lshift(iblank,4*nbpc),4*nbpc)
 !
 !     MOVE RIGHT WORD ONE CHARACTER AND PREFIX WITH LAST CHARACTER
 !     OF LEFT WORD.
 !
-   rword = orf(lshift(lword,3*Nbpc),rshift(rword,Nbpc))
-   rword = lshift(rshift(rword,Nbpw-4*Nbpc),Nbpw-4*Nbpc)
+   rword = orf(lshift(lword,3*nbpc),rshift(rword,nbpc))
+   rword = lshift(rshift(rword,nbpw-4*nbpc),nbpw-4*nbpc)
    rword = orf(rword,iblank)
 !
 !     MOVE LEFT WORD ONE CHARACTER TO RIGHT AND PREFIX WITH INPUT
 !     VALUE.
 !
-   lword = orf(Iprefx,rshift(lword,Nbpc))
-   lword = lshift(rshift(lword,Nbpw-4*Nbpc),Nbpw-4*Nbpc)
+   lword = orf(Iprefx,rshift(lword,nbpc))
+   lword = lshift(rshift(lword,nbpw-4*nbpc),nbpw-4*nbpc)
    lword = orf(lword,iblank)
 !
    Name(1) = lword

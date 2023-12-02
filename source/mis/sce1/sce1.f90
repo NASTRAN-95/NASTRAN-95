@@ -1,9 +1,10 @@
-!*==sce1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sce1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sce1
+   USE c_patx
    IMPLICIT NONE
-   USE C_PATX
 !
 ! Local variable declarations rewritten by SPAG
 !

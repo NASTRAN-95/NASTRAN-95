@@ -1,9 +1,10 @@
-!*==vdrbd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==vdrbd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 BLOCKDATA vdrbd
+   USE c_vdrcom
    IMPLICIT NONE
-   USE C_VDRCOM
 !VDRBD
 ! BLOCK DATA FOR THE VECTOR DATA RECOVERY MODULE (VDR).
 !*****
@@ -12,19 +13,19 @@ BLOCKDATA vdrbd
 !
 ! DATA DEFINING POSITION OF PARAMETERS IN CASE CONTROL RECORD.
 !
-   DATA Idisp/20/ , Ivel/32/ , Iacc/29/ , Ispcf/35/ , Iloads/17/ , Istr/23/ , Ielf/26/ , Iadisp/151/ , Iavel/154/ , Iaacc/157/ ,    &
-      & Ipnl/10/ , Ittl/39/ , Ilsym/200/ , Ifrout/145/ , Idload/13/
+   DATA idisp/20/ , ivel/32/ , iacc/29/ , ispcf/35/ , iloads/17/ , istr/23/ , ielf/26/ , iadisp/151/ , iavel/154/ , iaacc/157/ ,    &
+      & ipnl/10/ , ittl/39/ , ilsym/200/ , ifrout/145/ , idload/13/
 !
 ! DATA DEFINING GINO FILE NAMES
 !
-   DATA Casecc/101/ , Eqdyn/102/ , Usetd/103/ , Infile/104/ , Oeigs/105/ , Pp/105/ , Xycdb/106/ , Pnl/107/ , Outfle/201/ ,          &
-      & Opnl1/202/ , Scr1/301/ , Scr2/302/
+   DATA casecc/101/ , eqdyn/102/ , usetd/103/ , infile/104/ , oeigs/105/ , pp/105/ , xycdb/106/ , pnl/107/ , outfle/201/ ,          &
+      & opnl1/202/ , scr1/301/ , scr2/302/
 !
 ! MISC DATA
 !
-   DATA Buf/50*0/ , Nam/4HVDR  , 4H    / , Masks/4 , 8 , 16 , 32 , 64 , 128/ , Xset0/100000000/
+   DATA buf/50*0/ , nam/4HVDR  , 4H    / , masks/4 , 8 , 16 , 32 , 64 , 128/ , xset0/100000000/
 !
 ! DATA DEFINING RIGID FORMATS AND PROBLEM TYPES
 !
-   DATA Cei/4HCEIG , 4HEN  / , Frq/4HFREQ , 4HRESP/ , Trn/4HTRAN , 4HRESP/ , Modal/4HMODA , 4HL   / , Direct/4HDIRE , 4HCT  /
+   DATA cei/4HCEIG , 4HEN  / , frq/4HFREQ , 4HRESP/ , trn/4HTRAN , 4HRESP/ , modal/4HMODA , 4HL   / , direct/4HDIRE , 4HCT  /
 END BLOCKDATA vdrbd

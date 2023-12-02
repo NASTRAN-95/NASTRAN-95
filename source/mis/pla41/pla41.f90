@@ -1,11 +1,12 @@
-!*==pla41.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pla41.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla41
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -51,29 +52,29 @@ SUBROUTINE pla41
 !
 !     INITIALIZE
 !
-         izmax = korsz(Z)
-         buffr1 = izmax - Sysbuf
-         buffr2 = buffr1 - Sysbuf
+         izmax = korsz(z)
+         buffr1 = izmax - sysbuf
+         buffr2 = buffr1 - sysbuf
          left = buffr2 - 1
 !
 !     READ THE DISPLACEMENT VECTOR INTO OPEN CORE.
 !
          file = ugv
-         CALL gopen(ugv,Z(buffr1),0)
+         CALL gopen(ugv,z(buffr1),0)
          mcbugv(1) = ugv
          CALL rdtrl(mcbugv)
          IF ( left<mcbugv(3) ) CALL mesage(-8,0,name)
-         Itypeb = 1
-         Iunpk = 1
-         Junpk = mcbugv(3)
-         Incupk = 1
-         CALL unpack(*100,ugv,Z(1))
+         itypeb = 1
+         iunpk = 1
+         junpk = mcbugv(3)
+         incupk = 1
+         CALL unpack(*100,ugv,z(1))
          CALL close(ugv,clsrw)
 !
 !     OPEN THE ECPTNL AND ECPTS FILES.
 !
-         CALL gopen(ecpts,Z(buffr1),1)
-         CALL gopen(ecptnl,Z(buffr2),0)
+         CALL gopen(ecpts,z(buffr1),1)
+         CALL gopen(ecptnl,z(buffr2),0)
          spag_nextblock_1 = 2
       CASE (2)
 !
@@ -102,7 +103,7 @@ SUBROUTINE pla41
             DO i = 1 , nogpts
                index = iecpt(i+1)
                DO k = 1 , nwds
-                  xecpt(j) = Z(index)
+                  xecpt(j) = z(index)
                   index = index + 1
                   j = j + 1
                ENDDO

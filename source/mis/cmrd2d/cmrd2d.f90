@@ -1,18 +1,19 @@
-!*==cmrd2d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmrd2d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2d(Iter)
-USE C_BITPOS
-USE C_BLANK
-USE C_MPYADX
-USE C_PACKX
-USE C_PARMEG
-USE C_PATX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_mpyadx
+   USE c_packx
+   USE c_parmeg
+   USE c_patx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -97,18 +98,18 @@ USE ISO_FORTRAN_ENV
 !
 !     READ LAMA FILE
 !
-         IF ( Dry==-2 ) RETURN
-         kore = Korbgn
+         IF ( dry==-2 ) RETURN
+         kore = korbgn
          ifile = lamamr
-         CALL gopen(lamamr,Z(Gbuf1),0)
+         CALL gopen(lamamr,z(gbuf1),0)
          CALL fwdrec(*60,lamamr)
          lamwds = 6
-         IF ( Modes ) lamwds = 7
+         IF ( modes ) lamwds = 7
          it = 0
          DO
-            CALL read(*40,*20,lamamr,Z(Korbgn),lamwds,0,nwds)
-            Korbgn = Korbgn + 6
-            IF ( Korbgn>=Korlen ) THEN
+            CALL read(*40,*20,lamamr,z(korbgn),lamwds,0,nwds)
+            korbgn = korbgn + 6
+            IF ( korbgn>=korlen ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -119,55 +120,55 @@ USE ISO_FORTRAN_ENV
 !     ZERO OUT PARTITIONING VECTOR AND SET UP MODE USE DESCRIPTION
 !     RECORD
 !
-         modext = Korbgn
+         modext = korbgn
          itrlr(1) = phissr
          IF ( Iter==2 ) itrlr(1) = phissl
          CALL rdtrl(itrlr)
          itphis = itrlr(2)
-         IF ( 3*itphis+modext>=Korlen ) THEN
+         IF ( 3*itphis+modext>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          lamlen = lamwds*itphis
-         nnmax = min0(Nmax,itphis)
-         Moduse = modext + itphis
+         nnmax = min0(nmax,itphis)
+         moduse = modext + itphis
          ipartn = modext + 2*itphis
-         Modlen = itphis
+         modlen = itphis
          DO i = 1 , itphis
-            Z(Moduse+i-1) = 3
-            Z(modext+i-1) = 0
+            z(moduse+i-1) = 3
+            z(modext+i-1) = 0
             rz(ipartn+i-1) = 0.0
          ENDDO
 !
 !     SELECT DESIRED MODES
 !
-         Korbgn = modext + 3*itphis
-         Nfound = 0
+         korbgn = modext + 3*itphis
+         nfound = 0
          SPAG_Loop_1_1: DO i = 1 , itphis
-            IF ( Nfound==nnmax ) EXIT SPAG_Loop_1_1
+            IF ( nfound==nnmax ) EXIT SPAG_Loop_1_1
             j = 3 + lamwds*(i-1)
-            IF ( rz(kore+j)>Range(1) .AND. rz(kore+j)<Range(2) ) THEN
-               Z(modext+Nfound) = i
-               Nfound = Nfound + 1
-               Z(Moduse+i-1) = 1
+            IF ( rz(kore+j)>range(1) .AND. rz(kore+j)<range(2) ) THEN
+               z(modext+nfound) = i
+               nfound = nfound + 1
+               z(moduse+i-1) = 1
                rz(ipartn+i-1) = 1.0
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
 !     PACK OUT PARTITIONING VECTOR
 !
-         Typin = 1
-         Typep = 1
-         Irowp = 1
-         Nrowp = itrlr(2)
-         Incrp = 1
+         typin = 1
+         typep = 1
+         irowp = 1
+         nrowp = itrlr(2)
+         incrp = 1
          iform = 2
-         CALL makmcb(itrlr,pprtn,Nrowp,iform,Typin)
-         CALL gopen(pprtn,Z(Gbuf1),1)
+         CALL makmcb(itrlr,pprtn,nrowp,iform,typin)
+         CALL gopen(pprtn,z(gbuf1),1)
          CALL pack(rz(ipartn),pprtn,itrlr)
          CALL close(pprtn,1)
          CALL wrttrl(itrlr)
-         Korbgn = Korbgn - itphis
+         korbgn = korbgn - itphis
 !
 !     PARTITION PHISS(R,L) MATRICES
 !
@@ -177,14 +178,14 @@ USE ISO_FORTRAN_ENV
 !        *       *   *   .       *
 !        **     **   **         **
 !
-         Nsub(1) = itphis - Nfound
-         Nsub(2) = Nfound
-         Nsub(3) = 0
-         Lcore = Korlen - Korbgn
-         icore = Lcore
+         nsub(1) = itphis - nfound
+         nsub(2) = nfound
+         nsub(3) = 0
+         lcore = korlen - korbgn
+         icore = lcore
          phiss = phissr
          IF ( Iter==2 ) phiss = phissl
-         CALL gmprtn(phiss,0,0,phiam,0,pprtn,0,Nsub(1),Nsub(2),Z(Korbgn),icore)
+         CALL gmprtn(phiss,0,0,phiam,0,pprtn,0,nsub(1),nsub(2),z(korbgn),icore)
 !
 !     PARTITION PHIAM MATRIX
 !
@@ -198,21 +199,21 @@ USE ISO_FORTRAN_ENV
 !                    *       *
 !                    **     **
 !
-         Fuset = usetmr
-         CALL calcv(pprtn,Un,Ui,Ub,Z(Korbgn))
-         CALL gmprtn(phiam,phiim,phibm,0,0,0,pprtn,Nsub(1),Nsub(2),Z(Korbgn),icore)
+         fuset = usetmr
+         CALL calcv(pprtn,un,ui,ub,z(korbgn))
+         CALL gmprtn(phiam,phiim,phibm,0,0,0,pprtn,nsub(1),nsub(2),z(korbgn),icore)
          khim = 0
-         IF ( Ia21(6)==0 ) THEN
+         IF ( ia21(6)==0 ) THEN
 !
 !     PHIBM IS NULL, HIM = PHIIM
 !
             himscr = phiim
-            i = Ia11(2)
-            ii = Ia11(3)
-            iform = Ia11(4)
-            himtyp = Ia11(5)
+            i = ia11(2)
+            ii = ia11(3)
+            iform = ia11(4)
+            himtyp = ia11(5)
             khim = 1
-            dblkor = Korbgn/2 + 1
+            dblkor = korbgn/2 + 1
          ELSE
 !
 !     COMPUTE MODAL TRANSFORMATION MATRIX
@@ -227,13 +228,13 @@ USE ISO_FORTRAN_ENV
                itrlr(1) = gibbar
                CALL rdtrl(itrlr)
             ELSE
-               CALL softrl(Oldnam,item,itrlr)
+               CALL softrl(oldnam,item,itrlr)
                itest = itrlr(1)
                IF ( itest/=1 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL mtrxi(gib,Oldnam,item,0,itest)
+               CALL mtrxi(gib,oldnam,item,0,itest)
                IF ( itest/=1 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
@@ -241,61 +242,61 @@ USE ISO_FORTRAN_ENV
                itrlr(1) = gib
             ENDIF
             DO i = 1 , 7
-               Itrlra(i) = itrlr(i)
-               Itrlrb(i) = Ia21(i)
-               Itrlrc(i) = Ia11(i)
+               itrlra(i) = itrlr(i)
+               itrlrb(i) = ia21(i)
+               itrlrc(i) = ia11(i)
             ENDDO
             iform = 2
             iprc = 1
             ityp = 0
-            IF ( Itrlra(5)==2 .OR. Itrlra(5)==4 ) iprc = 2
-            IF ( Itrlrb(5)==2 .OR. Itrlrb(5)==4 ) iprc = 2
-            IF ( Itrlrc(5)==2 .OR. Itrlrc(5)==4 ) iprc = 2
-            IF ( Itrlra(5)>=3 ) ityp = 2
-            IF ( Itrlrb(5)>=3 ) ityp = 2
-            IF ( Itrlrc(5)>=3 ) ityp = 2
+            IF ( itrlra(5)==2 .OR. itrlra(5)==4 ) iprc = 2
+            IF ( itrlrb(5)==2 .OR. itrlrb(5)==4 ) iprc = 2
+            IF ( itrlrc(5)==2 .OR. itrlrc(5)==4 ) iprc = 2
+            IF ( itrlra(5)>=3 ) ityp = 2
+            IF ( itrlrb(5)>=3 ) ityp = 2
+            IF ( itrlrc(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Itrlrd,himscr,itrlr(3),iform,itype)
+            CALL makmcb(itrlrd,himscr,itrlr(3),iform,itype)
             CALL sofcls
-            T = 0
-            Signab = -1
-            Signc = 1
-            Prec = 0
-            Scr = Iscr(7)
-            dblkor = Korbgn/2 + 1
-            Nz = Lstzwd - 2*dblkor - 1
+            t = 0
+            signab = -1
+            signc = 1
+            prec = 0
+            scr = iscr(7)
+            dblkor = korbgn/2 + 1
+            nz = lstzwd - 2*dblkor - 1
             CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-            CALL wrttrl(Itrlrd)
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-            i = Itrlrd(2)
-            ii = Itrlrd(3)
-            iform = Itrlrd(4)
-            himtyp = Itrlrd(5)
+            CALL wrttrl(itrlrd)
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+            i = itrlrd(2)
+            ii = itrlrd(3)
+            iform = itrlrd(4)
+            himtyp = itrlrd(5)
          ENDIF
 !
 !     TEST SELECTED MODES
 !
          ncore = 4*ii
-         IF ( khim==0 ) ncore = ncore + 4*Ia11(3)
-         IF ( Korbgn+ncore>=Korlen ) THEN
+         IF ( khim==0 ) ncore = ncore + 4*ia11(3)
+         IF ( korbgn+ncore>=korlen ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Typin = himtyp
-         Typep = himtyp
-         Irowp = 1
-         Nrowp = ii
-         Incrp = 1
-         Irowu = 1
+         typin = himtyp
+         typep = himtyp
+         irowp = 1
+         nrowp = ii
+         incrp = 1
+         irowu = 1
          jhim = him
          IF ( Iter==2 ) jhim = himbar
-         CALL gopen(himscr,Z(Gbuf1),0)
-         IF ( khim==0 ) CALL gopen(phiim,Z(Gbuf2),0)
+         CALL gopen(himscr,z(gbuf1),0)
+         IF ( khim==0 ) CALL gopen(phiim,z(gbuf2),0)
          CALL makmcb(itrlr,jhim,ii,iform,himtyp)
-         CALL gopen(jhim,Z(Gbuf3),1)
-         Nfound = 0
+         CALL gopen(jhim,z(gbuf3),1)
+         nfound = 0
          it = i
-         dblkor = Korbgn/2 + 1
+         dblkor = korbgn/2 + 1
          sglkor = 2*dblkor - 1
          IF ( himtyp==3 ) dicore = ((sglkor+2*ii)/2) + 1
          IF ( himtyp==4 ) dicore = dblkor + 2*ii
@@ -308,16 +309,16 @@ USE ISO_FORTRAN_ENV
             SPAG_DispatchLoop_2: DO
                SELECT CASE (spag_nextblock_2)
                CASE (1)
-                  Typeu = himtyp
-                  Incru = 1
-                  Nrowu = ii
-                  ihim = Nrowu
+                  typeu = himtyp
+                  incru = 1
+                  nrowu = ii
+                  ihim = nrowu
                   CALL unpack(*24,himscr,dz(dblkor))
                   IF ( khim/=1 ) THEN
-                     Typeu = Ia11(5)
-                     Incru = 1
-                     Nrowu = Ia11(3)
-                     iphim = Nrowu
+                     typeu = ia11(5)
+                     incru = 1
+                     nrowu = ia11(3)
+                     iphim = nrowu
                      CALL unpack(*22,phiim,dz(dicore))
                   ENDIF
 !
@@ -349,7 +350,7 @@ USE ISO_FORTRAN_ENV
                      spag_nextblock_2 = 2
                      CYCLE SPAG_DispatchLoop_2
                   ENDIF
-                  IF ( Ia11(5)==4 ) THEN
+                  IF ( ia11(5)==4 ) THEN
                      itype = itype + 2
                      dphim = 0.0D0
                      DO j = 1 , iphim
@@ -397,14 +398,13 @@ USE ISO_FORTRAN_ENV
 !
 !     REJECT MODE
 !
- 22               j = Z(modext+i-1)
-                  Z(Moduse+j-1) = 2
-                  CYCLE
+ 22               j = z(modext+i-1)
+                  z(moduse+j-1) = 2
                CASE (2)
 !
 !     USE MODE
 !
-                  Nfound = Nfound + 1
+                  nfound = nfound + 1
 !
 !     SCALE HIM COLUMN
 !
@@ -438,7 +438,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PACK HIM COLUMN
 !
-                  Nrowp = Nrowu
+                  nrowp = nrowu
                   CALL pack(dz(dblkor),jhim,itrlr)
                   EXIT SPAG_DispatchLoop_2
                END SELECT
@@ -448,7 +448,7 @@ USE ISO_FORTRAN_ENV
          IF ( khim==0 ) CALL close(phiim,1)
          CALL close(himscr,1)
          CALL wrttrl(itrlr)
-         Korbgn = kore
+         korbgn = kore
          IF ( khim==1 ) himscr = iscr7
          RETURN
 !
@@ -459,7 +459,6 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  60      imsg = -3
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          imsg = -8
          ifile = 0
@@ -481,19 +480,19 @@ USE ISO_FORTRAN_ENV
             imsg = -3
          ELSEIF ( itest==6 ) THEN
 !
-            WRITE (Iprntr,99001) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99001) ufm , modnam , item , oldnam
 99001       FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCRURE ',2A4,             &
                    &', IS PURGED.')
-            Dry = -2
+            dry = -2
             RETURN
          ELSE
-            WRITE (Iprntr,99002) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99002) ufm , modnam , item , oldnam
 !
 99002       FORMAT (A23,' 6215, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' PSEUDO-EXISTS ONLY.')
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
-         CALL smsg(imsg,item,Oldnam)
+         CALL smsg(imsg,item,oldnam)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

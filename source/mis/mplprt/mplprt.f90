@@ -1,15 +1,16 @@
-!*==mplprt.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mplprt.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mplprt
-USE C_OUTPUT
-USE C_SYSTEM
-USE C_XFIST
-USE C_XGPI2
-USE C_XGPI2X
-USE C_XMSSG
-USE C_XPFIST
-USE ISO_FORTRAN_ENV                 
+   USE c_output
+   USE c_system
+   USE c_xfist
+   USE c_xgpi2
+   USE c_xgpi2x
+   USE c_xmssg
+   USE c_xpfist
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -50,45 +51,45 @@ USE ISO_FORTRAN_ENV
    npad = 0
    i2 = 0
    DO i = 1 , 32
-      H1(i) = h1x(i)
-      H2(i) = h2x(i)
-      H3(i) = h3x(i)
+      h1(i) = h1x(i)
+      h2(i) = h2x(i)
+      h3(i) = h3x(i)
    ENDDO
    CALL page
    SPAG_Loop_1_1: DO
 !
 !     PROCESS NEXT ENTRY
 !
-      IF ( i2<Lmpl ) THEN
+      IF ( i2<lmpl ) THEN
          i0 = i2
          i1 = i2 + 1
-         i2 = i0 + Mpl(i1)
+         i2 = i0 + mpl(i1)
          mplid = mplid + 1
 !
 !     TEST FOR MODULE TYPE
 !
-         IF ( Mpl(i1)<1 ) THEN
+         IF ( mpl(i1)<1 ) THEN
 !
-            WRITE (No,99001) Swm
+            WRITE (no,99001) swm
 99001       FORMAT (A27,' 68, ILLEGAL WORD COUNT.')
             CALL spag_block_2
             RETURN
-         ELSEIF ( Mpl(i1)/=1 ) THEN
-            IF ( Mpl(i1+1)/=0 ) THEN
-               IF ( Mpl(i0+4)>=3 ) THEN
+         ELSEIF ( mpl(i1)/=1 ) THEN
+            IF ( mpl(i1+1)/=0 ) THEN
+               IF ( mpl(i0+4)>=3 ) THEN
 !
 !     EXECUTIVE MODULE
 !
                   CALL page2(-2)
                   l1 = i0 + 2
                   l2 = l1 + 2
-                  WRITE (No,99002) mplid , Mpl(i1) , i1 , (Mpl(l),l=l1,l2)
+                  WRITE (no,99002) mplid , mpl(i1) , i1 , (mpl(l),l=l1,l2)
 99002             FORMAT (7H0      ,3I5,2X,2A4,I3)
                   CYCLE
 !
 !     FUNCTIONAL MODULE
 !
-               ELSEIF ( Mpl(i1)>7 ) THEN
+               ELSEIF ( mpl(i1)>7 ) THEN
 !
 !     PARAMETERS EXIST FOR THIS FUNCTIONAL MODULE
 !
@@ -99,12 +100,12 @@ USE ISO_FORTRAN_ENV
                   i = i0 + 8
                   DO
                      IF ( (i-1)<(i2) ) THEN
-                        ip = iabs(Mpl(i))
+                        ip = iabs(mpl(i))
                         IF ( ip>6 ) EXIT SPAG_Loop_1_1
-                        IF ( Mpl(i)<0 ) THEN
+                        IF ( mpl(i)<0 ) THEN
                            np = np + 1
                            i = i + 1
-                        ELSEIF ( Mpl(i)==0 ) THEN
+                        ELSEIF ( mpl(i)==0 ) THEN
                            EXIT SPAG_Loop_1_1
                         ELSE
                            np = np + 1
@@ -121,12 +122,12 @@ USE ISO_FORTRAN_ENV
                         l2 = l1 + 2
                         tot = 0
                         DO l = l1 , l2
-                           tot = tot + Mpl(l)
+                           tot = tot + mpl(l)
                         ENDDO
                         flgtot = flagb
-                        IF ( tot>Nfist-Npfist ) flgtot = flags
+                        IF ( tot>nfist-npfist ) flgtot = flags
                         l1 = i0 + 2
-                        WRITE (No,99003) mplid , Mpl(i1) , i1 , (Mpl(l),l=l1,l2) , tot , flgtot
+                        WRITE (no,99003) mplid , mpl(i1) , i1 , (mpl(l),l=l1,l2) , tot , flgtot
 !
 99003                   FORMAT (7H0      ,3I5,2X,2A4,I3,4I5,10X,A3)
 !
@@ -139,9 +140,9 @@ USE ISO_FORTRAN_ENV
                            np = np + 1
                            j1 = j2 + 1
                            IF ( (i-1)<(i2) ) THEN
-                              ip = iabs(Mpl(i))
+                              ip = iabs(mpl(i))
                               IF ( ip>6 ) EXIT SPAG_Loop_1_1
-                              IF ( Mpl(i)<0 ) THEN
+                              IF ( mpl(i)<0 ) THEN
 !
 !     PARAMETER HAS NO DEFAULT VALUE
 !
@@ -150,14 +151,14 @@ USE ISO_FORTRAN_ENV
 !
 !     REAL SINGLE-PRECISION
 !
-                                    WRITE (No,99004) np , i , j1
+                                    WRITE (no,99004) np , i , j1
 99004                               FORMAT (59X,I2,5H. RSP,I5,7X,16H-- NO DEFAULT --,6X,I2)
                                  ELSEIF ( ip==3 ) THEN
 !
 !     ALPHANUMERIC (BCD)
 !
                                     j2 = j2 + 1
-                                    WRITE (No,99005) np , i , j1 , j2
+                                    WRITE (no,99005) np , i , j1 , j2
 99005                               FORMAT (59X,I2,5H. BCD,I5,7X,16H-- NO DEFAULT --,6X,I2,1H-,I2)
                                  ELSEIF ( ip==4 ) THEN
 !
@@ -166,7 +167,7 @@ USE ISO_FORTRAN_ENV
                                     j2 = j2 + 1
                                     flag = flagb
                                     IF ( mod(j1,2)==0 ) flag = flags
-                                    WRITE (No,99006) np , i , j1 , j2 , flag
+                                    WRITE (no,99006) np , i , j1 , j2 , flag
 99006                               FORMAT (59X,I2,5H. RDP,I5,7X,16H-- NO DEFAULT --,6X,I2,1H-,I2,A4)
                                  ELSEIF ( ip==5 ) THEN
 !
@@ -175,7 +176,7 @@ USE ISO_FORTRAN_ENV
                                     j2 = j2 + 1
                                     flag = flagb
                                     IF ( mod(j1,2)==0 ) flag = flags
-                                    WRITE (No,99007) np , i , j1 , j2 , flag
+                                    WRITE (no,99007) np , i , j1 , j2 , flag
 99007                               FORMAT (59X,I2,5H. CSP,I5,7X,16H-- NO DEFAULT --,6X,I2,1H-,I2,A4)
                                  ELSEIF ( ip==6 ) THEN
 !
@@ -184,17 +185,17 @@ USE ISO_FORTRAN_ENV
                                     j2 = j2 + 3
                                     flag = flagb
                                     IF ( mod(j1,2)==0 ) flag = flags
-                                    WRITE (No,99008) np , i , j1 , j2 , flag
+                                    WRITE (no,99008) np , i , j1 , j2 , flag
 99008                               FORMAT (59X,I2,5H. CDP,I5,7X,16H-- NO DEFAULT --,6X,I2,1H-,I2,A4)
                                  ELSE
 !
 !     INTEGER
 !
-                                    WRITE (No,99009) np , i , j1
+                                    WRITE (no,99009) np , i , j1
 99009                               FORMAT (59X,I2,5H. INT,I5,7X,16H-- NO DEFAULT --,6X,I2)
                                  ENDIF
                                  i = i + 1
-                              ELSEIF ( Mpl(i)==0 ) THEN
+                              ELSEIF ( mpl(i)==0 ) THEN
                                  EXIT SPAG_Loop_1_1
 !
 !     PARAMETER HAS A DEFAULT VALUE
@@ -204,8 +205,8 @@ USE ISO_FORTRAN_ENV
 !     REAL SINGLE-PRECISION
 !
                                  j2 = j1
-                                 m = Mpl(i+1)
-                                 WRITE (No,99010) np , i , x(1,m) , j1
+                                 m = mpl(i+1)
+                                 WRITE (no,99010) np , i , x(1,m) , j1
 99010                            FORMAT (59X,I2,5H. RSP,I5,1P,E20.4,9X,I2)
                                  i = i + 2
                               ELSEIF ( ip==3 ) THEN
@@ -213,7 +214,7 @@ USE ISO_FORTRAN_ENV
 !     ALPHANUMERIC (BCD)
 !
                                  j2 = j1 + 1
-                                 WRITE (No,99011) np , i , Mpl(i+1) , Mpl(i+2) , j1 , j2
+                                 WRITE (no,99011) np , i , mpl(i+1) , mpl(i+2) , j1 , j2
 99011                            FORMAT (59X,I2,5H. BCD,I5,11X,2A4,10X,I2,1H-,I2)
                                  i = i + 3
                               ELSEIF ( ip==4 ) THEN
@@ -221,10 +222,10 @@ USE ISO_FORTRAN_ENV
 !     REAL DOUBLE-PRECISION
 !
                                  j2 = j1 + 1
-                                 m = Mpl(i+1)
+                                 m = mpl(i+1)
                                  flag = flagb
                                  IF ( mod(j1,2)==0 ) flag = flags
-                                 WRITE (No,99012) np , i , Xx(m) , j1 , j2 , flag
+                                 WRITE (no,99012) np , i , xx(m) , j1 , j2 , flag
 99012                            FORMAT (59X,I2,5H. RDP,I5,1P,D20.4,9X,I2,1H-,I2,A4)
                                  i = i + 3
                               ELSEIF ( ip==5 ) THEN
@@ -232,10 +233,10 @@ USE ISO_FORTRAN_ENV
 !     COMPLEX SINGLE-PRECISION
 !
                                  j2 = j1 + 1
-                                 m = Mpl(i+1)
+                                 m = mpl(i+1)
                                  flag = flagb
                                  IF ( mod(j1,2)==0 ) flag = flags
-                                 WRITE (No,99013) np , i , x(1,m) , x(2,m) , j1 , j2 , flag
+                                 WRITE (no,99013) np , i , x(1,m) , x(2,m) , j1 , j2 , flag
 99013                            FORMAT (59X,I2,5H. CSP,I5,3H  (,1P,E11.4,1H,,1P,E11.4,3H   ,I2,1H-,I2,A4)
                                  i = i + 3
                               ELSEIF ( ip==6 ) THEN
@@ -243,11 +244,11 @@ USE ISO_FORTRAN_ENV
 !     COMPLEX DOUBLE-PRECISION
 !
                                  j2 = j1 + 3
-                                 m1 = Mpl(i+1)
-                                 m2 = Mpl(i+3)
+                                 m1 = mpl(i+1)
+                                 m2 = mpl(i+3)
                                  flag = flagb
                                  IF ( mod(j1,2)==0 ) flag = flags
-                                 WRITE (No,99014) np , i , Xx(m1) , Xx(m2) , j1 , j2 , flag
+                                 WRITE (no,99014) np , i , xx(m1) , xx(m2) , j1 , j2 , flag
 99014                            FORMAT (59X,I2,5H. CDP,I5,3H  (,1P,D11.4,1H,,1P,D11.4,3H)  ,I2,1H-,I2,A4)
                                  i = i + 5
                               ELSE
@@ -255,15 +256,15 @@ USE ISO_FORTRAN_ENV
 !     INTEGER
 !
                                  j2 = j1
-                                 WRITE (No,99015) np , i , Mpl(i+1) , j1
+                                 WRITE (no,99015) np , i , mpl(i+1) , j1
 99015                            FORMAT (59X,I2,5H. INT,I5,I15,14X,I2)
                                  i = i + 2
                               ENDIF
                            ELSEIF ( (i-1)==(i2) ) THEN
 !
-                              IF ( Mpl(l1)==add(1) .AND. Mpl(l1+1)==add(2) ) THEN
+                              IF ( mpl(l1)==add(1) .AND. mpl(l1+1)==add(2) ) THEN
                                  CALL page2(-2)
-                                 WRITE (No,99016)
+                                 WRITE (no,99016)
 99016                            FORMAT (10X,'NOTE - THE ABOVE PARAMETER DEFAULTS WILL BE CHANGED',                                 &
                                    &' TO ALL ZEROS BY THE ADD MODULE.  HOWEVER, IF ALL 4 PARAMETERS',' ARE NOT',/10X,               &
                                    &'SPECIFIED, THEY WILL BE CHANGED TO 2*(1.,0.),',                                                &
@@ -289,12 +290,12 @@ USE ISO_FORTRAN_ENV
                   l2 = l1 + 2
                   tot = 0
                   DO l = l1 , l2
-                     tot = tot + Mpl(l)
+                     tot = tot + mpl(l)
                   ENDDO
                   flgtot = flagb
-                  IF ( tot>Nfist-Npfist ) flgtot = flags
+                  IF ( tot>nfist-npfist ) flgtot = flags
                   l1 = i0 + 2
-                  WRITE (No,99017) mplid , Mpl(i1) , i1 , (Mpl(l),l=l1,l2) , tot , flgtot
+                  WRITE (no,99017) mplid , mpl(i1) , i1 , (mpl(l),l=l1,l2) , tot , flgtot
 99017             FORMAT (7H0      ,3I5,2X,2A4,I3,4I5,10X,50H----- N O   P A R A M E T E R S   E X I S T ----- ,10X,A3)
                   CYCLE
                ENDIF
@@ -304,17 +305,17 @@ USE ISO_FORTRAN_ENV
 !     PAD SPACE
 !
          CALL page2(-2)
-         WRITE (No,99018) mplid , Mpl(i1) , i1
+         WRITE (no,99018) mplid , mpl(i1) , i1
 99018    FORMAT (7H0      ,3I5,2X,8H (NONE) )
          npad = npad + 1
-      ELSEIF ( i2==Lmpl ) THEN
+      ELSEIF ( i2==lmpl ) THEN
 !
 !     TERMINATION
 !
          CALL page2(-4)
-         WRITE (No,99019)
+         WRITE (no,99019)
 99019    FORMAT ('0*** END OF MPL PRINTOUT')
-         WRITE (No,99020) mplid , npad
+         WRITE (no,99020) mplid , npad
 99020    FORMAT ('0*** THE MPL CONTAINS ',I3,' ENTRYS.  OF THESE, ',I3,' ARE PAD ENTRYS.')
 !
          RETURN
@@ -322,30 +323,30 @@ USE ISO_FORTRAN_ENV
 !
 !     ERROR MESSAGES
 !
-         WRITE (No,99021) Swm , i2 , Lmpl
+         WRITE (no,99021) swm , i2 , lmpl
 99021    FORMAT (A27,' 65, POINTER I2 =',I10,' DOES NOT AGREE WITH LMPL =',I11)
          CALL spag_block_2
          RETURN
       ENDIF
    ENDDO SPAG_Loop_1_1
 !
-   WRITE (No,99022) Swm
+   WRITE (no,99022) swm
 99022 FORMAT (A27,' 66, ILLEGAL PARAMETER TYPE CODE.')
    CALL spag_block_2
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
 !
-      WRITE (No,99023) Swm
-99023 FORMAT (A27,' 67, ERROR IN PARAMETER SEQUENCE.')
+      WRITE (No,99001) Swm
+99001 FORMAT (A27,' 67, ERROR IN PARAMETER SEQUENCE.')
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !
       CALL page2(4)
-      WRITE (No,99024)
-99024 FORMAT (5X,'MPL TABLE LISTING CANCELLED.')
+      WRITE (No,99001)
+99001 FORMAT (5X,'MPL TABLE LISTING CANCELLED.')
    END SUBROUTINE spag_block_2
 !
 END SUBROUTINE mplprt

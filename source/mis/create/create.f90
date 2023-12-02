@@ -1,10 +1,11 @@
-!*==create.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==create.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
+   USE c_blank
+   USE c_xxparm
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_XXPARM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -55,11 +56,11 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !
          twopi = 8.0*atan(1.0)
          irdest = 0
-         CALL gopen(Scr1,Gplst(B1),1)
-         stress = Oes1
-         IF ( (Icntvl>=4 .AND. Icntvl<=9) .AND. Direct==2 ) stress = newoes
-         IF ( stress==Oes1 .AND. (Icntvl==6 .OR. Icntvl==8 .OR. Icntvl==9) ) GOTO 140
-         IF ( stress==Oes1 ) skipwd(7) = -3
+         CALL gopen(scr1,Gplst(B1),1)
+         stress = oes1
+         IF ( (icntvl>=4 .AND. icntvl<=9) .AND. direct==2 ) stress = newoes
+         IF ( stress==oes1 .AND. (icntvl==6 .OR. icntvl==8 .OR. icntvl==9) ) GOTO 140
+         IF ( stress==oes1 ) skipwd(7) = -3
          CALL open(*140,stress,Gplst(B2),0)
          Conmin = 0.0
          Conmax = 0.0
@@ -70,9 +71,9 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
          jtj = 1
          k = 1
          kest = 0
-         CALL read(*160,*160,Est,esym,1,0,m)
-         IF ( Icntvl==20 ) THEN
-            CALL fread(Est,ngppe,1,0)
+         CALL read(*160,*160,est,esym,1,0,m)
+         IF ( icntvl==20 ) THEN
+            CALL fread(est,ngppe,1,0)
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -81,25 +82,25 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !
 !     ELIMINATE ALL BUT MAXSHEAR FOR CSHEAR ELEMENT
 !
-         IF ( esym/=isym(1) .OR. Icntvl==3 ) THEN
+         IF ( esym/=isym(1) .OR. icntvl==3 ) THEN
 !
 !     ELIMINATE MID STRESS FOR TRIA1, QUAD1, TRPLT, OR QDPLT
 !
-            IF ( .NOT.((esym==isym(2) .OR. esym==isym(10) .OR. esym==isym(4) .OR. esym==isym(6)) .AND. Where==3) ) THEN
+            IF ( .NOT.((esym==isym(2) .OR. esym==isym(10) .OR. esym==isym(4) .OR. esym==isym(6)) .AND. where==3) ) THEN
 !
 !     ELIMINATE Z2 AND AVER STRESS FOR CTRMEM, CQDMEM, MEM1, MEM2
 !
-               IF ( .NOT.((esym==isym(5) .OR. esym==isym(7) .OR. esym==isym(11) .OR. esym==isym(12)) .AND. (Where==-1 .OR. Where==3)&
+               IF ( .NOT.((esym==isym(5) .OR. esym==isym(7) .OR. esym==isym(11) .OR. esym==isym(12)) .AND. (where==-1 .OR. where==3)&
                   & ) ) THEN
 !
 !     ELIMINATE Z1, Z2 AND MAX FOR TRIA2 OR TRBSC ELEMENTS
 !
-                  IF ( .NOT.((esym==isym(8) .OR. esym==isym(3)) .AND. (iabs(Where)==1 .OR. Where==2)) ) THEN
+                  IF ( .NOT.((esym==isym(8) .OR. esym==isym(3)) .AND. (iabs(where)==1 .OR. where==2)) ) THEN
                      DO i = 1 , ntypes
                         IF ( esym==isym(i) ) GOTO 2
                      ENDDO
                   ENDIF
-                  CALL fread(Est,ngppe,1,0)
+                  CALL fread(est,ngppe,1,0)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
  2                estsym(k) = i
@@ -107,7 +108,7 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
                ENDIF
             ENDIF
          ENDIF
-         CALL fread(Est,ngppe,1,0)
+         CALL fread(est,ngppe,1,0)
          spag_nextblock_1 = 3
       CASE (3)
 !
@@ -118,13 +119,13 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !
 !     FLUSH TO NEXT SYMBOL
 !
-            CALL fread(Est,elid,1,0)
+            CALL fread(est,elid,1,0)
             IF ( elid==0 ) THEN
                IF ( jtj==1 ) THEN
 !
 !     READ NEXT SYMBOL
 !
-                  CALL read(*20,*20,Est,esym,1,0,m)
+                  CALL read(*20,*20,est,esym,1,0,m)
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( jtj==2 ) THEN
@@ -133,13 +134,13 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
                ENDIF
             ENDIF
             j = 1 + ngppe + offset
-            CALL fread(Est,0,-j,0)
+            CALL fread(est,0,-j,0)
          ENDDO
 !
 !     LOOP BACK UNTIL ALL EST SYMBOLS ARE IN CORE
 !
  20      k = k - 1
-         CALL bckrec(Est)
+         CALL bckrec(est)
          jtj = 2
          spag_nextblock_1 = 4
       CASE (4)
@@ -148,7 +149,7 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !     THE SAME WAY IS NO LONGER NECESSARY
 !
          IF ( ieor==0 ) CALL fwdrec(*120,stress)
-         IF ( Icntvl==20 ) THEN
+         IF ( icntvl==20 ) THEN
             CALL fwdrec(*120,stress)
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
@@ -164,9 +165,9 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
             eigen = sqrt(abs(eigen))/twopi
             CALL fread(stress,0,-3,0)
             CALL fread(stress,nwds,1,1)
-            IF ( Sub<=0 .OR. isub==Sub ) THEN
-               IF ( Flag/=1.0 .OR. detail==Value ) THEN
-                  IF ( Flag/=2.0 .OR. abs(eigen-Value)<=1.0E-5 ) THEN
+            IF ( sub<=0 .OR. isub==sub ) THEN
+               IF ( flag/=1.0 .OR. detail==value ) THEN
+                  IF ( flag/=2.0 .OR. abs(eigen-value)<=1.0E-5 ) THEN
                      ieor = 0
                      DO i = 1 , k
                         j = estsym(i)
@@ -188,38 +189,38 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !     YES, WE DO WANT THIS ELEMENT TYPES STRESS DATA.  FIND THIS TYPES
 !     ELEMENTS IN THE EST
 !
-         CALL read(*80,*80,Est,esym,1,0,m)
+         CALL read(*80,*80,est,esym,1,0,m)
          irdest = 1
-         CALL fread(Est,ngppe,1,0)
+         CALL fread(est,ngppe,1,0)
 !
 !     FLUSH THE FILE UNTIL FOUND
 !
-         IF ( Icntvl/=20 .AND. esym/=isym(j) ) THEN
+         IF ( icntvl/=20 .AND. esym/=isym(j) ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         CALL write(Scr1,esym,1,0)
+         CALL write(scr1,esym,1,0)
          kest = kest + 1
          mem = 0
          IF ( ieltyp==9 .OR. ieltyp==16 .OR. ieltyp==15 .OR. ieltyp==62 .OR. ieltyp==63 ) mem = 1
 !         TRMEM(9), QDMEM(16), QDPLT(15), QDMEM1(62), QDMEM2(63)
 !
-         iwds = skipwd(Icntvl)
-         IF ( Icntvl>13 ) THEN
+         iwds = skipwd(icntvl)
+         IF ( icntvl>13 ) THEN
 !         SHEAR(4)
 !
             is = 0
          ELSE
             IF ( mem==1 ) iwds = iwds + 1
-            IF ( Where==-1 .AND. mem/=1 ) iwds = iwds - 8
+            IF ( where==-1 .AND. mem/=1 ) iwds = iwds - 8
             nwds = -nwds - iwds + 2
-            IF ( iabs(Where)/=1 .AND. mem/=1 ) nwds = nwds + 8
-            IF ( Where==-1 .AND. mem==1 ) THEN
+            IF ( iabs(where)/=1 .AND. mem/=1 ) nwds = nwds + 8
+            IF ( where==-1 .AND. mem==1 ) THEN
                CALL fwdrec(*120,stress)
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( ieltyp==4 .AND. Icntvl/=3 ) THEN
+            ELSEIF ( ieltyp==4 .AND. icntvl/=3 ) THEN
                CALL fwdrec(*120,stress)
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
@@ -235,20 +236,20 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !
             is = is + 1
             CALL read(*40,*40,stress,Elmtid(is),1,0,m)
-            IF ( Icntvl>9 .AND. Icntvl/=20 ) THEN
+            IF ( icntvl>9 .AND. icntvl/=20 ) THEN
                CALL fread(stress,nlayer,1,0)
                laytot = nlayer*11
-               layskp = -((Layer-1)*10+2)
+               layskp = -((layer-1)*10+2)
                CALL fread(stress,0,layskp,0)
             ENDIF
             IF ( ieltyp/=4 ) THEN
                CALL fread(stress,0,iwds,0)
                CALL fread(stress,Store(is),1,0)
-               IF ( Icntvl>9 .AND. Icntvl/=20 ) THEN
+               IF ( icntvl>9 .AND. icntvl/=20 ) THEN
                   nlfin = -(laytot-1+layskp+iwds)
                   CALL fread(stress,0,nlfin,0)
-               ELSEIF ( Icntvl<20 ) THEN
-                  IF ( iabs(Where)/=1 .AND. mem/=1 ) THEN
+               ELSEIF ( icntvl<20 ) THEN
+                  IF ( iabs(where)/=1 .AND. mem/=1 ) THEN
                      CALL fread(stress,0,-7,0)
                      CALL fread(stress,contur,1,0)
                   ENDIF
@@ -258,8 +259,8 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   IF ( mem/=1 ) THEN
-                     IF ( Where==2 ) Store(is) = amax1(Store(is),contur)
-                     IF ( Where==3 ) Store(is) = (Store(is)+contur)/2.0
+                     IF ( where==2 ) Store(is) = amax1(Store(is),contur)
+                     IF ( where==3 ) Store(is) = (Store(is)+contur)/2.0
                      IF ( is>=Lcor ) THEN
                         spag_nextblock_1 = 8
                         CYCLE SPAG_DispatchLoop_1
@@ -291,10 +292,10 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
 !
 !     STORE STRESS VALUES WITH ELEMENT ID.S
 !
-            CALL fread(Est,elid,1,0)
+            CALL fread(est,elid,1,0)
             IF ( elid/=0 ) THEN
-               CALL fread(Est,0,-1,0)
-               CALL fread(Est,gpts,ngppe+offset,0)
+               CALL fread(est,0,-1,0)
+               CALL fread(est,gpts,ngppe+offset,0)
 !
 !     THE VERY NEXT LINE WAS ACCIDENTALLY DROPPED IN 88 VERSION
 !
@@ -309,17 +310,16 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
                   ENDIF
                   err(1) = 1
                   err(2) = elid
-                  CALL wrtprt(Prnt,err,msg1,nmsg1)
-                  CYCLE
+                  CALL wrtprt(prnt,err,msg1,nmsg1)
                ELSE
                   DO ist = 1 , is
                      IF ( elid==Elmtid(ist)/10 ) GOTO 45
                   ENDDO
                   err(1) = 1
                   err(2) = elid
-                  CALL wrtprt(Prnt,err,msg1,nmsg1)
-                  CYCLE
+                  CALL wrtprt(prnt,err,msg1,nmsg1)
                ENDIF
+               CYCLE
 !
 !     FIND ELEMENTS CENTROID
 !
@@ -355,10 +355,10 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
             ENDIF
             EXIT SPAG_Loop_1_2
          ENDDO SPAG_Loop_1_2
- 60      CALL write(Scr1,elid,1,0)
+ 60      CALL write(scr1,elid,1,0)
          IF ( elid/=0 ) THEN
-            CALL write(Scr1,Store(ist),1,0)
-            CALL write(Scr1,centrd,2,0)
+            CALL write(scr1,Store(ist),1,0)
+            CALL write(scr1,centrd,2,0)
             IF ( Conmin/=0.0 .OR. Conmax/=0.0 ) THEN
                Conmin = amin1(Conmin,Store(ist))
                Conmax = amax1(Conmax,Store(ist))
@@ -370,21 +370,21 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  80      IF ( kest/=k ) THEN
-            CALL bckrec(Est)
+            CALL bckrec(est)
             irdest = 0
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
  100     DO WHILE ( stress/=newoes )
-            CALL read(*120,*120,Oes1,0,-3,0,m)
-            CALL fread(Oes1,isub,1,0)
-            CALL fread(Oes1,detail,1,0)
-            CALL fread(Oes1,eigen,1,1)
+            CALL read(*120,*120,oes1,0,-3,0,m)
+            CALL fread(oes1,isub,1,0)
+            CALL fread(oes1,detail,1,0)
+            CALL fread(oes1,eigen,1,1)
             eigen = sqrt(abs(eigen))/twopi
-            IF ( isub/=Sub ) GOTO 120
-            IF ( Flag==1.0 .AND. detail/=Value ) GOTO 120
-            IF ( Flag==2.0 .AND. abs(eigen-Value)>1.0E-5 ) GOTO 120
-            CALL fwdrec(*120,Oes1)
+            IF ( isub/=sub ) GOTO 120
+            IF ( flag==1.0 .AND. detail/=value ) GOTO 120
+            IF ( flag==2.0 .AND. abs(eigen-value)>1.0E-5 ) GOTO 120
+            CALL fwdrec(*120,oes1)
          ENDDO
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
@@ -392,10 +392,10 @@ SUBROUTINE create(Gplst,X,U,Deform,Conmin,Conmax,Elmtid,Store,Lcor,B1,B2)
          spag_nextblock_1 = 9
       CASE (9)
          CALL close(stress,2)
- 140     CALL write(Scr1,0,0,1)
-         CALL close(Scr1,1)
+ 140     CALL write(scr1,0,0,1)
+         CALL close(scr1,1)
          IF ( irdest<=0 ) RETURN
- 160     CALL bckrec(Est)
+ 160     CALL bckrec(est)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

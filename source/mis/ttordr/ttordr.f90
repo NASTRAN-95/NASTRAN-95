@@ -1,12 +1,13 @@
-!*==ttordr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ttordr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ttordr(Ti,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -92,17 +93,17 @@ SUBROUTINE ttordr(Ti,Pg)
    matid = iecpt(7)
    ics(1) = iecpt(10)
    ics(2) = iecpt(14)
-   alph(1) = Ecpt(4)
-   alph(2) = Ecpt(5)
-   tm = Ecpt(8)
-   tf = Ecpt(9)
-   r(1) = Ecpt(11)
-   d(1) = Ecpt(12)
-   z(1) = Ecpt(13)
-   r(2) = Ecpt(15)
-   d(2) = Ecpt(16)
-   z(2) = Ecpt(17)
-   tempe = Ecpt(18)
+   alph(1) = ecpt(4)
+   alph(2) = ecpt(5)
+   tm = ecpt(8)
+   tf = ecpt(9)
+   r(1) = ecpt(11)
+   d(1) = ecpt(12)
+   z(1) = ecpt(13)
+   r(2) = ecpt(15)
+   d(2) = ecpt(16)
+   z(2) = ecpt(17)
+   tempe = ecpt(18)
 !
 !
 ! TEST THE VALIDITY OF THE GRID POINT COORDINATES
@@ -319,18 +320,18 @@ SUBROUTINE ttordr(Ti,Pg)
 !
 ! LOCATE THE MATERIAL PROPERTIES IN THE MAT1 OR MAT3 TABLE
 !
-   Matidc = matid
-   Matflg = 7
-   Eltemp = tempe
+   matidc = matid
+   matflg = 7
+   eltemp = tempe
    CALL mat(idel)
 !
 !
 ! SET MATERIAL PROPERTIES IN LOCAL VARIABLES
 !
-   ep = E(1)
-   et = E(2)
-   vpt = Anu(1)
-   tz = Tzero
+   ep = e(1)
+   et = e(2)
+   vpt = anu(1)
+   tz = tzero
    vtp = vpt*et/ep
    del = 1.0E0 - vpt*vtp
 !
@@ -383,14 +384,14 @@ SUBROUTINE ttordr(Ti,Pg)
 ! WHERE TF(1) AND TF(2) ARE THE FLEXURAL GRADIENT TEMPERATURES AT
 ! GRID POINTS 1 AND 2 RESPECTIVELY.
 !
-   d(1) = dtm1*Alf(1)
-   d(2) = dtm1*Alf(2)
-   d(3) = dtm2*Alf(1)
-   d(4) = dtm2*Alf(2)
-   d(5) = dtf1*Alf(1)
-   d(6) = dtf1*Alf(2)
-   d(7) = dtf2*Alf(1)
-   d(8) = dtf2*Alf(2)
+   d(1) = dtm1*alf(1)
+   d(2) = dtm1*alf(2)
+   d(3) = dtm2*alf(1)
+   d(4) = dtm2*alf(2)
+   d(5) = dtf1*alf(1)
+   d(6) = dtf1*alf(2)
+   d(7) = dtf2*alf(1)
+   d(8) = dtf2*alf(2)
 !
 !
 ! FORM THE   THERMAL LOAD   IN FIELD COORDINATES
@@ -494,7 +495,7 @@ SUBROUTINE ttordr(Ti,Pg)
       gambl(i) = 0.0E0
    ENDDO
    DO i = 1 , 2
-      CALL gbtran(ics(i),Ecpt(4*i+10),d(1))
+      CALL gbtran(ics(i),ecpt(4*i+10),d(1))
       k = 78*(i-1)
       DO j = 1 , 3
          kk = k + 12*(j-1) + 1

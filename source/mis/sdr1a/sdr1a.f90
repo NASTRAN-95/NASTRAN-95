@@ -1,7 +1,13 @@
-!*==sdr1a.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdr1a.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr1a(Input,Iout)
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    USE C_BLANK
    USE C_PACKX
    USE C_SYSTEM

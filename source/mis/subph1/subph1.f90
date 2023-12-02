@@ -1,4 +1,5 @@
-!*==subph1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==subph1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE subph1
@@ -6,12 +7,12 @@ SUBROUTINE subph1
 !     THIS MODULE PERFORMS THE PHASE 1 CONVERSION OF NASTRAN DATA BLOCK
 !     TABLES TO THEIR EQUIVALENT SOF ITEMS
 !
+   USE c_blank
+   USE c_system
+   USE c_two
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_TWO
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -45,37 +46,37 @@ SUBROUTINE subph1
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         mua = Two(iua)
+         mua = two(iua)
 !
 !     INITIALLIZE CORE, ETC
 !
-         IF ( Dry==0 ) RETURN
-         nc = korsz(Z(1))
-         b1 = nc - Bsize + 1
+         IF ( dry==0 ) RETURN
+         nc = korsz(z(1))
+         b1 = nc - bsize + 1
 !
 !     OPEN SCRATCH FILE TO WRITE CONVERTED DATA
 !
-         b2 = b1 - Bsize
-         b3 = b2 - Bsize
-         buf1 = b3 - Bsize
-         buf2 = buf1 - Bsize
+         b2 = b1 - bsize
+         b3 = b2 - bsize
+         buf1 = b3 - bsize
+         buf2 = buf1 - bsize
          nz = buf2 - 1
 !
 !     TEST FOR CORE
 !
          IF ( nz>0 ) THEN
 !
-            CALL sofopn(Z(b1),Z(b2),Z(b3))
+            CALL sofopn(z(b1),z(b2),z(b3))
 !
 !     EQSS GENERATION
 !
             file = uset
-            CALL open(*260,uset,Z(buf1),0)
+            CALL open(*260,uset,z(buf1),0)
             CALL fwdrec(*260,uset)
 !
 !     READ USET INTO CORE
 !
-            CALL read(*260,*20,uset,Z(1),nz,0,nu)
+            CALL read(*260,*20,uset,z(1),nz,0,nu)
 !
 !     RAN OUT OF CORE
 !
@@ -89,23 +90,23 @@ SUBROUTINE subph1
 !     FLAG ELEMENTS IN UA SET  (SET OTHERS TO ZERO)
 !
          DO i = 1 , nu
-            IF ( andf(mua,Z(i))==0 ) THEN
-               Z(i) = 0
+            IF ( andf(mua,z(i))==0 ) THEN
+               z(i) = 0
             ELSE
-               Z(i) = 1
+               z(i) = 1
             ENDIF
          ENDDO
 !
 !     READ  SECOND RECORD OF EQEXIN - CONTAINS  G AND SIL PAIRS
 !
          file = eqex
-         CALL open(*260,eqex,Z(buf1),0)
+         CALL open(*260,eqex,z(buf1),0)
          CALL fwdrec(*260,eqex)
          CALL fwdrec(*260,eqex)
 !
 !     OPEN SCRATCH FILE TO WRITE CONVERTED DATA
 !
-         CALL open(*260,scrt,Z(buf2),1)
+         CALL open(*260,scrt,z(buf2),1)
 !
 !     LOOP ON GRID POINTS
 !
@@ -124,18 +125,18 @@ SUBROUTINE subph1
 !
                DO j = 1 , 6
                   iu = isil + j - 1
-                  IF ( Z(iu)/=0 ) c = orf(c,lshift(1,j-1))
+                  IF ( z(iu)/=0 ) c = orf(c,lshift(1,j-1))
                ENDDO
             ELSEIF ( type==2 ) THEN
 !
 !     SCALAR POINT
 !
-               IF ( Z(isil)/=0 ) c = 1
+               IF ( z(isil)/=0 ) c = 1
             ELSE
 !
 !     BAD GRID POINT TYPE (IE AXISYMMETRIC OR)
 !
-               WRITE (Out,99001) Ufm , buf(1)
+               WRITE (out,99001) ufm , buf(1)
 99001          FORMAT (A23,' 6013 , ILLEGAL TYPE OF POINT DEFINED FOR ','SUBSTRUCTURE ANALYSIS.',/5X,'POINT NUMBER =',I9)
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
@@ -167,14 +168,14 @@ SUBROUTINE subph1
          file = eqex
          CALL fwdrec(*260,eqex)
          file = scrt
-         CALL open(*260,scrt,Z(buf2),0)
+         CALL open(*260,scrt,z(buf2),0)
 !
 !     SET CORE TO ZERO
 !
          DO i = 1 , npts
             izp = 2*i
-            Z(izp) = 0
-            Z(izp-1) = 0
+            z(izp) = 0
+            z(izp-1) = 0
          ENDDO
          nnew = k
 !
@@ -191,7 +192,7 @@ SUBROUTINE subph1
                   IF ( buf(1)<temp(1) ) GOTO 260
                   IF ( buf(1)==temp(1) ) THEN
                      izp = 2*temp(2)
-                     Z(izp) = buf(2)
+                     z(izp) = buf(2)
                      EXIT SPAG_Loop_2_1
                   ENDIF
                ENDDO SPAG_Loop_2_1
@@ -204,9 +205,9 @@ SUBROUTINE subph1
          CALL rewind(eqex)
          k = 0
          DO i = 1 , npts
-            IF ( Z(2*i)/=0 ) THEN
+            IF ( z(2*i)/=0 ) THEN
                k = k + 1
-               Z(2*i-1) = k
+               z(2*i-1) = k
             ENDIF
          ENDDO
 !
@@ -217,21 +218,21 @@ SUBROUTINE subph1
 !     CHECK IF SUBSTRUCTURE EXISTS ALREADY
 !
          CALL fwdrec(*260,eqex)
-         CALL setlvl(Name,0,temp,itest,0)
-         IF ( itest/=1 ) WRITE (Out,99002) Uwm , Name
+         CALL setlvl(name,0,temp,itest,0)
+         IF ( itest/=1 ) WRITE (out,99002) uwm , name
 !
 !
 99002    FORMAT (A25,' 6325, SUBSTRUCTURE PHASE 1, BASIC SUBSTRUCTURE ',2A4,' ALREADY EXISTS ON SOF.',/32X,                         &
                 &'ITEMS WHICH ALREADY EXIST WILL NOT BE REGENERATED.')
          itest = 3
-         CALL sfetch(Name,eqss,2,itest)
+         CALL sfetch(name,eqss,2,itest)
          IF ( itest==3 ) THEN
-            buf(1) = Name(1)
-            buf(2) = Name(2)
+            buf(1) = name(1)
+            buf(2) = name(2)
             buf(3) = 1
             buf(4) = nnew
-            buf(5) = Name(1)
-            buf(6) = Name(2)
+            buf(5) = name(1)
+            buf(6) = name(2)
 !
             CALL suwrt(buf,6,2)
 !
@@ -242,9 +243,9 @@ SUBROUTINE subph1
                CALL read(*260,*70,eqex,temp,2,0,nwds)
 !
                ipt = temp(2)*2 - 1
-               IF ( Z(ipt)/=0 ) THEN
-                  temp(2) = Z(ipt)
-                  temp(3) = Z(ipt+1)
+               IF ( z(ipt)/=0 ) THEN
+                  temp(2) = z(ipt)
+                  temp(3) = z(ipt+1)
                   CALL suwrt(temp,3,1)
                ENDIF
  70         ENDDO
@@ -257,48 +258,48 @@ SUBROUTINE subph1
             DO i = 1 , npts
                ipt = 2*i - 1
 !
-               IF ( Z(ipt)/=0 ) THEN
+               IF ( z(ipt)/=0 ) THEN
                   is = is + nc
-                  Z(ipt) = is
+                  z(ipt) = is
 !
-                  CALL suwrt(Z(ipt),2,1)
+                  CALL suwrt(z(ipt),2,1)
 !
 !     CALCULATE NUMBER OF COMPONENTS FOR NEXT STEP
 !
-                  kcode = Z(ipt+1)
+                  kcode = z(ipt+1)
                   CALL decode(kcode,icode,nc)
                ENDIF
             ENDDO
             CALL suwrt(0,0,2)
             CALL suwrt(temp,0,3)
          ELSE
-            WRITE (Out,99007) Uwm , Name , eqss
+            WRITE (out,99007) uwm , name , eqss
          ENDIF
          CALL close(eqex,1)
 !
 !     BGSS GENERATION
 !
          file = bgpd
-         CALL open(*260,bgpd,Z(buf1),0)
+         CALL open(*260,bgpd,z(buf1),0)
          CALL fwdrec(*260,bgpd)
          itest = 3
-         CALL sfetch(Name,bgss,2,itest)
+         CALL sfetch(name,bgss,2,itest)
          IF ( itest==3 ) THEN
 !
-            buf(1) = Name(1)
-            buf(2) = Name(2)
+            buf(1) = name(1)
+            buf(2) = name(2)
             buf(3) = nnew
             CALL suwrt(buf,3,2)
             DO i = 1 , npts
                CALL read(*260,*80,bgpd,buf,4,0,nwds)
 !
 !
-               IF ( Z(2*i-1)/=0 ) CALL suwrt(buf,4,1)
+               IF ( z(2*i-1)/=0 ) CALL suwrt(buf,4,1)
  80         ENDDO
             CALL suwrt(0,0,2)
             CALL suwrt(buf,0,3)
          ELSE
-            WRITE (Out,99007) Uwm , Name , bgss
+            WRITE (out,99007) uwm , name , bgss
          ENDIF
          CALL close(bgpd,1)
 !
@@ -306,30 +307,29 @@ SUBROUTINE subph1
 !     CSTM GENERATION
 !
 !
-         CALL open(*120,cstm,Z(buf1),0)
+         CALL open(*120,cstm,z(buf1),0)
 !
 !     CSTM EXISTS
 !
          CALL fwdrec(*260,cstm)
          itest = 3
-         CALL sfetch(Name,icstm,2,itest)
+         CALL sfetch(name,icstm,2,itest)
          IF ( itest==3 ) THEN
 !
-            buf(1) = Name(1)
-            buf(2) = Name(2)
+            buf(1) = name(1)
+            buf(2) = name(2)
             CALL suwrt(buf,2,2)
 !
 !     BLAST COPY
 !
-            CALL read(*260,*100,cstm,Z(1),nz,1,nwds)
+            CALL read(*260,*100,cstm,z(1),nz,1,nwds)
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (Out,99007) Uwm , Name , icstm
+            WRITE (out,99007) uwm , name , icstm
             spag_nextblock_1 = 2
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
- 100     CALL suwrt(Z(1),nwds,2)
+         CYCLE
+ 100     CALL suwrt(z(1),nwds,2)
          CALL suwrt(0,0,3)
          spag_nextblock_1 = 2
       CASE (2)
@@ -339,99 +339,98 @@ SUBROUTINE subph1
 !
  120     nlod = 0
 !
-         CALL gopen(case,Z(buf1),0)
+         CALL gopen(case,z(buf1),0)
 !
          icase = 0
          DO
 !
-            CALL read(*140,*140,case,Z(1),9,1,nwds)
+            CALL read(*140,*140,case,z(1),9,1,nwds)
             icase = icase + 1
-            IF ( Z(i0+4)/=0 ) THEN
-               WRITE (Out,99008) Uim , Name , icase , ltype1 , Z(i0+4)
-               Z(nlod+10) = Z(i0+4)
-            ELSEIF ( Z(i0+7)/=0 ) THEN
-               WRITE (Out,99008) Uim , Name , icase , ltype2 , Z(i0+7)
-               Z(nlod+10) = Z(i0+7)
-            ELSEIF ( Z(i0+6)==0 ) THEN
-               Z(nlod+10) = 0
+            IF ( z(i0+4)/=0 ) THEN
+               WRITE (out,99008) uim , name , icase , ltype1 , z(i0+4)
+               z(nlod+10) = z(i0+4)
+            ELSEIF ( z(i0+7)/=0 ) THEN
+               WRITE (out,99008) uim , name , icase , ltype2 , z(i0+7)
+               z(nlod+10) = z(i0+7)
+            ELSEIF ( z(i0+6)==0 ) THEN
+               z(nlod+10) = 0
             ELSE
-               WRITE (Out,99008) Uim , Name , icase , ltype3 , Z(i0+6)
-               Z(nlod+10) = Z(i0+6)
+               WRITE (out,99008) uim , name , icase , ltype3 , z(i0+6)
+               z(nlod+10) = z(i0+6)
             ENDIF
             nlod = nlod + 1
          ENDDO
  140     itest = 3
          litm = lods
-         IF ( Pitm==papp ) litm = loap
-         CALL sfetch(Name,litm,2,itest)
+         IF ( pitm==papp ) litm = loap
+         CALL sfetch(name,litm,2,itest)
          IF ( itest==3 ) THEN
-            Z(1) = Name(1)
-            Z(i0+2) = Name(2)
-            Z(i0+3) = nlod
-            Z(i0+4) = 1
-            Z(i0+5) = Name(1)
-            Z(i0+6) = Name(2)
-            CALL suwrt(Z(1),6,2)
+            z(1) = name(1)
+            z(i0+2) = name(2)
+            z(i0+3) = nlod
+            z(i0+4) = 1
+            z(i0+5) = name(1)
+            z(i0+6) = name(2)
+            CALL suwrt(z(1),6,2)
             CALL suwrt(nlod,1,1)
-            CALL suwrt(Z(i0+10),nlod,2)
-            CALL suwrt(Z(1),0,3)
+            CALL suwrt(z(i0+10),nlod,2)
+            CALL suwrt(z(1),0,3)
          ELSE
-            WRITE (Out,99007) Uwm , Name , litm
+            WRITE (out,99007) uwm , name , litm
          ENDIF
          CALL close(case,1)
 !
 !     PLOT SET DATA (PLTS) GENERATION
 !
-         IF ( Pset<=0 ) THEN
+         IF ( pset<=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file = bgpd
-         CALL gopen(bgpd,Z(buf1),0)
+         CALL gopen(bgpd,z(buf1),0)
 !
          itest = 3
-         CALL sfetch(Name,plts,2,itest)
+         CALL sfetch(name,plts,2,itest)
          IF ( itest==3 ) THEN
 !
-            buf(1) = Name(1)
-            buf(2) = Name(2)
+            buf(1) = name(1)
+            buf(2) = name(2)
             buf(3) = 1
-            buf(4) = Name(1)
-            buf(5) = Name(2)
+            buf(4) = name(1)
+            buf(5) = name(2)
             CALL suwrt(buf,5,1)
             DO i = 1 , 11
-               Z(i) = 0
+               z(i) = 0
             ENDDO
             rz(4) = 1.0
             rz(8) = 1.0
             rz(12) = 1.0
-            CALL suwrt(Z,12,2)
+            CALL suwrt(z,12,2)
 !
-            CALL read(*260,*160,bgpd,Z(1),nz,0,nwds)
+            CALL read(*260,*160,bgpd,z(1),nz,0,nwds)
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            WRITE (Out,99007) Uwm , Name , plts
+            WRITE (out,99007) uwm , name , plts
             CALL close(bgpd,1)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
- 160     CALL suwrt(Z,nwds,2)
+         CYCLE
+ 160     CALL suwrt(z,nwds,2)
          CALL close(bgpd,1)
          file = eqex
-         CALL gopen(eqex,Z(buf1),0)
-         CALL read(*260,*180,eqex,Z,nz,1,nwds)
+         CALL gopen(eqex,z(buf1),0)
+         CALL read(*260,*180,eqex,z,nz,1,nwds)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 180     CALL suwrt(Z,nwds,2)
+ 180     CALL suwrt(z,nwds,2)
          CALL close(eqex,1)
          file = gpse
          last = .FALSE.
-         CALL open(*240,gpse,Z(buf1),0)
+         CALL open(*240,gpse,z(buf1),0)
 !
          CALL fwdrec(*240,gpse)
 !
-         CALL read(*260,*200,gpse,Z(1),nz,0,nsets)
+         CALL read(*260,*200,gpse,z(1),nz,0,nsets)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
 !
@@ -440,7 +439,7 @@ SUBROUTINE subph1
  200     IF ( nsets/=0 ) THEN
 !
             DO i = 1 , nsets
-               IF ( Z(i)==Pset ) THEN
+               IF ( z(i)==pset ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -460,49 +459,48 @@ SUBROUTINE subph1
                CALL fwdrec(*240,file)
             ENDDO
          ENDIF
-         CALL read(*240,*220,file,Z(1),nz,0,nwds)
+         CALL read(*240,*220,file,z(1),nz,0,nwds)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
- 220     CALL suwrt(Z(1),nwds,2)
+ 220     CALL suwrt(z(1),nwds,2)
          CALL close(file,1)
          IF ( last ) THEN
 !
 !     FINISHED
 !
-            CALL suwrt(Z(1),0,3)
+            CALL suwrt(z(1),0,3)
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             last = .TRUE.
             file = else
-            CALL open(*240,else,Z(buf1),0)
+            CALL open(*240,else,z(buf1),0)
             CALL fwdrec(*240,else)
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  240     CALL close(file,1)
-         WRITE (Out,99003) Uwm , Pset
+         WRITE (out,99003) uwm , pset
 99003    FORMAT (A25,' 6050, REQUESTED PLOT SET NO.',I8,' HAS NOT BEEN DEFINED')
          spag_nextblock_1 = 5
       CASE (5)
 !
          CALL sofcls
-         WRITE (Out,99004) Uim , Name
+         WRITE (out,99004) uim , name
 99004    FORMAT (A29,' 6361, PHASE 1 SUCCESSFULLY EXECUTED FOR ','SUBSTRUCTURE ',2A4)
          RETURN
       CASE (6)
 !
 !     INSUFFICIENT CORE
 !
-         WRITE (Out,99005) Ufm , nz
+         WRITE (out,99005) ufm , nz
 99005    FORMAT (A23,' 6011, INSUFFICIENT CORE TO LOAD TABLES',/5X,'IN MODULE SUBPH1, CORE =',1I8)
-         Dry = -2
+         dry = -2
          spag_nextblock_1 = 7
          CYCLE SPAG_DispatchLoop_1
 !
 !     BAD FILE
 !
- 260     WRITE (Out,99006) Sfm , file
+ 260     WRITE (out,99006) sfm , file
 99006    FORMAT (A25,' 6012, FILE =',I4,' IS PURGED OR NULL AND IS ','REQUIRED IN PHASE 1 SUBSTRUCTURE ANALYSIS.')
          spag_nextblock_1 = 7
       CASE (7)

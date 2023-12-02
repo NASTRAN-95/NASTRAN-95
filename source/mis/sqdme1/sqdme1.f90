@@ -1,12 +1,13 @@
-!*==sqdme1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sqdme1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sqdme1
+   USE c_condas
+   USE c_matin
+   USE c_sdr2x5
+   USE c_sdr2x6
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_SDR2X5
-   USE C_SDR2X6
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -64,75 +65,75 @@ SUBROUTINE sqdme1
    DATA m/1 , 2 , 4 , 2 , 3 , 1 , 3 , 4 , 2 , 4 , 1 , 3/
 !
 !
-   angl = Ecpt(6)*degra
-   Cosang = cos(angl)
-   Sinang = sin(angl)
+   angl = ecpt(6)*degra
+   cosang = cos(angl)
+   sinang = sin(angl)
 !
 !     VECTORS D1 AND D2  FMMS-46 PAGE 6
 !     A1 A2 A3 A4
 !
    DO i = 1 , 3
-      D1(i) = Ecpt(i+18) - Ecpt(i+10)
-      D2(i) = Ecpt(i+22) - Ecpt(i+14)
-      A1(i) = Ecpt(i+14) - Ecpt(i+10)
-      A2(i) = Ecpt(i+18) - Ecpt(i+14)
-      A3(i) = Ecpt(i+22) - Ecpt(i+18)
-      A4(i) = Ecpt(i+10) - Ecpt(i+22)
+      d1(i) = ecpt(i+18) - ecpt(i+10)
+      d2(i) = ecpt(i+22) - ecpt(i+14)
+      a1(i) = ecpt(i+14) - ecpt(i+10)
+      a2(i) = ecpt(i+18) - ecpt(i+14)
+      a3(i) = ecpt(i+22) - ecpt(i+18)
+      a4(i) = ecpt(i+10) - ecpt(i+22)
    ENDDO
 !
 !     K-VECTOR = NORMALIZED D1 CROSS D2
 !
-   Kvec(1) = D1(2)*D2(3) - D1(3)*D2(2)
-   Kvec(2) = D1(3)*D2(1) - D1(1)*D2(3)
-   Kvec(3) = D1(1)*D2(2) - D1(2)*D2(1)
-   Vecl = sqrt(Kvec(1)**2+Kvec(2)**2+Kvec(3)**2)
-   IF ( Vecl<1.0E-06 ) CALL mesage(-30,26,Ecpt(1))
-   Kvec(1) = Kvec(1)/Vecl
-   Kvec(2) = Kvec(2)/Vecl
-   Kvec(3) = Kvec(3)/Vecl
+   kvec(1) = d1(2)*d2(3) - d1(3)*d2(2)
+   kvec(2) = d1(3)*d2(1) - d1(1)*d2(3)
+   kvec(3) = d1(1)*d2(2) - d1(2)*d2(1)
+   vecl = sqrt(kvec(1)**2+kvec(2)**2+kvec(3)**2)
+   IF ( vecl<1.0E-06 ) CALL mesage(-30,26,ecpt(1))
+   kvec(1) = kvec(1)/vecl
+   kvec(2) = kvec(2)/vecl
+   kvec(3) = kvec(3)/vecl
 !
 !     I-VECTOR = NORMALIZED A SUB 12 - H * KVECTOR
 !     GET H FIRST = (A SUB 12 DOT KVECTOR)/2
 !
-   H = (A1(1)*Kvec(1)+A1(2)*Kvec(2)+A1(3)*Kvec(3))/2.0
+   h = (a1(1)*kvec(1)+a1(2)*kvec(2)+a1(3)*kvec(3))/2.0
 !
-   Ivec(1) = A1(1) - H*Kvec(1)
-   Ivec(2) = A1(2) - H*Kvec(2)
-   Ivec(3) = A1(3) - H*Kvec(3)
-   Vecl = sqrt(Ivec(1)**2+Ivec(2)**2+Ivec(3)**2)
-   IF ( Vecl<1.0E-06 ) CALL mesage(-30,26,Ecpt(1))
-   Ivec(1) = Ivec(1)/Vecl
-   Ivec(2) = Ivec(2)/Vecl
-   Ivec(3) = Ivec(3)/Vecl
+   ivec(1) = a1(1) - h*kvec(1)
+   ivec(2) = a1(2) - h*kvec(2)
+   ivec(3) = a1(3) - h*kvec(3)
+   vecl = sqrt(ivec(1)**2+ivec(2)**2+ivec(3)**2)
+   IF ( vecl<1.0E-06 ) CALL mesage(-30,26,ecpt(1))
+   ivec(1) = ivec(1)/vecl
+   ivec(2) = ivec(2)/vecl
+   ivec(3) = ivec(3)/vecl
 !
 !     J-VECTOR = K CROSS I
 !
-   Jvec(1) = Kvec(2)*Ivec(3) - Kvec(3)*Ivec(2)
-   Jvec(2) = Kvec(3)*Ivec(1) - Kvec(1)*Ivec(3)
-   Jvec(3) = Kvec(1)*Ivec(2) - Kvec(2)*Ivec(1)
+   jvec(1) = kvec(2)*ivec(3) - kvec(3)*ivec(2)
+   jvec(2) = kvec(3)*ivec(1) - kvec(1)*ivec(3)
+   jvec(3) = kvec(1)*ivec(2) - kvec(2)*ivec(1)
 !
-   Vecl = sqrt(Jvec(1)**2+Jvec(2)**2+Jvec(3)**2)
-   Jvec(1) = Jvec(1)/Vecl
-   Jvec(2) = Jvec(2)/Vecl
-   Jvec(3) = Jvec(3)/Vecl
+   vecl = sqrt(jvec(1)**2+jvec(2)**2+jvec(3)**2)
+   jvec(1) = jvec(1)/vecl
+   jvec(2) = jvec(2)/vecl
+   jvec(3) = jvec(3)/vecl
 !
 !
-   V(1) = 1.0
-   V(2) = 0.0
+   v(1) = 1.0
+   v(2) = 0.0
 !
 !     R ARRAY IS EQUIVALENCED TO IVECTOR AND JVECTOR
 !
-   CALL gmmats(r,2,3,0,A2,3,1,0,V(3))
-   CALL gmmats(r,2,3,0,A3,3,1,0,V(5))
-   CALL gmmats(r,2,3,0,A4,3,1,0,V(7))
+   CALL gmmats(r,2,3,0,a2,3,1,0,v(3))
+   CALL gmmats(r,2,3,0,a3,3,1,0,v(5))
+   CALL gmmats(r,2,3,0,a4,3,1,0,v(7))
 !
 !     NORMALIZE THE 4 2X1 V ARRAYS
 !
    DO i = 1 , 4
-      Vecl = sqrt(V(2*i-1)**2+V(2*i)**2)
-      IF ( Vecl<1.0E-10 ) CALL mesage(-30,26,Ecpt(1))
-      V(2*i-1) = V(2*i-1)/Vecl
-      V(2*i) = V(2*i)/Vecl
+      vecl = sqrt(v(2*i-1)**2+v(2*i)**2)
+      IF ( vecl<1.0E-10 ) CALL mesage(-30,26,ecpt(1))
+      v(2*i-1) = v(2*i-1)/vecl
+      v(2*i) = v(2*i)/vecl
    ENDDO
 !
 !     MAPPING MATRIX M IS IN DATA STATEMENT.
@@ -144,60 +145,60 @@ SUBROUTINE sqdme1
 !     SAVE GRID SILS AND COORDINATE SYSTEMS.
 !
    DO i = 1 , 36
-      Ecptsa(i) = Ecpt(i)
+      ecptsa(i) = ecpt(i)
    ENDDO
 !
-   Ecpt(6) = Ecpt(7)
-   Ecpt(7) = Ecpt(8)
-   Ecpt(8) = Ecpt(9)
+   ecpt(6) = ecpt(7)
+   ecpt(7) = ecpt(8)
+   ecpt(8) = ecpt(9)
 !
 !     ZERO OUT SUM MATRICES
 !
    DO i = 1 , 36
-      Sum(i) = 0.0
+      sum(i) = 0.0
    ENDDO
-   St(1) = 0.0
-   St(2) = 0.0
-   St(3) = 0.0
+   st(1) = 0.0
+   st(2) = 0.0
+   st(3) = 0.0
 !
-   Ecpt(21) = Ecpt(26)
+   ecpt(21) = ecpt(26)
 !
    DO i = 1 , 4
 !
 !     POINTER TO THE SILS IN THE MAPPING MATRIX
 !
-      Ncoord = 8
-      Npoint = 3*i - 3
+      ncoord = 8
+      npoint = 3*i - 3
       DO j = 2 , 4
-         Npoint = Npoint + 1
-         Nsub1 = m(Npoint)
+         npoint = npoint + 1
+         nsub1 = m(npoint)
          DO k = 1 , 4
-            Nsub3 = 4*Nsub1 - 4 + k
-            Ncoord = Ncoord + 1
-            Ecpt(Ncoord) = coord(Nsub3)
+            nsub3 = 4*nsub1 - 4 + k
+            ncoord = ncoord + 1
+            ecpt(ncoord) = coord(nsub3)
          ENDDO
-         necpt(j) = ngrid(Nsub1)
+         necpt(j) = ngrid(nsub1)
       ENDDO
 !
 !     SET UP T MATRIX FOR THIS TRIANGLE.  T IS 3X3
 !
-      U1 = V(2*i-1)
-      U2 = V(2*i)
+      u1 = v(2*i-1)
+      u2 = v(2*i)
 !
-      T(1) = U1**2
-      T(2) = U2**2
-      T(7) = U1*U2
-      T(3) = -2.0*T(7)
-      T(4) = T(2)
-      T(5) = T(1)
-      T(6) = -T(3)
-      T(8) = -T(7)
-      T(9) = T(1) - T(2)
+      t(1) = u1**2
+      t(2) = u2**2
+      t(7) = u1*u2
+      t(3) = -2.0*t(7)
+      t(4) = t(2)
+      t(5) = t(1)
+      t(6) = -t(3)
+      t(8) = -t(7)
+      t(9) = t(1) - t(2)
 !
 !     COMPUTE NET SINTH AND COSTH FOR ANISOTROPIC POSSIBILITY
 !
-      Sinth = Sinang*U1 - Cosang*U2
-      Costh = Cosang*U1 + Sinang*U2
+      sinth = sinang*u1 - cosang*u2
+      costh = cosang*u1 + sinang*u2
 !
       CALL strme1(1)
 !
@@ -209,30 +210,30 @@ SUBROUTINE sqdme1
 !
 !     POINTER TO TRIANGLE I ROW IN THE MAPPING MATRIX
 !
-         Npoint = 3*i - 3
+         npoint = 3*i - 3
 !
 !     TRANSFORM S
 !
-         CALL gmmats(T,3,3,0,s(9*j-8),3,3,0,Stemp)
+         CALL gmmats(t,3,3,0,s(9*j-8),3,3,0,stemp)
 !
 !     ADD STEMP INTO RESPECTIVE KSUM POSITIONS
 !
 !     ZERO POINTER INTO KSUM MATRICES
 !
-         Nsub1 = Npoint + j
-         Nsub1 = m(Nsub1)*9 - 9
+         nsub1 = npoint + j
+         nsub1 = m(nsub1)*9 - 9
          DO k = 1 , 9
-            Nsub1 = Nsub1 + 1
-            Sum(Nsub1) = Sum(Nsub1) + Stemp(k)
+            nsub1 = nsub1 + 1
+            sum(nsub1) = sum(nsub1) + stemp(k)
          ENDDO
       ENDDO
 !
 !     TRANSFORM AND ADD IN S SUB T
 !
-      CALL gmmats(T,3,3,0,ssubt,3,1,0,Stemp)
-      St(1) = St(1) + Stemp(1)
-      St(2) = St(2) + Stemp(2)
-      St(3) = St(3) + Stemp(3)
+      CALL gmmats(t,3,3,0,ssubt,3,1,0,stemp)
+      st(1) = st(1) + stemp(1)
+      st(2) = st(2) + stemp(2)
+      st(3) = st(3) + stemp(3)
    ENDDO
 !
 !     ALL MATRICES COMPLETE
@@ -240,13 +241,13 @@ SUBROUTINE sqdme1
 !     FILL OUTPUT BLOCK
 !
    DO i = 1 , 5
-      Ph1out(i) = Ecptsa(i)
+      ph1out(i) = ecptsa(i)
    ENDDO
-   Ph1out(7) = St(1)*0.25
-   Ph1out(8) = St(2)*0.25
-   Ph1out(9) = St(3)*0.25
+   ph1out(7) = st(1)*0.25
+   ph1out(8) = st(2)*0.25
+   ph1out(9) = st(3)*0.25
    DO i = 1 , 36
-      Ph1out(i+9) = 0.25*Sum(i)
+      ph1out(i+9) = 0.25*sum(i)
    ENDDO
 !
 !     PHASE 1 COMPLETE OUTPUT BLOCK CONTAINS 45 WORDS

@@ -1,4 +1,5 @@
-!*==fbsi.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fbsi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbsi(Zs,Zd)
@@ -30,18 +31,18 @@ SUBROUTINE fbsi(Zs,Zd)
 !                         AND FOR SOLUTION VECTORS
 !     ZS( BUF2        ) - BUFFER FOR FILE WITH TRIANGULAR MATRIX
 !
-USE C_FBSM
-USE C_FBSX
-USE C_LOGOUT
-USE C_NAMES
-USE C_PACKX
-USE C_SYSTEM
-USE C_TYPE
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZNTPKX
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsm
+   USE c_fbsx
+   USE c_logout
+   USE c_names
+   USE c_packx
+   USE c_system
+   USE c_type
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zntpkx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -71,18 +72,18 @@ USE ISO_FORTRAN_ENV
 !
 !     GENERAL INITIALIZATION
 !
-   buf2 = Lcore - Sysbuf
-   buf1 = buf2 - Sysbuf
-   typel = Dbl(5)
-   rcb = Rlcmpx(typeb)
-   rcl = Rlcmpx(typel)
-   Nwds = Words(typeb)
-   IF ( rcb==rcl .AND. typel>typeb ) Nwds = Words(typel)
-   nrhvwd = Nwds*ncol
-   Nwds = Words(typel)
-   nrhv = Dbb(2)
+   buf2 = lcore - sysbuf
+   buf1 = buf2 - sysbuf
+   typel = dbl(5)
+   rcb = rlcmpx(typeb)
+   rcl = rlcmpx(typel)
+   nwds = words(typeb)
+   IF ( rcb==rcl .AND. typel>typeb ) nwds = words(typel)
+   nrhvwd = nwds*ncol
+   nwds = words(typel)
+   nrhv = dbb(2)
    ident = .FALSE.
-   IF ( Dbb(4)==8 ) ident = .TRUE.
+   IF ( dbb(4)==8 ) ident = .TRUE.
    IF ( ident ) nrhv = ncol
    switch = 1
 !
@@ -97,8 +98,8 @@ USE ISO_FORTRAN_ENV
 !   THE REAL PART BECOMES ONE VECTOR AND THE IMAGINARY PART BECOMES A
 !   SECOND VECTOR.)
 !
-   IF ( typel==Rsp .AND. rcb==2 ) switch = 2
-   IF ( typel==Rdp .AND. rcb==2 ) switch = 3
+   IF ( typel==rsp .AND. rcb==2 ) switch = 2
+   IF ( typel==rdp .AND. rcb==2 ) switch = 3
    IF ( switch/=1 ) THEN
       IF ( switch==3 ) THEN
          nrhvwd = 4*ncol
@@ -114,33 +115,33 @@ USE ISO_FORTRAN_ENV
    memavl = buf1 - mtria - 2
    subnam(2) = begn
    CALL conmsg(subnam,2,0)
-   CALL fbsrdm(Dbl,Zs(mtria),Zs(mtria),Zs(mtria),memavl,Zs(buf2),Lasind,Ipos)
+   CALL fbsrdm(dbl,Zs(mtria),Zs(mtria),Zs(mtria),memavl,Zs(buf2),lasind,ipos)
    CALL sswtch(47,l47)
-   CALL fname(Dbl,iname)
+   CALL fname(dbl,iname)
    IF ( l47/=0 ) THEN
-      WRITE (Lout,99001) Dbl(1) , iname , Ipos(1) , ncol , Lcore , memavl
+      WRITE (lout,99001) dbl(1) , iname , ipos(1) , ncol , lcore , memavl
 99001 FORMAT (4X,' FORWARD BACKWARD SUBSTITUTION OF FILE ',I3,'   NAME=',2A4,/,4X,                                                  &
              &' LAST COLUMN OF TRIANGULAR MATRIX IN MEMORY        =',I8,/,4X,' TOTAL COLUMNS IN TRIANGULAR MATRIX                =',&
             & I8,/,4X,' TOTAL OPEN CORE AVAILABLE FOR USE                 =',I8,/,4X,                                               &
              &' OPEN CORE AVAILABLE FOR TRIANGULAR MATRIX STORAGE =',I8)
-      CALL fname(Dbb,iname)
-      WRITE (Lout,99002) Dbb(1) , iname , Dbl , Dbb
+      CALL fname(dbb,iname)
+      WRITE (lout,99002) dbb(1) , iname , dbl , dbb
 99002 FORMAT (4X,' RIGHT HAND VECTOR FILE ',I3,'   NAME=',2A4,/,4X,' TRIANGULAR MATRIX TRAILER    =',7I6,/,4X,                      &
              &' RIGHT HAND VECTOR(S) TRAILER =',7I6)
    ENDIF
-   I2 = 1
-   J2 = ncol
-   Incr2 = 1
-   I1 = 1
-   J1 = ncol
-   Incr1 = 1
-   Itype1 = typel
-   Itype2 = typex
-   Itype3 = Sign*typel
-   Dbx(2) = 0
-   Dbx(6) = 0
-   Dbx(7) = 0
-   block(1) = Dbl(1)
+   i2 = 1
+   j2 = ncol
+   incr2 = 1
+   i1 = 1
+   j1 = ncol
+   incr1 = 1
+   itype1 = typel
+   itype2 = typex
+   itype3 = sign*typel
+   dbx(2) = 0
+   dbx(6) = 0
+   dbx(7) = 0
+   block(1) = dbl(1)
 !
 !     OPEN RIGHT HAND VECTORS FILE (DBB)
 !
@@ -176,7 +177,7 @@ USE ISO_FORTRAN_ENV
          ENDDO
       ENDIF
    ELSE
-      CALL gopen(Dbb,Zs(buf1),Rdrew)
+      CALL gopen(dbb,Zs(buf1),rdrew)
       IF ( switch==2 ) THEN
 !
 !     SPECIAL CASE - LOWER TRIANGULAR MATRIX IS RSP AND VECTORS ARE CSP
@@ -187,13 +188,13 @@ USE ISO_FORTRAN_ENV
             Zd(k) = 0.0D+0
          ENDDO
          DO k = 1 , nrhv
-            icspsg = Csp*Sign
-            CALL intpk(*10,Dbb,0,icspsg,0)
+            icspsg = csp*sign
+            CALL intpk(*10,dbb,0,icspsg,0)
             SPAG_Loop_2_1: DO
                CALL zntpki
-               Zs(l+Ix) = xs(1)
-               Zs(l+Ix+ncol) = xs(2)
-               IF ( Eol/=0 ) EXIT SPAG_Loop_2_1
+               Zs(l+ix) = xs(1)
+               Zs(l+ix+ncol) = xs(2)
+               IF ( eol/=0 ) EXIT SPAG_Loop_2_1
             ENDDO SPAG_Loop_2_1
  10         l = l + 2*ncol
          ENDDO
@@ -207,13 +208,13 @@ USE ISO_FORTRAN_ENV
             Zd(k) = 0.0D+0
          ENDDO
          DO k = 1 , nrhv
-            icdpsg = Cdp*Sign
-            CALL intpk(*20,Dbb,0,icdpsg,0)
+            icdpsg = cdp*sign
+            CALL intpk(*20,dbb,0,icdpsg,0)
             SPAG_Loop_2_2: DO
                CALL zntpki
-               Zd(l+Ix) = Xd(1)
-               Zd(l+Ix+ncol) = Xd(2)
-               IF ( Eol/=0 ) EXIT SPAG_Loop_2_2
+               Zd(l+ix) = xd(1)
+               Zd(l+ix+ncol) = xd(2)
+               IF ( eol/=0 ) EXIT SPAG_Loop_2_2
             ENDDO SPAG_Loop_2_2
  20         l = l + 2*ncol
          ENDDO
@@ -222,7 +223,7 @@ USE ISO_FORTRAN_ENV
 !     READ RIGHT HAND VECTORS INTO MEMORY
 !
          DO l = 1 , last , nrhvwd
-            CALL unpack(*30,Dbb,Zs(l))
+            CALL unpack(*30,dbb,Zs(l))
             CYCLE
  30         ln = l + nrhvwd - 1
             DO ll = l , ln
@@ -234,12 +235,12 @@ USE ISO_FORTRAN_ENV
 !    CLOSE RIGHT HAND VECTORS FILE (DBB).
 !    START FORWARD-BACKWARD SUBSTITUTION ON RIGHT HAND VECTORS
 !
-      CALL close(Dbb,Rew)
+      CALL close(dbb,rew)
    ENDIF
    j = typel
-   Nvec = nrhv
-   Nvecsz = ncol
-   IF ( switch>1 ) Nvec = Nvec*2
+   nvec = nrhv
+   nvecsz = ncol
+   IF ( switch>1 ) nvec = nvec*2
    IF ( j==2 ) THEN
       CALL fbsi2(block,Zs,Zs(mtria),Zs(mtria),Zs(buf2))
    ELSEIF ( j==3 ) THEN
@@ -252,21 +253,21 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN AND PACK SOLUTION VECTORS ONTO OUTPUT FILE (DBX)
 !
-   CALL gopen(Dbx,Zs(buf1),Wrtrew)
+   CALL gopen(dbx,Zs(buf1),wrtrew)
    IF ( switch==2 ) THEN
 !
 !     SPECIAL CASE - LOWER TRIANGULAR MATRIX IS RSP AND VECTORS ARE CSP
 !
       l = 0
       DO k = 1 , nrhv
-         CALL bldpk(Csp,typex,Dbx,0,0)
+         CALL bldpk(csp,typex,dbx,0,0)
          DO i = 1 , ncol
             ys(1) = Zs(l+i)
             ys(2) = Zs(l+i+ncol)
-            Iy = i
+            iy = i
             CALL zblpki
          ENDDO
-         CALL bldpkn(Dbx,0,Dbx)
+         CALL bldpkn(dbx,0,dbx)
          l = l + 2*ncol
       ENDDO
    ELSEIF ( switch==3 ) THEN
@@ -275,14 +276,14 @@ USE ISO_FORTRAN_ENV
 !
       l = 0
       DO k = 1 , nrhv
-         CALL bldpk(Cdp,typex,Dbx,0,0)
+         CALL bldpk(cdp,typex,dbx,0,0)
          DO i = 1 , ncol
-            Yd(1) = Zd(l+i)
-            Yd(2) = Zd(l+i+ncol)
-            Iy = i
+            yd(1) = Zd(l+i)
+            yd(2) = Zd(l+i+ncol)
+            iy = i
             CALL zblpki
          ENDDO
-         CALL bldpkn(Dbx,0,Dbx)
+         CALL bldpkn(dbx,0,dbx)
          l = l + 2*ncol
       ENDDO
    ELSE
@@ -290,13 +291,13 @@ USE ISO_FORTRAN_ENV
 !     NORMAL CASE - CALL PACK
 !
       DO l = 1 , last , nrhvwd
-         CALL pack(Zs(l),Dbx,Dbx)
+         CALL pack(Zs(l),dbx,dbx)
       ENDDO
    ENDIF
 !
 !     JOB DONE. CLOSE TRIANGULAR MATRIX AND SOLUTION FILE.
 !
-   CALL close(Dbx,Rew)
+   CALL close(dbx,rew)
    subnam(2) = end
    CALL conmsg(subnam,2,0)
 END SUBROUTINE fbsi

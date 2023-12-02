@@ -1,10 +1,11 @@
-!*==ihexsd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ihexsd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ihexsd(Type,Shp,Dshp,Jacob,Detj,Eid,Xi,Eta,Zeta,Bxyz)
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -250,7 +251,7 @@ USE ISO_FORTRAN_ENV
 !
 !     JACOBIAN MATRIX WAS SINGULAR.
 !
-      WRITE (Op,99001) Ufm , Eid
+      WRITE (op,99001) ufm , Eid
 99001 FORMAT (A23,' 3306, SINGULAR JACOBIAN MATRIX FOR ISOPARAMETRIC ','ELEMENT NO.',I9)
       RETURN
    ENDIF
@@ -259,5 +260,4 @@ USE ISO_FORTRAN_ENV
          Jacob(i,j) = work(i,j)/Detj
       ENDDO
    ENDDO
-   RETURN
 END SUBROUTINE ihexsd

@@ -1,9 +1,10 @@
-!*==re2al.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==re2al.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE re2al(Re,Alph)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -21,8 +22,8 @@ SUBROUTINE re2al(Re,Alph)
 !
 !
          CALL fp2a8(*20,Re,Alph)
-         IF ( Nbpw<60 ) THEN
-         ELSEIF ( Nbpw==60 ) THEN
+         IF ( nbpw<60 ) THEN
+         ELSEIF ( nbpw==60 ) THEN
 !
 !     FOR 60- OR 64- BIT MACHINES, SAVE THE SECOND HALF OF REAL NUMBER
 !     IN THE SECOND ALPH WORD. THAT IS -
@@ -37,11 +38,10 @@ SUBROUTINE re2al(Re,Alph)
       CASE (2)
          RETURN
 !
- 20      WRITE (Nout,99001)
+ 20      WRITE (nout,99001)
 99001    FORMAT (99X,'(IN FP2A8, CALLED FROM RE2AL)')
          CALL mesage(-61,0,0)
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE re2al

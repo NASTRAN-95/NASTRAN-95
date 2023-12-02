@@ -1,4 +1,5 @@
-!*==iapd.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==iapd.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION iapd(I,J,Nc,Ncrd)
@@ -11,6 +12,12 @@ FUNCTION iapd(I,J,Nc,Ncrd)
    INTEGER :: J
    INTEGER :: Nc
    INTEGER :: Ncrd
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -34,5 +41,4 @@ FUNCTION iapd(I,J,Nc,Ncrd)
    iapd = 4 + Ncrd
    IF ( I==2 ) RETURN
    iapd = 4 + 3*(I-2) + Ncrd
-   RETURN
 END FUNCTION iapd

@@ -1,13 +1,14 @@
-!*==cyct1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cyct1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cyct1
-USE C_BLANK
-USE C_PACKX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_packx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -47,52 +48,52 @@ USE ISO_FORTRAN_ENV
 !
 !     FIND NECESSARY PARAMETERS
 !
-         Nogo = 1
+         nogo = 1
          precis = 2
          IF ( iprec/=2 ) precis = 1
-         ldrl = Ctype(1)==hdrl
-         ldsa = Ctype(1)==hdsa
-         IF ( .NOT.((Ctype(1)==hrot) .OR. ldrl .OR. ldsa) ) THEN
+         ldrl = ctype(1)==hdrl
+         ldsa = ctype(1)==hdsa
+         IF ( .NOT.((ctype(1)==hrot) .OR. ldrl .OR. ldsa) ) THEN
 !
 !     FATAL MESSAGES
 !
-            Nogo = -1
-            WRITE (outpt,99001) Ufm , Ctype(1)
+            nogo = -1
+            WRITE (outpt,99001) ufm , ctype(1)
 99001       FORMAT (A23,' 4063, ILLEGAL VALUE (',A4,') FOR PARAMETER CTYPE.')
          ENDIF
-         lback = Cdir(1)==hback
+         lback = cdir(1)==hback
 !
 !     CURRENT DOCUMENTED USAGE DOES NOT USE NEGATIVE VALUES OF KMAXI
 !     OTHER THAN THE DEFAULT OF -1     10/02/73
 !     LOGIC IS INCLUDED IN THE ROUTINE TO USE NEGATIVE KMAXI BUT IS NOT
 !     FULLY CHECKED OUT.  THE FOLLOWING STATEMENT NEGATES ALL THIS LOGIC
 !
-         IF ( Kmaxi<0 ) Kmaxi = Nn/2
-         kmax = Kmaxi
+         IF ( kmaxi<0 ) kmaxi = nn/2
+         kmax = kmaxi
          kmin = 0
          IF ( kmax<0 ) THEN
             kmax = -kmax
             kmin = kmax
          ENDIF
-         IF ( 2*kmax>Nn .OR. Nn<=0 ) THEN
-            Nogo = -1
-            WRITE (outpt,99002) Ufm , Nn , Kmaxi
+         IF ( 2*kmax>nn .OR. nn<=0 ) THEN
+            nogo = -1
+            WRITE (outpt,99002) ufm , nn , kmaxi
 99002       FORMAT (A23,' 4064, ILLEGAL VALUES (',I8,1H,,I8,') FOR PARAMETERS (NSEGS,KMAX).')
          ENDIF
-         IF ( Nload<=0 ) THEN
-            Nogo = -1
-            WRITE (outpt,99003) Ufm , Nload
+         IF ( nload<=0 ) THEN
+            nogo = -1
+            WRITE (outpt,99003) ufm , nload
 99003       FORMAT (A23,' 4065, ILLEGAL VALUE (',I8,') FOR PARAMETER NLOAD.')
          ENDIF
-         nloads = Nload
-         IF ( ldsa ) nloads = 2*Nload
-         nloadt = Nload
-         IF ( ldrl .OR. ldsa ) nloadt = 2*Nload
-         numrow = Nn
+         nloads = nload
+         IF ( ldsa ) nloads = 2*nload
+         nloadt = nload
+         IF ( ldrl .OR. ldsa ) nloadt = 2*nload
+         numrow = nn
          IF ( lback ) THEN
             numrow = 2*(kmax-kmin+1)
             IF ( kmin==0 ) numrow = numrow - 1
-            IF ( 2*kmax==Nn ) numrow = numrow - 1
+            IF ( 2*kmax==nn ) numrow = numrow - 1
          ENDIF
          numrow = nloadt*numrow
 !
@@ -104,11 +105,11 @@ USE ISO_FORTRAN_ENV
 !          (NOTE  N = LITTLE N, NN = CAPITAL N)   N = 0,(NN-1)
 !          (ALLOW FOR (NLOADS-1) ZEROS BEFORE FIRST ENTRY IN COL)
 !
-         buf = korsz(Iz) - sysbuf + 1
+         buf = korsz(iz) - sysbuf + 1
          icos = 1
-         ncos = icos + Nn - 1
+         ncos = icos + nn - 1
          isin = ncos + 1
-         nsin = isin + Nn - 1
+         nsin = isin + nn - 1
          icol = nsin + 1
          jcol = icol + nloads - 1
          ncol = jcol + numrow - 1
@@ -119,8 +120,8 @@ USE ISO_FORTRAN_ENV
          mcb(1) = gcyc
          CALL rdtrl(mcb(1))
          IF ( mcb(1)<=0 ) THEN
-            Nogo = -1
-            WRITE (outpt,99004) Ufm
+            nogo = -1
+            WRITE (outpt,99004) ufm
 99004       FORMAT (A23,' 4066, SECOND OUTPUT DATA BLOCK MUST NOT BE PURGED.')
          ENDIF
          mcb(1) = vout
@@ -132,12 +133,12 @@ USE ISO_FORTRAN_ENV
          IF ( .NOT.lvin ) mcb(2) = 0
          lnmult = mcb(2)/=numrow
          IF ( lvin .AND. lvout .AND. lnmult ) THEN
-            Nogo = -1
-            WRITE (outpt,99005) Ufm , mcb(2) , numrow
+            nogo = -1
+            WRITE (outpt,99005) ufm , mcb(2) , numrow
 99005       FORMAT (A23,' 4067, VIN HAS',I9,' COLS, GCYC HAS',I9,6H ROWS.)
             CALL mesage(-61,0,subr)
             RETURN
-         ELSEIF ( Nogo<=0 ) THEN
+         ELSEIF ( nogo<=0 ) THEN
             CALL mesage(-61,0,subr)
             RETURN
          ELSE
@@ -146,7 +147,7 @@ USE ISO_FORTRAN_ENV
 !     PREPARE TRIGONOMETRIC TABLES,  DC1=COS(2*PI/NN), PI = 4*ATAN(1)
 !     MOVABLE POINTERS  JXXX=N , KXXX= NN-N
 !
-            rn = float(Nn)
+            rn = float(nn)
             dfac = (8.0D0*datan(1.0D0))/dble(rn)
             dc1 = dcos(dfac)
             ds1 = dsin(dfac)
@@ -168,13 +169,13 @@ USE ISO_FORTRAN_ENV
 !
 !     OPEN GCYC MATRIX,  GET READY TO USE PACK
 !
-               CALL gopen(gcyc,Iz(buf),1)
+               CALL gopen(gcyc,iz(buf),1)
                CALL makmcb(mcb,gcyc,numrow,2,precis)
-               Pkin = 2
-               Pkout = precis
-               Pkirow = 1
-               Pknrow = numrow
-               Pkincr = 1
+               pkin = 2
+               pkout = precis
+               pkirow = 1
+               pknrow = numrow
+               pkincr = 1
                IF ( lback ) THEN
 !
 !     START LOOPING ON COLUMNS OF MATRIX OF TYPE BACK
@@ -213,7 +214,7 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 2
       CASE (2)
          dfak = dfac
-         IF ( k==0 .OR. 2*k==Nn ) dfak = 0.5D0*dfak
+         IF ( k==0 .OR. 2*k==nn ) dfak = 0.5D0*dfak
          lcos = .TRUE.
          ktrig = icos
          ntrig = ncos
@@ -222,7 +223,7 @@ USE ISO_FORTRAN_ENV
          DO kcol = jcol , ncol , nloadt
             dz(kcol) = dfak*dz(ktrig)
             ktrig = ktrig + k
-            IF ( ktrig>ntrig ) ktrig = ktrig - Nn
+            IF ( ktrig>ntrig ) ktrig = ktrig - nn
          ENDDO
          spag_nextblock_1 = 4
       CASE (4)
@@ -255,13 +256,13 @@ USE ISO_FORTRAN_ENV
 !     BOTTOM OF LOOP FOR TYPE BACK
 !
                   n = n + 1
-                  IF ( n<=Nn ) EXIT SPAG_Loop_1_2
+                  IF ( n<=nn ) EXIT SPAG_Loop_1_2
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
 !
 !     BOTTOM OF LOOP FOR TYPE FORE
 !
-               ELSEIF ( k/=0 .AND. 2*k/=Nn .AND. lcos ) THEN
+               ELSEIF ( k/=0 .AND. 2*k/=nn .AND. lcos ) THEN
                   lcos = .FALSE.
                   ktrig = isin
                   ntrig = nsin
@@ -287,13 +288,13 @@ USE ISO_FORTRAN_ENV
             IF ( k>=kmin ) THEN
                dz(kcol) = dz(kcos)
                kcol = kcol + nloadt
-               IF ( k/=0 .AND. 2*k/=Nn ) THEN
-                  dz(kcol) = dz(kcos+Nn)
+               IF ( k/=0 .AND. 2*k/=nn ) THEN
+                  dz(kcol) = dz(kcos+nn)
                   kcol = kcol + nloadt
                ENDIF
             ENDIF
             kcos = kcos + n - 1
-            IF ( kcos>ncos ) kcos = kcos - Nn
+            IF ( kcos>ncos ) kcos = kcos - nn
             k = k + 1
             IF ( k>kmax ) THEN
                spag_nextblock_1 = 4

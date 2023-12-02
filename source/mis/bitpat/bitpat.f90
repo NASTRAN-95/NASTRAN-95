@@ -1,9 +1,10 @@
-!*==bitpat.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==bitpat.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bitpat(Icode,Ibits)
+   USE c_system
    IMPLICIT NONE
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,16 +35,16 @@ SUBROUTINE bitpat(Icode,Ibits)
    IF ( n==0 ) RETURN
 !
    j = 1
-   nbits = -Nbpc
+   nbits = -nbpc
    DO i = 1 , n
-      nbits = nbits + Nbpc
+      nbits = nbits + nbpc
       ia = list(i) + 1
-      k = Nbpw - nbits
-      Ibits(j) = klshft(krshft(Ibits(j),k/Nbpc),k/Nbpc)
-      Ibits(j) = orf(Ibits(j),krshft(int(ia),nbits/Nbpc))
+      k = nbpw - nbits
+      Ibits(j) = klshft(krshft(Ibits(j),k/nbpc),k/nbpc)
+      Ibits(j) = orf(Ibits(j),krshft(int(ia),nbits/nbpc))
       IF ( i==4 ) THEN
          j = 2
-         nbits = -Nbpc
+         nbits = -nbpc
       ENDIF
    ENDDO
 END SUBROUTINE bitpat

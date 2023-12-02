@@ -1,4 +1,5 @@
-!*==mtrxin.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mtrxin.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mtrxin
@@ -14,17 +15,17 @@ SUBROUTINE mtrxin
 !     REAL AND COMPLEX DMIG MATRIX GENERATION FROM DMIG INPUT CARDS
 !     WITH DOUBLE PRECISION DATA
 !
-USE C_BLANK
-USE C_MACHIN
-USE C_NAMES
-USE C_SADDX
-USE C_SETUP
-USE C_SYSTEM
-USE C_TYPE
-USE C_XMSSG
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_machin
+   USE c_names
+   USE c_saddx
+   USE c_setup
+   USE c_system
+   USE c_type
+   USE c_xmssg
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -66,21 +67,21 @@ USE ISO_FORTRAN_ENV
 !
 !     PERFORM GENERAL INITIALIZATION
 !
-         buf1 = korsz(Z) - Sysbuf - 2
-         buf2 = buf1 - Sysbuf
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
-         buf5 = buf4 - Sysbuf
+         buf1 = korsz(z) - sysbuf - 2
+         buf2 = buf1 - sysbuf
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         buf5 = buf4 - sysbuf
          nomat1 = -1
          nomat2 = -1
          nomat3 = -1
-         mask16 = Jhalf
+         mask16 = jhalf
 !
 !     IF MACHINE IS MORE THEN 32 BITS PER WORD, WE USE PACKING LOGIC
 !     OTHERWISE, WE DO NOT PACK ROW AND COLUMN INDICES INTO ONE WORD
 !
          pack = .FALSE.
-         IF ( Ihalf>16 ) pack = .TRUE.
+         IF ( ihalf>16 ) pack = .TRUE.
          DO i = 1 , nfiles , 10
             j1 = i + 1
             jn = i + 9
@@ -100,9 +101,9 @@ USE ISO_FORTRAN_ENV
          file = mpool
          nompoo = 0
          nodmig = 0
-         CALL preloc(*20,Z(buf1),mpool)
+         CALL preloc(*20,z(buf1),mpool)
          nompoo = 1
-         CALL locate(*20,Z(buf1),dmig,flag)
+         CALL locate(*20,z(buf1),dmig,flag)
          nodmig = 1
 !
 !     READ CASE CONTROL RECORD.
@@ -111,26 +112,26 @@ USE ISO_FORTRAN_ENV
 !     NAMES OF OUTPUT DATA BLOCKS.
 !
  20      file = casecc
-         CALL open(*60,casecc,Z(buf2),Rdrew)
+         CALL open(*60,casecc,z(buf2),rdrew)
          CALL fwdrec(*260,casecc)
-         CALL read(*220,*40,casecc,Z,buf2,1,flag)
+         CALL read(*220,*40,casecc,z,buf2,1,flag)
          CALL mesage(-8,0,nam)
- 40      CALL close(casecc,Clsrew)
-         tfset = Z(itf)
-         IF ( Z(imat1)/=0 ) THEN
+ 40      CALL close(casecc,clsrew)
+         tfset = z(itf)
+         IF ( z(imat1)/=0 ) THEN
             nomat1 = 1
-            mcb(8) = Z(imat1)
-            mcb(9) = Z(imat1+1)
+            mcb(8) = z(imat1)
+            mcb(9) = z(imat1+1)
          ENDIF
-         IF ( Z(imat2)/=0 ) THEN
+         IF ( z(imat2)/=0 ) THEN
             nomat2 = 1
-            mcb(18) = Z(imat2)
-            mcb(19) = Z(imat2+1)
+            mcb(18) = z(imat2)
+            mcb(19) = z(imat2+1)
          ENDIF
-         IF ( Z(imat3)/=0 ) THEN
+         IF ( z(imat3)/=0 ) THEN
             nomat3 = 1
-            mcb(28) = Z(imat3)
-            mcb(29) = Z(imat3+1)
+            mcb(28) = z(imat3)
+            mcb(29) = z(imat3+1)
          ENDIF
 !
 !     IF TRANSFER FUNCTION MATRICES EXIST, BUILD THEM IN MATRIX FORMAT.
@@ -155,7 +156,6 @@ USE ISO_FORTRAN_ENV
             IF ( mcb(31)==mcb(i) ) CALL fname(mcb(31),mcb(i+7))
          ENDDO
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (2)
          IF ( nodmig==0 .AND. tfset==0 ) GOTO 220
          IF ( tfset==0 ) THEN
@@ -182,7 +182,7 @@ USE ISO_FORTRAN_ENV
 !     IF SET NOT IN TFPOOL, QUEUE MESSAGE AND TURN ON NOGO FLAG.
 !
          file = tfpool
-         CALL open(*80,tfpool,Z(buf2),Rdrew)
+         CALL open(*80,tfpool,z(buf2),rdrew)
          DO
             CALL fwdrec(*80,tfpool)
             CALL read(*80,*80,tfpool,buf,1,0,flag)
@@ -196,7 +196,7 @@ USE ISO_FORTRAN_ENV
          buf(2) = 0
          CALL mesage(30,74,buf)
          IF ( dmig(1)/=tfset ) THEN
-            CALL close(tfpool,Clsrew)
+            CALL close(tfpool,clsrew)
             spag_nextblock_1 = 8
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -212,15 +212,15 @@ USE ISO_FORTRAN_ENV
             IF ( filei(i)>0 ) THEN
                file = filei(i)
                bufx = bufi(i)
-               CALL gopen(file,Z(bufx),Wrtrew)
+               CALL gopen(file,z(bufx),wrtrew)
             ELSE
-               Nomat(i) = -1
+               nomat(i) = -1
             ENDIF
          ENDDO
 !
 !     PACK MATRICES ONTO OUTPUT FILES.
 !
-         ncol = Luset
+         ncol = luset
          icol = 1
          jsw = 0
          isw = 0
@@ -245,16 +245,16 @@ USE ISO_FORTRAN_ENV
          CALL read(*260,*100,tfpool,buf,i45,0,flag)
          isw = 1
          col = buf(1)
-         Row = buf(2)
+         row = buf(2)
          IF ( pack ) THEN
-            col = rshift(buf(1),Ihalf)
-            Row = andf(buf(1),mask16)
+            col = rshift(buf(1),ihalf)
+            row = andf(buf(1),mask16)
          ENDIF
          spag_nextblock_1 = 6
       CASE (6)
          IF ( col<=icol ) THEN
             DO i = 1 , 3
-               IF ( filei(i)>0 ) CALL bldpki(buf(i+i12),Row,filei(i),block(20*i-19))
+               IF ( filei(i)>0 ) CALL bldpki(buf(i+i12),row,filei(i),block(20*i-19))
             ENDDO
             isw = 0
             spag_nextblock_1 = 5
@@ -273,7 +273,7 @@ USE ISO_FORTRAN_ENV
 !
 !     CLOSE FILES AND WRITE TRAILERS. IF NO DMIG MATRICES, RETURN
 !
-         CALL close(tfpool,Clsrew)
+         CALL close(tfpool,clsrew)
          DO i = 1 , 3
             IF ( filei(i)>0 ) THEN
                i7 = 7*i
@@ -290,21 +290,20 @@ USE ISO_FORTRAN_ENV
          CYCLE SPAG_DispatchLoop_1
  100     jsw = 1
          spag_nextblock_1 = 7
-         CYCLE SPAG_DispatchLoop_1
       CASE (8)
 !
 !     READ EQUIVALENCE TABLE INTO CORE
 !
          file = eqex
-         CALL gopen(eqex,Z(buf2),0)
+         CALL gopen(eqex,z(buf2),0)
          CALL skprec(eqex,1)
-         CALL read(*260,*120,eqex,Z,buf2,1,neqex)
+         CALL read(*260,*120,eqex,z,buf2,1,neqex)
          CALL mesage(-8,0,nam)
- 120     CALL close(eqex,Clsrew)
+ 120     CALL close(eqex,clsrew)
          kn = neqex/2
          nn = neqex - 1
          DO i = 1 , nn , 2
-            Z(i+1) = Z(i+1)/10
+            z(i+1) = z(i+1)/10
          ENDDO
          spag_nextblock_1 = 9
       CASE (9)
@@ -319,10 +318,10 @@ USE ISO_FORTRAN_ENV
 !     BUF(1) AND BUF(2) ARE MATRIX NAME FROM DMIG CARDS.
 !
             k = buf(6)
-            prec = Prc(k)
+            prec = prc(k)
             k = buf(5)
             iprc = mod(k,2)
-            nwd = Nwds(k)
+            nwd = nwds(k)
             nwd1 = nwd + 1
             i11 = 11
             IF ( .NOT.(pack) ) THEN
@@ -349,18 +348,18 @@ USE ISO_FORTRAN_ENV
 !
          iptr = i
          file = mcb(iptr)
-         mcb(iptr+2) = Luset
+         mcb(iptr+2) = luset
          mcb(iptr+3) = buf(4)
          mcb(iptr+4) = buf(6)
          mcb(iptr+9) = 1
          iqq = (iptr-1)/10
-         Nomat(iqq+1) = +1
+         nomat(iqq+1) = +1
          isw = 0
          imtrx = neqex + 1
          i = imtrx
 !
 !
-         CALL open(*240,scr1,Z(buf2),Wrtrew)
+         CALL open(*240,scr1,z(buf2),wrtrew)
          spag_nextblock_1 = 10
       CASE (10)
 !
@@ -379,48 +378,47 @@ USE ISO_FORTRAN_ENV
             IF ( isw==0 ) THEN
                n = i - imtrx
                nmtrx = i - nwd1
-               CALL close(scr1,Clsrew)
-               IF ( pack ) CALL sorti(0,0,nwd1,1,Z(imtrx),n)
-               IF ( .NOT.pack ) CALL sorti2(0,0,nwd1,1,Z(imtrx),n)
+               CALL close(scr1,clsrew)
+               IF ( pack ) CALL sorti(0,0,nwd1,1,z(imtrx),n)
+               IF ( .NOT.pack ) CALL sorti2(0,0,nwd1,1,z(imtrx),n)
             ELSE
                CALL write(scr1,0,0,1)
-               CALL close(scr1,Clsrew)
-               CALL open(*240,scr1,Z(buf2),Rdrew)
-               Ifile(1) = scr2
-               Ifile(2) = scr3
-               Ifile(3) = scr4
-               IF ( pack ) CALL sorti(scr1,0,nwd1,1,Z(imtrx),buf2-imtrx)
-               IF ( .NOT.pack ) CALL sorti2(scr1,0,nwd1,1,Z(imtrx),buf2-imtrx)
-               CALL close(scr1,Clsrew)
+               CALL close(scr1,clsrew)
+               CALL open(*240,scr1,z(buf2),rdrew)
+               ifile(1) = scr2
+               ifile(2) = scr3
+               ifile(3) = scr4
+               IF ( pack ) CALL sorti(scr1,0,nwd1,1,z(imtrx),buf2-imtrx)
+               IF ( .NOT.pack ) CALL sorti2(scr1,0,nwd1,1,z(imtrx),buf2-imtrx)
+               CALL close(scr1,clsrew)
             ENDIF
 !
 !     OPEN OUTPUT FILE. WRITE HEADER RECORD
 !     IF SORTED MATRIX NOT IN CORE, OPEN FILE WITH MATRIX.
 !
             IF ( tfset/=0 ) file = scr1
-            CALL open(*240,file,Z(buf2),Wrtrew)
+            CALL open(*240,file,z(buf2),wrtrew)
             CALL fname(file,buf(19))
             CALL write(file,buf(19),2,1)
-            IF ( isw/=0 ) CALL open(*240,Ifile(6),Z(buf3),Rdrew)
+            IF ( isw/=0 ) CALL open(*240,ifile(6),z(buf3),rdrew)
 !
 !     PACK MATRIX ONTO OUTPUT FILE.
 !
-            ncol = Luset
+            ncol = luset
             j = imtrx
             icol = 1
             jsw = 0
             spag_nextblock_1 = 12
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !
             ASSIGN 140 TO ret
             spag_nextblock_1 = 17
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
- 140     col = Z(2*k)
+         CYCLE
+ 140     col = z(2*k)
          IF ( buf(11)/=0 ) col = col + buf(11) - 1
-         IF ( pack ) col = lshift(col,Ihalf)
+         IF ( pack ) col = lshift(col,ihalf)
          spag_nextblock_1 = 11
       CASE (11)
 !
@@ -435,26 +433,25 @@ USE ISO_FORTRAN_ENV
          ASSIGN 160 TO ret
          spag_nextblock_1 = 17
          CYCLE SPAG_DispatchLoop_1
- 160     Row = Z(2*k)
-         IF ( buf(11)/=0 ) Row = Row + buf(11) - 1
-         buf(11) = Row
+ 160     row = z(2*k)
+         IF ( buf(11)/=0 ) row = row + buf(11) - 1
+         buf(11) = row
          buf(10) = col
-         IF ( pack ) buf(11) = Row + col
+         IF ( pack ) buf(11) = row + col
          CALL fread(mpool,buf(12),nwd,0)
          IF ( isw/=0 ) THEN
             CALL write(scr1,buf(i11),nwd1,0)
          ELSEIF ( i+nwd1<buf2 ) THEN
             DO j = 1 , nwd1
-               Z(i) = buf(j+i10)
+               z(i) = buf(j+i10)
                i = i + 1
             ENDDO
          ELSE
             isw = 1
-            CALL write(scr1,Z(imtrx),i-imtrx,0)
+            CALL write(scr1,z(imtrx),i-imtrx,0)
             CALL write(scr1,buf(i11),nwd1,0)
          ENDIF
          spag_nextblock_1 = 11
-         CYCLE SPAG_DispatchLoop_1
       CASE (12)
          CALL bldpk(buf(6),buf(6),file,0,0)
          IF ( jsw/=0 ) THEN
@@ -469,17 +466,17 @@ USE ISO_FORTRAN_ENV
          ENDIF
          IF ( isw==0 ) THEN
             DO k = 1 , nwd1
-               buf(k+i10) = Z(j)
+               buf(k+i10) = z(j)
                j = j + 1
             ENDDO
          ELSE
-            CALL read(*260,*180,Ifile(6),buf(i11),nwd1,0,flag)
+            CALL read(*260,*180,ifile(6),buf(i11),nwd1,0,flag)
          ENDIF
          col = buf(10)
-         Row = buf(11)
+         row = buf(11)
          IF ( pack ) THEN
-            col = rshift(buf(11),Ihalf)
-            Row = andf(buf(11),mask16)
+            col = rshift(buf(11),ihalf)
+            row = andf(buf(11),mask16)
          ENDIF
          spag_nextblock_1 = 14
       CASE (14)
@@ -496,11 +493,11 @@ USE ISO_FORTRAN_ENV
                   xd(2) = bufr(13)
                ENDIF
             ELSEIF ( iprc==0 ) THEN
-               X(1) = bufd(1)
-               X(2) = bufd(2)
+               x(1) = bufd(1)
+               x(2) = bufd(2)
             ELSE
-               X(1) = bufr(12)
-               X(2) = bufr(13)
+               x(1) = bufr(12)
+               x(2) = bufr(13)
             ENDIF
             CALL zblpki
             spag_nextblock_1 = 13
@@ -514,8 +511,8 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 12
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL close(file,Clsrew)
-         IF ( isw/=0 ) CALL close(Ifile(6),Clsrew)
+         CALL close(file,clsrew)
+         IF ( isw/=0 ) CALL close(ifile(6),clsrew)
          CALL wrttrl(mcb(iptr))
 !
 !     IF TRANSFER FUNCTION MATRICES ARE TO BE ADDED, CALL MATRIX ADD
@@ -538,10 +535,10 @@ USE ISO_FORTRAN_ENV
             filec(3) = ncol
             filec(4) = filea(4)
             filec(5) = filea(5)
-            Nz = buf1 - imtrx
-            Nomats = 2
+            nz = buf1 - imtrx
+            nomats = 2
             k = orf(imtrx,1)
-            CALL sadd(Z(k),Z(k))
+            CALL sadd(z(k),z(k))
             CALL wrttrl(filec)
          ENDIF
          spag_nextblock_1 = 9
@@ -558,7 +555,7 @@ USE ISO_FORTRAN_ENV
                nogo = 1
             ENDIF
          ENDDO
- 220     IF ( nompoo/=0 ) CALL close(mpool,Clsrew)
+ 220     IF ( nompoo/=0 ) CALL close(mpool,clsrew)
          IF ( nogo/=0 ) CALL mesage(-61,0,nam)
          RETURN
 !
@@ -581,9 +578,9 @@ USE ISO_FORTRAN_ENV
          SPAG_Loop_1_4: DO
             k = (klo+khi+1)/2
             SPAG_Loop_2_3: DO
-               IF ( buf(10)<Z(2*k-1) ) THEN
+               IF ( buf(10)<z(2*k-1) ) THEN
                   khi = k
-               ELSEIF ( buf(10)==Z(2*k-1) ) THEN
+               ELSEIF ( buf(10)==z(2*k-1) ) THEN
                   EXIT SPAG_Loop_2_3
                ELSE
                   klo = k

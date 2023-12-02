@@ -1,4 +1,5 @@
-!*==mred2h.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mred2h.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2h
@@ -35,11 +36,11 @@ SUBROUTINE mred2h
 !             IO     - OUTPUT OPTIONS FLAG
 !             MODPTS - NUMBER OF MODAL POINTS
 !
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -73,18 +74,18 @@ SUBROUTINE mred2h
 !
 !     CHECK FOR LOADS PROCESSING ONLY
 !
-         IF ( .NOT.(Ponly) ) THEN
+         IF ( .NOT.(ponly) ) THEN
 !
 !     PROCESS EQSS, BGSS DATA
 !
-            IF ( Dry==-2 ) THEN
+            IF ( dry==-2 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             itrlr(1) = eqst
             CALL rdtrl(itrlr)
-            itmnam(1) = Newnam(1)
-            itmnam(2) = Newnam(2)
+            itmnam(1) = newnam(1)
+            itmnam(2) = newnam(2)
             ifile = eqst
             IF ( itrlr(1)<0 ) THEN
 !
@@ -94,157 +95,157 @@ SUBROUTINE mred2h
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ELSE
-               CALL gopen(eqst,Z(Gbuf1),0)
+               CALL gopen(eqst,z(gbuf1),0)
                itest = 3
                item = itmlst(1)
-               CALL sfetch(Newnam,4HEQSS,2,itest)
+               CALL sfetch(newnam,4HEQSS,2,itest)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               newpts = Modpts
-               IF ( Frebdy ) newpts = newpts + farind
+               newpts = modpts
+               IF ( frebdy ) newpts = newpts + farind
 !
 !     PROCESS EQSS GROUP 0 DATA
 !
-               IF ( Korbgn+itrlr(2)+2>=Korlen ) THEN
+               IF ( korbgn+itrlr(2)+2>=korlen ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*20,*40,eqst,Z(Korbgn),itrlr(2),1,nwdsrd)
-               ncsubs = Z(Korbgn+2)
-               Z(Korbgn+2) = Z(Korbgn+2) + 1
-               Z(Korbgn+3) = Z(Korbgn+3) + newpts
+               CALL read(*20,*40,eqst,z(korbgn),itrlr(2),1,nwdsrd)
+               ncsubs = z(korbgn+2)
+               z(korbgn+2) = z(korbgn+2) + 1
+               z(korbgn+3) = z(korbgn+3) + newpts
                newcs = itrlr(2)
-               Z(Korbgn+newcs) = Newnam(1)
-               Z(Korbgn+newcs+1) = Newnam(2)
+               z(korbgn+newcs) = newnam(1)
+               z(korbgn+newcs+1) = newnam(2)
                newcs = itrlr(2) + 2
-               CALL suwrt(Z(Korbgn),newcs,2)
+               CALL suwrt(z(korbgn),newcs,2)
 !
 !     PROCESS REMAINING EQSS GROUPS
 !
-               nwds = Korlen - Korbgn
+               nwds = korlen - korbgn
                DO i = 1 , ncsubs
-                  CALL read(*20,*2,eqst,Z(Korbgn),nwds,1,nwdsrd)
+                  CALL read(*20,*2,eqst,z(korbgn),nwds,1,nwdsrd)
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
- 2                IF ( Korbgn+1+nwdsrd>=Korlen ) THEN
+ 2                IF ( korbgn+1+nwdsrd>=korlen ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  CALL suwrt(Z(Korbgn),nwdsrd,2)
+                  CALL suwrt(z(korbgn),nwdsrd,2)
                ENDDO
 !
 !     PROCESS MODAL AND FREE-BODY POINTS
 !
-               IF ( Korbgn+3*newpts>=Korlen ) THEN
+               IF ( korbgn+3*newpts>=korlen ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                DO i = 1 , newpts
                   kore = 3*(i-1)
-                  IF ( .NOT.Frebdy ) THEN
-                     Z(Korbgn+kore) = 100 + i
+                  IF ( .NOT.frebdy ) THEN
+                     z(korbgn+kore) = 100 + i
                   ELSEIF ( i>farind ) THEN
-                     Z(Korbgn+kore) = 100 + i - farind
+                     z(korbgn+kore) = 100 + i - farind
                   ELSE
-                     Z(Korbgn+kore) = i
+                     z(korbgn+kore) = i
                   ENDIF
-                  Z(Korbgn+kore+1) = itrlr(4)/2 + i
-                  Z(Korbgn+kore+2) = 1
+                  z(korbgn+kore+1) = itrlr(4)/2 + i
+                  z(korbgn+kore+2) = 1
                ENDDO
                nwdsrd = 3*newpts
-               CALL suwrt(Z(Korbgn),nwdsrd,2)
+               CALL suwrt(z(korbgn),nwdsrd,2)
 !
 !     PROCESS EQSS SIL DATA
 !
-               IF ( Korbgn+itrlr(4)+2*newpts>=Korlen ) THEN
+               IF ( korbgn+itrlr(4)+2*newpts>=korlen ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*20,*40,eqst,Z(Korbgn),itrlr(4),1,nwdsrd)
+               CALL read(*20,*40,eqst,z(korbgn),itrlr(4),1,nwdsrd)
                nwdsrd = itrlr(4) - 1
-               icode = Z(Korbgn+nwdsrd)
+               icode = z(korbgn+nwdsrd)
                CALL decode(icode,lstbit,nwdsd)
-               lstsil = Z(Korbgn+nwdsrd-1) + nwdsd - 1
+               lstsil = z(korbgn+nwdsrd-1) + nwdsd - 1
                DO i = 1 , newpts
                   kore = itrlr(4) + 2*(i-1)
-                  Z(Korbgn+kore) = lstsil + i
-                  Z(Korbgn+kore+1) = 1
+                  z(korbgn+kore) = lstsil + i
+                  z(korbgn+kore+1) = 1
                ENDDO
                nwdsrd = itrlr(4) + 2*newpts
-               CALL suwrt(Z(Korbgn),nwdsrd,2)
-               CALL suwrt(Z(Korbgn),0,3)
+               CALL suwrt(z(korbgn),nwdsrd,2)
+               CALL suwrt(z(korbgn),0,3)
 !
 !     PROCESS BGSS DATA
 !
-               IF ( Korbgn+itrlr(5)+4*newpts>=Korlen ) THEN
+               IF ( korbgn+itrlr(5)+4*newpts>=korlen ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
                item = itmlst(2)
                itest = 3
-               CALL sfetch(Newnam,4HBGSS,2,itest)
+               CALL sfetch(newnam,4HBGSS,2,itest)
                IF ( itest/=3 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL read(*20,*40,eqst,Z(Korbgn),3,1,nwdsrd)
-               Z(Korbgn) = Newnam(1)
-               Z(Korbgn+1) = Newnam(2)
-               Z(Korbgn+2) = Z(Korbgn+2) + newpts
-               locbgs = Korbgn
-               CALL suwrt(Z(Korbgn),3,2)
-               CALL read(*20,*40,eqst,Z(Korbgn),itrlr(5),1,nwdsrd)
+               CALL read(*20,*40,eqst,z(korbgn),3,1,nwdsrd)
+               z(korbgn) = newnam(1)
+               z(korbgn+1) = newnam(2)
+               z(korbgn+2) = z(korbgn+2) + newpts
+               locbgs = korbgn
+               CALL suwrt(z(korbgn),3,2)
+               CALL read(*20,*40,eqst,z(korbgn),itrlr(5),1,nwdsrd)
                DO i = 1 , newpts
                   kore = itrlr(5) + 4*(i-1)
-                  Z(Korbgn+kore) = -1
-                  rz(Korbgn+kore+1) = 0.0
-                  rz(Korbgn+kore+2) = 0.0
-                  rz(Korbgn+kore+3) = 0.0
+                  z(korbgn+kore) = -1
+                  rz(korbgn+kore+1) = 0.0
+                  rz(korbgn+kore+2) = 0.0
+                  rz(korbgn+kore+3) = 0.0
                ENDDO
                nwdsrd = itrlr(5) + 4*newpts
-               CALL suwrt(Z(Korbgn),nwdsrd,2)
-               CALL suwrt(Z(Korbgn),0,3)
-               Korbgn = Korbgn + itrlr(5)
+               CALL suwrt(z(korbgn),nwdsrd,2)
+               CALL suwrt(z(korbgn),0,3)
+               korbgn = korbgn + itrlr(5)
             ENDIF
          ENDIF
 !
 !     PROCESS LODS, LOAP ITEM
 !
          item = lods
-         IF ( Popt==papp ) item = loap
+         IF ( popt==papp ) item = loap
          itest = 3
-         CALL sfetch(Oldnam,item,1,itest)
+         CALL sfetch(oldnam,item,1,itest)
          IF ( itest/=3 ) THEN
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            IF ( (Korbgn+nwdsrd)>=Korlen ) THEN
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            IF ( (korbgn+nwdsrd)>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Z(Korbgn) = Newnam(1)
-            Z(Korbgn+1) = Newnam(2)
-            Z(Korbgn+3) = Z(Korbgn+3) + 1
-            Z(Korbgn+nwdsrd) = Newnam(1)
-            Z(Korbgn+nwdsrd+1) = Newnam(2)
-            Z(Korbgn+nwdsrd+2) = sofeog
+            z(korbgn) = newnam(1)
+            z(korbgn+1) = newnam(2)
+            z(korbgn+3) = z(korbgn+3) + 1
+            z(korbgn+nwdsrd) = newnam(1)
+            z(korbgn+nwdsrd+1) = newnam(2)
+            z(korbgn+nwdsrd+2) = sofeog
             iwds = nwdsrd + 3
-            CALL suread(Z(Korbgn+iwds),-2,nwdsrd,itest)
-            IF ( Korbgn+iwds+nwdsrd+2>=Korlen ) THEN
+            CALL suread(z(korbgn+iwds),-2,nwdsrd,itest)
+            IF ( korbgn+iwds+nwdsrd+2>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Z(Korbgn+iwds+nwdsrd) = 0
-            Z(Korbgn+iwds+nwdsrd+1) = sofeog
+            z(korbgn+iwds+nwdsrd) = 0
+            z(korbgn+iwds+nwdsrd+1) = sofeog
             iwds = iwds + nwdsrd + 2
             itest = 3
-            CALL sfetch(Newnam,item,2,itest)
+            CALL sfetch(newnam,item,2,itest)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suwrt(Z(Korbgn),iwds,3)
-            IF ( Ponly ) THEN
+            CALL suwrt(z(korbgn),iwds,3)
+            IF ( ponly ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -252,52 +253,52 @@ SUBROUTINE mred2h
 !
 !     PROCESS PLTS ITEM
 !
-         CALL sfetch(Oldnam,4HPLTS,1,itest)
+         CALL sfetch(oldnam,4HPLTS,1,itest)
          IF ( itest/=3 ) THEN
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            Z(Korbgn) = Newnam(1)
-            Z(Korbgn+1) = Newnam(2)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            z(korbgn) = newnam(1)
+            z(korbgn+1) = newnam(2)
             itest = 3
-            CALL sfetch(Newnam,4HPLTS,2,itest)
+            CALL sfetch(newnam,4HPLTS,2,itest)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             itest = 2
-            CALL suwrt(Z(Korbgn),nwdsrd,itest)
+            CALL suwrt(z(korbgn),nwdsrd,itest)
             itest = 3
-            CALL suwrt(Z(Korbgn),0,itest)
+            CALL suwrt(z(korbgn),0,itest)
          ENDIF
 !
 !     PROCESS CSTM ITEM
 !
-         CALL sfetch(Oldnam,4HCSTM,1,itest)
+         CALL sfetch(oldnam,4HCSTM,1,itest)
          IF ( itest/=3 ) THEN
-            CALL suread(Z(Korbgn),-2,nwdsrd,itest)
-            IF ( Korbgn+2*nwdsrd>=Korlen ) THEN
+            CALL suread(z(korbgn),-2,nwdsrd,itest)
+            IF ( korbgn+2*nwdsrd>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Z(Korbgn) = Newnam(1)
-            Z(Korbgn+1) = Newnam(2)
+            z(korbgn) = newnam(1)
+            z(korbgn+1) = newnam(2)
             kore = nwdsrd - 4
-            CALL sort(0,0,14,1,Z(Korbgn+3),kore)
+            CALL sort(0,0,14,1,z(korbgn+3),kore)
             kore = kore/14
-            IF ( Korbgn+2*nwdsrd+kore>=Korlen ) THEN
+            IF ( korbgn+2*nwdsrd+kore>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             DO i = 1 , kore
-               Z(Korbgn+nwdsrd+i-1) = 0
+               z(korbgn+nwdsrd+i-1) = 0
             ENDDO
             nbgss = itrlr(5)/4
             DO i = 1 , nbgss
                k = 4*(i-1)
-               IF ( Z(locbgs+k)>0 ) THEN
+               IF ( z(locbgs+k)>0 ) THEN
                   SPAG_Loop_2_1: DO j = 1 , kore
                      loc = 14*(j-1)
-                     IF ( Z(Korbgn+3+loc)==Z(locbgs+k) ) THEN
-                        Z(Korbgn+nwdsrd+j-1) = 1
+                     IF ( z(korbgn+3+loc)==z(locbgs+k) ) THEN
+                        z(korbgn+nwdsrd+j-1) = 1
                         EXIT SPAG_Loop_2_1
                      ENDIF
                   ENDDO SPAG_Loop_2_1
@@ -305,20 +306,20 @@ SUBROUTINE mred2h
             ENDDO
             locnew = 0
             DO i = 1 , kore
-               IF ( Z(Korbgn+nwdsrd+i-1)/=0 ) THEN
+               IF ( z(korbgn+nwdsrd+i-1)/=0 ) THEN
                   locold = 14*(i-1)
                   DO j = 1 , 14
-                     Z(Korbgn+nwdsrd+kore+locnew+j-1) = Z(Korbgn+3+locold+j-1)
+                     z(korbgn+nwdsrd+kore+locnew+j-1) = z(korbgn+3+locold+j-1)
                   ENDDO
                   locnew = locnew + 14
                ENDIF
             ENDDO
             IF ( locnew/=0 ) THEN
                itest = 3
-               CALL sfetch(Newnam,4HCSTM,2,itest)
-               CALL suwrt(Newnam,2,2)
-               CALL suwrt(Z(Korbgn+nwdsrd+kore),locnew,2)
-               CALL suwrt(Z(Korbgn),0,3)
+               CALL sfetch(newnam,4HCSTM,2,itest)
+               CALL suwrt(newnam,2,2)
+               CALL suwrt(z(korbgn+nwdsrd+kore),locnew,2)
+               CALL suwrt(z(korbgn),0,3)
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
@@ -327,80 +328,80 @@ SUBROUTINE mred2h
 !     OUTPUT EQSS ITEM
 !
          CALL close(eqst,1)
-         IF ( andf(rshift(Io,4),1)==1 ) THEN
-            CALL sfetch(Newnam,4HEQSS,1,itest)
+         IF ( andf(rshift(io,4),1)==1 ) THEN
+            CALL sfetch(newnam,4HEQSS,1,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suread(Z(Korbgn),4,nwdsrd,itest)
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            loc = Korbgn + nwdsrd
+            CALL suread(z(korbgn),4,nwdsrd,itest)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            loc = korbgn + nwdsrd
             ncsubs = ncsubs + 1
             DO i = 1 , ncsubs
-               CALL suread(Z(loc),-1,nwdsrd,itest)
-               namloc = Korbgn + 2*(i-1)
-               CALL cmiwrt(1,Newnam,Z(namloc),loc,nwdsrd,Z,Z)
+               CALL suread(z(loc),-1,nwdsrd,itest)
+               namloc = korbgn + 2*(i-1)
+               CALL cmiwrt(1,newnam,z(namloc),loc,nwdsrd,z,z)
             ENDDO
-            CALL suread(Z(loc),-1,nwdsrd,itest)
-            IF ( (loc+nwdsrd)>=Korlen ) THEN
+            CALL suread(z(loc),-1,nwdsrd,itest)
+            IF ( (loc+nwdsrd)>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL cmiwrt(8,Newnam,0,loc,nwdsrd,Z,Z)
+            CALL cmiwrt(8,newnam,0,loc,nwdsrd,z,z)
          ENDIF
 !
 !     OUTPUT BGSS ITEM
 !
-         IF ( andf(rshift(Io,5),1)==1 ) THEN
-            CALL sfetch(Newnam,4HBGSS,1,itest)
+         IF ( andf(rshift(io,5),1)==1 ) THEN
+            CALL sfetch(newnam,4HBGSS,1,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             ngrp = 1
             CALL sjump(ngrp)
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-            CALL cmiwrt(2,Newnam,Newnam,Korbgn,nwdsrd,Z,Z)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
+            CALL cmiwrt(2,newnam,newnam,korbgn,nwdsrd,z,z)
          ENDIF
 !
 !     OUTPUT CSTM ITEM
 !
-         IF ( andf(rshift(Io,6),1)==1 ) THEN
-            CALL sfetch(Newnam,4HCSTM,1,itest)
+         IF ( andf(rshift(io,6),1)==1 ) THEN
+            CALL sfetch(newnam,4HCSTM,1,itest)
             IF ( itest/=3 ) THEN
                ngrp = 1
                CALL sjump(ngrp)
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               CALL cmiwrt(3,Newnam,Newnam,Korbgn,nwdsrd,Z,Z)
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               CALL cmiwrt(3,newnam,newnam,korbgn,nwdsrd,z,z)
             ENDIF
          ENDIF
 !
 !     OUTPUT PLTS ITEM
 !
-         IF ( andf(rshift(Io,7),1)==1 ) THEN
-            CALL sfetch(Newnam,4HPLTS,1,itest)
+         IF ( andf(rshift(io,7),1)==1 ) THEN
+            CALL sfetch(newnam,4HPLTS,1,itest)
             IF ( itest/=3 ) THEN
-               CALL suread(Z(Korbgn),3,nwdsrd,itest)
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               CALL cmiwrt(4,Newnam,Newnam,Korbgn,nwdsrd,Z,Z)
+               CALL suread(z(korbgn),3,nwdsrd,itest)
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               CALL cmiwrt(4,newnam,newnam,korbgn,nwdsrd,z,z)
             ENDIF
          ENDIF
 !
 !     OUTPUT LODS ITEM
 !
-         IF ( andf(rshift(Io,8),1)==1 ) THEN
-            CALL sfetch(Newnam,item,1,itest)
+         IF ( andf(rshift(io,8),1)==1 ) THEN
+            CALL sfetch(newnam,item,1,itest)
             IF ( itest/=3 ) THEN
-               CALL suread(Z(Korbgn),4,nwdsrd,itest)
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               loc = Korbgn + nwdsrd
+               CALL suread(z(korbgn),4,nwdsrd,itest)
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               loc = korbgn + nwdsrd
                itype = 5
                IF ( item==loap ) itype = 7
                DO i = 1 , ncsubs
-                  namloc = Korbgn + 2*(i-1)
-                  CALL suread(Z(loc),-1,nwdsrd,itest)
-                  CALL cmiwrt(itype,Newnam,Z(namloc),loc,nwdsrd,Z,Z)
+                  namloc = korbgn + 2*(i-1)
+                  CALL suread(z(loc),-1,nwdsrd,itest)
+                  CALL cmiwrt(itype,newnam,z(namloc),loc,nwdsrd,z,z)
                   itype = 6
                ENDDO
             ENDIF
@@ -408,95 +409,95 @@ SUBROUTINE mred2h
 !
 !     OUTPUT MODAL DOF SUMMARY
 !
-         IF ( andf(rshift(Io,9),1)/=1 ) THEN
+         IF ( andf(rshift(io,9),1)/=1 ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          item = itmlst(3)
-         itmnam(1) = Oldnam(1)
-         itmnam(2) = Oldnam(2)
-         CALL sfetch(Oldnam,item,1,itest)
+         itmnam(1) = oldnam(1)
+         itmnam(2) = oldnam(2)
+         CALL sfetch(oldnam,item,1,itest)
          IF ( itest/=1 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         CALL suread(Z(Korbgn),-1,nwdsrd,itest)
+         CALL suread(z(korbgn),-1,nwdsrd,itest)
          CALL page1
-         WRITE (Iprntr,99001) Newnam
-         Line = Line + 11
-         nofreq = Z(Korbgn+3)
-         lamloc = Korbgn
+         WRITE (iprntr,99001) newnam
+         line = line + 11
+         nofreq = z(korbgn+3)
+         lamloc = korbgn
          moduse = lamloc + 7*nofreq + 1
-         CALL suread(Z(Korbgn),-2,nwdsrd,itest)
-         IF ( (Korbgn+nwdsrd)>=Korlen ) THEN
+         CALL suread(z(korbgn),-2,nwdsrd,itest)
+         IF ( (korbgn+nwdsrd)>=korlen ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Usrmod<=1 ) THEN
+         IF ( usrmod<=1 ) THEN
             item = itmlst(1)
-            itmnam(1) = Newnam(1)
-            itmnam(2) = Newnam(2)
-            CALL sfetch(Newnam,item,1,itest)
+            itmnam(1) = newnam(1)
+            itmnam(2) = newnam(2)
+            CALL sfetch(newnam,item,1,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            Korbgn = Korbgn + moduse + nofreq
-            IF ( Korbgn>=Korlen ) THEN
+            korbgn = korbgn + moduse + nofreq
+            IF ( korbgn>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suread(Z(Korbgn),-1,nwdsrd,itest)
+            CALL suread(z(korbgn),-1,nwdsrd,itest)
             DO i = 1 , ncsubs
-               CALL suread(Z(Korbgn),-1,nwdsrd,itest)
-               IF ( Korbgn+nwdsrd>=Korlen ) THEN
+               CALL suread(z(korbgn),-1,nwdsrd,itest)
+               IF ( korbgn+nwdsrd>=korlen ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
             iprb = 0
-            IF ( Frebdy ) iprb = Z(Korbgn+1) - 1
+            IF ( frebdy ) iprb = z(korbgn+1) - 1
             nwdsrd = nwdsrd/3
-            loceqs = Korbgn
+            loceqs = korbgn
             SPAG_Loop_1_2: DO i = 1 , nwdsrd
                j = 1 + 3*(i-1)
-               ipid = Z(loceqs+j)
-               IF ( Z(loceqs+j-1)>100 ) EXIT SPAG_Loop_1_2
+               ipid = z(loceqs+j)
+               IF ( z(loceqs+j-1)>100 ) EXIT SPAG_Loop_1_2
             ENDDO SPAG_Loop_1_2
-            Korbgn = Korbgn + 3*nwdsrd
+            korbgn = korbgn + 3*nwdsrd
             ipid = 2*ipid
-            IF ( Korbgn+ipid>=Korlen ) THEN
+            IF ( korbgn+ipid>=korlen ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suread(Z(Korbgn),ipid,nwdsrd,itest)
-            ips = Z(Korbgn+ipid-2)
-            IF ( Frebdy ) THEN
+            CALL suread(z(korbgn),ipid,nwdsrd,itest)
+            ips = z(korbgn+ipid-2)
+            IF ( frebdy ) THEN
                DO i = 1 , farind
                   j = 3*(i-1)
                   k = 2*((i-1)+iprb)
-                  WRITE (Iprntr,99002) izero , zero , izero , Z(loceqs+j) , Z(Korbgn+k)
+                  WRITE (iprntr,99002) izero , zero , izero , z(loceqs+j) , z(korbgn+k)
                ENDDO
             ENDIF
          ENDIF
          index1 = -3
-         IF ( Frebdy ) index1 = 3*farind - 3
+         IF ( frebdy ) index1 = 3*farind - 3
          DO i = 1 , nofreq
-            IF ( Line>Nlpp ) THEN
+            IF ( line>nlpp ) THEN
                CALL page1
-               WRITE (Iprntr,99001) Newnam
-               Line = Line + 11
+               WRITE (iprntr,99001) newnam
+               line = line + 11
             ENDIF
-            IF ( (Z(moduse+i-1)>1) .OR. (Usrmod>1) ) THEN
+            IF ( (z(moduse+i-1)>1) .OR. (usrmod>1) ) THEN
                mode = 7*(i-1)
-               WRITE (Iprntr,99002) Z(lamloc+mode) , rz(lamloc+mode+4) , Z(moduse+i-1)
+               WRITE (iprntr,99002) z(lamloc+mode) , rz(lamloc+mode+4) , z(moduse+i-1)
             ELSE
                index1 = index1 + 3
                mode = 7*(i-1)
-               WRITE (Iprntr,99002) Z(lamloc+mode) , rz(lamloc+mode+4) , Z(moduse+i-1) , Z(loceqs+index1) , ips
+               WRITE (iprntr,99002) z(lamloc+mode) , rz(lamloc+mode+4) , z(moduse+i-1) , z(loceqs+index1) , ips
                ips = ips + 1
             ENDIF
-            Line = Line + 1
+            line = line + 1
          ENDDO
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
@@ -505,7 +506,6 @@ SUBROUTINE mred2h
          CYCLE SPAG_DispatchLoop_1
  40      imsg = -3
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          imsg = -8
          ifile = 0
@@ -514,7 +514,6 @@ SUBROUTINE mred2h
          CALL sofcls
          CALL mesage(imsg,ifile,modnam)
          spag_nextblock_1 = 6
-         CYCLE SPAG_DispatchLoop_1
       CASE (5)
 !
 !     PROCESS MODULE FATAL ERRORS
@@ -525,7 +524,7 @@ SUBROUTINE mred2h
             imsg = -3
          ELSE
             CALL smsg1(-9,item,itmnam,modnam)
-            Dry = -2
+            dry = -2
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF

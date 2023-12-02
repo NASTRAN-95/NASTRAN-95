@@ -1,12 +1,13 @@
-!*==rcovsl.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovsl.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_system
    IMPLICIT NONE
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,20 +44,20 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
 !
 !     INITIALIZE
 !
-   buf1 = Lcore - Sysbuf + 1
-   Itypp = 1
-   Irowp = 1
-   Incp = 1
-   Mcore = Lcore
-   T = 0
-   Signpf = 1
-   Prec = 0
+   buf1 = Lcore - sysbuf + 1
+   itypp = 1
+   irowp = 1
+   incp = 1
+   mcore = Lcore
+   t = 0
+   signpf = 1
+   prec = 0
 !
 !     READ LOAD MATRIX FROM SOF ONTO GINO FILE
 !
-   Pmx(1) = In
-   CALL rdtrl(Pmx)
-   IF ( Pmx(1)<=0 ) THEN
+   pmx(1) = In
+   CALL rdtrl(pmx)
+   IF ( pmx(1)<=0 ) THEN
       itm = Item
       CALL mtrxi(Scr2,Name,Item,Z(buf1),rc)
       IF ( rc==3 ) THEN
@@ -71,14 +72,14 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
          CALL spag_block_1
          RETURN
       ELSE
-         Pmx(1) = Scr2
-         CALL rdtrl(Pmx)
+         pmx(1) = Scr2
+         CALL rdtrl(pmx)
       ENDIF
    ENDIF
-   Nrowp = Pmx(2)
-   type = Pmx(5)
+   nrowp = pmx(2)
+   type = pmx(5)
    IF ( Rfno==8 .AND. type<=2 ) type = type + 2
-   Otypp = type
+   otypp = type
    IF ( .NOT.(First) ) THEN
 !
 !     PROCESS INITIAL SOLN DATA
@@ -109,8 +110,8 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
 !
 !     INTILIZE SCR1 FILE
 !
-         CALL makmcb(Fmx,Amat,Nrowp,2,type)
-         CALL gopen(Amat,Z(buf1),Wrtrew)
+         CALL makmcb(fmx,Amat,nrowp,2,type)
+         CALL gopen(Amat,Z(buf1),wrtrew)
 !
 !     PACK FACTOR MATRIX FOR R. F. 1,2
 !
@@ -146,11 +147,11 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
             ENDIF
             ip = 1
             IF ( Rfno==8 ) ip = 2
-            IF ( Rfno==8 ) Itypp = 3
+            IF ( Rfno==8 ) itypp = 3
             ifact = nl + 1
             nfact = nl + nl*ip
             icol = nfact + 1
-            ncol = nfact + ip*Nrowp
+            ncol = nfact + ip*nrowp
             IF ( ncol>=buf1 ) CALL mesage(-8,0,subr)
 !
             DO i = 1 , nst
@@ -176,13 +177,13 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
                   Z(nr) = Z(nrow)
                   IF ( ip==2 ) Z(nr+1) = Z(nrow+1)
                ENDDO
-               CALL pack(Z(icol),Amat,Fmx)
+               CALL pack(Z(icol),Amat,fmx)
             ENDDO
-            CALL close(Amat,Rew)
-            CALL wrttrl(Fmx)
+            CALL close(Amat,rew)
+            CALL wrttrl(fmx)
          ELSE
             DO i = 1 , nst
-               DO j = 1 , Nrowp
+               DO j = 1 , nrowp
                   Z(j) = 0.0
                ENDDO
                n = 1
@@ -198,37 +199,37 @@ SUBROUTINE rcovsl(Name,Item,In,Amat,Scr2,Scr3,Out,Z,Iz,Lcore,First,Rfno)
                ENDIF
                IF ( nl>=0 ) THEN
                   IF ( nl/=0 ) THEN
-                     IF ( Nrowp+2*nl>=buf1 ) CALL mesage(-8,0,subr)
-                     CALL suread(Z(Nrowp+1),2*nl,n,rc)
+                     IF ( nrowp+2*nl>=buf1 ) CALL mesage(-8,0,subr)
+                     CALL suread(Z(nrowp+1),2*nl,n,rc)
                      IF ( rc/=1 ) THEN
                         CALL spag_block_3
                         RETURN
                      ENDIF
-                     nrow = Nrowp - 1
+                     nrow = nrowp - 1
                      DO j = 1 , nl
                         nrow = nrow + 2
                         nr = Iz(nrow)
                         Z(nr) = Z(nrow+1)
                      ENDDO
                   ENDIF
-                  CALL pack(Z(1),Amat,Fmx)
+                  CALL pack(Z(1),Amat,fmx)
                ENDIF
             ENDDO
-            CALL close(Amat,Rew)
-            CALL wrttrl(Fmx)
+            CALL close(Amat,rew)
+            CALL wrttrl(fmx)
          ENDIF
       ENDIF
    ENDIF
 !
 !     OUT = LOADS*FACTORS
 !
-   Fmx(1) = Amat
-   CALL rdtrl(Fmx)
-   Cmx(1) = 0
-   CALL makmcb(Slmx,Out,Pmx(3),2,type)
-   Scr = Scr3
+   fmx(1) = Amat
+   CALL rdtrl(fmx)
+   cmx(1) = 0
+   CALL makmcb(slmx,Out,pmx(3),2,type)
+   scr = Scr3
    CALL mpyad(Z,Z,Z)
-   CALL wrttrl(Slmx)
+   CALL wrttrl(slmx)
    CALL spag_block_2
    RETURN
 CONTAINS
@@ -241,16 +242,13 @@ CONTAINS
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      RETURN
    END SUBROUTINE spag_block_2
    SUBROUTINE spag_block_3
-      CALL smsg(rc+4,itm,Name)
+      CALL smsg(Rc+4,Itm,Name)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_3
    SUBROUTINE spag_block_4
-      CALL smsg(7,itm,Name)
+      CALL smsg(7,Itm,Name)
       CALL spag_block_1
-      RETURN
    END SUBROUTINE spag_block_4
 END SUBROUTINE rcovsl

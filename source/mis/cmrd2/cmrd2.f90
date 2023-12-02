@@ -1,11 +1,12 @@
-!*==cmrd2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmrd2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -127,18 +128,18 @@ SUBROUTINE cmrd2
 !
 !     COMPUTE OPEN CORE AND DEFINE GINO, SOF BUFFERS
 !
-         IF ( Dry==-2 ) RETURN
-         nozwds = korsz(Z(1))
-         Lstzwd = nozwds - 1
-         Gbuf1 = nozwds - Sysbuf - 2
-         Gbuf2 = Gbuf1 - Sysbuf
-         Gbuf3 = Gbuf2 - Sysbuf
-         Sbuf1 = Gbuf3 - Sysbuf
-         Sbuf2 = Sbuf1 - Sysbuf - 1
-         Sbuf3 = Sbuf2 - Sysbuf
-         Korlen = Sbuf3 - 1
-         Korbgn = 1
-         IF ( Korlen<=Korbgn ) THEN
+         IF ( dry==-2 ) RETURN
+         nozwds = korsz(z(1))
+         lstzwd = nozwds - 1
+         gbuf1 = nozwds - sysbuf - 2
+         gbuf2 = gbuf1 - sysbuf
+         gbuf3 = gbuf2 - sysbuf
+         sbuf1 = gbuf3 - sysbuf
+         sbuf2 = sbuf1 - sysbuf - 1
+         sbuf3 = sbuf2 - sysbuf
+         korlen = sbuf3 - 1
+         korbgn = 1
+         IF ( korlen<=korbgn ) THEN
             imsg = -8
             ifile = 0
             spag_nextblock_1 = 2
@@ -147,64 +148,63 @@ SUBROUTINE cmrd2
 !
 !     INITIALIZE SOF
 !
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
 !
 !     INITIALIZE CASE CONTROL PARAMETERS
 !
             DO i = 1 , 11
                IF ( i>6 ) THEN
-                  Infile(i) = 100 + i
-                  Iscr(i) = 300 + i
+                  infile(i) = 100 + i
+                  iscr(i) = 300 + i
                ELSE
-                  Infile(i) = 100 + i
-                  Otfile(i) = 200 + i
-                  Iscr(i) = 300 + i
+                  infile(i) = 100 + i
+                  otfile(i) = 200 + i
+                  iscr(i) = 300 + i
                ENDIF
             ENDDO
             DO i = 1 , 2
-               Oldnam(i) = iblank
-               Newnam(i) = iblank
+               oldnam(i) = iblank
+               newnam(i) = iblank
             ENDDO
-            Range(1) = -1.0E+35
-            Range(2) = 1.0E+35
-            Symtry = .FALSE.
-            Nmax = 2147483647
-            Io = 0
-            Modes = .FALSE.
-            Rsave = .FALSE.
+            range(1) = -1.0E+35
+            range(2) = 1.0E+35
+            symtry = .FALSE.
+            nmax = 2147483647
+            io = 0
+            modes = .FALSE.
+            rsave = .FALSE.
             nrange = 0
-            Ponly = .FALSE.
+            ponly = .FALSE.
 !
 !     PROCESS CASE CONTROL
 !
             ifile = casecc
-            CALL open(*20,casecc,Z(Gbuf2),0)
-            IF ( Step/=0 ) THEN
-               DO i = 1 , Step
+            CALL open(*20,casecc,z(gbuf2),0)
+            IF ( step/=0 ) THEN
+               DO i = 1 , step
                   CALL fwdrec(*60,casecc)
                ENDDO
             ENDIF
 !
 !     READ CASECC
 !
-            CALL read(*40,*60,casecc,Z(Korbgn),2,0,nwdsrd)
-            nwdscc = Z(Korbgn+1)
+            CALL read(*40,*60,casecc,z(korbgn),2,0,nwdsrd)
+            nwdscc = z(korbgn+1)
             DO i = 1 , nwdscc , 3
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     CALL read(*40,*60,casecc,Z(Korbgn),3,0,nwdsrd)
+                     CALL read(*40,*60,casecc,z(korbgn),3,0,nwdsrd)
 !
 !     TEST CASE CONTROL MNEMONICS
 !
-                     DO j = 1 , 8
-                        IF ( Z(Korbgn)==nmonic(j) ) THEN
+                     SPAG_Loop_4_1: DO j = 1 , 8
+                        IF ( z(korbgn)==nmonic(j) ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_4_1
                         ENDIF
-                     ENDDO
-                     CYCLE
+                     ENDDO SPAG_Loop_4_1
                   CASE (2)
 !
 !     SELECT DATA TO EXTRACT
@@ -214,49 +214,49 @@ SUBROUTINE cmrd2
 !     EXTRACT NAME OF REDUCED SUBSTRUCTURE
 !
                         DO k = 1 , 2
-                           Newnam(k) = Z(Korbgn+k)
+                           newnam(k) = z(korbgn+k)
                         ENDDO
                      ELSEIF ( j==3 ) THEN
 !
 !     EXTRACT SYMMETRY FLAG
 !
-                        IF ( Z(Korbgn+1)==yes ) Symtry = .TRUE.
+                        IF ( z(korbgn+1)==yes ) symtry = .TRUE.
                      ELSEIF ( j==4 ) THEN
 !
 !     EXTRACT FREQUENCY RANGE
 !
                         IF ( nrange==1 ) THEN
-                           Range(2) = rz(Korbgn+2)
+                           range(2) = rz(korbgn+2)
                         ELSE
                            nrange = 1
-                           Range(1) = rz(Korbgn+2)
+                           range(1) = rz(korbgn+2)
                         ENDIF
                      ELSEIF ( j==5 ) THEN
 !
 !     EXTRACT MAXIMUM NUMBER OF FREQUENCIES
 !
-                        IF ( Z(Korbgn)/=0 ) Nmax = Z(Korbgn+2)
+                        IF ( z(korbgn)/=0 ) nmax = z(korbgn+2)
                      ELSEIF ( j==6 ) THEN
 !
 !     EXTRACT OUTPUT FLAGS
 !
-                        Io = orf(Io,Z(Korbgn+2))
+                        io = orf(io,z(korbgn+2))
                      ELSEIF ( j==7 ) THEN
 !
 !     EXTRACT OLDMODES FLAG
 !
-                        IF ( Z(Korbgn+1)==yes ) Modes = .TRUE.
+                        IF ( z(korbgn+1)==yes ) modes = .TRUE.
                      ELSEIF ( j==8 ) THEN
 !
 !     EXTRACT REDUCTION SAVE FLAG
 !
-                        IF ( Z(Korbgn+1)==yes ) Rsave = .TRUE.
+                        IF ( z(korbgn+1)==yes ) rsave = .TRUE.
                      ELSE
 !
 !     EXTRACT NAME OF SUBSTRUCTURE BEING REDUCED
 !
                         DO k = 1 , 2
-                           Oldnam(k) = Z(Korbgn+k)
+                           oldnam(k) = z(korbgn+k)
                         ENDDO
                      ENDIF
                      EXIT SPAG_DispatchLoop_2
@@ -271,14 +271,14 @@ SUBROUTINE cmrd2
             CALL rdtrl(itrlr)
             npass = 2
             IF ( itrlr(1)<=0 ) THEN
-               Symtry = .TRUE.
+               symtry = .TRUE.
                npass = 1
             ENDIF
 !
 !     CHECK FOR RUN = GO
 !
             ihorg = 0
-            IF ( Dry/=0 ) THEN
+            IF ( dry/=0 ) THEN
 !
 !     CHECK FOR STIFFNESS PROCESSING
 !
@@ -299,11 +299,11 @@ SUBROUTINE cmrd2
 !     TEST FOR H TRANSFORMATION MATRICES
 !
                      IF ( j==2 ) THEN
-                        CALL softrl(Oldnam,nhhlft,itrlr)
+                        CALL softrl(oldnam,nhhlft,itrlr)
                         IF ( itrlr(1)==1 ) CYCLE
                         ihorg = ihorg + 2
                      ELSE
-                        CALL softrl(Oldnam,nhhorg,itrlr)
+                        CALL softrl(oldnam,nhhorg,itrlr)
                         IF ( itrlr(1)==1 ) CYCLE
                         ihorg = ihorg + 1
                      ENDIF
@@ -329,10 +329,10 @@ SUBROUTINE cmrd2
 !
 !     CHECK FOR LOADS ONLY PROCESSING
 !
-                  CALL sfetch(Newnam,nhlods,3,itest)
-                  IF ( itest==3 ) Ponly = .TRUE.
-                  CALL sfetch(Newnam,nhloap,3,itest)
-                  IF ( itest==3 ) Ponly = .TRUE.
+                  CALL sfetch(newnam,nhlods,3,itest)
+                  IF ( itest==3 ) ponly = .TRUE.
+                  CALL sfetch(newnam,nhloap,3,itest)
+                  IF ( itest==3 ) ponly = .TRUE.
                ENDIF
             ENDIF
 !
@@ -351,7 +351,7 @@ SUBROUTINE cmrd2
 !     CLOSE ANY OPEN FILES
 !
             CALL sofcls
-            IF ( Dry==-2 ) WRITE (Iprntr,99001)
+            IF ( dry==-2 ) WRITE (iprntr,99001)
 !
 99001       FORMAT (50H0  MODULE CREDUCE TERMINATING DUE TO ABOVE ERRORS.)
             RETURN

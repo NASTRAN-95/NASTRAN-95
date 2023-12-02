@@ -1,15 +1,16 @@
-!*==invpwr.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==invpwr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE invpwr
-USE C_DCOMPX
-USE C_INVPWX
-USE C_INVPXX
-USE C_NAMES
-USE C_STURMX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_dcompx
+   USE c_invpwx
+   USE c_invpxx
+   USE c_names
+   USE c_sturmx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -94,10 +95,10 @@ USE ISO_FORTRAN_ENV
 !     TIMED  =  TIME REQUIRED TO FORM AND DECOMPOSE (K-LAMBDA*M)
 !     NFIRST =  NUMBER OF VECTORS IN THE FIRST POSITIVE SEARCH REGION
 !
-         Isym = 1
-         nshift = (Noest+5)/6
+         isym = 1
+         nshift = (noest+5)/6
          mxchng = max0(10,nshift)
-         ncol = Filek(2)
+         ncol = filek(2)
          ncol2 = 2*ncol
          ishift = 1
          nz = korsz(zz(1))
@@ -106,69 +107,69 @@ USE ISO_FORTRAN_ENV
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         nz = korsz(Z(1))
+         nz = korsz(z(1))
          ibuf1 = nz - sysbuf
          icrq = ncol2 - ibuf1
          IF ( ibuf1<=ncol2 ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Nopos = Northo
-         Noneg = 0
-         Neg = 0
-         Ind = 0
-         Iter = 0
+         nopos = northo
+         noneg = 0
+         neg = 0
+         ind = 0
+         iter = 0
          nodcmp = 0
          nostrt = 0
          nomovs = 0
-         IF ( Northo<=0 ) THEN
-            CALL gopen(Sr1fil,Z(ibuf1),Wrtrew)
-            CALL close(Sr1fil,Norew)
-            CALL gopen(Sr2fil,Z(ibuf1),Wrtrew)
-            CALL close(Sr2fil,Norew)
+         IF ( northo<=0 ) THEN
+            CALL gopen(sr1fil,z(ibuf1),wrtrew)
+            CALL close(sr1fil,norew)
+            CALL gopen(sr2fil,z(ibuf1),wrtrew)
+            CALL close(sr2fil,norew)
          ENDIF
-         lmin = Lammin
-         IF ( Lammin>=0.0 ) THEN
+         lmin = lammin
+         IF ( lammin>=0.0 ) THEN
 !
 !     EVALUATE THE VALUE OF LAMBDA IN THE CENTER OF THE CURRENT SEARCH
 !     REGION
 !
-            dellam = Lammax - lmin
+            dellam = lammax - lmin
          ELSE
             lmin = 0.
-            Neg = 1
-            IF ( Lammax>0.0 ) THEN
-               dellam = Lammax - lmin
+            neg = 1
+            IF ( lammax>0.0 ) THEN
+               dellam = lammax - lmin
             ELSE
-               lmin = Lammax
-               Neg = -1
-               dellam = Lammin - Lammax
+               lmin = lammax
+               neg = -1
+               dellam = lammin - lammax
             ENDIF
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         Lambda = lmin + (ishift-0.5)*dellam/nshift
-         Rzero = abs(0.55*dellam/nshift)
+         lambda = lmin + (ishift-0.5)*dellam/nshift
+         rzero = abs(0.55*dellam/nshift)
          nostrt = nostrt + 1
          spag_nextblock_1 = 3
       CASE (3)
-         Comflg = 0
-         Lmbda = Lambda
+         comflg = 0
+         lmbda = lambda
 !
 !     INITIATE CLOCK TIME
 !
-         CALL klock(Istart)
-         Nochng = 0
-         Switch = 0
-         Ivect = 0
-         Ireg = 0
-         Ind = Ind + 1
-         IF ( iabs(Ind)==13 ) Ind = 1
+         CALL klock(istart)
+         nochng = 0
+         switch = 0
+         ivect = 0
+         ireg = 0
+         ind = ind + 1
+         IF ( iabs(ind)==13 ) ind = 1
          ising = 0
          spag_nextblock_1 = 4
       CASE (4)
-         DO WHILE ( Nochng<mxchng )
-            Nochng = Nochng + 1
+         DO WHILE ( nochng<mxchng )
+            nochng = nochng + 1
             CALL klock(t1)
 !
 !     CALL IN ADD LINK TO FORM  (K-LAMBDA*M)
@@ -178,43 +179,42 @@ USE ISO_FORTRAN_ENV
 !     CALL IN DECOMP TO DECOMPOSE THIS MATRIX
 !
             nodcmp = nodcmp + 1
-            Shftpt = Lambda
+            shftpt = lambda
             CALL invp2(*20)
             CALL klock(t2)
 !
 !     DETERMINE THE TIME REQUIRED TO FORM AND DECOMPOSE (K-LAMBDA*M)
 !
-            Timed = t2 - t1
+            timed = t2 - t1
 !
 !     CALL IN THE MAIN LINK TO ITERATE FOR EIGENVALUES
 !
             IF ( iprec==1 ) CALL invp3(norm11,sub1,mtmsu1,xtrny1)
             IF ( iprec==2 ) CALL invp3(norm1,sub,mtimsu,xtrnsy)
-            IF ( Comflg==2 ) THEN
+            IF ( comflg==2 ) THEN
                nomovs = nomovs + 1
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( Comflg==1 ) THEN
+            ELSEIF ( comflg==1 ) THEN
                ising = 0
-               Switch = 1
+               switch = 1
             ELSE
-               IF ( Comflg==3 ) THEN
+               IF ( comflg==3 ) THEN
                   spag_nextblock_1 = 5
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Comflg==0 ) THEN
+               IF ( comflg==0 ) THEN
                   ishift = ishift + 1
                   IF ( ishift>nshift ) THEN
                      spag_nextblock_1 = 5
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   spag_nextblock_1 = 2
-                  CYCLE SPAG_DispatchLoop_1
                ELSE
-                  iterm = Comflg
+                  iterm = comflg
                   spag_nextblock_1 = 6
-                  CYCLE SPAG_DispatchLoop_1
                ENDIF
+               CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
          iterm = 2
@@ -226,27 +226,25 @@ USE ISO_FORTRAN_ENV
  20      IF ( ising==1 ) THEN
             iterm = 1
             spag_nextblock_1 = 6
-            CYCLE SPAG_DispatchLoop_1
          ELSE
             ising = 1
-            Lambda = Lambda + .02*Rzero
+            lambda = lambda + .02*rzero
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (5)
-         IF ( Neg<=0 ) THEN
+         IF ( neg<=0 ) THEN
             iterm = 3
          ELSE
 !
 !     INITIALIZE PARAMETERS TO SOLVE FOR NEGATIVE EIGENVALUES
 !
-            x = nshift*(-Lammin/Lammax)
+            x = nshift*(-lammin/lammax)
             ix = x
             y = ix
             IF ( x/=y ) ix = ix + 1
             nshift = ix
-            Neg = -1
-            dellam = Lammin
+            neg = -1
+            dellam = lammin
             ishift = 1
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
@@ -256,21 +254,21 @@ USE ISO_FORTRAN_ENV
 !
 !     RE-ORDER EIGENVALUES AND EIGENVECTORS
 !
-         CALL gopen(Dmpfil,Z(ibuf1),Wrtrew)
+         CALL gopen(dmpfil,z(ibuf1),wrtrew)
          iz(1) = 2
-         iz(2) = Northo
+         iz(2) = northo
          iz(3) = nostrt
          iz(4) = nomovs
          iz(5) = nodcmp
-         iz(6) = Iter
+         iz(6) = iter
          iz(7) = 0
          iz(8) = iterm
          iz(9) = 0
          iz(10) = 0
          iz(11) = 0
          iz(12) = 0
-         CALL write(Dmpfil,iz,12,1)
-         CALL close(Dmpfil,Rew)
+         CALL write(dmpfil,iz,12,1)
+         CALL close(dmpfil,rew)
          RETURN
       CASE (7)
          no = -8

@@ -1,13 +1,14 @@
-!*==sma3c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==sma3c.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sma3c(Iflag,K)
-USE C_BLANK
-USE C_GENELY
-USE C_SYSTEM
-USE C_ZBLPKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_genely
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -45,71 +46,71 @@ USE ISO_FORTRAN_ENV
 !     IUI IS POINTER TO UI SET, IUD IS POINTER TO UD SET
 !
          iui = 1
-         iud = M + 1
-         nz = korsz(Z)
+         iud = m + 1
+         nz = korsz(z)
 !
 !     OPEN GEI(WITHOUT REWIND)
 !
-         nz = nz - Sysbuf
-         CALL gopen(Gei,Z(nz+1),2)
+         nz = nz - sysbuf
+         CALL gopen(gei,z(nz+1),2)
 !
 !     READ IN UI SET
 !
-         CALL fread(Gei,Z,-3,0)
-         CALL fread(Gei,Z,M,0)
+         CALL fread(gei,z,-3,0)
+         CALL fread(gei,z,m,0)
 !
 !     READ IN UD
 !
-         IF ( Iflag>=0 ) CALL fread(Gei,Z(iud),N,1)
+         IF ( Iflag>=0 ) CALL fread(gei,z(iud),n,1)
 !
 !     OPEN BUFFERS FOR MATRICES
 !
-         llen = M + N + 2*Sysbuf
-         IF ( Iflag>=0 ) llen = llen + 3*Sysbuf
+         llen = m + n + 2*sysbuf
+         IF ( Iflag>=0 ) llen = llen + 3*sysbuf
          IF ( llen>nz ) THEN
 !
 !     ERROR MESAGES
 !
-            CALL mesage(-8,Gei,name)
+            CALL mesage(-8,gei,name)
          ELSE
-            nz = nz - Sysbuf
-            CALL gopen(K,Z(nz+1),1)
-            nz = nz - Sysbuf
-            CALL gopen(Zinvs,Z(nz+1),0)
+            nz = nz - sysbuf
+            CALL gopen(K,z(nz+1),1)
+            nz = nz - sysbuf
+            CALL gopen(zinvs,z(nz+1),0)
             IF ( Iflag>=0 ) THEN
-               nz = nz - Sysbuf
-               CALL gopen(Zs,Z(nz+1),0)
-               nz = nz - Sysbuf
-               CALL gopen(Stz,Z(nz+1),0)
-               nz = nz - Sysbuf
-               CALL gopen(Stzs,Z(nz+1),0)
+               nz = nz - sysbuf
+               CALL gopen(zs,z(nz+1),0)
+               nz = nz - sysbuf
+               CALL gopen(stz,z(nz+1),0)
+               nz = nz - sysbuf
+               CALL gopen(stzs,z(nz+1),0)
             ENDIF
 !
 !     LOOP ON LUSET MAKING COLUMNS OF KGG
 !
             K(2) = 0
-            K(3) = Luset
+            K(3) = luset
             K(4) = 6
             K(5) = 2
             K(6) = 0
             K(7) = 0
             iip = 0
             idp = 0
-            DO i = 1 , Luset
+            DO i = 1 , luset
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     CALL bldpk(2,Iprec,K(1),0,0)
-                     IF ( iip<M ) THEN
+                     CALL bldpk(2,iprec,K(1),0,0)
+                     IF ( iip<m ) THEN
                         l = iui + iip
                         IF ( i==iz(l) ) THEN
 !
 !     USING UI -- ZINVS AND STZ
 !
                            iip = iip + 1
-                           nam1 = Zinvs(1)
-                           nam2 = Stz(1)
+                           nam1 = zinvs(1)
+                           nam2 = stz(1)
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
@@ -118,7 +119,7 @@ USE ISO_FORTRAN_ENV
                         spag_nextblock_2 = 9
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
-                     IF ( idp>=N ) THEN
+                     IF ( idp>=n ) THEN
                         spag_nextblock_2 = 9
                         CYCLE SPAG_DispatchLoop_2
                      ENDIF
@@ -131,8 +132,8 @@ USE ISO_FORTRAN_ENV
 !     USING UD ZS AND STZS
 !
                      idp = idp + 1
-                     nam1 = Zs(1)
-                     nam2 = Stzs(1)
+                     nam1 = zs(1)
+                     nam2 = stzs(1)
                      spag_nextblock_2 = 2
                   CASE (2)
 !
@@ -176,8 +177,8 @@ USE ISO_FORTRAN_ENV
 !
 !     PUT IN A11
 !
-                     D11(1) = a11
-                     Id = ii
+                     d11(1) = a11
+                     id = ii
                      CALL zblpki
                      IF ( iaeol==0 ) THEN
                         spag_nextblock_2 = 4
@@ -194,8 +195,8 @@ USE ISO_FORTRAN_ENV
 !
 !     PUT IN BUU
 !
-                     D11(1) = b11
-                     Id = jj
+                     d11(1) = b11
+                     id = jj
                      CALL zblpki
                      IF ( ibeol==0 ) THEN
                         spag_nextblock_2 = 5
@@ -223,7 +224,6 @@ USE ISO_FORTRAN_ENV
                      jj = 99999
                      ihop = 1
                      spag_nextblock_2 = 4
-                     CYCLE SPAG_DispatchLoop_2
                   CASE (9)
 !
 !     END OF COLUMN
@@ -238,11 +238,11 @@ USE ISO_FORTRAN_ENV
             ENDDO
             CALL wrttrl(K)
             CALL close(K(1),1)
-            CALL close(Zinvs(1),1)
+            CALL close(zinvs(1),1)
             IF ( Iflag>=0 ) THEN
-               CALL close(Stz(1),1)
-               CALL close(Stzs(1),1)
-               CALL close(Zs(1),1)
+               CALL close(stz(1),1)
+               CALL close(stzs(1),1)
+               CALL close(zs(1),1)
             ENDIF
             RETURN
          ENDIF

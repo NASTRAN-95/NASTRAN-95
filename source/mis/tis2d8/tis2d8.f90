@@ -1,12 +1,13 @@
-!*==tis2d8.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tis2d8.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tis2d8(Temp,Pg)
+   USE c_matin
+   USE c_matout
+   USE c_tranx
+   USE c_trimex
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_TRANX
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -109,9 +110,9 @@ SUBROUTINE tis2d8(Temp,Pg)
 !     K VECTOR IS OBTAINED BY CROSSING I INTO VECTOR FROM GRID PT. 1 TO
 !     GRID
 !
-      veck(1) = veci(2)*(Z4-Z1) - veci(3)*(Y4-Y1)
-      veck(2) = veci(3)*(X4-X1) - veci(1)*(Z4-Z1)
-      veck(3) = veci(1)*(Y4-Y1) - veci(2)*(X4-X1)
+      veck(1) = veci(2)*(z4-z1) - veci(3)*(y4-y1)
+      veck(2) = veci(3)*(x4-x1) - veci(1)*(z4-z1)
+      veck(3) = veci(1)*(y4-y1) - veci(2)*(x4-x1)
       veckl = sqrt(veck(1)**2+veck(2)**2+veck(3)**2)
       IF ( veckl==0.0 ) THEN
          CALL mesage(-30,31,ecpt(1))
@@ -135,10 +136,10 @@ SUBROUTINE tis2d8(Temp,Pg)
 !
 !     STORE ELEMENT COORDS FOR GRIDS 1 AND 2
 !
-         Xx(1) = 0.
-         Xx(2) = 0.
-         Xx(3) = vecil
-         Xx(4) = 0.
+         xx(1) = 0.
+         xx(2) = 0.
+         xx(3) = vecil
+         xx(4) = 0.
 !
 !     FOR GRIDS 3-8, THE X COORDINATE IS THE DOT PRODUCT OF HTE VECTOR
 !     FROM THE GRID POINT TO
@@ -149,49 +150,49 @@ SUBROUTINE tis2d8(Temp,Pg)
          DO i = 3 , 8
             ixx = 2*i - 1
             isub = 4*i + 11
-            vec(1) = ecpt(isub) - X1
-            vec(2) = ecpt(isub+1) - Y1
-            vec(3) = ecpt(isub+2) - Z1
-            Xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
+            vec(1) = ecpt(isub) - x1
+            vec(2) = ecpt(isub+1) - y1
+            vec(3) = ecpt(isub+2) - z1
+            xx(ixx) = vec(1)*veci(1) + vec(2)*veci(2) + vec(3)*veci(3)
             vvec(1) = veci(2)*vec(3) - veci(3)*vec(2)
             vvec(2) = veci(3)*vec(1) - veci(1)*vec(3)
             vvec(3) = veci(1)*vec(2) - veci(2)*vec(1)
-            Xx(ixx+1) = sqrt(vvec(1)**2+vvec(2)**2+vvec(3)**2)
+            xx(ixx+1) = sqrt(vvec(1)**2+vvec(2)**2+vvec(3)**2)
          ENDDO
       ENDIF
    ENDIF
 !
 !     COMPUTE MATERIAL PROPERTIES
 !
-   tth = Th*3.1415927/180.
-   Sinth = sin(tth)
-   Costh = cos(tth)
-   Inflag = 2
-   Matid = Matid1
+   tth = th*3.1415927/180.
+   sinth = sin(tth)
+   costh = cos(tth)
+   inflag = 2
+   matid = matid1
 !
 !     ZERO OUT SOME MATRICES
 !
    DO i = 1 , 16
-      Save(i) = 0.
+      save(i) = 0.
    ENDDO
 !
-   Pt(1) = -0.57735027
-   Pt(2) = -Pt(1)
-   H(1) = 1.
-   H(2) = 1.
-   IF ( Id1/=2 ) THEN
-      Pt(1) = -0.77459667D0
-      Pt(2) = 0.D0
-      Pt(3) = -Pt(1)
-      H(1) = 5.0/9.0
-      H(2) = 8.0/9.0
-      H(3) = H(1)
+   pt(1) = -0.57735027
+   pt(2) = -pt(1)
+   h(1) = 1.
+   h(2) = 1.
+   IF ( id1/=2 ) THEN
+      pt(1) = -0.77459667D0
+      pt(2) = 0.D0
+      pt(3) = -pt(1)
+      h(1) = 5.0/9.0
+      h(2) = 8.0/9.0
+      h(3) = h(1)
    ENDIF
 !
 !     2 OR 3 QUADRATURE POINTS
 !
-   DO iii = 1 , Id1
-      DO jjj = 1 , Id1
+   DO iii = 1 , id1
+      DO jjj = 1 , id1
          spag_nextblock_1 = 1
          SPAG_DispatchLoop_1: DO
             SELECT CASE (spag_nextblock_1)
@@ -201,21 +202,21 @@ SUBROUTINE tis2d8(Temp,Pg)
 !     EACH GRID POINT
 !
                DO n = 1 , 4
-                  dn(n) = 0.25*(1.+Pt(iii)*xi(n))*(1.+Pt(jjj)*eta(n))*(Pt(iii)*xi(n)+Pt(jjj)*eta(n)-1.)
-                  dnxi(n) = 0.25*xi(n)*(1.+Pt(jjj)*eta(n))*(2.*Pt(iii)*xi(n)+Pt(jjj)*eta(n))
-                  dneta(n) = 0.25*eta(n)*(1.+Pt(iii)*xi(n))*(Pt(iii)*xi(n)+2.*Pt(jjj)*eta(n))
+                  dn(n) = 0.25*(1.+pt(iii)*xi(n))*(1.+pt(jjj)*eta(n))*(pt(iii)*xi(n)+pt(jjj)*eta(n)-1.)
+                  dnxi(n) = 0.25*xi(n)*(1.+pt(jjj)*eta(n))*(2.*pt(iii)*xi(n)+pt(jjj)*eta(n))
+                  dneta(n) = 0.25*eta(n)*(1.+pt(iii)*xi(n))*(pt(iii)*xi(n)+2.*pt(jjj)*eta(n))
                ENDDO
 !
                DO n = 5 , 7 , 2
-                  dn(n) = 0.5*(1.-Pt(iii)*Pt(iii))*(1.+Pt(jjj)*eta(n))
-                  dnxi(n) = -Pt(iii)*(1.+Pt(jjj)*eta(n))
-                  dneta(n) = 0.5*(1.-Pt(iii)*Pt(iii))*eta(n)
+                  dn(n) = 0.5*(1.-pt(iii)*pt(iii))*(1.+pt(jjj)*eta(n))
+                  dnxi(n) = -pt(iii)*(1.+pt(jjj)*eta(n))
+                  dneta(n) = 0.5*(1.-pt(iii)*pt(iii))*eta(n)
                ENDDO
 !
                DO n = 6 , 8 , 2
-                  dn(n) = 0.5*(1.+Pt(iii)*xi(n))*(1.-Pt(jjj)*Pt(jjj))
-                  dnxi(n) = 0.5*xi(n)*(1.-Pt(jjj)*Pt(jjj))
-                  dneta(n) = -Pt(jjj)*(1.+Pt(iii)*xi(n))
+                  dn(n) = 0.5*(1.+pt(iii)*xi(n))*(1.-pt(jjj)*pt(jjj))
+                  dnxi(n) = 0.5*xi(n)*(1.-pt(jjj)*pt(jjj))
+                  dneta(n) = -pt(jjj)*(1.+pt(iii)*xi(n))
                ENDDO
 !
 !     COMPUTE JACOBEAN
@@ -232,7 +233,7 @@ SUBROUTINE tis2d8(Temp,Pg)
 !          X7  Y7
 !          X8  Y8
 !
-               CALL gmmats(Dnc,2,8,0,Xx,8,2,0,Xjb)
+               CALL gmmats(dnc,2,8,0,xx,8,2,0,xjb)
 !
 !     XJB IS ROW-STORED-IT MUST BE COLUMN-STORED AND DOUBLY DIMENSIONED
 !     FOR INVERSION
@@ -241,13 +242,13 @@ SUBROUTINE tis2d8(Temp,Pg)
                DO i = 1 , 2
                   DO j = 1 , 2
                      k = k + 1
-                     Xxjb(i,j) = Xjb(k)
+                     xxjb(i,j) = xjb(k)
                   ENDDO
                ENDDO
 !
 !     COMPUTE INVERSE AND DETERMINANT OF JACOBEAN
 !
-               CALL invers(2,Xxjb,2,Dumarg,0,Determ,ising,iws)
+               CALL invers(2,xxjb,2,dumarg,0,determ,ising,iws)
                IF ( ising==2 ) CALL mesage(-30,143,ecpt(1))
 !
 !     COMPUTE DERIVATIVES WITH RESPECT TO X,Y,AND Z
@@ -256,15 +257,15 @@ SUBROUTINE tis2d8(Temp,Pg)
                DO i = 1 , 2
                   DO j = 1 , 2
                      k = k + 1
-                     Xjb(k) = Xxjb(i,j)
+                     xjb(k) = xxjb(i,j)
                   ENDDO
                ENDDO
-               CALL gmmats(Xjb,2,2,0,Dnc,2,8,0,Dnl)
+               CALL gmmats(xjb,2,2,0,dnc,2,8,0,dnl)
 !
 !           N1X N2X N3X N4X N5X N6X N7X N8X
 !     DNL = N1Y N2Y N3Y N4Y N5Y N6Y N7Y N8Y
 !
-               coef = Determ*H(iii)*H(jjj)
+               coef = determ*h(iii)*h(jjj)
 !
 !     COMPUTE GAUSS POINT TEMPERATURE
 !
@@ -279,31 +280,31 @@ SUBROUTINE tis2d8(Temp,Pg)
 !
                lll = iii*jjj
                IF ( lll/=1 ) THEN
-                  IF ( gstemp==Eltemp ) THEN
+                  IF ( gstemp==eltemp ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                ENDIF
-               Eltemp = gstemp
+               eltemp = gstemp
                CALL mat(ecpt(1))
                DO i = 1 , 3
-                  G(i) = qq(i)
+                  g(i) = qq(i)
                ENDDO
-               G(4) = qq(2)
-               G(5) = qq(4)
-               G(6) = qq(5)
-               G(7) = qq(3)
-               G(8) = qq(5)
-               G(9) = qq(6)
-               Alphas(1) = Alpha1
-               Alphas(2) = Alpha2
-               Alphas(3) = Alp12
+               g(4) = qq(2)
+               g(5) = qq(4)
+               g(6) = qq(5)
+               g(7) = qq(3)
+               g(8) = qq(5)
+               g(9) = qq(6)
+               alphas(1) = alpha1
+               alphas(2) = alpha2
+               alphas(3) = alp12
 !
-               CALL gmmats(G,3,3,0,Alphas,3,1,0,Rtside)
+               CALL gmmats(g,3,3,0,alphas,3,1,0,rtside)
 !
 !     COMPUTE RELATIVE GAUSS POINT TEMPERATURE
 !
-               rgtemp = gstemp - Tref
+               rgtemp = gstemp - tref
                spag_nextblock_1 = 2
             CASE (2)
 !
@@ -315,20 +316,20 @@ SUBROUTINE tis2d8(Temp,Pg)
                DO kk = 1 , 8
 !
                   DO i = 1 , 6
-                     Bt(i) = 0.
+                     bt(i) = 0.
                   ENDDO
 !
-                  Bt(1) = dnx(kk)
-                  Bt(3) = dny(kk)
-                  Bt(5) = Bt(3)
-                  Bt(6) = Bt(1)
+                  bt(1) = dnx(kk)
+                  bt(3) = dny(kk)
+                  bt(5) = bt(3)
+                  bt(6) = bt(1)
 !
-                  CALL gmmats(Bt,2,3,0,Rtside,3,1,0,tempar(7))
+                  CALL gmmats(bt,2,3,0,rtside,3,1,0,tempar(7))
 !
 !     ADD TO PREVIOUS RESULTS
 !
-                  Save(2*kk-1) = Save(2*kk-1) + tempar(7)*coef
-                  Save(2*kk) = Save(2*kk) + tempar(8)*coef
+                  save(2*kk-1) = save(2*kk-1) + tempar(7)*coef
+                  save(2*kk) = save(2*kk) + tempar(8)*coef
 !
 !     CONTINUE FOR MORE GRID POINTS
 !
@@ -345,8 +346,8 @@ SUBROUTINE tis2d8(Temp,Pg)
 !     TRANSFORMATIONS AND ADD TO OVERALL VECTOR
 !
    DO kk = 1 , 8
-      tempar(7) = Save(2*kk-1)
-      tempar(8) = Save(2*kk)
+      tempar(7) = save(2*kk-1)
+      tempar(8) = save(2*kk)
 !
 !     CONVERT FROM ELEMENT COORDINATES TO BASIC
 !
@@ -355,13 +356,13 @@ SUBROUTINE tis2d8(Temp,Pg)
 !
 !     MUST TRANSFORM FROM BASIC COORDS TO GLOBAL
 !
-      IF ( Necpt(isub)/=0 ) CALL basglb(tempar(1),tempar(1),ecpt(isub+1),Necpt(isub))
+      IF ( necpt(isub)/=0 ) CALL basglb(tempar(1),tempar(1),ecpt(isub+1),necpt(isub))
 !
 !     ADD THIS VECTOR TO OVERALL LOAD VECTOR
 !
       DO i = 1 , 3
-         l = Ngrid(kk) + i - 1
-         Pg(l) = Pg(l) + tempar(i)*T
+         l = ngrid(kk) + i - 1
+         Pg(l) = Pg(l) + tempar(i)*t
       ENDDO
 !
 !     GET ANOTHER PARTITION

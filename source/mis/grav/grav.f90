@@ -1,10 +1,11 @@
-!*==grav.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==grav.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE grav(Ngrav,Gvect,Nlist,Ilist,Nloop)
+   USE c_loadx
+   USE c_tranx
    IMPLICIT NONE
-   USE C_LOADX
-   USE C_TRANX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -37,7 +38,7 @@ SUBROUTINE grav(Ngrav,Gvect,Nlist,Ilist,Nloop)
 !     CONVERTS GRAV CARD TO BASIC AND STORES
 !     GB = G*TON*V
 !
-         CALL read(*20,*20,Slt,gl(1),5,0,flag)
+         CALL read(*20,*20,slt,gl(1),5,0,flag)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
@@ -47,7 +48,7 @@ SUBROUTINE grav(Ngrav,Gvect,Nlist,Ilist,Nloop)
          Ngrav = Ngrav + 1
          IF ( gl(1)/=0 ) THEN
             CALL fdcstm(gl(1))
-            CALL mpyl(To,gl(3),3,3,1,x(1))
+            CALL mpyl(to,gl(3),3,3,1,x(1))
             DO i = 1 , 3
                gl(i+2) = x(i)
             ENDDO

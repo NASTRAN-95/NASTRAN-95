@@ -1,9 +1,10 @@
-!*==dvectr.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==dvectr.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dvectr(Gpt,X,U,Pen)
+   USE c_blank
    IMPLICIT NONE
-   USE C_BLANK
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -26,7 +27,7 @@ SUBROUTINE dvectr(Gpt,X,U,Pen)
 !
 !     DO NOT DRAW A VECTOR AT ANY GRID POINT WHOSE INDEX .LE. 0.
 !
-   DO i = 1 , Ngp
+   DO i = 1 , ngp
       j = Gpt(i)
       IF ( j>0 ) THEN
          x1 = X(2,j)

@@ -1,11 +1,12 @@
-!*==rfopen.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==rfopen.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rfopen(Member,Lu)
+   USE c_machin
+   USE c_system
+   USE c_xmssg
+   USE c_xxread
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_XXREAD
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,6 +24,7 @@ SUBROUTINE rfopen(Member,Lu)
    CHARACTER(5) :: mb5
    CHARACTER(6) :: mb6
    CHARACTER(8) :: mb8
+   INTEGER :: spag_nextblock_1
 !
 ! End of declarations rewritten by SPAG
 !
@@ -48,88 +50,102 @@ SUBROUTINE rfopen(Member,Lu)
 !WKBI
    !>>>>EQUIVALENCE (mb1(1),mb5,mb6,mb8)
    DATA bk , add(1) , add(3) , free8/' ' , '@ADD,E ' , ' .  ' , '@FREE   '/
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
 !
-   CALL a42k8(Member(1),Member(2),mb8)
-   IF ( Mach/=3 ) THEN
-      In = In + 1
-      IF ( In<60 ) In = 60
-      j = 5
-      IF ( mb1(6)/=bk ) j = 6
+         CALL a42k8(Member(1),Member(2),mb8)
+         IF ( mach/=3 ) THEN
+            in = in + 1
+            IF ( in<60 ) in = 60
+            j = 5
+            IF ( mb1(6)/=bk ) j = 6
 !
 !           DUMMY  IBM  UNVC  CDC  VAX  ULTRIX  SUN   AIX   HP
 !             S/G  MAC  CRAY CNVX  NEC  FUJTSU   DG  AMDL PRIME
 !             486 DUMMY ALFA RESV
 !            ---- ----  ---- ---- ----  ------ ----  ---- -----
-      IF ( Mach==1 .OR. Mach==20 ) GOTO 200
-      IF ( Mach==2 .OR. Mach==4 .OR. Mach==5 .OR. Mach==6 .OR. Mach==7 .OR. Mach==8 .OR. Mach==9 .OR. Mach==10 .OR. Mach==19 .OR.   &
-         & Mach==21 ) THEN
-         rfdir = ' '
-         CALL getenv('RFDIR',rfdir)
-         DO i = 44 , 1 , -1
-            IF ( rfdir(i:i)/=' ' ) THEN
-               lenr = i
-               GOTO 20
-            ENDIF
-         ENDDO
-         lenr = 44
- 20      dsn = ' '
-         dsn = rfdir(1:lenr)//'/'//mb6
+            IF ( mach==1 .OR. mach==20 ) GOTO 20
+            IF ( mach==2 .OR. mach==4 .OR. mach==5 .OR. mach==6 .OR. mach==7 .OR. mach==8 .OR. mach==9 .OR. mach==10 .OR.           &
+               & mach==19 .OR. mach==21 ) THEN
+               rfdir = ' '
+               CALL getenv('RFDIR',rfdir)
+               DO i = 44 , 1 , -1
+                  IF ( rfdir(i:i)/=' ' ) THEN
+                     lenr = i
+                     GOTO 5
+                  ENDIF
+               ENDDO
+               lenr = 44
+ 5             dsn = ' '
+               dsn = rfdir(1:lenr)//'/'//mb6
 !WKBR IF (J .EQ. 6) OPEN (UNIT=IN,FILE=MB6,ACCESS='SEQUENTIAL',ERR=100,
 !
 !     OTHERS -
 !
-         OPEN (UNIT=In,FILE=dsn,ACCESS='SEQUENTIAL',ERR=200,FORM='FORMATTED',STATUS='OLD')
-      ELSEIF ( Mach==11 .OR. Mach==12 .OR. Mach==13 .OR. Mach==14 .OR. Mach==15 .OR. Mach==16 .OR. Mach==17 .OR. Mach==18 .OR.      &
-             & Mach==22 ) THEN
+               OPEN (UNIT=in,FILE=dsn,ACCESS='SEQUENTIAL',ERR=20,FORM='FORMATTED',STATUS='OLD')
+            ELSEIF ( mach==11 .OR. mach==12 .OR. mach==13 .OR. mach==14 .OR. mach==15 .OR. mach==16 .OR. mach==17 .OR. mach==18 .OR.&
+                   & mach==22 ) THEN
 !
-         OPEN (UNIT=In,FILE=mb8,ACCESS='SEQUENTIAL',ERR=200,STATUS='OLD',FORM='FORMATTED')
-      ELSE
-         GOTO 100
-      ENDIF
+               OPEN (UNIT=in,FILE=mb8,ACCESS='SEQUENTIAL',ERR=20,STATUS='OLD',FORM='FORMATTED')
+            ELSE
+               spag_nextblock_1 = 2
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
 !
 !     VERIFY FILE EXISTANCE
 !
-      READ (In,99001,ERR=200,END=200) j
-99001 FORMAT (A1)
-      REWIND In
-      Lu = In
-      GOTO 300
-   ENDIF
+            READ (in,99001,ERR=20,END=20) j
+99001       FORMAT (A1)
+            REWIND in
+            Lu = in
+            spag_nextblock_1 = 3
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         spag_nextblock_1 = 2
+      CASE (2)
 !
 !     UNIVAC ONLY -
 !     ADD FILE TO INPUT STREAM
 !
- 100  add(2) = mb8
-   j = facsf(add)
-   Lu = 5
-   GOTO 300
+         add(2) = mb8
+         j = facsf(add)
+         Lu = 5
+         spag_nextblock_1 = 3
+         CYCLE SPAG_DispatchLoop_1
 !
 !WKBR100  WRITE  (NOUT,110) SFM,MB8
- 200  WRITE (Nout,99002) Sfm , dsn
+ 20      WRITE (nout,99002) sfm , dsn
 !WKBR 110  FORMAT (A25,', RFOPEN CAN NOT OPEN ',A8)
-99002 FORMAT (A25,', RFOPEN CAN NOT OPEN ',A44)
+99002    FORMAT (A25,', RFOPEN CAN NOT OPEN ',A44)
 !
-   IF ( Mach>7 .AND. Mach/=21 ) WRITE (Nout,99003) Mach
-99003 FORMAT (5X,'MACHINE',I4,' IS NOT AVAILABLE/RFOPEN')
-   Lu = 0
-   Nogo = 1
+         IF ( mach>7 .AND. mach/=21 ) WRITE (nout,99003) mach
+99003    FORMAT (5X,'MACHINE',I4,' IS NOT AVAILABLE/RFOPEN')
+         Lu = 0
+         nogo = 1
+         spag_nextblock_1 = 3
+      CASE (3)
 !
- 300  RETURN
+         RETURN
 !
 !
-   ENTRY rfclse(Lu)
+         ENTRY rfclse(Lu)
 !     =================
 !
-   IF ( Mach==3 ) THEN
+         IF ( mach==3 ) THEN
 !
-      add(1) = free8
-      j = facsf(add)
-   ELSE
-      IF ( Lu<60 ) WRITE (Nout,99004) Sfm , Lu
-99004 FORMAT (A25,'. RFCLSE/RFOPEN ERROR.  LU =',I4)
-      CLOSE (UNIT=Lu)
-      In = In - 1
-      IF ( In<60 ) In = 0
-   ENDIF
-   Lu = 0
+            add(1) = free8
+            j = facsf(add)
+         ELSE
+            IF ( Lu<60 ) WRITE (nout,99004) sfm , Lu
+99004       FORMAT (A25,'. RFCLSE/RFOPEN ERROR.  LU =',I4)
+            CLOSE (UNIT=Lu)
+            in = in - 1
+            IF ( in<60 ) in = 0
+         ENDIF
+         Lu = 0
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE rfopen

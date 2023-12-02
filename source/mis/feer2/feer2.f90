@@ -1,15 +1,16 @@
-!*==feer2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==feer2.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE feer2(Iret)
-USE C_FEERCX
-USE C_FEERXX
-USE C_NAMES
-USE C_OPINV
-USE C_SFACT
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_feercx
+   USE c_feerxx
+   USE c_names
+   USE c_opinv
+   USE c_sfact
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -35,39 +36,38 @@ USE ISO_FORTRAN_ENV
 !
          Iret = 0
 !
-         Filea(1) = Iflelm(1)
-         Filel(1) = Iflvec(1)
-         Fileu(1) = Sr3fle
-         Isr1fl = Sr4fle
-         Isr2fl = Sr5fle
-         Isr3fl = Sr6fle
-         Ichl = 0
-         IF ( Ibk==1 .OR. Ifset==1 ) Ichl = 1
-         Filea(2) = Ifkaa(2)
-         Filea(3) = Ifkaa(3)
-         Filea(4) = Ifkaa(4)
-         Filea(5) = Prec
-         Filea(6) = 0
-         Filea(7) = 0
-         Filel(5) = Prec
+         filea(1) = iflelm(1)
+         filel(1) = iflvec(1)
+         fileu(1) = sr3fle
+         isr1fl = sr4fle
+         isr2fl = sr5fle
+         isr3fl = sr6fle
+         ichl = 0
+         IF ( ibk==1 .OR. ifset==1 ) ichl = 1
+         filea(2) = ifkaa(2)
+         filea(3) = ifkaa(3)
+         filea(4) = ifkaa(4)
+         filea(5) = prec
+         filea(6) = 0
+         filea(7) = 0
+         filel(5) = prec
 !
 !     SYMMETRIC DECOMPOSITION
 !
-         Nz = korsz(Z)
-         CALL sdcomp(*20,Z,Z,Z)
+         nz = korsz(z)
+         CALL sdcomp(*20,z,z,z)
          spag_nextblock_1 = 2
       CASE (2)
-         Filel(3) = Filel(2)
-         Filel(4) = Lowtri
-         CALL wrttrl(Filel)
+         filel(3) = filel(2)
+         filel(4) = lowtri
+         CALL wrttrl(filel)
          DO i = 1 , 7
-            Mcblt(i) = Filel(i)
+            mcblt(i) = filel(i)
          ENDDO
          RETURN
 !
  20      Iret = 1
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE feer2

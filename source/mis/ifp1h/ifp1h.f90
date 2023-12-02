@@ -1,16 +1,17 @@
-!*==ifp1h.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ifp1h.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ifp1h(I81,Nz,J400)
+   USE c_gpta1
+   USE c_ifp1a
+   USE c_ifp1hx
+   USE c_machin
+   USE c_system
+   USE c_xifp1
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_GPTA1
-   USE C_IFP1A
-   USE C_IFP1HX
-   USE C_MACHIN
-   USE C_SYSTEM
-   USE C_XIFP1
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -237,9 +238,9 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                   isp(10) = 14
                   lline = 14
                ELSEIF ( ii==3 ) THEN
-                  WRITE (Nout,99001)
+                  WRITE (nout,99001)
 99001             FORMAT (10X,'FORCE      TWIST',15X,'4')
-                  Line = Line + 1
+                  line = line + 1
                   isp(7) = 27
                   isp(8) = 28
                   isp(9) = 29
@@ -267,16 +268,16 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                ELSEIF ( ii==11 ) THEN
                   lline = 14
                ELSEIF ( ii==12 ) THEN
-                  WRITE (Nout,99002)
+                  WRITE (nout,99002)
 99002             FORMAT (10X,'STRESS     MAX-SHR',12X,'10, 32, 54, 76 ... ETC',/10X,'STRESS     OCT-SHR',12X,                      &
                          &'10, 32, 54, 76 ... ETC')
-                  Line = Line + 1
+                  line = line + 1
                   lline = 14
                ELSEIF ( ii==13 ) THEN
-                  WRITE (Nout,99003)
+                  WRITE (nout,99003)
 99003             FORMAT (10X,'STRESS     MAX-SHR',12X,'10, 33, 56, 79 ... 746',/10X,'STRESS     OCT-SHR',12X,                      &
                          &'10, 33, 56, 79 ... 746')
-                  Line = Line + 1
+                  line = line + 1
                   lline = 12
                ELSEIF ( ii==14 ) THEN
                   isp(1) = 25
@@ -294,13 +295,13 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                   lline = 5
                ELSEIF ( ii==16 ) THEN
 !
-                  WRITE (Nout,99004)
+                  WRITE (nout,99004)
 99004             FORMAT (1X)
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ELSEIF ( ii==20 ) THEN
                   ii = 0
-                  WRITE (Nout,99005)
+                  WRITE (nout,99005)
 99005             FORMAT (46H0*** COMPONENT KEYWORDS FOR THE SCAN OPERATION,//5X,                                                   &
                          &59HFORCE/STRESS    KEYWORD        COMPONENT (OUTPUT FIELD NO.),/5X,15(4H----),/)
                   lline = 15
@@ -313,44 +314,44 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                   ii = ii + 1
                   CALL page2(lline)
                   IF ( ii==2 ) THEN
-                     WRITE (Nout,99006)
+                     WRITE (nout,99006)
 99006                FORMAT (/5X,12HSHEAR, TWIST,/)
                   ELSEIF ( ii==3 ) THEN
-                     WRITE (Nout,99007)
+                     WRITE (nout,99007)
 99007                FORMAT (/5X,47HTRIA1, TRIA2, QUAD1, QUAD2, TRBSC, TRPLT, QDPLT,/)
                   ELSEIF ( ii==4 ) THEN
-                     WRITE (Nout,99008)
+                     WRITE (nout,99008)
 99008                FORMAT (/5X,28HTRMEM, QDMEM, QDMEM1, QDMEM2,/)
                   ELSEIF ( ii==5 .OR. ii==16 .OR. ii==20 ) THEN
                   ELSEIF ( ii==6 ) THEN
-                     WRITE (Nout,99009)
+                     WRITE (nout,99009)
 99009                FORMAT (/5X,26HELAS1, ELAS2, ELAS3, IS2D8,/)
                   ELSEIF ( ii==7 ) THEN
-                     WRITE (Nout,99010)
+                     WRITE (nout,99010)
 99010                FORMAT (/5X,10HBAR, ELBOW,/)
                   ELSEIF ( ii==8 ) THEN
-                     WRITE (Nout,99011)
+                     WRITE (nout,99011)
 99011                FORMAT (/5X,6HCONEAX,/)
                   ELSEIF ( ii==9 ) THEN
-                     WRITE (Nout,99012)
+                     WRITE (nout,99012)
 99012                FORMAT (/5X,6HTRIARG,/)
                   ELSEIF ( ii==10 ) THEN
-                     WRITE (Nout,99013)
+                     WRITE (nout,99013)
 99013                FORMAT (/5X,6HTRAPRG,/)
                   ELSEIF ( ii==11 ) THEN
-                     WRITE (Nout,99014)
+                     WRITE (nout,99014)
 99014                FORMAT (/5X,6HTORDRG,/)
                   ELSEIF ( ii==12 ) THEN
-                     WRITE (Nout,99015)
+                     WRITE (nout,99015)
 99015                FORMAT (/5X,12HIHEX1, IHEX2,/)
                   ELSEIF ( ii==13 ) THEN
-                     WRITE (Nout,99016)
+                     WRITE (nout,99016)
 99016                FORMAT (/5X,6HIHEX3 ,/)
                   ELSEIF ( ii==14 ) THEN
-                     WRITE (Nout,99017)
+                     WRITE (nout,99017)
 99017                FORMAT (/5X,14HTRIAAX, TRAPAX,/)
                   ELSEIF ( ii==15 ) THEN
-                     WRITE (Nout,99018)
+                     WRITE (nout,99018)
 99018                FORMAT (/5X,12HQUAD4, TRIA3,/)
                   ELSEIF ( ii==17 ) THEN
                      lline = 0
@@ -358,7 +359,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                   ELSEIF ( ii==18 .OR. ii==19 ) THEN
                      CYCLE
                   ELSE
-                     WRITE (Nout,99019)
+                     WRITE (nout,99019)
 99019                FORMAT (/5X,17HROD, TUBE, CONROD,/)
                   ENDIF
 !
@@ -394,7 +395,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !
                            keywds(1) = comp(1,jj)
                            keywds(2) = comp(2,jj)
-                           keywds(3) = Blank
+                           keywds(3) = blank
                            IF ( ii/=4 .AND. ii/=16 ) THEN
                               IF ( jj==2 .OR. jj==5 ) keywds(3) = lll
                               IF ( jj<9 .OR. jj>30 ) THEN
@@ -437,12 +438,12 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                         CASE (3)
                            jj = j - 1
                            cc(jj) = xblank
-                           WRITE (Nout,99020) bcd(1,3) , bcd(2,3) , keywds , (ll(j),cc(j),j=1,jj)
+                           WRITE (nout,99020) bcd(1,3) , bcd(2,3) , keywds , (ll(j),cc(j),j=1,jj)
 99020                      FORMAT (10X,A4,A2,5X,2A4,A1,9X,4(I3,A1))
                            IF ( idupl>4 ) THEN
-                              IF ( ii/=12 .AND. ii/=14 .AND. ii/=16 ) WRITE (Nout,99021) kk
+                              IF ( ii/=12 .AND. ii/=14 .AND. ii/=16 ) WRITE (nout,99021) kk
 99021                         FORMAT (1H+,54X,3H...,I4)
-                              IF ( ii==12 .OR. ii==14 .OR. ii==16 ) WRITE (Nout,99022)
+                              IF ( ii==12 .OR. ii==14 .OR. ii==16 ) WRITE (nout,99022)
 99022                         FORMAT (1H+,54X,3H...,5H ETC.)
                            ENDIF
                            EXIT SPAG_DispatchLoop_2
@@ -455,11 +456,11 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                CYCLE SPAG_DispatchLoop_1
             ENDDO SPAG_Loop_1_1
          ELSE
-            IF ( Mach==2 .OR. Mach>=5 ) mzero = -1
+            IF ( mach==2 .OR. mach>=5 ) mzero = -1
             CALL sswtch(20,j)
             IF ( j==1 ) debug = .TRUE.
             err = -909
-            nscan = Lencc - 1
+            nscan = lencc - 1
             IF ( core(I81+3)/=mzero ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
@@ -480,7 +481,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
             jcomp = iwds
             iend = I81 + core(I81)*2 - 1
             core(iscan) = 0
-            core(iisub) = Isub
+            core(iisub) = isub
             core(ielem) = 0
             core(iset) = 0
             core(jcomp) = 0
@@ -499,15 +500,15 @@ SUBROUTINE ifp1h(I81,Nz,J400)
             jj = core(ii)
             kk = core(ii+1)
             jx = jj
-            IF ( .NOT.Bit64 ) THEN
+            IF ( .NOT.bit64 ) THEN
             ENDIF
 !WKBD 3/94      CALL MVBITS (BLANK,0,32,JX,0)
 !WKBD 3/94      CALL MVBITS (BLANK,0,32,KK,0)
-            IF ( jj==Ieor ) THEN
+            IF ( jj==ieor ) THEN
 !
 !     SCAN CARD COMPLETED
 !
-               IF ( Nogo/=0 ) THEN
+               IF ( nogo/=0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -579,7 +580,6 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
                            spag_nextblock_3 = 3
-                           CYCLE SPAG_DispatchLoop_3
                         CASE (2)
                            ii = iabs(tab(j,i))
                            spag_nextblock_3 = 3
@@ -613,7 +613,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !
 !     NRP/100 IS REPEAT FLAG, AND MOD(NRP,100) IS INCREMENT
 !
-               IF ( Nogo==0 ) THEN
+               IF ( nogo==0 ) THEN
                   core(irept) = nrp
 !
 !     FINAL ERROR CHECK
@@ -632,8 +632,8 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !     ALL GO WELL, RE-SET PARAMETERS
 !     NOTE - THE (LENCC-1) WORD OF CASECC RECORDS THE NO. OF SCAN CARDS
 !
-                  Nset = Nset + 1
-                  ii = (Isub-1)*Lencc
+                  nset = nset + 1
+                  ii = (isub-1)*lencc
                   icse(nscan+ii) = icse(nscan+ii) + 1
 !WKBD IF (DEBUG) CALL BUG1 ('IFP1H',270,CORE(I81),9)
                   I81 = I81 + 9
@@ -718,12 +718,12 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !
 !     READ CONTINUATION CARD
 !
-                  CALL read(*20,*20,Scr1,core(1),Nwpc,0,flag)
-                  WRITE (Nout,99023) Icc , (core(i),i=1,Nwpc)
+                  CALL read(*20,*20,scr1,core(1),nwpc,0,flag)
+                  WRITE (nout,99023) icc , (core(i),i=1,nwpc)
 99023             FORMAT (11X,I8,6X,20A4)
-                  Icc = Icc + 1
-                  Line = Line + 1
-                  IF ( Line>Nlpp ) CALL page
+                  icc = icc + 1
+                  line = line + 1
+                  IF ( line>nlpp ) CALL page
                   ii = I81 + 8
                   Nz = Nz - ii
                   CALL xrcard(core(ii),Nz,core(1))
@@ -769,18 +769,18 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                   ENDIF
                   core(iset) = core(ii+3)
                   ii = ii + 2
-                  j = Nwpc + 1 + icse(Lencc)
-                  DO i = 1 , Nset
+                  j = nwpc + 1 + icse(lencc)
+                  DO i = 1 , nset
                      IF ( core(iset)==core(j) ) CYCLE SPAG_Loop_1_3
                      j = j + core(j+1) + 3
                   ENDDO
                   err = -608
-                  Msst = Msst + 1
-                  IF ( Msst>0 ) THEN
+                  msst = msst + 1
+                  IF ( msst>0 ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  Misset(Msst) = core(iset)
+                  misset(msst) = core(iset)
                   err = 0
                ELSE
 !
@@ -790,34 +790,35 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
-                  IF ( jx/=stress ) THEN
-                     IF ( jx/=force ) THEN
+                  IF ( jx==stress ) THEN
+                     core(iscan) = core(iscan) + 10000000
+                  ELSEIF ( jx/=force ) THEN
 !
 !     LOOK FOR ELEMENT, DROP THE FIRST LETTER C IF NECESSARY
 !
-                        IF ( core(ielem)==0 ) THEN
-                           jc = nam(1)
-                           kc = jc
-                           IF ( khrfn2(jx,1,1)==llc ) THEN
-                              jc = khrfn3(Blank,jx,1,1)
-                              kc = khrfn3(Blank,kk,1,1)
-                              jc = khrfn1(jc,4,kk,1)
-                           ENDIF
-                           j = 1
-                           DO i = 1 , Nelem
-                              IF ( jx==E(j) .AND. kk==E(j+1) ) GOTO 2
-                              IF ( jc==E(j) .AND. kc==E(j+1) ) GOTO 2
-                              j = j + Incr
-                           ENDDO
+                     IF ( core(ielem)==0 ) THEN
+                        jc = nam(1)
+                        kc = jc
+                        IF ( khrfn2(jx,1,1)==llc ) THEN
+                           jc = khrfn3(blank,jx,1,1)
+                           kc = khrfn3(blank,kk,1,1)
+                           jc = khrfn1(jc,4,kk,1)
                         ENDIF
+                        j = 1
+                        DO i = 1 , nelem
+                           IF ( jx==e(j) .AND. kk==e(j+1) ) GOTO 6
+                           IF ( jc==e(j) .AND. kc==e(j+1) ) GOTO 6
+                           j = j + incr
+                        ENDDO
+                     ENDIF
 !
 !     LOOK FOR COMPONENT
 !
-                        DO i = 1 , ncomp
-                           IF ( jx==comp(1,i) .AND. kk==comp(2,i) ) GOTO 6
-                        ENDDO
-                        err = -634
-                        i = 0
+                     DO i = 1 , ncomp
+                        IF ( jx==comp(1,i) .AND. kk==comp(2,i) ) GOTO 2
+                     ENDDO
+                     err = -634
+                     i = 0
 !
 !     SP ARRAYS
 !        1     2     3     4     5     6     7     8     9     10
@@ -827,7 +828,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
 !        21    22    23    24    25    26    27    28    29    30
 !        R-1Z  R-2Z  AL-1  AL-2  AL-X  AL-Y  E-12  E-23  E-34  E-41
 !
-                        IF ( jx/=force ) GOTO 4
+                     IF ( jx==force ) THEN
                         IF ( kk==sp(27) ) i = 40
 !                 FORCE-12 (USED IN QDMEM2)
                         IF ( kk==sp(28) ) i = 41
@@ -840,15 +841,8 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                            spag_nextblock_1 = 2
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        GOTO 4
- 2                      core(ielem) = i
-                        nwdss = E(j+17)
-                        nwdsf = E(j+18)
-                     ELSE
-                        core(iscan) = core(iscan) + 20000000
                      ENDIF
-                     CYCLE
- 4                   IF ( jx/=norm .AND. jx/=shea .AND. jx/=mome ) THEN
+                     IF ( jx/=norm .AND. jx/=shea .AND. jx/=mome ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -895,51 +889,54 @@ SUBROUTINE ifp1h(I81,Nz,J400)
                            ENDIF
                         ENDIF
                      ENDIF
-                  ELSE
-                     core(iscan) = core(iscan) + 10000000
-                     CYCLE
-                  ENDIF
 !
- 6                IF ( i==48 ) THEN
-                     J400 = 1
-                     spag_nextblock_1 = 3
-                     CYCLE SPAG_DispatchLoop_1
-                  ELSEIF ( i==49 ) THEN
+ 2                   IF ( i==48 ) THEN
+                        J400 = 1
+                        spag_nextblock_1 = 3
+                        CYCLE SPAG_DispatchLoop_1
+                     ELSEIF ( i==49 ) THEN
 !
 !     ON-LINE
 !
-                     WRITE (Nout,99024) Ufm
-99024                FORMAT (A23,', SCAN ON-LINE OPTION IS NOT AVAILABLE IN THIS ','NASTRAN RELEASE')
-                     Nogo = 1
-                     RETURN
-                  ELSE
-                     err = -640
-                     IF ( nsv>5 ) THEN
-                        spag_nextblock_1 = 2
-                        CYCLE SPAG_DispatchLoop_1
-                     ENDIF
-                     IF ( nsv>0 ) THEN
-                        DO j = 1 , nsv
-                           IF ( save(j)==i ) GOTO 8
-                        ENDDO
-                     ENDIF
-                     nsv = nsv + 1
-                     save(nsv) = i
+                        WRITE (nout,99024) ufm
+99024                   FORMAT (A23,', SCAN ON-LINE OPTION IS NOT AVAILABLE IN THIS ','NASTRAN RELEASE')
+                        nogo = 1
+                        RETURN
+                     ELSE
+                        err = -640
+                        IF ( nsv>5 ) THEN
+                           spag_nextblock_1 = 2
+                           CYCLE SPAG_DispatchLoop_1
+                        ENDIF
+                        IF ( nsv>0 ) THEN
+                           DO j = 1 , nsv
+                              IF ( save(j)==i ) GOTO 4
+                           ENDDO
+                        ENDIF
+                        nsv = nsv + 1
+                        save(nsv) = i
 !
 !     TWO WORDS, PRINCIPAL AND TORSIONAL, HAVE A LETTER L TOO LONG
 !
 !     LLL IS 4HL   , BLANK FILL
 !     IBLNK IS 1H  , ZERO  FILL
 !
- 8                   iword = core(ii+2)
+ 4                      iword = core(ii+2)
 !WKBD 3/94      IF (BIT64) CALL MVBITS (BLANK,0,32,IWORD,0)
-                     IF ( ii<iend .AND. iword==lll .AND. core(ii+3)==Iblnk ) ii = ii + 2
+                        IF ( ii<iend .AND. iword==lll .AND. core(ii+3)==iblnk ) ii = ii + 2
+                     ENDIF
+                     CYCLE
+ 6                   core(ielem) = i
+                     nwdss = e(j+17)
+                     nwdsf = e(j+18)
+                  ELSE
+                     core(iscan) = core(iscan) + 20000000
                   ENDIF
                ENDIF
             ENDIF
          ENDDO SPAG_Loop_1_3
 !
- 20      CALL mesage(-1,Scr1,nam)
+ 20      CALL mesage(-1,scr1,nam)
          spag_nextblock_1 = 2
       CASE (2)
          CALL ifp1d(err)
@@ -953,7 +950,7 @@ SUBROUTINE ifp1h(I81,Nz,J400)
       CASE (3)
          RETURN
       CASE (4)
-         WRITE (Nout,99025)
+         WRITE (nout,99025)
 99025    FORMAT (//5X,'USE OUTPUT FIELD NUMBER(S) TO SPECIFY COMPONENT(S)','FOR ELEMENTS OR KEYWORDS',/5X,'NOT LISTED ABOVE',/)
          RETURN
       END SELECT

@@ -1,14 +1,15 @@
-!*==rcovls.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcovls.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovls(Lastss)
+   USE c_blank
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,7 +45,7 @@ SUBROUTINE rcovls(Lastss)
 !
 !     CREATE SOLN ITEM FOR THE RECOVERED SUBSTRUCTURE
 !
-         IF ( Rfno==3 ) THEN
+         IF ( rfno==3 ) THEN
 !
 !     MODAL SOLUTION ITEM
 !
@@ -53,31 +54,31 @@ SUBROUTINE rcovls(Lastss)
 !     LOSING OR SCREWING UP THE RECOVERED DISPLACEMENTS.
 !
             CALL delete(Lastss,soln,rc)
-            CALL sfetch(Fss,soln,srd,rc)
-            CALL suread(iz(Icore),-1,nwds,rc)
-            isol = iz(Icore+2)
-            IF ( isol/=Rfno ) THEN
+            CALL sfetch(fss,soln,srd,rc)
+            CALL suread(iz(icore),-1,nwds,rc)
+            isol = iz(icore+2)
+            IF ( isol/=rfno ) THEN
 !
 !     ERROR PROCESSING
 !
-               WRITE (Nout,99001) Ufm , isol , Rfno
+               WRITE (nout,99001) ufm , isol , rfno
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
-            ELSEIF ( iz(Icore+3)>0 ) THEN
-               IF ( Lcore<Icore+7*iz(Icore+3)+3 ) THEN
+            ELSEIF ( iz(icore+3)>0 ) THEN
+               IF ( lcore<icore+7*iz(icore+3)+3 ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               CALL suread(iz(Icore+4),-1,nwds,rc)
+               CALL suread(iz(icore+4),-1,nwds,rc)
                rc = 3
                CALL sfetch(Lastss,soln,swrt,rc)
-               CALL suwrt(Z(Icore),4,eog)
-               CALL suwrt(Z(Icore+4),7*iz(Icore+3),eog)
+               CALL suwrt(z(icore),4,eog)
+               CALL suwrt(z(icore+4),7*iz(icore+3),eog)
                CALL suwrt(0,0,eoi)
             ELSE
                rc = 3
                CALL sfetch(Lastss,soln,swrt,rc)
-               CALL suwrt(Z(Icore),4,eog)
+               CALL suwrt(z(icore),4,eog)
                CALL suwrt(0,0,eoi)
             ENDIF
          ELSE
@@ -86,65 +87,65 @@ SUBROUTINE rcovls(Lastss)
 !     STORE IN OPEN CORE AT ICORE.
 !
             CALL sfetch(Lastss,eqss,srd,rc)
-            CALL suread(Z(Icore),4,nwds,rc)
-            nss = iz(Icore+2)
-            IF ( Lcore<=Icore+2*nss-1 ) THEN
+            CALL suread(z(icore),4,nwds,rc)
+            nss = iz(icore+2)
+            IF ( lcore<=icore+2*nss-1 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            CALL suread(Z(Icore),2*nss,nwds,rc)
+            CALL suread(z(icore),2*nss,nwds,rc)
 !
 !     CONSTRUCT SOLN GROUP 0 IN OPEN CORE AT IG0.  TWO SLOTS FOR THE
 !     NUMBER OF LOADS ON EACH SUBSTRUCTURE.  FIRST IS FOR OLD FSS
 !     SOLN, SECOND FOR NEW ONE.
 !
-            ig0 = Icore + 2*nss
-            CALL sfetch(Fss,soln,srd,rc)
+            ig0 = icore + 2*nss
+            CALL sfetch(fss,soln,srd,rc)
             IF ( rc==1 ) THEN
-               CALL suread(Z(ig0),5,nwds,rc)
+               CALL suread(z(ig0),5,nwds,rc)
                isol = iz(ig0+2)
-               IF ( isol/=Rfno ) THEN
-                  WRITE (Nout,99001) Ufm , isol , Rfno
+               IF ( isol/=rfno ) THEN
+                  WRITE (nout,99001) ufm , isol , rfno
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ELSE
                   ns = iz(ig0+3)
                   nc = iz(ig0+4)
-                  IF ( ig0+4+4*ns>Lcore ) THEN
+                  IF ( ig0+4+4*ns>lcore ) THEN
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ENDIF
                   DO i = 1 , ns
-                     CALL suread(Z(ig0+1+4*i),3,nwds,rc)
+                     CALL suread(z(ig0+1+4*i),3,nwds,rc)
                      iz(ig0+4*i+4) = -65535
                      SPAG_Loop_2_1: DO j = 1 , nss
-                        IF ( iz(ig0+4*i+1)==iz(Icore+2*j-2) ) THEN
-                           IF ( iz(ig0+4*i+2)==iz(Icore+2*j-1) ) THEN
+                        IF ( iz(ig0+4*i+1)==iz(icore+2*j-2) ) THEN
+                           IF ( iz(ig0+4*i+2)==iz(icore+2*j-1) ) THEN
                               iz(ig0+4*i+4) = iz(ig0+4*i+3)
                               EXIT SPAG_Loop_2_1
                            ENDIF
                         ENDIF
                      ENDDO SPAG_Loop_2_1
                   ENDDO
-                  IF ( Rfno==8 .OR. Rfno==9 ) THEN
+                  IF ( rfno==8 .OR. rfno==9 ) THEN
 !
 !     DYNAMIC SOLUTION ITEM
 !
 !     READ IN STATIC LOAD SETS
 !
                      incr = 1
-                     IF ( Rfno==8 ) incr = 2
+                     IF ( rfno==8 ) incr = 2
                      igs = ig0 + 4*ns + 5
-                     CALL suread(Z(igs),1,nwds,rc)
+                     CALL suread(z(igs),1,nwds,rc)
                      nsl = iz(igs)
                      lsl = nsl*incr
                      nsll = 0
                      IF ( nsl/=0 ) THEN
-                        IF ( igs+nsl>Lcore ) THEN
+                        IF ( igs+nsl>lcore ) THEN
                            spag_nextblock_1 = 2
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        CALL suread(Z(igs+1),nsl,nwds,rc)
+                        CALL suread(z(igs+1),nsl,nwds,rc)
 !
 !     FLAG THOSE STATIC LOAD IDS THAT ARE NOT IN THE LOWER LEVEL
 !     SUBSTRUCTURE AND RENUMBER THOSE THAT ARE LEFT
@@ -184,7 +185,7 @@ SUBROUTINE rcovls(Lastss)
                      i = 1
                      CALL sjump(i)
                      istep = igs + nsl + 1
-                     IF ( istep+nc>Lcore ) THEN
+                     IF ( istep+nc>lcore ) THEN
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
                      ENDIF
@@ -195,11 +196,11 @@ SUBROUTINE rcovls(Lastss)
                      IF ( nsll/=0 ) THEN
                         jgs = istep + nc
                         DO i = 1 , nc
-                           IF ( jgs+lsl>Lcore ) THEN
+                           IF ( jgs+lsl>lcore ) THEN
                               spag_nextblock_1 = 2
                               CYCLE SPAG_DispatchLoop_1
                            ENDIF
-                           CALL suread(Z(jgs),-1,nwds,rc)
+                           CALL suread(z(jgs),-1,nwds,rc)
                            jgs = jgs + lsl
                         ENDDO
                      ENDIF
@@ -213,24 +214,24 @@ SUBROUTINE rcovls(Lastss)
                      rc = 3
                      CALL sfetch(Lastss,soln,swrt,rc)
                      iz(ig0+3) = nss
-                     CALL suwrt(Z(ig0),5,1)
+                     CALL suwrt(z(ig0),5,1)
                      DO i = 1 , ns
                         IF ( iz(ig0+4*i+4)>=0 ) THEN
-                           CALL suwrt(Z(ig0+4*i+1),2,1)
-                           CALL suwrt(Z(ig0+4*i+4),1,1)
+                           CALL suwrt(z(ig0+4*i+1),2,1)
+                           CALL suwrt(z(ig0+4*i+4),1,1)
                         ENDIF
                      ENDDO
                      CALL suwrt(nsll,1,1)
                      IF ( nsll/=0 ) THEN
                         DO i = 1 , nsl
-                           IF ( Z(igs+i)>=0 ) CALL suwrt(Z(igs+i),1,1)
+                           IF ( z(igs+i)>=0 ) CALL suwrt(z(igs+i),1,1)
                         ENDDO
                      ENDIF
                      CALL suwrt(0,0,eog)
 !
 !     COPY THE TIME OR FREQUENCY STEP INFO TO SOF.
 !
-                     CALL suwrt(Z(istep),nc,eog)
+                     CALL suwrt(z(istep),nc,eog)
 !
 !     COPY LOAD FACTORS FOR EACH STEP TO SOF EDITING OUT THOSE
 !     THAT NO LONGER PARTICIAPTE
@@ -240,8 +241,8 @@ SUBROUTINE rcovls(Lastss)
                         DO i = 1 , nc
                            k = 1
                            DO j = 1 , nsl
-                              IF ( Z(igs+j)>=0 ) THEN
-                                 CALL suwrt(Z(kgs+k-1),incr,1)
+                              IF ( z(igs+j)>=0 ) THEN
+                                 CALL suwrt(z(kgs+k-1),incr,1)
                                  k = k + incr
                               ENDIF
                            ENDDO
@@ -266,13 +267,13 @@ SUBROUTINE rcovls(Lastss)
                      igs = ig0 + 4*ns + 5
                      jgs = igs
                      DO i = 1 , nc
-                        CALL suread(Z(jgs),1,nwds,rc)
+                        CALL suread(z(jgs),1,nwds,rc)
                         n = iabs(iz(jgs))
-                        IF ( jgs+n*2>Lcore ) THEN
+                        IF ( jgs+n*2>lcore ) THEN
                            spag_nextblock_1 = 2
                            CYCLE SPAG_DispatchLoop_1
                         ENDIF
-                        CALL suread(Z(jgs+1),-1,nwds,rc)
+                        CALL suread(z(jgs+1),-1,nwds,rc)
                         nl = 0
                         IF ( n/=0 ) THEN
                            DO j = 1 , n
@@ -321,11 +322,11 @@ SUBROUTINE rcovls(Lastss)
                      iz(ig0+3) = nss
                      rc = 3
                      CALL sfetch(Lastss,soln,swrt,rc)
-                     CALL suwrt(Z(ig0),5,1)
+                     CALL suwrt(z(ig0),5,1)
                      DO i = 1 , ns
                         IF ( iz(ig0+4*i+4)>=0 ) THEN
-                           CALL suwrt(Z(ig0+4*i+1),2,1)
-                           CALL suwrt(Z(ig0+4*i+4),1,1)
+                           CALL suwrt(z(ig0+4*i+1),2,1)
+                           CALL suwrt(z(ig0+4*i+4),1,1)
                         ENDIF
                      ENDDO
                      CALL suwrt(0,0,eog)
@@ -355,7 +356,7 @@ SUBROUTINE rcovls(Lastss)
                   ENDIF
                ENDIF
             ELSE
-               CALL smsg(rc-2,soln,Fss)
+               CALL smsg(rc-2,soln,fss)
             ENDIF
          ENDIF
 !
@@ -367,7 +368,7 @@ SUBROUTINE rcovls(Lastss)
          CALL mesage(n,0,name)
          spag_nextblock_1 = 3
       CASE (3)
-         Iopt = -1
+         iopt = -1
          CALL sofcls
          EXIT SPAG_DispatchLoop_1
       END SELECT

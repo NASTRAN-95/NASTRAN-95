@@ -2,11 +2,11 @@
  
 SUBROUTINE qriter1(Val,O,Loc,Qr)
    IMPLICIT NONE
-   USE C_GIVN
-   USE C_MGIVXX
-   USE C_REIGKR
-   USE C_SYSTEM
-   USE C_XMSSG
+   USE c_givn
+   USE c_mgivxx
+   USE c_reigkr
+   USE c_system
+   USE c_xmssg
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -24,6 +24,15 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
    INTEGER :: i , ib , ibuf1 , iter , j , k , m , m1 , m1p1 , m2 , m2m1 , mm , mp1 , nn
    INTEGER , SAVE :: mgiv
    INTEGER , DIMENSION(10) , SAVE :: msg
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -50,19 +59,19 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !              ALL, IF NE IS NOT SPECIFIED.
 !              IF NE .LT. NV, NE IS SET EQUAL TO NV
 !
-   Max = 100*N
-   IF ( Nv>N ) Nv = N
-   IF ( Ne==0 ) Ne = N
-   IF ( Ne<Nv ) Ne = Nv
+   max = 100*n
+   IF ( nv>n ) nv = n
+   IF ( ne==0 ) ne = n
+   IF ( ne<nv ) ne = nv
 !
 !     IS THIS AN ORDERING ONLY CALL
 !
-   Never = 0
+   never = 0
    IF ( Qr/=0 ) GOTO 800
 !
 !     SEARCH FOR A DECOUPLED SUBMATRIX.
 !
-   m2 = N
+   m2 = n
  100  m2m1 = m2 - 1
    DO k = 1 , m2m1
       m1 = m2 - k
@@ -90,7 +99,7 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !
 !     Q-R ITERATION FOR THE DECOUPLED SUBMATRIX
 !
- 500  DO iter = 1 , Max
+ 500  DO iter = 1 , max
       IF ( abs(Val(m2))+O(m2m1)==abs(Val(m2)) ) GOTO 700
       DO k = m1 , m2m1
          IF ( Val(k)/=Val(k+1) ) GOTO 550
@@ -161,8 +170,8 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !     THE ACCURACY OF EIGENVALUE  XXXXX  IS IN DOUBT--QRITER FAILED TO
 !     CONVERGE IN  XX  ITERATIONS
 !
-   Never = Never + 1
-   CALL mesage(msg(1),Val(m2),Max)
+   never = never + 1
+   CALL mesage(msg(1),Val(m2),max)
 !
 !     CONVERGENCE ACHIEVED
 !
@@ -174,25 +183,25 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
       m2 = m1 - 1
       GOTO 100
    ENDIF
- 800  IF ( N/=1 ) THEN
+ 800  IF ( n/=1 ) THEN
 !
 !     REORDER EIGENVALUES ALGEBRAICALLY IN ASCENDING ORDER
 !
-      IF ( Ioptn==mgiv ) THEN
+      IF ( ioptn==mgiv ) THEN
 !
 !     FOR MGIV METHOD, RECOMPUTE LAMBDA
 !
-         DO k = 1 , N
-            Val(k) = (1.0/Val(k)) - Dlmdas
+         DO k = 1 , n
+            Val(k) = (1.0/Val(k)) - dlmdas
          ENDDO
       ENDIF
-      DO k = 1 , N
-         DO m = 1 , N
+      DO k = 1 , n
+         DO m = 1 , n
             IF ( Val(m)/=-10000.0 ) EXIT
          ENDDO
-         IF ( m/=N ) THEN
+         IF ( m/=n ) THEN
             mp1 = m + 1
-            DO i = mp1 , N
+            DO i = mp1 , n
                IF ( Val(i)/=-10000.0 ) THEN
                   IF ( Val(m)>Val(i) ) m = i
                ENDIF
@@ -202,14 +211,14 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
          Val(m) = -10000.0
          Loc(k) = m
       ENDDO
-      DO i = 1 , N
+      DO i = 1 , n
          Val(i) = O(i)
       ENDDO
 !
 !     IF RIGID MODES WERE FOUND BEFORE, REPLACE RIGID FREQ. BY ZERO
 !
-      IF ( Nfound/=0 ) THEN
-         DO i = 1 , Nfound
+      IF ( nfound/=0 ) THEN
+         DO i = 1 , nfound
             Val(i) = zero
          ENDDO
       ENDIF
@@ -219,14 +228,14 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !     REQUESTED
 !
    ib = 1
-   IF ( Nv==0 ) THEN
-      IF ( Lfreq>0.0 ) THEN
+   IF ( nv==0 ) THEN
+      IF ( lfreq>0.0 ) THEN
 !
 !     LOCATE PONTER THAT POINTS TO EIGENVALUE ABOVE OR EQUAL THE
 !     LOWEST LFREQ. AS REQUESTED.
 !
-         DO i = 1 , N
-            IF ( Val(i)>=Lfreq ) GOTO 820
+         DO i = 1 , n
+            IF ( Val(i)>=lfreq ) GOTO 820
          ENDDO
          i = 0
  820     ib = i
@@ -237,15 +246,15 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !     PUT EIGENVALUES ON LAMA FOLLOWED BY ORDER FOUND
 !
 !WKBR 2/94 SPR93027  225 IBUF1 = (KORSZ(O)-SYSBUF+1)/2
-   ibuf1 = (korsz(O)-Sysbuf+1)/Iprec
-   CALL gopen(Lama,O(ibuf1),1)
+   ibuf1 = (korsz(O)-sysbuf+1)/iprec
+   CALL gopen(lama,O(ibuf1),1)
    nn = 0
    IF ( ib/=0 ) THEN
-      DO i = ib , N
+      DO i = ib , n
          valx = Val(i)
-         IF ( Nv/=0 .AND. i>Ne ) EXIT
-         IF ( Nv==0 .AND. valx>Hfreq ) EXIT
-         CALL write(Lama,valx,1,0)
+         IF ( nv/=0 .AND. i>ne ) EXIT
+         IF ( nv==0 .AND. valx>hfreq ) EXIT
+         CALL write(lama,valx,1,0)
          nn = nn + 1
       ENDDO
    ENDIF
@@ -257,18 +266,18 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
    IF ( nn<=0 ) THEN
       IF ( ib==0 ) belabv = below
       IF ( ib/=0 ) belabv = above
-      WRITE (Nout,99001) Uim , belabv
+      WRITE (nout,99001) uim , belabv
 99001 FORMAT (A29,', ALL ROOTS FOUND WERE ',A5,' FREQ. RANGE SPECIFIED',/5X,'HOWEVER, ONE EIGENVALUE OUTSIDE THIS FREQ. RANGE WAS', &
              &' SAVED AND PRINTED')
       nn = 1
-      IF ( ib/=0 ) ib = N
+      IF ( ib/=0 ) ib = n
       IF ( ib==0 ) ib = 1
-      CALL write(Lama,Val(ib),1,0)
+      CALL write(lama,Val(ib),1,0)
    ENDIF
-   CALL write(Lama,0,0,1)
-   CALL write(Lama,Loc(ib),nn,1)
-   CALL close(Lama,1)
-   msg(2) = Lama
+   CALL write(lama,0,0,1)
+   CALL write(lama,Loc(ib),nn,1)
+   CALL close(lama,1)
+   msg(2) = lama
    msg(3) = nn
    CALL wrttrl(msg(2))
 !
@@ -277,13 +286,13 @@ SUBROUTINE qriter1(Val,O,Loc,Qr)
 !
    IF ( ib>1 ) THEN
       j = 1
-      DO i = ib , N
+      DO i = ib , n
          Val(j) = Val(i)
          Loc(j) = Loc(i)
          j = j + 1
       ENDDO
    ENDIF
 !
-   IF ( Nv==0 .AND. ib>1 .AND. nn<Nfound .AND. Val(1)<=zero ) Nfound = 0
-   IF ( Nv==0 ) Nv = nn
+   IF ( nv==0 .AND. ib>1 .AND. nn<nfound .AND. Val(1)<=zero ) nfound = 0
+   IF ( nv==0 ) nv = nn
 END SUBROUTINE qriter1

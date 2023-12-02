@@ -1,16 +1,17 @@
-!*==pla32.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==pla32.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pla32
+   USE c_blank
+   USE c_condas
+   USE c_pla32c
+   USE c_pla32e
+   USE c_pla32s
+   USE c_sout
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_PLA32C
-   USE C_PLA32E
-   USE C_PLA32S
-   USE C_SOUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -86,12 +87,12 @@ SUBROUTINE pla32
 !     DETERMINE SIZE OF CORE, DEFINE BUFFERS AND INITIALIZE CORE POINTER
 !     AND COUNTERS
 !
-         izmax = korsz(Z)
-         bufr1 = izmax - Bufsz
-         bufr2 = bufr1 - Bufsz
-         bufr3 = bufr2 - Bufsz
+         izmax = korsz(z)
+         bufr1 = izmax - bufsz
+         bufr2 = bufr1 - bufsz
+         bufr3 = bufr2 - bufsz
          left = bufr3 - 1
-         Ipass = Placnt - 1
+         ipass = placnt - 1
          icstm = 0
          ncstm = 0
          DO i = 1 , 7
@@ -102,65 +103,65 @@ SUBROUTINE pla32
 !     ATTEMPT TO READ CSTM INTO CORE
 !
          file = cstm
-         CALL open(*40,cstm,Z(bufr1),inrw)
+         CALL open(*40,cstm,z(bufr1),inrw)
          CALL fwdrec(*140,cstm)
-         CALL read(*140,*20,cstm,Z(icstm+1),left,eor,ncstm)
+         CALL read(*140,*20,cstm,z(icstm+1),left,eor,ncstm)
          CALL mesage(-8,0,name)
  20      left = left - ncstm
          CALL close(cstm,clsrw)
-         CALL pretrs(Z(icstm+1),ncstm)
+         CALL pretrs(z(icstm+1),ncstm)
  40      imat = ncstm
 !
 !     COMPUTE GAMMA AND GAMMAS FROM THE PROPER PLFACT CARD
 !
          file = mpt
-         CALL preloc(*120,Z(bufr1-3),mpt)
-         CALL locate(*180,Z(bufr1-3),planos,iflag)
+         CALL preloc(*120,z(bufr1-3),mpt)
+         CALL locate(*180,z(bufr1-3),planos,iflag)
          SPAG_Loop_1_1: DO
             CALL read(*140,*160,mpt,setno,1,neor,iflag)
-            IF ( setno==Plsetn ) THEN
-               IF ( Placnt>4 ) CALL read(*140,*160,mpt,0,-(Placnt-4),neor,iflag)
+            IF ( setno==plsetn ) THEN
+               IF ( placnt>4 ) CALL read(*140,*160,mpt,0,-(placnt-4),neor,iflag)
                nwdsrd = 4
-               IF ( Placnt<4 ) nwdsrd = Placnt
+               IF ( placnt<4 ) nwdsrd = placnt
                CALL read(*140,*160,mpt,p,nwdsrd,neor,iflag)
                IF ( ip(nwdsrd)/=-1 ) THEN
                   a = p(2) - p(1)
-                  IF ( Placnt<3 ) THEN
-                     Gammas = 0.0
-                     Gamma = a/p(1)
-                  ELSEIF ( Placnt==3 ) THEN
-                     Gammas = a/p(1)
-                     Gamma = (p(3)-p(2))/a
+                  IF ( placnt<3 ) THEN
+                     gammas = 0.0
+                     gamma = a/p(1)
+                  ELSEIF ( placnt==3 ) THEN
+                     gammas = a/p(1)
+                     gamma = (p(3)-p(2))/a
                   ELSE
                      word = p(3) - p(2)
-                     Gammas = word/a
-                     Gamma = (p(4)-p(3))/word
+                     gammas = word/a
+                     gamma = (p(4)-p(3))/word
                   ENDIF
                ELSE
-                  IF ( Placnt<3 ) THEN
-                     Gammas = 1.0
-                  ELSEIF ( Placnt==3 ) THEN
-                     Gammas = (p(2)-p(1))/p(1)
+                  IF ( placnt<3 ) THEN
+                     gammas = 1.0
+                  ELSEIF ( placnt==3 ) THEN
+                     gammas = (p(2)-p(1))/p(1)
                   ELSE
-                     Gammas = (p(3)-p(2))/(p(2)-p(1))
+                     gammas = (p(3)-p(2))/(p(2)-p(1))
                   ENDIF
-                  Gamma = 1.0
+                  gamma = 1.0
                ENDIF
                CALL close(mpt,clsrw)
 !
 !     READ MPT AND DIT FILES.  NOTE MINUS SIGN ON DIT TO TRIGGER PLA
 !     FLAG.
 !
-               CALL premat(iz(imat+1),Z(imat+1),Z(bufr1-3),left,mused,mpt,-dit)
+               CALL premat(iz(imat+1),z(imat+1),z(bufr1-3),left,mused,mpt,-dit)
                left = left - mused
                icc = ncstm + mused
 !
 !     READ CASECC INTO OPEN CORE
 !
                file = casecc
-               CALL open(*120,casecc,Z(bufr1),inrw)
+               CALL open(*120,casecc,z(bufr1),inrw)
                CALL fwdrec(*140,casecc)
-               CALL read(*140,*60,casecc,Z(icc+1),left,eor,ncc)
+               CALL read(*140,*60,casecc,z(icc+1),left,eor,ncc)
                CALL mesage(-8,0,name)
                EXIT SPAG_Loop_1_1
             ELSE
@@ -176,14 +177,14 @@ SUBROUTINE pla32
 ! OPEN INPUT FILE
 !
          file = estnls
-         CALL open(*120,estnls,Z(bufr1),inrw)
+         CALL open(*120,estnls,z(bufr1),inrw)
          CALL fwdrec(*140,estnls)
 !
 !     OPEN THE ELEMENT STRESS FILE FOR OUTPUT AND BUILD HEADER WHICH IS
 !     NON-CHANGING.
 !
          file = onles
-         CALL open(*120,onles,Z(bufr2),outrw)
+         CALL open(*120,onles,z(bufr2),outrw)
          CALL fname(onles,dum2)
          CALL write(onles,dum2,2,eor)
 !
@@ -214,7 +215,7 @@ SUBROUTINE pla32
          iz(ionles+135) = ititle(1)
          iz(ionles+136) = ititle(2)
          iz(ionles+137) = ititle(3)
-         iii = Placnt - 1
+         iii = placnt - 1
          CALL int2al(iii,iz(ionles+138),ichar)
 !
 !     DEFINE DESTINATION OF OUTPUT
@@ -225,7 +226,7 @@ SUBROUTINE pla32
 !     OPEN THE ESTNL1 FILE FOR OUTPUT.
 !
          file = estnl1
-         CALL open(*120,estnl1,Z(bufr3),outrw)
+         CALL open(*120,estnl1,z(bufr3),outrw)
          CALL fname(estnl1,dum2)
          CALL write(estnl1,dum2,2,eor)
          file = estnls
@@ -252,7 +253,7 @@ SUBROUTINE pla32
 !     READ AN ENTRY FROM THE APPENDED ESTNL FILE AND CALL THE PROPER
 !     ROUTINE
 !
-         CALL read(*140,*80,estnls,Estbk,nwdsp2(eltype),neor,iflag)
+         CALL read(*140,*80,estnls,estbk,nwdsp2(eltype),neor,iflag)
 !
 !               1,ROD    2,BEAM    3,TUBE   4,SHEAR   5,TWIST
 !             6,TRIA1   7,TRBSC   8,TRPLT   9,TRMEM 10,CONROD
@@ -282,15 +283,15 @@ SUBROUTINE pla32
 !     UPDATED BY THE THE ROD ROUTINE AND THE DISPLACEMENT VECTORS
 !
             DO i = 1 , 16
-               tubsav(i) = Estbk(i)
+               tubsav(i) = estbk(i)
             ENDDO
 !
 !     COMPUTE AREA, TORSIONAL INERTIA TERM AND STRESS COEFFICIENT
 !
-            d = Estbk(5)
-            t = Estbk(6)
+            d = estbk(5)
+            t = estbk(6)
             dmt = d - t
-            a = dmt*t*Pi
+            a = dmt*t*pi
             fj = .25*a*(dmt**2+t**2)
             c = d/2.0
 !
@@ -299,12 +300,12 @@ SUBROUTINE pla32
 !
             m = 33
             DO i = 1 , 26
-               Estbk(m) = Estbk(m-1)
+               estbk(m) = estbk(m-1)
                m = m - 1
             ENDDO
-            Estbk(5) = a
-            Estbk(6) = fj
-            Estbk(7) = c
+            estbk(5) = a
+            estbk(6) = fj
+            estbk(7) = c
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ELSEIF ( eltype==6 ) THEN
@@ -347,7 +348,6 @@ SUBROUTINE pla32
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          spag_nextblock_1 = 5
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     ROD, CONROD
@@ -359,12 +359,12 @@ SUBROUTINE pla32
 !
          IF ( eltype==3 ) THEN
             DO i = 1 , 16
-               Estbk(i) = tubsav(i)
+               estbk(i) = tubsav(i)
             ENDDO
-            Estbk(17) = Estbk(18)
-            Estbk(18) = Estbk(19)
-            Estbk(19) = Estbk(20)
-            Estbk(20) = Estbk(21)
+            estbk(17) = estbk(18)
+            estbk(18) = estbk(19)
+            estbk(19) = estbk(20)
+            estbk(20) = estbk(21)
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
@@ -374,7 +374,7 @@ SUBROUTINE pla32
 !
          iy(1) = 10*iy(1) + jdest
          CALL write(onles,iy,nstwds(eltype),neor)
-         CALL write(estnl1,Estbk,estwds(eltype),neor)
+         CALL write(estnl1,estbk,estwds(eltype),neor)
          ostrt(2) = ostrt(2) + 1
          estt(2) = estt(2) + 1
          spag_nextblock_1 = 3

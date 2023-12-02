@@ -1,4 +1,5 @@
-!*==sdr2b.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sdr2b.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sdr2b
@@ -10,19 +11,19 @@ SUBROUTINE sdr2b
 !     COMPUTATIONS ARE MADE.
 !
 !
+   USE c_blank
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_names
+   USE c_sdr2x1
+   USE c_sdr2x2
+   USE c_sdr2x4
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_NAMES
-   USE C_SDR2X1
-   USE C_SDR2X2
-   USE C_SDR2X4
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -61,134 +62,134 @@ SUBROUTINE sdr2b
          CALL delset
          heat = .FALSE.
          IF ( itherm/=0 ) heat = .TRUE.
-         Isopl = 0
-         Icstm = iz1st
+         isopl = 0
+         icstm = iz1st
          m8 = -8
          noep = 0
 !WKBR 7/94 SPR 94007
 !     IF (APP(1).EQ.CEI(1) .OR. APP(1).EQ.FRQ(1) .OR. APP(1).EQ.TRN(1))
 !    1    GO TO 20
-         IF ( App(1)/=Cei(1) .AND. App(1)/=Frq(1) .AND. App(1)/=Trn(1) .AND. App(1)/=mmre(1) ) THEN
+         IF ( app(1)/=cei(1) .AND. app(1)/=frq(1) .AND. app(1)/=trn(1) .AND. app(1)/=mmre(1) ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Icb(1) = Sil
-         CALL rdtrl(Icb)
-         noep = Icb(3)
+         icb(1) = sil
+         CALL rdtrl(icb)
+         noep = icb(3)
          IF ( noep==0 ) THEN
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         File = Sil
-         CALL open(*160,Sil,Z(Buf1),Rdrew)
-         CALL fwdrec(*180,Sil)
-         CALL fwdrec(*180,Sil)
-         CALL read(*180,*20,Sil,Z,Buf2,1,nsil)
-         CALL mesage(m8,0,Nam)
- 20      CALL close(Sil,Clsrew)
+         file = sil
+         CALL open(*160,sil,z(buf1),rdrew)
+         CALL fwdrec(*180,sil)
+         CALL fwdrec(*180,sil)
+         CALL read(*180,*20,sil,z,buf2,1,nsil)
+         CALL mesage(m8,0,nam)
+ 20      CALL close(sil,clsrew)
          knsil = nsil/2
-         Icstm = nsil + 1
-         IF ( nsil>=Mset ) THEN
-            Mset = Buf2 - 1
-            All = 1
+         icstm = nsil + 1
+         IF ( nsil>=mset ) THEN
+            mset = buf2 - 1
+            all = 1
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     READ THE CSTM INTO CORE (IF PRESENT).
 !
-         Ncstm = 0
-         File = Cstm
-         CALL open(*60,Cstm,Z(Buf1),Rdrew)
-         CALL fwdrec(*180,Cstm)
-         CALL read(*180,*40,Cstm,Z(Icstm),Buf2-Icstm,1,Ncstm)
-         CALL mesage(m8,0,Nam)
- 40      CALL close(Cstm,Clsrew)
-         CALL pretrs(Z(Icstm),Ncstm)
- 60      imat = Icstm + Ncstm
-         IF ( imat>=Mset ) THEN
-            Mset = Buf2 - 1
-            All = 1
+         ncstm = 0
+         file = cstm
+         CALL open(*60,cstm,z(buf1),rdrew)
+         CALL fwdrec(*180,cstm)
+         CALL read(*180,*40,cstm,z(icstm),buf2-icstm,1,ncstm)
+         CALL mesage(m8,0,nam)
+ 40      CALL close(cstm,clsrew)
+         CALL pretrs(z(icstm),ncstm)
+ 60      imat = icstm + ncstm
+         IF ( imat>=mset ) THEN
+            mset = buf2 - 1
+            all = 1
          ENDIF
 !
 !     READ MATERIAL PROPERTY DATA INTO CORE.
 !
-         n1mat = Buf2 - imat
+         n1mat = buf2 - imat
          IF ( .NOT.heat ) THEN
 !
-            CALL premat(Z(imat),Z(imat),Z(Buf1),n1mat,n2mat,Mpt,Dit)
+            CALL premat(z(imat),z(imat),z(buf1),n1mat,n2mat,mpt,dit)
          ELSE
 !
 !     FOR HEAT PROBLEMS ONLY, -HMAT- ROUTINE IS USED.
 !
-            Ihmat = imat
-            Nhmat = Buf1 + sysbuf
-            Mptmpt = Mpt
-            Idit = Dit
-            CALL prehma(Z)
-            n2mat = Nhmat - Ihmat + 1 - 2*(sysbuf+1)
+            ihmat = imat
+            nhmat = buf1 + sysbuf
+            mptmpt = mpt
+            idit = dit
+            CALL prehma(z)
+            n2mat = nhmat - ihmat + 1 - 2*(sysbuf+1)
          ENDIF
-         IF ( imat+n2mat>=Mset ) THEN
-            Mset = Buf2 - 1
-            All = 1
+         IF ( imat+n2mat>=mset ) THEN
+            mset = buf2 - 1
+            all = 1
          ENDIF
 !
 !     OPEN EST AND ESTA.
 !
-         File = Est
-         CALL open(*240,Est,Z(Buf1),Rdrew)
-         CALL fwdrec(*180,Est)
-         File = Esta
-         CALL open(*160,Esta,Z(Buf2),Wrtrew)
-         File = Est
-         Kwdest = 0
-         Kwdedt = 0
-         Kwdgpt = 0
+         file = est
+         CALL open(*240,est,z(buf1),rdrew)
+         CALL fwdrec(*180,est)
+         file = esta
+         CALL open(*160,esta,z(buf2),wrtrew)
+         file = est
+         kwdest = 0
+         kwdedt = 0
+         kwdgpt = 0
          spag_nextblock_1 = 3
       CASE (3)
 !
 !     READ ELEMENT TYPE. SET PARAMETERS AS A FUNCTION OF ELEM TYPE.
 !
-         CALL read(*120,*200,Est,eltype,1,0,flag)
-         IF ( eltype<1 .OR. eltype>Nelem ) THEN
+         CALL read(*120,*200,est,eltype,1,0,flag)
+         IF ( eltype<1 .OR. eltype>nelem ) THEN
 !
 !     ELEMENT UNDEFINE TO SDR2BD
 !
             WRITE (ioutpt,99002) star , star , eltype
-            CALL fwdrec(*180,Est)
+            CALL fwdrec(*180,est)
             GOTO 100
          ELSE
             anyout = .FALSE.
             ipr = iprec
             IF ( ipr/=1 ) ipr = 0
             jltype = 2*eltype - ipr
-            ielem = (eltype-1)*Incr
-            nwds = Elem(ielem+12)
-            nwdsa = Elem(ielem+17)
+            ielem = (eltype-1)*incr
+            nwds = elem(ielem+12)
+            nwdsa = elem(ielem+17)
             IF ( heat ) nwdsa = 142
-            ngps = Elem(ielem+10)
+            ngps = elem(ielem+10)
          ENDIF
 !
 !     READ DATA FOR AN ELEMENT.
 !     DETERMINE IF ELEMENT BELONGS TO MASTER SET.
 !
- 80      CALL read(*180,*100,Est,Buf,nwds,0,flag)
+ 80      CALL read(*180,*100,est,buf,nwds,0,flag)
          DO i = 1 , nwds
-            Scrtch(100+i) = bufr(i)
+            scrtch(100+i) = bufr(i)
          ENDDO
-         Strspt = 0
-         Isopl = -1
-         idsave = Buf(1)
-         IF ( All==0 ) THEN
-            itabl = Mset
-            kn = Knset
+         strspt = 0
+         isopl = -1
+         idsave = buf(1)
+         IF ( all==0 ) THEN
+            itabl = mset
+            kn = knset
             l = 1
             n12 = 1
             ASSIGN 80 TO ret1
 !
 !     DECODE ELEMENT ID SINCE THIS IS A CONICAL SHELL PROBLEM
 !
-            IF ( Axic ) Buf(1) = Buf(1)/1000
+            IF ( axic ) buf(1) = buf(1)/1000
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -197,9 +198,9 @@ SUBROUTINE sdr2b
 !
 !     CALL APPROPRIATE ELEMENT SUBROUTINE.
 !
-         Buf(1) = idsave
+         buf(1) = idsave
 !
-         IF ( Strain ) THEN
+         IF ( strain ) THEN
 !
 !     IF THE STRAIN FLAG IS TURNED ON, IGNORE ALL ELEMENTS
 !WKBR NCL93012 3/94 EXCEPT CTRIA1, CTRIA2, CQUAD1 AND CQUAD2 ELEMENTS
@@ -207,10 +208,10 @@ SUBROUTINE sdr2b
 !
 !WKBR NCL93012 3/94     1    ELTYPE.EQ.19) GO TO 112
             IF ( eltype/=6 .AND. eltype/=17 .AND. eltype/=18 .AND. eltype/=19 .AND. eltype/=64 .AND. eltype/=83 ) THEN
-               WRITE (ioutpt,99001) Swm , Elem(ielem+1) , Elem(ielem+2)
+               WRITE (ioutpt,99001) swm , elem(ielem+1) , elem(ielem+2)
 99001          FORMAT (A27,', STRAIN REQUEST FOR ',2A4,' ELEMENTS WILL',/5X,'NOT BE HONORED AS THIS OUTPUT IS NOT DEFINED FOR THIS '&
                      & ,'ELEMENT TYPE.')
-               CALL fwdrec(*180,Est)
+               CALL fwdrec(*180,est)
                GOTO 100
             ENDIF
          ENDIF
@@ -223,11 +224,11 @@ SUBROUTINE sdr2b
 !
             CALL sdhtf1(eltype,reject)
             IF ( eltype>=65 .AND. eltype<=67 ) THEN
-               IF ( eltype==65 .AND. Strspt>=9 ) Strspt = 0
-               IF ( Strspt>=21 ) Strspt = 0
+               IF ( eltype==65 .AND. strspt>=9 ) strspt = 0
+               IF ( strspt>=21 ) strspt = 0
             ENDIF
             IF ( reject ) THEN
-               CALL fwdrec(*180,Est)
+               CALL fwdrec(*180,est)
                GOTO 100
             ENDIF
          ELSE
@@ -266,8 +267,8 @@ SUBROUTINE sdr2b
                       & jltype==61 .OR. jltype==62 .OR. jltype==63 .OR. jltype==64 .OR. jltype==65 .OR. jltype==66 .OR.             &
                       & jltype==85 .OR. jltype==86 .OR. jltype==87 .OR. jltype==88 .OR. jltype==89 .OR. jltype==90 .OR.             &
                       & jltype==91 .OR. jltype==92 ) THEN
-                  WRITE (ioutpt,99002) Swm , Elem(ielem+1) , Elem(ielem+2) , eltype
-                  CALL fwdrec(*180,Est)
+                  WRITE (ioutpt,99002) swm , elem(ielem+1) , elem(ielem+2) , eltype
+                  CALL fwdrec(*180,est)
                   GOTO 100
                ELSEIF ( jltype==5 .OR. jltype==6 ) THEN
                   CALL stube1
@@ -368,39 +369,39 @@ SUBROUTINE sdr2b
                CALL sslot1(k)
             ELSEIF ( local==3 .OR. local==4 .OR. local==43 .OR. local==44 .OR. local==51 .OR. local==52 .OR. local==53 .OR.         &
                    & local==54 .OR. local==55 .OR. local==56 .OR. local==57 .OR. local==58 .OR. local==63 .OR. local==64 ) THEN
-               WRITE (ioutpt,99002) Swm , Elem(ielem+1) , Elem(ielem+2) , eltype
-               CALL fwdrec(*180,Est)
+               WRITE (ioutpt,99002) swm , elem(ielem+1) , elem(ielem+2) , eltype
+               CALL fwdrec(*180,est)
                GOTO 100
             ELSEIF ( local==5 .OR. local==6 ) THEN
                CALL sdum11
 !
 !     IF EXTRA POINTS PRESENT, CONVERT SIL NOS. TO SILD NOS.
 !
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==7 .OR. local==8 ) THEN
                CALL sdum21
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==9 .OR. local==10 ) THEN
                CALL sdum31
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==11 .OR. local==12 ) THEN
                CALL sdum41
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==13 .OR. local==14 ) THEN
                CALL sdum51
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==15 .OR. local==16 ) THEN
                CALL sdum61
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==17 .OR. local==18 ) THEN
                CALL sdum71
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==19 .OR. local==20 ) THEN
                CALL sdum81
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==21 .OR. local==22 ) THEN
                CALL sdum91
-               nwdsa = Elem(ielem+17)
+               nwdsa = elem(ielem+17)
             ELSEIF ( local==23 .OR. local==24 ) THEN
                CALL sqdm11
             ELSEIF ( local==25 .OR. local==26 ) THEN
@@ -408,8 +409,8 @@ SUBROUTINE sdr2b
             ELSEIF ( local==27 .OR. local==28 ) THEN
                CALL squd41
             ELSEIF ( local==29 .OR. local==30 .OR. local==31 .OR. local==32 .OR. local==33 .OR. local==34 ) THEN
-               CALL sihex1(eltype-64,Strspt,nip)
-               IF ( Strspt>=nip**3+1 ) Strspt = 0
+               CALL sihex1(eltype-64,strspt,nip)
+               IF ( strspt>=nip**3+1 ) strspt = 0
             ELSEIF ( local==35 .OR. local==36 ) THEN
             ELSEIF ( local==37 .OR. local==38 ) THEN
             ELSEIF ( local==39 .OR. local==40 ) THEN
@@ -424,7 +425,7 @@ SUBROUTINE sdr2b
                CALL strsl1
             ELSEIF ( local==59 .OR. local==60 ) THEN
                CALL ss2d81
-               Isopl8 = 8
+               isopl8 = 8
             ELSEIF ( local==61 .OR. local==62 ) THEN
                CALL selbo1
             ELSEIF ( local==65 .OR. local==66 ) THEN
@@ -451,16 +452,16 @@ SUBROUTINE sdr2b
          IF ( eltype==11 ) THEN
 ! SET SIL NUMBER TO SIL OF GRID POINT WITHOUT COMPONENT CODE INCLUDED FOR
 ! CELAS1 SO SIL NUMBER CAN BE FOUND IN SILD
-            Buf(l) = Buf(2)
-            Buf(l+1) = Buf(3)
+            buf(l) = buf(2)
+            buf(l+1) = buf(3)
          ELSEIF ( eltype==12 ) THEN
 ! SET SIL NUMBER TO SIL OF GRID POINT WITHOUT COMPONENT CODE INCLUDED FOR
 ! CELAS2 SO SIL NUMBER CAN BE FOUND IN SILD
-            Buf(l) = Buf(3)
-            Buf(l+1) = Buf(4)
+            buf(l) = buf(3)
+            buf(l+1) = buf(4)
          ENDIF
 !WKBNE 7/94 SPR 94006
-         IF ( Buf(l)/=0 ) THEN
+         IF ( buf(l)/=0 ) THEN
             spag_nextblock_1 = 9
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -473,15 +474,15 @@ SUBROUTINE sdr2b
 !WKBNB 7/94 SPR94006
                IF ( eltype==11 ) THEN
 ! ADD COMPONENT CODES FOR SILD NUMBERS FOR CELAS1
-                  IF ( Buf(4)/=0 ) Buf(102) = Buf(102) + Buf(4) - 1
-                  IF ( Buf(5)/=0 ) Buf(103) = Buf(103) + Buf(5) - 1
+                  IF ( buf(4)/=0 ) buf(102) = buf(102) + buf(4) - 1
+                  IF ( buf(5)/=0 ) buf(103) = buf(103) + buf(5) - 1
                ELSEIF ( eltype==12 ) THEN
 ! ADD COMPONENT CODES FOR SILD NUMBERS FOR CELAS2
-                  IF ( Buf(5)/=0 ) Buf(102) = Buf(102) + Buf(5) - 1
-                  IF ( Buf(6)/=0 ) Buf(103) = Buf(103) + Buf(6) - 1
+                  IF ( buf(5)/=0 ) buf(102) = buf(102) + buf(5) - 1
+                  IF ( buf(6)/=0 ) buf(103) = buf(103) + buf(6) - 1
                ENDIF
                EXIT SPAG_Loop_1_1
-            ELSEIF ( Buf(l)/=0 ) THEN
+            ELSEIF ( buf(l)/=0 ) THEN
                spag_nextblock_1 = 9
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -493,76 +494,76 @@ SUBROUTINE sdr2b
 !     WRITE ELEMENT COMPUTATIONS ON ESTA. GO TO READ ANOTHER ELEMENT.
 !
          IF ( .NOT.(anyout) ) THEN
-            CALL write(Esta,eltype,1,0)
-            Kwdest = Kwdest + 2
+            CALL write(esta,eltype,1,0)
+            kwdest = kwdest + 2
             anyout = .TRUE.
          ENDIF
-         CALL write(Esta,Bufa,nwdsa,0)
+         CALL write(esta,bufa,nwdsa,0)
 !
 !     DIAG 20 OUTPUT ONLY
 !
 !     CALL BUG (4HESTA,0,BUFA,NWDSA)
 !
-         Kwdest = Kwdest + nwdsa
-         IF ( Strspt==0 ) GOTO 80
-         Strspt = Strspt + 1
+         kwdest = kwdest + nwdsa
+         IF ( strspt==0 ) GOTO 80
+         strspt = strspt + 1
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
 !
 !     CLOSE RECORD FOR CURRENT ELEMENT TYPE.
 !     GO TO READ ANOTHER ELEM TYPE.
 !
- 100     IF ( anyout ) CALL write(Esta,0,0,1)
+ 100     IF ( anyout ) CALL write(esta,0,0,1)
          spag_nextblock_1 = 3
          CYCLE SPAG_DispatchLoop_1
 !
 !     CLOSE FILES.
 !
- 120     CALL close(Est,Clsrew)
-         CALL close(Esta,Clsrew)
+ 120     CALL close(est,clsrew)
+         CALL close(esta,clsrew)
 !
 !     IF ELEMENT DEFORMATIONS, DETERMINE MAXIMUM NO. OF
 !     WORDS IN ANY ONE DEFORMATION SET.
 !
-         IF ( Eldef==0 ) RETURN
-         CALL preloc(*240,Z(Buf1),Edt)
-         CALL locate(*220,Z(Buf1),kdefrm,flag)
+         IF ( eldef==0 ) RETURN
+         CALL preloc(*240,z(buf1),edt)
+         CALL locate(*220,z(buf1),kdefrm,flag)
          id = 0
          k = 0
          DO
-            CALL read(*220,*140,Edt,Buf,3,0,flag)
-            IF ( Buf(1)==id ) THEN
+            CALL read(*220,*140,edt,buf,3,0,flag)
+            IF ( buf(1)==id ) THEN
                k = k + 3
             ELSE
-               Kwdedt = max0(Kwdedt,k)
+               kwdedt = max0(kwdedt,k)
                k = 3
-               id = Buf(1)
+               id = buf(1)
             ENDIF
          ENDDO
- 140     Kwdedt = max0(Kwdedt,k)
-         CALL close(Edt,Clsrew)
+ 140     kwdedt = max0(kwdedt,k)
+         CALL close(edt,clsrew)
          RETURN
 !
 !
 !     FATAL FILE ERRORS.
 !
  160     n = -1
-         CALL mesage(n,File,Nam)
+         CALL mesage(n,file,nam)
          GOTO 220
  180     n = -2
-         CALL mesage(n,File,Nam)
+         CALL mesage(n,file,nam)
          GOTO 220
  200     n = -3
-         CALL mesage(n,File,Nam)
+         CALL mesage(n,file,nam)
 !
 !     ABNORMAL RETURN FROM SDR2B.
 !
- 220     CALL close(Edt,Clsrew)
-         Eldef = 0
+ 220     CALL close(edt,clsrew)
+         eldef = 0
  240     CALL mesage(30,79,0)
-         Stress = 0
-         Force = 0
-         Any = 0
+         stress = 0
+         force = 0
+         any = 0
          RETURN
       CASE (9)
 !
@@ -576,14 +577,14 @@ SUBROUTINE sdr2b
          k = (klo+khi+1)/2
          DO
             kx = itabl + n12*(k-1)
-            IF ( Buf(l)<Z(kx) ) THEN
+            IF ( buf(l)<z(kx) ) THEN
                khi = k
-            ELSEIF ( Buf(l)==Z(kx) ) THEN
+            ELSEIF ( buf(l)==z(kx) ) THEN
                IF ( n12==1 ) THEN
                   spag_nextblock_1 = 4
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               Buf(l) = Z(kx+1)
+               buf(l) = z(kx+1)
                spag_nextblock_1 = 7
                CYCLE SPAG_DispatchLoop_1
             ELSE

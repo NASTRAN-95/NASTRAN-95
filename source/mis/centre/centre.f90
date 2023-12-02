@@ -1,4 +1,5 @@
-!*==centre.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==centre.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE centre(X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center) !HIDESTARS (*,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center)
@@ -19,6 +20,15 @@ SUBROUTINE centre(X1,Y1,X2,Y2,X3,Y3,X4,Y4,Center) !HIDESTARS (*,X1,Y1,X2,Y2,X3,Y
 ! Local variable declarations rewritten by SPAG
 !
    REAL :: xm1 , xm2
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

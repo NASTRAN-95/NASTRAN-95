@@ -1,7 +1,10 @@
-!*==bldpki.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==bldpki.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE bldpki(A,I,File,Block)
+   USE i_dsiof
+   USE i_xnstrn
    USE I_DSIOF
    USE I_XNSTRN
    IMPLICIT NONE
@@ -28,14 +31,18 @@ SUBROUTINE bldpki(A,I,File,Block)
    RETURN
 CONTAINS
    SUBROUTINE spag_block_1
+      EXTERNAL dsmsg , dsmsg1 , endput , putstr
+!
+! End of declarations rewritten by SPAG
+!
       IF ( Block(4)/=0 ) THEN
-         nexrow = Block(4) + Block(7)
-         icrow = Block(15)
-         IF ( icrow<nexrow ) THEN
+         Nexrow = Block(4) + Block(7)
+         Icrow = Block(15)
+         IF ( Icrow<Nexrow ) THEN
             CALL dsmsg1(Block)
             CALL dsmsg(119)
          ENDIF
-         IF ( icrow==nexrow ) THEN
+         IF ( Icrow==Nexrow ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
@@ -43,22 +50,26 @@ CONTAINS
          CALL putstr(Block)
          Block(7) = 0
       ENDIF
-      icrow = Block(15)
-      Block(4) = icrow
+      Icrow = Block(15)
+      Block(4) = Icrow
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
-      index = (Block(5)-1)*Block(14) + 1
-      IF ( itypin/=Block(2) ) THEN
-         CALL dsupkc(itypin,Block(2),A,ibase(index))
+      EXTERNAL dsupkc , endput , putstr
+!
+! End of declarations rewritten by SPAG
+!
+      Index = (Block(5)-1)*Block(14) + 1
+      IF ( Itypin/=Block(2) ) THEN
+         CALL dsupkc(Itypin,Block(2),A,ibase(Index))
       ELSE
 !DIR$ NOVECTOR
-         DO kk = 1 , nwords
-            ibase(index+kk-1) = A(kk)
+         DO Kk = 1 , Nwords
+            ibase(Index+Kk-1) = A(Kk)
 !DIR$ VECTOR
          ENDDO
       ENDIF
-      Block(5) = Block(5) + inccnt
+      Block(5) = Block(5) + Inccnt
       Block(7) = Block(7) + 1
       Block(10) = Block(10) + Block(11)
       IF ( Block(6)<=Block(7) ) THEN

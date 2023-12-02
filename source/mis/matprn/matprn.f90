@@ -1,11 +1,12 @@
-!*==matprn.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==matprn.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE matprn
+   USE c_blank
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -57,19 +58,19 @@ SUBROUTINE matprn
 !            SINGULARITY CHECK, AND PARAMETER P6
 !
 !
-   IF ( P1>2 .OR. P2>14 ) THEN
-      WRITE (Nout,99001) Uwm , P1 , P2 , P3 , P4 , P5 , P6
+   IF ( p1>2 .OR. p2>14 ) THEN
+      WRITE (nout,99001) uwm , p1 , p2 , p3 , p4 , p5 , p6
 99001 FORMAT (A25,', MATPRN PARAMETERS APPEAR IN ERROR.  P1,P2,P3,P4,','P5,P6 =',6I5,/5X,'P1 IS RESET TO ZERO, AND P2 TO 6 TO',     &
              &' 14 DEPENDING ON TYPE OF DATA')
 !
 !     CHECK THAT USER REALY WANTS TO SET P3,P4,P5, AND INSTEAD HE SETS
 !     THEM TO P1,P2,P3
 !
-      IF ( P4==0 .AND. P5==0 .AND. P3<=50 ) THEN
-         P3 = P1
-         P4 = P2
-         P5 = P3
-         WRITE (Nout,99002) P3 , P4 , P5
+      IF ( p4==0 .AND. p5==0 .AND. p3<=50 ) THEN
+         p3 = p1
+         p4 = p2
+         p5 = p3
+         WRITE (nout,99002) p3 , p4 , p5
 99002    FORMAT (5X,'P3,P4,P5 ARE SET TO ',3I5)
       ENDIF
    ENDIF
@@ -81,12 +82,12 @@ SUBROUTINE matprn
             mcb(1) = 100 + i
             CALL rdtrl(mcb(1))
             IF ( mcb(1)<0 ) CYCLE
-            IF ( P1==-1 ) THEN
+            IF ( p1==-1 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             ityp = mcb(5)
-            ndpl = P2
+            ndpl = p2
             IF ( ndpl==0 ) THEN
                ndpl = 9
                IF ( mod(ityp,2)==1 ) ndpl = 10
@@ -99,9 +100,9 @@ SUBROUTINE matprn
             IF ( ityp==3 ) THEN
                ndpl = (ndpl/2)*2
                npl = ndpl
-               IF ( P1>0 .AND. P1<=2 ) THEN
-                  IF ( P1==1 ) THEN
-                  ELSEIF ( P1==2 ) THEN
+               IF ( p1>0 .AND. p1<=2 ) THEN
+                  IF ( p1==1 ) THEN
+                  ELSEIF ( p1==2 ) THEN
                      spag_nextblock_1 = 3
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
@@ -118,36 +119,34 @@ SUBROUTINE matprn
             IF ( ndpl<8 ) npl = 8
             IF ( ndpl>14 ) npl = 14
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          CASE (3)
             IF ( ndpl<6 ) npl = 6
             IF ( ndpl>12 ) npl = 12
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          CASE (4)
             ndpl = (ndpl/2)*2
             npl = ndpl
-            IF ( P1<=0 .OR. P1>2 ) THEN
+            IF ( p1<=0 .OR. p1>2 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( P1==1 ) THEN
+            IF ( p1==1 ) THEN
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( P1==2 ) THEN
+            IF ( p1==2 ) THEN
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             spag_nextblock_1 = 5
          CASE (5)
-            iprec = P1
-            IF ( iprec/=1 .AND. iprec/=2 .AND. P1/=-1 ) THEN
+            iprec = p1
+            IF ( iprec/=1 .AND. iprec/=2 .AND. p1/=-1 ) THEN
                iprec = 2
                IF ( mod(ityp,2)==1 ) iprec = 1
             ENDIF
-            iout = Nout
-            IF ( P6>=11 .AND. P6<=24 ) iout = P6
+            iout = nout
+            IF ( p6>=11 .AND. p6<=24 ) iout = p6
             CALL matdum(mcb(1),iprec,npl,iout)
             EXIT SPAG_DispatchLoop_1
          END SELECT

@@ -1,13 +1,14 @@
-!*==trimem.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trimem.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trimem(Ntype,Tbar,Pg)
+   USE c_condas
+   USE c_matin
+   USE c_matout
+   USE c_ssgwrk
+   USE c_trimex
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SSGWRK
-   USE C_TRIMEX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -71,7 +72,7 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
 !       ECPT(21) = ELEMENT TEMPERATURE                 ELTEMP    REAL
 !
 !     ******************************************************************
-   Eltemp = ecpt(21)
+   eltemp = ecpt(21)
 !
 !     SET UP THE E MATRIX WHICH IS (3X2) FOR THE TRI-MEMBRANE
 !
@@ -80,63 +81,63 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
 !     E(7), E(8), E(9) WILL BE THE K-VECTOR NOT USED IN E FOR MEMBRANE
 !
 !     FIRST FIND I-VECTOR = RSUBB - RSUBA  (NON-NORMALIZED)
-   E(1) = X2 - X1
-   E(3) = Y2 - Y1
-   E(5) = Z2 - Z1
+   e(1) = x2 - x1
+   e(3) = y2 - y1
+   e(5) = z2 - z1
 !
 !     NOW FIND LENGTH = X-SUB-B   COORD. IN ELEMENT SYSTEM
-   xsubb = sqrt(E(1)**2+E(3)**2+E(5)**2)
+   xsubb = sqrt(e(1)**2+e(3)**2+e(5)**2)
    IF ( xsubb<=1.0E-06 ) CALL mesage(-30,31,ecpt(1))
 !
 !  20 NOW NORMALIZE I-VECTOR WITH X-SUB-B
-   E(1) = E(1)/xsubb
-   E(3) = E(3)/xsubb
-   E(5) = E(5)/xsubb
+   e(1) = e(1)/xsubb
+   e(3) = e(3)/xsubb
+   e(5) = e(5)/xsubb
 !
 !     HERE WE NOW TAKE RSUBC - RSUBA AND STORE TEMPORARILY IN
 !     E(2), E(4), E(6) WHICH IS WHERE THE J-VECTOR WILL FIT LATER
 !
-   E(2) = X3 - X1
-   E(4) = Y3 - Y1
-   E(6) = Z3 - Z1
+   e(2) = x3 - x1
+   e(4) = y3 - y1
+   e(6) = z3 - z1
 !
 !     X-SUB-C  =  I . (RSUBC - RSUBA) ,  THUS
-   xsubc = E(1)*E(2) + E(3)*E(4) + E(5)*E(6)
+   xsubc = e(1)*e(2) + e(3)*e(4) + e(5)*e(6)
 !
 !     AND CROSSING THE I-VECTOR TO (RSUBC-RSUBA) GIVES THE K-VECTOR
 !     (NON-NORMALIZED)
 !
-   E(7) = E(3)*E(6) - E(5)*E(4)
-   E(8) = E(5)*E(2) - E(1)*E(6)
-   E(9) = E(1)*E(4) - E(3)*E(2)
+   e(7) = e(3)*e(6) - e(5)*e(4)
+   e(8) = e(5)*e(2) - e(1)*e(6)
+   e(9) = e(1)*e(4) - e(3)*e(2)
 !
 !
 !     THE LENGTH OF THE K-VECTOR IS NOW FOUND AND EQUALS Y-SUB-C
 !     COORD. IN ELEMENT SYSTEM
-   ysubc = sqrt(E(7)**2+E(8)**2+E(9)**2)
+   ysubc = sqrt(e(7)**2+e(8)**2+e(9)**2)
    IF ( ysubc<=1.0E-06 ) CALL mesage(-30,32,ecpt(1))
 !
 !  25 NOW NORMALIZE K-VECTOR WITH YSUBC JUST FOUND
 !
-   E(7) = E(7)/ysubc
-   E(8) = E(8)/ysubc
-   E(9) = E(9)/ysubc
+   e(7) = e(7)/ysubc
+   e(8) = e(8)/ysubc
+   e(9) = e(9)/ysubc
 !
 !     NOW HAVING I AND K VECTORS.GET J = I CROSS K AND
 !     STORE IN THE SPOT FOR J
 !
-   E(2) = E(5)*E(8) - E(3)*E(9)
-   E(4) = E(1)*E(9) - E(5)*E(7)
-   E(6) = E(3)*E(7) - E(1)*E(8)
+   e(2) = e(5)*e(8) - e(3)*e(9)
+   e(4) = e(1)*e(9) - e(5)*e(7)
+   e(6) = e(3)*e(7) - e(1)*e(8)
 !
 !     AND JUST FOR COMPUTER EXACTNESS NORMALIZE J-VECTOR TO MAKE SURE.
-   temp = sqrt(E(2)**2+E(4)**2+E(6)**2)
-   E(2) = E(2)/temp
-   E(4) = E(4)/temp
-   E(6) = E(6)/temp
+   temp = sqrt(e(2)**2+e(4)**2+e(6)**2)
+   e(2) = e(2)/temp
+   e(4) = e(4)/temp
+   e(6) = e(6)/temp
 !
 !     VOLUME OF ELEMENT, THETA, MU, LAMDA, AND DELTA
-   vol = xsubb*ysubc*T/2.0
+   vol = xsubb*ysubc*t/2.0
 !
    reelmu = 1.0D0/xsubb
    flamda = 1.0D0/ysubc
@@ -149,47 +150,47 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
 !                 CSUBB = (3X2) STORED IN C(7) . . .C(12) BY ROWS
 !                 CSUBC = (3X2) STORED IN C(13). . .C(18) BY ROWS
 !
-   C(1) = -reelmu
-   C(2) = 0.0E0
-   C(3) = 0.0E0
-   C(4) = flamda*delta
-   C(5) = C(4)
-   C(6) = -reelmu
-   C(7) = reelmu
-   C(8) = 0.0E0
-   C(9) = 0.0E0
-   C(10) = -flamda*reelmu*xsubc
-   C(11) = C(10)
-   C(12) = reelmu
-   C(13) = 0.0E0
-   C(14) = 0.0E0
-   C(15) = 0.0E0
-   C(16) = flamda
-   C(17) = flamda
-   C(18) = 0.0E0
+   c(1) = -reelmu
+   c(2) = 0.0E0
+   c(3) = 0.0E0
+   c(4) = flamda*delta
+   c(5) = c(4)
+   c(6) = -reelmu
+   c(7) = reelmu
+   c(8) = 0.0E0
+   c(9) = 0.0E0
+   c(10) = -flamda*reelmu*xsubc
+   c(11) = c(10)
+   c(12) = reelmu
+   c(13) = 0.0E0
+   c(14) = 0.0E0
+   c(15) = 0.0E0
+   c(16) = flamda
+   c(17) = flamda
+   c(18) = 0.0E0
 !
    IF ( Ntype/=1 ) THEN
-      theta = Angle*degra
-      Sinth = sin(theta)
-      Costh = cos(theta)
+      theta = angle*degra
+      sinth = sin(theta)
+      costh = cos(theta)
    ENDIF
-   IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
-   Eltemp = ecpt(21)
-   Matid = Matid1
-   Inflag = 2
+   IF ( abs(sinth)<1.0E-06 ) sinth = 0.0E0
+   eltemp = ecpt(21)
+   matid = matid1
+   inflag = 2
    CALL mat(ecpt(1))
 !
 !     FILL G-MATRIX WITH OUTPUT FROM MAT ROUTINE
 !
-   G(1) = G11
-   G(2) = G12
-   G(3) = G13
-   G(4) = G12
-   G(5) = G22
-   G(6) = G23
-   G(7) = G13
-   G(8) = G23
-   G(9) = G33
+   g(1) = g11
+   g(2) = g12
+   g(3) = g13
+   g(4) = g12
+   g(5) = g22
+   g(6) = g23
+   g(7) = g13
+   g(8) = g23
+   g(9) = g33
 !
 !     ******************************************************************
 !
@@ -197,20 +198,20 @@ SUBROUTINE trimem(Ntype,Tbar,Pg)
 !
 !
 !
-   temp = (Tbar-Tsub0)*vol
+   temp = (Tbar-tsub0)*vol
    DO i = 1 , 3
-      Tempar(i) = Alphas(i)*temp
+      tempar(i) = alphas(i)*temp
    ENDDO
-   CALL mpyl(G(1),Tempar(1),3,3,1,Tempar(7))
+   CALL mpyl(g(1),tempar(1),3,3,1,tempar(7))
    DO i = 1 , 3
       k = 6*i - 5
-      CALL mpylt(C(k),Tempar(7),3,2,1,Tempar(1))
-      CALL mpyl(E,Tempar(1),2,3,1,Tempar(4))
+      CALL mpylt(c(k),tempar(7),3,2,1,tempar(1))
+      CALL mpyl(e,tempar(1),2,3,1,tempar(4))
       k = 4*i + 5
-      IF ( Necpt(k)/=0 ) CALL basglb(Tempar(4),Tempar(4),Necpt(k+1),Necpt(k))
+      IF ( necpt(k)/=0 ) CALL basglb(tempar(4),tempar(4),necpt(k+1),necpt(k))
       DO k = 1 , 3
-         l = Necpt(i+1) + k - 1
-         Pg(l) = Pg(l) + Tempar(k+3)
+         l = necpt(i+1) + k - 1
+         Pg(l) = Pg(l) + tempar(k+3)
       ENDDO
    ENDDO
 !

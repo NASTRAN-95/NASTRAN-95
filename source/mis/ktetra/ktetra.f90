@@ -1,20 +1,21 @@
-!*==ktetra.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ktetra.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ktetra(Iopt,Jtype)
-USE C_BLANK
-USE C_HMTOUT
-USE C_HYDROE
-USE C_MATIN
-USE C_MATOUT
-USE C_SMA1CL
-USE C_SMA1DP
-USE C_SMA1ET
-USE C_SMA1HT
-USE C_SMA1IO
-USE C_SYSTEM
-USE C_XMSSG
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_hmtout
+   USE c_hydroe
+   USE c_matin
+   USE c_matout
+   USE c_sma1cl
+   USE c_sma1dp
+   USE c_sma1et
+   USE c_sma1ht
+   USE c_sma1io
+   USE c_system
+   USE c_xmssg
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -84,29 +85,29 @@ USE ISO_FORTRAN_ENV
 !
          IF ( necpt(1)/=idflag ) THEN
             idflag = necpt(1)
-            Direc = 0
-            Kount = 0
-            Tvol = 0.0
-            Ngpt = 99
-            IF ( Volume>0.0 .OR. Surfac>0.0 ) THEN
-               Ngpt = 8
-               IF ( iabs(Jtype)==1 ) Ngpt = 6
-               IF ( Jtype==0 ) Ngpt = 4
+            direc = 0
+            kount = 0
+            tvol = 0.0
+            ngpt = 99
+            IF ( volume>0.0 .OR. surfac>0.0 ) THEN
+               ngpt = 8
+               IF ( iabs(Jtype)==1 ) ngpt = 6
+               IF ( Jtype==0 ) ngpt = 4
             ENDIF
          ENDIF
-         IF ( Jtype<=0 ) Kount = Kount + 1
+         IF ( Jtype<=0 ) kount = kount + 1
 !
 !     RETURN IF SUB-TETRA DOES NOT CONTRIBUTE TO PIVOT STIFFNESS AND NO
 !     GEOMETRY TESTS ARE BEING MADE ON IT.
 !
          IF ( Iopt<100 ) THEN
             DO i = 3 , 6
-               IF ( Npvt==necpt(i) ) THEN
+               IF ( npvt==necpt(i) ) THEN
                   spag_nextblock_1 = 2
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
-            IF ( Kount==Ngpt .AND. Jtype/=0 ) THEN
+            IF ( kount==ngpt .AND. Jtype/=0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -115,27 +116,27 @@ USE ISO_FORTRAN_ENV
          spag_nextblock_1 = 2
       CASE (2)
 !
-         H(1) = 1.0D0
-         H(2) = Ecpt(8)
-         H(3) = Ecpt(9)
-         H(4) = Ecpt(10)
-         H(5) = 1.0D0
-         H(6) = Ecpt(12)
-         H(7) = Ecpt(13)
-         H(8) = Ecpt(14)
-         H(9) = 1.0D0
-         H(10) = Ecpt(16)
-         H(11) = Ecpt(17)
-         H(12) = Ecpt(18)
-         H(13) = 1.0D0
-         H(14) = Ecpt(20)
-         H(15) = Ecpt(21)
-         H(16) = Ecpt(22)
+         h(1) = 1.0D0
+         h(2) = ecpt(8)
+         h(3) = ecpt(9)
+         h(4) = ecpt(10)
+         h(5) = 1.0D0
+         h(6) = ecpt(12)
+         h(7) = ecpt(13)
+         h(8) = ecpt(14)
+         h(9) = 1.0D0
+         h(10) = ecpt(16)
+         h(11) = ecpt(17)
+         h(12) = ecpt(18)
+         h(13) = 1.0D0
+         h(14) = ecpt(20)
+         h(15) = ecpt(21)
+         h(16) = ecpt(22)
 !
 !     INVERT H AND GET THE DETERMINANT
 !
          ising = 0
-         CALL inverd(4,H(1),4,dum,0,Hdeter,ising,Temp(1))
+         CALL inverd(4,h(1),4,dum,0,hdeter,ising,temp(1))
 !
 !     IF THE DETERMINANT IS .LE. 0 THE TETRAHEDRON HAS BAD OR REVERSE
 !     GEOMETRY WHICH IS AN ERROR CONDITION.
@@ -146,37 +147,37 @@ USE ISO_FORTRAN_ENV
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             Iopt = Iopt - 100
-            IF ( Direc/=0 ) THEN
-               IF ( Direc==1 .AND. Hdeter>0.0D0 ) THEN
+            IF ( direc/=0 ) THEN
+               IF ( direc==1 .AND. hdeter>0.0D0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
-               IF ( Direc==-1 .AND. Hdeter<0.0D0 ) THEN
+               IF ( direc==-1 .AND. hdeter<0.0D0 ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSE
-               Direc = 1
-               IF ( Hdeter<0.0D0 ) Direc = -1
+               direc = 1
+               IF ( hdeter<0.0D0 ) direc = -1
                spag_nextblock_1 = 3
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         WRITE (Out,99001) Ufm , necpt(1)
+         WRITE (out,99001) ufm , necpt(1)
 99001    FORMAT (A23,' 4004, MODULE SMA1 DETECTS BAD OR REVERSE GEOMETRY ','FOR ELEMENT ID',I10)
-         Nogoo = 1
+         nogoo = 1
          RETURN
       CASE (3)
 !
 !     SKIP SUB-TETRAHEDRON IF IT DOES NOT CONTRIBUTE TO PIVOT STIFFNESS
 !
          DO i = 3 , 6
-            IF ( Npvt==necpt(i) ) THEN
+            IF ( npvt==necpt(i) ) THEN
                spag_nextblock_1 = 4
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDDO
-         IF ( Kount==Ngpt .AND. Jtype/=0 ) THEN
+         IF ( kount==ngpt .AND. Jtype/=0 ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -185,49 +186,49 @@ USE ISO_FORTRAN_ENV
 !
 !     AT THIS POINT BRANCH ON HEAT OR STRUCTURE PROBLEM.
 !
-         Hdeter = dabs(Hdeter)
-         IF ( Heat ) THEN
+         hdeter = dabs(hdeter)
+         IF ( heat ) THEN
 !
 !     HEAT PROBLEM LOGIC FOR 1 PIVOT ROW OF 1 TETRAHEDRON.
 !
 !     OBTAIN G  MATERIAL MATRIX FROM HMAT ROUTINE
 !             E
 !
-            Matid = necpt(2)
-            Inflag = 3
-            Eltemp = Ecpt(23)
+            matid = necpt(2)
+            inflag = 3
+            eltemp = ecpt(23)
             CALL hmat(necpt)
-            G(1) = 0.0D0
-            G(2) = 0.0D0
-            G(3) = 0.0D0
-            G(4) = 0.0D0
-            G(5) = 0.0D0
-            G(6) = Matbuf(1)
-            G(7) = Matbuf(2)
-            G(8) = Matbuf(3)
-            G(9) = 0.0D0
-            G(10) = Matbuf(2)
-            G(11) = Matbuf(4)
-            G(12) = Matbuf(5)
-            G(13) = 0.0D0
-            G(14) = Matbuf(3)
-            G(15) = Matbuf(5)
-            G(16) = Matbuf(6)
+            g(1) = 0.0D0
+            g(2) = 0.0D0
+            g(3) = 0.0D0
+            g(4) = 0.0D0
+            g(5) = 0.0D0
+            g(6) = matbuf(1)
+            g(7) = matbuf(2)
+            g(8) = matbuf(3)
+            g(9) = 0.0D0
+            g(10) = matbuf(2)
+            g(11) = matbuf(4)
+            g(12) = matbuf(5)
+            g(13) = 0.0D0
+            g(14) = matbuf(3)
+            g(15) = matbuf(5)
+            g(16) = matbuf(6)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
-         ELSEIF ( Hydro ) THEN
+         ELSEIF ( hydro ) THEN
 !
 !     HYDROELASTIC PROBLEM, OBTAIN DENSITY AND RETURN
 !
-            Matid = necpt(2)
-            Inflag = 11
+            matid = necpt(2)
+            inflag = 11
             CALL mat(necpt(1))
             DO idlh = 1 , 16
-               G(idlh) = 0.0D0
+               g(idlh) = 0.0D0
             ENDDO
-            G(6) = 1.0D0/dble(Rho)
-            G(11) = G(6)
-            G(16) = G(6)
+            g(6) = 1.0D0/dble(rho)
+            g(11) = g(6)
+            g(16) = g(6)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -235,45 +236,45 @@ USE ISO_FORTRAN_ENV
 !     GET THE MATERIAL DATA AND FILL THE 6X6 G MATERIAL STRESS-STRAIN
 !     MATRIX.
 !
-            Inflag = 1
-            Matid = necpt(2)
-            Eltemp = Ecpt(23)
+            inflag = 1
+            matid = necpt(2)
+            eltemp = ecpt(23)
             CALL mat(necpt(1))
             DO i = 1 , 36
-               G(i) = 0.0D0
+               g(i) = 0.0D0
             ENDDO
-            Temp1 = (1.0+Nu)*(1.0-2.0*Nu)
-            IF ( dabs(Temp1)>1.0D-6 ) THEN
+            temp1 = (1.0+nu)*(1.0-2.0*nu)
+            IF ( dabs(temp1)>1.0D-6 ) THEN
 !
-               G(1) = E*(1.0-Nu)/Temp1
-               G(8) = G(1)
-               G(15) = G(1)
-               G(2) = E*Nu/Temp1
-               G(3) = G(2)
-               G(7) = G(2)
-               G(9) = G(2)
-               G(13) = G(2)
-               G(14) = G(2)
-               G(22) = Gg
-               G(29) = Gg
-               G(36) = Gg
+               g(1) = e*(1.0-nu)/temp1
+               g(8) = g(1)
+               g(15) = g(1)
+               g(2) = e*nu/temp1
+               g(3) = g(2)
+               g(7) = g(2)
+               g(9) = g(2)
+               g(13) = g(2)
+               g(14) = g(2)
+               g(22) = gg
+               g(29) = gg
+               g(36) = gg
 !
 !     FILL 4 C-MATRICES. (6X3) EACH.
 !
                DO i = 1 , 72
-                  C(i) = 0.0D0
+                  c(i) = 0.0D0
                ENDDO
                DO i = 1 , 4
                   j = 18*i - 18
-                  C(j+1) = H(i+4)
-                  C(j+5) = H(i+8)
-                  C(j+9) = H(i+12)
-                  C(j+11) = H(i+12)
-                  C(j+12) = H(i+8)
-                  C(j+13) = H(i+12)
-                  C(j+15) = H(i+4)
-                  C(j+16) = H(i+8)
-                  C(j+17) = H(i+4)
+                  c(j+1) = h(i+4)
+                  c(j+5) = h(i+8)
+                  c(j+9) = h(i+12)
+                  c(j+11) = h(i+12)
+                  c(j+12) = h(i+8)
+                  c(j+13) = h(i+12)
+                  c(j+15) = h(i+4)
+                  c(j+16) = h(i+8)
+                  c(j+17) = h(i+4)
                ENDDO
 !
 !     DIVIDE DETERMINANT BY 6.0, AND BY AN ADDITIONAL 2.0 IF A SUB-TETRA
@@ -282,18 +283,18 @@ USE ISO_FORTRAN_ENV
 !     ALL CONFIGURATIONS ARE DIVIDED BY 6.
 !
                IF ( Iopt==0 ) THEN
-                  Hdeter = Hdeter/6.0D0
+                  hdeter = hdeter/6.0D0
                ELSEIF ( Iopt>=11 .AND. Iopt<=22 ) THEN
 !
 !     WEDGES
 !
-                  Hdeter = Hdeter/36.0D0
-                  IF ( Iopt<=16 ) Hdeter = Hdeter*2.0D0
+                  hdeter = hdeter/36.0D0
+                  IF ( Iopt<=16 ) hdeter = hdeter*2.0D0
                ELSE
-                  Hdeter = Hdeter/12.0D0
+                  hdeter = hdeter/12.0D0
                ENDIF
                DO i = 1 , 36
-                  Kij(i) = 0.0D0
+                  kij(i) = 0.0D0
                ENDDO
 !
 !     DETERMINE THE PIVOT POINT
@@ -301,16 +302,16 @@ USE ISO_FORTRAN_ENV
                DO i = 2 , 5
                   ka = 4*i - 1
                   npoint = 18*i - 35
-                  IF ( necpt(i+1)==Npvt ) GOTO 5
+                  IF ( necpt(i+1)==npvt ) GOTO 5
                ENDDO
-               CALL mesage(-30,34,Ecpt(1))
+               CALL mesage(-30,34,ecpt(1))
 !
 !     PICK UP PIVOT TRANSFORMATION IF CSID IS NON-ZERO.
 !
  5             IF ( necpt(ka)/=0 ) THEN
-                  CALL transd(necpt(ka),T)
-                  CALL gmmatd(T(1),3,3,1,C(npoint),6,3,1,Ct(1))
-                  CALL gmmatd(Ct(1),3,6,0,G(1),6,6,0,Gct(1))
+                  CALL transd(necpt(ka),t)
+                  CALL gmmatd(t(1),3,3,1,c(npoint),6,3,1,ct(1))
+                  CALL gmmatd(ct(1),3,6,0,g(1),6,6,0,gct(1))
                ELSE
 !
 !                     T  T
@@ -321,10 +322,10 @@ USE ISO_FORTRAN_ENV
 !     NOW MULTIPLY ON THE RIGHT BY G   TO FORM  T C G   (3X6)
 !                                   E            I I E
 !
-                  CALL gmmatd(C(npoint),6,3,1,G(1),6,6,0,Gct(1))
+                  CALL gmmatd(c(npoint),6,3,1,g(1),6,6,0,gct(1))
                ENDIF
                DO i = 1 , 18
-                  Gct(i) = Gct(i)*Hdeter
+                  gct(i) = gct(i)*hdeter
                ENDDO
 !
 !     LOOP THROUGH THE 4 POINTS INSERTING THE STIFFNESS MATRIX FOR
@@ -332,32 +333,32 @@ USE ISO_FORTRAN_ENV
 !
                DO i = 1 , 4
                   IF ( necpt(4*i+3)/=0 ) THEN
-                     CALL transd(necpt(4*i+3),T)
-                     CALL gmmatd(C(18*i-17),6,3,0,T(1),3,3,0,Ct(1))
-                     CALL gmmatd(Gct(1),3,6,0,Ct(1),6,3,0,T(1))
+                     CALL transd(necpt(4*i+3),t)
+                     CALL gmmatd(c(18*i-17),6,3,0,t(1),3,3,0,ct(1))
+                     CALL gmmatd(gct(1),3,6,0,ct(1),6,3,0,t(1))
                   ELSE
 !
 !     NO TRANSFORMATION
 !
-                     CALL gmmatd(Gct(1),3,6,0,C(18*i-17),6,3,0,T(1))
+                     CALL gmmatd(gct(1),3,6,0,c(18*i-17),6,3,0,t(1))
                   ENDIF
 !
 !     INSERT 3X3 KIJ INTO 6X6 KIJ AND CALL SMA1B FOR INSERTION.
 !
-                  Kij(1) = T(1)
-                  Kij(2) = T(2)
-                  Kij(3) = T(3)
-                  Kij(7) = T(4)
-                  Kij(8) = T(5)
-                  Kij(9) = T(6)
-                  Kij(13) = T(7)
-                  Kij(14) = T(8)
-                  Kij(15) = T(9)
+                  kij(1) = t(1)
+                  kij(2) = t(2)
+                  kij(3) = t(3)
+                  kij(7) = t(4)
+                  kij(8) = t(5)
+                  kij(9) = t(6)
+                  kij(13) = t(7)
+                  kij(14) = t(8)
+                  kij(15) = t(9)
 !
-                  CALL sma1b(Kij(1),necpt(i+2),-1,Ifkgg,0.0D0)
-                  Temp1 = Gsube
-                  IF ( Iopt4/=0 ) THEN
-                     IF ( Gsube/=0 ) CALL sma1b(Kij(1),necpt(i+2),-1,If4gg,Temp1)
+                  CALL sma1b(kij(1),necpt(i+2),-1,ifkgg,0.0D0)
+                  temp1 = gsube
+                  IF ( iopt4/=0 ) THEN
+                     IF ( gsube/=0 ) CALL sma1b(kij(1),necpt(i+2),-1,if4gg,temp1)
                   ENDIF
 !
                ENDDO
@@ -372,39 +373,39 @@ USE ISO_FORTRAN_ENV
 !           7 THRU 6+NGPT = GRID POINTS
 !           7+NGPT THRU 7+5*NGPT = BGPDT DATA
 !
-               Tvol = Tvol + Hdeter/4.0D+0
-               IF ( Kount<Ngpt ) THEN
+               tvol = tvol + hdeter/4.0D+0
+               IF ( kount<ngpt ) THEN
                   spag_nextblock_1 = 6
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ELSE
-               WRITE (Out,99002) Ufm , Matid , Ecpt(1)
+               WRITE (out,99002) ufm , matid , ecpt(1)
 99002          FORMAT (A23,' 4005, AN ILLEGAL VALUE OF -NU- HAS BEEN SPECIFIED ','UNDER MATERIAL ID',I10,' FOR ELEMENT ID',I10)
-               Nogoo = 1
+               nogoo = 1
                RETURN
             ENDIF
          ENDIF
          spag_nextblock_1 = 5
       CASE (5)
          IF ( Jtype<=0 ) THEN
-            Ecpt(2) = Tvol*Volume
-            IF ( Jtype==0 .AND. Surfac>0.0 ) THEN
+            ecpt(2) = tvol*volume
+            IF ( Jtype==0 .AND. surfac>0.0 ) THEN
                CALL write(scr4,el(1,4),2,0)
-               CALL write(scr4,Ecpt(1),2,0)
-               IF ( Rho>0.0 ) Tvol = Tvol*Rho
-               Ecpt(1) = Tvol
-               necpt(2) = Ngpt
-               CALL write(scr4,Ecpt(1),22,1)
+               CALL write(scr4,ecpt(1),2,0)
+               IF ( rho>0.0 ) tvol = tvol*rho
+               ecpt(1) = tvol
+               necpt(2) = ngpt
+               CALL write(scr4,ecpt(1),22,1)
             ELSE
                j = iabs(Jtype)
-               Ecpt(3) = Tvol
-               IF ( Rho>0.0 ) Ecpt(3) = Tvol*Rho
-               necpt(4) = Ngpt
+               ecpt(3) = tvol
+               IF ( rho>0.0 ) ecpt(3) = tvol*rho
+               necpt(4) = ngpt
                CALL write(scr4,el(1,j),2,0)
-               CALL write(scr4,Ecpt(1),4,0)
-               IF ( Surfac>0.0 ) THEN
-                  j = Ngpt*5
-                  CALL write(scr4,Ecpt(53),j,1)
+               CALL write(scr4,ecpt(1),4,0)
+               IF ( surfac>0.0 ) THEN
+                  j = ngpt*5
+                  CALL write(scr4,ecpt(53),j,1)
                ENDIF
             ENDIF
          ENDIF
@@ -417,36 +418,36 @@ USE ISO_FORTRAN_ENV
 !     OBTAIN THE FOUR CONDUCTIVITY VALUES NEEDED FOR PIVOT ROW BEING
 !     INSERTED.
 !
-         CALL gmmatd(G(1),4,4,0,H(1),4,4,0,C(5))
+         CALL gmmatd(g(1),4,4,0,h(1),4,4,0,c(5))
          ihcol = i - 2
-         Temp(1) = H(ihcol)
-         Temp(2) = H(ihcol+4)
-         Temp(3) = H(ihcol+8)
-         Temp(4) = H(ihcol+12)
-         CALL gmmatd(Temp(1),1,4,0,C(5),4,4,0,C(1))
+         temp(1) = h(ihcol)
+         temp(2) = h(ihcol+4)
+         temp(3) = h(ihcol+8)
+         temp(4) = h(ihcol+12)
+         CALL gmmatd(temp(1),1,4,0,c(5),4,4,0,c(1))
 !
 !     DIVIDE CONDUCTIVITY BY 2.0 IF THIS IS A SUB-TETRA OF A HEXA2
 !     ELEMENT.
 !
          IF ( Iopt==0 ) THEN
-            Hdeter = Hdeter/6.0D0
+            hdeter = hdeter/6.0D0
          ELSEIF ( Iopt>=11 .AND. Iopt<=22 ) THEN
 !
 !     WEDGES
 !
-            Hdeter = Hdeter/36.0D0
-            IF ( Iopt<=16 ) Hdeter = Hdeter*2.0D0
+            hdeter = hdeter/36.0D0
+            IF ( Iopt<=16 ) hdeter = hdeter*2.0D0
          ELSE
-            Hdeter = Hdeter/12.0D0
+            hdeter = hdeter/12.0D0
          ENDIF
          DO i = 1 , 4
-            C(i) = C(i)*Hdeter
+            c(i) = c(i)*hdeter
          ENDDO
 !
 !     INSERT THE PIVOT ROW.
 !
          DO i = 1 , 4
-            CALL sma1b(C(i),necpt(i+2),Npvt,Ifkgg,0.0D0)
+            CALL sma1b(c(i),necpt(i+2),npvt,ifkgg,0.0D0)
          ENDDO
          EXIT SPAG_DispatchLoop_1
       END SELECT

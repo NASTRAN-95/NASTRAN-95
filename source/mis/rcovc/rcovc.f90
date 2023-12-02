@@ -2,15 +2,15 @@
  
 SUBROUTINE rcovc
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_NAMES
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_condas
+   USE c_names
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -37,6 +37,12 @@ SUBROUTINE rcovc
 ! End of declarations rewritten by SPAG
 !
 !
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     RCOVC COMPUTES REACTION FORCES AND GENERATES OUTPUT DATA BLOCKS
 !     FOR DISPLACEMENTS, APPLIED LOADS, AND REACTION FORCES.
 !
@@ -51,20 +57,20 @@ SUBROUTINE rcovc
 !
 !     INITIALIZE
 !
-   IF ( Dry<0 ) RETURN
-   Sof1 = korsz(Z) - Lreq - Sysbuf + 1
-   Sof2 = Sof1 - Sysbuf - 1
-   Sof3 = Sof2 - Sysbuf
-   Buf1 = Sof3 - Sysbuf
-   Buf2 = Buf1 - Sysbuf
-   Buf3 = Buf2 - Sysbuf
-   Buf4 = Buf3 - Sysbuf
-   Lcore = Buf4 - 1
-   IF ( Lcore<=0 ) THEN
-      WRITE (Nout,99003) Swm , Rss
+   IF ( dry<0 ) RETURN
+   sof1 = korsz(z) - lreq - sysbuf + 1
+   sof2 = sof1 - sysbuf - 1
+   sof3 = sof2 - sysbuf
+   buf1 = sof3 - sysbuf
+   buf2 = buf1 - sysbuf
+   buf3 = buf2 - sysbuf
+   buf4 = buf3 - sysbuf
+   lcore = buf4 - 1
+   IF ( lcore<=0 ) THEN
+      WRITE (nout,99003) swm , rss
       GOTO 2000
    ELSE
-      CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+      CALL sofopn(z(sof1),z(sof2),z(sof3))
 !
 !     ================================================
 !     THIS CARD SHOULD BE ADDED WHEN SDR3 IS FIXED
@@ -72,42 +78,42 @@ SUBROUTINE rcovc
 !     IF (RFNO .EQ. 9) NOSORT = 1
 !
 !     ================================================
-      Pa = 0
-      Qa = 0
+      pa = 0
+      qa = 0
       uflag = .FALSE.
       pflag = .FALSE.
       qflag = .FALSE.
 !
 !     CHECK OUTPUT REQUESTS ON CASESS
 !
-      CALL gopen(casess,Z(Buf1),Rdrew)
+      CALL gopen(casess,z(buf1),rdrew)
       nccrec = 1
       file = casess
       DO
-         CALL fread(casess,Z,2,1)
+         CALL fread(casess,z,2,1)
          nccrec = nccrec + 1
          IF ( iz(1)==casecc(1) .AND. iz(2)==casecc(2) ) THEN
             DO
                CALL read(*100,*1900,casess,idbuf,35,1,i)
                IF ( idbuf(17)/=0 ) pflag = .TRUE.
                IF ( idbuf(20)/=0 ) uflag = .TRUE.
-               IF ( idbuf(29)/=0 .AND. Rfno>=8 ) uflag = .TRUE.
-               IF ( idbuf(32)/=0 .AND. Rfno>=8 ) uflag = .TRUE.
+               IF ( idbuf(29)/=0 .AND. rfno>=8 ) uflag = .TRUE.
+               IF ( idbuf(32)/=0 .AND. rfno>=8 ) uflag = .TRUE.
                IF ( idbuf(35)/=0 ) qflag = .TRUE.
                IF ( pflag .AND. uflag .AND. qflag ) GOTO 100
             ENDDO
          ENDIF
       ENDDO
    ENDIF
- 100  CALL close(casess,Rew)
+ 100  CALL close(casess,rew)
 !
-   IF ( buf(Ireq)==1 ) uflag = .TRUE.
-   IF ( buf(Ireq+1)==1 ) pflag = .TRUE.
-   IF ( buf(Ireq+2)==1 ) qflag = .TRUE.
-   IF ( Energy/=0 ) THEN
+   IF ( buf(ireq)==1 ) uflag = .TRUE.
+   IF ( buf(ireq+1)==1 ) pflag = .TRUE.
+   IF ( buf(ireq+2)==1 ) qflag = .TRUE.
+   IF ( energy/=0 ) THEN
       uflag = .TRUE.
-      IF ( Rfno>=3 .AND. Rfno<=8 ) pflag = .TRUE.
-      IF ( Rfno>=3 .AND. Rfno<=8 ) qflag = .TRUE.
+      IF ( rfno>=3 .AND. rfno<=8 ) pflag = .TRUE.
+      IF ( rfno>=3 .AND. rfno<=8 ) qflag = .TRUE.
    ENDIF
 !
    IF ( .NOT.(uflag .OR. pflag .OR. qflag) ) GOTO 1500
@@ -116,47 +122,47 @@ SUBROUTINE rcovc
 !     IF WE ARE PRINTING THE SOLUTION SUBSTRUCTURE CHECK IF THE LOADS
 !     ARE ON A GINO FILE.
 !
-   IF ( Rfno==3 ) pflag = .FALSE.
-   IF ( .NOT.(.NOT.pflag .AND. (.NOT.qflag .OR. Rfno==3)) ) THEN
-      IF ( Rss(1)==Fss(1) .AND. Rss(2)==Fss(2) ) THEN
-         Pa = pg
+   IF ( rfno==3 ) pflag = .FALSE.
+   IF ( .NOT.(.NOT.pflag .AND. (.NOT.qflag .OR. rfno==3)) ) THEN
+      IF ( rss(1)==fss(1) .AND. rss(2)==fss(2) ) THEN
+         pa = pg
          mcba(1) = pg
          CALL rdtrl(mcba)
          IF ( mcba(1)>0 ) GOTO 200
       ENDIF
-      Pa = scr3
-      CALL rcovsl(Rss,pvec,0,scr6,scr7,scr8,Pa,Z(1),Z(1),Sof3-1,.FALSE.,Rfno)
-      IF ( Pa<=0 ) pflag = .FALSE.
+      pa = scr3
+      CALL rcovsl(rss,pvec,0,scr6,scr7,scr8,pa,z(1),z(1),sof3-1,.FALSE.,rfno)
+      IF ( pa<=0 ) pflag = .FALSE.
    ENDIF
 !
 !     GET THE DISPLACEMENT VECTOR AND IF RIGID FORMAT 8 THEN
 !     CALCULATE THE VELOCITIES AND ACCELERATIONS.
 !
  200  IF ( .NOT.uflag .AND. .NOT.qflag ) GOTO 500
-   mcba(1) = Ua
+   mcba(1) = ua
    CALL rdtrl(mcba)
    IF ( mcba(1)>0 ) GOTO 400
-   Ua = scr2
-   CALL mtrxi(Ua,Rss,uvec,0,rc)
+   ua = scr2
+   CALL mtrxi(ua,rss,uvec,0,rc)
    IF ( rc==1 ) GOTO 400
- 300  Ua = 0
-   WRITE (Nout,99001) Swm , Rss
+ 300  ua = 0
+   WRITE (nout,99001) swm , rss
 99001 FORMAT (A27,' 6319, DISPLACEMENT MATRIX FOR SUBSTRUCTURE ',2A4,' MISSING.'/5X,'DISPLACEMENT OUTPUT REQUESTS CANNOT BE ',      &
              &'HONORED.  SPCFORCE OUTPUT REQUESTS CANNOT BE HONORED UN','LESS THE',/5X,'REACTIONS HAVE BEEN PREVIOUSLY COMPUTED.')
    uflag = .FALSE.
    qflag = .FALSE.
-   Energy = 0
+   energy = 0
 !
- 400  IF ( .NOT.(Rfno/=8 .OR. .NOT.(uflag .OR. qflag)) ) THEN
-      CALL rcovva(Ua,0,scr1,0,0,0,Rss,Z(1),Z(1),Z(1))
-      IF ( Ua<=0 ) GOTO 300
-      Ua = scr1
+ 400  IF ( .NOT.(rfno/=8 .OR. .NOT.(uflag .OR. qflag)) ) THEN
+      CALL rcovva(ua,0,scr1,0,0,0,rss,z(1),z(1),z(1))
+      IF ( ua<=0 ) GOTO 300
+      ua = scr1
    ENDIF
 !
 !     COMPUTE THE SPCF REACTIONS IF OUTPUT REQUESTS WERE SPECIFIED
 !
  500  IF ( qflag ) CALL rcovqv
-   IF ( Qa<=0 ) qflag = .FALSE.
+   IF ( qa<=0 ) qflag = .FALSE.
 !
 !     OUTPUT PROCESSING
 !
@@ -164,15 +170,15 @@ SUBROUTINE rcovc
 !     IF IOPT IS EQUAL TO ONE THEN THE OUTPUT WILL BE SORTED BY SUBCASE
 !     IF EQUAL TO TWO IT WILL BE SORTED BY SUBSTRUCTURE
 !
-   np = buf(Ireq+3)
-   ns = buf(Ireq+4)
+   np = buf(ireq+3)
+   ns = buf(ireq+4)
 !
 !     FIND THE LENGTH AND TYPE OF THE VECTORS TO BE OUTPUT
 !
-   CALL softrl(Rss,uvec,mcba)
+   CALL softrl(rss,uvec,mcba)
    nmodes = mcba(2)
    nsteps = mcba(2)
-   IF ( Rfno==9 ) nsteps = nsteps/3
+   IF ( rfno==9 ) nsteps = nsteps/3
    complx = .FALSE.
    IF ( mcba(5)>=3 ) complx = .TRUE.
    nword = 1
@@ -192,21 +198,21 @@ SUBROUTINE rcovc
 !
 !     INITALIZE THE UNPACK COMMON BLOCK
 !
-   Utypo = 1
-   IF ( complx ) Utypo = 3
-   Iru = 1
-   Nru = mcba(3)
-   Incu = 1
+   utypo = 1
+   IF ( complx ) utypo = 3
+   iru = 1
+   nru = mcba(3)
+   incu = 1
 !
 !     ALLOCATE OPEN CORE
 !
    isets = 1
    lsets = 100
    ivect = isets + lsets
-   isil = ivect + (Nru*nword)
+   isil = ivect + (nru*nword)
    ieqss = isil + np
-   IF ( ieqss+2>Lcore ) THEN
-      WRITE (Nout,99003) Swm , Rss
+   IF ( ieqss+2>lcore ) THEN
+      WRITE (nout,99003) swm , rss
       GOTO 2000
    ELSE
 !
@@ -253,11 +259,11 @@ SUBROUTINE rcovc
 !
 !     READ SIL FROM EQSS INTO OPEN CORE AT ISIL
 !
-      CALL sfetch(Rss,eqss,srd,rc)
+      CALL sfetch(rss,eqss,srd,rc)
       n = ns + 1
       CALL sjump(n)
       DO i = 1 , np
-         CALL suread(Z(isil+i-1),1,nwds,rc)
+         CALL suread(z(isil+i-1),1,nwds,rc)
          CALL suread(j,1,nwds,rc)
       ENDDO
 !
@@ -267,26 +273,26 @@ SUBROUTINE rcovc
 !
       incore = .FALSE.
       neqss = ieqss + 2
-      CALL sfetch(Rss,eqss,srd,rc)
+      CALL sfetch(rss,eqss,srd,rc)
       n = 1
       CALL sjump(n)
       nss = ns
-      IF ( Iopt==2 ) nss = 1
+      IF ( iopt==2 ) nss = 1
       iss = 0
    ENDIF
 !
 !     TOP OF LOOP OVER BASIC SUBSTRUCTURES WHEN PROCESSING ONE AT A TIME
 !
  600  iss = iss + 1
-   k = Lcore - ieqss + 1
+   k = lcore - ieqss + 1
    j = ieqss
    item = eqss
    DO i = 1 , nss
-      CALL suread(Z(j),k,nwds,rc)
+      CALL suread(z(j),k,nwds,rc)
       IF ( rc==3 ) GOTO 1600
       IF ( rc/=2 ) GOTO 700
       j = j + nwds
-      IF ( j+3>Lcore ) GOTO 700
+      IF ( j+3>lcore ) GOTO 700
       iz(j) = -1
       iz(j+1) = -1
       iz(j+2) = -1
@@ -312,39 +318,39 @@ SUBROUTINE rcovc
 !     CHECK LOAD VECTOR
 !
          IF ( .NOT.pflag ) CYCLE
-         in = Pa
+         in = pa
          iout = opg1
       ELSEIF ( i==3 ) THEN
 !
 !     CHECK READTIONS VECTOR
 !
          IF ( .NOT.qflag ) CYCLE
-         in = Qa
+         in = qa
          iout = oqg1
       ELSE
 !
 !     CHECK DISPLACEMENT VECTOR
 !
          IF ( .NOT.uflag ) CYCLE
-         in = Ua
+         in = ua
          iout = ougv1
       ENDIF
 !
 !     POSITION FILES
 !
-      CALL gopen(in,Z(Buf1),Rdrew)
-      CALL close(in,Norew)
+      CALL gopen(in,z(buf1),rdrew)
+      CALL close(in,norew)
       IF ( iss<=1 ) THEN
-         CALL open(*850,iout,Z(Buf2),Wrtrew)
+         CALL open(*850,iout,z(buf2),wrtrew)
          CALL fname(iout,namef)
          CALL write(iout,namef,2,1)
-         CALL close(iout,Norew)
+         CALL close(iout,norew)
       ENDIF
       CYCLE
 !
 !     OUTPUT FILE PURGED - TURN OFF REQUEST FLAG
 !
- 850  WRITE (Nout,99002) Swm , iout
+ 850  WRITE (nout,99002) swm , iout
 99002 FORMAT (A27,' 6314, OUTPUT REQUEST CANNOT BE HONORED.',/34X,'RCOVR MODULE OUTPUT DATA BLOCK',I4,' IS PURGED.')
       IF ( iout==ougv1 ) uflag = .FALSE.
       IF ( iout==opg1 ) pflag = .FALSE.
@@ -361,7 +367,7 @@ SUBROUTINE rcovc
 !     POSITION CASESS TO FIRST CASECC SUBCASE
 !
    file = casess
-   CALL open(*1700,casess,Z(Buf3),Rdrew)
+   CALL open(*1700,casess,z(buf3),rdrew)
    DO i = 1 , nccrec
       CALL fwdrec(*1800,casess)
    ENDDO
@@ -393,19 +399,19 @@ SUBROUTINE rcovc
    IF ( complx ) iform = 2
    IF ( disp(2)==0 ) disp(2) = 1
    IF ( disp(3)==0 ) disp(3) = iform
-   IF ( disp(3)<0 ) Nosort = 1
+   IF ( disp(3)<0 ) nosort = 1
    IF ( oload(2)==0 ) oload(2) = 1
    IF ( oload(3)==0 ) oload(3) = iform
-   IF ( oload(3)<0 ) Nosort = 1
+   IF ( oload(3)<0 ) nosort = 1
    IF ( spcf(2)==0 ) spcf(2) = 1
    IF ( spcf(3)==0 ) spcf(3) = iform
-   IF ( spcf(3)<0 ) Nosort = 1
+   IF ( spcf(3)<0 ) nosort = 1
    IF ( velo(2)==0 ) velo(2) = 1
    IF ( velo(3)==0 ) velo(3) = iform
-   IF ( velo(3)<0 ) Nosort = 1
+   IF ( velo(3)<0 ) nosort = 1
    IF ( acce(2)==0 ) acce(2) = 1
    IF ( acce(3)==0 ) acce(3) = iform
-   IF ( acce(3)<0 ) Nosort = 1
+   IF ( acce(3)<0 ) nosort = 1
 !
 !     READ TITLE, SUBTITLE, AND LABEL.  WILL REPLACE RIGHTMOST WORDS OF
 !     SUBTITLE WITH BASIC SUBSTRUCTURE NAME
@@ -416,8 +422,8 @@ SUBROUTINE rcovc
       idbuf(i+133) = comps(i)
    ENDDO
    idbuf(105) = substr(4)
-   idbuf(106) = Rss(1)
-   idbuf(107) = Rss(2)
+   idbuf(106) = rss(1)
+   idbuf(107) = rss(2)
 !
 !     READ SYMMETRY SEQUENCE AND SET INFORMATION
 !
@@ -429,35 +435,35 @@ SUBROUTINE rcovc
    lskip = 167 - lcc
    CALL fread(casess,0,lskip,0)
    CALL read(*1800,*1200,casess,lseq,1,0,n)
-   IF ( neqss+lseq>Lcore ) THEN
-      WRITE (Nout,99003) Swm , Rss
+   IF ( neqss+lseq>lcore ) THEN
+      WRITE (nout,99003) swm , rss
       GOTO 2000
    ELSE
-      IF ( lseq>0 ) CALL read(*1800,*1200,casess,Z(iseq),lseq,0,n)
+      IF ( lseq>0 ) CALL read(*1800,*1200,casess,z(iseq),lseq,0,n)
       icomb = iseq + lseq
-      IF ( icomb+Nru>Lcore ) THEN
-         WRITE (Nout,99003) Swm , Rss
+      IF ( icomb+nru>lcore ) THEN
+         WRITE (nout,99003) swm , rss
          GOTO 2000
       ELSE
-         CALL read(*1800,*1200,casess,Z(isets),lsets,0,nwds)
+         CALL read(*1800,*1200,casess,z(isets),lsets,0,nwds)
          k = lsets
          DO
 !
 !     MUST EXPAND SETS PORTION OF OPEN CORE
 !
-            n = Lcore - neqss
+            n = lcore - neqss
             IF ( n>0 ) THEN
                DO i = isil , neqss
-                  iz(Lcore-i+1) = iz(neqss-i+1)
+                  iz(lcore-i+1) = iz(neqss-i+1)
                ENDDO
                ivect = ivect + n
                isil = isil + n
                ieqss = ieqss + n
                neqss = neqss + n
-               CALL read(*1800,*1100,casess,Z(isets+lsets),n,0,nwds)
+               CALL read(*1800,*1100,casess,z(isets+lsets),n,0,nwds)
                k = k + n
             ELSEIF ( .NOT.incore ) THEN
-               WRITE (Nout,99003) Swm , Rss
+               WRITE (nout,99003) swm , rss
                GOTO 2000
             ELSE
                incore = .FALSE.
@@ -470,10 +476,10 @@ SUBROUTINE rcovc
 !     END OF CASE CONTROL RECORDS - CHECK IF THIS IS REALLY THE END
 !
  1000 end = .TRUE.
-   IF ( Rfno<=2 ) GOTO 1400
-   IF ( Rfno==3 .AND. isc>nmodes ) GOTO 1400
-   IF ( Rfno>=8 .AND. isc>nsteps ) GOTO 1400
-   GOTO 1300
+   IF ( rfno<=2 ) GOTO 1400
+   IF ( rfno==3 .AND. isc>nmodes ) GOTO 1400
+   IF ( rfno<8 .OR. isc<=nsteps ) GOTO 1300
+   GOTO 1400
  1100 nwds = k + nwds
  1200 nsets = isets + nwds
  1300 DO
@@ -496,22 +502,22 @@ SUBROUTINE rcovc
 !
                      DO js = 1 , nss
                         jss = iss + js - 1
-                        nreq = Ireq + (jss-1)*Lbasic + 5
+                        nreq = ireq + (jss-1)*lbasic + 5
                         kpoint = buf(nreq+12)
 !
 !     STATICS
 !
-                        IF ( Rfno>2 ) THEN
+                        IF ( rfno>2 ) THEN
 !
 !     FOR NORMAL MODES GET MODE NUMBER, EIGENVALUE AND FREQUENCY
 !
-                           IF ( Rfno/=3 ) THEN
+                           IF ( rfno/=3 ) THEN
 !
 !     FOR DYNAMICS GET THE TIME OR FREQUENCY
 !
-                              IF ( Rfno==8 .OR. Rfno==9 ) THEN
+                              IF ( rfno==8 .OR. rfno==9 ) THEN
                                  IF ( js<=1 ) THEN
-                                    CALL sfetch(Fss,soln,srd,rc)
+                                    CALL sfetch(fss,soln,srd,rc)
                                     n = 1
                                     CALL sjump(n)
                                     j = isc - 1
@@ -523,14 +529,14 @@ SUBROUTINE rcovc
                                     CALL suread(value,1,nwds,rc)
 !
                                     iappro = 5
-                                    IF ( Rfno==9 ) iappro = 6
+                                    IF ( rfno==9 ) iappro = 6
                                     idbuf(4) = isc
                                     rdbuf(5) = value
                                     idbuf(8) = lid
                                  ENDIF
                               ENDIF
                            ELSEIF ( js<=1 ) THEN
-                              CALL sfetch(Fss,soln,srd,rc)
+                              CALL sfetch(fss,soln,srd,rc)
                               n = 1
                               CALL sjump(n)
                               j = isc - 1
@@ -561,10 +567,10 @@ SUBROUTINE rcovc
 !
 !     GET SUBCASE OR MODE REQUEST
 !
-                        IF ( Rfno<=2 ) THEN
+                        IF ( rfno<=2 ) THEN
                            isub = isc
                            iloc = 5
-                        ELSEIF ( Rfno/=3 ) THEN
+                        ELSEIF ( rfno/=3 ) THEN
                            isub = isc
                            iloc = 11
                         ELSE
@@ -584,7 +590,7 @@ SUBROUTINE rcovc
 !
 !     SET NOT FOUND, ISSUE WARNING AND PRINT ALL INSTEAD.
 !
-                                 WRITE (Nout,99004) Uwm , iset
+                                 WRITE (nout,99004) uwm , iset
                                  buf(nreq+iloc) = -1
                                  GOTO 1302
                               ENDIF
@@ -600,7 +606,7 @@ SUBROUTINE rcovc
 !     SO FAR SO GOOD - IF NORMAL MODES OR DYNAMICS PROBLEM CHECK IF
 !     EIGEN VALUE, TIME OR FREQUENCY IS IN REQUESTED RANGE
 !
- 1302                   IF ( Rfno>=3 ) THEN
+ 1302                   IF ( rfno>=3 ) THEN
                            IF ( value<rbuf(nreq+7) ) GOTO 1316
                            IF ( value>rbuf(nreq+8) ) GOTO 1316
                         ENDIF
@@ -617,10 +623,10 @@ SUBROUTINE rcovc
 !
                            idc = oload(2)
                            iform = iabs(oload(3))
-                           thresh = Pthres
+                           thresh = pthres
                            supres = .TRUE.
                            idbuf(2) = 2
-                           in = Pa
+                           in = pa
                            iout = opg1
                         ELSEIF ( itype==3 ) THEN
 !
@@ -634,10 +640,10 @@ SUBROUTINE rcovc
 !
                            idc = spcf(2)
                            iform = iabs(spcf(3))
-                           thresh = Qthres
+                           thresh = qthres
                            supres = .TRUE.
                            idbuf(2) = 3
-                           in = Qa
+                           in = qa
                            iout = oqg1
                         ELSEIF ( itype==4 ) THEN
 !
@@ -652,9 +658,9 @@ SUBROUTINE rcovc
                            idc = velo(2)
                            iform = iabs(velo(3))
                            idbuf(2) = 10
-                           thresh = Uthres
+                           thresh = uthres
                            supres = .FALSE.
-                           in = Ua
+                           in = ua
                            iout = ougv1
                         ELSEIF ( itype==5 ) THEN
 !
@@ -669,9 +675,9 @@ SUBROUTINE rcovc
                            idc = acce(2)
                            iform = iabs(acce(3))
                            idbuf(2) = 11
-                           thresh = Uthres
+                           thresh = uthres
                            supres = .FALSE.
-                           in = Ua
+                           in = ua
                            iout = ougv1
                         ELSE
 !
@@ -686,18 +692,18 @@ SUBROUTINE rcovc
                            idc = disp(2)
                            iform = iabs(disp(3))
                            idbuf(2) = 1
-                           IF ( Rfno==3 ) idbuf(2) = 7
-                           thresh = Uthres
+                           IF ( rfno==3 ) idbuf(2) = 7
+                           thresh = uthres
                            supres = .FALSE.
-                           in = Ua
+                           in = ua
                            iout = ougv1
                         ENDIF
 !
 !     OPEN FILES AND UNPACK VECTOR TO BE PRINTED
 !
                         file = in
-                        CALL gopen(in,Z(Buf1),Rd)
-                        CALL gopen(iout,Z(Buf2),Wrt)
+                        CALL gopen(in,z(buf1),rd)
+                        CALL gopen(iout,z(buf2),wrt)
                         it = itype
                         IF ( itype>3 ) it = 1
                         IF ( lseq>0 ) THEN
@@ -715,13 +721,13 @@ SUBROUTINE rcovc
                                  CALL fwdrec(*1800,in)
                               ENDDO
                            ENDIF
-                           DO i = 1 , Nru
-                              Z(ivect+i-1) = 0.0E0
+                           DO i = 1 , nru
+                              z(ivect+i-1) = 0.0E0
                            ENDDO
                            DO i = 1 , lseq
-                              CALL unpack(*1304,in,Z(icomb))
-                              DO j = 1 , Nru
-                                 Z(ivect+j-1) = Z(ivect+j-1) + Z(iseq+i-1)*Z(icomb+j-1)
+                              CALL unpack(*1304,in,z(icomb))
+                              DO j = 1 , nru
+                                 z(ivect+j-1) = z(ivect+j-1) + z(iseq+i-1)*z(icomb+j-1)
                               ENDDO
  1304                      ENDDO
                            nfwd(it) = 0
@@ -733,18 +739,18 @@ SUBROUTINE rcovc
                               ENDDO
                               nfwd(it) = 0
                            ENDIF
-                           CALL unpack(*1306,in,Z(ivect))
+                           CALL unpack(*1306,in,z(ivect))
                         ENDIF
                         GOTO 1308
- 1306                   n = Nru*nword
+ 1306                   n = nru*nword
                         DO i = 1 , n
-                           Z(ivect+i-1) = 0.0
+                           z(ivect+i-1) = 0.0
                         ENDDO
 !
 !     IF EQSS DATA NOT IN CORE, POSITION THE SOF
 !
  1308                   IF ( .NOT.(incore) ) THEN
-                           CALL sfetch(Rss,eqss,srd,rc)
+                           CALL sfetch(rss,eqss,srd,rc)
                            nskip = iss + iskip
                            CALL sjump(nskip)
                            jeqss = ieqss
@@ -771,7 +777,7 @@ SUBROUTINE rcovc
 !
 !     SET NOT FOUND. ISSUE A WARNING AND PRINT ALL INSTEAD
 !
-                                 WRITE (Nout,99004) Uwm , iopst
+                                 WRITE (nout,99004) uwm , iopst
                                  i = itype + 1
                                  IF ( itype>3 ) i = i + 4
                                  buf(nreq+i) = -1
@@ -788,7 +794,7 @@ SUBROUTINE rcovc
                            jeqss = jeqss + 3
                            IF ( iz(jeqss)<=0 ) GOTO 1314
                         ELSE
-                           CALL suread(Z(jeqss),3,nwds,rc)
+                           CALL suread(z(jeqss),3,nwds,rc)
                            IF ( rc/=1 ) GOTO 1314
                         ENDIF
 !
@@ -811,12 +817,12 @@ SUBROUTINE rcovc
                            IF ( dofs(k+1)+1==i ) THEN
                               j = ivect + (iz(jsil)-1)*nword + k*nword
                               k = k + 1
-                              data(i) = Z(j)
+                              data(i) = z(j)
                               IF ( complx ) THEN
-                                 data(6+i) = Z(j+1)
+                                 data(6+i) = z(j+1)
                                  IF ( iform==3 .AND. data(i)+data(6+i)/=0.0 ) THEN
-                                    data(i) = sqrt(Z(j)**2+Z(j+1)**2)
-                                    data(6+i) = atan2(Z(j+1),Z(j))*Raddeg
+                                    data(i) = sqrt(z(j)**2+z(j+1)**2)
+                                    data(6+i) = atan2(z(j+1),z(j))*raddeg
                                     IF ( data(6+i)<-.000005 ) data(6+i) = data(6+i) + 360.0
                                  ENDIF
                                  IF ( .NOT.(supres .AND. data(i)+data(6+i)==0.0) ) THEN
@@ -867,8 +873,8 @@ SUBROUTINE rcovc
 !
 !     GO BACK AND DO ANOTHER OUTPUT TYPE
 !
-                     CALL close(in,Norew)
-                     CALL close(iout,Norew)
+                     CALL close(in,norew)
+                     CALL close(iout,norew)
                   ENDIF
                ENDIF
             ENDIF
@@ -881,10 +887,10 @@ SUBROUTINE rcovc
       ENDIF
       itype = itype + 1
       IF ( itype>3 ) THEN
-         IF ( itype>5 .OR. Rfno<8 ) THEN
+         IF ( itype>5 .OR. rfno<8 ) THEN
             IF ( end ) THEN
-               IF ( Rfno/=3 .OR. isc>=nmodes ) THEN
-                  IF ( Rfno<8 .OR. isc>=nsteps ) EXIT
+               IF ( rfno/=3 .OR. isc>=nmodes ) THEN
+                  IF ( rfno<8 .OR. isc>=nsteps ) EXIT
                ENDIF
             ENDIF
             GOTO 900
@@ -895,8 +901,8 @@ SUBROUTINE rcovc
 !     ALL SUBCASES PROCESSED,  IF IOPT EQ 2, GO BACK AND PROCESS
 !     NEXT BASIC SUBSTRUCTURE
 !
- 1400 CALL close(casess,Rew)
-   IF ( Iopt==1 .OR. iss==ns ) THEN
+ 1400 CALL close(casess,rew)
+   IF ( iopt==1 .OR. iss==ns ) THEN
 !
 !     WRITE TRAILERS AND EOF ON OUTPUT DATA BLOCKS
 !
@@ -904,25 +910,25 @@ SUBROUTINE rcovc
          mcba(i) = 1
       ENDDO
       IF ( uflag ) THEN
-         CALL gopen(ougv1,Z(Buf1),Wrt)
-         CALL close(ougv1,Rew)
+         CALL gopen(ougv1,z(buf1),wrt)
+         CALL close(ougv1,rew)
          mcba(1) = ougv1
          CALL wrttrl(mcba)
       ENDIF
       IF ( pflag ) THEN
-         CALL gopen(opg1,Z(Buf1),Wrt)
-         CALL close(opg1,Rew)
+         CALL gopen(opg1,z(buf1),wrt)
+         CALL close(opg1,rew)
          mcba(1) = opg1
          CALL wrttrl(mcba)
       ENDIF
       IF ( qflag ) THEN
-         CALL gopen(oqg1,Z(Buf1),Wrt)
-         CALL close(oqg1,Rew)
+         CALL gopen(oqg1,z(buf1),wrt)
+         CALL close(oqg1,rew)
          mcba(1) = oqg1
          CALL wrttrl(mcba)
       ENDIF
    ELSE
-      CALL sfetch(Rss,eqss,srd,rc)
+      CALL sfetch(rss,eqss,srd,rc)
       n = iss + 1
       CALL sjump(n)
       GOTO 600
@@ -936,7 +942,7 @@ SUBROUTINE rcovc
 !     ERROR PROCESSING
 !
  1600 n = 7
-   CALL smsg(n,item,Rss)
+   CALL smsg(n,item,rss)
    GOTO 2000
  1700 n = 1
    CALL mesage(n,file,name)
@@ -948,13 +954,13 @@ SUBROUTINE rcovc
    CALL mesage(n,file,name)
  2000 CALL sofcls
    DO i = 101 , 111
-      CALL close(i,Rew)
+      CALL close(i,rew)
    ENDDO
    DO i = 201 , 203
-      CALL close(i,Rew)
+      CALL close(i,rew)
    ENDDO
    DO i = 301 , 308
-      CALL close(i,Rew)
+      CALL close(i,rew)
    ENDDO
    RETURN
 !

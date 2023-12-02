@@ -1,21 +1,22 @@
-!*==givens.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==givens.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE givens
-USE C_BLANK
-USE C_CONDAS
-USE C_GIVN
-USE C_MGIVXX
-USE C_NTIME
-USE C_PACKX
-USE C_REGEAN
-USE C_REIGKR
-USE C_SADDX
-USE C_SYSTEM
-USE C_UNPAKX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condas
+   USE c_givn
+   USE c_mgivxx
+   USE c_ntime
+   USE c_packx
+   USE c_regean
+   USE c_reigkr
+   USE c_saddx
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -56,14 +57,14 @@ USE ISO_FORTRAN_ENV
          DO i = 1 , 4
             eigr(i) = icore(i+3)
          ENDDO
-         nnv = Nv
-         nz = korsz(Core(1))
-         ibuf1 = nz - 3 - Sysbuf
-         ibuf2 = ibuf1 - Sysbuf
+         nnv = nv
+         nz = korsz(core(1))
+         ibuf1 = nz - 3 - sysbuf
+         ibuf2 = ibuf1 - sysbuf
          ix(1) = kaa
          CALL rdtrl(ix)
          IF ( ix(1)<=0 ) THEN
-            WRITE (Nout,99001) Sfm , ix , kaa , maa , phia
+            WRITE (nout,99001) sfm , ix , kaa , maa , phia
 99001       FORMAT (A25,' FROM GIVENS.  FILE ERROR,  TRAIL =',5I5,2I8,/5X,'KAA,MAA,PHIA = ',3I5)
             CALL errtrc('GIVENS  ',60)
          ENDIF
@@ -76,20 +77,20 @@ USE ISO_FORTRAN_ENV
 !     IS MODIFIED TO USE S.P., 19 IN THE FOLLOWING FORMULA SHOULD CHANGE
 !     TO 10. (COMMENT FROM G.CHAN/UNISYS)
 !
-         N = (9*Jprec+1)*ix(2) + 2*Sysbuf - nz
-         IF ( N>0 ) THEN
-            WRITE (Nout,99002) Uim , ix(2) , ix(2) , N
+         n = (9*jprec+1)*ix(2) + 2*sysbuf - nz
+         IF ( n>0 ) THEN
+            WRITE (nout,99002) uim , ix(2) , ix(2) , n
 99002       FORMAT (A29,' 3008, INSUFFICIENT CORE FOR GIVENS METHOD.',/5X,'MATRIX SIZE IS',I5,3H BY,I5,'.  ADDITIONAL CORE OF',I7,  &
                    &' WORDS IS NEEDED.',/5X,'OR SWITCH TO INVPWR OR FEER ','METHOD.')
             CALL mesage(-37,0,name)
          ELSE
-            az = nz - (3*Jprec+1)*ix(2) - 2*Sysbuf
-            az = az/Jprec
+            az = nz - (3*jprec+1)*ix(2) - 2*sysbuf
+            az = az/jprec
             am = sqrt(2.0*az)
             ak = an - am
             an2 = an**2
-            amb = mb(Jprec)
-            av = Nv
+            amb = mb(jprec)
+            av = nv
             anv = an*av
             av2 = av**2
             t1 = amb*an*(3.0*(an2+anv)+av2)
@@ -98,12 +99,12 @@ USE ISO_FORTRAN_ENV
             t3 = 0
             IF ( am<an ) t3 = t23 + .5*(apc+apu)*ak*(an2-ak*(an+.5+ak/3.)+an)
             t = (t1+t2+t3)*1.0E-6
-            N = an
+            n = an
             m = am
-            WRITE (Nout,99003) Uim , t , N , m
+            WRITE (nout,99003) uim , t , n , m
 99003       FORMAT (A29,' 2016, GIVENS TIME ESTIMATE IS ',I8,' SECONDS.',/36X,'PROBLEM SIZE IS',I8,', SPILL WILL OCCUR FOR THIS ',  &
                    &'CORE AT A PROBLEM SIZE OF',I8,2H .)
-            IF ( t>2000 .OR. N>1000 ) WRITE (Nout,99004) Uim
+            IF ( t>2000 .OR. n>1000 ) WRITE (nout,99004) uim
 99004       FORMAT (A29,', FEER METHOD WOULD BE MORE EFFICIENT FOR PROBLEM ','OF THIS SIZE',/)
             CALL tmtogo(i)
             IF ( i>=t ) THEN
@@ -119,46 +120,46 @@ USE ISO_FORTRAN_ENV
 !
 !     CHOLESKI DECOMPOSE  MAA
 !
-         IF ( Option/=mgiv ) THEN
+         IF ( option/=mgiv ) THEN
             ifile1 = maa
             ifile2 = kaa
          ELSE
-            Nomat = 2
-            Mcba(1) = kaa
-            Mcbb(1) = maa
-            CALL rdtrl(Mcba)
-            CALL rdtrl(Mcbb)
-            Mcbx(1) = icr1
-            Mcbx(2) = Mcba(2)
-            Mcbx(3) = Mcba(3)
-            Mcbx(4) = Mcba(4)
-            Mcbx(5) = Jprec
-            Mcbx(6) = 0
-            Mcbx(7) = 0
+            nomat = 2
+            mcba(1) = kaa
+            mcbb(1) = maa
+            CALL rdtrl(mcba)
+            CALL rdtrl(mcbb)
+            mcbx(1) = icr1
+            mcbx(2) = mcba(2)
+            mcbx(3) = mcba(3)
+            mcbx(4) = mcba(4)
+            mcbx(5) = jprec
+            mcbx(6) = 0
+            mcbx(7) = 0
             dalpha(1) = 0.0D0
             dalpha(2) = 0.0D0
             dbeta(1) = 0.0D0
             dbeta(2) = 0.0D0
-            IF ( Jprec==2 ) THEN
-               Dlmdas = Xlmdas
+            IF ( jprec==2 ) THEN
+               dlmdas = xlmdas
                dalpha(1) = 1.0D0
-               dbeta(1) = Dlmdas
-               Itypa = 2
-               Itypb = 2
+               dbeta(1) = dlmdas
+               itypa = 2
+               itypb = 2
             ELSE
-               slmdas = Xlmdas
-               Alpha(1) = 1.0
-               Beta(1) = slmdas
-               Itypa = 1
-               Itypb = 1
+               slmdas = xlmdas
+               alpha(1) = 1.0
+               beta(1) = slmdas
+               itypa = 1
+               itypb = 1
             ENDIF
-            Llcore = nz
-            CALL sadd(Core,Core)
-            CALL wrttrl(Mcbx)
+            llcore = nz
+            CALL sadd(core,core)
+            CALL wrttrl(mcbx)
             ifile1 = icr1
             ifile2 = maa
          ENDIF
-         CALL factor(ifile1,Scr3,-Scr4,Scr5,Scr6,Scr7)
+         CALL factor(ifile1,scr3,-scr4,scr5,scr6,scr7)
 !
 !     C  IS ON SCR3
 !
@@ -166,50 +167,50 @@ USE ISO_FORTRAN_ENV
 !     REVERSED.
 !
          ip1 = -5
-         file = Scr3
-         ix(1) = Scr3
+         file = scr3
+         ix(1) = scr3
          CALL rdtrl(ix)
-         ix(5) = Jprec
-         Itp1 = ix(5)
-         Itp2 = Itp1
-         Itu = Itp1
-         Incrp = 1
-         Incru = 1
+         ix(5) = jprec
+         itp1 = ix(5)
+         itp2 = itp1
+         itu = itp1
+         incrp = 1
+         incru = 1
          ncol = ix(2)
-         ix(1) = Scr7
+         ix(1) = scr7
          ix(2) = 0
          ix(6) = 0
          ix(7) = 0
-         CALL gopen(Scr3,Core(ibuf1+1),0)
-         CALL gopen(Scr7,Core(ibuf2+1),1)
+         CALL gopen(scr3,core(ibuf1+1),0)
+         CALL gopen(scr7,core(ibuf2+1),1)
          DO l = 1 , ncol
-            Iiu = 1
-            Jju = ncol
-            CALL unpack(*20,Scr3,Core)
-            IF ( Itu==2 ) THEN
+            iiu = 1
+            jju = ncol
+            CALL unpack(*20,scr3,core)
+            IF ( itu==2 ) THEN
                DO k = 1 , ncol
                   dcore(k) = -dcore(k)
                ENDDO
                dcore(l) = -dcore(l)
             ELSE
                DO k = 1 , ncol
-                  Core(k) = -Core(k)
+                  core(k) = -core(k)
                ENDDO
-               Core(l) = -Core(l)
+               core(l) = -core(l)
             ENDIF
-            Iip = Iiu
-            Jjp = Jju
-            CALL pack(Core,Scr7,ix)
+            iip = iiu
+            jjp = jju
+            CALL pack(core,scr7,ix)
          ENDDO
-         CALL close(Scr3,1)
-         CALL close(Scr7,1)
+         CALL close(scr3,1)
+         CALL close(scr7,1)
          CALL wrttrl(ix)
 !
 !     C IS NOW ON SCR7
 !
 !     INVERT  C
 !
-         CALL invert(Scr7,Scr5,Scr6)
+         CALL invert(scr7,scr5,scr6)
 !
 !     C INVERSE IS ON SCR5
 !
@@ -223,12 +224,12 @@ USE ISO_FORTRAN_ENV
 !
 !     TRANP1 SHOULD BE 60 PERCENT FASTER BY ADDING 3 MORE SCRATCH FILES
 !
-         CALL tranp1(Scr5,Scr6,7,Scr4,Scr3,Scr7,icr1,Scr1,Scr2,309,0)
+         CALL tranp1(scr5,scr6,7,scr4,scr3,scr7,icr1,scr1,scr2,309,0)
 !
 !     COMPUTE  J
 !
-         CALL ssg2b(ifile2,Scr6,0,Scr5,0,Jprec,1,Scr4)
-         CALL ssg2b(Scr6,Scr5,0,Scr4,1,Jprec,1,Scr3)
+         CALL ssg2b(ifile2,scr6,0,scr5,0,jprec,1,scr4)
+         CALL ssg2b(scr6,scr5,0,scr4,1,jprec,1,scr3)
 !
 !     J IS ON SCR4
 !
@@ -238,11 +239,11 @@ USE ISO_FORTRAN_ENV
 !
 !     TRANSFORM
 !
-         CALL ssg2b(Scr6,Scr5,0,Scr4,0,Jprec,1,Scr7)
+         CALL ssg2b(scr6,scr5,0,scr4,0,jprec,1,scr7)
 !
 !     MERGE MODES AND FREE BODY MODES
 !
-         CALL read6(icr2,Scr4,Nfr,phia)
+         CALL read6(icr2,scr4,nfr,phia)
          icore(1) = nnv
          name(3) = end
          CALL conmsg(name,3,0)

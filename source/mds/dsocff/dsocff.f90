@@ -1,10 +1,11 @@
-!*==dsocff.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==dsocff.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dsocff(Dsname,Iunit,Istatus)
+   USE i_dsiof
+   USE c_machin
+   USE c_system
    IMPLICIT NONE
-   USE I_DSIOF
-   USE C_MACHIN
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,17 +24,17 @@ SUBROUTINE dsocff(Dsname,Iunit,Istatus)
  100  CLOSE (UNIT=Iunit,STATUS='DELETE',IOSTAT=Istatus,ERR=200)
 ! NOW, OPEN FILE AS NEW FOR NASTRAN
 !      print *,' dsocff,nbuff=',nbuff
-   nbuff4 = nbuff*(mod(Lqro,100)/10)
+   nbuff4 = nbuff*(mod(lqro,100)/10)
    OPEN (UNIT=Iunit,FILE=Dsname,RECL=nbuff4,STATUS='NEW',ACCESS='direct',FORM='unformatted',IOSTAT=Istatus,ERR=300)
-   GOTO 99999
- 200  WRITE (Iwr,99001) Iunit , Istatus , Dsname
+   RETURN
+ 200  WRITE (iwr,99001) Iunit , Istatus , Dsname
 99001 FORMAT (//,' FATAL ERROR IN DSOCFF, UNABLE TO CLOSE UNIT=',I4,' STATUS='I4,/,' FILE NAME=',A80)
    iccerr = Istatus
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
- 300  WRITE (Iwr,99002) Iunit , Istatus , Dsname
+ 300  WRITE (iwr,99002) Iunit , Istatus , Dsname
 99002 FORMAT (//,' FATAL ERROR IN DSOCFF, UNABLE TO OPEN UNIT=',I4,' STATUS=',I4,/,' FILE NAME=',A80)
    iccerr = Istatus
    CALL dsmsg(101)
    CALL mesage(-61,0,0)
-99999 END SUBROUTINE dsocff
+END SUBROUTINE dsocff

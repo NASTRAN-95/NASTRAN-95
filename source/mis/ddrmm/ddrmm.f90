@@ -1,14 +1,15 @@
-!*==ddrmm.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ddrmm.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ddrmm
+   USE c_ddrmc1
+   USE c_names
+   USE c_stdata
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_DDRMC1
-   USE C_NAMES
-   USE C_STDATA
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -70,78 +71,78 @@ SUBROUTINE ddrmm
 !     DETERMINE OPEN CORE AVAILABLE AND ALLOCATE BUFFERS.
 !
          DO i = 1 , 100
-            Savdat(i) = 0
+            savdat(i) = 0
          ENDDO
          DO i = 6 , 8
-            Savdat(i) = 102
-            Savdat(i+11) = 102
+            savdat(i) = 102
+            savdat(i+11) = 102
          ENDDO
-         Savdat(15) = 102
-         Savdat(76) = 2
-         Savdat(77) = 10
+         savdat(15) = 102
+         savdat(76) = 2
+         savdat(77) = 10
          DO i = 1 , 7
-            Scrt(i) = i + 300
+            scrt(i) = i + 300
          ENDDO
-         Ncore = korsz(Z)
+         ncore = korsz(z)
          DO i = 1 , 6
-            Buff(i) = Ncore - Sysbuf - 2
-            Ncore = Buff(i) - 1
+            buff(i) = ncore - sysbuf - 2
+            ncore = buff(i) - 1
          ENDDO
 !
 !     GET FIRST SUBCASE OF CASE CONTROL INTO CORE
 !
-         Ierror = 0
-         Subcas = 1
-         Icc = 1
-         File = casecc
-         CALL open(*160,casecc,Z(buf1),Rdrew)
+         ierror = 0
+         subcas = 1
+         icc = 1
+         file = casecc
+         CALL open(*160,casecc,z(buf1),rdrew)
          CALL fwdrec(*180,casecc)
-         CALL read(*180,*20,casecc,Z(Icc),Ncore-Icc,noeor,Nwds)
-         Ierror = 1
+         CALL read(*180,*20,casecc,z(icc),ncore-icc,noeor,nwds)
+         ierror = 1
          GOTO 220
 !
- 20      Ncc = Icc + Nwds - 1
-         CALL close(casecc,Cls)
+ 20      ncc = icc + nwds - 1
+         CALL close(casecc,cls)
 !
 !     READ TRAILER OF SOLUTION DATA BLOCK. IF SOLUTION IS
 !     COMPLEX, THEN FREQUENCY RESPONCE IS ASSUMED. IF REAL, THEN
 !     TRANSIENT RESPONSE IS ASSUMED.
 !
-         Mcb(1) = uv
-         CALL rdtrl(Mcb)
-         Trnsnt = .TRUE.
-         IF ( Mcb(5)>2 ) Trnsnt = .FALSE.
+         mcb(1) = uv
+         CALL rdtrl(mcb)
+         trnsnt = .TRUE.
+         IF ( mcb(5)>2 ) trnsnt = .FALSE.
 !
 !     SET NUMBER OF EIGENVALUES = ROWS IN SOLUTION DATA BLOCK
 !
-         Nlambs = Mcb(3)
+         nlambs = mcb(3)
 !
 !     SET NUMBER OF SOLUTIONS.(TIME STEPS X 3, OR FREQUENCYS)
 !
-         Nsols = Mcb(2)
+         nsols = mcb(2)
 !
 !     OPEN UV AND POSITION OVER HEADER RECORD.
 !
-         File = uv
-         CALL open(*160,uv,Z(buf1),Rdrew)
+         file = uv
+         CALL open(*160,uv,z(buf1),rdrew)
          CALL fwdrec(*180,uv)
-         CALL close(uv,Cls)
+         CALL close(uv,cls)
          spag_nextblock_1 = 2
       CASE (2)
 !
 !     READ LIST OF FREQUENCYS OR TIME STEPS FROM INPUT LOAD MATRIX
 !     HEADER.
 !
-         Ilist = Ncc + 1
-         File = pp
-         CALL open(*160,pp,Z(buf1),Rdrew)
-         Ierror = 2
-         CALL read(*180,*200,pp,buf(1),-2,noeor,Nwds)
-         CALL read(*180,*40,pp,Z(Ilist),Ncore-Ilist,noeor,Entrys)
+         ilist = ncc + 1
+         file = pp
+         CALL open(*160,pp,z(buf1),rdrew)
+         ierror = 2
+         CALL read(*180,*200,pp,buf(1),-2,noeor,nwds)
+         CALL read(*180,*40,pp,z(ilist),ncore-ilist,noeor,entrys)
          GOTO 220
 !
- 40      Nlist = Ilist + Entrys - 1
-         CALL close(pp,Clsrew)
+ 40      nlist = ilist + entrys - 1
+         CALL close(pp,clsrew)
 !
 !     IF FREQUENCY RESPONSE PROBLEM, AND USER HAS SPECIFIED A LIST OF
 !     FREQUENCYS TO BE USED AS A GUIDE IN DETERMINING A SUBSET OF
@@ -151,34 +152,34 @@ SUBROUTINE ddrmm
 !
 !     IN ANY EVENT THE NEXT SUBCASE-S SOLUTIONS ARE PLACED ON SCRT1.
 !
-         Uvsol = uv
-         IF ( .NOT.(Trnsnt) ) THEN
+         uvsol = uv
+         IF ( .NOT.(trnsnt) ) THEN
 !
 !     EXPAND LIST OF FREQS PLACING A FLAG AFTER EACH.
 !
-            j = Nlist
-            Nlist = Nlist + Entrys
-            Ierror = 4
-            IF ( Nlist>Ncore ) GOTO 220
-            k = Nlist - 1
-            DO i = 1 , Entrys
-               Z(k) = Z(j)
-               Z(k+1) = 0
+            j = nlist
+            nlist = nlist + entrys
+            ierror = 4
+            IF ( nlist>ncore ) GOTO 220
+            k = nlist - 1
+            DO i = 1 , entrys
+               z(k) = z(j)
+               z(k+1) = 0
                k = k - 2
                j = j - 1
             ENDDO
 !
 !     SET FLAGS OF FREQUENCYS TO BE OUTPUT.
 !
-            index = Icc + ifrout - 1
-            frqset = Z(index)
+            index = icc + ifrout - 1
+            frqset = z(index)
             IF ( frqset>0 ) THEN
-               index = Icc + ilsym - 1
-               index = Z(index) + 1
+               index = icc + ilsym - 1
+               index = z(index) + 1
                SPAG_Loop_1_1: DO
                   isetx = index + 2
-                  nsetx = isetx + Z(index+1) - 1
-                  IF ( Z(index)==frqset ) THEN
+                  nsetx = isetx + z(index+1) - 1
+                  IF ( z(index)==frqset ) THEN
 !
 !     COMPARE REQUESTED FREQS WITH ACTUAL FREQS.
 !
@@ -186,8 +187,8 @@ SUBROUTINE ddrmm
                         k = 0
                         diff = 1.0E+25
                         frq = rz(i)
-                        DO j = Ilist , Nlist , 2
-                           IF ( Z(j+1)==0 ) THEN
+                        DO j = ilist , nlist , 2
+                           IF ( z(j+1)==0 ) THEN
                               diff1 = abs(rz(j)-frq)
                               IF ( diff1<diff ) THEN
                                  diff = diff1
@@ -195,12 +196,12 @@ SUBROUTINE ddrmm
                               ENDIF
                            ENDIF
                         ENDDO
-                        IF ( k/=0 ) Z(k+1) = 1
+                        IF ( k/=0 ) z(k+1) = 1
                      ENDDO
                      GOTO 50
                   ELSE
                      index = nsetx + 1
-                     IF ( index>=Ncc ) THEN
+                     IF ( index>=ncc ) THEN
                         frqset = -1
                         EXIT SPAG_Loop_1_1
                      ENDIF
@@ -210,32 +211,32 @@ SUBROUTINE ddrmm
 !
 !     ALL FREQUENCYS TO BE OUTPUT.
 !
-            DO i = Ilist , Nlist , 2
-               Z(i+1) = 1
+            DO i = ilist , nlist , 2
+               z(i+1) = 1
             ENDDO
 !
- 50         File = uv
-            Ierror = 5
-            CALL open(*160,uv,Z(buf1),Rd)
-            File = scrt1
-            CALL open(*160,scrt1,Z(buf2),Wrtrew)
-            CALL fname(scrt1,Filnam)
-            CALL write(scrt1,Filnam,2,eor)
-            File = uv
+ 50         file = uv
+            ierror = 5
+            CALL open(*160,uv,z(buf1),rd)
+            file = scrt1
+            CALL open(*160,scrt1,z(buf2),wrtrew)
+            CALL fname(scrt1,filnam)
+            CALL write(scrt1,filnam,2,eor)
+            file = uv
 !
 !     COPY SOLUTION COLUMNS TO BE USED BY NOTEING FREQS MARKED FOR USE.
 !
-            Nsols = 0
+            nsols = 0
             inblk(1) = uv
             oublk(1) = scrt1
-            DO i = Ilist , Nlist , 2
-               IF ( Z(i+1)/=0 ) THEN
+            DO i = ilist , nlist , 2
+               IF ( z(i+1)/=0 ) THEN
 !
 !     BLAST COPY THIS SOLUTION.
 !
-                  icol = (i-Ilist)/2 + 1
+                  icol = (i-ilist)/2 + 1
                   CALL cpystr(inblk,oublk,0,icol)
-                  Nsols = Nsols + 1
+                  nsols = nsols + 1
                ELSE
                   CALL fwdrec(*180,uv)
                ENDIF
@@ -244,60 +245,60 @@ SUBROUTINE ddrmm
 !     RESET -UV- DATA BLOCK DESIGNATOR TO POINT TO SCRT1, AND WRITE
 !     A TRAILER.
 !
-            CALL close(uv,Cls)
-            CALL close(scrt1,Clsrew)
-            Mcb(1) = uv
-            CALL rdtrl(Mcb)
-            Mcb(1) = scrt1
-            Mcb(2) = Nsols
-            CALL wrttrl(Mcb)
-            Uvsol = scrt1
+            CALL close(uv,cls)
+            CALL close(scrt1,clsrew)
+            mcb(1) = uv
+            CALL rdtrl(mcb)
+            mcb(1) = scrt1
+            mcb(2) = nsols
+            CALL wrttrl(mcb)
+            uvsol = scrt1
 !
 !     SHRINK UP THE FREQUENCY LIST TO MATCH SOLUTION MATRIX
 !
-            j = Ilist - 1
-            DO i = Ilist , Nlist , 2
-               IF ( Z(i+1)/=0 ) THEN
+            j = ilist - 1
+            DO i = ilist , nlist , 2
+               IF ( z(i+1)/=0 ) THEN
                   j = j + 1
-                  Z(j) = Z(i)
+                  z(j) = z(i)
                ENDIF
             ENDDO
-            Nlist = j
+            nlist = j
          ENDIF
 !
 !     IF THIS IS A TRANSIENT RESPONSE PROBLEM, THE SOLUTION MATRIX IS
 !     NOW PARTITIONED INTO 3 SOLUTION MATRICES FOR DISP, VEL, AND ACCEL.
 !
-         IF ( Trnsnt ) THEN
-            File = uv
-            Ierror = 6
-            CALL open(*160,uv,Z(buf1),Rd)
-            Mcb(1) = uv
+         IF ( trnsnt ) THEN
+            file = uv
+            ierror = 6
+            CALL open(*160,uv,z(buf1),rd)
+            mcb(1) = uv
             inblk(1) = uv
-            CALL rdtrl(Mcb)
+            CALL rdtrl(mcb)
             DO i = 1 , 3
-               File = Scrt(i)
-               ibuf = Buff(i+1)
-               CALL open(*160,File,Z(ibuf),Wrtrew)
-               CALL fname(File,Filnam)
-               CALL write(File,Filnam,2,eor)
-               Mcb(1) = File
-               Mcb(2) = Nsols/3
-               CALL wrttrl(Mcb)
+               file = scrt(i)
+               ibuf = buff(i+1)
+               CALL open(*160,file,z(ibuf),wrtrew)
+               CALL fname(file,filnam)
+               CALL write(file,filnam,2,eor)
+               mcb(1) = file
+               mcb(2) = nsols/3
+               CALL wrttrl(mcb)
             ENDDO
-            Ierror = 7
-            File = uv
-            DO i = 1 , Nsols , 3
+            ierror = 7
+            file = uv
+            DO i = 1 , nsols , 3
                DO j = 1 , 3
-                  oublk(1) = Scrt(j)
+                  oublk(1) = scrt(j)
                   CALL cpystr(inblk,oublk,0,i)
                ENDDO
             ENDDO
-            CALL close(uv,Clsrew)
-            Nsols = Nsols/3
+            CALL close(uv,clsrew)
+            nsols = nsols/3
 !
             DO i = 1 , 3
-               CALL close(Scrt(i),Clsrew)
+               CALL close(scrt(i),clsrew)
             ENDDO
          ENDIF
 !
@@ -310,105 +311,105 @@ SUBROUTINE ddrmm
 !     SUBSETS. ONLY WHEN OPERATING ON THE MODAL DISPLACEMENTS WILL THE
 !     VELOCITY AND ACCELERATION SOLUTION SUBSET MATRICES BE USED.
 !
-         Jfile = 1
+         jfile = 1
          spag_nextblock_1 = 3
       CASE (3)
-         Infile = ifile(Jfile)
+         infile = ifile(jfile)
 !
 !     CHECK FOR EXISTENCE OF MODAL SOLUTION -INFILE-.
 !
-         CALL open(*100,Infile,Z(buf1),Rdrew)
-         CALL fwdrec(*80,Infile)
+         CALL open(*100,infile,z(buf1),rdrew)
+         CALL fwdrec(*80,infile)
 !
 !     INFILE DOES EXIST.SET PARAMETERS FOR PROCESSING
 !
 !
 !     OPEN OFP-FORMAT OUTPUT FILE FOR THIS INFILE.
 !
-         Outfil = ofile(Jfile)
-         iwrt = Wrtrew
-         IF ( Subcas>1 ) iwrt = Wrt
-         CALL open(*60,Outfil,Z(buf4),iwrt)
-         IF ( Subcas<=1 ) THEN
+         outfil = ofile(jfile)
+         iwrt = wrtrew
+         IF ( subcas>1 ) iwrt = wrt
+         CALL open(*60,outfil,z(buf4),iwrt)
+         IF ( subcas<=1 ) THEN
 !
-            CALL fname(Outfil,Filnam)
-            CALL write(Outfil,Filnam,2,eor)
+            CALL fname(outfil,filnam)
+            CALL write(outfil,filnam,2,eor)
          ENDIF
-         CALL close(Outfil,Cls)
+         CALL close(outfil,cls)
 !
 !     READ FIRST OFP-ID RECORD AND DETERMINE WHAT THE HELL IS REALLY
 !     PRESENT.
 !
-         Ierror = 14
-         CALL read(*80,*80,Infile,Idrec,146,eor,Nwds)
+         ierror = 14
+         CALL read(*80,*80,infile,idrec,146,eor,nwds)
 !
 !     MAJOR ID AND SORT1 OR SORT2 DETERMINATION.
 !
-         Itype1 = Idrec(2)/1000
-         Sort2 = .FALSE.
-         IF ( Itype1>1 ) Sort2 = .TRUE.
-         Itype1 = Idrec(2) - Itype1*1000
+         itype1 = idrec(2)/1000
+         sort2 = .FALSE.
+         IF ( itype1>1 ) sort2 = .TRUE.
+         itype1 = idrec(2) - itype1*1000
 !
 !     BRANCH ON MAJOR ID
 !
-         IF ( Itype1<1 .OR. Itype1>7 ) THEN
+         IF ( itype1<1 .OR. itype1>7 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         Passes = 1
-         IF ( Itype1==1 .OR. Itype1==2 .OR. Itype1==6 ) THEN
+         passes = 1
+         IF ( itype1==1 .OR. itype1==2 .OR. itype1==6 ) THEN
             spag_nextblock_1 = 4
             CYCLE SPAG_DispatchLoop_1
          ENDIF
-         IF ( Itype1==3 ) THEN
+         IF ( itype1==3 ) THEN
 !
 !     MODAL SPCF-S ARE ON INFILE.
 !
-            Itemp = Icc + ispcf - 1
-            Nwords = 2
-         ELSEIF ( Itype1==4 ) THEN
+            itemp = icc + ispcf - 1
+            nwords = 2
+         ELSEIF ( itype1==4 ) THEN
 !
 !     MODAL FORCES ARE ON INFILE.
 !
-            Itemp = Icc + iforce - 1
-            Nwords = 1
-         ELSEIF ( Itype1==5 ) THEN
+            itemp = icc + iforce - 1
+            nwords = 1
+         ELSEIF ( itype1==5 ) THEN
 !
 !     MODAL STRESSES ARE ON INFILE.
 !
-            Itemp = Icc + istres - 1
-            Nwords = 1
+            itemp = icc + istres - 1
+            nwords = 1
          ELSE
 !
 !     MODAL DISPLACEMENTS = EIGENVECTORS ARE ON INFILE.
 !
-            Passes = 3
-            Nwords = 2
+            passes = 3
+            nwords = 2
          ENDIF
 !
 !     DETERMINE DISP, VEL, AND ACCEL SET REQUESTS.
 !
-         ibase = Icc + ilsym - 1
-         ibase = Z(ibase) + 1
-         DO i = 1 , Passes
-            IF ( Passes/=1 ) Itemp = Icc + dva(i) - 1
-            Sets(1,i) = Z(Itemp)
-            Sets(2,i) = Z(Itemp+1)
-            Sets(3,i) = iabs(Z(Itemp+2))
-            Sets(4,i) = 0
-            Sets(5,i) = 0
-            IF ( Sets(1,i)>0 ) THEN
+         ibase = icc + ilsym - 1
+         ibase = z(ibase) + 1
+         DO i = 1 , passes
+            IF ( passes/=1 ) itemp = icc + dva(i) - 1
+            sets(1,i) = z(itemp)
+            sets(2,i) = z(itemp+1)
+            sets(3,i) = iabs(z(itemp+2))
+            sets(4,i) = 0
+            sets(5,i) = 0
+            IF ( sets(1,i)>0 ) THEN
                index = ibase
                SPAG_Loop_2_2: DO
                   isetx = index + 2
-                  IF ( Z(index)==Sets(1,i) ) THEN
-                     Sets(4,i) = isetx
-                     Sets(5,i) = Z(index+1)
+                  IF ( z(index)==sets(1,i) ) THEN
+                     sets(4,i) = isetx
+                     sets(5,i) = z(index+1)
                      EXIT SPAG_Loop_2_2
                   ELSE
-                     index = isetx + Z(index+1)
-                     IF ( index>=Ncc ) THEN
-                        Sets(1,i) = -1
+                     index = isetx + z(index+1)
+                     IF ( index>=ncc ) THEN
+                        sets(1,i) = -1
                         EXIT SPAG_Loop_2_2
                      ENDIF
                   ENDIF
@@ -419,7 +420,7 @@ SUBROUTINE ddrmm
 !     CALL PROCESSOR TO BUILD DATA-MATRIX ON SCRT5 AND MAPPING-DATA ON
 !     SCRT4, AND THEN PERFORM OUTPUT OF RESULTS TO OUTFIL.
 !
-         IF ( Sort2 ) THEN
+         IF ( sort2 ) THEN
 !
 !     SORT2 PROCESSOR
 !
@@ -433,11 +434,11 @@ SUBROUTINE ddrmm
 !
 !     WRAP UP PROCESSING FOR THIS INFILE.
 !
-         Mcb(1) = Outfil
-         Mcb(2) = 1
-         CALL wrttrl(Mcb)
+         mcb(1) = outfil
+         mcb(2) = 1
+         CALL wrttrl(mcb)
          GOTO 80
- 60      WRITE (Outpt,99001) Uwm , Infile
+ 60      WRITE (outpt,99001) uwm , infile
 99001    FORMAT (A25,' 2331. (DDRMM-2) OUTPUT DATA BLOCK CORRESPONDING TO',' INPUT MODAL SOLUTION DATA BLOCK',I4,/5X,               &
                 &'IS NOT PRESENT.  INPUT DATA BLOCK IGNORED.')
          GOTO 80
@@ -445,17 +446,17 @@ SUBROUTINE ddrmm
 !
 !     ILLEGAL INFILE DATA.
 !
-         WRITE (Outpt,99002) Uwm , Infile
+         WRITE (outpt,99002) uwm , infile
 99002    FORMAT (A25,' 2332.  (DDRMM-4) INVALID INPUT DATA DETECTED IN ','DATA BLOCK',I5,'. PROCESSING STOPPED FOR THIS DATA BLOCK')
- 80      CALL close(Outfil,Clsrew)
-         CALL close(Infile,Clsrew)
-         CALL close(scrt4,Clsrew)
-         CALL close(scrt5,Clsrew)
+ 80      CALL close(outfil,clsrew)
+         CALL close(infile,clsrew)
+         CALL close(scrt4,clsrew)
+         CALL close(scrt5,clsrew)
 !
 !     PROCESS NEXT MODAL SOLUTION INPUT.
 !
- 100     Jfile = Jfile + 1
-         IF ( Jfile<=4 ) THEN
+ 100     jfile = jfile + 1
+         IF ( jfile<=4 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -463,23 +464,23 @@ SUBROUTINE ddrmm
 !     ALL WORK COMPLETE FOR THIS SUBCASE. IF FREQUENCY RESPONSE PROCESS
 !     NEXT SUBCASE.
 !
-         IF ( Trnsnt ) GOTO 140
-         File = casecc
-         Ierror = 471
-         CALL open(*160,casecc,Z(buf1),Rd)
-         CALL read(*140,*120,casecc,Z(Icc),Ncore-Icc,noeor,Nwds)
+         IF ( trnsnt ) GOTO 140
+         file = casecc
+         ierror = 471
+         CALL open(*160,casecc,z(buf1),rd)
+         CALL read(*140,*120,casecc,z(icc),ncore-icc,noeor,nwds)
          GOTO 220
 !
- 120     Ncc = Icc + Nwds - 1
-         Subcas = Subcas + 1
-         CALL close(casecc,Cls)
+ 120     ncc = icc + nwds - 1
+         subcas = subcas + 1
+         CALL close(casecc,cls)
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
 !
 !//// SUBCAS  NUMBER NEEDS TO GET INTO OUTPUT BLOCKS
 !
- 140     Ierror = 511
-         CALL close(casecc,Clsrew)
+ 140     ierror = 511
+         CALL close(casecc,clsrew)
          spag_nextblock_1 = 6
          CYCLE SPAG_DispatchLoop_1
 !
@@ -497,16 +498,16 @@ SUBROUTINE ddrmm
  220     kk = 8
          spag_nextblock_1 = 5
       CASE (5)
-         CALL mesage(kk,File,subr)
-         WRITE (Outpt,99003) Swm , Ierror
+         CALL mesage(kk,file,subr)
+         WRITE (outpt,99003) swm , ierror
 99003    FORMAT (A27,' 2333.  (DDRMM-1) MODULE DDRMM TERMINATED WITH ','VARIABLE IERROR =',I10)
 !
 !     INSURE ALL FILES CLOSED BEFORE RETURNING.
 !
          DO l = 100 , 300 , 100
             DO m = 1 , 11
-               Jfile = m + l
-               CALL close(Jfile,Clsrew)
+               jfile = m + l
+               CALL close(jfile,clsrew)
             ENDDO
          ENDDO
          spag_nextblock_1 = 6
@@ -515,8 +516,8 @@ SUBROUTINE ddrmm
 !     INSURE ALL OUT-FILES HAVE AN EOF.
 !
          DO l = 201 , 204
-            CALL open(*240,l,Z(buf1),Wrt)
-            CALL close(l,Clsrew)
+            CALL open(*240,l,z(buf1),wrt)
+            CALL close(l,clsrew)
  240     ENDDO
          EXIT SPAG_DispatchLoop_1
       END SELECT

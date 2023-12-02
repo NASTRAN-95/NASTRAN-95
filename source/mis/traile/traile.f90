@@ -1,4 +1,5 @@
-!*==traile.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==traile.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION traile(X,J,N,P,M,Boxl)
@@ -21,6 +22,15 @@ FUNCTION traile(X,J,N,P,M,Boxl)
 ! End of declarations rewritten by SPAG
 !
 !
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     ROUTINE TO FIND PHI FOR TRAILING EDGE
 !
 !
@@ -35,5 +45,4 @@ FUNCTION traile(X,J,N,P,M,Boxl)
       ENDIF
    ENDIF
    traile = P(1,J)
-   RETURN
 END FUNCTION traile

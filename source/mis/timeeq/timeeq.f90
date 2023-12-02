@@ -1,10 +1,11 @@
-!*==timeeq.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==timeeq.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE timeeq(B,Bbar,C,Cbar,R,Ientry,Ncol,Tim)
+   USE c_ntime
+   USE c_system
    IMPLICIT NONE
-   USE C_NTIME
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,14 +51,15 @@ SUBROUTINE timeeq(B,Bbar,C,Cbar,R,Ientry,Ncol,Tim)
    ENDIF
    Tim = float(Ncol)*(amb*Bbar*R+amc*(Bbar*C+Bbar*Cbar+B*Cbar+2.0*C*Cbar)+aio*Bbar*(B+Bbar-R-1.0))*1.E-06
 END SUBROUTINE timeeq
-!*==tfin.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tfin.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !
 !
 SUBROUTINE tfin(Ab,Abbar,Ac,Acbar,Ar,Jentry,Ancol,Timex)
+   USE c_ntime
+   USE c_system
    IMPLICIT NONE
-   USE C_NTIME
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -124,14 +126,15 @@ SUBROUTINE tfin(Ab,Abbar,Ac,Acbar,Ar,Jentry,Ancol,Timex)
    Timex = Timex + Abbar**3/3.*amb + k4**3*.5*aio + apak*Abbar*k5
    Timex = (Timex+(Ancol-Abbar)*(amc*(Abbar*Ac+Ab*Acbar+Abbar*Acbar+Ac*Acbar)+apak*(Ac+Acbar)))*1.E-06
 END SUBROUTINE tfin
-!*==rcore.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==rcore.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !
 !
 SUBROUTINE rcore(Ib,Ibbar,Ic,Icbar,Incol,Kentry,Nx,Ir)
+   USE c_ntime
+   USE c_system
    IMPLICIT NONE
-   USE C_NTIME
-   USE C_SYSTEM
 !
 ! Dummy argument declarations rewritten by SPAG
 !

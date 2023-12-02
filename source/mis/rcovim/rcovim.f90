@@ -1,16 +1,17 @@
-!*==rcovim.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==rcovim.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE rcovim(Higher)
+   USE c_blank
+   USE c_mpyadx
+   USE c_names
+   USE c_packx
+   USE c_rcovcm
+   USE c_rcovcr
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_MPYADX
-   USE C_NAMES
-   USE C_PACKX
-   USE C_RCOVCM
-   USE C_RCOVCR
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,12 +43,12 @@ SUBROUTINE rcovim(Higher)
 !
 !     INITIALIZE
 !
-   lcorez = korsz(Z)
-   Mpyz = lcorez
-   Tflag = 0
-   Signab = 1
-   Signc = 1
-   Mprec = 0
+   lcorez = korsz(z)
+   mpyz = lcorez
+   tflag = 0
+   signab = 1
+   signc = 1
+   mprec = 0
 !
 !     GET THE DISPLACEMENT VECTOR FOR THE HIGHER LEVEL REDUCED
 !     SUBSTRUCTURE.
@@ -59,17 +60,17 @@ SUBROUTINE rcovim(Higher)
 !     ERRORS
 !
       CALL smsg(rc-2,item,Higher)
-      Iopt = -1
+      iopt = -1
       RETURN
    ELSE
 !
 !     CALCULATE VELOCITIES IF NOT ALREADY DONE FOR THE OUTPUT PHASE.
 !
       intyp = 1
-      IF ( Rfno==3 .OR. Rfno==8 ) intyp = 0
-      CALL rcovva(scr5,intyp,0,scr8,scr9,0,Higher,Z(1),Z(1),Z(1))
-      IF ( Ua<=0 ) THEN
-         Iopt = -1
+      IF ( rfno==3 .OR. rfno==8 ) intyp = 0
+      CALL rcovva(scr5,intyp,0,scr8,scr9,0,Higher,z(1),z(1),z(1))
+      IF ( ua<=0 ) THEN
+         iopt = -1
          RETURN
       ELSE
 !
@@ -79,49 +80,49 @@ SUBROUTINE rcovim(Higher)
          CALL mtrxi(scr5,Higher,mmtx,0,rc)
          IF ( rc/=1 ) THEN
             CALL smsg(rc-2,item,Higher)
-            Iopt = -1
+            iopt = -1
             RETURN
          ELSE
-            Mcba(1) = scr5
-            CALL rdtrl(Mcba)
-            Mcbb(1) = scr9
-            CALL rdtrl(Mcbb)
-            ncol = Mcbb(2)
-            Mcbc(1) = 0
-            CALL makmcb(Mcbd,scr7,Mcbb(3),Rect,Mcbb(5))
-            Scrm = scr6
+            mcba(1) = scr5
+            CALL rdtrl(mcba)
+            mcbb(1) = scr9
+            CALL rdtrl(mcbb)
+            ncol = mcbb(2)
+            mcbc(1) = 0
+            CALL makmcb(mcbd,scr7,mcbb(3),rect,mcbb(5))
+            scrm = scr6
             CALL sofcls
-            CALL mpyad(Z(1),Z(1),Z(1))
-            CALL wrttrl(Mcbd)
+            CALL mpyad(z(1),z(1),z(1))
+            CALL wrttrl(mcbd)
 !
 !     CALCULATE THE KENETIC ENERGIES BY PERFORMING THE SCALAR
 !     MULTIPLY IN SINGLE PERCISION.  USE ONLY THE REAL PART IF COMPLEX
 !     VECTORS.  APPEND THE TOTAL KINETIC ENERGY TO THE END OF EACH
 !     COLUMN.
 !
-            Itinu = Rsp
-            Iru = 1
-            Nru = Mcbd(3)
-            Incru = 1
-            Itinp = Rsp
-            Itoutp = Rsp
-            Irp = 1
-            Nrp = Nru + 1
-            Incrp = 1
+            itinu = rsp
+            iru = 1
+            nru = mcbd(3)
+            incru = 1
+            itinp = rsp
+            itoutp = rsp
+            irp = 1
+            nrp = nru + 1
+            incrp = 1
             ivec1 = 1
-            ivec2 = ivec1 + Nru + 1
-            IF ( ivec2+Nru+1>Sof3 ) THEN
+            ivec2 = ivec1 + nru + 1
+            IF ( ivec2+nru+1>sof3 ) THEN
                n = 8
                CALL mesage(n,file,name)
-               Iopt = -1
+               iopt = -1
                RETURN
             ELSE
 !
                file = scr9
-               CALL gopen(scr7,Z(Sof1),Rdrew)
-               CALL gopen(scr9,Z(Sof2),Rdrew)
-               CALL gopen(scr6,Z(Sof3),Wrtrew)
-               CALL makmcb(Mcba,scr6,Nrp,Rect,Rsp)
+               CALL gopen(scr7,z(sof1),rdrew)
+               CALL gopen(scr9,z(sof2),rdrew)
+               CALL gopen(scr6,z(sof3),wrtrew)
+               CALL makmcb(mcba,scr6,nrp,rect,rsp)
 !
                DO i = 1 , ncol
                   spag_nextblock_1 = 1
@@ -134,34 +135,34 @@ SUBROUTINE rcovim(Higher)
                         CALL unpack(*2,scr9,rz(ivec2))
 !
                         total = 0.0
-                        DO j = 1 , Nru
+                        DO j = 1 , nru
                            k = j - 1
                            rz(ivec1+k) = rz(ivec1+k)*rz(ivec2+k)
                            total = total + rz(ivec1+k)
                         ENDDO
-                        rz(ivec1+Nru) = total
+                        rz(ivec1+nru) = total
                         spag_nextblock_1 = 2
                         CYCLE SPAG_DispatchLoop_1
 !
- 2                      DO j = 1 , Nrp
+ 2                      DO j = 1 , nrp
                            rz(ivec1+j-1) = 0.0
                         ENDDO
                         IF ( isk/=0 ) CALL fwdrec(*100,scr9)
                         spag_nextblock_1 = 2
                      CASE (2)
 !
-                        CALL pack(rz(ivec1),scr6,Mcba)
+                        CALL pack(rz(ivec1),scr6,mcba)
                         EXIT SPAG_DispatchLoop_1
                      END SELECT
                   ENDDO SPAG_DispatchLoop_1
 !
                ENDDO
 !
-               CALL close(scr7,Rew)
-               CALL close(scr9,Rew)
-               CALL close(scr6,Rew)
-               CALL wrttrl(Mcba)
-               CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+               CALL close(scr7,rew)
+               CALL close(scr9,rew)
+               CALL close(scr6,rew)
+               CALL wrttrl(mcba)
+               CALL sofopn(z(sof1),z(sof2),z(sof3))
 !
 !     CALCULATE THE POTENTIAL ENERTY MULTPLYIER - K*U
 !
@@ -169,39 +170,39 @@ SUBROUTINE rcovim(Higher)
                CALL mtrxi(scr5,Higher,kmtx,0,rc)
                IF ( rc/=1 ) THEN
                   CALL smsg(rc-2,item,Higher)
-                  Iopt = -1
+                  iopt = -1
                   RETURN
                ELSE
-                  Mcba(1) = scr5
-                  CALL rdtrl(Mcba)
-                  Mcbb(1) = scr8
-                  CALL rdtrl(Mcbb)
-                  CALL makmcb(Mcbd,scr9,Mcbb(3),Rect,Mcbb(5))
-                  Scrm = scr7
+                  mcba(1) = scr5
+                  CALL rdtrl(mcba)
+                  mcbb(1) = scr8
+                  CALL rdtrl(mcbb)
+                  CALL makmcb(mcbd,scr9,mcbb(3),rect,mcbb(5))
+                  scrm = scr7
                   CALL sofcls
-                  CALL mpyad(Z(1),Z(1),Z(1))
-                  CALL wrttrl(Mcbd)
+                  CALL mpyad(z(1),z(1),z(1))
+                  CALL wrttrl(mcbd)
 !
 !     CALCULATE THE POTENTIAL ENERGIES BY PERFORMING THE SCALAR
 !     MULTIPLY IN SINGLE PERCISION.  USE ONLY THE REAL PART IF COMPLEX
 !     VECTORS.  APPEND THE TOTAL POTENTIAL ENERGY TO THE END OF EACH
 !     COLUMN.
 !
-                  Itinu = Rsp
-                  Iru = 1
-                  Nru = Mcbd(3)
-                  Incru = 1
-                  Itinp = Rsp
-                  Itoutp = Rsp
-                  Irp = 1
-                  Nrp = Nru + 1
-                  Incrp = 1
+                  itinu = rsp
+                  iru = 1
+                  nru = mcbd(3)
+                  incru = 1
+                  itinp = rsp
+                  itoutp = rsp
+                  irp = 1
+                  nrp = nru + 1
+                  incrp = 1
 !
                   file = scr8
-                  CALL gopen(scr9,Z(Sof1),Rdrew)
-                  CALL gopen(scr8,Z(Sof2),Rdrew)
-                  CALL gopen(scr7,Z(Sof3),Wrtrew)
-                  CALL makmcb(Mcba,scr7,Nrp,Rect,Rsp)
+                  CALL gopen(scr9,z(sof1),rdrew)
+                  CALL gopen(scr8,z(sof2),rdrew)
+                  CALL gopen(scr7,z(sof3),wrtrew)
+                  CALL makmcb(mcba,scr7,nrp,rect,rsp)
 !
                   DO i = 1 , ncol
                      spag_nextblock_2 = 1
@@ -213,37 +214,37 @@ SUBROUTINE rcovim(Higher)
                            isk = 0
                            CALL unpack(*4,scr8,rz(ivec2))
                            total = 0.0
-                           DO j = 1 , Nru
+                           DO j = 1 , nru
                               k = j - 1
                               rz(ivec1+k) = rz(ivec1+k)*rz(ivec2+k)
                               total = total + rz(ivec1+k)
                            ENDDO
-                           rz(ivec1+Nru) = total
+                           rz(ivec1+nru) = total
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
 !
- 4                         DO j = 1 , Nrp
+ 4                         DO j = 1 , nrp
                               rz(ivec1+j-1) = 0.0
                            ENDDO
                            IF ( isk/=0 ) CALL fwdrec(*100,scr8)
                            spag_nextblock_2 = 2
                         CASE (2)
 !
-                           CALL pack(rz(ivec1),scr7,Mcba)
+                           CALL pack(rz(ivec1),scr7,mcba)
                            EXIT SPAG_DispatchLoop_2
                         END SELECT
                      ENDDO SPAG_DispatchLoop_2
 !
                   ENDDO
 !
-                  CALL close(scr9,Rew)
-                  CALL close(scr8,Rew)
-                  CALL close(scr7,Rew)
-                  CALL wrttrl(Mcba)
+                  CALL close(scr9,rew)
+                  CALL close(scr8,rew)
+                  CALL close(scr7,rew)
+                  CALL wrttrl(mcba)
 !
 !     NORMAL RETURN
 !
-                  CALL sofopn(Z(Sof1),Z(Sof2),Z(Sof3))
+                  CALL sofopn(z(sof1),z(sof2),z(sof3))
                   RETURN
                ENDIF
             ENDIF
@@ -252,5 +253,5 @@ SUBROUTINE rcovim(Higher)
    ENDIF
  100  n = 2
    CALL mesage(n,file,name)
-   Iopt = -1
+   iopt = -1
 END SUBROUTINE rcovim

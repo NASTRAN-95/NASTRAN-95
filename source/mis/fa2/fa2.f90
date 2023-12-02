@@ -1,12 +1,13 @@
-!*==fa2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fa2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fa2
+   USE c_blank
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -60,25 +61,25 @@ SUBROUTINE fa2
 !     INITIALIZE
 !
          nz = korsz(z)
-         ibuf1 = nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         ibuf3 = ibuf2 - Sysbuf
-         ibuf4 = ibuf3 - Sysbuf
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         ibuf4 = ibuf3 - sysbuf
          nz = ibuf4 - 1
-         Itc = 3
-         Incr = 1
+         itc = 3
+         incr = 1
          mcbcl(1) = clamal
          mcbcc(1) = caseyy
          mcbovg(1) = ovg
-         IF ( Vref==0.0 ) Vref = 1.0
+         IF ( vref==0.0 ) vref = 1.0
 !
 !     FIND PROPER METHOD
 !
          file = fsave
-         CALL open(*100,fsave,Iz(ibuf1),0)
-         CALL read(*120,*140,fsave,Iz(1),8,1,iflag)
+         CALL open(*100,fsave,iz(ibuf1),0)
+         CALL read(*120,*140,fsave,iz(1),8,1,iflag)
          j = 3
-         fmeth = Iz(j)
+         fmeth = iz(j)
          meth = me(fmeth)
          oneok = 1.E+25
          mcb(1) = fsave
@@ -98,7 +99,7 @@ SUBROUTINE fa2
 !     PICK UP CONSTANTS
 !
             nvalue = 8
-            nvalue = Iz(nvalue)
+            nvalue = iz(nvalue)
 !
 !     COPY ONTO PHIHL
 !
@@ -106,7 +107,7 @@ SUBROUTINE fa2
 !
 !     FIRST TIME
 !
-               CALL gopen(phihl,Iz(ibuf2),1)
+               CALL gopen(phihl,iz(ibuf2),1)
                CALL close(phihl,1)
                mcbphl(1) = phih
                CALL rdtrl(mcbphl)
@@ -115,16 +116,16 @@ SUBROUTINE fa2
                mcbphl(7) = 0
                mcbphl(1) = phihl
                CALL wrttrl(mcbphl)
-               CALL gopen(clamal,Iz(ibuf2),1)
-               CALL gopen(clama,Iz(ibuf3),0)
+               CALL gopen(clamal,iz(ibuf2),1)
+               CALL gopen(clama,iz(ibuf3),0)
                CALL fread(clama,buf,146,1)
                CALL close(clama,1)
                CALL write(clamal,buf,146,1)
                CALL write(clamal,0,0,1)
                CALL close(clamal,1)
-               CALL gopen(caseyy,Iz(ibuf2),1)
+               CALL gopen(caseyy,iz(ibuf2),1)
                CALL close(caseyy,1)
-               CALL gopen(ovg,Iz(ibuf2),1)
+               CALL gopen(ovg,iz(ibuf2),1)
                CALL close(ovg,1)
             ENDIF
 !
@@ -133,23 +134,23 @@ SUBROUTINE fa2
             mcb(1) = phih
             CALL rdtrl(mcb)
             ncopy = min0(nvalue,mcb(2))
-            CALL gopen(phih,Iz(ibuf2),0)
-            CALL gopen(phihl,Iz(ibuf3),0)
+            CALL gopen(phih,iz(ibuf2),0)
+            CALL gopen(phihl,iz(ibuf3),0)
             CALL skpfil(phihl,1)
             CALL skpfil(phihl,-1)
             CALL close(phihl,2)
-            CALL gopen(phihl,Iz(ibuf3),3)
+            CALL gopen(phihl,iz(ibuf3),3)
             mcbphl(1) = phihl
             CALL rdtrl(mcbphl)
             mcbphl(7) = (2*mcbphl(7)*mcbphl(2)*mcbphl(3))/10000
-            CALL cyct2b(phih,phihl,ncopy,Iz,mcbphl)
+            CALL cyct2b(phih,phihl,ncopy,iz,mcbphl)
             CALL close(phih,1)
             CALL close(phihl,1)
             CALL wrttrl(mcbphl)
 !
 !     PICK UP M,K,RHO FOR THIS LOOP
 !
-            CALL fread(fsave,Iz,-3*(floop-1),0)
+            CALL fread(fsave,iz,-3*(floop-1),0)
             CALL fread(fsave,z,3,1)
             j = 0
             xmach = z(1)
@@ -159,7 +160,7 @@ SUBROUTINE fa2
 !
 !     PUT CASEYY INTO CORE
 !
-            CALL read(*120,*20,fsave,Iz,nz,0,iflag)
+            CALL read(*120,*20,fsave,iz,nz,0,iflag)
             CALL mesage(-8,0,name)
             GOTO 20
          ENDIF
@@ -172,57 +173,57 @@ SUBROUTINE fa2
 !
 !     READY OVG
 !
-         CALL gopen(ovg,Iz(ibuf2),1)
+         CALL gopen(ovg,iz(ibuf2),1)
          mcbovg(2) = 1
          CALL wrttrl(mcbovg)
 !
 !     PUT RECORD 2 OF FSAVE INTO CORE
 !
-         CALL read(*120,*60,fsave,Iz(1),nz,1,iflag)
+         CALL read(*120,*60,fsave,iz(1),nz,1,iflag)
          CALL mesage(-8,0,name)
          GOTO 60
  20      CALL close(fsave,1)
          k = 39
          DO i = 51 , 146
-            buf(i) = Iz(k)
+            buf(i) = iz(k)
             k = k + 1
          ENDDO
 !
 !     READY CLAMA
 !
-         CALL gopen(clama,Iz(ibuf1),0)
+         CALL gopen(clama,iz(ibuf1),0)
          CALL fwdrec(*120,clama)
 !
 !     READY CLAMAL
 !
-         CALL gopen(clamal,Iz(ibuf2),0)
+         CALL gopen(clamal,iz(ibuf2),0)
          CALL skpfil(clamal,1)
          CALL skpfil(clamal,-1)
          CALL bckrec(clamal)
-         CALL read(*120,*40,clamal,Iz(iflag+1),nz,0,i)
+         CALL read(*120,*40,clamal,iz(iflag+1),nz,0,i)
          CALL mesage(-8,0,name)
  40      CALL bckrec(clamal)
          CALL close(clamal,2)
-         CALL gopen(clamal,Iz(ibuf2),3)
-         CALL write(clamal,Iz(iflag+1),i,0)
+         CALL gopen(clamal,iz(ibuf2),3)
+         CALL write(clamal,iz(iflag+1),i,0)
          CALL rdtrl(mcbcl)
 !
 !     READY CASEYY
 !
-         CALL gopen(caseyy,Iz(ibuf3),0)
+         CALL gopen(caseyy,iz(ibuf3),0)
          CALL skpfil(caseyy,1)
          CALL skpfil(caseyy,-1)
          CALL close(caseyy,2)
-         CALL gopen(caseyy,Iz(ibuf3),3)
+         CALL gopen(caseyy,iz(ibuf3),3)
          CALL rdtrl(mcbcc)
 !
 !     READY OVG
 !
-         CALL gopen(ovg,Iz(ibuf4),0)
+         CALL gopen(ovg,iz(ibuf4),0)
          CALL skpfil(ovg,1)
          CALL skpfil(ovg,-1)
          CALL close(ovg,2)
-         CALL gopen(ovg,Iz(ibuf4),3)
+         CALL gopen(ovg,iz(ibuf4),3)
          CALL rdtrl(mcbovg)
          mcbovg(2) = mcbovg(2) + 1
          mcbcc(4) = iflag
@@ -270,13 +271,13 @@ SUBROUTINE fa2
          spag_nextblock_1 = 3
       CASE (3)
 !
-         IF ( Print(1)/=no ) THEN
+         IF ( print(1)/=no ) THEN
 !     SET UP PAGE FORMATS
 !
             CALL page1
-            Nlines = Nlines + 7
-            IF ( Print(1)==yesb ) WRITE (Nout,99002) floop , xmach , rho , meth
-            IF ( Print(1)==yes ) WRITE (Nout,99003) floop , xmach , rho , meth
+            nlines = nlines + 7
+            IF ( print(1)==yesb ) WRITE (nout,99002) floop , xmach , rho , meth
+            IF ( print(1)==yes ) WRITE (nout,99003) floop , xmach , rho , meth
          ENDIF
 !
 !     SET UP FOR OVG
@@ -314,7 +315,7 @@ SUBROUTINE fa2
          ENDDO
          k = 103
          DO i = 115 , 146
-            Iz(k) = buf(i)
+            iz(k) = buf(i)
             k = k + 1
          ENDDO
          spag_nextblock_1 = 4
@@ -328,14 +329,14 @@ SUBROUTINE fa2
                CALL write(clamal,lbuf,6,0)
                rel = lbuf(3)
                iml = lbuf(4)
-               vout = abs(iml)/Vref
+               vout = abs(iml)/vref
                g = 0.0
                IF ( iml/=0.0 ) g = 2.0*rel/iml
                f = kfreq*iml/(phib)
 !
 !     PUT OUT CASEYY
 !
-               CALL write(caseyy,Iz,iflag,1)
+               CALL write(caseyy,iz,iflag,1)
             ELSEIF ( fmeth==3 ) THEN
 !
 !     PK METHOD
@@ -347,7 +348,7 @@ SUBROUTINE fa2
                kfreq = lbuf(3)
                f = lbuf(4)
                g = lbuf(5)
-               vout = abs(z(imr+3*i-2))/Vref
+               vout = abs(z(imr+3*i-2))/vref
             ELSE
 !
 !     KE METHOD
@@ -359,7 +360,7 @@ SUBROUTINE fa2
 !
 !     READ A RECORD OF COMPLEX EIGENVALUES INTO CORE
 !
-                     CALL fread(fsave,Iz(ir),j,1)
+                     CALL fread(fsave,iz(ir),j,1)
                      CALL skprec(fsave,nrho-1)
 !
 !     REARRANGE THE COMPLEX EIGENVALUES IN THE RECORD IN ASCENDING
@@ -403,24 +404,24 @@ SUBROUTINE fa2
                j = iflag + 1 + (i-1)*nvalue*2 + (nv-1)*2
                rel = z(j)
                iml = z(j+1)
-               vout = abs(iml)/Vref
+               vout = abs(iml)/vref
                g = 0.0
                IF ( iml/=0.0 ) g = 2.*rel/iml
                kfreq = z(imr+3*i-2)
                f = kfreq*iml/phib
             ENDIF
-            IF ( Print(1)/=no ) THEN
+            IF ( print(1)/=no ) THEN
 !
 !     PRINT OUTPUT
 !
                k = eject(1)
                IF ( k/=0 ) THEN
-                  IF ( Print(1)==yesb ) WRITE (Nout,99002) floop , xmach , rho , meth
-                  IF ( Print(1)==yes ) WRITE (Nout,99003) floop , xmach , rho , meth
-                  Nlines = Nlines + 7
+                  IF ( print(1)==yesb ) WRITE (nout,99002) floop , xmach , rho , meth
+                  IF ( print(1)==yes ) WRITE (nout,99003) floop , xmach , rho , meth
+                  nlines = nlines + 7
                ENDIF
                IF ( kfreq/=0.0 ) oneok = 1.0/kfreq
-               WRITE (Nout,99001) kfreq , oneok , vout , g , f , rel , iml
+               WRITE (nout,99001) kfreq , oneok , vout , g , f , rel , iml
 99001          FORMAT (1H ,5X,F8.4,5X,6(1X,1P,E14.7,3X))
             ENDIF
 !
@@ -448,12 +449,12 @@ SUBROUTINE fa2
 !
             CALL klock(now)
             CALL tmtogo(itlft)
-            IF ( now-Tstart>=itlft .AND. floop/=nloop ) THEN
+            IF ( now-tstart>=itlft .AND. floop/=nloop ) THEN
 !
 !     INSUFFICIENT TIME
 !
                CALL mesage(45,nloop-floop,name)
-               Tstart = -1
+               tstart = -1
                RETURN
             ELSE
                RETURN

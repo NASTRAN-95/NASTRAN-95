@@ -1,12 +1,13 @@
-!*==mflud3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mflud3.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mflud3
-USE C_SMA2CL
-USE C_SMA2DP
-USE C_SMA2ET
-USE C_SMA2IO
-USE ISO_FORTRAN_ENV                 
+   USE c_sma2cl
+   USE c_sma2dp
+   USE c_sma2et
+   USE c_sma2io
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -50,28 +51,28 @@ USE ISO_FORTRAN_ENV
 !*****
 !*****
 !
-   IF ( Ecpt(6)==0.0 ) RETURN
+   IF ( ecpt(6)==0.0 ) RETURN
 !*****
 !     STORE THE POINT LOCATIONS AND FIND THE PIVOT POINT
 !*****
-   Jp = 0
+   jp = 0
    DO i = 1 , 3
-      Ir = 9 + 4*(i-1)
-      R(i) = Ecpt(Ir)
-      IF ( Ecpt(Ir)<=0.0 ) RETURN
-      Z(i) = Ecpt(Ir+1)
-      IF ( Npvt==necpt(i+1) ) Jp = i
+      ir = 9 + 4*(i-1)
+      r(i) = ecpt(ir)
+      IF ( ecpt(ir)<=0.0 ) RETURN
+      z(i) = ecpt(ir+1)
+      IF ( npvt==necpt(i+1) ) jp = i
    ENDDO
-   IF ( Jp/=0 ) THEN
-      Are2 = dabs((R(2)-R(1))*(Z(3)-Z(1))-(R(3)-R(1))*(Z(2)-Z(1)))
-      Piab = 2.617994D-2*Are2/dble(Ecpt(6))
-      IF ( necpt(7)==0 ) Piab = Piab*2.0D0
-      Jpvt = Npvt
+   IF ( jp/=0 ) THEN
+      are2 = dabs((r(2)-r(1))*(z(3)-z(1))-(r(3)-r(1))*(z(2)-z(1)))
+      piab = 2.617994D-2*are2/dble(ecpt(6))
+      IF ( necpt(7)==0 ) piab = piab*2.0D0
+      jpvt = npvt
       DO i = 1 , 3
-         Igrid = necpt(i+1)
-         Emass = Piab*(R(1)+R(2)+R(3)+R(Jp)+R(i))
-         IF ( i==Jp ) Emass = Emass*2.0D0
-         CALL sma2b(Emass,Igrid,Jpvt,Ifmgg,0.0D0)
+         igrid = necpt(i+1)
+         emass = piab*(r(1)+r(2)+r(3)+r(jp)+r(i))
+         IF ( i==jp ) emass = emass*2.0D0
+         CALL sma2b(emass,igrid,jpvt,ifmgg,0.0D0)
       ENDDO
    ENDIF
 END SUBROUTINE mflud3

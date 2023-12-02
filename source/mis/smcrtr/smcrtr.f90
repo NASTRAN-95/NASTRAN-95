@@ -1,9 +1,10 @@
-!*==smcrtr.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==smcrtr.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE smcrtr(Zr,Zd)
+   USE i_smcomx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE I_SMCOMX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -46,7 +47,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip*2
          num = mterms - iskip
          DO k = 1 , num
-            Zd(indexvd+k-1) = Xns(istr+(k-1)*2)
+            Zd(indexvd+k-1) = xns(istr+(k-1)*2)
          ENDDO
          indexv = indexv + 2*num
          indexvd = indexvd + num
@@ -68,7 +69,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip
          num = mterms - iskip
          DO k = 1 , num
-            Zd(indexvd+k-1) = Xns(istr+k-1)
+            Zd(indexvd+k-1) = xns(istr+k-1)
          ENDDO
          indexv = indexv + 2*num
          indexvd = indexvd + num
@@ -92,7 +93,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip*2
          num = (mterms-iskip)*2
          DO k = 1 , num
-            Zr(indexv+k-1) = Xns(istr+k-1)
+            Zr(indexv+k-1) = xns(istr+k-1)
          ENDDO
          indexv = indexv + num
       ELSEIF ( mtype==4 ) THEN
@@ -112,7 +113,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip
          num = mterms - iskip
          DO k = 1 , num
-            Zr(indexv+(k-1)*2) = Xns(istr+k-1)
+            Zr(indexv+(k-1)*2) = xns(istr+k-1)
             Zr(indexv+(k-1)*2+1) = 0.0
          ENDDO
          indexv = indexv + 2*num
@@ -137,7 +138,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip*2
          num = (mterms-iskip)*2
          DO k = 1 , num
-            Zd(indexvd+k-1) = Xns(istr+k-1)
+            Zd(indexvd+k-1) = xns(istr+k-1)
          ENDDO
          indexv = indexv + 2*num
          indexvd = indexvd + num
@@ -159,7 +160,7 @@ SUBROUTINE smcrtr(Zr,Zd)
          istr = mstr + iskip
          num = mterms - iskip
          DO k = 1 , num
-            Zd(indexvd+(k-1)*2) = Xns(istr+k-1)
+            Zd(indexvd+(k-1)*2) = xns(istr+k-1)
             Zd(indexvd+(k-1)*2+1) = 0.0
          ENDDO
          indexv = indexv + 4*num
@@ -182,7 +183,7 @@ SUBROUTINE smcrtr(Zr,Zd)
       istr = mstr + iskip*2
       num = mterms - iskip
       DO k = 1 , num
-         Zr(indexv+k-1) = Xns(istr+(k-1)*2)
+         Zr(indexv+k-1) = xns(istr+(k-1)*2)
       ENDDO
       indexv = indexv + num
    ELSEIF ( mtype==4 ) THEN
@@ -202,7 +203,7 @@ SUBROUTINE smcrtr(Zr,Zd)
       istr = mstr + iskip
       num = mterms - iskip
       DO k = 1 , num
-         Zr(indexv+k-1) = Xns(istr+k-1)
+         Zr(indexv+k-1) = xns(istr+k-1)
       ENDDO
       indexv = indexv + num
    ENDIF

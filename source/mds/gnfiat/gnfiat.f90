@@ -1,15 +1,16 @@
-!*==gnfiat.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+!*==gnfiat.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE gnfiat
+   USE i_nasnames
+   USE i_dsiof
+   USE i_ginox
+   USE c_dsunit
+   USE c_system
+   USE c_xfiat
+   USE c_xpfist
+   USE c_xxfiat
    IMPLICIT NONE
-   USE I_NASNAMES
-   USE I_DSIOF
-   USE I_GINOX
-   USE C_DSUNIT
-   USE C_SYSTEM
-   USE C_XFIAT
-   USE C_XPFIST
-   USE C_XXFIAT
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -170,10 +171,10 @@ SUBROUTINE gnfiat
    !>>>>EQUIVALENCE (Dum1(1),Nout)
 !
    CALL dsiodd
-   Ifufa = 0
-   idslim = Inmblk
+   ifufa = 0
+   idslim = inmblk
    numblk = 1
-   IF ( lenwpb/=0 ) numblk = Isysbf/lenwpb
+   IF ( lenwpb/=0 ) numblk = isysbf/lenwpb
    DO i = 1 , numsof
       lensof(i) = 0
    ENDDO
@@ -189,12 +190,12 @@ SUBROUTINE gnfiat
       fcb(7,i) = 20000000
    ENDDO
    DO i = 1 , 220
-      Iunit(i) = 0
+      iunit(i) = 0
    ENDDO
-   IF ( andf(4,Iperm)/=0 ) mdsnam(8) = nptp
+   IF ( andf(4,iperm)/=0 ) mdsnam(8) = nptp
    mdsnam(7) = optp
-   DO i = 1 , Npfist
-      Xfiat(i) = 4095
+   DO i = 1 , npfist
+      xfiat(i) = 4095
    ENDDO
    DO i = 7 , 22
       IF ( dsnames(i)/='none' ) THEN
@@ -205,24 +206,24 @@ SUBROUTINE gnfiat
                fcb(4,i) = 1
                fcb(5,i) = 1
                fcb(6,i) = fcb(7,i)
-               IF ( i==7 ) Xfiat(2) = 7
+               IF ( i==7 ) xfiat(2) = 7
             ENDIF
          ENDIF
       ENDIF
    ENDDO
    DO i = 23 , maxpri
-      Ifufa = Ifufa + 1
-      ind = Ifufa*11 - 10
-      Fiat(ind) = i
+      ifufa = ifufa + 1
+      ind = ifufa*11 - 10
+      fiat(ind) = i
    ENDDO
-   Xfiat(1) = 22
-   Xfiat(3) = 8
-   Xfiat(8) = 16
-   Xfiat(9) = 17
-   Xfiat(10) = 18
-   Xfiat(11) = 19
-   Xfiat(12) = 20
-   Xfiat(13) = 21
-   Xfiat(18) = 9
-   Ifcae = Ifufa
+   xfiat(1) = 22
+   xfiat(3) = 8
+   xfiat(8) = 16
+   xfiat(9) = 17
+   xfiat(10) = 18
+   xfiat(11) = 19
+   xfiat(12) = 20
+   xfiat(13) = 21
+   xfiat(18) = 9
+   ifcae = ifufa
 END SUBROUTINE gnfiat

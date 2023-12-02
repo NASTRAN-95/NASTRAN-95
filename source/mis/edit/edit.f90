@@ -1,9 +1,10 @@
-!*==edit.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==edit.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE edit(Name,Iopt,Itest)
+   USE c_itemdt
    IMPLICIT NONE
-   USE C_ITEMDT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -54,11 +55,10 @@ SUBROUTINE edit(Name,Iopt,Itest)
 !
 !     REMOVE SELECTED ITEMS ACCORDING TO IOPT S VALUE.
 !
-         DO i = 1 , Nitem
-            mask = Item(7,i)
-            IF ( andf(Iopt,mask)/=0 ) CALL delete(Name,Item(1,i),it)
+         DO i = 1 , nitem
+            mask = item(7,i)
+            IF ( andf(Iopt,mask)/=0 ) CALL delete(Name,item(1,i),it)
          ENDDO
       ENDIF
    ENDIF
-   RETURN
 END SUBROUTINE edit

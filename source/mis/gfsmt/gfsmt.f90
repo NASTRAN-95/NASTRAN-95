@@ -2,9 +2,9 @@
  
 SUBROUTINE gfsmt(Mt,Mmat,Mrow)
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZBLPKX
-   USE C_ZZZZZZ
+   USE c_system
+   USE c_zblpkx
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -19,6 +19,15 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
    INTEGER , DIMENSION(7) :: mcb
    INTEGER , DIMENSION(2) , SAVE :: name
    REAL*8 :: val
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -49,9 +58,9 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
 !
 !     ALLOCATE BUFFERS
 !
-   nz = korsz(Z(1))
-   ibuf1 = nz - Sysbuf
-   ibuf2 = ibuf1 - Sysbuf
+   nz = korsz(z(1))
+   ibuf1 = nz - sysbuf
+   ibuf2 = ibuf1 - sysbuf
    nz = ibuf2 - 1
    IF ( nz<100 ) GOTO 200
 !
@@ -60,8 +69,8 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
    CALL makmcb(mcb,Mmat,nrow,1,2)
    inblk(1) = Mt
    outblk(1) = Mmat
-   CALL gopen(Mt,Z(ibuf1),0)
-   CALL gopen(Mmat,Z(ibuf2),1)
+   CALL gopen(Mt,z(ibuf1),0)
+   CALL gopen(Mmat,z(ibuf2),1)
 !
 !     COPY RECORDS UP TO MROW
 !
@@ -76,7 +85,7 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
 !     IN MT SO IT IS SKIPPED
 !
    CALL bldpk(2,2,Mmat,0,0)
-   Irow = Mrow
+   irow = Mrow
    val = 1.0D0
    CALL zblpki
    CALL bldpkn(Mmat,0,mcb)
@@ -86,7 +95,7 @@ SUBROUTINE gfsmt(Mt,Mmat,Mrow)
 !
 !     BLAST OUT REST OF FILE
 !
-      CALL cpyfil(Mt,Mmat,Z,nz,icnt)
+      CALL cpyfil(Mt,Mmat,z,nz,icnt)
    ENDIF
 !
 !     CLOSE FILES

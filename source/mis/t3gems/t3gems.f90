@@ -1,4 +1,5 @@
-!*==t3gems.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==t3gems.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE t3gems(Ierr,Egpdt,Iorder,Gb,Gs,Lx,Ly,Edglen,Shrflx,Aic,Jog,Jok,K11,K22)
@@ -29,6 +30,15 @@ SUBROUTINE t3gems(Ierr,Egpdt,Iorder,Gb,Gs,Lx,Ly,Edglen,Shrflx,Aic,Jog,Jok,K11,K2
    INTEGER :: i , ising , j , jo
    INTEGER , DIMENSION(3,3) :: index
    EXTERNAL invers
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

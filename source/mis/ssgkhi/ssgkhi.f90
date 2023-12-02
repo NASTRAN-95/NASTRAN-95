@@ -1,13 +1,14 @@
-!*==ssgkhi.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==ssgkhi.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ssgkhi(Treal,Tint,Fn)
+   USE c_matout
+   USE c_ssgtri
+   USE c_system
+   USE c_trimex
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_MATOUT
-   USE C_SSGTRI
-   USE C_SYSTEM
-   USE C_TRIMEX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,25 +43,25 @@ SUBROUTINE ssgkhi(Treal,Tint,Fn)
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
       ising = -1
-      CALL invers(3,D(1),3,0,0,determ,ising,index)
+      CALL invers(3,d(1),3,0,0,determ,ising,index)
       IF ( ising==2 ) THEN
-         WRITE (Iout,99001) Ufm , Eid
+         WRITE (iout,99001) ufm , eid
 99001    FORMAT (A23,' 4018, A SINGULAR MATERIAL MATRIX -D- FOR ELEMENT',I9,' HAS BEEN DETECTED BY ROUTINE SSGKHI',/26X,'WHILE ',   &
                 &'TRYING TO COMPUTE THERMAL LOADS WITH TEMPP2 CARD DATA.')
          CALL mesage(-61,0,0)
       ENDIF
-      CALL gmmats(D(1),3,3,0,Treal(2),3,1,0,Khi(1))
-      Khi(1) = Khi(1)*Fn
-      Khi(2) = Khi(2)*Fn
-      Khi(3) = Khi(3)*Fn
+      CALL gmmats(d(1),3,3,0,Treal(2),3,1,0,khi(1))
+      khi(1) = khi(1)*Fn
+      khi(2) = khi(2)*Fn
+      khi(3) = khi(3)*Fn
    ELSE
 !
 !     TEMPERATURE DATA IS TEMPP1 OR TEMPP3 TYPE.
 !
-      Khi(1) = -Alpha1*Treal(2)*Fn
-      Khi(2) = -Alpha2*Treal(2)*Fn
-      Khi(3) = -Alph12*Treal(2)*Fn
+      khi(1) = -alpha1*Treal(2)*Fn
+      khi(2) = -alpha2*Treal(2)*Fn
+      khi(3) = -alph12*Treal(2)*Fn
    ENDIF
-   Khi(4) = 0.0
-   Khi(5) = 0.0
+   khi(4) = 0.0
+   khi(5) = 0.0
 END SUBROUTINE ssgkhi

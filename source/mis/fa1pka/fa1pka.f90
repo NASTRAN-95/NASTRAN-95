@@ -1,4 +1,5 @@
-!*==fa1pka.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==fa1pka.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fa1pka(A,M1k,M1b,Eiv,Ncore,N)
@@ -19,6 +20,15 @@ SUBROUTINE fa1pka(A,M1k,M1b,Eiv,Ncore,N)
    INTEGER , DIMENSION(2) , SAVE :: name
    INTEGER , SAVE :: nheige , nheigs
    EXTERNAL ateig , conmsg , hsbg , mesage , sswtch
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

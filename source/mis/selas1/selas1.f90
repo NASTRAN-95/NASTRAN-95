@@ -1,9 +1,10 @@
-!*==selas1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==selas1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE selas1(Iarg)
+   USE c_sdr2x5
    IMPLICIT NONE
-   USE C_SDR2X5
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -57,41 +58,41 @@ SUBROUTINE selas1(Iarg)
 !
 ! ELAS2
 !
-      Isilno(1) = iecpt(3) + iecpt(5)
-      Isilno(2) = iecpt(4) + iecpt(6)
-      IF ( iecpt(5)>0 ) Isilno(1) = Isilno(1) - 1
-      IF ( iecpt(6)>0 ) Isilno(2) = Isilno(2) - 1
-      Stiff = Ecpt(2)
-      Scoeff = Ecpt(8)
+      isilno(1) = iecpt(3) + iecpt(5)
+      isilno(2) = iecpt(4) + iecpt(6)
+      IF ( iecpt(5)>0 ) isilno(1) = isilno(1) - 1
+      IF ( iecpt(6)>0 ) isilno(2) = isilno(2) - 1
+      stiff = ecpt(2)
+      scoeff = ecpt(8)
    ELSEIF ( Iarg==3 ) THEN
 !
 ! ELAS3
 !
-      Isilno(1) = iecpt(2)
-      Isilno(2) = iecpt(3)
-      Stiff = Ecpt(4)
-      Scoeff = Ecpt(6)
+      isilno(1) = iecpt(2)
+      isilno(2) = iecpt(3)
+      stiff = ecpt(4)
+      scoeff = ecpt(6)
    ELSEIF ( Iarg==4 ) THEN
 !
 ! ELAS4
 !
-      Isilno(1) = iecpt(3)
-      Isilno(2) = iecpt(4)
-      Stiff = Ecpt(2)
+      isilno(1) = iecpt(3)
+      isilno(2) = iecpt(4)
+      stiff = ecpt(2)
       icoeff = -1
    ELSE
 !
 ! ELAS1
 !
-      Isilno(1) = iecpt(2) + iecpt(4)
-      Isilno(2) = iecpt(3) + iecpt(5)
-      IF ( iecpt(4)>0 ) Isilno(1) = Isilno(1) - 1
-      IF ( iecpt(5)>0 ) Isilno(2) = Isilno(2) - 1
-      Stiff = Ecpt(6)
-      Scoeff = Ecpt(8)
+      isilno(1) = iecpt(2) + iecpt(4)
+      isilno(2) = iecpt(3) + iecpt(5)
+      IF ( iecpt(4)>0 ) isilno(1) = isilno(1) - 1
+      IF ( iecpt(5)>0 ) isilno(2) = isilno(2) - 1
+      stiff = ecpt(6)
+      scoeff = ecpt(8)
    ENDIF
 !
 ! STORE ELEMENT ID.
 !
-   Jelid = iecpt(1)
+   jelid = iecpt(1)
 END SUBROUTINE selas1

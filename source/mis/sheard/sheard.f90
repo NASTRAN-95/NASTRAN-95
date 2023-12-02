@@ -1,14 +1,15 @@
-!*==sheard.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sheard.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sheard
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_MATIN
-USE C_MATOUT
-USE C_SYSTEM
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_matin
+   USE c_matout
+   USE c_system
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -75,50 +76,50 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Ngrids = 4
-         Ldict = 5 + Ngrids
+         ngrids = 4
+         ldict = 5 + ngrids
 !
 !     IF STIFFNESS MATRIX NOT NEEDED GO TO PERFORM MASS CALCULATIONS
 !
-         IF ( Ismb(1)==0 ) THEN
+         IF ( ismb(1)==0 ) THEN
             spag_nextblock_1 = 3
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
-         dict(1) = Estid
+         dict(1) = estid
          dict(2) = 1
          dict(3) = 12
          dict(4) = 7
-         ip = Iprec
+         ip = iprec
          isort = 0
 !
 !     CALL MAT TO GET MATERIAL PROPERTIES.
 !
-         Matidc = Matid
-         Matflg = 1
-         Eltemp = Tempel
+         matidc = matid
+         matflg = 1
+         eltemp = tempel
          CALL mat(iecpt(1))
-         dict5 = Gsube
+         dict5 = gsube
 !
-         t = Tsp
-         g = Gsp
-         e = Esp
+         t = tsp
+         g = gsp
+         e = esp
          IF ( t*g==0.0 ) THEN
 !
 !     ERROR EXITS
 !
             CALL mesage(30,26,iecpt(1))
-            Nogo = .TRUE.
+            nogo = .TRUE.
             RETURN
          ELSE
             c23 = 2.D0/3.D0
-            nuc = 1.D0/(1.D0+Nu)
+            nuc = 1.D0/(1.D0+nu)
 !
 !     COMPUTE DIAGONAL VECTORS.
 !
             DO i = 1 , 3
-               vd1(i) = Gp3(i) - Gp1(i)
-               vd2(i) = Gp4(i) - Gp2(i)
+               vd1(i) = gp3(i) - gp1(i)
+               vd2(i) = gp4(i) - gp2(i)
             ENDDO
 !
 !     COMPUTE THE NORMAL VECTOR VKN, NORMALIZE, AND COMPUTE THE
@@ -130,7 +131,7 @@ USE ISO_FORTRAN_ENV
             vkl = dsqrt(vkn(1)**2+vkn(2)**2+vkn(3)**2)
             IF ( vkl==0. ) THEN
                CALL mesage(30,26,iecpt(1))
-               Nogo = .TRUE.
+               nogo = .TRUE.
                RETURN
             ELSE
                vk(1) = vkn(1)/vkl
@@ -141,8 +142,8 @@ USE ISO_FORTRAN_ENV
 !     COMPUTE  SIDES -12- AND -41-
 !
                DO i = 1 , 3
-                  v12(i) = Gp2(i) - Gp1(i)
-                  v41(i) = Gp1(i) - Gp4(i)
+                  v12(i) = gp2(i) - gp1(i)
+                  v41(i) = gp1(i) - gp4(i)
                ENDDO
 !
 !     COMPUTE DOT PRODUCT, V12DK, OF V12 AND VK, THE VECTORS VP12, VI,
@@ -155,7 +156,7 @@ USE ISO_FORTRAN_ENV
                vp12l = dsqrt(vp12(1)**2+vp12(2)**2+vp12(3)**2)
                IF ( vp12l==0. ) THEN
                   CALL mesage(30,26,iecpt(1))
-                  Nogo = .TRUE.
+                  nogo = .TRUE.
                   RETURN
                ELSE
                   vi(1) = vp12(1)/vp12l
@@ -170,7 +171,7 @@ USE ISO_FORTRAN_ENV
                   vjl = dsqrt(vj(1)**2+vj(2)**2+vj(3)**2)
                   IF ( vjl==0. ) THEN
                      CALL mesage(30,26,iecpt(1))
-                     Nogo = .TRUE.
+                     nogo = .TRUE.
                      RETURN
                   ELSE
                      vj(1) = vj(1)/vjl
@@ -192,22 +193,22 @@ USE ISO_FORTRAN_ENV
 !
                         iecpt(2) = 2
                         CALL mesage(30,27,iecpt(1))
-                        Nogo = .TRUE.
+                        nogo = .TRUE.
                         RETURN
                      ELSEIF ( y4<=0. ) THEN
                         iecpt(2) = 1
                         CALL mesage(30,27,iecpt(1))
-                        Nogo = .TRUE.
+                        nogo = .TRUE.
                         RETURN
                      ELSEIF ( x3<=y3*x4/y4 ) THEN
                         iecpt(2) = 4
                         CALL mesage(30,27,iecpt(1))
-                        Nogo = .TRUE.
+                        nogo = .TRUE.
                         RETURN
                      ELSEIF ( x4>=x2-(x2-x3)*y4/y3 ) THEN
                         iecpt(2) = 3
                         CALL mesage(30,27,iecpt(1))
-                        Nogo = .TRUE.
+                        nogo = .TRUE.
                         RETURN
                      ELSE
 !
@@ -376,7 +377,7 @@ USE ISO_FORTRAN_ENV
                it = ipart(i)
                DO j = ip1 , 4
                   jt = ipart(j)
-                  IF ( Isilno(it)>Isilno(jt) ) THEN
+                  IF ( isilno(it)>isilno(jt) ) THEN
                      ipart(i) = jt
                      ipart(j) = it
                      it = jt
@@ -437,7 +438,7 @@ USE ISO_FORTRAN_ENV
 !     HERE WE CALCULATE THE MASS MATRIX VIA SUBROUTINE EMASTQ
 !
 !
-         IF ( Ismb(2)==0 ) RETURN
+         IF ( ismb(2)==0 ) RETURN
 !
          CALL emadtq(6,me)
          IF ( isort/=1 ) THEN
@@ -456,7 +457,7 @@ USE ISO_FORTRAN_ENV
             mout(ij+2) = me(it+2)
          ENDDO
 !
-         dict(1) = Estid
+         dict(1) = estid
          dict(2) = 2
          dict(3) = 12
          dict(4) = 7

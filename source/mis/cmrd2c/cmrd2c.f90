@@ -1,17 +1,18 @@
-!*==cmrd2c.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==cmrd2c.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE cmrd2c(Iter)
-USE C_BLANK
-USE C_CDCMPX
-USE C_FBSX
-USE C_GFBSX
-USE C_SFACT
-USE C_SYSTEM
-USE C_TRNSPX
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_cdcmpx
+   USE c_fbsx
+   USE c_gfbsx
+   USE c_sfact
+   USE c_system
+   USE c_trnspx
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -71,7 +72,7 @@ USE ISO_FORTRAN_ENV
 !
 !     PREFORM GUYAN REDUCTION
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          restor = .FALSE.
 !
 !     TRANSPOSE KII, KBI
@@ -89,9 +90,9 @@ USE ISO_FORTRAN_ENV
 !        **   **   **   ** **   **
 !
             CALL sofcls
-            Kiit(1) = kii
-            CALL rdtrl(Kiit)
-            IF ( Kiit(4)/=6 ) THEN
+            kiit(1) = kii
+            CALL rdtrl(kiit)
+            IF ( kiit(4)/=6 ) THEN
 !
 !     DECOMPOSE INTERIOR STIFFNESS MATRIX
 !        (UNSYMMETRIC)
@@ -104,34 +105,33 @@ USE ISO_FORTRAN_ENV
 !
                symtry = .FALSE.
                spag_nextblock_1 = 3
-               CYCLE SPAG_DispatchLoop_1
             ELSE
                symtry = .TRUE.
                iprc = 1
                ityp = 0
-               IF ( Kiit(5)==2 .OR. Kiit(5)==4 ) iprc = 2
-               IF ( Kiit(5)>=3 ) ityp = 2
+               IF ( kiit(5)==2 .OR. kiit(5)==4 ) iprc = 2
+               IF ( kiit(5)>=3 ) ityp = 2
                itype = iprc + ityp
-               CALL makmcb(Liit,lii,Kiit(3),lower,itype)
-               Iscrq(1) = Iscr(5)
-               Iscra = Iscr(6)
-               Iscrb = Iscr(7)
-               Iscrc = Iscr(9)
-               Chlsky = 0
-               Power = 1
-               dblkor = (Korbgn/2) + 1
-               Nzsf = Lstzwd - ((2*dblkor)-1)
+               CALL makmcb(liit,lii,kiit(3),lower,itype)
+               iscrq(1) = iscr(5)
+               iscra = iscr(6)
+               iscrb = iscr(7)
+               iscrc = iscr(9)
+               chlsky = 0
+               power = 1
+               dblkor = (korbgn/2) + 1
+               nzsf = lstzwd - ((2*dblkor)-1)
                CALL sdcomp(*20,dz(dblkor),dz(dblkor),dz(dblkor))
-               CALL wrttrl(Liit)
+               CALL wrttrl(liit)
                spag_nextblock_1 = 4
-               CYCLE SPAG_DispatchLoop_1
             ENDIF
+            CYCLE
          ELSEIF ( symtry ) THEN
 !
 !     KII SYMMETRIC, GIBBAR = GIB
 !
             item = itmlst(2)
-            CALL mtrxi(gibbar,Oldnam,item,0,itest)
+            CALL mtrxi(gibbar,oldnam,item,0,itest)
             IF ( itest/=1 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
@@ -140,59 +140,59 @@ USE ISO_FORTRAN_ENV
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         dblkor = (Korbgn/2) + 1
-         Lcore = Lstzwd - ((2*dblkor)-1)
-         Nscrth = 5
-         DO i = 1 , Nscrth
-            Iscrth(i) = Iscr(4+i)
+         dblkor = (korbgn/2) + 1
+         lcore = lstzwd - ((2*dblkor)-1)
+         nscrth = 5
+         DO i = 1 , nscrth
+            iscrth(i) = iscr(4+i)
          ENDDO
          DO i = 1 , 2
             itrlr(1) = kii
             IF ( i==2 ) itrlr(1) = kbi
             CALL rdtrl(itrlr)
             DO j = 1 , 7
-               Atrlr(j) = itrlr(j)
-               Attrlr(j) = itrlr(j)
+               atrlr(j) = itrlr(j)
+               attrlr(j) = itrlr(j)
             ENDDO
-            Attrlr(2) = itrlr(3)
-            Attrlr(3) = itrlr(2)
+            attrlr(2) = itrlr(3)
+            attrlr(3) = itrlr(2)
             CALL trnsp(dz(dblkor))
-            CALL wrttrl(Attrlr)
+            CALL wrttrl(attrlr)
          ENDDO
-         IF ( restor ) CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         IF ( restor ) CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
          IF ( restor ) RETURN
          restor = .TRUE.
          CALL sofcls
          spag_nextblock_1 = 3
       CASE (3)
-         Kiitc(1) = kii
-         CALL rdtrl(Kiitc)
+         kiitc(1) = kii
+         CALL rdtrl(kiitc)
          ityp = 0
          iprc = 1
-         IF ( Kiitc(5)==2 .OR. Kiitc(5)==4 ) iprc = 2
-         IF ( Kiitc(5)>=3 ) ityp = 2
+         IF ( kiitc(5)==2 .OR. kiitc(5)==4 ) iprc = 2
+         IF ( kiitc(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Liitc,lii,Kiitc(3),lower,itype)
-         CALL makmcb(Uiitc,uii,Kiitc(3),upper,itype)
-         Scr(1) = Iscr(5)
-         Scr(2) = Iscr(6)
-         Scr(3) = Iscr(7)
-         B = 0
-         Bbar = 0
-         dblkor = (Korbgn/2) + 1
-         Nx = Lstzwd - ((2*dblkor)-1)
+         CALL makmcb(liitc,lii,kiitc(3),lower,itype)
+         CALL makmcb(uiitc,uii,kiitc(3),upper,itype)
+         scr(1) = iscr(5)
+         scr(2) = iscr(6)
+         scr(3) = iscr(7)
+         b = 0
+         bbar = 0
+         dblkor = (korbgn/2) + 1
+         nx = lstzwd - ((2*dblkor)-1)
          CALL cdcomp(*40,dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Liitc)
-         CALL wrttrl(Uiitc)
+         CALL wrttrl(liitc)
+         CALL wrttrl(uiitc)
          spag_nextblock_1 = 4
       CASE (4)
 !
 !     SAVE LII AS LMTX ON SOF
 !
-         IF ( .NOT.(Iter==2 .OR. .NOT.Rsave) ) THEN
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         IF ( .NOT.(Iter==2 .OR. .NOT.rsave) ) THEN
+            CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
             ifile = lii
-            CALL mtrxo(lii,Oldnam,itmlst(1),0,itest)
+            CALL mtrxo(lii,oldnam,itmlst(1),0,itest)
             item = itmlst(1)
             IF ( itest/=3 ) THEN
                spag_nextblock_1 = 6
@@ -222,48 +222,48 @@ USE ISO_FORTRAN_ENV
 !        *     * *     * *     *    *     *
 !        **   ** **   ** **   **    **   **
 !
-            Kigfbs(1) = kib
-            IF ( Iter==2 ) Kigfbs(1) = kbi
-            CALL rdtrl(Kigfbs)
+            kigfbs(1) = kib
+            IF ( Iter==2 ) kigfbs(1) = kbi
+            CALL rdtrl(kigfbs)
             DO i = 1 , 7
-               Ligfbs(i) = Liitc(i)
-               Ugfbs(i) = Uiitc(i)
+               ligfbs(i) = liitc(i)
+               ugfbs(i) = uiitc(i)
             ENDDO
             iprc = 1
             ityp = 0
-            IF ( Kigfbs(5)==2 .OR. Kigfbs(5)==4 ) iprc = 2
-            IF ( Liitc(5)==2 .OR. Liitc(5)==4 ) iprc = 2
-            IF ( Uiitc(5)==2 .OR. Uiitc(5)==4 ) iprc = 2
-            IF ( Kigfbs(5)>=3 ) ityp = 2
-            IF ( Liitc(5)>=3 ) ityp = 2
-            IF ( Uiitc(5)>=3 ) ityp = 2
+            IF ( kigfbs(5)==2 .OR. kigfbs(5)==4 ) iprc = 2
+            IF ( liitc(5)==2 .OR. liitc(5)==4 ) iprc = 2
+            IF ( uiitc(5)==2 .OR. uiitc(5)==4 ) iprc = 2
+            IF ( kigfbs(5)>=3 ) ityp = 2
+            IF ( liitc(5)>=3 ) ityp = 2
+            IF ( uiitc(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Gibfbs,gib,Kigfbs(3),Kigfbs(4),itype)
-            Nzgfbs = Lstzwd - ((2*dblkor)-1)
-            Prec1 = iprc
-            Isign = -1
+            CALL makmcb(gibfbs,gib,kigfbs(3),kigfbs(4),itype)
+            nzgfbs = lstzwd - ((2*dblkor)-1)
+            prec1 = iprc
+            isign = -1
             CALL gfbs(dz(dblkor),dz(dblkor))
-            CALL wrttrl(Gibfbs)
+            CALL wrttrl(gibfbs)
          ELSE
-            Kibt(1) = kib
-            IF ( Iter==2 ) Kibt(1) = kbi
-            CALL rdtrl(Kibt)
+            kibt(1) = kib
+            IF ( Iter==2 ) kibt(1) = kbi
+            CALL rdtrl(kibt)
             DO i = 1 , 7
-               Liifbs(i) = Liit(i)
+               liifbs(i) = liit(i)
             ENDDO
             iprc = 1
             ityp = 0
-            IF ( Kibt(5)==2 .OR. Kibt(5)==4 ) iprc = 2
-            IF ( Liit(5)==2 .OR. Liit(5)==4 ) iprc = 2
-            IF ( Kibt(5)>=3 ) ityp = 2
-            IF ( Liit(5)>=3 ) ityp = 2
+            IF ( kibt(5)==2 .OR. kibt(5)==4 ) iprc = 2
+            IF ( liit(5)==2 .OR. liit(5)==4 ) iprc = 2
+            IF ( kibt(5)>=3 ) ityp = 2
+            IF ( liit(5)>=3 ) ityp = 2
             itype = iprc + ityp
-            CALL makmcb(Gibt,gib,Kibt(3),Kibt(4),itype)
-            Nzfbs = Lstzwd - ((2*dblkor)-1)
-            Prec = Kibt(5) - 2
-            Sign = -1
+            CALL makmcb(gibt,gib,kibt(3),kibt(4),itype)
+            nzfbs = lstzwd - ((2*dblkor)-1)
+            prec = kibt(5) - 2
+            sign = -1
             CALL fbs(dz(dblkor),dz(dblkor))
-            CALL wrttrl(Gibt)
+            CALL wrttrl(gibt)
          ENDIF
 !
 !     SAVE GIB AS GIMS ON SOF
@@ -273,9 +273,9 @@ USE ISO_FORTRAN_ENV
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          IF ( Iter==2 ) RETURN
-         CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+         CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
          ifile = gib
-         CALL mtrxo(gib,Oldnam,itmlst(2),0,itest)
+         CALL mtrxo(gib,oldnam,itmlst(2),0,itest)
          item = itmlst(2)
          IF ( itest/=3 ) THEN
             spag_nextblock_1 = 6
@@ -285,11 +285,11 @@ USE ISO_FORTRAN_ENV
 !
 !     PROCESS SYSTEM FATAL ERRORS
 !
- 20      WRITE (Iprntr,99001) Uwm , Oldnam
+ 20      WRITE (iprntr,99001) uwm , oldnam
 99001    FORMAT (A25,' 6311, SDCOMP DECOMPOSITION FAILED ON KII MATRIX ','FOR SUBSTRUCTURE ',2A4)
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
- 40      WRITE (Iprntr,99002) Uwm , Oldnam
+ 40      WRITE (iprntr,99002) uwm , oldnam
 99002    FORMAT (A23,' 6635, CDCOMP DECOMPOSITION FAILED ON KII MATRIX ','FOR SUBSTRUCTURE ',2A4)
          spag_nextblock_1 = 5
       CASE (5)
@@ -304,30 +304,30 @@ USE ISO_FORTRAN_ENV
 !
          IF ( itest==2 ) THEN
 !
-            WRITE (Iprntr,99003) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99003) ufm , modnam , item , oldnam
 99003       FORMAT (A23,' 6215, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' PSEUDO-EXISTS ONLY.')
-            Dry = -2
+            dry = -2
          ELSEIF ( itest==3 ) THEN
 !
             imsg = -1
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
          ELSEIF ( itest==4 ) THEN
             imsg = -2
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
          ELSEIF ( itest==5 ) THEN
             imsg = -3
-            CALL smsg(imsg,item,Oldnam)
+            CALL smsg(imsg,item,oldnam)
          ELSEIF ( itest==6 ) THEN
 !
-            WRITE (Iprntr,99004) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99004) ufm , modnam , item , oldnam
 99004       FORMAT (A23,' 6632, MODULE ',2A4,' - NASTRAN MATRIX FILE FOR I/O',' OF SOF ITEM ',A4,', SUBSTRUCTURE ',2A4,             &
                    &', IS PURGED.')
-            Dry = -2
+            dry = -2
          ELSE
-            WRITE (Iprntr,99005) Ufm , modnam , item , Oldnam
+            WRITE (iprntr,99005) ufm , modnam , item , oldnam
 !
 99005       FORMAT (A23,' 6211, MODULE ',2A4,' - ITEM ',A4,' OF SUBSTRUCTURE ',2A4,' HAS ALREADY BEEN WRITTEN.')
-            Dry = -2
+            dry = -2
          ENDIF
          EXIT SPAG_DispatchLoop_1
       END SELECT

@@ -1,12 +1,13 @@
-!*==optpx1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==optpx1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE optpx1(Stor,Nogo,Nen,Loc1) !HIDESTARS (*,Stor,Nogo,Nen,Loc1)
+   USE c_blank
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -61,7 +62,7 @@ SUBROUTINE optpx1(Stor,Nogo,Nen,Loc1) !HIDESTARS (*,Stor,Nogo,Nen,Loc1)
                ENDIF
             ENDDO
             CALL page2(-2)
-            WRITE (Outtap,99001) Ufm , nam
+            WRITE (outtap,99001) ufm , nam
 99001       FORMAT (A23,' 2293, NO PID ENTRIES ON PLIMIT CARD (',2A4,2H).)
             Nogo = Nogo + 1
             spag_nextblock_1 = 4
@@ -98,7 +99,7 @@ SUBROUTINE optpx1(Stor,Nogo,Nen,Loc1) !HIDESTARS (*,Stor,Nogo,Nen,Loc1)
 !
          Stor(1) = i1
          Stor(2) = Stor(l)
-         IF ( Loc1+3+Nen>Ycor ) THEN
+         IF ( Loc1+3+Nen>ycor ) THEN
             spag_nextblock_1 = 5
             CYCLE SPAG_DispatchLoop_1
          ENDIF
@@ -116,11 +117,10 @@ SUBROUTINE optpx1(Stor,Nogo,Nen,Loc1) !HIDESTARS (*,Stor,Nogo,Nen,Loc1)
 !     DUPLICATE ENTRIES FOUND
 !
  20      CALL page2(-2)
-         WRITE (Outtap,99002) Ufm , i1 , i2 , nam
+         WRITE (outtap,99002) ufm , i1 , i2 , nam
 99002    FORMAT (A23,' 2294, DUPLICATE',I8,' THRU',I8,' RANGE FOR ELEMENT',1X,2A4,' REJECTED PLIMIT. SCAN CONTINUED.')
          Nogo = Nogo + 1
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     THIS PLIMIT FINISHED

@@ -1,11 +1,12 @@
-!*==algap.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==algap.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE algap(Ifname,Ifnm)
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,7 +65,7 @@ SUBROUTINE algap(Ifname,Ifnm)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         nz = korsz(Z)
+         nz = korsz(z)
          ibuf = nz - sysbuf + 1
          nz = ibuf - 1
          IF ( nz<=10 ) CALL mesage(-8,0,name)
@@ -127,7 +128,6 @@ SUBROUTINE algap(Ifname,Ifnm)
          if = nlist
          ifrs = 1
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
 !
 !     BRING IN NEXT RECORD
@@ -141,7 +141,6 @@ SUBROUTINE algap(Ifname,Ifnm)
          ENDIF
          ilen = ilen + 5
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
 !
 !     HERE FOR EIGHT MORE WORDS
@@ -186,7 +185,6 @@ SUBROUTINE algap(Ifname,Ifnm)
          id = id + 2
          if = if + 2
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
 !
 !     REAL OR INTEGER
@@ -305,7 +303,6 @@ SUBROUTINE algap(Ifname,Ifnm)
             form(j,2) = forms(j,2)
          ENDDO
          spag_nextblock_1 = 9
-         CYCLE SPAG_DispatchLoop_1
       CASE (10)
          m = m + 2
          IF ( iform(nf)<2 ) THEN
@@ -383,7 +380,7 @@ SUBROUTINE algap(Ifname,Ifnm)
 !     CLOSE OFF FILES
 !
  140     CALL close(file,1)
-         WRITE (out,99001) Uim , tabnm , irecno
+         WRITE (out,99001) uim , tabnm , irecno
 99001    FORMAT (A29,' 4015.',/5X,'TABLE NAMED ',2A4,' PUNCHED ONTO',I9,' CARDS.')
          spag_nextblock_1 = 13
       CASE (13)
@@ -403,7 +400,6 @@ SUBROUTINE algap(Ifname,Ifnm)
          CYCLE SPAG_DispatchLoop_1
  200     ip1 = -3
          spag_nextblock_1 = 14
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE algap

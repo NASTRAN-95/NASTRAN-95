@@ -1,4 +1,5 @@
-!*==fread.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fread.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fread(File,Block,N,Eor)
@@ -13,13 +14,21 @@ SUBROUTINE fread(File,Block,N,Eor)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   INTEGER :: k
+   INTEGER :: k , spag_nextblock_1
    REAL , DIMENSION(2) , SAVE :: subnam
    EXTERNAL mesage , read
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
    DATA subnam/4H FRE , 4HAD  /
    spag_nextblock_1 = 1

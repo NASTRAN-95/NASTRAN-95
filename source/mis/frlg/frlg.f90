@@ -1,11 +1,12 @@
-!*==frlg.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==frlg.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE frlg
+   USE c_bitpos
+   USE c_blank
+   USE c_two
    IMPLICIT NONE
-   USE C_BITPOS
-   USE C_BLANK
-   USE C_TWO
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -40,27 +41,27 @@ SUBROUTINE frlg
    CALL rdtrl(mcb)
    lusetd = mcb(2)
    multi = -1
-   IF ( andf(mcb(5),Itwo(Ium))/=0 ) multi = 1
+   IF ( andf(mcb(5),itwo(ium))/=0 ) multi = 1
    single = -1
-   IF ( andf(mcb(5),Itwo(Ius))/=0 ) single = 1
+   IF ( andf(mcb(5),itwo(ius))/=0 ) single = 1
    omit = -1
-   IF ( andf(mcb(5),Itwo(Iuo))/=0 ) omit = 1
+   IF ( andf(mcb(5),itwo(iuo))/=0 ) omit = 1
 !
-   Iapp(1) = ifreq(1)
-   Iapp(2) = ifreq(2)
+   iapp(1) = ifreq(1)
+   iapp(2) = ifreq(2)
 !
 !     BUILD LOADS ON P SET
 !
 !     ORDER IS ALL FREQUENCIES FOR GIVEN LOAD TOGETHER
 !
-   CALL frlga(dlt,frl,casexx,dit,ppf,lusetd,nfreq,nload,frqset,fol,Notrd)
-   IF ( Notrd/=-1 ) THEN
-      Iapp(1) = itran(1)
-      Iapp(2) = itran(2)
+   CALL frlga(dlt,frl,casexx,dit,ppf,lusetd,nfreq,nload,frqset,fol,notrd)
+   IF ( notrd/=-1 ) THEN
+      iapp(1) = itran(1)
+      iapp(2) = itran(2)
    ENDIF
 !
 !     REDUCE LOADS TO D OR H SET
 !
-   IF ( multi<0 .AND. single<0 .AND. omit<0 .AND. Modal(1)/=moda ) RETURN
-   CALL frlgb(ppf,usetd,gmd,god,multi,single,omit,Modal,phidh,pdf,psf,phf,scr1,scr2,scr3,scr4)
+   IF ( multi<0 .AND. single<0 .AND. omit<0 .AND. modal(1)/=moda ) RETURN
+   CALL frlgb(ppf,usetd,gmd,god,multi,single,omit,modal,phidh,pdf,psf,phf,scr1,scr2,scr3,scr4)
 END SUBROUTINE frlg

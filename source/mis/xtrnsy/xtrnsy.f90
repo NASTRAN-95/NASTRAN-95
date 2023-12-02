@@ -1,9 +1,10 @@
-!*==xtrnsy.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==xtrnsy.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE xtrnsy(X,Y,Alpha)
-USE C_INVPWX
-USE ISO_FORTRAN_ENV                 
+   USE c_invpwx
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -22,7 +23,7 @@ USE ISO_FORTRAN_ENV
 !     X TRNS Y  FORMS THE DOT PRODUCT X TRANSPOSE * Y = ALPHA
 !*******
    Alpha = 0.D0
-   DO i = 1 , Ncol
+   DO i = 1 , ncol
       Alpha = Alpha + X(i)*Y(i)
    ENDDO
 END SUBROUTINE xtrnsy

@@ -1,4 +1,5 @@
-!*==numtyp.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==numtyp.f90 processed by SPAG 8.01RF 16:20  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 FUNCTION numtyp(Ivalue)
@@ -14,6 +15,15 @@ FUNCTION numtyp(Ivalue)
    CHARACTER(2) , DIMENSION(4) :: byte
    INTEGER :: i
    CHARACTER(8) :: word
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Function and Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

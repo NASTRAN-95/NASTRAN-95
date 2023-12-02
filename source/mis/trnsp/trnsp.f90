@@ -1,14 +1,15 @@
-!*==trnsp.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trnsp.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trnsp(Core)
+   USE c_machin
+   USE c_packx
+   USE c_system
+   USE c_trnspx
+   USE c_unpakx
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_MACHIN
-   USE C_PACKX
-   USE C_SYSTEM
-   USE C_TRNSPX
-   USE C_UNPAKX
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -48,32 +49,32 @@ SUBROUTINE trnsp(Core)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         IF ( Nscrh/=8 ) CALL conmsg(iparm,2,0)
-         Iat(1) = 0
-         Iat(2) = 0
-         Incr1 = 1
-         Ii = 1
-         IF ( Itypat==0 ) Itypat = Itypa
-         Iotyp = min0(Itypat,Itypa)
-         Iotypa = Iotyp
-         Iotyp1 = Iotyp
-         IF ( Iforma/=4 .AND. Iforma/=5 ) THEN
+         IF ( nscrh/=8 ) CALL conmsg(iparm,2,0)
+         iat(1) = 0
+         iat(2) = 0
+         incr1 = 1
+         ii = 1
+         IF ( itypat==0 ) itypat = itypa
+         iotyp = min0(itypat,itypa)
+         iotypa = iotyp
+         iotyp1 = iotyp
+         IF ( iforma/=4 .AND. iforma/=5 ) THEN
 !               LOWER            UPPER TRIANG. MATRICES
 !
-            j = mod(Ksys94,10000)/1000
+            j = mod(ksys94,10000)/1000
             IF ( j/=1 ) THEN
                CALL sswtch(41,j)
                IF ( j/=1 ) THEN
 !
 !     NASTRAN MAINTENANCE WORK IS DONE ON VAX
 !
-                  IF ( Mach==5 .AND. Iforma>=3 .AND. Iforma/=6 ) THEN
+                  IF ( mach==5 .AND. iforma>=3 .AND. iforma/=6 ) THEN
 !               VAX      NOT SQUARE, RECTANG., AND SYMM.
-                     CALL fname(Namea,a)
-                     WRITE (4,99001) a , Iforma
+                     CALL fname(namea,a)
+                     WRITE (4,99001) a , iforma
 99001                FORMAT (40X,'MATRIX ',2A4,', FORM =',I2,' ===>TRNSPS')
                   ENDIF
-                  Ncolat = 0
+                  ncolat = 0
                   nscrth = 1
                   CALL trnsps(Core,Core)
                   spag_nextblock_1 = 2
@@ -82,18 +83,18 @@ SUBROUTINE trnsp(Core)
             ENDIF
          ENDIF
 !
-         iparm1 = Namea
-         nscrth = Nscrh
+         iparm1 = namea
+         nscrth = nscrh
          im1 = 1
-         ncalat = Ncolat
-         Ncolat = 0
+         ncalat = ncolat
+         ncolat = 0
          ij1 = 0
          last = 1
-         ntype = Iotypa
+         ntype = iotypa
          IF ( ntype==3 ) ntype = 2
-         lcore = Lcare
-         ibuf1 = lcore - Sysbuf
-         ibuf = ibuf1 - Sysbuf
+         lcore = lcare
+         ibuf1 = lcore - sysbuf
+         ibuf = ibuf1 - sysbuf
          lcore = ibuf - 1
          IF ( lcore<=0 ) THEN
             n1 = -8
@@ -109,7 +110,7 @@ SUBROUTINE trnsp(Core)
 !     THE NORMAL DATA, 1.0**+5 OR LARGER, ARE ALL OK.
 !     (NO CHECK ON THE OTHER MACHINES)
 !
-            nrowo = min0(Nrowat,Ncola)
+            nrowo = min0(nrowat,ncola)
             nbrut = lcore/(nrowo*ntype)
             IF ( nbrut==0 ) THEN
                n1 = -8
@@ -123,19 +124,19 @@ SUBROUTINE trnsp(Core)
 !     ONE PASS ONLY
 !
                   nscrth = 1
-                  Scrth(1) = Namea
+                  scrth(1) = namea
                   nbrut = ncalat
                   k = 1
                   ij1 = 1
-                  Iotyp = Itypa
+                  iotyp = itypa
                ELSE
-                  k = amax1(float(Nrowat)*sqrt(float(ntype)/float(lcore)),1.0)
+                  k = amax1(float(nrowat)*sqrt(float(ntype)/float(lcore)),1.0)
                ENDIF
                nrow2 = nbrut*k
                nrow = min0(nscrth*nrow2,ncalat)
                km = (ncalat+nrow-1)/nrow
                icol = nbrut*ntype
-               IF ( lcore<nrow*ntype+(nscrth-1)*Sysbuf ) THEN
+               IF ( lcore<nrow*ntype+(nscrth-1)*sysbuf ) THEN
                   n1 = -8
                   CALL mesage(n1,iparm1,name)
                   spag_nextblock_1 = 2
@@ -161,25 +162,25 @@ SUBROUTINE trnsp(Core)
                   k = (nrow2+nbrut-1)/nbrut
                   nscrth = min0((iover+k*nbrut-1)/(k*nbrut),nscrth)
                   IF ( nscrth==0 ) nscrth = 1
-                  Nrow1 = ncalat
+                  nrow1 = ncalat
                ELSE
-                  Nrow1 = nrow*ioloop
+                  nrow1 = nrow*ioloop
                ENDIF
-               Is1 = Nrow1 - nrow + 1
+               is1 = nrow1 - nrow + 1
                IF ( ioloop==1 ) THEN
-                  iparm1 = Namea
-                  CALL open(*20,Namea,Core(ibuf1),0)
+                  iparm1 = namea
+                  CALL open(*20,namea,Core(ibuf1),0)
                ENDIF
-               CALL fwdrec(*40,Namea)
+               CALL fwdrec(*40,namea)
                nl = nrow*ntype
 !
 !     OPEN SCRATCHES
 !
                j = ibuf
                DO i = 1 , nscrth
-                  iparm1 = Scrth(i)
-                  CALL open(*20,Scrth(i),Core(j),1)
-                  j = j - Sysbuf
+                  iparm1 = scrth(i)
+                  CALL open(*20,scrth(i),Core(j),1)
+                  j = j - sysbuf
                   DO iii = 1 , 7
                      trb1(iii,i) = 0
                   ENDDO
@@ -189,14 +190,14 @@ SUBROUTINE trnsp(Core)
                   SPAG_DispatchLoop_2: DO
                      SELECT CASE (spag_nextblock_2)
                      CASE (1)
-                        CALL unpack(*2,Namea,Core)
+                        CALL unpack(*2,namea,Core)
                         spag_nextblock_2 = 2
                      CASE (2)
                         ik = 1
-                        Jj = nrow2
-                        Incr = 1
+                        jj = nrow2
+                        incr = 1
                         DO i = 1 , nscrth
-                           CALL pack(Core(ik),Scrth(i),trb1(1,i))
+                           CALL pack(Core(ik),scrth(i),trb1(1,i))
                            ik = ik + nrow2*ntype
                         ENDDO
 !
@@ -208,16 +209,15 @@ SUBROUTINE trnsp(Core)
                            Core(i) = 0.0
                         ENDDO
                         spag_nextblock_2 = 2
-                        CYCLE SPAG_DispatchLoop_2
                      END SELECT
                   ENDDO SPAG_DispatchLoop_2
                ENDDO
-               CALL rewind(Namea)
+               CALL rewind(namea)
 !
 !     END LOOP ON BUILDING NSCRATH SUB MATRICES
 !
                DO i = 1 , nscrth
-                  CALL close(Scrth(i),1)
+                  CALL close(scrth(i),1)
                ENDDO
             ENDIF
             DO j = 1 , nscrth
@@ -225,17 +225,17 @@ SUBROUTINE trnsp(Core)
                   IF ( ioloop==km .AND. j==nscrth ) last = 0
                ENDIF
                SPAG_Loop_3_1: DO m = 1 , k
-                  iparm1 = Scrth(j)
-                  CALL open(*20,Scrth(j),Core(ibuf),0)
-                  IF ( last==1 .OR. ncalat-Ncolat>=nrem ) THEN
-                     IF ( ij1/=0 ) CALL fwdrec(*40,Scrth(j))
-                     Is1 = (m-1)*nbrut + 1
-                     Nrow1 = nbrut*m
+                  iparm1 = scrth(j)
+                  CALL open(*20,scrth(j),Core(ibuf),0)
+                  IF ( last==1 .OR. ncalat-ncolat>=nrem ) THEN
+                     IF ( ij1/=0 ) CALL fwdrec(*40,scrth(j))
+                     is1 = (m-1)*nbrut + 1
+                     nrow1 = nbrut*m
                   ELSE
-                     nbrut = ncalat - Ncolat
+                     nbrut = ncalat - ncolat
                      icol = nbrut*ntype
-                     Is1 = (m-1)*nrem + 1
-                     Nrow1 = Is1 + nbrut
+                     is1 = (m-1)*nrem + 1
+                     nrow1 = is1 + nbrut
                   ENDIF
                   l = 1
                   DO i = 1 , nrowo
@@ -243,7 +243,7 @@ SUBROUTINE trnsp(Core)
                      SPAG_DispatchLoop_3: DO
                         SELECT CASE (spag_nextblock_3)
                         CASE (1)
-                           CALL unpack(*4,Scrth(j),Core(l))
+                           CALL unpack(*4,scrth(j),Core(l))
                            spag_nextblock_3 = 2
                            CYCLE SPAG_DispatchLoop_3
  4                         DO nl = 1 , icol
@@ -257,25 +257,25 @@ SUBROUTINE trnsp(Core)
                         END SELECT
                      ENDDO SPAG_DispatchLoop_3
                   ENDDO
-                  CALL close(Scrth(j),1)
-                  iparm1 = Nameat
-                  CALL open(*20,Nameat,Core(ibuf),im1)
+                  CALL close(scrth(j),1)
+                  iparm1 = nameat
+                  CALL open(*20,nameat,Core(ibuf),im1)
                   IF ( im1/=3 ) THEN
-                     CALL fname(Nameat,a(1))
-                     CALL write(Nameat,a(1),2,1)
+                     CALL fname(nameat,a(1))
+                     CALL write(nameat,a(1),2,1)
                      im1 = 3
                   ENDIF
-                  Incr = nbrut
-                  Jj = nrowo
+                  incr = nbrut
+                  jj = nrowo
                   DO l = 1 , nbrut
                      m2 = ntype*(l-1) + 1
-                     CALL pack(Core(m2),Nameat,Nameat)
+                     CALL pack(Core(m2),nameat,nameat)
                   ENDDO
-                  CALL close(Nameat,2)
+                  CALL close(nameat,2)
 !
 !     END LOOP ON SUBMATRIX
 !
-                  IF ( Ncolat>=ncalat ) EXIT SPAG_Loop_3_1
+                  IF ( ncolat>=ncalat ) EXIT SPAG_Loop_3_1
                ENDDO SPAG_Loop_3_1
 !
 !     END LOOP ON EACH SCRATCH
@@ -286,10 +286,10 @@ SUBROUTINE trnsp(Core)
 !
             ioloop = ioloop + 1
             IF ( ioloop>km ) THEN
-               iparm1 = Nameat
-               CALL open(*20,Nameat,Core(ibuf),3)
-               CALL close(Nameat,1)
-               CALL close(Namea,1)
+               iparm1 = nameat
+               CALL open(*20,nameat,Core(ibuf),3)
+               CALL close(nameat,1)
+               CALL close(namea,1)
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -308,15 +308,15 @@ SUBROUTINE trnsp(Core)
 !
 !     ONE FINAL CHECK BEFORE RETURN
 !
-         IF ( Iforma/=3 .AND. Iforma/=7 ) THEN
-            IF ( Ncolat/=Nrowa .OR. Nrowat/=Ncola ) THEN
-               CALL fname(Namea,a)
-               WRITE (Otpe,99002) Swm , a , Iforma , Ncola , Nrowa , Iforat , Ncolat , Nrowat
+         IF ( iforma/=3 .AND. iforma/=7 ) THEN
+            IF ( ncolat/=nrowa .OR. nrowat/=ncola ) THEN
+               CALL fname(namea,a)
+               WRITE (otpe,99002) swm , a , iforma , ncola , nrowa , iforat , ncolat , nrowat
 99002          FORMAT (A27,' FORM TRNSP. TRANSPOSED MATRIX APPEARS IN ERROR',/5X,'ORIGINAL ',2A4,' - FORM =',I3,',  (',I6,' X',I6,  &
                       &')',/5X,'TRNASPOSED MATRIX - FORM =',I3,',  (',I6,' X',I6,')')
             ENDIF
          ENDIF
-         IF ( Nscrh/=8 ) CALL conmsg(iparm,2,0)
+         IF ( nscrh/=8 ) CALL conmsg(iparm,2,0)
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

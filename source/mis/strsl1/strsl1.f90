@@ -1,11 +1,12 @@
-!*==strsl1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==strsl1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE strsl1
+   USE c_matin
+   USE c_matout
+   USE c_sdr2x5
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATOUT
-   USE C_SDR2X5
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -118,22 +119,22 @@ SUBROUTINE strsl1
    nots = .TRUE.
    idele = iest(1)
    DO i = 1 , 6
-      Nl(i) = iest(i+1)
+      nl(i) = iest(i+1)
    ENDDO
-   thetam = Est(8)
+   thetam = est(8)
    matid1 = iest(9)
-   tmem1 = Est(10)
-   tmem3 = Est(11)
-   tmem5 = Est(12)
+   tmem1 = est(10)
+   tmem3 = est(11)
+   tmem5 = est(12)
    matid2 = iest(13)
-   tbend1 = (Est(14)*12.0)**0.3333333333
-   tbend3 = (Est(15)*12.0)**0.3333333333
-   tbend5 = (Est(16)*12.0)**0.3333333333
+   tbend1 = (est(14)*12.0)**0.3333333333
+   tbend3 = (est(15)*12.0)**0.3333333333
+   tbend5 = (est(16)*12.0)**0.3333333333
    matid3 = iest(17)
-   tshr1 = Est(18)
-   tshr3 = Est(19)
-   tshr5 = Est(20)
-   nsm = Est(21)
+   tshr1 = est(18)
+   tshr3 = est(19)
+   tshr5 = est(20)
+   nsm = est(21)
    j = 0
    IF ( tmem3==0.0 .OR. tmem3==blank ) tmem3 = tmem1
    IF ( tmem5==0.0 .OR. tmem5==blank ) tmem5 = tmem1
@@ -144,53 +145,53 @@ SUBROUTINE strsl1
    IF ( tbend5==0.0 .OR. tbend5==blank ) tbend5 = tbend1
    DO i = 28 , 48 , 4
       j = j + 1
-      Ics(j) = iest(i)
-      Xc(j) = Est(i+1)
-      Yc(j) = Est(i+2)
-      Zc(j) = Est(i+3)
+      ics(j) = iest(i)
+      xc(j) = est(i+1)
+      yc(j) = est(i+2)
+      zc(j) = est(i+3)
    ENDDO
-   Eltemp = Est(52)
+   eltemp = est(52)
    theta1 = thetam*degra
-   Sinth = sin(theta1)
-   Costh = cos(theta1)
-   IF ( abs(Sinth)<=1.0E-06 ) Sinth = 0.0
+   sinth = sin(theta1)
+   costh = cos(theta1)
+   IF ( abs(sinth)<=1.0E-06 ) sinth = 0.0
 !
 !     EVALUATE MATERIAL PROPERTIES
 !
-   Matflg = 2
-   Matid = matid1
+   matflg = 2
+   matid = matid1
    IF ( matid1/=0 ) THEN
       CALL mat(idele)
-      g11 = Em(1)
-      g12 = Em(2)
-      g13 = Em(3)
-      g22 = Em(4)
-      g23 = Em(5)
-      g33 = Em(6)
+      g11 = em(1)
+      g12 = em(2)
+      g13 = em(3)
+      g22 = em(4)
+      g23 = em(5)
+      g33 = em(6)
    ENDIF
 !
-   Matid = matid2
+   matid = matid2
    IF ( matid2/=0 ) THEN
-      Matflg = 2
+      matflg = 2
       CALL mat(idele)
-      d11 = Em(1)
-      d12 = Em(2)
-      d13 = Em(3)
+      d11 = em(1)
+      d12 = em(2)
+      d13 = em(3)
       d21 = d12
-      d22 = Em(4)
-      d23 = Em(5)
+      d22 = em(4)
+      d23 = em(5)
       d31 = d13
       d32 = d23
-      d33 = Em(6)
-      D(1) = d11
-      D(2) = d12
-      D(3) = d13
-      D(4) = d21
-      D(5) = d22
-      D(6) = d23
-      D(7) = d13
-      D(8) = d23
-      D(9) = d33
+      d33 = em(6)
+      d(1) = d11
+      d(2) = d12
+      d(3) = d13
+      d(4) = d21
+      d(5) = d22
+      d(6) = d23
+      d(7) = d13
+      d(8) = d23
+      d(9) = d33
       d334 = d33*4.0
       d132 = d13*2.0
       d232 = d23*2.0
@@ -202,54 +203,54 @@ SUBROUTINE strsl1
 !
 !     CALCULATIONS FOR THE TRIANGLE
 !
-   CALL trif(Xc,Yc,Zc,ivect,jvect,kvect,a,b,c,iest(1),name)
+   CALL trif(xc,yc,zc,ivect,jvect,kvect,a,b,c,iest(1),name)
 !
 !     EVALUATE THE CONSTANTS C1,C2,AND C3 IN THE LINEAR EQUATION FOR
 !     THICKNESS VARIATION - MEMBRANE
 !
    CALL af(f,1,a,b,c,c1,c2,c3,tmem1,tmem2,tmem3,1)
-   Cab(1) = c1
-   Cab(2) = c2
-   Cab(3) = c3
+   cab(1) = c1
+   cab(2) = c2
+   cab(3) = c3
 !
 !     A1,A2,A3 ARE THE COEFFICIENTS OF LINEAR EQUATION FOR VARIATION
 !     OF BENDING THICKNESSES
 !
-   CALL af(f,1,a,b,c,A1,A2,A3,tbend1,tbend3,tbend5,1)
-   a1sq = A1*A1
-   a2sq = A2*A2
-   a3sq = A3*A3
-   c1 = a1sq*A1
-   c2 = 3.0*a1sq*A2
-   c3 = 3.0*a1sq*A3
-   c4 = 3.0*A1*a2sq
-   c5 = 6.0*A1*A2*A3
-   c6 = 3.0*a3sq*A1
-   c7 = a2sq*A2
-   c8 = 3.0*a2sq*A3
-   c9 = 3.0*A2*a3sq
-   c10 = A3*a3sq
+   CALL af(f,1,a,b,c,a1,a2,a3,tbend1,tbend3,tbend5,1)
+   a1sq = a1*a1
+   a2sq = a2*a2
+   a3sq = a3*a3
+   c1 = a1sq*a1
+   c2 = 3.0*a1sq*a2
+   c3 = 3.0*a1sq*a3
+   c4 = 3.0*a1*a2sq
+   c5 = 6.0*a1*a2*a3
+   c6 = 3.0*a3sq*a1
+   c7 = a2sq*a2
+   c8 = 3.0*a2sq*a3
+   c9 = 3.0*a2*a3sq
+   c10 = a3*a3sq
 !
 !     AA1, AA2, AA3  ARE COEFFICIENTS IN THICKNESS VARIATION FOR
 !     TRANSVERSE SHEAR
 !
-   CALL af(f,1,a,b,c,Aa1,Aa2,Aa3,tshr1,tshr3,tshr5,1)
+   CALL af(f,1,a,b,c,aa1,aa2,aa3,tshr1,tshr3,tshr5,1)
 !
 !
 !     FILL E-MATRIX
 !
    DO i = 1 , 18
-      E(i) = 0.0
+      e(i) = 0.0
    ENDDO
-   E(1) = kvect(1)
-   E(4) = kvect(2)
-   E(7) = kvect(3)
-   E(11) = ivect(1)
-   E(14) = ivect(2)
-   E(17) = ivect(3)
-   E(12) = jvect(1)
-   E(15) = jvect(2)
-   E(18) = jvect(3)
+   e(1) = kvect(1)
+   e(4) = kvect(2)
+   e(7) = kvect(3)
+   e(11) = ivect(1)
+   e(14) = ivect(2)
+   e(17) = ivect(3)
+   e(12) = jvect(1)
+   e(15) = jvect(2)
+   e(18) = jvect(3)
 !
 !     CALCULATIONS FOR QMATRIX (QQQ) AND ITS INVERSE
 !
@@ -261,28 +262,28 @@ SUBROUTINE strsl1
       i2 = (i-1)*3 + 2
       i3 = (i-1)*3 + 3
       qqq(i1,1) = 1.0
-      qqq(i1,2) = Xc(i)
-      qqq(i1,3) = Yc(i)
-      qqq(i1,4) = Xc(i)*Xc(i)
-      qqq(i1,5) = Xc(i)*Yc(i)
-      qqq(i1,6) = Yc(i)*Yc(i)
-      qqq(i1,7) = qqq(i1,4)*Xc(i)
-      qqq(i1,8) = qqq(i1,4)*Yc(i)
-      qqq(i1,9) = qqq(i1,5)*Yc(i)
-      qqq(i1,10) = qqq(i1,6)*Yc(i)
-      qqq(i1,11) = qqq(i1,7)*Xc(i)
-      qqq(i1,12) = qqq(i1,7)*Yc(i)
-      qqq(i1,13) = qqq(i1,8)*Yc(i)
-      qqq(i1,14) = qqq(i1,9)*Yc(i)
-      qqq(i1,15) = qqq(i1,10)*Yc(i)
-      qqq(i1,16) = qqq(i1,11)*Xc(i)
-      qqq(i1,17) = qqq(i1,12)*Yc(i)
-      qqq(i1,18) = qqq(i1,13)*Yc(i)
-      qqq(i1,19) = qqq(i1,14)*Yc(i)
-      qqq(i1,20) = qqq(i1,15)*Yc(i)
+      qqq(i1,2) = xc(i)
+      qqq(i1,3) = yc(i)
+      qqq(i1,4) = xc(i)*xc(i)
+      qqq(i1,5) = xc(i)*yc(i)
+      qqq(i1,6) = yc(i)*yc(i)
+      qqq(i1,7) = qqq(i1,4)*xc(i)
+      qqq(i1,8) = qqq(i1,4)*yc(i)
+      qqq(i1,9) = qqq(i1,5)*yc(i)
+      qqq(i1,10) = qqq(i1,6)*yc(i)
+      qqq(i1,11) = qqq(i1,7)*xc(i)
+      qqq(i1,12) = qqq(i1,7)*yc(i)
+      qqq(i1,13) = qqq(i1,8)*yc(i)
+      qqq(i1,14) = qqq(i1,9)*yc(i)
+      qqq(i1,15) = qqq(i1,10)*yc(i)
+      qqq(i1,16) = qqq(i1,11)*xc(i)
+      qqq(i1,17) = qqq(i1,12)*yc(i)
+      qqq(i1,18) = qqq(i1,13)*yc(i)
+      qqq(i1,19) = qqq(i1,14)*yc(i)
+      qqq(i1,20) = qqq(i1,15)*yc(i)
       qqq(i2,3) = 1.0
-      qqq(i2,5) = Xc(i)
-      qqq(i2,6) = Yc(i)*2.0
+      qqq(i2,5) = xc(i)
+      qqq(i2,6) = yc(i)*2.0
       qqq(i2,8) = qqq(i1,4)
       qqq(i2,9) = qqq(i1,5)*2.0
       qqq(i2,10) = qqq(i1,6)*3.0
@@ -295,8 +296,8 @@ SUBROUTINE strsl1
       qqq(i2,19) = qqq(i1,14)*4.0
       qqq(i2,20) = qqq(i1,15)*5.0
       qqq(i3,2) = -1.0
-      qqq(i3,4) = -2.0*Xc(i)
-      qqq(i3,5) = -Yc(i)
+      qqq(i3,4) = -2.0*xc(i)
+      qqq(i3,5) = -yc(i)
       qqq(i3,7) = -qqq(i1,4)*3.0
       qqq(i3,8) = -qqq(i1,5)*2.0
       qqq(i3,9) = -qqq(i1,6)
@@ -323,21 +324,21 @@ SUBROUTINE strsl1
    DO i = 1 , 6
       DO j = 1 , 6
          i1 = 3*(i-1) + 1
-         Q(i,j) = qqq(i1,j)
+         q(i,j) = qqq(i1,j)
       ENDDO
    ENDDO
 !
 !     NO NEED TO COMPUTE DETERMINANT SINCE IT IS NOT USED SUBSEQUENTLY.
 !
    ising = -1
-   CALL invers(6,Q,6,Ts6(1),0,det,ising,ind)
+   CALL invers(6,q,6,ts6(1),0,det,ising,ind)
 !
 !     FOURTH ARGUMENT IS A DUMMY LOCATION FOR INVERSE AND HENCE TS1(1)
 !     IS U
 !
 !     SET ISING = -1 AGAIN.
    ising = -1
-   CALL invers(20,qqq,20,Ts6(1),0,determ,ising,index)
+   CALL invers(20,qqq,20,ts6(1),0,determ,ising,index)
 !
 !     ISING EQUAL TO 2 IMPLIES THAT QQQ IS SINGULAR
 !
@@ -345,9 +346,9 @@ SUBROUTINE strsl1
 !     FIRST 18 COLUMNS OF QQQ INVERSE IS THE QQQINV FOR USE IN STIFFNESS
 !     MATRIX CALCULATIONS
 !
-   h4 = Q(4,1)*Zc(1) + Q(4,2)*Zc(2) + Q(4,3)*Zc(3) + Q(4,4)*Zc(4) + Q(4,5)*Zc(5) + Q(4,6)*Zc(6)
-   h5 = Q(5,1)*Zc(1) + Q(5,2)*Zc(2) + Q(5,3)*Zc(3) + Q(5,4)*Zc(4) + Q(5,5)*Zc(5) + Q(5,6)*Zc(6)
-   h6 = Q(6,1)*Zc(1) + Q(6,2)*Zc(2) + Q(6,3)*Zc(3) + Q(6,4)*Zc(4) + Q(6,5)*Zc(5) + Q(6,6)*Zc(6)
+   h4 = q(4,1)*zc(1) + q(4,2)*zc(2) + q(4,3)*zc(3) + q(4,4)*zc(4) + q(4,5)*zc(5) + q(4,6)*zc(6)
+   h5 = q(5,1)*zc(1) + q(5,2)*zc(2) + q(5,3)*zc(3) + q(5,4)*zc(4) + q(5,5)*zc(5) + q(5,6)*zc(6)
+   h6 = q(6,1)*zc(1) + q(6,2)*zc(2) + q(6,3)*zc(3) + q(6,4)*zc(4) + q(6,5)*zc(5) + q(6,6)*zc(6)
    h4 = h4*2.0
    h6 = h6*2.0
 !
@@ -357,11 +358,11 @@ SUBROUTINE strsl1
    DO i = 1 , 20
       DO j = 1 , 18
          ij = (i-1)*18 + j
-         Qqqinv(ij) = qqq(i,j)
+         qqqinv(ij) = qqq(i,j)
       ENDDO
    ENDDO
    DO i = 1 , 36
-      Balotr(i) = 0.0
+      balotr(i) = 0.0
    ENDDO
 !
    DO i = 1 , 7
@@ -372,109 +373,109 @@ SUBROUTINE strsl1
          nph1ou(i) = 0
       ENDDO
    ENDIF
-   Ph1out(8) = tmem1
-   Ph1out(9) = tmem3
-   Ph1out(10) = tmem5
-   Ph1out(11) = tbend1
-   Ph1out(12) = tbend3
-   Ph1out(13) = tbend5
-   Ph1out(14) = Est(22)
-   Ph1out(15) = Est(23)
-   Ph1out(16) = Est(24)
-   Ph1out(17) = Est(25)
-   Ph1out(18) = Est(26)
-   Ph1out(19) = Est(27)
-   Emod(1) = g11
-   Emod(2) = g12
-   Emod(3) = g13
-   Emod(4) = g12
-   Emod(5) = g22
-   Emod(6) = g23
-   Emod(7) = g13
-   Emod(8) = g23
-   Emod(9) = g33
+   ph1out(8) = tmem1
+   ph1out(9) = tmem3
+   ph1out(10) = tmem5
+   ph1out(11) = tbend1
+   ph1out(12) = tbend3
+   ph1out(13) = tbend5
+   ph1out(14) = est(22)
+   ph1out(15) = est(23)
+   ph1out(16) = est(24)
+   ph1out(17) = est(25)
+   ph1out(18) = est(26)
+   ph1out(19) = est(27)
+   emod(1) = g11
+   emod(2) = g12
+   emod(3) = g13
+   emod(4) = g12
+   emod(5) = g22
+   emod(6) = g23
+   emod(7) = g13
+   emod(8) = g23
+   emod(9) = g33
    DO i = 1 , 30
-      Ee(i) = 0.0
+      ee(i) = 0.0
    ENDDO
-   Ee(1) = ivect(1)
-   Ee(2) = jvect(1)
-   Ee(3) = kvect(1)
-   Ee(6) = ivect(2)
-   Ee(7) = jvect(2)
-   Ee(8) = kvect(2)
-   Ee(11) = ivect(3)
-   Ee(12) = jvect(3)
-   Ee(13) = kvect(3)
-   Ee(19) = ivect(1)
-   Ee(20) = jvect(1)
-   Ee(24) = ivect(2)
-   Ee(25) = jvect(2)
-   Ee(29) = ivect(3)
-   Ee(30) = jvect(3)
+   ee(1) = ivect(1)
+   ee(2) = jvect(1)
+   ee(3) = kvect(1)
+   ee(6) = ivect(2)
+   ee(7) = jvect(2)
+   ee(8) = kvect(2)
+   ee(11) = ivect(3)
+   ee(12) = jvect(3)
+   ee(13) = kvect(3)
+   ee(19) = ivect(1)
+   ee(20) = jvect(1)
+   ee(24) = ivect(2)
+   ee(25) = jvect(2)
+   ee(29) = ivect(3)
+   ee(30) = jvect(3)
    DO jj = 1 , 4
       j = 2*jj - 1
       IF ( jj==4 ) THEN
-         X = (Xc(1)+Xc(3)+Xc(5))/3.0
-         Y = (Yc(1)+Yc(3)+Yc(5))/3.0
-         Ph1out(20) = (A1+A2*X+A3*Y)/2.0
-         Ph1out(21) = -Ph1out(20)
+         x = (xc(1)+xc(3)+xc(5))/3.0
+         y = (yc(1)+yc(3)+yc(5))/3.0
+         ph1out(20) = (a1+a2*x+a3*y)/2.0
+         ph1out(21) = -ph1out(20)
       ELSE
-         X = Xc(j)
-         Y = Yc(j)
+         x = xc(j)
+         y = yc(j)
       ENDIF
       IF ( matid2/=0 ) THEN
          DO i = 1 , 60
-            Ts7(i) = 0.0
+            ts7(i) = 0.0
          ENDDO
-         thk = A1 + A2*X + A3*Y
+         thk = a1 + a2*x + a3*y
          thk1 = thk**3/12.0
-         D(1) = d11*thk1
-         D(2) = d12*thk1
-         D(3) = d13*thk1
-         D(4) = D(2)
-         D(5) = d22*thk1
-         D(6) = d23*thk1
-         D(7) = D(3)
-         D(8) = D(6)
-         D(9) = d33*thk1
-         x2 = X*X
-         xy = X*Y
-         y2 = Y*Y
-         x3 = x2*X
-         x2y = x2*Y
-         xy2 = X*y2
-         y3 = y2*Y
-         Ts7(4) = 2.0
-         Ts7(7) = 6.0*X
-         Ts7(8) = 2.0*Y
-         Ts7(11) = 12.0*x2
-         Ts7(12) = 6.0*xy
-         Ts7(13) = 2.0*y2
-         Ts7(16) = 20.0*x3
-         Ts7(17) = 6.0*xy2
-         Ts7(18) = 2.0*y3
-         Ts7(26) = 2.0
-         Ts7(29) = 2.0*X
-         Ts7(30) = 6.0*Y
-         Ts7(33) = 2.0*x2
-         Ts7(34) = Ts7(12)
-         Ts7(35) = 12.0*y2
-         Ts7(37) = 2.0*x3
-         Ts7(38) = 6.0*x2y
-         Ts7(39) = 12.0*xy2
-         Ts7(40) = 20.0*y3
-         Ts7(45) = 2.0
-         Ts7(48) = 4.0*X
-         Ts7(49) = 4.0*Y
-         Ts7(52) = 6.0*x2
-         Ts7(53) = 8.0*xy
-         Ts7(54) = 6.0*y2
-         Ts7(57) = 12.0*x2y
-         Ts7(58) = Ts7(39)
-         Ts7(59) = 8.0*y3
-         CALL gmmats(Ts7,3,20,0,Qqqinv,20,18,0,Ph4(1))
-         CALL strslv(Ts6,nots)
-         CALL gmmats(Ts6,2,20,0,Qqqinv,20,18,0,Ph4(55))
+         d(1) = d11*thk1
+         d(2) = d12*thk1
+         d(3) = d13*thk1
+         d(4) = d(2)
+         d(5) = d22*thk1
+         d(6) = d23*thk1
+         d(7) = d(3)
+         d(8) = d(6)
+         d(9) = d33*thk1
+         x2 = x*x
+         xy = x*y
+         y2 = y*y
+         x3 = x2*x
+         x2y = x2*y
+         xy2 = x*y2
+         y3 = y2*y
+         ts7(4) = 2.0
+         ts7(7) = 6.0*x
+         ts7(8) = 2.0*y
+         ts7(11) = 12.0*x2
+         ts7(12) = 6.0*xy
+         ts7(13) = 2.0*y2
+         ts7(16) = 20.0*x3
+         ts7(17) = 6.0*xy2
+         ts7(18) = 2.0*y3
+         ts7(26) = 2.0
+         ts7(29) = 2.0*x
+         ts7(30) = 6.0*y
+         ts7(33) = 2.0*x2
+         ts7(34) = ts7(12)
+         ts7(35) = 12.0*y2
+         ts7(37) = 2.0*x3
+         ts7(38) = 6.0*x2y
+         ts7(39) = 12.0*xy2
+         ts7(40) = 20.0*y3
+         ts7(45) = 2.0
+         ts7(48) = 4.0*x
+         ts7(49) = 4.0*y
+         ts7(52) = 6.0*x2
+         ts7(53) = 8.0*xy
+         ts7(54) = 6.0*y2
+         ts7(57) = 12.0*x2y
+         ts7(58) = ts7(39)
+         ts7(59) = 8.0*y3
+         CALL gmmats(ts7,3,20,0,qqqinv,20,18,0,ph4(1))
+         CALL strslv(ts6,nots)
+         CALL gmmats(ts6,2,20,0,qqqinv,20,18,0,ph4(55))
       ENDIF
 !
       IF ( matid1/=0 ) THEN
@@ -484,24 +485,24 @@ SUBROUTINE strsl1
          DO j = 1 , 6
             j1 = (j-1)*2 + 1
             j2 = j1 + 1
-            tmm(1,j1) = Q(2,j) + 2.0*X*Q(4,j) + Y*Q(5,j)
-            tmm(2,j2) = Q(3,j) + X*Q(5,j) + 2.0*Y*Q(6,j)
+            tmm(1,j1) = q(2,j) + 2.0*x*q(4,j) + y*q(5,j)
+            tmm(2,j2) = q(3,j) + x*q(5,j) + 2.0*y*q(6,j)
             tmm(3,j1) = tmm(2,j2)
             tmm(3,j2) = tmm(1,j1)
          ENDDO
-         x4 = x3*X
-         x3y = x3*Y
+         x4 = x3*x
+         x3y = x3*y
          x2y2 = x2*y2
-         xy3 = X*y3
-         y4 = Y*y3
-         x5 = x4*X
+         xy3 = x*y3
+         y4 = y*y3
+         x5 = x4*x
          x3y2 = x3*y2
          x2y3 = x2*y3
-         xy4 = X*y4
-         y5 = Y*y4
+         xy4 = x*y4
+         y5 = y*y4
          tmb(1) = -h4
-         tmb(2) = -h4*X
-         tmb(3) = -h4*Y
+         tmb(2) = -h4*x
+         tmb(3) = -h4*y
          tmb(4) = -h4*x2
          tmb(5) = -h4*xy
          tmb(6) = -h4*y2
@@ -520,8 +521,8 @@ SUBROUTINE strsl1
          tmb(19) = -h4*xy4
          tmb(20) = -h4*y5
          tmb(21) = -h6
-         tmb(22) = -h6*X
-         tmb(23) = -h6*Y
+         tmb(22) = -h6*x
+         tmb(23) = -h6*y
          tmb(24) = -h6*x2
          tmb(25) = -h6*xy
          tmb(26) = -h6*y2
@@ -540,8 +541,8 @@ SUBROUTINE strsl1
          tmb(39) = -h6*xy4
          tmb(40) = -h6*y5
          tmb(41) = -h5
-         tmb(42) = -h5*X
-         tmb(43) = -h5*Y
+         tmb(42) = -h5*x
+         tmb(43) = -h5*y
          tmb(44) = -h5*x2
          tmb(45) = -h5*xy
          tmb(46) = -h5*y2
@@ -559,76 +560,76 @@ SUBROUTINE strsl1
          tmb(58) = -h5*x2y3
          tmb(59) = -h5*xy4
          tmb(60) = -h5*y5
-         CALL gmmats(tmb,3,20,0,Qqqinv,20,18,0,tmbq)
+         CALL gmmats(tmb,3,20,0,qqqinv,20,18,0,tmbq)
       ENDIF
 !
       DO ii = 1 , 6
-         IF ( Ics(ii)==0 ) THEN
+         IF ( ics(ii)==0 ) THEN
             DO i = 1 , 3
                DO j = 1 , 6
                   i1 = (i-1)*6 + j
                   j1 = (j-1)*3 + i
-                  E1(i1) = E(j1)
+                  e1(i1) = e(j1)
                ENDDO
             ENDDO
          ELSE
-            CALL transs(iest(4*ii+24),Trans)
+            CALL transs(iest(4*ii+24),trans)
             DO j = 1 , 3
                l = 6*(j-1) + 1
                m = 3*(j-1) + 1
-               Balotr(l) = Trans(m)
-               Balotr(l+1) = Trans(m+1)
-               Balotr(l+2) = Trans(m+2)
-               Balotr(l+21) = Trans(m)
-               Balotr(l+22) = Trans(m+1)
-               Balotr(l+23) = Trans(m+2)
+               balotr(l) = trans(m)
+               balotr(l+1) = trans(m+1)
+               balotr(l+2) = trans(m+2)
+               balotr(l+21) = trans(m)
+               balotr(l+22) = trans(m+1)
+               balotr(l+23) = trans(m+2)
             ENDDO
-            CALL gmmats(E,6,3,+1,Balotr,6,6,0,E1)
+            CALL gmmats(e,6,3,+1,balotr,6,6,0,e1)
          ENDIF
          IF ( matid2/=0 ) THEN
             kz = (ii-1)*3 + 1
-            Ph1ben(1) = Ph4(kz)
-            Ph1ben(2) = Ph4(kz+1)
-            Ph1ben(3) = Ph4(kz+2)
-            Ph1ben(4) = Ph4(kz+18)
-            Ph1ben(5) = Ph4(kz+19)
-            Ph1ben(6) = Ph4(kz+20)
-            Ph1ben(7) = Ph4(kz+36)
-            Ph1ben(8) = Ph4(kz+37)
-            Ph1ben(9) = Ph4(kz+38)
-            CALL gmmats(D,3,3,0,Ph1ben,3,3,0,Dph1)
-            CALL gmmats(Dph1,3,3,0,E1,3,6,0,Ph2)
+            ph1ben(1) = ph4(kz)
+            ph1ben(2) = ph4(kz+1)
+            ph1ben(3) = ph4(kz+2)
+            ph1ben(4) = ph4(kz+18)
+            ph1ben(5) = ph4(kz+19)
+            ph1ben(6) = ph4(kz+20)
+            ph1ben(7) = ph4(kz+36)
+            ph1ben(8) = ph4(kz+37)
+            ph1ben(9) = ph4(kz+38)
+            CALL gmmats(d,3,3,0,ph1ben,3,3,0,dph1)
+            CALL gmmats(dph1,3,3,0,e1,3,6,0,ph2)
             mz = (ii-1)*3 + 55
-            Ph1shr(1) = Ph4(mz)
-            Ph1shr(2) = Ph4(mz+1)
-            Ph1shr(3) = Ph4(mz+2)
-            Ph1shr(4) = Ph4(mz+18)
-            Ph1shr(5) = Ph4(mz+19)
-            Ph1shr(6) = Ph4(mz+20)
+            ph1shr(1) = ph4(mz)
+            ph1shr(2) = ph4(mz+1)
+            ph1shr(3) = ph4(mz+2)
+            ph1shr(4) = ph4(mz+18)
+            ph1shr(5) = ph4(mz+19)
+            ph1shr(6) = ph4(mz+20)
             IF ( nots ) THEN
-               Gph1(1) = Ph1shr(1)
-               Gph1(2) = Ph1shr(2)
-               Gph1(3) = Ph1shr(3)
-               Gph1(4) = Ph1shr(4)
-               Gph1(5) = Ph1shr(5)
-               Gph1(6) = Ph1shr(6)
+               gph1(1) = ph1shr(1)
+               gph1(2) = ph1shr(2)
+               gph1(3) = ph1shr(3)
+               gph1(4) = ph1shr(4)
+               gph1(5) = ph1shr(5)
+               gph1(6) = ph1shr(6)
             ELSE
-               thk = Aa1 + Aa2*X + Aa3*Y
-               G(1) = Em(6)*thk
-               G(2) = 0.0
-               G(3) = 0.0
-               G(4) = G(1)
-               CALL gmmats(G,2,2,0,Ph1shr,2,3,0,Gph1)
+               thk = aa1 + aa2*x + aa3*y
+               g(1) = em(6)*thk
+               g(2) = 0.0
+               g(3) = 0.0
+               g(4) = g(1)
+               CALL gmmats(g,2,2,0,ph1shr,2,3,0,gph1)
             ENDIF
-            CALL gmmats(Gph1,2,3,0,E1,3,6,0,Ph3)
+            CALL gmmats(gph1,2,3,0,e1,3,6,0,ph3)
             DO i = 1 , 3
                DO j = 1 , 6
                   i1 = (i-1)*6 + j
                   i2 = i1 + 18
                   j1 = (ii-1)*30 + (jj-1)*180 + i1 + 21
                   j2 = j1 + 18
-                  Ph1out(j1) = Ph2(i1)
-                  IF ( i/=3 ) Ph1out(j2) = Ph3(i1)
+                  ph1out(j1) = ph2(i1)
+                  IF ( i/=3 ) ph1out(j2) = ph3(i1)
                ENDDO
             ENDDO
          ENDIF
@@ -638,28 +639,28 @@ SUBROUTINE strsl1
                DO j = 1 , 2
                   ji = (i-1)*5 + j
                   ij = (j-1)*3 + i + (ii-1)*6
-                  Tm(ji) = tmmm(ij)
+                  tm(ji) = tmmm(ij)
                ENDDO
             ENDDO
             DO i = 1 , 3
                DO j = 1 , 3
                   ji = (i-1)*5 + j + 2
                   ij = (i-1)*18 + j + (ii-1)*3
-                  Tm(ji) = tmbq(ij)
+                  tm(ji) = tmbq(ij)
                ENDDO
             ENDDO
-            IF ( Ics(ii)/=0 ) CALL gmmats(Ee,6,5,+1,Balotr,6,6,0,Ee1)
+            IF ( ics(ii)/=0 ) CALL gmmats(ee,6,5,+1,balotr,6,6,0,ee1)
             ij1 = (jj-1)*108 + (ii-1)*18 + 762
-            CALL gmmats(Emod,3,3,0,Tm(1),3,5,0,Eph1)
-            IF ( Ics(ii)==0 ) CALL gmmats(Eph1,3,5,0,Ee,6,5,+1,Ph1out(ij1))
-            IF ( Ics(ii)/=0 ) CALL gmmats(Eph1,3,5,0,Ee1,5,6,0,Ph1out(ij1))
+            CALL gmmats(emod,3,3,0,tm(1),3,5,0,eph1)
+            IF ( ics(ii)==0 ) CALL gmmats(eph1,3,5,0,ee,6,5,+1,ph1out(ij1))
+            IF ( ics(ii)/=0 ) CALL gmmats(eph1,3,5,0,ee1,5,6,0,ph1out(ij1))
          ENDIF
       ENDDO
    ENDDO
 !
    jst = 742 + (jj-1)*3
-   IF ( matid2/=0 ) CALL gmmats(D,3,3,0,Alf(1),3,1,0,Ph1out(jst))
-   IF ( matid1/=0 ) CALL gmmats(Emod,3,3,0,Alf(1),3,1,0,Ph1out(1194))
+   IF ( matid2/=0 ) CALL gmmats(d,3,3,0,alf(1),3,1,0,ph1out(jst))
+   IF ( matid1/=0 ) CALL gmmats(emod,3,3,0,alf(1),3,1,0,ph1out(1194))
    IF ( matid1==0 ) THEN
       DO i = 1 , 7
          nph1ou(753+i) = 0
@@ -669,5 +670,5 @@ SUBROUTINE strsl1
          nph1ou(753+i) = iest(i)
       ENDDO
    ENDIF
-   Ph1out(761) = Tref
+   ph1out(761) = tref
 END SUBROUTINE strsl1

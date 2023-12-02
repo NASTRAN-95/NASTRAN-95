@@ -2,8 +2,8 @@
  
 SUBROUTINE ofp1
    IMPLICIT NONE
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_system
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -11,6 +11,12 @@ SUBROUTINE ofp1
    INTEGER , DIMENSION(50) :: id
    INTEGER , DIMENSION(5) :: l123
    INTEGER , DIMENSION(6) :: of
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

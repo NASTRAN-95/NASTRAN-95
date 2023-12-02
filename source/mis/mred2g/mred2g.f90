@@ -1,17 +1,18 @@
-!*==mred2g.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mred2g.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2g(Kode)
-USE C_BITPOS
-USE C_BLANK
-USE C_MPY3TL
-USE C_MPYADX
-USE C_PACKX
-USE C_PATX
-USE C_SYSTEM
-USE C_XMSSG
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_bitpos
+   USE c_blank
+   USE c_mpy3tl
+   USE c_mpyadx
+   USE c_packx
+   USE c_patx
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -103,18 +104,18 @@ USE ISO_FORTRAN_ENV
 !     KODE = 3, NO SETLVL, NO STIFFNESS CALCULATIONS
 !     KODE = 4, SETLVL, NO STIFFNESS CALCULATIONS
 !
-   IF ( Dry==-2 ) RETURN
+   IF ( dry==-2 ) RETURN
    IF ( Kode/=1 .AND. Kode/=3 ) THEN
 !
 !     SET UP NEW SUBSTRUCTURE
 !
-      IF ( .NOT.(Bounds .OR. Modes) ) THEN
+      IF ( .NOT.(bounds .OR. modes) ) THEN
          numb = 1
-         CALL setlvl(Newnam,numb,Oldnam,itest,mred2)
+         CALL setlvl(newnam,numb,oldnam,itest,mred2)
          IF ( itest==8 ) THEN
-            WRITE (Iprntr,99001) Ufm
+            WRITE (iprntr,99001) ufm
 99001       FORMAT (A23,' 6518, ONE OF THE COMPONENT SUBSTRUCTURES HAS BEEN ','USED IN A PREVIOUS COMBINE OR REDUCE.')
-            Dry = -2
+            dry = -2
             RETURN
          ENDIF
       ENDIF
@@ -132,15 +133,15 @@ USE ISO_FORTRAN_ENV
          itrlr1(1) = kbb
          CALL rdtrl(itrlr1)
          item = itmlst(8)
-         itmnam(1) = Oldnam(1)
-         itmnam(2) = Oldnam(2)
-         CALL softrl(Oldnam,item,itrlr2)
+         itmnam(1) = oldnam(1)
+         itmnam(2) = oldnam(2)
+         CALL softrl(oldnam,item,itrlr2)
          itest = itrlr2(1)
          IF ( itest/=1 ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
-         CALL mtrxi(gib,Oldnam,item,0,itest)
+         CALL mtrxi(gib,oldnam,item,0,itest)
          IF ( itest/=1 ) THEN
             CALL spag_block_2
             RETURN
@@ -151,32 +152,32 @@ USE ISO_FORTRAN_ENV
          itrlr3(1) = kib
          CALL rdtrl(itrlr3)
          DO i = 1 , 7
-            Itrlra(i) = itrlr2(i)
-            Itrlrb(i) = itrlr3(i)
-            Itrlrc(i) = itrlr1(i)
+            itrlra(i) = itrlr2(i)
+            itrlrb(i) = itrlr3(i)
+            itrlrc(i) = itrlr1(i)
          ENDDO
          iform = 6
          iprc = 1
          ityp = 0
-         IF ( (Itrlra(5)==2) .OR. (Itrlra(5)==4) ) iprc = 2
-         IF ( (Itrlrb(5)==2) .OR. (Itrlrb(5)==4) ) iprc = 2
-         IF ( (Itrlrc(5)==2) .OR. (Itrlrc(5)==4) ) iprc = 2
-         IF ( Itrlra(5)>=3 ) ityp = 2
-         IF ( Itrlrb(5)>=3 ) ityp = 2
-         IF ( Itrlrc(5)>=3 ) ityp = 2
+         IF ( (itrlra(5)==2) .OR. (itrlra(5)==4) ) iprc = 2
+         IF ( (itrlrb(5)==2) .OR. (itrlrb(5)==4) ) iprc = 2
+         IF ( (itrlrc(5)==2) .OR. (itrlrc(5)==4) ) iprc = 2
+         IF ( itrlra(5)>=3 ) ityp = 2
+         IF ( itrlrb(5)>=3 ) ityp = 2
+         IF ( itrlrc(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Itrlrd,kbarbb,itrlr1(3),iform,itype)
-         T = 1
-         Signab = 1
-         Signc = 1
-         Prec = 0
-         Scr = Iscr(9)
-         dblkor = Korbgn/2 + 1
-         Nz = Lstzwd - (2*dblkor-1)
+         CALL makmcb(itrlrd,kbarbb,itrlr1(3),iform,itype)
+         t = 1
+         signab = 1
+         signc = 1
+         prec = 0
+         scr = iscr(9)
+         dblkor = korbgn/2 + 1
+         nz = lstzwd - (2*dblkor-1)
          CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-         CALL wrttrl(Itrlrd)
-         kbarow = Itrlrd(3)
-         kcol = Itrlrd(2)
+         CALL wrttrl(itrlrd)
+         kbarow = itrlrd(3)
+         kcol = itrlrd(2)
 !
 !     FORM PRELIMINARY STIFFNESS CALCULATION
 !
@@ -192,43 +193,43 @@ USE ISO_FORTRAN_ENV
          CALL rdtrl(itrlr1)
          CALL rdtrl(itrlr2)
          DO i = 1 , 7
-            Jtrlra(i) = itrlr1(i)
-            Jtrlrb(i) = itrlr2(i)
-            Jtrlre(i) = 0
+            jtrlra(i) = itrlr1(i)
+            jtrlrb(i) = itrlr2(i)
+            jtrlre(i) = 0
          ENDDO
          iprc = 1
          ityp = 0
-         IF ( Jtrlra(5)==2 .OR. Jtrlra(5)==4 ) iprc = 2
-         IF ( Jtrlrb(5)==2 .OR. Jtrlrb(5)==4 ) iprc = 2
-         IF ( Jtrlra(5)>=3 .OR. Jtrlrb(5)>=3 ) ityp = 2
+         IF ( jtrlra(5)==2 .OR. jtrlra(5)==4 ) iprc = 2
+         IF ( jtrlrb(5)==2 .OR. jtrlrb(5)==4 ) iprc = 2
+         IF ( jtrlra(5)>=3 .OR. jtrlrb(5)>=3 ) ityp = 2
          itype = iprc + ityp
-         CALL makmcb(Jtrlrc,kee,itrlr1(2),iform,itype)
-         Jscr(1) = Iscr(9)
-         Jscr(2) = Iscr(2)
-         Jscr(3) = Iscr(1)
-         Lkore = Nz
-         Icode = 0
-         Prec3 = 0
+         CALL makmcb(jtrlrc,kee,itrlr1(2),iform,itype)
+         jscr(1) = iscr(9)
+         jscr(2) = iscr(2)
+         jscr(3) = iscr(1)
+         lkore = nz
+         icode = 0
+         prec3 = 0
          CALL mpy3dr(dz(dblkor))
-         CALL wrttrl(Jtrlrc)
-         keerow = Jtrlrc(3)
-         keecol = Jtrlrc(2)
+         CALL wrttrl(jtrlrc)
+         keerow = jtrlrc(3)
+         keecol = jtrlrc(2)
 !
 !     GENERATE MERGE PARTITION VECTOR
 !
-         Nrow = kcol + keecol
-         DO i = 1 , Nrow
-            rz(Korbgn+i-1) = 0.0
-            IF ( i>kcol ) rz(Korbgn+i-1) = 1.0
+         nrow = kcol + keecol
+         DO i = 1 , nrow
+            rz(korbgn+i-1) = 0.0
+            IF ( i>kcol ) rz(korbgn+i-1) = 1.0
          ENDDO
-         Typin = 1
-         Typout = 1
-         Irow = 1
-         Incr = 1
+         typin = 1
+         typout = 1
+         irow = 1
+         incr = 1
          iform = 7
-         CALL makmcb(itrlr1,rprtn,Nrow,iform,Typin)
-         CALL gopen(rprtn,Z(Gbuf1),1)
-         CALL pack(rz(Korbgn),rprtn,itrlr1)
+         CALL makmcb(itrlr1,rprtn,nrow,iform,typin)
+         CALL gopen(rprtn,z(gbuf1),1)
+         CALL pack(rz(korbgn),rprtn,itrlr1)
          CALL close(rprtn,1)
          CALL wrttrl(itrlr1)
 !
@@ -249,14 +250,14 @@ USE ISO_FORTRAN_ENV
          isub(3) = kbarow
          isub(4) = keerow
          iform = 6
-         CALL gmmerg(khh,kbarbb,0,0,kee,rprtn,rprtn,isub,iform,Z(Korbgn),Korlen)
+         CALL gmmerg(khh,kbarbb,0,0,kee,rprtn,rprtn,isub,iform,z(korbgn),korlen)
 !
 !     STORE KHH AS KMTX ON SOF
 !
-         CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-         itmnam(1) = Newnam(1)
-         itmnam(2) = Newnam(2)
-         CALL mtrxo(khh,Newnam,itmlst(1),0,itest)
+         CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
+         itmnam(1) = newnam(1)
+         itmnam(2) = newnam(2)
+         CALL mtrxo(khh,newnam,itmlst(1),0,itest)
          item = itmlst(1)
          IF ( itest/=3 ) THEN
             CALL spag_block_2
@@ -269,10 +270,10 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE HGH MATRIX
 !
-   CALL mtrxi(hgh,Oldnam,itmlst(9),0,itest)
+   CALL mtrxi(hgh,oldnam,itmlst(9),0,itest)
    item = itmlst(9)
-   itmnam(1) = Oldnam(1)
-   itmnam(2) = Oldnam(2)
+   itmnam(1) = oldnam(1)
+   itmnam(2) = oldnam(2)
    IF ( itest/=1 ) THEN
       CALL spag_block_2
       RETURN
@@ -282,9 +283,9 @@ CONTAINS
    SUBROUTINE spag_block_1
       Signab = 1
       Signc = 1
-      Scr = Iscr(1)
-      dblkor = Korbgn/2 + 1
-      Lcore = Lstzwd - (2*dblkor-1)
+      Scr = iscr(1)
+      Dblkor = Korbgn/2 + 1
+      lcore = Lstzwd - (2*Dblkor-1)
 !
 !     GENERATE MATRICES REQUESTED
 !     I = 2, GENERATE MHH MATRIX
@@ -292,10 +293,10 @@ CONTAINS
 !     I = 4, GENERATE K4HH MATRIX
 !     I = 5, GENERATE PHH MATRIX
 !
-      DO i = 2 , 5
-         itrlr1(1) = Infile(i+5)
-         CALL rdtrl(itrlr1)
-         IF ( itrlr1(1)>=0 ) THEN
+      DO I = 2 , 5
+         Itrlr1(1) = infile(I+5)
+         CALL rdtrl(Itrlr1)
+         IF ( Itrlr1(1)>=0 ) THEN
             CALL sofcls
 !
 !     CALCULATE MATRIX REQUIRED
@@ -314,30 +315,30 @@ CONTAINS
 !        *     *   *     * *     *
 !        **   **   **   ** **   **
 !
-            itrlr2(1) = hgh
-            CALL rdtrl(itrlr2)
-            item = itmlst(i)
-            IF ( i==5 .AND. Popt==papp ) item = itmlst(6)
-            DO j = 1 , 7
-               Jtrlra(j) = itrlr2(j)
-               Jtrlrb(j) = itrlr1(j)
-               Jtrlre(j) = 0
+            Itrlr2(1) = Hgh
+            CALL rdtrl(Itrlr2)
+            Item = Itmlst(I)
+            IF ( I==5 .AND. popt==Papp ) Item = Itmlst(6)
+            DO J = 1 , 7
+               jtrlra(J) = Itrlr2(J)
+               jtrlrb(J) = Itrlr1(J)
+               jtrlre(J) = 0
             ENDDO
-            iform = 6
-            iprc = 1
-            ityp = 0
-            IF ( Jtrlra(5)==2 .OR. Jtrlra(5)==4 ) iprc = 2
-            IF ( Jtrlrb(5)==2 .OR. Jtrlrb(5)==4 ) iprc = 2
-            IF ( Jtrlra(5)>=3 .OR. Jtrlrb(5)>=3 ) ityp = 2
-            itype = iprc + ityp
-            CALL makmcb(Jtrlrc,Otfile(i),itrlr2(2),iform,itype)
-            Jscr(1) = Iscr(9)
-            Jscr(2) = Iscr(2)
-            Jscr(3) = Iscr(1)
+            Iform = 6
+            Iprc = 1
+            Ityp = 0
+            IF ( jtrlra(5)==2 .OR. jtrlra(5)==4 ) Iprc = 2
+            IF ( jtrlrb(5)==2 .OR. jtrlrb(5)==4 ) Iprc = 2
+            IF ( jtrlra(5)>=3 .OR. jtrlrb(5)>=3 ) Ityp = 2
+            Itype = Iprc + Ityp
+            CALL makmcb(Jtrlrc,otfile(I),Itrlr2(2),Iform,Itype)
+            jscr(1) = iscr(9)
+            jscr(2) = iscr(2)
+            jscr(3) = iscr(1)
             Icode = 0
-            IF ( i==5 ) Icode = 1
+            IF ( I==5 ) Icode = 1
             Prec3 = 0
-            CALL mpy3dr(dz(dblkor))
+            CALL mpy3dr(Dz(Dblkor))
             CALL wrttrl(Jtrlrc)
 !
 !     STORE MATRIX ON SOF
@@ -346,11 +347,11 @@ CONTAINS
 !     I = 4, STORE K4HH AS K4MX
 !     I = 5, STORE PHH AS PVEC OR PAPP
 !
-            CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
-            itmnam(1) = Newnam(1)
-            itmnam(2) = Newnam(2)
-            CALL mtrxo(Otfile(i),Newnam,item,0,itest)
-            IF ( itest/=3 ) THEN
+            CALL sofopn(z(Sbuf1),z(Sbuf2),z(Sbuf3))
+            Itmnam(1) = Newnam(1)
+            Itmnam(2) = Newnam(2)
+            CALL mtrxo(otfile(I),Newnam,Item,0,Itest)
+            IF ( Itest/=3 ) THEN
                CALL spag_block_2
                RETURN
             ENDIF
@@ -359,63 +360,63 @@ CONTAINS
 !
 !     TEST FOR LOAD PROCESSING
 !
-      IF ( Popt==blanks ) RETURN
-      IF ( .NOT.Ponly ) THEN
+      IF ( popt==Blanks ) RETURN
+      IF ( .NOT.ponly ) THEN
 !
 !     PARTITION PAA VECTOR
 !
-         Lcore = Korlen
-         Fuset = usetmr
-         CALL calcv(uprt,Un,Ui,Ub,Z(Korbgn))
+         lcore = Korlen
+         fuset = Usetmr
+         CALL calcv(Uprt,un,ui,ub,z(Korbgn))
       ELSE
-         itrlr1(1) = eqst
-         CALL rdtrl(itrlr1)
-         Nsub(1) = itrlr1(6)
-         Nsub(2) = itrlr1(7)
-         item = itmlst(11)
-         itmnam(1) = Oldnam(1)
-         itmnam(2) = Oldnam(2)
-         CALL mtrxi(uprt,Oldnam,item,0,itest)
-         IF ( itest/=1 ) THEN
+         Itrlr1(1) = Eqst
+         CALL rdtrl(Itrlr1)
+         nsub(1) = Itrlr1(6)
+         nsub(2) = Itrlr1(7)
+         Item = Itmlst(11)
+         Itmnam(1) = Oldnam(1)
+         Itmnam(2) = Oldnam(2)
+         CALL mtrxi(Uprt,Oldnam,Item,0,Itest)
+         IF ( Itest/=1 ) THEN
             CALL spag_block_2
             RETURN
          ENDIF
       ENDIF
-      CALL gmprtn(paa,pove,0,0,0,0,uprt,Nsub(1),Nsub(2),Z(Korbgn),Korlen)
+      CALL gmprtn(Paa,Pove,0,0,0,0,Uprt,nsub(1),nsub(2),z(Korbgn),Korlen)
 !
 !     SAVE POVE AS POVE OR POAP ON SOF
 !
       IF ( Modes ) RETURN
-      item = itmlst(7)
-      IF ( Popt==papp ) item = itmlst(10)
-      CALL mtrxo(pove,Oldnam,item,0,itest)
-      IF ( itest==3 ) RETURN
+      Item = Itmlst(7)
+      IF ( popt==Papp ) Item = Itmlst(10)
+      CALL mtrxo(Pove,Oldnam,Item,0,Itest)
+      IF ( Itest==3 ) RETURN
       CALL spag_block_2
    END SUBROUTINE spag_block_1
    SUBROUTINE spag_block_2
 !
 !     PROCESS MODULE ERRORS
 !
-      IF ( itest==2 ) THEN
-         imsg = -11
-      ELSEIF ( itest==3 ) THEN
-         imsg = -1
-         CALL smsg(imsg,item,itmnam)
+      IF ( Itest==2 ) THEN
+         Imsg = -11
+      ELSEIF ( Itest==3 ) THEN
+         Imsg = -1
+         CALL smsg(Imsg,Item,Itmnam)
          RETURN
-      ELSEIF ( itest==4 ) THEN
-         imsg = -2
-         CALL smsg(imsg,item,itmnam)
+      ELSEIF ( Itest==4 ) THEN
+         Imsg = -2
+         CALL smsg(Imsg,Item,Itmnam)
          RETURN
-      ELSEIF ( itest==5 ) THEN
-         imsg = -3
-         CALL smsg(imsg,item,itmnam)
+      ELSEIF ( Itest==5 ) THEN
+         Imsg = -3
+         CALL smsg(Imsg,Item,Itmnam)
          RETURN
-      ELSEIF ( itest==6 ) THEN
-         imsg = -10
+      ELSEIF ( Itest==6 ) THEN
+         Imsg = -10
       ELSE
-         imsg = -9
+         Imsg = -9
       ENDIF
       Dry = -2
-      CALL smsg1(imsg,item,itmnam,modnam)
+      CALL smsg1(Imsg,Item,Itmnam,Modnam)
    END SUBROUTINE spag_block_2
 END SUBROUTINE mred2g

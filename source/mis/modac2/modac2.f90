@@ -1,12 +1,13 @@
-!*==modac2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==modac2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE modac2(Nv,Inp1,Iout)
+   USE c_modac3
+   USE c_system
+   USE c_unpakx
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_MODAC3
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -64,23 +65,23 @@ SUBROUTINE modac2(Nv,Inp1,Iout)
          mcb(1) = Inp1
          CALL rdtrl(mcb)
          IF ( mcb(1)<=0 ) RETURN
-         nload = mcb(2)/(Nfo*iabs(Nv))
+         nload = mcb(2)/(nfo*iabs(Nv))
          ifn = 1
-         ikr = ifn + Nfn
-         icol = ikr + Nfo
-         ibuf1 = Nz - Sysbuf + 1
-         ibuf2 = ibuf1 - Sysbuf
-         IF ( icol+mcb(3)+2*Sysbuf>Nz ) CALL mesage(-8,0,name)
+         ikr = ifn + nfn
+         icol = ikr + nfo
+         ibuf1 = nz - sysbuf + 1
+         ibuf2 = ibuf1 - sysbuf
+         IF ( icol+mcb(3)+2*sysbuf>nz ) CALL mesage(-8,0,name)
 !
 !     OPEN  FILES
 !
          file = Inp1
-         CALL gopen(Inp1,Iz(ibuf1),0)
+         CALL gopen(Inp1,iz(ibuf1),0)
          file = Iout
-         CALL open(*20,Iout,Iz(ibuf2),1)
+         CALL open(*20,Iout,iz(ibuf2),1)
          CALL fname(Iout,ihd)
          CALL write(Iout,ihd,2,0)
-         IF ( Nv<=0 ) CALL write(Iout,z,Nfn,0)
+         IF ( Nv<=0 ) CALL write(Iout,z,nfn,0)
          CALL write(Iout,0,0,1)
 !
 !     SET UP MATRIX TRAILER
@@ -90,14 +91,14 @@ SUBROUTINE modac2(Nv,Inp1,Iout)
          mcb(6) = 0
          mcb(7) = 0
          mcb(1) = Iout
-         Itc = mcb(5)
-         Incr = 1
+         itc = mcb(5)
+         incr = 1
          inv = iabs(Nv)
          DO m = 1 , nload
             k = ikr - 1
-            DO i = 1 , Nfo
+            DO i = 1 , nfo
                k = k + 1
-               IF ( Iz(k)==0 ) THEN
+               IF ( iz(k)==0 ) THEN
 !
 !     SKIP COLUMN
 !
@@ -108,7 +109,7 @@ SUBROUTINE modac2(Nv,Inp1,Iout)
 !
 !     KEEP COLUMN
 !
-                  CALL cyct2b(Inp1,Iout,inv,Iz(icol),mcb)
+                  CALL cyct2b(Inp1,Iout,inv,iz(icol),mcb)
                ENDIF
             ENDDO
          ENDDO
@@ -128,7 +129,6 @@ SUBROUTINE modac2(Nv,Inp1,Iout)
          CALL mesage(ip1,file,name)
  40      ip1 = -2
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE modac2

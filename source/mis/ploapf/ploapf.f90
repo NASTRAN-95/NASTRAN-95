@@ -1,9 +1,10 @@
-!*==ploapf.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ploapf.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ploapf(Ecpt,Iecpt,L,Pa,Pb)
+   USE c_matout
    IMPLICIT NONE
-   USE C_MATOUT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -45,16 +46,16 @@ SUBROUTINE ploapf(Ecpt,Iecpt,L,Pa,Pb)
       k1 = Ecpt(31)
       k2 = Ecpt(32)
       i12 = Ecpt(33)
-      ei1 = E*i1
-      ei2 = E*i2
+      ei1 = e*i1
+      ei2 = e*i2
       r1 = 12.0*ei1/l3
       r2 = 12.0*ei2/l3
       IF ( k1/=0.0 .AND. i12==0.0 ) THEN
-         gak = G*a*k1
+         gak = g*a*k1
          r1 = (12.0*ei1*gak)/(gak*l3+12.0*L*ei1)
       ENDIF
       IF ( k2/=0.0 .AND. i12==0.0 ) THEN
-         gak = G*a*k2
+         gak = g*a*k2
          r2 = (12.0*ei2*gak)/(gak*l3+12.0*L*ei2)
       ENDIF
 !
@@ -67,10 +68,10 @@ SUBROUTINE ploapf(Ecpt,Iecpt,L,Pa,Pb)
 !
 !     COMPUTE THE 12 X 12 MATRIX KE
 !
-      ael = a*E/L
+      ael = a*e/L
       lr1 = L*r1/2.0
       lr2 = L*r2/2.0
-      gjl = G*fj/L
+      gjl = g*fj/L
 !
       DO i = 1 , 144
          ke(i) = 0.0
@@ -116,7 +117,7 @@ SUBROUTINE ploapf(Ecpt,Iecpt,L,Pa,Pb)
       ke(140) = -lr1
       ke(144) = sk1
       IF ( i12/=0.0 ) THEN
-         beta = -12.0*E*i12/l3
+         beta = -12.0*e*i12/l3
          lb = L*beta/2.0
          l2b3 = l2*beta/3.0
          l2b6 = l2*beta/6.0

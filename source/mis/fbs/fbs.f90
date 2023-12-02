@@ -1,11 +1,12 @@
-!*==fbs.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==fbs.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE fbs(Zs,Zd)
-USE C_FBSX
-USE C_SYSTEM
-USE C_TYPE
-USE ISO_FORTRAN_ENV                 
+   USE c_fbsx
+   USE c_system
+   USE c_type
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -55,25 +56,25 @@ USE ISO_FORTRAN_ENV
 !
    CALL sswtch(46,l46)
    IF ( l46==0 ) THEN
-      ncol = Dbl(2)
-      typel = Dbl(5)
-      typeb = Dbb(5)
-      rc = Rlcmpx(typeb)
+      ncol = dbl(2)
+      typel = dbl(5)
+      typeb = dbb(5)
+      rc = rlcmpx(typeb)
 !
 !     NRHVWD = NUMBER OF WORDS REQUIRED FOR EACH RIGHT HAND VECTOR
 !     NRHV   = NUMBER OF RIGHT HAND VECTORS
 !
-      nrhvwd = Words(typel)*ncol
-      nrhv = Dbb(2)
+      nrhvwd = words(typel)*ncol
+      nrhv = dbb(2)
 !
 ! CHECK FOR RIGHT HAND VECTORS BEING THE IDENTITY MATRIX
 !
-      IF ( Dbb(4)==8 ) nrhv = ncol
+      IF ( dbb(4)==8 ) nrhv = ncol
 !
 ! COMPUTE THE MEMORY TO READ ALL OF THE RIGHT HAND VECTORS INTO MEMORY
 !
       need = nrhv*nrhvwd
-      iremain = Lcore - 2*Sysbuf - need
+      iremain = lcore - 2*sysbuf - need
 !
 ! IF LESS THAN ONE COLUMN WORTH OF MEMORY AVAILABLE, USE METHOD ONE
 !
@@ -88,7 +89,7 @@ USE ISO_FORTRAN_ENV
 !
 !  METHOD ONE - FIRST, CHECK FOR SUFFICIENT MEMORY FOR PROCESS
 !
-   memavl = Lcore - 2*Sysbuf - nrhvwd
+   memavl = lcore - 2*sysbuf - nrhvwd
    IF ( memavl<=0 ) CALL mesage(-8,-memavl,subnam)
    CALL fbsf(Zs,Zd)
 END SUBROUTINE fbs

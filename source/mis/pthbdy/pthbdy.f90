@@ -1,13 +1,14 @@
-!*==pthbdy.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==pthbdy.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE pthbdy
+   USE c_blank
+   USE c_condas
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_CONDAS
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -49,41 +50,41 @@ SUBROUTINE pthbdy
 !     PRINT FLAG CHBDY FLAG
 !
          iprt = 0
-         IF ( Mesh(1)==iyes ) iprt = 1
-         Nhbdy = -1
-         line = Nlpp
+         IF ( mesh(1)==iyes ) iprt = 1
+         nhbdy = -1
+         line = nlpp
 !
 !     INITIALIZE
 !
-         buf1 = korsz(Z(1)) - Sysbuf
-         buf2 = buf1 - Sysbuf - 1
-         buf3 = buf2 - Sysbuf
-         buf4 = buf3 - Sysbuf
-         buf5 = buf4 - Sysbuf
-         buf6 = buf5 - Sysbuf
-         CALL preloc(*240,Z(buf1),geom2)
-         CALL locate(*240,Z(buf1),chbdy,n)
+         buf1 = korsz(z(1)) - sysbuf
+         buf2 = buf1 - sysbuf - 1
+         buf3 = buf2 - sysbuf
+         buf4 = buf3 - sysbuf
+         buf5 = buf4 - sysbuf
+         buf6 = buf5 - sysbuf
+         CALL preloc(*240,z(buf1),geom2)
+         CALL locate(*240,z(buf1),chbdy,n)
 !
 !     MAKE A SCRATCH FILE WITH EID AF DISLIN FOR CHBDY
 !
          ipn = 0
          ivew = 0
-         CALL preloc(*80,Z(buf2),ept)
+         CALL preloc(*80,z(buf2),ept)
          file1 = ept
-         CALL locate(*40,Z(buf2),phbdy,n)
-         CALL read(*260,*20,ept,Z(1),buf3,0,n)
+         CALL locate(*40,z(buf2),phbdy,n)
+         CALL read(*260,*20,ept,z(1),buf3,0,n)
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
  20      ipn = n
  40      ipv = ipn + 1
          nrd = buf3 - ipv
-         CALL locate(*80,Z(buf2),view,n)
-         CALL read(*260,*60,ept,Z(ipv),nrd,0,n)
+         CALL locate(*80,z(buf2),view,n)
+         CALL read(*260,*60,ept,z(ipv),nrd,0,n)
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
  60      ivew = n
  80      CALL close(ept,1)
-         CALL gopen(scr1,Z(buf2),1)
+         CALL gopen(scr1,z(buf2),1)
          file1 = geom2
          spag_nextblock_1 = 2
       CASE (2)
@@ -93,7 +94,7 @@ SUBROUTINE pthbdy
          IF ( ipn/=0 ) THEN
             SPAG_Loop_1_1: DO i = 1 , ipn , nphbdy
                IF ( cbs(2)==iz(i) ) THEN
-                  tem(1) = Z(i+2)
+                  tem(1) = z(i+2)
                   EXIT SPAG_Loop_1_1
                ENDIF
             ENDDO SPAG_Loop_1_1
@@ -102,12 +103,12 @@ SUBROUTINE pthbdy
             IF ( cbs(15)/=0 ) THEN
                SPAG_Loop_1_2: DO i = 1 , ivew , nview
                   IF ( cbs(15)==iz(ipn+i) ) THEN
-                     tem(2) = Z(ipn+i+5)
+                     tem(2) = z(ipn+i+5)
                      IF ( iprt/=0 ) THEN
-                        IF ( line>=Nlpp ) THEN
+                        IF ( line>=nlpp ) THEN
                            line = 1
                            CALL page1
-                           WRITE (Out,99001)
+                           WRITE (out,99001)
 99001                      FORMAT (1H0,17X,5HIDENT,8X,4HBETA,7X,5HGAMMA,9X,3HCAN,6X,6HCAN BE,/6X,5HCHBDY,6X,6HNUMBER,8X,4HMESH,8X,  &
                                   &4HMESH,7X,5HSHADE,6X,6HSHADED,5X,7HDISLIN ,/)
                         ENDIF
@@ -116,7 +117,7 @@ SUBROUTINE pthbdy
                         IF ( iz(ipn+i+1)==0 ) nb = no
                         IF ( iz(ipn+i+2)==0 ) ns = no
                         line = line + 1
-                        WRITE (Out,99002) cbs(1) , iz(ipn+i) , iz(ipn+i+3) , iz(ipn+i+4) , nb , ns , tem(2)
+                        WRITE (out,99002) cbs(1) , iz(ipn+i) , iz(ipn+i+3) , iz(ipn+i+4) , nb , ns , tem(2)
 99002                   FORMAT (1H ,4(I10,2X),6X,A4,8X,A4,2X,1P,E10.4)
                      ENDIF
                      EXIT SPAG_Loop_1_2
@@ -130,7 +131,7 @@ SUBROUTINE pthbdy
  100     CALL write(scr1,0,0,1)
          CALL close(scr1,1)
          CALL close(geom2,1)
-         CALL gopen(scr1,Z(buf1),0)
+         CALL gopen(scr1,z(buf1),0)
          trl(1) = sil
          CALL rdtrl(trl)
          osil = trl(3)
@@ -138,15 +139,15 @@ SUBROUTINE pthbdy
          CALL rdtrl(trl)
          nin = trl(2)
          nrd = 4*trl(2)
-         IF ( 5*Sysbuf+nrd+50>buf1 ) THEN
+         IF ( 5*sysbuf+nrd+50>buf1 ) THEN
             spag_nextblock_1 = 11
             CYCLE SPAG_DispatchLoop_1
          ENDIF
 !
 !     FIND CHBDY CARDS COPY ECT TO CHBDY CARDS
 !
-         CALL gopen(ect,Z(buf2),0)
-         CALL gopen(hect,Z(buf3),1)
+         CALL gopen(ect,z(buf2),0)
+         CALL gopen(hect,z(buf3),1)
          file1 = ect
          spag_nextblock_1 = 3
       CASE (3)
@@ -169,51 +170,50 @@ SUBROUTINE pthbdy
 !
 !     DUPE REST OF RECORD
 !
-               CALL read(*260,*120,ect,Z(1),buf6-1,0,n)
-               CALL write(hect,Z(1),buf6-1,0)
+               CALL read(*260,*120,ect,z(1),buf6-1,0,n)
+               CALL write(hect,z(1),buf6-1,0)
             ENDDO
          ENDIF
- 120     CALL write(hect,Z(1),n,1)
+ 120     CALL write(hect,z(1),n,1)
          spag_nextblock_1 = 3
-         CYCLE SPAG_DispatchLoop_1
       CASE (4)
-         CALL gopen(file1,Z(buf6),0)
-         CALL gopen(file2,Z(n),1)
+         CALL gopen(file1,z(buf6),0)
+         CALL gopen(file2,z(n),1)
          DO
-            CALL read(*260,*140,file1,Z(ilft),icore,0,m)
+            CALL read(*260,*140,file1,z(ilft),icore,0,m)
             IF ( file1==ieq ) THEN
                DO i = 1 , icore , 2
                   IF ( iz(i)>leq ) leq = iz(i)
                ENDDO
             ENDIF
-            CALL write(file2,Z(ilft),icore,0)
+            CALL write(file2,z(ilft),icore,0)
          ENDDO
  140     IF ( file1==ieq ) THEN
             DO i = 1 , m , 2
                IF ( iz(i)>leq ) leq = iz(i)
             ENDDO
          ENDIF
-         CALL write(file2,Z(ilft),m,0)
+         CALL write(file2,z(ilft),m,0)
          CALL close(file1,1)
          IF ( n==buf5 ) THEN
 !
 !     BRING IN BGPDT
 !
-            CALL gopen(bgpdt,Z(buf6),0)
+            CALL gopen(bgpdt,z(buf6),0)
             file1 = bgpdt
-            CALL read(*260,*260,bgpdt,Z(1),nrd,0,n)
+            CALL read(*260,*260,bgpdt,z(1),nrd,0,n)
             CALL close(bgpdt,1)
 !
 !     FINALLY TIME TO GO TO WORK
 !
-            Nhbdy = 0
+            nhbdy = 0
             nngp = 0
             nbgp = nrd + 1
             DO i = 1 , 24
                iz(nrd+i) = 0
             ENDDO
             file1 = ect
-            CALL gopen(scr2,Z(buf6),1)
+            CALL gopen(scr2,z(buf6),1)
          ELSE
             file1 = ieq
             file2 = oeq
@@ -228,7 +228,7 @@ SUBROUTINE pthbdy
          IF ( cbs(3)>6 ) cbs(3) = 3
          CALL read(*260,*260,scr1,tem,2,0,n)
          flag = cbs(3)
-         Nhbdy = Nhbdy + 1
+         nhbdy = nhbdy + 1
          IF ( flag==2 ) THEN
 !
 !     LINE
@@ -238,7 +238,7 @@ SUBROUTINE pthbdy
 !
             i1 = (cbs(4)-1)*4 + 2
             i2 = (cbs(5)-1)*4 + 2
-            CALL samb(Z(i2),Z(i1),r21)
+            CALL samb(z(i2),z(i1),r21)
             xl = sadotb(r21,r21)
             IF ( xl==0.0 ) GOTO 220
             x1 = sadotb(r21,cbs(12))
@@ -252,24 +252,24 @@ SUBROUTINE pthbdy
             CALL sanorm(*220,e)
             d = tem(2)
             af = tem(1)*.5
-            Z(nbgp+1) = Z(i1) + d*v(1) - af*e(1)
-            Z(nbgp+2) = Z(i1+1) + d*v(2) - af*e(2)
-            Z(nbgp+3) = Z(i1+2) + d*v(3) - af*e(3)
-            Z(nbgp+5) = Z(i2) + d*v(1) - af*e(1)
-            Z(nbgp+6) = Z(i2+1) + d*v(2) - af*e(2)
-            Z(nbgp+7) = Z(i2+2) + d*v(3) - af*e(3)
-            Z(nbgp+9) = Z(i2) + d*v(1) + af*e(1)
-            Z(nbgp+10) = Z(i2+1) + d*v(2) + af*e(2)
-            Z(nbgp+11) = Z(i2+2) + d*v(3) + af*e(3)
-            Z(nbgp+13) = Z(i1) + d*v(1) + af*e(1)
-            Z(nbgp+14) = Z(i1+1) + d*v(2) + af*e(2)
-            Z(nbgp+15) = Z(i1+2) + d*v(3) + af*e(3)
-            Z(nbgp+17) = Z(i1) + d*v(1) + .5*r21(1)
-            Z(nbgp+18) = Z(i1+1) + d*v(2) + .5*r21(2)
-            Z(nbgp+19) = Z(i1+2) + d*v(3) + .5*r21(3)
-            Z(nbgp+21) = Z(nbgp+17) + 2.*af*v(1)
-            Z(nbgp+22) = Z(nbgp+18) + 2.*af*v(2)
-            Z(nbgp+23) = Z(nbgp+19) + 2.*af*v(3)
+            z(nbgp+1) = z(i1) + d*v(1) - af*e(1)
+            z(nbgp+2) = z(i1+1) + d*v(2) - af*e(2)
+            z(nbgp+3) = z(i1+2) + d*v(3) - af*e(3)
+            z(nbgp+5) = z(i2) + d*v(1) - af*e(1)
+            z(nbgp+6) = z(i2+1) + d*v(2) - af*e(2)
+            z(nbgp+7) = z(i2+2) + d*v(3) - af*e(3)
+            z(nbgp+9) = z(i2) + d*v(1) + af*e(1)
+            z(nbgp+10) = z(i2+1) + d*v(2) + af*e(2)
+            z(nbgp+11) = z(i2+2) + d*v(3) + af*e(3)
+            z(nbgp+13) = z(i1) + d*v(1) + af*e(1)
+            z(nbgp+14) = z(i1+1) + d*v(2) + af*e(2)
+            z(nbgp+15) = z(i1+2) + d*v(3) + af*e(3)
+            z(nbgp+17) = z(i1) + d*v(1) + .5*r21(1)
+            z(nbgp+18) = z(i1+1) + d*v(2) + .5*r21(2)
+            z(nbgp+19) = z(i1+2) + d*v(3) + .5*r21(3)
+            z(nbgp+21) = z(nbgp+17) + 2.*af*v(1)
+            z(nbgp+22) = z(nbgp+18) + 2.*af*v(2)
+            z(nbgp+23) = z(nbgp+19) + 2.*af*v(3)
             nngp = nngp + 6
             ns = 6
             nea = 12
@@ -293,27 +293,27 @@ SUBROUTINE pthbdy
             i1 = (cbs(4)-1)*4 + 2
             i2 = (cbs(5)-1)*4 + 2
             i3 = (cbs(6)-1)*4 + 2
-            CALL samb(Z(i2),Z(i1),e)
-            CALL samb(Z(i3),Z(i1),v)
+            CALL samb(z(i2),z(i1),e)
+            CALL samb(z(i3),z(i1),v)
             CALL saxb(e,v,e)
             CALL sanorm(*220,e)
-            CALL samb(Z(i2),Z(i1),v)
+            CALL samb(z(i2),z(i1),v)
             x1 = sadotb(v,v)
-            CALL samb(Z(i3),Z(i1),v)
+            CALL samb(z(i3),z(i1),v)
             x2 = sadotb(v,v)
-            CALL samb(Z(i3),Z(i2),v)
+            CALL samb(z(i3),z(i2),v)
             x3 = sadotb(v,v)
             x1 = amax1(x1,x2)
             x1 = amax1(x1,x3)
             xl = .25*sqrt(x1)
-            CALL sapb(Z(i1),Z(i2),v)
-            CALL sapb(Z(i3),v,v)
-            Z(nbgp+1) = v(1)/3.0
-            Z(nbgp+2) = v(2)/3.0
-            Z(nbgp+3) = v(3)/3.0
-            Z(nbgp+5) = Z(nbgp+1) + xl*e(1)
-            Z(nbgp+6) = Z(nbgp+2) + xl*e(2)
-            Z(nbgp+7) = Z(nbgp+3) + xl*e(3)
+            CALL sapb(z(i1),z(i2),v)
+            CALL sapb(z(i3),v,v)
+            z(nbgp+1) = v(1)/3.0
+            z(nbgp+2) = v(2)/3.0
+            z(nbgp+3) = v(3)/3.0
+            z(nbgp+5) = z(nbgp+1) + xl*e(1)
+            z(nbgp+6) = z(nbgp+2) + xl*e(2)
+            z(nbgp+7) = z(nbgp+3) + xl*e(3)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ELSEIF ( flag==5 ) THEN
@@ -326,31 +326,31 @@ SUBROUTINE pthbdy
             i2 = (cbs(5)-1)*4 + 2
             i3 = (cbs(6)-1)*4 + 2
             i4 = (cbs(7)-1)*4 + 2
-            CALL samb(Z(i3),Z(i1),e)
-            CALL samb(Z(i4),Z(i2),v)
+            CALL samb(z(i3),z(i1),e)
+            CALL samb(z(i4),z(i2),v)
             CALL saxb(e,v,e)
             CALL sanorm(*220,e)
-            CALL samb(Z(i2),Z(i1),v)
+            CALL samb(z(i2),z(i1),v)
             x1 = sadotb(v,v)
-            CALL samb(Z(i3),Z(i2),v)
+            CALL samb(z(i3),z(i2),v)
             x2 = sadotb(v,v)
-            CALL samb(Z(i4),Z(i3),v)
+            CALL samb(z(i4),z(i3),v)
             x3 = sadotb(v,v)
-            CALL samb(Z(i4),Z(i1),v)
+            CALL samb(z(i4),z(i1),v)
             x4 = sadotb(v,v)
             x1 = amax1(x1,x2)
             x1 = amax1(x1,x3)
             x1 = amax1(x1,x4)
             xl = .25*sqrt(x1)
-            CALL sapb(Z(i1),Z(i2),v)
-            CALL sapb(v,Z(i3),v)
-            CALL sapb(v,Z(i4),v)
-            Z(nbgp+1) = .25*v(1)
-            Z(nbgp+2) = .25*v(2)
-            Z(nbgp+3) = .25*v(3)
-            Z(nbgp+5) = Z(nbgp+1) + xl*e(1)
-            Z(nbgp+6) = Z(nbgp+2) + xl*e(2)
-            Z(nbgp+7) = Z(nbgp+3) + xl*e(3)
+            CALL sapb(z(i1),z(i2),v)
+            CALL sapb(v,z(i3),v)
+            CALL sapb(v,z(i4),v)
+            z(nbgp+1) = .25*v(1)
+            z(nbgp+2) = .25*v(2)
+            z(nbgp+3) = .25*v(3)
+            z(nbgp+5) = z(nbgp+1) + xl*e(1)
+            z(nbgp+6) = z(nbgp+2) + xl*e(2)
+            z(nbgp+7) = z(nbgp+3) + xl*e(3)
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ELSE
@@ -387,28 +387,28 @@ SUBROUTINE pthbdy
          ENDIF
  160     CALL saxb(v,r21,e)
          xl = 0.0
-         IF ( tem(1)/=0.0 ) xl = sqrt(tem(1)/Pi)
+         IF ( tem(1)/=0.0 ) xl = sqrt(tem(1)/pi)
          zs3 = .8660254
-         Z(nbgp+1) = Z(i1) + xl*r21(1)
-         Z(nbgp+2) = Z(i1+1) + xl*r21(2)
-         Z(nbgp+3) = Z(i1+2) + xl*r21(3)
-         Z(nbgp+5) = Z(i1) + xl*(.5*r21(1)+zs3*e(1))
-         Z(nbgp+6) = Z(i1+1) + xl*(.5*r21(2)+zs3*e(2))
-         Z(nbgp+7) = Z(i1+2) + xl*(.5*r21(3)+zs3*e(3))
-         Z(nbgp+9) = Z(i1) + xl*(-.5*r21(1)+zs3*e(1))
-         Z(nbgp+10) = Z(i1+1) + xl*(-.5*r21(2)+zs3*e(2))
-         Z(nbgp+11) = Z(i1+2) + xl*(-.5*r21(3)+zs3*e(3))
-         Z(nbgp+14) = Z(i1+1) - xl*r21(2)
-         Z(nbgp+15) = Z(i1+2) - xl*r21(3)
-         Z(nbgp+17) = Z(i1) + xl*(-.5*r21(1)-zs3*e(1))
-         Z(nbgp+18) = Z(i1+1) + xl*(-.5*r21(2)-zs3*e(2))
-         Z(nbgp+19) = Z(i1+2) + xl*(-.5*r21(3)-zs3*e(3))
-         Z(nbgp+21) = Z(i1) + xl*(+.5*r21(1)-zs3*e(1))
-         Z(nbgp+22) = Z(i1+1) + xl*(+.5*r21(2)-zs3*e(2))
-         Z(nbgp+23) = Z(i1+2) + xl*(+.5*r21(3)-zs3*e(3))
-         Z(nbgp+25) = Z(i1) + xl*v(1)
-         Z(nbgp+26) = Z(i1+1) + xl*v(2)
-         Z(nbgp+27) = Z(i1+2) + xl*v(3)
+         z(nbgp+1) = z(i1) + xl*r21(1)
+         z(nbgp+2) = z(i1+1) + xl*r21(2)
+         z(nbgp+3) = z(i1+2) + xl*r21(3)
+         z(nbgp+5) = z(i1) + xl*(.5*r21(1)+zs3*e(1))
+         z(nbgp+6) = z(i1+1) + xl*(.5*r21(2)+zs3*e(2))
+         z(nbgp+7) = z(i1+2) + xl*(.5*r21(3)+zs3*e(3))
+         z(nbgp+9) = z(i1) + xl*(-.5*r21(1)+zs3*e(1))
+         z(nbgp+10) = z(i1+1) + xl*(-.5*r21(2)+zs3*e(2))
+         z(nbgp+11) = z(i1+2) + xl*(-.5*r21(3)+zs3*e(3))
+         z(nbgp+14) = z(i1+1) - xl*r21(2)
+         z(nbgp+15) = z(i1+2) - xl*r21(3)
+         z(nbgp+17) = z(i1) + xl*(-.5*r21(1)-zs3*e(1))
+         z(nbgp+18) = z(i1+1) + xl*(-.5*r21(2)-zs3*e(2))
+         z(nbgp+19) = z(i1+2) + xl*(-.5*r21(3)-zs3*e(3))
+         z(nbgp+21) = z(i1) + xl*(+.5*r21(1)-zs3*e(1))
+         z(nbgp+22) = z(i1+1) + xl*(+.5*r21(2)-zs3*e(2))
+         z(nbgp+23) = z(i1+2) + xl*(+.5*r21(3)-zs3*e(3))
+         z(nbgp+25) = z(i1) + xl*v(1)
+         z(nbgp+26) = z(i1+1) + xl*v(2)
+         z(nbgp+27) = z(i1+2) + xl*v(3)
          nngp = nngp + 7
          ns = 7
          nea = 14
@@ -429,7 +429,6 @@ SUBROUTINE pthbdy
             n = n + 1
          ENDDO
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (7)
          nngp = nngp + 2
          ns = 2
@@ -460,7 +459,7 @@ SUBROUTINE pthbdy
 !
          CALL write(hsil,nsil,ns,0)
          CALL write(oeq,neq,nea,0)
-         CALL write(scr2,Z(nbgp),nb,0)
+         CALL write(scr2,z(nbgp),nb,0)
          spag_nextblock_1 = 9
       CASE (9)
          cbs(3) = -cbs(3)
@@ -478,19 +477,19 @@ SUBROUTINE pthbdy
          CALL close(scr1,1)
          CALL close(hsil,1)
          CALL close(oeq,1)
-         CALL gopen(hbgpdt,Z(buf1),1)
-         CALL write(hbgpdt,Z,nrd,0)
+         CALL gopen(hbgpdt,z(buf1),1)
+         CALL write(hbgpdt,z,nrd,0)
          IF ( nngp==0 ) THEN
             spag_nextblock_1 = 10
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          file1 = scr2
-         CALL gopen(scr2,Z(buf6),0)
+         CALL gopen(scr2,z(buf6),0)
          DO
-            CALL read(*260,*200,scr2,Z(1),buf6-1,0,n)
-            CALL write(hbgpdt,Z(1),buf6-1,0)
+            CALL read(*260,*200,scr2,z(1),buf6-1,0,n)
+            CALL write(hbgpdt,z(1),buf6-1,0)
          ENDDO
- 200     CALL write(hbgpdt,Z(1),n,1)
+ 200     CALL write(hbgpdt,z(1),n,1)
          CALL close(scr2,1)
          spag_nextblock_1 = 10
       CASE (10)
@@ -514,8 +513,8 @@ SUBROUTINE pthbdy
 !     BAD GEOMETRY FOR ELEMENT
 !
  220     cbs(3) = -cbs(3)
-         Nhbdy = Nhbdy - 1
-         WRITE (Out,99003) Uwm , cbs(1)
+         nhbdy = nhbdy - 1
+         WRITE (out,99003) uwm , cbs(1)
 99003    FORMAT (A25,', CHBDY ELEMENT',I9,' HAS NO NORMAL OR BAD GEOMETRY',' WHICH MAKES IT UNPLOTTABLE')
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1

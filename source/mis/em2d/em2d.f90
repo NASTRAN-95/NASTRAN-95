@@ -1,15 +1,16 @@
-!*==em2d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==em2d.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
+   USE c_blank
+   USE c_emecpt
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_EMECPT
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -142,7 +143,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
-         WRITE (Otpe,99001) Ufm , nam , Itype
+         WRITE (otpe,99001) ufm , nam , Itype
 99001    FORMAT (A23,', IN SUBROUTINE',2A4,' ELEMENT TYPE',I8,' IS NOT ','LEGAL')
          CALL mesage(-61,0,0)
          RETURN
@@ -222,12 +223,12 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
          SPAG_Loop_1_2: DO i = 1 , ngrids
             isub = Istart + 3*necpt(isil+i-1) - 3
             IF ( Jtype==24 ) isub = Istart + 3*Ncount - 3
-            h1 = h1 + abs(Z(isub))
-            h2 = h2 + abs(Z(isub+1))
-            h3 = h3 + abs(Z(isub+2))
-            g1 = g1 + Z(isub)
-            g2 = g2 + Z(isub+1)
-            g3 = g3 + Z(isub+2)
+            h1 = h1 + abs(z(isub))
+            h2 = h2 + abs(z(isub+1))
+            h3 = h3 + abs(z(isub+2))
+            g1 = g1 + z(isub)
+            g2 = g2 + z(isub+1)
+            g3 = g3 + z(isub+2)
             IF ( Jtype==24 ) EXIT SPAG_Loop_1_2
          ENDDO SPAG_Loop_1_2
          hl = h1 + h2 + h3
@@ -275,18 +276,18 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     TERMS OF MATERIAL MATRIX W.R.T.Z ARE 0, AND IF ANISOTROPIC ANGLE
 !     IS NOT 0, THEN WE MUST TRANSFORM MATERIALS TO ELEMENT SYSTEM HERE.
 !
-            Inflag = 3
+            inflag = 3
             IF ( Jtype/=24 ) THEN
-               Matid = necpt(mid)
-               Eltemp = Ecpt(itemp)
-               angle = Ecpt(ith)*0.017453293
-               Sinth = sin(angle)
-               Costh = cos(angle)
+               matid = necpt(mid)
+               eltemp = ecpt(itemp)
+               angle = ecpt(ith)*0.017453293
+               sinth = sin(angle)
+               costh = cos(angle)
                CALL hmat(necpt(1))
 !
 !     CHECK FOR 3-D ANISOTROPY
 !
-               IF ( Xmat(3)==0. .AND. Xmat(5)==0. ) THEN
+               IF ( xmat(3)==0. .AND. xmat(5)==0. ) THEN
 !
 !     CHECK FOR 2-D ANISOTROPY
 !
@@ -294,25 +295,25 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !
 !     2-D ANISOTROPY
 !
-                     csq = Costh*Costh
-                     ssq = Sinth*Sinth
-                     cs = Costh*Sinth
-                     g(1) = csq*Xmat(1) - 2.*cs*Xmat(2) + ssq*Xmat(4)
-                     g(2) = cs*(Xmat(1)-Xmat(4)) + (csq-ssq)*Xmat(2)
+                     csq = costh*costh
+                     ssq = sinth*sinth
+                     cs = costh*sinth
+                     g(1) = csq*xmat(1) - 2.*cs*xmat(2) + ssq*xmat(4)
+                     g(2) = cs*(xmat(1)-xmat(4)) + (csq-ssq)*xmat(2)
                      g(3) = 0.
-                     g(5) = ssq*Xmat(1) + 2.*cs*Xmat(2) + csq*Xmat(4)
+                     g(5) = ssq*xmat(1) + 2.*cs*xmat(2) + csq*xmat(4)
                      g(6) = 0.
-                     g(9) = Xmat(6)
+                     g(9) = xmat(6)
                      GOTO 5
                   ENDIF
                ENDIF
 !
-               g(1) = Xmat(1)
-               g(2) = Xmat(2)
-               g(3) = Xmat(3)
-               g(5) = Xmat(4)
-               g(6) = Xmat(5)
-               g(9) = Xmat(6)
+               g(1) = xmat(1)
+               g(2) = xmat(2)
+               g(3) = xmat(3)
+               g(5) = xmat(4)
+               g(6) = xmat(5)
+               g(9) = xmat(6)
 !
  5             IF ( Itype==36 .OR. Itype==37 ) THEN
 !
@@ -345,7 +346,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                isubi = isys + 4*i - 4
                DO j = 1 , 3
                   isub = isubi + j
-                  r(j,i) = Ecpt(isub)
+                  r(j,i) = ecpt(isub)
                ENDDO
             ENDDO
          ENDIF
@@ -440,9 +441,9 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     REMFLUX
 !
                   isub = Istart + 3*Ncount - 3
-                  gh(1) = Z(isub)
-                  gh(2) = Z(isub+1)
-                  gh(3) = Z(isub+2)
+                  gh(1) = z(isub)
+                  gh(2) = z(isub+1)
+                  gh(3) = z(isub+2)
                   spag_nextblock_1 = 8
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
@@ -454,9 +455,9 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             IF ( Jtype==20 ) THEN
                DO i = 1 , ngrids
                   isil = 3*necpt(i+1)
-                  hci(3*i-2) = Z(Istart+isil-3)
-                  hci(3*i-1) = Z(Istart+isil-2)
-                  hci(3*i) = Z(Istart+isil-1)
+                  hci(3*i-2) = z(Istart+isil-3)
+                  hci(3*i-1) = z(Istart+isil-2)
+                  hci(3*i) = z(Istart+isil-1)
                ENDDO
             ENDIF
          ELSE
@@ -519,7 +520,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                            y3 = sqrt(dxx(1)**2+dxx(2)**2+dxx(3)**2)
 !
                            area = .5*x2*y3
-                           vol = area*Ecpt(ia)
+                           vol = area*ecpt(ia)
 !
 !     GET J AND K VECTORS FOR LATER USE
 !
@@ -606,9 +607,9 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     REMFLUX
 !
                            ipt = Istart + 3*Ncount - 3
-                           hc(1) = Z(ipt)
-                           hc(2) = Z(ipt+1)
-                           hc(3) = Z(ipt+2)
+                           hc(1) = z(ipt)
+                           hc(2) = z(ipt+1)
+                           hc(3) = z(ipt+2)
                            spag_nextblock_2 = 2
                            CYCLE SPAG_DispatchLoop_2
                         ENDIF
@@ -670,7 +671,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                                        IF ( Jtype/=20 ) THEN
                                          isub = Istart + (ijk-1)*Iwords - 1
                                          DO i = 1 , Iwords
-                                         buf(i) = Z(isub+i)
+                                         buf(i) = z(isub+i)
                                          ENDDO
                                          IF ( ktype==2 ) THEN
 !
@@ -694,9 +695,9 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                                          ipi = ip(i)
                                          nsil = necpt(isil+ipi-1)
                                          ipt = Istart + 3*nsil - 3
-                                         hcx(i) = Z(ipt)
-                                         hcy(i) = Z(ipt+1)
-                                         hcz(i) = Z(ipt+2)
+                                         hcx(i) = z(ipt)
+                                         hcy(i) = z(ipt+1)
+                                         hcz(i) = z(ipt+2)
                                        ENDDO
                                        hc1 = l(1,npts)*hcx(1) + l(2,npts)*hcx(2) + l(3,npts)*hcx(3)
                                        hc2 = l(1,npts)*hcy(1) + l(2,npts)*hcy(2) + l(3,npts)*hcy(3)
@@ -768,17 +769,17 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     IF PERMBDY EXISTS AND IF GRID IS NOT ON IT, IGNORE ITS LOAD
 !
                               IF ( Nbdys/=0 ) THEN
-                                 DO i = 1 , Nbdys
+                                 SPAG_Loop_6_1: DO i = 1 , Nbdys
                                     IF ( nsil==iz(Istart-Nbdys-Nelout+i-1) ) THEN
                                        spag_nextblock_5 = 2
-                                       CYCLE SPAG_DispatchLoop_5
+                                       EXIT SPAG_Loop_6_1
                                     ENDIF
-                                 ENDDO
+                                 ENDDO SPAG_Loop_6_1
                                  CYCLE
                               ENDIF
                               spag_nextblock_5 = 2
                            CASE (2)
-                              Z(nsil) = Z(nsil) - xload(j)*vol
+                              z(nsil) = z(nsil) - xload(j)*vol
                               EXIT SPAG_DispatchLoop_5
                            END SELECT
                         ENDDO SPAG_DispatchLoop_5
@@ -902,7 +903,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
                         DO ijk = 1 , Ido
                            isub = Istart + (ijk-1)*Iwords - 1
                            DO m = 1 , Iwords
-                              buf(m) = Z(isub+m)
+                              buf(m) = z(isub+m)
                            ENDDO
                            IF ( ktype==2 ) THEN
                               CALL geloop(buf,jbuf,xx,yy,zz,hc1,hc2,hc3)
@@ -956,17 +957,17 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
 !     IF PERMBDY EXISTS AND IF GRID IS NOT ON IT, IGNORE ITS LOAD
 !
                      IF ( Nbdys/=0 ) THEN
-                        DO i = 1 , Nbdys
+                        SPAG_Loop_4_2: DO i = 1 , Nbdys
                            IF ( isil==iz(Istart-Nbdys-Nelout+i-1) ) THEN
                               spag_nextblock_6 = 2
-                              CYCLE SPAG_DispatchLoop_6
+                              EXIT SPAG_Loop_4_2
                            ENDIF
-                        ENDDO
+                        ENDDO SPAG_Loop_4_2
                         CYCLE
                      ENDIF
                      spag_nextblock_6 = 2
                   CASE (2)
-                     Z(isil) = Z(isil) - f(m)*Ecpt(ia)
+                     z(isil) = z(isil) - f(m)*ecpt(ia)
                      EXIT SPAG_DispatchLoop_6
                   END SELECT
                ENDDO SPAG_DispatchLoop_6
@@ -1032,7 +1033,7 @@ SUBROUTINE em2d(Itype,Istart,Jtype,Ncount,Ido,Iwords,Nbdys,All,Nelout)
             DO ijk = 1 , Ido
                isub = Istart + (ijk-1)*Iwords - 1
                DO i = 1 , Iwords
-                  buf(i) = Z(isub+i)
+                  buf(i) = z(isub+i)
                ENDDO
                IF ( ktype==2 ) THEN
                   CALL geloop(buf,jbuf,xx,yy,zz,hc1,hc2,hc3)

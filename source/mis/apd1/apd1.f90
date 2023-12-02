@@ -1,14 +1,15 @@
-!*==apd1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==apd1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
+   USE c_apd12c
+   USE c_apd1c
+   USE c_apd1d
+   USE c_blank
+   USE c_system
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_APD12C
-   USE C_APD1C
-   USE C_APD1D
-   USE C_BLANK
-   USE C_SYSTEM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -51,8 +52,8 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Key(1) = 1
-         silc = Silb
+         key(1) = 1
+         silc = silb
 !
 !     IF NEW IGRID SET INITIALIZE
 !
@@ -60,54 +61,54 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
             np = 0
             ntp = 0
             nbox = 0
-            Nasb = 0
+            nasb = 0
             nstrip = 0
-            CALL gopen(Scr3,Z(Buf10),wtrew)
-            CALL gopen(Scr4,Z(Buf11),wtrew)
-            CALL gopen(Scr5,Z(Buf12),wtrew)
+            CALL gopen(scr3,z(buf10),wtrew)
+            CALL gopen(scr4,z(buf11),wtrew)
+            CALL gopen(scr5,z(buf12),wtrew)
          ENDIF
 !
 !     MAKE COORD SYSTEM AND GET POINTS IN PROPER SYSTEM
 !
          CALL apdcs
-         sg = S1
-         cg = C1
-         acsib = Mcstm
+         sg = s1
+         cg = c1
+         acsib = mcstm
 !
 !     CHECK FOR ASSOCIATED BODIES
 !
          SPAG_Loop_1_1: DO j = 1 , 6
-            IF ( iz(Ippc+j)==0 ) EXIT SPAG_Loop_1_1
-            Nasb = Nasb + 1
+            IF ( iz(ippc+j)==0 ) EXIT SPAG_Loop_1_1
+            nasb = nasb + 1
          ENDDO SPAG_Loop_1_1
 !
 !     GENERATE BOXES
 !
-         ncrdp = Ncrd
+         ncrdp = ncrd
          np = np + 1
-         fsj1 = apdf(Fst,1,Nspan)
-         yj1 = fsj1*Yp4
-         dj1 = fsj1*Xp4
-         cj1 = (1.0-fsj1)*Xp2 + fsj1*(Xp3-Xp4)
-         eidb = Eid - 1
+         fsj1 = apdf(Fst,1,nspan)
+         yj1 = fsj1*yp4
+         dj1 = fsj1*xp4
+         cj1 = (1.0-fsj1)*xp2 + fsj1*(xp3-xp4)
+         eidb = eid - 1
          DO j = 1 , Ns
             yj = yj1
             dj = dj1
             cj = cj1
-            fsj1 = apdf(Fst,j+1,Nspan)
-            yj1 = fsj1*Yp4
-            dj1 = fsj1*Xp4
-            cj1 = (1.0-fsj1)*Xp2 + fsj1*(Xp3-Xp4)
+            fsj1 = apdf(Fst,j+1,nspan)
+            yj1 = fsj1*yp4
+            dj1 = fsj1*xp4
+            cj1 = (1.0-fsj1)*xp2 + fsj1*(xp3-xp4)
             ee = .5*(yj1-yj)
             ysp = yj + ee
             nstrip = nstrip + 1
-            fci1 = apdf(Fct,1,Nchord)
+            fci1 = apdf(Fct,1,nchord)
             xi1j = dj + fci1*cj
             xi1j1 = dj1 + fci1*cj1
             ds = 1.0/(yj1-yj)
-            ys = ysp*cg + Ra1(2)
-            zs = ysp*sg + Ra1(3)
-            CALL write(Scr3,ays(1),5,0)
+            ys = ysp*cg + ra1(2)
+            zs = ysp*sg + ra1(3)
+            CALL write(scr3,ays(1),5,0)
             DO i = 1 , Nc
                spag_nextblock_2 = 1
                SPAG_DispatchLoop_2: DO
@@ -116,26 +117,26 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
                      ntp = ntp + 1
                      xij = xi1j
                      xij1 = xi1j1
-                     fci1 = apdf(Fct,i+1,Nchord)
+                     fci1 = apdf(Fct,i+1,nchord)
                      xi1j = dj + fci1*cj
                      xi1j1 = dj1 + fci1*cj1
-                     aij = (1.0-Xop)*xij + Xop*xi1j
-                     aij1 = (1.0-Xop)*xij1 + Xop*xi1j1
-                     xic = .5*(aij+aij1) + Ra1(1)
+                     aij = (1.0-xop)*xij + xop*xi1j
+                     aij1 = (1.0-xop)*xij1 + xop*xi1j1
+                     xic = .5*(aij+aij1) + ra1(1)
                      xlam = (aij1-aij)*ds
                      delx = .50*(-xij+xi1j-xij1+xi1j1)
-                     CALL write(Scr4,axic(1),3,0)
-                     xic = xic - Ra1(1)
+                     CALL write(scr4,axic(1),3,0)
+                     xic = xic - ra1(1)
                      eidb = eidb + 1
                      nbox = nbox + 1
-                     cid(1) = Cidbx + i + (Nc+1)*(j-1)
+                     cid(1) = cidbx + i + (Nc+1)*(j-1)
                      cid(2) = cid(1) + 1
                      cid(3) = cid(1) + Nc + 1
                      cid(4) = cid(3) + 1
                      cid(5) = eidb
                      ncid = cid(4)
-                     Nj = Nj + 1
-                     Nk = Nk + 2
+                     nj = nj + 1
+                     nk = nk + 2
                      vx1(3) = 0
                      IF ( j/=1 ) GOTO 4
                      IF ( i==1 ) THEN
@@ -181,81 +182,81 @@ SUBROUTINE apd1(Fst,Ns,Fct,Nc,Ls,Lc)
                      DO k = 1 , 3
                         vx2(k) = vx2(k) + rb1(k)
                      ENDDO
-                     CALL write(Bgpa,acsix,4,0)
-                     CALL write(Gpla,icid,1,0)
-                     CALL write(Useta,Auset(1,kk),6,0)
-                     Ncrd = Ncrd + 1
+                     CALL write(bgpa,acsix,4,0)
+                     CALL write(gpla,icid,1,0)
+                     CALL write(useta,auset(1,kk),6,0)
+                     ncrd = ncrd + 1
                      silc = silc + 6
-                     Isiln = Isiln + 6
-                     sildx(4) = Isiln
-                     Luseta = silc
+                     isiln = isiln + 6
+                     sildx(4) = isiln
+                     luseta = silc
                      sildx(2) = 10*silc + 1
-                     CALL write(Sila,silc,1,0)
-                     CALL write(Scr2,Isiln,1,0)
-                     CALL write(Scr2,silc,1,0)
-                     CALL write(Scr1,icid,2,0)
+                     CALL write(sila,silc,1,0)
+                     CALL write(scr2,isiln,1,0)
+                     CALL write(scr2,silc,1,0)
+                     CALL write(scr1,icid,2,0)
                      GOTO back
  10                  cid(1) = iapd(i,j,Nc,ncrdp)
                      cid(2) = iapd(i+1,j,Nc,ncrdp)
                      cid(4) = iapd(i,j+1,Nc,ncrdp)
                      cid(3) = iapd(i+1,j+1,Nc,ncrdp)
                      cid(5) = cid(3) + 1
-                     CALL write(Ecta,necta(1),6,0)
+                     CALL write(ecta,necta(1),6,0)
                      EXIT SPAG_DispatchLoop_2
                   END SELECT
                ENDDO SPAG_DispatchLoop_2
             ENDDO
          ENDDO
-         Cidbx = ncid
+         cidbx = ncid
          ncary(1) = Nc
          ncary(2) = nbox
-         CALL write(Scr5,ncary,2,0)
+         CALL write(scr5,ncary,2,0)
 !
 !     ADD PROPERITY CARD POINTERS FOR APD2
 !
-         CALL write(Scr5,Ippc,1,0)
-         Silb = silc
+         CALL write(scr5,ippc,1,0)
+         silb = silc
          IF ( .NOT.Lc ) RETURN
 !
 !     WRITE ACPT TABLE
 !
-         f = X1p - Xop
-         CALL write(Acpt,Key,5,0)
+         f = x1p - xop
+         CALL write(acpt,key,5,0)
 !
 !     COPY STUFF FROM SCRATCH FILES TO ACPT
 !
-         file = Scr5
+         file = scr5
          k = 3
          ASSIGN 20 TO iret
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  20      ASSIGN 40 TO iret
-         file = Scr3
+         file = scr3
          k = 5
          spag_nextblock_1 = 2
          CYCLE SPAG_DispatchLoop_1
  40      ASSIGN 60 TO iret
-         file = Scr4
+         file = scr4
          k = 3
          spag_nextblock_1 = 2
       CASE (2)
          CALL write(file,0,0,1)
          CALL close(file,clsrew)
-         CALL gopen(file,Z(Buf12),rdrew)
+         CALL gopen(file,z(buf12),rdrew)
          DO i = 1 , k
             DO
                CALL read(*80,*50,file,xb(1),k,0,j)
 !
 !     SKIP PROPERTY CARD POINTERS
 !
-               IF ( i/=3 .OR. file/=Scr5 ) CALL write(Acpt,xb(i),1,0)
+               IF ( i/=3 .OR. file/=scr5 ) CALL write(acpt,xb(i),1,0)
             ENDDO
  50         CALL rewind(file)
             CALL skprec(file,1)
          ENDDO
          CALL close(file,clsrew)
          GOTO iret
- 60      CALL write(Acpt,0,0,1)
+ 60      CALL write(acpt,0,0,1)
          RETURN
 !
 !     ERROR MESAGES

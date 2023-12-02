@@ -2,14 +2,14 @@
  
 SUBROUTINE ta1b
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_GPTA1
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_TA1COM
-   USE C_TA1ETT
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_gpta1
+   USE c_names
+   USE c_system
+   USE c_ta1com
+   USE c_ta1ett
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -33,6 +33,12 @@ SUBROUTINE ta1b
 ! End of declarations rewritten by SPAG
 !
 !
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
+!
 !     TA1B BUILDS THE ELEMENT CONNECTION AND PROPERTIES TABLE (ECPT)
 !     AND THE GRID POINT CONNECTION TABLE. THE ECPT CONTAINS ONE LOGICAL
 !     RECORD FOR EACH GRID OR SCALAR POINT IN THE STRUCTURE.  EACH
@@ -49,13 +55,13 @@ SUBROUTINE ta1b
 !
 !     PERFORM GENERAL INITIALIZATION
 !
-   n2 = 2*Nelem - 1
+   n2 = 2*nelem - 1
    n21 = n2 + 1
-   buf1 = korsz(Z) - sysbuf - 2
+   buf1 = korsz(z) - sysbuf - 2
    buf2 = buf1 - sysbuf
    buf3 = buf2 - sysbuf
    buf4 = buf3 - sysbuf
-   neq1 = Nsil + 1
+   neq1 = nsil + 1
    neq2 = 0
    kscalr = 0
 !
@@ -63,38 +69,38 @@ SUBROUTINE ta1b
 !     POINT IN THE STRUCTURE. EACH ENTRY CONTAINS THE NUMBER OF
 !     STRUCTURAL ELEMENTS CONNECTED TO THE POINT.
 !
-   DO i = 1 , Nsil
-      Z(i+1) = 0
+   DO i = 1 , nsil
+      z(i+1) = 0
    ENDDO
 !
 !     OPEN THE ECT. INITIALIZE TO LOOP THRU BY ELEMENT TYPE.
 !
-   file = Ect
-   CALL preloc(*2900,Z(buf1),Ect)
+   file = ect
+   CALL preloc(*2900,z(buf1),ect)
    noect = 1
-   DO i = 1 , Jlast , Incr
+   DO i = 1 , jlast , incr
 !
 !     IGNORE PLOTEL ELEMENTS.  OTHERWISE, LOCATE AN ELEMENT TYPE.
 !     IF PRESENT, READ ALL ELEMENTS OF THAT TYPE AND INCREMENT THE GPC
 !     ENTRY FOR EACH POINT TO WHICH THE ELEMENT IS CONNECTED.
 !
-      IF ( Elem(i)/=plot ) THEN
-         CALL locate(*100,Z(buf1),Elem(i+3),flag)
+      IF ( elem(i)/=plot ) THEN
+         CALL locate(*100,z(buf1),elem(i+3),flag)
          noect = 0
-         lx = Elem(i+12)
-         mm = lx + Elem(i+9) - 1
-         m = Elem(i+5)
-         IF ( Elem(i+10)==0 ) kscalr = 1
+         lx = elem(i+12)
+         mm = lx + elem(i+9) - 1
+         m = elem(i+5)
+         IF ( elem(i+10)==0 ) kscalr = 1
          DO
-            CALL read(*3000,*100,Ect,buf,m,0,flag)
+            CALL read(*3000,*100,ect,buf,m,0,flag)
             DO l = lx , mm
                k = buf(l)
-               IF ( k/=0 ) Z(k+1) = Z(k+1) + 1
+               IF ( k/=0 ) z(k+1) = z(k+1) + 1
             ENDDO
          ENDDO
       ENDIF
  100  ENDDO
-   CALL close(Ect,Clsrew)
+   CALL close(ect,clsrew)
    IF ( noect/=0 ) THEN
       buf(1) = 0
       buf(2) = 0
@@ -109,31 +115,31 @@ SUBROUTINE ta1b
 !     CONNECTED.
 !     (BRING IN EQEXIN AND ECHO OUT EXTERNAL GRID PT. ID  G.C/UNISYS 91)
 !
-      Z(1) = 1
+      z(1) = 1
       maxel = 0
-      DO i = 1 , Nsil
-         maxel = max0(maxel,Z(i+1))
-         IF ( Z(i+1)/=0 ) GOTO 180
+      DO i = 1 , nsil
+         maxel = max0(maxel,z(i+1))
+         IF ( z(i+1)/=0 ) GOTO 180
 !
          j = 0
          IF ( neq2<0 ) GOTO 160
          IF ( neq2/=0 ) GOTO 140
          neq2 = -1
-         Z(neq1) = Eqexin
-         CALL rdtrl(Z(neq1))
-         IF ( Z(neq1)<=0 ) GOTO 160
-         file = Eqexin
+         z(neq1) = eqexin
+         CALL rdtrl(z(neq1))
+         IF ( z(neq1)<=0 ) GOTO 160
+         file = eqexin
 !WKBR CALL GOPEN (EQEXIN,EQEXIN,Z(BUF1),RDREW)
-         CALL gopen(Eqexin,Z(buf1),Rdrew)
-         CALL read(*2900,*120,Eqexin,Z(neq1),buf4,1,neq2)
- 120     CALL close(Eqexin,Clsrew)
-         CALL sort(0,0,2,2,Z(neq1),neq2)
- 140     j = Z((i-1)*2+neq1)
+         CALL gopen(eqexin,z(buf1),rdrew)
+         CALL read(*2900,*120,eqexin,z(neq1),buf4,1,neq2)
+ 120     CALL close(eqexin,clsrew)
+         CALL sort(0,0,2,2,z(neq1),neq2)
+ 140     j = z((i-1)*2+neq1)
 !
  160     buf(1) = i
          buf(2) = j
          CALL mesage(30,15,buf)
- 180     Z(i+1) = Z(i) + Z(i+1)
+ 180     z(i+1) = z(i) + z(i+1)
       ENDDO
 !
 !     DETERMINE BAND OF ENTRIES IN ECPT0 WHICH WILL FIT IN CORE
@@ -141,36 +147,36 @@ SUBROUTINE ta1b
 !     NDX2 = POINTER IN GPC TO LAST ENTRY FOR CURRENT PASS.
 !
       ndx1 = 1
-      ndx2 = Nsil
+      ndx2 = nsil
       llx = 1
-      iecpt0 = Nsil + 2
+      iecpt0 = nsil + 2
       length = buf1 - iecpt0
-      op = Wrtrew
+      op = wrtrew
       DO
-         IF ( Z(ndx2+1)-Z(ndx1)+2<=length ) THEN
+         IF ( z(ndx2+1)-z(ndx1)+2<=length ) THEN
 !
 !     PASS THE ECT. FOR EACH GRID PT IN RANGE ON THIS PASS,
 !     STORE ELEMENT POINTER = 2**24 * J + WORD POSITION IN ECT RECORD.
 !     WHERE J= (POINTER IN ELEM TABLE - 1)/INCR * 2 +1
 !
-            CALL preloc(*2900,Z(buf1),Ect)
-            izero = Z(ndx1)
+            CALL preloc(*2900,z(buf1),ect)
+            izero = z(ndx1)
             j = 1
-            DO i = 1 , Jlast , Incr
-               IF ( Elem(i)/=plot ) THEN
+            DO i = 1 , jlast , incr
+               IF ( elem(i)/=plot ) THEN
                   idcntr = two24*j
-                  CALL locate(*185,Z(buf1),Elem(i+3),flag)
-                  m = Elem(i+5)
-                  lx = Elem(i+12)
-                  mm = lx + Elem(i+9) - 1
+                  CALL locate(*185,z(buf1),elem(i+3),flag)
+                  m = elem(i+5)
+                  lx = elem(i+12)
+                  mm = lx + elem(i+9) - 1
                   DO
-                     CALL read(*3000,*185,Ect,buf,m,0,flag)
+                     CALL read(*3000,*185,ect,buf,m,0,flag)
                      DO l = lx , mm
                         k = buf(l)
                         IF ( k>=ndx1 .AND. k<=ndx2 ) THEN
-                           ix = Z(k) - izero + iecpt0
-                           Z(ix) = idcntr
-                           Z(k) = Z(k) + 1
+                           ix = z(k) - izero + iecpt0
+                           z(ix) = idcntr
+                           z(k) = z(k) + 1
                         ENDIF
                      ENDDO
                      idcntr = idcntr + m
@@ -178,7 +184,7 @@ SUBROUTINE ta1b
                ENDIF
  185           j = j + 2
             ENDDO
-            CALL close(Ect,Clsrew)
+            CALL close(ect,clsrew)
 !
 !     WRITE ECPT0 AND TEST FOR ADDITIONAL PASSES
 !     ECPT0 CONTAINS ONE LOGICAL RECORD FOR EACH GRID OR SCALAR POINT.
@@ -186,25 +192,25 @@ SUBROUTINE ta1b
 !     N= NUMBER OF ELEMENTS CONNECTED TO THE PIVOT.
 !     IF NO ELEMENTS CONNECTED TO POINT, RECORD IS ONE WORD = 0.
 !
-            file = Scr1
-            CALL open(*2900,Scr1,Z(buf1),op)
+            file = scr1
+            CALL open(*2900,scr1,z(buf1),op)
             buf(1) = -1
             lj = iecpt0 - 1
             DO i = ndx1 , ndx2
-               m = Z(i) - llx
+               m = z(i) - llx
                IF ( m/=0 ) THEN
                   DO j = 1 , m
                      lj = lj + 1
-                     buf(2) = Z(lj)
-                     CALL write(Scr1,buf,2,0)
+                     buf(2) = z(lj)
+                     CALL write(scr1,buf,2,0)
                   ENDDO
-                  CALL write(Scr1,0,0,1)
+                  CALL write(scr1,0,0,1)
                ELSE
-                  CALL write(Scr1,0,1,1)
+                  CALL write(scr1,0,1,1)
                ENDIF
-               llx = Z(i)
+               llx = z(i)
             ENDDO
-            IF ( ndx2>=Nsil ) THEN
+            IF ( ndx2>=nsil ) THEN
 !
 !     READ AS MUCH OF ECT AS CORE CAN HOLD
 !     FIRST N21 CELLS OF CORE CONTAIN A POINTER TABLE WHICH HAS TWO
@@ -212,49 +218,49 @@ SUBROUTINE ta1b
 !     ECT DATA IN CORE FOR AN ELEMENT TYPE  2ND ENTRY HAS WORD POSITION
 !     IN ECT RECORD OF THAT TYPE FOR LAST ENTRY READ ON PREVIOUS PASS.
 !
-               CALL close(Scr1,Clsrew)
-               scri = Scr1
-               scro = Scr2
-               CALL preloc(*2900,Z(buf1),Ect)
+               CALL close(scr1,clsrew)
+               scri = scr1
+               scro = scr2
+               CALL preloc(*2900,z(buf1),ect)
                i = 1
                ielem = 1
                DO j = 1 , n21
-                  Z(j) = 0
+                  z(j) = 0
                ENDDO
                l = n21 + 1
                EXIT
             ELSE
-               CALL close(Scr1,Cls)
+               CALL close(scr1,cls)
                ndx1 = ndx2 + 1
-               ndx2 = Nsil
-               op = Wrt
+               ndx2 = nsil
+               op = wrt
             ENDIF
          ELSE
             ndx2 = ndx2 - 1
          ENDIF
       ENDDO
    ENDIF
- 200  IF ( Elem(ielem+3)==plotel .OR. Elem(ielem+3)==react ) GOTO 400
-   CALL locate(*400,Z(buf1),Elem(ielem+3),flag)
-   Z(i) = l
+ 200  IF ( elem(ielem+3)==plotel .OR. elem(ielem+3)==react ) GOTO 400
+   CALL locate(*400,z(buf1),elem(ielem+3),flag)
+   z(i) = l
    ll = 0
-   m = Elem(ielem+5)
+   m = elem(ielem+5)
    last = buf3 - m
  300  DO WHILE ( l<=last )
-      CALL read(*3000,*400,Ect,Z(l),m,0,flag)
+      CALL read(*3000,*400,ect,z(l),m,0,flag)
       l = l + m
       ll = ll + m
    ENDDO
    GOTO 500
  400  i = i + 2
-   ielem = ielem + Incr
-   IF ( ielem<=Jlast ) GOTO 200
+   ielem = ielem + incr
+   IF ( ielem<=jlast ) GOTO 200
 !
 !     PASS ECPT0 ENTRIES LINE BY LINE
 !     ATTACH EACH REFERENCED ECT ENTRY WHICH IS NOW IN CORE
 !
- 500  CALL open(*2900,scri,Z(buf2),Rdrew)
-   CALL open(*2900,scro,Z(buf3),Wrtrew)
+ 500  CALL open(*2900,scri,z(buf2),rdrew)
+   CALL open(*2900,scro,z(buf3),wrtrew)
  600  DO
       CALL read(*800,*700,scri,buf,1,0,flag)
       IF ( buf(1)<0 ) THEN
@@ -262,16 +268,16 @@ SUBROUTINE ta1b
          k = buf(2)/two24
          ktwo24 = k*two24
          idptr = buf(2) - ktwo24
-         kk = Z(k) + idptr - Z(k+1)
-         IF ( Z(k)==0 .OR. kk>last ) THEN
+         kk = z(k) + idptr - z(k+1)
+         IF ( z(k)==0 .OR. kk>last ) THEN
             CALL write(scro,buf,2,0)
          ELSE
-            j = ((k-1)/2)*Incr + 1
-            mm = Elem(j+5)
+            j = ((k-1)/2)*incr + 1
+            mm = elem(j+5)
             buf(1) = mm
-            buf(2) = Z(kk) + ktwo24
+            buf(2) = z(kk) + ktwo24
             CALL write(scro,buf,2,0)
-            CALL write(scro,Z(kk+1),mm-1,0)
+            CALL write(scro,z(kk+1),mm-1,0)
          ENDIF
       ELSEIF ( buf(1)==0 ) THEN
          CALL write(scro,0,1,1)
@@ -287,8 +293,8 @@ SUBROUTINE ta1b
 !     TEST FOR COMPLETION OF STEP
 !     IF INCOMPLETE, SET FOR NEXT PASS
 !
- 800  CALL close(scri,Clsrew)
-   CALL close(scro,Clsrew)
+ 800  CALL close(scri,clsrew)
+   CALL close(scro,clsrew)
    IF ( i>n2 ) THEN
 !
 !     READ THE EPT INTO CORE (IF PRESENT)
@@ -297,59 +303,59 @@ SUBROUTINE ta1b
 !     OF PROPERTY DATA FOR THAT ELEMENT TYPE. 2ND WORD HAS NUMBER OF
 !     PROPERTY CARDS FOR THAT TYPE.
 !
-      CALL close(Ect,Clsrew)
+      CALL close(ect,clsrew)
       DO i = 1 , n21
-         Z(i) = 0
+         z(i) = 0
       ENDDO
       l = 1
-      CALL preloc(*900,Z(buf1),Ept)
+      CALL preloc(*900,z(buf1),ept)
       ielem = 1
       lstprp = 0
       l = n21 + 1
       DO ii = 1 , n2 , 2
-         IF ( Elem(ielem+6)==lstprp .AND. lstprp/=ppse ) THEN
+         IF ( elem(ielem+6)==lstprp .AND. lstprp/=ppse ) THEN
             n = 4
-            IF ( Eltype==ihex2 .OR. Eltype==ihex3 ) n = 2
-            Z(ii) = Z(ii-n)
-            Z(ii+1) = Z(ii-n+1)
+            IF ( eltype==ihex2 .OR. eltype==ihex3 ) n = 2
+            z(ii) = z(ii-n)
+            z(ii+1) = z(ii-n+1)
             GOTO 840
          ELSE
-            CALL locate(*840,Z(buf1),Elem(ielem+6),flag)
-            lstprp = Elem(ielem+6)
-            m = Elem(ielem+8)
-            Eltype = Elem(ielem+2)
-            Z(ii) = l
+            CALL locate(*840,z(buf1),elem(ielem+6),flag)
+            lstprp = elem(ielem+6)
+            m = elem(ielem+8)
+            eltype = elem(ielem+2)
+            z(ii) = l
             DO
                IF ( l+m>=buf3 ) CALL mesage(-8,0,nam)
-               CALL read(*3000,*820,Ept,Z(l),m,0,flag)
+               CALL read(*3000,*820,ept,z(l),m,0,flag)
                l = l + m
             ENDDO
          ENDIF
- 820     n = l - Z(ii)
-         Z(ii+1) = n/m
-         IF ( Eltype/=shear .AND. Eltype/=twist ) THEN
+ 820     n = l - z(ii)
+         z(ii+1) = n/m
+         IF ( eltype/=shear .AND. eltype/=twist ) THEN
             IF ( m>4 ) GOTO 840
          ENDIF
-         i = Z(ii)
-         CALL sort(0,0,m,1,Z(i),n)
- 840     ielem = ielem + Incr
+         i = z(ii)
+         CALL sort(0,0,m,1,z(i),n)
+ 840     ielem = ielem + incr
       ENDDO
-      CALL close(Ept,Clsrew)
+      CALL close(ept,clsrew)
 !
 !     DETERMINE IF THE BGPDT AND SIL
 !     WILL FIT IN CORE ON TOP OF THE EPT.
 !
       number = 4*kscalr + 1
-      Iback = 0
+      iback = 0
       length = buf4 - l - 4*maxel
-      IF ( number*Nsil>length ) THEN
+      IF ( number*nsil>length ) THEN
 !
 !     HERE IF ECPT CONSTRUCTION IS TWO PASSES.
 !     PASS ECPT0 LINE BY LINE FOR EACH ECT ENTRY, ATTACH PROPERTY DATA
 !     IF DEFINED
 !
-         CALL open(*2900,scro,Z(buf1),Rdrew)
-         CALL open(*2900,scri,Z(buf2),Wrtrew)
+         CALL open(*2900,scro,z(buf1),rdrew)
+         CALL open(*2900,scri,z(buf2),wrtrew)
          oufile = scri
          GOTO 1500
       ENDIF
@@ -359,10 +365,10 @@ SUBROUTINE ta1b
       scro = k
       l = n21 + 1
       DO j = 1 , n21
-         Z(j) = 0
+         z(j) = 0
       ENDDO
-      Z(i) = l
-      Z(i+1) = ll
+      z(i) = l
+      z(i+1) = ll
       GOTO 300
    ENDIF
 !
@@ -379,7 +385,7 @@ SUBROUTINE ta1b
 !     4. IF TEMPERATURE PROBLEM, ATTACH ELEMENT TEMP(UNLESS SCALAR ELEM)
 !
  1000 infile = scro
-   oufile = Ecpt
+   oufile = ecpt
 !
 !     OPEN ECPT0, ECPT AND GPCT FILES
 !
@@ -387,14 +393,14 @@ SUBROUTINE ta1b
 !
 !     WRITE PIVOT GRID POINT ON ECPT
 !
- 1100 IF ( ll-locsil>=Nsil ) THEN
+ 1100 IF ( ll-locsil>=nsil ) THEN
 !
 !     CLOSE FILES, WRITE TRAILERS AND EXIT.
 !
-      CALL close(infile,Clsrew)
-      CALL close(Gptt,Clsrew)
-      CALL close(Ecpt,Clsrew)
-      buf(1) = Ect
+      CALL close(infile,clsrew)
+      CALL close(gptt,clsrew)
+      CALL close(ecpt,clsrew)
+      buf(1) = ect
       CALL rdtrl(buf(1))
       buf(3) = 0
       k = 8192
@@ -403,36 +409,36 @@ SUBROUTINE ta1b
          buf(3) = 1
          irigd = 1
       ENDIF
-      buf(1) = Ecpt
+      buf(1) = ecpt
       DO i = 2 , 7
          buf(i) = 7
       ENDDO
       CALL wrttrl(buf)
       IF ( nogpct==0 ) RETURN
-      CALL close(Gpct,Clsrew)
-      buf(1) = Gpct
+      CALL close(gpct,clsrew)
+      buf(1) = gpct
       CALL wrttrl(buf)
       RETURN
    ELSE
-      IF ( Iback>0 ) THEN
-         CALL bckrec(Gptt)
+      IF ( iback>0 ) THEN
+         CALL bckrec(gptt)
 !
 !     RESET /TA1ETT/ VARIABLES
 !
-         Iback = 0
-         Oldeid = 0
-         Oldel = 0
-         Eorflg = .FALSE.
-         Endid = .TRUE.
-         CALL read(*3000,*3100,Gptt,iset,1,0,flag)
+         iback = 0
+         oldeid = 0
+         oldel = 0
+         eorflg = .FALSE.
+         endid = .TRUE.
+         CALL read(*3000,*3100,gptt,iset,1,0,flag)
          IF ( iset/=tempid ) THEN
-            WRITE (outpt,99001) Sfm , iset , tempid
+            WRITE (outpt,99001) sfm , iset , tempid
             CALL mesage(-61,0,0)
          ENDIF
       ENDIF
-      npvt = Z(ll)
-      CALL write(Ecpt,npvt,1,0)
-      IF ( Z(ll+1)-Z(ll)==1 ) npvt = -npvt
+      npvt = z(ll)
+      CALL write(ecpt,npvt,1,0)
+      IF ( z(ll+1)-z(ll)==1 ) npvt = -npvt
       i = locgpc
    ENDIF
 !
@@ -446,33 +452,33 @@ SUBROUTINE ta1b
 !
 !     HERE IF NO ELEMENTS CONNECTED TO PIVOT.
 !
-      CALL write(Ecpt,0,0,1)
-      IF ( nogpct/=0 ) CALL write(Gpct,npvt,1,1)
+      CALL write(ecpt,0,0,1)
+      IF ( nogpct/=0 ) CALL write(gpct,npvt,1,1)
       ll = ll + 1
       CALL fwdrec(*3100,infile)
       GOTO 1100
    ELSE
       CALL read(*3000,*3100,infile,buf(2),buf(1),0,flag)
       ik = buf(2)/two24
-      ii = ((ik-1)/2)*Incr + 1
-      lx = Elem(ii+12) + 1
-      m = Elem(ii+8)
-      jscalr = Elem(ii+10)
-      mm = lx + Elem(ii+9) - 1
+      ii = ((ik-1)/2)*incr + 1
+      lx = elem(ii+12) + 1
+      m = elem(ii+8)
+      jscalr = elem(ii+10)
+      mm = lx + elem(ii+9) - 1
       lq = 4
       IF ( m==0 ) lq = 3
-      name = Elem(ii)
-      jtemp = Elem(ii+13)
-      Eltype = Elem(ii+2)
+      name = elem(ii)
+      jtemp = elem(ii+13)
+      eltype = elem(ii+2)
       ntemp = 1
-      IF ( jtemp==4 ) ntemp = Elem(ii+14) - 1
-      IF ( Eltype==quadts ) THEN
+      IF ( jtemp==4 ) ntemp = elem(ii+14) - 1
+      IF ( eltype==quadts ) THEN
 !
 !     FOR QUADTS AND TRIATS ELEMENTS, STORE COORDINATES FOR MATERIAL
 !     AND STRESS AXIS DEFINITION
 !
          is1 = 12
-      ELSEIF ( Eltype==triats ) THEN
+      ELSEIF ( eltype==triats ) THEN
          is1 = 10
       ELSE
          IF ( name==cbar ) THEN
@@ -482,11 +488,11 @@ SUBROUTINE ta1b
 !
             kx = 4*(buf(4)-1) + locbgp
             IF ( buf(9)==1 ) THEN
-               buf(9) = Z(kx)
+               buf(9) = z(kx)
             ELSE
                buf(9) = buf(6)
                IF ( buf(9)==0 ) THEN
-                  buf(9) = Z(kx)
+                  buf(9) = z(kx)
                ELSE
                   k = 4*(buf(9)-1) + locbgp
                   bufr(6) = zz(k+1) - zz(kx+1)
@@ -513,21 +519,21 @@ SUBROUTINE ta1b
 !
       DO l = lx , mm
          IF ( gpsav(l)==0 ) THEN
-            CALL write(Ecpt,zeros,4,0)
+            CALL write(ecpt,zeros,4,0)
          ELSE
             k = locbgp + 4*(gpsav(l)-1)
-            CALL write(Ecpt,Z(k),4,0)
+            CALL write(ecpt,z(k),4,0)
          ENDIF
       ENDDO
       CALL ta1etd(elemid,tgrid,ntemp)
-      IF ( Eltype==bar ) tgrid(1) = (tgrid(1)+tgrid(2))/2.0
-      CALL write(Ecpt,tgrid,ntemp,0)
+      IF ( eltype==bar ) tgrid(1) = (tgrid(1)+tgrid(2))/2.0
+      CALL write(ecpt,tgrid,ntemp,0)
    ENDIF
    GOTO 1200
 !
 !     CLOSE ECPT RECORD. WRITE GPCT RECORD.
 !
- 1400 CALL write(Ecpt,0,0,1)
+ 1400 CALL write(ecpt,0,0,1)
 !
 !     INTERNAL ROUTINE TO SORT AND WRITE THE GPCT
 !
@@ -536,23 +542,23 @@ SUBROUTINE ta1b
       GOTO 1100
    ELSE
       n = i - locgpc
-      CALL sort(0,0,1,1,Z(locgpc),n)
-      Z(i) = 0
+      CALL sort(0,0,1,1,z(locgpc),n)
+      z(i) = 0
       j = locgpc
       ii = locgpc
       DO
-         IF ( Z(ii)/=Z(ii+1) ) THEN
-            nx = Z(ii)/2
-            lx = Z(ii) - 2*nx
+         IF ( z(ii)/=z(ii+1) ) THEN
+            nx = z(ii)/2
+            lx = z(ii) - 2*nx
             IF ( lx/=0 ) nx = -nx
-            Z(j) = nx
+            z(j) = nx
             j = j + 1
          ENDIF
          ii = ii + 1
          IF ( ii>=i ) THEN
             n = j - locgpc
-            CALL write(Gpct,blk,2,0)
-            CALL write(Gpct,Z(locgpc),n,1)
+            CALL write(gpct,blk,2,0)
+            CALL write(gpct,z(locgpc),n,1)
             ll = ll + 1
             GOTO 1100
          ENDIF
@@ -574,8 +580,8 @@ SUBROUTINE ta1b
       ELSE
          CALL read(*3000,*3100,scro,buf(2),buf(1),0,flag)
          ik = buf(2)/two24
-         ii = ((ik-1)/2)*Incr + 1
-         m = Elem(ii+8)
+         ii = ((ik-1)/2)*incr + 1
+         m = elem(ii+8)
          nx = buf(1) + 1
 !
 !     IF PROPERTY DATA IS DEFINED FOR ELEMENT, WRITE ECT DATA ON SCRI,
@@ -603,8 +609,8 @@ SUBROUTINE ta1b
 !
 !     ALL PIVOTS COMPLETE. CLOSE FILES.
 !
- 1700 CALL close(scro,Clsrew)
-   CALL close(scri,Clsrew)
+ 1700 CALL close(scro,clsrew)
+   CALL close(scri,clsrew)
 !
 !     READ THE BGPDT, SIL AND, IF TEMPERATURE PROBLEM,
 !     THE GPTT INTO CORE.
@@ -616,7 +622,7 @@ SUBROUTINE ta1b
 !     SET POINTERS AND BRANCH TO COMMON CODE TO ASSEMBLE ECPT.
 !
  1800 infile = scri
-   oufile = Ecpt
+   oufile = ecpt
    ipass = 2
    GOTO 2600
 !
@@ -629,10 +635,10 @@ SUBROUTINE ta1b
       IF ( buf(l)/=0 ) THEN
          gpsav(l) = buf(l)
          k = gpsav(l) + locsil - 1
-         buf(l) = Z(k)
+         buf(l) = z(k)
          ix = 0
-         IF ( Z(k+1)-Z(k)==1 ) ix = 1
-         Z(i) = 2*Z(k) + ix
+         IF ( z(k+1)-z(k)==1 ) ix = 1
+         z(i) = 2*z(k) + ix
          i = i + 1
       ENDIF
    ENDDO
@@ -643,11 +649,11 @@ SUBROUTINE ta1b
 !
    id = buf(3)
    nx = buf(1) + 2 - lq
-   buf(1) = Elem(ii+2)
+   buf(1) = elem(ii+2)
    buf(2) = buf(2) - ik*two24
    elemid = buf(2)
-   CALL write(Ecpt,buf(1),2,0)
-   CALL write(Ecpt,buf(lq),nx,0)
+   CALL write(ecpt,buf(1),2,0)
+   CALL write(ecpt,buf(lq),nx,0)
    IF ( ipass==2 ) GOTO 1300
 !
 !     IF PROPERTY DATA IS DEFINED, LOOK UP AND WRITE EPT SECTION OF ECPT
@@ -658,16 +664,16 @@ SUBROUTINE ta1b
 !
 !     INTERNAL ROUTINE TO ATTACH EPT DATA
 !
- 2000 locx = Z(ik)
+ 2000 locx = z(ik)
    IF ( locx==0 ) THEN
-      buf(1) = Elem(ii)
-      buf(2) = Elem(ii+1)
+      buf(1) = elem(ii)
+      buf(2) = elem(ii+1)
       n = 11
       CALL mesage(-30,n,buf)
       CALL mesage(j,file,nam)
       GOTO 99999
    ELSE
-      khi = Z(ik+1)
+      khi = z(ik+1)
       ASSIGN 2100 TO ret1
       ASSIGN 3200 TO ret2
 !
@@ -678,9 +684,9 @@ SUBROUTINE ta1b
       k = (klo+khi+1)/2
       DO
          kx = (k-1)*m + locx
-         IF ( id<Z(kx) ) THEN
+         IF ( id<z(kx) ) THEN
             khi = k
-         ELSEIF ( id==Z(kx) ) THEN
+         ELSEIF ( id==z(kx) ) THEN
             GOTO ret1
          ELSE
             klo = k
@@ -699,7 +705,7 @@ SUBROUTINE ta1b
          ENDIF
       ENDDO
    ENDIF
- 2100 CALL write(oufile,Z(kx+1),m-1,0)
+ 2100 CALL write(oufile,z(kx+1),m-1,0)
    GOTO ret
 !
 !     INTERNAL ROUTINE TO READ THE BGPDT, SIL AND GPTT INTO CORE
@@ -707,34 +713,34 @@ SUBROUTINE ta1b
  2200 nbgp = 0
    locbgp = l
    IF ( kscalr/=0 ) THEN
-      CALL open(*2900,Bgpdt,Z(buf1),Rdrew)
-      CALL fwdrec(*3000,Bgpdt)
-      nbgp = 4*Nsil
-      CALL read(*3000,*3100,Bgpdt,Z(locbgp),nbgp,1,flag)
-      CALL close(Bgpdt,Clsrew)
+      CALL open(*2900,bgpdt,z(buf1),rdrew)
+      CALL fwdrec(*3000,bgpdt)
+      nbgp = 4*nsil
+      CALL read(*3000,*3100,bgpdt,z(locbgp),nbgp,1,flag)
+      CALL close(bgpdt,clsrew)
    ENDIF
    l = l + nbgp
-   CALL open(*2900,Sil,Z(buf1),Rdrew)
-   CALL fwdrec(*3000,Sil)
+   CALL open(*2900,sil,z(buf1),rdrew)
+   CALL fwdrec(*3000,sil)
    locsil = locbgp + nbgp
-   CALL read(*3000,*3100,Sil,Z(locsil),Nsil,1,flag)
-   CALL close(Sil,Clsrew)
-   nx = locsil + Nsil
-   Z(nx) = Luset + 1
+   CALL read(*3000,*3100,sil,z(locsil),nsil,1,flag)
+   CALL close(sil,clsrew)
+   nx = locsil + nsil
+   z(nx) = luset + 1
    loctmp = nx + 1
    ntmp = loctmp - 1
-   Record = .FALSE.
-   Itemp = tempid
-   Iback = 0
+   record = .FALSE.
+   itemp = tempid
+   iback = 0
    IF ( tempid==0 ) GOTO 2500
-   file = Gptt
-   CALL open(*2900,Gptt,Z(buf4),Rdrew)
-   CALL read(*3000,*2300,Gptt,Z(loctmp),buf3-loctmp,0,nid)
+   file = gptt
+   CALL open(*2900,gptt,z(buf4),rdrew)
+   CALL read(*3000,*2300,gptt,z(loctmp),buf3-loctmp,0,nid)
    CALL mesage(-8,0,nam)
  2300 itmpid = loctmp + 2
    ntmpid = loctmp + nid - 3
    DO ijk = itmpid , ntmpid , 3
-      IF ( tempid==Z(ijk) ) GOTO 2400
+      IF ( tempid==z(ijk) ) GOTO 2400
    ENDDO
    buf(1) = tempid
    buf(2) = 0
@@ -742,47 +748,47 @@ SUBROUTINE ta1b
    CALL mesage(-30,n,buf)
    CALL mesage(j,file,nam)
    GOTO 99999
- 2400 Idftmp = Z(ijk+1)
-   IF ( Idftmp/=-1 ) deftmp = zz(ijk+1)
-   n = Z(ijk+2)
+ 2400 idftmp = z(ijk+1)
+   IF ( idftmp/=-1 ) deftmp = zz(ijk+1)
+   n = z(ijk+2)
    IF ( n/=0 ) THEN
-      Record = .TRUE.
+      record = .TRUE.
       n = n - 1
       IF ( n/=0 ) THEN
          DO ijk = 1 , n
-            CALL fwdrec(*3000,Gptt)
+            CALL fwdrec(*3000,gptt)
          ENDDO
       ENDIF
 !
 !     READ SET ID AND VERIFY FOR CORRECTNESS
 !
-      CALL read(*3000,*3100,Gptt,iset,1,0,flag)
+      CALL read(*3000,*3100,gptt,iset,1,0,flag)
       IF ( iset/=tempid ) THEN
-         WRITE (outpt,99001) Sfm , iset , tempid
+         WRITE (outpt,99001) sfm , iset , tempid
          CALL mesage(-61,0,nam)
       ENDIF
 !
 !     INITIALIZE /TA1ETT/ VARIABLES
 !
-      Oldeid = 0
-      Oldel = 0
-      Eorflg = .FALSE.
-      Endid = .TRUE.
+      oldeid = 0
+      oldel = 0
+      eorflg = .FALSE.
+      endid = .TRUE.
    ENDIF
  2500 GOTO ret
 !
 !
 !     INTERNAL ROUTINE TO OPEN SCRATCH, ECPT AND GPCT FILES
 !
- 2600 CALL open(*2900,infile,Z(buf1),Rdrew)
-   CALL open(*2900,Ecpt,Z(buf2),Wrtrew)
-   CALL fname(Ecpt,buf)
-   CALL write(Ecpt,buf,2,1)
+ 2600 CALL open(*2900,infile,z(buf1),rdrew)
+   CALL open(*2900,ecpt,z(buf2),wrtrew)
+   CALL fname(ecpt,buf)
+   CALL write(ecpt,buf,2,1)
    nogpct = 0
-   CALL open(*2700,Gpct,Z(buf3),Wrtrew)
+   CALL open(*2700,gpct,z(buf3),wrtrew)
    nogpct = 1
-   CALL fname(Gpct,buf)
-   CALL write(Gpct,buf,2,1)
+   CALL fname(gpct,buf)
+   CALL write(gpct,buf,2,1)
  2700 ll = locsil
    locgpc = ntmp + 1
    GOTO 1100

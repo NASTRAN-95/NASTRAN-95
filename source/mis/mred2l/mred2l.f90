@@ -1,12 +1,13 @@
-!*==mred2l.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==mred2l.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mred2l(Nuf,N2,Nus,Ufbits)
-USE C_BLANK
-USE C_MPYADX
-USE C_PACKX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_mpyadx
+   USE c_packx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -46,23 +47,23 @@ USE ISO_FORTRAN_ENV
 !                  -1
 !     COMPUTE PHISS1
 !
-         IF ( Dry==-2 ) RETURN
+         IF ( dry==-2 ) RETURN
          CALL sofcls
          ifile = phiss1
          itrlr1(1) = phiss1
          CALL rdtrl(itrlr1)
-         CALL gopen(phiss1,Z(Gbuf1),0)
+         CALL gopen(phiss1,z(gbuf1),0)
          kolumn = itrlr1(2)
          rows = itrlr1(3)
          itest = kolumn*rows
-         IF ( (Korbgn+itest+(3*kolumn))>=Korlen ) THEN
+         IF ( (korbgn+itest+(3*kolumn))>=korlen ) THEN
             imsg = -8
             ifile = 0
             spag_nextblock_1 = 2
             CYCLE SPAG_DispatchLoop_1
          ELSE
             kore = 0
-            dblkor = (Korbgn/2) + 1
+            dblkor = (korbgn/2) + 1
             sglkor = (2*dblkor) - 1
             IF ( itrlr1(5)==2 ) THEN
                DO i = 1 , kolumn
@@ -72,7 +73,7 @@ USE ISO_FORTRAN_ENV
                icore = dblkor + itest
             ELSE
                DO i = 1 , kolumn
-                  CALL read(*20,*40,phiss1,Z(sglkor+kore),rows,0,nwdsrd)
+                  CALL read(*20,*40,phiss1,z(sglkor+kore),rows,0,nwdsrd)
                   kore = kore + rows
                ENDDO
                icore = ((sglkor+itest)/2) + 1
@@ -91,13 +92,13 @@ USE ISO_FORTRAN_ENV
                CYCLE SPAG_DispatchLoop_1
             ELSE
                kore = 0
-               Incr = 1
-               Typin = 1
-               Typout = 1
-               Irow = 1
-               Nrow = kolumn
-               CALL makmcb(itrlr2,phiss1,Nrow,itrlr1(4),itrlr1(5))
-               CALL gopen(phiss1,Z(Gbuf1),1)
+               incr = 1
+               typin = 1
+               typout = 1
+               irow = 1
+               nrow = kolumn
+               CALL makmcb(itrlr2,phiss1,nrow,itrlr1(4),itrlr1(5))
+               CALL gopen(phiss1,z(gbuf1),1)
                DO i = 1 , rows
                   IF ( itrlr1(5)==2 ) THEN
                      CALL pack(dz(dblkor+kore),phiss1,itrlr2)
@@ -123,29 +124,29 @@ USE ISO_FORTRAN_ENV
                CALL rdtrl(itrlr2)
                icol = itrlr2(3)
                DO i = 1 , 7
-                  Itrlra(i) = itrlr1(i)
-                  Itrlrb(i) = itrlr2(i)
-                  Itrlrc(i) = 0
+                  itrlra(i) = itrlr1(i)
+                  itrlrb(i) = itrlr2(i)
+                  itrlrc(i) = 0
                ENDDO
-               CALL makmcb(Itrlrd,phissi,itrlr2(3),itrlr2(4),itrlr2(5))
-               T = 0
-               Signab = -1
-               Signc = 1
-               Prec = 0
-               Scr = Iscr(10)
-               Nz = Lstzwd - ((2*dblkor)-1)
+               CALL makmcb(itrlrd,phissi,itrlr2(3),itrlr2(4),itrlr2(5))
+               t = 0
+               signab = -1
+               signc = 1
+               prec = 0
+               scr = iscr(10)
+               nz = lstzwd - ((2*dblkor)-1)
                CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-               CALL wrttrl(Itrlrd)
+               CALL wrttrl(itrlrd)
                itrlr1(1) = gs
                CALL rdtrl(itrlr1)
                DO i = 1 , 7
-                  Itrlra(i) = Itrlrd(i)
-                  Itrlrb(i) = itrlr1(i)
+                  itrlra(i) = itrlrd(i)
+                  itrlrb(i) = itrlr1(i)
                ENDDO
-               CALL makmcb(Itrlrd,phigs,itrlr1(3),itrlr1(4),itrlr1(5))
-               Signab = 1
+               CALL makmcb(itrlrd,phigs,itrlr1(3),itrlr1(4),itrlr1(5))
+               signab = 1
                CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-               CALL wrttrl(Itrlrd)
+               CALL wrttrl(itrlrd)
 !
 !     FORM HKPG MATRIX
 !
@@ -160,35 +161,35 @@ USE ISO_FORTRAN_ENV
 !                   *       .         *
 !                   **               **
 !
-               Nrow = Nuf + N2
-               DO i = 1 , Nrow
-                  rz(Korbgn+i-1) = 0.0
-                  IF ( i>N2 ) rz(Korbgn+i-1) = 1.0
+               nrow = Nuf + N2
+               DO i = 1 , nrow
+                  rz(korbgn+i-1) = 0.0
+                  IF ( i>N2 ) rz(korbgn+i-1) = 1.0
                ENDDO
-               Typin = 1
-               Typout = 1
-               Irow = 1
-               Incr = 1
+               typin = 1
+               typout = 1
+               irow = 1
+               incr = 1
                iform = 7
-               CALL makmcb(itrlr1,cprtn,Nrow,iform,Typin)
-               CALL gopen(cprtn,Z(Gbuf1),1)
-               CALL pack(Z(Korbgn),cprtn,itrlr1)
+               CALL makmcb(itrlr1,cprtn,nrow,iform,typin)
+               CALL gopen(cprtn,z(gbuf1),1)
+               CALL pack(z(korbgn),cprtn,itrlr1)
                CALL close(cprtn,1)
                CALL wrttrl(itrlr1)
-               Nrow = Nus + Nuf
+               nrow = Nus + Nuf
                ifile = usetmr
-               CALL gopen(usetmr,Z(Gbuf1),0)
-               DO i = 1 , Nrow
-                  CALL read(*20,*40,usetmr,Z(Korbgn),1,0,nwdsrd)
-                  rz(Korbgn+i) = 0.0
-                  IF ( andf(Z(Korbgn),Ufbits)/=0 ) rz(Korbgn+i) = 1.0
+               CALL gopen(usetmr,z(gbuf1),0)
+               DO i = 1 , nrow
+                  CALL read(*20,*40,usetmr,z(korbgn),1,0,nwdsrd)
+                  rz(korbgn+i) = 0.0
+                  IF ( andf(z(korbgn),Ufbits)/=0 ) rz(korbgn+i) = 1.0
                ENDDO
                CALL close(usetmr,1)
-               Nrow = rows
+               nrow = rows
                rows = Nuf + N2
-               CALL makmcb(itrlr2,rprtn,Nrow,iform,Typin)
-               CALL gopen(rprtn,Z(Gbuf1),1)
-               CALL pack(Z(Korbgn+1),rprtn,itrlr2)
+               CALL makmcb(itrlr2,rprtn,nrow,iform,typin)
+               CALL gopen(rprtn,z(gbuf1),1)
+               CALL pack(z(korbgn+1),rprtn,itrlr2)
                CALL close(rprtn,1)
                CALL wrttrl(itrlr2)
                isub(1) = Nuf
@@ -196,7 +197,7 @@ USE ISO_FORTRAN_ENV
                isub(3) = Nus
                isub(4) = N2
                itype = 2
-               CALL gmmerg(hkpg,phigsh,0,phiss1,0,rprtn,cprtn,isub,itype,Z(Korbgn),Korlen)
+               CALL gmmerg(hkpg,phigsh,0,phiss1,0,rprtn,cprtn,isub,itype,z(korbgn),korlen)
 !
 !     COMPUTE PHIS12
 !
@@ -211,27 +212,27 @@ USE ISO_FORTRAN_ENV
                itrlr2(1) = phiss2
                CALL rdtrl(itrlr1)
                CALL rdtrl(itrlr2)
-               Modpts = itrlr1(3) + itrlr2(3)
+               modpts = itrlr1(3) + itrlr2(3)
                DO i = 1 , 7
-                  Itrlra(i) = itrlr1(i)
-                  Itrlrb(i) = itrlr2(i)
+                  itrlra(i) = itrlr1(i)
+                  itrlrb(i) = itrlr2(i)
                ENDDO
-               CALL makmcb(Itrlrd,phis12,itrlr2(3),itrlr2(4),itrlr2(5))
-               Signab = -1
+               CALL makmcb(itrlrd,phis12,itrlr2(3),itrlr2(4),itrlr2(5))
+               signab = -1
                CALL mpyad(dz(dblkor),dz(dblkor),dz(dblkor))
-               CALL wrttrl(Itrlrd)
+               CALL wrttrl(itrlrd)
 !
 !     GENERATE IDENTITY MATRIX
 !
-               Nrow = Itrlrd(3)
-               CALL makmcb(itrlr1,ident,Nrow,Itrlrd(4),Itrlrd(5))
-               CALL gopen(ident,Z(Gbuf1),1)
-               DO i = 1 , Nrow
-                  DO j = 1 , Nrow
-                     rz(Korbgn+j-1) = 0.0
-                     IF ( j==i ) rz(Korbgn+j-1) = 1.0
+               nrow = itrlrd(3)
+               CALL makmcb(itrlr1,ident,nrow,itrlrd(4),itrlrd(5))
+               CALL gopen(ident,z(gbuf1),1)
+               DO i = 1 , nrow
+                  DO j = 1 , nrow
+                     rz(korbgn+j-1) = 0.0
+                     IF ( j==i ) rz(korbgn+j-1) = 1.0
                   ENDDO
-                  CALL pack(Z(Korbgn),ident,itrlr1)
+                  CALL pack(z(korbgn),ident,itrlr1)
                ENDDO
                CALL close(ident,1)
                CALL wrttrl(itrlr1)
@@ -251,20 +252,20 @@ USE ISO_FORTRAN_ENV
                itrlr1(1) = phis12
                CALL rdtrl(itrlr1)
                isub(3) = itrlr1(3)
-               isub(4) = Nrow
-               Nrow = itrlr1(2) + Nrow
-               DO i = 1 , Nrow
-                  rz(Korbgn+i-1) = 0.0
-                  IF ( i>itrlr1(2) ) rz(Korbgn+i-1) = 1.0
+               isub(4) = nrow
+               nrow = itrlr1(2) + nrow
+               DO i = 1 , nrow
+                  rz(korbgn+i-1) = 0.0
+                  IF ( i>itrlr1(2) ) rz(korbgn+i-1) = 1.0
                ENDDO
-               Incr = 1
-               CALL makmcb(itrlr2,cprtn,Nrow,iform,Typin)
-               CALL gopen(cprtn,Z(Gbuf1),1)
-               CALL pack(Z(Korbgn),rprtn,itrlr2)
+               incr = 1
+               CALL makmcb(itrlr2,cprtn,nrow,iform,typin)
+               CALL gopen(cprtn,z(gbuf1),1)
+               CALL pack(z(korbgn),rprtn,itrlr2)
                CALL close(cprtn,1)
                CALL wrttrl(itrlr2)
-               CALL gmmerg(phi12i,phis12,ident,0,0,0,cprtn,isub,itype,Z(Korbgn),Korlen)
-               CALL sofopn(Z(Sbuf1),Z(Sbuf2),Z(Sbuf3))
+               CALL gmmerg(phi12i,phis12,ident,0,0,0,cprtn,isub,itype,z(korbgn),korlen)
+               CALL sofopn(z(sbuf1),z(sbuf2),z(sbuf3))
                RETURN
             ENDIF
          ENDIF

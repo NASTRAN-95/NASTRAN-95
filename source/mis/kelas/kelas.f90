@@ -2,11 +2,11 @@
  
 SUBROUTINE kelas(Ijklmn)
    IMPLICIT NONE
-   USE C_SMA1BK
-   USE C_SMA1CL
-   USE C_SMA1ET
-   USE C_SMA1IO
-   USE C_SYSTEM
+   USE c_sma1bk
+   USE c_sma1cl
+   USE c_sma1et
+   USE c_sma1io
+   USE c_system
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -19,6 +19,15 @@ SUBROUTINE kelas(Ijklmn)
    INTEGER , SAVE :: iscalr
    REAL*8 :: ke
    REAL :: save
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -85,15 +94,15 @@ SUBROUTINE kelas(Ijklmn)
 !
 ! ELAS3
 !
-      Ecpt(7) = Ecpt(5)
-      Ecpt(6) = Ecpt(4)
+      ecpt(7) = ecpt(5)
+      ecpt(6) = ecpt(4)
       iecpt(4) = 1
       iecpt(5) = 1
    ELSEIF ( iarg==4 ) THEN
 !
 ! ELAS4
 !
-      Ecpt(6) = Ecpt(2)
+      ecpt(6) = ecpt(2)
       iecpt(2) = iecpt(3)
       iecpt(3) = iecpt(4)
       iecpt(4) = 1
@@ -102,21 +111,21 @@ SUBROUTINE kelas(Ijklmn)
 !
 ! ELAS2
 !
-      save = Ecpt(2)
+      save = ecpt(2)
       DO i = 3 , 6
          iecpt(i-1) = iecpt(i)
       ENDDO
-      Ecpt(6) = save
+      ecpt(6) = save
    ENDIF
 !
 ! DETERMINE WHICH POINT IS THE PIVOT POINT AND SET APPROPRIATE POINTERS
 !
    ind = 2
-   IF ( iecpt(2)==Npvt ) THEN
+   IF ( iecpt(2)==npvt ) THEN
 !
 ! CHECK TO SEE IF BOTH POINTS MATCH THE PIVOT POINT.
 !
-      IF ( iecpt(3)==Npvt ) THEN
+      IF ( iecpt(3)==npvt ) THEN
          IF ( iscalr==0 ) THEN
             iscalr = 1
             ind = 4
@@ -131,7 +140,7 @@ SUBROUTINE kelas(Ijklmn)
       inpdof = 5
       IF ( iecpt(3)==0 ) ind = 1
    ELSE
-      IF ( iecpt(3)/=Npvt ) RETURN
+      IF ( iecpt(3)/=npvt ) RETURN
       ipvt = 3
       ipdof = 5
       inpvt = 2
@@ -146,9 +155,9 @@ SUBROUTINE kelas(Ijklmn)
 !
    ii = iecpt(ipvt) + iecpt(ipdof) - 1
    jj = iecpt(inpvt) + iecpt(inpdof) - 1
-   ke = Ecpt(6)
+   ke = ecpt(6)
    index = 6
-   ifile = Ifkgg
+   ifile = ifkgg
  100  ASSIGN 300 TO iretrn
    i = ii
    j = ii
@@ -161,7 +170,7 @@ SUBROUTINE kelas(Ijklmn)
    GOTO 200
  400  IF ( ind/=4 ) GOTO 600
    ASSIGN 500 TO iretrn
-   ke = Ecpt(6)
+   ke = ecpt(6)
    i = jj
    GOTO 200
  500  ASSIGN 600 TO iretrn
@@ -169,14 +178,14 @@ SUBROUTINE kelas(Ijklmn)
    j = ii
    GOTO 200
  600  IF ( index==7 ) RETURN
-   IF ( Iopt4==0 .OR. iarg==4 ) RETURN
+   IF ( iopt4==0 .OR. iarg==4 ) RETURN
 !
 ! IF G SUB E IS NON-ZERO, SET PARAMETERS FOR K4GG INSERTION.
 !
-   IF ( Ecpt(7)==0.0 ) RETURN
-   K4ggsw = 1
-   ifile = If4gg
-   ke = Ecpt(7)*Ecpt(6)
+   IF ( ecpt(7)==0.0 ) RETURN
+   k4ggsw = 1
+   ifile = if4gg
+   ke = ecpt(7)*ecpt(6)
    index = 7
    GOTO 100
 END SUBROUTINE kelas

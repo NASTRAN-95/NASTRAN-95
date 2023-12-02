@@ -1,4 +1,5 @@
-!*==shstts.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==shstts.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE shstts(Tab,Uab,Vab)
@@ -9,6 +10,12 @@ SUBROUTINE shstts(Tab,Uab,Vab)
    REAL , DIMENSION(9) :: Tab
    REAL , DIMENSION(9) :: Uab
    REAL , DIMENSION(4) :: Vab
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !

@@ -1,9 +1,10 @@
-!*==alamda.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==alamda.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE alamda(Arg,Y,Blamda)
+   USE c_blk1
    IMPLICIT NONE
-   USE C_BLK1
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -23,19 +24,18 @@ SUBROUTINE alamda(Arg,Y,Blamda)
 !
 !
 !
-   scrk1 = abs(Scrk)
+   scrk1 = abs(scrk)
    arg1 = abs(Arg)
-   s1 = (Arg-Del)*Sps + Sigma
+   s1 = (Arg-del)*sps + sigma
    IF ( scrk1>arg1 ) THEN
-      gam = sqrt(Scrk**2-Arg**2)
-      c1 = cosh(gam*(Sns-Y)) - cexp(Ai*s1)*cosh(gam*Y)
-      c2 = cosh(Sns*gam) - cos(s1)
+      gam = sqrt(scrk**2-Arg**2)
+      c1 = cosh(gam*(sns-Y)) - cexp(ai*s1)*cosh(gam*Y)
+      c2 = cosh(sns*gam) - cos(s1)
       Blamda = c1/c2
       RETURN
    ENDIF
-   gam = sqrt(Arg**2-Scrk**2)
-   c1 = cos(gam*(Sns-Y)) - cexp(Ai*s1)*cos(gam*Y)
-   c2 = cos(Sns*gam) - cos(s1)
+   gam = sqrt(Arg**2-scrk**2)
+   c1 = cos(gam*(sns-Y)) - cexp(ai*s1)*cos(gam*Y)
+   c2 = cos(sns*gam) - cos(s1)
    Blamda = c1/c2
-   RETURN
 END SUBROUTINE alamda

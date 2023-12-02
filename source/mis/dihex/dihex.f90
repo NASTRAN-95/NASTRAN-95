@@ -2,14 +2,14 @@
  
 SUBROUTINE dihex(Type)
    IMPLICIT NONE
-   USE C_DS1AAA
-   USE C_DS1ADP
-   USE C_DS1AET
-   USE C_MATIN
-   USE C_MATISO
-   USE C_MATOUT
-   USE C_SYSTEM
-   USE C_ZZZZZZ
+   USE c_ds1aaa
+   USE c_ds1adp
+   USE c_ds1aet
+   USE c_matin
+   USE c_matiso
+   USE c_matout
+   USE c_system
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -42,6 +42,15 @@ SUBROUTINE dihex(Type)
    INTEGER , DIMENSION(6) , SAVE :: ufm
    REAL , DIMENSION(3,2) :: vn
    REAL*8 , DIMENSION(1) :: z
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -91,7 +100,7 @@ SUBROUTINE dihex(Type)
 !
 !     FOR DOUBLE PRECISION, OPEN CORE POINTERS MUST BE MODIFIED
 !
-   izs = 1 + 2*(I6x6k+Jmax*Nrowsc)
+   izs = 1 + 2*(i6x6k+jmax*nrowsc)
    nzs = izs + 10655
    iz = izs/2 + 1
    nz = nzs/2 + 1
@@ -101,9 +110,9 @@ SUBROUTINE dihex(Type)
 !
    ngp = 12*Type - 4
    DO i = 1 , ngp
-      IF ( sil(i)==Npvt ) GOTO 100
+      IF ( sil(i)==npvt ) GOTO 100
    ENDDO
-   Nogo = 1
+   nogo = 1
  100  igp = i
    IF ( heat==1 ) THEN
       ik = iz + 17
@@ -135,11 +144,11 @@ SUBROUTINE dihex(Type)
    id = nd + 1
    nd = id + ngg - 1
    IF ( nd>nz ) THEN
-      WRITE (Otpt,99001) ufm , nerr1 , ihex , Type , elno , eid
+      WRITE (otpt,99001) ufm , nerr1 , ihex , Type , elno , eid
 !
 !
 99001 FORMAT (6A4,I4,2H, ,A4,I1,3A4,I9,' INSUFFICIENT CORE TO COMPUTE',' ELEMENT MATRIX')
-      Nogo = 1
+      nogo = 1
    ENDIF
 !
 !     OPEN CORE MAP
@@ -189,15 +198,15 @@ SUBROUTINE dihex(Type)
 !
 !     FETCH EPT DATA, COMPUTE EST POINTERS
 !
-   Mid = 10 + 12*(Type-1)
-   cid = iest(Mid+1)
-   nip = iest(Mid+2)
-   maxar = Est(Mid+3)
-   alfa = Est(Mid+4)
-   beta = Est(Mid+5)
-   bgpdt = Mid + 6
+   mid = 10 + 12*(Type-1)
+   cid = iest(mid+1)
+   nip = iest(mid+2)
+   maxar = est(mid+3)
+   alfa = est(mid+4)
+   beta = est(mid+5)
+   bgpdt = mid + 6
    gpt = bgpdt + 4*ngp
-   Mid = iest(Mid)
+   mid = iest(mid)
    IF ( nip<2 .OR. nip>4 ) nip = Type/2 + 2
    IF ( maxar<=0.0 ) maxar = dmaxar(Type)
    IF ( alfa<0.0 ) alfa = dalfa(Type)
@@ -213,12 +222,12 @@ SUBROUTINE dihex(Type)
       j = gpt + 2*ngp + 3*(i-1) + 1
       IF ( iest(m)==0 ) THEN
          DO l = 1 , 3
-            z(n+l-1) = dble(Est(j+l-1)*0.25)
+            z(n+l-1) = dble(est(j+l-1)*0.25)
          ENDDO
       ELSE
-         CALL transd(Est(m),z(iz))
+         CALL transd(est(m),z(iz))
          DO l = 1 , 3
-            z(ik+l-1) = dble(Est(j+l-1)*0.25)
+            z(ik+l-1) = dble(est(j+l-1)*0.25)
          ENDDO
          CALL gmmatd(z(iz),3,3,0,z(ik),3,1,0,z(n))
       ENDIF
@@ -234,7 +243,7 @@ SUBROUTINE dihex(Type)
       DO j = 1 , 3
          k = bgpdt + 4*(ngp-i) + 4 - j
          bcord = bcord - 1
-         Est(bcord) = Est(k)
+         est(bcord) = est(k)
       ENDDO
    ENDDO
    DO i = 2 , ngp
@@ -274,7 +283,7 @@ SUBROUTINE dihex(Type)
 !     ORDERED ACCORDING TO INCREASING SIL NUMBERS
 !
    DO i = 1 , ngp
-      Isil(i) = sil(i)
+      isil(i) = sil(i)
       sil(i) = i
    ENDDO
 !
@@ -304,15 +313,15 @@ SUBROUTINE dihex(Type)
 !
    tdep = .TRUE.
    DO i = 2 , ngp
-      IF ( Est(gpt)/=Est(gpt+i-1) ) GOTO 200
+      IF ( est(gpt)/=est(gpt+i-1) ) GOTO 200
    ENDDO
    tdep = .FALSE.
- 200  Temp = Est(gpt)
-   Inflag = 10
+ 200  temp = est(gpt)
+   inflag = 10
    CALL mat(eid)
-   IF ( .NOT.Mtdep ) tdep = .FALSE.
+   IF ( .NOT.mtdep ) tdep = .FALSE.
    IF ( ib(46)==6 ) anis = .TRUE.
-   Tref = Bufm6(44)
+   tref = bufm6(44)
 !
    IF ( kgg>0 ) THEN
 !
@@ -326,17 +335,17 @@ SUBROUTINE dihex(Type)
 !     SYSTEM
 !
             DO ijk = 1 , 36
-               gmat(ijk) = Bufm6(ijk)
+               gmat(ijk) = bufm6(ijk)
             ENDDO
          ELSEIF ( ib(46)/=0 ) THEN
 !
-            e1 = Bufm6(1)
-            e2 = Bufm6(2)
-            e3 = Bufm6(22)
-            Talpha = Bufm6(38)
+            e1 = bufm6(1)
+            e2 = bufm6(2)
+            e3 = bufm6(22)
+            talpha = bufm6(38)
          ELSE
-            WRITE (Otpt,99002) ufm , Mid , eid
-            Nogo = 1
+            WRITE (otpt,99002) ufm , mid , eid
+            nogo = 1
             RETURN
          ENDIF
       ENDIF
@@ -353,7 +362,7 @@ SUBROUTINE dihex(Type)
 !
 !     GENERATE SHAPE FUNCTIONS AND JACOBIAN MATRIX INVERSE
 !
-            CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),Est(bcord))
+            CALL ihexsd(Type,z(in),z(ig),jacob,detj,eid,s(i),s(j),s(k),est(bcord))
             IF ( detj/=0.0 ) THEN
 !
                sfact = h(i)*h(j)*h(k)*detj
@@ -382,23 +391,23 @@ SUBROUTINE dihex(Type)
                   IF ( .NOT.anis ) GOTO 210
                   IF ( rect ) GOTO 210
                ELSE
-                  Temp = 0.0
+                  temp = 0.0
                   DO l = 1 , ngp
-                     Temp = Temp + z(in+l-1)*Est(gpt+l-1)
+                     temp = temp + z(in+l-1)*est(gpt+l-1)
                   ENDDO
                   CALL mat(eid)
                   IF ( kgg<=0 ) GOTO 210
                   IF ( .NOT.(anis) ) THEN
                      IF ( ib(46)/=0 ) THEN
 !
-                        e1 = Bufm6(1)
-                        e2 = Bufm6(2)
-                        e3 = Bufm6(22)
-                        Talpha = Bufm6(38)
+                        e1 = bufm6(1)
+                        e2 = bufm6(2)
+                        e3 = bufm6(22)
+                        talpha = bufm6(38)
                         GOTO 210
                      ELSE
-                        WRITE (Otpt,99002) ufm , Mid , eid
-                        Nogo = 1
+                        WRITE (otpt,99002) ufm , mid , eid
+                        nogo = 1
                         RETURN
                      ENDIF
                   ENDIF
@@ -408,13 +417,13 @@ SUBROUTINE dihex(Type)
 !     ANISOTROPIC MATERIAL MATRIX
 !
                DO ijk = 1 , 36
-                  gmat(ijk) = Bufm6(ijk)
+                  gmat(ijk) = bufm6(ijk)
                ENDDO
             ELSE
 !
 !     BAD ELEMENT IF FALL HERE.  JACOBIAN MATRIX WAS SINGULAR.
 !
-               Nogo = 1
+               nogo = 1
                RETURN
             ENDIF
 !
@@ -434,25 +443,25 @@ SUBROUTINE dihex(Type)
 !
 !     COMPUTE LOADING TEMPERATURE AT THIS POINT
 !
-               Temp = 0.0
+               temp = 0.0
                DO l = 1 , ngp
-                  Temp = Temp + z(in+l-1)*Est(gpt+ngp+l)
+                  temp = temp + z(in+l-1)*est(gpt+ngp+l)
                ENDDO
-               Temp = 0.25*(Temp-Tref)
+               temp = 0.25*(temp-tref)
                IF ( anis ) THEN
 !
 !     ANISOTROPIC
 !
                   DO ijk = 1 , 6
-                     dalpha(ijk) = Bufm6(ijk+37)
+                     dalpha(ijk) = bufm6(ijk+37)
                   ENDDO
 !
                   CALL gmmatd(gmat(1),6,6,0,dalpha(1),6,1,0,sig)
                   DO ijk = 1 , 6
-                     sig(ijk) = -sig(ijk)*Temp
+                     sig(ijk) = -sig(ijk)*temp
                   ENDDO
                ELSE
-                  sig(1) = -Talpha*(e1+2.0*e2)*Temp
+                  sig(1) = -talpha*(e1+2.0*e2)*temp
                   sig(2) = sig(1)
                   sig(3) = sig(1)
                   sig(4) = 0.0
@@ -463,9 +472,9 @@ SUBROUTINE dihex(Type)
 !
 !     DISPLACEMENT EFFECTS, COMPUTE STRESS MATRIX AND MULTIPLY BY DISPL.
 !
-            Str(12) = 0.0
-            Str(13) = 0.0
-            Str(17) = 0.0
+            str(12) = 0.0
+            str(13) = 0.0
+            str(17) = 0.0
             DO l = 1 , ngp
                ii = ix + 3*l - 4
                IF ( anis ) THEN
@@ -485,26 +494,26 @@ SUBROUTINE dihex(Type)
                   store(16) = z(ii+3)
                   store(18) = z(ii+1)
 !
-                  CALL gmmatd(gmat(1),6,6,0,store(1),6,3,0,Str(1))
+                  CALL gmmatd(gmat(1),6,6,0,store(1),6,3,0,str(1))
                ELSE
-                  Str(1) = e1*z(ii+1)
-                  Str(2) = e2*z(ii+2)
-                  Str(3) = e2*z(ii+3)
-                  Str(4) = e2*z(ii+1)
-                  Str(5) = e1*z(ii+2)
-                  Str(6) = e2*z(ii+3)
-                  Str(7) = e2*z(ii+1)
-                  Str(8) = e2*z(ii+2)
-                  Str(9) = e1*z(ii+3)
-                  Str(10) = e3*z(ii+2)
-                  Str(11) = e3*z(ii+1)
-                  Str(14) = e3*z(ii+3)
-                  Str(15) = e3*z(ii+2)
-                  Str(16) = e3*z(ii+3)
-                  Str(18) = e3*z(ii+1)
+                  str(1) = e1*z(ii+1)
+                  str(2) = e2*z(ii+2)
+                  str(3) = e2*z(ii+3)
+                  str(4) = e2*z(ii+1)
+                  str(5) = e1*z(ii+2)
+                  str(6) = e2*z(ii+3)
+                  str(7) = e2*z(ii+1)
+                  str(8) = e2*z(ii+2)
+                  str(9) = e1*z(ii+3)
+                  str(10) = e3*z(ii+2)
+                  str(11) = e3*z(ii+1)
+                  str(14) = e3*z(ii+3)
+                  str(15) = e3*z(ii+2)
+                  str(16) = e3*z(ii+3)
+                  str(18) = e3*z(ii+1)
                ENDIF
 !
-               CALL gmmatd(Str,6,3,-2,z(id+3*l-3),3,1,0,sig)
+               CALL gmmatd(str,6,3,-2,z(id+3*l-3),3,1,0,sig)
             ENDDO
             sv = sx
             sx = sx + sy
@@ -627,7 +636,7 @@ SUBROUTINE dihex(Type)
  300  k = (in-1)*2 + 1
    j = ngp*4
    DO i = 1 , j
-      grid(i) = Est(bgpdt+i-1)
+      grid(i) = est(bgpdt+i-1)
    ENDDO
 !
 !     NOW MOVE IT BACK AND REARRANGE IT
@@ -635,7 +644,7 @@ SUBROUTINE dihex(Type)
    DO i = 1 , ngp
       iest(bgpdt+4*i-4) = igrid(i)
       DO j = 1 , 3
-         Est(bgpdt+4*i-4+j) = grid(ngp+3*i+j-3)
+         est(bgpdt+4*i-4+j) = grid(ngp+3*i+j-3)
       ENDDO
    ENDDO
 !
@@ -643,7 +652,7 @@ SUBROUTINE dihex(Type)
 !
    DO i = 1 , ngp
       j = in + (i-1)*9
-      CALL transd(Est(bgpdt+4*i-4),z(j))
+      CALL transd(est(bgpdt+4*i-4),z(j))
    ENDDO
 !
 !     TRANSFORM STIFFNESS TO GLOBAL COORDINATES
@@ -706,7 +715,7 @@ SUBROUTINE dihex(Type)
 !     BUILD STIFFNESS PARTITIONS AND PASS TO EMGOUT
 !
  400  DO i = 1 , 36
-      Sk(i,1) = 0.0D0
+      sk(i,1) = 0.0D0
    ENDDO
    i = igp
    DO j = 1 , 3
@@ -749,10 +758,10 @@ SUBROUTINE dihex(Type)
       DO m = 1 , 3
          DO n = 1 , 3
             k = j + n + (m-1)*ngg
-            Sk(n,m) = z(k)
+            sk(n,m) = z(k)
          ENDDO
       ENDDO
-      CALL ds1b(Sk,Isil(i))
+      CALL ds1b(sk,isil(i))
    ENDDO
 !
 !     ALL DONE, NO ERRORS

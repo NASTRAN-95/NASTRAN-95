@@ -1,9 +1,10 @@
-!*==line.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==line.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -60,21 +61,20 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
 !
          DO j = 1 , 2
             DO i = 1 , 2
-               IF ( xy(i,j)<Reg(i,1) .OR. xy(i,j)>Reg(i,2) ) THEN
+               IF ( xy(i,j)<reg(i,1) .OR. xy(i,j)>reg(i,2) ) THEN
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
                ENDIF
             ENDDO
          ENDDO
          spag_nextblock_1 = 8
-         CYCLE SPAG_DispatchLoop_1
       CASE (3)
          DO i = 1 , 2
-            IF ( xy(i,1)<Reg(i,1) .AND. xy(i,2)<Reg(i,1) ) THEN
+            IF ( xy(i,1)<reg(i,1) .AND. xy(i,2)<reg(i,1) ) THEN
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ENDIF
-            IF ( xy(i,1)>Reg(i,2) .AND. xy(i,2)>Reg(i,2) ) THEN
+            IF ( xy(i,1)>reg(i,2) .AND. xy(i,2)>reg(i,2) ) THEN
                spag_nextblock_1 = 10
                CYCLE SPAG_DispatchLoop_1
             ENDIF
@@ -89,17 +89,17 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
          i = 1
          spag_nextblock_1 = 5
       CASE (5)
-         IF ( xy(i,j)>=Reg(i,1) ) THEN
+         IF ( xy(i,j)>=reg(i,1) ) THEN
             spag_nextblock_1 = 6
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ASSIGN 20 TO tra2
          IF ( i==2 ) THEN
             ASSIGN 60 TO tra1
-            y = Reg(2,1)
+            y = reg(2,1)
          ELSE
             ASSIGN 80 TO tra1
-            x = Reg(1,1)
+            x = reg(1,1)
          ENDIF
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
@@ -108,17 +108,17 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
          spag_nextblock_1 = 6
       CASE (6)
 !
-         IF ( xy(i,j)<=Reg(i,2) ) THEN
+         IF ( xy(i,j)<=reg(i,2) ) THEN
             spag_nextblock_1 = 7
             CYCLE SPAG_DispatchLoop_1
          ENDIF
          ASSIGN 40 TO tra2
          IF ( i==2 ) THEN
             ASSIGN 60 TO tra1
-            y = Reg(2,2)
+            y = reg(2,2)
          ELSE
             ASSIGN 80 TO tra1
-            x = Reg(1,2)
+            x = reg(1,2)
          ENDIF
          spag_nextblock_1 = 11
          CYCLE SPAG_DispatchLoop_1
@@ -141,7 +141,7 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
 !
          DO j = 1 , 2
             DO i = 1 , 2
-               IF ( xy(i,j)+.1<Reg(i,1) .OR. xy(i,j)-.1>Reg(i,2) ) RETURN
+               IF ( xy(i,j)+.1<reg(i,1) .OR. xy(i,j)-.1>reg(i,2) ) RETURN
             ENDDO
          ENDDO
          spag_nextblock_1 = 8
@@ -150,7 +150,7 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
 !     FIND THE CORRECT PEN NUMBER FOR THIS PLOTTER.
 !
          pen = Penx
-         pen = pen - Npens*((pen-1)/Npens)
+         pen = pen - npens*((pen-1)/npens)
          spag_nextblock_1 = 9
       CASE (9)
 !
@@ -163,15 +163,14 @@ SUBROUTINE line(X1,Y1,X2,Y2,Penx,Opt)
          ifl = 0
          DO j = 1 , 2
             DO m = 1 , 2
-               IF ( abs(xy(i,j)-Reg(i,m))<=1.0E-8 ) THEN
+               IF ( abs(xy(i,j)-reg(i,m))<=1.0E-8 ) THEN
                   ifl = 1
-                  xy(i,j) = Reg(i,m)
+                  xy(i,j) = reg(i,m)
                ENDIF
             ENDDO
          ENDDO
          IF ( ifl<=0 ) RETURN
          spag_nextblock_1 = 2
-         CYCLE SPAG_DispatchLoop_1
       CASE (11)
 !
 !

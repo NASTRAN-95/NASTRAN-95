@@ -1,18 +1,19 @@
-!*==ta1cpd.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==ta1cpd.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE ta1cpd
-USE C_BLANK
-USE C_CONDAD
-USE C_MACHIN
-USE C_MATIN
-USE C_MATOUT
-USE C_NAMES
-USE C_SYSTEM
-USE C_TA1COM
-USE C_TWO
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_condad
+   USE c_machin
+   USE c_matin
+   USE c_matout
+   USE c_names
+   USE c_system
+   USE c_ta1com
+   USE c_two
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -97,12 +98,12 @@ USE ISO_FORTRAN_ENV
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         buf0 = korsz(Z) - Sysbuf - 2
-         buf1 = buf0 - Sysbuf - 2
-         buf2 = buf1 - Sysbuf - 2
-         buf3 = buf2 - Sysbuf - 2
-         buf4 = buf3 - Sysbuf - 2
-         buf5 = buf4 - Sysbuf - 2
+         buf0 = korsz(z) - sysbuf - 2
+         buf1 = buf0 - sysbuf - 2
+         buf2 = buf1 - sysbuf - 2
+         buf3 = buf2 - sysbuf - 2
+         buf4 = buf3 - sysbuf - 2
+         buf5 = buf4 - sysbuf - 2
 !
 !     PERFORM GENERAL INITILIZATION
 !
@@ -113,36 +114,36 @@ USE ISO_FORTRAN_ENV
          pshlpr = 0
          icount = 0
          rho = 0.0D0
-         IF ( Mach==2 ) epsi = 1.0D-12
+         IF ( mach==2 ) epsi = 1.0D-12
 !
 !     OPEN EPTX AND WRITE HEADER RECORD
 !
-         file = Eptx
-         CALL open(*380,Eptx,Z(buf0),Wrtrew)
-         CALL fname(Eptx,nam1)
-         CALL write(Eptx,nam1,2,1)
+         file = eptx
+         CALL open(*380,eptx,z(buf0),wrtrew)
+         CALL fname(eptx,nam1)
+         CALL write(eptx,nam1,2,1)
 !
 !     OPEN MPTX AND WRITE HEADER RECORD
 !
-         file = Mptx
-         CALL open(*380,Mptx,Z(buf1),Wrtrew)
-         CALL fname(Mptx,nam1)
-         CALL write(Mptx,nam1,2,1)
+         file = mptx
+         CALL open(*380,mptx,z(buf1),wrtrew)
+         CALL fname(mptx,nam1)
+         CALL write(mptx,nam1,2,1)
 !
 !     OPEN MPT AND POSITION FILE
 !
-         file = Mpt
-         CALL open(*380,Mpt,Z(buf2),Rdrew)
-         CALL fwdrec(*380,Mpt)
+         file = mpt
+         CALL open(*380,mpt,z(buf2),rdrew)
+         CALL fwdrec(*380,mpt)
 !
 !     OPEN PCOMPS AND WRITE HEADER RECORD
 !     WRITE TO IPCOMP(1), THE GINO FILE NAME OF PCOMPS
 !
-         file = Pcomps
-         CALL open(*380,Pcomps,Z(buf3),Wrtrew)
-         CALL write(Pcomps,nam2,2,1)
+         file = pcomps
+         CALL open(*380,pcomps,z(buf3),wrtrew)
+         CALL write(pcomps,nam2,2,1)
 !
-         ipcomp(1) = Pcomps
+         ipcomp(1) = pcomps
          DO ll = 2 , 7
             ipcomp(ll) = 0
          ENDDO
@@ -154,42 +155,42 @@ USE ISO_FORTRAN_ENV
 !
          n = buf5 - 1
          iept = i1st
-         file = Ept
-         CALL open(*380,Ept,Z(buf4),Rdrew)
-         CALL fwdrec(*380,Ept)
+         file = ept
+         CALL open(*380,ept,z(buf4),rdrew)
+         CALL fwdrec(*380,ept)
          irec = 0
          DO
-            CALL fwdrec(*20,Ept)
+            CALL fwdrec(*20,ept)
             irec = irec + 1
          ENDDO
 !
- 20      CALL rewind(Ept)
-         CALL fwdrec(*380,Ept)
+ 20      CALL rewind(ept)
+         CALL fwdrec(*380,ept)
          ired = 0
          spag_nextblock_1 = 2
       CASE (2)
-         CALL read(*380,*40,Ept,Z(iept),n,1,eptwds)
+         CALL read(*380,*40,ept,z(iept),n,1,eptwds)
          CALL mesage(-8,0,nam)
- 40      IF ( Z(iept)==4902 ) THEN
+ 40      IF ( z(iept)==4902 ) THEN
 !
             pshlpr = 1
          ELSE
             ired = ired + 1
             IF ( ired/=irec ) THEN
-               CALL write(Eptx,Z(iept),eptwds,1)
+               CALL write(eptx,z(iept),eptwds,1)
                eptwds = 0
                spag_nextblock_1 = 2
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ENDIF
-         CALL bckrec(Ept)
-         CALL savpos(Ept,pos1)
-         CALL close(Ept,Clsrew)
+         CALL bckrec(ept)
+         CALL savpos(ept,pos1)
+         CALL close(ept,clsrew)
 !
 !     OPEN EPT
 !
-         file = Ept
-         CALL preloc(*380,Z(buf4),Ept)
+         file = ept
+         CALL preloc(*380,z(buf4),ept)
 !
 !     COPY ALL MAT ENTRIES UP TO MAT2 TYPE TO FILE MPTX
 !
@@ -199,20 +200,19 @@ USE ISO_FORTRAN_ENV
          imat = i1st
          spag_nextblock_1 = 3
       CASE (3)
-         CALL read(*80,*60,Mpt,Z(imat),n,1,matwds)
+         CALL read(*80,*60,mpt,z(imat),n,1,matwds)
          CALL mesage(-8,0,nam)
- 60      IF ( Z(imat)>=203 ) THEN
-            CALL bckrec(Mpt)
-            CALL savpos(Mpt,pos)
-            IF ( Z(imat)==203 ) mat2pr = 1
+ 60      IF ( z(imat)>=203 ) THEN
+            CALL bckrec(mpt)
+            CALL savpos(mpt,pos)
+            IF ( z(imat)==203 ) mat2pr = 1
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
-            CALL write(Mptx,Z(imat),matwds,1)
+            CALL write(mptx,z(imat),matwds,1)
             matwds = 0
             spag_nextblock_1 = 3
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
 !
 !     SET END OF FILE FLAG
 !
@@ -222,7 +222,7 @@ USE ISO_FORTRAN_ENV
 !
 !     CLOSE MPT BEFORE CALLING PREMAT
 !
-         CALL close(Mpt,1)
+         CALL close(mpt,1)
 !
 !     SET POINTERS AND PERFORM INITILIZATION
 !
@@ -241,9 +241,9 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE PCOMP DATA AND READ INTO CORE
 !
-         CALL locate(*120,Z(buf4),pcomp,flag)
+         CALL locate(*120,z(buf4),pcomp,flag)
 !
-         CALL read(*380,*100,Ept,Z(ipc),n,0,npc)
+         CALL read(*380,*100,ept,z(ipc),n,0,npc)
          CALL mesage(-8,0,nam)
  100     IF ( npc>0 ) typc = 1
          ipc1 = ipc + npc
@@ -252,10 +252,10 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE PCOMP1 DATA AND READ INTO CORE
 !
- 120     CALL locate(*160,Z(buf4),pcomp1,flag)
+ 120     CALL locate(*160,z(buf4),pcomp1,flag)
 !
          ipc1 = ipc + npc
-         CALL read(*200,*140,Ept,Z(ipc1),n,0,npc1)
+         CALL read(*200,*140,ept,z(ipc1),n,0,npc1)
          CALL mesage(-8,0,nam)
  140     IF ( npc1>0 ) typc1 = 1
          ipc2 = ipc1 + npc1
@@ -264,10 +264,10 @@ USE ISO_FORTRAN_ENV
 !
 !     LOCATE PCOMP2 DATA AND READ INTO CORE
 !
- 160     CALL locate(*200,Z(buf4),pcomp2,flag)
+ 160     CALL locate(*200,z(buf4),pcomp2,flag)
 !
          ipc2 = ipc1 + npc1
-         CALL read(*200,*180,Ept,Z(ipc2),n,0,npc2)
+         CALL read(*200,*180,ept,z(ipc2),n,0,npc2)
          CALL mesage(-8,0,nam)
  180     IF ( npc2>0 ) typc2 = 1
 !
@@ -278,13 +278,13 @@ USE ISO_FORTRAN_ENV
 !
 !     CLOSE EPT BEFORE PROCESSING PCOMPI
 !
-         CALL close(Ept,1)
+         CALL close(ept,1)
 !
 !     READ MATERIAL PROPERTY TABLE INTO CORE
 !
          imat = lpcomp + 1
          n1mat = buf5 - imat
-         CALL premat(Z(imat),Z(imat),Z(buf5),n1mat,n2mat,Mpt,dit)
+         CALL premat(z(imat),z(imat),z(buf5),n1mat,n2mat,mpt,dit)
          IF ( imat+n2mat>=buf5 ) CALL mesage(-8,0,nam)
          icore = imat + n2mat + 1
 !
@@ -340,9 +340,9 @@ USE ISO_FORTRAN_ENV
 !
          IF ( typc==0 .AND. typc1==0 .AND. typc2==0 ) THEN
             CALL page2(2)
-            WRITE (Nout,99001)
+            WRITE (nout,99001)
 99001       FORMAT ('0*** SYSTEM FATAL ERROR.  PCOMP, PCOMP1 OR PCOMP2',' DATA NOT FOUND BY SUBROUTINE TA1CPD.')
-            Nogo = 1
+            nogo = 1
             RETURN
          ENDIF
          spag_nextblock_1 = 7
@@ -353,7 +353,7 @@ USE ISO_FORTRAN_ENV
 !     THOSE REFERENCING MAT8 PROPERTY, IN WHICH CASE THE ENTRY
 !     IS MERELY ECHOED.
 !
-         Inflag = 12
+         inflag = 12
 !
 !     SET POINTERS
 !
@@ -362,7 +362,7 @@ USE ISO_FORTRAN_ENV
 !     PCOMP TYPE
 !
          IF ( itype==0 ) THEN
-            CALL write(Pcomps,npcmp,3,0)
+            CALL write(pcomps,npcmp,3,0)
 !
 !     PCOMP1 TYPE
 !
@@ -370,9 +370,9 @@ USE ISO_FORTRAN_ENV
 !
 !     PCOMP2 TYPE
 !
-            CALL write(Pcomps,npcmp2,3,0)
+            CALL write(pcomps,npcmp2,3,0)
          ELSE
-            CALL write(Pcomps,npcmp1,3,0)
+            CALL write(pcomps,npcmp1,3,0)
          ENDIF
          spag_nextblock_1 = 8
       CASE (8)
@@ -400,14 +400,14 @@ USE ISO_FORTRAN_ENV
          ENDIF
 !
          SPAG_Loop_1_1: DO ii = istart , ifinis
-            IF ( Z(ii)==-1 ) EXIT SPAG_Loop_1_1
+            IF ( z(ii)==-1 ) EXIT SPAG_Loop_1_1
          ENDDO SPAG_Loop_1_1
 !
          eoeloc = ii
          pidloc = istart
          len = eoeloc - pidloc
          nlay = (len-nwdpc)/kpc
-         lamopt = Z(pidloc+7)
+         lamopt = z(pidloc+7)
 !
 !     DETERMINE LAMINATE THICKNESS
 !
@@ -442,13 +442,13 @@ USE ISO_FORTRAN_ENV
 !      2. NLAY - NUMBER OF LAYERS
 !      3. REMAINDER OF PCOMP ENTRY
 !
-         CALL write(Pcomps,Z(pidloc),1,0)
-         CALL write(Pcomps,nlay,1,0)
+         CALL write(pcomps,z(pidloc),1,0)
+         CALL write(pcomps,nlay,1,0)
 !
 !     SET LEN TO THE NO. WORDS TO BE WRITTEN TO PCOMPS
 !
          len = len - 1
-         CALL write(Pcomps,Z(pidloc+1),len,0)
+         CALL write(pcomps,z(pidloc+1),len,0)
 !
 !     CALL MAT TO GET LAYER PROPERTIES AND WRITE TO PCOMPS
 !     NOTE FOR PCOMP1 AND PCOMP2 ENTRIES THE PROPERTY MATRIX
@@ -506,16 +506,16 @@ USE ISO_FORTRAN_ENV
 !     LOOP OVER LAYERS
 !
          DO k = 1 , nlay
-            IF ( itype==0 ) Matid = Z(pidloc+4+4*k)
-            IF ( itype==1 .OR. itype==2 ) Matid = Z(pidloc+5)
-            IF ( k>=2 .AND. (itype==0 .AND. mid==Matid) ) THEN
+            IF ( itype==0 ) matid = z(pidloc+4+4*k)
+            IF ( itype==1 .OR. itype==2 ) matid = z(pidloc+5)
+            IF ( k>=2 .AND. (itype==0 .AND. mid==matid) ) THEN
 !
 !     WRITE THE LAYER PROPERTY MATRIX G TO FILE PCOMPS
 !
-               CALL write(Pcomps,glay(1),25,0)
+               CALL write(pcomps,glay(1),25,0)
             ELSEIF ( .NOT.(k>=2 .AND. (itype==1 .OR. itype==2)) ) THEN
 !
-               mid = Matid
+               mid = matid
                CALL mat(elid)
 !
 !     CALL LPROPD TO GET LAYER PROPERTY MATRICES
@@ -552,7 +552,7 @@ USE ISO_FORTRAN_ENV
                      ENDIF
                   ENDIF
                ENDIF
-               CALL write(Pcomps,glay(1),25,0)
+               CALL write(pcomps,glay(1),25,0)
             ENDIF
 !
 !
@@ -571,7 +571,7 @@ USE ISO_FORTRAN_ENV
             IF ( c>269.998D0 .AND. c<270.002D0 ) c = 270.0D0
             IF ( c>359.998D0 .AND. c<360.002D0 ) c = 360.0D0
             IF ( theta<0.0D0 ) c = -c
-            thetar = c*Degrad
+            thetar = c*degrad
 !
             c = dcos(thetar)
             IF ( dabs(c)<epsi ) c = 0.0D0
@@ -737,8 +737,8 @@ USE ISO_FORTRAN_ENV
 !
 !     WRITE EXX AND EYY TO PCOMPS
 !
-            CALL write(Pcomps,exx,1,0)
-            CALL write(Pcomps,eyy,1,0)
+            CALL write(pcomps,exx,1,0)
+            CALL write(pcomps,eyy,1,0)
 !
             IF ( lamopt/=sym ) THEN
 !
@@ -790,8 +790,8 @@ USE ISO_FORTRAN_ENV
 !
 !     WRITE EIXX AND EIYY TO PCOMPS
 !
-         CALL write(Pcomps,eixx,1,0)
-         CALL write(Pcomps,eiyy,1,0)
+         CALL write(pcomps,eixx,1,0)
+         CALL write(pcomps,eiyy,1,0)
 !
 !     ***************************************************************
 !     *   THE MEMBRANE, BENDING, AND MEMEBRANE-BENDING MATRICES     *
@@ -823,8 +823,8 @@ USE ISO_FORTRAN_ENV
 !
 !     WRITE ZX AND ZY TO PCOMPS
 !
-         CALL write(Pcomps,zx,1,0)
-         CALL write(Pcomps,zy,1,0)
+         CALL write(pcomps,zx,1,0)
+         CALL write(pcomps,zy,1,0)
 !
 !     CALCULATE OVERALL DENSITY RHO
 !
@@ -844,12 +844,12 @@ USE ISO_FORTRAN_ENV
 !     LOOP OVER ALL THE LAYERS
 !
                DO k = 1 , nlay
-                  IF ( itype==0 ) Matid = Z(pidloc+4+4*k)
-                  IF ( itype==1 .OR. itype==2 ) Matid = Z(pidloc+5)
-                  IF ( k<2 .OR. (itype/=0 .OR. mid/=Matid) ) THEN
+                  IF ( itype==0 ) matid = z(pidloc+4+4*k)
+                  IF ( itype==1 .OR. itype==2 ) matid = z(pidloc+5)
+                  IF ( k<2 .OR. (itype/=0 .OR. mid/=matid) ) THEN
                      IF ( .NOT.(k>=2 .AND. (itype==1 .OR. itype==2)) ) THEN
 !
-                        mid = Matid
+                        mid = matid
                         CALL mat(elid)
 !
 !     CALL LPROPD TO GET LAYER PROPERTY MATRICES
@@ -870,7 +870,7 @@ USE ISO_FORTRAN_ENV
                   IF ( c>269.998D0 .AND. c<270.002D0 ) c = 270.0D0
                   IF ( c>359.998D0 .AND. c<360.002D0 ) c = 360.0D0
                   IF ( theta<0.0D0 ) c = -c
-                  thetar = c*Degrad
+                  thetar = c*degrad
 !
                   c = dcos(thetar)
                   IF ( dabs(c)<epsi ) c = 0.0D0
@@ -1038,12 +1038,12 @@ USE ISO_FORTRAN_ENV
                   DO kk = 1 , nlay
                      k = nlay + 1 - kk
 !
-                     IF ( itype==0 ) Matid = Z(pidloc+4+4*k)
-                     IF ( itype==1 .OR. itype==2 ) Matid = Z(pidloc+5)
-                     IF ( k<2 .OR. (itype/=0 .OR. mid/=Matid) ) THEN
+                     IF ( itype==0 ) matid = z(pidloc+4+4*k)
+                     IF ( itype==1 .OR. itype==2 ) matid = z(pidloc+5)
+                     IF ( k<2 .OR. (itype/=0 .OR. mid/=matid) ) THEN
                         IF ( .NOT.(k>=2 .AND. (itype==1 .OR. itype==2)) ) THEN
 !
-                           mid = Matid
+                           mid = matid
                            CALL mat(elid)
 !
 !     CALL LPROPD TO GET LAYER PROPERTY MATRICES
@@ -1064,7 +1064,7 @@ USE ISO_FORTRAN_ENV
                      IF ( c>269.998D0 .AND. c<270.002D0 ) c = 270.0D0
                      IF ( c>359.998D0 .AND. c<360.002D0 ) c = 360.0D0
                      IF ( theta<0.0D0 ) c = -c
-                     thetar = c*Degrad
+                     thetar = c*degrad
 !
                      c = dcos(thetar)
                      IF ( dabs(c)<epsi ) c = 0.0D0
@@ -1278,7 +1278,7 @@ USE ISO_FORTRAN_ENV
 !
 !     START GENERATING G1 MEMBRANE MATRIX
 !
-         imembr(1) = Z(pidloc) + 100000000
+         imembr(1) = z(pidloc) + 100000000
          gmembr(2) = g1(1,1)
          gmembr(3) = g1(1,2)
          gmembr(4) = g1(1,3)
@@ -1301,7 +1301,7 @@ USE ISO_FORTRAN_ENV
 !
 !     START GENERATING G2 BENDING MATRIX
 !
-            ibendg(1) = Z(pidloc) + 200000000
+            ibendg(1) = z(pidloc) + 200000000
             gbendg(2) = g2(1,1)
             gbendg(3) = g2(1,2)
             gbendg(4) = g2(1,3)
@@ -1320,7 +1320,7 @@ USE ISO_FORTRAN_ENV
 !
 !     START GENERATING G3 TRANSVERSE SHEAR FLEXIBILITY MATRIX
 !
-            itrshr(1) = Z(pidloc) + 300000000
+            itrshr(1) = z(pidloc) + 300000000
             gtrshr(2) = g3(1,1)
             gtrshr(3) = g3(1,2)
             gtrshr(4) = g3(2,1)
@@ -1330,7 +1330,7 @@ USE ISO_FORTRAN_ENV
 !
 !     START GENERATING G4 MEMBRANE-BENDING COUPLING MATRIX
 !
-               imembd(1) = Z(pidloc) + 400000000
+               imembd(1) = z(pidloc) + 400000000
                gmembd(2) = g4(1,1)
                gmembd(3) = g4(1,2)
                gmembd(4) = g4(1,3)
@@ -1348,17 +1348,17 @@ USE ISO_FORTRAN_ENV
 !     ARE PRESENT.
 !     ******************************************************
 !
-         ipshel(1) = Z(pidloc)
-         ipshel(2) = Z(pidloc) + 100000000
+         ipshel(1) = z(pidloc)
+         ipshel(2) = z(pidloc) + 100000000
          rpshel(3) = tlam
-         ipshel(4) = Z(pidloc) + 200000000
+         ipshel(4) = z(pidloc) + 200000000
          rpshel(5) = 1.0
-         ipshel(6) = Z(pidloc) + 300000000
+         ipshel(6) = z(pidloc) + 300000000
          rpshel(7) = 1.0
          rpshel(8) = rz(pidloc+2)
          rpshel(9) = -tlam/2.0
          rpshel(10) = tlam/2.0
-         ipshel(11) = Z(pidloc) + 400000000
+         ipshel(11) = z(pidloc) + 400000000
          rpshel(12) = 0.0
          ipshel(13) = 0
          ipshel(14) = 0
@@ -1367,7 +1367,7 @@ USE ISO_FORTRAN_ENV
          rpshel(17) = 0.0
 !
          zoffs = rz(pidloc+1) + tlam/2.0
-         IF ( Z(pidloc)==blank ) zoffs = 0.0
+         IF ( z(pidloc)==blank ) zoffs = 0.0
          IF ( lamopt==mem .OR. lamopt==symmem ) zoffs = 0.0
          IF ( abs(zoffs)<=1.0E-3 ) zoffs = 0.0
          rpshel(14) = zoffs
@@ -1388,38 +1388,38 @@ USE ISO_FORTRAN_ENV
          IF ( icount>1 ) GOTO 240
 !
          IF ( pshlpr/=1 ) THEN
-            CALL write(Eptx,pshnam,3,0)
+            CALL write(eptx,pshnam,3,0)
             GOTO 240
          ELSE
             icore = lpcomp + 1 + n2mat
             n = buf5 - icore
-            CALL open(*380,Ept,Z(buf4),Rdrew)
-            CALL filpos(Ept,pos1)
-            CALL read(*240,*220,Ept,Z(icore),n,0,eptwds)
+            CALL open(*380,ept,z(buf4),rdrew)
+            CALL filpos(ept,pos1)
+            CALL read(*240,*220,ept,z(icore),n,0,eptwds)
             CALL mesage(-8,0,nam)
          ENDIF
- 220     CALL write(Eptx,Z(icore),eptwds,0)
- 240     CALL write(Eptx,ipshel(1),17,0)
+ 220     CALL write(eptx,z(icore),eptwds,0)
+ 240     CALL write(eptx,ipshel(1),17,0)
 !
          IF ( icount>1 ) GOTO 280
 !
          IF ( mat2pr/=1 ) THEN
-            CALL write(Mptx,matnam,3,0)
+            CALL write(mptx,matnam,3,0)
             GOTO 280
          ELSE
             icore = lpcomp + 1 + n2mat
             n = buf5 - icore
-            CALL open(*380,Mpt,Z(buf2),Rdrew)
-            CALL filpos(Mpt,pos)
-            CALL read(*280,*260,Mpt,Z(icore),n,0,matwds)
+            CALL open(*380,mpt,z(buf2),rdrew)
+            CALL filpos(mpt,pos)
+            CALL read(*280,*260,mpt,z(icore),n,0,matwds)
             CALL mesage(-8,0,nam)
          ENDIF
- 260     CALL write(Mptx,Z(icore),matwds,0)
- 280     CALL write(Mptx,imembr(1),17,0)
+ 260     CALL write(mptx,z(icore),matwds,0)
+ 280     CALL write(mptx,imembr(1),17,0)
          IF ( lamopt/=mem .AND. lamopt/=symmem ) THEN
-            CALL write(Mptx,ibendg(1),17,0)
-            CALL write(Mptx,itrshr(1),17,0)
-            IF ( lamopt/=sym ) CALL write(Mptx,imembd(1),17,0)
+            CALL write(mptx,ibendg(1),17,0)
+            CALL write(mptx,itrshr(1),17,0)
+            IF ( lamopt/=sym ) CALL write(mptx,imembd(1),17,0)
          ENDIF
          CALL sswtch(40,l40)
          IF ( l40/=0 ) THEN
@@ -1427,17 +1427,17 @@ USE ISO_FORTRAN_ENV
 !     WRITE THE NEWLY GENERATED PROPERTY MATRICES TO THE OUTPUT FILE
 !
             CALL page2(2)
-            WRITE (Nout,99003) imembr(1) , (gmembr(ll),ll=2,16)
+            WRITE (nout,99003) imembr(1) , (gmembr(ll),ll=2,16)
             IF ( lamopt/=mem .AND. lamopt/=symmem ) THEN
                CALL page2(2)
-               WRITE (Nout,99003) ibendg(1) , (gbendg(ll),ll=2,16)
+               WRITE (nout,99003) ibendg(1) , (gbendg(ll),ll=2,16)
                IF ( gtrshr(1)/=0.0 ) THEN
                   CALL page2(2)
-                  WRITE (Nout,99003) itrshr(1) , (gtrshr(ll),ll=2,16)
+                  WRITE (nout,99003) itrshr(1) , (gtrshr(ll),ll=2,16)
                ENDIF
                IF ( lamopt/=sym ) THEN
                   CALL page2(2)
-                  WRITE (Nout,99003) imembd(1) , (gmembd(ll),ll=2,16)
+                  WRITE (nout,99003) imembd(1) , (gmembd(ll),ll=2,16)
                ENDIF
             ENDIF
          ENDIF
@@ -1450,7 +1450,7 @@ USE ISO_FORTRAN_ENV
 !     WRITE END OF ENTRY (EOE) TO PCOMPS BEFORE PROCESSING
 !     NEXT PCOMP ENTRY
 !
-         CALL write(Pcomps,eoe,1,0)
+         CALL write(pcomps,eoe,1,0)
 !
 !     CHECK IF ALL 'PCOMP' TYPE ENTRIES HAVE BEEN PROCESSED
 !
@@ -1463,7 +1463,7 @@ USE ISO_FORTRAN_ENV
          ENDIF
          IF ( itype<1 ) THEN
 !
-            CALL write(Pcomps,0,0,1)
+            CALL write(pcomps,0,0,1)
             IF ( typc1>0 ) THEN
                spag_nextblock_1 = 5
                CYCLE SPAG_DispatchLoop_1
@@ -1474,35 +1474,35 @@ USE ISO_FORTRAN_ENV
             ENDIF
          ELSEIF ( itype==1 ) THEN
 !
-            CALL write(Pcomps,0,0,1)
+            CALL write(pcomps,0,0,1)
             IF ( typc2>0 ) THEN
                spag_nextblock_1 = 6
                CYCLE SPAG_DispatchLoop_1
             ENDIF
          ELSE
 !
-            CALL write(Pcomps,0,0,1)
+            CALL write(pcomps,0,0,1)
          ENDIF
 !
 !     ALL 'PCOMP' TYPES PROCESSED
 !     WRITE EOR ON MPTX AND EPTX
 !
-         CALL write(Mptx,0,0,1)
-         CALL write(Eptx,0,0,1)
+         CALL write(mptx,0,0,1)
+         CALL write(eptx,0,0,1)
 !
 !     COPY REMAINDER OF EPT TO EPTX
 !
          icore = 1
          n = buf5 - 1
          eptwds = 0
-         IF ( pshlpr/=1 ) CALL open(*380,Ept,Z(buf4),Rdrew)
-         CALL filpos(Ept,pos1)
-         IF ( pshlpr==1 ) CALL fwdrec(*320,Ept)
+         IF ( pshlpr/=1 ) CALL open(*380,ept,z(buf4),rdrew)
+         CALL filpos(ept,pos1)
+         IF ( pshlpr==1 ) CALL fwdrec(*320,ept)
          spag_nextblock_1 = 9
       CASE (9)
-         CALL read(*320,*300,Ept,Z(icore),n,1,eptwds)
+         CALL read(*320,*300,ept,z(icore),n,1,eptwds)
          CALL mesage(-8,0,nam)
- 300     CALL write(Eptx,Z(icore),eptwds,1)
+ 300     CALL write(eptx,z(icore),eptwds,1)
          eptwds = 0
          spag_nextblock_1 = 9
          CYCLE SPAG_DispatchLoop_1
@@ -1512,14 +1512,14 @@ USE ISO_FORTRAN_ENV
  320     DO kk = 1 , 7
             ieptx(kk) = 0
          ENDDO
-         ieptx(1) = Ept
+         ieptx(1) = ept
 !
          CALL rdtrl(ieptx)
-         ieptx(1) = Eptx
+         ieptx(1) = eptx
          kt721 = andf(pshbit,511)
          k1 = (kt721-1)/16 + 2
          k2 = kt721 - (k1-2)*16 + 16
-         ieptx(k1) = orf(ieptx(k1),Two(k2))
+         ieptx(k1) = orf(ieptx(k1),two(k2))
          CALL wrttrl(ieptx)
 !
 !     IF EOF ON MPT,THEN ALL MAT2 DATA COPIED TO MPTX
@@ -1531,14 +1531,14 @@ USE ISO_FORTRAN_ENV
          icore = 1
          n = buf5 - 1
          matwds = 0
-         IF ( mat2pr/=1 ) CALL open(*380,Mpt,Z(buf2),Rdrew)
-         CALL filpos(Mpt,pos)
-         IF ( mat2pr==1 ) CALL fwdrec(*360,Mpt)
+         IF ( mat2pr/=1 ) CALL open(*380,mpt,z(buf2),rdrew)
+         CALL filpos(mpt,pos)
+         IF ( mat2pr==1 ) CALL fwdrec(*360,mpt)
          spag_nextblock_1 = 10
       CASE (10)
-         CALL read(*360,*340,Mpt,Z(icore),n,1,matwds)
+         CALL read(*360,*340,mpt,z(icore),n,1,matwds)
          CALL mesage(-8,0,nam)
- 340     CALL write(Mptx,Z(icore),matwds,1)
+ 340     CALL write(mptx,z(icore),matwds,1)
          matwds = 0
          spag_nextblock_1 = 10
          CYCLE SPAG_DispatchLoop_1
@@ -1548,14 +1548,14 @@ USE ISO_FORTRAN_ENV
  360     DO kk = 1 , 7
             imptx(kk) = 0
          ENDDO
-         imptx(1) = Mpt
+         imptx(1) = mpt
 !
          CALL rdtrl(imptx)
-         imptx(1) = Mptx
+         imptx(1) = mptx
          kt721 = andf(mt2bit,511)
          k1 = (kt721-1)/16 + 2
          k2 = kt721 - (k1-2)*16 + 16
-         imptx(k1) = orf(imptx(k1),Two(k2))
+         imptx(k1) = orf(imptx(k1),two(k2))
          CALL wrttrl(imptx)
 !
 !     WRITE TO TRAILER OF PCOMPS
@@ -1570,22 +1570,22 @@ USE ISO_FORTRAN_ENV
             kt721 = andf(pcbit(ll),511)
             k1 = (kt721-1)/16 + 2
             k2 = kt721 - (k1-2)*16 + 16
-            ipcomp(k1) = orf(ipcomp(k1),Two(k2))
+            ipcomp(k1) = orf(ipcomp(k1),two(k2))
          ENDDO
 !
 !     WHEN ICFIAT IS 11, A 65536 IS LEFT IN IPCOMP(2) ACCIDENTALLY
 !     ZERO IT OUT
 !
-         IF ( Icfiat==11 ) ipcomp(2) = 0
+         IF ( icfiat==11 ) ipcomp(2) = 0
          CALL wrttrl(ipcomp)
 !
 !     CLOSE ALL FILES
 !
-         CALL close(Pcomps,1)
-         CALL close(Eptx,1)
-         CALL close(Mptx,1)
-         CALL close(Mpt,1)
-         CALL close(Ept,1)
+         CALL close(pcomps,1)
+         CALL close(eptx,1)
+         CALL close(mptx,1)
+         CALL close(mpt,1)
+         CALL close(ept,1)
 !
          RETURN
 !
@@ -1595,10 +1595,10 @@ USE ISO_FORTRAN_ENV
          RETURN
       CASE (11)
          CALL page2(4)
-         WRITE (Nout,99002) Matid
+         WRITE (nout,99002) matid
 99002    FORMAT ('0*** USER FATAL ERROR.  IMPROPER DATA PROVIDED FOR',' CALCULATION OF TRANSVERSE SHEAR FLEXIBILITY MATRIX',/23X,   &
                 &'FOR LAMINA REFERENCING MID ',I8,'.',/23X,'CHECK DATA ON MAT BULK DATA ENTRY.')
-         Nogo = 1
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1

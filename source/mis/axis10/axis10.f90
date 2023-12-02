@@ -1,9 +1,10 @@
-!*==axis10.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==axis10.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE axis10(X1,Y1,X2,Y2,Penden,Opt)
+   USE c_pltdat
    IMPLICIT NONE
-   USE C_PLTDAT
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -44,8 +45,8 @@ SUBROUTINE axis10(X1,Y1,X2,Y2,Penden,Opt)
       xy(2,2) = Y2
       DO j = 1 , 2
          DO i = 1 , 2
-            IF ( xy(i,j)<Xymin(i) ) xy(i,j) = Xymin(i)
-            IF ( xy(i,j)>Xymax(i) ) xy(i,j) = Xymax(i)
+            IF ( xy(i,j)<xymin(i) ) xy(i,j) = xymin(i)
+            IF ( xy(i,j)>xymax(i) ) xy(i,j) = xymax(i)
          ENDDO
       ENDDO
 !

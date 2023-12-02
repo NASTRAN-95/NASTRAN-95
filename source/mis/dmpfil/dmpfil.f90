@@ -1,11 +1,12 @@
-!*==dmpfil.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==dmpfil.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE dmpfil(Ifile,Z,Lz)
+   USE c_names
+   USE c_system
+   USE c_unpakx
    IMPLICIT NONE
-   USE C_NAMES
-   USE C_SYSTEM
-   USE C_UNPAKX
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -35,7 +36,7 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
          IF ( l==0 ) RETURN
 !
          file = iabs(Ifile)
-         buf = Lz - Sysbuf + 1
+         buf = Lz - sysbuf + 1
          IF ( buf<6 ) THEN
 !
             CALL mesage(8,0,name)
@@ -43,8 +44,8 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
          ELSE
             lcore = (buf-1)/5
             lcore = lcore*5
-            CALL open(*60,file,Z(buf),Rdrew)
-            WRITE (Outpt,99001) file
+            CALL open(*60,file,Z(buf),rdrew)
+            WRITE (outpt,99001) file
 99001       FORMAT (14H1DUMP OF FILE ,I3)
             IF ( Ifile<=0 ) THEN
 !
@@ -57,7 +58,7 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
          ENDIF
          spag_nextblock_1 = 2
       CASE (2)
-         WRITE (Outpt,99002) irec
+         WRITE (outpt,99002) irec
 99002    FORMAT (8H0RECORD ,I6,6X,100(1H-))
          SPAG_Loop_1_1: DO
             CALL read(*40,*20,file,Z,lcore,0,iwords)
@@ -66,9 +67,9 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
             DO
                i1 = i1 + 10
                i2 = min0(i1+9,lcore)
-               WRITE (Outpt,99009) i1 , (Z(i),i=i1,i2)
-               WRITE (Outpt,99010) (Z(i),i=i1,i2)
-               WRITE (Outpt,99011) (Z(i),i=i1,i2)
+               WRITE (outpt,99009) i1 , (Z(i),i=i1,i2)
+               WRITE (outpt,99010) (Z(i),i=i1,i2)
+               WRITE (outpt,99011) (Z(i),i=i1,i2)
                IF ( lcore<=i2 ) CYCLE SPAG_Loop_1_1
             ENDDO
             EXIT SPAG_Loop_1_1
@@ -78,9 +79,9 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
          DO
             i1 = i1 + 10
             i2 = min0(i1+9,iwords)
-            WRITE (Outpt,99009) i1 , (Z(i),i=i1,i2)
-            WRITE (Outpt,99010) (Z(i),i=i1,i2)
-            WRITE (Outpt,99011) (Z(i),i=i1,i2)
+            WRITE (outpt,99009) i1 , (Z(i),i=i1,i2)
+            WRITE (outpt,99010) (Z(i),i=i1,i2)
+            WRITE (outpt,99011) (Z(i),i=i1,i2)
             IF ( iwords<=i2 ) THEN
                irec = irec + 1
                spag_nextblock_1 = 2
@@ -89,36 +90,36 @@ SUBROUTINE dmpfil(Ifile,Z,Lz)
          ENDDO
 !
  40      Z(1) = file
-         CALL close(file,Clsrew)
+         CALL close(file,clsrew)
          CALL rdtrl(Z)
-         WRITE (Outpt,99003) (Z(i),i=1,7)
+         WRITE (outpt,99003) (Z(i),i=1,7)
 99003    FORMAT (4H0EOF,//,8H0TRAILER,/,7(1X,I12/))
  60      RETURN
- 80      WRITE (Outpt,99004) Z(1) , Z(2)
+ 80      WRITE (outpt,99004) Z(1) , Z(2)
 99004    FORMAT (14H0HEADER RECORD,/1H0,2A4)
          Z(1) = file
          CALL rdtrl(Z)
          ncols = Z(2)
          IF ( ncols>300 ) ncols = 100
-         Iout = 1
-         Incr = 1
+         iout = 1
+         incr = 1
          IF ( ncols>0 ) THEN
             DO j = 1 , ncols
-               WRITE (Outpt,99005) j
+               WRITE (outpt,99005) j
 99005          FORMAT (7H0COLUMN,I5)
-               Irow = 0
-               Nrow = 0
+               irow = 0
+               nrow = 0
                CALL unpack(*85,file,Z)
-               WRITE (Outpt,99006) Irow , Nrow
+               WRITE (outpt,99006) irow , nrow
 99006          FORMAT (1H+,20X,3HROW,I4,11H   THRU ROW,I5)
-               IF ( Nrow>300 ) Nrow = 100
-               nels = Nrow - Irow + 1
+               IF ( nrow>300 ) nrow = 100
+               nels = nrow - irow + 1
                IF ( nels>0 ) THEN
-                  WRITE (Outpt,99007) (Z(k),k=1,nels)
+                  WRITE (outpt,99007) (Z(k),k=1,nels)
 99007             FORMAT (1P,10E13.4)
                ENDIF
                CYCLE
- 85            WRITE (Outpt,99008)
+ 85            WRITE (outpt,99008)
 99008          FORMAT (13H NULL COLUMN )
             ENDDO
          ENDIF

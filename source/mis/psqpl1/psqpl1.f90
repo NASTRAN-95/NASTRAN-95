@@ -1,12 +1,13 @@
-!*==psqpl1.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==psqpl1.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE psqpl1
+   USE c_condas
+   USE c_matin
+   USE c_pla32s
+   USE c_pla3es
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_MATIN
-   USE C_PLA32S
-   USE C_PLA3ES
 !
 ! Local variable declarations rewritten by SPAG
 !
@@ -75,9 +76,9 @@ SUBROUTINE psqpl1
 !>>>>    & (Vq4(1),Ecpt(27)) , (Requiv(1),R(1,1))
    DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
 !
-   Theta = Ecpt(6)*degra
-   Sinang = sin(Theta)
-   Cosang = cos(Theta)
+   theta = ecpt(6)*degra
+   sinang = sin(theta)
+   cosang = cos(theta)
 !
 !     FORMATION OF THE R-MATRIX CONTAINING COORDINATES OF THE
 !     SUB TRIANGLES. (2X5) FOR QUADRILATERAL PLATE.
@@ -92,90 +93,90 @@ SUBROUTINE psqpl1
 !     SHIFT ECPT UP TO MATCH PSTRB1 FOR CERTAIN VARIABLES.
 !
    DO i = 6 , 12
-      Ecpt(i) = Ecpt(i+1)
+      ecpt(i) = ecpt(i+1)
    ENDDO
 !
    DO i = 1 , 3
-      D1(i) = vq3(i) - vq1(i)
-      D2(i) = vq4(i) - vq2(i)
-      A1(i) = vq2(i) - vq1(i)
+      d1(i) = vq3(i) - vq1(i)
+      d2(i) = vq4(i) - vq2(i)
+      a1(i) = vq2(i) - vq1(i)
    ENDDO
 !
 !     NON-NORMALIZED K-VECTOR = D1 CROSS D2
 !
-   Kvect(1) = D1(2)*D2(3) - D2(2)*D1(3)
-   Kvect(2) = D1(3)*D2(1) - D2(3)*D1(1)
-   Kvect(3) = D1(1)*D2(2) - D2(1)*D1(2)
+   kvect(1) = d1(2)*d2(3) - d2(2)*d1(3)
+   kvect(2) = d1(3)*d2(1) - d2(3)*d1(1)
+   kvect(3) = d1(1)*d2(2) - d2(1)*d1(2)
 !
 !     NORMALIZE K-VECTOR
 !
-   Temp = sqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
+   temp = sqrt(kvect(1)**2+kvect(2)**2+kvect(3)**2)
    DO i = 1 , 3
-      Kvect(i) = Kvect(i)/Temp
+      kvect(i) = kvect(i)/temp
    ENDDO
 !
 !     COMPUTE H = (A1 DOT KVECT)/2
 !
-   Temp = (A1(1)*Kvect(1)+A1(2)*Kvect(2)+A1(3)*Kvect(3))/2.0
+   temp = (a1(1)*kvect(1)+a1(2)*kvect(2)+a1(3)*kvect(3))/2.0
 !
 !     I-VECTOR =(A1) - H*(KVECT)    NON-NORMALIZED
 !
    DO i = 1 , 3
-      Ivect(i) = A1(i) - Temp*Kvect(i)
+      ivect(i) = a1(i) - temp*kvect(i)
    ENDDO
 !
 !     NORMALIZE I-VECTOR
 !
-   Temp = sqrt(Ivect(1)**2+Ivect(2)**2+Ivect(3)**2)
+   temp = sqrt(ivect(1)**2+ivect(2)**2+ivect(3)**2)
    DO i = 1 , 3
-      Ivect(i) = Ivect(i)/Temp
+      ivect(i) = ivect(i)/temp
    ENDDO
 !
 !     J-VECTOR = K X I  VECTORS
 !
-   Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
-   Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
-   Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+   jvect(1) = kvect(2)*ivect(3) - ivect(2)*kvect(3)
+   jvect(2) = kvect(3)*ivect(1) - ivect(3)*kvect(1)
+   jvect(3) = kvect(1)*ivect(2) - ivect(1)*kvect(2)
 !
 !     NORMALIZE J VECTOR TO MAKE SURE
 !
-   Temp = sqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
+   temp = sqrt(jvect(1)**2+jvect(2)**2+jvect(3)**2)
    DO i = 1 , 3
-      Jvect(i) = Jvect(i)/Temp
+      jvect(i) = jvect(i)/temp
    ENDDO
 !
 !     X3 GOES INTO R(1,3) = D1 DOT IVECT
 !
-   R(1,3) = D1(1)*Ivect(1) + D1(2)*Ivect(2) + D1(3)*Ivect(3)
+   r(1,3) = d1(1)*ivect(1) + d1(2)*ivect(2) + d1(3)*ivect(3)
 !
 !     X2 GOES INTO R(1,2) AND Y3 GOES INTO R(2,3)
 !
-   R(1,2) = A1(1)*Ivect(1) + A1(2)*Ivect(2) + A1(3)*Ivect(3)
-   R(2,3) = D1(1)*Jvect(1) + D1(2)*Jvect(2) + D1(3)*Jvect(3)
+   r(1,2) = a1(1)*ivect(1) + a1(2)*ivect(2) + a1(3)*ivect(3)
+   r(2,3) = d1(1)*jvect(1) + d1(2)*jvect(2) + d1(3)*jvect(3)
 !
 !     X4 GOES INTO R(1,4) AND Y4 GOES INTO R(2,4)
 !
-   R(1,4) = D2(1)*Ivect(1) + D2(2)*Ivect(2) + D2(3)*Ivect(3) + R(1,2)
-   R(2,4) = D2(1)*Jvect(1) + D2(2)*Jvect(2) + D2(3)*Jvect(3)
+   r(1,4) = d2(1)*ivect(1) + d2(2)*ivect(2) + d2(3)*ivect(3) + r(1,2)
+   r(2,4) = d2(1)*jvect(1) + d2(2)*jvect(2) + d2(3)*jvect(3)
 !
 !     STRESS CALCULATION POINT WHICH IS THE DIAGONALS INTERSECTION.
 !
-   ftemp = R(1,3)*R(2,4) + R(2,3)*(R(1,2)-R(1,4))
-   IF ( ftemp==0.0 ) CALL mesage(-30,26,Ecpt(1))
-   R(1,5) = R(1,2)*R(1,3)*R(2,4)/ftemp
-   R(2,5) = R(1,2)*R(2,3)*R(2,4)/ftemp
+   ftemp = r(1,3)*r(2,4) + r(2,3)*(r(1,2)-r(1,4))
+   IF ( ftemp==0.0 ) CALL mesage(-30,26,ecpt(1))
+   r(1,5) = r(1,2)*r(1,3)*r(2,4)/ftemp
+   r(2,5) = r(1,2)*r(2,3)*r(2,4)/ftemp
 !
 !     CHECK OF 4 POINTS FOR ANGLE GREATER THAN OR EQUAL TO 180 DEGREES.
 !
-   IF ( R(2,3)<=0.0 .OR. R(2,4)<=0.0 ) THEN
-      CALL mesage(-30,35,Ecpt(1))
+   IF ( r(2,3)<=0.0 .OR. r(2,4)<=0.0 ) THEN
+      CALL mesage(-30,35,ecpt(1))
    ELSE
-      Temp = R(1,2) - (R(1,2)-R(1,3))*R(2,4)/R(2,3)
-      IF ( R(1,4)>=Temp ) THEN
-         CALL mesage(-30,35,Ecpt(1))
+      temp = r(1,2) - (r(1,2)-r(1,3))*r(2,4)/r(2,3)
+      IF ( r(1,4)>=temp ) THEN
+         CALL mesage(-30,35,ecpt(1))
       ELSE
-         Temp = R(2,3)*R(1,4)/R(2,4)
-         IF ( R(1,3)<=Temp ) CALL mesage(-30,35,Ecpt(1))
+         temp = r(2,3)*r(1,4)/r(2,4)
+         IF ( r(1,3)<=temp ) CALL mesage(-30,35,ecpt(1))
       ENDIF
    ENDIF
 !
@@ -185,31 +186,31 @@ SUBROUTINE psqpl1
 !     CALL BASIC BENDING ROUTINE FOR ALL SUB-TRIANGLES.
 !
    DO i = 1 , 60
-      Ssum(i) = 0.0
+      ssum(i) = 0.0
    ENDDO
 !
    DO j = 1 , 4
       km = 3*j - 3
-      Subsca = m(km+1)
-      Subscb = m(km+2)
-      Subscc = m(km+3)
+      subsca = m(km+1)
+      subscb = m(km+2)
+      subscc = m(km+3)
 !
       DO i = 1 , 2
-         Vv1(i) = R(i,Subscb) - R(i,Subsca)
-         Vv2(i) = R(i,Subscc) - R(i,Subsca)
+         vv1(i) = r(i,subscb) - r(i,subsca)
+         vv2(i) = r(i,subscc) - r(i,subsca)
       ENDDO
-      Xsubb = sqrt(Vv1(1)**2+Vv1(2)**2)
-      U1 = Vv1(1)/Xsubb
-      U2 = Vv1(2)/Xsubb
-      Xsubc = U1*Vv2(1) + Vv2(2)*U2
-      Ysubc = U1*Vv2(2) - Vv2(1)*U2
+      xsubb = sqrt(vv1(1)**2+vv1(2)**2)
+      u1 = vv1(1)/xsubb
+      u2 = vv1(2)/xsubb
+      xsubc = u1*vv2(1) + vv2(2)*u2
+      ysubc = u1*vv2(2) - vv2(1)*u2
 !
-      Xc = sqrt((R(1,Subsca)-R(1,5))**2+(R(2,Subsca)-R(2,5))**2)
-      Yc = 0.0
+      xc = sqrt((r(1,subsca)-r(1,5))**2+(r(2,subsca)-r(2,5))**2)
+      yc = 0.0
 !
-      Sinth = Sinang*U1 - Cosang*U2
-      Costh = Cosang*U1 + Sinang*U2
-      IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0
+      sinth = sinang*u1 - cosang*u2
+      costh = cosang*u1 + sinang*u2
+      IF ( abs(sinth)<1.0E-06 ) sinth = 0.0
 !
 !     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR TRIANGLE -J-
 !
@@ -223,58 +224,58 @@ SUBROUTINE psqpl1
 !
 !     SET UP OF T-MATRIX
 !
-      T(1) = 1.0
-      T(2) = 0.0
-      T(3) = 0.0
-      T(4) = 0.0
-      T(5) = U1
-      T(6) = U2
-      T(7) = 0.0
-      T(8) = -U2
-      T(9) = U1
+      t(1) = 1.0
+      t(2) = 0.0
+      t(3) = 0.0
+      t(4) = 0.0
+      t(5) = u1
+      t(6) = u2
+      t(7) = 0.0
+      t(8) = -u2
+      t(9) = u1
 !
 !     SET UP V-MATRIX PER FMMS 51-A
 !
-      V(1) = U1*U1*0.25
-      V(2) = U2*U2*0.25
-      V(11) = U1*U2*0.25
-      V(3) = -V(11)*2.00
-      V(4) = 0.0
-      V(5) = 0.0
-      V(6) = V(2)
-      V(7) = V(1)
-      V(8) = -V(3)
-      V(9) = 0.0
-      V(10) = 0.0
-      V(12) = -V(11)
-      V(13) = V(1) - V(2)
-      V(14) = 0.0
-      V(15) = 0.0
-      V(16) = 0.0
-      V(17) = 0.0
-      V(18) = 0.0
-      V(19) = U1*0.25
-      V(20) = -U2*0.25
-      V(21) = 0.0
-      V(22) = 0.0
-      V(23) = 0.0
-      V(24) = -V(20)
-      V(25) = V(19)
+      v(1) = u1*u1*0.25
+      v(2) = u2*u2*0.25
+      v(11) = u1*u2*0.25
+      v(3) = -v(11)*2.00
+      v(4) = 0.0
+      v(5) = 0.0
+      v(6) = v(2)
+      v(7) = v(1)
+      v(8) = -v(3)
+      v(9) = 0.0
+      v(10) = 0.0
+      v(12) = -v(11)
+      v(13) = v(1) - v(2)
+      v(14) = 0.0
+      v(15) = 0.0
+      v(16) = 0.0
+      v(17) = 0.0
+      v(18) = 0.0
+      v(19) = u1*0.25
+      v(20) = -u2*0.25
+      v(21) = 0.0
+      v(22) = 0.0
+      v(23) = 0.0
+      v(24) = -v(20)
+      v(25) = v(19)
 !
 !     ADD IN S , S , S   TO THE 4 5X3 SSUM MATRICES
 !             A   B   C
 !
       DO i = 1 , 3
-         CALL gmmats(V,5,5,0,A(15*i-14),5,3,0,Temp15)
-         CALL gmmats(Temp15,5,3,0,T,3,3,0,Prod15)
+         CALL gmmats(v,5,5,0,a(15*i-14),5,3,0,temp15)
+         CALL gmmats(temp15,5,3,0,t,3,3,0,prod15)
 !
 !     POINTER TO SSUM MATRIX
 !
-         Npoint = km + i
-         Npoint = 15*m(Npoint) - 15
+         npoint = km + i
+         npoint = 15*m(npoint) - 15
          DO k = 1 , 15
-            Nsubc = Npoint + k
-            Ssum(Nsubc) = Ssum(Nsubc) + Prod15(k)
+            nsubc = npoint + k
+            ssum(nsubc) = ssum(nsubc) + prod15(k)
          ENDDO
       ENDDO
 !
@@ -283,48 +284,48 @@ SUBROUTINE psqpl1
 !     FILL E-MATRIX
 !
    DO i = 1 , 18
-      E(i) = 0.0
+      e(i) = 0.0
    ENDDO
-   E(1) = Kvect(1)
-   E(4) = Kvect(2)
-   E(7) = Kvect(3)
-   E(11) = Ivect(1)
-   E(14) = Ivect(2)
-   E(17) = Ivect(3)
-   E(12) = Jvect(1)
-   E(15) = Jvect(2)
-   E(18) = Jvect(3)
+   e(1) = kvect(1)
+   e(4) = kvect(2)
+   e(7) = kvect(3)
+   e(11) = ivect(1)
+   e(14) = ivect(2)
+   e(17) = ivect(3)
+   e(12) = jvect(1)
+   e(15) = jvect(2)
+   e(18) = jvect(3)
 !
    DO i = 1 , 4
 !
 !     DO WE NEED TRANSFORMATION T
 !                                I
-      Nsubc = 4*i + 10
-      IF ( necpt(Nsubc)==0 ) THEN
+      nsubc = 4*i + 10
+      IF ( necpt(nsubc)==0 ) THEN
 !
          DO k = 1 , 18
-            Tite(k) = E(k)
+            tite(k) = e(k)
          ENDDO
       ELSE
-         CALL transs(necpt(Nsubc),T)
-         CALL gmmats(T,3,3,1,E(1),3,3,0,Tite(1))
-         CALL gmmats(T,3,3,1,E(10),3,3,0,Tite(10))
+         CALL transs(necpt(nsubc),t)
+         CALL gmmats(t,3,3,1,e(1),3,3,0,tite(1))
+         CALL gmmats(t,3,3,1,e(10),3,3,0,tite(10))
       ENDIF
 !
-      CALL gmmats(Ssum(15*i-14),5,3,0,Tite,6,3,1,Ph1out(30*i-21))
+      CALL gmmats(ssum(15*i-14),5,3,0,tite,6,3,1,ph1out(30*i-21))
 !
    ENDDO
 !
 !     I, Z1, Z2, ELEM ID, 4 SILS FOR PHASE 2
 !
-   Ph1out(1) = Ecpt(1)
-   Ph1out(2) = Ecpt(2)
-   Ph1out(3) = Ecpt(3)
-   Ph1out(4) = Ecpt(4)
-   Ph1out(5) = Ecpt(5)
-   Ph1out(6) = Ecpt(7)
-   Ph1out(7) = Ecpt(11)
-   Ph1out(8) = Ecpt(12)
+   ph1out(1) = ecpt(1)
+   ph1out(2) = ecpt(2)
+   ph1out(3) = ecpt(3)
+   ph1out(4) = ecpt(4)
+   ph1out(5) = ecpt(5)
+   ph1out(6) = ecpt(7)
+   ph1out(7) = ecpt(11)
+   ph1out(8) = ecpt(12)
 !
 !     ALL PHASE ONE COMPLETE
 !

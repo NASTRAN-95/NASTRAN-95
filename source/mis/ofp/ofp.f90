@@ -8,15 +8,15 @@ SUBROUTINE ofp
 !     OFP1 OUTPUTS HEADINGS ONLY.
 !
    IMPLICIT NONE
-   USE C_BLANK
-   USE C_OFP1ID
-   USE C_OFPBD1
-   USE C_OFPBD5
-   USE C_OFPCOM
-   USE C_OUTPUT
-   USE C_SYSTEM
-   USE C_XMSSG
-   USE C_ZZZZZZ
+   USE c_blank
+   USE c_ofp1id
+   USE c_ofpbd1
+   USE c_ofpbd5
+   USE c_ofpcom
+   USE c_output
+   USE c_system
+   USE c_xmssg
+   USE c_zzzzzz
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -50,6 +50,16 @@ SUBROUTINE ofp
    REAL , DIMENSION(100) :: out
    INTEGER , DIMENSION(10) :: real
    INTEGER , DIMENSION(96) :: tsave
+!
+! End of declarations rewritten by SPAG
+!
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   *0() :: 
+!
+! Local variable declarations rewritten by SPAG
+!
 !
 ! End of declarations rewritten by SPAG
 !
@@ -166,8 +176,8 @@ SUBROUTINE ofp
    CALL totape(3,buff(1))
    heat = .FALSE.
    IF ( itherm/=0 ) heat = .TRUE.
-   Option(1) = 0
-   IF ( heat ) Option(1) = iheat
+   option(1) = 0
+   IF ( heat ) option(1) = iheat
    onefil = .FALSE.
    GOTO 100
 !
@@ -177,7 +187,7 @@ SUBROUTINE ofp
 !
    onefil = .TRUE.
  100  DO i = 1 , 96
-      tsave(i) = Head(i)
+      tsave(i) = head(i)
    ENDDO
 !
    icore = korsz(buff)
@@ -186,7 +196,7 @@ SUBROUTINE ofp
       line = 0
       ifile = 0
    ELSE
-      WRITE (6,99001) Uwm , icore , sysbuf
+      WRITE (6,99001) uwm , icore , sysbuf
 99001 FORMAT (A25,' 2043, OFP HAS INSUFFICIENT CORE FOR ONE GINO ','BUFFER ****    OFP NOT EXECUTED.')
       RETURN
    ENDIF
@@ -202,9 +212,9 @@ SUBROUTINE ofp
    CALL fwdrec(*2200,file)
  300  DO
       CALL read(*2300,*2300,file,id(1),50,0,flag)
-      CALL read(*2300,*2300,file,Head(1),96,1,flag)
+      CALL read(*2300,*2300,file,head(1),96,1,flag)
       axic = .FALSE.
-      Temper = .FALSE.
+      temper = .FALSE.
       dummy = .FALSE.
       gpst = .FALSE.
       sort = 1
@@ -239,14 +249,14 @@ SUBROUTINE ofp
       IF ( i<1 .OR. i>23 ) GOTO 2200
       IF ( j>2 ) sort = 2
       IF ( j==3 .AND. iapp==static ) THEN
-         IF ( Head(74)==scan(1) .AND. Head(75)==scan(2) ) THEN
+         IF ( head(74)==scan(1) .AND. head(75)==scan(2) ) THEN
             DO ihd = 65 , 72
-               IF ( ihd>=68 ) Head(ihd+22) = iblank
-               Head(ihd) = iblank
+               IF ( ihd>=68 ) head(ihd+22) = iblank
+               head(ihd) = iblank
             ENDDO
          ELSE
             DO ihd = 65 , 96
-               Head(ihd) = iblank
+               head(ihd) = iblank
             ENDDO
          ENDIF
       ENDIF
@@ -275,8 +285,8 @@ SUBROUTINE ofp
 !
 !     ACCELERATION VECTOR
 !
-                  IF ( id(3)>4 ) GOTO 2200
-                  GOTO 350
+                  IF ( id(3)<=4 ) GOTO 350
+                  GOTO 2200
                ELSEIF ( i==13 ) THEN
 !
 !     GRID-POINT-WEIGHT-OUTPUT
@@ -369,8 +379,8 @@ SUBROUTINE ofp
 !     DISPLACEMENT VECTOR
 !
  302              IF ( j==3 .AND. iapp==trans ) nadd = 7
-                  IF ( Option(1)==iheat ) THEN
-                     IF ( i==1 .AND. (j==1 .OR. j==3) ) Temper = .TRUE.
+                  IF ( option(1)==iheat ) THEN
+                     IF ( i==1 .AND. (j==1 .OR. j==3) ) temper = .TRUE.
                   ENDIF
                   GOTO 350
                ENDIF
@@ -552,7 +562,7 @@ SUBROUTINE ofp
 !
 !     ERROR CONDITION THIS FILE
 !
-         WRITE (l,99002) Swm , ix , point , from
+         WRITE (l,99002) swm , ix , point , from
 99002    FORMAT (A27,', OFP BLOCK DATA ROUTINES UNAVAILABLE FOR THIS ','ELEMENT.',11X,'IX,POINT,FROM =,',3I5)
          GOTO 2200
       ENDIF
@@ -560,8 +570,8 @@ SUBROUTINE ofp
 !     IF THERMAL DISPLACEMENTS IN -HEAT- PROBLEMS, CHANGE HEADING
 !     FROM  DISPLACEMENT TO TEMPERATURE
 !
- 450  IF ( Temper .AND. l2==1 ) l2 = 253
-      IF ( Temper .AND. l3==1 ) l3 = 253
+ 450  IF ( temper .AND. l2==1 ) l2 = 253
+      IF ( temper .AND. l3==1 ) l3 = 253
 !
 !     HEAT PROBLEMS REAL-SORT1-VECTORS ONLY
 !
@@ -623,8 +633,8 @@ SUBROUTINE ofp
       nmult = 1
       nlines = 1
    ELSEIF ( .NOT.(dummy) ) THEN
-      nmult = D(ix)/100
-      nlines = D(ix) - nmult*100
+      nmult = d(ix)/100
+      nlines = d(ix) - nmult*100
    ENDIF
    IF ( nmult==0 ) nmult = 1
    nwds = id(10)*nmult
@@ -841,11 +851,11 @@ SUBROUTINE ofp
 !     IF K IS NEGATIVE THEN BUILDING BLOCK IS NOT FOR A VARIABLE.
 !     IN THIS CASE THEN K IS ACTUAL POINTER TO BE USED IN THE ESINGL ARR
 !
- 1200 k = D(j)
+ 1200 k = d(j)
    IF ( k<0 ) THEN
       k = -k
       ifmt = ifmt + 1
-      fmt(ifmt) = Esingl(k)
+      fmt(ifmt) = esingl(k)
    ELSEIF ( k==0 ) THEN
 !
 !     OUTPUT THE LINE OR LINES OF DATA WITH THE NEW FORMAT
@@ -896,8 +906,8 @@ SUBROUTINE ofp
             ENDIF
          ENDIF
       ELSEIF ( k==200 .OR. k==275 ) THEN
-         IF ( iout(2)==iblank ) GOTO 1250
-         GOTO 1300
+         IF ( iout(2)/=iblank ) GOTO 1300
+         GOTO 1250
       ENDIF
 !
 !     IF SOLSET AND K=0 OR K=80 OR K=365 OR K=75 USE I15BLK IF INTEGER 1
@@ -975,8 +985,8 @@ SUBROUTINE ofp
 !     STANDARD BLOCKS
 !
  1250 ifmt = ifmt + 2
-      fmt(ifmt-1) = E(k+1)
-      fmt(ifmt) = E(k+2)
+      fmt(ifmt-1) = e(k+1)
+      fmt(ifmt) = e(k+2)
       i = i + 1
    ENDIF
    GOTO 1100
@@ -984,9 +994,9 @@ SUBROUTINE ofp
 !     ALTERNATE BLOCKS
 !
  1300 ifmt = ifmt + 3
-   fmt(ifmt-2) = E(k+3)
-   fmt(ifmt-1) = E(k+4)
-   fmt(ifmt) = E(k+5)
+   fmt(ifmt-2) = e(k+3)
+   fmt(ifmt-1) = e(k+4)
+   fmt(ifmt) = e(k+5)
    i = i + 1
    GOTO 1100
 !
@@ -1001,8 +1011,8 @@ SUBROUTINE ofp
       iout(i) = isave(i)
    ENDDO
    IF ( .NOT.fluid ) GOTO 900
-   IF ( iout(1)>=500000 ) GOTO 1700
-   GOTO 900
+   IF ( iout(1)<500000 ) GOTO 900
+   GOTO 1700
 !
 !     PUT BLANKS IN ANY OPEN SLOTS
 !
@@ -1138,9 +1148,9 @@ SUBROUTINE ofp
    ENDIF
    k = 1
    oldhrm = nharm
-   IF ( .NOT.(eor) ) GOTO 1900
-   GOTO 300
- 2200 WRITE (l,99015) Uwm , from
+   IF ( eor ) GOTO 300
+   GOTO 1900
+ 2200 WRITE (l,99015) uwm , from
 99015 FORMAT (A25,' 3030, OFP UNABLE TO PROCESS DATA BLOCK.  A TABLE ','PRINT OF THE DATA BLOCK FOLLOWS.   FROM =',I5,'/OFP')
    CALL close(file,1)
    CALL tabprt(file)
@@ -1154,6 +1164,6 @@ SUBROUTINE ofp
 !     RESTORE TITLES TO WHATEVER THEY WERE AT ENTRY TO OFP
 !
  2500 DO i = 1 , 96
-      Head(i) = tsave(i)
+      head(i) = tsave(i)
    ENDDO
 END SUBROUTINE ofp

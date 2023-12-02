@@ -1,11 +1,12 @@
-!*==trplms.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==trplms.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
+   USE c_terms
+   USE c_trplm
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_TERMS
-   USE C_TRPLM
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -43,7 +44,7 @@ SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
 !*****
 !     INITIALIZE
 !*****
-   nd1 = Ndof
+   nd1 = ndof
    nd2 = nd1*2
    nd3 = nd1*3
    nd4 = nd1*4
@@ -53,18 +54,18 @@ SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
    nd8 = nd1*8
    nd9 = nd1*9
    nda = nd1*10
-   IF ( Norpth ) THEN
+   IF ( norpth ) THEN
 !*****
 ! ALL MIDS ARE THE SAME AND THERE IS NO COUPLING.
 ! IF THE MATERIAL IS ISOTROPIC, PERFORM THE 1ST MUTIPLY EXPLICITLY.
 ! IF NOT, USE GMMATS. IN EITHER CASE, THE 2ND MULTIPLY USES GMMATS.
 !*****
       DO i = 1 , nd1
-         Bmat(i+nd2) = Bmat2(i+Ibot)
-         Bmat(i+nd3) = Bmat1(i+Ipty1)
-         Bmat(i+nd4) = Bmat1(i+Ipty2)
-         Bmat(i+nd5) = Bmat1(i+Iptx1+nd1)
-         Bmat(i+nd6) = Bmat1(i+Iptx2+nd1)
+         Bmat(i+nd2) = Bmat2(i+ibot)
+         Bmat(i+nd3) = Bmat1(i+ipty1)
+         Bmat(i+nd4) = Bmat1(i+ipty2)
+         Bmat(i+nd5) = Bmat1(i+iptx1+nd1)
+         Bmat(i+nd6) = Bmat1(i+iptx2+nd1)
       ENDDO
 !
       IF ( Mattyp/=1 ) THEN
@@ -85,19 +86,19 @@ SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
       DO i = 1 , nd7
          Bmat(i) = Bmat(i)*Wtk
       ENDDO
-      CALL gmmats(Bmat,7,nd1,-1,dbm,7,nd1,0,Akgg(Jcor))
+      CALL gmmats(Bmat,7,nd1,-1,dbm,7,nd1,0,akgg(Jcor))
       RETURN
 !*****
 !     MIDS ARE NOT THE SAME. CHECK FOR MEMBRANE ONLY AND BENDING ONLY
 !     CASES AND BRANCH APPROPRIATELY. IF BOTH ARE THERE, CONTINUE.
 !*****
-   ELSEIF ( .NOT.Bendng ) THEN
+   ELSEIF ( .NOT.bendng ) THEN
 !*****
 !     MEMBRANE ONLY ELEMENT. ONLY THE FIRST 3X3 OF GMAT AND THE FIRST
 !     3 ROWS OF BMAT ARE MULTIPLIED.
 !*****
       DO i = 1 , nd1
-         Bmat(i+nd2) = Bmat2(i+Ibot)
+         Bmat(i+nd2) = Bmat2(i+ibot)
       ENDDO
 !
       IF ( Mattyp/=1 ) THEN
@@ -115,16 +116,16 @@ SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
             dbm(i+nd2) = Gmat(3,3)*Bmat(i+nd2)
          ENDDO
       ENDIF
-   ELSEIF ( .NOT.Membrn ) THEN
+   ELSEIF ( .NOT.membrn ) THEN
 !*****
 !     BENDING ONLY ELEMENT. THE FIRST 3 ROWS AND COLUMNS OF GMAT AND
 !     THE FIRST 3 ROWS OF BMAT WILL BE EXCLUDED FROM MULTIPLICATIONS.
 !*****
       DO i = 1 , nd1
-         Bmat(i+nd6) = Bmat1(i+Ipty1)
-         Bmat(i+nd7) = Bmat1(i+Ipty2)
-         Bmat(i+nd8) = Bmat1(i+Iptx1+nd1)
-         Bmat(i+nd9) = Bmat1(i+Iptx2+nd1)
+         Bmat(i+nd6) = Bmat1(i+ipty1)
+         Bmat(i+nd7) = Bmat1(i+ipty2)
+         Bmat(i+nd8) = Bmat1(i+iptx1+nd1)
+         Bmat(i+nd9) = Bmat1(i+iptx2+nd1)
       ENDDO
 !
       DO i = 1 , 3
@@ -144,30 +145,29 @@ SUBROUTINE trplms(Gmat,Dmat,Bmat,Bmat1,Bmat2,Mattyp,Jcor,Wtk)
       DO i = nd3 + 1 , nda
          Bmat(i) = Bmat(i)*Wtk
       ENDDO
-      CALL gmmats(Bmat(nd3+1),7,nd1,-1,dbm,7,nd1,0,Akgg(Jcor))
+      CALL gmmats(Bmat(nd3+1),7,nd1,-1,dbm,7,nd1,0,akgg(Jcor))
       RETURN
    ELSE
       DO i = 1 , nd1
-         Bmat(i+nd2) = Bmat2(i+Ibot)
-         Bmat(i+nd5) = Bmat2(i+Ibot+nd1)
-         Bmat(i+nd6) = Bmat1(i+Ipty1)
-         Bmat(i+nd7) = Bmat1(i+Ipty2)
-         Bmat(i+nd8) = Bmat1(i+Iptx1+nd1)
-         Bmat(i+nd9) = Bmat1(i+Iptx2+nd1)
+         Bmat(i+nd2) = Bmat2(i+ibot)
+         Bmat(i+nd5) = Bmat2(i+ibot+nd1)
+         Bmat(i+nd6) = Bmat1(i+ipty1)
+         Bmat(i+nd7) = Bmat1(i+ipty2)
+         Bmat(i+nd8) = Bmat1(i+iptx1+nd1)
+         Bmat(i+nd9) = Bmat1(i+iptx2+nd1)
       ENDDO
       CALL gmmats(Gmat,10,10,0,Bmat,10,nd1,0,dbm)
 !
       DO i = 1 , nda
          Bmat(i) = Bmat(i)*Wtk
       ENDDO
-      CALL gmmats(Bmat,10,nd1,-1,dbm,10,nd1,0,Akgg(Jcor))
+      CALL gmmats(Bmat,10,nd1,-1,dbm,10,nd1,0,akgg(Jcor))
       RETURN
    ENDIF
 !
    DO i = 1 , nd3
       Bmat(i) = Bmat(i)*Wtk
    ENDDO
-   CALL gmmats(Bmat,3,nd1,-1,dbm,3,nd1,0,Akgg(Jcor))
-   RETURN
+   CALL gmmats(Bmat,3,nd1,-1,dbm,3,nd1,0,akgg(Jcor))
 !
 END SUBROUTINE trplms

@@ -1,11 +1,12 @@
-!*==mce1b.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==mce1b.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE mce1b
-USE C_BLANK
-USE C_DCOMPX
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_blank
+   USE c_dcompx
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -22,32 +23,32 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE MATRIX CONTROL BLOCKS
 !
-   Nz = korsz(Z)
-   A(1) = Rm
-   CALL rdtrl(A)
-   Lx(1) = L
-   Lx(3) = A(3)
-   Lx(4) = 4
-   Lx(5) = A(5)
-   Ux(1) = U
-   Ux(3) = A(3)
-   Ux(4) = 5
-   Ux(5) = A(5)
-   Scrx1 = Scr1
-   Scrx2 = Scr2
-   Scrx3 = Scr3
+   nz = korsz(z)
+   a(1) = rm
+   CALL rdtrl(a)
+   lx(1) = l
+   lx(3) = a(3)
+   lx(4) = 4
+   lx(5) = a(5)
+   ux(1) = u
+   ux(3) = a(3)
+   ux(4) = 5
+   ux(5) = a(5)
+   scrx1 = scr1
+   scrx2 = scr2
+   scrx3 = scr3
 !
 !     PERFORM DECOMPOSITION
 !
-   CALL decomp(*100,Z,Z,Z)
+   CALL decomp(*100,z,z,z)
 !
 !     WRITE TRAILERS
 !
-   CALL wrttrl(Lx)
-   CALL wrttrl(Ux)
+   CALL wrttrl(lx)
+   CALL wrttrl(ux)
    RETURN
 !
 !     FATAL ERROR MESSAGE FOR SINGULAR MATRIX
 !
- 100  CALL mesage(-5,Rm,nam)
+ 100  CALL mesage(-5,rm,nam)
 END SUBROUTINE mce1b

@@ -1,12 +1,13 @@
-!*==sslot2.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sslot2.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sslot2(Iopt,Ipart,Branch,Eigen)
+   USE c_condas
+   USE c_sdr2x4
+   USE c_sdr2x7
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_CONDAS
-   USE C_SDR2X4
-   USE C_SDR2X7
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -34,8 +35,8 @@ SUBROUTINE sslot2(Iopt,Ipart,Branch,Eigen)
    kl2 = kl + 2
    IF ( Ipart/=2 ) THEN
       DO i = 1 , 11
-         Velr(i) = 0.0
-         Veli(i) = 0.0
+         velr(i) = 0.0
+         veli(i) = 0.0
       ENDDO
    ENDIF
    x = 1.0
@@ -55,22 +56,22 @@ SUBROUTINE sslot2(Iopt,Ipart,Branch,Eigen)
       x = -y
       y = em
    ENDIF
-   Id1 = Elid
-   Id2 = Elid
+   id1 = elid
+   id2 = elid
 !
    DO i = 1 , kl
-      k = Ivec + Sil(i) - 1
+      k = ivec + sil(i) - 1
       IF ( x/=0.0 ) THEN
          DO j = 1 , kl2
             ij = kl*(j-1) + i
 !
-            Velr(j) = Sv(ij)*Zz(k)*x + Velr(j)
+            velr(j) = sv(ij)*zz(k)*x + velr(j)
          ENDDO
       ENDIF
       IF ( y/=0.0 ) THEN
          DO j = 1 , kl2
             ij = kl*(j-1) + i
-            Veli(j) = Sv(ij)*Zz(k)*y + Veli(j)
+            veli(j) = sv(ij)*zz(k)*y + veli(j)
          ENDDO
       ENDIF
    ENDDO

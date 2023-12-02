@@ -1,4 +1,5 @@
-!*==lsplin.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==lsplin.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE lsplin(Ni,Xyi,Nd,Xyd,Ky,Kd,Kt,Dz,Dtx,Dty,Dtor,G,Ncore,Isng)
@@ -26,13 +27,21 @@ SUBROUTINE lsplin(Ni,Xyi,Nd,Xyd,Ky,Kd,Kt,Dz,Dtx,Dty,Dtor,G,Ncore,Isng)
    REAL :: aym , aymd , ayp , aypd , det , dtor2 , ey , temp , ym , yp
    LOGICAL :: bnone , bone , both , ikt , nethr , oxr , oyr , sone , spec , stwo
    INTEGER :: i , ia , ib , ic , icb , icc , ig , ii , ik , is , j , k , kk , mp , nc , nca , nca2 , ncb , ncc , needed , nii , nj ,&
-            & nsc , size
+            & nsc , size , spag_nextblock_1
    INTEGER , DIMENSION(2) , SAVE :: name
    EXTERNAL gmmats , invers , mesage
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
+!
+! Dummy argument declarations rewritten by SPAG
+!
+!
+! Local variable declarations rewritten by SPAG
+!
+!
+! End of declarations rewritten by SPAG
+!
 !
    DATA name/4HLSPL , 4HIN  /
    spag_nextblock_1 = 1
@@ -136,7 +145,6 @@ SUBROUTINE lsplin(Ni,Xyi,Nd,Xyd,Ky,Kd,Kt,Dz,Dtx,Dty,Dtor,G,Ncore,Isng)
             nc = ncc
             ia = ic
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
       CASE (3)
          nj = 2*Nd

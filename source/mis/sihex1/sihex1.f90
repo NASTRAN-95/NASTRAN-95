@@ -1,15 +1,16 @@
-!*==sihex1.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==sihex1.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE sihex1(Type,Strspt,Nip)
+   USE c_matin
+   USE c_matiso
+   USE c_matout
+   USE c_sdr2x5
+   USE c_sdr2x6
+   USE c_system
+   USE c_xmssg
    IMPLICIT NONE
-   USE C_MATIN
-   USE C_MATISO
-   USE C_MATOUT
-   USE C_SDR2X5
-   USE C_SDR2X6
-   USE C_SYSTEM
-   USE C_XMSSG
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -82,11 +83,11 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !
 !     MOVE EST DATA INTO /SDR2X6/, /MATIN/, AND PHIOUT
 !
-            Eid = iest(1)
-            Ngp = 12*Type - 4
-            Mid = iest(Ngp+2)
-            Cid = iest(Ngp+3)
-            Nip = iest(Ngp+4)
+            eid = iest(1)
+            ngp = 12*Type - 4
+            mid = iest(ngp+2)
+            cid = iest(ngp+3)
+            Nip = iest(ngp+4)
             IF ( Nip==0 ) Nip = Type/2 + 2
 !
 !     FOR STRESS COMPUTATION, SET NUMBER OF STRESS POINTS TO 2
@@ -104,16 +105,16 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
                   ENDDO
                ENDDO
             ENDDO
-            DO i = 1 , Ngp
-               Gpt(i) = Est(5*Ngp+7+i)
-               Bgpid(i) = iest(Ngp+4+4*i)
+            DO i = 1 , ngp
+               gpt(i) = est(5*ngp+7+i)
+               bgpid(i) = iest(ngp+4+4*i)
                DO j = 1 , 3
-                  Bgpdt(j,i) = Est(Ngp+4+4*i+j)
+                  bgpdt(j,i) = est(ngp+4+4*i+j)
                ENDDO
             ENDDO
-            Phiout(1) = Est(1)
-            DO i = 1 , Ngp
-               Phiout(i+1) = Est(i+1)
+            phiout(1) = est(1)
+            DO i = 1 , ngp
+               phiout(i+1) = est(i+1)
             ENDDO
 !
 !     FETCH MATERIAL PROPERTIES
@@ -123,7 +124,7 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !     TEST FOR ANISOTROPIC MATERIAL
 !
             anis = .FALSE.
-            Inflag = 10
+            inflag = 10
 !
 !     TEST FOR RECTANGULAR COORDINATE SYSTEM IN WHICH ANISOTROPIC
 !     MATERIAL IS DEFINED
@@ -131,32 +132,32 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
             rect = .TRUE.
             tdep = .TRUE.
 !
-            DO i = 2 , Ngp
-               IF ( Gpt(i)/=Gpt(1) ) GOTO 10
+            DO i = 2 , ngp
+               IF ( gpt(i)/=gpt(1) ) GOTO 10
             ENDDO
             tdep = .FALSE.
- 10         Temp = Gpt(1)
-            CALL mat(Eid)
+ 10         temp = gpt(1)
+            CALL mat(eid)
             IF ( ib(46)==6 ) anis = .TRUE.
-            Tref = Bufm6(44)
-            IF ( .NOT.Mtdep ) tdep = .FALSE.
+            tref = bufm6(44)
+            IF ( .NOT.mtdep ) tdep = .FALSE.
 !
 !     IF ISOTROPIC, TEMPERATURE INDEPENDENT MATERIAL, COMPUTE CONSTANTS
 !
             IF ( .NOT.(tdep) ) THEN
                IF ( .NOT.(anis) ) THEN
                   IF ( ib(46)/=0 ) THEN
-                     E1 = Bufm6(1)
-                     E2 = Bufm6(2)
-                     E3 = Bufm6(22)
-                     Alpha = Bufm6(38)
+                     e1 = bufm6(1)
+                     e2 = bufm6(2)
+                     e3 = bufm6(22)
+                     alpha = bufm6(38)
                      spag_nextblock_1 = 2
                      CYCLE SPAG_DispatchLoop_1
                   ELSE
-                     WRITE (Iprnt,99001) Uwm , Mid , Eid
-                     E1 = 1.5*E
-                     E2 = 0.75*E
-                     E3 = 0.375*E
+                     WRITE (iprnt,99001) uwm , mid , eid
+                     e1 = 1.5*e
+                     e2 = 0.75*e
+                     e3 = 0.375*e
                   ENDIF
                ENDIF
 !
@@ -170,7 +171,7 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !     TO BASIC COORDINATE SYSTEM HERE.
 !
                   DO ijk = 1 , 36
-                     gmat(ijk) = Bufm6(ijk)
+                     gmat(ijk) = bufm6(ijk)
                   ENDDO
                ENDIF
             ENDIF
@@ -209,35 +210,35 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !
 !     GENERATE SHAPE FUNCTIONS AND JACOBIAN MATRIX INVERSE
 !
-         CALL ihexss(Type,Phiout(Ngp+2),Dshp,Jacob,Detj,Eid,x,y,z,Bgpdt)
-         IF ( Detj/=0.0 ) THEN
+         CALL ihexss(Type,phiout(ngp+2),dshp,jacob,detj,eid,x,y,z,bgpdt)
+         IF ( detj/=0.0 ) THEN
 !
 !     COMPUTE STRAIN-DISPLACEMENT RELATIONS
 !
 !     REVERSE CALLING SEQUENCE SINCE MATRICES ARE COLUMN STORED
 !
-            CALL gmmats(Dshp,Ngp,3,0,Jacob,3,3,0,dshpb)
+            CALL gmmats(dshp,ngp,3,0,jacob,3,3,0,dshpb)
 !
 !     IF MATERIAL IS TEMPERATURE DEPENDENT, MUST COMPUTE TEMPERATURE
 !     AT THIS STRESS POINT AND FETCH MATERIAL PROPERTIES AGAIN
 !
             IF ( tdep ) THEN
-               Temp = 0.0
-               DO j = 1 , Ngp
-                  Temp = Temp + Gpt(j)*Phiout(Ngp+1+j)
+               temp = 0.0
+               DO j = 1 , ngp
+                  temp = temp + gpt(j)*phiout(ngp+1+j)
                ENDDO
-               CALL mat(Eid)
+               CALL mat(eid)
                IF ( .NOT.(anis) ) THEN
                   IF ( ib(46)/=0 ) THEN
-                     E1 = Bufm6(1)
-                     E2 = Bufm6(2)
-                     E3 = Bufm6(22)
-                     Alpha = Bufm6(38)
+                     e1 = bufm6(1)
+                     e2 = bufm6(2)
+                     e3 = bufm6(22)
+                     alpha = bufm6(38)
                   ELSE
-                     WRITE (Iprnt,99001) Uwm , Mid , Eid
-                     E1 = 1.5*E
-                     E2 = 0.75*E
-                     E3 = 0.375*E
+                     WRITE (iprnt,99001) uwm , mid , eid
+                     e1 = 1.5*e
+                     e2 = 0.75*e
+                     e3 = 0.375*e
                   ENDIF
                   spag_nextblock_1 = 3
                   CYCLE SPAG_DispatchLoop_1
@@ -260,15 +261,15 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
                CYCLE SPAG_DispatchLoop_1
             ENDIF
             DO ijk = 1 , 36
-               gmat(ijk) = Bufm6(ijk)
+               gmat(ijk) = bufm6(ijk)
             ENDDO
          ELSE
 !
 !     FALL HERE IF JACOBIAN MATRIX SINGULAR (BAD ELEMENT)
 !
-            j = Ngp*19 + 7
+            j = ngp*19 + 7
             DO i = 1 , j
-               Phiout(Ngp+1+i) = 0.0
+               phiout(ngp+1+i) = 0.0
             ENDDO
             RETURN
          ENDIF
@@ -282,32 +283,32 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
 !
 !     TEMPERATURE TO STRESS VECTOR
 !
-         Phiout(2*Ngp+2) = Tref
+         phiout(2*ngp+2) = tref
          IF ( anis ) THEN
 !
 !     ANISOTROPIC CASE
 !
 !     ADD CODE WHEN ANISOTROPIC MATERIAL BECOMES AVAILABLE
 !
-            CALL gmmats(gmat,6,6,0,Bufm6(38),6,1,0,Phiout(2*Ngp+3))
+            CALL gmmats(gmat,6,6,0,bufm6(38),6,1,0,phiout(2*ngp+3))
             DO ijk = 1 , 6
-               is = 2*Ngp + 2 + ijk
-               Phiout(is) = -Phiout(is)
+               is = 2*ngp + 2 + ijk
+               phiout(is) = -phiout(is)
             ENDDO
          ELSE
 !
 !     ISOTROPIC CASE
 !
             DO j = 1 , 3
-               Phiout(2*Ngp+2+j) = -Alpha*(E1+2.0*E2)
-               Phiout(2*Ngp+5+j) = 0.0
+               phiout(2*ngp+2+j) = -alpha*(e1+2.0*e2)
+               phiout(2*ngp+5+j) = 0.0
             ENDDO
          ENDIF
 !
 !     DISPLACEMENT TO STRESS MATRICES
 !
-         DO i = 1 , Ngp
-            is = 2*Ngp + 8 + 18*(i-1)
+         DO i = 1 , ngp
+            is = 2*ngp + 8 + 18*(i-1)
 !
 !     ROW-STORED
 !
@@ -330,56 +331,56 @@ SUBROUTINE sihex1(Type,Strspt,Nip)
                store(16) = dshpb(3,i)
                store(18) = dshpb(1,i)
 !
-               CALL gmmats(gmat(1),6,6,0,store(1),6,3,0,Phiout(is+1))
+               CALL gmmats(gmat(1),6,6,0,store(1),6,3,0,phiout(is+1))
             ELSE
 !
 !     ISOTROPIC CASE
 !
-               Phiout(is+1) = E1*dshpb(1,i)
-               Phiout(is+2) = E2*dshpb(2,i)
-               Phiout(is+3) = E2*dshpb(3,i)
-               Phiout(is+4) = E2*dshpb(1,i)
-               Phiout(is+5) = E1*dshpb(2,i)
-               Phiout(is+6) = E2*dshpb(3,i)
-               Phiout(is+7) = E2*dshpb(1,i)
-               Phiout(is+8) = E2*dshpb(2,i)
-               Phiout(is+9) = E1*dshpb(3,i)
-               Phiout(is+10) = E3*dshpb(2,i)
-               Phiout(is+11) = E3*dshpb(1,i)
-               Phiout(is+14) = E3*dshpb(3,i)
-               Phiout(is+15) = E3*dshpb(2,i)
-               Phiout(is+16) = E3*dshpb(3,i)
-               Phiout(is+18) = E3*dshpb(1,i)
-               Phiout(is+12) = 0.0
-               Phiout(is+13) = 0.0
-               Phiout(is+17) = 0.0
+               phiout(is+1) = e1*dshpb(1,i)
+               phiout(is+2) = e2*dshpb(2,i)
+               phiout(is+3) = e2*dshpb(3,i)
+               phiout(is+4) = e2*dshpb(1,i)
+               phiout(is+5) = e1*dshpb(2,i)
+               phiout(is+6) = e2*dshpb(3,i)
+               phiout(is+7) = e2*dshpb(1,i)
+               phiout(is+8) = e2*dshpb(2,i)
+               phiout(is+9) = e1*dshpb(3,i)
+               phiout(is+10) = e3*dshpb(2,i)
+               phiout(is+11) = e3*dshpb(1,i)
+               phiout(is+14) = e3*dshpb(3,i)
+               phiout(is+15) = e3*dshpb(2,i)
+               phiout(is+16) = e3*dshpb(3,i)
+               phiout(is+18) = e3*dshpb(1,i)
+               phiout(is+12) = 0.0
+               phiout(is+13) = 0.0
+               phiout(is+17) = 0.0
             ENDIF
 !
 !     POST-MULTIPLY BY GLOBAL TO BASIC TRANSFORMATION MATRIX,
 !     IF NECESSARY
 !
-            IF ( Bgpid(i)/=0 ) THEN
-               idxyz = Bgpid(i)
+            IF ( bgpid(i)/=0 ) THEN
+               idxyz = bgpid(i)
                DO k = 1 , 3
-                  bxyz(k) = Bgpdt(k,i)
+                  bxyz(k) = bgpdt(k,i)
                ENDDO
 !
 !     FETCH TRANSFORMATION AND USE IT
 !
-               CALL transs(idxyz,T)
-               CALL gmmats(Phiout(is+1),6,3,0,T,3,3,0,Sglob)
+               CALL transs(idxyz,t)
+               CALL gmmats(phiout(is+1),6,3,0,t,3,3,0,sglob)
                DO j = 1 , 18
-                  Phiout(is+j) = Sglob(j)
+                  phiout(is+j) = sglob(j)
                ENDDO
             ENDIF
          ENDDO
-         iphio(20*Ngp+9) = Nip
-         nwdnow = 20*Ngp + 9
+         iphio(20*ngp+9) = Nip
+         nwdnow = 20*ngp + 9
          nwdiso = 649 - nwdnow
          IF ( nwdiso==0 ) RETURN
          DO i = 1 , nwdiso
             isub = nwdnow + i
-            Phiout(isub) = 0.
+            phiout(isub) = 0.
          ENDDO
          EXIT SPAG_DispatchLoop_1
       END SELECT

@@ -1,17 +1,18 @@
-!*==remflx.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!*==remflx.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE remflx(Ngrids)
+   USE c_biot
+   USE c_gpta1
+   USE c_hmatdd
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_unpakx
+   USE c_xmssg
+   USE c_zzzzzz
    IMPLICIT NONE
-   USE C_BIOT
-   USE C_GPTA1
-   USE C_HMATDD
-   USE C_HMTOUT
-   USE C_MATIN
-   USE C_SYSTEM
-   USE C_UNPAKX
-   USE C_XMSSG
-   USE C_ZZZZZZ
 !
 ! Dummy argument declarations rewritten by SPAG
 !
@@ -60,7 +61,7 @@ SUBROUTINE remflx(Ngrids)
       SELECT CASE (spag_nextblock_1)
       CASE (1)
 !
-         Remfl = .FALSE.
+         remfl = .FALSE.
          mcb(1) = remfld
          CALL rdtrl(mcb)
 !
@@ -70,22 +71,22 @@ SUBROUTINE remflx(Ngrids)
 !
 !     TOO BAD
 !
-         Remfl = .TRUE.
+         remfl = .TRUE.
          ncol = mcb(2)
          nrow = mcb(3)
          ncount = nrow/3
 !
 !     BRING IN MATERIALS SINCE H=B/MU
 !
-         Iihmat = Ngrids
-         Nnhmat = Lcore
-         Mptfil = mpt
-         Ditfil = dit
-         CALL prehma(Z)
-         nextz = Nnhmat + 1
+         iihmat = Ngrids
+         nnhmat = lcore
+         mptfil = mpt
+         ditfil = dit
+         CALL prehma(z)
+         nextz = nnhmat + 1
 !
-         buf2 = Buf1 - Ibuf
-         buf3 = buf2 - Ibuf
+         buf2 = buf1 - ibuf
+         buf3 = buf2 - ibuf
 !
 !     SET UP POINTERS
 !     IHC = START OF RESULTS HC = B/MU
@@ -104,14 +105,14 @@ SUBROUTINE remflx(Ngrids)
             RETURN
          ELSE
 !
-            CALL gopen(scr1,Z(Buf1),1)
-            CALL gopen(remfld,Z(buf2),0)
-            CALL gopen(hest,Z(buf3),0)
+            CALL gopen(scr1,z(buf1),1)
+            CALL gopen(remfld,z(buf2),0)
+            CALL gopen(hest,z(buf3),0)
 !
-            Ii = 1
-            Nn = nrow
-            Jncr = 1
-            Jout = 1
+            ii = 1
+            nn = nrow
+            jncr = 1
+            jout = 1
             jcount = 0
          ENDIF
          spag_nextblock_1 = 2
@@ -122,13 +123,13 @@ SUBROUTINE remflx(Ngrids)
          ENDDO
          n3 = 3*Ngrids
          DO i = 1 , n3
-            Z(ihc+i) = 0.
+            z(ihc+i) = 0.
          ENDDO
 !
 !     UNPACK A COULMN OF REMFLD
 !
          jcount = jcount + 1
-         CALL unpack(*20,remfld,Z(irem+1))
+         CALL unpack(*20,remfld,z(irem+1))
 !
 !     SINCE THE ELEMENT DATA DO NOT CHANGE WITH REMFLD COLIMN, THIS IS
 !     NOT NECESSARILY THE BEST KIND OF LOOPING. BUT OTHER WAYS WOULD
@@ -142,13 +143,13 @@ SUBROUTINE remflx(Ngrids)
 !     ZERO COLUMN
 !
  20      DO i = 1 , n3
-            Z(ihc+i) = 0.
+            z(ihc+i) = 0.
          ENDDO
          spag_nextblock_1 = 5
          CYCLE SPAG_DispatchLoop_1
  40      CALL read(*60,*100,hest,eltype,1,0,iflag)
-         idx = (eltype-1)*Incr
-         estwds = Ne(idx+12)
+         idx = (eltype-1)*incr
+         estwds = ne(idx+12)
 !
 !     PICK UP ELEMENT TYPE INFO
 !
@@ -161,7 +162,7 @@ SUBROUTINE remflx(Ngrids)
             ENDIF
          ENDDO SPAG_Loop_1_1
 !
-         WRITE (Iout,99001) Ufm
+         WRITE (iout,99001) ufm
 99001    FORMAT (A23,', ILLEGAL ELEMENT TYPE IN REMFLX')
          CALL mesage(-61,0,0)
          RETURN
@@ -191,14 +192,13 @@ SUBROUTINE remflx(Ngrids)
                SPAG_DispatchLoop_2: DO
                   SELECT CASE (spag_nextblock_2)
                   CASE (1)
-                     DO j = 1 , igrids
+                     SPAG_Loop_5_1: DO j = 1 , igrids
                         ipt = necpt(isil+j-1)
                         IF ( ipt==iz(i) ) THEN
                            spag_nextblock_2 = 2
-                           CYCLE SPAG_DispatchLoop_2
+                           EXIT SPAG_Loop_5_1
                         ENDIF
-                     ENDDO
-                     CYCLE
+                     ENDDO SPAG_Loop_5_1
                   CASE (2)
 !
 !     MATCH
@@ -216,45 +216,45 @@ SUBROUTINE remflx(Ngrids)
          ENDDO SPAG_Loop_1_2
 !
          isub = irem + 3*(kount-1)
-         rem(1) = Z(isub+1)
-         rem(2) = Z(isub+2)
-         rem(3) = Z(isub+3)
+         rem(1) = z(isub+1)
+         rem(2) = z(isub+2)
+         rem(3) = z(isub+3)
 !
 !     PICK UP MATERIALS
 !
-         Matid = necpt(imid)
-         Eltemp = ecpt(itemp)
-         Inflag = 3
-         Sinth = 0.
-         Costh = 0.
+         matid = necpt(imid)
+         eltemp = ecpt(itemp)
+         inflag = 3
+         sinth = 0.
+         costh = 0.
          CALL hmat(necpt(1))
-         g(1,1) = Xmat(1)
-         g(1,2) = Xmat(2)
-         g(1,3) = Xmat(3)
-         g(2,1) = Xmat(2)
-         g(2,2) = Xmat(4)
-         g(2,3) = Xmat(5)
-         g(3,1) = Xmat(3)
-         g(3,2) = Xmat(5)
-         g(3,3) = Xmat(6)
+         g(1,1) = xmat(1)
+         g(1,2) = xmat(2)
+         g(1,3) = xmat(3)
+         g(2,1) = xmat(2)
+         g(2,2) = xmat(4)
+         g(2,3) = xmat(5)
+         g(3,1) = xmat(3)
+         g(3,2) = xmat(5)
+         g(3,3) = xmat(6)
 !
 !     FOR COMMENTS ON MATERIALS SEE EM2D
 !
          IF ( ith/=0 ) THEN
             angle = ecpt(ith)*0.017453293
-            IF ( Xmat(3)==0. .AND. Xmat(5)==0. ) THEN
+            IF ( xmat(3)==0. .AND. xmat(5)==0. ) THEN
                IF ( abs(angle)>.0001 ) THEN
                   s = sin(angle)
                   c = cos(angle)
                   csq = c*c
                   ssq = s*s
                   cs = c*s
-                  x2 = 2.*cs*Xmat(2)
-                  g(1,1) = csq*Xmat(1) - x2 + ssq*Xmat(4)
-                  g(1,2) = cs*(Xmat(1)-Xmat(4)) + (csq-ssq)*Xmat(2)
-                  g(2,2) = ssq*Xmat(1) + x2 + csq*Xmat(4)
+                  x2 = 2.*cs*xmat(2)
+                  g(1,1) = csq*xmat(1) - x2 + ssq*xmat(4)
+                  g(1,2) = cs*(xmat(1)-xmat(4)) + (csq-ssq)*xmat(2)
+                  g(2,2) = ssq*xmat(1) + x2 + csq*xmat(4)
                   g(2,1) = g(1,2)
-                  g(3,3) = Xmat(6)
+                  g(3,3) = xmat(6)
                   g(1,3) = 0.
                   g(2,3) = 0.
                   g(3,1) = 0.
@@ -279,7 +279,7 @@ SUBROUTINE remflx(Ngrids)
 !
          CALL invers(3,g,3,rem,1,det,ising,iwork)
          IF ( ising==2 ) THEN
-            WRITE (Iout,99002) Ufm , Matid
+            WRITE (iout,99002) ufm , matid
 99002       FORMAT (A23,', MATERIAL',I9,' IS SINGULAR IN REMFLX')
             CALL mesage(-61,0,0)
             RETURN
@@ -292,7 +292,7 @@ SUBROUTINE remflx(Ngrids)
                IF ( ipoint(i)/=0 ) THEN
                   isub = ihc + 3*(ipoint(i)-1)
                   DO j = 1 , 3
-                     Z(isub+j) = Z(isub+j) + rem(j)
+                     z(isub+j) = z(isub+j) + rem(j)
                   ENDDO
                ENDIF
 !
@@ -311,7 +311,7 @@ SUBROUTINE remflx(Ngrids)
             IF ( den/=0. ) THEN
                isub = 3*(i-1) + ihc
                DO j = 1 , 3
-                  Z(isub+j) = Z(isub+j)/den
+                  z(isub+j) = z(isub+j)/den
                ENDDO
             ENDIF
          ENDDO
@@ -320,7 +320,7 @@ SUBROUTINE remflx(Ngrids)
 !
 !     WRITE RESULTS TO SCR1
 !
-         CALL write(scr1,Z(ihc+1),3*Ngrids,1)
+         CALL write(scr1,z(ihc+1),3*Ngrids,1)
 !
 !     GO BACK FOR ANOTHER REMFLD RECORD
 !

@@ -1,11 +1,12 @@
-!*==trd1a2.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==trd1a2.f90 processed by SPAG 8.01RF 16:18  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE trd1a2(Casexx,Trl,Ic,Nlftp,Ngroup,Moda1)
-USE C_PACKX
-USE C_SYSTEM
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_packx
+   USE c_system
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Dummy argument declarations rewritten by SPAG
@@ -65,16 +66,16 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
-         It1 = 2
-         It2 = 2
-         Ii = 1
-         Incr = 1
-         nz = korsz(Z)
+         it1 = 2
+         it2 = 2
+         ii = 1
+         incr = 1
+         nz = korsz(z)
          nx = nz
 !
 !     PICK UP AND STORE CASECC POINTERS
 !
-         ibuf1 = nz - Sysbuf + 1
+         ibuf1 = nz - sysbuf + 1
          CALL gopen(Casexx,iz(ibuf1),0)
          CALL fread(Casexx,iz,166,1)
          CALL close(Casexx,1)
@@ -85,14 +86,13 @@ USE ISO_FORTRAN_ENV
             ip1 = -51
             file = icp
             spag_nextblock_1 = 4
-            CYCLE SPAG_DispatchLoop_1
          ELSE
 !
 !     BUILD INITIAL CONDITION FILE
 !
             CALL gopen(Ic,iz(ibuf1),1)
-            ibuf2 = ibuf1 - Sysbuf
-            nz = nz - 2*Sysbuf
+            ibuf2 = ibuf1 - sysbuf
+            nz = nz - 2*sysbuf
             icrq = -nz
             IF ( icrq<=0 ) THEN
                file = Trl
@@ -101,10 +101,10 @@ USE ISO_FORTRAN_ENV
                icrq = nz
             ENDIF
             spag_nextblock_1 = 5
-            CYCLE SPAG_DispatchLoop_1
          ENDIF
+         CYCLE
  20      lud = iz(iflag)
-         Jj = lud
+         jj = lud
          icrq = 4*lud + 1 - nz
          IF ( icrq>0 ) THEN
             spag_nextblock_1 = 5
@@ -119,9 +119,9 @@ USE ISO_FORTRAN_ENV
          idisp = ivel - 2*lud
          DO i = 1 , lud
             k = ivel + i
-            Z(k) = 0.0D0
+            z(k) = 0.0D0
             k = idisp + i
-            Z(k) = 0.0D0
+            z(k) = 0.0D0
          ENDDO
          CALL makmcb(mcb,Ic,lud,2,2)
          IF ( icp==0 ) GOTO 40
@@ -143,12 +143,12 @@ USE ISO_FORTRAN_ENV
          DO
             CALL read(*100,*40,Trl,iz(1),3,0,iflag)
             k = iz(1) + idisp
-            Z(k) = Z(k) + rz(2)
+            z(k) = z(k) + rz(2)
             k = iz(1) + ivel
-            Z(k) = Z(k) + rz(3)
+            z(k) = z(k) + rz(3)
          ENDDO
- 40      CALL pack(Z(idisp+1),Ic,mcb)
-         CALL pack(Z(ivel+1),Ic,mcb)
+ 40      CALL pack(z(idisp+1),Ic,mcb)
+         CALL pack(z(ivel+1),Ic,mcb)
          CALL close(Ic,1)
          CALL wrttrl(mcb)
          CALL skprec(Trl,l)
@@ -198,7 +198,6 @@ USE ISO_FORTRAN_ENV
          ip1 = -8
          file = icrq
          spag_nextblock_1 = 4
-         CYCLE SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
 END SUBROUTINE trd1a2

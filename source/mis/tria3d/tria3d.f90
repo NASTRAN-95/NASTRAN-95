@@ -1,16 +1,17 @@
-!*==tria3d.f90 processed by SPAG 8.01RF 14:46  2 Dec 2023
+!*==tria3d.f90 processed by SPAG 8.01RF 16:19  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
 !!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
  
 SUBROUTINE tria3d
-USE C_EMGDIC
-USE C_EMGEST
-USE C_EMGPRM
-USE C_HMTOUT
-USE C_MATIN
-USE C_SYSTEM
-USE C_TERMS
-USE C_ZZZZZZ
-USE ISO_FORTRAN_ENV                 
+   USE c_emgdic
+   USE c_emgest
+   USE c_emgprm
+   USE c_hmtout
+   USE c_matin
+   USE c_system
+   USE c_terms
+   USE c_zzzzzz
+   USE iso_fortran_env
    IMPLICIT NONE
 !
 ! Local variable declarations rewritten by SPAG
@@ -106,13 +107,13 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE
 !
-         Elid = nest(1)
+         elid = nest(1)
          nnode = 3
          mominr = 0.0D0
          ts = 0.0D0
          weight = 1.0D0/6.0D0
-         Eltemp = tempel
-         needk = Kgg1/=0 .OR. Ibgg1/=0
+         eltemp = tempel
+         needk = kgg1/=0 .OR. ibgg1/=0
          noalfa = .TRUE.
          sheart = .TRUE.
          ieoe = 1
@@ -125,9 +126,9 @@ USE ISO_FORTRAN_ENV
 !     OPEN CORE ENDS   AT NCORE
 !     LENGTH OF AVAILABLE WORDS = (NCORE-JCORE-1)/PREC
 !
-         jcored = Jcore/Prec + 1
-         length = (Ncore-Jcore-1)/Prec
-         IF ( length<324 .AND. (.NOT.Heat .AND. needk) ) THEN
+         jcored = jcore/prec + 1
+         length = (ncore-jcore-1)/prec
+         IF ( length<324 .AND. (.NOT.heat .AND. needk) ) THEN
 !
 !
 !     FATAL ERRORS
@@ -139,7 +140,7 @@ USE ISO_FORTRAN_ENV
 !
 !     SET UP THE ELEMENT FORMULATION
 !
-            CALL t3setd(ierr,sil,igpdt,elth,gpth,dgpth,egpdt,gpnorm,epnorm,iorder,teb,tub,cente,avgthk,lx,ly,edglen,Elid)
+            CALL t3setd(ierr,sil,igpdt,elth,gpth,dgpth,egpdt,gpnorm,epnorm,iorder,teb,tub,cente,avgthk,lx,ly,edglen,elid)
             IF ( ierr==0 ) THEN
                CALL gmmatd(teb,3,3,0,tub,3,3,1,teu)
                area = lx*ly/2.0D0
@@ -168,9 +169,9 @@ USE ISO_FORTRAN_ENV
 !     SET MATERIAL FLAGS
 !     5.0D0/6.0D0 = 0.833333333D0
 !
-               IF ( nest(13)/=0 ) mominr = Est(14)
-               IF ( nest(13)/=0 ) ts = Est(16)
-               IF ( Est(16)==0.0 ) ts = 0.833333333D0
+               IF ( nest(13)/=0 ) mominr = est(14)
+               IF ( nest(13)/=0 ) ts = est(16)
+               IF ( est(16)==0.0 ) ts = 0.833333333D0
                IF ( nest(13)==0 .AND. nest(11)>hunmeg ) ts = 0.833333333D0
 !
                mid(1) = nest(11)
@@ -178,11 +179,11 @@ USE ISO_FORTRAN_ENV
                mid(3) = nest(15)
                mid(4) = nest(20)
 !
-               Membrn = mid(1)>0
-               Bendng = mid(2)>0 .AND. mominr>0.0D0
-               Shrflx = mid(3)>0
-               Mbcoup = mid(4)>0
-               Norpth = mid(1)==mid(2) .AND. mid(1)==mid(3) .AND. mid(4)==0 .AND. dabs(mominr-1.0D0)<=eps
+               membrn = mid(1)>0
+               bendng = mid(2)>0 .AND. mominr>0.0D0
+               shrflx = mid(3)>0
+               mbcoup = mid(4)>0
+               norpth = mid(1)==mid(2) .AND. mid(1)==mid(3) .AND. mid(4)==0 .AND. dabs(mominr-1.0D0)<=eps
 !
 !     SET UP TRANSFORMATION MATRIX FROM MATERIAL TO ELEMENT COORD.SYSTEM
 !
@@ -190,21 +191,21 @@ USE ISO_FORTRAN_ENV
 !
 !     BRANCH ON FORMULATION TYPE.
 !
-               IF ( Heat ) THEN
+               IF ( heat ) THEN
 !
 !     HEAT CALCULATIONS
 !
-                  Inflag = 2
-                  Sinmat = dsin(thetam)
-                  Cosmat = dcos(thetam)
-                  Matid = nest(11)
+                  inflag = 2
+                  sinmat = dsin(thetam)
+                  cosmat = dcos(thetam)
+                  matid = nest(11)
 !
-                  CALL hmat(Elid)
+                  CALL hmat(elid)
 !
-                  gi(1) = Kheat(1)
-                  gi(2) = Kheat(2)
+                  gi(1) = kheat(1)
+                  gi(2) = kheat(2)
                   gi(3) = gi(2)
-                  gi(4) = Kheat(3)
+                  gi(4) = kheat(3)
 !
                   DO i = 1 , 18
                      htcon(i) = 0.0D0
@@ -249,38 +250,38 @@ USE ISO_FORTRAN_ENV
 !
 !     END OF INTEGRATION LOOP, SHIP OUT THE RESULTS.
 !
-                  dict(1) = Estid
+                  dict(1) = estid
                   dict(2) = 1
                   dict(3) = nnode
                   dict(4) = 1
                   IF ( weitc/=0.0D0 ) THEN
                      adamp = 1.0
-                     CALL emgout(htcap,htcap,nnod2,ieoe,dict,dmat,Prec)
+                     CALL emgout(htcap,htcap,nnod2,ieoe,dict,dmat,prec)
                   ENDIF
                   adamp = 0.0
 !
-                  CALL emgout(htcon,htcon,nnod2,ieoe,dict,kmat,Prec)
+                  CALL emgout(htcon,htcon,nnod2,ieoe,dict,kmat,prec)
                ELSE
 !
 !     FETCH MATERIAL PROPERTIES
 !
                   CALL gmmatd(teu,3,3,0,tum,3,3,0,tem)
-                  CALL shgmgd(*40,Elid,tem,mid,ts,noalfa,gi,rho,gsube,tsub0,egnor,alpha)
+                  CALL shgmgd(*40,elid,tem,mid,ts,noalfa,gi,rho,gsube,tsub0,egnor,alpha)
 !
 !     TURN OFF THE COUPLING FLAG WHEN MID4 IS PRESENT WITH ALL
 !     CALCULATED ZERO TERMS.
 !
-                  IF ( Mbcoup ) THEN
+                  IF ( mbcoup ) THEN
                      DO i = 28 , 36
                         IF ( dabs(gi(i))>eps ) GOTO 2
                      ENDDO
-                     Mbcoup = .FALSE.
+                     mbcoup = .FALSE.
                   ENDIF
 !
 !     GET THE GEOMETRY CORRECTION TERMS
 !
- 2                IF ( Bendng ) THEN
-                     CALL t3gemd(ierr,egpdt,iorder,gi(10),gi(19),lx,ly,edglen,Shrflx,aic,jog,jok,k11,k22)
+ 2                IF ( bendng ) THEN
+                     CALL t3gemd(ierr,egpdt,iorder,gi(10),gi(19),lx,ly,edglen,shrflx,aic,jog,jok,k11,k22)
                      IF ( ierr/=0 ) GOTO 10
                   ENDIF
 !
@@ -305,7 +306,7 @@ USE ISO_FORTRAN_ENV
 !
 !     INITIALIZE FOR THE MAIN INTEGRATION LOOP
 !
-                  needm = Mgg1/=0 .AND. (nsm>0.0 .OR. rho>0.0D0)
+                  needm = mgg1/=0 .AND. (nsm>0.0 .OR. rho>0.0D0)
                   IF ( .NOT.(.NOT.needk .AND. .NOT.needm) ) THEN
                      DO i = jcored , jend
                         akgg(i) = 0.0D0
@@ -344,7 +345,7 @@ USE ISO_FORTRAN_ENV
                            g(ig,1) = 0.0D0
                         ENDDO
 !
-                        IF ( Membrn ) THEN
+                        IF ( membrn ) THEN
                            DO ig = 1 , 3
                               ig1 = (ig-1)*3
                               DO jg = 1 , 3
@@ -353,7 +354,7 @@ USE ISO_FORTRAN_ENV
                            ENDDO
                         ENDIF
 !
-                        IF ( Bendng ) THEN
+                        IF ( bendng ) THEN
                            DO ig = 4 , 6
                               ig2 = (ig-2)*3
                               DO jg = 4 , 6
@@ -381,7 +382,7 @@ USE ISO_FORTRAN_ENV
                               ENDDO
                            ENDDO
 !
-                           IF ( Mbcoup ) THEN
+                           IF ( mbcoup ) THEN
                               DO ig = 1 , 3
                                  ig4 = (ig+8)*3
                                  DO jg = 1 , 3
@@ -405,7 +406,7 @@ USE ISO_FORTRAN_ENV
 !
                      IF ( needm ) THEN
                         wtmass = (rho*th+nsm)*detjac*weight
-                        IF ( Cpmass<=0 ) THEN
+                        IF ( cpmass<=0 ) THEN
 !
 !     LUMPED MASS FORMULATION (DEFAULT)
 !
@@ -443,7 +444,7 @@ USE ISO_FORTRAN_ENV
 !
                   IF ( needk ) THEN
 !
-                     dict(1) = Estid
+                     dict(1) = estid
                      dict(2) = 1
                      dict(3) = ndof
                      dict(4) = 63
@@ -474,7 +475,7 @@ USE ISO_FORTRAN_ENV
 !
                      CALL mpya3d(tottrn,akgg(jcored),ndof,6,transk)
 !
-                     CALL emgout(transk,transk,npart,ieoe,dict,kmat,Prec)
+                     CALL emgout(transk,transk,npart,ieoe,dict,kmat,prec)
                   ENDIF
 !
 !     SHIP OUT THE MASS MATRIX
@@ -510,7 +511,7 @@ USE ISO_FORTRAN_ENV
 !
 !     BYPASS TRANSFORMATIONS IF LUMPED MASS.
 !
-                     IF ( Cpmass<=0 ) THEN
+                     IF ( cpmass<=0 ) THEN
 !
 !     JUST COPY THE LUMPED MASS MATRIX OUT
 !
@@ -546,7 +547,7 @@ USE ISO_FORTRAN_ENV
                      ENDIF
 !
 !
-                     CALL emgout(transk,transk,npart,ieoe,dict,mmat,Prec)
+                     CALL emgout(transk,transk,npart,ieoe,dict,mmat,prec)
                   ENDIF
                ENDIF
                RETURN
@@ -576,8 +577,8 @@ USE ISO_FORTRAN_ENV
       CASE (2)
 !
          CALL mesage(30,j,nest(1))
-         IF ( L38==1 ) CALL mesage(-61,0,0)
-         Nogo = 1
+         IF ( l38==1 ) CALL mesage(-61,0,0)
+         nogo = 1
          EXIT SPAG_DispatchLoop_1
       END SELECT
    ENDDO SPAG_DispatchLoop_1
